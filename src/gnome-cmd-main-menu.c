@@ -679,7 +679,7 @@ init (GnomeCmdMainMenu *main_menu)
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("_Edit Bookmarks..."), "Ctrl+D", NULL,
+			MENU_TYPE_ITEM, _("_Manage Bookmarks..."), "Ctrl+D", NULL,
 			bookmarks_edit, NULL, 
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
@@ -1029,5 +1029,3 @@ gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *da
 	gtk_signal_connect (GTK_OBJECT (data->menu), "activate",
 						GTK_SIGNAL_FUNC (on_plugin_menu_activate), data);
 }
-
-

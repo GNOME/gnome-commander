@@ -23,6 +23,7 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
+#include "useractions.h"
 #include "imageloader.h"
 #include "utils.h"
 
@@ -421,6 +422,7 @@ on_bookmarks_add_current (GtkMenuItem *item, GnomeCmdDirIndicator *indicator)
 static void
 on_bookmarks_manage (GtkMenuItem *item, GnomeCmdDirIndicator *indicator)
 {
+	bookmarks_edit (NULL, NULL);
 }
 
 
@@ -692,5 +694,3 @@ gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator)
 {
 	popup_bookmarks (indicator);
 }
-
-

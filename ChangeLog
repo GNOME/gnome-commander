@@ -1,3 +1,9 @@
+2004-05-03  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* src/gnome-cmd-dir-indicator.c:
+	* src/gnome-cmd-main-menu.c:
+	Connected Manage Bookmarks dialog to the bookmarks shortcut.
+
 2004-04-30  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
 	* src/gnome-cmd-file-props-dialog.c:
