@@ -1,5 +1,19 @@
 2004-01-13  Marcus Bjurman  <marbj499@student.liu.se>
 
+	* src/useractions.c: 
+	* src/useractions.h: 
+	* src/gnome-cmd-main-win.c: 
+	* src/gnome-cmd-main-menu.c: 
+	* src/gnome-cmd-data.h: 
+	* src/gnome-cmd-data.c:
+	Removed the 'Save Position' menu item. Size and position are now saved
+	automaticly instead.
+	
+	* src/gnome-cmd-file-list.c: 
+	* src/gnome-cmd-data.h: 
+	* src/gnome-cmd-data.c:
+	Sorting column and direction is now remembered.
+
 	* src/gnome-cmd-file-selector.c: 
 	* src/gnome-cmd-dir-indicator.h: 
 	* src/gnome-cmd-dir-indicator.c:
