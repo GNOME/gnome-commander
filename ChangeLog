@@ -1,3 +1,10 @@
+2003-12-27  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-xfer.c (update_xfer_gui_func):
+	Refreshing the target directory after a xfer seems to move the input focus to
+	the corresponding file-selector. Fixed this by simply setting the focus right
+	again after each xfer. This should fix bug #128871.
+
 2003-12-26  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/gnome-cmd-dir-indicator.c:

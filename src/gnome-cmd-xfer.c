@@ -278,9 +278,7 @@ update_xfer_gui_func (XferData *data)
 		/* Only update the files if needed */
 		if (data->to_dir) {
 			gnome_cmd_dir_relist_files (data->to_dir, FALSE);
-		}
-
-		if (data->to_dir) {
+			gnome_cmd_main_win_focus_file_lists (main_win);
 			gnome_cmd_dir_unref (data->to_dir);
 			data->to_dir = NULL;
 		}
