@@ -296,9 +296,6 @@ create_ftp_server_dialog (const gchar *title,
 	dialog = gnome_cmd_string_dialog_new (
 		title, with_alias?labels1:labels2, with_alias?5:4, on_ok_func, ftp_dialog);
 	gtk_widget_ref (dialog);
-	gtk_object_set_data_full (ftp_dialog?GTK_OBJECT (ftp_dialog):GTK_OBJECT (main_win),
-							  "edit_ftp_server_dialog", dialog,
-							  (GtkDestroyNotify)gtk_widget_unref);
 	gtk_widget_show (dialog);
 
 	gnome_cmd_string_dialog_set_hidden (GNOME_CMD_STRING_DIALOG (dialog), with_alias?4:3, TRUE);
