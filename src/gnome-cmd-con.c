@@ -31,6 +31,8 @@ struct _GnomeCmdConPrivate
 	History        *dir_history;
 	GnomeCmdBookmarkGroup *bookmarks;
 	GnomeCmdDirPool *dir_pool;
+	GList          *all_dirs;
+	GHashTable     *all_dirs_map;
 };
 
 enum {
@@ -196,6 +198,8 @@ init (GnomeCmdCon *con)
 	con->priv->bookmarks->bookmarks = NULL;
 	con->priv->bookmarks->con = con;
 	con->priv->bookmarks->data = NULL;
+	con->priv->all_dirs = NULL;
+	con->priv->all_dirs_map = NULL;
 }
 
 
@@ -239,7 +243,7 @@ check_con_open_progress (GnomeCmdCon *con)
 		GnomeCmdDir *dir;
 		
 		DEBUG('m', "CON_OPEN_OK detected\n");
-		
+
 		dir = gnome_cmd_dir_new_with_con (
 			con->base_info, con->base_path, con);
 
@@ -701,4 +705,59 @@ gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str)
 	return result;
 }
 
+
+void
+gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
+{
+	gchar *uri_str;
+
+	g_return_if_fail (GNOME_CMD_IS_CON (con));
+	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+	
+	uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+	
+	if (!con->priv->all_dirs_map)
+		con->priv->all_dirs_map = g_hash_table_new_full (
+			g_str_hash, g_str_equal, g_free, NULL);
+
+	DEBUG ('p', "ADDING 0x%x %s to the cache\n", (guint)dir, uri_str);
+	g_hash_table_insert (con->priv->all_dirs_map, uri_str, dir);
+}
+
+
+void
+gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
+{
+	gchar *uri_str;
+	
+	g_return_if_fail (GNOME_CMD_IS_CON (con));
+	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+	
+	uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+	
+	DEBUG ('p', "REMOVING 0x%x %s from the cache\n", (guint)dir, uri_str);
+	g_hash_table_remove (con->priv->all_dirs_map, uri_str);
+	g_free (uri_str);
+}
+
+
+GnomeCmdDir *
+gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
+{
+	GnomeCmdDir *dir = NULL;
+	
+	g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+	g_return_val_if_fail (uri_str != NULL, NULL);
+	
+	if (con->priv->all_dirs_map)
+		dir = g_hash_table_lookup (con->priv->all_dirs_map, uri_str);
+	
+	if (dir) {
+		DEBUG ('p', "FOUND 0x%x %s in the hash-table, reusing it!\n", (guint)dir, uri_str);
+		return dir;
+	}
+	
+	DEBUG ('p', "FAILED to find %s in the hash-table\n", uri_str);
+	return NULL;
+}
 

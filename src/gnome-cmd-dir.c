@@ -23,6 +23,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-con.h"
 #include "gnome-cmd-file-collection.h"
 #include "dirlist.h"
 #include "utils.h"
@@ -33,7 +34,6 @@ int created_dirs_cnt = 0;
 int deleted_dirs_cnt = 0;
 
 GList *all_dirs = NULL;
-GHashTable *all_dirs_map = NULL;
 
 enum {
 	FILE_CREATED,
@@ -98,49 +98,6 @@ monitor_callback (GnomeVFSMonitorHandle *handle,
 }
 
 
-static void
-add_dir (GnomeCmdDir *dir)
-{
-	gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
-	
-	if (!all_dirs_map)
-		all_dirs_map = g_hash_table_new_full (
-			g_str_hash, g_str_equal, g_free, NULL);
-
-	DEBUG ('p', "ADDING 0x%x %s to the cache\n", (guint)dir, uri_str);
-	g_hash_table_insert (all_dirs_map, uri_str, dir);
-}
-
-
-static void
-remove_dir (GnomeCmdDir *dir)
-{
-	gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
-	
-	DEBUG ('p', "REMOVING 0x%x %s from the cache\n", (guint)dir, uri_str);
-	g_hash_table_remove (all_dirs_map, uri_str);
-	g_free (uri_str);
-}
-
-
-static GnomeCmdDir *
-get_directory (const gchar *uri_str)
-{
-	GnomeCmdDir *dir = NULL;
-	
-	if (all_dirs_map)
-		dir = g_hash_table_lookup (all_dirs_map, uri_str);
-	
-	if (dir) {
-		DEBUG ('p', "FOUND 0x%x %s in the hash-table, reusing it!\n", (guint)dir, uri_str);
-		return dir;
-	}
-	
-	DEBUG ('p', "FAILED to find %s in the hash-table\n", uri_str);
-	return NULL;
-}
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -152,7 +109,7 @@ destroy (GtkObject *object)
 
 	DEBUG ('d', "dir destroying 0x%x %s\n", (guint)dir, gnome_cmd_path_get_path (dir->priv->path));
 
-	remove_dir (dir);
+	gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
 	
 	gtk_object_destroy (GTK_OBJECT (dir->priv->file_collection));
 	
@@ -310,7 +267,7 @@ gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent)
 	uri = gnome_cmd_con_create_uri (con, path);
 	uri_str = gnome_vfs_uri_to_string (uri, 0);
 
-	dir = get_directory (uri_str);
+	dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uri_str);
 	g_free (uri_str);
 	gnome_vfs_uri_unref (uri);
 	if (dir) {
@@ -326,7 +283,7 @@ gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent)
 	gnome_cmd_dir_set_path (dir, path);
 	gtk_object_ref (GTK_OBJECT (path));
 
-	add_dir (dir);
+	gnome_cmd_con_add_to_cache (gnome_cmd_dir_get_connection (parent), dir);
 	
 	return dir;
 }
@@ -347,7 +304,7 @@ gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
 	uri = gnome_cmd_con_create_uri (con, path);
 	uri_str = gnome_vfs_uri_to_string (uri, 0);
 
-	dir = get_directory (uri_str);
+	dir = gnome_cmd_con_cache_lookup (con, uri_str);
 	if (dir) {
 		g_free (uri_str);
 		gnome_vfs_uri_unref (uri);
@@ -362,7 +319,7 @@ gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
 	gnome_cmd_dir_set_path (dir, path);
 	gtk_object_ref (GTK_OBJECT (path));
 
-	add_dir (dir);
+	gnome_cmd_con_add_to_cache (con, dir);
 
 	return dir;
 }
@@ -388,7 +345,7 @@ gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
 	
 	uri_str = gnome_vfs_uri_to_string (uri, 0);
 
-	dir = get_directory (uri_str);
+	dir = gnome_cmd_con_cache_lookup (con, uri_str);
 	if (dir) {
 		g_free (uri_str);
 		return dir;
@@ -405,7 +362,7 @@ gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
 		gnome_cmd_dir_set_path (dir, path);
 		gtk_object_ref (GTK_OBJECT (path));
 
-		add_dir (dir);
+		gnome_cmd_con_add_to_cache (con, dir);
 	}
 	else {
 		create_error_dialog (gnome_vfs_result_to_string (res));

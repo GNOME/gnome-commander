@@ -224,4 +224,13 @@ gnome_cmd_con_get_path_target_type (GnomeCmdCon *con,
 GnomeVFSResult
 gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str);
 
+void
+gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
+
+void
+gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
+
+GnomeCmdDir *
+gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
+
 #endif //__GNOME_CMD_CON_H__
