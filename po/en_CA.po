@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-30 18:14-0400\n"
+"POT-Creation-Date: 2004-05-31 16:29-0400\n"
 "PO-Revision-Date: 2004-04-30 18:14-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: gnome-commander.desktop.in.h:1
 msgid "A two paned file manager"
@@ -1013,8 +1013,8 @@ msgid "_Bookmark this Directory..."
 msgstr "_Bookmark this Directory..."
 
 #: src/gnome-cmd-main-menu.c:682
-msgid "_Edit Bookmarks..."
-msgstr "_Edit Bookmarks..."
+msgid "_Manage Bookmarks..."
+msgstr "_Manage Bookmarks..."
 
 #: src/gnome-cmd-main-menu.c:694
 msgid "_Configure Plugins..."
