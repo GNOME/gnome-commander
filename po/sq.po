@@ -1,14 +1,14 @@
-# translation of gnome-commander to Albanian
+# Përkthimi i mesazheve të gnome-commander në shqip
 # This file is distributed under the same license as the gnome-commander package.
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # Laurent Dhima <laurenti@alblinux.net>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander.HEAD\n"
+"Project-Id-Version: gnome-commander HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-14 14:49+0200\n"
-"PO-Revision-Date: 2004-07-10 11:35+0200\n"
+"PO-Revision-Date: 2004-09-03 18:45+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: gnome-commander.desktop.in.h:1
 msgid "A two paned file manager"
-msgstr ""
+msgstr "Një organizues file me dy panelë"
 
 #: gnome-commander.desktop.in.h:2
 msgid "GNOME Commander"
@@ -141,16 +141,18 @@ msgid "Default type"
 msgstr "Lloji i prezgjedhur"
 
 #: plugins/fileroller/file-roller-plugin.c:477
+#, fuzzy
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
-msgstr ""
+msgstr "A File për dhe arkivët."
 
 #: plugins/test/test-plugin.c:232
+#, fuzzy
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
-msgstr ""
+msgstr "është është a thjeshtë për"
 
 #. GRUT modified this item
 #: src/gnome-cmd-about-plugin.c:184
@@ -200,8 +202,9 @@ msgid "No"
 msgstr "Jo"
 
 #: src/gnome-cmd-advrename-dialog.c:197
+#, fuzzy
 msgid "Invalid source pattern"
-msgstr ""
+msgstr "E pavlefshme"
 
 #: src/gnome-cmd-advrename-dialog.c:273
 msgid "Replace this:"
@@ -232,20 +235,23 @@ msgid "Counter increment:"
 msgstr "Vlera e rritjes së numuruesit:"
 
 #: src/gnome-cmd-advrename-dialog.c:653
+#, fuzzy
 msgid "Counter minimum digit count:"
-msgstr ""
+msgstr "Numërues minimum:"
 
 #: src/gnome-cmd-advrename-dialog.c:658
 msgid "Template Options"
 msgstr "Opcionet e shabllonit"
 
 #: src/gnome-cmd-advrename-dialog.c:662
+#, fuzzy
 msgid "Auto-update when the template is entered"
-msgstr ""
+msgstr "Automatike është"
 
 #: src/gnome-cmd-advrename-dialog.c:771
+#, fuzzy
 msgid "Advanced Rename Tool"
-msgstr ""
+msgstr "Të detajuara Riemërto"
 
 #. GRUT modified this item
 #: src/gnome-cmd-advrename-dialog.c:784
@@ -335,8 +341,9 @@ msgid "Bookmarks"
 msgstr "Libërshënues"
 
 #: src/gnome-cmd-bookmark-dialog.c:469
+#, fuzzy
 msgid "Bookmark Groups"
-msgstr ""
+msgstr "Libërshënues"
 
 #: src/gnome-cmd-bookmark-dialog.c:491 src/gnome-cmd-file-list.c:1340
 msgid "name"
@@ -358,10 +365,11 @@ msgid "_Edit"
 msgstr "_Ndrysho"
 
 #: src/gnome-cmd-bookmark-dialog.c:624
+#, fuzzy
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
-msgstr ""
+msgstr "Për a kërko shtegu në j"
 
 #: src/gnome-cmd-bookmark-dialog.c:631
 msgid "New Bookmark"
@@ -430,8 +438,9 @@ msgid "Access Permissions"
 msgstr "Të drejtat e hyrjes"
 
 #: src/gnome-cmd-chmod-dialog.c:232
+#, fuzzy
 msgid "Apply Recursively for"
-msgstr ""
+msgstr "Apliko për"
 
 #: src/gnome-cmd-chown-dialog.c:52
 #, c-format
@@ -447,25 +456,29 @@ msgid "Chown"
 msgstr "Chown"
 
 #: src/gnome-cmd-chown-dialog.c:195
+#, fuzzy
 msgid "Apply Recursively"
-msgstr ""
+msgstr "Apliko"
 
 #: src/gnome-cmd-con-device.c:103
+#, fuzzy
 msgid "Failed to execute the mount command"
-msgstr ""
+msgstr "Dështoi ekzekuto"
 
 #: src/gnome-cmd-con-device.c:110
 msgid "Mount failed: Permission denied"
 msgstr "Montimi dështoi: Ndalohet hyrja"
 
 #: src/gnome-cmd-con-device.c:113
+#, fuzzy
 msgid "Mount failed: No medium found"
-msgstr ""
+msgstr "Monto Jo"
 
 #: src/gnome-cmd-con-device.c:117
 #, c-format
+#, fuzzy
 msgid "Mount failed: mount exited with existatus %d"
-msgstr ""
+msgstr "Monto me"
 
 #: src/gnome-cmd-con-device.c:356
 #, c-format
@@ -474,55 +487,66 @@ msgstr "Duke montuar %s"
 
 #: src/gnome-cmd-con-device.c:374 src/gnome-cmd-con-ftp.c:287
 #, c-format
+#, fuzzy
 msgid "Go to: %s"
-msgstr ""
+msgstr "Shko"
 
 #: src/gnome-cmd-con-device.c:375
 #, c-format
+#, fuzzy
 msgid "Mount: %s"
-msgstr ""
+msgstr "Monto"
 
 #: src/gnome-cmd-con-device.c:376
 #, c-format
+#, fuzzy
 msgid "Unmount: %s"
-msgstr ""
+msgstr "Ç'monto"
 
 #: src/gnome-cmd-con-ftp.c:268
 #, c-format
+#, fuzzy
 msgid "Connecting to %s\n"
-msgstr ""
+msgstr "j"
 
 #: src/gnome-cmd-con-ftp.c:288
 #, c-format
+#, fuzzy
 msgid "Connect to: %s"
-msgstr ""
+msgstr "Lidhu"
 
 #: src/gnome-cmd-con-ftp.c:289
 #, c-format
+#, fuzzy
 msgid "Disconnect from: %s"
-msgstr ""
+msgstr "Shkëputu"
 
 #: src/gnome-cmd-con-ftp.c:307
 #, c-format
+#, fuzzy
 msgid "Creates an FTP connection to %s"
-msgstr ""
+msgstr "FTP"
 
 #: src/gnome-cmd-con-ftp.c:309
 #, c-format
+#, fuzzy
 msgid "Removes the FTP connection to %s"
-msgstr ""
+msgstr "FTP"
 
 #: src/gnome-cmd-con-home.c:129
+#, fuzzy
 msgid "Home"
-msgstr ""
+msgstr "Shtëpia"
 
 #: src/gnome-cmd-con-home.c:137
+#, fuzzy
 msgid "Go to: Home"
-msgstr ""
+msgstr "Shko Shtëpia"
 
 #: src/gnome-cmd-con-smb.c:94
+#, fuzzy
 msgid "Failed to browse the network. Is the SMB module installed?"
-msgstr ""
+msgstr "Dështoi shfleto SMB instaluar?"
 
 #. GRUT modified this item
 #: src/gnome-cmd-con-smb.c:211
@@ -530,28 +554,33 @@ msgid "SMB"
 msgstr "SMB"
 
 #: src/gnome-cmd-con-smb.c:212
+#, fuzzy
 msgid "Searching for workgroups and hosts"
-msgstr ""
+msgstr "për dhe"
 
 #: src/gnome-cmd-con-smb.c:219
+#, fuzzy
 msgid "Go to: Samba Network"
-msgstr ""
+msgstr "Samba Rrjeti"
 
 #: src/gnome-cmd-delete-dialog.c:143
+#, fuzzy
 msgid "Deleting..."
-msgstr ""
+msgstr "Duke eleminuar."
 
 #: src/gnome-cmd-delete-dialog.c:225
 #, c-format
+#, fuzzy
 msgid ""
 "Error while deleting %s\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "Gabim j j"
 
 #: src/gnome-cmd-delete-dialog.c:228
+#, fuzzy
 msgid "Delete problem"
-msgstr ""
+msgstr "Elemino"
 
 #. GRUT modified this item
 #: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:176
@@ -572,15 +601,17 @@ msgstr "Kapërce"
 
 #: src/gnome-cmd-delete-dialog.c:307
 #, c-format
+#, fuzzy
 msgid "Do you want to delete \"%s\"?"
-msgstr ""
+msgstr "Bëje elemino?"
 
 #: src/gnome-cmd-delete-dialog.c:312
 #, c-format
+#, fuzzy
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bëje elemino?"
+msgstr[1] "Bëje elemino?"
 
 #. GRUT modified this item
 #: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1346
@@ -599,8 +630,9 @@ msgid "OK"
 msgstr "OK"
 
 #: src/gnome-cmd-dir.c:569
+#, fuzzy
 msgid "Waiting for file list"
-msgstr ""
+msgstr "Në pritje për lista"
 
 #: src/gnome-cmd-file-list.c:1341
 msgid "ext"
@@ -611,8 +643,9 @@ msgid "dir"
 msgstr ""
 
 #: src/gnome-cmd-file-list.c:1343
+#, fuzzy
 msgid "size"
-msgstr ""
+msgstr "madhësia"
 
 #. GRUT modified this item
 #: src/gnome-cmd-file-list.c:1344
@@ -632,8 +665,9 @@ msgid "gid"
 msgstr ""
 
 #: src/gnome-cmd-file-popmenu.c:131
+#, fuzzy
 msgid "Invalid command"
-msgstr ""
+msgstr "E pavlefshme"
 
 #. GRUT modified this item
 #: src/gnome-cmd-file-popmenu.c:159
@@ -641,12 +675,14 @@ msgid "Application:"
 msgstr "Programi:"
 
 #: src/gnome-cmd-file-popmenu.c:163
+#, fuzzy
 msgid "Open with other..."
-msgstr ""
+msgstr "Hap me tjetër."
 
 #: src/gnome-cmd-file-popmenu.c:167
+#, fuzzy
 msgid "Needs terminal"
-msgstr ""
+msgstr "terminal"
 
 #. GRUT modified this item
 #: src/gnome-cmd-file-popmenu.c:418
@@ -654,8 +690,9 @@ msgid "_Open"
 msgstr "_Hap"
 
 #: src/gnome-cmd-file-popmenu.c:425
+#, fuzzy
 msgid "_Open with..."
-msgstr ""
+msgstr "Hap me."
 
 #. GRUT modified this item
 #: src/gnome-cmd-file-popmenu.c:437
@@ -702,8 +739,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
+#, fuzzy
 msgid "No default application registered"
-msgstr ""
+msgstr "Jo prezgjedhur programi"
 
 #. GRUT modified this item
 #: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2058
@@ -725,12 +763,14 @@ msgid "MIME Type:"
 msgstr "Lloji i MIME:"
 
 #: src/gnome-cmd-file-props-dialog.c:337
+#, fuzzy
 msgid "Opens with:"
-msgstr ""
+msgstr "me:"
 
 #: src/gnome-cmd-file-props-dialog.c:348
+#, fuzzy
 msgid "_Change"
-msgstr ""
+msgstr "Ndrysho"
 
 #. GRUT modified this item
 #: src/gnome-cmd-file-props-dialog.c:360
@@ -748,16 +788,19 @@ msgid "Size:"
 msgstr "Madhësia:"
 
 #: src/gnome-cmd-file-props-dialog.c:413
+#, fuzzy
 msgid "Owner and group"
-msgstr ""
+msgstr "Pronari dhe grupi"
 
 #: src/gnome-cmd-file-props-dialog.c:427
+#, fuzzy
 msgid "Access permissions"
-msgstr ""
+msgstr "të drejtat"
 
 #: src/gnome-cmd-file-props-dialog.c:450
+#, fuzzy
 msgid "File Properties"
-msgstr ""
+msgstr "File Pronësitë"
 
 #. GRUT modified this item
 #. GRUT modified this item
@@ -767,25 +810,29 @@ msgstr "Autorizimet"
 
 #: src/gnome-cmd-file-selector.c:194
 #, c-format
+#, fuzzy
 msgid "%s of %s kB in %d of %d file selected"
 msgid_plural "%s of %s kB in %d of %d files selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "nga në nga"
+msgstr[1] "nga në nga"
 
 #: src/gnome-cmd-file-selector.c:730
 #, c-format
+#, fuzzy
 msgid "%s Free"
-msgstr ""
+msgstr "I lirë"
 
 #: src/gnome-cmd-file-selector.c:1784
 #, c-format
+#, fuzzy
 msgid "Failed to open connection: %s\n"
-msgstr ""
+msgstr "Dështoi hap j"
 
 #: src/gnome-cmd-file-selector.c:1993 src/gnome-cmd-make-copy-dialog.c:68
 #: src/gnome-cmd-rename-dialog.c:52
+#, fuzzy
 msgid "No filename entered"
-msgstr ""
+msgstr "Jo"
 
 #. GRUT modified this item
 #: src/gnome-cmd-file-selector.c:2029
@@ -793,12 +840,14 @@ msgid "No filename given"
 msgstr "Nuk është dhënë asnjë emër file"
 
 #: src/gnome-cmd-file-selector.c:2064
+#, fuzzy
 msgid "New Text File"
-msgstr ""
+msgstr "E re Teksti File"
 
 #: src/gnome-cmd-file-selector.c:2233
+#, fuzzy
 msgid "Symlink name:"
-msgstr ""
+msgstr "emri:"
 
 #: src/gnome-cmd-file-selector.c:2237
 #, c-format
@@ -806,8 +855,9 @@ msgid "Symlink to %s"
 msgstr ""
 
 #: src/gnome-cmd-file-selector.c:2239
+#, fuzzy
 msgid "Create Symbolic Link"
-msgstr ""
+msgstr "Krijo Lidhje"
 
 #. GRUT modified this item
 #: src/gnome-cmd-file-selector.c:2310
@@ -833,8 +883,9 @@ msgid "FIFO"
 msgstr ""
 
 #: src/gnome-cmd-file.c:607
+#, fuzzy
 msgid "UNIX Socket"
-msgstr ""
+msgstr "Socket"
 
 #. GRUT modified this item
 #: src/gnome-cmd-file.c:608
@@ -853,8 +904,9 @@ msgstr "Lidhje simbolike"
 
 #: src/gnome-cmd-ftp-dialog.c:163
 #, c-format
+#, fuzzy
 msgid "Enter password for %s@%s"
-msgstr ""
+msgstr "Shto password për"
 
 #. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:168
@@ -862,21 +914,25 @@ msgid "Enter Password"
 msgstr "Shkruaj fjalëkalimin"
 
 #: src/gnome-cmd-ftp-dialog.c:215
+#, fuzzy
 msgid "No alias specified"
-msgstr ""
+msgstr "Jo"
 
 #: src/gnome-cmd-ftp-dialog.c:218
+#, fuzzy
 msgid "No host specified"
-msgstr ""
+msgstr "Jo"
 
 #: src/gnome-cmd-ftp-dialog.c:221
 #, c-format
+#, fuzzy
 msgid "Invalid port number: %s"
-msgstr ""
+msgstr "E pavlefshme"
 
 #: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-options-dialog.c:1472
+#, fuzzy
 msgid "Alias:"
-msgstr ""
+msgstr "Alias:"
 
 #. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
@@ -899,20 +955,24 @@ msgid "Password:"
 msgstr "Fjalëkalimi:"
 
 #: src/gnome-cmd-ftp-dialog.c:323
+#, fuzzy
 msgid "New FTP Server"
-msgstr ""
+msgstr "E re FTP Serveri"
 
 #: src/gnome-cmd-ftp-dialog.c:348
+#, fuzzy
 msgid "Edit FTP Server"
-msgstr ""
+msgstr "Ndrysho FTP Serveri"
 
 #: src/gnome-cmd-ftp-dialog.c:378
+#, fuzzy
 msgid "No server selected"
-msgstr ""
+msgstr "Jo server"
 
 #: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1354
+#, fuzzy
 msgid "FTP Connect"
-msgstr ""
+msgstr "FTP Lidhu"
 
 #. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:512
@@ -920,8 +980,9 @@ msgid "Servers"
 msgstr "Serverët"
 
 #: src/gnome-cmd-ftp-dialog.c:532 src/gnome-cmd-options-dialog.c:1626
+#, fuzzy
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:537 src/gnome-cmd-list-popmenu.c:145
@@ -929,8 +990,9 @@ msgid "_New..."
 msgstr "_I Ri..."
 
 #: src/gnome-cmd-ftp-dialog.c:553
+#, fuzzy
 msgid "Anonymous password:"
-msgstr ""
+msgstr "Anonim password:"
 
 #. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:563
@@ -938,16 +1000,19 @@ msgid "Connect"
 msgstr "Lidhu"
 
 #: src/gnome-cmd-ftp-dialog.c:670
+#, fuzzy
 msgid "FTP Quick Connect"
-msgstr ""
+msgstr "FTP Lidhu"
 
 #: src/gnome-cmd-list-popmenu.c:126
+#, fuzzy
 msgid "_Directory"
-msgstr ""
+msgstr "Directory"
 
 #: src/gnome-cmd-list-popmenu.c:133
+#, fuzzy
 msgid "_Text file"
-msgstr ""
+msgstr "Teksti"
 
 #. GRUT modified this item
 #: src/gnome-cmd-list-popmenu.c:152 src/gnome-cmd-main-menu.c:571
@@ -961,28 +1026,34 @@ msgid "_Refresh"
 msgstr "_Rifreskim"
 
 #: src/gnome-cmd-main-menu.c:389
+#, fuzzy
 msgid "Switch to Horizontal Layout"
-msgstr ""
+msgstr "Kalo Planimetria"
 
 #: src/gnome-cmd-main-menu.c:394
+#, fuzzy
 msgid "Switch to Vertical Layout"
-msgstr ""
+msgstr "Kalo Vertikal Planimetria"
 
 #: src/gnome-cmd-main-menu.c:462
+#, fuzzy
 msgid "Change _Owner/Group"
-msgstr ""
+msgstr "Ndrysho Pronari"
 
 #: src/gnome-cmd-main-menu.c:468
+#, fuzzy
 msgid "Change Per_missions"
-msgstr ""
+msgstr "Ndrysho"
 
 #: src/gnome-cmd-main-menu.c:474
+#, fuzzy
 msgid "Advanced _Rename Tool"
-msgstr ""
+msgstr "Të detajuara Riemërto"
 
 #: src/gnome-cmd-main-menu.c:480
+#, fuzzy
 msgid "Create _Symbolic Link"
-msgstr ""
+msgstr "Krijo Lidhje"
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:486
@@ -990,8 +1061,9 @@ msgid "_Properties..."
 msgstr "_Pronësitë...."
 
 #: src/gnome-cmd-main-menu.c:493
+#, fuzzy
 msgid "_Diff"
-msgstr ""
+msgstr "Dif"
 
 #. GRUT modified this item
 #. GRUT modified this item
@@ -1005,16 +1077,19 @@ msgid "_Select All"
 msgstr "_Zgjidh gjithçka"
 
 #: src/gnome-cmd-main-menu.c:517
+#, fuzzy
 msgid "_Unselect All"
-msgstr ""
+msgstr "Gjithçka"
 
 #: src/gnome-cmd-main-menu.c:523
+#, fuzzy
 msgid "Select with _Pattern"
-msgstr ""
+msgstr "Zgjidh me Motivi"
 
 #: src/gnome-cmd-main-menu.c:529
+#, fuzzy
 msgid "Unselect with P_attern"
-msgstr ""
+msgstr "me P"
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:535
@@ -1022,12 +1097,14 @@ msgid "_Invert Selection"
 msgstr "_Inverto zgjedhjen"
 
 #: src/gnome-cmd-main-menu.c:541
+#, fuzzy
 msgid "_Restore Selection"
-msgstr ""
+msgstr "Riparo Zgjedhja"
 
 #: src/gnome-cmd-main-menu.c:548
+#, fuzzy
 msgid "_Compare Directries"
-msgstr ""
+msgstr "Krahaso"
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:559
@@ -1035,20 +1112,24 @@ msgid "Cu_t"
 msgstr "Pre_je"
 
 #: src/gnome-cmd-main-menu.c:584
+#, fuzzy
 msgid "Copy _File Names"
-msgstr ""
+msgstr "Kopjo File"
 
 #: src/gnome-cmd-main-menu.c:591
+#, fuzzy
 msgid "_Search..."
-msgstr ""
+msgstr "Kërko."
 
 #: src/gnome-cmd-main-menu.c:597
+#, fuzzy
 msgid "_Quick Search..."
-msgstr ""
+msgstr "Kërko."
 
 #: src/gnome-cmd-main-menu.c:603
+#, fuzzy
 msgid "_Enable Filter..."
-msgstr ""
+msgstr "Aktivo Filtri."
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:614
@@ -1061,40 +1142,49 @@ msgid "_Forward"
 msgstr "_Vazhdo"
 
 #: src/gnome-cmd-main-menu.c:633
+#, fuzzy
 msgid "Show Device Buttons"
-msgstr ""
+msgstr "Shfaq Dispozitivi Butonat"
 
 #: src/gnome-cmd-main-menu.c:639
+#, fuzzy
 msgid "Show Toolbar"
-msgstr ""
+msgstr "Shfaq Paneli i instrumentëve"
 
 #: src/gnome-cmd-main-menu.c:645
+#, fuzzy
 msgid "Show Commandline"
-msgstr ""
+msgstr "Shfaq"
 
 #: src/gnome-cmd-main-menu.c:651
+#, fuzzy
 msgid "Show Buttonbar"
-msgstr ""
+msgstr "Shfaq"
 
 #: src/gnome-cmd-main-menu.c:658
+#, fuzzy
 msgid "Show Hidden Files"
-msgstr ""
+msgstr "Shfaq Files"
 
 #: src/gnome-cmd-main-menu.c:664
+#, fuzzy
 msgid "Show Backup Files"
-msgstr ""
+msgstr "Shfaq Backup (kopje) Files"
 
 #: src/gnome-cmd-main-menu.c:676
+#, fuzzy
 msgid "_Bookmark this Directory..."
-msgstr ""
+msgstr "Libërshënues Directory."
 
 #: src/gnome-cmd-main-menu.c:682
+#, fuzzy
 msgid "_Manage Bookmarks..."
-msgstr ""
+msgstr "Libërshënues."
 
 #: src/gnome-cmd-main-menu.c:694
+#, fuzzy
 msgid "_Configure Plugins..."
-msgstr ""
+msgstr "Konfiguro Plugins."
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:706
@@ -1102,20 +1192,24 @@ msgid "_Options..."
 msgstr "_Opcionet..."
 
 #: src/gnome-cmd-main-menu.c:712
+#, fuzzy
 msgid "Edit _Mime Types..."
-msgstr ""
+msgstr "Ndrysho Llojet."
 
 #: src/gnome-cmd-main-menu.c:723
+#, fuzzy
 msgid "FTP _Connect..."
-msgstr ""
+msgstr "FTP Lidhu."
 
 #: src/gnome-cmd-main-menu.c:729
+#, fuzzy
 msgid "FTP _Quick Connect..."
-msgstr ""
+msgstr "FTP Lidhu."
 
 #: src/gnome-cmd-main-menu.c:740
+#, fuzzy
 msgid "User _Manual..."
-msgstr ""
+msgstr "Përdoruesi Manual."
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:747
@@ -1143,8 +1237,9 @@ msgid "_Settings"
 msgstr "_Rregullimet"
 
 #: src/gnome-cmd-main-menu.c:787
+#, fuzzy
 msgid "_Connections"
-msgstr ""
+msgstr "Lidhjet"
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:791
@@ -1152,8 +1247,9 @@ msgid "_Bookmarks"
 msgstr "_Libërshënues"
 
 #: src/gnome-cmd-main-menu.c:795
+#, fuzzy
 msgid "_Plugins"
-msgstr ""
+msgstr "Plugins"
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:799
@@ -1161,36 +1257,44 @@ msgid "_Help"
 msgstr "_Ndihmë"
 
 #: src/gnome-cmd-main-win.c:447
+#, fuzzy
 msgid "F3 View"
-msgstr ""
+msgstr "F3 Paraqitja"
 
 #: src/gnome-cmd-main-win.c:450
+#, fuzzy
 msgid "F4 Edit"
-msgstr ""
+msgstr "F4 Ndrysho"
 
 #: src/gnome-cmd-main-win.c:453
+#, fuzzy
 msgid "F5 Copy"
-msgstr ""
+msgstr "F5 Kopjo"
 
 #: src/gnome-cmd-main-win.c:456
+#, fuzzy
 msgid "F6 Move"
-msgstr ""
+msgstr "F6 Lëvize"
 
 #: src/gnome-cmd-main-win.c:459
+#, fuzzy
 msgid "F7 Mkdir"
-msgstr ""
+msgstr "F7"
 
 #: src/gnome-cmd-main-win.c:462
+#, fuzzy
 msgid "F8 Delete"
-msgstr ""
+msgstr "F8 Elemino"
 
 #: src/gnome-cmd-main-win.c:465
+#, fuzzy
 msgid "F9 Search"
-msgstr ""
+msgstr "F9 Kërko"
 
 #: src/gnome-cmd-main-win.c:468
+#, fuzzy
 msgid "F10 Quit"
-msgstr ""
+msgstr "F10 Dalja"
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-win.c:1296
@@ -1198,16 +1302,19 @@ msgid "Refresh"
 msgstr "Rifresko"
 
 #: src/gnome-cmd-main-win.c:1303
+#, fuzzy
 msgid "Back in history"
-msgstr ""
+msgstr "Mbrapa në"
 
 #: src/gnome-cmd-main-win.c:1310
+#, fuzzy
 msgid "Forward in history"
-msgstr ""
+msgstr "Vazhdo në"
 
 #: src/gnome-cmd-main-win.c:1318
+#, fuzzy
 msgid "Copy file names"
-msgstr ""
+msgstr "Kopjo"
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-win.c:1325
@@ -1225,50 +1332,60 @@ msgid "Paste"
 msgstr "Ngjite"
 
 #: src/gnome-cmd-main-win.c:1361
+#, fuzzy
 msgid "Drop connection"
-msgstr ""
+msgstr "Hidh"
 
 #: src/gnome-cmd-make-copy-dialog.c:154
 #: src/gnome-cmd-prepare-copy-dialog.c:152
 #, c-format
+#, fuzzy
 msgid "Copy \"%s\" to"
-msgstr ""
+msgstr "Kopjo"
 
 #: src/gnome-cmd-make-copy-dialog.c:162
+#, fuzzy
 msgid "Copy File"
-msgstr ""
+msgstr "Kopjo File"
 
 #: src/gnome-cmd-mkdir-dialog.c:48
+#, fuzzy
 msgid "A directory name must be entered"
-msgstr ""
+msgstr "A emri"
 
 #: src/gnome-cmd-mkdir-dialog.c:141
+#, fuzzy
 msgid "Directory name:"
-msgstr ""
+msgstr "Directory emri:"
 
 #: src/gnome-cmd-mkdir-dialog.c:149
+#, fuzzy
 msgid "Make Directory"
-msgstr ""
+msgstr "Directory"
 
 #: src/gnome-cmd-options-dialog.c:63
+#, fuzzy
 msgid "Use right mouse button to"
-msgstr ""
+msgstr "djathtas"
 
 #: src/gnome-cmd-options-dialog.c:66
+#, fuzzy
 msgid "Show popup menu"
-msgstr ""
+msgstr "Shfaq menuja"
 
 #: src/gnome-cmd-options-dialog.c:70
+#, fuzzy
 msgid "Select files"
-msgstr ""
+msgstr "Zgjidh"
 
 #: src/gnome-cmd-options-dialog.c:79
 msgid "Match filenames using"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:82
+#, fuzzy
 msgid "Shell syntax"
-msgstr ""
+msgstr "Shell"
 
 #: src/gnome-cmd-options-dialog.c:86
 msgid "Regex syntax"
@@ -1285,24 +1402,29 @@ msgid "Case sensitive"
 msgstr "Ndjeshmëri gërma të mëdha/të vogla"
 
 #: src/gnome-cmd-options-dialog.c:109
+#, fuzzy
 msgid "Confirmation options"
-msgstr ""
+msgstr "Konfermimi"
 
 #: src/gnome-cmd-options-dialog.c:112
+#, fuzzy
 msgid "Confirm before delete"
-msgstr ""
+msgstr "Konfermo përpara elemino"
 
 #: src/gnome-cmd-options-dialog.c:122
+#, fuzzy
 msgid "Directory options"
-msgstr ""
+msgstr "Directory"
 
 #: src/gnome-cmd-options-dialog.c:125
+#, fuzzy
 msgid "Directory cache size"
-msgstr ""
+msgstr "Directory madhësia"
 
 #: src/gnome-cmd-options-dialog.c:214
+#, fuzzy
 msgid "Size display mode"
-msgstr ""
+msgstr "Madhësia modaliteti"
 
 #: src/gnome-cmd-options-dialog.c:217
 msgid "Powered"
@@ -1318,20 +1440,24 @@ msgid "Plain"
 msgstr "I thjeshtë"
 
 #: src/gnome-cmd-options-dialog.c:237
+#, fuzzy
 msgid "Permission display mode"
-msgstr ""
+msgstr "modaliteti"
 
 #: src/gnome-cmd-options-dialog.c:240
+#, fuzzy
 msgid "Text (rw-r--r--)"
-msgstr ""
+msgstr "Teksti"
 
 #: src/gnome-cmd-options-dialog.c:245
+#, fuzzy
 msgid "Number (311)"
-msgstr ""
+msgstr "Numri"
 
 #: src/gnome-cmd-options-dialog.c:255
+#, fuzzy
 msgid "Date format"
-msgstr ""
+msgstr "Data"
 
 #. GRUT modified this item
 #: src/gnome-cmd-options-dialog.c:258
@@ -1344,18 +1470,21 @@ msgid "_Test"
 msgstr "_Kontrolloje"
 
 #: src/gnome-cmd-options-dialog.c:269
+#, fuzzy
 msgid "Test result:"
-msgstr ""
+msgstr "Prova:"
 
 #: src/gnome-cmd-options-dialog.c:279
+#, fuzzy
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
-msgstr ""
+msgstr "Shiko manual faqe për për ndihmë në."
 
 #: src/gnome-cmd-options-dialog.c:401
+#, fuzzy
 msgid "Edit Colors..."
-msgstr ""
+msgstr "Ndrysho Ngjyrat."
 
 #. GRUT modified this item
 #: src/gnome-cmd-options-dialog.c:408
@@ -1373,44 +1502,52 @@ msgid "Background"
 msgstr "Sfondi"
 
 #: src/gnome-cmd-options-dialog.c:449
+#, fuzzy
 msgid "Default:"
-msgstr ""
+msgstr "E prezgjedhur:"
 
 #: src/gnome-cmd-options-dialog.c:451
+#, fuzzy
 msgid "Selected file:"
-msgstr ""
+msgstr "I zgjedhur:"
 
 #: src/gnome-cmd-options-dialog.c:453
+#, fuzzy
 msgid "Cursor:"
-msgstr ""
+msgstr "Kursori:"
 
 #: src/gnome-cmd-options-dialog.c:470
 msgid "With filename"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:471
+#, fuzzy
 msgid "In separate column"
-msgstr ""
+msgstr "Zmadho"
 
 #: src/gnome-cmd-options-dialog.c:472
+#, fuzzy
 msgid "In both columns"
-msgstr ""
+msgstr "Zmadho kollonat"
 
 #: src/gnome-cmd-options-dialog.c:476
+#, fuzzy
 msgid "No icons"
-msgstr ""
+msgstr "Jo"
 
 #: src/gnome-cmd-options-dialog.c:477
+#, fuzzy
 msgid "File type icons"
-msgstr ""
+msgstr "File lloji"
 
 #: src/gnome-cmd-options-dialog.c:478
 msgid "MIME icons"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:482
+#, fuzzy
 msgid "Respect theme colors"
-msgstr ""
+msgstr "tema"
 
 #: src/gnome-cmd-options-dialog.c:483
 msgid "Modern"
@@ -1427,8 +1564,9 @@ msgid "Custom"
 msgstr "E personalizuar"
 
 #: src/gnome-cmd-options-dialog.c:501
+#, fuzzy
 msgid "File panes"
-msgstr ""
+msgstr "File"
 
 #. GRUT modified this item
 #: src/gnome-cmd-options-dialog.c:516
@@ -1436,23 +1574,27 @@ msgid "Font:"
 msgstr "Gërmat:"
 
 #: src/gnome-cmd-options-dialog.c:518
+#, fuzzy
 msgid "Row height:"
-msgstr ""
+msgstr "Rresht lartësia:"
 
 #. File extensions
 #: src/gnome-cmd-options-dialog.c:522
+#, fuzzy
 msgid "Display file extensions:"
-msgstr ""
+msgstr "Shfaq:"
 
 #. Graphical mode
 #: src/gnome-cmd-options-dialog.c:530
+#, fuzzy
 msgid "Graphical mode:"
-msgstr ""
+msgstr "modaliteti:"
 
 #. Color scheme
 #: src/gnome-cmd-options-dialog.c:540
+#, fuzzy
 msgid "Color scheme:"
-msgstr ""
+msgstr "Ngjyra:"
 
 #. GRUT modified this item
 #: src/gnome-cmd-options-dialog.c:553
@@ -1464,24 +1606,28 @@ msgid "Colorize files according to the LS_COLORS enviroment variable"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:575
+#, fuzzy
 msgid "MIME icon settings"
-msgstr ""
+msgstr "ikonë rregullimet"
 
 #: src/gnome-cmd-options-dialog.c:592
+#, fuzzy
 msgid "Icon size:"
-msgstr ""
+msgstr "madhësia:"
 
 #: src/gnome-cmd-options-dialog.c:594
 msgid "Scaling quality:"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:596
+#, fuzzy
 msgid "Theme icon directory:"
-msgstr ""
+msgstr "Tema ikonë:"
 
 #: src/gnome-cmd-options-dialog.c:598
+#, fuzzy
 msgid "Document icon directory:"
-msgstr ""
+msgstr "Dokument ikonë:"
 
 #: src/gnome-cmd-options-dialog.c:715
 msgid "Filetypes to hide"
@@ -1506,16 +1652,19 @@ msgid "Fifo files"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:738
+#, fuzzy
 msgid "Socket files"
-msgstr ""
+msgstr "Socket"
 
 #: src/gnome-cmd-options-dialog.c:743
+#, fuzzy
 msgid "Character devices"
-msgstr ""
+msgstr "Simboli"
 
 #: src/gnome-cmd-options-dialog.c:748
+#, fuzzy
 msgid "Block devices"
-msgstr ""
+msgstr "Blloqe"
 
 #: src/gnome-cmd-options-dialog.c:756
 msgid "Also hide"
@@ -1526,8 +1675,9 @@ msgid "Hidden files"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:764 src/gnome-cmd-options-dialog.c:777
+#, fuzzy
 msgid "Backup files"
-msgstr ""
+msgstr "Backup (kopje)"
 
 #: src/gnome-cmd-options-dialog.c:769
 msgid "Symlinks"
@@ -1557,48 +1707,57 @@ msgid "Can handle URIs"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:1069
+#, fuzzy
 msgid "Requires terminal"
-msgstr ""
+msgstr "Kërkon terminal"
 
 #: src/gnome-cmd-options-dialog.c:1076
+#, fuzzy
 msgid "Show for"
-msgstr ""
+msgstr "Shfaq për"
 
 #: src/gnome-cmd-options-dialog.c:1085
+#, fuzzy
 msgid "All directories"
-msgstr ""
+msgstr "Gjithçka"
 
 #: src/gnome-cmd-options-dialog.c:1091
+#, fuzzy
 msgid "All directories and files"
-msgstr ""
+msgstr "Gjithçka dhe"
 
 #: src/gnome-cmd-options-dialog.c:1097
 msgid "Some files"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:1108
+#, fuzzy
 msgid "File patterns"
-msgstr ""
+msgstr "File"
 
 #: src/gnome-cmd-options-dialog.c:1133
+#, fuzzy
 msgid "New Application"
-msgstr ""
+msgstr "E re Program"
 
 #: src/gnome-cmd-options-dialog.c:1144
+#, fuzzy
 msgid "Edit Application"
-msgstr ""
+msgstr "Ndrysho Program"
 
 #: src/gnome-cmd-options-dialog.c:1230
+#, fuzzy
 msgid "Always download remote files before opening in external programs"
-msgstr ""
+msgstr "Gjithmonë nÃ« distancÃ« përpara në i jashtëm"
 
 #: src/gnome-cmd-options-dialog.c:1234
 msgid "MIME applications"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:1238
+#, fuzzy
 msgid "Standard programs"
-msgstr ""
+msgstr "Standart"
 
 #: src/gnome-cmd-options-dialog.c:1241
 msgid "Viewer:"
@@ -1614,12 +1773,14 @@ msgid "Differ:"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:1247
+#, fuzzy
 msgid "Terminal:"
-msgstr ""
+msgstr "Terminali:"
 
 #: src/gnome-cmd-options-dialog.c:1266
+#, fuzzy
 msgid "Other favorite apps"
-msgstr ""
+msgstr "Tjetër"
 
 #. GRUT modified this item
 #: src/gnome-cmd-options-dialog.c:1273
@@ -1632,16 +1793,19 @@ msgid "Device:"
 msgstr "Dispozitivi:"
 
 #: src/gnome-cmd-options-dialog.c:1476
+#, fuzzy
 msgid "Mount point:"
-msgstr ""
+msgstr "Monto pikë:"
 
 #: src/gnome-cmd-options-dialog.c:1520
+#, fuzzy
 msgid "New Device"
-msgstr ""
+msgstr "E re Dispozitivi"
 
 #: src/gnome-cmd-options-dialog.c:1532
+#, fuzzy
 msgid "Edit Device"
-msgstr ""
+msgstr "Ndrysho Dispozitivi"
 
 #. GRUT modified this item
 #: src/gnome-cmd-options-dialog.c:1616 src/gnome-cmd-options-dialog.c:1826
@@ -1649,12 +1813,14 @@ msgid "Devices"
 msgstr "Dispozitivët"
 
 #: src/gnome-cmd-options-dialog.c:1658
+#, fuzzy
 msgid "Show only the icons"
-msgstr ""
+msgstr "Shfaq"
 
 #: src/gnome-cmd-options-dialog.c:1663
+#, fuzzy
 msgid "Skip mounting (useful when using super-mount)"
-msgstr ""
+msgstr "Kapërce"
 
 #. GRUT modified this item
 #: src/gnome-cmd-options-dialog.c:1796
@@ -1682,16 +1848,19 @@ msgid "Programs"
 msgstr "Programe"
 
 #: src/gnome-cmd-patternsel-dialog.c:136
+#, fuzzy
 msgid "Select Using Pattern"
-msgstr ""
+msgstr "Zgjidh Motivi"
 
 #: src/gnome-cmd-patternsel-dialog.c:136
+#, fuzzy
 msgid "Unselect Using Pattern"
-msgstr ""
+msgstr "Motivi"
 
 #: src/gnome-cmd-patternsel-dialog.c:147
+#, fuzzy
 msgid "Pattern:"
-msgstr ""
+msgstr "Motivi:"
 
 #.
 #. * Create prepare copy specific widgets
@@ -1703,32 +1872,37 @@ msgstr ""
 
 #: src/gnome-cmd-prepare-copy-dialog.c:102
 #: src/gnome-cmd-prepare-move-dialog.c:96
+#, fuzzy
 msgid "Query First"
-msgstr ""
+msgstr "Kërkesë E Para"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:111
 #: src/gnome-cmd-prepare-move-dialog.c:105 src/gnome-cmd-xfer.c:176
+#, fuzzy
 msgid "Skip All"
-msgstr ""
+msgstr "Kapërce Gjithçka"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:121
+#, fuzzy
 msgid "Follow Links"
-msgstr ""
+msgstr "Lidhje"
 
 #.
 #. * Customize prepare xfer widgets
 #.
 #: src/gnome-cmd-prepare-copy-dialog.c:136
 #: src/gnome-cmd-prepare-move-dialog.c:120
+#, fuzzy
 msgid "Overwrite Files"
-msgstr ""
+msgstr "Mbishkruaj Files"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:156
 #, c-format
+#, fuzzy
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "kopjo"
+msgstr[1] "kopjo"
 
 #. GRUT modified this item
 #: src/gnome-cmd-prepare-move-dialog.c:80
@@ -1737,8 +1911,9 @@ msgstr "Lëvize"
 
 #: src/gnome-cmd-prepare-move-dialog.c:135
 #, c-format
+#, fuzzy
 msgid "Move \"%s\" to"
-msgstr ""
+msgstr "Lëvize"
 
 #: src/gnome-cmd-prepare-move-dialog.c:139
 #, c-format
@@ -1760,8 +1935,9 @@ msgstr "Kërko"
 
 #: src/gnome-cmd-rename-dialog.c:147
 #, c-format
+#, fuzzy
 msgid "Rename \"%s\" to"
-msgstr ""
+msgstr "Riemërto"
 
 #. GRUT modified this item
 #: src/gnome-cmd-rename-dialog.c:155
@@ -1770,25 +1946,29 @@ msgstr "Riemërto file"
 
 #: src/gnome-cmd-search-dialog.c:184
 #, c-format
+#, fuzzy
 msgid "Failed to open file %s: %s\n"
-msgstr ""
+msgstr "Dështoi hap j"
 
 #: src/gnome-cmd-search-dialog.c:193
 #, c-format
+#, fuzzy
 msgid "Failed to read from file %s: %s\n"
-msgstr ""
+msgstr "Dështoi j"
 
 #: src/gnome-cmd-search-dialog.c:255
 #, c-format
+#, fuzzy
 msgid "Searching in: %s"
-msgstr ""
+msgstr "në"
 
 #: src/gnome-cmd-search-dialog.c:399
 #, c-format
+#, fuzzy
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "përpara i ndalur"
+msgstr[1] "përpara i ndalur"
 
 #: src/gnome-cmd-search-dialog.c:406
 #, c-format
@@ -1798,8 +1978,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/gnome-cmd-search-dialog.c:737
+#, fuzzy
 msgid "Search..."
-msgstr ""
+msgstr "Kërko."
 
 #. GRUT modified this item
 #. Search for
@@ -1809,17 +1990,20 @@ msgstr "Kërko për:"
 
 #. Search in
 #: src/gnome-cmd-search-dialog.c:766
+#, fuzzy
 msgid "Search in: "
-msgstr ""
+msgstr "Kërko në "
 
 #. Find text
 #: src/gnome-cmd-search-dialog.c:780
+#, fuzzy
 msgid "Find text: "
-msgstr ""
+msgstr "Gjej tekst "
 
 #: src/gnome-cmd-search-dialog.c:797
+#, fuzzy
 msgid "Search Recursively"
-msgstr ""
+msgstr "Kërko"
 
 #. GRUT modified this item
 #. Case check
@@ -1837,8 +2021,9 @@ msgstr ""
 
 #: src/gnome-cmd-smb-path.c:331
 #, c-format
+#, fuzzy
 msgid "Can't find a host or workgroup named %s\n"
-msgstr ""
+msgstr "gjej a j"
 
 #: src/gnome-cmd-xfer-progress-win.c:37
 msgid "stopping..."
@@ -1851,8 +2036,9 @@ msgstr "Progresi"
 
 #: src/gnome-cmd-xfer-progress-win.c:174
 #, c-format
+#, fuzzy
 msgid "%d%% of %s copied"
-msgstr ""
+msgstr "nga"
 
 #: src/gnome-cmd-xfer-progress-win.c:179
 #, c-format
@@ -1861,11 +2047,12 @@ msgstr ""
 
 #: src/gnome-cmd-xfer.c:170
 #, c-format
+#, fuzzy
 msgid ""
 "The file \"%s\" already exists.\n"
 "\n"
 "Do you want to overwrite it?\n"
-msgstr ""
+msgstr "ekziston j j"
 
 #. GRUT modified this item
 #: src/gnome-cmd-xfer.c:176
@@ -1879,11 +2066,12 @@ msgstr "Zëvendëso gjithçka"
 
 #: src/gnome-cmd-xfer.c:190
 #, c-format
+#, fuzzy
 msgid ""
 "Error while copying to %s\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "Gabim j j"
 
 #: src/gnome-cmd-xfer.c:195
 msgid "Xfer problem"
@@ -1895,14 +2083,16 @@ msgstr ""
 
 #: src/gnome-cmd-xfer.c:241
 #, c-format
+#, fuzzy
 msgid "[file %ld of %ld] \"%s\""
-msgstr ""
+msgstr "nga"
 
 #: src/gnome-cmd-xfer.c:391
+#, fuzzy
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
-msgstr ""
+msgstr "Duke kopjuar a është a."
 
 #: src/gnome-cmd-xfer.c:438
 msgid "preparing..."
@@ -1913,42 +2103,49 @@ msgid "downloading to /tmp"
 msgstr ""
 
 #: src/imageloader.c:124
+#, fuzzy
 msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
-msgstr ""
+msgstr "ngarkoje instaluar lloji ngarkoje j"
 
 #: src/imageloader.c:126 src/imageloader.c:152
 #, c-format
+#, fuzzy
 msgid "Trying to load %s instead\n"
-msgstr ""
+msgstr "ngarkoje j"
 
 #: src/imageloader.c:130 src/imageloader.c:155
+#, fuzzy
 msgid ""
 "Cant find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
-msgstr ""
+msgstr "gjej instaluar programi është x p j"
 
 #: src/imageloader.c:150
+#, fuzzy
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
-msgstr ""
+msgstr "ngarkoje instaluar ngarkoje j"
 
 #: src/main.c:56
 msgid "Specify debug flags to use"
 msgstr ""
 
 #: src/main.c:58
+#, fuzzy
 msgid "Specify the start directory for the left pane"
-msgstr ""
+msgstr "nisje për majtas paneli"
 
 #: src/main.c:60
+#, fuzzy
 msgid "Specify the start directory for the right pane"
-msgstr ""
+msgstr "nisje për djathtas paneli"
 
 #: src/owner.c:98
 #, c-format
+#, fuzzy
 msgid ""
 "When parsing the users and groups on this system it was found that the user %"
 "s is part of the group %s. This user can however not be found.\n"
-msgstr ""
+msgstr "Kur përdorues dhe në sistemi përdorues është nga grupi përdorues nuk j"
 
 #. GRUT modified this item
 #: src/plugin_manager.c:361
@@ -1961,8 +2158,9 @@ msgid "Enable"
 msgstr "Aktivo"
 
 #: src/plugin_manager.c:435
+#, fuzzy
 msgid "Available plugins"
-msgstr ""
+msgstr "Në dispozicion"
 
 #. GRUT modified this item
 #: src/plugin_manager.c:441
@@ -1980,8 +2178,9 @@ msgid "File"
 msgstr "File"
 
 #: src/plugin_manager.c:449
+#, fuzzy
 msgid "_Enable"
-msgstr ""
+msgstr "_Aktivo"
 
 #. GRUT modified this item
 #: src/plugin_manager.c:454
@@ -1995,51 +2194,60 @@ msgstr "_Informacione"
 
 #: src/useractions.c:263
 #, c-format
+#, fuzzy
 msgid "running \"%s\"\n"
-msgstr ""
+msgstr "në punim e sipër j"
 
 #: src/useractions.c:668
+#, fuzzy
 msgid "A fast and powerful file manager for the GNOME desktop"
-msgstr ""
+msgstr "A dhe për GNOME"
 
 #. xgettext:
 #. * Replace this with your name when translating
 #: src/useractions.c:673
+#, fuzzy
 msgid "No translation is currently in use."
-msgstr ""
+msgstr "Jo është në."
 
 #: src/utils.c:519
 #, c-format
+#, fuzzy
 msgid ""
 "No default application found for the mime-type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
-msgstr ""
+msgstr "Jo prezgjedhur programi për lloji File dhe faqe në Kontrollo Në qendër shto."
 
 #: src/utils.c:599
 #, c-format
+#, fuzzy
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
-msgstr ""
+msgstr "a e ekzekutueshme e ekzekutueshme Bëje dhe?"
 
 #: src/utils.c:602
+#, fuzzy
 msgid "Make Executable?"
-msgstr ""
+msgstr "E ekzekutueshme?"
 
 #: src/utils.c:629
 #, c-format
+#, fuzzy
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
-msgstr ""
+msgstr "është e ekzekutueshme tekst Bëje?"
 
 #: src/utils.c:631
+#, fuzzy
 msgid "Run or Display"
-msgstr ""
+msgstr "Ekzekuto Shfaq"
 
 #: src/utils.c:632
+#, fuzzy
 msgid "Display"
-msgstr ""
+msgstr "Shfaq"
 
 #. GRUT modified this item
 #: src/utils.c:632
@@ -2048,17 +2256,19 @@ msgstr "Ekzekuto"
 
 #: src/utils.c:668
 #, c-format
+#, fuzzy
 msgid ""
 "%s does not know how to open remote files. Do you want to download the file "
 "to a temporary location and then open it?"
-msgstr ""
+msgstr "nuk hap nÃ« distancÃ« Bëje a pozicioni dhe hap?"
 
 #: src/utils.c:742
 #, c-format
+#, fuzzy
 msgid ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr ""
+msgstr "nuk hap nÃ« distancÃ« Bëje a pozicioni dhe hap?"
 
 #: src/utils.c:1363
 #, c-format
@@ -2067,11 +2277,13 @@ msgstr ""
 
 #: src/utils.c:1368
 #, c-format
+#, fuzzy
 msgid "Failed to create the directory %s"
-msgstr ""
+msgstr "Dështoi"
 
 #: src/utils.c:1374
 #, c-format
+#, fuzzy
 msgid "Couldn't read from the directory %s: %s\n"
-msgstr ""
+msgstr "j"
 
