@@ -48,13 +48,6 @@ typedef struct {
 	// the files that should be deleted
 	GList *files;
 
-	// a quick way to find the file-object for an uri-string
-	GHashTable *file_map;
-
-	// the files that have been deleted, continously emptied by the main thread
-	// as it updates the gui
-	GList *deleted_files;
-
 	// tells the work thread to stop working
 	gboolean stop;
 
@@ -76,8 +69,6 @@ static void
 cleanup (DeleteData *data)
 {
 	gnome_cmd_file_list_free (data->files);
-	if (data->file_map)
-		g_hash_table_destroy (data->file_map);
 	g_free (data);
 }
 
@@ -104,13 +95,6 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
 		data->vfs_status = GNOME_VFS_OK;
 	}
 	else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
-
-		if (info->phase == GNOME_VFS_XFER_PHASE_DELETESOURCE) {
-			GnomeCmdFile *finfo = g_hash_table_lookup (data->file_map, info->source_name);
-			if (GNOME_CMD_IS_FILE (finfo))
-				data->deleted_files = g_list_append (data->deleted_files, finfo);
-		}
-		
 		if (info->file_index >= 0 && info->files_total > 0) {
 			gfloat f = (gfloat)info->file_index/(gfloat)info->files_total;
 			if (data->msg) g_free (data->msg);
@@ -196,12 +180,8 @@ perform_delete_operation (DeleteData *data)
 	GnomeVFSXferErrorMode xferErrorMode = GNOME_VFS_XFER_ERROR_MODE_QUERY;
 	gint num_files = g_list_length (data->files);
 
-	data->file_map = g_hash_table_new_full (
-		g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify)gnome_cmd_file_unref);
-	
 	/* Go through all files and add the uri of the appropriate ones to a list */
 	for ( i=0 ; i<num_files; i++ ) {
-		gchar *uri_str;
 		GnomeVFSURI *uri;		
 		GnomeCmdFile *finfo = (GnomeCmdFile*)g_list_nth_data (data->files, i);
 
@@ -213,11 +193,6 @@ perform_delete_operation (DeleteData *data)
 		
 		gnome_vfs_uri_ref (uri);
 		uri_list = g_list_append (uri_list, uri);
-
-		// make this file fast to find later on...
-		uri_str = gnome_vfs_uri_to_string (uri, 0);
-		gnome_cmd_file_ref (finfo);
-		g_hash_table_insert (data->file_map, uri_str, finfo);
 	}
 
 	if (uri_list != NULL) {
@@ -255,14 +230,6 @@ update_delete_status_widgets (DeleteData *data)
 		g_free (msg);
 		
 		data->problem = FALSE;
-	}
-
-	if (data->deleted_files) {
-		GList *tmp = data->deleted_files;
-		while (tmp) {
-			gnome_cmd_file_is_deleted (GNOME_CMD_FILE (tmp->data));
-			tmp = tmp->next;
-		}
 	}
 
 	g_mutex_unlock (data->mutex);
@@ -315,8 +282,6 @@ gnome_cmd_delete_dialog_show (GList *files)
 	data->delete_done = FALSE;
 	data->mutex = NULL;
 	data->msg = NULL;
-	data->deleted_files = NULL;
-	data->file_map = NULL;
 	
 	num_files = g_list_length (data->files);
 

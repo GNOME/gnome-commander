@@ -843,16 +843,6 @@ gnome_cmd_file_update_info (GnomeCmdFile *finfo, GnomeVFSFileInfo *info)
 }
 
 
-void
-gnome_cmd_file_is_deleted (GnomeCmdFile *finfo)
-{
-	g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
-
-	if (has_parent_dir (finfo)
-		&& !gnome_cmd_dir_uses_fam (get_parent_dir (finfo)))
-		gnome_cmd_dir_file_deleted (get_parent_dir (finfo), finfo->info->name);
-}
-
 gboolean
 gnome_cmd_file_is_local (GnomeCmdFile *finfo)
 {

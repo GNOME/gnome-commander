@@ -60,7 +60,6 @@ on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdMkdirD
 	gnome_vfs_uri_unref (uri);
 	
 	if (result == GNOME_VFS_OK) {
-		gnome_cmd_dir_file_created (dialog->priv->dir, filename);
 		gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_active_fs (main_win)->list,
 										filename, TRUE);
 		gnome_cmd_dir_unref (dialog->priv->dir);

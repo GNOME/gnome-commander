@@ -26,6 +26,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-smb-path.h gnome-cmd-smb-path.c \
 	gnome-cmd-dir-pool.h gnome-cmd-dir-pool.c \
 	gnome-cmd-file.h gnome-cmd-file.c \
+	gnome-cmd-file-collection.h gnome-cmd-file-collection.c \
 	gnome-cmd-dir.h gnome-cmd-dir.c \
 	gnome-cmd-includes.h \
 	gnome-cmd-types.h \

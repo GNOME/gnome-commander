@@ -117,7 +117,6 @@ void gnome_cmd_file_update_info (GnomeCmdFile *finfo, GnomeVFSFileInfo *info);
 gboolean gnome_cmd_file_is_local (GnomeCmdFile *finfo);
 gboolean gnome_cmd_file_is_executable (GnomeCmdFile *finfo);
 void gnome_cmd_file_execute (GnomeCmdFile *finfo);
-void gnome_cmd_file_is_deleted (GnomeCmdFile *finfo);
 
 gboolean gnome_cmd_file_needs_update (GnomeCmdFile *finfo);
 

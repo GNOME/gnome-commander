@@ -267,22 +267,6 @@ update_xfer_gui_func (XferData *data)
 	}
 
 	if (data->done) {
-		/* Remove files from the source file-list when a move
-		   operation has finished */
-		if (data->xferOptions & GNOME_VFS_XFER_REMOVESOURCE) {
-			if (data->src_fl && data->src_files)
-				gnome_cmd_file_list_remove_files (
-					data->src_fl, data->src_files);
-		}
-		
-		/* Only update the files if needed */
-		if (data->to_dir) {
-			gnome_cmd_dir_relist_files (data->to_dir, FALSE);
-			gnome_cmd_main_win_focus_file_lists (main_win);
-			gnome_cmd_dir_unref (data->to_dir);
-			data->to_dir = NULL;
-		}
-
 		if (data->win) {
 			gtk_widget_destroy (GTK_WIDGET (data->win));
 			data->win = NULL;

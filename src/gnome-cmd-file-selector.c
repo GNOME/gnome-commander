@@ -515,12 +515,6 @@ drag_data_delete (GtkWidget *widget,
 
 	dir = gnome_cmd_file_selector_get_directory (fs);
 	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-
-	if (!gnome_cmd_dir_uses_fam (dir)) {
-		GList *files = gnome_cmd_file_list_get_selected_files (fs->list);
-		gnome_cmd_file_list_remove_files (fs->list, files);
-		g_list_free (files);
-	}
 }
 
 
@@ -1193,7 +1187,7 @@ on_list_key_pressed                      (GtkCList *clist,
 										  GnomeCmdFileSelector *fs)
 {
 	gboolean ret = FALSE;
-	
+
 	if (gnome_cmd_file_list_keypressed (fs->list, event))
 		ret = TRUE;
 	else if (gnome_cmd_file_selector_keypressed (fs, event))
@@ -2079,11 +2073,8 @@ on_create_symlink_ok (GnomeCmdStringDialog *string_dialog,
 
 	gnome_vfs_uri_unref (uri);
 	
-	if (result == GNOME_VFS_OK) {
-		if (!gnome_cmd_dir_uses_fam (fs->priv->cwd))
-			gnome_cmd_dir_file_created (fs->priv->cwd, name);
+	if (result == GNOME_VFS_OK)
 		return TRUE;
-	}
 	
 	gnome_cmd_string_dialog_set_error_desc (
 		string_dialog, g_strdup (gnome_vfs_result_to_string (result)));

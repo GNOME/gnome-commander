@@ -36,6 +36,7 @@
 #include "gnome-cmd-delete-dialog.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-quicksearch-popup.h"
+#include "gnome-cmd-file-collection.h"
 #include "ls_colors.h"
 
 /* Controlls if file-uris should be escaped for local files when drag-N-dropping
@@ -111,7 +112,7 @@ struct _GnomeCmdFileListPrivate {
 	GnomeVFSListCompareFunc sort_func;
 	gint current_col;
 	gboolean sort_raising[FILE_LIST_NUM_COLUMNS];
-	GList *shown_files;    /* contains GnomeCmdFile pointers */
+	GnomeCmdFileCollection *shown_files;
 	GList *selected_files; /* contains GnomeCmdFile pointers */
 	gint cur_file;
 	gboolean shift_down;
@@ -293,7 +294,7 @@ toggle_file (GnomeCmdFileList *fl,
 	if (row == -1)
 		return;
 	
-	if (row < g_list_length (fl->priv->shown_files))
+	if (row < gnome_cmd_file_collection_get_size (fl->priv->shown_files))
 	{
 		if (g_list_index (fl->priv->selected_files, finfo) == -1)
 			select_file (fl, finfo);
@@ -1241,7 +1242,7 @@ destroy (GtkObject *object)
 {
 	GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (object);
 	
-	gnome_cmd_file_list_free (fl->priv->shown_files);
+	gtk_object_destroy (GTK_OBJECT (fl->priv->shown_files));
 	gnome_cmd_file_list_free (fl->priv->selected_files);
 
 	if (fl->priv)
@@ -1318,7 +1319,7 @@ init (GnomeCmdFileList *fl)
 	gint i;
 	
 	fl->priv = g_new (GnomeCmdFileListPrivate, 1);
-	fl->priv->shown_files = NULL;
+	fl->priv->shown_files = gnome_cmd_file_collection_new ();
 	fl->priv->selected_files = NULL;
 	fl->priv->shift_down = FALSE;
 	fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_name;
@@ -1510,38 +1511,17 @@ cleanup_file_format (FileFormatData *data)
 }
 
 
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_add_file
-*
-*   Purpose:  Add a file to the list
-*
-*   Params:   @fl: The FileList to add the file to
-*             @finfo: The file to add
-*             @in_row: The row to add the file at. Set to -1 to append the file at the end.
-*
-*   Returns: 
-*
-*   Statuses: 
-*
-******************************************************************************/
-void
-gnome_cmd_file_list_add_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
+static void
+add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
 {
 	gint row;
-	FileFormatData data;
 	GtkCList *clist;
+	FileFormatData data;
 
 	clist = GTK_CLIST (fl);
 
 	format_file_for_display (finfo, &data, FALSE);
 	
-
-	/* Add the file to the list
-	 *
-	 */
-	gnome_cmd_file_ref (finfo);
-	fl->priv->shown_files = g_list_append (fl->priv->shown_files, finfo);	
 	if (in_row == -1)
 		row = gtk_clist_append (clist, data.text);	
 	else
@@ -1575,6 +1555,33 @@ gnome_cmd_file_list_add_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in
 							  gnome_cmd_file_get_type_pixmap (finfo),
 							  gnome_cmd_file_get_type_mask (finfo));
 	}
+}
+
+
+/******************************************************************************
+*
+*   Function: gnome_cmd_file_list_add_file
+*
+*   Purpose:  Add a file to the list
+*
+*   Params:   @fl: The FileList to add the file to
+*             @finfo: The file to add
+*             @in_row: The row to add the file at. Set to -1 to append the file at the end.
+*
+*   Returns: 
+*
+*   Statuses: 
+*
+******************************************************************************/
+void
+gnome_cmd_file_list_add_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint row)
+{
+	/* Add the file to the list
+	 *
+	 */
+	gnome_cmd_file_collection_add (fl->priv->shown_files, finfo);
+
+	add_file_to_clist (fl, finfo, row);
 }
 
 
@@ -1699,11 +1706,25 @@ gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 	if (row >= 0) {
 		gtk_clist_remove (GTK_CLIST (fl), row);
 		fl->priv->selected_files = g_list_remove (fl->priv->selected_files, finfo);
-		fl->priv->shown_files = g_list_remove (fl->priv->shown_files, finfo);
-		gnome_cmd_file_unref (finfo);
+		gnome_cmd_file_collection_remove (fl->priv->shown_files, finfo);
 
 		focus_file_at_row (fl, MIN(row, GTK_CLIST(fl)->focus_row));
 	}
+}
+
+
+void
+gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *uri_str)
+{
+	GnomeCmdFile *file;
+	
+	g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+	g_return_if_fail (uri_str != NULL);
+
+	file = gnome_cmd_file_collection_lookup (fl->priv->shown_files, uri_str);
+	g_return_if_fail (GNOME_CMD_IS_FILE (file));
+
+	gnome_cmd_file_list_remove_file (fl, file);
 }
 
 
@@ -1724,9 +1745,8 @@ gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl)
 	g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 	
 	gtk_clist_clear (GTK_CLIST (fl));
-	gnome_cmd_file_list_free (fl->priv->shown_files);
+	gnome_cmd_file_collection_clear (fl->priv->shown_files);
 	gnome_cmd_file_list_free (fl->priv->selected_files);
-	fl->priv->shown_files = NULL;
 	fl->priv->selected_files = NULL;
 }
 
@@ -1816,7 +1836,7 @@ gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl)
 {
 	g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 	
-	return fl->priv->shown_files;
+	return gnome_cmd_file_collection_get_list (fl->priv->shown_files);
 }
 
 
@@ -2131,16 +2151,14 @@ gnome_cmd_file_list_sort (GnomeCmdFileList *fl)
 	gtk_clist_clear (GTK_CLIST (fl));
 
 	/* Resort the files and readd them to the list */
-	list = g_list_copy (gnome_cmd_file_list_get_all_files (fl));
+	list = gnome_cmd_file_list_get_all_files (fl);
 	list = gnome_vfs_list_sort (list, fl->priv->sort_func, fl);
 	while (list != NULL)
 	{
 		GnomeCmdFile *finfo;
 
 		finfo = GNOME_CMD_FILE (list->data);
-		fl->priv->shown_files = g_list_remove (
-			fl->priv->shown_files, finfo);
-		gnome_cmd_file_list_add_file (fl, finfo, -1);		
+		add_file_to_clist (fl, finfo, -1);
 		list = list->next;
 	}
 	g_list_free (list);

@@ -23,6 +23,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-file-collection.h"
 #include "dirlist.h"
 #include "utils.h"
 
@@ -49,6 +50,7 @@ struct _GnomeCmdDirPrivate
 
 	gint ref_cnt;
 	GList *files;
+	GnomeCmdFileCollection *file_collection;
 	GnomeVFSResult last_result;
 	GnomeCmdCon *con;
 	GnomeCmdPath *path;
@@ -72,36 +74,19 @@ monitor_callback (GnomeVFSMonitorHandle *handle,
 				  GnomeVFSMonitorEventType event_type,
 				  GnomeCmdDir *dir)
 {
-	gchar *filename = NULL;
-	
-	switch (event_type)
-	{
-		case GNOME_VFS_MONITOR_EVENT_CHANGED:
-		case GNOME_VFS_MONITOR_EVENT_DELETED:
-		case GNOME_VFS_MONITOR_EVENT_CREATED:
-		{
-			GnomeVFSURI *uri = gnome_vfs_uri_new (info_uri);
-			filename = gnome_vfs_uri_extract_short_name (uri);
-			gnome_vfs_uri_unref (uri);
-		}
-		break;
-		default:
-			break;
-	}
-	
 	switch (event_type)
 	{
 		case GNOME_VFS_MONITOR_EVENT_CHANGED:
 			DEBUG('n', "GNOME_VFS_MONITOR_EVENT_CHANGED for %s\n", info_uri);
-			gnome_cmd_dir_file_changed (dir, filename);
+			gnome_cmd_dir_file_changed (dir, info_uri);
 			break;
 		case GNOME_VFS_MONITOR_EVENT_DELETED:
 			DEBUG('n', "GNOME_VFS_MONITOR_EVENT_DELETED for %s\n", info_uri);
-			gnome_cmd_dir_file_deleted (dir, filename);
+			gnome_cmd_dir_file_deleted (dir, info_uri);
 			break;
 		case GNOME_VFS_MONITOR_EVENT_CREATED:
 			DEBUG('n', "GNOME_VFS_MONITOR_EVENT_CREATED for %s\n", info_uri);
-			gnome_cmd_dir_file_created (dir, filename);
+			gnome_cmd_dir_file_created (dir, info_uri);
 			break;
 		case GNOME_VFS_MONITOR_EVENT_METADATA_CHANGED:
 		case GNOME_VFS_MONITOR_EVENT_STARTEXECUTING:
@@ -169,11 +154,8 @@ destroy (GtkObject *object)
 
 	remove_dir (dir);
 	
-	if (dir->priv->files) {
-		g_list_foreach (dir->priv->files, (GFunc)gnome_cmd_file_unref, NULL);
-		g_list_free (dir->priv->files);
-	}
-
+	gtk_object_destroy (GTK_OBJECT (dir->priv->file_collection));
+	
 	if (dir->priv->path)
 		gtk_object_unref (GTK_OBJECT (dir->priv->path));
 	
@@ -275,6 +257,7 @@ init (GnomeCmdDir *dir)
 	dir->priv->monitor_handle = NULL;
 	dir->priv->monitor_users = 0;
 	dir->priv->files = NULL;
+	dir->priv->file_collection = gnome_cmd_file_collection_new ();
 }
 
 
@@ -562,10 +545,12 @@ on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult result)
 	if (dir->state == DIR_STATE_LISTED) {
 		DEBUG('l', "File listing succeded\n");
 	
-		if (dir->priv->files != NULL)
-			gnome_cmd_file_list_free (dir->priv->files);
-
+		if (gnome_cmd_file_collection_get_size (dir->priv->file_collection))
+			gnome_cmd_file_collection_clear (dir->priv->file_collection);
+		
 		dir->priv->files = create_file_list (dir, infolist);
+		gnome_cmd_file_collection_add_list (dir->priv->file_collection,
+											dir->priv->files);
 		dir->state = DIR_STATE_LISTED;
 		g_list_free (infolist);
 	
@@ -745,28 +730,23 @@ gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename)
 
 
 static gboolean
-file_already_exists (GnomeCmdDir *dir, const gchar *filename)
+file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
 {
-	GList *tmp;
+	GnomeCmdFile *finfo;
 
 	g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
-	g_return_val_if_fail (filename != NULL, TRUE);
+	g_return_val_if_fail (uri_str != NULL, TRUE);
 
-	tmp = dir->priv->files;
-	while (tmp) {
-		GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
-		if (strcmp (gnome_cmd_file_get_name (finfo), filename) == 0)
-			return TRUE;
-		tmp = tmp->next;
-	}
-
-	return FALSE;
+	finfo = gnome_cmd_file_collection_lookup (
+		dir->priv->file_collection, uri_str);
+	
+	return finfo != NULL;
 }
 
 
 /* A file has been created. Create a new GnomeCmdFile object for that file
  */
-void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *filename)
+void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
 {
 	GnomeVFSURI *uri;
 	GnomeVFSResult res;
@@ -776,24 +756,25 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *filename)
 		GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
 
 	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-	g_return_if_fail (filename != NULL);
+	g_return_if_fail (uri_str != NULL);
 
-	if (file_already_exists (dir, filename))
+	if (file_already_exists (dir, uri_str))
 		return;
 	
-	uri = gnome_cmd_dir_get_child_uri (dir, filename);
+	uri = gnome_vfs_uri_new (uri_str);
 	info = gnome_vfs_file_info_new ();	
 	res = gnome_vfs_get_file_info_uri (
 		uri, info, infoOpts);
 	gnome_vfs_uri_unref (uri);
 	
-	if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+	if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) 
 		finfo = GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir));
 	else
 		finfo = gnome_cmd_file_new (info, dir);
-	
-	dir->priv->files = g_list_append (dir->priv->files, finfo);
-	gnome_cmd_file_ref (finfo);
+
+	gnome_cmd_file_collection_add (dir->priv->file_collection, finfo);
+	dir->priv->files = gnome_cmd_file_collection_get_list (
+		dir->priv->file_collection);
 
 	gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CREATED], finfo);
 }
@@ -801,59 +782,51 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *filename)
 
 /* A file has been deleted. Remove the corresponding GnomeCmdFile
  */
-void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *filename)
+void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
 {
-	GList *tmp;
-
+	GnomeCmdFile *finfo;
+	
 	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-	g_return_if_fail (filename != NULL);
+	g_return_if_fail (uri_str != NULL);
 
-	tmp = dir->priv->files;
-	while (tmp) {
-		GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
-		if (strcmp (finfo->info->name, filename) == 0) {
-			dir->priv->files = g_list_remove (dir->priv->files, finfo);
-			gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], finfo);
-			gnome_cmd_file_unref (finfo);
-			return;
-		}
-		tmp = tmp->next;
-	}
+	finfo = gnome_cmd_file_collection_lookup (
+		dir->priv->file_collection, uri_str);
+	g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+	gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], finfo);
+
+	gnome_cmd_file_collection_remove (
+		dir->priv->file_collection, finfo);
+	dir->priv->files = gnome_cmd_file_collection_get_list (
+		dir->priv->file_collection);
 }
 
 
 /* A file has been changed. Find the corresponding GnomeCmdFile, update its
  * GnomeVFSFileInfo
  */
-void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *filename)
+void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 {
-	GList *tmp;
+	GnomeCmdFile *finfo;
+	GnomeVFSResult res;
+	GnomeVFSURI *uri;
+	GnomeVFSFileInfo *info;
+	GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
 
 	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-	g_return_if_fail (filename != NULL);
+	g_return_if_fail (uri_str != NULL);
 
-	tmp = dir->priv->files;
-	
-	while (tmp) {
-		GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
-		if (strcmp (finfo->info->name, filename) == 0) {
-			GnomeVFSResult res;
-			GnomeVFSURI *uri;
-			GnomeVFSFileInfo *info;
-			GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
-	
-			uri = gnome_cmd_dir_get_child_uri (dir, filename);
-			info = gnome_vfs_file_info_new ();
-			res = gnome_vfs_get_file_info_uri (
-				uri, info, infoOpts);
-			gnome_vfs_uri_unref (uri);
+	finfo = gnome_cmd_file_collection_lookup (
+		dir->priv->file_collection, uri_str);
+	g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+
+	uri = gnome_cmd_file_get_uri (finfo);
+	info = gnome_vfs_file_info_new ();
+	res = gnome_vfs_get_file_info_uri (
+		uri, info, infoOpts);
+	gnome_vfs_uri_unref (uri);
 			
-			gnome_cmd_file_update_info (finfo, info);
-			gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CHANGED], finfo);
-			return;
-		}
-		tmp = tmp->next;
-	}
+	gnome_cmd_file_update_info (finfo, info);
+	gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CHANGED], finfo);
 }
 
 
@@ -937,5 +910,3 @@ gnome_cmd_dir_is_local (GnomeCmdDir *dir)
 	
 	return gnome_cmd_con_is_local (dir->priv->con);
 }
-
-

@@ -127,6 +127,9 @@ void
 gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 
 void
+gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *uri_str);
+
+void
 gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files);
 
 void
