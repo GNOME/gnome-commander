@@ -1,4 +1,16 @@
 2004-01-14  Marcus Bjurman  <marbj499@student.liu.se>
+	
+	* src/gnome-cmd-file-selector.c:
+	* doc/keys.txt: 
+	Added "CTRL+." shortcut to copy the cwd from the inactive file-list to
+	the active one.
+
+	* src/gnome-cmd-con.c (gnome_cmd_con_set_cwd):
+	Mixed up == and != in the previous commit for this file.
+
+	* src/gnome-cmd-file-list.c (gnome_cmd_file_list_keypressed):
+	* doc/keys.txt: 
+	Added the shortcut "shift+f10" to bring up the file context menu.
 
 	* src/gnome-cmd-con-list.c
 	* src/gnome-cmd-con-list.h
@@ -10,7 +22,8 @@
 	* src/utils.c
 	* src/utils.h
 	Made it possible to 'cd' to smb paths from the cmdline.
-	Made it possible to customize the filepatterns that are to be treated as backup files.
+	Made it possible to customize the filepatterns that are to be treated
+	as backup files.
 	
 	* src/gnome-cmd-file-list.c:
 	Fixed problem with newly created directories not being focused.
@@ -55,12 +68,13 @@
 	Made the filename in the textbox selected when the dialog in shown.
 
 	* src/gnome-cmd-file-list.c (gnome_cmd_file_list_keypressed):
-	The ordinary + and - keys can now be used to open the select and unselect
-	by pattern dialogs. Before only the keys on the numerical part of the
-	keyboard worked.
+	The ordinary + and - keys can now be used to open the select and
+	unselect by pattern dialogs. Before only the keys on the numerical
+	part of the keyboard worked.
 
 	* src/gnome-cmd-main-win.c:
-	F2 now opens the rename dialog instead of refreshing the active file list.
+	F2 now opens the rename dialog instead of refreshing the active file
+	list.
 
 	* libgcmd/gnome-cmd-dialog.h: 
 	* libgcmd/gnome-cmd-dialog.c: 
@@ -112,9 +126,9 @@
 	Cleaned up file monitoring code. This should fix bug #129325.
 	
 	* src/gnome-cmd-xfer.c (update_xfer_gui_func):
-	Refreshing the target directory after a xfer seems to move the input focus to
-	the corresponding file-selector. Fixed this by simply setting the focus right
-	again after each xfer. This should fix bug #128871.
+	Refreshing the target directory after a xfer seems to move the input
+	focus to the corresponding file-selector. Fixed this by simply setting
+	the focus right again after each xfer. This should fix bug #128871.
 
 2003-12-26  Marcus Bjurman  <marbj499@student.liu.se>
 

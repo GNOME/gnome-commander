@@ -4,16 +4,9 @@
 
 TODO
 ----
-* One should be able add file-patterns that should be treated as backup files. 
-* Keyboard shortcut to bring up the file context menu. The menu key on modern
-  pc keyboards alreay works but we need one that works on other systems too.
 * The advrename dialog should have a feature to convert between
   upper/lower case.  
-* Shortcut to copy the cwd from the other file-selector to the current.
-* History in the (un)select-with-pattern-dialog
-* Change case in advrename.
 * Add authentication callbacks.
-* Remember sorting column and direction.
 * The automatic creation of non-existing directories in the prepare-xfer-dialog
   does not work when the directory above the one to create doesn't exist.
 * Add default dir to ftp-servers
