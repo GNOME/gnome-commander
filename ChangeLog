@@ -1,12 +1,16 @@
 2003-12-23  Marcus Bjurman  <marbj499@student.liu.se>
 
+	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_show_filter):
+	Fixed a crash when pressing the 'x' to close the filter-box. This
+	should fix bug #128764.
+
 	* src/gnome-cmd-dir-indicator.h: 
 	* src/gnome-cmd-dir-indicator.c: 
 	* src/gnome-cmd-file-selector.c:
 	Applied a patch from Kevin James that makes the dir-indicator into
 	a control that can be clicked to changed the cwd. Before applying
 	I did some changes to make the code better follow the GC coding style.
-
+	
 2003-12-17  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* doc/tips_tricks.txt:

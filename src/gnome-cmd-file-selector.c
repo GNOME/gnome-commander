@@ -2344,7 +2344,9 @@ gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c)
 	fs->priv->filter_box = create_hbox (parent, FALSE, 0);
 	label = create_label (parent, _("Filter:"));
 	entry = create_entry (parent, "entry", "");
-	close_btn = create_button (GTK_WIDGET (main_win), "x", GTK_SIGNAL_FUNC (on_filter_box_close));
+	close_btn = create_button_with_data (
+		GTK_WIDGET (main_win), "x",
+		GTK_SIGNAL_FUNC (on_filter_box_close), fs);
   
 	gtk_signal_connect (GTK_OBJECT (entry), "key-press-event",
 			GTK_SIGNAL_FUNC (on_filter_box_keypressed), fs);
