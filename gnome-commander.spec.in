@@ -64,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %{prefix}/bin/*
 %{prefix}/lib/@PACKAGE@/lib*
 %{prefix}/lib/@PACKAGE@/plugins/lib*
-%{prefix}/share/gnome/apps/Applications/@PACKAGE@.desktop
+%{prefix}/share/applications/@PACKAGE@.desktop
 %{prefix}/share/pixmaps/@PACKAGE@/*.png
 %{prefix}/share/pixmaps/@PACKAGE@/*.xpm
 %{prefix}/share/pixmaps/@PACKAGE@/*/*.png
