@@ -91,6 +91,8 @@ struct _GnomeCmdDataPrivate
 	gint                sort_column[2];
 	gboolean            sort_direction[2];
 	gint                main_win_pos[2];
+	gchar               *backup_pattern;
+	GList               *backup_pattern_list;
 	
 	gchar *viewer;
 	gchar *editor;
@@ -1021,6 +1023,8 @@ gnome_cmd_data_save                      (void)
 	gnome_cmd_data_set_string ("/options/start_dir_right", data->priv->start_dirs[1]);
 	gnome_cmd_data_set_string ("/defaults/last_pattern",
 				data->priv->last_pattern);
+	gnome_cmd_data_set_string ("/defaults/backup_pattern",
+				data->priv->backup_pattern);
 	
 	write_cmdline_history ();
 	//write_dir_history ();
@@ -1261,6 +1265,10 @@ gnome_cmd_data_load                      (void)
 		"/options/start_dir_right", g_get_home_dir ());
 	data->priv->last_pattern = gnome_cmd_data_get_string (
 		"/defaults/last_pattern", "");
+	data->priv->backup_pattern = gnome_cmd_data_get_string (
+		"/defaults/backup_pattern", "*~;*.bak");
+	data->priv->backup_pattern_list = patlist_new (data->priv->backup_pattern);
+
 
 	data->priv->quick_connect_server = gnome_cmd_con_ftp_new (
 		"tmp",
@@ -2051,3 +2059,31 @@ gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
 	*y = data->priv->main_win_pos[1];
 }
 
+
+void
+gnome_cmd_data_set_backup_pattern (const gchar *value)
+{
+	if (data->priv->backup_pattern)
+		g_free (data->priv->backup_pattern);
+	
+	data->priv->backup_pattern = g_strdup (value);
+
+	if (data->priv->backup_pattern_list)
+		patlist_free (data->priv->backup_pattern_list);
+
+	data->priv->backup_pattern_list = patlist_new (data->priv->backup_pattern);
+}
+
+
+const gchar *
+gnome_cmd_data_get_backup_pattern (void)
+{
+	return data->priv->backup_pattern;
+}
+
+
+GList *
+gnome_cmd_data_get_backup_pattern_list (void)
+{
+	return data->priv->backup_pattern_list;
+}

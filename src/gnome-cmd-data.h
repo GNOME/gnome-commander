@@ -404,5 +404,13 @@ gnome_cmd_data_set_main_win_pos (gint x, gint y);
 void
 gnome_cmd_data_get_main_win_pos (gint *x, gint *y);
 
+void
+gnome_cmd_data_set_backup_pattern (const gchar *value);
+
+const gchar *
+gnome_cmd_data_get_backup_pattern (void);
+
+GList *
+gnome_cmd_data_get_backup_pattern_list (void);
 
 #endif //__GNOME_CMD_DATA_H__

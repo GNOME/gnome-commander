@@ -19,6 +19,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-con.h"
+#include "gnome-cmd-data.h"
 #include "gnome-cmd-con-home.h"
 #include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-con-list.h"
@@ -352,4 +353,21 @@ gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list)
 
 	return con_list->priv->smb_con;
 }
+
+
+GnomeCmdCon *
+get_smb_con (void)
+{
+	return gnome_cmd_con_list_get_smb (
+		gnome_cmd_data_get_con_list ());
+}
+
+
+GnomeCmdCon *
+get_home_con (void)
+{
+	return gnome_cmd_con_list_get_home (
+		gnome_cmd_data_get_con_list ());
+}
+
 

@@ -265,6 +265,7 @@ gnome_cmd_smb_path_new (const gchar *workgroup,
 GnomeCmdPath *
 gnome_cmd_smb_path_new_from_str (const gchar *path_str)
 {
+	gint i;
 	gchar *s, *t;
 	gchar **v;
 	gchar *a = NULL, *b = NULL, *c = NULL;
@@ -274,8 +275,14 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
 	g_return_val_if_fail (path_str != NULL, NULL);
 	DEBUG('s', "Creating smb-path for %s\n", path_str);
 
-	s = t = g_strdup (path_str);
-
+	t = g_strdup (path_str);
+	
+	/* Replace \ with / */
+	for ( i=0 ; i<strlen(t) ; i++ )
+		if (t[i] == '\\')
+			t[i] = '/';
+	s = g_strdup (t);
+	
 	/* Eat up all leading slashes */
 	while (*s == '/') {
 		if (!strlen (s))

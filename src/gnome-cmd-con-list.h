@@ -101,4 +101,11 @@ gnome_cmd_con_list_get_home (GnomeCmdConList *list);
 GnomeCmdCon *
 gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
 
+GnomeCmdCon *
+get_smb_con (void);
+
+GnomeCmdCon *
+get_home_con (void);
+
+
 #endif //__GNOME_CMD_CON_LIST_H__

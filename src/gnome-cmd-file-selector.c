@@ -259,8 +259,8 @@ file_is_wanted (GnomeCmdFileSelector *fs, GnomeVFSFileInfo *info)
 		if (info->name[0] == '.' 
 			&& gnome_cmd_data_get_hidden_filter ())
 			return FALSE;
-		if (info->name[strlen(info->name)-1] == '~'
-			&& gnome_cmd_data_get_backup_filter ())
+		if (gnome_cmd_data_get_backup_filter () &&
+			patlist_matches (gnome_cmd_data_get_backup_pattern_list (), info->name))
 			return FALSE;
 
 		return TRUE;
@@ -725,7 +725,7 @@ static void
 goto_directory (GnomeCmdFileSelector *fs,
 				const gchar *in_dir)
 {
-	GnomeCmdDir *cur_dir, *new_dir;
+	GnomeCmdDir *cur_dir, *new_dir = NULL;
 	const gchar *focus_dir = NULL;
 	gchar *dir;
 
@@ -751,14 +751,21 @@ goto_directory (GnomeCmdFileSelector *fs,
 	}
 	else {
 		/* check if it's an absolute address or not */
-		if (dir[0] == '/')
+		if (dir[0] == '/') {
 			new_dir = gnome_cmd_dir_new (
 				fs->priv->con, gnome_cmd_con_create_path (fs->priv->con, dir));
+		}
+		else if (strncmp (dir, "\\\\", 2) == 0) {
+			GnomeCmdPath *path = gnome_cmd_con_create_path (get_smb_con (), dir);
+			if (path)
+				new_dir = gnome_cmd_dir_new (get_smb_con (), path);
+		}
 		else
 			new_dir = gnome_cmd_dir_get_child (cur_dir, dir);			
 	}
 
-	gnome_cmd_file_selector_set_directory (fs, new_dir);
+	if (new_dir)
+		gnome_cmd_file_selector_set_directory (fs, new_dir);
 	
 	/* focus the current dir when going back to the parent dir */
 	if (focus_dir)

@@ -706,6 +706,20 @@ store_layout_options (GnomeCmdOptionsDialog *dialog)
  *
  **********************************************************************/
 
+static void
+on_filter_backup_files_toggled (GtkToggleButton *btn, GtkWidget *dialog)
+{
+	GtkWidget *backup_pattern_entry = lookup_widget (dialog, "backup_pattern_entry");
+
+	if (gtk_toggle_button_get_active (btn)) {
+		gtk_widget_set_sensitive (backup_pattern_entry, TRUE);
+		gtk_widget_grab_focus (backup_pattern_entry);
+	}
+	else
+		gtk_widget_set_sensitive (backup_pattern_entry, FALSE);	
+}
+
+
 static GtkWidget*
 create_filter_tab (GtkWidget *parent)
 {
@@ -714,7 +728,8 @@ create_filter_tab (GtkWidget *parent)
 	GtkWidget *vbox;
 	GtkWidget *cat;
 	GtkWidget *cat_box;
-	GtkWidget *check;
+	GtkWidget *check, *backup_check;
+	GtkWidget *entry;
 
 	frame = create_tabframe (parent);
 	hbox = create_tabhbox (parent);
@@ -776,17 +791,31 @@ create_filter_tab (GtkWidget *parent)
 	gtk_toggle_button_set_active (
 		GTK_TOGGLE_BUTTON (check),
 		gnome_cmd_data_get_hidden_filter ());
-	check = create_check (parent, _("Backup files"), "hide_backup_check");
-	gtk_container_add (GTK_CONTAINER (cat_box), check);
+	backup_check = create_check (parent, _("Backup files"), "hide_backup_check");
+	gtk_container_add (GTK_CONTAINER (cat_box), backup_check);
 	gtk_toggle_button_set_active (
-		GTK_TOGGLE_BUTTON (check),
+		GTK_TOGGLE_BUTTON (backup_check),
 		gnome_cmd_data_get_backup_filter ());
 	check = create_check (parent, _("Symlinks"), "hide_symlink_check");
 	gtk_container_add (GTK_CONTAINER (cat_box), check);
 	gtk_toggle_button_set_active (
 		GTK_TOGGLE_BUTTON (check),
 		gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK));
+
+
+	cat_box = create_vbox (parent, FALSE, 0);
+	cat = create_category (parent, cat_box, _("Backup files"));
+	gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 	
+	entry = create_entry (parent, "backup_pattern_entry", gnome_cmd_data_get_backup_pattern ());
+	gtk_entry_set_text (GTK_ENTRY (entry), gnome_cmd_data_get_backup_pattern ());
+	gtk_box_pack_start (GTK_BOX (cat_box), entry, TRUE, FALSE, 0);
+	gtk_widget_set_sensitive (entry, gnome_cmd_data_get_backup_filter ());
+
+	
+	gtk_signal_connect (GTK_OBJECT (backup_check), "toggled",
+						GTK_SIGNAL_FUNC (on_filter_backup_files_toggled), frame);
+
 	return frame;
 }
 
@@ -803,6 +832,7 @@ store_filter_options (GnomeCmdOptionsDialog *dialog)
 	GtkWidget *hide_hidden_check;
 	GtkWidget *hide_backup_check;
 	GtkWidget *hide_symlink_check;
+	GtkWidget *backup_pattern_entry;
 	FilterSettings *f = gnome_cmd_data_get_filter_settings ();
 
 	hide_unknown_check = lookup_widget (GTK_WIDGET (dialog), "hide_unknown_check");
@@ -815,6 +845,7 @@ store_filter_options (GnomeCmdOptionsDialog *dialog)
 	hide_symlink_check = lookup_widget (GTK_WIDGET (dialog), "hide_symlink_check");
 	hide_hidden_check = lookup_widget (GTK_WIDGET (dialog), "hide_hidden_check");
 	hide_backup_check = lookup_widget (GTK_WIDGET (dialog), "hide_backup_check");
+	backup_pattern_entry = lookup_widget (GTK_WIDGET (dialog), "backup_pattern_entry");
 	
 	f->file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] = 
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_unknown_check));
@@ -843,6 +874,9 @@ store_filter_options (GnomeCmdOptionsDialog *dialog)
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_hidden_check));
 	f->backup = 
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (hide_backup_check));
+
+	gnome_cmd_data_set_backup_pattern (
+		gtk_entry_get_text (GTK_ENTRY (backup_pattern_entry)));
 }
 
 

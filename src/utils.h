@@ -110,4 +110,8 @@ gboolean create_dir_if_needed (const gchar *dpath);
 void edit_mimetypes (const gchar *mime_type, gboolean blocking);
 void fix_uri (GnomeVFSURI *uri);
 
+GList *patlist_new (const gchar *pattern_string);
+void patlist_free (GList *pattern_list);
+gboolean patlist_matches (GList *pattern_list, const gchar *s);
+
 #endif //__UTILS_H__

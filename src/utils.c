@@ -30,6 +30,10 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-xfer.h"
 
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+#include <fnmatch.h>
 
 typedef struct
 {
@@ -1417,4 +1421,49 @@ void fix_uri (GnomeVFSURI *uri)
 	g_free (t);
 #endif
 }
+
+
+GList *patlist_new (const gchar *pattern_string)
+{
+	gint i;
+	gchar **ents;
+	GList *patlist = NULL;
+	
+	g_return_val_if_fail (pattern_string != NULL, NULL);
+
+	i = 0;
+	ents = g_strsplit (pattern_string, ";", 0);
+	while (ents[i]) {
+		patlist = g_list_append (patlist, ents[i]);
+		i++;
+	}
+	g_free (ents);
+
+	return patlist;
+}
+
+
+void patlist_free (GList *pattern_list)
+{
+	g_return_if_fail (pattern_list != NULL);
+	
+	g_list_foreach (pattern_list, (GFunc)g_free, NULL);
+	g_list_free (pattern_list);
+}
+
+
+gboolean patlist_matches (GList *pattern_list, const gchar *s)
+{
+	GList *tmp = pattern_list;
+	gint fn_flags = FNM_NOESCAPE|FNM_CASEFOLD;
+
+	while (tmp) {
+		if (fnmatch ((gchar*)tmp->data, s, fn_flags) == 0)
+			return TRUE;
+		tmp = tmp->next;
+	}
+
+	return FALSE;
+}
+
 
