@@ -1,5 +1,8 @@
 2004-04-08  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
+	* src/gnome-cmd-main-menu.c:
+	Some cosmetics to make text of menu shortcuts more compliant with other Gnome apps.
+
 	* src/gnome-cmd-file-list.c:
 	* src/gnome-cmd-file-list.h:
 	* src/gnome-cmd-main-menu.c:

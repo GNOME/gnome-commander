@@ -471,19 +471,19 @@ init (GnomeCmdMainMenu *main_menu)
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("Advanced _Rename Tool"), "CTRL+T", NULL,
+			MENU_TYPE_ITEM, _("Advanced _Rename Tool"), "Ctrl+T", NULL,
 			file_advrename, NULL,
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("Create _Symbolic Link"), "CTRL+SHIFT+F5", NULL,
+			MENU_TYPE_ITEM, _("Create _Symbolic Link"), "Ctrl+Shift+F5", NULL,
 			file_create_symlink, NULL,
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("_Properties..."), "ALT+ENTER", NULL,
+			MENU_TYPE_ITEM, _("_Properties..."), "Alt+ENTER", NULL,
 			file_properties, NULL,
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
@@ -497,7 +497,7 @@ init (GnomeCmdMainMenu *main_menu)
 		},
 		MENUTYPE_SEPARATOR,
 		{
-			MENU_TYPE_ITEM, _("_Quit"), "CTRL+Q", NULL,
+			MENU_TYPE_ITEM, _("_Quit"), "Ctrl+Q", NULL,
 			file_exit, NULL,
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_QUIT,
 			NULL
@@ -508,13 +508,13 @@ init (GnomeCmdMainMenu *main_menu)
 	MenuData mark_menu_uiinfo[] =
 	{
 		{
-			MENU_TYPE_ITEM, _("_Select All"), "CTRL++", NULL,
+			MENU_TYPE_ITEM, _("_Select All"), "Ctrl++", NULL,
 			mark_select_all, NULL,
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("_Unselect All"), "CTRL+-", NULL,
+			MENU_TYPE_ITEM, _("_Unselect All"), "Ctrl+-", NULL,
 			mark_unselect_all, NULL,
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
@@ -545,7 +545,7 @@ init (GnomeCmdMainMenu *main_menu)
 		},
 		MENUTYPE_SEPARATOR,
 		{
-			MENU_TYPE_ITEM, _("_Compare Directries"), "SHIFT+F2", NULL,
+			MENU_TYPE_ITEM, _("_Compare Directries"), "Shift+F2", NULL,
 			mark_compare_directories, NULL,
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
@@ -556,19 +556,19 @@ init (GnomeCmdMainMenu *main_menu)
 	MenuData edit_menu_uiinfo[] =
 	{
 		{
-			MENU_TYPE_ITEM, _("Cu_t"), "CTRL+X", NULL,
+			MENU_TYPE_ITEM, _("Cu_t"), "Ctrl+X", NULL,
 			file_cap_cut, NULL, 
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CUT,
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("_Copy"), "CTRL+C", NULL,
+			MENU_TYPE_ITEM, _("_Copy"), "Ctrl+C", NULL,
 			file_cap_copy, NULL,
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_COPY,
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("_Paste"), "CTRL+V", NULL,
+			MENU_TYPE_ITEM, _("_Paste"), "Ctrl+V", NULL,
 			file_cap_paste, NULL, 
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PASTE,
 			NULL
@@ -588,7 +588,7 @@ init (GnomeCmdMainMenu *main_menu)
 		},
 		MENUTYPE_SEPARATOR,
 		{
-			MENU_TYPE_ITEM, _("_Search..."), "ALT+F7", NULL,
+			MENU_TYPE_ITEM, _("_Search..."), "Alt+F7", NULL,
 			edit_search, NULL, 
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
 			NULL
@@ -611,19 +611,19 @@ init (GnomeCmdMainMenu *main_menu)
 	MenuData view_menu_uiinfo[] =
 	{
 		{
-			MENU_TYPE_ITEM, _("_Back"), "ALT+Left", NULL,
+			MENU_TYPE_ITEM, _("_Back"), "Alt+Left", NULL,
 			view_back, NULL, 
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BACK,
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("_Forward"), "ALT+Right", NULL,
+			MENU_TYPE_ITEM, _("_Forward"), "Alt+Right", NULL,
 			view_forward, NULL, 
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_FORWARD,
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("_Refresh"), "CTRL+R", NULL,
+			MENU_TYPE_ITEM, _("_Refresh"), "Ctrl+R", NULL,
 			view_refresh, NULL, 
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REFRESH,
 			NULL
@@ -679,7 +679,7 @@ init (GnomeCmdMainMenu *main_menu)
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("_Edit Bookmarks..."), "CTRL+D", NULL,
+			MENU_TYPE_ITEM, _("_Edit Bookmarks..."), "Ctrl+D", NULL,
 			bookmarks_edit, NULL, 
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
@@ -703,7 +703,7 @@ init (GnomeCmdMainMenu *main_menu)
 	MenuData options_menu_uiinfo[] =
 	{
 		{
-			MENU_TYPE_ITEM, _("_Options..."), "CTRL+O", NULL,
+			MENU_TYPE_ITEM, _("_Options..."), "Ctrl+O", NULL,
 			options_edit, NULL, 
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
 			NULL
@@ -720,13 +720,13 @@ init (GnomeCmdMainMenu *main_menu)
 	MenuData connections_menu_uiinfo[] =
 	{
 		{
-			MENU_TYPE_ITEM, _("FTP _Connect..."), "CTRL+F", NULL,
+			MENU_TYPE_ITEM, _("FTP _Connect..."), "Ctrl+F", NULL,
 			connections_ftp_connect, NULL, 
 			GNOME_APP_PIXMAP_DATA, menu_ftp_connect_xpm,
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("FTP _Quick Connect..."), "CTRL+G", NULL,
+			MENU_TYPE_ITEM, _("FTP _Quick Connect..."), "Ctrl+G", NULL,
 			connections_ftp_quick_connect, NULL, 
 			GNOME_APP_PIXMAP_DATA, menu_ftp_connect_xpm,
 			NULL
