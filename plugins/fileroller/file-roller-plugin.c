@@ -25,7 +25,6 @@
 #include "file-roller-small.xpm"
 
 #define NAME "File Roller"
-#define COMMENTS "A plugin that adds File Roller shortcuts for creating\nand extracting compressed archives."
 #define COPYRIGHT "Copyright 2003 Marcus Bjurman"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 
@@ -35,7 +34,7 @@ static PluginInfo plugin_nfo = {
 	NAME,
 	VERSION,
 	COPYRIGHT,
-	COMMENTS,
+	NULL,
 	NULL,
 	NULL,
 	NULL,
@@ -474,6 +473,9 @@ PluginInfo *get_plugin_info (void)
 		plugin_nfo.authors = g_new (gchar*, 2);
 		plugin_nfo.authors[0] = AUTHOR;
 		plugin_nfo.authors[1] = NULL;
+		plugin_nfo.comments = g_strdup (
+			_("A plugin that adds File Roller shortcuts for creating "
+			  "and extracting compressed archives."));
 	}
 	return &plugin_nfo;
 }

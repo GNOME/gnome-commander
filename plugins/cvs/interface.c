@@ -238,7 +238,7 @@ create_main_win (CvsPlugin *plugin)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label5), 0, 0.5);
 
-  rev_label = gtk_label_new (_("..."));
+  rev_label = gtk_label_new ("...");
   gtk_widget_ref (rev_label);
   gtk_object_set_data_full (GTK_OBJECT (main_win), "rev_label", rev_label,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -258,7 +258,7 @@ create_main_win (CvsPlugin *plugin)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label9), 0, 0.5);
 
-  author_label = gtk_label_new (_("..."));
+  author_label = gtk_label_new ("...");
   gtk_widget_ref (author_label);
   gtk_object_set_data_full (GTK_OBJECT (main_win), "author_label", author_label,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -278,7 +278,7 @@ create_main_win (CvsPlugin *plugin)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label7), 0, 0.5);
 
-  date_label = gtk_label_new (_("..."));
+  date_label = gtk_label_new ("...");
   gtk_widget_ref (date_label);
   gtk_object_set_data_full (GTK_OBJECT (main_win), "date_label", date_label,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -298,7 +298,7 @@ create_main_win (CvsPlugin *plugin)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label11), 0, 0.5);
 
-  state_label = gtk_label_new (_("..."));
+  state_label = gtk_label_new ("...");
   gtk_widget_ref (state_label);
   gtk_object_set_data_full (GTK_OBJECT (main_win), "state_label", state_label,
                             (GtkDestroyNotify) gtk_widget_unref);
@@ -318,7 +318,7 @@ create_main_win (CvsPlugin *plugin)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label13), 0, 0.5);
 
-  lines_label = gtk_label_new (_("..."));
+  lines_label = gtk_label_new ("...");
   gtk_widget_ref (lines_label);
   gtk_object_set_data_full (GTK_OBJECT (main_win), "lines_label", lines_label,
                             (GtkDestroyNotify) gtk_widget_unref);

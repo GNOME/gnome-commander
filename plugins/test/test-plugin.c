@@ -24,7 +24,6 @@
 #include "test-plugin.xpm"
 
 #define NAME "Example"
-#define COMMENTS "This is an example plugin that is mostly useful as a\nsimple example for aspiring plugin hackers"
 #define COPYRIGHT "Copyright 2003 Marcus Bjurman"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define WEBPAGE "http://www.nongnu.org/gcmd"
@@ -34,7 +33,7 @@ static PluginInfo plugin_nfo = {
 	NAME,
 	VERSION,
 	COPYRIGHT,
-	COMMENTS,
+	NULL,
 	NULL,
 	NULL,
 	NULL,
@@ -230,6 +229,9 @@ PluginInfo *get_plugin_info (void)
 		plugin_nfo.authors = g_new (gchar*, 2);
 		plugin_nfo.authors[0] = AUTHOR;
 		plugin_nfo.authors[1] = NULL;
+		plugin_nfo.comments = g_strdup (
+			_("This is an example plugin that is mostly useful as a "
+			  "simple example for aspiring plugin hackers"));
 	}
 	return &plugin_nfo;
 }
