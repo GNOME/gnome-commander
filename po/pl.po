@@ -538,7 +538,7 @@ msgstr ""
 
 #: src/gnome-cmd-con-device.c:356
 msgid "Mounting %s"
-msgstr "Montowanie %s\n"
+msgstr "Montowanie %s"
 
 #: src/gnome-cmd-con-device.c:374 src/gnome-cmd-con-ftp.c:287
 #, c-format
