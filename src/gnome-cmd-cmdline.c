@@ -248,6 +248,7 @@ init (GnomeCmdCmdline *cmdline)
 	gtk_widget_show (cmdline->priv->cwd);
 	gtk_box_pack_start (GTK_BOX (cmdline), cmdline->priv->cwd,
 						FALSE, TRUE, 2);
+	gtk_label_set_selectable (GTK_LABEL (cmdline->priv->cwd), TRUE);
 
 	label = gtk_label_new ("#");
 	gtk_widget_ref (label);
