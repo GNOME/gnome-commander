@@ -630,18 +630,17 @@ update_drop_con_button            (GnomeCmdMainWin *mw,
 	g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 	g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
+	con = gnome_cmd_file_selector_get_connection (fs);
 	if (!gnome_cmd_data_get_toolbar_visibility ()
-		|| gnome_cmd_data_get_skip_mounting ())
+		|| (gnome_cmd_data_get_skip_mounting () && GNOME_CMD_IS_CON_DEVICE (con)))
 		return;
 	
 	btn = mw->priv->tb_con_drop_btn;
-	con = gnome_cmd_file_selector_get_connection (fs);
 	if (!con)
 		return;
 	g_return_if_fail (GTK_IS_BUTTON (btn));
 
 	if (prev_pixmap) {
-		//gtk_container_remove (GTK_CONTAINER (btn), prev_pixmap);
 		gtk_widget_destroy (prev_pixmap);
 		prev_pixmap = NULL;
 	}
