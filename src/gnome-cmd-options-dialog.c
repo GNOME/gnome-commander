@@ -320,16 +320,17 @@ store_format_options (GnomeCmdOptionsDialog *dialog)
  **********************************************************************/
 
 static void
-on_layout_mode_changed (GnomeCmdCombo *con_combo,
-						GnomeCmdLayout mode,
+on_layout_mode_changed (GtkOptionMenu *optmenu,
 						GtkWidget *dialog)
 {
 	GtkWidget *icon_frame;
+	GnomeCmdLayout mode;
 		
-	g_return_if_fail (GNOME_CMD_IS_COMBO (con_combo));
+	g_return_if_fail (GTK_IS_OPTION_MENU (optmenu));
 
 	icon_frame = lookup_widget (GTK_WIDGET (dialog), "mime_icon_settings_frame");
-
+	mode = (GnomeCmdLayout)gtk_option_menu_get_history (GTK_OPTION_MENU (optmenu));
+	
 	if (icon_frame)
 		gtk_widget_set_sensitive (
 			icon_frame,
@@ -338,15 +339,16 @@ on_layout_mode_changed (GnomeCmdCombo *con_combo,
 
 
 static void
-on_color_mode_changed (GnomeCmdCombo *con_combo,
-					   GnomeCmdLayout mode,
+on_color_mode_changed (GtkOptionMenu *optmenu,
 					   GtkWidget *dialog)
 {
 	GtkWidget *btn;
+	GnomeCmdColorMode mode;
 		
-	g_return_if_fail (GNOME_CMD_IS_COMBO (con_combo));
+	g_return_if_fail (GTK_IS_OPTION_MENU (optmenu));
 
 	btn = lookup_widget (GTK_WIDGET (dialog), "color_btn");
+	mode = (GnomeCmdColorMode)gtk_option_menu_get_history (GTK_OPTION_MENU (optmenu));
 
 	if (btn)
 		gtk_widget_set_sensitive (btn, mode == GNOME_CMD_COLOR_CUSTOM);
@@ -463,9 +465,27 @@ create_layout_tab (GtkWidget *parent)
 {
 	GtkWidget *frame, *hbox, *vbox, *cat;
 	GtkWidget *entry, *spin, *scale, *table, *label, *fpicker, *btn;
-	GtkWidget *combo, *check;
-	gchar *text[2];
-
+	GtkWidget *lm_optmenu, *cm_optmenu, *fe_optmenu, *check;
+	gchar *ext_modes[] = {
+		_("With filename"),
+		_("In separate column"),
+		_("In both columns"),
+		NULL
+	};
+	gchar *gfx_modes[] = {
+		_("No icons"),
+		_("File type icons"),
+		_("MIME icons"),
+		NULL
+	};
+	gchar *color_modes[] = {
+		_("Respect theme colors"),
+		_("Modern"),
+		_("Classic"),
+		_("Custom"),
+		NULL
+	};
+	
 	frame = create_tabframe (parent);
 	hbox = create_tabhbox (parent);
 	gtk_container_add (GTK_CONTAINER (frame), hbox);
@@ -502,93 +522,33 @@ create_layout_tab (GtkWidget *parent)
 	label = create_label (parent, _("Display file extensions:"));
 	table_add (table, label, 0, 2, GTK_FILL);
 
-	combo = gnome_cmd_combo_new (1, 0, NULL);
-	gtk_widget_ref (combo);
-	gtk_widget_show (combo);
-	gtk_object_set_data (GTK_OBJECT (parent), "fe_combo", combo);
-	table_add (table, combo, 1, 2, GTK_FILL|GTK_EXPAND);
-	text[1] = NULL;
-
-	text[0] = _("With filename");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_EXT_DISP_WITH_FNAME);
-	
-	text[0] = _("In separate column");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_EXT_DISP_STRIPPED);
-	
-	text[0] = _("In both columns");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_EXT_DISP_BOTH);
-
-	gnome_cmd_combo_select_data (
-		GNOME_CMD_COMBO (combo),
-		(gpointer)gnome_cmd_data_get_ext_disp_mode ());
+	fe_optmenu = create_option_menu (parent, ext_modes);
+	gtk_object_set_data (GTK_OBJECT (parent), "fe_optmenu", fe_optmenu);
+	table_add (table, fe_optmenu, 1, 2, GTK_FILL|GTK_EXPAND);
 	
 	// Graphical mode
 	label = create_label (parent, _("Graphical mode:"));
 	table_add (table, label, 0, 3, GTK_FILL);
 
-	combo = gnome_cmd_combo_new (1, 0, NULL);
-	gtk_widget_ref (combo);
-	gtk_widget_show (combo);
-	gtk_object_set_data (GTK_OBJECT (parent), "lm_combo", combo);
-	gtk_signal_connect (GTK_OBJECT (combo), "item-selected",
+	lm_optmenu = create_option_menu (parent, gfx_modes);
+	gtk_object_set_data (GTK_OBJECT (parent), "lm_optmenu", lm_optmenu);
+	gtk_signal_connect (GTK_OBJECT (lm_optmenu), "changed",
 						GTK_SIGNAL_FUNC (on_layout_mode_changed), parent);
-	table_add (table, combo, 1, 3, GTK_FILL|GTK_EXPAND);
-	text[1] = NULL;
+	table_add (table, lm_optmenu, 1, 3, GTK_FILL|GTK_EXPAND);
 
-	text[0] = _("MIME icons");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_LAYOUT_MIME_ICONS);
-	
-	text[0] = _("File type icons");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_LAYOUT_TYPE_ICONS);
-	
-	text[0] = _("Text (fastest)");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_LAYOUT_TEXT);
-
-	gnome_cmd_combo_select_data (
-		GNOME_CMD_COMBO (combo),
-		(gpointer)gnome_cmd_data_get_layout ());
-
-	// Colors
-	label = create_label (parent, _("Colors:"));
+	// Color scheme
+	label = create_label (parent, _("Color scheme:"));
 	table_add (table, label, 0, 4, GTK_FILL);
 
 	hbox = create_hbox (parent, FALSE, 6);
 	table_add (table, hbox, 1, 4, GTK_FILL|GTK_EXPAND);
 	
-	combo = gnome_cmd_combo_new (1, 0, NULL);
-	gtk_widget_ref (combo);
-	gtk_widget_show (combo);
-	gtk_object_set_data (GTK_OBJECT (parent), "col_combo", combo);
-	gtk_signal_connect (GTK_OBJECT (combo), "item-selected",
+	cm_optmenu = create_option_menu (parent, color_modes);
+	gtk_object_set_data (GTK_OBJECT (parent), "cm_optmenu", cm_optmenu);
+	gtk_signal_connect (GTK_OBJECT (cm_optmenu), "changed",
 						GTK_SIGNAL_FUNC (on_color_mode_changed), parent);
-	gtk_box_pack_start (GTK_BOX (hbox), combo, TRUE, TRUE, 0);
-	text[1] = NULL;
+	gtk_box_pack_start (GTK_BOX (hbox), cm_optmenu, TRUE, TRUE, 0);
 
-	text[0] = _("Respect theme settings");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_COLOR_NONE);
-	
-	text[0] = _("Modern");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_COLOR_MODERN);
-	
-	text[0] = _("Classic");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_COLOR_CLASSIC);
-	
-	text[0] = _("Custom");
-	gnome_cmd_combo_append (
-		GNOME_CMD_COMBO (combo), text, (gpointer)GNOME_CMD_COLOR_CUSTOM);
-
-	gnome_cmd_combo_select_data (
-		GNOME_CMD_COMBO (combo),
-		(gpointer)gnome_cmd_data_get_color_mode ());
 	
 	btn = create_button_with_data (parent, _("Edit..."), GTK_SIGNAL_FUNC (on_colors_edit), parent);
 	gtk_object_set_data (GTK_OBJECT (parent), "color_btn", btn);
@@ -638,14 +598,24 @@ create_layout_tab (GtkWidget *parent)
 	label = create_label (parent, _("Document icon directory:"));
 	table_add (table, label, 0, 3, (GtkAttachOptions)GTK_FILL);	
 
-	
+
+	gtk_option_menu_set_history (
+		GTK_OPTION_MENU (fe_optmenu),
+		(gint)gnome_cmd_data_get_ext_disp_mode ());
+	gtk_option_menu_set_history (
+		GTK_OPTION_MENU (lm_optmenu),
+		(gint)gnome_cmd_data_get_layout ());
+	gtk_option_menu_set_history (
+		GTK_OPTION_MENU (cm_optmenu),
+		(gint)gnome_cmd_data_get_color_mode ());
+
 	return frame;
 }
 
 static void
 store_layout_options (GnomeCmdOptionsDialog *dialog)
 {
-	GtkWidget *lm_combo, *fe_combo, *col_combo;
+	GtkWidget *lm_optmenu, *fe_optmenu, *cm_optmenu;
 	GtkWidget *list_font_picker;
 	const gchar *list_font;
 	GtkWidget *iconsize_spin = lookup_widget (
@@ -661,18 +631,18 @@ store_layout_options (GnomeCmdOptionsDialog *dialog)
 	GtkWidget *use_ls = lookup_widget (
 		GTK_WIDGET (dialog), "use_ls_colors");
 	
-	lm_combo = lookup_widget (GTK_WIDGET (dialog), "lm_combo");
-	fe_combo = lookup_widget (GTK_WIDGET (dialog), "fe_combo");
-	col_combo = lookup_widget (GTK_WIDGET (dialog), "col_combo");
+	lm_optmenu = lookup_widget (GTK_WIDGET (dialog), "lm_optmenu");
+	fe_optmenu = lookup_widget (GTK_WIDGET (dialog), "fe_optmenu");
+	cm_optmenu = lookup_widget (GTK_WIDGET (dialog), "cm_optmenu");
 	
 	list_font_picker = lookup_widget (GTK_WIDGET (dialog), "list_font_picker");
 
 	gnome_cmd_data_set_ext_disp_mode (
-		(GnomeCmdExtDispMode)gnome_cmd_combo_get_selected_data (GNOME_CMD_COMBO (fe_combo)));
+		(GnomeCmdExtDispMode)gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu)));
 	gnome_cmd_data_set_layout (
-		(GnomeCmdLayout)gnome_cmd_combo_get_selected_data (GNOME_CMD_COMBO (lm_combo)));
+		(GnomeCmdLayout)gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu)));
 	gnome_cmd_data_set_color_mode (
-		(GnomeCmdColorMode)gnome_cmd_combo_get_selected_data (GNOME_CMD_COMBO (col_combo)));
+		(GnomeCmdColorMode)gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu)));
 
 	gnome_cmd_data_set_use_ls_colors (
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls)));
