@@ -1,3 +1,8 @@
+2004-04-26  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* src/gnome-cmd-file-selector.c:
+	i18n of symlink name if SHIFT+CTRL+F5.
+
 2004-04-24  Andras Timar  <timar@gnome.hu>
 
 	* configure.in: Added hu to ALL_LINGUAS.

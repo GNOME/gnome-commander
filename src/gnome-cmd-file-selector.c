@@ -2234,7 +2234,7 @@ gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *
 	GtkWidget *dialog;
 
 	fname = get_utf8 (gnome_cmd_file_get_name (finfo));
-	text = g_strdup_printf ("Symlink to %s", fname);
+	text = g_strdup_printf (_("Symlink to %s"), fname);
 	g_free (fname);
 	dialog = gnome_cmd_string_dialog_new (_("Create Symbolic Link"),
 										  labels,
