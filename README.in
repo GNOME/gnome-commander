@@ -32,25 +32,31 @@ change summaries between the different versions.
 
 2. Contributing
 --------------------------------
-If you're not an programmer but have some good ideas for stuff that you want to
-see in this program, check the TODO file first before sending email.
 
-If you want to submit a patch please do so but remember the following:
-  * Send an email with the patch to the developers mailing list. DO NOT send
-    the patch as an attachment. Instead include it as text right after the
-    your description of what it does.
-  * Please use the -u flag when generating the patch.
+Ideas:
+  If have some good ideas for stuff that you want to see in this program you
+  should check the TODO file first before sending email. After that you're
+  welcome to start a discussion on the mailing lists.
+
+Cool hacks:
+  * Send an email with the patch to the developers mailing list. It is
+    preferred if you put the patch in the body of the mail rather then to send
+    it as an attachment. That way it will still be viewable in archives etc.
+  * Please use the -u flag when generating the patch as it makes the patch
+    more readable.
   * Write a good explanation of what the patch does.
 
-Special note for translators:
-  * Send translations as gzipped or bzipped attachments to avoid losing language
-    specific characters.
+Translations:
+  * Since this program now is in the gnome cvs tree, translations should be
+    commited directly to the tree there. I do not wish to manually commit
+	updates for each language any more.
 
+Graphics:	
+  * Help on the default low-res mime theme (pixmaps/mime-icons) is very welcome.
 
-Special note for pixel tweakers:
-  * Help on the default low-res mime theme (pixmaps/mime-icons) is very welcome.  
-
-
+Plugins:
+  * If you have created a new plugin let us know about it on the mailing list.
+  
 					   
 3. Building
 --------------------------------
