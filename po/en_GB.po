@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-02 16:07-0400\n"
-"PO-Revision-Date: 2004-05-02 16:07-0400\n"
+"POT-Creation-Date: 2004-05-19 19:51-0400\n"
+"PO-Revision-Date: 2004-05-19 19:52-0400\n"
 "Last-Translator: Gareth Owen <gowen72@yahoo.comg>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1012,8 +1012,8 @@ msgid "_Bookmark this Directory..."
 msgstr "_Bookmark this Directory..."
 
 #: src/gnome-cmd-main-menu.c:682
-msgid "_Edit Bookmarks..."
-msgstr "_Edit Bookmarks..."
+msgid "_Manage Bookmarks..."
+msgstr "_Manage Bookmarks..."
 
 #: src/gnome-cmd-main-menu.c:694
 msgid "_Configure Plugins..."
