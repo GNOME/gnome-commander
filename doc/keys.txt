@@ -76,6 +76,7 @@ CTRL+V	    Paste from clipboard to current dir (not a global one yet)
 
 CTRL+A	    Select all files
 CTRL+D      Open favorite directories (bookmarks)
+CTRL+M	    Multi-Rename-Tool
 CTRL+T	    Multi-Rename-Tool
 CTRL+U	    Swap file lists
 

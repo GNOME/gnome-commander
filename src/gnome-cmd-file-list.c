@@ -2522,6 +2522,8 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
 				gnome_cmd_file_list_cap_copy (fl);
 				return TRUE;
 
+			case GDK_m:
+			case GDK_M:
 			case GDK_t:
 			case GDK_T:
 				gnome_cmd_file_list_show_advrename_dialog (fl);
