@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-29 04:07+0200\n"
+"POT-Creation-Date: 2004-05-01 14:42+0200\n"
 "PO-Revision-Date: 2004-04-29 15:11+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -655,10 +655,13 @@ msgstr "Vlastnosti"
 msgid "Other..."
 msgstr "Jiné..."
 
-#: src/gnome-cmd-file-props-dialog.c:63
+#: src/gnome-cmd-file-props-dialog.c:63 src/utils.c:987
 #, c-format
-msgid "%s bytes"
-msgstr "%s bajtů"
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] "%s bajt"
+msgstr[1] "%s bajty"
+msgstr[2] "%s bajtů"
 
 #: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
 msgid "No default application registered"
@@ -1969,17 +1972,17 @@ msgstr ""
 "%s neví, jak otevírat vzdálené souboru. Chcete soubory stáhnout na dočasné "
 "umístění a poté je otevřít?"
 
-#: src/utils.c:1357
+#: src/utils.c:1363
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Vytvářím adresář %s... "
 
-#: src/utils.c:1362
+#: src/utils.c:1368
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Nemohu vytvořit adresář %s"
 
-#: src/utils.c:1368
+#: src/utils.c:1374
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Nemohu číst z adresáře %s: %s\n"
