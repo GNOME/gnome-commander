@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-05 14:48+0100\n"
-"PO-Revision-Date: 2003-12-06 19:02+0100\n"
+"POT-Creation-Date: 2003-12-07 03:48+0100\n"
+"PO-Revision-Date: 2003-12-07 14:13+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -154,6 +154,8 @@ msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
 msgstr ""
+"Een plugin die File-roller mogelijkheden toevoegt voor maken en uitpakken "
+"van archieven."
 
 #: src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
@@ -751,7 +753,7 @@ msgstr "%s bytes"
 msgid "No default application registered"
 msgstr "Geen standaardtoepassing geregistreerd"
 
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2081
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2098
 msgid "Filename:"
 msgstr "Bestandsnaam:"
 
@@ -815,33 +817,33 @@ msgstr[1] "%s van %s kB in %d van %d bestanden geselecteerd"
 msgid "%s Free"
 msgstr "%s vrij"
 
-#: src/gnome-cmd-file-selector.c:1809
+#: src/gnome-cmd-file-selector.c:1826
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Kan geen verbinding maken: %s\n"
 
-#: src/gnome-cmd-file-selector.c:2018 src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-file-selector.c:2035 src/gnome-cmd-make-copy-dialog.c:68
 #: src/gnome-cmd-rename-dialog.c:52
 msgid "No filename entered"
 msgstr "Geen bestandsnaam gegeven"
 
-#: src/gnome-cmd-file-selector.c:2054
+#: src/gnome-cmd-file-selector.c:2071
 msgid "No filename given"
 msgstr "Geen bestandsnaam gegeven"
 
-#: src/gnome-cmd-file-selector.c:2087
+#: src/gnome-cmd-file-selector.c:2104
 msgid "New Text File"
 msgstr "Nieuw tekstbestand"
 
-#: src/gnome-cmd-file-selector.c:2251
+#: src/gnome-cmd-file-selector.c:2268
 msgid "Symlink name:"
 msgstr "Naam symbolische verwijzing:"
 
-#: src/gnome-cmd-file-selector.c:2257
+#: src/gnome-cmd-file-selector.c:2274
 msgid "Create Symbolic Link"
 msgstr "Symbolische verwijzing maken"
 
-#: src/gnome-cmd-file-selector.c:2328
+#: src/gnome-cmd-file-selector.c:2345
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -1885,6 +1887,8 @@ msgstr "downloaden naar /tmp"
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
+"Kan geïnstalleerde afbeelding voor bestandstype niet laden. poging om uit "
+"bronmap te laden...\n"
 
 #: src/imageloader.c:126 src/imageloader.c:152
 #, c-format
@@ -1896,6 +1900,9 @@ msgid ""
 "Cant find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
 msgstr ""
+"Kan de afbeelding nergen vinden. Verzeker u ervan dat u het programma "
+"geïnstalleerd heeft of gnome-commander start vanuit de map gnome-commander-x."
+"y.z/src.\n"
 
 #: src/imageloader.c:150
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
@@ -1921,6 +1928,9 @@ msgid ""
 "When parsing the users and groups on this system it was found that the user %"
 "s is part of the group %s. This user can however not be found.\n"
 msgstr ""
+"Bij analyseren van de gebruikers en groepen op dit systeem bleek de "
+"gebruiker %s in de groep %s te zitten. Deze gebruiker is echter nergens te "
+"vinden.\n"
 
 #: src/plugin_manager.c:294
 msgid "Disable"
