@@ -853,6 +853,19 @@ gnome_cmd_file_is_executable (GnomeCmdFile *finfo)
 
 
 void
+gnome_cmd_file_is_deleted (GnomeCmdFile *finfo)
+{
+	g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+
+	if (has_parent_dir (finfo)) {
+		gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
+		gnome_cmd_dir_file_deleted (get_parent_dir (finfo), uri_str);
+		g_free (uri_str);
+	}
+}
+
+
+void
 gnome_cmd_file_execute (GnomeCmdFile *finfo)
 {
 	gchar *fpath, *dpath, *cmd;

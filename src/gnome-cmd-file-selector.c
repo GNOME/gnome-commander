@@ -531,6 +531,10 @@ drag_data_delete (GtkWidget *widget,
 
 	dir = gnome_cmd_file_selector_get_directory (fs);
 	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+
+	GList *files = gnome_cmd_file_list_get_selected_files (fs->list);
+	gnome_cmd_file_list_remove_files (fs->list, files);
+	g_list_free (files);
 }
 
 
@@ -2031,10 +2035,15 @@ on_create_symlink_ok (GnomeCmdStringDialog *string_dialog,
 	result = gnome_vfs_create_symbolic_link (
 		uri, gnome_cmd_file_get_uri_str (fs->priv->sym_file));
 
-	gnome_vfs_uri_unref (uri);
-	
-	if (result == GNOME_VFS_OK)
+	if (result == GNOME_VFS_OK) {
+		gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+		gnome_cmd_dir_file_created (fs->priv->cwd, uri_str);
+		g_free (uri_str);
+		gnome_vfs_uri_unref (uri);	
 		return TRUE;
+	}
+	
+	gnome_vfs_uri_unref (uri);
 	
 	gnome_cmd_string_dialog_set_error_desc (
 		string_dialog, g_strdup (gnome_vfs_result_to_string (result)));

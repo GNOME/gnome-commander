@@ -57,17 +57,21 @@ on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdMkdirD
 		GNOME_VFS_PERM_GROUP_READ|GNOME_VFS_PERM_GROUP_EXEC|
 		GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
 
-	gnome_vfs_uri_unref (uri);
-	
 	if (result == GNOME_VFS_OK) {
+		gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+		gnome_cmd_dir_file_created (dialog->priv->dir, uri_str);
+		g_free (uri_str);
 		gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_active_fs (main_win)->list,
 										filename, TRUE);
 		gnome_cmd_dir_unref (dialog->priv->dir);
+		gnome_vfs_uri_unref (uri);
 		return TRUE;
 	}
 	
-	gnome_cmd_string_dialog_set_error_desc (string_dialog,
-											g_strdup (gnome_vfs_result_to_string (result)));
+	gnome_vfs_uri_unref (uri);
+	gnome_cmd_string_dialog_set_error_desc (
+		string_dialog,
+		g_strdup (gnome_vfs_result_to_string (result)));
 	return FALSE;
 }
 

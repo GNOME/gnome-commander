@@ -239,6 +239,17 @@ update_delete_status_widgets (DeleteData *data)
 		if (data->vfs_status != GNOME_VFS_OK)
 			create_error_dialog (gnome_vfs_result_to_string (data->vfs_status));
 
+		if (data->files) {
+			GList *tmp = data->files;
+			while (tmp) {
+				GnomeCmdFile *finfo = GNOME_CMD_FILE (tmp->data);
+				GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
+				if (!gnome_vfs_uri_exists (uri))
+					gnome_cmd_file_is_deleted (finfo);
+				tmp = tmp->next;
+			}
+		}
+		
 		gtk_widget_destroy (data->progwin);
 
 		cleanup (data);

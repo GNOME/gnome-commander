@@ -63,11 +63,6 @@ struct _GnomeCmdMainWinPrivate
 	GtkWidget *focused_widget;
 	GtkAccelGroup *accel_group;
 
-	GtkWidget *back_btn;
-	GtkWidget *forward_btn;
-	
-	GtkWidget *con_drop_btn;
-
 	GtkWidget *view_btn;
 	GtkWidget *edit_btn;
 	GtkWidget *copy_btn;
@@ -84,6 +79,13 @@ struct _GnomeCmdMainWinPrivate
 	GtkWidget *cmdline_sep;
 	GtkWidget *buttonbar;
 	GtkWidget *buttonbar_sep;
+
+	GtkWidget *tb_back_btn;
+	GtkWidget *tb_fwd_btn;
+	GtkWidget *tb_con_drop_btn;
+	GtkWidget *tb_cap_cut_btn;
+	GtkWidget *tb_cap_copy_btn;
+	GtkWidget *tb_cap_paste_btn;
 };
 
 static GnomeAppClass *parent_class = NULL;
@@ -189,9 +191,12 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 			
 			switch (i)
 			{
-			  case  1:  mw->priv->back_btn = w;  break;
-			  case  2:  mw->priv->forward_btn = w;  break;
-			  case 13:  mw->priv->con_drop_btn = w;  break;
+				case  1: mw->priv->tb_back_btn = w;  break;
+				case  2: mw->priv->tb_fwd_btn = w;  break;
+				case  5: mw->priv->tb_cap_cut_btn = w;  break;
+				case  6: mw->priv->tb_cap_copy_btn = w;  break;
+				case  7: mw->priv->tb_cap_paste_btn = w;  break;
+				case 11: mw->priv->tb_con_drop_btn = w;  break;
 			}
 		}
 
@@ -200,6 +205,7 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 	}
 
 	mw->priv->toolbar_sep = create_separator (FALSE);
+	gtk_widget_set_sensitive (mw->priv->tb_cap_paste_btn, FALSE);
 }
 
 
@@ -601,9 +607,9 @@ update_browse_buttons             (GnomeCmdMainWin *mw,
 	
 	if (fs == gnome_cmd_main_win_get_active_fs (mw)) {
 		if (gnome_cmd_data_get_toolbar_visibility ()) {
-			gtk_widget_set_sensitive (mw->priv->back_btn,
+			gtk_widget_set_sensitive (mw->priv->tb_back_btn,
 									  gnome_cmd_file_selector_can_back (fs));
-			gtk_widget_set_sensitive (mw->priv->forward_btn,
+			gtk_widget_set_sensitive (mw->priv->tb_fwd_btn,
 									  gnome_cmd_file_selector_can_forward (fs));
 		}
 
@@ -628,7 +634,7 @@ update_drop_con_button            (GnomeCmdMainWin *mw,
 		|| gnome_cmd_data_get_skip_mounting ())
 		return;
 	
-	btn = mw->priv->con_drop_btn;
+	btn = mw->priv->tb_con_drop_btn;
 	con = gnome_cmd_file_selector_get_connection (fs);
 	if (!con)
 		return;
@@ -1310,6 +1316,13 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
 		GNOMEUIINFO_SEPARATOR,
 		{
 			GNOME_APP_UI_ITEM, NULL,
+			_("Copy file names"),
+			edit_copy_fnames, NULL, NULL,
+			GNOME_APP_PIXMAP_DATA, copy_file_names_xpm,
+			0, 0, NULL
+		},
+		{
+			GNOME_APP_UI_ITEM, NULL,
 			_("Cut"),
 			file_cap_cut, NULL, NULL,
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_CUT,
@@ -1339,20 +1352,11 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
 		GNOMEUIINFO_SEPARATOR,
 		{
 			GNOME_APP_UI_ITEM, NULL,
-			_("Copy file names"),
-			edit_copy_fnames, NULL, NULL,
-			GNOME_APP_PIXMAP_DATA, copy_file_names_xpm,
-			0, 0, NULL
-		},
-		GNOMEUIINFO_SEPARATOR,
-		{
-			GNOME_APP_UI_ITEM, NULL,
 			_("FTP Connect"),
 			connections_ftp_connect, NULL, NULL,
 			GNOME_APP_PIXMAP_DATA, ftp_connect_xpm,
 			0, 0, NULL
 		},
-		GNOMEUIINFO_SEPARATOR,
 		{
 			GNOME_APP_UI_ITEM, NULL,
 			_("Drop connection"),
