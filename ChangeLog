@@ -1,4 +1,22 @@
+2004-01-13  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file-selector.c: 
+	* src/gnome-cmd-dir-indicator.h: 
+	* src/gnome-cmd-dir-indicator.c:
+	Added button to the directory indicator to popup the directory history.
+
 2004-01-12  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-rename-dialog.c (gnome_cmd_rename_dialog_new):
+	Made the filename in the textbox selected when the dialog in shown.
+
+	* src/gnome-cmd-file-list.c (gnome_cmd_file_list_keypressed):
+	The ordinary + and - keys can now be used to open the select and unselect
+	by pattern dialogs. Before only the keys on the numerical part of the
+	keyboard worked.
+
+	* src/gnome-cmd-main-win.c:
+	F2 now opens the rename dialog instead of refreshing the active file list.
 
 	* libgcmd/gnome-cmd-dialog.h: 
 	* libgcmd/gnome-cmd-dialog.c: 
