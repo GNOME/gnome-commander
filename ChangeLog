@@ -1,3 +1,7 @@
+2003-12-03  Danilo Šegan  <dsegan@gmx.net>
+
+	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.
+
 2003-12-02  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_reload): 
@@ -422,7 +426,7 @@
 	* src/gnome-cmd-options-dialog.c:
 	Applied a patch that added an option to disable the
 	'confirm before delete' dialog.
-	The patch was made by Damian Gaw�da <roniuch@stevenet.eu.org>
+	The patch was made by Damian Gawêda <roniuch@stevenet.eu.org>
 
 	* src/utils.c:
 	Added dialog when an executable text file is opened that asks if the

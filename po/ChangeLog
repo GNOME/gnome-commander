@@ -1,5 +1,9 @@
 2003-12-03  Danilo Šegan  <dsegan@gmx.net>
 
+	* sr.po, sr@Latn.po: Added Serbian translation.
+
+2003-12-03  Danilo Šegan  <dsegan@gmx.net>
+
 	* POTFILES.in: Added missing files, comment and sorted.
 
 2003-12-02   Vincent van Adrighem  <adrighem@gnome.org>
