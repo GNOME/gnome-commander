@@ -368,7 +368,6 @@ gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
 	if (dir) {
 		g_free (uri_str);
 		gnome_vfs_uri_unref (uri);
-		gtk_object_destroy (GTK_OBJECT (path));
 		gnome_cmd_file_update_info (GNOME_CMD_FILE (dir), info);
 		return dir;
 	}
