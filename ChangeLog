@@ -1,3 +1,14 @@
+2004-04-28  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-dir-indicator.c: 
+	* src/gnome-cmd-dir-indicator.h: 
+	* src/utils.c:
+	Added a bookmarks shortcut to the directory indicator.
+
+	* src/gnome-cmd-file.c (gnome_cmd_file_get_real_path):
+	Fixed crash when trying to copy the currently selected files
+	path to the cmdline by pressing ctrl+shift+enter.
+
 2004-04-26  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
 	* src/gnome-cmd-file-selector.c:
@@ -10,9 +21,30 @@
 2004-04-21  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
 	* src/gnome-cmd-file-list.c:
-	Added shortcut CTRL+M to Multi-Rename-Tool for better compliance with Total Commander.
+	Added shortcut CTRL+M to Multi-Rename-Tool for better compliance with
+	Total Commander.
+
+2004-04-19  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-main-win.c (update_drop_con_button):
+	Fixed problem with the disconnect button not behaving correctly when
+	connecting to ftp-servers and being in supermount mode.
+
+	* src/gnome-cmd-xfer.c:
+	Fixed problem with infinite recursion when drag n dropping a directory
+	to it self. This should fix big #138933.
+
+	* src/gnome-cmd-main-win.c
+	(gnome_cmd_main_win_update_list_orientation):
+	Fixed a bug that made the file-lists change size when browsing
+	directories. This should fix big #128872.
 
 2004-04-17  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-dir.h:
+	* src/gnome-cmd-file.c:
+	Fixed update after renaming without FAM.
 
 	* src/gnome-cmd-prepare-xfer-dialog.c:
 	Fixed bug #136643.
@@ -20,7 +52,7 @@
 2004-04-16  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/gnome-cmd-xfer.c (update_xfer_gui_func):
-	Removed debug printf.
+	Removed a debug printf.
 
 	* src/cap.c: 
 	* src/gnome-cmd-main-win.c:
