@@ -353,10 +353,10 @@ on_help_clicked                        (GtkButton       *button,
 
 
 static void
-on_refresh_clicked                        (GtkButton       *button,
-									   GnomeCmdMainWin *mw)
+on_rename_clicked                      (GtkButton       *button,
+										GnomeCmdMainWin *mw)
 {
-	view_refresh (NULL, mw);
+	file_rename (NULL, mw);
 }
 
 
@@ -1137,7 +1137,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
 				on_help_clicked (NULL, mw);
 				return TRUE;
 			case GDK_F2:
-				on_refresh_clicked (NULL, mw);
+				on_rename_clicked (NULL, mw);
 				return TRUE;
 			case GDK_F3:
 				on_view_clicked (NULL, mw);
