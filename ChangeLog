@@ -1,5 +1,14 @@
 2003-12-02  Marcus Bjurman  <marbj499@student.liu.se>
 
+	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_reload): 
+	* src/gnome-cmd-xfer.c (update_xfer_gui_func): 
+	* src/gnome-cmd-dir.c: 
+	* src/gnome-cmd-dir.h:
+	Fixed some issues with file-lists not updating.
+
+	* src/gnome-cmd-dir.c (gnome_cmd_dir_new_with_con):
+	Plain wrong object_destroy removed.
+	
 	* gnome-commander.spec.in:
 	Changed the desktop dir to match the new one.
 
