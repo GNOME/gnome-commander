@@ -1,5 +1,19 @@
 2003-12-27  Marcus Bjurman  <marbj499@student.liu.se>
 
+	* src/Makefile.am:
+	* src/gnome-cmd-delete-dialog.c:
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-file-collection.c:
+	* src/gnome-cmd-file-collection.h:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-mkdir-dialog.c:
+	* src/gnome-cmd-xfer.c:
+	Cleaned up file monitoring code. This should fix bug #129325.
+	
 	* src/gnome-cmd-xfer.c (update_xfer_gui_func):
 	Refreshing the target directory after a xfer seems to move the input focus to
 	the corresponding file-selector. Fixed this by simply setting the focus right
