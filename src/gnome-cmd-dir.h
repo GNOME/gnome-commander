@@ -114,6 +114,7 @@ void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog);
 
 GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);
 void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path);
+void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
 gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
 
 GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filename);

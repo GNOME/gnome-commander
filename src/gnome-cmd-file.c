@@ -303,6 +303,13 @@ gnome_cmd_file_rename (GnomeCmdFile *finfo, const gchar *new_name)
 		GNOME_VFS_SET_FILE_INFO_NAME);
 	gnome_vfs_uri_unref (uri);
 
+	if (result == GNOME_VFS_OK && has_parent_dir (finfo)) {
+		gnome_cmd_file_update_info (finfo, new_info);
+		gnome_cmd_dir_file_renamed (get_parent_dir (finfo), finfo);
+		if (GNOME_CMD_IS_DIR (finfo))
+			gnome_cmd_dir_update_path (GNOME_CMD_DIR (finfo));
+	}
+
 	return result;
 }
 

@@ -645,6 +645,26 @@ gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path)
 }
 
 
+void
+gnome_cmd_dir_update_path (GnomeCmdDir *dir)
+{
+	GnomeCmdPath *path;
+	GnomeCmdDir *parent;
+	
+	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+
+	parent = gnome_cmd_dir_get_parent (dir);
+	if (!parent)
+		return;
+	
+	path = gnome_cmd_path_get_child (
+		gnome_cmd_dir_get_path (parent),
+		gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)));
+	if (path)
+		gnome_cmd_dir_set_path (dir, path);
+}
+
+
 gchar *
 gnome_cmd_dir_get_display_path (GnomeCmdDir *dir)
 {
