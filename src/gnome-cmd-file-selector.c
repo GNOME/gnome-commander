@@ -1138,6 +1138,19 @@ on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
 }
 
 
+static gboolean
+set_home_connection (GnomeCmdFileSelector *fs)
+{
+	g_printerr ("Setting home connection\n");
+	gnome_cmd_file_selector_set_connection (
+		fs,
+		gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()),
+		NULL);
+		
+	return FALSE;
+}
+
+
 static void
 on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileSelector *fs)
 {
@@ -1149,20 +1162,24 @@ on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileSelecto
 		create_error_dialog (msg);
 		g_free (msg);
 	}
-	
+
 	gtk_signal_disconnect_by_data (GTK_OBJECT (fs->priv->cwd), fs);
 	fs->priv->connected_dir = NULL;
 	gnome_cmd_dir_unref (fs->priv->cwd);
 	set_cursor_default_for_widget (GTK_WIDGET (fs));
 	gtk_widget_set_sensitive (GTK_WIDGET (fs), TRUE);
 
-	if (fs->priv->lwd) {
+	if (fs->priv->lwd
+		&& fs->priv->con == gnome_cmd_dir_get_connection (fs->priv->lwd)) {
 		fs->priv->cwd = fs->priv->lwd;
 		gtk_signal_connect (GTK_OBJECT (fs->priv->cwd), "list-ok",
 							GTK_SIGNAL_FUNC (on_dir_list_ok), fs);
 		gtk_signal_connect (GTK_OBJECT (fs->priv->cwd), "list-failed",
 							GTK_SIGNAL_FUNC (on_dir_list_failed), fs);
 		fs->priv->lwd = NULL;
+	}
+	else {
+		g_timeout_add (1, (GtkFunction)set_home_connection, fs);
 	}
 }
 
