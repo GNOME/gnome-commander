@@ -90,6 +90,7 @@ struct _GnomeCmdDataPrivate
 	guint               gui_update_rate;
 	gint                sort_column[2];
 	gboolean            sort_direction[2];
+	gint                main_win_pos[2];
 	
 	gchar *viewer;
 	gchar *editor;
@@ -963,6 +964,13 @@ gnome_cmd_data_save                      (void)
 							   data->priv->buttonbar_visibility);
 
 	gnome_cmd_data_set_int (
+		"/options/main_win_pos_x",
+		data->priv->main_win_pos[0]);
+	gnome_cmd_data_set_int (
+		"/options/main_win_pos_y",
+		data->priv->main_win_pos[1]);
+	
+	gnome_cmd_data_set_int (
 		"/options/sort_column_left", data->priv->sort_column[0]);
 	gnome_cmd_data_set_bool (
 		"/options/sort_direction_left", data->priv->sort_direction[0]);
@@ -994,6 +1002,20 @@ gnome_cmd_data_save                      (void)
 				gnome_cmd_con_ftp_get_host_port (data->priv->quick_connect_server));
 	gnome_cmd_data_set_string ("/quick-connect/user",
 				gnome_cmd_con_ftp_get_user_name (data->priv->quick_connect_server));
+
+	gnome_config_set_int (
+		"/gnome-commander-size/main_win/width",
+		data->priv->main_win_width);
+	gnome_config_set_int (
+		"/gnome-commander-size/main_win/height",
+		data->priv->main_win_height);
+
+	for ( i=0 ; i<FILE_LIST_NUM_COLUMNS ; i++ ) {
+		gchar *tmp = g_strdup_printf (
+			"/gnome-commander-size/column-widths/fs_col_width%d", i);
+		gnome_config_set_int (tmp, data->priv->fs_col_width[i]);
+		g_free (tmp);
+	}
 	
 	gnome_cmd_data_set_string ("/options/start_dir_left", data->priv->start_dirs[0]);
 	gnome_cmd_data_set_string ("/options/start_dir_right", data->priv->start_dirs[1]);
@@ -1188,6 +1210,10 @@ gnome_cmd_data_load                      (void)
 		"/options/cmdline_visibility", TRUE);
 	data->priv->gui_update_rate = gnome_cmd_data_get_int (
 		"/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
+	data->priv->main_win_pos[0] = gnome_cmd_data_get_int (
+		"/options/main_win_pos_x", -1);
+	data->priv->main_win_pos[1] = gnome_cmd_data_get_int (
+		"/options/main_win_pos_y", -1);
 
 	if (data->priv->gui_update_rate < MIN_GUI_UPDATE_RATE)
 		data->priv->gui_update_rate = MIN_GUI_UPDATE_RATE;
@@ -1426,7 +1452,7 @@ gnome_cmd_data_get_ext_disp_mode        (void)
 
 
 void
-gnome_cmd_data_set_position             (gint width, gint height)
+gnome_cmd_data_set_main_win_size        (gint width, gint height)
 {
 	data->priv->main_win_width = width;
 	data->priv->main_win_height = height;
@@ -1434,31 +1460,10 @@ gnome_cmd_data_set_position             (gint width, gint height)
 
 
 void
-gnome_cmd_data_get_position             (gint *width, gint *height)
+gnome_cmd_data_get_main_win_size        (gint *width, gint *height)
 {
 	*width = data->priv->main_win_width;
 	*height = data->priv->main_win_height;
-}
-
-
-void
-gnome_cmd_data_save_position            (void)
-{
-	gint i;
-	
-	gnome_config_set_int (
-		"/gnome-commander-size/main_win/width",
-		data->priv->main_win_width);
-	gnome_config_set_int (
-		"/gnome-commander-size/main_win/height",
-		data->priv->main_win_height);
-
-	for ( i=0 ; i<FILE_LIST_NUM_COLUMNS ; i++ ) {
-		gchar *tmp = g_strdup_printf (
-			"/gnome-commander-size/column-widths/fs_col_width%d", i);
-		gnome_config_set_int (tmp, data->priv->fs_col_width[i]);
-		g_free (tmp);
-	}
 }
 
 
@@ -2023,4 +2028,19 @@ gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean directi
 	}
 }
 
+
+void
+gnome_cmd_data_set_main_win_pos (gint x, gint y)
+{
+	data->priv->main_win_pos[0] = x;
+	data->priv->main_win_pos[1] = y;
+}
+
+
+void
+gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
+{
+	*x = data->priv->main_win_pos[0];
+	*y = data->priv->main_win_pos[1];
+}
 

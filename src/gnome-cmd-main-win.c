@@ -420,7 +420,7 @@ static void
 on_quit_clicked                        (GtkButton       *button,
                                         GnomeCmdMainWin *mw)
 {
-	gtk_widget_destroy (GTK_WIDGET (mw));
+	file_exit (NULL, mw);
 }
 
 
@@ -586,7 +586,7 @@ on_size_allocate                  (GtkWidget *widget,
 								   GtkAllocation *allocation,
 								   gpointer user_data)
 {
-	gnome_cmd_data_set_position (allocation->width, allocation->height);
+	gnome_cmd_data_set_main_win_size (allocation->width, allocation->height);
 }
 
 
@@ -681,6 +681,27 @@ on_fs_dir_change                  (GnomeCmdFileSelector *fs,
 }
 
 
+static void
+restore_size_and_pos (GnomeCmdMainWin *mw)
+{
+	gint w, h, x, y;
+	
+	gnome_cmd_data_get_main_win_size (&w, &h);
+	gtk_widget_set_usize (GTK_WIDGET (main_win), w, h);
+
+	gnome_cmd_data_get_main_win_pos (&x, &y);
+	if (x >= 0 && y >= 0)
+		gtk_window_move (GTK_WINDOW (mw), x, y);
+}
+
+
+static void
+on_delete_event (GnomeCmdMainWin *mw, GdkEvent *event, gpointer user_data)
+{
+	file_exit (NULL, mw);
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -705,7 +726,7 @@ destroy (GtkObject *object)
 	if (con_home == gnome_cmd_dir_get_connection (dir))
 		gnome_cmd_data_set_start_dir (
 			1, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
-		
+
 	gtk_main_quit ();
 }
 
@@ -746,8 +767,6 @@ class_init (GnomeCmdMainWinClass *class)
 static void
 init (GnomeCmdMainWin *mw)
 {
-	gint main_win_width, main_win_height;
-	
 	/* It is very important that this global variable gets assigned here so that
 	 * child widgets to this window can use that variable when initializing
 	 */
@@ -763,12 +782,10 @@ init (GnomeCmdMainWin *mw)
 	mw->priv->buttonbar = NULL;
 	mw->priv->buttonbar_sep = NULL;
 
-	gnome_cmd_data_get_position (&main_win_width, &main_win_height);
-
 	gnome_app_construct (GNOME_APP (main_win), "gnome-commander", "GNOME Commander");
 	gtk_object_set_data (GTK_OBJECT (main_win), "main_win", main_win);
+	restore_size_and_pos (mw);
 	gtk_window_set_policy (GTK_WINDOW (main_win), TRUE, TRUE, FALSE);
-	gtk_widget_set_usize (GTK_WIDGET (main_win), main_win_width, main_win_height);
 
 	mw->priv->vbox = gtk_vbox_new (FALSE, 0);
 	gtk_widget_ref (mw->priv->vbox);
@@ -864,6 +881,9 @@ init (GnomeCmdMainWin *mw)
 	gtk_signal_connect (
 		GTK_OBJECT (mw), "size-allocate",
 		GTK_SIGNAL_FUNC (on_size_allocate), mw);
+	gtk_signal_connect (
+		GTK_OBJECT (mw), "delete-event",
+		GTK_SIGNAL_FUNC (on_delete_event), mw);
 	gtk_signal_connect (
 		GTK_OBJECT (mw->priv->paned),
 		"button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);	

@@ -234,12 +234,6 @@ options_edit_mime_types             (GtkMenuItem     *menuitem,
                                      gpointer        not_used);
 
 
-void
-options_save_position               (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-
 /************** Connections Menu **************/
 void
 connections_ftp_connect             (GtkMenuItem     *menuitem,

@@ -177,13 +177,10 @@ gboolean
 gnome_cmd_data_get_other_filter         (void);
 
 void
-gnome_cmd_data_set_position             (gint width, gint height);
+gnome_cmd_data_set_main_win_size        (gint width, gint height);
 
 void
-gnome_cmd_data_get_position             (gint *width, gint *height);
-
-void
-gnome_cmd_data_save_position            (void);
+gnome_cmd_data_get_main_win_size        (gint *width, gint *height);
 
 void
 gnome_cmd_data_get_sort_params          (GnomeCmdFileList *fl, gint *col, gboolean *direction);
@@ -397,6 +394,12 @@ gnome_cmd_data_set_auto_load_plugins (GList *plugins);
 
 guint
 gnome_cmd_data_get_gui_update_rate (void);
+
+void
+gnome_cmd_data_set_main_win_pos (gint x, gint y);
+
+void
+gnome_cmd_data_get_main_win_pos (gint *x, gint *y);
 
 
 #endif //__GNOME_CMD_DATA_H__

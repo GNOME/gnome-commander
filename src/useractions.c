@@ -268,6 +268,11 @@ void
 file_exit                           (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
+	gint x, y;
+	
+	gdk_window_get_root_origin (GTK_WIDGET (main_win)->window, &x, &y);
+	gnome_cmd_data_set_main_win_pos (x, y);
+
 	gtk_widget_destroy (GTK_WIDGET (main_win));
 }
 
@@ -498,15 +503,6 @@ options_edit_mime_types             (GtkMenuItem     *menuitem,
 {
 	edit_mimetypes (NULL, FALSE);
 }
-
-
-void
-options_save_position               (GtkMenuItem     *menuitem,
-                                     gpointer        not_used)
-{
-	gnome_cmd_data_save_position ();
-}
-
 
 
 /************** Connections Menu **************/

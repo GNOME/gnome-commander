@@ -707,12 +707,6 @@ init (GnomeCmdMainMenu *main_menu)
 			GNOME_APP_PIXMAP_NONE, 0,
 			NULL
 		},
-		{
-			MENU_TYPE_ITEM, _("Save _Position"), "", NULL,
-			options_save_position, NULL, 
-			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SAVE,
-			NULL
-		},
 		MENUTYPE_END
 	};
 	
