@@ -137,11 +137,16 @@ on_dir_indicator_motion (GtkWidget * widget, GdkEventMotion * event, gpointer * 
 			patternbuf[di->priv->slashCharPosition[i]] = 0x0;
 			gtk_label_set_pattern ((GtkLabel *) di->priv->label, patternbuf);
 			free (patternbuf);
+		    GdkCursor* cursor;
+		    cursor = gdk_cursor_new(GDK_HAND2);
+		    gdk_window_set_cursor(widget->window, cursor);
+		    gdk_cursor_destroy(cursor);
 			return TRUE;
 		}
 		  
-		/* clear underline */
+		/* clear underline, cursor=pointer */
 		gtk_label_set_pattern ((GtkLabel *) di->priv->label, "");
+		gdk_window_set_cursor(widget->window, NULL);
 	}
 	
 	return TRUE;
@@ -152,9 +157,10 @@ on_dir_indicator_leave (GtkWidget * widget, GdkEventMotion * event, gpointer * p
 {
 	g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (widget), FALSE);
 	
-	/* clear underline */
+	/* clear underline, cursor=pointer */
 	GnomeCmdDirIndicator *di = (GnomeCmdDirIndicator *) widget;
 	gtk_label_set_pattern ((GtkLabel *) di->priv->label, "");
+	gdk_window_set_cursor(widget->window, NULL);
 	
 	return TRUE;
 }
