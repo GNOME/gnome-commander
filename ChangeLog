@@ -1,5 +1,21 @@
 2004-01-14  Marcus Bjurman  <marbj499@student.liu.se>
 
+	* src/utils.c: 
+	* src/utils.h:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-selector.c:
+	Make quicksearch work for uppercase characters too.	
+	
+	* src/gnome-cmd-file-selector.c (on_list_key_pressed_private):
+	If the cmdline is not visible make input go to quicksearch instead.
+
+	* src/gnome-cmd-dir-indicator.c (popup_dir_history):
+	The directory history popup is now atleast as wide as the file-list.
+
+	* src/gnome-cmd-main-win.c: 
+	* src/main.c (main):
+	Fixed some non-initialized variables.
+
 	* src/gnome-cmd-ftp-dialog.c (create_ftp_server_dialog):
 	Fixed crash when bringing up the quick-connect dialog two times in a 
 	row.
