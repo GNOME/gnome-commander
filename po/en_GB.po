@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-27 18:30-0400\n"
-"PO-Revision-Date: 2004-04-27 18:30-0400\n"
+"POT-Creation-Date: 2004-05-02 16:07-0400\n"
+"PO-Revision-Date: 2004-05-02 16:07-0400\n"
 "Last-Translator: Gareth Owen <gowen72@yahoo.comg>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -651,10 +651,12 @@ msgstr "Properties"
 msgid "Other..."
 msgstr "Other..."
 
-#: src/gnome-cmd-file-props-dialog.c:63
+#: src/gnome-cmd-file-props-dialog.c:63 src/utils.c:987
 #, c-format
-msgid "%s bytes"
-msgstr "%s bytes"
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] "%s byte"
+msgstr[1] "%s bytes"
 
 #: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
 msgid "No default application registered"
@@ -1954,17 +1956,17 @@ msgstr ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
 
-#: src/utils.c:1357
+#: src/utils.c:1363
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Creating directory %s... "
 
-#: src/utils.c:1362
+#: src/utils.c:1368
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Failed to create the directory %s"
 
-#: src/utils.c:1368
+#: src/utils.c:1374
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Couldn't read from the directory %s: %s\n"
