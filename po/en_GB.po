@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-19 22:56-0400\n"
-"PO-Revision-Date: 2004-04-19 22:56-0400\n"
+"POT-Creation-Date: 2004-04-27 18:30-0400\n"
+"PO-Revision-Date: 2004-04-27 18:30-0400\n"
 "Last-Translator: Gareth Owen <gowen72@yahoo.comg>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -553,7 +553,7 @@ msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Do you want to delete the selected file?"
 msgstr[1] "Do you want to delete the %d selected files?"
 
-#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1347
+#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1346
 msgid "Delete"
 msgstr "Delete"
 
@@ -746,6 +746,11 @@ msgstr "New Text File"
 msgid "Symlink name:"
 msgstr "Symlink name:"
 
+#: src/gnome-cmd-file-selector.c:2237
+#, c-format
+msgid "Symlink to %s"
+msgstr "Symlink to %s"
+
 #: src/gnome-cmd-file-selector.c:2239
 msgid "Create Symbolic Link"
 msgstr "Create Symbolic Link"
@@ -840,7 +845,7 @@ msgstr "Edit FTP Server"
 msgid "No server selected"
 msgstr "No server selected"
 
-#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1355
+#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1354
 msgid "FTP Connect"
 msgstr "FTP Connect"
 
@@ -1101,35 +1106,35 @@ msgstr "F9 Search"
 msgid "F10 Quit"
 msgstr "F10 Quit"
 
-#: src/gnome-cmd-main-win.c:1297
+#: src/gnome-cmd-main-win.c:1296
 msgid "Refresh"
 msgstr "Refresh"
 
-#: src/gnome-cmd-main-win.c:1304
+#: src/gnome-cmd-main-win.c:1303
 msgid "Back in history"
 msgstr "Back in history"
 
-#: src/gnome-cmd-main-win.c:1311
+#: src/gnome-cmd-main-win.c:1310
 msgid "Forward in history"
 msgstr "Forward in history"
 
-#: src/gnome-cmd-main-win.c:1319
+#: src/gnome-cmd-main-win.c:1318
 msgid "Copy file names"
 msgstr "Copy file names"
 
-#: src/gnome-cmd-main-win.c:1326
+#: src/gnome-cmd-main-win.c:1325
 msgid "Cut"
 msgstr "Cut"
 
-#: src/gnome-cmd-main-win.c:1333 src/gnome-cmd-prepare-copy-dialog.c:86
+#: src/gnome-cmd-main-win.c:1332 src/gnome-cmd-prepare-copy-dialog.c:86
 msgid "Copy"
 msgstr "Copy"
 
-#: src/gnome-cmd-main-win.c:1340
+#: src/gnome-cmd-main-win.c:1339
 msgid "Paste"
 msgstr "Paste"
 
-#: src/gnome-cmd-main-win.c:1362
+#: src/gnome-cmd-main-win.c:1361
 msgid "Drop connection"
 msgstr "Drop connection"
 
@@ -1777,7 +1782,7 @@ msgstr "copying..."
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[file %ld of %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.c:383
+#: src/gnome-cmd-xfer.c:391
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
@@ -1785,11 +1790,11 @@ msgstr ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was cancelled."
 
-#: src/gnome-cmd-xfer.c:430
+#: src/gnome-cmd-xfer.c:438
 msgid "preparing..."
 msgstr "preparing..."
 
-#: src/gnome-cmd-xfer.c:525
+#: src/gnome-cmd-xfer.c:533
 msgid "downloading to /tmp"
 msgstr "downloading to /tmp"
 
