@@ -1,5 +1,8 @@
 2003-12-02  Marcus Bjurman  <marbj499@student.liu.se>
 
+	* gnome-commander.spec.in:
+	Changed the desktop dir to match the new one.
+
 	* po/POTFILES.in:
 	* gnome-commander.desktop:
 	* gnome-commander.desktop.in:
@@ -17,7 +20,7 @@
 	* src/utils.h: 
 	Added hack to fix uris created from uri-strings.
 
-	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_update_style): 
+	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_update_style):
 	The ext-column is now hidden when the extension is only showed together
 	with the filename.
 
@@ -29,10 +32,9 @@
 	Renaming a directory and then entering it immediately now works.
 	
 
-##############################################################################	
+##############################################################################
 #                                   1.1.4                                    #
 ##############################################################################
-	
 2003-11-24  Marcus Bjurman  <marbj499@student.liu.se>
 	
 	* libgcmd/Makefile.am:
@@ -363,10 +365,9 @@
 	Select the top row after each update.
 
 	
-##############################################################################	
+##############################################################################
 #                                   1.1.3                                    #
 ##############################################################################
-	
 2003-11-14  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/gnome-cmd-delete-dialog.c:
@@ -534,10 +535,9 @@
 	in the same file-list until reloaded.
 	
 
-##############################################################################	
+##############################################################################
 #                                   1.1.2                                    #
 ##############################################################################
-	
 2003-11-07  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/gnome-cmd-file-selector.c: 
@@ -659,10 +659,9 @@
 	Fixed a bug where the password for a ftp-server was freed by mistake.
 	
 
-##############################################################################	
+##############################################################################
 #                                   1.1.1                                    #
 ##############################################################################
-
 2003-11-05  Marcus Bjurman <marbj499@student.liu.se>
 
 	* src/main.c (main):
