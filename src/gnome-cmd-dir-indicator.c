@@ -91,8 +91,7 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
 	if (event->type == GDK_BUTTON_PRESS && event->button == 1) {
 		/* left click - work out the path */
 		gchar *chTo;
-		const gchar *labelText = gtk_label_get_label ((GtkLabel *) indicator->priv->label);
-
+		const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
 		chTo = malloc (strlen (labelText) + 1);
 		strcpy (chTo, labelText);
 		gint x = (gint)event->x;
@@ -113,6 +112,37 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
 		return TRUE;
 	}
 	return FALSE;
+}
+
+
+static void
+update_markup (GnomeCmdDirIndicator *indicator, gint i)
+{
+	gchar *s, *m;
+
+	if (indicator->priv->slashCharPosition == NULL)
+		return;
+
+	s = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
+	if (i > 0) {
+		gchar *mt, *ms;
+		gchar *t = g_strdup (&s[indicator->priv->slashCharPosition[i]]);
+		s[indicator->priv->slashCharPosition[i]] = '\0';
+
+		mt = get_mono_text (t);
+		ms = get_bold_mono_text (s);
+		m = g_strdup_printf ("%s%s", ms, mt);
+		g_free (t);
+		g_free (mt);
+		g_free (ms);
+	}
+	else {
+		m = get_mono_text (s);
+	}
+	
+	gtk_label_set_markup (GTK_LABEL (indicator->priv->label), m);
+	g_free (s);
+	g_free (m);
 }
 
 
@@ -137,25 +167,28 @@ on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
 	for (i = 0; i < indicator->priv->numPositions; i++) {
 		if (iX < indicator->priv->slashPixelPosition[i]) {
 			/* underline the part that is selected */
-			gchar *patternbuf = malloc (indicator->priv->slashPixelPosition[i] + 1);
-			gint j;
-			
-			for (j = 0; j < indicator->priv->slashCharPosition[i]; j++) {
-				patternbuf[j] = '_';
-			}
-			
+		    GdkCursor* cursor;
+
+			/*
+			patternbuf = malloc (indicator->priv->slashPixelPosition[i] + 1);			
+			for (j = 0; j < indicator->priv->slashCharPosition[i]; j++)
+				patternbuf[j] = '_';			
 			patternbuf[indicator->priv->slashCharPosition[i]] = 0x0;
 			gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, patternbuf);
 			free (patternbuf);
-		    GdkCursor* cursor;
-		    cursor = gdk_cursor_new(GDK_HAND2);
+			*/
+			cursor = gdk_cursor_new(GDK_HAND2);
 		    gdk_window_set_cursor(GTK_WIDGET(indicator)->window, cursor);
 		    gdk_cursor_destroy(cursor);
+
+			update_markup (indicator, i);
+			
 			return TRUE;
 		}
 		  
 		/* clear underline, cursor=pointer */
-		gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, "");
+		//gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, "");
+		update_markup (indicator, 0);
 		gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
 	}
 	
@@ -170,7 +203,8 @@ on_dir_indicator_leave (GnomeCmdDirIndicator *indicator,
 	g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 	
 	/* clear underline, cursor=pointer */
-	gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, "");
+	//gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, "");
+	update_markup (indicator, 0);
 	gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
 	
 	return TRUE;
@@ -180,21 +214,28 @@ static int
 getPixelSize (const char *s, int size)
 {
 	/* find the size, in pixels, of the given string */
-	gchar *buf;
+	gchar *buf, *ms;
 	gchar *utf8buf;
+	gint xSize, ySize;
+	GtkLabel *label;
+	PangoLayout *layout;
+	
 	buf = malloc (size + 1);
 	buf[0] = 0x0;
 	strncpy (buf, s, size);
 	buf[size] = 0x0;
 	utf8buf = get_utf8 (buf);
-	GtkLabel *label = (GtkLabel *) gtk_label_new (utf8buf);
+	
+	label = GTK_LABEL (gtk_label_new (utf8buf));
+	ms = get_mono_text (utf8buf);
+	gtk_label_set_markup (label, ms);
+	g_free (ms);
 	g_object_ref (label);
-	PangoLayout *layout = gtk_label_get_layout (label);
-	gint xSize, ySize;
+	layout = gtk_label_get_layout (label);
 	pango_layout_get_pixel_size (layout, &xSize, &ySize);
 	
 	/* we're finished with the label */
-	gtk_object_sink ((GtkObject *) label);
+	gtk_object_sink (GTK_OBJECT (label));
 	free (utf8buf);
 	free (buf);
 	
@@ -412,6 +453,7 @@ gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *p
 	gchar *s = get_utf8 (path);
 	
 	gtk_label_set_text (GTK_LABEL (indicator->priv->label), s);
+	update_markup (indicator, 0);
 
 	/* Count the number of slashes in the string */
 	numSlashes = 0;
