@@ -1232,22 +1232,25 @@ on_list_key_pressed_private              (GtkCList *clist,
 										  GdkEventKey *event,
 										  GnomeCmdFileSelector *fs)
 {
-	if (!gnome_cmd_data_get_cmdline_visibility ())
-		return FALSE;
-	
 	if (state_is_blank (event->state)) {
 		if ((event->keyval >= GDK_A && event->keyval <= GDK_Z)
 			|| (event->keyval >= GDK_a && event->keyval <= GDK_z)) {
 			static gchar text[2];
-			text[0] = event->keyval;
-			text[1] = '\0';
-			gnome_cmd_cmdline_append_text (
-				gnome_cmd_main_win_get_cmdline (main_win), text);
-			gnome_cmd_cmdline_focus (
-				gnome_cmd_main_win_get_cmdline (main_win));
+
+			if (!gnome_cmd_data_get_cmdline_visibility ()) {
+				gnome_cmd_file_list_show_quicksearch (fs->list, (gchar)event->keyval);
+			}
+			else {
+				text[0] = event->keyval;
+				text[1] = '\0';
+				gnome_cmd_cmdline_append_text (
+					gnome_cmd_main_win_get_cmdline (main_win), text);
+				gnome_cmd_cmdline_focus (
+					gnome_cmd_main_win_get_cmdline (main_win));
+			}
 			return TRUE;
 		}
-	}		
+	}
 
 	return FALSE;
 }
