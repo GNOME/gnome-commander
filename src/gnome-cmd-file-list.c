@@ -1009,7 +1009,7 @@ on_column_clicked                        (GtkCList *list,
 {
 	g_return_if_fail (GTK_IS_CLIST (list));
 	g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-	
+
 	fl->priv->sort_func = sort_funcs[col];
 	
 	if (fl->priv->current_col == col)
@@ -2178,8 +2178,9 @@ gnome_cmd_file_list_sort (GnomeCmdFileList *fl)
 	}
 	g_list_free (list);
 
-	/* refocus the previously selected file */
-	if (selfile) {
+	/* refocus the previously selected file if this
+	   file-list has the focus */
+	if (selfile && GTK_WIDGET_HAS_FOCUS (fl)) {
 		selrow = get_row_from_file (fl, selfile);
 		gnome_cmd_file_list_select_row (fl, selrow);
 		gtk_clist_moveto (GTK_CLIST (fl), selrow, -1, 1, 0);
