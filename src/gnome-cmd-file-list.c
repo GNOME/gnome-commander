@@ -47,7 +47,7 @@
 /* The time (in ms) it takes from that the right mouse button is clicked on a file until 
  * the popup menu appears when the right btn is used to select files.
  */
-#define POPUP_TIMEOUT 1000
+#define POPUP_TIMEOUT 750
 
 
 enum {
@@ -1563,7 +1563,7 @@ add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
 	/* If we have been waiting for this file to show up, focus it */
 	if (fl->priv->focus_later &&
 		strcmp (gnome_cmd_file_get_name (finfo), fl->priv->focus_later) == 0)
-		focus_file_at_row (fl, row);		
+		focus_file_at_row (fl, row);
 }
 
 
