@@ -408,7 +408,7 @@ msgid ""
 "Could not chmod %s\n"
 "%s"
 msgstr ""
-"Αδυναμία chmod·%s\n"
+"Αδυναμία chmod %s\n"
 "%s"
 
 #: src/gnome-cmd-chmod-dialog.c:214
@@ -426,7 +426,7 @@ msgid ""
 "Could not chown %s\n"
 "%s"
 msgstr ""
-"Αδυναμία chown·%s\n"
+"Αδυναμία chown %s\n"
 "%s"
 
 #: src/gnome-cmd-chown-dialog.c:181 src/gnome-cmd-search-popup.c:197
@@ -465,7 +465,7 @@ msgstr "Προσάρτηση %s"
 #: src/gnome-cmd-con-device.c:374 src/gnome-cmd-con-ftp.c:287
 #, c-format
 msgid "Go to: %s"
-msgstr "Μετάβαση σε:·%s"
+msgstr "Μετάβαση σε: %s"
 
 #: src/gnome-cmd-con-device.c:375
 #, c-format
@@ -486,7 +486,7 @@ msgstr "Επανασύνδεση στο %s"
 #: src/gnome-cmd-con-ftp.c:288
 #, c-format
 msgid "Connect to: %s"
-msgstr "Σύνδεσης σε: ·%s"
+msgstr "Σύνδεσης σε:  %s"
 
 #: src/gnome-cmd-con-ftp.c:289
 #, c-format
@@ -496,7 +496,7 @@ msgstr "Αποσύνδεση από: %s"
 #: src/gnome-cmd-con-ftp.c:307
 #, c-format
 msgid "Creates an FTP connection to %s"
-msgstr "Δημιουργεί μια σύνδεση FTP σε ·%s"
+msgstr "Δημιουργεί μια σύνδεση FTP σε  %s"
 
 #: src/gnome-cmd-con-ftp.c:309
 #, c-format
@@ -513,7 +513,7 @@ msgstr "Μετάβαση σε: Αρχή"
 
 #: src/gnome-cmd-con-smb.c:94
 msgid "Failed to browse the network. Is the SMB module installed?"
-msgstr "Αποτυχία περιήγησης δικτύου. Είναι το SMB·module εγκατεστημένο;"
+msgstr "Αποτυχία περιήγησης δικτύου. Είναι το SMB module εγκατεστημένο;"
 
 #: src/gnome-cmd-con-smb.c:211
 msgid "SMB"
@@ -530,7 +530,7 @@ msgstr ""
 
 #: src/gnome-cmd-con-smb.c:219
 msgid "Go to: Samba Network"
-msgstr "Μετάβαση σε: Δίκτυο Samba·"
+msgstr "Μετάβαση σε: Δίκτυο Samba "
 
 #: src/gnome-cmd-delete-dialog.c:143
 msgid "Deleting..."
@@ -836,7 +836,7 @@ msgstr "Δεν έχει οριστεί όνομα συστήματος"
 #: src/gnome-cmd-ftp-dialog.c:221
 #, c-format
 msgid "Invalid port number: %s"
-msgstr "Μη έγκυρος αριθμός θύρας:·%s"
+msgstr "Μη έγκυρος αριθμός θύρας: %s"
 
 #: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-options-dialog.c:1472
 msgid "Alias:"
@@ -920,7 +920,7 @@ msgstr "Αλλαγή σε οριζόντια διάταξη"
 
 #: src/gnome-cmd-main-menu.c:394
 msgid "Switch to Vertical Layout"
-msgstr "Αλλαγή·σε·κάθετη διάταξη"
+msgstr "Αλλαγή σε κάθετη διάταξη"
 
 #: src/gnome-cmd-main-menu.c:462
 msgid "Change _Owner/Group"
@@ -1263,7 +1263,7 @@ msgstr "Κείμενο (rw-r--r--)"
 
 #: src/gnome-cmd-options-dialog.c:245
 msgid "Number (311)"
-msgstr "Αριθμός ·(311)"
+msgstr "Αριθμός  (311)"
 
 #: src/gnome-cmd-options-dialog.c:255
 msgid "Date format"
@@ -1805,7 +1805,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Σφάλμα κατά την αντιγραφή στο ·%s\n"
+"Σφάλμα κατά την αντιγραφή στο  %s\n"
 "\n"
 "%s"
 
@@ -1845,7 +1845,7 @@ msgstr "αρχείο είδος ο"
 #: src/imageloader.c:126 src/imageloader.c:152
 #, c-format
 msgid "Trying to load %s instead\n"
-msgstr "Προσπάθεια φόρτωσης %s·εναλλακτικά\n"
+msgstr "Προσπάθεια φόρτωσης %s εναλλακτικά\n"
 
 #: src/imageloader.c:130 src/imageloader.c:155
 #, fuzzy
@@ -1869,7 +1869,7 @@ msgstr "Καθορισμός του καταλόγου εκκίνησης για
 
 #: src/main.c:60
 msgid "Specify the start directory for the right pane"
-msgstr "Καθορισμός·του·καταλόγου·εκκίνησης·για·το·δεξί·ταμπλώ"
+msgstr "Καθορισμός του καταλόγου εκκίνησης για το δεξί ταμπλώ"
 
 #: src/owner.c:98
 #, c-format
@@ -2017,7 +2017,7 @@ msgstr ""
 #: src/utils.c:1363
 #, c-format
 msgid "Creating directory %s... "
-msgstr "Δημιουργία καταλόγου %s...·"
+msgstr "Δημιουργία καταλόγου %s... "
 
 #: src/utils.c:1368
 #, c-format
@@ -2027,5 +2027,5 @@ msgstr "Αποτυχία δημιουργίας του καταλόγου %s."
 #: src/utils.c:1374
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
-msgstr "Αδύνατη η ανάγνωση από τον κατάλογο ·%s:·%s\n"
+msgstr "Αδύνατη η ανάγνωση από τον κατάλογο  %s: %s\n"
 
