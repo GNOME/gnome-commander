@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-18 14:59+0200\n"
-"PO-Revision-Date: 2004-04-18 16:39+0200\n"
+"POT-Creation-Date: 2004-04-29 04:07+0200\n"
+"PO-Revision-Date: 2004-04-29 15:11+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -557,7 +557,7 @@ msgstr[0] "Chcete odstranit %d vybraný soubor?"
 msgstr[1] "Chcete odstranit %d vybrané soubory?"
 msgstr[2] "Chcete odstranit %d vybraných souborů?"
 
-#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1347
+#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1346
 msgid "Delete"
 msgstr "Odstranit"
 
@@ -751,6 +751,11 @@ msgstr "Nový textový soubor"
 msgid "Symlink name:"
 msgstr "Název symbolického odkazu:"
 
+#: src/gnome-cmd-file-selector.c:2237
+#, c-format
+msgid "Symlink to %s"
+msgstr "Symbolický odkaz na %s"
+
 #: src/gnome-cmd-file-selector.c:2239
 msgid "Create Symbolic Link"
 msgstr "Vytvořit symbolický odkaz"
@@ -759,35 +764,35 @@ msgstr "Vytvořit symbolický odkaz"
 msgid "Filter:"
 msgstr "Filtr:"
 
-#: src/gnome-cmd-file.c:596
+#: src/gnome-cmd-file.c:603
 msgid "Unknown file type"
 msgstr "Neznámý typ souboru"
 
-#: src/gnome-cmd-file.c:597
+#: src/gnome-cmd-file.c:604
 msgid "Regular file"
 msgstr "Obyčejný soubor"
 
-#: src/gnome-cmd-file.c:598
+#: src/gnome-cmd-file.c:605
 msgid "Directory"
 msgstr "Adresář"
 
-#: src/gnome-cmd-file.c:599
+#: src/gnome-cmd-file.c:606
 msgid "FIFO"
 msgstr "FIFO"
 
-#: src/gnome-cmd-file.c:600
+#: src/gnome-cmd-file.c:607
 msgid "UNIX Socket"
 msgstr "UNIXový soket"
 
-#: src/gnome-cmd-file.c:601
+#: src/gnome-cmd-file.c:608
 msgid "Character device"
 msgstr "Znakové zařízení"
 
-#: src/gnome-cmd-file.c:602
+#: src/gnome-cmd-file.c:609
 msgid "Block device"
 msgstr "Blokové zařízení"
 
-#: src/gnome-cmd-file.c:603
+#: src/gnome-cmd-file.c:610
 msgid "Symbolic link"
 msgstr "Symbolický odkaz"
 
@@ -845,7 +850,7 @@ msgstr "Upravit FTP server"
 msgid "No server selected"
 msgstr "Nebyl zvolen server"
 
-#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1355
+#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1354
 msgid "FTP Connect"
 msgstr "Připojení FTP"
 
@@ -1106,35 +1111,35 @@ msgstr "F9 Hledat"
 msgid "F10 Quit"
 msgstr "F10 Ukončit"
 
-#: src/gnome-cmd-main-win.c:1297
+#: src/gnome-cmd-main-win.c:1296
 msgid "Refresh"
 msgstr "Obnovit"
 
-#: src/gnome-cmd-main-win.c:1304
+#: src/gnome-cmd-main-win.c:1303
 msgid "Back in history"
 msgstr "Zpět v historii"
 
-#: src/gnome-cmd-main-win.c:1311
+#: src/gnome-cmd-main-win.c:1310
 msgid "Forward in history"
 msgstr "Vpřed v historii"
 
-#: src/gnome-cmd-main-win.c:1319
+#: src/gnome-cmd-main-win.c:1318
 msgid "Copy file names"
 msgstr "Kopírovat názvy souborů"
 
-#: src/gnome-cmd-main-win.c:1326
+#: src/gnome-cmd-main-win.c:1325
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: src/gnome-cmd-main-win.c:1333 src/gnome-cmd-prepare-copy-dialog.c:86
+#: src/gnome-cmd-main-win.c:1332 src/gnome-cmd-prepare-copy-dialog.c:86
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: src/gnome-cmd-main-win.c:1340
+#: src/gnome-cmd-main-win.c:1339
 msgid "Paste"
 msgstr "Vložit"
 
-#: src/gnome-cmd-main-win.c:1362
+#: src/gnome-cmd-main-win.c:1361
 msgid "Drop connection"
 msgstr "Ukončit spojení"
 
@@ -1787,7 +1792,7 @@ msgstr "kopíruji..."
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[soubor %ld z %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.c:384
+#: src/gnome-cmd-xfer.c:391
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
@@ -1795,11 +1800,11 @@ msgstr ""
 "Kopírování adresáře do sebe sama není dobrý nápad.\n"
 "Celá operace byla zrušena."
 
-#: src/gnome-cmd-xfer.c:431
+#: src/gnome-cmd-xfer.c:438
 msgid "preparing..."
 msgstr "připravuji..."
 
-#: src/gnome-cmd-xfer.c:526
+#: src/gnome-cmd-xfer.c:533
 msgid "downloading to /tmp"
 msgstr "stahuji do /tmp"
 
