@@ -1,0 +1,108 @@
+# Release number can be specified with rpm --define 'rel SOMETHING' ...
+# If no such --define is used, the release number is 1.
+#
+# Source archive's extension can be specified with rpm --define 'srcext .foo'
+# where .foo is the source archive's actual extension.
+# To compile an RPM from a .bz2 source archive, give the command
+#   rpm -tb --define 'srcext .bz2' @PACKAGE@-@VERSION@.tar.bz2
+#
+
+%if %{?rel:0}%{!?rel:1}
+%define rel 1
+%endif
+%if %{?srcext:0}%{!?srcext:1}
+%define srcext .gz
+%endif
+
+Summary:       GNOME Commander is a nice and fast file manager for the GNOME desktop. 
+Summary(pl):   Menad¿er plików dla Gnome oparty o Norton Commander'a (TM)
+Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME.
+Name:          @PACKAGE@
+Version:       @VERSION@
+Release:       %{rel}
+URL:           http://www.freesoftware.fsf.org/gcmd/
+Source:        http://freesoftware.fsf.org/download/gcmd/gcmd.pkg/%{version}/%{name}-%{version}.tar%{srcext}
+License:       GPL2
+Group:         Applications/File
+Prefix:        /usr
+BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root
+Docdir:        %{_docdir}
+Requires:      gettext >= 0.10.36
+Requires:      gnome-vfs2 >= 2.0
+BuildRequires: gnome-vfs2-devel >= 2.0
+Requires:      libgnomeui >= 2.0
+BuildRequires: libgnomeui-devel >= 2.0
+BuildRequires: intltool
+
+Distribution:  Any
+
+%description
+GNOME Commander is a nice and fast file manager for the GNOME desktop. In addition to performing the basic filemanager functions the program is also an FTP-client and it can browse SMB-networks.
+
+%description -l pl
+Gnome Commander to menad¿er plików, który podobnie jak klasyczny Norton Commander (TM), umo¿liwia wykonywanie za pomoc± klawiatury wszystkich standardowych operacji na plikach. Dostêpne s± równie¿ dodatkowe funkcje jak np. obs³uga FTP.
+
+%description -l sv
+GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kunna hantera filer på din egen dator så kan programmet även ansluta till FTP-servrar och SMB-nätverk.
+
+%prep
+%setup -q
+
+%build
+./configure --prefix=%{prefix}
+make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=$RPM_BUILD_ROOT install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root)
+%{prefix}/bin/*
+%{prefix}/lib/@PACKAGE@/lib*
+%{prefix}/lib/@PACKAGE@/plugins/lib*
+%{prefix}/share/gnome/apps/Applications/@PACKAGE@.desktop
+%{prefix}/share/pixmaps/@PACKAGE@/*.png
+%{prefix}/share/pixmaps/@PACKAGE@/*.xpm
+%{prefix}/share/pixmaps/@PACKAGE@/*/*.png
+%{prefix}/share/pixmaps/@PACKAGE@/*/*.xpm
+%{prefix}/share/locale/*/LC_MESSAGES/@PACKAGE@.mo
+%doc AUTHORS ChangeLog COPYING INSTALL NEWS README TODO doc/*.txt doc/*.png
+
+%changelog
+* Thu Jun 19 2003 Piotr Eljasiak <epiotr@use.pl>
+- added libraries
+
+* Tue Mar 25 2003 Piotr Eljasiak <epiotr@idea.net.pl>
+- updated Sources
+
+* Mon Jan 20 2003 Piotr Eljasiak <epiotr@idea.net.pl>
+- added build dependencies
+
+* Fri Jan 10 2003 Piotr Eljasiak <epiotr@idea.net.pl>
+- added localization
+
+* Thu Jan 09 2003 Piotr Eljasiak <epiotr@idea.net.pl>
+- added dependencies
+
+* Mon Jun 24 2002 Piotr Eljasiak <epiotr@idea.net.pl>
+- more cleanup in install section 
+
+* Sat Jun 15 2002 Piotr Eljasiak <epiotr@idea.net.pl>
+- simplified install and files sections
+
+* Mon Jun 10 2002 Piotr Eljasiak <epiotr@idea.net.pl>
+- .spec file is now generated from .spec.in
+
+* Mon Jun 10 2002 Marcus Bjurman <marbj499@student.liu.se>
+- The default icon for this project is now called gnome-commander.png
+  The xpm variant of the same icon is now also renamed in the same manner.
+
+* Sat Mar  9 2002 Marcus Bjurman <marbj499@student.liu.se>
+- Pumped up the version nr
+
+* Sun Nov  4 2001 Marcus Bjurman <marbj499@student.liu.se>
+- Initial build.

@@ -1,0 +1,111 @@
+Keyboard mapping for GNOME Commander v1.0
+-----------------------------------------
+
+F1	        Help
+F2	        Refresh files in the active file list
+F3	        List files
+F4	        Edit files
+F5	        Copy files
+F6	        Rename or move files
+F7	        Create directory
+F8	        Delete files
+F9	        Search
+F10	        Quit
+
+ALT+1	    Change left connection
+ALT+2	    Change right connection
+
+ALT+F7	    Search
+ALT+F8	    Opens the history list for the command line
+
+SHIFT+F2	Compare directories
+SHIFT+F4	Edit a new file
+SHIFT+F6	Rename a file
+
+CTRL+F3	    Sort by name
+CTRL+F4	    Sort by extension
+CTRL+F5	    Sort by date/time
+CTRL+F6	    Sort by size
+CTRL+F7	    Unsorted
+
+CTRL+SHIFT+F5	Create symbolic link
+
+NUM +	    Select files using a pattern
+NUM -	    Unselect files using a pattern
+NUM *	    Invert selection
+NUM /	    Restore selection
+CTRL+NUM +	Select all files
+CTRL+NUM -	Unselect all files
+ALT+NUM +	Select all files with the same extension
+ALT+NUM -	Unselect all files with the same extension
+
+BACKSPACE or LEFT or CTRL+PageUp
+            Change to parent directory (cd ..)
+
+TAB	        Switch between left and right file list
+ENTER	    Change directory or execute command line if not empty
+SHIFT+ENTER	Execute command line in the defined terminal and leaves the
+            terminal window open
+			
+RIGHT or CTRL+PageDown
+            Change directory 
+
+ALT+LEFT    Go back to the last visited directory
+ALT+RIGHT   Go forward to the next visited directory
+
+INSERT	    Select file or directory
+SPACE	    Select file or directory (as INSERT). If SPACE is used on an
+            unselected directory under the cursor, the contents in this
+            directory are counted and the size is shown in the "full" view
+            instead of the string <DIR>.
+
+ALT+ENTER   Show properties for the selected file
+	
+ALT+SHIFT+ENTER
+            The contents of all directories in the current directory are
+            counted. The sizes of the directories are then shown in the
+            "full" view instead of the string <DIR>.
+
+DELETE	    Delete files
+
+CTRL+C	    Copy files to clipboard (not a global one yet)
+CTRL+X	    Cut files to clipboard (not a global one yet)
+CTRL+V	    Paste from clipboard to current dir (not a global one yet)
+
+CTRL+A	    Select all files
+CTRL+D      Open favorite directories (bookmarks)
+CTRL+T	    Multi-Rename-Tool
+CTRL+U	    Swap file lists
+
+CTRL+R	    Refresh the active file list
+CTRL+G	    FTP Quick Connect
+CTRL+F	    Connect to FTP server
+CTRL+SHIFT+F
+            Disconnect from FTP server
+
+CTRL+ALT+Letter(s)
+            Quick search for a file name (starting with specified letter) in
+            the current directory
+
+Letter	    Redirect to command line, cursor jumps to command line
+ESC	        Clears the command line
+
+CTRL+K	    Delete to the end of line
+CTRL+W	    Delete the word to the left of the cursor
+CTRL+T	    Delete the word to the right of the cursor
+
+CTRL+P      The full path of the current directory is added to the command line
+
+CTRL+ENTER  The file name under the cursor in the source directory is added to
+            the end of the command line
+  
+CTRL+SHIFT+ENTER
+            The file name under the cursor including its path is added
+            to the end of the command line
+	
+CTRL+DOWN or ALT+F8
+            A list with the latest command lines (history list) is opened. Use
+            the UP and DOWN cursor keys to select an entry. By pressing the
+            LEFT or RIGHT key, you can edit the command line. This
+            automatically closes the list.
+			

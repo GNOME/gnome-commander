@@ -1,0 +1,260 @@
+AC_INIT(src/gnome-cmd-includes.h)
+AM_CONFIG_HEADER(config.h)
+AM_INIT_AUTOMAKE(gnome-commander, 1.1.5)
+AC_PROG_CC
+AC_PROG_CPP
+AM_PROG_LEX
+AM_PROG_LIBTOOL
+AC_PROG_INTLTOOL		
+AM_MAINTAINER_MODE
+
+
+
+dnl ===================
+dnl Gettext stuff
+dnl ===================
+
+GETTEXT_PACKAGE=gnome-commander
+AC_SUBST(GETTEXT_PACKAGE)
+ALL_LINGUAS="de es fr pl ru sk sv"
+AM_GLIB_GNU_GETTEXT
+
+
+		
+dnl ===================
+dnl Check for libraries
+dnl ===================
+
+GLIB_REQ=2.0.0
+GMODULE_REQ=2.0.0
+GTK_REQ=2.0.0
+GNOME_REQ=2.0.0
+GNOMEUI_REQ=2.0.0
+GNOMEVFS_REQ=2.0.0
+
+
+dnl Check for glib
+AC_MSG_CHECKING(if glib >= ${GLIB_REQ} exists)
+if pkg-config --exists glib-2.0 ; then
+    GLIB_CFLAGS=`pkg-config --cflags glib-2.0`
+    GLIB_LIBS=`pkg-config --libs glib-2.0`
+    GLIB_PREFIX=`pkg-config --variable=prefix glib-2.0`
+    GLIB_VERSION=`pkg-config --modversion glib-2.0`
+    AC_SUBST(GLIB_VERSION)
+    AC_SUBST(GLIB_PREFIX)
+    AC_SUBST(GLIB_CFLAGS)
+    AC_SUBST(GLIB_LIBS)
+
+    if pkg-config --exists glib-2.0 '>=' ${GLIB_REQ} ; then
+        AC_MSG_RESULT(yes)
+    else
+        AC_MSG_ERROR("only ${GLIB_VERSION} found")
+    fi
+else
+    AC_MSG_ERROR(no)
+fi
+
+
+dnl Check for gmodule
+AC_MSG_CHECKING(if gmodule >= ${GMODULE_REQ} exists)
+if pkg-config --exists gmodule-2.0 ; then
+    if pkg-config --exists gmodule-2.0 '>=' ${GMODULE_REQ} ; then
+        AC_MSG_RESULT(yes)
+        GMODULE_AVAIL="yes"
+    else
+        AC_MSG_ERROR("only `pkg-config --modversion gmodule-2.0` found")
+        GMODULE_AVAIL="no"
+    fi
+else
+    AC_MSG_ERROR(no)
+    GMODULE_AVAIL="no"
+fi
+AC_SUBST(GMODULE_AVAIL)
+
+
+dnl Check for gtk+
+AC_MSG_CHECKING(if gtk+ >= ${GTK_REQ} exists)
+if pkg-config --exists gtk+-2.0 ; then
+    GTK_CFLAGS=`pkg-config --cflags gtk+-2.0`
+    GTK_LIBS=`pkg-config --libs gtk+-2.0`
+    GTK_PREFIX=`pkg-config --variable=prefix gtk+-2.0`
+    GTK_VERSION=`pkg-config --modversion gtk+-2.0`
+    AC_SUBST(GTK_VERSION)
+    AC_SUBST(GTK_PREFIX)
+    AC_SUBST(GTK_CFLAGS)
+    AC_SUBST(GTK_LIBS)
+
+    if pkg-config --exists gtk+-2.0 '>=' ${GTK_REQ} ; then
+        AC_MSG_RESULT(yes)
+    else
+        AC_MSG_ERROR("only ${GTK_VERSION} found")
+    fi
+else
+    AC_MSG_ERROR(no)
+fi
+
+
+dnl Check for libgnome
+AC_MSG_CHECKING(if libgnome >= ${GNOME_REQ} exists)
+if pkg-config --exists libgnome-2.0 ; then
+    GNOME_CFLAGS=`pkg-config --cflags libgnome-2.0`
+    GNOME_LIBS=`pkg-config --libs libgnome-2.0`
+    GNOME_PREFIX=`pkg-config --variable=prefix libgnome-2.0`
+    GNOME_VERSION=`pkg-config --modversion libgnome-2.0`
+    AC_SUBST(GNOME_VERSION)
+    AC_SUBST(GNOME_PREFIX)
+    AC_SUBST(GNOME_LIBS)
+    AC_SUBST(GNOME_CFLAGS)
+
+    if pkg-config --exists libgnome-2.0 '>=' ${GNOME_REQ} ; then
+        AC_MSG_RESULT(yes)
+    else
+        AC_MSG_ERROR("only ${GNOME_VERSION} found")
+    fi
+else
+    AC_MSG_ERROR(no)
+fi
+
+
+dnl Check for libgnomeui
+AC_MSG_CHECKING(if libgnomeui >= ${GNOMEUI_REQ} exists)
+if pkg-config --exists libgnomeui-2.0 ; then
+    GNOMEUI_CFLAGS=`pkg-config --cflags libgnomeui-2.0`
+    GNOMEUI_LIBS=`pkg-config --libs libgnomeui-2.0`
+    GNOMEUI_PREFIX=`pkg-config --variable=prefix libgnomeui-2.0`
+    GNOMEUI_VERSION=`pkg-config --modversion libgnomeui-2.0`
+    AC_SUBST(GNOMEUI_VERSION)
+    AC_SUBST(GNOMEUI_PREFIX)
+    AC_SUBST(GNOMEUI_CFLAGS)
+    AC_SUBST(GNOMEUI_LIBS)
+
+    if pkg-config --exists libgnomeui-2.0 '>=' ${GNOMEUI_REQ} ; then
+        AC_MSG_RESULT(yes)
+    else
+        AC_MSG_ERROR("only ${GNOMEUI_VERSION} found")
+    fi
+else
+    AC_MSG_ERROR(no)
+fi
+
+
+dnl Check for gnome-vfs
+AC_MSG_CHECKING(if gnome-vfs >= ${GNOMEVFS_REQ} exists)
+if pkg-config --exists gnome-vfs-2.0 ; then
+    GNOMEVFS_CFLAGS=`pkg-config --cflags gnome-vfs-2.0`
+    GNOMEVFS_LIBS=`pkg-config --libs gnome-vfs-2.0`
+    GNOMEVFS_PREFIX=`pkg-config --variable=prefix gnome-vfs-2.0`
+    GNOMEVFS_VERSION=`pkg-config --modversion gnome-vfs-2.0`
+    AC_SUBST(GNOMEVFS_VERSION)
+    AC_SUBST(GNOMEVFS_PREFIX)
+    AC_SUBST(GNOMEVFS_CFLAGS)
+    AC_SUBST(GNOMEVFS_LIBS)
+
+    if pkg-config --exists gnome-vfs-2.0 '>=' ${GNOMEVFS_REQ} ; then
+        AC_MSG_RESULT(yes)
+    else
+        AC_MSG_ERROR("only ${GNOMEVFS_VERSION} found")
+    fi
+else
+    AC_MSG_ERROR(no)
+fi
+
+
+
+
+
+
+dnl =====================
+dnl Set stuff in config.h
+dnl =====================
+
+dnl Get the prefix
+if test "x${prefix}" = "xNONE"; then
+  PREFIX="${ac_default_prefix}"
+  AC_DEFINE_UNQUOTED(PREFIX, "${ac_default_prefix}", [definition of PREFIX])
+else
+  PREFIX="${prefix}"
+  AC_DEFINE_UNQUOTED(PREFIX, "${prefix}", [definition of PREFIX])
+fi
+AC_SUBST(PREFIX)
+
+
+dnl Set PACKAGE_LOCALE_DIR in config.h.
+AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${PREFIX}/${DATADIRNAME}/locale", [definition of PACKAGE_LOCALE_DIR])
+
+
+dnl Set PACKAGE_LIB_DIR in config.h
+PACKAGE_LIB_DIR="${PREFIX}/lib/${PACKAGE}"
+AC_DEFINE_UNQUOTED(PACKAGE_LIB_DIR, "$PACKAGE_LIB_DIR", [libs location])
+AC_SUBST(PACKAGE_LIB_DIR)
+
+
+dnl Set PLUGIN_DIR in config.h
+PLUGIN_DIR="${PREFIX}/lib/${PACKAGE}/plugins"
+AC_DEFINE_UNQUOTED(PLUGIN_DIR, "$PLUGIN_DIR", "")
+AC_SUBST(PLUGIN_DIR)
+
+
+dnl Set PIXMAPS_DIR in config.h.
+AC_DEFINE_UNQUOTED(PIXMAPS_DIR, "${PREFIX}/share/pixmaps/${PACKAGE}", [pixmaps location])
+
+		
+dnl Set GNOME_PREFIX in config.h.
+GNOME_PREFIX_TMP=`pkg-config --variable=prefix libgnome-2.0`
+AC_DEFINE_UNQUOTED(GNOME_PREFIX, "$GNOME_PREFIX_TMP", "")
+
+		
+dnl Set HELP_DIR in config.h.
+AC_DEFINE_UNQUOTED(HELP_DIR, "${PREFIX}/share/gnome/help/${PACKAGE}", "")
+	
+
+dnl =====================
+dnl Write some output
+dnl =====================
+
+AC_OUTPUT([libgcmd/Makefile
+src/Makefile
+plugins/Makefile
+plugins/test/Makefile
+plugins/cvs/Makefile
+plugins/fileroller/Makefile
+po/Makefile.in
+pixmaps/Makefile
+pixmaps/device-icons/Makefile
+pixmaps/mime-icons/Makefile
+pixmaps/file-type-icons/Makefile
+doc/Makefile
+Makefile
+gnome-commander.spec
+README
+])
+
+
+
+echo ""
+echo ""
+echo "=========================================="
+echo " Ready to build GNOME Commander ${VERSION}"
+echo "=========================================="
+echo ""
+echo "The following settings will be used:"
+echo ""
+echo "  prefix         : ${prefix}"
+echo "  module support : ${GMODULE_AVAIL}"
+echo "  CFLAGS         : ${CFLAGS}"
+echo "  LDFLAGS        : ${LDFLAGS}"
+echo ""
+echo ""
+echo "The following libraries will be used:" 
+echo ""
+echo "  glib     : ${GLIB_VERSION}    in ${GLIB_PREFIX}"
+echo "  gtk+     : ${GTK_VERSION}    in ${GTK_PREFIX}"
+echo "  gnome    : ${GNOME_VERSION}    in ${GNOME_PREFIX}"
+echo "  gnomeui  : ${GNOMEUI_VERSION}    in ${GNOMEUI_PREFIX}"
+echo "  gnome-vfs: ${GNOMEVFS_VERSION}    in ${GNOMEVFS_PREFIX}"
+echo ""
+echo ""
+echo ""
+echo "Type 'make' to compile and then 'make install' to install"
+echo ""
+	

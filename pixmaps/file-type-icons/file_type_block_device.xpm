@@ -1,0 +1,36 @@
+/* XPM */
+/* Drawn  by Mark Donohoe for the K Desktop Environment */
+/* See http://www.kde.org */
+static char*blockdevice[]={
+"16 16 14 1",
+"# c #000000",
+"c c #008000",
+"d c #00c000",
+"g c #008080",
+"h c #00c0c0",
+"f c #00ffff",
+"k c #808000",
+"l c #c0c000",
+"j c #ffff00",
+"a c #c0ffc0",
+"e c #c0ffff",
+"i c #ffffc0",
+"b c #00ff00",
+". c None",
+".....##.........",
+"....#aa##.......",
+"...#aaabb#......",
+"..#bbbbbc###....",
+"..#ddbbcc#ee##..",
+"..#dddcc#eeeff#.",
+"..#dddc#fffffg#.",
+"...###c#hhffgg#.",
+"...#ii##hhhggg#.",
+"..#iiijj#hhgg#..",
+".#jjjjjk##hg#...",
+".#lljjkk#.##....",
+".#lllkkk#.......",
+".#lllkk#........",
+"..##lk#.........",
+"....##.........."};
+

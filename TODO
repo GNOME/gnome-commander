@@ -1,0 +1,38 @@
++---------------------------------------------------------+
+| TODO                                                    |
++---------------------------------------------------------+
+
+TODO
+----
+* Add authentication callbacks.
+* Remember sorting column and direction.
+* The automatic creation of non-existing directories in the prepare-xfer-dialog
+  does not work when the directory above the one to create doesn't exist.
+* Add default dir to ftp-servers
+* Add option to only apply style to the file-lists and/or find a way to change
+  the cursor color in the cmdline.
+* Fix the directory-pool?
+* Add confirmation dialog before tmp-downloading large files
+* Stop using GtkCList and other deprecated stuff.
+* x-async problems only in debugger?
+* Limit the number of updates/second in the file lists to avoid flickering. 
+* Autoreload at focus-in events.
+* Check if nautilus plugins etc can be used by gnome-commander.
+
+
+Deeply wanted stuff
+(but not doable ATM)
+-------------------
+* Browsing of compressed archives. Will be possible as soon
+  as gnome-vfs gets this stuff working....
+  
+
+Discussed stuff
+(not assigned to a version yet)
+-------------------------------
+* 'Directory Tree' with ALT+F10
+* 'Subdirectory View' - showing contents of a given dir and all its
+  subdirs in one file list. It gives the possibility of mass operation
+  like: copy/move/rename/delete for all subdirs files. _Very_ handy.
+
+

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Gnome Commander
+Name[pl]=Gnome Commander
+Exec=gnome-commander
+Icon=gnome-commander/gcmd-icon1.png
+Terminal=false
+MultipleArgs=false
+Type=Application
+DocPath=gnome-commander/index.html
+Categories=Application;Utility;

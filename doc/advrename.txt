@@ -1,0 +1,33 @@
+Rename template - what is it?
+-----------------------------
+
+This a feature of renaming files according to a specified template. Syntax of the 
+template is very simple: all chars of the template go into new name with the exception 
+of a few placeholders:
+
+$N	the whole file name (with extension)
+$N(2,3)	3 chars of the file name starting at the position of 2
+$N(5)	all chars of the file name starting at the position of 5
+$n	file name without extension
+$n(...)	the same like $N(...)
+$e	file extension
+$e(...)	the same like $N(...)
+$p	parent dir name
+$p(...)	the same like $N(...)
+$c	counter
+$c(3)	counter with specified digit number (precision)
+$$	dollar sign
+
+Additionally strftime() format controls are also accepted - except for %D, %n and %t for 
+obvious reasons. If found, they are converted into single %.
+ 
+For example - renaming the pictures:
+
+template:  'Holidays - $p %Y.%m #$c.$e'
+
+'~/pix/Barcelona/pic00135.jpg'  --> 'Holidays - Barcelona 2002.09 #01.jpg'
+'~/pix/Barcelona/pic00145.jpeg' --> 'Holidays - Barcelona 2002.09 #02.jpeg'
+'~/pix/Rome/pic00248.png'       --> 'Holidays - Rome 2002.10 #03.png' 
+
+Broken placeholders - like $n(), $e(0,3) or $N(abc) - are copied verbatim without any 
+substitution.
