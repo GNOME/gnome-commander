@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-07 03:48+0100\n"
-"PO-Revision-Date: 2003-12-07 14:13+0100\n"
+"POT-Creation-Date: 2003-12-20 03:59+0100\n"
+"PO-Revision-Date: 2003-12-20 22:56+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,10 @@ msgstr "GNOME Commander"
 #: libgcmd/gnome-cmd-string-dialog.c:133
 msgid "No error description available"
 msgstr "Geen foutbeschrijving beschikbaar"
+
+#: plugins/cvs/cvs-plugin.c:331
+msgid "A plugin that eventually will be a simple CVS client"
+msgstr "Een plug-in die uiteindelijk een eenvoudige CVS-cliënt zal worden"
 
 #: plugins/cvs/interface.c:33
 msgid "Compare Revisions..."
@@ -156,6 +160,14 @@ msgid ""
 msgstr ""
 "Een plugin die File-roller mogelijkheden toevoegt voor maken en uitpakken "
 "van archieven."
+
+#: plugins/test/test-plugin.c:233
+msgid ""
+"This is an example plugin that is mostly useful as a simple example for "
+"aspiring plugin hackers"
+msgstr ""
+"Dit is een voorbeeldplugin die vooral bedoeld is als eenvoudig voorbeeld "
+"voor aankomende pluginschrijvers"
 
 #: src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
