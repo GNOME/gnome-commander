@@ -25,6 +25,7 @@ typedef struct _GnomeCmdDataPrivate GnomeCmdDataPrivate;
 #include "gnome-cmd-app.h"
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-con-list.h"
+#include "gnome-cmd-file-list.h"
 #include "filter.h"
 #include "history.h"
 
@@ -183,6 +184,12 @@ gnome_cmd_data_get_position             (gint *width, gint *height);
 
 void
 gnome_cmd_data_save_position            (void);
+
+void
+gnome_cmd_data_get_sort_params          (GnomeCmdFileList *fl, gint *col, gboolean *direction);
+
+void
+gnome_cmd_data_set_sort_params          (GnomeCmdFileList *fl, gint col, gboolean direction);
 
 void
 gnome_cmd_data_set_viewer               (const gchar *command);

@@ -88,6 +88,8 @@ struct _GnomeCmdDataPrivate
 	gchar               *last_pattern;
 	GList               *auto_load_plugins;
 	guint               gui_update_rate;
+	gint                sort_column[2];
+	gboolean            sort_direction[2];
 	
 	gchar *viewer;
 	gchar *editor;
@@ -958,8 +960,17 @@ gnome_cmd_data_save                      (void)
 	gnome_cmd_data_set_bool   ("/programs/toolbar_visibility",
 				data->priv->toolbar_visibility);
 	gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility",
-				data->priv->buttonbar_visibility);
-	
+							   data->priv->buttonbar_visibility);
+
+	gnome_cmd_data_set_int (
+		"/options/sort_column_left", data->priv->sort_column[0]);
+	gnome_cmd_data_set_bool (
+		"/options/sort_direction_left", data->priv->sort_direction[0]);
+	gnome_cmd_data_set_int (
+		"/options/sort_column_right", data->priv->sort_column[1]);
+	gnome_cmd_data_set_bool (
+		"/options/sort_direction_right", data->priv->sort_direction[1]);
+
 	
 	gnome_cmd_data_set_string ("/programs/viewer",
 				data->priv->viewer);
@@ -1191,6 +1202,15 @@ gnome_cmd_data_load                      (void)
 		"/programs/toolbar_visibility", TRUE);
 	data->priv->buttonbar_visibility = gnome_cmd_data_get_bool (
 		"/programs/buttonbar_visibility", TRUE);
+
+	data->priv->sort_column[0] = gnome_cmd_data_get_int (
+		"/options/sort_column_left", 1);
+	data->priv->sort_direction[0] = gnome_cmd_data_get_bool (
+		"/options/sort_direction_left", FALSE);
+	data->priv->sort_column[1] = gnome_cmd_data_get_int (
+		"/options/sort_column_right", 1);
+	data->priv->sort_direction[1] = gnome_cmd_data_get_bool (
+		"/options/sort_direction_right", FALSE);
 
 	data->priv->viewer = gnome_cmd_data_get_string ("/programs/viewer",
 									 "emacs %s");
@@ -1971,6 +1991,36 @@ guint
 gnome_cmd_data_get_gui_update_rate (void)
 {
 	return data->priv->gui_update_rate;
+}
+
+
+void
+gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direction)
+{
+	if (!gnome_cmd_main_win_get_left_fs (main_win) ||
+		gnome_cmd_main_win_get_left_fs (main_win)->list == fl) {
+		*col = data->priv->sort_column[0];
+		*direction = data->priv->sort_direction[0];
+	}
+	else if (!gnome_cmd_main_win_get_right_fs (main_win) ||
+			 gnome_cmd_main_win_get_right_fs (main_win)->list == fl) {
+		*col = data->priv->sort_column[1];
+		*direction = data->priv->sort_direction[1];
+	}
+}
+
+
+void
+gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction)
+{
+	if (gnome_cmd_main_win_get_left_fs (main_win)->list == fl) {
+		data->priv->sort_column[0] = col;
+		data->priv->sort_direction[0] = direction;
+	}
+	else if (gnome_cmd_main_win_get_right_fs (main_win)->list == fl) {
+		data->priv->sort_column[1] = col;
+		data->priv->sort_direction[1] = direction;
+	}
 }
 
 

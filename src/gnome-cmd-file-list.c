@@ -104,6 +104,30 @@ GtkJustification list_column_justification[FILE_LIST_NUM_COLUMNS] = {
 };
 
 
+static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+static gint sort_by_extension (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+
+
+static GnomeVFSListCompareFunc sort_funcs[] =
+{
+	NULL,
+	(GnomeVFSListCompareFunc)sort_by_name,
+	(GnomeVFSListCompareFunc)sort_by_extension,
+	(GnomeVFSListCompareFunc)sort_by_dir,
+	(GnomeVFSListCompareFunc)sort_by_size,
+	(GnomeVFSListCompareFunc)sort_by_date,
+	(GnomeVFSListCompareFunc)sort_by_perm,
+	(GnomeVFSListCompareFunc)sort_by_owner,
+	(GnomeVFSListCompareFunc)sort_by_group
+};
+
+
 struct _GnomeCmdFileListPrivate {
 	GtkWidget *column_pixmaps[FILE_LIST_NUM_COLUMNS];
 	GtkWidget *column_labels[FILE_LIST_NUM_COLUMNS];
@@ -985,36 +1009,8 @@ on_column_clicked                        (GtkCList *list,
 	g_return_if_fail (GTK_IS_CLIST (list));
 	g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 	
-	switch (col)
-	{
-		case 1:
-			fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_name;
-			break;
-		case 2:
-			fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_extension;
-			break;
-		case 3:
-			fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_dir;
-			break;
-		case 4:
-			fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_size;
-			break;
-		case 5:
-			fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_date;
-			break;
-		case 6:
-			fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_perm;
-			break;
-		case 7:
-			fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_owner;
-			break;
-		case 8:
-			fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_group;
-			break;
-		default:
-			return;
-	}
-
+	fl->priv->sort_func = sort_funcs[col];
+	
 	if (fl->priv->current_col == col)
 		fl->priv->sort_raising[col] = !fl->priv->sort_raising[col];
 
@@ -1022,6 +1018,8 @@ on_column_clicked                        (GtkCList *list,
 	update_column_sort_arrows (fl);
 	
 	gnome_cmd_file_list_sort (fl);
+
+	gnome_cmd_data_set_sort_params (fl, col, fl->priv->sort_raising[col]);
 }
 
 
@@ -1317,17 +1315,24 @@ static void
 init (GnomeCmdFileList *fl)
 {
 	gint i;
+	gboolean b;
 	
 	fl->priv = g_new (GnomeCmdFileListPrivate, 1);
 	fl->priv->shown_files = gnome_cmd_file_collection_new ();
 	fl->priv->selected_files = NULL;
 	fl->priv->shift_down = FALSE;
-	fl->priv->sort_func = (GnomeVFSListCompareFunc)sort_by_name;
-	fl->priv->current_col = 1;
 	fl->priv->selpat_dialog = NULL;
 	fl->priv->right_mb_down_file = NULL;
 	fl->priv->right_mb_timeout_id = 0;
 	fl->priv->quicksearch_popup = NULL;
+
+	for ( i=0 ; i<FILE_LIST_NUM_COLUMNS ; i++ )
+		fl->priv->sort_raising[i] = FALSE;
+	
+	gnome_cmd_data_get_sort_params (fl, &i, &b);
+	fl->priv->current_col = i;
+	fl->priv->sort_raising[i] = b;
+	fl->priv->sort_func = sort_funcs[i];
 	
 	list_column_titles[FILE_LIST_COLUMN_ICON]  = "";
 	list_column_titles[FILE_LIST_COLUMN_NAME]  = _("name");
@@ -1339,9 +1344,6 @@ init (GnomeCmdFileList *fl)
 	list_column_titles[FILE_LIST_COLUMN_OWNER] = _("uid");
 	list_column_titles[FILE_LIST_COLUMN_GROUP] = _("gid");
 	
-	for ( i=0 ; i<FILE_LIST_NUM_COLUMNS ; i++ )
-		fl->priv->sort_raising[i] = FALSE;
-
 	init_dnd (fl);
 	
 	for ( i=0 ; i<FILE_LIST_NUM_COLUMNS ; i++ )
