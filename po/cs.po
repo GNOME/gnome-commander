@@ -9,15 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-21 04:04+0100\n"
-"PO-Revision-Date: 2004-01-21 17:55+0100\n"
+"POT-Creation-Date: 2004-01-24 04:17+0100\n"
+"PO-Revision-Date: 2004-01-25 15:25+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
-"Language-Team:  <cs@li.org>\n"
+"Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #: gnome-commander.desktop.in.h:1
 msgid "A two paned file manager"
@@ -139,9 +138,7 @@ msgstr "Implicitní typ"
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
-msgstr ""
-"Zásuvný modul, který přidává zkratky File Rolleru pro tvorbu a rozbalování "
-"komprimovaných archávů."
+msgstr "Zásuvný modul, který přidává zkratky File Rolleru pro tvorbu a rozbalování komprimovaných archivů."
 
 #: plugins/test/test-plugin.c:232
 msgid ""
@@ -236,7 +233,7 @@ msgstr "Automaticky aktualizovat při zadání šablony"
 
 #: src/gnome-cmd-advrename-dialog.c:771
 msgid "Advanced Rename Tool"
-msgstr "Pokročilý Nástroj pro přejmenovávání"
+msgstr "Pokročilý nástroj pro přejmenovávání"
 
 #: src/gnome-cmd-advrename-dialog.c:784
 msgid "Template"
@@ -361,7 +358,7 @@ msgstr "Zápis"
 
 #: src/gnome-cmd-chmod-component.c:128
 msgid "Execute"
-msgstr "Spouštení"
+msgstr "Spouštění"
 
 #: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:89
 msgid "Owner:"
@@ -427,7 +424,7 @@ msgstr "Provést rekurzivně"
 
 #: src/gnome-cmd-con-device.c:103
 msgid "Failed to execute the mount command"
-msgstr "Nemohu provést příkaz mount"
+msgstr "Nemohu spustit příkaz mount"
 
 #: src/gnome-cmd-con-device.c:110
 msgid "Mount failed: Permission denied"
@@ -662,7 +659,7 @@ msgstr "%s bajtů"
 
 #: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
 msgid "No default application registered"
-msgstr "Žádná výchozí aplikace není registrováma"
+msgstr "Není zaregistrována implicitní aplikace"
 
 #: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2049
 msgid "Filename:"
@@ -883,7 +880,7 @@ msgstr "_Textový soubor"
 
 #: src/gnome-cmd-list-popmenu.c:152 src/gnome-cmd-main-menu.c:571
 msgid "_Paste"
-msgstr "_Vložit"
+msgstr "V_ložit"
 
 #: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:619
 msgid "_Refresh"
@@ -907,7 +904,7 @@ msgstr "Změnit přístupová _práva"
 
 #: src/gnome-cmd-main-menu.c:474
 msgid "Advanced _Rename Tool"
-msgstr "Pokročilý nástroj pro _přejmenovávání"
+msgstr "Pokročilý _nástroj pro přejmenovávání"
 
 #: src/gnome-cmd-main-menu.c:480
 msgid "Create _Symbolic Link"
@@ -1238,7 +1235,7 @@ msgstr "Formát:"
 
 #: src/gnome-cmd-options-dialog.c:266
 msgid "_Test"
-msgstr "_Test"
+msgstr "_Otestovat"
 
 #: src/gnome-cmd-options-dialog.c:269
 msgid "Test result:"
@@ -1381,7 +1378,7 @@ msgstr "Typy souborů, které skrývat"
 
 #: src/gnome-cmd-options-dialog.c:718
 msgid "Unknown"
-msgstr "Neznámý"
+msgstr "Neznámé"
 
 #: src/gnome-cmd-options-dialog.c:723
 msgid "Regular files"
@@ -1425,7 +1422,7 @@ msgstr "Symbolické odkazy"
 
 #: src/gnome-cmd-options-dialog.c:1036
 msgid "Label:"
-msgstr "Jmenovka:"
+msgstr "Popisek:"
 
 #: src/gnome-cmd-options-dialog.c:1038
 msgid "Command:"
@@ -1465,7 +1462,7 @@ msgstr "Některé soubory"
 
 #: src/gnome-cmd-options-dialog.c:1108
 msgid "File patterns"
-msgstr "Vzory sobuorů"
+msgstr "Vzory souborů"
 
 #: src/gnome-cmd-options-dialog.c:1133
 msgid "New Application"
@@ -1510,7 +1507,7 @@ msgstr "Jiné oblíbené aplikace"
 
 #: src/gnome-cmd-options-dialog.c:1273
 msgid "Label"
-msgstr "Jmenovka"
+msgstr "Popisek"
 
 #: src/gnome-cmd-options-dialog.c:1474
 msgid "Device:"
@@ -1538,7 +1535,7 @@ msgstr "Zobrazovat pouze ikony"
 
 #: src/gnome-cmd-options-dialog.c:1663
 msgid "Skip mounting (useful when using super-mount)"
-msgstr "Přeskočit připojování (užitečné, pokud používate super-mount)"
+msgstr "Přeskočit připojování (užitečné, pokud používáte super-mount)"
 
 #: src/gnome-cmd-options-dialog.c:1796
 msgid "General"
@@ -1768,7 +1765,7 @@ msgstr ""
 
 #: src/gnome-cmd-xfer.c:195
 msgid "Xfer problem"
-msgstr "Probém pri přenosu"
+msgstr "Problém při přenosu"
 
 #: src/gnome-cmd-xfer.c:233
 msgid "copying..."
@@ -1823,7 +1820,7 @@ msgstr ""
 
 #: src/main.c:56
 msgid "Specify debug flags to use"
-msgstr "Určení ladicíh příznaků"
+msgstr "Určení ladicích příznaků"
 
 #: src/main.c:58
 msgid "Specify the start directory for the left pane"
@@ -1937,7 +1934,7 @@ msgstr "Zobrazit"
 
 #: src/utils.c:632
 msgid "Run"
-msgstr "Spustiť"
+msgstr "Spustit"
 
 #: src/utils.c:668
 #, c-format
@@ -2069,17 +2066,11 @@ msgstr "Nemohu číst z adresáře %s: %s\n"
 #~ msgid "Main window"
 #~ msgstr "Hlavní okno"
 
-#~ msgid "Conflict while copying"
-#~ msgstr "Konfikt při kopírování"
-
 #~ msgid "Owner"
 #~ msgstr "Vlastník"
 
 #~ msgid "Group"
 #~ msgstr "Skupina"
-
-#~ msgid "Run program"
-#~ msgstr "Spustiť program"
 
 #~ msgid "status"
 #~ msgstr "stav"
