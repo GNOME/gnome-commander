@@ -123,7 +123,6 @@ create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 static void  
 update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-	g_printerr ("updating state...\n");
 }
 
 

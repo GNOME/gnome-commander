@@ -100,9 +100,9 @@ on_log (GtkMenuItem *item, GnomeCmdState *state)
 	CvsPlugin *plugin = gtk_object_get_data (GTK_OBJECT (item), "plugin");
 
 	while (files) {
-		GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)files->data;
+		GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
 		GnomeVFSURI *uri = gnome_vfs_uri_append_file_name (
-			state->active_dir_uri, info->name);		
+			state->active_dir_uri, finfo->info->name);
 		const gchar *fpath = gnome_vfs_uri_get_path (uri);
 		create_log_window (plugin, fpath);
 		files = files->next;
@@ -195,9 +195,9 @@ static gboolean
 cvs_dir_exists (GList *files)
 {
 	while (files) {
-		GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)files->data;
-		if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY &&
-			strcmp (info->name, "CVS") == 0) {
+		GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
+		if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY &&
+			strcmp (finfo->info->name, "CVS") == 0) {
 			return TRUE;
 		}
 		files = files->next;
