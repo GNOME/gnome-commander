@@ -1,7 +1,9 @@
 SUBDIRS = libgcmd src po pixmaps doc plugins
 
-EXTRA_DIST = mkinstalldirs @PACKAGE@.desktop @PACKAGE@.spec
+desktopdir = $(datadir)/applications
+desktop_in_files = @PACKAGE@.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+@INTLTOOL_DESKTOP_RULE@
 
-desktopdir = $(datadir)/gnome/apps/Applications
-desktop_DATA = @PACKAGE@.desktop
+EXTRA_DIST = mkinstalldirs @PACKAGE@.desktop @PACKAGE@.spec
 

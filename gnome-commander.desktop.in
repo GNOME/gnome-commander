@@ -1,0 +1,14 @@
+[Desktop Entry]
+_Name=GNOME Commander
+_Comment=A two paned file manager
+Exec=gnome-commander
+Icon=gnome-commander/gcmd-icon1.png
+Terminal=false
+MultipleArgs=false
+Type=Application
+DocPath=gnome-commander/index.html
+Categories=Application;Utility;
+StartupNotify=true
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=gnome-commander
+X-GNOME-Bugzilla-Component=application

@@ -1,3 +1,4 @@
+gnome-commander.desktop.in
 libgcmd/gnome-cmd-string-dialog.c
 src/gnome-cmd-advrename-dialog.c
 src/gnome-cmd-bookmark-dialog.c
