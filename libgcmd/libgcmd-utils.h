@@ -27,5 +27,11 @@ get_utf8 (const gchar *unknown);
 gchar *
 get_bold_text (const gchar *in);
 
+gchar *
+get_mono_text (const gchar *in);
+
+gchar *
+get_bold_mono_text (const gchar *in);
+
 
 #endif //__LIB_GCMD_UTILS_H__

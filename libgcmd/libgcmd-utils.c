@@ -63,3 +63,17 @@ get_bold_text (const gchar *in)
 }
 
 
+gchar *
+get_mono_text (const gchar *in)
+{
+	return g_strdup_printf ("<span font_family=\"monospace\">%s</span>", in);
+}
+
+
+gchar *
+get_bold_mono_text (const gchar *in)
+{
+	return g_strdup_printf ("<span font_family=\"monospace\" weight=\"bold\">%s</span>", in);
+}
+
+
