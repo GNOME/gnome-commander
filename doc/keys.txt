@@ -1,4 +1,4 @@
-Keyboard mapping for GNOME Commander v1.0
+Keyboard mapping for GNOME Commander v1.1
 -----------------------------------------
 
 F1	        Help
@@ -20,6 +20,7 @@ ALT+F8	    Opens the history list for the command line
 
 SHIFT+F2	Compare directories
 SHIFT+F4	Edit a new file
+SHIFT+F5    Make a copy a file in the current directory.
 SHIFT+F6	Rename a file
 SHIFT+F10   Bring up the context menu for the selected files.
 
@@ -109,4 +110,6 @@ CTRL+DOWN or ALT+F8
             the UP and DOWN cursor keys to select an entry. By pressing the
             LEFT or RIGHT key, you can edit the command line. This
             automatically closes the list.
-			
+
+CTRL+.		Copy the current working directory from the inactive file-list to
+			the active one.			
