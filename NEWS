@@ -1,4 +1,22 @@
 ===================================
+gnome-commander 1.1.5
+---------------
+
+Bug fixes:
+ * The ext-column is now hidden when the extension is only showed together
+   with the filename.
+ * Fixed unnecessary redraws of the file-list when dragging files over it.
+ * Fixed problem with ftp-connections that didn't disappear from the
+   connection toolbars when disconnected.
+ * The program no longer tries to center itself on the desktop.
+ * Fixed problems when renaming directories.
+
+New features:
+ * The dir-indicator above each file-list can now be used to navigate
+   upwards in the directory structure.
+
+   
+===================================
 gnome-commander 1.1.4
 ---------------
 
