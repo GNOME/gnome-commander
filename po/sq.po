@@ -342,9 +342,10 @@ msgstr ""
 msgid "name"
 msgstr "emri"
 
+#. GRUT modified this item
 #: src/gnome-cmd-bookmark-dialog.c:493
 msgid "path"
-msgstr "pozicioni"
+msgstr "shtegu"
 
 #: src/gnome-cmd-bookmark-dialog.c:502
 msgid "_Goto"
@@ -371,9 +372,10 @@ msgstr "Libërshënues i ri"
 msgid "Read"
 msgstr "Lexo"
 
+#. GRUT modified this item
 #: src/gnome-cmd-chmod-component.c:128
 msgid "Write"
-msgstr "Shkruaj"
+msgstr "Shkrim"
 
 #. GRUT modified this item
 #: src/gnome-cmd-chmod-component.c:128
@@ -586,9 +588,10 @@ msgid "Delete"
 msgstr "Elemino"
 
 #. GRUT modified this item
+#. GRUT modified this item
 #: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603 src/utils.c:632
 msgid "Cancel"
-msgstr "Anulloje"
+msgstr "Anullo"
 
 #. GRUT modified this item
 #: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603
@@ -632,9 +635,10 @@ msgstr ""
 msgid "Invalid command"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gnome-cmd-file-popmenu.c:159
 msgid "Application:"
-msgstr ""
+msgstr "Programi:"
 
 #: src/gnome-cmd-file-popmenu.c:163
 msgid "Open with other..."
@@ -756,9 +760,10 @@ msgid "File Properties"
 msgstr ""
 
 #. GRUT modified this item
+#. GRUT modified this item
 #: src/gnome-cmd-file-props-dialog.c:479
 msgid "Permissions"
-msgstr "Të drejtat"
+msgstr "Autorizimet"
 
 #: src/gnome-cmd-file-selector.c:194
 #, c-format
@@ -804,13 +809,15 @@ msgstr ""
 msgid "Create Symbolic Link"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gnome-cmd-file-selector.c:2310
 msgid "Filter:"
-msgstr ""
+msgstr "Filtri:"
 
+#. GRUT modified this item
 #: src/gnome-cmd-file.c:603
 msgid "Unknown file type"
-msgstr ""
+msgstr "Lloj i panjohur file"
 
 #: src/gnome-cmd-file.c:604
 msgid "Regular file"
@@ -849,9 +856,10 @@ msgstr "Lidhje simbolike"
 msgid "Enter password for %s@%s"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:168
 msgid "Enter Password"
-msgstr ""
+msgstr "Shkruaj fjalëkalimin"
 
 #: src/gnome-cmd-ftp-dialog.c:215
 msgid "No alias specified"
@@ -870,9 +878,10 @@ msgstr ""
 msgid "Alias:"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
 msgid "Host:"
-msgstr ""
+msgstr "Host:"
 
 #. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
@@ -905,9 +914,10 @@ msgstr ""
 msgid "FTP Connect"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:512
 msgid "Servers"
-msgstr ""
+msgstr "Serverët"
 
 #: src/gnome-cmd-ftp-dialog.c:532 src/gnome-cmd-options-dialog.c:1626
 msgid "Alias"
@@ -1269,9 +1279,10 @@ msgid "Sorting options"
 msgstr ""
 
 #. GRUT modified this item
+#. GRUT modified this item
 #: src/gnome-cmd-options-dialog.c:99 src/gnome-cmd-patternsel-dialog.c:160
 msgid "Case sensitive"
-msgstr "Gërma të mëdha/të vogla"
+msgstr "Ndjeshmëri gërma të mëdha/të vogla"
 
 #: src/gnome-cmd-options-dialog.c:109
 msgid "Confirmation options"
@@ -1532,9 +1543,10 @@ msgstr "Etiketa:"
 msgid "Command:"
 msgstr "Komanda:"
 
+#. GRUT modified this item
 #: src/gnome-cmd-options-dialog.c:1040 src/gnome-cmd-options-dialog.c:1478
 msgid "Icon:"
-msgstr ""
+msgstr "Ikona:"
 
 #: src/gnome-cmd-options-dialog.c:1061
 msgid "Can handle multiple files"
