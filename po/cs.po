@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-01 14:42+0200\n"
-"PO-Revision-Date: 2004-04-29 15:11+0200\n"
+"POT-Creation-Date: 2004-05-06 03:52+0200\n"
+"PO-Revision-Date: 2004-05-06 14:13+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1018,8 +1018,8 @@ msgid "_Bookmark this Directory..."
 msgstr "Přidat _záložku pro tento adresář..."
 
 #: src/gnome-cmd-main-menu.c:682
-msgid "_Edit Bookmarks..."
-msgstr "_Upravit záložky..."
+msgid "_Manage Bookmarks..."
+msgstr "_Spravovat záložky..."
 
 #: src/gnome-cmd-main-menu.c:694
 msgid "_Configure Plugins..."
