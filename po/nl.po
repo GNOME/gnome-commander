@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-04 03:46+0100\n"
-"PO-Revision-Date: 2003-12-05 01:14+0100\n"
+"POT-Creation-Date: 2003-12-05 14:48+0100\n"
+"PO-Revision-Date: 2003-12-06 19:02+0100\n"
 "Last-Translator: Vincent van Adrighem <V.vanAdrighem@dirck.mine.nu>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -58,12 +58,6 @@ msgstr "Informatie"
 #: plugins/cvs/interface.c:231
 msgid "Revision:"
 msgstr "Revisie:"
-
-#: plugins/cvs/interface.c:241 plugins/cvs/interface.c:261
-#: plugins/cvs/interface.c:281 plugins/cvs/interface.c:301
-#: plugins/cvs/interface.c:321
-msgid "..."
-msgstr "..."
 
 #: plugins/cvs/interface.c:251
 msgid "Author:"
@@ -119,41 +113,47 @@ msgstr ""
 "Eenvoudig gereedschap om verschillende revisies van een CVS-bestand te "
 "bekijken."
 
-#: plugins/fileroller/file-roller-plugin.c:168
+#: plugins/fileroller/file-roller-plugin.c:167
 msgid "What filename should the new archive have?"
 msgstr "Welke bestandsnaam zou het nieuwe archief moeten hebben?"
 
-#: plugins/fileroller/file-roller-plugin.c:170
+#: plugins/fileroller/file-roller-plugin.c:169
 msgid "Create Archive"
 msgstr "Archief aanmaken"
 
-#: plugins/fileroller/file-roller-plugin.c:274
+#: plugins/fileroller/file-roller-plugin.c:273
 msgid "Create Archive..."
 msgstr "Archief aanmaken..."
 
-#: plugins/fileroller/file-roller-plugin.c:288
+#: plugins/fileroller/file-roller-plugin.c:287
 msgid "Extract in Current Directory"
 msgstr "In huidige map uitpakken"
 
-#: plugins/fileroller/file-roller-plugin.c:293
+#: plugins/fileroller/file-roller-plugin.c:292
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Uitpakken naar '%s'"
 
-#: plugins/fileroller/file-roller-plugin.c:337 src/gnome-cmd-ftp-dialog.c:548
+#: plugins/fileroller/file-roller-plugin.c:336 src/gnome-cmd-ftp-dialog.c:548
 #: src/gnome-cmd-options-dialog.c:1054 src/gnome-cmd-options-dialog.c:1764
 #: src/gnome-cmd-prepare-copy-dialog.c:141
 #: src/gnome-cmd-prepare-move-dialog.c:125
 msgid "Options"
 msgstr "Opties"
 
-#: plugins/fileroller/file-roller-plugin.c:353
+#: plugins/fileroller/file-roller-plugin.c:352
 msgid "File-roller options"
 msgstr "File-roller opties"
 
-#: plugins/fileroller/file-roller-plugin.c:356
+#: plugins/fileroller/file-roller-plugin.c:355
 msgid "Default type"
 msgstr "Standaardtype"
+
+#: plugins/fileroller/file-roller-plugin.c:477
+msgid ""
+"A plugin that adds File Roller shortcuts for creating and extracting "
+"compressed archives."
+msgstr ""
 
 #: src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
@@ -638,11 +638,11 @@ msgid "Do you want to delete \"%s\"?"
 msgstr "Wilt u \"%s\" verwijderen?"
 
 #: src/gnome-cmd-delete-dialog.c:336
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Wilt u het geselecteerde bestand verwijderen?"
-msgstr[1] "Wilt u het geselecteerde bestand verwijderen?"
+msgstr[1] "Wilt u de geselecteerde bestanden verwijderen?"
 
 #: src/gnome-cmd-delete-dialog.c:344 src/gnome-cmd-main-win.c:1277
 msgid "Delete"
@@ -751,7 +751,7 @@ msgstr "%s bytes"
 msgid "No default application registered"
 msgstr "Geen standaardtoepassing geregistreerd"
 
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2086
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2081
 msgid "Filename:"
 msgstr "Bestandsnaam:"
 
@@ -804,44 +804,44 @@ msgid "Permissions"
 msgstr "Rechten"
 
 #: src/gnome-cmd-file-selector.c:178
-#, fuzzy, c-format
+#, c-format
 msgid "%s of %s kB in %d of %d file selected"
 msgid_plural "%s of %s kB in %d of %d files selected"
 msgstr[0] "%s van %s kB in %d van %d bestand geselecteerd"
-msgstr[1] "%s van %s kB in %d van %d bestand geselecteerd"
+msgstr[1] "%s van %s kB in %d van %d bestanden geselecteerd"
 
-#: src/gnome-cmd-file-selector.c:721
+#: src/gnome-cmd-file-selector.c:716
 #, c-format
 msgid "%s Free"
 msgstr "%s vrij"
 
-#: src/gnome-cmd-file-selector.c:1814
+#: src/gnome-cmd-file-selector.c:1809
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Kan geen verbinding maken: %s\n"
 
-#: src/gnome-cmd-file-selector.c:2023 src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-file-selector.c:2018 src/gnome-cmd-make-copy-dialog.c:68
 #: src/gnome-cmd-rename-dialog.c:52
 msgid "No filename entered"
 msgstr "Geen bestandsnaam gegeven"
 
-#: src/gnome-cmd-file-selector.c:2059
+#: src/gnome-cmd-file-selector.c:2054
 msgid "No filename given"
 msgstr "Geen bestandsnaam gegeven"
 
-#: src/gnome-cmd-file-selector.c:2092
+#: src/gnome-cmd-file-selector.c:2087
 msgid "New Text File"
 msgstr "Nieuw tekstbestand"
 
-#: src/gnome-cmd-file-selector.c:2256
+#: src/gnome-cmd-file-selector.c:2251
 msgid "Symlink name:"
 msgstr "Naam symbolische verwijzing:"
 
-#: src/gnome-cmd-file-selector.c:2262
+#: src/gnome-cmd-file-selector.c:2257
 msgid "Create Symbolic Link"
 msgstr "Symbolische verwijzing maken"
 
-#: src/gnome-cmd-file-selector.c:2333
+#: src/gnome-cmd-file-selector.c:2328
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -1256,15 +1256,15 @@ msgstr "bestanden te selecteren"
 
 #: src/gnome-cmd-options-dialog.c:79
 msgid "Match filenames using"
-msgstr ""
+msgstr "Bestanden filteren met"
 
 #: src/gnome-cmd-options-dialog.c:82
 msgid "Shell syntax"
-msgstr ""
+msgstr "shell syntax"
 
 #: src/gnome-cmd-options-dialog.c:86
 msgid "Regex syntax"
-msgstr ""
+msgstr "regex syntax"
 
 #: src/gnome-cmd-options-dialog.c:96
 msgid "Sorting options"
@@ -1292,23 +1292,23 @@ msgstr "Buffergrootte"
 
 #: src/gnome-cmd-options-dialog.c:214
 msgid "Size display mode"
-msgstr ""
+msgstr "Weergavemodus grootte"
 
 #: src/gnome-cmd-options-dialog.c:217
 msgid "Powered"
-msgstr ""
+msgstr "Machten"
 
 #: src/gnome-cmd-options-dialog.c:222
 msgid "Grouped"
-msgstr ""
+msgstr "Gegroepeerd"
 
 #: src/gnome-cmd-options-dialog.c:227
 msgid "Plain"
-msgstr ""
+msgstr "Normaal"
 
 #: src/gnome-cmd-options-dialog.c:237
 msgid "Permission display mode"
-msgstr ""
+msgstr "Weergavemodus rechten"
 
 #: src/gnome-cmd-options-dialog.c:240
 msgid "Text (rw-r--r--)"
@@ -1402,264 +1402,265 @@ msgstr "in beide kolommen"
 #. Graphical mode
 #: src/gnome-cmd-options-dialog.c:529
 msgid "Graphical mode:"
-msgstr ""
+msgstr "Grafische modus:"
 
 #: src/gnome-cmd-options-dialog.c:541
 msgid "MIME icons"
-msgstr ""
+msgstr "MIME-pictogrammen"
 
 #: src/gnome-cmd-options-dialog.c:545
 msgid "File type icons"
-msgstr ""
+msgstr "Bestandstype-pictogrammen"
 
 #: src/gnome-cmd-options-dialog.c:549
 msgid "Text (fastest)"
-msgstr ""
+msgstr "Tekst (snelst)"
 
 #. Colors
 #: src/gnome-cmd-options-dialog.c:558
 msgid "Colors:"
-msgstr ""
+msgstr "Kleuren:"
 
 #: src/gnome-cmd-options-dialog.c:573
 msgid "Respect theme settings"
-msgstr ""
+msgstr "Thema-instellingen respecteren"
 
 #: src/gnome-cmd-options-dialog.c:577
 msgid "Modern"
-msgstr ""
+msgstr "Modern"
 
 #: src/gnome-cmd-options-dialog.c:581
 msgid "Classic"
-msgstr ""
+msgstr "Klassiek"
 
 #: src/gnome-cmd-options-dialog.c:585
 msgid "Custom"
-msgstr ""
+msgstr "Aangepast"
 
 #: src/gnome-cmd-options-dialog.c:593
 msgid "Edit..."
-msgstr ""
+msgstr "Bewerken..."
 
 #: src/gnome-cmd-options-dialog.c:603
 msgid "Colorize files according to the LS_COLORS enviroment variable"
-msgstr ""
+msgstr "Bestanden kleuren volgens de LS_COLORS omgevingsvariabele"
 
 #: src/gnome-cmd-options-dialog.c:615
 msgid "MIME icon settings"
-msgstr ""
+msgstr "MIME-pictograminstellingen"
 
 #: src/gnome-cmd-options-dialog.c:632
 msgid "Icon size:"
-msgstr ""
+msgstr "pictogramgrootte"
 
 #: src/gnome-cmd-options-dialog.c:634
 msgid "Scaling quality:"
-msgstr ""
+msgstr "Zoomkwaliteit:"
 
 #: src/gnome-cmd-options-dialog.c:636
 msgid "Theme icon directory:"
-msgstr ""
+msgstr "Map voor themapictogrammen:"
 
 #: src/gnome-cmd-options-dialog.c:638
 msgid "Document icon directory:"
-msgstr ""
+msgstr "Map voor documentpictogrammen:"
 
 #: src/gnome-cmd-options-dialog.c:730
 msgid "Filetypes to hide"
-msgstr ""
+msgstr "Te verbergen bestandstypen"
 
 #: src/gnome-cmd-options-dialog.c:733
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekend"
 
 #: src/gnome-cmd-options-dialog.c:738
 msgid "Regular files"
-msgstr ""
+msgstr "Normale bestanden"
 
 #: src/gnome-cmd-options-dialog.c:743
 msgid "Directories"
-msgstr ""
+msgstr "Mappen"
 
 #: src/gnome-cmd-options-dialog.c:748
 msgid "Fifo files"
-msgstr ""
+msgstr "Fifo-bestanden"
 
 #: src/gnome-cmd-options-dialog.c:753
 msgid "Socket files"
-msgstr ""
+msgstr "Socket-bestanden"
 
 #: src/gnome-cmd-options-dialog.c:758
 msgid "Character devices"
-msgstr ""
+msgstr "Karakter-apparaten"
 
 #: src/gnome-cmd-options-dialog.c:763
 msgid "Block devices"
-msgstr ""
+msgstr "Blok-apparaten"
 
 #: src/gnome-cmd-options-dialog.c:771
 msgid "Also hide"
-msgstr ""
+msgstr "Ook verbergen"
 
 #: src/gnome-cmd-options-dialog.c:774
 msgid "Hidden files"
-msgstr ""
+msgstr "Verborgen bestanden"
 
 #: src/gnome-cmd-options-dialog.c:779
 msgid "Backup files"
-msgstr ""
+msgstr "Reservebestanden"
 
 #: src/gnome-cmd-options-dialog.c:784
 msgid "Symlinks"
-msgstr ""
+msgstr "Symbolische verwijzingen"
 
 #: src/gnome-cmd-options-dialog.c:1032
 msgid "Label:"
-msgstr ""
+msgstr "Label:"
 
 #: src/gnome-cmd-options-dialog.c:1034
 msgid "Command:"
-msgstr ""
+msgstr "Opdracht:"
 
 #: src/gnome-cmd-options-dialog.c:1036 src/gnome-cmd-options-dialog.c:1474
 msgid "Icon:"
-msgstr ""
+msgstr "Pictogram"
 
 #: src/gnome-cmd-options-dialog.c:1057
 msgid "Can handle multiple files"
-msgstr ""
+msgstr "Kan meerdere bestanden in één keer verwerken"
 
 #: src/gnome-cmd-options-dialog.c:1061
 msgid "Can handle URIs"
-msgstr ""
+msgstr "Kan meerdere URI's in één keer verwerken"
 
 #: src/gnome-cmd-options-dialog.c:1065
 msgid "Requires terminal"
-msgstr ""
+msgstr "Terminal vereist"
 
 #: src/gnome-cmd-options-dialog.c:1072
 msgid "Show for"
-msgstr ""
+msgstr "Weergeven voor"
 
 #: src/gnome-cmd-options-dialog.c:1081
 msgid "All directories"
-msgstr ""
+msgstr "Alle mappen"
 
 #: src/gnome-cmd-options-dialog.c:1087
 msgid "All directories and files"
-msgstr ""
+msgstr "Alle bestanden en mappen"
 
 #: src/gnome-cmd-options-dialog.c:1093
 msgid "Some files"
-msgstr ""
+msgstr "Sommige bestanden"
 
 #: src/gnome-cmd-options-dialog.c:1104
 msgid "File patterns"
-msgstr ""
+msgstr "Bepaald bestandspatroon"
 
 #: src/gnome-cmd-options-dialog.c:1129
 msgid "New Application"
-msgstr ""
+msgstr "Nieuw programma"
 
 #: src/gnome-cmd-options-dialog.c:1140
 msgid "Edit Application"
-msgstr ""
+msgstr "Programma bewerken"
 
 #: src/gnome-cmd-options-dialog.c:1226
 msgid "Always download remote files before opening in external programs"
 msgstr ""
+"Bestanden altijd downloaden alvorens deze te openen in een extern programma"
 
 #: src/gnome-cmd-options-dialog.c:1230
 msgid "MIME applications"
-msgstr ""
+msgstr "MIME-programma's"
 
 #: src/gnome-cmd-options-dialog.c:1234
 msgid "Standard programs"
-msgstr ""
+msgstr "Standaardprogramma's"
 
 #: src/gnome-cmd-options-dialog.c:1237
 msgid "Viewer:"
-msgstr ""
+msgstr "Weergave:"
 
 #: src/gnome-cmd-options-dialog.c:1239
 msgid "Editor:"
-msgstr ""
+msgstr "Bewerken:"
 
 #: src/gnome-cmd-options-dialog.c:1241
 msgid "Differ:"
-msgstr ""
+msgstr "Verschil:"
 
 #: src/gnome-cmd-options-dialog.c:1243
 msgid "Terminal:"
-msgstr ""
+msgstr "Terminal:"
 
 #: src/gnome-cmd-options-dialog.c:1262
 msgid "Other favorite apps"
-msgstr ""
+msgstr "Andere favoriete programma's"
 
 #: src/gnome-cmd-options-dialog.c:1269
 msgid "Label"
-msgstr ""
+msgstr "Label"
 
 #: src/gnome-cmd-options-dialog.c:1470
 msgid "Device:"
-msgstr ""
+msgstr "Apparaat:"
 
 #: src/gnome-cmd-options-dialog.c:1472
 msgid "Mount point:"
-msgstr ""
+msgstr "Koppelpunt:"
 
 #: src/gnome-cmd-options-dialog.c:1516
 msgid "New Device"
-msgstr ""
+msgstr "Nieuw apparaat"
 
 #: src/gnome-cmd-options-dialog.c:1528
 msgid "Edit Device"
-msgstr ""
+msgstr "Apparaat bewerken"
 
 #: src/gnome-cmd-options-dialog.c:1612 src/gnome-cmd-options-dialog.c:1822
 msgid "Devices"
-msgstr ""
+msgstr "Apparaten"
 
 #: src/gnome-cmd-options-dialog.c:1654
 msgid "Show only the icons"
-msgstr ""
+msgstr "Alleen pictogrammen weergeven"
 
 #: src/gnome-cmd-options-dialog.c:1659
 msgid "Skip mounting (useful when using super-mount)"
-msgstr ""
+msgstr "Aankoppelen overslaan (handig bij gebruik van supermount)"
 
 #: src/gnome-cmd-options-dialog.c:1792
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: src/gnome-cmd-options-dialog.c:1798
 msgid "Format"
-msgstr ""
+msgstr "Instellingen"
 
 #: src/gnome-cmd-options-dialog.c:1804
 msgid "Layout"
-msgstr ""
+msgstr "Opmaak"
 
 #: src/gnome-cmd-options-dialog.c:1810
 msgid "Filters"
-msgstr ""
+msgstr "Filters"
 
 #: src/gnome-cmd-options-dialog.c:1816
 msgid "Programs"
-msgstr ""
+msgstr "Programma's"
 
 #: src/gnome-cmd-patternsel-dialog.c:118
 msgid "Pattern:"
-msgstr ""
+msgstr "Patroon:"
 
 #: src/gnome-cmd-patternsel-dialog.c:126
 msgid "Select Using Pattern"
-msgstr ""
+msgstr "Selecteren m.b.v. patroon"
 
 #: src/gnome-cmd-patternsel-dialog.c:126
 msgid "Unselect Using Pattern"
-msgstr ""
+msgstr "Deselecteren m.b.v. patroon"
 
 #.
 #. * Create prepare copy specific widgets
@@ -1667,21 +1668,21 @@ msgstr ""
 #: src/gnome-cmd-prepare-copy-dialog.c:93
 #: src/gnome-cmd-prepare-move-dialog.c:87
 msgid "Silently"
-msgstr ""
+msgstr "Stil"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:102
 #: src/gnome-cmd-prepare-move-dialog.c:96
 msgid "Query First"
-msgstr ""
+msgstr "Eerst vragen"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:111
 #: src/gnome-cmd-prepare-move-dialog.c:105 src/gnome-cmd-xfer.c:176
 msgid "Skip All"
-msgstr ""
+msgstr "Alles overslaan"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:121
 msgid "Follow Links"
-msgstr ""
+msgstr "Verwijzingen volgen"
 
 #.
 #. * Customize prepare xfer widgets
@@ -1689,137 +1690,137 @@ msgstr ""
 #: src/gnome-cmd-prepare-copy-dialog.c:136
 #: src/gnome-cmd-prepare-move-dialog.c:120
 msgid "Overwrite Files"
-msgstr ""
+msgstr "Bestanden overschrijven"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:156
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
-msgstr[0] ""
+msgstr[0] "%d bestand kopiëren naar"
 msgstr[1] ""
 
 #: src/gnome-cmd-prepare-move-dialog.c:80
 msgid "Move"
-msgstr ""
+msgstr "Verplaatsen"
 
 #: src/gnome-cmd-prepare-move-dialog.c:135
 #, c-format
 msgid "Move \"%s\" to"
-msgstr ""
+msgstr "\"%s\" verplaatsen naar"
 
 #: src/gnome-cmd-prepare-move-dialog.c:139
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
-msgstr[0] ""
+msgstr[0] "%d bestand verplaatsen naar"
 msgstr[1] ""
 
 #: src/gnome-cmd-prepare-xfer-dialog.c:114
 #: src/gnome-cmd-prepare-xfer-dialog.c:153
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
-msgstr ""
+msgstr "De map '%s' bestaat niet. Wilt u deze aanmaken?"
 
 #: src/gnome-cmd-quicksearch-popup.c:249
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: src/gnome-cmd-rename-dialog.c:145
 #, c-format
 msgid "Rename \"%s\" to"
-msgstr ""
+msgstr "\"%s\" hernoemen naar"
 
 #: src/gnome-cmd-rename-dialog.c:153
 msgid "Rename File"
-msgstr ""
+msgstr "Bestand hernoemen"
 
 #: src/gnome-cmd-search-dialog.c:186
 #, c-format
 msgid "Failed to open file %s: %s\n"
-msgstr ""
+msgstr "Kan bestand %s niet openen: %s\n"
 
 #: src/gnome-cmd-search-dialog.c:195
 #, c-format
 msgid "Failed to read from file %s: %s\n"
-msgstr ""
+msgstr "Kan niet lezen uit bestand %s: %s\n"
 
 #: src/gnome-cmd-search-dialog.c:257
 #, c-format
 msgid "Searching in: %s"
-msgstr ""
+msgstr "Zoeken in: %s"
 
 #: src/gnome-cmd-search-dialog.c:401
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
-msgstr[0] ""
+msgstr[0] "%d gevonden voordat ik gestopt werd"
 msgstr[1] ""
 
 #: src/gnome-cmd-search-dialog.c:408
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
-msgstr[0] ""
+msgstr[0] "%d gevonden"
 msgstr[1] ""
 
 #: src/gnome-cmd-search-dialog.c:739
 msgid "Search..."
-msgstr ""
+msgstr "Zoeken..."
 
 #. Search for
 #: src/gnome-cmd-search-dialog.c:754
 msgid "Search for: "
-msgstr ""
+msgstr "Zoeken naar:"
 
 #. Search in
 #: src/gnome-cmd-search-dialog.c:768
 msgid "Search in: "
-msgstr ""
+msgstr "Zoeken in: "
 
 #. Find text
 #: src/gnome-cmd-search-dialog.c:782
 msgid "Find text: "
-msgstr ""
+msgstr "Tekst zoeken:"
 
 #: src/gnome-cmd-search-dialog.c:799
 msgid "Search Recursively"
-msgstr ""
+msgstr "Recursief zoeken"
 
 #. Case check
 #: src/gnome-cmd-search-dialog.c:807
 msgid "Case Sensitive"
-msgstr ""
+msgstr "Hoofdlettergevoelig"
 
 #: src/gnome-cmd-search-dialog.c:819
 msgid "Goto"
-msgstr ""
+msgstr "Ganaar"
 
 #: src/gnome-cmd-search-popup.c:190
 msgid "Chmod"
-msgstr ""
+msgstr "Chmod"
 
 #: src/gnome-cmd-smb-path.c:324
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
-msgstr ""
+msgstr "Kan geen computer of groep met de naam %s vinden\n"
 
 #: src/gnome-cmd-xfer-progress-win.c:37
 msgid "stopping..."
-msgstr ""
+msgstr "gestopt..."
 
 #: src/gnome-cmd-xfer-progress-win.c:88
 msgid "Progress"
-msgstr ""
+msgstr "Voortgang"
 
 #: src/gnome-cmd-xfer-progress-win.c:174
 #, c-format
 msgid "%d%% of %s copied"
-msgstr ""
+msgstr "%d%% van %s gekopieerd"
 
 #: src/gnome-cmd-xfer-progress-win.c:179
 #, c-format
 msgid "%d%% copied"
-msgstr ""
+msgstr "%d%% gekopieerd"
 
 #: src/gnome-cmd-xfer.c:170
 #, c-format
@@ -1828,14 +1829,17 @@ msgid ""
 "\n"
 "Do you want to overwrite it?\n"
 msgstr ""
+"Het bestand \"%s\" bestaat al.\n"
+"\n"
+"Wilt u deze overschrijven?\n"
 
 #: src/gnome-cmd-xfer.c:176
 msgid "Replace"
-msgstr ""
+msgstr "Vervangen"
 
 #: src/gnome-cmd-xfer.c:176
 msgid "Replace All"
-msgstr ""
+msgstr "Alles vervangen"
 
 #: src/gnome-cmd-xfer.c:190
 #, c-format
@@ -1844,33 +1848,38 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Fout bij kopiëren naar %s\n"
+"\n"
+"%s"
 
 #: src/gnome-cmd-xfer.c:195
 msgid "Xfer problem"
-msgstr ""
+msgstr "Overdrachtsprobleem"
 
 #: src/gnome-cmd-xfer.c:231
 msgid "copying..."
-msgstr ""
+msgstr "kopiëren..."
 
 #: src/gnome-cmd-xfer.c:239
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
-msgstr ""
+msgstr "[bestand %ld van %ld] \"%s\""
 
 #: src/gnome-cmd-xfer.c:383
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
 msgstr ""
+"Een map naar zichzelf kopiëren is een slecht idee.\n"
+"De hele opdracht is afgebroken."
 
 #: src/gnome-cmd-xfer.c:430
 msgid "preparing..."
-msgstr ""
+msgstr "voorbereiden..."
 
 #: src/gnome-cmd-xfer.c:525
 msgid "downloading to /tmp"
-msgstr ""
+msgstr "downloaden naar /tmp"
 
 #: src/imageloader.c:124
 msgid ""
@@ -1880,7 +1889,7 @@ msgstr ""
 #: src/imageloader.c:126 src/imageloader.c:152
 #, c-format
 msgid "Trying to load %s instead\n"
-msgstr ""
+msgstr "Probeer %s te laden\n"
 
 #: src/imageloader.c:130 src/imageloader.c:155
 msgid ""
@@ -1891,18 +1900,20 @@ msgstr ""
 #: src/imageloader.c:150
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
+"Kan geïnstalleerde afbeeldingen niet laden. Afbeelding uit bronmap wordt "
+"geladen\n"
 
 #: src/main.c:56
 msgid "Specify debug flags to use"
-msgstr ""
+msgstr "Specificeer de te gebruiken debug-vlaggen"
 
 #: src/main.c:58
 msgid "Specify the start directory for the left pane"
-msgstr ""
+msgstr "Specificeer de startmap in het linker paneel"
 
 #: src/main.c:60
 msgid "Specify the start directory for the right pane"
-msgstr ""
+msgstr "Specificeer de startmap in het rechter paneel"
 
 #: src/owner.c:98
 #, c-format
@@ -1913,54 +1924,54 @@ msgstr ""
 
 #: src/plugin_manager.c:294
 msgid "Disable"
-msgstr ""
+msgstr "Uitschakelen"
 
 #: src/plugin_manager.c:299
 msgid "Enable"
-msgstr ""
+msgstr "Inschakelen"
 
 #: src/plugin_manager.c:423
 msgid "Available plugins"
-msgstr ""
+msgstr "Beschikbare plugins"
 
 #: src/plugin_manager.c:429
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: src/plugin_manager.c:430
 msgid "Version"
-msgstr ""
+msgstr "Versie"
 
 #: src/plugin_manager.c:431
 msgid "File"
-msgstr ""
+msgstr "Bestand"
 
 #: src/plugin_manager.c:437
 msgid "_Enable"
-msgstr ""
+msgstr "_Inschakelen"
 
 #: src/plugin_manager.c:442
 msgid "_Configure"
-msgstr ""
+msgstr "Configureren"
 
 #: src/plugin_manager.c:448
 msgid "_About"
-msgstr ""
+msgstr "_Info"
 
 #: src/useractions.c:261
 #, c-format
 msgid "running \"%s\"\n"
-msgstr ""
+msgstr "\"%s\" actief\n"
 
 #: src/useractions.c:636
 msgid "A fast and powerfull file manager for the GNOME desktop"
-msgstr ""
+msgstr "Snel en krachtig bestandsbeheer voor de GNOME omgeving"
 
 #. xgettext:
 #. * Replace this with your name when translating
 #: src/useractions.c:641
 msgid "No translation is currently in use."
-msgstr ""
+msgstr "Vincent van Adrighem"
 
 #: src/utils.c:515
 #, c-format
@@ -1968,6 +1979,8 @@ msgid ""
 "No default application found for the mime-type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
+"Geen standaardprogramma gevonden voor het MIME-type %s.\n"
+"Open het venster \"Bestandstypen en programma's\" om er een toe te voegen."
 
 #: src/utils.c:595
 #, c-format
@@ -1975,10 +1988,12 @@ msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
+"\"%s\" lijkt een uitvoerbaar programma te zijn, maar is niet aangemerkt als "
+"uitvoerbaar. Wilt u dit veranderen en het programma uitvoeren?"
 
 #: src/utils.c:598
 msgid "Make Executable?"
-msgstr ""
+msgstr "Uitvoerbaar maken?"
 
 #: src/utils.c:625
 #, c-format
@@ -1986,18 +2001,20 @@ msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
 msgstr ""
+"\"%s\" is een uitvoerbaar tekstbestand. Wilt u het uitvoeren, of de inhoud "
+"weergeven?"
 
 #: src/utils.c:627
 msgid "Run or Display"
-msgstr ""
+msgstr "Uitvoeren of weergeven"
 
 #: src/utils.c:628
 msgid "Display"
-msgstr ""
+msgstr "Weergeven"
 
 #: src/utils.c:628
 msgid "Run"
-msgstr ""
+msgstr "Uitvoeren"
 
 #: src/utils.c:664
 #, c-format
@@ -2005,6 +2022,8 @@ msgid ""
 "%s does not know how to open remote files. Do you want to download the file "
 "to a temporary location and then open it?"
 msgstr ""
+"%s kan geen bestanden op afstand openen. Wilt u deze downloaden naar een "
+"tijdelijke locatie en vanaf daar openen?"
 
 #: src/utils.c:738
 #, c-format
@@ -2012,18 +2031,23 @@ msgid ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
 msgstr ""
+"%s kan geen bestanden op afstand openen. Wilt u deze downloaden naar een "
+"tijdelijke locatie en vanaf daar openen?"
 
 #: src/utils.c:1347
 #, c-format
 msgid "Creating directory %s... "
-msgstr ""
+msgstr "Map %s maken... "
 
 #: src/utils.c:1352
 #, c-format
 msgid "Failed to create the directory %s"
-msgstr ""
+msgstr "Kan de map %s niet maken"
 
 #: src/utils.c:1358
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
-msgstr ""
+msgstr "Kan niet lezen uit de map %s: %s\n"
+
+#~ msgid "..."
+#~ msgstr "..."
