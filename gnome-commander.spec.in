@@ -4,7 +4,7 @@
 # Source archive's extension can be specified with rpm --define 'srcext .foo'
 # where .foo is the source archive's actual extension.
 # To compile an RPM from a .bz2 source archive, give the command
-#   rpm -tb --define 'srcext .bz2' @PACKAGE@-@VERSION@.tar.bz2
+#   rpmbuild -tb --define 'srcext .bz2' @PACKAGE@-@VERSION@.tar.bz2
 #
 
 %if %{?rel:0}%{!?rel:1}
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/pixmaps/@PACKAGE@/*/*.xpm
 
 %changelog
+* Fri Jan 28 2005 Piotr Eljasiak <epiotr@cvs.gnome.org>
+- fixed typo: rpm --> rpmbuild
+
 * Mon May 03 2004 Piotr Eljasiak <epiotr@cvs.gnome.org>
 - converted spec file to utf-8
 - used RPM macros a bit more
