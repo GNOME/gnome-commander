@@ -55,6 +55,8 @@ on_ok (GnomeCmdStringDialog *string_dialog,
 
 	ret = gnome_cmd_file_rename (dialog->priv->finfo, filename);
 	if (ret == GNOME_VFS_OK) {
+		gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_active_fs (main_win)->list,
+										filename, TRUE);
 		gnome_cmd_file_unref (dialog->priv->finfo);
 		return TRUE;
 	}
