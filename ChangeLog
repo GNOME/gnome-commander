@@ -1,5 +1,11 @@
 2003-12-04  Marcus Bjurman  <marbj499@student.liu.se>
 
+	* plugins/test/test-plugin.c: 
+	* plugins/cvs/interface.c: 
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/fileroller/file-roller-plugin.c:
+	Fixed some translation markup issues.
+
 	* src/gnome-cmd-clist.c: 
 	* src/gnome-cmd-clist.h: 
 	* src/gnome-cmd-file-selector.c:
