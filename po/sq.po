@@ -909,9 +909,10 @@ msgstr ""
 msgid "Alias"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gnome-cmd-ftp-dialog.c:537 src/gnome-cmd-list-popmenu.c:145
 msgid "_New..."
-msgstr ""
+msgstr "_I Ri..."
 
 #: src/gnome-cmd-ftp-dialog.c:553
 msgid "Anonymous password:"
