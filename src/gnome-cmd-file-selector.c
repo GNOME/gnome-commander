@@ -1232,9 +1232,10 @@ on_list_key_pressed_private              (GtkCList *clist,
 										  GdkEventKey *event,
 										  GnomeCmdFileSelector *fs)
 {
-	if (state_is_blank (event->state)) {
+	if (state_is_blank (event->state) || state_is_shift (event->state)) {
 		if ((event->keyval >= GDK_A && event->keyval <= GDK_Z)
-			|| (event->keyval >= GDK_a && event->keyval <= GDK_z)) {
+			|| (event->keyval >= GDK_a && event->keyval <= GDK_z)
+			|| event->keyval == GDK_period) {
 			static gchar text[2];
 
 			if (!gnome_cmd_data_get_cmdline_visibility ()) {

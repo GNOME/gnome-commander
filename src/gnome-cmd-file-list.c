@@ -2439,11 +2439,12 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
 				break;
 		}
 	}
-	else if (state_is_ctrl_alt (event->state)) {
+	else if (state_is_ctrl_alt (event->state) || state_is_ctrl_alt_shift (event->state)) {
 		if ((event->keyval >= GDK_a && event->keyval <= GDK_z)
-			|| (event->keyval >= GDK_A && event->keyval <= GDK_Z))
+			|| (event->keyval >= GDK_A && event->keyval <= GDK_Z)
+			|| event->keyval == GDK_period)
 			gnome_cmd_file_list_show_quicksearch (fl, (gchar)event->keyval);
-	}	
+	}
 	else if (state_is_shift (event->state)) {
 		switch (event->keyval)
 		{

@@ -839,6 +839,12 @@ gboolean state_is_ctrl_shift (gint state)
 }
 
 
+gboolean state_is_ctrl_alt_shift (gint state)
+{
+	return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+}
+
+
 void clear_event_key (GdkEventKey *event)
 {
 	g_return_if_fail (event != NULL);

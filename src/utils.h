@@ -71,6 +71,7 @@ gboolean state_is_alt (gint state);
 gboolean state_is_alt_shift (gint state);
 gboolean state_is_ctrl_alt (gint state);
 gboolean state_is_ctrl_shift (gint state);
+gboolean state_is_ctrl_alt_shift (gint state);
 
 GList *strings_to_uris (gchar *data);
 
