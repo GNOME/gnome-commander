@@ -302,17 +302,25 @@ update_xfer_gui_func (XferData *data)
 
 
 static gboolean
-uri_is_parent_to_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
+uri_is_parent_to_dir_or_equal (GnomeVFSURI *uri, GnomeCmdDir *dir)
 {
 	GnomeVFSURI *dir_uri;
-	gboolean ret;
+	gboolean is_parent, is_equal;
+	char *uri_str, *dir_uri_str;
 
 	dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir));
 
-	ret = gnome_vfs_uri_is_parent (uri, dir_uri, TRUE);
+	is_parent = gnome_vfs_uri_is_parent (uri, dir_uri, TRUE);
+
+	uri_str = gnome_vfs_uri_to_string (uri, 0);
+	dir_uri_str = gnome_vfs_uri_to_string (dir_uri, 0);
+	is_equal = gnome_vfs_uris_match (uri_str, dir_uri_str);
+
+	g_free (uri_str);
+	g_free (dir_uri_str);
 	gnome_vfs_uri_unref (dir_uri);
 	
-	return ret;
+	return is_parent || is_equal;
 }
 
 
@@ -379,7 +387,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
 	tmp = src_uri_list;
 	while (tmp) {
 		src_uri = (GnomeVFSURI*)tmp->data;
-		if (uri_is_parent_to_dir (src_uri, to_dir)) {
+		if (uri_is_parent_to_dir_or_equal (src_uri, to_dir)) {
 			create_error_dialog (_("Copying a directory into it self is a bad idea.\nThe whole operation was canceled."));
 			return;
 		}
