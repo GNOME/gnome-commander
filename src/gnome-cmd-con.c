@@ -391,7 +391,7 @@ gnome_cmd_con_set_cwd (GnomeCmdCon *con, GnomeCmdDir *dir)
 	g_return_if_fail (GNOME_CMD_IS_CON (con));
 
 	if (GNOME_CMD_IS_DIR (dir) &&
-		gnome_cmd_dir_get_connection (dir) == con)
+		gnome_cmd_dir_get_connection (dir) != con)
 		return;
 
 	if (dir == con->priv->cwd)
