@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.6\n"
 "Report-Msgid-Bugs-To: Duarte Loreto <happyguy_pt@hotmail.com>\n"
-"POT-Creation-Date: 2003-12-01 04:14+0000\n"
-"PO-Revision-Date: 2003-12-01 15:00+0000\n"
+"POT-Creation-Date: 2003-12-12 00:03+0000\n"
+"PO-Revision-Date: 2003-12-12 00:05+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,265 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: gnome-commander.desktop.in.h:1
+msgid "A two paned file manager"
+msgstr "Um gestor de ficheiros em dois paineis"
+
+#: gnome-commander.desktop.in.h:2
+msgid "GNOME Commander"
+msgstr "GNOME Commander"
+
 #: libgcmd/gnome-cmd-string-dialog.c:133
 msgid "No error description available"
 msgstr "Nenhuma descrição de erro disponível"
+
+#: plugins/cvs/cvs-plugin.c:331
+msgid "A plugin that eventually will be a simple CVS client"
+msgstr "Um plugin que virá a ser um cliente CVS simples"
+
+#: plugins/cvs/interface.c:33
+msgid "Compare Revisions..."
+msgstr "Comparar Revisões..."
+
+#: plugins/cvs/interface.c:52
+msgid "CVS"
+msgstr "CVS"
+
+#: plugins/cvs/interface.c:94
+msgid "CVSLogViewer"
+msgstr "Visualizador de Registo CVS"
+
+#: plugins/cvs/interface.c:173
+msgid "Revisions"
+msgstr "Revisões"
+
+#: plugins/cvs/interface.c:199
+msgid "revision"
+msgstr "revisão"
+
+#: plugins/cvs/interface.c:206
+msgid "Information"
+msgstr "Informação"
+
+#: plugins/cvs/interface.c:231
+msgid "Revision:"
+msgstr "Revisão"
+
+#: plugins/cvs/interface.c:251
+msgid "Author:"
+msgstr "Autor:"
+
+#: plugins/cvs/interface.c:271
+msgid "Date:"
+msgstr "Data:"
+
+#: plugins/cvs/interface.c:291
+msgid "State:"
+msgstr "Estado:"
+
+#: plugins/cvs/interface.c:311
+msgid "Lines:"
+msgstr "Linhas:"
+
+#: plugins/cvs/interface.c:338
+msgid "Message:"
+msgstr "Mensagem:"
+
+#: plugins/cvs/interface.c:392
+msgid "Compare revisions"
+msgstr "_Comparar revisões"
+
+#: plugins/cvs/interface.c:418
+msgid "Revision 1:"
+msgstr "Revisão 1:"
+
+#: plugins/cvs/interface.c:428
+msgid "Revision 2:"
+msgstr "Revisão 2:"
+
+#: plugins/cvs/interface.c:468
+msgid "Compare"
+msgstr "Comparar"
+
+#: plugins/cvs/interface.c:477
+msgid "Diff output"
+msgstr "Resultado diff"
+
+#: plugins/cvs/interface.c:499
+msgid "Fixed font"
+msgstr "Fonte fixa"
+
+#: plugins/cvs/interface.c:542
+msgid "Copyright: Marcus Bjurman 2003"
+msgstr "Copyright: Marcus Bjurman 2003"
+
+#: plugins/cvs/interface.c:546
+msgid "Small tool to browse CVS revisions of a single file."
+msgstr "Ferramenta simples para analisar revisões CVS de um ficheiro."
+
+#: plugins/fileroller/file-roller-plugin.c:167
+msgid "What filename should the new archive have?"
+msgstr "Que nome de ficheiro deverá o novo arquivo ter?"
+
+#: plugins/fileroller/file-roller-plugin.c:169
+msgid "Create Archive"
+msgstr "Criar Arquivo"
+
+#: plugins/fileroller/file-roller-plugin.c:273
+msgid "Create Archive..."
+msgstr "Criar Arquivo..."
+
+#: plugins/fileroller/file-roller-plugin.c:287
+msgid "Extract in Current Directory"
+msgstr "Extrair no Directório Actual"
+
+#: plugins/fileroller/file-roller-plugin.c:292
+#, c-format
+msgid "Extract to '%s'"
+msgstr "Extrair para '%s'"
+
+#: plugins/fileroller/file-roller-plugin.c:336 src/gnome-cmd-ftp-dialog.c:548
+#: src/gnome-cmd-options-dialog.c:1054 src/gnome-cmd-options-dialog.c:1764
+#: src/gnome-cmd-prepare-copy-dialog.c:141
+#: src/gnome-cmd-prepare-move-dialog.c:125
+msgid "Options"
+msgstr "Opções"
+
+#: plugins/fileroller/file-roller-plugin.c:352
+msgid "File-roller options"
+msgstr "Opções File-roller"
+
+#: plugins/fileroller/file-roller-plugin.c:355
+msgid "Default type"
+msgstr "Tipo por omissão"
+
+#: plugins/fileroller/file-roller-plugin.c:477
+msgid ""
+"A plugin that adds File Roller shortcuts for creating and extracting "
+"compressed archives."
+msgstr ""
+"Um plugin que adiciona atalhos File Roller para criar e extrair "
+"arquivos comprimidos."
+
+#: plugins/test/test-plugin.c:233
+msgid ""
+"This is an example plugin that is mostly useful as a simple example for "
+"aspiring plugin hackers"
+msgstr ""
+"Este é um plugin de exemplo que é útil principalmente como um exemplo "
+"para aspirantes a programadores de plugins"
+
+#: src/gnome-cmd-about-plugin.c:184
+msgid "Credits"
+msgstr "Créditos"
+
+#: src/gnome-cmd-about-plugin.c:216
+msgid "Written by"
+msgstr "Escrito por"
+
+#: src/gnome-cmd-about-plugin.c:231
+msgid "Documented by"
+msgstr "Documentado por"
+
+#: src/gnome-cmd-about-plugin.c:246
+msgid "Translated by"
+msgstr "Traduzido por"
+
+#: src/gnome-cmd-about-plugin.c:302
+msgid "Plugin Webpage"
+msgstr "Página Web de Plugins"
+
+#: src/gnome-cmd-about-plugin.c:314
+msgid "C_redits"
+msgstr "C_réditos"
+
+#: src/gnome-cmd-about-plugin.c:369
+msgid "Program name"
+msgstr "Nome da aplicação"
+
+#: src/gnome-cmd-about-plugin.c:370
+msgid "The name of the program"
+msgstr "O nome da aplicação"
+
+#: src/gnome-cmd-about-plugin.c:377
+msgid "Program version"
+msgstr "Versão da aplicação"
+
+#: src/gnome-cmd-about-plugin.c:378
+msgid "The version of the program"
+msgstr "A versão da aplicação"
+
+#: src/gnome-cmd-about-plugin.c:384
+msgid "Copyright string"
+msgstr "Expressão de copyright"
+
+#: src/gnome-cmd-about-plugin.c:385
+msgid "Copyright information for the program"
+msgstr "Informação de copyright para a aplicação"
+
+#: src/gnome-cmd-about-plugin.c:392
+msgid "Comments string"
+msgstr "Expressão de comentários"
+
+#: src/gnome-cmd-about-plugin.c:393
+msgid "Comments about the program"
+msgstr "Comentários sobre a aplicação"
+
+#: src/gnome-cmd-about-plugin.c:399
+msgid "Authors"
+msgstr "Autores"
+
+#: src/gnome-cmd-about-plugin.c:400
+msgid "List of authors of the programs"
+msgstr "Lista de autores da aplicação"
+
+#: src/gnome-cmd-about-plugin.c:402
+msgid "Author entry"
+msgstr "Entrada de autor"
+
+#: src/gnome-cmd-about-plugin.c:403
+msgid "A single author entry"
+msgstr "Uma entrada única de autor"
+
+#: src/gnome-cmd-about-plugin.c:410
+msgid "Documenters"
+msgstr "Documentadores"
+
+#: src/gnome-cmd-about-plugin.c:411
+msgid "List of people documenting the program"
+msgstr "Lista de pessoas que documentam a aplicação"
+
+#: src/gnome-cmd-about-plugin.c:413
+msgid "Documenter entry"
+msgstr "Entrada de documentador"
+
+#: src/gnome-cmd-about-plugin.c:414
+msgid "A single documenter entry"
+msgstr "Uma entrada única de documentador"
+
+#: src/gnome-cmd-about-plugin.c:422
+msgid "Translator credits"
+msgstr "Créditos de tradução"
+
+#: src/gnome-cmd-about-plugin.c:423
+msgid ""
+"Credits to the translators. This string should be marked as translatable"
+msgstr ""
+"Créditos para os tradutores. Esta expressão deverá ser marcada como "
+"traduzível"
+
+#: src/gnome-cmd-about-plugin.c:430
+msgid "Webpage for the plugin"
+msgstr "Página web para o plugin"
+
+#: src/gnome-cmd-about-plugin.c:431
+msgid "Webpage"
+msgstr "Página web"
+
+#: src/gnome-cmd-about-plugin.c:523
+#, c-format
+msgid "About %s"
+msgstr "Sobre %s"
 
 #: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
 #: src/utils.c:741
@@ -335,15 +591,19 @@ msgstr "Pasta Pessoal"
 msgid "Go to: Home"
 msgstr "Ir para: Pasta Pessoal"
 
-#: src/gnome-cmd-con-smb.c:201
+#: src/gnome-cmd-con-smb.c:94
+msgid "Failed to browse the network. Is the SMB module installed?"
+msgstr "Falha ao procurar a rede. O módulo SMB está instalado?"
+
+#: src/gnome-cmd-con-smb.c:211
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.c:202
+#: src/gnome-cmd-con-smb.c:212
 msgid "Searching for workgroups and hosts"
 msgstr "A procurar grupos de trabalho e servidores"
 
-#: src/gnome-cmd-con-smb.c:209
+#: src/gnome-cmd-con-smb.c:219
 msgid "Go to: Samba Network"
 msgstr "Ir para: Rede Samba"
 
@@ -404,41 +664,9 @@ msgstr "Cancelar"
 msgid "OK"
 msgstr "OK"
 
-#: src/gnome-cmd-dir.c:628
+#: src/gnome-cmd-dir.c:627
 msgid "Waiting for file list"
 msgstr "A aguardar pela lista de ficheiros"
-
-#: src/gnome-cmd-file.c:627
-msgid "Unknown file type"
-msgstr "Tipo de ficheiro desconhecido"
-
-#: src/gnome-cmd-file.c:628
-msgid "Regular file"
-msgstr "Ficheiro regular"
-
-#: src/gnome-cmd-file.c:629
-msgid "Directory"
-msgstr "Directório"
-
-#: src/gnome-cmd-file.c:630
-msgid "FIFO"
-msgstr "FIFO"
-
-#: src/gnome-cmd-file.c:631
-msgid "UNIX Socket"
-msgstr "Socket UNIX"
-
-#: src/gnome-cmd-file.c:632
-msgid "Character device"
-msgstr "Dispositivo de caracteres"
-
-#: src/gnome-cmd-file.c:633
-msgid "Block device"
-msgstr "Dispositivo de bloco"
-
-#: src/gnome-cmd-file.c:634
-msgid "Symbolic link"
-msgstr "Ligação simbólica"
 
 #: src/gnome-cmd-file-list.c:1333
 msgid "ext"
@@ -531,7 +759,7 @@ msgstr "%s bytes"
 msgid "No default application registered"
 msgstr "Nenhuma aplicação por omissão registada"
 
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2086
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2098
 msgid "Filename:"
 msgstr "Ficheiro:"
 
@@ -590,40 +818,72 @@ msgid_plural "%s of %s kB in %d of %d files selected"
 msgstr[0] "%s de %s kB em %d de %d ficheiros seleccionados"
 msgstr[1] "%s de %s kB em %d de %d ficheiros seleccionados"
 
-#: src/gnome-cmd-file-selector.c:721
+#: src/gnome-cmd-file-selector.c:716
 #, c-format
 msgid "%s Free"
 msgstr "%s Livre"
 
-#: src/gnome-cmd-file-selector.c:1814
+#: src/gnome-cmd-file-selector.c:1826
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Falha ao abrir ligação: %s\n"
 
-#: src/gnome-cmd-file-selector.c:2023 src/gnome-cmd-rename-dialog.c:52
-#: src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-file-selector.c:2035 src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-rename-dialog.c:52
 msgid "No filename entered"
 msgstr "Nenhum nome de ficheiro introduzido"
 
-#: src/gnome-cmd-file-selector.c:2059
+#: src/gnome-cmd-file-selector.c:2071
 msgid "No filename given"
 msgstr "Nenhum nome de ficheiro indicado"
 
-#: src/gnome-cmd-file-selector.c:2092
+#: src/gnome-cmd-file-selector.c:2104
 msgid "New Text File"
 msgstr "Novo Ficheiro de Texto"
 
-#: src/gnome-cmd-file-selector.c:2256
+#: src/gnome-cmd-file-selector.c:2268
 msgid "Symlink name:"
 msgstr "Nome simbólico:"
 
-#: src/gnome-cmd-file-selector.c:2262
+#: src/gnome-cmd-file-selector.c:2274
 msgid "Create Symbolic Link"
 msgstr "Criar Ligação Simbólica"
 
-#: src/gnome-cmd-file-selector.c:2333
+#: src/gnome-cmd-file-selector.c:2345
 msgid "Filter:"
 msgstr "Filtro:"
+
+#: src/gnome-cmd-file.c:627
+msgid "Unknown file type"
+msgstr "Tipo de ficheiro desconhecido"
+
+#: src/gnome-cmd-file.c:628
+msgid "Regular file"
+msgstr "Ficheiro regular"
+
+#: src/gnome-cmd-file.c:629
+msgid "Directory"
+msgstr "Directório"
+
+#: src/gnome-cmd-file.c:630
+msgid "FIFO"
+msgstr "FIFO"
+
+#: src/gnome-cmd-file.c:631
+msgid "UNIX Socket"
+msgstr "Socket UNIX"
+
+#: src/gnome-cmd-file.c:632
+msgid "Character device"
+msgstr "Dispositivo de caracteres"
+
+#: src/gnome-cmd-file.c:633
+msgid "Block device"
+msgstr "Dispositivo de bloco"
+
+#: src/gnome-cmd-file.c:634
+msgid "Symbolic link"
+msgstr "Ligação simbólica"
 
 #: src/gnome-cmd-ftp-dialog.c:163
 #, c-format
@@ -694,13 +954,6 @@ msgstr "Alcunha"
 #: src/gnome-cmd-ftp-dialog.c:535 src/gnome-cmd-list-popmenu.c:145
 msgid "_New..."
 msgstr "_Novo..."
-
-#: src/gnome-cmd-ftp-dialog.c:548 src/gnome-cmd-options-dialog.c:1054
-#: src/gnome-cmd-options-dialog.c:1764 src/gnome-cmd-prepare-copy-dialog.c:141
-#: src/gnome-cmd-prepare-move-dialog.c:125
-#: plugins/fileroller/file-roller-plugin.c:337
-msgid "Options"
-msgstr "Opções"
 
 #: src/gnome-cmd-ftp-dialog.c:551
 msgid "Anonymous password:"
@@ -975,6 +1228,16 @@ msgstr "Colar"
 msgid "Drop connection"
 msgstr "Terminar ligação"
 
+#: src/gnome-cmd-make-copy-dialog.c:154
+#: src/gnome-cmd-prepare-copy-dialog.c:152
+#, c-format
+msgid "Copy \"%s\" to"
+msgstr "Copiar \"%s\" para"
+
+#: src/gnome-cmd-make-copy-dialog.c:162
+msgid "Copy File"
+msgstr "Copiar Ficheiro"
+
 #: src/gnome-cmd-mkdir-dialog.c:48
 msgid "A directory name must be entered"
 msgstr "Tem de ser introduzido o nome de um directório"
@@ -1084,8 +1347,8 @@ msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
 msgstr ""
-"Consulte a página de manual para \"strftime\" para ajuda sobre como "
-"definir a expressão de formato de data."
+"Consulte a página de manual para \"strftime\" para ajuda sobre como definir "
+"a expressão de formato de data."
 
 #: src/gnome-cmd-options-dialog.c:399
 msgid "Edit Colors..."
@@ -1188,7 +1451,8 @@ msgstr "Editar..."
 
 #: src/gnome-cmd-options-dialog.c:603
 msgid "Colorize files according to the LS_COLORS enviroment variable"
-msgstr "Aplicar cores a ficheiros de acordo com a variável de ambiente LS_COLORS"
+msgstr ""
+"Aplicar cores a ficheiros de acordo com a variável de ambiente LS_COLORS"
 
 #: src/gnome-cmd-options-dialog.c:615
 msgid "MIME icon settings"
@@ -1312,7 +1576,9 @@ msgstr "Editar Aplicação"
 
 #: src/gnome-cmd-options-dialog.c:1226
 msgid "Always download remote files before opening in external programs"
-msgstr "Fazer sempre download de ficheiros remotos antes de abrir em aplicações externas"
+msgstr ""
+"Fazer sempre download de ficheiros remotos antes de abrir em aplicações "
+"externas"
 
 #: src/gnome-cmd-options-dialog.c:1230
 msgid "MIME applications"
@@ -1436,12 +1702,6 @@ msgstr "Seguir Ligações Simbólicas"
 msgid "Overwrite Files"
 msgstr "Sobrepor Ficheiros"
 
-#: src/gnome-cmd-prepare-copy-dialog.c:152
-#: src/gnome-cmd-make-copy-dialog.c:154
-#, c-format
-msgid "Copy \"%s\" to"
-msgstr "Copiar \"%s\" para"
-
 #: src/gnome-cmd-prepare-copy-dialog.c:156
 #, c-format
 msgid "copy %d file to"
@@ -1483,10 +1743,6 @@ msgstr "Renomear \"%s\" para"
 #: src/gnome-cmd-rename-dialog.c:153
 msgid "Rename File"
 msgstr "Renomear Ficheiro"
-
-#: src/gnome-cmd-make-copy-dialog.c:162
-msgid "Copy File"
-msgstr "Copiar Ficheiro"
 
 #: src/gnome-cmd-search-dialog.c:186
 #, c-format
@@ -1553,6 +1809,29 @@ msgstr "Ir Para"
 msgid "Chmod"
 msgstr "Chmod"
 
+#: src/gnome-cmd-smb-path.c:324
+#, c-format
+msgid "Can't find a host or workgroup named %s\n"
+msgstr "Incapaz de encontrar uma máquina ou grupo de trabalho chamado %s\n"
+
+#: src/gnome-cmd-xfer-progress-win.c:37
+msgid "stopping..."
+msgstr "a parar..."
+
+#: src/gnome-cmd-xfer-progress-win.c:88
+msgid "Progress"
+msgstr "Progresso"
+
+#: src/gnome-cmd-xfer-progress-win.c:174
+#, c-format
+msgid "%d%% of %s copied"
+msgstr "%d%% de %s copiado"
+
+#: src/gnome-cmd-xfer-progress-win.c:179
+#, c-format
+msgid "%d%% copied"
+msgstr "%d%% copiado"
+
 #: src/gnome-cmd-xfer.c:170
 #, c-format
 msgid ""
@@ -1612,171 +1891,6 @@ msgstr "a preparar..."
 msgid "downloading to /tmp"
 msgstr "a fazer download para /tmp"
 
-#: src/gnome-cmd-about-plugin.c:184
-msgid "Credits"
-msgstr "Créditos"
-
-#: src/gnome-cmd-about-plugin.c:216
-msgid "Written by"
-msgstr "Escrito por"
-
-#: src/gnome-cmd-about-plugin.c:231
-msgid "Documented by"
-msgstr "Documentado por"
-
-#: src/gnome-cmd-about-plugin.c:246
-msgid "Translated by"
-msgstr "Traduzido por"
-
-#: src/gnome-cmd-about-plugin.c:302
-msgid "Plugin Webpage"
-msgstr "Página Web de Plugins"
-
-#: src/gnome-cmd-about-plugin.c:314
-msgid "C_redits"
-msgstr "C_réditos"
-
-#: src/gnome-cmd-about-plugin.c:369
-msgid "Program name"
-msgstr "Nome da aplicação"
-
-#: src/gnome-cmd-about-plugin.c:370
-msgid "The name of the program"
-msgstr "O nome da aplicação"
-
-#: src/gnome-cmd-about-plugin.c:377
-msgid "Program version"
-msgstr "Versão da aplicação"
-
-#: src/gnome-cmd-about-plugin.c:378
-msgid "The version of the program"
-msgstr "A versão da aplicação"
-
-#: src/gnome-cmd-about-plugin.c:384
-msgid "Copyright string"
-msgstr "Expressão de copyright"
-
-#: src/gnome-cmd-about-plugin.c:385
-msgid "Copyright information for the program"
-msgstr "Informação de copyright para a aplicação"
-
-#: src/gnome-cmd-about-plugin.c:392
-msgid "Comments string"
-msgstr "Expressão de comentários"
-
-#: src/gnome-cmd-about-plugin.c:393
-msgid "Comments about the program"
-msgstr "Comentários sobre a aplicação"
-
-#: src/gnome-cmd-about-plugin.c:399
-msgid "Authors"
-msgstr "Autores"
-
-#: src/gnome-cmd-about-plugin.c:400
-msgid "List of authors of the programs"
-msgstr "Lista de autores da aplicação"
-
-#: src/gnome-cmd-about-plugin.c:402
-msgid "Author entry"
-msgstr "Entrada de autor"
-
-#: src/gnome-cmd-about-plugin.c:403
-msgid "A single author entry"
-msgstr "Uma entrada única de autor"
-
-#: src/gnome-cmd-about-plugin.c:410
-msgid "Documenters"
-msgstr "Documentadores"
-
-#: src/gnome-cmd-about-plugin.c:411
-msgid "List of people documenting the program"
-msgstr "Lista de pessoas que documentam a aplicação"
-
-#: src/gnome-cmd-about-plugin.c:413
-msgid "Documenter entry"
-msgstr "Entrada de documentador"
-
-#: src/gnome-cmd-about-plugin.c:414
-msgid "A single documenter entry"
-msgstr "Uma entrada única de documentador"
-
-#: src/gnome-cmd-about-plugin.c:422
-msgid "Translator credits"
-msgstr "Créditos de tradução"
-
-#: src/gnome-cmd-about-plugin.c:423
-msgid ""
-"Credits to the translators. This string should be marked as translatable"
-msgstr ""
-"Créditos para os tradutores. Esta expressão deverá ser marcada como traduzível"
-
-#: src/gnome-cmd-about-plugin.c:430
-msgid "Webpage for the plugin"
-msgstr "Página web para o plugin"
-
-#: src/gnome-cmd-about-plugin.c:431
-msgid "Webpage"
-msgstr "Página web"
-
-#: src/gnome-cmd-about-plugin.c:523
-#, c-format
-msgid "About %s"
-msgstr "Sobre %s"
-
-#: src/gnome-cmd-xfer-progress-win.c:37
-msgid "stopping..."
-msgstr "a parar..."
-
-#: src/gnome-cmd-xfer-progress-win.c:88
-msgid "Progress"
-msgstr "Progresso"
-
-#: src/gnome-cmd-xfer-progress-win.c:174
-#, c-format
-msgid "%d%% of %s copied"
-msgstr "%d%% de %s copiado"
-
-#: src/gnome-cmd-xfer-progress-win.c:179
-#, c-format
-msgid "%d%% copied"
-msgstr "%d%% copiado"
-
-#: src/plugin_manager.c:294
-msgid "Disable"
-msgstr "Desactivar"
-
-#: src/plugin_manager.c:299
-msgid "Enable"
-msgstr "Activar"
-
-#: src/plugin_manager.c:423
-msgid "Available plugins"
-msgstr "Plugins disponíveis"
-
-#: src/plugin_manager.c:429
-msgid "Name"
-msgstr "Nome"
-
-#: src/plugin_manager.c:430
-msgid "Version"
-msgstr "Versão"
-
-#: src/plugin_manager.c:431
-msgid "File"
-msgstr "Ficheiro"
-
-#: src/plugin_manager.c:437
-msgid "_Enable"
-msgstr "_Activar"
-
-#: src/plugin_manager.c:442
-msgid "_Configure"
-msgstr "_Configurar"
-
-#: src/plugin_manager.c:448
-msgid "_About"
-msgstr "_Sobre"
-
 #: src/imageloader.c:124
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
@@ -1819,8 +1933,45 @@ msgid ""
 "When parsing the users and groups on this system it was found that the user %"
 "s is part of the group %s. This user can however not be found.\n"
 msgstr ""
-"Ao parsear os utilizadores e grupos deste sistema descobriu-se que o utilizador "
-"%s é membro do grupo %s. No entanto este utilizador não foi encontrado.\n"
+"Ao parsear os utilizadores e grupos deste sistema descobriu-se que o "
+"utilizador %s é membro do grupo %s. No entanto este utilizador não foi "
+"encontrado.\n"
+
+#: src/plugin_manager.c:294
+msgid "Disable"
+msgstr "Desactivar"
+
+#: src/plugin_manager.c:299
+msgid "Enable"
+msgstr "Activar"
+
+#: src/plugin_manager.c:423
+msgid "Available plugins"
+msgstr "Plugins disponíveis"
+
+#: src/plugin_manager.c:429
+msgid "Name"
+msgstr "Nome"
+
+#: src/plugin_manager.c:430
+msgid "Version"
+msgstr "Versão"
+
+#: src/plugin_manager.c:431
+msgid "File"
+msgstr "Ficheiro"
+
+#: src/plugin_manager.c:437
+msgid "_Enable"
+msgstr "_Activar"
+
+#: src/plugin_manager.c:442
+msgid "_Configure"
+msgstr "_Configurar"
+
+#: src/plugin_manager.c:448
+msgid "_About"
+msgstr "_Sobre"
 
 #: src/useractions.c:261
 #, c-format
@@ -1853,8 +2004,8 @@ msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
-"\"%s\" parece ser um ficheiro executável binário mas falta-lhe o bit executável. "
-"Deseja coloca-lo e depois executar o ficheiro?"
+"\"%s\" parece ser um ficheiro executável binário mas falta-lhe o bit "
+"executável. Deseja coloca-lo e depois executar o ficheiro?"
 
 #: src/utils.c:598
 msgid "Make Executable?"
@@ -1866,8 +2017,8 @@ msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
 msgstr ""
-"\"%s\" é um ficheiro de texto executável. Deseja executa-lo ou visualizar "
-"o seu conteudo?"
+"\"%s\" é um ficheiro de texto executável. Deseja executa-lo ou visualizar o "
+"seu conteudo?"
 
 #: src/utils.c:627
 msgid "Run or Display"
@@ -1913,32 +2064,3 @@ msgstr "Falha ao criar o directório %s"
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Incapaz de ler do directório %s: %s\n"
-
-#: plugins/fileroller/file-roller-plugin.c:168
-msgid "What filename should the new archive have?"
-msgstr "Que nome de ficheiro deverá o novo arquivo ter?"
-
-#: plugins/fileroller/file-roller-plugin.c:170
-msgid "Create Archive"
-msgstr "Criar Arquivo"
-
-#: plugins/fileroller/file-roller-plugin.c:274
-msgid "Create Archive..."
-msgstr "Criar Arquivo..."
-
-#: plugins/fileroller/file-roller-plugin.c:288
-msgid "Extract in Current Directory"
-msgstr "Extrair no Directório Actual"
-
-#: plugins/fileroller/file-roller-plugin.c:293
-#, c-format
-msgid "Extract to '%s'"
-msgstr "Extrair para '%s'"
-
-#: plugins/fileroller/file-roller-plugin.c:353
-msgid "File-roller options"
-msgstr "Opções File-roller"
-
-#: plugins/fileroller/file-roller-plugin.c:356
-msgid "Default type"
-msgstr "Tipo por omissão"
