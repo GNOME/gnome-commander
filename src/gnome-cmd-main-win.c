@@ -1496,6 +1496,11 @@ gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw)
 
 	gtk_widget_unref (mw->priv->file_selector[0]);
 	gtk_widget_unref (mw->priv->file_selector[1]);
+
+	gtk_signal_connect (
+		GTK_OBJECT (mw->priv->paned),
+		"button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);	
+	slide_set_50_50 (NULL, NULL);
 }
 
 
