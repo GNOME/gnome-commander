@@ -1,0 +1,2056 @@
+# translation of gnome-commander to Albanian
+# This file is distributed under the same license as the gnome-commander package.
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# Laurent Dhima <laurenti@alblinux.net>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-commander.HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-06-14 14:49+0200\n"
+"PO-Revision-Date: 2004-07-10 11:35+0200\n"
+"Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
+"Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gnome-commander.desktop.in.h:1
+msgid "A two paned file manager"
+msgstr ""
+
+#: gnome-commander.desktop.in.h:2
+msgid "GNOME Commander"
+msgstr "GNOME Commander"
+
+#: libgcmd/gnome-cmd-string-dialog.c:133
+msgid "No error description available"
+msgstr "Asnjë përshkrim mbi gabimin"
+
+#. GRUT modified this item
+#: plugins/cvs/cvs-plugin.c:304 plugins/fileroller/file-roller-plugin.c:336
+#: src/gnome-cmd-ftp-dialog.c:550 src/gnome-cmd-options-dialog.c:1058
+#: src/gnome-cmd-options-dialog.c:1768 src/gnome-cmd-prepare-copy-dialog.c:141
+#: src/gnome-cmd-prepare-move-dialog.c:125
+msgid "Options"
+msgstr "Mundësitë"
+
+#: plugins/cvs/cvs-plugin.c:322
+msgid "CVS options"
+msgstr "Opcionet CVS"
+
+#: plugins/cvs/cvs-plugin.c:325
+msgid "Compression level"
+msgstr "Niveli i kompresimit"
+
+#: plugins/cvs/cvs-plugin.c:334
+msgid "Unified diff format"
+msgstr ""
+
+#: plugins/cvs/cvs-plugin.c:448
+msgid "A plugin that eventually will be a simple CVS client"
+msgstr "Një plugin që në rast nevoje mund të përdoret si një klient i thjeshtë CVS"
+
+#: plugins/cvs/interface.c:161
+msgid "Compare with"
+msgstr "Krahaso me"
+
+#: plugins/cvs/interface.c:164
+msgid "HEAD"
+msgstr "KREU"
+
+#: plugins/cvs/interface.c:168
+msgid "The previous revision"
+msgstr "Revizioni i kaluar"
+
+#: plugins/cvs/interface.c:174
+msgid "Other revision"
+msgstr "Revizioni tjetër"
+
+#: plugins/cvs/interface.c:261
+msgid "CVS Diff"
+msgstr "Diferenca CVS"
+
+#: plugins/cvs/interface.c:428
+msgid "revision"
+msgstr "revizioni"
+
+#: plugins/cvs/interface.c:442
+msgid "Revision:"
+msgstr "Revizioni:"
+
+#: plugins/cvs/interface.c:460
+msgid "Compare..."
+msgstr "Krahaso..."
+
+#. GRUT modified this item
+#: plugins/cvs/interface.c:463
+msgid "Author:"
+msgstr "Autori:"
+
+#. GRUT modified this item
+#: plugins/cvs/interface.c:477
+msgid "Date:"
+msgstr "Data:"
+
+#. GRUT modified this item
+#: plugins/cvs/interface.c:491
+msgid "State:"
+msgstr "Gjendja:"
+
+#. GRUT modified this item
+#: plugins/cvs/interface.c:505
+msgid "Lines:"
+msgstr "Rreshta:"
+
+#. GRUT modified this item
+#: plugins/cvs/interface.c:519
+msgid "Message:"
+msgstr "Mesazhi:"
+
+#: plugins/fileroller/file-roller-plugin.c:167
+msgid "What filename should the new archive have?"
+msgstr "Çfarë emri duhet të ketë arkivi i ri?"
+
+#. GRUT modified this item
+#: plugins/fileroller/file-roller-plugin.c:169
+msgid "Create Archive"
+msgstr "Krijo Arkiv"
+
+#. GRUT modified this item
+#: plugins/fileroller/file-roller-plugin.c:273
+msgid "Create Archive..."
+msgstr "Krijo një Arkiv..."
+
+#: plugins/fileroller/file-roller-plugin.c:287
+msgid "Extract in Current Directory"
+msgstr "Nxirre në directory aktuale"
+
+#: plugins/fileroller/file-roller-plugin.c:292
+#, c-format
+msgid "Extract to '%s'"
+msgstr "Nxirre tek '%s'"
+
+#: plugins/fileroller/file-roller-plugin.c:352
+msgid "File-roller options"
+msgstr "Opcionet e File-roller"
+
+#: plugins/fileroller/file-roller-plugin.c:355
+msgid "Default type"
+msgstr "Lloji i prezgjedhur"
+
+#: plugins/fileroller/file-roller-plugin.c:477
+msgid ""
+"A plugin that adds File Roller shortcuts for creating and extracting "
+"compressed archives."
+msgstr ""
+
+#: plugins/test/test-plugin.c:232
+msgid ""
+"This is an example plugin that is mostly useful as a simple example for "
+"aspiring plugin hackers"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-about-plugin.c:184
+msgid "Credits"
+msgstr "Falenderime"
+
+#. GRUT modified this item
+#: src/gnome-cmd-about-plugin.c:216
+msgid "Written by"
+msgstr "Shkruar nga"
+
+#. GRUT modified this item
+#: src/gnome-cmd-about-plugin.c:231
+msgid "Documented by"
+msgstr "Dokumentuar nga"
+
+#. GRUT modified this item
+#: src/gnome-cmd-about-plugin.c:246
+msgid "Translated by"
+msgstr "Përkthyer nga"
+
+#: src/gnome-cmd-about-plugin.c:302
+msgid "Plugin Webpage"
+msgstr "Faqja web e plugin"
+
+#. GRUT modified this item
+#: src/gnome-cmd-about-plugin.c:314
+msgid "C_redits"
+msgstr "Falende_rime"
+
+#. GRUT modified this item
+#: src/gnome-cmd-about-plugin.c:523
+#, c-format
+msgid "About %s"
+msgstr "Informacione mbi %s"
+
+#. GRUT modified this item
+#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
+#: src/utils.c:745
+msgid "Yes"
+msgstr "Po"
+
+#. GRUT modified this item
+#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
+#: src/utils.c:745
+msgid "No"
+msgstr "Jo"
+
+#: src/gnome-cmd-advrename-dialog.c:197
+msgid "Invalid source pattern"
+msgstr ""
+
+#: src/gnome-cmd-advrename-dialog.c:273
+msgid "Replace this:"
+msgstr "Zëvendëso këtë:"
+
+#: src/gnome-cmd-advrename-dialog.c:273 src/gnome-cmd-advrename-dialog.c:821
+msgid "With this"
+msgstr "Me këtë"
+
+#: src/gnome-cmd-advrename-dialog.c:287
+msgid "Case sensitive matching"
+msgstr ""
+
+#: src/gnome-cmd-advrename-dialog.c:423
+msgid "New Rule"
+msgstr "Rregull i ri"
+
+#: src/gnome-cmd-advrename-dialog.c:432
+msgid "Edit Rule"
+msgstr "Ndrysho rregullin"
+
+#: src/gnome-cmd-advrename-dialog.c:651
+msgid "Counter start value:"
+msgstr "Vlera e nisjes së numuruesit:"
+
+#: src/gnome-cmd-advrename-dialog.c:652
+msgid "Counter increment:"
+msgstr "Vlera e rritjes së numuruesit:"
+
+#: src/gnome-cmd-advrename-dialog.c:653
+msgid "Counter minimum digit count:"
+msgstr ""
+
+#: src/gnome-cmd-advrename-dialog.c:658
+msgid "Template Options"
+msgstr "Opcionet e shabllonit"
+
+#: src/gnome-cmd-advrename-dialog.c:662
+msgid "Auto-update when the template is entered"
+msgstr ""
+
+#: src/gnome-cmd-advrename-dialog.c:771
+msgid "Advanced Rename Tool"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-advrename-dialog.c:784
+msgid "Template"
+msgstr "Shabllon"
+
+#: src/gnome-cmd-advrename-dialog.c:806
+msgid "Options..."
+msgstr "Opcione..."
+
+#: src/gnome-cmd-advrename-dialog.c:813
+msgid "Regex replacing"
+msgstr ""
+
+#: src/gnome-cmd-advrename-dialog.c:820
+msgid "Replace this"
+msgstr "Zëvendëso këtë"
+
+#: src/gnome-cmd-advrename-dialog.c:822
+msgid "Case sens"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-advrename-dialog.c:835 src/gnome-cmd-options-dialog.c:1279
+#: src/gnome-cmd-options-dialog.c:1632
+msgid "_Add..."
+msgstr "_Shto..."
+
+#. GRUT modified this item
+#: src/gnome-cmd-advrename-dialog.c:839 src/gnome-cmd-ftp-dialog.c:539
+#: src/gnome-cmd-options-dialog.c:1283 src/gnome-cmd-options-dialog.c:1636
+msgid "_Edit..."
+msgstr "_Ndrysho..."
+
+#. GRUT modified this item
+#: src/gnome-cmd-advrename-dialog.c:844 src/gnome-cmd-bookmark-dialog.c:512
+#: src/gnome-cmd-ftp-dialog.c:543 src/gnome-cmd-options-dialog.c:1289
+#: src/gnome-cmd-options-dialog.c:1642
+msgid "_Remove"
+msgstr "_Hiqe"
+
+#: src/gnome-cmd-advrename-dialog.c:849
+msgid "Re_move All"
+msgstr "Ele_mino gjithçka"
+
+#: src/gnome-cmd-advrename-dialog.c:872
+msgid "Result"
+msgstr "Rezultati"
+
+#: src/gnome-cmd-advrename-dialog.c:877
+msgid "Current filenames"
+msgstr "Emrat aktualë të file"
+
+#: src/gnome-cmd-advrename-dialog.c:878
+msgid "New filenames"
+msgstr "Emrat e rinj të file"
+
+#. GRUT modified this item
+#: src/gnome-cmd-advrename-dialog.c:885
+msgid "Reset"
+msgstr "Nga fillimi"
+
+#: src/gnome-cmd-bookmark-dialog.c:67
+msgid "Bookmark name:"
+msgstr "Emri i libërshënuesit:"
+
+#: src/gnome-cmd-bookmark-dialog.c:68
+msgid "Bookmark target:"
+msgstr "Objektivi i libërshënuesit:"
+
+#: src/gnome-cmd-bookmark-dialog.c:170
+msgid "Bookmark name is missing"
+msgstr "Mungon emri i libërshënuesit"
+
+#: src/gnome-cmd-bookmark-dialog.c:176
+msgid "Bookmark target is missing"
+msgstr "Mungon objektivi i libërshënuesit"
+
+#: src/gnome-cmd-bookmark-dialog.c:196
+msgid "Edit Bookmark"
+msgstr "Ndrysho libërshënues"
+
+#. GRUT modified this item
+#: src/gnome-cmd-bookmark-dialog.c:466 src/gnome-cmd-bookmark-dialog.c:482
+msgid "Bookmarks"
+msgstr "Libërshënues"
+
+#: src/gnome-cmd-bookmark-dialog.c:469
+msgid "Bookmark Groups"
+msgstr ""
+
+#: src/gnome-cmd-bookmark-dialog.c:491 src/gnome-cmd-file-list.c:1340
+msgid "name"
+msgstr "emri"
+
+#: src/gnome-cmd-bookmark-dialog.c:493
+msgid "path"
+msgstr "pozicioni"
+
+#: src/gnome-cmd-bookmark-dialog.c:502
+msgid "_Goto"
+msgstr "_Shko tek"
+
+#. GRUT modified this item
+#: src/gnome-cmd-bookmark-dialog.c:507 src/gnome-cmd-main-menu.c:770
+#: src/gnome-cmd-search-popup.c:182
+msgid "_Edit"
+msgstr "_Ndrysho"
+
+#: src/gnome-cmd-bookmark-dialog.c:624
+msgid ""
+"To bookmark a directory the whole search path to the directory must be in "
+"valid UTF-8 encoding\n"
+msgstr ""
+
+#: src/gnome-cmd-bookmark-dialog.c:631
+msgid "New Bookmark"
+msgstr "Libërshënues i ri"
+
+#. GRUT modified this item
+#: src/gnome-cmd-chmod-component.c:128
+msgid "Read"
+msgstr "Lexo"
+
+#: src/gnome-cmd-chmod-component.c:128
+msgid "Write"
+msgstr "Shkruaj"
+
+#. GRUT modified this item
+#: src/gnome-cmd-chmod-component.c:128
+msgid "Execute"
+msgstr "Ekzekuto"
+
+#. GRUT modified this item
+#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:89
+msgid "Owner:"
+msgstr "Pronari:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:92
+msgid "Group:"
+msgstr "Grupi:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-chmod-component.c:129
+msgid "Others:"
+msgstr "Të tjerë:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-chmod-component.c:163
+msgid "Text view:"
+msgstr "Të drejtat të shprehura në tekst:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-chmod-component.c:166
+msgid "Number view:"
+msgstr "Të drejtat të shprehura në numra:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-chmod-dialog.c:38 src/gnome-cmd-options-dialog.c:1079
+msgid "All files"
+msgstr "Të gjithë files"
+
+#: src/gnome-cmd-chmod-dialog.c:39
+msgid "Directories only"
+msgstr "Vetëm directories"
+
+#: src/gnome-cmd-chmod-dialog.c:71
+#, c-format
+msgid ""
+"Could not chmod %s\n"
+"%s"
+msgstr ""
+"I pamundur chmod i %s\n"
+"%s"
+
+#: src/gnome-cmd-chmod-dialog.c:214
+msgid "Access Permissions"
+msgstr "Të drejtat e hyrjes"
+
+#: src/gnome-cmd-chmod-dialog.c:232
+msgid "Apply Recursively for"
+msgstr ""
+
+#: src/gnome-cmd-chown-dialog.c:52
+#, c-format
+msgid ""
+"Could not chown %s\n"
+"%s"
+msgstr ""
+"I pamundur chown i %s\n"
+"%s"
+
+#: src/gnome-cmd-chown-dialog.c:181 src/gnome-cmd-search-popup.c:197
+msgid "Chown"
+msgstr "Chown"
+
+#: src/gnome-cmd-chown-dialog.c:195
+msgid "Apply Recursively"
+msgstr ""
+
+#: src/gnome-cmd-con-device.c:103
+msgid "Failed to execute the mount command"
+msgstr ""
+
+#: src/gnome-cmd-con-device.c:110
+msgid "Mount failed: Permission denied"
+msgstr "Montimi dështoi: Ndalohet hyrja"
+
+#: src/gnome-cmd-con-device.c:113
+msgid "Mount failed: No medium found"
+msgstr ""
+
+#: src/gnome-cmd-con-device.c:117
+#, c-format
+msgid "Mount failed: mount exited with existatus %d"
+msgstr ""
+
+#: src/gnome-cmd-con-device.c:356
+#, c-format
+msgid "Mounting %s"
+msgstr "Duke montuar %s"
+
+#: src/gnome-cmd-con-device.c:374 src/gnome-cmd-con-ftp.c:287
+#, c-format
+msgid "Go to: %s"
+msgstr ""
+
+#: src/gnome-cmd-con-device.c:375
+#, c-format
+msgid "Mount: %s"
+msgstr ""
+
+#: src/gnome-cmd-con-device.c:376
+#, c-format
+msgid "Unmount: %s"
+msgstr ""
+
+#: src/gnome-cmd-con-ftp.c:268
+#, c-format
+msgid "Connecting to %s\n"
+msgstr ""
+
+#: src/gnome-cmd-con-ftp.c:288
+#, c-format
+msgid "Connect to: %s"
+msgstr ""
+
+#: src/gnome-cmd-con-ftp.c:289
+#, c-format
+msgid "Disconnect from: %s"
+msgstr ""
+
+#: src/gnome-cmd-con-ftp.c:307
+#, c-format
+msgid "Creates an FTP connection to %s"
+msgstr ""
+
+#: src/gnome-cmd-con-ftp.c:309
+#, c-format
+msgid "Removes the FTP connection to %s"
+msgstr ""
+
+#: src/gnome-cmd-con-home.c:129
+msgid "Home"
+msgstr ""
+
+#: src/gnome-cmd-con-home.c:137
+msgid "Go to: Home"
+msgstr ""
+
+#: src/gnome-cmd-con-smb.c:94
+msgid "Failed to browse the network. Is the SMB module installed?"
+msgstr ""
+
+#: src/gnome-cmd-con-smb.c:211
+msgid "SMB"
+msgstr ""
+
+#: src/gnome-cmd-con-smb.c:212
+msgid "Searching for workgroups and hosts"
+msgstr ""
+
+#: src/gnome-cmd-con-smb.c:219
+msgid "Go to: Samba Network"
+msgstr ""
+
+#: src/gnome-cmd-delete-dialog.c:143
+msgid "Deleting..."
+msgstr ""
+
+#: src/gnome-cmd-delete-dialog.c:225
+#, c-format
+msgid ""
+"Error while deleting %s\n"
+"\n"
+"%s"
+msgstr ""
+
+#: src/gnome-cmd-delete-dialog.c:228
+msgid "Delete problem"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-xfer.c:196
+msgid "Abort"
+msgstr "Anullo"
+
+#: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:196
+msgid "Retry"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-xfer.c:196
+msgid "Skip"
+msgstr "Kapërce"
+
+#: src/gnome-cmd-delete-dialog.c:307
+#, c-format
+msgid "Do you want to delete \"%s\"?"
+msgstr ""
+
+#: src/gnome-cmd-delete-dialog.c:312
+#, c-format
+msgid "Do you want to delete the selected file?"
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] ""
+msgstr[1] ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1346
+msgid "Delete"
+msgstr "Elemino"
+
+#. GRUT modified this item
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603 src/utils.c:632
+msgid "Cancel"
+msgstr "Anulloje"
+
+#. GRUT modified this item
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603
+msgid "OK"
+msgstr "OK"
+
+#: src/gnome-cmd-dir.c:569
+msgid "Waiting for file list"
+msgstr ""
+
+#: src/gnome-cmd-file-list.c:1341
+msgid "ext"
+msgstr ""
+
+#: src/gnome-cmd-file-list.c:1342
+msgid "dir"
+msgstr ""
+
+#: src/gnome-cmd-file-list.c:1343
+msgid "size"
+msgstr ""
+
+#: src/gnome-cmd-file-list.c:1344
+msgid "date"
+msgstr ""
+
+#: src/gnome-cmd-file-list.c:1345
+msgid "perm"
+msgstr ""
+
+#: src/gnome-cmd-file-list.c:1346
+msgid "uid"
+msgstr ""
+
+#: src/gnome-cmd-file-list.c:1347
+msgid "gid"
+msgstr ""
+
+#: src/gnome-cmd-file-popmenu.c:131
+msgid "Invalid command"
+msgstr ""
+
+#: src/gnome-cmd-file-popmenu.c:159
+msgid "Application:"
+msgstr ""
+
+#: src/gnome-cmd-file-popmenu.c:163
+msgid "Open with other..."
+msgstr ""
+
+#: src/gnome-cmd-file-popmenu.c:167
+msgid "Needs terminal"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-popmenu.c:418
+msgid "_Open"
+msgstr "_Hap"
+
+#: src/gnome-cmd-file-popmenu.c:425
+msgid "_Open with..."
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-popmenu.c:437
+msgid "_Execute"
+msgstr "_Ekzekuto"
+
+#: src/gnome-cmd-file-popmenu.c:455
+msgid "_Cut"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-popmenu.c:462 src/gnome-cmd-main-menu.c:565
+msgid "_Copy"
+msgstr "_Kopjo"
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-popmenu.c:469 src/gnome-cmd-main-menu.c:577
+#: src/gnome-cmd-search-popup.c:167
+msgid "_Delete"
+msgstr "_Elemino"
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-popmenu.c:476
+msgid "Rename"
+msgstr "Riemërto"
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-popmenu.c:484 src/gnome-cmd-file-props-dialog.c:475
+#: src/gnome-cmd-search-popup.c:204
+msgid "Properties"
+msgstr "Pronësitë"
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-popmenu.c:542
+msgid "Other..."
+msgstr "Tjetër..."
+
+#: src/gnome-cmd-file-props-dialog.c:63 src/utils.c:987
+#, c-format
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
+msgid "No default application registered"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2058
+msgid "Filename:"
+msgstr "Emri i file:"
+
+#: src/gnome-cmd-file-props-dialog.c:313
+msgid "Symlink target:"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-props-dialog.c:322
+msgid "Type:"
+msgstr "Lloji:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-props-dialog.c:329
+msgid "MIME Type:"
+msgstr "Lloji i MIME:"
+
+#: src/gnome-cmd-file-props-dialog.c:337
+msgid "Opens with:"
+msgstr ""
+
+#: src/gnome-cmd-file-props-dialog.c:348
+msgid "_Change"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-props-dialog.c:360
+msgid "Accessed:"
+msgstr "Hyrja e fundit:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-props-dialog.c:367
+msgid "Modified:"
+msgstr "Ndryshimi i fundit:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-props-dialog.c:377
+msgid "Size:"
+msgstr "Madhësia:"
+
+#: src/gnome-cmd-file-props-dialog.c:413
+msgid "Owner and group"
+msgstr ""
+
+#: src/gnome-cmd-file-props-dialog.c:427
+msgid "Access permissions"
+msgstr ""
+
+#: src/gnome-cmd-file-props-dialog.c:450
+msgid "File Properties"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-file-props-dialog.c:479
+msgid "Permissions"
+msgstr "Të drejtat"
+
+#: src/gnome-cmd-file-selector.c:194
+#, c-format
+msgid "%s of %s kB in %d of %d file selected"
+msgid_plural "%s of %s kB in %d of %d files selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/gnome-cmd-file-selector.c:730
+#, c-format
+msgid "%s Free"
+msgstr ""
+
+#: src/gnome-cmd-file-selector.c:1784
+#, c-format
+msgid "Failed to open connection: %s\n"
+msgstr ""
+
+#: src/gnome-cmd-file-selector.c:1993 src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-rename-dialog.c:52
+msgid "No filename entered"
+msgstr ""
+
+#: src/gnome-cmd-file-selector.c:2029
+msgid "No filename given"
+msgstr ""
+
+#: src/gnome-cmd-file-selector.c:2064
+msgid "New Text File"
+msgstr ""
+
+#: src/gnome-cmd-file-selector.c:2233
+msgid "Symlink name:"
+msgstr ""
+
+#: src/gnome-cmd-file-selector.c:2237
+#, c-format
+msgid "Symlink to %s"
+msgstr ""
+
+#: src/gnome-cmd-file-selector.c:2239
+msgid "Create Symbolic Link"
+msgstr ""
+
+#: src/gnome-cmd-file-selector.c:2310
+msgid "Filter:"
+msgstr ""
+
+#: src/gnome-cmd-file.c:603
+msgid "Unknown file type"
+msgstr ""
+
+#: src/gnome-cmd-file.c:604
+msgid "Regular file"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-file.c:605
+msgid "Directory"
+msgstr "Directory"
+
+#: src/gnome-cmd-file.c:606
+msgid "FIFO"
+msgstr ""
+
+#: src/gnome-cmd-file.c:607
+msgid "UNIX Socket"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-file.c:608
+msgid "Character device"
+msgstr "Dispozitiv me karaktere"
+
+#. GRUT modified this item
+#: src/gnome-cmd-file.c:609
+msgid "Block device"
+msgstr "Dispozitiv në blloqe"
+
+#. GRUT modified this item
+#: src/gnome-cmd-file.c:610
+msgid "Symbolic link"
+msgstr "Lidhje simbolike"
+
+#: src/gnome-cmd-ftp-dialog.c:163
+#, c-format
+msgid "Enter password for %s@%s"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:168
+msgid "Enter Password"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:215
+msgid "No alias specified"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:218
+msgid "No host specified"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:221
+#, c-format
+msgid "Invalid port number: %s"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-options-dialog.c:1472
+msgid "Alias:"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+msgid "Host:"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+msgid "Port:"
+msgstr "Porta:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+msgid "User:"
+msgstr "Përdoruesi:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+msgid "Password:"
+msgstr "Fjalëkalimi:"
+
+#: src/gnome-cmd-ftp-dialog.c:323
+msgid "New FTP Server"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:348
+msgid "Edit FTP Server"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:378
+msgid "No server selected"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1354
+msgid "FTP Connect"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:512
+msgid "Servers"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:532 src/gnome-cmd-options-dialog.c:1626
+msgid "Alias"
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:537 src/gnome-cmd-list-popmenu.c:145
+msgid "_New..."
+msgstr ""
+
+#: src/gnome-cmd-ftp-dialog.c:553
+msgid "Anonymous password:"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-ftp-dialog.c:563
+msgid "Connect"
+msgstr "Lidhu"
+
+#: src/gnome-cmd-ftp-dialog.c:670
+msgid "FTP Quick Connect"
+msgstr ""
+
+#: src/gnome-cmd-list-popmenu.c:126
+msgid "_Directory"
+msgstr ""
+
+#: src/gnome-cmd-list-popmenu.c:133
+msgid "_Text file"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-list-popmenu.c:152 src/gnome-cmd-main-menu.c:571
+msgid "_Paste"
+msgstr "_Ngjite"
+
+#. GRUT modified this item
+#: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:626
+msgid "_Refresh"
+msgstr "_Fresko"
+
+#: src/gnome-cmd-main-menu.c:389
+msgid "Switch to Horizontal Layout"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:394
+msgid "Switch to Vertical Layout"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:462
+msgid "Change _Owner/Group"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:468
+msgid "Change Per_missions"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:474
+msgid "Advanced _Rename Tool"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:480
+msgid "Create _Symbolic Link"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:486
+msgid "_Properties..."
+msgstr "_Pronësitë...."
+
+#: src/gnome-cmd-main-menu.c:493
+msgid "_Diff"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:500
+msgid "_Quit"
+msgstr "_Dil"
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:511
+msgid "_Select All"
+msgstr "_Zgjidh gjithçka"
+
+#: src/gnome-cmd-main-menu.c:517
+msgid "_Unselect All"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:523
+msgid "Select with _Pattern"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:529
+msgid "Unselect with P_attern"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:535
+msgid "_Invert Selection"
+msgstr "_Inverto zgjedhjen"
+
+#: src/gnome-cmd-main-menu.c:541
+msgid "_Restore Selection"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:548
+msgid "_Compare Directries"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:559
+msgid "Cu_t"
+msgstr "Pre_je"
+
+#: src/gnome-cmd-main-menu.c:584
+msgid "Copy _File Names"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:591
+msgid "_Search..."
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:597
+msgid "_Quick Search..."
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:603
+msgid "_Enable Filter..."
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:614
+msgid "_Back"
+msgstr "_Mbrapa"
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:620
+msgid "_Forward"
+msgstr "_Vazhdo"
+
+#: src/gnome-cmd-main-menu.c:633
+msgid "Show Device Buttons"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:639
+msgid "Show Toolbar"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:645
+msgid "Show Commandline"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:651
+msgid "Show Buttonbar"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:658
+msgid "Show Hidden Files"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:664
+msgid "Show Backup Files"
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:676
+msgid "_Bookmark this Directory..."
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:682
+msgid "_Manage Bookmarks..."
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:694
+msgid "_Configure Plugins..."
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:706
+msgid "_Options..."
+msgstr "_Opcionet..."
+
+#: src/gnome-cmd-main-menu.c:712
+msgid "Edit _Mime Types..."
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:723
+msgid "FTP _Connect..."
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:729
+msgid "FTP _Quick Connect..."
+msgstr ""
+
+#: src/gnome-cmd-main-menu.c:740
+msgid "User _Manual..."
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:747
+msgid "_About..."
+msgstr "_Informacione..."
+
+#. GRUT modified this item
+#. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
+#: src/gnome-cmd-main-menu.c:766
+msgid "_File"
+msgstr "_File"
+
+#: src/gnome-cmd-main-menu.c:774
+msgid "_Mark"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:778 src/gnome-cmd-search-popup.c:175
+msgid "_View"
+msgstr "_Shfaq"
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:783
+msgid "_Settings"
+msgstr "_Rregullimet"
+
+#: src/gnome-cmd-main-menu.c:787
+msgid "_Connections"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:791
+msgid "_Bookmarks"
+msgstr "_Libërshënues"
+
+#: src/gnome-cmd-main-menu.c:795
+msgid "_Plugins"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-menu.c:799
+msgid "_Help"
+msgstr "_Ndihmë"
+
+#: src/gnome-cmd-main-win.c:447
+msgid "F3 View"
+msgstr ""
+
+#: src/gnome-cmd-main-win.c:450
+msgid "F4 Edit"
+msgstr ""
+
+#: src/gnome-cmd-main-win.c:453
+msgid "F5 Copy"
+msgstr ""
+
+#: src/gnome-cmd-main-win.c:456
+msgid "F6 Move"
+msgstr ""
+
+#: src/gnome-cmd-main-win.c:459
+msgid "F7 Mkdir"
+msgstr ""
+
+#: src/gnome-cmd-main-win.c:462
+msgid "F8 Delete"
+msgstr ""
+
+#: src/gnome-cmd-main-win.c:465
+msgid "F9 Search"
+msgstr ""
+
+#: src/gnome-cmd-main-win.c:468
+msgid "F10 Quit"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-win.c:1296
+msgid "Refresh"
+msgstr "Rifresko"
+
+#: src/gnome-cmd-main-win.c:1303
+msgid "Back in history"
+msgstr ""
+
+#: src/gnome-cmd-main-win.c:1310
+msgid "Forward in history"
+msgstr ""
+
+#: src/gnome-cmd-main-win.c:1318
+msgid "Copy file names"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-win.c:1325
+msgid "Cut"
+msgstr "Preje"
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-win.c:1332 src/gnome-cmd-prepare-copy-dialog.c:86
+msgid "Copy"
+msgstr "Kopjo"
+
+#. GRUT modified this item
+#: src/gnome-cmd-main-win.c:1339
+msgid "Paste"
+msgstr "Ngjite"
+
+#: src/gnome-cmd-main-win.c:1361
+msgid "Drop connection"
+msgstr ""
+
+#: src/gnome-cmd-make-copy-dialog.c:154
+#: src/gnome-cmd-prepare-copy-dialog.c:152
+#, c-format
+msgid "Copy \"%s\" to"
+msgstr ""
+
+#: src/gnome-cmd-make-copy-dialog.c:162
+msgid "Copy File"
+msgstr ""
+
+#: src/gnome-cmd-mkdir-dialog.c:48
+msgid "A directory name must be entered"
+msgstr ""
+
+#: src/gnome-cmd-mkdir-dialog.c:141
+msgid "Directory name:"
+msgstr ""
+
+#: src/gnome-cmd-mkdir-dialog.c:149
+msgid "Make Directory"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:63
+msgid "Use right mouse button to"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:66
+msgid "Show popup menu"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:70
+msgid "Select files"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:79
+msgid "Match filenames using"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:82
+msgid "Shell syntax"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:86
+msgid "Regex syntax"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:96
+msgid "Sorting options"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:99 src/gnome-cmd-patternsel-dialog.c:160
+msgid "Case sensitive"
+msgstr "Gërma të mëdha/të vogla"
+
+#: src/gnome-cmd-options-dialog.c:109
+msgid "Confirmation options"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:112
+msgid "Confirm before delete"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:122
+msgid "Directory options"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:125
+msgid "Directory cache size"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:214
+msgid "Size display mode"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:217
+msgid "Powered"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:222
+msgid "Grouped"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:227
+msgid "Plain"
+msgstr "I thjeshtë"
+
+#: src/gnome-cmd-options-dialog.c:237
+msgid "Permission display mode"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:240
+msgid "Text (rw-r--r--)"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:245
+msgid "Number (311)"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:255
+msgid "Date format"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:258
+msgid "Format:"
+msgstr "Formati:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:266
+msgid "_Test"
+msgstr "_Kontrolloje"
+
+#: src/gnome-cmd-options-dialog.c:269
+msgid "Test result:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:279
+msgid ""
+"See the manual page for \"strftime\" for help on how to set the format "
+"string."
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:401
+msgid "Edit Colors..."
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:408
+msgid "Colors"
+msgstr "Ngjyrat"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:445
+msgid "Foreground"
+msgstr "Plani i parë"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:447
+msgid "Background"
+msgstr "Sfondi"
+
+#: src/gnome-cmd-options-dialog.c:449
+msgid "Default:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:451
+msgid "Selected file:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:453
+msgid "Cursor:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:470
+msgid "With filename"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:471
+msgid "In separate column"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:472
+msgid "In both columns"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:476
+msgid "No icons"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:477
+msgid "File type icons"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:478
+msgid "MIME icons"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:482
+msgid "Respect theme colors"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:483
+msgid "Modern"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:484
+msgid "Classic"
+msgstr "Klasike"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:485
+msgid "Custom"
+msgstr "E personalizuar"
+
+#: src/gnome-cmd-options-dialog.c:501
+msgid "File panes"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:516
+msgid "Font:"
+msgstr "Gërmat:"
+
+#: src/gnome-cmd-options-dialog.c:518
+msgid "Row height:"
+msgstr ""
+
+#. File extensions
+#: src/gnome-cmd-options-dialog.c:522
+msgid "Display file extensions:"
+msgstr ""
+
+#. Graphical mode
+#: src/gnome-cmd-options-dialog.c:530
+msgid "Graphical mode:"
+msgstr ""
+
+#. Color scheme
+#: src/gnome-cmd-options-dialog.c:540
+msgid "Color scheme:"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:553
+msgid "Edit..."
+msgstr "Ndrysho..."
+
+#: src/gnome-cmd-options-dialog.c:563
+msgid "Colorize files according to the LS_COLORS enviroment variable"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:575
+msgid "MIME icon settings"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:592
+msgid "Icon size:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:594
+msgid "Scaling quality:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:596
+msgid "Theme icon directory:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:598
+msgid "Document icon directory:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:715
+msgid "Filetypes to hide"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:718
+msgid "Unknown"
+msgstr "Nuk njihet"
+
+#: src/gnome-cmd-options-dialog.c:723
+msgid "Regular files"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:728
+msgid "Directories"
+msgstr "Directories"
+
+#: src/gnome-cmd-options-dialog.c:733
+msgid "Fifo files"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:738
+msgid "Socket files"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:743
+msgid "Character devices"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:748
+msgid "Block devices"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:756
+msgid "Also hide"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:759
+msgid "Hidden files"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:764 src/gnome-cmd-options-dialog.c:777
+msgid "Backup files"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:769
+msgid "Symlinks"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1036
+msgid "Label:"
+msgstr "Etiketa:"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1038
+msgid "Command:"
+msgstr "Komanda:"
+
+#: src/gnome-cmd-options-dialog.c:1040 src/gnome-cmd-options-dialog.c:1478
+msgid "Icon:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1061
+msgid "Can handle multiple files"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1065
+msgid "Can handle URIs"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1069
+msgid "Requires terminal"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1076
+msgid "Show for"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1085
+msgid "All directories"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1091
+msgid "All directories and files"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1097
+msgid "Some files"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1108
+msgid "File patterns"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1133
+msgid "New Application"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1144
+msgid "Edit Application"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1230
+msgid "Always download remote files before opening in external programs"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1234
+msgid "MIME applications"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1238
+msgid "Standard programs"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1241
+msgid "Viewer:"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1243
+msgid "Editor:"
+msgstr "Editori:"
+
+#: src/gnome-cmd-options-dialog.c:1245
+msgid "Differ:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1247
+msgid "Terminal:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1266
+msgid "Other favorite apps"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1273
+msgid "Label"
+msgstr "Etiketa"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1474
+msgid "Device:"
+msgstr "Dispozitivi:"
+
+#: src/gnome-cmd-options-dialog.c:1476
+msgid "Mount point:"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1520
+msgid "New Device"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1532
+msgid "Edit Device"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1616 src/gnome-cmd-options-dialog.c:1826
+msgid "Devices"
+msgstr "Dispozitivët"
+
+#: src/gnome-cmd-options-dialog.c:1658
+msgid "Show only the icons"
+msgstr ""
+
+#: src/gnome-cmd-options-dialog.c:1663
+msgid "Skip mounting (useful when using super-mount)"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1796
+msgid "General"
+msgstr "Të përgjithshme"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1802
+msgid "Format"
+msgstr "Formati"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1808
+msgid "Layout"
+msgstr "Planimetria"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1814
+msgid "Filters"
+msgstr "Filtrat"
+
+#. GRUT modified this item
+#: src/gnome-cmd-options-dialog.c:1820
+msgid "Programs"
+msgstr "Programe"
+
+#: src/gnome-cmd-patternsel-dialog.c:136
+msgid "Select Using Pattern"
+msgstr ""
+
+#: src/gnome-cmd-patternsel-dialog.c:136
+msgid "Unselect Using Pattern"
+msgstr ""
+
+#: src/gnome-cmd-patternsel-dialog.c:147
+msgid "Pattern:"
+msgstr ""
+
+#.
+#. * Create prepare copy specific widgets
+#.
+#: src/gnome-cmd-prepare-copy-dialog.c:93
+#: src/gnome-cmd-prepare-move-dialog.c:87
+msgid "Silently"
+msgstr ""
+
+#: src/gnome-cmd-prepare-copy-dialog.c:102
+#: src/gnome-cmd-prepare-move-dialog.c:96
+msgid "Query First"
+msgstr ""
+
+#: src/gnome-cmd-prepare-copy-dialog.c:111
+#: src/gnome-cmd-prepare-move-dialog.c:105 src/gnome-cmd-xfer.c:176
+msgid "Skip All"
+msgstr ""
+
+#: src/gnome-cmd-prepare-copy-dialog.c:121
+msgid "Follow Links"
+msgstr ""
+
+#.
+#. * Customize prepare xfer widgets
+#.
+#: src/gnome-cmd-prepare-copy-dialog.c:136
+#: src/gnome-cmd-prepare-move-dialog.c:120
+msgid "Overwrite Files"
+msgstr ""
+
+#: src/gnome-cmd-prepare-copy-dialog.c:156
+#, c-format
+msgid "copy %d file to"
+msgid_plural "copy %d files to"
+msgstr[0] ""
+msgstr[1] ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-prepare-move-dialog.c:80
+msgid "Move"
+msgstr "Lëvize"
+
+#: src/gnome-cmd-prepare-move-dialog.c:135
+#, c-format
+msgid "Move \"%s\" to"
+msgstr ""
+
+#: src/gnome-cmd-prepare-move-dialog.c:139
+#, c-format
+msgid "move %d file to"
+msgid_plural "move %d files to"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/gnome-cmd-prepare-xfer-dialog.c:114
+#: src/gnome-cmd-prepare-xfer-dialog.c:153
+#, c-format
+msgid "The directory '%s' doesn't exist, do you want to create it?"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-quicksearch-popup.c:249
+msgid "Search"
+msgstr "Kërko"
+
+#: src/gnome-cmd-rename-dialog.c:147
+#, c-format
+msgid "Rename \"%s\" to"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-rename-dialog.c:155
+msgid "Rename File"
+msgstr "Riemërto file"
+
+#: src/gnome-cmd-search-dialog.c:184
+#, c-format
+msgid "Failed to open file %s: %s\n"
+msgstr ""
+
+#: src/gnome-cmd-search-dialog.c:193
+#, c-format
+msgid "Failed to read from file %s: %s\n"
+msgstr ""
+
+#: src/gnome-cmd-search-dialog.c:255
+#, c-format
+msgid "Searching in: %s"
+msgstr ""
+
+#: src/gnome-cmd-search-dialog.c:399
+#, c-format
+msgid "Found %d match before I was stopped"
+msgid_plural "Found %d matches before I was stopped"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/gnome-cmd-search-dialog.c:406
+#, c-format
+msgid "Found %d match"
+msgid_plural "Found %d matches"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/gnome-cmd-search-dialog.c:737
+msgid "Search..."
+msgstr ""
+
+#. GRUT modified this item
+#. Search for
+#: src/gnome-cmd-search-dialog.c:752
+msgid "Search for: "
+msgstr "Kërko për:"
+
+#. Search in
+#: src/gnome-cmd-search-dialog.c:766
+msgid "Search in: "
+msgstr ""
+
+#. Find text
+#: src/gnome-cmd-search-dialog.c:780
+msgid "Find text: "
+msgstr ""
+
+#: src/gnome-cmd-search-dialog.c:797
+msgid "Search Recursively"
+msgstr ""
+
+#. GRUT modified this item
+#. Case check
+#: src/gnome-cmd-search-dialog.c:805
+msgid "Case Sensitive"
+msgstr "Gërma të mëdha/të vogla"
+
+#: src/gnome-cmd-search-dialog.c:817
+msgid "Goto"
+msgstr ""
+
+#: src/gnome-cmd-search-popup.c:190
+msgid "Chmod"
+msgstr ""
+
+#: src/gnome-cmd-smb-path.c:331
+#, c-format
+msgid "Can't find a host or workgroup named %s\n"
+msgstr ""
+
+#: src/gnome-cmd-xfer-progress-win.c:37
+msgid "stopping..."
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-xfer-progress-win.c:88
+msgid "Progress"
+msgstr "Progresi"
+
+#: src/gnome-cmd-xfer-progress-win.c:174
+#, c-format
+msgid "%d%% of %s copied"
+msgstr ""
+
+#: src/gnome-cmd-xfer-progress-win.c:179
+#, c-format
+msgid "%d%% copied"
+msgstr ""
+
+#: src/gnome-cmd-xfer.c:170
+#, c-format
+msgid ""
+"The file \"%s\" already exists.\n"
+"\n"
+"Do you want to overwrite it?\n"
+msgstr ""
+
+#. GRUT modified this item
+#: src/gnome-cmd-xfer.c:176
+msgid "Replace"
+msgstr "Zëvendëso"
+
+#. GRUT modified this item
+#: src/gnome-cmd-xfer.c:176
+msgid "Replace All"
+msgstr "Zëvendëso gjithçka"
+
+#: src/gnome-cmd-xfer.c:190
+#, c-format
+msgid ""
+"Error while copying to %s\n"
+"\n"
+"%s"
+msgstr ""
+
+#: src/gnome-cmd-xfer.c:195
+msgid "Xfer problem"
+msgstr ""
+
+#: src/gnome-cmd-xfer.c:233
+msgid "copying..."
+msgstr ""
+
+#: src/gnome-cmd-xfer.c:241
+#, c-format
+msgid "[file %ld of %ld] \"%s\""
+msgstr ""
+
+#: src/gnome-cmd-xfer.c:391
+msgid ""
+"Copying a directory into it self is a bad idea.\n"
+"The whole operation was canceled."
+msgstr ""
+
+#: src/gnome-cmd-xfer.c:438
+msgid "preparing..."
+msgstr ""
+
+#: src/gnome-cmd-xfer.c:533
+msgid "downloading to /tmp"
+msgstr ""
+
+#: src/imageloader.c:124
+msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgstr ""
+
+#: src/imageloader.c:126 src/imageloader.c:152
+#, c-format
+msgid "Trying to load %s instead\n"
+msgstr ""
+
+#: src/imageloader.c:130 src/imageloader.c:155
+msgid ""
+"Cant find the pixmap anywhere. Make sure you have installed the program or "
+"is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
+msgstr ""
+
+#: src/imageloader.c:150
+msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+msgstr ""
+
+#: src/main.c:56
+msgid "Specify debug flags to use"
+msgstr ""
+
+#: src/main.c:58
+msgid "Specify the start directory for the left pane"
+msgstr ""
+
+#: src/main.c:60
+msgid "Specify the start directory for the right pane"
+msgstr ""
+
+#: src/owner.c:98
+#, c-format
+msgid ""
+"When parsing the users and groups on this system it was found that the user %"
+"s is part of the group %s. This user can however not be found.\n"
+msgstr ""
+
+#. GRUT modified this item
+#: src/plugin_manager.c:361
+msgid "Disable"
+msgstr "Ç'aktivo"
+
+#. GRUT modified this item
+#: src/plugin_manager.c:366
+msgid "Enable"
+msgstr "Aktivo"
+
+#: src/plugin_manager.c:435
+msgid "Available plugins"
+msgstr ""
+
+#. GRUT modified this item
+#: src/plugin_manager.c:441
+msgid "Name"
+msgstr "Emri"
+
+#. GRUT modified this item
+#: src/plugin_manager.c:442
+msgid "Version"
+msgstr "Versioni"
+
+#. GRUT modified this item
+#: src/plugin_manager.c:443
+msgid "File"
+msgstr "File"
+
+#: src/plugin_manager.c:449
+msgid "_Enable"
+msgstr ""
+
+#. GRUT modified this item
+#: src/plugin_manager.c:454
+msgid "_Configure"
+msgstr "_Konfiguro"
+
+#. GRUT modified this item
+#: src/plugin_manager.c:460
+msgid "_About"
+msgstr "_Informacione"
+
+#: src/useractions.c:263
+#, c-format
+msgid "running \"%s\"\n"
+msgstr ""
+
+#: src/useractions.c:668
+msgid "A fast and powerful file manager for the GNOME desktop"
+msgstr ""
+
+#. xgettext:
+#. * Replace this with your name when translating
+#: src/useractions.c:673
+msgid "No translation is currently in use."
+msgstr ""
+
+#: src/utils.c:519
+#, c-format
+msgid ""
+"No default application found for the mime-type %s.\n"
+"Open the \"File types and programs\" page in the Control Center to add one."
+msgstr ""
+
+#: src/utils.c:599
+#, c-format
+msgid ""
+"\"%s\" seems to be a binary executable file but it lacks the executable bit. "
+"Do you want to set it and then run the file?"
+msgstr ""
+
+#: src/utils.c:602
+msgid "Make Executable?"
+msgstr ""
+
+#: src/utils.c:629
+#, c-format
+msgid ""
+"\"%s\" is an executable text file. Do you want to run it, or display it's "
+"contents?"
+msgstr ""
+
+#: src/utils.c:631
+msgid "Run or Display"
+msgstr ""
+
+#: src/utils.c:632
+msgid "Display"
+msgstr ""
+
+#. GRUT modified this item
+#: src/utils.c:632
+msgid "Run"
+msgstr "Ekzekuto"
+
+#: src/utils.c:668
+#, c-format
+msgid ""
+"%s does not know how to open remote files. Do you want to download the file "
+"to a temporary location and then open it?"
+msgstr ""
+
+#: src/utils.c:742
+#, c-format
+msgid ""
+"%s does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
+msgstr ""
+
+#: src/utils.c:1363
+#, c-format
+msgid "Creating directory %s... "
+msgstr ""
+
+#: src/utils.c:1368
+#, c-format
+msgid "Failed to create the directory %s"
+msgstr ""
+
+#: src/utils.c:1374
+#, c-format
+msgid "Couldn't read from the directory %s: %s\n"
+msgstr ""
+
