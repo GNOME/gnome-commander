@@ -61,10 +61,8 @@ void history_add (History *history, const gchar *text)
 	l = history->ents;
 	while (l && l != history->pos) {
 		g_free (l->data);
-		if (l->next)
-			l->next->prev = NULL;
-		n = l->next;
-		g_free (l);
+		n = g_list_remove_link (l, l);
+		g_list_free (l);
 		l = n;
 	}
 
