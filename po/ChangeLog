@@ -1,3 +1,7 @@
+2005-03-15  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* POTFILES.in: Added missing src/gnome-cmd-dir-indicator.c
+
 2005-03-05  Marcel Telka  <marcel@telka.sk>
 
 	* sk.po: Updated Slovak translation.

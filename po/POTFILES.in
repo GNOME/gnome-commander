@@ -19,6 +19,7 @@ src/gnome-cmd-con-home.c
 src/gnome-cmd-con-smb.c
 src/gnome-cmd-delete-dialog.c
 src/gnome-cmd-dir.c
+src/gnome-cmd-dir-indicator.c
 src/gnome-cmd-file-list.c
 src/gnome-cmd-file-popmenu.c
 src/gnome-cmd-file-props-dialog.c
