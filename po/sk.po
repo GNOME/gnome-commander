@@ -3,12 +3,14 @@
 # Zdenko Podobný <zdpo@mailbox.sk>, 2003, 2004.
 # Marcel Telka <marcel@telka.sk>, 2005.
 #
+# $Id$
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-05 19:40+0100\n"
-"PO-Revision-Date: 2005-03-05 20:04+0100\n"
+"POT-Creation-Date: 2005-03-17 05:36+0100\n"
+"PO-Revision-Date: 2005-03-17 05:37+0100\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -569,6 +571,14 @@ msgstr "OK"
 #: src/gnome-cmd-dir.c:569
 msgid "Waiting for file list"
 msgstr "Čakanie na zoznam súborov"
+
+#: src/gnome-cmd-dir-indicator.c:472
+msgid "Add current dir"
+msgstr "Pridať aktuálny priečinok"
+
+#: src/gnome-cmd-dir-indicator.c:479
+msgid "Manage bookmarks..."
+msgstr "Spravovať záložky..."
 
 #: src/gnome-cmd-file-list.c:1341
 msgid "ext"
@@ -1904,7 +1914,9 @@ msgstr "Rýchly a výkonný správca súborov pre pracovné prostredie GNOME "
 #. * Replace this with your name when translating
 #: src/useractions.c:673
 msgid "No translation is currently in use."
-msgstr "Zdenko Podobný <zdpo (zavináč) mailbox (bodka) sk>\nMarcel Telka <marcel@telka.sk>"
+msgstr ""
+"Zdenko Podobný <zdpo (zavináč) mailbox (bodka) sk>\n"
+"Marcel Telka <marcel@telka.sk>"
 
 #: src/utils.c:519
 #, c-format
