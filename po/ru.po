@@ -1,1448 +1,1392 @@
-# translation of ru.po to
-# Russian translation
+# translation of ru.po to Russian translation
 # Copyright (C) YEAR Free Software Foundation, Inc
 # Victor Vislobokov <victor_v@permonline.ru>, 2002.
 # Pavlo Bohmat <bohm@ukr.net>, 2003
+# Leonid Kanter
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ru\n"
-"POT-Creation-Date: 2003-11-24 12:37+0100\n"
-"PO-Revision-Date: 2003-06-09 13:21+0300\n"
+"Project-Id-Version: 1.1.3\n"
+"POT-Creation-Date: 2003-11-14 20:03+0100\n"
+"PO-Revision-Date: 2003-12-20 20:35+0200\n"
 "Last-Translator: Pavlo Bohmat <bohm@ukr.net>\n"
 "Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=KOI8-R\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: KBabel 1.0.1\n"
 
-#: libgcmd/gnome-cmd-string-dialog.c:131
-msgid "No error description available"
-msgstr "Нет возможности описания ошибки"
-
-#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:739
+#: src/gnome-cmd-advrename-dialog.c:100
+#: src/gnome-cmd-prepare-xfer-dialog.c:118 src/utils.c:725
 msgid "Yes"
-msgstr "Да"
+msgstr "п■п╟"
 
-#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:739
+#: src/gnome-cmd-advrename-dialog.c:100
+#: src/gnome-cmd-prepare-xfer-dialog.c:118 src/utils.c:725
 msgid "No"
-msgstr "Нет"
+msgstr "п²п╣я┌"
 
-#: src/gnome-cmd-advrename-dialog.c:197
+#: src/gnome-cmd-advrename-dialog.c:200
 msgid "Invalid source pattern"
-msgstr "Недопустимый источник шаблона"
+msgstr "п²п╣п╢п╬п©я┐я│я┌п╦п╪я▀п╧ я┬п╟п╠п╩п╬п╫ п╦я│я┌п╬я┤п╫п╦п╨п╟"
 
-#: src/gnome-cmd-advrename-dialog.c:273
+#: src/gnome-cmd-advrename-dialog.c:276
 msgid "Replace this:"
-msgstr "Заменить это:"
+msgstr "п≈п╟п╪п╣п╫п╦я┌я▄:"
 
-#: src/gnome-cmd-advrename-dialog.c:273 src/gnome-cmd-advrename-dialog.c:821
+#: src/gnome-cmd-advrename-dialog.c:276 src/gnome-cmd-advrename-dialog.c:825
 msgid "With this"
-msgstr "На это"
+msgstr "п²п╟"
 
-#: src/gnome-cmd-advrename-dialog.c:287
+#: src/gnome-cmd-advrename-dialog.c:292
 msgid "Case sensitive matching"
-msgstr "Учитывать регистр"
+msgstr "пёя┤п╦я┌я▀п╡п╟я┌я▄ я─п╣пЁп╦я│я┌я─"
 
-#: src/gnome-cmd-advrename-dialog.c:423
+#: src/gnome-cmd-advrename-dialog.c:426
 msgid "New Rule"
-msgstr "Новое правило"
+msgstr "п║п╬п╥п╢п╟я┌я▄ п©я─п╟п╡п╦п╩п╬"
 
-#: src/gnome-cmd-advrename-dialog.c:432
+#: src/gnome-cmd-advrename-dialog.c:435
 msgid "Edit Rule"
-msgstr "Правка правила"
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄ п©я─п╟п╡п╦п╩п╬"
 
-#: src/gnome-cmd-advrename-dialog.c:651
+#: src/gnome-cmd-advrename-dialog.c:654
 msgid "Counter start value:"
-msgstr "Величина старта счетчика:"
+msgstr "п²п╟я┤п╟п╩я▄п╫п╬п╣ п╥п╫п╟я┤п╣п╫п╦п╣ я│я┤п╣я┌я┤п╦п╨п╟:"
 
-#: src/gnome-cmd-advrename-dialog.c:652
+#: src/gnome-cmd-advrename-dialog.c:655
 msgid "Counter increment:"
-msgstr "Увеличение счетчика:"
+msgstr "п╗п╟пЁ я│я┤п╣я┌я┤п╦п╨п╟:"
 
-#: src/gnome-cmd-advrename-dialog.c:653
+#: src/gnome-cmd-advrename-dialog.c:656
 msgid "Counter minimum digit count:"
-msgstr "Мин. числовой подсчет счетчика:"
+msgstr "п°п╦п╫. я┤п╦я│п╩п╬п╡п╬п╧ п©п╬п╢я│я┤п╣я┌ я│я┤п╣я┌я┤п╦п╨п╟:"
 
-#: src/gnome-cmd-advrename-dialog.c:658
+#: src/gnome-cmd-advrename-dialog.c:661
 msgid "Template Options"
-msgstr "Шаблонные опции"
+msgstr "п÷п╟я─п╟п╪п╣я┌я─я▀ я┬п╟п╠п╩п╬п╫п╟"
 
-#: src/gnome-cmd-advrename-dialog.c:662
+#: src/gnome-cmd-advrename-dialog.c:669
 msgid "Auto-update when the template is entered"
-msgstr "Автодополнение при вводе шаблона"
+msgstr "п░п╡я┌п╬п╢п╬п©п╬п╩п╫п╣п╫п╦п╣ п©я─п╦ п╡п╡п╬п╢п╣ я┬п╟п╠п╩п╬п╫п╟"
 
-#: src/gnome-cmd-advrename-dialog.c:771
+#: src/gnome-cmd-advrename-dialog.c:777
 msgid "Advanced Rename Tool"
-msgstr "Продвинутый инструмент переименования"
+msgstr "п═п╟я│я┬п╦я─п╣п╫п╫п╬п╣ я│я─п╣п╢я│я┌п╡п╬ п©п╣я─п╣п╦п╪п╣п╫п╬п╡п╟п╫п╦я▐"
 
-#: src/gnome-cmd-advrename-dialog.c:784
+#: src/gnome-cmd-advrename-dialog.c:788
 msgid "Template"
-msgstr "Шаблон"
+msgstr "п╗п╟п╠п╩п╬п╫"
 
-#: src/gnome-cmd-advrename-dialog.c:806
+#: src/gnome-cmd-advrename-dialog.c:810
 msgid "Options..."
-msgstr "Опции..."
+msgstr "п·п©я├п╦п╦..."
 
-#: src/gnome-cmd-advrename-dialog.c:813
+#: src/gnome-cmd-advrename-dialog.c:817
 msgid "Regex replacing"
-msgstr "Заменить Regex"
+msgstr "п≈п╟п╪п╣п╫п╟ я│ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦п╣п╪ Regex"
 
-#: src/gnome-cmd-advrename-dialog.c:820
+#: src/gnome-cmd-advrename-dialog.c:824
 msgid "Replace this"
-msgstr "Заменить это"
+msgstr "п≈п╟п╪п╣п╫п╦я┌я▄"
 
-#: src/gnome-cmd-advrename-dialog.c:822
+#: src/gnome-cmd-advrename-dialog.c:826
 msgid "Case sens"
-msgstr "Учитывать регистр"
+msgstr "пёя┤п╦я┌я▀п╡п╟я┌я▄ я─п╣пЁп╦я│я┌я─"
 
-#: src/gnome-cmd-advrename-dialog.c:835 src/gnome-cmd-options-dialog.c:1275
-#: src/gnome-cmd-options-dialog.c:1628
+#: src/gnome-cmd-advrename-dialog.c:839 src/gnome-cmd-options-dialog.c:1257
+#: src/gnome-cmd-options-dialog.c:1601
 msgid "_Add..."
-msgstr "Добавить"
+msgstr "п■п╬п╠п╟п╡п╦я┌я▄..."
 
-#: src/gnome-cmd-advrename-dialog.c:839 src/gnome-cmd-ftp-dialog.c:537
-#: src/gnome-cmd-options-dialog.c:1279 src/gnome-cmd-options-dialog.c:1632
+#: src/gnome-cmd-advrename-dialog.c:843 src/gnome-cmd-ftp-dialog.c:540
+#: src/gnome-cmd-options-dialog.c:1261 src/gnome-cmd-options-dialog.c:1605
 msgid "_Edit..."
-msgstr "Правка..."
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄..."
 
-#: src/gnome-cmd-advrename-dialog.c:844 src/gnome-cmd-bookmark-dialog.c:512
-#: src/gnome-cmd-ftp-dialog.c:541 src/gnome-cmd-options-dialog.c:1285
-#: src/gnome-cmd-options-dialog.c:1638
+#: src/gnome-cmd-advrename-dialog.c:848 src/gnome-cmd-bookmark-dialog.c:514
+#: src/gnome-cmd-ftp-dialog.c:544 src/gnome-cmd-options-dialog.c:1267
+#: src/gnome-cmd-options-dialog.c:1611
 msgid "_Remove"
-msgstr "Удалить"
+msgstr "пёп╢п╟п╩п╦я┌я▄"
 
-#: src/gnome-cmd-advrename-dialog.c:849
+#: src/gnome-cmd-advrename-dialog.c:853
 msgid "Re_move All"
-msgstr "Удалить все"
+msgstr "пёп╢п╟п╩п╦я┌я▄ п╡я│п╣"
 
-#: src/gnome-cmd-advrename-dialog.c:872
+#: src/gnome-cmd-advrename-dialog.c:876
 msgid "Result"
-msgstr "Результат"
+msgstr "п═п╣п╥я┐п╩я▄я┌п╟я┌"
 
-#: src/gnome-cmd-advrename-dialog.c:877
+#: src/gnome-cmd-advrename-dialog.c:881
 msgid "Current filenames"
-msgstr "Текущие имена файлов"
+msgstr "п╒п╣п╨я┐я┴п╦п╣ п╦п╪п╣п╫п╟ я└п╟п╧п╩п╬п╡"
 
-#: src/gnome-cmd-advrename-dialog.c:878
+#: src/gnome-cmd-advrename-dialog.c:882
 msgid "New filenames"
-msgstr "Новые имена файлов"
+msgstr "п²п╬п╡я▀п╣ п╦п╪п╣п╫п╟ я└п╟п╧п╩п╬п╡"
 
-#: src/gnome-cmd-advrename-dialog.c:885
+#: src/gnome-cmd-advrename-dialog.c:889
 msgid "Reset"
-msgstr "Сброс"
+msgstr "п║п╠я─п╬я│"
 
-#: src/gnome-cmd-bookmark-dialog.c:67
+#: src/gnome-cmd-bookmark-dialog.c:69
 msgid "Bookmark name:"
-msgstr "Имя закладки:"
+msgstr "п≤п╪я▐ п╥п╟п╨п╩п╟п╢п╨п╦:"
 
-#: src/gnome-cmd-bookmark-dialog.c:68
+#: src/gnome-cmd-bookmark-dialog.c:70
 msgid "Bookmark target:"
-msgstr "Адрес закладки:"
+msgstr "п╕п╣п╩я▄ п╥п╟п╨п╩п╟п╢п╨п╦:"
 
-#: src/gnome-cmd-bookmark-dialog.c:170
+#: src/gnome-cmd-bookmark-dialog.c:172
 msgid "Bookmark name is missing"
-msgstr "Имя закладки потеряно"
+msgstr "п≤п╪я▐ п╥п╟п╨п╩п╟п╢п╨п╦ п╬я┌я│я┐я┌я│я┌п╡я┐п╣я┌"
 
-#: src/gnome-cmd-bookmark-dialog.c:176
+#: src/gnome-cmd-bookmark-dialog.c:178
 msgid "Bookmark target is missing"
-msgstr "Адрес закладки потерян"
+msgstr "п╕п╣п╩я▄ п╥п╟п╨п╩п╟п╢п╨п╦ п╬я┌я│я┐я┌я│я┌п╡я┐п╣я┌"
 
-#: src/gnome-cmd-bookmark-dialog.c:196
+#: src/gnome-cmd-bookmark-dialog.c:198
 msgid "Edit Bookmark"
-msgstr "Правка закладки"
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄ п╥п╟п╨п╩п╟п╢п╨я┐"
 
-#: src/gnome-cmd-bookmark-dialog.c:466 src/gnome-cmd-bookmark-dialog.c:482
+#: src/gnome-cmd-bookmark-dialog.c:468 src/gnome-cmd-bookmark-dialog.c:484
 msgid "Bookmarks"
-msgstr "Закладки"
+msgstr "п≈п╟п╨п╩п╟п╢п╨п╦"
 
-#: src/gnome-cmd-bookmark-dialog.c:469
-#, fuzzy
+#: src/gnome-cmd-bookmark-dialog.c:471
 msgid "Bookmark Groups"
-msgstr "Группа закладки: "
+msgstr "п⌠я─я┐п©п©я▀ п╥п╟п╨п╩п╟п╢п╬п╨"
 
-#: src/gnome-cmd-bookmark-dialog.c:491 src/gnome-cmd-file-list.c:1332
+#: src/gnome-cmd-bookmark-dialog.c:493 src/gnome-cmd-file-list.c:1300
 msgid "name"
-msgstr "имя"
+msgstr "п╦п╪я▐"
 
-#: src/gnome-cmd-bookmark-dialog.c:493
+#: src/gnome-cmd-bookmark-dialog.c:495
 msgid "path"
-msgstr "путь"
+msgstr "п©я┐я┌я▄"
 
-#: src/gnome-cmd-bookmark-dialog.c:502
+#: src/gnome-cmd-bookmark-dialog.c:504
 msgid "_Goto"
-msgstr "Перейти"
+msgstr "п÷п╣я─п╣п╧я┌п╦"
 
-#: src/gnome-cmd-bookmark-dialog.c:507 src/gnome-cmd-main-menu.c:769
-#: src/gnome-cmd-search-popup.c:182
+#: src/gnome-cmd-bookmark-dialog.c:509 src/gnome-cmd-file-popmenu.c:529
+#: src/gnome-cmd-main-menu.c:770 src/gnome-cmd-search-popup.c:182
 msgid "_Edit"
-msgstr "Правка"
+msgstr "п÷я─п╟п╡п╨п╟"
 
-#: src/gnome-cmd-bookmark-dialog.c:621
+#: src/gnome-cmd-bookmark-dialog.c:623
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
 msgstr ""
+"п╖я┌п╬п╠я▀ я│п╢п╣п╩п╟я┌я▄ п╥п╟п╨п╩п╟п╢п╨я┐ п╨ п╨п╟я┌п╟п╩п╬пЁя┐, п©п╬п╩п╫я▀п╧ п©я┐я┌я▄ п╨ п╨п╟я┌п╟п╩п╬пЁя┐ п╢п╬п╩п╤п╣п╫ п╠я▀я┌я▄ п╡ "
+"п╨п╬п╢п╦я─п╬п╡п╨п╣ UTF-8\n"
 
-#: src/gnome-cmd-bookmark-dialog.c:628
+#: src/gnome-cmd-bookmark-dialog.c:630
 msgid "New Bookmark"
-msgstr "Новая закладка"
-
-#: src/gnome-cmd-chmod-component.c:128
-msgid "Read"
-msgstr "Читать"
-
-#: src/gnome-cmd-chmod-component.c:128
-msgid "Write"
-msgstr "Писать"
-
-#: src/gnome-cmd-chmod-component.c:128
-msgid "Execute"
-msgstr "Выполнить"
-
-#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:89
-msgid "Owner:"
-msgstr "Владелец:"
-
-#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:92
-msgid "Group:"
-msgstr "Группа:"
+msgstr "п²п╬п╡п╟я▐ п╥п╟п╨п╩п╟п╢п╨п╟"
 
 #: src/gnome-cmd-chmod-component.c:129
+msgid "Read"
+msgstr "п╖я┌п╣п╫п╦п╣"
+
+#: src/gnome-cmd-chmod-component.c:129
+msgid "Write"
+msgstr "п≈п╟п©п╦я│я▄"
+
+#: src/gnome-cmd-chmod-component.c:129
+msgid "Execute"
+msgstr "п≤я│п©п╬п╩п╫п╣п╫п╦п╣"
+
+#: src/gnome-cmd-chmod-component.c:130 src/gnome-cmd-chown-component.c:90
+msgid "Owner:"
+msgstr "п▓п╩п╟п╢п╣п╩п╣я├:"
+
+#: src/gnome-cmd-chmod-component.c:130 src/gnome-cmd-chown-component.c:93
+msgid "Group:"
+msgstr "п⌠я─я┐п©п©п╟:"
+
+#: src/gnome-cmd-chmod-component.c:130
 msgid "Others:"
-msgstr "Другие:"
+msgstr "п■я─я┐пЁп╦п╣:"
 
-#: src/gnome-cmd-chmod-component.c:163
+#: src/gnome-cmd-chmod-component.c:164
 msgid "Text view:"
-msgstr "Просмотр текста:"
+msgstr "п÷я─п╬я│п╪п╬я┌я─ я┌п╣п╨я│я┌п╟:"
 
-#: src/gnome-cmd-chmod-component.c:166
+#: src/gnome-cmd-chmod-component.c:167
 msgid "Number view:"
-msgstr "Просмотр номера:"
+msgstr "п÷я─п╬я│п╪п╬я┌я─ п╫п╬п╪п╣я─п╟:"
 
-#: src/gnome-cmd-chmod-dialog.c:38 src/gnome-cmd-options-dialog.c:1075
+#: src/gnome-cmd-chmod-dialog.c:39 src/gnome-cmd-options-dialog.c:1066
 msgid "All files"
-msgstr "Все файлы"
+msgstr "п▓я│п╣ я└п╟п╧п╩я▀"
 
-#: src/gnome-cmd-chmod-dialog.c:39
+#: src/gnome-cmd-chmod-dialog.c:40
 msgid "Directories only"
-msgstr "Только каталоги"
+msgstr "п╒п╬п╩я▄п╨п╬ п╨п╟я┌п╟п╩п╬пЁп╦"
 
-#: src/gnome-cmd-chmod-dialog.c:71
+#: src/gnome-cmd-chmod-dialog.c:72
 #, c-format
 msgid ""
 "Could not chmod %s\n"
 "%s"
 msgstr ""
-"Не могу сменить права для %s\n"
+"п²п╣ я┐п╢п╟я▒я┌я│я▐ я│п╪п╣п╫п╦я┌я▄ п©я─п╟п╡п╟ п╢п╩я▐ %s\n"
 "%s"
 
-#: src/gnome-cmd-chmod-dialog.c:214
+#: src/gnome-cmd-chmod-dialog.c:215
 msgid "Access Permissions"
-msgstr "Права доступа"
+msgstr "п÷я─п╟п╡п╟ п╢п╬я│я┌я┐п©п╟"
 
-#: src/gnome-cmd-chmod-dialog.c:232
+#: src/gnome-cmd-chmod-dialog.c:233
 msgid "Apply Recursively for"
-msgstr "Применить рекурсивно для"
+msgstr "п÷я─п╦п╪п╣п╫п╦я┌я▄ я─п╣п╨я┐я─я│п╦п╡п╫п╬ п╢п╩я▐"
 
-#: src/gnome-cmd-chown-dialog.c:52
+#: src/gnome-cmd-chown-dialog.c:53
 #, c-format
 msgid ""
 "Could not chown %s\n"
 "%s"
 msgstr ""
-"Не могу сменить владельца для %s\n"
+"п²п╣ я┐п╢п╟я▒я┌я│я▐ я│п╪п╣п╫п╦я┌я▄ п╡п╩п╟п╢п╣п╩я▄я├п╟ п╢п╩я▐ %s\n"
 "%s"
 
-#: src/gnome-cmd-chown-dialog.c:181 src/gnome-cmd-search-popup.c:197
+#: src/gnome-cmd-chown-dialog.c:182 src/gnome-cmd-search-popup.c:197
 msgid "Chown"
-msgstr "Сменить владельца"
+msgstr "п║п╪п╣п╫п╦я┌я▄ п╡п╩п╟п╢п╣п╩я▄я├п╟"
 
-#: src/gnome-cmd-chown-dialog.c:195
+#: src/gnome-cmd-chown-dialog.c:196
 msgid "Apply Recursively"
-msgstr "Применить рекурсивно"
+msgstr "п÷я─п╦п╪п╣п╫п╦я┌я▄ я─п╣п╨я┐я─я│п╦п╡п╫п╬"
 
-#: src/gnome-cmd-con-device.c:103
+#: src/gnome-cmd-con-device.c:104
 msgid "Failed to execute the mount command"
-msgstr ""
+msgstr "п·я┬п╦п╠п╨п╟ п╡я▀п©п╬п╩п╫п╣п╫п╦я▐ п╨п╬п╪п╟п╫п╢я▀ mount"
 
-#: src/gnome-cmd-con-device.c:110
+#: src/gnome-cmd-con-device.c:111
 msgid "Mount failed: Permission denied"
-msgstr ""
+msgstr "п·я┬п╦п╠п╨п╟ п©п╬п╢п╨п╩я▌я┤п╣п╫п╦я▐: п╢п╬я│я┌я┐п© п╥п╟п©я─п╣я┴п╣п╫"
 
-#: src/gnome-cmd-con-device.c:113
+#: src/gnome-cmd-con-device.c:114
 msgid "Mount failed: No medium found"
-msgstr ""
+msgstr "п·я┬п╦п╠п╨п╟ п©п╬п╢п╨п╩я▌я┤п╣п╫п╦я▐: п╫п╬я│п╦я┌п╣п╩я▄ п╫п╣ п╫п╟п╧п╢п╣п╫"
 
-#: src/gnome-cmd-con-device.c:117
+#: src/gnome-cmd-con-device.c:118
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
-msgstr ""
+msgstr "п·я┬п╦п╠п╨п╟ п©п╬п╢п╨п╩я▌я┤п╣п╫п╦я▐: п╨п╬п╪п╟п╫п╢п╟ mount п╡п╣я─п╫я┐п╩п╟ п╨п╬п╢ %d"
 
-#: src/gnome-cmd-con-device.c:356
-#, fuzzy, c-format
-msgid "Mounting %s"
-msgstr "Монтирую %s в %s\n"
-
-#: src/gnome-cmd-con-device.c:374 src/gnome-cmd-con-ftp.c:287
-#, fuzzy, c-format
-msgid "Go to: %s"
-msgstr "Перейти"
-
-#: src/gnome-cmd-con-device.c:375
+#: src/gnome-cmd-con-device.c:357
 #, c-format
-msgid "Mount: %s"
-msgstr ""
+msgid "Mounting %s"
+msgstr "п÷п╬п╢п╨п╩я▌я┤п╟п╣я┌я│я▐ %s"
+
+#: src/gnome-cmd-con-device.c:375 src/gnome-cmd-con-ftp.c:287
+#, c-format
+msgid "Go to: %s"
+msgstr "п÷п╣я─п╣п╧я┌п╦ п╨: %s"
 
 #: src/gnome-cmd-con-device.c:376
-#, fuzzy, c-format
+#, c-format
+msgid "Mount: %s"
+msgstr "п°п╬п╫я┌п╦я─п╬п╡п╟п╫п╦п╣: %s"
+
+#: src/gnome-cmd-con-device.c:377
+#, c-format
 msgid "Unmount: %s"
-msgstr "Размонтировать устройство"
+msgstr "п·я┌п╨п╩я▌я┤п╣п╫п╦п╣: %s"
 
 #: src/gnome-cmd-con-ftp.c:268
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s\n"
-msgstr "Монтирую %s в %s\n"
+msgstr "п÷п╬п╢п╨п╩я▌я┤п╣п╫п╦п╣ п╨ %s\n"
 
 #: src/gnome-cmd-con-ftp.c:288
-#, fuzzy, c-format
+#, c-format
 msgid "Connect to: %s"
-msgstr "Отключиться oт %s"
+msgstr "п÷п╬п╢п╨п╩я▌я┤п╣п╫п╦п╣ п╨: %s"
 
 #: src/gnome-cmd-con-ftp.c:289
-#, fuzzy, c-format
+#, c-format
 msgid "Disconnect from: %s"
-msgstr "Отключиться oт %s"
+msgstr "п·я┌п╨п╩я▌я┤п╣п╫п╦п╣ oя┌: %s"
 
 #: src/gnome-cmd-con-ftp.c:307
 #, c-format
 msgid "Creates an FTP connection to %s"
-msgstr ""
+msgstr "п║п╬п╥п╢п╟п╣я┌ FTP я│п╬п╣п╢п╦п╫п╣п╫п╦п╣ п╨ %s"
 
 #: src/gnome-cmd-con-ftp.c:309
 #, c-format
 msgid "Removes the FTP connection to %s"
-msgstr ""
+msgstr "пёп╢п╟п╩п╦я┌я▄ FTP я│п╬п╣п╢п╦п╫п╣п╫п╦п╣ п╨ %s"
 
 #: src/gnome-cmd-con-home.c:129
-#, fuzzy
 msgid "Home"
-msgstr "домой"
+msgstr "п■п╬п╪. п╨п╟я┌п╟п╩п╬пЁ"
 
 #: src/gnome-cmd-con-home.c:137
 msgid "Go to: Home"
-msgstr ""
+msgstr "п÷п╣я─п╣п╧я┌п╦ п╨: п■п╬п╪. п╨п╟я┌п╟п╩п╬пЁ"
 
 #: src/gnome-cmd-con-smb.c:201
 msgid "SMB"
-msgstr ""
+msgstr "SMB"
 
 #: src/gnome-cmd-con-smb.c:202
 msgid "Searching for workgroups and hosts"
-msgstr ""
+msgstr "п÷п╬п╦я│п╨ я─п╟п╠п╬я┤п╦я┘ пЁя─я┐п©п© п╦ я┐п╥п╩п╬п╡"
 
 #: src/gnome-cmd-con-smb.c:209
 msgid "Go to: Samba Network"
-msgstr ""
+msgstr "п÷п╣я─п╣п╧я┌п╦ п╡: я│п╣я┌я▄ Samba"
 
-#: src/gnome-cmd-delete-dialog.c:159
+#: src/gnome-cmd-delete-dialog.c:160
 msgid "Deleting..."
-msgstr "Удаление..."
+msgstr "пёп╢п╟п╩п╣п╫п╦п╣..."
 
-#: src/gnome-cmd-delete-dialog.c:250
+#: src/gnome-cmd-delete-dialog.c:251
 #, c-format
 msgid ""
 "Error while deleting %s\n"
 "\n"
 "%s"
 msgstr ""
+"п·я┬п╦п╠п╨п╟ п©я─п╦ я┐п╢п╟п╩п╣п╫п╦п╦ %s\n"
+"\n"
+"%s"
 
-#: src/gnome-cmd-delete-dialog.c:253
+#: src/gnome-cmd-delete-dialog.c:254
 msgid "Delete problem"
-msgstr ""
+msgstr "п÷я─п╬п╠п╩п╣п╪п╟ я┐п╢п╟п╩п╣п╫п╦я▐"
 
-#: src/gnome-cmd-delete-dialog.c:254 src/gnome-cmd-xfer.c:176
-#: src/gnome-cmd-xfer.c:196
+#: src/gnome-cmd-delete-dialog.c:255 src/gnome-cmd-xfer.c:116
+#: src/gnome-cmd-xfer.c:131
 msgid "Abort"
-msgstr "Прервать"
+msgstr "п÷я─п╣я─п╡п╟я┌я▄"
 
-#: src/gnome-cmd-delete-dialog.c:254 src/gnome-cmd-xfer.c:196
+#: src/gnome-cmd-delete-dialog.c:255 src/gnome-cmd-xfer.c:131
 msgid "Retry"
-msgstr ""
+msgstr "п÷п╬п╡я┌п╬я─п╦я┌я▄"
 
-#: src/gnome-cmd-delete-dialog.c:254 src/gnome-cmd-xfer.c:176
-#: src/gnome-cmd-xfer.c:196
+#: src/gnome-cmd-delete-dialog.c:255 src/gnome-cmd-xfer.c:116
+#: src/gnome-cmd-xfer.c:131
 msgid "Skip"
-msgstr "Пропустить"
+msgstr "п÷я─п╬п©я┐я│я┌п╦я┌я▄"
 
-#: src/gnome-cmd-delete-dialog.c:331
+#: src/gnome-cmd-delete-dialog.c:332
 #, c-format
 msgid "Do you want to delete \"%s\"?"
-msgstr "Вы хотите удалить \"%s\"?"
+msgstr "п▓я▀ п╢п╣п╧я│я┌п╡п╦я┌п╣п╩я▄п╫п╬ я┘п╬я┌п╦я┌п╣ я┐п╢п╟п╩п╦я┌я▄ \"%s\"?"
 
-#: src/gnome-cmd-delete-dialog.c:336
+#: src/gnome-cmd-delete-dialog.c:337
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Вы хотите удалить выбранных файлов?"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "п▓я▀ я┘п╬я┌п╦я┌п╣ я┐п╢п╟п╩п╦я┌я▄ п╡я▀п╠я─п╟п╫п╫я▀п╧ я└п╟п╧п╩?"
+msgstr[1] "п▓я▀ я┘п╬я┌п╦я┌п╣ я┐п╢п╟п╩п╦я┌я▄ %d п╡я▀п╠я─п╟п╫п╫я▀я┘ я└п╟п╧п╩п╟?"
+msgstr[2] "п▓я▀ я┘п╬я┌п╦я┌п╣ я┐п╢п╟п╩п╦я┌я▄ %d п╡я▀п╠я─п╟п╫п╫я▀я┘ я└п╟п╧п╩п╬п╡?"
 
-#: src/gnome-cmd-delete-dialog.c:344 src/gnome-cmd-main-win.c:1277
+#: src/gnome-cmd-delete-dialog.c:345 src/gnome-cmd-main-win.c:1290
 msgid "Delete"
-msgstr "Удалить"
+msgstr "пёп╢п╟п╩п╦я┌я▄"
 
-#: src/gnome-cmd-delete-dialog.c:344 src/utils.c:597 src/utils.c:626
+#: src/gnome-cmd-delete-dialog.c:345 src/gnome-cmd-prepare-xfer-dialog.c:156
+#: src/utils.c:583 src/utils.c:612
 msgid "Cancel"
-msgstr ""
+msgstr "п·я┌п╪п╣п╫п╟"
 
-#: src/gnome-cmd-delete-dialog.c:344 src/utils.c:597
+#: src/gnome-cmd-delete-dialog.c:345 src/gnome-cmd-prepare-xfer-dialog.c:156
+#: src/utils.c:583
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/gnome-cmd-dir.c:628
-#, fuzzy
 msgid "Waiting for file list"
-msgstr "Шрифт для списка файлов"
+msgstr "п·п╤п╦п╢п╟п╫п╦п╣ я│п©п╦я│п╨п╟ я└п╟п╧п╩п╬п╡"
 
-#: src/gnome-cmd-file.c:606
+#: src/gnome-cmd-file.c:589
 msgid "Unknown file type"
-msgstr "Неизвестный тип файла"
+msgstr "п²п╣п╦п╥п╡п╣я│я┌п╫я▀п╧ я┌п╦п© я└п╟п╧п╩п╟"
 
-#: src/gnome-cmd-file.c:607
+#: src/gnome-cmd-file.c:590
 msgid "Regular file"
-msgstr "Регулярные файлы"
+msgstr "п·п╠я▀я┤п╫я▀п╧ я└п╟п╧п╩"
 
-#: src/gnome-cmd-file.c:608
+#: src/gnome-cmd-file.c:591
 msgid "Directory"
-msgstr "Каталог"
+msgstr "п п╟я┌п╟п╩п╬пЁ"
 
-#: src/gnome-cmd-file.c:609
+#: src/gnome-cmd-file.c:592
 msgid "FIFO"
 msgstr ""
 
-#: src/gnome-cmd-file.c:610
+#: src/gnome-cmd-file.c:593
 msgid "UNIX Socket"
-msgstr "UNIX сокеты"
+msgstr "UNIX я│п╬п╨п╣я┌"
 
-#: src/gnome-cmd-file.c:611
+#: src/gnome-cmd-file.c:594
 msgid "Character device"
-msgstr "Символьные устройства"
+msgstr "п║п╦п╪п╡п╬п╩я▄п╫п╬п╣ я┐я│я┌я─п╬п╧я│я┌п╡п╬"
 
-#: src/gnome-cmd-file.c:612
+#: src/gnome-cmd-file.c:595
 msgid "Block device"
-msgstr "Блочные устройства"
+msgstr "п▒п╩п╬я┤п╫п╬п╣ я┐я│я┌я─п╬п╧я│я┌п╡п╬"
 
-#: src/gnome-cmd-file.c:613
+#: src/gnome-cmd-file.c:596
 msgid "Symbolic link"
-msgstr "Символические ссылки"
+msgstr "п║п╦п╪п╡п╬п╩я▄п╫п╟я▐ я│я│я▀п╩п╨п╟"
 
-#: src/gnome-cmd-file-list.c:1333
+#: src/gnome-cmd-file-list.c:1301
 msgid "ext"
-msgstr "расш."
+msgstr "я─п╟я│я┬."
 
-#: src/gnome-cmd-file-list.c:1334
+#: src/gnome-cmd-file-list.c:1302
 msgid "dir"
-msgstr "каталог"
+msgstr "п╨п╟я┌п╟п╩п╬пЁ"
 
-#: src/gnome-cmd-file-list.c:1335
+#: src/gnome-cmd-file-list.c:1303
 msgid "size"
-msgstr "размер"
+msgstr "я─п╟п╥п╪п╣я─"
 
-#: src/gnome-cmd-file-list.c:1336
+#: src/gnome-cmd-file-list.c:1304
 msgid "date"
-msgstr "дата"
+msgstr "п╢п╟я┌п╟"
 
-#: src/gnome-cmd-file-list.c:1337
+#: src/gnome-cmd-file-list.c:1305
 msgid "perm"
-msgstr "права"
+msgstr "п©я─п╟п╡п╟"
 
-#: src/gnome-cmd-file-list.c:1338
+#: src/gnome-cmd-file-list.c:1306
 msgid "uid"
-msgstr ""
+msgstr "п╡п╩п╟п╢п╣п╩п╣я├"
 
-#: src/gnome-cmd-file-list.c:1339
+#: src/gnome-cmd-file-list.c:1307
 msgid "gid"
-msgstr ""
+msgstr "пЁя─я┐п©п©п╟"
 
-#: src/gnome-cmd-file-popmenu.c:131
+#: src/gnome-cmd-file-popmenu.c:133
 msgid "Invalid command"
-msgstr ""
+msgstr "п²п╣п╡п╣я─п╫п╟я▐ п╨п╬п╪п╟п╫п╢п╟"
 
-#: src/gnome-cmd-file-popmenu.c:159
-#, fuzzy
+#: src/gnome-cmd-file-popmenu.c:161
 msgid "Application:"
-msgstr "Новое приложение"
+msgstr "п÷я─п╦п╩п╬п╤п╣п╫п╦п╣:"
 
-#: src/gnome-cmd-file-popmenu.c:163
-#, fuzzy
+#: src/gnome-cmd-file-popmenu.c:165
 msgid "Open with other..."
-msgstr "Открыть с помощью"
+msgstr "п·я┌п╨я─я▀я┌я▄ я│ п©п╬п╪п╬я┴я▄я▌..."
 
-#: src/gnome-cmd-file-popmenu.c:167
-#, fuzzy
+#: src/gnome-cmd-file-popmenu.c:169
 msgid "Needs terminal"
-msgstr "Выполнить в терминале"
+msgstr "п▓я▀п©п╬п╩п╫п╦я┌я▄ п╡ я┌п╣я─п╪п╦п╫п╟п╩п╣"
 
-#: src/gnome-cmd-file-popmenu.c:418
+#: src/gnome-cmd-file-popmenu.c:463
 msgid "_Open"
-msgstr "Открыть"
+msgstr "п·я┌п╨я─я▀я┌я▄"
 
-#: src/gnome-cmd-file-popmenu.c:425
+#: src/gnome-cmd-file-popmenu.c:470
 msgid "_Open with..."
-msgstr "Открыть с помощью"
+msgstr "п·я┌п╨я─я▀я┌я▄ я│ п©п╬п╪п╬я┴я▄я▌..."
 
-#: src/gnome-cmd-file-popmenu.c:437
-#, fuzzy
+#: src/gnome-cmd-file-popmenu.c:482
 msgid "_Execute"
-msgstr "Выполнить"
+msgstr "п▓я▀п©п╬п╩п╫п╦я┌я▄"
 
-#: src/gnome-cmd-file-popmenu.c:455
+#: src/gnome-cmd-file-popmenu.c:500
 msgid "_Cut"
-msgstr "Вырезать"
+msgstr "п▓я▀я─п╣п╥п╟я┌я▄"
 
-#: src/gnome-cmd-file-popmenu.c:462 src/gnome-cmd-main-menu.c:565
+#: src/gnome-cmd-file-popmenu.c:507 src/gnome-cmd-main-menu.c:566
 msgid "_Copy"
-msgstr "Копировать"
+msgstr "п п╬п©п╦я─п╬п╡п╟я┌я▄"
 
-#: src/gnome-cmd-file-popmenu.c:469 src/gnome-cmd-main-menu.c:577
+#: src/gnome-cmd-file-popmenu.c:514 src/gnome-cmd-main-menu.c:578
 #: src/gnome-cmd-search-popup.c:167
 msgid "_Delete"
-msgstr "Удалить"
+msgstr "пёп╢п╟п╩п╦я┌я▄"
 
-#: src/gnome-cmd-file-popmenu.c:476
+#: src/gnome-cmd-file-popmenu.c:522 src/gnome-cmd-main-menu.c:778
+#: src/gnome-cmd-search-popup.c:175
+msgid "_View"
+msgstr "п▓п╦п╢"
+
+#: src/gnome-cmd-file-popmenu.c:537
 msgid "Rename"
-msgstr "Переименовать"
+msgstr "п÷п╣я─п╣п╦п╪п╣п╫п╬п╡п╟я┌я▄"
 
-#: src/gnome-cmd-file-popmenu.c:484 src/gnome-cmd-file-props-dialog.c:475
+#: src/gnome-cmd-file-popmenu.c:544
+msgid "Change Permissions"
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄ п©я─п╟п╡п╟ п╢п╬я│я┌я┐п©п╟"
+
+#: src/gnome-cmd-file-popmenu.c:551
+msgid "Change Owner/Group"
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄ п╡п╩п╟п╢п╣п╩я▄я├п╟/пЁя─я┐п©п©я┐"
+
+#: src/gnome-cmd-file-popmenu.c:559 src/gnome-cmd-file-props-dialog.c:478
 #: src/gnome-cmd-search-popup.c:204
 msgid "Properties"
-msgstr "Свойства"
+msgstr "п║п╡п╬п╧я│я┌п╡п╟"
 
-#: src/gnome-cmd-file-popmenu.c:542
-#, fuzzy
+#: src/gnome-cmd-file-popmenu.c:617
 msgid "Other..."
-msgstr "Другие:"
+msgstr "п■я─я┐пЁп╬п╣..."
 
-#: src/gnome-cmd-file-props-dialog.c:63
+#: src/gnome-cmd-file-props-dialog.c:65
 #, c-format
 msgid "%s bytes"
-msgstr "%s байты"
+msgstr "%s п╠п╟п╧я┌"
 
-#: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
+#: src/gnome-cmd-file-props-dialog.c:212 src/gnome-cmd-file-props-dialog.c:348
 msgid "No default application registered"
-msgstr ""
+msgstr "п÷я─п╦п╩п╬п╤п╣п╫п╦п╣ п©п╬ я┐п╪п╬п╩я┤п╟п╫п╦я▌ п╫п╣ п╥п╟я─п╣пЁп╦я│я┌я─п╦я─п╬п╡п╟п╫п╬"
 
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2082
+#: src/gnome-cmd-file-props-dialog.c:304 src/gnome-cmd-file-selector.c:2083
 msgid "Filename:"
-msgstr "Имя файла:"
+msgstr "п≤п╪я▐ я└п╟п╧п╩п╟:"
 
-#: src/gnome-cmd-file-props-dialog.c:313
+#: src/gnome-cmd-file-props-dialog.c:315
 msgid "Symlink target:"
-msgstr "Адрес символ. ссылки:"
+msgstr "п╕п╣п╩я▄ я│п╦п╪п╡п╬п╩. я│я│я▀п╩п╨п╦:"
 
-#: src/gnome-cmd-file-props-dialog.c:322
+#: src/gnome-cmd-file-props-dialog.c:324
 msgid "Type:"
-msgstr "Тип:"
+msgstr "п╒п╦п©:"
 
-#: src/gnome-cmd-file-props-dialog.c:329
+#: src/gnome-cmd-file-props-dialog.c:331
 msgid "MIME Type:"
-msgstr "Тип MIME:"
+msgstr "п╒п╦п© MIME:"
 
-#: src/gnome-cmd-file-props-dialog.c:337
-#, fuzzy
+#: src/gnome-cmd-file-props-dialog.c:339
 msgid "Opens with:"
-msgstr "Открыть с помощью"
+msgstr "п·я┌п╨я─я▀я┌я▄ я│ п©п╬п╪п╬я┴я▄я▌:"
 
-#: src/gnome-cmd-file-props-dialog.c:348
+#: src/gnome-cmd-file-props-dialog.c:350
 msgid "_Change"
-msgstr ""
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄"
 
-#: src/gnome-cmd-file-props-dialog.c:360
+#: src/gnome-cmd-file-props-dialog.c:362
 msgid "Accessed:"
-msgstr "Допущенный:"
+msgstr "п■п╬п©я┐я┴п╣п╫п╫я▀п╧:"
 
-#: src/gnome-cmd-file-props-dialog.c:367
+#: src/gnome-cmd-file-props-dialog.c:369
 msgid "Modified:"
-msgstr "Измененный:"
+msgstr "п≤п╥п╪п╣п╫п╣п╫п╫я▀п╧:"
 
-#: src/gnome-cmd-file-props-dialog.c:377
+#: src/gnome-cmd-file-props-dialog.c:379
 msgid "Size:"
-msgstr "Размер:"
+msgstr "п═п╟п╥п╪п╣я─:"
 
-#: src/gnome-cmd-file-props-dialog.c:413
+#: src/gnome-cmd-file-props-dialog.c:415
 msgid "Owner and group"
-msgstr "Владелец и группа"
+msgstr "п▓п╩п╟п╢п╣п╩п╣я├ п╦ пЁя─я┐п©п©п╟"
 
-#: src/gnome-cmd-file-props-dialog.c:427
+#: src/gnome-cmd-file-props-dialog.c:429
 msgid "Access permissions"
-msgstr "Права доступа"
+msgstr "п÷я─п╟п╡п╟ п╢п╬я│я┌я┐п©п╟"
 
-#: src/gnome-cmd-file-props-dialog.c:450
+#: src/gnome-cmd-file-props-dialog.c:452
 msgid "File Properties"
-msgstr "Свойства файла..."
+msgstr "п║п╡п╬п╧я│я┌п╡п╟ я└п╟п╧п╩п╟"
 
-#: src/gnome-cmd-file-props-dialog.c:479
+#: src/gnome-cmd-file-props-dialog.c:482
 msgid "Permissions"
-msgstr "Права доступа"
+msgstr "п÷я─п╟п╡п╟ п╢п╬я│я┌я┐п©п╟"
 
-#: src/gnome-cmd-file-selector.c:178
+#: src/gnome-cmd-file-selector.c:180
 #, c-format
 msgid "%s of %s kB in %d of %d file selected"
 msgid_plural "%s of %s kB in %d of %d files selected"
-msgstr[0] "%s из %s KB в %d из %d файлов выбрано"
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s п╦п╥ %s Kп╠ п╡ %d п╦п╥ %d я└п╟п╧п╩п╟ п╡я▀п╠я─п╟п╫п╬"
+msgstr[1] "%s п╦п╥ %s Kп╠ п╡ %d п╦п╥ %d я└п╟п╧п╩п╬п╡ п╡я▀п╠я─п╟п╫п╬"
+msgstr[2] "%s п╦п╥ %s Kп╠ п╡ %d п╦п╥ %d я└п╟п╧п╩п╬п╡ п╡я▀п╠я─п╟п╫п╬"
 
-#: src/gnome-cmd-file-selector.c:721
+#: src/gnome-cmd-file-selector.c:725
 #, c-format
 msgid "%s Free"
-msgstr "%s свободно"
+msgstr "%s я│п╡п╬п╠п╬п╢п╫п╬"
 
 #: src/gnome-cmd-file-selector.c:1814
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to open connection: %s\n"
-msgstr "Не могу открыть файл %s\n"
+msgstr "п²п╣ я┐п╢п╟я▒я┌я│я▐ п╬я┌п╨я─я▀я┌я▄ я│п╬п╣п╢п╦п╫п╣п╫п╦п╣: %s\n"
 
-#: src/gnome-cmd-file-selector.c:2019 src/gnome-cmd-rename-dialog.c:52
-#: src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-file-selector.c:2020 src/gnome-cmd-rename-dialog.c:53
+#: src/gnome-cmd-make-copy-dialog.c:69
 msgid "No filename entered"
-msgstr "Нет введенных файлов"
+msgstr "п²п╣ п╡п╡п╣п╢п╣п╫п╬ п╦п╪я▐ я└п╟п╧п╩п╟"
 
-#: src/gnome-cmd-file-selector.c:2055
+#: src/gnome-cmd-file-selector.c:2056
 msgid "No filename given"
-msgstr "Не даны имена файлов"
+msgstr "п²п╣ п╢п╟п╫я▀ п╦п╪п╣п╫п╟ я└п╟п╧п╩п╬п╡"
 
-#: src/gnome-cmd-file-selector.c:2088
+#: src/gnome-cmd-file-selector.c:2089
 msgid "New Text File"
-msgstr "Новые текстовые файлы"
+msgstr "п²п╬п╡я▀п╣ я┌п╣п╨я│я┌п╬п╡я▀п╣ я└п╟п╧п╩я▀"
 
-#: src/gnome-cmd-file-selector.c:2252
+#: src/gnome-cmd-file-selector.c:2253
 msgid "Symlink name:"
-msgstr "Имя символьной ссылки:"
+msgstr "п≤п╪я▐ я│п╦п╪п╡п╬п╩я▄п╫п╬п╧ я│я│я▀п╩п╨п╦:"
 
-#: src/gnome-cmd-file-selector.c:2258
+#: src/gnome-cmd-file-selector.c:2259
 msgid "Create Symbolic Link"
-msgstr "Создать символьную ссылку"
+msgstr "п║п╬п╥п╢п╟я┌я▄ я│п╦п╪п╡п╬п╩я▄п╫я┐я▌ я│я│я▀п╩п╨я┐"
 
-#: src/gnome-cmd-file-selector.c:2329
-#, fuzzy
+#: src/gnome-cmd-file-selector.c:2330
 msgid "Filter:"
-msgstr "Фильтры"
+msgstr "п╓п╦п╩я▄я┌я─:"
 
-#: src/gnome-cmd-ftp-dialog.c:163
+#: src/gnome-cmd-ftp-dialog.c:166
 #, c-format
 msgid "Enter password for %s@%s"
-msgstr "Введите пароль для %s@%s"
+msgstr "п▓п╡п╣п╢п╦я┌п╣ п©п╟я─п╬п╩я▄ п╢п╩я▐ %s@%s"
 
-#: src/gnome-cmd-ftp-dialog.c:168
+#: src/gnome-cmd-ftp-dialog.c:171
 msgid "Enter Password"
-msgstr "Введите пароль"
-
-#: src/gnome-cmd-ftp-dialog.c:215
-msgid "No alias specified"
-msgstr "Не определен псевдоним"
+msgstr "п▓п╡п╣п╢п╦я┌п╣ п©п╟я─п╬п╩я▄"
 
 #: src/gnome-cmd-ftp-dialog.c:218
-msgid "No host specified"
-msgstr "Не определен хост"
+msgid "No alias specified"
+msgstr "п²п╣ п╬п©я─п╣п╢п╣п╩п╣п╫ п©я│п╣п╡п╢п╬п╫п╦п╪"
 
 #: src/gnome-cmd-ftp-dialog.c:221
+msgid "No host specified"
+msgstr "пёп╥п╣п╩ п╫п╣ я┐п╨п╟п╥п╟п╫"
+
+#: src/gnome-cmd-ftp-dialog.c:224
 #, c-format
 msgid "Invalid port number: %s"
-msgstr "Неверный номер порта: %s"
+msgstr "п²п╣п╡п╣я─п╫я▀п╧ п╫п╬п╪п╣я─ п©п╬я─я┌п╟: %s"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-options-dialog.c:1468
+#: src/gnome-cmd-ftp-dialog.c:296 src/gnome-cmd-options-dialog.c:1450
 msgid "Alias:"
-msgstr "Псевдоним:"
+msgstr "п÷я│п╣п╡п╢п╬п╫п╦п╪:"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:296 src/gnome-cmd-ftp-dialog.c:297
 msgid "Host:"
-msgstr "Хост:"
+msgstr "пёп╥п╣п╩:"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:296 src/gnome-cmd-ftp-dialog.c:297
 msgid "Port:"
-msgstr "Порт:"
+msgstr "п÷п╬я─я┌:"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:296 src/gnome-cmd-ftp-dialog.c:297
 msgid "User:"
-msgstr "Пользователь:"
+msgstr "п÷п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▄:"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:296 src/gnome-cmd-ftp-dialog.c:297
 msgid "Password:"
-msgstr "Пароль:"
+msgstr "п÷п╟я─п╬п╩я▄:"
 
-#: src/gnome-cmd-ftp-dialog.c:321
+#: src/gnome-cmd-ftp-dialog.c:324
 msgid "New FTP Server"
-msgstr "Новый FTP сервер"
+msgstr "п²п╬п╡я▀п╧ FTP я│п╣я─п╡п╣я─"
 
-#: src/gnome-cmd-ftp-dialog.c:346
+#: src/gnome-cmd-ftp-dialog.c:349
 msgid "Edit FTP Server"
-msgstr "Правка FTP сервера"
+msgstr "п÷я─п╟п╡п╨п╟ FTP я│п╣я─п╡п╣я─п╟"
 
-#: src/gnome-cmd-ftp-dialog.c:376
+#: src/gnome-cmd-ftp-dialog.c:379
 msgid "No server selected"
-msgstr "Сервер не выбран"
+msgstr "п║п╣я─п╡п╣я─ п╫п╣ п╡я▀п╠я─п╟п╫"
 
-#: src/gnome-cmd-ftp-dialog.c:504 src/gnome-cmd-main-win.c:1285
+#: src/gnome-cmd-ftp-dialog.c:507 src/gnome-cmd-main-win.c:1298
 msgid "FTP Connect"
-msgstr "Подключиться к FTP"
+msgstr "п÷п╬п╢п╨п╩я▌я┤п╣п╫п╦п╣ FTP"
 
-#: src/gnome-cmd-ftp-dialog.c:510
+#: src/gnome-cmd-ftp-dialog.c:513
 msgid "Servers"
-msgstr "Серверы"
+msgstr "п║п╣я─п╡п╣я─я▀"
 
-#: src/gnome-cmd-ftp-dialog.c:530 src/gnome-cmd-options-dialog.c:1622
+#: src/gnome-cmd-ftp-dialog.c:533 src/gnome-cmd-options-dialog.c:1595
 msgid "Alias"
-msgstr "Псевдоним"
+msgstr "п÷я│п╣п╡п╢п╬п╫п╦п╪"
 
-#: src/gnome-cmd-ftp-dialog.c:535 src/gnome-cmd-list-popmenu.c:145
+#: src/gnome-cmd-ftp-dialog.c:538 src/gnome-cmd-list-popmenu.c:145
 msgid "_New..."
-msgstr "Новый..."
+msgstr "п■п╬п╠п╟п╡п╦я┌я▄..."
 
-#: src/gnome-cmd-ftp-dialog.c:548 src/gnome-cmd-options-dialog.c:1054
-#: src/gnome-cmd-options-dialog.c:1764 src/gnome-cmd-prepare-copy-dialog.c:141
+#: src/gnome-cmd-ftp-dialog.c:551 src/gnome-cmd-options-dialog.c:1045
+#: src/gnome-cmd-options-dialog.c:1738 src/gnome-cmd-prepare-copy-dialog.c:141
 #: src/gnome-cmd-prepare-move-dialog.c:125
-#: plugins/fileroller/file-roller-plugin.c:337
 msgid "Options"
-msgstr "Опции"
+msgstr "п·п©я├п╦п╦"
 
-#: src/gnome-cmd-ftp-dialog.c:551
+#: src/gnome-cmd-ftp-dialog.c:554
 msgid "Anonymous password:"
-msgstr "Пароль для anonymous:"
+msgstr "п÷п╟я─п╬п╩я▄ п╟п╫п╬п╫п╦п╪п╫п╬пЁп╬ ftp:"
 
-#: src/gnome-cmd-ftp-dialog.c:561
+#: src/gnome-cmd-ftp-dialog.c:564
 msgid "Connect"
-msgstr "Подключиться"
+msgstr "п÷п╬п╢п╨п╩я▌я┤п╦я┌я▄я│я▐"
 
-#: src/gnome-cmd-ftp-dialog.c:657
+#: src/gnome-cmd-ftp-dialog.c:660
 msgid "FTP Quick Connect"
-msgstr "Быстрое подключение к FTP"
+msgstr "п▒я▀я│я┌я─п╬п╣ п©п╬п╢п╨п╩я▌я┤п╣п╫п╦п╣ п╨ FTP"
 
 #: src/gnome-cmd-list-popmenu.c:126
 msgid "_Directory"
-msgstr "Каталог"
+msgstr "п п╟я┌п╟п╩п╬пЁ"
 
 #: src/gnome-cmd-list-popmenu.c:133
 msgid "_Text file"
-msgstr "Текстовый файл"
+msgstr "п╒п╣п╨я│я┌п╬п╡я▀п╧ я└п╟п╧п╩"
 
-#: src/gnome-cmd-list-popmenu.c:152 src/gnome-cmd-main-menu.c:571
+#: src/gnome-cmd-list-popmenu.c:152 src/gnome-cmd-main-menu.c:572
 msgid "_Paste"
-msgstr "Вставить"
+msgstr "п▓я│я┌п╟п╡п╦я┌я▄"
 
-#: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:619
+#: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:620
 msgid "_Refresh"
-msgstr "Обновить"
+msgstr "п·п╠п╫п╬п╡п╦я┌я▄"
 
-#: src/gnome-cmd-main-menu.c:389
+#: src/gnome-cmd-main-menu.c:390
 msgid "Switch to Horizontal Layout"
-msgstr ""
+msgstr "п÷п╣я─п╣п╨п╩я▌я┤п╦я┌я▄ пЁп╬я─п╦п╥п╬п╫я┌п╟п╩я▄п╫п╬п╣ я─п╟я│п©п╬п╩п╬п╤п╣п╫п╦п╣"
 
-#: src/gnome-cmd-main-menu.c:394
+#: src/gnome-cmd-main-menu.c:395
 msgid "Switch to Vertical Layout"
-msgstr ""
+msgstr "п÷п╣я─п╣п╨п╩я▌я┤п╦я┌я▄ п╡п╣я─я┌п╦п╨п╟п╩я▄п╫п╬п╣ я─п╟я│п©п╬п╩п╬п╤п╣п╫п╦п╣"
 
-#: src/gnome-cmd-main-menu.c:462
+#: src/gnome-cmd-main-menu.c:463
 msgid "Change _Owner/Group"
-msgstr "Сменить владельца/группу"
+msgstr "п║п╪п╣п╫п╦я┌я▄ п╡п╩п╟п╢п╣п╩я▄я├п╟/пЁя─я┐п©п©я┐"
 
-#: src/gnome-cmd-main-menu.c:468
+#: src/gnome-cmd-main-menu.c:469
 msgid "Change Per_missions"
-msgstr "Изменить права доступа"
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄ п©я─п╟п╡п╟ п╢п╬я│я┌я┐п©п╟"
 
-#: src/gnome-cmd-main-menu.c:474
+#: src/gnome-cmd-main-menu.c:475
 msgid "Advanced _Rename Tool"
-msgstr "Продвинутый инструмент переименования"
+msgstr "п═п╟я│я┬п╦я─п╣п╫п╫п╬п╣ я│я─п╣п╢я│я┌п╡п╬ п©п╣я─п╣п╦п╪п╣п╫п╬п╡п╟п╫п╦я▐"
 
-#: src/gnome-cmd-main-menu.c:480
+#: src/gnome-cmd-main-menu.c:481
 msgid "Create _Symbolic Link"
-msgstr "Создать символьную ссылку"
+msgstr "п║п╬п╥п╢п╟я┌я▄ я│п╦п╪п╡п╬п╩я▄п╫я┐я▌ я│я│я▀п╩п╨я┐"
 
-#: src/gnome-cmd-main-menu.c:486
+#: src/gnome-cmd-main-menu.c:487
 msgid "_Properties..."
-msgstr "Свойства..."
+msgstr "п║п╡п╬п╧я│я┌п╡п╟..."
 
-#: src/gnome-cmd-main-menu.c:493
+#: src/gnome-cmd-main-menu.c:494
 msgid "_Diff"
-msgstr "Показать различия"
+msgstr "п═п╟п╥п╩п╦я┤п╦я▐"
 
-#: src/gnome-cmd-main-menu.c:500
+#: src/gnome-cmd-main-menu.c:501
 msgid "_Quit"
-msgstr "Выход"
+msgstr "п▓я▀я┘п╬п╢"
 
-#: src/gnome-cmd-main-menu.c:511
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:512
 msgid "_Select All"
-msgstr "Выбрать все"
+msgstr "п▓я▀п╢п╣п╩п╦я┌я▄ п╡я│п╣"
 
-#: src/gnome-cmd-main-menu.c:517
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:518
 msgid "_Unselect All"
-msgstr "Отменить выбор всего"
+msgstr "п║п╫я▐я┌я▄ п╡я│я▒ п╡я▀п╢п╣п╩п╣п╫п╦п╣"
 
-#: src/gnome-cmd-main-menu.c:523
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:524
 msgid "Select with _Pattern"
-msgstr "Отметить по шаблону"
+msgstr "п▓я▀п╢п╣п╩п╦я┌я▄ п©п╬ я┬п╟п╠п╩п╬п╫я┐"
 
-#: src/gnome-cmd-main-menu.c:529
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:530
 msgid "Unselect with P_attern"
-msgstr "Снять отметку по шаблону"
+msgstr "п║п╫я▐я┌я▄ п╡я▀п╢п╣п╩п╣п╫п╣ п©п╬ я┬п╟п╠п╩п╬п╫я┐"
 
-#: src/gnome-cmd-main-menu.c:535
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:536
 msgid "_Invert Selection"
-msgstr "Инвертировать отметку"
+msgstr "п≤п╫п╡п╣я─я┌п╦я─п╬п╡п╟я┌я▄ п╡я▀п╢п╣п╩п╣п╫п╦п╣"
 
-#: src/gnome-cmd-main-menu.c:541
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:542
 msgid "_Restore Selection"
-msgstr "Восстановить отметку"
+msgstr "п▓п╬я│я│я┌п╟п╫п╬п╡п╦я┌я▄ п╡я▀п╢п╣п╩п╣п╫п╦п╣"
 
-#: src/gnome-cmd-main-menu.c:548
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:549
 msgid "_Compare Directries"
-msgstr "Каталоги"
+msgstr "п║я─п╟п╡п╫п╦я┌я▄ п╨п╟я┌п╟п╩п╬пЁп╦"
 
-#: src/gnome-cmd-main-menu.c:559
+#: src/gnome-cmd-main-menu.c:560
 msgid "Cu_t"
-msgstr "Вырезать"
+msgstr "п▓я▀я─п╣п╥п╟я┌я▄"
 
-#: src/gnome-cmd-main-menu.c:584
+#: src/gnome-cmd-main-menu.c:585
 msgid "_Search..."
-msgstr "Поиск..."
+msgstr "п÷п╬п╦я│п╨..."
 
-#: src/gnome-cmd-main-menu.c:590
+#: src/gnome-cmd-main-menu.c:591
 msgid "_Quick Search..."
-msgstr "Быстрый поиск..."
+msgstr "п▒я▀я│я┌я─я▀п╧ п©п╬п╦я│п╨..."
 
-#: src/gnome-cmd-main-menu.c:596
+#: src/gnome-cmd-main-menu.c:597
 msgid "_Enable Filter..."
-msgstr ""
+msgstr "п▓п╨п╩я▌я┤п╦я┌я▄ я└п╦п╩я▄я┌я─..."
 
-#: src/gnome-cmd-main-menu.c:607
+#: src/gnome-cmd-main-menu.c:608
 msgid "_Back"
-msgstr "Назад"
+msgstr "п²п╟п╥п╟п╢"
 
-#: src/gnome-cmd-main-menu.c:613
+#: src/gnome-cmd-main-menu.c:614
 msgid "_Forward"
-msgstr "Вперед"
+msgstr "п▓п©п╣я─п╣п╢"
 
-#: src/gnome-cmd-main-menu.c:626
+#: src/gnome-cmd-main-menu.c:627
 msgid "Show Device Buttons"
-msgstr ""
+msgstr "п÷п╬п╨п╟п╥я▀п╡п╟я┌я▄ п╨п╫п╬п©п╨п╦ я┐я│я┌я─п╬п╧я│я┌п╡"
 
-#: src/gnome-cmd-main-menu.c:632
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:633
 msgid "Show Toolbar"
-msgstr "Панель инструментов"
+msgstr "п÷п╬п╨п╟п╥я▀п╡п╟я┌я▄ п©п╟п╫п╣п╩я▄ п╦п╫я│я┌я─я┐п╪п╣п╫я┌п╬п╡"
 
-#: src/gnome-cmd-main-menu.c:638
+#: src/gnome-cmd-main-menu.c:639
 msgid "Show Commandline"
-msgstr ""
+msgstr "п÷п╬п╨п╟п╥я▀п╡п╟я┌я▄ п╨п╬п╪п╟п╫п╢п╫я┐я▌ я│я┌я─п╬п╨я┐"
 
-#: src/gnome-cmd-main-menu.c:644
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:645
 msgid "Show Buttonbar"
-msgstr "Панель кнопок"
+msgstr "п÷п╬п╨п╟п╥я▀п╡п╟я┌я▄ п©п╟п╫п╣п╩я▄ п╨п╫п╬п©п╬п╨"
 
-#: src/gnome-cmd-main-menu.c:651
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:652
 msgid "Show Hidden Files"
-msgstr "Скрытые файлы"
+msgstr "п÷п╬п╨п╟п╥я▀п╡п╟я┌я▄ я│п╨я─я▀я┌я▀п╣ я└п╟п╧п╩я▀"
 
-#: src/gnome-cmd-main-menu.c:657
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:658
 msgid "Show Backup Files"
-msgstr "Файлы сокетов"
+msgstr "п÷п╬п╨п╟п╥я▀п╡п╟я┌я▄ я─п╣п╥п╣я─п╡п╫я▀п╣ я└п╟п╧п╩я▀"
 
-#: src/gnome-cmd-main-menu.c:669
+#: src/gnome-cmd-main-menu.c:670
 msgid "_Bookmark this Directory..."
-msgstr "Закладка этого каталога..."
+msgstr "п■п╬п╠п╟п╡п╦я┌я▄ я┌п╣п╨я┐я┴п╦п╧ п╨п╟я┌п╟п╩п╬пЁ..."
 
-#: src/gnome-cmd-main-menu.c:675
+#: src/gnome-cmd-main-menu.c:676
 msgid "_Edit Bookmarks..."
-msgstr "Правка закладок..."
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄ п╥п╟п╨п╩п╟п╢п╨п╦..."
 
-#: src/gnome-cmd-main-menu.c:687
+#: src/gnome-cmd-main-menu.c:688
 msgid "_Configure Plugins..."
-msgstr ""
+msgstr "п²п╟я│я┌я─п╬п╦я┌я▄ п╪п╬п╢я┐п╩п╦..."
 
-#: src/gnome-cmd-main-menu.c:699
+#: src/gnome-cmd-main-menu.c:700
 msgid "_Options..."
-msgstr "Опции..."
+msgstr "п÷п╟я─п╟п╪п╣я┌я─я▀..."
 
-#: src/gnome-cmd-main-menu.c:705
+#: src/gnome-cmd-main-menu.c:706
 msgid "Edit _Mime Types..."
-msgstr "Правка Mime типов..."
+msgstr "п≤п╥п╪п╣п╫п╦я┌я▄ я┌п╦п©я▀ Mime..."
 
-#: src/gnome-cmd-main-menu.c:711
+#: src/gnome-cmd-main-menu.c:712
 msgid "Save _Position"
-msgstr "Сохранить позицию"
+msgstr "п║п╬я┘я─п╟п╫п╦я┌я▄ п©п╬п╥п╦я├п╦я▌"
 
-#: src/gnome-cmd-main-menu.c:722
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:723
 msgid "FTP _Connect..."
-msgstr "Подключиться к FTP"
+msgstr "п÷п╬п╢п╨п╩я▌я┤п╣п╫п╦п╣ п╨ FTP..."
 
-#: src/gnome-cmd-main-menu.c:728
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:729
 msgid "FTP _Quick Connect..."
-msgstr "Быстрое подключение к FTP"
+msgstr "п▒я▀я│я┌я─п╬п╣ п©п╬п╢п╨п╩я▌я┤п╣п╫п╦п╣ п╨ FTP..."
 
-#: src/gnome-cmd-main-menu.c:739
+#: src/gnome-cmd-main-menu.c:740
 msgid "User _Manual..."
-msgstr "Руководство пользователя..."
+msgstr "п═я┐п╨п╬п╡п╬п╢я│я┌п╡п╬ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐..."
 
-#: src/gnome-cmd-main-menu.c:746
+#: src/gnome-cmd-main-menu.c:747
 msgid "_About..."
-msgstr "Про..."
+msgstr "п· п©я─п╬пЁя─п╟п╪п╪п╣..."
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
-#: src/gnome-cmd-main-menu.c:765
+#: src/gnome-cmd-main-menu.c:766
 msgid "_File"
-msgstr "Файл"
+msgstr "п╓п╟п╧п╩"
 
-#: src/gnome-cmd-main-menu.c:773
+#: src/gnome-cmd-main-menu.c:774
 msgid "_Mark"
-msgstr "Отметка"
+msgstr "п▓я▀п╢п╣п╩п╣п╫п╦п╣"
 
-#: src/gnome-cmd-main-menu.c:777 src/gnome-cmd-search-popup.c:175
-msgid "_View"
-msgstr "Просмотр"
-
-#: src/gnome-cmd-main-menu.c:782
+#: src/gnome-cmd-main-menu.c:783
 msgid "_Settings"
-msgstr "Настройки"
+msgstr "п²п╟я│я┌я─п╬п╧п╨п╦"
 
-#: src/gnome-cmd-main-menu.c:786
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:787
 msgid "_Connections"
-msgstr "Подключиться"
+msgstr "п║п╬п╣п╢п╦п╫п╣п╫п╦я▐"
 
-#: src/gnome-cmd-main-menu.c:790
+#: src/gnome-cmd-main-menu.c:791
 msgid "_Bookmarks"
-msgstr "Закладки"
+msgstr "п≈п╟п╨п╩п╟п╢п╨п╦"
 
-#: src/gnome-cmd-main-menu.c:794
-#, fuzzy
+#: src/gnome-cmd-main-menu.c:795
 msgid "_Plugins"
-msgstr "Простой"
+msgstr "п°п╬п╢я┐п╩п╦"
 
-#: src/gnome-cmd-main-menu.c:798
+#: src/gnome-cmd-main-menu.c:799
 msgid "_Help"
-msgstr "Помощь"
+msgstr "п║п©я─п╟п╡п╨п╟"
 
-#: src/gnome-cmd-main-win.c:439
+#: src/gnome-cmd-main-win.c:441
 msgid "F3 View"
-msgstr "F3 Просмотр"
+msgstr "F3 п÷я─п╬я│п╪п╬я┌я─"
 
-#: src/gnome-cmd-main-win.c:442
+#: src/gnome-cmd-main-win.c:444
 msgid "F4 Edit"
-msgstr "F4 Правка"
+msgstr "F4 п÷я─п╟п╡п╨п╟"
 
-#: src/gnome-cmd-main-win.c:445
+#: src/gnome-cmd-main-win.c:447
 msgid "F5 Copy"
-msgstr "F5 Копировать"
+msgstr "F5 п п╬п©п╦я▐"
 
-#: src/gnome-cmd-main-win.c:448
+#: src/gnome-cmd-main-win.c:450
 msgid "F6 Move"
-msgstr "F6 Переместить"
+msgstr "F6 п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄"
 
-#: src/gnome-cmd-main-win.c:451
+#: src/gnome-cmd-main-win.c:453
 msgid "F7 Mkdir"
-msgstr "F7 Созд.кат."
+msgstr "F7 п║п╬п╥п╢.п╨п╟я┌."
 
-#: src/gnome-cmd-main-win.c:454
+#: src/gnome-cmd-main-win.c:456
 msgid "F8 Delete"
-msgstr "F8 Удалить"
+msgstr "F8 пёп╢п╟п╩п╦я┌я▄"
 
-#: src/gnome-cmd-main-win.c:457
+#: src/gnome-cmd-main-win.c:459
 msgid "F9 Search"
-msgstr "F9 Поиск"
+msgstr "F9 п÷п╬п╦я│п╨"
 
-#: src/gnome-cmd-main-win.c:460
+#: src/gnome-cmd-main-win.c:462
 msgid "F10 Quit"
-msgstr "F10 Выход"
+msgstr "F10 п▓я▀я┘п╬п╢"
 
-#: src/gnome-cmd-main-win.c:1234
+#: src/gnome-cmd-main-win.c:1247
 msgid "Refresh"
-msgstr "Обновить"
+msgstr "п·п╠п╫п╬п╡п╦я┌я▄"
 
-#: src/gnome-cmd-main-win.c:1241
+#: src/gnome-cmd-main-win.c:1254
 msgid "Back in history"
-msgstr "Назад по истории"
+msgstr "п²п╟п╥п╟п╢ п©п╬ п╦я│я┌п╬я─п╦п╦"
 
-#: src/gnome-cmd-main-win.c:1248
+#: src/gnome-cmd-main-win.c:1261
 msgid "Forward in history"
-msgstr "Вперед по истории"
+msgstr "п▓п©п╣я─п╣п╢ п©п╬ п╦я│я┌п╬я─п╦п╦"
 
-#: src/gnome-cmd-main-win.c:1256
+#: src/gnome-cmd-main-win.c:1269
 msgid "Cut"
-msgstr "Вырезать"
+msgstr "п▓я▀я─п╣п╥п╟я┌я▄"
 
-#: src/gnome-cmd-main-win.c:1263 src/gnome-cmd-prepare-copy-dialog.c:86
+#: src/gnome-cmd-main-win.c:1276 src/gnome-cmd-prepare-copy-dialog.c:86
 msgid "Copy"
-msgstr "Копировать"
+msgstr "п п╬п©п╦я─п╬п╡п╟я┌я▄"
 
-#: src/gnome-cmd-main-win.c:1270
+#: src/gnome-cmd-main-win.c:1283
 msgid "Paste"
-msgstr "Вставить"
+msgstr "п▓я│я┌п╟п╡п╦я┌я▄"
 
-#: src/gnome-cmd-main-win.c:1293
-#, fuzzy
+#: src/gnome-cmd-main-win.c:1306
 msgid "Drop connection"
-msgstr "Подключение по FTP"
+msgstr "п║п╠я─п╬я│п╦я┌я▄ я│п╬п╣п╢п╦п╫п╣п╫п╦п╣"
 
 #: src/gnome-cmd-mkdir-dialog.c:48
 msgid "A directory name must be entered"
-msgstr "Нужно ввести имя каталога"
+msgstr "п²я┐п╤п╫п╬ п╡п╡п╣я│я┌п╦ п╦п╪я▐ п╨п╟я┌п╟п╩п╬пЁп╟"
 
 #: src/gnome-cmd-mkdir-dialog.c:138
 msgid "Directory name:"
-msgstr "Имя каталога:"
+msgstr "п≤п╪я▐ п╨п╟я┌п╟п╩п╬пЁп╟:"
 
 #: src/gnome-cmd-mkdir-dialog.c:146
 msgid "Make Directory"
-msgstr "Создать каталог"
+msgstr "п║п╬п╥п╢п╟я┌я▄ п╨п╟я┌п╟п╩п╬пЁ"
 
-#: src/gnome-cmd-options-dialog.c:63
+#: src/gnome-cmd-options-dialog.c:65
 msgid "Use right mouse button to"
-msgstr "Использовать правую кнопку мыши для"
+msgstr "п■п╣п╧я│я┌п╡п╦п╣ п©я─п╟п╡п╬п╧ п╨п╫п╬п©п╨п╦ п╪я▀я┬п╦"
 
-#: src/gnome-cmd-options-dialog.c:66
+#: src/gnome-cmd-options-dialog.c:68
 msgid "Show popup menu"
-msgstr "Показ всплывающего меню"
+msgstr "п÷п╬п╨п╟п╥я▀п╡п╟я┌я▄ п╡я│п©п╩я▀п╡п╟я▌я┴п╣п╣ п╪п╣п╫я▌"
 
-#: src/gnome-cmd-options-dialog.c:70
+#: src/gnome-cmd-options-dialog.c:72
 msgid "Select files"
-msgstr "Выбор файлов"
+msgstr "п▓я▀п╠п╬я─ я└п╟п╧п╩п╬п╡"
 
-#: src/gnome-cmd-options-dialog.c:79
+#: src/gnome-cmd-options-dialog.c:81
 msgid "Match filenames using"
-msgstr "При сравнении имен файлов использовать"
+msgstr "п║п╦п╫я┌п╟п╨я│п╦я│ я│я─п╟п╡п╫п╣п╫п╦я▐ п╦п╪я▒п╫ я└п╟п╧п╩п╬п╡"
 
-#: src/gnome-cmd-options-dialog.c:82
+#: src/gnome-cmd-options-dialog.c:84
 msgid "Shell syntax"
-msgstr "Синтаксис Shell"
+msgstr "п║п╦п╫я┌п╟п╨я│п╦я│ Shell"
 
-#: src/gnome-cmd-options-dialog.c:86
+#: src/gnome-cmd-options-dialog.c:88
 msgid "Regex syntax"
-msgstr "Синтаксис Regex"
+msgstr "п║п╦п╫я┌п╟п╨я│п╦я│ Regex"
 
-#: src/gnome-cmd-options-dialog.c:96
+#: src/gnome-cmd-options-dialog.c:98
 msgid "Sorting options"
-msgstr "Сортировать опции"
+msgstr "п║п╬я─я┌п╦я─п╬п╡п╨п╟"
 
-#: src/gnome-cmd-options-dialog.c:99 src/gnome-cmd-patternsel-dialog.c:133
+#: src/gnome-cmd-options-dialog.c:101 src/gnome-cmd-patternsel-dialog.c:133
 msgid "Case sensitive"
-msgstr "Учитывать регистр"
+msgstr "пёя┤п╦я┌я▀п╡п╟я┌я▄ я─п╣пЁп╦я│я┌я─"
 
-#: src/gnome-cmd-options-dialog.c:109
-#, fuzzy
+#: src/gnome-cmd-options-dialog.c:111
 msgid "Confirmation options"
-msgstr "Сортировать опции"
+msgstr "п·п©я├п╦п╦ п©п╬п╢я┌п╡п╣я─п╤п╢п╣п╫п╦я▐"
 
-#: src/gnome-cmd-options-dialog.c:112
+#: src/gnome-cmd-options-dialog.c:114
 msgid "Confirm before delete"
-msgstr ""
+msgstr "п≈п╟п©я─п╟я┬п╦п╡п╟я┌я▄ п©п╬п╢я┌п╡п╣я─п╤п╢п╣п╫п╦п╣ я┐п╢п╟п╩п╣п╫п╦я▐"
 
-#: src/gnome-cmd-options-dialog.c:122
+#: src/gnome-cmd-options-dialog.c:124
 msgid "Directory options"
-msgstr "Опции каталога"
+msgstr "п÷п╟я─п╟п╪п╣я┌я─я▀ п╨п╟я┌п╟п╩п╬пЁп╟"
 
-#: src/gnome-cmd-options-dialog.c:125
+#: src/gnome-cmd-options-dialog.c:127
 msgid "Directory cache size"
-msgstr "Размер кеша каталога"
+msgstr "п═п╟п╥п╪п╣я─ п╨п╣я┬п╟ п╨п╟я┌п╟п╩п╬пЁп╟"
 
-#: src/gnome-cmd-options-dialog.c:214
+#: src/gnome-cmd-options-dialog.c:216
 msgid "Size display mode"
-msgstr "Ражим размера дисплея"
+msgstr "п═п╣п╤п╦п╪ п╬я┌п╬п╠я─п╟п╤п╣п╫п╦я▐ я─п╟п╥п╪п╣я─п╟"
 
-#: src/gnome-cmd-options-dialog.c:217
+#: src/gnome-cmd-options-dialog.c:219
 msgid "Powered"
-msgstr "Усиленный"
+msgstr "п═п╟я│я┬п╦я─п╣п╫п╫я▀п╧"
 
-#: src/gnome-cmd-options-dialog.c:222
+#: src/gnome-cmd-options-dialog.c:224
 msgid "Grouped"
-msgstr "Сгруппированный"
+msgstr "п║ я─п╟п╥п╢п╣п╩п╦я┌п╣п╩я▐п╪п╦"
 
-#: src/gnome-cmd-options-dialog.c:227
+#: src/gnome-cmd-options-dialog.c:229
 msgid "Plain"
-msgstr "Простой"
+msgstr "п÷я─п╬я│я┌п╬п╧"
 
-#: src/gnome-cmd-options-dialog.c:237
+#: src/gnome-cmd-options-dialog.c:239
 msgid "Permission display mode"
-msgstr "Право доступа к режиму дисплея"
+msgstr "п═п╣п╤п╦п╪ п╬я┌п╬п╠я─п╟п╤п╣п╫п╦я▐ п©я─п╟п╡"
 
-#: src/gnome-cmd-options-dialog.c:240
+#: src/gnome-cmd-options-dialog.c:242
 msgid "Text (rw-r--r--)"
-msgstr "Текст (rw-r--r--)"
+msgstr "п╒п╣п╨я│я┌п╬п╡я▀п╧ (rw-r--r--)"
 
-#: src/gnome-cmd-options-dialog.c:245
+#: src/gnome-cmd-options-dialog.c:247
 msgid "Number (311)"
-msgstr "Номер (311)"
+msgstr "п╖п╦я│п╩п╬п╡п╬п╧ (311)"
 
-#: src/gnome-cmd-options-dialog.c:255
+#: src/gnome-cmd-options-dialog.c:257
 msgid "Date format"
-msgstr "Формат данных"
+msgstr "п╓п╬я─п╪п╟я┌ п╢п╟я┌я▀"
 
-#: src/gnome-cmd-options-dialog.c:258
+#: src/gnome-cmd-options-dialog.c:260
 msgid "Format:"
-msgstr "Формат:"
+msgstr "п╓п╬я─п╪п╟я┌:"
 
-#: src/gnome-cmd-options-dialog.c:266
+#: src/gnome-cmd-options-dialog.c:268
 msgid "_Test"
-msgstr "Тест"
+msgstr "п÷я─п╬п╡п╣я─п╦я┌я▄"
 
-#: src/gnome-cmd-options-dialog.c:269
+#: src/gnome-cmd-options-dialog.c:271
 msgid "Test result:"
-msgstr "Результат теста:"
+msgstr "п═п╣п╥я┐п╩я▄я┌п╟я┌ п©я─п╬п╡п╣я─п╨п╦:"
 
-#: src/gnome-cmd-options-dialog.c:279
+#: src/gnome-cmd-options-dialog.c:281
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
 msgstr ""
-"Смотрите станицу man для функции \"strftime\" чтобы понять как установить "
-"строку формата."
+"п║п╪п╬я┌я─п╦я┌п╣ я│я┌п╟п╫п╦я├я┐ man п╢п╩я▐ я└я┐п╫п╨я├п╦п╦ \"strftime\" я┤я┌п╬п╠я▀ п©п╬п╫я▐я┌я▄ п╨п╟п╨ я┐я│я┌п╟п╫п╬п╡п╦я┌я▄ "
+"я│я┌я─п╬п╨я┐ я└п╬я─п╪п╟я┌п╟."
 
-#: src/gnome-cmd-options-dialog.c:399
-#, fuzzy
-msgid "Edit Colors..."
-msgstr "Правка закладок..."
+#: src/gnome-cmd-options-dialog.c:359
+msgid "File listings"
+msgstr "п║п©п╦я│п╨п╦ я└п╟п╧п╩п╬п╡"
 
-#: src/gnome-cmd-options-dialog.c:406
-msgid "Colors"
-msgstr "Цвета"
+#: src/gnome-cmd-options-dialog.c:374 src/gnome-cmd-options-dialog.c:397
+msgid "Font:"
+msgstr "п╗я─п╦я└я┌:"
 
-#: src/gnome-cmd-options-dialog.c:443
-msgid "Foreground"
-msgstr "Передний фон"
+#: src/gnome-cmd-options-dialog.c:376
+msgid "Row height:"
+msgstr "п▓я▀я│п╬я┌п╟ я─я▐п╢п╟:"
 
-#: src/gnome-cmd-options-dialog.c:445
-msgid "Background"
-msgstr "Задний фон"
+#: src/gnome-cmd-options-dialog.c:385
+msgid "Main window"
+msgstr "п⌠п╩п╟п╡п╫п╬п╣ п╬п╨п╫п╬"
 
-#: src/gnome-cmd-options-dialog.c:447
-msgid "Default:"
-msgstr "По умолчанию:"
+#: src/gnome-cmd-options-dialog.c:405
+msgid "Display file extensions"
+msgstr "п·я┌п╬п╠я─п╟п╤п╣п╫п╦п╣ я─п╟я│я┬п╦я─п╣п╫п╦п╧ я└п╟п╧п╩п╬п╡"
 
-#: src/gnome-cmd-options-dialog.c:449
-msgid "Selected file:"
-msgstr "Выбранный файл:"
+#: src/gnome-cmd-options-dialog.c:409
+msgid "With filename"
+msgstr "п║ п╦п╪п╣п╫п╣п╪ я└п╟п╧п╩п╟"
 
-#: src/gnome-cmd-options-dialog.c:451
-msgid "Cursor:"
-msgstr "Курсор:"
+#: src/gnome-cmd-options-dialog.c:416
+msgid "In separate column"
+msgstr "п▓ п╬я┌п╢п╣п╩я▄п╫п╬п╪ я│я┌п╬п╩п╠я├п╣"
 
-#: src/gnome-cmd-options-dialog.c:481
-#, fuzzy
-msgid "File panes"
-msgstr "Шаблоны файла"
+#: src/gnome-cmd-options-dialog.c:423
+msgid "In both columns"
+msgstr "п▓ п╬п╠п╬п╦я┘ я│я┌п╬п╩п╠я├п╟я┘"
+
+#: src/gnome-cmd-options-dialog.c:434
+msgid "Graphical mode"
+msgstr "п⌠я─п╟я└п╦я┤п╣я│п╨п╦п╧ я─п╣п╤п╦п╪"
+
+#: src/gnome-cmd-options-dialog.c:441
+msgid "MIME icon settings"
+msgstr "п²п╟я│я┌я─п╬п╧п╨п╦ п╥п╫п╟я┤п╨п╬п╡ MIME"
+
+#: src/gnome-cmd-options-dialog.c:450
+msgid "MIME icons"
+msgstr "п≈п╫п╟я┤п╨п╦ MIME"
+
+#: src/gnome-cmd-options-dialog.c:458
+msgid "File type icons"
+msgstr "п≈п╫п╟я┤п╨п╦ я┌п╦п©п╬п╡ я└п╟п╧п╩п╬п╡"
+
+#: src/gnome-cmd-options-dialog.c:466
+msgid "Text (fastest)"
+msgstr "п╒п╣п╨я│я┌ (я│п╟п╪я▀п╧ п╠я▀я│я┌я─я▀п╧)"
+
+#: src/gnome-cmd-options-dialog.c:490
+msgid "Icon size:"
+msgstr "п═п╟п╥п╪п╣я─ п╥п╫п╟я┤п╨п╬п╡:"
+
+#: src/gnome-cmd-options-dialog.c:492
+msgid "Scaling quality:"
+msgstr "п п╟я┤п╣я│я┌п╡п╬ п╪п╟я│я┬я┌п╟п╠п╦я─п╬п╡п╟п╫п╦я▐:"
+
+#: src/gnome-cmd-options-dialog.c:494
+msgid "Theme icon directory:"
+msgstr "п п╟я┌п╟п╩п╬пЁ я┌п╣п╪я▀ п╥п╫п╟я┤п╨п╬п╡:"
 
 #: src/gnome-cmd-options-dialog.c:496
-msgid "Font:"
-msgstr "Шрифт:"
-
-#: src/gnome-cmd-options-dialog.c:498
-msgid "Row height:"
-msgstr "Высота ряда:"
-
-#. File extensions
-#: src/gnome-cmd-options-dialog.c:502
-msgid "Display file extensions:"
-msgstr ""
-
-#: src/gnome-cmd-options-dialog.c:512
-#, fuzzy
-msgid "With filename"
-msgstr "Введите имя файла"
-
-#: src/gnome-cmd-options-dialog.c:516
-msgid "In separate column"
-msgstr ""
-
-#: src/gnome-cmd-options-dialog.c:520
-msgid "In both columns"
-msgstr ""
-
-#. Graphical mode
-#: src/gnome-cmd-options-dialog.c:529
-#, fuzzy
-msgid "Graphical mode:"
-msgstr "Графический режим"
-
-#: src/gnome-cmd-options-dialog.c:541
-msgid "MIME icons"
-msgstr "MIME пиктограммы"
-
-#: src/gnome-cmd-options-dialog.c:545
-msgid "File type icons"
-msgstr "Пиктограммы типов файлов"
-
-#: src/gnome-cmd-options-dialog.c:549
-msgid "Text (fastest)"
-msgstr "Текст (самый быстрый)"
-
-#. Colors
-#: src/gnome-cmd-options-dialog.c:558
-#, fuzzy
-msgid "Colors:"
-msgstr "Цвета"
-
-#: src/gnome-cmd-options-dialog.c:573
-msgid "Respect theme settings"
-msgstr ""
-
-#: src/gnome-cmd-options-dialog.c:577
-#, fuzzy
-msgid "Modern"
-msgstr "Переместить"
-
-#: src/gnome-cmd-options-dialog.c:581
-#, fuzzy
-msgid "Classic"
-msgstr "Основной"
-
-#: src/gnome-cmd-options-dialog.c:585
-#, fuzzy
-msgid "Custom"
-msgstr "Вырезать"
-
-#: src/gnome-cmd-options-dialog.c:593
-#, fuzzy
-msgid "Edit..."
-msgstr "Правка..."
-
-#: src/gnome-cmd-options-dialog.c:603
-#, fuzzy
-msgid "Colorize files according to the LS_COLORS enviroment variable"
-msgstr "Использовать цвета из переменной среды LS_COLORS"
-
-#: src/gnome-cmd-options-dialog.c:615
-msgid "MIME icon settings"
-msgstr "Настройки MIME пиктограмм"
-
-#: src/gnome-cmd-options-dialog.c:632
-msgid "Icon size:"
-msgstr "Размер пиктограммы:"
-
-#: src/gnome-cmd-options-dialog.c:634
-msgid "Scaling quality:"
-msgstr "Качество масштабирования:"
-
-#: src/gnome-cmd-options-dialog.c:636
-msgid "Theme icon directory:"
-msgstr "Каталог пиктограмм:"
-
-#: src/gnome-cmd-options-dialog.c:638
 msgid "Document icon directory:"
-msgstr "Каталог документа пиктограммы:"
+msgstr "п п╟я┌п╟п╩п╬пЁ п╥п╫п╟я┤п╨п╬п╡ п╢п╬п╨я┐п╪п╣п╫я┌п╬п╡:"
 
-#: src/gnome-cmd-options-dialog.c:730
+#: src/gnome-cmd-options-dialog.c:598 src/gnome-cmd-options-dialog.c:1786
+msgid "Colors"
+msgstr "п╕п╡п╣я┌п╟"
+
+#: src/gnome-cmd-options-dialog.c:635
+msgid "Foreground"
+msgstr "п÷п╣я─п╣п╢п╫п╦п╧ я└п╬п╫"
+
+#: src/gnome-cmd-options-dialog.c:637
+msgid "Background"
+msgstr "п≈п╟п╢п╫п╦п╧ я└п╬п╫"
+
+#: src/gnome-cmd-options-dialog.c:639
+msgid "Default:"
+msgstr "п÷п╬ я┐п╪п╬п╩я┤п╟п╫п╦я▌:"
+
+#: src/gnome-cmd-options-dialog.c:641
+msgid "Selected file:"
+msgstr "п▓я▀п╠я─п╟п╫п╫я▀п╧ я└п╟п╧п╩:"
+
+#: src/gnome-cmd-options-dialog.c:643
+msgid "Cursor:"
+msgstr "п я┐я─я│п╬я─:"
+
+#: src/gnome-cmd-options-dialog.c:647
+msgid "Colorize files according to the LS_COLORS enviroment variable"
+msgstr "п·п╨я─п╟я┬п╦п╡п╟я┌я▄ я└п╟п╧п╩я▀ п╡ я│п╬п╬я┌п╡п╣я┌я│я┌п╡п╦п╦ я│ п©п╣я─п╣п╪п╣п╫п╫п╬п╧ я│я─п╣п╢я▀ LS_COLORS"
+
+#: src/gnome-cmd-options-dialog.c:720
 msgid "Filetypes to hide"
-msgstr "Скрыть типы файлов"
+msgstr "п║п╨я─я▀я┌я▄ я┌п╦п©я▀ я└п╟п╧п╩п╬п╡"
+
+#: src/gnome-cmd-options-dialog.c:723
+msgid "Unknown"
+msgstr "п²п╣п╦п╥п╡п╣я│я┌п╫я▀п╣"
+
+#: src/gnome-cmd-options-dialog.c:728
+msgid "Regular files"
+msgstr "п═п╣пЁя┐п╩я▐я─п╫я▀п╣ я└п╟п╧п╩я▀"
 
 #: src/gnome-cmd-options-dialog.c:733
-msgid "Unknown"
-msgstr "Неизвестные"
+msgid "Directories"
+msgstr "п п╟я┌п╟п╩п╬пЁп╦"
 
 #: src/gnome-cmd-options-dialog.c:738
-msgid "Regular files"
-msgstr "Регулярные файлы"
+msgid "Fifo files"
+msgstr "Fifo я└п╟п╧п╩я▀"
 
 #: src/gnome-cmd-options-dialog.c:743
-msgid "Directories"
-msgstr "Каталоги"
+msgid "Socket files"
+msgstr "п╓п╟п╧п╩я▀ я│п╬п╨п╣я┌п╬п╡"
 
 #: src/gnome-cmd-options-dialog.c:748
-msgid "Fifo files"
-msgstr "Fifo файлы"
+msgid "Character devices"
+msgstr "п║п╦п╪п╡п╬п╩я▄п╫я▀п╣ я┐я│я┌я─п╬п╧я│я┌п╡п╟"
 
 #: src/gnome-cmd-options-dialog.c:753
-msgid "Socket files"
-msgstr "Файлы сокетов"
-
-#: src/gnome-cmd-options-dialog.c:758
-msgid "Character devices"
-msgstr "Символьные устройства"
-
-#: src/gnome-cmd-options-dialog.c:763
 msgid "Block devices"
-msgstr "Блочные устройства"
+msgstr "п▒п╩п╬я┤п╫я▀п╣ я┐я│я┌я─п╬п╧я│я┌п╡п╟"
 
-#: src/gnome-cmd-options-dialog.c:771
+#: src/gnome-cmd-options-dialog.c:761
 msgid "Also hide"
-msgstr "Также скрыть"
+msgstr "п╒п╟п╨п╤п╣ я│п╨я─я▀я┌я▄"
+
+#: src/gnome-cmd-options-dialog.c:764
+msgid "Hidden files"
+msgstr "п║п╨я─я▀я┌я▀п╣ я└п╟п╧п╩я▀"
+
+#: src/gnome-cmd-options-dialog.c:769
+msgid "Backup files"
+msgstr "п═п╣п╥п╣я─п╡п╫я▀п╣ я└п╟п╧п╩я▀"
 
 #: src/gnome-cmd-options-dialog.c:774
-msgid "Hidden files"
-msgstr "Скрытые файлы"
-
-#: src/gnome-cmd-options-dialog.c:779
-#, fuzzy
-msgid "Backup files"
-msgstr "Файлы сокетов"
-
-#: src/gnome-cmd-options-dialog.c:784
 msgid "Symlinks"
-msgstr "Символические ссылки"
+msgstr "п║п╦п╪п╡п╬п╩п╦я┤п╣я│п╨п╦п╣ я│я│я▀п╩п╨п╦"
 
-#: src/gnome-cmd-options-dialog.c:1032
+#: src/gnome-cmd-options-dialog.c:1023
 msgid "Label:"
-msgstr "Метка:"
+msgstr "п°п╣я┌п╨п╟:"
 
-#: src/gnome-cmd-options-dialog.c:1034
+#: src/gnome-cmd-options-dialog.c:1025
 msgid "Command:"
-msgstr "Команда:"
+msgstr "п п╬п╪п╟п╫п╢п╟:"
 
-#: src/gnome-cmd-options-dialog.c:1036 src/gnome-cmd-options-dialog.c:1474
+#: src/gnome-cmd-options-dialog.c:1027 src/gnome-cmd-options-dialog.c:1456
 msgid "Icon:"
-msgstr "Пиктограмма:"
+msgstr "п≈п╫п╟я┤п╬п╨:"
 
-#: src/gnome-cmd-options-dialog.c:1057
+#: src/gnome-cmd-options-dialog.c:1048
 msgid "Can handle multiple files"
-msgstr "Возможность ручного манипулирования множественными файлами"
+msgstr "п▓п╬п╥п╪п╬п╤п╫п╬я│я┌я▄ я─я┐я┤п╫п╬пЁп╬ п╪п╟п╫п╦п©я┐п╩п╦я─п╬п╡п╟п╫п╦я▐ п╪п╫п╬п╤п╣я│я┌п╡п╣п╫п╫я▀п╪п╦ я└п╟п╧п╩п╟п╪п╦"
 
-#: src/gnome-cmd-options-dialog.c:1061
+#: src/gnome-cmd-options-dialog.c:1052
 msgid "Can handle URIs"
-msgstr "Управление URI`и вручную"
+msgstr "пёп©я─п╟п╡п╩п╣п╫п╦п╣ URI`п╦ п╡я─я┐я┤п╫я┐я▌"
 
-#: src/gnome-cmd-options-dialog.c:1065
+#: src/gnome-cmd-options-dialog.c:1056
 msgid "Requires terminal"
-msgstr "Выполнить в терминале"
+msgstr "п▓я▀п©п╬п╩п╫п╦я┌я▄ п╡ я┌п╣я─п╪п╦п╫п╟п╩п╣"
+
+#: src/gnome-cmd-options-dialog.c:1063
+msgid "Show for"
+msgstr "п÷п╬п╨п╟п╥п╟я┌я▄ п╢п╩я▐"
 
 #: src/gnome-cmd-options-dialog.c:1072
-msgid "Show for"
-msgstr "Показать для"
-
-#: src/gnome-cmd-options-dialog.c:1081
 msgid "All directories"
-msgstr "Все каталоги"
+msgstr "п▓я│п╣ п╨п╟я┌п╟п╩п╬пЁп╦"
 
-#: src/gnome-cmd-options-dialog.c:1087
+#: src/gnome-cmd-options-dialog.c:1078
 msgid "All directories and files"
-msgstr "Все каталоги и файлы"
+msgstr "п▓я│п╣ п╨п╟я┌п╟п╩п╬пЁп╦ п╦ я└п╟п╧п╩я▀"
 
-#: src/gnome-cmd-options-dialog.c:1093
+#: src/gnome-cmd-options-dialog.c:1084
 msgid "Some files"
-msgstr "Некоторые файлы"
+msgstr "п²п╣п╨п╬я┌п╬я─я▀п╣ я└п╟п╧п╩я▀"
 
-#: src/gnome-cmd-options-dialog.c:1104
+#: src/gnome-cmd-options-dialog.c:1095
 msgid "File patterns"
-msgstr "Шаблоны файла"
+msgstr "п╗п╟п╠п╩п╬п╫я▀ я└п╟п╧п╩п╟"
 
-#: src/gnome-cmd-options-dialog.c:1129
+#: src/gnome-cmd-options-dialog.c:1111
 msgid "New Application"
-msgstr "Новое приложение"
+msgstr "п²п╬п╡п╬п╣ п©я─п╦п╩п╬п╤п╣п╫п╦п╣"
 
-#: src/gnome-cmd-options-dialog.c:1140
+#: src/gnome-cmd-options-dialog.c:1122
 msgid "Edit Application"
-msgstr "Правка приложения"
+msgstr "п÷я─п╟п╡п╨п╟ п©я─п╦п╩п╬п╤п╣п╫п╦я▐"
 
-#: src/gnome-cmd-options-dialog.c:1226
+#: src/gnome-cmd-options-dialog.c:1208
 msgid "Always download remote files before opening in external programs"
-msgstr "Всегда загружать удаленные файлы перед откритием во внешних программах"
+msgstr "п▓я│п╣пЁп╢п╟ п╥п╟пЁя─я┐п╤п╟я┌я▄ я┐п╢п╟п╩п╣п╫п╫я▀п╣ я└п╟п╧п╩я▀ п©п╣я─п╣п╢ п╬я┌п╨я─я▀я┌п╦п╣п╪ п╡п╬ п╡п╫п╣я┬п╫п╦я┘ п©я─п╬пЁя─п╟п╪п╪п╟я┘"
 
-#: src/gnome-cmd-options-dialog.c:1230
+#: src/gnome-cmd-options-dialog.c:1212
 msgid "MIME applications"
-msgstr "MIME приложения"
+msgstr "MIME п©я─п╦п╩п╬п╤п╣п╫п╦я▐"
 
-#: src/gnome-cmd-options-dialog.c:1234
+#: src/gnome-cmd-options-dialog.c:1216
 msgid "Standard programs"
-msgstr "Стандартные программы"
+msgstr "п║я┌п╟п╫п╢п╟я─я┌п╫я▀п╣ п©я─п╬пЁя─п╟п╪п╪я▀"
 
-#: src/gnome-cmd-options-dialog.c:1237
+#: src/gnome-cmd-options-dialog.c:1219
 msgid "Viewer:"
-msgstr "Просмотрщик:"
+msgstr "п÷я─п╬я│п╪п╬я┌я─я┴п╦п╨:"
 
-#: src/gnome-cmd-options-dialog.c:1239
+#: src/gnome-cmd-options-dialog.c:1221
 msgid "Editor:"
-msgstr "Редактор:"
+msgstr "п═п╣п╢п╟п╨я┌п╬я─:"
 
-#: src/gnome-cmd-options-dialog.c:1241
+#: src/gnome-cmd-options-dialog.c:1223
 msgid "Differ:"
-msgstr "Показать различия:"
+msgstr "п÷п╬п╨п╟п╥п╟я┌я▄ я─п╟п╥п╩п╦я┤п╦я▐:"
 
-#: src/gnome-cmd-options-dialog.c:1243
+#: src/gnome-cmd-options-dialog.c:1225
 msgid "Terminal:"
-msgstr "Терминал:"
+msgstr "п╒п╣я─п╪п╦п╫п╟п╩:"
 
-#: src/gnome-cmd-options-dialog.c:1262
+#: src/gnome-cmd-options-dialog.c:1244
 msgid "Other favorite apps"
-msgstr "Другие избранные приложения"
+msgstr "п■я─я┐пЁп╦п╣ п╦п╥п╠я─п╟п╫п╫я▀п╣ п©я─п╦п╩п╬п╤п╣п╫п╦я▐"
 
-#: src/gnome-cmd-options-dialog.c:1269
+#: src/gnome-cmd-options-dialog.c:1251
 msgid "Label"
-msgstr "Метка"
+msgstr "п°п╣я┌п╨п╟"
 
-#: src/gnome-cmd-options-dialog.c:1470
+#: src/gnome-cmd-options-dialog.c:1452
 msgid "Device:"
-msgstr "Устройство:"
+msgstr "пёя│я┌я─п╬п╧я│я┌п╡п╬:"
 
-#: src/gnome-cmd-options-dialog.c:1472
+#: src/gnome-cmd-options-dialog.c:1454
 msgid "Mount point:"
-msgstr "Точка монтирования:"
+msgstr "п╒п╬я┤п╨п╟ п╪п╬п╫я┌п╦я─п╬п╡п╟п╫п╦я▐:"
 
-#: src/gnome-cmd-options-dialog.c:1516
+#: src/gnome-cmd-options-dialog.c:1489
 msgid "New Device"
-msgstr "Новое устройство"
+msgstr "п²п╬п╡п╬п╣ я┐я│я┌я─п╬п╧я│я┌п╡п╬"
 
-#: src/gnome-cmd-options-dialog.c:1528
+#: src/gnome-cmd-options-dialog.c:1501
 msgid "Edit Device"
-msgstr "Правка устройства"
+msgstr "п÷я─п╟п╡п╨п╟ я┐я│я┌я─п╬п╧я│я┌п╡п╟"
 
-#: src/gnome-cmd-options-dialog.c:1612 src/gnome-cmd-options-dialog.c:1822
+#: src/gnome-cmd-options-dialog.c:1585 src/gnome-cmd-options-dialog.c:1804
 msgid "Devices"
-msgstr "Устройства"
+msgstr "пёя│я┌я─п╬п╧я│я┌п╡п╟"
 
-#: src/gnome-cmd-options-dialog.c:1654
+#: src/gnome-cmd-options-dialog.c:1627
 msgid "Show only the icons"
-msgstr "Показывать только пиктограммы"
+msgstr "п÷п╬п╨п╟п╥я▀п╡п╟я┌я▄ я┌п╬п╩я▄п╨п╬ п╥п╫п╟я┤п╨п╦"
 
-#: src/gnome-cmd-options-dialog.c:1659
+#: src/gnome-cmd-options-dialog.c:1632
 msgid "Skip mounting (useful when using super-mount)"
-msgstr "Игнорировать монтирование (полезно при использовании super-mount)"
+msgstr "п≤пЁп╫п╬я─п╦я─п╬п╡п╟я┌я▄ п╪п╬п╫я┌п╦я─п╬п╡п╟п╫п╦п╣ (п©п╬п╩п╣п╥п╫п╬ п©я─п╦ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦п╦ super-mount)"
+
+#: src/gnome-cmd-options-dialog.c:1768
+msgid "General"
+msgstr "п·п╠я┴п╣п╣"
+
+#: src/gnome-cmd-options-dialog.c:1774
+msgid "Format"
+msgstr "п╓п╬я─п╪п╟я┌"
+
+#: src/gnome-cmd-options-dialog.c:1780
+msgid "Layout"
+msgstr "п═п╟я│п©п╬п╩п╬п╤п╣п╫п╦п╣"
 
 #: src/gnome-cmd-options-dialog.c:1792
-msgid "General"
-msgstr "Общее"
+msgid "Filters"
+msgstr "п╓п╦п╩я▄я┌я─я▀"
 
 #: src/gnome-cmd-options-dialog.c:1798
-#, fuzzy
-msgid "Format"
-msgstr "Формат:"
-
-#: src/gnome-cmd-options-dialog.c:1804
-msgid "Layout"
-msgstr "Формат"
-
-#: src/gnome-cmd-options-dialog.c:1810
-msgid "Filters"
-msgstr "Фильтры"
-
-#: src/gnome-cmd-options-dialog.c:1816
 msgid "Programs"
-msgstr "Программы"
+msgstr "п÷я─п╬пЁя─п╟п╪п╪я▀"
 
 #: src/gnome-cmd-patternsel-dialog.c:118
 msgid "Pattern:"
-msgstr "Шаблон:"
+msgstr "п╗п╟п╠п╩п╬п╫:"
 
 #: src/gnome-cmd-patternsel-dialog.c:126
 msgid "Select Using Pattern"
-msgstr "Отметить по шаблону"
+msgstr "п·я┌п╪п╣я┌п╦я┌я▄ п©п╬ я┬п╟п╠п╩п╬п╫я┐"
 
 #: src/gnome-cmd-patternsel-dialog.c:126
 msgid "Unselect Using Pattern"
-msgstr "Снять отметку по шаблону"
+msgstr "п║п╫я▐я┌я▄ п╬я┌п╪п╣я┌п╨я┐ п©п╬ я┬п╟п╠п╩п╬п╫я┐"
 
 #.
 #. * Create prepare copy specific widgets
@@ -1450,21 +1394,21 @@ msgstr "Снять отметку по шаблону"
 #: src/gnome-cmd-prepare-copy-dialog.c:93
 #: src/gnome-cmd-prepare-move-dialog.c:87
 msgid "Silently"
-msgstr "Молча"
+msgstr "п▒п╣п╥ п╥п╟п©я─п╬я│п╟"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:102
 #: src/gnome-cmd-prepare-move-dialog.c:96
 msgid "Query First"
-msgstr "В первую очередь"
+msgstr "п▓я▀п╡п╬п╢п╦я┌я▄ п╥п╟п©я─п╬я│"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:111
-#: src/gnome-cmd-prepare-move-dialog.c:105 src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-prepare-move-dialog.c:105 src/gnome-cmd-xfer.c:116
 msgid "Skip All"
-msgstr "Пропустить все"
+msgstr "п÷я─п╬п©я┐я│я┌п╦я┌я▄ п╡я│п╣"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:121
 msgid "Follow Links"
-msgstr "Следовать ссылкам"
+msgstr "п║п╩п╣п╢п╬п╡п╟я┌я▄ я│я│я▀п╩п╨п╟п╪"
 
 #.
 #. * Customize prepare xfer widgets
@@ -1472,395 +1416,248 @@ msgstr "Следовать ссылкам"
 #: src/gnome-cmd-prepare-copy-dialog.c:136
 #: src/gnome-cmd-prepare-move-dialog.c:120
 msgid "Overwrite Files"
-msgstr "Перезаписать файлы"
+msgstr "п÷п╣я─п╣п╥п╟п©п╦я│я▀п╡п╟я┌я▄ я└п╟п╧п╩я▀"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:152
-#: src/gnome-cmd-make-copy-dialog.c:154
+#: src/gnome-cmd-make-copy-dialog.c:155
 #, c-format
 msgid "Copy \"%s\" to"
-msgstr "Скопировать \"%s\" в"
+msgstr "п║п╨п╬п©п╦я─п╬п╡п╟я┌я▄ \"%s\" п╡"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:156
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
-msgstr[0] "копировать %d файлы в"
-msgstr[1] "копировать %d файлы в"
-msgstr[2] "копировать %d файлы в"
+msgstr[0] "п╨п╬п©п╦я─п╬п╡п╟я┌я▄ %d я└п╟п╧п╩ п╡"
+msgstr[1] "п╨п╬п©п╦я─п╬п╡п╟я┌я▄ %d я└п╟п╧п╩п╟ п╡"
+msgstr[2] "п╨п╬п©п╦я─п╬п╡п╟я┌я▄ %d я└п╟п╧п╩п╬п╡ п╡"
 
 #: src/gnome-cmd-prepare-move-dialog.c:80
 msgid "Move"
-msgstr "Переместить"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄"
 
 #: src/gnome-cmd-prepare-move-dialog.c:135
 #, c-format
 msgid "Move \"%s\" to"
-msgstr "Переместить \"%s\" в"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄ \"%s\" п╡"
 
 #: src/gnome-cmd-prepare-move-dialog.c:139
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
-msgstr[0] "переместить %d файлы в"
-msgstr[1] "переместить %d файлы в"
-msgstr[2] "переместить %d файлы в"
+msgstr[0] "п©п╣я─п╣п╪п╣я│я┌п╦я┌я▄ %d я└п╟п╧п╩ п╡"
+msgstr[1] "п©п╣я─п╣п╪п╣я│я┌п╦я┌я▄ %d я└п╟п╧п╩п╟ п╡"
+msgstr[2] "п©п╣я─п╣п╪п╣я│я┌п╦я┌я▄ %d я└п╟п╧п╩п╬п╡ п╡"
 
 #: src/gnome-cmd-prepare-xfer-dialog.c:114
 #: src/gnome-cmd-prepare-xfer-dialog.c:153
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
-msgstr ""
+msgstr "п п╟я┌п╟п╩п╬пЁ '%s' п╫п╣ я│я┐я┴п╣я│я┌п╡я┐п╣я┌, я│п╬п╥п╢п╟я┌я▄ п╣пЁп╬?"
 
 #: src/gnome-cmd-quicksearch-popup.c:249
 msgid "Search"
-msgstr "Поиск"
+msgstr "п÷п╬п╦я│п╨"
 
-#: src/gnome-cmd-rename-dialog.c:145
-#, fuzzy, c-format
+#: src/gnome-cmd-rename-dialog.c:146
+#, c-format
 msgid "Rename \"%s\" to"
-msgstr "Переместить \"%s\" в"
+msgstr "п÷п╣я─п╣п╦п╪п╣п╫п╬п╡п╟я┌я▄ \"%s\" п╡"
 
-#: src/gnome-cmd-rename-dialog.c:153
+#: src/gnome-cmd-rename-dialog.c:154
 msgid "Rename File"
-msgstr "Переименовать файл"
+msgstr "п÷п╣я─п╣п╦п╪п╣п╫п╬п╡п╟я┌я▄ я└п╟п╧п╩"
 
-#: src/gnome-cmd-make-copy-dialog.c:162
-#, fuzzy
+#: src/gnome-cmd-make-copy-dialog.c:163
 msgid "Copy File"
-msgstr "Копировать"
+msgstr "п п╬п©п╦я─п╬п╡п╟я┌я▄ я└п╟п╧п╩"
 
-#: src/gnome-cmd-search-dialog.c:186
-#, fuzzy, c-format
+#: src/gnome-cmd-search-dialog.c:187
+#, c-format
 msgid "Failed to open file %s: %s\n"
-msgstr "Не могу открыть файл %s\n"
+msgstr "п²п╣ я┐п╢п╟я▒я┌я│я▐ п╬я┌п╨я─я▀я┌я▄ я└п╟п╧п╩ %s: %s\n"
 
-#: src/gnome-cmd-search-dialog.c:195
-#, fuzzy, c-format
+#: src/gnome-cmd-search-dialog.c:196
+#, c-format
 msgid "Failed to read from file %s: %s\n"
-msgstr "Не могу прочесть файл %s\n"
+msgstr "п²п╣ я┐п╢п╟я▒я┌я│я▐ п©я─п╬я┤п╦я┌п╟я┌я▄ п╦п╥ я└п╟п╧п╩п╟ %s: %s\n"
 
-#: src/gnome-cmd-search-dialog.c:257
+#: src/gnome-cmd-search-dialog.c:258
 #, c-format
 msgid "Searching in: %s"
-msgstr "Искать в: %s"
+msgstr "п≤я│п╨п╟я┌я▄ п╡: %s"
 
-#: src/gnome-cmd-search-dialog.c:401
+#: src/gnome-cmd-search-dialog.c:402
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
-msgstr[0] "Найдено %d совпадений перед остановкой"
-msgstr[1] "Найдено %d совпадений перед остановкой"
-msgstr[2] "Найдено %d совпадений перед остановкой"
+msgstr[0] "п²п╟п╧п╢п╣п╫п╬ %d я│п╬п╡п©п╟п╢п╣п╫п╦п╣ п©п╣я─п╣п╢ п╬я│я┌п╟п╫п╬п╡п╨п╬п╧"
+msgstr[1] "п²п╟п╧п╢п╣п╫п╬ %d я│п╬п╡п©п╟п╢п╣п╫п╦я▐ п©п╣я─п╣п╢ п╬я│я┌п╟п╫п╬п╡п╨п╬п╧"
+msgstr[2] "п²п╟п╧п╢п╣п╫п╬ %d я│п╬п╡п©п╟п╢п╣п╫п╦п╧ п©п╣я─п╣п╢ п╬я│я┌п╟п╫п╬п╡п╨п╬п╧"
 
-#: src/gnome-cmd-search-dialog.c:408
+#: src/gnome-cmd-search-dialog.c:409
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
-msgstr[0] "Найдено %d совпадений"
-msgstr[1] "Найдено %d совпадений"
-msgstr[2] "Найдено %d совпадений"
+msgstr[0] "п²п╟п╧п╢п╣п╫п╬ %d я│п╬п╡п©п╟п╢п╣п╫п╦п╣"
+msgstr[1] "п²п╟п╧п╢п╣п╫п╬ %d я│п╬п╡п©п╟п╢п╣п╫п╦я▐"
+msgstr[2] "п²п╟п╧п╢п╣п╫п╬ %d я│п╬п╡п©п╟п╢п╣п╫п╦п╧"
 
-#: src/gnome-cmd-search-dialog.c:739
+#: src/gnome-cmd-search-dialog.c:740
 msgid "Search..."
-msgstr "Поиск..."
+msgstr "п÷п╬п╦я│п╨..."
 
 #. Search for
-#: src/gnome-cmd-search-dialog.c:754
+#: src/gnome-cmd-search-dialog.c:755
 msgid "Search for: "
-msgstr "Поиск для: "
+msgstr "п÷п╬п╦я│п╨ п╢п╩я▐: "
 
 #. Search in
-#: src/gnome-cmd-search-dialog.c:768
+#: src/gnome-cmd-search-dialog.c:769
 msgid "Search in: "
-msgstr "Поиск в: "
+msgstr "п÷п╬п╦я│п╨ п╡: "
 
 #. Find text
-#: src/gnome-cmd-search-dialog.c:782
+#: src/gnome-cmd-search-dialog.c:783
 msgid "Find text: "
-msgstr "Найти текст: "
+msgstr "п²п╟п╧я┌п╦ я┌п╣п╨я│я┌: "
 
-#: src/gnome-cmd-search-dialog.c:799
+#: src/gnome-cmd-search-dialog.c:800
 msgid "Search Recursively"
-msgstr "Рекурсивный поиск"
+msgstr "п═п╣п╨я┐я─я│п╦п╡п╫я▀п╧ п©п╬п╦я│п╨"
 
 #. Case check
-#: src/gnome-cmd-search-dialog.c:807
+#: src/gnome-cmd-search-dialog.c:808
 msgid "Case Sensitive"
-msgstr "Учитывать регистр"
+msgstr "пёя┤п╦я┌я▀п╡п╟я┌я▄ я─п╣пЁп╦я│я┌я─"
 
-#: src/gnome-cmd-search-dialog.c:819
+#: src/gnome-cmd-search-dialog.c:820
 msgid "Goto"
-msgstr "Перейти"
+msgstr "п÷п╣я─п╣п╧я┌п╦"
 
 #: src/gnome-cmd-search-popup.c:190
 msgid "Chmod"
-msgstr "Права доступа"
+msgstr "п÷я─п╟п╡п╟ п╢п╬я│я┌я┐п©п╟"
 
-#: src/gnome-cmd-xfer.c:170
+#: src/gnome-cmd-string-dialog.c:136
+msgid "No error description available"
+msgstr "п·п©п╦я│п╟п╫п╦п╣ п╬я┬п╦п╠п╨п╦ п╫п╣п╢п╬я│я┌я┐п©п╫п╬"
+
+#: src/gnome-cmd-xfer.c:113
 #, c-format
 msgid ""
-"The file \"%s\" already exists.\n"
-"\n"
-"Do you want to overwrite it?\n"
+"Do you want to overwrite the file:\n"
+" %s\n"
 msgstr ""
+"п▓я▀ я┘п╬я┌п╦я┌п╣ п©п╣я─п╣п©п╦я│п╟я┌я▄ я└п╟п╧п╩:\n"
+" %s\n"
 
-#: src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-xfer.c:115
+msgid "Conflict while copying"
+msgstr "п п╬п╫я└п╩п╦п╨я┌ п©я─п╦ п╨п╬п©п╦я─п╬п╡п╟п╫п╦п╦"
+
+#: src/gnome-cmd-xfer.c:116
 msgid "Replace"
-msgstr "Заменить"
+msgstr "п≈п╟п╪п╣п╫п╦я┌я▄"
 
-#: src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-xfer.c:116
 msgid "Replace All"
-msgstr "Заменить все"
+msgstr "п≈п╟п╪п╣п╫п╦я┌я▄ п╡я│п╣"
 
-#: src/gnome-cmd-xfer.c:190
+#: src/gnome-cmd-xfer.c:128
 #, c-format
 msgid ""
 "Error while copying to %s\n"
 "\n"
 "%s"
 msgstr ""
+"п·я┬п╦п╠п╨п╟ п©я─п╦ п╨п╬п©п╦я─п╬п╡п╟п╫п╦п╦ п╡ %s\n"
+"\n"
+"%s"
 
-#: src/gnome-cmd-xfer.c:195
+#: src/gnome-cmd-xfer.c:130
 msgid "Xfer problem"
-msgstr ""
+msgstr "п÷я─п╬п╠п╩п╣п╪п╟ п©п╣я─п╣п╢п╟я┤п╦"
 
-#: src/gnome-cmd-xfer.c:231
+#: src/gnome-cmd-xfer.c:141
 msgid "copying..."
-msgstr "копирую..."
+msgstr "п╨п╬п©п╦я─п╬п╡п╟п╫п╦п╣..."
 
-#: src/gnome-cmd-xfer.c:239
+#: src/gnome-cmd-xfer.c:149
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
-msgstr "[файл %ld из %ld] \"%s\""
+msgstr "[я└п╟п╧п╩ %ld п╦п╥ %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.c:383
+#: src/gnome-cmd-xfer.c:293
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
 msgstr ""
-"Копирование каталога в себя - это плохая идея.\n"
-"Данная операция была отменена."
+"п п╬п©п╦я─п╬п╡п╟п╫п╦п╣ п╨п╟я┌п╟п╩п╬пЁп╟ п╡ я│п╣п╠я▐ - я█я┌п╬ п©п╩п╬я┘п╟я▐ п╦п╢п╣я▐.\n"
+"п■п╟п╫п╫п╟я▐ п╬п©п╣я─п╟я├п╦я▐ п╠я▀п╩п╟ п╬я┌п╪п╣п╫п╣п╫п╟."
 
-#: src/gnome-cmd-xfer.c:430
+#: src/gnome-cmd-xfer.c:350
 msgid "preparing..."
-msgstr "подготовка..."
+msgstr "п©п╬п╢пЁп╬я┌п╬п╡п╨п╟..."
 
-#: src/gnome-cmd-xfer.c:525
+#: src/gnome-cmd-xfer.c:452
 msgid "downloading to /tmp"
-msgstr "загрузка в /tmp"
+msgstr "п╥п╟пЁя─я┐п╥п╨п╟ п╡ /tmp"
 
-#: src/gnome-cmd-about-plugin.c:184
-msgid "Credits"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:216
-#, fuzzy
-msgid "Written by"
-msgstr "Писать"
-
-#: src/gnome-cmd-about-plugin.c:231
-msgid "Documented by"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:246
-msgid "Translated by"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:302
-msgid "Plugin Webpage"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:314
-#, fuzzy
-msgid "C_redits"
-msgstr "Правка"
-
-#: src/gnome-cmd-about-plugin.c:369
-#, fuzzy
-msgid "Program name"
-msgstr "Программы"
-
-#: src/gnome-cmd-about-plugin.c:370
-msgid "The name of the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:377
-#, fuzzy
-msgid "Program version"
-msgstr "Программы"
-
-#: src/gnome-cmd-about-plugin.c:378
-msgid "The version of the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:384
-msgid "Copyright string"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:385
-msgid "Copyright information for the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:392
-msgid "Comments string"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:393
-msgid "Comments about the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:399
-msgid "Authors"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:400
-msgid "List of authors of the programs"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:402
-msgid "Author entry"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:403
-msgid "A single author entry"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:410
-msgid "Documenters"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:411
-msgid "List of people documenting the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:413
-#, fuzzy
-msgid "Documenter entry"
-msgstr "Каталог документа пиктограммы:"
-
-#: src/gnome-cmd-about-plugin.c:414
-msgid "A single documenter entry"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:422
-msgid "Translator credits"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:423
-msgid ""
-"Credits to the translators. This string should be marked as translatable"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:430
-msgid "Webpage for the plugin"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:431
-msgid "Webpage"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:523
-#, fuzzy, c-format
-msgid "About %s"
-msgstr "Размонтировать устройство"
-
-#: src/gnome-cmd-xfer-progress-win.c:37
+#: src/gnome-cmd-xfer-progress-win.c:38
 msgid "stopping..."
-msgstr "остановка..."
+msgstr "п╬я│я┌п╟п╫п╬п╡п╨п╟..."
 
-#: src/gnome-cmd-xfer-progress-win.c:88
+#: src/gnome-cmd-xfer-progress-win.c:89
 msgid "Progress"
-msgstr "Ход выполнения"
+msgstr "п╔п╬п╢ п╡я▀п©п╬п╩п╫п╣п╫п╦я▐"
 
-#: src/gnome-cmd-xfer-progress-win.c:174
+#: src/gnome-cmd-xfer-progress-win.c:175
 #, c-format
 msgid "%d%% of %s copied"
-msgstr "Скопировано %d%% из %s"
+msgstr "п║п╨п╬п©п╦я─п╬п╡п╟п╫п╬ %d%% п╦п╥ %s"
 
-#: src/gnome-cmd-xfer-progress-win.c:179
+#: src/gnome-cmd-xfer-progress-win.c:180
 #, c-format
 msgid "%d%% copied"
-msgstr "%d%% скопировано"
-
-#: src/plugin_manager.c:294
-msgid "Disable"
-msgstr ""
-
-#: src/plugin_manager.c:299
-#, fuzzy
-msgid "Enable"
-msgstr "имя"
-
-#: src/plugin_manager.c:423
-msgid "Available plugins"
-msgstr ""
-
-#: src/plugin_manager.c:429
-#, fuzzy
-msgid "Name"
-msgstr "имя"
-
-#: src/plugin_manager.c:430
-#, fuzzy
-msgid "Version"
-msgstr "Права доступа"
-
-#: src/plugin_manager.c:431
-#, fuzzy
-msgid "File"
-msgstr "Файл"
-
-#: src/plugin_manager.c:437
-msgid "_Enable"
-msgstr ""
-
-#: src/plugin_manager.c:442
-msgid "_Configure"
-msgstr ""
-
-#: src/plugin_manager.c:448
-#, fuzzy
-msgid "_About"
-msgstr "Про..."
+msgstr "%d%% я│п╨п╬п©п╦я─п╬п╡п╟п╫п╬"
 
 #: src/imageloader.c:124
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
-"Не могу загрузить инсталлированый файл типа pixmap, попытайтесь загрузить из "
+"п²п╣ я┐п╢п╟я▒я┌я│я▐ п╥п╟пЁя─я┐п╥п╦я┌я▄ п╦п╫я│я┌п╟п╩п╩п╦я─п╬п╡п╟п╫я▀п╧ я└п╟п╧п╩ я┌п╦п©п╟ pixmap, п©п╬п©я▀я┌п╟п╧я┌п╣я│я▄ п╥п╟пЁя─я┐п╥п╦я┌я▄ п╦п╥ "
 "source-dir\n"
 
 #: src/imageloader.c:126 src/imageloader.c:152
 #, c-format
 msgid "Trying to load %s instead\n"
-msgstr "Попытка загрузить %s вместо этого\n"
+msgstr "п÷п╬п©я▀я┌п╨п╟ п╥п╟пЁя─я┐п╥п╦я┌я▄ %s п╡п╪п╣я│я┌п╬ я█я┌п╬пЁп╬\n"
 
 #: src/imageloader.c:130 src/imageloader.c:155
 msgid ""
 "Cant find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
 msgstr ""
-"Нигде не могу найти pixmap. Убедитесь, что вы правильно установили программу "
-"или выполняете gnome-commander из каталога gnome-commander-x.y.z/src\n"
+"п²п╦пЁп╢п╣ п╫п╣ п╪п╬пЁя┐ п╫п╟п╧я┌п╦ pixmap. пёп╠п╣п╢п╦я┌п╣я│я▄, я┤я┌п╬ п╡я▀ п©я─п╟п╡п╦п╩я▄п╫п╬ я┐я│я┌п╟п╫п╬п╡п╦п╩п╦ п©я─п╬пЁя─п╟п╪п╪я┐ "
+"п╦п╩п╦ п╡я▀п©п╬п╩п╫я▐п╣я┌п╣ gnome-commander п╦п╥ п╨п╟я┌п╟п╩п╬пЁп╟ gnome-commander-x.y.z/src\n"
 
 #: src/imageloader.c:150
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
-"Не могу загрузить установленный pixmap, попытайтесь загрузить из source-dir\n"
+"п²п╣ я┐п╢п╟я▒я┌я│я▐ п╥п╟пЁя─я┐п╥п╦я┌я▄ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫п╫я▀п╧ pixmap, п©п╬п©я▀я┌п╟п╧я┌п╣я│я▄ п╥п╟пЁя─я┐п╥п╦я┌я▄ п╦п╥ source-dir\n"
+
+#: src/main.c:56
+msgid "Specify debug flags to use"
+msgstr "п·п©я─п╣п╢п╣п╩п╦я┌я▄ п╪п╣я┌п╨я┐ debug п╢п╩я▐ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦я▐"
+
+#: src/main.c:58
+msgid "Specify the start directory for the left pane"
+msgstr "пёп╨п╟п╤п╦я┌п╣ п╫п╟я┤п╟п╩я▄п╫я▀п╧ п╨п╟я┌п╟п╩п╬пЁ п╢п╩я▐ п╩п╣п╡п╬п╧ п©п╟п╫п╣п╩п╦"
 
 #: src/main.c:60
-msgid "Specify debug flags to use"
-msgstr "Определить метку debug для использования"
-
-#: src/main.c:62
-#, fuzzy
-msgid "Specify the start directory for the left pane"
-msgstr "Определить каталог для запуска в"
-
-#: src/main.c:64
-#, fuzzy
 msgid "Specify the start directory for the right pane"
-msgstr "Определить каталог для запуска в"
+msgstr "пёп╨п╟п╤п╦я┌п╣ п╫п╟я┤п╟п╩я▄п╫я▀п╧ п╨п╟я┌п╟п╩п╬пЁ п╢п╩я▐ п©я─п╟п╡п╬п╧ п©п╟п╫п╣п╩п╦"
 
 #: src/owner.c:98
 #, c-format
@@ -1868,298 +1665,305 @@ msgid ""
 "When parsing the users and groups on this system it was found that the user %"
 "s is part of the group %s. This user can however not be found.\n"
 msgstr ""
-"При анализе пользователей и групп в системе, было обнаружено, что "
-"пользователь %s является членом группы %s. Однако, не могу найти этого "
-"пользователя.\n"
+"п÷я─п╦ п╟п╫п╟п╩п╦п╥п╣ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╣п╧ п╦ пЁя─я┐п©п© п╡ я│п╦я│я┌п╣п╪п╣, п╠я▀п╩п╬ п╬п╠п╫п╟я─я┐п╤п╣п╫п╬, я┤я┌п╬ "
+"п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▄ %s я▐п╡п╩я▐п╣я┌я│я▐ я┤п╩п╣п╫п╬п╪ пЁя─я┐п©п©я▀ %s. п·п╢п╫п╟п╨п╬ п╫п╟п╧я┌п╦ я█я┌п╬пЁп╬ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐ п╫п╣ я┐п╢п╟я▒я┌я│я▐.\n"
 
-#: src/useractions.c:261
+#: src/useractions.c:262
 #, c-format
 msgid "running \"%s\"\n"
-msgstr "запускаю \"%s\"\n"
-
-#: src/useractions.c:636
-msgid "A fast and powerfull file manager for the GNOME desktop"
-msgstr ""
+msgstr "п╡я▀п©п╬п╩п╫я▐п╣я┌я│я▐ \"%s\"\n"
 
 #. xgettext:
 #. * Replace this with your name when translating
-#: src/useractions.c:641
+#: src/useractions.c:646
 msgid "No translation is currently in use."
 msgstr ""
+"Victor Vislobokov\n"
+"Pavlo & Olena Bohmat\n"
+"Leonid Kanter"
 
-#: src/utils.c:513
+#: src/utils.c:499
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
-"Для данного mime-типа %s не найдено приложения по умолчанию.\n"
-"Откройте страницу \"Типы файлов и программы\" в Центре Управления чтобы "
-"добавить его."
+"п■п╩я▐ п╢п╟п╫п╫п╬пЁп╬ я┌п╦п©п╟ MIME %s п╫п╣ п╫п╟п╧п╢п╣п╫п╬ п©я─п╦п╩п╬п╤п╣п╫п╦я▐ п©п╬ я┐п╪п╬п╩я┤п╟п╫п╦я▌.\n"
+"п·я┌п╨я─п╬п╧я┌п╣ я█п╩п╣п╪п╣п╫я┌ \"п╒п╦п©я▀ я└п╟п╧п╩п╬п╡ п╦ п©я─п╬пЁя─п╟п╪п╪я▀\" п╡ п╕п╣п╫я┌я─п╣ я┐п©я─п╟п╡п╩п╣п╫п╦я▐ я┤я┌п╬п╠я▀ "
+"п╢п╬п╠п╟п╡п╦я┌я▄ п╣пЁп╬."
 
-#: src/utils.c:593
+#: src/utils.c:579
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
+"п÷п╬я┘п╬п╤п╣, я┤я┌п╬ \"%s\" я▐п╡п╩я▐п╣я┌я│я▐ п╦я│п©п╬п╩п╫я▐п╣п╪я▀п╪ п╢п╡п╬п╦я┤п╫я▀п╪ я└п╟п╧п╩п╬п╪, п╫п╬ п╠п╦я┌ \"п╦я│п©п╬п╩п╫я▐п╣п╪я▀п╧"
+"\" п╫п╣ я┐я│я┌п╟п╫п╬п╡п╩п╣п╫. п╔п╬я┌п╦я┌п╣ п╩п╦ п╡я▀ я┐я│я┌п╟п╫п╬п╡п╦я┌я▄ я█я┌п╬я┌ п╠п╦я┌ п╦ п╡я▀п©п╬п╩п╫п╦я┌я▄ я└п╟п╧п╩?"
 
-#: src/utils.c:596
-#, fuzzy
+#: src/utils.c:582
 msgid "Make Executable?"
-msgstr "Выполнить"
+msgstr "п║п╢п╣п╩п╟я┌я▄ п╡я▀п©п╬п╩п╫я▐п╣п╪я▀п╪?"
 
-#: src/utils.c:623
+#: src/utils.c:609
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
 msgstr ""
+"\"%s\" я▐п╡п╩я▐п╣я┌я│я▐ п╡я▀п©п╬п╩п╫я▐п╣п╪я▀п╪ я┌п╣п╨я│я┌п╬п╡я▀п╪ я└п╟п╧п╩п╬п╪. п▓я▀п©п╬п╩п╫п╦я┌я▄ я█я┌п╬я┌ я└п╟п╧п╩ п╦п╩п╦ п╬я┌п╬п╠я─п╟п╥п╦я┌я▄ п╣пЁп╬ я│п╬п╢п╣я─п╤п╟п╫п╦п╣?"
 
-#: src/utils.c:625
+#: src/utils.c:611
 msgid "Run or Display"
-msgstr ""
+msgstr "п▓я▀п©п╬п╩п╫п╦я┌я▄ п╦п╩п╦ п╬я┌п╬п╠я─п╟п╥п╦я┌я▄"
 
-#: src/utils.c:626
+#: src/utils.c:612
 msgid "Display"
-msgstr ""
+msgstr "п·я┌п╬п╠я─п╟п╥п╦я┌я▄"
 
-#: src/utils.c:626
+#: src/utils.c:612
 msgid "Run"
-msgstr ""
+msgstr "п▓я▀п©п╬п╩п╫п╦я┌я▄"
 
-#: src/utils.c:662
+#: src/utils.c:648
 #, c-format
 msgid ""
 "%s does not know how to open remote files. Do you want to download the file "
 "to a temporary location and then open it?"
 msgstr ""
+"%s п╫п╣ п╥п╫п╟п╣я┌, п╨п╟п╨ п╬я┌п╨я─я▀я┌я▄ я┐п╢п╟п╩п╣п╫п╫я▀п╧ я└п╟п╧п╩. п╔п╬я┌п╦я┌п╣ п╩п╦ п╡я▀ п╥п╟пЁя─я┐п╥п╦я┌я▄ я└п╟п╧п╩ п╡п╬ п╡я─п╣п╪п╣п╫п╫я▀п╧ п╨п╟я┌п╟п╩п╬пЁ п╦ п©п╬я│п╩п╣ я█я┌п╬пЁп╬ п╬я┌п╨я─я▀я┌я▄ п╣пЁп╬?"
 
-#: src/utils.c:736
+#: src/utils.c:722
 #, c-format
 msgid ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
 msgstr ""
+"%s п╫п╣ п╥п╫п╟п╣я┌, п╨п╟п╨ п╬я┌п╨я─я▀я┌я▄ я┐п╢п╟п╩п╣п╫п╫я▀п╣ я└п╟п╧п╩я▀. п╔п╬я┌п╦я┌п╣ п╩я▀ п╡я▀ п╥п╟пЁя─я┐п╥п╦я┌я▄ я└п╟п╧п╩я▀ п╡п╬ п╡я─п╣п╪п╣п╫п╫я▀п╧ п╨п╟я┌п╟п╩п╬пЁ п╦ п©п╬я│п╩п╣ я█я┌п╬пЁп╬ п╬я┌п╨я─я▀я┌я▄ п╦я┘?"
 
-#: src/utils.c:1344
-#, fuzzy, c-format
-msgid "Creating directory %s... "
-msgstr "Загрузка каталога..."
-
-#: src/utils.c:1349
-#, fuzzy, c-format
-msgid "Failed to create the directory %s"
-msgstr "Не могу прочесть файл %s\n"
-
-#: src/utils.c:1355
-#, fuzzy, c-format
-msgid "Couldn't read from the directory %s: %s\n"
-msgstr "Не могу создать pixmap из файла: %s"
-
-#: plugins/fileroller/file-roller-plugin.c:168
-msgid "What filename should the new archive have?"
-msgstr ""
-
-#: plugins/fileroller/file-roller-plugin.c:170
-msgid "Create Archive"
-msgstr ""
-
-#: plugins/fileroller/file-roller-plugin.c:274
-#, fuzzy
-msgid "Create Archive..."
-msgstr "Поиск..."
-
-#: plugins/fileroller/file-roller-plugin.c:288
-#, fuzzy
-msgid "Extract in Current Directory"
-msgstr "Введите имя для нового каталога"
-
-#: plugins/fileroller/file-roller-plugin.c:293
+#: src/utils.c:1364
 #, c-format
-msgid "Extract to '%s'"
-msgstr ""
+msgid "Creating directory %s... "
+msgstr "п║п╬п╥п╢п╟п╫п╦п╣ п╨п╟я┌п╟п╩п╬пЁп╟ %s..."
 
-#: plugins/fileroller/file-roller-plugin.c:353
-#, fuzzy
-msgid "File-roller options"
-msgstr "Опции каталога"
+#: src/utils.c:1369
+#, c-format
+msgid "Failed to create the directory %s"
+msgstr "п²п╣ я┐п╢п╟я▒я┌я│я▐ я│п╬п╥п╢п╟я┌я▄ п╨п╟я┌п╟п╩п╬пЁ %s"
 
-#: plugins/fileroller/file-roller-plugin.c:356
-#, fuzzy
-msgid "Default type"
-msgstr "По умолчанию:"
-
-#~ msgid "Change Permissions"
-#~ msgstr "Изменить права доступа"
-
-#~ msgid "Change Owner/Group"
-#~ msgstr "Изменить владельца/группу"
+#: src/utils.c:1375
+#, c-format
+msgid "Couldn't read from the directory %s: %s\n"
+msgstr "п²п╣ я┐п╢п╟я▒я┌я│я▐ п©я─п╬я┤п╦я┌п╟я┌я▄ п╦п╥ п╨п╟я┌п╟п╩п╬пЁп╟ %s: %s\n"
 
 #~ msgid "_Count Total Size"
-#~ msgstr "Подсчет общего размера"
-
-#~ msgid "File listings"
-#~ msgstr "Списки файлов"
-
-#~ msgid "Main window"
-#~ msgstr "Главное окно"
-
-#~ msgid ""
-#~ "Do you want to overwrite the file:\n"
-#~ " %s\n"
-#~ msgstr ""
-#~ "Вы хотите переписать файл:\n"
-#~ " %s\n"
-
-#~ msgid "Conflict while copying"
-#~ msgstr "Конфликт во время копирования"
+#~ msgstr "п÷п╬п╢я│я┤п╣я┌ п╬п╠я┴п╣пЁп╬ я─п╟п╥п╪п╣я─п╟"
 
 #~ msgid ""
 #~ "Copying a file to the same directory as it's already in, is not "
 #~ "permitted\n"
-#~ msgstr "Копирование файла в каталог, где он уже есть, не допускается\n"
+#~ msgstr "п п╬п©п╦я─п╬п╡п╟п╫п╦п╣ я└п╟п╧п╩п╟ п╡ я┌п╬я┌ п╤п╣ п╨п╟я┌п╟п╩п╬пЁ, пЁп╢п╣ п╬п╫ я┐п╤п╣ п╣я│я┌я▄, п╫п╣ п╢п╬п©я┐я│п╨п╟п╣я┌я│я▐\n"
 
 #~ msgid "Unmounting %s from %s\n"
-#~ msgstr "Размонтирую %s из %s\n"
+#~ msgstr "п═п╟п╥п╪п╬п╫я┌п╦я─п╬п╡п╨п╟ %s п╦п╥ %s\n"
 
 #~ msgid "local filesystem"
-#~ msgstr "локальная файловая система"
+#~ msgstr "п╩п╬п╨п╟п╩я▄п╫п╟я▐ я└п╟п╧п╩п╬п╡п╟я▐ я│п╦я│я┌п╣п╪п╟"
 
 #~ msgid "Disconnect"
-#~ msgstr "Отключиться"
+#~ msgstr "п·я┌п╨п╩я▌я┤п╦я┌я▄я│я▐"
 
 #~ msgid "Local"
-#~ msgstr "Локальный"
+#~ msgstr "п⌡п╬п╨п╟п╩я▄п╫я▀п╧"
 
 #~ msgid "Preparing..."
-#~ msgstr "Подготовка..."
+#~ msgstr "п÷п╬п╢пЁп╬я┌п╬п╡п╨п╟..."
 
 #~ msgid "Loaded %d file...\n"
 #~ msgid_plural "Loaded %d files...\n"
-#~ msgstr[0] "Загруженный %d файл...\n"
-#~ msgstr[1] "Загруженный %d файл...\n"
-#~ msgstr[2] "Загруженный %d файл...\n"
+#~ msgstr[0] "п≈п╟пЁя─я┐п╤п╣п╫ %d я└п╟п╧п╩...\n"
+#~ msgstr[1] "п≈п╟пЁя─я┐п╤п╣п╫п╬ %d я└п╟п╧п╩п╟...\n"
+#~ msgstr[2] "п≈п╟пЁя─я┐п╤п╣п╫п╬ %d я└п╟п╧п╩п╬п╡...\n"
 
 #~ msgid "Processing files..."
-#~ msgstr "Обработка файлов..."
+#~ msgstr "п·п╠я─п╟п╠п╬я┌п╨п╟ я└п╟п╧п╩п╬п╡..."
 
 #~ msgid "Failed to initialize FAM\n"
-#~ msgstr "Не могу инициализировать FAM\n"
+#~ msgstr "п²п╣ п╪п╬пЁя┐ п╦п╫п╦я├п╦п╟п╩п╦п╥п╦я─п╬п╡п╟я┌я▄ FAM\n"
 
 #~ msgid "Failed to mount the device"
-#~ msgstr "Не могу смонтировать устройство"
+#~ msgstr "п²п╣ п╪п╬пЁя┐ я│п╪п╬п╫я┌п╦я─п╬п╡п╟я┌я▄ я┐я│я┌я─п╬п╧я│я┌п╡п╬"
 
 #~ msgid "_Connect..."
-#~ msgstr "Подключиться..."
+#~ msgstr "п÷п╬п╢п╨п╩я▌я┤п╦я┌я▄я│я▐..."
 
 #~ msgid "_Quick Connect..."
-#~ msgstr "Быстрое подключение..."
+#~ msgstr "п▒я▀я│я┌я─п╬п╣ п©п╬п╢п╨п╩я▌я┤п╣п╫п╦п╣..."
 
 #~ msgid "_Disconnect"
-#~ msgstr "Отключиться"
+#~ msgstr "п·я┌п╨п╩я▌я┤п╦я┌я▄я│я▐"
 
 #~ msgid "FT_P"
 #~ msgstr "FTP"
 
 #~ msgid "Use FAM to detect file changes"
-#~ msgstr "Использовать FAM для определения изменений файла"
+#~ msgstr "п≤я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ FAM п╢п╩я▐ п╬п©я─п╣п╢п╣п╩п╣п╫п╦я▐ п╦п╥п╪п╣п╫п╣п╫п╦п╧ я└п╟п╧п╩п╟"
 
 #~ msgid "Data Representation"
-#~ msgstr "Данные представления"
+#~ msgstr "п■п╟п╫п╫я▀п╣ п©я─п╣п╢я│я┌п╟п╡п╩п╣п╫п╦я▐"
 
 #~ msgid "Enter a new name:"
-#~ msgstr "Введите новое имя:"
+#~ msgstr "п▓п╡п╣п╢п╦я┌п╣ п╫п╬п╡п╬п╣ п╦п╪я▐:"
 
 #~ msgid "No file selected\n"
-#~ msgstr "Нет выбранных файлов\n"
+#~ msgstr "п²п╣я┌ п╡я▀п╠я─п╟п╫п╫я▀я┘ я└п╟п╧п╩п╬п╡\n"
 
 #~ msgid "Stop"
-#~ msgstr "Стоп"
+#~ msgstr "п║я┌п╬п©"
 
 #~ msgid "Close"
-#~ msgstr "Закрыть"
+#~ msgstr "п≈п╟п╨я─я▀я┌я▄"
 
 #~ msgid "Couldn't find pixmap file: %s"
-#~ msgstr "Не могу найти pixmap файл: %s"
+#~ msgstr "п²п╣ п╪п╬пЁя┐ п╫п╟п╧я┌п╦ pixmap я└п╟п╧п╩: %s"
 
 #~ msgid "FTP Disconnect"
-#~ msgstr "Отключиться от FTP"
+#~ msgstr "п·я┌п╨п╩я▌я┤п╦я┌я▄я│я▐ п╬я┌ FTP"
 
 #~ msgid "Advanced rename tool"
-#~ msgstr "Продвинутый инструмент переименования"
+#~ msgstr "п÷я─п╬п╢п╡п╦п╫я┐я┌я▀п╧ п╦п╫я│я┌я─я┐п╪п╣п╫я┌ п©п╣я─п╣п╦п╪п╣п╫п╬п╡п╟п╫п╦я▐"
 
 #~ msgid "_Add"
-#~ msgstr "Добавить"
+#~ msgstr "п■п╬п╠п╟п╡п╦я┌я▄"
 
 #~ msgid "Owner"
-#~ msgstr "Владелец"
+#~ msgstr "п▓п╩п╟п╢п╣п╩п╣я├"
 
 #~ msgid "Group"
-#~ msgstr "Группа"
+#~ msgstr "п⌠я─я┐п©п©п╟"
+
+#~ msgid "Enter a name for the new directory"
+#~ msgstr "п▓п╡п╣п╢п╦я┌п╣ п╦п╪я▐ п╢п╩я▐ п╫п╬п╡п╬пЁп╬ п╨п╟я┌п╟п╩п╬пЁп╟"
 
 #~ msgid "Enter pattern"
-#~ msgstr "Ввести шаблон"
+#~ msgstr "п▓п╡п╣я│я┌п╦ я┬п╟п╠п╩п╬п╫"
 
 #~ msgid "skip all"
-#~ msgstr "пропустить все"
+#~ msgstr "п©я─п╬п©я┐я│я┌п╦я┌я▄ п╡я│п╣"
 
 #~ msgid "options"
-#~ msgstr "опции"
+#~ msgstr "п╬п©я├п╦п╦"
 
 #~ msgid "silent"
-#~ msgstr "молча"
+#~ msgstr "п╪п╬п╩я┤п╟"
 
 #~ msgid "query"
-#~ msgstr "запрос"
+#~ msgstr "п╥п╟п©я─п╬я│"
 
 #~ msgid "skip"
-#~ msgstr "пропустить"
+#~ msgstr "п©я─п╬п©я┐я│я┌п╦я┌я▄"
 
 #~ msgid "Run program"
-#~ msgstr "Запустить программу"
+#~ msgstr "п≈п╟п©я┐я│я┌п╦я┌я▄ п©я─п╬пЁя─п╟п╪п╪я┐"
 
 #~ msgid "Enter command line to run"
-#~ msgstr "Введите командную линию для запуска"
+#~ msgstr "п▓п╡п╣п╢п╦я┌п╣ п╨п╬п╪п╟п╫п╢п╫я┐я▌ я│я┌я─п╬п╨я┐ п╢п╩я▐ п╥п╟п©я┐я│п╨п╟"
 
 #~ msgid "Recurse through subdirectories"
-#~ msgstr "Рекурсивный проход каталогов"
+#~ msgstr "п▓п╬п╥п╡я─п╟я┴п╟я┌я▄я│я▐ я┤п╣я─п╣п╥ п©п╬п╢п╨п╟я┌п╟п╩п╬пЁп╦"
 
 #~ msgid "View"
-#~ msgstr "Просмотр"
+#~ msgstr "п÷я─п╬я│п╪п╬я┌я─"
+
+#~ msgid "Basic"
+#~ msgstr "п·я│п╫п╬п╡п╫п╬п╧"
 
 #~ msgid "Advanced"
-#~ msgstr "Продвинутый"
+#~ msgstr "п÷я─п╬п╢п╡п╦п╫я┐я┌я▀п╧"
 
 #~ msgid "group"
-#~ msgstr "группа"
+#~ msgstr "пЁя─я┐п©п©п╟"
 
 #~ msgid "port"
-#~ msgstr "порт"
+#~ msgstr "п©п╬я─я┌"
 
 #~ msgid "anonymous"
 #~ msgstr "anonymous"
 
 #~ msgid "Ftp disconnect"
-#~ msgstr "Отключение от FTP"
+#~ msgstr "п·я┌п╨п╩я▌я┤п╣п╫п╦п╣ п╬я┌ FTP"
 
 #~ msgid "powered (ex 1.53 M)"
-#~ msgstr "в степени (1.53 M)"
+#~ msgstr "п╡ я│я┌п╣п©п╣п╫п╦ (1.53 M)"
 
 #~ msgid "grouped (ex 1,600,000)"
-#~ msgstr "группами (1,600,000)"
+#~ msgstr "пЁя─я┐п©п©п╟п╪п╦ (1,600,000)"
 
 #~ msgid "plain (ex 1600000)"
-#~ msgstr "обычный (1600000)"
+#~ msgstr "п╬п╠я▀я┤п╫я▀п╧ (1600000)"
 
 #~ msgid "Font for other"
-#~ msgstr "Шрифт для остального"
+#~ msgstr "п╗я─п╦я└я┌ п╢п╩я▐ п╬я│я┌п╟п╩я▄п╫п╬пЁп╬"
 
 #~ msgid "test:"
-#~ msgstr "тест:"
+#~ msgstr "я┌п╣я│я┌:"
 
 #~ msgid "2000-11-10 13:50"
 #~ msgstr "2000-11-10 13:50"
 
 #~ msgid "Hide"
-#~ msgstr "Скрыть"
+#~ msgstr "п║п╨я─я▀я┌я▄"
+
+msgid "File panes"
+msgstr "п÷п╟п╫п╣п╩п╦ я└п╟п╧п╩п╬п╡"
+
+msgid "Edit..."
+msgstr "п÷я─п╟п╡п╨п╟..."
+
+msgid "Edit Colors..."
+msgstr "п÷я─п╟п╡п╨п╟ я├п╡п╣я┌п╬п╡..."
+
+msgid "Colors:"
+msgstr "п╕п╡п╣я┌п╟:"
+
+msgid "Custom"
+msgstr "п·п╠я▀я┤п╫я▀п╣"
+
+msgid "Classic"
+msgstr "п п╩п╟я│я│п╦я┤п╣я│п╨п╦п╣"
+
+msgid "Modern"
+msgstr "п║п╬п╡я─п╣п╪п╣п╫п╫я▀п╣"
+
+msgid "Respect theme settings"
+msgstr "п÷я─п╦п╢п╣я─п╤п╦п╡п╟я┌я▄я│я▐ п╫п╟я│я┌я─п╬п╣п╨ я┌п╣п╪я▀"
+
+msgid "Graphical mode:"
+msgstr "п⌠я─п╟я└п╦я┤п╣я│п╨п╦п╧ я─п╣п╤п╦п╪:"
+
+msgid "Display file extensions:"
+msgstr "п·я┌п╬п╠я─п╟п╤п╟я┌я▄ я─п╟я│я┬п╦я─п╣п╫п╦я▐ я└п╟п╧п╩п╬п╡:"
+
+msgid "Available plugins"
+msgstr "п■п╬я│я┌я┐п©п╫я▀п╣ п╪п╬п╢я┐п╩п╦"
+
+msgid "Name"
+msgstr "п≤п╪я▐"
+
+msgid "Version"
+msgstr "п▓п╣я─я│п╦я▐"
+
+msgid "File"
+msgstr "п╓п╟п╧п╩"
+
+msgid "_Enable"
+msgstr "_п▓п╨п╩я▌я┤п╦я┌я▄"
+
+msgid "Enable"
+msgstr "п▓п╨п╩я▌я┤п╦я┌я▄"
+
+msgid "_Configure"
+msgstr "п²п╟я│я┌я─п╬п╦я┌я▄"
+
+msgid "_About"
+msgstr "п· п╪п╬п╢я┐п╩п╣"
