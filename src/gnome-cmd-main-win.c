@@ -1540,3 +1540,12 @@ gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw)
 	return state;
 }
 
+
+void
+gnome_cmd_main_win_set_cap_state (GnomeCmdMainWin *mw, gboolean state)
+{
+	g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
+
+	gtk_widget_set_sensitive (mw->priv->tb_cap_paste_btn, state);
+}
+

@@ -131,4 +131,7 @@ gnome_cmd_main_win_add_plugin_menu (GnomeCmdMainWin *mw, PluginData *data);
 GnomeCmdState *
 gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw);
 
+void
+gnome_cmd_main_win_set_cap_state (GnomeCmdMainWin *mw, gboolean state);
+
 #endif //__GNOME_CMD_MAIN_WIN_H__

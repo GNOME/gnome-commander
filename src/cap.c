@@ -22,6 +22,7 @@
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
+#include "gnome-cmd-main-win.h"
 
 #define GNOME_CMD_CUTTED 1
 #define GNOME_CMD_COPIED 2
@@ -29,6 +30,14 @@
 static int _type = 0;
 static GList *_files = NULL;
 static GnomeCmdFileList *_fl = NULL;
+
+static void
+on_xfer_done (GList *files, gpointer data)
+{
+	if (files != NULL)
+		gnome_cmd_file_list_free (files);	
+}
+
 
 static void update_refs (GnomeCmdFileList *fl, GList *files)
 {
@@ -48,7 +57,10 @@ static void cut_and_paste (GnomeCmdDir *to)
 						  NULL,
 						  GNOME_VFS_XFER_REMOVESOURCE,
 						  GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
-						  NULL, NULL);
+						  GTK_SIGNAL_FUNC (on_xfer_done), _files);
+	_files = NULL;
+	_fl = NULL;
+	gnome_cmd_main_win_set_cap_state (main_win, FALSE);
 }
 
 static void copy_and_paste (GnomeCmdDir *to)
@@ -60,7 +72,10 @@ static void copy_and_paste (GnomeCmdDir *to)
 						  NULL,
 						  GNOME_VFS_XFER_RECURSIVE,
 						  GNOME_VFS_XFER_OVERWRITE_MODE_QUERY,
-						  NULL, NULL);
+						  GTK_SIGNAL_FUNC (on_xfer_done), _files);
+	_files = NULL;
+	_fl = NULL;
+	gnome_cmd_main_win_set_cap_state (main_win, FALSE);
 }
 
 void cap_cut_files (GnomeCmdFileList *fl, GList *files)
@@ -68,6 +83,7 @@ void cap_cut_files (GnomeCmdFileList *fl, GList *files)
 	update_refs (fl, files);
 	
 	_type = GNOME_CMD_CUTTED;
+	gnome_cmd_main_win_set_cap_state (main_win, TRUE);
 }
 
 
@@ -76,6 +92,7 @@ void cap_copy_files (GnomeCmdFileList *fl, GList *files)
 	update_refs (fl, files);
 
 	_type = GNOME_CMD_COPIED;
+	gnome_cmd_main_win_set_cap_state (main_win, TRUE);
 }
 
 
