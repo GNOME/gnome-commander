@@ -120,7 +120,7 @@ update_markup (GnomeCmdDirIndicator *indicator, gint i)
 {
 	gchar *s, *m;
 
-	if (indicator->priv->slashCharPosition == NULL)
+	if (!indicator->priv->slashCharPosition)
 		return;
 
 	s = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
@@ -169,14 +169,6 @@ on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
 			/* underline the part that is selected */
 		    GdkCursor* cursor;
 
-			/*
-			patternbuf = malloc (indicator->priv->slashPixelPosition[i] + 1);			
-			for (j = 0; j < indicator->priv->slashCharPosition[i]; j++)
-				patternbuf[j] = '_';			
-			patternbuf[indicator->priv->slashCharPosition[i]] = 0x0;
-			gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, patternbuf);
-			free (patternbuf);
-			*/
 			cursor = gdk_cursor_new(GDK_HAND2);
 		    gdk_window_set_cursor(GTK_WIDGET(indicator)->window, cursor);
 		    gdk_cursor_destroy(cursor);
@@ -187,7 +179,6 @@ on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
 		}
 		  
 		/* clear underline, cursor=pointer */
-		//gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, "");
 		update_markup (indicator, 0);
 		gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
 	}
@@ -203,7 +194,6 @@ on_dir_indicator_leave (GnomeCmdDirIndicator *indicator,
 	g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 	
 	/* clear underline, cursor=pointer */
-	//gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, "");
 	update_markup (indicator, 0);
 	gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
 	
