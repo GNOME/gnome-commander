@@ -1,29 +1,186 @@
+# Slovak translation of 
+# Slovak translation of
+# Slovak translation of
 # Slovak translation of gnome-commander
 # Copyright (C) 2003 Zdenko Podobný <zdpo@mailbox.sk>
-# Zdenko Podobný <zdpo@mailbox.sk>, 2003.
+# Zdenko Podobný <zdpo@mailbox.sk>, 2003, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander-1.1.2\n"
-"POT-Creation-Date: 2003-11-24 12:37+0100\n"
-"PO-Revision-Date: 2003-11-12 08:02+0100\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2004-01-19 22:09+0100\n"
+"PO-Revision-Date: 2004-01-23 14:52+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: libgcmd/gnome-cmd-string-dialog.c:131
+#: gnome-commander.desktop.in.h:1
+msgid "A two paned file manager"
+msgstr "Dvojpanelový správca súborov"
+
+#: gnome-commander.desktop.in.h:2
+msgid "GNOME Commander"
+msgstr "GNOME Commander"
+
+#: libgcmd/gnome-cmd-string-dialog.c:133
 msgid "No error description available"
 msgstr "Popis chyby nie je dostupný"
 
-#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:739
+#: plugins/cvs/cvs-plugin.c:304
+#: plugins/fileroller/file-roller-plugin.c:336
+#: src/gnome-cmd-ftp-dialog.c:550
+#: src/gnome-cmd-options-dialog.c:1058
+#: src/gnome-cmd-options-dialog.c:1768
+#: src/gnome-cmd-prepare-copy-dialog.c:141
+#: src/gnome-cmd-prepare-move-dialog.c:125
+msgid "Options"
+msgstr "Možnosti"
+
+#: plugins/cvs/cvs-plugin.c:322
+msgid "CVS options"
+msgstr "Nastavenia CVS"
+
+#: plugins/cvs/cvs-plugin.c:325
+msgid "Compression level"
+msgstr "Úroveň kompresie"
+
+#: plugins/cvs/cvs-plugin.c:334
+msgid "Unified diff format"
+msgstr "Unifikovaný diff formát"
+
+#: plugins/cvs/cvs-plugin.c:448
+msgid "A plugin that eventually will be a simple CVS client"
+msgstr "Modul, ktorý nakoniec bude jednoduchý CVS klient"
+
+#: plugins/cvs/interface.c:161
+msgid "Compare with"
+msgstr "Porovnať s"
+
+#: plugins/cvs/interface.c:164
+msgid "HEAD"
+msgstr "HLAVIČKA"
+
+#: plugins/cvs/interface.c:168
+msgid "The previous revision"
+msgstr "Predchádzajúca revízia"
+
+#: plugins/cvs/interface.c:174
+msgid "Other revision"
+msgstr "Ostatné revízie"
+
+#: plugins/cvs/interface.c:261
+msgid "CVS Diff"
+msgstr "CVS diff"
+
+#: plugins/cvs/interface.c:428
+msgid "revision"
+msgstr "revízia"
+
+#: plugins/cvs/interface.c:442
+msgid "Revision:"
+msgstr "Revízia:"
+
+#: plugins/cvs/interface.c:460
+msgid "Compare..."
+msgstr "Porovnať..."
+
+#: plugins/cvs/interface.c:463
+msgid "Author:"
+msgstr "Autor:"
+
+#: plugins/cvs/interface.c:477
+msgid "Date:"
+msgstr "Dátum:"
+
+#: plugins/cvs/interface.c:491
+msgid "State:"
+msgstr "Stav:"
+
+#: plugins/cvs/interface.c:505
+msgid "Lines:"
+msgstr "Riadky:"
+
+#: plugins/cvs/interface.c:519
+msgid "Message:"
+msgstr "Správa:"
+
+#: plugins/fileroller/file-roller-plugin.c:167
+msgid "What filename should the new archive have?"
+msgstr "Aký názov súboru by mal mať nový archív?"
+
+#: plugins/fileroller/file-roller-plugin.c:169
+msgid "Create Archive"
+msgstr "Vytvoriť archív"
+
+#: plugins/fileroller/file-roller-plugin.c:273
+msgid "Create Archive..."
+msgstr "Vytvoriť archív..."
+
+#: plugins/fileroller/file-roller-plugin.c:287
+msgid "Extract in Current Directory"
+msgstr "Extrahovať do aktuálneho priečinka"
+
+#: plugins/fileroller/file-roller-plugin.c:292
+#, c-format
+msgid "Extract to '%s'"
+msgstr "Extrahovať do '%s'"
+
+#: plugins/fileroller/file-roller-plugin.c:352
+msgid "File-roller options"
+msgstr "Nastavenia programu File-roller"
+
+#: plugins/fileroller/file-roller-plugin.c:355
+msgid "Default type"
+msgstr "Štandardný typ"
+
+#: plugins/fileroller/file-roller-plugin.c:477
+msgid "A plugin that adds File Roller shortcuts for creating and extracting compressed archives."
+msgstr "Modul, ktorý pridá klávesové skratky File Rolleru pre vytvorenie a extrahovanie komprimovaných archívov."
+
+#: plugins/test/test-plugin.c:232
+msgid "This is an example plugin that is mostly useful as a simple example for aspiring plugin hackers"
+msgstr "Tento vzorový modul je užitočný len ako jednoduchý príklad pre snaživého hackera modulov"
+
+#: src/gnome-cmd-about-plugin.c:184
+msgid "Credits"
+msgstr "Poďakovanie"
+
+#: src/gnome-cmd-about-plugin.c:216
+msgid "Written by"
+msgstr "Napísané"
+
+#: src/gnome-cmd-about-plugin.c:231
+msgid "Documented by"
+msgstr "Autor dokumentácie"
+
+#: src/gnome-cmd-about-plugin.c:246
+msgid "Translated by"
+msgstr "Prekladateľ"
+
+#: src/gnome-cmd-about-plugin.c:302
+msgid "Plugin Webpage"
+msgstr "Web stránka modulu"
+
+#: src/gnome-cmd-about-plugin.c:314
+msgid "C_redits"
+msgstr "_Poďakovanie"
+
+#: src/gnome-cmd-about-plugin.c:523
+#, c-format
+msgid "About %s"
+msgstr "O %s"
+
+#: src/gnome-cmd-advrename-dialog.c:97
+#: src/gnome-cmd-prepare-xfer-dialog.c:118
+#: src/utils.c:745
 msgid "Yes"
 msgstr "Áno"
 
-#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:739
+#: src/gnome-cmd-advrename-dialog.c:97
+#: src/gnome-cmd-prepare-xfer-dialog.c:118
+#: src/utils.c:745
 msgid "No"
 msgstr "Nie"
 
@@ -35,7 +192,8 @@ msgstr "Vzor nenájdený"
 msgid "Replace this:"
 msgstr "Nahradiť toto:"
 
-#: src/gnome-cmd-advrename-dialog.c:273 src/gnome-cmd-advrename-dialog.c:821
+#: src/gnome-cmd-advrename-dialog.c:273
+#: src/gnome-cmd-advrename-dialog.c:821
 msgid "With this"
 msgstr "s"
 
@@ -95,19 +253,24 @@ msgstr "Nahradiť toto"
 msgid "Case sens"
 msgstr "Citlivé na veľkosť písmen"
 
-#: src/gnome-cmd-advrename-dialog.c:835 src/gnome-cmd-options-dialog.c:1275
-#: src/gnome-cmd-options-dialog.c:1628
+#: src/gnome-cmd-advrename-dialog.c:835
+#: src/gnome-cmd-options-dialog.c:1279
+#: src/gnome-cmd-options-dialog.c:1632
 msgid "_Add..."
 msgstr "_Pridať..."
 
-#: src/gnome-cmd-advrename-dialog.c:839 src/gnome-cmd-ftp-dialog.c:537
-#: src/gnome-cmd-options-dialog.c:1279 src/gnome-cmd-options-dialog.c:1632
+#: src/gnome-cmd-advrename-dialog.c:839
+#: src/gnome-cmd-ftp-dialog.c:539
+#: src/gnome-cmd-options-dialog.c:1283
+#: src/gnome-cmd-options-dialog.c:1636
 msgid "_Edit..."
 msgstr "_Upraviť..."
 
-#: src/gnome-cmd-advrename-dialog.c:844 src/gnome-cmd-bookmark-dialog.c:512
-#: src/gnome-cmd-ftp-dialog.c:541 src/gnome-cmd-options-dialog.c:1285
-#: src/gnome-cmd-options-dialog.c:1638
+#: src/gnome-cmd-advrename-dialog.c:844
+#: src/gnome-cmd-bookmark-dialog.c:512
+#: src/gnome-cmd-ftp-dialog.c:543
+#: src/gnome-cmd-options-dialog.c:1289
+#: src/gnome-cmd-options-dialog.c:1642
 msgid "_Remove"
 msgstr "_Odstrániť"
 
@@ -151,7 +314,8 @@ msgstr "Chýba cieľ záložky"
 msgid "Edit Bookmark"
 msgstr "Upraviť záložku"
 
-#: src/gnome-cmd-bookmark-dialog.c:466 src/gnome-cmd-bookmark-dialog.c:482
+#: src/gnome-cmd-bookmark-dialog.c:466
+#: src/gnome-cmd-bookmark-dialog.c:482
 msgid "Bookmarks"
 msgstr "Záložky"
 
@@ -159,7 +323,8 @@ msgstr "Záložky"
 msgid "Bookmark Groups"
 msgstr "Skupina záložiek"
 
-#: src/gnome-cmd-bookmark-dialog.c:491 src/gnome-cmd-file-list.c:1332
+#: src/gnome-cmd-bookmark-dialog.c:491
+#: src/gnome-cmd-file-list.c:1340
 msgid "name"
 msgstr "názov"
 
@@ -171,20 +336,17 @@ msgstr "cesta"
 msgid "_Goto"
 msgstr "_Choď"
 
-#: src/gnome-cmd-bookmark-dialog.c:507 src/gnome-cmd-main-menu.c:769
+#: src/gnome-cmd-bookmark-dialog.c:507
+#: src/gnome-cmd-main-menu.c:763
 #: src/gnome-cmd-search-popup.c:182
 msgid "_Edit"
 msgstr "_Upraviť"
 
-#: src/gnome-cmd-bookmark-dialog.c:621
-msgid ""
-"To bookmark a directory the whole search path to the directory must be in "
-"valid UTF-8 encoding\n"
-msgstr ""
-"Aby bolo možné dať tento priečinok do záložiek s celou cestou, priečinok "
-"musí mať platné UTF-8 kodovanie\n"
+#: src/gnome-cmd-bookmark-dialog.c:624
+msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding\n"
+msgstr "Aby bolo možné dať tento priečinok do záložiek s celou cestou, priečinok musí mať platné UTF-8 kodovanie\n"
 
-#: src/gnome-cmd-bookmark-dialog.c:628
+#: src/gnome-cmd-bookmark-dialog.c:631
 msgid "New Bookmark"
 msgstr "Nová záložka"
 
@@ -200,11 +362,13 @@ msgstr "Zapisovať"
 msgid "Execute"
 msgstr "Spustiť"
 
-#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:89
+#: src/gnome-cmd-chmod-component.c:129
+#: src/gnome-cmd-chown-component.c:89
 msgid "Owner:"
 msgstr "Vlastník:"
 
-#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:92
+#: src/gnome-cmd-chmod-component.c:129
+#: src/gnome-cmd-chown-component.c:92
 msgid "Group:"
 msgstr "Skupina:"
 
@@ -220,7 +384,8 @@ msgstr "Textový pohľad:"
 msgid "Number view:"
 msgstr "Číselný pohľad:"
 
-#: src/gnome-cmd-chmod-dialog.c:38 src/gnome-cmd-options-dialog.c:1075
+#: src/gnome-cmd-chmod-dialog.c:38
+#: src/gnome-cmd-options-dialog.c:1079
 msgid "All files"
 msgstr "Všetky súbory"
 
@@ -254,7 +419,8 @@ msgstr ""
 "Nie je možné vykonať chown %s\n"
 "%s"
 
-#: src/gnome-cmd-chown-dialog.c:181 src/gnome-cmd-search-popup.c:197
+#: src/gnome-cmd-chown-dialog.c:181
+#: src/gnome-cmd-search-popup.c:197
 msgid "Chown"
 msgstr "Chown"
 
@@ -267,25 +433,25 @@ msgid "Failed to execute the mount command"
 msgstr "Nepodarilo sa vykonať príkaz 'mount'"
 
 #: src/gnome-cmd-con-device.c:110
-#, fuzzy
 msgid "Mount failed: Permission denied"
-msgstr "Pripojenie zariadenia zlyhalo - nedostatočné práva"
+msgstr "Pripojenie zlyhalo: Nedostatočné práva"
 
 #: src/gnome-cmd-con-device.c:113
 msgid "Mount failed: No medium found"
-msgstr ""
+msgstr "Pripojenie zlyhalo: Médium nebolo nájdené"
 
 #: src/gnome-cmd-con-device.c:117
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
-msgstr ""
+msgstr "Pripojenie zlyhalo: 'mount' skončil so stavom %d"
 
 #: src/gnome-cmd-con-device.c:356
 #, c-format
 msgid "Mounting %s"
 msgstr "Pripájanie (mounting) %s"
 
-#: src/gnome-cmd-con-device.c:374 src/gnome-cmd-con-ftp.c:287
+#: src/gnome-cmd-con-device.c:374
+#: src/gnome-cmd-con-ftp.c:287
 #, c-format
 msgid "Go to: %s"
 msgstr "Choď: %s"
@@ -333,23 +499,27 @@ msgstr "Domov"
 msgid "Go to: Home"
 msgstr "Choď: Domov"
 
-#: src/gnome-cmd-con-smb.c:201
+#: src/gnome-cmd-con-smb.c:94
+msgid "Failed to browse the network. Is the SMB module installed?"
+msgstr "Nepodarilo sa prechádzať sieťou. Je SMB modul nainštalovaný?"
+
+#: src/gnome-cmd-con-smb.c:211
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.c:202
+#: src/gnome-cmd-con-smb.c:212
 msgid "Searching for workgroups and hosts"
 msgstr "Hľadanie pracovných skupín a  hostiteľov"
 
-#: src/gnome-cmd-con-smb.c:209
+#: src/gnome-cmd-con-smb.c:219
 msgid "Go to: Samba Network"
 msgstr "Choď: Samba sieť"
 
-#: src/gnome-cmd-delete-dialog.c:159
+#: src/gnome-cmd-delete-dialog.c:143
 msgid "Deleting..."
 msgstr "Mažem..."
 
-#: src/gnome-cmd-delete-dialog.c:250
+#: src/gnome-cmd-delete-dialog.c:225
 #, c-format
 msgid ""
 "Error while deleting %s\n"
@@ -360,109 +530,79 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-delete-dialog.c:253
+#: src/gnome-cmd-delete-dialog.c:228
 msgid "Delete problem"
 msgstr "Odstrániť problém"
 
-#: src/gnome-cmd-delete-dialog.c:254 src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-delete-dialog.c:229
+#: src/gnome-cmd-xfer.c:176
 #: src/gnome-cmd-xfer.c:196
 msgid "Abort"
 msgstr "Prerušiť"
 
-#: src/gnome-cmd-delete-dialog.c:254 src/gnome-cmd-xfer.c:196
+#: src/gnome-cmd-delete-dialog.c:229
+#: src/gnome-cmd-xfer.c:196
 msgid "Retry"
 msgstr "Znovu"
 
-#: src/gnome-cmd-delete-dialog.c:254 src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-delete-dialog.c:229
+#: src/gnome-cmd-xfer.c:176
 #: src/gnome-cmd-xfer.c:196
 msgid "Skip"
 msgstr "Preskočiť"
 
-#: src/gnome-cmd-delete-dialog.c:331
+#: src/gnome-cmd-delete-dialog.c:296
 #, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "Chcete odstrániť \"%s\"?"
 
-#: src/gnome-cmd-delete-dialog.c:336
-#, fuzzy, c-format
-msgid "Do you want to delete the selected file?"
-msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Chcete odstrániť \"%s\"?"
-msgstr[1] "Chcete odstrániť \"%s\"?"
-
-#: src/gnome-cmd-delete-dialog.c:344 src/gnome-cmd-main-win.c:1277
+#: src/gnome-cmd-delete-dialog.c:301
+#: src/gnome-cmd-delete-dialog.c:309
+#: src/gnome-cmd-main-win.c:1333
+#, c-format
 msgid "Delete"
 msgstr "Zmazať"
 
-#: src/gnome-cmd-delete-dialog.c:344 src/utils.c:597 src/utils.c:626
+#: src/gnome-cmd-delete-dialog.c:309
+#: src/utils.c:603
+#: src/utils.c:632
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: src/gnome-cmd-delete-dialog.c:344 src/utils.c:597
+#: src/gnome-cmd-delete-dialog.c:309
+#: src/utils.c:603
 msgid "OK"
 msgstr "OK"
 
-#: src/gnome-cmd-dir.c:628
+#: src/gnome-cmd-dir.c:569
 msgid "Waiting for file list"
 msgstr "Čakanie na zoznam súborov"
 
-#: src/gnome-cmd-file.c:606
-msgid "Unknown file type"
-msgstr "Neznámy typ súbora"
-
-#: src/gnome-cmd-file.c:607
-msgid "Regular file"
-msgstr "Regulárny súbor"
-
-#: src/gnome-cmd-file.c:608
-msgid "Directory"
-msgstr "Priečinok"
-
-#: src/gnome-cmd-file.c:609
-msgid "FIFO"
-msgstr "FIFO"
-
-#: src/gnome-cmd-file.c:610
-msgid "UNIX Socket"
-msgstr "UNIX Socket"
-
-#: src/gnome-cmd-file.c:611
-msgid "Character device"
-msgstr "Znakové zariadenia"
-
-#: src/gnome-cmd-file.c:612
-msgid "Block device"
-msgstr "Blokové zariadenia"
-
-#: src/gnome-cmd-file.c:613
-msgid "Symbolic link"
-msgstr "Symbolický odkaz"
-
-#: src/gnome-cmd-file-list.c:1333
+#: src/gnome-cmd-file-list.c:1341
 msgid "ext"
 msgstr "príp."
 
-#: src/gnome-cmd-file-list.c:1334
+#: src/gnome-cmd-file-list.c:1342
 msgid "dir"
 msgstr "priečinok"
 
-#: src/gnome-cmd-file-list.c:1335
+#: src/gnome-cmd-file-list.c:1343
 msgid "size"
 msgstr "veľkosť"
 
-#: src/gnome-cmd-file-list.c:1336
+#: src/gnome-cmd-file-list.c:1344
 msgid "date"
 msgstr "dátum"
 
-#: src/gnome-cmd-file-list.c:1337
+#: src/gnome-cmd-file-list.c:1345
 msgid "perm"
 msgstr "príst."
 
-#: src/gnome-cmd-file-list.c:1338
+#: src/gnome-cmd-file-list.c:1346
 msgid "uid"
 msgstr "uid"
 
-#: src/gnome-cmd-file-list.c:1339
+#: src/gnome-cmd-file-list.c:1347
 msgid "gid"
 msgstr "gid"
 
@@ -498,11 +638,13 @@ msgstr "_Vykonať"
 msgid "_Cut"
 msgstr "Vy_strihnúť"
 
-#: src/gnome-cmd-file-popmenu.c:462 src/gnome-cmd-main-menu.c:565
+#: src/gnome-cmd-file-popmenu.c:462
+#: src/gnome-cmd-main-menu.c:565
 msgid "_Copy"
 msgstr "_Kopírovať"
 
-#: src/gnome-cmd-file-popmenu.c:469 src/gnome-cmd-main-menu.c:577
+#: src/gnome-cmd-file-popmenu.c:469
+#: src/gnome-cmd-main-menu.c:577
 #: src/gnome-cmd-search-popup.c:167
 msgid "_Delete"
 msgstr "_Odstrániť"
@@ -511,7 +653,8 @@ msgstr "_Odstrániť"
 msgid "Rename"
 msgstr "Premenovať"
 
-#: src/gnome-cmd-file-popmenu.c:484 src/gnome-cmd-file-props-dialog.c:475
+#: src/gnome-cmd-file-popmenu.c:484
+#: src/gnome-cmd-file-props-dialog.c:475
 #: src/gnome-cmd-search-popup.c:204
 msgid "Properties"
 msgstr "Vlastnosti"
@@ -525,11 +668,13 @@ msgstr "Iné..."
 msgid "%s bytes"
 msgstr "%s bytov"
 
-#: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
+#: src/gnome-cmd-file-props-dialog.c:210
+#: src/gnome-cmd-file-props-dialog.c:346
 msgid "No default application registered"
 msgstr "Žiadna aplikácia nie je zaregistrovaná ako štandarná"
 
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2082
+#: src/gnome-cmd-file-props-dialog.c:302
+#: src/gnome-cmd-file-selector.c:2049
 msgid "Filename:"
 msgstr "Názov súboru:"
 
@@ -581,47 +726,74 @@ msgstr "Nastavenie súbora"
 msgid "Permissions"
 msgstr "Práva"
 
-#: src/gnome-cmd-file-selector.c:178
-#, c-format
-msgid "%s of %s kB in %d of %d file selected"
-msgid_plural "%s of %s kB in %d of %d files selected"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/gnome-cmd-file-selector.c:721
+#: src/gnome-cmd-file-selector.c:194
+#: src/gnome-cmd-file-selector.c:726
 #, c-format
 msgid "%s Free"
 msgstr "%s voľné"
 
-#: src/gnome-cmd-file-selector.c:1814
+#: src/gnome-cmd-file-selector.c:1780
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Nepodarilo sa otvoriť spojenie: %s\n"
 
-#: src/gnome-cmd-file-selector.c:2019 src/gnome-cmd-rename-dialog.c:52
+#: src/gnome-cmd-file-selector.c:1989
 #: src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-rename-dialog.c:52
 msgid "No filename entered"
 msgstr "Nebol vložený žiadny názov"
 
-#: src/gnome-cmd-file-selector.c:2055
+#: src/gnome-cmd-file-selector.c:2025
 msgid "No filename given"
 msgstr "Bez názvu súbora"
 
-#: src/gnome-cmd-file-selector.c:2088
+#: src/gnome-cmd-file-selector.c:2055
 msgid "New Text File"
 msgstr "Nový textový súbor"
 
-#: src/gnome-cmd-file-selector.c:2252
+#: src/gnome-cmd-file-selector.c:2224
 msgid "Symlink name:"
 msgstr "Názov symb. odkazu:"
 
-#: src/gnome-cmd-file-selector.c:2258
+#: src/gnome-cmd-file-selector.c:2230
 msgid "Create Symbolic Link"
 msgstr "Vytvoriť symb. odkaz"
 
-#: src/gnome-cmd-file-selector.c:2329
+#: src/gnome-cmd-file-selector.c:2301
 msgid "Filter:"
 msgstr "Filter:"
+
+#: src/gnome-cmd-file.c:596
+msgid "Unknown file type"
+msgstr "Neznámy typ súbora"
+
+#: src/gnome-cmd-file.c:597
+msgid "Regular file"
+msgstr "Regulárny súbor"
+
+#: src/gnome-cmd-file.c:598
+msgid "Directory"
+msgstr "Priečinok"
+
+#: src/gnome-cmd-file.c:599
+msgid "FIFO"
+msgstr "FIFO"
+
+#: src/gnome-cmd-file.c:600
+msgid "UNIX Socket"
+msgstr "UNIX Socket"
+
+#: src/gnome-cmd-file.c:601
+msgid "Character device"
+msgstr "Znakové zariadenia"
+
+#: src/gnome-cmd-file.c:602
+msgid "Block device"
+msgstr "Blokové zariadenia"
+
+#: src/gnome-cmd-file.c:603
+msgid "Symbolic link"
+msgstr "Symbolický odkaz"
 
 #: src/gnome-cmd-ftp-dialog.c:163
 #, c-format
@@ -645,70 +817,71 @@ msgstr "Host nebol určený"
 msgid "Invalid port number: %s"
 msgstr "Neplatné číslo portu: %s"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-options-dialog.c:1468
+#: src/gnome-cmd-ftp-dialog.c:298
+#: src/gnome-cmd-options-dialog.c:1472
 msgid "Alias:"
 msgstr "Alias:"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:298
+#: src/gnome-cmd-ftp-dialog.c:299
 msgid "Host:"
 msgstr "Host:"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:298
+#: src/gnome-cmd-ftp-dialog.c:299
 msgid "Port:"
 msgstr "Port:"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:298
+#: src/gnome-cmd-ftp-dialog.c:299
 msgid "User:"
 msgstr "Používateľ:"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:298
+#: src/gnome-cmd-ftp-dialog.c:299
 msgid "Password:"
 msgstr "Heslo:"
 
-#: src/gnome-cmd-ftp-dialog.c:321
+#: src/gnome-cmd-ftp-dialog.c:323
 msgid "New FTP Server"
 msgstr "Nový FTP server"
 
-#: src/gnome-cmd-ftp-dialog.c:346
+#: src/gnome-cmd-ftp-dialog.c:348
 msgid "Edit FTP Server"
 msgstr "Upraviť FTP server"
 
-#: src/gnome-cmd-ftp-dialog.c:376
+#: src/gnome-cmd-ftp-dialog.c:378
 msgid "No server selected"
 msgstr "Nebol zvolený žiadny server"
 
-#: src/gnome-cmd-ftp-dialog.c:504 src/gnome-cmd-main-win.c:1285
+#: src/gnome-cmd-ftp-dialog.c:506
+#: src/gnome-cmd-main-win.c:1341
 msgid "FTP Connect"
 msgstr "FTP spojenie"
 
-#: src/gnome-cmd-ftp-dialog.c:510
+#: src/gnome-cmd-ftp-dialog.c:512
 msgid "Servers"
 msgstr "Servery"
 
-#: src/gnome-cmd-ftp-dialog.c:530 src/gnome-cmd-options-dialog.c:1622
+#: src/gnome-cmd-ftp-dialog.c:532
+#: src/gnome-cmd-options-dialog.c:1626
 msgid "Alias"
 msgstr "Alias"
 
-#: src/gnome-cmd-ftp-dialog.c:535 src/gnome-cmd-list-popmenu.c:145
+#: src/gnome-cmd-ftp-dialog.c:537
+#: src/gnome-cmd-list-popmenu.c:145
 msgid "_New..."
 msgstr "_Nový..."
 
-#: src/gnome-cmd-ftp-dialog.c:548 src/gnome-cmd-options-dialog.c:1054
-#: src/gnome-cmd-options-dialog.c:1764 src/gnome-cmd-prepare-copy-dialog.c:141
-#: src/gnome-cmd-prepare-move-dialog.c:125
-#: plugins/fileroller/file-roller-plugin.c:337
-msgid "Options"
-msgstr "Možnosti"
-
-#: src/gnome-cmd-ftp-dialog.c:551
+#: src/gnome-cmd-ftp-dialog.c:553
 msgid "Anonymous password:"
 msgstr "Heslo pre anonymous:"
 
-#: src/gnome-cmd-ftp-dialog.c:561
+#: src/gnome-cmd-ftp-dialog.c:563
 msgid "Connect"
 msgstr "Pripojiť"
 
-#: src/gnome-cmd-ftp-dialog.c:657
+#: src/gnome-cmd-ftp-dialog.c:670
 msgid "FTP Quick Connect"
 msgstr "Rýchlo pripojiť FTP"
 
@@ -720,11 +893,13 @@ msgstr "_Priečinky"
 msgid "_Text file"
 msgstr "_Textový súbor"
 
-#: src/gnome-cmd-list-popmenu.c:152 src/gnome-cmd-main-menu.c:571
+#: src/gnome-cmd-list-popmenu.c:152
+#: src/gnome-cmd-main-menu.c:571
 msgid "_Paste"
 msgstr "_Vložiť"
 
-#: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:619
+#: src/gnome-cmd-list-popmenu.c:159
+#: src/gnome-cmd-main-menu.c:619
 msgid "_Refresh"
 msgstr "_Obnoviť"
 
@@ -833,14 +1008,12 @@ msgid "Show Buttonbar"
 msgstr "Zobraziť panel tlačítok"
 
 #: src/gnome-cmd-main-menu.c:651
-#, fuzzy
 msgid "Show Hidden Files"
-msgstr "Skryté súbory"
+msgstr "Zobraziť skryté súbory"
 
 #: src/gnome-cmd-main-menu.c:657
-#, fuzzy
 msgid "Show Backup Files"
-msgstr "Soket súbory"
+msgstr "Zobraziť záložné súbory"
 
 #: src/gnome-cmd-main-menu.c:669
 msgid "_Bookmark this Directory..."
@@ -862,128 +1035,136 @@ msgstr "_Nastavenia..."
 msgid "Edit _Mime Types..."
 msgstr "Upraviť _Mime typy..."
 
-#: src/gnome-cmd-main-menu.c:711
-msgid "Save _Position"
-msgstr "Uložiť po_zíciu"
-
-#: src/gnome-cmd-main-menu.c:722
+#: src/gnome-cmd-main-menu.c:716
 msgid "FTP _Connect..."
 msgstr "FTP _spojenie..."
 
-#: src/gnome-cmd-main-menu.c:728
+#: src/gnome-cmd-main-menu.c:722
 msgid "FTP _Quick Connect..."
 msgstr "FTP - _rýchle pripojenie..."
 
-#: src/gnome-cmd-main-menu.c:739
+#: src/gnome-cmd-main-menu.c:733
 msgid "User _Manual..."
 msgstr "Používateľský _manuál..."
 
-#: src/gnome-cmd-main-menu.c:746
+#: src/gnome-cmd-main-menu.c:740
 msgid "_About..."
 msgstr "_O programe..."
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
-#: src/gnome-cmd-main-menu.c:765
+#: src/gnome-cmd-main-menu.c:759
 msgid "_File"
 msgstr "_Súbor"
 
-#: src/gnome-cmd-main-menu.c:773
+#: src/gnome-cmd-main-menu.c:767
 msgid "_Mark"
 msgstr "_Označenie"
 
-#: src/gnome-cmd-main-menu.c:777 src/gnome-cmd-search-popup.c:175
+#: src/gnome-cmd-main-menu.c:771
+#: src/gnome-cmd-search-popup.c:175
 msgid "_View"
 msgstr "_Zobraziť"
 
-#: src/gnome-cmd-main-menu.c:782
+#: src/gnome-cmd-main-menu.c:776
 msgid "_Settings"
 msgstr "Nas_tavenia"
 
-#: src/gnome-cmd-main-menu.c:786
+#: src/gnome-cmd-main-menu.c:780
 msgid "_Connections"
 msgstr "Spoje_nia"
 
-#: src/gnome-cmd-main-menu.c:790
+#: src/gnome-cmd-main-menu.c:784
 msgid "_Bookmarks"
 msgstr "_Záložky"
 
-#: src/gnome-cmd-main-menu.c:794
+#: src/gnome-cmd-main-menu.c:788
 msgid "_Plugins"
 msgstr "_Moduly"
 
-#: src/gnome-cmd-main-menu.c:798
+#: src/gnome-cmd-main-menu.c:792
 msgid "_Help"
 msgstr "_Pomocník"
 
-#: src/gnome-cmd-main-win.c:439
+#: src/gnome-cmd-main-win.c:440
 msgid "F3 View"
 msgstr "F3 Zobraziť"
 
-#: src/gnome-cmd-main-win.c:442
+#: src/gnome-cmd-main-win.c:443
 msgid "F4 Edit"
 msgstr "F4 Upraviť"
 
-#: src/gnome-cmd-main-win.c:445
+#: src/gnome-cmd-main-win.c:446
 msgid "F5 Copy"
 msgstr "F5 Kopírovať"
 
-#: src/gnome-cmd-main-win.c:448
+#: src/gnome-cmd-main-win.c:449
 msgid "F6 Move"
 msgstr "F6 Presunúť"
 
-#: src/gnome-cmd-main-win.c:451
+#: src/gnome-cmd-main-win.c:452
 msgid "F7 Mkdir"
 msgstr "F7 Vytvoriť"
 
-#: src/gnome-cmd-main-win.c:454
+#: src/gnome-cmd-main-win.c:455
 msgid "F8 Delete"
 msgstr "F8 Zmazať"
 
-#: src/gnome-cmd-main-win.c:457
+#: src/gnome-cmd-main-win.c:458
 msgid "F9 Search"
 msgstr "F9 Hľadať"
 
-#: src/gnome-cmd-main-win.c:460
+#: src/gnome-cmd-main-win.c:461
 msgid "F10 Quit"
 msgstr "F10 Skončiť"
 
-#: src/gnome-cmd-main-win.c:1234
+#: src/gnome-cmd-main-win.c:1290
 msgid "Refresh"
 msgstr "Obnoviť"
 
-#: src/gnome-cmd-main-win.c:1241
+#: src/gnome-cmd-main-win.c:1297
 msgid "Back in history"
 msgstr "Späť v histórií"
 
-#: src/gnome-cmd-main-win.c:1248
+#: src/gnome-cmd-main-win.c:1304
 msgid "Forward in history"
 msgstr "Dopredu v histórií"
 
-#: src/gnome-cmd-main-win.c:1256
+#: src/gnome-cmd-main-win.c:1312
 msgid "Cut"
 msgstr "Vystrihnúť"
 
-#: src/gnome-cmd-main-win.c:1263 src/gnome-cmd-prepare-copy-dialog.c:86
+#: src/gnome-cmd-main-win.c:1319
+#: src/gnome-cmd-prepare-copy-dialog.c:86
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: src/gnome-cmd-main-win.c:1270
+#: src/gnome-cmd-main-win.c:1326
 msgid "Paste"
 msgstr "Vložiť"
 
-#: src/gnome-cmd-main-win.c:1293
+#: src/gnome-cmd-main-win.c:1349
 msgid "Drop connection"
 msgstr "Zahodiť spojenie"
+
+#: src/gnome-cmd-make-copy-dialog.c:154
+#: src/gnome-cmd-prepare-copy-dialog.c:152
+#, c-format
+msgid "Copy \"%s\" to"
+msgstr "Kopírovať do \"%s\" do"
+
+#: src/gnome-cmd-make-copy-dialog.c:162
+msgid "Copy File"
+msgstr "Kopírovať súbor"
 
 #: src/gnome-cmd-mkdir-dialog.c:48
 msgid "A directory name must be entered"
 msgstr "Názov priečinka musí byť vložený"
 
-#: src/gnome-cmd-mkdir-dialog.c:138
+#: src/gnome-cmd-mkdir-dialog.c:137
 msgid "Directory name:"
 msgstr "Meno priečinku:"
 
-#: src/gnome-cmd-mkdir-dialog.c:146
+#: src/gnome-cmd-mkdir-dialog.c:145
 msgid "Make Directory"
 msgstr "Vytvoriť priečinok"
 
@@ -1015,18 +1196,18 @@ msgstr "Regex syntax"
 msgid "Sorting options"
 msgstr "Nastavenie triedenia"
 
-#: src/gnome-cmd-options-dialog.c:99 src/gnome-cmd-patternsel-dialog.c:133
+#: src/gnome-cmd-options-dialog.c:99
+#: src/gnome-cmd-patternsel-dialog.c:160
 msgid "Case sensitive"
 msgstr "Rozlišovať veľkosť písmen"
 
 #: src/gnome-cmd-options-dialog.c:109
-#, fuzzy
 msgid "Confirmation options"
-msgstr "Nastavenie triedenia"
+msgstr "Nastavenie potvrdení"
 
 #: src/gnome-cmd-options-dialog.c:112
 msgid "Confirm before delete"
-msgstr ""
+msgstr "Pred odstránením potvrdiť"
 
 #: src/gnome-cmd-options-dialog.c:122
 msgid "Directory options"
@@ -1081,341 +1262,330 @@ msgid "Test result:"
 msgstr "Výsledok testu:"
 
 #: src/gnome-cmd-options-dialog.c:279
-msgid ""
-"See the manual page for \"strftime\" for help on how to set the format "
-"string."
-msgstr ""
-"Pozrite si manuálovú stránku pre \"strftime\", kde nájdete pomoc pre "
-"nastavenie formátu reťazca."
+msgid "See the manual page for \"strftime\" for help on how to set the format string."
+msgstr "Pozrite si manuálovú stránku pre \"strftime\", kde nájdete pomoc pre nastavenie formátu reťazca."
 
-#: src/gnome-cmd-options-dialog.c:399
-#, fuzzy
+#: src/gnome-cmd-options-dialog.c:401
 msgid "Edit Colors..."
-msgstr "_Upraviť záložky..."
+msgstr "Upraviť farby..."
 
-#: src/gnome-cmd-options-dialog.c:406
+#: src/gnome-cmd-options-dialog.c:408
 msgid "Colors"
 msgstr "Farby"
 
-#: src/gnome-cmd-options-dialog.c:443
+#: src/gnome-cmd-options-dialog.c:445
 msgid "Foreground"
 msgstr "Popredie"
 
-#: src/gnome-cmd-options-dialog.c:445
+#: src/gnome-cmd-options-dialog.c:447
 msgid "Background"
 msgstr "Pozadie"
 
-#: src/gnome-cmd-options-dialog.c:447
+#: src/gnome-cmd-options-dialog.c:449
 msgid "Default:"
 msgstr "Štandard:"
 
-#: src/gnome-cmd-options-dialog.c:449
+#: src/gnome-cmd-options-dialog.c:451
 msgid "Selected file:"
 msgstr "Označené súbory:"
 
-#: src/gnome-cmd-options-dialog.c:451
+#: src/gnome-cmd-options-dialog.c:453
 msgid "Cursor:"
 msgstr "Kurzor:"
 
-#: src/gnome-cmd-options-dialog.c:481
-#, fuzzy
-msgid "File panes"
-msgstr "Vzory súborov"
+#: src/gnome-cmd-options-dialog.c:470
+msgid "With filename"
+msgstr "spolu s názvom"
 
-#: src/gnome-cmd-options-dialog.c:496
+#: src/gnome-cmd-options-dialog.c:471
+msgid "In separate column"
+msgstr "v samostatnom stĺpci"
+
+#: src/gnome-cmd-options-dialog.c:472
+msgid "In both columns"
+msgstr "V oboch stĺpcoch"
+
+#: src/gnome-cmd-options-dialog.c:476
+msgid "No icons"
+msgstr "Bez ikon"
+
+#: src/gnome-cmd-options-dialog.c:477
+msgid "File type icons"
+msgstr "Ikony podľa typu súborov"
+
+#: src/gnome-cmd-options-dialog.c:478
+msgid "MIME icons"
+msgstr "MIME ikony"
+
+#: src/gnome-cmd-options-dialog.c:482
+msgid "Respect theme colors"
+msgstr "Rešpektovať farby témy"
+
+#: src/gnome-cmd-options-dialog.c:483
+msgid "Modern"
+msgstr "Moderný"
+
+#: src/gnome-cmd-options-dialog.c:484
+msgid "Classic"
+msgstr "Klasický"
+
+#: src/gnome-cmd-options-dialog.c:485
+msgid "Custom"
+msgstr "Vlastný"
+
+#: src/gnome-cmd-options-dialog.c:501
+msgid "File panes"
+msgstr "Panely súborov"
+
+#: src/gnome-cmd-options-dialog.c:516
 msgid "Font:"
 msgstr "Písmo:"
 
-#: src/gnome-cmd-options-dialog.c:498
+#: src/gnome-cmd-options-dialog.c:518
 msgid "Row height:"
 msgstr "Výška riadku:"
 
 #. File extensions
-#: src/gnome-cmd-options-dialog.c:502
-#, fuzzy
+#: src/gnome-cmd-options-dialog.c:522
 msgid "Display file extensions:"
-msgstr "Zobraziť príponu súbora"
-
-#: src/gnome-cmd-options-dialog.c:512
-msgid "With filename"
-msgstr "spolu s názvom"
-
-#: src/gnome-cmd-options-dialog.c:516
-msgid "In separate column"
-msgstr "v samostatnom stĺpci"
-
-#: src/gnome-cmd-options-dialog.c:520
-msgid "In both columns"
-msgstr "V oboch stĺpcoch"
+msgstr "Zobraziť príponu súboru:"
 
 #. Graphical mode
-#: src/gnome-cmd-options-dialog.c:529
-#, fuzzy
+#: src/gnome-cmd-options-dialog.c:530
 msgid "Graphical mode:"
-msgstr "Grafický režim"
+msgstr "Grafický režim:"
 
-#: src/gnome-cmd-options-dialog.c:541
-msgid "MIME icons"
-msgstr "MIME ikony"
+#. Color scheme
+#: src/gnome-cmd-options-dialog.c:540
+msgid "Color scheme:"
+msgstr "Farebná schéma:"
 
-#: src/gnome-cmd-options-dialog.c:545
-msgid "File type icons"
-msgstr "Ikony podľa typu súborov"
-
-#: src/gnome-cmd-options-dialog.c:549
-msgid "Text (fastest)"
-msgstr "Text (najrýchlejšie)"
-
-#. Colors
-#: src/gnome-cmd-options-dialog.c:558
-#, fuzzy
-msgid "Colors:"
-msgstr "Farby"
-
-#: src/gnome-cmd-options-dialog.c:573
-msgid "Respect theme settings"
-msgstr ""
-
-#: src/gnome-cmd-options-dialog.c:577
-#, fuzzy
-msgid "Modern"
-msgstr "Presunúť"
-
-#: src/gnome-cmd-options-dialog.c:581
-msgid "Classic"
-msgstr ""
-
-#: src/gnome-cmd-options-dialog.c:585
-#, fuzzy
-msgid "Custom"
-msgstr "Vystrihnúť"
-
-#: src/gnome-cmd-options-dialog.c:593
-#, fuzzy
+#: src/gnome-cmd-options-dialog.c:553
 msgid "Edit..."
-msgstr "_Upraviť..."
+msgstr "Upraviť..."
 
-#: src/gnome-cmd-options-dialog.c:603
-#, fuzzy
+#: src/gnome-cmd-options-dialog.c:563
 msgid "Colorize files according to the LS_COLORS enviroment variable"
-msgstr "Použiť farby z premennej prostredia LS_COLORS"
+msgstr "Na súbory použiť farby z premennej prostredia LS_COLORS"
 
-#: src/gnome-cmd-options-dialog.c:615
+#: src/gnome-cmd-options-dialog.c:575
 msgid "MIME icon settings"
 msgstr "Nastavenia MIME ikon"
 
-#: src/gnome-cmd-options-dialog.c:632
+#: src/gnome-cmd-options-dialog.c:592
 msgid "Icon size:"
 msgstr "Veľkosť ikony:"
 
-#: src/gnome-cmd-options-dialog.c:634
+#: src/gnome-cmd-options-dialog.c:594
 msgid "Scaling quality:"
 msgstr "Kvalita zmeny veľkosti"
 
-#: src/gnome-cmd-options-dialog.c:636
+#: src/gnome-cmd-options-dialog.c:596
 msgid "Theme icon directory:"
 msgstr "Priečinok s tematickými ikonami:"
 
-#: src/gnome-cmd-options-dialog.c:638
+#: src/gnome-cmd-options-dialog.c:598
 msgid "Document icon directory:"
 msgstr "Priečinok s ikonami dokumentov:"
 
-#: src/gnome-cmd-options-dialog.c:730
+#: src/gnome-cmd-options-dialog.c:715
 msgid "Filetypes to hide"
 msgstr "Typy súborov, ktoré budú skryté"
 
-#: src/gnome-cmd-options-dialog.c:733
+#: src/gnome-cmd-options-dialog.c:718
 msgid "Unknown"
 msgstr "Neznámy"
 
-#: src/gnome-cmd-options-dialog.c:738
+#: src/gnome-cmd-options-dialog.c:723
 msgid "Regular files"
 msgstr "Regulárne súbory"
 
-#: src/gnome-cmd-options-dialog.c:743
+#: src/gnome-cmd-options-dialog.c:728
 msgid "Directories"
 msgstr "Priečinky"
 
-#: src/gnome-cmd-options-dialog.c:748
+#: src/gnome-cmd-options-dialog.c:733
 msgid "Fifo files"
 msgstr "Fifo súbory"
 
-#: src/gnome-cmd-options-dialog.c:753
+#: src/gnome-cmd-options-dialog.c:738
 msgid "Socket files"
 msgstr "Soket súbory"
 
-#: src/gnome-cmd-options-dialog.c:758
+#: src/gnome-cmd-options-dialog.c:743
 msgid "Character devices"
 msgstr "Znakové zariadenia"
 
-#: src/gnome-cmd-options-dialog.c:763
+#: src/gnome-cmd-options-dialog.c:748
 msgid "Block devices"
 msgstr "Blokové zariadenia"
 
-#: src/gnome-cmd-options-dialog.c:771
+#: src/gnome-cmd-options-dialog.c:756
 msgid "Also hide"
 msgstr "Tiež skryť"
 
-#: src/gnome-cmd-options-dialog.c:774
+#: src/gnome-cmd-options-dialog.c:759
 msgid "Hidden files"
 msgstr "Skryté súbory"
 
-#: src/gnome-cmd-options-dialog.c:779
-#, fuzzy
+#: src/gnome-cmd-options-dialog.c:764
+#: src/gnome-cmd-options-dialog.c:777
 msgid "Backup files"
-msgstr "Soket súbory"
+msgstr "Záložné súbory"
 
-#: src/gnome-cmd-options-dialog.c:784
+#: src/gnome-cmd-options-dialog.c:769
 msgid "Symlinks"
 msgstr "Symbolické odkazy"
 
-#: src/gnome-cmd-options-dialog.c:1032
+#: src/gnome-cmd-options-dialog.c:1036
 msgid "Label:"
 msgstr "Označenie:"
 
-#: src/gnome-cmd-options-dialog.c:1034
+#: src/gnome-cmd-options-dialog.c:1038
 msgid "Command:"
 msgstr "Príkaz:"
 
-#: src/gnome-cmd-options-dialog.c:1036 src/gnome-cmd-options-dialog.c:1474
+#: src/gnome-cmd-options-dialog.c:1040
+#: src/gnome-cmd-options-dialog.c:1478
 msgid "Icon:"
 msgstr "Ikona:"
 
-#: src/gnome-cmd-options-dialog.c:1057
+#: src/gnome-cmd-options-dialog.c:1061
 msgid "Can handle multiple files"
 msgstr "Vie pracovať s viacerými súbormi"
 
-#: src/gnome-cmd-options-dialog.c:1061
+#: src/gnome-cmd-options-dialog.c:1065
 msgid "Can handle URIs"
 msgstr "Vie pracovať s URI"
 
-#: src/gnome-cmd-options-dialog.c:1065
+#: src/gnome-cmd-options-dialog.c:1069
 msgid "Requires terminal"
 msgstr "Vyžaduje terminál"
 
-#: src/gnome-cmd-options-dialog.c:1072
+#: src/gnome-cmd-options-dialog.c:1076
 msgid "Show for"
 msgstr "Zobraziť pre"
 
-#: src/gnome-cmd-options-dialog.c:1081
+#: src/gnome-cmd-options-dialog.c:1085
 msgid "All directories"
 msgstr "Všetky priečinky"
 
-#: src/gnome-cmd-options-dialog.c:1087
+#: src/gnome-cmd-options-dialog.c:1091
 msgid "All directories and files"
 msgstr "Všetky priečinky a súbory"
 
-#: src/gnome-cmd-options-dialog.c:1093
+#: src/gnome-cmd-options-dialog.c:1097
 msgid "Some files"
 msgstr "Niektoré súbory"
 
-#: src/gnome-cmd-options-dialog.c:1104
+#: src/gnome-cmd-options-dialog.c:1108
 msgid "File patterns"
 msgstr "Vzory súborov"
 
-#: src/gnome-cmd-options-dialog.c:1129
+#: src/gnome-cmd-options-dialog.c:1133
 msgid "New Application"
 msgstr "Nová aplikácia"
 
-#: src/gnome-cmd-options-dialog.c:1140
+#: src/gnome-cmd-options-dialog.c:1144
 msgid "Edit Application"
 msgstr "Upraviť aplikáciu"
 
-#: src/gnome-cmd-options-dialog.c:1226
+#: src/gnome-cmd-options-dialog.c:1230
 msgid "Always download remote files before opening in external programs"
 msgstr "Vždy stiahnuť vzdialené súbory pred ich otvorením v externom programe"
 
-#: src/gnome-cmd-options-dialog.c:1230
+#: src/gnome-cmd-options-dialog.c:1234
 msgid "MIME applications"
 msgstr "MIME aplikácie"
 
-#: src/gnome-cmd-options-dialog.c:1234
+#: src/gnome-cmd-options-dialog.c:1238
 msgid "Standard programs"
 msgstr "Štandardné programy"
 
-#: src/gnome-cmd-options-dialog.c:1237
+#: src/gnome-cmd-options-dialog.c:1241
 msgid "Viewer:"
 msgstr "Zobrazovač:"
 
-#: src/gnome-cmd-options-dialog.c:1239
+#: src/gnome-cmd-options-dialog.c:1243
 msgid "Editor:"
 msgstr "Editor:"
 
-#: src/gnome-cmd-options-dialog.c:1241
+#: src/gnome-cmd-options-dialog.c:1245
 msgid "Differ:"
 msgstr "Differ:"
 
-#: src/gnome-cmd-options-dialog.c:1243
+#: src/gnome-cmd-options-dialog.c:1247
 msgid "Terminal:"
 msgstr "Terminál:"
 
-#: src/gnome-cmd-options-dialog.c:1262
+#: src/gnome-cmd-options-dialog.c:1266
 msgid "Other favorite apps"
 msgstr "Ďalšie obľúbené aplikácie"
 
-#: src/gnome-cmd-options-dialog.c:1269
+#: src/gnome-cmd-options-dialog.c:1273
 msgid "Label"
 msgstr "Popis"
 
-#: src/gnome-cmd-options-dialog.c:1470
+#: src/gnome-cmd-options-dialog.c:1474
 msgid "Device:"
 msgstr "Zariadenie:"
 
-#: src/gnome-cmd-options-dialog.c:1472
+#: src/gnome-cmd-options-dialog.c:1476
 msgid "Mount point:"
 msgstr "Bod pripojenia:"
 
-#: src/gnome-cmd-options-dialog.c:1516
+#: src/gnome-cmd-options-dialog.c:1520
 msgid "New Device"
 msgstr "Nové zariadenie"
 
-#: src/gnome-cmd-options-dialog.c:1528
+#: src/gnome-cmd-options-dialog.c:1532
 msgid "Edit Device"
 msgstr "Upraviť zariadenie"
 
-#: src/gnome-cmd-options-dialog.c:1612 src/gnome-cmd-options-dialog.c:1822
+#: src/gnome-cmd-options-dialog.c:1616
+#: src/gnome-cmd-options-dialog.c:1826
 msgid "Devices"
 msgstr "Zariadenia"
 
-#: src/gnome-cmd-options-dialog.c:1654
+#: src/gnome-cmd-options-dialog.c:1658
 msgid "Show only the icons"
 msgstr "Zobraziť iba ikony"
 
-#: src/gnome-cmd-options-dialog.c:1659
+#: src/gnome-cmd-options-dialog.c:1663
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Preskočiť pripojenie (mount) - užitočné, ak používate super-mount"
 
-#: src/gnome-cmd-options-dialog.c:1792
+#: src/gnome-cmd-options-dialog.c:1796
 msgid "General"
 msgstr "Všeobecné"
 
-#: src/gnome-cmd-options-dialog.c:1798
+#: src/gnome-cmd-options-dialog.c:1802
 msgid "Format"
 msgstr "Formát"
 
-#: src/gnome-cmd-options-dialog.c:1804
+#: src/gnome-cmd-options-dialog.c:1808
 msgid "Layout"
 msgstr "Rozloženie"
 
-#: src/gnome-cmd-options-dialog.c:1810
+#: src/gnome-cmd-options-dialog.c:1814
 msgid "Filters"
 msgstr "Filtre"
 
-#: src/gnome-cmd-options-dialog.c:1816
+#: src/gnome-cmd-options-dialog.c:1820
 msgid "Programs"
 msgstr "Programy"
 
-#: src/gnome-cmd-patternsel-dialog.c:118
-msgid "Pattern:"
-msgstr "Vzorky:"
-
-#: src/gnome-cmd-patternsel-dialog.c:126
+#: src/gnome-cmd-patternsel-dialog.c:136
 msgid "Select Using Pattern"
 msgstr "Výber podľa vzorky"
 
-#: src/gnome-cmd-patternsel-dialog.c:126
+#: src/gnome-cmd-patternsel-dialog.c:136
 msgid "Unselect Using Pattern"
 msgstr "Odznačenie podľa vzorky"
+
+#: src/gnome-cmd-patternsel-dialog.c:147
+msgid "Pattern:"
+msgstr "Vzorky:"
 
 #.
 #. * Create prepare copy specific widgets
@@ -1431,7 +1601,8 @@ msgid "Query First"
 msgstr "Najskôr sa opýtať"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:111
-#: src/gnome-cmd-prepare-move-dialog.c:105 src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-prepare-move-dialog.c:105
+#: src/gnome-cmd-xfer.c:176
 msgid "Skip All"
 msgstr "Všetko preskočiť"
 
@@ -1447,19 +1618,7 @@ msgstr "Sledovať symb. odkazy"
 msgid "Overwrite Files"
 msgstr "Prepísať súbory"
 
-#: src/gnome-cmd-prepare-copy-dialog.c:152
-#: src/gnome-cmd-make-copy-dialog.c:154
-#, c-format
-msgid "Copy \"%s\" to"
-msgstr "Kopírovať do \"%s\" do"
-
 #: src/gnome-cmd-prepare-copy-dialog.c:156
-#, c-format
-msgid "copy %d file to"
-msgid_plural "copy %d files to"
-msgstr[0] ""
-msgstr[1] ""
-
 #: src/gnome-cmd-prepare-move-dialog.c:80
 msgid "Move"
 msgstr "Presunúť"
@@ -1470,12 +1629,6 @@ msgid "Move \"%s\" to"
 msgstr "Presunúť \"%s\" do"
 
 #: src/gnome-cmd-prepare-move-dialog.c:139
-#, c-format
-msgid "move %d file to"
-msgid_plural "move %d files to"
-msgstr[0] ""
-msgstr[1] ""
-
 #: src/gnome-cmd-prepare-xfer-dialog.c:114
 #: src/gnome-cmd-prepare-xfer-dialog.c:153
 #, c-format
@@ -1486,77 +1639,61 @@ msgstr "Priečinok '%s' neexistuje, chcete ho vytvoriť?"
 msgid "Search"
 msgstr "Hľadať"
 
-#: src/gnome-cmd-rename-dialog.c:145
+#: src/gnome-cmd-rename-dialog.c:147
 #, c-format
 msgid "Rename \"%s\" to"
 msgstr "Premenovať  \"%s\" na"
 
-#: src/gnome-cmd-rename-dialog.c:153
+#: src/gnome-cmd-rename-dialog.c:155
 msgid "Rename File"
 msgstr "Premenovať súbor"
 
-#: src/gnome-cmd-make-copy-dialog.c:162
-msgid "Copy File"
-msgstr "Kopírovať súbor"
-
-#: src/gnome-cmd-search-dialog.c:186
+#: src/gnome-cmd-search-dialog.c:184
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Nepodarilo sa otvoriť súbor %s: %s\n"
 
-#: src/gnome-cmd-search-dialog.c:195
+#: src/gnome-cmd-search-dialog.c:193
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Nepodarilo sa čítať zo súbora %s: %s\n"
 
-#: src/gnome-cmd-search-dialog.c:257
+#: src/gnome-cmd-search-dialog.c:255
 #, c-format
 msgid "Searching in: %s"
 msgstr "Hľadať v: %s"
 
-#: src/gnome-cmd-search-dialog.c:401
-#, c-format
-msgid "Found %d match before I was stopped"
-msgid_plural "Found %d matches before I was stopped"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/gnome-cmd-search-dialog.c:408
-#, c-format
-msgid "Found %d match"
-msgid_plural "Found %d matches"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/gnome-cmd-search-dialog.c:739
+#: src/gnome-cmd-search-dialog.c:399
+#: src/gnome-cmd-search-dialog.c:406
+#: src/gnome-cmd-search-dialog.c:737
 msgid "Search..."
-msgstr "Nájsť..."
+msgstr "Hľadať..."
 
 #. Search for
-#: src/gnome-cmd-search-dialog.c:754
+#: src/gnome-cmd-search-dialog.c:752
 msgid "Search for: "
 msgstr "Hľadať: "
 
 #. Search in
-#: src/gnome-cmd-search-dialog.c:768
+#: src/gnome-cmd-search-dialog.c:766
 msgid "Search in: "
 msgstr "Hľadať v:"
 
 #. Find text
-#: src/gnome-cmd-search-dialog.c:782
+#: src/gnome-cmd-search-dialog.c:780
 msgid "Find text: "
 msgstr "Hľadať text: "
 
-#: src/gnome-cmd-search-dialog.c:799
+#: src/gnome-cmd-search-dialog.c:797
 msgid "Search Recursively"
 msgstr "Hľadať rekurzívne"
 
 #. Case check
-#: src/gnome-cmd-search-dialog.c:807
+#: src/gnome-cmd-search-dialog.c:805
 msgid "Case Sensitive"
 msgstr "Rozlišovať veľkosť písmen"
 
-#: src/gnome-cmd-search-dialog.c:819
+#: src/gnome-cmd-search-dialog.c:817
 msgid "Goto"
 msgstr "Prejsť do"
 
@@ -1564,13 +1701,39 @@ msgstr "Prejsť do"
 msgid "Chmod"
 msgstr "Chmod"
 
+#: src/gnome-cmd-smb-path.c:331
+#, c-format
+msgid "Can't find a host or workgroup named %s\n"
+msgstr "Nie je možné nájsť hostiteľa (host) alebo pracovnú skupinu (workgroup ) pomenovanú ako %s\n"
+
+#: src/gnome-cmd-xfer-progress-win.c:37
+msgid "stopping..."
+msgstr "zastavuje sa..."
+
+#: src/gnome-cmd-xfer-progress-win.c:88
+msgid "Progress"
+msgstr "Priebeh"
+
+#: src/gnome-cmd-xfer-progress-win.c:174
+#, c-format
+msgid "%d%% of %s copied"
+msgstr "%d%% z %s skopírované"
+
+#: src/gnome-cmd-xfer-progress-win.c:179
+#, c-format
+msgid "%d%% copied"
+msgstr "%d%% skopírované"
+
 #: src/gnome-cmd-xfer.c:170
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
 "\n"
 "Do you want to overwrite it?\n"
-msgstr "Priečinok '%s' neexistuje, chcete ho vytvoriť?"
+msgstr ""
+"Súbor '%s' už existuje.\n"
+"\n"
+"Chcete ho prepísať?\n"
 
 #: src/gnome-cmd-xfer.c:176
 msgid "Replace"
@@ -1595,16 +1758,16 @@ msgstr ""
 msgid "Xfer problem"
 msgstr "Xfer problém"
 
-#: src/gnome-cmd-xfer.c:231
+#: src/gnome-cmd-xfer.c:233
 msgid "copying..."
 msgstr "kopírujem..."
 
-#: src/gnome-cmd-xfer.c:239
+#: src/gnome-cmd-xfer.c:241
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[súbor %ld z %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.c:383
+#: src/gnome-cmd-xfer.c:367
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
@@ -1612,251 +1775,102 @@ msgstr ""
 "Kopírovať priečinok do seba samého nie je dobrý nápad.\n"
 "Celá operácia bola zrušená."
 
-#: src/gnome-cmd-xfer.c:430
+#: src/gnome-cmd-xfer.c:414
 msgid "preparing..."
 msgstr "pripravuje sa..."
 
-#: src/gnome-cmd-xfer.c:525
+#: src/gnome-cmd-xfer.c:509
 msgid "downloading to /tmp"
 msgstr "sťahovanie do /tmp"
 
-#: src/gnome-cmd-about-plugin.c:184
-msgid "Credits"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:216
-#, fuzzy
-msgid "Written by"
-msgstr "Zapisovať"
-
-#: src/gnome-cmd-about-plugin.c:231
-msgid "Documented by"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:246
-msgid "Translated by"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:302
-msgid "Plugin Webpage"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:314
-#, fuzzy
-msgid "C_redits"
-msgstr "_Upraviť"
-
-#: src/gnome-cmd-about-plugin.c:369
-#, fuzzy
-msgid "Program name"
-msgstr "Programy"
-
-#: src/gnome-cmd-about-plugin.c:370
-msgid "The name of the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:377
-#, fuzzy
-msgid "Program version"
-msgstr "Programy"
-
-#: src/gnome-cmd-about-plugin.c:378
-msgid "The version of the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:384
-msgid "Copyright string"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:385
-msgid "Copyright information for the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:392
-msgid "Comments string"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:393
-msgid "Comments about the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:399
-msgid "Authors"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:400
-msgid "List of authors of the programs"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:402
-msgid "Author entry"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:403
-msgid "A single author entry"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:410
-msgid "Documenters"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:411
-msgid "List of people documenting the program"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:413
-#, fuzzy
-msgid "Documenter entry"
-msgstr "Priečinok s ikonami dokumentov:"
-
-#: src/gnome-cmd-about-plugin.c:414
-msgid "A single documenter entry"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:422
-msgid "Translator credits"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:423
-msgid ""
-"Credits to the translators. This string should be marked as translatable"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:430
-msgid "Webpage for the plugin"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:431
-msgid "Webpage"
-msgstr ""
-
-#: src/gnome-cmd-about-plugin.c:523
-#, fuzzy, c-format
-msgid "About %s"
-msgstr "Mount: %s"
-
-#: src/gnome-cmd-xfer-progress-win.c:37
-msgid "stopping..."
-msgstr "zastavuje sa..."
-
-#: src/gnome-cmd-xfer-progress-win.c:88
-msgid "Progress"
-msgstr "Priebeh"
-
-#: src/gnome-cmd-xfer-progress-win.c:174
-#, c-format
-msgid "%d%% of %s copied"
-msgstr "%d%% z %s skopírované"
-
-#: src/gnome-cmd-xfer-progress-win.c:179
-#, c-format
-msgid "%d%% copied"
-msgstr "%d%% skopírované"
-
-#: src/plugin_manager.c:294
-msgid "Disable"
-msgstr ""
-
-#: src/plugin_manager.c:299
-#, fuzzy
-msgid "Enable"
-msgstr "názov"
-
-#: src/plugin_manager.c:423
-msgid "Available plugins"
-msgstr ""
-
-#: src/plugin_manager.c:429
-#, fuzzy
-msgid "Name"
-msgstr "názov"
-
-#: src/plugin_manager.c:430
-#, fuzzy
-msgid "Version"
-msgstr "Práva"
-
-#: src/plugin_manager.c:431
-#, fuzzy
-msgid "File"
-msgstr "_Súbor"
-
-#: src/plugin_manager.c:437
-msgid "_Enable"
-msgstr ""
-
-#: src/plugin_manager.c:442
-#, fuzzy
-msgid "_Configure"
-msgstr "_Nastaviť moduly..."
-
-#: src/plugin_manager.c:448
-#, fuzzy
-msgid "_About"
-msgstr "_O programe..."
-
 #: src/imageloader.c:124
-msgid ""
-"Couldn't load installed file type pixmap, trying to load from source-dir\n"
-msgstr ""
-"Nie je možné načítať inštalované obrázky, pokúšam sa načítavať zo source-"
-"dir\n"
+msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgstr "Nie je možné načítať inštalované obrázky, pokúšam sa načítavať zo source-dir\n"
 
-#: src/imageloader.c:126 src/imageloader.c:152
+#: src/imageloader.c:126
+#: src/imageloader.c:152
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr "Pokúšam sa načítať %s namiesto\n"
 
-#: src/imageloader.c:130 src/imageloader.c:155
-msgid ""
-"Cant find the pixmap anywhere. Make sure you have installed the program or "
-"is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
-msgstr ""
-"Nikde neviem nájsť obrázky. Uistite sa, že ste nainštalovali program alebo "
-"že spúšťate gnome-commander z gnome-commander-x.y.z/src priečinka\n"
+#: src/imageloader.c:130
+#: src/imageloader.c:155
+msgid "Cant find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
+msgstr "Nikde neviem nájsť obrázky. Uistite sa, že ste nainštalovali program alebo že spúšťate gnome-commander z gnome-commander-x.y.z/src priečinka\n"
 
 #: src/imageloader.c:150
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr "Neviem načítať nainštalované obrázky, skúšam načítavať zo source-dir\n"
 
-#: src/main.c:60
+#: src/main.c:56
 msgid "Specify debug flags to use"
 msgstr "Určenie ladiacich parametrov pre použitie"
 
-#: src/main.c:62
+#: src/main.c:58
 msgid "Specify the start directory for the left pane"
 msgstr "Určite štartovací priečinok pre ľavý panel"
 
-#: src/main.c:64
+#: src/main.c:60
 msgid "Specify the start directory for the right pane"
 msgstr "Určite štartovací priečinok pre pravý panel"
 
 #: src/owner.c:98
 #, c-format
-msgid ""
-"When parsing the users and groups on this system it was found that the user %"
-"s is part of the group %s. This user can however not be found.\n"
-msgstr ""
-"Pri analýze používateľov a skupín v tomto systéme bolo zistené, že "
-"používateľ %s je súčasťou skupiny %s. Avšak tohoto používateľa nie je možné "
-"nájsť.\n"
+msgid "When parsing the users and groups on this system it was found that the user %s is part of the group %s. This user can however not be found.\n"
+msgstr "Pri analýze používateľov a skupín v tomto systéme bolo zistené, že používateľ %s je súčasťou skupiny %s. Avšak tohoto používateľa nie je možné nájsť.\n"
+
+#: src/plugin_manager.c:361
+msgid "Disable"
+msgstr "Zakázať"
+
+#: src/plugin_manager.c:366
+msgid "Enable"
+msgstr "Povoliť"
+
+#: src/plugin_manager.c:435
+msgid "Available plugins"
+msgstr "Dostupné moduly"
+
+#: src/plugin_manager.c:441
+msgid "Name"
+msgstr "Názov"
+
+#: src/plugin_manager.c:442
+msgid "Version"
+msgstr "Verzia"
+
+#: src/plugin_manager.c:443
+msgid "File"
+msgstr "Súbor"
+
+#: src/plugin_manager.c:449
+msgid "_Enable"
+msgstr "_Povoliť"
+
+#: src/plugin_manager.c:454
+msgid "_Configure"
+msgstr "_Nastaviť"
+
+#: src/plugin_manager.c:460
+msgid "_About"
+msgstr "_O programe"
 
 #: src/useractions.c:261
 #, c-format
 msgid "running \"%s\"\n"
 msgstr "beží \"%s\"\n"
 
-#: src/useractions.c:636
+#: src/useractions.c:632
 msgid "A fast and powerfull file manager for the GNOME desktop"
-msgstr ""
+msgstr "Rýchly a výkonný správca súborov pre prostredie GNOME "
 
 #. xgettext:
 #. * Replace this with your name when translating
-#: src/useractions.c:641
+#: src/useractions.c:637
 msgid "No translation is currently in use."
 msgstr "Zdenko Podobný <zdpo (zavináč) mailbox (bodka) sk>"
 
-#: src/utils.c:513
+#: src/utils.c:519
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -1865,126 +1879,52 @@ msgstr ""
 "Pre mime-typ %s nebola nájdená žiadna štandardná aplikácia.\n"
 "V Nastaveniach otvorte \"Upraviť Mime typy...\" a pridajte nový."
 
-#: src/utils.c:593
-#, c-format
-msgid ""
-"\"%s\" seems to be a binary executable file but it lacks the executable bit. "
-"Do you want to set it and then run the file?"
-msgstr ""
+#: src/utils.c:599
+msgid "\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"
+msgstr "Zdá sa, že \"%s\" je binárny súbor, ale nie je nastavený ako spustiteľný. Chcete ho takto nastaviť a potom ho spustiť?"
 
-#: src/utils.c:596
-#, fuzzy
+#: src/utils.c:602
 msgid "Make Executable?"
+msgstr "Urobiť spustiteľným?"
+
+#: src/utils.c:629
+msgid "\"%s\" is an executable text file. Do you want to run it, or display it's contents?"
+msgstr "\"%s\" je spustiteľný textový súbor. Chcete ho spustiť alebo zobraziť jeho obsah?"
+
+#: src/utils.c:631
+msgid "Run or Display"
+msgstr "Spustiť alebo zobraziť"
+
+#: src/utils.c:632
+msgid "Display"
+msgstr "Zobrazenie"
+
+#: src/utils.c:632
+msgid "Run"
 msgstr "Spustiť"
 
-#: src/utils.c:623
+#: src/utils.c:668
 #, c-format
-msgid ""
-"\"%s\" is an executable text file. Do you want to run it, or display it's "
-"contents?"
-msgstr ""
+msgid "%s does not know how to open remote files. Do you want to download the file to a temporary location and then open it?"
+msgstr "%s nevie otvoriť vzdialené súbory. Chcete súbor stiahnuť na prechodné miesto a otvoriť ho?"
 
-#: src/utils.c:625
-msgid "Run or Display"
-msgstr ""
-
-#: src/utils.c:626
-msgid "Display"
-msgstr ""
-
-#: src/utils.c:626
-msgid "Run"
-msgstr ""
-
-#: src/utils.c:662
+#: src/utils.c:742
 #, c-format
-msgid ""
-"%s does not know how to open remote files. Do you want to download the file "
-"to a temporary location and then open it?"
-msgstr ""
-"%s nevie otvoriť vzdialené súbory. Chcete súbor stiahnuť na prechodné miesto "
-"a otvoriť ho?"
+msgid "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?"
+msgstr "%s nevie otvoriť vzdialené súbory. Chcete súbory stiahnuť na prechodné miesto a otvoriť ich?"
 
-#: src/utils.c:736
-#, c-format
-msgid ""
-"%s does not know how to open remote files. Do you want to download the files "
-"to a temporary location and then open them?"
-msgstr ""
-"%s nevie otvoriť vzdialené súbory. Chcete súbory stiahnuť na prechodné "
-"miesto a otvoriť ich?"
-
-#: src/utils.c:1344
+#: src/utils.c:1357
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Vytváranie priečinka %s... "
 
-#: src/utils.c:1349
+#: src/utils.c:1362
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Nepodarilo sa vytvoriť priečinok %s"
 
-#: src/utils.c:1355
+#: src/utils.c:1368
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Nie je možné čítať z priečinka %s: %s\n"
 
-#: plugins/fileroller/file-roller-plugin.c:168
-msgid "What filename should the new archive have?"
-msgstr ""
-
-#: plugins/fileroller/file-roller-plugin.c:170
-msgid "Create Archive"
-msgstr ""
-
-#: plugins/fileroller/file-roller-plugin.c:274
-#, fuzzy
-msgid "Create Archive..."
-msgstr "Nájsť..."
-
-#: plugins/fileroller/file-roller-plugin.c:288
-msgid "Extract in Current Directory"
-msgstr ""
-
-#: plugins/fileroller/file-roller-plugin.c:293
-#, c-format
-msgid "Extract to '%s'"
-msgstr ""
-
-#: plugins/fileroller/file-roller-plugin.c:353
-#, fuzzy
-msgid "File-roller options"
-msgstr "Nastavenia priečinkov"
-
-#: plugins/fileroller/file-roller-plugin.c:356
-#, fuzzy
-msgid "Default type"
-msgstr "Štandard:"
-
-#~ msgid "Device mounting failed"
-#~ msgstr "Pripojenie zariadenia zlyhalo"
-
-#~ msgid "Change Permissions"
-#~ msgstr "Zmeniť práva"
-
-#~ msgid "Change Owner/Group"
-#~ msgstr "Zmeniť vlastníka/skupinu"
-
-#~ msgid "_Count Total Size"
-#~ msgstr "Spočítať _celkovú veľkosť"
-
-#~ msgid "File listings"
-#~ msgstr "Zoznam súborov"
-
-#~ msgid "Main window"
-#~ msgstr "Hlavné okno"
-
-#~ msgid ""
-#~ "Do you want to overwrite the file:\n"
-#~ " %s\n"
-#~ msgstr ""
-#~ "Chcete prepísať súbor:\n"
-#~ " %s\n"
-
-#~ msgid "Conflict while copying"
-#~ msgstr "Konflikt pri kopírovaní"
