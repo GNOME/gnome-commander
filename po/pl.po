@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-07 21:25+0200\n"
-"PO-Revision-Date: 2004-04-07 21:54+0200\n"
+"POT-Creation-Date: 2004-04-21 00:23+0200\n"
+"PO-Revision-Date: 2004-04-21 00:39+0200\n"
 "Last-Translator: Piotr Eljasiak <epiotr@cvs.gnome.org>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: gnome-commander.desktop.in.h:1
 msgid "A two paned file manager"
@@ -44,7 +45,7 @@ msgstr "Stopień kompresji"
 
 #: plugins/cvs/cvs-plugin.c:334
 msgid "Unified diff format"
-msgstr ""
+msgstr "Zunifikowany format diff"
 
 #: plugins/cvs/cvs-plugin.c:448
 msgid "A plugin that eventually will be a simple CVS client"
@@ -67,7 +68,6 @@ msgid "Other revision"
 msgstr "Inne wydanie"
 
 #: plugins/cvs/interface.c:261
-#, fuzzy
 msgid "CVS Diff"
 msgstr "CVS diff"
 
@@ -145,7 +145,7 @@ msgstr ""
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
-msgstr ""
+msgstr "To jest przykładowa wtyczka, która jest najbardziej przydatna jako prosty przykład dla kandydatów na twórców wtyczek"
 
 #: src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
@@ -173,9 +173,9 @@ msgid "C_redits"
 msgstr "P_odziękowania"
 
 #: src/gnome-cmd-about-plugin.c:523
-#, fuzzy, c-format
+#, c-format
 msgid "About %s"
-msgstr "Odmontuj urządzenie"
+msgstr "Informacje o %s"
 
 #: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
 #: src/utils.c:745
@@ -488,7 +488,7 @@ msgstr "Home"
 
 #: src/gnome-cmd-con-home.c:137
 msgid "Go to: Home"
-msgstr ""
+msgstr "Idź do: Katalog domowy"
 
 #: src/gnome-cmd-con-smb.c:94
 msgid "Failed to browse the network. Is the SMB module installed?"
@@ -504,7 +504,7 @@ msgstr "Szukanie grup roboczych i hostów"
 
 #: src/gnome-cmd-con-smb.c:219
 msgid "Go to: Samba Network"
-msgstr ""
+msgstr "Idź do: Sieć Samby"
 
 #: src/gnome-cmd-delete-dialog.c:143
 msgid "Deleting..."
@@ -539,12 +539,12 @@ msgstr "Ponów"
 msgid "Skip"
 msgstr "Pomiń"
 
-#: src/gnome-cmd-delete-dialog.c:296
+#: src/gnome-cmd-delete-dialog.c:307
 #, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "Czy chcesz usunąć \"%s\" ?"
 
-#: src/gnome-cmd-delete-dialog.c:301
+#: src/gnome-cmd-delete-dialog.c:312
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -552,15 +552,15 @@ msgstr[0] "Czy chcesz usunąć %d zaznaczony plik ?"
 msgstr[1] "Czy chcesz usunąć %d zaznaczone pliki ?"
 msgstr[2] "Czy chcesz usunąć %d zaznaczonych plików ?"
 
-#: src/gnome-cmd-delete-dialog.c:309 src/gnome-cmd-main-win.c:1334
+#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1347
 msgid "Delete"
 msgstr "Usuń"
 
-#: src/gnome-cmd-delete-dialog.c:309 src/utils.c:603 src/utils.c:632
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603 src/utils.c:632
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/gnome-cmd-delete-dialog.c:309 src/utils.c:603
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603
 msgid "OK"
 msgstr "OK"
 
@@ -660,7 +660,7 @@ msgstr "% bajtów"
 msgid "No default application registered"
 msgstr "Brak zarejestrowanej domyślnej aplikacji"
 
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2049
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2058
 msgid "Filename:"
 msgstr "Nazwa pliku:"
 
@@ -720,70 +720,70 @@ msgstr[0] "%s z %s kB w %d z %d zaznaczonym pliku"
 msgstr[1] "%s z %s kB w %d z %d zaznaczonych plikach"
 msgstr[2] "%s z %s kB w %d z %d zaznaczonych plikach"
 
-#: src/gnome-cmd-file-selector.c:726
+#: src/gnome-cmd-file-selector.c:730
 #, c-format
 msgid "%s Free"
 msgstr "%s wolne"
 
-#: src/gnome-cmd-file-selector.c:1780
+#: src/gnome-cmd-file-selector.c:1784
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Nie można otworzyć połączenia: %s\n"
 
-#: src/gnome-cmd-file-selector.c:1989 src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-file-selector.c:1993 src/gnome-cmd-make-copy-dialog.c:68
 #: src/gnome-cmd-rename-dialog.c:52
 msgid "No filename entered"
 msgstr "Nie wprowadzono nazwy pliku"
 
-#: src/gnome-cmd-file-selector.c:2025
+#: src/gnome-cmd-file-selector.c:2029
 msgid "No filename given"
 msgstr "Nie wprowadzono nazwy pliku"
 
-#: src/gnome-cmd-file-selector.c:2055
+#: src/gnome-cmd-file-selector.c:2064
 msgid "New Text File"
 msgstr "Nowy plik tekstowy"
 
-#: src/gnome-cmd-file-selector.c:2224
+#: src/gnome-cmd-file-selector.c:2233
 msgid "Symlink name:"
 msgstr "Nazwa linku symbolicznego:"
 
-#: src/gnome-cmd-file-selector.c:2230
+#: src/gnome-cmd-file-selector.c:2239
 msgid "Create Symbolic Link"
 msgstr "Utwórz link symboliczny"
 
-#: src/gnome-cmd-file-selector.c:2301
+#: src/gnome-cmd-file-selector.c:2310
 msgid "Filter:"
 msgstr "Filtr:"
 
-#: src/gnome-cmd-file.c:596
+#: src/gnome-cmd-file.c:603
 msgid "Unknown file type"
 msgstr "Nieznany typ pliku"
 
-#: src/gnome-cmd-file.c:597
+#: src/gnome-cmd-file.c:604
 msgid "Regular file"
 msgstr "Normalny plik"
 
-#: src/gnome-cmd-file.c:598
+#: src/gnome-cmd-file.c:605
 msgid "Directory"
 msgstr "Katalog"
 
-#: src/gnome-cmd-file.c:599
+#: src/gnome-cmd-file.c:606
 msgid "FIFO"
 msgstr "FIFO"
 
-#: src/gnome-cmd-file.c:600
+#: src/gnome-cmd-file.c:607
 msgid "UNIX Socket"
 msgstr "Gniazdo UNIX"
 
-#: src/gnome-cmd-file.c:601
+#: src/gnome-cmd-file.c:608
 msgid "Character device"
 msgstr "Urządzenie znakowe"
 
-#: src/gnome-cmd-file.c:602
+#: src/gnome-cmd-file.c:609
 msgid "Block device"
 msgstr "Urządzenie blokowe"
 
-#: src/gnome-cmd-file.c:603
+#: src/gnome-cmd-file.c:610
 msgid "Symbolic link"
 msgstr "Link symboliczny"
 
@@ -841,7 +841,7 @@ msgstr ""
 msgid "No server selected"
 msgstr "Nie wybrano serwera"
 
-#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1350
+#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1355
 msgid "FTP Connect"
 msgstr "Połączenie FTP"
 
@@ -1071,67 +1071,67 @@ msgstr "_Wtyczki"
 msgid "_Help"
 msgstr "Pomo_c..."
 
-#: src/gnome-cmd-main-win.c:441
+#: src/gnome-cmd-main-win.c:447
 msgid "F3 View"
 msgstr "F3 Podgląd"
 
-#: src/gnome-cmd-main-win.c:444
+#: src/gnome-cmd-main-win.c:450
 msgid "F4 Edit"
 msgstr "F4 Edycja"
 
-#: src/gnome-cmd-main-win.c:447
+#: src/gnome-cmd-main-win.c:453
 msgid "F5 Copy"
 msgstr "F5 Kopiowanie"
 
-#: src/gnome-cmd-main-win.c:450
+#: src/gnome-cmd-main-win.c:456
 msgid "F6 Move"
 msgstr "F6 ZmPrzs"
 
-#: src/gnome-cmd-main-win.c:453
+#: src/gnome-cmd-main-win.c:459
 msgid "F7 Mkdir"
 msgstr "F7 UtwKat"
 
-#: src/gnome-cmd-main-win.c:456
+#: src/gnome-cmd-main-win.c:462
 msgid "F8 Delete"
 msgstr "F8 Usuń"
 
-#: src/gnome-cmd-main-win.c:459
+#: src/gnome-cmd-main-win.c:465
 msgid "F9 Search"
 msgstr "F9 Wyszukaj"
 
-#: src/gnome-cmd-main-win.c:462
+#: src/gnome-cmd-main-win.c:468
 msgid "F10 Quit"
 msgstr "F10 Zakończ"
 
-#: src/gnome-cmd-main-win.c:1291
+#: src/gnome-cmd-main-win.c:1297
 msgid "Refresh"
 msgstr "Odśwież"
 
-#: src/gnome-cmd-main-win.c:1298
+#: src/gnome-cmd-main-win.c:1304
 msgid "Back in history"
 msgstr "Wstecz"
 
-#: src/gnome-cmd-main-win.c:1305
+#: src/gnome-cmd-main-win.c:1311
 msgid "Forward in history"
 msgstr "Dalej"
 
-#: src/gnome-cmd-main-win.c:1313
-msgid "Cut"
-msgstr "Wytnij"
-
-#: src/gnome-cmd-main-win.c:1320 src/gnome-cmd-prepare-copy-dialog.c:86
-msgid "Copy"
-msgstr "Kopiuj"
-
-#: src/gnome-cmd-main-win.c:1327
-msgid "Paste"
-msgstr "Wklej"
-
-#: src/gnome-cmd-main-win.c:1342
+#: src/gnome-cmd-main-win.c:1319
 msgid "Copy file names"
 msgstr "Kopiuj nazwy plików"
 
-#: src/gnome-cmd-main-win.c:1358
+#: src/gnome-cmd-main-win.c:1326
+msgid "Cut"
+msgstr "Wytnij"
+
+#: src/gnome-cmd-main-win.c:1333 src/gnome-cmd-prepare-copy-dialog.c:86
+msgid "Copy"
+msgstr "Kopiuj"
+
+#: src/gnome-cmd-main-win.c:1340
+msgid "Paste"
+msgstr "Wklej"
+
+#: src/gnome-cmd-main-win.c:1362
 #, fuzzy
 msgid "Drop connection"
 msgstr "Połączenie FTP"
@@ -1150,11 +1150,11 @@ msgstr "Kopiuj plik"
 msgid "A directory name must be entered"
 msgstr "Należy podać nazwę katalogu"
 
-#: src/gnome-cmd-mkdir-dialog.c:137
+#: src/gnome-cmd-mkdir-dialog.c:141
 msgid "Directory name:"
 msgstr "Nazwa katalogu:"
 
-#: src/gnome-cmd-mkdir-dialog.c:145
+#: src/gnome-cmd-mkdir-dialog.c:149
 msgid "Make Directory"
 msgstr "Utwórz katalog"
 
@@ -1655,14 +1655,14 @@ msgid "Rename File"
 msgstr "Zmień nazwę pliku"
 
 #: src/gnome-cmd-search-dialog.c:184
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to open file %s: %s\n"
-msgstr "Nie mogę otworzyć pliku %s\n"
+msgstr "Nie można otworzyć pliku %s\n"
 
 #: src/gnome-cmd-search-dialog.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read from file %s: %s\n"
-msgstr "Nie mogę odczytać pliku %s\n"
+msgstr "Nie można czytać z pliku %s: %s\n"
 
 #: src/gnome-cmd-search-dialog.c:255
 #, c-format
@@ -1750,7 +1750,9 @@ msgid ""
 "The file \"%s\" already exists.\n"
 "\n"
 "Do you want to overwrite it?\n"
-msgstr ""
+msgstr "Plik \"%s\" już istnieje.\n"
+"\n"
+"Czy chcesz go nadpisać?\n"
 
 #: src/gnome-cmd-xfer.c:176
 msgid "Replace"
@@ -1784,7 +1786,7 @@ msgstr "kopiowanie..."
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[plik %ld z %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.c:367
+#: src/gnome-cmd-xfer.c:383
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
@@ -1792,11 +1794,11 @@ msgstr ""
 "Kopiowanie katalogu do samego siebie nie jest dobrym pomysłem\n"
 "Operacja została porzucona"
 
-#: src/gnome-cmd-xfer.c:414
+#: src/gnome-cmd-xfer.c:430
 msgid "preparing..."
 msgstr "przygotowywanie..."
 
-#: src/gnome-cmd-xfer.c:509
+#: src/gnome-cmd-xfer.c:525
 msgid "downloading to /tmp"
 msgstr "pobieranie do /tmp"
 
@@ -1887,13 +1889,13 @@ msgstr "_Informacje o"
 msgid "running \"%s\"\n"
 msgstr "wykonuję \"%s\"\n"
 
-#: src/useractions.c:671
-msgid "A fast and powerfull file manager for the GNOME desktop"
+#: src/useractions.c:668
+msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr ""
 
 #. xgettext:
 #. * Replace this with your name when translating
-#: src/useractions.c:676
+#: src/useractions.c:673
 msgid "No translation is currently in use."
 msgstr ""
 
@@ -1957,9 +1959,9 @@ msgid "Creating directory %s... "
 msgstr "Tworzenie katalogu %s..."
 
 #: src/utils.c:1362
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to create the directory %s"
-msgstr "Nie mogę odczytać pliku %s\n"
+msgstr "Nie można utworzyć karalogu %s\n"
 
 #: src/utils.c:1368
 #, c-format
