@@ -14,19 +14,18 @@
 %define srcext .gz
 %endif
 
-Summary:       GNOME Commander is a nice and fast file manager for the GNOME desktop. 
-Summary(pl):   Menad¿er plików dla Gnome oparty o Norton Commander'a (TM)
-Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME.
 Name:          @PACKAGE@
 Version:       @VERSION@
 Release:       %{rel}
-URL:           http://www.freesoftware.fsf.org/gcmd/
-Source:        http://freesoftware.fsf.org/download/gcmd/gcmd.pkg/%{version}/%{name}-%{version}.tar%{srcext}
-License:       GPL2
+Summary:       GNOME Commander is a nice and fast file manager for the GNOME desktop. 
+Summary(pl):   Menadżer plików dla Gnome oparty o Norton Commander'a (TM)
+Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME.
+
 Group:         Applications/File
-Prefix:        /usr
-BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root
-Docdir:        %{_docdir}
+License:       GPL2
+URL:           http://www.freesoftware.fsf.org/gcmd/
+Source0:       http://freesoftware.fsf.org/download/gcmd/gcmd.pkg/@VERSION@/@PACKAGE@-@VERSION@.tar%{srcext}
+BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:      gettext >= 0.10.36
 Requires:      gnome-vfs2 >= 2.0
 BuildRequires: gnome-vfs2-devel >= 2.0
@@ -40,7 +39,7 @@ Distribution:  Any
 GNOME Commander is a nice and fast file manager for the GNOME desktop. In addition to performing the basic filemanager functions the program is also an FTP-client and it can browse SMB-networks.
 
 %description -l pl
-Gnome Commander to menad¿er plików, który podobnie jak klasyczny Norton Commander (TM), umo¿liwia wykonywanie za pomoc± klawiatury wszystkich standardowych operacji na plikach. Dostêpne s± równie¿ dodatkowe funkcje jak np. obs³uga FTP.
+Gnome Commander to menadżer plików, który podobnie jak klasyczny Norton Commander (TM), umożliwia wykonywanie za pomocą klawiatury wszystkich standardowych operacji na plikach. Dostępne są również dodatkowe funkcje jak np. obsługa FTP.
 
 %description -l sv
 GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kunna hantera filer på din egen dator så kan programmet även ansluta till FTP-servrar och SMB-nätverk.
@@ -49,30 +48,35 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 %setup -q
 
 %build
-./configure --prefix=%{prefix}
-make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+./configure --prefix=%{_prefix}
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+make install DESTDIR=$RPM_BUILD_ROOT
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
-%defattr(-,root,root)
-%{prefix}/bin/*
-%{prefix}/lib/@PACKAGE@/lib*
-%{prefix}/lib/@PACKAGE@/plugins/lib*
-%{prefix}/share/applications/@PACKAGE@.desktop
-%{prefix}/share/pixmaps/@PACKAGE@/*.png
-%{prefix}/share/pixmaps/@PACKAGE@/*.xpm
-%{prefix}/share/pixmaps/@PACKAGE@/*/*.png
-%{prefix}/share/pixmaps/@PACKAGE@/*/*.xpm
-%{prefix}/share/locale/*/LC_MESSAGES/@PACKAGE@.mo
+%files -f %{name}.lang
+%defattr(-,root,root,-)
 %doc AUTHORS ChangeLog COPYING INSTALL NEWS README TODO doc/*.txt doc/*.png
+%{_bindir}/*
+%{_libdir}/@PACKAGE@/lib*
+%{_libdir}/@PACKAGE@/plugins/lib*
+%{_datadir}/applications/@PACKAGE@.desktop
+%{_datadir}/pixmaps/@PACKAGE@/*.png
+%{_datadir}/pixmaps/@PACKAGE@/*.xpm
+%{_datadir}/pixmaps/@PACKAGE@/*/*.png
+%{_datadir}/pixmaps/@PACKAGE@/*/*.xpm
 
 %changelog
+* Mon May 03 2004 Piotr Eljasiak <epiotr@cvs.gnome.org>
+- converted spec file to utf-8
+- used RPM macros a bit more
+
 * Thu Jun 19 2003 Piotr Eljasiak <epiotr@use.pl>
 - added libraries
 
