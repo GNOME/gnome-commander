@@ -1,3 +1,8 @@
+2005-03-04  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* gnome-commander.spec.in:
+	Some cosmetics.
+
 2005-02-26  Kostas Papadimas  <pkst@gnome.org>
 
         * configure.in: Added "el" (Greek) to ALL_LINGUAS.
