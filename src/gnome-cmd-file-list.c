@@ -2538,10 +2538,12 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
 				return mime_exec_file (gnome_cmd_file_list_get_focused_file (fl));
 				
 			case GDK_KP_Add:
+			case GDK_plus:
 				show_selpat_dialog (fl, TRUE);
 				return TRUE;
 
 			case GDK_KP_Subtract:
+			case GDK_minus:
 				show_selpat_dialog (fl, FALSE);
 				return TRUE;
 
