@@ -16,7 +16,7 @@ libcvs_la_SOURCES = \
 	parser.h parser.l \
 	cvs-plugin.h cvs-plugin.c \
 	interface.h interface.c \
-	cvs-plugin.xpm
+	cvs-plugin.xpm close.xpm
 
 libcvs_la_LIBADD = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS) 
 libcvs_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS) 
