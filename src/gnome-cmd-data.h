@@ -323,8 +323,23 @@ gnome_cmd_data_get_use_ls_colors       (void);
 SearchDefaults *
 gnome_cmd_data_get_search_defaults     (void);
 
-GnomeCmdConFtp *
-gnome_cmd_data_get_quick_connect_server (void);
+const gchar *
+gnome_cmd_data_get_quick_connect_host  (void);
+
+const gchar *
+gnome_cmd_data_get_quick_connect_user  (void);
+
+gint
+gnome_cmd_data_get_quick_connect_port  (void);
+
+void
+gnome_cmd_data_set_quick_connect_host  (const gchar *value);
+
+void
+gnome_cmd_data_set_quick_connect_user  (const gchar *value);
+
+void
+gnome_cmd_data_set_quick_connect_port  (gint value);
 
 GnomeCmdBookmarkGroup *
 gnome_cmd_data_get_local_bookmarks      (void);

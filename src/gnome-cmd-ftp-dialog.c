@@ -193,7 +193,7 @@ on_cancel_btn_clicked (GtkButton       *button,
 
 
 static gchar*
-update_server_from_strings (GnomeCmdConFtp *server,
+update_server_from_strings (GnomeCmdConFtp **server,
 							const gchar **values,
 							gboolean with_alias)
 {
@@ -220,12 +220,17 @@ update_server_from_strings (GnomeCmdConFtp *server,
 	if (!string2ushort (port, &iport))
 		return g_strdup_printf (_("Invalid port number: %s"), port);
 
-	if (with_alias)
-		gnome_cmd_con_ftp_set_alias (server, alias);
-	gnome_cmd_con_ftp_set_host_name (server, host);
-	gnome_cmd_con_ftp_set_user_name (server, user);
-	gnome_cmd_con_ftp_set_host_port (server, iport);
-	gnome_cmd_con_ftp_set_pw (server, pw);
+	if (!(*server)) {
+		*server = gnome_cmd_con_ftp_new (alias?alias:"tmp", host, iport, user, pw);
+	}
+	else {
+		if (with_alias)
+			gnome_cmd_con_ftp_set_alias (*server, alias);
+		gnome_cmd_con_ftp_set_host_name (*server, host);
+		gnome_cmd_con_ftp_set_user_name (*server, user);
+		gnome_cmd_con_ftp_set_host_port (*server, iport);
+		gnome_cmd_con_ftp_set_pw (*server, pw);
+	}
 		
 	return NULL;
 }
@@ -237,9 +242,9 @@ on_new_ftp_server_dialog_ok (GnomeCmdStringDialog *string_dialog,
 							 GnomeCmdFtpDialog    *ftp_dialog)
 {
 	gchar *error_desc;
-	GnomeCmdConFtp *server = gnome_cmd_con_ftp_new ("","",0,"","");
+	GnomeCmdConFtp *server = NULL;
 
-	error_desc = update_server_from_strings (server, values, TRUE);
+	error_desc = update_server_from_strings (&server, values, TRUE);
 	if (error_desc != NULL) {
 		gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
 		gtk_object_unref (GTK_OBJECT (server));
@@ -262,7 +267,7 @@ on_edit_ftp_server_dialog_ok (GnomeCmdStringDialog *string_dialog,
 	gchar *error_desc;
 	GnomeCmdConFtp *server = ftp_dialog->priv->selected_server;	
 
-	error_desc = update_server_from_strings (server, values, TRUE);
+	error_desc = update_server_from_strings (&server, values, TRUE);
 	if (error_desc != NULL)
 		gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
 	else
@@ -632,13 +637,25 @@ on_quick_connect_ok (GnomeCmdStringDialog *string_dialog,
 					 gpointer not_used)
 {
 	gchar *error_desc;
-	GnomeCmdConFtp *server = gnome_cmd_data_get_quick_connect_server ();
+	GnomeCmdConFtp *server = NULL;
 
-	error_desc = update_server_from_strings (server, values, FALSE);
+	error_desc = update_server_from_strings (&server, values, FALSE);
 	if (error_desc != NULL)
 		gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
-	else
+	else {
+		gchar *tmp_alias = g_strdup_printf ("[Q]%s", gnome_cmd_con_ftp_get_host_name (server));
+		gnome_cmd_con_ftp_set_alias (server, tmp_alias);
+		gnome_cmd_con_list_add_quick_ftp (gnome_cmd_data_get_con_list (),
+										  server);
+		gnome_cmd_data_set_quick_connect_host (
+			gnome_cmd_con_ftp_get_host_name (server));
+		gnome_cmd_data_set_quick_connect_user (
+			gnome_cmd_con_ftp_get_user_name (server));
+		gnome_cmd_data_set_quick_connect_port (
+			gnome_cmd_con_ftp_get_host_port (server));
 		do_connect (GTK_WIDGET (string_dialog), server, gnome_cmd_con_ftp_get_pw (server));
+		g_free (tmp_alias);
+	}
 
 	return error_desc == NULL;
 }
@@ -649,22 +666,21 @@ show_ftp_quick_connect_dialog (void)
 {
 	gchar *port;
 	GtkWidget *dialog;
-	GnomeCmdConFtp *server = gnome_cmd_data_get_quick_connect_server ();
 
 	dialog = create_ftp_server_dialog (_("FTP Quick Connect"),
 									   (GnomeCmdStringDialogCallback)on_quick_connect_ok,
 									   NULL,
 									   FALSE);
 
-	port = g_strdup_printf ("%d", gnome_cmd_con_ftp_get_host_port (server));
+	port = g_strdup_printf ("%d", gnome_cmd_data_get_quick_connect_port ());
 
 	gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0,
-									   gnome_cmd_con_ftp_get_host_name (server));
+									   gnome_cmd_data_get_quick_connect_host ());
 	gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, port);
 	gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 2,
-									   gnome_cmd_con_ftp_get_user_name (server));
+									   gnome_cmd_data_get_quick_connect_user ());
 	gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 3,
-									   gnome_cmd_data_get_ftp_anonymous_password());
+									   gnome_cmd_data_get_ftp_anonymous_password ());
 	
 	g_free (port);
 }

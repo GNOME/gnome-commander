@@ -30,9 +30,11 @@ struct _GnomeCmdConListPrivate
 	gboolean changed;
 	gboolean ftp_cons_changed;
 	gboolean device_cons_changed;
+	gboolean quick_ftp_cons_changed;
 	
 	GList *ftp_cons;
 	GList *device_cons;
+	GList *quick_ftp_cons;
 	GnomeCmdCon *home_con;
 	GnomeCmdCon *smb_con;
 
@@ -46,6 +48,7 @@ enum {
 	LIST_CHANGED,
 	FTP_LIST_CHANGED,
 	DEVICE_LIST_CHANGED,
+	QUICK_FTP_LIST_CHANGED,
 	LAST_SIGNAL
 };
 
@@ -118,11 +121,21 @@ class_init (GnomeCmdConListClass *klass)
 		    GTK_TYPE_NONE,
 			0);
 
+	con_list_signals[QUICK_FTP_LIST_CHANGED] =
+		gtk_signal_new ("quick_ftp_list_changed",
+			GTK_RUN_LAST,
+		    G_OBJECT_CLASS_TYPE (object_class),
+		    GTK_SIGNAL_OFFSET (GnomeCmdConListClass, quick_ftp_list_changed),
+		    gtk_marshal_NONE__NONE,
+		    GTK_TYPE_NONE,
+			0);
+
 	object_class->destroy = destroy;
 
 	klass->list_changed = NULL;
 	klass->ftp_list_changed = NULL;
 	klass->device_list_changed = NULL;
+	klass->quick_ftp_list_changed = NULL;
 }
 
 
@@ -138,6 +151,7 @@ init (GnomeCmdConList *con_list)
 
 	con_list->priv->ftp_cons = NULL;
 	con_list->priv->device_cons = NULL;
+	con_list->priv->quick_ftp_cons = NULL;
 	con_list->priv->all_cons = g_list_append (
 		NULL, con_list->priv->home_con);
 	con_list->priv->all_cons = g_list_append (
@@ -253,6 +267,50 @@ gnome_cmd_con_list_remove_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_co
 	else {
 		con_list->priv->changed = TRUE;
 		con_list->priv->ftp_cons_changed = TRUE;
+	}
+}
+
+void
+gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+{
+	g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
+	g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) == -1);
+	g_return_if_fail (g_list_index (con_list->priv->quick_ftp_cons, ftp_con) == -1);
+
+	con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, ftp_con);
+	con_list->priv->quick_ftp_cons = g_list_append (con_list->priv->quick_ftp_cons, ftp_con);
+
+	gtk_signal_connect (GTK_OBJECT (ftp_con), "updated",
+						GTK_SIGNAL_FUNC (on_con_updated), con_list);
+	if (!con_list->priv->update_lock) {
+		gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[LIST_CHANGED]);
+		gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[QUICK_FTP_LIST_CHANGED]);
+	}
+	else {
+		con_list->priv->changed = TRUE;
+		con_list->priv->quick_ftp_cons_changed = TRUE;
+	}
+}
+
+void
+gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+{
+	g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
+	g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) != -1);
+	g_return_if_fail (g_list_index (con_list->priv->quick_ftp_cons, ftp_con) != -1);
+	
+	con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, ftp_con);
+	con_list->priv->quick_ftp_cons = g_list_remove (con_list->priv->quick_ftp_cons, ftp_con);
+	
+	gtk_signal_disconnect_by_func (GTK_OBJECT (ftp_con), 
+								   GTK_SIGNAL_FUNC (on_con_updated), con_list);
+	if (!con_list->priv->update_lock) {
+		gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[LIST_CHANGED]);
+		gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[QUICK_FTP_LIST_CHANGED]);
+	}
+	else {
+		con_list->priv->changed = TRUE;
+		con_list->priv->quick_ftp_cons_changed = TRUE;
 	}
 }
 

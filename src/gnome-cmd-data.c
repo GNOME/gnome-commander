@@ -74,7 +74,9 @@ struct _GnomeCmdDataPrivate
 	gboolean            device_only_icon;
 	gint                dir_cache_size;
 	gboolean            use_ls_colors;
-	GnomeCmdConFtp      *quick_connect_server;
+	gchar               *quick_connect_host;
+	gchar               *quick_connect_user;
+	gint                quick_connect_port;
 	gboolean            honor_expect_uris;
 	gboolean            skip_mounting;
 	gboolean            toolbar_visibility;
@@ -999,11 +1001,11 @@ gnome_cmd_data_save                      (void)
 				data->priv->use_ls_colors);
 
 	gnome_cmd_data_set_string ("/quick-connect/host",
-				gnome_cmd_con_ftp_get_host_name (data->priv->quick_connect_server));
+							   data->priv->quick_connect_host);
 	gnome_cmd_data_set_int    ("/quick-connect/port",		
-				gnome_cmd_con_ftp_get_host_port (data->priv->quick_connect_server));
+							   data->priv->quick_connect_port);
 	gnome_cmd_data_set_string ("/quick-connect/user",
-				gnome_cmd_con_ftp_get_user_name (data->priv->quick_connect_server));
+							   data->priv->quick_connect_user);
 
 	gnome_config_set_int (
 		"/gnome-commander-size/main_win/width",
@@ -1270,12 +1272,12 @@ gnome_cmd_data_load                      (void)
 	data->priv->backup_pattern_list = patlist_new (data->priv->backup_pattern);
 
 
-	data->priv->quick_connect_server = gnome_cmd_con_ftp_new (
-		"tmp",
-		gnome_cmd_data_get_string ("/quick-connect/host", "ftp.gnome.org"),
-		gnome_cmd_data_get_int ("/quick-connect/port", 21),
-		gnome_cmd_data_get_string ("/quick-connect/user", "anonymous"),
-		data->priv->ftp_anonymous_password);
+	data->priv->quick_connect_host = gnome_cmd_data_get_string (
+		"/quick-connect/host", "ftp.gnome.org");
+	data->priv->quick_connect_port = gnome_cmd_data_get_int (
+		"/quick-connect/port", 21);
+	data->priv->quick_connect_user = gnome_cmd_data_get_string (
+		"/quick-connect/user", "anonymous");
 	
 	
 	load_cmdline_history ();
@@ -1844,10 +1846,47 @@ gnome_cmd_data_get_search_defaults (void)
 }
 
 
-GnomeCmdConFtp *
-gnome_cmd_data_get_quick_connect_server (void)
+const gchar *
+gnome_cmd_data_get_quick_connect_host  (void)
 {
-	return data->priv->quick_connect_server;
+	return data->priv->quick_connect_host;
+}
+
+
+const gchar *
+gnome_cmd_data_get_quick_connect_user  (void)
+{
+	return data->priv->quick_connect_user;
+}
+
+
+gint
+gnome_cmd_data_get_quick_connect_port  (void)
+{
+	return data->priv->quick_connect_port;
+}
+
+
+void
+gnome_cmd_data_set_quick_connect_host  (const gchar *value)
+{
+	g_free (data->priv->quick_connect_host);
+	data->priv->quick_connect_host = g_strdup (value);
+}
+
+
+void
+gnome_cmd_data_set_quick_connect_user  (const gchar *value)
+{
+	g_free (data->priv->quick_connect_user);
+	data->priv->quick_connect_user = g_strdup (value);
+}
+
+
+void
+gnome_cmd_data_set_quick_connect_port  (gint value)
+{
+	data->priv->quick_connect_port = value;
 }
 
 

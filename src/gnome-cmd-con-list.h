@@ -52,6 +52,7 @@ struct _GnomeCmdConListClass
 	void (* list_changed) (GnomeCmdConList *list);
 	void (* ftp_list_changed) (GnomeCmdConList *list);
 	void (* device_list_changed) (GnomeCmdConList *list);
+	void (* quick_ftp_list_changed) (GnomeCmdConList *list);
 };
 
 
@@ -75,6 +76,12 @@ void
 gnome_cmd_con_list_remove_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
 
 void
+gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
+
+void
+gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
+
+void
 gnome_cmd_con_list_add_device (GnomeCmdConList *list, GnomeCmdConDevice *device_con);
 
 void
@@ -88,6 +95,9 @@ gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *list);
 
 void
 gnome_cmd_con_list_set_all_ftp (GnomeCmdConList *list, GList *ftp_cons);
+
+GList *
+gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
 
 GList *
 gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
