@@ -40,6 +40,8 @@ typedef enum
 	RIGHT_BUTTON_SELECTS
 } GnomeCmdRightMouseButtonMode;
 
+#define PATTERN_HISTORY_SIZE 10
+
 typedef struct
 {
 	GList *name_patterns;

@@ -29,8 +29,6 @@
 #include "filter.h"
 #include "utils.h"
 
-#define PATTERN_HISTORY_SIZE 10
-
 static GnomeCmdDialogClass *parent_class = NULL;
 
 #define PBAR_MAX 50

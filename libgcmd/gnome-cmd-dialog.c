@@ -164,9 +164,20 @@ gnome_cmd_dialog_new (const gchar *title)
 	GnomeCmdDialog *dialog = gtk_type_new (gnome_cmd_dialog_get_type ());
 
 	if (title)
-		gtk_window_set_title (GTK_WINDOW (dialog), title);
+		gnome_cmd_dialog_setup (dialog, title);
 	
 	return GTK_WIDGET (dialog);
+}
+
+
+void
+gnome_cmd_dialog_setup (GnomeCmdDialog *dialog, const gchar *title)
+{
+	g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
+	g_return_if_fail (title != NULL);
+
+	if (title)
+		gtk_window_set_title (GTK_WINDOW (dialog), title);
 }
 
 
