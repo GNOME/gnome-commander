@@ -340,7 +340,7 @@ gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent)
 	gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, parent);
 
 	dir->priv->con = con;
-	dir->priv->path = path;
+	gnome_cmd_dir_set_path (dir, path);
 	gtk_object_ref (GTK_OBJECT (path));
 
 	add_dir (dir);
@@ -376,7 +376,7 @@ gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
 	gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, NULL);
 
 	dir->priv->con = con;
-	dir->priv->path = path;
+	gnome_cmd_dir_set_path (dir, path);
 	gtk_object_ref (GTK_OBJECT (path));
 
 	add_dir (dir);
@@ -419,7 +419,7 @@ gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
 		gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, NULL);
 		
 		dir->priv->con = con;
-		dir->priv->path = path;
+		gnome_cmd_dir_set_path (dir, path);
 		gtk_object_ref (GTK_OBJECT (path));
 
 		add_dir (dir);
@@ -699,6 +699,7 @@ gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path)
 		gtk_object_destroy (GTK_OBJECT (dir->priv->path));
 
 	dir->priv->path = path;
+	gtk_object_ref (GTK_OBJECT (path));
 }
 
 

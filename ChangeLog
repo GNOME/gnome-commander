@@ -1,3 +1,13 @@
+2003-12-26  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-dir-indicator.c:
+	The pointer now turns in to the pointing hand when the dir-indicator
+	is focused. Patch submitted by Kevin James.
+
+	* src/gnome-cmd-dir.c (gnome_cmd_dir_new):
+	Fixed crash when renaming a directory multiple times and repeatedly
+	going in and out of it. This should fix bug #129179.
+
 2003-12-23  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_show_filter):
