@@ -513,6 +513,34 @@ create_combo (GtkWidget *parent)
 	return combo;
 }
 
+GtkWidget *
+create_option_menu (GtkWidget *parent, gchar **items)
+{
+	gint i = 0;
+	GtkWidget *menu, *item;
+	GtkWidget *optmenu;
+
+	optmenu = gtk_option_menu_new ();
+	gtk_widget_ref (optmenu);
+	gtk_object_set_data_full (GTK_OBJECT (parent), "optmenu", optmenu,
+							  (GtkDestroyNotify) gtk_widget_unref);
+	gtk_widget_show (optmenu);
+
+	menu = gtk_menu_new ();
+	gtk_widget_show (menu);
+	
+	while (items[i]) {
+		item = gtk_menu_item_new_with_label (items[i]);
+		gtk_widget_show (item);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+		i++;
+	}
+	
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (optmenu), menu);
+	
+	return optmenu;
+}
+
 const gchar *
 get_combo_text (GtkWidget *combo)
 {
