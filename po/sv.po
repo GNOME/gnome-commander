@@ -1,11 +1,11 @@
 # Swedish translation of GNOME Commander
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# Marcus Bjurman <marbj499@student.liu.se>, 2002.
+# Marcus Bjurman <marbj499@student.liu.se>, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
-"POT-Creation-Date: 2003-11-24 12:37+0100\n"
+"POT-Creation-Date: 2003-12-02 09:10+0100\n"
 "PO-Revision-Date: 2003-11-05 04:21-0100\n"
 "Last-Translator: Marcus Bjurman <marbj499@student.liu.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -14,17 +14,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: libgcmd/gnome-cmd-string-dialog.c:131
+#: gnome-commander.desktop.in.h:1
+msgid "A two paned file manager"
+msgstr "En alternativ filhanterare"
+
+#: gnome-commander.desktop.in.h:2
+msgid "GNOME Commander"
+msgstr "GNOME Commander"
+
+#: libgcmd/gnome-cmd-string-dialog.c:133
 msgid "No error description available"
 msgstr "Ingen felbeskrivning finnes"
 
 #: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:739
+#: src/utils.c:741
 msgid "Yes"
 msgstr "Ja"
 
 #: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:739
+#: src/utils.c:741
 msgid "No"
 msgstr "Nej"
 
@@ -393,11 +401,11 @@ msgstr[1] "Vill du ta bort de %d markerade filerna?"
 msgid "Delete"
 msgstr "Ta Bort"
 
-#: src/gnome-cmd-delete-dialog.c:344 src/utils.c:597 src/utils.c:626
+#: src/gnome-cmd-delete-dialog.c:344 src/utils.c:599 src/utils.c:628
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/gnome-cmd-delete-dialog.c:344 src/utils.c:597
+#: src/gnome-cmd-delete-dialog.c:344 src/utils.c:599
 msgid "OK"
 msgstr "OK"
 
@@ -405,35 +413,35 @@ msgstr "OK"
 msgid "Waiting for file list"
 msgstr "Väntar på fillistan"
 
-#: src/gnome-cmd-file.c:606
+#: src/gnome-cmd-file.c:627
 msgid "Unknown file type"
 msgstr "Okänd filtyp"
 
-#: src/gnome-cmd-file.c:607
+#: src/gnome-cmd-file.c:628
 msgid "Regular file"
 msgstr "Vanlig fil"
 
-#: src/gnome-cmd-file.c:608
+#: src/gnome-cmd-file.c:629
 msgid "Directory"
 msgstr "Katalog"
 
-#: src/gnome-cmd-file.c:609
+#: src/gnome-cmd-file.c:630
 msgid "FIFO"
 msgstr "FIFO"
 
-#: src/gnome-cmd-file.c:610
+#: src/gnome-cmd-file.c:631
 msgid "UNIX Socket"
 msgstr "UNIX Socket"
 
-#: src/gnome-cmd-file.c:611
+#: src/gnome-cmd-file.c:632
 msgid "Character device"
 msgstr "Character device"
 
-#: src/gnome-cmd-file.c:612
+#: src/gnome-cmd-file.c:633
 msgid "Block device"
 msgstr "Block device"
 
-#: src/gnome-cmd-file.c:613
+#: src/gnome-cmd-file.c:634
 msgid "Symbolic link"
 msgstr "symbolisk länk"
 
@@ -528,7 +536,7 @@ msgstr "%s byte"
 msgid "No default application registered"
 msgstr "Inget standardprogram registrerat"
 
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2082
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2086
 msgid "Filename:"
 msgstr "Filnamn"
 
@@ -597,28 +605,28 @@ msgstr "%s Ledigt"
 msgid "Failed to open connection: %s\n"
 msgstr "Kunde inte skapa anslutning: %s\n"
 
-#: src/gnome-cmd-file-selector.c:2019 src/gnome-cmd-rename-dialog.c:52
+#: src/gnome-cmd-file-selector.c:2023 src/gnome-cmd-rename-dialog.c:52
 #: src/gnome-cmd-make-copy-dialog.c:68
 msgid "No filename entered"
 msgstr "Ange filnamn"
 
-#: src/gnome-cmd-file-selector.c:2055
+#: src/gnome-cmd-file-selector.c:2059
 msgid "No filename given"
 msgstr "Ange filnamn"
 
-#: src/gnome-cmd-file-selector.c:2088
+#: src/gnome-cmd-file-selector.c:2092
 msgid "New Text File"
 msgstr "Ny Textfil"
 
-#: src/gnome-cmd-file-selector.c:2252
+#: src/gnome-cmd-file-selector.c:2256
 msgid "Symlink name:"
 msgstr "Namn:"
 
-#: src/gnome-cmd-file-selector.c:2258
+#: src/gnome-cmd-file-selector.c:2262
 msgid "Create Symbolic Link"
 msgstr "Ny Symbolisk Länk"
 
-#: src/gnome-cmd-file-selector.c:2329
+#: src/gnome-cmd-file-selector.c:2333
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -1085,9 +1093,8 @@ msgstr ""
 "egen formatsträng."
 
 #: src/gnome-cmd-options-dialog.c:399
-#, fuzzy
 msgid "Edit Colors..."
-msgstr "_Modifiera Bokmärken..."
+msgstr "Modifiera Färger..."
 
 #: src/gnome-cmd-options-dialog.c:406
 msgid "Colors"
@@ -1114,9 +1121,8 @@ msgid "Cursor:"
 msgstr "Markör:"
 
 #: src/gnome-cmd-options-dialog.c:481
-#, fuzzy
 msgid "File panes"
-msgstr "Filnamnsmönster"
+msgstr "Fillistor"
 
 #: src/gnome-cmd-options-dialog.c:496
 msgid "Font:"
@@ -1128,9 +1134,8 @@ msgstr "Radhöjd:"
 
 #. File extensions
 #: src/gnome-cmd-options-dialog.c:502
-#, fuzzy
 msgid "Display file extensions:"
-msgstr "Visa filextensioner"
+msgstr "Visa filändelser:"
 
 #: src/gnome-cmd-options-dialog.c:512
 msgid "With filename"
@@ -1146,9 +1151,8 @@ msgstr "I båda kolumnerna"
 
 #. Graphical mode
 #: src/gnome-cmd-options-dialog.c:529
-#, fuzzy
 msgid "Graphical mode:"
-msgstr "Grafiskt läge"
+msgstr "Grafiskt läge:"
 
 #: src/gnome-cmd-options-dialog.c:541
 msgid "MIME icons"
@@ -1164,35 +1168,30 @@ msgstr "Text (snabbast)"
 
 #. Colors
 #: src/gnome-cmd-options-dialog.c:558
-#, fuzzy
 msgid "Colors:"
-msgstr "Färger"
+msgstr "Färger:"
 
 #: src/gnome-cmd-options-dialog.c:573
 msgid "Respect theme settings"
-msgstr ""
+msgstr "Respektera temainställningarna"
 
 #: src/gnome-cmd-options-dialog.c:577
-#, fuzzy
 msgid "Modern"
-msgstr "Flytta"
+msgstr "Modern"
 
 #: src/gnome-cmd-options-dialog.c:581
 msgid "Classic"
-msgstr ""
+msgstr "Klassisk"
 
 #: src/gnome-cmd-options-dialog.c:585
-#, fuzzy
 msgid "Custom"
-msgstr "Klipp ut"
+msgstr "Egna"
 
 #: src/gnome-cmd-options-dialog.c:593
-#, fuzzy
 msgid "Edit..."
-msgstr "_Editera..."
+msgstr "Editera..."
 
 #: src/gnome-cmd-options-dialog.c:603
-#, fuzzy
 msgid "Colorize files according to the LS_COLORS enviroment variable"
 msgstr "Använd färgerna i enviroment-variabeln LS_COLORS"
 
@@ -1560,12 +1559,15 @@ msgid "Chmod"
 msgstr "Chmod"
 
 #: src/gnome-cmd-xfer.c:170
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
 "\n"
 "Do you want to overwrite it?\n"
-msgstr "Katalogen %s existerar inte, vill du skapa den?"
+msgstr ""
+"Filen \"%s\" existerar.\n"
+"\n"
+"Will du skriva över den?\n"
 
 #: src/gnome-cmd-xfer.c:176
 msgid "Replace"
@@ -1588,7 +1590,7 @@ msgstr ""
 
 #: src/gnome-cmd-xfer.c:195
 msgid "Xfer problem"
-msgstr ""
+msgstr "Problem vid flyttning av data"
 
 #: src/gnome-cmd-xfer.c:231
 msgid "copying..."
@@ -1808,15 +1810,15 @@ msgstr ""
 "Kunde inte ladda bilden där den ska vara installerad, provar att ladda den "
 "från källkodskatalogen\n"
 
-#: src/main.c:60
+#: src/main.c:56
 msgid "Specify debug flags to use"
 msgstr "Ange de debug-parametrar som ska användas"
 
-#: src/main.c:62
+#: src/main.c:58
 msgid "Specify the start directory for the left pane"
 msgstr "Ange startkatalog för den vänstra fillistan"
 
-#: src/main.c:64
+#: src/main.c:60
 msgid "Specify the start directory for the right pane"
 msgstr "Ange startkatalog för den högra fillistan"
 
@@ -1842,7 +1844,7 @@ msgstr ""
 msgid "No translation is currently in use."
 msgstr "Marcus Bjurman <marbj499@student.liu.se>"
 
-#: src/utils.c:513
+#: src/utils.c:515
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -1851,61 +1853,61 @@ msgstr ""
 "Kan inte hitta något standardprogram för mime-typen %s.\n"
 "Öppna \"Filtyper och program\" sidan i Control Center för att lägga till ett."
 
-#: src/utils.c:593
+#: src/utils.c:595
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
 
-#: src/utils.c:596
+#: src/utils.c:598
 msgid "Make Executable?"
 msgstr "Gör Körbar?"
 
-#: src/utils.c:623
+#: src/utils.c:625
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
 msgstr ""
 
-#: src/utils.c:625
+#: src/utils.c:627
 msgid "Run or Display"
 msgstr "Kör eller Visa"
 
-#: src/utils.c:626
+#: src/utils.c:628
 msgid "Display"
 msgstr "Visa"
 
-#: src/utils.c:626
+#: src/utils.c:628
 msgid "Run"
 msgstr "Kör"
 
-#: src/utils.c:662
+#: src/utils.c:664
 #, c-format
 msgid ""
 "%s does not know how to open remote files. Do you want to download the file "
 "to a temporary location and then open it?"
 msgstr ""
 
-#: src/utils.c:736
+#: src/utils.c:738
 #, c-format
 msgid ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
 msgstr ""
 
-#: src/utils.c:1344
+#: src/utils.c:1347
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Skapar katalogen %s... "
 
-#: src/utils.c:1349
+#: src/utils.c:1352
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Kunde ej skapa katalogen %s"
 
-#: src/utils.c:1355
+#: src/utils.c:1358
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Kunde ej läsa från katalogen %s: %s\n"
