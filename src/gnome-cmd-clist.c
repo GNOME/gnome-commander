@@ -226,6 +226,46 @@ draw_cell_pixmap (GdkWindow    *window,
 }
 
 
+PangoLayout *
+my_gtk_clist_create_cell_layout (GtkCList       *clist,
+								 GtkCListRow    *clist_row,
+								 gint            column)
+{
+	PangoLayout *layout;
+	GtkStyle *style;
+	GtkCell *cell;
+	gchar *text;
+  
+	get_cell_style (clist, clist_row, GTK_STATE_NORMAL, column, &style,
+					NULL, NULL);
+
+
+	cell = &clist_row->cell[column];
+	switch (cell->type)
+    {
+		case GTK_CELL_TEXT:
+		case GTK_CELL_PIXTEXT:
+			text = ((cell->type == GTK_CELL_PIXTEXT) ?
+					GTK_CELL_PIXTEXT (*cell)->text :
+					GTK_CELL_TEXT (*cell)->text);
+
+			if (!text)
+				return NULL;
+      
+			layout = gtk_widget_create_pango_layout (GTK_WIDGET (clist),
+													 ((cell->type == GTK_CELL_PIXTEXT) ?
+													  GTK_CELL_PIXTEXT (*cell)->text :
+													  GTK_CELL_TEXT (*cell)->text));
+			pango_layout_set_font_description (layout, style->font_desc);
+      
+			return layout;
+      
+		default:
+			return NULL;
+    }
+}
+
+
 static void
 draw_row (GtkCList     *clist,
 		  GdkRectangle *area,
@@ -389,7 +429,7 @@ draw_row (GtkCList     *clist,
 
 		/* calculate real width for column justification */
       
-		layout = _gtk_clist_create_cell_layout (clist, clist_row, i);
+		layout = my_gtk_clist_create_cell_layout (clist, clist_row, i);
 		if (layout)
 		{
 			pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
