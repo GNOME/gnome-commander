@@ -1,3 +1,8 @@
+2003-12-03  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-con-smb.c (smb_open):
+	Avoid segfault when a NULL uri is returned from create_uri.
+
 2003-12-03  Danilo Šegan  <dsegan@gmx.net>
 
 	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.
