@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-12 03:31+0200\n"
-"PO-Revision-Date: 2004-04-12 13:24+0200\n"
+"POT-Creation-Date: 2004-04-18 14:59+0200\n"
+"PO-Revision-Date: 2004-04-18 16:39+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -544,12 +544,12 @@ msgstr "Opakovat"
 msgid "Skip"
 msgstr "Přeskočit"
 
-#: src/gnome-cmd-delete-dialog.c:296
+#: src/gnome-cmd-delete-dialog.c:307
 #, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "Chcete odstranit \"%s\"?"
 
-#: src/gnome-cmd-delete-dialog.c:301
+#: src/gnome-cmd-delete-dialog.c:312
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -557,15 +557,15 @@ msgstr[0] "Chcete odstranit %d vybraný soubor?"
 msgstr[1] "Chcete odstranit %d vybrané soubory?"
 msgstr[2] "Chcete odstranit %d vybraných souborů?"
 
-#: src/gnome-cmd-delete-dialog.c:309 src/gnome-cmd-main-win.c:1334
+#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1347
 msgid "Delete"
 msgstr "Odstranit"
 
-#: src/gnome-cmd-delete-dialog.c:309 src/utils.c:603 src/utils.c:632
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603 src/utils.c:632
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: src/gnome-cmd-delete-dialog.c:309 src/utils.c:603
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603
 msgid "OK"
 msgstr "Budiž"
 
@@ -664,7 +664,7 @@ msgstr "%s bajtů"
 msgid "No default application registered"
 msgstr "Není zaregistrována implicitní aplikace"
 
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2049
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2058
 msgid "Filename:"
 msgstr "Název souboru:"
 
@@ -724,38 +724,38 @@ msgstr[0] "%s z %s kB v %d z %d vybraných souborů"
 msgstr[1] "%s z %s kB v %d z %d vybraných souborů"
 msgstr[2] "%s z %s kB v %d z %d vybraných souborů"
 
-#: src/gnome-cmd-file-selector.c:726
+#: src/gnome-cmd-file-selector.c:730
 #, c-format
 msgid "%s Free"
 msgstr "%s volných"
 
-#: src/gnome-cmd-file-selector.c:1780
+#: src/gnome-cmd-file-selector.c:1784
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Nemohu otevřít spojení: %s\n"
 
-#: src/gnome-cmd-file-selector.c:1989 src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-file-selector.c:1993 src/gnome-cmd-make-copy-dialog.c:68
 #: src/gnome-cmd-rename-dialog.c:52
 msgid "No filename entered"
 msgstr "Nebyl zadán název souboru"
 
-#: src/gnome-cmd-file-selector.c:2025
+#: src/gnome-cmd-file-selector.c:2029
 msgid "No filename given"
 msgstr "Nebyl zadán název souboru"
 
-#: src/gnome-cmd-file-selector.c:2055
+#: src/gnome-cmd-file-selector.c:2064
 msgid "New Text File"
 msgstr "Nový textový soubor"
 
-#: src/gnome-cmd-file-selector.c:2224
+#: src/gnome-cmd-file-selector.c:2233
 msgid "Symlink name:"
 msgstr "Název symbolického odkazu:"
 
-#: src/gnome-cmd-file-selector.c:2230
+#: src/gnome-cmd-file-selector.c:2239
 msgid "Create Symbolic Link"
 msgstr "Vytvořit symbolický odkaz"
 
-#: src/gnome-cmd-file-selector.c:2301
+#: src/gnome-cmd-file-selector.c:2310
 msgid "Filter:"
 msgstr "Filtr:"
 
@@ -845,7 +845,7 @@ msgstr "Upravit FTP server"
 msgid "No server selected"
 msgstr "Nebyl zvolen server"
 
-#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1350
+#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1355
 msgid "FTP Connect"
 msgstr "Připojení FTP"
 
@@ -1074,67 +1074,67 @@ msgstr "_Zásuvné moduly"
 msgid "_Help"
 msgstr "_Nápověda"
 
-#: src/gnome-cmd-main-win.c:441
+#: src/gnome-cmd-main-win.c:447
 msgid "F3 View"
 msgstr "F3 Zobrazit"
 
-#: src/gnome-cmd-main-win.c:444
+#: src/gnome-cmd-main-win.c:450
 msgid "F4 Edit"
 msgstr "F4 Upravit"
 
-#: src/gnome-cmd-main-win.c:447
+#: src/gnome-cmd-main-win.c:453
 msgid "F5 Copy"
 msgstr "F5 Kopírovat"
 
-#: src/gnome-cmd-main-win.c:450
+#: src/gnome-cmd-main-win.c:456
 msgid "F6 Move"
 msgstr "F6 Přesunout"
 
-#: src/gnome-cmd-main-win.c:453
+#: src/gnome-cmd-main-win.c:459
 msgid "F7 Mkdir"
 msgstr "F7 Nový adresář"
 
-#: src/gnome-cmd-main-win.c:456
+#: src/gnome-cmd-main-win.c:462
 msgid "F8 Delete"
 msgstr "F8 Odstranit"
 
-#: src/gnome-cmd-main-win.c:459
+#: src/gnome-cmd-main-win.c:465
 msgid "F9 Search"
 msgstr "F9 Hledat"
 
-#: src/gnome-cmd-main-win.c:462
+#: src/gnome-cmd-main-win.c:468
 msgid "F10 Quit"
 msgstr "F10 Ukončit"
 
-#: src/gnome-cmd-main-win.c:1291
+#: src/gnome-cmd-main-win.c:1297
 msgid "Refresh"
 msgstr "Obnovit"
 
-#: src/gnome-cmd-main-win.c:1298
+#: src/gnome-cmd-main-win.c:1304
 msgid "Back in history"
 msgstr "Zpět v historii"
 
-#: src/gnome-cmd-main-win.c:1305
+#: src/gnome-cmd-main-win.c:1311
 msgid "Forward in history"
 msgstr "Vpřed v historii"
 
-#: src/gnome-cmd-main-win.c:1313
-msgid "Cut"
-msgstr "Vyjmout"
-
-#: src/gnome-cmd-main-win.c:1320 src/gnome-cmd-prepare-copy-dialog.c:86
-msgid "Copy"
-msgstr "Kopírovat"
-
-#: src/gnome-cmd-main-win.c:1327
-msgid "Paste"
-msgstr "Vložit"
-
-#: src/gnome-cmd-main-win.c:1342
+#: src/gnome-cmd-main-win.c:1319
 msgid "Copy file names"
 msgstr "Kopírovat názvy souborů"
 
-#: src/gnome-cmd-main-win.c:1358
+#: src/gnome-cmd-main-win.c:1326
+msgid "Cut"
+msgstr "Vyjmout"
+
+#: src/gnome-cmd-main-win.c:1333 src/gnome-cmd-prepare-copy-dialog.c:86
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: src/gnome-cmd-main-win.c:1340
+msgid "Paste"
+msgstr "Vložit"
+
+#: src/gnome-cmd-main-win.c:1362
 msgid "Drop connection"
 msgstr "Ukončit spojení"
 
@@ -1152,11 +1152,11 @@ msgstr "Kopírovat soubor"
 msgid "A directory name must be entered"
 msgstr "Musí být zadán název adresáře"
 
-#: src/gnome-cmd-mkdir-dialog.c:137
+#: src/gnome-cmd-mkdir-dialog.c:141
 msgid "Directory name:"
 msgstr "Název adresáře:"
 
-#: src/gnome-cmd-mkdir-dialog.c:145
+#: src/gnome-cmd-mkdir-dialog.c:149
 msgid "Make Directory"
 msgstr "Vytvořit adresář"
 
@@ -1787,7 +1787,7 @@ msgstr "kopíruji..."
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[soubor %ld z %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.c:367
+#: src/gnome-cmd-xfer.c:384
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
@@ -1795,11 +1795,11 @@ msgstr ""
 "Kopírování adresáře do sebe sama není dobrý nápad.\n"
 "Celá operace byla zrušena."
 
-#: src/gnome-cmd-xfer.c:414
+#: src/gnome-cmd-xfer.c:431
 msgid "preparing..."
 msgstr "připravuji..."
 
-#: src/gnome-cmd-xfer.c:509
+#: src/gnome-cmd-xfer.c:526
 msgid "downloading to /tmp"
 msgstr "stahuji do /tmp"
 
@@ -1891,14 +1891,13 @@ msgstr "O _aplikaci"
 msgid "running \"%s\"\n"
 msgstr "spouštím \"%s\"\n"
 
-# FIXME: s/powerfull/powerful/
-#: src/useractions.c:671
-msgid "A fast and powerfull file manager for the GNOME desktop"
+#: src/useractions.c:668
+msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Rychlý a mocný správce souborů pro prostředí pracovní plochy GNOME"
 
 #. xgettext:
 #. * Replace this with your name when translating
-#: src/useractions.c:676
+#: src/useractions.c:673
 msgid "No translation is currently in use."
 msgstr ""
 "Jaroslav Jiřička <jiricka@mujbox.cz>\n"
