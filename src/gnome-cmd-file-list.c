@@ -2696,3 +2696,10 @@ gnome_vfs_list_sort (GList *list,
 		 compare_func,
 		 data);
 }
+
+
+GList *
+gnome_cmd_file_list_sort_selection (GList *list, GnomeCmdFileList *fl)
+{
+	return gnome_vfs_list_sort(list, (GnomeVFSListCompareFunc)fl->priv->sort_func, fl);
+}

@@ -581,6 +581,13 @@ init (GnomeCmdMainMenu *main_menu)
 		},
 		MENUTYPE_SEPARATOR,
 		{
+			MENU_TYPE_ITEM, _("Copy _File Names"), "", NULL,
+			edit_copy_fnames, NULL, 
+			GNOME_APP_PIXMAP_NONE, 0,
+			NULL
+		},
+		MENUTYPE_SEPARATOR,
+		{
 			MENU_TYPE_ITEM, _("_Search..."), "ALT+F7", NULL,
 			edit_search, NULL, 
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,

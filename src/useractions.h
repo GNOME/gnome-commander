@@ -177,6 +177,11 @@ edit_filter                         (GtkMenuItem     *menuitem,
  								     gpointer        not_used);
 
 
+void
+edit_copy_fnames                    (GtkMenuItem     *menuitem,
+ 								     gpointer        not_used);
+
+
 /************** View Menu **************/
 void
 view_conbuttons                        (GtkCheckMenuItem     *menuitem,

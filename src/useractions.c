@@ -16,7 +16,9 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */ 
+
 #include <config.h>
+#include <gtk/gtkclipboard.h>
 #include "gnome-cmd-includes.h"
 #include "useractions.h"
 #include "gnome-cmd-main-win.h"
@@ -304,6 +306,43 @@ edit_filter                         (GtkMenuItem     *menuitem,
  								     gpointer        not_used)
 {
 	gnome_cmd_file_selector_show_filter (get_active_fs (), 0);
+}
+
+
+void
+edit_copy_fnames                    (GtkMenuItem     *menuitem,
+                                     gpointer        not_used)
+{
+	static gchar sep[] = " ";
+	
+	GnomeCmdFileList *fl = get_active_fl ();
+	GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
+	GList *i;
+	gchar **fnames = g_malloc((g_list_length(sfl)+1)*sizeof(gchar*));
+	gchar **f = fnames;
+	gchar *s;
+	
+	sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
+	
+	for (i = sfl; i; i = i->next) {
+	    GnomeCmdFile *finfo = (GnomeCmdFile*)i->data;
+	    
+	    if (finfo) {
+		*f++ = gnome_cmd_file_get_name (finfo);
+		// g_print (finfo->path);
+		// g_print (finfo->uri_str);
+	    }
+	}
+	
+ 	*f = NULL;
+	
+	s = g_strjoinv(sep,fnames);
+	
+	gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), s, -1);
+	
+	g_free (s);
+	g_list_free (sfl);
+	g_free (fnames);
 }
 
 

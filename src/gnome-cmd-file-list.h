@@ -196,6 +196,9 @@ gnome_cmd_file_list_compare_directories (void);
 void
 gnome_cmd_file_list_sort (GnomeCmdFileList *fl);
 
+GList *
+gnome_cmd_file_list_sort_selection (GList *list, GnomeCmdFileList *fl);
+
 GnomeCmdFile *
 gnome_cmd_file_list_get_file_at_row (GnomeCmdFileList *fl, gint row);
 

@@ -5,6 +5,7 @@ SUBDIRS = device-icons file-type-icons mime-icons
 
 pixmapsdir = $(datadir)/pixmaps/@PACKAGE@
 pixmaps_DATA = \
+	copy_file_names.xpm \
 	exec.xpm \
 	exec_wheel.xpm \
 	ftp.xpm \

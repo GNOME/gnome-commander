@@ -37,6 +37,7 @@
 #include "utils.h"
 
 #include "../pixmaps/ftp_connect.xpm"
+#include "../pixmaps/copy_file_names.xpm"
 
 
 enum {
@@ -190,7 +191,7 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 			{
 			  case  1:  mw->priv->back_btn = w;  break;
 			  case  2:  mw->priv->forward_btn = w;  break;
-			  case 11:  mw->priv->con_drop_btn = w;  break;
+			  case 13:  mw->priv->con_drop_btn = w;  break;
 			}
 		}
 
@@ -1333,6 +1334,14 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
 			_("Delete"),
 			file_delete, NULL, NULL,
 			GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TRASH,
+			0, 0, NULL
+		},
+		GNOMEUIINFO_SEPARATOR,
+		{
+			GNOME_APP_UI_ITEM, NULL,
+			_("Copy file names"),
+			edit_copy_fnames, NULL, NULL,
+			GNOME_APP_PIXMAP_DATA, copy_file_names_xpm,
 			0, 0, NULL
 		},
 		GNOMEUIINFO_SEPARATOR,
