@@ -1,5 +1,9 @@
 2004-01-14  Marcus Bjurman  <marbj499@student.liu.se>
-	
+
+	* src/gnome-cmd-ftp-dialog.c (create_ftp_server_dialog):
+	Fixed crash when bringing up the quick-connect dialog two times in a 
+	row.
+
 	* src/gnome-cmd-file-selector.c:
 	* doc/keys.txt: 
 	Added "CTRL+." shortcut to copy the cwd from the inactive file-list to
@@ -12,15 +16,15 @@
 	* doc/keys.txt: 
 	Added the shortcut "shift+f10" to bring up the file context menu.
 
-	* src/gnome-cmd-con-list.c
-	* src/gnome-cmd-con-list.h
-	* src/gnome-cmd-data.c
-	* src/gnome-cmd-data.h
-	* src/gnome-cmd-file-selector.c
-	* src/gnome-cmd-options-dialog.c
-	* src/gnome-cmd-smb-path.c
-	* src/utils.c
-	* src/utils.h
+	* src/gnome-cmd-con-list.c:
+	* src/gnome-cmd-con-list.h:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-smb-path.c:
+	* src/utils.c:
+	* src/utils.h:
 	Made it possible to 'cd' to smb paths from the cmdline.
 	Made it possible to customize the filepatterns that are to be treated
 	as backup files.
