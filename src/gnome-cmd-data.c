@@ -452,7 +452,7 @@ write_string_history (gchar *format, GList *strings)
 	gchar key[128];
 
 	while (strings) {
-		snprintf (key, 128, format, i);
+		snprintf (key, sizeof (key), format, i);
 		gnome_cmd_data_set_string (key, (gchar*)strings->data);
 		strings = strings->next;
 		i++;

@@ -100,7 +100,7 @@ void warn_print (const gchar *fmt, ...)
     char        string[1024];
 
     va_start (argptr,fmt);
-    vsnprintf (string,1024,fmt,argptr);
+    vsnprintf (string,sizeof(string),fmt,argptr);
     va_end (argptr);
     g_printerr("WARNING: %s", string);
 }
@@ -444,9 +444,9 @@ const gchar *size2string (GnomeVFSFileSize size,
         }
 
         if (i)
-            g_snprintf (buf, 64, "%.1f %s",dsize,prefixes[i]);
+            g_snprintf (buf, sizeof (buf), "%.1f %s", dsize, prefixes[i]);
 		else
-			g_snprintf (buf, 64, "%lld %s", size, prefixes[0]);
+			g_snprintf (buf, sizeof(buf), "%lld %s", size, prefixes[0]);
     }
     else if (size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
     {
@@ -493,7 +493,7 @@ const gchar *size2string (GnomeVFSFileSize size,
     }
 	else
 	{
-		g_snprintf (buf, 64, "%lld", size);
+		g_snprintf (buf, sizeof(buf), "%lld", size);
 	}
 
 	return buf;
@@ -984,13 +984,13 @@ create_nice_size_str (GnomeVFSFileSize size)
 	const gchar *s1;
 	static gchar str1[64];
 	s1 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED);
-	snprintf (str1, 64, "%s bytes", s1);
+	snprintf (str1, sizeof (str1), "%s bytes", s1);
 	
 	if (size >= 1000) {	
 		const gchar *s2;
 		static gchar str2[128];
 		s2 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED);
-		snprintf (str2, 256, "%s (%s)", s2, str1);
+		snprintf (str2, sizeof (str2), "%s (%s)", s2, str1);
 		return str2;
 	}
 	

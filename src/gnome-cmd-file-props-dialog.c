@@ -60,7 +60,7 @@ get_size_disp_string (GnomeVFSFileSize size)
 	if (mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
 		return create_nice_size_str (size);
 
-	snprintf (s, 64, _("%s bytes"), size2string (size, mode));
+	snprintf (s, sizeof (s), _("%s bytes"), size2string (size, mode));
 	return s;
 }
 
