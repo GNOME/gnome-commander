@@ -318,20 +318,17 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
 	GnomeCmdFileList *fl = get_active_fl ();
 	GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
 	GList *i;
-	gchar **fnames = g_malloc((g_list_length(sfl)+1)*sizeof(gchar*));
+	gchar **fnames = g_new (char*, g_list_length (sfl) + 1);
 	gchar **f = fnames;
 	gchar *s;
 	
 	sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
 	
 	for (i = sfl; i; i = i->next) {
-	    GnomeCmdFile *finfo = (GnomeCmdFile*)i->data;
+	    GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
 	    
-	    if (finfo) {
-		*f++ = gnome_cmd_file_get_name (finfo);
-		// g_print (finfo->path);
-		// g_print (finfo->uri_str);
-	    }
+	    if (finfo)
+			*f++ = (char*)gnome_cmd_file_get_name (finfo);
 	}
 	
  	*f = NULL;
@@ -668,7 +665,7 @@ help_about                          (GtkMenuItem     *menuitem,
 		"Gnome Commander",
 		VERSION,
 		"Copyright (C) 2001-2004 Marcus Bjurman",
-		_("A fast and powerfull file manager for the GNOME desktop"),
+		_("A fast and powerful file manager for the GNOME desktop"),
 		(const gchar**)authors,
 		(const gchar**)docers,
 		/* xgettext:
