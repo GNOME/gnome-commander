@@ -522,9 +522,10 @@ msgstr ""
 msgid "Failed to browse the network. Is the SMB module installed?"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gnome-cmd-con-smb.c:211
 msgid "SMB"
-msgstr ""
+msgstr "SMB"
 
 #: src/gnome-cmd-con-smb.c:212
 msgid "Searching for workgroups and hosts"
@@ -610,9 +611,10 @@ msgstr ""
 msgid "size"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gnome-cmd-file-list.c:1344
 msgid "date"
-msgstr ""
+msgstr "data"
 
 #: src/gnome-cmd-file-list.c:1345
 msgid "perm"
@@ -656,9 +658,10 @@ msgstr ""
 msgid "_Execute"
 msgstr "_Ekzekuto"
 
+#. GRUT modified this item
 #: src/gnome-cmd-file-popmenu.c:455
 msgid "_Cut"
-msgstr ""
+msgstr "_Preje"
 
 #. GRUT modified this item
 #: src/gnome-cmd-file-popmenu.c:462 src/gnome-cmd-main-menu.c:565
@@ -779,9 +782,10 @@ msgstr ""
 msgid "No filename entered"
 msgstr ""
 
+#. GRUT modified this item
 #: src/gnome-cmd-file-selector.c:2029
 msgid "No filename given"
-msgstr ""
+msgstr "Nuk është dhënë asnjë emër file"
 
 #: src/gnome-cmd-file-selector.c:2064
 msgid "New Text File"
@@ -941,9 +945,10 @@ msgid "_Paste"
 msgstr "_Ngjite"
 
 #. GRUT modified this item
+#. GRUT modified this item
 #: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:626
 msgid "_Refresh"
-msgstr "_Fresko"
+msgstr "_Rifreskim"
 
 #: src/gnome-cmd-main-menu.c:389
 msgid "Switch to Horizontal Layout"
@@ -979,9 +984,10 @@ msgid "_Diff"
 msgstr ""
 
 #. GRUT modified this item
+#. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:500
 msgid "_Quit"
-msgstr "_Dil"
+msgstr "_Dalja"
 
 #. GRUT modified this item
 #: src/gnome-cmd-main-menu.c:511
