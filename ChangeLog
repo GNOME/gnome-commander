@@ -1,6 +1,10 @@
 ##############################################################################
 #                                   1.1.6                                    #
 ##############################################################################
+2004-02-06  Robert Sedak  <robert.sedak@sk.htnet.hr>
+
+        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+
 2004-01-19  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* README.in:
