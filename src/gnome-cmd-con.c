@@ -306,8 +306,10 @@ gnome_cmd_con_close (GnomeCmdCon *con)
 {
 	g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
 
-	if (gnome_cmd_con_is_closeable (con))
+	if (gnome_cmd_con_is_closeable (con)) {
 		gtk_signal_emit (GTK_OBJECT (con), signals[CLOSE]);
+		gtk_signal_emit (GTK_OBJECT (con), signals[UPDATED]);
+	}
 	
 	return TRUE;	
 }
