@@ -109,6 +109,7 @@ void gnome_cmd_dir_ref (GnomeCmdDir *dir);
 void gnome_cmd_dir_unref (GnomeCmdDir *dir);
 
 GnomeVFSResult gnome_cmd_dir_get_files (GnomeCmdDir *dir, GList **files);
+void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog);
 void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog);
 
 GnomeCmdPath *gnome_cmd_dir_get_path (GnomeCmdDir *dir);

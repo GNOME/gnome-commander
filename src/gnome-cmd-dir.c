@@ -644,7 +644,7 @@ create_list_progress_dialog (GnomeCmdDir *dir)
 }
 
 
-static void
+void
 gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog)
 {
 	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
@@ -661,7 +661,8 @@ gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog)
 }
 
 
-void gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
+void
+gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
 {
 	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 

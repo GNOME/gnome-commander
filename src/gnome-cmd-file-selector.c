@@ -1590,7 +1590,7 @@ gnome_cmd_file_selector_reload           (GnomeCmdFileSelector *fs)
 	dir = gnome_cmd_file_selector_get_directory (fs);
 	g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-	gnome_cmd_dir_list_files (
+	gnome_cmd_dir_relist_files (
 		dir, gnome_cmd_con_needs_list_visprog (fs->priv->con));
 }
 

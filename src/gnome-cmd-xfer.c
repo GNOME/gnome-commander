@@ -277,7 +277,7 @@ update_xfer_gui_func (XferData *data)
 		
 		/* Only update the files if needed */
 		if (data->to_dir) {
-			gnome_cmd_dir_list_files (data->to_dir, FALSE);
+			gnome_cmd_dir_relist_files (data->to_dir, FALSE);
 		}
 
 		if (data->to_dir) {
