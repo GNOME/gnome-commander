@@ -1,3 +1,42 @@
+2004-01-17  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-dir-indicator.c:
+	Changed to using bold text instead of underlined when focused by the
+	mouse cursor.
+
+	* src/gnome-cmd-cmdline.c (init):
+	Made the cwd label selectable.
+
+2004-01-16  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* libgcmd/gnome-cmd-dialog.c:
+	The main window was always used instead of the window passed as a
+	parameter.
+
+	* libgcmd/libgcmd-widget-factory.h: 
+	* libgcmd/libgcmd-widget-factory.c:
+	Added function to get the selected text of a combo box.
+
+	* src/gnome-cmd-xfer.c: 
+	* src/gnome-cmd-main-win.c: 
+	* src/gnome-cmd-main-win.h: 
+	* src/gnome-cmd-file-selector.c: 
+	* src/gnome-cmd-dir-indicator.c: 
+	* src/gnome-cmd-bookmark-dialog.c:
+	Fixed focus problems.
+
+2004-01-15  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-about-plugin.c (gnome_cmd_about_plugin_class_init):
+	Marked some strings as non-translatable since they are never seen in
+	the gui.
+
+	* src/gnome-cmd-rename-dialog.c (on_ok): 
+	* src/gnome-cmd-file-list.c:
+	Fixed the issue with the focus sometimes being on the wrong file
+	after a rename. Also reduced the timeout for the file context menu to
+	750 ms instead of 1000.
+
 2004-01-14  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/utils.c: 
