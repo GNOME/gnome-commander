@@ -1,18 +1,18 @@
 # Polish translation of GNOME Commander
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# Piotr Eljasiak <epiotr@use.pl>, 2002.
+# Piotr Eljasiak <epiotr@use.pl>, 2002-2004.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-21 00:23+0200\n"
+"POT-Creation-Date: 2004-04-30 12:30+0200\n"
 "PO-Revision-Date: 2004-04-21 00:39+0200\n"
 "Last-Translator: Piotr Eljasiak <epiotr@cvs.gnome.org>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -116,9 +116,8 @@ msgid "Create Archive..."
 msgstr "Utwórz archiwum..."
 
 #: plugins/fileroller/file-roller-plugin.c:287
-#, fuzzy
 msgid "Extract in Current Directory"
-msgstr "Nazwa nowego katalogu"
+msgstr "Rozpakuj w bieżącym katalogu"
 
 #: plugins/fileroller/file-roller-plugin.c:292
 #, c-format
@@ -145,7 +144,9 @@ msgstr ""
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
-msgstr "To jest przykładowa wtyczka, która jest najbardziej przydatna jako prosty przykład dla kandydatów na twórców wtyczek"
+msgstr ""
+"To jest przykładowa wtyczka, która jest najbardziej przydatna jako prosty "
+"przykład dla kandydatów na twórców wtyczek"
 
 #: src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
@@ -392,7 +393,7 @@ msgid ""
 "Could not chmod %s\n"
 "%s"
 msgstr ""
-"Nie mogę wykonać chmod %s\n"
+"Nie można wykonać chmod %s\n"
 "%s"
 
 #: src/gnome-cmd-chmod-dialog.c:214
@@ -552,7 +553,7 @@ msgstr[0] "Czy chcesz usunąć %d zaznaczony plik ?"
 msgstr[1] "Czy chcesz usunąć %d zaznaczone pliki ?"
 msgstr[2] "Czy chcesz usunąć %d zaznaczonych plików ?"
 
-#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1347
+#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1346
 msgid "Delete"
 msgstr "Usuń"
 
@@ -565,9 +566,8 @@ msgid "OK"
 msgstr "OK"
 
 #: src/gnome-cmd-dir.c:569
-#, fuzzy
 msgid "Waiting for file list"
-msgstr "Czcionka dla listy plików"
+msgstr "Oczekiwanie na listę plików"
 
 #: src/gnome-cmd-file-list.c:1341
 msgid "ext"
@@ -747,6 +747,11 @@ msgstr "Nowy plik tekstowy"
 msgid "Symlink name:"
 msgstr "Nazwa linku symbolicznego:"
 
+#: src/gnome-cmd-file-selector.c:2237
+#, c-format
+msgid "Symlink to %s"
+msgstr "Skrót do %s"
+
 #: src/gnome-cmd-file-selector.c:2239
 msgid "Create Symbolic Link"
 msgstr "Utwórz link symboliczny"
@@ -841,7 +846,7 @@ msgstr ""
 msgid "No server selected"
 msgstr "Nie wybrano serwera"
 
-#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1355
+#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1354
 msgid "FTP Connect"
 msgstr "Połączenie FTP"
 
@@ -1103,35 +1108,35 @@ msgstr "F9 Wyszukaj"
 msgid "F10 Quit"
 msgstr "F10 Zakończ"
 
-#: src/gnome-cmd-main-win.c:1297
+#: src/gnome-cmd-main-win.c:1296
 msgid "Refresh"
 msgstr "Odśwież"
 
-#: src/gnome-cmd-main-win.c:1304
+#: src/gnome-cmd-main-win.c:1303
 msgid "Back in history"
 msgstr "Wstecz"
 
-#: src/gnome-cmd-main-win.c:1311
+#: src/gnome-cmd-main-win.c:1310
 msgid "Forward in history"
 msgstr "Dalej"
 
-#: src/gnome-cmd-main-win.c:1319
+#: src/gnome-cmd-main-win.c:1318
 msgid "Copy file names"
 msgstr "Kopiuj nazwy plików"
 
-#: src/gnome-cmd-main-win.c:1326
+#: src/gnome-cmd-main-win.c:1325
 msgid "Cut"
 msgstr "Wytnij"
 
-#: src/gnome-cmd-main-win.c:1333 src/gnome-cmd-prepare-copy-dialog.c:86
+#: src/gnome-cmd-main-win.c:1332 src/gnome-cmd-prepare-copy-dialog.c:86
 msgid "Copy"
 msgstr "Kopiuj"
 
-#: src/gnome-cmd-main-win.c:1340
+#: src/gnome-cmd-main-win.c:1339
 msgid "Paste"
 msgstr "Wklej"
 
-#: src/gnome-cmd-main-win.c:1362
+#: src/gnome-cmd-main-win.c:1361
 #, fuzzy
 msgid "Drop connection"
 msgstr "Połączenie FTP"
@@ -1724,7 +1729,7 @@ msgstr "Chmod"
 #: src/gnome-cmd-smb-path.c:331
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
-msgstr "Nie można znaleźć hosta lub grupy roboczej %s\n"
+msgstr "Nie odnaleziono hosta lub grupy roboczej %s\n"
 
 #: src/gnome-cmd-xfer-progress-win.c:37
 msgid "stopping..."
@@ -1750,7 +1755,8 @@ msgid ""
 "The file \"%s\" already exists.\n"
 "\n"
 "Do you want to overwrite it?\n"
-msgstr "Plik \"%s\" już istnieje.\n"
+msgstr ""
+"Plik \"%s\" już istnieje.\n"
 "\n"
 "Czy chcesz go nadpisać?\n"
 
@@ -1786,7 +1792,7 @@ msgstr "kopiowanie..."
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[plik %ld z %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.c:383
+#: src/gnome-cmd-xfer.c:391
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
@@ -1794,11 +1800,11 @@ msgstr ""
 "Kopiowanie katalogu do samego siebie nie jest dobrym pomysłem\n"
 "Operacja została porzucona"
 
-#: src/gnome-cmd-xfer.c:430
+#: src/gnome-cmd-xfer.c:438
 msgid "preparing..."
 msgstr "przygotowywanie..."
 
-#: src/gnome-cmd-xfer.c:525
+#: src/gnome-cmd-xfer.c:533
 msgid "downloading to /tmp"
 msgstr "pobieranie do /tmp"
 
@@ -1806,7 +1812,7 @@ msgstr "pobieranie do /tmp"
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
-"Nie mogę załadować zainstalowanej piksmapy, próba załadowania z source-dir\n"
+"Nie można załadować zainstalowanej piksmapy, próba załadowania z source-dir\n"
 
 #: src/imageloader.c:126 src/imageloader.c:152
 #, c-format
@@ -1818,14 +1824,14 @@ msgid ""
 "Cant find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
 msgstr ""
-"Nie mogę nigdzie znaleźć piksmapy. Upewnij się, że masz zainstalowany "
+"Nie można nigdzie znaleźć piksmapy. Upewnij się, że masz zainstalowany "
 "program, i że gnome-commander jest uruchamiany z katalogu gnome-commander-x."
 "y.z/src\n"
 
 #: src/imageloader.c:150
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
-"Nie mogę załadować zainstalowanej piksmapy, próba załadowania z source-dir\n"
+"Nie można załadować zainstalowanej piksmapy, próba załadowania z source-dir\n"
 
 #: src/main.c:56
 msgid "Specify debug flags to use"
@@ -1953,17 +1959,17 @@ msgid ""
 "to a temporary location and then open them?"
 msgstr ""
 
-#: src/utils.c:1357
+#: src/utils.c:1363
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Tworzenie katalogu %s..."
 
-#: src/utils.c:1362
+#: src/utils.c:1368
 #, c-format
 msgid "Failed to create the directory %s"
-msgstr "Nie można utworzyć karalogu %s\n"
+msgstr "Nie można utworzyć karalogu %s"
 
-#: src/utils.c:1368
+#: src/utils.c:1374
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Nie można czytać z katalogu %s: %s\n"
@@ -1974,9 +1980,8 @@ msgstr "Nie można czytać z katalogu %s: %s\n"
 #~ msgid "CVS"
 #~ msgstr "CVS"
 
-#, fuzzy
 #~ msgid "CVSLogViewer"
-#~ msgstr "Przeglądarka:"
+#~ msgstr "Przeglądarka logów CVS"
 
 #~ msgid "Revisions"
 #~ msgstr "Wydania"
@@ -2082,7 +2087,7 @@ msgstr "Nie można czytać z katalogu %s: %s\n"
 #~ msgstr "Inicjalizacja FAM nie powiodła się\n"
 
 #~ msgid "Failed to mount the device"
-#~ msgstr "Nie mogę zamontować urządzenia"
+#~ msgstr "Nie można zamontować urządzenia"
 
 #~ msgid "_Connect..."
 #~ msgstr "_Połącz..."
@@ -2116,7 +2121,7 @@ msgstr "Nie można czytać z katalogu %s: %s\n"
 #~ msgstr "Zamknij"
 
 #~ msgid "Couldn't find pixmap file: %s"
-#~ msgstr "Nie mogę znaleźć pliku piksmapy: %s"
+#~ msgstr "Nie odnaleziono pliku piksmapy: %s"
 
 #~ msgid "FTP Disconnect"
 #~ msgstr "Rozłącz FTP"
@@ -2270,9 +2275,6 @@ msgstr "Nie można czytać z katalogu %s: %s\n"
 
 #~ msgid "status description"
 #~ msgstr "opis statusu"
-
-#~ msgid "21"
-#~ msgstr "21"
 
 #~ msgid "Toggle"
 #~ msgstr "Zaznacz"
