@@ -362,7 +362,7 @@ on_edit_colors_close (GtkButton *btn, GtkWidget *dlg)
 	GtkWidget *sel_bg = lookup_widget (GTK_WIDGET (dlg), "selected_bg");
 	GtkWidget *curs_fg = lookup_widget (GTK_WIDGET (dlg), "cursor_fg");
 	GtkWidget *curs_bg = lookup_widget (GTK_WIDGET (dlg), "cursor_bg");
-	GnomeCmdColorTheme *colors = gnome_cmd_data_get_current_color_theme ();
+	GnomeCmdColorTheme *colors = gnome_cmd_data_get_custom_color_theme ();
 	gushort a;
 	
 	gnome_color_picker_get_i16 (
@@ -394,7 +394,7 @@ on_colors_edit (GtkButton *btn, GtkWidget *parent)
 	GtkWidget *dlg;
 	GtkWidget *cat, *cat_box;
 	GtkWidget *table, *label, *cpicker;
-	GnomeCmdColorTheme *colors = gnome_cmd_data_get_current_color_theme ();
+	GnomeCmdColorTheme *colors = gnome_cmd_data_get_custom_color_theme ();
 
 	dlg = gnome_cmd_dialog_new (_("Edit Colors..."));
 	gtk_widget_ref (dlg);

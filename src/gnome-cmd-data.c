@@ -1060,11 +1060,11 @@ gnome_cmd_data_load                      (void)
 
 	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].respect_theme = FALSE;
 	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].norm_fg = gdk_color_new (0,0,0);
-	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].norm_bg = gdk_color_new (0xffff,0xffff,0xffff);
+	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].norm_bg = gdk_color_new (0xdddd,0xdddd,0xdddd);
 	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].sel_fg = gdk_color_new (0xffff,0,0);
-	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].sel_bg = gdk_color_new (0xffff,0xffff,0xffff);
+	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].sel_bg = gdk_color_new (0xdddd,0xdddd,0xdddd);
 	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].curs_fg = gdk_color_new (0xffff,0xffff,0xffff);
-	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].curs_bg = gdk_color_new (0,0,0x6666);
+	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].curs_bg = gdk_color_new (0,0,0x4444);
 	
 	data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].respect_theme = FALSE;
 	data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
@@ -1420,6 +1420,13 @@ GnomeCmdColorTheme*
 gnome_cmd_data_get_current_color_theme (void)
 {
 	return &data->priv->color_themes[data->priv->color_mode];
+}
+
+
+GnomeCmdColorTheme*
+gnome_cmd_data_get_custom_color_theme (void)
+{
+	return &data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM];
 }
 
 

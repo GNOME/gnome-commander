@@ -147,6 +147,9 @@ void
 gnome_cmd_data_set_color_mode            (GnomeCmdColorMode mode);
 
 GnomeCmdColorTheme*
+gnome_cmd_data_get_custom_color_theme    (void);
+
+GnomeCmdColorTheme*
 gnome_cmd_data_get_current_color_theme   (void);
 
 gint
