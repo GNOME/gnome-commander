@@ -132,6 +132,9 @@ create_hbuttonbox (GtkWidget *parent);
 GtkWidget *
 create_combo (GtkWidget *parent);
 
+const gchar *
+get_combo_text (GtkWidget *combo);
+
 GSList *
 get_radio_group (GtkWidget *radio);
 

@@ -513,6 +513,12 @@ create_combo (GtkWidget *parent)
 	return combo;
 }
 
+const gchar *
+get_combo_text (GtkWidget *combo)
+{
+	return gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (combo)->entry));
+}
+
 GtkWidget *
 create_progress_bar (GtkWidget *parent)
 {
