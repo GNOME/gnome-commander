@@ -329,8 +329,6 @@ gnome_cmd_file_rename (GnomeCmdFile *finfo, const gchar *new_name)
 					gnome_cmd_path_get_child (t, new_name));
 										
 			}
-		
-			gnome_cmd_dir_file_renamed (dir, finfo);
 		}
 	}
 

@@ -67,6 +67,10 @@ void
 gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection,
 								  GnomeCmdFile *file);
 
+void
+gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection,
+										 const gchar *uri_str);
+
 GnomeCmdFile *
 gnome_cmd_file_collection_lookup (GnomeCmdFileCollection *collection,
 								  const gchar *uri_str);

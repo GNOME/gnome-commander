@@ -158,6 +158,23 @@ gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection,
 }
 
 
+void
+gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection,
+										 const gchar *uri_str)
+{
+	GnomeCmdFile *file;
+	
+	g_return_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection));
+	g_return_if_fail (uri_str != NULL);
+
+	file = gnome_cmd_file_collection_lookup (collection, uri_str);
+	collection->priv->list = g_list_remove (
+		collection->priv->list, file);
+	
+	g_hash_table_remove (collection->priv->map, uri_str);
+}
+
+
 GnomeCmdFile *
 gnome_cmd_file_collection_lookup (GnomeCmdFileCollection *collection,
 								  const gchar *uri_str)

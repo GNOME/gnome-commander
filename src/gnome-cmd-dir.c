@@ -794,8 +794,8 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
 	g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
 	gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], finfo);
 
-	gnome_cmd_file_collection_remove (
-		dir->priv->file_collection, finfo);
+	gnome_cmd_file_collection_remove_by_uri (
+		dir->priv->file_collection, uri_str);
 	dir->priv->files = gnome_cmd_file_collection_get_list (
 		dir->priv->file_collection);
 }
@@ -824,7 +824,7 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 	res = gnome_vfs_get_file_info_uri (
 		uri, info, infoOpts);
 	gnome_vfs_uri_unref (uri);
-			
+	
 	gnome_cmd_file_update_info (finfo, info);
 	gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CHANGED], finfo);
 }
