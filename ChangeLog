@@ -1,3 +1,33 @@
+2004-04-17  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	Fixed bug #136643.
+
+2004-04-16  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-xfer.c (update_xfer_gui_func):
+	Removed debug printf.
+
+	* src/cap.c: 
+	* src/gnome-cmd-main-win.c:
+	Made the toolbar buttons for cut,copy and paste sensitive
+	to the current state.
+
+	* src/useractions.c:
+	Fixed some code style issues and a spelling error. The spelling error
+	fixes bug #140055.
+
+	* src/gnome-cmd-xfer.c: 
+	* src/gnome-cmd-mkdir-dialog.c: 
+	* src/gnome-cmd-main-win.c: 
+	* src/gnome-cmd-main-win.h: 
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-file-selector.c: 
+	* src/gnome-cmd-delete-dialog.c:
+	Rollbacked a previous commit that broke the feature that file-lists
+	refresh even without FAM when files are modifed by gcmd itself.
+
 2004-04-11  Adam Weinberger  <adamw@gnome.org>
 
 	* configure.in: Added en_CA to ALL_LINGUAS.
