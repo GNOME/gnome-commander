@@ -767,7 +767,6 @@ init (GnomeCmdMainWin *mw)
 
 	gnome_app_construct (GNOME_APP (main_win), "gnome-commander", "GNOME Commander");
 	gtk_object_set_data (GTK_OBJECT (main_win), "main_win", main_win);
-	gtk_window_set_position (GTK_WINDOW (main_win), GTK_WIN_POS_CENTER);
 	gtk_window_set_policy (GTK_WINDOW (main_win), TRUE, TRUE, FALSE);
 	gtk_widget_set_usize (GTK_WIDGET (main_win), main_win_width, main_win_height);
 
