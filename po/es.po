@@ -1,136 +1,128 @@
+# translation of es.po to Spanish
 # Spanish translation of GNOME Commander
-# Copyright (C) 2002 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the GNOME Commander package.
 # Edgardo García Hoeffler <edybsd@yahoo.com.ar>, 2002.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander\n"
+"Project-Id-Version: es\n"
 "POT-Creation-Date: 2003-11-24 12:37+0100\n"
-"PO-Revision-Date: 2002-07-17 16:26-0300\n"
-"Last-Translator: Edgardo García Hoeffler <edybsd@yahoo.com.ar>\n"
-"Language-Team: Español <es@li.org>\n"
+"PO-Revision-Date: 2003-12-16 13:34+0100\n"
+"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
+"Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: libgcmd/gnome-cmd-string-dialog.c:131
 msgid "No error description available"
-msgstr ""
+msgstr "No hay descripción de error disponible"
 
 #: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
 #: src/utils.c:739
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
 #: src/utils.c:739
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/gnome-cmd-advrename-dialog.c:197
 msgid "Invalid source pattern"
-msgstr ""
+msgstr "Patrón origen inválido"
 
 #: src/gnome-cmd-advrename-dialog.c:273
-#, fuzzy
 msgid "Replace this:"
-msgstr "Reemplazar esto"
+msgstr "Reemplazar esto:"
 
 #: src/gnome-cmd-advrename-dialog.c:273 src/gnome-cmd-advrename-dialog.c:821
 msgid "With this"
 msgstr "Por esto"
 
 #: src/gnome-cmd-advrename-dialog.c:287
-#, fuzzy
 msgid "Case sensitive matching"
 msgstr "Coincidir mayúsculas y minúsculas"
 
 #: src/gnome-cmd-advrename-dialog.c:423
-#, fuzzy
 msgid "New Rule"
 msgstr "Nueva regla"
 
 #: src/gnome-cmd-advrename-dialog.c:432
 msgid "Edit Rule"
-msgstr ""
+msgstr "Editar regla"
 
 #: src/gnome-cmd-advrename-dialog.c:651
 msgid "Counter start value:"
-msgstr ""
+msgstr "Valor de inicio del contador:"
 
 #: src/gnome-cmd-advrename-dialog.c:652
 msgid "Counter increment:"
-msgstr ""
+msgstr "Incremento del contador:"
 
 #: src/gnome-cmd-advrename-dialog.c:653
 msgid "Counter minimum digit count:"
 msgstr ""
 
 #: src/gnome-cmd-advrename-dialog.c:658
-#, fuzzy
 msgid "Template Options"
-msgstr "Guardar opciones"
+msgstr "Opciones de plantillas"
 
 #: src/gnome-cmd-advrename-dialog.c:662
 msgid "Auto-update when the template is entered"
-msgstr ""
+msgstr "Actualizar cuando la plantilla se introduzca"
 
 #: src/gnome-cmd-advrename-dialog.c:771
-#, fuzzy
 msgid "Advanced Rename Tool"
 msgstr "Herramienta de renombrado avanzado"
 
 #: src/gnome-cmd-advrename-dialog.c:784
-#, fuzzy
 msgid "Template"
-msgstr "Reemplazar"
+msgstr "Plantilla"
 
 #: src/gnome-cmd-advrename-dialog.c:806
-#, fuzzy
 msgid "Options..."
 msgstr "Opciones..."
 
 #: src/gnome-cmd-advrename-dialog.c:813
 msgid "Regex replacing"
-msgstr ""
+msgstr "Reemplazo por expreg"
 
 #: src/gnome-cmd-advrename-dialog.c:820
 msgid "Replace this"
 msgstr "Reemplazar esto"
 
 #: src/gnome-cmd-advrename-dialog.c:822
-#, fuzzy
 msgid "Case sens"
-msgstr "Coincidir mayúsculas y minúsculas"
+msgstr "Capitalización"
 
 #: src/gnome-cmd-advrename-dialog.c:835 src/gnome-cmd-options-dialog.c:1275
 #: src/gnome-cmd-options-dialog.c:1628
-#, fuzzy
 msgid "_Add..."
-msgstr "_Agregar"
+msgstr "_Añadir..."
 
 #: src/gnome-cmd-advrename-dialog.c:839 src/gnome-cmd-ftp-dialog.c:537
 #: src/gnome-cmd-options-dialog.c:1279 src/gnome-cmd-options-dialog.c:1632
-#, fuzzy
 msgid "_Edit..."
-msgstr "Editar..."
+msgstr "_Editar..."
 
 #: src/gnome-cmd-advrename-dialog.c:844 src/gnome-cmd-bookmark-dialog.c:512
 #: src/gnome-cmd-ftp-dialog.c:541 src/gnome-cmd-options-dialog.c:1285
 #: src/gnome-cmd-options-dialog.c:1638
 msgid "_Remove"
-msgstr "_Remover"
+msgstr "_Eliminar"
 
 #: src/gnome-cmd-advrename-dialog.c:849
-#, fuzzy
 msgid "Re_move All"
-msgstr "Remover"
+msgstr "Eli_minar todo"
 
 #: src/gnome-cmd-advrename-dialog.c:872
 msgid "Result"
-msgstr ""
+msgstr "Resultado"
 
 #: src/gnome-cmd-advrename-dialog.c:877
 msgid "Current filenames"
@@ -141,9 +133,8 @@ msgid "New filenames"
 msgstr "Nuevos nombres de archivos"
 
 #: src/gnome-cmd-advrename-dialog.c:885
-#, fuzzy
 msgid "Reset"
-msgstr "Probar"
+msgstr "Restablecer"
 
 #: src/gnome-cmd-bookmark-dialog.c:67
 msgid "Bookmark name:"
@@ -162,9 +153,8 @@ msgid "Bookmark target is missing"
 msgstr ""
 
 #: src/gnome-cmd-bookmark-dialog.c:196
-#, fuzzy
 msgid "Edit Bookmark"
-msgstr "Editor"
+msgstr "Editorar marcador"
 
 #: src/gnome-cmd-bookmark-dialog.c:466 src/gnome-cmd-bookmark-dialog.c:482
 msgid "Bookmarks"
@@ -175,17 +165,16 @@ msgid "Bookmark Groups"
 msgstr ""
 
 #: src/gnome-cmd-bookmark-dialog.c:491 src/gnome-cmd-file-list.c:1332
-#, fuzzy
 msgid "name"
-msgstr "Renombrar"
+msgstr "nombre"
 
 #: src/gnome-cmd-bookmark-dialog.c:493
 msgid "path"
-msgstr ""
+msgstr "ruta"
 
 #: src/gnome-cmd-bookmark-dialog.c:502
 msgid "_Goto"
-msgstr ""
+msgstr "_Ir a"
 
 #: src/gnome-cmd-bookmark-dialog.c:507 src/gnome-cmd-main-menu.c:769
 #: src/gnome-cmd-search-popup.c:182
@@ -200,7 +189,7 @@ msgstr ""
 
 #: src/gnome-cmd-bookmark-dialog.c:628
 msgid "New Bookmark"
-msgstr ""
+msgstr "Marcador nuevo"
 
 #: src/gnome-cmd-chmod-component.c:128
 msgid "Read"
@@ -215,28 +204,24 @@ msgid "Execute"
 msgstr "Ejecución"
 
 #: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:89
-#, fuzzy
 msgid "Owner:"
-msgstr "Propiertario"
+msgstr "Propietario:"
 
 #: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:92
-#, fuzzy
 msgid "Group:"
-msgstr "Grupo"
+msgstr "Grupo:"
 
 #: src/gnome-cmd-chmod-component.c:129
-#, fuzzy
 msgid "Others:"
-msgstr "Otros"
+msgstr "Otros:"
 
 #: src/gnome-cmd-chmod-component.c:163
 msgid "Text view:"
 msgstr "Vista de texto:"
 
 #: src/gnome-cmd-chmod-component.c:166
-#, fuzzy
 msgid "Number view:"
-msgstr "Vista de texto:"
+msgstr "Vista número:"
 
 #: src/gnome-cmd-chmod-dialog.c:38 src/gnome-cmd-options-dialog.c:1075
 msgid "All files"
@@ -244,7 +229,7 @@ msgstr "Todos los archivos"
 
 #: src/gnome-cmd-chmod-dialog.c:39
 msgid "Directories only"
-msgstr "Solo directorios"
+msgstr "Sólo directorios"
 
 #: src/gnome-cmd-chmod-dialog.c:71
 #, c-format
@@ -256,12 +241,10 @@ msgstr ""
 "%s"
 
 #: src/gnome-cmd-chmod-dialog.c:214
-#, fuzzy
 msgid "Access Permissions"
-msgstr "permisos"
+msgstr "Permisos de acceso"
 
 #: src/gnome-cmd-chmod-dialog.c:232
-#, fuzzy
 msgid "Apply Recursively for"
 msgstr "Aplicar recursivamente a"
 
@@ -279,13 +262,12 @@ msgid "Chown"
 msgstr "Chown"
 
 #: src/gnome-cmd-chown-dialog.c:195
-#, fuzzy
 msgid "Apply Recursively"
 msgstr "Aplicar recursivamente"
 
 #: src/gnome-cmd-con-device.c:103
 msgid "Failed to execute the mount command"
-msgstr ""
+msgstr "Falló al ejecutar el comando mount"
 
 #: src/gnome-cmd-con-device.c:110
 msgid "Mount failed: Permission denied"
@@ -301,75 +283,73 @@ msgid "Mount failed: mount exited with existatus %d"
 msgstr ""
 
 #: src/gnome-cmd-con-device.c:356
-#, fuzzy, c-format
+#, c-format
 msgid "Mounting %s"
-msgstr "Montando %s en %s\n"
+msgstr "Montando %s"
 
 #: src/gnome-cmd-con-device.c:374 src/gnome-cmd-con-ftp.c:287
 #, c-format
 msgid "Go to: %s"
-msgstr ""
+msgstr "Ir a: %s"
 
 #: src/gnome-cmd-con-device.c:375
 #, c-format
 msgid "Mount: %s"
-msgstr ""
+msgstr "Montar: %s"
 
 #: src/gnome-cmd-con-device.c:376
-#, fuzzy, c-format
+#, c-format
 msgid "Unmount: %s"
-msgstr "Desmontar dispositivo"
+msgstr "Desmontar: %s"
 
 #: src/gnome-cmd-con-ftp.c:268
-#, fuzzy, c-format
+#, c-format
 msgid "Connecting to %s\n"
-msgstr "Montando %s en %s\n"
+msgstr "Conectando a %s\n"
 
 #: src/gnome-cmd-con-ftp.c:288
-#, fuzzy, c-format
+#, c-format
 msgid "Connect to: %s"
-msgstr "Conectar"
+msgstr "Conectar a: %s"
 
 #: src/gnome-cmd-con-ftp.c:289
-#, fuzzy, c-format
+#, c-format
 msgid "Disconnect from: %s"
-msgstr "Desconectar"
+msgstr "Desconectar de: %s"
 
 #: src/gnome-cmd-con-ftp.c:307
 #, c-format
 msgid "Creates an FTP connection to %s"
-msgstr ""
+msgstr "Crea una conexión FTP a %s"
 
 #: src/gnome-cmd-con-ftp.c:309
 #, c-format
 msgid "Removes the FTP connection to %s"
-msgstr ""
+msgstr "Elimina una conexión FTP a %s"
 
 #: src/gnome-cmd-con-home.c:129
-#, fuzzy
 msgid "Home"
-msgstr "Dir personal"
+msgstr "Directorio inicial"
 
 #: src/gnome-cmd-con-home.c:137
 msgid "Go to: Home"
-msgstr ""
+msgstr "Ir a: Directorio inicial"
 
 #: src/gnome-cmd-con-smb.c:201
 msgid "SMB"
-msgstr ""
+msgstr "SMB"
 
 #: src/gnome-cmd-con-smb.c:202
 msgid "Searching for workgroups and hosts"
-msgstr ""
+msgstr "Buscando grupos de trabajo y equipos"
 
 #: src/gnome-cmd-con-smb.c:209
 msgid "Go to: Samba Network"
-msgstr ""
+msgstr "Ir a: Red samba"
 
 #: src/gnome-cmd-delete-dialog.c:159
-#, fuzzy
 msgid "Deleting..."
-msgstr "Borrando fuente..."
+msgstr "Borrando..."
 
 #: src/gnome-cmd-delete-dialog.c:250
 #, c-format
@@ -378,10 +358,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Error al borrar %s\n"
+"\n"
+"%s"
 
 #: src/gnome-cmd-delete-dialog.c:253
 msgid "Delete problem"
-msgstr ""
+msgstr "Problema al borrar"
 
 #: src/gnome-cmd-delete-dialog.c:254 src/gnome-cmd-xfer.c:176
 #: src/gnome-cmd-xfer.c:196
@@ -390,12 +373,12 @@ msgstr "Abortar"
 
 #: src/gnome-cmd-delete-dialog.c:254 src/gnome-cmd-xfer.c:196
 msgid "Retry"
-msgstr ""
+msgstr "Reintentar"
 
 #: src/gnome-cmd-delete-dialog.c:254 src/gnome-cmd-xfer.c:176
 #: src/gnome-cmd-xfer.c:196
 msgid "Skip"
-msgstr "Saltear"
+msgstr "Saltar"
 
 #: src/gnome-cmd-delete-dialog.c:331
 #, c-format
@@ -406,7 +389,7 @@ msgstr "¿Desea borrar \"%s\"?"
 #, fuzzy, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "¿Desea borrar los %d archivos seleccionados?"
+msgstr[0] "¿Desea borrar el archivo seleccionado?"
 msgstr[1] "¿Desea borrar los %d archivos seleccionados?"
 
 #: src/gnome-cmd-delete-dialog.c:344 src/gnome-cmd-main-win.c:1277
@@ -415,11 +398,11 @@ msgstr "Borrar"
 
 #: src/gnome-cmd-delete-dialog.c:344 src/utils.c:597 src/utils.c:626
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/gnome-cmd-delete-dialog.c:344 src/utils.c:597
 msgid "OK"
-msgstr ""
+msgstr "Aceptar"
 
 #: src/gnome-cmd-dir.c:628
 #, fuzzy
@@ -463,9 +446,8 @@ msgid "ext"
 msgstr ""
 
 #: src/gnome-cmd-file-list.c:1334
-#, fuzzy
 msgid "dir"
-msgstr "Editor"
+msgstr "dir"
 
 #: src/gnome-cmd-file-list.c:1335
 msgid "size"
@@ -477,7 +459,7 @@ msgstr "fecha"
 
 #: src/gnome-cmd-file-list.c:1337
 msgid "perm"
-msgstr ""
+msgstr "perm"
 
 #: src/gnome-cmd-file-list.c:1338
 msgid "uid"
@@ -492,19 +474,16 @@ msgid "Invalid command"
 msgstr ""
 
 #: src/gnome-cmd-file-popmenu.c:159
-#, fuzzy
 msgid "Application:"
-msgstr "Iconos MIME (lento)"
+msgstr "Aplicación:"
 
 #: src/gnome-cmd-file-popmenu.c:163
-#, fuzzy
 msgid "Open with other..."
-msgstr "_Abrir con..."
+msgstr "Abrir con otro..."
 
 #: src/gnome-cmd-file-popmenu.c:167
-#, fuzzy
 msgid "Needs terminal"
-msgstr "Ejecute en una terminal"
+msgstr "Requiere terminal"
 
 #: src/gnome-cmd-file-popmenu.c:418
 msgid "_Open"
@@ -515,9 +494,8 @@ msgid "_Open with..."
 msgstr "_Abrir con..."
 
 #: src/gnome-cmd-file-popmenu.c:437
-#, fuzzy
 msgid "_Execute"
-msgstr "Ejecución"
+msgstr "_Ejecutar"
 
 #: src/gnome-cmd-file-popmenu.c:455
 msgid "_Cut"
@@ -542,141 +520,124 @@ msgid "Properties"
 msgstr "Propiedades"
 
 #: src/gnome-cmd-file-popmenu.c:542
-#, fuzzy
 msgid "Other..."
-msgstr "Otros"
+msgstr "Otros..."
 
 #: src/gnome-cmd-file-props-dialog.c:63
 #, c-format
 msgid "%s bytes"
-msgstr ""
+msgstr "%s bytes"
 
 #: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
 msgid "No default application registered"
-msgstr ""
+msgstr "No hay una aplicación predeterminada registrada"
 
 #: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2082
-#, fuzzy
 msgid "Filename:"
-msgstr "Nombre del archivo"
+msgstr "Nombre del archivo:"
 
 #: src/gnome-cmd-file-props-dialog.c:313
-#, fuzzy
 msgid "Symlink target:"
-msgstr "Enlaces simbólicos"
+msgstr "Destino del enlace simbólico:"
 
 #: src/gnome-cmd-file-props-dialog.c:322
-#, fuzzy
 msgid "Type:"
-msgstr "tipo"
+msgstr "Tipo:"
 
 #: src/gnome-cmd-file-props-dialog.c:329
-#, fuzzy
 msgid "MIME Type:"
-msgstr "tipo mime"
+msgstr "Tipo MIME:"
 
 #: src/gnome-cmd-file-props-dialog.c:337
-#, fuzzy
 msgid "Opens with:"
-msgstr "_Abrir con..."
+msgstr "Se abre con:"
 
 #: src/gnome-cmd-file-props-dialog.c:348
 msgid "_Change"
-msgstr ""
+msgstr "_Cambiar"
 
 #: src/gnome-cmd-file-props-dialog.c:360
 msgid "Accessed:"
-msgstr ""
+msgstr "Accedido:"
 
 #: src/gnome-cmd-file-props-dialog.c:367
 msgid "Modified:"
-msgstr ""
+msgstr "Modificado:"
 
 #: src/gnome-cmd-file-props-dialog.c:377
-#, fuzzy
 msgid "Size:"
-msgstr "tamaño"
+msgstr "Tamaño:"
 
 #: src/gnome-cmd-file-props-dialog.c:413
 msgid "Owner and group"
-msgstr ""
+msgstr "Propietario y grupo"
 
 #: src/gnome-cmd-file-props-dialog.c:427
-#, fuzzy
 msgid "Access permissions"
-msgstr "permisos"
+msgstr "Permisos de acceso"
 
 #: src/gnome-cmd-file-props-dialog.c:450
-#, fuzzy
 msgid "File Properties"
-msgstr "Propiedades del archivo..."
+msgstr "Propiedades del archivo"
 
 #: src/gnome-cmd-file-props-dialog.c:479
-#, fuzzy
 msgid "Permissions"
-msgstr "permisos"
+msgstr "Permisos"
 
 #: src/gnome-cmd-file-selector.c:178
 #, fuzzy, c-format
 msgid "%s of %s kB in %d of %d file selected"
 msgid_plural "%s of %s kB in %d of %d files selected"
-msgstr[0] "%s of %s Kb en %d de %d archivos seleccionados"
+msgstr[0] "%s of %s Kib en %d de %d archivos seleccionados"
 msgstr[1] "%s of %s Kb en %d de %d archivos seleccionados"
 
 #: src/gnome-cmd-file-selector.c:721
 #, c-format
 msgid "%s Free"
-msgstr ""
+msgstr "%s libre"
 
 #: src/gnome-cmd-file-selector.c:1814
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to open connection: %s\n"
-msgstr "Imposible abrir archivo %s\n"
+msgstr "Fallo al abrir conexión %s\n"
 
 #: src/gnome-cmd-file-selector.c:2019 src/gnome-cmd-rename-dialog.c:52
 #: src/gnome-cmd-make-copy-dialog.c:68
-#, fuzzy
 msgid "No filename entered"
-msgstr "Ningún archivo seleccionados\n"
+msgstr "Ningún nombre de archivo introducido"
 
 #: src/gnome-cmd-file-selector.c:2055
-#, fuzzy
 msgid "No filename given"
-msgstr "Nuevos nombres de archivos"
+msgstr "Ningún nombre de archivo dado"
 
 #: src/gnome-cmd-file-selector.c:2088
-#, fuzzy
 msgid "New Text File"
-msgstr "Nuevos nombres de archivos"
+msgstr "Nuevos archivo de texto"
 
 #: src/gnome-cmd-file-selector.c:2252
-#, fuzzy
 msgid "Symlink name:"
-msgstr "Enlaces simbólicos"
+msgstr "Nombre del enlace simbólico:"
 
 #: src/gnome-cmd-file-selector.c:2258
-#, fuzzy
 msgid "Create Symbolic Link"
-msgstr "Enlace simbólico"
+msgstr "Crear un enlace simbólico"
 
 #: src/gnome-cmd-file-selector.c:2329
-#, fuzzy
 msgid "Filter:"
-msgstr "_Archivo"
+msgstr "Filtro:"
 
 #: src/gnome-cmd-ftp-dialog.c:163
-#, fuzzy, c-format
+#, c-format
 msgid "Enter password for %s@%s"
-msgstr "Ingrese su contraseña"
+msgstr "Introduzca su contraseña para %s@%s"
 
 #: src/gnome-cmd-ftp-dialog.c:168
-#, fuzzy
 msgid "Enter Password"
-msgstr "Contraseña"
+msgstr "Introduzca su contraseña"
 
 #: src/gnome-cmd-ftp-dialog.c:215
 msgid "No alias specified"
-msgstr ""
+msgstr "No se especificó un alias"
 
 #: src/gnome-cmd-ftp-dialog.c:218
 msgid "No host specified"
@@ -688,37 +649,32 @@ msgid "Invalid port number: %s"
 msgstr ""
 
 #: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-options-dialog.c:1468
-#, fuzzy
 msgid "Alias:"
-msgstr "Alias"
+msgstr "Alias:"
 
 #: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
-#, fuzzy
 msgid "Host:"
-msgstr "Equipo"
+msgstr "Host:"
 
 #: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
-#, fuzzy
 msgid "Port:"
-msgstr "Ordenar"
+msgstr "Puerto:"
 
 #: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
-#, fuzzy
 msgid "User:"
-msgstr "Usuario"
+msgstr "Usuario:"
 
 #: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
-#, fuzzy
 msgid "Password:"
-msgstr "Contraseña"
+msgstr "Contraseña:"
 
 #: src/gnome-cmd-ftp-dialog.c:321
 msgid "New FTP Server"
-msgstr ""
+msgstr "Servidor FTP nuevo"
 
 #: src/gnome-cmd-ftp-dialog.c:346
 msgid "Edit FTP Server"
-msgstr ""
+msgstr "Editar servidor FTP"
 
 #: src/gnome-cmd-ftp-dialog.c:376
 msgid "No server selected"
@@ -729,19 +685,16 @@ msgid "FTP Connect"
 msgstr "Conexión FTP"
 
 #: src/gnome-cmd-ftp-dialog.c:510
-#, fuzzy
 msgid "Servers"
 msgstr "Servidores"
 
 #: src/gnome-cmd-ftp-dialog.c:530 src/gnome-cmd-options-dialog.c:1622
-#, fuzzy
 msgid "Alias"
 msgstr "Alias"
 
 #: src/gnome-cmd-ftp-dialog.c:535 src/gnome-cmd-list-popmenu.c:145
-#, fuzzy
 msgid "_New..."
-msgstr "Nuevo..."
+msgstr "_Nuevo..."
 
 #: src/gnome-cmd-ftp-dialog.c:548 src/gnome-cmd-options-dialog.c:1054
 #: src/gnome-cmd-options-dialog.c:1764 src/gnome-cmd-prepare-copy-dialog.c:141
@@ -751,7 +704,6 @@ msgid "Options"
 msgstr "Opciones"
 
 #: src/gnome-cmd-ftp-dialog.c:551
-#, fuzzy
 msgid "Anonymous password:"
 msgstr "Contraseña anónima:"
 
@@ -760,29 +712,24 @@ msgid "Connect"
 msgstr "Conectar"
 
 #: src/gnome-cmd-ftp-dialog.c:657
-#, fuzzy
 msgid "FTP Quick Connect"
-msgstr "Conexión FTP"
+msgstr "Conexión rápida FTP"
 
 #: src/gnome-cmd-list-popmenu.c:126
-#, fuzzy
 msgid "_Directory"
-msgstr "Directorio"
+msgstr "_Directorio"
 
 #: src/gnome-cmd-list-popmenu.c:133
-#, fuzzy
 msgid "_Text file"
-msgstr "Vista de texto:"
+msgstr "Archivo de _texto"
 
 #: src/gnome-cmd-list-popmenu.c:152 src/gnome-cmd-main-menu.c:571
-#, fuzzy
 msgid "_Paste"
-msgstr "Pegar"
+msgstr "_Pegar"
 
 #: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:619
-#, fuzzy
 msgid "_Refresh"
-msgstr "Refrescar"
+msgstr "_Refrescar"
 
 #: src/gnome-cmd-main-menu.c:389
 msgid "Switch to Horizontal Layout"
@@ -793,190 +740,157 @@ msgid "Switch to Vertical Layout"
 msgstr ""
 
 #: src/gnome-cmd-main-menu.c:462
-#, fuzzy
 msgid "Change _Owner/Group"
-msgstr "Cambiar propietario/grupo"
+msgstr "Cambiar _propietario/grupo"
 
 #: src/gnome-cmd-main-menu.c:468
-#, fuzzy
 msgid "Change Per_missions"
-msgstr "Cambiar permisos"
+msgstr "Cambiar _permisos"
 
 #: src/gnome-cmd-main-menu.c:474
-#, fuzzy
 msgid "Advanced _Rename Tool"
-msgstr "Herramienta de renombrado avanzado"
+msgstr "Herramienta de _renombrado avanzado"
 
 #: src/gnome-cmd-main-menu.c:480
-#, fuzzy
 msgid "Create _Symbolic Link"
-msgstr "Enlace simbólico"
+msgstr "Crear enlace _simbólico"
 
 #: src/gnome-cmd-main-menu.c:486
-#, fuzzy
 msgid "_Properties..."
-msgstr "Propiedades..."
+msgstr "_Propiedades..."
 
 #: src/gnome-cmd-main-menu.c:493
-#, fuzzy
 msgid "_Diff"
-msgstr "Diff"
+msgstr "_Diff"
 
 #: src/gnome-cmd-main-menu.c:500
-#, fuzzy
 msgid "_Quit"
-msgstr "Salir"
+msgstr "_Salir"
 
 #: src/gnome-cmd-main-menu.c:511
-#, fuzzy
 msgid "_Select All"
-msgstr "Seleccionar todos"
+msgstr "_Seleccionar todos"
 
 #: src/gnome-cmd-main-menu.c:517
-#, fuzzy
 msgid "_Unselect All"
-msgstr "Deseleccionar todos"
+msgstr "_Deseleccionar todos"
 
 #: src/gnome-cmd-main-menu.c:523
-#, fuzzy
 msgid "Select with _Pattern"
-msgstr "Seleccionar grupo"
+msgstr "Seleccionar con _patrón"
 
 #: src/gnome-cmd-main-menu.c:529
-#, fuzzy
 msgid "Unselect with P_attern"
-msgstr "De-seleccionar grupo"
+msgstr "Deseleccionar con p_atrón"
 
 #: src/gnome-cmd-main-menu.c:535
-#, fuzzy
 msgid "_Invert Selection"
-msgstr "Invertir selección"
+msgstr "_Invertir selección"
 
 #: src/gnome-cmd-main-menu.c:541
-#, fuzzy
 msgid "_Restore Selection"
-msgstr "Restaurar selección"
+msgstr "_Restaurar selección"
 
 #: src/gnome-cmd-main-menu.c:548
-#, fuzzy
 msgid "_Compare Directries"
-msgstr "Directorios"
+msgstr "_Comparar directorios"
 
 #: src/gnome-cmd-main-menu.c:559
-#, fuzzy
 msgid "Cu_t"
-msgstr "Cortar"
+msgstr "Cor_tar"
 
 #: src/gnome-cmd-main-menu.c:584
-#, fuzzy
 msgid "_Search..."
-msgstr "Buscar..."
+msgstr "_Buscar..."
 
 #: src/gnome-cmd-main-menu.c:590
-#, fuzzy
 msgid "_Quick Search..."
-msgstr "Buscar..."
+msgstr "Buscar _rápido..."
 
 #: src/gnome-cmd-main-menu.c:596
 msgid "_Enable Filter..."
-msgstr ""
+msgstr "_Activar filtro..."
 
 #: src/gnome-cmd-main-menu.c:607
-#, fuzzy
 msgid "_Back"
-msgstr "Atrás"
+msgstr "_Atrás"
 
 #: src/gnome-cmd-main-menu.c:613
-#, fuzzy
 msgid "_Forward"
-msgstr "Adelante"
+msgstr "A_delante"
 
 #: src/gnome-cmd-main-menu.c:626
 msgid "Show Device Buttons"
-msgstr ""
+msgstr "Mostrar botones de dispositivos"
 
 #: src/gnome-cmd-main-menu.c:632
-#, fuzzy
 msgid "Show Toolbar"
-msgstr "Buscar por:"
+msgstr "Mostrar barra de herramientas"
 
 #: src/gnome-cmd-main-menu.c:638
 msgid "Show Commandline"
-msgstr ""
+msgstr "Mostrar línea de órdenes"
 
 #: src/gnome-cmd-main-menu.c:644
-#, fuzzy
 msgid "Show Buttonbar"
-msgstr "Buscar por:"
+msgstr "Buscar barra de botones"
 
 #: src/gnome-cmd-main-menu.c:651
-#, fuzzy
 msgid "Show Hidden Files"
-msgstr "Archivos ocultos"
+msgstr "Mostrar archivos ocultos"
 
 #: src/gnome-cmd-main-menu.c:657
-#, fuzzy
 msgid "Show Backup Files"
-msgstr "Archivos Socket"
+msgstr "Mostrar archivos de respaldo"
 
 #: src/gnome-cmd-main-menu.c:669
-#, fuzzy
 msgid "_Bookmark this Directory..."
-msgstr "Directorio de iconos"
+msgstr "_Marcar este directorio..."
 
 #: src/gnome-cmd-main-menu.c:675
-#, fuzzy
 msgid "_Edit Bookmarks..."
-msgstr "Editar..."
+msgstr "_Editar marcadores..."
 
 #: src/gnome-cmd-main-menu.c:687
 msgid "_Configure Plugins..."
-msgstr ""
+msgstr "_Configurar complementos..."
 
 #: src/gnome-cmd-main-menu.c:699
-#, fuzzy
 msgid "_Options..."
-msgstr "Opciones..."
+msgstr "_Opciones..."
 
 #: src/gnome-cmd-main-menu.c:705
-#, fuzzy
 msgid "Edit _Mime Types..."
-msgstr "tipo mime"
+msgstr "Editar tipos _mime..."
 
 #: src/gnome-cmd-main-menu.c:711
-#, fuzzy
 msgid "Save _Position"
-msgstr "Guardar posición"
+msgstr "Guardar _posición"
 
 #: src/gnome-cmd-main-menu.c:722
-#, fuzzy
 msgid "FTP _Connect..."
-msgstr "Conexión FTP"
+msgstr "_Conexión FTP..."
 
 #: src/gnome-cmd-main-menu.c:728
-#, fuzzy
 msgid "FTP _Quick Connect..."
-msgstr "Conexión FTP"
+msgstr "Conexión FTP _rápida..."
 
 #: src/gnome-cmd-main-menu.c:739
-#, fuzzy
 msgid "User _Manual..."
-msgstr "Manual del usuario..."
+msgstr "_Manual del usuario..."
 
 #: src/gnome-cmd-main-menu.c:746
-#, fuzzy
 msgid "_About..."
-msgstr "_Agregar"
+msgstr "A_cerca de..."
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #: src/gnome-cmd-main-menu.c:765
-#, fuzzy
 msgid "_File"
 msgstr "_Archivo"
 
 #: src/gnome-cmd-main-menu.c:773
 msgid "_Mark"
-msgstr "_Seleccionar"
+msgstr "_Marcar"
 
 #: src/gnome-cmd-main-menu.c:777 src/gnome-cmd-search-popup.c:175
 msgid "_View"
@@ -984,24 +898,23 @@ msgstr "_Ver"
 
 #: src/gnome-cmd-main-menu.c:782
 msgid "_Settings"
-msgstr ""
+msgstr "_Opciones"
 
 #: src/gnome-cmd-main-menu.c:786
-#, fuzzy
 msgid "_Connections"
-msgstr "Conectar"
+msgstr "_Conexiones"
 
 #: src/gnome-cmd-main-menu.c:790
 msgid "_Bookmarks"
-msgstr ""
+msgstr "_Marcadores"
 
 #: src/gnome-cmd-main-menu.c:794
 msgid "_Plugins"
-msgstr ""
+msgstr "Com_plementos"
 
 #: src/gnome-cmd-main-menu.c:798
 msgid "_Help"
-msgstr ""
+msgstr "A_yuda"
 
 #: src/gnome-cmd-main-win.c:439
 msgid "F3 View"
@@ -1066,15 +979,13 @@ msgstr "Connectar por FTP"
 
 #: src/gnome-cmd-mkdir-dialog.c:48
 msgid "A directory name must be entered"
-msgstr ""
+msgstr "Debe introducirse un nombre de directorio"
 
 #: src/gnome-cmd-mkdir-dialog.c:138
-#, fuzzy
 msgid "Directory name:"
-msgstr "Directorio"
+msgstr "Nombre de directorio:"
 
 #: src/gnome-cmd-mkdir-dialog.c:146
-#, fuzzy
 msgid "Make Directory"
 msgstr "Crear directorio"
 
@@ -1118,56 +1029,49 @@ msgstr "Guardar opciones"
 
 #: src/gnome-cmd-options-dialog.c:112
 msgid "Confirm before delete"
-msgstr ""
+msgstr "Confirmar antes de borrar"
 
 #: src/gnome-cmd-options-dialog.c:122
-#, fuzzy
 msgid "Directory options"
-msgstr "Directorios"
+msgstr "Opciones de directorio"
 
 #: src/gnome-cmd-options-dialog.c:125
-#, fuzzy
 msgid "Directory cache size"
-msgstr "Directorios"
+msgstr "Tamaño de caché de directorio"
 
 #: src/gnome-cmd-options-dialog.c:214
 msgid "Size display mode"
 msgstr "Modo de visualización del tamaño"
 
 #: src/gnome-cmd-options-dialog.c:217
-#, fuzzy
 msgid "Powered"
-msgstr "propietario"
+msgstr "Avanzado"
 
 #: src/gnome-cmd-options-dialog.c:222
-#, fuzzy
 msgid "Grouped"
-msgstr "Grupo"
+msgstr "Agrupado"
 
 #: src/gnome-cmd-options-dialog.c:227
 msgid "Plain"
-msgstr ""
+msgstr "Plano"
 
 #: src/gnome-cmd-options-dialog.c:237
-#, fuzzy
 msgid "Permission display mode"
-msgstr "Modo de visualización del tamaño"
+msgstr "Modo de visualización de permisos"
 
 #: src/gnome-cmd-options-dialog.c:240
 msgid "Text (rw-r--r--)"
-msgstr ""
+msgstr "Texto (rw-r--r--)"
 
 #: src/gnome-cmd-options-dialog.c:245
 msgid "Number (311)"
-msgstr ""
+msgstr "Número (311)"
 
 #: src/gnome-cmd-options-dialog.c:255
-#, fuzzy
 msgid "Date format"
-msgstr "Cadena de formato de fecha"
+msgstr "Formato de fecha"
 
 #: src/gnome-cmd-options-dialog.c:258
-#, fuzzy
 msgid "Format:"
 msgstr "Formato:"
 
@@ -1177,131 +1081,110 @@ msgstr "_Verificar"
 
 #: src/gnome-cmd-options-dialog.c:269
 msgid "Test result:"
-msgstr ""
+msgstr "Resultado:"
 
 #: src/gnome-cmd-options-dialog.c:279
-#, fuzzy
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
-msgstr ""
-"Ver la página del manual de \"strftime\" para ver\n"
-"como es el formato de la cadena."
+msgstr "Ver la página del manual de \"strftime\" para ver cómo es el formato de la cadena."
 
 #: src/gnome-cmd-options-dialog.c:399
-#, fuzzy
 msgid "Edit Colors..."
-msgstr "Editar..."
+msgstr "Editar colores..."
 
 #: src/gnome-cmd-options-dialog.c:406
 msgid "Colors"
 msgstr "Colores"
 
 #: src/gnome-cmd-options-dialog.c:443
-#, fuzzy
 msgid "Foreground"
 msgstr "Primer plano"
 
 #: src/gnome-cmd-options-dialog.c:445
-#, fuzzy
 msgid "Background"
 msgstr "Fondo"
 
 #: src/gnome-cmd-options-dialog.c:447
-#, fuzzy
 msgid "Default:"
-msgstr "Normal:"
+msgstr "Predeterminado:"
 
 #: src/gnome-cmd-options-dialog.c:449
-#, fuzzy
 msgid "Selected file:"
 msgstr "Archivo seleccionado:"
 
 #: src/gnome-cmd-options-dialog.c:451
-#, fuzzy
 msgid "Cursor:"
 msgstr "Cursor:"
 
 #: src/gnome-cmd-options-dialog.c:481
-#, fuzzy
 msgid "File panes"
-msgstr "Ingrese filtro de selección"
+msgstr "Paneles de archivos"
 
 #: src/gnome-cmd-options-dialog.c:496
-#, fuzzy
 msgid "Font:"
-msgstr "Fuentes"
+msgstr "Tipografía:"
 
 #: src/gnome-cmd-options-dialog.c:498
-#, fuzzy
 msgid "Row height:"
-msgstr "Altura de la lista de archivos"
+msgstr "Altura de la fila"
 
 #. File extensions
 #: src/gnome-cmd-options-dialog.c:502
 msgid "Display file extensions:"
-msgstr ""
+msgstr "Mostrar extensiones de archivos:"
 
 #: src/gnome-cmd-options-dialog.c:512
-#, fuzzy
 msgid "With filename"
-msgstr "Ingrese nuevo nombre"
+msgstr "Con nombre"
 
 #: src/gnome-cmd-options-dialog.c:516
 msgid "In separate column"
-msgstr ""
+msgstr "En columna separada"
 
 #: src/gnome-cmd-options-dialog.c:520
 msgid "In both columns"
-msgstr ""
+msgstr "En ambas columnas"
 
 #. Graphical mode
 #: src/gnome-cmd-options-dialog.c:529
-#, fuzzy
 msgid "Graphical mode:"
-msgstr "Modo gráfico"
+msgstr "Modo gráfico:"
 
 #: src/gnome-cmd-options-dialog.c:541
-#, fuzzy
 msgid "MIME icons"
-msgstr "Iconos MIME (lento)"
+msgstr "Iconos MIME"
 
 #: src/gnome-cmd-options-dialog.c:545
-#, fuzzy
 msgid "File type icons"
-msgstr "Iconos por tipo de archivo (rápido)"
+msgstr "Iconos por tipo de archivo"
 
 #: src/gnome-cmd-options-dialog.c:549
 msgid "Text (fastest)"
-msgstr "Texto (muy rápido)"
+msgstr "Texto (el más rápido)"
 
 #. Colors
 #: src/gnome-cmd-options-dialog.c:558
-#, fuzzy
 msgid "Colors:"
-msgstr "Colores"
+msgstr "Colores:"
 
 #: src/gnome-cmd-options-dialog.c:573
 msgid "Respect theme settings"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:577
-#, fuzzy
 msgid "Modern"
-msgstr "Mover"
+msgstr "Moderno"
 
 #: src/gnome-cmd-options-dialog.c:581
-#, fuzzy
 msgid "Classic"
-msgstr "Básico"
+msgstr "Clásico"
 
 #: src/gnome-cmd-options-dialog.c:585
-#, fuzzy
 msgid "Custom"
-msgstr "Cortar"
+msgstr "Personalizado"
 
 #: src/gnome-cmd-options-dialog.c:593
-#, fuzzy
 msgid "Edit..."
 msgstr "Editar..."
 
@@ -1310,29 +1193,24 @@ msgid "Colorize files according to the LS_COLORS enviroment variable"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:615
-#, fuzzy
 msgid "MIME icon settings"
-msgstr "Iconos"
+msgstr "Configuración de iconos MIME"
 
 #: src/gnome-cmd-options-dialog.c:632
-#, fuzzy
 msgid "Icon size:"
-msgstr "Tamaño de los Iconos"
+msgstr "Tamaño de los iconos:"
 
 #: src/gnome-cmd-options-dialog.c:634
-#, fuzzy
 msgid "Scaling quality:"
-msgstr "Calidad de escalado"
+msgstr "Calidad de escalado:"
 
 #: src/gnome-cmd-options-dialog.c:636
-#, fuzzy
 msgid "Theme icon directory:"
-msgstr "Directorio de iconos"
+msgstr "Directorio del tema de iconos"
 
 #: src/gnome-cmd-options-dialog.c:638
-#, fuzzy
 msgid "Document icon directory:"
-msgstr "Directorio de iconos"
+msgstr "Directorio de iconos de documento:"
 
 #: src/gnome-cmd-options-dialog.c:730
 msgid "Filetypes to hide"
@@ -1384,54 +1262,51 @@ msgid "Symlinks"
 msgstr "Enlaces simbólicos"
 
 #: src/gnome-cmd-options-dialog.c:1032
+#, fuzzy
 msgid "Label:"
-msgstr ""
+msgstr "Etiqueta:"
 
 #: src/gnome-cmd-options-dialog.c:1034
+#, fuzzy
 msgid "Command:"
-msgstr ""
+msgstr "Comando:"
 
 #: src/gnome-cmd-options-dialog.c:1036 src/gnome-cmd-options-dialog.c:1474
+#, fuzzy
 msgid "Icon:"
-msgstr ""
+msgstr "Icono:"
 
 #: src/gnome-cmd-options-dialog.c:1057
 msgid "Can handle multiple files"
-msgstr ""
+msgstr "No puede manejar archivos múltiples"
 
 #: src/gnome-cmd-options-dialog.c:1061
 msgid "Can handle URIs"
-msgstr ""
+msgstr "Puede manejar URIs"
 
 #: src/gnome-cmd-options-dialog.c:1065
-#, fuzzy
 msgid "Requires terminal"
-msgstr "Ejecute en una terminal"
+msgstr "Requiere terminal"
 
 #: src/gnome-cmd-options-dialog.c:1072
-#, fuzzy
 msgid "Show for"
-msgstr "Buscar por:"
+msgstr "Mostrar por"
 
 #: src/gnome-cmd-options-dialog.c:1081
-#, fuzzy
 msgid "All directories"
-msgstr "Directorios"
+msgstr "Todos los directorios"
 
 #: src/gnome-cmd-options-dialog.c:1087
-#, fuzzy
 msgid "All directories and files"
-msgstr "Solo directorios"
+msgstr "Sólo directorios y archivos"
 
 #: src/gnome-cmd-options-dialog.c:1093
-#, fuzzy
 msgid "Some files"
-msgstr "Archivos Socket"
+msgstr "Algunos archivos"
 
 #: src/gnome-cmd-options-dialog.c:1104
-#, fuzzy
 msgid "File patterns"
-msgstr "Ingrese filtro de selección"
+msgstr "Patrones de archivos"
 
 #: src/gnome-cmd-options-dialog.c:1129
 msgid "New Application"
@@ -1480,8 +1355,9 @@ msgid "Other favorite apps"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:1269
+#, fuzzy
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #: src/gnome-cmd-options-dialog.c:1470
 msgid "Device:"
@@ -1515,8 +1391,9 @@ msgid "Skip mounting (useful when using super-mount)"
 msgstr ""
 
 #: src/gnome-cmd-options-dialog.c:1792
+#, fuzzy
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: src/gnome-cmd-options-dialog.c:1798
 #, fuzzy
@@ -1530,7 +1407,7 @@ msgstr "Apariencia"
 #: src/gnome-cmd-options-dialog.c:1810
 #, fuzzy
 msgid "Filters"
-msgstr "_Archivo"
+msgstr "Filtros"
 
 #: src/gnome-cmd-options-dialog.c:1816
 msgid "Programs"
@@ -1640,19 +1517,19 @@ msgid "Copy File"
 msgstr "Copiar"
 
 #: src/gnome-cmd-search-dialog.c:186
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to open file %s: %s\n"
-msgstr "Imposible abrir archivo %s\n"
+msgstr "Imposible abrir archivo %s: %s\n"
 
 #: src/gnome-cmd-search-dialog.c:195
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read from file %s: %s\n"
-msgstr "Imposible leer archivo %s\n"
+msgstr "Imposible leer del archivo %s: %s\n"
 
 #: src/gnome-cmd-search-dialog.c:257
-#, fuzzy, c-format
+#, c-format
 msgid "Searching in: %s"
-msgstr "Buscar en:"
+msgstr "Buscar en: %s"
 
 #: src/gnome-cmd-search-dialog.c:401
 #, fuzzy, c-format
@@ -1792,8 +1669,9 @@ msgid "Program name"
 msgstr "Programas"
 
 #: src/gnome-cmd-about-plugin.c:370
+#, fuzzy
 msgid "The name of the program"
-msgstr ""
+msgstr "El nombre del programa"
 
 #: src/gnome-cmd-about-plugin.c:377
 #, fuzzy
@@ -1858,8 +1736,7 @@ msgid "Translator credits"
 msgstr ""
 
 #: src/gnome-cmd-about-plugin.c:423
-msgid ""
-"Credits to the translators. This string should be marked as translatable"
+msgid "Credits to the translators. This string should be marked as translatable"
 msgstr ""
 
 #: src/gnome-cmd-about-plugin.c:430
@@ -1871,60 +1748,57 @@ msgid "Webpage"
 msgstr ""
 
 #: src/gnome-cmd-about-plugin.c:523
-#, fuzzy, c-format
+#, c-format
 msgid "About %s"
-msgstr "Desmontar dispositivo"
+msgstr "Acerca de %s"
 
 #: src/gnome-cmd-xfer-progress-win.c:37
-#, fuzzy
 msgid "stopping..."
-msgstr "copiando..."
+msgstr "parando..."
 
 #: src/gnome-cmd-xfer-progress-win.c:88
 msgid "Progress"
-msgstr "Proceso"
+msgstr "Progreso"
 
 #: src/gnome-cmd-xfer-progress-win.c:174
 #, c-format
 msgid "%d%% of %s copied"
-msgstr ""
+msgstr "%d%% de %s copiado"
 
 #: src/gnome-cmd-xfer-progress-win.c:179
 #, c-format
 msgid "%d%% copied"
-msgstr ""
+msgstr "%d%% copiado"
 
 #: src/plugin_manager.c:294
 msgid "Disable"
-msgstr ""
+msgstr "Desactivar"
 
 #: src/plugin_manager.c:299
-#, fuzzy
 msgid "Enable"
-msgstr "Renombrar"
+msgstr "Activar"
 
 #: src/plugin_manager.c:423
 msgid "Available plugins"
-msgstr ""
+msgstr "Complementos disponibles"
 
 #: src/plugin_manager.c:429
-#, fuzzy
 msgid "Name"
-msgstr "Renombrar"
+msgstr "Nombre"
 
 #: src/plugin_manager.c:430
 #, fuzzy
 msgid "Version"
-msgstr "permisos"
+msgstr "Versión"
 
 #: src/plugin_manager.c:431
-#, fuzzy
 msgid "File"
-msgstr "_Archivo"
+msgstr "Archivo"
 
 #: src/plugin_manager.c:437
+#, fuzzy
 msgid "_Enable"
-msgstr ""
+msgstr "_Habilitar"
 
 #: src/plugin_manager.c:442
 msgid "_Configure"
@@ -1933,12 +1807,11 @@ msgstr ""
 #: src/plugin_manager.c:448
 #, fuzzy
 msgid "_About"
-msgstr "_Agregar"
+msgstr "A_cerca de"
 
 #: src/imageloader.c:124
 #, fuzzy
-msgid ""
-"Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "Imposible cargar el pixmap, tratando de cargarlos desde el directorio "
 "fuente\n"
@@ -2018,9 +1891,8 @@ msgid ""
 msgstr ""
 
 #: src/utils.c:596
-#, fuzzy
 msgid "Make Executable?"
-msgstr "Ejecución"
+msgstr "¿Hacer ejecutable?"
 
 #: src/utils.c:623
 #, c-format
@@ -2031,15 +1903,15 @@ msgstr ""
 
 #: src/utils.c:625
 msgid "Run or Display"
-msgstr ""
+msgstr "Ejecutar o mostrar"
 
 #: src/utils.c:626
 msgid "Display"
-msgstr ""
+msgstr "Mostrar"
 
 #: src/utils.c:626
 msgid "Run"
-msgstr ""
+msgstr "Ejecutar"
 
 #: src/utils.c:662
 #, c-format
@@ -2056,9 +1928,9 @@ msgid ""
 msgstr ""
 
 #: src/utils.c:1344
-#, fuzzy, c-format
+#, c-format
 msgid "Creating directory %s... "
-msgstr "Directorio de iconos"
+msgstr "Creando directorio %s..."
 
 #: src/utils.c:1349
 #, fuzzy, c-format
@@ -2066,9 +1938,9 @@ msgid "Failed to create the directory %s"
 msgstr "Imposible leer archivo %s\n"
 
 #: src/utils.c:1355
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read from the directory %s: %s\n"
-msgstr "Imposible crear pixmap del archivo: %s"
+msgstr "No se pudo leer del directorio %s: %s\n"
 
 #: plugins/fileroller/file-roller-plugin.c:168
 msgid "What filename should the new archive have?"
@@ -2076,32 +1948,28 @@ msgstr ""
 
 #: plugins/fileroller/file-roller-plugin.c:170
 msgid "Create Archive"
-msgstr ""
+msgstr "Crear paquete"
 
 #: plugins/fileroller/file-roller-plugin.c:274
-#, fuzzy
 msgid "Create Archive..."
-msgstr "Buscar..."
+msgstr "Crear paquete"
 
 #: plugins/fileroller/file-roller-plugin.c:288
-#, fuzzy
 msgid "Extract in Current Directory"
-msgstr "Ingrese el nombre para el nuevo directorio"
+msgstr "Extraer en el directorio actual"
 
 #: plugins/fileroller/file-roller-plugin.c:293
 #, c-format
 msgid "Extract to '%s'"
-msgstr ""
+msgstr "Extraer en «%s»"
 
 #: plugins/fileroller/file-roller-plugin.c:353
-#, fuzzy
 msgid "File-roller options"
-msgstr "Directorios"
+msgstr "Opciones de File-roller"
 
 #: plugins/fileroller/file-roller-plugin.c:356
-#, fuzzy
 msgid "Default type"
-msgstr "Normal:"
+msgstr "Tipo predeterminado"
 
 #, fuzzy
 #~ msgid "Change Permissions"
@@ -2267,3 +2135,4 @@ msgstr "Normal:"
 
 #~ msgid "test:"
 #~ msgstr "Ejemplo:"
+
