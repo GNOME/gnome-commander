@@ -244,7 +244,7 @@ void
 gnome_cmd_dialog_set_transient_for (GnomeCmdDialog *dialog,
 									GtkWindow *win)
 {
-	gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win));
+	gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (win));
 }
 
 
