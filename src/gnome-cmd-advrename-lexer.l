@@ -86,8 +86,8 @@ int        [0-9]+
                                         case 'p' : *s++ = PARENT_DIR; break;
                                       }
                                     
-                                      *((int *) s)++ = --from;
-                                      *((int *) s)++ = length;
+                                      *((int *) s) = --from; s += sizeof(int);
+                                      *((int *) s) = length; s += sizeof(int);
                                     }
 
                                     fname_template_size -= sizeof(char)+2*sizeof(int);
@@ -100,7 +100,7 @@ int        [0-9]+
 				    precision = -1;
                                     sscanf(yytext+3,"%d",&precision);
                                     *s++ = COUNTER;
-                                    *((int *) s)++ = precision<MAX_PRECISION ? precision : MAX_PRECISION;
+                                    *((int *) s) = precision<MAX_PRECISION ? precision : MAX_PRECISION; s += sizeof(int);
                                     fname_template_size -= sizeof(char)+sizeof(int);
                                   }
                                 }
@@ -118,8 +118,8 @@ int        [0-9]+
                                       case 'p' : *s++ = PARENT_DIR; break;
                                     }
                                     
-                                    *((int *) s)++ = 0;
-                                    *((int *) s)++ = -1;
+                                    *((int *) s) = 0; s += sizeof(int);
+                                    *((int *) s) = -1; s += sizeof(int);
 
                                     fname_template_size -= sizeof(char)+2*sizeof(int);
                                   }
@@ -129,7 +129,7 @@ int        [0-9]+
                                   if (fname_template_size>1+sizeof(int))
                                   {
                                     *s++ = COUNTER;
-                                    *((int *) s)++ = -1;
+                                    *((int *) s) = -1; s += sizeof(int);
                                     fname_template_size -= sizeof(char)+sizeof(int);
                                   }
                                 }
@@ -273,8 +273,8 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
     {
       case NAME:
                ++src;
-               from = *((int *) src)++;
-		       length = *((int *) src)++;
+               from = *((int *) src); src += sizeof(int);
+	       length = *((int *) src); src += sizeof(int);
 		       mksubstr(name_len,&from,&length);
 		       if (length<=NAME_MAX-(dest-fmt))
 		       {
@@ -286,8 +286,8 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 
       case EXTENSION:
                ++src;
-               from = *((int *) src)++;
-		       length = *((int *) src)++;
+               from = *((int *) src); src += sizeof(int);
+	       length = *((int *) src); src += sizeof(int);
 		       mksubstr(ext_len,&from,&length);
 		       if (length<=NAME_MAX-(dest-fmt))
 		       {
@@ -298,8 +298,8 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 
       case FULL_NAME:
                ++src;
-               from = *((int *) src)++;
-		       length = *((int *) src)++;
+               from = *((int *) src); src += sizeof(int);
+	       length = *((int *) src); src += sizeof(int);
 		       mksubstr(full_name_len,&from,&length);
 		       if (length<=NAME_MAX-(dest-fmt))
 		       {
@@ -311,8 +311,8 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 
       case PARENT_DIR:
                ++src;
-               from = *((int *) src)++;
-		       length = *((int *) src)++;
+               from = *((int *) src); src += sizeof(int);
+	       length = *((int *) src); src += sizeof(int);
 		       mksubstr(parent_dir_len,&from,&length);
 		       if (length<=NAME_MAX-(dest-fmt))
 		       {
@@ -323,7 +323,7 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 
       case COUNTER:
                ++src;
-               precision = *((int *) src)++;
+               precision = *((int *) src); src += sizeof(int);
 		       if (precision!=-1)
 		         sprintf(custom_counter_fmt,"%%0%ilu",precision);
                        dest += snprintf(dest,NAME_MAX-(dest-fmt),(precision==-1 ? counter_fmt : custom_counter_fmt),counter);

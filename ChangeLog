@@ -1,6 +1,10 @@
+2005-02-01  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* src/gnome-cmd-advrename-lexer.l:
+        Fixed debian bug #288933 for amd64/gcc-4.0 compiling from Andreas Jochens (aj@andaco.de)
+
 2005-01-30  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
-	* gnome-commander.spec.in
         Updated copyright info.
 
 2005-01-28  Piotr Eljasiak  <epiotr@cvs.gnome.org>
