@@ -97,6 +97,9 @@ gnome_cmd_main_win_focus_cmdline         (GnomeCmdMainWin *mw);
 void
 gnome_cmd_main_win_focus_file_lists      (GnomeCmdMainWin *mw);
 
+void
+gnome_cmd_main_win_refocus               (GnomeCmdMainWin *mw);
+
 gboolean
 gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
 										  GdkEventKey *event);

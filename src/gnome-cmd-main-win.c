@@ -59,6 +59,7 @@ struct _GnomeCmdMainWinPrivate
 	GtkWidget *vbox;
 	GtkWidget *paned;
 	GtkWidget *file_selector[2];
+	GtkWidget *focused_widget;
 	GtkAccelGroup *accel_group;
 
 	GtkWidget *back_btn;
@@ -777,6 +778,7 @@ init (GnomeCmdMainWin *mw)
 	mw->priv->accel_group = gtk_accel_group_new ();
 	mw->priv->toolbar = NULL;
 	mw->priv->toolbar_sep = NULL;
+	mw->priv->focused_widget = NULL;
 	mw->priv->cmdline = NULL;
 	mw->priv->cmdline_sep = NULL;
 	mw->priv->buttonbar = NULL;
@@ -901,6 +903,7 @@ init (GnomeCmdMainWin *mw)
 		gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()), NULL);
 
 	gtk_window_add_accel_group (GTK_WINDOW (main_win), mw->priv->accel_group);
+	gnome_cmd_main_win_focus_file_lists (main_win);
 }
 
 
@@ -1008,8 +1011,10 @@ gnome_cmd_main_win_update_style          (GnomeCmdMainWin *mw)
 void
 gnome_cmd_main_win_focus_cmdline         (GnomeCmdMainWin *mw)
 {
-	if (gnome_cmd_data_get_cmdline_visibility ())
+	if (gnome_cmd_data_get_cmdline_visibility ()) {
 		gnome_cmd_cmdline_focus (GNOME_CMD_CMDLINE (mw->priv->cmdline));
+		mw->priv->focused_widget = mw->priv->cmdline;
+	}
 }
 
 
@@ -1020,6 +1025,16 @@ gnome_cmd_main_win_focus_file_lists      (GnomeCmdMainWin *mw)
 		gnome_cmd_main_win_get_active_fs (mw), TRUE);
 	gnome_cmd_file_selector_set_active (
 		gnome_cmd_main_win_get_inactive_fs (mw), FALSE);
+	
+	mw->priv->focused_widget = mw->priv->file_selector[mw->priv->current_fs];
+}
+
+
+void
+gnome_cmd_main_win_refocus               (GnomeCmdMainWin *mw)
+{
+	if (mw->priv->focused_widget)
+		gtk_widget_grab_focus (mw->priv->focused_widget);
 }
 
 

@@ -920,6 +920,7 @@ on_con_combo_item_selected              (GnomeCmdCombo *con_combo,
 	g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 	g_return_if_fail (GNOME_CMD_IS_CON (con));
 
+	gnome_cmd_main_win_switch_fs (main_win, fs);
 	gnome_cmd_file_selector_set_connection (fs, con, NULL);
 }
 
@@ -931,7 +932,7 @@ on_combo_popwin_hidden              (GnomeCmdCombo *combo,
 	g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
 	g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-	gtk_widget_grab_focus (fs->list_widget);
+	gnome_cmd_main_win_refocus (main_win);
 }
 
 
@@ -944,6 +945,7 @@ on_con_btn_clicked                      (GtkButton *button,
 	g_return_if_fail (GNOME_CMD_IS_CON (con));
 	g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
+	gnome_cmd_main_win_switch_fs (main_win, fs);
 	gnome_cmd_file_selector_set_connection (fs, con, NULL);
 }
 
@@ -1261,6 +1263,7 @@ static void
 on_root_btn_clicked                      (GtkButton *button,
 										  GnomeCmdFileSelector *fs)
 {
+	gnome_cmd_main_win_switch_fs (main_win, fs);
 	goto_directory (fs, "/");
 }
 
@@ -1269,6 +1272,7 @@ static void
 on_parent_btn_clicked                    (GtkButton *button,
 										  GnomeCmdFileSelector *fs)
 {
+	gnome_cmd_main_win_switch_fs (main_win, fs);
 	goto_directory (fs, "..");
 }
 

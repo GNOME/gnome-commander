@@ -21,6 +21,7 @@
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-file-selector.h"
+#include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
 #include "utils.h"
 
@@ -101,6 +102,7 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
 			if (x < indicator->priv->slashPixelPosition[i]) {
 				strncpy (chTo, labelText, indicator->priv->slashCharPosition[i]);
 				chTo[indicator->priv->slashCharPosition[i]] = 0x0;
+				gnome_cmd_main_win_switch_fs (main_win, fs);
 				gnome_cmd_file_selector_goto_directory (fs, chTo);
 				free (chTo);
 				return TRUE;
@@ -231,6 +233,7 @@ on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
 	g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 	g_return_if_fail (path != NULL);
 	
+	gnome_cmd_main_win_switch_fs (main_win, indicator->priv->fs);
 	gnome_cmd_file_selector_goto_directory (indicator->priv->fs, path);
 }
 

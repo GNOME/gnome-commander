@@ -583,6 +583,9 @@ gnome_cmd_bookmark_dialog_new (void)
 		gtk_type_new (gnome_cmd_bookmark_dialog_get_type ());
 
 	add_bookmarks (dialog);
+
+	GTK_CLIST (dialog->priv->dir_list)->focus_row = 0;
+	gtk_clist_select_row (GTK_CLIST (dialog->priv->dir_list), 0, 0);
 	
 	return GTK_WIDGET (dialog);
 }

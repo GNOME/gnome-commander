@@ -202,8 +202,10 @@ async_xfer_callback (GnomeVFSAsyncHandle *handle,
 		return ret;
 	}
 
-	if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED)
+	if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
+		gnome_cmd_main_win_focus_file_lists (main_win);
 		data->done = TRUE;
+	}
 
 	data->prev_status = info->status;
 	
