@@ -1,16 +1,16 @@
 # Czech translation of gnome-commander.
 # Copyright (C) 2002, 2003 Free Software Foundation, Inc.
-# Copyright (C) 2003, 2004 Miloslav Trmac <mitr@volny.cz>
+# Copyright (C) 2003, 2004, 2005 Miloslav Trmac <mitr@volny.cz>
 # <zdpo@mailbox.sk>, 2002.
 # Jaroslav Jiricka <jiricka@mujbox.cz>, 2003.
-# Miloslav Trmac <mitr@volny.cz>, 2003, 2004.
+# Miloslav Trmac <mitr@volny.cz>, 2003, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-06 03:52+0200\n"
-"PO-Revision-Date: 2004-05-06 14:13+0200\n"
+"POT-Creation-Date: 2005-03-22 03:50+0100\n"
+"PO-Revision-Date: 2005-03-22 09:35+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -572,6 +572,14 @@ msgstr "Budiž"
 #: src/gnome-cmd-dir.c:569
 msgid "Waiting for file list"
 msgstr "Čekám na seznam souborů"
+
+#: src/gnome-cmd-dir-indicator.c:472
+msgid "Add current dir"
+msgstr "Přidat aktuální adresář"
+
+#: src/gnome-cmd-dir-indicator.c:479
+msgid "Manage bookmarks..."
+msgstr "Spravovat záložky..."
 
 #: src/gnome-cmd-file-list.c:1341
 msgid "ext"
