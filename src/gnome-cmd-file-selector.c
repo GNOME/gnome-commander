@@ -1449,7 +1449,7 @@ init (GnomeCmdFileSelector *fs)
 	GTK_WIDGET_UNSET_FLAGS (fs->parent_btn, GTK_CAN_FOCUS);
 
 	/* create the directory indicator */
-	fs->dir_indicator = gnome_cmd_dir_indicator_new ();
+	fs->dir_indicator = gnome_cmd_dir_indicator_new (fs);
 	gtk_widget_ref (fs->dir_indicator);
 	gtk_object_set_data_full (GTK_OBJECT (fs),
 							  "dir_indicator", fs->dir_indicator,
@@ -2356,4 +2356,3 @@ gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c)
 
 	gtk_widget_grab_focus (entry);
 }
-

@@ -22,6 +22,7 @@
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-con-device.h"
+#include "gnome-cmd-file-selector.h"
 
 
 #define GNOME_CMD_DIR_INDICATOR(obj) \
@@ -54,7 +55,7 @@ GtkType
 gnome_cmd_dir_indicator_get_type (void);
 
 GtkWidget *
-gnome_cmd_dir_indicator_new (void);
+gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs);
 
 void
 gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *path);
