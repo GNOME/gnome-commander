@@ -1,3 +1,8 @@
+2003-12-17  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* doc/tips_tricks.txt:
+	Fixed some lines that where more then 80 chars wide.
+
 2003-12-08  Stanislav Brabec  <sbrabec@suse.cz>
 
 	* configure.in: Added cs to ALL_LINGUAS.

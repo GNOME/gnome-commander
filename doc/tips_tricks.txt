@@ -1,55 +1,61 @@
-Tips and tricks for Gnome Commander
+Tips and tricks for GNOME Commander
 -----------------------------------
 
 
 1. Using a nice Nautilus icon theme
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The default icon theme that comes with GC lacks icons for a lot of file types 
 and only looks good at icon size 16. There are other themes around though 
 that are more complete and looks better in bigger sizes. 
-Unscalable Gorilla by Jimmac is a good example and can be used in GC by following theese steps:
+Unscalable Gorilla by Jimmac is a good example and can be used in GC by 
+following theese steps:
 
-    * Download Unscalable Gorilla from http://jimmac.musichall.cz/download.php3?id=29
+    * Download Unscalable Gorilla from 
+      http://jimmac.musichall.cz/download.php3?id=29
     * Unpack the theme to whereever you want.
-    * Start GC and open the options dialog. In the Layout tab set the Theme icon directory 
-      to be the folder where you extracted Unscalable Gorilla. Also change Row height 
-      and Icon size to 20 or some other size that you like. When you're done also make sure 
-      that the Graphical mode is set to MIME icons.
-    * When you now close the options dialog the file listings should refresh and you should see 
-      Unscalable Gorilla being used.
-		
+    * Start GC and open the options dialog. In the Layout tab set the 
+      Theme icon directory to be the folder where you extracted 
+      Unscalable Gorilla. Also change Row height and Icon size to 20 or some 
+      other size that you like. When you're done also make sure that the 
+      Graphical mode is set to MIME icons.
+    * When you now close the options dialog the file listings should refresh 
+      and you should see Unscalable Gorilla being used.
+	
 This guide should work for all other Nautilus icon themes as well.
 		
 		
 2. Handling archives
+~~~~~~~~~~~~~~~~~~~~		
+GC still lacks built in browsing of compressed archives. However the program 
+can be configured so that working with archives becomes quite practical anyway.
+This is how you do it:
 		
-GC still lacks built in browsing of compressed archives. However the program can be configured 
-so that working with archives becomes quite practical anyway. This is how you do it:
-		
-    * If you don't already have the program Fileroller, download it from http://fileroller.sf.net 
-      and install it.
+    * If you don't already have the program Fileroller, download it from 
+      http://fileroller.sf.net and install it.
     * Open the options dialog and go to the Programs tab. 
-    * Add two favorite apps using the values shown in files create_archive.png & extract_archive.png
+    * Add two favorite apps using the values shown in files 
+      create_archive.png & extract_archive.png
 			    
-You can now right click any file or folder and choose 'Create archive...' to compress it 
-and right click compressed files and choose 'Extract archive...' to extract it.
+You can now right click any file or folder and choose 'Create archive...' to 
+compress it and right click compressed files and choose 'Extract archive...' 
+to extract it.
+
 			    
 			    
 3. Using removable devices
-			    
-If you use removable devices such as cd's, floppies and cameras a lot, you can make 
-GC automatically take care of mounting them by following this guide:
+~~~~~~~~~~~~~~~~~~~~~~~~~~   
+If you use removable devices such as cd's, floppies and cameras a lot, you can 
+make GC automatically take care of mounting them by following this guide:
 			    
     * Open the options dialog and go to the Devices tab.
-    * Add the devices that you are using. File mounting.png shows how I have added 
-      my scsi cdrom. File dev_cd.png shows how the program looks with a few added 
-      devices. In the last image circle A shows the available devices and circle B 
-      shows the button to press if we want to unmount the floppy, which happened 
-      to be mounted. The icons that are used for the devices in the example should be 
-      available in the $(prefix)/share/pixmaps/gnome-commander/device-icons folder 
-      on your computer.
-				    
-				    
+    * Add the devices that you are using. File mounting.png shows how I have 
+      added my scsi cdrom. File dev_cd.png shows how the program looks with a 
+      few added devices. In the last image circle A shows the available devices
+      and circle B shows the button to press if we want to unmount the floppy, 
+      which happened to be mounted. The icons that are used for the devices in 
+      the example should be available in the 
+      $(prefix)/share/pixmaps/gnome-commander/device-icons 
+      folder on your computer.
 				    
 Ok, that is all for now. If you find any problems or errors in this guide 
 send me an email using this address: marbj499 at student.liu.se.
