@@ -256,6 +256,7 @@ popup_dir_history (GnomeCmdDirIndicator *indicator)
 	GList *l;
 	GnomeCmdCon *con;
 	History *history;
+	gint w = -1;
 
 	if (indicator->priv->dir_history_popup) return;
 	
@@ -291,6 +292,11 @@ popup_dir_history (GnomeCmdDirIndicator *indicator)
 		indicator->priv->dir_history_popup,
 		(GtkMenuPositionFunc)get_dir_history_popup_pos,	indicator,
 		NULL, NULL, NULL);
+
+	if (GTK_WIDGET (indicator)->allocation.width > 100)
+		w = GTK_WIDGET (indicator)->allocation.width;
+	
+	gtk_widget_set_usize (indicator->priv->dir_history_popup, w, -1);
 }
 
 
