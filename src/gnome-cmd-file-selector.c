@@ -51,7 +51,6 @@ static GtkTargetEntry drop_types [] = {
 static GtkVBoxClass *parent_class = NULL;
 
 struct _GnomeCmdFileSelectorPrivate {
-	GtkWidget *dir_history_popup;
 	GtkWidget *filter_box;
 	
 	gboolean active;
@@ -1242,77 +1241,7 @@ static void
 on_parent_btn_clicked                    (GtkButton *button,
 										  GnomeCmdFileSelector *fs)
 {
-	goto_directory (fs, "..");	
-}
-
-
-static void
-on_dir_history_popup_hide (GtkMenu *menu, GnomeCmdFileSelector *fs)
-{
-	fs->priv->dir_history_popup = NULL;
-}
-
-
-static void
-on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
-{
-	GnomeCmdFileSelector *fs = gtk_object_get_data (GTK_OBJECT (item), "fs");
-
-	g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-	g_return_if_fail (path != NULL);
-	
-	goto_directory (fs, path);
-}
-
-
-static void
-get_dir_history_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, GnomeCmdFileSelector *fs)
-{
-	GtkWidget *wid;
-
-	wid = GTK_WIDGET (fs->list);
-
-	gdk_window_get_origin (wid->window, x, y);
-}
-
-
-static void
-popup_dir_history (GnomeCmdFileSelector *fs)
-{
-	GList *l;
-
-	if (fs->priv->dir_history_popup) return;
-	
-	fs->priv->dir_history_popup = gtk_menu_new ();
-	gtk_widget_ref (fs->priv->dir_history_popup);
-	gtk_object_set_data_full (
-		GTK_OBJECT (fs), "dir_history_popup",
-		fs->priv->dir_history_popup, (GtkDestroyNotify) gtk_widget_unref);
-	gtk_signal_connect (
-		GTK_OBJECT (fs->priv->dir_history_popup), "hide",
-		GTK_SIGNAL_FUNC (on_dir_history_popup_hide), fs);
-
-	l = fs->priv->dir_history->ents;
-	while (l) {
-		gchar *path = (gchar*)l->data;
-		GtkWidget *item = gtk_menu_item_new_with_label (path);
-		gtk_widget_ref (item);
-		gtk_object_set_data (GTK_OBJECT (item), "fs", fs);			
-		gtk_object_set_data_full (
-			GTK_OBJECT (fs->priv->dir_history_popup),
-			"menu_item", item, (GtkDestroyNotify) gtk_widget_unref);		
-		gtk_signal_connect (
-			GTK_OBJECT (item), "activate",
-			GTK_SIGNAL_FUNC (on_dir_history_item_selected), path);
-		gtk_widget_show (item);
-		gtk_menu_shell_append (GTK_MENU_SHELL (fs->priv->dir_history_popup), item);
-		l = l->next;
-	}
-
-	gnome_popup_menu_do_popup (
-		fs->priv->dir_history_popup,
-		(GtkMenuPositionFunc)get_dir_history_popup_pos,	fs,
-		NULL, NULL, NULL);
+	goto_directory (fs, "..");
 }
 
 
@@ -1383,7 +1312,6 @@ init (GnomeCmdFileSelector *fs)
 	fs->priv->dir_history = NULL;
 	fs->priv->active = FALSE;
 	fs->priv->sym_file = NULL;
-	fs->priv->dir_history_popup = NULL;
 	fs->priv->con = NULL;
 	fs->priv->con_open_dialog = NULL;
 	fs->priv->con_open_dialog_label = NULL;
@@ -2148,7 +2076,8 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
 		switch (event->keyval)
 		{
 			case GDK_Down:
-				popup_dir_history (fs);
+				gnome_cmd_dir_indicator_show_history (
+					GNOME_CMD_DIR_INDICATOR (fs->dir_indicator));
 				return TRUE;
 
 			case GDK_Left:

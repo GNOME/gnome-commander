@@ -21,12 +21,17 @@
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-file-selector.h"
+#include "gnome-cmd-data.h"
 #include "utils.h"
 
 struct _GnomeCmdDirIndicatorPrivate
 {
 	GtkWidget *event_box;
 	GtkWidget *label;
+	GtkWidget *history_button;
+	GtkWidget *dir_history_popup;
+	gboolean is_popped;
+	GnomeCmdFileSelector *fs;
 	int *slashCharPosition;
 	int *slashPixelPosition;
 	int numPositions;
@@ -71,32 +76,32 @@ class_init (GnomeCmdDirIndicatorClass *klass)
 	object_class->destroy = destroy;
 }
 
-/******************
-   event handlers 
-*******************/
+
+/*******************************
+ * Event handlers 
+ *******************************/
 static gboolean
-on_dir_indicator_clicked (GtkWidget * widget, GdkEventButton * event, gpointer cb_data)
+on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
+						  GdkEventButton *event,
+						  GnomeCmdFileSelector *fs)
 {
-	g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (widget), FALSE);
-	GnomeCmdDirIndicator *di = (GnomeCmdDirIndicator *) widget;
+	g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 
 	if (event->type == GDK_BUTTON_PRESS && event->button == 1) {
 		/* left click - work out the path */
 		gchar *chTo;
-		const gchar *labelText = gtk_label_get_label ((GtkLabel *) di->priv->label);
+		const gchar *labelText = gtk_label_get_label ((GtkLabel *) indicator->priv->label);
 
 		chTo = malloc (strlen (labelText) + 1);
 		strcpy (chTo, labelText);
 		gint x = (gint)event->x;
 		gint i;
-		GnomeCmdDirIndicator *di = (GnomeCmdDirIndicator *) widget;
 		  
-		for (i = 0; i < di->priv->numPositions; i++) {
-			if (x < di->priv->slashPixelPosition[i]) {
-				strncpy (chTo, labelText, di->priv->slashCharPosition[i]);
-				chTo[di->priv->slashCharPosition[i]] = 0x0;
-				gnome_cmd_file_selector_goto_directory (
-					(GnomeCmdFileSelector*)cb_data, chTo);
+		for (i = 0; i < indicator->priv->numPositions; i++) {
+			if (x < indicator->priv->slashPixelPosition[i]) {
+				strncpy (chTo, labelText, indicator->priv->slashCharPosition[i]);
+				chTo[indicator->priv->slashCharPosition[i]] = 0x0;
+				gnome_cmd_file_selector_goto_directory (fs, chTo);
 				free (chTo);
 				return TRUE;
 			}
@@ -108,59 +113,63 @@ on_dir_indicator_clicked (GtkWidget * widget, GdkEventButton * event, gpointer c
 	return FALSE;
 }
 
+
 static gint
-on_dir_indicator_motion (GtkWidget * widget, GdkEventMotion * event, gpointer * ptr)
+on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
+						 GdkEventMotion *event,
+						 gpointer user_data)
 {
-	g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (widget), FALSE);
 	gint i, iX, iY;
-	GnomeCmdDirIndicator *di = (GnomeCmdDirIndicator *) widget;
+
+	g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 	
-	if (di->priv->slashCharPosition == NULL)
+	if (indicator->priv->slashCharPosition == NULL)
 		return FALSE;
-	if (di->priv->slashPixelPosition == NULL)
+	if (indicator->priv->slashPixelPosition == NULL)
 		return FALSE;
 	
 	/* find out where in the label the pointer is at */
 	iX = (gint)event->x;
 	iY = (gint)event->y;
 	
-	for (i = 0; i < di->priv->numPositions; i++) {
-		if (iX < di->priv->slashPixelPosition[i]) {
+	for (i = 0; i < indicator->priv->numPositions; i++) {
+		if (iX < indicator->priv->slashPixelPosition[i]) {
 			/* underline the part that is selected */
-			gchar *patternbuf = malloc (di->priv->slashPixelPosition[i] + 1);
+			gchar *patternbuf = malloc (indicator->priv->slashPixelPosition[i] + 1);
 			gint j;
 			
-			for (j = 0; j < di->priv->slashCharPosition[i]; j++) {
+			for (j = 0; j < indicator->priv->slashCharPosition[i]; j++) {
 				patternbuf[j] = '_';
 			}
 			
-			patternbuf[di->priv->slashCharPosition[i]] = 0x0;
-			gtk_label_set_pattern ((GtkLabel *) di->priv->label, patternbuf);
+			patternbuf[indicator->priv->slashCharPosition[i]] = 0x0;
+			gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, patternbuf);
 			free (patternbuf);
 		    GdkCursor* cursor;
 		    cursor = gdk_cursor_new(GDK_HAND2);
-		    gdk_window_set_cursor(widget->window, cursor);
+		    gdk_window_set_cursor(GTK_WIDGET(indicator)->window, cursor);
 		    gdk_cursor_destroy(cursor);
 			return TRUE;
 		}
 		  
 		/* clear underline, cursor=pointer */
-		gtk_label_set_pattern ((GtkLabel *) di->priv->label, "");
-		gdk_window_set_cursor(widget->window, NULL);
+		gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, "");
+		gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
 	}
 	
 	return TRUE;
 }
 
 static gint
-on_dir_indicator_leave (GtkWidget * widget, GdkEventMotion * event, gpointer * ptr)
+on_dir_indicator_leave (GnomeCmdDirIndicator *indicator,
+						GdkEventMotion *event,
+						gpointer user_data)
 {
-	g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (widget), FALSE);
+	g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 	
 	/* clear underline, cursor=pointer */
-	GnomeCmdDirIndicator *di = (GnomeCmdDirIndicator *) widget;
-	gtk_label_set_pattern ((GtkLabel *) di->priv->label, "");
-	gdk_window_set_cursor(widget->window, NULL);
+	gtk_label_set_pattern ((GtkLabel *) indicator->priv->label, "");
+	gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
 	
 	return TRUE;
 }
@@ -190,28 +199,154 @@ getPixelSize (const char *s, int size)
 	return xSize;
 }
 
+static gboolean
+on_history_button_clicked (GtkWidget *button, GnomeCmdDirIndicator *indicator)
+{
+	if (indicator->priv->is_popped) {
+		gtk_widget_hide (indicator->priv->dir_history_popup);
+		indicator->priv->is_popped = FALSE;
+	}
+	else {
+		gnome_cmd_dir_indicator_show_history (indicator);
+		indicator->priv->is_popped = TRUE;
+	}
+
+	return TRUE;
+}
+
+
+static void
+on_dir_history_popup_hide (GtkMenu *menu, GnomeCmdDirIndicator *indicator)
+{
+	indicator->priv->dir_history_popup = NULL;
+	indicator->priv->is_popped = FALSE;
+}
+
+
+static void
+on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
+{
+	GnomeCmdDirIndicator *indicator = gtk_object_get_data (GTK_OBJECT (item), "indicator");
+
+	g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
+	g_return_if_fail (path != NULL);
+	
+	gnome_cmd_file_selector_goto_directory (indicator->priv->fs, path);
+}
+
+
+static void
+get_dir_history_popup_pos (GtkMenu *menu,
+						   gint *x, gint *y, gboolean push_in,
+						   GnomeCmdDirIndicator *indicator)
+{
+	GtkWidget *w;
+
+	g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
+
+	w = GTK_WIDGET (indicator->priv->fs->list);
+
+	gdk_window_get_origin (w->window, x, y);
+}
+
+
+static void
+popup_dir_history (GnomeCmdDirIndicator *indicator)
+{
+	GList *l;
+	GnomeCmdCon *con;
+	History *history;
+
+	if (indicator->priv->dir_history_popup) return;
+	
+	indicator->priv->dir_history_popup = gtk_menu_new ();
+	gtk_widget_ref (indicator->priv->dir_history_popup);
+	gtk_object_set_data_full (
+		GTK_OBJECT (indicator), "dir_history_popup",
+		indicator->priv->dir_history_popup, (GtkDestroyNotify) gtk_widget_unref);
+	gtk_signal_connect (
+		GTK_OBJECT (indicator->priv->dir_history_popup), "hide",
+		GTK_SIGNAL_FUNC (on_dir_history_popup_hide), indicator);
+
+	con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
+	history = gnome_cmd_con_get_dir_history (con);
+	l = history->ents;
+	while (l) {
+		gchar *path = (gchar*)l->data;
+		GtkWidget *item = gtk_menu_item_new_with_label (path);
+		gtk_widget_ref (item);
+		gtk_object_set_data (GTK_OBJECT (item), "indicator", indicator);			
+		gtk_object_set_data_full (
+			GTK_OBJECT (indicator->priv->dir_history_popup),
+			"menu_item", item, (GtkDestroyNotify) gtk_widget_unref);		
+		gtk_signal_connect (
+			GTK_OBJECT (item), "activate",
+			GTK_SIGNAL_FUNC (on_dir_history_item_selected), path);
+		gtk_widget_show (item);
+		gtk_menu_shell_append (GTK_MENU_SHELL (indicator->priv->dir_history_popup), item);
+		l = l->next;
+	}
+
+	gnome_popup_menu_do_popup (
+		indicator->priv->dir_history_popup,
+		(GtkMenuPositionFunc)get_dir_history_popup_pos,	indicator,
+		NULL, NULL, NULL);
+}
+
+
 static void
 init (GnomeCmdDirIndicator *indicator)
 {
+	GtkWidget *hbox, *arrow;
+	
 	indicator->priv = g_new (GnomeCmdDirIndicatorPrivate, 1);
+	indicator->priv->dir_history_popup = NULL;
+	indicator->priv->is_popped = FALSE;
 	indicator->priv->slashCharPosition = NULL;
 	indicator->priv->slashPixelPosition = NULL;
 	indicator->priv->numPositions = 0;
 
+	/* create the directory label and it's event box */
 	indicator->priv->event_box = gtk_event_box_new ();
 	gtk_widget_ref (indicator->priv->event_box);
 	gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "motion_notify_event",
-				   GTK_SIGNAL_FUNC (on_dir_indicator_motion), indicator);
+							   GTK_SIGNAL_FUNC (on_dir_indicator_motion), indicator);
 	gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "leave_notify_event",
-				   GTK_SIGNAL_FUNC (on_dir_indicator_leave), indicator);
+							   GTK_SIGNAL_FUNC (on_dir_indicator_leave), indicator);
 	gtk_widget_set_events (indicator->priv->event_box, GDK_POINTER_MOTION_MASK);
 
 	gtk_widget_show (indicator->priv->event_box);
-	gtk_container_add (GTK_CONTAINER (indicator), indicator->priv->event_box);
 
 	indicator->priv->label = create_label (GTK_WIDGET (indicator), "not initialized");
 	gtk_container_add (GTK_CONTAINER (indicator->priv->event_box), indicator->priv->label);
 
+	/* create the history popup button */
+	indicator->priv->history_button = gtk_button_new ();
+	GTK_WIDGET_UNSET_FLAGS (indicator->priv->history_button, GTK_CAN_FOCUS);
+	gtk_widget_ref (indicator->priv->history_button);
+	gtk_button_set_relief (GTK_BUTTON (indicator->priv->history_button), gnome_cmd_data_get_button_relief ());
+	gtk_object_set_data_full (GTK_OBJECT (indicator),
+							  "button", indicator->priv->history_button,
+							  (GtkDestroyNotify) gtk_widget_unref);
+	gtk_widget_show (indicator->priv->history_button);
+	
+	arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
+	gtk_widget_ref (arrow);
+	gtk_object_set_data_full (GTK_OBJECT (indicator),
+							  "arrow", arrow,
+							  (GtkDestroyNotify) gtk_widget_unref);
+	gtk_widget_show (arrow);
+	gtk_container_add (GTK_CONTAINER (indicator->priv->history_button), arrow);
+
+	/* pack */
+	hbox = create_hbox (GTK_WIDGET (indicator), FALSE, 10);
+	gtk_container_add (GTK_CONTAINER (indicator), hbox);
+	gtk_box_pack_start (GTK_BOX (hbox), indicator->priv->event_box, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), indicator->priv->history_button, FALSE, FALSE, 0);
+
+
+	gtk_signal_connect (GTK_OBJECT (indicator->priv->history_button), "clicked",
+						GTK_SIGNAL_FUNC (on_history_button_clicked), indicator);
 }
 
 
@@ -254,6 +389,8 @@ gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 		"button_press_event",
 		G_CALLBACK (on_dir_indicator_clicked),
 		fs);
+
+	dir_indicator->priv->fs = fs;
 	
 	return GTK_WIDGET (dir_indicator);
 }
@@ -325,3 +462,12 @@ gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean va
 {
 	//FIXME: Do something creative here
 }
+
+
+void
+gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator)
+{
+	popup_dir_history (indicator);
+}
+
+

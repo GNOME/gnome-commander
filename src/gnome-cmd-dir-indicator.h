@@ -63,4 +63,7 @@ gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *p
 void
 gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean value);
 
+void
+gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator);
+
 #endif //__GNOME_CMD_DIR_INDICATOR_H__
