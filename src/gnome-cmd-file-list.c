@@ -146,6 +146,7 @@ struct _GnomeCmdFileListPrivate {
 	guint right_mb_timeout_id;
 	GtkWidget *selpat_dialog;
 	GtkWidget *quicksearch_popup;
+	gchar *focus_later;
 };
 
 
@@ -1325,6 +1326,7 @@ init (GnomeCmdFileList *fl)
 	fl->priv->right_mb_down_file = NULL;
 	fl->priv->right_mb_timeout_id = 0;
 	fl->priv->quicksearch_popup = NULL;
+	fl->priv->focus_later = NULL;
 
 	for ( i=0 ; i<FILE_LIST_NUM_COLUMNS ; i++ )
 		fl->priv->sort_raising[i] = FALSE;
@@ -1557,6 +1559,11 @@ add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
 							  gnome_cmd_file_get_type_pixmap (finfo),
 							  gnome_cmd_file_get_type_mask (finfo));
 	}
+
+	/* If we have been waiting for this file to show up, focus it */
+	if (fl->priv->focus_later &&
+		strcmp (gnome_cmd_file_get_name (finfo), fl->priv->focus_later) == 0)
+		focus_file_at_row (fl, row);		
 }
 
 
@@ -2003,6 +2010,12 @@ gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl,
 		}
 		tmp = tmp->next;
 	}
+
+	/* The file was not found, remember the filename in case the file gets
+	   added to the list in the future (after a FAM event etc). */
+	if (fl->priv->focus_later)
+		g_free (fl->priv->focus_later);
+	fl->priv->focus_later = g_strdup (focus_file);
 }
 
 
