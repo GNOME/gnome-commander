@@ -303,35 +303,6 @@ gnome_cmd_file_rename (GnomeCmdFile *finfo, const gchar *new_name)
 		GNOME_VFS_SET_FILE_INFO_NAME);
 	gnome_vfs_uri_unref (uri);
 
-	if (result == GNOME_VFS_OK) {
-		if (has_parent_dir (finfo)) {
-			GnomeCmdDir *dir;
-			GnomeVFSURI *uri;
-
-			dir = get_parent_dir (finfo);
-			gnome_cmd_file_update_info (finfo, new_info);
-
-			uri = GNOME_CMD_FILE_INFO (finfo)->uri;
-			gnome_vfs_uri_unref (uri);
-
-			uri = gnome_cmd_dir_get_child_uri (
-				dir, finfo->info->name);			
-			gnome_vfs_uri_ref (uri);
-			GNOME_CMD_FILE_INFO (finfo)->uri = uri;
-
-			if (GNOME_CMD_IS_DIR (finfo)) {
-				GnomeCmdPath *t;
-
-				t = gnome_cmd_dir_get_path (GNOME_CMD_DIR (finfo));
-				t = gnome_cmd_path_get_parent (t);
-				gnome_cmd_dir_set_path (
-					GNOME_CMD_DIR (finfo),
-					gnome_cmd_path_get_child (t, new_name));
-										
-			}
-		}
-	}
-
 	return result;
 }
 

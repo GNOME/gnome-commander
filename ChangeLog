@@ -1,3 +1,13 @@
+2004-01-11  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file.c (gnome_cmd_file_rename):
+	Fixed some more update problems after renaming directories.
+
+	* src/gnome-cmd-main-win.c (init):
+	Removed a line that made gnome-commander be placed centered on the
+	desktop. The job of placing gnome-commander should be left to the
+	window manager.
+
 2004-01-10  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/gnome-cmd-file-collection.c: 
