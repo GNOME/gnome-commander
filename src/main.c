@@ -69,6 +69,8 @@ int
 main (int argc, char *argv[])
 {
 	gchar *conf_dir;
+
+	main_win = NULL;
 	
 	g_thread_init (NULL);
 

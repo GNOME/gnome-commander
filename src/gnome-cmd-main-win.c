@@ -781,6 +781,8 @@ init (GnomeCmdMainWin *mw)
 	mw->priv->cmdline_sep = NULL;
 	mw->priv->buttonbar = NULL;
 	mw->priv->buttonbar_sep = NULL;
+	mw->priv->file_selector[0] = NULL;
+	mw->priv->file_selector[1] = NULL;
 
 	gnome_app_construct (GNOME_APP (main_win), "gnome-commander", "GNOME Commander");
 	gtk_object_set_data (GTK_OBJECT (main_win), "main_win", main_win);
@@ -942,6 +944,11 @@ gnome_cmd_main_win_new              ()
 GnomeCmdFileSelector*
 gnome_cmd_main_win_get_active_fs         (GnomeCmdMainWin *mw)
 {
+	g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
+
+	if (!mw->priv->file_selector[mw->priv->current_fs])
+		return NULL;
+	
 	return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[mw->priv->current_fs]);
 }
 
@@ -949,6 +956,11 @@ gnome_cmd_main_win_get_active_fs         (GnomeCmdMainWin *mw)
 GnomeCmdFileSelector*
 gnome_cmd_main_win_get_inactive_fs         (GnomeCmdMainWin *mw)
 {
+	g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
+
+	if (!mw->priv->file_selector[!mw->priv->current_fs])
+		return NULL;
+	
 	return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[!mw->priv->current_fs]);
 }
 
@@ -956,6 +968,11 @@ gnome_cmd_main_win_get_inactive_fs         (GnomeCmdMainWin *mw)
 GnomeCmdFileSelector*
 gnome_cmd_main_win_get_left_fs         (GnomeCmdMainWin *mw)
 {
+	g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
+	
+	if (!mw->priv->file_selector[LEFT])
+		return NULL;
+	
 	return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT]);
 }
 
@@ -963,6 +980,11 @@ gnome_cmd_main_win_get_left_fs         (GnomeCmdMainWin *mw)
 GnomeCmdFileSelector*
 gnome_cmd_main_win_get_right_fs         (GnomeCmdMainWin *mw)
 {
+	g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
+	
+	if (!mw->priv->file_selector[RIGHT])
+		return NULL;
+	
 	return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT]);
 }
 
