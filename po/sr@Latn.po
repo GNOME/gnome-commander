@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-03 13:44+0100\n"
-"PO-Revision-Date: 2003-12-03 13:42+0100\n"
+"POT-Creation-Date: 2003-12-07 23:04+0100\n"
+"PO-Revision-Date: 2003-12-07 23:06+0100\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
 "Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,10 @@ msgstr "Gnomov narednik"
 #: libgcmd/gnome-cmd-string-dialog.c:133
 msgid "No error description available"
 msgstr "Nema opisa greške"
+
+#: plugins/cvs/cvs-plugin.c:331
+msgid "A plugin that eventually will be a simple CVS client"
+msgstr "Dodatak koji će jednom postati jednostavan CVS klijent"
 
 #: plugins/cvs/interface.c:33
 msgid "Compare Revisions..."
@@ -58,12 +62,6 @@ msgstr "Podaci"
 #: plugins/cvs/interface.c:231
 msgid "Revision:"
 msgstr "Revizija:"
-
-#: plugins/cvs/interface.c:241 plugins/cvs/interface.c:261
-#: plugins/cvs/interface.c:281 plugins/cvs/interface.c:301
-#: plugins/cvs/interface.c:321
-msgid "..."
-msgstr "..."
 
 #: plugins/cvs/interface.c:251
 msgid "Author:"
@@ -117,41 +115,53 @@ msgstr "Sva prava zadržana ©2003 Markus Bjurman (Marcus Bjurman)"
 msgid "Small tool to browse CVS revisions of a single file."
 msgstr "Mali alat za razgledanje CVS revizija neke datoteke."
 
-#: plugins/fileroller/file-roller-plugin.c:168
+#: plugins/fileroller/file-roller-plugin.c:167
 msgid "What filename should the new archive have?"
 msgstr "Koje ime treba da nosi nova arhiva?"
 
-#: plugins/fileroller/file-roller-plugin.c:170
+#: plugins/fileroller/file-roller-plugin.c:169
 msgid "Create Archive"
 msgstr "Napravi arhivu"
 
-#: plugins/fileroller/file-roller-plugin.c:274
+#: plugins/fileroller/file-roller-plugin.c:273
 msgid "Create Archive..."
 msgstr "Napravi arhivu..."
 
-#: plugins/fileroller/file-roller-plugin.c:288
+#: plugins/fileroller/file-roller-plugin.c:287
 msgid "Extract in Current Directory"
 msgstr "Raspakuj u tekućem direktorijumu"
 
-#: plugins/fileroller/file-roller-plugin.c:293
+#: plugins/fileroller/file-roller-plugin.c:292
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Raspakuj u „%s“"
 
-#: plugins/fileroller/file-roller-plugin.c:337 src/gnome-cmd-ftp-dialog.c:548
+#: plugins/fileroller/file-roller-plugin.c:336 src/gnome-cmd-ftp-dialog.c:548
 #: src/gnome-cmd-options-dialog.c:1054 src/gnome-cmd-options-dialog.c:1764
 #: src/gnome-cmd-prepare-copy-dialog.c:141
 #: src/gnome-cmd-prepare-move-dialog.c:125
 msgid "Options"
 msgstr "Opcije"
 
-#: plugins/fileroller/file-roller-plugin.c:353
+#: plugins/fileroller/file-roller-plugin.c:352
 msgid "File-roller options"
 msgstr "Opcije File roller-a"
 
-#: plugins/fileroller/file-roller-plugin.c:356
+#: plugins/fileroller/file-roller-plugin.c:355
 msgid "Default type"
 msgstr "Podrazumevana vrsta"
+
+#: plugins/fileroller/file-roller-plugin.c:477
+msgid ""
+"A plugin that adds File Roller shortcuts for creating and extracting "
+"compressed archives."
+msgstr "Dodatak koji dodaje prečice File Roller-a za pravljenje i otpakivanje kompresovanih arhiva."
+
+#: plugins/test/test-plugin.c:233
+msgid ""
+"This is an example plugin that is mostly useful as a simple example for "
+"aspiring plugin hackers"
+msgstr "Ovo je primer dodatka koji je većinom koristan kao jednostavan primer za nadahnute hakere dodataka."
 
 #: src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
@@ -584,15 +594,19 @@ msgstr "Lični"
 msgid "Go to: Home"
 msgstr "Idi na: Lični"
 
-#: src/gnome-cmd-con-smb.c:201
+#: src/gnome-cmd-con-smb.c:94
+msgid "Failed to browse the network. Is the SMB module installed?"
+msgstr "Neuspešno razgledanje mreže. Da li je SMB modul instaliran?"
+
+#: src/gnome-cmd-con-smb.c:211
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.c:202
+#: src/gnome-cmd-con-smb.c:212
 msgid "Searching for workgroups and hosts"
 msgstr "Traženje radnih grupa i domaćina"
 
-#: src/gnome-cmd-con-smb.c:209
+#: src/gnome-cmd-con-smb.c:219
 msgid "Go to: Samba Network"
 msgstr "Idi na: Samba mrežu"
 
@@ -752,7 +766,7 @@ msgstr "%s bajtova"
 msgid "No default application registered"
 msgstr "Nije prijavljen podrazumevani program"
 
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2086
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2098
 msgid "Filename:"
 msgstr "Ime datoteke:"
 
@@ -812,38 +826,38 @@ msgstr[0] "%s od %s kB u %d od jedne izabrane datoteke"
 msgstr[1] "%s od %s kB u %d od %d izabrane datoteke"
 msgstr[2] "%s od %s kB u %d od %d izabranih datoteka"
 
-#: src/gnome-cmd-file-selector.c:721
+#: src/gnome-cmd-file-selector.c:716
 #, c-format
 msgid "%s Free"
 msgstr "%s slobodno"
 
-#: src/gnome-cmd-file-selector.c:1814
+#: src/gnome-cmd-file-selector.c:1826
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Ne mogu da uspostavim vezu: %s\n"
 
-#: src/gnome-cmd-file-selector.c:2023 src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-file-selector.c:2035 src/gnome-cmd-make-copy-dialog.c:68
 #: src/gnome-cmd-rename-dialog.c:52
 msgid "No filename entered"
 msgstr "Nije uneto ime datoteke"
 
-#: src/gnome-cmd-file-selector.c:2059
+#: src/gnome-cmd-file-selector.c:2071
 msgid "No filename given"
 msgstr "Nije dato ime datoteke"
 
-#: src/gnome-cmd-file-selector.c:2092
+#: src/gnome-cmd-file-selector.c:2104
 msgid "New Text File"
 msgstr "Nova tekstualna datoteka"
 
-#: src/gnome-cmd-file-selector.c:2256
+#: src/gnome-cmd-file-selector.c:2268
 msgid "Symlink name:"
 msgstr "Ime simb. veze:"
 
-#: src/gnome-cmd-file-selector.c:2262
+#: src/gnome-cmd-file-selector.c:2274
 msgid "Create Symbolic Link"
 msgstr "Napravi simboličku vezu"
 
-#: src/gnome-cmd-file-selector.c:2333
+#: src/gnome-cmd-file-selector.c:2345
 msgid "Filter:"
 msgstr "Filter:"
 
@@ -2071,3 +2085,6 @@ msgstr "Nisam uspeo da napravim direktorijum %s"
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Nisam uspeo da pročitam direktorijum %s: %s\n"
+
+#~ msgid "..."
+#~ msgstr "..."
