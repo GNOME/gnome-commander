@@ -160,6 +160,9 @@ gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo)
 	gnome_cmd_string_dialog_set_value (
 		GNOME_CMD_STRING_DIALOG (dialog), 0, fname);
 	g_free (fname);
+
+	gtk_entry_select_region (
+		GTK_ENTRY (GNOME_CMD_STRING_DIALOG (dialog)->entries[0]), 0, -1);
 	
 	return GTK_WIDGET (dialog);
 }
