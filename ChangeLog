@@ -1,5 +1,35 @@
+2004-01-14  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-con-list.c
+	* src/gnome-cmd-con-list.h
+	* src/gnome-cmd-data.c
+	* src/gnome-cmd-data.h
+	* src/gnome-cmd-file-selector.c
+	* src/gnome-cmd-options-dialog.c
+	* src/gnome-cmd-smb-path.c
+	* src/utils.c
+	* src/utils.h
+	Made it possible to 'cd' to smb paths from the cmdline.
+	Made it possible to customize the filepatterns that are to be treated as backup files.
+	
+	* src/gnome-cmd-file-list.c:
+	Fixed problem with newly created directories not being focused.
+
 2004-01-13  Marcus Bjurman  <marbj499@student.liu.se>
 
+	* src/gnome-cmd-con.c (gnome_cmd_con_set_cwd):
+	Fixed problem with the cwd of connections being set to directories
+	belonging to other connections.
+
+	* plugins/test/test-plugin.c: 
+	* plugins/cvs/cvs-plugin.c:
+	Updated to work with the newest GnomeCmdState.
+
+	* src/gnome-cmd-options-dialog.c: 
+	* src/gnome-cmd-data.h: 
+	* src/gnome-cmd-data.c:
+	Fixed crash when trying to edit the custom color scheme.
+	
 	* src/useractions.c: 
 	* src/useractions.h: 
 	* src/gnome-cmd-main-win.c: 
@@ -8,7 +38,7 @@
 	* src/gnome-cmd-data.c:
 	Removed the 'Save Position' menu item. Size and position are now saved
 	automaticly instead.
-	
+
 	* src/gnome-cmd-file-list.c: 
 	* src/gnome-cmd-data.h: 
 	* src/gnome-cmd-data.c:
