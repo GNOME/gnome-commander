@@ -347,6 +347,19 @@ gnome_cmd_prepare_xfer_dialog_get_type         (void)
 }
 
 
+static gboolean
+path_points_at_directory (GnomeCmdFileSelector *to, const gchar *dest_path)
+{
+	GnomeVFSResult res;
+	GnomeVFSFileType type;
+	GnomeCmdCon *con;
+
+	con = gnome_cmd_file_selector_get_connection (to);
+	res = gnome_cmd_con_get_path_target_type (con, dest_path, &type);
+	return res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY;
+}
+
+
 GtkWidget*
 gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
 								   GnomeCmdFileSelector *to)
@@ -369,6 +382,10 @@ gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
 		fname = get_utf8 (finfo->info->name);
 
 		dest_str = g_build_path ("/", path, fname, NULL);
+		if (path_points_at_directory (to, dest_str)) {
+			g_free (dest_str);
+			dest_str = g_strdup (path);
+		}
 
 		g_free (path);
 		g_free (fname);
