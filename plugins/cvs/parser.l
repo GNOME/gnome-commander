@@ -19,6 +19,15 @@ date: 2003/01/30 02:42:59;  author: opum;  state: Exp;  lines: +2 -0
 branches:  1.14.2;
 Added automatic download of remove files when opening them or viewing them
 
+
+
+branches:[:alnum:]*;  {
+	gchar tmp[256];	
+	sscanf (yytext+9,"%s", tmp);
+	printf ("BranchesTEST: %s\n", tmp);
+}
+
+
 */
 
 %option noyywrap
@@ -73,16 +82,18 @@ date:.*$  {
 	rev->lines = g_strdup_printf ("%s %s", l1, l2);
 }
 
-branches:[:alnum:]*;  {
-	gchar tmp[256];	
-	sscanf (yytext+9,"%s", tmp);
-	printf ("BranchesTEST: %s\n", tmp);
-}
 
 ^.*\n---   {
-    fprintf (stderr, "LEX: Found message\n");
+    fprintf (stderr, "LEX: Found message1\n");
 	if (rev)
 		rev->message = g_strdup (yytext);
+}
+
+^.*\n===========================   {
+    fprintf (stderr, "LEX: Found message2\n");
+	if (rev)
+		rev->message = g_strdup (yytext);
+    yyterminate();
 }
 
 
@@ -124,26 +135,21 @@ void log_free (LogHistory *log)
 	while (revs) {
 		Revision *rev = (Revision*)revs->data;
 		rev_free (rev);
+		revs = revs->next;
 	}
 }
 
 
-LogHistory *log_create (const gchar *fpath)
+LogHistory *log_create (CvsPlugin *plugin, const gchar *fname)
 {
 	gchar *cmd;
-	gchar *dir;
-    //gchar tmp[16];
 
-	dir = g_dirname (fpath);
-	if (dir) {
-		if (chdir (dir) != 0)
-			return NULL;
-		g_free (dir);
-	}
-	
 	log = log_new ();	
-	log->fname = g_strdup (g_basename (fpath));
-	cmd = g_strdup_printf ("cvs log %s", log->fname);
+	log->fname = g_strdup (fname);
+	log->plugin = plugin;
+	cmd = g_strdup_printf ("cvs -z%d log %s",
+						   plugin->compression_level,
+						   log->fname);
 
 	yyin = popen (cmd, "r");
 	if (!yyin) return NULL;

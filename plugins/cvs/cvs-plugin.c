@@ -30,6 +30,20 @@
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 
 
+static gchar *compression_level_strings[] = {
+	"0 - No compression",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6 - Default compression level",
+	"7",
+	"8",
+	"9 - Maximum compression",
+	NULL
+};
+
 static PluginInfo plugin_nfo = {
 	GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION,
 	NAME,
@@ -47,8 +61,13 @@ struct _CvsPluginPrivate
 {
 	GtkWidget *update;
 	GtkWidget *log;
+	GtkWidget *diff;
 	GtkWidget *last_log;
 	GtkWidget *last_change;
+
+	GtkWidget *conf_dialog;
+	GtkWidget *compression_level_menu;
+	GtkWidget *unidiff_check;
 };
 
 
@@ -58,38 +77,52 @@ static GnomeCmdPluginClass *parent_class = NULL;
 static void
 on_dummy (GtkMenuItem *item, gpointer data)
 {
-	gnome_ok_dialog ("Cvs plugin dummy operation");
+	gnome_ok_dialog ("CVS plugin dummy operation");
+}
+
+
+static gboolean
+change_cwd (const gchar *fpath)
+{
+	gchar *dir;
+	
+	dir = g_dirname (fpath);
+	if (dir) {
+		gint ret = chdir (dir);
+		g_free (dir);
+
+		return ret == 0;
+	}
+	
+	return FALSE;
 }
 
 
 static void
-create_log_window (CvsPlugin *plugin, const gchar *fpath)
+on_diff (GtkMenuItem *item, GnomeCmdState *state)
 {
-	GList *revs;
-	GtkCList *rev_list;
-	GtkWidget *win = create_main_win (plugin);
+	GList *files = state->active_dir_selected_files;
+	CvsPlugin *plugin = gtk_object_get_data (GTK_OBJECT (item), "plugin");
 
-	rev_list = GTK_CLIST (lookup_widget (win, "rev_list"));
-
-	g_return_if_fail (GTK_IS_CLIST (rev_list));
-
-	plugin->log_history = log_create (fpath);
-	if (!plugin->log_history) return;
-		
-	revs = plugin->log_history->revisions;
-	while (revs) {
-		Revision *rev = (Revision *)revs->data;
-		gint row;
-		gchar *text[2];
-		text[0] = rev->number;
-		text[1] = NULL;
-		// Add this rev. to the list
-		row = gtk_clist_append (rev_list, text);
-		gtk_clist_set_row_data (rev_list, row, rev);
-		revs = revs->next;
+	if (files && !plugin->diff_win)
+		plugin->diff_win = create_diff_win (plugin);
+	
+	while (files) {
+		gchar *cmd;		
+		GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
+		GnomeVFSURI *uri = gnome_vfs_uri_append_file_name (
+			state->active_dir_uri, finfo->info->name);
+		const gchar *fpath = gnome_vfs_uri_get_path (uri);
+	
+		change_cwd (fpath);
+		cmd = g_strdup_printf ("cvs -z%d diff %s %s",
+							   plugin->compression_level,
+							   plugin->unidiff?"-u":"",
+							   g_basename (fpath));
+		add_diff_tab (plugin, cmd, g_basename (fpath));
+		g_free (cmd);
+		files = files->next;
 	}
-
-	gtk_widget_show (win);
 }
 
 
@@ -99,12 +132,17 @@ on_log (GtkMenuItem *item, GnomeCmdState *state)
 	GList *files = state->active_dir_selected_files;
 	CvsPlugin *plugin = gtk_object_get_data (GTK_OBJECT (item), "plugin");
 
+	if (files && !plugin->log_win)
+		plugin->log_win = create_log_win (plugin);
+	
 	while (files) {
 		GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
 		GnomeVFSURI *uri = gnome_vfs_uri_append_file_name (
 			state->active_dir_uri, finfo->info->name);
 		const gchar *fpath = gnome_vfs_uri_get_path (uri);
-		create_log_window (plugin, fpath);
+		
+		change_cwd (fpath);
+		add_log_tab (plugin, g_basename (fpath));
 		files = files->next;
 	}
 }
@@ -167,6 +205,9 @@ create_main_menu (GnomeCmdPlugin *p, GnomeCmdState *state)
 	plugin->priv->update = child =
 		create_menu_item ("Update", FALSE, GTK_SIGNAL_FUNC (on_dummy), state, plugin);
 	gtk_menu_append (submenu, child);
+	plugin->priv->diff = child =
+		create_menu_item ("Diff", FALSE, GTK_SIGNAL_FUNC (on_diff), state, plugin);
+	gtk_menu_append (submenu, child);
 	plugin->priv->log = child =
 		create_menu_item ("Log", FALSE, GTK_SIGNAL_FUNC (on_log), state, plugin);
 	gtk_menu_append (submenu, child);
@@ -178,16 +219,6 @@ create_main_menu (GnomeCmdPlugin *p, GnomeCmdState *state)
 	gtk_menu_append (submenu, child);
 
 	return item;
-}
-
-
-static GList * 
-create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
-{
-	GtkWidget *item = create_menu_item (
-		"CVS plugin dummy operation", TRUE, GTK_SIGNAL_FUNC (on_dummy), state,
-		CVS_PLUGIN (plugin));
-	return g_list_append (NULL, item);
 }
 
 
@@ -207,6 +238,25 @@ cvs_dir_exists (GList *files)
 }
 
 
+static GList * 
+create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+{
+	GtkWidget *item;
+	GList *l = NULL;
+
+	if (cvs_dir_exists (state->active_dir_files)) {
+		item = create_menu_item (
+			"CVS Diff", TRUE, GTK_SIGNAL_FUNC (on_diff), state, CVS_PLUGIN (plugin));
+		l = g_list_append (l, item);
+		item = create_menu_item (
+			"CVS Log", TRUE, GTK_SIGNAL_FUNC (on_log), state, CVS_PLUGIN (plugin));
+		l = g_list_append (l, item);
+	}
+	
+	return l;
+}
+
+
 static void  
 update_main_menu_state (GnomeCmdPlugin *p, GnomeCmdState *state)
 {
@@ -214,12 +264,14 @@ update_main_menu_state (GnomeCmdPlugin *p, GnomeCmdState *state)
 	
 	if (cvs_dir_exists (state->active_dir_files)) {
 		gtk_widget_set_sensitive (plugin->priv->update, TRUE);
+		gtk_widget_set_sensitive (plugin->priv->diff, TRUE);
 		gtk_widget_set_sensitive (plugin->priv->log, TRUE);
 		gtk_widget_set_sensitive (plugin->priv->last_log, TRUE);
 		gtk_widget_set_sensitive (plugin->priv->last_change, TRUE);
 	}
 	else {
 		gtk_widget_set_sensitive (plugin->priv->update, FALSE);
+		gtk_widget_set_sensitive (plugin->priv->diff, FALSE);
 		gtk_widget_set_sensitive (plugin->priv->log, FALSE);
 		gtk_widget_set_sensitive (plugin->priv->last_log, FALSE);
 		gtk_widget_set_sensitive (plugin->priv->last_change, FALSE);
@@ -228,9 +280,66 @@ update_main_menu_state (GnomeCmdPlugin *p, GnomeCmdState *state)
 
 
 static void
-configure (GnomeCmdPlugin *plugin)
+on_configure_close (GtkButton *btn, CvsPlugin *plugin)
 {
-	g_printerr ("configure...\n");
+	plugin->compression_level = gtk_option_menu_get_history (
+		GTK_OPTION_MENU (plugin->priv->compression_level_menu));
+	plugin->unidiff = gtk_toggle_button_get_active (
+		GTK_TOGGLE_BUTTON (plugin->priv->unidiff_check));
+	
+	gnome_cmd_data_set_int (
+		"/cvs-plugin/compression_level",
+		plugin->compression_level);
+	
+	gtk_widget_destroy (plugin->priv->conf_dialog);
+}
+
+
+static void
+configure (GnomeCmdPlugin *p)
+{
+	GtkWidget *dialog, *table, *cat, *label, *vbox, *optmenu, *check;
+	CvsPlugin *plugin = CVS_PLUGIN (p);
+
+	dialog = gnome_cmd_dialog_new (_("Options"));
+	plugin->priv->conf_dialog = dialog;
+	gtk_widget_ref (dialog);
+	gnome_cmd_dialog_set_transient_for (
+		GNOME_CMD_DIALOG (dialog),
+		GTK_WINDOW (main_win_widget));
+	gnome_cmd_dialog_set_modal (
+		GNOME_CMD_DIALOG (dialog));
+
+	gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
+								 GTK_SIGNAL_FUNC (on_configure_close), plugin);
+
+	vbox = create_vbox (dialog, FALSE, 12);
+	gnome_cmd_dialog_add_expanding_category (
+		GNOME_CMD_DIALOG (dialog), vbox);
+
+	
+	table = create_table (dialog, 2, 2);
+	cat = create_category (dialog, table, _("CVS options"));
+	gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+	label = create_label (dialog, _("Compression level"));
+	table_add (table, label, 0, 1, 0);
+	
+	optmenu = create_option_menu (dialog, compression_level_strings);
+	plugin->priv->compression_level_menu = optmenu;
+	gtk_option_menu_set_history (GTK_OPTION_MENU (optmenu),
+								 plugin->compression_level);
+	table_add (table, optmenu, 1, 1, GTK_FILL);
+
+	check = create_check (dialog, _("Unified diff format"), "check");
+	plugin->priv->unidiff_check = check;
+	gtk_toggle_button_set_active (
+		GTK_TOGGLE_BUTTON (check), plugin->unidiff);
+	gtk_table_attach (GTK_TABLE (table), check, 0, 2, 0, 1,
+					  (GtkAttachOptions) (GTK_FILL),
+					  (GtkAttachOptions) (0), 0, 0);
+
+	gtk_widget_show (dialog);
 }
 
 
@@ -271,6 +380,14 @@ static void
 init (CvsPlugin *plugin)
 {
 	plugin->priv = g_new (CvsPluginPrivate, 1);
+
+	plugin->diff_win = NULL;
+	plugin->log_win = NULL;
+
+	plugin->compression_level = gnome_cmd_data_get_int (
+		"/cvs-plugin/compression_level", 6);
+	plugin->unidiff = gnome_cmd_data_get_bool (
+		"/cvs-plugin/unidiff", TRUE);
 }
 
 

@@ -20,10 +20,6 @@
 #ifndef __CVS_PLUGIN_H__
 #define __CVS_PLUGIN_H__
 
-
-#include "parser.h"
-
-
 #define CVS_PLUGIN(obj) \
 	GTK_CHECK_CAST (obj, cvs_plugin_get_type (), CvsPlugin)
 #define CVS_PLUGIN_CLASS(klass) \
@@ -31,16 +27,24 @@
 #define IS_CVS_PLUGIN(obj) \
     GTK_CHECK_TYPE (obj, cvs_plugin_get_type ())
 
-
 typedef struct _CvsPlugin CvsPlugin;
 typedef struct _CvsPluginClass CvsPluginClass;
 typedef struct _CvsPluginPrivate CvsPluginPrivate;
+
+#include "parser.h"
+#include <libgcmd/libgcmd.h>
 
 struct _CvsPlugin
 {
 	GnomeCmdPlugin parent;
 
-	LogHistory *log_history;
+	Revision *selected_rev;
+
+	GtkWidget *diff_win;
+	GtkWidget *log_win;
+
+	gint compression_level;
+	gboolean unidiff;
 
 	CvsPluginPrivate *priv;
 };

@@ -15,7 +15,6 @@ lib_LTLIBRARIES = libcvs.la
 libcvs_la_SOURCES = \
 	parser.h parser.l \
 	cvs-plugin.h cvs-plugin.c \
-	callbacks.h callbacks.c \
 	interface.h interface.c \
 	cvs-plugin.xpm
 
