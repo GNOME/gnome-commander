@@ -1,4 +1,46 @@
+2004-01-19  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/history.c (history_add):
+	Fixed crash when navigating back in the history and then entering
+	another dir.
+
+	* libgcmd/libgcmd-widget-factory.c: 
+	* libgcmd/libgcmd-widget-factory.h:
+	Added function to create GtkOptionMenu's and fill them with options.
+
+	* src/gnome-cmd-options-dialog.c:
+	Changed to using GtkOptionMenu's instead of the combo boxes where
+	appropriate.
+
+	* src/gnome-cmd-dir-indicator.c:
+	Removed unused stuff.
+
+	* src/gnome-cmd-file-list.c (gnome_cmd_file_list_sort):
+	Fixed bogus focus row when changing sorting column in the inactive
+	file-list.
+
 2004-01-17  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-dir.c: 
+	* src/gnome-cmd-con.c: 
+	* src/gnome-cmd-con.h:
+	Fixed a problem when opening multiple temporary ftp connections to the
+	same url.
+
+	* src/plugin_manager.c:
+	Plugins can now be toggled between active and inactive state by
+	double-clicking.
+
+	* src/gnome-cmd-data.c: 
+	* src/gnome-cmd-data.h: 
+	* src/gnome-cmd-con-list.c: 
+	* src/gnome-cmd-con-list.h: 
+	* src/gnome-cmd-ftp-dialog.c:
+	Fixed ftp-quick-connect problems.
+
+	* libgcmd/libgcmd-utils.c: 
+	* libgcmd/libgcmd-utils.h:
+	Added more text markup convenience functions.
 
 	* src/gnome-cmd-dir-indicator.c:
 	Changed to using bold text instead of underlined when focused by the
