@@ -366,10 +366,10 @@ gnome_cmd_file_get_path (GnomeCmdFile *finfo)
 gchar *
 gnome_cmd_file_get_real_path (GnomeCmdFile *finfo)
 {
-	gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
-	gchar *path = gnome_vfs_get_local_path_from_uri (uri_str);
+	GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
+	gchar *path = g_strdup (gnome_vfs_uri_get_path (uri));
 
-	g_free (uri_str);
+	gnome_vfs_uri_unref (uri);
 	
 	return path;
 
