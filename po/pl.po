@@ -1,6 +1,6 @@
 # Polish translation of GNOME Commander
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# Piotr Eljasiak <epiotr@use.pl>, 2002-2004.
+# Piotr Eljasiak <epiotr@use.pl>, 2002-2005.
 # 
 msgid ""
 msgstr ""

@@ -25,7 +25,7 @@
  */
 
 /*
- * Modified by Marcus Bjurman <marbj499@student.liu.se> 2001-2004
+ * Modified by Marcus Bjurman <marbj499@student.liu.se> 2001-2005
  * The orginal comments are left intact above
  */
 
