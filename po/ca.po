@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-06 01:19+0100\n"
+"POT-Creation-Date: 2004-09-15 10:44+0200\n"
 "PO-Revision-Date: 2003-12-31 16:30+0100\n"
 "Last-Translator: Xavier Conde Rueda <xaviconde@eresmas.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -28,98 +28,90 @@ msgstr "GNOME Commander"
 msgid "No error description available"
 msgstr "No hi ha cap descripció disponible quant a l'error"
 
-#: plugins/cvs/cvs-plugin.c:331
+# Winrar 2.9->Menu:rarlng.dll
+#: plugins/cvs/cvs-plugin.c:304 plugins/fileroller/file-roller-plugin.c:336
+#: src/gnome-cmd-ftp-dialog.c:550 src/gnome-cmd-options-dialog.c:1058
+#: src/gnome-cmd-options-dialog.c:1768 src/gnome-cmd-prepare-copy-dialog.c:141
+#: src/gnome-cmd-prepare-move-dialog.c:125
+msgid "Options"
+msgstr "Opcions"
+
+#: plugins/cvs/cvs-plugin.c:322
+msgid "CVS options"
+msgstr "Opcions de CVS"
+
+#: plugins/cvs/cvs-plugin.c:325
+msgid "Compression level"
+msgstr ""
+
+#: plugins/cvs/cvs-plugin.c:334
+msgid "Unified diff format"
+msgstr ""
+
+#: plugins/cvs/cvs-plugin.c:448
 msgid "A plugin that eventually will be a simple CVS client"
 msgstr "Un connector que, en el futur, serà un senzill client CVS"
 
-#: plugins/cvs/interface.c:33
-msgid "Compare Revisions..."
-msgstr "Compara revisions..."
+# source\dialog\versdlg.src pushbutton DLG_VERSIONS PB_DELETE
+# source\dialog\versdlg.src pushbutton DLG_VERSIONS PB_COMPARE
+# Projecte_Open_Office_1.1 [sfx2.po]
+#: plugins/cvs/interface.c:161
+msgid "Compare with"
+msgstr "Compara amb"
 
-#: plugins/cvs/interface.c:52
-msgid "CVS"
-msgstr "CVS"
+#: plugins/cvs/interface.c:164
+msgid "HEAD"
+msgstr "HEAD"
 
-#: plugins/cvs/interface.c:94
-msgid "CVSLogViewer"
-msgstr "CVSLogViewer"
+#: plugins/cvs/interface.c:168
+msgid "The previous revision"
+msgstr "La revisió anterior"
 
-#: plugins/cvs/interface.c:173
-msgid "Revisions"
-msgstr "Revisions"
+#: plugins/cvs/interface.c:174
+msgid "Other revision"
+msgstr "Una altra revisió"
 
-#: plugins/cvs/interface.c:199
+#: plugins/cvs/interface.c:261
+#, fuzzy
+msgid "CVS Diff"
+msgstr "_Diferències"
+
+#: plugins/cvs/interface.c:428
 msgid "revision"
 msgstr "revisió"
 
-# Netscape_4.7->Dialog Caption:_ISRES.DLL
-#: plugins/cvs/interface.c:206
-msgid "Information"
-msgstr "Informació"
-
-#: plugins/cvs/interface.c:231
+#: plugins/cvs/interface.c:442
 msgid "Revision:"
 msgstr "Revisió:"
 
+#: plugins/cvs/interface.c:460
+msgid "Compare..."
+msgstr "Compara..."
+
 # Mozilla 1.3->authorName.label
-#: plugins/cvs/interface.c:251
+#: plugins/cvs/interface.c:463
 msgid "Author:"
 msgstr "Autor:"
 
 # Mozilla 1.3->insdel-date.label
-#: plugins/cvs/interface.c:271
+#: plugins/cvs/interface.c:477
 msgid "Date:"
 msgstr "Data:"
 
 # Netscape_4.7->String:TEXTIMP.DLL
-#: plugins/cvs/interface.c:291
+#: plugins/cvs/interface.c:491
 msgid "State:"
 msgstr "Estat:"
 
-#: plugins/cvs/interface.c:311
+#: plugins/cvs/interface.c:505
 msgid "Lines:"
 msgstr "Línies:"
 
 #
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: plugins/cvs/interface.c:338
+#: plugins/cvs/interface.c:519
 msgid "Message:"
 msgstr "Missatge:"
-
-#: plugins/cvs/interface.c:392
-msgid "Compare revisions"
-msgstr "Compara revisions"
-
-#: plugins/cvs/interface.c:418
-msgid "Revision 1:"
-msgstr "Revisió 1:"
-
-#: plugins/cvs/interface.c:428
-msgid "Revision 2:"
-msgstr "Revisió 2:"
-
-# source\dialog\versdlg.src pushbutton DLG_VERSIONS PB_DELETE
-# source\dialog\versdlg.src pushbutton DLG_VERSIONS PB_COMPARE
-# Projecte_Open_Office_1.1 [sfx2.po]
-#: plugins/cvs/interface.c:468
-msgid "Compare"
-msgstr "Compara"
-
-#: plugins/cvs/interface.c:477
-msgid "Diff output"
-msgstr "Sortida del diff"
-
-#: plugins/cvs/interface.c:499
-msgid "Fixed font"
-msgstr "Tipus de lletra fixa"
-
-#: plugins/cvs/interface.c:542
-msgid "Copyright: Marcus Bjurman 2003"
-msgstr "Copyright: Marcus Bjurman 2003"
-
-#: plugins/cvs/interface.c:546
-msgid "Small tool to browse CVS revisions of a single file."
-msgstr "Una petita eina per navegar per revisions CVS d'un únic fitxer."
 
 #: plugins/fileroller/file-roller-plugin.c:167
 msgid "What filename should the new archive have?"
@@ -142,14 +134,6 @@ msgstr "Extreu en el directori actual"
 msgid "Extract to '%s'"
 msgstr "Extreu a '%s'"
 
-# Winrar 2.9->Menu:rarlng.dll
-#: plugins/fileroller/file-roller-plugin.c:336 src/gnome-cmd-ftp-dialog.c:548
-#: src/gnome-cmd-options-dialog.c:1054 src/gnome-cmd-options-dialog.c:1764
-#: src/gnome-cmd-prepare-copy-dialog.c:141
-#: src/gnome-cmd-prepare-move-dialog.c:125
-msgid "Options"
-msgstr "Opcions"
-
 #: plugins/fileroller/file-roller-plugin.c:352
 msgid "File-roller options"
 msgstr "Opcions del File-roller"
@@ -166,7 +150,7 @@ msgstr ""
 "Un connector que afegeix dreceres del File Roller per crear i extreure "
 "arxius comprimits."
 
-#: plugins/test/test-plugin.c:233
+#: plugins/test/test-plugin.c:232
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
@@ -200,106 +184,6 @@ msgid "C_redits"
 msgstr "C_rèdits"
 
 # Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:369
-msgid "Program name"
-msgstr "Nom del programa"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:370
-msgid "The name of the program"
-msgstr "El nom del programa"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:377
-msgid "Program version"
-msgstr "Versió del programa"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:378
-msgid "The version of the program"
-msgstr "La versió del programa"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:384
-msgid "Copyright string"
-msgstr "Text del copyright"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:385
-msgid "Copyright information for the program"
-msgstr "Informació de copyright del programa"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:392
-msgid "Comments string"
-msgstr "Textos de comentari"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:393
-msgid "Comments about the program"
-msgstr "Comentaris quant al programa"
-
-# Mozilla 1.3->authorButton.label
-#: src/gnome-cmd-about-plugin.c:399
-msgid "Authors"
-msgstr "Autors"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:400
-msgid "List of authors of the programs"
-msgstr "Llista dels autors dels programes"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:402
-msgid "Author entry"
-msgstr "Entrada d'autor"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:403
-msgid "A single author entry"
-msgstr "Una llista d'un sol autor"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:410
-msgid "Documenters"
-msgstr "Documentadors"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:411
-msgid "List of people documenting the program"
-msgstr "Llista de persones que documenten el programa"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:413
-msgid "Documenter entry"
-msgstr "Entrada del documentador"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:414
-msgid "A single documenter entry"
-msgstr "Una llista d'un sol documentador"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:422
-msgid "Translator credits"
-msgstr "Crèdits dels traductors"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: src/gnome-cmd-about-plugin.c:423
-msgid ""
-"Credits to the translators. This string should be marked as translatable"
-msgstr ""
-"Crèdits dels traductors. Aquesta cadena hauria de ser marcada com a traduïble"
-
-#: src/gnome-cmd-about-plugin.c:430
-msgid "Webpage for the plugin"
-msgstr "Pàgina web del connector"
-
-#: src/gnome-cmd-about-plugin.c:431
-msgid "Webpage"
-msgstr "Pàgina web"
-
-# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
 #: src/gnome-cmd-about-plugin.c:523
 #, c-format
 msgid "About %s"
@@ -307,13 +191,13 @@ msgstr "Quant al %s"
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
 #: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:741
+#: src/utils.c:745
 msgid "Yes"
 msgstr "Sí"
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
 #: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:741
+#: src/utils.c:745
 msgid "No"
 msgstr "No"
 
@@ -388,19 +272,19 @@ msgid "Case sens"
 msgstr "Diferencia majúscules i minúscules"
 
 # Projecte_Gnome_2.2 [gnome-system-tools.HEAD.ca.po]
-#: src/gnome-cmd-advrename-dialog.c:835 src/gnome-cmd-options-dialog.c:1275
-#: src/gnome-cmd-options-dialog.c:1628
+#: src/gnome-cmd-advrename-dialog.c:835 src/gnome-cmd-options-dialog.c:1279
+#: src/gnome-cmd-options-dialog.c:1632
 msgid "_Add..."
 msgstr "_Afegeix..."
 
-#: src/gnome-cmd-advrename-dialog.c:839 src/gnome-cmd-ftp-dialog.c:537
-#: src/gnome-cmd-options-dialog.c:1279 src/gnome-cmd-options-dialog.c:1632
+#: src/gnome-cmd-advrename-dialog.c:839 src/gnome-cmd-ftp-dialog.c:539
+#: src/gnome-cmd-options-dialog.c:1283 src/gnome-cmd-options-dialog.c:1636
 msgid "_Edit..."
 msgstr "_Edita..."
 
 #: src/gnome-cmd-advrename-dialog.c:844 src/gnome-cmd-bookmark-dialog.c:512
-#: src/gnome-cmd-ftp-dialog.c:541 src/gnome-cmd-options-dialog.c:1285
-#: src/gnome-cmd-options-dialog.c:1638
+#: src/gnome-cmd-ftp-dialog.c:543 src/gnome-cmd-options-dialog.c:1289
+#: src/gnome-cmd-options-dialog.c:1642
 msgid "_Remove"
 msgstr "Esbo_rra"
 
@@ -456,7 +340,7 @@ msgid "Bookmark Groups"
 msgstr "Grups d'adreces d'interès"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-bookmark-dialog.c:491 src/gnome-cmd-file-list.c:1333
+#: src/gnome-cmd-bookmark-dialog.c:491 src/gnome-cmd-file-list.c:1340
 msgid "name"
 msgstr "nom"
 
@@ -469,12 +353,12 @@ msgid "_Goto"
 msgstr "_Vés a"
 
 # Projecte_Gnome_2.2 [nautilus.gnome-2-0.ca.po]
-#: src/gnome-cmd-bookmark-dialog.c:507 src/gnome-cmd-main-menu.c:769
+#: src/gnome-cmd-bookmark-dialog.c:507 src/gnome-cmd-main-menu.c:770
 #: src/gnome-cmd-search-popup.c:182
 msgid "_Edit"
 msgstr "_Edita"
 
-#: src/gnome-cmd-bookmark-dialog.c:621
+#: src/gnome-cmd-bookmark-dialog.c:624
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
@@ -483,7 +367,7 @@ msgstr ""
 "d'estar codificat en UTF-8\n"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-bookmark-dialog.c:628
+#: src/gnome-cmd-bookmark-dialog.c:631
 msgid "New Bookmark"
 msgstr "Nova adreça d'interès"
 
@@ -528,7 +412,7 @@ msgid "Number view:"
 msgstr "Visualització de nombre:"
 
 # Winrar 2.9->String:rarlng.dll
-#: src/gnome-cmd-chmod-dialog.c:38 src/gnome-cmd-options-dialog.c:1075
+#: src/gnome-cmd-chmod-dialog.c:38 src/gnome-cmd-options-dialog.c:1079
 msgid "All files"
 msgstr "Tots els fitxers"
 
@@ -695,12 +579,12 @@ msgstr "Reintenta"
 msgid "Skip"
 msgstr "Ignora"
 
-#: src/gnome-cmd-delete-dialog.c:296
+#: src/gnome-cmd-delete-dialog.c:307
 #, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "Desitgeu esborrar \"%s\"?"
 
-#: src/gnome-cmd-delete-dialog.c:301
+#: src/gnome-cmd-delete-dialog.c:312
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -708,52 +592,52 @@ msgstr[0] "Desitgeu esborrar %d fitxer seleccionat?"
 msgstr[1] "Desitgeu esborrar els %d fitxers seleccionats?"
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
-#: src/gnome-cmd-delete-dialog.c:309 src/gnome-cmd-main-win.c:1277
+#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1346
 msgid "Delete"
 msgstr "Esborra"
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
-#: src/gnome-cmd-delete-dialog.c:309 src/utils.c:599 src/utils.c:628
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603 src/utils.c:632
 msgid "Cancel"
 msgstr "Cancel·la"
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
-#: src/gnome-cmd-delete-dialog.c:309 src/utils.c:599
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603
 msgid "OK"
 msgstr "D'acord"
 
-#: src/gnome-cmd-dir.c:612
+#: src/gnome-cmd-dir.c:569
 msgid "Waiting for file list"
 msgstr "S'està esperant la llista de fitxers"
 
-#: src/gnome-cmd-file-list.c:1334
+#: src/gnome-cmd-file-list.c:1341
 msgid "ext"
 msgstr "ext"
 
-#: src/gnome-cmd-file-list.c:1335
+#: src/gnome-cmd-file-list.c:1342
 msgid "dir"
 msgstr "dir"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-file-list.c:1336
+#: src/gnome-cmd-file-list.c:1343
 msgid "size"
 msgstr "mida"
 
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: src/gnome-cmd-file-list.c:1337
+#: src/gnome-cmd-file-list.c:1344
 msgid "date"
 msgstr "data"
 
-#: src/gnome-cmd-file-list.c:1338
+#: src/gnome-cmd-file-list.c:1345
 msgid "perm"
 msgstr "perm"
 
-#: src/gnome-cmd-file-list.c:1339
+#: src/gnome-cmd-file-list.c:1346
 msgid "uid"
 msgstr "uid"
 
 # Projecte_Mandrake [userdrake-ca.po]
-#: src/gnome-cmd-file-list.c:1340
+#: src/gnome-cmd-file-list.c:1347
 msgid "gid"
 msgstr "gid"
 
@@ -818,17 +702,19 @@ msgstr "Propietats"
 msgid "Other..."
 msgstr "Un altre..."
 
-#: src/gnome-cmd-file-props-dialog.c:63
-#, c-format
-msgid "%s bytes"
-msgstr "%s bytes"
+#: src/gnome-cmd-file-props-dialog.c:63 src/utils.c:987
+#, fuzzy, c-format
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] "%s bytes"
+msgstr[1] "%s bytes"
 
 #: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
 msgid "No default application registered"
 msgstr "No s'ha registrat cap aplicació predeterminada"
 
 # Mozilla 1.3->filename.label
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2089
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2058
 msgid "Filename:"
 msgstr "Nom de fitxer:"
 
@@ -886,79 +772,84 @@ msgstr "Propietats del fitxer"
 msgid "Permissions"
 msgstr "Permissos"
 
-#: src/gnome-cmd-file-selector.c:178
+#: src/gnome-cmd-file-selector.c:194
 #, c-format
 msgid "%s of %s kB in %d of %d file selected"
 msgid_plural "%s of %s kB in %d of %d files selected"
 msgstr[0] "%s de %s kB en %d fitxer seleccionat de %d"
 msgstr[1] "%s de %s kB en %d fitxers seleccionats de %d"
 
-#: src/gnome-cmd-file-selector.c:710
+#: src/gnome-cmd-file-selector.c:730
 #, c-format
 msgid "%s Free"
 msgstr "%s lliure"
 
-#: src/gnome-cmd-file-selector.c:1820
+#: src/gnome-cmd-file-selector.c:1784
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "No s'ha pogut obrir la connexió: %s\n"
 
-#: src/gnome-cmd-file-selector.c:2029 src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-file-selector.c:1993 src/gnome-cmd-make-copy-dialog.c:68
 #: src/gnome-cmd-rename-dialog.c:52
 msgid "No filename entered"
 msgstr "No s'ha introduït cap nom de fitxer"
 
-#: src/gnome-cmd-file-selector.c:2065
+#: src/gnome-cmd-file-selector.c:2029
 msgid "No filename given"
 msgstr "No s'ha donat cap nom de fitxer"
 
-#: src/gnome-cmd-file-selector.c:2095
+#: src/gnome-cmd-file-selector.c:2064
 msgid "New Text File"
 msgstr "Nou fitxer de text"
 
-#: src/gnome-cmd-file-selector.c:2259
+#: src/gnome-cmd-file-selector.c:2233
 msgid "Symlink name:"
 msgstr "Nom de l'enllaç simbòlic:"
 
-#: src/gnome-cmd-file-selector.c:2265
+#: src/gnome-cmd-file-selector.c:2237
+#, fuzzy, c-format
+msgid "Symlink to %s"
+msgstr "Enllaços simbòlics"
+
+#: src/gnome-cmd-file-selector.c:2239
 msgid "Create Symbolic Link"
 msgstr "Crea un enllaç simbòlic"
 
-#: src/gnome-cmd-file-selector.c:2336
+#: src/gnome-cmd-file-selector.c:2310
 msgid "Filter:"
 msgstr "Filtra:"
 
-#: src/gnome-cmd-file.c:627
+#: src/gnome-cmd-file.c:603
 msgid "Unknown file type"
 msgstr "Tipus de fitxer desconegut"
 
-#: src/gnome-cmd-file.c:628
+#: src/gnome-cmd-file.c:604
 msgid "Regular file"
 msgstr "Fitxer normal"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: src/gnome-cmd-file.c:629
+#: src/gnome-cmd-file.c:605
 msgid "Directory"
 msgstr "Directori"
 
-#: src/gnome-cmd-file.c:630
+#: src/gnome-cmd-file.c:606
 msgid "FIFO"
 msgstr "FIFO"
 
-#: src/gnome-cmd-file.c:631
+#: src/gnome-cmd-file.c:607
 msgid "UNIX Socket"
 msgstr "Sòcol UNIX"
 
-#: src/gnome-cmd-file.c:632
+#: src/gnome-cmd-file.c:608
 msgid "Character device"
 msgstr "Dispositiu de caràcters"
 
-#: src/gnome-cmd-file.c:633
+#: src/gnome-cmd-file.c:609
 msgid "Block device"
 msgstr "Dispositiu de blocs"
 
 # Projecte_Gnome_2.2 [file-roller.gnome-2-0.ca.po]
-#: src/gnome-cmd-file.c:634
+#: src/gnome-cmd-file.c:610
 msgid "Symbolic link"
 msgstr "Enllaç simbòlic"
 
@@ -985,72 +876,72 @@ msgstr "No s'ha especificat cap ordinador amfitrió"
 msgid "Invalid port number: %s"
 msgstr "El número de port no és vàlid: %s"
 
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-options-dialog.c:1468
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-options-dialog.c:1472
 msgid "Alias:"
 msgstr "Sobrenom:"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
 msgid "Host:"
 msgstr "Ordinador amfitrió:"
 
 # Mozilla 1.3->port.label
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
 msgid "Port:"
 msgstr "Port:"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
 msgid "User:"
 msgstr "Nom d'usuari:"
 
 # Mozilla 1.3->editfield1.label
-#: src/gnome-cmd-ftp-dialog.c:293 src/gnome-cmd-ftp-dialog.c:294
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
 msgid "Password:"
 msgstr "Contrasenya:"
 
-#: src/gnome-cmd-ftp-dialog.c:321
+#: src/gnome-cmd-ftp-dialog.c:323
 msgid "New FTP Server"
 msgstr "Nou servidor FTP:"
 
-#: src/gnome-cmd-ftp-dialog.c:346
+#: src/gnome-cmd-ftp-dialog.c:348
 msgid "Edit FTP Server"
 msgstr "Edita el servidor FTP"
 
-#: src/gnome-cmd-ftp-dialog.c:376
+#: src/gnome-cmd-ftp-dialog.c:378
 msgid "No server selected"
 msgstr "No s'ha seleccionat cap servidor"
 
-#: src/gnome-cmd-ftp-dialog.c:504 src/gnome-cmd-main-win.c:1285
+#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1354
 msgid "FTP Connect"
 msgstr "Connexió FTP"
 
 # Projecte_Gnome_2.2 [pan.HEAD.ca.po]
-#: src/gnome-cmd-ftp-dialog.c:510
+#: src/gnome-cmd-ftp-dialog.c:512
 msgid "Servers"
 msgstr "Servidors"
 
 # source\ui\querydesign\query.src menuitem RID_QUERYFUNCTION_POPUPMENU ID_QUERY_ALIASNAME
 # Projecte_Open_Office_1.1 [dbaccess.po]
-#: src/gnome-cmd-ftp-dialog.c:530 src/gnome-cmd-options-dialog.c:1622
+#: src/gnome-cmd-ftp-dialog.c:532 src/gnome-cmd-options-dialog.c:1626
 msgid "Alias"
 msgstr "Sobrenoms"
 
-#: src/gnome-cmd-ftp-dialog.c:535 src/gnome-cmd-list-popmenu.c:145
+#: src/gnome-cmd-ftp-dialog.c:537 src/gnome-cmd-list-popmenu.c:145
 msgid "_New..."
 msgstr "_Nou..."
 
-#: src/gnome-cmd-ftp-dialog.c:551
+#: src/gnome-cmd-ftp-dialog.c:553
 msgid "Anonymous password:"
 msgstr "Contrasenya anònima:"
 
 # sdi\sdslots.src sfxslotinfo SID_CONNECT
 # Projecte_Open_Office_1.1 [sd.po]
-#: src/gnome-cmd-ftp-dialog.c:561
+#: src/gnome-cmd-ftp-dialog.c:563
 msgid "Connect"
 msgstr "Connecta"
 
-#: src/gnome-cmd-ftp-dialog.c:657
+#: src/gnome-cmd-ftp-dialog.c:670
 msgid "FTP Quick Connect"
 msgstr "Connexió FTP ràpida"
 
@@ -1066,7 +957,7 @@ msgstr "Fi_txer de text"
 msgid "_Paste"
 msgstr "En_ganxa"
 
-#: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:619
+#: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:626
 msgid "_Refresh"
 msgstr "Actua_litza"
 
@@ -1142,193 +1033,201 @@ msgstr "_Compara directoris"
 msgid "Cu_t"
 msgstr "_Retalla"
 
+# Netscape_4.7->String:RESDLL.DLL
 #: src/gnome-cmd-main-menu.c:584
+#, fuzzy
+msgid "Copy _File Names"
+msgstr "Copia el fitxer"
+
+#: src/gnome-cmd-main-menu.c:591
 msgid "_Search..."
 msgstr "_Cerca..."
 
-#: src/gnome-cmd-main-menu.c:590
+#: src/gnome-cmd-main-menu.c:597
 msgid "_Quick Search..."
 msgstr "_Cerca ràpida..."
 
-#: src/gnome-cmd-main-menu.c:596
+#: src/gnome-cmd-main-menu.c:603
 msgid "_Enable Filter..."
 msgstr "Habilita _el filtre..."
 
 # Projecte_Gnome_2.2 [nautilus.gnome-2-0.ca.po]
-#: src/gnome-cmd-main-menu.c:607
+#: src/gnome-cmd-main-menu.c:614
 msgid "_Back"
 msgstr "_Endarrere"
 
 # Projecte_Gnome_2.2 [nautilus.gnome-2-0.ca.po]
-#: src/gnome-cmd-main-menu.c:613
+#: src/gnome-cmd-main-menu.c:620
 msgid "_Forward"
 msgstr "En_davant"
 
-#: src/gnome-cmd-main-menu.c:626
+#: src/gnome-cmd-main-menu.c:633
 msgid "Show Device Buttons"
 msgstr "Mostra els botons de dispositiu"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-main-menu.c:632
+#: src/gnome-cmd-main-menu.c:639
 msgid "Show Toolbar"
 msgstr "Mostra la barra d'eines"
 
-#: src/gnome-cmd-main-menu.c:638
+#: src/gnome-cmd-main-menu.c:645
 msgid "Show Commandline"
 msgstr "Mostra la línia d'ordres"
 
-#: src/gnome-cmd-main-menu.c:644
+#: src/gnome-cmd-main-menu.c:651
 msgid "Show Buttonbar"
 msgstr "Mostra la barra de botons"
 
-#: src/gnome-cmd-main-menu.c:651
+#: src/gnome-cmd-main-menu.c:658
 msgid "Show Hidden Files"
 msgstr "Mostra els fitxers ocults"
 
-#: src/gnome-cmd-main-menu.c:657
+#: src/gnome-cmd-main-menu.c:664
 msgid "Show Backup Files"
 msgstr "Mostra les còpies de seguretat"
 
-#: src/gnome-cmd-main-menu.c:669
+#: src/gnome-cmd-main-menu.c:676
 msgid "_Bookmark this Directory..."
 msgstr "A_fegeix una adreça d'interès d'aquest directori..."
 
-#: src/gnome-cmd-main-menu.c:675
-msgid "_Edit Bookmarks..."
+#: src/gnome-cmd-main-menu.c:682
+#, fuzzy
+msgid "_Manage Bookmarks..."
 msgstr "_Edita les adreces d'interès..."
 
-#: src/gnome-cmd-main-menu.c:687
+#: src/gnome-cmd-main-menu.c:694
 msgid "_Configure Plugins..."
 msgstr "_Configura els connectors..."
 
-#: src/gnome-cmd-main-menu.c:699
+#: src/gnome-cmd-main-menu.c:706
 msgid "_Options..."
 msgstr "_Opcions..."
 
-#: src/gnome-cmd-main-menu.c:705
+#: src/gnome-cmd-main-menu.c:712
 msgid "Edit _Mime Types..."
 msgstr "Edita els tipus _Mime..."
 
-#: src/gnome-cmd-main-menu.c:711
-msgid "Save _Position"
-msgstr "Desa la _posició"
-
-#: src/gnome-cmd-main-menu.c:722
+#: src/gnome-cmd-main-menu.c:723
 msgid "FTP _Connect..."
 msgstr "_Connexió FTP..."
 
-#: src/gnome-cmd-main-menu.c:728
+#: src/gnome-cmd-main-menu.c:729
 msgid "FTP _Quick Connect..."
 msgstr "Connexió FTP _ràpida..."
 
-#: src/gnome-cmd-main-menu.c:739
+#: src/gnome-cmd-main-menu.c:740
 msgid "User _Manual..."
 msgstr "_Manual d'usuari..."
 
 # Projecte_Gnome_2.2 [libbonoboui.gnome-2-0.ca.po]
-#: src/gnome-cmd-main-menu.c:746
+#: src/gnome-cmd-main-menu.c:747
 msgid "_About..."
 msgstr "_Quant a..."
 
 # Projecte_Gnome_2.2 [sawfish.gnome-2.ca.po]
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
-#: src/gnome-cmd-main-menu.c:765
+#: src/gnome-cmd-main-menu.c:766
 msgid "_File"
 msgstr "_Fitxer"
 
-#: src/gnome-cmd-main-menu.c:773
+#: src/gnome-cmd-main-menu.c:774
 msgid "_Mark"
 msgstr "_Adreça d'interès"
 
 # Projecte_Gnome_2.2 [nautilus.gnome-2-0.ca.po]
-#: src/gnome-cmd-main-menu.c:777 src/gnome-cmd-search-popup.c:175
+#: src/gnome-cmd-main-menu.c:778 src/gnome-cmd-search-popup.c:175
 msgid "_View"
 msgstr "_Visualitza"
 
 # Projecte_Gnome_2.2 [sawfish.gnome-2.ca.po]
-#: src/gnome-cmd-main-menu.c:782
+#: src/gnome-cmd-main-menu.c:783
 msgid "_Settings"
 msgstr "_Paràmetres"
 
-#: src/gnome-cmd-main-menu.c:786
+#: src/gnome-cmd-main-menu.c:787
 msgid "_Connections"
 msgstr "_Connexions"
 
 # Projecte_Gnome_2.2 [nautilus.gnome-2-0.ca.po]
-#: src/gnome-cmd-main-menu.c:790
+#: src/gnome-cmd-main-menu.c:791
 msgid "_Bookmarks"
 msgstr "_Adreces d'interès"
 
-#: src/gnome-cmd-main-menu.c:794
+#: src/gnome-cmd-main-menu.c:795
 msgid "_Plugins"
 msgstr "Co_nnectors"
 
 # Projecte_Gnome_2.2 [sawfish.gnome-2.ca.po]
-#: src/gnome-cmd-main-menu.c:798
+#: src/gnome-cmd-main-menu.c:799
 msgid "_Help"
 msgstr "_Ajuda"
 
-#: src/gnome-cmd-main-win.c:439
+#: src/gnome-cmd-main-win.c:447
 msgid "F3 View"
 msgstr "F3 Visualitza"
 
-#: src/gnome-cmd-main-win.c:442
+#: src/gnome-cmd-main-win.c:450
 msgid "F4 Edit"
 msgstr "F4 Edita"
 
-#: src/gnome-cmd-main-win.c:445
+#: src/gnome-cmd-main-win.c:453
 msgid "F5 Copy"
 msgstr "F5 Copia"
 
-#: src/gnome-cmd-main-win.c:448
+#: src/gnome-cmd-main-win.c:456
 msgid "F6 Move"
 msgstr "F6 Mou"
 
-#: src/gnome-cmd-main-win.c:451
+#: src/gnome-cmd-main-win.c:459
 msgid "F7 Mkdir"
 msgstr "F7 Nou directori"
 
-#: src/gnome-cmd-main-win.c:454
+#: src/gnome-cmd-main-win.c:462
 msgid "F8 Delete"
 msgstr "F8 Esborra"
 
-#: src/gnome-cmd-main-win.c:457
+#: src/gnome-cmd-main-win.c:465
 msgid "F9 Search"
 msgstr "F9 Cerca"
 
-#: src/gnome-cmd-main-win.c:460
+#: src/gnome-cmd-main-win.c:468
 msgid "F10 Quit"
 msgstr "F10 Surt"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: src/gnome-cmd-main-win.c:1234
+#: src/gnome-cmd-main-win.c:1296
 msgid "Refresh"
 msgstr "Actualitza"
 
-#: src/gnome-cmd-main-win.c:1241
+#: src/gnome-cmd-main-win.c:1303
 msgid "Back in history"
 msgstr "Vés endarrere en l'historial"
 
-#: src/gnome-cmd-main-win.c:1248
+#: src/gnome-cmd-main-win.c:1310
 msgid "Forward in history"
 msgstr "Vés endavant en l'historial"
 
+#: src/gnome-cmd-main-win.c:1318
+#, fuzzy
+msgid "Copy file names"
+msgstr "Noms de fitxers nous"
+
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-main-win.c:1256
+#: src/gnome-cmd-main-win.c:1325
 msgid "Cut"
 msgstr "Retalla"
 
 # Winrar 2.9->String:rarlng.dll
-#: src/gnome-cmd-main-win.c:1263 src/gnome-cmd-prepare-copy-dialog.c:86
+#: src/gnome-cmd-main-win.c:1332 src/gnome-cmd-prepare-copy-dialog.c:86
 msgid "Copy"
 msgstr "Copia"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-main-win.c:1270
+#: src/gnome-cmd-main-win.c:1339
 msgid "Paste"
 msgstr "Enganxa"
 
-#: src/gnome-cmd-main-win.c:1293
+#: src/gnome-cmd-main-win.c:1361
 msgid "Drop connection"
 msgstr "Tanca la connexió"
 
@@ -1348,11 +1247,11 @@ msgid "A directory name must be entered"
 msgstr "S'ha d'introduir un nom de directori"
 
 # Mozilla 1.3->promptNewDirMessage
-#: src/gnome-cmd-mkdir-dialog.c:137
+#: src/gnome-cmd-mkdir-dialog.c:141
 msgid "Directory name:"
 msgstr "Nom de directori:"
 
-#: src/gnome-cmd-mkdir-dialog.c:145
+#: src/gnome-cmd-mkdir-dialog.c:149
 msgid "Make Directory"
 msgstr "Fes el directori"
 
@@ -1387,7 +1286,7 @@ msgid "Sorting options"
 msgstr "Opcions d'ordenació"
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
-#: src/gnome-cmd-options-dialog.c:99 src/gnome-cmd-patternsel-dialog.c:133
+#: src/gnome-cmd-options-dialog.c:99 src/gnome-cmd-patternsel-dialog.c:160
 msgid "Case sensitive"
 msgstr "Considera diferents majúscules i minúscules"
 
@@ -1467,352 +1366,355 @@ msgstr ""
 "Per saber com s'ha de definir la cadena de text de format, vegeu la pàgina "
 "de manual d'\"strftime\"."
 
-#: src/gnome-cmd-options-dialog.c:399
+#: src/gnome-cmd-options-dialog.c:401
 msgid "Edit Colors..."
 msgstr "Edita els colors..."
 
 # Mozilla 1.3->lHeader
-#: src/gnome-cmd-options-dialog.c:406
+#: src/gnome-cmd-options-dialog.c:408
 msgid "Colors"
 msgstr "Colors"
 
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: src/gnome-cmd-options-dialog.c:443
+#: src/gnome-cmd-options-dialog.c:445
 msgid "Foreground"
 msgstr "Primer pla"
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
-#: src/gnome-cmd-options-dialog.c:445
+#: src/gnome-cmd-options-dialog.c:447
 msgid "Background"
 msgstr "Fons"
 
 # Projecte_Gnome_2.2 [pong.HEAD.ca.po]
-#: src/gnome-cmd-options-dialog.c:447
+#: src/gnome-cmd-options-dialog.c:449
 msgid "Default:"
 msgstr "Per defecte:"
 
-#: src/gnome-cmd-options-dialog.c:449
+#: src/gnome-cmd-options-dialog.c:451
 msgid "Selected file:"
 msgstr "Fitxer seleccionat:"
 
-#: src/gnome-cmd-options-dialog.c:451
+#: src/gnome-cmd-options-dialog.c:453
 msgid "Cursor:"
 msgstr "Cursor:"
 
-#: src/gnome-cmd-options-dialog.c:481
-msgid "File panes"
-msgstr "Subfinestres de fitxer"
-
-# Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: src/gnome-cmd-options-dialog.c:496
-msgid "Font:"
-msgstr "Tipus de lletra:"
-
-#: src/gnome-cmd-options-dialog.c:498
-msgid "Row height:"
-msgstr "Alçada de la fila:"
-
-#. File extensions
-#: src/gnome-cmd-options-dialog.c:502
-msgid "Display file extensions:"
-msgstr "Mostra l'extensió dels fitxers:"
-
-#: src/gnome-cmd-options-dialog.c:512
+#: src/gnome-cmd-options-dialog.c:470
 msgid "With filename"
 msgstr "Amb nom de fitxer"
 
-#: src/gnome-cmd-options-dialog.c:516
+#: src/gnome-cmd-options-dialog.c:471
 msgid "In separate column"
 msgstr "En una columna separada"
 
-#: src/gnome-cmd-options-dialog.c:520
+#: src/gnome-cmd-options-dialog.c:472
 msgid "In both columns"
 msgstr "En ambdues columnes"
 
-#. Graphical mode
-#: src/gnome-cmd-options-dialog.c:529
-msgid "Graphical mode:"
-msgstr "Mode gràfic:"
-
-#: src/gnome-cmd-options-dialog.c:541
-msgid "MIME icons"
+#: src/gnome-cmd-options-dialog.c:476
+#, fuzzy
+msgid "No icons"
 msgstr "Icones MIME"
 
-#: src/gnome-cmd-options-dialog.c:545
+#: src/gnome-cmd-options-dialog.c:477
 msgid "File type icons"
 msgstr "Icones de tipus de fitxer"
 
-#: src/gnome-cmd-options-dialog.c:549
-msgid "Text (fastest)"
-msgstr "Text (més ràpid)"
+#: src/gnome-cmd-options-dialog.c:478
+msgid "MIME icons"
+msgstr "Icones MIME"
 
-# Projecte_Gnome_2.2 [nautilus.gnome-2-0.ca.po]
-#. Colors
-#: src/gnome-cmd-options-dialog.c:558
-msgid "Colors:"
-msgstr "Colors:"
-
-#: src/gnome-cmd-options-dialog.c:573
-msgid "Respect theme settings"
+#: src/gnome-cmd-options-dialog.c:482
+#, fuzzy
+msgid "Respect theme colors"
 msgstr "Respecta la configuració del tema"
 
-#: src/gnome-cmd-options-dialog.c:577
+#: src/gnome-cmd-options-dialog.c:483
 msgid "Modern"
 msgstr "Modern"
 
-#: src/gnome-cmd-options-dialog.c:581
+#: src/gnome-cmd-options-dialog.c:484
 msgid "Classic"
 msgstr "Clàssic"
 
 # Netscape_4.7->Dialog Box Control:_ISRES.DLL
-#: src/gnome-cmd-options-dialog.c:585
+#: src/gnome-cmd-options-dialog.c:485
 msgid "Custom"
 msgstr "Personalitza"
 
+#: src/gnome-cmd-options-dialog.c:501
+msgid "File panes"
+msgstr "Subfinestres de fitxer"
+
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: src/gnome-cmd-options-dialog.c:593
+#: src/gnome-cmd-options-dialog.c:516
+msgid "Font:"
+msgstr "Tipus de lletra:"
+
+#: src/gnome-cmd-options-dialog.c:518
+msgid "Row height:"
+msgstr "Alçada de la fila:"
+
+#. File extensions
+#: src/gnome-cmd-options-dialog.c:522
+msgid "Display file extensions:"
+msgstr "Mostra l'extensió dels fitxers:"
+
+#. Graphical mode
+#: src/gnome-cmd-options-dialog.c:530
+msgid "Graphical mode:"
+msgstr "Mode gràfic:"
+
+# Projecte_Gnome_2.2 [nautilus.gnome-2-0.ca.po]
+#. Color scheme
+#: src/gnome-cmd-options-dialog.c:540
+#, fuzzy
+msgid "Color scheme:"
+msgstr "Colors:"
+
+# Netscape_4.7->Dialog Box Control:RESDLL.DLL
+#: src/gnome-cmd-options-dialog.c:553
 msgid "Edit..."
 msgstr "Edita..."
 
-#: src/gnome-cmd-options-dialog.c:603
+#: src/gnome-cmd-options-dialog.c:563
 msgid "Colorize files according to the LS_COLORS enviroment variable"
 msgstr "Acoloreix els fitxers segons la variable d'entorn LS_COLORS"
 
-#: src/gnome-cmd-options-dialog.c:615
+#: src/gnome-cmd-options-dialog.c:575
 msgid "MIME icon settings"
 msgstr "Configuració de la icona MIME"
 
-#: src/gnome-cmd-options-dialog.c:632
+#: src/gnome-cmd-options-dialog.c:592
 msgid "Icon size:"
 msgstr "Mida de la icona:"
 
-#: src/gnome-cmd-options-dialog.c:634
+#: src/gnome-cmd-options-dialog.c:594
 msgid "Scaling quality:"
 msgstr "Qualitat de l'escalat:"
 
-#: src/gnome-cmd-options-dialog.c:636
+#: src/gnome-cmd-options-dialog.c:596
 msgid "Theme icon directory:"
 msgstr "Directori d'icones del tema:"
 
-#: src/gnome-cmd-options-dialog.c:638
+#: src/gnome-cmd-options-dialog.c:598
 msgid "Document icon directory:"
 msgstr "Directori d'icones del document:"
 
-#: src/gnome-cmd-options-dialog.c:730
+#: src/gnome-cmd-options-dialog.c:715
 msgid "Filetypes to hide"
 msgstr "Tipus de fitxers que no es mostraran"
 
 # Winrar 2.9->String:rarlng.dll
-#: src/gnome-cmd-options-dialog.c:733
+#: src/gnome-cmd-options-dialog.c:718
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: src/gnome-cmd-options-dialog.c:738
+#: src/gnome-cmd-options-dialog.c:723
 msgid "Regular files"
 msgstr "Fitxers normals"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-options-dialog.c:743
+#: src/gnome-cmd-options-dialog.c:728
 msgid "Directories"
 msgstr "Directoris"
 
-#: src/gnome-cmd-options-dialog.c:748
+#: src/gnome-cmd-options-dialog.c:733
 msgid "Fifo files"
 msgstr "Fitxers FIFO"
 
-#: src/gnome-cmd-options-dialog.c:753
+#: src/gnome-cmd-options-dialog.c:738
 msgid "Socket files"
 msgstr "Fitxers de sòcol"
 
-#: src/gnome-cmd-options-dialog.c:758
+#: src/gnome-cmd-options-dialog.c:743
 msgid "Character devices"
 msgstr "Dispositius de caràcters"
 
-#: src/gnome-cmd-options-dialog.c:763
+#: src/gnome-cmd-options-dialog.c:748
 msgid "Block devices"
 msgstr "Dispositius de blocs"
 
-#: src/gnome-cmd-options-dialog.c:771
+#: src/gnome-cmd-options-dialog.c:756
 msgid "Also hide"
 msgstr "Tampoc ho mostris"
 
-#: src/gnome-cmd-options-dialog.c:774
+#: src/gnome-cmd-options-dialog.c:759
 msgid "Hidden files"
 msgstr "Fitxers ocults"
 
-#: src/gnome-cmd-options-dialog.c:779
+#: src/gnome-cmd-options-dialog.c:764 src/gnome-cmd-options-dialog.c:777
 msgid "Backup files"
 msgstr "Fitxers de còpia de seguretat"
 
-#: src/gnome-cmd-options-dialog.c:784
+#: src/gnome-cmd-options-dialog.c:769
 msgid "Symlinks"
 msgstr "Enllaços simbòlics"
 
 # Mozilla 1.3->OptGroupLabel.label
-#: src/gnome-cmd-options-dialog.c:1032
+#: src/gnome-cmd-options-dialog.c:1036
 msgid "Label:"
 msgstr "Etiqueta:"
 
 # Projecte_Mandrake [xmms-ca.po]
-#: src/gnome-cmd-options-dialog.c:1034
+#: src/gnome-cmd-options-dialog.c:1038
 msgid "Command:"
 msgstr "Ordre:"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: src/gnome-cmd-options-dialog.c:1036 src/gnome-cmd-options-dialog.c:1474
+#: src/gnome-cmd-options-dialog.c:1040 src/gnome-cmd-options-dialog.c:1478
 msgid "Icon:"
 msgstr "Icona:"
 
-#: src/gnome-cmd-options-dialog.c:1057
+#: src/gnome-cmd-options-dialog.c:1061
 msgid "Can handle multiple files"
 msgstr "Pot gestionar múltiples fitxers"
 
-#: src/gnome-cmd-options-dialog.c:1061
+#: src/gnome-cmd-options-dialog.c:1065
 msgid "Can handle URIs"
 msgstr "Pot gestionar URIs"
 
-#: src/gnome-cmd-options-dialog.c:1065
+#: src/gnome-cmd-options-dialog.c:1069
 msgid "Requires terminal"
 msgstr "Necessita una terminal"
 
-#: src/gnome-cmd-options-dialog.c:1072
+#: src/gnome-cmd-options-dialog.c:1076
 msgid "Show for"
 msgstr "Mostra per a"
 
-#: src/gnome-cmd-options-dialog.c:1081
+#: src/gnome-cmd-options-dialog.c:1085
 msgid "All directories"
 msgstr "Tots els directoris"
 
-#: src/gnome-cmd-options-dialog.c:1087
+#: src/gnome-cmd-options-dialog.c:1091
 msgid "All directories and files"
 msgstr "Tots els directoris i fitxers"
 
-#: src/gnome-cmd-options-dialog.c:1093
+#: src/gnome-cmd-options-dialog.c:1097
 msgid "Some files"
 msgstr "Alguns fitxers"
 
-#: src/gnome-cmd-options-dialog.c:1104
+#: src/gnome-cmd-options-dialog.c:1108
 msgid "File patterns"
 msgstr "Patrons de fitxer"
 
-#: src/gnome-cmd-options-dialog.c:1129
+#: src/gnome-cmd-options-dialog.c:1133
 msgid "New Application"
 msgstr "Nova aplicació"
 
-#: src/gnome-cmd-options-dialog.c:1140
+#: src/gnome-cmd-options-dialog.c:1144
 msgid "Edit Application"
 msgstr "Edita l'aplicació"
 
-#: src/gnome-cmd-options-dialog.c:1226
+#: src/gnome-cmd-options-dialog.c:1230
 msgid "Always download remote files before opening in external programs"
 msgstr ""
 "Descarrega sempre els fitxers remots abans d'obrir-los amb programes externs."
 
-#: src/gnome-cmd-options-dialog.c:1230
+#: src/gnome-cmd-options-dialog.c:1234
 msgid "MIME applications"
 msgstr "Aplicacions MIME"
 
-#: src/gnome-cmd-options-dialog.c:1234
+#: src/gnome-cmd-options-dialog.c:1238
 msgid "Standard programs"
 msgstr "Programes estàndard"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-options-dialog.c:1237
+#: src/gnome-cmd-options-dialog.c:1241
 msgid "Viewer:"
 msgstr "Visualitzador:"
 
-#: src/gnome-cmd-options-dialog.c:1239
+#: src/gnome-cmd-options-dialog.c:1243
 msgid "Editor:"
 msgstr "Editor:"
 
-#: src/gnome-cmd-options-dialog.c:1241
+#: src/gnome-cmd-options-dialog.c:1245
 msgid "Differ:"
 msgstr "Diferenciador:"
 
-#: src/gnome-cmd-options-dialog.c:1243
+#: src/gnome-cmd-options-dialog.c:1247
 msgid "Terminal:"
 msgstr "Terminal:"
 
-#: src/gnome-cmd-options-dialog.c:1262
+#: src/gnome-cmd-options-dialog.c:1266
 msgid "Other favorite apps"
 msgstr "Altres aplicacions preferides"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-options-dialog.c:1269
+#: src/gnome-cmd-options-dialog.c:1273
 msgid "Label"
 msgstr "Etiqueta"
 
 # Projecte_Mandrake [xmms-ca.po]
-#: src/gnome-cmd-options-dialog.c:1470
+#: src/gnome-cmd-options-dialog.c:1474
 msgid "Device:"
 msgstr "Dispositiu:"
 
 # Projecte_Gnome_2.2 [gnome-system-tools.HEAD.ca.po]
-#: src/gnome-cmd-options-dialog.c:1472
+#: src/gnome-cmd-options-dialog.c:1476
 msgid "Mount point:"
 msgstr "Punt de muntatge:"
 
-#: src/gnome-cmd-options-dialog.c:1516
+#: src/gnome-cmd-options-dialog.c:1520
 msgid "New Device"
 msgstr "Nou dispositiu"
 
-#: src/gnome-cmd-options-dialog.c:1528
+#: src/gnome-cmd-options-dialog.c:1532
 msgid "Edit Device"
 msgstr "Edita el dispositiu"
 
 # Projecte_Mandrake [xmms-ca.po]
-#: src/gnome-cmd-options-dialog.c:1612 src/gnome-cmd-options-dialog.c:1822
+#: src/gnome-cmd-options-dialog.c:1616 src/gnome-cmd-options-dialog.c:1826
 msgid "Devices"
 msgstr "Dispositius"
 
-#: src/gnome-cmd-options-dialog.c:1654
+#: src/gnome-cmd-options-dialog.c:1658
 msgid "Show only the icons"
 msgstr "Mostra només les icones"
 
-#: src/gnome-cmd-options-dialog.c:1659
+#: src/gnome-cmd-options-dialog.c:1663
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Ignora el muntatge (útil quan es faci servir el super-mount)"
 
 # Mozilla 1.3->general.label
-#: src/gnome-cmd-options-dialog.c:1792
+#: src/gnome-cmd-options-dialog.c:1796
 msgid "General"
 msgstr "General"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: src/gnome-cmd-options-dialog.c:1798
+#: src/gnome-cmd-options-dialog.c:1802
 msgid "Format"
 msgstr "Format"
 
 # sdi\sdslots.src sfxslotinfo SID_STATUS_LAYOUT
 # Projecte_Open_Office_1.1 [sd.po]
-#: src/gnome-cmd-options-dialog.c:1804
+#: src/gnome-cmd-options-dialog.c:1808
 msgid "Layout"
 msgstr "Disposició"
 
 # source\tbxctrls\colrctrl.src dockingwindow RID_SVXCTRL_COLOR
 # source\tbxctrls\grafctrl.src floatingwindow RID_SVXTBX_GRFFILTER
 # Projecte_Open_Office_1.1 [svx.po]
-#: src/gnome-cmd-options-dialog.c:1810
+#: src/gnome-cmd-options-dialog.c:1814
 msgid "Filters"
 msgstr "Filtres"
 
 # Mozilla 1.3->programsFilter
-#: src/gnome-cmd-options-dialog.c:1816
+#: src/gnome-cmd-options-dialog.c:1820
 msgid "Programs"
 msgstr "Programes"
 
-# Projecte_Gnome_2.2 [gnome-system-tools.HEAD.ca.po]
-#: src/gnome-cmd-patternsel-dialog.c:118
-msgid "Pattern:"
-msgstr "Patró:"
-
-#: src/gnome-cmd-patternsel-dialog.c:126
+#: src/gnome-cmd-patternsel-dialog.c:136
 msgid "Select Using Pattern"
 msgstr "Selecciona fent servir un patró"
 
-#: src/gnome-cmd-patternsel-dialog.c:126
+#: src/gnome-cmd-patternsel-dialog.c:136
 msgid "Unselect Using Pattern"
 msgstr "Desfés la selecció del patró"
+
+# Projecte_Gnome_2.2 [gnome-system-tools.HEAD.ca.po]
+#: src/gnome-cmd-patternsel-dialog.c:147
+msgid "Pattern:"
+msgstr "Patró:"
 
 #.
 #. * Create prepare copy specific widgets
@@ -1879,39 +1781,39 @@ msgstr "No existeix el directori '%s'. Voleu crear-lo?"
 msgid "Search"
 msgstr "Cerca"
 
-#: src/gnome-cmd-rename-dialog.c:145
+#: src/gnome-cmd-rename-dialog.c:147
 #, c-format
 msgid "Rename \"%s\" to"
 msgstr "Canvia el nom de \"%s\" a"
 
 # Projecte_Gnome_2.2 [gtk+.gtk-2-0.ca.po]
-#: src/gnome-cmd-rename-dialog.c:153
+#: src/gnome-cmd-rename-dialog.c:155
 msgid "Rename File"
 msgstr "Canvia el nom del fitxer"
 
-#: src/gnome-cmd-search-dialog.c:186
+#: src/gnome-cmd-search-dialog.c:184
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "No s'ha pogut obrir el fitxer %s: %s\n"
 
-#: src/gnome-cmd-search-dialog.c:195
+#: src/gnome-cmd-search-dialog.c:193
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "No s'ha pogut llegir el fitxer %s: %s\n"
 
-#: src/gnome-cmd-search-dialog.c:257
+#: src/gnome-cmd-search-dialog.c:255
 #, c-format
 msgid "Searching in: %s"
 msgstr "S'està cercant en: %s"
 
-#: src/gnome-cmd-search-dialog.c:401
+#: src/gnome-cmd-search-dialog.c:399
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
 msgstr[0] "S'havia trobat %d concordància abans de ser aturat"
 msgstr[1] "S'havien trobat %d concordàncies abans de ser aturat"
 
-#: src/gnome-cmd-search-dialog.c:408
+#: src/gnome-cmd-search-dialog.c:406
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -1919,38 +1821,38 @@ msgstr[0] "S'ha trobat %d concordància"
 msgstr[1] "S'han trobat %d concordàncies"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-search-dialog.c:739
+#: src/gnome-cmd-search-dialog.c:737
 msgid "Search..."
 msgstr "Cerca..."
 
 #. Search for
-#: src/gnome-cmd-search-dialog.c:754
+#: src/gnome-cmd-search-dialog.c:752
 msgid "Search for: "
 msgstr "Cerca: "
 
 #. Search in
-#: src/gnome-cmd-search-dialog.c:768
+#: src/gnome-cmd-search-dialog.c:766
 msgid "Search in: "
 msgstr "Cerca en: "
 
 #. Find text
-#: src/gnome-cmd-search-dialog.c:782
+#: src/gnome-cmd-search-dialog.c:780
 msgid "Find text: "
 msgstr "Cerca un text: "
 
-#: src/gnome-cmd-search-dialog.c:799
+#: src/gnome-cmd-search-dialog.c:797
 msgid "Search Recursively"
 msgstr "Cerca recursivament"
 
 #
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
 #. Case check
-#: src/gnome-cmd-search-dialog.c:807
+#: src/gnome-cmd-search-dialog.c:805
 msgid "Case Sensitive"
 msgstr "Considera diferents majúscules i minúscules"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/gnome-cmd-search-dialog.c:819
+#: src/gnome-cmd-search-dialog.c:817
 msgid "Goto"
 msgstr "Vés a"
 
@@ -1958,7 +1860,7 @@ msgstr "Vés a"
 msgid "Chmod"
 msgstr "Canvia els permissos"
 
-#: src/gnome-cmd-smb-path.c:324
+#: src/gnome-cmd-smb-path.c:331
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
 msgstr ""
@@ -2019,16 +1921,16 @@ msgstr ""
 msgid "Xfer problem"
 msgstr "Hi ha hagut un problema amb l'Xfer"
 
-#: src/gnome-cmd-xfer.c:231
+#: src/gnome-cmd-xfer.c:233
 msgid "copying..."
 msgstr "s'està copiant..."
 
-#: src/gnome-cmd-xfer.c:239
+#: src/gnome-cmd-xfer.c:241
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[fitxer %ld de %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.c:365
+#: src/gnome-cmd-xfer.c:391
 msgid ""
 "Copying a directory into it self is a bad idea.\n"
 "The whole operation was canceled."
@@ -2036,11 +1938,11 @@ msgstr ""
 "No es pot copiar un directori dins d'ell mateix.\n"
 "S'ha cancel·lat la operació."
 
-#: src/gnome-cmd-xfer.c:412
+#: src/gnome-cmd-xfer.c:438
 msgid "preparing..."
 msgstr "s'està preparant..."
 
-#: src/gnome-cmd-xfer.c:507
+#: src/gnome-cmd-xfer.c:533
 msgid "downloading to /tmp"
 msgstr "s'està descarregant a /tmp"
 
@@ -2093,65 +1995,66 @@ msgstr ""
 "l'usuari %s pertany al grup %s. Tot i això, no es pot trobar l'usuari.\n"
 
 # Projecte_Gnome_2.2 [gnome-system-tools.HEAD.ca.po]
-#: src/plugin_manager.c:294
+#: src/plugin_manager.c:361
 msgid "Disable"
 msgstr "Inhabilita"
 
 # source\ui\config\optdlg.src checkbox TP_OPTSHDWCRSR CB_ALLOW_IN_PROT
 # Projecte_Open_Office_1.1 [sw.po]
-#: src/plugin_manager.c:299
+#: src/plugin_manager.c:366
 msgid "Enable"
 msgstr "Habilita"
 
-#: src/plugin_manager.c:423
+#: src/plugin_manager.c:435
 msgid "Available plugins"
 msgstr "Connectors disponibles"
 
 # Winrar 2.9->String:rarlng.dll
-#: src/plugin_manager.c:429
+#: src/plugin_manager.c:441
 msgid "Name"
 msgstr "Nom"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: src/plugin_manager.c:430
+#: src/plugin_manager.c:442
 msgid "Version"
 msgstr "Versió"
 
 # Netscape_4.7->Menu:TALKBACK.EXE
-#: src/plugin_manager.c:431
+#: src/plugin_manager.c:443
 msgid "File"
 msgstr "Fitxer"
 
 # Projecte_Gnome_2.2 [gnome-system-tools.HEAD.ca.po]
-#: src/plugin_manager.c:437
+#: src/plugin_manager.c:449
 msgid "_Enable"
 msgstr "_Habilita"
 
-#: src/plugin_manager.c:442
+#: src/plugin_manager.c:454
 msgid "_Configure"
 msgstr "_Configura"
 
 # Projecte_Gnome_2.2 [sawfish.gnome-2.ca.po]
-#: src/plugin_manager.c:448
+#: src/plugin_manager.c:460
 msgid "_About"
 msgstr "_Quant a"
 
-#: src/useractions.c:261
+#: src/useractions.c:263
 #, c-format
 msgid "running \"%s\"\n"
 msgstr "s'està executant \"%s\"\n"
 
-#: src/useractions.c:636
-msgid "A fast and powerfull file manager for the GNOME desktop"
+#: src/useractions.c:668
+#, fuzzy
+msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Un gestor de fitxers ràpid i versàtil per a l'escriptori GNOME"
 
 #. xgettext:
 #. * Replace this with your name when translating
-#: src/useractions.c:641
+#: src/useractions.c:673
 msgid "No translation is currently in use."
 msgstr "Xavier Conde Rueda <xaviconde@eresmas.com>"
 
-#: src/utils.c:515
+#: src/utils.c:519
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -2161,7 +2064,7 @@ msgstr ""
 "Obriu la pàgina \"Tipus de programes i aplicacions\" en el centre de control "
 "per afegir-hi un."
 
-#: src/utils.c:595
+#: src/utils.c:599
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -2170,11 +2073,11 @@ msgstr ""
 "\"%s\" sembla ser un fitxer executable però no té habilitat del bit "
 "d'executable. Desitgeu habilitar-lo per executar el fitxer?"
 
-#: src/utils.c:598
+#: src/utils.c:602
 msgid "Make Executable?"
 msgstr "Desitgeu fer-lo executable?"
 
-#: src/utils.c:625
+#: src/utils.c:629
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
@@ -2183,23 +2086,23 @@ msgstr ""
 "\"%s\" és un fitxer de text executable. Voleu executar-lo o visualitzar el "
 "seu contingut?"
 
-#: src/utils.c:627
+#: src/utils.c:631
 msgid "Run or Display"
 msgstr "Executa o visualitza"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: src/utils.c:628
+#: src/utils.c:632
 msgid "Display"
 msgstr "Visualitza"
 
 # source\config\config.src string STR_FILTERNAME_CFG
 # source\config\config.src string DLG_MACROQUERY BTN_OK
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: src/utils.c:628
+#: src/utils.c:632
 msgid "Run"
 msgstr "Executa"
 
-#: src/utils.c:664
+#: src/utils.c:668
 #, c-format
 msgid ""
 "%s does not know how to open remote files. Do you want to download the file "
@@ -2208,7 +2111,7 @@ msgstr ""
 "%s no pot obrir fitxers remots. Desitgeu descarregar el fitxer en una "
 "ubicació temporal per obrir-lo?"
 
-#: src/utils.c:738
+#: src/utils.c:742
 #, c-format
 msgid ""
 "%s does not know how to open remote files. Do you want to download the files "
@@ -2217,17 +2120,138 @@ msgstr ""
 "%s no pot obrir fitxers remots. Desitgeu descarregar els fitxers en una "
 "ubicació temporal per obrir-los?"
 
-#: src/utils.c:1347
+#: src/utils.c:1363
 #, c-format
 msgid "Creating directory %s... "
 msgstr "S'està creant el directori %s..."
 
-#: src/utils.c:1352
+#: src/utils.c:1368
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "No s'ha pogut crear el directori %s"
 
-#: src/utils.c:1358
+#: src/utils.c:1374
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "No s'ha pogut llegir el directori %s: %s\n"
+
+#~ msgid "Compare Revisions..."
+#~ msgstr "Compara revisions..."
+
+#~ msgid "CVS"
+#~ msgstr "CVS"
+
+#~ msgid "CVSLogViewer"
+#~ msgstr "CVSLogViewer"
+
+#~ msgid "Revisions"
+#~ msgstr "Revisions"
+
+# Netscape_4.7->Dialog Caption:_ISRES.DLL
+#~ msgid "Information"
+#~ msgstr "Informació"
+
+#~ msgid "Revision 1:"
+#~ msgstr "Revisió 1:"
+
+#~ msgid "Revision 2:"
+#~ msgstr "Revisió 2:"
+
+#~ msgid "Diff output"
+#~ msgstr "Sortida del diff"
+
+#~ msgid "Fixed font"
+#~ msgstr "Tipus de lletra fixa"
+
+#~ msgid "Copyright: Marcus Bjurman 2003"
+#~ msgstr "Copyright: Marcus Bjurman 2003"
+
+#~ msgid "Small tool to browse CVS revisions of a single file."
+#~ msgstr "Una petita eina per navegar per revisions CVS d'un únic fitxer."
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Program name"
+#~ msgstr "Nom del programa"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "The name of the program"
+#~ msgstr "El nom del programa"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Program version"
+#~ msgstr "Versió del programa"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "The version of the program"
+#~ msgstr "La versió del programa"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Copyright string"
+#~ msgstr "Text del copyright"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Copyright information for the program"
+#~ msgstr "Informació de copyright del programa"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Comments string"
+#~ msgstr "Textos de comentari"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Comments about the program"
+#~ msgstr "Comentaris quant al programa"
+
+# Mozilla 1.3->authorButton.label
+#~ msgid "Authors"
+#~ msgstr "Autors"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "List of authors of the programs"
+#~ msgstr "Llista dels autors dels programes"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Author entry"
+#~ msgstr "Entrada d'autor"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "A single author entry"
+#~ msgstr "Una llista d'un sol autor"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Documenters"
+#~ msgstr "Documentadors"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "List of people documenting the program"
+#~ msgstr "Llista de persones que documenten el programa"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Documenter entry"
+#~ msgstr "Entrada del documentador"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "A single documenter entry"
+#~ msgstr "Una llista d'un sol documentador"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid "Translator credits"
+#~ msgstr "Crèdits dels traductors"
+
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#~ msgid ""
+#~ "Credits to the translators. This string should be marked as translatable"
+#~ msgstr ""
+#~ "Crèdits dels traductors. Aquesta cadena hauria de ser marcada com a "
+#~ "traduïble"
+
+#~ msgid "Webpage for the plugin"
+#~ msgstr "Pàgina web del connector"
+
+#~ msgid "Webpage"
+#~ msgstr "Pàgina web"
+
+#~ msgid "Save _Position"
+#~ msgstr "Desa la _posició"
+
+#~ msgid "Text (fastest)"
+#~ msgstr "Text (més ràpid)"
