@@ -278,46 +278,6 @@ get_selected_plugin (GtkCList *list)
 
 
 static void
-on_plugin_selected (GtkCList *list, gint row, gint column,
-					GdkEventButton *event, GtkWidget *dialog)
-{
-	GtkWidget *toggle_button = lookup_widget (dialog, "toggle_button");
-	GtkWidget *conf_button = lookup_widget (dialog, "conf_button");
-	GtkWidget *about_button = lookup_widget (dialog, "about_button");
-
-	PluginData *data = get_selected_plugin (list);
-	g_return_if_fail (data != NULL);
-
-	gtk_widget_set_sensitive (about_button, TRUE);
-	
-	if (data->active) {
-		gtk_button_set_label (GTK_BUTTON (toggle_button), _("Disable"));
-		gtk_widget_set_sensitive (toggle_button, TRUE);
-		gtk_widget_set_sensitive (conf_button, TRUE);
-	}
-	else {
-		gtk_button_set_label (GTK_BUTTON (toggle_button), _("Enable"));
-		gtk_widget_set_sensitive (toggle_button, TRUE);
-		gtk_widget_set_sensitive (conf_button, FALSE);
-	}
-}
-
-
-static void
-on_plugin_unselected (GtkCList *list, gint row, gint column,
-					  GdkEventButton *event, GtkWidget *dialog)
-{
-	GtkWidget *toggle_button = lookup_widget (dialog, "toggle_button");
-	GtkWidget *conf_button = lookup_widget (dialog, "conf_button");
-	GtkWidget *about_button = lookup_widget (dialog, "about_button");
-
-	gtk_widget_set_sensitive (toggle_button, FALSE);
-	gtk_widget_set_sensitive (about_button, FALSE);
-	gtk_widget_set_sensitive (conf_button, FALSE);
-}
-
-
-static void
 update_plugin_list (GtkCList *list, GtkWidget *dialog)
 {
 	GList *tmp;
@@ -361,7 +321,7 @@ update_plugin_list (GtkCList *list, GtkWidget *dialog)
 
 
 static void
-on_toggle (GtkButton *button, GtkWidget *dialog)
+do_toggle (GtkWidget *dialog)
 {
 	GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
 	PluginData *data = get_selected_plugin (list);
@@ -376,6 +336,58 @@ on_toggle (GtkButton *button, GtkWidget *dialog)
 		activate_plugin (data);
 		update_plugin_list (list, dialog);
 	}
+}
+
+
+static void
+on_plugin_selected (GtkCList *list, gint row, gint column,
+					GdkEventButton *event, GtkWidget *dialog)
+{
+	GtkWidget *toggle_button = lookup_widget (dialog, "toggle_button");
+	GtkWidget *conf_button = lookup_widget (dialog, "conf_button");
+	GtkWidget *about_button = lookup_widget (dialog, "about_button");
+
+	PluginData *data = get_selected_plugin (list);
+	g_return_if_fail (data != NULL);
+
+	if (event && event->type == GDK_2BUTTON_PRESS && event->button == 1) {
+		do_toggle (dialog);
+		return;
+	}
+	
+	gtk_widget_set_sensitive (about_button, TRUE);
+	
+	if (data->active) {
+		gtk_button_set_label (GTK_BUTTON (toggle_button), _("Disable"));
+		gtk_widget_set_sensitive (toggle_button, TRUE);
+		gtk_widget_set_sensitive (conf_button, TRUE);
+	}
+	else {
+		gtk_button_set_label (GTK_BUTTON (toggle_button), _("Enable"));
+		gtk_widget_set_sensitive (toggle_button, TRUE);
+		gtk_widget_set_sensitive (conf_button, FALSE);
+	}
+}
+
+
+static void
+on_plugin_unselected (GtkCList *list, gint row, gint column,
+					  GdkEventButton *event, GtkWidget *dialog)
+{
+	GtkWidget *toggle_button = lookup_widget (dialog, "toggle_button");
+	GtkWidget *conf_button = lookup_widget (dialog, "conf_button");
+	GtkWidget *about_button = lookup_widget (dialog, "about_button");
+
+	gtk_widget_set_sensitive (toggle_button, FALSE);
+	gtk_widget_set_sensitive (about_button, FALSE);
+	gtk_widget_set_sensitive (conf_button, FALSE);
+}
+
+
+static void
+on_toggle (GtkButton *button, GtkWidget *dialog)
+{
+	do_toggle (dialog);
 }
 
 
