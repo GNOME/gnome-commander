@@ -87,6 +87,13 @@ smb_open (GnomeCmdCon *con)
 		gtk_object_ref (GTK_OBJECT (con->base_path));
 	}
 	uri = gnome_cmd_con_create_uri (con, con->base_path);
+	if (!uri) {
+		DEBUG('m', "gnome_cmd_con_create_uri returned NULL\n");
+		con->state = CON_STATE_CLOSED;
+		con->open_result = CON_OPEN_FAILED;
+		con->open_failed_msg = g_strdup (_("Failed to browse the network. Is the SMB module installed?"));
+		return;
+	}
 
 	DEBUG('l', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, 0));
 	uri_list = g_list_append (NULL, uri);
@@ -133,8 +140,11 @@ smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 	gchar *s;
 
 	u1 = gnome_vfs_uri_new ("smb:");
+	if (!u1) return NULL;
+	
 	u2 = gnome_vfs_uri_append_path (u1, gnome_cmd_path_get_path (path));
 	gnome_vfs_uri_unref (u1);
+	if (!u2) return NULL;
 
 	p = gnome_vfs_uri_get_path (u2);
 	s = g_strdup_printf ("smb:/%s", p);
