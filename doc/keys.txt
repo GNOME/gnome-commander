@@ -21,6 +21,7 @@ ALT+F8	    Opens the history list for the command line
 SHIFT+F2	Compare directories
 SHIFT+F4	Edit a new file
 SHIFT+F6	Rename a file
+SHIFT+F10   Bring up the context menu for the selected files.
 
 CTRL+F3	    Sort by name
 CTRL+F4	    Sort by extension

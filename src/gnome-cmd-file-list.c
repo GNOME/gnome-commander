@@ -2454,6 +2454,10 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
 			case GDK_F6:
 				gnome_cmd_file_list_show_rename_dialog (fl);
 				return TRUE;
+
+			case GDK_F10:
+				show_file_popup_with_warp (fl);
+				return TRUE;
 				
 			case GDK_Left:
 			case GDK_Right:
