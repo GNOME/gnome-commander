@@ -1,6 +1,6 @@
 /*
   GNOME Commander - A GNOME based file manager 
-  Copyright (C) 2001-2003 Marcus Bjurman
+  Copyright (C) 2001-2004 Marcus Bjurman
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -632,7 +632,7 @@ help_about                          (GtkMenuItem     *menuitem,
 	GtkWidget *dialog = gnome_about_new (
 		"Gnome Commander",
 		VERSION,
-		"Copyright (C) 2001-2003 Marcus Bjurman",
+		"Copyright (C) 2001-2004 Marcus Bjurman",
 		_("A fast and powerfull file manager for the GNOME desktop"),
 		(const gchar**)authors,
 		(const gchar**)docers,
