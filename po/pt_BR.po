@@ -1,14 +1,14 @@
-# Portuguese/Brazil translation of PACKAGE.
-# Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Brazilian Portuguese translation of gnome-commander.
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gnome-commander package.
 # Robson Negreiros <kamusbr@bol.com.br>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-04 12:11-0400\n"
-"PO-Revision-Date: 2004-05-04 12:13-0400\n"
+"POT-Creation-Date: 2004-05-29 19:46+0200\n"
+"PO-Revision-Date: 2004-05-30 12:00-0300\n"
 "Last-Translator: Robson Negreiros <kamusbr@bol.com.br>\n"
 "Language-Team: Portuguese/Brazil\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr "Um gerenciador de arquivos com dois painéis"
 
 #: gnome-commander.desktop.in.h:2
 msgid "GNOME Commander"
-msgstr "GNOME Ordenador "
+msgstr "GNOME Commander"
 
 #: libgcmd/gnome-cmd-string-dialog.c:133
 msgid "No error description available"
@@ -41,7 +41,7 @@ msgstr "Opções do CVS"
 
 #: plugins/cvs/cvs-plugin.c:325
 msgid "Compression level"
-msgstr "Nível de Compressão"
+msgstr "Nível de compressão"
 
 #: plugins/cvs/cvs-plugin.c:334
 msgid "Unified diff format"
@@ -510,7 +510,7 @@ msgstr "Vá para: Rede Samba"
 
 #: src/gnome-cmd-delete-dialog.c:143
 msgid "Deleting..."
-msgstr "Apagando..."
+msgstr "Excluindo..."
 
 #: src/gnome-cmd-delete-dialog.c:225
 #, c-format
@@ -519,13 +519,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Erro enquanto apagava %s\n"
+"Erro ao excluir %s\n"
 "\n"
 "%s"
 
 #: src/gnome-cmd-delete-dialog.c:228
 msgid "Delete problem"
-msgstr "Problema ao apagar"
+msgstr "Problema ao excluir"
 
 #: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:176
 #: src/gnome-cmd-xfer.c:196
@@ -544,18 +544,18 @@ msgstr "Saltar"
 #: src/gnome-cmd-delete-dialog.c:307
 #, c-format
 msgid "Do you want to delete \"%s\"?"
-msgstr "Você quer apagar \"%s\"?"
+msgstr "Você deseja excluir \"%s\"?"
 
 #: src/gnome-cmd-delete-dialog.c:312
-#, fuzzy, c-format
+#, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Você gostaria de apagar os arquivos selecionados?"
-msgstr[1] "Você gostaria de apagar os arquivos selecionados?"
+msgstr[0] "Você deseja excluir o arquivo selecionado?"
+msgstr[1] "Você deseja excluir os %d arquivos selecionados?"
 
 #: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1346
 msgid "Delete"
-msgstr "Apagar"
+msgstr "Excluir"
 
 #: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603 src/utils.c:632
 msgid "Cancel"
@@ -563,7 +563,7 @@ msgstr "Cancelar"
 
 #: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603
 msgid "OK"
-msgstr "Confirmar"
+msgstr "OK"
 
 #: src/gnome-cmd-dir.c:569
 msgid "Waiting for file list"
@@ -636,7 +636,7 @@ msgstr "_Copiar"
 #: src/gnome-cmd-file-popmenu.c:469 src/gnome-cmd-main-menu.c:577
 #: src/gnome-cmd-search-popup.c:167
 msgid "_Delete"
-msgstr "Apa_gar"
+msgstr "_Excluir"
 
 #: src/gnome-cmd-file-popmenu.c:476
 msgid "Rename"
@@ -649,18 +649,18 @@ msgstr "Propriedades"
 
 #: src/gnome-cmd-file-popmenu.c:542
 msgid "Other..."
-msgstr "Outros..."
+msgstr "Outro..."
 
 #: src/gnome-cmd-file-props-dialog.c:63 src/utils.c:987
-#, fuzzy, c-format
+#, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
-msgstr[0] "%s bytes"
+msgstr[0] "%s byte"
 msgstr[1] "%s bytes"
 
 #: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
 msgid "No default application registered"
-msgstr "Nenhuma aplicação padrão especificada"
+msgstr "Nenhuma aplicação padrão registrada"
 
 #: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2058
 msgid "Filename:"
@@ -684,7 +684,7 @@ msgstr "Abrir com:"
 
 #: src/gnome-cmd-file-props-dialog.c:348
 msgid "_Change"
-msgstr "_Mudar"
+msgstr "_Alterar"
 
 #: src/gnome-cmd-file-props-dialog.c:360
 msgid "Accessed:"
@@ -715,11 +715,11 @@ msgid "Permissions"
 msgstr "Permissões"
 
 #: src/gnome-cmd-file-selector.c:194
-#, fuzzy, c-format
+#, c-format
 msgid "%s of %s kB in %d of %d file selected"
 msgid_plural "%s of %s kB in %d of %d files selected"
-msgstr[0] "%s de %s kB no %d de %d arquivo selecionado"
-msgstr[1] "%s de %s kB no %d de %d arquivo selecionado"
+msgstr[0] "%s de %s kB em %d de %d arquivo selecionado"
+msgstr[1] "%s de %s kB em %d de %d arquivos selecionados"
 
 #: src/gnome-cmd-file-selector.c:730
 #, c-format
@@ -729,12 +729,12 @@ msgstr "%s Livre"
 #: src/gnome-cmd-file-selector.c:1784
 #, c-format
 msgid "Failed to open connection: %s\n"
-msgstr "Falha ao abrir conexão: %s\n"
+msgstr "Falha ao abrir a conexão: %s\n"
 
 #: src/gnome-cmd-file-selector.c:1993 src/gnome-cmd-make-copy-dialog.c:68
 #: src/gnome-cmd-rename-dialog.c:52
 msgid "No filename entered"
-msgstr "Nenhum nome de arquivo colocado"
+msgstr "Nenhum nome de arquivo digitado"
 
 #: src/gnome-cmd-file-selector.c:2029
 msgid "No filename given"
@@ -749,9 +749,9 @@ msgid "Symlink name:"
 msgstr "Nome da ligação simbólica:"
 
 #: src/gnome-cmd-file-selector.c:2237
-#, fuzzy, c-format
+#, c-format
 msgid "Symlink to %s"
-msgstr "Ligações Simbólicas"
+msgstr "Ligações simbólicas para %s"
 
 #: src/gnome-cmd-file-selector.c:2239
 msgid "Create Symbolic Link"
@@ -763,11 +763,11 @@ msgstr "Filtro:"
 
 #: src/gnome-cmd-file.c:603
 msgid "Unknown file type"
-msgstr "Tipo de arquivo Ignorado"
+msgstr "Tipo de arquivo ignorado"
 
 #: src/gnome-cmd-file.c:604
 msgid "Regular file"
-msgstr "Arquivo Regular"
+msgstr "Arquivo regular"
 
 #: src/gnome-cmd-file.c:605
 msgid "Directory"
@@ -791,16 +791,16 @@ msgstr "Dispositivo de bloco"
 
 #: src/gnome-cmd-file.c:610
 msgid "Symbolic link"
-msgstr "Ligação Simbólica"
+msgstr "Ligação simbólica"
 
 #: src/gnome-cmd-ftp-dialog.c:163
 #, c-format
 msgid "Enter password for %s@%s"
-msgstr "Coloque a senha para %s@%s"
+msgstr "Digite a senha para %s@%s"
 
 #: src/gnome-cmd-ftp-dialog.c:168
 msgid "Enter Password"
-msgstr "Coloque a Senha"
+msgstr "Digite a senha"
 
 #: src/gnome-cmd-ftp-dialog.c:215
 msgid "No alias specified"
@@ -960,9 +960,8 @@ msgid "Cu_t"
 msgstr "Recor_tar"
 
 #: src/gnome-cmd-main-menu.c:584
-#, fuzzy
 msgid "Copy _File Names"
-msgstr "Copiar Arquivo"
+msgstr "Copiar _Nomes de Arquivo"
 
 #: src/gnome-cmd-main-menu.c:591
 msgid "_Search..."
@@ -970,7 +969,7 @@ msgstr "_Procurar..."
 
 #: src/gnome-cmd-main-menu.c:597
 msgid "_Quick Search..."
-msgstr "_Rápida Procura"
+msgstr "_Busca Rápida..."
 
 #: src/gnome-cmd-main-menu.c:603
 msgid "_Enable Filter..."
@@ -1013,9 +1012,8 @@ msgid "_Bookmark this Directory..."
 msgstr "_Marcar este Diretório..."
 
 #: src/gnome-cmd-main-menu.c:682
-#, fuzzy
 msgid "_Manage Bookmarks..."
-msgstr "_Alterar Marcadores"
+msgstr "_Gerenciar Marcadores..."
 
 #: src/gnome-cmd-main-menu.c:694
 msgid "_Configure Plugins..."
@@ -1100,7 +1098,7 @@ msgstr "F7 Criar Diretório"
 
 #: src/gnome-cmd-main-win.c:462
 msgid "F8 Delete"
-msgstr "F8 Apagar"
+msgstr "F8 Excluir"
 
 #: src/gnome-cmd-main-win.c:465
 msgid "F9 Search"
@@ -1123,9 +1121,8 @@ msgid "Forward in history"
 msgstr "Avançar em histórico"
 
 #: src/gnome-cmd-main-win.c:1318
-#, fuzzy
 msgid "Copy file names"
-msgstr "Novos Nomes de Arquivos"
+msgstr "Copiar nomes de arquivos"
 
 #: src/gnome-cmd-main-win.c:1325
 msgid "Cut"
@@ -1141,7 +1138,7 @@ msgstr "Colar"
 
 #: src/gnome-cmd-main-win.c:1361
 msgid "Drop connection"
-msgstr "Abandonar Conexão"
+msgstr "Abandonar conexão"
 
 #: src/gnome-cmd-make-copy-dialog.c:154
 #: src/gnome-cmd-prepare-copy-dialog.c:152
@@ -1159,7 +1156,7 @@ msgstr "O diretório precisa de um nome"
 
 #: src/gnome-cmd-mkdir-dialog.c:141
 msgid "Directory name:"
-msgstr "Nome do Diretório:"
+msgstr "Nome do diretório:"
 
 #: src/gnome-cmd-mkdir-dialog.c:149
 msgid "Make Directory"
@@ -1195,7 +1192,7 @@ msgstr "Opções de classificação"
 
 #: src/gnome-cmd-options-dialog.c:99 src/gnome-cmd-patternsel-dialog.c:160
 msgid "Case sensitive"
-msgstr "Diferenciar Maiúscula e Minúscula"
+msgstr "Diferenciar maiúsculas/minúsculas"
 
 #: src/gnome-cmd-options-dialog.c:109
 msgid "Confirmation options"
@@ -1203,7 +1200,7 @@ msgstr "Opções de confirmação"
 
 #: src/gnome-cmd-options-dialog.c:112
 msgid "Confirm before delete"
-msgstr "Confirmar antes de apagar"
+msgstr "Confirmar antes de excluir"
 
 #: src/gnome-cmd-options-dialog.c:122
 msgid "Directory options"
@@ -1615,11 +1612,11 @@ msgid "Overwrite Files"
 msgstr "Sobreescrever Arquivos"
 
 #: src/gnome-cmd-prepare-copy-dialog.c:156
-#, fuzzy, c-format
+#, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
 msgstr[0] "copiar %d arquivo para"
-msgstr[1] "copiar %d arquivo para"
+msgstr[1] "copiar %d arquivos para"
 
 #: src/gnome-cmd-prepare-move-dialog.c:80
 msgid "Move"
@@ -1628,14 +1625,14 @@ msgstr "Mover"
 #: src/gnome-cmd-prepare-move-dialog.c:135
 #, c-format
 msgid "Move \"%s\" to"
-msgstr "Mover %s to"
+msgstr "Mover \"%s\" para"
 
 #: src/gnome-cmd-prepare-move-dialog.c:139
-#, fuzzy, c-format
+#, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
 msgstr[0] "mover %d arquivo para"
-msgstr[1] "mover %d arquivo para"
+msgstr[1] "mover %d arquivos para"
 
 #: src/gnome-cmd-prepare-xfer-dialog.c:114
 #: src/gnome-cmd-prepare-xfer-dialog.c:153
@@ -1659,7 +1656,7 @@ msgstr "Renomear Arquivo"
 #: src/gnome-cmd-search-dialog.c:184
 #, c-format
 msgid "Failed to open file %s: %s\n"
-msgstr "Falha ao abrir arquivo %s: %s\n"
+msgstr "Falha ao abrir o arquivo %s: %s\n"
 
 #: src/gnome-cmd-search-dialog.c:193
 #, c-format
@@ -1672,18 +1669,18 @@ msgid "Searching in: %s"
 msgstr "Procurando em: %s"
 
 #: src/gnome-cmd-search-dialog.c:399
-#, fuzzy, c-format
+#, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
 msgstr[0] "Encontrada %d correspodência antes de ser parado"
-msgstr[1] "Encontrada %d correspodência antes de ser parado"
+msgstr[1] "Encontradas %d correspodências antes de ser parado"
 
 #: src/gnome-cmd-search-dialog.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "Encontrada %d ocorrência"
-msgstr[1] "Encontrada %d ocorrência"
+msgstr[1] "Encontradas %d ocorrências"
 
 #: src/gnome-cmd-search-dialog.c:737
 msgid "Search..."
@@ -1894,16 +1891,14 @@ msgid "running \"%s\"\n"
 msgstr "executando \"%s\"\n"
 
 #: src/useractions.c:668
-#, fuzzy
 msgid "A fast and powerful file manager for the GNOME desktop"
-msgstr ""
-"Um rápido e poderoso gerenciador de arquivos para área de trabalho GNOME"
+msgstr "Um rápido e poderoso gerenciador de arquivos para o desktop GNOME"
 
 #. xgettext:
 #. * Replace this with your name when translating
 #: src/useractions.c:673
 msgid "No translation is currently in use."
-msgstr "Nenhuma tradução está atualmente em uso."
+msgstr "Robson Negreiros <kamusbr@bol.com.br>"
 
 #: src/utils.c:519
 #, c-format
