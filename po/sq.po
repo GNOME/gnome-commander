@@ -281,11 +281,12 @@ msgid "_Edit..."
 msgstr "_Ndrysho..."
 
 #. GRUT modified this item
+#. GRUT modified this item
 #: src/gnome-cmd-advrename-dialog.c:844 src/gnome-cmd-bookmark-dialog.c:512
 #: src/gnome-cmd-ftp-dialog.c:543 src/gnome-cmd-options-dialog.c:1289
 #: src/gnome-cmd-options-dialog.c:1642
 msgid "_Remove"
-msgstr "_Hiqe"
+msgstr "_Hiq"
 
 #: src/gnome-cmd-advrename-dialog.c:849
 msgid "Re_move All"
@@ -555,9 +556,10 @@ msgstr ""
 msgid "Abort"
 msgstr "Anullo"
 
+#. GRUT modified this item
 #: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:196
 msgid "Retry"
-msgstr ""
+msgstr "Anullo"
 
 #. GRUT modified this item
 #: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:176
