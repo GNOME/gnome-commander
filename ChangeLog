@@ -1,4 +1,23 @@
+##############################################################################
+#                                   1.1.6                                    #
+##############################################################################
 2004-01-19  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* README.in:
+	Updated small details all over.
+
+	* plugins/cvs/Makefile.am: 
+	* plugins/cvs/callbacks.c:
+	* plugins/cvs/callbacks.h:
+	* plugins/cvs/close.xpm:
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/cvs/cvs-plugin.h:
+	* plugins/cvs/cvs-plugin.xpm:
+	* plugins/cvs/interface.c:
+	* plugins/cvs/interface.h:
+	* plugins/cvs/parser.h:
+	* plugins/cvs/parser.l:
+	Updated the cvs-plugin so that it can be used to diff and log files.
 
 	* src/history.c (history_add):
 	Fixed crash when navigating back in the history and then entering

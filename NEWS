@@ -1,4 +1,35 @@
 ===================================
+gnome-commander 1.1.6
+---------------
+
+Bug fixes:
+ * Fixed crash when navigating back in the history and then entering
+   another dir.
+ * Fixed ftp-quick-connect problems.
+ * The quick-search function can now also be started by typing capital
+   letters.
+ * CTRL+ALT no longer needs to be used to activate quick-searcg when the
+   cmdline is hidden.
+
+New features:
+ * Updated the cvs-plugin so that it can be used to diff and log files.
+ * Changed to using bold text instead of underlined in the dir-indicator when
+   focused by the mouse cursor.
+ * Made the cwd label selectable (the one left of the cmdline).
+ * Added "CTRL+." shortcut to copy the cwd from the inactive file-list to
+   the active one.
+ * Added the shortcut "shift+f10" to bring up the file context menu (the
+   windows menu key also works)
+ * Removed the 'Save Position' menu item. Size and position are now saved
+   automaticly instead.
+ * Sorting column and direction is now remembered.
+ * Added button to the directory indicator to popup the directory history.
+ * F2 now opens the rename dialog instead of refreshing the active file
+   list.
+ * Added history to the select and unselect by pattern dialogs.
+ 
+
+===================================
 gnome-commander 1.1.5
 ---------------
 
