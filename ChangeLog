@@ -1,3 +1,12 @@
+2003-12-02  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* po/POTFILES.in:
+	* gnome-commander.desktop:
+	* gnome-commander.desktop.in:
+	* Makefile.am:
+	Made the desktop file translatable through the .po files.
+	This fixes #128251.
+
 2003-12-01  Duarte Loreto <happyguy_pt@hotmail.com>
 
 	* configure.in: Added Portuguese (pt) to ALL_LINGUAS.
