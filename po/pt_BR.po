@@ -1,0 +1,1983 @@
+# Portuguese/Brazil translation of PACKAGE.
+# Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Robson Negreiros <kamusbr@bol.com.br>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-commander\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-05-04 12:11-0400\n"
+"PO-Revision-Date: 2004-05-04 12:13-0400\n"
+"Last-Translator: Robson Negreiros <kamusbr@bol.com.br>\n"
+"Language-Team: Portuguese/Brazil\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gnome-commander.desktop.in.h:1
+msgid "A two paned file manager"
+msgstr "Um gerenciador de arquivos com dois painéis"
+
+#: gnome-commander.desktop.in.h:2
+msgid "GNOME Commander"
+msgstr "GNOME Ordenador "
+
+#: libgcmd/gnome-cmd-string-dialog.c:133
+msgid "No error description available"
+msgstr "Erro sem descrição disponível"
+
+#: plugins/cvs/cvs-plugin.c:304 plugins/fileroller/file-roller-plugin.c:336
+#: src/gnome-cmd-ftp-dialog.c:550 src/gnome-cmd-options-dialog.c:1058
+#: src/gnome-cmd-options-dialog.c:1768 src/gnome-cmd-prepare-copy-dialog.c:141
+#: src/gnome-cmd-prepare-move-dialog.c:125
+msgid "Options"
+msgstr "Opções"
+
+#: plugins/cvs/cvs-plugin.c:322
+msgid "CVS options"
+msgstr "Opções do CVS"
+
+#: plugins/cvs/cvs-plugin.c:325
+msgid "Compression level"
+msgstr "Nível de Compressão"
+
+#: plugins/cvs/cvs-plugin.c:334
+msgid "Unified diff format"
+msgstr "Formato de diferenciação unificado"
+
+#: plugins/cvs/cvs-plugin.c:448
+msgid "A plugin that eventually will be a simple CVS client"
+msgstr "Um plugin que eventualmente será um simples cliente CVS"
+
+#: plugins/cvs/interface.c:161
+msgid "Compare with"
+msgstr "Comparar com"
+
+#: plugins/cvs/interface.c:164
+msgid "HEAD"
+msgstr "TOPO"
+
+#: plugins/cvs/interface.c:168
+msgid "The previous revision"
+msgstr "Revisão anterior"
+
+#: plugins/cvs/interface.c:174
+msgid "Other revision"
+msgstr "Outra revisão"
+
+#: plugins/cvs/interface.c:261
+msgid "CVS Diff"
+msgstr "Diferença no CVS"
+
+#: plugins/cvs/interface.c:428
+msgid "revision"
+msgstr "revisão"
+
+#: plugins/cvs/interface.c:442
+msgid "Revision:"
+msgstr "Revisão:"
+
+#: plugins/cvs/interface.c:460
+msgid "Compare..."
+msgstr "Comparar..."
+
+#: plugins/cvs/interface.c:463
+msgid "Author:"
+msgstr "Autor:"
+
+#: plugins/cvs/interface.c:477
+msgid "Date:"
+msgstr "Data:"
+
+#: plugins/cvs/interface.c:491
+msgid "State:"
+msgstr "Estado:"
+
+#: plugins/cvs/interface.c:505
+msgid "Lines:"
+msgstr "Linhas:"
+
+#: plugins/cvs/interface.c:519
+msgid "Message:"
+msgstr "Mensagem:"
+
+#: plugins/fileroller/file-roller-plugin.c:167
+msgid "What filename should the new archive have?"
+msgstr "Qual o nome do novo arquivo?"
+
+#: plugins/fileroller/file-roller-plugin.c:169
+msgid "Create Archive"
+msgstr "Criar Arquivo"
+
+#: plugins/fileroller/file-roller-plugin.c:273
+msgid "Create Archive..."
+msgstr "Criar Arquivo..."
+
+#: plugins/fileroller/file-roller-plugin.c:287
+msgid "Extract in Current Directory"
+msgstr "Extrair no Diretório Atual"
+
+#: plugins/fileroller/file-roller-plugin.c:292
+#, c-format
+msgid "Extract to '%s'"
+msgstr "Extrair para '%s'"
+
+#: plugins/fileroller/file-roller-plugin.c:352
+msgid "File-roller options"
+msgstr "Opções do desempacotador de arquivos"
+
+#: plugins/fileroller/file-roller-plugin.c:355
+msgid "Default type"
+msgstr "Tipo padrão"
+
+#: plugins/fileroller/file-roller-plugin.c:477
+msgid ""
+"A plugin that adds File Roller shortcuts for creating and extracting "
+"compressed archives."
+msgstr ""
+"Um plugin que adiciona um atalho para o Desempacotador de Arquivos criar e "
+"extrair arquivos compactados."
+
+#: plugins/test/test-plugin.c:232
+msgid ""
+"This is an example plugin that is mostly useful as a simple example for "
+"aspiring plugin hackers"
+msgstr ""
+"Isto é um plugin exemplo que é mais útil que um simples exemplo para um "
+"aspirante a especialista em plugin."
+
+#: src/gnome-cmd-about-plugin.c:184
+msgid "Credits"
+msgstr "Créditos"
+
+#: src/gnome-cmd-about-plugin.c:216
+msgid "Written by"
+msgstr "Escrito por"
+
+#: src/gnome-cmd-about-plugin.c:231
+msgid "Documented by"
+msgstr "Documentado por"
+
+#: src/gnome-cmd-about-plugin.c:246
+msgid "Translated by"
+msgstr "Traduzido por"
+
+#: src/gnome-cmd-about-plugin.c:302
+msgid "Plugin Webpage"
+msgstr "Página sobre Plugins"
+
+#: src/gnome-cmd-about-plugin.c:314
+msgid "C_redits"
+msgstr "C_réditos"
+
+#: src/gnome-cmd-about-plugin.c:523
+#, c-format
+msgid "About %s"
+msgstr "Sobre %s"
+
+#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
+#: src/utils.c:745
+msgid "Yes"
+msgstr "Sim"
+
+#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
+#: src/utils.c:745
+msgid "No"
+msgstr "Não"
+
+#: src/gnome-cmd-advrename-dialog.c:197
+msgid "Invalid source pattern"
+msgstr "Padrão inválido da origem"
+
+#: src/gnome-cmd-advrename-dialog.c:273
+msgid "Replace this:"
+msgstr "Troque por isto:"
+
+#: src/gnome-cmd-advrename-dialog.c:273 src/gnome-cmd-advrename-dialog.c:821
+msgid "With this"
+msgstr "Com isto"
+
+#: src/gnome-cmd-advrename-dialog.c:287
+msgid "Case sensitive matching"
+msgstr "Diferenciação de maiúscula e minúscula correspondente"
+
+#: src/gnome-cmd-advrename-dialog.c:423
+msgid "New Rule"
+msgstr "Nova Regra"
+
+#: src/gnome-cmd-advrename-dialog.c:432
+msgid "Edit Rule"
+msgstr "Editar Regra"
+
+#: src/gnome-cmd-advrename-dialog.c:651
+msgid "Counter start value:"
+msgstr "Valor inicial para contagem:"
+
+#: src/gnome-cmd-advrename-dialog.c:652
+msgid "Counter increment:"
+msgstr "Incremento de Contador"
+
+#: src/gnome-cmd-advrename-dialog.c:653
+msgid "Counter minimum digit count:"
+msgstr "Dígito mínimo para contador:"
+
+#: src/gnome-cmd-advrename-dialog.c:658
+msgid "Template Options"
+msgstr "Opções de Modelo"
+
+#: src/gnome-cmd-advrename-dialog.c:662
+msgid "Auto-update when the template is entered"
+msgstr "Atualizar automaticamente quando o modelo for inserido"
+
+#: src/gnome-cmd-advrename-dialog.c:771
+msgid "Advanced Rename Tool"
+msgstr "Ferramenta Avançada para Renomear"
+
+#: src/gnome-cmd-advrename-dialog.c:784
+msgid "Template"
+msgstr "Modelo"
+
+#: src/gnome-cmd-advrename-dialog.c:806
+msgid "Options..."
+msgstr "Opções..."
+
+#: src/gnome-cmd-advrename-dialog.c:813
+msgid "Regex replacing"
+msgstr "Trocando Expressão Regular"
+
+#: src/gnome-cmd-advrename-dialog.c:820
+msgid "Replace this"
+msgstr "Troque isto"
+
+#: src/gnome-cmd-advrename-dialog.c:822
+msgid "Case sens"
+msgstr "Diferenciar Maiúscula e Minúscula"
+
+#: src/gnome-cmd-advrename-dialog.c:835 src/gnome-cmd-options-dialog.c:1279
+#: src/gnome-cmd-options-dialog.c:1632
+msgid "_Add..."
+msgstr "_Adicionar..."
+
+#: src/gnome-cmd-advrename-dialog.c:839 src/gnome-cmd-ftp-dialog.c:539
+#: src/gnome-cmd-options-dialog.c:1283 src/gnome-cmd-options-dialog.c:1636
+msgid "_Edit..."
+msgstr "_Editar..."
+
+#: src/gnome-cmd-advrename-dialog.c:844 src/gnome-cmd-bookmark-dialog.c:512
+#: src/gnome-cmd-ftp-dialog.c:543 src/gnome-cmd-options-dialog.c:1289
+#: src/gnome-cmd-options-dialog.c:1642
+msgid "_Remove"
+msgstr "_Remover"
+
+#: src/gnome-cmd-advrename-dialog.c:849
+msgid "Re_move All"
+msgstr "Re_mover Tudo"
+
+#: src/gnome-cmd-advrename-dialog.c:872
+msgid "Result"
+msgstr "Resultado"
+
+#: src/gnome-cmd-advrename-dialog.c:877
+msgid "Current filenames"
+msgstr "Nomes de Arquivos Atuais"
+
+#: src/gnome-cmd-advrename-dialog.c:878
+msgid "New filenames"
+msgstr "Novos Nomes de Arquivos"
+
+#: src/gnome-cmd-advrename-dialog.c:885
+msgid "Reset"
+msgstr "Reiniciar"
+
+#: src/gnome-cmd-bookmark-dialog.c:67
+msgid "Bookmark name:"
+msgstr "Nome do Marcador:"
+
+#: src/gnome-cmd-bookmark-dialog.c:68
+msgid "Bookmark target:"
+msgstr "Destino do Marcador"
+
+#: src/gnome-cmd-bookmark-dialog.c:170
+msgid "Bookmark name is missing"
+msgstr "Nome do marcador está faltando"
+
+#: src/gnome-cmd-bookmark-dialog.c:176
+msgid "Bookmark target is missing"
+msgstr "Destino do marcador está faltando"
+
+#: src/gnome-cmd-bookmark-dialog.c:196
+msgid "Edit Bookmark"
+msgstr "Editar Marcadores"
+
+#: src/gnome-cmd-bookmark-dialog.c:466 src/gnome-cmd-bookmark-dialog.c:482
+msgid "Bookmarks"
+msgstr "Marcadores"
+
+#: src/gnome-cmd-bookmark-dialog.c:469
+msgid "Bookmark Groups"
+msgstr "Grupo de Marcadores"
+
+#: src/gnome-cmd-bookmark-dialog.c:491 src/gnome-cmd-file-list.c:1340
+msgid "name"
+msgstr "nome"
+
+#: src/gnome-cmd-bookmark-dialog.c:493
+msgid "path"
+msgstr "caminho"
+
+#: src/gnome-cmd-bookmark-dialog.c:502
+msgid "_Goto"
+msgstr "_Vá Para"
+
+#: src/gnome-cmd-bookmark-dialog.c:507 src/gnome-cmd-main-menu.c:770
+#: src/gnome-cmd-search-popup.c:182
+msgid "_Edit"
+msgstr "_Editar"
+
+#: src/gnome-cmd-bookmark-dialog.c:624
+msgid ""
+"To bookmark a directory the whole search path to the directory must be in "
+"valid UTF-8 encoding\n"
+msgstr ""
+"Para marcar um diretório o caminho para ele deverá estar na codificação UTF-"
+"8\n"
+
+#: src/gnome-cmd-bookmark-dialog.c:631
+msgid "New Bookmark"
+msgstr "Novo Marcador"
+
+#: src/gnome-cmd-chmod-component.c:128
+msgid "Read"
+msgstr "Ler"
+
+#: src/gnome-cmd-chmod-component.c:128
+msgid "Write"
+msgstr "Escrever"
+
+#: src/gnome-cmd-chmod-component.c:128
+msgid "Execute"
+msgstr "Executar"
+
+#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:89
+msgid "Owner:"
+msgstr "Dono:"
+
+#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:92
+msgid "Group:"
+msgstr "Grupo:"
+
+#: src/gnome-cmd-chmod-component.c:129
+msgid "Others:"
+msgstr "Outros:"
+
+#: src/gnome-cmd-chmod-component.c:163
+msgid "Text view:"
+msgstr "Visualizar Texto:"
+
+#: src/gnome-cmd-chmod-component.c:166
+msgid "Number view:"
+msgstr "Visualizar Números"
+
+#: src/gnome-cmd-chmod-dialog.c:38 src/gnome-cmd-options-dialog.c:1079
+msgid "All files"
+msgstr "Todos os arquivos"
+
+#: src/gnome-cmd-chmod-dialog.c:39
+msgid "Directories only"
+msgstr "Diretórios somente"
+
+#: src/gnome-cmd-chmod-dialog.c:71
+#, c-format
+msgid ""
+"Could not chmod %s\n"
+"%s"
+msgstr ""
+"Não é possível mudar permissão %s \n"
+"%s"
+
+#: src/gnome-cmd-chmod-dialog.c:214
+msgid "Access Permissions"
+msgstr "Permissões de Acesso"
+
+#: src/gnome-cmd-chmod-dialog.c:232
+msgid "Apply Recursively for"
+msgstr "Aplicar Recursivamente para"
+
+#: src/gnome-cmd-chown-dialog.c:52
+#, c-format
+msgid ""
+"Could not chown %s\n"
+"%s"
+msgstr ""
+"Não é possível mudar dono/grupo %s\n"
+"%s"
+
+#: src/gnome-cmd-chown-dialog.c:181 src/gnome-cmd-search-popup.c:197
+msgid "Chown"
+msgstr "Mudar Dono/Grupo"
+
+#: src/gnome-cmd-chown-dialog.c:195
+msgid "Apply Recursively"
+msgstr "Aplicar Recursivamente"
+
+#: src/gnome-cmd-con-device.c:103
+msgid "Failed to execute the mount command"
+msgstr "Falha ao executar o comando mount"
+
+#: src/gnome-cmd-con-device.c:110
+msgid "Mount failed: Permission denied"
+msgstr "Falha na montagem: Permissão negada"
+
+#: src/gnome-cmd-con-device.c:113
+msgid "Mount failed: No medium found"
+msgstr "Falha na montagem: Nenhuma mídia encontrada"
+
+#: src/gnome-cmd-con-device.c:117
+#, c-format
+msgid "Mount failed: mount exited with existatus %d"
+msgstr "Falha na Montagem: estado do erro %d"
+
+#: src/gnome-cmd-con-device.c:356
+#, c-format
+msgid "Mounting %s"
+msgstr "Montando %s"
+
+#: src/gnome-cmd-con-device.c:374 src/gnome-cmd-con-ftp.c:287
+#, c-format
+msgid "Go to: %s"
+msgstr "Vá para: %s"
+
+#: src/gnome-cmd-con-device.c:375
+#, c-format
+msgid "Mount: %s"
+msgstr "Montar %s"
+
+#: src/gnome-cmd-con-device.c:376
+#, c-format
+msgid "Unmount: %s"
+msgstr "Desmontar: %s"
+
+#: src/gnome-cmd-con-ftp.c:268
+#, c-format
+msgid "Connecting to %s\n"
+msgstr "Conectando em %s\n"
+
+#: src/gnome-cmd-con-ftp.c:288
+#, c-format
+msgid "Connect to: %s"
+msgstr "Conectar em: %s"
+
+#: src/gnome-cmd-con-ftp.c:289
+#, c-format
+msgid "Disconnect from: %s"
+msgstr "Desconectando de %s"
+
+#: src/gnome-cmd-con-ftp.c:307
+#, c-format
+msgid "Creates an FTP connection to %s"
+msgstr "Criar uma conexão FTP para %s"
+
+#: src/gnome-cmd-con-ftp.c:309
+#, c-format
+msgid "Removes the FTP connection to %s"
+msgstr "Remover a conexão FTP para %s"
+
+#: src/gnome-cmd-con-home.c:129
+msgid "Home"
+msgstr "Início"
+
+#: src/gnome-cmd-con-home.c:137
+msgid "Go to: Home"
+msgstr "Vá para: Início"
+
+#: src/gnome-cmd-con-smb.c:94
+msgid "Failed to browse the network. Is the SMB module installed?"
+msgstr "Falha ao navegar na rede. O módulo SMB está instalado?"
+
+#: src/gnome-cmd-con-smb.c:211
+msgid "SMB"
+msgstr "SMB"
+
+#: src/gnome-cmd-con-smb.c:212
+msgid "Searching for workgroups and hosts"
+msgstr "Procurando por Máquinas e Grupos de Trabalhos"
+
+#: src/gnome-cmd-con-smb.c:219
+msgid "Go to: Samba Network"
+msgstr "Vá para: Rede Samba"
+
+#: src/gnome-cmd-delete-dialog.c:143
+msgid "Deleting..."
+msgstr "Apagando..."
+
+#: src/gnome-cmd-delete-dialog.c:225
+#, c-format
+msgid ""
+"Error while deleting %s\n"
+"\n"
+"%s"
+msgstr ""
+"Erro enquanto apagava %s\n"
+"\n"
+"%s"
+
+#: src/gnome-cmd-delete-dialog.c:228
+msgid "Delete problem"
+msgstr "Problema ao apagar"
+
+#: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-xfer.c:196
+msgid "Abort"
+msgstr "Cancelar"
+
+#: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:196
+msgid "Retry"
+msgstr "Repetir"
+
+#: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:176
+#: src/gnome-cmd-xfer.c:196
+msgid "Skip"
+msgstr "Saltar"
+
+#: src/gnome-cmd-delete-dialog.c:307
+#, c-format
+msgid "Do you want to delete \"%s\"?"
+msgstr "Você quer apagar \"%s\"?"
+
+#: src/gnome-cmd-delete-dialog.c:312
+#, fuzzy, c-format
+msgid "Do you want to delete the selected file?"
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] "Você gostaria de apagar os arquivos selecionados?"
+msgstr[1] "Você gostaria de apagar os arquivos selecionados?"
+
+#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1346
+msgid "Delete"
+msgstr "Apagar"
+
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603 src/utils.c:632
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603
+msgid "OK"
+msgstr "Confirmar"
+
+#: src/gnome-cmd-dir.c:569
+msgid "Waiting for file list"
+msgstr "Esperando por lista de arquivos"
+
+#: src/gnome-cmd-file-list.c:1341
+msgid "ext"
+msgstr "ext"
+
+#: src/gnome-cmd-file-list.c:1342
+msgid "dir"
+msgstr "dir"
+
+#: src/gnome-cmd-file-list.c:1343
+msgid "size"
+msgstr "tamanho"
+
+#: src/gnome-cmd-file-list.c:1344
+msgid "date"
+msgstr "data"
+
+#: src/gnome-cmd-file-list.c:1345
+msgid "perm"
+msgstr "perm"
+
+#: src/gnome-cmd-file-list.c:1346
+msgid "uid"
+msgstr "uid"
+
+#: src/gnome-cmd-file-list.c:1347
+msgid "gid"
+msgstr "gid"
+
+#: src/gnome-cmd-file-popmenu.c:131
+msgid "Invalid command"
+msgstr "Comando inválido"
+
+#: src/gnome-cmd-file-popmenu.c:159
+msgid "Application:"
+msgstr "Aplicação:"
+
+#: src/gnome-cmd-file-popmenu.c:163
+msgid "Open with other..."
+msgstr "Abrir com outro..."
+
+#: src/gnome-cmd-file-popmenu.c:167
+msgid "Needs terminal"
+msgstr "Terminal necessário"
+
+#: src/gnome-cmd-file-popmenu.c:418
+msgid "_Open"
+msgstr "_Abrir"
+
+#: src/gnome-cmd-file-popmenu.c:425
+msgid "_Open with..."
+msgstr "Abrir C_om..."
+
+#: src/gnome-cmd-file-popmenu.c:437
+msgid "_Execute"
+msgstr "_Executar"
+
+#: src/gnome-cmd-file-popmenu.c:455
+msgid "_Cut"
+msgstr "_Recortar"
+
+#: src/gnome-cmd-file-popmenu.c:462 src/gnome-cmd-main-menu.c:565
+msgid "_Copy"
+msgstr "_Copiar"
+
+#: src/gnome-cmd-file-popmenu.c:469 src/gnome-cmd-main-menu.c:577
+#: src/gnome-cmd-search-popup.c:167
+msgid "_Delete"
+msgstr "Apa_gar"
+
+#: src/gnome-cmd-file-popmenu.c:476
+msgid "Rename"
+msgstr "Renomear"
+
+#: src/gnome-cmd-file-popmenu.c:484 src/gnome-cmd-file-props-dialog.c:475
+#: src/gnome-cmd-search-popup.c:204
+msgid "Properties"
+msgstr "Propriedades"
+
+#: src/gnome-cmd-file-popmenu.c:542
+msgid "Other..."
+msgstr "Outros..."
+
+#: src/gnome-cmd-file-props-dialog.c:63 src/utils.c:987
+#, fuzzy, c-format
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] "%s bytes"
+msgstr[1] "%s bytes"
+
+#: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
+msgid "No default application registered"
+msgstr "Nenhuma aplicação padrão especificada"
+
+#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2058
+msgid "Filename:"
+msgstr "Nome de arquivo:"
+
+#: src/gnome-cmd-file-props-dialog.c:313
+msgid "Symlink target:"
+msgstr "Alvo é uma ligação simbólica:"
+
+#: src/gnome-cmd-file-props-dialog.c:322
+msgid "Type:"
+msgstr "Tipo:"
+
+#: src/gnome-cmd-file-props-dialog.c:329
+msgid "MIME Type:"
+msgstr "Tipo MIME:"
+
+#: src/gnome-cmd-file-props-dialog.c:337
+msgid "Opens with:"
+msgstr "Abrir com:"
+
+#: src/gnome-cmd-file-props-dialog.c:348
+msgid "_Change"
+msgstr "_Mudar"
+
+#: src/gnome-cmd-file-props-dialog.c:360
+msgid "Accessed:"
+msgstr "Acessado:"
+
+#: src/gnome-cmd-file-props-dialog.c:367
+msgid "Modified:"
+msgstr "Modificado:"
+
+#: src/gnome-cmd-file-props-dialog.c:377
+msgid "Size:"
+msgstr "Tamanho:"
+
+#: src/gnome-cmd-file-props-dialog.c:413
+msgid "Owner and group"
+msgstr "Dono e Grupo"
+
+#: src/gnome-cmd-file-props-dialog.c:427
+msgid "Access permissions"
+msgstr "Permissões de acesso"
+
+#: src/gnome-cmd-file-props-dialog.c:450
+msgid "File Properties"
+msgstr "Propriedades do arquivo"
+
+#: src/gnome-cmd-file-props-dialog.c:479
+msgid "Permissions"
+msgstr "Permissões"
+
+#: src/gnome-cmd-file-selector.c:194
+#, fuzzy, c-format
+msgid "%s of %s kB in %d of %d file selected"
+msgid_plural "%s of %s kB in %d of %d files selected"
+msgstr[0] "%s de %s kB no %d de %d arquivo selecionado"
+msgstr[1] "%s de %s kB no %d de %d arquivo selecionado"
+
+#: src/gnome-cmd-file-selector.c:730
+#, c-format
+msgid "%s Free"
+msgstr "%s Livre"
+
+#: src/gnome-cmd-file-selector.c:1784
+#, c-format
+msgid "Failed to open connection: %s\n"
+msgstr "Falha ao abrir conexão: %s\n"
+
+#: src/gnome-cmd-file-selector.c:1993 src/gnome-cmd-make-copy-dialog.c:68
+#: src/gnome-cmd-rename-dialog.c:52
+msgid "No filename entered"
+msgstr "Nenhum nome de arquivo colocado"
+
+#: src/gnome-cmd-file-selector.c:2029
+msgid "No filename given"
+msgstr "Nenhum nome de arquivo fornecido"
+
+#: src/gnome-cmd-file-selector.c:2064
+msgid "New Text File"
+msgstr "Novo Arquivo de Texto"
+
+#: src/gnome-cmd-file-selector.c:2233
+msgid "Symlink name:"
+msgstr "Nome da ligação simbólica:"
+
+#: src/gnome-cmd-file-selector.c:2237
+#, fuzzy, c-format
+msgid "Symlink to %s"
+msgstr "Ligações Simbólicas"
+
+#: src/gnome-cmd-file-selector.c:2239
+msgid "Create Symbolic Link"
+msgstr "Criar Ligação Simbólica"
+
+#: src/gnome-cmd-file-selector.c:2310
+msgid "Filter:"
+msgstr "Filtro:"
+
+#: src/gnome-cmd-file.c:603
+msgid "Unknown file type"
+msgstr "Tipo de arquivo Ignorado"
+
+#: src/gnome-cmd-file.c:604
+msgid "Regular file"
+msgstr "Arquivo Regular"
+
+#: src/gnome-cmd-file.c:605
+msgid "Directory"
+msgstr "Diretório"
+
+#: src/gnome-cmd-file.c:606
+msgid "FIFO"
+msgstr "FIFO"
+
+#: src/gnome-cmd-file.c:607
+msgid "UNIX Socket"
+msgstr "Soquete UNIX"
+
+#: src/gnome-cmd-file.c:608
+msgid "Character device"
+msgstr "Dispositivo de caractere"
+
+#: src/gnome-cmd-file.c:609
+msgid "Block device"
+msgstr "Dispositivo de bloco"
+
+#: src/gnome-cmd-file.c:610
+msgid "Symbolic link"
+msgstr "Ligação Simbólica"
+
+#: src/gnome-cmd-ftp-dialog.c:163
+#, c-format
+msgid "Enter password for %s@%s"
+msgstr "Coloque a senha para %s@%s"
+
+#: src/gnome-cmd-ftp-dialog.c:168
+msgid "Enter Password"
+msgstr "Coloque a Senha"
+
+#: src/gnome-cmd-ftp-dialog.c:215
+msgid "No alias specified"
+msgstr "Nenhum apelido especificado"
+
+#: src/gnome-cmd-ftp-dialog.c:218
+msgid "No host specified"
+msgstr "Nenhuma máquina especificada"
+
+#: src/gnome-cmd-ftp-dialog.c:221
+#, c-format
+msgid "Invalid port number: %s"
+msgstr "Número de porta inválido: %s"
+
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-options-dialog.c:1472
+msgid "Alias:"
+msgstr "Apelido:"
+
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+msgid "Host:"
+msgstr "Máquina:"
+
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+msgid "Port:"
+msgstr "Porta:"
+
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+msgid "User:"
+msgstr "Usuário:"
+
+#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+msgid "Password:"
+msgstr "Senha:"
+
+#: src/gnome-cmd-ftp-dialog.c:323
+msgid "New FTP Server"
+msgstr "Novo Servidor FTP"
+
+#: src/gnome-cmd-ftp-dialog.c:348
+msgid "Edit FTP Server"
+msgstr "Editar Servidor FTP"
+
+#: src/gnome-cmd-ftp-dialog.c:378
+msgid "No server selected"
+msgstr "Nenhum servidor selecionado"
+
+#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1354
+msgid "FTP Connect"
+msgstr "Conectar FTP"
+
+#: src/gnome-cmd-ftp-dialog.c:512
+msgid "Servers"
+msgstr "Servidores"
+
+#: src/gnome-cmd-ftp-dialog.c:532 src/gnome-cmd-options-dialog.c:1626
+msgid "Alias"
+msgstr "Apelido"
+
+#: src/gnome-cmd-ftp-dialog.c:537 src/gnome-cmd-list-popmenu.c:145
+msgid "_New..."
+msgstr "_Novo..."
+
+#: src/gnome-cmd-ftp-dialog.c:553
+msgid "Anonymous password:"
+msgstr "Senha Anônima:"
+
+#: src/gnome-cmd-ftp-dialog.c:563
+msgid "Connect"
+msgstr "Conectar"
+
+#: src/gnome-cmd-ftp-dialog.c:670
+msgid "FTP Quick Connect"
+msgstr "Conexão rápida FTP"
+
+#: src/gnome-cmd-list-popmenu.c:126
+msgid "_Directory"
+msgstr "_Diretório"
+
+#: src/gnome-cmd-list-popmenu.c:133
+msgid "_Text file"
+msgstr "Arquivo de _Texto"
+
+#: src/gnome-cmd-list-popmenu.c:152 src/gnome-cmd-main-menu.c:571
+msgid "_Paste"
+msgstr "Co_lar"
+
+#: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:626
+msgid "_Refresh"
+msgstr "Atualiza_r"
+
+#: src/gnome-cmd-main-menu.c:389
+msgid "Switch to Horizontal Layout"
+msgstr "Mudar para Disposição Horizontal"
+
+#: src/gnome-cmd-main-menu.c:394
+msgid "Switch to Vertical Layout"
+msgstr "Mudar para disposição Vertical"
+
+#: src/gnome-cmd-main-menu.c:462
+msgid "Change _Owner/Group"
+msgstr "Alterar:D_ono/Grupo"
+
+#: src/gnome-cmd-main-menu.c:468
+msgid "Change Per_missions"
+msgstr "Alterar Per_missões"
+
+#: src/gnome-cmd-main-menu.c:474
+msgid "Advanced _Rename Tool"
+msgstr "Ferramenta Avançada para _Renomear"
+
+#: src/gnome-cmd-main-menu.c:480
+msgid "Create _Symbolic Link"
+msgstr "Criar Link _Simbólico"
+
+#: src/gnome-cmd-main-menu.c:486
+msgid "_Properties..."
+msgstr "_Propriedades..."
+
+#: src/gnome-cmd-main-menu.c:493
+msgid "_Diff"
+msgstr "_Diferenciar"
+
+#: src/gnome-cmd-main-menu.c:500
+msgid "_Quit"
+msgstr "Sai_r"
+
+#: src/gnome-cmd-main-menu.c:511
+msgid "_Select All"
+msgstr "_Selecionar Tudo"
+
+#: src/gnome-cmd-main-menu.c:517
+msgid "_Unselect All"
+msgstr "_Deselecionar Tudo"
+
+#: src/gnome-cmd-main-menu.c:523
+msgid "Select with _Pattern"
+msgstr "Selecionar com _Padrão"
+
+#: src/gnome-cmd-main-menu.c:529
+msgid "Unselect with P_attern"
+msgstr "Deselecionar com P_adrão"
+
+#: src/gnome-cmd-main-menu.c:535
+msgid "_Invert Selection"
+msgstr "_Inverter Seleção"
+
+#: src/gnome-cmd-main-menu.c:541
+msgid "_Restore Selection"
+msgstr "_Restaurar Seleção"
+
+#: src/gnome-cmd-main-menu.c:548
+msgid "_Compare Directries"
+msgstr "_Comparar Diretórios"
+
+#: src/gnome-cmd-main-menu.c:559
+msgid "Cu_t"
+msgstr "Recor_tar"
+
+#: src/gnome-cmd-main-menu.c:584
+#, fuzzy
+msgid "Copy _File Names"
+msgstr "Copiar Arquivo"
+
+#: src/gnome-cmd-main-menu.c:591
+msgid "_Search..."
+msgstr "_Procurar..."
+
+#: src/gnome-cmd-main-menu.c:597
+msgid "_Quick Search..."
+msgstr "_Rápida Procura"
+
+#: src/gnome-cmd-main-menu.c:603
+msgid "_Enable Filter..."
+msgstr "_Habilitar Filtro..."
+
+#: src/gnome-cmd-main-menu.c:614
+msgid "_Back"
+msgstr "_Voltar"
+
+#: src/gnome-cmd-main-menu.c:620
+msgid "_Forward"
+msgstr "_Avançar"
+
+#: src/gnome-cmd-main-menu.c:633
+msgid "Show Device Buttons"
+msgstr "Mostrar Botões dos dispositivos"
+
+#: src/gnome-cmd-main-menu.c:639
+msgid "Show Toolbar"
+msgstr "Mostrar Barra de Ferramentas"
+
+#: src/gnome-cmd-main-menu.c:645
+msgid "Show Commandline"
+msgstr "Mostrar Linha de Comando"
+
+#: src/gnome-cmd-main-menu.c:651
+msgid "Show Buttonbar"
+msgstr "Mostrar barra de botões"
+
+#: src/gnome-cmd-main-menu.c:658
+msgid "Show Hidden Files"
+msgstr "Mostrar Arquivos Ocultos"
+
+#: src/gnome-cmd-main-menu.c:664
+msgid "Show Backup Files"
+msgstr "Mostrar arquivos de backup"
+
+#: src/gnome-cmd-main-menu.c:676
+msgid "_Bookmark this Directory..."
+msgstr "_Marcar este Diretório..."
+
+#: src/gnome-cmd-main-menu.c:682
+#, fuzzy
+msgid "_Manage Bookmarks..."
+msgstr "_Alterar Marcadores"
+
+#: src/gnome-cmd-main-menu.c:694
+msgid "_Configure Plugins..."
+msgstr "_Configurar Plugins..."
+
+#: src/gnome-cmd-main-menu.c:706
+msgid "_Options..."
+msgstr "_Opções..."
+
+#: src/gnome-cmd-main-menu.c:712
+msgid "Edit _Mime Types..."
+msgstr "Alterar Tipos _MIME..."
+
+#: src/gnome-cmd-main-menu.c:723
+msgid "FTP _Connect..."
+msgstr "Conectar _FTP..."
+
+#: src/gnome-cmd-main-menu.c:729
+msgid "FTP _Quick Connect..."
+msgstr "Conectar _Rapidamente com FTP..."
+
+#: src/gnome-cmd-main-menu.c:740
+msgid "User _Manual..."
+msgstr "_Manual do Usuário"
+
+#: src/gnome-cmd-main-menu.c:747
+msgid "_About..."
+msgstr "_Sobre..."
+
+#. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
+#: src/gnome-cmd-main-menu.c:766
+msgid "_File"
+msgstr "_Arquivo"
+
+#: src/gnome-cmd-main-menu.c:774
+msgid "_Mark"
+msgstr "_Marca"
+
+#: src/gnome-cmd-main-menu.c:778 src/gnome-cmd-search-popup.c:175
+msgid "_View"
+msgstr "_Visualizar"
+
+#: src/gnome-cmd-main-menu.c:783
+msgid "_Settings"
+msgstr "Confi_gurações"
+
+#: src/gnome-cmd-main-menu.c:787
+msgid "_Connections"
+msgstr "_Conecções"
+
+#: src/gnome-cmd-main-menu.c:791
+msgid "_Bookmarks"
+msgstr "_Marcadores"
+
+#: src/gnome-cmd-main-menu.c:795
+msgid "_Plugins"
+msgstr "_Plugins"
+
+#: src/gnome-cmd-main-menu.c:799
+msgid "_Help"
+msgstr "A_juda"
+
+#: src/gnome-cmd-main-win.c:447
+msgid "F3 View"
+msgstr "F3 Visualizar"
+
+#: src/gnome-cmd-main-win.c:450
+msgid "F4 Edit"
+msgstr "F4 Editar"
+
+#: src/gnome-cmd-main-win.c:453
+msgid "F5 Copy"
+msgstr "F5 Copiar"
+
+#: src/gnome-cmd-main-win.c:456
+msgid "F6 Move"
+msgstr "F6 Mover"
+
+#: src/gnome-cmd-main-win.c:459
+msgid "F7 Mkdir"
+msgstr "F7 Criar Diretório"
+
+#: src/gnome-cmd-main-win.c:462
+msgid "F8 Delete"
+msgstr "F8 Apagar"
+
+#: src/gnome-cmd-main-win.c:465
+msgid "F9 Search"
+msgstr "F9 Localizar"
+
+#: src/gnome-cmd-main-win.c:468
+msgid "F10 Quit"
+msgstr "F10 Sair"
+
+#: src/gnome-cmd-main-win.c:1296
+msgid "Refresh"
+msgstr "Atualizar"
+
+#: src/gnome-cmd-main-win.c:1303
+msgid "Back in history"
+msgstr "Voltar em histórico"
+
+#: src/gnome-cmd-main-win.c:1310
+msgid "Forward in history"
+msgstr "Avançar em histórico"
+
+#: src/gnome-cmd-main-win.c:1318
+#, fuzzy
+msgid "Copy file names"
+msgstr "Novos Nomes de Arquivos"
+
+#: src/gnome-cmd-main-win.c:1325
+msgid "Cut"
+msgstr "Recortar"
+
+#: src/gnome-cmd-main-win.c:1332 src/gnome-cmd-prepare-copy-dialog.c:86
+msgid "Copy"
+msgstr "Copiar"
+
+#: src/gnome-cmd-main-win.c:1339
+msgid "Paste"
+msgstr "Colar"
+
+#: src/gnome-cmd-main-win.c:1361
+msgid "Drop connection"
+msgstr "Abandonar Conexão"
+
+#: src/gnome-cmd-make-copy-dialog.c:154
+#: src/gnome-cmd-prepare-copy-dialog.c:152
+#, c-format
+msgid "Copy \"%s\" to"
+msgstr "Copiar \"%s\" para"
+
+#: src/gnome-cmd-make-copy-dialog.c:162
+msgid "Copy File"
+msgstr "Copiar Arquivo"
+
+#: src/gnome-cmd-mkdir-dialog.c:48
+msgid "A directory name must be entered"
+msgstr "O diretório precisa de um nome"
+
+#: src/gnome-cmd-mkdir-dialog.c:141
+msgid "Directory name:"
+msgstr "Nome do Diretório:"
+
+#: src/gnome-cmd-mkdir-dialog.c:149
+msgid "Make Directory"
+msgstr "Criar Diretório"
+
+#: src/gnome-cmd-options-dialog.c:63
+msgid "Use right mouse button to"
+msgstr "Use o botão direito do mouse para"
+
+#: src/gnome-cmd-options-dialog.c:66
+msgid "Show popup menu"
+msgstr "Mostrar menu de opções"
+
+#: src/gnome-cmd-options-dialog.c:70
+msgid "Select files"
+msgstr "Selecionar arquivos"
+
+#: src/gnome-cmd-options-dialog.c:79
+msgid "Match filenames using"
+msgstr "Marcar arquivos usando"
+
+#: src/gnome-cmd-options-dialog.c:82
+msgid "Shell syntax"
+msgstr "Sintaxe de Shell"
+
+#: src/gnome-cmd-options-dialog.c:86
+msgid "Regex syntax"
+msgstr "Sintaxe de expressão regular"
+
+#: src/gnome-cmd-options-dialog.c:96
+msgid "Sorting options"
+msgstr "Opções de classificação"
+
+#: src/gnome-cmd-options-dialog.c:99 src/gnome-cmd-patternsel-dialog.c:160
+msgid "Case sensitive"
+msgstr "Diferenciar Maiúscula e Minúscula"
+
+#: src/gnome-cmd-options-dialog.c:109
+msgid "Confirmation options"
+msgstr "Opções de confirmação"
+
+#: src/gnome-cmd-options-dialog.c:112
+msgid "Confirm before delete"
+msgstr "Confirmar antes de apagar"
+
+#: src/gnome-cmd-options-dialog.c:122
+msgid "Directory options"
+msgstr "Opções do diretório"
+
+#: src/gnome-cmd-options-dialog.c:125
+msgid "Directory cache size"
+msgstr "Tamanho do diretório de cache"
+
+#: src/gnome-cmd-options-dialog.c:214
+msgid "Size display mode"
+msgstr "Dimensão do modo de visualização"
+
+#: src/gnome-cmd-options-dialog.c:217
+msgid "Powered"
+msgstr "Fortalecido"
+
+#: src/gnome-cmd-options-dialog.c:222
+msgid "Grouped"
+msgstr "Agrupado"
+
+#: src/gnome-cmd-options-dialog.c:227
+msgid "Plain"
+msgstr "Plano"
+
+#: src/gnome-cmd-options-dialog.c:237
+msgid "Permission display mode"
+msgstr "Modo de visualização de permissão"
+
+#: src/gnome-cmd-options-dialog.c:240
+msgid "Text (rw-r--r--)"
+msgstr "Texto(rw-r--r--)"
+
+#: src/gnome-cmd-options-dialog.c:245
+msgid "Number (311)"
+msgstr "Número (311)"
+
+#: src/gnome-cmd-options-dialog.c:255
+msgid "Date format"
+msgstr "Formato da data"
+
+#: src/gnome-cmd-options-dialog.c:258
+msgid "Format:"
+msgstr "Formatar:"
+
+#: src/gnome-cmd-options-dialog.c:266
+msgid "_Test"
+msgstr "_Teste"
+
+#: src/gnome-cmd-options-dialog.c:269
+msgid "Test result:"
+msgstr "Resultado do teste"
+
+#: src/gnome-cmd-options-dialog.c:279
+msgid ""
+"See the manual page for \"strftime\" for help on how to set the format "
+"string."
+msgstr ""
+"Veja a página do manual para \"strftime\" para ajuda ou como definir um "
+"formato para a cadeia de caracteres."
+
+#: src/gnome-cmd-options-dialog.c:401
+msgid "Edit Colors..."
+msgstr "Editar Cores"
+
+#: src/gnome-cmd-options-dialog.c:408
+msgid "Colors"
+msgstr "Cores"
+
+#: src/gnome-cmd-options-dialog.c:445
+msgid "Foreground"
+msgstr "Primeiro Plano"
+
+#: src/gnome-cmd-options-dialog.c:447
+msgid "Background"
+msgstr "Segundo Plano"
+
+#: src/gnome-cmd-options-dialog.c:449
+msgid "Default:"
+msgstr "Padrão:"
+
+#: src/gnome-cmd-options-dialog.c:451
+msgid "Selected file:"
+msgstr "Arquivo selecionado:"
+
+#: src/gnome-cmd-options-dialog.c:453
+msgid "Cursor:"
+msgstr "Cursor:"
+
+#: src/gnome-cmd-options-dialog.c:470
+msgid "With filename"
+msgstr "Com o nome do arquivo"
+
+#: src/gnome-cmd-options-dialog.c:471
+msgid "In separate column"
+msgstr "Em coluna separada"
+
+#: src/gnome-cmd-options-dialog.c:472
+msgid "In both columns"
+msgstr "Em ambas as colunas"
+
+#: src/gnome-cmd-options-dialog.c:476
+msgid "No icons"
+msgstr "Sem ícones"
+
+#: src/gnome-cmd-options-dialog.c:477
+msgid "File type icons"
+msgstr "Ícone de tipos de arquivos"
+
+#: src/gnome-cmd-options-dialog.c:478
+msgid "MIME icons"
+msgstr "Ícones MIME"
+
+#: src/gnome-cmd-options-dialog.c:482
+msgid "Respect theme colors"
+msgstr "Respeitar cores do tema"
+
+#: src/gnome-cmd-options-dialog.c:483
+msgid "Modern"
+msgstr "Moderno"
+
+#: src/gnome-cmd-options-dialog.c:484
+msgid "Classic"
+msgstr "Clássico"
+
+#: src/gnome-cmd-options-dialog.c:485
+msgid "Custom"
+msgstr "Personalizado"
+
+#: src/gnome-cmd-options-dialog.c:501
+msgid "File panes"
+msgstr "Quadros de Arquios"
+
+#: src/gnome-cmd-options-dialog.c:516
+msgid "Font:"
+msgstr "Caracteres:"
+
+#: src/gnome-cmd-options-dialog.c:518
+msgid "Row height:"
+msgstr "Altura da linha"
+
+#. File extensions
+#: src/gnome-cmd-options-dialog.c:522
+msgid "Display file extensions:"
+msgstr "Mostrar extensão do arquivo"
+
+#. Graphical mode
+#: src/gnome-cmd-options-dialog.c:530
+msgid "Graphical mode:"
+msgstr "Modo Gráfico:"
+
+#. Color scheme
+#: src/gnome-cmd-options-dialog.c:540
+msgid "Color scheme:"
+msgstr "Esquema de cor:"
+
+#: src/gnome-cmd-options-dialog.c:553
+msgid "Edit..."
+msgstr "Editar..."
+
+#: src/gnome-cmd-options-dialog.c:563
+msgid "Colorize files according to the LS_COLORS enviroment variable"
+msgstr "Colorir arquivos de acordo com as variável LS_COLORS"
+
+#: src/gnome-cmd-options-dialog.c:575
+msgid "MIME icon settings"
+msgstr "Opções de ícones MIME"
+
+#: src/gnome-cmd-options-dialog.c:592
+msgid "Icon size:"
+msgstr "Tamanho do ícone:"
+
+#: src/gnome-cmd-options-dialog.c:594
+msgid "Scaling quality:"
+msgstr "Qualidade de Escalagem "
+
+#: src/gnome-cmd-options-dialog.c:596
+msgid "Theme icon directory:"
+msgstr "Diretóro de tema de ícones:"
+
+#: src/gnome-cmd-options-dialog.c:598
+msgid "Document icon directory:"
+msgstr "Diretório de documentação de ícone:"
+
+#: src/gnome-cmd-options-dialog.c:715
+msgid "Filetypes to hide"
+msgstr "Tipos de arquivos a ocultar"
+
+#: src/gnome-cmd-options-dialog.c:718
+msgid "Unknown"
+msgstr "Desconhecido"
+
+#: src/gnome-cmd-options-dialog.c:723
+msgid "Regular files"
+msgstr "Arquivos Regulares"
+
+#: src/gnome-cmd-options-dialog.c:728
+msgid "Directories"
+msgstr "Diretórios"
+
+#: src/gnome-cmd-options-dialog.c:733
+msgid "Fifo files"
+msgstr "Arquivos FIFO"
+
+#: src/gnome-cmd-options-dialog.c:738
+msgid "Socket files"
+msgstr "Arquivo de Soquete"
+
+#: src/gnome-cmd-options-dialog.c:743
+msgid "Character devices"
+msgstr "Dispositivo de Carateres"
+
+#: src/gnome-cmd-options-dialog.c:748
+msgid "Block devices"
+msgstr "Dispositivos de Bloco"
+
+#: src/gnome-cmd-options-dialog.c:756
+msgid "Also hide"
+msgstr "Escondidos também"
+
+#: src/gnome-cmd-options-dialog.c:759
+msgid "Hidden files"
+msgstr "Arquivos Ocultos"
+
+#: src/gnome-cmd-options-dialog.c:764 src/gnome-cmd-options-dialog.c:777
+msgid "Backup files"
+msgstr "Arquivos de Backup"
+
+#: src/gnome-cmd-options-dialog.c:769
+msgid "Symlinks"
+msgstr "Ligações Simbólicas"
+
+#: src/gnome-cmd-options-dialog.c:1036
+msgid "Label:"
+msgstr "Rótulo:"
+
+#: src/gnome-cmd-options-dialog.c:1038
+msgid "Command:"
+msgstr "Comando:"
+
+#: src/gnome-cmd-options-dialog.c:1040 src/gnome-cmd-options-dialog.c:1478
+msgid "Icon:"
+msgstr "Ícone:"
+
+#: src/gnome-cmd-options-dialog.c:1061
+msgid "Can handle multiple files"
+msgstr "Poder controlar vários arquivos"
+
+#: src/gnome-cmd-options-dialog.c:1065
+msgid "Can handle URIs"
+msgstr "Poder controlar URLs"
+
+#: src/gnome-cmd-options-dialog.c:1069
+msgid "Requires terminal"
+msgstr "Requer Terminal"
+
+#: src/gnome-cmd-options-dialog.c:1076
+msgid "Show for"
+msgstr "Mostrar para"
+
+#: src/gnome-cmd-options-dialog.c:1085
+msgid "All directories"
+msgstr "Todos os diretórios"
+
+#: src/gnome-cmd-options-dialog.c:1091
+msgid "All directories and files"
+msgstr "Todos os diretórios e arquivos"
+
+#: src/gnome-cmd-options-dialog.c:1097
+msgid "Some files"
+msgstr "Mesmos Arquivos"
+
+#: src/gnome-cmd-options-dialog.c:1108
+msgid "File patterns"
+msgstr "Padrões de Arquivos"
+
+#: src/gnome-cmd-options-dialog.c:1133
+msgid "New Application"
+msgstr "Nova Aplicação"
+
+#: src/gnome-cmd-options-dialog.c:1144
+msgid "Edit Application"
+msgstr "Editar Aplicação"
+
+#: src/gnome-cmd-options-dialog.c:1230
+msgid "Always download remote files before opening in external programs"
+msgstr "Sempre baixar arquivos remotos antes de abrir em programas externos"
+
+#: src/gnome-cmd-options-dialog.c:1234
+msgid "MIME applications"
+msgstr "Aplicações MIME"
+
+#: src/gnome-cmd-options-dialog.c:1238
+msgid "Standard programs"
+msgstr "Programas Padrões"
+
+#: src/gnome-cmd-options-dialog.c:1241
+msgid "Viewer:"
+msgstr "Visualizador:"
+
+#: src/gnome-cmd-options-dialog.c:1243
+msgid "Editor:"
+msgstr "Editor:"
+
+#: src/gnome-cmd-options-dialog.c:1245
+msgid "Differ:"
+msgstr "Diferenciador:"
+
+#: src/gnome-cmd-options-dialog.c:1247
+msgid "Terminal:"
+msgstr "Terminal:"
+
+#: src/gnome-cmd-options-dialog.c:1266
+msgid "Other favorite apps"
+msgstr "Outras aplicações favoritas"
+
+#: src/gnome-cmd-options-dialog.c:1273
+msgid "Label"
+msgstr "Rótulo"
+
+#: src/gnome-cmd-options-dialog.c:1474
+msgid "Device:"
+msgstr "Dispositivo:"
+
+#: src/gnome-cmd-options-dialog.c:1476
+msgid "Mount point:"
+msgstr "Ponto de Montagem:"
+
+#: src/gnome-cmd-options-dialog.c:1520
+msgid "New Device"
+msgstr "Novo Dispositivo"
+
+#: src/gnome-cmd-options-dialog.c:1532
+msgid "Edit Device"
+msgstr "Editar Dispositivo"
+
+#: src/gnome-cmd-options-dialog.c:1616 src/gnome-cmd-options-dialog.c:1826
+msgid "Devices"
+msgstr "Dispositivos"
+
+#: src/gnome-cmd-options-dialog.c:1658
+msgid "Show only the icons"
+msgstr "Mostrar somente ícones"
+
+#: src/gnome-cmd-options-dialog.c:1663
+msgid "Skip mounting (useful when using super-mount)"
+msgstr "Saltar montagem (útil quando usar super mount)"
+
+#: src/gnome-cmd-options-dialog.c:1796
+msgid "General"
+msgstr "Geral"
+
+#: src/gnome-cmd-options-dialog.c:1802
+msgid "Format"
+msgstr "Formatar"
+
+#: src/gnome-cmd-options-dialog.c:1808
+msgid "Layout"
+msgstr "Disposição"
+
+#: src/gnome-cmd-options-dialog.c:1814
+msgid "Filters"
+msgstr "Filtros"
+
+#: src/gnome-cmd-options-dialog.c:1820
+msgid "Programs"
+msgstr "Programas"
+
+#: src/gnome-cmd-patternsel-dialog.c:136
+msgid "Select Using Pattern"
+msgstr "Selecionar usando padrões"
+
+#: src/gnome-cmd-patternsel-dialog.c:136
+msgid "Unselect Using Pattern"
+msgstr "Deselecionar usando padrões"
+
+#: src/gnome-cmd-patternsel-dialog.c:147
+msgid "Pattern:"
+msgstr "Padrão:"
+
+#.
+#. * Create prepare copy specific widgets
+#.
+#: src/gnome-cmd-prepare-copy-dialog.c:93
+#: src/gnome-cmd-prepare-move-dialog.c:87
+msgid "Silently"
+msgstr "Discreto"
+
+#: src/gnome-cmd-prepare-copy-dialog.c:102
+#: src/gnome-cmd-prepare-move-dialog.c:96
+msgid "Query First"
+msgstr "Questionar primeiro"
+
+#: src/gnome-cmd-prepare-copy-dialog.c:111
+#: src/gnome-cmd-prepare-move-dialog.c:105 src/gnome-cmd-xfer.c:176
+msgid "Skip All"
+msgstr "Saltar Tudo"
+
+#: src/gnome-cmd-prepare-copy-dialog.c:121
+msgid "Follow Links"
+msgstr "Seguir ligações"
+
+#.
+#. * Customize prepare xfer widgets
+#.
+#: src/gnome-cmd-prepare-copy-dialog.c:136
+#: src/gnome-cmd-prepare-move-dialog.c:120
+msgid "Overwrite Files"
+msgstr "Sobreescrever Arquivos"
+
+#: src/gnome-cmd-prepare-copy-dialog.c:156
+#, fuzzy, c-format
+msgid "copy %d file to"
+msgid_plural "copy %d files to"
+msgstr[0] "copiar %d arquivo para"
+msgstr[1] "copiar %d arquivo para"
+
+#: src/gnome-cmd-prepare-move-dialog.c:80
+msgid "Move"
+msgstr "Mover"
+
+#: src/gnome-cmd-prepare-move-dialog.c:135
+#, c-format
+msgid "Move \"%s\" to"
+msgstr "Mover %s to"
+
+#: src/gnome-cmd-prepare-move-dialog.c:139
+#, fuzzy, c-format
+msgid "move %d file to"
+msgid_plural "move %d files to"
+msgstr[0] "mover %d arquivo para"
+msgstr[1] "mover %d arquivo para"
+
+#: src/gnome-cmd-prepare-xfer-dialog.c:114
+#: src/gnome-cmd-prepare-xfer-dialog.c:153
+#, c-format
+msgid "The directory '%s' doesn't exist, do you want to create it?"
+msgstr "O diretório '%s' não existe, você quer criá-lo?"
+
+#: src/gnome-cmd-quicksearch-popup.c:249
+msgid "Search"
+msgstr "Procurar"
+
+#: src/gnome-cmd-rename-dialog.c:147
+#, c-format
+msgid "Rename \"%s\" to"
+msgstr "Renomear \"%s\" para"
+
+#: src/gnome-cmd-rename-dialog.c:155
+msgid "Rename File"
+msgstr "Renomear Arquivo"
+
+#: src/gnome-cmd-search-dialog.c:184
+#, c-format
+msgid "Failed to open file %s: %s\n"
+msgstr "Falha ao abrir arquivo %s: %s\n"
+
+#: src/gnome-cmd-search-dialog.c:193
+#, c-format
+msgid "Failed to read from file %s: %s\n"
+msgstr "Falha ao ler do arquivo %s: %s\n"
+
+#: src/gnome-cmd-search-dialog.c:255
+#, c-format
+msgid "Searching in: %s"
+msgstr "Procurando em: %s"
+
+#: src/gnome-cmd-search-dialog.c:399
+#, fuzzy, c-format
+msgid "Found %d match before I was stopped"
+msgid_plural "Found %d matches before I was stopped"
+msgstr[0] "Encontrada %d correspodência antes de ser parado"
+msgstr[1] "Encontrada %d correspodência antes de ser parado"
+
+#: src/gnome-cmd-search-dialog.c:406
+#, fuzzy, c-format
+msgid "Found %d match"
+msgid_plural "Found %d matches"
+msgstr[0] "Encontrada %d ocorrência"
+msgstr[1] "Encontrada %d ocorrência"
+
+#: src/gnome-cmd-search-dialog.c:737
+msgid "Search..."
+msgstr "Procurar..."
+
+#. Search for
+#: src/gnome-cmd-search-dialog.c:752
+msgid "Search for: "
+msgstr "Procurar para: "
+
+#. Search in
+#: src/gnome-cmd-search-dialog.c:766
+msgid "Search in: "
+msgstr "Procurar em: "
+
+#. Find text
+#: src/gnome-cmd-search-dialog.c:780
+msgid "Find text: "
+msgstr "Procurar texto:"
+
+#: src/gnome-cmd-search-dialog.c:797
+msgid "Search Recursively"
+msgstr "Procurar Recursivamente"
+
+#. Case check
+#: src/gnome-cmd-search-dialog.c:805
+msgid "Case Sensitive"
+msgstr "Diferenciar Maiúsculas e Minúsculas"
+
+#: src/gnome-cmd-search-dialog.c:817
+msgid "Goto"
+msgstr "Vá para"
+
+#: src/gnome-cmd-search-popup.c:190
+msgid "Chmod"
+msgstr "Mudar Permissão"
+
+#: src/gnome-cmd-smb-path.c:331
+#, c-format
+msgid "Can't find a host or workgroup named %s\n"
+msgstr ""
+"Não pude encontrar menhuma máquina ou grupo de trabalho com o nome %s\n"
+
+#: src/gnome-cmd-xfer-progress-win.c:37
+msgid "stopping..."
+msgstr "parando..."
+
+#: src/gnome-cmd-xfer-progress-win.c:88
+msgid "Progress"
+msgstr "Progresso"
+
+#: src/gnome-cmd-xfer-progress-win.c:174
+#, c-format
+msgid "%d%% of %s copied"
+msgstr "%d%% de %s copiados"
+
+#: src/gnome-cmd-xfer-progress-win.c:179
+#, c-format
+msgid "%d%% copied"
+msgstr "%d%% copiado"
+
+#: src/gnome-cmd-xfer.c:170
+#, c-format
+msgid ""
+"The file \"%s\" already exists.\n"
+"\n"
+"Do you want to overwrite it?\n"
+msgstr ""
+"O arquivo \"%s\" existe.\n"
+"\n"
+"Você quer substituí-lo?\n"
+
+#: src/gnome-cmd-xfer.c:176
+msgid "Replace"
+msgstr "Substituir"
+
+#: src/gnome-cmd-xfer.c:176
+msgid "Replace All"
+msgstr "Substituir Tudo"
+
+#: src/gnome-cmd-xfer.c:190
+#, c-format
+msgid ""
+"Error while copying to %s\n"
+"\n"
+"%s"
+msgstr ""
+"Erro enquanto copiando para %s\n"
+"\n"
+"%s"
+
+#: src/gnome-cmd-xfer.c:195
+msgid "Xfer problem"
+msgstr "Problema no Xfer"
+
+#: src/gnome-cmd-xfer.c:233
+msgid "copying..."
+msgstr "copiando..."
+
+#: src/gnome-cmd-xfer.c:241
+#, c-format
+msgid "[file %ld of %ld] \"%s\""
+msgstr "[arquivo %ld·de·%ld]·\"%s\""
+
+#: src/gnome-cmd-xfer.c:391
+msgid ""
+"Copying a directory into it self is a bad idea.\n"
+"The whole operation was canceled."
+msgstr ""
+"Copiando um diretório dentro dele mesmo é uma má idéia.\n"
+"Essa operação foi cancelada."
+
+#: src/gnome-cmd-xfer.c:438
+msgid "preparing..."
+msgstr "preparando..."
+
+#: src/gnome-cmd-xfer.c:533
+msgid "downloading to /tmp"
+msgstr "baixando para /tmp"
+
+#: src/imageloader.c:124
+msgid ""
+"Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgstr ""
+"Não é possível carregar este tipo de pixmap, tentando carregar do diretório "
+"de origem\n"
+
+#: src/imageloader.c:126 src/imageloader.c:152
+#, c-format
+msgid "Trying to load %s instead\n"
+msgstr "Tentando carregar %s no lugar\n"
+
+#: src/imageloader.c:130 src/imageloader.c:155
+msgid ""
+"Cant find the pixmap anywhere. Make sure you have installed the program or "
+"is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
+msgstr ""
+"Não foi possível localizar o pixmap. Veja se você instalou o programa ou "
+"está executando o GNOME Organizador a partir do diretório GNOME Organizador-"
+"x-y-z/src\n"
+
+#: src/imageloader.c:150
+msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+msgstr ""
+"Não pude localizar nenhum pixmap instalado, tente carregá-lo do diretório de "
+"origem\n"
+
+#: src/main.c:56
+msgid "Specify debug flags to use"
+msgstr "Especifique as opções do depurador a utilizar."
+
+#: src/main.c:58
+msgid "Specify the start directory for the left pane"
+msgstr "Especifique o diretório inicial para o painel da esquerda"
+
+#: src/main.c:60
+msgid "Specify the start directory for the right pane"
+msgstr "Especifique o diretório inicial para o painel da direita"
+
+#: src/owner.c:98
+#, c-format
+msgid ""
+"When parsing the users and groups on this system it was found that the user %"
+"s is part of the group %s. This user can however not be found.\n"
+msgstr ""
+"Quando analisando usuários e grupos neste sistema foi encontrado o usuário %"
+"s que faz parte do grupo %s. Este usuário não pode ser encontrado.\n"
+
+#: src/plugin_manager.c:361
+msgid "Disable"
+msgstr "Desabilitar"
+
+#: src/plugin_manager.c:366
+msgid "Enable"
+msgstr "Habilitar"
+
+#: src/plugin_manager.c:435
+msgid "Available plugins"
+msgstr "Plugins disponíveis"
+
+#: src/plugin_manager.c:441
+msgid "Name"
+msgstr "Nome"
+
+#: src/plugin_manager.c:442
+msgid "Version"
+msgstr "Versão"
+
+#: src/plugin_manager.c:443
+msgid "File"
+msgstr "Arquivo"
+
+#: src/plugin_manager.c:449
+msgid "_Enable"
+msgstr "_Habilitar"
+
+#: src/plugin_manager.c:454
+msgid "_Configure"
+msgstr "_Configurar"
+
+#: src/plugin_manager.c:460
+msgid "_About"
+msgstr "_Sobre"
+
+#: src/useractions.c:263
+#, c-format
+msgid "running \"%s\"\n"
+msgstr "executando \"%s\"\n"
+
+#: src/useractions.c:668
+#, fuzzy
+msgid "A fast and powerful file manager for the GNOME desktop"
+msgstr ""
+"Um rápido e poderoso gerenciador de arquivos para área de trabalho GNOME"
+
+#. xgettext:
+#. * Replace this with your name when translating
+#: src/useractions.c:673
+msgid "No translation is currently in use."
+msgstr "Nenhuma tradução está atualmente em uso."
+
+#: src/utils.c:519
+#, c-format
+msgid ""
+"No default application found for the mime-type %s.\n"
+"Open the \"File types and programs\" page in the Control Center to add one."
+msgstr ""
+"Nenhuma aplicação padrão encontrada para o tipo de arquivo %s.\n"
+"Abrir a guia \"Tipos de Arquivos e Programas\" no Centro de Controle para "
+"adicioná-lo?"
+
+#: src/utils.c:599
+#, c-format
+msgid ""
+"\"%s\" seems to be a binary executable file but it lacks the executable bit. "
+"Do you want to set it and then run the file?"
+msgstr ""
+"\"%s\" parece ser um arquivo binário executável mas falta um bit executável. "
+"Você quer adicioná-lo executá-lo?"
+
+#: src/utils.c:602
+msgid "Make Executable?"
+msgstr "Tornar Executável?"
+
+#: src/utils.c:629
+#, c-format
+msgid ""
+"\"%s\" is an executable text file. Do you want to run it, or display it's "
+"contents?"
+msgstr ""
+"\"%s\" é um arquivo de texto executável. Você gostaria de executá-lo, ou "
+"visualizá-lo?"
+
+#: src/utils.c:631
+msgid "Run or Display"
+msgstr "Executar ou Visualizar"
+
+#: src/utils.c:632
+msgid "Display"
+msgstr "Visualizar"
+
+#: src/utils.c:632
+msgid "Run"
+msgstr "Executar"
+
+#: src/utils.c:668
+#, c-format
+msgid ""
+"%s does not know how to open remote files. Do you want to download the file "
+"to a temporary location and then open it?"
+msgstr ""
+"%s não pode abrir arquivos remotos. Você gostaria de baixar o arquivo para "
+"um local temporário e depois abrí-lo?"
+
+#: src/utils.c:742
+#, c-format
+msgid ""
+"%s does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
+msgstr ""
+"%s não pode abrir arquivos remotos. Você gostaria de baixar os arquivos para "
+"um local temporário e então abrí-los?"
+
+#: src/utils.c:1363
+#, c-format
+msgid "Creating directory %s... "
+msgstr "Criando diretório %s... "
+
+#: src/utils.c:1368
+#, c-format
+msgid "Failed to create the directory %s"
+msgstr "Falha ao criar diretório %s"
+
+#: src/utils.c:1374
+#, c-format
+msgid "Couldn't read from the directory %s: %s\n"
+msgstr "Não é possível ler do diretório %s: %s\n"
