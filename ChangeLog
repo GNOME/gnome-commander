@@ -1,3 +1,13 @@
+2004-04-30  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* src/gnome-cmd-file-props-dialog.c:
+	* src/utils.c:
+	i18n & pluralized "%s bytes".
+
+	* src/gnome-cmd-data.c:
+	* src/utils.c:
+	Added some minor safety precautions.
+
 2004-04-28  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/gnome-cmd-dir-indicator.c: 

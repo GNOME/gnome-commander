@@ -984,7 +984,7 @@ create_nice_size_str (GnomeVFSFileSize size)
 	const gchar *s1;
 	static gchar str1[64];
 	s1 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED);
-	snprintf (str1, sizeof (str1), "%s bytes", s1);
+	snprintf (str1, sizeof (str1), ngettext("%s byte","%s bytes",size), s1);
 	
 	if (size >= 1000) {	
 		const gchar *s2;
