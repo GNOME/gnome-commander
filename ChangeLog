@@ -1,3 +1,13 @@
+2003-12-05  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file-selector.c:
+	Fixed problem with connections that stayed active even though
+	they couldn't be opened.
+
+	* src/gnome-cmd-con.c (gnome_cmd_con_close):
+	Fixed problem with ftp-connections that didn't disappear from the
+	connection toolbars when disconnected.
+
 2003-12-04  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* plugins/test/test-plugin.c: 
