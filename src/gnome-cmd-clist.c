@@ -675,3 +675,20 @@ gnome_cmd_clist_get_row (GnomeCmdCList *clist, gint x, gint y)
 }
 
 
+void
+gnome_cmd_clist_set_drag_row (GnomeCmdCList *clist, gint row)
+{
+	gint last_row;
+	
+	g_return_if_fail (GNOME_CMD_IS_CLIST (clist));
+	
+	last_row = GNOME_CMD_CLIST (clist)->drag_motion_row;
+	GNOME_CMD_CLIST (clist)->drag_motion_row = row;
+
+	if (row == last_row) return;
+
+	if (last_row >= 0)
+		draw_row (GTK_CLIST (clist), NULL, last_row, NULL);
+	if (row >= 0)
+		draw_row (GTK_CLIST (clist), NULL, row, NULL);
+}

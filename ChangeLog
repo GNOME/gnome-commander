@@ -1,3 +1,11 @@
+2003-12-04  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-clist.c: 
+	* src/gnome-cmd-clist.h: 
+	* src/gnome-cmd-file-selector.c:
+	Fixed unnecessary redraws of the file-list when dragging files over it.
+	This fixes bug #128510.
+
 2003-12-03  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* src/gnome-cmd-con-smb.c (smb_open):

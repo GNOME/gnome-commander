@@ -294,7 +294,7 @@ update_files (GnomeCmdFileSelector *fs)
 	GList *list2 = NULL;
 	GnomeCmdDir *dir;
 	gchar *path;
-	
+
 	g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
 	dir = gnome_cmd_file_selector_get_directory (fs);
@@ -381,9 +381,7 @@ gnome_cmd_file_list_show_make_copy_dialog (GnomeCmdFileSelector *fs)
 static void
 restore_drag_indicator (GnomeCmdFileSelector *fs)
 {
-	gtk_clist_freeze (GTK_CLIST (fs->list));
-	GNOME_CMD_CLIST (fs->list)->drag_motion_row = -1;
-	gtk_clist_thaw (GTK_CLIST (fs->list));
+	gnome_cmd_clist_set_drag_row (GNOME_CMD_CLIST (fs->list), -1);
 }
 
 
@@ -623,13 +621,10 @@ drag_motion (GtkWidget *widget,
 
 	if (row > -1) {
 		GnomeCmdFile *finfo = gnome_cmd_file_list_get_file_at_row (fs->list, row);
-		gtk_clist_freeze (clist);
-		if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-			GNOME_CMD_CLIST (clist)->drag_motion_row = row;
-		else
-			GNOME_CMD_CLIST (clist)->drag_motion_row = -1;
-		
-		gtk_clist_thaw (clist);
+		if (finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+			row = -1;
+
+		gnome_cmd_clist_set_drag_row (GNOME_CMD_CLIST (clist), row);
 	}
 
 	autoscroll_if_appropriate (fs, x, y);

@@ -72,4 +72,7 @@ gnome_cmd_clist_set_voffset         (GnomeCmdCList *clist, gint voffset);
 gint
 gnome_cmd_clist_get_row             (GnomeCmdCList *clist, gint x, gint y);
 
+void
+gnome_cmd_clist_set_drag_row        (GnomeCmdCList *clist, gint row);
+
 #endif //__GNOME_CMD_CLIST_H__
