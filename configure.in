@@ -16,7 +16,7 @@ dnl ===================
 
 GETTEXT_PACKAGE=gnome-commander
 AC_SUBST(GETTEXT_PACKAGE)
-ALL_LINGUAS="ca cs de el en_CA en_GB es fr ga hr hu nb nl no pa pl pt pt_BR ru rw sk sq sr sr@Latn sv uk zh_CN"
+ALL_LINGUAS="ca cs de el en_CA en_GB es fr ga hr hu nb ne nl no pa pl pt pt_BR ru rw sk sq sr sr@Latn sv uk zh_CN"
 AM_GLIB_GNU_GETTEXT
 
 
