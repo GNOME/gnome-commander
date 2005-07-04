@@ -2,15 +2,15 @@
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # Walter Muellner <walter.muellner@telering.at>, 2002, 2003.
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005.
-# 
+# Hendrik Richter <hendi@gnome-de.org>, 2005.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-16 09:39+0100\n"
-"PO-Revision-Date: 2005-03-16 09:36+0100\n"
-"Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
+"PO-Revision-Date: 2005-07-04 18:02+0200\n"
+"Last-Translator: Hendrik Richter <hendi@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1845,7 +1845,7 @@ msgid ""
 msgstr ""
 "Die Grafik kann nicht gefunden werden. Stellen Sie sicher, dass die "
 "Anwendungrichtig installiert wurde oder gnome-commander aus src/ ausgeführt "
-"wrid\n"
+"wird\n"
 
 #: ../src/imageloader.c:150
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
