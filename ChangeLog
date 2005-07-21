@@ -1,3 +1,7 @@
+2005-07-21  Chao-Hsiung Liao  <j_h_liau@yahoo.com.tw>
+
+	* configure.in: Added "zh_TW" to ALL_LINGUAS.
+
 2005-04-22  Pawan Chitrakar  <pawan@nplinux.org>
 
 	* configure.in: Added ne in ALL_LINGUAS
