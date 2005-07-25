@@ -1,3 +1,9 @@
+2005-03-04  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-selector.c:
+	Removed conflicting 'static' declaration.
+
 2005-07-21  Chao-Hsiung Liao  <j_h_liau@yahoo.com.tw>
 
 	* configure.in: Added "zh_TW" to ALL_LINGUAS.

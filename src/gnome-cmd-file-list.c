@@ -59,7 +59,7 @@ enum {
 };
 
 
-static GtkTargetEntry drag_types [] = {
+GtkTargetEntry drag_types [] = {
 	{ TARGET_URI_LIST_TYPE, 0, TARGET_URI_LIST },
 	{ TARGET_TEXT_PLAIN_TYPE, 0, TARGET_TEXT_PLAIN },
 	{ TARGET_URL_TYPE, 0, TARGET_URL }

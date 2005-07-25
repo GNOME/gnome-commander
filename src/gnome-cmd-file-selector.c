@@ -43,7 +43,7 @@
 
 #define FS_PBAR_MAX 50
 
-static GtkTargetEntry drop_types [] = {
+GtkTargetEntry drop_types [] = {
 	{ TARGET_URI_LIST_TYPE, 0, TARGET_URI_LIST },
 	{ TARGET_URL_TYPE, 0, TARGET_URL }
 };
