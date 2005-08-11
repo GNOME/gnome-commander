@@ -1,4 +1,10 @@
-2005-03-04  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-08-11  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* src/gnome-cmd-search-popup.{c,h}:
+	* po/POTFILES.in:
+	Removed unused files.
+
+2005-07-25  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
 	* src/gnome-cmd-file-list.c:
 	* src/gnome-cmd-file-selector.c:

@@ -39,7 +39,6 @@ src/gnome-cmd-prepare-xfer-dialog.c
 src/gnome-cmd-quicksearch-popup.c
 src/gnome-cmd-rename-dialog.c
 src/gnome-cmd-search-dialog.c
-src/gnome-cmd-search-popup.c
 src/gnome-cmd-smb-path.c
 src/gnome-cmd-xfer-progress-win.c
 src/gnome-cmd-xfer.c
