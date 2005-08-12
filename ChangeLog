@@ -5,6 +5,11 @@
 	* autogen.sh:
 	Refreshed autotools scripts.
 
+	* AUTHOR:
+	* gnome-commander.spec.in:
+	* po/pl.po:
+	email update
+
 2005-08-11  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
 	* src/gnome-cmd-search-popup.{c,h}:

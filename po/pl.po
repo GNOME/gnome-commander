@@ -1,6 +1,6 @@
 # Polish translation of GNOME Commander
 # Copyright (C) 2002 Free Software Foundation, Inc.
-# Piotr Eljasiak <epiotr@use.pl>, 2002-2005.
+# Piotr Eljasiak <epiotr@cvs.gnome.org>, 2002-2005.
 # 
 msgid ""
 msgstr ""
@@ -476,7 +476,7 @@ msgstr "Rozłącz z: %s"
 #: src/gnome-cmd-con-ftp.c:307
 #, c-format
 msgid "Creates an FTP connection to %s"
-msgstr "Utwórz połączenie FTP"
+msgstr "Utwórz połączenie FTP z %s"
 
 #: src/gnome-cmd-con-ftp.c:309
 #, c-format
@@ -518,7 +518,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Błąd w czasie usuwania s\n"
+"Błąd w czasie usuwania %s\n"
 "\n"
 "%s"
 
@@ -655,9 +655,9 @@ msgstr "Inni..."
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
-msgstr[0] "% bajt"
-msgstr[1] "% bajty"
-msgstr[2] "% bajtów"
+msgstr[0] "%s bajt"
+msgstr[1] "%s bajty"
+msgstr[2] "%s bajtów"
 
 #: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
 msgid "No default application registered"
@@ -1664,7 +1664,7 @@ msgstr "Zmień nazwę pliku"
 #: src/gnome-cmd-search-dialog.c:184
 #, c-format
 msgid "Failed to open file %s: %s\n"
-msgstr "Nie można otworzyć pliku %s\n"
+msgstr "Nie można otworzyć pliku %s: %s\n"
 
 #: src/gnome-cmd-search-dialog.c:193
 #, c-format

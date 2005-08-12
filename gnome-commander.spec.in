@@ -79,7 +79,7 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 - converted spec file to utf-8
 - used RPM macros a bit more
 
-* Thu Jun 19 2003 Piotr Eljasiak <epiotr@use.pl>
+* Thu Jun 19 2003 Piotr Eljasiak <epiotr@cvs.gnome.org>
 - added libraries
 
 * Tue Mar 25 2003 Piotr Eljasiak <epiotr@idea.net.pl>
