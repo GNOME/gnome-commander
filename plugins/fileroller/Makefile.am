@@ -5,9 +5,9 @@ AM_CPPFLAGS = -Wall \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS)
 
-libdir = $(PLUGIN_DIR)
+plugindir = $(pkglibdir)/plugins
 
-lib_LTLIBRARIES = libfileroller.la
+plugin_LTLIBRARIES = libfileroller.la
 
 libfileroller_la_SOURCES = \
 	file-roller-plugin.h file-roller-plugin.c \

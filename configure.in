@@ -161,9 +161,6 @@ fi
 
 
 
-
-
-
 dnl =====================
 dnl Set stuff in config.h
 dnl =====================
@@ -183,15 +180,9 @@ dnl Set PACKAGE_LOCALE_DIR in config.h.
 AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${PREFIX}/${DATADIRNAME}/locale", [definition of PACKAGE_LOCALE_DIR])
 
 
-dnl Set PACKAGE_LIB_DIR in config.h
-PACKAGE_LIB_DIR="${PREFIX}/lib/${PACKAGE}"
-AC_DEFINE_UNQUOTED(PACKAGE_LIB_DIR, "$PACKAGE_LIB_DIR", [libs location])
-AC_SUBST(PACKAGE_LIB_DIR)
-
-
 dnl Set PLUGIN_DIR in config.h
-PLUGIN_DIR="${PREFIX}/lib/${PACKAGE}/plugins"
-AC_DEFINE_UNQUOTED(PLUGIN_DIR, "$PLUGIN_DIR", "")
+PLUGIN_DIR="${libdir}/${PACKAGE}/plugins"
+AC_DEFINE_UNQUOTED(PLUGIN_DIR, "$PLUGIN_DIR", [plugins location])
 AC_SUBST(PLUGIN_DIR)
 
 
@@ -212,7 +203,9 @@ dnl =====================
 dnl Write some output
 dnl =====================
 
-AC_OUTPUT([libgcmd/Makefile
+AC_OUTPUT([
+Makefile
+libgcmd/Makefile
 src/Makefile
 plugins/Makefile
 plugins/test/Makefile
@@ -224,8 +217,8 @@ pixmaps/device-icons/Makefile
 pixmaps/mime-icons/Makefile
 pixmaps/file-type-icons/Makefile
 doc/Makefile
-Makefile
 gnome-commander.spec
+gnome-commander.desktop
 README
 ])
 

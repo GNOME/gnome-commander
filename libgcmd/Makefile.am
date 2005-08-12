@@ -4,9 +4,7 @@ AM_CPPFLAGS = -Wall \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS)
 
-libdir = $(PACKAGE_LIB_DIR)
-
-lib_LTLIBRARIES = libgcmd.la
+pkglib_LTLIBRARIES = libgcmd.la
 
 libgcmd_la_SOURCES = \
 	gnome-cmd-plugin.h gnome-cmd-plugin.c \

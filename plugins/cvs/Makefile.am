@@ -8,9 +8,9 @@ AM_CPPFLAGS = -Wall \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS)
 
-libdir = $(PLUGIN_DIR)
+plugindir = $(pkglibdir)/plugins
 
-lib_LTLIBRARIES = libcvs.la
+plugin_LTLIBRARIES = libcvs.la
 
 libcvs_la_SOURCES = \
 	parser.h parser.l \

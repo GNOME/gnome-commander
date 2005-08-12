@@ -5,5 +5,6 @@ desktop_in_files = @PACKAGE@.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
-EXTRA_DIST = mkinstalldirs @PACKAGE@.desktop @PACKAGE@.spec
+EXTRA_DIST = autogen.sh mkinstalldirs @PACKAGE@.desktop @PACKAGE@.spec intltool-*.in
 
+DISTCLEANFILES = intltool-*

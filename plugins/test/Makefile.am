@@ -5,9 +5,9 @@ AM_CPPFLAGS = -Wall \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS)
 
-libdir = $(PLUGIN_DIR)
+plugindir = $(pkglibdir)/plugins
 
-lib_LTLIBRARIES = libtest.la
+plugin_LTLIBRARIES = libtest.la
 
 libtest_la_SOURCES = \
 	test-plugin.h test-plugin.c \
