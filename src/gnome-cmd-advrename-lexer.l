@@ -40,7 +40,7 @@
 
 #define   MAX_PRECISION   16
 
-enum {NAME=1,EXTENSION,FULL_NAME,COUNTER,PARENT_DIR};
+enum {NAME=1,EXTENSION,FULL_NAME,COUNTER,PARENT_DIR,GRANDPARENT_DIR};
 
 static char fname_template[2*NAME_MAX];       // more than enough ;o)
 static int  fname_template_size;
@@ -64,11 +64,11 @@ int        [0-9]+
 %}
 
 
-\$[enNp]\(0+(,{int})?\)         ECHO;                                       // don't substitute $x(0,...) 
+\$[egnNp]\(0+(,{int})?\)        ECHO;                                       // don't substitute $x(0,...) 
 
 \$[c]\(0+\)                     ECHO;                                       // don't substitute $c(0) 
 
-\$[enNp]\({int}(,{int})?\)      {
+\$[egnNp]\({int}(,{int})?\)     {
                                   if (fname_template_size > 1+2*sizeof(int)) 
                                   {
                                     from = 1;
@@ -80,10 +80,11 @@ int        [0-9]+
                                     {
                                       switch (yytext[1])
                                       {
-                                        case 'e' : *s++ = EXTENSION; break;
-                                        case 'n' : *s++ = NAME;      break;
-                                        case 'N' : *s++ = FULL_NAME; break;
-                                        case 'p' : *s++ = PARENT_DIR; break;
+                                        case 'e' : *s++ = EXTENSION;       break;
+                                        case 'g' : *s++ = GRANDPARENT_DIR; break;
+                                        case 'n' : *s++ = NAME;            break;
+                                        case 'N' : *s++ = FULL_NAME;       break;
+                                        case 'p' : *s++ = PARENT_DIR;      break;
                                       }
                                     
                                       *((int *) s) = --from; s += sizeof(int);
@@ -105,17 +106,18 @@ int        [0-9]+
                                   }
                                 }
 
-\$[cenNp]\([^\)]*\)?         ECHO;                                      // don't substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
+\$[cegnNp]\([^\)]*\)?        ECHO;                                      // don't substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
 
-\$[enNp]                        {
+\$[egnNp]                       {
                                   if (fname_template_size > 1+2*sizeof(int)) 
                                   {
                                     switch (yytext[1])
                                     {
-                                      case 'e' : *s++ = EXTENSION; break;
-                                      case 'n' : *s++ = NAME;      break;
-                                      case 'N' : *s++ = FULL_NAME; break;
-                                      case 'p' : *s++ = PARENT_DIR; break;
+                                      case 'e' : *s++ = EXTENSION;       break;
+                                      case 'g' : *s++ = GRANDPARENT_DIR; break;
+                                      case 'n' : *s++ = NAME;            break;
+                                      case 'N' : *s++ = FULL_NAME;       break;
+                                      case 'p' : *s++ = PARENT_DIR;      break;
                                     }
                                     
                                     *((int *) s) = 0; s += sizeof(int);
@@ -211,6 +213,32 @@ static void find_parent_dir(const char *path, int *offset, int *len)
 }
 
 
+static void find_grandparent_dir(const char *path, int *offset, int *len)
+{
+  char *slash = g_utf8_strrchr(path, -1, '/');
+  char *s;
+  
+  *offset = *len = 0;
+  
+  if (slash==path || !slash)  return;
+
+  s = slash = g_utf8_strrchr(path, slash-path-1, '/');
+  
+  if (!slash)  return;
+
+  while (s!=path)
+    if (*--s=='/')
+    {
+      *offset = ++s - path;
+      *len = slash - s;
+      
+      return;
+    }
+  
+  *len = slash-path;
+}
+
+
 #define min(x,y)  ((x)<(y) ? (x) : (y))
 
 
@@ -232,8 +260,10 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 
   char custom_counter_fmt[8];
 
-  int ext_offset, parent_dir_offset;
-  int name_len, ext_len, parent_dir_len, full_name_len;
+  int ext_len, ext_offset;
+  int name_len, full_name_len;
+  int parent_dir_len, parent_dir_offset;
+  int grandparent_dir_len, grandparent_dir_offset;
 
   int from, length;
   int precision;
@@ -264,6 +294,7 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
   }
   
   find_parent_dir(gnome_cmd_file_get_path(finfo),&parent_dir_offset,&parent_dir_len);
+  find_grandparent_dir(gnome_cmd_file_get_path(finfo),&grandparent_dir_offset,&grandparent_dir_len);
   
   src = fname_template;
   dest = fmt;
@@ -317,6 +348,18 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 		       if (length<=NAME_MAX-(dest-fmt))
 		       {
 		         g_utf8_strncpy(dest,gnome_cmd_file_get_path(finfo)+parent_dir_offset+from,length);
+                 dest += length;
+		       }
+		       break;
+
+      case GRANDPARENT_DIR:
+               ++src;
+               from = *((int *) src); src += sizeof(int);
+	       length = *((int *) src); src += sizeof(int);
+	       mksubstr(grandparent_dir_len,&from,&length);
+		       if (length<=NAME_MAX-(dest-fmt))
+		       {
+		         g_utf8_strncpy(dest,gnome_cmd_file_get_path(finfo)+grandparent_dir_offset+from,length);
                  dest += length;
 		       }
 		       break;

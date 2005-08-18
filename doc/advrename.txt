@@ -14,6 +14,8 @@ $e	file extension
 $e(...)	the same like $N(...)
 $p	parent dir name
 $p(...)	the same like $N(...)
+$g	grandparent dir name
+$g(...)	the same like $N(...)
 $c	counter
 $c(3)	counter with specified digit number (precision)
 $$	dollar sign

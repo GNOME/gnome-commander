@@ -1,3 +1,8 @@
+2005-08-18  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* src/gnome-cmd-advrename-lexer.l:
+	Added $g placeholder for grandparent dir.
+
 2005-08-12  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
 	* */Makefile.am:
