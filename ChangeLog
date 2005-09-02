@@ -1,3 +1,13 @@
+2005-09-02  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* src/gnome-cmd-advrename-lexer.l:
+	Reworked (and simplified) internal representation for fname templates.
+
+2005-08-31  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+	* src/gnome-cmd-advrename-lexer.l:
+	Added support for id3 and exif tags ($T placeholder).
+
 2005-08-18  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
 	* src/gnome-cmd-advrename-lexer.l:
