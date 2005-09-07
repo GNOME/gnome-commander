@@ -1,3 +1,7 @@
+2005-09-07  Inaki Larranaga  <dooteo@euskalgnu.org>
+
+	* configure.in: Added "eu" to ALL_LINGUAS.
+
 2005-09-02  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
 	* src/gnome-cmd-advrename-lexer.l:
