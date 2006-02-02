@@ -1655,11 +1655,11 @@ gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *di
 	gnome_cmd_dir_ref (dir);
 	
 	if (fs->priv->lwd && fs->priv->lwd != dir) {
-		gnome_cmd_dir_cancel_monitoring (fs->priv->lwd);
 		gnome_cmd_dir_unref (fs->priv->lwd);
 	}
 
 	if (fs->priv->cwd) {
+		gnome_cmd_dir_cancel_monitoring (fs->priv->cwd);
 		fs->priv->lwd = fs->priv->cwd;
 		gtk_signal_disconnect_by_data (GTK_OBJECT (fs->priv->lwd), fs);
 		fs->priv->connected_dir = NULL;
