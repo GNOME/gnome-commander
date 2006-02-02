@@ -6,6 +6,9 @@
         * src/gnome-cmd-file-selector.c:
         FAMD - do not monitor the last visited dir
 
+        * src/gnome-cmd-quicksearch-popup.c:
+        Fixed CTRL+ALT+letter not responding when typed too fast
+
 2006-02-02  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
         Updated copyright info.
