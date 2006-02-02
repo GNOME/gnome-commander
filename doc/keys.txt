@@ -116,4 +116,7 @@ CTRL+DOWN or ALT+F8
             automatically closes the list.
 
 CTRL+.	    Copy the current working directory from the inactive file-list to
-	    the active one.			
+	    the active one.
+CTRL+SHIFT+.
+            Copy the current working directory from the active file-list to
+	    the inactive one.

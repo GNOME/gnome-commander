@@ -85,13 +85,11 @@ static guint file_selector_signals[LAST_SIGNAL] = { 0 };
  *******************************/
 
 static void
-set_same_directory (GnomeCmdFileSelector *fs)
+set_same_directory (GnomeCmdFileSelector *fs, GnomeCmdFileSelector *other)
 {
-	GnomeCmdFileSelector *other;
 	GnomeCmdCon *con;
 	GnomeCmdDir *dir;
 
-	other = gnome_cmd_main_win_get_inactive_fs (main_win);
 	con = gnome_cmd_file_selector_get_connection (other);
 	dir = gnome_cmd_file_selector_get_directory (other);
 	if (fs->priv->con != con)
@@ -2099,6 +2097,10 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
 			case GDK_KP_Enter:
 				add_file_to_cmdline (fs, TRUE);
 				return TRUE;
+			
+			case GDK_greater:
+				set_same_directory (gnome_cmd_main_win_get_inactive_fs (main_win),fs);
+				return TRUE;
 		}
 	}
 	else if (state_is_shift (event->state)) {
@@ -2175,7 +2177,8 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
 				return TRUE;
 
 			case GDK_period:
-				set_same_directory (fs);
+				set_same_directory (fs,
+					gnome_cmd_main_win_get_inactive_fs (main_win));
 				return TRUE;
 		}
 	}
