@@ -2532,9 +2532,11 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
 			case GDK_a:
 			case GDK_A:	
 			case GDK_KP_Add:
+			case GDK_equal:
 				gnome_cmd_file_list_select_all (fl);
 				return TRUE;
 
+			case GDK_minus:
 			case GDK_KP_Subtract:
 				gnome_cmd_file_list_unselect_all (fl);
 				return TRUE;
@@ -2562,6 +2564,7 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
 				
 			case GDK_KP_Add:
 			case GDK_plus:
+			case GDK_equal:
 				show_selpat_dialog (fl, TRUE);
 				return TRUE;
 
