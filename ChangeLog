@@ -1,3 +1,8 @@
+2006-02-03  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+        * src/gnome-cmd-main-menu.c:
+        Fixed typo.
+
 2006-02-03  Assaf Gordon  <agordon88@gmail.com>
 
         * src/gnome-cmd-file-selector.c:

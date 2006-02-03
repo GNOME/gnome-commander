@@ -545,7 +545,7 @@ init (GnomeCmdMainMenu *main_menu)
 		},
 		MENUTYPE_SEPARATOR,
 		{
-			MENU_TYPE_ITEM, _("_Compare Directries"), "Shift+F2", NULL,
+			MENU_TYPE_ITEM, _("_Compare Directories"), "Shift+F2", NULL,
 			mark_compare_directories, NULL,
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
