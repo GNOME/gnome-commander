@@ -1,5 +1,5 @@
 /*
-  GNOME Commander - A GNOME based file manager 
+  GNOME Commander - A GNOME based file manager
   Copyright (C) 2001-2006 Marcus Bjurman
 
   This program is free software; you can redistribute it and/or modify
@@ -40,7 +40,7 @@ typedef struct
 	GnomeCmdFile *finfo;
 	GtkWidget *dialog;
 	gpointer *args;
-	
+
 } TmpDlData;
 
 #ifdef HAVE_LOCALE_H
@@ -59,7 +59,7 @@ gboolean DEBUG_ENABLED (gchar flag)
 {
     if (debug_flags != NULL)
        return (strchr(debug_flags, flag) != 0);
-	
+
 	return FALSE;
 }
 
@@ -80,12 +80,12 @@ gboolean DEBUG_ENABLED (gchar flag)
  * y: brief mime-based imageload debugging
  * z: detailed mime-based imageload debugging
  * x: xfer
- * 
+ *
  */
 void DEBUG (gchar flag, const gchar *format, ...)
 {
     if (DEBUG_ENABLED (flag)) {
-		va_list ap;		
+		va_list ap;
 		va_start(ap, format);
 		fprintf (stderr, "[%c%c] ", flag-32, flag-32);
 		vfprintf(stderr, format, ap);
@@ -116,7 +116,7 @@ void run_command_indir (const gchar *in_command, const gchar *dir,
 						gboolean term)
 {
 	gchar *command;
-	
+
 	if (term) {
 		gchar *tmp, *arg;
 
@@ -141,7 +141,7 @@ convert_varargs_to_name_array (va_list args)
 	GPtrArray *resizeable_array;
 	const char *name;
 	const char **plain_ole_array;
-	
+
 	resizeable_array = g_ptr_array_new ();
 
 	do {
@@ -150,7 +150,7 @@ convert_varargs_to_name_array (va_list args)
 	} while (name != NULL);
 
 	plain_ole_array = (const char **) resizeable_array->pdata;
-	
+
 	g_ptr_array_free (resizeable_array, FALSE);
 
 	return plain_ole_array;
@@ -162,9 +162,9 @@ delete_event_callback (gpointer data,
 		       gpointer user_data)
 {
 	g_return_val_if_fail (GTK_IS_DIALOG (data), FALSE);
-	
+
 	gtk_signal_emit_stop_by_name (GTK_OBJECT (data), "delete_event");
-	
+
 	return TRUE;
 }
 
@@ -184,7 +184,7 @@ on_run_dialog_keypress (GtkWidget *dialog, GdkEventKey *event, gpointer data)
 gint
 run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 				   GtkMessageType msg_type,
-				   const char *text, const char *title, ...)
+				   const char *text, const char *title, gint def_response, ...)
 {
 	va_list button_title_args;
 	const char **button_titles;
@@ -192,9 +192,9 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 //	GtkWidget *top_widget;
 	int result, i;
 
-	
+
 	/* Create the dialog. */
-	va_start (button_title_args, title);
+	va_start (button_title_args, def_response);
 	button_titles = convert_varargs_to_name_array (button_title_args);
 	va_end (button_title_args);
 
@@ -207,9 +207,12 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 
 	for ( i=0 ; button_titles[i] != NULL ; i++ )
 		gtk_dialog_add_button (GTK_DIALOG (dialog), button_titles[i], i);
-									 
+
 	g_free (button_titles);
-	
+
+	if (def_response>=0)
+	        gtk_dialog_set_default_response(GTK_WINDOW (dialog), def_response);
+
 	/* Allow close. */
 	if (ignore_close_box) {
 		gtk_signal_connect (GTK_OBJECT (dialog),
@@ -223,10 +226,10 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 							GTK_SIGNAL_FUNC (on_run_dialog_keypress),
 							dialog);
 	}
-	
+
 	gtk_window_set_wmclass (GTK_WINDOW (dialog), "dialog", "Eel");
 
-	
+
 	/* Run it. */
 	do
 	{
@@ -260,7 +263,7 @@ gboolean string2short (const gchar *s, gshort *sh)
 {
     int i,ret;
     ret = sscanf (s, "%d", &i);
-    *sh = i;    
+    *sh = i;
     return (ret == 1);
 }
 
@@ -269,7 +272,7 @@ gboolean string2ushort (const gchar *s, gushort *sh)
 {
     int i,ret;
     ret = sscanf (s, "%d", &i);
-    *sh = i;    
+    *sh = i;
     return (ret == 1);
 }
 
@@ -325,7 +328,7 @@ gchar *str_uri_basename (const gchar *uri)
 	}
 
 	return gnome_vfs_unescape_string (&uri[last_slash+1], NULL);
-}          
+}
 
 
 void
@@ -334,7 +337,7 @@ type2string (GnomeVFSFileType type,
 			 guint max)
 {
 	char *s;
-	
+
 	switch (type) {
 	case GNOME_VFS_FILE_TYPE_UNKNOWN:
 		s = "?";
@@ -393,7 +396,7 @@ void perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max)
 
 void perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
-	g_snprintf (buf, max, "%s%s%s%s%s%s%s%s%s", 
+	g_snprintf (buf, max, "%s%s%s%s%s%s%s%s%s",
 				(p & GNOME_VFS_PERM_USER_READ) ? "r" : "-",
 				(p & GNOME_VFS_PERM_USER_WRITE) ? "w" : "-",
 				(p & GNOME_VFS_PERM_USER_EXEC) ? "x" : "-",
@@ -424,17 +427,17 @@ void perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
 }
 
 
-const gchar *size2string (GnomeVFSFileSize size, 
+const gchar *size2string (GnomeVFSFileSize size,
 						  GnomeCmdSizeDispMode size_disp_mode)
 {
 	static gchar buf[64];
-	
+
     if (size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
     {
         gchar *prefixes[5] = {"B ","kB ","MB ","GB ","TB "};
         gint i=0;
         gdouble dsize = (gdouble)size;
-        
+
         for ( i=0 ; i<5 ; i++ )
         {
             if (dsize > 1024)
@@ -456,21 +459,21 @@ const gchar *size2string (GnomeVFSFileSize size,
 
         sprintf (tmp, "%lld", size);
         len = strlen (tmp);
-        
+
         if (len < 4)
 		{
             strncpy (buf, tmp, 64);
 			return buf;
 		}
-            
+
         outlen = len/3 + len;
-		
+
         if ((len/3)*3 == len)
 			outlen--;
-           
+
         out = buf;
         memset (out, '\0', 64);
-         
+
         for ( i=len-1,j=outlen-1 ; i>=0 ; i--,j-- )
         {
             if (((outlen-j)/4)*4 == outlen-j)
@@ -555,13 +558,13 @@ on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 		dldata->args[1] = (gpointer)path_str;
 
 		src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (dldata->finfo));
-		
+
 		path = gnome_cmd_plain_path_new (path_str);
 		con = gnome_cmd_con_list_get_home (
 			gnome_cmd_data_get_con_list ());
 		dest_uri = gnome_cmd_con_create_uri (con, path);
 		gtk_object_destroy (GTK_OBJECT (path));
-			
+
 		gnome_cmd_xfer_tmp_download (src_uri,
 									 dest_uri,
 									 GNOME_VFS_XFER_FOLLOW_LINKS,
@@ -584,7 +587,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
 	gpointer *args;
 	GnomeVFSMimeApplication *vfs_app;
 	GnomeCmdApp *app;
-	
+
 	g_return_if_fail (finfo != NULL);
 	g_return_if_fail (finfo->info != NULL);
 
@@ -599,8 +602,8 @@ void mime_exec_single (GnomeCmdFile *finfo)
 			gchar *msg = g_strdup_printf (_("\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
 			gint ret = run_simple_dialog (
 				GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg,
-				_("Make Executable?"), 
-				_("Cancel"), _("OK"), NULL);
+				_("Make Executable?"),
+				-1, _("Cancel"), _("OK"), NULL);
 			g_free (fname);
 			g_free (msg);
 
@@ -628,8 +631,8 @@ void mime_exec_single (GnomeCmdFile *finfo)
 			gchar *fname = get_utf8 (finfo->info->name);
 			gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display it's contents?"), fname);
 			gint ret = run_simple_dialog (
-				GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"), 
-				_("Cancel"), _("Display"), _("Run"), NULL);
+				GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
+				-1, _("Cancel"), _("Display"), _("Run"), NULL);
 			g_free (fname);
 			g_free (msg);
 
@@ -646,7 +649,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
 		no_mime_app_found_error (finfo->info->mime_type);
 		return;
 	}
-	
+
 	app = gnome_cmd_app_new_from_vfs_app (vfs_app);
 	gnome_vfs_mime_application_free (vfs_app);
 
@@ -722,7 +725,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 	GList *local_files = NULL;
 	gboolean asked = FALSE;
 	gint retid;
-	
+
 	g_return_if_fail (files != NULL);
 	g_return_if_fail (app != NULL);
 
@@ -742,7 +745,8 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 						_("%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?"), gnome_cmd_app_get_name (app));
 					retid = run_simple_dialog (
 						GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_QUESTION,
-						msg, "", _("No"), _("Yes"), NULL);
+						msg, "",
+						-1, _("No"), _("Yes"), NULL);
 					asked = TRUE;
 				}
 
@@ -754,7 +758,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
 					path_str = get_temp_download_filepath (gnome_cmd_file_get_name (finfo));
 					if (!path_str) return;
-			
+
 					src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (finfo));
 					path = gnome_cmd_plain_path_new (path_str);
 					con = gnome_cmd_con_list_get_home (
@@ -773,7 +777,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 	}
 
 	g_list_free (files);
-	
+
 	args = g_new (gpointer, 2);
 	args[0] = app;
 	args[1] = local_files;
@@ -798,7 +802,7 @@ gboolean state_is_blank (gint state)
 	gboolean ret;
 
 	ret = (state & GDK_SHIFT_MASK) || (state & GDK_CONTROL_MASK) || (state & GDK_MOD1_MASK);
-	
+
 	return !ret;
 }
 
@@ -849,9 +853,9 @@ void clear_event_key (GdkEventKey *event)
 {
 	g_return_if_fail (event != NULL);
 	g_return_if_fail (event->string != NULL);
-	
+
 	event->keyval = GDK_VoidSymbol;
-	event->string[0] = '\0';	
+	event->string[0] = '\0';
 }
 
 
@@ -866,7 +870,7 @@ strings_to_uris (gchar *data)
 	gchar **filenames;
 
 	filenames = g_strsplit (data, "\r\n", STRINGS_TO_URIS_CHUNK);
-	
+
 	for ( i=0 ; filenames[i] != NULL ; i++ ) {
 		gchar *fn;
 		GnomeVFSURI *uri;
@@ -900,9 +904,9 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 	if (!dir_uri) return -1;
 
 	dir_uri_str = gnome_vfs_uri_to_string (dir_uri, 0);
-		
+
 	if (!dir_uri_str) return -1;
-	
+
 	result = gnome_vfs_directory_list_load (
 		&list,
 		dir_uri_str,
@@ -910,14 +914,14 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 
 	if (result != GNOME_VFS_OK)
 		return 0;
-	
+
 	if (!list)
 		return 0;
 
 	tmp = list;
 	while (tmp) {
 		GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
-		if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0) {		
+		if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0) {
 			if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
 				GnomeVFSURI *new_dir_uri = gnome_vfs_uri_append_file_name (
 					dir_uri, info->name);
@@ -933,8 +937,8 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 
 	tmp = list;
 	while (tmp) {
-		GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;		
-		gnome_vfs_file_info_unref (info);		
+		GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
+		gnome_vfs_file_info_unref (info);
 		tmp = tmp->next;
 	}
 
@@ -961,7 +965,7 @@ GList *string_history_add (GList *in, const gchar *value, gint maxsize)
 		if (out)
 			out->prev = tmp;
 		out = tmp;
-	}	
+	}
 	/* or if its new just add it */
 	else {
 		out = g_list_prepend (in, g_strdup (value));
@@ -985,15 +989,15 @@ create_nice_size_str (GnomeVFSFileSize size)
 	static gchar str1[64];
 	s1 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED);
 	snprintf (str1, sizeof (str1), ngettext("%s byte","%s bytes",size), s1);
-	
-	if (size >= 1000) {	
+
+	if (size >= 1000) {
 		const gchar *s2;
 		static gchar str2[128];
 		s2 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED);
 		snprintf (str2, sizeof (str2), "%s (%s)", s2, str1);
 		return str2;
 	}
-	
+
 	return str1;
 }
 
@@ -1008,7 +1012,7 @@ gchar* quote_if_needed (const gchar *in)
 gchar* unquote_if_needed (const gchar *in)
 {
 	gint l;
-	
+
 	g_return_val_if_fail (in != NULL, NULL);
 
 	l = strlen (in);
@@ -1032,7 +1036,7 @@ void stop_kp (GtkObject *obj)
 GtkWidget *create_styled_button (const gchar *text)
 {
 	GtkWidget *w;
-	
+
 	if (text)
 		w = gtk_button_new_with_label (text);
 	else
@@ -1056,9 +1060,9 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
 
 	hbox = gtk_hbox_new (FALSE, 1);
 	gtk_object_set_data_full (GTK_OBJECT (btn), "hbox", hbox,
-							  (GtkDestroyNotify) gtk_widget_unref);	
+							  (GtkDestroyNotify) gtk_widget_unref);
 	gtk_widget_ref (hbox);
-	gtk_widget_show (hbox);		
+	gtk_widget_show (hbox);
 
 	if (pm) {
 		pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
@@ -1096,7 +1100,7 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
 {
 	if (!cursor_busy)
 		cursor_busy = gdk_cursor_new (GDK_WATCH);
-	
+
 	gdk_window_set_cursor (widget->window, cursor_busy);
 
 	while (gtk_events_pending ())
@@ -1173,7 +1177,7 @@ gboolean app_needs_terminal (GnomeCmdFile *finfo)
 
 	g_list_foreach (libs, (GFunc)g_free, NULL);
 	g_list_free (libs);
-	
+
 	return need_term;
 }
 
@@ -1181,14 +1185,14 @@ gboolean app_needs_terminal (GnomeCmdFile *finfo)
 gchar *get_temp_download_filepath (const gchar *fname)
 {
 	const gchar *tmp_dir = g_get_tmp_dir ();
-	
+
 	if (!tmp_file_dir) {
 		gchar *tmp_file_dir_template = g_strdup_printf ("gcmd-%s-XXXXXX", g_get_user_name());
 		chdir (tmp_dir);
 		tmp_file_dir = mkdtemp (tmp_file_dir_template);
 		if (!tmp_file_dir) {
 			g_free (tmp_file_dir_template);
-			
+
 			create_error_dialog (
 				"Failed to create directory to store temporary files in.\nError message: %s\n",
 				strerror (errno));
@@ -1203,7 +1207,7 @@ gchar *get_temp_download_filepath (const gchar *fname)
 void remove_temp_download_dir (void)
 {
 	const gchar *tmp_dir = g_get_tmp_dir ();
-	
+
 	if (tmp_file_dir) {
 		gchar *path = g_build_path ("/", tmp_dir, tmp_file_dir, NULL);
 		gchar *command = g_strdup_printf ("rm -rf %s", path);
@@ -1216,7 +1220,7 @@ void remove_temp_download_dir (void)
 
 GtkWidget *
 create_ui_pixmap (GtkWidget *window,
-				  GnomeUIPixmapType pixmap_type, 
+				  GnomeUIPixmapType pixmap_type,
 				  gconstpointer pixmap_info,
 				  GtkIconSize size)
 {
@@ -1243,7 +1247,7 @@ create_ui_pixmap (GtkWidget *window,
 		name = gnome_pixmap_file (pixmap_info);
 
 		if (!name)
-			g_warning ("Could not find GNOME pixmap file %s", 
+			g_warning ("Could not find GNOME pixmap file %s",
 					(char *) pixmap_info);
 		else {
 			pixmap = gnome_pixmap_new_from_file (name);
@@ -1254,7 +1258,7 @@ create_ui_pixmap (GtkWidget *window,
 
 	default:
 		g_assert_not_reached ();
-		g_warning("Invalid pixmap_type %d", (int) pixmap_type); 
+		g_warning("Invalid pixmap_type %d", (int) pixmap_type);
 	}
 
 	return pixmap;
@@ -1266,7 +1270,7 @@ transform (gchar *s, gchar from, gchar to)
 {
 	gint i;
 	gint len = strlen (s);
-	
+
 	for ( i=0 ; i<len ; i++ )
 		if (s[i] == from) s[i] = to;
 }
@@ -1275,7 +1279,7 @@ transform (gchar *s, gchar from, gchar to)
 gchar *unix_to_unc (const gchar *path)
 {
 	gchar *out;
-	
+
 	g_return_val_if_fail (path != NULL, NULL);
 	g_return_val_if_fail (path[0] == '/', NULL);
 
@@ -1290,7 +1294,7 @@ gchar *unix_to_unc (const gchar *path)
 gchar *unc_to_unix (const gchar *path)
 {
 	gchar *out;
-	
+
 	g_return_val_if_fail (path != NULL, NULL);
 	g_return_val_if_fail (path[0] == '\\', NULL);
 	g_return_val_if_fail (path[1] == '\\', NULL);
@@ -1327,7 +1331,7 @@ GList *file_list_to_uri_list (GList *files)
 		else {
 			uris = g_list_append (uris, uri);
 		}
-		
+
 		files = files->next;
 	}
 
@@ -1355,9 +1359,9 @@ gboolean
 create_dir_if_needed (const gchar *dpath)
 {
 	DIR *dir;
-	
+
 	g_return_val_if_fail (dpath, FALSE);
-	
+
 	if ((dir = opendir (dpath)) == NULL) {
 		if (errno == ENOENT) {
 			g_print (_("Creating directory %s... "), dpath);
@@ -1376,7 +1380,7 @@ create_dir_if_needed (const gchar *dpath)
 			warn_print (msg);
 			g_free (msg);
 		}
-		
+
 		return FALSE;
 	}
 
@@ -1411,10 +1415,10 @@ void fix_uri (GnomeVFSURI *uri)
 #ifdef FIX_PW_HACK
 	gchar *p, *t;
 	const gchar *hn, *pw;
-		
+
 	hn = gnome_vfs_uri_get_host_name (uri);
 	if (!hn) return;
-	
+
 	pw = gnome_vfs_uri_get_password (uri);
 
 	t = g_strdup (hn);
@@ -1440,7 +1444,7 @@ GList *patlist_new (const gchar *pattern_string)
 	gint i;
 	gchar **ents;
 	GList *patlist = NULL;
-	
+
 	g_return_val_if_fail (pattern_string != NULL, NULL);
 
 	i = 0;
@@ -1458,7 +1462,7 @@ GList *patlist_new (const gchar *pattern_string)
 void patlist_free (GList *pattern_list)
 {
 	g_return_if_fail (pattern_list != NULL);
-	
+
 	g_list_foreach (pattern_list, (GFunc)g_free, NULL);
 	g_list_free (pattern_list);
 }

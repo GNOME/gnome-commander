@@ -1,3 +1,13 @@
+2006-02-05  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+
+        * src/gnome-cmd-delete-dialog.c:
+        * src/gnome-cmd-file.c:
+        * src/gnome-cmd-prepare-xfer-dialog.c:
+        * src/gnome-cmd-xfer.c:
+        * src/utils.c:
+        * src/utils.h:
+        Set default button to OK in 'Delete' dialog
+
 2006-02-05  Assaf Gordon  <agordon88@gmail.com>
 
         * src/gnome-cmd-file.c:

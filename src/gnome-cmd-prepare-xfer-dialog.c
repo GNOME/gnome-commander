@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-prepare-xfer-dialog.h"
@@ -42,7 +42,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 	gchar *dest_fn;
 	gchar *dest_path;
 	gint user_path_len;
-	
+
 	dest_fn = NULL;
 	con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
 	user_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->dest_dir_entry)));
@@ -56,7 +56,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
 	if (user_path_len > 2 && user_path[user_path_len-1] == '/')
 		user_path[user_path_len-1] = '\0';
-	
+
 	if (user_path[0] == '/')
 		dest_path = user_path;
 	else {
@@ -72,10 +72,10 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
 	if (res != GNOME_VFS_OK && res != GNOME_VFS_ERROR_NOT_FOUND)
 		goto bailout;
-	
+
 	if (g_list_length (dialog->src_files) == 1) {
 		GnomeCmdFile *finfo = GNOME_CMD_FILE (dialog->src_files->data);
-		
+
 		if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
 			/* There exists a directory, copy into it using the original filename */
 			dest_dir = gnome_cmd_dir_new (
@@ -115,7 +115,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 					g_basename (parent_dir));
 				gint choise = run_simple_dialog (
 					GTK_WIDGET (dialog), TRUE, GTK_MESSAGE_QUESTION, msg, "",
-					_("No"), _("Yes"), NULL);
+					-1, _("No"), _("Yes"), NULL);
 				g_free (msg);
 
 				if (choise == 1) {
@@ -176,7 +176,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
 	if (!GNOME_CMD_IS_DIR (dest_dir))
 		goto bailout;
-	
+
 	if (g_list_length (dialog->src_files) == 1)
 		DEBUG ('x', "Im now going to xfer the file file '%s' to '%s'\n",
 				dest_fn, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
@@ -184,7 +184,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 		DEBUG ('x', "Im now going to xfer %d files to '%s'\n",
 				g_list_length (dialog->src_files), gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
 
-	
+
 	gnome_cmd_dir_ref (dest_dir);
 	gnome_cmd_xfer_start (dialog->src_files,
 						  dest_dir,
@@ -193,7 +193,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 						  dialog->xferOptions,
 						  dialog->xferOverwriteMode,
 						  NULL, NULL);
-	
+
 bailout:
 	g_free (dest_path);
 	gtk_widget_destroy (GTK_WIDGET (dialog));
@@ -234,9 +234,9 @@ static void
 destroy (GtkObject *object)
 {
 	GnomeCmdPrepareXferDialog *dialog = GNOME_CMD_PREPARE_XFER_DIALOG (object);
-	
+
 	gnome_cmd_file_list_unref (dialog->src_files);
-	
+
 	if (GTK_OBJECT_CLASS (parent_class)->destroy)
 		(*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -266,12 +266,12 @@ class_init (GnomeCmdPrepareXferDialogClass *class)
 
 static void
 init (GnomeCmdPrepareXferDialog *dialog)
-{	
+{
 	GtkWidget *dest_dir_vbox;
 	GtkWidget *dest_dir_fileentry;
 	GtkWidget *options_hbox;
 
-	
+
 	/* dest dir */
 	dest_dir_vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
 
@@ -290,17 +290,17 @@ init (GnomeCmdPrepareXferDialog *dialog)
 	/* options */
 	options_hbox = create_hbox (GTK_WIDGET (dialog), TRUE, 6);
 	gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), options_hbox);
-	
+
 	dialog->left_vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
 	dialog->right_vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
 
 	dialog->left_vbox_frame = create_category (GTK_WIDGET (dialog), dialog->left_vbox, "");
 	gtk_container_add (GTK_CONTAINER (options_hbox), dialog->left_vbox_frame);
-	
+
 	dialog->right_vbox_frame = create_category (GTK_WIDGET (dialog), dialog->right_vbox, "");
 	gtk_container_add (GTK_CONTAINER (options_hbox), dialog->right_vbox_frame);
-	
-	
+
+
 	/* buttons */
 	dialog->cancel_button = gnome_cmd_dialog_add_button (
 		GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, NULL, NULL);
@@ -395,11 +395,11 @@ gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
 		dest_str = get_utf8 (t);
 		g_free (t);
 	}
-	
+
 	gtk_entry_set_text (GTK_ENTRY (dialog->dest_dir_entry), dest_str);
 	g_free (dest_str);
-	
+
 	gtk_widget_grab_focus (GTK_WIDGET (dialog->dest_dir_entry));
-	
+
 	return GTK_WIDGET (dialog);
 }

@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
@@ -77,18 +77,18 @@ static gint
 delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
 {
 	gint ret = 0;
-	
-	g_mutex_lock (data->mutex);	
-	
+
+	g_mutex_lock (data->mutex);
+
 	if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
 		data->vfs_status = info->vfs_status;
 		data->problem_file = info->source_name;
 		data->problem = TRUE;
-		
+
 		g_mutex_unlock (data->mutex);
 		while (data->problem_action == -1)
 			g_thread_yield ();
-		g_mutex_lock (data->mutex);	
+		g_mutex_lock (data->mutex);
 		ret = data->problem_action;
 		data->problem_action = -1;
 		data->problem_file = NULL;
@@ -104,15 +104,15 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
 			if (f > 0.999f) f = 0.999f;
 			data->progress = f;
 		}
-		
+
 		ret = !data->stop;
 	}
 	else {
 		data->vfs_status = info->vfs_status;
 	}
-	
+
 	g_mutex_unlock (data->mutex);
-	
+
 	return ret;
 }
 
@@ -138,7 +138,7 @@ create_delete_progress_win (DeleteData *data)
 	GtkWidget *vbox;
 	GtkWidget *bbox;
 	GtkWidget *button;
-	
+
 	data->progwin = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (data->progwin), _("Deleting..."));
 	gtk_window_set_policy (GTK_WINDOW (data->progwin), FALSE, FALSE, FALSE);
@@ -153,7 +153,7 @@ create_delete_progress_win (DeleteData *data)
 
 	data->proglabel = create_label (data->progwin, "");
 	gtk_container_add (GTK_CONTAINER (vbox), data->proglabel);
-	
+
 	data->progbar = create_progress_bar (data->progwin);
 	gtk_container_add (GTK_CONTAINER (vbox), data->progbar);
 
@@ -182,15 +182,15 @@ perform_delete_operation (DeleteData *data)
 
 	/* Go through all files and add the uri of the appropriate ones to a list */
 	for ( i=0 ; i<num_files; i++ ) {
-		GnomeVFSURI *uri;		
+		GnomeVFSURI *uri;
 		GnomeCmdFile *finfo = (GnomeCmdFile*)g_list_nth_data (data->files, i);
 
 		if (g_strcasecmp(finfo->info->name, "..") == 0
 			|| g_strcasecmp(finfo->info->name, ".") == 0) continue;
-		
+
 		uri = gnome_cmd_file_get_uri (finfo);
 		if (!uri) continue;
-		
+
 		gnome_vfs_uri_ref (uri);
 		uri_list = g_list_append (uri_list, uri);
 	}
@@ -215,10 +215,10 @@ static gboolean
 update_delete_status_widgets (DeleteData *data)
 {
 	g_mutex_lock (data->mutex);
-	
+
 	gtk_label_set_text (GTK_LABEL (data->proglabel), data->msg);
 	gtk_progress_set_percentage (GTK_PROGRESS (data->progbar), data->progress);
-			
+
 	if (data->problem) {
 		const gchar *error = gnome_vfs_result_to_string (data->vfs_status);
 		gchar *msg = g_strdup_printf (
@@ -226,15 +226,15 @@ update_delete_status_widgets (DeleteData *data)
 			data->problem_file, error);
 		data->problem_action = run_simple_dialog (
 			GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_ERROR, msg, _("Delete problem"),
-			_("Abort"), _("Retry"), _("Skip"), NULL);
+			-1, _("Abort"), _("Retry"), _("Skip"), NULL);
 		g_free (msg);
-		
+
 		data->problem = FALSE;
 	}
 
 	g_mutex_unlock (data->mutex);
 
-	
+
 	if (data->delete_done) {
 		if (data->vfs_status != GNOME_VFS_OK)
 			create_error_dialog (gnome_vfs_result_to_string (data->vfs_status));
@@ -249,13 +249,13 @@ update_delete_status_widgets (DeleteData *data)
 				tmp = tmp->next;
 			}
 		}
-		
+
 		gtk_widget_destroy (data->progwin);
 
 		cleanup (data);
-		
+
 		/* Returning FALSE here stops the timeout callbacks */
-		return FALSE;		
+		return FALSE;
 	}
 
 	return TRUE;
@@ -270,7 +270,7 @@ do_delete (DeleteData *data)
 	data->vfs_status = GNOME_VFS_OK;
 	data->problem_action = -1;
 	create_delete_progress_win (data);
-		
+
 	data->thread = g_thread_create ((GThreadFunc)perform_delete_operation, data, FALSE, NULL);
 	gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (),
 					 (GtkFunction)update_delete_status_widgets,
@@ -293,7 +293,7 @@ gnome_cmd_delete_dialog_show (GList *files)
 	data->delete_done = FALSE;
 	data->mutex = NULL;
 	data->msg = NULL;
-	
+
 	num_files = g_list_length (data->files);
 
 	if (num_files == 1) {
@@ -317,12 +317,13 @@ gnome_cmd_delete_dialog_show (GList *files)
 	if (gnome_cmd_data_get_confirm_delete ())
 		ret = run_simple_dialog (
 			GTK_WIDGET (main_win), FALSE,
-			GTK_MESSAGE_QUESTION, msg, _("Delete"), _("Cancel"), _("OK"), NULL);
+			GTK_MESSAGE_QUESTION, msg, _("Delete"),
+			1, _("Cancel"), _("OK"), NULL);
 	else
 		ret = 1;
 
 	if (ret == 1)
 		do_delete (data);
-	
+
 	g_free (msg);
 }

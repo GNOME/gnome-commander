@@ -1,5 +1,5 @@
 /*
-  GNOME Commander - A GNOME based file manager 
+  GNOME Commander - A GNOME based file manager
   Copyright (C) 2001-2006 Marcus Bjurman
 
   This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
   You should have received a copy of the GNU General Public License
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #ifndef __UTILS_H__
 #define __UTILS_H__
@@ -35,7 +35,7 @@ void run_command_indir (const gchar *command, const gchar *dir, gboolean term);
 const char **convert_varargs_to_name_array (va_list args);
 gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 						GtkMessageType msg_type,
-						const char *text, const char *title, ...);
+						const char *text, const char *title, gint def_response, ...);
 
 
 
@@ -97,7 +97,7 @@ gchar *get_temp_download_filepath (const gchar *fname);
 void remove_temp_download_dir (void);
 
 GtkWidget *create_ui_pixmap (GtkWidget *window,
-							 GnomeUIPixmapType pixmap_type, 
+							 GnomeUIPixmapType pixmap_type,
 							 gconstpointer pixmap_info,
 							 GtkIconSize size);
 
