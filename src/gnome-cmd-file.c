@@ -367,7 +367,7 @@ gchar *
 gnome_cmd_file_get_real_path (GnomeCmdFile *finfo)
 {
 	GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
-	gchar *path = g_strdup (gnome_vfs_uri_get_path (uri));
+	gchar *path = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (uri),NULL);
 
 	gnome_vfs_uri_unref (uri);
 	

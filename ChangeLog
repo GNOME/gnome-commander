@@ -1,3 +1,8 @@
+2006-02-05  Assaf Gordon  <agordon88@gmail.com>
+
+        * src/gnome-cmd-file.c:
+        Fixed filename escaping
+
 2006-02-03  Piotr Eljasiak  <epiotr@cvs.gnome.org>
 
         * src/gnome-cmd-main-menu.c:
