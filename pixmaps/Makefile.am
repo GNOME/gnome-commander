@@ -11,10 +11,8 @@ pixmaps_DATA = \
 	ftp.xpm \
 	ftp_connect.xpm \
 	ftp_disconnect.xpm \
-	gcmd-icon1.png \
-	gcmd-icon1.xpm \
-	gcmd-icon2.png \
-	gcmd-icon3.xpm \
+	gnome-commander.png \
+	gnome-commander.xpm \
 	gnome_cmd_arrow_blank.xpm \
 	gnome_cmd_arrow_down.xpm \
 	gnome_cmd_arrow_up.xpm \

@@ -2,7 +2,7 @@
 _Name=GNOME Commander
 _Comment=A two paned file manager
 Exec=gnome-commander
-Icon=gnome-commander/gcmd-icon1.png
+Icon=gnome-commander/gnome-commander.png
 Terminal=false
 MultipleArgs=false
 Type=Application

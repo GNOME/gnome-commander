@@ -53,7 +53,7 @@ static gchar *pixmap_files[NUM_PIXMAPS] = {
 	"gnome_cmd_arrow_down.xpm",
 	"gnome_cmd_arrow_blank.xpm",
 	"server.xpm",
-	"gcmd-icon1.xpm",
+	"gnome-commander.xpm",
 	"exec.xpm",
 	"exec_wheel.xpm",
 	"mkdir.xpm",
