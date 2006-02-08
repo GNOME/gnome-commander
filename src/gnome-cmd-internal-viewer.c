@@ -1308,27 +1308,27 @@ typedef struct {
 } CHARSET ;
 
 CHARSET gc_iv_charsets[] = {
- { _("Terminal (CP437)"), 	"CP437", 'Q'},
- { _("English (US-ASCII)"), 	"ASCII", 'A'},
- { _("Arabic (ISO-8859-6)"),	"ISO-8859-6" },
- { _("Arabic (Windows, CP1256)"), 	"ARABIC" },
- { _("Arabic (Dos, CP864)"),	"CP864" },
- { _("Baltic (ISO-8859-4)"),	"ISO-8859-4" },
- { _("Central European (ISO-8859-2))","ISO-8859-2" },
- { _("Central European (CP1250)"),	"CP1250" },
- { _("Cyrillic (ISO-8859-5)"),	"ISO-8859-5" },
- { _("Cyrillic (CP1251)"),	"CP1251" },
- { _("Greek (ISO-8859-7)"),	"ISO-8859-7" },
- { _("Greek (CP1253)"),		"CP1253" },
- { _("Hebrew (Windows, CP1255)"), 	"HEBREW" },
- { _("Hebrew (Dos, CP862)"),	"CP862" },
- { _("Hebrew (ISO-8859-8)"),	"ISO-8859-8" },
- { _("Latin 9 (ISO-8859-15))",	"ISO-8859-15" },
- { _("Maltese (ISO-8859-3)"),	"ISO-8859-3" },
- { _("Turkish (ISO-8859-9)"),	"ISO-8859-9" },
- { _("Turkish (CP1254)"),	"CP1254" },
- { _("Western (CP1252)"),	"CP1252" },
- { _("Western (ISO-8859-1)"),	"ISO-8859-1" },
+ { "Terminal (CP437)", 	        "CP437", 'Q'},
+ { "English (US-ASCII)", 	"ASCII", 'A'},
+ { "Arabic (ISO-8859-6)",	"ISO-8859-6" },
+ { "Arabic (Windows, CP1256)", 	"ARABIC" },
+ { "Arabic (Dos, CP864)",	"CP864" },
+ { "Baltic (ISO-8859-4)",	"ISO-8859-4" },
+ { "Central European (ISO-8859-2)","ISO-8859-2" },
+ { "Central European (CP1250)",	"CP1250" },
+ { "Cyrillic (ISO-8859-5)",	"ISO-8859-5" },
+ { "Cyrillic (CP1251)",	        "CP1251" },
+ { "Greek (ISO-8859-7)",	"ISO-8859-7" },
+ { "Greek (CP1253)",		"CP1253" },
+ { "Hebrew (Windows, CP1255)", 	"HEBREW" },
+ { "Hebrew (Dos, CP862)",	"CP862" },
+ { "Hebrew (ISO-8859-8)",	"ISO-8859-8" },
+ { "Latin 9 (ISO-8859-15))",	"ISO-8859-15" },
+ { "Maltese (ISO-8859-3)",	"ISO-8859-3" },
+ { "Turkish (ISO-8859-9)",	"ISO-8859-9" },
+ { "Turkish (CP1254)",	        "CP1254" },
+ { "Western (CP1252)",	        "CP1252" },
+ { "Western (ISO-8859-1)",	"ISO-8859-1" },
  { NULL, NULL} };
 
 
@@ -1427,13 +1427,13 @@ static GtkWidget* internal_viewer_create_menu(GnomeCmdInternalViewer *iv)
 	gc_iv_create_menu_item( MI_NORMAL,_("Rotate Counter Clockwise"), submenu,
 				iv->priv->accel_group,GDK_C, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
 				G_CALLBACK(gc_iv_menu_image_rotate_ccw), iv ) ;
-	gc_iv_create_menu_item( MI_NORMAL,_("Rotate Up-side-down", submenu,
+	gc_iv_create_menu_item( MI_NORMAL,_("Rotate Up-side-down"), submenu,
 				iv->priv->accel_group,GDK_U, GDK_CONTROL_MASK,
 				G_CALLBACK(gc_iv_menu_image_rotate_usd), iv ) ;
-	gc_iv_create_menu_item( MI_NORMAL,_("Flip Vertical", submenu,
+	gc_iv_create_menu_item( MI_NORMAL,_("Flip Vertical"), submenu,
 				iv->priv->accel_group,GDK_V, GDK_CONTROL_MASK,
 				G_CALLBACK(gc_iv_menu_image_flip_vert), iv ) ;
-	gc_iv_create_menu_item( MI_NORMAL,_("Flip Horizontal", submenu,
+	gc_iv_create_menu_item( MI_NORMAL,_("Flip Horizontal"), submenu,
 				iv->priv->accel_group,GDK_H, GDK_CONTROL_MASK,
 				G_CALLBACK(gc_iv_menu_image_flip_horz), iv ) ;
 
