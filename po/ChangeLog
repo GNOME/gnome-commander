@@ -51,7 +51,7 @@
 
 	* en_CA.po: Updated Canadian English translation.
 
-2005-03-15  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-03-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* POTFILES.in: Added missing src/gnome-cmd-dir-indicator.c
 
@@ -139,7 +139,7 @@
 	* pt_BR.po: Updated Brazilian Portuguese translation done by
 	Robson Negreiros <kamusbr@bol.com.br>.
 
-2004-05-03  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-05-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
 	
@@ -155,7 +155,7 @@
 
 	* en_CA.po: Updated Canadian English translation.
 
-2004-04-30  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-04-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
 	
@@ -175,7 +175,7 @@
 
 	* hu.po: Updated Hungarian translation.
 
-2004-04-21  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-04-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
 	
@@ -207,7 +207,7 @@
 
 	* es.po: Updated Spanish translation.
 
-2004-04-08  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-04-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
 	
@@ -259,11 +259,11 @@
 
 	* sv.po: Updated Swedish translation.
 
-2004-01-15  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-01-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
 	
-2004-01-14  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-01-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
 	
@@ -271,7 +271,7 @@
 
 	* nl.po: Translation updated.
 
-2004-01-09  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-01-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* ru.po: Updated Rusian translation by
 	Pavlo Bohmat <bohm@ukr.net>.
@@ -344,7 +344,7 @@
 
 	* .cvsignore: Added this file.
 
-2003-06-11  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2003-06-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* Updated Russian translation (thanks to Pavlo Bohmat)
 

@@ -72,35 +72,35 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 %{_datadir}/pixmaps/@PACKAGE@/*/*.xpm
 
 %changelog
-* Fri Jan 28 2005 Piotr Eljasiak <epiotr@cvs.gnome.org>
+* Fri Jan 28 2005 Piotr Eljasiak <epiotr@use.pl>
 - fixed typo: rpm --> rpmbuild
 
-* Mon May 03 2004 Piotr Eljasiak <epiotr@cvs.gnome.org>
+* Mon May 03 2004 Piotr Eljasiak <epiotr@use.pl>
 - converted spec file to utf-8
 - used RPM macros a bit more
 
-* Thu Jun 19 2003 Piotr Eljasiak <epiotr@cvs.gnome.org>
+* Thu Jun 19 2003 Piotr Eljasiak <epiotr@use.pl>
 - added libraries
 
-* Tue Mar 25 2003 Piotr Eljasiak <epiotr@idea.net.pl>
+* Tue Mar 25 2003 Piotr Eljasiak <epiotr@use.pl>
 - updated Sources
 
-* Mon Jan 20 2003 Piotr Eljasiak <epiotr@idea.net.pl>
+* Mon Jan 20 2003 Piotr Eljasiak <epiotr@use.pl>
 - added build dependencies
 
-* Fri Jan 10 2003 Piotr Eljasiak <epiotr@idea.net.pl>
+* Fri Jan 10 2003 Piotr Eljasiak <epiotr@use.pl>
 - added localization
 
-* Thu Jan 09 2003 Piotr Eljasiak <epiotr@idea.net.pl>
+* Thu Jan 09 2003 Piotr Eljasiak <epiotr@use.pl>
 - added dependencies
 
-* Mon Jun 24 2002 Piotr Eljasiak <epiotr@idea.net.pl>
+* Mon Jun 24 2002 Piotr Eljasiak <epiotr@use.pl>
 - more cleanup in install section 
 
-* Sat Jun 15 2002 Piotr Eljasiak <epiotr@idea.net.pl>
+* Sat Jun 15 2002 Piotr Eljasiak <epiotr@use.pl>
 - simplified install and files sections
 
-* Mon Jun 10 2002 Piotr Eljasiak <epiotr@idea.net.pl>
+* Mon Jun 10 2002 Piotr Eljasiak <epiotr@use.pl>
 - .spec file is now generated from .spec.in
 
 * Mon Jun 10 2002 Marcus Bjurman <marbj499@student.liu.se>

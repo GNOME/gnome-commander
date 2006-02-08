@@ -1,9 +1,9 @@
-2006-02-08  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2006-02-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pixmaps/gnome-commander.{png,xpm}: new GNOME commander logo
 	* pixmaps/gcmd-icon?.{png,xcf,xpm}: removed old icons
 
-2006-02-05  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2006-02-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-delete-dialog.c:
 	* src/gnome-cmd-file.c:
@@ -18,7 +18,7 @@
 	* src/gnome-cmd-file.c:
 	Fixed filename escaping
 
-2006-02-03  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2006-02-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.c:
 	Fixed typo.
@@ -39,7 +39,7 @@
 	* src/gnome-cmd-quicksearch-popup.c:
 	Fixed CTRL+ALT+letter not responding when typed too fast
 
-2006-02-02  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2006-02-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	Updated copyright info.
 
@@ -47,22 +47,22 @@
 
 	* configure.in: Added "eu" to ALL_LINGUAS.
 
-2005-09-02  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-09-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.l:
 	Reworked (and simplified) internal representation for fname templates.
 
-2005-08-31  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-08-31  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.l:
 	Added support for id3 and exif tags ($T placeholder).
 
-2005-08-18  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-08-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.l:
 	Added $g placeholder for grandparent dir.
 
-2005-08-12  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-08-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* */Makefile.am:
 	* configure.in:
@@ -74,13 +74,13 @@
 	* po/pl.po:
 	email update
 
-2005-08-11  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-08-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-search-popup.{c,h}:
 	* po/POTFILES.in:
 	Removed unused files.
 
-2005-07-25  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-07-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.c:
 	* src/gnome-cmd-file-selector.c:
@@ -98,7 +98,7 @@
 
         * configure.in: Added "rw" to ALL_LINGUAS.
 
-2005-03-04  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-03-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* gnome-commander.spec.in:
 	Some cosmetics.
@@ -107,16 +107,16 @@
 
         * configure.in: Added "el" (Greek) to ALL_LINGUAS.
 
-2005-02-01  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-02-01  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.l:
         Fixed debian bug #288933 for amd64/gcc-4.0 compiling from Andreas Jochens (aj@andaco.de)
 
-2005-01-30  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-01-30  Piotr Eljasiak  <epiotr@use.pl>
 
         Updated copyright info.
 
-2005-01-28  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2005-01-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* gnome-commander.spec.in:
 	Fixed typo: rpm --> rpmbuild
@@ -133,13 +133,13 @@
 
 	* configure.in: Added pt_BR to ALL_LINGUAS.
 
-2004-05-03  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-05-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-dir-indicator.c:
 	* src/gnome-cmd-main-menu.c:
 	Connected Manage Bookmarks dialog to the bookmarks shortcut.
 
-2004-04-30  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-04-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.c:
 	* src/utils.c:
@@ -160,7 +160,7 @@
 	Fixed crash when trying to copy the currently selected files
 	path to the cmdline by pressing ctrl+shift+enter.
 
-2004-04-26  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-04-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.c:
 	i18n of symlink name if SHIFT+CTRL+F5.
@@ -169,7 +169,7 @@
 
 	* configure.in: Added hu to ALL_LINGUAS.
 
-2004-04-21  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-04-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.c:
 	Added shortcut CTRL+M to Multi-Rename-Tool for better compliance with
@@ -233,7 +233,7 @@
 
 	* configure.in: Added en_GB to ALL_LINGUAS
 
-2004-04-08  Piotr Eljasiak  <epiotr@cvs.gnome.org>
+2004-04-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.c:
 	Some cosmetics to make text of menu shortcuts more compliant with other Gnome apps.

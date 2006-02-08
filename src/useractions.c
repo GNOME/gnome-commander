@@ -651,13 +651,14 @@ help_about                          (GtkMenuItem     *menuitem,
 {
 	gchar *authors[] = {
 		"Marcus Bjurman <marbj499@student.liu.se>",
-		"Piotr Eljasiak <epiotr@cvs.gnome.org>",
+		"Piotr Eljasiak <epiotr@use.pl>",
+		"Assaf Gordon <agordon88@gmail.com>",
 		NULL
 	};
 
 	gchar *docers[] = {
 		"Marcus Bjurman <marbj499@student.liu.se>",
-		"Piotr Eljasiak <epiotr@cvs.gnome.org>",
+		"Piotr Eljasiak <epiotr@use.pl>",
 		NULL
 	};
 	
