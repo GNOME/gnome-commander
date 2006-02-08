@@ -26,6 +26,7 @@ src/gnome-cmd-file-props-dialog.c
 src/gnome-cmd-file-selector.c
 src/gnome-cmd-file.c
 src/gnome-cmd-ftp-dialog.c
+src/gnome-cmd-internal-viewer.c
 src/gnome-cmd-list-popmenu.c
 src/gnome-cmd-main-menu.c
 src/gnome-cmd-main-win.c

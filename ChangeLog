@@ -1,3 +1,9 @@
+2006-02-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-internal-viewer.c:
+	* src/utils.c:
+        i18n
+
 2006-02-08  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/Makefile.am:

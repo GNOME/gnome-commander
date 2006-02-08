@@ -1,3 +1,7 @@
+2006-02-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* POTFILES.in: Added src/gnome-cmd-internal-viewer.c
+
 2005-10-16  Funda Wang  <fundawang@linux.net.cn>
 
 	* zh_CN.po: Updated Simplified Chinese translation.
@@ -142,7 +146,7 @@
 2004-05-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
-	
+
 2004-05-02  Gareth Owen  <gowen72@yahoo.com>
 
 	* en_GB.po: Updated British English translation
@@ -158,7 +162,7 @@
 2004-04-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
-	
+
 2004-04-29  Miloslav Trmac  <mitr@volny.cz>
 
 	* cs.po: Updated Czech translation.
@@ -178,7 +182,7 @@
 2004-04-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
-	
+
 2004-04-19  Gareth Owen  <gowen72@yahoo.com>
 
 	* en_GB.po: Updated British English translation
@@ -210,7 +214,7 @@
 2004-04-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
-	
+
 2004-03-20  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
 	* hr.po: Updated Croatian translation.
@@ -262,11 +266,11 @@
 2004-01-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
-	
+
 2004-01-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pl.po: Updated Polish translation
-	
+
 2004-01-13  Vincent van Adrighem  <adrighem@gnome.org>
 
 	* nl.po: Translation updated.

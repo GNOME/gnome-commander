@@ -1195,7 +1195,7 @@ gchar *get_temp_download_filepath (const gchar *fname)
 			g_free (tmp_file_dir_template);
 
 			create_error_dialog (
-				"Failed to create directory to store temporary files in.\nError message: %s\n",
+				_("Failed to create directory to store temporary files in.\nError message: %s\n"),
 				strerror (errno));
 			return NULL;
 		}
