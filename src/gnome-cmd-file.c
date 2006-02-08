@@ -28,6 +28,7 @@
 #include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-xfer.h"
+#include "gnome-cmd-internal-viewer.h"
 
 #define MAX_TYPE_LENGTH 2
 #define MAX_NAME_LENGTH 128
@@ -710,15 +711,11 @@ gnome_cmd_file_show_properties (GnomeCmdFile *finfo)
 static void
 do_view_file (const gchar *path)
 {
-	gchar *command;
 	gchar *arg;
-
-	arg = g_shell_quote (path);
-	command = g_strdup_printf (gnome_cmd_data_get_viewer (), arg);
-	run_command (command, FALSE);
-
-	g_free (arg);
-	g_free (command);
+	
+	arg = gnome_vfs_unescape_string (path, NULL);
+	do_internal_file_view(arg);
+	g_free(arg);
 }
 
 

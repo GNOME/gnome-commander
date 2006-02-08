@@ -73,7 +73,8 @@ gnome_commander_SOURCES = \
 	gnome-cmd-search-dialog.h gnome-cmd-search-dialog.c \
 	gnome-cmd-style.h gnome-cmd-style.c \
 	gnome-cmd-xfer.h gnome-cmd-xfer.c \
-	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.c
+	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.c \
+	gnome-cmd-internal-viewer.c gnome-cmd-internal-viewer.h
 
 gnome_commander_LDADD = \
 	$(GNOMEUI_LIBS) \

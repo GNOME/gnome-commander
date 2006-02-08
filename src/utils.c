@@ -76,6 +76,7 @@ gboolean DEBUG_ENABLED (gchar flag)
  * m: connection debug.
  * n: directory-monitoring debug
  * s: smb network browser debugging.
+ * v: internal viewr
  * w: widget_lookup debugging
  * y: brief mime-based imageload debugging
  * z: detailed mime-based imageload debugging

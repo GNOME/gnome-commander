@@ -1,3 +1,12 @@
+2006-02-08  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/Makefile.am:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-internal-viewer.c:
+	* src/gnome-cmd-internal-viewer.h:
+	* src/utils.c:
+	Added internal F3 viewer
+
 2006-02-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* pixmaps/gnome-commander.{png,xpm}: new GNOME commander logo
