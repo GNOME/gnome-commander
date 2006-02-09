@@ -663,7 +663,7 @@ help_about                          (GtkMenuItem     *menuitem,
 	};
 	
 	GtkWidget *dialog = gnome_about_new (
-		"Gnome Commander",
+		"GNOME Commander",
 		VERSION,
 		"Copyright (C) 2001-2006 Marcus Bjurman",
 		_("A fast and powerful file manager for the GNOME desktop"),

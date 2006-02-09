@@ -25,7 +25,7 @@ msgstr "Un administrador de archivos con dos paneles"
 
 #: ../gnome-commander.desktop.in.h:2
 msgid "GNOME Commander"
-msgstr "Gnome Commander"
+msgstr "GNOME Commander"
 
 #: ../libgcmd/gnome-cmd-string-dialog.c:133
 msgid "No error description available"
