@@ -78,6 +78,7 @@ struct _GnomeCmdDataPrivate
 	gchar               *quick_connect_user;
 	gint                quick_connect_port;
 	gboolean            honor_expect_uris;
+	gboolean	    use_internal_viewer;
 	gboolean            skip_mounting;
 	gboolean            toolbar_visibility;
 	gboolean            buttonbar_visibility;
@@ -960,6 +961,8 @@ gnome_cmd_data_save                      (void)
 
 	gnome_cmd_data_set_bool   ("/programs/honor_expect_uris",
 				data->priv->honor_expect_uris);
+	gnome_cmd_data_set_bool   ("/programs/use_internal_viewer",
+				data->priv->use_internal_viewer);
 	gnome_cmd_data_set_bool   ("/programs/skip_mounting",
 				data->priv->skip_mounting);
 	gnome_cmd_data_set_bool   ("/programs/toolbar_visibility",
@@ -1228,6 +1231,8 @@ gnome_cmd_data_load                      (void)
 
 	data->priv->honor_expect_uris = gnome_cmd_data_get_bool (
 		"/programs/honor_expect_uris", FALSE);
+	data->priv->use_internal_viewer = gnome_cmd_data_get_bool (
+		"/programs/use_internal_viewer", TRUE);
 	data->priv->skip_mounting = gnome_cmd_data_get_bool (
 		"/programs/skip_mounting", FALSE);
 	data->priv->toolbar_visibility = gnome_cmd_data_get_bool (
@@ -1910,6 +1915,18 @@ gnome_cmd_data_set_honor_expect_uris (gboolean value)
 	data->priv->honor_expect_uris = value;
 }
 
+gboolean
+gnome_cmd_data_get_use_internal_viewer (void)
+{
+	return data->priv->use_internal_viewer;
+}
+
+
+void
+gnome_cmd_data_set_use_internal_viewer (gboolean value)
+{
+	data->priv->use_internal_viewer = value;
+}
 
 gboolean
 gnome_cmd_data_get_skip_mounting (void)

@@ -1234,27 +1234,33 @@ create_programs_tab (GtkWidget *parent)
 	cat = create_category (parent, check, _("MIME applications"));
 	gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 	
-	table = create_table (parent, 4, 2);
+	table = create_table (parent, 5, 2);
 	cat = create_category (parent, table, _("Standard programs"));
 	gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
 	label = create_label (parent, _("Viewer:"));
 	table_add (table, label, 0, 0, GTK_FILL);
 	label = create_label (parent, _("Editor:"));
-	table_add (table, label, 0, 1, GTK_FILL);
-	label = create_label (parent, _("Differ:"));
 	table_add (table, label, 0, 2, GTK_FILL);
-	label = create_label (parent, _("Terminal:"));
+	label = create_label (parent, _("Differ:"));
 	table_add (table, label, 0, 3, GTK_FILL);
+	label = create_label (parent, _("Terminal:"));
+	table_add (table, label, 0, 4, GTK_FILL);
 	
 	entry = create_entry (parent, "viewer", gnome_cmd_data_get_viewer());	
 	table_add (table, entry, 1, 0, GTK_EXPAND|GTK_FILL);
+
+	check = create_check (parent, _("Use Internal Viewer"),
+						  "use_internal_viewer");
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check),
+						  gnome_cmd_data_get_use_internal_viewer ());
+	table_add (table, check, 1, 1, GTK_EXPAND|GTK_FILL);
 	entry = create_entry (parent, "editor", gnome_cmd_data_get_editor());
-	table_add (table, entry, 1, 1, GTK_EXPAND|GTK_FILL);
-	entry = create_entry (parent, "differ", gnome_cmd_data_get_differ());
 	table_add (table, entry, 1, 2, GTK_EXPAND|GTK_FILL);
-	entry = create_entry (parent, "term", gnome_cmd_data_get_term());
+	entry = create_entry (parent, "differ", gnome_cmd_data_get_differ());
 	table_add (table, entry, 1, 3, GTK_EXPAND|GTK_FILL);
+	entry = create_entry (parent, "term", gnome_cmd_data_get_term());
+	table_add (table, entry, 1, 4, GTK_EXPAND|GTK_FILL);
 
 	
 	/*
@@ -1322,7 +1328,8 @@ store_programs_options (GnomeCmdOptionsDialog *dialog)
 	GtkWidget *entry2 = lookup_widget (GTK_WIDGET (dialog), "editor");
 	GtkWidget *entry3 = lookup_widget (GTK_WIDGET (dialog), "differ");
 	GtkWidget *entry5 = lookup_widget (GTK_WIDGET (dialog), "term");
-	GtkWidget *check = lookup_widget (GTK_WIDGET (dialog), "honor_expect_uris");
+	GtkWidget *check_uris = lookup_widget (GTK_WIDGET (dialog), "honor_expect_uris");
+	GtkWidget *check_iv = lookup_widget (GTK_WIDGET (dialog), "use_internal_viewer");
 
 	gnome_cmd_data_set_viewer (gtk_entry_get_text (GTK_ENTRY (entry1)));
 	gnome_cmd_data_set_editor (gtk_entry_get_text (GTK_ENTRY (entry2)));
@@ -1330,7 +1337,9 @@ store_programs_options (GnomeCmdOptionsDialog *dialog)
 	gnome_cmd_data_set_term (gtk_entry_get_text (GTK_ENTRY (entry5)));
 
 	gnome_cmd_data_set_honor_expect_uris (
-		!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check)));
+		!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris)));
+	gnome_cmd_data_set_use_internal_viewer (
+		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv)));
 }
 
 

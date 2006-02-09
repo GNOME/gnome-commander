@@ -354,6 +354,12 @@ void
 gnome_cmd_data_set_honor_expect_uris    (gboolean value);
 
 gboolean
+gnome_cmd_data_get_use_internal_viewer    (void);
+
+void
+gnome_cmd_data_set_use_internal_viewer  (gboolean value);
+
+gboolean
 gnome_cmd_data_get_skip_mounting        (void);
 
 void

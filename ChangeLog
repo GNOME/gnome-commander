@@ -1,3 +1,11 @@
+2006-02-09  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-options-dialog.c:
+	Added option for enabling/disabling 'Internal Viewer'
+
 2006-02-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-internal-viewer.c:
