@@ -1,4 +1,35 @@
 ===================================
+gnome-commander 1.1.7
+---------------
+
+Bug fixes:
+ * Fixed crash when trying to copy the currently selected files
+ * Fixed filename escaping
+ * Fixed CTRL+ALT+letter bad responsiveness when typing too fast
+ * Fixed debian bug #288933 for amd64/gcc-4.0 compiling
+ * Fixed problem #138933 with infinite recursion when drag'n'dropping a directory to it self
+ * Fixed problem with the disconnect button not behaving correctly when connecting to ftp-servers
+   and being in supermount mode
+ * Fixed update after renaming without FAM
+
+New features:
+ * New GNOME commander logo
+ * Added internal F3 viewer
+ * Copying selected filename(s) to clipboard
+ * Inserting selected file full path to the cmdline when pressing CTRL+SHIFT+ENTER
+ * Multi-Rename-Tool - new $g placeholder for grandparent dir
+ * Toolbar buttons (cut,copy and paste) are now sensitive to the current state
+ * Manage Bookmarks dialog is now accessible also via the bookmarks shortcut
+ * New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, pt_BR, rw, uk, zh_TW
+ * New key bindings:
+      CTRL+M        Multi-Rename-Tool
+      CTRL+SHIFT+.  Copying the current working directory from the active file-list to the inactive one
+      CTRL+=        Select all files
+      CTRL+-        Unselect all files
+      =             Select files using a pattern
+
+
+===================================
 gnome-commander 1.1.6
 ---------------
 
@@ -8,7 +39,7 @@ Bug fixes:
  * Fixed ftp-quick-connect problems.
  * The quick-search function can now also be started by typing capital
    letters.
- * CTRL+ALT no longer needs to be used to activate quick-searcg when the
+ * CTRL+ALT no longer needs to be used to activate quick-search when the
    cmdline is hidden.
 
 New features:
