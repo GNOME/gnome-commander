@@ -31,7 +31,12 @@ pixmaps_DATA = \
 	smb-computer.xpm \
 	smb-network.xpm \
 	toggle_horizontal.xpm \
-	toggle_vertical.xpm
+	toggle_vertical.xpm \
+	rotate-90-16.xpm \
+	rotate-180-16.xpm \
+	rotate-270-16.xpm \
+	flip-vertical-16.xpm \
+	flip-horizontal-16.xpm
 
 EXTRA_DIST = $(pixmaps_DATA)
 

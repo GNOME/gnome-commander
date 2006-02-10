@@ -310,8 +310,10 @@ static void gc_iv_menu_view_mode_bin_80_chars(GtkMenuItem *item, GnomeCmdInterna
 static void gc_iv_menu_settings_hex_decimal_offset(GtkMenuItem *item, GnomeCmdInternalViewer *iv) ;
 static void gc_iv_menu_settings_save_settings (GtkMenuItem *item, GnomeCmdInternalViewer *iv) ;
 
+#if 0
 static void gc_iv_menu_help_quick_help(GtkMenuItem *item, GnomeCmdInternalViewer *iv) ;
 static void gc_iv_menu_help_about(GtkMenuItem *item, GnomeCmdInternalViewer *iv) ;
+#endif
 
 static void gc_iv_size_allocate (GtkWidget *w, GtkAllocation *alloc, GnomeCmdInternalViewer *iv);
 /*static void gc_iv_size_allocate_image(GtkWidget *w, GtkAllocation *alloc, GnomeCmdInternalViewer *iv) ;*/
@@ -331,7 +333,8 @@ static void gc_iv_recalc_display(GnomeCmdInternalViewer* iv);
 static void gc_iv_init_data(GnomeCmdInternalViewer *iv);
 static GtkWidget* gc_iv_create_menu_seperator(GtkWidget* container);
 static GtkWidget* gc_iv_create_menu_item (MENUITEMTYPE type,const gchar* name,GtkWidget* container,
-	GtkAccelGroup* accel,guint keyval,guint modifier,GCallback callback,gpointer userdata);
+	GtkAccelGroup* accel,guint keyval,guint modifier,GCallback callback,					  
+		GnomeUIPixmapType pixmap_type,gconstpointer pixmap_info,gpointer userdata);
 static GtkWidget* gc_iv_create_radio_menu_item (GSList **group,const gchar* name,GtkWidget* container,
 	GtkAccelGroup* accel,guint keyval,guint modifier,GCallback callback,gpointer userdata);
 static GtkWidget* gc_iv_create_sub_menu(const gchar *name, GtkWidget* container);
@@ -690,6 +693,7 @@ static void gc_iv_drawing_area_exposed(GtkWidget *w, GdkEventExpose *event, Gnom
 /*******************************
 * Event Handlers for GnomeCmdInternalViewer Window
 ********************************/
+#if 0
 static void gc_iv_menu_help_quick_help(GtkMenuItem *item, GnomeCmdInternalViewer *iv)
 {
 }
@@ -697,6 +701,7 @@ static void gc_iv_menu_help_quick_help(GtkMenuItem *item, GnomeCmdInternalViewer
 static void gc_iv_menu_help_about(GtkMenuItem *item, GnomeCmdInternalViewer *iv)
 {
 }
+#endif
 
 static void gc_iv_menu_view_mode_ascii(GtkMenuItem *item, GnomeCmdInternalViewer *iv)
 {
@@ -1232,6 +1237,8 @@ static GtkWidget* gc_iv_create_menu_item (MENUITEMTYPE type,
 					  guint keyval,
 					  guint modifier,
 					  GCallback callback,
+					  GnomeUIPixmapType pixmap_type,
+					  gconstpointer pixmap_info,
 					  gpointer userdata)
 {
 	GtkWidget *menuitem;
@@ -1243,14 +1250,30 @@ static GtkWidget* gc_iv_create_menu_item (MENUITEMTYPE type,
 		break;
 	case MI_NORMAL:
 	default:
-		menuitem = gtk_menu_item_new_with_mnemonic (_(name));
+		menuitem = gtk_image_menu_item_new_with_mnemonic (_(name));
 		break;
 	}
+	
+	if (pixmap_type != GNOME_APP_PIXMAP_NONE &&
+	    pixmap_info != NULL) {
+		GtkWidget *pixmap = NULL;
+		pixmap = create_ui_pixmap (NULL,
+					   pixmap_type,
+					   pixmap_info,
+					   GTK_ICON_SIZE_MENU);
+		if (pixmap) {
+			gtk_widget_show (pixmap);
+			gtk_image_menu_item_set_image (
+				GTK_IMAGE_MENU_ITEM (menuitem), pixmap);
+		}
+		    
+	    }
 
 	gtk_widget_show (menuitem);
 	gtk_container_add (GTK_CONTAINER(container), menuitem);
 
-	gtk_widget_add_accelerator (menuitem, "activate", accel,
+	if (accel && keyval)
+		gtk_widget_add_accelerator (menuitem, "activate", accel,
 			      keyval, modifier, GTK_ACCEL_VISIBLE);
 
 	g_signal_connect ( G_OBJECT(menuitem), "activate",
@@ -1352,13 +1375,15 @@ static GtkWidget* internal_viewer_create_menu(GnomeCmdInternalViewer *iv)
 	submenu = gc_iv_create_sub_menu(_("_File"), int_viewer_menu) ;
 	gc_iv_create_menu_item( MI_NORMAL,_("_Close"), submenu,
 				iv->priv->accel_group,GDK_Escape, 0,
-				G_CALLBACK(gc_iv_menu_file_close), iv ) ;
+				G_CALLBACK(gc_iv_menu_file_close),
+				GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE, iv) ;
 
 	/* View Menu */
 	submenu = gc_iv_create_sub_menu(_("_View"), int_viewer_menu) ;
 	menuitem = gc_iv_create_menu_item( MI_CHECK,_("_Wrap lines"), submenu,
 				iv->priv->accel_group,GDK_W, 0,
-				G_CALLBACK(gc_iv_menu_view_wrap), iv ) ;
+				G_CALLBACK(gc_iv_menu_view_wrap), 
+				GNOME_APP_PIXMAP_NONE, NULL, iv ) ;
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), FALSE);
 
 	gc_iv_create_menu_seperator(submenu) ;
@@ -1410,33 +1435,40 @@ static GtkWidget* internal_viewer_create_menu(GnomeCmdInternalViewer *iv)
 				iv->priv->accel_group,GDK_5, 0,
 				G_CALLBACK(gc_iv_menu_view_mode_image), iv ) ;
 
-
 	gc_iv_create_menu_seperator(submenu) ;
 	gc_iv_create_menu_item( MI_NORMAL,_("_Larger Font"), submenu,
 				iv->priv->accel_group,GDK_equal, 0,
-				G_CALLBACK(gc_iv_menu_view_larger_font), iv ) ;
+				G_CALLBACK(gc_iv_menu_view_larger_font), 
+				GNOME_APP_PIXMAP_NONE, NULL, iv ) ;
 	gc_iv_create_menu_item( MI_NORMAL,_("_Smaller Font"), submenu,
 				iv->priv->accel_group,GDK_minus, 0,
-				G_CALLBACK(gc_iv_menu_view_smaller_font), iv ) ;
+				G_CALLBACK(gc_iv_menu_view_smaller_font),
+				GNOME_APP_PIXMAP_NONE, NULL, iv ) ;
 
 	/* Image Menu */
 	submenu = gc_iv_create_sub_menu(_("_Image"), int_viewer_menu) ;
+	
 	gc_iv_create_menu_item( MI_NORMAL,_("Rotate Clockwise"), submenu,
-				iv->priv->accel_group,GDK_C, GDK_CONTROL_MASK,
-				G_CALLBACK(gc_iv_menu_image_rotate_cw), iv ) ;
+				iv->priv->accel_group,GDK_R, GDK_CONTROL_MASK,
+				G_CALLBACK(gc_iv_menu_image_rotate_cw),
+				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/rotate-90-16.xpm", iv ) ;
+				
 	gc_iv_create_menu_item( MI_NORMAL,_("Rotate Counter Clockwise"), submenu,
-				iv->priv->accel_group,GDK_C, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
-				G_CALLBACK(gc_iv_menu_image_rotate_ccw), iv ) ;
-	gc_iv_create_menu_item( MI_NORMAL,_("Rotate Up-side-down"), submenu,
-				iv->priv->accel_group,GDK_U, GDK_CONTROL_MASK,
-				G_CALLBACK(gc_iv_menu_image_rotate_usd), iv ) ;
+				NULL,0,0,
+				G_CALLBACK(gc_iv_menu_image_rotate_ccw),
+				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/rotate-270-16.xpm", iv ) ;
+	gc_iv_create_menu_item( MI_NORMAL,_("Rotate 180\xC2\xB0"), submenu,
+				iv->priv->accel_group,GDK_R, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
+				G_CALLBACK(gc_iv_menu_image_rotate_usd), 
+				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/rotate-180-16.xpm", iv ) ;
 	gc_iv_create_menu_item( MI_NORMAL,_("Flip Vertical"), submenu,
-				iv->priv->accel_group,GDK_V, GDK_CONTROL_MASK,
-				G_CALLBACK(gc_iv_menu_image_flip_vert), iv ) ;
+				NULL,0,0,
+				G_CALLBACK(gc_iv_menu_image_flip_vert), 
+				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/flip-vertical-16.xpm", iv ) ;
 	gc_iv_create_menu_item( MI_NORMAL,_("Flip Horizontal"), submenu,
-				iv->priv->accel_group,GDK_H, GDK_CONTROL_MASK,
-				G_CALLBACK(gc_iv_menu_image_flip_horz), iv ) ;
-
+				NULL,0,0,
+				G_CALLBACK(gc_iv_menu_image_flip_horz), 
+				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/flip-horizontal-16.xpm", iv ) ;
 	/* Settings Menu */
 	submenu = gc_iv_create_sub_menu(_("_Settings"), int_viewer_menu) ;
 
@@ -1462,25 +1494,30 @@ static GtkWidget* internal_viewer_create_menu(GnomeCmdInternalViewer *iv)
 	submenu2 = gc_iv_create_sub_menu(_("_Hex Mode"), submenu) ;
 	menuitem = gc_iv_create_menu_item( MI_CHECK,_("Decimal Offset Display"), submenu2,
 				iv->priv->accel_group,GDK_D, GDK_CONTROL_MASK,
-				G_CALLBACK(gc_iv_menu_settings_hex_decimal_offset), iv ) ;
+				G_CALLBACK(gc_iv_menu_settings_hex_decimal_offset),
+				GNOME_APP_PIXMAP_NONE, NULL, iv ) ;
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem),
 		iv->priv->state.hex_decimal_offset);
 
 	gc_iv_create_menu_seperator(submenu) ;
 	gc_iv_create_menu_item( MI_NORMAL,_("Save as Default Settings"), submenu,
 				iv->priv->accel_group,GDK_S, GDK_CONTROL_MASK,
-				G_CALLBACK(gc_iv_menu_settings_save_settings), iv ) ;
+				G_CALLBACK(gc_iv_menu_settings_save_settings), 
+				GNOME_APP_PIXMAP_NONE, NULL, iv ) ;
 
-
+#if 0
 	/* Help Menu */
 	submenu = gc_iv_create_sub_menu(_("_Help"), int_viewer_menu) ;
 	gc_iv_create_menu_item( MI_NORMAL,_("_Quick Help"), submenu,
 				iv->priv->accel_group,GDK_F1, 0,
-				G_CALLBACK(gc_iv_menu_help_quick_help), iv ) ;
+				G_CALLBACK(gc_iv_menu_help_quick_help), 
+				GNOME_APP_PIXMAP_NONE, NULL, iv ) ;
 	gc_iv_create_menu_seperator(submenu) ;
 	gc_iv_create_menu_item( MI_NORMAL,_("_About"), submenu,
 				iv->priv->accel_group,GDK_F1, GDK_CONTROL_MASK,
-				G_CALLBACK(gc_iv_menu_help_about), iv ) ;
+				G_CALLBACK(gc_iv_menu_help_about),
+				GNOME_APP_PIXMAP_NONE, NULL, iv ) ;
+#endif
 
 	gtk_window_add_accel_group (GTK_WINDOW(iv), iv->priv->accel_group);
 	return int_viewer_menu;
