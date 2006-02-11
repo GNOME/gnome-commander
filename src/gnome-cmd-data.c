@@ -1249,15 +1249,10 @@ gnome_cmd_data_load                      (void)
 	data->priv->sort_direction[1] = gnome_cmd_data_get_bool (
 		"/options/sort_direction_right", FALSE);
 
-	data->priv->viewer = gnome_cmd_data_get_string ("/programs/viewer",
-									 "emacs %s");
-	data->priv->editor = gnome_cmd_data_get_string ("/programs/editor",
-									 "emacs %s");
-	data->priv->differ = gnome_cmd_data_get_string ("/programs/differ",
-									 "meld %s %s");
-	data->priv->term = gnome_cmd_data_get_string (
-		"/programs/term",
-		"xterm -e %s");
+	data->priv->viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
+	data->priv->editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
+	data->priv->differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s %s");
+	data->priv->term   = gnome_cmd_data_get_string ("/programs/term", "xterm -e %s");
 
 	data->priv->device_only_icon = gnome_cmd_data_get_bool (
 		"/devices/only_icon", FALSE);
