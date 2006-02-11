@@ -72,7 +72,7 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 %{_datadir}/pixmaps/@PACKAGE@/*/*.xpm
 
 %changelog
-* Sat 11 Feb 2006 Piotr Eljasiak <epiotr@use.pl>
+* Sat Feb 11 2006 Piotr Eljasiak <epiotr@use.pl>
 - set default srcext to .bz2
 
 * Fri Jan 28 2005 Piotr Eljasiak <epiotr@use.pl>
