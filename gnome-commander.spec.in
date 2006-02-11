@@ -3,15 +3,15 @@
 #
 # Source archive's extension can be specified with rpm --define 'srcext .foo'
 # where .foo is the source archive's actual extension.
-# To compile an RPM from a .bz2 source archive, give the command
-#   rpmbuild -tb --define 'srcext .bz2' @PACKAGE@-@VERSION@.tar.bz2
+# To compile an RPM from a .gz source archive, give the command
+#   rpmbuild -tb --define 'srcext .gz' @PACKAGE@-@VERSION@.tar.gz
 #
 
 %if %{?rel:0}%{!?rel:1}
 %define rel 1
 %endif
 %if %{?srcext:0}%{!?srcext:1}
-%define srcext .gz
+%define srcext .bz2
 %endif
 
 Name:          @PACKAGE@
@@ -72,6 +72,9 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 %{_datadir}/pixmaps/@PACKAGE@/*/*.xpm
 
 %changelog
+* Sat 11 Feb 2006 Piotr Eljasiak <epiotr@use.pl>
+- set default srcext to .bz2
+
 * Fri Jan 28 2005 Piotr Eljasiak <epiotr@use.pl>
 - fixed typo: rpm --> rpmbuild
 
