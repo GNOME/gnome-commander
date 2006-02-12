@@ -1,3 +1,9 @@
+2006-02-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* gnome-commander.spec.in:
+        Changed required gtk+ version to 2.6.0 or more
+
 2006-02-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-data.c:
