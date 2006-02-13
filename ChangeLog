@@ -1,7 +1,14 @@
 2006-02-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:
-        Version is bumped to 1.2.0-pre
+        Version bumped to 1.2.0-pre
+
+	* configure.in:
+	* po/POTFILES.in:
+	* gnome-commander-desktop.in.in:
+	* gnome-commander.spec.in:
+	* pixmaps/Makefile.am:
+        Fixed problem with the lack of gnome menu entry
 
 2006-02-12  Piotr Eljasiak  <epiotr@use.pl>
 
@@ -13,6 +20,7 @@
 
 	* src/gnome-data.c:
         Changed default viewer and editor: emacs -> gedit 
+
 	* gnome-commander.spec.in:
         Changed default tarball ext to bz2
 

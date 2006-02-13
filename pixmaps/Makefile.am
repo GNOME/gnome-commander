@@ -2,20 +2,25 @@
 
 SUBDIRS = device-icons file-type-icons mime-icons
 
+## desktop icon
+dtidir = $(datadir)/pixmaps
+dti_DATA = gnome-commander.png
 
+## application pixmaps
 pixmapsdir = $(datadir)/pixmaps/@PACKAGE@
 pixmaps_DATA = \
 	copy_file_names.xpm \
-	exec.xpm \
 	exec_wheel.xpm \
-	ftp.xpm \
+	exec.xpm \
+	flip-horizontal-16.xpm \
+	flip-vertical-16.xpm \
 	ftp_connect.xpm \
 	ftp_disconnect.xpm \
-	gnome-commander.png \
-	gnome-commander.xpm \
+	ftp.xpm \
 	gnome_cmd_arrow_blank.xpm \
 	gnome_cmd_arrow_down.xpm \
 	gnome_cmd_arrow_up.xpm \
+	gnome-commander.xpm \
 	home.xpm \
 	key.xpm \
 	lock.xpm \
@@ -27,16 +32,13 @@ pixmaps_DATA = \
 	overlay_umount.xpm \
 	parent_dir.xpm \
 	root_dir.xpm \
+	rotate-180-16.xpm \
+	rotate-270-16.xpm \
+	rotate-90-16.xpm \
 	server.xpm \
 	smb-computer.xpm \
 	smb-network.xpm \
 	toggle_horizontal.xpm \
-	toggle_vertical.xpm \
-	rotate-90-16.xpm \
-	rotate-180-16.xpm \
-	rotate-270-16.xpm \
-	flip-vertical-16.xpm \
-	flip-horizontal-16.xpm
+	toggle_vertical.xpm
 
-EXTRA_DIST = $(pixmaps_DATA)
-
+EXTRA_DIST = $(dti_DATA) $(pixmaps_DATA)

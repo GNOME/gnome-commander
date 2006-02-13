@@ -205,20 +205,20 @@ dnl =====================
 
 AC_OUTPUT([
 Makefile
+doc/Makefile
 libgcmd/Makefile
-src/Makefile
-plugins/Makefile
-plugins/test/Makefile
+pixmaps/device-icons/Makefile
+pixmaps/file-type-icons/Makefile
+pixmaps/Makefile
+pixmaps/mime-icons/Makefile
 plugins/cvs/Makefile
 plugins/fileroller/Makefile
+plugins/Makefile
+plugins/test/Makefile
 po/Makefile.in
-pixmaps/Makefile
-pixmaps/device-icons/Makefile
-pixmaps/mime-icons/Makefile
-pixmaps/file-type-icons/Makefile
-doc/Makefile
+src/Makefile
 gnome-commander.spec
-gnome-commander.desktop
+gnome-commander.desktop.in
 README
 ])
 
