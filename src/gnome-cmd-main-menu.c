@@ -471,7 +471,7 @@ init (GnomeCmdMainMenu *main_menu)
 			NULL
 		},
 		{
-			MENU_TYPE_ITEM, _("Advanced _Rename Tool"), "Ctrl+T", NULL,
+			MENU_TYPE_ITEM, _("Advanced _Rename Tool"), "Ctrl+M", NULL,
 			file_advrename, NULL,
 			GNOME_APP_PIXMAP_NONE, NULL,
 			NULL
