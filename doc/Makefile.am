@@ -2,12 +2,14 @@
 
 #SUBDIRS = C 
 
+man1_MANS = gnome-commander.1
+
 EXTRA_DIST = \
 	create_archive.png \
 	dev_cd.png \
 	extract_archive.png \
-	keys.txt \
 	advrename.txt \
+	keys.txt \
 	mounting.png \
-	sgmldocs.make \
-	tips_tricks.txt
+	tips_tricks.txt \
+        $(man1_MANS)
