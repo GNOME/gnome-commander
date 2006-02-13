@@ -4,11 +4,15 @@
         Version bumped to 1.2.0-pre
 
 	* configure.in:
-	* po/POTFILES.in:
+	* Makefile.am:
 	* gnome-commander-desktop.in.in:
 	* gnome-commander.spec.in:
+	* po/POTFILES.in:
 	* pixmaps/Makefile.am:
         Fixed problem with the lack of gnome menu entry
+
+	* Makefile.am:
+        Removed dependency on mkinstalldirs
 
 2006-02-12  Piotr Eljasiak  <epiotr@use.pl>
 
