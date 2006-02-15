@@ -1,4 +1,4 @@
-SUBDIRS = libgcmd src po pixmaps doc plugins
+SUBDIRS = libgcmd src plugins po pixmaps doc data
 
 desktopdir = $(datadir)/applications
 desktop_in_files = @PACKAGE@.desktop.in

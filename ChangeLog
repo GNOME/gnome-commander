@@ -1,6 +1,21 @@
 2006-02-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:
+	* Makefile.am:
+	* data/Makefile.am:
+	* data/gnome-commander.ebuild:
+        Added ebuild file for gentoo systems
+
+2006-02-11  Assaf Gordon  <agordon88@gmail.com>
+
+	* doc/gnome-commander.1:
+	* doc/Makefile.am:
+	* gnome-commander.spec.in:
+        Added general man pages on gnome-commander
+
+2006-02-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
         Version bumped to 1.2.0-pre
 
 	* configure.in:
@@ -13,11 +28,6 @@
 
 	* Makefile.am:
         Removed dependency on mkinstalldirs
-
-	* doc/gnome-commander.1:
-	* doc/Makefile.am:
-	* gnome-commander.spec.in:
-        Added general man pages on gnome-commander
 
 2006-02-12  Piotr Eljasiak  <epiotr@use.pl>
 
