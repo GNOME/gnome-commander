@@ -52,12 +52,9 @@ static void
 my_gnome_init (int argc, char *argv[])
 {
 	struct poptOption popt_table[] = {
-		{"debug", 'd', POPT_ARG_STRING, &debug_flags, 0, 
-			_("Specify debug flags to use"), NULL},
-		{"startdir", 's', POPT_ARG_STRING, &start_dir_left, 0, 
-			_("Specify the start directory for the left pane"), NULL},
-		{"startdir2", 't', POPT_ARG_STRING, &start_dir_right, 0, 
-			_("Specify the start directory for the right pane"), NULL},
+		{"debug", 'd', POPT_ARG_STRING, &debug_flags, 0, _("Specify debug flags to use"), NULL},
+		{"start-left-dir", 'l', POPT_ARG_STRING, &start_dir_left, 0, _("Specify the start directory for the left pane"), NULL},
+		{"start-right-dir", 'r', POPT_ARG_STRING, &start_dir_right, 0, _("Specify the start directory for the right pane"), NULL},
 		{NULL, 0, 0, NULL, 0, NULL, NULL}
 	};
 

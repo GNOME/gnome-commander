@@ -1,3 +1,8 @@
+2006-02-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/main.c:
+        Renamed options for start {left,right} pane dir
+
 2006-02-13  Magnus Stålnacke  <jemamo@telia.com>
 
 	* doc/create_archive.png:
