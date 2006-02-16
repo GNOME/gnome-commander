@@ -205,6 +205,8 @@ dnl =====================
 
 AC_OUTPUT([
 Makefile
+data/gnome-commander.spec
+data/gnome-commander.desktop.in
 data/Makefile
 doc/Makefile
 libgcmd/Makefile
@@ -218,8 +220,6 @@ plugins/Makefile
 plugins/test/Makefile
 po/Makefile.in
 src/Makefile
-gnome-commander.spec
-gnome-commander.desktop.in
 README
 ])
 

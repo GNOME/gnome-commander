@@ -2,9 +2,12 @@
 
 	* configure.in:
 	* Makefile.am:
-	* data/Makefile.am:
+	* data/gnome-commander.desktop.in.in:
 	* data/gnome-commander.ebuild:
+	* data/gnome-commander.spec.in:
+	* data/Makefile.am:
         Added ebuild file for gentoo systems
+        Moved gnome-commander.{desktop.in,spec}.in to data/
 
 2006-02-11  Assaf Gordon  <agordon88@gmail.com>
 
