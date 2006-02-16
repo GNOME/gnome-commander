@@ -1,3 +1,9 @@
+2006-02-13  Magnus Stålnacke  <jemamo@telia.com>
+
+	* doc/create_archive.png:
+	* doc/extract_archive.png:
+        Updated doc files
+
 2006-02-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:
