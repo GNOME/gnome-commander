@@ -1,6 +1,7 @@
 2006-02-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/main.c:
+	* data/gnome-commander.1:
         Renamed options for start {left,right} pane dir
 
 2006-02-13  Magnus Stålnacke  <jemamo@telia.com>
