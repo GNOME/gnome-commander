@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #include <config.h>
 #include <locale.h>
@@ -51,78 +51,76 @@ extern GList *all_files;
 static void
 my_gnome_init (int argc, char *argv[])
 {
-	struct poptOption popt_table[] = {
-		{"debug", 'd', POPT_ARG_STRING, &debug_flags, 0, _("Specify debug flags to use"), NULL},
-		{"start-left-dir", 'l', POPT_ARG_STRING, &start_dir_left, 0, _("Specify the start directory for the left pane"), NULL},
-		{"start-right-dir", 'r', POPT_ARG_STRING, &start_dir_right, 0, _("Specify the start directory for the right pane"), NULL},
-		{NULL, 0, 0, NULL, 0, NULL, NULL}
-	};
+    struct poptOption popt_table[] = {
+        {"debug", 'd', POPT_ARG_STRING, &debug_flags, 0, _("Specify debug flags to use"), NULL},
+        {"start-left-dir", 'l', POPT_ARG_STRING, &start_dir_left, 0, _("Specify the start directory for the left pane"), NULL},
+        {"start-right-dir", 'r', POPT_ARG_STRING, &start_dir_right, 0, _("Specify the start directory for the right pane"), NULL},
+        {NULL, 0, 0, NULL, 0, NULL, NULL}
+    };
 
-	gnome_init_with_popt_table ("gnome-commander", VERSION, argc, argv, popt_table, 0, NULL);
+    gnome_init_with_popt_table ("gnome-commander", VERSION, argc, argv, popt_table, 0, NULL);
 }
 
 
 int
 main (int argc, char *argv[])
 {
-	gchar *conf_dir;
+    gchar *conf_dir;
 
-	main_win = NULL;
-	
-	g_thread_init (NULL);
+    main_win = NULL;
 
-	if (!g_thread_supported ()) {
-		g_printerr ("gnome-commander needs thread support in glib to work, bailing out...\n");
-		return 0; 
-	}
-	
+    g_thread_init (NULL);
+
+    if (!g_thread_supported ()) {
+        g_printerr ("GNOME Commander needs thread support in glib to work, bailing out...\n");
+        return 0;
+    }
+
 #ifdef ENABLE_NLS
-	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
-	bind_textdomain_codeset(PACKAGE, "UTF-8");
-	textdomain (PACKAGE);
+    bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
+    bind_textdomain_codeset (PACKAGE, "UTF-8");
+    textdomain (PACKAGE);
 #endif
-	
+
 #ifdef HAVE_LOCALE_H
-	if(setlocale(LC_ALL, "") == NULL)
-		g_warning("Error processing locales, call to setlocale failed.\n");
-	locale_information = localeconv();
+    if (setlocale(LC_ALL, "") == NULL)
+        g_warning("Error while processing locales, call to setlocale failed.\n");
+    locale_information = localeconv();
 #endif
 
-	ls_colors_init ();
-	my_gnome_init (argc, argv);
-	gdk_rgb_init ();
-	gnome_vfs_init ();
-	conf_dir = g_build_path ("/", g_get_home_dir(), ".gnome-commander", NULL);
-	create_dir_if_needed (conf_dir);
-	g_free (conf_dir);
-	gnome_cmd_data_load ();
-	IMAGE_init ();
-	gnome_cmd_data_load_more ();
-	
-	gnome_cmd_style_create ();
-	OWNER_init ();
+    ls_colors_init ();
+    my_gnome_init (argc, argv);
+    gdk_rgb_init ();
+    gnome_vfs_init ();
+    conf_dir = g_build_path ("/", g_get_home_dir(), ".gnome-commander", NULL);
+    create_dir_if_needed (conf_dir);
+    g_free (conf_dir);
+    gnome_cmd_data_load ();
+    IMAGE_init ();
+    gnome_cmd_data_load_more ();
 
-	main_win_widget = gnome_cmd_main_win_new ();
-	main_win = GNOME_CMD_MAIN_WIN (main_win_widget);
-	
-	gtk_widget_show (GTK_WIDGET (main_win));
-	plugin_manager_init ();
-	
-	gtk_main ();
+    gnome_cmd_style_create ();
+    OWNER_init ();
 
-	plugin_manager_shutdown ();
-	gnome_cmd_data_save ();
-	gnome_vfs_shutdown ();
-	OWNER_free ();
-	IMAGE_free ();
+    main_win_widget = gnome_cmd_main_win_new ();
+    main_win = GNOME_CMD_MAIN_WIN (main_win_widget);
 
-	remove_temp_download_dir ();
-	
-	DEBUG ('c', "dirs total: %d remaining: %d\n",
-		   created_dirs_cnt, created_dirs_cnt - deleted_dirs_cnt);
-	DEBUG ('c', "files total: %d remaining: %d\n",
-		   created_files_cnt, created_files_cnt - deleted_files_cnt);
-	
+    gtk_widget_show (GTK_WIDGET (main_win));
+    plugin_manager_init ();
+
+    gtk_main ();
+
+    plugin_manager_shutdown ();
+    gnome_cmd_data_save ();
+    gnome_vfs_shutdown ();
+    OWNER_free ();
+    IMAGE_free ();
+
+    remove_temp_download_dir ();
+
+    DEBUG ('c', "dirs total: %d remaining: %d\n", created_dirs_cnt, created_dirs_cnt - deleted_dirs_cnt);
+    DEBUG ('c', "files total: %d remaining: %d\n", created_files_cnt, created_files_cnt - deleted_files_cnt);
+
     return 0;
 }
 
