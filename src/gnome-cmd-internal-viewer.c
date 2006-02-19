@@ -1349,8 +1349,8 @@ CHARSET gc_iv_charsets[] = {
  { N_("Latin 9 (ISO-8859-15)"),	"ISO-8859-15" },
  { N_("Maltese (ISO-8859-3)"),	"ISO-8859-3" },
  { N_("Turkish (ISO-8859-9)"),	"ISO-8859-9" },
- { N_("Turkish (CP1254)")       "CP1254" },
- { N_("Western (CP1252)")       "CP1252" },
+ { N_("Turkish (CP1254)"),      "CP1254" },
+ { N_("Western (CP1252)"),      "CP1252" },
  { N_("Western (ISO-8859-1)"),	"ISO-8859-1" },
  { NULL, NULL} };
 
