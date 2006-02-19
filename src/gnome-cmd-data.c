@@ -1177,7 +1177,7 @@ gnome_cmd_data_load                      (void)
 		g_free (tmp);
 	}
 
-	data->priv->color_mode = gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_FUSION);
+	data->priv->color_mode = gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_CLASSIC);
 	
 	gnome_cmd_data_get_color ("/colors/norm_fg",  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
 	gnome_cmd_data_get_color ("/colors/norm_bg",  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
