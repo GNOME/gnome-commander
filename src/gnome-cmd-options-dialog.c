@@ -478,9 +478,10 @@ create_layout_tab (GtkWidget *parent)
 		_("MIME icons"),
 		NULL
 	};
-	gchar *color_modes[] = {
+	gchar *color_modes[GNOME_CMD_NUM_COLOR_MODES+1] = {
 		_("Respect theme colors"),
 		_("Modern"),
+		_("Fusion"),
 		_("Classic"),
 		_("Custom"),
 		NULL
@@ -553,8 +554,7 @@ create_layout_tab (GtkWidget *parent)
 	btn = create_button_with_data (parent, _("Edit..."), GTK_SIGNAL_FUNC (on_colors_edit), parent);
 	gtk_object_set_data (GTK_OBJECT (parent), "color_btn", btn);
 	gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
-	gtk_widget_set_sensitive (
-		btn, gnome_cmd_data_get_color_mode () == GNOME_CMD_COLOR_CUSTOM);
+	gtk_widget_set_sensitive (btn, gnome_cmd_data_get_color_mode () == GNOME_CMD_COLOR_CUSTOM);
 
 
 	// LS_COLORS
@@ -562,8 +562,7 @@ create_layout_tab (GtkWidget *parent)
 		parent,
 		_("Colorize files according to the LS_COLORS enviroment variable"),
 		"use_ls_colors");	
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check),
-								  gnome_cmd_data_get_use_ls_colors());
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check),gnome_cmd_data_get_use_ls_colors());
 	gtk_table_attach (GTK_TABLE (table), check, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 
 

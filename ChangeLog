@@ -1,3 +1,10 @@
+2006-02-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-types.h:
+        Added new color scheme - Fusion
+
 2006-02-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-internal-viewer.c:

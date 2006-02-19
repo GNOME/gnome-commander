@@ -1075,6 +1075,14 @@ gnome_cmd_data_load                      (void)
 	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].curs_fg = gdk_color_new (0xffff,0xffff,0xffff);
 	data->priv->color_themes[GNOME_CMD_COLOR_MODERN].curs_bg = gdk_color_new (0,0,0x4444);
 	
+	data->priv->color_themes[GNOME_CMD_COLOR_FUSION].respect_theme = FALSE;
+	data->priv->color_themes[GNOME_CMD_COLOR_FUSION].norm_fg = gdk_color_new (32896,65535,65535);
+	data->priv->color_themes[GNOME_CMD_COLOR_FUSION].norm_bg = gdk_color_new (0,16448,32896);
+	data->priv->color_themes[GNOME_CMD_COLOR_FUSION].sel_fg = gdk_color_new (65535,65535,0);
+	data->priv->color_themes[GNOME_CMD_COLOR_FUSION].sel_bg = gdk_color_new (0,16448,32896);
+	data->priv->color_themes[GNOME_CMD_COLOR_FUSION].curs_fg = gdk_color_new (0,0,32896);
+	data->priv->color_themes[GNOME_CMD_COLOR_FUSION].curs_bg = gdk_color_new (0,32896,32896);
+
 	data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].respect_theme = FALSE;
 	data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
 	data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].norm_bg = gdk_color_new (0,0,0x4444);
@@ -1169,20 +1177,14 @@ gnome_cmd_data_load                      (void)
 		g_free (tmp);
 	}
 
-	data->priv->color_mode = gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_CUSTOM);
+	data->priv->color_mode = gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_FUSION);
 	
-	gnome_cmd_data_get_color ("/colors/norm_fg",
-							  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
-	gnome_cmd_data_get_color ("/colors/norm_bg",
-							  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
-	gnome_cmd_data_get_color ("/colors/sel_fg",
-							  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg);
-	gnome_cmd_data_get_color ("/colors/sel_bg",
-							  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg);
-	gnome_cmd_data_get_color ("/colors/curs_fg",
-							  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
-	gnome_cmd_data_get_color ("/colors/curs_bg",
-							  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
+	gnome_cmd_data_get_color ("/colors/norm_fg",  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
+	gnome_cmd_data_get_color ("/colors/norm_bg",  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
+	gnome_cmd_data_get_color ("/colors/sel_fg",   data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_fg);
+	gnome_cmd_data_get_color ("/colors/sel_bg",   data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].sel_bg);
+	gnome_cmd_data_get_color ("/colors/curs_fg",  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_fg);
+	gnome_cmd_data_get_color ("/colors/curs_bg",  data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].curs_bg);
 
 	data->priv->list_font = gnome_cmd_data_get_string (
 		"/options/list_font",
