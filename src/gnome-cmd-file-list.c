@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include <regex.h>
@@ -51,10 +52,10 @@
 
 
 enum {
-    FILE_CLICKED,      /* A file in the list was clicked */
-    LIST_CLICKED,       /* The file-list widget was clicked */
+    FILE_CLICKED,        /* A file in the list was clicked */
+    LIST_CLICKED,        /* The file-list widget was clicked */
     EMPTY_SPACE_CLICKED, /* The file-list was clicked but not on a file */
-    SELECTION_CHANGED, /* At least on file was selected/unselected */
+    SELECTION_CHANGED,   /* At least on file was selected/unselected */
     LAST_SIGNAL
 };
 
@@ -69,63 +70,30 @@ static GnomeCmdCListClass *parent_class = NULL;
 
 static guint file_list_signals[LAST_SIGNAL] = { 0 };
 
-typedef gint (* GnomeVFSListCompareFunc) (gconstpointer a, gconstpointer b,
-                                          gpointer data);
-
 GList *gnome_vfs_list_sort (GList *list,
                             GnomeVFSListCompareFunc compare_func,
                             gpointer data);
 
-
-gchar *list_column_titles[FILE_LIST_NUM_COLUMNS];
-
-guint file_list_default_column_width[FILE_LIST_NUM_COLUMNS] = {
-    16,
-    140,
-    40,
-    240,
-    70,
-    150,
-    70,
-    50,
-    50
-};
-
-GtkJustification list_column_justification[FILE_LIST_NUM_COLUMNS] = {
-    GTK_JUSTIFY_CENTER,
-    GTK_JUSTIFY_LEFT,
-    GTK_JUSTIFY_LEFT,
-    GTK_JUSTIFY_LEFT,
-    GTK_JUSTIFY_RIGHT,
-    GTK_JUSTIFY_LEFT,
-    GTK_JUSTIFY_LEFT,
-    GTK_JUSTIFY_LEFT,
-    GTK_JUSTIFY_LEFT
-};
-
-
 static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
-static gint sort_by_extension (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
-static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
+static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 
 
-static GnomeVFSListCompareFunc sort_funcs[] =
-{
-    NULL,
-    (GnomeVFSListCompareFunc)sort_by_name,
-    (GnomeVFSListCompareFunc)sort_by_extension,
-    (GnomeVFSListCompareFunc)sort_by_dir,
-    (GnomeVFSListCompareFunc)sort_by_size,
-    (GnomeVFSListCompareFunc)sort_by_date,
-    (GnomeVFSListCompareFunc)sort_by_perm,
-    (GnomeVFSListCompareFunc)sort_by_owner,
-    (GnomeVFSListCompareFunc)sort_by_group
-};
+GnomeCmdFileListColumn file_list_column[FILE_LIST_NUM_COLUMNS] = 
+{{FILE_LIST_COLUMN_ICON,"",16,GTK_JUSTIFY_CENTER,FILE_LIST_SORT_ASCENDING,NULL},
+ {FILE_LIST_COLUMN_NAME,N_("name"),140,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_name},
+ {FILE_LIST_COLUMN_EXT,N_("ext"),40,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_ext},
+ {FILE_LIST_COLUMN_DIR,N_("dir"),240,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_dir},
+ {FILE_LIST_COLUMN_SIZE,N_("size"),70,GTK_JUSTIFY_RIGHT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_size},
+ {FILE_LIST_COLUMN_DATE,N_("date"),150,GTK_JUSTIFY_CENTER,FILE_LIST_SORT_DESCENDING,(GnomeVFSListCompareFunc)sort_by_date},
+ {FILE_LIST_COLUMN_PERM,N_("perm"),70,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_perm},
+ {FILE_LIST_COLUMN_OWNER,N_("uid"),50,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_owner},
+ {FILE_LIST_COLUMN_GROUP,N_("gid"),50,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_group}};
 
 
 struct _GnomeCmdFileListPrivate {
@@ -137,7 +105,7 @@ struct _GnomeCmdFileListPrivate {
     gint current_col;
     gboolean sort_raising[FILE_LIST_NUM_COLUMNS];
     GnomeCmdFileCollection *shown_files;
-    GList *selected_files; /* contains GnomeCmdFile pointers */
+    GList *selected_files;                         /* contains GnomeCmdFile pointers */
     gint cur_file;
     gboolean shift_down;
     gint shift_down_row;
@@ -480,9 +448,9 @@ create_column_titles (GnomeCmdFileList *fl)
     gint i;
 
     gtk_clist_set_column_width (GTK_CLIST (fl), 0, gnome_cmd_data_get_fs_col_width (0));
-    gtk_clist_set_column_justification (GTK_CLIST (fl), 0, list_column_justification[0]);
+    gtk_clist_set_column_justification (GTK_CLIST (fl), 0, file_list_column[0].justification);
     gtk_clist_column_title_passive (GTK_CLIST (fl), 0);
-
+    
     for ( i=1 ; i<FILE_LIST_NUM_COLUMNS ; i++ )
     {
         GtkWidget *hbox,*pixmap;
@@ -496,7 +464,7 @@ create_column_titles (GnomeCmdFileList *fl)
                                   (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (hbox);
 
-        fl->priv->column_labels[i] = gtk_label_new (list_column_titles[i]);
+        fl->priv->column_labels[i] = gtk_label_new (file_list_column[i].title);
         gtk_widget_ref (fl->priv->column_labels[i]);
         gtk_object_set_data_full (GTK_OBJECT (fl), "column-label", fl->priv->column_labels[i],
                                   (GtkDestroyNotify) gtk_widget_unref);
@@ -516,7 +484,7 @@ create_column_titles (GnomeCmdFileList *fl)
 
     for ( i=1 ; i<FILE_LIST_NUM_COLUMNS ; i++ ) {
         gtk_clist_set_column_width (GTK_CLIST (fl), i, gnome_cmd_data_get_fs_col_width (i));
-        gtk_clist_set_column_justification (GTK_CLIST (fl), i, list_column_justification[i]);
+        gtk_clist_set_column_justification (GTK_CLIST (fl), i, file_list_column[i].justification);
     }
 
     gtk_clist_column_titles_show (GTK_CLIST (fl));
@@ -807,7 +775,7 @@ sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 
 
 static gint
-sort_by_extension (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
+sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
     gint ret;
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
@@ -1010,11 +978,10 @@ on_column_clicked                        (GtkCList *list,
     g_return_if_fail (GTK_IS_CLIST (list));
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    fl->priv->sort_func = sort_funcs[col];
+    fl->priv->sort_raising[col] = fl->priv->current_col == col ? !fl->priv->sort_raising[col] : 
+                                                                 file_list_column[col].default_sort_direction;
 
-    if (fl->priv->current_col == col)
-        fl->priv->sort_raising[col] = !fl->priv->sort_raising[col];
-
+    fl->priv->sort_func = file_list_column[col].sort_func;
     fl->priv->current_col = col;
     update_column_sort_arrows (fl);
 
@@ -1334,17 +1301,7 @@ init (GnomeCmdFileList *fl)
     gnome_cmd_data_get_sort_params (fl, &i, &b);
     fl->priv->current_col = i;
     fl->priv->sort_raising[i] = b;
-    fl->priv->sort_func = sort_funcs[i];
-
-    list_column_titles[FILE_LIST_COLUMN_ICON]  = "";
-    list_column_titles[FILE_LIST_COLUMN_NAME]  = _("name");
-    list_column_titles[FILE_LIST_COLUMN_EXT]   = _("ext");
-    list_column_titles[FILE_LIST_COLUMN_DIR]   = _("dir");
-    list_column_titles[FILE_LIST_COLUMN_SIZE]  = _("size");
-    list_column_titles[FILE_LIST_COLUMN_DATE]  = _("date");
-    list_column_titles[FILE_LIST_COLUMN_PERM]  = _("perm");
-    list_column_titles[FILE_LIST_COLUMN_OWNER] = _("uid");
-    list_column_titles[FILE_LIST_COLUMN_GROUP] = _("gid");
+    fl->priv->sort_func = file_list_column[i].sort_func;
 
     init_dnd (fl);
 
@@ -2547,11 +2504,11 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
             case GDK_F4:
                 on_column_clicked (GTK_CLIST (fl), FILE_LIST_COLUMN_EXT, fl);
                 return TRUE;
-            case GDK_F6:
-                on_column_clicked (GTK_CLIST (fl), FILE_LIST_COLUMN_SIZE, fl);
-                return TRUE;
             case GDK_F5:
                 on_column_clicked (GTK_CLIST (fl), FILE_LIST_COLUMN_DATE, fl);
+                return TRUE;
+            case GDK_F6:
+                on_column_clicked (GTK_CLIST (fl), FILE_LIST_COLUMN_SIZE, fl);
                 return TRUE;
         }
     }

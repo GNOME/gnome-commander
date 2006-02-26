@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #ifndef __GNOME_CMD_FILE_LIST_H__
 #define __GNOME_CMD_FILE_LIST_H__
 
@@ -90,9 +91,26 @@ struct _GnomeCmdFileListClass
 };
 
 
-extern guint file_list_default_column_width[FILE_LIST_NUM_COLUMNS];
+enum { FILE_LIST_SORT_ASCENDING=FALSE, FILE_LIST_SORT_DESCENDING=TRUE };
+
+typedef gint (* GnomeVFSListCompareFunc) (gconstpointer a, gconstpointer b, gpointer data);
+
+
+typedef struct
+{
+  guint id;
+  gchar *title;
+  guint default_width;
+  GtkJustification justification;
+  gboolean default_sort_direction;
+  GnomeVFSListCompareFunc sort_func;
+} GnomeCmdFileListColumn;
+
+
+extern GnomeCmdFileListColumn file_list_column[];
 extern GtkTargetEntry drag_types[];
 extern GtkTargetEntry drop_types[];
+
 
 GtkType
 gnome_cmd_file_list_get_type            (void);

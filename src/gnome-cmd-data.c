@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
@@ -34,7 +35,7 @@
 #include "filter.h"
 #include "utils.h"
 
-#define DEFAULT_ANONYMOUS_PW "you@yourhost"
+#define DEFAULT_ANONYMOUS_PW "anonymous@host"
 
 #define MAX_GUI_UPDATE_RATE 1000
 #define MIN_GUI_UPDATE_RATE 10
@@ -81,7 +82,7 @@ struct _GnomeCmdDataPrivate
     gchar               *quick_connect_user;
     gint                quick_connect_port;
     gboolean            honor_expect_uris;
-    gboolean        use_internal_viewer;
+    gboolean            use_internal_viewer;
     gboolean            skip_mounting;
     gboolean            toolbar_visibility;
     gboolean            buttonbar_visibility;
@@ -1205,13 +1206,13 @@ gnome_cmd_data_save                      (void)
         data->priv->main_win_pos[1]);
 
     gnome_cmd_data_set_int (
-        "/options/sort_column_left", data->priv->sort_column[0]);
+        "/options/sort_column_left", data->priv->sort_column[LEFT]);
     gnome_cmd_data_set_bool (
-        "/options/sort_direction_left", data->priv->sort_direction[0]);
+        "/options/sort_direction_left", data->priv->sort_direction[LEFT]);
     gnome_cmd_data_set_int (
-        "/options/sort_column_right", data->priv->sort_column[1]);
+        "/options/sort_column_right", data->priv->sort_column[RIGHT]);
     gnome_cmd_data_set_bool (
-        "/options/sort_direction_right", data->priv->sort_direction[1]);
+        "/options/sort_direction_right", data->priv->sort_direction[RIGHT]);
 
 
     gnome_cmd_data_set_string ("/programs/viewer",
@@ -1251,12 +1252,10 @@ gnome_cmd_data_save                      (void)
         g_free (tmp);
     }
 
-    gnome_cmd_data_set_string ("/options/start_dir_left", data->priv->start_dirs[0]);
-    gnome_cmd_data_set_string ("/options/start_dir_right", data->priv->start_dirs[1]);
-    gnome_cmd_data_set_string ("/defaults/last_pattern",
-                data->priv->last_pattern);
-    gnome_cmd_data_set_string ("/defaults/backup_pattern",
-                data->priv->backup_pattern);
+    gnome_cmd_data_set_string ("/options/start_dir_left", data->priv->start_dirs[LEFT]);
+    gnome_cmd_data_set_string ("/options/start_dir_right", data->priv->start_dirs[RIGHT]);
+    gnome_cmd_data_set_string ("/defaults/last_pattern", data->priv->last_pattern);
+    gnome_cmd_data_set_string ("/defaults/backup_pattern", data->priv->backup_pattern);
 
     write_cmdline_history ();
     //write_dir_history ();
@@ -1278,11 +1277,9 @@ void
 gnome_cmd_data_load                      (void)
 {
     gint i;
-    gchar *document_icon_dir = g_strdup_printf (
-        "%s/share/pixmaps/document-icons/", GNOME_PREFIX);
-    gchar *theme_icon_dir = g_strdup_printf (
-        "%s/mime-icons", PIXMAPS_DIR);
-
+    gchar *document_icon_dir = g_strdup_printf ("%s/share/pixmaps/document-icons/", GNOME_PREFIX);
+    gchar *theme_icon_dir    = g_strdup_printf ("%s/mime-icons", PIXMAPS_DIR);
+    
     data = g_new (GnomeCmdData, 1);
     data->priv = g_new (GnomeCmdDataPrivate, 1);
 
@@ -1392,7 +1389,7 @@ gnome_cmd_data_load                      (void)
 
     for ( i=0; i<FILE_LIST_NUM_COLUMNS; i++ ) {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
-        data->priv->fs_col_width[i] = get_int (tmp, file_list_default_column_width[i]);
+        data->priv->fs_col_width[i] = get_int (tmp, file_list_column[i].default_width);
         g_free (tmp);
     }
 
@@ -1469,14 +1466,10 @@ gnome_cmd_data_load                      (void)
     data->priv->buttonbar_visibility = gnome_cmd_data_get_bool (
         "/programs/buttonbar_visibility", TRUE);
 
-    data->priv->sort_column[0] = gnome_cmd_data_get_int (
-        "/options/sort_column_left", 1);
-    data->priv->sort_direction[0] = gnome_cmd_data_get_bool (
-        "/options/sort_direction_left", FALSE);
-    data->priv->sort_column[1] = gnome_cmd_data_get_int (
-        "/options/sort_column_right", 1);
-    data->priv->sort_direction[1] = gnome_cmd_data_get_bool (
-        "/options/sort_direction_right", FALSE);
+    data->priv->sort_column[LEFT] = gnome_cmd_data_get_int ("/options/sort_column_left", 1);
+    data->priv->sort_direction[LEFT] = gnome_cmd_data_get_bool ( "/options/sort_direction_left", FALSE);
+    data->priv->sort_column[RIGHT] = gnome_cmd_data_get_int ("/options/sort_column_right", 1);
+    data->priv->sort_direction[RIGHT] = gnome_cmd_data_get_bool ("/options/sort_direction_right", FALSE);
 
     data->priv->viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
     data->priv->editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
@@ -1490,9 +1483,9 @@ gnome_cmd_data_load                      (void)
     data->priv->use_ls_colors = gnome_cmd_data_get_bool (
         "/colors/use_ls_colors", FALSE);
 
-    data->priv->start_dirs[0] = gnome_cmd_data_get_string (
+    data->priv->start_dirs[LEFT] = gnome_cmd_data_get_string (
         "/options/start_dir_left", g_get_home_dir ());
-    data->priv->start_dirs[1] = gnome_cmd_data_get_string (
+    data->priv->start_dirs[RIGHT] = gnome_cmd_data_get_string (
         "/options/start_dir_right", g_get_home_dir ());
     data->priv->last_pattern = gnome_cmd_data_get_string (
         "/defaults/last_pattern", "");
@@ -2301,13 +2294,13 @@ gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direc
 {
     if (!gnome_cmd_main_win_get_left_fs (main_win) ||
         gnome_cmd_main_win_get_left_fs (main_win)->list == fl) {
-        *col = data->priv->sort_column[0];
-        *direction = data->priv->sort_direction[0];
+        *col = data->priv->sort_column[LEFT];
+        *direction = data->priv->sort_direction[LEFT];
     }
     else if (!gnome_cmd_main_win_get_right_fs (main_win) ||
              gnome_cmd_main_win_get_right_fs (main_win)->list == fl) {
-        *col = data->priv->sort_column[1];
-        *direction = data->priv->sort_direction[1];
+        *col = data->priv->sort_column[RIGHT];
+        *direction = data->priv->sort_direction[RIGHT];
     }
 }
 
@@ -2316,12 +2309,12 @@ void
 gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction)
 {
     if (gnome_cmd_main_win_get_left_fs (main_win)->list == fl) {
-        data->priv->sort_column[0] = col;
-        data->priv->sort_direction[0] = direction;
+        data->priv->sort_column[LEFT] = col;
+        data->priv->sort_direction[LEFT] = direction;
     }
     else if (gnome_cmd_main_win_get_right_fs (main_win)->list == fl) {
-        data->priv->sort_column[1] = col;
-        data->priv->sort_direction[1] = direction;
+        data->priv->sort_column[RIGHT] = col;
+        data->priv->sort_direction[RIGHT] = direction;
     }
 }
 

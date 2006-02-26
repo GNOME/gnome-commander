@@ -10,6 +10,16 @@
 	* */*.{c,h}:
         Code cleanup.
 
+	* gnome-cmd-file-list.h:
+	* gnome-cmd-file-list.c:
+	* gnome-cmd-data.c:
+	* gnome-cmd-main-win.c:
+	* gnome-cmd-data.h :
+	* gnome-cmd-file-selector.h:
+        One step closer towards 'Custom Columns'. Changed col sorting direction when selecting
+        (now sets to default col sort direction)
+
+
 2006-02-26  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-con-device.c:

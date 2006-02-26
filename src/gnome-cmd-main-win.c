@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include <sys/wait.h>
 #include <sys/types.h>
@@ -44,11 +45,6 @@ enum {
   SWITCH_FS,
   LAST_SIGNAL
 };
-
-typedef enum {
-    LEFT,
-    RIGHT
-} FileSelectorID;
 
 
 struct _GnomeCmdMainWinPrivate
@@ -839,9 +835,9 @@ init (GnomeCmdMainWin *mw)
     gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
 
     gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_left_fs (mw),
-                                            start_dir_left ?: gnome_cmd_data_get_start_dir (0));
+                                            start_dir_left ?: gnome_cmd_data_get_start_dir (LEFT));
     gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_right_fs (mw),
-                                            start_dir_right ?: gnome_cmd_data_get_start_dir (1));
+                                            start_dir_right ?: gnome_cmd_data_get_start_dir (RIGHT));
 
     gnome_cmd_main_win_update_toolbar_visibility (main_win);
     gnome_cmd_main_win_update_cmdline_visibility (main_win);

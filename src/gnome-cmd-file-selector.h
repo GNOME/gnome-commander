@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #ifndef __GNOME_CMD_FILE_SELECTOR_H__
 #define __GNOME_CMD_FILE_SELECTOR_H__
 
@@ -66,6 +67,12 @@ struct _GnomeCmdFileSelectorClass
     void (* changed_dir)       (GnomeCmdFileSelector *fs,
                                 GnomeCmdDir *dir);
 };
+
+
+typedef enum {
+    LEFT,
+    RIGHT
+} FileSelectorID;
 
 
 GtkType
