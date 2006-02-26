@@ -59,6 +59,7 @@ static gchar *pixmap_files[NUM_PIXMAPS] = {
 	"mkdir.xpm",
 	"lock.xpm",
 	"home.xpm",
+	"desktop.xpm",
 	"smb-network.xpm",
 	"smb-computer.xpm",
 	"menu_bookmark.xpm",

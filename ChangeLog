@@ -1,3 +1,8 @@
+2006-02-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/imageloader.{c,h}:
+        Added desktop pixmap.
+
 2006-02-26  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-con-device.c:

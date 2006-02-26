@@ -10,6 +10,7 @@ dti_DATA = gnome-commander.png
 pixmapsdir = $(datadir)/pixmaps/@PACKAGE@
 pixmaps_DATA = \
 	copy_file_names.xpm \
+	desktop.xpm \
 	exec_wheel.xpm \
 	exec.xpm \
 	flip-horizontal-16.xpm \
