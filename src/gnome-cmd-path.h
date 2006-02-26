@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,15 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_PATH_H__
 #define __GNOME_CMD_PATH_H__
 
 
 #define GNOME_CMD_PATH(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_path_get_type (), GnomeCmdPath)
+    GTK_CHECK_CAST (obj, gnome_cmd_path_get_type (), GnomeCmdPath)
 #define GNOME_CMD_PATH_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_path_get_type (), GnomeCmdPathClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_path_get_type (), GnomeCmdPathClass)
 #define GNOME_CMD_IS_PATH(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_path_get_type ())
 #define GNOME_CMD_PATH_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_PATH, GnomeCmdPathClass))
@@ -35,18 +35,18 @@ typedef struct _GnomeCmdPathClass GnomeCmdPathClass;
 
 struct _GnomeCmdPath
 {
-	GtkObject parent;
+    GtkObject parent;
 };
 
 struct _GnomeCmdPathClass
 {
-	GtkObjectClass parent_class;
+    GtkObjectClass parent_class;
 
-	/* virtual functions */
-	const gchar *(* get_path)          (GnomeCmdPath *path);
-	const gchar *(* get_display_path)  (GnomeCmdPath *path);
-	GnomeCmdPath *(* get_parent)       (GnomeCmdPath *path);
-	GnomeCmdPath *(* get_child)        (GnomeCmdPath *path, const gchar *child);
+    /* virtual functions */
+    const gchar *(* get_path)          (GnomeCmdPath *path);
+    const gchar *(* get_display_path)  (GnomeCmdPath *path);
+    GnomeCmdPath *(* get_parent)       (GnomeCmdPath *path);
+    GnomeCmdPath *(* get_child)        (GnomeCmdPath *path, const gchar *child);
 };
 
 

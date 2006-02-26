@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_DATA_H__
 #define __GNOME_CMD_DATA_H__
 
@@ -32,48 +32,48 @@ typedef struct _GnomeCmdDataPrivate GnomeCmdDataPrivate;
 
 struct _GnomeCmdData
 {
-	GnomeCmdDataPrivate *priv;
+    GnomeCmdDataPrivate *priv;
 };
 
 typedef enum
 {
-	RIGHT_BUTTON_POPUPS_MENU,
-	RIGHT_BUTTON_SELECTS
+    RIGHT_BUTTON_POPUPS_MENU,
+    RIGHT_BUTTON_SELECTS
 } GnomeCmdRightMouseButtonMode;
 
 #define PATTERN_HISTORY_SIZE 10
 
 typedef struct
 {
-	GList *name_patterns;
-	GList *content_patterns;
-	GList *directories;
-	gboolean recursive;
-	gboolean case_sens;	
-	gint width,height;
+    GList *name_patterns;
+    GList *content_patterns;
+    GList *directories;
+    gboolean recursive;
+    gboolean case_sens;
+    gint width,height;
 } SearchDefaults;
 
 typedef struct
 {
-	GList *patterns;
-	History *templates;
-	guint counter_start;
-	guint counter_precision;
-	guint counter_increment;
-	gboolean auto_update;
-	gint width,height;
-	gint pat_col_widths;
-	gint res_col_widths;
-	gint sep_value;
+    GList *patterns;
+    History *templates;
+    guint counter_start;
+    guint counter_precision;
+    guint counter_increment;
+    gboolean auto_update;
+    gint width,height;
+    gint pat_col_widths;
+    gint res_col_widths;
+    gint sep_value;
 } AdvrenameDefaults;
 
 typedef struct {
-	gboolean file_types[8];
-	
-	gboolean hidden;
-	gboolean backup;
-	gboolean other;
-	gchar *other_value;
+    gboolean file_types[8];
+
+    gboolean hidden;
+    gboolean backup;
+    gboolean other;
+    gchar *other_value;
 } FilterSettings;
 
 
@@ -169,7 +169,7 @@ gnome_cmd_data_get_filter_settings      (void);
 
 gboolean
 gnome_cmd_data_get_type_filter          (GnomeVFSFileType type);
-	
+
 gboolean
 gnome_cmd_data_get_hidden_filter        (void);
 
@@ -201,16 +201,16 @@ void
 gnome_cmd_data_set_differ               (const gchar *command);
 
 const gchar *
-gnome_cmd_data_get_viewer               (void); 
+gnome_cmd_data_get_viewer               (void);
 
 const gchar *
-gnome_cmd_data_get_editor               (void); 
+gnome_cmd_data_get_editor               (void);
 
 const gchar *
-gnome_cmd_data_get_differ               (void); 
+gnome_cmd_data_get_differ               (void);
 
 gboolean
-gnome_cmd_data_get_case_sens_sort       (void); 
+gnome_cmd_data_get_case_sens_sort       (void);
 
 void
 gnome_cmd_data_set_case_sens_sort       (gboolean value);
@@ -258,13 +258,13 @@ void
 gnome_cmd_data_set_icon_scale_quality  (GdkInterpType quality);
 
 const gchar *
-gnome_cmd_data_get_theme_icon_dir      (void); 
+gnome_cmd_data_get_theme_icon_dir      (void);
 
 void
 gnome_cmd_data_set_theme_icon_dir      (const gchar *dir);
 
 const gchar *
-gnome_cmd_data_get_document_icon_dir   (void); 
+gnome_cmd_data_get_document_icon_dir   (void);
 
 void
 gnome_cmd_data_set_document_icon_dir   (const gchar *dir);

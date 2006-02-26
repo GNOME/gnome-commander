@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,16 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_MAIN_WIN_H__
 #define __GNOME_CMD_MAIN_WIN_H__
 
 #define GNOME_CMD_MAIN_WIN(obj) \
-	GTK_CHECK_CAST(obj, gnome_cmd_main_win_get_type (), GnomeCmdMainWin)
+    GTK_CHECK_CAST(obj, gnome_cmd_main_win_get_type (), GnomeCmdMainWin)
 #define GNOME_CMD_MAIN_WIN_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST(klass, gnome_cmd_main_win_get_type (), GnomeCmdMainWinClass)
+    GTK_CHECK_CLASS_CAST(klass, gnome_cmd_main_win_get_type (), GnomeCmdMainWinClass)
 #define GNOME_CMD_IS_MAIN_WIN(obj) \
-	GTK_CHECK_TYPE(obj, gnome_cmd_main_win_get_type ())
+    GTK_CHECK_TYPE(obj, gnome_cmd_main_win_get_type ())
 
 typedef struct _GnomeCmdMainWin GnomeCmdMainWin;
 typedef struct _GnomeCmdMainWinPrivate GnomeCmdMainWinPrivate;
@@ -37,16 +37,16 @@ typedef struct _GnomeCmdMainWinClass GnomeCmdMainWinClass;
 
 struct _GnomeCmdMainWin
 {
-	GnomeApp parent;
-	GnomeCmdMainWinPrivate *priv;
+    GnomeApp parent;
+    GnomeCmdMainWinPrivate *priv;
 };
 
 struct _GnomeCmdMainWinClass
 {
-	GnomeAppClass parent_class;
+    GnomeAppClass parent_class;
 
-	void (* switch_fs)       (GnomeCmdMainWin *mw,
-							  GnomeCmdFileSelector *fs);
+    void (* switch_fs)       (GnomeCmdMainWin *mw,
+                              GnomeCmdFileSelector *fs);
 };
 
 
@@ -89,7 +89,7 @@ gnome_cmd_main_win_show_embterm          (GnomeCmdMainWin *mw);
 
 void
 gnome_cmd_main_win_new_cwd               (GnomeCmdMainWin *mw,
-										  const gchar *cwd);
+                                          const gchar *cwd);
 
 void
 gnome_cmd_main_win_focus_cmdline         (GnomeCmdMainWin *mw);
@@ -102,10 +102,10 @@ gnome_cmd_main_win_refocus               (GnomeCmdMainWin *mw);
 
 gboolean
 gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
-										  GdkEventKey *event);
+                                          GdkEventKey *event);
 void
 gnome_cmd_main_win_switch_fs             (GnomeCmdMainWin *mw,
-										  GnomeCmdFileSelector *fs);
+                                          GnomeCmdFileSelector *fs);
 
 void
 gnome_cmd_main_win_update_bookmarks      (GnomeCmdMainWin *mw);

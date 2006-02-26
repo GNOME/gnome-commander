@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,17 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_FILE_LIST_H__
 #define __GNOME_CMD_FILE_LIST_H__
 
 
 #define GNOME_CMD_FILE_LIST(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_file_list_get_type (), GnomeCmdFileList)
+    GTK_CHECK_CAST (obj, gnome_cmd_file_list_get_type (), GnomeCmdFileList)
 #define GNOME_CMD_FILE_LIST_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_list_get_type (), GnomeCmdFileListClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_list_get_type (), GnomeCmdFileListClass)
 #define GNOME_CMD_IS_FILE_LIST(obj) \
-	GTK_CHECK_TYPE (obj, gnome_cmd_file_list_get_type ())
+    GTK_CHECK_TYPE (obj, gnome_cmd_file_list_get_type ())
 
 typedef struct _GnomeCmdFileList GnomeCmdFileList;
 typedef struct _GnomeCmdFileListPrivate GnomeCmdFileListPrivate;
@@ -36,16 +36,16 @@ typedef struct _GnomeCmdFileListClass GnomeCmdFileListClass;
 
 
 typedef enum {
-	FILE_LIST_COLUMN_ICON,
-	FILE_LIST_COLUMN_NAME,
-	FILE_LIST_COLUMN_EXT,
-	FILE_LIST_COLUMN_DIR,
-	FILE_LIST_COLUMN_SIZE,
-	FILE_LIST_COLUMN_DATE,
-	FILE_LIST_COLUMN_PERM,
-	FILE_LIST_COLUMN_OWNER,
-	FILE_LIST_COLUMN_GROUP,
-	FILE_LIST_NUM_COLUMNS
+    FILE_LIST_COLUMN_ICON,
+    FILE_LIST_COLUMN_NAME,
+    FILE_LIST_COLUMN_EXT,
+    FILE_LIST_COLUMN_DIR,
+    FILE_LIST_COLUMN_SIZE,
+    FILE_LIST_COLUMN_DATE,
+    FILE_LIST_COLUMN_PERM,
+    FILE_LIST_COLUMN_OWNER,
+    FILE_LIST_COLUMN_GROUP,
+    FILE_LIST_NUM_COLUMNS
 } GnomeCmdFileListColumnID;
 
 
@@ -69,24 +69,24 @@ typedef enum {
 
 struct _GnomeCmdFileList
 {
-	GnomeCmdCList parent;
+    GnomeCmdCList parent;
 
-	GnomeCmdFileListPrivate *priv;
+    GnomeCmdFileListPrivate *priv;
 };
 
 
 struct _GnomeCmdFileListClass
 {
-	GnomeCmdCListClass parent_class;
+    GnomeCmdCListClass parent_class;
 
-	void (* file_clicked)        (GnomeCmdFileList *fl,
-								  GnomeCmdFile *finfo,
-								  GdkEventButton *button);
-	void (* list_clicked)        (GnomeCmdFileList *fl,
-								  GdkEventButton *button);
-	void (* empty_space_clicked) (GnomeCmdFileList *fl,
-								  GdkEventButton *button);
-	void (* selection_changed)   (GnomeCmdFileList *fl);
+    void (* file_clicked)        (GnomeCmdFileList *fl,
+                                  GnomeCmdFile *finfo,
+                                  GdkEventButton *button);
+    void (* list_clicked)        (GnomeCmdFileList *fl,
+                                  GdkEventButton *button);
+    void (* empty_space_clicked) (GnomeCmdFileList *fl,
+                                  GdkEventButton *button);
+    void (* selection_changed)   (GnomeCmdFileList *fl);
 };
 
 
@@ -102,8 +102,8 @@ gnome_cmd_file_list_new                 (void);
 
 void
 gnome_cmd_file_list_show_column         (GnomeCmdFileList *fl,
-										 GnomeCmdFileListColumnID col,
-										 gboolean value);
+                                         GnomeCmdFileListColumnID col,
+                                         gboolean value);
 
 void
 gnome_cmd_file_list_update_style        (GnomeCmdFileList *fl);
@@ -164,19 +164,19 @@ gnome_cmd_file_list_toggle_and_step (GnomeCmdFileList *fl);
 
 void
 gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl,
-								const gchar *focus_file,
-								gboolean scroll_to_file);
+                                const gchar *focus_file,
+                                gboolean scroll_to_file);
 
 void
 gnome_cmd_file_list_select_row (GnomeCmdFileList *fl, gint row);
 
 void
 gnome_cmd_file_list_select_pattern (GnomeCmdFileList *fl,
-									const gchar *pattern, gboolean case_sens);
+                                    const gchar *pattern, gboolean case_sens);
 
 void
 gnome_cmd_file_list_unselect_pattern (GnomeCmdFileList *fl,
-									  const gchar *pattern, gboolean case_sens);
+                                      const gchar *pattern, gboolean case_sens);
 
 void
 gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl);

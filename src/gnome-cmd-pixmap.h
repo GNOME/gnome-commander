@@ -2,11 +2,11 @@
 #define __GNOME_CMD_PIXMAP_H__
 
 typedef struct {
-	GdkPixbuf *pixbuf;
-	GdkPixmap *pixmap;
-	GdkBitmap *mask;
-	gint width;
-	gint height;	
+    GdkPixbuf *pixbuf;
+    GdkPixmap *pixmap;
+    GdkBitmap *mask;
+    gint width;
+    gint height;
 } GnomeCmdPixmap;
 
 

@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_MAIN_MENU_H__
 #define __GNOME_CMD_MAIN_MENU_H__
 
@@ -23,11 +23,11 @@
 #include "plugin_manager.h"
 
 #define GNOME_CMD_MAIN_MENU(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_main_menu_get_type (), GnomeCmdMainMenu)
+    GTK_CHECK_CAST (obj, gnome_cmd_main_menu_get_type (), GnomeCmdMainMenu)
 #define GNOME_CMD_MAIN_MENU_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_main_menu_get_type (), GnomeCmdMainMenuClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_main_menu_get_type (), GnomeCmdMainMenuClass)
 #define GNOME_CMD_IS_MAIN_MENU(obj) \
-	GTK_CHECK_TYPE (obj, gnome_cmd_main_menu_get_type ())
+    GTK_CHECK_TYPE (obj, gnome_cmd_main_menu_get_type ())
 
 
 typedef struct _GnomeCmdMainMenu GnomeCmdMainMenu;
@@ -38,14 +38,14 @@ typedef struct _GnomeCmdMainMenuClass GnomeCmdMainMenuClass;
 
 struct _GnomeCmdMainMenu
 {
-	GtkMenuBar parent;
-	GnomeCmdMainMenuPrivate *priv;
+    GtkMenuBar parent;
+    GnomeCmdMainMenuPrivate *priv;
 };
 
 
 struct _GnomeCmdMainMenuClass
 {
-	GtkMenuBarClass parent_class;
+    GtkMenuBarClass parent_class;
 };
 
 

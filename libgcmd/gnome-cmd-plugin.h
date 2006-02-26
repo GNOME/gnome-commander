@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,15 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #ifndef __GNOME_CMD_PLUGIN_H__
 #define __GNOME_CMD_PLUGIN_H__
 
 #define GNOME_CMD_PLUGIN(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_plugin_get_type (), GnomeCmdPlugin)
+    GTK_CHECK_CAST (obj, gnome_cmd_plugin_get_type (), GnomeCmdPlugin)
 #define GNOME_CMD_PLUGIN_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_plugin_get_type (), GnomeCmdPluginClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_plugin_get_type (), GnomeCmdPluginClass)
 #define GNOME_CMD_IS_PLUGIN(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_plugin_get_type ())
 #define GNOME_CMD_PLUGIN_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_PLUGIN, GnomeCmdPluginClass))
@@ -37,17 +37,17 @@ typedef GnomeCmdPlugin *(*PluginConstructorFunc)(void);
 
 struct _GnomeCmdPlugin
 {
-	GtkObject parent;
+    GtkObject parent;
 };
 
 struct _GnomeCmdPluginClass
 {
-	GtkObjectClass parent_class;
+    GtkObjectClass parent_class;
 
-	GtkWidget *(* create_main_menu) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
-	GList *(* create_popup_menu_items) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
-	void (* update_main_menu_state) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
-	void (* configure) (GnomeCmdPlugin *plugin);
+    GtkWidget *(* create_main_menu) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+    GList *(* create_popup_menu_items) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+    void (* update_main_menu_state) (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+    void (* configure) (GnomeCmdPlugin *plugin);
 };
 
 

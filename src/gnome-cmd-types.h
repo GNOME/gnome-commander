@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_TYPES_H__
 #define __GNOME_CMD_TYPES_H__
 
@@ -27,65 +27,65 @@ typedef gchar* GnomeCmdDateFormat;
 
 typedef enum
 {
-	GNOME_CMD_LAYOUT_TEXT,
-	GNOME_CMD_LAYOUT_TYPE_ICONS,
-	GNOME_CMD_LAYOUT_MIME_ICONS
+    GNOME_CMD_LAYOUT_TEXT,
+    GNOME_CMD_LAYOUT_TYPE_ICONS,
+    GNOME_CMD_LAYOUT_MIME_ICONS
 } GnomeCmdLayout;
 
 
 typedef enum
 {
-	GNOME_CMD_SIZE_DISP_MODE_PLAIN,
-	GNOME_CMD_SIZE_DISP_MODE_GROUPED,
-	GNOME_CMD_SIZE_DISP_MODE_POWERED
+    GNOME_CMD_SIZE_DISP_MODE_PLAIN,
+    GNOME_CMD_SIZE_DISP_MODE_GROUPED,
+    GNOME_CMD_SIZE_DISP_MODE_POWERED
 } GnomeCmdSizeDispMode;
 
 
 typedef enum
 {
-	GNOME_CMD_PERM_DISP_MODE_TEXT,
-	GNOME_CMD_PERM_DISP_MODE_NUMBER,
+    GNOME_CMD_PERM_DISP_MODE_TEXT,
+    GNOME_CMD_PERM_DISP_MODE_NUMBER,
 } GnomeCmdPermDispMode;
 
 
 typedef enum
 {
-	GNOME_CMD_EXT_DISP_WITH_FNAME,
-	GNOME_CMD_EXT_DISP_STRIPPED,
-	GNOME_CMD_EXT_DISP_BOTH
+    GNOME_CMD_EXT_DISP_WITH_FNAME,
+    GNOME_CMD_EXT_DISP_STRIPPED,
+    GNOME_CMD_EXT_DISP_BOTH
 } GnomeCmdExtDispMode;
 
 
 typedef enum
 {
-	GNOME_CMD_COLOR_NONE,
-	GNOME_CMD_COLOR_MODERN,
-	GNOME_CMD_COLOR_FUSION,
-	GNOME_CMD_COLOR_CLASSIC,
-	GNOME_CMD_COLOR_CUSTOM,
-	GNOME_CMD_NUM_COLOR_MODES
+    GNOME_CMD_COLOR_NONE,
+    GNOME_CMD_COLOR_MODERN,
+    GNOME_CMD_COLOR_FUSION,
+    GNOME_CMD_COLOR_CLASSIC,
+    GNOME_CMD_COLOR_CUSTOM,
+    GNOME_CMD_NUM_COLOR_MODES
 } GnomeCmdColorMode;
 
 typedef struct
 {
-	gboolean respect_theme;
-	GdkColor *sel_fg, *sel_bg;
-	GdkColor *norm_fg, *norm_bg;
-	GdkColor *curs_fg, *curs_bg;
+    gboolean respect_theme;
+    GdkColor *sel_fg, *sel_bg;
+    GdkColor *norm_fg, *norm_bg;
+    GdkColor *curs_fg, *curs_bg;
 } GnomeCmdColorTheme;
 
 struct _GnomeCmdBookmarkGroup
 {
-	GList *bookmarks;
-	GnomeCmdCon *con;
-	gpointer *data;
+    GList *bookmarks;
+    GnomeCmdCon *con;
+    gpointer *data;
 };
 
 
 typedef struct {
-	gchar *name;
-	gchar *path;
-	GnomeCmdBookmarkGroup *group;
+    gchar *name;
+    gchar *path;
+    GnomeCmdBookmarkGroup *group;
 } GnomeCmdBookmark;
 
 

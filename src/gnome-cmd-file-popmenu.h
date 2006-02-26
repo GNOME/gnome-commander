@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,18 +15,18 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_FILE_POPMENU_H__
 #define __GNOME_CMD_FILE_POPMENU_H__
 
 #include "gnome-cmd-file-list.h"
 
 #define GNOME_CMD_FILE_POPMENU(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_file_popmenu_get_type (), GnomeCmdFilePopmenu)
+    GTK_CHECK_CAST (obj, gnome_cmd_file_popmenu_get_type (), GnomeCmdFilePopmenu)
 #define GNOME_CMD_FILE_POPMENU_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_popmenu_get_type (), GnomeCmdFilePopmenuClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_popmenu_get_type (), GnomeCmdFilePopmenuClass)
 #define GNOME_CMD_IS_FILE_POPMENU(obj) \
-	GTK_CHECK_TYPE (obj, gnome_cmd_file_popmenu_get_type ())
+    GTK_CHECK_TYPE (obj, gnome_cmd_file_popmenu_get_type ())
 
 
 typedef struct _GnomeCmdFilePopmenu GnomeCmdFilePopmenu;
@@ -37,14 +37,14 @@ typedef struct _GnomeCmdFilePopmenuClass GnomeCmdFilePopmenuClass;
 
 struct _GnomeCmdFilePopmenu
 {
-	GtkMenu parent;
-	GnomeCmdFilePopmenuPrivate *priv;
+    GtkMenu parent;
+    GnomeCmdFilePopmenuPrivate *priv;
 };
 
 
 struct _GnomeCmdFilePopmenuClass
 {
-	GtkMenuClass parent_class;
+    GtkMenuClass parent_class;
 };
 
 

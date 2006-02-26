@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-combo.h"
@@ -24,12 +24,12 @@
 GtkWidget *
 create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)
 {
-	GtkWidget *combo = gnome_cmd_combo_new (num_cols, text_col, titles);
-	gtk_widget_ref (combo);
-	gtk_object_set_data_full (GTK_OBJECT (parent), "combo", combo,
-							  (GtkDestroyNotify) gtk_widget_unref);
-	gtk_widget_show (combo);
-	return combo;
+    GtkWidget *combo = gnome_cmd_combo_new (num_cols, text_col, titles);
+    gtk_widget_ref (combo);
+    gtk_object_set_data_full (GTK_OBJECT (parent), "combo", combo,
+                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_show (combo);
+    return combo;
 }
 
 

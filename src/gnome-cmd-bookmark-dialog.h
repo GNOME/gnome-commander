@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,18 +15,18 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_BOOKMARK_DIALOG_H__
 #define __GNOME_CMD_BOOKMARK_DIALOG_H__
 
 #include "gnome-cmd-types.h"
 
 #define GNOME_CMD_BOOKMARK_DIALOG(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_bookmark_dialog_get_type (), GnomeCmdBookmarkDialog)
+    GTK_CHECK_CAST (obj, gnome_cmd_bookmark_dialog_get_type (), GnomeCmdBookmarkDialog)
 #define GNOME_CMD_BOOKMARK_DIALOG_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_bookmark_dialog_get_type (), GnomeCmdBookmarkDialogClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_bookmark_dialog_get_type (), GnomeCmdBookmarkDialogClass)
 #define GNOME_CMD_IS_BOOKMARK_DIALOG(obj) \
-	GTK_CHECK_TYPE (obj, gnome_cmd_bookmark_dialog_get_type ())
+    GTK_CHECK_TYPE (obj, gnome_cmd_bookmark_dialog_get_type ())
 
 
 typedef struct _GnomeCmdBookmarkDialog GnomeCmdBookmarkDialog;
@@ -36,14 +36,14 @@ typedef struct _GnomeCmdBookmarkDialogClass GnomeCmdBookmarkDialogClass;
 
 struct _GnomeCmdBookmarkDialog
 {
-	GnomeCmdDialog parent;
-	GnomeCmdBookmarkDialogPrivate *priv;
+    GnomeCmdDialog parent;
+    GnomeCmdBookmarkDialogPrivate *priv;
 };
 
 
 struct _GnomeCmdBookmarkDialogClass
 {
-	GnomeCmdDialogClass parent_class;
+    GnomeCmdDialogClass parent_class;
 };
 
 #define BOOKMARK_DIALOG_NUM_COLUMNS 3

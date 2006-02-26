@@ -39,7 +39,7 @@
                                                                                       \
                   p->type = TEXT;                                                     \
                   p->s = g_string_new(yytext);                                        \
-                  fname_template = g_list_append(fname_template, (gpointer) p); \
+                  fname_template = g_list_append(fname_template, (gpointer) p);       \
                 }
 
 
@@ -397,7 +397,7 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
   find_parent_dir(gnome_cmd_file_get_path(finfo),&parent_dir_offset,&parent_dir_len);
   find_grandparent_dir(gnome_cmd_file_get_path(finfo),&grandparent_dir_offset,&grandparent_dir_len);
 
-  for (; gl ; gl=gl->next)
+  for (; gl; gl=gl->next)
   {
     CHUNK *p = gl->data;
 
@@ -469,4 +469,3 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 
   return new_fname;
 }
-

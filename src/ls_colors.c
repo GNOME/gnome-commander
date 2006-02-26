@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #include "gnome-cmd-includes.h"
 #include "ls_colors.h"
@@ -48,173 +48,171 @@ static GdkColor white   = {0,0xffff,0xffff,0xffff};
 */
 static GdkColor *
 code2color (gint code) {
-	switch (code) {
-		case 30: return &black;
-		case 31: return &red;
-		case 32: return &green;
-		case 33: return &yellow;
-		case 34: return &blue;
-		case 35: return &magenta;
-		case 36: return &cyan;
-		case 37: return &white;
+    switch (code) {
+        case 30: return &black;
+        case 31: return &red;
+        case 32: return &green;
+        case 33: return &yellow;
+        case 34: return &blue;
+        case 35: return &magenta;
+        case 36: return &cyan;
+        case 37: return &white;
 
-		case 40: return &black;
-		case 41: return &red;
-		case 42: return &green;
-		case 43: return &yellow;
-		case 44: return &blue;
-		case 45: return &magenta;
-		case 46: return &cyan;
-		case 47: return &white;
-	}
+        case 40: return &black;
+        case 41: return &red;
+        case 42: return &green;
+        case 43: return &yellow;
+        case 44: return &blue;
+        case 45: return &magenta;
+        case 46: return &cyan;
+        case 47: return &white;
+    }
 
-	return NULL;
+    return NULL;
 }
 
 
 static LsColor *
 ext_color (gchar *key, gchar *val)
 {
-	int i, ret, n[3];
-	LsColor *col;
+    int i, ret, n[3];
+    LsColor *col;
 
-	ret = sscanf (val, "%d;%d;%d", &n[0], &n[1], &n[2]);
-	if (ret < 1)
-		return NULL;
+    ret = sscanf (val, "%d;%d;%d", &n[0], &n[1], &n[2]);
+    if (ret < 1)
+        return NULL;
 
-	do {key++;} while (key[0] == '.');
-	col = g_new (LsColor, 1);
-	col->type = GNOME_VFS_FILE_TYPE_REGULAR;
-	col->ext = g_strdup (key);
-	col->fg = NULL;
-	col->bg = NULL;
-	
-	for ( i=0 ; i<ret ; i++ ) {
-		if (n[i] >= 30 && n[i] <= 37)
-			col->fg = code2color (n[i]);
-		else if (n[i] >= 40 && n[i] <= 47)
-			col->bg = code2color (n[i]);
-	}
+    do {key++;} while (key[0] == '.');
+    col = g_new (LsColor, 1);
+    col->type = GNOME_VFS_FILE_TYPE_REGULAR;
+    col->ext = g_strdup (key);
+    col->fg = NULL;
+    col->bg = NULL;
 
-	return col;
+    for ( i=0 ; i<ret ; i++ ) {
+        if (n[i] >= 30 && n[i] <= 37)
+            col->fg = code2color (n[i]);
+        else if (n[i] >= 40 && n[i] <= 47)
+            col->bg = code2color (n[i]);
+    }
+
+    return col;
 }
 
 
 static LsColor *
 type_color (gchar *key, gchar *val)
 {
-	int i, ret, n[3];
-	LsColor *col = g_new (LsColor, 1);
-	col->ext = NULL;
-	col->fg = NULL;
-	col->bg = NULL;
+    int i, ret, n[3];
+    LsColor *col = g_new (LsColor, 1);
+    col->ext = NULL;
+    col->fg = NULL;
+    col->bg = NULL;
 
-	if (strcmp (key, "fi") == 0)
-		col->type = GNOME_VFS_FILE_TYPE_REGULAR;
-	else if (strcmp (key, "di") == 0)
-		col->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
-	else if (strcmp (key, "pi") == 0)
-		col->type = GNOME_VFS_FILE_TYPE_FIFO;
-	else if (strcmp (key, "so") == 0)
-		col->type = GNOME_VFS_FILE_TYPE_SOCKET;
-	else if (strcmp (key, "bd") == 0)
-		col->type = GNOME_VFS_FILE_TYPE_BLOCK_DEVICE;
-	else if (strcmp (key, "cd") == 0)
-		col->type = GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE;
-	else if (strcmp (key, "ln") == 0)
-		col->type = GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK;
-	else {
-		g_free (col);
-		return NULL;
-	}
+    if (strcmp (key, "fi") == 0)
+        col->type = GNOME_VFS_FILE_TYPE_REGULAR;
+    else if (strcmp (key, "di") == 0)
+        col->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
+    else if (strcmp (key, "pi") == 0)
+        col->type = GNOME_VFS_FILE_TYPE_FIFO;
+    else if (strcmp (key, "so") == 0)
+        col->type = GNOME_VFS_FILE_TYPE_SOCKET;
+    else if (strcmp (key, "bd") == 0)
+        col->type = GNOME_VFS_FILE_TYPE_BLOCK_DEVICE;
+    else if (strcmp (key, "cd") == 0)
+        col->type = GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE;
+    else if (strcmp (key, "ln") == 0)
+        col->type = GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK;
+    else {
+        g_free (col);
+        return NULL;
+    }
 
-	ret = sscanf (val, "%d;%d;%d", &n[0], &n[1], &n[2]);
-	for ( i=0 ; i<ret ; i++ ) {
-		if (n[i] >= 30 && n[i] <= 37)
-			col->fg = code2color (n[i]);
-		else if (n[i] >= 40 && n[i] <= 47)
-			col->bg = code2color (n[i]);
-	}
+    ret = sscanf (val, "%d;%d;%d", &n[0], &n[1], &n[2]);
+    for ( i=0 ; i<ret ; i++ ) {
+        if (n[i] >= 30 && n[i] <= 37)
+            col->fg = code2color (n[i]);
+        else if (n[i] >= 40 && n[i] <= 47)
+            col->bg = code2color (n[i]);
+    }
 
-	return col;
+    return col;
 }
 
 
 static LsColor *
 create_color (gchar *ls_color)
-{	
-	gchar **s, *key, *val;
-	LsColor *col = NULL;
+{
+    gchar **s, *key, *val;
+    LsColor *col = NULL;
 
-	s = g_strsplit (ls_color, "=", 0);
-	key = s[0];
-	val = s[1];
+    s = g_strsplit (ls_color, "=", 0);
+    key = s[0];
+    val = s[1];
 
-	if (key) {
-		if (key[0] == '*')
-			col = ext_color (key, val);
-		else	
-			col = type_color (key, val);
-	}
+    if (key) {
+        if (key[0] == '*')
+            col = ext_color (key, val);
+        else
+            col = type_color (key, val);
+    }
 
-	g_strfreev (s);
-	return col;
+    g_strfreev (s);
+    return col;
 }
 
 
 static void
 init (gchar *ls_colors)
 {
-	gint i=0;
-	gchar **ents;
+    gint i=0;
+    gchar **ents;
 
-	ents = g_strsplit (ls_colors, ":", 0);
+    ents = g_strsplit (ls_colors, ":", 0);
 
-	if (!ents) return;
+    if (!ents) return;
 
-	while (ents[i]) {
-		LsColor *col;
-		col = create_color (ents[i]);
-		if (col) {
-			if (col->ext)
-				g_hash_table_insert (map, col->ext, col);
-			else
-				type_colors[col->type] = col;
-		}
-		i++;
-	}
+    while (ents[i]) {
+        LsColor *col;
+        col = create_color (ents[i]);
+        if (col) {
+            if (col->ext)
+                g_hash_table_insert (map, col->ext, col);
+            else
+                type_colors[col->type] = col;
+        }
+        i++;
+    }
 
-	g_strfreev (ents);
+    g_strfreev (ents);
 }
 
 
 void ls_colors_init (void)
 {
-	gchar *s = getenv ("LS_COLORS");
-	if (!s)
-		s = DEFAULT_COLORS;
-	
-	map = g_hash_table_new (g_str_hash, g_str_equal);
-	init (s);
+    gchar *s = getenv ("LS_COLORS");
+    if (!s)
+        s = DEFAULT_COLORS;
+
+    map = g_hash_table_new (g_str_hash, g_str_equal);
+    init (s);
 }
 
 
 LsColor *ls_colors_get (GnomeCmdFile *finfo)
 {
-	const gchar *ext;
-	LsColor *col = NULL;
+    const gchar *ext;
+    LsColor *col = NULL;
 
-	if (finfo->info->symlink_name)
-		return type_colors[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
+    if (finfo->info->symlink_name)
+        return type_colors[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
 
-	ext = gnome_cmd_file_get_extension (finfo);
-	if (ext)
-		col = g_hash_table_lookup (map, ext);
+    ext = gnome_cmd_file_get_extension (finfo);
+    if (ext)
+        col = g_hash_table_lookup (map, ext);
 
-	if (!col)
-		col = type_colors[finfo->info->type];
+    if (!col)
+        col = type_colors[finfo->info->type];
 
-	return col;
+    return col;
 }
-
-

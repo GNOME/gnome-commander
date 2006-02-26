@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,16 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_OPTIONS_DIALOG_H__
 #define __GNOME_CMD_OPTIONS_DIALOG_H__
 
 #define GNOME_CMD_OPTIONS_DIALOG(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialog)
+    GTK_CHECK_CAST (obj, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialog)
 #define GNOME_CMD_OPTIONS_DIALOG_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialogClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialogClass)
 #define GNOME_CMD_IS_OPTIONS_DIALOG(obj) \
-	GTK_CHECK_TYPE (obj, gnome_cmd_options_dialog_get_type ())
+    GTK_CHECK_TYPE (obj, gnome_cmd_options_dialog_get_type ())
 
 
 typedef struct _GnomeCmdOptionsDialog GnomeCmdOptionsDialog;
@@ -34,28 +34,28 @@ typedef struct _GnomeCmdOptionsDialogClass GnomeCmdOptionsDialogClass;
 
 typedef enum
 {
-	GNOME_CMD_OPTIONS_DIALOG_TAB_GENERAL,
-	GNOME_CMD_OPTIONS_DIALOG_TAB_FORMAT,
-	GNOME_CMD_OPTIONS_DIALOG_TAB_LAYOUT,
-	GNOME_CMD_OPTIONS_DIALOG_TAB_FILTERS,
-	GNOME_CMD_OPTIONS_DIALOG_TAB_PROGRAMS,
-	GNOME_CMD_OPTIONS_DIALOG_TAB_DEVICES
+    GNOME_CMD_OPTIONS_DIALOG_TAB_GENERAL,
+    GNOME_CMD_OPTIONS_DIALOG_TAB_FORMAT,
+    GNOME_CMD_OPTIONS_DIALOG_TAB_LAYOUT,
+    GNOME_CMD_OPTIONS_DIALOG_TAB_FILTERS,
+    GNOME_CMD_OPTIONS_DIALOG_TAB_PROGRAMS,
+    GNOME_CMD_OPTIONS_DIALOG_TAB_DEVICES
 } GnomeCmdOptionsDialogTab;
 
 
 struct _GnomeCmdOptionsDialog
 {
-	GnomeCmdDialog parent;
+    GnomeCmdDialog parent;
 
-	GtkWidget *notebook;
-	
-	GnomeCmdOptionsDialogPrivate *priv;
+    GtkWidget *notebook;
+
+    GnomeCmdOptionsDialogPrivate *priv;
 };
 
 
 struct _GnomeCmdOptionsDialogClass
 {
-	GnomeCmdDialogClass parent_class;
+    GnomeCmdDialogClass parent_class;
 };
 
 
@@ -68,7 +68,7 @@ gnome_cmd_options_dialog_new                 (void);
 
 void
 gnome_cmd_options_dialog_set_tab             (GnomeCmdOptionsDialog *dialog,
-											  GnomeCmdOptionsDialogTab tab);
+                                              GnomeCmdOptionsDialogTab tab);
 
 
 #endif //__GNOME_CMD_OPTIONS_DIALOG_H__

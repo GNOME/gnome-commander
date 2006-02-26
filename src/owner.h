@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -27,7 +27,7 @@
 typedef struct
 {
     gboolean zombie;  /* The gid of this group doesnt match any
-			 group in the system. */
+             group in the system. */
     char *name;
     char *passwd;
     gid_t gid;
@@ -38,9 +38,9 @@ typedef struct
 typedef struct
 {
     gboolean zombie;  /* The uid of this user doesnt match any
-			 user in the system. */
+             user in the system. */
     char *name;
-    char *passwd;    
+    char *passwd;
     uid_t uid;
     gid_t gid;
     group_t *group;

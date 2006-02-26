@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -22,10 +22,10 @@
 
 typedef struct
 {
-	GList *ents;
-	GList *pos;
-	gint max;
-	gboolean lock;
+    GList *ents;
+    GList *pos;
+    gint max;
+    gboolean lock;
 } History;
 
 

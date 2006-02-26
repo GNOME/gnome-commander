@@ -1,6 +1,6 @@
-/* Ripped from libgnomeui and adjusted to my needs. Original comments 
+/* Ripped from libgnomeui and adjusted to my needs. Original comments
  * left intact below.
- * 2003 Marcus Bjurman <marbj499@student.liu.se> 
+ * 2003 Marcus Bjurman <marbj499@student.liu.se>
  */
 
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
@@ -46,13 +46,13 @@ typedef struct _GnomeCmdAboutPluginClass   GnomeCmdAboutPluginClass;
 typedef struct _GnomeCmdAboutPluginPrivate GnomeCmdAboutPluginPrivate;
 
 struct _GnomeCmdAboutPlugin {
-	GtkDialog parent;
+    GtkDialog parent;
 
-	GnomeCmdAboutPluginPrivate *priv;
+    GnomeCmdAboutPluginPrivate *priv;
 };
 
 struct _GnomeCmdAboutPluginClass {
-	GtkDialogClass parent_class;
+    GtkDialogClass parent_class;
 };
 
 GType gnome_cmd_about_plugin_get_type (void) G_GNUC_CONST;

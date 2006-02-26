@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,33 +15,33 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_FILE_H__
 #define __GNOME_CMD_FILE_H__
 
 #define GNOME_CMD_FILE(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_file_get_type (), GnomeCmdFile)
+    GTK_CHECK_CAST (obj, gnome_cmd_file_get_type (), GnomeCmdFile)
 #define GNOME_CMD_FILE_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_get_type (), GnomeCmdFileClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_get_type (), GnomeCmdFileClass)
 #define GNOME_CMD_IS_FILE(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_file_get_type ())
 
 
 typedef struct _GnomeCmdFile GnomeCmdFile;
 typedef struct _GnomeCmdFileClass GnomeCmdFileClass;
-typedef struct _GnomeCmdFilePrivate	GnomeCmdFilePrivate;
+typedef struct _GnomeCmdFilePrivate    GnomeCmdFilePrivate;
 
 struct _GnomeCmdFile
 {
-	GnomeCmdFileInfo parent;
+    GnomeCmdFileInfo parent;
 
-	GnomeVFSFileInfo *info;
-	GnomeCmdFilePrivate *priv;
+    GnomeVFSFileInfo *info;
+    GnomeCmdFilePrivate *priv;
 };
 
 struct _GnomeCmdFileClass
 {
-	GnomeCmdFileInfoClass parent_class;
+    GnomeCmdFileInfoClass parent_class;
 };
 
 
@@ -51,20 +51,20 @@ struct _GnomeCmdFileClass
 GtkType gnome_cmd_file_get_type (void);
 
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info,
-								  GnomeCmdDir *dir);
+                                  GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *finfo,
-						   GnomeVFSFileInfo *info,
-						   GnomeCmdDir *dir);
+                           GnomeVFSFileInfo *info,
+                           GnomeCmdDir *dir);
 
 void gnome_cmd_file_ref (GnomeCmdFile *finfo);
 void gnome_cmd_file_unref (GnomeCmdFile *finfo);
 
 GnomeVFSResult gnome_cmd_file_chmod (GnomeCmdFile *finfo,
-									 GnomeVFSFilePermissions perm);
+                                     GnomeVFSFilePermissions perm);
 GnomeVFSResult gnome_cmd_file_chown (GnomeCmdFile *finfo,
-									 uid_t uid, gid_t gid);
+                                     uid_t uid, gid_t gid);
 GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *finfo,
-									  const gchar *new_name);
+                                      const gchar *new_name);
 
 const gchar *gnome_cmd_file_get_name (GnomeCmdFile *finfo);
 gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *finfo);
@@ -78,20 +78,20 @@ const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_group (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_adate (GnomeCmdFile *finfo,
-									   gboolean overide_disp_setting);
+                                       gboolean overide_disp_setting);
 const gchar *gnome_cmd_file_get_mdate (GnomeCmdFile *finfo,
-									   gboolean overide_disp_setting);
+                                       gboolean overide_disp_setting);
 const gchar *gnome_cmd_file_get_cdate (GnomeCmdFile *finfo,
-									   gboolean overide_disp_setting);
+                                       gboolean overide_disp_setting);
 const gchar *gnome_cmd_file_get_size (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_tree_size (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_perm (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_mime_type_desc (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_mime_type (GnomeCmdFile *finfo);
 gboolean gnome_cmd_file_has_mime_type (GnomeCmdFile *finfo,
-									   const gchar *mime_type);
+                                       const gchar *mime_type);
 gboolean gnome_cmd_file_mime_begins_with (GnomeCmdFile *finfo,
-										  const gchar *mime_type_start);
+                                          const gchar *mime_type_start);
 
 const gchar *gnome_cmd_file_get_type_string (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *finfo);

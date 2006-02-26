@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #include "libgcmd-deps.h"
 #include "plugin-info.h"
@@ -34,29 +34,29 @@ static GtkObjectClass *parent_class = NULL;
 static void
 destroy (GtkObject *object)
 {
-	//GnomeCmdPlugin *plugin = GNOME_CMD_PLUGIN (object);
+    //GnomeCmdPlugin *plugin = GNOME_CMD_PLUGIN (object);
 
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    if (GTK_OBJECT_CLASS (parent_class)->destroy)
+        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
 static void
 class_init (GnomeCmdPluginClass *klass)
 {
-	GtkObjectClass *object_class;
-	GnomeCmdPluginClass *plugin_class;
+    GtkObjectClass *object_class;
+    GnomeCmdPluginClass *plugin_class;
 
-	object_class = GTK_OBJECT_CLASS (klass);
-	plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
-	parent_class = gtk_type_class (gtk_object_get_type ());
+    object_class = GTK_OBJECT_CLASS (klass);
+    plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
+    parent_class = gtk_type_class (gtk_object_get_type ());
 
-	object_class->destroy = destroy;
+    object_class->destroy = destroy;
 
-	plugin_class->create_main_menu = NULL;
-	plugin_class->create_popup_menu_items = NULL;
-	plugin_class->update_main_menu_state = NULL;
-	plugin_class->configure = NULL;
+    plugin_class->create_main_menu = NULL;
+    plugin_class->create_popup_menu_items = NULL;
+    plugin_class->update_main_menu_state = NULL;
+    plugin_class->configure = NULL;
 }
 
 
@@ -74,76 +74,76 @@ init (GnomeCmdPlugin *plugin)
 GtkType
 gnome_cmd_plugin_get_type         (void)
 {
-	static GtkType type = 0;
+    static GtkType type = 0;
 
-	if (type == 0)
-	{
-		GtkTypeInfo info =
-		{
-			"GnomeCmdPlugin",
-			sizeof (GnomeCmdPlugin),
-			sizeof (GnomeCmdPluginClass),
-			(GtkClassInitFunc) class_init,
-			(GtkObjectInitFunc) init,
-			/* reserved_1 */ NULL,
-			/* reserved_2 */ NULL,
-			(GtkClassInitFunc) NULL
-		};
+    if (type == 0)
+    {
+        GtkTypeInfo info =
+        {
+            "GnomeCmdPlugin",
+            sizeof (GnomeCmdPlugin),
+            sizeof (GnomeCmdPluginClass),
+            (GtkClassInitFunc) class_init,
+            (GtkObjectInitFunc) init,
+            /* reserved_1 */ NULL,
+            /* reserved_2 */ NULL,
+            (GtkClassInitFunc) NULL
+        };
 
-		type = gtk_type_unique (gtk_object_get_type (), &info);
-	}
-	return type;
+        type = gtk_type_unique (gtk_object_get_type (), &info);
+    }
+    return type;
 }
 
 
 GtkWidget *
 gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-	GnomeCmdPluginClass *klass;
+    GnomeCmdPluginClass *klass;
 
-	g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
-	
-	klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+    g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
 
-	return klass->create_main_menu (plugin, state);
+    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+
+    return klass->create_main_menu (plugin, state);
 }
 
 
 GList *
 gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-	GnomeCmdPluginClass *klass;
+    GnomeCmdPluginClass *klass;
 
-	g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
-	
-	klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+    g_return_val_if_fail (GNOME_CMD_IS_PLUGIN (plugin), NULL);
 
-	return klass->create_popup_menu_items (plugin, state);
+    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+
+    return klass->create_popup_menu_items (plugin, state);
 }
 
 
 void
 gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-	GnomeCmdPluginClass *klass;
+    GnomeCmdPluginClass *klass;
 
-	g_return_if_fail (GNOME_CMD_IS_PLUGIN (plugin));
-	
-	klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+    g_return_if_fail (GNOME_CMD_IS_PLUGIN (plugin));
 
-	klass->update_main_menu_state (plugin, state);
+    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+
+    klass->update_main_menu_state (plugin, state);
 }
 
 
 void
 gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin)
 {
-	GnomeCmdPluginClass *klass;
+    GnomeCmdPluginClass *klass;
 
-	g_return_if_fail (GNOME_CMD_IS_PLUGIN (plugin));
-	
-	klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+    g_return_if_fail (GNOME_CMD_IS_PLUGIN (plugin));
 
-	klass->configure (plugin);
+    klass = GNOME_CMD_PLUGIN_GET_CLASS (plugin);
+
+    klass->configure (plugin);
 }
 

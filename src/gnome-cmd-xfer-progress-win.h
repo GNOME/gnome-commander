@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,17 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_XFER_PROGRESS_WIN_H__
 #define __GNOME_CMD_XFER_PROGRESS_WIN_H__
 
 
 #define GNOME_CMD_XFER_PROGRESS_WIN(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_xfer_progress_win_get_type (), GnomeCmdXferProgressWin)
+    GTK_CHECK_CAST (obj, gnome_cmd_xfer_progress_win_get_type (), GnomeCmdXferProgressWin)
 #define GNOME_CMD_XFER_PROGRESS_WIN_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_xfer_progress_win_get_type (), GnomeCmdXferProgressWinClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_xfer_progress_win_get_type (), GnomeCmdXferProgressWinClass)
 #define GNOME_CMD_IS_XFER_PROGRESS_WIN(obj) \
-	GTK_CHECK_TYPE (obj, gnome_cmd_xfer_progress_win_get_type ())
+    GTK_CHECK_TYPE (obj, gnome_cmd_xfer_progress_win_get_type ())
 
 
 typedef struct _GnomeCmdXferProgressWin GnomeCmdXferProgressWin;
@@ -35,19 +35,19 @@ typedef struct _GnomeCmdXferProgressWinClass GnomeCmdXferProgressWinClass;
 
 struct _GnomeCmdXferProgressWin
 {
-	GtkWindow parent;
-	
-	GtkWidget *totalprog;
-	GtkWidget *msg_label;
-	GtkWidget *fileprog_label;
+    GtkWindow parent;
 
-	gboolean cancel_pressed;
+    GtkWidget *totalprog;
+    GtkWidget *msg_label;
+    GtkWidget *fileprog_label;
+
+    gboolean cancel_pressed;
 };
 
 
 struct _GnomeCmdXferProgressWinClass
 {
-	GtkWindowClass parent_class;
+    GtkWindowClass parent_class;
 };
 
 
@@ -59,16 +59,16 @@ gnome_cmd_xfer_progress_win_get_type (void);
 
 void
 gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
-												GnomeVFSFileSize bytes_copied,
-												GnomeVFSFileSize bytes_total);
+                                                GnomeVFSFileSize bytes_copied,
+                                                GnomeVFSFileSize bytes_total);
 
 void
 gnome_cmd_xfer_progress_win_set_msg (GnomeCmdXferProgressWin *win,
-									 const gchar *string);
+                                     const gchar *string);
 
 void
 gnome_cmd_xfer_progress_win_set_action (GnomeCmdXferProgressWin *win,
-										const gchar *string);
+                                        const gchar *string);
 
 
 

@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,71 +15,71 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_DIR_H__
 #define __GNOME_CMD_DIR_H__
 
 #define GNOME_CMD_DIR(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_dir_get_type (), GnomeCmdDir)
+    GTK_CHECK_CAST (obj, gnome_cmd_dir_get_type (), GnomeCmdDir)
 #define GNOME_CMD_DIR_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_dir_get_type (), GnomeCmdDirClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_dir_get_type (), GnomeCmdDirClass)
 #define GNOME_CMD_IS_DIR(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_dir_get_type ())
 
 
-typedef struct _GnomeCmdDir		    GnomeCmdDir;
-typedef struct _GnomeCmdDirPrivate	GnomeCmdDirPrivate;
-typedef struct _GnomeCmdDirClass	GnomeCmdDirClass;
+typedef struct _GnomeCmdDir            GnomeCmdDir;
+typedef struct _GnomeCmdDirPrivate    GnomeCmdDirPrivate;
+typedef struct _GnomeCmdDirClass    GnomeCmdDirClass;
 
 typedef void (* DirListDoneFunc) (GnomeCmdDir *dir,
-								  GList *files,
-								  GnomeVFSResult result);
+                                  GList *files,
+                                  GnomeVFSResult result);
 
 #include "gnome-cmd-file.h"
 
 
 typedef enum {
-	DIR_STATE_EMPTY,
-	DIR_STATE_LISTED,
-	DIR_STATE_LISTING,
-	DIR_STATE_CANCELING
+    DIR_STATE_EMPTY,
+    DIR_STATE_LISTED,
+    DIR_STATE_LISTING,
+    DIR_STATE_CANCELING
 } DirState;
 
 struct _GnomeCmdDir
 {
-	GnomeCmdFile parent;
-	
-	gint voffset;
-	GList *infolist;
-	GnomeVFSAsyncHandle *list_handle;
-	GnomeVFSResult list_result;
-	gint list_counter;
-	DirState state;
+    GnomeCmdFile parent;
 
-	DirListDoneFunc done_func;
+    gint voffset;
+    GList *infolist;
+    GnomeVFSAsyncHandle *list_handle;
+    GnomeVFSResult list_result;
+    gint list_counter;
+    DirState state;
 
-	GtkWidget *dialog;
-	GtkWidget *label;
-	GtkWidget *pbar;
+    DirListDoneFunc done_func;
 
-	GnomeCmdDirPrivate *priv;
+    GtkWidget *dialog;
+    GtkWidget *label;
+    GtkWidget *pbar;
+
+    GnomeCmdDirPrivate *priv;
 };
 
 
 struct _GnomeCmdDirClass
 {
-	GnomeCmdFileClass parent_class;
+    GnomeCmdFileClass parent_class;
 
-	void (* file_created)       (GnomeCmdDir *dir,
-								 GnomeCmdFile *file);
-	void (* file_deleted)       (GnomeCmdDir *dir,
-								 GnomeCmdFile *file);
-	void (* file_changed)       (GnomeCmdDir *dir,
-								 GnomeCmdFile *file);
-	void (* list_ok)            (GnomeCmdDir *dir,
-								 GList *files);
-	void (* list_failed)        (GnomeCmdDir *dir,
-								 GnomeVFSResult result);
+    void (* file_created)       (GnomeCmdDir *dir,
+                                 GnomeCmdFile *file);
+    void (* file_deleted)       (GnomeCmdDir *dir,
+                                 GnomeCmdFile *file);
+    void (* file_changed)       (GnomeCmdDir *dir,
+                                 GnomeCmdFile *file);
+    void (* list_ok)            (GnomeCmdDir *dir,
+                                 GList *files);
+    void (* list_failed)        (GnomeCmdDir *dir,
+                                 GnomeVFSResult result);
 };
 
 
@@ -93,12 +93,12 @@ GtkType gnome_cmd_dir_get_type (void);
 
 
 GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info,
-										  GnomeCmdDir *parent);
+                                          GnomeCmdDir *parent);
 GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
-										 GnomeCmdPath *path,
-										 GnomeCmdCon *con);
+                                         GnomeCmdPath *path,
+                                         GnomeCmdCon *con);
 GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con,
-								GnomeCmdPath *path);
+                                GnomeCmdPath *path);
 GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
 GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir);

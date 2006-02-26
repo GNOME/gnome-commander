@@ -7,6 +7,9 @@
 	* pixmaps/device-icons:
         New and updated icons.
 
+	* */*.{c,h}:
+        Code cleanup.
+
 2006-02-26  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-con-device.c:
@@ -81,7 +84,7 @@
 2006-02-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-data.c:
-        Changed default viewer and editor: emacs -> gedit 
+        Changed default viewer and editor: emacs -> gedit
 
 	* gnome-commander.spec.in:
         Changed default tarball ext to bz2

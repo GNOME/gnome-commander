@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,16 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_FILE_SELECTOR_H__
 #define __GNOME_CMD_FILE_SELECTOR_H__
 
 #define GNOME_CMD_FILE_SELECTOR(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelector)
+    GTK_CHECK_CAST (obj, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelector)
 #define GNOME_CMD_FILE_SELECTOR_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelectorClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelectorClass)
 #define GNOME_CMD_IS_FILE_SELECTOR(obj) \
-	GTK_CHECK_TYPE (obj, gnome_cmd_file_selector_get_type ())
+    GTK_CHECK_TYPE (obj, gnome_cmd_file_selector_get_type ())
 
 #define DIR_HISTORY_SIZE 20
 
@@ -40,31 +40,31 @@ typedef struct _GnomeCmdFileSelectorClass GnomeCmdFileSelectorClass;
 
 struct _GnomeCmdFileSelector
 {
-	GtkVBox vbox;
+    GtkVBox vbox;
 
-	GtkWidget *con_btns_hbox;
-	GtkWidget *con_hbox;
-	GtkWidget *dir_indicator;
-	GtkWidget *root_btn;
-	GtkWidget *parent_btn;
-	GtkWidget *dir_label;
-	GtkWidget *scrolledwindow;
-	GtkWidget *info_label;
-	GtkWidget *list_widget;
-	GnomeCmdFileList *list;
-	GtkWidget *con_combo;
-	GtkWidget *vol_label;
-	
-	GnomeCmdFileSelectorPrivate *priv;
+    GtkWidget *con_btns_hbox;
+    GtkWidget *con_hbox;
+    GtkWidget *dir_indicator;
+    GtkWidget *root_btn;
+    GtkWidget *parent_btn;
+    GtkWidget *dir_label;
+    GtkWidget *scrolledwindow;
+    GtkWidget *info_label;
+    GtkWidget *list_widget;
+    GnomeCmdFileList *list;
+    GtkWidget *con_combo;
+    GtkWidget *vol_label;
+
+    GnomeCmdFileSelectorPrivate *priv;
 };
 
 
 struct _GnomeCmdFileSelectorClass
 {
-	GtkVBoxClass parent_class;
+    GtkVBoxClass parent_class;
 
-	void (* changed_dir)       (GnomeCmdFileSelector *fs,
-								GnomeCmdDir *dir);
+    void (* changed_dir)       (GnomeCmdFileSelector *fs,
+                                GnomeCmdDir *dir);
 };
 
 
@@ -79,11 +79,11 @@ gnome_cmd_file_selector_get_directory    (GnomeCmdFileSelector *fs);
 
 void
 gnome_cmd_file_selector_set_directory    (GnomeCmdFileSelector *fs,
-										  GnomeCmdDir *dir);
+                                          GnomeCmdDir *dir);
 
 void
 gnome_cmd_file_selector_goto_directory   (GnomeCmdFileSelector *fs,
-										  const gchar *dir);
+                                          const gchar *dir);
 
 void
 gnome_cmd_file_selector_reload           (GnomeCmdFileSelector *fs);
@@ -105,15 +105,15 @@ gnome_cmd_file_selector_can_forward       (GnomeCmdFileSelector *fs);
 
 void
 gnome_cmd_file_selector_set_active       (GnomeCmdFileSelector *fs,
-										  gboolean value);
+                                          gboolean value);
 
 void
 gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs);
 
 void
 gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs,
-										GnomeCmdCon *con,
-										GnomeCmdDir *start_dir);
+                                        GnomeCmdCon *con,
+                                        GnomeCmdDir *start_dir);
 
 GnomeCmdCon *
 gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs);
@@ -132,11 +132,11 @@ gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);
 
 gboolean
 gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
-									GdkEventKey *event);
+                                    GdkEventKey *event);
 
 void
 gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs,
-										GnomeCmdFile *finfo);
+                                        GnomeCmdFile *finfo);
 
 void
 gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs);

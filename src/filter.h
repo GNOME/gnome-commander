@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -23,33 +23,33 @@
 #include <regex.h>
 
 typedef enum {
-	FILTER_TYPE_REGEX,
-	FILTER_TYPE_FNMATCH
+    FILTER_TYPE_REGEX,
+    FILTER_TYPE_FNMATCH
 } FilterType;
 
 
 typedef struct
 {
-	/* common stuff */
-	FilterType type;
-	
-	/* regex filtering stuff */
-	regex_t *re_exp;
-	
-	/* fnmatch filtering stuff */
-	char *fn_exp;
-	int fn_flags;
-	
+    /* common stuff */
+    FilterType type;
+
+    /* regex filtering stuff */
+    regex_t *re_exp;
+
+    /* fnmatch filtering stuff */
+    char *fn_exp;
+    int fn_flags;
+
 } Filter;
 
 
 Filter  *filter_new   (const gchar *exp,
-					   gboolean case_sens);
+                       gboolean case_sens);
 
 void     filter_free  (Filter *filter);
 
 gboolean filter_match (Filter *filter,
-					   gchar *text);
+                       gchar *text);
 
 
 #endif //__FILTER_H__

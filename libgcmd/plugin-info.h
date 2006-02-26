@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #ifndef __PLUGIN_INFO_H__
 #define __PLUGIN_INFO_H__
@@ -31,16 +31,16 @@
  * since it is needed to determinate the version of a plugin
  */
 typedef struct {
-	gint plugin_system_version;
+    gint plugin_system_version;
 
-	gchar *name;
-	gchar *version;
-	gchar *copyright;
-	gchar *comments;
-	gchar **authors;
-	gchar **documenters;
-	gchar *translator;
-	gchar *webpage;
+    gchar *name;
+    gchar *version;
+    gchar *copyright;
+    gchar *comments;
+    gchar **authors;
+    gchar **documenters;
+    gchar *translator;
+    gchar *webpage;
 } PluginInfo;
 
 

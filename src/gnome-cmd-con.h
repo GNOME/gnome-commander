@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,14 +15,14 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_CON_H__
 #define __GNOME_CMD_CON_H__
 
 #define GNOME_CMD_CON(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_con_get_type (), GnomeCmdCon)
+    GTK_CHECK_CAST (obj, gnome_cmd_con_get_type (), GnomeCmdCon)
 #define GNOME_CMD_CON_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_get_type (), GnomeCmdConClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_get_type (), GnomeCmdConClass)
 #define GNOME_CMD_IS_CON(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_con_get_type ())
 #define GNOME_CMD_CON_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_CON, GnomeCmdConClass))
@@ -40,68 +40,68 @@ typedef struct _GnomeCmdConPrivate GnomeCmdConPrivate;
 
 
 typedef enum {
-	CON_STATE_CLOSED,
-	CON_STATE_OPEN,
-	CON_STATE_OPENING,
-	CON_STATE_CANCELLING
+    CON_STATE_CLOSED,
+    CON_STATE_OPEN,
+    CON_STATE_OPENING,
+    CON_STATE_CANCELLING
 } ConState;
 
 typedef enum {
-	CON_OPEN_OK,
-	CON_OPEN_FAILED,
-	CON_OPEN_CANCELLED,
-	CON_OPEN_IN_PROGRESS,
-	CON_OPEN_NOT_STARTED
+    CON_OPEN_OK,
+    CON_OPEN_FAILED,
+    CON_OPEN_CANCELLED,
+    CON_OPEN_IN_PROGRESS,
+    CON_OPEN_NOT_STARTED
 } ConOpenResult;
 
 struct _GnomeCmdCon
 {
-	GtkObject parent;
+    GtkObject parent;
 
-	gchar            *alias;
-	gchar            *open_msg;
-	GnomeCmdPath     *base_path;
-	GnomeVFSFileInfo *base_info;
-	gboolean         should_remember_dir;
-	gboolean         needs_open_visprog;
-	gboolean         needs_list_visprog;
-	gboolean         can_show_free_space;
-	ConState         state;
-	gboolean         is_local;
-	gboolean         is_closeable;
-	gchar            *go_text;
-	gchar            *go_tooltip;
-	GnomeCmdPixmap   *go_pixmap;
-	gchar            *open_text;
-	gchar            *open_tooltip;
-	GnomeCmdPixmap   *open_pixmap;
-	gchar            *close_text;
-	gchar            *close_tooltip;
-	GnomeCmdPixmap   *close_pixmap;
+    gchar            *alias;
+    gchar            *open_msg;
+    GnomeCmdPath     *base_path;
+    GnomeVFSFileInfo *base_info;
+    gboolean         should_remember_dir;
+    gboolean         needs_open_visprog;
+    gboolean         needs_list_visprog;
+    gboolean         can_show_free_space;
+    ConState         state;
+    gboolean         is_local;
+    gboolean         is_closeable;
+    gchar            *go_text;
+    gchar            *go_tooltip;
+    GnomeCmdPixmap   *go_pixmap;
+    gchar            *open_text;
+    gchar            *open_tooltip;
+    GnomeCmdPixmap   *open_pixmap;
+    gchar            *close_text;
+    gchar            *close_tooltip;
+    GnomeCmdPixmap   *close_pixmap;
 
-	ConOpenResult    open_result;
-	GnomeVFSResult   open_failed_reason;
-	gchar            *open_failed_msg; 
-	
-	GnomeCmdConPrivate *priv;
+    ConOpenResult    open_result;
+    GnomeVFSResult   open_failed_reason;
+    gchar            *open_failed_msg;
+
+    GnomeCmdConPrivate *priv;
 };
 
 struct _GnomeCmdConClass
 {
-	GtkObjectClass parent_class;
+    GtkObjectClass parent_class;
 
-	/* signals */
-	void (* updated) (GnomeCmdCon *con);
-	void (* open_done) (GnomeCmdCon *con);
-	void (* open_failed) (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result);
+    /* signals */
+    void (* updated) (GnomeCmdCon *con);
+    void (* open_done) (GnomeCmdCon *con);
+    void (* open_failed) (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result);
 
-	/* virtual functions */
-	void (* open) (GnomeCmdCon *con);
-	void (* cancel_open) (GnomeCmdCon *con);
-	gboolean (* close) (GnomeCmdCon *con);
-	gboolean (* open_is_needed) (GnomeCmdCon *con);
-	GnomeVFSURI *(* create_uri) (GnomeCmdCon *con, GnomeCmdPath *path);
-	GnomeCmdPath *(* create_path) (GnomeCmdCon *con, const gchar *path_str);
+    /* virtual functions */
+    void (* open) (GnomeCmdCon *con);
+    void (* cancel_open) (GnomeCmdCon *con);
+    gboolean (* close) (GnomeCmdCon *con);
+    gboolean (* open_is_needed) (GnomeCmdCon *con);
+    GnomeVFSURI *(* create_uri) (GnomeCmdCon *con, GnomeCmdPath *path);
+    GnomeCmdPath *(* create_path) (GnomeCmdCon *con, const gchar *path_str);
 };
 
 
@@ -175,7 +175,7 @@ gnome_cmd_con_is_closeable (GnomeCmdCon *con);
 
 History *
 gnome_cmd_con_get_dir_history (GnomeCmdCon *con);
-	
+
 const gchar *
 gnome_cmd_con_get_go_text (GnomeCmdCon *con);
 
@@ -218,8 +218,8 @@ gnome_cmd_con_updated (GnomeCmdCon *con);
 
 GnomeVFSResult
 gnome_cmd_con_get_path_target_type (GnomeCmdCon *con,
-									const gchar *path,
-									GnomeVFSFileType *type);
+                                    const gchar *path,
+                                    GnomeVFSFileType *type);
 
 GnomeVFSResult
 gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str);

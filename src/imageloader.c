@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "imageloader.h"
@@ -27,63 +27,63 @@
 
 typedef struct
 {
-	gboolean dead_end;
-	GdkPixmap *pixmap;
-	GdkBitmap *mask;
-	GdkPixmap *lnk_pixmap;
-	GdkBitmap *lnk_mask;
+    gboolean dead_end;
+    GdkPixmap *pixmap;
+    GdkBitmap *mask;
+    GdkPixmap *lnk_pixmap;
+    GdkBitmap *lnk_mask;
 } CacheEntry;
 
 
 static gchar *file_type_pixmap_files[NUM_FILE_TYPE_PIXMAPS] = {
-	"file-type-icons/file_type_regular.xpm",
-	"file-type-icons/file_type_regular.xpm",
-	"file-type-icons/file_type_dir.xpm",
-	"file-type-icons/file_type_fifo.xpm",
-	"file-type-icons/file_type_socket.xpm",
-	"file-type-icons/file_type_char_device.xpm",
-	"file-type-icons/file_type_block_device.xpm",	
-	"file-type-icons/file_type_symlink.xpm"
+    "file-type-icons/file_type_regular.xpm",
+    "file-type-icons/file_type_regular.xpm",
+    "file-type-icons/file_type_dir.xpm",
+    "file-type-icons/file_type_fifo.xpm",
+    "file-type-icons/file_type_socket.xpm",
+    "file-type-icons/file_type_char_device.xpm",
+    "file-type-icons/file_type_block_device.xpm",
+    "file-type-icons/file_type_symlink.xpm"
 };
 
 
 static gchar *pixmap_files[NUM_PIXMAPS] = {
-	"",
-	"gnome_cmd_arrow_up.xpm",
-	"gnome_cmd_arrow_down.xpm",
-	"gnome_cmd_arrow_blank.xpm",
-	"server.xpm",
-	"gnome-commander.xpm",
-	"exec.xpm",
-	"exec_wheel.xpm",
-	"mkdir.xpm",
-	"lock.xpm",
-	"home.xpm",
-	"desktop.xpm",
-	"smb-network.xpm",
-	"smb-computer.xpm",
-	"menu_bookmark.xpm",
-	"overlay_symlink.xpm",
-	"overlay_umount.xpm",
-	"parent_dir.xpm",
-	"root_dir.xpm",
-	"ftp_connect.xpm",
-	"ftp_disconnect.xpm",
-	"menu_ftp_connect.xpm",
-	"menu_ftp_disconnect.xpm",
-	"toggle_vertical.xpm",
-	"toggle_horizontal.xpm"
+    "",
+    "gnome_cmd_arrow_up.xpm",
+    "gnome_cmd_arrow_down.xpm",
+    "gnome_cmd_arrow_blank.xpm",
+    "server.xpm",
+    "gnome-commander.xpm",
+    "exec.xpm",
+    "exec_wheel.xpm",
+    "mkdir.xpm",
+    "lock.xpm",
+    "home.xpm",
+    "desktop.xpm",
+    "smb-network.xpm",
+    "smb-computer.xpm",
+    "menu_bookmark.xpm",
+    "overlay_symlink.xpm",
+    "overlay_umount.xpm",
+    "parent_dir.xpm",
+    "root_dir.xpm",
+    "ftp_connect.xpm",
+    "ftp_disconnect.xpm",
+    "menu_ftp_connect.xpm",
+    "menu_ftp_disconnect.xpm",
+    "toggle_vertical.xpm",
+    "toggle_horizontal.xpm"
 };
 
 
 #define NUM_CATEGORIES 6
 static gchar *categories[NUM_CATEGORIES][2] = {
-	{"text", "gnome-text-plain.png"},
-	{"video", "gnome-video-plain.png"},
-	{"image", "gnome-image-plain.png"},
-	{"audio", "gnome-audio-plain.png"},
-	{"pack", "gnome-pack-plain.png"},
-	{"font", "gnome-font-plain.png"}
+    {"text", "gnome-text-plain.png"},
+    {"video", "gnome-video-plain.png"},
+    {"image", "gnome-image-plain.png"},
+    {"audio", "gnome-audio-plain.png"},
+    {"pack", "gnome-pack-plain.png"},
+    {"font", "gnome-font-plain.png"}
 };
 
 static GnomeCmdPixmap *pixmaps[NUM_PIXMAPS];
@@ -95,10 +95,10 @@ static GdkPixbuf *symlink_pixbuf = NULL;
 
 static gboolean
 load_icon (const gchar *icon_path,
-		   GdkPixmap **pm,
-		   GdkBitmap **bm,
-		   GdkPixmap **lpm,
-		   GdkBitmap **lbm);
+           GdkPixmap **pm,
+           GdkBitmap **bm,
+           GdkPixmap **lpm,
+           GdkBitmap **lbm);
 
 
 /**
@@ -108,90 +108,90 @@ void IMAGE_init (void)
 {
     gint i;
 
-	mime_cache = g_hash_table_new (g_str_hash, g_str_equal);
+    mime_cache = g_hash_table_new (g_str_hash, g_str_equal);
 
-	/*
-	 * Load misc icons
-	 */
-	for ( i=1 ; i<NUM_PIXMAPS ; i++ ) {
-		gchar *path = g_build_path ("/", PIXMAPS_DIR, pixmap_files[i], NULL);
+    /*
+     * Load misc icons
+     */
+    for ( i=1 ; i<NUM_PIXMAPS ; i++ ) {
+        gchar *path = g_build_path ("/", PIXMAPS_DIR, pixmap_files[i], NULL);
 
-		DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
+        DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
-		pixmaps[i] = gnome_cmd_pixmap_new_from_file (path);
-		if (!pixmaps[i]) {
-			gchar *path2;
-			
-			warn_print (_("Couldn't load installed file type pixmap, trying to load from source-dir\n"));
-			path2 = g_build_path ("/", "../pixmaps", pixmap_files[i], NULL);
-			warn_print (_("Trying to load %s instead\n"), path2);
-			
-			pixmaps[i] = gnome_cmd_pixmap_new_from_file (path2);
-			if (!pixmaps[i]) {
-				warn_print (_("Cant find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"));
-			}
-			g_free (path2);
-		}
-		g_free (path);			
-	}
+        pixmaps[i] = gnome_cmd_pixmap_new_from_file (path);
+        if (!pixmaps[i]) {
+            gchar *path2;
+
+            warn_print (_("Couldn't load installed file type pixmap, trying to load from source-dir\n"));
+            path2 = g_build_path ("/", "../pixmaps", pixmap_files[i], NULL);
+            warn_print (_("Trying to load %s instead\n"), path2);
+
+            pixmaps[i] = gnome_cmd_pixmap_new_from_file (path2);
+            if (!pixmaps[i]) {
+                warn_print (_("Cant find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"));
+            }
+            g_free (path2);
+        }
+        g_free (path);
+    }
 
 
-	/*
-	 * Load file type icons
-	 */
-	for ( i=0 ; i<NUM_FILE_TYPE_PIXMAPS ; i++ ) {
-		CacheEntry *e = &file_type_pixmaps[i];
-		gchar *path = g_build_path ("/", PIXMAPS_DIR, file_type_pixmap_files[i], NULL);
+    /*
+     * Load file type icons
+     */
+    for ( i=0 ; i<NUM_FILE_TYPE_PIXMAPS ; i++ ) {
+        CacheEntry *e = &file_type_pixmaps[i];
+        gchar *path = g_build_path ("/", PIXMAPS_DIR, file_type_pixmap_files[i], NULL);
 
-		DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
+        DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
-		if (!load_icon (path, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask)) {
-			gchar *path2;
-			
-			warn_print (_("Couldn't load installed pixmap, trying to load from source-dir\n"));
-			path2 = g_build_path ("/", "../pixmaps", pixmap_files[i], NULL);
-			warn_print (_("Trying to load %s instead\n"), path2);
-			
-			if (!load_icon (path2, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask)) {
-				warn_print (_("Cant find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"));
-			}
-			g_free (path2);
-		}
-		
-		g_free (path);
-	}
+        if (!load_icon (path, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask)) {
+            gchar *path2;
+
+            warn_print (_("Couldn't load installed pixmap, trying to load from source-dir\n"));
+            path2 = g_build_path ("/", "../pixmaps", pixmap_files[i], NULL);
+            warn_print (_("Trying to load %s instead\n"), path2);
+
+            if (!load_icon (path2, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask)) {
+                warn_print (_("Cant find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"));
+            }
+            g_free (path2);
+        }
+
+        g_free (path);
+    }
 }
 
 
 GdkPixmap *IMAGE_get_pixmap (Pixmap pixmap_id)
 {
-	if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS && pixmaps[pixmap_id] != NULL)
-		return pixmaps[pixmap_id]->pixmap;
-	return NULL;
+    if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS && pixmaps[pixmap_id] != NULL)
+        return pixmaps[pixmap_id]->pixmap;
+    return NULL;
 }
 
 
 GdkBitmap *IMAGE_get_mask (Pixmap pixmap_id)
 {
-	if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS && pixmaps[pixmap_id] != NULL)
-		return pixmaps[pixmap_id]->mask;
-	return NULL;
+    if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS && pixmaps[pixmap_id] != NULL)
+        return pixmaps[pixmap_id]->mask;
+    return NULL;
 }
 
 
 GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id)
 {
-	if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS && pixmaps[pixmap_id] != NULL)
-		return pixmaps[pixmap_id]->pixbuf;
-	return NULL;
+    if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS && pixmaps[pixmap_id] != NULL)
+        return pixmaps[pixmap_id]->pixbuf;
+    return NULL;
 }
 
 
 GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id)
 {
-	if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS)
-		return pixmaps[pixmap_id];
-	return NULL;
+    if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS)
+        return pixmaps[pixmap_id];
+    return NULL;
 }
 
 
@@ -201,24 +201,24 @@ GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id)
  */
 static char *
 get_mime_icon_name (const gchar *mime_type) {
-	gint i;
-	gint l;
-	gchar *icon_name, *tmp;
+    gint i;
+    gint l;
+    gchar *icon_name, *tmp;
 
-	tmp = g_strdup (mime_type);
+    tmp = g_strdup (mime_type);
 
-	/* replace '/' with '-' */
-	l = strlen(tmp);
-	for ( i=0 ; i<l ; i++ ) {
-		if (tmp[i] == '/')
-			tmp[i] = '-';
-	}
+    /* replace '/' with '-' */
+    l = strlen(tmp);
+    for ( i=0 ; i<l ; i++ ) {
+        if (tmp[i] == '/')
+            tmp[i] = '-';
+    }
 
-	/* add 'gnome-' */
-	icon_name = g_strdup_printf ("gnome-%s.png", tmp);
-	g_free (tmp);
+    /* add 'gnome-' */
+    icon_name = g_strdup_printf ("gnome-%s.png", tmp);
+    g_free (tmp);
 
-	return icon_name;
+    return icon_name;
 }
 
 
@@ -229,48 +229,48 @@ get_mime_icon_name (const gchar *mime_type) {
 static const gchar *
 get_type_icon_name (GnomeVFSFileType type)
 {
-	static gchar *names[] = {
-		"i-directory.png",
-		"i-regular.png",
-		"i-chardev.png",
-		"i-blockdev.png",
-		"i-fifo.png",
-		"i-socket.png",
-		"i-symlink.png"
-	};
-	
-	switch (type)
-	{
-		case GNOME_VFS_FILE_TYPE_DIRECTORY:
-			return names[0];
-		case GNOME_VFS_FILE_TYPE_REGULAR:
-			return names[1];
-		case GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE:
-			return names[2];
-		case GNOME_VFS_FILE_TYPE_BLOCK_DEVICE:
-			return names[3];
-		case GNOME_VFS_FILE_TYPE_FIFO:
-			return names[4];
-		case GNOME_VFS_FILE_TYPE_SOCKET:
-			return names[5];
-		case GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK:
-			return names[6];
-		default:
-			return names[1];
-	}
+    static gchar *names[] = {
+        "i-directory.png",
+        "i-regular.png",
+        "i-chardev.png",
+        "i-blockdev.png",
+        "i-fifo.png",
+        "i-socket.png",
+        "i-symlink.png"
+    };
 
-	return NULL;
+    switch (type)
+    {
+        case GNOME_VFS_FILE_TYPE_DIRECTORY:
+            return names[0];
+        case GNOME_VFS_FILE_TYPE_REGULAR:
+            return names[1];
+        case GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE:
+            return names[2];
+        case GNOME_VFS_FILE_TYPE_BLOCK_DEVICE:
+            return names[3];
+        case GNOME_VFS_FILE_TYPE_FIFO:
+            return names[4];
+        case GNOME_VFS_FILE_TYPE_SOCKET:
+            return names[5];
+        case GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK:
+            return names[6];
+        default:
+            return names[1];
+    }
+
+    return NULL;
 }
 
 
-/** 
+/**
  * Returns the full path to an image for the given filetype in the given directory.
  *
- */ 
+ */
 static gchar *
 get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *icon_dir)
 {
-	return g_build_path ("/", icon_dir, get_type_icon_name (type), NULL);
+    return g_build_path ("/", icon_dir, get_type_icon_name (type), NULL);
 }
 
 
@@ -282,10 +282,10 @@ get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *icon_dir)
 static gchar *
 get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
-	gchar *icon_name = get_mime_icon_name (mime_type);
-	gchar *icon_path = g_build_path ("/", icon_dir, icon_name, NULL);
-	g_free (icon_name);
-	return icon_path;
+    gchar *icon_name = get_mime_icon_name (mime_type);
+    gchar *icon_path = g_build_path ("/", icon_dir, icon_name, NULL);
+    g_free (icon_name);
+    return icon_path;
 }
 
 
@@ -297,15 +297,15 @@ get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
 static gchar *
 get_category_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
-	gint i;
+    gint i;
 
-	for ( i=0 ; i<NUM_CATEGORIES ; i++ ) {
-		if (strncmp (mime_type, categories[i][0], strlen (categories[i][0])) == 0) {
-			return g_build_path ("/", icon_dir, categories[i][1], NULL);
-		}
-	}
+    for ( i=0 ; i<NUM_CATEGORIES ; i++ ) {
+        if (strncmp (mime_type, categories[i][0], strlen (categories[i][0])) == 0) {
+            return g_build_path ("/", icon_dir, categories[i][1], NULL);
+        }
+    }
 
-	return NULL;
+    return NULL;
 }
 
 
@@ -314,66 +314,66 @@ get_category_icon_path (const gchar *mime_type, const gchar *icon_dir)
  */
 static gboolean
 load_icon (const gchar *icon_path,
-		   GdkPixmap **pm,
-		   GdkBitmap **bm,
-		   GdkPixmap **lpm,
-		   GdkBitmap **lbm)
+           GdkPixmap **pm,
+           GdkBitmap **bm,
+           GdkPixmap **lpm,
+           GdkBitmap **lbm)
 {
-	GdkPixbuf *pixbuf;
-	GdkPixbuf *lnk_pixbuf;
-	gint x, y, w, h, sym_w, sym_h;
-	gfloat scale;
+    GdkPixbuf *pixbuf;
+    GdkPixbuf *lnk_pixbuf;
+    gint x, y, w, h, sym_w, sym_h;
+    gfloat scale;
 
-	DEBUG ('i', "Trying to load \"%s\"\n\n", icon_path);
+    DEBUG ('i', "Trying to load \"%s\"\n\n", icon_path);
 
-	pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
-	if (!pixbuf) return FALSE;
+    pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
+    if (!pixbuf) return FALSE;
 
-	
-	/* Load the symlink overlay pixmap */
-	if (!symlink_pixbuf) {
-		if (pixmaps[PIXMAP_OVERLAY_SYMLINK])
-			symlink_pixbuf = pixmaps[PIXMAP_OVERLAY_SYMLINK]->pixbuf;
-	}
-	sym_w = gdk_pixbuf_get_width (symlink_pixbuf);
-	sym_h = gdk_pixbuf_get_height (symlink_pixbuf);
 
-	
-	/* Scale the pixmap if needed */
-	h = gnome_cmd_data_get_icon_size();
-	if (h != gdk_pixbuf_get_height (pixbuf)) {
-		GdkPixbuf *tmp;
-		
-		scale = (gfloat)h/(gfloat)gdk_pixbuf_get_height (pixbuf);
-		w = (gint)(scale*(gfloat)gdk_pixbuf_get_width (pixbuf));
-	
-		tmp = gdk_pixbuf_scale_simple (
-			pixbuf, w, h,
-			gnome_cmd_data_get_icon_scale_quality());
-		gdk_pixbuf_unref (pixbuf);
-		pixbuf = tmp;
-	}
+    /* Load the symlink overlay pixmap */
+    if (!symlink_pixbuf) {
+        if (pixmaps[PIXMAP_OVERLAY_SYMLINK])
+            symlink_pixbuf = pixmaps[PIXMAP_OVERLAY_SYMLINK]->pixbuf;
+    }
+    sym_w = gdk_pixbuf_get_width (symlink_pixbuf);
+    sym_h = gdk_pixbuf_get_height (symlink_pixbuf);
 
-	
-	/* Create a copy with a symlink overlay */
-	w = gdk_pixbuf_get_width (pixbuf);
-	h = gdk_pixbuf_get_height (pixbuf);
-	x = w - sym_w;
-	y = h - sym_h;
-	if (x < 0) { sym_w -= x; x = 0; }
-	if (y < 0) { sym_h -= y; y = 0; }	
-	lnk_pixbuf = gdk_pixbuf_copy (pixbuf);
-	
-	gdk_pixbuf_copy_area (symlink_pixbuf, 0, 0, sym_w, sym_h, lnk_pixbuf, x, y);
 
-	gdk_pixbuf_render_pixmap_and_mask (
-		pixbuf, pm, bm, 128);
-	gdk_pixbuf_render_pixmap_and_mask (
-		lnk_pixbuf, lpm, lbm, 128);
-	gdk_pixbuf_unref (pixbuf);
-	gdk_pixbuf_unref (lnk_pixbuf);
+    /* Scale the pixmap if needed */
+    h = gnome_cmd_data_get_icon_size();
+    if (h != gdk_pixbuf_get_height (pixbuf)) {
+        GdkPixbuf *tmp;
 
-	return TRUE;
+        scale = (gfloat)h/(gfloat)gdk_pixbuf_get_height (pixbuf);
+        w = (gint)(scale*(gfloat)gdk_pixbuf_get_width (pixbuf));
+
+        tmp = gdk_pixbuf_scale_simple (
+            pixbuf, w, h,
+            gnome_cmd_data_get_icon_scale_quality());
+        gdk_pixbuf_unref (pixbuf);
+        pixbuf = tmp;
+    }
+
+
+    /* Create a copy with a symlink overlay */
+    w = gdk_pixbuf_get_width (pixbuf);
+    h = gdk_pixbuf_get_height (pixbuf);
+    x = w - sym_w;
+    y = h - sym_h;
+    if (x < 0) { sym_w -= x; x = 0; }
+    if (y < 0) { sym_h -= y; y = 0; }
+    lnk_pixbuf = gdk_pixbuf_copy (pixbuf);
+
+    gdk_pixbuf_copy_area (symlink_pixbuf, 0, 0, sym_w, sym_h, lnk_pixbuf, x, y);
+
+    gdk_pixbuf_render_pixmap_and_mask (
+        pixbuf, pm, bm, 128);
+    gdk_pixbuf_render_pixmap_and_mask (
+        lnk_pixbuf, lpm, lbm, 128);
+    gdk_pixbuf_unref (pixbuf);
+    gdk_pixbuf_unref (lnk_pixbuf);
+
+    return TRUE;
 }
 
 
@@ -382,173 +382,173 @@ load_icon (const gchar *icon_path,
  * If symlink is true a smaller symlink image is painted over the image to indicate this.
  */
 static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
-									  GnomeVFSFileType type,
-									  const gchar *mime_type,
-									  gboolean symlink, 
-									  GdkPixmap **pixmap,
-									  GdkBitmap **mask)
+                                      GnomeVFSFileType type,
+                                      const gchar *mime_type,
+                                      gboolean symlink,
+                                      GdkPixmap **pixmap,
+                                      GdkBitmap **mask)
 {
-	CacheEntry *entry;
+    CacheEntry *entry;
 
-	if (!mime_type)
-		return FALSE;
+    if (!mime_type)
+        return FALSE;
 
-	if (type == GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK)
-		return FALSE;
-	
-	entry = (CacheEntry*)g_hash_table_lookup (mime_cache, mime_type);
-	if (!entry) {
-		/* We're looking up this mime-type for the first time
-		 */
-		gchar *icon_path = NULL;
-		gchar *icon_path2 = NULL;
-		gchar *icon_path3 = NULL;
-		GdkPixmap *pm = NULL;
-		GdkBitmap *bm = NULL;
-		GdkPixmap *lpm = NULL;
-		GdkBitmap *lbm = NULL;
+    if (type == GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK)
+        return FALSE;
 
-		DEBUG ('y', "Looking up pixmap for: %s\n", mime_type);
+    entry = (CacheEntry*)g_hash_table_lookup (mime_cache, mime_type);
+    if (!entry) {
+        /* We're looking up this mime-type for the first time
+         */
+        gchar *icon_path = NULL;
+        gchar *icon_path2 = NULL;
+        gchar *icon_path3 = NULL;
+        GdkPixmap *pm = NULL;
+        GdkBitmap *bm = NULL;
+        GdkPixmap *lpm = NULL;
+        GdkBitmap *lbm = NULL;
 
-		icon_path = get_mime_document_type_icon_path (mime_type, icon_dir);
-		DEBUG('z', "\nSearching for icon for %s\n", mime_type);
-		DEBUG('z', "Trying %s\n", icon_path);
-		if (icon_path)
-			load_icon (icon_path, &pm, &bm, &lpm, &lbm);
+        DEBUG ('y', "Looking up pixmap for: %s\n", mime_type);
 
-		if (!pm) {
-			icon_path2 = get_category_icon_path (mime_type, icon_dir);
-			DEBUG('z', "Trying %s\n", icon_path2);
-			if (icon_path2)
-				load_icon (icon_path2, &pm, &bm, &lpm, &lbm);			
-		}
+        icon_path = get_mime_document_type_icon_path (mime_type, icon_dir);
+        DEBUG('z', "\nSearching for icon for %s\n", mime_type);
+        DEBUG('z', "Trying %s\n", icon_path);
+        if (icon_path)
+            load_icon (icon_path, &pm, &bm, &lpm, &lbm);
 
-		if (!pm) {
-			icon_path3 = get_mime_file_type_icon_path (type, icon_dir);
-			DEBUG('z', "Trying %s\n", icon_path3);
-			if (icon_path3)
-				load_icon (icon_path3, &pm, &bm, &lpm, &lbm);
-		}
-			
-		if (icon_path)
-			g_free (icon_path);
-		if (icon_path2)
-			g_free (icon_path2);
-		if (icon_path3)
-			g_free (icon_path3);
-		
-		entry = g_new (CacheEntry, 1);
-		entry->dead_end = (pm == NULL || bm == NULL);
-		entry->pixmap = pm;
-		entry->mask = bm;
-		entry->lnk_pixmap = lpm;
-		entry->lnk_mask = lbm;
+        if (!pm) {
+            icon_path2 = get_category_icon_path (mime_type, icon_dir);
+            DEBUG('z', "Trying %s\n", icon_path2);
+            if (icon_path2)
+                load_icon (icon_path2, &pm, &bm, &lpm, &lbm);
+        }
 
-		 
-		DEBUG('z', "Icon found?: %s\n", entry->dead_end?"No":"Yes");
+        if (!pm) {
+            icon_path3 = get_mime_file_type_icon_path (type, icon_dir);
+            DEBUG('z', "Trying %s\n", icon_path3);
+            if (icon_path3)
+                load_icon (icon_path3, &pm, &bm, &lpm, &lbm);
+        }
 
-		g_hash_table_insert (mime_cache, g_strdup (mime_type), entry);
-	}
+        if (icon_path)
+            g_free (icon_path);
+        if (icon_path2)
+            g_free (icon_path2);
+        if (icon_path3)
+            g_free (icon_path3);
 
-	if (symlink) {
-		*pixmap = entry->lnk_pixmap;
-		*mask = entry->lnk_mask;
-	}
-	else {
-		*pixmap = entry->pixmap;
-		*mask = entry->mask;
-	}
-	
-	return !entry->dead_end;
+        entry = g_new (CacheEntry, 1);
+        entry->dead_end = (pm == NULL || bm == NULL);
+        entry->pixmap = pm;
+        entry->mask = bm;
+        entry->lnk_pixmap = lpm;
+        entry->lnk_mask = lbm;
+
+
+        DEBUG('z', "Icon found?: %s\n", entry->dead_end?"No":"Yes");
+
+        g_hash_table_insert (mime_cache, g_strdup (mime_type), entry);
+    }
+
+    if (symlink) {
+        *pixmap = entry->lnk_pixmap;
+        *mask = entry->lnk_mask;
+    }
+    else {
+        *pixmap = entry->pixmap;
+        *mask = entry->mask;
+    }
+
+    return !entry->dead_end;
 }
 
 
 static gboolean get_mime_icon (GnomeVFSFileType type,
-							   const gchar *mime_type,
-							   gboolean symlink, 
-							   GdkPixmap **pixmap,
-							   GdkBitmap **mask)
+                               const gchar *mime_type,
+                               gboolean symlink,
+                               GdkPixmap **pixmap,
+                               GdkBitmap **mask)
 {
-	if (get_mime_icon_in_dir (
-			gnome_cmd_data_get_theme_icon_dir(),
-			type, mime_type, symlink, pixmap, mask))
-		return TRUE;
-	
-	return get_mime_icon_in_dir (
-		gnome_cmd_data_get_document_icon_dir(),
-		type, mime_type, symlink, pixmap, mask);
+    if (get_mime_icon_in_dir (
+            gnome_cmd_data_get_theme_icon_dir(),
+            type, mime_type, symlink, pixmap, mask))
+        return TRUE;
+
+    return get_mime_icon_in_dir (
+        gnome_cmd_data_get_document_icon_dir(),
+        type, mime_type, symlink, pixmap, mask);
 }
 
 
-static gboolean get_type_icon (GnomeVFSFileType type,						
-							   gboolean symlink, 
-							   GdkPixmap **pixmap,
-							   GdkBitmap **mask)
+static gboolean get_type_icon (GnomeVFSFileType type,
+                               gboolean symlink,
+                               GdkPixmap **pixmap,
+                               GdkBitmap **mask)
 {
-	if (type >= NUM_FILE_TYPE_PIXMAPS) return FALSE;
-	
-	if (symlink) {
-		*pixmap = file_type_pixmaps[type].lnk_pixmap;
-		*mask = file_type_pixmaps[type].lnk_mask;
-	}
-	else {
-		*pixmap = file_type_pixmaps[type].pixmap;
-		*mask = file_type_pixmaps[type].mask;
-	}
+    if (type >= NUM_FILE_TYPE_PIXMAPS) return FALSE;
 
-	return TRUE;
+    if (symlink) {
+        *pixmap = file_type_pixmaps[type].lnk_pixmap;
+        *mask = file_type_pixmaps[type].lnk_mask;
+    }
+    else {
+        *pixmap = file_type_pixmaps[type].pixmap;
+        *mask = file_type_pixmaps[type].mask;
+    }
+
+    return TRUE;
 }
 
 
 gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
-									const gchar *mime_type,
-									gboolean symlink, 
-									GdkPixmap **pixmap,
-									GdkBitmap **mask)
+                                    const gchar *mime_type,
+                                    gboolean symlink,
+                                    GdkPixmap **pixmap,
+                                    GdkBitmap **mask)
 {
-	switch (gnome_cmd_data_get_layout ()) {
-		case GNOME_CMD_LAYOUT_TYPE_ICONS:
-			return get_type_icon (type, symlink, pixmap, mask);
-			
-		case GNOME_CMD_LAYOUT_MIME_ICONS:
-			if (!get_mime_icon (type, mime_type, symlink, pixmap, mask))
-				return get_type_icon (type, symlink, pixmap, mask);
-			return TRUE;
+    switch (gnome_cmd_data_get_layout ()) {
+        case GNOME_CMD_LAYOUT_TYPE_ICONS:
+            return get_type_icon (type, symlink, pixmap, mask);
 
-		default:
-			return FALSE;
-	}
+        case GNOME_CMD_LAYOUT_MIME_ICONS:
+            if (!get_mime_icon (type, mime_type, symlink, pixmap, mask))
+                return get_type_icon (type, symlink, pixmap, mask);
+            return TRUE;
 
-	return FALSE;
+        default:
+            return FALSE;
+    }
+
+    return FALSE;
 }
 
 
 static gboolean remove_entry (const gchar *key, CacheEntry *entry, gpointer user_data)
 {
-	g_return_val_if_fail (entry, TRUE);
+    g_return_val_if_fail (entry, TRUE);
 
-	if (!entry->dead_end) {
-		gdk_pixmap_unref (entry->pixmap);
-		gdk_bitmap_unref (entry->mask);
-	}
-	
-	g_free (entry);
-	return TRUE;
+    if (!entry->dead_end) {
+        gdk_pixmap_unref (entry->pixmap);
+        gdk_bitmap_unref (entry->mask);
+    }
+
+    g_free (entry);
+    return TRUE;
 }
 
 void IMAGE_clear_mime_cache (void)
 {
-	g_return_if_fail (mime_cache != NULL);
+    g_return_if_fail (mime_cache != NULL);
 
-	g_hash_table_foreach_remove (mime_cache, (GHRFunc)remove_entry, NULL);
+    g_hash_table_foreach_remove (mime_cache, (GHRFunc)remove_entry, NULL);
 }
 
 void IMAGE_free (void)
 {
-	int i;
+    int i;
 
-	for ( i=0 ; i<NUM_PIXMAPS ; i++ ) {
-		if (pixmaps[i]) gnome_cmd_pixmap_free (pixmaps[i]);
-		pixmaps[i] = NULL;
-	}
+    for ( i=0 ; i<NUM_PIXMAPS ; i++ ) {
+        if (pixmaps[i]) gnome_cmd_pixmap_free (pixmaps[i]);
+        pixmaps[i] = NULL;
+    }
 }

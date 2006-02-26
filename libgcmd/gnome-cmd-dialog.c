@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #include <config.h>
 #include "libgcmd-deps.h"
 #include "gnome-cmd-dialog.h"
@@ -23,8 +23,8 @@
 
 struct _GnomeCmdDialogPrivate
 {
-	GtkWidget *content;
-	GtkWidget *buttonbox;
+    GtkWidget *content;
+    GtkWidget *buttonbox;
 };
 
 
@@ -34,23 +34,23 @@ extern GtkWidget *main_win;
 
 static gboolean
 on_dialog_keypressed (GtkWidget *dialog,
-					  GdkEventKey *event,
-					  gpointer user_data)
+                      GdkEventKey *event,
+                      gpointer user_data)
 {
-	if (event->keyval == GDK_Escape) {
-		gtk_widget_hide (dialog);
-		return TRUE;
-	}
+    if (event->keyval == GDK_Escape) {
+        gtk_widget_hide (dialog);
+        return TRUE;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 
 
 static void
 on_dialog_show (GtkWidget *w,
-				GnomeCmdDialog *dialog)
+                GnomeCmdDialog *dialog)
 {
-	
+
 }
 
 
@@ -61,71 +61,71 @@ on_dialog_show (GtkWidget *w,
 static void
 destroy (GtkObject *object)
 {
-	GnomeCmdDialog *dialog = GNOME_CMD_DIALOG (object);
-	
-	if (GTK_OBJECT_CLASS (parent_class)->destroy)
-		(*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    GnomeCmdDialog *dialog = GNOME_CMD_DIALOG (object);
 
-	g_free (dialog->priv);
+    if (GTK_OBJECT_CLASS (parent_class)->destroy)
+        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+
+    g_free (dialog->priv);
 }
 
 
 static void
 map (GtkWidget *widget)
 {
-	if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-		GTK_WIDGET_CLASS (parent_class)->map (widget);
+    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
+        GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
 static void
 class_init (GnomeCmdDialogClass *class)
 {
-	GtkObjectClass *object_class;
-	GtkWidgetClass *widget_class;
+    GtkObjectClass *object_class;
+    GtkWidgetClass *widget_class;
 
-	object_class = GTK_OBJECT_CLASS (class);
-	widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (class);
+    widget_class = GTK_WIDGET_CLASS (class);
 
-	parent_class = gtk_type_class (gtk_window_get_type ());
-	object_class->destroy = destroy;
-	widget_class->map = map;
+    parent_class = gtk_type_class (gtk_window_get_type ());
+    object_class->destroy = destroy;
+    widget_class->map = map;
 }
 
 
 static void
 init (GnomeCmdDialog *dialog)
 {
-	GtkWidget *vbox;
+    GtkWidget *vbox;
 
-	dialog->buttons = NULL;
-	dialog->priv = g_new0 (GnomeCmdDialogPrivate, 1);
+    dialog->buttons = NULL;
+    dialog->priv = g_new0 (GnomeCmdDialogPrivate, 1);
 
-	gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, TRUE);
-	gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-	gtk_window_set_title (GTK_WINDOW (dialog), " ");
-	gnome_cmd_dialog_set_transient_for (
-		GNOME_CMD_DIALOG (dialog),
-		GTK_WINDOW (main_win_widget));
-	gtk_window_set_type_hint (
-		GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
-	
-	vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
-	gtk_box_set_spacing (GTK_BOX (vbox), 12);
-	gtk_container_add (GTK_CONTAINER (dialog), vbox);
-	
-	dialog->priv->content = create_vbox (GTK_WIDGET (dialog), FALSE, 18);
-	gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->content, TRUE, TRUE, 0);
+    gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, TRUE);
+    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
+    gtk_window_set_title (GTK_WINDOW (dialog), " ");
+    gnome_cmd_dialog_set_transient_for (
+        GNOME_CMD_DIALOG (dialog),
+        GTK_WINDOW (main_win_widget));
+    gtk_window_set_type_hint (
+        GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 
-	dialog->priv->buttonbox = create_hbuttonbox (GTK_WIDGET (dialog));
-	gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog->priv->buttonbox), GTK_BUTTONBOX_END);
-	gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->buttonbox, FALSE, TRUE, 0);
-	
-	gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event",
-						(GtkSignalFunc)on_dialog_keypressed, NULL);
-	gtk_signal_connect (GTK_OBJECT (dialog), "show",
-						(GtkSignalFunc)on_dialog_show, dialog);
+    vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
+    gtk_container_set_border_width (GTK_CONTAINER (vbox), 12);
+    gtk_box_set_spacing (GTK_BOX (vbox), 12);
+    gtk_container_add (GTK_CONTAINER (dialog), vbox);
+
+    dialog->priv->content = create_vbox (GTK_WIDGET (dialog), FALSE, 18);
+    gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->content, TRUE, TRUE, 0);
+
+    dialog->priv->buttonbox = create_hbuttonbox (GTK_WIDGET (dialog));
+    gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog->priv->buttonbox), GTK_BUTTONBOX_END);
+    gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->buttonbox, FALSE, TRUE, 0);
+
+    gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event",
+                        (GtkSignalFunc)on_dialog_keypressed, NULL);
+    gtk_signal_connect (GTK_OBJECT (dialog), "show",
+                        (GtkSignalFunc)on_dialog_show, dialog);
 }
 
 
@@ -136,134 +136,134 @@ init (GnomeCmdDialog *dialog)
 GtkType
 gnome_cmd_dialog_get_type         (void)
 {
-	static GtkType dlg_type = 0;
+    static GtkType dlg_type = 0;
 
-	if (dlg_type == 0)
-	{
-		GtkTypeInfo dlg_info =
-		{
-			"GnomeCmdDialog",
-			sizeof (GnomeCmdDialog),
-			sizeof (GnomeCmdDialogClass),
-			(GtkClassInitFunc) class_init,
-			(GtkObjectInitFunc) init,
-			/* reserved_1 */ NULL,
-			/* reserved_2 */ NULL,
-			(GtkClassInitFunc) NULL
-		};
+    if (dlg_type == 0)
+    {
+        GtkTypeInfo dlg_info =
+        {
+            "GnomeCmdDialog",
+            sizeof (GnomeCmdDialog),
+            sizeof (GnomeCmdDialogClass),
+            (GtkClassInitFunc) class_init,
+            (GtkObjectInitFunc) init,
+            /* reserved_1 */ NULL,
+            /* reserved_2 */ NULL,
+            (GtkClassInitFunc) NULL
+        };
 
-		dlg_type = gtk_type_unique (gtk_window_get_type (), &dlg_info);
-	}
-	return dlg_type;
+        dlg_type = gtk_type_unique (gtk_window_get_type (), &dlg_info);
+    }
+    return dlg_type;
 }
 
 
-GtkWidget* 
+GtkWidget*
 gnome_cmd_dialog_new (const gchar *title)
 {
-	GnomeCmdDialog *dialog = gtk_type_new (gnome_cmd_dialog_get_type ());
+    GnomeCmdDialog *dialog = gtk_type_new (gnome_cmd_dialog_get_type ());
 
-	if (title)
-		gnome_cmd_dialog_setup (dialog, title);
-	
-	return GTK_WIDGET (dialog);
+    if (title)
+        gnome_cmd_dialog_setup (dialog, title);
+
+    return GTK_WIDGET (dialog);
 }
 
 
 void
 gnome_cmd_dialog_setup (GnomeCmdDialog *dialog, const gchar *title)
 {
-	g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-	g_return_if_fail (title != NULL);
+    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
+    g_return_if_fail (title != NULL);
 
-	if (title)
-		gtk_window_set_title (GTK_WINDOW (dialog), title);
+    if (title)
+        gtk_window_set_title (GTK_WINDOW (dialog), title);
 }
 
 
 GtkWidget *
 gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog,
-							 const gchar *stock_id,
-							 GtkSignalFunc on_click,
-							 gpointer data)
+                             const gchar *stock_id,
+                             GtkSignalFunc on_click,
+                             gpointer data)
 {
-	GtkWidget *btn;
-	
-	g_return_val_if_fail (GNOME_CMD_IS_DIALOG (dialog), NULL);
-	
-	btn = create_stock_button_with_data (
-		GTK_WIDGET (dialog), (gpointer)stock_id, on_click, data);
+    GtkWidget *btn;
 
-	gtk_box_pack_start (GTK_BOX (dialog->priv->buttonbox), btn, FALSE, TRUE, 0);
-	g_object_set (G_OBJECT (btn), "can-default", TRUE, NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_DIALOG (dialog), NULL);
+
+    btn = create_stock_button_with_data (
+        GTK_WIDGET (dialog), (gpointer)stock_id, on_click, data);
+
+    gtk_box_pack_start (GTK_BOX (dialog->priv->buttonbox), btn, FALSE, TRUE, 0);
+    g_object_set (G_OBJECT (btn), "can-default", TRUE, NULL);
     gtk_widget_grab_default (btn);
-	gtk_widget_grab_focus (btn);
+    gtk_widget_grab_focus (btn);
 
-	dialog->buttons = g_list_append (dialog->buttons, btn);
-	
-	return btn;
+    dialog->buttons = g_list_append (dialog->buttons, btn);
+
+    return btn;
 }
 
 
 void
 gnome_cmd_dialog_add_category (GnomeCmdDialog *dialog,
-							   GtkWidget *category)
+                               GtkWidget *category)
 {
-	g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-	g_return_if_fail (GTK_IS_WIDGET (category));
-	
-	gtk_box_pack_start (GTK_BOX (dialog->priv->content), category, FALSE, TRUE, 0);
+    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
+    g_return_if_fail (GTK_IS_WIDGET (category));
+
+    gtk_box_pack_start (GTK_BOX (dialog->priv->content), category, FALSE, TRUE, 0);
 }
 
 
 void
 gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog,
-										 GtkWidget *category)
+                                         GtkWidget *category)
 {
-	g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-	g_return_if_fail (GTK_IS_WIDGET (category));
-	
-	gtk_box_pack_start (GTK_BOX (dialog->priv->content), category, TRUE, TRUE, 0);
+    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
+    g_return_if_fail (GTK_IS_WIDGET (category));
+
+    gtk_box_pack_start (GTK_BOX (dialog->priv->content), category, TRUE, TRUE, 0);
 }
 
 
 void
 gnome_cmd_dialog_editable_enters (GnomeCmdDialog *dialog,
-								  GtkEditable *editable)
+                                  GtkEditable *editable)
 {
   g_return_if_fail(GNOME_CMD_IS_DIALOG(dialog));
   g_return_if_fail(GTK_IS_EDITABLE(editable));
 
   g_signal_connect_swapped(editable, "activate",
-						   G_CALLBACK(gtk_window_activate_default),
-						   dialog);
+                           G_CALLBACK(gtk_window_activate_default),
+                           dialog);
 }
 
 
 void
 gnome_cmd_dialog_set_transient_for (GnomeCmdDialog *dialog,
-									GtkWindow *win)
+                                    GtkWindow *win)
 {
-	gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (win));
+    gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (win));
 }
 
 
 void
 gnome_cmd_dialog_set_modal (GnomeCmdDialog *dialog)
 {
-	gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
+    gtk_window_set_modal (GTK_WINDOW (dialog), TRUE);
 }
 
 
 void
 gnome_cmd_dialog_set_resizable (GnomeCmdDialog *dialog, gboolean value)
 {
-	gtk_window_set_resizable (GTK_WINDOW (dialog), value);
-	
-	if (value) {
-		gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
-	}
-	else {
-		gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, TRUE);
-	}
+    gtk_window_set_resizable (GTK_WINDOW (dialog), value);
+
+    if (value) {
+        gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
+    }
+    else {
+        gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, FALSE, TRUE);
+    }
 }

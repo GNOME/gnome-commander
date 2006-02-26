@@ -21,7 +21,7 @@
  * Modified by the GTK+ Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GTK+ Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
+ * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
  */
 
 /*
@@ -34,8 +34,8 @@
 #ifndef __GNOME_CMD_COMBO_H__
 #define __GNOME_CMD_COMBO_H__
 
-#define GNOME_CMD_COMBO(obj)			GTK_CHECK_CAST (obj, gnome_cmd_combo_get_type (), GnomeCmdCombo)
-#define GNOME_CMD_COMBO_CLASS(klass)	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_combo_get_type (), GnomeCmdComboClass)
+#define GNOME_CMD_COMBO(obj)            GTK_CHECK_CAST (obj, gnome_cmd_combo_get_type (), GnomeCmdCombo)
+#define GNOME_CMD_COMBO_CLASS(klass)    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_combo_get_type (), GnomeCmdComboClass)
 #define GNOME_CMD_IS_COMBO(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_combo_get_type ())
 
 typedef struct _GnomeCmdCombo GnomeCmdCombo;
@@ -48,37 +48,37 @@ typedef struct _GnomeCmdComboClass GnomeCmdComboClass;
 
 /* you should access only the entry and list fields directly */
 struct _GnomeCmdCombo {
-	GtkHBox hbox;
-	GtkWidget *entry;
-	GtkWidget *button;
-	GtkWidget *popup;
-	GtkWidget *popwin;
-	GtkWidget *list;
-	gboolean is_popped;
+    GtkHBox hbox;
+    GtkWidget *entry;
+    GtkWidget *button;
+    GtkWidget *popup;
+    GtkWidget *popwin;
+    GtkWidget *list;
+    gboolean is_popped;
 
-	guint entry_change_id;
-	guint list_change_id;
+    guint entry_change_id;
+    guint list_change_id;
 
-	guint value_in_list:1;
-	guint ok_if_empty:1;
-	
+    guint value_in_list:1;
+    guint ok_if_empty:1;
+
     guint16 current_button;
-	guint activate_id;
+    guint activate_id;
 
-	gpointer sel_data;
-	gchar *sel_text;
-	
-	gint widest_pixmap;
-	gint highest_pixmap;
-	gint text_col;
+    gpointer sel_data;
+    gchar *sel_text;
+
+    gint widest_pixmap;
+    gint highest_pixmap;
+    gint text_col;
 };
 
 struct _GnomeCmdComboClass {
-	GtkHBoxClass parent_class;
+    GtkHBoxClass parent_class;
 
-	void (* item_selected)     (GnomeCmdCombo *combo,
-								gpointer data);
-	void (* popwin_hidden)     (GnomeCmdCombo *combo);	
+    void (* item_selected)     (GnomeCmdCombo *combo,
+                                gpointer data);
+    void (* popwin_hidden)     (GnomeCmdCombo *combo);
 };
 
 guint
@@ -86,38 +86,38 @@ gnome_cmd_combo_get_type              (void);
 
 GtkWidget *
 gnome_cmd_combo_new                   (gint num_cols,
-									   gint text_col,
-									   gchar **col_titles);
+                                       gint text_col,
+                                       gchar **col_titles);
 
 void
 gnome_cmd_combo_clear                 (GnomeCmdCombo *combo);
 
 gint
 gnome_cmd_combo_append                (GnomeCmdCombo *combo,
-									   gchar         **text,
-									   gpointer      data);
+                                       gchar         **text,
+                                       gpointer      data);
 
 gint
 gnome_cmd_combo_insert                (GnomeCmdCombo *combo,
-									   gchar         **text,
-									   gpointer      data);
+                                       gchar         **text,
+                                       gpointer      data);
 
 void
 gnome_cmd_combo_set_pixmap            (GnomeCmdCombo *combo,
-									   gint           row,
-									   gint           col,
-									   GnomeCmdPixmap *pixmap);
+                                       gint           row,
+                                       gint           col,
+                                       GnomeCmdPixmap *pixmap);
 
 void
 gnome_cmd_combo_popup_list            (GnomeCmdCombo *combo);
 
 void
 gnome_cmd_combo_select_text           (GnomeCmdCombo *combo,
-									   const gchar *text);
+                                       const gchar *text);
 
 void
 gnome_cmd_combo_select_data           (GnomeCmdCombo *combo,
-									   gpointer data);
+                                       gpointer data);
 
 void
 gnome_cmd_combo_update_style          (GnomeCmdCombo *combo);

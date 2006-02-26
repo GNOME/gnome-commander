@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_FILE_COLLECTION_H__
 #define __GNOME_CMD_FILE_COLLECTION_H__
 
@@ -23,9 +23,9 @@
 #include "gnome-cmd-file.h"
 
 #define GNOME_CMD_FILE_COLLECTION(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_file_collection_get_type (), GnomeCmdFileCollection)
+    GTK_CHECK_CAST (obj, gnome_cmd_file_collection_get_type (), GnomeCmdFileCollection)
 #define GNOME_CMD_FILE_COLLECTION_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_collection_get_type (), GnomeCmdFileCollectionClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_collection_get_type (), GnomeCmdFileCollectionClass)
 #define GNOME_CMD_IS_FILE_COLLECTION(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_file_collection_get_type ())
 #define GNOME_CMD_FILE_COLLECTION_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_FILE_COLLECTION, GnomeCmdFileCollectionClass))
@@ -38,14 +38,14 @@ typedef struct _GnomeCmdFileCollectionPrivate GnomeCmdFileCollectionPrivate;
 
 struct _GnomeCmdFileCollection
 {
-	GtkObject parent;
-	
-	GnomeCmdFileCollectionPrivate *priv;
+    GtkObject parent;
+
+    GnomeCmdFileCollectionPrivate *priv;
 };
 
 struct _GnomeCmdFileCollectionClass
 {
-	GtkObjectClass parent_class;
+    GtkObjectClass parent_class;
 };
 
 
@@ -57,23 +57,23 @@ gnome_cmd_file_collection_new (void);
 
 void
 gnome_cmd_file_collection_add (GnomeCmdFileCollection *collection,
-							   GnomeCmdFile *file);
+                               GnomeCmdFile *file);
 
 void
 gnome_cmd_file_collection_add_list (GnomeCmdFileCollection *collection,
-									GList *files);
+                                    GList *files);
 
 void
 gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection,
-								  GnomeCmdFile *file);
+                                  GnomeCmdFile *file);
 
 void
 gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection,
-										 const gchar *uri_str);
+                                         const gchar *uri_str);
 
 GnomeCmdFile *
 gnome_cmd_file_collection_lookup (GnomeCmdFileCollection *collection,
-								  const gchar *uri_str);
+                                  const gchar *uri_str);
 
 gint
 gnome_cmd_file_collection_get_size (GnomeCmdFileCollection *collection);

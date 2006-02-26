@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #ifndef __LIBGCMD_WIDGET_FACTORY_H__
 #define __LIBGCMD_WIDGET_FACTORY_H__
@@ -118,7 +118,7 @@ create_file_entry (GtkWidget *parent, gchar *name, const gchar *value);
 
 GtkWidget *
 create_clist (GtkWidget *parent, gchar *name, gint cols, gint rowh,
-			  GtkSignalFunc on_row_selected, GtkSignalFunc on_row_moved);
+              GtkSignalFunc on_row_selected, GtkSignalFunc on_row_moved);
 
 void
 create_clist_column (GtkWidget *sw, gint col, gint width, gchar *label);
@@ -146,7 +146,7 @@ table_add (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_op
 
 void
 table_add_y (GtkWidget *table, GtkWidget *w, gint x, gint y,
-			 GtkAttachOptions x_opts, GtkAttachOptions y_opts);
+             GtkAttachOptions x_opts, GtkAttachOptions y_opts);
 
 GtkWidget *
 create_pixmap (GtkWidget *parent, GdkPixmap *pm, GdkBitmap *mask);

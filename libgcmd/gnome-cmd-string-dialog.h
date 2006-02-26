@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,16 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_STRING_DIALOG_H__
 #define __GNOME_CMD_STRING_DIALOG_H__
 
 #define GNOME_CMD_STRING_DIALOG(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_string_dialog_get_type (), GnomeCmdStringDialog)
+    GTK_CHECK_CAST (obj, gnome_cmd_string_dialog_get_type (), GnomeCmdStringDialog)
 #define GNOME_CMD_STRING_DIALOG_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_string_dialog_get_type (), GnomeCmdStringDialogClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_string_dialog_get_type (), GnomeCmdStringDialogClass)
 #define GNOME_CMD_IS_STRING_DIALOG(obj) \
-	GTK_CHECK_TYPE (obj, gnome_cmd_string_dialog_get_type ())
+    GTK_CHECK_TYPE (obj, gnome_cmd_string_dialog_get_type ())
 
 
 typedef struct _GnomeCmdStringDialog GnomeCmdStringDialog;
@@ -35,58 +35,58 @@ typedef struct _GnomeCmdStringDialogClass GnomeCmdStringDialogClass;
 
 struct _GnomeCmdStringDialog
 {
-	GnomeCmdDialog parent;
+    GnomeCmdDialog parent;
 
-	gint rows;
-	GtkWidget **labels;
-	GtkWidget **entries;
-	
-	GnomeCmdStringDialogPrivate *priv;
+    gint rows;
+    GtkWidget **labels;
+    GtkWidget **entries;
+
+    GnomeCmdStringDialogPrivate *priv;
 };
 
 
 struct _GnomeCmdStringDialogClass
 {
-	GnomeCmdDialogClass parent_class;
+    GnomeCmdDialogClass parent_class;
 };
 
 
 typedef gboolean (*GnomeCmdStringDialogCallback)(GnomeCmdStringDialog *dialog,
-												 const gchar **values,
-												 gpointer user_data);
+                                                 const gchar **values,
+                                                 gpointer user_data);
 
 
-GtkWidget* 
+GtkWidget*
 gnome_cmd_string_dialog_new_with_cancel (const gchar *title,
-										 const gchar **labels,
-										 gint rows,
-										 GnomeCmdStringDialogCallback ok_cb,
-										 GtkSignalFunc cancel_cb,
-										 gpointer user_data);
+                                         const gchar **labels,
+                                         gint rows,
+                                         GnomeCmdStringDialogCallback ok_cb,
+                                         GtkSignalFunc cancel_cb,
+                                         gpointer user_data);
 
-GtkWidget* 
+GtkWidget*
 gnome_cmd_string_dialog_new (const gchar *title,
-							 const gchar **labels,
-							 gint rows,
-							 GnomeCmdStringDialogCallback ok_cb,
-							 gpointer user_data);
+                             const gchar **labels,
+                             gint rows,
+                             GnomeCmdStringDialogCallback ok_cb,
+                             gpointer user_data);
 
 void
 gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog,
-										   const gchar *title,
-										   const gchar **labels,
-										   gint rows,
-										   GnomeCmdStringDialogCallback ok_cb,
-										   GtkSignalFunc cancel_cb,
-										   gpointer user_data);
+                                           const gchar *title,
+                                           const gchar **labels,
+                                           gint rows,
+                                           GnomeCmdStringDialogCallback ok_cb,
+                                           GtkSignalFunc cancel_cb,
+                                           gpointer user_data);
 
 void
 gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog,
-							   const gchar *title,
-							   const gchar **labels,
-							   gint rows,
-							   GnomeCmdStringDialogCallback ok_cb,
-							   gpointer user_data);
+                               const gchar *title,
+                               const gchar **labels,
+                               gint rows,
+                               GnomeCmdStringDialogCallback ok_cb,
+                               gpointer user_data);
 
 GtkType
 gnome_cmd_string_dialog_get_type (void);

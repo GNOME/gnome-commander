@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2005 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,15 +15,15 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #ifndef __CVS_PLUGIN_H__
 #define __CVS_PLUGIN_H__
 
 #define CVS_PLUGIN(obj) \
-	GTK_CHECK_CAST (obj, cvs_plugin_get_type (), CvsPlugin)
+    GTK_CHECK_CAST (obj, cvs_plugin_get_type (), CvsPlugin)
 #define CVS_PLUGIN_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, cvs_plugin_get_type (), CvsPluginClass)
+    GTK_CHECK_CLASS_CAST (klass, cvs_plugin_get_type (), CvsPluginClass)
 #define IS_CVS_PLUGIN(obj) \
     GTK_CHECK_TYPE (obj, cvs_plugin_get_type ())
 
@@ -36,22 +36,22 @@ typedef struct _CvsPluginPrivate CvsPluginPrivate;
 
 struct _CvsPlugin
 {
-	GnomeCmdPlugin parent;
+    GnomeCmdPlugin parent;
 
-	Revision *selected_rev;
+    Revision *selected_rev;
 
-	GtkWidget *diff_win;
-	GtkWidget *log_win;
+    GtkWidget *diff_win;
+    GtkWidget *log_win;
 
-	gint compression_level;
-	gboolean unidiff;
+    gint compression_level;
+    gboolean unidiff;
 
-	CvsPluginPrivate *priv;
+    CvsPluginPrivate *priv;
 };
 
 struct _CvsPluginClass
 {
-	GnomeCmdPluginClass parent_class;
+    GnomeCmdPluginClass parent_class;
 };
 
 

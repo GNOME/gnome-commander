@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 
 #ifndef __IMAGELOADER_H__
@@ -25,40 +25,40 @@
 
 
 /**
- * If you add a pixmap id here be sure to add its filename in 
+ * If you add a pixmap id here be sure to add its filename in
  * the array in imageloader.c
  */
 typedef enum {
-	PIXMAP_NONE,
-	
-	PIXMAP_FLIST_ARROW_UP,
-	PIXMAP_FLIST_ARROW_DOWN,
-	PIXMAP_FLIST_ARROW_BLANK,
+    PIXMAP_NONE,
 
-	PIXMAP_SERVER_SMALL,
-	PIXMAP_LOGO,
-	PIXMAP_EXEC,
-	PIXMAP_EXEC_WHEEL,
-	PIXMAP_MKDIR,
-	PIXMAP_LOCK,
-	PIXMAP_HOME,
+    PIXMAP_FLIST_ARROW_UP,
+    PIXMAP_FLIST_ARROW_DOWN,
+    PIXMAP_FLIST_ARROW_BLANK,
+
+    PIXMAP_SERVER_SMALL,
+    PIXMAP_LOGO,
+    PIXMAP_EXEC,
+    PIXMAP_EXEC_WHEEL,
+    PIXMAP_MKDIR,
+    PIXMAP_LOCK,
+    PIXMAP_HOME,
         PIXMAP_DESKTOP,
-	PIXMAP_SMB_NETWORK,
-	PIXMAP_SMB_COMPUTER,
-	PIXMAP_BOOKMARK,
+    PIXMAP_SMB_NETWORK,
+    PIXMAP_SMB_COMPUTER,
+    PIXMAP_BOOKMARK,
 
-	PIXMAP_OVERLAY_SYMLINK,
-	PIXMAP_OVERLAY_UMOUNT,
-	PIXMAP_PARENT_DIR,
-	PIXMAP_ROOT_DIR,
-	PIXMAP_FTP_CONNECT,
-	PIXMAP_FTP_DISCONNECT,
-	PIXMAP_MENU_FTP_CONNECT,
-	PIXMAP_MENU_FTP_DISCONNECT,
-	PIXMAP_SWITCH_V,
-	PIXMAP_SWITCH_H,
-	
-	NUM_PIXMAPS
+    PIXMAP_OVERLAY_SYMLINK,
+    PIXMAP_OVERLAY_UMOUNT,
+    PIXMAP_PARENT_DIR,
+    PIXMAP_ROOT_DIR,
+    PIXMAP_FTP_CONNECT,
+    PIXMAP_FTP_DISCONNECT,
+    PIXMAP_MENU_FTP_CONNECT,
+    PIXMAP_MENU_FTP_DISCONNECT,
+    PIXMAP_SWITCH_V,
+    PIXMAP_SWITCH_H,
+
+    NUM_PIXMAPS
 } Pixmap;
 
 
@@ -71,10 +71,10 @@ GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id);
 GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id);
 
 gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
-									const gchar *mime_type,
-									gboolean symlink,
-									GdkPixmap **pixmap,
-									GdkBitmap **mask);
+                                    const gchar *mime_type,
+                                    gboolean symlink,
+                                    GdkPixmap **pixmap,
+                                    GdkBitmap **mask);
 
 void IMAGE_clear_mime_cache (void);
 

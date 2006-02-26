@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,17 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_APP_H__
 #define __GNOME_CMD_APP_H__
 
 #include "gnome-cmd-pixmap.h"
 
 typedef enum {
-	APP_TARGET_ALL_FILES,
-	APP_TARGET_ALL_DIRS,
-	APP_TARGET_ALL_DIRS_AND_FILES,
-	APP_TARGET_SOME_FILES
+    APP_TARGET_ALL_FILES,
+    APP_TARGET_ALL_DIRS,
+    APP_TARGET_ALL_DIRS_AND_FILES,
+    APP_TARGET_SOME_FILES
 } AppTarget;
 
 
@@ -33,7 +33,7 @@ typedef struct _GnomeCmdApp GnomeCmdApp;
 typedef struct _GnomeCmdAppPrivate GnomeCmdAppPrivate;
 
 struct _GnomeCmdApp {
-	GnomeCmdAppPrivate *priv;
+    GnomeCmdAppPrivate *priv;
 };
 
 GnomeCmdApp*
@@ -44,13 +44,13 @@ gnome_cmd_app_new_from_vfs_app   (GnomeVFSMimeApplication *vfs_app);
 
 GnomeCmdApp*
 gnome_cmd_app_new_with_values    (const gchar *name,
-								  const gchar *cmd, 
-								  const gchar *icon_path,
-								  AppTarget target,
-								  const gchar *pattern_string,
-								  gboolean handles_uris,
-								  gboolean handles_multiple,
-								  gboolean requires_terminal);
+                                  const gchar *cmd,
+                                  const gchar *icon_path,
+                                  AppTarget target,
+                                  const gchar *pattern_string,
+                                  gboolean handles_uris,
+                                  gboolean handles_multiple,
+                                  gboolean requires_terminal);
 
 GnomeCmdApp*
 gnome_cmd_app_dup                (GnomeCmdApp *app);
@@ -60,38 +60,38 @@ gnome_cmd_app_free               (GnomeCmdApp *app);
 
 void
 gnome_cmd_app_set_name           (GnomeCmdApp *app,
-								  const gchar *name);
+                                  const gchar *name);
 
 void
 gnome_cmd_app_set_command        (GnomeCmdApp *app,
-								  const gchar *cmd);
+                                  const gchar *cmd);
 
 void
 gnome_cmd_app_set_icon_path      (GnomeCmdApp *app,
-								  const gchar *icon_path);
+                                  const gchar *icon_path);
 
 void
 gnome_cmd_app_set_target         (GnomeCmdApp *app,
-								  AppTarget target);
+                                  AppTarget target);
 
 void
 gnome_cmd_app_set_pattern_string (GnomeCmdApp *app,
-								  const gchar *extensions);
+                                  const gchar *extensions);
 
 void
 gnome_cmd_app_set_handles_uris   (GnomeCmdApp *app,
-								  gboolean handles_uris);
+                                  gboolean handles_uris);
 
 void
 gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app,
-									gboolean handles_multiple);
+                                    gboolean handles_multiple);
 
 void
 gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app,
-									 gboolean requires_terminal);
+                                     gboolean requires_terminal);
 
 const gchar*
-gnome_cmd_app_get_name           (GnomeCmdApp *app); 
+gnome_cmd_app_get_name           (GnomeCmdApp *app);
 
 const gchar*
 gnome_cmd_app_get_command        (GnomeCmdApp *app);

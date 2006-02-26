@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,16 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_CON_HOME_H__
 #define __GNOME_CMD_CON_HOME_H__
 
 #include "gnome-cmd-con.h"
 
 #define GNOME_CMD_CON_HOME(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_con_home_get_type (), GnomeCmdConHome)
+    GTK_CHECK_CAST (obj, gnome_cmd_con_home_get_type (), GnomeCmdConHome)
 #define GNOME_CMD_CON_HOME_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_home_get_type (), GnomeCmdConHomeClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_home_get_type (), GnomeCmdConHomeClass)
 #define GNOME_CMD_IS_CON_HOME(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_con_home_get_type ())
 
@@ -36,14 +36,14 @@ typedef struct _GnomeCmdConHomePrivate GnomeCmdConHomePrivate;
 
 struct _GnomeCmdConHome
 {
-	GnomeCmdCon parent;
+    GnomeCmdCon parent;
 
-	GnomeCmdConHomePrivate *priv;
+    GnomeCmdConHomePrivate *priv;
 };
 
 struct _GnomeCmdConHomeClass
 {
-	GnomeCmdConClass parent_class;
+    GnomeCmdConClass parent_class;
 };
 
 

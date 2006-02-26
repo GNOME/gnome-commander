@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #ifndef __GNOME_CMD_XFER_H__
 #define __GNOME_CMD_XFER_H__
@@ -26,40 +26,40 @@
 
 void
 gnome_cmd_xfer_start (GList *src_files,
-					  GnomeCmdDir *to,
-					  GnomeCmdFileList *src_fl,
-					  gchar *dest_fn,
-					  GnomeVFSXferOptions xferOptions,
-					  GnomeVFSXferOverwriteMode xferOverwriteMode,
-					  GtkSignalFunc on_completed_func,
-					  gpointer on_completed_data);
+                      GnomeCmdDir *to,
+                      GnomeCmdFileList *src_fl,
+                      gchar *dest_fn,
+                      GnomeVFSXferOptions xferOptions,
+                      GnomeVFSXferOverwriteMode xferOverwriteMode,
+                      GtkSignalFunc on_completed_func,
+                      gpointer on_completed_data);
 
 
 void
 gnome_cmd_xfer_uris_start (GList *src_uri_list,
-						   GnomeCmdDir *to,
-						   GnomeCmdFileList *src_fl,
-						   GList *src_files,
-						   gchar *dest_fn,
-						   GnomeVFSXferOptions xferOptions,
-						   GnomeVFSXferOverwriteMode xferOverwriteMode,
-						   GtkSignalFunc on_completed_func,
-						   gpointer on_completed_data);
+                           GnomeCmdDir *to,
+                           GnomeCmdFileList *src_fl,
+                           GList *src_files,
+                           gchar *dest_fn,
+                           GnomeVFSXferOptions xferOptions,
+                           GnomeVFSXferOverwriteMode xferOverwriteMode,
+                           GtkSignalFunc on_completed_func,
+                           gpointer on_completed_data);
 
 void
 gnome_cmd_xfer_tmp_download (GnomeVFSURI *src_uri,
-							 GnomeVFSURI *dest_uri,
-							 GnomeVFSXferOptions xferOptions,
-							 GnomeVFSXferOverwriteMode xferOverwriteMode,
-							 GtkSignalFunc on_completed_func,
-							 gpointer on_completed_data);
+                             GnomeVFSURI *dest_uri,
+                             GnomeVFSXferOptions xferOptions,
+                             GnomeVFSXferOverwriteMode xferOverwriteMode,
+                             GtkSignalFunc on_completed_func,
+                             gpointer on_completed_data);
 
 void
 gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
-									  GList *dest_uri_list,
-									  GnomeVFSXferOptions xferOptions,
-									  GnomeVFSXferOverwriteMode xferOverwriteMode,
-									  GtkSignalFunc on_completed_func,
-									  gpointer on_completed_data);
+                                      GList *dest_uri_list,
+                                      GnomeVFSXferOptions xferOptions,
+                                      GnomeVFSXferOverwriteMode xferOverwriteMode,
+                                      GtkSignalFunc on_completed_func,
+                                      gpointer on_completed_data);
 
 #endif //__GNOME_CMD_XFER_H__

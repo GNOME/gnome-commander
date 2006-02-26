@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,25 +15,25 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_SMB_NET_H__
 #define __GNOME_CMD_SMB_NET_H__
 
 
 typedef enum
 {
-	SMB_WORKGROUP,
-	SMB_HOST
+    SMB_WORKGROUP,
+    SMB_HOST
 } SmbEntityType;
 
 
 typedef struct
 {
-	gchar *name;
-	SmbEntityType type;
+    gchar *name;
+    SmbEntityType type;
 
-	// this one is only set if type == SMB_HOST and
-	gchar *workgroup_name;
+    // this one is only set if type == SMB_HOST and
+    gchar *workgroup_name;
 } SmbEntity;
 
 

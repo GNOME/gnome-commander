@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,16 +15,16 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #ifndef __FILE_ROLLER_PLUGIN_H__
 #define __FILE_ROLLER_PLUGIN_H__
 
 
 #define FILE_ROLLER_PLUGIN(obj) \
-	GTK_CHECK_CAST (obj, file_roller_plugin_get_type (), FileRollerPlugin)
+    GTK_CHECK_CAST (obj, file_roller_plugin_get_type (), FileRollerPlugin)
 #define FILE_ROLLER_PLUGIN_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, file_roller_plugin_get_type (), FileRollerPluginClass)
+    GTK_CHECK_CLASS_CAST (klass, file_roller_plugin_get_type (), FileRollerPluginClass)
 #define IS_FILE_ROLLER_PLUGIN(obj) \
     GTK_CHECK_TYPE (obj, file_roller_plugin_get_type ())
 
@@ -35,14 +35,14 @@ typedef struct _FileRollerPluginPrivate FileRollerPluginPrivate;
 
 struct _FileRollerPlugin
 {
-	GnomeCmdPlugin parent;
+    GnomeCmdPlugin parent;
 
-	FileRollerPluginPrivate *priv;
+    FileRollerPluginPrivate *priv;
 };
 
 struct _FileRollerPluginClass
 {
-	GnomeCmdPluginClass parent_class;
+    GnomeCmdPluginClass parent_class;
 };
 
 

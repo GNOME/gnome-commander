@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #ifndef __PLUGIN_MANAGER_H__
 #define __PLUGIN_MANAGER_H__
@@ -23,15 +23,15 @@
 #include <gmodule.h>
 
 typedef struct {
-	gboolean active;
-	gboolean loaded;
-	gboolean autoload;
-	gchar *fname;
-	gchar *fpath;	
-	GnomeCmdPlugin *plugin;
-	PluginInfo *info;
-	GtkWidget *menu;
-	GModule *module;
+    gboolean active;
+    gboolean loaded;
+    gboolean autoload;
+    gchar *fname;
+    gchar *fpath;
+    GnomeCmdPlugin *plugin;
+    PluginInfo *info;
+    GtkWidget *menu;
+    GModule *module;
 } PluginData;
 
 

@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_CON_LIST_H__
 #define __GNOME_CMD_CON_LIST_H__
 
@@ -25,9 +25,9 @@
 
 
 #define GNOME_CMD_CON_LIST(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_con_list_get_type (), GnomeCmdConList)
+    GTK_CHECK_CAST (obj, gnome_cmd_con_list_get_type (), GnomeCmdConList)
 #define GNOME_CMD_CON_LIST_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_list_get_type (), GnomeCmdConListClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_con_list_get_type (), GnomeCmdConListClass)
 #define GNOME_CMD_IS_CON_LIST(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_con_list_get_type ())
 
@@ -39,20 +39,20 @@ typedef struct _GnomeCmdConListPrivate GnomeCmdConListPrivate;
 
 struct _GnomeCmdConList
 {
-	GtkObject parent;
+    GtkObject parent;
 
-	GnomeCmdConListPrivate *priv;
+    GnomeCmdConListPrivate *priv;
 };
 
 struct _GnomeCmdConListClass
 {
-	GtkObjectClass parent_class;
+    GtkObjectClass parent_class;
 
-	/* signals */
-	void (* list_changed) (GnomeCmdConList *list);
-	void (* ftp_list_changed) (GnomeCmdConList *list);
-	void (* device_list_changed) (GnomeCmdConList *list);
-	void (* quick_ftp_list_changed) (GnomeCmdConList *list);
+    /* signals */
+    void (* list_changed) (GnomeCmdConList *list);
+    void (* ftp_list_changed) (GnomeCmdConList *list);
+    void (* device_list_changed) (GnomeCmdConList *list);
+    void (* quick_ftp_list_changed) (GnomeCmdConList *list);
 };
 
 

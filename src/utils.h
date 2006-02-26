@@ -34,8 +34,8 @@ void run_command_indir (const gchar *command, const gchar *dir, gboolean term);
 
 const char **convert_varargs_to_name_array (va_list args);
 gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
-						GtkMessageType msg_type,
-						const char *text, const char *title, gint def_response, ...);
+                        GtkMessageType msg_type,
+                        const char *text, const char *title, gint def_response, ...);
 
 
 
@@ -97,9 +97,9 @@ gchar *get_temp_download_filepath (const gchar *fname);
 void remove_temp_download_dir (void);
 
 GtkWidget *create_ui_pixmap (GtkWidget *window,
-							 GnomeUIPixmapType pixmap_type,
-							 gconstpointer pixmap_info,
-							 GtkIconSize size);
+                             GnomeUIPixmapType pixmap_type,
+                             gconstpointer pixmap_info,
+                             GtkIconSize size);
 
 gchar *unix_to_unc (const gchar *path);
 gchar *unc_to_unix (const gchar *path);

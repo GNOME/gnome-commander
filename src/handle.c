@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 
 #include <glib.h>
 #include "handle.h"
@@ -23,46 +23,46 @@
 
 Handle  *handle_new (gpointer ref)
 {
-	Handle *h = g_new (Handle, 1);
+    Handle *h = g_new (Handle, 1);
 
-	h->ref_count = 1;
-	h->ref = ref;
+    h->ref_count = 1;
+    h->ref = ref;
 
-	return h;
+    return h;
 }
 
 
 void handle_free (Handle *h)
 {
-	g_return_if_fail (h);
-	g_return_if_fail (h->ref_count > 0);
-	
-	g_free (h);
+    g_return_if_fail (h);
+    g_return_if_fail (h->ref_count > 0);
+
+    g_free (h);
 }
 
 
 void handle_ref (Handle *h)
 {
-	g_return_if_fail (h);
-	
-	h->ref_count++;
+    g_return_if_fail (h);
+
+    h->ref_count++;
 }
 
 
 void handle_unref (Handle *h)
 {
-	g_return_if_fail (h);
-	g_return_if_fail (h->ref_count > 0);
-	
-	h->ref_count--;
+    g_return_if_fail (h);
+    g_return_if_fail (h->ref_count > 0);
+
+    h->ref_count--;
 }
 
 
 gpointer handle_get_ref (Handle *h)
 {
-	g_return_val_if_fail (h, NULL);
-	
-	return h->ref;
+    g_return_val_if_fail (h, NULL);
+
+    return h->ref;
 }
 
 

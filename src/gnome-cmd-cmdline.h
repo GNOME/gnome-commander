@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,17 +15,17 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_CMDLINE_H__
 #define __GNOME_CMD_CMDLINE_H__
 
 
 #define GNOME_CMD_CMDLINE(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_cmdline_get_type (), GnomeCmdCmdline)
+    GTK_CHECK_CAST (obj, gnome_cmd_cmdline_get_type (), GnomeCmdCmdline)
 #define GNOME_CMD_CMDLINE_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_cmdline_get_type (), GnomeCmdCmdlineClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_cmdline_get_type (), GnomeCmdCmdlineClass)
 #define GNOME_CMD_IS_CMDLINE(obj) \
-	GTK_CHECK_TYPE (obj, gnome_cmd_cmdline_get_type ())
+    GTK_CHECK_TYPE (obj, gnome_cmd_cmdline_get_type ())
 
 
 typedef struct _GnomeCmdCmdline GnomeCmdCmdline;
@@ -36,14 +36,14 @@ typedef struct _GnomeCmdCmdlineClass GnomeCmdCmdlineClass;
 
 struct _GnomeCmdCmdline
 {
-	GtkHBox parent;
-	GnomeCmdCmdlinePrivate *priv;
+    GtkHBox parent;
+    GnomeCmdCmdlinePrivate *priv;
 };
 
 
 struct _GnomeCmdCmdlineClass
 {
-	GtkHBoxClass parent_class;
+    GtkHBoxClass parent_class;
 };
 
 
@@ -91,6 +91,6 @@ gnome_cmd_cmdline_get_entry    (GnomeCmdCmdline *cmdline);
 
 gboolean
 gnome_cmd_cmdline_keypressed   (GnomeCmdCmdline *cmdline,
-								GdkEventKey *event);
+                                GdkEventKey *event);
 
 #endif //__GNOME_CMD_CMDLINE_H__

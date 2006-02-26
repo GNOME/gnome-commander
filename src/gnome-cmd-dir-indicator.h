@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_DIR_INDICATOR_H__
 #define __GNOME_CMD_DIR_INDICATOR_H__
 
@@ -26,9 +26,9 @@
 
 
 #define GNOME_CMD_DIR_INDICATOR(obj) \
-	GTK_CHECK_CAST (obj, gnome_cmd_dir_indicator_get_type (), GnomeCmdDirIndicator)
+    GTK_CHECK_CAST (obj, gnome_cmd_dir_indicator_get_type (), GnomeCmdDirIndicator)
 #define GNOME_CMD_DIR_INDICATOR_CLASS(klass) \
-	GTK_CHECK_CLASS_CAST (klass, gnome_cmd_dir_indicator_get_type (), GnomeCmdDirIndicatorClass)
+    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_dir_indicator_get_type (), GnomeCmdDirIndicatorClass)
 #define GNOME_CMD_IS_DIR_INDICATOR(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_dir_indicator_get_type ())
 
@@ -40,14 +40,14 @@ typedef struct _GnomeCmdDirIndicatorPrivate GnomeCmdDirIndicatorPrivate;
 
 struct _GnomeCmdDirIndicator
 {
-	GtkFrame parent;
+    GtkFrame parent;
 
-	GnomeCmdDirIndicatorPrivate *priv;
+    GnomeCmdDirIndicatorPrivate *priv;
 };
 
 struct _GnomeCmdDirIndicatorClass
 {
-	GtkFrameClass parent_class;
+    GtkFrameClass parent_class;
 };
 
 
