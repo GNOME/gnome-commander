@@ -2225,18 +2225,14 @@ msgstr "Futtatás"
 msgid ""
 "%s does not know how to open remote files. Do you want to download the file "
 "to a temporary location and then open it?"
-msgstr ""
-"A(z) %s nem képes távoli fájlok megnyitására csak a fájl letöltése után. "
-"Letöltsem őket a megnyitás érdekében?"
+msgstr "A(z) %s nem képes távoli fájlok megnyitására csak a fájlok letöltése után. Letöltsem a megnyitás érdekében?"
 
 #: ../src/utils.c:746
 #, c-format
 msgid ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr ""
-"A(z) %s nem képes távoli fájl megnyitása csak a fájl letöltése után. Letöltsem "
-"a megnyitás érdekében?"
+msgstr "A(z) %s nem képes távoli fájlok megnyitására csak a fájl letöltése után. Letöltsem őket a megnyitás érdekében?"
 
 #: ../src/utils.c:1198
 #, c-format
