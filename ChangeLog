@@ -1,3 +1,10 @@
+2006-02-26  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-con-device.c:
+	* src/gnome-cmd-con-device.h:
+	* src/gnome-cmd-data.c:
+        Added monitoring of mounted volumes.
+
 2006-02-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.c:

@@ -28,6 +28,9 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-bookmark-dialog.h"
+#include <libgnomevfs/gnome-vfs.h>
+#include <libgnomevfs/gnome-vfs-volume-monitor.h>
+#include <libgnomevfs/gnome-vfs-volume.h>
 #include "filter.h"
 #include "utils.h"
 
@@ -39,7 +42,7 @@
 
 
 GnomeCmdData *data = NULL;
-
+GnomeVFSVolumeMonitor *monitor = NULL ;
 
 struct _GnomeCmdDataPrivate
 {
@@ -186,7 +189,8 @@ write_devices ()
 		GList *tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list);
 		while (tmp) {
 			GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
-			if (device) {
+			if (device &&
+				!gnome_cmd_con_device_get_autovol(device)) {
 				gchar *alias;
 				gchar *device_fn;
 				gchar *mountp;
@@ -347,12 +351,235 @@ static void load_ftp_servers ()
 	g_free (path);
 }
 
+static gboolean
+vfs_is_uri_local(const char* uri)
+{
+	GnomeVFSURI* pURI = NULL ;
+	gboolean b ;
+
+	pURI = gnome_vfs_uri_new(uri) ;
+	if (pURI==NULL)
+		return FALSE;
+						
+	b = gnome_vfs_uri_is_local(pURI);
+	gnome_vfs_uri_unref(pURI);
+								
+	return b;
+}
+
+static void
+remove_vfs_volume (GnomeVFSVolume *volume)
+{
+	char *path, *uri, *localpath;
+	GList *tmp;
+
+	if (!gnome_vfs_volume_is_user_visible (volume))
+		return;
+
+	uri = gnome_vfs_volume_get_activation_uri (volume);
+	if (!vfs_is_uri_local(uri)) {
+		g_free(uri);
+		return ;
+	}
+							
+	path = gnome_vfs_volume_get_device_path (volume);
+	localpath = gnome_vfs_get_local_path_from_uri(uri);
+
+	tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list);
+	while (tmp) {
+		GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
+		if (device && gnome_cmd_con_device_get_autovol(device)) {
+			gchar *device_fn;
+			const gchar *mountp;
+			device_fn = (gchar*)gnome_cmd_con_device_get_device_fn (device);
+			mountp = gnome_cmd_con_device_get_mountp (device);
+
+			if ( (strcmp(device_fn, path)==0) && (strcmp(mountp,localpath)==0) ) {
+				DEBUG('m',"Remove Volume:\ndevice_fn = %s\tmountp = %s\n",
+				device_fn,mountp);
+				gnome_cmd_con_list_remove_device(data->priv->con_list, device);
+				break ;
+			}
+						
+		}
+		tmp = tmp->next ;
+	}
+
+	g_free (path);
+	g_free (uri);
+	g_free (localpath);
+}
+
+
+static void
+add_vfs_volume (GnomeVFSVolume *volume)
+{
+	char *path, *uri, *name, *icon,*localpath;
+	GnomeVFSDrive *drive;
+	GnomeCmdConDevice *ConDev;
+	
+	if (!gnome_vfs_volume_is_user_visible (volume))
+		return;
+	uri = gnome_vfs_volume_get_activation_uri (volume);
+	
+	if (!vfs_is_uri_local(uri)) {
+		g_free(uri);
+		return ;
+	}
+	
+	path = gnome_vfs_volume_get_device_path (volume);
+	icon = gnome_vfs_volume_get_icon (volume);
+	name = gnome_vfs_volume_get_display_name (volume);
+	drive = gnome_vfs_volume_get_drive (volume);
+	
+	localpath = gnome_vfs_get_local_path_from_uri(uri);
+	
+	DEBUG('m',"name = %s\tpath = %s\turi = %s\tlocal = %s\n", 
+	name,path,uri,localpath);
+	
+	ConDev = gnome_cmd_con_device_new ( name, 
+		path?path:NULL,localpath,icon) ;
+	
+	gnome_cmd_con_device_set_autovol(ConDev, TRUE);
+	gnome_cmd_con_device_set_vfs_volume(ConDev, volume);
+	gnome_cmd_con_list_add_device (data->priv->con_list,ConDev) ;
+	
+	g_free (path);
+	g_free (uri);
+	g_free (icon);
+	g_free (name);
+	g_free (localpath);
+	gnome_vfs_drive_unref (drive);
+}
+
+#if 0
+static void
+add_vfs_drive (GnomeVFSDrive *drive)
+{
+	char *path, *uri, *name, *icon, *localpath;
+	GnomeVFSVolume *volume;
+	GnomeCmdConDevice *ConDev;
+	
+	if (!gnome_vfs_drive_is_user_visible(drive))
+		return;
+	
+	uri = gnome_vfs_drive_get_activation_uri (drive);
+	if (!vfs_is_uri_local(uri)) {
+		g_free(uri);
+		return ;
+	}
+	
+	path = gnome_vfs_drive_get_device_path (drive);
+	icon = gnome_vfs_drive_get_icon (drive);
+	name = gnome_vfs_drive_get_display_name (drive);
+	volume = gnome_vfs_drive_get_mounted_volume (drive);
+	
+	localpath = gnome_vfs_get_local_path_from_uri(uri);
+	
+	DEBUG('m',"name = %s\tpath = %s\turi = %s\tlocal = %s\n", 
+		name,path,uri,localpath);
+	
+	ConDev = gnome_cmd_con_device_new ( name, 
+		path,localpath, icon) ;
+	
+	gnome_cmd_con_device_set_autovol(ConDev, TRUE);
+	
+	gnome_cmd_con_list_add_device (
+		data->priv->con_list,
+		ConDev);
+	
+	g_free (path);
+	g_free (uri);
+	g_free (icon);
+	g_free (name);
+	g_free (localpath);
+	
+	gnome_vfs_volume_unref (volume);
+}
+#endif
+
+static void
+volume_mounted (GnomeVFSVolumeMonitor *volume_monitor,
+				GnomeVFSVolume	       *volume)
+{
+	add_vfs_volume(volume);
+}
+
+static void
+volume_unmounted (GnomeVFSVolumeMonitor *volume_monitor,
+				  GnomeVFSVolume	       *volume)
+{
+	remove_vfs_volume(volume);
+}
+
+#if 0
+static void
+drive_connected (GnomeVFSVolumeMonitor *volume_monitor,
+				 GnomeVFSDrive	       *drive)
+{
+	add_vfs_drive(drive);
+}
+
+static void
+drive_disconnected (GnomeVFSVolumeMonitor *volume_monitor,
+				    GnomeVFSDrive	       *drive)
+{
+	/* TODO: Remove from Drives combobox */
+}
+#endif
+
+static void
+set_vfs_volume_monitor()
+{
+	  monitor = gnome_vfs_get_volume_monitor ();
+
+	g_signal_connect (monitor, "volume_mounted",
+		G_CALLBACK (volume_mounted), NULL);
+	g_signal_connect (monitor, "volume_unmounted",
+		G_CALLBACK (volume_unmounted), NULL);
+#if 0
+	g_signal_connect (monitor, "drive_connected",
+		G_CALLBACK (drive_connected), NULL);
+	g_signal_connect (monitor, "drive_disconnected",
+		G_CALLBACK (drive_disconnected), NULL);
+#endif
+}
+
+static void
+load_vfs_auto_devices()
+{
+	GList *l, *volumes;
+#if 0
+	GList *drives;
+#endif
+	GnomeVFSVolumeMonitor *monitor;
+	monitor = gnome_vfs_get_volume_monitor ();
+	volumes = gnome_vfs_volume_monitor_get_mounted_volumes (monitor);
+	for (l = volumes; l != NULL; l = l->next) {
+		add_vfs_volume (l->data);
+		gnome_vfs_volume_unref (l->data);
+	}
+	g_list_free (volumes);
+	
+#if 0
+	drives = gnome_vfs_volume_monitor_get_connected_drives (monitor);
+	for (l = drives; l != NULL; l = l->next) {
+		add_vfs_drive (l->data);
+		gnome_vfs_drive_unref (l->data);
+	}
+	g_list_free (drives);
+#endif
+}
+
+
 
 static void
 load_devices ()
 {
 	gchar *path;
 	FILE *fd;
+
+	load_vfs_auto_devices();
 
 	path = g_strdup_printf ("%s/.gnome-commander/devices", g_get_home_dir());
 	fd = fopen (path, "r");
@@ -1287,6 +1514,8 @@ gnome_cmd_data_load                      (void)
 	load_search_defaults ();
 	load_rename_history ();
 	load_auto_load_plugins ();
+	
+	set_vfs_volume_monitor() ;
 }
 
 

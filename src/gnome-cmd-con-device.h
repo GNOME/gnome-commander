@@ -1,5 +1,5 @@
 /*
-    GNOME Commander - A GNOME based file manager 
+    GNOME Commander - A GNOME based file manager
     Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/ 
+*/
 #ifndef __GNOME_CMD_CON_DEVICE_H__
 #define __GNOME_CMD_CON_DEVICE_H__
 
@@ -53,7 +53,7 @@ gnome_cmd_con_device_get_type (void);
 
 GnomeCmdConDevice *
 gnome_cmd_con_device_new     (const gchar *alias,
-							  const gchar *device_fn, 
+							  const gchar *device_fn,
 							  const gchar *mountp,
 							  const gchar *icon_path);
 
@@ -76,8 +76,16 @@ void
 gnome_cmd_con_device_set_icon_path       (GnomeCmdConDevice *dev,
 										  const gchar *icon_path);
 
+void
+gnome_cmd_con_device_set_autovol	(GnomeCmdConDevice *dev,
+										  const gboolean autovol );
+void
+gnome_cmd_con_device_set_vfs_volume	(GnomeCmdConDevice *dev,
+										  GnomeVFSVolume *vfsvol );
+
+
 const gchar*
-gnome_cmd_con_device_get_alias           (GnomeCmdConDevice *dev); 
+gnome_cmd_con_device_get_alias           (GnomeCmdConDevice *dev);
 
 const gchar*
 gnome_cmd_con_device_get_device_fn       (GnomeCmdConDevice *dev);
@@ -87,6 +95,12 @@ gnome_cmd_con_device_get_mountp          (GnomeCmdConDevice *dev);
 
 const gchar*
 gnome_cmd_con_device_get_icon_path       (GnomeCmdConDevice *dev);
+
+gboolean
+gnome_cmd_con_device_get_autovol	 (GnomeCmdConDevice *dev);
+
+GnomeVFSVolume *
+gnome_cmd_con_device_get_vfs_volume	(GnomeCmdConDevice *dev);
 
 
 #endif //__GNOME_CMD_CON_DEVICE_H__
