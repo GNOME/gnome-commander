@@ -2227,7 +2227,7 @@ msgid ""
 "to a temporary location and then open it?"
 msgstr ""
 "A(z) %s nem képes távoli fájlok megnyitására csak a fájl letöltése után. "
-"Letöltsem a megnyitás érdekében?"
+"Letöltsem őket a megnyitás érdekében?"
 
 #: ../src/utils.c:746
 #, c-format
