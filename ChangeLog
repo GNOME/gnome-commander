@@ -3,6 +3,10 @@
 	* src/imageloader.{c,h}:
         Added desktop pixmap.
 
+	* pixmaps/:
+	* pixmaps/device-icons:
+        New and updated icons.
+
 2006-02-26  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-con-device.c:
