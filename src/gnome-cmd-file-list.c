@@ -84,7 +84,7 @@ static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 
 
-GnomeCmdFileListColumn file_list_column[FILE_LIST_NUM_COLUMNS] = 
+GnomeCmdFileListColumn file_list_column[FILE_LIST_NUM_COLUMNS] =
 {{FILE_LIST_COLUMN_ICON,"",16,GTK_JUSTIFY_CENTER,FILE_LIST_SORT_ASCENDING,NULL},
  {FILE_LIST_COLUMN_NAME,N_("name"),140,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_name},
  {FILE_LIST_COLUMN_EXT,N_("ext"),40,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_ext},
@@ -229,8 +229,7 @@ select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
         return;
 
     gnome_cmd_file_ref (finfo);
-    fl->priv->selected_files = g_list_append (
-        fl->priv->selected_files, finfo);
+    fl->priv->selected_files = g_list_append (fl->priv->selected_files, finfo);
 
     gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[SELECTION_CHANGED]);
 }
@@ -447,11 +446,11 @@ create_column_titles (GnomeCmdFileList *fl)
 {
     gint i;
 
-    gtk_clist_set_column_width (GTK_CLIST (fl), 0, gnome_cmd_data_get_fs_col_width (0));
-    gtk_clist_set_column_justification (GTK_CLIST (fl), 0, file_list_column[0].justification);
-    gtk_clist_column_title_passive (GTK_CLIST (fl), 0);
-    
-    for ( i=1 ; i<FILE_LIST_NUM_COLUMNS ; i++ )
+    gtk_clist_set_column_width (GTK_CLIST (fl), 0, gnome_cmd_data_get_fs_col_width (FILE_LIST_COLUMN_ICON));
+    gtk_clist_set_column_justification (GTK_CLIST (fl), 0, file_list_column[FILE_LIST_COLUMN_ICON].justification);
+    gtk_clist_column_title_passive (GTK_CLIST (fl), FILE_LIST_COLUMN_ICON);
+
+    for ( i=FILE_LIST_COLUMN_NAME ; i<FILE_LIST_NUM_COLUMNS ; i++ )
     {
         GtkWidget *hbox,*pixmap;
 
@@ -460,8 +459,7 @@ create_column_titles (GnomeCmdFileList *fl)
 
         hbox = gtk_hbox_new (FALSE, 1);
         gtk_widget_ref (hbox);
-        gtk_object_set_data_full (GTK_OBJECT (fl), "column-hbox", hbox,
-                                  (GtkDestroyNotify) gtk_widget_unref);
+        gtk_object_set_data_full (GTK_OBJECT (fl), "column-hbox", hbox, (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (hbox);
 
         fl->priv->column_labels[i] = gtk_label_new (file_list_column[i].title);
@@ -473,8 +471,7 @@ create_column_titles (GnomeCmdFileList *fl)
 
         pixmap = gtk_pixmap_new (pm, bm);
         gtk_widget_ref (pixmap);
-        gtk_object_set_data_full (GTK_OBJECT (fl), "column-pixmap", pixmap,
-                                  (GtkDestroyNotify) gtk_widget_unref);
+        gtk_object_set_data_full (GTK_OBJECT (fl), "column-pixmap", pixmap, (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (pixmap);
         gtk_box_pack_start (GTK_BOX (hbox), pixmap, FALSE, FALSE, 0);
 
@@ -482,7 +479,7 @@ create_column_titles (GnomeCmdFileList *fl)
         gtk_clist_set_column_widget (GTK_CLIST (fl), i, hbox);
     }
 
-    for ( i=1 ; i<FILE_LIST_NUM_COLUMNS ; i++ ) {
+    for ( i=FILE_LIST_COLUMN_NAME ; i<FILE_LIST_NUM_COLUMNS ; i++ ) {
         gtk_clist_set_column_width (GTK_CLIST (fl), i, gnome_cmd_data_get_fs_col_width (i));
         gtk_clist_set_column_justification (GTK_CLIST (fl), i, file_list_column[i].justification);
     }
@@ -498,7 +495,7 @@ update_column_sort_arrows (GnomeCmdFileList *fl)
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    for ( i=1 ; i<FILE_LIST_NUM_COLUMNS ; i++ ) {
+    for ( i=FILE_LIST_COLUMN_NAME ; i<FILE_LIST_NUM_COLUMNS ; i++ ) {
         if (i != fl->priv->current_col) {
             gtk_pixmap_set (GTK_PIXMAP (fl->priv->column_pixmaps[i]),
                             IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_BLANK),
@@ -621,13 +618,8 @@ drag_data_get (GtkWidget        *widget,
 
         case TARGET_URL:
             files = gnome_vfs_uri_list_parse (data);
-            if (files) {
-                gtk_selection_data_set (selection_data,
-                                        selection_data->target,
-                                        8,
-                                        files->data,
-                                        strlen (files->data));
-            }
+            if (files)
+                gtk_selection_data_set (selection_data, selection_data->target, 8, files->data, strlen (files->data));
             g_list_foreach (files, (GFunc)g_free, NULL);
             break;
 
@@ -684,9 +676,7 @@ show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     GtkWidget *menu = gnome_cmd_file_popmenu_new (fl);
     if (!menu) return;
     gtk_widget_ref (menu);
-    gtk_object_set_data_full (GTK_OBJECT (fl),
-                              "file_popup_menu", menu,
-                              (GtkDestroyNotify)gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (fl), "file_popup_menu", menu, (GtkDestroyNotify)gtk_widget_unref);
 
     gnome_popup_menu_do_popup (menu, NULL, fl, event, fl, NULL);
 }
@@ -797,12 +787,10 @@ sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
     if (!gnome_cmd_file_get_extension (f2))
         return raising?-1:1;
 
-    ret = my_strcmp (gnome_cmd_file_get_extension (f1),
-                     gnome_cmd_file_get_extension (f2), raising);
+    ret = my_strcmp (gnome_cmd_file_get_extension (f1), gnome_cmd_file_get_extension (f2), raising);
 
     if (ret == 0)
-        return my_strcmp (f1->info->name, f2->info->name,
-                          fl->priv->sort_raising[1]);
+        return my_strcmp (f1->info->name, f2->info->name, fl->priv->sort_raising[1]);
 
     return ret;
 }
@@ -833,10 +821,7 @@ sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
     g_free (d1);
     g_free (d2);
 
-    if (ret)
-        return ret;
-
-    return my_strcmp (d1, d2, raising);
+    return ret ? ret : my_strcmp (d1, d2, raising);
 }
 
 
@@ -965,7 +950,6 @@ sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 }
 
 
-
 /*******************************
  * Callbacks
  *******************************/
@@ -978,7 +962,7 @@ on_column_clicked                        (GtkCList *list,
     g_return_if_fail (GTK_IS_CLIST (list));
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    fl->priv->sort_raising[col] = fl->priv->current_col == col ? !fl->priv->sort_raising[col] : 
+    fl->priv->sort_raising[col] = fl->priv->current_col == col ? !fl->priv->sort_raising[col] :
                                                                  file_list_column[col].default_sort_direction;
 
     fl->priv->sort_func = file_list_column[col].sort_func;
@@ -1036,20 +1020,17 @@ on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCmdFileList *fl)
     if (GTK_CLIST (fl)->clist_window != event->window)
         return FALSE;
 
-    gtk_signal_emit (
-        GTK_OBJECT (fl), file_list_signals[LIST_CLICKED], event);
+    gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[LIST_CLICKED], event);
 
     row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fl), event->x, event->y);
     if (row < 0) {
-        gtk_signal_emit (
-            GTK_OBJECT (fl), file_list_signals[EMPTY_SPACE_CLICKED], event);
+        gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[EMPTY_SPACE_CLICKED], event);
         return FALSE;
     }
 
     finfo = get_file_at_row (fl, row);
 
-    gtk_signal_emit (
-        GTK_OBJECT (fl), file_list_signals[FILE_CLICKED], finfo, event);
+    gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[FILE_CLICKED], finfo, event);
 
     gtk_signal_emit_stop_by_name (GTK_OBJECT (clist), "button-press-event");
 
@@ -1113,9 +1094,7 @@ on_file_clicked (GnomeCmdFileList *fl,
 
                     fl->priv->right_mb_down_file = finfo;
                     fl->priv->right_mb_timeout_id =
-                        gtk_timeout_add (POPUP_TIMEOUT,
-                                         (GtkFunction)on_right_mb_timeout,
-                                         fl);
+                        gtk_timeout_add (POPUP_TIMEOUT, (GtkFunction)on_right_mb_timeout, fl);
                 }
                 else
                     show_file_popup (fl, event);
@@ -1198,7 +1177,6 @@ on_realize                               (GnomeCmdFileList *fl,
 }
 
 
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -1238,39 +1216,40 @@ class_init (GnomeCmdFileListClass *class)
 
     file_list_signals[FILE_CLICKED] =
         gtk_signal_new ("file_clicked",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, file_clicked),
-            gtk_marshal_NONE__POINTER_POINTER,
-            GTK_TYPE_NONE,
-            2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
+                        GTK_RUN_LAST,
+                        G_OBJECT_CLASS_TYPE (object_class),
+                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, file_clicked),
+                        gtk_marshal_NONE__POINTER_POINTER,
+                        GTK_TYPE_NONE,
+                        2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
 
     file_list_signals[LIST_CLICKED] =
         gtk_signal_new ("list_clicked",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, list_clicked),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+                        GTK_RUN_LAST,
+                        G_OBJECT_CLASS_TYPE (object_class),
+                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, list_clicked),
+                        gtk_marshal_NONE__POINTER,
+                        GTK_TYPE_NONE,
+                        1, 
+                        GTK_TYPE_POINTER);
 
     file_list_signals[EMPTY_SPACE_CLICKED] =
         gtk_signal_new ("empty_space_clicked",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, empty_space_clicked),
-            gtk_marshal_NONE__POINTER,
-            GTK_TYPE_NONE,
-            1, GTK_TYPE_POINTER);
+                        GTK_RUN_LAST,
+                        G_OBJECT_CLASS_TYPE (object_class),
+                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, empty_space_clicked),
+                        gtk_marshal_NONE__POINTER,
+                        GTK_TYPE_NONE,
+                        1, GTK_TYPE_POINTER);
 
     file_list_signals[SELECTION_CHANGED] =
         gtk_signal_new ("selection_changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, selection_changed),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
-            0);
+                        GTK_RUN_LAST,
+                        G_OBJECT_CLASS_TYPE (object_class),
+                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, selection_changed),
+                        gtk_marshal_NONE__NONE,
+                        GTK_TYPE_NONE,
+                        0);
 
     object_class->destroy = destroy;
     widget_class->map = map;
@@ -1308,24 +1287,16 @@ init (GnomeCmdFileList *fl)
     for ( i=0 ; i<FILE_LIST_NUM_COLUMNS ; i++ )
         gtk_clist_set_column_resizeable (GTK_CLIST (fl), i, TRUE);
 
-    gtk_signal_connect_after (GTK_OBJECT (fl), "scroll_vertical",
-                              GTK_SIGNAL_FUNC (on_scroll_vertical), fl);
-    gtk_signal_connect (GTK_OBJECT (fl), "click-column",
-                        GTK_SIGNAL_FUNC (on_column_clicked), fl);
+    gtk_signal_connect_after (GTK_OBJECT (fl), "scroll_vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), fl);
+    gtk_signal_connect (GTK_OBJECT (fl), "click-column", GTK_SIGNAL_FUNC (on_column_clicked), fl);
 
-    gtk_signal_connect (GTK_OBJECT (fl), "button-press-event",
-                        GTK_SIGNAL_FUNC (on_button_press), fl);
-    gtk_signal_connect (GTK_OBJECT (fl), "button-release-event",
-                        GTK_SIGNAL_FUNC (on_button_release), fl);
-    gtk_signal_connect (GTK_OBJECT (fl), "motion-notify-event",
-                        GTK_SIGNAL_FUNC (on_motion_notify), fl);
+    gtk_signal_connect (GTK_OBJECT (fl), "button-press-event", GTK_SIGNAL_FUNC (on_button_press), fl);
+    gtk_signal_connect (GTK_OBJECT (fl), "button-release-event", GTK_SIGNAL_FUNC (on_button_release), fl);
+    gtk_signal_connect (GTK_OBJECT (fl), "motion-notify-event", GTK_SIGNAL_FUNC (on_motion_notify), fl);
 
-    gtk_signal_connect_after (GTK_OBJECT (fl), "realize",
-                        GTK_SIGNAL_FUNC (on_realize), fl);
-    gtk_signal_connect (GTK_OBJECT (fl), "file-clicked",
-                        GTK_SIGNAL_FUNC (on_file_clicked), fl);
+    gtk_signal_connect_after (GTK_OBJECT (fl), "realize", GTK_SIGNAL_FUNC (on_realize), fl);
+    gtk_signal_connect (GTK_OBJECT (fl), "file-clicked", GTK_SIGNAL_FUNC (on_file_clicked), fl);
 }
-
 
 
 /***********************************
@@ -1362,9 +1333,7 @@ gnome_cmd_file_list_new ()
 {
     GnomeCmdFileList *fl;
 
-    fl = g_object_new (gnome_cmd_file_list_get_type(),
-                       "n_columns", FILE_LIST_NUM_COLUMNS,
-                       NULL);
+    fl = g_object_new (gnome_cmd_file_list_get_type(), "n_columns", FILE_LIST_NUM_COLUMNS, NULL);
 
     create_column_titles (fl);
 
@@ -1386,8 +1355,7 @@ gnome_cmd_file_list_show_column         (GnomeCmdFileList *fl,
 void
 gnome_cmd_file_list_update_style (GnomeCmdFileList *fl)
 {
-    gtk_clist_set_row_height (
-        GTK_CLIST (fl), gnome_cmd_data_get_list_row_height ());
+    gtk_clist_set_row_height (GTK_CLIST (fl), gnome_cmd_data_get_list_row_height ());
 
     gnome_cmd_clist_update_style (GNOME_CMD_CLIST (fl));
 }
@@ -1451,7 +1419,7 @@ format_file_for_display (GnomeCmdFile *finfo, FileFormatData *data, gboolean tre
      *
      */
     data->text[FILE_LIST_COLUMN_NAME]  = data->fname;
-     data->text[FILE_LIST_COLUMN_EXT]   = data->fext;
+    data->text[FILE_LIST_COLUMN_EXT]   = data->fext;
     data->text[FILE_LIST_COLUMN_DIR]   = data->dpath;
     data->text[FILE_LIST_COLUMN_SIZE]  = size;
     data->text[FILE_LIST_COLUMN_DATE]  = (gchar*)gnome_cmd_file_get_mdate (finfo, FALSE);
@@ -1483,10 +1451,7 @@ add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
 
     format_file_for_display (finfo, &data, FALSE);
 
-    if (in_row == -1)
-        row = gtk_clist_append (clist, data.text);
-    else
-        row = gtk_clist_insert (clist, in_row, data.text);
+    row = in_row == -1 ? gtk_clist_append (clist, data.text) : gtk_clist_insert (clist, in_row, data.text);
 
     cleanup_file_format (&data);
 
@@ -1580,8 +1545,7 @@ gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sor
     list = g_list_copy (files);
 
     if (sort)
-        tmp = list = gnome_vfs_list_sort (
-            list, (GnomeVFSListCompareFunc)fl->priv->sort_func, fl);
+        tmp = list = gnome_vfs_list_sort (list, (GnomeVFSListCompareFunc)fl->priv->sort_func, fl);
     else
         tmp = list;
 
@@ -1697,11 +1661,8 @@ gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *uri_s
 void
 gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files)
 {
-    while (files) {
-        GnomeCmdFile *finfo = (GnomeCmdFile*)files->data;
-        gnome_cmd_file_list_remove_file (fl, finfo);
-        files = files->next;
-    }
+    for ( ; files; files = files->next )
+        gnome_cmd_file_list_remove_file (fl, (GnomeCmdFile*)files->data);
 }
 
 
@@ -1744,10 +1705,8 @@ gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
         return g_list_copy (fl->priv->selected_files);
 
     file = gnome_cmd_file_list_get_selected_file (fl);
-    if (file)
-        return g_list_append (NULL, file);
 
-    return NULL;
+    return file ? g_list_append (NULL, file) : NULL;
 }
 
 
@@ -1829,11 +1788,8 @@ gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
     finfo = gnome_cmd_file_list_get_focused_file (fl);
-    if (!finfo)
-        return NULL;
-    else if (strcmp (finfo->info->name, "..") == 0)
-        return NULL;
-    return finfo;
+
+    return !finfo || strcmp (finfo->info->name, "..") == 0 ? NULL : finfo;
 }
 
 
@@ -1855,16 +1811,9 @@ gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
 GnomeCmdFile*
 gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl)
 {
-    GnomeCmdFile *finfo;
-
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
-    if (fl->priv->cur_file < 0)
-        return NULL;
-
-    finfo = get_file_at_row (fl, fl->priv->cur_file);
-
-    return finfo;
+    return fl->priv->cur_file < 0 ? NULL : get_file_at_row (fl, fl->priv->cur_file);
 }
 
 
@@ -1877,13 +1826,9 @@ gnome_cmd_file_list_select_all (GnomeCmdFileList *fl)
 
     gnome_cmd_file_list_free (fl->priv->selected_files);
     fl->priv->selected_files = NULL;
-
-    tmp = gnome_cmd_file_list_get_all_files (fl);
-    while (tmp) {
-        GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
-        select_file (fl, finfo);
-        tmp = tmp->next;
-    }
+    
+    for ( tmp = gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next )
+        select_file (fl, (GnomeCmdFile*)tmp->data);
 }
 
 
@@ -1894,12 +1839,8 @@ gnome_cmd_file_list_unselect_all (GnomeCmdFileList *fl)
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    tmp = g_list_copy (fl->priv->selected_files);
-    while (tmp)    {
-        GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
-        unselect_file (fl, finfo);
-        tmp = tmp->next;
-    }
+    for ( tmp = g_list_copy (fl->priv->selected_files); tmp; tmp = tmp->next)
+        unselect_file (fl, (GnomeCmdFile*)tmp->data);
 
     gnome_cmd_file_list_free (fl->priv->selected_files);
     fl->priv->selected_files = NULL;
@@ -1979,10 +1920,7 @@ gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl,
 void
 gnome_cmd_file_list_select_row (GnomeCmdFileList *fl, gint row)
 {
-    if (row == -1)
-        focus_file_at_row (fl, fl->priv->cur_file);
-    else
-        focus_file_at_row (fl, row);
+    focus_file_at_row (fl, row == -1 ? fl->priv->cur_file : row);
 }
 
 
@@ -2144,14 +2082,8 @@ gnome_cmd_file_list_sort (GnomeCmdFileList *fl)
     }
 
     /* reselect the previously selected files */
-    list = fl->priv->selected_files;
-    while (list != NULL) {
-        GnomeCmdFile *finfo;
-
-        finfo = GNOME_CMD_FILE (list->data);
-        select_file (fl, finfo);
-        list = list->next;
-    }
+    for (list = fl->priv->selected_files; list != NULL; list = list->next)
+        select_file (fl, GNOME_CMD_FILE (list->data));
 
     gtk_clist_thaw (GTK_CLIST (fl));
 }
@@ -2215,9 +2147,8 @@ gnome_cmd_file_list_show_chown_dialog (GnomeCmdFileList *fl)
     files = gnome_cmd_file_list_get_selected_files (fl);
 
     if (files) {
-        GtkWidget *dialog;
+        GtkWidget *dialog = gnome_cmd_chown_dialog_new (files);
 
-        dialog = gnome_cmd_chown_dialog_new (files);
         gtk_widget_ref (dialog);
         gtk_widget_show (dialog);
         g_list_free (files);
@@ -2235,9 +2166,8 @@ gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl)
     files = gnome_cmd_file_list_get_selected_files (fl);
 
     if (files) {
-        GtkWidget *dialog;
+        GtkWidget *dialog = gnome_cmd_chmod_dialog_new (files);
 
-        dialog = gnome_cmd_chmod_dialog_new (files);
         gtk_widget_ref (dialog);
         gtk_widget_show (dialog);
         g_list_free (files);
@@ -2359,8 +2289,7 @@ gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
     gtk_widget_ref (fl->priv->quicksearch_popup);
     gtk_widget_show (fl->priv->quicksearch_popup);
     if (c != 0) {
-        GnomeCmdQuicksearchPopup *popup =
-            GNOME_CMD_QUICKSEARCH_POPUP (fl->priv->quicksearch_popup);
+        GnomeCmdQuicksearchPopup *popup = GNOME_CMD_QUICKSEARCH_POPUP (fl->priv->quicksearch_popup);
         gtk_entry_set_text (GTK_ENTRY (popup->entry), text);
         gtk_entry_set_position (GTK_ENTRY (popup->entry), 1);
     }
@@ -2426,43 +2355,37 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
             case GDK_Page_Up:
             case GDK_KP_Page_Up:
                 fl->priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_PAGE_BACKWARD, 0.0, NULL);
+                gtk_signal_emit_by_name (GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_PAGE_BACKWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Page_Down:
             case GDK_KP_Page_Down:
                 fl->priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_PAGE_FORWARD, 0.0, NULL);
+                gtk_signal_emit_by_name (GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_PAGE_FORWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Up:
             case GDK_KP_Up:
                 fl->priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, NULL);
+                gtk_signal_emit_by_name (GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Down:
             case GDK_KP_Down:
                 fl->priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
+                gtk_signal_emit_by_name (GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Home:
             case GDK_KP_Home:
                 fl->priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_JUMP, 0.0);
+                gtk_signal_emit_by_name (GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_JUMP, 0.0);
                 return TRUE;
 
             case GDK_End:
             case GDK_KP_End:
                 fl->priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_JUMP, 1.0);
+                gtk_signal_emit_by_name (GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_JUMP, 1.0);
                 return TRUE;
         }
     }
@@ -2541,8 +2464,7 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
             case GDK_Insert:
             case GDK_KP_Insert:
                 gnome_cmd_file_list_toggle (fl);
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
+                gtk_signal_emit_by_name (GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
                 return TRUE;
 
             case GDK_KP_Page_Up:
@@ -2563,14 +2485,12 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
 
             case GDK_Home:
             case GDK_KP_Home:
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_JUMP, 0.0);
+                gtk_signal_emit_by_name (GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_JUMP, 0.0);
                 return TRUE;
 
             case GDK_End:
             case GDK_KP_End:
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_JUMP, 1.0);
+                gtk_signal_emit_by_name (GTK_OBJECT (fl), "scroll_vertical", GTK_SCROLL_JUMP, 1.0);
                 return TRUE;
 
             case GDK_Delete:
@@ -2635,9 +2555,7 @@ gnome_vfs_list_sort (GList *list,
 {
     GList *l1, *l2;
 
-    if (!list)
-        return NULL;
-    if (!list->next)
+    if (!list || !list->next)
         return list;
 
     l1 = list;
@@ -2652,11 +2570,10 @@ gnome_vfs_list_sort (GList *list,
     l2 = l1->next;
     l1->next = NULL;
 
-    return gnome_vfs_list_sort_merge
-        (gnome_vfs_list_sort (list, compare_func, data),
-         gnome_vfs_list_sort (l2, compare_func, data),
-         compare_func,
-         data);
+    return gnome_vfs_list_sort_merge(gnome_vfs_list_sort (list, compare_func, data),
+                                     gnome_vfs_list_sort (l2, compare_func, data),
+                                     compare_func,
+                                     data);
 }
 
 

@@ -1,4 +1,11 @@
-2006-02-19  Piotr Eljasiak  <epiotr@use.pl>
+2006-02-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-file-list.c:
+        Prettifying code ;o)
+
+2006-02-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/imageloader.{c,h}:
         Added desktop pixmap.
