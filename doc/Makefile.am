@@ -12,4 +12,5 @@ EXTRA_DIST = \
 	keys.txt \
 	mounting.png \
 	tips_tricks.txt \
+	internal_viewer_hacking.txt \
         $(man1_MANS)

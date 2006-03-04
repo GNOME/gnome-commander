@@ -1,0 +1,389 @@
+Internel-Viewer Internals
+-------------------------
+
+This short document will detail the internals of the 'libgviewer' library,
+which implements GnomeCommander's Internal-Viewer.
+
+If you plan to hack the internal viewer, add features or just browse the source
+for fun, I recommend reading this document first.
+
+(However note that the source files are always more updated than this document)
+
+Table of Content
+----------------
+1.  General
+    1.1. Some Coding Conventions
+2.  Modules
+    2.1.  File Operations module (fileops.c)
+    2.2.  Input mode translations module (inputmodes.c)
+          2.2.1.  CP437 encoding utilities (cp437.c)
+    2.3.  Data presentation module(datapresentation.c)
+    2.4.  Scroll Box widget (scroll-box.c)
+    2.5.  Text Render widget (text-render.c)
+    2.6.  Image Render widget (image-render.c)
+    2.7.  Viewer widget (viewer-widget.c)
+    2.8.  Viewer window (viewer-window.c)
+3.  Module Testers
+    3.1. test-fileops
+    3.2. test-inputmodes
+    3.3. test-datapresentation
+    3.4. test-textrender
+    3.5. test-imagerender
+    3.6. test-viewerwidget
+    3.7. text-viewerwindow
+4.  Using the internal viewer in your project
+    4.1.  External Viewer Window
+    4.2.  Embedding the Viewer Widget
+    4.3.  Using a single module
+
+1.  General
+-----------
+The 'libgviewer' library aims to be a complete, fast, useable, user-friendly
+viewer window for the GnomeCommander project.
+
+Key Features:
+  * Fast loading -
+      If possible, does not load the entire file into memory.
+  * Text Handling -
+      Multiple character-set encodings,  including UTF8 and Code page 437.
+  * Versatile Text display -
+      Fixed and Variable width fonts, line wrapping, hex dump.
+  * Versatile Image display -
+      Every GDKable image format can be displayed (jpg,png,gif,svg, etc).
+  * Image Manipulations -
+      Rotating, Flipping, Zooming
+  * Usability -
+      easy keyboard navigation for (almost) all operations
+
+Some other viewers that you can try (if you're not pleased with 'libgviewer'):
+  * "Total Commander" has an excellent internal viewer.
+    Very power full and fast. If you use That-Other-Operation-System,
+    I suggest you give it a try.
+    You can also use Total Commander on *nix systems under Wine.
+  * "Midnight Commander" (MC) has a very good internal viewer.
+    (actually, the file operation module is largely based on midnight
+    commander's internal viewer code).
+    MC is a console application, so UTF8 and multiple charset encodings are not
+    easily displayed.
+  * "Krusader" (KDE's twin-panel file manager) has a good,
+    feature-packed internal viewer. The downside (IMHO) is that it tries to
+    load the entire file into memory before displaying anything.
+    (And the fact that it uses Qt :-) )
+
+1.1. Some Coding Conventions
+-----------------------
+  * The modules:
+      Scroll-Box, Text-Render, Image-Render, Viewer-Widget, Viewer-Widget
+    are all full-fledged GTK+2.0 objects. Know your GTK+ before hacking those.
+
+  * The modules: inputmodes, datapresentation
+    are semi-object oriented but they are not GObjects in any sense.
+    (internally the use function pointers for polymorphism),
+
+  * All text handling is UTF8 based.
+    (To be consistent with Pango, the GTK+ text rendering engine).
+
+  * "char_type" is the internal representation of a single UTF-8 character, in
+    a 32bit variable. (This might be a problem: UTF8 characters which occupy 5 or
+    6 bytes cannot be handled by the current internal viewer code).
+
+  * If the UTF8 character is one byte long, the LSB of the 'char_type'
+    variable contains the value, the other three bytes are zero.
+    If the UTF8 character is two byte long, the two LSBs of the 'char_type'
+    variable contain the value, the other two are zero.
+    The same goes for three and four bytes long UTF8 characters.
+    You can use the macros GV_{FIRST,SEONCD,etc}_BYTE (defined in 'gvtypes.h')
+    To check the 'char_type' variable.
+
+  * "offset_type", whenever used, ALWAYS means BYTE offset in the file.
+    It never means Character offset (this is important for UTF8 files,
+    where a single character is not necessarily a single byte).
+    The "inputmodes" module provides functions to move to the next and previous
+    character offsets.
+
+    Currently it is "unsigned long", so the file size limit is 4GB.
+    (Actually, some internal code might be using a "signed long", so anything
+    bigger than 2GB is not supported....)
+
+  * There are no static variables in to modules (except the GTK+'s parent_class)
+    So using multiple viewers widgets in the same application should be OK.
+    However, the modules are not guaranteed to be thread-safe, so the same
+    viewer-widget should not be accessed from two different threads.
+
+2.  Modules
+-----------
+
+2.1.  File Operations module (fileops.c)
+----------------------------------------
+File operation module is largely based on Midnight Commander's "view.c".
+When opening a file, it tries to "MMAP" it, and only if this fails tries to load
+entirely into memory (and if there's not enough memory, use "growing buffer",
+where each read operation loads a new part of the file into memory).
+
+Midnight Commander has a nice feature of using the same code (with growing
+buffers) to read directly from a pipe (e.g. running an external program and
+sending the STDOUT directly to the viewer). This part was not ported to the
+"libgviewer", but it can be later added (if need arises).
+
+Read "fileops.h" for the list of functions (they are pretty self-explainatoty).
+Use "gv_file_get_byte" to read a single byte from the file.
+
+2.2.  Input mode translations module (inputmodes.c)
+---------------------------------------------------
+The Input Mode module is responsible for reading raw bytes from a file, and
+translating them to UTF8 characters(the rest of 'libgviewer' is always UTF8).
+
+If using a one-byte-per-character encoding, a quick translation table is built
+(in "inputmode_ascii_activate"), with a UTF8 value for each possible byte value.
+Later, when a character is requested (with "gv_input_mode_get_utf8_char"),
+The byte from the file is translated to the corresponding UTF8 character.
+
+If using a multibyte-per-character encoding (currently only UTF8 is supported),
+The "inputmode_utf8_get_char" is used to read the required number of bytes from
+the file and return a single UTF8 character.
+
+When higher levels/other modules wish to read the file, they use:
+ * "gv_input_mode_get_utf8_char" to read a single UTF8 char from the file, at
+   the requested offset (ALWAYS byte offset).
+ * "gv_input_mode_get_next_char_offset","gv_input_mode_get_previous_char_offset"
+   To move across the file. These functions translate from character offset to
+   byte offset.
+   Never use "offset++" or "offset--" to move around the file.
+   (Although, I admit, I do it in with the hex dump code... - but only because I
+   made sure I'm using a byte offset, not character offset).
+
+A note about control characters (tab='\t', CR='\r', LF='\n'):
+The inputmodes modules NEVER translates these control characters.
+"gv_input_mode_get_utf8_char" will return these control characters without
+translating them, even if they can be translated to a valid UTF8 character
+(for example, when using CP437 encoding).
+Other modules which want to display the UTF8 equivalents of these control
+characters can use "gv_input_mode_byte_to_utf8" to get the actual UTF8 value.
+(See "text_render_display_line" in "text-render.c".)
+
+2.2.1.  CP437 encoding helpers (cp437.c)
+------------------------------------------
+Except Codepage 437, all inputmodes' convertions are made with "g_iconv".
+Codepage 437 (a.k.a IBM437, CP437) is the "terminal font" which is able to
+display graphic representation of the control characters (ASCII<32), and nice
+extended graphic characters (ASCII>128).
+I like it very much, it is useful for viewing binary files.
+I could not get g_iconv to translate characters correctly into this codepage.
+So I made special helper functions to make it work.
+(See "inputmode_ascii_activate" in "inputmodes.c").
+More details on CP437 can be found at "http://en.wikipedia.org/wiki/CP437".
+
+2.3.  Data presentation module(datapresentation.c)
+--------------------------------------------------
+The data presentation module is responsible for moving around the file,
+calculating the offsets of the start of the line and
+the end of the line.
+
+This modules tries to hide away the nasty details of line wrapping (but it only
+works for fixed-width fonts).
+
+The are several modes of calculations:
+ BIN_FIXED - The simplest mode. Uses fixed number of characters per line.
+ 	16 characters per line is used for HEXDUMPs.
+	20,40,80 characters per line are used for binary display.
+ NO_WRAP - Simple text mode. A line starts a offset 0, or at a CR/LF character.
+        A line ends at the next CR/LF, or at the end of the file.
+ WRAP    - More complex calculations to display text files with line wrapping.
+
+Note: The calculations are about number of CHARACTERS per line (it uses the
+Inputmode module for moving to the next and previous characters).
+BUT the return offsets from the functions are ALWAYS byte offsets in the file.
+
+2.4.  Scroll Box widget (scroll-box.c)
+--------------------------------------
+The ScrollBox widget is a simple composite widget.
+It packs a GtkTable, with two scroll bars (horizontal and vertical) and one
+"client" widget.
+The client widget should be connected to the GtkAdjustments of the scrollbars.
+This saves some work, because both the text-render and the image-render requires
+scroll bars with GtkAdjustments.
+
+2.5.  Text Render widget (text-render.c)
+----------------------------------------
+Text Rener the main text displaying widget.
+It uses fileops, inpumodes and datapresentation modules to handle the most of the
+text formatting.
+
+Three display modes are supported:
+* Text - normal text, with or without line wrapping.
+* Binary - fixed number of characters per line.
+* Hex Dump - regular hex dump, 16 bytes per line.
+
+Displaying and selecting text in the three display modes are implemented using
+function call backs (the functions are at the end of the file).
+
+The is some black voodoo there trying to block forbidden conbinations
+(Like UTF8 with Binary mode, or Line Wrapping with Variable width font).
+This should be fixed in future versions.
+
+Pango-ism:
+* character width is calculated in "get_max_char_width".
+
+* Pango fails to draw some valid UTF8 characters, and using
+  "text_render_filter_undisplayable_chars" we make sure they are not displayed.
+
+* Text-Render uses "char_type" to hold each UTF8 character (always 4 bytes),
+  But Pango wants real UTF8 strings (variable number of bytes per character).
+  "text_render_utf8_printf" and "text_render_utf8_print_char" take care of that.
+
+Signals:
+TextRender emits one signal (status changed), whenever the view is updated.
+
+
+2.6.  Image Render widget (image-render.c)
+------------------------------------------
+Image Render is a GdkPixBuf wrapper widget.
+(The GtkImage widget has some annoying behaviours, so I didn't use it, but
+maybe I just failed to utilize it correctly).
+
+This widget loads the entire file into memory (unlike the text-render widget).
+
+Read "image-render.h" to see possible operations (they are self-explainatory).
+
+Image loading process:
+1. upon "image_render_load_file", the file name is stored for later, and
+   nothing else happens.
+2. On the first "realize" event, the file is loaded in
+   "image_render_load_scaled_pixbuf" using "gdk_pixbuf_new_from_file_at_scale".
+   This is because "file_at_scale" is the fastest loader around.
+   The reason for the delayed loading (after the "realize") is because
+   "file_at_scale" requires a scale size (before "realize" the widget doesn't
+   have an allocated size).
+3. On the first "expose" event, a background thread is started, loading the file
+   (in "image_render_start_background_pixbuf_loading").
+4. On subsequent "expose" or "size_allocate", the atomic int "orig_pixbuf_loaded"
+   is checked to see if the background loader thread completed loading the image.
+   if not, the scaled image (from step 2) is displayed, regardless of the zoom mode.
+
+Image freeing details:
+If the user is very quick (and the image is very big), the viewer might be closed
+(by the user) before the background thread is finished. For better user-experience,
+"destroy" doesn't block until the thread is done.
+See "image_render_destroy" and "image_render_wait_for_loader_thread" for the
+messy details.
+
+Signals:
+ImageRender emits one signal (status changed), whenever the view is updated.
+
+2.7.  Viewer widget (viewer-widget.c)
+-------------------------------------
+ViewerWidget is a composite widget, which multiplexes a TextRender widget and
+an ImageRender widget into one, easy to use GtkWidget.
+
+See "viewer-widget.h" for possible operations.
+Switching between TextRender and ImageRender is done in "gviewer_set_display_mode".
+
+ViewerWidget catches the "status-changed" from both renderers, and combines them
+into one signal ("status-line-changed").
+
+
+2.8.  Viewer window (viewer-window.c)
+-------------------------------------
+ViewerWindot is a full-blown Top-Level GtkWindow, displaying a Viewer Widget,
+With user-friendly menu items.
+All operations on ViewerWidget/TextRender/ImageRender are possible from the menus.
+
+Extra features (on top of the ViewerWidget's features)
+* saves/loads user settings (position, wrapping, etc).
+* displays EXIF/IPTC information in a split screen in image display mode.
+
+One simple function "gviewer_window_file_view" can be used to create the window
+and load the file (including display mode autodetection).
+The function returns a "GtkWidget" (which is actually a GtkWindow).
+You need to "gtk_widget_show" the widget.
+You can also the the window's Icon.
+See "do_view_file" in "gnome-cmd-file.c" for an example.
+
+
+3. Module Testers
+-----------------
+Inside the "gviewer_test" sub-directory you'll find module testers, one for each
+module (as specified in section 2, above).
+
+The learn how to use each module, check the appropriate tester:
+
+3.1. test-fileops
+-----------------
+Uses the "fileops" module to load and display the file.
+Exactly like "cat".
+
+Run without command line parameters to see usage instructions.
+
+3.2. test-inputmodes
+--------------------
+Uses the "inputmodes" module (on top of "fileops") to load the file,
+and translate it from the requested charset to UTF8.
+Output is sent to stdout ALWAYS in UTF-8 (because the whole viewer library uses
+UTF8 internally).
+This is very similar to using "iconv" with "--to-code" set to UTF8.
+
+Run without command line parameters to see usage instructions.
+
+3.3. test-datapresentation
+---------------------------
+Uses "datapresentation" module to display the input file in various formats.
+Output format can be text (with or without wrapping), binary or hex.
+Input mode charset translation can also be specified.
+Output is sent to stdout.
+Run without command line parameters to see usage instructions.
+
+3.4. test-textrender
+--------------------
+Create a primitive GtkWindow and puts a TextRender widget in it.
+There is almost no user interface (menus and such), so you must set the options
+(display mode, charset encoding, wrapping etc) from the command line.
+Run without command line parameters to see usage instructions.
+
+3.5. test-imagerender
+---------------------
+Create a primitive GtkWindow and puts an ImageRender widget in it.
+There is almost no user interface (menus and alike), so you must set the options
+(scaling/best-fit) from the command line.
+Run without command line parameters to see usage instructions.
+
+3.6. test-viewerwidget
+----------------------
+Create a primitive GtkWindow and puts a Viewer widget in it.
+There is almost no user interface (menus and alike), so you must set the options
+(display mode, wrapping, scaling, etc.) from the command line.
+
+ViewerWidget combines TextRender and ImageRender widgets, so you can specify a
+display mode (Text/Binary/Hex/Image) or use auto detection.
+
+Run without command line parameters to see usage instructions.
+
+3.7. text-viewerwindow
+----------------------
+This is complete, stand-alone viewer window, with menus and everything.
+Specify a file to view on command line.
+
+4.  Using the internal viewer in your project
+---------------------------------------------
+
+4.1.  External Viewer Window
+----------------------------
+To include an external Viewer window in your project (meaning a new top level
+window will be displayed with the desired file), simply link with the libgviewer
+library,
+add
+"#include <libgviewer/libgviewer.h>"
+to your file, and call "gviewer_window_file_view" (don't forget "gtk_widget_show").
+See "test-viewerwindow.c" for a simple example.
+See "gnome-cmd-file.c" for an example with icon changing.
+
+4.2.  Embedding the Viewer Widget
+---------------------------------
+To embed a ViewerWidget inside your own window/widget, see the "test-viewerwidget"
+example code.
+The ViewerWidget doesn't include any user interface (menus and such), so you must
+add them yourself. See the source file "viewer-window.c" for a reference
+implementation of user interface relating to the viewer widget.
+
+4.3.  Using a single module
+---------------------------
+The best place to start is to look in the relevant module tester.
