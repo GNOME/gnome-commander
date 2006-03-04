@@ -75,8 +75,8 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 
 %changelog
 * Mon Feb 13 2006 Piotr Eljasiak <epiotr@use.pl>
-- Install @PACKAGE@ icon to %{_datadir}/pixmaps/
-- Install @PACKAGE@.1* to %{_mandir}/man1/
+- install @PACKAGE@ icon to %{_datadir}/pixmaps/
+- install @PACKAGE@.1* to %{_mandir}/man1/
 
 * Sat Feb 11 2006 Piotr Eljasiak <epiotr@use.pl>
 - set default srcext to .bz2

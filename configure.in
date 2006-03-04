@@ -1,13 +1,20 @@
-AC_INIT(src/gnome-cmd-includes.h)
+AC_INIT(gnome-commander, 1.2.0-pre, http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander)
+AC_CONFIG_SRCDIR(src/gnome-cmd-includes.h)
+AC_CONFIG_MACRO_DIR([m4])
+
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+
+AM_MAINTAINER_MODE
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(gnome-commander, 1.2.0-pre)
+
 AC_PROG_CC
 AC_PROG_CPP
 AM_PROG_LEX
 AM_PROG_LIBTOOL
-AC_PROG_INTLTOOL		
-AM_MAINTAINER_MODE
+AC_PROG_INTLTOOL([0.31])
 
+dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
+AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS -I m4")
 
 
 dnl ===================
@@ -18,7 +25,6 @@ GETTEXT_PACKAGE=gnome-commander
 AC_SUBST(GETTEXT_PACKAGE)
 ALL_LINGUAS="ca cs de el en_CA en_GB es eu fr ga hr hu nb ne nl no pa pl pt pt_BR ru rw sk sq sr sr@Latn sv uk zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
-
 
 		
 dnl ===================
@@ -235,6 +241,7 @@ echo "The following settings will be used:"
 echo ""
 echo "  prefix         : ${prefix}"
 echo "  module support : ${GMODULE_AVAIL}"
+echo "  compiler       : ${CC}"
 echo "  CFLAGS         : ${CFLAGS}"
 echo "  LDFLAGS        : ${LDFLAGS}"
 echo ""
