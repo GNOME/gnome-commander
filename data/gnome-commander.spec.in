@@ -33,6 +33,7 @@ BuildRequires: gnome-vfs2-devel >= 2.0
 Requires:      libgnomeui >= 2.0
 BuildRequires: libgnomeui-devel >= 2.0
 BuildRequires: intltool
+BuildRequires: gnome-doc-utils >= 0.3.2
 
 Distribution:  Any
 
@@ -62,18 +63,23 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING INSTALL NEWS README TODO doc/*.txt doc/*.png
+%doc AUTHORS ChangeLog COPYING INSTALL NEWS README TODO doc/*.txt
 %doc %{_mandir}/man1/@PACKAGE@.1*
 %{_bindir}/*
 %{_libdir}/@PACKAGE@/lib*
 %{_libdir}/@PACKAGE@/plugins/lib*
 %{_datadir}/applications/@PACKAGE@.desktop
+%{_datadir}/gnome/help/@PACKAGE@/*
+%{_datadir}/omf/*
 %{_datadir}/pixmaps/@PACKAGE@.png
 %{_datadir}/pixmaps/@PACKAGE@/*.xpm
 %{_datadir}/pixmaps/@PACKAGE@/*/*.png
 %{_datadir}/pixmaps/@PACKAGE@/*/*.xpm
 
 %changelog
+* Thu Mar 5 2006 Piotr Eljasiak <epiotr@use.pl>
+- added OMF files
+
 * Mon Feb 13 2006 Piotr Eljasiak <epiotr@use.pl>
 - install @PACKAGE@ icon to %{_datadir}/pixmaps/
 - install @PACKAGE@.1* to %{_mandir}/man1/

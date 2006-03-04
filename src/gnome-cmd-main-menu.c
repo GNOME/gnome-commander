@@ -737,14 +737,14 @@ init (GnomeCmdMainMenu *main_menu)
     MenuData help_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("User _Manual..."), "F1", NULL,
+            MENU_TYPE_ITEM, _("_Contents"), "F1", NULL,
             help_help, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BOOK_RED,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_HELP,
             NULL
         },
         MENUTYPE_SEPARATOR,
         {
-            MENU_TYPE_ITEM, _("_About..."), "", NULL,
+            MENU_TYPE_ITEM, _("_About"), "", NULL,
             help_about, NULL,
             GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ABOUT,
             NULL
