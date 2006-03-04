@@ -1260,7 +1260,7 @@ create_programs_tab (GtkWidget *parent)
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     clist = gtk_object_get_data (GTK_OBJECT (parent), "app_clist");
-    for ( apps = gnome_cmd_data_get_fav_apps (); app; apps = apps->next )
+    for ( apps = gnome_cmd_data_get_fav_apps (); apps ; apps = apps->next )
         add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp*)apps->data);
 
     return frame;
