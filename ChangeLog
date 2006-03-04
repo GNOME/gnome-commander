@@ -6,6 +6,9 @@
 	* doc/internal_viewer_hacking.txt:
         Added new file
 
+	* tests/gviewer/*:
+        Added tests of libgviewer
+
 2006-02-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-options-dialog.c:
