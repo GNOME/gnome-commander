@@ -228,6 +228,9 @@ plugins/Makefile
 plugins/test/Makefile
 po/Makefile.in
 src/Makefile
+src/libgviewer/Makefile
+tests/Makefile
+tests/gviewer/Makefile
 README
 ])
 

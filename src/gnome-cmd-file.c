@@ -28,7 +28,7 @@
 #include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-xfer.h"
-#include "gnome-cmd-internal-viewer.h"
+#include "libgviewer/libgviewer.h"
 
 #define MAX_TYPE_LENGTH 2
 #define MAX_NAME_LENGTH 128
@@ -713,10 +713,15 @@ do_view_file (const gchar *path)
 {
     gchar *arg;
     gchar *command;
+    GViewer *viewer;
 
     if (gnome_cmd_data_get_use_internal_viewer()) {
         arg = gnome_vfs_unescape_string (path, NULL);
-        do_internal_file_view(arg);
+        viewer = gviewer_window_file_view(arg,NULL);
+        gtk_widget_show(GTK_WIDGET(viewer));
+        gdk_window_set_icon (GTK_WIDGET(viewer)->window, NULL,
+                             IMAGE_get_pixmap (PIXMAP_LOGO),
+                             IMAGE_get_mask (PIXMAP_LOGO));
         g_free(arg);
     }
     else {

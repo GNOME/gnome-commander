@@ -1,5 +1,11 @@
 2006-03-04  Assaf Gordon  <agordon88@gmail.com>
 
+	* src/libgviewer:
+        Reworked internal viewer plus new features:
+        external tools and EXIF/IPTC tags viewer
+
+2006-03-04  Assaf Gordon  <agordon88@gmail.com>
+
 	* src/gnome-cmd-options-dialog.c:
         Fix typo.
 

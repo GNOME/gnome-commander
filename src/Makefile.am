@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+SUBDIRS = libgviewer
+
 AM_CPPFLAGS = -Wall \
 	-I$(top_srcdir) \
 	$(GNOMEUI_CFLAGS) \
@@ -73,13 +75,13 @@ gnome_commander_SOURCES = \
 	gnome-cmd-search-dialog.h gnome-cmd-search-dialog.c \
 	gnome-cmd-style.h gnome-cmd-style.c \
 	gnome-cmd-xfer.h gnome-cmd-xfer.c \
-	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.c \
-	gnome-cmd-internal-viewer.c gnome-cmd-internal-viewer.h
+	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.c
 
 gnome_commander_LDADD = \
 	$(GNOMEUI_LIBS) \
 	$(GNOMEVFS_LIBS) \
-	$(top_builddir)/libgcmd/libgcmd.la
+	$(top_builddir)/libgcmd/libgcmd.la \
+	$(top_builddir)/src/libgviewer/libgviewer.la
 
 gnome_commander_LDFLAGS = \
 	$(GNOMEUI_LIBS) \

@@ -1,6 +1,6 @@
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = libgcmd src plugins po pixmaps doc data
+SUBDIRS = libgcmd src plugins po pixmaps doc data tests
 
 distuninstallcheck_listfiles = find . -type f -print | grep -v scrollkeeper
 

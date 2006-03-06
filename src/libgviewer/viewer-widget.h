@@ -1,0 +1,99 @@
+/*
+ * Unknown (c) 2006
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the Free
+ * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+#ifndef __GVIEWER_H__
+#define __GVIEWER_H__
+
+G_BEGIN_DECLS
+
+#define GVIEWER(obj)          GTK_CHECK_CAST (obj, gviewer_get_type (), GViewer)
+#define GVIEWER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_get_type (), GViewerClass)
+#define IS_GVIEWER(obj)       GTK_CHECK_TYPE (obj, gviewer_get_type ())
+
+typedef struct _GViewer       	GViewer;
+typedef struct _GViewerPrivate	GViewerPrivate;
+typedef struct _GViewerClass  	GViewerClass;
+
+typedef enum {
+	DISP_MODE_TEXT_FIXED,
+	DISP_MODE_BINARY,
+	DISP_MODE_HEXDUMP,
+	DISP_MODE_IMAGE
+} VIEWERDISPLAYMODE ;
+
+struct _GViewer
+{
+	GtkTable table;
+	GViewerPrivate *priv;
+};
+
+struct _GViewerClass
+{
+	GtkTableClass parent_class;
+	void (*status_line_changed)  (GViewer *obj, const gchar *statusline);
+};
+
+GtkWidget*     gviewer_new	(void);
+GtkType        gviewer_get_type        (void);
+void	       gviewer_set_client ( GViewer *obj, GtkWidget* client);
+GtkWidget*     gviewer_get_client ( GViewer *obj ) ;
+
+GtkAdjustment* gviewer_get_h_adjustment (GViewer *obj);
+void           gviewer_set_h_adjustment (GViewer *obj, GtkAdjustment *adjustment);
+GtkAdjustment* gviewer_get_v_adjustment (GViewer *obj);
+void           gviewer_set_v_adjustment (GViewer *obj, GtkAdjustment *adjustment);
+
+void	       gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode);
+VIEWERDISPLAYMODE gviewer_get_display_mode(GViewer *obj);
+
+void 	       gviewer_load_file(GViewer *obj, const gchar* filename);
+void 	       gviewer_load_filedesc(GViewer *obj, int fd);
+const gchar*   gviewer_get_filename(GViewer *obj);
+
+/* Text Render related settings */
+void		gviewer_set_tab_size(GViewer *obj, int tab_size);
+int		gviewer_get_tab_size(GViewer *obj);
+
+void		gviewer_set_wrap_mode(GViewer *obj, gboolean ACTIVE);
+gboolean	gviewer_get_wrap_mode(GViewer *obj);
+
+void		gviewer_set_fixed_limit(GViewer *obj, int fixed_limit);
+int		gviewer_get_fixed_limit(GViewer *obj);
+
+void		gviewer_set_encoding(GViewer *obj, const char* encoding);
+const gchar*	gviewer_get_encoding(GViewer *obj);
+
+void		gviewer_set_hex_offset_display(GViewer *obj, gboolean HEX_OFFSET);
+gboolean        gviewer_get_hex_offset_display(GViewer *obj);
+
+void		gviewer_set_font_size(GViewer *obj, int font_size);
+int             gviewer_get_font_size(GViewer *obj);
+
+/* Image Render related Settings */
+void	       gviewer_set_best_fit(GViewer *obj, gboolean active);
+gboolean       gviewer_get_best_fit(GViewer *obj);
+
+void	       gviewer_set_scale_factor(GViewer *obj, double scalefactor);
+double         gviewer_get_scale_factor(GViewer *obj);
+
+void           gviewer_image_operation(GViewer *obj, IMAGEOPERATION op);
+void           gviewer_copy_selection(GViewer *obj);
+
+G_END_DECLS
+
+#endif /* __GVIEWER_H__ */
