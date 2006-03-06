@@ -1,3 +1,5 @@
+#include <config.h>
+
 /*
  note: this file is "#include-d" in "inputmodes.c".
  It is not compiled by itself.
