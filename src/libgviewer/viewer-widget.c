@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
@@ -5,7 +7,9 @@
 
 #include <gtk/gtk.h>
 #include <gtk/gtktable.h>
+
 #include <libgnomevfs/gnome-vfs.h>
+
 #include "libgviewer.h"
 
 #define DEFAULT_TAB_SIZE 8
@@ -174,7 +178,7 @@ static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status
 	g_return_if_fail (status!=NULL);
 	
 	g_snprintf(temp,MAX_STATUS_LENGTH,
-		"Position: %lu of %lu\tColumn: %d\t%s",
+		_("Position: %lu of %lu\tColumn: %d\t%s"),
 		(unsigned long)status->current_offset,
 		(unsigned long)status->size,
 		status->column,
@@ -198,7 +202,7 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *sta
 			(int)(status->scale_factor*100.0));
 	}
 	g_snprintf(temp,MAX_STATUS_LENGTH,
-		"Image Size: %dx%d\tBits/Sample: %d\tZoom: %s",
+		_("Image size: %dx%d\tBits/sample: %d\tZoom: %s"),
 		status->image_width,status->image_height,status->bits_per_sample,
 		status->best_fit?"Fit-to-Window":scale);
 	

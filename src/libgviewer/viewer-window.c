@@ -1,3 +1,5 @@
+#include <config.h>
+
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
@@ -108,14 +110,12 @@ static void menu_edit_copy(GtkMenuItem *item, GViewerWindow *obj) ;
 static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj) ;
 static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj) ;
 static void menu_view_set_charset(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_view_larger_font(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_view_smaller_font(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_view_zoom_in(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_view_zoom_out(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_view_zoom_normal(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_view_zoom_best_fit(GtkMenuItem *item, GViewerWindow *obj) ;
 
 static void menu_image_operation(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_image_zoom_in(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_image_zoom_out(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_image_zoom_normal(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_image_zoom_best_fit(GtkMenuItem *item, GViewerWindow *obj) ;
 
 static void menu_settings_binary_bytes_per_line(GtkMenuItem *item, GViewerWindow *obj) ;
 static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *obj) ;
@@ -125,6 +125,13 @@ static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *obj) ;
 static void menu_help_quick_help(GtkMenuItem *item, GViewerWindow *obj) ;
 static void menu_help_about(GtkMenuItem *item, GViewerWindow *obj) ;
 #endif
+
+
+static void set_zoom_in(GViewerWindow *obj) ;
+static void set_zoom_out(GViewerWindow *obj) ;
+static void set_zoom_normal(GViewerWindow *obj) ;
+static void set_zoom_best_fit(GViewerWindow *obj) ;
+
 
 /*****************************************
 	public functions
@@ -466,6 +473,19 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 		}
 	}
 	
+	switch (event->keyval) {
+	case GDK_plus:
+	case GDK_KP_Add:
+	case GDK_equal:
+	   set_zoom_in(w);
+	   return TRUE;
+
+	case GDK_minus:
+	case GDK_KP_Subtract:
+	   set_zoom_out(w);
+	   return TRUE;
+	}
+	
 	return FALSE;
 }
 
@@ -722,7 +742,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 	GtkWidget *int_viewer_menu;
 	GtkWidget *submenu;
 
-	MENU_ITEM_DATA file_menu_items[2] = {
+	MENU_ITEM_DATA file_menu_items[] = {
 		{MI_NORMAL,_("_Close"),GDK_Escape,NO_MODIFIER,
 				G_CALLBACK(menu_file_close),
 				GNOME_APP_PIXMAP_STOCK,GNOME_STOCK_MENU_CLOSE,
@@ -731,23 +751,44 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 	};
 
 	GSList *view_mode_list = NULL ;
-	MENU_ITEM_DATA view_menu_items[6] = {
-		{MI_RADIO,_("Text"),GDK_1,NO_MODIFIER,G_CALLBACK(menu_view_display_mode),
+	MENU_ITEM_DATA view_menu_items[] = {
+		{MI_RADIO,_("_Text"),GDK_1,NO_MODIFIER,G_CALLBACK(menu_view_display_mode),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
 				G_OBJ_DISPMODE_KEY,(gpointer)DISP_MODE_TEXT_FIXED,
 				NO_MENU_ITEM,&view_mode_list},
-		{MI_RADIO,_("Binary"),GDK_2,NO_MODIFIER,G_CALLBACK(menu_view_display_mode),
+		{MI_RADIO,_("_Binary"),GDK_2,NO_MODIFIER,G_CALLBACK(menu_view_display_mode),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
 				G_OBJ_DISPMODE_KEY,(gpointer)DISP_MODE_BINARY,
 				NO_MENU_ITEM,&view_mode_list},
-		{MI_RADIO,_("Hex dump"),GDK_3,NO_MODIFIER,G_CALLBACK(menu_view_display_mode),
+		{MI_RADIO,_("_Hex dump"),GDK_3,NO_MODIFIER,G_CALLBACK(menu_view_display_mode),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
 				G_OBJ_DISPMODE_KEY,(gpointer)DISP_MODE_HEXDUMP,
 				NO_MENU_ITEM,&view_mode_list},
-		{MI_RADIO,_("Image"),GDK_4,NO_MODIFIER,G_CALLBACK(menu_view_display_mode),
+		{MI_RADIO,_("_Image"),GDK_4,NO_MODIFIER,G_CALLBACK(menu_view_display_mode),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
 				G_OBJ_DISPMODE_KEY,(gpointer)DISP_MODE_IMAGE,
 				NO_MENU_ITEM,&view_mode_list},
+		{MI_SEPERATOR},
+		{MI_NORMAL,_("_Zoom In"),GDK_plus,GDK_CONTROL_MASK,
+				G_CALLBACK(menu_view_zoom_in),
+				GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ZOOM_IN,
+				NO_GOBJ_KEY,NO_GOBJ_VAL,
+				NO_MENU_ITEM,NO_GSLIST},
+		{MI_NORMAL,_("Zoom _Out"),GDK_minus,GDK_CONTROL_MASK,
+				G_CALLBACK(menu_view_zoom_out),
+				GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ZOOM_OUT,
+				NO_GOBJ_KEY,NO_GOBJ_VAL,
+				NO_MENU_ITEM,NO_GSLIST},
+		{MI_NORMAL,_("_Normal Size"),GDK_0,GDK_CONTROL_MASK,
+				G_CALLBACK(menu_view_zoom_normal),
+				GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ZOOM_100,
+				NO_GOBJ_KEY,NO_GOBJ_VAL,
+				NO_MENU_ITEM,NO_GSLIST},
+		{MI_NORMAL,_("Best _Fit"),NO_KEYVAL,NO_MODIFIER,
+				G_CALLBACK(menu_view_zoom_best_fit),
+				GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ZOOM_FIT,
+				NO_GOBJ_KEY,NO_GOBJ_VAL,
+				NO_MENU_ITEM,NO_GSLIST},
 		{MI_NONE}
 	};
 	
@@ -756,7 +797,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 #ifdef EXTERNAL_TOOLS				
 	GSList *text_parser_list = NULL ;
 #endif
-	MENU_ITEM_DATA text_menu_items[13] = {
+	MENU_ITEM_DATA text_menu_items[] = {
 		{MI_NORMAL,_("_Copy Text Selection"),GDK_C,GDK_CONTROL_MASK,
 				G_CALLBACK(menu_edit_copy),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
@@ -792,17 +833,6 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
 				NO_GOBJ_KEY,NO_GOBJ_VAL,
 				&encoding_submenu,NO_GSLIST},
-		{MI_SEPERATOR},
-		{MI_NORMAL, _("_Larger Font"), GDK_equal, NO_MODIFIER,
-				G_CALLBACK(menu_view_larger_font),
-				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
-				NO_GOBJ_KEY,NO_GOBJ_VAL,
-				NO_MENU_ITEM,NO_GSLIST},
-		{MI_NORMAL, _("_Smaller Font"), GDK_minus, NO_MODIFIER,
-				G_CALLBACK(menu_view_smaller_font),
-				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
-				NO_GOBJ_KEY,NO_GOBJ_VAL,
-				NO_MENU_ITEM,NO_GSLIST},
 		{MI_NONE}
 	};
 
@@ -813,7 +843,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 	NO_MENU_ITEM, &text_encoding_list}
 	
 	GSList *text_encoding_list = NULL ;
-	MENU_ITEM_DATA encoding_menu_items[23] = {
+	MENU_ITEM_DATA encoding_menu_items[] = {
 		ENCODING_MENU_ITEM("_UTF-8", 			GDK_u,"UTF8"),
 		ENCODING_MENU_ITEM("English (US-_ASCII)",	GDK_a,"ASCII"),
 		ENCODING_MENU_ITEM("Terminal (CP437)", 	        GDK_q,"CP437"),
@@ -839,77 +869,56 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 		{MI_NONE}
 	};
 
-	MENU_ITEM_DATA image_menu_items[13] = {
-		{MI_CHECK,_("Show _EXIF/IPTC Information"),GDK_e,NO_MODIFIER,
+	MENU_ITEM_DATA image_menu_items[] = {
+		{MI_CHECK,_("_Show EXIF/IPTC Information"),GDK_e,NO_MODIFIER,
 				G_CALLBACK(menu_view_exif_information),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
 				NO_GOBJ_KEY,NO_GOBJ_VAL,
 				NO_MENU_ITEM,NO_GSLIST},
 		{MI_SEPERATOR},
-		{MI_NORMAL,_("Rotate Clockwise"),GDK_R,GDK_CONTROL_MASK,
+		{MI_NORMAL,_("_Rotate Clockwise"),GDK_R,GDK_CONTROL_MASK,
 				G_CALLBACK(menu_image_operation),
 				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/rotate-90-16.xpm",
 				G_OBJ_IMAGE_OP_KEY,(gpointer)ROTATE_CLOCKWISE,
 				NO_MENU_ITEM,NO_GSLIST},
-		{MI_NORMAL,_("Rotate Counter Clockwise"),NO_KEYVAL,NO_MODIFIER,
+		{MI_NORMAL,_("Rotate Counter Clockwis_e"),NO_KEYVAL,NO_MODIFIER,
 				G_CALLBACK(menu_image_operation),
 				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/rotate-270-16.xpm",
 				G_OBJ_IMAGE_OP_KEY,(gpointer)ROTATE_COUNTERCLOCKWISE,
 				NO_MENU_ITEM,NO_GSLIST},
-		{MI_NORMAL,_("Rotate 180\xC2\xB0"),GDK_r,GDK_CONTROL_MASK | GDK_SHIFT_MASK,
+		{MI_NORMAL,_("_Rotate 180\xC2\xB0"),GDK_r,GDK_CONTROL_MASK | GDK_SHIFT_MASK,
 				G_CALLBACK(menu_image_operation),
 				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/rotate-180-16.xpm",
 				G_OBJ_IMAGE_OP_KEY,(gpointer)ROTATE_UPSIDEDOWN,
 				NO_MENU_ITEM,NO_GSLIST},
-		{MI_NORMAL,_("Flip Vertical"),NO_KEYVAL,NO_MODIFIER,
+		{MI_NORMAL,_("Flip _Vertical"),NO_KEYVAL,NO_MODIFIER,
 				G_CALLBACK(menu_image_operation),
 				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/flip-vertical-16.xpm",
 				G_OBJ_IMAGE_OP_KEY,(gpointer)FLIP_VERTICAL,
 				NO_MENU_ITEM,NO_GSLIST},
-		{MI_NORMAL,_("Flip Horizontal"),NO_KEYVAL,NO_MODIFIER,
+		{MI_NORMAL,_("Flip _Horizontal"),NO_KEYVAL,NO_MODIFIER,
 				G_CALLBACK(menu_image_operation),
 				GNOME_APP_PIXMAP_FILENAME, "gnome-commander/flip-horizontal-16.xpm",
 				G_OBJ_IMAGE_OP_KEY,(gpointer)FLIP_HORIZONTAL,
-				NO_MENU_ITEM,NO_GSLIST},
-		{MI_SEPERATOR},
-		{MI_NORMAL,_("Zoom in"),GDK_plus,GDK_CONTROL_MASK,
-				G_CALLBACK(menu_image_zoom_in),
-				GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ZOOM_IN,
-				NO_GOBJ_KEY,NO_GOBJ_VAL,
-				NO_MENU_ITEM,NO_GSLIST},
-		{MI_NORMAL,_("Zoom out"),GDK_minus,GDK_CONTROL_MASK,
-				G_CALLBACK(menu_image_zoom_out),
-				GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ZOOM_OUT,
-				NO_GOBJ_KEY,NO_GOBJ_VAL,
-				NO_MENU_ITEM,NO_GSLIST},
-		{MI_NORMAL,_("Normal Size"),GDK_equal,GDK_CONTROL_MASK,
-				G_CALLBACK(menu_image_zoom_normal),
-				GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ZOOM_100,
-				NO_GOBJ_KEY,NO_GOBJ_VAL,
-				NO_MENU_ITEM,NO_GSLIST},
-		{MI_NORMAL,_("Best Fit"),NO_KEYVAL,NO_MODIFIER,
-				G_CALLBACK(menu_image_zoom_best_fit),
-				GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ZOOM_FIT,
-				NO_GOBJ_KEY,NO_GOBJ_VAL,
 				NO_MENU_ITEM,NO_GSLIST},
 		{MI_NONE}
 	};
 
 	GtkWidget* binary_mode_settings_submenu = NULL ;
-	MENU_ITEM_DATA settings_menu_items[5] = {
+	MENU_ITEM_DATA settings_menu_items[] = {
 		{MI_SUBMENU, _("_Binary Mode"), NO_KEYVAL, NO_MODIFIER,
 				G_CALLBACK(NULL),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
 				NO_GOBJ_KEY,NO_GOBJ_VAL,
 				&binary_mode_settings_submenu,NO_GSLIST},
 				
-		{MI_CHECK,_("Decimal Offset in Hexdump"),GDK_d,GDK_CONTROL_MASK,
+		{MI_CHECK,_("_Decimal Offset in Hexdump"),GDK_d,GDK_CONTROL_MASK,
 				G_CALLBACK(menu_settings_hex_decimal_offset),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
 				NO_GOBJ_KEY,NO_GOBJ_VAL,
 				&obj->priv->hex_offset_menu_item,NO_GSLIST},
 		{MI_SEPERATOR},
-		{MI_NORMAL,_("Save Current Settings"),GDK_s,GDK_CONTROL_MASK,
+		{MI_NORMAL,_("_Save Current Settings"),GDK_s,GDK_CONTROL_MASK,
 				G_CALLBACK(menu_settings_save_settings),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
 				NO_GOBJ_KEY,NO_GOBJ_VAL,
@@ -918,7 +927,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 	};
 
 	GSList *binmode_chars_per_line_list = NULL ;
-	MENU_ITEM_DATA binmode_settings_menu_items[4] = {
+	MENU_ITEM_DATA binmode_settings_menu_items[] = {
 		{MI_RADIO,_("_20 chars/line"),GDK_2, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
 				G_CALLBACK(menu_settings_binary_bytes_per_line),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
@@ -938,7 +947,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 	};
 	
 #ifdef HAVE_HELP_ABOUT
-	MENU_ITEM_DATA help_menu_items[3] = {
+	MENU_ITEM_DATA help_menu_items[] = {
 		{MI_NORMAL,_("Quick Help"),GDK_F1,NO_MODIFIER,
 				G_CALLBACK(menu_help_quick_help),
 				NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
@@ -1093,57 +1102,24 @@ static void menu_image_operation(GtkMenuItem *item, GViewerWindow *obj)
 	gtk_widget_draw(GTK_WIDGET(obj->priv->viewer),NULL);
 }
 
-static void menu_image_zoom_in(GtkMenuItem *item, GViewerWindow *obj)
+static void menu_view_zoom_in(GtkMenuItem *item, GViewerWindow *obj)
 {
-	g_return_if_fail(obj);
-	g_return_if_fail(obj->priv->viewer);
-	
-	gviewer_set_best_fit(obj->priv->viewer,FALSE);
-	
-	if (obj->priv->current_scale_index<MAX_SCALE_FACTOR_INDEX-1)
-		obj->priv->current_scale_index++ ;
-	
-	if (gviewer_get_scale_factor(obj->priv->viewer) ==
-		image_scale_factors[obj->priv->current_scale_index])
-		return;
-	
-	gviewer_set_scale_factor(obj->priv->viewer,
-		image_scale_factors[obj->priv->current_scale_index] ) ;
+	set_zoom_in(obj);
 }
 
-static void menu_image_zoom_out(GtkMenuItem *item, GViewerWindow *obj)
+static void menu_view_zoom_out(GtkMenuItem *item, GViewerWindow *obj)
 {
-	g_return_if_fail(obj);
-	g_return_if_fail(obj->priv->viewer);
-	
-	gviewer_set_best_fit(obj->priv->viewer,FALSE);
-	
-	if (obj->priv->current_scale_index>0)
-		obj->priv->current_scale_index-- ;
-	
-	if (gviewer_get_scale_factor(obj->priv->viewer) ==
-		image_scale_factors[obj->priv->current_scale_index])
-		return;
-	
-	gviewer_set_scale_factor(obj->priv->viewer,
-		image_scale_factors[obj->priv->current_scale_index] ) ;
+	set_zoom_out(obj);
 }
 
-static void menu_image_zoom_normal(GtkMenuItem *item, GViewerWindow *obj)
+static void menu_view_zoom_normal(GtkMenuItem *item, GViewerWindow *obj)
 {
-	g_return_if_fail(obj);
-	g_return_if_fail(obj->priv->viewer);
-	
-	gviewer_set_best_fit(obj->priv->viewer,FALSE);
-	gviewer_set_scale_factor(obj->priv->viewer,1 ) ;
+	set_zoom_normal(obj);
 }
 
-static void menu_image_zoom_best_fit(GtkMenuItem *item, GViewerWindow *obj)
+static void menu_view_zoom_best_fit(GtkMenuItem *item, GViewerWindow *obj)
 {
-	g_return_if_fail(obj);
-	g_return_if_fail(obj->priv->viewer);
-	
-	gviewer_set_best_fit(obj->priv->viewer,TRUE);
+	set_zoom_best_fit(obj);
 }
 
 
@@ -1188,40 +1164,6 @@ static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj)
 		gtk_widget_draw(GTK_WIDGET(obj->priv->exif_viewer),NULL);
 	}
 }
-
-static void menu_view_larger_font(GtkMenuItem *item, GViewerWindow *obj)
-{
-	int size ;
-	
-	g_return_if_fail(obj);
-	g_return_if_fail(obj->priv->active_viewer);
-	
-	size = gviewer_get_font_size(obj->priv->active_viewer);
-	if (size==0)
-		return;
-	if (size>32)
-		return;
-	size++;
-	gviewer_set_font_size(obj->priv->active_viewer,size);
-}
-
-
-static void menu_view_smaller_font(GtkMenuItem *item, GViewerWindow *obj)
-{
-	int size ;
-	
-	g_return_if_fail(obj);
-	g_return_if_fail(obj->priv->active_viewer);
-	
-	size = gviewer_get_font_size(obj->priv->active_viewer);
-	if (size==0)
-		return;
-	if (size<4)
-		return;
-	size--;
-	gviewer_set_font_size(obj->priv->active_viewer,size);
-}
-
 
 
 static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *obj)
@@ -1523,4 +1465,122 @@ static void gviewer_window_hide_exif_viewer(GViewerWindow *obj)
 	gtk_widget_grab_focus(GTK_WIDGET(obj->priv->viewer));
 	
 	obj->priv->active_viewer = obj->priv->viewer;
+}
+
+
+static void set_zoom_in(GViewerWindow *obj)
+{
+	g_return_if_fail(obj);
+	g_return_if_fail(obj->priv->viewer);
+	
+    switch (gviewer_get_display_mode(obj->priv->viewer)) {
+    case DISP_MODE_TEXT_FIXED:
+    case DISP_MODE_BINARY:
+    case DISP_MODE_HEXDUMP:
+        {
+	       int size = gviewer_get_font_size(obj->priv->active_viewer);
+
+           if (size==0 || size>32)  return;
+           
+	       size++;
+       	   gviewer_set_font_size(obj->priv->active_viewer,size);
+        }    
+        break;
+        
+    case DISP_MODE_IMAGE:
+       {
+	       gviewer_set_best_fit(obj->priv->viewer,FALSE);
+	
+	       if (obj->priv->current_scale_index<MAX_SCALE_FACTOR_INDEX-1)
+		      obj->priv->current_scale_index++ ;
+	
+	       if (gviewer_get_scale_factor(obj->priv->viewer) ==
+		       image_scale_factors[obj->priv->current_scale_index])
+		      return;
+	
+	       gviewer_set_scale_factor(obj->priv->viewer,
+		      image_scale_factors[obj->priv->current_scale_index] ) ;
+       }
+	   break;
+	   
+    default:
+        break;
+    }
+}
+
+
+static void set_zoom_out(GViewerWindow *obj)
+{
+	g_return_if_fail(obj);
+	g_return_if_fail(obj->priv->viewer);
+	
+	
+    switch (gviewer_get_display_mode(obj->priv->viewer)) {
+    case DISP_MODE_TEXT_FIXED:
+    case DISP_MODE_BINARY:
+    case DISP_MODE_HEXDUMP:
+        {
+	       int size = gviewer_get_font_size(obj->priv->active_viewer);
+
+           if (size==0 || size<4)  return;
+           
+	       size--;
+	       gviewer_set_font_size(obj->priv->active_viewer,size);
+        }    
+        break;
+        
+    case DISP_MODE_IMAGE:
+       {
+	       gviewer_set_best_fit(obj->priv->viewer,FALSE);
+	
+	       if (obj->priv->current_scale_index>0)
+		       obj->priv->current_scale_index-- ;
+	
+	       if (gviewer_get_scale_factor(obj->priv->viewer) ==
+		      image_scale_factors[obj->priv->current_scale_index])
+		      return;
+	
+	       gviewer_set_scale_factor(obj->priv->viewer,
+		      image_scale_factors[obj->priv->current_scale_index] ) ;
+       }
+	   break;
+	   
+    default:
+        break;
+    }
+}
+
+
+static void set_zoom_normal(GViewerWindow *obj)
+{
+	g_return_if_fail(obj);
+	g_return_if_fail(obj->priv->viewer);
+	
+    switch (gviewer_get_display_mode(obj->priv->viewer)) {
+    case DISP_MODE_TEXT_FIXED:
+    case DISP_MODE_BINARY:
+    case DISP_MODE_HEXDUMP:
+       /* needs to completed with resetting to default font size */
+	   break;
+	   
+    case DISP_MODE_IMAGE:
+	   gviewer_set_best_fit(obj->priv->viewer,FALSE);
+	   gviewer_set_scale_factor(obj->priv->viewer,1 ) ;
+	   break;
+	   
+    default:
+        break;
+    }
+}
+
+
+static void set_zoom_best_fit(GViewerWindow *obj)
+{
+	g_return_if_fail(obj);
+	g_return_if_fail(obj->priv->viewer);
+	
+	if (gviewer_get_display_mode(obj->priv->viewer)!=DISP_MODE_IMAGE)
+	   return;
+	
+	gviewer_set_best_fit(obj->priv->viewer,TRUE);
 }

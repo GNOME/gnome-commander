@@ -1,4 +1,9 @@
-2006-03-04  Assaf Gordon  <agordon88@gmail.com>
+2006-03-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/libgviewer/viewer-window.c:
+        Minor int viewer navigation cleanup.
+
+2006-03-05  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/libgviewer:
         Reworked internal viewer plus new features:
