@@ -1,5 +1,3 @@
-#define HAVE_MMAP
-
 #include <config.h>
 
 #include <glib.h>

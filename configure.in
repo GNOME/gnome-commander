@@ -169,6 +169,13 @@ fi
 
 
 
+dnl =============================
+dnl Checks for library functions.
+dnl =============================
+
+AC_FUNC_MMAP
+
+
 dnl =====================
 dnl Set stuff in config.h
 dnl =====================
@@ -263,4 +270,3 @@ echo ""
 echo ""
 echo "Type 'make' to compile and then 'make install' to install"
 echo ""
-	

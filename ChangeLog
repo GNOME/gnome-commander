@@ -3,6 +3,10 @@
 	* src/libgviewer/viewer-window.c:
         Minor int viewer navigation cleanup.
 
+	* configue.in:
+	* src/libgviewer/fileops.c:
+        Used HAVE_MMAP from autoconf check
+
 2006-03-05  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/libgviewer:
