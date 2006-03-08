@@ -1629,7 +1629,8 @@ create_devices_tab (GtkWidget *parent)
 
     clist = gtk_object_get_data (GTK_OBJECT (parent), "device_clist");
     for ( devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data_get_con_list ()); devices; devices = devices->next )
-        add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));
+	    if (!gnome_cmd_con_device_get_autovol(devices->data))
+		add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));
 
     return frame;
 }

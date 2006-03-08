@@ -312,6 +312,11 @@ destroy (GtkObject *object)
 {
     GnomeCmdConDevice *con = GNOME_CMD_CON_DEVICE (object);
 
+    if (con->priv->vfsvol) {
+	gnome_vfs_volume_unref(con->priv->vfsvol);
+	con->priv->vfsvol = NULL ;
+    }
+    
     g_free (con->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)

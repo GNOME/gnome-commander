@@ -341,6 +341,13 @@ vfs_is_uri_local(const char* uri)
 
     b = gnome_vfs_uri_is_local(pURI);
     gnome_vfs_uri_unref(pURI);
+    
+    /* make sure this is actually a local path
+           (gnome treats "burn://" as local, too and we don't want that)  */
+    if (g_strncasecmp(uri,"file:/", 6)!=0)
+	    b = FALSE ;
+    
+    DEBUG('m',"uri (%s) is %slocal\n", uri, b?"":"NOT ");
 
     return b;
 }
@@ -376,7 +383,7 @@ remove_vfs_volume (GnomeVFSVolume *volume)
                 DEBUG('m',"Remove Volume:\ndevice_fn = %s\tmountp = %s\n",
                 device_fn,mountp);
                 gnome_cmd_con_list_remove_device(data->priv->con_list, device);
-                break;
+		break;
             }
         }
     }
@@ -386,18 +393,45 @@ remove_vfs_volume (GnomeVFSVolume *volume)
     g_free (localpath);
 }
 
+static gboolean
+device_mount_point_exists(GnomeCmdConList *list, const gchar* mountpoint)
+{
+	gboolean rc = FALSE ;
+	GList *tmp;
+
+	for (tmp = gnome_cmd_con_list_get_all_dev (list); tmp != NULL; tmp = tmp->next) {
+	    GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
+	    if (device &&
+		!gnome_cmd_con_device_get_autovol(device)) {
+		gchar *mountp = gnome_vfs_escape_string (gnome_cmd_con_device_get_mountp (device));
+		gchar *mountp2= gnome_vfs_unescape_string (mountp, NULL);
+
+		if (strcmp(mountp2, mountpoint)==0)
+			rc = TRUE ;
+		
+		g_free (mountp);
+		g_free (mountp2);
+		
+		if (rc)
+			break;
+	    }
+	}
+	return rc ;
+}
 
 static void
 add_vfs_volume (GnomeVFSVolume *volume)
 {
-    char *path, *uri, *name, *icon,*localpath;
+    char *path, *uri, *name, *icon,*localpath, *iconpath;
     GnomeVFSDrive *drive;
     GnomeCmdConDevice *ConDev;
-
+    GtkIconInfo *iconinfo;
+    GtkIconTheme *icontheme ;
+	
     if (!gnome_vfs_volume_is_user_visible (volume))
         return;
 
-        uri = gnome_vfs_volume_get_activation_uri (volume);
+    uri = gnome_vfs_volume_get_activation_uri (volume);
 
     if (!vfs_is_uri_local(uri)) {
         g_free(uri);
@@ -408,23 +442,44 @@ add_vfs_volume (GnomeVFSVolume *volume)
     icon = gnome_vfs_volume_get_icon (volume);
     name = gnome_vfs_volume_get_display_name (volume);
     drive = gnome_vfs_volume_get_drive (volume);
+    
+    /* Try to load the icon, using current theme */
+    iconpath = NULL ;
+    icontheme = gtk_icon_theme_get_default() ;
+    if (icontheme) {
+	    iconinfo = gtk_icon_theme_lookup_icon(icontheme,icon,16,0 ) ;
+	    if (iconinfo) {
+		/* This returned string should not be free, see gtk documentation */
+		iconpath = gtk_icon_info_get_filename(iconinfo);
+	    }
+    }
+
 
     localpath = gnome_vfs_get_local_path_from_uri(uri);
 
-    DEBUG('m',"name = %s\tpath = %s\turi = %s\tlocal = %s\n",
-    name,path,uri,localpath);
+    DEBUG('m',"name = %s\n", name) ;
+    DEBUG('m',"path = %s\n", path ) ;
+    DEBUG('m',"uri = %s\n", uri) ;
+    DEBUG('m',"local = %s\n", localpath) ;
+    DEBUG('m',"icon = %s (full path = %s)\n", icon, iconpath) ;
 
-    ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, icon);
-
-    gnome_cmd_con_device_set_autovol(ConDev, TRUE);
-    gnome_cmd_con_device_set_vfs_volume(ConDev, volume);
-    gnome_cmd_con_list_add_device (data->priv->con_list,ConDev);
+    /* Don't create a new device connect if one already exists.
+                This can happen if the user manually added the same device in "Options|Devices" menu */
+    if (!device_mount_point_exists(data->priv->con_list, localpath)) {
+	ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, iconpath);
+	gnome_cmd_con_device_set_autovol(ConDev, TRUE);
+	gnome_cmd_con_device_set_vfs_volume(ConDev, volume);
+	gnome_cmd_con_list_add_device (data->priv->con_list,ConDev);
+    } else {
+	DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", localpath);
+    }
 
     g_free (path);
     g_free (uri);
     g_free (icon);
     g_free (name);
     g_free (localpath);
+    
     gnome_vfs_drive_unref (drive);
 }
 
@@ -553,8 +608,6 @@ load_devices ()
     gchar *path;
     FILE *fd;
 
-    load_vfs_auto_devices();
-
     path = g_strdup_printf ("%s/.gnome-commander/devices", g_get_home_dir());
     fd = fopen (path, "r");
     if (fd != NULL) {
@@ -591,6 +644,8 @@ load_devices ()
     }
     else if (errno != ENOENT)
         warn_print ("Failed to open the file %s for reading\n", path);
+
+    load_vfs_auto_devices();
 
     g_free (path);
 }
