@@ -1,3 +1,7 @@
+2006-03-08 Špela Počkar <spela.pockar@gmail.com>
+
+	* configure.in: Added Slovenian (sl) to ALL_LINGUAS.
+
 2006-03-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/libgviewer/viewer-window.c:
