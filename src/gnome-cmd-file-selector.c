@@ -191,7 +191,7 @@ update_selected_files_label (GnomeCmdFileSelector *fs)
         info_str = g_strdup_printf (
             ngettext("%s of %s kB in %d of %d file selected",
                      "%s of %s kB in %d of %d files selected",
-                     num_sel_files),
+                     num_files),
             sel_str, total_str, num_sel_files, num_files);
 
         gtk_label_set_text (GTK_LABEL (fs->info_label), info_str);

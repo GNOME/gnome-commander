@@ -1,3 +1,8 @@
+2006-03-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.c: 
+        Fixed wrong i18n, reported by Špela Počkar
+
 2006-03-08 Špela Počkar <spela.pockar@gmail.com>
 
 	* configure.in: Added Slovenian (sl) to ALL_LINGUAS.
