@@ -1,9 +1,14 @@
+2006-03-09  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/libgviewer/fileops.c:
+        Fixed bad initialization in gv_fileops_new()
+
 2006-03-08  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-con-device.c:
 	* src/gnome-cmd-data.c:
 	* src/gnome-cmd-options-dialog.c:
-        Fixes to the VFS auto volume mounting.
+        Fixed to the VFS auto volume mounting.
 
 2006-03-08  Piotr Eljasiak  <epiotr@use.pl>
 

@@ -47,7 +47,11 @@ struct _ViewerFileOps
 
 ViewerFileOps* gv_fileops_new()
 {
-	return g_new0(ViewerFileOps,1);
+	ViewerFileOps *fops = g_new0(ViewerFileOps,1);
+	g_return_val_if_fail(fops!=NULL,NULL) ;
+	
+	fops->file = -1 ;
+	return fops ;
 }
 
 /*
