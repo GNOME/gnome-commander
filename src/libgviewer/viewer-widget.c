@@ -8,6 +8,7 @@
 #include <gtk/gtk.h>
 #include <gtk/gtktable.h>
 
+#include <libgnome/libgnome.h>
 #include <libgnomevfs/gnome-vfs.h>
 
 #include "libgviewer.h"
@@ -182,7 +183,7 @@ static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status
 		(unsigned long)status->current_offset,
 		(unsigned long)status->size,
 		status->column,
-		status->wrap_mode?"Wrap":"");
+		status->wrap_mode?_("Wrap"):"");
 	
 	gtk_signal_emit (
 		GTK_OBJECT(viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
@@ -204,7 +205,7 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *sta
 	g_snprintf(temp,MAX_STATUS_LENGTH,
 		_("Image size: %dx%d\tBits/sample: %d\tZoom: %s"),
 		status->image_width,status->image_height,status->bits_per_sample,
-		status->best_fit?"Fit-to-Window":scale);
+		status->best_fit?_("Fit-to-Window"):scale);
 	
 	gtk_signal_emit (
 		GTK_OBJECT(viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
