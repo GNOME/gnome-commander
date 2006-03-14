@@ -1,6 +1,10 @@
 /*
-    GNOME Commander - A GNOME based file manager
-    Copyright (C) 2001-2004 Marcus Bjurman
+    LibGViewer - GTK+ File Viewer library 
+    Copyright (C) 2006 Assaf Gordon
+    
+    Part of
+        GNOME Commander - A GNOME based file manager
+        Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

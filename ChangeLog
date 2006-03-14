@@ -6,6 +6,28 @@
 	* src/libgviewer/text-render.c:
 	Fixed endless loop when viewing files > 40MB
 
+	* src/libgviewer/cp437.c:
+	* src/libgviewer/datapresentation.c:
+	* src/libgviewer/datapresentation.h:
+	* src/libgviewer/fileops.c:
+	* src/libgviewer/fileops.h:
+	* src/libgviewer/gvtypes.h:
+	* src/libgviewer/image-render.c:
+	* src/libgviewer/image-render.h:
+	* src/libgviewer/inputmodes.c:
+	* src/libgviewer/inputmodes.h:
+	* src/libgviewer/libgviewer.c:
+	* src/libgviewer/libgviewer.h:
+	* src/libgviewer/scroll-box.c:
+	* src/libgviewer/scroll-box.h:
+	* src/libgviewer/text-render.c:
+	* src/libgviewer/text-render.h:
+	* src/libgviewer/viewer-widget.c:
+	* src/libgviewer/viewer-widget.h:
+	* src/libgviewer/viewer-window.c:
+	* src/libgviewer/viewer-window.h:
+	Added missing GPL
+
 2006-03-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/libgviewer/viewer-widget.c:
