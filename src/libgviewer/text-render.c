@@ -98,6 +98,7 @@ static void text_render_class_init (TextRenderClass *class);
 static void text_render_destroy (GtkObject *object);
 
 static void text_render_redraw(TextRender *w);
+static void text_render_position_changed(TextRender *w);
 
 static void text_render_realize (GtkWidget *widget);
 static void text_render_size_request (GtkWidget *widget, GtkRequisition *requisition);
@@ -373,11 +374,11 @@ text_render_destroy (GtkObject *object)
 		(* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
-static void text_render_redraw(TextRender *w)
+static void text_render_position_changed(TextRender *w)
 {
 	if (!GTK_WIDGET_REALIZED(GTK_WIDGET(w)))
 		return;
-	
+
 	text_render_notify_status_changed(w);
 	
 	/* update the hotz & vert adjustments */
@@ -390,7 +391,13 @@ static void text_render_redraw(TextRender *w)
 		w->priv->h_adjustment->value = w->priv->column ;
 		gtk_adjustment_changed(w->priv->h_adjustment);
 	}
+}
 
+static void text_render_redraw(TextRender *w)
+{
+	if (!GTK_WIDGET_REALIZED(GTK_WIDGET(w)))
+		return;
+	
 	gdk_window_invalidate_rect(GTK_WIDGET(w)->window,NULL,FALSE);
 }
 
@@ -454,6 +461,7 @@ static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, g
 		return FALSE;
 	}
 	
+	text_render_position_changed(obj);
 	text_render_redraw(obj);
 	
 	return TRUE;
@@ -1011,6 +1019,7 @@ static gboolean text_render_vscroll_change_value(GtkRange *range,
 		return FALSE ;
   	}
 	
+	text_render_position_changed(obj);
 	text_render_redraw(obj);
 	
 	return TRUE;

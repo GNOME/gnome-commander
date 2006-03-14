@@ -1,7 +1,10 @@
 2006-03-15  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-search-dialog.c:
-	This should fix bug #171051.
+	This should fix bug #171051
+
+	* src/libgviewer/text-render.c:
+	Fixed endless loop when viewing files > 40MB
 
 2006-03-10  Piotr Eljasiak  <epiotr@use.pl>
 
