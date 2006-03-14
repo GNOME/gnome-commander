@@ -263,9 +263,15 @@ search_dir_r (GnomeCmdDir *dir, SearchData *data)
     if (data->stopped)
         return;
 
+    if (dir==NULL)
+	return;
+    
     gnome_cmd_dir_list_files (dir, FALSE);
     gnome_cmd_dir_get_files (dir, &files);
     tmp = files;
+    
+    if (tmp==NULL)
+	return;
 
     /* Let's iterate through all files */
     while (tmp)
