@@ -1,4 +1,24 @@
 ===================================
+gnome-commander 1.2.0
+---------------
+
+Bug fixes:
+ * Fixed problem #171051
+ * Fixed problem with the lack of gnome menu entry
+ 
+New features:
+ * Monitoring of mounted volumes. 
+ * Reworked internal viewer plus new features:
+ * External tools and EXIF/IPTC tags viewer
+ * Zooming for internal viewer
+ * Text selection for internal viewer
+ * Better handling column sort change
+ * Initial doc framework
+ * New or updated translations: es, eu, hu, sl
+ * New key bindings:
+ 
+
+===================================
 gnome-commander 1.1.7
 ---------------
 

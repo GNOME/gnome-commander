@@ -43,7 +43,7 @@
 	* src/gnome-cmd-con-device.c:
 	* src/gnome-cmd-data.c:
 	* src/gnome-cmd-options-dialog.c:
-        Fixed to the VFS auto volume mounting.
+        Fixed the VFS auto volume mounting.
 
 2006-03-08  Piotr Eljasiak  <epiotr@use.pl>
 
