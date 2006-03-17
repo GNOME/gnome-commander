@@ -3,6 +3,9 @@
 	* src/gnome-cmd-file-selector.c:
 	Fixed a crash when viewing "SMB" connections.
 
+	* src/ls_colors.c:
+	Variable val might be read from uninitialized memory (if key is null)
+
 2006-03-15  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-search-dialog.c:

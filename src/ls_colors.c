@@ -148,9 +148,9 @@ create_color (gchar *ls_color)
 
     s = g_strsplit (ls_color, "=", 0);
     key = s[0];
-    val = s[1];
 
     if (key) {
+	val = s[1];
         if (key[0] == '*')
             col = ext_color (key, val);
         else
