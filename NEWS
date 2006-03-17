@@ -5,6 +5,7 @@ gnome-commander 1.2.0
 Bug fixes:
  * Fixed problem #171051
  * Fixed problem with the lack of gnome menu entry
+ * Fixed a crash when viewing SMB connections.
  
 New features:
  * Monitoring of mounted volumes. 

@@ -799,6 +799,8 @@ do_file_specific_action                  (GnomeCmdFileSelector *fs,
                                           GnomeCmdFile *finfo)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    g_return_if_fail (finfo!=NULL) ;
+    g_return_if_fail (finfo->info!=NULL) ;
 
     if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
         if (strcmp (finfo->info->name, "..") == 0)

@@ -1,3 +1,8 @@
+2006-03-17  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-file-selector.c:
+	Fixed a crash when viewing "SMB" connections.
+
 2006-03-15  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-search-dialog.c:
