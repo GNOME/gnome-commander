@@ -2389,6 +2389,17 @@ gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
                 return TRUE;
         }
     }
+    else if (state_is_ctrl_shift (event->state))
+    {
+        switch (event->keyval)
+        {
+            case GDK_a:
+            case GDK_A:
+                gnome_cmd_file_list_unselect_all (fl);
+                return TRUE;
+
+        }
+    }
     else if (state_is_ctrl (event->state)) {
         switch (event->keyval)
         {

@@ -1,3 +1,8 @@
+2006-03-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.c:
+        Added CTRL+SHIFT+A for deselecting all files (for conformance with HIG 2.0)
+
 2006-03-17  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-file-selector.c:
