@@ -58,11 +58,11 @@ destroy (GtkObject *object)
 {
     GnomeCmdDirIndicator *dir_indicator = GNOME_CMD_DIR_INDICATOR (object);
 
-    g_free (dir_indicator->priv);
     if (dir_indicator->priv->slashCharPosition)
-        free (dir_indicator->priv->slashCharPosition);
+        g_free (dir_indicator->priv->slashCharPosition);
     if (dir_indicator->priv->slashPixelPosition)
-        free (dir_indicator->priv->slashPixelPosition);
+        g_free (dir_indicator->priv->slashPixelPosition);
+    g_free (dir_indicator->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -97,8 +97,7 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
         /* left click - work out the path */
         gchar *chTo;
         const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
-        chTo = malloc (strlen (labelText) + 1);
-        strcpy (chTo, labelText);
+        chTo = g_strdup(labelText);
         gint x = (gint)event->x;
         gint i;
 
@@ -108,7 +107,7 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
                 chTo[indicator->priv->slashCharPosition[i]] = 0x0;
                 gnome_cmd_main_win_switch_fs (main_win, fs);
                 gnome_cmd_file_selector_goto_directory (fs, chTo);
-                free (chTo);
+                g_free (chTo);
                 return TRUE;
             }
         }
@@ -215,10 +214,7 @@ getPixelSize (const char *s, int size)
     GtkLabel *label;
     PangoLayout *layout;
 
-    buf = malloc (size + 1);
-    buf[0] = 0x0;
-    strncpy (buf, s, size);
-    buf[size] = 0x0;
+    buf = g_strndup(s,size) ;
     utf8buf = get_utf8 (buf);
 
     label = GTK_LABEL (gtk_label_new (utf8buf));
@@ -231,8 +227,8 @@ getPixelSize (const char *s, int size)
 
     /* we're finished with the label */
     gtk_object_sink (GTK_OBJECT (label));
-    free (utf8buf);
-    free (buf);
+    g_free (utf8buf);
+    g_free (buf);
 
     return xSize;
 }
@@ -634,19 +630,21 @@ gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *p
     /* 1..numSlashes-1 is /dir/dir etc. */
     /* last entry will be whole string */
     if (indicator->priv->slashCharPosition) {
-        free (indicator->priv->slashCharPosition);
+        g_free (indicator->priv->slashCharPosition);
+        indicator->priv->slashCharPosition = NULL ;
     }
 
     if (indicator->priv->slashPixelPosition) {
-        free (indicator->priv->slashPixelPosition);
+        g_free (indicator->priv->slashPixelPosition);
+        indicator->priv->slashPixelPosition = NULL ;
     }
 
     if (numSlashes > 0) {
         /* if there are any slashes then allocate some memory
            for storing their positions (both in char positions through
            the string, and pixel positions on the display */
-        indicator->priv->slashCharPosition = malloc ((numSlashes + 1) * sizeof (int));
-        indicator->priv->slashPixelPosition = malloc ((numSlashes + 1) * sizeof (int));
+        indicator->priv->slashCharPosition = g_malloc ((numSlashes + 1) * sizeof (int));
+        indicator->priv->slashPixelPosition = g_malloc ((numSlashes + 1) * sizeof (int));
         indicator->priv->slashCharPosition[0] = 1;
         indicator->priv->slashPixelPosition[0] = getPixelSize (path, 1);
         numSlashes = 1;

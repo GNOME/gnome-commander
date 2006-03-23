@@ -176,7 +176,7 @@ load_file (GnomeCmdFile *finfo)
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
 
-    buf = malloc (finfo->info->size+1);
+    buf = g_malloc (finfo->info->size+1);
     uri_str = gnome_cmd_file_get_uri_str (finfo);
     result = gnome_vfs_open (&handle, uri_str, GNOME_VFS_OPEN_READ);
 

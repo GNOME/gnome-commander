@@ -41,7 +41,7 @@ static user_t *create_user (struct passwd *pw, gboolean zombie)
 {
     if (pw)
     {
-        user_t *user = (user_t*)malloc (sizeof (user_t));
+        user_t *user = g_new(user_t,1);
 
         g_assert (pw->pw_name);
         g_assert (pw->pw_passwd);
@@ -71,7 +71,7 @@ static group_t *create_group (struct group *gr, gboolean zombie)
 {
     if (gr)
     {
-        group_t *group = (group_t*)malloc (sizeof (group_t));
+        group_t *group = g_new(group_t,1);
         char **members;
 
         g_assert (gr->gr_name);

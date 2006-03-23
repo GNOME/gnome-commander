@@ -1284,7 +1284,7 @@ gchar *unix_to_unc (const gchar *path)
     g_return_val_if_fail (path != NULL, NULL);
     g_return_val_if_fail (path[0] == '/', NULL);
 
-    out = malloc (strlen(path)+2);
+    out = g_malloc (strlen(path)+2);
     out[0] = '\\';
     strcpy (out+1, path);
     transform (out+1, '/', '\\');
@@ -1300,7 +1300,7 @@ gchar *unc_to_unix (const gchar *path)
     g_return_val_if_fail (path[0] == '\\', NULL);
     g_return_val_if_fail (path[1] == '\\', NULL);
 
-    out = malloc (strlen(path));
+    out = g_malloc(strlen(path));
     strcpy (out, path+1);
     transform (out, '\\', '/');
 
