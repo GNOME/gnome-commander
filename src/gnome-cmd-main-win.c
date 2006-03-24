@@ -47,6 +47,18 @@ enum {
 };
 
 
+enum {
+  TOOLBAR_BTN_FIRST = -1,
+  TOOLBAR_BTN_BACK = 1,
+  TOOLBAR_BTN_FORWARD = 2,
+  TOOLBAR_BTN_LAST = -1,
+  TOOLBAR_BTN_CUT = 5,
+  TOOLBAR_BTN_COPY = 6,
+  TOOLBAR_BTN_PASTE = 7,
+  TOOLBAR_BTN_DISCONNECT = 11
+};
+
+
 struct _GnomeCmdMainWinPrivate
 {
     FileSelectorID current_fs;
@@ -76,8 +88,10 @@ struct _GnomeCmdMainWinPrivate
     GtkWidget *buttonbar;
     GtkWidget *buttonbar_sep;
 
+    GtkWidget *tb_first_btn;
     GtkWidget *tb_back_btn;
     GtkWidget *tb_fwd_btn;
+    GtkWidget *tb_last_btn;
     GtkWidget *tb_con_drop_btn;
     GtkWidget *tb_cap_cut_btn;
     GtkWidget *tb_cap_copy_btn;
@@ -88,12 +102,11 @@ static GnomeAppClass *parent_class = NULL;
 
 static guint main_win_signals[LAST_SIGNAL] = { 0 };
 static GtkTooltips *toolbar_tooltips = NULL;
-extern gchar *start_dir_left; //main.c
-extern gchar *start_dir_right; //main.c
+extern gchar *start_dir_left;   //main.c
+extern gchar *start_dir_right;  //main.c
 
 static void
 gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
-
 
 
 static GtkWidget *
@@ -152,8 +165,7 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 
     mw->priv->toolbar = gtk_hbox_new (FALSE, 0);
     gtk_widget_ref (mw->priv->toolbar);
-    gtk_object_set_data_full (GTK_OBJECT (mw), "toolbar", mw->priv->toolbar,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (mw), "toolbar", mw->priv->toolbar, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->toolbar);
 
     if (!toolbar_tooltips)
@@ -170,10 +182,8 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
             GtkWidget *pixmap;
 
             w = create_styled_button (NULL);
-            gtk_signal_connect (GTK_OBJECT (w), "clicked",
-                                uiinfo[i].moreinfo, uiinfo[i].user_data);
-            gtk_tooltips_set_tip (
-                toolbar_tooltips, w, uiinfo[i].hint, NULL);
+            gtk_signal_connect (GTK_OBJECT (w), "clicked", uiinfo[i].moreinfo, uiinfo[i].user_data);
+            gtk_tooltips_set_tip ( toolbar_tooltips, w, uiinfo[i].hint, NULL);
             GTK_WIDGET_UNSET_FLAGS (w, GTK_CAN_FOCUS);
 
             pixmap = create_ui_pixmap (
@@ -188,12 +198,12 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 
             switch (i)
             {
-                case  1: mw->priv->tb_back_btn = w;  break;
-                case  2: mw->priv->tb_fwd_btn = w;  break;
-                case  5: mw->priv->tb_cap_cut_btn = w;  break;
-                case  6: mw->priv->tb_cap_copy_btn = w;  break;
-                case  7: mw->priv->tb_cap_paste_btn = w;  break;
-                case 11: mw->priv->tb_con_drop_btn = w;  break;
+                case  TOOLBAR_BTN_BACK:       mw->priv->tb_back_btn = w;  break;
+                case  TOOLBAR_BTN_FORWARD:    mw->priv->tb_fwd_btn = w;  break;
+                case  TOOLBAR_BTN_CUT:        mw->priv->tb_cap_cut_btn = w;  break;
+                case  TOOLBAR_BTN_COPY:       mw->priv->tb_cap_copy_btn = w;  break;
+                case  TOOLBAR_BTN_PASTE:      mw->priv->tb_cap_paste_btn = w;  break;
+                case  TOOLBAR_BTN_DISCONNECT: mw->priv->tb_con_drop_btn = w;  break;
             }
         }
 
@@ -322,24 +332,16 @@ create_slide_popup ()
 
     /* Set default callback data
      */
-    i = 0;
-    while (popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO) {
-        if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM) {
-            popmenu_uiinfo[i].user_data = main_win;
-        }
-        i++;
-    }
+    for ( i = 0; popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
+        if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
 
     menu = gtk_menu_new ();
     gtk_widget_ref (menu);
-    gtk_object_set_data_full (GTK_OBJECT (main_win),
-                              "slide-popup", menu,
-                              (GtkDestroyNotify)gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (main_win), "slide-popup", menu, (GtkDestroyNotify)gtk_widget_unref);
 
     /* Fill the menu
      */
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), popmenu_uiinfo,
-                         NULL, FALSE, 0);
+    gnome_app_fill_menu (GTK_MENU_SHELL (menu), popmenu_uiinfo, NULL, FALSE, 0);
 
     return GTK_WIDGET (menu);
 }
@@ -440,46 +442,30 @@ create_buttonbar (GnomeCmdMainWin *mw)
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->buttonbar);
 
-    mw->priv->view_btn = add_buttonbar_button(
-        _("F3 View"), main_win, "view_btn", mw->priv->accel_group, 0);
+    mw->priv->view_btn = add_buttonbar_button(_("F3 View"), main_win, "view_btn", mw->priv->accel_group, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
-    mw->priv->edit_btn = add_buttonbar_button(
-        _("F4 Edit"), main_win, "edit_btn", mw->priv->accel_group, 0);
+    mw->priv->edit_btn = add_buttonbar_button(_("F4 Edit"), main_win, "edit_btn", mw->priv->accel_group, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
-    mw->priv->copy_btn = add_buttonbar_button(
-        _("F5 Copy"), main_win, "copy_btn", mw->priv->accel_group, 0);
+    mw->priv->copy_btn = add_buttonbar_button(_("F5 Copy"), main_win, "copy_btn", mw->priv->accel_group, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
-    mw->priv->move_btn = add_buttonbar_button(
-        _("F6 Move"), main_win, "move_btn", mw->priv->accel_group, 0);
+    mw->priv->move_btn = add_buttonbar_button(_("F6 Move"), main_win, "move_btn", mw->priv->accel_group, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
-    mw->priv->mkdir_btn = add_buttonbar_button(
-        _("F7 Mkdir"), main_win, "mkdir_btn", mw->priv->accel_group, 0);
+    mw->priv->mkdir_btn = add_buttonbar_button(_("F7 Mkdir"), main_win, "mkdir_btn", mw->priv->accel_group, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
-    mw->priv->delete_btn = add_buttonbar_button(
-        _("F8 Delete"), main_win, "delete_btn", mw->priv->accel_group, 0);
+    mw->priv->delete_btn = add_buttonbar_button(_("F8 Delete"), main_win, "delete_btn", mw->priv->accel_group, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
-    mw->priv->find_btn = add_buttonbar_button(
-        _("F9 Search"), main_win, "find_btn", mw->priv->accel_group, 0);
+    mw->priv->find_btn = add_buttonbar_button(_("F9 Search"), main_win, "find_btn", mw->priv->accel_group, 0);
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
-    mw->priv->quit_btn = add_buttonbar_button(
-        _("F10 Quit"), main_win, "quit_btn", mw->priv->accel_group, 0);
+    mw->priv->quit_btn = add_buttonbar_button(_("F10 Quit"), main_win, "quit_btn", mw->priv->accel_group, 0);
 
-    gtk_signal_connect (GTK_OBJECT (mw->priv->view_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_view_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->edit_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_edit_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->copy_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_copy_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->move_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_move_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->mkdir_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_mkdir_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->delete_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_delete_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->find_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_search_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->quit_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_quit_clicked), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->view_btn), "clicked", GTK_SIGNAL_FUNC (on_view_clicked), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->edit_btn), "clicked", GTK_SIGNAL_FUNC (on_edit_clicked), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->copy_btn), "clicked", GTK_SIGNAL_FUNC (on_copy_clicked), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->move_btn), "clicked", GTK_SIGNAL_FUNC (on_move_clicked), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->mkdir_btn), "clicked", GTK_SIGNAL_FUNC (on_mkdir_clicked), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->delete_btn), "clicked", GTK_SIGNAL_FUNC (on_delete_clicked), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->find_btn), "clicked", GTK_SIGNAL_FUNC (on_search_clicked), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->quit_btn), "clicked", GTK_SIGNAL_FUNC (on_quit_clicked), mw);
 }
 
 
@@ -513,10 +499,8 @@ on_main_win_realize                    (GtkWidget       *widget,
     gdk_window_get_geometry (widget->window, NULL, NULL, &w, NULL, NULL);
     gtk_paned_set_position (GTK_PANED (mw->priv->paned), w/2 - 5);
 
-    gnome_cmd_file_selector_set_active (
-        gnome_cmd_main_win_get_left_fs (mw), TRUE);
-    gnome_cmd_file_selector_set_active (
-        gnome_cmd_main_win_get_right_fs (mw), FALSE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_left_fs (mw), TRUE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_right_fs (mw), FALSE);
 /*
     if (gnome_cmd_data_get_cmdline_visibility ()) {
         gchar *dpath = gnome_cmd_file_get_path (
@@ -540,14 +524,11 @@ on_left_fs_select                      (GtkCList *list,
 {
         mw->priv->current_fs = LEFT;
 
-        gnome_cmd_file_selector_set_active (
-            GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT]), TRUE);
-        gnome_cmd_file_selector_set_active (
-            GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT]), FALSE);
+        gnome_cmd_file_selector_set_active (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT]), TRUE);
+        gnome_cmd_file_selector_set_active (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT]), FALSE);
 
         return FALSE;
 }
-
 
 
 static gboolean
@@ -557,10 +538,8 @@ on_right_fs_select                     (GtkCList *list,
 {
         mw->priv->current_fs = RIGHT;
 
-        gnome_cmd_file_selector_set_active (
-            GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT]), TRUE);
-        gnome_cmd_file_selector_set_active (
-            GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT]), FALSE);
+        gnome_cmd_file_selector_set_active (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT]), TRUE);
+        gnome_cmd_file_selector_set_active (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT]), FALSE);
 
         return FALSE;
 }
@@ -604,10 +583,10 @@ update_browse_buttons             (GnomeCmdMainWin *mw,
 
     if (fs == gnome_cmd_main_win_get_active_fs (mw)) {
         if (gnome_cmd_data_get_toolbar_visibility ()) {
-            gtk_widget_set_sensitive (mw->priv->tb_back_btn,
-                                      gnome_cmd_file_selector_can_back (fs));
-            gtk_widget_set_sensitive (mw->priv->tb_fwd_btn,
-                                      gnome_cmd_file_selector_can_forward (fs));
+            // gtk_widget_set_sensitive (mw->priv->tb_first_btn, gnome_cmd_file_selector_can_back (fs));
+            gtk_widget_set_sensitive (mw->priv->tb_back_btn, gnome_cmd_file_selector_can_back (fs));
+            gtk_widget_set_sensitive (mw->priv->tb_fwd_btn, gnome_cmd_file_selector_can_forward (fs));
+            // gtk_widget_set_sensitive (mw->priv->tb_last_btn, gnome_cmd_file_selector_can_forward (fs));
         }
 
         gnome_cmd_main_menu_update_sens (GNOME_CMD_MAIN_MENU (mw->priv->menubar));
@@ -714,9 +693,7 @@ static void
 destroy (GtkObject *object)
 {
     GnomeCmdDir *dir;
-    GnomeCmdCon *con_home;
-
-    con_home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
+    GnomeCmdCon *con_home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
 
     dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_left_fs (main_win));
     if (con_home == gnome_cmd_dir_get_connection (dir))
@@ -741,11 +718,9 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdMainWinClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
     parent_class = gtk_type_class (gnome_app_get_type ());
 
     main_win_signals[SWITCH_FS] =
@@ -771,7 +746,7 @@ init (GnomeCmdMainWin *mw)
      */
     main_win = GNOME_CMD_MAIN_WIN (mw);
 
-    mw->priv = g_new (GnomeCmdMainWinPrivate, 1);
+    mw->priv = g_new0 (GnomeCmdMainWinPrivate, 1);
     mw->priv->current_fs = LEFT;
     mw->priv->accel_group = gtk_accel_group_new ();
     mw->priv->toolbar = NULL;
@@ -781,8 +756,8 @@ init (GnomeCmdMainWin *mw)
     mw->priv->cmdline_sep = NULL;
     mw->priv->buttonbar = NULL;
     mw->priv->buttonbar_sep = NULL;
-    mw->priv->file_selector[0] = NULL;
-    mw->priv->file_selector[1] = NULL;
+    mw->priv->file_selector[LEFT] = NULL;
+    mw->priv->file_selector[RIGHT] = NULL;
 
     gnome_app_construct (GNOME_APP (main_win), "gnome-commander", "GNOME Commander");
     gtk_object_set_data (GTK_OBJECT (main_win), "main_win", main_win);
@@ -806,16 +781,13 @@ init (GnomeCmdMainWin *mw)
 
     gnome_app_set_contents (GNOME_APP (main_win), mw->priv->vbox);
 
-    if (gnome_cmd_data_get_list_orientation ())
-        mw->priv->paned = gtk_vpaned_new ();
-    else
-        mw->priv->paned = gtk_hpaned_new ();
+    mw->priv->paned = gnome_cmd_data_get_list_orientation () ? gtk_vpaned_new () : gtk_hpaned_new ();
+
     gtk_widget_ref (mw->priv->paned);
     gtk_object_set_data_full (GTK_OBJECT (main_win), "paned", mw->priv->paned,
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->paned);
-    gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned,
-                        TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned, TRUE, TRUE, 0);
     create_buttonbar (mw);
 
     mw->priv->file_selector[LEFT] = gnome_cmd_file_selector_new ();
@@ -843,13 +815,9 @@ init (GnomeCmdMainWin *mw)
     gnome_cmd_main_win_update_cmdline_visibility (main_win);
     gnome_cmd_main_win_update_buttonbar_visibility (main_win);
 
-    gtk_signal_connect (GTK_OBJECT (main_win), "realize",
-                        GTK_SIGNAL_FUNC (on_main_win_realize), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->file_selector[LEFT]), "changed-dir",
-                        GTK_SIGNAL_FUNC (on_fs_dir_change), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->file_selector[RIGHT]), "changed-dir",
-                        GTK_SIGNAL_FUNC (on_fs_dir_change), mw);
-
+    gtk_signal_connect (GTK_OBJECT (main_win), "realize", GTK_SIGNAL_FUNC (on_main_win_realize), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->file_selector[LEFT]), "changed-dir", GTK_SIGNAL_FUNC (on_fs_dir_change), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->file_selector[RIGHT]), "changed-dir", GTK_SIGNAL_FUNC (on_fs_dir_change), mw);
 
     gtk_signal_connect (
         GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->list),
@@ -911,17 +879,15 @@ gnome_cmd_main_win_get_type         (void)
 
         mw_type = gtk_type_unique (gnome_app_get_type (), &mw_info);
     }
+
     return mw_type;
 }
-
 
 
 GtkWidget*
 gnome_cmd_main_win_new              ()
 {
-    GnomeCmdMainWin *mw;
-
-    mw = gtk_type_new (gnome_cmd_main_win_get_type ());
+    GnomeCmdMainWin *mw = gtk_type_new (gnome_cmd_main_win_get_type ());
 
     return GTK_WIDGET (mw);
 }
@@ -1004,10 +970,8 @@ gnome_cmd_main_win_focus_cmdline         (GnomeCmdMainWin *mw)
 void
 gnome_cmd_main_win_focus_file_lists      (GnomeCmdMainWin *mw)
 {
-    gnome_cmd_file_selector_set_active (
-        gnome_cmd_main_win_get_active_fs (mw), TRUE);
-    gnome_cmd_file_selector_set_active (
-        gnome_cmd_main_win_get_inactive_fs (mw), FALSE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_active_fs (mw), TRUE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_inactive_fs (mw), FALSE);
 
     mw->priv->focused_widget = mw->priv->file_selector[mw->priv->current_fs];
 }
@@ -1210,8 +1174,7 @@ gnome_cmd_main_win_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    gtk_signal_emit (
-        GTK_OBJECT (mw), main_win_signals[SWITCH_FS], fs);
+    gtk_signal_emit (GTK_OBJECT (mw), main_win_signals[SWITCH_FS], fs);
 }
 
 
@@ -1225,10 +1188,8 @@ gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
         return;
 
     mw->priv->current_fs = !mw->priv->current_fs;
-    gnome_cmd_file_selector_set_active (
-        gnome_cmd_main_win_get_active_fs (mw), TRUE);
-    gnome_cmd_file_selector_set_active (
-        gnome_cmd_main_win_get_inactive_fs (mw), FALSE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_active_fs (mw), TRUE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_inactive_fs (mw), FALSE);
 
     update_browse_buttons (mw, fs);
     update_drop_con_button (mw, fs);
@@ -1391,10 +1352,8 @@ gnome_cmd_main_win_update_cmdline_visibility (GnomeCmdMainWin *mw)
         gtk_widget_show (mw->priv->cmdline);
         if (gnome_cmd_data_get_toolbar_visibility ())
             pos += 2;
-        gtk_box_pack_start (
-            GTK_BOX (mw->priv->vbox), mw->priv->cmdline_sep, FALSE, TRUE, 0);
-        gtk_box_pack_start (
-            GTK_BOX (mw->priv->vbox), mw->priv->cmdline, FALSE, TRUE, 1);
+        gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->cmdline_sep, FALSE, TRUE, 0);
+        gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->cmdline, FALSE, TRUE, 1);
         gtk_box_reorder_child (GTK_BOX (mw->priv->vbox), mw->priv->cmdline_sep, pos);
         gtk_box_reorder_child (GTK_BOX (mw->priv->vbox), mw->priv->cmdline, pos+1);
     }
@@ -1414,12 +1373,9 @@ gnome_cmd_main_win_update_connections (GnomeCmdMainWin *mw)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
-    gnome_cmd_file_selector_update_connections (
-        gnome_cmd_main_win_get_left_fs (mw));
-    gnome_cmd_file_selector_update_connections (
-        gnome_cmd_main_win_get_right_fs (mw));
-    gnome_cmd_main_menu_update_connections (
-        GNOME_CMD_MAIN_MENU (mw->priv->menubar));
+    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_left_fs (mw));
+    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_right_fs (mw));
+    gnome_cmd_main_menu_update_connections (GNOME_CMD_MAIN_MENU (mw->priv->menubar));
 }
 
 
@@ -1430,29 +1386,21 @@ gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw)
 
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
-    gtk_widget_ref (mw->priv->file_selector[0]);
-    gtk_widget_ref (mw->priv->file_selector[1]);
-    gtk_container_remove (GTK_CONTAINER (mw->priv->paned),
-                          mw->priv->file_selector[0]);
-    gtk_container_remove (GTK_CONTAINER (mw->priv->paned),
-                          mw->priv->file_selector[1]);
+    gtk_widget_ref (mw->priv->file_selector[LEFT]);
+    gtk_widget_ref (mw->priv->file_selector[RIGHT]);
+    gtk_container_remove (GTK_CONTAINER (mw->priv->paned), mw->priv->file_selector[LEFT]);
+    gtk_container_remove (GTK_CONTAINER (mw->priv->paned), mw->priv->file_selector[RIGHT]);
 
     gtk_object_destroy (GTK_OBJECT (mw->priv->paned));
 
-    if (gnome_cmd_data_get_list_orientation ())
-        mw->priv->paned = gtk_vpaned_new ();
-    else
-        mw->priv->paned = gtk_hpaned_new ();
+    mw->priv->paned = gnome_cmd_data_get_list_orientation () ? gtk_vpaned_new () : gtk_hpaned_new ();
 
     gtk_widget_ref (mw->priv->paned);
-    gtk_object_set_data_full (GTK_OBJECT (main_win), "paned", mw->priv->paned,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (main_win), "paned", mw->priv->paned, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->paned);
 
-    gtk_paned_pack1 (GTK_PANED (mw->priv->paned),
-                     mw->priv->file_selector[0], TRUE, TRUE);
-    gtk_paned_pack2 (GTK_PANED (mw->priv->paned),
-                     mw->priv->file_selector[1], TRUE, TRUE);
+    gtk_paned_pack1 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT], TRUE, TRUE);
+    gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
 
     if (gnome_cmd_data_get_toolbar_visibility ())
         pos += 2;
@@ -1460,12 +1408,10 @@ gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw)
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned, TRUE, TRUE, 0);
     gtk_box_reorder_child (GTK_BOX (mw->priv->vbox), mw->priv->paned, pos);
 
-    gtk_widget_unref (mw->priv->file_selector[0]);
-    gtk_widget_unref (mw->priv->file_selector[1]);
+    gtk_widget_unref (mw->priv->file_selector[LEFT]);
+    gtk_widget_unref (mw->priv->file_selector[RIGHT]);
 
-    gtk_signal_connect (
-        GTK_OBJECT (mw->priv->paned),
-        "button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->paned), "button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
     slide_set_50_50 (NULL, NULL);
 }
 
@@ -1475,8 +1421,7 @@ gnome_cmd_main_win_add_plugin_menu (GnomeCmdMainWin *mw, PluginData *data)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
-    gnome_cmd_main_menu_add_plugin_menu (
-        GNOME_CMD_MAIN_MENU (mw->priv->menubar), data);
+    gnome_cmd_main_menu_add_plugin_menu (GNOME_CMD_MAIN_MENU (mw->priv->menubar), data);
 }
 
 
@@ -1495,18 +1440,12 @@ gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw)
     dir2 = gnome_cmd_file_selector_get_directory (fs2);
 
     state = &mw->priv->state;
-    state->active_dir_uri =
-        gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir1));
-    state->inactive_dir_uri =
-        gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir2));
-    state->active_dir_files =
-        gnome_cmd_file_list_get_all_files (fs1->list);
-    state->inactive_dir_files =
-        gnome_cmd_file_list_get_all_files (fs2->list);
-    state->active_dir_selected_files =
-        gnome_cmd_file_list_get_selected_files (fs1->list);
-    state->inactive_dir_selected_files =
-        gnome_cmd_file_list_get_selected_files (fs2->list);
+    state->active_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir1));
+    state->inactive_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir2));
+    state->active_dir_files = gnome_cmd_file_list_get_all_files (fs1->list);
+    state->inactive_dir_files = gnome_cmd_file_list_get_all_files (fs2->list);
+    state->active_dir_selected_files = gnome_cmd_file_list_get_selected_files (fs1->list);
+    state->inactive_dir_selected_files = gnome_cmd_file_list_get_selected_files (fs2->list);
 
     return state;
 }
