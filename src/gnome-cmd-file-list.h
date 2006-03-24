@@ -260,6 +260,9 @@ void
 gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
 
 gboolean
+gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
+
+gboolean
 gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *event);
 
 

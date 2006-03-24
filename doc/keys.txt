@@ -91,6 +91,7 @@ CTRL+F	    Connect to FTP server
 CTRL+SHIFT+F
             Disconnect from FTP server
 
+ALT+Letter(s)
 CTRL+ALT+Letter(s)
             Quick search for a file name (starting with specified letter) in
             the current directory

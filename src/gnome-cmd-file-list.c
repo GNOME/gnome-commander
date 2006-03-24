@@ -2273,6 +2273,15 @@ gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
         gnome_cmd_file_edit (finfo);
 }
 
+gboolean
+gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl)
+{
+    g_return_val_if_fail(fl!=NULL,FALSE);
+    g_return_val_if_fail(GNOME_CMD_IS_FILE_LIST(fl),FALSE);
+    g_return_val_if_fail(fl->priv!=NULL,FALSE);
+	
+    return (fl->priv->quicksearch_popup!=NULL);
+}
 
 void
 gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)

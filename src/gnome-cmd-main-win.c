@@ -96,6 +96,8 @@ struct _GnomeCmdMainWinPrivate
     GtkWidget *tb_cap_cut_btn;
     GtkWidget *tb_cap_copy_btn;
     GtkWidget *tb_cap_paste_btn;
+    
+    guint key_snooper_id ;
 };
 
 static GnomeAppClass *parent_class = NULL;
@@ -107,6 +109,39 @@ extern gchar *start_dir_right;  //main.c
 
 static void
 gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
+
+
+gint gnome_cmd_key_snooper(GtkWidget *grab_widget, 
+			GdkEventKey *event, GnomeCmdMainWin *mw)
+{
+	GnomeCmdFileSelector* fs;
+	
+	g_return_val_if_fail(mw!=NULL, FALSE);
+	g_return_val_if_fail(mw->priv!=NULL,FALSE);
+	
+	if (event->type!=GDK_KEY_PRESS)
+		return FALSE;
+
+	if (!gnome_cmd_data_get_alt_quick_search())
+		return FALSE;
+	
+	if (!state_is_alt(event->state))
+		return FALSE;
+	
+	fs = gnome_cmd_main_win_get_active_fs(mw) ;
+	if (fs==NULL || fs->list==NULL)
+		return FALSE;
+	
+	if (!GTK_WIDGET_HAS_FOCUS(GTK_WIDGET(fs->list)))
+		return FALSE;
+	
+	if (!gnome_cmd_file_list_quicksearch_shown(fs->list)) {
+		gnome_cmd_file_list_show_quicksearch(fs->list, event->keyval) ;
+		return TRUE;
+    }
+ 	
+	return FALSE ;
+}
 
 
 static GtkWidget *
@@ -695,6 +730,11 @@ destroy (GtkObject *object)
     GnomeCmdDir *dir;
     GnomeCmdCon *con_home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
 
+    if (main_win && main_win->priv && main_win->priv->key_snooper_id) {
+        gtk_key_snooper_remove(main_win->priv->key_snooper_id) ;
+	main_win->priv->key_snooper_id = 0 ;
+    }
+	
     dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_left_fs (main_win));
     if (con_home == gnome_cmd_dir_get_connection (dir))
         gnome_cmd_data_set_start_dir (0, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
@@ -855,6 +895,8 @@ init (GnomeCmdMainWin *mw)
 
     gtk_window_add_accel_group (GTK_WINDOW (main_win), mw->priv->accel_group);
     gnome_cmd_main_win_focus_file_lists (main_win);
+
+    mw->priv->key_snooper_id = gtk_key_snooper_install((GtkKeySnoopFunc)gnome_cmd_key_snooper,(gpointer)mw) ;
 }
 
 

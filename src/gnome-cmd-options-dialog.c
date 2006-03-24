@@ -100,6 +100,16 @@ create_general_tab (GtkWidget *parent)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_case_sens_sort ());
 
 
+    /* Quick search options
+     */
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Quick Search"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    check = create_check (parent, _("Use ALT+Letter(s) for quick search\n(menu access with F10)"), "alt_quick_search");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_alt_quick_search ());
+
     /* Confirmation options
      */
     cat_box = create_vbox (parent, FALSE, 0);
@@ -135,6 +145,7 @@ store_general_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
     GtkWidget *confirm_delete_check = lookup_widget (GTK_WIDGET (dialog), "confirm_delete_check");
     GtkWidget *dir_cache_size = lookup_widget (GTK_WIDGET (dialog), "dir_cache_size");
+    GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)))
         gnome_cmd_data_set_right_mouse_button_mode (RIGHT_BUTTON_POPUPS_MENU);
@@ -149,6 +160,7 @@ store_general_options (GnomeCmdOptionsDialog *dialog)
     gnome_cmd_data_set_case_sens_sort (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check)));
     gnome_cmd_data_set_confirm_delete (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check)));
     gnome_cmd_data_set_dir_cache_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dir_cache_size)));
+    gnome_cmd_data_set_alt_quick_search(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(alt_quick_search)));
 }
 
 

@@ -1,3 +1,13 @@
+2006-03-24  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-options-dialog.c:
+	Quick search by ALT+Letter(s)
+
 2006-03-23  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-dir-indicator.c:

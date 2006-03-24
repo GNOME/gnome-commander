@@ -81,6 +81,7 @@ struct _GnomeCmdDataPrivate
     gint                 quick_connect_port;
     gboolean             honor_expect_uris;
     gboolean             use_internal_viewer;
+    gboolean             alt_quick_search ;
     gboolean             skip_mounting;
     gboolean             toolbar_visibility;
     gboolean             buttonbar_visibility;
@@ -1141,6 +1142,7 @@ gnome_cmd_data_save                      (void)
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", data->priv->honor_expect_uris);
     gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", data->priv->use_internal_viewer);
+    gnome_cmd_data_set_bool   ("/programs/alt_quick_search", data->priv->alt_quick_search);
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", data->priv->skip_mounting);
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", data->priv->toolbar_visibility);
     gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", data->priv->buttonbar_visibility);
@@ -1343,6 +1345,7 @@ gnome_cmd_data_load                      (void)
 
     data->priv->honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
     data->priv->use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
+    data->priv->alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
     data->priv->skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
     data->priv->toolbar_visibility = gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE);
     data->priv->buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
@@ -2022,6 +2025,20 @@ void
 gnome_cmd_data_set_use_internal_viewer (gboolean value)
 {
     data->priv->use_internal_viewer = value;
+}
+
+
+gboolean
+gnome_cmd_data_get_alt_quick_search (void)
+{
+    return data->priv->alt_quick_search;
+}
+
+
+void
+gnome_cmd_data_set_alt_quick_search (gboolean value)
+{
+    data->priv->alt_quick_search = value;
 }
 
 gboolean

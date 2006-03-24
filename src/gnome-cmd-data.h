@@ -361,6 +361,12 @@ void
 gnome_cmd_data_set_use_internal_viewer  (gboolean value);
 
 gboolean
+gnome_cmd_data_get_alt_quick_search    (void);
+
+void
+gnome_cmd_data_set_alt_quick_search  (gboolean value);
+
+gboolean
 gnome_cmd_data_get_skip_mounting        (void);
 
 void
