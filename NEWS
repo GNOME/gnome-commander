@@ -17,6 +17,8 @@ New features:
  * Initial doc framework
  * New or updated translations: es, eu, hu, pl, sl
  * New key bindings:
+      ALT+Letter(s)  Quick Search
+      CTRL+SHIFT+A   Deselecting all files
  
 
 ===================================
