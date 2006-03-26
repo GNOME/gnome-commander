@@ -1596,6 +1596,20 @@ gnome_cmd_file_selector_start_editor      (GnomeCmdFileSelector *fs)
 
 
 void
+gnome_cmd_file_selector_first             (GnomeCmdFileSelector *fs)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    if (!fs->priv->dir_history) return;
+
+    if (history_can_back (fs->priv->dir_history)) {
+        fs->priv->dir_history->lock = TRUE;
+        goto_directory (fs, history_first (fs->priv->dir_history));
+        fs->priv->dir_history->lock = FALSE;
+    }
+}
+
+
+void
 gnome_cmd_file_selector_back             (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -1618,6 +1632,20 @@ gnome_cmd_file_selector_forward           (GnomeCmdFileSelector *fs)
     if (history_can_forward (fs->priv->dir_history)) {
         fs->priv->dir_history->lock = TRUE;
         goto_directory (fs, history_forward (fs->priv->dir_history));
+        fs->priv->dir_history->lock = FALSE;
+    }
+}
+
+
+void
+gnome_cmd_file_selector_last              (GnomeCmdFileSelector *fs)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    if (!fs->priv->dir_history) return;
+
+    if (history_can_forward (fs->priv->dir_history)) {
+        fs->priv->dir_history->lock = TRUE;
+        goto_directory (fs, history_last (fs->priv->dir_history));
         fs->priv->dir_history->lock = FALSE;
     }
 }

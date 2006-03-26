@@ -498,6 +498,22 @@ view_backup_files                      (GtkCheckMenuItem     *menuitem,
 
 
 void
+view_up                                 (GtkMenuItem     *menuitem,
+                                        gpointer        not_used)
+{
+    gnome_cmd_file_selector_goto_directory (get_active_fs (), "..");
+}
+
+
+void
+view_first                             (GtkMenuItem     *menuitem,
+                                        gpointer        not_used)
+{
+    gnome_cmd_file_selector_first (get_active_fs ());
+}
+
+
+void
 view_back                              (GtkMenuItem     *menuitem,
                                         gpointer        not_used)
 {
@@ -510,6 +526,14 @@ view_forward                           (GtkMenuItem     *menuitem,
                                         gpointer        not_used)
 {
     gnome_cmd_file_selector_forward (get_active_fs ());
+}
+
+
+void
+view_last                              (GtkMenuItem     *menuitem,
+                                        gpointer        not_used)
+{
+    gnome_cmd_file_selector_last (get_active_fs ());
 }
 
 

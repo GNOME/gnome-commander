@@ -99,10 +99,16 @@ void
 gnome_cmd_file_selector_start_editor      (GnomeCmdFileSelector *fs);
 
 void
+gnome_cmd_file_selector_first            (GnomeCmdFileSelector *fs);
+
+void
 gnome_cmd_file_selector_back             (GnomeCmdFileSelector *fs);
 
 void
 gnome_cmd_file_selector_forward           (GnomeCmdFileSelector *fs);
+
+void
+gnome_cmd_file_selector_last              (GnomeCmdFileSelector *fs);
 
 gboolean
 gnome_cmd_file_selector_can_back          (GnomeCmdFileSelector *fs);

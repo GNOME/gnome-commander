@@ -37,7 +37,9 @@ void     history_add (History *history, const gchar *text);
 gboolean history_can_back (History *history);
 gboolean history_can_forward (History *history);
 
+const gchar   *history_first (History *history);
 const gchar   *history_back (History *history);
 const gchar   *history_forward (History *history);
+const gchar   *history_last (History *history);
 
 #endif //__HISTORY_H__

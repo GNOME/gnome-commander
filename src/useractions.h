@@ -208,11 +208,23 @@ view_backup_files                      (GtkCheckMenuItem     *menuitem,
                                          gpointer              not_used);
 
 void
+view_up                                (GtkMenuItem     *menuitem,
+                                         gpointer        not_used);
+
+void
+view_first                             (GtkMenuItem     *menuitem,
+                                         gpointer        not_used);
+
+void
 view_back                              (GtkMenuItem     *menuitem,
                                          gpointer        not_used);
 
 void
 view_forward                           (GtkMenuItem     *menuitem,
+                                         gpointer        not_used);
+
+void
+view_last                              (GtkMenuItem     *menuitem,
                                          gpointer        not_used);
 
 void

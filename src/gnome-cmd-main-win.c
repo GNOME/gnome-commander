@@ -37,7 +37,6 @@
 #include "gnome-cmd-bookmark-dialog.h"
 #include "utils.h"
 
-#include "../pixmaps/ftp_connect.xpm"
 #include "../pixmaps/copy_file_names.xpm"
 
 
@@ -48,14 +47,14 @@ enum {
 
 
 enum {
-  TOOLBAR_BTN_FIRST = -1,
-  TOOLBAR_BTN_BACK = 1,
-  TOOLBAR_BTN_FORWARD = 2,
-  TOOLBAR_BTN_LAST = -1,
-  TOOLBAR_BTN_CUT = 5,
-  TOOLBAR_BTN_COPY = 6,
-  TOOLBAR_BTN_PASTE = 7,
-  TOOLBAR_BTN_DISCONNECT = 11
+  TOOLBAR_BTN_FIRST = 2,
+  TOOLBAR_BTN_BACK = 3,
+  TOOLBAR_BTN_FORWARD = 4,
+  TOOLBAR_BTN_LAST = 5,
+  TOOLBAR_BTN_CUT = 8,
+  TOOLBAR_BTN_COPY = 9,
+  TOOLBAR_BTN_PASTE = 10,
+  TOOLBAR_BTN_DISCONNECT = 16
 };
 
 
@@ -233,8 +232,10 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 
             switch (i)
             {
+                case  TOOLBAR_BTN_FIRST:      mw->priv->tb_first_btn = w;  break;
                 case  TOOLBAR_BTN_BACK:       mw->priv->tb_back_btn = w;  break;
                 case  TOOLBAR_BTN_FORWARD:    mw->priv->tb_fwd_btn = w;  break;
+                case  TOOLBAR_BTN_LAST:       mw->priv->tb_last_btn = w;  break;
                 case  TOOLBAR_BTN_CUT:        mw->priv->tb_cap_cut_btn = w;  break;
                 case  TOOLBAR_BTN_COPY:       mw->priv->tb_cap_copy_btn = w;  break;
                 case  TOOLBAR_BTN_PASTE:      mw->priv->tb_cap_paste_btn = w;  break;
@@ -618,10 +619,10 @@ update_browse_buttons             (GnomeCmdMainWin *mw,
 
     if (fs == gnome_cmd_main_win_get_active_fs (mw)) {
         if (gnome_cmd_data_get_toolbar_visibility ()) {
-            // gtk_widget_set_sensitive (mw->priv->tb_first_btn, gnome_cmd_file_selector_can_back (fs));
+            gtk_widget_set_sensitive (mw->priv->tb_first_btn, gnome_cmd_file_selector_can_back (fs));
             gtk_widget_set_sensitive (mw->priv->tb_back_btn, gnome_cmd_file_selector_can_back (fs));
             gtk_widget_set_sensitive (mw->priv->tb_fwd_btn, gnome_cmd_file_selector_can_forward (fs));
-            // gtk_widget_set_sensitive (mw->priv->tb_last_btn, gnome_cmd_file_selector_can_forward (fs));
+            gtk_widget_set_sensitive (mw->priv->tb_last_btn, gnome_cmd_file_selector_can_forward (fs));
         }
 
         gnome_cmd_main_menu_update_sens (GNOME_CMD_MAIN_MENU (mw->priv->menubar));
@@ -1265,21 +1266,42 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
             GNOME_APP_UI_ITEM, NULL,
             _("Refresh"),
             view_refresh, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_REFRESH,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REFRESH,
             0, 0, NULL
         },
         {
             GNOME_APP_UI_ITEM, NULL,
-            _("Back in history"),
+            _("Up one directory"),
+            view_up, NULL, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_UP,
+            0, 0, NULL
+        },
+        {
+            GNOME_APP_UI_ITEM, NULL,
+            _("Goto the oldest"),
+            view_first, NULL, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GOTO_FIRST,
+            0, 0, NULL
+        },
+        {
+            GNOME_APP_UI_ITEM, NULL,
+            _("Go back"),
             view_back, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_BACK,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_BACK,
             0, 0, NULL
         },
         {
             GNOME_APP_UI_ITEM, NULL,
-            _("Forward in history"),
+            _("Go forward"),
             view_forward, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_FORWARD,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_FORWARD,
+            0, 0, NULL
+        },
+        {
+            GNOME_APP_UI_ITEM, NULL,
+            _("Goto the latest"),
+            view_last, NULL, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GOTO_LAST,
             0, 0, NULL
         },
         GNOMEUIINFO_SEPARATOR,
@@ -1294,28 +1316,36 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
             GNOME_APP_UI_ITEM, NULL,
             _("Cut"),
             file_cap_cut, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_CUT,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CUT,
             0, 0, NULL
         },
         {
             GNOME_APP_UI_ITEM, NULL,
             _("Copy"),
             file_cap_copy, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_COPY,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_COPY,
             0, 0, NULL
         },
         {
             GNOME_APP_UI_ITEM, NULL,
             _("Paste"),
             file_cap_paste, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_PASTE,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PASTE,
             0, 0, NULL
         },
         {
             GNOME_APP_UI_ITEM, NULL,
             _("Delete"),
             file_delete, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_PIXMAP_TRASH,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DELETE,
+            0, 0, NULL
+        },
+        GNOMEUIINFO_SEPARATOR,
+        {
+            GNOME_APP_UI_ITEM, NULL,
+            _("Edit (SHIFT for new document)"),
+            file_edit, NULL, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_EDIT,
             0, 0, NULL
         },
         GNOMEUIINFO_SEPARATOR,
@@ -1323,7 +1353,7 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
             GNOME_APP_UI_ITEM, NULL,
             _("FTP Connect"),
             connections_ftp_connect, NULL, NULL,
-            GNOME_APP_PIXMAP_DATA, ftp_connect_xpm,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
             0, 0, NULL
         },
         {

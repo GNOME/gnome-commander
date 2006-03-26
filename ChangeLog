@@ -1,3 +1,14 @@
+2006-03-27  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-selector.h:
+	* src/useractions.c:
+	* src/useractions.h:
+	* src/history.c:
+	* src/history.h:
+	Revamped toolbar layout.
+
 2006-03-24  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-data.c:

@@ -89,6 +89,18 @@ gboolean history_can_forward (History *history)
 }
 
 
+const gchar *history_first (History *history)
+{
+    g_return_val_if_fail (history != NULL, NULL);
+    g_return_val_if_fail (history->pos != NULL, NULL);
+
+    if (history->pos->next)
+        history->pos = g_list_last(history->pos);
+
+    return (const gchar*)history->pos->data;
+}
+
+
 const gchar *history_back (History *history)
 {
     g_return_val_if_fail (history != NULL, NULL);
@@ -108,6 +120,18 @@ const gchar *history_forward (History *history)
 
     if (history->pos->prev)
         history->pos = history->pos->prev;
+
+    return (const gchar*)history->pos->data;
+}
+
+
+const gchar *history_last (History *history)
+{
+    g_return_val_if_fail (history != NULL, NULL);
+    g_return_val_if_fail (history->pos != NULL, NULL);
+
+    if (history->pos->prev)
+        history->pos = g_list_first(history->pos);
 
     return (const gchar*)history->pos->data;
 }

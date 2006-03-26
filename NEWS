@@ -13,6 +13,7 @@ New features:
  * External tools and EXIF/IPTC tags viewer
  * Zooming for internal viewer
  * Text selection for internal viewer
+ * Revamped toolbar layout
  * Better handling column sort change
  * Initial doc framework
  * New or updated translations: es, eu, hu, pl, sl
