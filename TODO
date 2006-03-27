@@ -7,7 +7,6 @@ TODO
 ----
 
 * Documentation framework
-* Toolbar navigation buttons: FIRST,UP,LAST
 * MIME configuration
 * The advrename dialog should have a feature to convert between upper/lowercase.
 * 'Directory Tree' with ALT+F10
@@ -18,28 +17,33 @@ TODO
 * Splitting/merging files
 * Selecting text in browser
 * Custom columns support
+* Umounting a device via device button
 * Internal viewer - multiple files browsing
 * Support for file meta tags (exif, iptc, mp3, vorbis, *ml, pdf, ...) -
   advrename + file-search + custom columns
-* 'Brief file listing' (see mc)
+* Brief file listing (see mc)
 * File names filtering
 * File search - advanced criteria (according to file size, date or attr)
-* advrename & FAM: re-sorts file list for every single renamed file
+* Shopping-cart for selecting files from arbitrary URI 
+  (can be merged internally into visible file selection at any point
+   and then the usual multiple-file actions can be applied)
+* advrename & FAM: do not re-sort file list for every single renamed file
 * Write configuration and bookmark changes immediately to file
-* python plugins
+* python plugins 
 * More plugins:
     - creating tarballs from selected files
     - compressing/decompressing (gz & bz2)
     - converting gz <-> bz2, tar.gz <-> tar.bz2
-    - image operations (retoation, scaling, etc.)
+    - image operations (rotation, scaling, etc.) on selected files
     - batch file processing
     - converting txt <-> pdf
     - other mc-like extensions ?
-
+    - sending file as email attachment (configurable mail command)
+ 
 
 Discussed stuff (not assigned to a version yet)
 -----------------------------------------------
 
 * Toolbar configuration - OO.org like
 * Keyboard shortcuts configuration
-* Light version of gc (based on gtk+ only)
+* Light version of gc (based on gtk+ only, or fltk)
