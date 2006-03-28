@@ -3,32 +3,16 @@
 +---------------------------------------------------------+
 
 
-TODO
-----
+// General
 
-* Documentation framework
 * MIME configuration
-* The advrename dialog should have a feature to convert between upper/lowercase.
-* 'Directory Tree' with ALT+F10
-* 'Subdirectory View' - showing contents of a given dir and all its
-  subdirs in one file list. It gives the possibility of mass operation
-  like: copy/move/rename/delete for all subdirs files. _Very_ handy.
 * Browsing of compressed archives
 * Splitting/merging files
-* Selecting text in browser
-* Custom columns support
-* Umounting a device via device button
-* Internal viewer - multiple files browsing
-* Support for file meta tags (exif, iptc, mp3, vorbis, *ml, pdf, ...) -
-  advrename + file-search + custom columns
-* Brief file listing (see mc)
-* File names filtering
-* File search - advanced criteria (according to file size, date or attr)
-* Shopping-cart for selecting files from arbitrary URI 
-  (can be merged internally into visible file selection at any point
-   and then the usual multiple-file actions can be applied)
-* advrename & FAM: do not re-sort file list for every single renamed file
 * Write configuration and bookmark changes immediately to file
+* Support for file meta tags (exif, iptc, mp3, vorbis, *ml, pdf, ...) - custom columns
+* Umounting a device via device button
+* advrename & FAM: do not re-sort file list for every single renamed file
+* Bookmark icons for ordinary folders in the device toolbar
 * python plugins 
 * More plugins:
     - creating tarballs from selected files
@@ -39,6 +23,46 @@ TODO
     - converting txt <-> pdf
     - other mc-like extensions ?
     - sending file as email attachment (configurable mail command)
+* Shopping-cart for selecting files from arbitrary URI 
+  (visible file selection can be merged internally to the cart list at any point,
+   and then the usual multiple file actions can be applied)
+
+
+// Data presentation
+
+* File names filtering
+* Custom columns support
+* 'Directory Tree' with ALT+F10
+* Brief file listing (see mc)
+* 'Subdirectory View' - showing contents of a given dir and all its
+  subdirs in one file list. It gives the possibility of mass operation
+  like: copy/move/rename/delete for all subdirs files. _Very_ handy.
+
+
+// Search tool
+
+* File search - advanced criteria (according to file size, date or attr)
+* Support for file meta tags (exif, iptc, mp3, vorbis, *ml, pdf, ...)
+
+
+// Advrename tool
+
+* The advrename dialog should have a feature to convert between upper/lowercase.
+* Support for file meta tags (exif, iptc, mp3, vorbis, *ml, pdf, ...)
+
+
+// Internal viewer
+
+* Selecting text in browser (ctrl-c and xbuffer)
+* Multiple files browsing
+
+
+// Documentation
+
+* Documentation framework
+* Help button for every dialog
+* Plugin API (when ready)
+
  
 
 Discussed stuff (not assigned to a version yet)
@@ -46,4 +70,4 @@ Discussed stuff (not assigned to a version yet)
 
 * Toolbar configuration - OO.org like
 * Keyboard shortcuts configuration
-* Light version of gc (based on gtk+ only, or fltk)
+* Light version of gc (based on gtk+ only - not depending on GNOME)
