@@ -154,7 +154,14 @@ void
 file_edit                           (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
-    gnome_cmd_file_list_edit (get_active_fl ());
+    GdkModifierType mask;
+
+    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+    
+    if (mask & GDK_SHIFT_MASK)
+        gnome_cmd_file_selector_start_editor (get_active_fs ());
+    else
+        gnome_cmd_file_list_edit (get_active_fl ());
 }
 
 
@@ -228,24 +235,21 @@ file_diff                           (GtkMenuItem     *menuitem,
         gchar *cmd, *p1, *p2 = NULL;
         GnomeCmdFile *finfo2 = NULL;
         gboolean found = FALSE;
-        GList *all_files = gnome_cmd_file_list_get_all_files (
-            GNOME_CMD_FILE_LIST (gnome_cmd_main_win_get_inactive_fs (main_win)->list));
-        tmp = all_files;
+        GList *all_files = gnome_cmd_file_list_get_all_files (GNOME_CMD_FILE_LIST (gnome_cmd_main_win_get_inactive_fs (main_win)->list));
+        
 
         /**
          * Go through all the files in the other list until we find one with the same name
          */
-        while (tmp)
+        for (tmp = all_files; tmp; tmp = tmp->next)
         {
             finfo2 = (GnomeCmdFile*)tmp->data;
 
-            if (strcmp (gnome_cmd_file_get_name (finfo),
-                        gnome_cmd_file_get_name (finfo2)) == 0)
+            if (strcmp (gnome_cmd_file_get_name (finfo), gnome_cmd_file_get_name (finfo2)) == 0)
             {
                 found = TRUE;
                 break;
             }
-            tmp = tmp->next;
         }
 
         p1 = g_shell_quote (gnome_cmd_file_get_real_path (finfo));
@@ -253,7 +257,7 @@ file_diff                           (GtkMenuItem     *menuitem,
         if (found)
             p2 = g_shell_quote (gnome_cmd_file_get_real_path (finfo2));
 
-        cmd = g_strdup_printf (gnome_cmd_data_get_differ (), p1, p2?p2:"");
+        cmd = g_strdup_printf (gnome_cmd_data_get_differ (), p1, p2?:"");
 
         g_free (p1);
         if (p2)

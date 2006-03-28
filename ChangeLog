@@ -1,3 +1,8 @@
+2006-03-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/useractions.c:
+	SHIFT+click on toolbar edit button opens a new document.
+
 2006-03-28  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-main-win.c:
