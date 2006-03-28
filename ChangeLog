@@ -3,6 +3,9 @@
 	* src/gnome-cmd-main-win.c:
 	Small fix for ALT+[LETTER].
 
+	* src/gnome-cmd-main-win.c:
+        Fixed bug #332258 (left/right start directory parameter)
+
 2006-03-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-win.c:

@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem #171051
  * Fixed problem with the lack of gnome menu entry
  * Fixed a crash when viewing SMB connections.
+ * Fixed problem #332258 (left/right start directory parameter)
  
 New features:
  * Monitoring of mounted volumes. 
