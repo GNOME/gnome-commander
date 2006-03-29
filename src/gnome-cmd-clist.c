@@ -537,6 +537,11 @@ draw_row (GtkCList     *clist,
 /*******************************************
  * END OF TEST
  ****/
+static void        
+on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist) 
+{
+    gtk_widget_draw(GTK_WIDGET(clist),NULL);
+}
 
 static void
 on_scroll_vertical                  (GtkCList        *clist,
@@ -558,6 +563,10 @@ on_realize                          (GtkCList *clist,
         if (clist->column[i].button)
             GTK_WIDGET_UNSET_FLAGS (
                 clist->column[i].button, GTK_CAN_FOCUS);
+    }
+    if (GTK_CLIST(clist)->hadjustment) {
+        gtk_signal_connect_after(GTK_OBJECT(GTK_CLIST(clist)->hadjustment), "value-changed",
+            GTK_SIGNAL_FUNC(on_hadj_value_changed), clist);
     }
 }
 
