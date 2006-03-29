@@ -1313,7 +1313,7 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
         GNOMEUIINFO_SEPARATOR,
         {
             GNOME_APP_UI_ITEM, NULL,
-            _("Copy file names"),
+            _("Copy file names (SHIFT for full paths)"),
             edit_copy_fnames, NULL, NULL,
             GNOME_APP_PIXMAP_DATA, copy_file_names_xpm,
             0, 0, NULL

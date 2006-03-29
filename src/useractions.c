@@ -317,8 +317,12 @@ void
 edit_copy_fnames                    (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
+    GdkModifierType mask;
+
     static gchar sep[] = " ";
 
+    gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+    
     GnomeCmdFileList *fl = get_active_fl ();
     GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
     GList *i;
@@ -332,6 +336,9 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
         GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
 
         if (finfo)
+          if (mask & GDK_SHIFT_MASK)
+            *f++ = (char*)gnome_cmd_file_get_real_path (finfo);
+          else
             *f++ = (char*)gnome_cmd_file_get_name (finfo);
     }
 

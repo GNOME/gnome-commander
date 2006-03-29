@@ -6,7 +6,7 @@ Bug fixes:
  * Fixed problem #171051
  * Fixed problem with the lack of gnome menu entry
  * Fixed a crash when viewing SMB connections.
- * Fixed problem #309877 (strange atrifacts with horizontal scrolling)
+ * Fixed problem #309877 (strange artifacts with horizontal scrolling)
  * Fixed problem #332258 (left/right start directory parameter)
  
 New features:
@@ -17,6 +17,7 @@ New features:
  * Text selection for internal viewer
  * Revamped toolbar layout
  * Better handling column sort change
+ * Copying selected full file paths with SHIFT+click on toolbar button
  * Initial doc framework
  * New or updated translations: es, eu, hu, pl, sl
  * New key bindings:

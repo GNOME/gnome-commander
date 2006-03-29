@@ -1,7 +1,13 @@
+2006-03-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-win.c:
+	* src/useractions.c:
+	Added SHIFT+click on 'copy fnames' toolbar button for copying selected full paths to clipboard.
+
 2006-03-29  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-main-win.c:
-	Fixed bug #309877 (strange atrifacts with horizontal scrolling)
+	Fixed bug #309877 (strange artifacts with horizontal scrolling).
 
 2006-03-28  Piotr Eljasiak  <epiotr@use.pl>
 
@@ -14,10 +20,10 @@
 	Small fix for ALT+[LETTER].
 
 	* src/gnome-cmd-main-win.c:
-        Fixed bug #332258 (left/right start directory parameter)
+        Fixed bug #332258 (left/right start directory parameter).
 
 	* src/gnome-cmd-quicksearch-popup.c:
-	Fixed leaving the focus on the last file that matched the quick-search filter
+	Fixed leaving the focus on the last file that matched the quick-search filter.
 
 2006-03-27  Piotr Eljasiak  <epiotr@use.pl>
 
