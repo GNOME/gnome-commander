@@ -362,8 +362,7 @@ static void update_direntry (GnomeCmdFileSelector *fs)
     tmp = gnome_cmd_dir_get_display_path (fs->priv->cwd);
     g_return_if_fail (tmp != NULL);
 
-    gnome_cmd_dir_indicator_set_dir (
-        GNOME_CMD_DIR_INDICATOR (fs->dir_indicator), tmp);
+    gnome_cmd_dir_indicator_set_dir (GNOME_CMD_DIR_INDICATOR (fs->dir_indicator), tmp);
 
     g_free (tmp);
 }
@@ -594,8 +593,7 @@ autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
         if (fs->priv->autoscroll_timeout) return;
         fs->priv->autoscroll_dir = FALSE;
         fs->priv->autoscroll_y = y;
-        fs->priv->autoscroll_timeout =
-            gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)do_scroll, fs);
+        fs->priv->autoscroll_timeout = gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)do_scroll, fs);
     }
     else if (y > smax) {
         if (fs->priv->autoscroll_timeout) return;
@@ -653,14 +651,10 @@ init_dnd (GnomeCmdFileSelector *fs)
 
     /* Set up drag source */
 
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_begin",
-                        GTK_SIGNAL_FUNC (drag_begin), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_end",
-                        GTK_SIGNAL_FUNC (drag_end), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_leave",
-                        GTK_SIGNAL_FUNC (drag_leave), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_data_delete",
-                        GTK_SIGNAL_FUNC (drag_data_delete), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_begin", GTK_SIGNAL_FUNC (drag_begin), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_end", GTK_SIGNAL_FUNC (drag_end), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_leave", GTK_SIGNAL_FUNC (drag_leave), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_data_delete", GTK_SIGNAL_FUNC (drag_data_delete), fs);
 
     /* Set up drag destination */
 
@@ -669,12 +663,9 @@ init_dnd (GnomeCmdFileSelector *fs)
                        drop_types, ELEMENTS (drop_types),
                        GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
 
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_motion",
-                        GTK_SIGNAL_FUNC (drag_motion), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_leave",
-                        GTK_SIGNAL_FUNC (drag_leave), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_data_received",
-                        GTK_SIGNAL_FUNC (drag_data_received), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_motion", GTK_SIGNAL_FUNC (drag_motion), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_leave", GTK_SIGNAL_FUNC (drag_leave), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_data_received", GTK_SIGNAL_FUNC (drag_data_received), fs);
 }
 
 
@@ -725,11 +716,11 @@ update_vol_label (GnomeCmdFileSelector *fs)
 
         if (res == GNOME_VFS_OK) {
             gchar *sfree = gnome_vfs_format_file_size_for_display (free_space);
-            s = g_strdup_printf (_("%s Free"), sfree);
+            s = g_strdup_printf (_("%s free"), sfree);
             g_free (sfree);
         }
         else
-            s = g_strdup ("Unknown disk usage");
+            s = g_strdup (_("Unknown disk usage"));
     }
     else
         s = g_strdup ("");
@@ -771,8 +762,7 @@ goto_directory (GnomeCmdFileSelector *fs,
     else {
         /* check if it's an absolute address or not */
         if (dir[0] == '/') {
-            new_dir = gnome_cmd_dir_new (
-                fs->priv->con, gnome_cmd_con_create_path (fs->priv->con, dir));
+            new_dir = gnome_cmd_dir_new (fs->priv->con, gnome_cmd_con_create_path (fs->priv->con, dir));
         }
         else if (strncmp (dir, "\\\\", 2) == 0) {
             GnomeCmdPath *path = gnome_cmd_con_create_path (get_smb_con (), dir);
@@ -835,10 +825,8 @@ add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
         else
             text = gnome_cmd_file_get_quoted_name (finfo);
 
-        gnome_cmd_cmdline_append_text (
-            gnome_cmd_main_win_get_cmdline (main_win), text);
-        gnome_cmd_cmdline_focus (
-            gnome_cmd_main_win_get_cmdline (main_win));
+        gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), text);
+        gnome_cmd_cmdline_focus (gnome_cmd_main_win_get_cmdline (main_win));
         g_free (text);
     }
 }
@@ -851,12 +839,10 @@ add_cwd_to_cmdline (GnomeCmdFileSelector *fs)
 
     if (gnome_cmd_data_get_cmdline_visibility ()) {
         gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->priv->cwd));
-        gnome_cmd_cmdline_append_text (
-            gnome_cmd_main_win_get_cmdline (main_win), dpath);
+        gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), dpath);
         g_free (dpath);
 
-        gnome_cmd_cmdline_focus (
-            gnome_cmd_main_win_get_cmdline (main_win));
+        gnome_cmd_cmdline_focus (gnome_cmd_main_win_get_cmdline (main_win));
     }
 }
 
@@ -963,11 +949,9 @@ create_con_buttons (GnomeCmdFileSelector *fs)
     if (!gnome_cmd_data_get_conbuttons_visibility ())
         return;
 
-    l = fs->priv->old_btns;
-    while (l) {
+	for (l = fs->priv->old_btns; l; l = l->next)
         gtk_object_destroy (GTK_OBJECT (l->data));
-        l = l->next;
-    }
+
     g_list_free (fs->priv->old_btns);
     fs->priv->old_btns = NULL;
 
@@ -991,18 +975,15 @@ create_con_buttons (GnomeCmdFileSelector *fs)
 
         btn = create_styled_button (NULL);
         gtk_object_set_data (GTK_OBJECT (btn), "con", con);
-        gtk_signal_connect (GTK_OBJECT (btn), "clicked",
-                            (GtkSignalFunc)on_con_btn_clicked, fs);
+        gtk_signal_connect (GTK_OBJECT (btn), "clicked", (GtkSignalFunc)on_con_btn_clicked, fs);
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
         GTK_WIDGET_UNSET_FLAGS (btn, GTK_CAN_FOCUS);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
-        gtk_tooltips_set_tip (tooltips, btn,
-                              gnome_cmd_con_get_go_text (con), NULL);
+        gtk_tooltips_set_tip (tooltips, btn, gnome_cmd_con_get_go_text (con), NULL);
 
         hbox = gtk_hbox_new (FALSE, 1);
         gtk_widget_ref (hbox);
-        gtk_object_set_data_full (GTK_OBJECT (fs), "con-hbox", hbox,
-                                  (GtkDestroyNotify) gtk_widget_unref);
+        gtk_object_set_data_full (GTK_OBJECT (fs), "con-hbox", hbox, (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (hbox);
 
         if (pm) {
@@ -1116,12 +1097,9 @@ on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
                 GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
         }
 
-        gtk_signal_connect (GTK_OBJECT (dir), "file-created",
-                            GTK_SIGNAL_FUNC (on_dir_file_created), fs);
-        gtk_signal_connect (GTK_OBJECT (dir), "file-deleted",
-                            GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
-        gtk_signal_connect (GTK_OBJECT (dir), "file-changed",
-                            GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
+        gtk_signal_connect (GTK_OBJECT (dir), "file-created", GTK_SIGNAL_FUNC (on_dir_file_created), fs);
+        gtk_signal_connect (GTK_OBJECT (dir), "file-deleted", GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
+        gtk_signal_connect (GTK_OBJECT (dir), "file-changed", GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
         fs->priv->connected_dir = dir;
     }
 
@@ -1398,14 +1376,6 @@ init (GnomeCmdFileSelector *fs)
                               (GtkDestroyNotify) gtk_widget_unref);
     GTK_WIDGET_UNSET_FLAGS (fs->root_btn, GTK_CAN_FOCUS);
 
-    /* create the parent dir button */
-    fs->parent_btn = create_styled_pixmap_button (
-        NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_PARENT_DIR));
-    gtk_object_set_data_full (GTK_OBJECT (fs),
-                              "parent_btn", fs->parent_btn,
-                              (GtkDestroyNotify) gtk_widget_unref);
-    GTK_WIDGET_UNSET_FLAGS (fs->parent_btn, GTK_CAN_FOCUS);
-
     /* create the directory indicator */
     fs->dir_indicator = gnome_cmd_dir_indicator_new (fs);
     gtk_widget_ref (fs->dir_indicator);
@@ -1440,7 +1410,6 @@ init (GnomeCmdFileSelector *fs)
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->con_combo, FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->vol_label, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->root_btn, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->parent_btn, FALSE, FALSE, 0);
 
 
     /* initialize dnd */
@@ -1471,8 +1440,6 @@ init (GnomeCmdFileSelector *fs)
 
     gtk_signal_connect (GTK_OBJECT (fs->root_btn), "clicked",
                         GTK_SIGNAL_FUNC (on_root_btn_clicked), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->parent_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_parent_btn_clicked), fs);
 
     gtk_signal_connect (GTK_OBJECT (gnome_cmd_data_get_con_list ()), "list-changed",
                         GTK_SIGNAL_FUNC (on_con_list_list_changed), fs);
@@ -1483,7 +1450,6 @@ init (GnomeCmdFileSelector *fs)
     gtk_widget_show (fs->con_hbox);
     gtk_widget_show (fs->dir_indicator);
     gtk_widget_show (fs->root_btn);
-    gtk_widget_show (fs->parent_btn);
     gtk_widget_show (fs->scrolledwindow);
     gtk_widget_show (fs->vol_label);
     gtk_widget_show (fs->con_combo);

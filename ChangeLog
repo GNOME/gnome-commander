@@ -4,6 +4,10 @@
 	* src/utils.c:
 	Fixed bug #336649 (permission numbers).
 
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-selector.h:
+	Removed unused microbutton.
+
 2006-03-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-win.c:
