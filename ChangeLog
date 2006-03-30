@@ -1,3 +1,9 @@
+2006-03-31  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/utils.c:
+	Fixed bug #336649 (permission numbers).
+
 2006-03-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-win.c:

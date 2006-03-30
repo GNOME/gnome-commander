@@ -240,7 +240,7 @@ create_format_tab (GtkWidget *parent)
     if (gnome_cmd_data_get_perm_disp_mode () == GNOME_CMD_PERM_DISP_MODE_TEXT)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
-    radio = create_radio (parent, get_radio_group (radio), _("Number (311)"), "perm_num_radio");
+    radio = create_radio (parent, get_radio_group (radio), _("Number (644)"), "perm_num_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data_get_perm_disp_mode () == GNOME_CMD_PERM_DISP_MODE_NUMBER)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);

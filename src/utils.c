@@ -414,15 +414,15 @@ void perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
     gint i = 0;
 
-    if (p & GNOME_VFS_PERM_USER_READ) i += 100;
+    if (p & GNOME_VFS_PERM_USER_READ) i += 400;
     if (p & GNOME_VFS_PERM_USER_WRITE) i += 200;
-    if (p & GNOME_VFS_PERM_USER_EXEC) i += 400;
-    if (p & GNOME_VFS_PERM_GROUP_READ) i += 10;
+    if (p & GNOME_VFS_PERM_USER_EXEC) i += 100;
+    if (p & GNOME_VFS_PERM_GROUP_READ) i += 40;
     if (p & GNOME_VFS_PERM_GROUP_WRITE) i += 20;
-    if (p & GNOME_VFS_PERM_GROUP_EXEC) i += 40;
-    if (p & GNOME_VFS_PERM_OTHER_READ) i += 1;
+    if (p & GNOME_VFS_PERM_GROUP_EXEC) i += 10;
+    if (p & GNOME_VFS_PERM_OTHER_READ) i += 4;
     if (p & GNOME_VFS_PERM_OTHER_WRITE) i += 2;
-    if (p & GNOME_VFS_PERM_OTHER_EXEC) i += 4;
+    if (p & GNOME_VFS_PERM_OTHER_EXEC) i += 1;
 
     g_snprintf (buf, max, "%d", i);
 }
