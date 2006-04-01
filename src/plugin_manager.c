@@ -239,7 +239,7 @@ void plugin_manager_shutdown (void)
     GList *l;
     GList *out = NULL;
 
-    while ( l = plugins; l; l = l->next )
+    for ( l = plugins; l; l = l->next )
     {
         PluginData *data = (PluginData*)l->data;
         if (data->active)
