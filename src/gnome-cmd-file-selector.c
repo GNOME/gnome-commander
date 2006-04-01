@@ -1250,15 +1250,6 @@ on_root_btn_clicked                      (GtkButton *button,
 }
 
 
-static void
-on_parent_btn_clicked                    (GtkButton *button,
-                                          GnomeCmdFileSelector *fs)
-{
-    gnome_cmd_main_win_switch_fs (main_win, fs);
-    goto_directory (fs, "..");
-}
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
