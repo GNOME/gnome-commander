@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "imageloader.h"
@@ -146,10 +147,9 @@ void IMAGE_init (void)
         DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
         if (!load_icon (path, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask)) {
-            gchar *path2;
+            gchar *path2 = g_build_path ("/", "../pixmaps", pixmap_files[i], NULL);
 
             warn_print (_("Couldn't load installed pixmap, trying to load from source-dir\n"));
-            path2 = g_build_path ("/", "../pixmaps", pixmap_files[i], NULL);
             warn_print (_("Trying to load %s instead\n"), path2);
 
             if (!load_icon (path2, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask)) {
@@ -347,9 +347,7 @@ load_icon (const gchar *icon_path,
         scale = (gfloat)h/(gfloat)gdk_pixbuf_get_height (pixbuf);
         w = (gint)(scale*(gfloat)gdk_pixbuf_get_width (pixbuf));
 
-        tmp = gdk_pixbuf_scale_simple (
-            pixbuf, w, h,
-            gnome_cmd_data_get_icon_scale_quality());
+        tmp = gdk_pixbuf_scale_simple (pixbuf, w, h, gnome_cmd_data_get_icon_scale_quality());
         gdk_pixbuf_unref (pixbuf);
         pixbuf = tmp;
     }
@@ -366,10 +364,8 @@ load_icon (const gchar *icon_path,
 
     gdk_pixbuf_copy_area (symlink_pixbuf, 0, 0, sym_w, sym_h, lnk_pixbuf, x, y);
 
-    gdk_pixbuf_render_pixmap_and_mask (
-        pixbuf, pm, bm, 128);
-    gdk_pixbuf_render_pixmap_and_mask (
-        lnk_pixbuf, lpm, lbm, 128);
+    gdk_pixbuf_render_pixmap_and_mask (pixbuf, pm, bm, 128);
+    gdk_pixbuf_render_pixmap_and_mask (lnk_pixbuf, lpm, lbm, 128);
     gdk_pixbuf_unref (pixbuf);
     gdk_pixbuf_unref (lnk_pixbuf);
 
@@ -444,8 +440,7 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
         entry->lnk_pixmap = lpm;
         entry->lnk_mask = lbm;
 
-
-        DEBUG('z', "Icon found?: %s\n", entry->dead_end?"No":"Yes");
+        DEBUG('z', "Icon found?: %s\n", entry->dead_end ? "No" : "Yes");
 
         g_hash_table_insert (mime_cache, g_strdup (mime_type), entry);
     }
@@ -469,14 +464,10 @@ static gboolean get_mime_icon (GnomeVFSFileType type,
                                GdkPixmap **pixmap,
                                GdkBitmap **mask)
 {
-    if (get_mime_icon_in_dir (
-            gnome_cmd_data_get_theme_icon_dir(),
-            type, mime_type, symlink, pixmap, mask))
+    if (get_mime_icon_in_dir (gnome_cmd_data_get_theme_icon_dir(), type, mime_type, symlink, pixmap, mask))
         return TRUE;
 
-    return get_mime_icon_in_dir (
-        gnome_cmd_data_get_document_icon_dir(),
-        type, mime_type, symlink, pixmap, mask);
+    return get_mime_icon_in_dir (gnome_cmd_data_get_document_icon_dir(), type, mime_type, symlink, pixmap, mask);
 }
 
 
@@ -536,12 +527,14 @@ static gboolean remove_entry (const gchar *key, CacheEntry *entry, gpointer user
     return TRUE;
 }
 
+
 void IMAGE_clear_mime_cache (void)
 {
     g_return_if_fail (mime_cache != NULL);
 
     g_hash_table_foreach_remove (mime_cache, (GHRFunc)remove_entry, NULL);
 }
+
 
 void IMAGE_free (void)
 {

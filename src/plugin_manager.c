@@ -43,21 +43,19 @@ static GdkBitmap *blank_mask = NULL;
 static void
 load_plugin (PluginData *data)
 {
+    GModule *module = g_module_open (data->fpath, G_MODULE_BIND_LAZY);
     PluginInfoFunc info_func;
     PluginConstructorFunc init_func;
     GnomeCmdPlugin *plugin;
-    GModule *module;
 
-    if (!(module = g_module_open (data->fpath, G_MODULE_BIND_LAZY))) {
-        g_printerr ("ERROR: Failed to load the plugin '%s': %s\n",
-                    data->fname, g_module_error ());
+    if (!module) {
+        g_printerr ("ERROR: Failed to load the plugin '%s': %s\n", data->fname, g_module_error ());
         return;
     }
 
     /* Try to get a reference to the "get_plugin_info" function */
     if (!g_module_symbol (module, MODULE_INFO_FUNC, (gpointer*)&info_func)) {
-        g_printerr ("ERROR: The plugin-file '%s' has no function named '%s'.\n",
-                    data->fname, MODULE_INFO_FUNC);
+        g_printerr ("ERROR: The plugin-file '%s' has no function named '%s'.\n", data->fname, MODULE_INFO_FUNC);
         g_module_close (module);
         return;
     }
@@ -65,28 +63,23 @@ load_plugin (PluginData *data)
     /* Try to get the plugin info */
     data->info = info_func ();
     if (!data->info) {
-        g_printerr ("ERROR: The plugin-file '%s' did not return valid plugin info:\n",
-                    data->fname);
-        g_printerr ("  The function '%s' returned NULL\n",
-                    MODULE_INFO_FUNC);
+        g_printerr ("ERROR: The plugin-file '%s' did not return valid plugin info:\n", data->fname);
+        g_printerr ("  The function '%s' returned NULL\n", MODULE_INFO_FUNC);
         g_module_close (module);
         return;
     }
 
     /* Check that the plugin is compatible */
     if (data->info->plugin_system_version != GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION) {
-        g_printerr ("ERROR: The plugin '%s' is not compatible with this version of %s:\n",
-                    data->info->name, PACKAGE);
-        g_printerr ("  Plugin system supported by the plugin is %d, it should be %d\n",
-                    data->info->plugin_system_version,
+        g_printerr ("ERROR: The plugin '%s' is not compatible with this version of %s:\n", data->info->name, PACKAGE);
+        g_printerr ("  Plugin system supported by the plugin is %d, it should be %d\n", data->info->plugin_system_version,
                     GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION);
         return;
     }
 
     /* Try to get a reference to the "create_plugin" function */
     if (!g_module_symbol (module, MODULE_INIT_FUNC, (gpointer*)&init_func)) {
-        g_printerr ("ERROR: The plugin '%s' has no '%s' function\n",
-                    data->info->name, MODULE_INIT_FUNC);
+        g_printerr ("ERROR: The plugin '%s' has no '%s' function\n", data->info->name, MODULE_INIT_FUNC);
         g_module_close (module);
         return;
     }
@@ -94,8 +87,7 @@ load_plugin (PluginData *data)
     /* Try to initialize the plugin */
     plugin = init_func ();
     if (!plugin) {
-        g_printerr ("ERROR: The plugin '%s' could not be initialized:\n",
-                    data->info->name);
+        g_printerr ("ERROR: The plugin '%s' could not be initialized:\n", data->info->name);
         g_printerr ("  The '%s' function returned NULL\n", MODULE_INIT_FUNC);
         g_module_close (module);
         return;
@@ -125,8 +117,7 @@ activate_plugin (PluginData *data)
     data->active = TRUE;
 
     state = gnome_cmd_main_win_get_state (main_win);
-    data->menu = gnome_cmd_plugin_create_main_menu (
-        data->plugin, state);
+    data->menu = gnome_cmd_plugin_create_main_menu (data->plugin, state);
     if (data->menu)
         gnome_cmd_main_win_add_plugin_menu (main_win, data);
 }
@@ -147,13 +138,12 @@ inactivate_plugin (PluginData *data)
 static void
 scan_plugins_in_dir (const gchar *dpath)
 {
-    DIR *dir;
+    DIR *dir = opendir (dpath);
     char prev_dir[256];
     struct dirent *ent;
 
-    if ((dir = opendir (dpath)) == NULL) {
-        gchar *msg = g_strdup_printf ("Could not list files in %s: %s\n",
-                                      dpath, strerror (errno));
+    if (dir == NULL) {
+        gchar *msg = g_strdup_printf ("Could not list files in %s: %s\n", dpath, strerror (errno));
         warn_print (msg);
         g_free (msg);
         return;
@@ -221,28 +211,25 @@ void plugin_manager_init (void)
     scan_plugins_in_dir (PLUGIN_DIR);
 
     /* activate plugins */
-    l = gnome_cmd_data_get_auto_load_plugins ();
-    while (l) {
+    for ( l = gnome_cmd_data_get_auto_load_plugins (); l; l = l->next )
+    {
         char *name = (gchar*)l->data;
-        GList *l2 = plugins;
-        while (l2) {
+        GList *l2;
+
+        for ( l2 = plugins; l2; l2 = l2->next)
+        {
             PluginData *data = (PluginData*)l2->data;
             if (strcmp (name, data->fname) == 0)
                 data->autoload = TRUE;
-            l2 = l2->next;
         }
-
-        l = l->next;
     }
 
     /* inactivate plugins that shouldn't be autoloaded */
-    l = plugins;
-    while (l)
+    for ( l = plugins; l; l = l->next)
     {
         PluginData *data = (PluginData*)l->data;
         if (!data->autoload)
             inactivate_plugin (data);
-        l = l->next;
     }
 }
 
@@ -252,12 +239,11 @@ void plugin_manager_shutdown (void)
     GList *l;
     GList *out = NULL;
 
-    l = plugins;
-    while (l) {
+    while ( l = plugins; l; l = l->next )
+    {
         PluginData *data = (PluginData*)l->data;
         if (data->active)
             out = g_list_append (out, data->fname);
-        l = l->next;
     }
 
     gnome_cmd_data_set_auto_load_plugins (out);
@@ -281,12 +267,9 @@ static void
 update_plugin_list (GtkCList *list, GtkWidget *dialog)
 {
     GList *tmp;
-    gint old_focus;
+    gint old_focus = list->focus_row;
     gint row = 0;
-    gboolean only_update;
-
-    old_focus = list->focus_row;
-    only_update = (list->rows > 0);
+    gboolean only_update = (list->rows > 0);
 
     tmp = plugins;
     while (tmp) {
@@ -445,19 +428,16 @@ void plugin_manager_show (void)
     bbox = create_hbuttonbox (dialog);
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
-    button = create_button (
-        GTK_WIDGET (dialog), _("_Enable"), GTK_SIGNAL_FUNC (on_toggle));
+    button = create_button (GTK_WIDGET (dialog), _("_Enable"), GTK_SIGNAL_FUNC (on_toggle));
     gtk_object_set_data (GTK_OBJECT (dialog), "toggle_button", button);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
 
-    button = create_button (
-        GTK_WIDGET (dialog), _("_Configure"), GTK_SIGNAL_FUNC (on_configure));
+    button = create_button (GTK_WIDGET (dialog), _("_Configure"), GTK_SIGNAL_FUNC (on_configure));
     gtk_object_set_data (GTK_OBJECT (dialog), "conf_button", button);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
 
-    button = create_button (
-        GTK_WIDGET (dialog), _("_About"), GTK_SIGNAL_FUNC (on_about));
+    button = create_button (GTK_WIDGET (dialog), _("_About"), GTK_SIGNAL_FUNC (on_about));
     gtk_object_set_data (GTK_OBJECT (dialog), "about_button", button);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_box_pack_start (GTK_BOX (bbox), button, TRUE, FALSE, 0);
@@ -468,8 +448,7 @@ void plugin_manager_show (void)
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), hbox);
 
     avail_list = lookup_widget (avail_list, "avail_list");
-    gtk_signal_connect (GTK_OBJECT (avail_list), "unselect-row",
-                        GTK_SIGNAL_FUNC (on_plugin_unselected), dialog);
+    gtk_signal_connect (GTK_OBJECT (avail_list), "unselect-row", GTK_SIGNAL_FUNC (on_plugin_unselected), dialog);
 
     if (!exec_pixmap) {
         exec_pixmap = IMAGE_get_pixmap (PIXMAP_EXEC_WHEEL);
@@ -483,11 +462,8 @@ void plugin_manager_show (void)
 
     update_plugin_list (GTK_CLIST (avail_list), dialog);
 
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CLOSE,
-        GTK_SIGNAL_FUNC(on_close), dialog);
-    gnome_cmd_dialog_set_transient_for (
-        GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win));
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CLOSE, GTK_SIGNAL_FUNC(on_close), dialog);
+    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win));
 
     gtk_widget_set_usize (GTK_WIDGET (dialog), 400, 300);
     gtk_widget_show_all (GTK_WIDGET (dialog));

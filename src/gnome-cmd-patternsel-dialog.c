@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
@@ -38,7 +39,6 @@ struct _GnomeCmdPatternselDialogPrivate
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
-
 static void
 on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 {
@@ -56,8 +56,7 @@ on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
     else
         gnome_cmd_file_list_unselect_pattern (dialog->priv->fl, s, case_sens);
 
-    defaults->name_patterns = string_history_add (
-        defaults->name_patterns, s, PATTERN_HISTORY_SIZE);
+    defaults->name_patterns = string_history_add (defaults->name_patterns, s, PATTERN_HISTORY_SIZE);
 
     gtk_widget_hide (GTK_WIDGET (dialog));
 }
@@ -97,11 +96,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdPatternselDialogClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
     parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
@@ -114,8 +110,6 @@ init (GnomeCmdPatternselDialog *dialog)
 {
     dialog->priv = g_new (GnomeCmdPatternselDialogPrivate, 1);
 }
-
-
 
 
 /***********************************
@@ -133,14 +127,10 @@ gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 
     gnome_cmd_dialog_setup (
         GNOME_CMD_DIALOG (dialog),
-        mode?_("Select Using Pattern"):_("Unselect Using Pattern"));
+        mode ? _("Select Using Pattern") : _("Unselect Using Pattern"));
 
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL,
-        GTK_SIGNAL_FUNC (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
-        GTK_SIGNAL_FUNC (on_ok), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
 
     vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 6);
     hbox = create_hbox (GTK_WIDGET (dialog), FALSE, 6);
@@ -149,15 +139,12 @@ gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
     dialog->priv->pattern_combo = create_combo (GTK_WIDGET (dialog));
     gtk_combo_disable_activate (GTK_COMBO (dialog->priv->pattern_combo));
     if (defaults->name_patterns)
-        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo),
-                                       defaults->name_patterns);
+        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo), defaults->name_patterns);
     dialog->priv->pattern_entry = GTK_COMBO (dialog->priv->pattern_combo)->entry;
-    gnome_cmd_dialog_editable_enters (
-        GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->pattern_entry));
+    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->pattern_entry));
     gtk_entry_select_region (GTK_ENTRY (dialog->priv->pattern_entry), 0, -1);
 
-    dialog->priv->case_check = create_check (
-        GTK_WIDGET (dialog), _("Case sensitive"), "case_sens");
+    dialog->priv->case_check = create_check (GTK_WIDGET (dialog), _("Case sensitive"), "case_sens");
 
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, FALSE, 0);
@@ -170,7 +157,6 @@ gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 
     return GTK_WIDGET (dialog);
 }
-
 
 
 GtkType
@@ -196,6 +182,3 @@ gnome_cmd_patternsel_dialog_get_type         (void)
     }
     return dlg_type;
 }
-
-
-
