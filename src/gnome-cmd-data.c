@@ -174,11 +174,9 @@ static void write_ftp_servers ()
 static void
 write_devices ()
 {
-    gchar *path;
-    FILE *fd;
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/devices", g_get_home_dir());
+    FILE *fd = fopen (path, "w");
 
-    path = g_strdup_printf ("%s/.gnome-commander/devices", g_get_home_dir());
-    fd = fopen (path, "w");
     if (fd != NULL) {
         GList *tmp;
 
@@ -222,11 +220,9 @@ write_devices ()
 static void
 write_fav_apps ()
 {
-    gchar *path;
-    FILE *fd;
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/fav-apps", g_get_home_dir());
+    FILE *fd = fopen (path, "w");
 
-    path = g_strdup_printf ("%s/.gnome-commander/fav-apps", g_get_home_dir());
-    fd = fopen (path, "w");
     if (fd != NULL) {
         GList *tmp;
 
@@ -265,11 +261,9 @@ write_fav_apps ()
 
 static void load_ftp_servers ()
 {
-    gchar *path;
-    FILE *fd;
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/ftp-servers", g_get_home_dir());
+    FILE *fd = fopen (path, "r");
 
-    path = g_strdup_printf ("%s/.gnome-commander/ftp-servers", g_get_home_dir());
-    fd = fopen (path, "r");
     if (fd != NULL) {
         gint ret=0;
         GnomeCmdConFtp *server = NULL;
@@ -606,11 +600,9 @@ load_vfs_auto_devices()
 static void
 load_devices ()
 {
-    gchar *path;
-    FILE *fd;
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/devices", g_get_home_dir());
+    FILE *fd = fopen (path, "r");
 
-    path = g_strdup_printf ("%s/.gnome-commander/devices", g_get_home_dir());
-    fd = fopen (path, "r");
     if (fd != NULL) {
         int ret;
         gchar alias[256], device_fn[256], mountp[256], icon_path[256];
@@ -809,14 +801,12 @@ write_local_bookmarks ()
     GList *names = NULL;
     GList *paths = NULL;
 
-    tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks;
-
-    while (tmp) {
+    for ( tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next ) {
         GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)tmp->data;
         names = g_list_append (names, bookmark->name);
         paths = g_list_append (paths, bookmark->path);
-        tmp = tmp->next;
     }
+
     gnome_cmd_data_set_int ("/local_bookmarks/count", g_list_length (bookmarks));
     write_string_history ("/local_bookmarks/name%d", names);
     write_string_history ("/local_bookmarks/path%d", paths);
@@ -831,14 +821,12 @@ write_smb_bookmarks ()
     GList *names = NULL;
     GList *paths = NULL;
 
-    tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks;
-
-    while (tmp) {
+    for ( tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next ) {
         GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*) tmp->data;
         names = g_list_append (names, bookmark->name);
         paths = g_list_append (paths, bookmark->path);
-        tmp = tmp->next;
     }
+
     gnome_cmd_data_set_int ("/smb_bookmarks/count", g_list_length (bookmarks));
     write_string_history ("/smb_bookmarks/name%d", names);
     write_string_history ("/smb_bookmarks/path%d", paths);
@@ -974,16 +962,14 @@ load_rename_history ()
 static void
 load_local_bookmarks ()
 {
-    gint i;
-    GList *names, *paths;
-    GList *bookmarks = NULL;
-    GnomeCmdCon *con;
-
     gint size = gnome_cmd_data_get_int ("/local_bookmarks/count", 0);
-    names = load_string_history ("/local_bookmarks/name%d", size);
-    paths = load_string_history ("/local_bookmarks/path%d", size);
+    GList *names = load_string_history ("/local_bookmarks/name%d", size);
+    GList *paths = load_string_history ("/local_bookmarks/path%d", size);
 
-    con = gnome_cmd_con_list_get_home (data->priv->con_list);
+    GnomeCmdCon *con = gnome_cmd_con_list_get_home (data->priv->con_list);
+
+    gint i;
+    GList *bookmarks = NULL;
 
     for ( i=0; i<size; i++ ) {
         GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
@@ -1092,22 +1078,14 @@ gnome_cmd_data_save                      (void)
     gnome_cmd_data_set_int    ("/options/layout", data->priv->layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", data->priv->list_row_height);
 
-    gnome_cmd_data_set_bool   ("/options/show_unknown",
-                data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
-    gnome_cmd_data_set_bool   ("/options/show_regular",
-                data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
-    gnome_cmd_data_set_bool   ("/options/show_directory",
-                data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY]);
-    gnome_cmd_data_set_bool   ("/options/show_fifo",
-                data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_FIFO]);
-    gnome_cmd_data_set_bool   ("/options/show_socket",
-                data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_SOCKET]);
-    gnome_cmd_data_set_bool   ("/options/show_char_device",
-                data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE]);
-    gnome_cmd_data_set_bool   ("/options/show_block_device",
-                data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]);
-    gnome_cmd_data_set_bool   ("/options/show_symbolic_link",
-                data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]);
+    gnome_cmd_data_set_bool   ("/options/show_unknown", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
+    gnome_cmd_data_set_bool   ("/options/show_regular", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
+    gnome_cmd_data_set_bool   ("/options/show_directory", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY]);
+    gnome_cmd_data_set_bool   ("/options/show_fifo", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_FIFO]);
+    gnome_cmd_data_set_bool   ("/options/show_socket", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_SOCKET]);
+    gnome_cmd_data_set_bool   ("/options/show_char_device", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE]);
+    gnome_cmd_data_set_bool   ("/options/show_block_device", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_BLOCK_DEVICE]);
+    gnome_cmd_data_set_bool   ("/options/show_symbolic_link", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK]);
 
     gnome_cmd_data_set_bool   ("/options/hidden_filter", data->priv->filter_settings.hidden);
     gnome_cmd_data_set_bool   ("/options/backup_filter", data->priv->filter_settings.backup);
@@ -1761,7 +1739,7 @@ gnome_cmd_data_set_theme_icon_dir       (const gchar *dir)
     if (data->priv->theme_icon_dir)
         g_free (data->priv->theme_icon_dir);
 
-        data->priv->theme_icon_dir = g_strdup (dir);
+    data->priv->theme_icon_dir = g_strdup (dir);
 }
 
 
@@ -1778,7 +1756,7 @@ gnome_cmd_data_set_document_icon_dir       (const gchar *dir)
     if (data->priv->document_icon_dir)
         g_free (data->priv->document_icon_dir);
 
-        data->priv->document_icon_dir = g_strdup (dir);
+    data->priv->document_icon_dir = g_strdup (dir);
 }
 
 
@@ -2138,7 +2116,7 @@ gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir)
     if (data->priv->start_dirs[fs])
         g_free (data->priv->start_dirs[fs]);
 
-        data->priv->start_dirs[fs] = g_strdup (start_dir);
+    data->priv->start_dirs[fs] = g_strdup (start_dir);
 }
 
 
