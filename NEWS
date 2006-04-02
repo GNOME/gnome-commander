@@ -17,6 +17,7 @@ New features:
  * Zooming for internal viewer
  * Text selection for internal viewer
  * Revamped toolbar layout
+ * Options for controlling copy and move overwriting
  * Copying selected full file paths with SHIFT+click on toolbar button
  * Better handling column sort change
  * Initial doc framework
