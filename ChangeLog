@@ -1,3 +1,11 @@
+2006-04-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-types.h:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	More options in 'Option|Confirmation' tab.
+
 2006-04-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-options-dialog.c:

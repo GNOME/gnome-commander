@@ -59,6 +59,8 @@ struct _GnomeCmdDataPrivate
     gint                 main_win_width, main_win_height;
     gboolean             case_sens_sort;
     gboolean             confirm_delete;
+	GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
+	GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
     gint                 list_row_height;
     gchar                *list_font;
     GnomeCmdRightMouseButtonMode right_mouse_button_mode;
@@ -1078,6 +1080,10 @@ gnome_cmd_data_save                      (void)
     gnome_cmd_data_set_int    ("/options/layout", data->priv->layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", data->priv->list_row_height);
 
+    gnome_cmd_data_set_bool   ("/confirm/delete", data->priv->confirm_delete);
+	gnome_cmd_data_set_int    ("/confirm/copy_overwrite", data->priv->confirm_copy_overwrite);
+	gnome_cmd_data_set_int    ("/confirm/move_overwrite", data->priv->confirm_move_overwrite);
+
     gnome_cmd_data_set_bool   ("/options/show_unknown", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
     gnome_cmd_data_set_bool   ("/options/show_regular", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
     gnome_cmd_data_set_bool   ("/options/show_directory", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_DIRECTORY]);
@@ -1091,7 +1097,6 @@ gnome_cmd_data_save                      (void)
     gnome_cmd_data_set_bool   ("/options/backup_filter", data->priv->filter_settings.backup);
 
     gnome_cmd_data_set_bool   ("/sort/case_sensitive", data->priv->case_sens_sort);
-    gnome_cmd_data_set_bool   ("/confirm/delete", data->priv->confirm_delete);
 
     gnome_cmd_data_set_int    ("/colors/mode", data->priv->color_mode);
 
@@ -1241,7 +1246,11 @@ gnome_cmd_data_load                      (void)
 
     data->priv->list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
 
-    data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
+    data->priv->confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
+    data->priv->confirm_copy_overwrite = gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
+    data->priv->confirm_move_overwrite = gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
+
+	data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
         gnome_cmd_data_get_bool ("/options/show_unknown", FALSE);
 
     data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR] =
@@ -1269,7 +1278,6 @@ gnome_cmd_data_load                      (void)
     data->priv->filter_settings.backup = gnome_cmd_data_get_bool ("/options/backup_filter", TRUE);
 
     data->priv->case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
-    data->priv->confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
 
     data->priv->main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
     data->priv->main_win_height = get_int ("/gnome-commander-size/main_win/height", 400);
@@ -1653,6 +1661,34 @@ void
 gnome_cmd_data_set_confirm_delete       (gboolean value)
 {
     data->priv->confirm_delete = value;
+}
+
+
+GnomeCmdConfirmOverwriteMode
+gnome_cmd_data_get_confirm_overwrite_copy(void)
+{
+	return data->priv->confirm_copy_overwrite;
+}
+
+
+void
+gnome_cmd_data_set_confirm_overwrite_copy(GnomeCmdConfirmOverwriteMode value)
+{
+	data->priv->confirm_copy_overwrite = value;
+}
+
+
+GnomeCmdConfirmOverwriteMode
+gnome_cmd_data_get_confirm_overwrite_move(void)
+{
+	return data->priv->confirm_move_overwrite;
+}
+
+
+void
+gnome_cmd_data_set_confirm_overwrite_move(GnomeCmdConfirmOverwriteMode value)
+{
+	data->priv->confirm_move_overwrite = value;
 }
 
 

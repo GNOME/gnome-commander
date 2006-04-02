@@ -639,17 +639,58 @@ create_confirmation_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
 
-    /* Confirmation options
+    /* Delete options
      */
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Delete options"));
+    cat = create_category (parent, cat_box, _("Delete"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     check = create_check (parent, _("Confirm before delete"), "confirm_delete_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_confirm_delete ());
 
-    return frame;
+
+    /* Copy overwrite options
+     */
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Copy overwrite"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    radio = create_radio (parent, NULL, _("Silently"), "copy_overwrite_silently");
+	gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+	if (gnome_cmd_data_get_confirm_overwrite_copy()==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
+    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group(radio), _("Query first"), "copy_overwrite_query");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+	if (gnome_cmd_data_get_confirm_overwrite_copy()==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group(radio), _("Skip all"), "copy_overwrite_skip_all");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+	if (gnome_cmd_data_get_confirm_overwrite_copy()==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+
+
+    /* Move overwrite options
+     */
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Move overwrite"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    radio = create_radio (parent, NULL, _("Silently"), "move_overwrite_silently");
+	gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+	if (gnome_cmd_data_get_confirm_overwrite_move()==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
+    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group(radio), _("Query first"), "move_overwrite_query");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+	if (gnome_cmd_data_get_confirm_overwrite_move()==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group(radio), _("Skip all"), "move_overwrite_skip_all");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+	if (gnome_cmd_data_get_confirm_overwrite_move()==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+
+
+	return frame;
 }
 
 
@@ -657,10 +698,29 @@ static void
 store_confirmation_options (GnomeCmdOptionsDialog *dialog)
 {
     GtkWidget *confirm_delete_check = lookup_widget (GTK_WIDGET (dialog), "confirm_delete_check");
+	GtkWidget *confirm_copy_silent = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_silently");
+	GtkWidget *confirm_copy_query = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_query");
+	GtkWidget *confirm_copy_skip_all = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_skip_all");
+	GtkWidget *confirm_move_silent = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_silently");
+	GtkWidget *confirm_move_query = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_query");
+	GtkWidget *confirm_move_skip_all = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_skip_all");
 
     gnome_cmd_data_set_confirm_delete (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check)));
-}
 
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_silent)))
+        gnome_cmd_data_set_confirm_overwrite_copy (GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY);
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_query)))
+        gnome_cmd_data_set_confirm_overwrite_copy (GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_copy_skip_all)))
+        gnome_cmd_data_set_confirm_overwrite_copy (GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL);
+
+    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_silent)))
+        gnome_cmd_data_set_confirm_overwrite_move (GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY);
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_query)))
+        gnome_cmd_data_set_confirm_overwrite_move (GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_move_skip_all)))
+        gnome_cmd_data_set_confirm_overwrite_move (GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL);
+}
 
 /***********************************************************************
  *

@@ -66,6 +66,15 @@ typedef enum
     GNOME_CMD_NUM_COLOR_MODES
 } GnomeCmdColorMode;
 
+
+typedef enum
+{
+    GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY,
+    GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
+    GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL
+} GnomeCmdConfirmOverwriteMode;
+
+
 typedef struct
 {
     gboolean respect_theme;
@@ -73,6 +82,7 @@ typedef struct
     GdkColor *norm_fg, *norm_bg;
     GdkColor *curs_fg, *curs_bg;
 } GnomeCmdColorTheme;
+
 
 struct _GnomeCmdBookmarkGroup
 {

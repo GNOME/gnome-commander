@@ -222,6 +222,18 @@ gnome_cmd_data_get_confirm_delete       (void);
 void
 gnome_cmd_data_set_confirm_delete       (gboolean value);
 
+GnomeCmdConfirmOverwriteMode
+gnome_cmd_data_get_confirm_overwrite_copy(void);
+
+void
+gnome_cmd_data_set_confirm_overwrite_copy(GnomeCmdConfirmOverwriteMode value);
+
+GnomeCmdConfirmOverwriteMode
+gnome_cmd_data_get_confirm_overwrite_move(void);
+
+void
+gnome_cmd_data_set_confirm_overwrite_move(GnomeCmdConfirmOverwriteMode value);
+
 const gchar *
 gnome_cmd_data_get_list_font             (void);
 
