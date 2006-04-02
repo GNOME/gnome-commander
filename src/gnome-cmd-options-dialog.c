@@ -113,17 +113,6 @@ create_general_tab (GtkWidget *parent)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data_get_alt_quick_search ());
 
 
-    /* Confirmation options
-     */
-    cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Confirmation options"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
-
-    check = create_check (parent, _("Confirm before delete"), "confirm_delete_check");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_confirm_delete ());
-
-
     /* Directory options
      */
     table = create_table (parent, 2, 2);
@@ -146,7 +135,6 @@ store_general_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *rmb_popup_radio = lookup_widget (GTK_WIDGET (dialog), "rmb_popup_radio");
     GtkWidget *ft_regex_radio = lookup_widget (GTK_WIDGET (dialog), "ft_regex_radio");
     GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
-    GtkWidget *confirm_delete_check = lookup_widget (GTK_WIDGET (dialog), "confirm_delete_check");
     GtkWidget *dir_cache_size = lookup_widget (GTK_WIDGET (dialog), "dir_cache_size");
     GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
 
@@ -161,7 +149,6 @@ store_general_options (GnomeCmdOptionsDialog *dialog)
         gnome_cmd_data_set_filter_type (FILTER_TYPE_FNMATCH);
 
     gnome_cmd_data_set_case_sens_sort (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check)));
-    gnome_cmd_data_set_confirm_delete (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check)));
     gnome_cmd_data_set_dir_cache_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dir_cache_size)));
     gnome_cmd_data_set_alt_quick_search(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(alt_quick_search)));
 }
@@ -630,6 +617,48 @@ store_layout_options (GnomeCmdOptionsDialog *dialog)
     }
 
     gnome_cmd_data_set_list_row_height (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin)));
+}
+
+
+/***********************************************************************
+ *
+ *  The Confirmation tab
+ *
+ **********************************************************************/
+
+static GtkWidget*
+create_confirmation_tab (GtkWidget *parent)
+{
+    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
+    GtkWidget *radio, *check;
+
+    frame = create_tabframe (parent);
+    hbox = create_tabhbox (parent);
+    gtk_container_add (GTK_CONTAINER (frame), hbox);
+    vbox = create_tabvbox (parent);
+    gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
+
+
+    /* Confirmation options
+     */
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Delete options"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    check = create_check (parent, _("Confirm before delete"), "confirm_delete_check");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_confirm_delete ());
+
+    return frame;
+}
+
+
+static void
+store_confirmation_options (GnomeCmdOptionsDialog *dialog)
+{
+    GtkWidget *confirm_delete_check = lookup_widget (GTK_WIDGET (dialog), "confirm_delete_check");
+
+    gnome_cmd_data_set_confirm_delete (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check)));
 }
 
 
@@ -1670,6 +1699,7 @@ on_options_dialog_close (GtkButton *button, GtkWidget *dialog)
     store_general_options (options_dialog);
     store_format_options (options_dialog);
     store_layout_options (options_dialog);
+    store_confirmation_options (options_dialog);
     store_filter_options (options_dialog);
     store_programs_options (options_dialog);
     store_devices_options (dialog);
@@ -1733,7 +1763,6 @@ init (GnomeCmdOptionsDialog *dialog)
     dialog->priv = g_new (GnomeCmdOptionsDialogPrivate, 1);
     options_dialog = GTK_WIDGET (dialog);
 
-
     gtk_object_set_data (GTK_OBJECT (options_dialog), "options_dialog", options_dialog);
     gtk_window_set_position (GTK_WINDOW (options_dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (options_dialog), _("Options"));
@@ -1748,10 +1777,10 @@ init (GnomeCmdOptionsDialog *dialog)
     gtk_container_add (GTK_CONTAINER (dialog->notebook), create_general_tab (options_dialog));
     gtk_container_add (GTK_CONTAINER (dialog->notebook), create_format_tab (options_dialog));
     gtk_container_add (GTK_CONTAINER (dialog->notebook), create_layout_tab (options_dialog));
+    gtk_container_add (GTK_CONTAINER (dialog->notebook), create_confirmation_tab (options_dialog));
     gtk_container_add (GTK_CONTAINER (dialog->notebook), create_filter_tab (options_dialog));
     gtk_container_add (GTK_CONTAINER (dialog->notebook), create_programs_tab (options_dialog));
     gtk_container_add (GTK_CONTAINER (dialog->notebook), create_devices_tab (options_dialog));
-
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),
@@ -1767,6 +1796,11 @@ init (GnomeCmdOptionsDialog *dialog)
         GTK_NOTEBOOK (dialog->notebook),
         gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_LAYOUT),
         gtk_label_new (_("Layout")));
+
+    gtk_notebook_set_tab_label (
+        GTK_NOTEBOOK (dialog->notebook),
+        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_CONFIRMATION),
+        gtk_label_new (_("Confirmation")));
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),

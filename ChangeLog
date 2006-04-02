@@ -1,7 +1,8 @@
 2006-04-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-options-dialog.c:
-	Modified 'Quick search' item in 'Options|General' tab
+	Modified 'Quick search' item in 'Options|General' tab.
+	Added new 'Option|Confirmation' tab.
 
 2006-03-31  Piotr Eljasiak  <epiotr@use.pl>
 
