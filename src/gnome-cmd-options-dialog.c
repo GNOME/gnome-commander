@@ -88,7 +88,6 @@ create_general_tab (GtkWidget *parent)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
-
     /* Sort options
      */
     cat_box = create_vbox (parent, FALSE, 0);
@@ -103,12 +102,16 @@ create_general_tab (GtkWidget *parent)
     /* Quick search options
      */
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Quick Search"));
+    cat = create_category (parent, cat_box, _("Quick search using"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    check = create_check (parent, _("Use ALT+Letter(s) for quick search\n(menu access with F10)"), "alt_quick_search");
-    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_alt_quick_search ());
+    radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
+	gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !gnome_cmd_data_get_alt_quick_search ());
+    radio = create_radio (parent, get_radio_group(radio), _("ALT+letters (menu access with F10)"), "alt_quick_search");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data_get_alt_quick_search ());
+
 
     /* Confirmation options
      */
