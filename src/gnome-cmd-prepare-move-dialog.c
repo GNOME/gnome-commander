@@ -16,10 +16,12 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-prepare-move-dialog.h"
 #include "gnome-cmd-prepare-xfer-dialog.h"
+#include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-con.h"
@@ -66,17 +68,15 @@ gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
     GnomeCmdFile *finfo;
     gint num_files;
     gchar *dest_dir_frame_msg, *text;
-    GList *tmp;
     GtkWidget *label;
+    GList *tmp = gnome_cmd_file_list_get_selected_files (from->list);
 
-    tmp = gnome_cmd_file_list_get_selected_files (from->list);
     if (!tmp) {
         g_list_free (tmp);
         return;
     }
 
-    data->dialog = GNOME_CMD_PREPARE_XFER_DIALOG (gnome_cmd_prepare_xfer_dialog_new (
-        from, to));
+    data->dialog = GNOME_CMD_PREPARE_XFER_DIALOG (gnome_cmd_prepare_xfer_dialog_new (from, to));
     gtk_window_set_title (GTK_WINDOW (data->dialog), _("Move"));
     gtk_widget_ref (GTK_WIDGET (data->dialog));
 
@@ -87,32 +87,25 @@ gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
     data->silent = gtk_radio_button_new_with_label (group, _("Silently"));
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (data->silent));
     gtk_widget_ref (data->silent);
-    gtk_object_set_data_full (GTK_OBJECT (data->dialog), "silent", data->silent,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (data->dialog), "silent", data->silent, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (data->silent);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->silent, FALSE, FALSE, 0);
-
 
     data->query = gtk_radio_button_new_with_label (group, _("Query First"));
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (data->query));
     gtk_widget_ref (data->query);
-    gtk_object_set_data_full (GTK_OBJECT (data->dialog), "query", data->query,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (data->dialog), "query", data->query, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (data->query);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->query, FALSE, FALSE, 0);
-
 
     data->skip = gtk_radio_button_new_with_label (group, _("Skip All"));
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (data->skip));
     gtk_widget_ref (data->skip);
-    gtk_object_set_data_full (GTK_OBJECT (data->dialog), "skip", data->skip,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (data->dialog), "skip", data->skip, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (data->skip);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->skip, FALSE, FALSE, 0);
 
-
-    // Set query as default, this options should really be saved as a config options
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (data->query), TRUE);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data_get_confirm_overwrite_move ())), TRUE);
 
     /*
      * Customize prepare xfer widgets

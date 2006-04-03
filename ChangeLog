@@ -6,6 +6,11 @@
 	* src/gnome-cmd-data.h:
 	More options in 'Option|Confirmation' tab.
 
+	* gnome-cmd-prepare-copy-dialog.c:
+	* gnome-cmd-prepare-move-dialog.c:
+	* gnome-cmd-make-copy-dialog.c:
+        Use Options settings for copy and move overwrite confirmation.
+
 2006-04-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-options-dialog.c:

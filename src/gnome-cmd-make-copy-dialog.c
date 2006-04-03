@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-make-copy-dialog.h"
@@ -64,8 +65,7 @@ on_ok (GnomeCmdStringDialog *string_dialog,
     g_return_val_if_fail (dialog->priv->finfo, TRUE);
 
     if (!filename) {
-        gnome_cmd_string_dialog_set_error_desc (
-            string_dialog, g_strdup (_("No filename entered")));
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No filename entered")));
         return FALSE;
     }
 
@@ -109,11 +109,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdMakeCopyDialogClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
     parent_class = gtk_type_class (gnome_cmd_string_dialog_get_type ());
     object_class->destroy = destroy;
@@ -126,8 +123,6 @@ init (GnomeCmdMakeCopyDialog *dialog)
 {
     dialog->priv = g_new (GnomeCmdMakeCopyDialogPrivate, 1);
 }
-
-
 
 
 /***********************************
@@ -166,12 +161,10 @@ gnome_cmd_make_copy_dialog_new (GnomeCmdFile *finfo, GnomeCmdDir *dir)
         GTK_SIGNAL_FUNC (on_cancel),
         dialog);
 
-    gnome_cmd_string_dialog_set_value (
-        GNOME_CMD_STRING_DIALOG (dialog), 0, finfo->info->name);
+    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, finfo->info->name);
 
     return GTK_WIDGET (dialog);
 }
-
 
 
 GtkType
@@ -197,6 +190,3 @@ gnome_cmd_make_copy_dialog_get_type         (void)
     }
     return dlg_type;
 }
-
-
-

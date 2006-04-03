@@ -67,11 +67,11 @@ typedef enum
 } GnomeCmdColorMode;
 
 
-typedef enum
+typedef enum  // The (reversed) order of following enums is significant
 {
-    GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY,
+    GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL,
     GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
-    GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL
+    GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY
 } GnomeCmdConfirmOverwriteMode;
 
 
