@@ -709,43 +709,51 @@ gnome_cmd_file_show_properties (GnomeCmdFile *finfo)
 
 
 static void
-do_view_file (const gchar *path)
+do_view_file (const gchar *path, gint internal_viewer)
 {
     gchar *arg;
     gchar *command;
     GViewer *viewer;
 
-    if (gnome_cmd_data_get_use_internal_viewer()) {
-        arg = gnome_vfs_unescape_string (path, NULL);
-        viewer = gviewer_window_file_view(arg,NULL);
-        gtk_widget_show(GTK_WIDGET(viewer));
-        gdk_window_set_icon (GTK_WIDGET(viewer)->window, NULL,
-                             IMAGE_get_pixmap (PIXMAP_LOGO),
-                             IMAGE_get_mask (PIXMAP_LOGO));
-        g_free(arg);
-    }
-    else {
-        arg = g_shell_quote (path);
-        command = g_strdup_printf (gnome_cmd_data_get_viewer (), arg);
-        run_command (command, FALSE);
-        g_free (arg);
-        g_free (command);
-    }
-
+	if (internal_viewer==-1)
+		internal_viewer = gnome_cmd_data_get_use_internal_viewer ();
+	
+	switch (internal_viewer)
+	{
+		case TRUE : {
+						arg = gnome_vfs_unescape_string (path, NULL);
+						viewer = gviewer_window_file_view(arg, NULL);
+						gtk_widget_show(GTK_WIDGET(viewer));
+						gdk_window_set_icon (GTK_WIDGET(viewer)->window, NULL,
+											 IMAGE_get_pixmap (PIXMAP_LOGO),
+											 IMAGE_get_mask (PIXMAP_LOGO));
+						g_free(arg);
+					}
+					break;
+					
+		case FALSE: {
+						arg = g_shell_quote (path);
+						command = g_strdup_printf (gnome_cmd_data_get_viewer (), arg);
+						run_command (command, FALSE);
+						g_free (arg);
+						g_free (command);
+					}
+					break;
+	}
 }
 
 
 static void
 on_file_downloaded_for_view (gchar *path)
 {
-    do_view_file (path);
+    do_view_file (path,-1);
 
     g_free (path);
 }
 
 
 void
-gnome_cmd_file_view (GnomeCmdFile *finfo)
+gnome_cmd_file_view (GnomeCmdFile *finfo, gint internal_viewer)
 {
     gchar *path_str;
     GnomeCmdPath *path;
@@ -758,19 +766,18 @@ gnome_cmd_file_view (GnomeCmdFile *finfo)
     /* If the file is local there is no need to download it */
     if (gnome_cmd_dir_is_local (get_parent_dir (finfo))) {
         gchar *fpath = gnome_cmd_file_get_real_path (finfo);
-        do_view_file (fpath);
+        do_view_file (fpath, internal_viewer);
         g_free (fpath);
         return;
     }
 
-    /* The file is remote lets download it to a temporary file first */
+    /* The file is remote, let's download it to a temporary file first */
     path_str = get_temp_download_filepath (gnome_cmd_file_get_name (finfo));
     if (!path_str) return;
 
     path = gnome_cmd_plain_path_new (path_str);
     src_uri = gnome_cmd_file_get_uri (finfo);
-    con = gnome_cmd_con_list_get_home (
-        gnome_cmd_data_get_con_list ());
+    con = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
     dest_uri = gnome_cmd_con_create_uri (con, path);
 
     g_printerr ("Copying to: %s\n", path_str);
@@ -839,6 +846,7 @@ gnome_cmd_file_is_local (GnomeCmdFile *finfo)
 
     return gnome_cmd_dir_is_local (get_parent_dir (finfo));
 }
+
 
 gboolean
 gnome_cmd_file_is_executable (GnomeCmdFile *finfo)

@@ -11,6 +11,17 @@
 	* gnome-cmd-make-copy-dialog.c:
         Use Options settings for copy and move overwrite confirmation.
 
+	* gnome-cmd-file.c:
+	* gnome-cmd-file.h:
+	* gnome-cmd-file-list.c:
+	* gnome-cmd-file-list.h:
+	* gnome-cmd-file-selector.c:
+	* gnome-cmd-main-win.c:
+	* gnome-cmd-search-dialog.c:
+	* useractions.c:
+	* useractions.h:
+	Added new key bindings: SHIFT+F3 for internal viewer and ALT+F3 for external one
+
 2006-04-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-options-dialog.c:

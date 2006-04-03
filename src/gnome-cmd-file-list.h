@@ -251,7 +251,7 @@ void
 gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl);
 
 void
-gnome_cmd_file_list_view (GnomeCmdFileList *fl);
+gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer);
 
 void
 gnome_cmd_file_list_edit (GnomeCmdFileList *fl);

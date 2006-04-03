@@ -2247,7 +2247,7 @@ gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl)
 
 
 void
-gnome_cmd_file_list_view (GnomeCmdFileList *fl)
+gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
 {
     GnomeCmdFile *finfo;
 
@@ -2256,7 +2256,7 @@ gnome_cmd_file_list_view (GnomeCmdFileList *fl)
     finfo = gnome_cmd_file_list_get_selected_file (fl);
 
     if (finfo)
-        gnome_cmd_file_view (finfo);
+        gnome_cmd_file_view (finfo, internal_viewer!=-1 ? internal_viewer : gnome_cmd_data_get_use_internal_viewer ());
 }
 
 

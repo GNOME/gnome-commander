@@ -638,7 +638,7 @@ handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDi
     switch (event->keyval)
     {
         case GDK_F3:
-            gnome_cmd_file_list_view (fl);
+            gnome_cmd_file_list_view (fl, -1);
             return TRUE;
         case GDK_F4:
             gnome_cmd_file_list_edit (fl);

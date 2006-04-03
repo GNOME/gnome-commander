@@ -101,7 +101,7 @@ GdkBitmap *gnome_cmd_file_get_type_mask (GnomeCmdFile *finfo);
 void gnome_cmd_file_show_properties (GnomeCmdFile *finfo);
 void gnome_cmd_file_show_chown_dialog (GList *files);
 void gnome_cmd_file_show_chmod_dialog (GList *files);
-void gnome_cmd_file_view (GnomeCmdFile *finfo);
+void gnome_cmd_file_view (GnomeCmdFile *finfo, gint internal_viewer);
 void gnome_cmd_file_edit (GnomeCmdFile *finfo);
 void gnome_cmd_file_show_cap_cut (GnomeCmdFile *finfo);
 void gnome_cmd_file_show_cap_copy (GnomeCmdFile *finfo);

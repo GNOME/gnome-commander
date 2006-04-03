@@ -58,6 +58,14 @@ file_view                           (GtkMenuItem     *menuitem,
                                      gpointer        not_used);
 
 void
+file_internal_view                  (GtkMenuItem     *menuitem,
+                                     gpointer        not_used);
+
+void
+file_external_view                  (GtkMenuItem     *menuitem,
+                                     gpointer        not_used);
+
+void
 file_edit                           (GtkMenuItem     *menuitem,
                                      gpointer        not_used);
 

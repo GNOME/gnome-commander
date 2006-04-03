@@ -3,7 +3,7 @@ Keyboard mapping for GNOME Commander v1.1
 
 F1	        Help
 F2	        Refresh files in the active file list
-F3	        List files
+F3	        View files
 F4	        Edit files
 F5	        Copy files
 F6	        Rename or move files
@@ -15,10 +15,12 @@ F10	        Quit
 ALT+1	    Change left connection
 ALT+2	    Change right connection
 
+ALT+F3	    View with external viewer
 ALT+F7	    Search
 ALT+F8	    Opens the history list for the command line
 
 SHIFT+F2    Compare directories
+SHIFT+F3	View with internal viewer
 SHIFT+F4    Edit a new file
 SHIFT+F5    Make a copy a file in the current directory.
 SHIFT+F6    Rename a file
@@ -32,22 +34,22 @@ CTRL+F7	    Unsorted
 
 CTRL+SHIFT+F5	Create symbolic link
 
-=	    Select files using a pattern
-NUM +	    Select files using a pattern
-NUM -	    Unselect files using a pattern
+=           Select files using a pattern
+NUM +       Select files using a pattern
+NUM -       Unselect files using a pattern
 NUM *	    Invert selection
 NUM /	    Restore selection
 CTRL+NUM +	Select all files
 CTRL+NUM -	Unselect all files
-CTRL+=	        Select all files
-CTRL+-	        Unselect all files
+CTRL+=	    Select all files
+CTRL+-	    Unselect all files
 ALT+NUM +	Select all files with the same extension
 ALT+NUM -	Unselect all files with the same extension
 
 BACKSPACE or LEFT or CTRL+PageUp
             Change to parent directory (cd ..)
 
-TAB	    Switch between left and right file list
+TAB	        Switch between left and right file list
 ENTER	    Change directory or execute command line if not empty
 SHIFT+ENTER Execute command line in the defined terminal and leaves the
             terminal window open

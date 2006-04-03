@@ -2093,12 +2093,16 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
     else if (state_is_shift (event->state)) {
         switch (event->keyval)
         {
-            case GDK_F5:
-                gnome_cmd_file_list_show_make_copy_dialog (fs);
+            case GDK_F3:
+				file_internal_view (NULL, NULL);
                 return TRUE;
 
             case GDK_F4:
                 gnome_cmd_file_selector_start_editor (fs);
+                return TRUE;
+
+            case GDK_F5:
+                gnome_cmd_file_list_show_make_copy_dialog (fs);
                 return TRUE;
         }
     }

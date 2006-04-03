@@ -19,11 +19,13 @@ New features:
  * Revamped toolbar layout
  * Options for controlling copy and move overwriting
  * Copying selected full file paths with SHIFT+click on toolbar button
- * Better handling column sort change
+ * Better handling change of the column sorting key
  * Initial doc framework
  * New or updated translations: es, eu, hu, pl, sl
  * New key bindings:
-      ALT+Letter(s)  Quick Search
+      SHIFT+F3       Internal viewer
+      ALT+F3         External viewer
+      ALT+Letter(s)  Quick search
       CTRL+SHIFT+A   Deselecting all files
  
 

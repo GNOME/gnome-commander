@@ -1058,6 +1058,10 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                 }
                 return TRUE;
 
+            case GDK_F3:
+				file_external_view (NULL, NULL);
+                return TRUE;
+
             case GDK_F7:
                 edit_search (NULL, NULL);
                 return TRUE;
@@ -1536,4 +1540,3 @@ gnome_cmd_main_win_set_cap_state (GnomeCmdMainWin *mw, gboolean state)
 
     gtk_widget_set_sensitive (mw->priv->tb_cap_paste_btn, state);
 }
-

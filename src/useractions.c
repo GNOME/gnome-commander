@@ -146,7 +146,23 @@ void
 file_view                           (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
-    gnome_cmd_file_list_view (get_active_fl ());
+    gnome_cmd_file_list_view (get_active_fl (), -1);
+}
+
+
+void
+file_internal_view                  (GtkMenuItem     *menuitem,
+                                     gpointer        not_used)
+{
+    gnome_cmd_file_list_view (get_active_fl (), TRUE);
+}
+
+
+void
+file_external_view                  (GtkMenuItem     *menuitem,
+                                     gpointer        not_used)
+{
+    gnome_cmd_file_list_view (get_active_fl (), FALSE);
 }
 
 
