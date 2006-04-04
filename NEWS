@@ -3,12 +3,12 @@ gnome-commander 1.2.0
 ---------------
 
 Bug fixes:
- * Fixed problem #171051
+ * Fixed problem #171051 (crashes on search with non-existent path)
  * Fixed problem with the lack of gnome menu entry
- * Fixed a crash when viewing SMB connections.
+ * Fixed a crash when viewing SMB connections
  * Fixed problem #309877 (strange artifacts with horizontal scrolling)
  * Fixed problem #332258 (left/right start directory parameter)
- * Fixed problem #336649 (permission numbers presentation).
+ * Fixed problem #336649 (permission numbers presentation)
  
 New features:
  * Monitoring of mounted volumes. 
@@ -37,8 +37,8 @@ Bug fixes:
  * Fixed crash when trying to copy the currently selected files
  * Fixed filename escaping
  * Fixed CTRL+ALT+letter bad responsiveness when typing too fast
- * Fixed debian bug #288933 for amd64/gcc-4.0 compiling
- * Fixed problem #138933 with infinite recursion when drag'n'dropping a directory to it self
+ * Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)
+ * Fixed problem #138933 (infinite recursion when drag'n'dropping a directory to it self)
  * Fixed problem with the disconnect button not behaving correctly when connecting to ftp-servers
    and being in supermount mode
  * Fixed update after renaming without FAM
