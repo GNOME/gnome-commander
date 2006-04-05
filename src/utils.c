@@ -246,16 +246,16 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 
 gboolean string2int (const gchar *s, gint *i)
 {
-    int ret;
-    ret = sscanf (s, "%d", i);
+    int ret = sscanf (s, "%d", i);
+
     return (ret == 1);
 }
 
 
 gboolean string2uint (const gchar *s, guint *i)
 {
-    int ret;
-    ret = sscanf (s, "%d", i);
+    int ret = sscanf (s, "%d", i);
+
     return (ret == 1);
 }
 
@@ -482,10 +482,7 @@ const gchar *size2string (GnomeVFSFileSize size,
 #ifdef HAVE_LOCALE_H
                 gchar sep = locale_information->thousands_sep[0];
 
-                if (sep != '\0')
-                    out[j] = sep;
-                else
-                    out[j] = ',';
+                out[j] = sep!='\0' ? sep : ',';
 #else
                 out[j] = ',';
 #endif
@@ -529,13 +526,11 @@ no_mime_app_found_error (gchar *mime_type)
 
 static void do_mime_exec_single (gpointer *args)
 {
-    gchar *cmd;
     GnomeCmdApp *app = (GnomeCmdApp*)args[0];
     gchar *path = (gchar*)args[1];
-    gchar *arg;
+    gchar *arg = g_shell_quote (path);
+    gchar *cmd = g_strdup_printf ("%s %s", gnome_cmd_app_get_command (app), arg);
 
-    arg = g_shell_quote (path);
-    cmd = g_strdup_printf ("%s %s", gnome_cmd_app_get_command (app), arg);
     g_free (arg);
     run_command (cmd, gnome_cmd_app_get_requires_terminal (app));
     g_free (cmd);
@@ -669,7 +664,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
             do_mime_exec_single (args);
         }
         else {
-            gchar *msg = g_strdup_printf (_("%s does not know how to open remote files. Do you want to download the file to a temporary location and then open it?"), gnome_cmd_app_get_name (app));
+            gchar *msg = g_strdup_printf (_("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"), gnome_cmd_app_get_name (app));
             GtkWidget *dialog = gtk_message_dialog_new (
                 GTK_WINDOW (main_win), GTK_DIALOG_MODAL,
                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, msg);
@@ -680,8 +675,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
             dldata->args = args;
             gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
-            gtk_signal_connect (GTK_OBJECT (dialog), "response",
-                                GTK_SIGNAL_FUNC (on_tmp_download_response), dldata);
+            gtk_signal_connect (GTK_OBJECT (dialog), "response", GTK_SIGNAL_FUNC (on_tmp_download_response), dldata);
             gtk_widget_show (dialog);
             g_free (msg);
         }
@@ -725,29 +719,28 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     gpointer *args;
     GList *local_files = NULL;
     gboolean asked = FALSE;
+	guint no_of_remote_files = 0;
     gint retid;
 
     g_return_if_fail (files != NULL);
     g_return_if_fail (app != NULL);
-
+	
     while (files) {
         GnomeCmdFile *finfo = (GnomeCmdFile*)files->data;
 
         if (gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (finfo)))
             local_files = g_list_append (local_files, g_strdup (gnome_cmd_file_get_real_path (finfo)));
         else {
-            if (gnome_cmd_app_get_handles_uris (app)
-                && gnome_cmd_data_get_honor_expect_uris()) {
+			++no_of_remote_files;
+            if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data_get_honor_expect_uris()) {
                 local_files = g_list_append (local_files,  g_strdup (gnome_cmd_file_get_uri_str (finfo)));
             }
             else {
                 if (!asked) {
-                    gchar *msg = g_strdup_printf (
-                        _("%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?"), gnome_cmd_app_get_name (app));
-                    retid = run_simple_dialog (
-                        GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_QUESTION,
-                        msg, "",
-                        -1, _("No"), _("Yes"), NULL);
+                    gchar *msg = g_strdup_printf (ngettext("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?",
+														   "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?",no_of_remote_files),
+					                              gnome_cmd_app_get_name (app));
+                    retid = run_simple_dialog (GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_QUESTION, msg, "", -1, _("No"), _("Yes"), NULL);
                     asked = TRUE;
                 }
 
@@ -755,15 +748,13 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
                     GnomeCmdCon *con;
                     GnomeCmdPath *path;
                     GnomeVFSURI *src_uri, *dest_uri;
-                    gchar *path_str;
+                    gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (finfo));
 
-                    path_str = get_temp_download_filepath (gnome_cmd_file_get_name (finfo));
                     if (!path_str) return;
 
                     src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (finfo));
                     path = gnome_cmd_plain_path_new (path_str);
-                    con = gnome_cmd_con_list_get_home (
-                        gnome_cmd_data_get_con_list ());
+                    con = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
                     dest_uri = gnome_cmd_con_create_uri (con, path);
                     gtk_object_destroy (GTK_OBJECT (path));
 
@@ -868,9 +859,7 @@ strings_to_uris (gchar *data)
 {
     int i;
     GList *uri_list = NULL;
-    gchar **filenames;
-
-    filenames = g_strsplit (data, "\r\n", STRINGS_TO_URIS_CHUNK);
+    gchar **filenames = g_strsplit (data, "\r\n", STRINGS_TO_URIS_CHUNK);
 
     for ( i=0 ; filenames[i] != NULL ; i++ ) {
         gchar *fn;
@@ -1195,7 +1184,7 @@ gchar *get_temp_download_filepath (const gchar *fname)
             g_free (tmp_file_dir_template);
 
             create_error_dialog (
-                _("Failed to create directory to store temporary files in.\nError message: %s\n"),
+                _("Failed to create a directory in which to store temporary files.\nError message: %s\n"),
                 strerror (errno));
             return NULL;
         }
@@ -1482,5 +1471,3 @@ gboolean patlist_matches (GList *pattern_list, const gchar *s)
 
     return FALSE;
 }
-
-

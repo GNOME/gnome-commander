@@ -388,7 +388,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     while (tmp) {
         src_uri = (GnomeVFSURI*)tmp->data;
         if (uri_is_parent_to_dir_or_equal (src_uri, to_dir)) {
-            create_error_dialog (_("Copying a directory into it self is a bad idea.\nThe whole operation was canceled."));
+            create_error_dialog (_("Copying a directory into itself is a bad idea.\nThe whole operation was cancelled."));
             return;
         }
         if (file_is_already_in_dir (src_uri, to_dir)) {

@@ -1,7 +1,18 @@
-2006-04-05  Clytie Siddall <clytie@riverland.net.au>
+2006-04-03  Piotr Eljasiak  <epiotr@use.pl>
 
-	* configure.in	Added vi in ALL_LINGUAS line.
-	
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-xfer.c:
+	* src/utils.c:
+	Fixed a few typos in gettext translations.
+
+	* src/gnome-cmd-options-dialog.h:
+	Added missing GNOME_CMD_OPTIONS_DIALOG_TAB_CONFIRMATION definition.
+
+2006-04-05  Clytie Siddall  <clytie@riverland.net.au>
+
+	* configure.in:	
+	Added vi in ALL_LINGUAS line.
+
 2006-04-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-options-dialog.c:

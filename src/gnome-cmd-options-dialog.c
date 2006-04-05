@@ -534,7 +534,7 @@ create_layout_tab (GtkWidget *parent)
 
 
     // LS_COLORS
-    check = create_check (parent, _("Colorize files according to the LS_COLORS enviroment variable"), "use_ls_colors");
+    check = create_check (parent, _("Colorize files according to the LS_COLORS environment variable"), "use_ls_colors");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check),gnome_cmd_data_get_use_ls_colors());
     gtk_table_attach (GTK_TABLE (table), check, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 
