@@ -11,8 +11,8 @@ Bug fixes:
  * Fixed problem #336649 (permission numbers presentation)
  
 New features:
- * Monitoring of mounted volumes. 
- * Reworked internal viewer plus new features:
+ * Monitoring of mounted volumes
+ * Reworked internal viewer plus new features
  * External tools and EXIF/IPTC tags viewer
  * Zooming for internal viewer
  * Text selection for internal viewer
@@ -21,7 +21,7 @@ New features:
  * Copying selected full file paths with SHIFT+click on toolbar button
  * Better handling change of the column sorting key
  * Initial doc framework
- * New or updated translations: es, eu, hu, pl, sl, vi
+ * New or updated translations: es, eu, hu, pl, sl, sv, vi
  * New key bindings:
       SHIFT+F3       Internal viewer
       ALT+F3         External viewer
