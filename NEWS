@@ -21,7 +21,7 @@ New features:
  * Copying selected full file paths with SHIFT+click on toolbar button
  * Better handling change of the column sorting key
  * Initial doc framework
- * New or updated translations: es, eu, hu, pl, sl, sv, vi
+ * New or updated translations: de, es, eu, hu, pl, sl, sv, vi
  * New key bindings:
       SHIFT+F3       Internal viewer
       ALT+F3         External viewer
