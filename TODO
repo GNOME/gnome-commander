@@ -7,13 +7,15 @@
 
 * MIME configuration
 * Browsing of compressed archives
+* Tab completion at the built-in command line
 * Splitting/merging files
 * Write configuration and bookmark changes immediately to file
 * Support for file meta tags (exif, iptc, mp3, vorbis, *ml, pdf, ...) - custom columns
 * Umounting a device via device button
 * advrename & FAM: do not re-sort file list for every single renamed file
 * Bookmark icons for ordinary folders in the device toolbar
-* python plugins 
+* User defined categories for grouping bookmarks
+* Python plugins 
 * More plugins:
     - creating tarballs from selected files
     - compressing/decompressing (gz & bz2)
@@ -57,6 +59,12 @@
 * Multiple files browsing
 
 
+// Keyboard shortcus
+
+* User defined (at least via configuration file)
+* Assigning shortcut to an individual bookmark
+
+
 // Documentation
 
 * Documentation framework
@@ -69,5 +77,4 @@ Discussed stuff (not assigned to a version yet)
 -----------------------------------------------
 
 * Toolbar configuration - OO.org like
-* Keyboard shortcuts configuration
 * Light version of gc (based on gtk+ only - not depending on GNOME)
