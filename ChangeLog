@@ -1,3 +1,7 @@
+2006-04-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* BUGS: Added info on bugs submission.
+
 2006-04-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-options-dialog.c:

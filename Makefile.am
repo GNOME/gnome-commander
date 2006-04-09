@@ -4,17 +4,19 @@ SUBDIRS = libgcmd src plugins po pixmaps doc data tests
 
 distuninstallcheck_listfiles = find . -type f -print | grep -v scrollkeeper
 
-EXTRA_DIST = autogen.sh         \
+EXTRA_DIST =                    \
+	BUGS                    \
+	autogen.sh              \
 	intltool-*.in           \
-	xmldocs.make 		\
-	omf.make		\
-	m4			\
+	xmldocs.make 	        \
+	omf.make                \
+	m4                      \
 	gnome-doc-utils.make
 
-DISTCLEANFILES = 		\
+DISTCLEANFILES =                \
 	gnome-doc-utils.make    \
-	intltool-extract 	\
-	intltool-merge 		\
+	intltool-extract        \
+	intltool-merge          \
 	intltool-update
 
 DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper

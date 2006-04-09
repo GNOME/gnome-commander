@@ -64,7 +64,7 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING INSTALL NEWS README TODO doc/*.txt
+%doc AUTHORS BUGS ChangeLog COPYING INSTALL NEWS README TODO doc/*.txt
 %doc %{_mandir}/man1/@PACKAGE@.1*
 %{_bindir}/*
 %{_libdir}/@PACKAGE@/lib*
