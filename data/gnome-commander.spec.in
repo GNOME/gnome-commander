@@ -26,7 +26,7 @@ License:       GPL2
 URL:           http://www.freesoftware.fsf.org/gcmd/
 Source0:       http://freesoftware.fsf.org/download/gcmd/gcmd.pkg/@VERSION@/@PACKAGE@-@VERSION@.tar%{srcext}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires:      gettext >= 0.10.36
+BuildRequires: scrollkeeper gettext >= 0.10.36
 Requires:      gtk2 >= 2.6
 Requires:      gnome-vfs2 >= 2.0
 BuildRequires: gnome-vfs2-devel >= 2.0
@@ -50,14 +50,15 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 %setup -q
 
 %build
-./configure --prefix=%{_prefix}
+%configure 
 %{__make} %{?_smp_mflags}
 
 %install
 %{__rm} -rf %{buildroot}
 %makeinstall
-%find_lang %{name}
 
+%find_lang %{name}
+    
 %clean
 %{__rm} -rf %{buildroot}
 
@@ -70,13 +71,13 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 %{_libdir}/@PACKAGE@/plugins/lib*
 %{_datadir}/applications/@PACKAGE@.desktop
 %{_datadir}/gnome/help/@PACKAGE@/*
-%{_datadir}/omf/*
-%{_datadir}/pixmaps/@PACKAGE@.png
-%{_datadir}/pixmaps/@PACKAGE@/*.xpm
-%{_datadir}/pixmaps/@PACKAGE@/*/*.png
-%{_datadir}/pixmaps/@PACKAGE@/*/*.xpm
+%{_datadir}/omf
+%{_datadir}/pixmaps
 
 %changelog
+* Sun Apr 9 2006 Piotr Eljasiak <epiotr@use.pl>
+- minor cleanups
+
 * Thu Mar 5 2006 Piotr Eljasiak <epiotr@use.pl>
 - added OMF files
 
