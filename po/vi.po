@@ -6,8 +6,8 @@ msgid ""
 ""
 msgstr "Project-Id-Version: gnome-commander HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-04 11:31+0200\n"
-"PO-Revision-Date: 2006-04-05 12:52+0930\n"
+"POT-Creation-Date: 2006-04-10 11:29+0200\n"
+"PO-Revision-Date: 2006-04-10 22:20+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -138,13 +138,15 @@ msgstr "Kiểu mặc định"
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
-msgstr "Một bộ cầm phít thêm các lối tắt File Roller để tạo và giải nén kho lưu đã nén."
+msgstr "Một bộ cầm phít thêm các lối tắt File Roller để tạo và giải nén kho lưu đã "
+"nén."
 
 #:../plugins/test/test-plugin.c:232
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
-msgstr "Đây là một bộ cầm phít thí dụ có ích nhất là lời thí dụ đơn giản cho người muốn tạo bộ cầm phít."
+msgstr "Đây là một bộ cầm phít thí dụ có ích nhất là lời thí dụ đơn giản cho người "
+"muốn tạo bộ cầm phít."
 
 #:../src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
@@ -176,12 +178,12 @@ msgid "About %s"
 msgstr "Giới thiệu về %s"
 
 #:../src/gnome-cmd-advrename-dialog.c:97
-#:../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:750
+#:../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:743
 msgid "Yes"
 msgstr "Có"
 
 #:../src/gnome-cmd-advrename-dialog.c:97
-#:../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:750
+#:../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:743
 msgid "No"
 msgstr "Không"
 
@@ -342,7 +344,8 @@ msgstr "_Hiệu chỉnh"
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
-msgstr "Để đánh dấu thư mục, toàn bộ đường dẫn tìm kiếm đến thư mục đó phải dùng ký tự UTF-8 hợp lệ.\n"
+msgstr "Để đánh dấu thư mục, toàn bộ đường dẫn tìm kiếm đến thư mục đó phải dùng ký "
+"tự UTF-8 hợp lệ.\n"
 
 #:../src/gnome-cmd-bookmark-dialog.c:631
 msgid "New Bookmark"
@@ -580,11 +583,11 @@ msgstr[0] "Bạn có muốn xoá bỏ %d tập tin đã chọn không?"
 msgid "Delete"
 msgstr "Xoá bỏ"
 
-#:../src/gnome-cmd-delete-dialog.c:321 ../src/utils.c:607 ../src/utils.c:636
+#:../src/gnome-cmd-delete-dialog.c:321 ../src/utils.c:602 ../src/utils.c:631
 msgid "Cancel"
 msgstr "Thôi"
 
-#:../src/gnome-cmd-delete-dialog.c:321 ../src/utils.c:607
+#:../src/gnome-cmd-delete-dialog.c:321 ../src/utils.c:602
 msgid "OK"
 msgstr "Được"
 
@@ -713,7 +716,7 @@ msgstr "Tài sản"
 msgid "Other..."
 msgstr "Khác..."
 
-#:../src/gnome-cmd-file-props-dialog.c:63 ../src/utils.c:992
+#:../src/gnome-cmd-file-props-dialog.c:63 ../src/utils.c:981
 #,c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -1315,7 +1318,8 @@ msgstr "Kết quả thử :"
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
-msgstr "Xem trang hướng dẫn « man » về « strftime » (lệnh « man strftime ») để tìm trợ giúp về cách đặt chuỗi dạng thức ngày giờ."
+msgstr "Xem trang hướng dẫn « man » về « strftime » (lệnh « man strftime ») để tìm "
+"trợ giúp về cách đặt chuỗi dạng thức ngày giờ."
 
 #:../src/gnome-cmd-options-dialog.c:383
 msgid "Edit Colors..."
@@ -1422,7 +1426,7 @@ msgstr "Hiệu chỉnh..."
 
 #.LS_COLORS
 #:../src/gnome-cmd-options-dialog.c:537
-msgid "Colorize files according to the LS_COLORS enviroment variable"
+msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Tô màu tập tin theo biến môi trường LS_COLORS."
 
 #:../src/gnome-cmd-options-dialog.c:547
@@ -1825,7 +1829,7 @@ msgid "Replace All"
 msgstr "Thay thế hết"
 
 #:../src/gnome-cmd-xfer.c:190
-#, c-format
+#,c-format
 msgid ""
 "Error while copying to %s\n"
 "\n"
@@ -1849,8 +1853,8 @@ msgstr "[tập tin %ld trên %ld] « %s »"
 
 #:../src/gnome-cmd-xfer.c:391
 msgid ""
-"Copying a directory into it self is a bad idea.\n"
-"The whole operation was canceled."
+"Copying a directory into itself is a bad idea.\n"
+"The whole operation was cancelled."
 msgstr "Không cho phép sao chép thư mục vào chính nó\n"
 "nên toàn bộ thao tác bị thôi."
 
@@ -1883,7 +1887,8 @@ msgstr "%d%% đã sao chép"
 #:../src/imageloader.c:126
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
-msgstr "Không thể tải sơ đồ điểm ảnh kiểu tập tin đã cài đặt nên cố tải từ thư mục nguồn\n"
+msgstr "Không thể tải sơ đồ điểm ảnh kiểu tập tin đã cài đặt nên cố tải từ thư mục "
+"nguồn\n"
 
 #:../src/imageloader.c:128 ../src/imageloader.c:153
 #,c-format
@@ -1894,7 +1899,8 @@ msgstr "Nên cố tải %s thay thế\n"
 msgid ""
 "Cant find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
-msgstr "Không tìm thấy sơ đồ điểm ảnh. Hãy kiểm tra lại đã cài đặt chương trình, hoặc đang thực hiện gnome-commander từ thư mục <gnome-commander-x.y.z/src>.\n"
+msgstr "Không tìm thấy sơ đồ điểm ảnh. Hãy kiểm tra lại đã cài đặt chương trình, "
+"hoặc đang thực hiện gnome-commander từ thư mục <gnome-commander-x.y.z/src>.\n"
 
 #:../src/imageloader.c:152
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
@@ -2052,7 +2058,8 @@ msgstr "Xác định thư mục đầu cho ô bên phải"
 msgid ""
 "When parsing the users and groups on this system it was found that the user %"
 "s is part of the group %s. This user can however not be found.\n"
-msgstr "Khi phân tách những người dùng và nhóm trên hệ thống này, tìm thấy người dùng %s thuộc về nhóm %s. Tuy nhiên, không tìm thấy người dùng đó.\n"
+msgstr "Khi phân tách những người dùng và nhóm trên hệ thống này, tìm thấy người "
+"dùng %s thuộc về nhóm %s. Tuy nhiên, không tìm thấy người dùng đó.\n"
 
 #:../src/plugin_manager.c:344
 msgid "Disable"
@@ -2105,77 +2112,76 @@ msgstr "Bộ quản lý tập tin nhanh và mạnh cho môi trường Gnome"
 msgid "No translation is currently in use."
 msgstr "Hiện thời không dùng bản dịch."
 
-#:../src/utils.c:523
+#:../src/utils.c:520
 #,c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr "Không tìm thấy ứng dụng mặc định cho kiểu MIME %s.\n"
-"Hãy mở trang « Kiểu tập tin và chương trình » trong Trung tâm Điều khiển để thêm nó."
+"Hãy mở trang « Kiểu tập tin và chương trình » trong Trung tâm Điều khiển để "
+"thêm nó."
 
-#:../src/utils.c:603
+#:../src/utils.c:598
 #,c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
-msgstr "« %s » có vẻ là tập tin nhị phân có thể thực hiện, nhưng nó còn thiếu bit khả năng thực hiện. Bạn có muốn đặt bit này rồi chạy tập tin đó không?"
+msgstr "« %s » có vẻ là tập tin nhị phân có thể thực hiện, nhưng nó còn thiếu bit "
+"khả năng thực hiện. Bạn có muốn đặt bit này rồi chạy tập tin đó không?"
 
-#:../src/utils.c:606
+#:../src/utils.c:601
 msgid "Make Executable?"
 msgstr "Đặt khả năng thực hiện ?"
 
-#:../src/utils.c:633
+#:../src/utils.c:628
 #,c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
-msgstr "« %s » là một tập tin văn bản có thể thực hiện. Bạn có muốn chạy nó, hoặc hiển thị nội dung của nó?"
+msgstr "« %s » là một tập tin văn bản có thể thực hiện. Bạn có muốn chạy nó, hoặc "
+"hiển thị nội dung của nó?"
 
-#:../src/utils.c:635
+#:../src/utils.c:630
 msgid "Run or Display"
 msgstr "Chạy hay Hiển thị"
 
-#:../src/utils.c:636
+#:../src/utils.c:631
 msgid "Display"
 msgstr "Hiển thị"
 
-#:../src/utils.c:636
+#:../src/utils.c:631
 msgid "Run"
 msgstr "Chạy"
 
-#:../src/utils.c:672
+#:../src/utils.c:667 ../src/utils.c:740
 #,c-format
 msgid ""
-"%s does not know how to open remote files. Do you want to download the file "
+"%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgstr "%s không có khả năng mở tập tin từ xa. Như thế thì bạn có muốn tải tập tin về một địa điểm tạm thời, rồi mở nó không?"
-
-#:../src/utils.c:746
-#,c-format
-msgid ""
-"%s does not know how to open remote files. Do you want to download the files "
+msgid_plural "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr "%s không có khả năng mở tập tin từ xa. Như thế thì bạn có muốn tải các tập tin về một địa điểm tạm thời, rồi mở chúng không?"
+msgstr[0] "%s không có khả năng mở tập tin từ xa. Như thế thì bạn có muốn tải tập tin "
+"về một địa điểm tạm thời, rồi mở nó không?"
 
-#:../src/utils.c:1198
+#:../src/utils.c:1187
 #,c-format
 msgid ""
-"Failed to create directory to store temporary files in.\n"
+"Failed to create a directory in which to store temporary files.\n"
 "Error message: %s\n"
 msgstr "Việc tạo thư mục nơi cần cất giữ tập tin tạm thời bị lỗi.\n"
 "Thông điệp lỗi : %s\n"
 
-#:../src/utils.c:1368
+#:../src/utils.c:1357
 #,c-format
 msgid "Creating directory %s... "
 msgstr "Đang tạo thư mục %s... "
 
-#:../src/utils.c:1373
+#:../src/utils.c:1362
 #,c-format
 msgid "Failed to create the directory %s"
 msgstr "Việc tạo thư mục %s bị lỗi"
 
-#:../src/utils.c:1379
+#:../src/utils.c:1368
 #,c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Không thể đọc từ thư mục %s: %s\n"
