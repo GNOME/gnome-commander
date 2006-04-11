@@ -374,15 +374,15 @@ msgstr "Skupina:"
 
 #: ../src/gnome-cmd-chmod-component.c:129
 msgid "Others:"
-msgstr "Ostalo:"
+msgstr "Ostali:"
 
 #: ../src/gnome-cmd-chmod-component.c:163
 msgid "Text view:"
-msgstr "Tekstni pogled:"
+msgstr "Črkovni zapis:"
 
 #: ../src/gnome-cmd-chmod-component.c:166
 msgid "Number view:"
-msgstr "Številčni pogled:"
+msgstr "Številčni zapis:"
 
 #: ../src/gnome-cmd-chmod-dialog.c:38
 #: ../src/gnome-cmd-options-dialog.c:1031
