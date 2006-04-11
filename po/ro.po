@@ -1,0 +1,1991 @@
+# Romanian translation.
+# Copyright (C) 2006 THE gnome-commander's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gnome-commander package.
+# rem <(null)>, 2006.
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-commander\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-19 21:57-0400\n"
+"PO-Revision-Date: 2006-04-10 16:51+0300\n"
+"Last-Translator: Remus Boara <(null)>\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
+
+#: ../gnome-commander.desktop.in.h:1
+msgid "A two paned file manager"
+msgstr "Manager de fisiere dublu-panou"
+
+#: ../gnome-commander.desktop.in.h:2
+msgid "GNOME Commander"
+msgstr "GNOME Commander"
+
+#: ../libgcmd/gnome-cmd-string-dialog.c:133
+msgid "No error description available"
+msgstr "Descrierea erorii nu este disponibila"
+
+#: ../plugins/cvs/cvs-plugin.c:304
+#: ../plugins/fileroller/file-roller-plugin.c:336
+#: ../src/gnome-cmd-ftp-dialog.c:550 ../src/gnome-cmd-options-dialog.c:1058
+#: ../src/gnome-cmd-options-dialog.c:1768
+#: ../src/gnome-cmd-prepare-copy-dialog.c:141
+#: ../src/gnome-cmd-prepare-move-dialog.c:125
+msgid "Options"
+msgstr "Optiuni"
+
+#: ../plugins/cvs/cvs-plugin.c:322
+msgid "CVS options"
+msgstr "Optiuni CVS"
+
+#: ../plugins/cvs/cvs-plugin.c:325
+msgid "Compression level"
+msgstr "Nivel compresie"
+
+#: ../plugins/cvs/cvs-plugin.c:334
+msgid "Unified diff format"
+msgstr "Format diff unificat"
+
+#: ../plugins/cvs/cvs-plugin.c:448
+msgid "A plugin that eventually will be a simple CVS client"
+msgstr "Plug-in care eventual va deveni un simplu client CVS"
+
+#: ../plugins/cvs/interface.c:161
+msgid "Compare with"
+msgstr "Compara cu"
+
+#: ../plugins/cvs/interface.c:164
+msgid "HEAD"
+msgstr "HEAD"
+
+#: ../plugins/cvs/interface.c:168
+msgid "The previous revision"
+msgstr "Revizia precedenta"
+
+#: ../plugins/cvs/interface.c:174
+msgid "Other revision"
+msgstr "Revizie alternativa"
+
+#: ../plugins/cvs/interface.c:261
+msgid "CVS Diff"
+msgstr "CVS Diff"
+
+#: ../plugins/cvs/interface.c:428
+msgid "revision"
+msgstr "revizie"
+
+#: ../plugins/cvs/interface.c:442
+msgid "Revision:"
+msgstr "Revizie:"
+
+#: ../plugins/cvs/interface.c:460
+msgid "Compare..."
+msgstr "Compara..."
+
+#: ../plugins/cvs/interface.c:463
+msgid "Author:"
+msgstr "Autor:"
+
+#: ../plugins/cvs/interface.c:477
+msgid "Date:"
+msgstr "Data:"
+
+#: ../plugins/cvs/interface.c:491
+msgid "State:"
+msgstr "Stat:"
+
+#: ../plugins/cvs/interface.c:505
+msgid "Lines:"
+msgstr "Linii:"
+
+#: ../plugins/cvs/interface.c:519
+msgid "Message:"
+msgstr "Mesaj:"
+
+#: ../plugins/fileroller/file-roller-plugin.c:167
+msgid "What filename should the new archive have?"
+msgstr "Ce nume de fisier ar trebui sa aiba noua arhiva?"
+
+#: ../plugins/fileroller/file-roller-plugin.c:169
+msgid "Create Archive"
+msgstr "Creeaza arhiva"
+
+#: ../plugins/fileroller/file-roller-plugin.c:273
+msgid "Create Archive..."
+msgstr "Creaza Arhiva..."
+
+#: ../plugins/fileroller/file-roller-plugin.c:287
+msgid "Extract in Current Directory"
+msgstr "Extrage in directorul curent"
+
+#: ../plugins/fileroller/file-roller-plugin.c:292
+#, c-format
+msgid "Extract to '%s'"
+msgstr "Extrage in '%s'"
+
+#: ../plugins/fileroller/file-roller-plugin.c:352
+msgid "File-roller options"
+msgstr "Optiuni Fille-roller"
+
+#: ../plugins/fileroller/file-roller-plugin.c:355
+msgid "Default type"
+msgstr "Tip principal"
+
+#: ../plugins/fileroller/file-roller-plugin.c:477
+msgid ""
+"A plugin that adds File Roller shortcuts for creating and extracting "
+"compressed archives."
+msgstr ""
+"Adauga combinatii de taste in File Roller pentru a crea si a extrage arhive comprimate."
+
+#: ../plugins/test/test-plugin.c:232
+msgid ""
+"This is an example plugin that is mostly useful as a simple example for "
+"aspiring plugin hackers"
+msgstr ""
+"Un exemplu de plug-in folositor celor care vor sa construiasca acest fel de module."
+
+#: ../src/gnome-cmd-about-plugin.c:184
+msgid "Credits"
+msgstr "Credit"
+
+#: ../src/gnome-cmd-about-plugin.c:216
+msgid "Written by"
+msgstr "Scris de"
+
+#: ../src/gnome-cmd-about-plugin.c:231
+msgid "Documented by"
+msgstr "Documentat de"
+
+#: ../src/gnome-cmd-about-plugin.c:246
+msgid "Translated by"
+msgstr "Tradus de"
+
+#: ../src/gnome-cmd-about-plugin.c:302
+msgid "Plugin Webpage"
+msgstr "Website plug-in-uri"
+
+#: ../src/gnome-cmd-about-plugin.c:314
+msgid "C_redits"
+msgstr "C_redit"
+
+#: ../src/gnome-cmd-about-plugin.c:523
+#, c-format
+msgid "About %s"
+msgstr "Despre %s"
+
+#: ../src/gnome-cmd-advrename-dialog.c:97
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:745
+msgid "Yes"
+msgstr "Da"
+
+#: ../src/gnome-cmd-advrename-dialog.c:97
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:745
+msgid "No"
+msgstr "Nu"
+
+#: ../src/gnome-cmd-advrename-dialog.c:197
+msgid "Invalid source pattern"
+msgstr "Sursa tipar invalida"
+
+#: ../src/gnome-cmd-advrename-dialog.c:273
+msgid "Replace this:"
+msgstr "Inlocuieste:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:273
+#: ../src/gnome-cmd-advrename-dialog.c:821
+msgid "With this"
+msgstr "Cu"
+
+#: ../src/gnome-cmd-advrename-dialog.c:287
+msgid "Case sensitive matching"
+msgstr "Potrivire caz senzitiv"
+
+#: ../src/gnome-cmd-advrename-dialog.c:423
+msgid "New Rule"
+msgstr "Regula noua"
+
+#: ../src/gnome-cmd-advrename-dialog.c:432
+msgid "Edit Rule"
+msgstr "Modifica regula"
+
+#: ../src/gnome-cmd-advrename-dialog.c:651
+msgid "Counter start value:"
+msgstr "Valoare start contor"
+
+#: ../src/gnome-cmd-advrename-dialog.c:652
+msgid "Counter increment:"
+msgstr "Incrementare contor:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:653
+msgid "Counter minimum digit count:"
+msgstr "Numar minim contorizare"
+
+#: ../src/gnome-cmd-advrename-dialog.c:658
+msgid "Template Options"
+msgstr "Optiuni tema"
+
+#: ../src/gnome-cmd-advrename-dialog.c:662
+msgid "Auto-update when the template is entered"
+msgstr "Auto-actualizare cand tema este introdusa"
+
+#: ../src/gnome-cmd-advrename-dialog.c:771
+msgid "Advanced Rename Tool"
+msgstr "Utilitar redenumire avansata"
+
+#: ../src/gnome-cmd-advrename-dialog.c:784
+msgid "Template"
+msgstr "Tema"
+
+#: ../src/gnome-cmd-advrename-dialog.c:806
+msgid "Options..."
+msgstr "Optiuni..."
+
+#: ../src/gnome-cmd-advrename-dialog.c:813
+msgid "Regex replacing"
+msgstr "Inlocuire regex"
+
+#: ../src/gnome-cmd-advrename-dialog.c:820
+msgid "Replace this"
+msgstr "Inlocuieste"
+
+#: ../src/gnome-cmd-advrename-dialog.c:822
+msgid "Case sens"
+msgstr "Sens caracter"
+
+#: ../src/gnome-cmd-advrename-dialog.c:835
+#: ../src/gnome-cmd-options-dialog.c:1279
+#: ../src/gnome-cmd-options-dialog.c:1632
+msgid "_Add..."
+msgstr "_Adauga..."
+
+#: ../src/gnome-cmd-advrename-dialog.c:839 ../src/gnome-cmd-ftp-dialog.c:539
+#: ../src/gnome-cmd-options-dialog.c:1283
+#: ../src/gnome-cmd-options-dialog.c:1636
+msgid "_Edit..."
+msgstr "_Modifica..."
+
+#: ../src/gnome-cmd-advrename-dialog.c:844
+#: ../src/gnome-cmd-bookmark-dialog.c:512 ../src/gnome-cmd-ftp-dialog.c:543
+#: ../src/gnome-cmd-options-dialog.c:1289
+#: ../src/gnome-cmd-options-dialog.c:1642
+msgid "_Remove"
+msgstr "_Sterge"
+
+#: ../src/gnome-cmd-advrename-dialog.c:849
+msgid "Re_move All"
+msgstr "Re_locare Tot"
+
+#: ../src/gnome-cmd-advrename-dialog.c:872
+msgid "Result"
+msgstr "Rezultat"
+
+#: ../src/gnome-cmd-advrename-dialog.c:877
+msgid "Current filenames"
+msgstr "Nume fisiere curente"
+
+#: ../src/gnome-cmd-advrename-dialog.c:878
+msgid "New filenames"
+msgstr "Nume fisiere noi"
+
+#: ../src/gnome-cmd-advrename-dialog.c:885
+msgid "Reset"
+msgstr "Anuleaza"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:67
+msgid "Bookmark name:"
+msgstr "Nume favorita:"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:68
+msgid "Bookmark target:"
+msgstr "Destinatie favorita:"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:170
+msgid "Bookmark name is missing"
+msgstr "Nume favorita lipseste"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:176
+msgid "Bookmark target is missing"
+msgstr "Destinatia favorita lipseste"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:196
+msgid "Edit Bookmark"
+msgstr "Modifica favoritele"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:466
+#: ../src/gnome-cmd-bookmark-dialog.c:482
+msgid "Bookmarks"
+msgstr "Favorite"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:469
+msgid "Bookmark Groups"
+msgstr "Grupuri favorite"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:491 ../src/gnome-cmd-file-list.c:1340
+msgid "name"
+msgstr "nume"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:493
+msgid "path"
+msgstr "cale"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:502
+msgid "_Goto"
+msgstr "_Directie"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:507 ../src/gnome-cmd-main-menu.c:770
+#: ../src/gnome-cmd-search-popup.c:182
+msgid "_Edit"
+msgstr "_Modifica"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:624
+msgid ""
+"To bookmark a directory the whole search path to the directory must be in "
+"valid UTF-8 encoding\n"
+msgstr ""
+"Pentru a aduga un director la favorite intreaga cale spre acel director trebuie sa fie in codare UTF-8 valida\n"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:631
+msgid "New Bookmark"
+msgstr "O noua favorita"
+
+#: ../src/gnome-cmd-chmod-component.c:128
+msgid "Read"
+msgstr "Citeste"
+
+#: ../src/gnome-cmd-chmod-component.c:128
+msgid "Write"
+msgstr "Scrie"
+
+#: ../src/gnome-cmd-chmod-component.c:128
+msgid "Execute"
+msgstr "Executa"
+
+#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chown-component.c:89
+msgid "Owner:"
+msgstr "Proprietar:"
+
+#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chown-component.c:92
+msgid "Group:"
+msgstr "Grup:"
+
+#: ../src/gnome-cmd-chmod-component.c:129
+msgid "Others:"
+msgstr "Altii:"
+
+#: ../src/gnome-cmd-chmod-component.c:163
+msgid "Text view:"
+msgstr "Vizualizare text:"
+
+#: ../src/gnome-cmd-chmod-component.c:166
+msgid "Number view:"
+msgstr "Vizualizare numar:"
+
+#: ../src/gnome-cmd-chmod-dialog.c:38 ../src/gnome-cmd-options-dialog.c:1079
+msgid "All files"
+msgstr "Toate fisierele"
+
+#: ../src/gnome-cmd-chmod-dialog.c:39
+msgid "Directories only"
+msgstr "Doar directoare"
+
+#: ../src/gnome-cmd-chmod-dialog.c:71
+#, c-format
+msgid ""
+"Could not chmod %s\n"
+"%s"
+msgstr ""
+"CHMOD imposibil %s\n"
+"%s"
+
+#: ../src/gnome-cmd-chmod-dialog.c:214
+msgid "Access Permissions"
+msgstr "Acces permisii"
+
+#: ../src/gnome-cmd-chmod-dialog.c:232
+msgid "Apply Recursively for"
+msgstr "Aplica recursiv pentru"
+
+#: ../src/gnome-cmd-chown-dialog.c:52
+#, c-format
+msgid ""
+"Could not chown %s\n"
+"%s"
+msgstr ""
+"Chown imposibil %s\n"
+"%s"
+
+#: ../src/gnome-cmd-chown-dialog.c:181 ../src/gnome-cmd-search-popup.c:197
+msgid "Chown"
+msgstr "Chown"
+
+#: ../src/gnome-cmd-chown-dialog.c:195
+msgid "Apply Recursively"
+msgstr "Aplica recursiv"
+
+#: ../src/gnome-cmd-con-device.c:103
+msgid "Failed to execute the mount command"
+msgstr "Executare fara succes a comenzii mount"
+
+#: ../src/gnome-cmd-con-device.c:110
+msgid "Mount failed: Permission denied"
+msgstr "Mount esuat: Permisiune refuzata"
+
+#: ../src/gnome-cmd-con-device.c:113
+msgid "Mount failed: No medium found"
+msgstr "Mount esuat: Nu s-a gasit nici un mediu"
+
+#: ../src/gnome-cmd-con-device.c:117
+#, c-format
+msgid "Mount failed: mount exited with existatus %d"
+msgstr "Mount esuat: mount terminat cu stare %d"
+
+#: ../src/gnome-cmd-con-device.c:356
+#, c-format
+msgid "Mounting %s"
+msgstr "Mounting %s"
+
+#: ../src/gnome-cmd-con-device.c:374 ../src/gnome-cmd-con-ftp.c:287
+#, c-format
+msgid "Go to: %s"
+msgstr "Directie la: %s"
+
+#: ../src/gnome-cmd-con-device.c:375
+#, c-format
+msgid "Mount: %s"
+msgstr "Mount: %s"
+
+#: ../src/gnome-cmd-con-device.c:376
+#, c-format
+msgid "Unmount: %s"
+msgstr "Unmount: %s"
+
+#: ../src/gnome-cmd-con-ftp.c:268
+#, c-format
+msgid "Connecting to %s\n"
+msgstr "Conectare la %s\n"
+
+#: ../src/gnome-cmd-con-ftp.c:288
+#, c-format
+msgid "Connect to: %s"
+msgstr "Conectare la: %s"
+
+#: ../src/gnome-cmd-con-ftp.c:289
+#, c-format
+msgid "Disconnect from: %s"
+msgstr "Deconectare de la: %s"
+
+#: ../src/gnome-cmd-con-ftp.c:307
+#, c-format
+msgid "Creates an FTP connection to %s"
+msgstr "Creaza o conexiune FTP la %s"
+
+#: ../src/gnome-cmd-con-ftp.c:309
+#, c-format
+msgid "Removes the FTP connection to %s"
+msgstr "Indeparteaza conexiunea FTP la %s"
+
+#: ../src/gnome-cmd-con-home.c:129
+msgid "Home"
+msgstr "Home"
+
+#: ../src/gnome-cmd-con-home.c:137
+msgid "Go to: Home"
+msgstr "Directie: Home"
+
+#: ../src/gnome-cmd-con-smb.c:94
+msgid "Failed to browse the network. Is the SMB module installed?"
+msgstr "Navigarea retelei esuata. Este modulul SMB instalat?"
+
+#: ../src/gnome-cmd-con-smb.c:211
+msgid "SMB"
+msgstr "SMB"
+
+#: ../src/gnome-cmd-con-smb.c:212
+msgid "Searching for workgroups and hosts"
+msgstr "Cautare workgrup-uri si gazde"
+
+#: ../src/gnome-cmd-con-smb.c:219
+msgid "Go to: Samba Network"
+msgstr "Directie: Samba Network"
+
+#: ../src/gnome-cmd-delete-dialog.c:143
+msgid "Deleting..."
+msgstr "Stergere..."
+
+#: ../src/gnome-cmd-delete-dialog.c:225
+#, c-format
+msgid ""
+"Error while deleting %s\n"
+"\n"
+"%s"
+msgstr ""
+"Eroare in timpul stergerii %s\n"
+"\n"
+"%s"
+
+#: ../src/gnome-cmd-delete-dialog.c:228
+msgid "Delete problem"
+msgstr "Eroare stergere"
+
+#: ../src/gnome-cmd-delete-dialog.c:229 ../src/gnome-cmd-xfer.c:176
+#: ../src/gnome-cmd-xfer.c:196
+msgid "Abort"
+msgstr "Anuleaza"
+
+#: ../src/gnome-cmd-delete-dialog.c:229 ../src/gnome-cmd-xfer.c:196
+msgid "Retry"
+msgstr "Insista"
+
+#: ../src/gnome-cmd-delete-dialog.c:229 ../src/gnome-cmd-xfer.c:176
+#: ../src/gnome-cmd-xfer.c:196
+msgid "Skip"
+msgstr "Ignora"
+
+#: ../src/gnome-cmd-delete-dialog.c:307
+#, c-format
+msgid "Do you want to delete \"%s\"?"
+msgstr "Vrei sa stergi \"%s\"?"
+
+#: ../src/gnome-cmd-delete-dialog.c:312
+#, c-format
+msgid "Do you want to delete the selected file?"
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] "Vrei sa stergi fisierul selectat?"
+msgstr[1] "Vrei sa stergi %d fisierele selectate?"
+
+#: ../src/gnome-cmd-delete-dialog.c:320 ../src/gnome-cmd-main-win.c:1346
+msgid "Delete"
+msgstr "Sterge"
+
+#: ../src/gnome-cmd-delete-dialog.c:320 ../src/utils.c:603 ../src/utils.c:632
+msgid "Cancel"
+msgstr "Anuleaza"
+
+#: ../src/gnome-cmd-delete-dialog.c:320 ../src/utils.c:603
+msgid "OK"
+msgstr "OK"
+
+#: ../src/gnome-cmd-dir.c:569
+msgid "Waiting for file list"
+msgstr "Astept lista de fisiere"
+
+#: ../src/gnome-cmd-dir-indicator.c:472
+msgid "Add current dir"
+msgstr "Adauga directorul curent"
+
+#: ../src/gnome-cmd-dir-indicator.c:479
+msgid "Manage bookmarks..."
+msgstr "Administreaza favoritele..."
+
+#: ../src/gnome-cmd-file-list.c:1341
+msgid "ext"
+msgstr "ext"
+
+#: ../src/gnome-cmd-file-list.c:1342
+msgid "dir"
+msgstr "dir"
+
+#: ../src/gnome-cmd-file-list.c:1343
+msgid "size"
+msgstr "marime"
+
+#: ../src/gnome-cmd-file-list.c:1344
+msgid "date"
+msgstr "data"
+
+#: ../src/gnome-cmd-file-list.c:1345
+msgid "perm"
+msgstr "perm"
+
+#: ../src/gnome-cmd-file-list.c:1346
+msgid "uid"
+msgstr "uid"
+
+#: ../src/gnome-cmd-file-list.c:1347
+msgid "gid"
+msgstr "gid"
+
+#: ../src/gnome-cmd-file-popmenu.c:131
+msgid "Invalid command"
+msgstr "Comanda invalida"
+
+#: ../src/gnome-cmd-file-popmenu.c:159
+msgid "Application:"
+msgstr "Aplicatie:"
+
+#: ../src/gnome-cmd-file-popmenu.c:163
+msgid "Open with other..."
+msgstr "Deschide cu altceva..."
+
+#: ../src/gnome-cmd-file-popmenu.c:167
+msgid "Needs terminal"
+msgstr "Necesita terminal"
+
+#: ../src/gnome-cmd-file-popmenu.c:418
+msgid "_Open"
+msgstr "_Deschide"
+
+#: ../src/gnome-cmd-file-popmenu.c:425
+msgid "_Open with..."
+msgstr "Deschide _cu..."
+
+#: ../src/gnome-cmd-file-popmenu.c:437
+msgid "_Execute"
+msgstr "_Executa"
+
+#: ../src/gnome-cmd-file-popmenu.c:455
+msgid "_Cut"
+msgstr "_Taie"
+
+#: ../src/gnome-cmd-file-popmenu.c:462 ../src/gnome-cmd-main-menu.c:565
+msgid "_Copy"
+msgstr "_Copiaza"
+
+#: ../src/gnome-cmd-file-popmenu.c:469 ../src/gnome-cmd-main-menu.c:577
+#: ../src/gnome-cmd-search-popup.c:167
+msgid "_Delete"
+msgstr "_Sterge"
+
+#: ../src/gnome-cmd-file-popmenu.c:476
+msgid "Rename"
+msgstr "Redenumeste"
+
+#: ../src/gnome-cmd-file-popmenu.c:484
+#: ../src/gnome-cmd-file-props-dialog.c:475
+#: ../src/gnome-cmd-search-popup.c:204
+msgid "Properties"
+msgstr "Proprietati"
+
+#: ../src/gnome-cmd-file-popmenu.c:542
+msgid "Other..."
+msgstr "Altul..."
+
+#: ../src/gnome-cmd-file-props-dialog.c:63 ../src/utils.c:987
+#, c-format
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] "%s byte"
+msgstr[1] "%s bytes"
+
+#: ../src/gnome-cmd-file-props-dialog.c:210
+#: ../src/gnome-cmd-file-props-dialog.c:346
+msgid "No default application registered"
+msgstr "Aplicatie de baza neinregistrata"
+
+#: ../src/gnome-cmd-file-props-dialog.c:302
+#: ../src/gnome-cmd-file-selector.c:2058
+msgid "Filename:"
+msgstr "Nume fisier:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:313
+msgid "Symlink target:"
+msgstr "Destinatie legatura Symlink:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:322
+msgid "Type:"
+msgstr "Tip:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:329
+msgid "MIME Type:"
+msgstr "Tip MIME:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:337
+msgid "Opens with:"
+msgstr "Deschide cu:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:348
+msgid "_Change"
+msgstr "_Schimba"
+
+#: ../src/gnome-cmd-file-props-dialog.c:360
+msgid "Accessed:"
+msgstr "Accesat:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:367
+msgid "Modified:"
+msgstr "Modificat:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:377
+msgid "Size:"
+msgstr "Marime:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:413
+msgid "Owner and group"
+msgstr "Proprietar si grup"
+
+#: ../src/gnome-cmd-file-props-dialog.c:427
+msgid "Access permissions"
+msgstr "Permisii acces"
+
+#: ../src/gnome-cmd-file-props-dialog.c:450
+msgid "File Properties"
+msgstr "Proprietati fisier"
+
+#: ../src/gnome-cmd-file-props-dialog.c:479
+msgid "Permissions"
+msgstr "Permisii"
+
+#: ../src/gnome-cmd-file-selector.c:194
+#, c-format
+msgid "%s of %s kB in %d of %d file selected"
+msgid_plural "%s of %s kB in %d of %d files selected"
+msgstr[0] "%s of %s kB in %d of %d fisier selectat"
+msgstr[1] "%s of %s kB in %d of %d fisiere selectate"
+
+#: ../src/gnome-cmd-file-selector.c:730
+#, c-format
+msgid "%s Free"
+msgstr "%s Liber"
+
+#: ../src/gnome-cmd-file-selector.c:1784
+#, c-format
+msgid "Failed to open connection: %s\n"
+msgstr "Deschiderea conexiunii esuata: %s\n"
+
+#: ../src/gnome-cmd-file-selector.c:1993
+#: ../src/gnome-cmd-make-copy-dialog.c:68 ../src/gnome-cmd-rename-dialog.c:52
+msgid "No filename entered"
+msgstr "Nu a fost introdus nici un nume de fisier"
+
+#: ../src/gnome-cmd-file-selector.c:2029
+msgid "No filename given"
+msgstr "Nici a fost dat nici un nume de fisier"
+
+#: ../src/gnome-cmd-file-selector.c:2064
+msgid "New Text File"
+msgstr "Fisier text nou"
+
+#: ../src/gnome-cmd-file-selector.c:2233
+msgid "Symlink name:"
+msgstr "Nume legatura Symlink:"
+
+#: ../src/gnome-cmd-file-selector.c:2237
+#, c-format
+msgid "Symlink to %s"
+msgstr "Legatura Symlink la %s"
+
+#: ../src/gnome-cmd-file-selector.c:2239
+msgid "Create Symbolic Link"
+msgstr "Creaza legatura"
+
+#: ../src/gnome-cmd-file-selector.c:2310
+msgid "Filter:"
+msgstr "Filtru:"
+
+#: ../src/gnome-cmd-file.c:603
+msgid "Unknown file type"
+msgstr "Tip fisier necunoscut"
+
+#: ../src/gnome-cmd-file.c:604
+msgid "Regular file"
+msgstr "Fisier normal"
+
+#: ../src/gnome-cmd-file.c:605
+msgid "Directory"
+msgstr "Director"
+
+#: ../src/gnome-cmd-file.c:606
+msgid "FIFO"
+msgstr "FIFO"
+
+#: ../src/gnome-cmd-file.c:607
+msgid "UNIX Socket"
+msgstr "Socket UNIX"
+
+#: ../src/gnome-cmd-file.c:608
+msgid "Character device"
+msgstr "Modul caractere"
+
+#: ../src/gnome-cmd-file.c:609
+msgid "Block device"
+msgstr "Modul Bloc"
+
+#: ../src/gnome-cmd-file.c:610
+msgid "Symbolic link"
+msgstr "Legatura simbolica"
+
+#: ../src/gnome-cmd-ftp-dialog.c:163
+#, c-format
+msgid "Enter password for %s@%s"
+msgstr "Introducere parola pentru %s@%s"
+
+#: ../src/gnome-cmd-ftp-dialog.c:168
+msgid "Enter Password"
+msgstr "Introducere parola"
+
+#: ../src/gnome-cmd-ftp-dialog.c:215
+msgid "No alias specified"
+msgstr "Alias nespecificat"
+
+#: ../src/gnome-cmd-ftp-dialog.c:218
+msgid "No host specified"
+msgstr "Gazda nespecificata"
+
+#: ../src/gnome-cmd-ftp-dialog.c:221
+#, c-format
+msgid "Invalid port number: %s"
+msgstr "Numar port invalid: %s"
+
+#: ../src/gnome-cmd-ftp-dialog.c:298 ../src/gnome-cmd-options-dialog.c:1472
+msgid "Alias:"
+msgstr "Alias:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:298 ../src/gnome-cmd-ftp-dialog.c:299
+msgid "Host:"
+msgstr "Gazda:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:298 ../src/gnome-cmd-ftp-dialog.c:299
+msgid "Port:"
+msgstr "Port:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:298 ../src/gnome-cmd-ftp-dialog.c:299
+msgid "User:"
+msgstr "Utilizator:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:298 ../src/gnome-cmd-ftp-dialog.c:299
+msgid "Password:"
+msgstr "Parola:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:323
+msgid "New FTP Server"
+msgstr "Server FTP nou"
+
+#: ../src/gnome-cmd-ftp-dialog.c:348
+msgid "Edit FTP Server"
+msgstr "Modifica serverul FTP"
+
+#: ../src/gnome-cmd-ftp-dialog.c:378
+msgid "No server selected"
+msgstr "Nu a fost selectat nici un server"
+
+#: ../src/gnome-cmd-ftp-dialog.c:506 ../src/gnome-cmd-main-win.c:1354
+msgid "FTP Connect"
+msgstr "Conecteaza FTP"
+
+#: ../src/gnome-cmd-ftp-dialog.c:512
+msgid "Servers"
+msgstr "Servere"
+
+#: ../src/gnome-cmd-ftp-dialog.c:532 ../src/gnome-cmd-options-dialog.c:1626
+msgid "Alias"
+msgstr "Alias"
+
+#: ../src/gnome-cmd-ftp-dialog.c:537 ../src/gnome-cmd-list-popmenu.c:145
+msgid "_New..."
+msgstr "_Nou..."
+
+#: ../src/gnome-cmd-ftp-dialog.c:553
+msgid "Anonymous password:"
+msgstr "Parola anonim:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:563
+msgid "Connect"
+msgstr "Conecteaza"
+
+#: ../src/gnome-cmd-ftp-dialog.c:670
+msgid "FTP Quick Connect"
+msgstr "FTP Conectare Rapida"
+
+#: ../src/gnome-cmd-list-popmenu.c:126
+msgid "_Directory"
+msgstr "_Director"
+
+#: ../src/gnome-cmd-list-popmenu.c:133
+msgid "_Text file"
+msgstr "_Fisier text"
+
+#: ../src/gnome-cmd-list-popmenu.c:152 ../src/gnome-cmd-main-menu.c:571
+msgid "_Paste"
+msgstr "_Adauga"
+
+#: ../src/gnome-cmd-list-popmenu.c:159 ../src/gnome-cmd-main-menu.c:626
+msgid "_Refresh"
+msgstr "_Reincarca"
+
+#: ../src/gnome-cmd-main-menu.c:389
+msgid "Switch to Horizontal Layout"
+msgstr "Schimbare plan orizontal"
+
+#: ../src/gnome-cmd-main-menu.c:394
+msgid "Switch to Vertical Layout"
+msgstr "Schimbare plan vertical"
+
+#: ../src/gnome-cmd-main-menu.c:462
+msgid "Change _Owner/Group"
+msgstr "Schimba _proprietar/grup"
+
+#: ../src/gnome-cmd-main-menu.c:468
+msgid "Change Per_missions"
+msgstr "Schimba per_misii"
+
+#: ../src/gnome-cmd-main-menu.c:474
+msgid "Advanced _Rename Tool"
+msgstr "Utilitar _redenumire automata"
+
+#: ../src/gnome-cmd-main-menu.c:480
+msgid "Create _Symbolic Link"
+msgstr "Creaza _legatura simbolica"
+
+#: ../src/gnome-cmd-main-menu.c:486
+msgid "_Properties..."
+msgstr "_Proprietati..."
+
+#: ../src/gnome-cmd-main-menu.c:493
+msgid "_Diff"
+msgstr "_Dif"
+
+#: ../src/gnome-cmd-main-menu.c:500
+msgid "_Quit"
+msgstr "_Abandon"
+
+#: ../src/gnome-cmd-main-menu.c:511
+msgid "_Select All"
+msgstr "_Selecteaza tot"
+
+#: ../src/gnome-cmd-main-menu.c:517
+msgid "_Unselect All"
+msgstr "_Deselecteaza tot"
+
+#: ../src/gnome-cmd-main-menu.c:523
+msgid "Select with _Pattern"
+msgstr "Selecteaza cu _tipar"
+
+#: ../src/gnome-cmd-main-menu.c:529
+msgid "Unselect with P_attern"
+msgstr "Deselecteaza cu t_ipar"
+
+#: ../src/gnome-cmd-main-menu.c:535
+msgid "_Invert Selection"
+msgstr "_Selectie inversa"
+
+#: ../src/gnome-cmd-main-menu.c:541
+msgid "_Restore Selection"
+msgstr "_Restaureaza selectia"
+
+#: ../src/gnome-cmd-main-menu.c:548
+msgid "_Compare Directries"
+msgstr "_Compara directoarele"
+
+#: ../src/gnome-cmd-main-menu.c:559
+msgid "Cu_t"
+msgstr "T_aie"
+
+#: ../src/gnome-cmd-main-menu.c:584
+msgid "Copy _File Names"
+msgstr "Copiaza nume _fisier"
+
+#: ../src/gnome-cmd-main-menu.c:591
+msgid "_Search..."
+msgstr "_Cautare..."
+
+#: ../src/gnome-cmd-main-menu.c:597
+msgid "_Quick Search..."
+msgstr "Cautare _rapida..."
+
+#: ../src/gnome-cmd-main-menu.c:603
+msgid "_Enable Filter..."
+msgstr "_Activeaza filtru..."
+
+#: ../src/gnome-cmd-main-menu.c:614
+msgid "_Back"
+msgstr "_Inapoi"
+
+#: ../src/gnome-cmd-main-menu.c:620
+msgid "_Forward"
+msgstr "I_nainte"
+
+#: ../src/gnome-cmd-main-menu.c:633
+msgid "Show Device Buttons"
+msgstr "Arata Butoane"
+
+#: ../src/gnome-cmd-main-menu.c:639
+msgid "Show Toolbar"
+msgstr "Arata Tablou Utilitati"
+
+#: ../src/gnome-cmd-main-menu.c:645
+msgid "Show Commandline"
+msgstr "Arata Consola"
+
+#: ../src/gnome-cmd-main-menu.c:651
+msgid "Show Buttonbar"
+msgstr "Arata bara de butoane"
+
+#: ../src/gnome-cmd-main-menu.c:658
+msgid "Show Hidden Files"
+msgstr "Arata fisierele ascunse"
+
+#: ../src/gnome-cmd-main-menu.c:664
+msgid "Show Backup Files"
+msgstr "Arata fisierele-copii de siguranta"
+
+#: ../src/gnome-cmd-main-menu.c:676
+msgid "_Bookmark this Directory..."
+msgstr "Adauga la _favorite acest director..."
+
+#: ../src/gnome-cmd-main-menu.c:682
+msgid "_Manage Bookmarks..."
+msgstr "A_dministreaza favoritele..."
+
+#: ../src/gnome-cmd-main-menu.c:694
+msgid "_Configure Plugins..."
+msgstr "_Configurare plug-in-uri..."
+
+#: ../src/gnome-cmd-main-menu.c:706
+msgid "_Options..."
+msgstr "_Optiuni..."
+
+#: ../src/gnome-cmd-main-menu.c:712
+msgid "Edit _Mime Types..."
+msgstr "Administreaza tipurile _mime..."
+
+#: ../src/gnome-cmd-main-menu.c:723
+msgid "FTP _Connect..."
+msgstr "_Connectare FTP..."
+
+#: ../src/gnome-cmd-main-menu.c:729
+msgid "FTP _Quick Connect..."
+msgstr "Conectare _rapida FTP..."
+
+#: ../src/gnome-cmd-main-menu.c:740
+msgid "User _Manual..."
+msgstr "_Manual utilizator..."
+
+#: ../src/gnome-cmd-main-menu.c:747
+msgid "_About..."
+msgstr "_Despre..."
+
+#. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
+#: ../src/gnome-cmd-main-menu.c:766
+msgid "_File"
+msgstr "_Fisier"
+
+#: ../src/gnome-cmd-main-menu.c:774
+msgid "_Mark"
+msgstr "_Marcare"
+
+#: ../src/gnome-cmd-main-menu.c:778 ../src/gnome-cmd-search-popup.c:175
+msgid "_View"
+msgstr "_Vizualizare"
+
+#: ../src/gnome-cmd-main-menu.c:783
+msgid "_Settings"
+msgstr "_Setari"
+
+#: ../src/gnome-cmd-main-menu.c:787
+msgid "_Connections"
+msgstr "_Conexiuni"
+
+#: ../src/gnome-cmd-main-menu.c:791
+msgid "_Bookmarks"
+msgstr "_Favorite"
+
+#: ../src/gnome-cmd-main-menu.c:795
+msgid "_Plugins"
+msgstr "_Plugin-uri"
+
+#: ../src/gnome-cmd-main-menu.c:799
+msgid "_Help"
+msgstr "_Ajutor"
+
+#: ../src/gnome-cmd-main-win.c:447
+msgid "F3 View"
+msgstr "F3 Vizualizare"
+
+#: ../src/gnome-cmd-main-win.c:450
+msgid "F4 Edit"
+msgstr "F4 Modificare"
+
+#: ../src/gnome-cmd-main-win.c:453
+msgid "F5 Copy"
+msgstr "F5 Copiaza"
+
+#: ../src/gnome-cmd-main-win.c:456
+msgid "F6 Move"
+msgstr "F6 Muta"
+
+#: ../src/gnome-cmd-main-win.c:459
+msgid "F7 Mkdir"
+msgstr "F7 Mkdir"
+
+#: ../src/gnome-cmd-main-win.c:462
+msgid "F8 Delete"
+msgstr "F8 Sterge"
+
+#: ../src/gnome-cmd-main-win.c:465
+msgid "F9 Search"
+msgstr "F9 Cauta"
+
+#: ../src/gnome-cmd-main-win.c:468
+msgid "F10 Quit"
+msgstr "F10 Abandon"
+
+#: ../src/gnome-cmd-main-win.c:1296
+msgid "Refresh"
+msgstr "Reincarca"
+
+#: ../src/gnome-cmd-main-win.c:1303
+msgid "Back in history"
+msgstr "Inapoi"
+
+#: ../src/gnome-cmd-main-win.c:1310
+msgid "Forward in history"
+msgstr "Inainte"
+
+#: ../src/gnome-cmd-main-win.c:1318
+msgid "Copy file names"
+msgstr "Copiaza numele de fisierele"
+
+#: ../src/gnome-cmd-main-win.c:1325
+msgid "Cut"
+msgstr "Taie"
+
+#: ../src/gnome-cmd-main-win.c:1332 ../src/gnome-cmd-prepare-copy-dialog.c:86
+msgid "Copy"
+msgstr "Copiaza"
+
+#: ../src/gnome-cmd-main-win.c:1339
+msgid "Paste"
+msgstr "Adauga"
+
+#: ../src/gnome-cmd-main-win.c:1361
+msgid "Drop connection"
+msgstr "Anuleaza conexiunea"
+
+#: ../src/gnome-cmd-make-copy-dialog.c:154
+#: ../src/gnome-cmd-prepare-copy-dialog.c:152
+#, c-format
+msgid "Copy \"%s\" to"
+msgstr "Copiaza \"%s\" la"
+
+#: ../src/gnome-cmd-make-copy-dialog.c:162
+msgid "Copy File"
+msgstr "Copiaza fisier"
+
+#: ../src/gnome-cmd-mkdir-dialog.c:48
+msgid "A directory name must be entered"
+msgstr "Trebuie introdus un nume de director"
+
+#: ../src/gnome-cmd-mkdir-dialog.c:141
+msgid "Directory name:"
+msgstr "Nume director:"
+
+#: ../src/gnome-cmd-mkdir-dialog.c:149
+msgid "Make Directory"
+msgstr "Creaza director"
+
+#: ../src/gnome-cmd-options-dialog.c:63
+msgid "Use right mouse button to"
+msgstr "Foloseste butonul dreapta mouse pentru"
+
+#: ../src/gnome-cmd-options-dialog.c:66
+msgid "Show popup menu"
+msgstr "Arata meniu aditional"
+
+#: ../src/gnome-cmd-options-dialog.c:70
+msgid "Select files"
+msgstr "Selecteaza fisierele"
+
+#: ../src/gnome-cmd-options-dialog.c:79
+msgid "Match filenames using"
+msgstr "Potriveste numele de fisier utilizand"
+
+#: ../src/gnome-cmd-options-dialog.c:82
+msgid "Shell syntax"
+msgstr "Sintaxa Shell"
+
+#: ../src/gnome-cmd-options-dialog.c:86
+msgid "Regex syntax"
+msgstr "Sintaxa Regex"
+
+#: ../src/gnome-cmd-options-dialog.c:96
+msgid "Sorting options"
+msgstr "Sortare optiuni"
+
+#: ../src/gnome-cmd-options-dialog.c:99
+#: ../src/gnome-cmd-patternsel-dialog.c:160
+msgid "Case sensitive"
+msgstr "Caz senzitiv"
+
+#: ../src/gnome-cmd-options-dialog.c:109
+msgid "Confirmation options"
+msgstr "Confirmare optiuni"
+
+#: ../src/gnome-cmd-options-dialog.c:112
+msgid "Confirm before delete"
+msgstr "Confirma inainte de stergere"
+
+#: ../src/gnome-cmd-options-dialog.c:122
+msgid "Directory options"
+msgstr "Optiuni director"
+
+#: ../src/gnome-cmd-options-dialog.c:125
+msgid "Directory cache size"
+msgstr "Marime cache director"
+
+#: ../src/gnome-cmd-options-dialog.c:214
+msgid "Size display mode"
+msgstr "Mod afisare marime"
+
+#: ../src/gnome-cmd-options-dialog.c:217
+msgid "Powered"
+msgstr "Sustinut"
+
+#: ../src/gnome-cmd-options-dialog.c:222
+msgid "Grouped"
+msgstr "Grupat"
+
+#: ../src/gnome-cmd-options-dialog.c:227
+msgid "Plain"
+msgstr "Simplu"
+
+#: ../src/gnome-cmd-options-dialog.c:237
+msgid "Permission display mode"
+msgstr "Mod afisare permisii"
+
+#: ../src/gnome-cmd-options-dialog.c:240
+msgid "Text (rw-r--r--)"
+msgstr "Text (rw-r--r--)"
+
+#: ../src/gnome-cmd-options-dialog.c:245
+msgid "Number (311)"
+msgstr "Numar (311)"
+
+#: ../src/gnome-cmd-options-dialog.c:255
+msgid "Date format"
+msgstr "Format data"
+
+#: ../src/gnome-cmd-options-dialog.c:258
+msgid "Format:"
+msgstr "Format:"
+
+#: ../src/gnome-cmd-options-dialog.c:266
+msgid "_Test"
+msgstr "_Test"
+
+#: ../src/gnome-cmd-options-dialog.c:269
+msgid "Test result:"
+msgstr "Rezultat test:"
+
+#: ../src/gnome-cmd-options-dialog.c:279
+msgid ""
+"See the manual page for \"strftime\" for help on how to set the format "
+"string."
+msgstr ""
+"Vezi pagina manual \"strftime\" pentru ajutor la ajustarea formei sirului."
+
+#: ../src/gnome-cmd-options-dialog.c:401
+msgid "Edit Colors..."
+msgstr "Editare culori..."
+
+#: ../src/gnome-cmd-options-dialog.c:408
+msgid "Colors"
+msgstr "Culori"
+
+#: ../src/gnome-cmd-options-dialog.c:445
+msgid "Foreground"
+msgstr "Caractere"
+
+#: ../src/gnome-cmd-options-dialog.c:447
+msgid "Background"
+msgstr "Fundal"
+
+#: ../src/gnome-cmd-options-dialog.c:449
+msgid "Default:"
+msgstr "Baza:"
+
+#: ../src/gnome-cmd-options-dialog.c:451
+msgid "Selected file:"
+msgstr "Fisierul selectat:"
+
+#: ../src/gnome-cmd-options-dialog.c:453
+msgid "Cursor:"
+msgstr "Cursor:"
+
+#: ../src/gnome-cmd-options-dialog.c:470
+msgid "With filename"
+msgstr "Cu numele"
+
+#: ../src/gnome-cmd-options-dialog.c:471
+msgid "In separate column"
+msgstr "In coloane separate"
+
+#: ../src/gnome-cmd-options-dialog.c:472
+msgid "In both columns"
+msgstr "In amandoua coloanele"
+
+#: ../src/gnome-cmd-options-dialog.c:476
+msgid "No icons"
+msgstr "Fara pictograme"
+
+#: ../src/gnome-cmd-options-dialog.c:477
+msgid "File type icons"
+msgstr "Tip fisier pictograme"
+
+#: ../src/gnome-cmd-options-dialog.c:478
+msgid "MIME icons"
+msgstr "Pictograme MIME"
+
+#: ../src/gnome-cmd-options-dialog.c:482
+msgid "Respect theme colors"
+msgstr "Respecta tema de culori"
+
+#: ../src/gnome-cmd-options-dialog.c:483
+msgid "Modern"
+msgstr "Modern"
+
+#: ../src/gnome-cmd-options-dialog.c:484
+msgid "Classic"
+msgstr "Clasic"
+
+#: ../src/gnome-cmd-options-dialog.c:485
+msgid "Custom"
+msgstr "Personal"
+
+#: ../src/gnome-cmd-options-dialog.c:501
+msgid "File panes"
+msgstr "Panouri fisier"
+
+#: ../src/gnome-cmd-options-dialog.c:516
+msgid "Font:"
+msgstr "Font:"
+
+#: ../src/gnome-cmd-options-dialog.c:518
+msgid "Row height:"
+msgstr "Inaltime rand:"
+
+#. File extensions
+#: ../src/gnome-cmd-options-dialog.c:522
+msgid "Display file extensions:"
+msgstr "Afiseaza extensiile fisierelor:"
+
+#. Graphical mode
+#: ../src/gnome-cmd-options-dialog.c:530
+msgid "Graphical mode:"
+msgstr "Mod grafic:"
+
+#. Color scheme
+#: ../src/gnome-cmd-options-dialog.c:540
+msgid "Color scheme:"
+msgstr "Schema de culori:"
+
+#: ../src/gnome-cmd-options-dialog.c:553
+msgid "Edit..."
+msgstr "Modifica..."
+
+#: ../src/gnome-cmd-options-dialog.c:563
+msgid "Colorize files according to the LS_COLORS enviroment variable"
+msgstr "Coloreaza fisierele conform variabilei mediului LS_COLORS"
+
+#: ../src/gnome-cmd-options-dialog.c:575
+msgid "MIME icon settings"
+msgstr "Setari MIME pictograme"
+
+#: ../src/gnome-cmd-options-dialog.c:592
+msgid "Icon size:"
+msgstr "Marime pictograma:"
+
+#: ../src/gnome-cmd-options-dialog.c:594
+msgid "Scaling quality:"
+msgstr "Calitate marire"
+
+#: ../src/gnome-cmd-options-dialog.c:596
+msgid "Theme icon directory:"
+msgstr "Directorul cu teme pictograme"
+
+#: ../src/gnome-cmd-options-dialog.c:598
+msgid "Document icon directory:"
+msgstr "Directorul cu pictograme document"
+
+#: ../src/gnome-cmd-options-dialog.c:715
+msgid "Filetypes to hide"
+msgstr "Tip fisier de ascuns"
+
+#: ../src/gnome-cmd-options-dialog.c:718
+msgid "Unknown"
+msgstr "Necunoscut"
+
+#: ../src/gnome-cmd-options-dialog.c:723
+msgid "Regular files"
+msgstr "Fisiere normale"
+
+#: ../src/gnome-cmd-options-dialog.c:728
+msgid "Directories"
+msgstr "Directoare"
+
+#: ../src/gnome-cmd-options-dialog.c:733
+msgid "Fifo files"
+msgstr "Fisiere Fifo"
+
+#: ../src/gnome-cmd-options-dialog.c:738
+msgid "Socket files"
+msgstr "Fisiere Socket"
+
+#: ../src/gnome-cmd-options-dialog.c:743
+msgid "Character devices"
+msgstr "Module caracter"
+
+#: ../src/gnome-cmd-options-dialog.c:748
+msgid "Block devices"
+msgstr "Module bloc"
+
+#: ../src/gnome-cmd-options-dialog.c:756
+msgid "Also hide"
+msgstr "Ascunde deasemenea"
+
+#: ../src/gnome-cmd-options-dialog.c:759
+msgid "Hidden files"
+msgstr "Fisiere ascunse"
+
+#: ../src/gnome-cmd-options-dialog.c:764 ../src/gnome-cmd-options-dialog.c:777
+msgid "Backup files"
+msgstr "Copii de siguranta"
+
+#: ../src/gnome-cmd-options-dialog.c:769
+msgid "Symlinks"
+msgstr "Legaturi Symlinks"
+
+#: ../src/gnome-cmd-options-dialog.c:1036
+msgid "Label:"
+msgstr "Eticheta:"
+
+#: ../src/gnome-cmd-options-dialog.c:1038
+msgid "Command:"
+msgstr "Comanda:"
+
+#: ../src/gnome-cmd-options-dialog.c:1040
+#: ../src/gnome-cmd-options-dialog.c:1478
+msgid "Icon:"
+msgstr "Pictograma:"
+
+#: ../src/gnome-cmd-options-dialog.c:1061
+msgid "Can handle multiple files"
+msgstr "Poate manipula mai multe fisiere"
+
+#: ../src/gnome-cmd-options-dialog.c:1065
+msgid "Can handle URIs"
+msgstr "Poate utiliza URI-uri"
+
+#: ../src/gnome-cmd-options-dialog.c:1069
+msgid "Requires terminal"
+msgstr "Necesita terminal"
+
+#: ../src/gnome-cmd-options-dialog.c:1076
+msgid "Show for"
+msgstr "Arata pentru"
+
+#: ../src/gnome-cmd-options-dialog.c:1085
+msgid "All directories"
+msgstr "Toate directoarele"
+
+#: ../src/gnome-cmd-options-dialog.c:1091
+msgid "All directories and files"
+msgstr "Toate directoarele si fisierele"
+
+#: ../src/gnome-cmd-options-dialog.c:1097
+msgid "Some files"
+msgstr "Unele fisiere"
+
+#: ../src/gnome-cmd-options-dialog.c:1108
+msgid "File patterns"
+msgstr "Tipar fisier"
+
+#: ../src/gnome-cmd-options-dialog.c:1133
+msgid "New Application"
+msgstr "Aplicatie noua"
+
+#: ../src/gnome-cmd-options-dialog.c:1144
+msgid "Edit Application"
+msgstr "Modifica aplicatia"
+
+#: ../src/gnome-cmd-options-dialog.c:1230
+msgid "Always download remote files before opening in external programs"
+msgstr "Intotdeauna incarca fisierele inainte de a le deschide in programe externe"
+
+#: ../src/gnome-cmd-options-dialog.c:1234
+msgid "MIME applications"
+msgstr "Aplicatii MIME"
+
+#: ../src/gnome-cmd-options-dialog.c:1238
+msgid "Standard programs"
+msgstr "Programe standard"
+
+#: ../src/gnome-cmd-options-dialog.c:1241
+msgid "Viewer:"
+msgstr "Vizualizare:"
+
+#: ../src/gnome-cmd-options-dialog.c:1243
+msgid "Editor:"
+msgstr "Editare:"
+
+#: ../src/gnome-cmd-options-dialog.c:1245
+msgid "Differ:"
+msgstr "Difer:"
+
+#: ../src/gnome-cmd-options-dialog.c:1247
+msgid "Terminal:"
+msgstr "Terminal:"
+
+#: ../src/gnome-cmd-options-dialog.c:1266
+msgid "Other favorite apps"
+msgstr "Alte aplicatii favorite"
+
+#: ../src/gnome-cmd-options-dialog.c:1273
+msgid "Label"
+msgstr "Eticheta"
+
+#: ../src/gnome-cmd-options-dialog.c:1474
+msgid "Device:"
+msgstr "Modul:"
+
+#: ../src/gnome-cmd-options-dialog.c:1476
+msgid "Mount point:"
+msgstr "Punct mount:"
+
+#: ../src/gnome-cmd-options-dialog.c:1520
+msgid "New Device"
+msgstr "Modul nou"
+
+#: ../src/gnome-cmd-options-dialog.c:1532
+msgid "Edit Device"
+msgstr "Modifica modul"
+
+#: ../src/gnome-cmd-options-dialog.c:1616
+#: ../src/gnome-cmd-options-dialog.c:1826
+msgid "Devices"
+msgstr "Module"
+
+#: ../src/gnome-cmd-options-dialog.c:1658
+msgid "Show only the icons"
+msgstr "Arata doar pictogramele"
+
+#: ../src/gnome-cmd-options-dialog.c:1663
+msgid "Skip mounting (useful when using super-mount)"
+msgstr "Renunta mount-are (folositor la utilizarea super-mount-ului)"
+
+#: ../src/gnome-cmd-options-dialog.c:1796
+msgid "General"
+msgstr "General"
+
+#: ../src/gnome-cmd-options-dialog.c:1802
+msgid "Format"
+msgstr "Format"
+
+#: ../src/gnome-cmd-options-dialog.c:1808
+msgid "Layout"
+msgstr "Interfata"
+
+#: ../src/gnome-cmd-options-dialog.c:1814
+msgid "Filters"
+msgstr "Filtre"
+
+#: ../src/gnome-cmd-options-dialog.c:1820
+msgid "Programs"
+msgstr "Programe"
+
+#: ../src/gnome-cmd-patternsel-dialog.c:136
+msgid "Select Using Pattern"
+msgstr "Selecteaza utilizand tipar"
+
+#: ../src/gnome-cmd-patternsel-dialog.c:136
+msgid "Unselect Using Pattern"
+msgstr "Deslecteaza utilizand tipar"
+
+#: ../src/gnome-cmd-patternsel-dialog.c:147
+msgid "Pattern:"
+msgstr "Tipar:"
+
+#.
+#. * Create prepare copy specific widgets
+#.
+#: ../src/gnome-cmd-prepare-copy-dialog.c:93
+#: ../src/gnome-cmd-prepare-move-dialog.c:87
+msgid "Silently"
+msgstr "Silentios"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.c:102
+#: ../src/gnome-cmd-prepare-move-dialog.c:96
+msgid "Query First"
+msgstr "Prima data chestioneaza"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.c:111
+#: ../src/gnome-cmd-prepare-move-dialog.c:105 ../src/gnome-cmd-xfer.c:176
+msgid "Skip All"
+msgstr "Renunta tot"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.c:121
+msgid "Follow Links"
+msgstr "Urmeaza legaturile"
+
+#.
+#. * Customize prepare xfer widgets
+#.
+#: ../src/gnome-cmd-prepare-copy-dialog.c:136
+#: ../src/gnome-cmd-prepare-move-dialog.c:120
+msgid "Overwrite Files"
+msgstr "Scrie peste"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.c:156
+#, c-format
+msgid "copy %d file to"
+msgid_plural "copy %d files to"
+msgstr[0] "copiaza %d fisierul la"
+msgstr[1] "copy %d files to"
+
+#: ../src/gnome-cmd-prepare-move-dialog.c:80
+msgid "Move"
+msgstr "Muta"
+
+#: ../src/gnome-cmd-prepare-move-dialog.c:135
+#, c-format
+msgid "Move \"%s\" to"
+msgstr "Muta \"%s\" la"
+
+#: ../src/gnome-cmd-prepare-move-dialog.c:139
+#, c-format
+msgid "move %d file to"
+msgid_plural "move %d files to"
+msgstr[0] "muta fisierul %d la"
+msgstr[1] "muta fisierele %d la"
+
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:114
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:153
+#, c-format
+msgid "The directory '%s' doesn't exist, do you want to create it?"
+msgstr "Directorul '%s' nu exista, vrei sa-l creezi?"
+
+#: ../src/gnome-cmd-quicksearch-popup.c:249
+msgid "Search"
+msgstr "Cauta"
+
+#: ../src/gnome-cmd-rename-dialog.c:147
+#, c-format
+msgid "Rename \"%s\" to"
+msgstr "Redenumeste \"%s\" in"
+
+#: ../src/gnome-cmd-rename-dialog.c:155
+msgid "Rename File"
+msgstr "redenumeste fisier"
+
+#: ../src/gnome-cmd-search-dialog.c:184
+#, c-format
+msgid "Failed to open file %s: %s\n"
+msgstr "Eroare citire din fisier %s: %s\n"
+
+#: ../src/gnome-cmd-search-dialog.c:193
+#, c-format
+msgid "Failed to read from file %s: %s\n"
+msgstr "Eroare citire din fisier %s: %s\n"
+
+#: ../src/gnome-cmd-search-dialog.c:255
+#, c-format
+msgid "Searching in: %s"
+msgstr "Cautare in: %s"
+
+#: ../src/gnome-cmd-search-dialog.c:399
+#, c-format
+msgid "Found %d match before I was stopped"
+msgid_plural "Found %d matches before I was stopped"
+msgstr[0] "Am gasit %d rezultate inainte de oprire"
+msgstr[1] "Found %d matches before I was stopped"
+
+#: ../src/gnome-cmd-search-dialog.c:406
+#, c-format
+msgid "Found %d match"
+msgid_plural "Found %d matches"
+msgstr[0] "Am gasit %d rezultate"
+msgstr[1] "Found %d matches"
+
+#: ../src/gnome-cmd-search-dialog.c:737
+msgid "Search..."
+msgstr "Cautare..."
+
+#. Search for
+#: ../src/gnome-cmd-search-dialog.c:752
+msgid "Search for: "
+msgstr "Cautare pentru: "
+
+#. Search in
+#: ../src/gnome-cmd-search-dialog.c:766
+msgid "Search in: "
+msgstr "Cautare in: "
+
+#. Find text
+#: ../src/gnome-cmd-search-dialog.c:780
+msgid "Find text: "
+msgstr "Gaseste text: "
+
+#: ../src/gnome-cmd-search-dialog.c:797
+msgid "Search Recursively"
+msgstr "Cautare recursiva"
+
+#. Case check
+#: ../src/gnome-cmd-search-dialog.c:805
+msgid "Case Sensitive"
+msgstr "Caz senzitiv"
+
+#: ../src/gnome-cmd-search-dialog.c:817
+msgid "Goto"
+msgstr "Destinatie"
+
+#: ../src/gnome-cmd-search-popup.c:190
+msgid "Chmod"
+msgstr "Chmod"
+
+#: ../src/gnome-cmd-smb-path.c:331
+#, c-format
+msgid "Can't find a host or workgroup named %s\n"
+msgstr "Gazda sau workgroup-ul %s nu au fost gasite\n"
+
+#: ../src/gnome-cmd-xfer-progress-win.c:37
+msgid "stopping..."
+msgstr "oprire..."
+
+#: ../src/gnome-cmd-xfer-progress-win.c:88
+msgid "Progress"
+msgstr "Progres"
+
+#: ../src/gnome-cmd-xfer-progress-win.c:174
+#, c-format
+msgid "%d%% of %s copied"
+msgstr "%d%% de la %s copiate"
+
+#: ../src/gnome-cmd-xfer-progress-win.c:179
+#, c-format
+msgid "%d%% copied"
+msgstr "%d%% copiat"
+
+#: ../src/gnome-cmd-xfer.c:170
+#, c-format
+msgid ""
+"The file \"%s\" already exists.\n"
+"\n"
+"Do you want to overwrite it?\n"
+msgstr ""
+"Fisierul \"%s\" deja exista.\n"
+"\n"
+"Vrei sa-l rescrii?\n"
+
+#: ../src/gnome-cmd-xfer.c:176
+msgid "Replace"
+msgstr "Inlocuieste"
+
+#: ../src/gnome-cmd-xfer.c:176
+msgid "Replace All"
+msgstr "Inlocuieste tot"
+
+#: ../src/gnome-cmd-xfer.c:190
+#, c-format
+msgid ""
+"Error while copying to %s\n"
+"\n"
+"%s"
+msgstr ""
+"Esuare copiere la %s\n"
+"\n"
+"%s"
+
+#: ../src/gnome-cmd-xfer.c:195
+msgid "Xfer problem"
+msgstr "Problema Xfer"
+
+#: ../src/gnome-cmd-xfer.c:233
+msgid "copying..."
+msgstr "copiaza..."
+
+#: ../src/gnome-cmd-xfer.c:241
+#, c-format
+msgid "[file %ld of %ld] \"%s\""
+msgstr "[fisier %ld de la %ld] \"%s\""
+
+#: ../src/gnome-cmd-xfer.c:391
+msgid ""
+"Copying a directory into it self is a bad idea.\n"
+"The whole operation was canceled."
+msgstr ""
+"Copierea unui director in el insusi nu-i o idee prea buna."
+"Operatiunea a fost anulata."
+
+#: ../src/gnome-cmd-xfer.c:438
+msgid "preparing..."
+msgstr "pregatire..."
+
+#: ../src/gnome-cmd-xfer.c:533
+msgid "downloading to /tmp"
+msgstr "incarcare in /tmp"
+
+#: ../src/imageloader.c:124
+msgid ""
+"Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgstr ""
+"Nu am putut incarca fisierul instalat de tip pixma, incerc sa incarc din directorul sursa\n"
+
+#: ../src/imageloader.c:126 ../src/imageloader.c:152
+#, c-format
+msgid "Trying to load %s instead\n"
+msgstr "Incerc sa incarc %s inloc\n"
+
+#: ../src/imageloader.c:130 ../src/imageloader.c:155
+msgid ""
+"Cant find the pixmap anywhere. Make sure you have installed the program or "
+"is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
+msgstr ""
+"Nu gasesc pixmap-ul niciunde. Asigura-te ca programul este instalat sau executa gnome-commander din directorul gnome-commander-x.y.z/src\n"
+
+#: ../src/imageloader.c:150
+msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+msgstr "Nu am putut incarca pixmap-urile instalate, incerc sa incarc din directorul sursa\n"
+
+#: ../src/main.c:56
+msgid "Specify debug flags to use"
+msgstr "Specifica steagurile de debug"
+
+#: ../src/main.c:58
+msgid "Specify the start directory for the left pane"
+msgstr "Specifica directorul start pentru panoul stang"
+
+#: ../src/main.c:60
+msgid "Specify the start directory for the right pane"
+msgstr "Specifica directorul start pentru panoul drept"
+
+#: ../src/owner.c:98
+#, c-format
+msgid ""
+"When parsing the users and groups on this system it was found that the user %"
+"s is part of the group %s. This user can however not be found.\n"
+msgstr ""
+"Trecerea in revista a utilizatorilor si grupurilor acestui sistem, ne indica ca utilizatorul %s face parte din grupul %s Acest utilizator, totusi nu poate fi gasit.\n"
+
+#: ../src/plugin_manager.c:361
+msgid "Disable"
+msgstr "Dezactiveaza"
+
+#: ../src/plugin_manager.c:366
+msgid "Enable"
+msgstr "Activeaza"
+
+#: ../src/plugin_manager.c:435
+msgid "Available plugins"
+msgstr "Plugin-uri disponibile"
+
+#: ../src/plugin_manager.c:441
+msgid "Name"
+msgstr "Nume"
+
+#: ../src/plugin_manager.c:442
+msgid "Version"
+msgstr "Versiune"
+
+#: ../src/plugin_manager.c:443
+msgid "File"
+msgstr "Fisier"
+
+#: ../src/plugin_manager.c:449
+msgid "_Enable"
+msgstr "_Activeaza"
+
+#: ../src/plugin_manager.c:454
+msgid "_Configure"
+msgstr "_Configureaza"
+
+#: ../src/plugin_manager.c:460
+msgid "_About"
+msgstr "_Despre"
+
+#: ../src/useractions.c:263
+#, c-format
+msgid "running \"%s\"\n"
+msgstr "rulez \"%s\"\n"
+
+#: ../src/useractions.c:668
+msgid "A fast and powerful file manager for the GNOME desktop"
+msgstr "Un puternic si rapid manager de fisiere cu dublu panou pentru desktop-ul GNOME"
+
+#. xgettext:
+#. * Replace this with your name when translating
+#: ../src/useractions.c:673
+msgid "No translation is currently in use."
+msgstr "Remus Boara <noemail@noemail.com>"
+
+#: ../src/utils.c:519
+#, c-format
+msgid ""
+"No default application found for the mime-type %s.\n"
+"Open the \"File types and programs\" page in the Control Center to add one."
+msgstr ""
+"Nu a fost gasita nici o aplicatie de baza pentru tipul mime %s.\n"
+"Deschide pagina \"Tipuri fisiere si programe\" in Control Center pentru a aduga una."
+
+#: ../src/utils.c:599
+#, c-format
+msgid ""
+"\"%s\" seems to be a binary executable file but it lacks the executable bit. "
+"Do you want to set it and then run the file?"
+msgstr ""
+"\"%s\" pare a fi un fisier executabil binar dar lipseste partea executabila. Vrei sa o atasezi apoi sa executi fisierul?"
+
+#: ../src/utils.c:602
+msgid "Make Executable?"
+msgstr "Transform in executabil?"
+
+#: ../src/utils.c:629
+#, c-format
+msgid ""
+"\"%s\" is an executable text file. Do you want to run it, or display it's "
+"contents?"
+msgstr ""
+"\"%s\" este un fisier text executabil. Vrei sa-l executi sau sa afisezi continutul?"
+
+#: ../src/utils.c:631
+msgid "Run or Display"
+msgstr "Executa sau Afiseaza"
+
+#: ../src/utils.c:632
+msgid "Display"
+msgstr "Afiseaza"
+
+#: ../src/utils.c:632
+msgid "Run"
+msgstr "Executa"
+
+#: ../src/utils.c:668
+#, c-format
+msgid ""
+"%s does not know how to open remote files. Do you want to download the file "
+"to a temporary location and then open it?"
+msgstr ""
+"%s nu stie cum sa deschida fisierele la distanta. Vrei sa incarci"
+" fisierul "
+"intr-o locatie temporara si sa-l deschizi apoi?"
+
+#: ../src/utils.c:742
+#, c-format
+msgid ""
+"%s does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
+msgstr ""
+"%s nu stie cum sa deschida fisierele la distanta. Vrei sa incarci"
+" fisierele "
+"intr-o locatie temporara si sa le deschizi apoi?"
+
+#: ../src/utils.c:1363
+#, c-format
+msgid "Creating directory %s... "
+msgstr "Creare director %s... "
+
+#: ../src/utils.c:1368
+#, c-format
+msgid "Failed to create the directory %s"
+msgstr "Esuare creare director %s"
+
+#: ../src/utils.c:1374
+#, c-format
+msgid "Couldn't read from the directory %s: %s\n"
+msgstr "Citire din directorul %s: %s imposibila\n"
+

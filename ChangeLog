@@ -1,3 +1,8 @@
+2006-04-05  Remus Boara
+
+	* configure.in:	
+	Added ro to ALL_LINGUAS.
+
 2006-04-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* BUGS: Added info on bugs submission.
