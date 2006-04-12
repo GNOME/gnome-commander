@@ -2,6 +2,8 @@
 
 	* configure.in:	Bumped version to 1.2.0
 
+	* mkinstalldirs: Added missing mkinstalldirs
+
 2006-04-11  Remus Boara
 
 	* configure.in:	
