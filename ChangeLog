@@ -1,4 +1,8 @@
-2006-04-05  Remus Boara
+2006-04-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:	Bumped version to 1.2.0
+
+2006-04-11  Remus Boara
 
 	* configure.in:	
 	Added ro to ALL_LINGUAS.
