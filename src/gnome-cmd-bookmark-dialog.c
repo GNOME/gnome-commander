@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include <sys/types.h>
 #include <regex.h>
@@ -68,13 +69,7 @@ show_bookmark_dialog (const gchar *name, const gchar *path,
         _("Bookmark target:"),
     };
 
-    GtkWidget *dlg =
-        gnome_cmd_string_dialog_new (
-            title,
-            labels,
-            2,
-            (GnomeCmdStringDialogCallback)on_ok,
-            dialog);
+    GtkWidget *dlg = gnome_cmd_string_dialog_new (title, labels, 2, (GnomeCmdStringDialogCallback)on_ok, dialog);
 
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dlg), 0, name);
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dlg), 1, path);
@@ -114,25 +109,22 @@ set_selected_group (GnomeCmdBookmarkDialog *dialog, GnomeCmdBookmarkGroup *group
 
     dialog->priv->sel_group = group;
 
-    gtk_entry_set_text (GTK_ENTRY (GNOME_CMD_COMBO (dialog->priv->combo)->entry),
-                        gnome_cmd_con_get_alias (group->con));
+    gtk_entry_set_text (GTK_ENTRY (GNOME_CMD_COMBO (dialog->priv->combo)->entry), gnome_cmd_con_get_alias (group->con));
 
     gtk_clist_clear (GTK_CLIST (dialog->priv->dir_list));
-    bookmarks = group->bookmarks;
-    while (bookmarks) {
+
+    for ( bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next )
+    {
         GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)bookmarks->data;
         do_add_bookmark (dialog, bookmark);
-        bookmarks = bookmarks->next;
     }
 }
 
 
 static void on_dir_goto (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 {
-    GnomeCmdBookmark *bookmark;
     GtkCList *dir_list = GTK_CLIST (dialog->priv->dir_list);
-
-    bookmark = (GnomeCmdBookmark*)gtk_clist_get_row_data (dir_list, dir_list->focus_row);
+    GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)gtk_clist_get_row_data (dir_list, dir_list->focus_row);
 
     gnome_cmd_bookmark_goto (bookmark);
 
@@ -142,10 +134,8 @@ static void on_dir_goto (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 
 static void on_dir_remove (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 {
-    GnomeCmdBookmark *bookmark;
     GtkCList *dir_list = GTK_CLIST (dialog->priv->dir_list);
-
-    bookmark = (GnomeCmdBookmark*)gtk_clist_get_row_data (dir_list, dir_list->focus_row);
+    GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)gtk_clist_get_row_data (dir_list, dir_list->focus_row);
     gtk_clist_remove (dir_list, dir_list->focus_row);
 
     bookmark->group->bookmarks = g_list_remove (bookmark->group->bookmarks, bookmark);
@@ -155,9 +145,7 @@ static void on_dir_remove (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 }
 
 
-static gboolean on_edit_ok (GnomeCmdStringDialog *string_dialog,
-                            const gchar **values,
-                            GnomeCmdBookmarkDialog *dialog)
+static gboolean on_edit_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdBookmarkDialog *dialog)
 {
     const gchar *name = values[0];
     const gchar *path = values[1];
@@ -166,14 +154,12 @@ static gboolean on_edit_ok (GnomeCmdStringDialog *string_dialog,
     g_return_val_if_fail (dialog->priv->sel_bookmark != NULL, TRUE);
 
     if (!name) {
-        gnome_cmd_string_dialog_set_error_desc (
-            string_dialog, g_strdup (_("Bookmark name is missing")));
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("Bookmark name is missing")));
         return FALSE;
     }
 
     if (!path) {
-        gnome_cmd_string_dialog_set_error_desc (
-            string_dialog, g_strdup (_("Bookmark target is missing")));
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("Bookmark target is missing")));
         return FALSE;
     }
 
@@ -205,15 +191,11 @@ static void update_move_buttons (GnomeCmdBookmarkDialog *dialog, int row)
 
     if (row == 0) {
         gtk_widget_set_sensitive (dialog->priv->move_up_btn, FALSE);
-        gtk_widget_set_sensitive (
-            dialog->priv->move_down_btn,
-            dir_list->rows > 1);
+        gtk_widget_set_sensitive (dialog->priv->move_down_btn, dir_list->rows > 1);
     }
     else if (row == dir_list->rows - 1) {
         gtk_widget_set_sensitive (dialog->priv->move_down_btn, FALSE);
-        gtk_widget_set_sensitive (
-            dialog->priv->move_up_btn,
-            dir_list->rows > 1);
+        gtk_widget_set_sensitive (dialog->priv->move_up_btn, dir_list->rows > 1);
     }
     else {
         gtk_widget_set_sensitive (dialog->priv->move_up_btn, TRUE);
@@ -245,8 +227,7 @@ static void on_dir_move_down (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 
 
 static void
-on_dir_moved (GtkCList *clist, gint arg1, gint arg2,
-              GnomeCmdBookmarkDialog *dialog)
+on_dir_moved (GtkCList *clist, gint arg1, gint arg2, GnomeCmdBookmarkDialog *dialog)
 {
     GList *bookmarks = dialog->priv->sel_group->bookmarks;
     gpointer data;
@@ -305,8 +286,7 @@ static void on_dir_selected (GtkCList *list, gint row, gint column,
 }
 
 
-static void on_dir_unselected (GtkCList *list, gint row, gint column,
-                               GdkEventButton *event, GnomeCmdBookmarkDialog *dialog)
+static void on_dir_unselected (GtkCList *list, gint row, gint column, GdkEventButton *event, GnomeCmdBookmarkDialog *dialog)
 {
     gtk_widget_set_sensitive (dialog->priv->remove_btn, FALSE);
     gtk_widget_set_sensitive (dialog->priv->edit_btn, FALSE);
@@ -341,10 +321,8 @@ add_groups (GnomeCmdBookmarkDialog *dialog)
         text[1] = (gchar*)gnome_cmd_con_get_alias (group->con);
         text[2] = NULL;
 
-        row = gnome_cmd_combo_append (
-            GNOME_CMD_COMBO (dialog->priv->combo), text, group);
-        gnome_cmd_combo_set_pixmap (
-            GNOME_CMD_COMBO (dialog->priv->combo), row, 0, pixmap);
+        row = gnome_cmd_combo_append (GNOME_CMD_COMBO (dialog->priv->combo), text, group);
+        gnome_cmd_combo_set_pixmap (GNOME_CMD_COMBO (dialog->priv->combo), row, 0, pixmap);
 
         groups = groups->next;
     }
@@ -355,8 +333,7 @@ static void
 add_bookmarks (GnomeCmdBookmarkDialog *dialog)
 {
     GList *all_cons;
-    GnomeCmdCon *current_con = gnome_cmd_file_selector_get_connection (
-        gnome_cmd_main_win_get_active_fs (main_win));
+    GnomeCmdCon *current_con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_active_fs (main_win));
     GnomeCmdBookmarkGroup *group, *current_group = NULL;
 
     g_return_if_fail (current_con != NULL);
@@ -394,8 +371,7 @@ on_group_combo_item_selected (GnomeCmdCombo *group_combo,
 
 
 static void
-on_column_resize (GtkCList *clist, gint column, gint width,
-                  GnomeCmdBookmarkDialog *dialog)
+on_column_resize (GtkCList *clist, gint column, gint width, GnomeCmdBookmarkDialog *dialog)
 {
     gnome_cmd_data_set_bookmark_dialog_col_width (column, width);
 }
@@ -431,11 +407,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdBookmarkDialogClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
     parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
@@ -470,13 +443,9 @@ init (GnomeCmdBookmarkDialog *in_dialog)
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
 
     in_dialog->priv->combo = create_clist_combo (dialog, 2, 1, NULL);
-    gtk_clist_set_column_width (
-        GTK_CLIST (GNOME_CMD_COMBO (in_dialog->priv->combo)->list), 0, 20);
-    gtk_clist_set_column_width (
-        GTK_CLIST (GNOME_CMD_COMBO (in_dialog->priv->combo)->list), 1, 60);
+    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (in_dialog->priv->combo)->list), 0, 20);
+    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (in_dialog->priv->combo)->list), 1, 60);
     gtk_box_pack_start (GTK_BOX (vbox), in_dialog->priv->combo, TRUE, TRUE, 0);
-
-
 
     hbox = create_hbox (dialog, FALSE, 12);
     cat = create_category (dialog, hbox, _("Bookmarks"));
@@ -485,16 +454,11 @@ init (GnomeCmdBookmarkDialog *in_dialog)
     dir_list = create_clist (dialog, "dir_list", 3, 16,
                              GTK_SIGNAL_FUNC (on_dir_selected), GTK_SIGNAL_FUNC (on_dir_moved));
     gtk_box_pack_start (GTK_BOX (hbox), dir_list, TRUE, TRUE, 0);
-    create_clist_column (dir_list, 0,
-                         gnome_cmd_data_get_bookmark_dialog_col_width (0), "");
-    create_clist_column (dir_list, 1,
-                         gnome_cmd_data_get_bookmark_dialog_col_width (1), _("name"));
-    create_clist_column (dir_list, 2,
-                         gnome_cmd_data_get_bookmark_dialog_col_width (2), _("path"));
+    create_clist_column (dir_list, 0, gnome_cmd_data_get_bookmark_dialog_col_width (0), "");
+    create_clist_column (dir_list, 1, gnome_cmd_data_get_bookmark_dialog_col_width (1), _("name"));
+    create_clist_column (dir_list, 2, gnome_cmd_data_get_bookmark_dialog_col_width (2), _("path"));
 
     in_dialog->priv->dir_list = lookup_widget (GTK_WIDGET (dialog), "dir_list");
-
-
 
     bbox = create_vbox (dialog, FALSE, 12);
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, FALSE, 0);
@@ -579,8 +543,7 @@ gnome_cmd_bookmark_dialog_get_type (void)
 GtkWidget *
 gnome_cmd_bookmark_dialog_new (void)
 {
-    GnomeCmdBookmarkDialog *dialog =
-        gtk_type_new (gnome_cmd_bookmark_dialog_get_type ());
+    GnomeCmdBookmarkDialog *dialog = gtk_type_new (gnome_cmd_bookmark_dialog_get_type ());
 
     add_bookmarks (dialog);
 
@@ -595,11 +558,8 @@ static gboolean
 on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, gpointer data)
 {
     GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (
-        gnome_cmd_main_win_get_active_fs (main_win));
-    GnomeCmdBookmarkGroup *group;
-
-    group = gnome_cmd_con_get_bookmarks (con);
+    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_active_fs (main_win));
+    GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
     bookmark->name = g_strdup (values[0]);
     bookmark->path = g_strdup (values[1]);
@@ -616,8 +576,7 @@ on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, g
 void
 gnome_cmd_bookmark_add_current (void)
 {
-    GnomeCmdDir *cwd = gnome_cmd_file_selector_get_directory (
-        gnome_cmd_main_win_get_active_fs (main_win));
+    GnomeCmdDir *cwd = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_active_fs (main_win));
     gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (cwd));
 
     if (!g_utf8_validate (path, -1, NULL)) {
@@ -651,8 +610,7 @@ gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
         GnomeCmdCon *con = bookmark->group->con;
 
         if (con->state == CON_STATE_OPEN) {
-            GnomeCmdDir *dir = gnome_cmd_dir_new (
-                con, gnome_cmd_con_create_path (con, bookmark->path));
+            GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bookmark->path));
             gnome_cmd_file_selector_set_connection (fs, con, dir);
 
         }
@@ -666,6 +624,3 @@ gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
         }
     }
 }
-
-
-

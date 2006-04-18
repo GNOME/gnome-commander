@@ -34,7 +34,6 @@ struct _GnomeCmdSmbPathPrivate
 static GnomeCmdPathClass *parent_class = NULL;
 
 
-
 static const gchar *
 smb_path_get_path (GnomeCmdPath *path)
 {
@@ -52,11 +51,14 @@ smb_path_get_display_path (GnomeCmdPath *path)
     return GNOME_CMD_SMB_PATH (path)->priv->display_path;
 }
 
+
 static GnomeCmdPath *
 smb_path_get_parent (GnomeCmdPath *path)
 {
-    gchar *a = NULL, *b = NULL, *c = NULL;
     GnomeCmdSmbPath *smb_path;
+    gchar *a = NULL,
+          *b = NULL,
+          *c = NULL;
 
     g_return_val_if_fail (GNOME_CMD_IS_SMB_PATH (path), NULL);
 
@@ -95,6 +97,7 @@ smb_path_get_parent (GnomeCmdPath *path)
 
     return gnome_cmd_smb_path_new (a, b, c);
 }
+
 
 static GnomeCmdPath *
 smb_path_get_child (GnomeCmdPath *path, const gchar *child)
@@ -147,7 +150,6 @@ smb_path_get_child (GnomeCmdPath *path, const gchar *child)
 }
 
 
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -172,11 +174,9 @@ destroy (GtkObject *object)
 static void
 class_init (GnomeCmdSmbPathClass *klass)
 {
-    GtkObjectClass *object_class;
-    GnomeCmdPathClass *path_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GnomeCmdPathClass *path_class = GNOME_CMD_PATH_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    path_class = GNOME_CMD_PATH_CLASS (klass);
     parent_class = gtk_type_class (gnome_cmd_path_get_type ());
 
     object_class->destroy = destroy;
@@ -193,7 +193,6 @@ init (GnomeCmdSmbPath *path)
 {
     path->priv = g_new0 (GnomeCmdSmbPathPrivate, 1);
 }
-
 
 
 /***********************************
@@ -230,9 +229,7 @@ gnome_cmd_smb_path_new (const gchar *workgroup,
                         const gchar *resource,
                         const gchar *resource_path)
 {
-    GnomeCmdSmbPath *smb_path;
-
-    smb_path = gtk_type_new (gnome_cmd_smb_path_get_type ());
+    GnomeCmdSmbPath *smb_path = gtk_type_new (gnome_cmd_smb_path_get_type ());
 
     if (workgroup) {
         smb_path->priv->workgroup = g_strdup (workgroup);

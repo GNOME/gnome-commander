@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include <sys/types.h>
 #include <regex.h>
@@ -225,10 +226,9 @@ name_matches (gchar *name, SearchData *data)
 static gboolean
 content_matches (GnomeCmdFile *finfo, SearchData *data)
 {
-    gint ret;
     static regmatch_t match;
     gchar *buf = load_file (finfo);
-    ret = regexec (data->content_regex, buf, 1, &match, 0);
+    gint ret = regexec (data->content_regex, buf, 1, &match, 0);
     g_free (buf);
     return (ret == 0);
 }
@@ -264,14 +264,14 @@ search_dir_r (GnomeCmdDir *dir, SearchData *data)
         return;
 
     if (dir==NULL)
-	return;
+    return;
     
     gnome_cmd_dir_list_files (dir, FALSE);
     gnome_cmd_dir_get_files (dir, &files);
     tmp = files;
     
     if (tmp==NULL)
-	return;
+    return;
 
     /* Let's iterate through all files */
     while (tmp)
@@ -517,10 +517,8 @@ start_search (GnomeCmdSearchDialog *dialog)
     /* Save default settings */
     defaults->case_sens = data->case_sens;
     defaults->recursive = data->recurse;
-    defaults->name_patterns = string_history_add (
-        defaults->name_patterns, data->name_pattern, PATTERN_HISTORY_SIZE);
-    defaults->directories = string_history_add (
-        defaults->directories, data->dir, PATTERN_HISTORY_SIZE);
+    defaults->name_patterns = string_history_add (defaults->name_patterns, data->name_pattern, PATTERN_HISTORY_SIZE);
+    defaults->directories = string_history_add (defaults->directories, data->dir, PATTERN_HISTORY_SIZE);
     if (data->content_search)
         defaults->content_patterns = string_history_add (
             defaults->content_patterns, data->content_pattern, PATTERN_HISTORY_SIZE);
@@ -640,7 +638,8 @@ handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDi
         case GDK_F3:
             gnome_cmd_file_list_view (fl, -1);
             return TRUE;
-        case GDK_F4:
+
+            case GDK_F4:
             gnome_cmd_file_list_edit (fl);
             return TRUE;
     }
@@ -652,9 +651,7 @@ handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDi
 static gboolean
 on_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDialog *dialog)
 {
-    if (gnome_cmd_file_list_keypressed (fl, event))
-        stop_kp (GTK_OBJECT (fl));
-    else if (handle_list_keypress (fl, event, dialog))
+    if (gnome_cmd_file_list_keypressed (fl, event) || handle_list_keypress (fl, event, dialog))
         stop_kp (GTK_OBJECT (fl));
 
     return TRUE;
@@ -692,6 +689,7 @@ destroy (GtkObject *object)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
+
 static void
 map (GtkWidget *widget)
 {
@@ -703,11 +701,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdSearchDialogClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
     parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
 
@@ -715,6 +710,7 @@ class_init (GnomeCmdSearchDialogClass *class)
 
     widget_class->map = map;
 }
+
 
 static void
 init (GnomeCmdSearchDialog *dialog)
@@ -742,9 +738,7 @@ init (GnomeCmdSearchDialog *dialog)
     gtk_object_set_data (GTK_OBJECT (window), "window", window);
     gtk_window_set_title (GTK_WINDOW (window), _("Search..."));
     gnome_cmd_dialog_set_resizable (GNOME_CMD_DIALOG (dialog), TRUE);
-    gtk_window_set_default_size (
-        GTK_WINDOW (window), defaults->width, defaults->height);
-
+    gtk_window_set_default_size (GTK_WINDOW (window), defaults->width, defaults->height);
 
     vbox1 = create_vbox (window, FALSE, 0);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), vbox1);
@@ -761,12 +755,10 @@ init (GnomeCmdSearchDialog *dialog)
     dialog->priv->pattern_combo = create_combo (window);
     table_add (table, dialog->priv->pattern_combo, 1, 0, GTK_EXPAND|GTK_FILL);
     if (defaults->name_patterns)
-        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo),
-                                       defaults->name_patterns);
+        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo), defaults->name_patterns);
 
     dialog->priv->pattern_entry = GTK_COMBO (dialog->priv->pattern_combo)->entry;
-    gnome_cmd_dialog_editable_enters (
-        GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->pattern_entry));
+    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->pattern_entry));
 
     /* Search in */
     label = create_label (window, _("Search in: "));
@@ -790,8 +782,7 @@ init (GnomeCmdSearchDialog *dialog)
     table_add (table, dialog->priv->find_text_combo, 1, 2, GTK_EXPAND|GTK_FILL);
     gtk_widget_set_sensitive (dialog->priv->find_text_combo, FALSE);
     if (defaults->content_patterns)
-        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->find_text_combo),
-                                       defaults->content_patterns);
+        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->find_text_combo), defaults->content_patterns);
 
     dialog->priv->find_text_entry = GTK_COMBO (dialog->priv->find_text_combo)->entry;
     gnome_cmd_dialog_editable_enters (
@@ -799,21 +790,18 @@ init (GnomeCmdSearchDialog *dialog)
 
 
     /* Recurse check */
-    dialog->priv->recurse_check = create_check (
-        window, _("Search Recursively"), "recurse_check");
+    dialog->priv->recurse_check = create_check (window, _("Search Recursively"), "recurse_check");
     gtk_table_attach (GTK_TABLE (table), dialog->priv->recurse_check, 0, 2, 3, 4,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check),
-                                  defaults->recursive);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults->recursive);
 
     /* Case check */
     dialog->priv->case_check = create_check (window, _("Case Sensitive"), "case_check");
     gtk_table_attach (GTK_TABLE (table), dialog->priv->case_check, 0, 2, 4, 5,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check),
-                                  defaults->case_sens);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check), defaults->case_sens);
 
 
     dialog->priv->close_button = gnome_cmd_dialog_add_button (
@@ -835,8 +823,7 @@ init (GnomeCmdSearchDialog *dialog)
 
     sw = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_ref (sw);
-    gtk_object_set_data_full (GTK_OBJECT (window), "sw", sw,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (window), "sw", sw, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (sw);
     gtk_box_pack_start (GTK_BOX (vbox1), sw, TRUE, TRUE, 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
@@ -850,13 +837,11 @@ init (GnomeCmdSearchDialog *dialog)
     gtk_widget_set_usize (dialog->priv->result_list, -1, 200);
     gtk_widget_show (dialog->priv->result_list);
     gtk_container_add (GTK_CONTAINER (sw), dialog->priv->result_list);
-    gtk_container_set_border_width (
-        GTK_CONTAINER (dialog->priv->result_list), 4);
+    gtk_container_set_border_width (GTK_CONTAINER (dialog->priv->result_list), 4);
 
 
     dialog->priv->statusbar = gtk_statusbar_new ();
-    gtk_statusbar_set_has_resize_grip (
-        GTK_STATUSBAR (dialog->priv->statusbar), FALSE);
+    gtk_statusbar_set_has_resize_grip (GTK_STATUSBAR (dialog->priv->statusbar), FALSE);
     gtk_widget_ref (dialog->priv->statusbar);
     gtk_object_set_data_full (GTK_OBJECT (window), "statusbar", dialog->priv->statusbar,
                               (GtkDestroyNotify) gtk_widget_unref);
@@ -872,28 +857,19 @@ init (GnomeCmdSearchDialog *dialog)
     dialog->priv->pbar = pbar;
 
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
-                        GTK_SIGNAL_FUNC (on_dialog_destroy), NULL);
-    gtk_signal_connect (GTK_OBJECT (dialog), "size-allocate",
-                        GTK_SIGNAL_FUNC (on_dialog_size_allocate), NULL);
-    gtk_signal_connect (GTK_OBJECT (dialog->priv->result_list), "key-press-event",
-                        GTK_SIGNAL_FUNC (on_list_keypressed), dialog);
-    gtk_signal_connect (GTK_OBJECT (dialog->priv->result_list), "file-clicked",
-                        GTK_SIGNAL_FUNC (on_list_file_clicked), dialog);
+    gtk_signal_connect (GTK_OBJECT (dialog), "destroy", GTK_SIGNAL_FUNC (on_dialog_destroy), NULL);
+    gtk_signal_connect (GTK_OBJECT (dialog), "size-allocate", GTK_SIGNAL_FUNC (on_dialog_size_allocate), NULL);
+    gtk_signal_connect (GTK_OBJECT (dialog->priv->result_list), "key-press-event", GTK_SIGNAL_FUNC (on_list_keypressed), dialog);
+    gtk_signal_connect (GTK_OBJECT (dialog->priv->result_list), "file-clicked", GTK_SIGNAL_FUNC (on_list_file_clicked), dialog);
 
     gtk_signal_connect (GTK_OBJECT (dialog->priv->pattern_entry),
                         "key-press-event",
                         GTK_SIGNAL_FUNC (on_pattern_entry_keypressed), dialog);
-    gtk_signal_connect (GTK_OBJECT (dialog->priv->find_text_check), "toggled",
-                        GTK_SIGNAL_FUNC (find_text_toggled), dialog);
+    gtk_signal_connect (GTK_OBJECT (dialog->priv->find_text_check), "toggled", GTK_SIGNAL_FUNC (find_text_toggled), dialog);
 
     gtk_widget_grab_focus (dialog->priv->pattern_entry);
     gnome_cmd_file_list_update_style (GNOME_CMD_FILE_LIST (dialog->priv->result_list));
 }
-
-
-
-
 
 
 /***********************************
@@ -930,9 +906,7 @@ gnome_cmd_search_dialog_new (GnomeCmdDir *default_dir)
 {
     gchar *path;
     gchar *new_path;
-    GnomeCmdSearchDialog *dialog;
-
-    dialog = gtk_type_new (gnome_cmd_search_dialog_get_type ());
+    GnomeCmdSearchDialog *dialog = gtk_type_new (gnome_cmd_search_dialog_get_type ());
 
     path = gnome_cmd_file_get_path (GNOME_CMD_FILE (default_dir));
     if (path[strlen(path)-1] != '/') {
@@ -942,8 +916,7 @@ gnome_cmd_search_dialog_new (GnomeCmdDir *default_dir)
     else
         new_path = path;
 
-    gtk_entry_set_text (
-        GTK_ENTRY (dialog->priv->dir_entry), new_path);
+    gtk_entry_set_text (GTK_ENTRY (dialog->priv->dir_entry), new_path);
 
     g_free (new_path);
 

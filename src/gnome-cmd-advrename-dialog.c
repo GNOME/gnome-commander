@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include <sys/types.h>
 #include <regex.h>
@@ -58,14 +59,11 @@ struct _GnomeCmdAdvrenameDialogPrivate
 
 static GnomeCmdDialogClass *parent_class = NULL;
 
-guint advrename_dialog_default_pat_column_width[ADVRENAME_DIALOG_PAT_NUM_COLUMNS] = {
-    150, 150, 30};
-guint advrename_dialog_default_res_column_width[ADVRENAME_DIALOG_RES_NUM_COLUMNS] = {
-    200, 200};
+guint advrename_dialog_default_pat_column_width[ADVRENAME_DIALOG_PAT_NUM_COLUMNS] = {150, 150, 30};
+guint advrename_dialog_default_res_column_width[ADVRENAME_DIALOG_RES_NUM_COLUMNS] = {200, 200};
 
 
 static void do_test (GnomeCmdAdvrenameDialog *dialog);
-
 
 
 static void
@@ -75,12 +73,11 @@ free_data (GnomeCmdAdvrenameDialog *dialog)
 
     gnome_cmd_file_list_free (dialog->priv->files);
 
-    tmp = dialog->priv->entries;
-    while (tmp) {
+    for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
+    {
         RenameEntry *entry = (RenameEntry*)tmp->data;
         g_free (entry->new_name);
         g_free (entry);
-        tmp = tmp->next;
     }
     g_list_free (dialog->priv->entries);
 
@@ -124,11 +121,11 @@ static void
 add_rename_entry (GnomeCmdAdvrenameDialog *dialog, GnomeCmdFile *finfo)
 {
     gint row;
-    gchar *text[3], *fname;
+    gchar *text[3],
+          *fname = get_utf8 (finfo->info->name);
     RenameEntry *entry = rename_entry_new ();
 
     entry->finfo = finfo;
-    fname = get_utf8 (finfo->info->name);
 
     text[0] = fname;
     text[1] = NULL;
@@ -146,15 +143,11 @@ static void update_move_buttons (GnomeCmdAdvrenameDialog *dialog, int row)
 {
     if (row == 0) {
         gtk_widget_set_sensitive (dialog->priv->move_up_btn, FALSE);
-        gtk_widget_set_sensitive (
-            dialog->priv->move_down_btn,
-            g_list_length (dialog->priv->defaults->patterns) > 1);
+        gtk_widget_set_sensitive (dialog->priv->move_down_btn, g_list_length (dialog->priv->defaults->patterns) > 1);
     }
     else if (row == g_list_length (dialog->priv->defaults->patterns) - 1) {
         gtk_widget_set_sensitive (dialog->priv->move_down_btn, FALSE);
-        gtk_widget_set_sensitive (
-            dialog->priv->move_up_btn,
-            g_list_length (dialog->priv->defaults->patterns) > 1);
+        gtk_widget_set_sensitive (dialog->priv->move_up_btn, g_list_length (dialog->priv->defaults->patterns) > 1);
     }
     else {
         gtk_widget_set_sensitive (dialog->priv->move_up_btn, TRUE);
@@ -165,8 +158,7 @@ static void update_move_buttons (GnomeCmdAdvrenameDialog *dialog, int row)
 
 static void update_remove_all_button (GnomeCmdAdvrenameDialog *dialog)
 {
-    gtk_widget_set_sensitive (dialog->priv->remove_all_btn,
-                              dialog->priv->defaults->patterns != NULL);
+    gtk_widget_set_sensitive (dialog->priv->remove_all_btn, dialog->priv->defaults->patterns != NULL);
 }
 
 
@@ -236,14 +228,11 @@ on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog,
                         const gchar **values,
                         GnomeCmdAdvrenameDialog *dialog)
 {
-    GtkWidget *pat_list;
-    PatternEntry *entry;
+    GtkWidget *pat_list = dialog->priv->pat_list;
+    gint row = GTK_CLIST (pat_list)->focus_row;
+    PatternEntry *entry = g_list_nth_data (dialog->priv->defaults->patterns, row);
     gchar *text[3], *error_desc;
-    gint row;
 
-    pat_list = dialog->priv->pat_list;
-    row = GTK_CLIST (pat_list)->focus_row;
-    entry = g_list_nth_data (dialog->priv->defaults->patterns, row);
     g_return_val_if_fail (entry != NULL, TRUE);
 
     error_desc = update_entry (entry, string_dialog, values);
@@ -279,10 +268,8 @@ create_rule_dialog (GnomeCmdAdvrenameDialog *parent_dialog,
     gtk_object_set_data_full (GTK_OBJECT (parent_dialog),
                               "rule-dialog", dialog,
                               (GtkDestroyNotify)gtk_widget_unref);
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0,
-                                       entry?entry->from:"");
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1,
-                                       entry?entry->to:"");
+    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, entry?entry->from:"");
+    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, entry?entry->to:"");
 
     case_check = create_check (dialog, _("Case sensitive matching"), "case_check");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (case_check), entry?entry->case_sens:FALSE);
@@ -311,11 +298,10 @@ apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
         }
         else {
             gchar **v;
-            gchar *tail, *match;
-            gint match_size;
+            gint match_size = re_match_info.rm_eo - re_match_info.rm_so;
+            gchar *tail,
+                  *match = g_malloc (match_size+1);
 
-            match_size = re_match_info.rm_eo - re_match_info.rm_so;
-            match = g_malloc (match_size+1);
             g_utf8_strncpy (match, in+re_match_info.rm_so, match_size);
             match[match_size] = '\0';
             v = g_strsplit (in, match, 2);
@@ -360,8 +346,7 @@ create_new_name (const gchar *name, GList *patterns)
 static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
 {
     GList *tmp = dialog->priv->entries;
-    const gchar *templ_string = gtk_entry_get_text (
-        GTK_ENTRY (dialog->priv->templ_entry));
+    const gchar *templ_string = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
 
     gnome_cmd_advrename_reset_counter (
         dialog->priv->defaults->counter_start,
@@ -419,8 +404,7 @@ static void on_rule_add (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
     GtkWidget *rule_dialog;
 
-    rule_dialog = create_rule_dialog (
-        dialog, _("New Rule"), (GnomeCmdStringDialogCallback)on_add_rule_dialog_ok, NULL);
+    rule_dialog = create_rule_dialog (dialog, _("New Rule"), (GnomeCmdStringDialogCallback)on_add_rule_dialog_ok, NULL);
 }
 
 
@@ -659,8 +643,7 @@ on_template_options_clicked (GtkButton *button,
         (GnomeCmdStringDialogCallback)on_template_options_ok, dialog);
     gtk_widget_ref (dlg);
 
-    check = create_check (GTK_WIDGET (dlg), _("Auto-update when the template is entered"),
-                          "auto-update-check");
+    check = create_check (GTK_WIDGET (dlg), _("Auto-update when the template is entered"), "auto-update-check");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), dialog->priv->defaults->auto_update);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dlg), check);
 
@@ -679,16 +662,14 @@ on_template_options_clicked (GtkButton *button,
 
 
 static void
-on_res_list_column_resize (GtkCList *clist, gint column, gint width,
-                           GnomeCmdAdvrenameDialog *dialog)
+on_res_list_column_resize (GtkCList *clist, gint column, gint width, GnomeCmdAdvrenameDialog *dialog)
 {
     advrename_dialog_default_res_column_width[column] = width;
 }
 
 
 static void
-on_pat_list_column_resize (GtkCList *clist, gint column, gint width,
-                           GnomeCmdAdvrenameDialog *dialog)
+on_pat_list_column_resize (GtkCList *clist, gint column, gint width, GnomeCmdAdvrenameDialog *dialog)
 {
     advrename_dialog_default_pat_column_width[column] = width;
 }
@@ -702,7 +683,6 @@ on_dialog_size_allocate (GtkWidget       *widget,
     dialog->priv->defaults->width  = allocation->width;
     dialog->priv->defaults->height = allocation->height;
 }
-
 
 
 /*******************************
@@ -732,11 +712,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdAdvrenameDialogClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
     parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
@@ -813,10 +790,8 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     cat = create_category (dialog, table, _("Regex replacing"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
 
-    sw = create_clist (dialog, "pat_list", 3, 16,
-                       GTK_SIGNAL_FUNC (on_rule_selected), GTK_SIGNAL_FUNC (on_rule_moved));
-    gtk_table_attach (GTK_TABLE (table), sw, 0, 1, 0, 1,
-                      GTK_EXPAND|GTK_FILL, GTK_EXPAND|GTK_FILL, 0, 0);
+    sw = create_clist (dialog, "pat_list", 3, 16, GTK_SIGNAL_FUNC (on_rule_selected), GTK_SIGNAL_FUNC (on_rule_moved));
+    gtk_table_attach (GTK_TABLE (table), sw, 0, 1, 0, 1, GTK_EXPAND|GTK_FILL, GTK_EXPAND|GTK_FILL, 0, 0);
     create_clist_column (sw, 0, advrename_dialog_default_pat_column_width[0], _("Replace this"));
     create_clist_column (sw, 1, advrename_dialog_default_pat_column_width[1], _("With this"));
     create_clist_column (sw, 2, advrename_dialog_default_pat_column_width[2], _("Case sens"));
@@ -831,22 +806,18 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     table_add (table, bbox, 0, 1, GTK_EXPAND|GTK_FILL);
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
-    in_dialog->priv->add_btn = create_button (
-        dialog, _("_Add..."), GTK_SIGNAL_FUNC (on_rule_add));
+    in_dialog->priv->add_btn = create_button (dialog, _("_Add..."), GTK_SIGNAL_FUNC (on_rule_add));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->add_btn);
 
-    in_dialog->priv->edit_btn = create_button (
-        dialog, _("_Edit..."), GTK_SIGNAL_FUNC (on_rule_edit));
+    in_dialog->priv->edit_btn = create_button (dialog, _("_Edit..."), GTK_SIGNAL_FUNC (on_rule_edit));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->edit_btn);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->edit_btn), FALSE);
 
-    in_dialog->priv->remove_btn = create_button (
-        dialog, _("_Remove"), GTK_SIGNAL_FUNC (on_rule_remove));
+    in_dialog->priv->remove_btn = create_button (dialog, _("_Remove"), GTK_SIGNAL_FUNC (on_rule_remove));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->remove_btn);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->remove_btn), FALSE);
 
-    in_dialog->priv->remove_all_btn = create_button (
-        dialog, _("Re_move All"), GTK_SIGNAL_FUNC (on_rule_remove_all));
+    in_dialog->priv->remove_all_btn = create_button (dialog, _("Re_move All"), GTK_SIGNAL_FUNC (on_rule_remove_all));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->remove_all_btn);
     if (!in_dialog->priv->defaults->patterns)
         gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->remove_all_btn), FALSE);
@@ -855,13 +826,11 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     table_add (table, bbox, 1, 0, GTK_FILL);
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
-    in_dialog->priv->move_up_btn = create_stock_button (
-        dialog, GNOME_STOCK_BUTTON_UP, GTK_SIGNAL_FUNC (on_rule_move_up));
+    in_dialog->priv->move_up_btn = create_stock_button (dialog, GNOME_STOCK_BUTTON_UP, GTK_SIGNAL_FUNC (on_rule_move_up));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->move_up_btn);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->move_up_btn), FALSE);
 
-    in_dialog->priv->move_down_btn = create_stock_button (
-        dialog, GNOME_STOCK_BUTTON_DOWN, GTK_SIGNAL_FUNC (on_rule_move_down));
+    in_dialog->priv->move_down_btn = create_stock_button (dialog, GNOME_STOCK_BUTTON_DOWN, GTK_SIGNAL_FUNC (on_rule_move_down));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->move_down_btn);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->move_down_btn), FALSE);
 
@@ -881,12 +850,9 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
 
     /* Dialog stuff
      */
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), _("Reset"), GTK_SIGNAL_FUNC (on_reset), dialog);
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("Reset"), GTK_SIGNAL_FUNC (on_reset), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
 
     gtk_widget_grab_focus (in_dialog->priv->pat_list);
     gtk_window_add_accel_group (GTK_WINDOW (dialog), accel_group);
@@ -898,8 +864,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
         tmp = tmp->next;
     }
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event",
-                        GTK_SIGNAL_FUNC (on_dialog_keypress), dialog);
+    gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event", GTK_SIGNAL_FUNC (on_dialog_keypress), dialog);
     gtk_signal_connect_after (GTK_OBJECT (in_dialog->priv->pat_list),
                               "scroll-vertical",
                               GTK_SIGNAL_FUNC (on_pat_list_scroll_vertical),
@@ -916,8 +881,6 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     if (in_dialog->priv->defaults->patterns)
         gtk_clist_select_row (GTK_CLIST (in_dialog->priv->pat_list), 0, 0);
 }
-
-
 
 
 /***********************************
@@ -944,7 +907,6 @@ gnome_cmd_advrename_dialog_new (GList *files)
 
     return GTK_WIDGET (dialog);
 }
-
 
 
 GtkType

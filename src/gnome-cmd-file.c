@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include <errno.h>
 #include "gnome-cmd-includes.h"
@@ -98,9 +99,8 @@ destroy (GtkObject *object)
 static void
 class_init (GnomeCmdFileClass *class)
 {
-    GtkObjectClass *object_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
 
-    object_class = GTK_OBJECT_CLASS (class);
     parent_class = gtk_type_class (gnome_cmd_file_info_get_type ());
 
     object_class->destroy = destroy;
@@ -122,7 +122,6 @@ init (GnomeCmdFile *file)
     file->priv->last_update.tv_sec = 0;
     file->priv->last_update.tv_usec = 0;
 }
-
 
 
 /***********************************
@@ -199,11 +198,9 @@ gnome_cmd_file_ref (GnomeCmdFile *file)
         gtk_object_ref (GTK_OBJECT (file));
     }
 
-    if (GNOME_CMD_IS_DIR (file)) c = 'd';
-    else c = 'f';
+    c = GNOME_CMD_IS_DIR (file) ? 'd' : 'f';
 
-    DEBUG (c, "refing: 0x%x %s to %d\n",
-           (guint)file, file->info->name, file->priv->ref_cnt);
+    DEBUG (c, "refing: 0x%x %s to %d\n", (guint)file, file->info->name, file->priv->ref_cnt);
 }
 
 
@@ -216,11 +213,9 @@ gnome_cmd_file_unref (GnomeCmdFile *file)
 
     file->priv->ref_cnt--;
 
-    if (GNOME_CMD_IS_DIR (file)) c = 'd';
-    else c = 'f';
+    c = GNOME_CMD_IS_DIR (file) ? 'd' : 'f';
 
-    DEBUG (c, "un-refing: 0x%x %s to %d\n",
-           (guint)file, file->info->name, file->priv->ref_cnt);
+    DEBUG (c, "un-refing: 0x%x %s to %d\n", (guint)file, file->info->name, file->priv->ref_cnt);
     if (file->priv->ref_cnt < 1)
         gtk_object_destroy (GTK_OBJECT (file));
 }
@@ -237,10 +232,7 @@ gnome_cmd_file_chmod (GnomeCmdFile *file, GnomeVFSFilePermissions perm)
 
     file->info->permissions = perm;
     uri = gnome_cmd_file_get_uri (file);
-    ret = gnome_vfs_set_file_info_uri (
-        uri,
-        file->info,
-        GNOME_VFS_SET_FILE_INFO_PERMISSIONS);
+    ret = gnome_vfs_set_file_info_uri (uri, file->info, GNOME_VFS_SET_FILE_INFO_PERMISSIONS);
     gnome_vfs_uri_unref (uri);
 
     if (has_parent_dir (file)) {
@@ -298,10 +290,7 @@ gnome_cmd_file_rename (GnomeCmdFile *finfo, const gchar *new_name)
     new_info->name = g_strdup (new_name);
 
     uri = gnome_cmd_file_get_uri (finfo);
-    result = gnome_vfs_set_file_info_uri (
-        uri,
-        new_info,
-        GNOME_VFS_SET_FILE_INFO_NAME);
+    result = gnome_vfs_set_file_info_uri (uri, new_info, GNOME_VFS_SET_FILE_INFO_NAME);
     gnome_vfs_uri_unref (uri);
 
     if (result == GNOME_VFS_OK && has_parent_dir (finfo)) {
@@ -355,8 +344,7 @@ gnome_cmd_file_get_path (GnomeCmdFile *finfo)
         g_assert ("Non directory file without owning directory");
     }
 
-    path = gnome_cmd_path_get_child (
-        gnome_cmd_dir_get_path (get_parent_dir (finfo)), finfo->info->name);
+    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (get_parent_dir (finfo)), finfo->info->name);
     path_str = g_strdup (gnome_cmd_path_get_path (path));
     gtk_object_destroy (GTK_OBJECT (path));
 
@@ -381,9 +369,8 @@ gchar *
 gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *finfo)
 {
     gchar *ret = NULL;
-    gchar *path;
+    gchar *path = gnome_cmd_file_get_real_path (finfo);
 
-    path = gnome_cmd_file_get_real_path (finfo);
     if (path) {
         ret = quote_if_needed (path);
         g_free (path);
@@ -498,8 +485,6 @@ date2string (time_t date, gboolean overide_disp_setting)
 }
 
 
-
-
 const gchar *
 gnome_cmd_file_get_adate (GnomeCmdFile *file,
                           gboolean overide_disp_setting)
@@ -600,15 +585,15 @@ gnome_cmd_file_get_type_string (GnomeCmdFile *finfo)
 const gchar *
 gnome_cmd_file_get_type_desc (GnomeCmdFile *finfo)
 {
-    gchar *type_strings[] = {
-        _("Unknown file type"),
-        _("Regular file"),
-        _("Directory"),
-        _("FIFO"),
-        _("UNIX Socket"),
-        _("Character device"),
-        _("Block device"),
-        _("Symbolic link")
+    static gchar *type_strings[] = {
+        N_("Unknown file type"),
+        N_("Regular file"),
+        N_("Directory"),
+        N_("FIFO"),
+        N_("UNIX Socket"),
+        N_("Character device"),
+        N_("Block device"),
+        N_("Symbolic link")
     };
 
     g_return_val_if_fail (finfo != NULL, NULL);
@@ -616,6 +601,7 @@ gnome_cmd_file_get_type_desc (GnomeCmdFile *finfo)
 
     if (!finfo->info->symlink_name)
         return type_strings[finfo->info->type];
+
     return type_strings[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
 }
 
@@ -629,10 +615,8 @@ gnome_cmd_file_get_type_pixmap (GnomeCmdFile *finfo)
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
 
-    IMAGE_get_pixmap_and_mask (finfo->info->type,
-                               finfo->info->mime_type,
-                               finfo->info->symlink_name != NULL,
-                               &pm, &mask);
+    IMAGE_get_pixmap_and_mask (finfo->info->type, finfo->info->mime_type, finfo->info->symlink_name != NULL, &pm, &mask);
+
     return pm;
 }
 
@@ -646,10 +630,8 @@ gnome_cmd_file_get_type_mask (GnomeCmdFile *finfo)
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
 
-    IMAGE_get_pixmap_and_mask (finfo->info->type,
-                               finfo->info->mime_type,
-                               finfo->info->symlink_name != NULL,
-                               &pm, &mask);
+    IMAGE_get_pixmap_and_mask (finfo->info->type, finfo->info->mime_type, finfo->info->symlink_name != NULL, &pm, &mask);
+
     return mask;
 }
 
@@ -686,8 +668,7 @@ gnome_cmd_file_has_mime_type (GnomeCmdFile *finfo, const gchar *mime_type)
 }
 
 
-gboolean gnome_cmd_file_mime_begins_with (GnomeCmdFile *finfo,
-                                          const gchar *mime_type_start)
+gboolean gnome_cmd_file_mime_begins_with (GnomeCmdFile *finfo, const gchar *mime_type_start)
 {
     g_return_val_if_fail (finfo != NULL, FALSE);
     g_return_val_if_fail (finfo->info != NULL, FALSE);
@@ -715,31 +696,31 @@ do_view_file (const gchar *path, gint internal_viewer)
     gchar *command;
     GViewer *viewer;
 
-	if (internal_viewer==-1)
-		internal_viewer = gnome_cmd_data_get_use_internal_viewer ();
-	
-	switch (internal_viewer)
-	{
-		case TRUE : {
-						arg = gnome_vfs_unescape_string (path, NULL);
-						viewer = gviewer_window_file_view(arg, NULL);
-						gtk_widget_show(GTK_WIDGET(viewer));
-						gdk_window_set_icon (GTK_WIDGET(viewer)->window, NULL,
-											 IMAGE_get_pixmap (PIXMAP_LOGO),
-											 IMAGE_get_mask (PIXMAP_LOGO));
-						g_free(arg);
-					}
-					break;
-					
-		case FALSE: {
-						arg = g_shell_quote (path);
-						command = g_strdup_printf (gnome_cmd_data_get_viewer (), arg);
-						run_command (command, FALSE);
-						g_free (arg);
-						g_free (command);
-					}
-					break;
-	}
+    if (internal_viewer==-1)
+        internal_viewer = gnome_cmd_data_get_use_internal_viewer ();
+
+    switch (internal_viewer)
+    {
+        case TRUE : {
+                        arg = gnome_vfs_unescape_string (path, NULL);
+                        viewer = gviewer_window_file_view(arg, NULL);
+                        gtk_widget_show(GTK_WIDGET(viewer));
+                        gdk_window_set_icon (GTK_WIDGET(viewer)->window, NULL,
+                                             IMAGE_get_pixmap (PIXMAP_LOGO),
+                                             IMAGE_get_mask (PIXMAP_LOGO));
+                        g_free(arg);
+                    }
+                    break;
+
+        case FALSE: {
+                        arg = g_shell_quote (path);
+                        command = g_strdup_printf (gnome_cmd_data_get_viewer (), arg);
+                        run_command (command, FALSE);
+                        g_free (arg);
+                        g_free (command);
+                    }
+                    break;
+    }
 }
 
 
@@ -896,18 +877,15 @@ gnome_cmd_file_is_deleted (GnomeCmdFile *finfo)
 void
 gnome_cmd_file_execute (GnomeCmdFile *finfo)
 {
-    gchar *fpath, *dpath, *cmd;
+    gchar *fpath = gnome_cmd_file_get_real_path (finfo),
+          *dpath = g_dirname (fpath),
+          *cmd = g_strdup_printf ("./%s", finfo->info->name);
 
-    fpath = gnome_cmd_file_get_real_path (finfo);
-    dpath = g_dirname (fpath);
-    cmd = g_strdup_printf ("./%s", finfo->info->name);
-    run_command_indir (cmd, dpath,
-                 app_needs_terminal (finfo));
+    run_command_indir (cmd, dpath, app_needs_terminal (finfo));
     g_free (fpath);
     g_free (dpath);
     g_free (cmd);
 }
-
 
 
 /******************************************************************************

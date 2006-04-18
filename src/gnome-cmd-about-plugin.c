@@ -69,8 +69,7 @@ static void gnome_cmd_about_plugin_finalize (GObject *object);
 static void gnome_cmd_about_plugin_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void gnome_cmd_about_plugin_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 
-GNOME_CLASS_BOILERPLATE (GnomeCmdAboutPlugin, gnome_cmd_about_plugin,
-             GtkDialog, GTK_TYPE_DIALOG)
+GNOME_CLASS_BOILERPLATE (GnomeCmdAboutPlugin, gnome_cmd_about_plugin, GtkDialog, GTK_TYPE_DIALOG)
 
 static void
 gnome_cmd_about_plugin_update_authors_label (GnomeCmdAboutPlugin *about, GtkWidget *label)
@@ -102,6 +101,7 @@ gnome_cmd_about_plugin_update_authors_label (GnomeCmdAboutPlugin *about, GtkWidg
     g_string_free (string, TRUE);
 }
 
+
 static void
 gnome_cmd_about_plugin_update_documenters_label (GnomeCmdAboutPlugin *about, GtkWidget *label)
 {
@@ -132,6 +132,7 @@ gnome_cmd_about_plugin_update_documenters_label (GnomeCmdAboutPlugin *about, Gtk
     g_string_free (string, TRUE);
 }
 
+
 static void
 gnome_cmd_about_plugin_update_translation_information_label (GnomeCmdAboutPlugin *about, GtkWidget *label)
 {
@@ -156,12 +157,12 @@ gnome_cmd_about_plugin_update_translation_information_label (GnomeCmdAboutPlugin
     g_string_free (string, TRUE);
 }
 
+
 static GtkWidget *
 _create_label (void)
 {
-    GtkWidget *label;
+    GtkWidget *label = gtk_label_new ("");
 
-    label = gtk_label_new ("");
     gtk_label_set_selectable (GTK_LABEL (label), TRUE);
     gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.0);
     gtk_misc_set_padding (GTK_MISC (label), 8, 8);
@@ -170,6 +171,7 @@ _create_label (void)
 
     return label;
 }
+
 
 static void
 gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *about)
@@ -192,11 +194,8 @@ gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *about)
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
-    g_signal_connect (dialog, "response",
-              G_CALLBACK (gtk_widget_destroy), dialog);
-    g_signal_connect (dialog, "destroy",
-              G_CALLBACK (gtk_widget_destroyed),
-              &(about->priv->credits_dialog));
+    g_signal_connect (dialog, "response", G_CALLBACK (gtk_widget_destroy), dialog);
+    g_signal_connect (dialog, "destroy", G_CALLBACK (gtk_widget_destroyed), &(about->priv->credits_dialog));
 
     notebook = gtk_notebook_new ();
     gtk_container_set_border_width (GTK_CONTAINER (notebook), 5);
@@ -212,8 +211,7 @@ gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *about)
         gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
         gtk_viewport_set_shadow_type (GTK_VIEWPORT (GTK_BIN (sw)->child), GTK_SHADOW_NONE);
 
-        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw,
-                      gtk_label_new (_("Written by")));
+        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Written by")));
         gnome_cmd_about_plugin_update_authors_label (about, label);
     }
 
@@ -227,8 +225,7 @@ gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *about)
         gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
         gtk_viewport_set_shadow_type (GTK_VIEWPORT (GTK_BIN (sw)->child), GTK_SHADOW_NONE);
 
-        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw,
-                      gtk_label_new (_("Documented by")));
+        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Documented by")));
         gnome_cmd_about_plugin_update_documenters_label (about, label);
     }
 
@@ -236,19 +233,17 @@ gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *about)
         label = _create_label ();
 
         sw = gtk_scrolled_window_new (NULL, NULL);
-        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
-                        GTK_POLICY_AUTOMATIC,
-                        GTK_POLICY_AUTOMATIC);
+        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
         gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
         gtk_viewport_set_shadow_type (GTK_VIEWPORT (GTK_BIN (sw)->child), GTK_SHADOW_NONE);
 
-        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw,
-                      gtk_label_new (_("Translated by")));
+        gtk_notebook_append_page (GTK_NOTEBOOK (notebook), sw, gtk_label_new (_("Translated by")));
         gnome_cmd_about_plugin_update_translation_information_label (about, label);
     }
 
     gtk_widget_show_all (dialog);
 }
+
 
 static void
 gnome_cmd_about_plugin_instance_init (GnomeCmdAboutPlugin *about)
@@ -332,10 +327,12 @@ gnome_cmd_about_plugin_instance_init (GnomeCmdAboutPlugin *about)
     priv->credits_dialog = NULL;
 }
 
+
 static void
 gnome_cmd_about_plugin_response (GtkDialog *dialog, gint response)
 {
-    switch (response) {
+    switch (response) 
+    {
     case GNOME_RESPONSE_CREDITS:
         gnome_cmd_about_plugin_display_credits_dialog (GNOME_CMD_ABOUT_PLUGIN (dialog));
         break;
@@ -345,16 +342,13 @@ gnome_cmd_about_plugin_response (GtkDialog *dialog, gint response)
     }
 }
 
+
 static void
 gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
 {
-    GObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-    GtkDialogClass *dialog_class;
-
-    object_class = (GObjectClass *)klass;
-    widget_class = (GtkWidgetClass *)klass;
-    dialog_class = (GtkDialogClass *)klass;
+    GObjectClass *object_class = (GObjectClass *)klass;
+    GtkWidgetClass *widget_class = (GtkWidgetClass *)klass;
+    GtkDialogClass *dialog_class = (GtkDialogClass *)klass;
 
     object_class->set_property = gnome_cmd_about_plugin_set_property;
     object_class->get_property = gnome_cmd_about_plugin_get_property;
@@ -434,6 +428,7 @@ gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
 
 }
 
+
 static void
 gnome_cmd_about_plugin_set_comments (GnomeCmdAboutPlugin *about, const gchar *comments)
 {
@@ -443,6 +438,7 @@ gnome_cmd_about_plugin_set_comments (GnomeCmdAboutPlugin *about, const gchar *co
     gtk_label_set_text (GTK_LABEL (about->priv->comments_label), about->priv->comments);
 }
 
+
 static void
 gnome_cmd_about_plugin_set_translator_credits (GnomeCmdAboutPlugin *about, const gchar *translator_credits)
 {
@@ -450,6 +446,7 @@ gnome_cmd_about_plugin_set_translator_credits (GnomeCmdAboutPlugin *about, const
 
     about->priv->translator_credits = g_strdup (translator_credits);
 }
+
 
 static void
 gnome_cmd_about_plugin_set_webpage (GnomeCmdAboutPlugin *about, const gchar *webpage)
@@ -463,6 +460,7 @@ gnome_cmd_about_plugin_set_webpage (GnomeCmdAboutPlugin *about, const gchar *web
     gnome_href_set_url (GNOME_HREF (about->priv->web_button), webpage);
     gtk_widget_show (about->priv->web_button);
 }
+
 
 static void
 gnome_cmd_about_plugin_set_copyright (GnomeCmdAboutPlugin *about, const gchar *copyright)
@@ -485,6 +483,7 @@ gnome_cmd_about_plugin_set_copyright (GnomeCmdAboutPlugin *about, const gchar *c
 
     g_free (copyright_string);
 }
+
 
 static void
 gnome_cmd_about_plugin_set_version (GnomeCmdAboutPlugin *about, const gchar *version)
@@ -509,6 +508,7 @@ gnome_cmd_about_plugin_set_version (GnomeCmdAboutPlugin *about, const gchar *ver
     g_free (name_string);
     g_free (tmp_name);
 }
+
 
 static void
 gnome_cmd_about_plugin_set_name (GnomeCmdAboutPlugin *about, const gchar *name)
@@ -540,6 +540,7 @@ gnome_cmd_about_plugin_set_name (GnomeCmdAboutPlugin *about, const gchar *name)
     g_free (tmp_name);
 }
 
+
 static void
 gnome_cmd_about_plugin_free_person_list (GSList *list)
 {
@@ -549,6 +550,7 @@ gnome_cmd_about_plugin_free_person_list (GSList *list)
     g_slist_foreach (list, (GFunc) g_free, NULL);
     g_slist_free (list);
 }
+
 
 static void
 gnome_cmd_about_plugin_finalize (GObject *object)
@@ -572,6 +574,7 @@ gnome_cmd_about_plugin_finalize (GObject *object)
     GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
 }
 
+
 static void
 gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, const GValue *persons)
 {
@@ -580,7 +583,8 @@ gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, c
     GSList *list;
 
     /* Free the old list */
-    switch (prop_id) {
+    switch (prop_id) 
+    {
     case PROP_AUTHORS:
         list = about->priv->authors;
         break;
@@ -601,13 +605,13 @@ gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, c
         return;
     }
 
-    for (i = 0; i < value_array->n_values; i++) {
+    for (i = 0; i < value_array->n_values; i++)
         list = g_slist_prepend (list, g_value_dup_string (&value_array->values[i]));
-    }
 
     list = g_slist_reverse (list);
 
-    switch (prop_id) {
+    switch (prop_id) 
+    {
     case PROP_AUTHORS:
         about->priv->authors = list;
         break;
@@ -619,16 +623,15 @@ gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, c
     }
 }
 
+
 static void
 set_value_array_from_list (GValue *value, GSList *list)
 {
-    GValueArray *array;
+    gint length = g_slist_length (list);
+    GValueArray *array = g_value_array_new (length);
+
     GValue tmp_value = { 0 };
     GSList *tmp;
-    gint length;
-
-    length = g_slist_length (list);
-    array = g_value_array_new (length);
 
     for (tmp = list; tmp; tmp = tmp->next) {
         char *str = tmp->data;
@@ -645,7 +648,8 @@ set_value_array_from_list (GValue *value, GSList *list)
 static void
 gnome_cmd_about_plugin_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
-    switch (prop_id) {
+    switch (prop_id) 
+    {
     case PROP_NAME:
         gnome_cmd_about_plugin_set_name (GNOME_CMD_ABOUT_PLUGIN (object), g_value_get_string (value));
         break;
@@ -674,41 +678,41 @@ gnome_cmd_about_plugin_set_property (GObject *object, guint prop_id, const GValu
     }
 }
 
+
 static void
 gnome_cmd_about_plugin_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
 {
-    GnomeCmdAboutPlugin *about;
+    GnomeCmdAboutPlugin *about = GNOME_CMD_ABOUT_PLUGIN (object);
 
-    about = GNOME_CMD_ABOUT_PLUGIN (object);
-
-    switch (prop_id) {
-    case PROP_NAME:
-        g_value_set_string (value, about->priv->name);
-        break;
-    case PROP_VERSION:
-        g_value_set_string (value, about->priv->version);
-        break;
-    case PROP_COPYRIGHT:
-        g_value_set_string (value, about->priv->copyright);
-        break;
-    case PROP_COMMENTS:
-        g_value_set_string (value, about->priv->comments);
-        break;
-    case PROP_TRANSLATOR_CREDITS:
-        g_value_set_string (value, about->priv->translator_credits);
-        break;
-    case PROP_WEBPAGE:
-        g_value_set_string (value, about->priv->webpage);
-        break;
-    case PROP_AUTHORS:
-        set_value_array_from_list (value, about->priv->authors);
-        break;
-    case PROP_DOCUMENTERS:
-        set_value_array_from_list (value, about->priv->documenters);
-        break;
-    default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-        break;
+    switch (prop_id)
+    {
+        case PROP_NAME:
+            g_value_set_string (value, about->priv->name);
+            break;
+        case PROP_VERSION:
+            g_value_set_string (value, about->priv->version);
+            break;
+        case PROP_COPYRIGHT:
+            g_value_set_string (value, about->priv->copyright);
+            break;
+        case PROP_COMMENTS:
+            g_value_set_string (value, about->priv->comments);
+            break;
+        case PROP_TRANSLATOR_CREDITS:
+            g_value_set_string (value, about->priv->translator_credits);
+            break;
+        case PROP_WEBPAGE:
+            g_value_set_string (value, about->priv->webpage);
+            break;
+        case PROP_AUTHORS:
+            set_value_array_from_list (value, about->priv->authors);
+            break;
+        case PROP_DOCUMENTERS:
+            set_value_array_from_list (value, about->priv->documenters);
+            break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+            break;
     }
 }
 
@@ -741,11 +745,9 @@ gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
                   const gchar  *translator_credits,
                   const gchar  *webpage)
 {
-    GValueArray *authors_array;
+    GValueArray *authors_array = g_value_array_new (0);
     GValueArray *documenters_array;
     gint i;
-
-    authors_array = g_value_array_new (0);
 
     for (i = 0; authors[i] != NULL; i++) {
         GValue value = {0, };
@@ -823,5 +825,3 @@ gnome_cmd_about_plugin_new (PluginInfo *info)
 
     return GTK_WIDGET(about);
 }
-
-

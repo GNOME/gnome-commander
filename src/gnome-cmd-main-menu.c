@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-menu.h"
@@ -126,7 +127,6 @@ struct _GnomeCmdMainMenuPrivate
 static GtkMenuBarClass *parent_class = NULL;
 
 
-
 /*******************************
  * Private functions
  *******************************/
@@ -155,7 +155,8 @@ create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent, MenuData *spec)
     GtkWidget *content = NULL;
     GtkWidget *pixmap = NULL;
 
-    switch (spec->type) {
+    switch (spec->type)
+    {
         case MENU_TYPE_BASIC:
             item = gtk_menu_item_new ();
             desc = gtk_label_new_with_mnemonic (spec->label);
@@ -185,8 +186,7 @@ create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent, MenuData *spec)
                                            GTK_ICON_SIZE_MENU);
                 if (pixmap) {
                     gtk_widget_show (pixmap);
-                    gtk_image_menu_item_set_image (
-                        GTK_IMAGE_MENU_ITEM (item), pixmap);
+                    gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap);
                 }
             }
             if (spec->tooltip)
@@ -196,8 +196,7 @@ create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent, MenuData *spec)
 
         case MENU_TYPE_TOGGLEITEM:
             item = gtk_check_menu_item_new_with_label (spec->label);
-            gtk_signal_connect (GTK_OBJECT (item), "toggled",
-                                GTK_SIGNAL_FUNC (spec->moreinfo), spec->user_data);
+            gtk_signal_connect (GTK_OBJECT (item), "toggled", GTK_SIGNAL_FUNC (spec->moreinfo), spec->user_data);
             break;
 
         case MENU_TYPE_SEPARATOR:
@@ -213,14 +212,11 @@ create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent, MenuData *spec)
 
     gtk_widget_show (item);
 
-
     if (spec->type == MENU_TYPE_ITEM) {
         /* Connect to the signal and set user data */
-        gtk_object_set_data (GTK_OBJECT (item),
-                             GNOMEUIINFO_KEY_UIDATA, spec->user_data);
+        gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, spec->user_data);
 
-        gtk_signal_connect (GTK_OBJECT (item), "activate",
-                            GTK_SIGNAL_FUNC (spec->moreinfo), spec->user_data);
+        gtk_signal_connect (GTK_OBJECT (item), "activate", GTK_SIGNAL_FUNC (spec->moreinfo), spec->user_data);
     }
 
     spec->widget = item;
@@ -270,16 +266,14 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
     item = gtk_image_menu_item_new ();
 
     if (tooltip)
-        gtk_tooltips_set_tip (
-            main_menu->priv->tooltips, item, tooltip, NULL);
+        gtk_tooltips_set_tip (main_menu->priv->tooltips, item, tooltip, NULL);
 
     if (pixmap && mask)
         pixmap_widget = gtk_pixmap_new (pixmap, mask);
 
     if (pixmap_widget) {
         gtk_widget_show (pixmap_widget);
-        gtk_image_menu_item_set_image (
-            GTK_IMAGE_MENU_ITEM (item), pixmap_widget);
+        gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap_widget);
     }
 
     gtk_widget_show (item);
@@ -308,9 +302,9 @@ add_separator (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu)
 {
     MenuData t = MENUTYPE_SEPARATOR;
 
-    GtkWidget *child = create_menu_item (
-        main_menu, GTK_MENU (menu), &t);
+    GtkWidget *child = create_menu_item (main_menu, GTK_MENU (menu), &t);
     gtk_menu_shell_append (menu, child);
+
     return child;
 }
 
@@ -325,9 +319,7 @@ add_bookmark_menu_item (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCm
                           GTK_SIGNAL_FUNC (on_bookmark_selected), bookmark);
 
     /* Remeber this bookmarks item-widget so that we can remove it later */
-    main_menu->priv->bookmark_menuitems = g_list_append (
-        main_menu->priv->bookmark_menuitems,
-        item);
+    main_menu->priv->bookmark_menuitems = g_list_append (main_menu->priv->bookmark_menuitems, item);
 }
 
 
@@ -348,8 +340,7 @@ add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCmdBoo
                           NULL, NULL);
 
     /* Remeber this bookmarks item-widget so that we can remove it later */
-    main_menu->priv->group_menuitems = g_list_append (
-        main_menu->priv->group_menuitems, item);
+    main_menu->priv->group_menuitems = g_list_append (main_menu->priv->group_menuitems, item);
 
 
     /* Add bookmarks for this group */
@@ -365,11 +356,11 @@ add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCmdBoo
 static void
 update_view_menu (GnomeCmdMainMenu *main_menu);
 
+
 static void
 on_switch_orientation (GtkMenuItem *menu_item, GnomeCmdMainMenu *main_menu)
 {
-    gnome_cmd_data_set_list_orientation (
-        !gnome_cmd_data_get_list_orientation ());
+    gnome_cmd_data_set_list_orientation (!gnome_cmd_data_get_list_orientation ());
 
     gnome_cmd_main_win_update_list_orientation (main_win);
 
@@ -441,11 +432,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdMainMenuClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
     parent_class = gtk_type_class (gtk_menu_bar_get_type ());
     object_class->destroy = destroy;
@@ -838,7 +826,6 @@ init (GnomeCmdMainMenu *main_menu)
 
 
 
-
 /***********************************
  * Public functions
  ***********************************/
@@ -848,7 +835,6 @@ gnome_cmd_main_menu_new (void)
 {
     return gtk_type_new (gnome_cmd_main_menu_get_type ());
 }
-
 
 
 GtkType
@@ -881,17 +867,12 @@ add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con,
                 const gchar *text, GnomeCmdPixmap *pixmap,
                 GtkSignalFunc func)
 {
+    GtkMenuShell *connections_menu =GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
     GtkWidget *item;
-    GtkMenuShell *connections_menu =
-        GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
 
-    item = add_menu_item (
-        main_menu, connections_menu, text, NULL,
-        pixmap?pixmap->pixmap:NULL, pixmap?pixmap->mask:NULL,
-        func, con);
+    item = add_menu_item (main_menu, connections_menu, text, NULL, pixmap?pixmap->pixmap:NULL, pixmap?pixmap->mask:NULL, func, con);
 
-    main_menu->priv->connections_menuitems = g_list_append (
-        main_menu->priv->connections_menuitems, item);
+    main_menu->priv->connections_menuitems = g_list_append (main_menu->priv->connections_menuitems, item);
 }
 
 
@@ -905,23 +886,19 @@ gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
 
     g_return_if_fail (GNOME_CMD_IS_MAIN_MENU (main_menu));
 
-    connections_menu = GTK_MENU_SHELL (
-        GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
+    connections_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
     con_list = gnome_cmd_data_get_con_list ();
     all_cons = gnome_cmd_con_list_get_all (con_list);
     ftp_cons = gnome_cmd_con_list_get_all_ftp (con_list);
     dev_cons = gnome_cmd_con_list_get_all_dev (con_list);
 
     /* Remove all old items */
-    g_list_foreach (main_menu->priv->connections_menuitems,
-                    (GFunc)gtk_widget_destroy, NULL);
+    g_list_foreach (main_menu->priv->connections_menuitems, (GFunc)gtk_widget_destroy, NULL);
     g_list_free (main_menu->priv->connections_menuitems);
     main_menu->priv->connections_menuitems = NULL;
 
     /* separator */
-    main_menu->priv->connections_menuitems = g_list_append (
-        main_menu->priv->connections_menuitems,
-        add_separator (main_menu, connections_menu));
+    main_menu->priv->connections_menuitems = g_list_append (main_menu->priv->connections_menuitems, add_separator (main_menu, connections_menu));
 
     /* Add all open connections */
     match_count = 0;
@@ -982,8 +959,7 @@ gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu)
     while (cons) {
         GnomeCmdCon *con = GNOME_CMD_CON (cons->data);
         GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
-        GtkMenuShell *bookmarks_menu =
-            GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->bookmarks_menu)->submenu);
+        GtkMenuShell *bookmarks_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->bookmarks_menu)->submenu);
         if (group->bookmarks)
             add_bookmark_group (main_menu, bookmarks_menu, group);
         cons = cons->next;
@@ -1000,10 +976,8 @@ gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu)
 
     fs = gnome_cmd_main_win_get_active_fs (main_win);
 
-    gtk_widget_set_sensitive (main_menu->priv->menu_view_back,
-                              gnome_cmd_file_selector_can_back (fs));
-    gtk_widget_set_sensitive (main_menu->priv->menu_view_forward,
-                              gnome_cmd_file_selector_can_forward (fs));
+    gtk_widget_set_sensitive (main_menu->priv->menu_view_back, gnome_cmd_file_selector_can_back (fs));
+    gtk_widget_set_sensitive (main_menu->priv->menu_view_forward, gnome_cmd_file_selector_can_forward (fs));
 }
 
 
@@ -1022,10 +996,7 @@ on_plugin_menu_activate (GtkMenuItem *item, PluginData *data)
 void
 gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *data)
 {
-    gtk_menu_shell_append (
-        GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->plugins_menu)->submenu),
-        data->menu);
+    gtk_menu_shell_append (GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->plugins_menu)->submenu), data->menu);
 
-    gtk_signal_connect (GTK_OBJECT (data->menu), "activate",
-                        GTK_SIGNAL_FUNC (on_plugin_menu_activate), data);
+    gtk_signal_connect (GTK_OBJECT (data->menu), "activate", GTK_SIGNAL_FUNC (on_plugin_menu_activate), data);
 }

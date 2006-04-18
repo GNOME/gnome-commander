@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-clist.h"
@@ -59,24 +60,24 @@ struct _GnomeCmdCListPrivate {
 /* returns the column index from a x pixel location in the
  * context of the clist's hoffset */
 static inline gint
-COLUMN_FROM_XPIXEL (GtkCList * clist,
-            gint x)
+COLUMN_FROM_XPIXEL (GtkCList * clist, gint x)
 {
-  gint i, cx;
+    gint i, cx;
 
-  for (i = 0; i < clist->columns; i++)
+    for (i = 0; i < clist->columns; i++)
     if (clist->column[i].visible)
-      {
-    cx = clist->column[i].area.x + clist->hoffset;
+    {
+        cx = clist->column[i].area.x + clist->hoffset;
 
-    if (x >= (cx - (COLUMN_INSET + CELL_SPACING)) &&
-        x <= (cx + clist->column[i].area.width + COLUMN_INSET))
-      return i;
-      }
+        if (x >= (cx - (COLUMN_INSET + CELL_SPACING)) &&
+            x <= (cx + clist->column[i].area.width + COLUMN_INSET))
+            return i;
+    }
 
-  /* no match */
-  return -1;
+    /* no match */
+    return -1;
 }
+
 
 /* returns the top pixel of the given row in the context of
  * the list height */
@@ -236,11 +237,10 @@ my_gtk_clist_create_cell_layout (GtkCList       *clist,
     GtkCell *cell;
     gchar *text;
 
-    get_cell_style (clist, clist_row, GTK_STATE_NORMAL, column, &style,
-                    NULL, NULL);
-
+    get_cell_style (clist, clist_row, GTK_STATE_NORMAL, column, &style, NULL, NULL);
 
     cell = &clist_row->cell[column];
+
     switch (cell->type)
     {
         case GTK_CELL_TEXT:
@@ -441,13 +441,11 @@ draw_row (GtkCList     *clist,
         switch (clist_row->cell[i].type)
         {
             case GTK_CELL_PIXMAP:
-                gdk_window_get_size (GTK_CELL_PIXMAP (clist_row->cell[i])->pixmap,
-                                     &pixmap_width, &height);
+                gdk_window_get_size (GTK_CELL_PIXMAP (clist_row->cell[i])->pixmap, &pixmap_width, &height);
                 width += pixmap_width;
                 break;
             case GTK_CELL_PIXTEXT:
-                gdk_window_get_size (GTK_CELL_PIXTEXT (clist_row->cell[i])->pixmap,
-                                     &pixmap_width, &height);
+                gdk_window_get_size (GTK_CELL_PIXTEXT (clist_row->cell[i])->pixmap, &pixmap_width, &height);
                 width += pixmap_width + GTK_CELL_PIXTEXT (clist_row->cell[i])->spacing;
                 break;
             default:
@@ -460,13 +458,11 @@ draw_row (GtkCList     *clist,
                 offset = clip_rectangle.x + clist_row->cell[i].horizontal;
                 break;
             case GTK_JUSTIFY_RIGHT:
-                offset = (clip_rectangle.x + clist_row->cell[i].horizontal +
-                          clip_rectangle.width - width);
+                offset = (clip_rectangle.x + clist_row->cell[i].horizontal + clip_rectangle.width - width);
                 break;
             case GTK_JUSTIFY_CENTER:
             case GTK_JUSTIFY_FILL:
-                offset = (clip_rectangle.x + clist_row->cell[i].horizontal +
-                          (clip_rectangle.width / 2) - (width / 2));
+                offset = (clip_rectangle.x + clist_row->cell[i].horizontal + (clip_rectangle.width / 2) - (width / 2));
                 break;
         };
 
@@ -537,8 +533,8 @@ draw_row (GtkCList     *clist,
 /*******************************************
  * END OF TEST
  ****/
-static void        
-on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist) 
+static void
+on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist)
 {
     gtk_widget_draw(GTK_WIDGET(clist),NULL);
 }
@@ -561,8 +557,7 @@ on_realize                          (GtkCList *clist,
 
     for (i=0 ; i<clist->columns ; i++ ) {
         if (clist->column[i].button)
-            GTK_WIDGET_UNSET_FLAGS (
-                clist->column[i].button, GTK_CAN_FOCUS);
+            GTK_WIDGET_UNSET_FLAGS (clist->column[i].button, GTK_CAN_FOCUS);
     }
     if (GTK_CLIST(clist)->hadjustment) {
         gtk_signal_connect_after(GTK_OBJECT(GTK_CLIST(clist)->hadjustment), "value-changed",
@@ -574,12 +569,14 @@ on_realize                          (GtkCList *clist,
  * Gtk class implementation
  *******************************/
 
+ 
 static void
 destroy (GtkObject *object)
 {
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
+
 
 static void
 map (GtkWidget *widget)
@@ -592,13 +589,9 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdCListClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-    GtkCListClass *clist_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
-    clist_class = GTK_CLIST_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+    GtkCListClass *clist_class = GTK_CLIST_CLASS (class);
 
     parent_class = gtk_type_class (gtk_clist_get_type ());
 
@@ -609,6 +602,7 @@ class_init (GnomeCmdCListClass *class)
     clist_class->draw_row = draw_row;
 }
 
+
 static void
 init (GnomeCmdCList *clist)
 {
@@ -616,12 +610,9 @@ init (GnomeCmdCList *clist)
 
     gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_SINGLE);
 
-    gtk_signal_connect_after (GTK_OBJECT (clist), "scroll_vertical",
-                              GTK_SIGNAL_FUNC (on_scroll_vertical), NULL);
-    gtk_signal_connect (GTK_OBJECT (clist), "realize",
-                        GTK_SIGNAL_FUNC (on_realize), NULL);
+    gtk_signal_connect_after (GTK_OBJECT (clist), "scroll_vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), NULL);
+    gtk_signal_connect (GTK_OBJECT (clist), "realize", GTK_SIGNAL_FUNC (on_realize), NULL);
 }
-
 
 
 /***********************************
@@ -666,9 +657,7 @@ gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
     gint i;
     GnomeCmdCList *clist;
 
-    clist = g_object_new (gnome_cmd_clist_get_type(),
-                          "n_columns", columns,
-                          NULL);
+    clist = g_object_new (gnome_cmd_clist_get_type(), "n_columns", columns, NULL);
 
     for ( i=0 ; i<columns ; i++ )
         gtk_clist_set_column_auto_resize (GTK_CLIST (clist), i, TRUE);
@@ -703,8 +692,7 @@ gnome_cmd_clist_set_voffset         (GnomeCmdCList *clist, gint voffset)
 {
     g_return_if_fail (GNOME_CMD_IS_CLIST (clist));
 
-    gtk_adjustment_set_value (
-        GTK_ADJUSTMENT (GTK_CLIST (clist)->vadjustment), voffset);
+    gtk_adjustment_set_value (GTK_ADJUSTMENT (GTK_CLIST (clist)->vadjustment), voffset);
 }
 
 

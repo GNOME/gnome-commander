@@ -47,8 +47,6 @@ struct _GnomeCmdDirIndicatorPrivate
 static GtkFrameClass *parent_class = NULL;
 
 
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -329,20 +327,13 @@ add_menu_item (GnomeCmdDirIndicator *indicator, GtkMenuShell *shell, const gchar
 {
     GtkWidget *item;
 
-    if (text)
-        item = gtk_menu_item_new_with_label (text);
-    else
-        item = gtk_menu_item_new ();
+    item = text ? gtk_menu_item_new_with_label (text) : gtk_menu_item_new ();
 
     gtk_widget_ref (item);
     gtk_object_set_data (GTK_OBJECT (item), "indicator", indicator);
-    gtk_object_set_data_full (
-        GTK_OBJECT (shell),
-        "menu_item", item, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (shell), "menu_item", item, (GtkDestroyNotify) gtk_widget_unref);
     if (func)
-        gtk_signal_connect (
-            GTK_OBJECT (item), "activate",
-            GTK_SIGNAL_FUNC (func), data);
+        gtk_signal_connect (GTK_OBJECT (item), "activate", GTK_SIGNAL_FUNC (func), data);
     gtk_widget_show (item);
     if (!text)
         gtk_widget_set_sensitive (item, FALSE);
@@ -371,8 +362,8 @@ popup_dir_history (GnomeCmdDirIndicator *indicator)
 
     con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
     history = gnome_cmd_con_get_dir_history (con);
-    l = history->ents;
-    while (l) {
+
+    for ( l = history->ents; l; l = l->next ) {
         gchar *path = (gchar*)l->data;
         add_menu_item (
             indicator,
@@ -380,13 +371,9 @@ popup_dir_history (GnomeCmdDirIndicator *indicator)
             path,
             GTK_SIGNAL_FUNC (on_dir_history_item_selected),
             path);
-        l = l->next;
     }
 
-    gnome_popup_menu_do_popup (
-        indicator->priv->dir_history_popup,
-        (GtkMenuPositionFunc)get_popup_pos, indicator,
-        NULL, NULL, NULL);
+    gnome_popup_menu_do_popup (indicator->priv->dir_history_popup, (GtkMenuPositionFunc)get_popup_pos, indicator, NULL, NULL, NULL);
 
     if (GTK_WIDGET (indicator)->allocation.width > 100)
         w = GTK_WIDGET (indicator)->allocation.width;
@@ -398,19 +385,16 @@ popup_dir_history (GnomeCmdDirIndicator *indicator)
 static void
 on_bookmarks_add_current (GtkMenuItem *item, GnomeCmdDirIndicator *indicator)
 {
-    GnomeCmdCon *con;
-    GnomeCmdBookmark *bm;
-    GnomeCmdBookmarkGroup *group;
-    GnomeCmdDir *dir;
+    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (indicator->priv->fs);
+    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
+    GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
-    dir = gnome_cmd_file_selector_get_directory (indicator->priv->fs);
-    con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
-    group = gnome_cmd_con_get_bookmarks (con);
+    GnomeCmdBookmark *bm = g_new (GnomeCmdBookmark, 1);
 
-    bm = g_new (GnomeCmdBookmark, 1);
     bm->name = g_strdup (gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)));
     bm->path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
     bm->group = group;
+
     group->bookmarks = g_list_append (group->bookmarks, bm);
 }
 
@@ -434,17 +418,13 @@ popup_bookmarks (GnomeCmdDirIndicator *indicator)
 
     indicator->priv->bookmark_popup = gtk_menu_new ();
     gtk_widget_ref (indicator->priv->bookmark_popup);
-    gtk_object_set_data_full (
-        GTK_OBJECT (indicator), "bookmark_popup",
-        indicator->priv->bookmark_popup, (GtkDestroyNotify) gtk_widget_unref);
-    gtk_signal_connect (
-        GTK_OBJECT (indicator->priv->bookmark_popup), "hide",
-        GTK_SIGNAL_FUNC (on_bookmark_popup_hide), indicator);
+    gtk_object_set_data_full (GTK_OBJECT (indicator), "bookmark_popup", indicator->priv->bookmark_popup, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_signal_connect (GTK_OBJECT (indicator->priv->bookmark_popup), "hide", GTK_SIGNAL_FUNC (on_bookmark_popup_hide), indicator);
 
     con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
     group = gnome_cmd_con_get_bookmarks (con);
-    l = group->bookmarks;
-    while (l) {
+
+    for ( l = group->bookmarks; l; l = l->next ) {
         GnomeCmdBookmark *bm = (GnomeCmdBookmark*)l->data;
         add_menu_item (
             indicator,
@@ -452,7 +432,6 @@ popup_bookmarks (GnomeCmdDirIndicator *indicator)
             bm->name,
             GTK_SIGNAL_FUNC (on_bookmark_item_selected),
             bm);
-        l = l->next;
     }
 
     add_menu_item (
@@ -527,23 +506,15 @@ init (GnomeCmdDirIndicator *indicator)
 
     arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_OUT);
     gtk_widget_ref (arrow);
-    gtk_object_set_data_full (GTK_OBJECT (indicator),
-                              "arrow", arrow,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (indicator), "arrow", arrow, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (arrow);
     gtk_container_add (GTK_CONTAINER (indicator->priv->history_button), arrow);
 
     /* create the bookmark popup button */
-    indicator->priv->bookmark_button =
-        create_styled_pixmap_button (
-            NULL,
-            IMAGE_get_gnome_cmd_pixmap (PIXMAP_BOOKMARK));
+    indicator->priv->bookmark_button = create_styled_pixmap_button (NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_BOOKMARK));
     GTK_WIDGET_UNSET_FLAGS (indicator->priv->bookmark_button, GTK_CAN_FOCUS);
-    gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button),
-                           gnome_cmd_data_get_button_relief ());
-    gtk_object_set_data_full (GTK_OBJECT (indicator),
-                              "button", indicator->priv->bookmark_button,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button), gnome_cmd_data_get_button_relief ());
+    gtk_object_set_data_full (GTK_OBJECT (indicator), "button", indicator->priv->bookmark_button, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (indicator->priv->bookmark_button);
 
     /* pack */
@@ -555,11 +526,8 @@ init (GnomeCmdDirIndicator *indicator)
     gtk_box_pack_start (GTK_BOX (bbox), indicator->priv->bookmark_button, FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (bbox), indicator->priv->history_button, FALSE, FALSE, 0);
 
-
-    gtk_signal_connect (GTK_OBJECT (indicator->priv->history_button), "clicked",
-                        GTK_SIGNAL_FUNC (on_history_button_clicked), indicator);
-    gtk_signal_connect (GTK_OBJECT (indicator->priv->bookmark_button), "clicked",
-                        GTK_SIGNAL_FUNC (on_bookmark_button_clicked), indicator);
+    gtk_signal_connect (GTK_OBJECT (indicator->priv->history_button), "clicked", GTK_SIGNAL_FUNC (on_history_button_clicked), indicator);
+    gtk_signal_connect (GTK_OBJECT (indicator->priv->bookmark_button), "clicked", GTK_SIGNAL_FUNC (on_bookmark_button_clicked), indicator);
 }
 
 
@@ -655,16 +623,14 @@ gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *p
                  * but include the slash when calcluating pixel size,
                  * as /directory/ = /directory when doing chdir */
                 indicator->priv->slashCharPosition[numSlashes] = i;
-                indicator->priv->slashPixelPosition[numSlashes] =
-                    getPixelSize (path, i + 1);
+                indicator->priv->slashPixelPosition[numSlashes] = getPixelSize (path, i + 1);
                 numSlashes++;
             }
         }
 
         /* make an entry that is the whole size of the path */
         indicator->priv->slashCharPosition[numSlashes] = strlen (path);
-        indicator->priv->slashPixelPosition[numSlashes] =
-            getPixelSize (path, strlen (path));
+        indicator->priv->slashPixelPosition[numSlashes] = getPixelSize (path, strlen (path));
         numSlashes++;
         indicator->priv->numPositions = numSlashes;
     }
