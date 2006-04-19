@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "2.0">
-  <!ENTITY manrevision "2.0">
-  <!ENTITY date "March 2002">
+  <!ENTITY appversion "1.2.0">
+  <!ENTITY manrevision "1.0">
+  <!ENTITY date "April 2006">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file. 
@@ -45,9 +45,8 @@
       <holder>DOCUMENTATION WRITER 2</holder> 
     </copyright> 
     <copyright> 
-      <year>1999</year> 
-      <year>2000</year> 
-      <holder>DOCUMENTATION WRITER 1</holder> 
+      <year>2006</year> 
+      <holder>Piotr Eljasiak</holder> 
     </copyright>
 <!-- translators: uncomment this:
 
@@ -864,8 +863,8 @@
     <para> &app; was written by GNOME-HACKER
       (<email>hacker@gnome.org</email>). To find more information about
       &app;, please visit the 
-      <ulink url="http://www.my-gnome-app.org" type="http">MY-GNOME-APP Web
-	page</ulink>. </para>
+      <ulink url="http://www.nongnu.org/gcmd/" type="http">GNOME Commander homepage</ulink>. 
+    </para>
     <para>
       To report a bug or make a suggestion regarding this application or
       this manual, follow the directions in this 
