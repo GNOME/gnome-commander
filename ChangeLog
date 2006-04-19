@@ -1,3 +1,7 @@
+2006-04-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* autogen.sh:	Script update.
+
 2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Remove obsolete entry for no_NO.
@@ -9,10 +13,9 @@
 
 	* mkinstalldirs: Added missing mkinstalldirs
 
-2006-04-11  Remus Boara
+2006-04-11  Remus Boara  <rem@eclipsedesign.net>
 
-	* configure.in:	
-	Added ro to ALL_LINGUAS.
+	* configure.in:	Added ro to ALL_LINGUAS.
 
 2006-04-10  Piotr Eljasiak  <epiotr@use.pl>
 

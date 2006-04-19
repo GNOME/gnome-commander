@@ -1,52 +1,23 @@
-#! /bin/sh
+#!/bin/sh
+# Run this to generate all the initial makefiles, etc.
 
-# $Id$
-#
-# Copyright (c) 2002  Daniel Elstner  <daniel.elstner@gmx.net>
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License VERSION 2 as
-# published by the Free Software Foundation.  You are not allowed to
-# use any other version of the license; unless you got the explicit
-# permission from the author to do so.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+srcdir=`dirname $0`
+test -z "$srcdir" && srcdir=.
 
+REQUIRED_AUTOMAKE_VERSION=1.8
 
-dir=`echo "$0" | sed 's,[^/]*$,,'`
-test "x${dir}" = "x" && dir='.'
+PKG_NAME="gnome-commander"
 
-if test "x`cd "${dir}" 2>/dev/null && pwd`" != "x`pwd`"
-then
-    echo "This script must be executed directly from the source directory."
+(test -f $srcdir/configure.in \
+  && test -f $srcdir/README \
+  && test -d $srcdir/src) || {
+    echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
+    echo " top-level $PKG_NAME directory"
     exit 1
-fi
+}
 
-rm -f config.cache acconfig.h
-
-echo "- aclocal."		&& \
-aclocal  $ACLOCAL_FLAGS 			&& \
-echo "- gettextize."		&& \
-#gettextize --copy --force 	&& \
-#echo "- libtoolize."		&& \
-libtoolize --force 		&& \
-echo "- intltoolize."		&& \
-intltoolize --copy --force --automake		&& \
-echo "autoheader"		&& \
-autoheader			&& \
-echo "- autoconf."		&& \
-autoconf			&& \
-echo "- automake."		&& \
-automake --add-missing --gnu	&& \
-echo				&& \
-./configure "$@"		&& exit 0
-
-exit 1
-
+which gnome-autogen.sh || {
+    echo "You need to install gnome-common from the GNOME CVS"
+    exit 1
+}
+USE_GNOME2_MACROS=1 USE_COMMON_DOC_BUILD=yes . gnome-autogen.sh
