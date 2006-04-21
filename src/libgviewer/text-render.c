@@ -23,6 +23,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 #include <config.h>
 
 #include <errno.h>
@@ -601,7 +602,7 @@ static gboolean text_render_expose( GtkWidget *widget, GdkEventExpose *event )
 	ofs = w->priv->current_offset ;
 	y = 0 ;
 	
-	while (1) {
+	while (TRUE) {
 		offset_type eol_offset ;
 		
 		eol_offset = gv_get_end_of_line_offset(w->priv->dp, ofs);
@@ -1144,13 +1145,13 @@ static guint text_render_filter_undisplayable_chars(TextRender* obj)
 		pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
 #if 0		
 		printf("char (%03d, %02x), utf8buf_len(%d) utf8((%02x %02x %02x %02x), width = %d\n",
-			i,i,
-			obj->priv->utf8buf_length,
-			obj->priv->utf8buf[0],
-			obj->priv->utf8buf[1],
-			obj->priv->utf8buf[2],
-			obj->priv->utf8buf[3],
-			logical_rect.width);
+                i,i,
+                obj->priv->utf8buf_length,
+                obj->priv->utf8buf[0],
+                obj->priv->utf8buf[1],
+                obj->priv->utf8buf[2],
+                obj->priv->utf8buf[3],
+                logical_rect.width);
 #endif
 
 		if (logical_rect.width==0) {
@@ -1618,7 +1619,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
 		text_render_utf8_print_char(obj,value);
 	}
 	
-	gtk_clipboard_set_text(clip, obj->priv->utf8buf, obj->priv->utf8buf_length);
+	gtk_clipboard_set_text(clip, (gchar *)obj->priv->utf8buf, obj->priv->utf8buf_length);
 }
 
 static int text_mode_display_line(TextRender* w, int y, int column, offset_type start_of_line, offset_type end_of_line )
@@ -1863,7 +1864,7 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
 		text_render_utf8_printf(obj,"%02x ", (unsigned char)value);
 	}
 	
-	gtk_clipboard_set_text(clip, obj->priv->utf8buf, obj->priv->utf8buf_length);
+	gtk_clipboard_set_text(clip, (gchar *)obj->priv->utf8buf, obj->priv->utf8buf_length);
 }
 
 static int hex_mode_display_line(TextRender* w, int y, int column, offset_type start_of_line, offset_type end_of_line )
@@ -1945,4 +1946,3 @@ static int hex_mode_display_line(TextRender* w, int y, int column, offset_type s
 		
 	return 0 ;
 }
-

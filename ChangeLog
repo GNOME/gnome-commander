@@ -1,9 +1,13 @@
 2006-04-21  Piotr Eljasiak  <epiotr@use.pl>
 
-	* src/useractions.c:
+	* libgcmd/libgcmd-utils.c:
 	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-file-selector.c:
 	* src/gnome-cmd-ftp-dialog.c:
-	gcc warning cleanup.
+	* src/libgviewer/text-render.c:
+	* src/useractions.c:
+	* src/utils.c:
+	gcc warnings cleanup.
 
 
 2006-04-20  Piotr Eljasiak  <epiotr@use.pl>

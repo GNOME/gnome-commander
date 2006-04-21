@@ -22,13 +22,12 @@
 #include "libgcmd-deps.h"
 #include "libgcmd-utils.h"
 
+
 static gchar *
 get_trashed_string (const gchar *in)
 {
-    gchar *out;
+    gchar *out = g_strdup (in);
     gchar *end;
-
-    out = g_strdup (in);
 
     while (!g_utf8_validate (out, -1, (const gchar **)&end))
         *end = '?';
@@ -46,7 +45,7 @@ gchar *get_utf8 (const gchar *unknown)
     if (g_utf8_validate (unknown, -1, NULL))
         out = g_strdup (unknown);
     else {
-        gint i;
+        gsize i;
         out = g_locale_to_utf8 (unknown, strlen (unknown), &i, &i, NULL);
         if (!out)
             out = get_trashed_string (unknown);
@@ -75,5 +74,3 @@ get_bold_mono_text (const gchar *in)
 {
     return g_strdup_printf ("<span font_family=\"monospace\" weight=\"bold\">%s</span>", in);
 }
-
-
