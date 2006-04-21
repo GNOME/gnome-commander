@@ -3,7 +3,7 @@
 	* src/useractions.c:
 	* src/gnome-cmd-data.c:
 	* src/gnome-cmd-ftp-dialog.c:
-	gcc warning clenup.
+	gcc warning cleanup.
 
 
 2006-04-20  Piotr Eljasiak  <epiotr@use.pl>
