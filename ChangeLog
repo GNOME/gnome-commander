@@ -1,3 +1,11 @@
+2006-04-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/useractions.c:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-ftp-dialog.c:
+	gcc warning clenup.
+
+
 2006-04-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* autogen.sh:	Script update.

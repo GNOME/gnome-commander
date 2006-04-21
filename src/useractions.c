@@ -348,17 +348,16 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
 
     sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
 
-    for (i = sfl; i; i = i->next) {
+    for (i = sfl; i; i = i->next) 
+	{
         GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
 
         if (finfo)
-          if (mask & GDK_SHIFT_MASK)
-            *f++ = (char*)gnome_cmd_file_get_real_path (finfo);
-          else
-            *f++ = (char*)gnome_cmd_file_get_name (finfo);
+          *f++ = (mask & GDK_SHIFT_MASK) ? (char*)gnome_cmd_file_get_real_path (finfo) :
+                                           (char*)gnome_cmd_file_get_name (finfo);
     }
 
-     *f = NULL;
+    *f = NULL;
 
     s = g_strjoinv(sep,fnames);
 

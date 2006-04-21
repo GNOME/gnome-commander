@@ -444,15 +444,15 @@ add_vfs_volume (GnomeVFSVolume *volume)
     iconpath = NULL ;
     icontheme = gtk_icon_theme_get_default() ;
     if (icontheme) {
-	    iconinfo = gtk_icon_theme_lookup_icon(icontheme,icon,16,0 ) ;
+	    iconinfo = gtk_icon_theme_lookup_icon (icontheme,icon,16,0) ;
 	    if (iconinfo) {
 		/* This returned string should not be free, see gtk documentation */
-		iconpath = gtk_icon_info_get_filename(iconinfo);
+		iconpath = gtk_icon_info_get_filename (iconinfo);
 	    }
     }
 
 
-    localpath = gnome_vfs_get_local_path_from_uri(uri);
+    localpath = gnome_vfs_get_local_path_from_uri (uri);
 
     DEBUG('m',"name = %s\n", name) ;
     DEBUG('m',"path = %s\n", path ) ;
