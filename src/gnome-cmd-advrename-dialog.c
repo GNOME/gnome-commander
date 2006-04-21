@@ -30,6 +30,11 @@
 #include "gnome-cmd-data.h"
 #include "utils.h"
 
+
+// static GdkColor black   = {0,0,0,0};
+// static GdkColor red     = {0,0xffff,0,0};
+
+
 typedef struct
 {
     GnomeCmdFile *finfo;
@@ -173,6 +178,7 @@ add_pattern_entry (GnomeCmdAdvrenameDialog *dialog, PatternEntry *entry)
     format_entry (entry, text);
 
     row = gtk_clist_append (GTK_CLIST (dialog->priv->pat_list), text);
+    //gtk_clist_set_foreground(GTK_CLIST (dialog->priv->pat_list), row, entry->malformed_pattern ? &red : &black);
     gtk_clist_set_row_data (GTK_CLIST (dialog->priv->pat_list), row, entry);
     update_move_buttons (dialog, GTK_CLIST (dialog->priv->pat_list)->focus_row);
 }
@@ -242,6 +248,7 @@ on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog,
     }
 
     format_entry (entry, text);
+    //gtk_clist_set_foreground(GTK_CLIST (pat_list), row, entry->malformed_pattern ? &red : &black);
     gtk_clist_set_text (GTK_CLIST (pat_list), row, 0, text[0]);
     gtk_clist_set_text (GTK_CLIST (pat_list), row, 1, text[1]);
     gtk_clist_set_text (GTK_CLIST (pat_list), row, 2, text[2]);
@@ -290,35 +297,43 @@ apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
 
     if (!in || !entry) return NULL;
 
-    regcomp (&re_exp, entry->from, (entry->case_sens ? REG_EXTENDED : REG_EXTENDED|REG_ICASE));
-
-    if (regexec (&re_exp, in, 1, &re_match_info, eflags) == 0) {
-        if (strcmp (entry->from, "$") == 0) {
-            out = g_strdup_printf ("%s%s", in, entry->to);
-        }
-        else {
-            gchar **v;
-            gint match_size = re_match_info.rm_eo - re_match_info.rm_so;
-            gchar *tail,
-                  *match = g_malloc (match_size+1);
-
-            g_utf8_strncpy (match, in+re_match_info.rm_so, match_size);
-            match[match_size] = '\0';
-            v = g_strsplit (in, match, 2);
-            tail = apply_one_pattern (v[1], entry, eflags|REG_NOTBOL|REG_NOTEOL);
-            out = g_strjoin (NULL, v[0], entry->to, tail, NULL);
-            g_free (tail);
-            g_free (match);
-            g_strfreev (v);
+    if (regcomp (&re_exp, entry->from, (entry->case_sens ? REG_EXTENDED : REG_EXTENDED|REG_ICASE) != 0))  
+        entry->malformed_pattern = TRUE; 
+    else
+    {
+        if (regexec (&re_exp, in, 1, &re_match_info, eflags) == 0) 
+        {
+            if (strcmp (entry->from, "$") == 0) 
+                out = g_strconcat(in, entry->to, NULL);
+            else 
+                if (strcmp (entry->from, "^") == 0)
+                    out = g_strconcat(entry->to, in, NULL);
+                else
+                {
+                    gint match_size = re_match_info.rm_eo - re_match_info.rm_so;
+                    
+                    if (match_size)
+                    {
+                        gchar **v;
+                        gchar *match = g_malloc (match_size+1);
+                        gchar *tail;
+                        
+                        g_utf8_strncpy (match, in+re_match_info.rm_so, match_size);
+                        match[match_size] = '\0';
+                        v = g_strsplit (in, match, 2);
+                        tail = apply_one_pattern (v[1], entry, eflags|REG_NOTBOL|REG_NOTEOL);
+                        out = g_strjoin (NULL, v[0], entry->to, tail, NULL);
+                        g_free (tail);
+                        g_free (match);
+                        g_strfreev (v);
+                    }
+                }
         }
     }
 
     regfree (&re_exp);
 
-    if (out)
-        return out;
-
-    return g_strdup (in);
+    return out ? out : g_strdup (in);
 }
 
 
@@ -328,15 +343,15 @@ create_new_name (const gchar *name, GList *patterns)
     gchar *tmp = NULL;
     gchar *new_name = g_strdup (name);
 
-    while (patterns)
+    for ( ; patterns; patterns = patterns->next)
     {
         PatternEntry *entry = (PatternEntry*)patterns->data;
 
         tmp = new_name;
+    
         new_name = apply_one_pattern (tmp, entry, 0);
+        
         g_free (tmp);
-
-        patterns = patterns->next;
     }
 
     return new_name;
@@ -345,8 +360,8 @@ create_new_name (const gchar *name, GList *patterns)
 
 static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
 {
-    GList *tmp = dialog->priv->entries;
     const gchar *templ_string = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
+    GList *tmp;
 
     gnome_cmd_advrename_reset_counter (
         dialog->priv->defaults->counter_start,
@@ -354,33 +369,31 @@ static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
         dialog->priv->defaults->counter_increment);
     gnome_cmd_advrename_parse_fname (templ_string);
 
-    while (tmp) {
+    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next ) 
+	{
         gchar fname[256];
         RenameEntry *entry = (RenameEntry*)tmp->data;
         GList *patterns = dialog->priv->defaults->patterns;
-
+        
         gnome_cmd_advrename_gen_fname (fname, sizeof (fname), entry->finfo);
 
         entry->new_name = create_new_name (fname, patterns);
-
-        tmp = tmp->next;
     }
 }
 
 
 static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 {
-    GList *tmp = dialog->priv->entries;
+    GList *tmp;
 
-    while (tmp) {
+    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next ) 
+	{
         RenameEntry *entry = (RenameEntry*)tmp->data;
 
         gtk_clist_set_text (GTK_CLIST (dialog->priv->res_list),
                             get_row_from_rename_entry (dialog, entry),
                             1,
                             entry->new_name);
-
-        tmp = tmp->next;
     }
 }
 
@@ -388,33 +401,27 @@ static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 static void
 change_names (GnomeCmdAdvrenameDialog *dialog)
 {
-    GList *tmp = dialog->priv->entries;
+    GList *tmp;
 
-    while (tmp) {
+    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next ) 
+	{
         RenameEntry *entry = (RenameEntry*)tmp->data;
 
         if (strcmp (entry->finfo->info->name, entry->new_name) != 0)
             gnome_cmd_file_rename (entry->finfo, entry->new_name);
-        tmp = tmp->next;
     }
 }
 
 
 static void on_rule_add (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
-    GtkWidget *rule_dialog;
-
-    rule_dialog = create_rule_dialog (dialog, _("New Rule"), (GnomeCmdStringDialogCallback)on_add_rule_dialog_ok, NULL);
+    create_rule_dialog (dialog, _("New Rule"), (GnomeCmdStringDialogCallback)on_add_rule_dialog_ok, NULL);
 }
 
 
 static void on_rule_edit (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
-    GtkWidget *rule_dialog;
-
-    rule_dialog = create_rule_dialog (
-        dialog, _("Edit Rule"), (GnomeCmdStringDialogCallback)on_edit_rule_dialog_ok,
-        dialog->priv->sel_entry);
+    create_rule_dialog (dialog, _("Edit Rule"), (GnomeCmdStringDialogCallback)on_edit_rule_dialog_ok, dialog->priv->sel_entry);
 }
 
 
@@ -604,13 +611,13 @@ on_template_options_ok (GnomeCmdStringDialog *string_dialog,
 {
     guint start, precision, inc;
 
-    if (sscanf (values[0], "%d", &start) != 1)
+    if (sscanf (values[0], "%u", &start) != 1)
         return TRUE;
 
-    if (sscanf (values[1], "%d", &inc) != 1)
+    if (sscanf (values[1], "%u", &inc) != 1)
         return TRUE;
 
-    if (sscanf (values[2], "%d", &precision) != 1)
+    if (sscanf (values[2], "%u", &precision) != 1)
         return TRUE;
 
     dialog->priv->defaults->counter_start = start;
@@ -735,7 +742,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     GtkAccelGroup *accel_group;
     GList *tmp;
 
-    in_dialog->priv = g_new (GnomeCmdAdvrenameDialogPrivate, 1);
+    in_dialog->priv = g_new0 (GnomeCmdAdvrenameDialogPrivate, 1);
 
     in_dialog->priv->entries = NULL;
     in_dialog->priv->sel_entry = NULL;
@@ -857,11 +864,10 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_widget_grab_focus (in_dialog->priv->pat_list);
     gtk_window_add_accel_group (GTK_WINDOW (dialog), accel_group);
 
-    tmp = in_dialog->priv->defaults->patterns;
-    while (tmp) {
+    for ( tmp = in_dialog->priv->defaults->patterns; tmp; tmp = tmp->next )   
+    {
         PatternEntry *entry = (PatternEntry*)tmp->data;
         add_pattern_entry (in_dialog, entry);
-        tmp = tmp->next;
     }
 
     gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event", GTK_SIGNAL_FUNC (on_dialog_keypress), dialog);
@@ -890,17 +896,16 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
 GtkWidget*
 gnome_cmd_advrename_dialog_new (GList *files)
 {
-    GList *tmp;
     GnomeCmdAdvrenameDialog *dialog = gtk_type_new (gnome_cmd_advrename_dialog_get_type ());
+    GList *tmp;
 
     dialog->priv->files = gnome_cmd_file_list_copy (files);
-    tmp = dialog->priv->files;
-
-    while (tmp) {
+    
+    for ( tmp = dialog->priv->files; tmp; tmp = tmp->next ) 
+    {
         GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
         if (strcmp (finfo->info->name, "..") != 0)
             add_rename_entry (dialog, finfo);
-        tmp = tmp->next;
     }
 
     do_test (dialog);

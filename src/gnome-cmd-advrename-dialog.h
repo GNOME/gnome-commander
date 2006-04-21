@@ -39,6 +39,7 @@ typedef struct
     gchar *from;
     gchar *to;
     gboolean case_sens;
+    gboolean malformed_pattern;
 } PatternEntry;
 
 
@@ -69,5 +70,3 @@ gnome_cmd_advrename_dialog_get_type (void);
 
 
 #endif //__GNOME_CMD_ADVRENAME_DIALOG_H__
-
-

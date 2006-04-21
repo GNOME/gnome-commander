@@ -9,6 +9,7 @@ Bug fixes:
  * Fixed problem #309877 (strange artifacts with horizontal scrolling)
  * Fixed problem #332258 (left/right start directory parameter)
  * Fixed problem #336649 (permission numbers presentation)
+ * Fixed problem with crashes when using broken or non-matching regex pattern in advrename
  
 New features:
  * Monitoring of mounted volumes

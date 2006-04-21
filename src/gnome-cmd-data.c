@@ -941,7 +941,7 @@ load_rename_history ()
     tmp_csens = csens = load_string_history ("/rename-history-csens/csens%d", size);
 
     while (tmp_from && size > 0) {
-        PatternEntry *entry = g_new (PatternEntry, 1);
+        PatternEntry *entry = g_new0 (PatternEntry, 1);
         entry->from = (gchar*)tmp_from->data;
         entry->to = (gchar*)tmp_to->data;
         entry->case_sens = ((gchar*)tmp_csens->data)[0] == 'T';

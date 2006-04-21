@@ -1,3 +1,10 @@
+2006-04-22  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-advrename-dialog.h:
+	* src/gnome-cmd-data.c:
+	Fixed crash if using broken or non-matching regex pattern in advrename.
+
 2006-04-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* libgcmd/libgcmd-utils.c:
@@ -8,7 +15,6 @@
 	* src/useractions.c:
 	* src/utils.c:
 	gcc warnings cleanup.
-
 
 2006-04-20  Piotr Eljasiak  <epiotr@use.pl>
 
