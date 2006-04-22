@@ -32,6 +32,7 @@ Requires:      gnome-vfs2 >= 2.0
 BuildRequires: gnome-vfs2-devel >= 2.0
 Requires:      libgnomeui >= 2.0
 BuildRequires: libgnomeui-devel >= 2.0
+BuildRequires: gnome-common >= 2.0
 BuildRequires: intltool
 BuildRequires: gnome-doc-utils >= 0.3.2
 
