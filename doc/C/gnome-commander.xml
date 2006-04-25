@@ -3,7 +3,7 @@
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.0">
-  <!ENTITY manrevision "1.0">
+  <!ENTITY manrevision "1.2.0">
   <!ENTITY date "April 2006">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
@@ -163,50 +163,54 @@
      the application is and what it does. -->
   <sect1 id="gnome-commander-introduction"> 
     <title>Introduction</title> 
-    <para>The &app; application enables you to view image files. 
+    <para>The &app; application is a fast and powerful graphical file manager for the Gnome desktop environment, 
+    it has a "two-pane" interface in the tradition of Norton and Midnight Commander. 
     &app; provides the following features:</para> 
-    <itemizedlist> 
-      <listitem> 
-		<para>Support for the following image file formats:</para> 
 		<itemizedlist> 
 	  		<listitem> 
-	    	<para>BMP - Windows Bitmap</para> 
+	    	<para>GTK-2 GUI with standard mouse interactions</para> 
 	  		</listitem> 
 	  		<listitem> 
-	    	<para>GIF - Graphics Interchange Format</para> 
+	    	<para>Gnome MIME types</para> 
 	  		</listitem> 
 	  		<listitem> 
-	    	<para>ICO - Windows Icon</para> 
+	    	<para>FTP using GnomeVFS ftp module</para> 
 	  		</listitem> 
 	  		<listitem> 
-	    	<para>JPEG - Joint Photographic Experts Group</para> 
+	    	<para>SAMBA access</para> 
 	  		</listitem> 
 	  		<listitem> 
-	    	<para>PNG - Portable Network Graphics </para> 
+	    	<para>Right click mouse menu</para> 
 	  		</listitem> 
 	  		<listitem> 
-	    	<para>PNM - Portable Anymap from the PPM Toolkit</para> 
+	    	<para>User defined context menu</para> 
 	  		</listitem> 
 	  		<listitem> 
-	    	<para>RAS - Sun Raster </para> 
+	    	<para>Quick device access buttons with automatic mounting and unmounting</para> 
 	  		</listitem> 
 	  		<listitem> 
-	    	<para>TIFF - Tagged Image File Format</para> 
+	    	<para>Latest accessed folder history</para> 
 	  		</listitem> 
 	  		<listitem> 
-	    	<para>XPM - X Pixmap</para> 
+	    	<para>Folder bookmarks</para> 
+	  		</listitem> 
+	  		<listitem> 
+	    	<para>Plugin support</para> 
+	  		</listitem> 
+	  		<listitem> 
+	    	<para>Fast file viewer for text, images and image meta data (Exif and IPTC)</para> 
+	  		</listitem> 
+	  		<listitem> 
+	    	<para>Tools for advanced renaming of files, searching, quick file name search in current dir, 
+            symlinking, comparing directories</para> 
+	  		</listitem> 
+	  		<listitem> 
+	    	<para>Integrated command line</para> 
+	  		</listitem> 
+	  		<listitem> 
+	    	<para>Support for over 30 languages.</para> 
 	  		</listitem> 
 		</itemizedlist> 
-      </listitem> 
-      <listitem> 
-	  <para>A variety of zoom levels and full screen viewing, with low usage
-	  of memory regardless of the zoom level. </para> 
-      </listitem> 
-      <listitem> 
-	  <para>Bonobo embedding technology that enables you to embed image views
-	  in other GNOME applications. </para> 
-      </listitem> 
-    </itemizedlist> 
     <note>
       <para>This is a note.</para>
     </note>
@@ -234,7 +238,7 @@
     		<listitem>
     		<para>Choose 
     		<menuchoice>
-    		<guisubmenu>Submenu Name </guisubmenu>
+    		<guisubmenu>Accessories</guisubmenu>
     		<guimenuitem>GNOME Commander</guimenuitem>
     		</menuchoice>. </para>
     		</listitem>
@@ -245,14 +249,8 @@
     		<para>To start <application>&app;</application> from a command line, type the following command, 
     		then press <keycap>Return</keycap>:</para>
     		<para> 
-			<command>gnome-commander</command> 
-			<replaceable>filename.jpg</replaceable>
+			<command>gnome-commander</command>
     		</para> 
-    		<para>where 
-			<replaceable>filename.jpg</replaceable> is the name of the file you
-			want to open.
-    		</para> 
-    		<para>&app; opens each file that you specify in a new window.</para> 
     		</listitem>
     	</varlistentry>
     </variablelist>
@@ -860,9 +858,12 @@
       manual, this is the place to put it. Alternatively, you can put this information in the title page.-->
   <sect1 id="gnome-commander-about"> 
     <title>About &app;</title> 
-    <para> &app; was written by GNOME-HACKER
-      (<email>hacker@gnome.org</email>). To find more information about
-      &app;, please visit the 
+    <para> &app; was primarily written by the former maintainer - Marcus Bjurman,
+    who where the one that initiaded this project publicly in 2001 and developed it up to version 1.1.6 in 2004. 
+    Currently &app; is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>) 
+    with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Micha (<email>codejodler@gmx.ch</email>).
+
+    To find more information about &app;, please visit the 
       <ulink url="http://www.nongnu.org/gcmd/" type="http">GNOME Commander homepage</ulink>. 
     </para>
     <para>
