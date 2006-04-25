@@ -48,23 +48,21 @@ extern GList *all_dirs;
 extern GHashTable *all_dirs_map;
 extern GList *all_files;
 
-static void
-my_gnome_init (int argc, char *argv[])
+
+static const GOptionEntry options [] =
 {
-    struct poptOption popt_table[] = {
-        {"debug", 'd', POPT_ARG_STRING, &debug_flags, 0, _("Specify debug flags to use"), NULL},
-        {"start-left-dir", 'l', POPT_ARG_STRING, &start_dir_left, 0, _("Specify the start directory for the left pane"), NULL},
-        {"start-right-dir", 'r', POPT_ARG_STRING, &start_dir_right, 0, _("Specify the start directory for the right pane"), NULL},
-        {NULL, 0, 0, NULL, 0, NULL, NULL}
-    };
-
-    gnome_init_with_popt_table ("gnome-commander", VERSION, argc, argv, popt_table, 0, NULL);
-}
-
+    {"debug", 'd', 0, G_OPTION_ARG_STRING, &debug_flags, N_("Specify debug flags to use"), NULL},
+    {"start-left-dir", 'l', 0, POPT_ARG_STRING, &start_dir_left, N_("Specify the start directory for the left pane"), NULL},
+    {"start-right-dir", 'r', 0, POPT_ARG_STRING, &start_dir_right, N_("Specify the start directory for the right pane"), NULL},
+	{NULL}
+};
+  
 
 int
 main (int argc, char *argv[])
 {
+    GnomeProgram *program;
+    GOptionContext *option_context;
     gchar *conf_dir;
 
     main_win = NULL;
@@ -88,8 +86,16 @@ main (int argc, char *argv[])
     locale_information = localeconv();
 #endif
 
+    option_context = g_option_context_new (PACKAGE);
+    g_option_context_add_main_entries (option_context, options, NULL);
+    program = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+                                  argc, argv,
+                                  GNOME_PARAM_GOPTION_CONTEXT, option_context,
+                                  GNOME_PARAM_HUMAN_READABLE_NAME, _("File Manager"),
+                                  GNOME_PARAM_APP_DATADIR, DATA_DIR,
+                                  GNOME_PARAM_NONE);
+
     ls_colors_init ();
-    my_gnome_init (argc, argv);
     gdk_rgb_init ();
     gnome_vfs_init ();
     conf_dir = g_build_path ("/", g_get_home_dir(), ".gnome-commander", NULL);
@@ -117,6 +123,8 @@ main (int argc, char *argv[])
     IMAGE_free ();
 
     remove_temp_download_dir ();
+
+    g_object_unref (program);
 
     DEBUG ('c', "dirs total: %d remaining: %d\n", created_dirs_cnt, created_dirs_cnt - deleted_dirs_cnt);
     DEBUG ('c', "files total: %d remaining: %d\n", created_files_cnt, created_files_cnt - deleted_files_cnt);
