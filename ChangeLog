@@ -1,3 +1,10 @@
+2006-04-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/main.c:
+	* src/gnome-cmd-advrename-dialog.h:
+	* configure.in:
+	Added missing gnome_program_init().
+
 2006-04-22  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.c:

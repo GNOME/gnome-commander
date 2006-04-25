@@ -210,6 +210,18 @@ GNOME_PREFIX_TMP=`pkg-config --variable=prefix libgnome-2.0`
 AC_DEFINE_UNQUOTED(GNOME_PREFIX, "$GNOME_PREFIX_TMP", "")
 
 		
+dnl Set DATA_DIR in config.h.
+if test "x${datadir}" = 'x${prefix}/share'; then
+  if test "x${prefix}" = "xNONE"; then
+    AC_DEFINE_UNQUOTED(DATA_DIR, "${ac_default_prefix}/share/${PACKAGE}", [Directory of data files])
+  else
+    AC_DEFINE_UNQUOTED(DATA_DIR, "${prefix}/share/${PACKAGE}", [Directory of data files])
+  fi
+else
+  AC_DEFINE_UNQUOTED(DATA_DIR, "${datadir}/${PACKAGE}", [Directory of data files])
+fi
+
+
 dnl Set HELP_DIR in config.h.
 AC_DEFINE_UNQUOTED(HELP_DIR, "${PREFIX}/share/gnome/help/${PACKAGE}", "")
 	
