@@ -49,13 +49,21 @@ extern GHashTable *all_dirs_map;
 extern GList *all_files;
 
 
-static const GOptionEntry options [] =
-{
-    {"debug", 'd', 0, G_OPTION_ARG_STRING, &debug_flags, N_("Specify debug flags to use"), NULL},
-    {"start-left-dir", 'l', 0, G_OPTION_ARG_STRING, &start_dir_left, N_("Specify the start directory for the left pane"), NULL},
-    {"start-right-dir", 'r', 0, G_OPTION_ARG_STRING, &start_dir_right, N_("Specify the start directory for the right pane"), NULL},
-	{NULL}
-};
+struct poptOption popt_options[] = {                                          
+    {"debug", 'd', POPT_ARG_STRING, &debug_flags, 0, N_("Specify debug flags to use"), NULL},
+    {"start-left-dir", 'l', POPT_ARG_STRING, &start_dir_left, 0, N_("Specify the start directory for the left pane"), NULL},
+    {"start-right-dir", 'r', POPT_ARG_STRING, &start_dir_right, 0, N_("Specify the start directory for the right pane"), NULL},
+    {NULL, 0, 0, NULL, 0, NULL, NULL}                                       
+};                                                                          
+
+
+// static const GOptionEntry options [] =
+// {
+//     {"debug", 'd', 0, G_OPTION_ARG_STRING, &debug_flags, N_("Specify debug flags to use"), NULL},
+//     {"start-left-dir", 'l', 0, G_OPTION_ARG_STRING, &start_dir_left, N_("Specify the start directory for the left pane"), NULL},
+//     {"start-right-dir", 'r', 0, G_OPTION_ARG_STRING, &start_dir_right, N_("Specify the start directory for the right pane"), NULL},
+//     {NULL}
+// };
   
 
 int
@@ -90,7 +98,8 @@ main (int argc, char *argv[])
     g_option_context_add_main_entries (option_context, options, NULL);
     program = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
                                   argc, argv,
-                                  GNOME_PARAM_GOPTION_CONTEXT, option_context,
+                                  // GNOME_PARAM_GOPTION_CONTEXT, option_context,
+                                  GNOME_PARAM_POPT_TABLE, popt_options,
                                   GNOME_PARAM_HUMAN_READABLE_NAME, _("File Manager"),
                                   GNOME_PARAM_APP_DATADIR, DATA_DIR,
                                   GNOME_PARAM_NONE);
