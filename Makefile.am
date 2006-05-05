@@ -11,7 +11,7 @@ EXTRA_DIST =                    \
 	intltool-*.in           \
 	xmldocs.make 	        \
 	omf.make                \
-	m4                      \
+	m4/*.m4                 \
 	gnome-doc-utils.make
 
 DISTCLEANFILES =                \
