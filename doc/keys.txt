@@ -1,4 +1,4 @@
-Keyboard mapping for GNOME Commander v1.1
+Keyboard mapping for GNOME Commander v1.2
 -----------------------------------------
 
 F1	        Help

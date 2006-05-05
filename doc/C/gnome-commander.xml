@@ -266,7 +266,7 @@
 	<screenshot> 
 	  <mediaobject> 
 	    <imageobject><imagedata
-		fileref="figures/gnome-commander_start_window.png" format="PNG"/> 
+		fileref="figures/gnome-commander_window.png" format="PNG"/> 
 	    </imageobject>
 	    <!-- EPS versions of the figures are not required at the moment. -->
             <!-- 
@@ -845,11 +845,81 @@
 	  program if there are any - please be frank and list all
      problems you know of. 
   
-  <sect1 id="mayapp-bugs">
+  <sect1 id="gnome-commander-bugs">
   <title>Known Bugs and Limitations</title>
   <para> </para>
  </sect1>
 -->
+<!-- ============= Keyboard shortcuts ===================== -->
+<!-- This section contains info about the keyboard mappings.-->
+  <sect1 id="gnome-commander-keyboard"> 
+    <title>Keyboard mapping for &app;</title> 
+		<informaltable frame="topbot"> 
+		<tgroup cols="2"> 
+			<colspec colname="col1"/> 
+			<colspec colname="col2"/> 
+		<thead> 
+		<row valign="top">
+			<entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
+			<entry colname="col2" valign="top"><para>Mapping</para></entry> 
+		</row> 
+		</thead>
+		<tbody> 
+		<row valign="top"> 
+			<entry><para>F1</para></entry> 
+			<entry><para>Help</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>F2</para></entry> 
+			<entry><para>Refresh files in the active file list</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>F3</para></entry> 
+			<entry><para>View files</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>F4</para></entry> 
+			<entry><para>Edit files</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>F5</para></entry> 
+			<entry><para>Copy files</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>F6</para></entry> 
+			<entry><para>Rename or move files</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>F7</para></entry> 
+			<entry><para>Create directory</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>F8</para></entry> 
+			<entry><para>Delete files</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>F9</para></entry> 
+			<entry><para>Search</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>F10</para></entry> 
+			<entry><para>Quit</para></entry> 
+		</row> 
+		<row valign="top"> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>ALT+1</para></entry> 
+			<entry><para>Change left connection</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>ALT+2</para></entry> 
+			<entry><para>Change right connection</para></entry> 
+		</row> 
+		</tbody> 
+		</tgroup>
+		</informaltable> 
+
+  </sect1> 
 <!-- ============= About ================================== -->
 <!-- This section contains info about the program (not docs), such as
       author's name(s), web page, license, feedback address. This
