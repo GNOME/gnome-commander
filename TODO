@@ -15,6 +15,7 @@
 * advrename & FAM: do not re-sort file list for every single renamed file
 * Bookmark icons for ordinary folders in the device toolbar
 * User defined categories for grouping bookmarks
+* Support for SSH+FTP and WebDAV
 * Python plugins 
 * More plugins:
     - creating tarballs from selected files
@@ -68,7 +69,6 @@
 
 // Documentation
 
-* Documentation framework
 * Help button for every dialog
 * Plugin API (when ready)
 
