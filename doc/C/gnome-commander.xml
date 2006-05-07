@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.2.0">
-  <!ENTITY manrevision "1.2.0">
-  <!ENTITY date "April 2006">
+  <!ENTITY appversion "1.2.1">
+  <!ENTITY manrevision "1.2.1">
+  <!ENTITY date "May 2006">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file. 
@@ -13,18 +13,6 @@
        Use the date entity to specify the release date of this manual.
        Use the app entity to specify the name of the application. -->
 ]>
-<!-- 
-  This is a GNOME documentation template, designed by the GNOME
-  Documentation Project Team. Please use it for writing GNOME
-  documentation, making obvious changes. In particular, all the words
-  written in UPPERCASE (with the exception of GNOME) should be
-  replaced. As for "legalnotice", please leave the reference
-  unchanged.
-
-  Remember that this is a guide, rather than a perfect model to follow
-  slavishly. Make your manual logical and readable.  And don't forget
-  to remove these comments in your final documentation!  ;-)
--->
 <!-- 
       (Do not remove this comment block.)
   Maintained by the GNOME Documentation Project
