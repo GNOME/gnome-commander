@@ -1456,3 +1456,31 @@ gboolean patlist_matches (GList *pattern_list, const gchar *s)
 
     return FALSE;
 }
+
+
+void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id)
+{
+    GError *error = NULL;
+
+    gnome_help_display (file_name, link_id, &error);
+
+    if (error != NULL)
+    {
+        GtkWidget *dialog;
+
+        dialog = gtk_message_dialog_new (NULL,
+                         GTK_DIALOG_DESTROY_WITH_PARENT,
+                         GTK_MESSAGE_ERROR,
+                         GTK_BUTTONS_CLOSE, 
+                         _("There was an error displaying help."));
+
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), error->message);
+                              
+        g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (gtk_widget_destroy), NULL);
+
+        gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+        gtk_widget_show (dialog);
+
+        g_error_free (error);
+    }
+}

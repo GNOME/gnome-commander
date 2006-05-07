@@ -1,7 +1,15 @@
+2006-05-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	* src/useractions.{c,h}:
+	* src/utils.{c,h}:
+	Added 'Keyboard Shortcuts' to 'Help' menu.
+
 
 ##############################################################################
 #                                   1.2.0                                    #
 ##############################################################################
+
 2006-05-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* Makefile.am:

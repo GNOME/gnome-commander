@@ -295,6 +295,10 @@ help_help                           (GtkMenuItem     *menuitem,
                                      gpointer        not_used);
 
 void
+help_keyboard                       (GtkMenuItem     *menuitem,
+                                     gpointer        not_used);
+
+void
 help_about                          (GtkMenuItem     *menuitem,
                                      gpointer        not_used);
 

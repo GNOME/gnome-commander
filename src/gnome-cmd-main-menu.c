@@ -730,6 +730,12 @@ init (GnomeCmdMainMenu *main_menu)
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_HELP,
             NULL
         },
+        {
+            MENU_TYPE_ITEM, _("_Keyboard Shortcuts"), "", NULL,
+            help_help, NULL,
+            GNOME_APP_PIXMAP_NONE, 0,
+            NULL
+        },
         MENUTYPE_SEPARATOR,
         {
             MENU_TYPE_ITEM, _("_About"), "", NULL,
