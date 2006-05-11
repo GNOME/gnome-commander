@@ -1,3 +1,7 @@
+2006-05-11  Alberto Bertoncini  <bertux66@libero.it>
+
+	* configure.in: Added Italain (it) to ALL_LINGUAS.
+
 2006-05-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.c:
