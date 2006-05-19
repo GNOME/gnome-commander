@@ -35,6 +35,13 @@ BuildRequires: libgnomeui-devel >= 2.0
 BuildRequires: intltool
 BuildRequires: gnome-doc-utils >= 0.3.2
 
+BuildRequires: gnome-doc-utils >= 0.3.2
+Requires(post): desktop-file-utils
+Requires(postun): desktop-file-utils
+
+Requires(post): scrollkeeper
+Requires(postun): scrollkeeper
+
 Distribution:  Any
 
 %description
@@ -50,7 +57,7 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 %setup -q
 
 %build
-%configure 
+%configure --disable-scrollkeeper
 %{__make} %{?_smp_mflags}
 
 %install
@@ -58,6 +65,33 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 %makeinstall
 
 %find_lang %{name}
+
+%post
+#scrollkeeper
+scrollkeeper-update -q -o %{_datadir}/omf/%{name} || :
+
+#install the desktop file in menus
+update-desktop-database &> /dev/null ||:
+
+#update icon cache
+touch --no-create %{_datadir}/icons/hicolor || :
+if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+fi
+
+%postun
+#scrollkeeper
+scrollkeeper-update -q || :
+
+#uninstall the desktop file in menus
+update-desktop-database &> /dev/null ||:
+
+#update icon cache
+touch --no-create %{_datadir}/icons/hicolor || :
+if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+fi
+
     
 %clean
 %{__rm} -rf %{buildroot}
@@ -75,6 +109,13 @@ GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kun
 %{_datadir}/pixmaps
 
 %changelog
+* Sun May 14 2006 Stephanos Manos <stefmanos@gmail.com>
+- Fixed Scrollkeeper database update
+	-disabled scrollkeeper update from make
+	-added scrollkeeper-database-update in the %post & %postun section
+- Added %post & %postun entries for the desktop file
+- Added %post & %postun entries for the gtk+ icon cache file
+
 * Sun Apr 9 2006 Piotr Eljasiak <epiotr@use.pl>
 - minor cleanups
 

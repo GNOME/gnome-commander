@@ -1,3 +1,7 @@
+2006-05-19  Stephanos Manos <stefmanos@gmail.com>
+
+	* data/gnome-commander.spec.in: Fix scrollkeeper database update problem.
+
 2006-05-11  Alberto Bertoncini  <bertux66@libero.it>
 
 	* configure.in: Added Italain (it) to ALL_LINGUAS.
