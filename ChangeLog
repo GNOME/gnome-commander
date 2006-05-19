@@ -2,7 +2,7 @@
 
 	* configure.in: Added Italain (it) to ALL_LINGUAS.
 
-2006-05-05  Piotr Eljasiak  <epiotr@use.pl>
+2006-05-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.c:
 	* src/useractions.{c,h}:
