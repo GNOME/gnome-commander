@@ -197,10 +197,10 @@ destroy (GtkObject *object)
     gtk_signal_disconnect_by_func (
         GTK_OBJECT (main_win), GTK_SIGNAL_FUNC (on_switch_fs), object);
     gtk_signal_disconnect_by_func (
-        GTK_OBJECT (gnome_cmd_main_win_get_left_fs (main_win)),
+        GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, LEFT)),
         GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
     gtk_signal_disconnect_by_func (
-        GTK_OBJECT (gnome_cmd_main_win_get_right_fs (main_win)),
+        GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, RIGHT)),
         GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
@@ -278,9 +278,9 @@ init (GnomeCmdCmdline *cmdline)
                         GTK_SIGNAL_FUNC (on_combo_popwin_hidden), cmdline);
     gtk_signal_connect_after (GTK_OBJECT (main_win), "switch-fs",
                         GTK_SIGNAL_FUNC (on_switch_fs), cmdline);
-    gtk_signal_connect (GTK_OBJECT (gnome_cmd_main_win_get_left_fs (main_win)),
+    gtk_signal_connect (GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, LEFT)),
                         "changed-dir", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
-    gtk_signal_connect (GTK_OBJECT (gnome_cmd_main_win_get_right_fs (main_win)),
+    gtk_signal_connect (GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, RIGHT)),
                         "changed-dir", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
 
     gnome_cmd_cmdline_update_style (cmdline);

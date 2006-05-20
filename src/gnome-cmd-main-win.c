@@ -541,13 +541,13 @@ on_main_win_realize                    (GtkWidget       *widget,
     gdk_window_get_geometry (widget->window, NULL, NULL, &w, NULL, NULL);
     gtk_paned_set_position (GTK_PANED (mw->priv->paned), w/2 - 5);
 
-    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_left_fs (mw), TRUE);
-    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_right_fs (mw), FALSE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, LEFT), TRUE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, RIGHT), FALSE);
 /*
     if (gnome_cmd_data_get_cmdline_visibility ()) {
         gchar *dpath = gnome_cmd_file_get_path (
                 GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (
-                                    gnome_cmd_main_win_get_left_fs (mw))));
+                                    gnome_cmd_main_win_get_fs (mw, LEFT))));
         gnome_cmd_cmdline_set_dir (
             GNOME_CMD_CMDLINE (mw->priv->cmdline), dpath);
         g_free (dpath);
@@ -742,13 +742,13 @@ destroy (GtkObject *object)
 	main_win->priv->key_snooper_id = 0 ;
     }
 	
-    dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_left_fs (main_win));
+    dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, LEFT));
     if (con_home == gnome_cmd_dir_get_connection (dir))
-        gnome_cmd_data_set_start_dir (0, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
+        gnome_cmd_data_set_start_dir (LEFT, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
 
-    dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_right_fs (main_win));
+    dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, RIGHT));
     if (con_home == gnome_cmd_dir_get_connection (dir))
-        gnome_cmd_data_set_start_dir (1, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
+        gnome_cmd_data_set_start_dir (RIGHT, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
 
     gtk_main_quit ();
 }
@@ -885,19 +885,19 @@ init (GnomeCmdMainWin *mw)
         GTK_OBJECT (mw->priv->paned),
         "button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
 
-    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_left_fs (mw));
-    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_right_fs (mw));
+    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, LEFT));
+    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, RIGHT));
 
     gnome_cmd_file_selector_set_connection (
-        gnome_cmd_main_win_get_left_fs (mw),
+        gnome_cmd_main_win_get_fs (mw, LEFT),
         gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()), NULL);
     gnome_cmd_file_selector_set_connection (
-        gnome_cmd_main_win_get_right_fs (mw),
+        gnome_cmd_main_win_get_fs (mw, RIGHT),
         gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()), NULL);
 
-    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_left_fs (mw),
+    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (mw, LEFT),
                                             start_dir_left ? start_dir_left : gnome_cmd_data_get_start_dir (LEFT));
-    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_right_fs (mw),
+    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (mw, RIGHT),
                                             start_dir_right ? start_dir_right : gnome_cmd_data_get_start_dir (RIGHT));
 
     gtk_window_add_accel_group (GTK_WINDOW (main_win), mw->priv->accel_group);
@@ -967,26 +967,14 @@ gnome_cmd_main_win_get_inactive_fs         (GnomeCmdMainWin *mw)
 
 
 GnomeCmdFileSelector*
-gnome_cmd_main_win_get_left_fs         (GnomeCmdMainWin *mw)
+gnome_cmd_main_win_get_fs                (GnomeCmdMainWin *mw, FileSelectorID fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
 
-    if (!mw->priv->file_selector[LEFT])
+    if (!mw->priv->file_selector[fs])
         return NULL;
 
-    return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT]);
-}
-
-
-GnomeCmdFileSelector*
-gnome_cmd_main_win_get_right_fs         (GnomeCmdMainWin *mw)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
-
-    if (!mw->priv->file_selector[RIGHT])
-        return NULL;
-
-    return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT]);
+    return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[fs]);
 }
 
 
@@ -998,8 +986,8 @@ gnome_cmd_main_win_update_style          (GnomeCmdMainWin *mw)
 
     IMAGE_clear_mime_cache ();
 
-    gnome_cmd_file_selector_update_style (gnome_cmd_main_win_get_left_fs (mw));
-    gnome_cmd_file_selector_update_style (gnome_cmd_main_win_get_right_fs (mw));
+    gnome_cmd_file_selector_update_style (gnome_cmd_main_win_get_fs (mw, LEFT));
+    gnome_cmd_file_selector_update_style (gnome_cmd_main_win_get_fs (mw, RIGHT));
 
     if (gnome_cmd_data_get_cmdline_visibility ())
         gnome_cmd_cmdline_update_style (GNOME_CMD_CMDLINE (mw->priv->cmdline));
@@ -1044,7 +1032,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
         {
             case GDK_1:
                 {
-                    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_left_fs (mw);
+                    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, LEFT);
                     gnome_cmd_main_win_switch_fs (mw, fs);
                     gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
                 }
@@ -1052,7 +1040,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
 
             case GDK_2:
                 {
-                    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_right_fs (mw);
+                    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, RIGHT);
                     gnome_cmd_main_win_switch_fs (mw, fs);
                     gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
                 }
@@ -1099,14 +1087,14 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
             case GDK_u:
             case GDK_U:
                 {
-                    GnomeCmdDir *dir1 = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_left_fs (mw));
-                    GnomeCmdDir *dir2 = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_right_fs (mw));
+                    GnomeCmdDir *dir1 = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (mw, LEFT));
+                    GnomeCmdDir *dir2 = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (mw, RIGHT));
 
                     gnome_cmd_dir_ref (dir1);
                     gnome_cmd_dir_ref (dir2);
 
-                    gnome_cmd_file_selector_set_directory (gnome_cmd_main_win_get_left_fs (mw), dir2);
-                    gnome_cmd_file_selector_set_directory (gnome_cmd_main_win_get_right_fs (mw), dir1);
+                    gnome_cmd_file_selector_set_directory (gnome_cmd_main_win_get_fs (mw, LEFT), dir2);
+                    gnome_cmd_file_selector_set_directory (gnome_cmd_main_win_get_fs (mw, RIGHT), dir1);
 
                     gnome_cmd_dir_unref (dir1);
                     gnome_cmd_dir_unref (dir2);
@@ -1455,8 +1443,8 @@ gnome_cmd_main_win_update_connections (GnomeCmdMainWin *mw)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
-    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_left_fs (mw));
-    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_right_fs (mw));
+    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, LEFT));
+    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, RIGHT));
     gnome_cmd_main_menu_update_connections (GNOME_CMD_MAIN_MENU (mw->priv->menubar));
 }
 

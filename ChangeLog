@@ -1,3 +1,12 @@
+2006-05-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-cmdline.c:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-main-win.h:
+	Replaced gnome_cmd_main_win_get_left_fs() and gnome_cmd_main_win_get_right_fs()
+	with gnome_cmd_main_win_get_fs()
+
 2006-05-19  Stephanos Manos <stefmanos@gmail.com>
 
 	* data/gnome-commander.spec.in: Fix scrollkeeper database update problem.
