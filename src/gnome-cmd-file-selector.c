@@ -87,11 +87,9 @@ static guint file_selector_signals[LAST_SIGNAL] = { 0 };
 static void
 set_same_directory (GnomeCmdFileSelector *fs, GnomeCmdFileSelector *other)
 {
-    GnomeCmdCon *con;
-    GnomeCmdDir *dir;
+    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (other);
+    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (other);
 
-    con = gnome_cmd_file_selector_get_connection (other);
-    dir = gnome_cmd_file_selector_get_directory (other);
     if (fs->priv->con != con)
         gnome_cmd_file_selector_set_connection (fs, con, dir);
     else
@@ -159,27 +157,23 @@ update_selected_files_label (GnomeCmdFileSelector *fs)
         gint num_files = 0;
         gint num_sel_files = 0;
 
-        tmp = all_files;
-        while (tmp)
+        for ( tmp = all_files; tmp; tmp = tmp->next )
         {
             GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
             if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR) {
                 total_bytes += finfo->info->size;
                 num_files++;
             }
-            tmp = tmp->next;
         }
 
         sel_files = gnome_cmd_file_list_get_marked_files (fs->list);
-        tmp = sel_files;
-        while (tmp)
+        for ( tmp = sel_files; tmp; tmp = tmp->next )
         {
             GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
             if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR) {
                 sel_bytes += finfo->info->size;
                 num_sel_files++;
             }
-            tmp = tmp->next;
         }
 
         sel_kb = sel_bytes / 1024;
@@ -317,21 +311,13 @@ update_files (GnomeCmdFileSelector *fs)
 //    if (gnome_cmd_con_open_is_needed (fs->priv->con))
 //        gnome_cmd_con_open (fs->priv->con);
 
-    gnome_cmd_dir_get_files (dir, &list);
-
-//    if (!list) {
-//        create_error_dialog (_("Failed to load directory"));
-//        return;
-//    }
-
     /* sort out the files to show */
-    while (list != NULL) {
+    for (gnome_cmd_dir_get_files (dir, &list); list; list = list->next)
+    {
         GnomeCmdFile *finfo = GNOME_CMD_FILE (list->data);
 
         if (file_is_wanted (fs, finfo->info))
             list2 = g_list_append (list2, finfo);
-
-        list = list->next;
     }
 
     /* Create a parent dir file (..) if appropriate */
@@ -375,8 +361,7 @@ gnome_cmd_file_list_show_make_copy_dialog (GnomeCmdFileSelector *fs)
 
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    finfo = gnome_cmd_file_list_get_selected_file (
-        GNOME_CMD_FILE_LIST (fs->list));
+    finfo = gnome_cmd_file_list_get_selected_file (GNOME_CMD_FILE_LIST (fs->list));
 
     if (GNOME_CMD_IS_FILE (finfo)) {
         GtkWidget *dialog = gnome_cmd_make_copy_dialog_new (finfo, fs->priv->cwd);
@@ -417,16 +402,13 @@ drag_data_received (GtkWidget          *widget,
                     guint32             time,
                     GnomeCmdFileSelector *fs)
 {
+    GtkCList *clist = GTK_CLIST (fs->list);
     GnomeCmdFile *finfo;
-    GtkCList *clist;
     GnomeCmdDir *to, *cwd;
     GList *uri_list = NULL;
     gchar *to_fn = NULL;
     int row;
     GnomeVFSXferOptions xferOptions;
-
-    clist = GTK_CLIST (fs->list);
-
 
     /* Find out what operation to perform
      *
@@ -732,8 +714,7 @@ update_vol_label (GnomeCmdFileSelector *fs)
 
 
 static void
-goto_directory (GnomeCmdFileSelector *fs,
-                const gchar *in_dir)
+goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
 {
     GnomeCmdDir *cur_dir, *new_dir = NULL;
     const gchar *focus_dir = NULL;
@@ -818,12 +799,8 @@ add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
     finfo = gnome_cmd_file_list_get_selected_file (fs->list);
 
     if (finfo && gnome_cmd_data_get_cmdline_visibility ()) {
-        gchar *text;
-
-        if (fullpath)
-            text = gnome_cmd_file_get_quoted_real_path (finfo);
-        else
-            text = gnome_cmd_file_get_quoted_name (finfo);
+        gchar *text = fullpath ? gnome_cmd_file_get_quoted_real_path (finfo) :
+                                 gnome_cmd_file_get_quoted_name (finfo);
 
         gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), text);
         gnome_cmd_cmdline_focus (gnome_cmd_main_win_get_cmdline (main_win));
@@ -1086,15 +1063,12 @@ on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
 
     if (fs->priv->connected_dir != dir) {
         if (fs->priv->connected_dir != NULL) {
-            gtk_signal_disconnect_by_func (
-                GTK_OBJECT (fs->priv->connected_dir),
-                GTK_SIGNAL_FUNC (on_dir_file_created), fs);
-            gtk_signal_disconnect_by_func (
-                GTK_OBJECT (fs->priv->connected_dir),
-                GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
-            gtk_signal_disconnect_by_func (
-                GTK_OBJECT (fs->priv->connected_dir),
-                GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
+            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->priv->connected_dir),
+                                           GTK_SIGNAL_FUNC (on_dir_file_created), fs);
+            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->priv->connected_dir),
+                                           GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
+            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->priv->connected_dir),
+                                           GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
         }
 
         gtk_signal_connect (GTK_OBJECT (dir), "file-created", GTK_SIGNAL_FUNC (on_dir_file_created), fs);
@@ -1113,8 +1087,7 @@ on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
         update_dir_combo (fs);
     }
 
-    gtk_signal_emit (GTK_OBJECT (fs),
-                     file_selector_signals[CHANGED_DIR], dir);
+    gtk_signal_emit (GTK_OBJECT (fs), file_selector_signals[CHANGED_DIR], dir);
 
     update_direntry (fs);
     update_vol_label (fs);
@@ -1143,10 +1116,7 @@ static gboolean
 set_home_connection (GnomeCmdFileSelector *fs)
 {
     g_printerr ("Setting home connection\n");
-    gnome_cmd_file_selector_set_connection (
-        fs,
-        gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()),
-        NULL);
+    gnome_cmd_file_selector_set_connection (fs, gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()), NULL);
 
     return FALSE;
 }
@@ -1158,8 +1128,7 @@ on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileSelecto
     DEBUG('l', "on_dir_list_failed\n");
 
     if (result != GNOME_VFS_OK) {
-        gchar *msg = g_strdup_printf (
-            "List failed: %s\n", gnome_vfs_result_to_string (result));
+        gchar *msg = g_strdup_printf (_("List failed: %s\n"), gnome_vfs_result_to_string (result));
         create_error_dialog (msg);
         g_free (msg);
     }
@@ -1228,10 +1197,8 @@ on_list_key_pressed_private              (GtkCList *clist,
             else {
                 text[0] = event->keyval;
                 text[1] = '\0';
-                gnome_cmd_cmdline_append_text (
-                    gnome_cmd_main_win_get_cmdline (main_win), text);
-                gnome_cmd_cmdline_focus (
-                    gnome_cmd_main_win_get_cmdline (main_win));
+                gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), text);
+                gnome_cmd_cmdline_focus (gnome_cmd_main_win_get_cmdline (main_win));
             }
             return TRUE;
         }
@@ -1279,11 +1246,9 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdFileSelectorClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);;
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
     parent_class = gtk_type_class (gtk_vbox_get_type ());
 
     file_selector_signals[CHANGED_DIR] =
@@ -1346,10 +1311,8 @@ init (GnomeCmdFileSelector *fs)
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 20);
     gtk_entry_set_editable (GTK_ENTRY (GNOME_CMD_COMBO (fs->con_combo)->entry), FALSE);
-    gtk_clist_set_column_width (
-        GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 0, 20);
-    gtk_clist_set_column_width (
-        GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 1, 60);
+    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 0, 20);
+    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 1, 60);
     GTK_WIDGET_UNSET_FLAGS (GNOME_CMD_COMBO (fs->con_combo)->button, GTK_CAN_FOCUS);
 
     /* Create the free space on volume label */
@@ -1452,9 +1415,6 @@ init (GnomeCmdFileSelector *fs)
 
 
 
-
-
-
 /***********************************
  * Public functions
  ***********************************/
@@ -1488,9 +1448,7 @@ gnome_cmd_file_selector_get_type         (void)
 GtkWidget *
 gnome_cmd_file_selector_new              (void)
 {
-    GnomeCmdFileSelector *fs;
-
-    fs = gtk_type_new (gnome_cmd_file_selector_get_type ());
+    GnomeCmdFileSelector *fs = gtk_type_new (gnome_cmd_file_selector_get_type ());
 
     return GTK_WIDGET (fs);
 }
@@ -1517,8 +1475,7 @@ gnome_cmd_file_selector_reload           (GnomeCmdFileSelector *fs)
     dir = gnome_cmd_file_selector_get_directory (fs);
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    gnome_cmd_dir_relist_files (
-        dir, gnome_cmd_con_needs_list_visprog (fs->priv->con));
+    gnome_cmd_dir_relist_files (dir, gnome_cmd_con_needs_list_visprog (fs->priv->con));
 }
 
 
@@ -1658,13 +1615,10 @@ gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *di
         set_cursor_busy_for_widget (GTK_WIDGET (fs));
     }
 
-    gtk_signal_connect (GTK_OBJECT (dir), "list-ok",
-                        GTK_SIGNAL_FUNC (on_dir_list_ok), fs);
-    gtk_signal_connect (GTK_OBJECT (dir), "list-failed",
-                        GTK_SIGNAL_FUNC (on_dir_list_failed), fs);
+    gtk_signal_connect (GTK_OBJECT (dir), "list-ok", GTK_SIGNAL_FUNC (on_dir_list_ok), fs);
+    gtk_signal_connect (GTK_OBJECT (dir), "list-failed", GTK_SIGNAL_FUNC (on_dir_list_failed), fs);
 
-    gnome_cmd_dir_list_files (
-        dir, gnome_cmd_con_needs_list_visprog (fs->priv->con));
+    gnome_cmd_dir_list_files (dir, gnome_cmd_con_needs_list_visprog (fs->priv->con));
     gnome_cmd_dir_start_monitoring (dir);
 }
 
@@ -1693,8 +1647,7 @@ gnome_cmd_file_selector_set_active       (GnomeCmdFileSelector *fs,
      else
         gtk_clist_unselect_all (GTK_CLIST (fs->list));
 
-    gnome_cmd_dir_indicator_set_active (
-        GNOME_CMD_DIR_INDICATOR (fs->dir_indicator), value);
+    gnome_cmd_dir_indicator_set_active (GNOME_CMD_DIR_INDICATOR (fs->dir_indicator), value);
 }
 
 
@@ -1947,8 +1900,8 @@ gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
 void
 gnome_cmd_file_selector_show_mkdir_dialog (GnomeCmdFileSelector *fs)
 {
-    GtkWidget *dialog;
     GnomeCmdDir *dir;
+    GtkWidget *dialog;
 
     dir = gnome_cmd_file_selector_get_directory (fs);
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
@@ -1974,8 +1927,7 @@ on_new_textfile_ok (GnomeCmdStringDialog *string_dialog,
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
 
     if (!filename) {
-        gnome_cmd_string_dialog_set_error_desc (
-            string_dialog, g_strdup (_("No filename entered")));
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No filename entered")));
         return FALSE;
     }
 
@@ -2010,8 +1962,7 @@ on_create_symlink_ok (GnomeCmdStringDialog *string_dialog,
 
     /* dont create any symlink if no name was passed or cancel was selected */
     if (name == NULL || strcmp (name, "") == 0) {
-        gnome_cmd_string_dialog_set_error_desc (
-            string_dialog, g_strdup (_("No filename given")));
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No filename given")));
         return FALSE;
     }
 
@@ -2030,8 +1981,7 @@ on_create_symlink_ok (GnomeCmdStringDialog *string_dialog,
 
     gnome_vfs_uri_unref (uri);
 
-    gnome_cmd_string_dialog_set_error_desc (
-        string_dialog, g_strdup (gnome_vfs_result_to_string (result)));
+    gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (gnome_vfs_result_to_string (result)));
 
     return FALSE;
 }
@@ -2110,8 +2060,7 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
         switch (event->keyval)
         {
             case GDK_Down:
-                gnome_cmd_dir_indicator_show_history (
-                    GNOME_CMD_DIR_INDICATOR (fs->dir_indicator));
+                gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (fs->dir_indicator));
                 return TRUE;
 
             case GDK_Left:
@@ -2303,12 +2252,9 @@ gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c)
     fs->priv->filter_box = create_hbox (parent, FALSE, 0);
     label = create_label (parent, _("Filter:"));
     entry = create_entry (parent, "entry", "");
-    close_btn = create_button_with_data (
-        GTK_WIDGET (main_win), "x",
-        GTK_SIGNAL_FUNC (on_filter_box_close), fs);
+    close_btn = create_button_with_data (GTK_WIDGET (main_win), "x", GTK_SIGNAL_FUNC (on_filter_box_close), fs);
 
-    gtk_signal_connect (GTK_OBJECT (entry), "key-press-event",
-            GTK_SIGNAL_FUNC (on_filter_box_keypressed), fs);
+    gtk_signal_connect (GTK_OBJECT (entry), "key-press-event", GTK_SIGNAL_FUNC (on_filter_box_keypressed), fs);
     gtk_box_pack_start (GTK_BOX (fs->priv->filter_box), label, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (fs->priv->filter_box), entry, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (fs->priv->filter_box), close_btn, FALSE, TRUE, 0);
