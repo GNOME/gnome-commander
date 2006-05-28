@@ -79,3 +79,4 @@ Discussed stuff (not assigned to a version yet)
 
 * Toolbar configuration - OO.org like
 * Light version of gc (based on gtk+ only - not depending on GNOME)
+* Even lighter version of gc (statically linked, based on FLTK http://fltk.org/)
