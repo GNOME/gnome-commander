@@ -4,6 +4,7 @@ gnome-commander 1.2.1
 
 Bug fixes:
  * Fixed problem with scrollkeeper database update
+ * Fix for crash when cmd dir indicator is empty
  
 New features:
  * New or updated translations: es, it, vi

@@ -434,31 +434,11 @@ popup_bookmarks (GnomeCmdDirIndicator *indicator)
             bm);
     }
 
-    add_menu_item (
-        indicator,
-        GTK_MENU_SHELL (indicator->priv->bookmark_popup),
-        NULL,
-        NULL,
-        indicator);
+    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), NULL, NULL, indicator);
+    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Add current dir"), GTK_SIGNAL_FUNC (on_bookmarks_add_current), indicator);
+    add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Manage bookmarks..."), GTK_SIGNAL_FUNC (on_bookmarks_manage), indicator);
 
-    add_menu_item (
-        indicator,
-        GTK_MENU_SHELL (indicator->priv->bookmark_popup),
-        _("Add current dir"),
-        GTK_SIGNAL_FUNC (on_bookmarks_add_current),
-        indicator);
-
-    add_menu_item (
-        indicator,
-        GTK_MENU_SHELL (indicator->priv->bookmark_popup),
-        _("Manage bookmarks..."),
-        GTK_SIGNAL_FUNC (on_bookmarks_manage),
-        indicator);
-
-    gnome_popup_menu_do_popup (
-        indicator->priv->bookmark_popup,
-        (GtkMenuPositionFunc)get_popup_pos, indicator,
-        NULL, NULL, NULL);
+    gnome_popup_menu_do_popup (indicator->priv->bookmark_popup, (GtkMenuPositionFunc)get_popup_pos, indicator, NULL, NULL, NULL);
 
     if (GTK_WIDGET (indicator)->allocation.width > 100)
         w = GTK_WIDGET (indicator)->allocation.width;
@@ -561,9 +541,7 @@ gnome_cmd_dir_indicator_get_type    (void)
 GtkWidget *
 gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
-    GnomeCmdDirIndicator *dir_indicator;
-
-    dir_indicator = gtk_type_new (gnome_cmd_dir_indicator_get_type ());
+    GnomeCmdDirIndicator *dir_indicator = gtk_type_new (gnome_cmd_dir_indicator_get_type ());
 
     gtk_signal_connect (
         GTK_OBJECT (dir_indicator),
@@ -580,14 +558,14 @@ gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 void
 gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *path)
 {
-    gint i, numSlashes;
+    gint i;
+    gint numSlashes = 0;
     gchar *s = get_utf8 (path);
 
     gtk_label_set_text (GTK_LABEL (indicator->priv->label), s);
     update_markup (indicator, 0);
 
     /* Count the number of slashes in the string */
-    numSlashes = 0;
     for (i = 0; i < strlen (path); i++) {
         if (*(path + i) == '/')
             numSlashes++;
@@ -620,7 +598,7 @@ gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *p
         for (i = 1; i < strlen (path); i++) {
             if (*(path + i) == '/') {
                 /* underline everything up to but not including slash
-                 * but include the slash when calcluating pixel size,
+                 * but include the slash when calculating pixel size,
                  * as /directory/ = /directory when doing chdir */
                 indicator->priv->slashCharPosition[numSlashes] = i;
                 indicator->priv->slashPixelPosition[numSlashes] = getPixelSize (path, i + 1);
@@ -634,6 +612,8 @@ gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *p
         numSlashes++;
         indicator->priv->numPositions = numSlashes;
     }
+    else
+        indicator->priv->numPositions = 0;
 
     g_free (s);
 }
@@ -642,7 +622,7 @@ gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *p
 void
 gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean value)
 {
-    //FIXME: Do something creative here
+    // FIXME: Do something creative here
 }
 
 
