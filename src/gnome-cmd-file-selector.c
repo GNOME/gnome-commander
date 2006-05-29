@@ -1888,10 +1888,6 @@ gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
     if (fs->priv->realized)
         update_files (fs);
 
-    gnome_cmd_file_list_show_column (
-        fs->list, FILE_LIST_COLUMN_EXT,
-        gnome_cmd_data_get_ext_disp_mode () != GNOME_CMD_EXT_DISP_WITH_FNAME);
-
     create_con_buttons (fs);
     gnome_cmd_file_selector_update_connections (fs);
 }

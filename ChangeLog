@@ -1,4 +1,9 @@
-2006-05-28  Dima <dmitry_ky@ua.fm>
+2006-05-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.c:
+	Do not hide ext column when selected GNOME_CMD_EXT_DISP_WITH_FNAME ("With filename")
+
+2006-05-28  Dima  <dmitry_ky@ua.fm>
 
 	* src/gnome-cmd-dir-indicator.c:
 	Bug fix for crash when cmd dir indicator is empty
