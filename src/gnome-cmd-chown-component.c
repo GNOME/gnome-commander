@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -33,7 +34,6 @@ struct _GnomeCmdChownComponentPrivate
 
 
 static GtkTableClass *parent_class = NULL;
-
 
 
 /*******************************
@@ -63,11 +63,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdChownComponentClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
     parent_class = gtk_type_class (gtk_table_get_type ());
     object_class->destroy = destroy;
@@ -100,8 +97,6 @@ init (GnomeCmdChownComponent *comp)
 }
 
 
-
-
 /***********************************
  * Public functions
  ***********************************/
@@ -109,50 +104,37 @@ init (GnomeCmdChownComponent *comp)
 static void
 load_users_and_groups (GnomeCmdChownComponent *comp)
 {
-    user_t *prog_user;
+    user_t *prog_user = OWNER_get_program_user ();
 
-    prog_user = OWNER_get_program_user ();
     g_return_if_fail (prog_user != NULL);
 
-    /* disable user combo if user is not root,
-     else fill the combo with all users in the system */
+    /* disable user combo if user is not root, else fill the combo with all users in the system */
     if (prog_user->uid != 0)
         gtk_widget_set_sensitive (comp->priv->user_combo, FALSE);
     else {
-        GList *tmp = OWNER_get_all_users ();
-
-        while (tmp) {
-            user_t *user = (user_t*)tmp->data;
-            comp->priv->user_strings = g_list_append (
-                comp->priv->user_strings, g_strdup (user->name));
-            tmp = tmp->next;
-        }
-
-        gtk_combo_set_popdown_strings (
-            GTK_COMBO (comp->priv->user_combo), comp->priv->user_strings);
-    }
-
-
-    /* fill the groups combo with all groups that the user is part of if ordinary user
-     or all groups if root */
-    {
         GList *tmp;
 
-        if (prog_user->uid != 0)
-            tmp = prog_user->groups;
-        else
-            tmp = OWNER_get_all_groups ();
+        for (tmp = OWNER_get_all_users (); tmp; tmp = tmp->next)
+        {
+            user_t *user = (user_t*)tmp->data;
 
+            comp->priv->user_strings = g_list_append (comp->priv->user_strings, g_strdup (user->name));
+        }
+
+        gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->user_combo), comp->priv->user_strings);
+    }
+
+    /* fill the groups combo with all groups that the user is part of if ordinary user or all groups if root */
+    {
+        GList *tmp = prog_user->uid != 0 ? prog_user->groups : OWNER_get_all_groups ();
 
         while (tmp) {
             group_t *group = (group_t*)tmp->data;
-            comp->priv->group_strings = g_list_append (
-                comp->priv->group_strings, g_strdup (group->name));
+            comp->priv->group_strings = g_list_append (comp->priv->group_strings, g_strdup (group->name));
             tmp = tmp->next;
         }
 
-        gtk_combo_set_popdown_strings (
-            GTK_COMBO (comp->priv->group_combo), comp->priv->group_strings);
+        gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->group_combo), comp->priv->group_strings);
     }
 }
 
@@ -160,9 +142,7 @@ load_users_and_groups (GnomeCmdChownComponent *comp)
 GtkWidget*
 gnome_cmd_chown_component_new (void)
 {
-    GnomeCmdChownComponent *comp;
-
-    comp = gtk_type_new (gnome_cmd_chown_component_get_type ());
+    GnomeCmdChownComponent *comp = gtk_type_new (gnome_cmd_chown_component_get_type ());
 
     load_users_and_groups (comp);
 
@@ -210,11 +190,9 @@ gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t 
 uid_t
 gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 {
-    uid_t owner;
-    const gchar *s_owner = gtk_entry_get_text (
-        GTK_ENTRY (GTK_COMBO (component->priv->user_combo)->entry));
+    const gchar *s_owner = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->user_combo)->entry));
+    uid_t owner = OWNER_get_uid_by_name (s_owner);
 
-    owner = OWNER_get_uid_by_name (s_owner);
     return owner;
 }
 
@@ -222,10 +200,8 @@ gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 gid_t
 gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component)
 {
-    gid_t group;
-    const gchar *s_group = gtk_entry_get_text (
-        GTK_ENTRY (GTK_COMBO (component->priv->group_combo)->entry));
+    const gchar *s_group = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->group_combo)->entry));
+    gid_t group = OWNER_get_gid_by_name (s_group);
 
-    group = OWNER_get_gid_by_name (s_group);
     return group;
 }
