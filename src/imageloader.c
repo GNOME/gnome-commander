@@ -73,7 +73,8 @@ static gchar *pixmap_files[NUM_PIXMAPS] = {
     "menu_ftp_connect.xpm",
     "menu_ftp_disconnect.xpm",
     "toggle_vertical.xpm",
-    "toggle_horizontal.xpm"
+    "toggle_horizontal.xpm",
+    "internal-viewer.xpm"
 };
 
 

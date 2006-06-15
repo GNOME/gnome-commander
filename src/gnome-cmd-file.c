@@ -706,8 +706,8 @@ do_view_file (const gchar *path, gint internal_viewer)
                         viewer = gviewer_window_file_view(arg, NULL);
                         gtk_widget_show(GTK_WIDGET(viewer));
                         gdk_window_set_icon (GTK_WIDGET(viewer)->window, NULL,
-                                             IMAGE_get_pixmap (PIXMAP_LOGO),
-                                             IMAGE_get_mask (PIXMAP_LOGO));
+                                             IMAGE_get_pixmap (PIXMAP_INTERNAL_VIEWER),
+                                             IMAGE_get_mask (PIXMAP_INTERNAL_VIEWER));
                         g_free(arg);
                     }
                     break;

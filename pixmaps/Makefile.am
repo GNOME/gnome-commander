@@ -23,6 +23,7 @@ pixmaps_DATA = \
 	gnome_cmd_arrow_up.xpm \
 	gnome-commander.xpm \
 	home.xpm \
+	internal-viewer.xpm \
 	key.xpm \
 	lock.xpm \
 	menu_bookmark.xpm \

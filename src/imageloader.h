@@ -57,6 +57,8 @@ typedef enum {
     PIXMAP_MENU_FTP_DISCONNECT,
     PIXMAP_SWITCH_V,
     PIXMAP_SWITCH_H,
+    
+    PIXMAP_INTERNAL_VIEWER,
 
     NUM_PIXMAPS
 } Pixmap;

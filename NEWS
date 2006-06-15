@@ -7,6 +7,7 @@ Bug fixes:
  * Fix for crash when cmd dir indicator is empty
  
 New features:
+ * New icon for internal viewer
  * New or updated translations: de, es, it, vi
 
 
