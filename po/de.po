@@ -2,15 +2,15 @@
 # Copyright (C) 2002 Free Software Foundation, Inc.
 # Walter Muellner <walter.muellner@telering.at>, 2002, 2003.
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005, 2006.
-# Hendrik Richter <hendi@gnome-de.org>, 2005.
+# Hendrik Richter <hendrikr@gnome.org>, 2005.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-06 16:03+0200\n"
-"PO-Revision-Date: 2006-04-06 15:50+0200\n"
-"Last-Translator: Frank Arnold <frank@scirocco-5v-turbo.de>\n"
+"PO-Revision-Date: 2006-06-15 16:56+0200\n"
+"Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,7 +84,7 @@ msgstr "Revision:"
 
 #: ../plugins/cvs/interface.c:460
 msgid "Compare..."
-msgstr "Vergleich..."
+msgstr "Vergleich …"
 
 #: ../plugins/cvs/interface.c:463
 msgid "Author:"
@@ -116,7 +116,7 @@ msgstr "Archiv erstellen"
 
 #: ../plugins/fileroller/file-roller-plugin.c:273
 msgid "Create Archive..."
-msgstr "Archiv erstellen..."
+msgstr "Archiv erstellen …"
 
 #: ../plugins/fileroller/file-roller-plugin.c:287
 msgid "Extract in Current Directory"
@@ -245,7 +245,7 @@ msgstr "Schablone"
 
 #: ../src/gnome-cmd-advrename-dialog.c:806
 msgid "Options..."
-msgstr "Optionen..."
+msgstr "Optionen …"
 
 #: ../src/gnome-cmd-advrename-dialog.c:813
 msgid "Regex replacing"
@@ -263,13 +263,13 @@ msgstr "Groß-/Kleinschreibung"
 #: ../src/gnome-cmd-options-dialog.c:1342
 #: ../src/gnome-cmd-options-dialog.c:1701
 msgid "_Add..."
-msgstr "_Hinzufügen..."
+msgstr "_Hinzufügen …"
 
 #: ../src/gnome-cmd-advrename-dialog.c:839 ../src/gnome-cmd-ftp-dialog.c:539
 #: ../src/gnome-cmd-options-dialog.c:1346
 #: ../src/gnome-cmd-options-dialog.c:1705
 msgid "_Edit..."
-msgstr "_Bearbeiten..."
+msgstr "_Bearbeiten …"
 
 #: ../src/gnome-cmd-advrename-dialog.c:844
 #: ../src/gnome-cmd-bookmark-dialog.c:512 ../src/gnome-cmd-ftp-dialog.c:543
@@ -547,7 +547,7 @@ msgstr "Gehe zu: Samba-Netzwerk"
 
 #: ../src/gnome-cmd-delete-dialog.c:143
 msgid "Deleting..."
-msgstr "Es wird gelöscht..."
+msgstr "Es wird gelöscht …"
 
 #: ../src/gnome-cmd-delete-dialog.c:225
 #, c-format
@@ -613,7 +613,7 @@ msgstr "Momentanes Verzeichnis hinzufügen"
 
 #: ../src/gnome-cmd-dir-indicator.c:475
 msgid "Manage bookmarks..."
-msgstr "Lesezeichen _verwalten..."
+msgstr "Lesezeichen _verwalten …"
 
 #: ../src/gnome-cmd-file.c:604
 msgid "Unknown file type"
@@ -685,7 +685,7 @@ msgstr "Anwendung:"
 
 #: ../src/gnome-cmd-file-popmenu.c:163
 msgid "Open with other..."
-msgstr "Öffnen mit anderen..."
+msgstr "Öffnen mit anderen …"
 
 #: ../src/gnome-cmd-file-popmenu.c:167
 msgid "Needs terminal"
@@ -697,7 +697,7 @@ msgstr "Ö_ffnen"
 
 #: ../src/gnome-cmd-file-popmenu.c:425
 msgid "_Open with..."
-msgstr "Öffnen _mit..."
+msgstr "Öffnen _mit …"
 
 #: ../src/gnome-cmd-file-popmenu.c:437
 msgid "_Execute"
@@ -726,7 +726,7 @@ msgstr "Eigenschaften"
 
 #: ../src/gnome-cmd-file-popmenu.c:542
 msgid "Other..."
-msgstr "Andere..."
+msgstr "Andere …"
 
 #: ../src/gnome-cmd-file-props-dialog.c:63 ../src/utils.c:981
 #, c-format
@@ -912,7 +912,7 @@ msgstr "Alias"
 
 #: ../src/gnome-cmd-ftp-dialog.c:537 ../src/gnome-cmd-list-popmenu.c:145
 msgid "_New..."
-msgstr "_Neu..."
+msgstr "_Neu …"
 
 #: ../src/gnome-cmd-ftp-dialog.c:553
 msgid "Anonymous password:"
@@ -968,7 +968,7 @@ msgstr "_Symlink erstellen"
 
 #: ../src/gnome-cmd-main-menu.c:486
 msgid "_Properties..."
-msgstr "_Eigenschaften..."
+msgstr "_Eigenschaften …"
 
 #: ../src/gnome-cmd-main-menu.c:493
 msgid "_Diff"
@@ -1016,15 +1016,15 @@ msgstr "Dateina_men kopieren"
 
 #: ../src/gnome-cmd-main-menu.c:591
 msgid "_Search..."
-msgstr "_Suchen..."
+msgstr "_Suchen …"
 
 #: ../src/gnome-cmd-main-menu.c:597
 msgid "_Quick Search..."
-msgstr "Sch_nellsuche..."
+msgstr "Sch_nellsuche …"
 
 #: ../src/gnome-cmd-main-menu.c:603
 msgid "_Enable Filter..."
-msgstr "Filter a_ktivieren..."
+msgstr "Filter a_ktivieren …"
 
 #: ../src/gnome-cmd-main-menu.c:614
 msgid "_Back"
@@ -1060,11 +1060,11 @@ msgstr "Socket Dateien anzeigen"
 
 #: ../src/gnome-cmd-main-menu.c:676
 msgid "_Bookmark this Directory..."
-msgstr "Zu _Lesezeichen hinzufügen..."
+msgstr "Zu _Lesezeichen hinzufügen …"
 
 #: ../src/gnome-cmd-main-menu.c:682
 msgid "_Manage Bookmarks..."
-msgstr "Lesezeichen _bearbeiten..."
+msgstr "Lesezeichen _bearbeiten …"
 
 #: ../src/gnome-cmd-main-menu.c:694
 msgid "_Configure Plugins..."
@@ -1072,15 +1072,15 @@ msgstr "P_lugins einrichten"
 
 #: ../src/gnome-cmd-main-menu.c:706
 msgid "_Options..."
-msgstr "_Optionen..."
+msgstr "_Optionen …"
 
 #: ../src/gnome-cmd-main-menu.c:712
 msgid "Edit _Mime Types..."
-msgstr "_Mime-Typen bearbeiten..."
+msgstr "_Mime-Typen bearbeiten …"
 
 #: ../src/gnome-cmd-main-menu.c:723
 msgid "FTP _Connect..."
-msgstr "FTP _Verbinden..."
+msgstr "FTP _Verbinden …"
 
 #: ../src/gnome-cmd-main-menu.c:729
 msgid "FTP _Quick Connect..."
@@ -1337,7 +1337,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.c:383
 msgid "Edit Colors..."
-msgstr "Farben bearbeiten..."
+msgstr "Farben bearbeiten …"
 
 #: ../src/gnome-cmd-options-dialog.c:390
 msgid "Colors"
@@ -1436,7 +1436,7 @@ msgstr "Farbschema:"
 
 #: ../src/gnome-cmd-options-dialog.c:530
 msgid "Edit..."
-msgstr "Bearbeiten..."
+msgstr "Bearbeiten …"
 
 #. LS_COLORS
 #: ../src/gnome-cmd-options-dialog.c:537
@@ -1793,7 +1793,7 @@ msgstr[1] "%d Treffer gefunden"
 
 #: ../src/gnome-cmd-search-dialog.c:743
 msgid "Search..."
-msgstr "Suchen..."
+msgstr "Suchen …"
 
 #. Search for
 #: ../src/gnome-cmd-search-dialog.c:758
@@ -1864,7 +1864,7 @@ msgstr "Problem beim Kopieren"
 
 #: ../src/gnome-cmd-xfer.c:233
 msgid "copying..."
-msgstr "Kopiervorgang läuft..."
+msgstr "Kopiervorgang läuft …"
 
 #: ../src/gnome-cmd-xfer.c:241
 #, c-format
@@ -1881,7 +1881,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer.c:438
 msgid "preparing..."
-msgstr "wird vorbereitet..."
+msgstr "wird vorbereitet …"
 
 #: ../src/gnome-cmd-xfer.c:533
 msgid "downloading to /tmp"
@@ -1889,7 +1889,7 @@ msgstr "Download nach /tmp"
 
 #: ../src/gnome-cmd-xfer-progress-win.c:37
 msgid "stopping..."
-msgstr "wird beendet..."
+msgstr "wird beendet …"
 
 #: ../src/gnome-cmd-xfer-progress-win.c:88
 msgid "Progress"
@@ -2212,7 +2212,7 @@ msgstr ""
 #: ../src/utils.c:1357
 #, c-format
 msgid "Creating directory %s... "
-msgstr "Verzeichnis %s wird erstellt..."
+msgstr "Verzeichnis %s wird erstellt …"
 
 #: ../src/utils.c:1362
 #, c-format
@@ -2225,10 +2225,10 @@ msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Vom Verzeichnis %s konnte nicht gelesen werden: %s\n"
 
 #~ msgid "User _Manual..."
-#~ msgstr "Benutzer_handbuch..."
+#~ msgstr "Benutzer_handbuch …"
 
 #~ msgid "_About..."
-#~ msgstr "Ü_ber..."
+#~ msgstr "Ü_ber …"
 
 #~ msgid "Back in history"
 #~ msgstr "Zurück in der Chronik"
@@ -2364,7 +2364,7 @@ msgstr "Vom Verzeichnis %s konnte nicht gelesen werden: %s\n"
 #~ msgstr "Stopp"
 
 #~ msgid "Preparing..."
-#~ msgstr "Wird vorbereitet..."
+#~ msgstr "Wird vorbereitet …"
 
 #~ msgid "Loaded %d file...\n"
 #~ msgid_plural "Loaded %d files...\n"
@@ -2372,7 +2372,7 @@ msgstr "Vom Verzeichnis %s konnte nicht gelesen werden: %s\n"
 #~ msgstr[1] "%d Dateien geladen ...\n"
 
 #~ msgid "Processing files..."
-#~ msgstr "Dateien werden abgearbeitet..."
+#~ msgstr "Dateien werden abgearbeitet …"
 
 #~ msgid "Invalid starting directory specified"
 #~ msgstr "Fehlerhaftes Startverzeichnis angegeben"
@@ -2396,7 +2396,7 @@ msgstr "Vom Verzeichnis %s konnte nicht gelesen werden: %s\n"
 #~ msgstr "Lokal"
 
 #~ msgid "_Quick Connect..."
-#~ msgstr "_Jetzt verbinden..."
+#~ msgstr "_Jetzt verbinden …"
 
 #~ msgid "_Disconnect"
 #~ msgstr "Verbindung _trennen"
@@ -2507,16 +2507,16 @@ msgstr "Vom Verzeichnis %s konnte nicht gelesen werden: %s\n"
 #~ msgstr "Log"
 
 #~ msgid "Checkout..."
-#~ msgstr "Checkout..."
+#~ msgstr "Checkout …"
 
 #~ msgid "_Import..."
-#~ msgstr "_Import..."
+#~ msgstr "_Import …"
 
 #~ msgid "Login..."
-#~ msgstr "Login..."
+#~ msgstr "Login …"
 
 #~ msgid "Help..."
-#~ msgstr "Hilfe..."
+#~ msgstr "Hilfe …"
 
 #~ msgid "_CVS"
 #~ msgstr "_CVS"
@@ -2571,3 +2571,6 @@ msgstr "Vom Verzeichnis %s konnte nicht gelesen werden: %s\n"
 
 #~ msgid "XferProgressWindow"
 #~ msgstr "XferFortschritt"
+
+
+
