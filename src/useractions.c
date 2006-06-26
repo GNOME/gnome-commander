@@ -69,7 +69,7 @@ get_selected_file ()
     GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (get_active_fl ());
 
     if (!finfo)
-        create_error_dialog ("No file selected");
+        create_error_dialog (_("No file selected"));
     return finfo;
 }
 
