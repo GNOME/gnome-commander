@@ -25,6 +25,7 @@
 #include "gnome-cmd-chown-dialog.h"
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-dir.h"
+#include "useractions.h"
 #include "owner.h"
 
 
@@ -110,6 +111,8 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
         if (GNOME_VFS_FILE_INFO_LOCAL (finfo->info))
             do_chown (finfo, uid, gid, recurse);
     }
+
+    view_refresh (NULL, NULL);
 
     gnome_cmd_file_list_free (dialog->priv->files);
     gtk_widget_destroy (GTK_WIDGET (dialog));

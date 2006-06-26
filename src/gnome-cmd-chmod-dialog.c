@@ -26,6 +26,7 @@
 #include "gnome-cmd-chmod-component.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
+#include "useractions.h"
 #include "utils.h"
 
 
@@ -112,6 +113,7 @@ static void do_chmod_files (GnomeCmdChmodDialog *dialog)
                                                                                            CHMOD_DIRS_ONLY;
 
         do_chmod (finfo, dialog->priv->perms, recursive, mode);
+        view_refresh (NULL, NULL);
     }
 }
 

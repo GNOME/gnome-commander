@@ -1,3 +1,9 @@
+2006-06-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-chmod-dialog.c:
+	* src/gnome-cmd-chown-dialog.c:
+	Fixed problem with refreshing after chown or chmod
+
 2006-06-15  Magnus Stålnacke  <jemamo@telia.com>
 
 	* pixmaps/internal-viewer.xpm:
