@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -54,7 +55,6 @@ struct _GnomeCmdChmodDialogPrivate
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
-
 static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
                       gboolean recursive, ChmodRecursiveMode mode)
 {
@@ -67,8 +67,7 @@ static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
 
         if (ret != GNOME_VFS_OK) {
             gchar *fpath = gnome_cmd_file_get_real_path (in_finfo);
-            gchar *msg = g_strdup_printf (
-                _("Could not chmod %s\n%s"), fpath, gnome_vfs_result_to_string (ret));
+            gchar *msg = g_strdup_printf (_("Could not chmod %s\n%s"), fpath, gnome_vfs_result_to_string (ret));
             create_error_dialog (msg);
             g_free (msg);
             g_free (fpath);
@@ -85,17 +84,15 @@ static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
         gnome_cmd_dir_ref (dir);
         gnome_cmd_dir_list_files (dir, FALSE);
         gnome_cmd_dir_get_files (dir, &files);
-        tmp = files;
 
-        while (tmp) {
+        for (tmp = files; tmp; tmp = tmp->next)
+        {
             GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
             if (strcmp (finfo->info->name, ".") != 0
                 && strcmp (finfo->info->name, "..") != 0
                 && finfo->info->flags != GNOME_VFS_FILE_FLAGS_SYMLINK) {
                 do_chmod (finfo, perm, TRUE, mode);
             }
-
-            tmp = tmp->next;
         }
         gnome_cmd_dir_unref (dir);
     }
@@ -104,22 +101,17 @@ static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
 
 static void do_chmod_files (GnomeCmdChmodDialog *dialog)
 {
-    GList *tmp = dialog->priv->files;
+    GList *tmp;
 
-    while (tmp)
+    for (tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
-        gboolean recursive = gtk_toggle_button_get_active (
-            GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
-        ChmodRecursiveMode mode;
-        const gchar *mode_text = gtk_entry_get_text (
-            GTK_ENTRY (GTK_COMBO (dialog->priv->recurse_combo)->entry));
-        if (strcmp (mode_text, recurse_opts[CHMOD_ALL_FILES]) == 0)
-            mode = CHMOD_ALL_FILES;
-        else
-            mode = CHMOD_DIRS_ONLY;
+        gboolean recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
+        const gchar *mode_text = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (dialog->priv->recurse_combo)->entry));
+        ChmodRecursiveMode mode = strcmp (mode_text, recurse_opts[CHMOD_ALL_FILES]) == 0 ? CHMOD_ALL_FILES :
+                                                                                           CHMOD_DIRS_ONLY;
+
         do_chmod (finfo, dialog->priv->perms, recursive, mode);
-        tmp = tmp->next;
     }
 }
 
@@ -146,18 +138,17 @@ static void on_cancel (GtkButton *button, GnomeCmdChmodDialog *dialog)
     gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
+
 static void on_toggle_recurse (GtkToggleButton *togglebutton, GnomeCmdChmodDialog *dialog)
 {
-    gtk_widget_set_sensitive (dialog->priv->recurse_combo,
-                              gtk_toggle_button_get_active (togglebutton));
+    gtk_widget_set_sensitive (dialog->priv->recurse_combo, gtk_toggle_button_get_active (togglebutton));
 }
 
 
 static void on_perms_changed (GnomeCmdChmodComponent *component, GnomeCmdChmodDialog *dialog)
 {
     dialog->priv->perms =
-        gnome_cmd_chmod_component_get_perms (
-            GNOME_CMD_CHMOD_COMPONENT (dialog->priv->chmod_component));
+        gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (dialog->priv->chmod_component));
 }
 
 
@@ -188,11 +179,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdChmodDialogClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
     parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
@@ -249,8 +237,6 @@ init (GnomeCmdChmodDialog *dialog)
 }
 
 
-
-
 /***********************************
  * Public functions
  ***********************************/
@@ -273,14 +259,13 @@ gnome_cmd_chmod_dialog_new (GList *files)
 
     show_perms (dialog);
 
-    strings = g_list_append (strings, recurse_opts[0]);
-    strings = g_list_append (strings, recurse_opts[1]);
+    strings = g_list_append (strings, recurse_opts[CHMOD_ALL_FILES]);
+    strings = g_list_append (strings, recurse_opts[CHMOD_DIRS_ONLY]);
 
     gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->recurse_combo), strings);
 
     return GTK_WIDGET (dialog);
 }
-
 
 
 GtkType
@@ -306,6 +291,3 @@ gnome_cmd_chmod_dialog_get_type         (void)
     }
     return dlg_type;
 }
-
-
-

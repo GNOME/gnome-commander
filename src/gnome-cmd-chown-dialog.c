@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -48,8 +49,7 @@ static void do_chown (GnomeCmdFile *in_finfo, uid_t uid, gid_t gid, gboolean rec
 
     if (ret != GNOME_VFS_OK) {
         gchar *fpath = gnome_cmd_file_get_real_path (in_finfo);
-        gchar *msg = g_strdup_printf (
-            _("Could not chown %s\n%s"), fpath, gnome_vfs_result_to_string (ret));
+        gchar *msg = g_strdup_printf (_("Could not chown %s\n%s"), fpath, gnome_vfs_result_to_string (ret));
         create_error_dialog (msg);
         g_free (msg);
         g_free (fpath);
@@ -65,17 +65,15 @@ static void do_chown (GnomeCmdFile *in_finfo, uid_t uid, gid_t gid, gboolean rec
         gnome_cmd_dir_ref (dir);
         gnome_cmd_dir_list_files (dir, FALSE);
         gnome_cmd_dir_get_files (dir, &files);
-        tmp = files;
 
-        while (tmp) {
+        for (tmp = files; tmp; tmp = tmp->next)
+        {
             GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
             if (strcmp (finfo->info->name, ".") != 0
                 && strcmp (finfo->info->name, "..") != 0
                 && finfo->info->flags != GNOME_VFS_FILE_FLAGS_SYMLINK) {
                 do_chown (finfo, uid, gid, TRUE);
             }
-
-            tmp = tmp->next;
         }
         gnome_cmd_dir_unref (dir);
     }
@@ -86,11 +84,10 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
 {
     uid_t uid = -1;
     gid_t gid = -1;
-    GList *tmp;
-    user_t *user;
+    user_t *user = OWNER_get_program_user();
     gboolean recurse;
+    GList *tmp;
 
-    user = OWNER_get_program_user();
 
     if (user && user->uid == 0) {
         uid = gnome_cmd_chown_component_get_owner (
@@ -104,15 +101,14 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
 
     recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
 
-    tmp = dialog->priv->files;
-    while (tmp) {
+    for (tmp = dialog->priv->files; tmp; tmp = tmp->next)
+    {
         GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
+
         g_return_if_fail (finfo != NULL);
 
         if (GNOME_VFS_FILE_INFO_LOCAL (finfo->info))
             do_chown (finfo, uid, gid, recurse);
-
-        tmp = tmp->next;
     }
 
     gnome_cmd_file_list_free (dialog->priv->files);
@@ -125,8 +121,6 @@ static void on_cancel (GtkButton *button, GnomeCmdChownDialog *dialog)
     gnome_cmd_file_list_free (dialog->priv->files);
     gtk_widget_destroy (GTK_WIDGET (dialog));
 }
-
-
 
 
 /*******************************
@@ -156,11 +150,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdChownDialogClass *class)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
 
     parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
@@ -191,8 +182,7 @@ init (GnomeCmdChownDialog *dialog)
     gtk_widget_show (dialog->priv->chown_component);
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->chown_component, FALSE, FALSE, 0);
 
-    dialog->priv->recurse_check = create_check (
-        GTK_WIDGET (dialog), _("Apply Recursively"), "check");
+    dialog->priv->recurse_check = create_check (GTK_WIDGET (dialog), _("Apply Recursively"), "check");
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
 
@@ -201,8 +191,6 @@ init (GnomeCmdChownDialog *dialog)
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
                                  GTK_SIGNAL_FUNC (on_ok), dialog);
 }
-
-
 
 
 /***********************************
@@ -227,7 +215,6 @@ gnome_cmd_chown_dialog_new (GList *files)
 
     return GTK_WIDGET (dialog);
 }
-
 
 
 GtkType
