@@ -115,6 +115,7 @@ GList *patlist_new (const gchar *pattern_string);
 void patlist_free (GList *pattern_list);
 gboolean patlist_matches (GList *pattern_list, const gchar *s);
 
+void gnome_cmd_error_message(const gchar *title, GError *error);
 void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id);
 
 #endif //__UTILS_H__

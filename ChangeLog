@@ -1,3 +1,12 @@
+2006-06-27  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	* src/useractions.c:
+	* src/useractions.h:
+	* src/utils.c:
+	* src/utils.h:
+	Added new entries ("GNOME Commander on the Web", "Report a Problem") to Help menu
+
 2006-06-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-chmod-dialog.c:

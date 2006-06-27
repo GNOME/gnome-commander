@@ -1445,16 +1445,32 @@ void patlist_free (GList *pattern_list)
 
 gboolean patlist_matches (GList *pattern_list, const gchar *s)
 {
-    GList *tmp = pattern_list;
-    gint fn_flags = FNM_NOESCAPE|FNM_CASEFOLD;
+    GList *tmp;
 
-    while (tmp) {
-        if (fnmatch ((gchar*)tmp->data, s, fn_flags) == 0)
+    for (tmp = pattern_list; tmp; tmp = tmp->next)
+        if (fnmatch ((gchar*)tmp->data, s, FNM_NOESCAPE|FNM_CASEFOLD) == 0)
             return TRUE;
-        tmp = tmp->next;
-    }
 
     return FALSE;
+}
+
+
+void gnome_cmd_error_message(const gchar *title, GError *error)
+{
+    GtkWidget *dialog = gtk_message_dialog_new (NULL,
+                                                GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                GTK_MESSAGE_ERROR,
+                                                GTK_BUTTONS_CLOSE,
+                                                title);
+
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), error->message);
+
+    g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (gtk_widget_destroy), NULL);
+
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_widget_show (dialog);
+
+    g_error_free (error);
 }
 
 
@@ -1465,22 +1481,5 @@ void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id)
     gnome_help_display (file_name, link_id, &error);
 
     if (error != NULL)
-    {
-        GtkWidget *dialog;
-
-        dialog = gtk_message_dialog_new (NULL,
-                         GTK_DIALOG_DESTROY_WITH_PARENT,
-                         GTK_MESSAGE_ERROR,
-                         GTK_BUTTONS_CLOSE, 
-                         _("There was an error displaying help."));
-
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), error->message);
-                              
-        g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (gtk_widget_destroy), NULL);
-
-        gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
-        gtk_widget_show (dialog);
-
-        g_error_free (error);
-    }
+        gnome_cmd_error_message(_("There was an error displaying help."), error);
 }

@@ -36,11 +36,11 @@
 
 /* Theese following types are slightly changed from the originals in the GnomeUI library
    We need special types because we neeed to place non-changeable shortcuts in the
-   menus. Another differance is that we want only mouse-clicks in the menu to generate an
+   menus. Another difference is that we want only mouse-clicks in the menu to generate an
    action, keyboard shortcuts are caught by the different components by them self */
 typedef enum {
     MENU_TYPE_END,        /* No more items, use it at the end of an array */
-    MENU_TYPE_ITEM,          /* Normal item, or radio item if it is inside a radioitems group */
+    MENU_TYPE_ITEM,       /* Normal item, or radio item if it is inside a radioitems group */
     MENU_TYPE_BASIC,
     MENU_TYPE_TOGGLEITEM, /* Toggle (check box) item */
     MENU_TYPE_RADIOITEMS, /* Radio item group */
@@ -732,7 +732,19 @@ init (GnomeCmdMainMenu *main_menu)
         },
         {
             MENU_TYPE_ITEM, _("_Keyboard Shortcuts"), "", NULL,
-            help_help, NULL,
+            help_keyboard, NULL,
+            GNOME_APP_PIXMAP_NONE, 0,
+            NULL
+        },
+        {
+            MENU_TYPE_ITEM, _("GNOME Commander on the _Web"), "", NULL,
+            help_web, NULL,
+            GNOME_APP_PIXMAP_NONE, 0,
+            NULL
+        },
+        {
+            MENU_TYPE_ITEM, _("Report a _Problem"), "", NULL,
+            help_problem, NULL,
             GNOME_APP_PIXMAP_NONE, 0,
             NULL
         },

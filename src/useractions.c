@@ -702,6 +702,28 @@ help_keyboard                       (GtkMenuItem     *menuitem,
 
 
 void
+help_web                            (GtkMenuItem     *menuitem,
+                                     gpointer        not_used)
+{
+    GError *error = NULL;
+
+    if (!gnome_url_show("http://www.nongnu.org/gcmd/", &error))
+        gnome_cmd_error_message(_("There was an error opening home page."), error);
+}
+
+
+void
+help_problem                        (GtkMenuItem     *menuitem,
+                                     gpointer        not_used)
+{
+    GError *error = NULL;
+
+    if (!gnome_url_show("http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", &error))
+        gnome_cmd_error_message(_("There was an error reporting problem."), error);
+}
+
+
+void
 help_about                          (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
