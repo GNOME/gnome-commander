@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-26 03:31+0200\n"
-"PO-Revision-Date: 2006-06-26 08:52+0100\n"
+"POT-Creation-Date: 2006-06-27 03:33+0200\n"
+"PO-Revision-Date: 2006-06-27 09:11+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -386,12 +386,12 @@ msgstr "Textvy:"
 msgid "Number view:"
 msgstr "Nummervy:"
 
-#: ../src/gnome-cmd-chmod-dialog.c:38
+#: ../src/gnome-cmd-chmod-dialog.c:40
 #: ../src/gnome-cmd-options-dialog.c:1135
 msgid "All files"
 msgstr "Alla filer"
 
-#: ../src/gnome-cmd-chmod-dialog.c:39
+#: ../src/gnome-cmd-chmod-dialog.c:41
 msgid "Directories only"
 msgstr "Endast kataloger"
 
@@ -404,15 +404,15 @@ msgstr ""
 "Kunde inte Ändra rättigheterna för filen: %s\n"
 "Fel: %s"
 
-#: ../src/gnome-cmd-chmod-dialog.c:214
+#: ../src/gnome-cmd-chmod-dialog.c:204
 msgid "Access Permissions"
 msgstr "Rättigheter:"
 
-#: ../src/gnome-cmd-chmod-dialog.c:232
+#: ../src/gnome-cmd-chmod-dialog.c:222
 msgid "Apply Recursively for"
 msgstr "Utför Rekursivt för"
 
-#: ../src/gnome-cmd-chown-dialog.c:52
+#: ../src/gnome-cmd-chown-dialog.c:53
 #, c-format
 msgid ""
 "Could not chown %s\n"
@@ -421,11 +421,11 @@ msgstr ""
 "Kunde inte ändra ägaren/gruppen för filen %s\n"
 "%s"
 
-#: ../src/gnome-cmd-chown-dialog.c:181
+#: ../src/gnome-cmd-chown-dialog.c:175
 msgid "Chown"
 msgstr "Chown"
 
-#: ../src/gnome-cmd-chown-dialog.c:195
+#: ../src/gnome-cmd-chown-dialog.c:188
 msgid "Apply Recursively"
 msgstr "Utför Rekursivt"
 
@@ -2151,6 +2151,10 @@ msgstr "_Aktivera"
 #: ../src/plugin_manager.c:435
 msgid "_Configure"
 msgstr "Al_ternativ"
+
+#: ../src/useractions.c:72
+msgid "No file selected"
+msgstr "Ingen fil är vald"
 
 #: ../src/useractions.c:283
 #, c-format
