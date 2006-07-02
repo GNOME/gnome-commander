@@ -139,10 +139,10 @@
   </articleinfo> 
 
   <indexterm zone="index"> 
-    <primary>MY-GNOME-APP</primary> 
+    <primary>GNOME-COMMANDER</primary> 
   </indexterm> 
   <indexterm zone="index"> 
-    <primary>mygnomeapp</primary> 
+    <primary>gnome-commander</primary> 
   </indexterm>
 
 <!-- ============= Document Body ============================= -->
@@ -189,7 +189,7 @@
 	    	<para>Fast file viewer for text, images and image meta data (Exif and IPTC)</para> 
 	  		</listitem> 
 	  		<listitem> 
-	    	<para>Tools for advanced renaming of files, searching, quick file name search in current dir, 
+	    	<para>Tools for advanced renaming of files, searching, quick file name searching in current dir, 
             symlinking, comparing directories</para> 
 	  		</listitem> 
 	  		<listitem> 
@@ -212,7 +212,6 @@
      also include this information here. 
      If the information about how to get started is very short, you can 
      include it in the Introduction and omit this section. -->
-
   <sect1 id="gnome-commander-getting-started"> 
     <title>Getting Started</title> 
 
@@ -300,6 +299,7 @@
 	</variablelist>
     </sect2>
   </sect1>
+
 <!-- ================ Usage ================================ -->
 <!-- Use this section to describe how to use the application to perform the tasks for 
   which the application is designed. -->
@@ -323,6 +323,10 @@
 	<listitem> 
 	  <para> 
 	    <xref linkend="gnome-commander-close-image"/></para> 
+	</listitem> 
+	<listitem> 
+	  <para> 
+	    <xref linkend="gnome-commander-internal-viewer"/></para> 
 	</listitem> 
       </itemizedlist> </para>
     <!-- ================ Usage Subsection ================================ -->
@@ -362,7 +366,7 @@
       </caution>
     </sect2> 
     <!-- ================ Usage Subsection ================================ -->
-	 <sect2 id="gnome-commander-manipulate-view"> 
+	<sect2 id="gnome-commander-manipulate-view"> 
       <title>To Manipulate the View of an Image</title> 
       <para>You can use the following methods to resize the view of an image in
 	the &app; window:</para> 
@@ -438,8 +442,7 @@
 	<listitem> 
 	  <para>Drag the image in the opposite direction to the direction in
 	    which you want to scroll. For example, if you want to
-	      scroll down the image, 
-	    drag the image upwards in the window.</para> 
+	      scroll down the image, drag the image upwards in the window.</para> 
 	</listitem> 
 	<listitem> 
 	  <para>Use the scrollbars on the window.</para> 
@@ -465,9 +468,189 @@
       <para>This is a warning.</para>
       </warning>
     </sect2> 
+    <!-- ================ Internal viewer ================================== -->
+    <sect2 id="gnome-commander-internal-viewer"> 
+      <title>Using the Internal Viewer</title>
+      <para>The internal viewer allows viewing contents of files in text, unicode, binary, hex or graphical mode.</para>
+      
+      <para>To start viewing files use F3 (default viewer - defined in 
+      <menuchoice> 
+	  <guimenu>Settings</guimenu> 
+	  <guimenuitem>Options...</guimenuitem>
+      </menuchoice>) or SHIFT+F3 (internal viewer). The internal viewer 
+    uses MMAP whenever possible for the fastest file loading.</para> 
+
+      <sect3 id="gnome-commander-internal-viewer-modes"> 
+    	<title>View Modes</title> 
+    	<para>The 
+    	  <guilabel>View Modes</guilabel> group contains the preferences
+    	  that you can set to view images in image windows.</para> 
+    	<variablelist> 
+    	  <varlistentry> 
+    	    <term> 
+    	      <guilabel>Character Encodings</guilabel> </term> 
+    	    <term> 
+    	      <guilabel>Text Display Mode</guilabel> </term> 
+    	    <term> 
+    	      <guilabel>Binary Display Mode</guilabel> </term> 
+    	    <term> 
+    	      <guilabel>Hex dump Display Mode</guilabel> </term> 
+    	    <term> 
+    	      <guilabel>Image Display Mode</guilabel> </term> 
+    	    <listitem> 
+    	      <para>Use this drop-down list box to specify when to use
+    		scrollbars to scroll through an image. Select one of
+    		the following options:</para> 
+    	      <itemizedlist> 
+    		<listitem> 
+    		  <para> 
+    		    <guilabel>Never</guilabel> </para> 
+    		  <para>This option never displays scrollbars. You can use the
+    		    arrow keys on the keyboard or the mouse to scroll
+    		    through the image. </para>  
+    		</listitem> 
+    		<listitem> 
+    		  <para> 
+    		    <guilabel>Only if image does not fit</guilabel> </para> 
+    		  <para>This option displays scrollbars when the image is
+    		    larger than the image window.</para> 
+    		</listitem> 
+    	      </itemizedlist> 
+    	      <para>Default: 
+    		<guilabel>Never</guilabel>.</para> 
+    	    </listitem> 
+    	  </varlistentry> 
+    	  <varlistentry> 
+    	    <term> 
+    	      <guilabel>Pick window size and zoom factor
+    		automatically</guilabel> </term> 
+    	    <listitem> 
+    	      <para>Select this option to resize the image window to fit the
+    		image or to resize the image to fit the image
+    		window. If the image is small, 
+    		&app; resizes the image window to fit the image. If
+    		the image is large, &app; resizes the image to fit
+    		the image window. </para> 
+    	      <para>Default: unselected.</para> 
+    	    </listitem> 
+    	  </varlistentry> 
+    	  <varlistentry> 
+    	    <term> 
+    	      <guilabel>Open images in a new window</guilabel> </term> 
+    	    <listitem> 
+    	      <para>Select this option to open a new
+    		&app; window each time you open an image. If you do
+    		not select this option, &app; replaces the existing
+    		image with the new image when you open an image. </para> 
+    	      <para>Default: unselected.</para> 
+    	    </listitem> 
+    	  </varlistentry> 
+    	</variablelist> 
+        </sect3> 
+
+      <sect3 id="gnome-commander-internal-viewer-keyboard"> 
+      <title>Keyboard mappings</title> 
+      <informaltable frame="topbot"> 
+		<tgroup cols="2"> 
+			<colspec colname="col1"/> 
+			<colspec colname="col2"/> 
+		<thead> 
+		<row valign="top">
+			<entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
+			<entry colname="col2" valign="top"><para>Mapping</para></entry> 
+		</row> 
+		</thead>
+		<tbody> 
+		<row valign="top"> 
+			<entry><para>Escape</para><para>CTRL+W</para></entry> 
+			<entry><para>Closes the internal viewer window</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>W</para></entry> 
+			<entry><para>Toggles line wrapping (applicable only in text display modes)</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>Input Modes:</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>A</para></entry> 
+			<entry><para>Sets ASCII input mode. When in ASCII mode, you can also set the required character encoding 
+            from the "View|Character Encoding" submenu</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>Q</para></entry> 
+			<entry><para>Sets ASCII input mode, with codepage 437 encoding (suitable for binary and hex mode viewing)</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>U</para></entry> 
+			<entry><para>Sets UTF-8 input mode</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>Display modes:</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>1</para></entry> 
+			<entry><para>Sets display mode to text, with fixed width font</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>2</para></entry> 
+			<entry><para>Sets display mode to binary. Switching to Binary display mode 
+            will automatically set ASCII input mode (UTF-8 is not supported with binary display)</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>3</para></entry> 
+			<entry><para>Sets display mode to hex dump. Switching to hex display mode 
+            will automatically set ASCII input mode (UTF-8 is not supported with hex dump display)</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>4</para></entry> 
+			<entry><para>Tries to load the file as an image. Loading is done using GDK, 
+            so every GDK-supported format should work.</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>Zooming:</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>CTRL++</para></entry> 
+			<entry><para>Zooms in or increment the font size</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>CTRL+-</para></entry> 
+			<entry><para>Zooms out or decrement the font size</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>CTRL+0</para></entry> 
+			<entry><para>Sets normal size</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>Image manipulation:</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>CTRL+R</para></entry> 
+			<entry><para>Rotates the image 90 degrees (applicable only in IMAGE display mode)</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>CTRL+SHIFT+R</para></entry> 
+			<entry><para>Rotates the image 270 degrees (applicable only in IMAGE display mode)</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>Image manipulation:</para></entry> 
+		</row> 
+		<row valign="top"> 
+			<entry><para>CTRL+S</para></entry> 
+			<entry><para>Saves the current window size, input mode, and other settings as the default. 
+			(Note: the starting display mode is determined by the file's content, and is not saved as a user setting)</para></entry> 
+		</row> 
+		</tbody> 
+		</tgroup>
+		</informaltable> 
+      </sect3> 
+
+    </sect2> 
   </sect1>
-  <!-- ============= Customization ============================= -->
-  <!-- Use this section to describe how to customize the application. -->
+
+<!-- ============= Customization ============================= -->
+<!-- Use this section to describe how to customize the application. -->
   <sect1 id="gnome-commander-prefs"> 
     <title>Settings</title> 
     <para>To configure &app;, choose 
@@ -827,6 +1010,7 @@
       </sect3> 
     </sect2> 
   </sect1>
+
 <!-- ============= Bugs ================================== -->
 <!-- This section is optional and is commented out by default. 
      You can use it to describe known bugs and limitations of the 
@@ -838,6 +1022,107 @@
   <para> </para>
  </sect1>
 -->
+<!-- ============= Tips and tricks ======================== -->
+<!-- This section contains info some very simple tips and tricks.-->
+  <sect1 id="gnome-commander-tips-and-tricks">
+  <title>Tips and tricks for &app;</title>
+  <para>Some very simple tips and tricks on using and getting the most out of &app;.</para>
+
+  <variablelist> 
+	<varlistentry> 
+	  <term> 
+	    <guilabel>Handling archives</guilabel> </term> 
+	  <listitem> 
+	    <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so 
+	    that working with archives becomes quite practical anyway. This is how you do it:</para>
+	    <itemizedlist> 
+	      <listitem> 
+		      <para>If you don't already have the program <application>Fileroller</application>, 
+		      download it and install it.</para> 
+	      </listitem> 
+	      <listitem> 
+		<para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Programs</guimenuitem> tab.</para> 
+	      </listitem> 
+	      <listitem> 
+		<para>Add two favourite apps using the values shown here and here.</para> 
+	      </listitem> 
+	    </itemizedlist> 
+	    <para>You can now right click any file or folder and choose <guimenuitem>Create archive...</guimenuitem> 
+	    to compress it and right click compressed files and choose <guimenuitem>Extract archive...</guimenuitem> 
+	    to extract it.</para> 
+	  </listitem> 
+	</varlistentry> 
+
+	<varlistentry> 
+	  <term> 
+	    <guilabel>Using removable media</guilabel> </term> 
+	  <listitem> 
+	    <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app; 
+	    automatically take care of mounting them by following this guide:</para>
+	    <itemizedlist> 
+	      <listitem> 
+		      <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Devices</guimenuitem> tab.</para> 
+	      </listitem> 
+	      <listitem> 
+		<para>Add the devices that you are using. This is how the program looks with a few added devices. 
+		In the last image the red circle shows the available devices, there is also a button, in the green circle, 
+		to press if we want to unmount the floppy, which happened to be mounted. 
+		The icons that are used for the devices in the example should be available 
+		in the $(prefix)/share/pixmaps/gnome-commander/device-icons folder on your computer.</para> 
+	      </listitem> 
+	      <listitem> 
+		<para>There is also an option to skip mounting in the option device tab, 
+		this can be useful for making shortcuts to directories, or if you have some automounting feature 
+		that mounts it at its mountpoint when available, or if you use Supermount that does it on access basis.</para> 
+	      </listitem> 
+	    </itemizedlist> 
+	  </listitem> 
+	</varlistentry> 
+
+	<varlistentry> 
+	  <term> 
+	    <guilabel>Opening a full terminal</guilabel> </term> 
+	  <listitem> 
+	    <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory. 
+	    Well, that is easy, just type <application>sh</application>, or maybe <application>bash</application> if you prefer, 
+	    in the &app; command line and press <keycap>SHIFT+ENTER</keycap> - there you have it.</para>
+	  </listitem> 
+	</varlistentry> 
+
+	<varlistentry> 
+	  <term> 
+	    <guilabel>Using Nautilus icon theme</guilabel> </term> 
+	  <listitem> 
+      <warning>
+      <para>This is outdated info since Nautilus and later Gnome versions no longer use these kind of themes.</para>
+      </warning>
+	    <para>The default icon theme that comes with &app; lacks icons for a lot of file types and only looks good at icon size 16. 
+	          There are other themes around though, that are more complete and looks better in bigger sizes. 
+	          Unscalable Gorilla by Jimmac is one example and can be used in &app; by following these steps:</para>
+	    <itemizedlist> 
+	      <listitem> 
+		      <para>Download the theme.</para> 
+	      </listitem> 
+	      <listitem> 
+		<para>Unpack the theme to where ever you want.</para> 
+	      </listitem> 
+	      <listitem> 
+		<para>Start &app; open the <guimenu>Options</guimenu> dialog. In the <guimenuitem>Layout</guimenuitem> tab set 
+		the Theme icon directory to be the folder where you extracted Unscalable Gorilla. Also change Row height 
+		and Icon size to 20 or some other size that you like. When you're done also make sure that 
+		the Graphical mode is set to MIME icons.</para> 
+	      </listitem> 
+	      <listitem> 
+		      <para>When you now close the <guimenu>Options</guimenu> dialog the file listings should refresh 
+		      and you should see Unscalable Gorilla being used.</para> 
+	      </listitem> 
+	    </itemizedlist> 
+	  </listitem> 
+	</varlistentry> 
+
+  </variablelist> 
+
+ </sect1>
 <!-- ============= Keyboard shortcuts ===================== -->
 <!-- This section contains info about the keyboard mappings.-->
   <sect1 id="gnome-commander-keyboard"> 
@@ -1233,7 +1518,8 @@
 		</informaltable> 
 
   </sect1> 
-<!-- ============= About ================================== -->
+
+  <!-- ============= About ================================== -->
 <!-- This section contains info about the program (not docs), such as
       author's name(s), web page, license, feedback address. This
       section is optional: primary place for this info is "About.." box of
@@ -1242,7 +1528,7 @@
   <sect1 id="gnome-commander-about"> 
     <title>About &app;</title> 
     <para> &app; was primarily written by the former maintainer - Marcus Bjurman,
-    who where the one that initiaded this project publicly in 2001 and developed it up to version 1.1.6 in 2004. 
+    who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in 2004. 
     Currently &app; is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>) 
     with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Micha (<email>codejodler@gmx.ch</email>).
 
