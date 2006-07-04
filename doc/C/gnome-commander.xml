@@ -249,25 +249,18 @@
 
     <!-- ==== Figure ==== -->
       <figure id="mainwindow-fig"> 
-	<title>&app; Start Up Window</title> 
-	<screenshot> 
-	  <mediaobject> 
-	    <imageobject>
-	    <imagedata fileref="figures/gnome-commander_window.png" format="PNG"/> 
-	    </imageobject>
-	    <!-- EPS versions of the figures are not required at the moment. -->
-            <!-- 
-		    <imageobject>
-      		<imagedata fileref="figures/image.eps" format="EPS"/>
-    		    </imageobject>
-	    -->
-	    <textobject> 
-	      <phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area, and
-	      scrollbars. Menubar contains File, View, Settings, and Help menus. </phrase> 
-	    </textobject> 
-	  </mediaobject> 
-	</screenshot> 
-      </figure>
+		  <title>&app; Window</title>
+		  <screenshot> 
+			 <mediaobject> 
+				<imageobject> 
+				  <imagedata fileref="figures/gnome-commander_window.png" format="PNG"/>
+					 </imageobject>
+				<textobject> <phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area, 
+				                     and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
+				</textobject> 
+			</mediaobject>
+		  </screenshot>
+		</figure>
     <!-- ==== End of Figure ==== -->
 
     <!-- Include any descriptions of the GUI immediately after the screenshot of the main UI, -->
