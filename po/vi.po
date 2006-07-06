@@ -610,7 +610,7 @@ msgstr "Được"
 
 #: ../src/gnome-cmd-dir.c:566
 msgid "Waiting for file list"
-msgstr "Đang đợi nhận danh sách tâp tin..."
+msgstr "Đang đợi nhận danh sách tập tin..."
 
 #: ../src/gnome-cmd-dir-indicator.c:447
 msgid "Add current dir"
@@ -2021,7 +2021,7 @@ msgstr "_Chép đoạn chọn"
 
 #: ../src/libgviewer/viewer-window.c:830
 msgid "_No Parsing (original file)"
-msgstr "_Không phân tách (tâp tin gốc)"
+msgstr "_Không phân tách (tập tin gốc)"
 
 #: ../src/libgviewer/viewer-window.c:835
 msgid "_HTML Parser"
