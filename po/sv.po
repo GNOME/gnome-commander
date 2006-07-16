@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-27 03:33+0200\n"
-"PO-Revision-Date: 2006-06-27 09:11+0100\n"
+"POT-Creation-Date: 2006-07-16 03:50+0200\n"
+"PO-Revision-Date: 2006-07-16 16:41+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -340,7 +340,7 @@ msgid "_Goto"
 msgstr "_Gå Till"
 
 #: ../src/gnome-cmd-bookmark-dialog.c:463
-#: ../src/gnome-cmd-main-menu.c:764
+#: ../src/gnome-cmd-main-menu.c:776
 msgid "_Edit"
 msgstr "Editera"
 
@@ -1116,45 +1116,53 @@ msgstr "_Anslutningar"
 msgid "_Keyboard Shortcuts"
 msgstr "_Tangentbordsgenvägar"
 
-#: ../src/gnome-cmd-main-menu.c:741
+#: ../src/gnome-cmd-main-menu.c:740
+msgid "GNOME Commander on the _Web"
+msgstr "GNOME Commander på _webben"
+
+#: ../src/gnome-cmd-main-menu.c:746
+msgid "Report a _Problem"
+msgstr "Rapportera ett _problem"
+
+#: ../src/gnome-cmd-main-menu.c:753
 #: ../src/plugin_manager.c:440
 msgid "_About"
 msgstr "_Om"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.c:760
+#: ../src/gnome-cmd-main-menu.c:772
 #: ../src/libgviewer/viewer-window.c:991
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../src/gnome-cmd-main-menu.c:768
+#: ../src/gnome-cmd-main-menu.c:780
 msgid "_Mark"
 msgstr "_Markera"
 
-#: ../src/gnome-cmd-main-menu.c:772
+#: ../src/gnome-cmd-main-menu.c:784
 #: ../src/libgviewer/viewer-window.c:994
 msgid "_View"
 msgstr "Visa"
 
-#: ../src/gnome-cmd-main-menu.c:777
+#: ../src/gnome-cmd-main-menu.c:789
 #: ../src/libgviewer/viewer-window.c:1005
 msgid "_Settings"
 msgstr "Inställningar"
 
-#: ../src/gnome-cmd-main-menu.c:781
+#: ../src/gnome-cmd-main-menu.c:793
 msgid "_Connections"
 msgstr "_Anslutningar"
 
-#: ../src/gnome-cmd-main-menu.c:785
+#: ../src/gnome-cmd-main-menu.c:797
 msgid "_Bookmarks"
 msgstr "_Bokmärken"
 
-#: ../src/gnome-cmd-main-menu.c:789
+#: ../src/gnome-cmd-main-menu.c:801
 msgid "_Plugins"
 msgstr "_Tilläggsprogram"
 
-#: ../src/gnome-cmd-main-menu.c:793
+#: ../src/gnome-cmd-main-menu.c:805
 #: ../src/libgviewer/viewer-window.c:1011
 msgid "_Help"
 msgstr "Hjälp"
@@ -2161,13 +2169,21 @@ msgstr "Ingen fil är vald"
 msgid "running \"%s\"\n"
 msgstr "exekverar \"%s\"\n"
 
-#: ../src/useractions.c:725
+#: ../src/useractions.c:711
+msgid "There was an error opening home page."
+msgstr "Ett fel uppstod vid öppnandet av hemsidan."
+
+#: ../src/useractions.c:722
+msgid "There was an error reporting problem."
+msgstr "Ett fel uppstod vid rapportering av ett problem."
+
+#: ../src/useractions.c:747
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "En kraftfull filhanterare för GNOME"
 
 #. xgettext:
 #. * Replace this with your name when translating
-#: ../src/useractions.c:730
+#: ../src/useractions.c:752
 msgid "No translation is currently in use."
 msgstr "Magnus Stålnacke <jemamo@telia.com>"
 
@@ -2244,7 +2260,7 @@ msgstr "Kunde ej skapa katalogen %s"
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Kunde ej läsa från katalogen %s: %s\n"
 
-#: ../src/utils.c:1475
+#: ../src/utils.c:1484
 msgid "There was an error displaying help."
 msgstr "Ett fel uppstod vid visande av hjälp."
 
