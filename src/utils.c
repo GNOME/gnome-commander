@@ -1116,7 +1116,7 @@ GList *app_get_linked_libs (GnomeCmdFile *finfo)
 
     if (!fd) return NULL;
 
-    while ((s = fgets (tmp, 256, fd)))
+    while ((s = fgets (tmp, sizeof(tmp), fd)))
     {
         char **v = g_strsplit (s, " ", 1);
         if (v) {

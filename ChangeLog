@@ -1,3 +1,10 @@
+2006-07-17  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con-device.c:
+	* src/gnome-cmd-data.c:
+	* src/utils.c:
+	Added some minor safety precautions for fgets().
+
 2006-06-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.c:

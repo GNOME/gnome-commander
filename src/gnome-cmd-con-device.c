@@ -61,7 +61,7 @@ is_mounted (GnomeCmdCon *con)
     fd = fopen ("/etc/mtab", "r");
     if (!fd) return FALSE;
 
-    while ((s = fgets (tmp, 256, fd)))
+    while ((s = fgets (tmp, sizeof(tmp), fd)))
     {
         char **v = g_strsplit (s, " ", 3);
         if (v[1] && strcmp (v[1], dev_con->priv->mountp) == 0)

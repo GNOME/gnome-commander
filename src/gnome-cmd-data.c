@@ -273,7 +273,7 @@ static void load_ftp_servers ()
         do {
             gchar line[1024];
 
-            if (fgets (line, 1024, fd) != NULL) {
+            if (fgets (line, sizeof(line), fd) != NULL) {
                 if (line[0] == 'S') {
                     gchar alias[256], host[256], user[256], pw[256];
                     gchar *alias2, *host2, *user2, *pw2=NULL;
