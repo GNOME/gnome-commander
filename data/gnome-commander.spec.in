@@ -28,6 +28,7 @@ Source0:       http://freesoftware.fsf.org/download/gcmd/gcmd.pkg/@VERSION@/@PAC
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: scrollkeeper gettext >= 0.10.36
 Requires:      gtk2 >= 2.6
+Requires:      glib >= 2.6
 Requires:      gnome-vfs2 >= 2.0
 BuildRequires: gnome-vfs2-devel >= 2.0
 Requires:      libgnomeui >= 2.0
@@ -109,6 +110,9 @@ fi
 %{_datadir}/pixmaps
 
 %changelog
+* Mon Jul 17 2006 Piotr Eljasiak <epiotr@use.pl>
+- added glib dependencies
+
 * Sun May 14 2006 Stephanos Manos <stefmanos@gmail.com>
 - Fixed Scrollkeeper database update
 	-disabled scrollkeeper update from make

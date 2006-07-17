@@ -5,6 +5,10 @@
 	* src/utils.c:
 	Added some minor safety precautions for fgets().
 
+	* cofigure.in:
+	* data/gnome-commander.spec.in:
+	Added glib dependencies (>=2.6.0)
+
 2006-06-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.c:
