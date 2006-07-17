@@ -1,3 +1,10 @@
+2006-07-17  <dmacks@netspace.org>
+
+	* plugins/cvs/Makefile.am:
+	* plugins/fileroller/Makefile.am:
+	* plugins/test/Makefile.am:
+	Incorrect use of Makefile linker flags
+
 2006-07-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con-device.c:

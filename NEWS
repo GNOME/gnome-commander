@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem with scrollkeeper database update
  * Fix for crash when cmd dir indicator is empty
  * Fixed problem with refreshing after chown or chmod
+ * Fixed problem #347817 (incorrect use of Makefile linker flags)
  
 New features:
  * New icon for internal viewer
