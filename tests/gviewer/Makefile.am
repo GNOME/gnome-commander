@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-INCLUDES = -Wall \
+AM_CPPFLAGS = -Wall \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(GNOMEUI_CFLAGS) \

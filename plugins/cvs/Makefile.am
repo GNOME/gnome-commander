@@ -3,7 +3,7 @@
 .l.c:
 	$(LEXCOMPILE) $<
 
-INCLUDES = -Wall \
+AM_CPPFLAGS = -Wall \
 	-I$(top_srcdir) \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS)

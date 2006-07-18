@@ -2,7 +2,7 @@
 
 SUBDIRS = libgviewer
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-Wall \
 	-I$(top_srcdir) \
 	$(GNOMEUI_CFLAGS) \

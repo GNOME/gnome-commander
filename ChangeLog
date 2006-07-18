@@ -4,9 +4,6 @@
 	* src/Makefile.am:
 	Set PLUGIN_DIR in Makefile.am
 
-	* */Makefile.am:
-	Replace AM_CPPFLAGS with INCLUDES
-
 2006-07-17  <dmacks@netspace.org>
 
 	* plugins/cvs/Makefile.am:
