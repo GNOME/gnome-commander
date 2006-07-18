@@ -7,7 +7,7 @@ AM_CPPFLAGS = -Wall \
 
 plugindir = $(pkglibdir)/plugins
 
-plugin_LTLIBRARIES = libtest.la
+noinst_LTLIBRARIES = libtest.la
 
 libtest_la_SOURCES = \
 	test-plugin.h test-plugin.c \
