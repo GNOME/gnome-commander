@@ -1,3 +1,9 @@
+2006-07-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* src/Makefile.am:
+	Set PLUGIN_DIR in Makefile.am
+
 2006-07-17  <dmacks@netspace.org>
 
 	* plugins/cvs/Makefile.am:

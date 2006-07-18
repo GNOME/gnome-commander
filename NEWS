@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem with scrollkeeper database update
  * Fix for crash when cmd dir indicator is empty
  * Fixed problem with refreshing after chown or chmod
+ * Fixed problem #347561 (plugin directory set incorrectly)
  * Fixed problem #347817 (incorrect use of Makefile linker flags)
  
 New features:

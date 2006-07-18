@@ -195,12 +195,6 @@ dnl Set PACKAGE_LOCALE_DIR in config.h.
 AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${PREFIX}/${DATADIRNAME}/locale", [definition of PACKAGE_LOCALE_DIR])
 
 
-dnl Set PLUGIN_DIR in config.h
-PLUGIN_DIR="${libdir}/${PACKAGE}/plugins"
-AC_DEFINE_UNQUOTED(PLUGIN_DIR, "$PLUGIN_DIR", [plugins location])
-AC_SUBST(PLUGIN_DIR)
-
-
 dnl Set PIXMAPS_DIR in config.h.
 AC_DEFINE_UNQUOTED(PIXMAPS_DIR, "${PREFIX}/share/pixmaps/${PACKAGE}", [pixmaps location])
 
@@ -225,6 +219,10 @@ fi
 dnl Set HELP_DIR in config.h.
 AC_DEFINE_UNQUOTED(HELP_DIR, "${PREFIX}/share/gnome/help/${PACKAGE}", "")
 	
+
+PLUGIN_LIBTOOL_FLAGS="-module -avoid-version"
+AC_SUBST(PLUGIN_LIBTOOL_FLAGS)
+
 
 dnl =====================
 dnl Write some output

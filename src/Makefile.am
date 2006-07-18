@@ -2,10 +2,12 @@
 
 SUBDIRS = libgviewer
 
-AM_CPPFLAGS = -Wall \
+INCLUDES = \
+	-Wall \
 	-I$(top_srcdir) \
 	$(GNOMEUI_CFLAGS) \
-	$(GNOMEVFS_CFLAGS)
+	$(GNOMEVFS_CFLAGS) \
+	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\"
 
 bin_PROGRAMS = gnome-commander gcmd-block
 
