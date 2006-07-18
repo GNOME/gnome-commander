@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-AM_CPPFLAGS = -Wall \
+INCLUDES = -Wall \
 	-I$(top_srcdir) \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS)
