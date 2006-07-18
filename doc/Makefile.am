@@ -14,7 +14,7 @@ dist-hook: doc-dist-hook
  
 DOC_MODULE = gnome-commander
 DOC_ENTITIES = 
-DOC_AM_CPPFLAGS = legal.xml
+DOC_INCLUDES = legal.xml
 DOC_FIGURES = \
 	figures/create_archive.png                           \
 	figures/dev_cd.png                                   \
