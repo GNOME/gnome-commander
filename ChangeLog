@@ -3,6 +3,12 @@
 	* plugins/test/Makefile.am:
 	Do not install test plugin
 
+	* src/gnome-cmd-con-ftp.c:
+	* src/gnome-cmd-con-ftp.h:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-ftp-dialog.c:
+	Added partial support for setting ftp remote dir
+
 2006-07-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:

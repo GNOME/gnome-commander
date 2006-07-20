@@ -59,8 +59,8 @@ struct _GnomeCmdDataPrivate
     gint                 main_win_width, main_win_height;
     gboolean             case_sens_sort;
     gboolean             confirm_delete;
-	GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
-	GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
+    GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
+    GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
     gint                 list_row_height;
     gchar                *list_font;
     GnomeCmdRightMouseButtonMode right_mouse_button_mode;
@@ -83,7 +83,7 @@ struct _GnomeCmdDataPrivate
     gint                 quick_connect_port;
     gboolean             honor_expect_uris;
     gboolean             use_internal_viewer;
-    gboolean             alt_quick_search ;
+    gboolean             alt_quick_search;
     gboolean             skip_mounting;
     gboolean             toolbar_visibility;
     gboolean             buttonbar_visibility;
@@ -118,38 +118,42 @@ static gint get_int (const gchar *path, int def)
 }
 
 
-static void write_ftp_servers ()
+static void write_ftp_servers (const gchar *fname)
 {
-    gchar *path;
-    FILE *fd;
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
+    FILE  *fd = fopen (path, "w");
 
-    path = g_strdup_printf ("%s/.gnome-commander/ftp-servers", g_get_home_dir());
-    fd = fopen (path, "w");
-    if (fd != NULL) {
-        GList *tmp = gnome_cmd_con_list_get_all_ftp (data->priv->con_list);
+    if (fd != NULL)
+    {
+        GList *tmp;
+
         chmod (path, S_IRUSR|S_IWUSR);
-        while (tmp) {
+
+        for (tmp = gnome_cmd_con_list_get_all_ftp (data->priv->con_list); tmp; tmp = tmp->next)
+        {
             GnomeCmdConFtp *server = GNOME_CMD_CON_FTP (tmp->data);
-            if (server) {
+
+            if (server)
+            {
                 gchar *alias = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_alias (server));
                 gchar *hname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_host_name (server));
+                gushort port = gnome_cmd_con_ftp_get_host_port (server);
+                gchar *remote_dir = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_remote_dir (server));
                 gchar *uname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_user_name (server));
                 gchar *pw    = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_pw (server));
-                gushort port = gnome_cmd_con_ftp_get_host_port (server);
                 GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (GNOME_CMD_CON (server));
-                GList *bookmarks = bookmark_group->bookmarks;
+                GList *bookmarks;
 
-                if (pw)
-                    fprintf (fd, "S: %s %s %d %s %s\n", alias, hname, port, uname, pw);
-                else
-                    fprintf (fd, "S: %s %s %d %s\n", alias, hname, port, uname);
+                fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp", alias, hname, port, remote_dir, uname, pw?:"");
 
                 g_free (alias);
                 g_free (hname);
+                g_free (remote_dir);
                 g_free (uname);
-                if (pw) g_free (pw);
+                g_free (pw);
 
-                while (bookmarks) {
+                for (bookmarks = bookmark_group->bookmarks; bookmarks; bookmarks = bookmarks->next)
+                {
                     GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)bookmarks->data;
                     gchar *name = gnome_vfs_escape_string (bookmark->name);
                     gchar *path = gnome_vfs_escape_string (bookmark->path);
@@ -158,10 +162,8 @@ static void write_ftp_servers ()
 
                     g_free (name);
                     g_free (path);
-                    bookmarks = bookmarks->next;
                 }
             }
-            tmp = tmp->next;
         }
 
         fclose (fd);
@@ -174,9 +176,9 @@ static void write_ftp_servers ()
 
 
 static void
-write_devices ()
+write_devices (const gchar *fname)
 {
-    gchar *path = g_strdup_printf ("%s/.gnome-commander/devices", g_get_home_dir());
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
 
     if (fd != NULL) {
@@ -220,9 +222,9 @@ write_devices ()
 
 
 static void
-write_fav_apps ()
+write_fav_apps (const gchar *fname)
 {
-    gchar *path = g_strdup_printf ("%s/.gnome-commander/fav-apps", g_get_home_dir());
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
 
     if (fd != NULL) {
@@ -261,68 +263,124 @@ write_fav_apps ()
 }
 
 
-static void load_ftp_servers ()
+static gboolean load_ftp_servers (const gchar *fname)
 {
-    gchar *path = g_strdup_printf ("%s/.gnome-commander/ftp-servers", g_get_home_dir());
-    FILE *fd = fopen (path, "r");
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
+    FILE  *fd = fopen (path, "r");
 
-    if (fd != NULL) {
-        gint ret=0;
-        GnomeCmdConFtp *server = NULL;
+    if (fd)
+    {
+        gchar line[1024];
 
-        do {
-            gchar line[1024];
+        while (fgets (line, sizeof(line), fd) != NULL)
+        {
+            GnomeCmdConFtp *server = NULL;
 
-            if (fgets (line, sizeof(line), fd) != NULL) {
-                if (line[0] == 'S') {
-                    gchar alias[256], host[256], user[256], pw[256];
-                    gchar *alias2, *host2, *user2, *pw2=NULL;
-                    gint port;
+            switch (line[0])
+            {
+                case '\0':             // do not warn about empty lines
+                case '#' :             // do not warn about empty comments
+                    break;
 
-                    ret = sscanf (line, "S: %s %s %d %s %s\n", alias, host, &port, user, pw);
-                    if (ret == 4 || ret == 5) {
-                        alias2 = gnome_vfs_unescape_string (alias, NULL);
-                        host2  = gnome_vfs_unescape_string (host, NULL);
-                        user2  = gnome_vfs_unescape_string (user, NULL);
-                        if (ret == 5)
-                            pw2 = gnome_vfs_unescape_string (pw, NULL);
+                case 'S':
+                    {
+                        gchar alias[256], host[256], user[256], pw[256];
+                        gchar *alias2, *host2, *user2, *pw2=NULL;
+                        gint port;
 
-                        server = gnome_cmd_con_ftp_new (alias2, host2, (gshort)port, user2, pw2);
+                        gint ret = sscanf (line, "S: %256s %256s %d %256s %256s\n", alias, host, &port, user, pw);
 
-                        gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
+                        if (ret == 4 || ret == 5)
+                        {
+                            alias2 = gnome_vfs_unescape_string (alias, NULL);
+                            host2  = gnome_vfs_unescape_string (host, NULL);
+                            user2  = gnome_vfs_unescape_string (user, NULL);
+                            if (ret == 5)
+                                pw2 = gnome_vfs_unescape_string (pw, NULL);
 
-                        g_free (alias2);
-                        g_free (host2);
-                        g_free (user2);
-                        if (pw2) g_free (pw2);
+                            server = gnome_cmd_con_ftp_new (alias2, host2, (gshort)port, user2, pw2, "");
+
+                            gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
+
+                            g_free (alias2);
+                            g_free (host2);
+                            g_free (user2);
+                            g_free (pw2);
+                        }
                     }
-                }
-                else if (line[0] == 'B' && server) {
-                    gchar name[256], path[256];
-                    ret = sscanf (line, "B: %s %s\n", name, path);
-                    if (ret == 2) {
-                        GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (GNOME_CMD_CON (server));
-                        GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
-                        bookmark->name = gnome_vfs_unescape_string (name, NULL);
-                        bookmark->path = gnome_vfs_unescape_string (path, NULL);
-                        bookmark->group = group;
+                    break;
 
-                        group->bookmarks = g_list_append (group->bookmarks, bookmark);
+                case 'C':
+                    {
+                        gchar **a = g_strsplit_set(line, " \t\n", 9);
+                        gint port2;
+
+                        if (g_strv_length(a)==9             &&
+                            strcmp(a[0], "C:")==0           &&
+                            strcmp(a[1], "ftp")==0          &&
+                            sscanf(a[4], "%ud", &port2)==1)
+                        {
+                            gchar *alias2       = gnome_vfs_unescape_string (a[2], NULL);
+                            gchar *host2        = gnome_vfs_unescape_string (a[3], NULL);
+                            gchar *remote_dir2  = gnome_vfs_unescape_string (a[5], NULL);
+                            gchar *user2        = gnome_vfs_unescape_string (a[6], NULL);
+                            gchar *pw2          = gnome_vfs_unescape_string (a[7], NULL);
+
+                            GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (alias2, host2, (gshort)port2, user2, pw2, remote_dir2);
+
+                            g_free (alias2);
+                            g_free (host2);
+                            g_free (remote_dir2);
+                            g_free (user2);
+                            g_free (pw2);
+
+                            gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
+                        }
+                        else
+                        {
+                            g_warning ("Invalid line in the '%s' file - skipping it...", path);
+                            g_warning ("\t... %s", line);
+                        }
+
+                        g_strfreev(a);
                     }
-                }
-                else
-                    g_warning ("Invalid line in the ftp-servers file - skipping it...\n");
+                    break;
+
+                case 'B':
+                    if (server)
+                    {
+                        gchar name[256], path[256];
+                        gint ret = sscanf (line, "B: %256s %256s\n", name, path);
+
+                        if (ret == 2)
+                        {
+                            GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (GNOME_CMD_CON (server));
+                            GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
+                            bookmark->name = gnome_vfs_unescape_string (name, NULL);
+                            bookmark->path = gnome_vfs_unescape_string (path, NULL);
+                            bookmark->group = group;
+
+                            group->bookmarks = g_list_append (group->bookmarks, bookmark);
+                        }
+                    }
+                    break;
+
+                default:
+                    g_warning ("Invalid line in the '%s' file - skipping it...", path);
+                    g_warning ("\t... %s", line);
+                    break;
             }
-            else
-                break;
-        } while (1);
+        }
 
         fclose (fd);
     }
-    else if (errno != ENOENT)
-        warn_print ("Failed to open the file %s for reading\n", path);
+    else
+        if (errno != ENOENT)
+            warn_print ("Failed to open the file %s for reading\n", path);
 
     g_free (path);
+
+    return fd!=NULL;
 }
 
 
@@ -338,12 +396,12 @@ vfs_is_uri_local(const char* uri)
 
     b = gnome_vfs_uri_is_local(pURI);
     gnome_vfs_uri_unref(pURI);
-    
+
     /* make sure this is actually a local path
            (gnome treats "burn://" as local, too and we don't want that)  */
     if (g_strncasecmp(uri,"file:/", 6)!=0)
-	    b = FALSE ;
-    
+        b = FALSE;
+
     DEBUG('m',"uri (%s) is %slocal\n", uri, b?"":"NOT ");
 
     return b;
@@ -380,7 +438,7 @@ remove_vfs_volume (GnomeVFSVolume *volume)
                 DEBUG('m',"Remove Volume:\ndevice_fn = %s\tmountp = %s\n",
                 device_fn,mountp);
                 gnome_cmd_con_list_remove_device(data->priv->con_list, device);
-		break;
+                break;
             }
         }
     }
@@ -390,31 +448,33 @@ remove_vfs_volume (GnomeVFSVolume *volume)
     g_free (localpath);
 }
 
+
 static gboolean
 device_mount_point_exists(GnomeCmdConList *list, const gchar* mountpoint)
 {
-	gboolean rc = FALSE ;
-	GList *tmp;
+    gboolean rc = FALSE;
+    GList *tmp;
 
-	for (tmp = gnome_cmd_con_list_get_all_dev (list); tmp != NULL; tmp = tmp->next) {
-	    GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
-	    if (device &&
-		!gnome_cmd_con_device_get_autovol(device)) {
-		gchar *mountp = gnome_vfs_escape_string (gnome_cmd_con_device_get_mountp (device));
-		gchar *mountp2= gnome_vfs_unescape_string (mountp, NULL);
+    for (tmp = gnome_cmd_con_list_get_all_dev (list); tmp != NULL; tmp = tmp->next) {
+        GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
+        if (device &&
+        !gnome_cmd_con_device_get_autovol(device)) {
+        gchar *mountp = gnome_vfs_escape_string (gnome_cmd_con_device_get_mountp (device));
+        gchar *mountp2= gnome_vfs_unescape_string (mountp, NULL);
 
-		if (strcmp(mountp2, mountpoint)==0)
-			rc = TRUE ;
-		
-		g_free (mountp);
-		g_free (mountp2);
-		
-		if (rc)
-			break;
-	    }
-	}
-	return rc ;
+        if (strcmp(mountp2, mountpoint)==0)
+            rc = TRUE;
+
+        g_free (mountp);
+        g_free (mountp2);
+
+        if (rc)
+            break;
+        }
+    }
+    return rc;
 }
+
 
 static void
 add_vfs_volume (GnomeVFSVolume *volume)
@@ -423,8 +483,8 @@ add_vfs_volume (GnomeVFSVolume *volume)
     GnomeVFSDrive *drive;
     GnomeCmdConDevice *ConDev;
     GtkIconInfo *iconinfo;
-    GtkIconTheme *icontheme ;
-	
+    GtkIconTheme *icontheme;
+
     if (!gnome_vfs_volume_is_user_visible (volume))
         return;
 
@@ -439,36 +499,36 @@ add_vfs_volume (GnomeVFSVolume *volume)
     icon = gnome_vfs_volume_get_icon (volume);
     name = gnome_vfs_volume_get_display_name (volume);
     drive = gnome_vfs_volume_get_drive (volume);
-    
+
     /* Try to load the icon, using current theme */
-    iconpath = NULL ;
-    icontheme = gtk_icon_theme_get_default() ;
+    iconpath = NULL;
+    icontheme = gtk_icon_theme_get_default();
     if (icontheme) {
-	    iconinfo = gtk_icon_theme_lookup_icon (icontheme,icon,16,0) ;
-	    if (iconinfo) {
-		/* This returned string should not be free, see gtk documentation */
-		iconpath = gtk_icon_info_get_filename (iconinfo);
-	    }
+        iconinfo = gtk_icon_theme_lookup_icon (icontheme,icon,16,0);
+        if (iconinfo) {
+        /* This returned string should not be free, see gtk documentation */
+        iconpath = gtk_icon_info_get_filename (iconinfo);
+        }
     }
 
 
     localpath = gnome_vfs_get_local_path_from_uri (uri);
 
-    DEBUG('m',"name = %s\n", name) ;
-    DEBUG('m',"path = %s\n", path ) ;
-    DEBUG('m',"uri = %s\n", uri) ;
-    DEBUG('m',"local = %s\n", localpath) ;
-    DEBUG('m',"icon = %s (full path = %s)\n", icon, iconpath) ;
+    DEBUG('m',"name = %s\n", name);
+    DEBUG('m',"path = %s\n", path );
+    DEBUG('m',"uri = %s\n", uri);
+    DEBUG('m',"local = %s\n", localpath);
+    DEBUG('m',"icon = %s (full path = %s)\n", icon, iconpath);
 
     /* Don't create a new device connect if one already exists.
                 This can happen if the user manually added the same device in "Options|Devices" menu */
     if (!device_mount_point_exists(data->priv->con_list, localpath)) {
-	ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, iconpath);
-	gnome_cmd_con_device_set_autovol(ConDev, TRUE);
-	gnome_cmd_con_device_set_vfs_volume(ConDev, volume);
-	gnome_cmd_con_list_add_device (data->priv->con_list,ConDev);
+    ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, iconpath);
+    gnome_cmd_con_device_set_autovol(ConDev, TRUE);
+    gnome_cmd_con_device_set_vfs_volume(ConDev, volume);
+    gnome_cmd_con_list_add_device (data->priv->con_list,ConDev);
     } else {
-	DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", localpath);
+    DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", localpath);
     }
 
     g_free (path);
@@ -476,7 +536,7 @@ add_vfs_volume (GnomeVFSVolume *volume)
     g_free (icon);
     g_free (name);
     g_free (localpath);
-    
+
     gnome_vfs_drive_unref (drive);
 }
 
@@ -559,15 +619,11 @@ set_vfs_volume_monitor()
 {
       monitor = gnome_vfs_get_volume_monitor ();
 
-    g_signal_connect (monitor, "volume_mounted",
-        G_CALLBACK (volume_mounted), NULL);
-    g_signal_connect (monitor, "volume_unmounted",
-        G_CALLBACK (volume_unmounted), NULL);
+    g_signal_connect (monitor, "volume_mounted", G_CALLBACK (volume_mounted), NULL);
+    g_signal_connect (monitor, "volume_unmounted", G_CALLBACK (volume_unmounted), NULL);
 #if 0
-    g_signal_connect (monitor, "drive_connected",
-        G_CALLBACK (drive_connected), NULL);
-    g_signal_connect (monitor, "drive_disconnected",
-        G_CALLBACK (drive_disconnected), NULL);
+    g_signal_connect (monitor, "drive_connected", G_CALLBACK (drive_connected), NULL);
+    g_signal_connect (monitor, "drive_disconnected", G_CALLBACK (drive_disconnected), NULL);
 #endif
 }
 
@@ -600,9 +656,9 @@ load_vfs_auto_devices()
 
 
 static void
-load_devices ()
+load_devices (const gchar *fname)
 {
-    gchar *path = g_strdup_printf ("%s/.gnome-commander/devices", g_get_home_dir());
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "r");
 
     if (fd != NULL) {
@@ -647,13 +703,13 @@ load_devices ()
 
 
 static void
-load_fav_apps ()
+load_fav_apps (const gchar *fname)
 {
     gchar *path;
     FILE *fd;
 
     data->priv->fav_apps = NULL;
-    path = g_strdup_printf ("%s/.gnome-commander/fav-apps", g_get_home_dir());
+    path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     fd = fopen (path, "r");
     if (fd != NULL) {
         int ret;
@@ -1033,26 +1089,19 @@ gnome_cmd_data_free                      (void)
             gtk_object_unref (GTK_OBJECT (data->priv->con_list));
 
             /* free the anonymous password string */
-            if (data->priv->ftp_anonymous_password)
-                g_free (data->priv->ftp_anonymous_password);
+            g_free (data->priv->ftp_anonymous_password);
 
             /* free the dateformat string */
-            if (data->priv->date_format)
-                g_free (data->priv->date_format);
+            g_free (data->priv->date_format);
 
             /* free the font name strings */
-            if (data->priv->list_font)
-                g_free (data->priv->list_font);
+            g_free (data->priv->list_font);
 
             /* free the external programs strings */
-            if (data->priv->viewer)
-                g_free (data->priv->viewer);
-            if (data->priv->editor)
-                g_free (data->priv->editor);
-            if (data->priv->differ)
-                g_free (data->priv->differ);
-            if (data->priv->term)
-                g_free (data->priv->term);
+            g_free (data->priv->viewer);
+            g_free (data->priv->editor);
+            g_free (data->priv->differ);
+            g_free (data->priv->term);
 
             g_free (data->priv);
         }
@@ -1081,8 +1130,8 @@ gnome_cmd_data_save                      (void)
     gnome_cmd_data_set_int    ("/options/list_row_height", data->priv->list_row_height);
 
     gnome_cmd_data_set_bool   ("/confirm/delete", data->priv->confirm_delete);
-	gnome_cmd_data_set_int    ("/confirm/copy_overwrite", data->priv->confirm_copy_overwrite);
-	gnome_cmd_data_set_int    ("/confirm/move_overwrite", data->priv->confirm_move_overwrite);
+    gnome_cmd_data_set_int    ("/confirm/copy_overwrite", data->priv->confirm_copy_overwrite);
+    gnome_cmd_data_set_int    ("/confirm/move_overwrite", data->priv->confirm_move_overwrite);
 
     gnome_cmd_data_set_bool   ("/options/show_unknown", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN]);
     gnome_cmd_data_set_bool   ("/options/show_regular", data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR]);
@@ -1168,9 +1217,9 @@ gnome_cmd_data_save                      (void)
     write_cmdline_history ();
     //write_dir_history ();
 
-    write_ftp_servers ();
-    write_devices ();
-    write_fav_apps ();
+    write_ftp_servers ("connections");
+    write_devices ("devices");
+    write_fav_apps ("fav-apps");
     write_search_defaults ();
     write_rename_history ();
     write_local_bookmarks ();
@@ -1250,7 +1299,7 @@ gnome_cmd_data_load                      (void)
     data->priv->confirm_copy_overwrite = gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
     data->priv->confirm_move_overwrite = gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
 
-	data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
+    data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
         gnome_cmd_data_get_bool ("/options/show_unknown", FALSE);
 
     data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_REGULAR] =
@@ -1376,11 +1425,11 @@ gnome_cmd_data_load_more (void)
 {
     data->priv->con_list = gnome_cmd_con_list_new ();
     gnome_cmd_con_list_begin_update (data->priv->con_list);
-    load_devices ();
-    load_ftp_servers ();
+    load_devices ("devices");
+    load_ftp_servers ("connections") || load_ftp_servers ("ftp-servers");
     gnome_cmd_con_list_end_update (data->priv->con_list);
 
-    load_fav_apps ();
+    load_fav_apps ("fav-apps");
     load_local_bookmarks ();
     load_smb_bookmarks ();
 }
@@ -1433,6 +1482,7 @@ gnome_cmd_data_get_fav_apps               (void)
 {
     return data->priv->fav_apps;
 }
+
 
 void
 gnome_cmd_data_set_fav_apps               (GList *apps)
@@ -1667,28 +1717,28 @@ gnome_cmd_data_set_confirm_delete       (gboolean value)
 GnomeCmdConfirmOverwriteMode
 gnome_cmd_data_get_confirm_overwrite_copy(void)
 {
-	return data->priv->confirm_copy_overwrite;
+    return data->priv->confirm_copy_overwrite;
 }
 
 
 void
 gnome_cmd_data_set_confirm_overwrite_copy(GnomeCmdConfirmOverwriteMode value)
 {
-	data->priv->confirm_copy_overwrite = value;
+    data->priv->confirm_copy_overwrite = value;
 }
 
 
 GnomeCmdConfirmOverwriteMode
 gnome_cmd_data_get_confirm_overwrite_move(void)
 {
-	return data->priv->confirm_move_overwrite;
+    return data->priv->confirm_move_overwrite;
 }
 
 
 void
 gnome_cmd_data_set_confirm_overwrite_move(GnomeCmdConfirmOverwriteMode value)
 {
-	data->priv->confirm_move_overwrite = value;
+    data->priv->confirm_move_overwrite = value;
 }
 
 
@@ -2054,6 +2104,7 @@ gnome_cmd_data_set_alt_quick_search (gboolean value)
 {
     data->priv->alt_quick_search = value;
 }
+
 
 gboolean
 gnome_cmd_data_get_skip_mounting (void)

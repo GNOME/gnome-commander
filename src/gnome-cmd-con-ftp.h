@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_CON_FTP_H__
 #define __GNOME_CMD_CON_FTP_H__
 
@@ -56,7 +57,8 @@ gnome_cmd_con_ftp_new     (const gchar *alias,
                            const gchar *host_name,
                            gint host_port,
                            const gchar *user_name,
-                           const gchar *pw);
+                           const gchar *pw,
+                           const gchar *remote_dir);
 
 void
 gnome_cmd_con_ftp_set_alias           (GnomeCmdConFtp *fs,
@@ -78,6 +80,10 @@ void
 gnome_cmd_con_ftp_set_pw              (GnomeCmdConFtp *fs,
                                        const gchar *pw);
 
+void
+gnome_cmd_con_ftp_set_remote_dir      (GnomeCmdConFtp *fs,
+                                       const gchar *pw);
+
 const gchar *
 gnome_cmd_con_ftp_get_alias           (GnomeCmdConFtp *fs);
 
@@ -92,6 +98,9 @@ gnome_cmd_con_ftp_get_user_name       (GnomeCmdConFtp *fs);
 
 const gchar *
 gnome_cmd_con_ftp_get_pw              (GnomeCmdConFtp *fs);
+
+const gchar *
+gnome_cmd_con_ftp_get_remote_dir      (GnomeCmdConFtp *fs);
 
 
 #endif //__GNOME_CMD_CON_FTP_H__
