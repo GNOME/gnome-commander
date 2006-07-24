@@ -144,7 +144,7 @@ static void write_ftp_servers (const gchar *fname)
                 GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (GNOME_CMD_CON (server));
                 GList *bookmarks;
 
-                fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp", alias, hname, port, remote_dir, uname, pw?:"");
+                fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp:", alias, hname, port, remote_dir, uname, pw?:"");
 
                 g_free (alias);
                 g_free (hname);
@@ -265,6 +265,8 @@ write_fav_apps (const gchar *fname)
 
 static gboolean load_ftp_servers (const gchar *fname)
 {
+    guint prev_ftp_cons_no = g_list_length(gnome_cmd_con_list_get_all_ftp(data->priv->con_list));
+
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE  *fd = fopen (path, "r");
 
@@ -317,7 +319,7 @@ static gboolean load_ftp_servers (const gchar *fname)
 
                         if (g_strv_length(a)==9             &&
                             strcmp(a[0], "C:")==0           &&
-                            strcmp(a[1], "ftp")==0          &&
+                            strcmp(a[1], "ftp:")==0         &&
                             sscanf(a[4], "%ud", &port2)==1)
                         {
                             gchar *alias2       = gnome_vfs_unescape_string (a[2], NULL);
@@ -380,7 +382,7 @@ static gboolean load_ftp_servers (const gchar *fname)
 
     g_free (path);
 
-    return fd!=NULL;
+    return fd!=NULL && g_list_length(gnome_cmd_con_list_get_all_ftp(data->priv->con_list))>prev_ftp_cons_no;
 }
 
 
