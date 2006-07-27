@@ -2,7 +2,7 @@
 .\" First parameter, NAME, should be all caps
 .\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
 .\" other parameters are allowed: see man(7), man(1)
-.TH GNOME-COMMANDER 1 "Feb 10 2006"
+.TH GNOME-COMMANDER 1 "Jul 27 2006"
 .\" Please adjust this date whenever revising the manpage.
 .\"
 .\" Some roff macros, for reference:
@@ -18,13 +18,13 @@
 .SH NAME
 gnome-commander \- A GNOME file manager
 .SH SYNOPSIS
-.B gnome-commander 
+.B gnome-commander
 [-d STRING] [--help] [--version] [gtk,gnome,bonobo options]
 .br
 .SH DESCRIPTION
-.B GNOME Commander 
-is a fast and powerful graphical filemanager for the Gnome desktop 
-environment, it has a "two-pane" interface in the tradition of 
+.B GNOME Commander
+is a fast and powerful graphical filemanager for the GNOME desktop
+environment, it has a "two-pane" interface in the tradition of
 Norton and Midnight Commander.
 .SH OPTIONS
 .TP
@@ -37,7 +37,7 @@ Show version of program.
 .B \-l, \-\-start-left-dir=STRING
 Specify the start directory for the left pane
 .TP
-.B \-r, \-\-start-right-dir=STRING                 
+.B \-r, \-\-start-right-dir=STRING
 Specify the start directory for the right pane
 .TP
 .B \-d, \-\-debug=STRING
@@ -78,13 +78,13 @@ x: xfer
 .br
 .TP
 .B [gtk,gnome,bonobo options]
-Standard gtk, gnome, bonobo options are supported. use 
+Standard gtk, gnome, bonobo options are supported. use
 .B --help
 to see possible options.
 .SH EXAMPLES
 .TP
 .B gnome-commander -d nvl
-starts gnome-commander with debugging of directory listings, internal 
+starts gnome-commander with debugging of directory listings, internal
 viewer and directory monitoring facilities.
 .SH FILES
 .TP
@@ -92,13 +92,16 @@ viewer and directory monitoring facilities.
 User settings are saved here.
 .TP
 .B ~/.gnome-commander/devices
-List of user defined devices (see "Devices" in the "Options" dialog).
+List of user defined devices (see "Devices" tab in the "Options" dialog).
 .TP
 .B ~/.gnome-commander/fav-apps
-List of user defined applications (see "Programs" in the "Options" dialog).
+List of user defined applications (see "Programs" tab in the "Options" dialog).
+.TP
+.B ~/.gnome-commander/connections
+List of ftp servers (see "Connections" menu).
 .TP
 .B ~/.gnome-commander/ftp-servers
-List of ftp servers (see "Connections" menu).
+List of ftp servers (deprecated).
 .TP
 .B ~/.gnome-commander/plugins
 User specific plugins.
@@ -106,8 +109,8 @@ User specific plugins.
 .B /usr/lib/gnome-commander/plugins
 System-wide plugins.
 .SH BUGS
-If you find any bugs, please report them (or better yet, 
-fix them and send a patch). See the 
+If you find any bugs, please report them (or better yet,
+fix them and send a patch). See the
 .B GNOME Commander
 home page for more information:
 .br
@@ -119,16 +122,16 @@ was originally developed by Marcus Bjurman.
 Piotr Eljasiak <epiotr@use.pl> is the current project manager.
 Magnus Stålnacke <jemamo@telia.com> maintains the
 .B GNOME Commander
-home page. Assaf Gordon <agordon88@gmail.com> added the internal viewer code and 
-other features.
+home page. Assaf Gordon <agordon88@gmail.com> added the internal viewer code
+and other features.
 .br
-Translations and other contributions by numerous people. See the 
+Translations and other contributions by numerous people. See the
 .B
 AUTHORS
-file in the source tarball for complete details.
+file in the source tarball for the detailed list.
 
 The original manual page was written by Michael Vogt <mvo@debian.org>,
-for the Debian GNU/Linux system. Current manual page is maintained as the part of the 
+for the Debian GNU/Linux system. Current manual page is maintained as the part of the
 .B
 GNOME Commander
 project.
