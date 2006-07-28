@@ -1,3 +1,11 @@
+2006-07-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/C/figures/gnome-commander_dialog_adv_rename.png:
+	* doc/C/figures/gnome-commander_window.png:
+	* doc/C/gnome-commander.xml:
+	* doc/Makefile.am:
+	Updated docs
+
 2006-07-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.c:

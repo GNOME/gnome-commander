@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.1">
   <!ENTITY manrevision "1.2.1">
-  <!ENTITY date "May 2006">
+  <!ENTITY date "August 2006">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
-       The legal.xml file contains legal information, there is no need to edit the file. 
+       The legal.xml file contains legal information, there is no need to edit the file.
        Use the appversion entity to specify the version of the application.
        Use the manrevision entity to specify the revision number of this manual.
        Use the date entity to specify the release date of this manual.
        Use the app entity to specify the name of the application. -->
 ]>
-<!-- 
+<!--
       (Do not remove this comment block.)
   Maintained by the GNOME Documentation Project
   http://developer.gnome.org/projects/gdp
@@ -24,17 +24,17 @@
 <article id="index" lang="en">
 <!-- please do not change the id; for translations, change lang to -->
 <!-- appropriate code -->
-  <articleinfo> 
-    <title>&app; Manual V&manrevision;</title>       
+  <articleinfo>
+    <title>&app; Manual V&manrevision;</title>
 
-    <copyright> 
-      <year>2000</year> 
-      <year>2001</year> 
-      <holder>DOCUMENTATION WRITER 2</holder> 
-    </copyright> 
-    <copyright> 
-      <year>2006</year> 
-      <holder>Piotr Eljasiak</holder> 
+    <copyright>
+      <year>2000</year>
+      <year>2001</year>
+      <holder>DOCUMENTATION WRITER 2</holder>
+    </copyright>
+    <copyright>
+      <year>2006</year>
+      <holder>Piotr Eljasiak</holder>
     </copyright>
 <!-- translators: uncomment this:
 
@@ -44,47 +44,47 @@
   </copyright>
 
    -->
-<!-- An address can be added to the publisher information.  If a role is 
-     not specified, the publisher/author is the same for all versions of the 
+<!-- An address can be added to the publisher information.  If a role is
+     not specified, the publisher/author is the same for all versions of the
      document.  -->
-    <publisher> 
-      <publishername> GNOME Documentation Project </publishername> 
-    </publisher> 
+    <publisher>
+      <publishername> GNOME Documentation Project </publishername>
+    </publisher>
 
    &legal;
-   <!-- This file  contains link to license for the documentation (GNU FDL), and 
-        other legal stuff such as "NO WARRANTY" statement. Please do not change 
-	any of this. -->
+   <!-- This file  contains link to license for the documentation (GNU FDL), and
+        other legal stuff such as "NO WARRANTY" statement. Please do not change
+    any of this. -->
 
-    <authorgroup> 
-      <author> 
-		<firstname>Documentation</firstname> 
-		<surname>Writer 2</surname> 
-		<affiliation> 
-	  		<orgname>GNOME Documentation Project</orgname> 
-	  		<address> <email>doc-writer2@gnome.org</email> </address> 
-		</affiliation> 
-      </author> 
-      <author> 
-		<firstname>Documentation</firstname> 
-		<surname>Writer 1</surname> 
-		<affiliation> 
-	  		<orgname>GNOME Documentation Project</orgname> 
-	  		<address> <email>doc-writer1@gnome.org</email> </address> 
-		</affiliation> 
-      </author> 
-      
+    <authorgroup>
+      <author>
+        <firstname>Documentation</firstname>
+        <surname>Writer 2</surname>
+        <affiliation>
+            <orgname>GNOME Documentation Project</orgname>
+            <address> <email>doc-writer2@gnome.org</email> </address>
+        </affiliation>
+      </author>
+      <author>
+        <firstname>Documentation</firstname>
+        <surname>Writer 1</surname>
+        <affiliation>
+            <orgname>GNOME Documentation Project</orgname>
+            <address> <email>doc-writer1@gnome.org</email> </address>
+        </affiliation>
+      </author>
+
 <!-- This is appropriate place for other contributors: translators,
      maintainers,  etc. Commented out by default.
-     
+
       <othercredit role="translator">
-		<firstname>Latin</firstname> 
-		<surname>Translator 1</surname> 
-		<affiliation> 
-	  		<orgname>Latin Translation Team</orgname> 
-	  		<address> <email>translator@gnome.org</email> </address> 
-		</affiliation>
-		<contrib>Latin translation</contrib>
+        <firstname>Latin</firstname>
+        <surname>Translator 1</surname>
+        <affiliation>
+            <orgname>Latin Translation Team</orgname>
+            <address> <email>translator@gnome.org</email> </address>
+        </affiliation>
+        <contrib>Latin translation</contrib>
       </othercredit>
 -->
     </authorgroup>
@@ -102,105 +102,109 @@
 <!-- For example, if the GNOME desktop release is V2.x, the first version of the manual that -->
 <!-- is written in that desktop timeframe is V2.0, the second version of the manual is V2.1, etc. -->
 <!-- When the desktop release version changes to V3.x, the revision number of the manual changes -->
-<!-- to V3.0, and so on. -->  
+<!-- to V3.0, and so on. -->
     <revhistory>
-      <revision> 
-		<revnumber>GNOME Commander Manual V&manrevision;</revnumber> 
-		<date>&date;</date> 
-		<revdescription> 
-	  		<para role="author">Documentation Writer 2
-	    	<email>docwriter2@gnome.org</email>
-	  		</para>
-	  		<para role="publisher">GNOME Documentation Project</para>
-		</revdescription> 
-      </revision> 
-      <revision> 
-		<revnumber>Full title of previous manual.</revnumber> 
-		<date>Release date of previous manual.</date> 
-		<revdescription> 
-	  		<para role="author">Piotr Eljasiak 
-	    	<email>epiotr@cvs.gnome.org</email>
-	  		</para>
-	  		<para role="publisher">GNOME Documentation Project</para>
-		</revdescription> 
-      </revision> 
-    </revhistory> 
+      <revision>
+        <revnumber>GNOME Commander Manual V&manrevision;</revnumber>
+        <date>&date;</date>
+        <revdescription>
+            <para role="author">Documentation Writer 2
+        <email>docwriter2@gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>Full title of previous manual.</revnumber>
+        <date>Release date of previous manual.</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+        <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+    </revhistory>
 
     <releaseinfo>This manual describes version &appversion; of GNOME Commander.
-    </releaseinfo> 
-    <legalnotice> 
-      <title>Feedback</title> 
+    </releaseinfo>
+    <legalnotice>
+      <title>Feedback</title>
       <para>To report a bug or make a suggestion regarding the &app; application or
       this manual, follow the directions in the <ulink url="ghelp:gnome-feedback"
-	  type="help">GNOME Feedback Page</ulink>. 
+      type="help">GNOME Feedback Page</ulink>.
       </para>
 <!-- Translators may also add here feedback address for translations -->
-    </legalnotice> 
-  </articleinfo> 
+    </legalnotice>
+  </articleinfo>
 
-  <indexterm zone="index"> 
-    <primary>GNOME-COMMANDER</primary> 
-  </indexterm> 
-  <indexterm zone="index"> 
-    <primary>gnome-commander</primary> 
+  <indexterm zone="index">
+    <primary>GNOME-COMMANDER</primary>
+  </indexterm>
+  <indexterm zone="index">
+    <primary>gnome-commander</primary>
   </indexterm>
 
 <!-- ============= Document Body ============================= -->
 <!-- ============= Introduction ============================== -->
 <!-- Use the Introduction section to give a brief overview of what
      the application is and what it does. -->
-  <sect1 id="gnome-commander-introduction"> 
-    <title>Introduction</title> 
-    <para>The &app; application is a fast and powerful graphical file manager for the Gnome desktop environment, 
-    it has a "two-pane" interface in the tradition of Norton and Midnight Commander. 
-    &app; provides the following features:</para> 
-		<itemizedlist> 
-	  		<listitem> 
-	    	<para>GTK-2 GUI with standard mouse interactions</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Gnome MIME types</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>FTP using GnomeVFS ftp module</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>SAMBA access</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Right click mouse menu</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>User defined context menu</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Quick device access buttons with automatic mounting and unmounting</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Latest accessed folder history</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Folder bookmarks</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Plugin support</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Fast file viewer for text, images and image meta data (Exif and IPTC)</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Tools for advanced renaming of files, searching, quick file name searching in current dir, 
-            symlinking, comparing directories</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Integrated command line</para> 
-	  		</listitem> 
-	  		<listitem> 
-	    	<para>Support for over 30 languages.</para> 
-	  		</listitem> 
-		</itemizedlist> 
+  <sect1 id="gnome-commander-introduction">
+    <title>Introduction</title>
+    <para>The &app; application is a fast and powerful graphical file manager for the Gnome desktop environment,
+    it has a "two-pane" interface based on the orthodox file manager (OFM) principle,
+    in the tradition of Norton and Midnight Commander.
+
+    &app; provides the following features:</para>
+        <itemizedlist>
+            <listitem>
+                <para>GTK-2 GUI with standard mouse interactions</para>
+            </listitem>
+            <listitem>
+                <para>Gnome MIME types</para>
+            </listitem>
+            <listitem>
+                <para>Remote connections using GnomeVFS: FTP/SFTP and SAMBA</para>
+            </listitem>
+            <listitem>
+                <para>Right click mouse menu</para>
+            </listitem>
+            <listitem>
+                <para>User defined context menu</para>
+            </listitem>
+            <listitem>
+                <para>Quick device access buttons with automatic mounting and unmounting</para>
+            </listitem>
+            <listitem>
+                <para>History of accessed locations</para>
+            </listitem>
+            <listitem>
+                <para>Folder bookmarks</para>
+            </listitem>
+            <listitem>
+                <para>Plugin support</para>
+            </listitem>
+            <listitem>
+                <para>Fast file viewer for text, images and image meta data (Exif and IPTC)</para>
+            </listitem>
+            <listitem>
+                <para>Tools for advanced batch renaming of files, searching, quick file name searching in current dir,
+                symlinking, comparing directories</para>
+            </listitem>
+            <listitem>
+                <para>Integrated command line</para>
+            </listitem>
+            <listitem>
+                <para>Colour profiles</para>
+            </listitem>
+            <listitem>
+                <para>Support for over 30 languages.</para>
+            </listitem>
+        </itemizedlist>
     <note>
-      <para>This is a note.</para>
+      <para>If you are using a development or CVS version, it is possible that the latest new features are not yet in this manual.
+            Please read the <ulink url="http://cvs.gnome.org/viewcvs/gnome-commander/ChangeLog?view=markup" type="http">detailed ChangeLog online</ulink>
+            or in the &app; sources to find out more about the new features.</para>
     </note>
   </sect1>
 
@@ -209,37 +213,37 @@
      to start the application and to describe the user interface components
      of the application. If there is other information that it is important
      for readers to know before they start using the application, you should
-     also include this information here. 
-     If the information about how to get started is very short, you can 
+     also include this information here.
+     If the information about how to get started is very short, you can
      include it in the Introduction and omit this section. -->
-  <sect1 id="gnome-commander-getting-started"> 
-    <title>Getting Started</title> 
+  <sect1 id="gnome-commander-getting-started">
+    <title>Getting Started</title>
 
     <sect2 id="gnome-commander-start">
     <title>To Start &app;</title>
     <para>You can start <application>&app;</application> in the following ways:
-    </para> 
+    </para>
     <variablelist>
-    	<varlistentry>
-    		<term><guimenu>Applications</guimenu> menu</term>
-    		<listitem>
-    		<para>Choose 
-    		<menuchoice>
-    		<guisubmenu>Accessories</guisubmenu>
-    		<guimenuitem>GNOME Commander</guimenuitem>
-    		</menuchoice>. </para>
-    		</listitem>
-    	</varlistentry>
-    	<varlistentry>
-    		<term>Command line</term>
-    		<listitem>
-    		<para>To start <application>&app;</application> from a command line, type the following command, 
-    		then press <keycap>Return</keycap>:</para>
-    		<para> 
-			<command>gnome-commander</command>
-    		</para> 
-    		</listitem>
-    	</varlistentry>
+    <varlistentry>
+        <term><guimenu>Applications</guimenu> menu</term>
+        <listitem>
+        <para>Choose
+        <menuchoice>
+        <guisubmenu>Accessories</guisubmenu>
+        <guimenuitem>&app;</guimenuitem>
+        </menuchoice>. </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>Command line</term>
+        <listitem>
+        <para>To start <application>&app;</application> from a command line, type the following command,
+        then press <keycap>Return</keycap>:</para>
+        <para>
+            <command>gnome-commander</command>
+        </para>
+        </listitem>
+    </varlistentry>
     </variablelist>
     </sect2>
 
@@ -248,19 +252,19 @@
     <para>When you start <application>&app;</application>, the following window is displayed.</para>
 
     <!-- ==== Figure ==== -->
-      <figure id="mainwindow-fig"> 
-		  <title>&app; Window</title>
-		  <screenshot> 
-			 <mediaobject> 
-				<imageobject> 
-				  <imagedata fileref="figures/gnome-commander_window.png" format="PNG"/>
-					 </imageobject>
-				<textobject> <phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area, 
-				                     and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
-				</textobject> 
-			</mediaobject>
-		  </screenshot>
-		</figure>
+      <figure id="mainwindow-fig">
+          <title>&app; Window</title>
+          <screenshot>
+             <mediaobject>
+                <imageobject>
+                  <imagedata fileref="figures/gnome-commander_window.png" format="PNG"/>
+                     </imageobject>
+                <textobject><phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area,
+                                     and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
+                </textobject>
+            </mediaobject>
+          </screenshot>
+        </figure>
     <!-- ==== End of Figure ==== -->
 
     <!-- Include any descriptions of the GUI immediately after the screenshot of the main UI, -->
@@ -269,1268 +273,1743 @@
     <para>The &app; window contains the following elements:
     </para>
       <variablelist>
-	<varlistentry>
-	<term>Menubar. </term>
-	<listitem>
-	<para>The menus on the menubar contain all of the commands you need to work with files in 
-	<application>&app;</application>.</para>
-	</listitem>
-	</varlistentry>
-	<varlistentry>
-	<term>Toolbar. </term>
-	<listitem>
-	<para> The toolbar contains a subset of the commands that you can access from the menubar.</para>
-	</listitem>
-	</varlistentry>
-	<varlistentry>
-	<term>Statusbar. </term>
-	<listitem>
-	<para>The statusbar displays information about current <application>&app;</application> 
-	activity and contextual information about the menu items. </para>
-	</listitem>
-	</varlistentry>
-	</variablelist>
+    <varlistentry>
+    <term>Menubar. </term>
+    <listitem>
+    <para>The menus on the menubar contain all of the commands you need to work with files in
+    <application>&app;</application>.</para>
+    </listitem>
+    </varlistentry>
+    <varlistentry>
+    <term>Toolbar. </term>
+    <listitem>
+    <para> The toolbar contains a subset of the commands that you can access from the menubar.</para>
+    </listitem>
+    </varlistentry>
+    <varlistentry>
+    <term>Statusbar. </term>
+    <listitem>
+    <para>The statusbar displays information about current <application>&app;</application>
+    activity and contextual information about the menu items. </para>
+    </listitem>
+    </varlistentry>
+    </variablelist>
     </sect2>
   </sect1>
 
 <!-- ================ Usage ================================ -->
-<!-- Use this section to describe how to use the application to perform the tasks for 
+<!-- Use this section to describe how to use the application to perform the tasks for
   which the application is designed. -->
-  <sect1 id="gnome-commander-usage"> 
-    <title>Usage</title> 
+  <sect1 id="gnome-commander-usage">
+    <title>Usage</title>
     <para>You can use the &app; application to
-      perform the following tasks: 
-      <itemizedlist> 
-	<listitem> 
-	  <para> 
-	    <xref linkend="gnome-commander-open-image"/></para> 
-	</listitem> 
-	<listitem> 
-	  <para> 
-	    <xref linkend="gnome-commander-manipulate-view"/></para> 
-	</listitem> 
-	<listitem> 
-	  <para> 
-	    <xref linkend="gnome-commander-scroll-image"/></para>
-	</listitem> 
-	<listitem> 
-	  <para> 
-	    <xref linkend="gnome-commander-close-image"/></para> 
-	</listitem> 
-	<listitem> 
-	  <para> 
-	    <xref linkend="gnome-commander-internal-viewer"/></para> 
-	</listitem> 
+      perform the following tasks:
+      <itemizedlist>
+    <listitem>
+      <para>
+        <xref linkend="gnome-commander-open-image"/></para>
+    </listitem>
+    <listitem>
+      <para>
+        <xref linkend="gnome-commander-manipulate-view"/></para>
+    </listitem>
+    <listitem>
+      <para>
+        <xref linkend="gnome-commander-scroll-image"/></para>
+    </listitem>
+    <listitem>
+      <para>
+        <xref linkend="gnome-commander-close-image"/></para>
+    </listitem>
+    <listitem>
+      <para>
+        <xref linkend="gnome-commander-advanced-rename"/></para>
+    </listitem>
+    <listitem>
+        <para>
+            <xref linkend="gnome-commander-internal-viewer"/>
+        </para>
+    </listitem>
       </itemizedlist> </para>
     <!-- ================ Usage Subsection ================================ -->
-    <sect2 id="gnome-commander-open-image"> 
-      <title>To Open an Image</title> 
-      <para>To open an image, choose 
-	<menuchoice> 
-	  <guimenu>File</guimenu> 
-	  <guimenuitem>Open Image</guimenuitem> 
-	</menuchoice>. The 
-	<guilabel>Open Image</guilabel> dialog is displayed. Select the file
-	that you want to open, then click 
-	<guibutton>OK</guibutton>. To open another image in a new window,
-	choose 
-	<menuchoice> 
-	  <guimenu>File</guimenu> 
-	  <guimenuitem>Create New Window</guimenuitem> 
-	</menuchoice>. Choose 
-	<menuchoice> 
-	  <guimenu>File</guimenu> 
-	  <guimenuitem>Open Image</guimenuitem> 
-	</menuchoice> 
-	to select the file that you want to open. You can also drag an image
-	from another application such as a file manager to the &app;
-	window. If the &app; window is empty, the application displays
-	the image in the window. If the window is not empty, the
-	application starts a new window to display the file. The
-	application displays the name of the image file and the size
-	of the image in pixels in the titlebar of the window. </para>
+    <sect2 id="gnome-commander-open-image">
+      <title>To Open an Image</title>
+      <para>To open an image, choose
+    <menuchoice>
+      <guimenu>File</guimenu>
+      <guimenuitem>Open Image</guimenuitem>
+    </menuchoice>. The
+    <guilabel>Open Image</guilabel> dialog is displayed. Select the file
+    that you want to open, then click
+    <guibutton>OK</guibutton>. To open another image in a new window,
+    choose
+    <menuchoice>
+      <guimenu>File</guimenu>
+      <guimenuitem>Create New Window</guimenuitem>
+    </menuchoice>. Choose
+    <menuchoice>
+      <guimenu>File</guimenu>
+      <guimenuitem>Open Image</guimenuitem>
+    </menuchoice>
+    to select the file that you want to open. You can also drag an image
+    from another application such as a file manager to the &app;
+    window. If the &app; window is empty, the application displays
+    the image in the window. If the window is not empty, the
+    application starts a new window to display the file. The
+    application displays the name of the image file and the size
+    of the image in pixels in the titlebar of the window. </para>
       <para>
-	If you try to open an image file format that &app; does
-	not recognize, the application displays an error
-	message.
+    If you try to open an image file format that &app; does
+    not recognize, the application displays an error
+    message.
       </para>
       <caution>
       <para>This is a caution.</para>
       </caution>
-    </sect2> 
-    <!-- ================ Usage Subsection ================================ -->
-	<sect2 id="gnome-commander-manipulate-view"> 
-      <title>To Manipulate the View of an Image</title> 
-      <para>You can use the following methods to resize the view of an image in
-	the &app; window:</para> 
-      <itemizedlist> 
-	<listitem> 
-	  <para>To enlarge the view of an image, choose 
-	    <menuchoice> 
-	      <guimenu>View</guimenu> 
-	      <guimenuitem>Zoom In</guimenuitem> 
-	    </menuchoice>.</para> 
-	</listitem> 
-	<listitem> 
-	  <para>To shrink the view of an image, choose 
-	    <menuchoice> 
-	      <guimenu>View</guimenu> 
-	      <guimenuitem>Zoom Out</guimenuitem> 
-	    </menuchoice>.</para> 
-	</listitem> 
-	<listitem> 
-	  <para>To view the image at its actual size, choose 
-	    <menuchoice> 
-	      <guimenu>View</guimenu> 
-	      <guimenuitem>Zoom 1:1</guimenuitem> 
-	    </menuchoice>. </para> 
-	</listitem> 
-	<listitem> 
-	  <para>To enlarge or shrink the view of an image so that the image
-	    fits the &app; window, choose 
-	    <menuchoice> 
-	      <guimenu>View</guimenu> 
-	      <guimenuitem>Fit to Window</guimenuitem> 
-	    </menuchoice>.</para> 
-	</listitem> 
-	<listitem> 
-	  <para>To enlarge or shrink the image to a specific zoom factor,
-	    choose 
-	    <menuchoice> 
-	      <guimenu>View</guimenu> 
-	      <guimenuitem>Zoom factor</guimenuitem> 
-	    </menuchoice>, then choose the appropriate zoom factor from the
-	    drop-down list.</para> 
-	</listitem> 
-	<listitem> 
-	  <para>To display the image in full screen mode, choose 
-	    <menuchoice> 
-	      <guimenu>View</guimenu> 
-	      <guimenuitem>Full Screen</guimenuitem> 
-	    </menuchoice>. Full screen mode displays the image in a window that
-	    fills the full screen. The window does not contain a
-	    window frame, titlebar, 
-	    menubar, or toolbar. To exit from this mode, press the 
-	    <keycap>Esc</keycap> key or 
-	    <keycombo>
-              <keycap>Ctrl</keycap>
-	      <keycap>W</keycap>
-	    </keycombo>.
-	  </para> 
-	</listitem> 
-      </itemizedlist> 
-      <tip>
-      <para>This is a tip.</para>
-      </tip>
-    </sect2> 
-    <!-- ================ Usage Subsection ================================ -->
-    <sect2 id="gnome-commander-scroll-image"> 
-      <title>To Scroll an Image</title> 
-      <para>To scroll around an image that is larger than the image window or
-	full screen window, you can use the following methods:</para> 
-      <itemizedlist> 
-	<listitem> 
-	  <para>Use the arrow keys on the keyboard.</para> 
-	</listitem> 
-	<listitem> 
-	  <para>Drag the image in the opposite direction to the direction in
-	    which you want to scroll. For example, if you want to
-	      scroll down the image, drag the image upwards in the window.</para> 
-	</listitem> 
-	<listitem> 
-	  <para>Use the scrollbars on the window.</para> 
-	</listitem> 
-      </itemizedlist> 
     </sect2>
     <!-- ================ Usage Subsection ================================ -->
-    <sect2 id="gnome-commander-close-image"> 
-      <title>To Close an Image</title> 
-      <para>To close an image, choose 
-	<menuchoice> 
-	  <guimenu>File</guimenu> 
-	  <guimenuitem>Close This Window</guimenuitem> 
-	</menuchoice>. If the window is the last
-	&app; window open, the application exits. </para> 
+    <sect2 id="gnome-commander-manipulate-view">
+      <title>To Manipulate the View of an Image</title>
+      <para>You can use the following methods to resize the view of an image in
+    the &app; window:</para>
+      <itemizedlist>
+    <listitem>
+      <para>To enlarge the view of an image, choose
+        <menuchoice>
+          <guimenu>View</guimenu>
+          <guimenuitem>Zoom In</guimenuitem>
+        </menuchoice>.</para>
+    </listitem>
+    <listitem>
+      <para>To shrink the view of an image, choose
+        <menuchoice>
+          <guimenu>View</guimenu>
+          <guimenuitem>Zoom Out</guimenuitem>
+        </menuchoice>.</para>
+    </listitem>
+    <listitem>
+      <para>To view the image at its actual size, choose
+        <menuchoice>
+          <guimenu>View</guimenu>
+          <guimenuitem>Zoom 1:1</guimenuitem>
+        </menuchoice>. </para>
+    </listitem>
+    <listitem>
+      <para>To enlarge or shrink the view of an image so that the image
+        fits the &app; window, choose
+        <menuchoice>
+          <guimenu>View</guimenu>
+          <guimenuitem>Fit to Window</guimenuitem>
+        </menuchoice>.</para>
+    </listitem>
+    <listitem>
+      <para>To enlarge or shrink the image to a specific zoom factor,
+        choose
+        <menuchoice>
+          <guimenu>View</guimenu>
+          <guimenuitem>Zoom factor</guimenuitem>
+        </menuchoice>, then choose the appropriate zoom factor from the
+        drop-down list.</para>
+    </listitem>
+    <listitem>
+      <para>To display the image in full screen mode, choose
+        <menuchoice>
+          <guimenu>View</guimenu>
+          <guimenuitem>Full Screen</guimenuitem>
+        </menuchoice>. Full screen mode displays the image in a window that
+        fills the full screen. The window does not contain a
+        window frame, titlebar,
+        menubar, or toolbar. To exit from this mode, press the
+        <keycap>Esc</keycap> key or
+        <keycombo>
+              <keycap>Ctrl</keycap>
+          <keycap>W</keycap>
+        </keycombo>.
+      </para>
+    </listitem>
+      </itemizedlist>
+    </sect2>
+    <!-- ================ Usage Subsection ================================ -->
+    <sect2 id="gnome-commander-scroll-image">
+      <title>To Scroll an Image</title>
+      <para>To scroll around an image that is larger than the image window or
+    full screen window, you can use the following methods:</para>
+      <itemizedlist>
+    <listitem>
+      <para>Use the arrow keys on the keyboard.</para>
+    </listitem>
+    <listitem>
+      <para>Drag the image in the opposite direction to the direction in
+        which you want to scroll. For example, if you want to
+          scroll down the image, drag the image upwards in the window.</para>
+    </listitem>
+    <listitem>
+      <para>Use the scrollbars on the window.</para>
+    </listitem>
+      </itemizedlist>
+    </sect2>
+    <!-- ================ Usage Subsection ================================ -->
+    <sect2 id="gnome-commander-close-image">
+      <title>To Close an Image</title>
+      <para>To close an image, choose
+    <menuchoice>
+      <guimenu>File</guimenu>
+      <guimenuitem>Close This Window</guimenuitem>
+    </menuchoice>. If the window is the last
+    &app; window open, the application exits. </para>
       <para>To quit &app; and close all of the
-	windows that you opened in the current session, choose 
-	<menuchoice> 
-	  <guimenu>File</guimenu> 
-	  <guimenuitem>Exit</guimenuitem> 
-	</menuchoice>. </para> 
-      <warning>
-      <para>This is a warning.</para>
-      </warning>
-    </sect2> 
-    <!-- ================ Internal viewer ================================== -->
-    <sect2 id="gnome-commander-internal-viewer"> 
+    windows that you opened in the current session, choose
+    <menuchoice>
+      <guimenu>File</guimenu>
+      <guimenuitem>Exit</guimenuitem>
+    </menuchoice>. </para>
+    </sect2>
+    <!-- ================ Advanced Rename Subsection ======================= -->
+    <sect2 id="gnome-commander-advanced-rename">
+        <title>Advanced file renaming</title>
+        <para>A powerful tool for batch renaming of the files selected in &app;.
+        It allows you to easily rename lots of files in one go.
+        The filenames can be created by parts of the original filename, its path,
+        numbering the files or accessing hundreds of informations about the file,
+        like creation date or Exif/IPTC informations of an image.</para>
+
+        <para>When started, the following dialog is displayed:</para>
+
+        <!-- ==== Figure ==== -->
+        <figure id="advrename-dlg-fig">
+             <title>Advanced Rename Tool Dialog</title>
+             <screenshot>
+                <mediaobject>
+                   <imageobject>
+                     <imagedata fileref="figures/gnome-commander_dialog_adv_rename.png" format="PNG"/>
+                        </imageobject>
+                   <textobject><phrase>Shows advanced file renaming dialog.</phrase>
+                   </textobject>
+               </mediaobject>
+             </screenshot>
+           </figure>
+        <!-- ==== End of Figure ==== -->
+
+        <variablelist>
+          <varlistentry>
+              <term>
+                  <guilabel>Template</guilabel>
+              </term>
+              <listitem>
+                  <para>Specifies template for file renaming. All ordinary characters placed in the format string
+                        go into new name without conversion. Conversion specifiers are introduced by a few placeholders
+                        (see below for the detailed list of placeholders). Additionally strftime() format controls
+                        are also accepted - except for "%D", "%n" and "%t" for obvious reasons.
+                        If found, they are converted into single "%".</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>
+                  <guilabel>Regex replacing</guilabel>
+              </term>
+              <listitem>
+                  <para>...</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>
+                  <guilabel>Result</guilabel>
+              </term>
+              <listitem>
+                  <para>List of the new file names.</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>
+                  <guilabel>Options</guilabel>
+              </term>
+              <listitem>
+                  <para>Additional settings for file name processing (start value, step and precision for counters).</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>
+                  <guilabel>OK</guilabel>
+              </term>
+              <listitem>
+                  <para>Starts to rename files. A warning message will popup in case of any name conflicts.</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>
+                  <guilabel>Cancel</guilabel>
+              </term>
+              <listitem>
+                  <para>Closes the dialog without file renaming.</para>
+              </listitem>
+          </varlistentry>
+        </variablelist>
+
+        <sect3 id="gnome-commander-advanced-rename-placeholders">
+        <title>Template Placeholders</title>
+        <informaltable frame="topbot">
+            <tgroup cols="2">
+                <colspec colname="col1"/>
+                <colspec colname="col2"/>
+                <thead>
+                    <row valign="top">
+                        <entry colname="col1" colsep="0" valign="top"><para>Placeholder</para></entry>
+                        <entry colname="col2" valign="top"><para>Replacement</para></entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row valign="top">
+                        <entry><para>$N</para></entry>
+                        <entry><para>The whole file name (with extension)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$N(range)</para></entry>
+                        <entry><para>Part of the whole file name (with extension)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$n</para></entry>
+                        <entry><para>File name without extension</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$n(range)</para></entry>
+                        <entry><para>Part of the file name without extension</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$e</para></entry>
+                        <entry><para>File extension</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$e(range)</para></entry>
+                        <entry><para>Part of the file extension</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$p</para></entry>
+                        <entry><para>Parent dir name</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$p(range)</para></entry>
+                        <entry><para>Part of the parent dir name</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$g</para></entry>
+                        <entry><para>Grandparent dir name</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$g(range)</para></entry>
+                        <entry><para>Part of the grandparent dir name</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$c</para></entry>
+                        <entry><para>File counter</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$c(precision)</para></entry>
+                        <entry><para>File counter with specified digit number (precision)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$$</para></entry>
+                        <entry><para>A literal "$" character</para></entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </informaltable>
+
+        <tip>
+            <para>Broken - like $n(), $e(0,-3) or $N(abc)- or unknown placeholders are copied verbatim without any substitution.</para>
+        </tip>
+    </sect3>
+
+        <sect3 id="gnome-commander-advanced-rename-ranges">
+        <title>Ranges</title>
+        <para>Ranges are a method of accessing a part of a string. The concept of ranges is based on python slices.</para>
+        
+        <para>A range (start_index:end_index) starts at the start_index and finishes one character before the end_index.</para>
+
+        <variablelist>
+        <term>
+            <guilabel>Range syntax</guilabel>
+            <itemizedlist>
+                <listitem>
+                    <para><guilabel>(start_index:end_index)</guilabel></para>
+                </listitem>
+                <listitem>
+                    <para><guilabel>(start_index)</guilabel> &equiv; (start_index:)</para>
+                </listitem>
+                <listitem>
+                    <para><guilabel>(start_index,length)</guilabel> &equiv; (start_index:start_index+length)</para>
+                </listitem>
+            </itemizedlist>
+        </term>
+        </variablelist>
+
+        <para>
+        If one of the indices is dropped, it is assumed that you want everything in that direction.
+        I.e. (:3) means "every character from the beginning of the string up to character 3, non-inclusive."
+        (3:) would, on the other hand, mean "every character from the string, starting at character 3 (inclusive) up to,
+        and including, the last one." If index is negative, it is relative to the end of the string.
+        Index -3 stands for "the third character from the end of the string".
+        </para>
+
+        <tip>
+            <para>Position of the first letter is '0'.</para>
+        </tip>
+    </sect3>
+        <sect3 id="gnome-commander-advanced-rename-strftime">
+        <title>strftime() format controls</title>
+        <informaltable frame="topbot">
+            <tgroup cols="2">
+                <colspec colname="col1"/>
+                <colspec colname="col2"/>
+                <thead>
+                    <row valign="top">
+                        <entry colname="col1" colsep="0" valign="top"><para>Placeholder</para></entry>
+                        <entry colname="col2" valign="top"><para>Replacement</para></entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row valign="top">
+                        <entry><para>%a</para></entry>
+                        <entry><para>The abbreviated weekday name according to the current locale</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%A</para></entry>
+                        <entry><para>The abbreviated month name according to the current locale</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%b</para></entry>
+                        <entry><para>The abbreviated month name according to the current locale</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%B</para></entry>
+                        <entry><para>The full month name according to the current locale</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%c</para></entry>
+                        <entry><para>The preferred date and time representation for the current locale</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%C</para></entry>
+                        <entry><para>The century number (year/100) as a 2-digit integer</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%d</para></entry>
+                        <entry><para>The day of the month as a decimal number (range 01 to 31)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%e</para></entry>
+                        <entry><para>Like %d, the day of the month as a decimal number, but a leading zero is replaced by a space</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%E</para></entry>
+                        <entry><para>Modifier: use alternative format, see below</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%F</para></entry>
+                        <entry><para>Equivalent to %Y-%m-%d (the ISO 8601 date format)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%G</para></entry>
+                        <entry><para>The ISO 8601 year with century as a decimal number. The 4-digit year corresponding to the ISO week number
+                                     (see %V). This has the same format and value as %y, except that if the ISO week number belongs
+                                     to the previous or next year, that year is used instead</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%g</para></entry>
+                        <entry><para>Like %G, but without century, i.e., with a 2-digit year (00-99)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%h</para></entry>
+                        <entry><para>Equivalent to %b</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%H</para></entry>
+                        <entry><para>The hour as a decimal number using a 24-hour clock (range 00 to 23)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%I</para></entry>
+                        <entry><para>The hour as a decimal number using a 12-hour clock (range 01 to 12)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%j</para></entry>
+                        <entry><para>The day of the year as a decimal number (range 001 to 366)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%k</para></entry>
+                        <entry><para>The hour (24-hour  clock) as a decimal number (range 0 to 23); single digits are preceded by a blank
+                                    (see also %H)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%l</para></entry>
+                        <entry><para>The hour (12-hour clock) as a decimal number (range 1 to 12); single digits are preceded  by  a  blank
+                                    (see also %I)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%m</para></entry>
+                        <entry><para>The month as a decimal number (range 01 to 12)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%M</para></entry>
+                        <entry><para>The minute as a decimal number (range 00 to 59)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%O</para></entry>
+                        <entry><para>Modifier: use alternative format, see below</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%p</para></entry>
+                        <entry><para>Either  "AM"  or "PM" according to the given time value, or the corresponding strings for the current locale.
+                                     Noon is treated as "pm" and midnight as "am"</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%P</para></entry>
+                        <entry><para>Like %p but in lowercase: "am" or "pm" or a corresponding string for the current locale</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%r</para></entry>
+                        <entry><para>The time in a.m. or p.m. notation.  In the POSIX locale this is equivalent to "%I:%M:%S %p"</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%R</para></entry>
+                        <entry><para>The time in 24-hour notation (%H:%M).  For a version including the seconds, see %T below</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%s</para></entry>
+                        <entry><para>The number of seconds since the Epoch, i.e., since 1970-01-01 00:00:00 UTC</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%S</para></entry>
+                        <entry><para>The second as a decimal number (range 00 to 61)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%T</para></entry>
+                        <entry><para>The time in 24-hour notation (%H:%M:%S)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%u</para></entry>
+                        <entry><para>The day of the week as a decimal, range 1 to 7, Monday being 1.  See also %w</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%U</para></entry>
+                        <entry><para>The week number of the current year as a decimal number, range 00 to 53,
+                                     starting with the  first  Sunday as the first day of week 01.
+                                     See also %V and %W</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%V</para></entry>
+                        <entry><para>The  ISO  8601:1988  week number of the current year as a decimal number, range 01 to 53, where week 1 is the
+                                     first week that has at least 4 days in the current year, and with Monday as the first day of  the  week.
+                                     See also %U and %W</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%w</para></entry>
+                        <entry><para>The day of the week as a decimal, range 0 to 6, Sunday being 0.  See also %u</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%W</para></entry>
+                        <entry><para>The  week  number  of the current year as a decimal number, range 00 to 53, starting with the first Monday as
+                                     the first day of week 01</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%x</para></entry>
+                        <entry><para>The preferred date representation for the current locale without the time</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%X</para></entry>
+                        <entry><para>The preferred time representation for the current locale without the date</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%y</para></entry>
+                        <entry><para>The year as a decimal number without a century (range 00 to 99)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%Y</para></entry>
+                        <entry><para>The year as a decimal number including the century</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%z</para></entry>
+                        <entry><para>The time-zone as hour offset from GMT.  Required to emit RFC822-conformant  dates  (using  "%a,  %d  %b  %Y
+                                     %H:%M:%S %z")</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%Z</para></entry>
+                        <entry><para>The time zone or name or abbreviation</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%+</para></entry>
+                        <entry><para>The date and time in date format</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>%%</para></entry>
+                        <entry><para>A literal "%" character</para></entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </informaltable>
+
+        <note>
+            <para>Some conversion specifiers can be modified by preceding them by the E or O modifier to indicate that an alternative
+            format should be used. If the alternative format or specification does not exist for the current locale, the
+            behaviour will be as if the unmodified conversion specification were used. The Single Unix Specification men-
+            tions %Ec, %EC, %Ex, %EX, %Ey, %EY, %Od, %Oe, %OH, %OI, %Om, %OM, %OS, %Ou, %OU, %OV, %Ow, %OW, %Oy, where the
+            effect of the O modifier is to use alternative numeric symbols (say, roman numerals), and that of the E modifier is
+            to use a locale-dependent alternative representation.</para>
+        </note>
+    </sect3>
+    </sect2>
+    <!-- ================ Internal Viewer Subsection ======================= -->
+    <sect2 id="gnome-commander-internal-viewer">
       <title>Using the Internal Viewer</title>
       <para>The internal viewer allows viewing contents of files in text, unicode, binary, hex or graphical mode.</para>
-      
-      <para>To start viewing files use F3 (default viewer - defined in 
-      <menuchoice> 
-	  <guimenu>Settings</guimenu> 
-	  <guimenuitem>Options...</guimenuitem>
-      </menuchoice>) or SHIFT+F3 (internal viewer). The internal viewer 
-    uses MMAP whenever possible for the fastest file loading.</para> 
 
-      <sect3 id="gnome-commander-internal-viewer-modes"> 
-    	<title>View Modes</title> 
-    	<para>The 
-    	  <guilabel>View Modes</guilabel> group contains the preferences
-    	  that you can set to view images in image windows.</para> 
-    	<variablelist> 
-    	  <varlistentry> 
-    	    <term> 
-    	      <guilabel>Character Encodings</guilabel> </term> 
-    	    <term> 
-    	      <guilabel>Text Display Mode</guilabel> </term> 
-    	    <term> 
-    	      <guilabel>Binary Display Mode</guilabel> </term> 
-    	    <term> 
-    	      <guilabel>Hex dump Display Mode</guilabel> </term> 
-    	    <term> 
-    	      <guilabel>Image Display Mode</guilabel> </term> 
-    	    <listitem> 
-    	      <para>Use this drop-down list box to specify when to use
-    		scrollbars to scroll through an image. Select one of
-    		the following options:</para> 
-    	      <itemizedlist> 
-    		<listitem> 
-    		  <para> 
-    		    <guilabel>Never</guilabel> </para> 
-    		  <para>This option never displays scrollbars. You can use the
-    		    arrow keys on the keyboard or the mouse to scroll
-    		    through the image. </para>  
-    		</listitem> 
-    		<listitem> 
-    		  <para> 
-    		    <guilabel>Only if image does not fit</guilabel> </para> 
-    		  <para>This option displays scrollbars when the image is
-    		    larger than the image window.</para> 
-    		</listitem> 
-    	      </itemizedlist> 
-    	      <para>Default: 
-    		<guilabel>Never</guilabel>.</para> 
-    	    </listitem> 
-    	  </varlistentry> 
-    	  <varlistentry> 
-    	    <term> 
-    	      <guilabel>Pick window size and zoom factor
-    		automatically</guilabel> </term> 
-    	    <listitem> 
-    	      <para>Select this option to resize the image window to fit the
-    		image or to resize the image to fit the image
-    		window. If the image is small, 
-    		&app; resizes the image window to fit the image. If
-    		the image is large, &app; resizes the image to fit
-    		the image window. </para> 
-    	      <para>Default: unselected.</para> 
-    	    </listitem> 
-    	  </varlistentry> 
-    	  <varlistentry> 
-    	    <term> 
-    	      <guilabel>Open images in a new window</guilabel> </term> 
-    	    <listitem> 
-    	      <para>Select this option to open a new
-    		&app; window each time you open an image. If you do
-    		not select this option, &app; replaces the existing
-    		image with the new image when you open an image. </para> 
-    	      <para>Default: unselected.</para> 
-    	    </listitem> 
-    	  </varlistentry> 
-    	</variablelist> 
-        </sect3> 
+      <para>To start viewing files use F3 (default viewer - defined in
+      <menuchoice>
+      <guimenu>Settings</guimenu>
+      <guimenuitem>Options...</guimenuitem>
+      </menuchoice>) or SHIFT+F3 (internal viewer). The internal viewer
+    uses MMAP whenever possible for the fastest file loading.</para>
 
-      <sect3 id="gnome-commander-internal-viewer-keyboard"> 
-      <title>Keyboard mappings</title> 
-      <informaltable frame="topbot"> 
-		<tgroup cols="2"> 
-			<colspec colname="col1"/> 
-			<colspec colname="col2"/> 
-		<thead> 
-		<row valign="top">
-			<entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
-			<entry colname="col2" valign="top"><para>Mapping</para></entry> 
-		</row> 
-		</thead>
-		<tbody> 
-		<row valign="top"> 
-			<entry><para>Escape</para><para>CTRL+W</para></entry> 
-			<entry><para>Closes the internal viewer window</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>W</para></entry> 
-			<entry><para>Toggles line wrapping (applicable only in text display modes)</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>Input Modes:</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>A</para></entry> 
-			<entry><para>Sets ASCII input mode. When in ASCII mode, you can also set the required character encoding 
-            from the "View|Character Encoding" submenu</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>Q</para></entry> 
-			<entry><para>Sets ASCII input mode, with codepage 437 encoding (suitable for binary and hex mode viewing)</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>U</para></entry> 
-			<entry><para>Sets UTF-8 input mode</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>Display modes:</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>1</para></entry> 
-			<entry><para>Sets display mode to text, with fixed width font</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>2</para></entry> 
-			<entry><para>Sets display mode to binary. Switching to Binary display mode 
-            will automatically set ASCII input mode (UTF-8 is not supported with binary display)</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>3</para></entry> 
-			<entry><para>Sets display mode to hex dump. Switching to hex display mode 
-            will automatically set ASCII input mode (UTF-8 is not supported with hex dump display)</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>4</para></entry> 
-			<entry><para>Tries to load the file as an image. Loading is done using GDK, 
-            so every GDK-supported format should work.</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>Zooming:</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>CTRL++</para></entry> 
-			<entry><para>Zooms in or increment the font size</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>CTRL+-</para></entry> 
-			<entry><para>Zooms out or decrement the font size</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>CTRL+0</para></entry> 
-			<entry><para>Sets normal size</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>Image manipulation:</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>CTRL+R</para></entry> 
-			<entry><para>Rotates the image 90 degrees (applicable only in IMAGE display mode)</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>CTRL+SHIFT+R</para></entry> 
-			<entry><para>Rotates the image 270 degrees (applicable only in IMAGE display mode)</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>Image manipulation:</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>CTRL+S</para></entry> 
-			<entry><para>Saves the current window size, input mode, and other settings as the default. 
-			(Note: the starting display mode is determined by the file's content, and is not saved as a user setting)</para></entry> 
-		</row> 
-		</tbody> 
-		</tgroup>
-		</informaltable> 
-      </sect3> 
-
-    </sect2> 
+      <sect3 id="gnome-commander-internal-viewer-modes">
+        <title>View Modes</title>
+        <para>The
+          <guilabel>View Modes</guilabel> group contains the preferences
+          that you can set to view images in image windows.</para>
+        <variablelist>
+          <varlistentry>
+            <term>
+              <guilabel>Character Encodings</guilabel> </term>
+            <term>
+              <guilabel>Text Display Mode</guilabel> </term>
+            <term>
+              <guilabel>Binary Display Mode</guilabel> </term>
+            <term>
+              <guilabel>Hex dump Display Mode</guilabel> </term>
+            <term>
+              <guilabel>Image Display Mode</guilabel> </term>
+            <listitem>
+              <para>Use this drop-down list box to specify when to use
+            scrollbars to scroll through an image. Select one of
+            the following options:</para>
+              <itemizedlist>
+            <listitem>
+              <para>
+                <guilabel>Never</guilabel> </para>
+              <para>This option never displays scrollbars. You can use the
+                arrow keys on the keyboard or the mouse to scroll
+                through the image. </para>
+            </listitem>
+            <listitem>
+              <para>
+                <guilabel>Only if image does not fit</guilabel> </para>
+              <para>This option displays scrollbars when the image is
+                larger than the image window.</para>
+            </listitem>
+              </itemizedlist>
+              <para>Default:
+            <guilabel>Never</guilabel>.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              <guilabel>Pick window size and zoom factor
+            automatically</guilabel> </term>
+            <listitem>
+              <para>Select this option to resize the image window to fit the
+            image or to resize the image to fit the image
+            window. If the image is small,
+            &app; resizes the image window to fit the image. If
+            the image is large, &app; resizes the image to fit
+            the image window. </para>
+              <para>Default: unselected.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              <guilabel>Open images in a new window</guilabel> </term>
+            <listitem>
+              <para>Select this option to open a new
+            &app; window each time you open an image. If you do
+            not select this option, &app; replaces the existing
+            image with the new image when you open an image. </para>
+              <para>Default: unselected.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </sect3>
+      <sect3 id="gnome-commander-internal-viewer-keyboard">
+      <title>Keyboard mappings</title>
+      <informaltable frame="topbot">
+        <tgroup cols="2">
+            <colspec colname="col1"/>
+            <colspec colname="col2"/>
+        <thead>
+        <row valign="top">
+            <entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
+            <entry colname="col2" valign="top"><para>Mapping</para></entry>
+        </row>
+        </thead>
+        <tbody>
+        <row valign="top">
+            <entry><para>Escape</para><para>CTRL+W</para></entry>
+            <entry><para>Closes the internal viewer window</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>W</para></entry>
+            <entry><para>Toggles line wrapping (applicable only in text display modes)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>Input Modes:</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>A</para></entry>
+            <entry><para>Sets ASCII input mode. When in ASCII mode, you can also set the required character encoding
+            from the "View|Character Encoding" submenu</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>Q</para></entry>
+            <entry><para>Sets ASCII input mode, with codepage 437 encoding (suitable for binary and hex mode viewing)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>U</para></entry>
+            <entry><para>Sets UTF-8 input mode</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>Display modes:</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>1</para></entry>
+            <entry><para>Sets display mode to text, with fixed width font</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>2</para></entry>
+            <entry><para>Sets display mode to binary. Switching to Binary display mode
+            will automatically set ASCII input mode (UTF-8 is not supported with binary display)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>3</para></entry>
+            <entry><para>Sets display mode to hex dump. Switching to hex display mode
+            will automatically set ASCII input mode (UTF-8 is not supported with hex dump display)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>4</para></entry>
+            <entry><para>Tries to load the file as an image. Loading is done using GDK,
+            so every GDK-supported format should work.</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>Zooming:</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL++</para></entry>
+            <entry><para>Zooms in or increment the font size</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+-</para></entry>
+            <entry><para>Zooms out or decrement the font size</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+0</para></entry>
+            <entry><para>Sets normal size</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>Image manipulation:</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+R</para></entry>
+            <entry><para>Rotates the image 90&deg; (applicable only in IMAGE display mode)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+SHIFT+R</para></entry>
+            <entry><para>Rotates the image 270&deg; (applicable only in IMAGE display mode)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>Image manipulation:</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+S</para></entry>
+            <entry>
+                <para>Saves the current window size, input mode, and other settings as the default.</para>
+                <note><para>Starting display mode is determined by the file's content, and is not saved as a user setting.</para></note>
+            </entry>
+        </row>
+        </tbody>
+        </tgroup>
+        </informaltable>
+      </sect3>
+    </sect2>
   </sect1>
 
 <!-- ============= Customization ============================= -->
 <!-- Use this section to describe how to customize the application. -->
-  <sect1 id="gnome-commander-prefs"> 
-    <title>Settings</title> 
-    <para>To configure &app;, choose 
-      <menuchoice> 
-	<guimenu>Settings</guimenu> 
-	<guimenuitem>Preferences</guimenuitem> 
-      </menuchoice>. The 
-      <guilabel>Preferences</guilabel> dialog contains the following tabbed
-      sections:</para> 
-    <itemizedlist> 
-      <listitem> 
-	<para> 
-	  <xref linkend="gnome-commander-prefs-display"/></para> 
-      </listitem> 
-      <listitem> 
-	<para> 
-	  <xref linkend="gnome-commander-prefs-viewers"/></para> 
-      </listitem> 
+  <sect1 id="gnome-commander-prefs">
+    <title>Settings</title>
+    <para>To configure &app;, choose
+      <menuchoice>
+    <guimenu>Settings</guimenu>
+    <guimenuitem>Preferences</guimenuitem>
+      </menuchoice>. The
+      <guilabel>Preferences</guilabel> dialog contains the following tabbed sections:
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>
+      <xref linkend="gnome-commander-prefs-display"/></para>
+      </listitem>
+      <listitem>
+    <para>
+      <xref linkend="gnome-commander-prefs-viewers"/></para>
+      </listitem>
     </itemizedlist>
 <!-- =============== Customization Subsection ================ -->
 <!-- Use a new section to describe different tabbed sections on the Settings or Preferences
-	     dialog. -->
-    <sect2 id="gnome-commander-prefs-display"> 
-      <title>Display</title> 
-      <variablelist> 
-	<varlistentry> 
-	  <term> 
-	    <guilabel>Interpolation type</guilabel> </term> 
-	  <listitem> 
-	    <para>Use this drop-down list box to specify the
-	      interpolation method that
-	      &app; uses when the
-	      application resizes images. Select one of the following
-	      options:</para>
-	    <itemizedlist> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Nearest neighbor</guilabel> </para> 
-		<para>This method of interpolation takes a location in the
-		  original image and replicates the pixel that is
-		  nearest to this location. When 
-		  you zoom in on an image, the pixels are
-		  replicated. When you zoom out of an 
-		  image, the image loses some of its detail. </para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Bilinear</guilabel> </para> 
-		<para>This is a simple and fast method of interpolation. When
-		  you zoom in on an image, &app; uses up to four
-		  adjacent pixels to compute the colors of the new
-		  pixels. When you zoom out of 
-		  an image, &app; averages regions of color in the
-		  existing image to compute the colors of the pixels. </para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Hyperbolic</guilabel> </para> 
-		<para>This is a high-quality, slow method of interpolation. The
-		  application performs interpolation on the image in
-		  the manner described in 
-		  Digital Image Warping by George Wolberg.</para> 
-	      </listitem> 
-	    </itemizedlist> 
-	    <para>Default: 
-	      <guilabel>Nearest neighbor</guilabel>.</para> 
-	  </listitem> 
-	</varlistentry> 
-	<varlistentry> 
-	  <term> 
-	    <guilabel>Transparency type</guilabel> </term> 
-	  <listitem> 
-	    <para>Use this drop-down list box to specify how
-	      &app; displays transparent or partially opaque
-	      backgrounds in images. Select one of the following options:</para> 
-	    <itemizedlist> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Dark checks</guilabel> </para> 
-		<para>This option displays black and dark gray checks.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Midtone checks</guilabel> </para> 
-		<para>This option displays dark gray and light gray
-		  checks.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Light checks</guilabel> </para> 
-		<para>This option displays light gray and white checks.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Black only</guilabel> </para> 
-		<para>This option displays solid black.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Gray only</guilabel> </para> 
-		<para>This option displays solid gray.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>White only</guilabel> </para> 
-		<para>This option displays solid white.</para> 
-	      </listitem> 
-	    </itemizedlist> 
-	    <para>Default: 
-	      <guilabel>Dark checks</guilabel>.</para> 
-	  </listitem> 
-	</varlistentry> 
-	<varlistentry> 
-	  <term> 
-	    <guilabel>Check size</guilabel> </term> 
-	  <listitem> 
-	    <para>Use this drop-down list box to specify the size of the checks
-	      to use to display transparent or partially opaque
-	      backgrounds in images. This 
-	      option is only relevant if you choose 
-	      <guilabel>Dark checks</guilabel>, 
-	      <guilabel>Midtone checks</guilabel>, or 
-	      <guilabel>Light checks</guilabel> from the 
-	      <guilabel>Transparency type</guilabel> drop-down list box.
-	      Select one of the following options:</para> 
-	    <itemizedlist> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Small</guilabel></para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Medium</guilabel></para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Large</guilabel></para> 
-	      </listitem> 
-	    </itemizedlist> 
-	    <para>Default: 
-	      <guilabel>Small</guilabel>.</para> 
-	  </listitem> 
-	</varlistentry> 
-	<varlistentry> 
-	  <term> 
-	    <guilabel>Dither type</guilabel> </term> 
-	  <listitem> 
-	    <para>Use this drop-down list box to specify the dithering method
-	      to use to display images. Dithering is a technique that
-	      is used to simulate 
-	      colors in the original image file but that your system
-	      can not display. Select 
-	      one of the following options:</para> 
-	    <itemizedlist> 
-	      <listitem> 
-		<para> 
-		  <guilabel>None</guilabel> </para> 
-		<para>This option does not use dithering. </para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Normal (pseudocolor)</guilabel> </para> 
-		<para>This option performs dithering on pseudocolor displays,
-		  which use a limited palette of colors. </para> 
-	      </listitem> 
-	      <listitem> 
-		<para> 
-		  <guilabel>Maximum (high color)</guilabel> </para> 
-		<para>This option performs dithering on pseudocolor and high
-		  color displays. </para> 
-	      </listitem> 
-	    </itemizedlist> 
-	    <para>Default: 
-	      <guilabel>None</guilabel>.</para> 
-	  </listitem> 
-	</varlistentry> 
-	<varlistentry> 
-	  <term> 
-	    <guilabel>Two-pass scrolling</guilabel> </term> 
-	  <listitem> 
-	    <para>Select this option to render an image in two passes
-	      when you scroll the image quickly. The first pass
-	      renders a low quality version of the image. The second
-	      pass renders a full quality version of the image over
-	      the low quality version. Two-pass scrolling enables you
-	      to view at least a low quality version of the image at
-	      all times regardless of how quickly you scroll the
-	      image. 
-	    </para>
-	    <para>Default: unselected.</para> 
-	  </listitem> 
-	</varlistentry> 
-      </variablelist> 
+         dialog. -->
+    <sect2 id="gnome-commander-prefs-display">
+      <title>Display</title>
+      <variablelist>
+    <varlistentry>
+      <term>
+        <guilabel>Interpolation type</guilabel> </term>
+      <listitem>
+        <para>Use this drop-down list box to specify the
+          interpolation method that &app; uses when the
+          application resizes images. Select one of the following
+          options:</para>
+        <itemizedlist>
+          <listitem>
+        <para>
+          <guilabel>Nearest neighbor</guilabel> </para>
+        <para>This method of interpolation takes a location in the
+          original image and replicates the pixel that is
+          nearest to this location. When
+          you zoom in on an image, the pixels are
+          replicated. When you zoom out of an
+          image, the image loses some of its detail. </para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Bilinear</guilabel> </para>
+        <para>This is a simple and fast method of interpolation. When
+          you zoom in on an image, &app; uses up to four
+          adjacent pixels to compute the colors of the new
+          pixels. When you zoom out of
+          an image, &app; averages regions of color in the
+          existing image to compute the colors of the pixels. </para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Hyperbolic</guilabel> </para>
+        <para>This is a high-quality, slow method of interpolation. The
+          application performs interpolation on the image in
+          the manner described in
+          Digital Image Warping by George Wolberg.</para>
+          </listitem>
+        </itemizedlist>
+        <para>Default:
+          <guilabel>Nearest neighbor</guilabel>.</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+        <guilabel>Transparency type</guilabel> </term>
+      <listitem>
+        <para>Use this drop-down list box to specify how
+          &app; displays transparent or partially opaque
+          backgrounds in images. Select one of the following options:</para>
+        <itemizedlist>
+          <listitem>
+        <para>
+          <guilabel>Dark checks</guilabel> </para>
+        <para>This option displays black and dark gray checks.</para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Midtone checks</guilabel> </para>
+        <para>This option displays dark gray and light gray
+          checks.</para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Light checks</guilabel> </para>
+        <para>This option displays light gray and white checks.</para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Black only</guilabel> </para>
+        <para>This option displays solid black.</para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Gray only</guilabel> </para>
+        <para>This option displays solid gray.</para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>White only</guilabel> </para>
+        <para>This option displays solid white.</para>
+          </listitem>
+        </itemizedlist>
+        <para>Default:
+          <guilabel>Dark checks</guilabel>.</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+        <guilabel>Check size</guilabel> </term>
+      <listitem>
+        <para>Use this drop-down list box to specify the size of the checks
+          to use to display transparent or partially opaque
+          backgrounds in images. This
+          option is only relevant if you choose
+          <guilabel>Dark checks</guilabel>,
+          <guilabel>Midtone checks</guilabel>, or
+          <guilabel>Light checks</guilabel> from the
+          <guilabel>Transparency type</guilabel> drop-down list box.
+          Select one of the following options:</para>
+        <itemizedlist>
+          <listitem>
+        <para>
+          <guilabel>Small</guilabel></para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Medium</guilabel></para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Large</guilabel></para>
+          </listitem>
+        </itemizedlist>
+        <para>Default:
+          <guilabel>Small</guilabel>.</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+        <guilabel>Dither type</guilabel> </term>
+      <listitem>
+        <para>Use this drop-down list box to specify the dithering method
+          to use to display images. Dithering is a technique that
+          is used to simulate
+          colors in the original image file but that your system
+          can not display. Select
+          one of the following options:</para>
+        <itemizedlist>
+          <listitem>
+        <para>
+          <guilabel>None</guilabel> </para>
+        <para>This option does not use dithering. </para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Normal (pseudocolor)</guilabel> </para>
+        <para>This option performs dithering on pseudocolor displays,
+          which use a limited palette of colors. </para>
+          </listitem>
+          <listitem>
+        <para>
+          <guilabel>Maximum (high color)</guilabel> </para>
+        <para>This option performs dithering on pseudocolor and high
+          color displays. </para>
+          </listitem>
+        </itemizedlist>
+        <para>Default:
+          <guilabel>None</guilabel>.</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>
+        <guilabel>Two-pass scrolling</guilabel> </term>
+      <listitem>
+        <para>Select this option to render an image in two passes
+          when you scroll the image quickly. The first pass
+          renders a low quality version of the image. The second
+          pass renders a full quality version of the image over
+          the low quality version. Two-pass scrolling enables you
+          to view at least a low quality version of the image at
+          all times regardless of how quickly you scroll the
+          image.
+        </para>
+        <para>Default: unselected.</para>
+      </listitem>
+    </varlistentry>
+      </variablelist>
     </sect2>
     <!-- ============= Customization Subsection ===================== -->
     <!-- Another tabbed section on the Preferences dialog. -->
-    <sect2 id="gnome-commander-prefs-viewers"> 
-      <title>Viewers</title> 
-      <para>You can set the following viewer preferences: 
-	<itemizedlist> 
-	  <listitem> 
-	    <para> 
-	      <xref linkend="gnome-commander-viewer-prefs-image-window"/></para> 
-	  </listitem> 
-	  <listitem> 
-	    <para> 
-	      <xref linkend="gnome-commander-viewer-prefs-full-screen"/></para> 
-	  </listitem> 
-	</itemizedlist> </para> 
-      <sect3 id="gnome-commander-viewer-prefs-image-window"> 
-	<title>Image Windows</title> 
-	<para>The 
-	  <guilabel>Image Windows</guilabel> group contains the preferences
-	  that you can set to view images in image windows.</para> 
-	<variablelist> 
-	  <varlistentry> 
-	    <term> 
-	      <guilabel>Use scrollbars</guilabel> </term> 
-	    <listitem> 
-	      <para>Use this drop-down list box to specify when to use
-		scrollbars to scroll through an image. Select one of
-		the following options:</para> 
-	      <itemizedlist> 
-		<listitem> 
-		  <para> 
-		    <guilabel>Never</guilabel> </para> 
-		  <para>This option never displays scrollbars. You can use the
-		    arrow keys on the keyboard or the mouse to scroll
-		    through the image. </para>  
-		</listitem> 
-		<listitem> 
-		  <para> 
-		    <guilabel>Only if image does not fit</guilabel> </para> 
-		  <para>This option displays scrollbars when the image is
-		    larger than the image window.</para> 
-		</listitem> 
-	      </itemizedlist> 
-	      <para>Default: 
-		<guilabel>Never</guilabel>.</para> 
-	    </listitem> 
-	  </varlistentry> 
-	  <varlistentry> 
-	    <term> 
-	      <guilabel>Pick window size and zoom factor
-		automatically</guilabel> </term> 
-	    <listitem> 
-	      <para>Select this option to resize the image window to fit the
-		image or to resize the image to fit the image
-		window. If the image is small, 
-		&app; resizes the image window to fit the image. If
-		the image is large, &app; resizes the image to fit
-		the image window. </para> 
-	      <para>Default: unselected.</para> 
-	    </listitem> 
-	  </varlistentry> 
-	  <varlistentry> 
-	    <term> 
-	      <guilabel>Open images in a new window</guilabel> </term> 
-	    <listitem> 
-	      <para>Select this option to open a new
-		&app; window each time you open an image. If you do
-		not select this option, &app; replaces the existing
-		image with the new image when you open an image. </para> 
-	      <para>Default: unselected.</para> 
-	    </listitem> 
-	  </varlistentry> 
-	</variablelist> 
-      </sect3> 
-      <sect3 id="gnome-commander-viewer-prefs-full-screen"> 
-	<title>Full Screen</title> 
-	<para>The 
-	  <guilabel>Full Screen</guilabel> group contains the preferences that
-	  you can set to view images in full screen mode.</para> 
-	<variablelist> 
-	  <varlistentry> 
-	    <term> 
-	      <guilabel>Use scrollbars</guilabel> </term> 
-	    <listitem> 
-	      <para>Use this drop-down list box to specify when to use
-		scrollbars to scroll through an image. Select one of the following
-		options:</para> 
-	      <itemizedlist> 
-		<listitem> 
-		  <para> 
-		    <guilabel>Never</guilabel> </para> 
-		  <para>This option never displays scrollbars. You can use the
-		    arrow keys on the keyboard or the mouse to scroll
-		    through the image. </para>  
-		</listitem> 
-		<listitem> 
-		  <para> 
-		    <guilabel>Only if image does not fit</guilabel> </para> 
-		  <para>This option displays scrollbars when the image is
-		    larger than the full screen. </para> 
-		</listitem> 
-	      </itemizedlist> 
-	      <para>Default: 
-		<guilabel>Never</guilabel>.</para> 
-	    </listitem> 
-	  </varlistentry> 
-	  <varlistentry> 
-	    <term> 
-	      <guilabel>Use 1:1 zoom factor</guilabel> </term> 
-	    <listitem> 
-	      <para>Select this option to use the 1:1 zoom factor when you open
-		an image. The 1:1 zoom factor displays the image at
-		its actual size. </para>  
-	      <para>Default: selected.</para> 
-	    </listitem> 
-	  </varlistentry> 
-	  <varlistentry> 
-	    <term> 
-	      <guilabel>Use same zoom factor as image window</guilabel> </term>
-	    
-	    <listitem> 
-	      <para>Select this option to use the same zoom factor that the
-		application uses to display the image in an image
-	      window. </para>  
-	      <para>Default: unselected.</para> 
-	    </listitem> 
-	  </varlistentry> 
-	  <varlistentry> 
-	    <term> 
-	      <guilabel>Fit all images to screen</guilabel> </term> 
-	    <listitem> 
-	      <para>Select this option to resize images to fill the full screen
-		when you open the images in full screen mode. </para> 
-	      <para>Default: unselected.</para> 
-	    </listitem> 
-	  </varlistentry> 
-	  <varlistentry> 
-	    <term> 
-	      <guilabel>Fit standard-sized images to screen</guilabel> </term> 
-	    <listitem> 
-	      <para>Select this option to automatically resize images
-		that are the same size as standard screens so that the
-		images fill the full screen when you open them in full
-		screen mode. If you select this option, &app; ignores
-		the settings for the previous three options when you
-		open an image that is the same size as a standard
-		screen.  Examples of standard screen sizes are 640 x
-		480 pixels, 1024 x 768 pixels, and so on. </para>
-	      <para>Default: unselected.</para> 
-	    </listitem> 
-	  </varlistentry> 
-	  <varlistentry> 
-	    <term> 
-	      <guilabel>Put a bevel around the edge of the screen</guilabel>
-	    </term> 
-	    <listitem> 
-	      <para>Select this option to display a 3D beveled border around
-		the full screen view of an image. </para> 
-	      <para>Default: unselected.</para> 
-	    </listitem> 
-	  </varlistentry> 
-	</variablelist> 
-      </sect3> 
-    </sect2> 
+    <sect2 id="gnome-commander-prefs-viewers">
+      <title>Viewers</title>
+      <para>You can set the following viewer preferences:
+    <itemizedlist>
+      <listitem>
+        <para>
+          <xref linkend="gnome-commander-viewer-prefs-image-window"/></para>
+      </listitem>
+      <listitem>
+        <para>
+          <xref linkend="gnome-commander-viewer-prefs-full-screen"/></para>
+      </listitem>
+    </itemizedlist> </para>
+      <sect3 id="gnome-commander-viewer-prefs-image-window">
+    <title>Image Windows</title>
+    <para>The
+      <guilabel>Image Windows</guilabel> group contains the preferences
+      that you can set to view images in image windows.</para>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <guilabel>Use scrollbars</guilabel> </term>
+        <listitem>
+          <para>Use this drop-down list box to specify when to use
+        scrollbars to scroll through an image. Select one of
+        the following options:</para>
+          <itemizedlist>
+        <listitem>
+          <para>
+            <guilabel>Never</guilabel> </para>
+          <para>This option never displays scrollbars. You can use the
+            arrow keys on the keyboard or the mouse to scroll
+            through the image. </para>
+        </listitem>
+        <listitem>
+          <para>
+            <guilabel>Only if image does not fit</guilabel> </para>
+          <para>This option displays scrollbars when the image is
+            larger than the image window.</para>
+        </listitem>
+          </itemizedlist>
+          <para>Default:
+        <guilabel>Never</guilabel>.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Pick window size and zoom factor
+        automatically</guilabel> </term>
+        <listitem>
+          <para>Select this option to resize the image window to fit the
+        image or to resize the image to fit the image
+        window. If the image is small,
+        &app; resizes the image window to fit the image. If
+        the image is large, &app; resizes the image to fit
+        the image window. </para>
+          <para>Default: unselected.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Open images in a new window</guilabel> </term>
+        <listitem>
+          <para>Select this option to open a new
+        &app; window each time you open an image. If you do
+        not select this option, &app; replaces the existing
+        image with the new image when you open an image. </para>
+          <para>Default: unselected.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+      </sect3>
+      <sect3 id="gnome-commander-viewer-prefs-full-screen">
+    <title>Full Screen</title>
+    <para>The
+      <guilabel>Full Screen</guilabel> group contains the preferences that
+      you can set to view images in full screen mode.</para>
+    <variablelist>
+      <varlistentry>
+        <term>
+          <guilabel>Use scrollbars</guilabel> </term>
+        <listitem>
+          <para>Use this drop-down list box to specify when to use
+        scrollbars to scroll through an image. Select one of the following
+        options:</para>
+          <itemizedlist>
+        <listitem>
+          <para>
+            <guilabel>Never</guilabel> </para>
+          <para>This option never displays scrollbars. You can use the
+            arrow keys on the keyboard or the mouse to scroll
+            through the image. </para>
+        </listitem>
+        <listitem>
+          <para>
+            <guilabel>Only if image does not fit</guilabel> </para>
+          <para>This option displays scrollbars when the image is
+            larger than the full screen. </para>
+        </listitem>
+          </itemizedlist>
+          <para>Default:
+        <guilabel>Never</guilabel>.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Use 1:1 zoom factor</guilabel> </term>
+        <listitem>
+          <para>Select this option to use the 1:1 zoom factor when you open
+        an image. The 1:1 zoom factor displays the image at
+        its actual size. </para>
+          <para>Default: selected.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Use same zoom factor as image window</guilabel> </term>
+
+        <listitem>
+          <para>Select this option to use the same zoom factor that the
+        application uses to display the image in an image
+          window. </para>
+          <para>Default: unselected.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Fit all images to screen</guilabel> </term>
+        <listitem>
+          <para>Select this option to resize images to fill the full screen
+        when you open the images in full screen mode. </para>
+          <para>Default: unselected.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Fit standard-sized images to screen</guilabel> </term>
+        <listitem>
+          <para>Select this option to automatically resize images
+        that are the same size as standard screens so that the
+        images fill the full screen when you open them in full
+        screen mode. If you select this option, &app; ignores
+        the settings for the previous three options when you
+        open an image that is the same size as a standard
+        screen.  Examples of standard screen sizes are 640 x
+        480 pixels, 1024 x 768 pixels, and so on. </para>
+          <para>Default: unselected.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          <guilabel>Put a bevel around the edge of the screen</guilabel>
+        </term>
+        <listitem>
+          <para>Select this option to display a 3D beveled border around
+        the full screen view of an image. </para>
+          <para>Default: unselected.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+      </sect3>
+    </sect2>
   </sect1>
 
-<!-- ============= Bugs ================================== -->
-<!-- This section is optional and is commented out by default. 
-     You can use it to describe known bugs and limitations of the 
-	  program if there are any - please be frank and list all
-     problems you know of. 
-  
-  <sect1 id="gnome-commander-bugs">
-  <title>Known Bugs and Limitations</title>
-  <para> </para>
- </sect1>
--->
 <!-- ============= Tips and tricks ======================== -->
 <!-- This section contains info some very simple tips and tricks.-->
   <sect1 id="gnome-commander-tips-and-tricks">
   <title>Tips and tricks for &app;</title>
   <para>Some very simple tips and tricks on using and getting the most out of &app;.</para>
 
-  <variablelist> 
-	<varlistentry> 
-	  <term> 
-	    <guilabel>Handling archives</guilabel> </term> 
-	  <listitem> 
-	    <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so 
-	    that working with archives becomes quite practical anyway. This is how you do it:</para>
-	    <itemizedlist> 
-	      <listitem> 
-		      <para>If you don't already have the program <application>Fileroller</application>, 
-		      download it and install it.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Programs</guimenuitem> tab.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para>Add two favourite apps using the values shown here and here.</para> 
-	      </listitem> 
-	    </itemizedlist> 
-	    <para>You can now right click any file or folder and choose <guimenuitem>Create archive...</guimenuitem> 
-	    to compress it and right click compressed files and choose <guimenuitem>Extract archive...</guimenuitem> 
-	    to extract it.</para> 
-	  </listitem> 
-	</varlistentry> 
+  <variablelist>
+    <varlistentry>
+      <term>
+        <guilabel>Handling archives</guilabel> </term>
+      <listitem>
+        <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so
+        that working with archives becomes quite practical anyway. This is how you do it:</para>
+        <itemizedlist>
+          <listitem>
+              <para>If you don't already have the program <application>Fileroller</application>,
+              download it and install it.</para>
+          </listitem>
+          <listitem>
+        <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Programs</guimenuitem> tab.</para>
+          </listitem>
+          <listitem>
+        <para>Add two favourite apps using the values shown here and here.</para>
+          </listitem>
+        </itemizedlist>
+        <para>You can now right click any file or folder and choose <guimenuitem>Create archive...</guimenuitem>
+        to compress it and right click compressed files and choose <guimenuitem>Extract archive...</guimenuitem>
+        to extract it.</para>
+      </listitem>
+    </varlistentry>
 
-	<varlistentry> 
-	  <term> 
-	    <guilabel>Using removable media</guilabel> </term> 
-	  <listitem> 
-	    <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app; 
-	    automatically take care of mounting them by following this guide:</para>
-	    <itemizedlist> 
-	      <listitem> 
-		      <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Devices</guimenuitem> tab.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para>Add the devices that you are using. This is how the program looks with a few added devices. 
-		In the last image the red circle shows the available devices, there is also a button, in the green circle, 
-		to press if we want to unmount the floppy, which happened to be mounted. 
-		The icons that are used for the devices in the example should be available 
-		in the $(prefix)/share/pixmaps/gnome-commander/device-icons folder on your computer.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para>There is also an option to skip mounting in the option device tab, 
-		this can be useful for making shortcuts to directories, or if you have some automounting feature 
-		that mounts it at its mountpoint when available, or if you use Supermount that does it on access basis.</para> 
-	      </listitem> 
-	    </itemizedlist> 
-	  </listitem> 
-	</varlistentry> 
+    <varlistentry>
+      <term>
+        <guilabel>Using removable media</guilabel> </term>
+      <listitem>
+        <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app;
+        automatically take care of mounting them by following this guide:</para>
+        <itemizedlist>
+          <listitem>
+              <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Devices</guimenuitem> tab.</para>
+          </listitem>
+          <listitem>
+        <para>Add the devices that you are using. This is how the program looks with a few added devices.
+        In the last image the red circle shows the available devices, there is also a button, in the green circle,
+        to press if we want to unmount the floppy, which happened to be mounted.
+        The icons that are used for the devices in the example should be available
+        in the $(prefix)/share/pixmaps/gnome-commander/device-icons folder on your computer.</para>
+          </listitem>
+          <listitem>
+        <para>There is also an option to skip mounting in the option device tab,
+        this can be useful for making shortcuts to directories, or if you have some automounting feature
+        that mounts it at its mountpoint when available, or if you use Supermount that does it on access basis.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </varlistentry>
 
-	<varlistentry> 
-	  <term> 
-	    <guilabel>Opening a full terminal</guilabel> </term> 
-	  <listitem> 
-	    <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory. 
-	    Well, that is easy, just type <application>sh</application>, or maybe <application>bash</application> if you prefer, 
-	    in the &app; command line and press <keycap>SHIFT+ENTER</keycap> - there you have it.</para>
-	  </listitem> 
-	</varlistentry> 
+    <varlistentry>
+      <term>
+        <guilabel>Opening a full terminal</guilabel> </term>
+      <listitem>
+        <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory.
+        Well, that is easy, just type <application>sh</application>, or maybe <application>bash</application> if you prefer,
+        in the &app; command line and press <keycap>SHIFT+ENTER</keycap> - there you have it.</para>
+      </listitem>
+    </varlistentry>
 
-	<varlistentry> 
-	  <term> 
-	    <guilabel>Using Nautilus icon theme</guilabel> </term> 
-	  <listitem> 
+    <varlistentry>
+      <term>
+        <guilabel>Using Nautilus icon theme</guilabel> </term>
+      <listitem>
       <warning>
       <para>This is outdated info since Nautilus and later Gnome versions no longer use these kind of themes.</para>
       </warning>
-	    <para>The default icon theme that comes with &app; lacks icons for a lot of file types and only looks good at icon size 16. 
-	          There are other themes around though, that are more complete and looks better in bigger sizes. 
-	          Unscalable Gorilla by Jimmac is one example and can be used in &app; by following these steps:</para>
-	    <itemizedlist> 
-	      <listitem> 
-		      <para>Download the theme.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para>Unpack the theme to where ever you want.</para> 
-	      </listitem> 
-	      <listitem> 
-		<para>Start &app; open the <guimenu>Options</guimenu> dialog. In the <guimenuitem>Layout</guimenuitem> tab set 
-		the Theme icon directory to be the folder where you extracted Unscalable Gorilla. Also change Row height 
-		and Icon size to 20 or some other size that you like. When you're done also make sure that 
-		the Graphical mode is set to MIME icons.</para> 
-	      </listitem> 
-	      <listitem> 
-		      <para>When you now close the <guimenu>Options</guimenu> dialog the file listings should refresh 
-		      and you should see Unscalable Gorilla being used.</para> 
-	      </listitem> 
-	    </itemizedlist> 
-	  </listitem> 
-	</varlistentry> 
+        <para>The default icon theme that comes with &app; lacks icons for a lot of file types and only looks good at icon size 16.
+              There are other themes around though, that are more complete and looks better in bigger sizes.
+              Unscalable Gorilla by Jimmac is one example and can be used in &app; by following these steps:</para>
+        <itemizedlist>
+          <listitem>
+              <para>Download the theme.</para>
+          </listitem>
+          <listitem>
+        <para>Unpack the theme to where ever you want.</para>
+          </listitem>
+          <listitem>
+        <para>Start &app; open the <guimenu>Options</guimenu> dialog. In the <guimenuitem>Layout</guimenuitem> tab set
+        the Theme icon directory to be the folder where you extracted Unscalable Gorilla. Also change Row height
+        and Icon size to 20 or some other size that you like. When you're done also make sure that
+        the Graphical mode is set to MIME icons.</para>
+          </listitem>
+          <listitem>
+              <para>When you now close the <guimenu>Options</guimenu> dialog the file listings should refresh
+              and you should see Unscalable Gorilla being used.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </varlistentry>
 
-  </variablelist> 
-
+  </variablelist>
  </sect1>
+
 <!-- ============= Keyboard shortcuts ===================== -->
 <!-- This section contains info about the keyboard mappings.-->
-  <sect1 id="gnome-commander-keyboard"> 
-    <title>Keyboard mappings for &app;</title> 
-		<informaltable frame="topbot"> 
-		<tgroup cols="2"> 
-			<colspec colname="col1"/> 
-			<colspec colname="col2"/> 
-		<thead> 
-		<row valign="top">
-			<entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
-			<entry colname="col2" valign="top"><para>Mapping</para></entry> 
-		</row> 
-		</thead>
-		<tbody> 
-		<row valign="top"> 
-			<entry><para>F1</para></entry> 
-			<entry><para>Help</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>F2</para></entry> 
-			<entry><para>Refresh files in the active file list</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>F3</para></entry> 
-			<entry><para>View files</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>F4</para></entry> 
-			<entry><para>Edit files</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>F5</para></entry> 
-			<entry><para>Copy files</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>F6</para></entry> 
-			<entry><para>Rename or move files</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>F7</para></entry> 
-			<entry><para>Create directory</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>F8</para></entry> 
-			<entry><para>Delete files</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>F9</para></entry> 
-			<entry><para>Search</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>F10</para></entry> 
-			<entry><para>Quit</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>ALT+1</para></entry> 
-			<entry><para>Change left connection</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>ALT+2</para></entry> 
-			<entry><para>Change right connection</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>ALT+F3</para></entry> 
-			<entry><para>View with external viewer</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>ALT+F7</para></entry> 
-			<entry><para>Search</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>ALT+F8</para></entry> 
-			<entry><para>Opens the history list for the command line</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>SHIFT+F2</para></entry>
-			<entry><para>Compare directories</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>SHIFT+F2</para></entry>
-			<entry><para>View with internal viewer</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>SHIFT+F4</para></entry>
-			<entry><para>Edit a new file</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>SHIFT+F5</para></entry>
-			<entry><para>Make a copy a file in the current directory.</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>SHIFT+F6</para></entry>
-			<entry><para>Rename a file</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>SHIFT+F10</para></entry>
-			<entry><para>Bring up the context menu for the selected files.</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>CTRL+F3</para></entry>
-			<entry><para>Sort by name</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+F4</para></entry>
-			<entry><para>Sort by extension</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+F5</para></entry>
-			<entry><para>Sort by date/time</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+F6</para></entry>
-			<entry><para>Sort by size</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+F7</para></entry>
-			<entry><para>Unsorted</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>CTRL+SHIFT+F5</para></entry> 
-			<entry><para>Create symbolic link</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>=</para></entry>
-			<entry><para>Select files using a pattern</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>NUM +</para></entry>
-			<entry><para>Select files using a pattern</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>NUM -</para></entry>
-			<entry><para>Unselect files using a pattern</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>NUM *</para></entry>
-			<entry><para>Invert selection</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>NUM /</para></entry>
-			<entry><para>Restore selection</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+=</para></entry>
-			<entry><para>Select all files</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+-</para></entry>
-			<entry><para>Unselect all files</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para>ALT+NUM +</para></entry> 
-			<entry><para>Select all files with the same extension</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>ALT+NUM -</para></entry> 
-			<entry><para>Unselect all files with the same extension</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>BACKSPACE</para><para>LEFT</para><para>CTRL+PageUp</para></entry> 
-			<entry><para>Change to parent directory (cd ..)</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>TAB</para></entry>
-			<entry><para>Switch between left and right file list</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>ENTER</para></entry>
-			<entry><para>Change directory or execute command line if not empty</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>SHIFT+ENTER</para></entry>
-			<entry><para>Execute command line in the defined terminal and leaves the terminal window open</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>RIGHT</para><para>CTRL+PageDown</para></entry> 
-			<entry><para>Change directory</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>ALT+LEFT</para></entry>
-			<entry><para>Go back to the last visited directory</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>ALT+RIGHT</para></entry>
-			<entry><para>Go forward to the next visited directory</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>INSERT</para></entry>
-			<entry><para>Select file or directory</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>SPACE</para></entry>
-			<entry><para>Select file or directory (as INSERT). If SPACE is used on an unselected directory under the cursor, 
-			the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR.</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>ALT+ENTER</para></entry>
-			<entry><para>Show properties for the selected file</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>ALT+SHIFT+ENTER</para></entry>
-			<entry><para>The contents of all directories in the current directory are counted. The sizes of the directories are then shown 
-			in the "full" view instead of the string DIR.</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>DELETE</para></entry>
-			<entry><para>Delete files</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>CTRL+C</para></entry>
-			<entry><para>Copy files to clipboard (not a global one yet)</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+X</para></entry>
-			<entry><para>Cut files to clipboard (not a global one yet)</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+V</para></entry>
-			<entry><para>Paste from clipboard to current dir (not a global one yet)</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>CTRL+A</para></entry>
-			<entry><para>Select all files</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+SHIFT+A</para></entry>
-			<entry><para>Unselect all files</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+D</para></entry>
-			<entry><para>Open favorite directories (bookmarks)</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+M</para></entry>
-			<entry><para>Multi-Rename-Tool</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+T</para></entry>
-			<entry><para>Multi-Rename-Tool</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+U</para></entry>
-			<entry><para>Swap file lists</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+R</para></entry>
-			<entry><para>Refresh the active file list</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+G</para></entry>
-			<entry><para>FTP Quick Connect</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+F</para></entry>
-			<entry><para>Connect to FTP server</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+SHIFT+F</para></entry>
-			<entry><para>Connect from FTP server</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para>ALT+Letter(s)</para><para>CTRL+ALT+Letter(s)</para></entry> 
-			<entry><para>Quick search for a file name (starting with specified letter) in the current directory</para></entry> 
-		</row> 
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row> 
-		<row valign="top">
-			<entry><para>Letter</para></entry>
-			<entry><para>Redirect to command line, cursor jumps to command line</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>ESC</para></entry>
-			<entry><para>Clears the command line</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+K</para></entry>
-			<entry><para>Delete to the end of line</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+W</para></entry>
-			<entry><para>Delete the word to the left of the cursor</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+T</para></entry>
-			<entry><para>Delete the word to the right of the cursor</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+P</para></entry>
-			<entry><para>The full path of the current directory is added to the command line</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+ENTER</para></entry>
-			<entry><para>The file name under the cursor in the source directory is added to the end of the command line</para></entry>
-		</row>
-		<row valign="top">
-			<entry><para>CTRL+SHIFT+ENTER</para></entry>
-			<entry><para>The file name under the cursor including its path is added to the end of the command line</para></entry>
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row>
-		<row valign="top"> 
-			<entry><para>CTRL+DOWN</para><para>ALT+F8</para></entry> 
-			<entry><para>A list with the latest command lines (history list) is opened. Use the UP and DOWN cursor keys to select an entry. 
-			By pressing the LEFT or RIGHT key, you can edit the command line. This automatically closes the list.</para></entry> 
-		</row>
-		<row valign="top"> 
-			<entry><para></para></entry> 
-			<entry><para></para></entry> 
-		</row>
-		<row valign="top"> 
-			<entry><para>CTRL+.</para></entry> 
-			<entry><para>Copy the current working directory from the inactive file-list to the active one.</para></entry> 
-		</row>
-		<row valign="top"> 
-			<entry><para>CTRL+SHIFT+.</para></entry> 
-			<entry><para>Copy the current working directory from the active file-list to the inactive one.</para></entry> 
-		</row> 
-		</tbody> 
-		</tgroup>
-		</informaltable> 
+  <sect1 id="gnome-commander-keyboard">
+    <title>Keyboard mappings for &app;</title>
+        <informaltable frame="topbot">
+        <tgroup cols="2">
+            <colspec colname="col1"/>
+            <colspec colname="col2"/>
+        <thead>
+        <row valign="top">
+            <entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
+            <entry colname="col2" valign="top"><para>Mapping</para></entry>
+        </row>
+        </thead>
+        <tbody>
+        <row valign="top">
+            <entry><para>F1</para></entry>
+            <entry><para>Help</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>F2</para></entry>
+            <entry><para>Refresh files in the active file list</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>F3</para></entry>
+            <entry><para>View files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>F4</para></entry>
+            <entry><para>Edit files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>F5</para></entry>
+            <entry><para>Copy files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>F6</para></entry>
+            <entry><para>Rename or move files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>F7</para></entry>
+            <entry><para>Create directory</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>F8</para></entry>
+            <entry><para>Delete files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>F9</para></entry>
+            <entry><para>Search</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>F10</para></entry>
+            <entry><para>Quit</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+1</para></entry>
+            <entry><para>Change left connection</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+2</para></entry>
+            <entry><para>Change right connection</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+F3</para></entry>
+            <entry><para>View with external viewer</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+F7</para></entry>
+            <entry><para>Search</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+F8</para></entry>
+            <entry><para>Opens the history list for the command line</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>SHIFT+F2</para></entry>
+            <entry><para>Compare directories</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>SHIFT+F2</para></entry>
+            <entry><para>View with internal viewer</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>SHIFT+F4</para></entry>
+            <entry><para>Edit a new file</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>SHIFT+F5</para></entry>
+            <entry><para>Make a copy a file in the current directory.</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>SHIFT+F6</para></entry>
+            <entry><para>Rename a file</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>SHIFT+F10</para></entry>
+            <entry><para>Bring up the context menu for the selected files.</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+F3</para></entry>
+            <entry><para>Sort by name</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+F4</para></entry>
+            <entry><para>Sort by extension</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+F5</para></entry>
+            <entry><para>Sort by date/time</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+F6</para></entry>
+            <entry><para>Sort by size</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+F7</para></entry>
+            <entry><para>Unsorted</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+SHIFT+F5</para></entry>
+            <entry><para>Create symbolic link</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>=</para></entry>
+            <entry><para>Select files using a pattern</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>NUM +</para></entry>
+            <entry><para>Select files using a pattern</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>NUM -</para></entry>
+            <entry><para>Unselect files using a pattern</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>NUM *</para></entry>
+            <entry><para>Invert selection</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>NUM /</para></entry>
+            <entry><para>Restore selection</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+=</para></entry>
+            <entry><para>Select all files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+-</para></entry>
+            <entry><para>Unselect all files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+NUM +</para></entry>
+            <entry><para>Select all files with the same extension</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+NUM -</para></entry>
+            <entry><para>Unselect all files with the same extension</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>BACKSPACE</para><para>LEFT</para><para>CTRL+PageUp</para></entry>
+            <entry><para>Change to parent directory (cd ..)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>TAB</para></entry>
+            <entry><para>Switch between left and right file list</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ENTER</para></entry>
+            <entry><para>Change directory or execute command line if not empty</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>SHIFT+ENTER</para></entry>
+            <entry><para>Execute command line in the defined terminal and leaves the terminal window open</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>RIGHT</para><para>CTRL+PageDown</para></entry>
+            <entry><para>Change directory</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+LEFT</para></entry>
+            <entry><para>Go back to the last visited directory</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+RIGHT</para></entry>
+            <entry><para>Go forward to the next visited directory</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>INSERT</para></entry>
+            <entry><para>Select file or directory</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>SPACE</para></entry>
+            <entry><para>Select file or directory (as INSERT). If SPACE is used on an unselected directory under the cursor,
+            the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR.</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+ENTER</para></entry>
+            <entry><para>Show properties for the selected file</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+SHIFT+ENTER</para></entry>
+            <entry><para>The contents of all directories in the current directory are counted. The sizes of the directories are then shown
+            in the "full" view instead of the string DIR.</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>DELETE</para></entry>
+            <entry><para>Delete files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+C</para></entry>
+            <entry><para>Copy files to clipboard (not a global one yet)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+X</para></entry>
+            <entry><para>Cut files to clipboard (not a global one yet)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+V</para></entry>
+            <entry><para>Paste from clipboard to current dir (not a global one yet)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+A</para></entry>
+            <entry><para>Select all files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+SHIFT+A</para></entry>
+            <entry><para>Unselect all files</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+D</para></entry>
+            <entry><para>Open favorite directories (bookmarks)</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+M</para></entry>
+            <entry><para>Multi-Rename-Tool</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+T</para></entry>
+            <entry><para>Multi-Rename-Tool</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+U</para></entry>
+            <entry><para>Swap file lists</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+R</para></entry>
+            <entry><para>Refresh the active file list</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+G</para></entry>
+            <entry><para>FTP Quick Connect</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+F</para></entry>
+            <entry><para>Connect to FTP server</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+SHIFT+F</para></entry>
+            <entry><para>Connect from FTP server</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ALT+Letter(s)</para><para>CTRL+ALT+Letter(s)</para></entry>
+            <entry><para>Quick search for a file name (starting with specified letter) in the current directory</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>Letter</para></entry>
+            <entry><para>Redirect to command line, cursor jumps to command line</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>ESC</para></entry>
+            <entry><para>Clears the command line</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+K</para></entry>
+            <entry><para>Delete to the end of line</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+W</para></entry>
+            <entry><para>Delete the word to the left of the cursor</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+T</para></entry>
+            <entry><para>Delete the word to the right of the cursor</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+P</para></entry>
+            <entry><para>The full path of the current directory is added to the command line</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+ENTER</para></entry>
+            <entry><para>The file name under the cursor in the source directory is added to the end of the command line</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+SHIFT+ENTER</para></entry>
+            <entry><para>The file name under the cursor including its path is added to the end of the command line</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+DOWN</para><para>ALT+F8</para></entry>
+            <entry><para>A list with the latest command lines (history list) is opened. Use the UP and DOWN cursor keys to select an entry.
+            By pressing the LEFT or RIGHT key, you can edit the command line. This automatically closes the list.</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+.</para></entry>
+            <entry><para>Copy the current working directory from the inactive file-list to the active one.</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+SHIFT+.</para></entry>
+            <entry><para>Copy the current working directory from the active file-list to the inactive one.</para></entry>
+        </row>
+        </tbody>
+        </tgroup>
+        </informaltable>
+  </sect1>
 
-  </sect1> 
+<!-- ============= Installation =========================== -->
+<!-- This section contains info about the program installation.-->
+  <sect1 id="gnome-commander-installation">
+    <title>&app; installation</title>
+    <sect2 id="gnome-commander-getting-app">
+        <title>Getting &app;</title>
+        <para>
+        </para>
+    </sect2>
+    <sect2 id="gnome-commander-versioning">
+        <title>Versioning</title>
+        <para>
+        &app; is being developed in a stable and a testing branch, where the test releases fills the purpose of testing new ideas.
+        Successful ones will then get backported to the stable branch. The version numbers (major, minor and micro) follows
+        the quite usual standard of odd and even versioning, where odd minor versions stands for the unstable releases
+        and the even numbered branch eventually gets the thoroughly tested new functions backported.</para>
+    </sect2>
+    <sect2 id="gnome-commander-stable-version">
+        <title>Stable version</title>
+        <para>
+        </para>
+    </sect2>
+    <sect2 id="gnome-commander-development-version">
+        <title>Development version</title>
+        <para>
+        </para>
+    </sect2>
+    <sect2 id="gnome-commander-cvs-builds">
+        <title>CVS builds</title>
+        <para>
+        For those of you who feel really adventurous, or maybe want to hack on the freshest code,
+        the latest development sourcecode can be downloaded directly from
+        <ulink url="http://cvs.gnome.org/viewcvs/gnome-commander/" type="http">&app; CVS repository</ulink>.
 
-  <!-- ============= About ================================== -->
+            <para>
+                <command>cvs -z3 -d:pserver:anonymous@anoncvs.gnome.org:/cvs/gnome co -rHEAD gnome-commander</command>
+            </para>
+
+        (just remember to run <command>autogen.sh</command> when compiling).
+
+            <warning>
+                <para>Be aware that there can be serious bugs in code from CVS repository. This code is intended for hacking,
+                development and testing purposes only.</para>
+            </warning>
+        </para>
+    </sect2>
+    <sect2 id="gnome-commander-compilation">
+        <title>Compilation and installation</title>
+        <para>
+        </para>
+    </sect2>
+    <sect2 id="gnome-commander-old-releases">
+        <title>Old releases</title>
+        <para>
+        </para>
+    </sect2>
+  </sect1>
+
+<!-- ============= Configuration files ==================== -->
+<!-- This section contains info about the program configuration files.-->
+  <sect1 id="gnome-commander-configuration-files">
+    <title>&app; configuration files</title>
+    <para>This section gives an overview of the configuration files used by &app;:
+    </para>
+  </sect1>
+
+<!-- ============= Release overview ======================= -->
+<!-- This section contains info about the program releases.-->
+  <sect1 id="gnome-commander-releases">
+    <title>Release overview</title>
+    <para>
+    </para>
+  </sect1>
+
+<!-- ============= Bugs ================================== -->
+<!-- This section is optional and is commented out by default.
+     You can use it to describe known bugs and limitations of the
+      program if there are any - please be frank and list all
+     problems you know of.
+-->
+  <sect1 id="gnome-commander-bugs">
+  <title>Known Bugs and Limitations</title>
+  <para>You can report or view &app; bugs at the <ulink url="http://bugzilla.gnome.org/browse.cgi?product=gnome-commander" type="http">the gnome.org Bugzilla</ulink>.</para>
+
+  <para>Though &app; is relatively free from bugs and is a quite mature program, no programs will ever be totally bugfree.
+        New bugs can be introduced with new features, or through other programs and libraries it depends on,
+        this goes especially for development and testing versions. Quality bugreporting is very important
+        and can be a very good help for the developers to make a better program.
+        Bug reporting is not an act of dissatisfaction, so you are very welcome to help us find, hunt down and kill the bugs.
+        Testing of the new releases and bug reporting is the best way users without programming knowledge can help out in the development of a program,
+        and those with programming knowledge are very welcome to suggest fixes and/or send patches to the developers, all in the spirit of free and open source software.</para>
+
+  <para>Given enough eyeballs, all bugs are shallow.
+
+        //Linus law.</para>
+ </sect1>
+
+<!-- ============= About ================================== -->
 <!-- This section contains info about the program (not docs), such as
       author's name(s), web page, license, feedback address. This
       section is optional: primary place for this info is "About.." box of
       the program. However, if you do wish to include this info in the
       manual, this is the place to put it. Alternatively, you can put this information in the title page.-->
-  <sect1 id="gnome-commander-about"> 
-    <title>About &app;</title> 
+  <sect1 id="gnome-commander-about">
+    <title>About &app;</title>
     <para> &app; was primarily written by the former maintainer - Marcus Bjurman,
-    who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in 2004. 
-    Currently &app; is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>) 
+    who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in 2004.
+    Currently &app; is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>)
     with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Micha (<email>codejodler@gmx.ch</email>).
 
-    To find more information about &app;, please visit the 
-      <ulink url="http://www.nongnu.org/gcmd/" type="http">GNOME Commander homepage</ulink>. 
+    To find more information about &app;, please visit the
+    <ulink url="http://www.nongnu.org/gcmd/" type="http">&app; homepage</ulink>.
     </para>
     <para>
       To report a bug or make a suggestion regarding this application or
-      this manual, follow the directions in this 
+      this manual, follow the directions in this
       <ulink url="ghelp:gnome-feedback"   type="help">document</ulink>.
     </para>
 
@@ -1541,5 +2020,6 @@
       <ulink url="ghelp:gpl" type="help">link</ulink>, or in the file
       COPYING included with the source code of this program. </para>
 
-  </sect1> 
+  </sect1>
+
 </article>

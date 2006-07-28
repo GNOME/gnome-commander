@@ -19,6 +19,7 @@ DOC_FIGURES = \
 	figures/create_archive.png                           \
 	figures/dev_cd.png                                   \
 	figures/extract_archive.png                          \
+	figures/gnome-commander_dialog_adv_rename.png        \
 	figures/gnome-commander_dialog_file_permissions.png  \
 	figures/gnome-commander_dialog_file_properties.png   \
 	figures/gnome-commander_dialog_ftp.png               \
