@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-29 20:31+0200\n"
+"POT-Creation-Date: 2006-07-31 13:37+0200\n"
 "PO-Revision-Date: 2006-07-29 20:33+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -1621,7 +1621,8 @@ msgstr "Editar aplicación"
 
 #: ../src/gnome-cmd-options-dialog.c:1291
 msgid "Always download remote files before opening in external programs"
-msgstr "Siempre descargar archivos remotos antes de abrirlos en programas externos"
+msgstr ""
+"Siempre descargar archivos remotos antes de abrirlos en programas externos"
 
 #: ../src/gnome-cmd-options-dialog.c:1293
 msgid "MIME applications"
@@ -1933,7 +1934,8 @@ msgid "%d%% copied"
 msgstr "%d%% copiado"
 
 #: ../src/imageloader.c:127
-msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgid ""
+"Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "Imposible cargar la imagen del tipo de archivo instalado, tratando de "
 "cargarlos desde el directorio fuente\n"
@@ -2170,7 +2172,8 @@ msgstr "Hubo un error al informar de un problema."
 
 #: ../src/useractions.c:747
 msgid "A fast and powerful file manager for the GNOME desktop"
-msgstr "Un administrador de archivos rápido y eficiente para el escritorio Gnome"
+msgstr ""
+"Un administrador de archivos rápido y eficiente para el escritorio Gnome"
 
 #. xgettext:
 #. * Replace this with your name when translating
@@ -2206,7 +2209,8 @@ msgstr "¿Hacer ejecutable?"
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
-msgstr "«%s» es un archivo ejecutable. ¿Quiera ejecutarlo o mostrar su contenido?"
+msgstr ""
+"«%s» es un archivo ejecutable. ¿Quiera ejecutarlo o mostrar su contenido?"
 
 #: ../src/utils.c:625
 msgid "Run or Display"
@@ -2262,4 +2266,3 @@ msgstr "No se pudo leer del directorio %s: %s\n"
 #: ../src/utils.c:1484
 msgid "There was an error displaying help."
 msgstr "Hubo un error al mostrar la ayuda."
-
