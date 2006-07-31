@@ -3,7 +3,6 @@
 man1_MANS = gnome-commander.1
 
 EXTRA_DIST = \
-	advrename.txt \
 	keys.txt \
 	internal_viewer_hacking.txt \
         $(man1_MANS)
