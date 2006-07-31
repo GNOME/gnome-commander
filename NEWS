@@ -8,11 +8,11 @@ Bug fixes:
  * Fixed problem with refreshing after chown or chmod
  * Fixed problem #347561 (plugin directory set incorrectly)
  * Fixed problem #347817 (incorrect use of Makefile linker flags)
- 
+
 New features:
  * New icon for internal viewer
  * New entries in Help menu
- * Revamped docs
+ * Help docs updated
  * New or updated translations: de, es, eu, hu, it, ru, sv, vi
 
 
@@ -29,7 +29,7 @@ Bug fixes:
  * Fixed problem #332261 (exec_prefix not properly parsed during configure/makefiles)
  * Fixed problem #336649 (permission numbers presentation)
  * Fixed problem with crashes when using broken or non-matching regex pattern in advrename
- 
+
 New features:
  * Monitoring of mounted volumes
  * Rewritten internal viewer
@@ -47,7 +47,7 @@ New features:
       ALT+F3         External viewer
       ALT+letters    Quick search
       CTRL+SHIFT+A   Deselecting all files
- 
+
 
 ===================================
 gnome-commander 1.1.7
@@ -109,7 +109,7 @@ New features:
  * F2 now opens the rename dialog instead of refreshing the active file
    list.
  * Added history to the select and unselect by pattern dialogs.
- 
+
 
 ===================================
 gnome-commander 1.1.5
@@ -128,7 +128,7 @@ New features:
  * The dir-indicator above each file-list can now be used to navigate
    upwards in the directory structure.
 
-   
+
 ===================================
 gnome-commander 1.1.4
 ---------------
@@ -160,8 +160,8 @@ Bug fixes:
    a program has finished works more reliably.
  * Fixes bug where a new directory would appear many times
    in the same file-list until reloaded.
-   
-New features:	
+
+New features:
  * The delete confirmation can now be disabled.
  * Better error messages when a mount fails.
  * Made the calculation of a directory's total size start automaticly
@@ -178,15 +178,15 @@ Bug fixes:
  * Handles non-utf8 filenames much better.
  * Removed unsafe uri-creation.
 
-New features:	
+New features:
  * There are now three ways to show with file-extensions.
 
-	
+
 ===================================
 gnome-commander 1.1.1
 ---------------
 
-Bug fixes: 
+Bug fixes:
  * Stopped showing the file extension in both the name column and the ext
    column.
  * Fixed crashes that happened when browsing directories.
@@ -199,12 +199,12 @@ Bug fixes:
 New features:
  * Added a button to change the default mime-app in the file-props dialog.
 
-	
+
 ===================================
 gnome-commander 1.1.0
 ---------------
 
-Bug fixes: 
+Bug fixes:
   <none>
 
 New features:

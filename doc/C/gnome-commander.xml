@@ -1580,7 +1580,7 @@
         </row>
         <row valign="top">
             <entry><para>ALT+F8</para></entry>
-            <entry><para>Opens the history list for the command line</para></entry>
+            <entry><para>Open the history list for the command line</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -1695,10 +1695,6 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>TAB</para></entry>
-            <entry><para>Switch between left and right file list</para></entry>
-        </row>
-        <row valign="top">
             <entry><para>ENTER</para></entry>
             <entry><para>Change directory or execute command line if not empty</para></entry>
         </row>
@@ -1737,7 +1733,7 @@
         <row valign="top">
             <entry><para>SPACE</para></entry>
             <entry><para>Select file or directory (as INSERT). If SPACE is used on an unselected directory under the cursor,
-            the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR.</para></entry>
+            the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -1754,7 +1750,7 @@
         <row valign="top">
             <entry><para>ALT+SHIFT+ENTER</para></entry>
             <entry><para>The contents of all directories in the current directory are counted. The sizes of the directories are then shown
-            in the "full" view instead of the string DIR.</para></entry>
+            in the "full" view instead of the string DIR</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -1805,8 +1801,28 @@
             <entry><para>Multi-Rename-Tool</para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>TAB</para></entry>
+            <entry><para>Switch between left and right file list</para></entry>
+        </row>
+        <row valign="top">
             <entry><para>CTRL+U</para></entry>
-            <entry><para>Swap file lists</para></entry>
+            <entry><para>Switch between left and right file list</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+.</para></entry>
+            <entry><para>Copy the current working directory from the inactive file-list to the active one</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+SHIFT+.</para></entry>
+            <entry><para>Copy the current working directory from the active file-list to the inactive one</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+R</para></entry>
@@ -1842,7 +1858,7 @@
         </row>
         <row valign="top">
             <entry><para>ESC</para></entry>
-            <entry><para>Clears the command line</para></entry>
+            <entry><para>Clear the command line</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+K</para></entry>
@@ -1875,19 +1891,11 @@
         <row valign="top">
             <entry><para>CTRL+DOWN</para><para>ALT+F8</para></entry>
             <entry><para>A list with the latest command lines (history list) is opened. Use the UP and DOWN cursor keys to select an entry.
-            By pressing the LEFT or RIGHT key, you can edit the command line. This automatically closes the list.</para></entry>
+            By pressing the LEFT or RIGHT key, you can edit the command line. This automatically closes the list</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
             <entry><para></para></entry>
-        </row>
-        <row valign="top">
-            <entry><para>CTRL+.</para></entry>
-            <entry><para>Copy the current working directory from the inactive file-list to the active one.</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para>CTRL+SHIFT+.</para></entry>
-            <entry><para>Copy the current working directory from the active file-list to the inactive one.</para></entry>
         </row>
         </tbody>
         </tgroup>
