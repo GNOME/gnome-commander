@@ -297,27 +297,27 @@ apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
 
     if (!in || !entry) return NULL;
 
-    if (regcomp (&re_exp, entry->from, (entry->case_sens ? REG_EXTENDED : REG_EXTENDED|REG_ICASE) != 0))  
-        entry->malformed_pattern = TRUE; 
+    if (regcomp (&re_exp, entry->from, (entry->case_sens ? REG_EXTENDED : REG_EXTENDED|REG_ICASE) != 0))
+        entry->malformed_pattern = TRUE;
     else
     {
-        if (regexec (&re_exp, in, 1, &re_match_info, eflags) == 0) 
+        if (regexec (&re_exp, in, 1, &re_match_info, eflags) == 0)
         {
-            if (strcmp (entry->from, "$") == 0) 
+            if (strcmp (entry->from, "$") == 0)
                 out = g_strconcat(in, entry->to, NULL);
-            else 
+            else
                 if (strcmp (entry->from, "^") == 0)
                     out = g_strconcat(entry->to, in, NULL);
                 else
                 {
                     gint match_size = re_match_info.rm_eo - re_match_info.rm_so;
-                    
+
                     if (match_size)
                     {
                         gchar **v;
                         gchar *match = g_malloc (match_size+1);
                         gchar *tail;
-                        
+
                         g_utf8_strncpy (match, in+re_match_info.rm_so, match_size);
                         match[match_size] = '\0';
                         v = g_strsplit (in, match, 2);
@@ -348,9 +348,9 @@ create_new_name (const gchar *name, GList *patterns)
         PatternEntry *entry = (PatternEntry*)patterns->data;
 
         tmp = new_name;
-    
+
         new_name = apply_one_pattern (tmp, entry, 0);
-        
+
         g_free (tmp);
     }
 
@@ -369,12 +369,12 @@ static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
         dialog->priv->defaults->counter_increment);
     gnome_cmd_advrename_parse_fname (templ_string);
 
-    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next ) 
-	{
+    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next )
+    {
         gchar fname[256];
         RenameEntry *entry = (RenameEntry*)tmp->data;
         GList *patterns = dialog->priv->defaults->patterns;
-        
+
         gnome_cmd_advrename_gen_fname (fname, sizeof (fname), entry->finfo);
 
         entry->new_name = create_new_name (fname, patterns);
@@ -386,8 +386,8 @@ static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 {
     GList *tmp;
 
-    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next ) 
-	{
+    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next )
+    {
         RenameEntry *entry = (RenameEntry*)tmp->data;
 
         gtk_clist_set_text (GTK_CLIST (dialog->priv->res_list),
@@ -403,8 +403,8 @@ change_names (GnomeCmdAdvrenameDialog *dialog)
 {
     GList *tmp;
 
-    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next ) 
-	{
+    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next )
+    {
         RenameEntry *entry = (RenameEntry*)tmp->data;
 
         if (strcmp (entry->finfo->info->name, entry->new_name) != 0)
@@ -560,6 +560,12 @@ static void on_reset (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
     dialog->priv->defaults->counter_start = 1;
     dialog->priv->defaults->counter_precision = 1;
     dialog->priv->defaults->counter_increment = 1;
+}
+
+
+static void on_help (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
+{
+    gnome_cmd_help_display("gnome-commander.xml", "gnome-commander-advanced-rename");
 }
 
 
@@ -801,7 +807,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_table_attach (GTK_TABLE (table), sw, 0, 1, 0, 1, GTK_EXPAND|GTK_FILL, GTK_EXPAND|GTK_FILL, 0, 0);
     create_clist_column (sw, 0, advrename_dialog_default_pat_column_width[0], _("Replace this"));
     create_clist_column (sw, 1, advrename_dialog_default_pat_column_width[1], _("With this"));
-    create_clist_column (sw, 2, advrename_dialog_default_pat_column_width[2], _("Case sens"));
+    create_clist_column (sw, 2, advrename_dialog_default_pat_column_width[2], _("Case sensitive"));
 
     in_dialog->priv->pat_list = lookup_widget (GTK_WIDGET (sw), "pat_list");
     gtk_signal_connect (GTK_OBJECT (in_dialog->priv->pat_list),
@@ -857,6 +863,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
 
     /* Dialog stuff
      */
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("Reset"), GTK_SIGNAL_FUNC (on_reset), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
@@ -864,7 +871,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_widget_grab_focus (in_dialog->priv->pat_list);
     gtk_window_add_accel_group (GTK_WINDOW (dialog), accel_group);
 
-    for ( tmp = in_dialog->priv->defaults->patterns; tmp; tmp = tmp->next )   
+    for ( tmp = in_dialog->priv->defaults->patterns; tmp; tmp = tmp->next )
     {
         PatternEntry *entry = (PatternEntry*)tmp->data;
         add_pattern_entry (in_dialog, entry);
@@ -900,8 +907,8 @@ gnome_cmd_advrename_dialog_new (GList *files)
     GList *tmp;
 
     dialog->priv->files = gnome_cmd_file_list_copy (files);
-    
-    for ( tmp = dialog->priv->files; tmp; tmp = tmp->next ) 
+
+    for ( tmp = dialog->priv->files; tmp; tmp = tmp->next )
     {
         GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
         if (strcmp (finfo->info->name, "..") != 0)

@@ -1,3 +1,8 @@
+2006-07-31  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	Added 'help' button to advrename dlg.
+
 2006-07-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* doc/C/figures/gnome-commander_dialog_adv_rename.png:
