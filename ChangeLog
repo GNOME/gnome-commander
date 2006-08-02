@@ -1,3 +1,8 @@
+2006-08-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.l:
+	Added python-like indices for placeholders in advrename.
+
 2006-07-31  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.c:

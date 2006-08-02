@@ -10,9 +10,10 @@ Bug fixes:
  * Fixed problem #347817 (incorrect use of Makefile linker flags)
 
 New features:
+ * New python-like indices for advanced file rename templates
+ * Revamped application menus
  * New icon for internal viewer
- * New entries in Help menu
- * Help docs updated
+ * Updated help docs
  * New or updated translations: de, es, eu, hu, it, ru, sv, vi
 
 

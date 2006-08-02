@@ -45,7 +45,7 @@
 
 #define   MAX_PRECISION   16
 
-enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,PARENT_DIR,GRANDPARENT_DIR,TAG_FILE,TAG_ID3,TAG_EXIF};
+enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,PARENT_DIR,GRANDPARENT_DIR,TAG_FILE,TAG_ID3,TAG_EXIF,TAG_IPTC};
 
 typedef struct
 {
@@ -55,8 +55,8 @@ typedef struct
     GString *s;
     struct
     {
-      int pos;          // default: 0
-      int len;          // default: -1
+      int beg;          // default: 0
+      int end;          // default: 0
       GString *name;    // default: NULL
       GList   *opt;     // default: NULL
     } tag;
@@ -81,37 +81,32 @@ static char          counter_fmt[8] = "%lu";
 
 %}
 
-int        [0-9]+
+int        -?[0-9]+
+uint       0*[1-9][0-9]*
+
+range      {int}|{int}?:{int}?|{int},{uint}
 
 file       [fF][iI][lL][eE]
 id3        [iI][dD]3
 exif       [eE][xX][iI][fF]
+iptc       [iI][pP][tT][cC]
 
-tag_name   {file}|{id3}|{exif}
+tag_name   {file}|{id3}|{exif}|{iptc}
 
 %%
 
 
 %{
-  int from, length;
+  static int from, to;
 %}
 
 
-\$[egnNp]\(0+(,{int})?\)        ECHO;                                       // don't substitute $x(0,...)
+\$T\({tag_name},[a-zA-Z][a-zA-Z0-9]*(,[^,)]+)*,0+(,{int})?\)   ECHO;        // don't substitute $T(file|id3|exif|iptc,tag,...,0,...)
 
-\$[egnNp]\({int},0+\)           ECHO;                                       // don't substitute $x(...,0)
+\$[egnNp]\({range}\)            {
+                                  gchar **a = g_strsplit_set(yytext+3,":,()",0);
 
-\$[c]\(0+\)                     ECHO;                                       // don't substitute $c(0)
-
-\$T\({tag_name},[a-zA-Z][a-zA-Z0-9]*(,[^,)]+)*,0+(,{int})?\)   ECHO;        // don't substitute $T(file|id3|exif,tag,...,0,...)
-
-\$[egnNp]\({int}(,{int})?\)     {
                                   CHUNK *p = g_new0(CHUNK,1);
-
-                                  from = 1;
-                                  length = -1;
-
-                                  sscanf(yytext+3,"%d,%d",&from,&length);
 
                                   switch (yytext[1])
                                   {
@@ -122,15 +117,32 @@ tag_name   {file}|{id3}|{exif}
                                     case 'p' : p->type = PARENT_DIR;      break;
                                   }
 
-                                  p->tag.pos = --from;
-                                  p->tag.len = length;
+                                  from = to = 0;
+
+                                  switch (g_strv_length(a))                 // glib >= 2.6
+                                  {
+                                      case 2:
+                                          sscanf(a[0],"%d",&from);
+                                          break;
+                                      case 3:
+                                          sscanf(a[0],"%d",&from);
+                                          sscanf(a[1],"%d",&to);
+                                          if (strchr(yytext+3,','))
+                                              to = from<0 && to+from>0 ? 0 : from+to;
+                                          break;
+                                  }
+
+                                  g_strfreev(a);
+
+                                  p->tag.beg = from;
+                                  p->tag.end = to;
                                   p->tag.name = NULL;
                                   p->tag.opt = NULL;
 
                                   fname_template = g_list_append(fname_template, (gpointer) p);
                                 }
 
-\$[c]\({int}\)                  {
+\$[c]\({uint}\)                 {
                                   CHUNK *p = g_new0(CHUNK,1);
 
                                   int precision = default_counter_prec;
@@ -145,9 +157,9 @@ tag_name   {file}|{id3}|{exif}
                                   fname_template = g_list_append(fname_template, (gpointer) p);
                                 }
 
-\$T\({tag_name},[a-zA-Z][a-zA-Z0-9]*(,[^,)]+)*(,{int}){0,2}\)   {
+\$T\({tag_name},[a-zA-Z][a-zA-Z0-9]*(,[^,)]+)*(,{range})?\)   {
 
-                                  gchar **a = g_strsplit_set(yytext+3,",()",0);
+                                  gchar **a = g_strsplit_set(yytext+3,":,()",0);
                                   guint n = g_strv_length(a);                     // glib >= 2.6
 
                                   CHUNK *p = g_new0(CHUNK,1);
@@ -155,14 +167,13 @@ tag_name   {file}|{id3}|{exif}
                                   int optind = 0;
                                   int i;
 
-                                  from = 1;
-                                  length = -1;
+                                  from = to = 0;
 
                                   if (n>3)    // if there is any tag option ...
                                   {
                                     gchar *s = g_strjoinv(",",a+n-3);
 
-                                    optind = sscanf(s,"%d,%d,",&from,&length);
+                                    optind = sscanf(s,"%d,%d,",&from,&to);
 
                                     if (optind!=2)
                                     {
@@ -173,17 +184,25 @@ tag_name   {file}|{id3}|{exif}
                                     g_free(s);
                                   }
 
-                                  switch (yytext[3])
+                                  switch (yytext[4])
                                   {
-                                    case 'f': p->type = TAG_FILE; break;
-                                    case 'i': p->type = TAG_ID3;  break;
-                                    case 'e': p->type = TAG_EXIF; break;
+                                    case 'i':
+                                    case 'I': p->type = TAG_FILE; break;
+
+                                    case 'd':
+                                    case 'D': p->type = TAG_ID3;  break;
+
+                                    case 'x':
+                                    case 'X': p->type = TAG_EXIF; break;
+
+                                    case 'p':
+                                    case 'P': p->type = TAG_IPTC; break;
 
                                     default : break;
                                   }
 
-                                  p->tag.pos = --from;
-                                  p->tag.len = length;
+                                  p->tag.beg = from;
+                                  p->tag.end = to;
                                   p->tag.name = g_string_new(a[1]);
                                   p->tag.opt = NULL;
 
@@ -209,8 +228,8 @@ tag_name   {file}|{id3}|{exif}
                                     case 'p' : p->type = PARENT_DIR;      break;
                                   }
 
-                                  p->tag.pos = 0;
-                                  p->tag.len = -1;
+                                  p->tag.beg = 0;
+                                  p->tag.end = 0;
                                   p->tag.name = NULL;
                                   p->tag.opt = NULL;
 
@@ -298,9 +317,10 @@ void gnome_cmd_advrename_parse_fname(const char *fname)
 }
 
 
-static void mksubstr(size_t src_len, int *pos, int *len)
+static void mksubstr(int src_len, const CHUNK *p, int *pos, int *len)
 {
-  if (*pos<0)  *pos = 0;
+  *pos = p->tag.beg<0 ? p->tag.beg+src_len : p->tag.beg;
+  *pos = MAX(*pos, 0);
 
   if (*pos>=src_len)
   {
@@ -308,17 +328,14 @@ static void mksubstr(size_t src_len, int *pos, int *len)
     return;
   }
 
-  if (*len==-1 || *len>src_len-*pos)
-  {
-    *len = src_len-*pos;
-    return;
-  }
+  *len = p->tag.end>0 ? p->tag.end-*pos : src_len+p->tag.end-*pos;
+  *len = CLAMP(*len, 0, src_len-*pos);
 }
 
 
 static void find_parent_dir(const char *path, int *offset, int *len)
 {
-  char *slash = g_utf8_strrchr(path, -1, '/');
+  char *slash = g_utf8_strrchr(path, -1, G_DIR_SEPARATOR);
   char *s = slash;
 
   *offset = *len = 0;
@@ -326,7 +343,7 @@ static void find_parent_dir(const char *path, int *offset, int *len)
   if (!slash)  return;
 
   while (s!=path)
-    if (*--s=='/')
+    if (*--s==G_DIR_SEPARATOR)
     {
       *offset = ++s - path;
       *len = slash - s;
@@ -340,19 +357,19 @@ static void find_parent_dir(const char *path, int *offset, int *len)
 
 static void find_grandparent_dir(const char *path, int *offset, int *len)
 {
-  char *slash = g_utf8_strrchr(path, -1, '/');
+  char *slash = g_utf8_strrchr(path, -1, G_DIR_SEPARATOR);
   char *s;
 
   *offset = *len = 0;
 
   if (slash==path || !slash)  return;
 
-  s = slash = g_utf8_strrchr(path, slash-path-1, '/');
+  s = slash = g_utf8_strrchr(path, slash-path-1, G_DIR_SEPARATOR);
 
   if (!slash)  return;
 
   while (s!=path)
-    if (*--s=='/')
+    if (*--s==G_DIR_SEPARATOR)
     {
       *offset = ++s - path;
       *len = slash - s;
@@ -383,7 +400,8 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 
   char custom_counter_fmt[8];
 
-  int from, length;
+  int from = 0;
+  int length = 0;
 
   *new_fname = '\0';
 
@@ -408,37 +426,27 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
                     break;
 
       case NAME  :
-                    from = p->tag.pos;
-                    length = p->tag.len;
-                    mksubstr(name_len,&from,&length);
+                    mksubstr(name_len,p,&from,&length);
                     fmt = g_string_append_len(fmt,fname+from,length);
                     break;
 
       case EXTENSION:
-                    from = p->tag.pos;
-                    length = p->tag.len;
-                    mksubstr(ext_len,&from,&length);
+                    mksubstr(ext_len,p,&from,&length);
                     fmt = g_string_append_len(fmt,fname+ext_offset+from,length);
                     break;
 
       case FULL_NAME:
-                    from = p->tag.pos;
-                    length = p->tag.len;
-                    mksubstr(full_name_len,&from,&length);
+                    mksubstr(full_name_len,p,&from,&length);
                     fmt = g_string_append_len(fmt,fname+from,length);
                     break;
 
       case PARENT_DIR:
-                    from = p->tag.pos;
-                    length = p->tag.len;
-                    mksubstr(parent_dir_len,&from,&length);
+                    mksubstr(parent_dir_len,p,&from,&length);
                     fmt = g_string_append_len(fmt,gnome_cmd_file_get_path(finfo)+parent_dir_offset+from,length);
                     break;
 
       case GRANDPARENT_DIR:
-                    from = p->tag.pos;
-                    length = p->tag.len;
-                    mksubstr(grandparent_dir_len,&from,&length);
+                    mksubstr(grandparent_dir_len,p,&from,&length);
                     fmt = g_string_append_len(fmt,gnome_cmd_file_get_path(finfo)+grandparent_dir_offset+from,length);
                     break;
 
@@ -452,9 +460,8 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
       case TAG_FILE:
       case TAG_ID3:
       case TAG_EXIF:
-                    from = p->tag.pos;
-                    length = p->tag.len;
-                    mksubstr(p->tag.name->len,&from,&length);
+      case TAG_IPTC:
+                    mksubstr(p->tag.name->len,p,&from,&length);
                     fmt = g_string_append_len(fmt,p->tag.name->str+from,length);
                     break;
 
