@@ -1,3 +1,8 @@
+2006-08-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	Use GNOME stock items for menus.
+
 2006-08-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.l:

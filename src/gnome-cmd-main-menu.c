@@ -38,6 +38,7 @@
    We need special types because we neeed to place non-changeable shortcuts in the
    menus. Another difference is that we want only mouse-clicks in the menu to generate an
    action, keyboard shortcuts are caught by the different components by them self */
+
 typedef enum {
     MENU_TYPE_END,        /* No more items, use it at the end of an array */
     MENU_TYPE_ITEM,       /* Normal item, or radio item if it is inside a radioitems group */
@@ -473,7 +474,7 @@ init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_Properties..."), "Alt+ENTER", NULL,
             file_properties, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PROPERTIES,
             NULL
         },
         MENUTYPE_SEPARATOR,
@@ -663,7 +664,7 @@ init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_Bookmark this Directory..."), "", NULL,
             bookmarks_add_current, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ADD,
             NULL
         },
         {
@@ -693,7 +694,7 @@ init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_Options..."), "Ctrl+O", NULL,
             options_edit, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PROP,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PREFERENCES,
             NULL
         },
         {
@@ -710,13 +711,13 @@ init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("FTP _Connect..."), "Ctrl+F", NULL,
             connections_ftp_connect, NULL,
-            GNOME_APP_PIXMAP_DATA, menu_ftp_connect_xpm,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
             NULL
         },
         {
             MENU_TYPE_ITEM, _("FTP _Quick Connect..."), "Ctrl+G", NULL,
             connections_ftp_quick_connect, NULL,
-            GNOME_APP_PIXMAP_DATA, menu_ftp_connect_xpm,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
             NULL
         },
         MENUTYPE_END
