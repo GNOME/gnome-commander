@@ -136,10 +136,10 @@ destroy (GtkObject *object)
 
 
 static void
-class_init (GnomeCmdDirClass *class)
+class_init (GnomeCmdDirClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
-    GnomeCmdFileClass *file_class = GNOME_CMD_FILE_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GnomeCmdFileClass *file_class = GNOME_CMD_FILE_CLASS (klass);
 
     parent_class = gtk_type_class (gnome_cmd_file_get_type ());
 
@@ -189,11 +189,11 @@ class_init (GnomeCmdDirClass *class)
             1, GTK_TYPE_INT);
 
     object_class->destroy = destroy;
-    class->file_created = NULL;
-    class->file_deleted = NULL;
-    class->file_changed = NULL;
-    class->list_ok = NULL;
-    class->list_failed = NULL;
+    klass->file_created = NULL;
+    klass->file_deleted = NULL;
+    klass->file_changed = NULL;
+    klass->list_ok = NULL;
+    klass->list_failed = NULL;
 }
 
 

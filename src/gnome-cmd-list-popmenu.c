@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-list-popmenu.h"
@@ -87,13 +88,10 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdListPopmenuClass *class)
+class_init (GnomeCmdListPopmenuClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_menu_get_type ());
     object_class->destroy = destroy;
@@ -106,8 +104,6 @@ init (GnomeCmdListPopmenu *menu)
 {
     menu->priv = g_new (GnomeCmdListPopmenuPrivate, 1);
 }
-
-
 
 
 /***********************************
@@ -197,7 +193,6 @@ gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
 }
 
 
-
 GtkType
 gnome_cmd_list_popmenu_get_type         (void)
 {
@@ -221,4 +216,3 @@ gnome_cmd_list_popmenu_get_type         (void)
     }
     return type;
 }
-

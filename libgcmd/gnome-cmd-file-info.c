@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "libgcmd-deps.h"
 #include "gnome-cmd-file-info.h"
@@ -48,15 +49,16 @@ destroy (GtkObject *object)
 
 
 static void
-class_init (GnomeCmdFileInfoClass *class)
+class_init (GnomeCmdFileInfoClass *klass)
 {
     GtkObjectClass *object_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
     parent_class = gtk_type_class (gtk_object_get_type ());
 
     object_class->destroy = destroy;
 }
+
 
 static void
 init (GnomeCmdFileInfo *file)
@@ -66,7 +68,6 @@ init (GnomeCmdFileInfo *file)
 
     file->priv = g_new0 (GnomeCmdFileInfoPrivate, 1);
 }
-
 
 
 /***********************************
@@ -106,5 +107,3 @@ gnome_cmd_file_info_setup (GnomeCmdFileInfo *finfo, GnomeVFSURI *uri, GnomeVFSFi
     finfo->info = info;
     finfo->uri = uri;
 }
-
-

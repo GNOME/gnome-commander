@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-mkdir-dialog.h"
@@ -108,13 +109,10 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdMkdirDialogClass *class)
+class_init (GnomeCmdMkdirDialogClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gnome_cmd_string_dialog_get_type ());
     object_class->destroy = destroy;
@@ -127,8 +125,6 @@ init (GnomeCmdMkdirDialog *dialog)
 {
     dialog->priv = g_new (GnomeCmdMkdirDialogPrivate, 1);
 }
-
-
 
 
 /***********************************
@@ -157,7 +153,6 @@ gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
 }
 
 
-
 GtkType
 gnome_cmd_mkdir_dialog_get_type         (void)
 {
@@ -181,6 +176,3 @@ gnome_cmd_mkdir_dialog_get_type         (void)
     }
     return dlg_type;
 }
-
-
-

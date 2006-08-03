@@ -565,11 +565,12 @@ on_realize                          (GtkCList *clist,
     }
 }
 
+
 /*******************************
  * Gtk class implementation
  *******************************/
 
- 
+
 static void
 destroy (GtkObject *object)
 {
@@ -587,11 +588,11 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdCListClass *class)
+class_init (GnomeCmdCListClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
-    GtkCListClass *clist_class = GTK_CLIST_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+    GtkCListClass *clist_class = GTK_CLIST_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_clist_get_type ());
 

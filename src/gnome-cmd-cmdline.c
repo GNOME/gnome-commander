@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-cmdline.h"
@@ -162,8 +163,7 @@ on_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdCmdline *cm
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    dpath = gnome_cmd_dir_get_display_path (
-        gnome_cmd_file_selector_get_directory (fs));
+    dpath = gnome_cmd_dir_get_display_path (gnome_cmd_file_selector_get_directory (fs));
 
     gnome_cmd_cmdline_set_dir (cmdline, dpath);
     g_free (dpath);
@@ -217,13 +217,13 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdCmdlineClass *class)
+class_init (GnomeCmdCmdlineClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_hbox_get_type ());
     object_class->destroy = destroy;
@@ -287,8 +287,6 @@ init (GnomeCmdCmdline *cmdline)
 }
 
 
-
-
 /***********************************
  * Public functions
  ***********************************/
@@ -303,7 +301,6 @@ gnome_cmd_cmdline_new ()
 
     return GTK_WIDGET (cmdline);
 }
-
 
 
 GtkType
@@ -460,11 +457,9 @@ gnome_cmd_cmdline_set_history  (GnomeCmdCmdline *cmdline, GList *history)
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
     /* free the old history */
-    tmp = cmdline->priv->history;
-    while (tmp) {
+
+    for (tmp = cmdline->priv->history; tmp; tmp = tmp->next)
         g_free (tmp->data);
-        tmp = tmp->next;
-    }
 
     cmdline->priv->history = history;
 }

@@ -431,10 +431,10 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdMainMenuClass *class)
+class_init (GnomeCmdMainMenuClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_menu_bar_get_type ());
     object_class->destroy = destroy;

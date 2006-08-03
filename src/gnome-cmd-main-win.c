@@ -111,41 +111,41 @@ gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
 
 
 gint gnome_cmd_key_snooper(GtkWidget *grab_widget, 
-			GdkEventKey *event, GnomeCmdMainWin *mw)
+            GdkEventKey *event, GnomeCmdMainWin *mw)
 {
-	GnomeCmdFileSelector* fs;
-	
-	g_return_val_if_fail(mw!=NULL, FALSE);
-	g_return_val_if_fail(mw->priv!=NULL,FALSE);
-	
-	if (event->type!=GDK_KEY_PRESS)
-		return FALSE;
-	
+    GnomeCmdFileSelector* fs;
+    
+    g_return_val_if_fail(mw!=NULL, FALSE);
+    g_return_val_if_fail(mw->priv!=NULL,FALSE);
+    
+    if (event->type!=GDK_KEY_PRESS)
+        return FALSE;
+    
     if ( !( (event->keyval >= GDK_A && event->keyval <= GDK_Z) ||
             (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
             (event->keyval == GDK_period) ) )
-		return FALSE;
+        return FALSE;
 
 
-	if (!gnome_cmd_data_get_alt_quick_search())
-		return FALSE;
-	
-	if (!state_is_alt(event->state))
-		return FALSE;
-	
-	fs = gnome_cmd_main_win_get_active_fs(mw) ;
-	if (fs==NULL || fs->list==NULL)
-		return FALSE;
-	
-	if (!GTK_WIDGET_HAS_FOCUS(GTK_WIDGET(fs->list)))
-		return FALSE;
-	
-	if (!gnome_cmd_file_list_quicksearch_shown(fs->list)) {
-		gnome_cmd_file_list_show_quicksearch(fs->list, event->keyval) ;
-		return TRUE;
+    if (!gnome_cmd_data_get_alt_quick_search())
+        return FALSE;
+    
+    if (!state_is_alt(event->state))
+        return FALSE;
+    
+    fs = gnome_cmd_main_win_get_active_fs(mw) ;
+    if (fs==NULL || fs->list==NULL)
+        return FALSE;
+    
+    if (!GTK_WIDGET_HAS_FOCUS(GTK_WIDGET(fs->list)))
+        return FALSE;
+    
+    if (!gnome_cmd_file_list_quicksearch_shown(fs->list)) {
+        gnome_cmd_file_list_show_quicksearch(fs->list, event->keyval) ;
+        return TRUE;
     }
- 	
-	return FALSE ;
+     
+    return FALSE ;
 }
 
 
@@ -739,9 +739,9 @@ destroy (GtkObject *object)
 
     if (main_win && main_win->priv && main_win->priv->key_snooper_id) {
         gtk_key_snooper_remove(main_win->priv->key_snooper_id) ;
-	main_win->priv->key_snooper_id = 0 ;
+    main_win->priv->key_snooper_id = 0 ;
     }
-	
+    
     dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, LEFT));
     if (con_home == gnome_cmd_dir_get_connection (dir))
         gnome_cmd_data_set_start_dir (LEFT, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
@@ -763,10 +763,10 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdMainWinClass *class)
+class_init (GnomeCmdMainWinClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gnome_app_get_type ());
 
@@ -781,7 +781,7 @@ class_init (GnomeCmdMainWinClass *class)
 
     object_class->destroy = destroy;
     widget_class->map = map;
-    class->switch_fs = gnome_cmd_main_win_real_switch_fs;
+    klass->switch_fs = gnome_cmd_main_win_real_switch_fs;
 }
 
 
@@ -1047,7 +1047,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                 return TRUE;
 
             case GDK_F3:
-				file_external_view (NULL, NULL);
+                file_external_view (NULL, NULL);
                 return TRUE;
 
             case GDK_F7:

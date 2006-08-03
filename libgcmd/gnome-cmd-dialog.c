@@ -79,13 +79,13 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdDialogClass *class)
+class_init (GnomeCmdDialogClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;

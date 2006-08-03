@@ -313,8 +313,8 @@ destroy (GtkObject *object)
     GnomeCmdConDevice *con = GNOME_CMD_CON_DEVICE (object);
 
     if (con->priv->vfsvol) {
-	gnome_vfs_volume_unref(con->priv->vfsvol);
-	con->priv->vfsvol = NULL ;
+    gnome_vfs_volume_unref(con->priv->vfsvol);
+    con->priv->vfsvol = NULL ;
     }
     
     g_free (con->priv);
@@ -325,13 +325,13 @@ destroy (GtkObject *object)
 
 
 static void
-class_init (GnomeCmdConDeviceClass *class)
+class_init (GnomeCmdConDeviceClass *klass)
 {
     GtkObjectClass *object_class;
     GnomeCmdConClass *con_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    con_class = GNOME_CMD_CON_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    con_class = GNOME_CMD_CON_CLASS (klass);
     parent_class = gtk_type_class (gnome_cmd_con_get_type ());
 
     object_class->destroy = destroy;
@@ -536,7 +536,6 @@ gnome_cmd_con_device_set_vfs_volume    (GnomeCmdConDevice *dev,
     if (dev->priv->vfsvol)
         gnome_vfs_volume_ref(dev->priv->vfsvol);
 }
-
 
 
 const gchar *

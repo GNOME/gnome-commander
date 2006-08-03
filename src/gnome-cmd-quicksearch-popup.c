@@ -93,7 +93,7 @@ set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
     /* If no file matches the new filter, focus on the last file that matched a previous filter */
     if (popup->priv->matches==NULL && popup->priv->last_focused_file!=NULL)
         popup->priv->matches = g_list_append (popup->priv->matches, popup->priv->last_focused_file);
-	
+    
     popup->priv->pos = popup->priv->matches;
 }
 
@@ -236,13 +236,13 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdQuicksearchPopupClass *class)
+class_init (GnomeCmdQuicksearchPopupClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
     parent_class = gtk_type_class (gtk_window_get_type ());
 
     object_class->destroy = destroy;

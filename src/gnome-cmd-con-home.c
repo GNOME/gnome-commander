@@ -96,13 +96,13 @@ destroy (GtkObject *object)
 
 
 static void
-class_init (GnomeCmdConHomeClass *class)
+class_init (GnomeCmdConHomeClass *klass)
 {
     GtkObjectClass *object_class;
     GnomeCmdConClass *con_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    con_class = GNOME_CMD_CON_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    con_class = GNOME_CMD_CON_CLASS (klass);
     parent_class = gtk_type_class (gnome_cmd_con_get_type ());
 
     object_class->destroy = destroy;
@@ -186,5 +186,4 @@ gnome_cmd_con_home_new (void)
 
     return GNOME_CMD_CON (con);
 }
-
 

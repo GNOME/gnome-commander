@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-popmenu.h"
@@ -90,10 +91,10 @@ static void
 cb_exec_default (GtkMenuItem *menu_item,
                  GList *files)
 {
-    GHashTable *hash;
+    GHashTable *hash = g_hash_table_new (g_str_hash, g_str_equal);
 
-    hash = g_hash_table_new (g_str_hash, g_str_equal);
-    while (files) {
+    for (; files; files = files->next) 
+    {
         GnomeCmdFile *finfo = (GnomeCmdFile*)files->data;
         GnomeVFSMimeApplication *vfs_app =
             gnome_vfs_mime_get_default_application (finfo->info->mime_type);
@@ -109,8 +110,6 @@ cb_exec_default (GtkMenuItem *menu_item,
             gnome_vfs_mime_application_free (vfs_app);
             data->files = g_list_append (data->files, finfo);
         }
-
-        files = files->next;
     }
 
     g_hash_table_foreach (hash, (GHFunc)htcb_exec_with_app, NULL);
@@ -134,7 +133,8 @@ on_open_with_other_ok (GnomeCmdStringDialog *string_dialog,
 
     cmd = g_strdup_printf ("%s ", values[0]);
 
-    while (files) {
+    for (; files; files = files->next) 
+    {
         gchar *path = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (files->data));
         gchar *tmp = cmd;
         gchar *arg = g_shell_quote (path);
@@ -142,7 +142,6 @@ on_open_with_other_ok (GnomeCmdStringDialog *string_dialog,
         g_free (arg);
         g_free (path);
         g_free (tmp);
-        files = files->next;
     }
 
     run_command (cmd, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
@@ -236,8 +235,7 @@ add_fav_app_menu_item (GnomeCmdFilePopmenu *menu,
     data->app = gnome_cmd_app_dup (app);
     data->files = files;
 
-    menu->priv->data_list = g_list_append (
-        menu->priv->data_list, data);
+    menu->priv->data_list = g_list_append (menu->priv->data_list, data);
 
     item = gtk_image_menu_item_new ();
     pm = gnome_cmd_app_get_pixmap (app);
@@ -245,8 +243,7 @@ add_fav_app_menu_item (GnomeCmdFilePopmenu *menu,
         pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
         if (pixmap) {
             gtk_widget_show (pixmap);
-            gtk_image_menu_item_set_image (
-                GTK_IMAGE_MENU_ITEM (item), pixmap);
+            gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap);
         }
     }
 
@@ -374,13 +371,13 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdFilePopmenuClass *class)
+class_init (GnomeCmdFilePopmenuClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_menu_get_type ());
     object_class->destroy = destroy;
@@ -652,4 +649,3 @@ gnome_cmd_file_popmenu_get_type         (void)
     }
     return dlg_type;
 }
-

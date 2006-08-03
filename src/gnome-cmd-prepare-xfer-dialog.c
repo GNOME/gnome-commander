@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-prepare-xfer-dialog.h"
@@ -223,9 +224,6 @@ on_dest_dir_entry_keypressed (GtkEntry *entry,
 }
 
 
-
-
-
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -241,6 +239,7 @@ destroy (GtkObject *object)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
+
 static void
 map (GtkWidget *widget)
 {
@@ -250,13 +249,13 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdPrepareXferDialogClass *class)
+class_init (GnomeCmdPrepareXferDialogClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
@@ -314,8 +313,6 @@ init (GnomeCmdPrepareXferDialog *dialog)
 
     gtk_widget_set_usize (GTK_WIDGET (dialog), 500, -1);
 }
-
-
 
 
 /***********************************

@@ -97,9 +97,9 @@ destroy (GtkObject *object)
 
 
 static void
-class_init (GnomeCmdFileClass *class)
+class_init (GnomeCmdFileClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
 
     parent_class = gtk_type_class (gnome_cmd_file_info_get_type ());
 

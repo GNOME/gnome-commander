@@ -926,7 +926,7 @@ create_con_buttons (GnomeCmdFileSelector *fs)
     if (!gnome_cmd_data_get_conbuttons_visibility ())
         return;
 
-	for (l = fs->priv->old_btns; l; l = l->next)
+    for (l = fs->priv->old_btns; l; l = l->next)
         gtk_object_destroy (GTK_OBJECT (l->data));
 
     g_list_free (fs->priv->old_btns);
@@ -1235,6 +1235,7 @@ destroy (GtkObject *object)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
+
 static void
 map (GtkWidget *widget)
 {
@@ -1244,10 +1245,10 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdFileSelectorClass *class)
+class_init (GnomeCmdFileSelectorClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);;
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);;
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_vbox_get_type ());
 
@@ -1262,8 +1263,9 @@ class_init (GnomeCmdFileSelectorClass *class)
 
     object_class->destroy = destroy;
     widget_class->map = map;
-    class->changed_dir = NULL;
+    klass->changed_dir = NULL;
 }
+
 
 static void
 init (GnomeCmdFileSelector *fs)
@@ -1418,7 +1420,6 @@ init (GnomeCmdFileSelector *fs)
 /***********************************
  * Public functions
  ***********************************/
-
 
 GtkType
 gnome_cmd_file_selector_get_type         (void)
@@ -2040,7 +2041,7 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
         switch (event->keyval)
         {
             case GDK_F3:
-				file_internal_view (NULL, NULL);
+                file_internal_view (NULL, NULL);
                 return TRUE;
 
             case GDK_F4:

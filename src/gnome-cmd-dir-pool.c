@@ -72,11 +72,11 @@ destroy (GtkObject *object)
 
 
 static void
-class_init (GnomeCmdDirPoolClass *class)
+class_init (GnomeCmdDirPoolClass *klass)
 {
     GtkObjectClass *object_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
     parent_class = gtk_type_class (gtk_object_get_type ());
 
     object_class->destroy = destroy;

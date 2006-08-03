@@ -187,10 +187,10 @@ destroy (GtkObject *object)
 
 
 static void
-class_init (GnomeCmdConFtpClass *class)
+class_init (GnomeCmdConFtpClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
-    GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
     parent_class = gtk_type_class (gnome_cmd_con_get_type ());
 

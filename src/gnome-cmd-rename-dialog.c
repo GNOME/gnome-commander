@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-rename-dialog.h"
@@ -100,13 +101,13 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdRenameDialogClass *class)
+class_init (GnomeCmdRenameDialogClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gnome_cmd_string_dialog_get_type ());
     object_class->destroy = destroy;
@@ -119,7 +120,6 @@ init (GnomeCmdRenameDialog *dialog)
 {
     dialog->priv = g_new (GnomeCmdRenameDialogPrivate, 1);
 }
-
 
 
 
@@ -170,7 +170,6 @@ gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo)
 }
 
 
-
 GtkType
 gnome_cmd_rename_dialog_get_type         (void)
 {
@@ -194,6 +193,4 @@ gnome_cmd_rename_dialog_get_type         (void)
     }
     return dlg_type;
 }
-
-
 

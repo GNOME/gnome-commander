@@ -61,10 +61,10 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdChownComponentClass *class)
+class_init (GnomeCmdChownComponentClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (class);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_table_get_type ());
     object_class->destroy = destroy;

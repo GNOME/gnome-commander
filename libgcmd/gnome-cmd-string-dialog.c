@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "libgcmd-deps.h"
 #include "gnome-cmd-dialog.h"
@@ -47,7 +48,6 @@ on_ok (GtkButton *button, GnomeCmdStringDialog *dialog)
         for ( i=0 ; i<dialog->rows ; i++ )
             values[i] = (gchar*)gtk_entry_get_text (GTK_ENTRY (dialog->entries[i]));
 
-
         valid = dialog->priv->ok_cb (dialog, (const gchar**)values, dialog->priv->data);
         if (!valid)
             create_error_dialog (dialog->priv->error_desc);
@@ -67,9 +67,6 @@ on_cancel (GtkButton *button, GnomeCmdStringDialog *dialog)
 
     gtk_widget_hide (GTK_WIDGET (dialog));
 }
-
-
-
 
 
 /*******************************
@@ -98,13 +95,13 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdStringDialogClass *class)
+class_init (GnomeCmdStringDialogClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
@@ -156,8 +153,6 @@ setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
 }
 
 
-
-
 /***********************************
  * Public functions
  ***********************************/
@@ -187,9 +182,6 @@ gnome_cmd_string_dialog_get_type         (void)
 }
 
 
-
-
-
 GtkWidget*
 gnome_cmd_string_dialog_new_with_cancel (const gchar *title,
                                          const gchar **labels,
@@ -200,9 +192,7 @@ gnome_cmd_string_dialog_new_with_cancel (const gchar *title,
 {
     GnomeCmdStringDialog *dialog = gtk_type_new (gnome_cmd_string_dialog_get_type ());
 
-    gnome_cmd_string_dialog_setup_with_cancel (
-        dialog, title, labels, rows,
-        ok_cb, cancel_cb, user_data);
+    gnome_cmd_string_dialog_setup_with_cancel (dialog, title, labels, rows, ok_cb, cancel_cb, user_data);
 
     return GTK_WIDGET (dialog);
 }
@@ -215,8 +205,7 @@ gnome_cmd_string_dialog_new (const gchar *title,
                              GnomeCmdStringDialogCallback ok_cb,
                              gpointer user_data)
 {
-    return gnome_cmd_string_dialog_new_with_cancel (title, labels, rows,
-                                                    ok_cb, NULL, user_data);
+    return gnome_cmd_string_dialog_new_with_cancel (title, labels, rows, ok_cb, NULL, user_data);
 }
 
 
@@ -257,8 +246,7 @@ gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog,
                                GnomeCmdStringDialogCallback ok_cb,
                                gpointer user_data)
 {
-    gnome_cmd_string_dialog_setup_with_cancel (
-        dialog, title, labels, rows, ok_cb, NULL, user_data);
+    gnome_cmd_string_dialog_setup_with_cancel (dialog, title, labels, rows, ok_cb, NULL, user_data);
 }
 
 

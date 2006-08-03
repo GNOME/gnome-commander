@@ -103,11 +103,11 @@ destroy (GtkObject *object)
 
 
 static void
-class_init (GnomeCmdConClass *class)
+class_init (GnomeCmdConClass *klass)
 {
     GtkObjectClass *object_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
     parent_class = gtk_type_class (gtk_object_get_type ());
 
     signals[UPDATED] =
@@ -148,16 +148,16 @@ class_init (GnomeCmdConClass *class)
 
     object_class->destroy = destroy;
 
-    class->updated = NULL;
-    class->open_done = on_open_done;
-    class->open_failed = on_open_failed;
+    klass->updated = NULL;
+    klass->open_done = on_open_done;
+    klass->open_failed = on_open_failed;
 
-    class->open = NULL;
-    class->close = NULL;
-    class->cancel_open = NULL;
-    class->open_is_needed = NULL;
-    class->create_uri = NULL;
-    class->create_path = NULL;
+    klass->open = NULL;
+    klass->close = NULL;
+    klass->cancel_open = NULL;
+    klass->open_is_needed = NULL;
+    klass->create_uri = NULL;
+    klass->create_path = NULL;
 }
 
 
@@ -481,7 +481,6 @@ gnome_cmd_con_get_root_dir (GnomeCmdCon *con)
 }
 
 
-
 gboolean
 gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
 {
@@ -606,7 +605,6 @@ gnome_cmd_con_get_close_pixmap (GnomeCmdCon *con)
 
     return con->close_pixmap;
 }
-
 
 
 GnomeCmdBookmarkGroup *
@@ -760,4 +758,3 @@ gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
     DEBUG ('p', "FAILED to find %s in the hash-table\n", uri_str);
     return NULL;
 }
-

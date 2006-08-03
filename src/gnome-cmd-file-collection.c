@@ -48,11 +48,11 @@ destroy (GtkObject *obj)
 
 
 static void
-class_init (GnomeCmdFileCollectionClass *class)
+class_init (GnomeCmdFileCollectionClass *klass)
 {
     GtkObjectClass *object_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
     parent_class = gtk_type_class (gtk_object_get_type ());
 
     object_class->destroy = destroy;
@@ -215,4 +215,3 @@ gnome_cmd_file_collection_get_list (GnomeCmdFileCollection *collection)
 
     return collection->priv->list;
 }
-

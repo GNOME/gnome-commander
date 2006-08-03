@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_FILE_H__
 #define __GNOME_CMD_FILE_H__
 
@@ -107,7 +108,7 @@ void gnome_cmd_file_show_cap_cut (GnomeCmdFile *finfo);
 void gnome_cmd_file_show_cap_copy (GnomeCmdFile *finfo);
 void gnome_cmd_file_show_cap_paste (GnomeCmdFile *finfo);
 
-//FIXME: Theese names sucks when we have a class called GnomeCmdFileList...
+//FIXME: These names suck when we have a class called GnomeCmdFileList...
 GList *gnome_cmd_file_list_copy (GList *files);
 void gnome_cmd_file_list_free (GList *files);
 void gnome_cmd_file_list_ref (GList *files);

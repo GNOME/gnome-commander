@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-chmod-component.h"
@@ -92,19 +93,16 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdChmodComponentClass *class)
+class_init (GnomeCmdChmodComponentClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_vbox_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 
-    class->perms_changed = on_perms_changed;
+    klass->perms_changed = on_perms_changed;
 
     chmod_component_signals[PERMS_CHANGED] =
         gtk_signal_new ("perms_changed",
@@ -146,9 +144,7 @@ init (GnomeCmdChmodComponent *comp)
                 create_check (GTK_WIDGET (comp), check_text[x], "check");
             gtk_signal_connect (GTK_OBJECT (comp->priv->check_boxes[y][x]), "toggled",
                                 GTK_SIGNAL_FUNC (on_check_toggled), comp);
-            table_add (
-                GTK_WIDGET (table), comp->priv->check_boxes[y][x],
-                x+1, y, GTK_FILL);
+            table_add (GTK_WIDGET (table), comp->priv->check_boxes[y][x], x+1, y, GTK_FILL);
         }
     }
 
@@ -174,8 +170,6 @@ init (GnomeCmdChmodComponent *comp)
 }
 
 
-
-
 /***********************************
  * Public functions
  ***********************************/
@@ -183,14 +177,12 @@ init (GnomeCmdChmodComponent *comp)
 GtkWidget*
 gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms)
 {
-    GnomeCmdChmodComponent *comp;
+    GnomeCmdChmodComponent *comp = gtk_type_new (gnome_cmd_chmod_component_get_type ());
 
-    comp = gtk_type_new (gnome_cmd_chmod_component_get_type ());
     gnome_cmd_chmod_component_set_perms (comp, perms);
 
     return GTK_WIDGET (comp);
 }
-
 
 
 GtkType
@@ -249,4 +241,3 @@ gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component,
         }
     }
 }
-

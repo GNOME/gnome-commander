@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-xfer-progress-win.h"
@@ -60,13 +61,10 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdXferProgressWinClass *class)
+class_init (GnomeCmdXferProgressWinClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;
@@ -111,8 +109,6 @@ init (GnomeCmdXferProgressWin *win)
 }
 
 
-
-
 /***********************************
  * Public functions
  ***********************************/
@@ -124,7 +120,6 @@ gnome_cmd_xfer_progress_win_new ()
 
     return GTK_WIDGET (win);
 }
-
 
 
 GtkType
@@ -195,4 +190,3 @@ gnome_cmd_xfer_progress_win_set_action (GnomeCmdXferProgressWin *win,
 {
     gtk_window_set_title (GTK_WINDOW (win), string);
 }
-

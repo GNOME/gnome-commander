@@ -106,7 +106,7 @@ create_general_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
-	gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !gnome_cmd_data_get_alt_quick_search ());
     radio = create_radio (parent, get_radio_group(radio), _("ALT+letters (menu access with F10)"), "alt_quick_search");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
@@ -657,17 +657,17 @@ create_confirmation_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     radio = create_radio (parent, NULL, _("Silently"), "copy_overwrite_silently");
-	gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-	if (gnome_cmd_data_get_confirm_overwrite_copy()==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
-    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    if (gnome_cmd_data_get_confirm_overwrite_copy()==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group(radio), _("Query first"), "copy_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-	if (gnome_cmd_data_get_confirm_overwrite_copy()==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
-    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    if (gnome_cmd_data_get_confirm_overwrite_copy()==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group(radio), _("Skip all"), "copy_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-	if (gnome_cmd_data_get_confirm_overwrite_copy()==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
-    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    if (gnome_cmd_data_get_confirm_overwrite_copy()==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
     /* Move overwrite options
@@ -677,20 +677,20 @@ create_confirmation_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     radio = create_radio (parent, NULL, _("Silently"), "move_overwrite_silently");
-	gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-	if (gnome_cmd_data_get_confirm_overwrite_move()==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
-    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    if (gnome_cmd_data_get_confirm_overwrite_move()==GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group(radio), _("Query first"), "move_overwrite_query");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-	if (gnome_cmd_data_get_confirm_overwrite_move()==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
-    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    if (gnome_cmd_data_get_confirm_overwrite_move()==GNOME_CMD_CONFIRM_OVERWRITE_QUERY)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group(radio), _("Skip all"), "move_overwrite_skip_all");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-	if (gnome_cmd_data_get_confirm_overwrite_move()==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
-    	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    if (gnome_cmd_data_get_confirm_overwrite_move()==GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
-	return frame;
+    return frame;
 }
 
 
@@ -698,12 +698,12 @@ static void
 store_confirmation_options (GnomeCmdOptionsDialog *dialog)
 {
     GtkWidget *confirm_delete_check = lookup_widget (GTK_WIDGET (dialog), "confirm_delete_check");
-	GtkWidget *confirm_copy_silent = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_silently");
-	GtkWidget *confirm_copy_query = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_query");
-	GtkWidget *confirm_copy_skip_all = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_skip_all");
-	GtkWidget *confirm_move_silent = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_silently");
-	GtkWidget *confirm_move_query = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_query");
-	GtkWidget *confirm_move_skip_all = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_skip_all");
+    GtkWidget *confirm_copy_silent = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_silently");
+    GtkWidget *confirm_copy_query = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_query");
+    GtkWidget *confirm_copy_skip_all = lookup_widget (GTK_WIDGET (dialog), "copy_overwrite_skip_all");
+    GtkWidget *confirm_move_silent = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_silently");
+    GtkWidget *confirm_move_query = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_query");
+    GtkWidget *confirm_move_skip_all = lookup_widget (GTK_WIDGET (dialog), "move_overwrite_skip_all");
 
     gnome_cmd_data_set_confirm_delete (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (confirm_delete_check)));
 
@@ -1733,8 +1733,8 @@ create_devices_tab (GtkWidget *parent)
 
     clist = gtk_object_get_data (GTK_OBJECT (parent), "device_clist");
     for ( devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data_get_con_list ()); devices; devices = devices->next )
-	    if (!gnome_cmd_con_device_get_autovol(devices->data))
-		add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));
+        if (!gnome_cmd_con_device_get_autovol(devices->data))
+        add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));
 
     return frame;
 }
@@ -1799,13 +1799,13 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdOptionsDialogClass *class)
+class_init (GnomeCmdOptionsDialogClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
 

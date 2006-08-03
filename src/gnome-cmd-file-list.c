@@ -1205,13 +1205,13 @@ map (GtkWidget *widget)
 
 
 static void
-class_init (GnomeCmdFileListClass *class)
+class_init (GnomeCmdFileListClass *klass)
 {
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = GTK_OBJECT_CLASS (class);
-    widget_class = GTK_WIDGET_CLASS (class);
+    object_class = GTK_OBJECT_CLASS (klass);
+    widget_class = GTK_WIDGET_CLASS (klass);
     parent_class = gtk_type_class (gnome_cmd_clist_get_type ());
 
     file_list_signals[FILE_CLICKED] =
@@ -1253,9 +1253,9 @@ class_init (GnomeCmdFileListClass *class)
 
     object_class->destroy = destroy;
     widget_class->map = map;
-    class->file_clicked = NULL;
-    class->list_clicked = NULL;
-    class->selection_changed = NULL;
+    klass->file_clicked = NULL;
+    klass->list_clicked = NULL;
+    klass->selection_changed = NULL;
 }
 
 static void
@@ -2279,7 +2279,7 @@ gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl)
     g_return_val_if_fail(fl!=NULL,FALSE);
     g_return_val_if_fail(GNOME_CMD_IS_FILE_LIST(fl),FALSE);
     g_return_val_if_fail(fl->priv!=NULL,FALSE);
-	
+    
     return (fl->priv->quicksearch_popup!=NULL);
 }
 
