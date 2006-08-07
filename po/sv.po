@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-16 03:50+0200\n"
-"PO-Revision-Date: 2006-07-16 16:41+0100\n"
+"POT-Creation-Date: 2006-08-07 19:47+0200\n"
+"PO-Revision-Date: 2006-08-07 22:38+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -25,13 +25,13 @@ msgstr "En tvåfälts filhanterare"
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../libgcmd/gnome-cmd-string-dialog.c:133
+#: ../libgcmd/gnome-cmd-string-dialog.c:130
 msgid "No error description available"
 msgstr "Ingen felbeskrivning finnes"
 
 #: ../plugins/cvs/cvs-plugin.c:304
 #: ../plugins/fileroller/file-roller-plugin.c:336
-#: ../src/gnome-cmd-ftp-dialog.c:531
+#: ../src/gnome-cmd-ftp-dialog.c:536
 #: ../src/gnome-cmd-options-dialog.c:1114
 #: ../src/gnome-cmd-options-dialog.c:1828
 #: ../src/gnome-cmd-prepare-copy-dialog.c:133
@@ -174,13 +174,13 @@ msgid "About %s"
 msgstr "Om %s"
 
 #: ../src/gnome-cmd-advrename-dialog.c:99
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:118
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119
 #: ../src/utils.c:739
 msgid "Yes"
 msgstr "Ja"
 
 #: ../src/gnome-cmd-advrename-dialog.c:99
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:118
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119
 #: ../src/utils.c:739
 msgid "No"
 msgstr "Nej"
@@ -194,7 +194,7 @@ msgid "Replace this:"
 msgstr "Ersätt detta:"
 
 #: ../src/gnome-cmd-advrename-dialog.c:269
-#: ../src/gnome-cmd-advrename-dialog.c:803
+#: ../src/gnome-cmd-advrename-dialog.c:809
 msgid "With this"
 msgstr "Med detta"
 
@@ -210,92 +210,92 @@ msgstr "Ny Regel"
 msgid "Edit Rule"
 msgstr "Modifiera Regel"
 
-#: ../src/gnome-cmd-advrename-dialog.c:642
+#: ../src/gnome-cmd-advrename-dialog.c:648
 msgid "Counter start value:"
 msgstr "Startvärde"
 
-#: ../src/gnome-cmd-advrename-dialog.c:643
+#: ../src/gnome-cmd-advrename-dialog.c:649
 msgid "Counter increment:"
 msgstr "Deltavärde"
 
-#: ../src/gnome-cmd-advrename-dialog.c:644
+#: ../src/gnome-cmd-advrename-dialog.c:650
 msgid "Counter minimum digit count:"
 msgstr "Minst antal tecken"
 
-#: ../src/gnome-cmd-advrename-dialog.c:649
+#: ../src/gnome-cmd-advrename-dialog.c:655
 msgid "Template Options"
-msgstr "Alternativ för Mallen"
+msgstr "Mallalternativ"
 
-#: ../src/gnome-cmd-advrename-dialog.c:653
+#: ../src/gnome-cmd-advrename-dialog.c:659
 msgid "Auto-update when the template is entered"
 msgstr "Uppdatera automatiskt när mallen skrivs in"
 
-#: ../src/gnome-cmd-advrename-dialog.c:755
+#: ../src/gnome-cmd-advrename-dialog.c:761
 msgid "Advanced Rename Tool"
 msgstr "Namnbytesverktyg för Flera Filer"
 
-#: ../src/gnome-cmd-advrename-dialog.c:768
+#: ../src/gnome-cmd-advrename-dialog.c:774
 msgid "Template"
 msgstr "Mall"
 
-#: ../src/gnome-cmd-advrename-dialog.c:790
+#: ../src/gnome-cmd-advrename-dialog.c:796
 msgid "Options..."
 msgstr "Alternativ..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:797
+#: ../src/gnome-cmd-advrename-dialog.c:803
 msgid "Regex replacing"
 msgstr "Regex-ersättning"
 
-#: ../src/gnome-cmd-advrename-dialog.c:802
+#: ../src/gnome-cmd-advrename-dialog.c:808
 msgid "Replace this"
 msgstr "Ersätt detta "
 
-#: ../src/gnome-cmd-advrename-dialog.c:804
-msgid "Case sens"
+#: ../src/gnome-cmd-advrename-dialog.c:810
+#: ../src/gnome-cmd-options-dialog.c:97
+#: ../src/gnome-cmd-patternsel-dialog.c:147
+msgid "Case sensitive"
 msgstr "Skilj på stora och små bokstäver"
 
-#: ../src/gnome-cmd-advrename-dialog.c:816
+#: ../src/gnome-cmd-advrename-dialog.c:822
 #: ../src/gnome-cmd-options-dialog.c:1342
 #: ../src/gnome-cmd-options-dialog.c:1701
 msgid "_Add..."
 msgstr "_Lägg Till..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:819
-#: ../src/gnome-cmd-ftp-dialog.c:522
+#: ../src/gnome-cmd-advrename-dialog.c:825
+#: ../src/gnome-cmd-ftp-dialog.c:527
 #: ../src/gnome-cmd-options-dialog.c:1346
 #: ../src/gnome-cmd-options-dialog.c:1705
 msgid "_Edit..."
 msgstr "_Editera..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:823
+#: ../src/gnome-cmd-advrename-dialog.c:829
 #: ../src/gnome-cmd-bookmark-dialog.c:468
-#: ../src/gnome-cmd-ftp-dialog.c:525
+#: ../src/gnome-cmd-ftp-dialog.c:530
 #: ../src/gnome-cmd-options-dialog.c:1352
 #: ../src/gnome-cmd-options-dialog.c:1711
 msgid "_Remove"
 msgstr "Ta _Bort"
 
-#: ../src/gnome-cmd-advrename-dialog.c:827
+#: ../src/gnome-cmd-advrename-dialog.c:833
 msgid "Re_move All"
 msgstr "Ta Bort _Alla"
 
-#: ../src/gnome-cmd-advrename-dialog.c:848
+#: ../src/gnome-cmd-advrename-dialog.c:854
 msgid "Result"
 msgstr "Resultat"
 
-#: ../src/gnome-cmd-advrename-dialog.c:853
+#: ../src/gnome-cmd-advrename-dialog.c:859
 msgid "Current filenames"
 msgstr "Nuvarande filnamn"
 
-#: ../src/gnome-cmd-advrename-dialog.c:854
+#: ../src/gnome-cmd-advrename-dialog.c:860
 msgid "New filenames"
 msgstr "Nya filnamn"
 
-#. Dialog stuff
-#.
-#: ../src/gnome-cmd-advrename-dialog.c:860
-msgid "Reset"
-msgstr "Återställ"
+#: ../src/gnome-cmd-advrename-dialog.c:867
+msgid "Rese_t"
+msgstr "Åters_täll"
 
 #: ../src/gnome-cmd-bookmark-dialog.c:69
 msgid "Bookmark name:"
@@ -340,7 +340,7 @@ msgid "_Goto"
 msgstr "_Gå Till"
 
 #: ../src/gnome-cmd-bookmark-dialog.c:463
-#: ../src/gnome-cmd-main-menu.c:776
+#: ../src/gnome-cmd-main-menu.c:777
 msgid "_Edit"
 msgstr "Editera"
 
@@ -352,37 +352,37 @@ msgstr "Kan ej bokmärka en katalog vars sökväg inte är i UTF-8 kodning.\n"
 msgid "New Bookmark"
 msgstr "Nytt Bokmärke"
 
-#: ../src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Read"
 msgstr "Läsning"
 
-#: ../src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Write"
 msgstr "Skrivning"
 
-#: ../src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Execute"
 msgstr "Exekvering"
 
-#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 #: ../src/gnome-cmd-chown-component.c:86
 msgid "Owner:"
 msgstr "Ägare:"
 
-#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 #: ../src/gnome-cmd-chown-component.c:89
 msgid "Group:"
 msgstr "Grupp:"
 
-#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 msgid "Others:"
 msgstr "Övriga:"
 
-#: ../src/gnome-cmd-chmod-component.c:163
+#: ../src/gnome-cmd-chmod-component.c:159
 msgid "Text view:"
 msgstr "Textvy:"
 
-#: ../src/gnome-cmd-chmod-component.c:166
+#: ../src/gnome-cmd-chmod-component.c:162
 msgid "Number view:"
 msgstr "Nummervy:"
 
@@ -487,32 +487,32 @@ msgstr "Montera: %s"
 msgid "Unmount: %s"
 msgstr "Avmontera: %s"
 
-#: ../src/gnome-cmd-con-ftp.c:268
+#: ../src/gnome-cmd-con-ftp.c:276
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Kopplar upp mot %s\n"
 
-#: ../src/gnome-cmd-con-ftp.c:287
+#: ../src/gnome-cmd-con-ftp.c:294
 #, c-format
 msgid "Go to: %s"
 msgstr "Gå Till: %s"
 
-#: ../src/gnome-cmd-con-ftp.c:288
+#: ../src/gnome-cmd-con-ftp.c:295
 #, c-format
 msgid "Connect to: %s"
 msgstr "Anslut till: %s"
 
-#: ../src/gnome-cmd-con-ftp.c:289
+#: ../src/gnome-cmd-con-ftp.c:296
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "_Bryt Anslutningen till: %s"
 
-#: ../src/gnome-cmd-con-ftp.c:307
+#: ../src/gnome-cmd-con-ftp.c:312
 #, c-format
-msgid "Creates an FTP connection to %s"
-msgstr "Skapar en FTP-anslutning till %s"
+msgid "Creates the FTP connection to %s"
+msgstr "Skapar FTP-anslutningen till %s"
 
-#: ../src/gnome-cmd-con-ftp.c:309
+#: ../src/gnome-cmd-con-ftp.c:313
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "Tar bort FTP-anslutningen till %s"
@@ -678,58 +678,58 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-popmenu.c:131
+#: ../src/gnome-cmd-file-popmenu.c:130
 msgid "Invalid command"
 msgstr "Ogiltigt kommando"
 
-#: ../src/gnome-cmd-file-popmenu.c:159
+#: ../src/gnome-cmd-file-popmenu.c:158
 msgid "Application:"
 msgstr "Program:"
 
-#: ../src/gnome-cmd-file-popmenu.c:163
+#: ../src/gnome-cmd-file-popmenu.c:162
 msgid "Open with other..."
 msgstr "Öppna med annat..."
 
-#: ../src/gnome-cmd-file-popmenu.c:167
+#: ../src/gnome-cmd-file-popmenu.c:166
 msgid "Needs terminal"
 msgstr "Behöver ett terminalfönster"
 
-#: ../src/gnome-cmd-file-popmenu.c:418
+#: ../src/gnome-cmd-file-popmenu.c:415
 msgid "_Open"
 msgstr "Öppna"
 
-#: ../src/gnome-cmd-file-popmenu.c:425
+#: ../src/gnome-cmd-file-popmenu.c:422
 msgid "_Open with..."
 msgstr "Öppna med"
 
-#: ../src/gnome-cmd-file-popmenu.c:437
+#: ../src/gnome-cmd-file-popmenu.c:434
 msgid "_Execute"
 msgstr "_Kör"
 
-#: ../src/gnome-cmd-file-popmenu.c:455
+#: ../src/gnome-cmd-file-popmenu.c:452
 msgid "_Cut"
 msgstr "Klipp ut"
 
-#: ../src/gnome-cmd-file-popmenu.c:462
-#: ../src/gnome-cmd-main-menu.c:553
+#: ../src/gnome-cmd-file-popmenu.c:459
+#: ../src/gnome-cmd-main-menu.c:554
 msgid "_Copy"
 msgstr "Kopiera"
 
-#: ../src/gnome-cmd-file-popmenu.c:469
-#: ../src/gnome-cmd-main-menu.c:565
+#: ../src/gnome-cmd-file-popmenu.c:466
+#: ../src/gnome-cmd-main-menu.c:566
 msgid "_Delete"
 msgstr "Ta bort"
 
-#: ../src/gnome-cmd-file-popmenu.c:476
+#: ../src/gnome-cmd-file-popmenu.c:473
 msgid "Rename"
 msgstr "Byt namn"
 
-#: ../src/gnome-cmd-file-popmenu.c:484
+#: ../src/gnome-cmd-file-popmenu.c:481
 #: ../src/gnome-cmd-file-props-dialog.c:475
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../src/gnome-cmd-file-popmenu.c:542
+#: ../src/gnome-cmd-file-popmenu.c:539
 msgid "Other..."
 msgstr "Annat..."
 
@@ -747,7 +747,7 @@ msgid "No default application registered"
 msgstr "Inget standardprogram registrerat"
 
 #: ../src/gnome-cmd-file-props-dialog.c:302
-#: ../src/gnome-cmd-file-selector.c:1989
+#: ../src/gnome-cmd-file-selector.c:1990
 msgid "Filename:"
 msgstr "Filnamn"
 
@@ -820,349 +820,354 @@ msgstr "Okänd diskanvändning"
 msgid "List failed: %s\n"
 msgstr "Listning misslyckades: %s\n"
 
-#: ../src/gnome-cmd-file-selector.c:1722
+#: ../src/gnome-cmd-file-selector.c:1723
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Kunde inte skapa anslutning: %s\n"
 
-#: ../src/gnome-cmd-file-selector.c:1926
+#: ../src/gnome-cmd-file-selector.c:1927
 #: ../src/gnome-cmd-make-copy-dialog.c:68
-#: ../src/gnome-cmd-rename-dialog.c:52
+#: ../src/gnome-cmd-rename-dialog.c:53
 msgid "No filename entered"
 msgstr "Ange filnamn"
 
-#: ../src/gnome-cmd-file-selector.c:1961
+#: ../src/gnome-cmd-file-selector.c:1962
 msgid "No filename given"
 msgstr "Ange filnamn"
 
-#: ../src/gnome-cmd-file-selector.c:1995
+#: ../src/gnome-cmd-file-selector.c:1996
 msgid "New Text File"
 msgstr "Ny Textfil"
 
-#: ../src/gnome-cmd-file-selector.c:2172
+#: ../src/gnome-cmd-file-selector.c:2173
 msgid "Symlink name:"
 msgstr "Länknamn:"
 
-#: ../src/gnome-cmd-file-selector.c:2176
+#: ../src/gnome-cmd-file-selector.c:2177
 #, c-format
 msgid "Symlink to %s"
 msgstr "Symbolisk länk till %s"
 
-#: ../src/gnome-cmd-file-selector.c:2178
+#: ../src/gnome-cmd-file-selector.c:2179
 msgid "Create Symbolic Link"
 msgstr "Skapa Symbolisk Länk"
 
-#: ../src/gnome-cmd-file-selector.c:2249
+#: ../src/gnome-cmd-file-selector.c:2250
 msgid "Filter:"
 msgstr "Filter:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:160
+#: ../src/gnome-cmd-ftp-dialog.c:157
 #, c-format
 msgid "Enter password for %s@%s"
 msgstr "Ange ditt lösenord för %s@%s"
 
-#: ../src/gnome-cmd-ftp-dialog.c:165
+#: ../src/gnome-cmd-ftp-dialog.c:162
 msgid "Enter Password"
 msgstr "Ange Lösenord"
 
-#: ../src/gnome-cmd-ftp-dialog.c:212
+#: ../src/gnome-cmd-ftp-dialog.c:211
 msgid "No alias specified"
 msgstr "Namn saknas"
 
-#: ../src/gnome-cmd-ftp-dialog.c:215
+#: ../src/gnome-cmd-ftp-dialog.c:214
 msgid "No host specified"
 msgstr "Värd saknas"
 
-#: ../src/gnome-cmd-ftp-dialog.c:218
+#: ../src/gnome-cmd-ftp-dialog.c:217
 #, c-format
 msgid "Invalid port number: %s"
 msgstr "Ogiltigt portnummer: %s"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293
+#: ../src/gnome-cmd-ftp-dialog.c:289
 #: ../src/gnome-cmd-options-dialog.c:1534
 msgid "Alias:"
 msgstr "Namn:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293
-#: ../src/gnome-cmd-ftp-dialog.c:294
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Host:"
 msgstr "Värd:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293
-#: ../src/gnome-cmd-ftp-dialog.c:294
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Port:"
 msgstr "Port:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293
-#: ../src/gnome-cmd-ftp-dialog.c:294
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
 msgid "User:"
 msgstr "Användare:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293
-#: ../src/gnome-cmd-ftp-dialog.c:294
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Password:"
 msgstr "Lösenord:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:316
-msgid "New FTP Server"
-msgstr "Ny FTP Server"
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
+msgid "Remote Dir:"
+msgstr "Fjärrkatalog:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:339
-msgid "Edit FTP Server"
-msgstr "Modifiera FTP Server"
+#: ../src/gnome-cmd-ftp-dialog.c:318
+msgid "New FTP Connection"
+msgstr "Ny FTP-anslutning"
 
-#: ../src/gnome-cmd-ftp-dialog.c:369
+#: ../src/gnome-cmd-ftp-dialog.c:342
+msgid "Edit FTP Connection"
+msgstr "Redigera FTP-anslutning"
+
+#: ../src/gnome-cmd-ftp-dialog.c:374
 msgid "No server selected"
 msgstr "Ingen server är vald"
 
-#: ../src/gnome-cmd-ftp-dialog.c:490
+#: ../src/gnome-cmd-ftp-dialog.c:495
 #: ../src/gnome-cmd-main-win.c:1352
 msgid "FTP Connect"
 msgstr "Anslut till FTP-server"
 
-#: ../src/gnome-cmd-ftp-dialog.c:495
-msgid "Servers"
-msgstr "Servrar"
+#: ../src/gnome-cmd-ftp-dialog.c:500
+msgid "Connections"
+msgstr "Anslutningar"
 
-#: ../src/gnome-cmd-ftp-dialog.c:515
+#: ../src/gnome-cmd-ftp-dialog.c:520
 #: ../src/gnome-cmd-options-dialog.c:1695
 msgid "Alias"
 msgstr "Namn"
 
-#: ../src/gnome-cmd-ftp-dialog.c:520
-#: ../src/gnome-cmd-list-popmenu.c:145
+#: ../src/gnome-cmd-ftp-dialog.c:525
+#: ../src/gnome-cmd-list-popmenu.c:141
 msgid "_New..."
 msgstr "_Ny..."
 
-#: ../src/gnome-cmd-ftp-dialog.c:534
+#: ../src/gnome-cmd-ftp-dialog.c:539
 msgid "Anonymous password:"
 msgstr "Anonymt lösenord:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:543
+#: ../src/gnome-cmd-ftp-dialog.c:548
 msgid "Connect"
 msgstr "Anslut"
 
-#: ../src/gnome-cmd-ftp-dialog.c:638
+#: ../src/gnome-cmd-ftp-dialog.c:644
 msgid "FTP Quick Connect"
 msgstr "Snabbanslut till FTP-server"
 
-#: ../src/gnome-cmd-list-popmenu.c:126
+#: ../src/gnome-cmd-list-popmenu.c:122
 msgid "_Directory"
 msgstr "_Katalog"
 
-#: ../src/gnome-cmd-list-popmenu.c:133
+#: ../src/gnome-cmd-list-popmenu.c:129
 msgid "_Text file"
 msgstr "_Textfil"
 
-#: ../src/gnome-cmd-list-popmenu.c:152
-#: ../src/gnome-cmd-main-menu.c:559
+#: ../src/gnome-cmd-list-popmenu.c:148
+#: ../src/gnome-cmd-main-menu.c:560
 msgid "_Paste"
 msgstr "Klistra in"
 
-#: ../src/gnome-cmd-list-popmenu.c:159
-#: ../src/gnome-cmd-main-menu.c:614
+#: ../src/gnome-cmd-list-popmenu.c:155
+#: ../src/gnome-cmd-main-menu.c:615
 msgid "_Refresh"
 msgstr "Uppdatera"
 
-#: ../src/gnome-cmd-main-menu.c:380
+#: ../src/gnome-cmd-main-menu.c:381
 msgid "Switch to Horizontal Layout"
 msgstr "Byt till Horisontell Layout"
 
-#: ../src/gnome-cmd-main-menu.c:385
+#: ../src/gnome-cmd-main-menu.c:386
 msgid "Switch to Vertical Layout"
 msgstr "Byt till Vertikal Layout"
 
-#: ../src/gnome-cmd-main-menu.c:450
+#: ../src/gnome-cmd-main-menu.c:451
 msgid "Change _Owner/Group"
 msgstr "Ändra _Ägare/Grupp"
 
-#: ../src/gnome-cmd-main-menu.c:456
+#: ../src/gnome-cmd-main-menu.c:457
 msgid "Change Per_missions"
 msgstr "Ändra _Rättigheter"
 
-#: ../src/gnome-cmd-main-menu.c:462
+#: ../src/gnome-cmd-main-menu.c:463
 msgid "Advanced _Rename Tool"
 msgstr "_Namnbytesverktyg för Flera Filer"
 
-#: ../src/gnome-cmd-main-menu.c:468
+#: ../src/gnome-cmd-main-menu.c:469
 msgid "Create _Symbolic Link"
 msgstr "Ny _Symbolisk Länk"
 
-#: ../src/gnome-cmd-main-menu.c:474
+#: ../src/gnome-cmd-main-menu.c:475
 msgid "_Properties..."
 msgstr "_Egenskaper..."
 
-#: ../src/gnome-cmd-main-menu.c:481
+#: ../src/gnome-cmd-main-menu.c:482
 msgid "_Diff"
 msgstr "_Diff"
 
-#: ../src/gnome-cmd-main-menu.c:488
+#: ../src/gnome-cmd-main-menu.c:489
 msgid "_Quit"
 msgstr "_Avsluta"
 
-#: ../src/gnome-cmd-main-menu.c:499
+#: ../src/gnome-cmd-main-menu.c:500
 msgid "_Select All"
 msgstr "_Markera Alla"
 
-#: ../src/gnome-cmd-main-menu.c:505
+#: ../src/gnome-cmd-main-menu.c:506
 msgid "_Unselect All"
 msgstr "_Avmarkera Alla"
 
-#: ../src/gnome-cmd-main-menu.c:511
+#: ../src/gnome-cmd-main-menu.c:512
 msgid "Select with _Pattern"
 msgstr "Markera med M_önster"
 
-#: ../src/gnome-cmd-main-menu.c:517
+#: ../src/gnome-cmd-main-menu.c:518
 msgid "Unselect with P_attern"
 msgstr "Avmarkera med Mö_nster"
 
-#: ../src/gnome-cmd-main-menu.c:523
+#: ../src/gnome-cmd-main-menu.c:524
 msgid "_Invert Selection"
 msgstr "_Invertera Markeringarna"
 
-#: ../src/gnome-cmd-main-menu.c:529
+#: ../src/gnome-cmd-main-menu.c:530
 msgid "_Restore Selection"
 msgstr "_Återställ Markeringarna"
 
-#: ../src/gnome-cmd-main-menu.c:536
+#: ../src/gnome-cmd-main-menu.c:537
 msgid "_Compare Directories"
 msgstr "_Jämför Kataloger"
 
-#: ../src/gnome-cmd-main-menu.c:547
+#: ../src/gnome-cmd-main-menu.c:548
 msgid "Cu_t"
 msgstr "Klipp _ut"
 
-#: ../src/gnome-cmd-main-menu.c:572
+#: ../src/gnome-cmd-main-menu.c:573
 msgid "Copy _File Names"
 msgstr "Kopiera _Filnamn"
 
-#: ../src/gnome-cmd-main-menu.c:579
+#: ../src/gnome-cmd-main-menu.c:580
 msgid "_Search..."
 msgstr "_Sök..."
 
-#: ../src/gnome-cmd-main-menu.c:585
+#: ../src/gnome-cmd-main-menu.c:586
 msgid "_Quick Search..."
 msgstr "S_nabbsök..."
 
-#: ../src/gnome-cmd-main-menu.c:591
+#: ../src/gnome-cmd-main-menu.c:592
 msgid "_Enable Filter..."
 msgstr "Aktivera Filter..."
 
-#: ../src/gnome-cmd-main-menu.c:602
+#: ../src/gnome-cmd-main-menu.c:603
 msgid "_Back"
 msgstr "_Bakåt"
 
-#: ../src/gnome-cmd-main-menu.c:608
+#: ../src/gnome-cmd-main-menu.c:609
 msgid "_Forward"
 msgstr "_Framåt"
 
-#: ../src/gnome-cmd-main-menu.c:621
+#: ../src/gnome-cmd-main-menu.c:622
 msgid "Show Device Buttons"
 msgstr "Visa Enhetsknappar"
 
-#: ../src/gnome-cmd-main-menu.c:627
+#: ../src/gnome-cmd-main-menu.c:628
 msgid "Show Toolbar"
 msgstr "Visa Verktygsfält"
 
-#: ../src/gnome-cmd-main-menu.c:633
+#: ../src/gnome-cmd-main-menu.c:634
 msgid "Show Commandline"
 msgstr "Visa Kommandorad"
 
-#: ../src/gnome-cmd-main-menu.c:639
+#: ../src/gnome-cmd-main-menu.c:640
 msgid "Show Buttonbar"
 msgstr "Visa Knapprad"
 
-#: ../src/gnome-cmd-main-menu.c:646
+#: ../src/gnome-cmd-main-menu.c:647
 msgid "Show Hidden Files"
 msgstr "Visa Dolda Filer"
 
-#: ../src/gnome-cmd-main-menu.c:652
+#: ../src/gnome-cmd-main-menu.c:653
 msgid "Show Backup Files"
 msgstr "Visa Backupfiler"
 
-#: ../src/gnome-cmd-main-menu.c:664
+#: ../src/gnome-cmd-main-menu.c:665
 msgid "_Bookmark this Directory..."
 msgstr "_Bokmärk denna Katalog..."
 
-#: ../src/gnome-cmd-main-menu.c:670
+#: ../src/gnome-cmd-main-menu.c:671
 msgid "_Manage Bookmarks..."
 msgstr "_Hantera Bokmärken..."
 
-#: ../src/gnome-cmd-main-menu.c:682
+#: ../src/gnome-cmd-main-menu.c:683
 msgid "_Configure Plugins..."
 msgstr "Hantera _Tilläggsprogram..."
 
-#: ../src/gnome-cmd-main-menu.c:694
+#: ../src/gnome-cmd-main-menu.c:695
 msgid "_Options..."
 msgstr "_Alternativ..."
 
-#: ../src/gnome-cmd-main-menu.c:700
+#: ../src/gnome-cmd-main-menu.c:701
 msgid "Edit _Mime Types..."
 msgstr "_Editera MIME-Typer..."
 
-#: ../src/gnome-cmd-main-menu.c:711
+#: ../src/gnome-cmd-main-menu.c:712
 msgid "FTP _Connect..."
 msgstr "_Anslut till FTP-server"
 
-#: ../src/gnome-cmd-main-menu.c:717
+#: ../src/gnome-cmd-main-menu.c:718
 msgid "FTP _Quick Connect..."
 msgstr "_Snabbanslut till FTP-server"
 
-#: ../src/gnome-cmd-main-menu.c:728
+#: ../src/gnome-cmd-main-menu.c:729
 msgid "_Contents"
 msgstr "_Anslutningar"
 
-#: ../src/gnome-cmd-main-menu.c:734
+#: ../src/gnome-cmd-main-menu.c:735
 msgid "_Keyboard Shortcuts"
 msgstr "_Tangentbordsgenvägar"
 
-#: ../src/gnome-cmd-main-menu.c:740
+#: ../src/gnome-cmd-main-menu.c:741
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander på _webben"
 
-#: ../src/gnome-cmd-main-menu.c:746
+#: ../src/gnome-cmd-main-menu.c:747
 msgid "Report a _Problem"
 msgstr "Rapportera ett _problem"
 
-#: ../src/gnome-cmd-main-menu.c:753
+#: ../src/gnome-cmd-main-menu.c:754
 #: ../src/plugin_manager.c:440
 msgid "_About"
 msgstr "_Om"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.c:772
+#: ../src/gnome-cmd-main-menu.c:773
 #: ../src/libgviewer/viewer-window.c:991
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../src/gnome-cmd-main-menu.c:780
+#: ../src/gnome-cmd-main-menu.c:781
 msgid "_Mark"
 msgstr "_Markera"
 
-#: ../src/gnome-cmd-main-menu.c:784
+#: ../src/gnome-cmd-main-menu.c:785
 #: ../src/libgviewer/viewer-window.c:994
 msgid "_View"
 msgstr "Visa"
 
-#: ../src/gnome-cmd-main-menu.c:789
+#: ../src/gnome-cmd-main-menu.c:790
 #: ../src/libgviewer/viewer-window.c:1005
 msgid "_Settings"
 msgstr "Inställningar"
 
-#: ../src/gnome-cmd-main-menu.c:793
+#: ../src/gnome-cmd-main-menu.c:794
 msgid "_Connections"
 msgstr "_Anslutningar"
 
-#: ../src/gnome-cmd-main-menu.c:797
+#: ../src/gnome-cmd-main-menu.c:798
 msgid "_Bookmarks"
 msgstr "_Bokmärken"
 
-#: ../src/gnome-cmd-main-menu.c:801
+#: ../src/gnome-cmd-main-menu.c:802
 msgid "_Plugins"
 msgstr "_Tilläggsprogram"
 
-#: ../src/gnome-cmd-main-menu.c:805
+#: ../src/gnome-cmd-main-menu.c:806
 #: ../src/libgviewer/viewer-window.c:1011
 msgid "_Help"
 msgstr "Hjälp"
@@ -1258,15 +1263,15 @@ msgstr "Kopiera \"%s\" till"
 msgid "Copy File"
 msgstr "Kopiera Fil"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:48
+#: ../src/gnome-cmd-mkdir-dialog.c:49
 msgid "A directory name must be entered"
 msgstr "Katalognamn måste anges"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:141
+#: ../src/gnome-cmd-mkdir-dialog.c:137
 msgid "Directory name:"
 msgstr "Katalognamn:"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:149
+#: ../src/gnome-cmd-mkdir-dialog.c:145
 msgid "Make Directory"
 msgstr "Skapa Katalog"
 
@@ -1297,11 +1302,6 @@ msgstr "Regex-mönster"
 #: ../src/gnome-cmd-options-dialog.c:94
 msgid "Sorting options"
 msgstr "Sorteringsalternativ"
-
-#: ../src/gnome-cmd-options-dialog.c:97
-#: ../src/gnome-cmd-patternsel-dialog.c:147
-msgid "Case sensitive"
-msgstr "Skilj på stora och små bokstäver"
 
 #: ../src/gnome-cmd-options-dialog.c:105
 msgid "Quick search using"
@@ -1784,8 +1784,8 @@ msgid_plural "move %d files to"
 msgstr[0] "Flytta filen till"
 msgstr[1] "Flytta %d filer till"
 
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:114
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:153
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:115
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:154
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr "Katalogen %s existerar inte, vill du skapa den?"
@@ -1854,7 +1854,7 @@ msgstr "Hitta text: "
 #. Recurse check
 #: ../src/gnome-cmd-search-dialog.c:793
 msgid "Search Recursively"
-msgstr "Sök Rekursivt"
+msgstr "Sök rekursivt"
 
 #. Case check
 #: ../src/gnome-cmd-search-dialog.c:800
@@ -1929,20 +1929,20 @@ msgstr "förbereder..."
 msgid "downloading to /tmp"
 msgstr "laddar ner till /tmp"
 
-#: ../src/gnome-cmd-xfer-progress-win.c:37
+#: ../src/gnome-cmd-xfer-progress-win.c:38
 msgid "stopping..."
 msgstr "avbryter..."
 
-#: ../src/gnome-cmd-xfer-progress-win.c:88
+#: ../src/gnome-cmd-xfer-progress-win.c:86
 msgid "Progress"
 msgstr "Förlopp"
 
-#: ../src/gnome-cmd-xfer-progress-win.c:174
+#: ../src/gnome-cmd-xfer-progress-win.c:169
 #, c-format
 msgid "%d%% of %s copied"
 msgstr "%d%% av %s kopierat"
 
-#: ../src/gnome-cmd-xfer-progress-win.c:179
+#: ../src/gnome-cmd-xfer-progress-win.c:174
 #, c-format
 msgid "%d%% copied"
 msgstr "%d%% kopierat"
@@ -1968,21 +1968,21 @@ msgstr ""
 "Kunde inte ladda en installerad bildfil, provar att ladda från källkodskatalogen\n"
 "Kunde inte ladda bilden där den ska vara installerad, provar att ladda den från källkodskatalogen\n"
 
-#: ../src/libgviewer/viewer-widget.c:204
+#: ../src/libgviewer/viewer-widget.c:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Position: %lu av %lu\tKolumn: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.c:208
+#: ../src/libgviewer/viewer-widget.c:210
 msgid "Wrap"
 msgstr "Radbryt"
 
-#: ../src/libgviewer/viewer-widget.c:228
+#: ../src/libgviewer/viewer-widget.c:230
 #, c-format
 msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
 msgstr "Bildstorlek: %dx%d\tfärgdjup: %d\tZoom: %s"
 
-#: ../src/libgviewer/viewer-widget.c:230
+#: ../src/libgviewer/viewer-widget.c:232
 msgid "Fit-to-Window"
 msgstr "Anpassa till fönster"
 
@@ -2264,6 +2264,14 @@ msgstr "Kunde ej läsa från katalogen %s: %s\n"
 msgid "There was an error displaying help."
 msgstr "Ett fel uppstod vid visande av hjälp."
 
+#~ msgid "Case sens"
+#~ msgstr "Skilj på stora och små bokstäver"
+#~ msgid "New FTP Server"
+#~ msgstr "Ny FTP Server"
+#~ msgid "Edit FTP Server"
+#~ msgstr "Modifiera FTP Server"
+#~ msgid "Servers"
+#~ msgstr "Servrar"
 #~ msgid "Confirmation options"
 #~ msgstr "Verifiering"
 #~ msgid ""
