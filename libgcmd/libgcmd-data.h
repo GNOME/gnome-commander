@@ -20,6 +20,7 @@
 #ifndef __LIBGCMD_DATA_H__
 #define __LIBGCMD_DATA_H__
 
+G_BEGIN_DECLS
 
 void
 gnome_cmd_data_set_string (const gchar *path, const gchar *value);
@@ -45,5 +46,7 @@ gnome_cmd_data_get_bool (const gchar *path, gboolean def);
 void
 gnome_cmd_data_get_color (const gchar *path, GdkColor *color);
 
+
+G_END_DECLS
 
 #endif //__LIBGCMD_DATA_H__

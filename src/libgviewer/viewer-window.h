@@ -23,6 +23,8 @@
 #ifndef __GVIEWER_WINDOW_H__
 #define __GVIEWER_WINDOW_H__
 
+G_BEGIN_DECLS
+
 #define GVIEWER_WINDOW(obj) \
 	GTK_CHECK_CAST (obj, gviewer_window_get_type (), GViewerWindow)
 #define GVIEWER_WINDOW_CLASS(clss) \
@@ -81,5 +83,7 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
 void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSettings *settings);
 
 void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings);
+
+G_END_DECLS
 
 #endif

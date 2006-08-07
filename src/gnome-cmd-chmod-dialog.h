@@ -19,6 +19,7 @@
 #ifndef __GNOME_CMD_CHMOD_DIALOG_H__
 #define __GNOME_CMD_CHMOD_DIALOG_H__
 
+G_BEGIN_DECLS
 
 #define GNOME_CMD_CHMOD_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_chmod_dialog_get_type (), GnomeCmdChmodDialog)
@@ -31,7 +32,6 @@
 typedef struct _GnomeCmdChmodDialog GnomeCmdChmodDialog;
 typedef struct _GnomeCmdChmodDialogPrivate GnomeCmdChmodDialogPrivate;
 typedef struct _GnomeCmdChmodDialogClass GnomeCmdChmodDialogClass;
-
 
 
 struct _GnomeCmdChmodDialog
@@ -53,11 +53,6 @@ gnome_cmd_chmod_dialog_new (GList *files);
 GtkType
 gnome_cmd_chmod_dialog_get_type (void);
 
+G_END_DECLS
 
-
-
-#endif //__GNOME_CMD_CHMOD_DIALOG_H__
-
-
-
-
+#endif // __GNOME_CMD_CHMOD_DIALOG_H__

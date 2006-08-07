@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_DIR_POOL_H__
 #define __GNOME_CMD_DIR_POOL_H__
 
@@ -33,6 +34,7 @@ typedef struct _GnomeCmdDirPoolPrivate GnomeCmdDirPoolPrivate;
 
 #include "gnome-cmd-dir.h"
 
+G_BEGIN_DECLS
 
 struct _GnomeCmdDirPool
 {
@@ -65,4 +67,6 @@ gnome_cmd_dir_pool_remove (GnomeCmdDirPool *pool, GnomeCmdDir *dir);
 void
 gnome_cmd_dir_pool_show_state (GnomeCmdDirPool *pool);
 
-#endif //__GNOME_CMD_DIR_POOL_H__
+G_END_DECLS
+
+#endif // __GNOME_CMD_DIR_POOL_H__

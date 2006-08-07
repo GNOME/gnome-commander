@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_CON_LIST_H__
 #define __GNOME_CMD_CON_LIST_H__
 
@@ -23,6 +24,7 @@
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-con-device.h"
 
+G_BEGIN_DECLS
 
 #define GNOME_CMD_CON_LIST(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_con_list_get_type (), GnomeCmdConList)
@@ -117,5 +119,6 @@ get_smb_con (void);
 GnomeCmdCon *
 get_home_con (void);
 
+G_END_DECLS
 
-#endif //__GNOME_CMD_CON_LIST_H__
+#endif // __GNOME_CMD_CON_LIST_H__

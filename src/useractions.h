@@ -16,11 +16,13 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __USERACTIONS_H__
 #define __USERACTIONS_H__
 
 #include "gnome-cmd-main-win.h"
 
+G_BEGIN_DECLS
 
 /************** File Menu **************/
 void
@@ -310,5 +312,6 @@ void
 help_about                          (GtkMenuItem     *menuitem,
                                      gpointer        not_used);
 
+G_END_DECLS
 
-#endif //__USERACTIONS_H__
+#endif // __USERACTIONS_H__

@@ -28,9 +28,9 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_file_get_type ())
 
 
-typedef struct _GnomeCmdFile GnomeCmdFile;
-typedef struct _GnomeCmdFileClass GnomeCmdFileClass;
-typedef struct _GnomeCmdFilePrivate    GnomeCmdFilePrivate;
+typedef struct _GnomeCmdFile        GnomeCmdFile;
+typedef struct _GnomeCmdFileClass   GnomeCmdFileClass;
+typedef struct _GnomeCmdFilePrivate GnomeCmdFilePrivate;
 
 struct _GnomeCmdFile
 {
@@ -45,9 +45,9 @@ struct _GnomeCmdFileClass
     GnomeCmdFileInfoClass parent_class;
 };
 
-
-#include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
+
+G_BEGIN_DECLS
 
 GtkType gnome_cmd_file_get_type (void);
 
@@ -122,4 +122,6 @@ void gnome_cmd_file_execute (GnomeCmdFile *finfo);
 
 gboolean gnome_cmd_file_needs_update (GnomeCmdFile *finfo);
 
-#endif //__GNOME_CMD_FILE_H__
+G_END_DECLS
+
+#endif // __GNOME_CMD_FILE_H__

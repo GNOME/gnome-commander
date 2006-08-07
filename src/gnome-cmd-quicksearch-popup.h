@@ -21,6 +21,8 @@
 
 #include "gnome-cmd-file-list.h"
 
+G_BEGIN_DECLS
+
 #define GNOME_CMD_QUICKSEARCH_POPUP(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_quicksearch_popup_get_type (), GnomeCmdQuicksearchPopup)
 #define GNOME_CMD_QUICKSEARCH_POPUP_CLASS(klass) \
@@ -59,6 +61,6 @@ gnome_cmd_quicksearch_popup_get_type         (void);
 GtkWidget*
 gnome_cmd_quicksearch_popup_new              (GnomeCmdFileList *fl);
 
+G_END_DECLS
 
-
-#endif //__GNOME_CMD_QUICKSEARCH_POPUP_TYPES_H__
+#endif // __GNOME_CMD_QUICKSEARCH_POPUP_TYPES_H__

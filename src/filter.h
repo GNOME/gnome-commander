@@ -22,6 +22,8 @@
 
 #include <regex.h>
 
+G_BEGIN_DECLS
+
 typedef enum {
     FILTER_TYPE_REGEX,
     FILTER_TYPE_FNMATCH
@@ -51,5 +53,6 @@ void     filter_free  (Filter *filter);
 gboolean filter_match (Filter *filter,
                        gchar *text);
 
+G_END_DECLS
 
-#endif //__FILTER_H__
+#endif // __FILTER_H__

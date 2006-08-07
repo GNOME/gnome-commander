@@ -29,22 +29,22 @@
  * The orginal comments are left intact above
  */
 
-
-
 #ifndef __GNOME_CMD_COMBO_H__
 #define __GNOME_CMD_COMBO_H__
-
-#define GNOME_CMD_COMBO(obj)            GTK_CHECK_CAST (obj, gnome_cmd_combo_get_type (), GnomeCmdCombo)
-#define GNOME_CMD_COMBO_CLASS(klass)    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_combo_get_type (), GnomeCmdComboClass)
-#define GNOME_CMD_IS_COMBO(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_combo_get_type ())
-
-typedef struct _GnomeCmdCombo GnomeCmdCombo;
-typedef struct _GnomeCmdComboClass GnomeCmdComboClass;
 
 #include "imageloader.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-pixmap.h"
+
+G_BEGIN_DECLS
+
+#define GNOME_CMD_COMBO(obj)            GTK_CHECK_CAST (obj, gnome_cmd_combo_get_type (), GnomeCmdCombo)
+#define GNOME_CMD_COMBO_CLASS(klass)    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_combo_get_type (), GnomeCmdComboClass)
+#define GNOME_CMD_IS_COMBO(obj)         GTK_CHECK_TYPE (obj, gnome_cmd_combo_get_type ())
+
+typedef struct _GnomeCmdCombo GnomeCmdCombo;
+typedef struct _GnomeCmdComboClass GnomeCmdComboClass;
 
 /* you should access only the entry and list fields directly */
 struct _GnomeCmdCombo {
@@ -128,7 +128,6 @@ gnome_cmd_combo_get_selected_data     (GnomeCmdCombo *combo);
 const gchar*
 gnome_cmd_combo_get_selected_text     (GnomeCmdCombo *combo);
 
+G_END_DECLS
 
-#endif /* __GNOME_CMD_COMBO_H__ */
-
-
+#endif // __GNOME_CMD_COMBO_H__

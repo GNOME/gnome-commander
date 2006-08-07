@@ -22,8 +22,12 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 
+G_BEGIN_DECLS
+
 void
 gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
                                     GnomeCmdFileSelector *to);
 
-#endif //__GNOME_CMD_PREPARE_MOVE_DIALOG_H__
+G_END_DECLS
+
+#endif // __GNOME_CMD_PREPARE_MOVE_DIALOG_H__

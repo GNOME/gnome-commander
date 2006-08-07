@@ -16,10 +16,13 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_APP_H__
 #define __GNOME_CMD_APP_H__
 
 #include "gnome-cmd-pixmap.h"
+
+G_BEGIN_DECLS
 
 typedef enum {
     APP_TARGET_ALL_FILES,
@@ -120,5 +123,6 @@ gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
 GnomeCmdPixmap *
 gnome_cmd_app_get_pixmap         (GnomeCmdApp *app);
 
+G_END_DECLS
 
-#endif //__GNOME_CMD_APP_H__
+#endif // __GNOME_CMD_APP_H__

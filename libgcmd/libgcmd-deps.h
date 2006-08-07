@@ -16,9 +16,9 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __LIBGCMD_DEPS_H__
 #define __LIBGCMD_DEPS_H__
-
 
 #include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
@@ -29,7 +29,10 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
+G_BEGIN_DECLS
+
 extern GtkWidget *main_win_widget;
 
+G_END_DECLS
 
 #endif //__LIBGCMD_DEPS_H__

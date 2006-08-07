@@ -19,6 +19,8 @@
 #ifndef __GNOME_CMD_OPTIONS_DIALOG_H__
 #define __GNOME_CMD_OPTIONS_DIALOG_H__
 
+G_BEGIN_DECLS
+
 #define GNOME_CMD_OPTIONS_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialog)
 #define GNOME_CMD_OPTIONS_DIALOG_CLASS(klass) \
@@ -60,7 +62,6 @@ struct _GnomeCmdOptionsDialogClass
 };
 
 
-
 GtkType
 gnome_cmd_options_dialog_get_type            (void);
 
@@ -71,5 +72,6 @@ void
 gnome_cmd_options_dialog_set_tab             (GnomeCmdOptionsDialog *dialog,
                                               GnomeCmdOptionsDialogTab tab);
 
+G_END_DECLS
 
-#endif //__GNOME_CMD_OPTIONS_DIALOG_H__
+#endif // __GNOME_CMD_OPTIONS_DIALOG_H__

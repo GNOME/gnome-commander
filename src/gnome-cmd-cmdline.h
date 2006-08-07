@@ -19,6 +19,7 @@
 #ifndef __GNOME_CMD_CMDLINE_H__
 #define __GNOME_CMD_CMDLINE_H__
 
+G_BEGIN_DECLS
 
 #define GNOME_CMD_CMDLINE(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_cmdline_get_type (), GnomeCmdCmdline)
@@ -31,7 +32,6 @@
 typedef struct _GnomeCmdCmdline GnomeCmdCmdline;
 typedef struct _GnomeCmdCmdlinePrivate GnomeCmdCmdlinePrivate;
 typedef struct _GnomeCmdCmdlineClass GnomeCmdCmdlineClass;
-
 
 
 struct _GnomeCmdCmdline
@@ -93,4 +93,6 @@ gboolean
 gnome_cmd_cmdline_keypressed   (GnomeCmdCmdline *cmdline,
                                 GdkEventKey *event);
 
-#endif //__GNOME_CMD_CMDLINE_H__
+G_END_DECLS
+
+#endif // __GNOME_CMD_CMDLINE_H__

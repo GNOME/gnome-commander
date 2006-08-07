@@ -20,6 +20,8 @@
 #ifndef __GNOME_CMD_PLUGIN_H__
 #define __GNOME_CMD_PLUGIN_H__
 
+G_BEGIN_DECLS
+
 #define GNOME_CMD_PLUGIN(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_plugin_get_type (), GnomeCmdPlugin)
 #define GNOME_CMD_PLUGIN_CLASS(klass) \
@@ -65,5 +67,7 @@ gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *
 
 void
 gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin);
+
+G_END_DECLS
 
 #endif //__GNOME_CMD_PLUGIN_H__

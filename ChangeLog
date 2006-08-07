@@ -1,3 +1,8 @@
+2006-08-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* *.h:
+	Add C_BEGIN_DECLS and C_END_DECLS.
+
 2006-08-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.c:

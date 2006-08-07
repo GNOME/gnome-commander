@@ -16,10 +16,13 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_MAKE_COPY_DIALOG_H__
 #define __GNOME_CMD_MAKE_COPY_DIALOG_H__
 
 #include "gnome-cmd-file.h"
+
+G_BEGIN_DECLS
 
 #define GNOME_CMD_MAKE_COPY_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_make_copy_dialog_get_type (), GnomeCmdMakeCopyDialog)
@@ -32,7 +35,6 @@
 typedef struct _GnomeCmdMakeCopyDialog GnomeCmdMakeCopyDialog;
 typedef struct _GnomeCmdMakeCopyDialogPrivate GnomeCmdMakeCopyDialogPrivate;
 typedef struct _GnomeCmdMakeCopyDialogClass GnomeCmdMakeCopyDialogClass;
-
 
 
 struct _GnomeCmdMakeCopyDialog
@@ -54,9 +56,6 @@ gnome_cmd_make_copy_dialog_new (GnomeCmdFile *finfo, GnomeCmdDir *dir);
 GtkType
 gnome_cmd_make_copy_dialog_get_type (void);
 
+G_END_DECLS
 
-
-
-#endif //__GNOME_CMD_MAKE_COPY_DIALOG_H__
-
-
+#endif // __GNOME_CMD_MAKE_COPY_DIALOG_H__

@@ -25,6 +25,8 @@
 #include "gnome-cmd-pixmap.h"
 #include "gnome-cmd-app.h"
 
+G_BEGIN_DECLS
+
 gboolean DEBUG_ENABLED (gchar flag);
 void DEBUG (gchar flag, const gchar *fmt, ...);
 void warn_print (const gchar *fmt, ...);
@@ -118,4 +120,6 @@ gboolean patlist_matches (GList *pattern_list, const gchar *s);
 void gnome_cmd_error_message(const gchar *title, GError *error);
 void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id);
 
-#endif //__UTILS_H__
+G_END_DECLS
+
+#endif // __UTILS_H__

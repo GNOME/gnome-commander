@@ -16,11 +16,13 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_SMB_PATH_H__
 #define __GNOME_CMD_SMB_PATH_H__
 
 #include "gnome-cmd-path.h"
 
+G_BEGIN_DECLS
 
 #define GNOME_CMD_SMB_PATH(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_smb_path_get_type (), GnomeCmdSmbPath)
@@ -63,5 +65,6 @@ gnome_cmd_smb_path_new (const gchar *workgroup,
 GnomeCmdPath *
 gnome_cmd_smb_path_new_from_str (const gchar *path_str);
 
+G_END_DECLS
 
-#endif //__GNOME_CMD_SMB_PATH_H__
+#endif // __GNOME_CMD_SMB_PATH_H__

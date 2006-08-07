@@ -30,6 +30,7 @@ typedef struct _GnomeCmdDataPrivate GnomeCmdDataPrivate;
 #include "filter.h"
 #include "history.h"
 
+G_BEGIN_DECLS
 
 struct _GnomeCmdData
 {
@@ -453,4 +454,6 @@ gnome_cmd_data_get_backup_pattern (void);
 GList *
 gnome_cmd_data_get_backup_pattern_list (void);
 
-#endif //__GNOME_CMD_DATA_H__
+G_END_DECLS
+
+#endif // __GNOME_CMD_DATA_H__

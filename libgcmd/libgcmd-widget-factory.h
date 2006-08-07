@@ -20,6 +20,8 @@
 #ifndef __LIBGCMD_WIDGET_FACTORY_H__
 #define __LIBGCMD_WIDGET_FACTORY_H__
 
+G_BEGIN_DECLS
+
 GtkWidget *
 lookup_widget (GtkWidget *widget, const gchar *widget_name);
 
@@ -168,5 +170,7 @@ create_error_dialog (const gchar *msg, ...);
 
 void
 create_warning_dialog (const gchar *msg, ...);
+
+G_END_DECLS
 
 #endif //__LIBGCMD_WIDGET_FACTORY_H__

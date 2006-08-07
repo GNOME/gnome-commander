@@ -17,12 +17,12 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-
 #ifndef __IMAGELOADER_H__
 #define __IMAGELOADER_H__
 
 #include "gnome-cmd-pixmap.h"
 
+G_BEGIN_DECLS
 
 /**
  * If you add a pixmap id here be sure to add its filename in
@@ -80,5 +80,6 @@ gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
 
 void IMAGE_clear_mime_cache (void);
 
+G_END_DECLS
 
-#endif //__IMAGELOADER_H__
+#endif // __IMAGELOADER_H__

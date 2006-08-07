@@ -16,8 +16,11 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_STRING_DIALOG_H__
 #define __GNOME_CMD_STRING_DIALOG_H__
+
+G_BEGIN_DECLS
 
 #define GNOME_CMD_STRING_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_string_dialog_get_type (), GnomeCmdStringDialog)
@@ -115,6 +118,8 @@ gnome_cmd_string_dialog_set_value (GnomeCmdStringDialog *dialog, gint row, const
 void
 gnome_cmd_string_dialog_set_error_desc (GnomeCmdStringDialog *dialog, gchar *msg);
 
+
+G_END_DECLS
 
 #endif //__GNOME_CMD_STRING_DIALOG_H__
 

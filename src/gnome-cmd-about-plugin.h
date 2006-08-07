@@ -59,5 +59,6 @@ GType gnome_cmd_about_plugin_get_type (void) G_GNUC_CONST;
 
 GtkWidget *gnome_cmd_about_plugin_new (PluginInfo *info);
 
+G_END_DECLS
 
-#endif //__GNOME_CMD_ABOUT_PLUGIN_H__
+#endif // __GNOME_CMD_ABOUT_PLUGIN_H__

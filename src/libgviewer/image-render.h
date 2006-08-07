@@ -83,6 +83,7 @@ void	       image_render_set_scale_factor(ImageRender *obj, double scalefactor);
 double         image_render_get_scale_factor(ImageRender *obj);
 
 void           image_render_operation(ImageRender *obk, IMAGEOPERATION op);
+
 G_END_DECLS
 
 #endif /* __IMAGE_RENDER_H__ */

@@ -22,6 +22,8 @@
 
 #include <gmodule.h>
 
+G_BEGIN_DECLS
+
 typedef struct {
     gboolean active;
     gboolean loaded;
@@ -40,4 +42,6 @@ void plugin_manager_shutdown (void);
 GList *plugin_manager_get_all (void);
 void plugin_manager_show (void);
 
-#endif //__PLUGIN_MANAGER_H__
+G_END_DECLS
+
+#endif // __PLUGIN_MANAGER_H__

@@ -31,10 +31,11 @@ typedef struct _GnomeCmdMainWin GnomeCmdMainWin;
 typedef struct _GnomeCmdMainWinPrivate GnomeCmdMainWinPrivate;
 typedef struct _GnomeCmdMainWinClass GnomeCmdMainWinClass;
 
-
 #include "gnome-cmd-file-selector.h"
+#include "gnome-cmd-cmdline.h"
 #include "plugin_manager.h"
 
+G_BEGIN_DECLS
 
 struct _GnomeCmdMainWin
 {
@@ -53,10 +54,6 @@ struct _GnomeCmdMainWinClass
 
 extern GnomeCmdMainWin *main_win;
 
-
-#include "gnome-cmd-main-win.h"
-#include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-cmdline.h"
 
 GtkType
 gnome_cmd_main_win_get_type              (void);
@@ -132,4 +129,6 @@ gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw);
 void
 gnome_cmd_main_win_set_cap_state (GnomeCmdMainWin *mw, gboolean state);
 
-#endif //__GNOME_CMD_MAIN_WIN_H__
+G_END_DECLS
+
+#endif // __GNOME_CMD_MAIN_WIN_H__

@@ -20,10 +20,12 @@
 #ifndef __GNOME_CMD_STYLE_H__
 #define __GNOME_CMD_STYLE_H__
 
+G_BEGIN_DECLS
 
 extern GtkStyle *list_style, *sel_list_style;
 
 void gnome_cmd_style_create (void);
 
+G_END_DECLS
 
-#endif //__GNOME_CMD_STYLE_H__
+#endif // __GNOME_CMD_STYLE_H__

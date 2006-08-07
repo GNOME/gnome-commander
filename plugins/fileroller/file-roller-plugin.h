@@ -20,6 +20,7 @@
 #ifndef __FILE_ROLLER_PLUGIN_H__
 #define __FILE_ROLLER_PLUGIN_H__
 
+G_BEGIN_DECLS
 
 #define FILE_ROLLER_PLUGIN(obj) \
     GTK_CHECK_CAST (obj, file_roller_plugin_get_type (), FileRollerPlugin)
@@ -52,6 +53,6 @@ file_roller_plugin_get_type (void);
 GnomeCmdPlugin *
 file_roller_plugin_new (void);
 
-
+G_END_DECLS
 
 #endif //__FILE_ROLLER_PLUGIN_H__

@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_CON_H__
 #define __GNOME_CMD_CON_H__
 
@@ -38,6 +39,7 @@ typedef struct _GnomeCmdConPrivate GnomeCmdConPrivate;
 #include "history.h"
 #include "gnome-cmd-types.h"
 
+G_BEGIN_DECLS
 
 typedef enum {
     CON_STATE_CLOSED,
@@ -233,4 +235,6 @@ gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
 GnomeCmdDir *
 gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
 
-#endif //__GNOME_CMD_CON_H__
+G_END_DECLS
+
+#endif // __GNOME_CMD_CON_H__

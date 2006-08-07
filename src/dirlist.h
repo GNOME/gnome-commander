@@ -16,12 +16,17 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __DIRLIST_H__
 #define __DIRLIST_H__
 
 #include "gnome-cmd-dir.h"
 
+G_BEGIN_DECLS
+
 void dirlist_list (GnomeCmdDir *dir, gboolean visprog);
 void dirlist_cancel (GnomeCmdDir *dir);
 
-#endif //__DIRLIST_H__
+G_END_DECLS
+
+#endif // __DIRLIST_H__

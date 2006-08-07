@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __LIBGCMD_H__
 #define __LIBGCMD_H__
 
@@ -29,5 +30,8 @@
 #include <libgcmd/gnome-cmd-dialog.h>
 #include <libgcmd/gnome-cmd-string-dialog.h>
 #include <libgcmd/plugin-info.h>
+
+G_BEGIN_DECLS
+G_END_DECLS
 
 #endif //__LIBGCMD_H__

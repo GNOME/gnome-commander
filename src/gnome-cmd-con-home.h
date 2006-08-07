@@ -16,10 +16,13 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_CON_HOME_H__
 #define __GNOME_CMD_CON_HOME_H__
 
 #include "gnome-cmd-con.h"
+
+G_BEGIN_DECLS
 
 #define GNOME_CMD_CON_HOME(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_con_home_get_type (), GnomeCmdConHome)
@@ -53,5 +56,6 @@ gnome_cmd_con_home_get_type (void);
 GnomeCmdCon *
 gnome_cmd_con_home_new (void);
 
+G_END_DECLS
 
-#endif //__GNOME_CMD_CON_HOME_H__
+#endif // __GNOME_CMD_CON_HOME_H__

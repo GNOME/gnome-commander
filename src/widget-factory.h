@@ -20,9 +20,11 @@
 #ifndef __WIDGET_FACTORY_H__
 #define __WIDGET_FACTORY_H__
 
+G_BEGIN_DECLS
 
 GtkWidget *
 create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles);
 
+G_END_DECLS
 
-#endif //__WIDGET_FACTORY_H__
+#endif // __WIDGET_FACTORY_H__

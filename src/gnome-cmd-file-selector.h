@@ -38,6 +38,7 @@ typedef struct _GnomeCmdFileSelectorClass GnomeCmdFileSelectorClass;
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-dir.h"
 
+G_BEGIN_DECLS
 
 struct _GnomeCmdFileSelector
 {
@@ -156,5 +157,6 @@ gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs);
 void
 gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c);
 
+G_END_DECLS
 
-#endif //__GNOME_CMD_FILE_SELECTOR_H__
+#endif // __GNOME_CMD_FILE_SELECTOR_H__

@@ -16,11 +16,13 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_CHMOD_COMPONENT_H__
 #define __GNOME_CMD_CHMOD_COMPONENT_H__
 
 #include "gnome-cmd-file.h"
 
+G_BEGIN_DECLS
 
 #define GNOME_CMD_CHMOD_COMPONENT(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_chmod_component_get_type (), GnomeCmdChmodComponent)
@@ -64,10 +66,6 @@ void
 gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component,
                                      GnomeVFSFilePermissions perms);
 
+G_END_DECLS
 
-
-
-
-#endif //__GNOME_CMD_CHMOD_COMPONENT_H__
-
-
+#endif // __GNOME_CMD_CHMOD_COMPONENT_H__

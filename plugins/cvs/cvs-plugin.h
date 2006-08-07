@@ -1,6 +1,6 @@
 /*
     GNOME Commander - A GNOME based file manager
-    Copyright (C) 2001-2005 Marcus Bjurman
+    Copyright (C) 2001-2006 Marcus Bjurman
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -31,8 +31,10 @@ typedef struct _CvsPlugin CvsPlugin;
 typedef struct _CvsPluginClass CvsPluginClass;
 typedef struct _CvsPluginPrivate CvsPluginPrivate;
 
-#include "parser.h"
 #include <libgcmd/libgcmd.h>
+#include "parser.h"
+
+G_BEGIN_DECLS
 
 struct _CvsPlugin
 {
@@ -61,6 +63,6 @@ cvs_plugin_get_type (void);
 GnomeCmdPlugin *
 cvs_plugin_new (void);
 
-
+G_END_DECLS
 
 #endif //__CVS_PLUGIN_H__

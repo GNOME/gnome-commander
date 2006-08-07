@@ -20,6 +20,8 @@
 #ifndef __GNOME_CMD_PIXMAP_H__
 #define __GNOME_CMD_PIXMAP_H__
 
+G_BEGIN_DECLS
+
 typedef struct {
     GdkPixbuf *pixbuf;
     GdkPixmap *pixmap;
@@ -38,5 +40,6 @@ gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf);
 void
 gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap);
 
+G_END_DECLS
 
-#endif //__GNOME_CMD_PIXMAP_H__
+#endif // __GNOME_CMD_PIXMAP_H__

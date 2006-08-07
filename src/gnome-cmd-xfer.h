@@ -23,6 +23,7 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
 
+G_BEGIN_DECLS
 
 void
 gnome_cmd_xfer_start (GList *src_files,
@@ -62,4 +63,6 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
                                       GtkSignalFunc on_completed_func,
                                       gpointer on_completed_data);
 
-#endif //__GNOME_CMD_XFER_H__
+G_END_DECLS
+
+#endif // __GNOME_CMD_XFER_H__

@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_DIR_H__
 #define __GNOME_CMD_DIR_H__
 
@@ -27,8 +28,8 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_dir_get_type ())
 
 
-typedef struct _GnomeCmdDir            GnomeCmdDir;
-typedef struct _GnomeCmdDirPrivate    GnomeCmdDirPrivate;
+typedef struct _GnomeCmdDir         GnomeCmdDir;
+typedef struct _GnomeCmdDirPrivate  GnomeCmdDirPrivate;
 typedef struct _GnomeCmdDirClass    GnomeCmdDirClass;
 
 typedef void (* DirListDoneFunc) (GnomeCmdDir *dir,
@@ -36,7 +37,10 @@ typedef void (* DirListDoneFunc) (GnomeCmdDir *dir,
                                   GnomeVFSResult result);
 
 #include "gnome-cmd-file.h"
+#include "gnome-cmd-con.h"
+#include "handle.h"
 
+G_BEGIN_DECLS
 
 typedef enum {
     DIR_STATE_EMPTY,
@@ -82,15 +86,7 @@ struct _GnomeCmdDirClass
                                  GnomeVFSResult result);
 };
 
-
-#include "gnome-cmd-dir.h"
-#include "gnome-cmd-file.h"
-#include "gnome-cmd-con.h"
-#include "handle.h"
-
-
 GtkType gnome_cmd_dir_get_type (void);
-
 
 GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info,
                                           GnomeCmdDir *parent);
@@ -130,5 +126,7 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir);
 void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir);
 gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir);
 void gnome_cmd_dir_set_content_changed (GnomeCmdDir *dir);
+
+G_END_DECLS
 
 #endif // __GNOME_CMD_DIR_H__

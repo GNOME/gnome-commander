@@ -23,9 +23,12 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-dir.h"
 
+G_BEGIN_DECLS
+
 void cap_cut_files (GnomeCmdFileList *fl, GList *files);
 void cap_copy_files (GnomeCmdFileList *fl, GList *files);
 void cap_paste_files (GnomeCmdDir *dir);
 
+G_END_DECLS
 
 #endif // __CAP_H__

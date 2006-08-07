@@ -16,9 +16,11 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GNOME_CMD_XFER_PROGRESS_WIN_H__
 #define __GNOME_CMD_XFER_PROGRESS_WIN_H__
 
+G_BEGIN_DECLS
 
 #define GNOME_CMD_XFER_PROGRESS_WIN(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_xfer_progress_win_get_type (), GnomeCmdXferProgressWin)
@@ -70,6 +72,6 @@ void
 gnome_cmd_xfer_progress_win_set_action (GnomeCmdXferProgressWin *win,
                                         const gchar *string);
 
+G_END_DECLS
 
-
-#endif //__GNOME_CMD_XFER_PROGRESS_WIN_H__
+#endif // __GNOME_CMD_XFER_PROGRESS_WIN_H__

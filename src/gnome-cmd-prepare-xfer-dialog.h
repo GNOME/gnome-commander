@@ -23,6 +23,8 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 
+G_BEGIN_DECLS
+
 #define GNOME_CMD_PREPARE_XFER_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_prepare_xfer_dialog_get_type (), GnomeCmdPrepareXferDialog)
 #define GNOME_CMD_PREPARE_XFER_DIALOG_CLASS(klass) \
@@ -71,8 +73,6 @@ gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
 GtkType
 gnome_cmd_prepare_xfer_dialog_get_type (void);
 
+G_END_DECLS
 
-
-#endif //__GNOME_CMD_PREPARE_XFER_DIALOG_H__
-
-
+#endif // __GNOME_CMD_PREPARE_XFER_DIALOG_H__
