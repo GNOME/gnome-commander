@@ -70,8 +70,6 @@ static gchar *pixmap_files[NUM_PIXMAPS] = {
     "root_dir.xpm",
     "ftp_connect.xpm",
     "ftp_disconnect.xpm",
-    "menu_ftp_connect.xpm",
-    "menu_ftp_disconnect.xpm",
     "toggle_vertical.xpm",
     "toggle_horizontal.xpm",
     "internal-viewer.xpm"
@@ -115,13 +113,15 @@ void IMAGE_init (void)
     /*
      * Load misc icons
      */
-    for ( i=1 ; i<NUM_PIXMAPS ; i++ ) {
+    for ( i=1 ; i<NUM_PIXMAPS ; i++ )
+    {
         gchar *path = g_build_path ("/", PIXMAPS_DIR, pixmap_files[i], NULL);
 
         DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
         pixmaps[i] = gnome_cmd_pixmap_new_from_file (path);
-        if (!pixmaps[i]) {
+        if (!pixmaps[i])
+        {
             gchar *path2;
 
             warn_print (_("Couldn't load installed file type pixmap, trying to load from source-dir\n"));
@@ -129,10 +129,10 @@ void IMAGE_init (void)
             warn_print (_("Trying to load %s instead\n"), path2);
 
             pixmaps[i] = gnome_cmd_pixmap_new_from_file (path2);
-            if (!pixmaps[i]) {
-                warn_print (_("Cant find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"));
-            }
-            g_free (path2);
+            if (!pixmaps[i])
+                warn_print (_("Can't find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory\n", VERSION));
+
+                g_free (path2);
         }
         g_free (path);
     }
@@ -141,21 +141,22 @@ void IMAGE_init (void)
     /*
      * Load file type icons
      */
-    for ( i=0 ; i<NUM_FILE_TYPE_PIXMAPS ; i++ ) {
+    for ( i=0 ; i<NUM_FILE_TYPE_PIXMAPS ; i++ )
+    {
         CacheEntry *e = &file_type_pixmaps[i];
         gchar *path = g_build_path ("/", PIXMAPS_DIR, file_type_pixmap_files[i], NULL);
 
         DEBUG ('i', "imageloader: loading pixmap: %s\n", path);
 
-        if (!load_icon (path, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask)) {
+        if (!load_icon (path, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask))
+        {
             gchar *path2 = g_build_path ("/", "../pixmaps", pixmap_files[i], NULL);
 
             warn_print (_("Couldn't load installed pixmap, trying to load from source-dir\n"));
             warn_print (_("Trying to load %s instead\n"), path2);
 
-            if (!load_icon (path2, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask)) {
-                warn_print (_("Cant find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"));
-            }
+            if (!load_icon (path2, &e->pixmap, &e->mask, &e->lnk_pixmap, &e->lnk_mask))
+                warn_print (_("Can't find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory\n", VERSION));
             g_free (path2);
         }
 
@@ -201,19 +202,17 @@ GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id)
  * of the image representing it.
  */
 static char *
-get_mime_icon_name (const gchar *mime_type) {
+get_mime_icon_name (const gchar *mime_type)
+{
     gint i;
-    gint l;
-    gchar *icon_name, *tmp;
-
-    tmp = g_strdup (mime_type);
+    gchar *icon_name;
+    gchar *tmp = g_strdup (mime_type);
+    gint l = strlen(tmp);
 
     /* replace '/' with '-' */
-    l = strlen(tmp);
-    for ( i=0 ; i<l ; i++ ) {
+    for ( i=0 ; i<l ; i++ )
         if (tmp[i] == '/')
             tmp[i] = '-';
-    }
 
     /* add 'gnome-' */
     icon_name = g_strdup_printf ("gnome-%s.png", tmp);
@@ -300,11 +299,9 @@ get_category_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
     gint i;
 
-    for ( i=0 ; i<NUM_CATEGORIES ; i++ ) {
-        if (strncmp (mime_type, categories[i][0], strlen (categories[i][0])) == 0) {
+    for ( i=0 ; i<NUM_CATEGORIES ; i++ )
+        if (strncmp (mime_type, categories[i][0], strlen (categories[i][0])) == 0)
             return g_build_path ("/", icon_dir, categories[i][1], NULL);
-        }
-    }
 
     return NULL;
 }
@@ -427,12 +424,9 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
                 load_icon (icon_path3, &pm, &bm, &lpm, &lbm);
         }
 
-        if (icon_path)
-            g_free (icon_path);
-        if (icon_path2)
-            g_free (icon_path2);
-        if (icon_path3)
-            g_free (icon_path3);
+        g_free (icon_path);
+        g_free (icon_path2);
+        g_free (icon_path3);
 
         entry = g_new (CacheEntry, 1);
         entry->dead_end = (pm == NULL || bm == NULL);
@@ -446,14 +440,8 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
         g_hash_table_insert (mime_cache, g_strdup (mime_type), entry);
     }
 
-    if (symlink) {
-        *pixmap = entry->lnk_pixmap;
-        *mask = entry->lnk_mask;
-    }
-    else {
-        *pixmap = entry->pixmap;
-        *mask = entry->mask;
-    }
+    *pixmap = symlink ? entry->lnk_pixmap : entry->pixmap;
+    *mask   = symlink ? entry->lnk_mask   : entry->mask;
 
     return !entry->dead_end;
 }
@@ -479,14 +467,8 @@ static gboolean get_type_icon (GnomeVFSFileType type,
 {
     if (type >= NUM_FILE_TYPE_PIXMAPS) return FALSE;
 
-    if (symlink) {
-        *pixmap = file_type_pixmaps[type].lnk_pixmap;
-        *mask = file_type_pixmaps[type].lnk_mask;
-    }
-    else {
-        *pixmap = file_type_pixmaps[type].pixmap;
-        *mask = file_type_pixmaps[type].mask;
-    }
+    *pixmap = symlink ? file_type_pixmaps[type].lnk_pixmap : file_type_pixmaps[type].pixmap;
+    *mask   = symlink ? file_type_pixmaps[type].lnk_mask   : file_type_pixmaps[type].mask;
 
     return TRUE;
 }
@@ -519,7 +501,8 @@ static gboolean remove_entry (const gchar *key, CacheEntry *entry, gpointer user
 {
     g_return_val_if_fail (entry, TRUE);
 
-    if (!entry->dead_end) {
+    if (!entry->dead_end)
+    {
         gdk_pixmap_unref (entry->pixmap);
         gdk_bitmap_unref (entry->mask);
     }
@@ -541,7 +524,8 @@ void IMAGE_free (void)
 {
     int i;
 
-    for ( i=0 ; i<NUM_PIXMAPS ; i++ ) {
+    for ( i=0 ; i<NUM_PIXMAPS ; i++ )
+    {
         if (pixmaps[i]) gnome_cmd_pixmap_free (pixmaps[i]);
         pixmaps[i] = NULL;
     }
