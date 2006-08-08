@@ -1,10 +1,9 @@
-/* Ripped from libgnomeui and adjusted to my needs. Original comments
- * left intact below.
- * 2003 Marcus Bjurman <marbj499@student.liu.se>
+/* Ripped from libgnomeui and adjusted to my needs. Original comments left intact below.
+
+    Copyright (C) 2003-2006 Marcus Bjurman <marbj499@student.liu.se>
  */
 
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-/* gnome-about.h - An about box widget for gnome.
+ /* gnome-about.h - An about box widget for gnome.
 
    Copyright (C) 2001 CodeFactory AB
    Copyright (C) 2001 Anders Carlsson <andersca@codefactory.se>
@@ -21,7 +20,7 @@
 
    You should have received a copy of the GNU Library General Public
    License along with the Gnome Library; see the file COPYING.LIB.  If not,
-   write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, 
+   write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
    Boston, MA 02110-1301, USA.
 
    Author: Anders Carlsson <andersca@codefactory.se>

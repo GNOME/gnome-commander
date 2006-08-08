@@ -1,9 +1,7 @@
-/* Ripped from libgnomeui and adjusted to my needs. Original comments
- * left intact below.
- * 2003 Marcus Bjurman <marbj499@student.liu.se>
- */
+/* Ripped from libgnomeui and adjusted to my needs. Original comments left intact below.
 
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
+    Copyright (C) 2003-2006 Marcus Bjurman <marbj499@student.liu.se>
+ */
 /* gnome-about.c - An about box widget for gnome.
 
    Copyright (C) 2001 CodeFactory AB
@@ -21,7 +19,7 @@
 
    You should have received a copy of the GNU Library General Public
    License along with the Gnome Library; see the file COPYING.LIB.  If not,
-   write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, 
+   write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
    Boston, MA 02110-1301, USA.
 
    Author: Anders Carlsson <andersca@gnu.org>
@@ -331,7 +329,7 @@ gnome_cmd_about_plugin_instance_init (GnomeCmdAboutPlugin *about)
 static void
 gnome_cmd_about_plugin_response (GtkDialog *dialog, gint response)
 {
-    switch (response) 
+    switch (response)
     {
     case GNOME_RESPONSE_CREDITS:
         gnome_cmd_about_plugin_display_credits_dialog (GNOME_CMD_ABOUT_PLUGIN (dialog));
@@ -583,7 +581,7 @@ gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, c
     GSList *list;
 
     /* Free the old list */
-    switch (prop_id) 
+    switch (prop_id)
     {
     case PROP_AUTHORS:
         list = about->priv->authors;
@@ -610,7 +608,7 @@ gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, c
 
     list = g_slist_reverse (list);
 
-    switch (prop_id) 
+    switch (prop_id)
     {
     case PROP_AUTHORS:
         about->priv->authors = list;
@@ -648,7 +646,7 @@ set_value_array_from_list (GValue *value, GSList *list)
 static void
 gnome_cmd_about_plugin_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
 {
-    switch (prop_id) 
+    switch (prop_id)
     {
     case PROP_NAME:
         gnome_cmd_about_plugin_set_name (GNOME_CMD_ABOUT_PLUGIN (object), g_value_get_string (value));

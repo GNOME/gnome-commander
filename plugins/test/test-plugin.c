@@ -24,7 +24,7 @@
 #include "test-plugin.xpm"
 
 #define NAME "Example"
-#define COPYRIGHT "Copyright 2003 Marcus Bjurman"
+#define COPYRIGHT "Copyright 2003-2006 Marcus Bjurman"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define WEBPAGE "http://www.nongnu.org/gcmd"
 
