@@ -333,7 +333,7 @@ type2string (GnomeVFSFileType type, gchar *buf, guint max)
 {
     char *s;
 
-    switch (type) 
+    switch (type)
     {
         case GNOME_VFS_FILE_TYPE_UNKNOWN:
             s = "?";
@@ -342,7 +342,7 @@ type2string (GnomeVFSFileType type, gchar *buf, guint max)
             s = " ";
             break;
         case GNOME_VFS_FILE_TYPE_DIRECTORY:
-            s = "/";
+            s = G_DIR_SEPARATOR_S;
             break;
         case GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK:
             s = "@";
@@ -376,7 +376,7 @@ void name2string (gchar *filename, gchar *buf, guint max)
 
 void perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
-    switch (gnome_cmd_data_get_perm_disp_mode ()) 
+    switch (gnome_cmd_data_get_perm_disp_mode ())
     {
         case GNOME_CMD_PERM_DISP_MODE_TEXT:
             perm2textstring (p, buf, max);
@@ -719,8 +719,8 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
     g_return_if_fail (files != NULL);
     g_return_if_fail (app != NULL);
-	
-    for ( ; files; files = files->next ) 
+
+    for ( ; files; files = files->next )
     {
         GnomeCmdFile *finfo = (GnomeCmdFile*)files->data;
 
@@ -899,7 +899,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
     if (!list)
         return 0;
 
-    for ( tmp = list; tmp; tmp = tmp->next ) 
+    for ( tmp = list; tmp; tmp = tmp->next )
     {
         GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
         if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0) {
@@ -1082,15 +1082,18 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
         gtk_main_iteration();
 }
 
+
 void set_cursor_default_for_widget (GtkWidget *widget)
 {
     gdk_window_set_cursor (widget->window, NULL);
 }
 
+
 void set_cursor_busy (void)
 {
     set_cursor_busy_for_widget (GTK_WIDGET (main_win));
 }
+
 
 void set_cursor_default (void)
 {
@@ -1175,7 +1178,7 @@ gchar *get_temp_download_filepath (const gchar *fname)
         }
     }
 
-    return g_build_path ("/", tmp_dir, tmp_file_dir, fname, NULL);
+    return g_build_path (G_DIR_SEPARATOR_S, tmp_dir, tmp_file_dir, fname, NULL);
 }
 
 
@@ -1184,7 +1187,7 @@ void remove_temp_download_dir (void)
     const gchar *tmp_dir = g_get_tmp_dir ();
 
     if (tmp_file_dir) {
-        gchar *path = g_build_path ("/", tmp_dir, tmp_file_dir, NULL);
+        gchar *path = g_build_path (G_DIR_SEPARATOR_S, tmp_dir, tmp_file_dir, NULL);
         gchar *command = g_strdup_printf ("rm -rf %s", path);
         g_free (path);
         system (command);
@@ -1265,6 +1268,7 @@ gchar *unix_to_unc (const gchar *path)
 
     return out;
 }
+
 
 gchar *unc_to_unix (const gchar *path)
 {

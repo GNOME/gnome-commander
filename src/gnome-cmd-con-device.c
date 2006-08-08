@@ -169,7 +169,7 @@ dev_open (GnomeCmdCon *con)
     DEBUG ('m', "Mounting device\n");
 
     if (!con->base_path) {
-        con->base_path = gnome_cmd_plain_path_new ("/");
+        con->base_path = gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S);
         gtk_object_ref (GTK_OBJECT (con->base_path));
     }
 
@@ -284,7 +284,7 @@ dev_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
     dev_con = GNOME_CMD_CON_DEVICE (con);
 
     path_str = gnome_cmd_path_get_path (path);
-    p = g_build_path ("/", dev_con->priv->mountp, path_str, NULL);
+    p = g_build_path (G_DIR_SEPARATOR_S, dev_con->priv->mountp, path_str, NULL);
     u1 = gnome_vfs_uri_new ("file:");
     u2 = gnome_vfs_uri_append_path (u1, p);
     gnome_vfs_uri_unref (u1);

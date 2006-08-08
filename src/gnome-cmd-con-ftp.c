@@ -93,7 +93,7 @@ ftp_open (GnomeCmdCon *con)
     DEBUG('m', "Opening FTP connection\n");
 
     if (!con->base_path) {
-        con->base_path = gnome_cmd_plain_path_new ("/");
+        con->base_path = gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S);
         gtk_object_ref (GTK_OBJECT (con->base_path));
     }
 

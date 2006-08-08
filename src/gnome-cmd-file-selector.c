@@ -322,7 +322,7 @@ update_files (GnomeCmdFileSelector *fs)
 
     /* Create a parent dir file (..) if appropriate */
     path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
-    if (path && strcmp (path, "/") != 0)
+    if (path && strcmp (path, G_DIR_SEPARATOR_S) != 0)
         list2 = g_list_append (list2, create_parent_dir_file (dir));
     g_free (path);
 
@@ -1213,7 +1213,7 @@ on_root_btn_clicked                      (GtkButton *button,
                                           GnomeCmdFileSelector *fs)
 {
     gnome_cmd_main_win_switch_fs (main_win, fs);
-    goto_directory (fs, "/");
+    goto_directory (fs, G_DIR_SEPARATOR_S);
 }
 
 
@@ -1932,7 +1932,7 @@ on_new_textfile_ok (GnomeCmdStringDialog *string_dialog,
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
 
     dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
-    filepath = g_build_path ("/", dpath, filename, NULL);
+    filepath = g_build_path (G_DIR_SEPARATOR_S, dpath, filename, NULL);
     g_free (dpath);
     g_return_val_if_fail (filepath, TRUE);
 

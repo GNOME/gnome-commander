@@ -333,8 +333,8 @@ gnome_cmd_file_get_path (GnomeCmdFile *finfo)
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
 
-    if (strcmp (finfo->info->name, "/") == 0)
-        return g_strdup ("/");
+    if (strcmp (finfo->info->name, G_DIR_SEPARATOR_S) == 0)
+        return g_strdup (G_DIR_SEPARATOR_S);
 
     if (!has_parent_dir (finfo)) {
         if (GNOME_CMD_IS_DIR (finfo)) {

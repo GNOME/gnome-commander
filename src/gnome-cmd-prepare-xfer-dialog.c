@@ -63,7 +63,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     else {
         gchar *tmp = gnome_cmd_file_get_path (GNOME_CMD_FILE (
             gnome_cmd_file_selector_get_directory (dialog->src_fs)));
-        dest_path = g_build_path ("/", tmp, user_path, NULL);
+        dest_path = g_build_path (G_DIR_SEPARATOR_S, tmp, user_path, NULL);
         g_free (user_path);
         g_free (tmp);
     }
@@ -378,7 +378,7 @@ gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
         g_free (t);
         fname = get_utf8 (finfo->info->name);
 
-        dest_str = g_build_path ("/", path, fname, NULL);
+        dest_str = g_build_path (G_DIR_SEPARATOR_S, path, fname, NULL);
         if (path_points_at_directory (to, dest_str)) {
             g_free (dest_str);
             dest_str = g_strdup (path);

@@ -55,7 +55,7 @@ plain_path_get_parent (GnomeCmdPath *path)
 
     g_return_val_if_fail (GNOME_CMD_IS_PLAIN_PATH (path), NULL);
 
-    t = gnome_vfs_uri_new ("/");
+    t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
     u1 = gnome_vfs_uri_append_path (t, GNOME_CMD_PLAIN_PATH (path)->priv->path);
     gnome_vfs_uri_unref (t);
 

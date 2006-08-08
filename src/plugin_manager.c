@@ -164,7 +164,7 @@ scan_plugins_in_dir (const gchar *dpath)
                    lets accept it */
                 PluginData *data = g_new (PluginData, 1);
                 data->fname = g_strdup (ent->d_name);
-                data->fpath = g_build_path ("/", dpath, ent->d_name, NULL);
+                data->fpath = g_build_path (G_DIR_SEPARATOR_S, dpath, ent->d_name, NULL);
                 data->loaded = FALSE;
                 data->active = FALSE;
                 data->menu = NULL;
@@ -202,7 +202,7 @@ void plugin_manager_init (void)
     }
 
     /* find user plugins */
-    user_dir = g_build_path ("/", g_get_home_dir(), ".gnome-commander/plugins", NULL);
+    user_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir(), ".gnome-commander/plugins", NULL);
     create_dir_if_needed (user_dir);
     scan_plugins_in_dir (user_dir);
     g_free (user_dir);

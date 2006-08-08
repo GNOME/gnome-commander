@@ -96,7 +96,7 @@ do_connect_real (GnomeCmdConFtp *server)
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
     gnome_cmd_file_selector_set_connection (fs, con, NULL);
-//        gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, "/")));
+//        gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, G_DIR_SEPARATOR_S)));
 
     return FALSE;
 }

@@ -71,7 +71,7 @@ smb_path_get_parent (GnomeCmdPath *path)
         if (smb_path->priv->resource_path) {
             GnomeVFSURI *u1, *t;
 
-            t = gnome_vfs_uri_new ("/");
+            t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
             u1 = gnome_vfs_uri_append_path (t, smb_path->priv->resource_path);
             gnome_vfs_uri_unref (t);
             if (u1 && gnome_vfs_uri_has_parent (u1)) {
@@ -115,7 +115,7 @@ smb_path_get_child (GnomeCmdPath *path, const gchar *child)
     if (smb_path->priv->workgroup) {
         if (smb_path->priv->resource) {
             if (smb_path->priv->resource_path) {
-                GnomeVFSURI *t = gnome_vfs_uri_new ("/");
+                GnomeVFSURI *t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
                 u1 = gnome_vfs_uri_append_path (t, smb_path->priv->resource_path);
                 gnome_vfs_uri_unref (t);
                 if (!strchr (child, '/'))
@@ -251,7 +251,7 @@ gnome_cmd_smb_path_new (const gchar *workgroup,
                 "/%s", workgroup);
     }
     else
-        smb_path->priv->path = g_strdup ("/");
+        smb_path->priv->path = g_strdup (G_DIR_SEPARATOR_S);
 
     smb_path->priv->display_path = unix_to_unc (smb_path->priv->path);
 
@@ -287,7 +287,7 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
         s++;
     }
 
-    v = g_strsplit (s, "/", 0);
+    v = g_strsplit (s, G_DIR_SEPARATOR_S, 0);
     g_free (t);
     if (v[0] != NULL) {
         a = g_strdup (v[0]);
@@ -297,8 +297,8 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
                 c = g_strdup_printf ("/%s", v[2]);
                 if (v[3] != NULL) {
                     gchar *t1 = c;
-                    gchar *t2 = g_strjoinv ("/", &v[3]);
-                    c = g_strjoin ("/", t1, t2, NULL);
+                    gchar *t2 = g_strjoinv (G_DIR_SEPARATOR_S, &v[3]);
+                    c = g_strjoin (G_DIR_SEPARATOR_S, t1, t2, NULL);
                     g_free (t1);
                     g_free (t2);
                 }

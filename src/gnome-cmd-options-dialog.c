@@ -1555,7 +1555,7 @@ create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on_ok, GtkSignalFunc
 
     if (dev) s = gnome_cmd_con_device_get_icon_path (dev);
     entry = create_icon_entry (dialog, "device_iconentry", s);
-    icon_dir = g_build_path ("/",PIXMAPS_DIR, "device-icons", NULL);
+    icon_dir = g_build_path (G_DIR_SEPARATOR_S,PIXMAPS_DIR, "device-icons", NULL);
     gnome_icon_entry_set_pixmap_subdir (GNOME_ICON_ENTRY (entry), icon_dir);
     g_free (icon_dir);
     table_add (table, entry, 1, 3, GTK_FILL);

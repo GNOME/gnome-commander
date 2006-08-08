@@ -97,7 +97,7 @@ static void get_color (const gchar *path, GdkColor *color)
 void
 gnome_cmd_data_set_string (const gchar *path, const gchar *value)
 {
-    gchar *s = g_build_path ("/", PACKAGE, path, NULL);
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
 
     set_string (s, value);
 
@@ -108,7 +108,7 @@ gnome_cmd_data_set_string (const gchar *path, const gchar *value)
 void
 gnome_cmd_data_set_int (const gchar *path, int value)
 {
-    gchar *s = g_build_path ("/", PACKAGE, path, NULL);
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
 
     set_int (s, value);
 
@@ -118,7 +118,7 @@ gnome_cmd_data_set_int (const gchar *path, int value)
 void
 gnome_cmd_data_set_bool (const gchar *path, gboolean value)
 {
-    gchar *s = g_build_path ("/", PACKAGE, path, NULL);
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
 
     set_bool (s, value);
 
@@ -129,7 +129,7 @@ gnome_cmd_data_set_bool (const gchar *path, gboolean value)
 void
 gnome_cmd_data_set_color (const gchar *path, GdkColor *color)
 {
-    gchar *s = g_build_path ("/", PACKAGE, path, NULL);
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
 
     set_color (s, color);
 
@@ -140,7 +140,7 @@ gnome_cmd_data_set_color (const gchar *path, GdkColor *color)
 gchar*
 gnome_cmd_data_get_string (const gchar *path, const gchar *def)
 {
-    gchar *s = g_build_path ("/", PACKAGE, path, NULL);
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
 
     gchar *v = get_string (s, def);
 
@@ -153,7 +153,7 @@ gnome_cmd_data_get_string (const gchar *path, const gchar *def)
 gint
 gnome_cmd_data_get_int (const gchar *path, int def)
 {
-    gchar *s = g_build_path ("/", PACKAGE, path, NULL);
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
 
     gint v = get_int (s, def);
 
@@ -166,7 +166,7 @@ gnome_cmd_data_get_int (const gchar *path, int def)
 gboolean
 gnome_cmd_data_get_bool (const gchar *path, gboolean def)
 {
-    gchar *s = g_build_path ("/", PACKAGE, path, NULL);
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
 
     gboolean v = get_bool (s, def);
 
@@ -179,7 +179,7 @@ gnome_cmd_data_get_bool (const gchar *path, gboolean def)
 void
 gnome_cmd_data_get_color (const gchar *path, GdkColor *color)
 {
-    gchar *s = g_build_path ("/", PACKAGE, path, NULL);
+    gchar *s = g_build_path (G_DIR_SEPARATOR_S, PACKAGE, path, NULL);
 
     get_color (s, color);
 
