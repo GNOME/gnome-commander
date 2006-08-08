@@ -1,7 +1,10 @@
 2006-08-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* *.h:
-	Add C_BEGIN_DECLS and C_END_DECLS.
+	Added C_BEGIN_DECLS and C_END_DECLS.
+
+	* plugins/fileroller.c:
+	Added support for archives via FileRoller.
 
 2006-08-03  Piotr Eljasiak  <epiotr@use.pl>
 

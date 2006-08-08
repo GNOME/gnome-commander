@@ -43,11 +43,31 @@ static PluginInfo plugin_nfo = {
 
 static gchar *handled_extensions[] =
 {
-    ".tar.bz2",
-    ".tar.gz",
-    ".tar.Z",
-    ".zip",
-    ".tgz",
+    ".tar",         // tar
+    ".tar.gz",      // tar+gz
+    ".tgz",         // tar+gz
+    ".tar.bz",      // tar+bz
+    ".tbz",         // tar+bz
+    ".tar.bz2",     // tar+bz2
+    ".tbz2",        // tar+bz2
+    ".tar.Z",       // tar+compress
+    ".taz",         // tar+compress
+    ".tar.lzo",     // tar+lzop
+    ".tzo",         // tar+lzop
+    ".zip",         // zip
+    ".jar",         // jar
+    ".ear",         // jar
+    ".war",         // jar
+    ".lzh",         // lha
+    ".rar",         // rar
+    ".arj",         // arj
+    ".ar",          // ar
+    ".deb",         // Debian archives
+    ".rpm",         // RPM archives
+    ".7z",          // 7-zip
+    ".bin",         // stuffit
+    ".sit",         // stuffit
+    ".zoo",         // zoo
     NULL
 };
 
@@ -67,22 +87,16 @@ static GnomeCmdPluginClass *parent_class = NULL;
 static void
 on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
 {
-    gchar *uri_str;
-    gchar *target_arg, *archive_arg, *target_name, *target_dir, *local_path;
+    gchar *target_arg, *archive_arg, *target_dir;
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+    gchar *local_path = gnome_vfs_get_local_path_from_uri (uri_str);
+    gchar *target_name = gtk_object_get_data (GTK_OBJECT (item), "target_name");
     gchar *cmd, *t;
 
-    uri_str = gnome_vfs_uri_to_string (uri, 0);
-    local_path = gnome_vfs_get_local_path_from_uri (uri_str);
-    target_name = gtk_object_get_data (GTK_OBJECT (item), "target_name");
-
     t = g_dirname (local_path);
-     if (target_name) {
-        target_dir = g_build_path ("/", t, target_name, NULL);
-        g_free (target_name);
-    }
-    else
-        target_dir = g_strdup (t);
+    target_dir = target_name ? g_build_path ("/", t, target_name, NULL) : g_strdup (t);
     g_free (t);
+    g_free (target_name);
 
     t = g_strdup_printf ("--extract-to=%s", target_dir);
     target_arg = g_shell_quote (t);
@@ -113,9 +127,8 @@ do_add_to_archive (const gchar *name, GnomeCmdState *state)
     gchar *active_dir_path, *uri_str;
     GList *files;
 
-    files = state->active_dir_selected_files;
-
-    while (files) {
+    for (files = state->active_dir_selected_files; files; files = files->next)
+    {
         GnomeVFSURI *uri = GNOME_CMD_FILE_INFO (files->data)->uri;
         gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
         gchar *path = gnome_vfs_get_local_path_from_uri (uri_str);
@@ -126,7 +139,6 @@ do_add_to_archive (const gchar *name, GnomeCmdState *state)
         g_free (path);
         g_free (tmp);
         g_free (uri_str);
-        files = files->next;
     }
 
     g_printerr ("add: %s\n", cmd);
@@ -216,8 +228,7 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
         pixmap = gnome_pixmap_new_from_xpm_d ((const gchar**)file_roller_small_xpm);
         if (pixmap) {
             gtk_widget_show (pixmap);
-            gtk_image_menu_item_set_image (
-                GTK_IMAGE_MENU_ITEM (item), pixmap);
+            gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap);
         }
     }
     else
@@ -232,9 +243,7 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
     gtk_container_add (GTK_CONTAINER (item), label);
 
     /* Connect to the signal and set user data */
-    gtk_object_set_data (GTK_OBJECT (item),
-                         GNOMEUIINFO_KEY_UIDATA,
-                         data);
+    gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
 
     if (callback)
         gtk_signal_connect (GTK_OBJECT (item), "activate", callback, data);
@@ -269,36 +278,33 @@ create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 
     FILE_ROLLER_PLUGIN (plugin)->priv->state = state;
 
-    item = create_menu_item (
-        _("Create Archive..."),
+    item = create_menu_item (_("Create Archive..."),
         TRUE, GTK_SIGNAL_FUNC (on_add_to_archive), plugin);
     items = g_list_append (items, item);
 
-    if (num_files == 1) {
-        gint i=0;
+    if (num_files == 1)
+    {
         GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
         gchar *fname = g_strdup (finfo->info->name);
+        gint i;
 
-        while (handled_extensions[i] != NULL) {
-            if (g_str_has_suffix (fname, handled_extensions[i])) {
+        for (i=0; handled_extensions[i] != NULL; ++i)
+            if (g_str_has_suffix (fname, handled_extensions[i]))
+            {
                 gchar *text;
 
-                item = create_menu_item (
-                    _("Extract in Current Directory"),
+                item = create_menu_item (_("Extract in Current Directory"),
                     TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
                 items = g_list_append (items, item);
 
                 fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
                 text = g_strdup_printf (_("Extract to '%s'"), fname);
-                item = create_menu_item (
-                    text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+                item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
                 gtk_object_set_data (GTK_OBJECT (item), "target_name", g_strdup (fname));
                 items = g_list_append (items, item);
                 g_free (text);
                 break;
             }
-            i++;
-        }
         g_free (fname);
     }
 
@@ -318,9 +324,7 @@ on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
     plugin->priv->default_ext = g_strdup (gtk_entry_get_text (
         GTK_ENTRY (GTK_COMBO (plugin->priv->conf_combo)->entry)));
 
-    gnome_cmd_data_set_string (
-        "/file-runner-plugin/default_type",
-        plugin->priv->default_ext);
+    gnome_cmd_data_set_string ("/file-runner-plugin/default_type", plugin->priv->default_ext);
 
     gtk_widget_hide (plugin->priv->conf_dialog);
 }
@@ -337,15 +341,13 @@ configure (GnomeCmdPlugin *plugin)
     gnome_cmd_dialog_set_transient_for (
         GNOME_CMD_DIALOG (dialog),
         GTK_WINDOW (main_win_widget));
-    gnome_cmd_dialog_set_modal (
-        GNOME_CMD_DIALOG (dialog));
+    gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
                                  GTK_SIGNAL_FUNC (on_configure_close), plugin);
 
     vbox = create_vbox (dialog, FALSE, 12);
-    gnome_cmd_dialog_add_expanding_category (
-        GNOME_CMD_DIALOG (dialog), vbox);
+    gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), vbox);
 
 
     table = create_table (dialog, 2, 2);
@@ -415,8 +417,7 @@ init (FileRollerPlugin *plugin)
 {
     plugin->priv = g_new (FileRollerPluginPrivate, 1);
 
-    plugin->priv->default_ext = gnome_cmd_data_get_string (
-        "/file-runner-plugin/default_type", ".zip");
+    plugin->priv->default_ext = gnome_cmd_data_get_string ("/file-runner-plugin/default_type", ".zip");
 }
 
 

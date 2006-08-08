@@ -10,6 +10,7 @@ Bug fixes:
  * Fixed problem #347817 (incorrect use of Makefile linker flags)
 
 New features:
+ * Support for archives (gz,bz2,zip,lha,rar,jar,7-zip,zoo,deb,rpm) via FileRoller plugin
  * New python-like indices for advanced file rename templates
  * Revamped application menus
  * New icon for internal viewer
