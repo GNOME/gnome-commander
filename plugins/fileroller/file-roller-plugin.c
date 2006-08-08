@@ -41,35 +41,37 @@ static PluginInfo plugin_nfo = {
     NULL
 };
 
+
 static gchar *handled_extensions[] =
 {
-    ".tar",         // tar
-    ".tar.gz",      // tar+gz
-    ".tgz",         // tar+gz
-    ".tar.bz",      // tar+bz
-    ".tbz",         // tar+bz
-    ".tar.bz2",     // tar+bz2
-    ".tbz2",        // tar+bz2
-    ".tar.Z",       // tar+compress
-    ".taz",         // tar+compress
-    ".tar.lzo",     // tar+lzop
-    ".tzo",         // tar+lzop
-    ".zip",         // zip
-    ".jar",         // jar
+    ".7z",          // 7-zip
+    ".ar",          // ar
+    ".arj",         // arj
+    ".bin",         // stuffit
+    ".deb",         // Debian archives
     ".ear",         // jar
-    ".war",         // jar
+    ".jar",         // jar
     ".lzh",         // lha
     ".rar",         // rar
-    ".arj",         // arj
-    ".ar",          // ar
-    ".deb",         // Debian archives
     ".rpm",         // RPM archives
-    ".7z",          // 7-zip
-    ".bin",         // stuffit
     ".sit",         // stuffit
+    ".tar",         // tar
+    ".tar.Z",       // tar+compress
+    ".tar.bz",      // tar+bz
+    ".tar.bz2",     // tar+bz2
+    ".tar.gz",      // tar+gz
+    ".tar.lzo",     // tar+lzop
+    ".taz",         // tar+compress
+    ".tbz",         // tar+bz
+    ".tbz2",        // tar+bz2
+    ".tgz",         // tar+gz
+    ".tzo",         // tar+lzop
+    ".war",         // jar
+    ".zip",         // zip
     ".zoo",         // zoo
     NULL
 };
+
 
 struct _FileRollerPluginPrivate
 {
@@ -94,7 +96,7 @@ on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     gchar *cmd, *t;
 
     t = g_dirname (local_path);
-    target_dir = target_name ? g_build_path ("/", t, target_name, NULL) : g_strdup (t);
+    target_dir = target_name ? g_build_path (G_DIR_SEPARATOR_S, t, target_name, NULL) : g_strdup (t);
     g_free (t);
     g_free (target_name);
 
@@ -167,7 +169,8 @@ on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 
     files = plugin->priv->state->active_dir_selected_files;
 
-    do {
+    do
+    {
         if (dialog)
             gtk_widget_destroy (dialog);
 
@@ -207,7 +210,8 @@ on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
         name = gtk_entry_get_text (GTK_ENTRY (entry));
         if (name != NULL && strlen (name) > 0)
             name_ok = TRUE;
-    } while (name_ok == FALSE && ret == GTK_RESPONSE_OK);
+    }
+    while (name_ok == FALSE && ret == GTK_RESPONSE_OK);
 
     if (ret == GTK_RESPONSE_OK)
         do_add_to_archive (name, plugin->priv->state);
@@ -226,7 +230,8 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
     if (show_pixmap) {
         item = gtk_image_menu_item_new ();
         pixmap = gnome_pixmap_new_from_xpm_d ((const gchar**)file_roller_small_xpm);
-        if (pixmap) {
+        if (pixmap)
+        {
             gtk_widget_show (pixmap);
             gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap);
         }
@@ -288,23 +293,21 @@ create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
         gchar *fname = g_strdup (finfo->info->name);
         gint i;
 
-        for (i=0; handled_extensions[i] != NULL; ++i)
-            if (g_str_has_suffix (fname, handled_extensions[i]))
-            {
-                gchar *text;
+        for (i=0; handled_extensions[i] != NULL && ! (fname, handled_extensions[i]); ++i)
+        {
+            gchar *text;
 
-                item = create_menu_item (_("Extract in Current Directory"),
-                    TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
-                items = g_list_append (items, item);
+            item = create_menu_item (_("Extract in Current Directory"),
+                TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+            items = g_list_append (items, item);
 
-                fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
-                text = g_strdup_printf (_("Extract to '%s'"), fname);
-                item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
-                gtk_object_set_data (GTK_OBJECT (item), "target_name", g_strdup (fname));
-                items = g_list_append (items, item);
-                g_free (text);
-                break;
-            }
+            fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
+            text = g_strdup_printf (_("Extract to '%s'"), fname);
+            item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+            gtk_object_set_data (GTK_OBJECT (item), "target_name", g_strdup (fname));
+            items = g_list_append (items, item);
+            g_free (text);
+        }
         g_free (fname);
     }
 
@@ -360,7 +363,7 @@ configure (GnomeCmdPlugin *plugin)
     combo = create_combo (dialog);
     table_add (table, combo, 1, 1, GTK_FILL);
 
-    for ( i=0 ; handled_extensions[i] != NULL ; i++ )
+    for (i=0 ; handled_extensions[i] != NULL ; i++)
         items = g_list_append (items, handled_extensions[i]);
 
     gtk_combo_set_popdown_strings (GTK_COMBO (combo), items);
@@ -373,7 +376,6 @@ configure (GnomeCmdPlugin *plugin)
 
     gtk_widget_show (dialog);
 }
-
 
 
 /*******************************
@@ -396,11 +398,9 @@ destroy (GtkObject *object)
 static void
 class_init (FileRollerPluginClass *klass)
 {
-    GtkObjectClass *object_class;
-    GnomeCmdPluginClass *plugin_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
     parent_class = gtk_type_class (gnome_cmd_plugin_get_type ());
 
     object_class->destroy = destroy;
@@ -419,7 +419,6 @@ init (FileRollerPlugin *plugin)
 
     plugin->priv->default_ext = gnome_cmd_data_get_string ("/file-runner-plugin/default_type", ".zip");
 }
-
 
 
 /***********************************
@@ -454,9 +453,7 @@ file_roller_plugin_get_type         (void)
 GnomeCmdPlugin *
 file_roller_plugin_new (void)
 {
-    FileRollerPlugin *plugin;
-
-    plugin = gtk_type_new (file_roller_plugin_get_type ());
+    FileRollerPlugin *plugin = gtk_type_new (file_roller_plugin_get_type ());
 
     return GNOME_CMD_PLUGIN (plugin);
 }
@@ -470,7 +467,8 @@ GnomeCmdPlugin *create_plugin (void)
 
 PluginInfo *get_plugin_info (void)
 {
-    if (!plugin_nfo.authors) {
+    if (!plugin_nfo.authors)
+    {
         plugin_nfo.authors = g_new (gchar*, 2);
         plugin_nfo.authors[0] = AUTHOR;
         plugin_nfo.authors[1] = NULL;
