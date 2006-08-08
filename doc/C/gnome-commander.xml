@@ -1413,7 +1413,7 @@
         that working with archives becomes quite practical anyway. This is how you do it:</para>
         <itemizedlist>
           <listitem>
-              <para>If you don't already have the program <application>Fileroller</application>,
+              <para>If you don't already have the program <application>File Roller</application>,
               download it and install it.</para>
           </listitem>
           <listitem>
@@ -1423,6 +1423,39 @@
         <para>Add two favourite apps using the values shown here and here.</para>
           </listitem>
         </itemizedlist>
+
+        <!-- ==== Figure ==== -->
+          <figure id="create-archive-fig">
+              <title>Creating Archives with File Roller</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/create_archive.png" format="PNG"/>
+                         </imageobject>
+                    <textobject><phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area,
+                                         and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
+        <!-- ==== Figure ==== -->
+          <figure id="extract-archive-fig">
+              <title>Extracting Archives with File Roller</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/extract_archive.png" format="PNG"/>
+                         </imageobject>
+                    <textobject><phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area,
+                                         and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
         <para>You can now right click any file or folder and choose <guimenuitem>Create archive...</guimenuitem>
         to compress it and right click compressed files and choose <guimenuitem>Extract archive...</guimenuitem>
         to extract it.</para>
