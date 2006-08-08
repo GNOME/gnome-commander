@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-pixmap.h"
 
@@ -46,8 +47,7 @@ gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf)
     pixmap->width = gdk_pixbuf_get_width (pixmap->pixbuf);
     pixmap->height = gdk_pixbuf_get_height (pixmap->pixbuf);
 
-    gdk_pixbuf_render_pixmap_and_mask (
-        pixmap->pixbuf, &pixmap->pixmap, &pixmap->mask, 128);
+    gdk_pixbuf_render_pixmap_and_mask (pixmap->pixbuf, &pixmap->pixmap, &pixmap->mask, 128);
     gdk_pixmap_ref (pixmap->pixmap);
     gdk_bitmap_ref (pixmap->mask);
 

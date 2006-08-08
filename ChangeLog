@@ -6,6 +6,13 @@
 	* plugins/fileroller.c:
 	Added support for archives via FileRoller.
 
+	* pixmaps/Makefile.am:
+	* src/gnome-cmd-main-menu.c:
+	* src/gnome-cmd-pixmap.c:
+	* src/imageloader.c:
+	* src/imageloader.h:
+	Remove excessive icons.
+
 2006-08-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.c:

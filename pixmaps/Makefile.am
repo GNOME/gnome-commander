@@ -27,8 +27,6 @@ pixmaps_DATA = \
 	key.xpm \
 	lock.xpm \
 	menu_bookmark.xpm \
-	menu_ftp_connect.xpm \
-	menu_ftp_disconnect.xpm \
 	mkdir.xpm \
 	overlay_symlink.xpm \
 	overlay_umount.xpm \

@@ -31,10 +31,9 @@
 #include "useractions.h"
 
 #include "../pixmaps/exec_wheel.xpm"
-#include "../pixmaps/menu_ftp_connect.xpm"
 
 
-/* Theese following types are slightly changed from the originals in the GnomeUI library
+/* These following types are slightly changed from the originals in the GnomeUI library
    We need special types because we neeed to place non-changeable shortcuts in the
    menus. Another difference is that we want only mouse-clicks in the menu to generate an
    action, keyboard shortcuts are caught by the different components by them self */
