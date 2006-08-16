@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-23 03:27+0200\n"
+"POT-Creation-Date: 2006-08-15 03:48+0200\n"
 "PO-Revision-Date: 2006-06-25 11:21+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=1; plural=0;\n"
+"Plural-Forms:   nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.10.2\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
@@ -27,32 +27,32 @@ msgstr "Egy kétpaneles fájlkezelő"
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../libgcmd/gnome-cmd-string-dialog.c:133
+#: ../libgcmd/gnome-cmd-string-dialog.c:130
 msgid "No error description available"
 msgstr "Nem érhető el hibaleírás"
 
-#: ../plugins/cvs/cvs-plugin.c:304
-#: ../plugins/fileroller/file-roller-plugin.c:336
-#: ../src/gnome-cmd-ftp-dialog.c:531 ../src/gnome-cmd-options-dialog.c:1114
+#: ../plugins/cvs/cvs-plugin.c:299
+#: ../plugins/fileroller/file-roller-plugin.c:343
+#: ../src/gnome-cmd-ftp-dialog.c:536 ../src/gnome-cmd-options-dialog.c:1114
 #: ../src/gnome-cmd-options-dialog.c:1828
 #: ../src/gnome-cmd-prepare-copy-dialog.c:133
 #: ../src/gnome-cmd-prepare-move-dialog.c:118
 msgid "Options"
 msgstr "Beállítások"
 
-#: ../plugins/cvs/cvs-plugin.c:322
+#: ../plugins/cvs/cvs-plugin.c:313
 msgid "CVS options"
 msgstr "CVS beállítások"
 
-#: ../plugins/cvs/cvs-plugin.c:325
+#: ../plugins/cvs/cvs-plugin.c:316
 msgid "Compression level"
 msgstr "Tömörítési szint"
 
-#: ../plugins/cvs/cvs-plugin.c:334
+#: ../plugins/cvs/cvs-plugin.c:325
 msgid "Unified diff format"
 msgstr "Egységesített diff formátum"
 
-#: ../plugins/cvs/cvs-plugin.c:448
+#: ../plugins/cvs/cvs-plugin.c:433
 msgid "A plugin that eventually will be a simple CVS client"
 msgstr "Egy bővítmény, ami egy egyszerű CVS kliensként használható"
 
@@ -108,36 +108,36 @@ msgstr "Sorok:"
 msgid "Message:"
 msgstr "Üzenet:"
 
-#: ../plugins/fileroller/file-roller-plugin.c:167
+#: ../plugins/fileroller/file-roller-plugin.c:182
 msgid "What filename should the new archive have?"
 msgstr "Mi legyen az új archívum neve?"
 
-#: ../plugins/fileroller/file-roller-plugin.c:169
+#: ../plugins/fileroller/file-roller-plugin.c:184
 msgid "Create Archive"
 msgstr "Archívum létrehozása"
 
-#: ../plugins/fileroller/file-roller-plugin.c:273
+#: ../plugins/fileroller/file-roller-plugin.c:286
 msgid "Create Archive..."
 msgstr "Archívum létrehozása..."
 
-#: ../plugins/fileroller/file-roller-plugin.c:287
+#: ../plugins/fileroller/file-roller-plugin.c:300
 msgid "Extract in Current Directory"
 msgstr "Kicsomagolás a jelenlegi könyvtárban"
 
-#: ../plugins/fileroller/file-roller-plugin.c:292
+#: ../plugins/fileroller/file-roller-plugin.c:305
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Kicsomagolás ide: '%s'"
 
-#: ../plugins/fileroller/file-roller-plugin.c:352
+#: ../plugins/fileroller/file-roller-plugin.c:357
 msgid "File-roller options"
 msgstr "File-roller beállítások"
 
-#: ../plugins/fileroller/file-roller-plugin.c:355
+#: ../plugins/fileroller/file-roller-plugin.c:360
 msgid "Default type"
 msgstr "Alapértelmezett típus"
 
-#: ../plugins/fileroller/file-roller-plugin.c:477
+#: ../plugins/fileroller/file-roller-plugin.c:476
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -153,42 +153,42 @@ msgstr ""
 "Ez egy példa bővítmény, ami leginkább egyszerű példaként használható törekvő "
 "bővítmény-hackereknek."
 
-#: ../src/gnome-cmd-about-plugin.c:186
+#: ../src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
 msgstr "Köszönet"
 
-#: ../src/gnome-cmd-about-plugin.c:214
+#: ../src/gnome-cmd-about-plugin.c:212
 msgid "Written by"
 msgstr "Írta"
 
-#: ../src/gnome-cmd-about-plugin.c:228
+#: ../src/gnome-cmd-about-plugin.c:226
 msgid "Documented by"
 msgstr "Dokumentáció"
 
-#: ../src/gnome-cmd-about-plugin.c:240
+#: ../src/gnome-cmd-about-plugin.c:238
 msgid "Translated by"
 msgstr "Fordította"
 
-#: ../src/gnome-cmd-about-plugin.c:297
+#: ../src/gnome-cmd-about-plugin.c:295
 msgid "Plugin Webpage"
 msgstr "Bővítmények weblapja"
 
-#: ../src/gnome-cmd-about-plugin.c:309
+#: ../src/gnome-cmd-about-plugin.c:307
 msgid "C_redits"
 msgstr "_Köszönet"
 
-#: ../src/gnome-cmd-about-plugin.c:523
+#: ../src/gnome-cmd-about-plugin.c:521
 #, c-format
 msgid "About %s"
 msgstr "%s névjegye"
 
 #: ../src/gnome-cmd-advrename-dialog.c:99
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:739
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "Yes"
 msgstr "Igen"
 
 #: ../src/gnome-cmd-advrename-dialog.c:99
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:739
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "No"
 msgstr "Nem"
 
@@ -201,7 +201,7 @@ msgid "Replace this:"
 msgstr "Cserélje ezt:"
 
 #: ../src/gnome-cmd-advrename-dialog.c:269
-#: ../src/gnome-cmd-advrename-dialog.c:803
+#: ../src/gnome-cmd-advrename-dialog.c:809
 msgid "With this"
 msgstr "Erre"
 
@@ -217,89 +217,90 @@ msgstr "Új szabály"
 msgid "Edit Rule"
 msgstr "Szabály szerkesztése"
 
-#: ../src/gnome-cmd-advrename-dialog.c:642
+#: ../src/gnome-cmd-advrename-dialog.c:648
 msgid "Counter start value:"
 msgstr "Számláló kezdő értéke:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:643
+#: ../src/gnome-cmd-advrename-dialog.c:649
 msgid "Counter increment:"
 msgstr "Számláló lépésköze:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:644
+#: ../src/gnome-cmd-advrename-dialog.c:650
 msgid "Counter minimum digit count:"
 msgstr "A számlálókarakterek szélessége:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:649
+#: ../src/gnome-cmd-advrename-dialog.c:655
 msgid "Template Options"
 msgstr "Minta beállítások"
 
-#: ../src/gnome-cmd-advrename-dialog.c:653
+#: ../src/gnome-cmd-advrename-dialog.c:659
 msgid "Auto-update when the template is entered"
 msgstr "Automatikus frissítés, ha a minta adott"
 
-#: ../src/gnome-cmd-advrename-dialog.c:755
+#: ../src/gnome-cmd-advrename-dialog.c:761
 msgid "Advanced Rename Tool"
 msgstr "Haladó átnevezés"
 
-#: ../src/gnome-cmd-advrename-dialog.c:768
+#: ../src/gnome-cmd-advrename-dialog.c:774
 msgid "Template"
 msgstr "Minta"
 
-#: ../src/gnome-cmd-advrename-dialog.c:790
+#: ../src/gnome-cmd-advrename-dialog.c:796
 msgid "Options..."
 msgstr "Beállítások..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:797
+#: ../src/gnome-cmd-advrename-dialog.c:803
 msgid "Regex replacing"
 msgstr "Regex csere"
 
-#: ../src/gnome-cmd-advrename-dialog.c:802
+#: ../src/gnome-cmd-advrename-dialog.c:808
 msgid "Replace this"
 msgstr "Cserélje ezt"
 
-#: ../src/gnome-cmd-advrename-dialog.c:804
-msgid "Case sens"
-msgstr "Kis/nagybetű különböző"
+#: ../src/gnome-cmd-advrename-dialog.c:810
+#: ../src/gnome-cmd-options-dialog.c:97
+#: ../src/gnome-cmd-patternsel-dialog.c:147
+msgid "Case sensitive"
+msgstr "Kis/nagybetű különbözik"
 
-#: ../src/gnome-cmd-advrename-dialog.c:816
+#: ../src/gnome-cmd-advrename-dialog.c:822
 #: ../src/gnome-cmd-options-dialog.c:1342
 #: ../src/gnome-cmd-options-dialog.c:1701
 msgid "_Add..."
 msgstr "Hozzá_adás..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:819 ../src/gnome-cmd-ftp-dialog.c:522
+#: ../src/gnome-cmd-advrename-dialog.c:825 ../src/gnome-cmd-ftp-dialog.c:527
 #: ../src/gnome-cmd-options-dialog.c:1346
 #: ../src/gnome-cmd-options-dialog.c:1705
 msgid "_Edit..."
 msgstr "Sz_erkesztés..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:823
-#: ../src/gnome-cmd-bookmark-dialog.c:468 ../src/gnome-cmd-ftp-dialog.c:525
+#: ../src/gnome-cmd-advrename-dialog.c:829
+#: ../src/gnome-cmd-bookmark-dialog.c:468 ../src/gnome-cmd-ftp-dialog.c:530
 #: ../src/gnome-cmd-options-dialog.c:1352
 #: ../src/gnome-cmd-options-dialog.c:1711
 msgid "_Remove"
 msgstr "El_távolítás"
 
-#: ../src/gnome-cmd-advrename-dialog.c:827
+#: ../src/gnome-cmd-advrename-dialog.c:833
 msgid "Re_move All"
 msgstr "Ö_sszes eltávolítása"
 
-#: ../src/gnome-cmd-advrename-dialog.c:848
+#: ../src/gnome-cmd-advrename-dialog.c:854
 msgid "Result"
 msgstr "Eredmény"
 
-#: ../src/gnome-cmd-advrename-dialog.c:853
+#: ../src/gnome-cmd-advrename-dialog.c:859
 msgid "Current filenames"
 msgstr "Aktuális fájlnév"
 
-#: ../src/gnome-cmd-advrename-dialog.c:854
+#: ../src/gnome-cmd-advrename-dialog.c:860
 msgid "New filenames"
 msgstr "Új fájlnév"
 
-#. Dialog stuff
-#.
-#: ../src/gnome-cmd-advrename-dialog.c:860
-msgid "Reset"
+#: ../src/gnome-cmd-advrename-dialog.c:867
+#, fuzzy
+msgid "Rese_t"
 msgstr "Alapállapot"
 
 #: ../src/gnome-cmd-bookmark-dialog.c:69
@@ -343,7 +344,7 @@ msgstr "Hivatkozás"
 msgid "_Goto"
 msgstr "U_grás"
 
-#: ../src/gnome-cmd-bookmark-dialog.c:463 ../src/gnome-cmd-main-menu.c:764
+#: ../src/gnome-cmd-bookmark-dialog.c:463 ../src/gnome-cmd-main-menu.c:776
 msgid "_Edit"
 msgstr "Sz_erkesztés"
 
@@ -359,45 +360,45 @@ msgstr ""
 msgid "New Bookmark"
 msgstr "Új könyvjelző"
 
-#: ../src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Read"
 msgstr "Olvasás"
 
-#: ../src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Write"
 msgstr "Írás"
 
-#: ../src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Execute"
 msgstr "Végrehajtás"
 
-#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 #: ../src/gnome-cmd-chown-component.c:86
 msgid "Owner:"
 msgstr "Tulajdonos:"
 
-#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 #: ../src/gnome-cmd-chown-component.c:89
 msgid "Group:"
 msgstr "Csoport:"
 
-#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 msgid "Others:"
 msgstr "Többiek:"
 
-#: ../src/gnome-cmd-chmod-component.c:163
+#: ../src/gnome-cmd-chmod-component.c:159
 msgid "Text view:"
 msgstr "Szöveges nézet:"
 
-#: ../src/gnome-cmd-chmod-component.c:166
+#: ../src/gnome-cmd-chmod-component.c:162
 msgid "Number view:"
 msgstr "Numerikus nézet:"
 
-#: ../src/gnome-cmd-chmod-dialog.c:38 ../src/gnome-cmd-options-dialog.c:1135
+#: ../src/gnome-cmd-chmod-dialog.c:40 ../src/gnome-cmd-options-dialog.c:1135
 msgid "All files"
 msgstr "Minden fájl"
 
-#: ../src/gnome-cmd-chmod-dialog.c:39
+#: ../src/gnome-cmd-chmod-dialog.c:41
 msgid "Directories only"
 msgstr "Csak a könyvtárakra"
 
@@ -410,15 +411,15 @@ msgstr ""
 "A chmod sikertelen: %s\n"
 "%s"
 
-#: ../src/gnome-cmd-chmod-dialog.c:214
+#: ../src/gnome-cmd-chmod-dialog.c:204
 msgid "Access Permissions"
 msgstr "Hozzáférési jogosultságok"
 
-#: ../src/gnome-cmd-chmod-dialog.c:232
+#: ../src/gnome-cmd-chmod-dialog.c:222
 msgid "Apply Recursively for"
 msgstr "Rekurzív alkalmazás"
 
-#: ../src/gnome-cmd-chown-dialog.c:52
+#: ../src/gnome-cmd-chown-dialog.c:53
 #, c-format
 msgid ""
 "Could not chown %s\n"
@@ -427,11 +428,11 @@ msgstr ""
 "A chown sikertelen: %s\n"
 "%s"
 
-#: ../src/gnome-cmd-chown-dialog.c:181
+#: ../src/gnome-cmd-chown-dialog.c:175
 msgid "Chown"
 msgstr "Tulajdonos/Csoport adatok"
 
-#: ../src/gnome-cmd-chown-dialog.c:195
+#: ../src/gnome-cmd-chown-dialog.c:188
 msgid "Apply Recursively"
 msgstr "Alkalmazás rekurzívan"
 
@@ -493,32 +494,32 @@ msgstr "Csatolás: %s"
 msgid "Unmount: %s"
 msgstr "Leválasztás: %s"
 
-#: ../src/gnome-cmd-con-ftp.c:268
+#: ../src/gnome-cmd-con-ftp.c:276
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Kapcsolódás a(z) %s gépre\n"
 
-#: ../src/gnome-cmd-con-ftp.c:287
+#: ../src/gnome-cmd-con-ftp.c:294
 #, c-format
 msgid "Go to: %s"
 msgstr "Ugrás: %s"
 
-#: ../src/gnome-cmd-con-ftp.c:288
+#: ../src/gnome-cmd-con-ftp.c:295
 #, c-format
 msgid "Connect to: %s"
 msgstr "Kapcsolódás a(z) %s gépre"
 
-#: ../src/gnome-cmd-con-ftp.c:289
+#: ../src/gnome-cmd-con-ftp.c:296
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Lekapcsolódás a(z) %s gépről"
 
-#: ../src/gnome-cmd-con-ftp.c:307
-#, c-format
-msgid "Creates an FTP connection to %s"
+#: ../src/gnome-cmd-con-ftp.c:312
+#, fuzzy, c-format
+msgid "Creates the FTP connection to %s"
 msgstr "FTP kapcsolat létrehozása %s"
 
-#: ../src/gnome-cmd-con-ftp.c:309
+#: ../src/gnome-cmd-con-ftp.c:313
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "Az FTP kapcsolat eltávolítása %s"
@@ -677,56 +678,56 @@ msgstr "UID"
 msgid "gid"
 msgstr "GID"
 
-#: ../src/gnome-cmd-file-popmenu.c:131
+#: ../src/gnome-cmd-file-popmenu.c:130
 msgid "Invalid command"
 msgstr "Érvénytelen parancs"
 
-#: ../src/gnome-cmd-file-popmenu.c:159
+#: ../src/gnome-cmd-file-popmenu.c:158
 msgid "Application:"
 msgstr "Alkalmazás:"
 
-#: ../src/gnome-cmd-file-popmenu.c:163
+#: ../src/gnome-cmd-file-popmenu.c:162
 msgid "Open with other..."
 msgstr "Megnyitás mással..."
 
-#: ../src/gnome-cmd-file-popmenu.c:167
+#: ../src/gnome-cmd-file-popmenu.c:166
 msgid "Needs terminal"
 msgstr "Terminál szükséges"
 
-#: ../src/gnome-cmd-file-popmenu.c:418
+#: ../src/gnome-cmd-file-popmenu.c:415
 msgid "_Open"
 msgstr "Me_gnyitás"
 
-#: ../src/gnome-cmd-file-popmenu.c:425
+#: ../src/gnome-cmd-file-popmenu.c:422
 msgid "_Open with..."
 msgstr "Meg_nyitás mással..."
 
-#: ../src/gnome-cmd-file-popmenu.c:437
+#: ../src/gnome-cmd-file-popmenu.c:434
 msgid "_Execute"
 msgstr "Végr_ehajtás"
 
-#: ../src/gnome-cmd-file-popmenu.c:455
+#: ../src/gnome-cmd-file-popmenu.c:452
 msgid "_Cut"
 msgstr "_Kivágás"
 
-#: ../src/gnome-cmd-file-popmenu.c:462 ../src/gnome-cmd-main-menu.c:553
+#: ../src/gnome-cmd-file-popmenu.c:459 ../src/gnome-cmd-main-menu.c:553
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: ../src/gnome-cmd-file-popmenu.c:469 ../src/gnome-cmd-main-menu.c:565
+#: ../src/gnome-cmd-file-popmenu.c:466 ../src/gnome-cmd-main-menu.c:565
 msgid "_Delete"
 msgstr "_Törlés"
 
-#: ../src/gnome-cmd-file-popmenu.c:476
+#: ../src/gnome-cmd-file-popmenu.c:473
 msgid "Rename"
 msgstr "Átnevezés"
 
-#: ../src/gnome-cmd-file-popmenu.c:484
+#: ../src/gnome-cmd-file-popmenu.c:481
 #: ../src/gnome-cmd-file-props-dialog.c:475
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: ../src/gnome-cmd-file-popmenu.c:542
+#: ../src/gnome-cmd-file-popmenu.c:539
 msgid "Other..."
 msgstr "Egyéb..."
 
@@ -743,7 +744,7 @@ msgid "No default application registered"
 msgstr "Nincs alapértelmezett alkalmazás hozzárendelve"
 
 #: ../src/gnome-cmd-file-props-dialog.c:302
-#: ../src/gnome-cmd-file-selector.c:1989
+#: ../src/gnome-cmd-file-selector.c:1990
 msgid "Filename:"
 msgstr "Fájlnév:"
 
@@ -816,136 +817,143 @@ msgstr "Ismeretlen lemezhasználat"
 msgid "List failed: %s\n"
 msgstr "A listázás meghiúsult: %s\n"
 
-#: ../src/gnome-cmd-file-selector.c:1722
+#: ../src/gnome-cmd-file-selector.c:1723
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Hiba a(z) %s kapcsolat létrehozása közben\n"
 
-#: ../src/gnome-cmd-file-selector.c:1926
-#: ../src/gnome-cmd-make-copy-dialog.c:68 ../src/gnome-cmd-rename-dialog.c:52
+#: ../src/gnome-cmd-file-selector.c:1927
+#: ../src/gnome-cmd-make-copy-dialog.c:68 ../src/gnome-cmd-rename-dialog.c:53
 msgid "No filename entered"
 msgstr "Nem adott meg fájlnevet"
 
-#: ../src/gnome-cmd-file-selector.c:1961
+#: ../src/gnome-cmd-file-selector.c:1962
 msgid "No filename given"
 msgstr "Nem adott meg fájlnevet"
 
-#: ../src/gnome-cmd-file-selector.c:1995
+#: ../src/gnome-cmd-file-selector.c:1996
 msgid "New Text File"
 msgstr "Új szöveges fájl"
 
-#: ../src/gnome-cmd-file-selector.c:2172
+#: ../src/gnome-cmd-file-selector.c:2173
 msgid "Symlink name:"
 msgstr "Szimbolikus hivatkozás neve:"
 
-#: ../src/gnome-cmd-file-selector.c:2176
+#: ../src/gnome-cmd-file-selector.c:2177
 #, c-format
 msgid "Symlink to %s"
 msgstr "Szimbolikus hivatkozás erre: %s"
 
-#: ../src/gnome-cmd-file-selector.c:2178
+#: ../src/gnome-cmd-file-selector.c:2179
 msgid "Create Symbolic Link"
 msgstr "Szimbolikus hivatkozás létrehozása"
 
-#: ../src/gnome-cmd-file-selector.c:2249
+#: ../src/gnome-cmd-file-selector.c:2250
 msgid "Filter:"
 msgstr "Szűrő:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:160
+#: ../src/gnome-cmd-ftp-dialog.c:157
 #, c-format
 msgid "Enter password for %s@%s"
 msgstr "Adja meg %s@%s felhasználó jelszavát"
 
-#: ../src/gnome-cmd-ftp-dialog.c:165
+#: ../src/gnome-cmd-ftp-dialog.c:162
 msgid "Enter Password"
 msgstr "Jelszó"
 
-#: ../src/gnome-cmd-ftp-dialog.c:212
+#: ../src/gnome-cmd-ftp-dialog.c:211
 msgid "No alias specified"
 msgstr "Nincs álnév megadva"
 
-#: ../src/gnome-cmd-ftp-dialog.c:215
+#: ../src/gnome-cmd-ftp-dialog.c:214
 msgid "No host specified"
 msgstr "Nincs kiszolgáló megadva"
 
-#: ../src/gnome-cmd-ftp-dialog.c:218
+#: ../src/gnome-cmd-ftp-dialog.c:217
 #, c-format
 msgid "Invalid port number: %s"
 msgstr "Hibás portszám: %s"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293 ../src/gnome-cmd-options-dialog.c:1534
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-options-dialog.c:1534
 msgid "Alias:"
 msgstr "Álnév:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293 ../src/gnome-cmd-ftp-dialog.c:294
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Host:"
 msgstr "Kiszolgáló:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293 ../src/gnome-cmd-ftp-dialog.c:294
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Port:"
 msgstr "Port:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293 ../src/gnome-cmd-ftp-dialog.c:294
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "User:"
 msgstr "Felhasználó:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:293 ../src/gnome-cmd-ftp-dialog.c:294
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:316
-msgid "New FTP Server"
-msgstr "Új FTP-kiszolgáló"
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
+msgid "Remote Dir:"
+msgstr ""
 
-#: ../src/gnome-cmd-ftp-dialog.c:339
-msgid "Edit FTP Server"
-msgstr "FTP-kiszolgáló szerkesztése"
+#: ../src/gnome-cmd-ftp-dialog.c:318
+#, fuzzy
+msgid "New FTP Connection"
+msgstr "FTP kapcsolódás"
 
-#: ../src/gnome-cmd-ftp-dialog.c:369
+#: ../src/gnome-cmd-ftp-dialog.c:342
+#, fuzzy
+msgid "Edit FTP Connection"
+msgstr "FTP kapcsolódás"
+
+#: ../src/gnome-cmd-ftp-dialog.c:374
 msgid "No server selected"
 msgstr "Nincs kiválasztott kiszolgáló"
 
-#: ../src/gnome-cmd-ftp-dialog.c:490 ../src/gnome-cmd-main-win.c:1352
+#: ../src/gnome-cmd-ftp-dialog.c:495 ../src/gnome-cmd-main-win.c:1352
 msgid "FTP Connect"
 msgstr "FTP kapcsolódás"
 
-#: ../src/gnome-cmd-ftp-dialog.c:495
-msgid "Servers"
-msgstr "Kiszolgálók"
+#: ../src/gnome-cmd-ftp-dialog.c:500
+#, fuzzy
+msgid "Connections"
+msgstr "Kap_csolatok"
 
-#: ../src/gnome-cmd-ftp-dialog.c:515 ../src/gnome-cmd-options-dialog.c:1695
+#: ../src/gnome-cmd-ftp-dialog.c:520 ../src/gnome-cmd-options-dialog.c:1695
 msgid "Alias"
 msgstr "Álnév"
 
-#: ../src/gnome-cmd-ftp-dialog.c:520 ../src/gnome-cmd-list-popmenu.c:145
+#: ../src/gnome-cmd-ftp-dialog.c:525 ../src/gnome-cmd-list-popmenu.c:141
 msgid "_New..."
 msgstr "Ú_j..."
 
-#: ../src/gnome-cmd-ftp-dialog.c:534
+#: ../src/gnome-cmd-ftp-dialog.c:539
 msgid "Anonymous password:"
 msgstr "Anonymous jelszó:"
 
-#: ../src/gnome-cmd-ftp-dialog.c:543
+#: ../src/gnome-cmd-ftp-dialog.c:548
 msgid "Connect"
 msgstr "Kapcsolódás"
 
-#: ../src/gnome-cmd-ftp-dialog.c:638
+#: ../src/gnome-cmd-ftp-dialog.c:644
 msgid "FTP Quick Connect"
 msgstr "Gyors FTP kapcsolódás"
 
-#: ../src/gnome-cmd-list-popmenu.c:126
+#: ../src/gnome-cmd-list-popmenu.c:122
 msgid "_Directory"
 msgstr "_Könyvtár"
 
-#: ../src/gnome-cmd-list-popmenu.c:133
+#: ../src/gnome-cmd-list-popmenu.c:129
 msgid "_Text file"
 msgstr "_Szöveges fájl"
 
-#: ../src/gnome-cmd-list-popmenu.c:152 ../src/gnome-cmd-main-menu.c:559
+#: ../src/gnome-cmd-list-popmenu.c:148 ../src/gnome-cmd-main-menu.c:559
 msgid "_Paste"
 msgstr "_Beillesztés"
 
-#: ../src/gnome-cmd-list-popmenu.c:159 ../src/gnome-cmd-main-menu.c:614
+#: ../src/gnome-cmd-list-popmenu.c:155 ../src/gnome-cmd-main-menu.c:614
 msgid "_Refresh"
 msgstr "F_rissítés"
 
@@ -1101,41 +1109,51 @@ msgstr "_Tartalom"
 msgid "_Keyboard Shortcuts"
 msgstr "_Gyorsbillentyűk"
 
-#: ../src/gnome-cmd-main-menu.c:741 ../src/plugin_manager.c:440
+#: ../src/gnome-cmd-main-menu.c:740
+#, fuzzy
+msgid "GNOME Commander on the _Web"
+msgstr "GNOME Commander"
+
+#: ../src/gnome-cmd-main-menu.c:746
+#, fuzzy
+msgid "Report a _Problem"
+msgstr "Xfer probléma"
+
+#: ../src/gnome-cmd-main-menu.c:753 ../src/plugin_manager.c:440
 msgid "_About"
 msgstr "_Névjegy"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.c:760 ../src/libgviewer/viewer-window.c:991
+#: ../src/gnome-cmd-main-menu.c:772 ../src/libgviewer/viewer-window.c:991
 msgid "_File"
 msgstr "_Fájl"
 
-#: ../src/gnome-cmd-main-menu.c:768
+#: ../src/gnome-cmd-main-menu.c:780
 msgid "_Mark"
 msgstr "_Kijelölés"
 
-#: ../src/gnome-cmd-main-menu.c:772 ../src/libgviewer/viewer-window.c:994
+#: ../src/gnome-cmd-main-menu.c:784 ../src/libgviewer/viewer-window.c:994
 msgid "_View"
 msgstr "_Nézet"
 
-#: ../src/gnome-cmd-main-menu.c:777 ../src/libgviewer/viewer-window.c:1005
+#: ../src/gnome-cmd-main-menu.c:789 ../src/libgviewer/viewer-window.c:1005
 msgid "_Settings"
 msgstr "_Beállítások"
 
-#: ../src/gnome-cmd-main-menu.c:781
+#: ../src/gnome-cmd-main-menu.c:793
 msgid "_Connections"
 msgstr "Kap_csolatok"
 
-#: ../src/gnome-cmd-main-menu.c:785
+#: ../src/gnome-cmd-main-menu.c:797
 msgid "_Bookmarks"
 msgstr "_Könyvjelzők"
 
-#: ../src/gnome-cmd-main-menu.c:789
+#: ../src/gnome-cmd-main-menu.c:801
 msgid "_Plugins"
 msgstr "_Bővítmények"
 
-#: ../src/gnome-cmd-main-menu.c:793 ../src/libgviewer/viewer-window.c:1011
+#: ../src/gnome-cmd-main-menu.c:805 ../src/libgviewer/viewer-window.c:1011
 msgid "_Help"
 msgstr "_Súgó"
 
@@ -1229,15 +1247,15 @@ msgstr "\"%s\" másolása "
 msgid "Copy File"
 msgstr "Fájl másolása"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:48
+#: ../src/gnome-cmd-mkdir-dialog.c:49
 msgid "A directory name must be entered"
 msgstr "Adjon meg egy könyvtárnevet"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:141
+#: ../src/gnome-cmd-mkdir-dialog.c:137
 msgid "Directory name:"
 msgstr "Könyvtárnév:"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:149
+#: ../src/gnome-cmd-mkdir-dialog.c:145
 msgid "Make Directory"
 msgstr "Könyvtár létrehozása"
 
@@ -1268,11 +1286,6 @@ msgstr "Regex szintaxis"
 #: ../src/gnome-cmd-options-dialog.c:94
 msgid "Sorting options"
 msgstr "Rendezési beállítások"
-
-#: ../src/gnome-cmd-options-dialog.c:97
-#: ../src/gnome-cmd-patternsel-dialog.c:147
-msgid "Case sensitive"
-msgstr "Kis/nagybetű különbözik"
 
 #: ../src/gnome-cmd-options-dialog.c:105
 msgid "Quick search using"
@@ -1606,7 +1619,8 @@ msgstr "Program szerkesztése"
 
 #: ../src/gnome-cmd-options-dialog.c:1291
 msgid "Always download remote files before opening in external programs"
-msgstr "Mindig töltse le a távoli fájlokat, mielőtt egy külső programot elindítana"
+msgstr ""
+"Mindig töltse le a távoli fájlokat, mielőtt egy külső programot elindítana"
 
 #: ../src/gnome-cmd-options-dialog.c:1293
 msgid "MIME applications"
@@ -1754,8 +1768,8 @@ msgid_plural "move %d files to"
 msgstr[0] "%d fájl áthelyezése "
 msgstr[1] "%d fájl áthelyezése "
 
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:114
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:153
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:115
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:154
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr "A(z) \"%s\" könyvtár nem létezik. Létrehozza?"
@@ -1899,64 +1913,66 @@ msgstr "előkészítés..."
 msgid "downloading to /tmp"
 msgstr "letöltés a /tmp könyvtárba"
 
-#: ../src/gnome-cmd-xfer-progress-win.c:37
+#: ../src/gnome-cmd-xfer-progress-win.c:38
 msgid "stopping..."
 msgstr "leállítás..."
 
-#: ../src/gnome-cmd-xfer-progress-win.c:88
+#: ../src/gnome-cmd-xfer-progress-win.c:86
 msgid "Progress"
 msgstr "Folyamat"
 
-#: ../src/gnome-cmd-xfer-progress-win.c:174
+#: ../src/gnome-cmd-xfer-progress-win.c:169
 #, c-format
 msgid "%d%% of %s copied"
 msgstr "%d%% %s másolás folyik"
 
-#: ../src/gnome-cmd-xfer-progress-win.c:179
+#: ../src/gnome-cmd-xfer-progress-win.c:174
 #, c-format
 msgid "%d%% copied"
 msgstr "Másolási állapot: %d%%"
 
 #: ../src/imageloader.c:127
-msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgid ""
+"Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "Nem lehet betölteni a telepített fájltípus-képet, megpróbálom a "
 "forráskönyvtárból betölteni\n"
 
-#: ../src/imageloader.c:129 ../src/imageloader.c:154
+#: ../src/imageloader.c:129 ../src/imageloader.c:156
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr "Megpróbálom betölteni %s-t helyette\n"
 
-#: ../src/imageloader.c:133 ../src/imageloader.c:157
+#: ../src/imageloader.c:133 ../src/imageloader.c:159
+#, fuzzy, c-format
 msgid ""
-"Cant find the pixmap anywhere. Make sure you have installed the program or "
-"is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
+"Can't find the pixmap anywhere. Make sure you have installed the program or "
+"is executing gnome-commander from the gnome-commander-%s/src directory\n"
 msgstr ""
 "Sehol sem találom a képet. Győződjön meg, hogy a program telepítve van vagy "
 "a gnome-commander a gnome-commander-x.y.z/src könyvtárból lett indítva\n"
 
-#: ../src/imageloader.c:153
+#: ../src/imageloader.c:155
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
 "Nem lehet betölteni a telepített képet, megpróbálom a forráskönyvtárból "
 "betölteni\n"
 
-#: ../src/libgviewer/viewer-widget.c:204
+#: ../src/libgviewer/viewer-widget.c:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Elhelyezkedés: %lu/%lu\tOszlop: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.c:208
+#: ../src/libgviewer/viewer-widget.c:210
 msgid "Wrap"
 msgstr "Körbe"
 
-#: ../src/libgviewer/viewer-widget.c:228
+#: ../src/libgviewer/viewer-widget.c:230
 #, c-format
 msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
 msgstr "Kép mérete: %dx%d\tBitek/minta: %d\tNagyítás: %s"
 
-#: ../src/libgviewer/viewer-widget.c:230
+#: ../src/libgviewer/viewer-widget.c:232
 msgid "Fit-to-Window"
 msgstr "Ablakhoz igazítás"
 
@@ -2134,18 +2150,33 @@ msgstr "_Engedélyezés"
 msgid "_Configure"
 msgstr "_Beállítás"
 
+#: ../src/useractions.c:72
+#, fuzzy
+msgid "No file selected"
+msgstr "Nincs kiválasztott kiszolgáló"
+
 #: ../src/useractions.c:283
 #, c-format
 msgid "running \"%s\"\n"
 msgstr "\"%s\" futtatása\n"
 
-#: ../src/useractions.c:725
+#: ../src/useractions.c:711
+#, fuzzy
+msgid "There was an error opening home page."
+msgstr "Hiba történt a súgó megjelenítése közben."
+
+#: ../src/useractions.c:722
+#, fuzzy
+msgid "There was an error reporting problem."
+msgstr "Hiba történt a súgó megjelenítése közben."
+
+#: ../src/useractions.c:747
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Egy gyors és erőteljes fájlkezelő a GNOME asztalhoz"
 
 #. xgettext:
 #. * Replace this with your name when translating
-#: ../src/useractions.c:730
+#: ../src/useractions.c:752
 msgid "No translation is currently in use."
 msgstr ""
 "Dvornik László <dvornik@gnome.hu>\n"
@@ -2204,10 +2235,14 @@ msgid ""
 msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr[0] "A(z) %s nem képes távoli fájlok megnyitására. Le kívánja tölteni a fájlt egy ideiglenes helyre, és ezután megnyitni?"
-msgstr[1] "A(z) %s nem képes távoli fájlok megnyitására. Le kívánja tölteni a fájlt egy ideiglenes helyre, és ezután megnyitni?"
+msgstr[0] ""
+"A(z) %s nem képes távoli fájlok megnyitására. Le kívánja tölteni a fájlt egy "
+"ideiglenes helyre, és ezután megnyitni?"
+msgstr[1] ""
+"A(z) %s nem képes távoli fájlok megnyitására. Le kívánja tölteni a fájlt egy "
+"ideiglenes helyre, és ezután megnyitni?"
 
-#: ../src/utils.c:1172
+#: ../src/utils.c:1175
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -2216,22 +2251,33 @@ msgstr ""
 "Nem sikerült könyvtárat létrehozni az átmeneti fájlok tárolásához.\n"
 "Hibaüzenet: %s\n"
 
-#: ../src/utils.c:1342
+#: ../src/utils.c:1346
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Könyvtár létrehozása %s... "
 
-#: ../src/utils.c:1347
+#: ../src/utils.c:1351
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Hiba a(z) %s könyvtár létrehozása közben"
 
-#: ../src/utils.c:1353
+#: ../src/utils.c:1357
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Nem olvasható a(z) %s könyvtár: %s\n"
 
-#: ../src/utils.c:1475
+#: ../src/utils.c:1488
 msgid "There was an error displaying help."
 msgstr "Hiba történt a súgó megjelenítése közben."
 
+#~ msgid "Case sens"
+#~ msgstr "Kis/nagybetű különböző"
+
+#~ msgid "New FTP Server"
+#~ msgstr "Új FTP-kiszolgáló"
+
+#~ msgid "Edit FTP Server"
+#~ msgstr "FTP-kiszolgáló szerkesztése"
+
+#~ msgid "Servers"
+#~ msgstr "Kiszolgálók"
