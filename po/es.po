@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-31 13:37+0200\n"
-"PO-Revision-Date: 2006-07-29 20:33+0200\n"
+"POT-Creation-Date: 2006-08-21 11:24+0200\n"
+"PO-Revision-Date: 2006-08-21 11:24+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,12 +30,12 @@ msgstr "Un administrador de archivos con dos paneles"
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: ../libgcmd/gnome-cmd-string-dialog.c:133
+#: ../libgcmd/gnome-cmd-string-dialog.c:130
 msgid "No error description available"
 msgstr "No hay descripción de error disponible"
 
-#: ../plugins/cvs/cvs-plugin.c:304
-#: ../plugins/fileroller/file-roller-plugin.c:336
+#: ../plugins/cvs/cvs-plugin.c:299
+#: ../plugins/fileroller/file-roller-plugin.c:343
 #: ../src/gnome-cmd-ftp-dialog.c:536 ../src/gnome-cmd-options-dialog.c:1114
 #: ../src/gnome-cmd-options-dialog.c:1828
 #: ../src/gnome-cmd-prepare-copy-dialog.c:133
@@ -43,19 +43,19 @@ msgstr "No hay descripción de error disponible"
 msgid "Options"
 msgstr "Opciones"
 
-#: ../plugins/cvs/cvs-plugin.c:322
+#: ../plugins/cvs/cvs-plugin.c:313
 msgid "CVS options"
 msgstr "Opciones de CVS"
 
-#: ../plugins/cvs/cvs-plugin.c:325
+#: ../plugins/cvs/cvs-plugin.c:316
 msgid "Compression level"
 msgstr "Nivel de  compresión"
 
-#: ../plugins/cvs/cvs-plugin.c:334
+#: ../plugins/cvs/cvs-plugin.c:325
 msgid "Unified diff format"
 msgstr "Formato diff unificado"
 
-#: ../plugins/cvs/cvs-plugin.c:448
+#: ../plugins/cvs/cvs-plugin.c:433
 msgid "A plugin that eventually will be a simple CVS client"
 msgstr "Un complemento que eventualmente será un cliente CVS simple"
 
@@ -111,36 +111,36 @@ msgstr "Líneas:"
 msgid "Message:"
 msgstr "Mensaje:"
 
-#: ../plugins/fileroller/file-roller-plugin.c:167
+#: ../plugins/fileroller/file-roller-plugin.c:182
 msgid "What filename should the new archive have?"
 msgstr "¿Qué nombre debe tener el archivo nuevo?"
 
-#: ../plugins/fileroller/file-roller-plugin.c:169
+#: ../plugins/fileroller/file-roller-plugin.c:184
 msgid "Create Archive"
 msgstr "Crear paquete"
 
-#: ../plugins/fileroller/file-roller-plugin.c:273
+#: ../plugins/fileroller/file-roller-plugin.c:286
 msgid "Create Archive..."
 msgstr "Crear paquete"
 
-#: ../plugins/fileroller/file-roller-plugin.c:287
+#: ../plugins/fileroller/file-roller-plugin.c:300
 msgid "Extract in Current Directory"
 msgstr "Extraer en el directorio actual"
 
-#: ../plugins/fileroller/file-roller-plugin.c:292
+#: ../plugins/fileroller/file-roller-plugin.c:305
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Extraer en «%s»"
 
-#: ../plugins/fileroller/file-roller-plugin.c:352
+#: ../plugins/fileroller/file-roller-plugin.c:357
 msgid "File-roller options"
 msgstr "Opciones de File-roller"
 
-#: ../plugins/fileroller/file-roller-plugin.c:355
+#: ../plugins/fileroller/file-roller-plugin.c:360
 msgid "Default type"
 msgstr "Tipo predeterminado"
 
-#: ../plugins/fileroller/file-roller-plugin.c:477
+#: ../plugins/fileroller/file-roller-plugin.c:476
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
@@ -156,42 +156,42 @@ msgstr ""
 "Este es un complemento de ejemplo que es útil como un ejemplo sencillo para "
 "los aspirantes a hackers de complementos"
 
-#: ../src/gnome-cmd-about-plugin.c:186
+#: ../src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
 msgstr "Créditos"
 
-#: ../src/gnome-cmd-about-plugin.c:214
+#: ../src/gnome-cmd-about-plugin.c:212
 msgid "Written by"
 msgstr "Escrito por"
 
-#: ../src/gnome-cmd-about-plugin.c:228
+#: ../src/gnome-cmd-about-plugin.c:226
 msgid "Documented by"
 msgstr "Documentado por"
 
-#: ../src/gnome-cmd-about-plugin.c:240
+#: ../src/gnome-cmd-about-plugin.c:238
 msgid "Translated by"
 msgstr "Traducido por"
 
-#: ../src/gnome-cmd-about-plugin.c:297
+#: ../src/gnome-cmd-about-plugin.c:295
 msgid "Plugin Webpage"
 msgstr "Página web de complementos"
 
-#: ../src/gnome-cmd-about-plugin.c:309
+#: ../src/gnome-cmd-about-plugin.c:307
 msgid "C_redits"
 msgstr "C_réditos"
 
-#: ../src/gnome-cmd-about-plugin.c:523
+#: ../src/gnome-cmd-about-plugin.c:521
 #, c-format
 msgid "About %s"
 msgstr "Acerca de %s"
 
 #: ../src/gnome-cmd-advrename-dialog.c:99
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:739
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "Yes"
 msgstr "Sí"
 
 #: ../src/gnome-cmd-advrename-dialog.c:99
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:118 ../src/utils.c:739
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "No"
 msgstr "No"
 
@@ -204,7 +204,7 @@ msgid "Replace this:"
 msgstr "Reemplazar esto:"
 
 #: ../src/gnome-cmd-advrename-dialog.c:269
-#: ../src/gnome-cmd-advrename-dialog.c:803
+#: ../src/gnome-cmd-advrename-dialog.c:809
 msgid "With this"
 msgstr "Por esto"
 
@@ -220,90 +220,90 @@ msgstr "Nueva regla"
 msgid "Edit Rule"
 msgstr "Editar regla"
 
-#: ../src/gnome-cmd-advrename-dialog.c:642
+#: ../src/gnome-cmd-advrename-dialog.c:648
 msgid "Counter start value:"
 msgstr "Valor de inicio del contador:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:643
+#: ../src/gnome-cmd-advrename-dialog.c:649
 msgid "Counter increment:"
 msgstr "Incremento del contador:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:644
+#: ../src/gnome-cmd-advrename-dialog.c:650
 msgid "Counter minimum digit count:"
 msgstr "Mínimo contador de dígitos:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:649
+#: ../src/gnome-cmd-advrename-dialog.c:655
 msgid "Template Options"
 msgstr "Opciones de plantillas"
 
-#: ../src/gnome-cmd-advrename-dialog.c:653
+#: ../src/gnome-cmd-advrename-dialog.c:659
 msgid "Auto-update when the template is entered"
 msgstr "Actualizar cuando la plantilla se introduzca"
 
-#: ../src/gnome-cmd-advrename-dialog.c:755
+#: ../src/gnome-cmd-advrename-dialog.c:761
 msgid "Advanced Rename Tool"
 msgstr "Herramienta de renombrado avanzado"
 
-#: ../src/gnome-cmd-advrename-dialog.c:768
+#: ../src/gnome-cmd-advrename-dialog.c:774
 msgid "Template"
 msgstr "Plantilla"
 
-#: ../src/gnome-cmd-advrename-dialog.c:790
+#: ../src/gnome-cmd-advrename-dialog.c:796
 msgid "Options..."
 msgstr "Opciones..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:797
+#: ../src/gnome-cmd-advrename-dialog.c:803
 msgid "Regex replacing"
 msgstr "Reemplazo por expreg"
 
-#: ../src/gnome-cmd-advrename-dialog.c:802
+#: ../src/gnome-cmd-advrename-dialog.c:808
 msgid "Replace this"
 msgstr "Reemplazar esto"
 
-#: ../src/gnome-cmd-advrename-dialog.c:804
-msgid "Case sens"
-msgstr "Capitalización"
+#: ../src/gnome-cmd-advrename-dialog.c:810
+#: ../src/gnome-cmd-options-dialog.c:97
+#: ../src/gnome-cmd-patternsel-dialog.c:147
+msgid "Case sensitive"
+msgstr "Sensible a capitalización"
 
-#: ../src/gnome-cmd-advrename-dialog.c:816
+#: ../src/gnome-cmd-advrename-dialog.c:822
 #: ../src/gnome-cmd-options-dialog.c:1342
 #: ../src/gnome-cmd-options-dialog.c:1701
 msgid "_Add..."
 msgstr "_Añadir..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:819 ../src/gnome-cmd-ftp-dialog.c:527
+#: ../src/gnome-cmd-advrename-dialog.c:825 ../src/gnome-cmd-ftp-dialog.c:527
 #: ../src/gnome-cmd-options-dialog.c:1346
 #: ../src/gnome-cmd-options-dialog.c:1705
 msgid "_Edit..."
 msgstr "_Editar..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:823
+#: ../src/gnome-cmd-advrename-dialog.c:829
 #: ../src/gnome-cmd-bookmark-dialog.c:468 ../src/gnome-cmd-ftp-dialog.c:530
 #: ../src/gnome-cmd-options-dialog.c:1352
 #: ../src/gnome-cmd-options-dialog.c:1711
 msgid "_Remove"
 msgstr "_Eliminar"
 
-#: ../src/gnome-cmd-advrename-dialog.c:827
+#: ../src/gnome-cmd-advrename-dialog.c:833
 msgid "Re_move All"
 msgstr "Eli_minar todo"
 
-#: ../src/gnome-cmd-advrename-dialog.c:848
+#: ../src/gnome-cmd-advrename-dialog.c:854
 msgid "Result"
 msgstr "Resultado"
 
-#: ../src/gnome-cmd-advrename-dialog.c:853
+#: ../src/gnome-cmd-advrename-dialog.c:859
 msgid "Current filenames"
 msgstr "Nombres de archivo actuales"
 
-#: ../src/gnome-cmd-advrename-dialog.c:854
+#: ../src/gnome-cmd-advrename-dialog.c:860
 msgid "New filenames"
 msgstr "Nuevos nombres de archivos"
 
-#. Dialog stuff
-#.
-#: ../src/gnome-cmd-advrename-dialog.c:860
-msgid "Reset"
-msgstr "Restablecer"
+#: ../src/gnome-cmd-advrename-dialog.c:867
+msgid "Rese_t"
+msgstr "Res_tablecer"
 
 #: ../src/gnome-cmd-bookmark-dialog.c:69
 msgid "Bookmark name:"
@@ -362,37 +362,37 @@ msgstr ""
 msgid "New Bookmark"
 msgstr "Marcador nuevo"
 
-#: ../src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Read"
 msgstr "Lectura"
 
-#: ../src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Write"
 msgstr "Escritura"
 
-#: ../src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Execute"
 msgstr "Ejecución"
 
-#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 #: ../src/gnome-cmd-chown-component.c:86
 msgid "Owner:"
 msgstr "Propietario:"
 
-#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 #: ../src/gnome-cmd-chown-component.c:89
 msgid "Group:"
 msgstr "Grupo:"
 
-#: ../src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 msgid "Others:"
 msgstr "Otros:"
 
-#: ../src/gnome-cmd-chmod-component.c:163
+#: ../src/gnome-cmd-chmod-component.c:159
 msgid "Text view:"
 msgstr "Vista de texto:"
 
-#: ../src/gnome-cmd-chmod-component.c:166
+#: ../src/gnome-cmd-chmod-component.c:162
 msgid "Number view:"
 msgstr "Vista número:"
 
@@ -680,56 +680,56 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-popmenu.c:131
+#: ../src/gnome-cmd-file-popmenu.c:130
 msgid "Invalid command"
 msgstr "Comando inválido"
 
-#: ../src/gnome-cmd-file-popmenu.c:159
+#: ../src/gnome-cmd-file-popmenu.c:158
 msgid "Application:"
 msgstr "Aplicación:"
 
-#: ../src/gnome-cmd-file-popmenu.c:163
+#: ../src/gnome-cmd-file-popmenu.c:162
 msgid "Open with other..."
 msgstr "Abrir con otro..."
 
-#: ../src/gnome-cmd-file-popmenu.c:167
+#: ../src/gnome-cmd-file-popmenu.c:166
 msgid "Needs terminal"
 msgstr "Requiere terminal"
 
-#: ../src/gnome-cmd-file-popmenu.c:418
+#: ../src/gnome-cmd-file-popmenu.c:415
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../src/gnome-cmd-file-popmenu.c:425
+#: ../src/gnome-cmd-file-popmenu.c:422
 msgid "_Open with..."
 msgstr "_Abrir con..."
 
-#: ../src/gnome-cmd-file-popmenu.c:437
+#: ../src/gnome-cmd-file-popmenu.c:434
 msgid "_Execute"
 msgstr "_Ejecutar"
 
-#: ../src/gnome-cmd-file-popmenu.c:455
+#: ../src/gnome-cmd-file-popmenu.c:452
 msgid "_Cut"
 msgstr "_Cortar"
 
-#: ../src/gnome-cmd-file-popmenu.c:462 ../src/gnome-cmd-main-menu.c:553
+#: ../src/gnome-cmd-file-popmenu.c:459 ../src/gnome-cmd-main-menu.c:553
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: ../src/gnome-cmd-file-popmenu.c:469 ../src/gnome-cmd-main-menu.c:565
+#: ../src/gnome-cmd-file-popmenu.c:466 ../src/gnome-cmd-main-menu.c:565
 msgid "_Delete"
 msgstr "_Borrar"
 
-#: ../src/gnome-cmd-file-popmenu.c:476
+#: ../src/gnome-cmd-file-popmenu.c:473
 msgid "Rename"
 msgstr "Renombrar"
 
-#: ../src/gnome-cmd-file-popmenu.c:484
+#: ../src/gnome-cmd-file-popmenu.c:481
 #: ../src/gnome-cmd-file-props-dialog.c:475
 msgid "Properties"
 msgstr "Propiedades"
 
-#: ../src/gnome-cmd-file-popmenu.c:542
+#: ../src/gnome-cmd-file-popmenu.c:539
 msgid "Other..."
 msgstr "Otros..."
 
@@ -746,7 +746,7 @@ msgid "No default application registered"
 msgstr "No hay una aplicación predeterminada registrada"
 
 #: ../src/gnome-cmd-file-props-dialog.c:302
-#: ../src/gnome-cmd-file-selector.c:1989
+#: ../src/gnome-cmd-file-selector.c:1990
 msgid "Filename:"
 msgstr "Nombre del archivo:"
 
@@ -819,38 +819,38 @@ msgstr "Uso de disco desconocido"
 msgid "List failed: %s\n"
 msgstr "Falló el listado: %s\n"
 
-#: ../src/gnome-cmd-file-selector.c:1722
+#: ../src/gnome-cmd-file-selector.c:1723
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Fallo al abrir conexión %s\n"
 
-#: ../src/gnome-cmd-file-selector.c:1926
-#: ../src/gnome-cmd-make-copy-dialog.c:68 ../src/gnome-cmd-rename-dialog.c:52
+#: ../src/gnome-cmd-file-selector.c:1927
+#: ../src/gnome-cmd-make-copy-dialog.c:68 ../src/gnome-cmd-rename-dialog.c:53
 msgid "No filename entered"
 msgstr "Ningún nombre de archivo introducido"
 
-#: ../src/gnome-cmd-file-selector.c:1961
+#: ../src/gnome-cmd-file-selector.c:1962
 msgid "No filename given"
 msgstr "Ningún nombre de archivo dado"
 
-#: ../src/gnome-cmd-file-selector.c:1995
+#: ../src/gnome-cmd-file-selector.c:1996
 msgid "New Text File"
 msgstr "Nuevos archivo de texto"
 
-#: ../src/gnome-cmd-file-selector.c:2172
+#: ../src/gnome-cmd-file-selector.c:2173
 msgid "Symlink name:"
 msgstr "Nombre del enlace simbólico:"
 
-#: ../src/gnome-cmd-file-selector.c:2176
+#: ../src/gnome-cmd-file-selector.c:2177
 #, c-format
 msgid "Symlink to %s"
 msgstr "Enlace simbólico a %s"
 
-#: ../src/gnome-cmd-file-selector.c:2178
+#: ../src/gnome-cmd-file-selector.c:2179
 msgid "Create Symbolic Link"
 msgstr "Crear un enlace simbólico"
 
-#: ../src/gnome-cmd-file-selector.c:2249
+#: ../src/gnome-cmd-file-selector.c:2250
 msgid "Filter:"
 msgstr "Filtro:"
 
@@ -924,7 +924,7 @@ msgstr "Conexiones"
 msgid "Alias"
 msgstr "Alias"
 
-#: ../src/gnome-cmd-ftp-dialog.c:525 ../src/gnome-cmd-list-popmenu.c:145
+#: ../src/gnome-cmd-ftp-dialog.c:525 ../src/gnome-cmd-list-popmenu.c:141
 msgid "_New..."
 msgstr "_Nuevo..."
 
@@ -940,19 +940,19 @@ msgstr "Conectar"
 msgid "FTP Quick Connect"
 msgstr "Conexión rápida FTP"
 
-#: ../src/gnome-cmd-list-popmenu.c:126
+#: ../src/gnome-cmd-list-popmenu.c:122
 msgid "_Directory"
 msgstr "_Directorio"
 
-#: ../src/gnome-cmd-list-popmenu.c:133
+#: ../src/gnome-cmd-list-popmenu.c:129
 msgid "_Text file"
 msgstr "Archivo de _texto"
 
-#: ../src/gnome-cmd-list-popmenu.c:152 ../src/gnome-cmd-main-menu.c:559
+#: ../src/gnome-cmd-list-popmenu.c:148 ../src/gnome-cmd-main-menu.c:559
 msgid "_Paste"
 msgstr "_Pegar"
 
-#: ../src/gnome-cmd-list-popmenu.c:159 ../src/gnome-cmd-main-menu.c:614
+#: ../src/gnome-cmd-list-popmenu.c:155 ../src/gnome-cmd-main-menu.c:614
 msgid "_Refresh"
 msgstr "_Refrescar"
 
@@ -1244,15 +1244,15 @@ msgstr "Copiar «%s» a"
 msgid "Copy File"
 msgstr "Copiar archivo"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:48
+#: ../src/gnome-cmd-mkdir-dialog.c:49
 msgid "A directory name must be entered"
 msgstr "Debe introducirse un nombre de directorio"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:141
+#: ../src/gnome-cmd-mkdir-dialog.c:137
 msgid "Directory name:"
 msgstr "Nombre de directorio:"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:149
+#: ../src/gnome-cmd-mkdir-dialog.c:145
 msgid "Make Directory"
 msgstr "Crear directorio"
 
@@ -1283,11 +1283,6 @@ msgstr "Sintaxis expreg"
 #: ../src/gnome-cmd-options-dialog.c:94
 msgid "Sorting options"
 msgstr "Opciones de ordenación"
-
-#: ../src/gnome-cmd-options-dialog.c:97
-#: ../src/gnome-cmd-patternsel-dialog.c:147
-msgid "Case sensitive"
-msgstr "Sensible a capitalización"
 
 #: ../src/gnome-cmd-options-dialog.c:105
 msgid "Quick search using"
@@ -1770,8 +1765,8 @@ msgid_plural "move %d files to"
 msgstr[0] "mover %d archivo a"
 msgstr[1] "mover %d archivos a"
 
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:114
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:153
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:115
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:154
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr "El directorio «%s» no existe, ¿quiere crearlo?"
@@ -1915,20 +1910,20 @@ msgstr "preparando..."
 msgid "downloading to /tmp"
 msgstr "descargando a /tmp"
 
-#: ../src/gnome-cmd-xfer-progress-win.c:37
+#: ../src/gnome-cmd-xfer-progress-win.c:38
 msgid "stopping..."
 msgstr "deteniendo..."
 
-#: ../src/gnome-cmd-xfer-progress-win.c:88
+#: ../src/gnome-cmd-xfer-progress-win.c:86
 msgid "Progress"
 msgstr "Progreso"
 
-#: ../src/gnome-cmd-xfer-progress-win.c:174
+#: ../src/gnome-cmd-xfer-progress-win.c:169
 #, c-format
 msgid "%d%% of %s copied"
 msgstr "%d%% de %s copiado"
 
-#: ../src/gnome-cmd-xfer-progress-win.c:179
+#: ../src/gnome-cmd-xfer-progress-win.c:174
 #, c-format
 msgid "%d%% copied"
 msgstr "%d%% copiado"
@@ -1940,41 +1935,39 @@ msgstr ""
 "Imposible cargar la imagen del tipo de archivo instalado, tratando de "
 "cargarlos desde el directorio fuente\n"
 
-#: ../src/imageloader.c:129 ../src/imageloader.c:154
+#: ../src/imageloader.c:129 ../src/imageloader.c:156
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr "Intentando cargar %s en su lugar\n"
 
-#: ../src/imageloader.c:133 ../src/imageloader.c:157
+#: ../src/imageloader.c:133 ../src/imageloader.c:159
+#, c-format
 msgid ""
-"Cant find the pixmap anywhere. Make sure you have installed the program or "
-"is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
-msgstr ""
-"Imposible encontrar la imagen. Verifique que se haya instalado el programa o "
-"que se esté ejecutando el gnome-commander desde el directorio gnome-"
-"commander-x.y./src\n"
+"Can't find the pixmap anywhere. Make sure you have installed the program or "
+"is executing gnome-commander from the gnome-commander-%s/src directory\n"
+msgstr "Imposible encontrar la imagen. Verifique que se haya instalado el programa o que se esté ejecutando el gnome-commander desde el directorio gnome-commander-%s/src\n"
 
-#: ../src/imageloader.c:153
+#: ../src/imageloader.c:155
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
 "Imposible cargar la imagen, tratando de cargarlos desde el directorio "
 "fuente\n"
 
-#: ../src/libgviewer/viewer-widget.c:204
+#: ../src/libgviewer/viewer-widget.c:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Posición: %lu de %lu\tColumas: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.c:208
+#: ../src/libgviewer/viewer-widget.c:210
 msgid "Wrap"
 msgstr "Ajuste"
 
-#: ../src/libgviewer/viewer-widget.c:228
+#: ../src/libgviewer/viewer-widget.c:230
 #, c-format
 msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
 msgstr "Tamaño de imagen: %dx%d\tBits/muestra: %d\tAmpliación: %s"
 
-#: ../src/libgviewer/viewer-widget.c:230
+#: ../src/libgviewer/viewer-widget.c:232
 msgid "Fit-to-Window"
 msgstr "Ajustar a la ventana"
 
@@ -2239,7 +2232,7 @@ msgstr[1] ""
 "%s no sabe cómo abrir archivos remotos. ¿Quiere descargar los archivos a una "
 "ubicación temporal y abrirlo?"
 
-#: ../src/utils.c:1172
+#: ../src/utils.c:1175
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -2248,21 +2241,24 @@ msgstr ""
 "Falló al crear el directorio para almacenar archivos temporalmente en él.\n"
 "Mensaje de error: %s\n"
 
-#: ../src/utils.c:1342
+#: ../src/utils.c:1346
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Creando directorio %s..."
 
-#: ../src/utils.c:1347
+#: ../src/utils.c:1351
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Falo al crear el directorio %s"
 
-#: ../src/utils.c:1353
+#: ../src/utils.c:1357
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "No se pudo leer del directorio %s: %s\n"
 
-#: ../src/utils.c:1484
+#: ../src/utils.c:1488
 msgid "There was an error displaying help."
 msgstr "Hubo un error al mostrar la ayuda."
+
+#~ msgid "Case sens"
+#~ msgstr "Capitalización"
