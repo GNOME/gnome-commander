@@ -1,3 +1,11 @@
+2006-08-30  Roma <romanr@ua.fm>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-main-win.c:
+	* src/useractions.c:
+	Save the window state across sessions.
+
 2006-08-10  Dirk Göttel <dgoettel@freenet.de>
 
 	* data/gnome-commander.ebuild:

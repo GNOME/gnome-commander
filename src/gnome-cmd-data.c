@@ -101,6 +101,7 @@ struct _GnomeCmdDataPrivate
     gint                 main_win_pos[2];
     gchar                *backup_pattern;
     GList                *backup_pattern_list;
+    GdkWindowState       main_win_state;
 
     gchar *viewer;
     gchar *editor;
@@ -1216,6 +1217,8 @@ gnome_cmd_data_save                      (void)
     gnome_cmd_data_set_string ("/defaults/last_pattern", data->priv->last_pattern);
     gnome_cmd_data_set_string ("/defaults/backup_pattern", data->priv->backup_pattern);
 
+    gnome_cmd_data_set_int ("/options/main_win_state",(gint) data->priv->main_win_state);
+
     write_cmdline_history ();
     //write_dir_history ();
 
@@ -1411,6 +1414,8 @@ gnome_cmd_data_load                      (void)
     data->priv->quick_connect_host = gnome_cmd_data_get_string ("/quick-connect/host", "ftp.gnome.org");
     data->priv->quick_connect_port = gnome_cmd_data_get_int    ("/quick-connect/port", 21);
     data->priv->quick_connect_user = gnome_cmd_data_get_string ("/quick-connect/user", "anonymous");
+
+    data->priv->main_win_state = gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
 
     load_cmdline_history ();
     //load_dir_history ();
@@ -2323,4 +2328,17 @@ GList *
 gnome_cmd_data_get_backup_pattern_list (void)
 {
     return data->priv->backup_pattern_list;
+}
+
+
+GdkWindowState gnome_cmd_data_get_main_win_state (void)
+{
+    return data->priv->main_win_state;
+}
+
+
+void gnome_cmd_data_set_main_win_state (GdkWindowState state)
+{
+    data->priv->main_win_state = state;
+//    data->priv->main_win_state = gdk_window_get_state (GTK_WIDGET (main_win)->window);
 }

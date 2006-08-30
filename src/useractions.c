@@ -292,8 +292,16 @@ file_exit                           (GtkMenuItem     *menuitem,
 {
     gint x, y;
 
-    gdk_window_get_root_origin (GTK_WIDGET (main_win)->window, &x, &y);
-    gnome_cmd_data_set_main_win_pos (x, y);
+    switch (gnome_cmd_data_get_main_win_state())
+    {
+        case GDK_WINDOW_STATE_MAXIMIZED:
+        case GDK_WINDOW_STATE_FULLSCREEN:
+        case GDK_WINDOW_STATE_ICONIFIED:
+                break;
+        default:
+                gdk_window_get_root_origin (GTK_WIDGET (main_win)->window, &x, &y);
+                gnome_cmd_data_set_main_win_pos (x, y);
+    }
 
     gtk_widget_destroy (GTK_WIDGET (main_win));
 }
@@ -349,7 +357,7 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
     sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
 
     for (i = sfl; i; i = i->next) 
-	{
+    {
         GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
 
         if (finfo)

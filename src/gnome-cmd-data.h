@@ -80,7 +80,6 @@ typedef struct {
 
 
 
-
 GnomeCmdData*
 gnome_cmd_data_new                       (void);
 
@@ -453,6 +452,12 @@ gnome_cmd_data_get_backup_pattern (void);
 
 GList *
 gnome_cmd_data_get_backup_pattern_list (void);
+
+GdkWindowState
+gnome_cmd_data_get_main_win_state (void);
+
+void
+gnome_cmd_data_set_main_win_state (GdkWindowState state);
 
 G_END_DECLS
 

@@ -612,7 +612,14 @@ on_size_allocate                  (GtkWidget *widget,
                                    GtkAllocation *allocation,
                                    gpointer user_data)
 {
-    gnome_cmd_data_set_main_win_size (allocation->width, allocation->height);
+    switch( gnome_cmd_data_get_main_win_state() ) {
+    case GDK_WINDOW_STATE_ICONIFIED:
+    case GDK_WINDOW_STATE_MAXIMIZED:
+    case GDK_WINDOW_STATE_FULLSCREEN:
+            break;
+    default:
+        gnome_cmd_data_set_main_win_size (allocation->width, allocation->height);
+    }
 }
 
 
@@ -717,6 +724,13 @@ restore_size_and_pos (GnomeCmdMainWin *mw)
     gnome_cmd_data_get_main_win_pos (&x, &y);
     if (x >= 0 && y >= 0)
         gtk_window_move (GTK_WINDOW (mw), x, y);
+
+    switch( gnome_cmd_data_get_main_win_state() ) {
+    case GDK_WINDOW_STATE_MAXIMIZED:
+    case GDK_WINDOW_STATE_FULLSCREEN:
+        gtk_window_maximize (GTK_WINDOW (mw));
+        break;
+    }
 }
 
 
@@ -724,6 +738,32 @@ static void
 on_delete_event (GnomeCmdMainWin *mw, GdkEvent *event, gpointer user_data)
 {
     file_exit (NULL, mw);
+}
+
+static gboolean
+on_window_state_event (GtkWidget *mw, GdkEventWindowState *event, gpointer user_data)
+{
+    gint x, y;
+
+    switch (event->new_window_state)
+    {
+            case GDK_WINDOW_STATE_MAXIMIZED:    // not usable
+            case GDK_WINDOW_STATE_FULLSCREEN:   // not usable
+                    break;
+
+            case GDK_WINDOW_STATE_ICONIFIED:
+                        if (gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_MAXIMIZED ||  // prev state
+                            gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_FULLSCREEN)
+                        break;  // not usable
+
+            default:            // other are usable
+                gdk_window_get_root_origin (mw->window, &x, &y);
+                gnome_cmd_data_set_main_win_pos (x, y);
+    }
+
+    gnome_cmd_data_set_main_win_state (event->new_window_state);
+
+    return FALSE;
 }
 
 
@@ -884,6 +924,9 @@ init (GnomeCmdMainWin *mw)
     gtk_signal_connect (
         GTK_OBJECT (mw->priv->paned),
         "button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
+    g_signal_connect (
+        mw, "window-state-event",
+    GTK_SIGNAL_FUNC (on_window_state_event), NULL);
 
     gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, LEFT));
     gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, RIGHT));
