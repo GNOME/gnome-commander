@@ -1,3 +1,8 @@
+2006-09-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* gnome-cmd-file-list.c:
+        Set default sorting of size column to descending.
+
 2006-08-30  Roma <romanr@ua.fm>
 
 	* src/gnome-cmd-data.c:
