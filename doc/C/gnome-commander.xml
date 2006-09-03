@@ -4,7 +4,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.1">
   <!ENTITY manrevision "1.2.1">
-  <!ENTITY date "August 2006">
+  <!ENTITY date "September 2006">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -294,6 +294,117 @@
     </listitem>
     </varlistentry>
     </variablelist>
+    </sect2>
+
+    <sect2 id="gnome-commander-command-line">
+    <title>Command Line Options</title>
+      <variablelist>
+        <varlistentry>
+          <term>
+            <guilabel>Options</guilabel> </term>
+          <listitem>
+            <itemizedlist>
+              <listitem>
+                <para>
+                  <guilabel>--help</guilabel>
+                </para>
+                <para>Show summary of options.</para>
+              </listitem>
+              <listitem>
+                <para>
+                  <guilabel>--version</guilabel>
+                </para>
+                <para>Show version of &app;.</para>
+              </listitem>
+              <listitem>
+                <para>
+                  <guilabel>-l, --start-left-dir=STRING</guilabel>
+                </para>
+                <para>Specify the start directory for the left pane.</para>
+              </listitem>
+              <listitem>
+                <para>
+                  <guilabel>-r, --start-right-dir=STRING</guilabel>
+                </para>
+                <para>Specify the start directory for the right pane.</para>
+              </listitem>
+              <listitem>
+                <para>
+                  <guilabel>-d, --debug=STRING</guilabel>
+                </para>
+                <para>Specify debug flags to use. Debug output will be written to stdout.</para>
+                <para>Possible flags:</para>
+                <itemizedlist>
+                    <listitem>
+                        <para><guilabel>c</guilabel> file and directory counting</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>d</guilabel> directory ref-counting</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>f</guilabel> file ref-counting</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>g</guilabel> run_command debugging</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>i</guilabel> image loader</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>p</guilabel> directory pool</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>l</guilabel> directory listings</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>m</guilabel> connection debug</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>n</guilabel> directory monitoring debug</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>s</guilabel> SMB network browser debugging</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>v</guilabel> internal viewer</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>w</guilabel> widget_lookup debugging</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>x</guilabel> xfer</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>y</guilabel> brief MIME based imageload debugging</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>z</guilabel> detailed MIME based imageload debugging</para>
+                    </listitem>
+                </itemizedlist>
+              </listitem>
+              <listitem>
+                <para>
+                  <guilabel>[gtk,gnome,bonobo options]</guilabel>
+                </para>
+                <para>Standard gtk, gnome, bonobo options are supported.
+                      Use <guilabel>--help</guilabel> to see possible options.</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            <guilabel>Examples</guilabel> </term>
+          <listitem>
+              <para>
+                gnome-commander -d nvl
+              </para>
+              <para>
+                Starts &app; with debugging of directory listings, internal viewer and directory monitoring facilities.
+              </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
     </sect2>
   </sect1>
 
@@ -622,7 +733,7 @@
         <sect3 id="gnome-commander-advanced-rename-ranges">
         <title>Ranges</title>
         <para>Ranges are a method of accessing a part of a string. The concept of ranges is based on python slices.</para>
-        
+
         <para>A range (start_index:end_index) starts at the start_index and finishes one character before the end_index.</para>
 
         <variablelist>
@@ -1051,18 +1162,15 @@
     <itemizedlist>
       <listitem>
         <para>
-      <xref linkend="gnome-commander-prefs-display"/></para>
+      <xref linkend="gnome-commander-prefs-general"/></para>
       </listitem>
       <listitem>
     <para>
-      <xref linkend="gnome-commander-prefs-viewers"/></para>
+      <xref linkend="gnome-commander-prefs-format"/></para>
       </listitem>
     </itemizedlist>
-<!-- =============== Customization Subsection ================ -->
-<!-- Use a new section to describe different tabbed sections on the Settings or Preferences
-         dialog. -->
-    <sect2 id="gnome-commander-prefs-display">
-      <title>Display</title>
+    <sect2 id="gnome-commander-prefs-general">
+      <title>General</title>
       <variablelist>
     <varlistentry>
       <term>
@@ -1070,8 +1178,7 @@
       <listitem>
         <para>Use this drop-down list box to specify the
           interpolation method that &app; uses when the
-          application resizes images. Select one of the following
-          options:</para>
+          application resizes images. Select one of the following options:</para>
         <itemizedlist>
           <listitem>
         <para>
@@ -1232,10 +1339,8 @@
     </varlistentry>
       </variablelist>
     </sect2>
-    <!-- ============= Customization Subsection ===================== -->
-    <!-- Another tabbed section on the Preferences dialog. -->
-    <sect2 id="gnome-commander-prefs-viewers">
-      <title>Viewers</title>
+    <sect2 id="gnome-commander-prefs-format">
+      <title>Format</title>
       <para>You can set the following viewer preferences:
     <itemizedlist>
       <listitem>
@@ -1397,140 +1502,6 @@
       </sect3>
     </sect2>
   </sect1>
-
-<!-- ============= Tips and tricks ======================== -->
-<!-- This section contains info some very simple tips and tricks.-->
-  <sect1 id="gnome-commander-tips-and-tricks">
-  <title>Tips and tricks for &app;</title>
-  <para>Some very simple tips and tricks on using and getting the most out of &app;.</para>
-
-  <variablelist>
-    <varlistentry>
-      <term>
-        <guilabel>Handling archives</guilabel> </term>
-      <listitem>
-        <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so
-        that working with archives becomes quite practical anyway. This is how you do it:</para>
-        <itemizedlist>
-          <listitem>
-              <para>If you don't already have the program <application>File Roller</application>,
-              download it and install it.</para>
-          </listitem>
-          <listitem>
-        <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Programs</guimenuitem> tab.</para>
-          </listitem>
-          <listitem>
-        <para>Add two favourite apps using the values shown here and here.</para>
-          </listitem>
-        </itemizedlist>
-
-        <!-- ==== Figure ==== -->
-          <figure id="create-archive-fig">
-              <title>Creating Archives with File Roller</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/create_archive.png" format="PNG"/>
-                         </imageobject>
-                    <textobject><phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area,
-                                         and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
-
-        <!-- ==== Figure ==== -->
-          <figure id="extract-archive-fig">
-              <title>Extracting Archives with File Roller</title>
-              <screenshot>
-                 <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="figures/extract_archive.png" format="PNG"/>
-                         </imageobject>
-                    <textobject><phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area,
-                                         and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
-                    </textobject>
-                </mediaobject>
-              </screenshot>
-            </figure>
-        <!-- ==== End of Figure ==== -->
-
-        <para>You can now right click any file or folder and choose <guimenuitem>Create archive...</guimenuitem>
-        to compress it and right click compressed files and choose <guimenuitem>Extract archive...</guimenuitem>
-        to extract it.</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-        <guilabel>Using removable media</guilabel> </term>
-      <listitem>
-        <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app;
-        automatically take care of mounting them by following this guide:</para>
-        <itemizedlist>
-          <listitem>
-              <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Devices</guimenuitem> tab.</para>
-          </listitem>
-          <listitem>
-        <para>Add the devices that you are using. This is how the program looks with a few added devices.
-        In the last image the red circle shows the available devices, there is also a button, in the green circle,
-        to press if we want to unmount the floppy, which happened to be mounted.
-        The icons that are used for the devices in the example should be available
-        in the $(prefix)/share/pixmaps/gnome-commander/device-icons folder on your computer.</para>
-          </listitem>
-          <listitem>
-        <para>There is also an option to skip mounting in the option device tab,
-        this can be useful for making shortcuts to directories, or if you have some automounting feature
-        that mounts it at its mountpoint when available, or if you use Supermount that does it on access basis.</para>
-          </listitem>
-        </itemizedlist>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-        <guilabel>Opening a full terminal</guilabel> </term>
-      <listitem>
-        <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory.
-        Well, that is easy, just type <application>sh</application>, or maybe <application>bash</application> if you prefer,
-        in the &app; command line and press <keycap>SHIFT+ENTER</keycap> - there you have it.</para>
-      </listitem>
-    </varlistentry>
-
-    <varlistentry>
-      <term>
-        <guilabel>Using Nautilus icon theme</guilabel> </term>
-      <listitem>
-      <warning>
-      <para>This is outdated info since Nautilus and later Gnome versions no longer use these kind of themes.</para>
-      </warning>
-        <para>The default icon theme that comes with &app; lacks icons for a lot of file types and only looks good at icon size 16.
-              There are other themes around though, that are more complete and looks better in bigger sizes.
-              Unscalable Gorilla by Jimmac is one example and can be used in &app; by following these steps:</para>
-        <itemizedlist>
-          <listitem>
-              <para>Download the theme.</para>
-          </listitem>
-          <listitem>
-        <para>Unpack the theme to where ever you want.</para>
-          </listitem>
-          <listitem>
-        <para>Start &app; open the <guimenu>Options</guimenu> dialog. In the <guimenuitem>Layout</guimenuitem> tab set
-        the Theme icon directory to be the folder where you extracted Unscalable Gorilla. Also change Row height
-        and Icon size to 20 or some other size that you like. When you're done also make sure that
-        the Graphical mode is set to MIME icons.</para>
-          </listitem>
-          <listitem>
-              <para>When you now close the <guimenu>Options</guimenu> dialog the file listings should refresh
-              and you should see Unscalable Gorilla being used.</para>
-          </listitem>
-        </itemizedlist>
-      </listitem>
-    </varlistentry>
-
-  </variablelist>
- </sect1>
 
 <!-- ============= Keyboard shortcuts ===================== -->
 <!-- This section contains info about the keyboard mappings.-->
@@ -1935,6 +1906,107 @@
         </informaltable>
   </sect1>
 
+<!-- ============= Tips and tricks ======================== -->
+<!-- This section contains info some very simple tips and tricks.-->
+  <sect1 id="gnome-commander-tips-and-tricks">
+  <title>Tips and tricks for &app;</title>
+  <para>Some very simple tips and tricks on using and getting the most out of &app;.</para>
+
+  <variablelist>
+    <varlistentry>
+      <term>
+        <guilabel>Handling archives</guilabel> </term>
+      <listitem>
+        <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so
+        that working with archives becomes quite practical anyway. This is how you do it:</para>
+        <itemizedlist>
+          <listitem>
+              <para>If you don't already have the program <application>Fileroller</application>,
+              download it and install it.</para>
+          </listitem>
+          <listitem>
+        <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Programs</guimenuitem> tab.</para>
+          </listitem>
+          <listitem>
+        <para>Add two favourite apps using the values shown here and here.</para>
+          </listitem>
+        </itemizedlist>
+        <para>You can now right click any file or folder and choose <guimenuitem>Create archive...</guimenuitem>
+        to compress it and right click compressed files and choose <guimenuitem>Extract archive...</guimenuitem>
+        to extract it.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+        <guilabel>Using removable media</guilabel> </term>
+      <listitem>
+        <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app;
+        automatically take care of mounting them by following this guide:</para>
+        <itemizedlist>
+          <listitem>
+              <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Devices</guimenuitem> tab.</para>
+          </listitem>
+          <listitem>
+        <para>Add the devices that you are using. This is how the program looks with a few added devices.
+        In the last image the red circle shows the available devices, there is also a button, in the green circle,
+        to press if we want to unmount the floppy, which happened to be mounted.
+        The icons that are used for the devices in the example should be available
+        in the $(prefix)/share/pixmaps/gnome-commander/device-icons folder on your computer.</para>
+          </listitem>
+          <listitem>
+        <para>There is also an option to skip mounting in the option device tab,
+        this can be useful for making shortcuts to directories, or if you have some automounting feature
+        that mounts it at its mountpoint when available, or if you use Supermount that does it on access basis.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+        <guilabel>Opening a full terminal</guilabel> </term>
+      <listitem>
+        <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory.
+        Well, that is easy, just type <application>sh</application>, or maybe <application>bash</application> if you prefer,
+        in the &app; command line and press <keycap>SHIFT+ENTER</keycap> - there you have it.</para>
+      </listitem>
+    </varlistentry>
+
+    <varlistentry>
+      <term>
+        <guilabel>Using Nautilus icon theme</guilabel> </term>
+      <listitem>
+      <warning>
+      <para>This is outdated info since Nautilus and later Gnome versions no longer use these kind of themes.</para>
+      </warning>
+        <para>The default icon theme that comes with &app; lacks icons for a lot of file types and only looks good at icon size 16.
+              There are other themes around though, that are more complete and looks better in bigger sizes.
+              Unscalable Gorilla by Jimmac is one example and can be used in &app; by following these steps:</para>
+        <itemizedlist>
+          <listitem>
+              <para>Download the theme.</para>
+          </listitem>
+          <listitem>
+        <para>Unpack the theme to where ever you want.</para>
+          </listitem>
+          <listitem>
+        <para>Start &app; open the <guimenu>Options</guimenu> dialog. In the <guimenuitem>Layout</guimenuitem> tab set
+        the Theme icon directory to be the folder where you extracted Unscalable Gorilla. Also change Row height
+        and Icon size to 20 or some other size that you like. When you're done also make sure that
+        the Graphical mode is set to MIME icons.</para>
+          </listitem>
+          <listitem>
+              <para>When you now close the <guimenu>Options</guimenu> dialog the file listings should refresh
+              and you should see Unscalable Gorilla being used.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+    </varlistentry>
+
+  </variablelist>
+ </sect1>
+
 <!-- ============= Installation =========================== -->
 <!-- This section contains info about the program installation.-->
   <sect1 id="gnome-commander-installation">
@@ -2007,6 +2079,346 @@
     <title>Release overview</title>
     <para>
     </para>
+    <informaltable frame="topbot">
+    <tgroup cols="3">
+        <colspec colname="col1"/>
+        <colspec colname="col2"/>
+        <colspec colname="col3"/>
+    <thead>
+        <row valign="top">
+            <entry colname="col1" colsep="0" valign="top"><para>Version</para></entry>
+            <entry colname="col2" colsep="0" valign="top"><para>Release date</para></entry>
+            <entry colname="col3" colsep="0" valign="top"><para>What's new</para></entry>
+        </row>
+    </thead>
+    <tbody>
+        <row valign="top">
+            <entry><para>1.2.1</para></entry>
+            <entry><para>2006-09-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem with scrollkeeper database update</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fix for crash when cmd dir indicator is empty</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with refreshing after chown or chmod</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #347561 (plugin directory set incorrectly)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #347817 (incorrect use of Makefile linker flags)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Support for archives (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) via FileRoller plugin</para>
+                        </listitem>
+                        <listitem>
+                            <para>New python-like indices for advanced file rename templates</para>
+                        </listitem>
+                        <listitem>
+                            <para>Revamped application menus</para>
+                        </listitem>
+                        <listitem>
+                            <para>New icon for internal viewer</para>
+                        </listitem>
+                        <listitem>
+                            <para>Updated help docs</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: cs, de, es, eu, hu, it, ru, sv, vi</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.0</para></entry>
+            <entry><para>2006-05-12</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #171051 (crashes on search with non-existent path)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with the lack of gnome menu entry</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed a crash when viewing SMB connections</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #309877 (strange artifacts with horizontal scrolling)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #332258 (left/right start directory parameter)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #332261 (exec_prefix not properly parsed during configure/makefiles)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #336649 (permission numbers presentation)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with crashes when using broken or non-matching regex pattern in advrename</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Monitoring of mounted volumes</para>
+                        </listitem>
+                        <listitem>
+                            <para>Rewritten internal viewer</para>
+                        </listitem>
+                        <listitem>
+                            <para>External tools and Exif/IPTC tags viewer for internal viewer</para>
+                        </listitem>
+                        <listitem>
+                            <para>Zooming for internal viewer</para>
+                        </listitem>
+                        <listitem>
+                            <para>Text selection for internal viewer</para>
+                        </listitem>
+                        <listitem>
+                            <para>Revamped toolbar layout</para>
+                        </listitem>
+                        <listitem>
+                            <para>Options for controlling copy and move overwriting</para>
+                        </listitem>
+                        <listitem>
+                            <para>Copying selected full file paths with SHIFT+click on toolbar button</para>
+                        </listitem>
+                        <listitem>
+                            <para>Better handling the change of the column sorting key</para>
+                        </listitem>
+                        <listitem>
+                            <para>Initial doc framework</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: de, es, eu, hu, pl, ro, ru, sl, sv, vi</para>
+                        </listitem>
+                        <listitem>
+                            <para>New key bindings:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para><keycap>SHIFT+F3</keycap>       Internal viewer</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>ALT+F3</keycap>         External viewer</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>ALT+letters</keycap>    Quick search</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>CTRL+SHIFT+A</keycap>   Deselecting all files</para>
+                                </listitem>
+                            </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.1.7</para></entry>
+            <entry><para>2006-02-12</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+ * Fixed crash when trying to copy the currently selected files
+ * Fixed filename escaping
+ * Fixed CTRL+ALT+letter bad responsiveness when typing too fast
+ * Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)
+ * Fixed problem #138933 (infinite recursion when drag'n'dropping a directory to it self)
+ * Fixed problem with the disconnect button not behaving correctly when connecting to ftp-servers
+   and being in supermount mode
+ * Fixed update after renaming without FAM
+                </para>
+                <para>New features:</para>
+                <para>
+ * New GNOME commander logo
+ * Added internal F3 viewer
+ * Copying selected filename(s) to clipboard
+ * Inserting selected file full path to the cmdline when pressing CTRL+SHIFT+ENTER
+ * Multi-Rename-Tool - new $g placeholder for grandparent dir
+ * Toolbar buttons (cut,copy and paste) are now sensitive to the current state
+ * Manage Bookmarks dialog is now accessible also via the bookmarks shortcut
+ * New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, pt_BR, rw, uk, zh_TW
+ * New key bindings:
+      CTRL+M        Multi-Rename-Tool
+      CTRL+SHIFT+.  Copying the current working directory from the active file-list to the inactive one
+      CTRL+=        Select all files
+      CTRL+-        Unselect all files
+      =             Select files using a pattern                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.1.6</para></entry>
+            <entry><para>2004-01-20</para></entry>
+            <entry>
+                <para>
+Bug fixes:
+ * Fixed crash when navigating back in the history and then entering
+   another dir.
+ * Fixed ftp-quick-connect problems.
+ * The quick-search function can now also be started by typing capital
+   letters.
+ * CTRL+ALT no longer needs to be used to activate quick-search when the
+   cmdline is hidden.
+
+New features:
+ * Updated the cvs-plugin so that it can be used to diff and log files.
+ * Changed to using bold text instead of underlined in the dir-indicator when
+   focused by the mouse cursor.
+ * Made the cwd label selectable (the one left of the cmdline).
+ * Added "CTRL+." shortcut to copy the cwd from the inactive file-list to
+   the active one.
+ * Added the shortcut "shift+f10" to bring up the file context menu (the
+   windows menu key also works)
+ * Removed the 'Save Position' menu item. Size and position are now saved
+   automaticly instead.
+ * Sorting column and direction is now remembered.
+ * Added button to the directory indicator to popup the directory history.
+ * F2 now opens the rename dialog instead of refreshing the active file
+   list.
+ * Added history to the select and unselect by pattern dialogs.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.1.5</para></entry>
+            <entry><para>2004-01-12</para></entry>
+            <entry>
+                <para>
+Bug fixes:
+ * The ext-column is now hidden when the extension is only showed together
+   with the filename.
+ * Fixed unnecessary redraws of the file-list when dragging files over it.
+ * Fixed problem with ftp-connections that didn't disappear from the
+   connection toolbars when disconnected.
+ * The program no longer tries to center itself on the desktop.
+ * Fixed problems when renaming directories.
+
+New features:
+ * The dir-indicator above each file-list can now be used to navigate
+   upwards in the directory structure.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.1.4</para></entry>
+            <entry><para>2003-11-24</para></entry>
+            <entry>
+                <para>
+Bug fixes:
+ * Fixed bug when selecting multiple files with shift+mouse button.
+ * Stopped superfluous updates of the file-list on machines with the imon
+   kernel patch applied.
+ * Cleaned up the file-popup menu.
+ * Fixed "File not found"-bug when browsing to the parent dir when the
+   parent dir contained spaces.
+ * Fixed possible async error when cancelling a xfer operation.
+ * Reworked the layout tab and removed the colors tab in the options
+   dialog.
+ * Improved plugin-system.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.1.3</para></entry>
+            <entry><para>2003-11-14</para></entry>
+            <entry>
+                <para>
+Bug fixes:
+ * Fixed a crash that happened when moving files on a machine with a snappy
+   FAM installation. This lead to that gnome-commander tried to remove the
+   same file twice from a list.
+ * Accessing files on mounted devices should now work better.
+ * Devices without the device filename should not disappear anymore.
+ * Fixed so that the feature where the terminal window stays open after
+   a program has finished works more reliably.
+ * Fixes bug where a new directory would appear many times
+   in the same file-list until reloaded.
+
+New features:
+ * The delete confirmation can now be disabled.
+ * Better error messages when a mount fails.
+ * Made the calculation of a directory's total size start automaticly
+   when the file prefs dialog is shown.
+ * Added filter for backup files and added that and the filter for hidden
+   files to the main menu for faster access.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.1.2</para></entry>
+            <entry><para>2003-11-07</para></entry>
+            <entry>
+                <para>
+Bug fixes:
+ * Handles non-utf8 filenames much better.
+ * Removed unsafe uri-creation.
+
+New features:
+ * There are now three ways to show with file-extensions.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.1.1</para></entry>
+            <entry><para>2003-11-05</para></entry>
+            <entry>
+                <para>
+Bug fixes:
+ * Stopped showing the file extension in both the name column and the ext
+   column.
+ * Fixed crashes that happened when browsing directories.
+ * Fixed update problems when copying and moving files.
+ * The connection combo boxes should now show the correct connection as
+   selected all the time.
+ * Removed some bugs related to selecting files using the keyboard.
+ * Fixed the edit mime-types feature.
+
+New features:
+ * Added a button to change the default mime-app in the file-props dialog.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.1.0</para></entry>
+            <entry><para>2003-11-01</para></entry>
+            <entry>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>SMB browsing</para>
+                        </listitem>
+                        <listitem>
+                            <para>Plugins</para>
+                        </listitem>
+                        <listitem>
+                            <para>Major rewrite of a lot of code</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+    </tbody>
+    </tgroup>
+    </informaltable>
   </sect1>
 
 <!-- ============= Bugs ================================== -->
