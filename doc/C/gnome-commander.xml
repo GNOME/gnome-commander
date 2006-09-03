@@ -397,7 +397,7 @@
             <guilabel>Examples</guilabel> </term>
           <listitem>
               <para>
-                gnome-commander -d nvl
+                <command>gnome-commander -d nvl</command>
               </para>
               <para>
                 Starts &app; with debugging of directory listings, internal viewer and directory monitoring facilities.
@@ -726,7 +726,7 @@
         </informaltable>
 
         <tip>
-            <para>Broken - like $n(), $e(0,-3) or $N(abc)- or unknown placeholders are copied verbatim without any substitution.</para>
+            <para>Broken - like $n(), $e(0,-3) or $N(abc) - or unknown placeholders are copied verbatim without any substitution.</para>
         </tip>
     </sect3>
 
@@ -917,8 +917,8 @@
                     </row>
                     <row valign="top">
                         <entry><para>%W</para></entry>
-                        <entry><para>The  week  number  of the current year as a decimal number, range 00 to 53, starting with the first Monday as
-                                     the first day of week 01</para></entry>
+                        <entry><para>The  week  number  of the current year as a decimal number, range 00 to 53, 
+                                     starting with the first Monday as the first day of week 01</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>%x</para></entry>
@@ -938,8 +938,8 @@
                     </row>
                     <row valign="top">
                         <entry><para>%z</para></entry>
-                        <entry><para>The time-zone as hour offset from GMT.  Required to emit RFC822-conformant  dates  (using  "%a,  %d  %b  %Y
-                                     %H:%M:%S %z")</para></entry>
+                        <entry><para>The time-zone as hour offset from GMT.  Required to emit RFC822-conformant dates
+                                    (using "%a, %d %b %Y %H:%M:%S %z")</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>%Z</para></entry>
@@ -959,11 +959,11 @@
 
         <note>
             <para>Some conversion specifiers can be modified by preceding them by the E or O modifier to indicate that an alternative
-            format should be used. If the alternative format or specification does not exist for the current locale, the
-            behaviour will be as if the unmodified conversion specification were used. The Single Unix Specification men-
-            tions %Ec, %EC, %Ex, %EX, %Ey, %EY, %Od, %Oe, %OH, %OI, %Om, %OM, %OS, %Ou, %OU, %OV, %Ow, %OW, %Oy, where the
-            effect of the O modifier is to use alternative numeric symbols (say, roman numerals), and that of the E modifier is
-            to use a locale-dependent alternative representation.</para>
+            format should be used. If the alternative format or specification does not exist for the current locale,
+            the behaviour will be as if the unmodified conversion specification were used. The Single Unix Specification
+            mentions %Ec, %EC, %Ex, %EX, %Ey, %EY, %Od, %Oe, %OH, %OI, %Om, %OM, %OS, %Ou, %OU, %OV, %Ow, %OW, %Oy,
+            where the effect of the O modifier is to use alternative numeric symbols (say, roman numerals), 
+            and that of the E modifier is to use a locale-dependent alternative representation.</para>
         </note>
     </sect3>
     </sect2>
@@ -2058,11 +2058,6 @@
         <para>
         </para>
     </sect2>
-    <sect2 id="gnome-commander-old-releases">
-        <title>Old releases</title>
-        <para>
-        </para>
-    </sect2>
   </sect1>
 
 <!-- ============= Configuration files ==================== -->
@@ -2277,8 +2272,9 @@ Bug fixes:
    letters.
  * CTRL+ALT no longer needs to be used to activate quick-search when the
    cmdline is hidden.
-
-New features:
+                </para>
+                <para>New features:</para>
+                <para>
  * Updated the cvs-plugin so that it can be used to diff and log files.
  * Changed to using bold text instead of underlined in the dir-indicator when
    focused by the mouse cursor.
@@ -2301,8 +2297,8 @@ New features:
             <entry><para>1.1.5</para></entry>
             <entry><para>2004-01-12</para></entry>
             <entry>
+                <para>Bug fixes:</para>
                 <para>
-Bug fixes:
  * The ext-column is now hidden when the extension is only showed together
    with the filename.
  * Fixed unnecessary redraws of the file-list when dragging files over it.
@@ -2310,8 +2306,9 @@ Bug fixes:
    connection toolbars when disconnected.
  * The program no longer tries to center itself on the desktop.
  * Fixed problems when renaming directories.
-
-New features:
+                </para>
+                <para>New features:</para>
+                <para>
  * The dir-indicator above each file-list can now be used to navigate
    upwards in the directory structure.
                 </para>
@@ -2321,8 +2318,8 @@ New features:
             <entry><para>1.1.4</para></entry>
             <entry><para>2003-11-24</para></entry>
             <entry>
+                <para>Bug fixes:</para>
                 <para>
-Bug fixes:
  * Fixed bug when selecting multiple files with shift+mouse button.
  * Stopped superfluous updates of the file-list on machines with the imon
    kernel patch applied.
@@ -2340,8 +2337,8 @@ Bug fixes:
             <entry><para>1.1.3</para></entry>
             <entry><para>2003-11-14</para></entry>
             <entry>
+                <para>Bug fixes:</para>
                 <para>
-Bug fixes:
  * Fixed a crash that happened when moving files on a machine with a snappy
    FAM installation. This lead to that gnome-commander tried to remove the
    same file twice from a list.
@@ -2351,8 +2348,9 @@ Bug fixes:
    a program has finished works more reliably.
  * Fixes bug where a new directory would appear many times
    in the same file-list until reloaded.
-
-New features:
+                </para>
+                <para>New features:</para>
+                <para>
  * The delete confirmation can now be disabled.
  * Better error messages when a mount fails.
  * Made the calculation of a directory's total size start automaticly
@@ -2366,13 +2364,18 @@ New features:
             <entry><para>1.1.2</para></entry>
             <entry><para>2003-11-07</para></entry>
             <entry>
+                <para>Bug fixes:</para>
                 <para>
-Bug fixes:
  * Handles non-utf8 filenames much better.
  * Removed unsafe uri-creation.
-
-New features:
- * There are now three ways to show with file-extensions.
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Three ways to show with file-extensions</para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
             </entry>
         </row>
@@ -2380,8 +2383,8 @@ New features:
             <entry><para>1.1.1</para></entry>
             <entry><para>2003-11-05</para></entry>
             <entry>
+                <para>Bug fixes:</para>
                 <para>
-Bug fixes:
  * Stopped showing the file extension in both the name column and the ext
    column.
  * Fixed crashes that happened when browsing directories.
@@ -2390,9 +2393,10 @@ Bug fixes:
    selected all the time.
  * Removed some bugs related to selecting files using the keyboard.
  * Fixed the edit mime-types feature.
-
-New features:
- * Added a button to change the default mime-app in the file-props dialog.
+                </para>
+                <para>New features:</para>
+                <para>
+ * Added a button to change the default MIME-app in the file properties dialog.
                 </para>
             </entry>
         </row>
@@ -2439,9 +2443,9 @@ New features:
         Testing of the new releases and bug reporting is the best way users without programming knowledge can help out in the development of a program,
         and those with programming knowledge are very welcome to suggest fixes and/or send patches to the developers, all in the spirit of free and open source software.</para>
 
-  <para>Given enough eyeballs, all bugs are shallow.
+  <para>Given enough eyeballs, all bugs are shallow.</para>
 
-        //Linus law.</para>
+  <para>//Linus law.</para>
  </sect1>
 
 <!-- ============= About ================================== -->
