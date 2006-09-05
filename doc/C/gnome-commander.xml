@@ -126,7 +126,7 @@
       </revision>
     </revhistory>
 
-    <releaseinfo>This manual describes version &appversion; of GNOME Commander.
+    <releaseinfo>This manual describes version &appversion; of &app;.
     </releaseinfo>
     <legalnotice>
       <title>Feedback</title>
@@ -917,7 +917,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>%W</para></entry>
-                        <entry><para>The  week  number  of the current year as a decimal number, range 00 to 53, 
+                        <entry><para>The  week  number  of the current year as a decimal number, range 00 to 53,
                                      starting with the first Monday as the first day of week 01</para></entry>
                     </row>
                     <row valign="top">
@@ -962,7 +962,7 @@
             format should be used. If the alternative format or specification does not exist for the current locale,
             the behaviour will be as if the unmodified conversion specification were used. The Single Unix Specification
             mentions %Ec, %EC, %Ex, %EX, %Ey, %EY, %Od, %Oe, %OH, %OI, %Om, %OM, %OS, %Ou, %OU, %OV, %Ow, %OW, %Oy,
-            where the effect of the O modifier is to use alternative numeric symbols (say, roman numerals), 
+            where the effect of the O modifier is to use alternative numeric symbols (say, roman numerals),
             and that of the E modifier is to use a locale-dependent alternative representation.</para>
         </note>
     </sect3>
@@ -1921,8 +1921,9 @@
         that working with archives becomes quite practical anyway. This is how you do it:</para>
         <itemizedlist>
           <listitem>
-              <para>If you don't already have the program <application>Fileroller</application>,
-              download it and install it.</para>
+              <para>
+                If you don't already have the program <application>Fileroller</application>,
+                download it and install it.</para>
           </listitem>
           <listitem>
         <para>Open the <guimenu>Options</guimenu> dialog and go to the <guimenuitem>Programs</guimenuitem> tab.</para>
@@ -2232,31 +2233,81 @@
             <entry>
                 <para>Bug fixes:</para>
                 <para>
- * Fixed crash when trying to copy the currently selected files
- * Fixed filename escaping
- * Fixed CTRL+ALT+letter bad responsiveness when typing too fast
- * Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)
- * Fixed problem #138933 (infinite recursion when drag'n'dropping a directory to it self)
- * Fixed problem with the disconnect button not behaving correctly when connecting to ftp-servers
-   and being in supermount mode
- * Fixed update after renaming without FAM
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed crash when trying to copy the currently selected files</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed filename escaping</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed CTRL+ALT+letter bad responsiveness when typing too fast</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #138933 (infinite recursion when drag'n'dropping a directory to it self)</para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Fixed problem with the disconnect button not behaving correctly
+                                when connecting to ftp-servers and being in supermount mode</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed update after renaming without FAM</para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
                 <para>New features:</para>
                 <para>
- * New GNOME commander logo
- * Added internal F3 viewer
- * Copying selected filename(s) to clipboard
- * Inserting selected file full path to the cmdline when pressing CTRL+SHIFT+ENTER
- * Multi-Rename-Tool - new $g placeholder for grandparent dir
- * Toolbar buttons (cut,copy and paste) are now sensitive to the current state
- * Manage Bookmarks dialog is now accessible also via the bookmarks shortcut
- * New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, pt_BR, rw, uk, zh_TW
- * New key bindings:
-      CTRL+M        Multi-Rename-Tool
-      CTRL+SHIFT+.  Copying the current working directory from the active file-list to the inactive one
-      CTRL+=        Select all files
-      CTRL+-        Unselect all files
-      =             Select files using a pattern                </para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>New &app; logo</para>
+                        </listitem>
+                        <listitem>
+                            <para>Added internal F3 viewer</para>
+                        </listitem>
+                        <listitem>
+                            <para>Copying selected filename(s) to clipboard</para>
+                        </listitem>
+                        <listitem>
+                            <para>Inserting selected file full path to the cmdline when pressing <keycap>CTRL+SHIFT+ENTER</keycap></para>
+                        </listitem>
+                        <listitem>
+                            <para>Multi-Rename-Tool - new $g placeholder for grandparent dir</para>
+                        </listitem>
+                        <listitem>
+                            <para>Toolbar buttons (cut, copy and paste) are now sensitive to the current state</para>
+                        </listitem>
+                        <listitem>
+                            <para>Manage Bookmarks dialog is now accessible also via the bookmarks shortcut</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, pt_BR, rw, uk, zh_TW</para>
+                        </listitem>
+                        <listitem>
+                            <para>New key bindings:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para><keycap>SHIFT+M</keycap>        Multi-Rename-Tool</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>CTRL+SHIFT+.</keycap>   Copying the current working directory from the active file-list to the inactive one</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>CTRL+=</keycap>         Select all files</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>CTRL+-</keycap>         Unselect all files</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>=</keycap>              Select files using a pattern</para>
+                                </listitem>
+                            </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+      </para>
             </entry>
         </row>
         <row valign="top">
@@ -2299,18 +2350,31 @@ Bug fixes:
             <entry>
                 <para>Bug fixes:</para>
                 <para>
- * The ext-column is now hidden when the extension is only showed together
-   with the filename.
- * Fixed unnecessary redraws of the file-list when dragging files over it.
- * Fixed problem with ftp-connections that didn't disappear from the
-   connection toolbars when disconnected.
- * The program no longer tries to center itself on the desktop.
- * Fixed problems when renaming directories.
+                    <itemizedlist>
+                        <listitem>
+                            <para>The ext column is now hidden when the extension is only showed together with the filename</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed unnecessary redraws of the file-list when dragging files over it</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with ftp-connections that didn't disappear from the connection toolbars when disconnected</para>
+                        </listitem>
+                        <listitem>
+                            <para>The program no longer tries to center itself on the desktop</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problems when renaming directories</para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
                 <para>New features:</para>
                 <para>
- * The dir-indicator above each file-list can now be used to navigate
-   upwards in the directory structure.
+                    <itemizedlist>
+                        <listitem>
+                            <para>The dir indicator above each file-list can now be used to navigate upwards in the directory structure</para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
             </entry>
         </row>
@@ -2320,16 +2384,29 @@ Bug fixes:
             <entry>
                 <para>Bug fixes:</para>
                 <para>
- * Fixed bug when selecting multiple files with shift+mouse button.
- * Stopped superfluous updates of the file-list on machines with the imon
-   kernel patch applied.
- * Cleaned up the file-popup menu.
- * Fixed "File not found"-bug when browsing to the parent dir when the
-   parent dir contained spaces.
- * Fixed possible async error when cancelling a xfer operation.
- * Reworked the layout tab and removed the colors tab in the options
-   dialog.
- * Improved plugin-system.
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed bug when selecting multiple files with shift+mouse button</para>
+                        </listitem>
+                        <listitem>
+                            <para>Stopped superfluous updates of the file-list on machines with the imon kernel patch applied</para>
+                        </listitem>
+                        <listitem>
+                            <para>Cleaned up the file-popup menu</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed "File not found"-bug when browsing to the parent dir when the parent dir contained spaces</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed possible async error when cancelling a xfer operation</para>
+                        </listitem>
+                        <listitem>
+                            <para>Reworked the layout tab and removed the colors tab in the options dialog</para>
+                        </listitem>
+                        <listitem>
+                            <para>Improved plugin-system</para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
             </entry>
         </row>
@@ -2339,24 +2416,56 @@ Bug fixes:
             <entry>
                 <para>Bug fixes:</para>
                 <para>
- * Fixed a crash that happened when moving files on a machine with a snappy
-   FAM installation. This lead to that gnome-commander tried to remove the
-   same file twice from a list.
- * Accessing files on mounted devices should now work better.
- * Devices without the device filename should not disappear anymore.
- * Fixed so that the feature where the terminal window stays open after
-   a program has finished works more reliably.
- * Fixes bug where a new directory would appear many times
-   in the same file-list until reloaded.
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                Fixed a crash that happened when moving files on a machine
+                                with a snappy FAM installation. This lead to that &app;
+                                tried to remove the same file twice from a list
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>Accessing files on mounted devices should now work better</para>
+                        </listitem>
+                        <listitem>
+                            <para>Devices without the device filename should not disappear anymore</para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Fixed so that the feature where the terminal window stays open after
+                                a program has finished works more reliably
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Fixes bug where a new directory would appear many times
+                                in the same file list until reloaded
+                            </para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
                 <para>New features:</para>
                 <para>
- * The delete confirmation can now be disabled.
- * Better error messages when a mount fails.
- * Made the calculation of a directory's total size start automaticly
-   when the file prefs dialog is shown.
- * Added filter for backup files and added that and the filter for hidden
-   files to the main menu for faster access.
+                    <itemizedlist>
+                        <listitem>
+                            <para>The delete confirmation can now be disabled</para>
+                        </listitem>
+                        <listitem>
+                            <para>Better error messages when a mount fails</para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Made the calculation of a directory's total size start automatically
+                                when the file prefs dialog is shown
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Added filter for backup files and added that and the filter for hidden
+                                files to the main menu for faster access
+                            </para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
             </entry>
         </row>
@@ -2366,14 +2475,20 @@ Bug fixes:
             <entry>
                 <para>Bug fixes:</para>
                 <para>
- * Handles non-utf8 filenames much better.
- * Removed unsafe uri-creation.
+                    <itemizedlist>
+                        <listitem>
+                            <para>Much better handling of non UTF8 filenames</para>
+                        </listitem>
+                        <listitem>
+                            <para>Removed unsafe uri-creation</para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
                 <para>New features:</para>
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Three ways to show with file-extensions</para>
+                            <para>Three ways to show with file extensions</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -2385,18 +2500,34 @@ Bug fixes:
             <entry>
                 <para>Bug fixes:</para>
                 <para>
- * Stopped showing the file extension in both the name column and the ext
-   column.
- * Fixed crashes that happened when browsing directories.
- * Fixed update problems when copying and moving files.
- * The connection combo boxes should now show the correct connection as
-   selected all the time.
- * Removed some bugs related to selecting files using the keyboard.
- * Fixed the edit mime-types feature.
+                    <itemizedlist>
+                        <listitem>
+                            <para>Stopped showing the file extension in both the name column and the ext column</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed crashes that happened when browsing directories</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed update problems when copying and moving files</para>
+                        </listitem>
+                        <listitem>
+                            <para>The connection combo boxes should now show the correct connection as selected all the time</para>
+                        </listitem>
+                        <listitem>
+                            <para>Removed some bugs related to selecting files using the keyboard</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed the edit mime-types feature</para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
                 <para>New features:</para>
                 <para>
- * Added a button to change the default MIME-app in the file properties dialog.
+                    <itemizedlist>
+                        <listitem>
+                            <para>Added a button to change the default MIME-app in the file properties dialog</para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
             </entry>
         </row>
@@ -2418,6 +2549,136 @@ Bug fixes:
                         </listitem>
                     </itemizedlist>
                 </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.0.1</para></entry>
+            <entry><para>2003-06-27</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Improved file list update in non-fam mode</para>
+                        </listitem>
+                        <listitem>
+                            <para>Empty directories can now be entered on ftp servers</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.0</para></entry>
+            <entry><para>2003-06-05</para></entry>
+            <entry>
+                <para>
+                    This is the "production stable" 1.0 release. Mainly small bugfixes from previous version.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.12</para></entry>
+            <entry><para>2003-03-18</para></entry>
+            <entry>
+                <para>Bugfixes</para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.11</para></entry>
+            <entry><para>2003-03-13</para></entry>
+            <entry>
+                <para>
+                    Added support for $p in advrename dialog. This will give you the parent directory.
+                    Fixed a bug where deleting a directory sometimes only emptied the directory but not delete it.
+                    Fixed so that the ".." directory is visible in ftp-sessions.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.10</para></entry>
+            <entry><para>2003-03-24</para></entry>
+            <entry>
+                <para>
+                    Fixed an imageloading bug when using themes other than the default one.
+                    New bookmark feature.
+                    New template feature in the advanced-rename dialog. See doc/advrename.txt in the tarball for details.
+                    Nicer file-properties dialog with rename support.
+                    Dragging files to the ".." directory is now possible.
+                    The toolbar and buttonbar can now be hidden.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.9</para></entry>
+            <entry><para>2003-01-19</para></entry>
+            <entry>
+                <para>
+                    Improved the advanced rename tool
+                    Added quick connect feature.
+                    Improved search dialog and fixed some bugs in it.
+                    Added default low-res mime icon theme.
+                    Made the file popup menu behave more normal.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.8</para></entry>
+            <entry><para>2002-07-16</para></entry>
+            <entry>
+                <para>
+                    New things in this release are autoscroll at DND, better quicksearch,
+                    mounting and unmounting, file lists refresh without FAM,
+                    last visited directory history and more.
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.7</para></entry>
+            <entry><para>2002-06-07</para></entry>
+            <entry>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.6</para></entry>
+            <entry><para>2002-04-04</para></entry>
+            <entry>
+                <para>MIME support has been added and bugs have been fixed.</para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.5</para></entry>
+            <entry><para>2002-03-27</para></entry>
+            <entry>
+                <para>Added an embedded terminal and fixed some bugs.</para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.4</para></entry>
+            <entry><para>2002-03-21</para></entry>
+            <entry>
+                <para>Added FAM support, DnD and more.</para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.9.2</para></entry>
+            <entry><para>2002-03-09</para></entry>
+            <entry>
+                <para>Improved stability and less memory leaks. CVS is disabled until it actually works well.</para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.91-pre1</para></entry>
+            <entry><para>2002-02-06</para></entry>
+            <entry>
+                <para>Improved user interface and lots of other small hacks.</para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>0.90-pre1</para></entry>
+            <entry><para>2001-08-02</para></entry>
+            <entry>
+                <para>The first public version of &app;.</para>
             </entry>
         </row>
     </tbody>
