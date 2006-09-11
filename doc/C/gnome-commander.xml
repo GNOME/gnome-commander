@@ -2247,7 +2247,7 @@
                             <para>Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #138933 (infinite recursion when drag'n'dropping a directory to it self)</para>
+                            <para>Fixed problem #138933 (infinite recursion when drag'n'dropping a directory to itself)</para>
                         </listitem>
                         <listitem>
                             <para>
@@ -2314,33 +2314,62 @@
             <entry><para>1.1.6</para></entry>
             <entry><para>2004-01-20</para></entry>
             <entry>
+                <para>Bug fixes:</para>
                 <para>
-Bug fixes:
- * Fixed crash when navigating back in the history and then entering
-   another dir.
- * Fixed ftp-quick-connect problems.
- * The quick-search function can now also be started by typing capital
-   letters.
- * CTRL+ALT no longer needs to be used to activate quick-search when the
-   cmdline is hidden.
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed crash when navigating back in the history and then entering another dir</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed ftp-quick-connect problems</para>
+                        </listitem>
+                        <listitem>
+                            <para>The quick-search function can now also be started by typing capital letters</para>
+                        </listitem>
+                        <listitem>
+                            <para><keycap>CTRL+ALT</keycap> no longer needs to be used to activate quick-search when the cmdline is hidden</para>
+                        </listitem>
+                    </itemizedlist>
                 </para>
                 <para>New features:</para>
                 <para>
- * Updated the cvs-plugin so that it can be used to diff and log files.
- * Changed to using bold text instead of underlined in the dir-indicator when
-   focused by the mouse cursor.
- * Made the cwd label selectable (the one left of the cmdline).
- * Added "CTRL+." shortcut to copy the cwd from the inactive file-list to
-   the active one.
- * Added the shortcut "shift+f10" to bring up the file context menu (the
-   windows menu key also works)
- * Removed the 'Save Position' menu item. Size and position are now saved
-   automaticly instead.
- * Sorting column and direction is now remembered.
- * Added button to the directory indicator to popup the directory history.
- * F2 now opens the rename dialog instead of refreshing the active file
-   list.
- * Added history to the select and unselect by pattern dialogs.
+                    <itemizedlist>
+                        <listitem>
+                            <para>Updated the cvs-plugin so that it can be used to diff and log files</para>
+                        </listitem>
+                        <listitem>
+                            <para>Use bold text instead of underlined in the dir-indicator when focused by the mouse cursor</para>
+                        </listitem>
+                        <listitem>
+                            <para>The cwd label is selectable now (the one left of the cmdline)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Removed the 'Save Position' menu item. Size and position are now saved automatically instead</para>
+                        </listitem>
+                        <listitem>
+                            <para>Added button to the directory indicator to popup the directory history</para>
+                        </listitem>
+                        <listitem>
+                            <para>Added history to the select and unselect by pattern dialogs</para>
+                        </listitem>
+                        <listitem>
+                            <para>Sorting column and direction is now remembered</para>
+                        </listitem>
+                        <listitem>
+                            <para>New key bindings:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para><keycap>F2</keycap>             Open the rename dialog</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>SHIFT+F10</keycap>      Bring up the file context menu (the windows menu key also works)</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>CTRL+.</keycap>         Copy the current working directory from the inactive file-list to the active one</para>
+                                </listitem>
+                            </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
                 </para>
             </entry>
         </row>
