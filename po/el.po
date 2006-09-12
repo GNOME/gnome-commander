@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-23 11:21+0100\n"
+"POT-Creation-Date: 2006-09-12 12:43+0300\n"
 "PO-Revision-Date: 2005-02-26 10:26+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
@@ -19,124 +19,126 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.3.1\n"
 
-#: gnome-commander.desktop.in.h:1
+#: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
 msgstr "'Ενας διαχειριστής αρχείων με δύο ταμπλώ"
 
-#: gnome-commander.desktop.in.h:2
+#: ../data/gnome-commander.desktop.in.in.h:2
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
-#: libgcmd/gnome-cmd-string-dialog.c:133
+#: ../libgcmd/gnome-cmd-string-dialog.c:130
 msgid "No error description available"
 msgstr "Δεν υπάρχει διάθεσιμη περιγραφή σφάλματος"
 
-#: plugins/cvs/cvs-plugin.c:304 plugins/fileroller/file-roller-plugin.c:336
-#: src/gnome-cmd-ftp-dialog.c:550 src/gnome-cmd-options-dialog.c:1058
-#: src/gnome-cmd-options-dialog.c:1768 src/gnome-cmd-prepare-copy-dialog.c:141
-#: src/gnome-cmd-prepare-move-dialog.c:125
+#: ../plugins/cvs/cvs-plugin.c:299
+#: ../plugins/fileroller/file-roller-plugin.c:343
+#: ../src/gnome-cmd-ftp-dialog.c:536 ../src/gnome-cmd-options-dialog.c:1114
+#: ../src/gnome-cmd-options-dialog.c:1828
+#: ../src/gnome-cmd-prepare-copy-dialog.c:133
+#: ../src/gnome-cmd-prepare-move-dialog.c:118
 msgid "Options"
 msgstr "Επιλογές"
 
-#: plugins/cvs/cvs-plugin.c:322
+#: ../plugins/cvs/cvs-plugin.c:313
 msgid "CVS options"
 msgstr "Επιλογές CVS"
 
-#: plugins/cvs/cvs-plugin.c:325
+#: ../plugins/cvs/cvs-plugin.c:316
 msgid "Compression level"
 msgstr "Επίπεδο συμπίεσης"
 
-#: plugins/cvs/cvs-plugin.c:334
+#: ../plugins/cvs/cvs-plugin.c:325
 msgid "Unified diff format"
 msgstr ""
 
-#: plugins/cvs/cvs-plugin.c:448
+#: ../plugins/cvs/cvs-plugin.c:433
 #, fuzzy
 msgid "A plugin that eventually will be a simple CVS client"
 msgstr "A a"
 
-#: plugins/cvs/interface.c:161
+#: ../plugins/cvs/interface.c:161
 msgid "Compare with"
 msgstr "Σύγκριση με"
 
-#: plugins/cvs/interface.c:164
+#: ../plugins/cvs/interface.c:164
 msgid "HEAD"
 msgstr "HEAD"
 
-#: plugins/cvs/interface.c:168
+#: ../plugins/cvs/interface.c:168
 msgid "The previous revision"
 msgstr "Η προηγούμενη αναθεώρηση"
 
-#: plugins/cvs/interface.c:174
+#: ../plugins/cvs/interface.c:174
 msgid "Other revision"
 msgstr "Άλλη αναθεώρηση"
 
-#: plugins/cvs/interface.c:261
+#: ../plugins/cvs/interface.c:261
 msgid "CVS Diff"
 msgstr "CVS Diff"
 
-#: plugins/cvs/interface.c:428
+#: ../plugins/cvs/interface.c:428
 msgid "revision"
 msgstr "αναθεώρηση"
 
-#: plugins/cvs/interface.c:442
+#: ../plugins/cvs/interface.c:442
 msgid "Revision:"
 msgstr "Αναθεώρηση:"
 
-#: plugins/cvs/interface.c:460
+#: ../plugins/cvs/interface.c:460
 msgid "Compare..."
 msgstr "Σύγκριση..."
 
-#: plugins/cvs/interface.c:463
+#: ../plugins/cvs/interface.c:463
 msgid "Author:"
 msgstr "Συγγραφέας:"
 
-#: plugins/cvs/interface.c:477
+#: ../plugins/cvs/interface.c:477
 msgid "Date:"
 msgstr "Ημερομηνία:"
 
-#: plugins/cvs/interface.c:491
+#: ../plugins/cvs/interface.c:491
 msgid "State:"
 msgstr "Κατάσταση:"
 
-#: plugins/cvs/interface.c:505
+#: ../plugins/cvs/interface.c:505
 msgid "Lines:"
 msgstr "Γραμμές:"
 
-#: plugins/cvs/interface.c:519
+#: ../plugins/cvs/interface.c:519
 msgid "Message:"
 msgstr "Μήνυμα:"
 
-#: plugins/fileroller/file-roller-plugin.c:167
+#: ../plugins/fileroller/file-roller-plugin.c:182
 msgid "What filename should the new archive have?"
 msgstr "Τι όνομα αρχείου θα έχει το νέο συμπιεσμένο αρχείο;"
 
-#: plugins/fileroller/file-roller-plugin.c:169
+#: ../plugins/fileroller/file-roller-plugin.c:184
 msgid "Create Archive"
 msgstr "Δημιουργία Συμπιεσμένου Αρχείου"
 
-#: plugins/fileroller/file-roller-plugin.c:273
+#: ../plugins/fileroller/file-roller-plugin.c:286
 msgid "Create Archive..."
 msgstr "Δημιουργία Συμπιεσμένου Αρχείου..."
 
-#: plugins/fileroller/file-roller-plugin.c:287
+#: ../plugins/fileroller/file-roller-plugin.c:300
 msgid "Extract in Current Directory"
 msgstr "Αποσυμπίεση στον τρέχοντα κατάλογο"
 
-#: plugins/fileroller/file-roller-plugin.c:292
+#: ../plugins/fileroller/file-roller-plugin.c:305
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Εξαγωγή σε '%s'"
 
-#: plugins/fileroller/file-roller-plugin.c:352
+#: ../plugins/fileroller/file-roller-plugin.c:357
 msgid "File-roller options"
 msgstr "Επιλογές File Roller"
 
-#: plugins/fileroller/file-roller-plugin.c:355
+#: ../plugins/fileroller/file-roller-plugin.c:360
 msgid "Default type"
 msgstr "Προεπιλεγμένος τύπος"
 
-#: plugins/fileroller/file-roller-plugin.c:477
+#: ../plugins/fileroller/file-roller-plugin.c:476
 #, fuzzy
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
@@ -147,30 +149,30 @@ msgstr ""
 "#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
 "και."
 
-#: plugins/test/test-plugin.c:232
+#: ../plugins/test/test-plugin.c:232
 #, fuzzy
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
 msgstr "είναι είναι a για"
 
-#: src/gnome-cmd-about-plugin.c:184
+#: ../src/gnome-cmd-about-plugin.c:184
 msgid "Credits"
 msgstr "Μνεία"
 
-#: src/gnome-cmd-about-plugin.c:216
+#: ../src/gnome-cmd-about-plugin.c:212
 msgid "Written by"
 msgstr "Γράφτηκε από"
 
-#: src/gnome-cmd-about-plugin.c:231
+#: ../src/gnome-cmd-about-plugin.c:226
 msgid "Documented by"
 msgstr "Τεκμηριώθηκε από"
 
-#: src/gnome-cmd-about-plugin.c:246
+#: ../src/gnome-cmd-about-plugin.c:238
 msgid "Translated by"
 msgstr "Μεταφράστηκε από"
 
-#: src/gnome-cmd-about-plugin.c:302
+#: ../src/gnome-cmd-about-plugin.c:295
 #, fuzzy
 msgid "Plugin Webpage"
 msgstr ""
@@ -179,230 +181,239 @@ msgstr ""
 "#-#-#-#-#  GNOME210-gedit.HEAD.el.po (el)  #-#-#-#-#\n"
 "Πρόσθετη Λειτουργία"
 
-#: src/gnome-cmd-about-plugin.c:314
+#: ../src/gnome-cmd-about-plugin.c:307
 msgid "C_redits"
 msgstr "Μ_νεία"
 
-#: src/gnome-cmd-about-plugin.c:523
+#: ../src/gnome-cmd-about-plugin.c:521
 #, c-format
 msgid "About %s"
 msgstr "Περί %s"
 
-#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:745
+#: ../src/gnome-cmd-advrename-dialog.c:99
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "Yes"
 msgstr "Ναι"
 
-#: src/gnome-cmd-advrename-dialog.c:97 src/gnome-cmd-prepare-xfer-dialog.c:118
-#: src/utils.c:745
+#: ../src/gnome-cmd-advrename-dialog.c:99
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "No"
 msgstr "Όχι"
 
-#: src/gnome-cmd-advrename-dialog.c:197
+#: ../src/gnome-cmd-advrename-dialog.c:195
 msgid "Invalid source pattern"
 msgstr "Μη έγκυρο μοτίβο πηγής"
 
-#: src/gnome-cmd-advrename-dialog.c:273
+#: ../src/gnome-cmd-advrename-dialog.c:269
 msgid "Replace this:"
 msgstr "Αντικατάσταση αυτού:"
 
-#: src/gnome-cmd-advrename-dialog.c:273 src/gnome-cmd-advrename-dialog.c:821
+#: ../src/gnome-cmd-advrename-dialog.c:269
+#: ../src/gnome-cmd-advrename-dialog.c:809
 msgid "With this"
 msgstr "με αυτό"
 
-#: src/gnome-cmd-advrename-dialog.c:287
+#: ../src/gnome-cmd-advrename-dialog.c:281
 msgid "Case sensitive matching"
 msgstr "Ταίριασμα πεζών-κεφαλαίων "
 
-#: src/gnome-cmd-advrename-dialog.c:423
+#: ../src/gnome-cmd-advrename-dialog.c:418
 msgid "New Rule"
 msgstr "Νέος κανόνας"
 
-#: src/gnome-cmd-advrename-dialog.c:432
+#: ../src/gnome-cmd-advrename-dialog.c:424
 msgid "Edit Rule"
 msgstr "Επεξεργασία Κανόνα"
 
-#: src/gnome-cmd-advrename-dialog.c:651
+#: ../src/gnome-cmd-advrename-dialog.c:648
 msgid "Counter start value:"
 msgstr "Τιμή εκκίνησης μετρητή:"
 
-#: src/gnome-cmd-advrename-dialog.c:652
+#: ../src/gnome-cmd-advrename-dialog.c:649
 #, fuzzy
 msgid "Counter increment:"
 msgstr "Μετρητής:"
 
-#: src/gnome-cmd-advrename-dialog.c:653
+#: ../src/gnome-cmd-advrename-dialog.c:650
 #, fuzzy
 msgid "Counter minimum digit count:"
 msgstr "Μετρητής:"
 
-#: src/gnome-cmd-advrename-dialog.c:658
+#: ../src/gnome-cmd-advrename-dialog.c:655
 msgid "Template Options"
 msgstr "Επιλογές προτύπου"
 
-#: src/gnome-cmd-advrename-dialog.c:662
+#: ../src/gnome-cmd-advrename-dialog.c:659
 msgid "Auto-update when the template is entered"
 msgstr "Αυτόματη ενημέρωση όταν εισάγεται πρότυπο"
 
-#: src/gnome-cmd-advrename-dialog.c:771
+#: ../src/gnome-cmd-advrename-dialog.c:761
 msgid "Advanced Rename Tool"
 msgstr "Eργαλείο προχωρημένης μετονομασίας"
 
-#: src/gnome-cmd-advrename-dialog.c:784
+#: ../src/gnome-cmd-advrename-dialog.c:774
 msgid "Template"
 msgstr "Πρότυπο"
 
-#: src/gnome-cmd-advrename-dialog.c:806
+#: ../src/gnome-cmd-advrename-dialog.c:796
 msgid "Options..."
 msgstr "Επιλογές..."
 
-#: src/gnome-cmd-advrename-dialog.c:813
+#: ../src/gnome-cmd-advrename-dialog.c:803
 msgid "Regex replacing"
 msgstr ""
 
-#: src/gnome-cmd-advrename-dialog.c:820
+#: ../src/gnome-cmd-advrename-dialog.c:808
 msgid "Replace this"
 msgstr "Αντικατάσταση αυτού"
 
-#: src/gnome-cmd-advrename-dialog.c:822
-msgid "Case sens"
-msgstr "Case sens"
+#: ../src/gnome-cmd-advrename-dialog.c:810
+#: ../src/gnome-cmd-options-dialog.c:97
+#: ../src/gnome-cmd-patternsel-dialog.c:147
+msgid "Case sensitive"
+msgstr "Case sensitive"
 
-#: src/gnome-cmd-advrename-dialog.c:835 src/gnome-cmd-options-dialog.c:1279
-#: src/gnome-cmd-options-dialog.c:1632
+#: ../src/gnome-cmd-advrename-dialog.c:822
+#: ../src/gnome-cmd-options-dialog.c:1342
+#: ../src/gnome-cmd-options-dialog.c:1701
 msgid "_Add..."
 msgstr "Προσ_θήκη..."
 
-#: src/gnome-cmd-advrename-dialog.c:839 src/gnome-cmd-ftp-dialog.c:539
-#: src/gnome-cmd-options-dialog.c:1283 src/gnome-cmd-options-dialog.c:1636
+#: ../src/gnome-cmd-advrename-dialog.c:825 ../src/gnome-cmd-ftp-dialog.c:527
+#: ../src/gnome-cmd-options-dialog.c:1346
+#: ../src/gnome-cmd-options-dialog.c:1705
 msgid "_Edit..."
 msgstr "_Επεξεργασία..."
 
-#: src/gnome-cmd-advrename-dialog.c:844 src/gnome-cmd-bookmark-dialog.c:512
-#: src/gnome-cmd-ftp-dialog.c:543 src/gnome-cmd-options-dialog.c:1289
-#: src/gnome-cmd-options-dialog.c:1642
+#: ../src/gnome-cmd-advrename-dialog.c:829
+#: ../src/gnome-cmd-bookmark-dialog.c:468 ../src/gnome-cmd-ftp-dialog.c:530
+#: ../src/gnome-cmd-options-dialog.c:1352
+#: ../src/gnome-cmd-options-dialog.c:1711
 msgid "_Remove"
 msgstr "_Απομάκρυνση"
 
-#: src/gnome-cmd-advrename-dialog.c:849
+#: ../src/gnome-cmd-advrename-dialog.c:833
 msgid "Re_move All"
 msgstr "Α_φαίρεση όλων"
 
-#: src/gnome-cmd-advrename-dialog.c:872
+#: ../src/gnome-cmd-advrename-dialog.c:854
 msgid "Result"
 msgstr "Αποτέλεσμα"
 
-#: src/gnome-cmd-advrename-dialog.c:877
+#: ../src/gnome-cmd-advrename-dialog.c:859
 msgid "Current filenames"
 msgstr "Τρέχοντα ονόματα αρχείων"
 
-#: src/gnome-cmd-advrename-dialog.c:878
+#: ../src/gnome-cmd-advrename-dialog.c:860
 msgid "New filenames"
 msgstr "Νέα ονόματα αρχείων"
 
-#: src/gnome-cmd-advrename-dialog.c:885
-msgid "Reset"
+#: ../src/gnome-cmd-advrename-dialog.c:867
+#, fuzzy
+msgid "Rese_t"
 msgstr "Επαναφορά"
 
-#: src/gnome-cmd-bookmark-dialog.c:67
+#: ../src/gnome-cmd-bookmark-dialog.c:69
 msgid "Bookmark name:"
 msgstr "Όνομα σελιδοδείκτη"
 
-#: src/gnome-cmd-bookmark-dialog.c:68
+#: ../src/gnome-cmd-bookmark-dialog.c:70
 msgid "Bookmark target:"
 msgstr "Στόχος σελιδοδείκτη:"
 
-#: src/gnome-cmd-bookmark-dialog.c:170
+#: ../src/gnome-cmd-bookmark-dialog.c:158
 msgid "Bookmark name is missing"
 msgstr "Λέιπει το όνομα σελιδοδείκτη"
 
-#: src/gnome-cmd-bookmark-dialog.c:176
+#: ../src/gnome-cmd-bookmark-dialog.c:163
 #, fuzzy
 msgid "Bookmark target is missing"
 msgstr "Σελιδοδείκτης είναι"
 
-#: src/gnome-cmd-bookmark-dialog.c:196
+#: ../src/gnome-cmd-bookmark-dialog.c:183
 msgid "Edit Bookmark"
 msgstr "Επεξεργασία σελιδοδείκτη"
 
-#: src/gnome-cmd-bookmark-dialog.c:466 src/gnome-cmd-bookmark-dialog.c:482
+#: ../src/gnome-cmd-bookmark-dialog.c:431
+#: ../src/gnome-cmd-bookmark-dialog.c:443
 msgid "Bookmarks"
 msgstr "Σελιδοδείκτες"
 
-#: src/gnome-cmd-bookmark-dialog.c:469
+#: ../src/gnome-cmd-bookmark-dialog.c:434
 msgid "Bookmark Groups"
 msgstr "Ομάδες σελιδοδεικτών."
 
-#: src/gnome-cmd-bookmark-dialog.c:491 src/gnome-cmd-file-list.c:1340
+#: ../src/gnome-cmd-bookmark-dialog.c:450 ../src/gnome-cmd-file-list.c:89
 msgid "name"
 msgstr "όνομα"
 
-#: src/gnome-cmd-bookmark-dialog.c:493
+#: ../src/gnome-cmd-bookmark-dialog.c:451
 msgid "path"
 msgstr ""
 
-#: src/gnome-cmd-bookmark-dialog.c:502
+#: ../src/gnome-cmd-bookmark-dialog.c:458
 msgid "_Goto"
 msgstr "Μετά_βαση σε "
 
-#: src/gnome-cmd-bookmark-dialog.c:507 src/gnome-cmd-main-menu.c:770
-#: src/gnome-cmd-search-popup.c:182
+#: ../src/gnome-cmd-bookmark-dialog.c:463 ../src/gnome-cmd-main-menu.c:776
 msgid "_Edit"
 msgstr "_Επεξεργασία"
 
-#: src/gnome-cmd-bookmark-dialog.c:624
+#: ../src/gnome-cmd-bookmark-dialog.c:575
 #, fuzzy
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
 msgstr "Προς a in ο"
 
-#: src/gnome-cmd-bookmark-dialog.c:631
+#: ../src/gnome-cmd-bookmark-dialog.c:582
 msgid "New Bookmark"
 msgstr "Νέος σελιδοδείκτης"
 
-#: src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 #, fuzzy
 msgid "Read"
 msgstr "Αναγνωσμένα"
 
-#: src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Write"
 msgstr "Εγγραφή"
 
-#: src/gnome-cmd-chmod-component.c:128
+#: ../src/gnome-cmd-chmod-component.c:126
 msgid "Execute"
 msgstr "Εκτέλεση"
 
-#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:89
+#: ../src/gnome-cmd-chmod-component.c:127
+#: ../src/gnome-cmd-chown-component.c:86
 msgid "Owner:"
 msgstr "Ιδιοκτήτης:"
 
-#: src/gnome-cmd-chmod-component.c:129 src/gnome-cmd-chown-component.c:92
+#: ../src/gnome-cmd-chmod-component.c:127
+#: ../src/gnome-cmd-chown-component.c:89
 msgid "Group:"
 msgstr "Ομάδα:"
 
-#: src/gnome-cmd-chmod-component.c:129
+#: ../src/gnome-cmd-chmod-component.c:127
 msgid "Others:"
 msgstr "Άλλοι:"
 
-#: src/gnome-cmd-chmod-component.c:163
+#: ../src/gnome-cmd-chmod-component.c:159
 msgid "Text view:"
 msgstr "Προβολή κειμένου:"
 
-#: src/gnome-cmd-chmod-component.c:166
+#: ../src/gnome-cmd-chmod-component.c:162
 msgid "Number view:"
 msgstr "Προβολή αριθμών:"
 
-#: src/gnome-cmd-chmod-dialog.c:38 src/gnome-cmd-options-dialog.c:1079
+#: ../src/gnome-cmd-chmod-dialog.c:40 ../src/gnome-cmd-options-dialog.c:1135
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
-#: src/gnome-cmd-chmod-dialog.c:39
+#: ../src/gnome-cmd-chmod-dialog.c:41
 msgid "Directories only"
 msgstr "Μόνο κατάλογοι"
 
-#: src/gnome-cmd-chmod-dialog.c:71
+#: ../src/gnome-cmd-chmod-dialog.c:71
 #, c-format
 msgid ""
 "Could not chmod %s\n"
@@ -411,16 +422,16 @@ msgstr ""
 "Αδυναμία chmod %s\n"
 "%s"
 
-#: src/gnome-cmd-chmod-dialog.c:214
+#: ../src/gnome-cmd-chmod-dialog.c:204
 msgid "Access Permissions"
 msgstr "Δικαιώματα πρόσβασης"
 
-#: src/gnome-cmd-chmod-dialog.c:232
+#: ../src/gnome-cmd-chmod-dialog.c:222
 #, fuzzy
 msgid "Apply Recursively for"
 msgstr "για"
 
-#: src/gnome-cmd-chown-dialog.c:52
+#: ../src/gnome-cmd-chown-dialog.c:53
 #, c-format
 msgid ""
 "Could not chown %s\n"
@@ -429,97 +440,119 @@ msgstr ""
 "Αδυναμία chown %s\n"
 "%s"
 
-#: src/gnome-cmd-chown-dialog.c:181 src/gnome-cmd-search-popup.c:197
+#: ../src/gnome-cmd-chown-dialog.c:175
 msgid "Chown"
 msgstr "Chown"
 
-#: src/gnome-cmd-chown-dialog.c:195
+#: ../src/gnome-cmd-chown-dialog.c:188
 msgid "Apply Recursively"
 msgstr ""
 
-#: src/gnome-cmd-con-device.c:103
+#: ../src/gnome-cmd-con-device.c:109
 msgid "Failed to execute the mount command"
 msgstr "Αδυναμία εκτέλεσης της εντολής mount"
 
-#: src/gnome-cmd-con-device.c:110
+#: ../src/gnome-cmd-con-device.c:116
 #, fuzzy
 msgid "Mount failed: Permission denied"
 msgstr "Αδυναμία ανοίγματος φακέλου. Άρνηση πρόσβασης"
 
-#: src/gnome-cmd-con-device.c:113
+#: ../src/gnome-cmd-con-device.c:119
 #, fuzzy
 msgid "Mount failed: No medium found"
 msgstr "Όχι"
 
-#: src/gnome-cmd-con-device.c:117
-#, c-format
-#, fuzzy
+#: ../src/gnome-cmd-con-device.c:123
+#, fuzzy, c-format
 msgid "Mount failed: mount exited with existatus %d"
-msgstr "το πρόγραμμα sendmail τερματίστηκε σε κατάσταση %d: το μήνυμα δε στάλθηκε."
+msgstr ""
+"το πρόγραμμα sendmail τερματίστηκε σε κατάσταση %d: το μήνυμα δε στάλθηκε."
 
-#: src/gnome-cmd-con-device.c:356
+#: ../src/gnome-cmd-con-device.c:199
+msgid ""
+"Volume unmounting succeeded.\n"
+"It is safe to eject the media."
+msgstr ""
+
+#: ../src/gnome-cmd-con-device.c:205
+#, c-format
+msgid ""
+"Volume unmounting failed:\n"
+"%s %s"
+msgstr ""
+
+#: ../src/gnome-cmd-con-device.c:206
+#, fuzzy
+msgid "Unknown Error"
+msgstr "Άγνωστο"
+
+#: ../src/gnome-cmd-con-device.c:412
 #, c-format
 msgid "Mounting %s"
 msgstr "Προσάρτηση %s"
 
-#: src/gnome-cmd-con-device.c:374 src/gnome-cmd-con-ftp.c:287
-#, c-format
-msgid "Go to: %s"
+#: ../src/gnome-cmd-con-device.c:430
+#, fuzzy, c-format
+msgid "Go to: %s (%s)"
 msgstr "Μετάβαση σε: %s"
 
-#: src/gnome-cmd-con-device.c:375
+#: ../src/gnome-cmd-con-device.c:431
 #, c-format
 msgid "Mount: %s"
 msgstr "Προσάρτηση %s"
 
-#: src/gnome-cmd-con-device.c:376
+#: ../src/gnome-cmd-con-device.c:432
 #, c-format
 msgid "Unmount: %s"
 msgstr "Αποπροσάρτηση: %s"
 
-#: src/gnome-cmd-con-ftp.c:268
-#, c-format
-#, fuzzy
+#: ../src/gnome-cmd-con-ftp.c:276
+#, fuzzy, c-format
 msgid "Connecting to %s\n"
 msgstr "Επανασύνδεση στο %s"
 
-#: src/gnome-cmd-con-ftp.c:288
+#: ../src/gnome-cmd-con-ftp.c:294
+#, c-format
+msgid "Go to: %s"
+msgstr "Μετάβαση σε: %s"
+
+#: ../src/gnome-cmd-con-ftp.c:295
 #, c-format
 msgid "Connect to: %s"
 msgstr "Σύνδεσης σε:  %s"
 
-#: src/gnome-cmd-con-ftp.c:289
+#: ../src/gnome-cmd-con-ftp.c:296
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Αποσύνδεση από: %s"
 
-#: src/gnome-cmd-con-ftp.c:307
-#, c-format
-msgid "Creates an FTP connection to %s"
+#: ../src/gnome-cmd-con-ftp.c:312
+#, fuzzy, c-format
+msgid "Creates the FTP connection to %s"
 msgstr "Δημιουργεί μια σύνδεση FTP σε  %s"
 
-#: src/gnome-cmd-con-ftp.c:309
+#: ../src/gnome-cmd-con-ftp.c:313
 #, c-format
 msgid "Removes the FTP connection to %s"
-msgstr "Απομακρύνει την σύνδεση FTP σε %s"
+msgstr "Απομακρύνει τη σύνδεση FTP σε %s"
 
-#: src/gnome-cmd-con-home.c:129
+#: ../src/gnome-cmd-con-home.c:129
 msgid "Home"
 msgstr "Αρχή"
 
-#: src/gnome-cmd-con-home.c:137
+#: ../src/gnome-cmd-con-home.c:137
 msgid "Go to: Home"
 msgstr "Μετάβαση σε: Αρχή"
 
-#: src/gnome-cmd-con-smb.c:94
+#: ../src/gnome-cmd-con-smb.c:94
 msgid "Failed to browse the network. Is the SMB module installed?"
 msgstr "Αποτυχία περιήγησης δικτύου. Είναι το SMB module εγκατεστημένο;"
 
-#: src/gnome-cmd-con-smb.c:211
+#: ../src/gnome-cmd-con-smb.c:211
 msgid "SMB"
 msgstr "SMB"
 
-#: src/gnome-cmd-con-smb.c:212
+#: ../src/gnome-cmd-con-smb.c:212
 #, fuzzy
 msgid "Searching for workgroups and hosts"
 msgstr ""
@@ -528,15 +561,15 @@ msgstr ""
 "#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
 "και"
 
-#: src/gnome-cmd-con-smb.c:219
+#: ../src/gnome-cmd-con-smb.c:219
 msgid "Go to: Samba Network"
 msgstr "Μετάβαση σε: Δίκτυο Samba "
 
-#: src/gnome-cmd-delete-dialog.c:143
+#: ../src/gnome-cmd-delete-dialog.c:145
 msgid "Deleting..."
 msgstr "Διαγραφή..."
 
-#: src/gnome-cmd-delete-dialog.c:225
+#: ../src/gnome-cmd-delete-dialog.c:224
 #, c-format
 msgid ""
 "Error while deleting %s\n"
@@ -547,1239 +580,1338 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-delete-dialog.c:228
+#: ../src/gnome-cmd-delete-dialog.c:226
 msgid "Delete problem"
 msgstr "Διαγραφή προβλήματος"
 
-#: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:176
-#: src/gnome-cmd-xfer.c:196
+#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-xfer.c:176
+#: ../src/gnome-cmd-xfer.c:196
 msgid "Abort"
 msgstr "Εγκατάλειψη"
 
-#: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:196
+#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-xfer.c:196
 msgid "Retry"
 msgstr "Προσπάθεια ξανά"
 
-#: src/gnome-cmd-delete-dialog.c:229 src/gnome-cmd-xfer.c:176
-#: src/gnome-cmd-xfer.c:196
+#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-xfer.c:176
+#: ../src/gnome-cmd-xfer.c:196
 msgid "Skip"
 msgstr "Προσπέραση"
 
-#: src/gnome-cmd-delete-dialog.c:307
+#: ../src/gnome-cmd-delete-dialog.c:305
 #, c-format
 msgid "Do you want to delete \"%s\"?"
-msgstr "Θέλετε την διαγραφή του \"%s\";"
+msgstr "Θέλετε τη διαγραφή του \"%s\";"
 
-#: src/gnome-cmd-delete-dialog.c:312
-#, c-format
+#: ../src/gnome-cmd-delete-dialog.c:310
+#, fuzzy, c-format
 msgid "Do you want to delete the selected file?"
-msgstr "Είσαστε βέβαιοι ότι θέλετε να διαγράψετε το επιλεγμένο αρχείο;"
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] "Είσαστε βέβαιοι ότι θέλετε να διαγράψετε το επιλεγμένο αρχείο;"
+msgstr[1] "Είσαστε βέβαιοι ότι θέλετε να διαγράψετε το επιλεγμένο αρχείο;"
 
-#: src/gnome-cmd-delete-dialog.c:320 src/gnome-cmd-main-win.c:1346
+#: ../src/gnome-cmd-delete-dialog.c:318 ../src/gnome-cmd-main-win.c:1379
+#: ../src/gnome-cmd-options-dialog.c:645
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603 src/utils.c:632
+#: ../src/gnome-cmd-delete-dialog.c:319 ../src/utils.c:597 ../src/utils.c:626
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: src/gnome-cmd-delete-dialog.c:320 src/utils.c:603
+#: ../src/gnome-cmd-delete-dialog.c:319 ../src/utils.c:597
 msgid "OK"
 msgstr "OK"
 
-#: src/gnome-cmd-dir.c:569
+#: ../src/gnome-cmd-dir.c:566
 msgid "Waiting for file list"
 msgstr "Αναμονή για λίστα αρχείου"
 
-#: src/gnome-cmd-file-list.c:1341
-msgid "ext"
-msgstr "ext"
-
-#: src/gnome-cmd-file-list.c:1342
-msgid "dir"
-msgstr "dir"
-
-#: src/gnome-cmd-file-list.c:1343
-msgid "size"
-msgstr "μέγεθος"
-
-#: src/gnome-cmd-file-list.c:1344
-msgid "date"
-msgstr "ημερομηνία"
-
-#: src/gnome-cmd-file-list.c:1345
-msgid "perm"
-msgstr "perm"
-
-#: src/gnome-cmd-file-list.c:1346
-msgid "uid"
-msgstr "uid"
-
-#: src/gnome-cmd-file-list.c:1347
-msgid "gid"
-msgstr "gid"
-
-#: src/gnome-cmd-file-popmenu.c:131
-msgid "Invalid command"
-msgstr "Μη έγκυρη εντολή"
-
-#: src/gnome-cmd-file-popmenu.c:159
-msgid "Application:"
-msgstr "Εφαρμογή:"
-
-#: src/gnome-cmd-file-popmenu.c:163
-msgid "Open with other..."
-msgstr "Άνοιγμα με άλλη..."
-
-#: src/gnome-cmd-file-popmenu.c:167
-msgid "Needs terminal"
-msgstr "Χρειάζεται τερματικό"
-
-#: src/gnome-cmd-file-popmenu.c:418
-msgid "_Open"
-msgstr "Ά_νοιγμα"
-
-#: src/gnome-cmd-file-popmenu.c:425
-msgid "_Open with..."
-msgstr "Άνοι_γμα με..."
-
-#: src/gnome-cmd-file-popmenu.c:437
-msgid "_Execute"
-msgstr "_Εκτέλεση"
-
-#: src/gnome-cmd-file-popmenu.c:455
-msgid "_Cut"
-msgstr "Α_ποκοπή"
-
-#: src/gnome-cmd-file-popmenu.c:462 src/gnome-cmd-main-menu.c:565
-msgid "_Copy"
-msgstr "Αντι_γραφή"
-
-#: src/gnome-cmd-file-popmenu.c:469 src/gnome-cmd-main-menu.c:577
-#: src/gnome-cmd-search-popup.c:167
-msgid "_Delete"
-msgstr "_Διαγραφή"
-
-#: src/gnome-cmd-file-popmenu.c:476
-msgid "Rename"
-msgstr "Μετονομασία"
-
-#: src/gnome-cmd-file-popmenu.c:484 src/gnome-cmd-file-props-dialog.c:475
-#: src/gnome-cmd-search-popup.c:204
-msgid "Properties"
-msgstr "Ιδιότητες"
-
-#: src/gnome-cmd-file-popmenu.c:542
-msgid "Other..."
-msgstr "Άλλο..."
-
-#: src/gnome-cmd-file-props-dialog.c:63 src/utils.c:987
-#, c-format
-msgid "%s byte"
-msgstr "%s byte"
-
-#: src/gnome-cmd-file-props-dialog.c:210 src/gnome-cmd-file-props-dialog.c:346
-#, fuzzy
-msgid "No default application registered"
-msgstr "Καθορισμός της προεπιλεγμένης γραμματοσειράς εφαρμογών"
-
-#: src/gnome-cmd-file-props-dialog.c:302 src/gnome-cmd-file-selector.c:2058
-msgid "Filename:"
-msgstr "Όνομα Αρχείου:"
-
-#: src/gnome-cmd-file-props-dialog.c:313
-msgid "Symlink target:"
-msgstr "Στόχος συμβολικού συνδέσμου:"
-
-#: src/gnome-cmd-file-props-dialog.c:322
-msgid "Type:"
-msgstr "Τύπος:"
-
-#: src/gnome-cmd-file-props-dialog.c:329
-msgid "MIME Type:"
-msgstr "Τύπος MIME:"
-
-#: src/gnome-cmd-file-props-dialog.c:337
-msgid "Opens with:"
-msgstr "Ανοίγει με:"
-
-#: src/gnome-cmd-file-props-dialog.c:348
-msgid "_Change"
-msgstr "Α_λλαγή"
-
-#: src/gnome-cmd-file-props-dialog.c:360
-msgid "Accessed:"
-msgstr "Προσπελάστηκε:"
-
-#: src/gnome-cmd-file-props-dialog.c:367
-msgid "Modified:"
-msgstr "Τροποποιήθηκε:"
-
-#: src/gnome-cmd-file-props-dialog.c:377
-msgid "Size:"
-msgstr "Μέγεθος:"
-
-#: src/gnome-cmd-file-props-dialog.c:413
-msgid "Owner and group"
-msgstr "Ιδοκτήτης και ομάδα"
-
-#: src/gnome-cmd-file-props-dialog.c:427
-msgid "Access permissions"
-msgstr "Δικαώμαρα πρόσβασης"
-
-#: src/gnome-cmd-file-props-dialog.c:450
-msgid "File Properties"
-msgstr "Ιδιότητες αρχείου"
-
-#: src/gnome-cmd-file-props-dialog.c:479
-msgid "Permissions"
-msgstr "Δικαιώματα"
-
-#: src/gnome-cmd-file-selector.c:194
-#, c-format
-msgid "%s of %s kB in %d of %d file selected"
-msgstr "%s από %s kB σε %d από %d επιλεγμένο αρχείο"
-
-#: src/gnome-cmd-file-selector.c:730
-#, c-format
-#, fuzzy
-msgid "%s Free"
-msgstr "Διαθέσιμη"
-
-#: src/gnome-cmd-file-selector.c:1784
-#, c-format
-#, fuzzy
-msgid "Failed to open connection: %s\n"
-msgstr "Αποτυχία ανοίγματος \"%s\": %s\n"
-
-#: src/gnome-cmd-file-selector.c:1993 src/gnome-cmd-make-copy-dialog.c:68
-#: src/gnome-cmd-rename-dialog.c:52
-#, fuzzy
-msgid "No filename entered"
-msgstr "Δεν έχετε δώσει όνομα αρχείου."
-
-#: src/gnome-cmd-file-selector.c:2029
-msgid "No filename given"
-msgstr "Δεν έχετε δώσει όνομα αρχείου"
-
-#: src/gnome-cmd-file-selector.c:2064
-msgid "New Text File"
-msgstr "Νέο αρχείο κειμένου"
-
-#: src/gnome-cmd-file-selector.c:2233
-msgid "Symlink name:"
+#: ../src/gnome-cmd-dir-indicator.c:438
+msgid "Add current dir"
 msgstr ""
 
-#: src/gnome-cmd-file-selector.c:2237
-#, c-format
-msgid "Symlink to %s"
-msgstr "Συμβολικός σύνδεσμος σε %s"
+#: ../src/gnome-cmd-dir-indicator.c:439
+#, fuzzy
+msgid "Manage bookmarks..."
+msgstr "Δια_χείριση σελιδοδεικτών..."
 
-#: src/gnome-cmd-file-selector.c:2239
-msgid "Create Symbolic Link"
-msgstr "Δημιουργία συμβολικού συνδέσμου"
-
-#: src/gnome-cmd-file-selector.c:2310
-msgid "Filter:"
-msgstr "Φίλτρο:"
-
-#: src/gnome-cmd-file.c:603
+#: ../src/gnome-cmd-file.c:589
 msgid "Unknown file type"
 msgstr "Άγνωστος τύπος αρχείου"
 
-#: src/gnome-cmd-file.c:604
+#: ../src/gnome-cmd-file.c:590
 msgid "Regular file"
 msgstr "Κανονικό αρχείο"
 
-#: src/gnome-cmd-file.c:605
+#: ../src/gnome-cmd-file.c:591
 msgid "Directory"
 msgstr "Κατάλογος"
 
-#: src/gnome-cmd-file.c:606
+#: ../src/gnome-cmd-file.c:592
 msgid "FIFO"
 msgstr "FIFO"
 
-#: src/gnome-cmd-file.c:607
+#: ../src/gnome-cmd-file.c:593
 msgid "UNIX Socket"
 msgstr "Υποδοχή UNIX"
 
-#: src/gnome-cmd-file.c:608
+#: ../src/gnome-cmd-file.c:594
 msgid "Character device"
 msgstr "Συσκευή χαρακτήρα"
 
-#: src/gnome-cmd-file.c:609
+#: ../src/gnome-cmd-file.c:595
 #, fuzzy
 msgid "Block device"
 msgstr "Συσκευή μπλοκ"
 
-#: src/gnome-cmd-file.c:610
+#: ../src/gnome-cmd-file.c:596
 msgid "Symbolic link"
 msgstr "Συμβολικός σύνδεσμος"
 
-#: src/gnome-cmd-ftp-dialog.c:163
+#: ../src/gnome-cmd-file-list.c:90
+msgid "ext"
+msgstr "ext"
+
+#: ../src/gnome-cmd-file-list.c:91
+msgid "dir"
+msgstr "dir"
+
+#: ../src/gnome-cmd-file-list.c:92
+msgid "size"
+msgstr "μέγεθος"
+
+#: ../src/gnome-cmd-file-list.c:93
+msgid "date"
+msgstr "ημερομηνία"
+
+#: ../src/gnome-cmd-file-list.c:94
+msgid "perm"
+msgstr "perm"
+
+#: ../src/gnome-cmd-file-list.c:95
+msgid "uid"
+msgstr "uid"
+
+#: ../src/gnome-cmd-file-list.c:96
+msgid "gid"
+msgstr "gid"
+
+#: ../src/gnome-cmd-file-popmenu.c:130
+msgid "Invalid command"
+msgstr "Μη έγκυρη εντολή"
+
+#: ../src/gnome-cmd-file-popmenu.c:158
+msgid "Application:"
+msgstr "Εφαρμογή:"
+
+#: ../src/gnome-cmd-file-popmenu.c:162
+msgid "Open with other..."
+msgstr "Άνοιγμα με άλλη..."
+
+#: ../src/gnome-cmd-file-popmenu.c:166
+msgid "Needs terminal"
+msgstr "Χρειάζεται τερματικό"
+
+#: ../src/gnome-cmd-file-popmenu.c:415
+msgid "_Open"
+msgstr "Ά_νοιγμα"
+
+#: ../src/gnome-cmd-file-popmenu.c:422
+msgid "_Open with..."
+msgstr "Άνοι_γμα με..."
+
+#: ../src/gnome-cmd-file-popmenu.c:434
+msgid "_Execute"
+msgstr "_Εκτέλεση"
+
+#: ../src/gnome-cmd-file-popmenu.c:452
+msgid "_Cut"
+msgstr "Α_ποκοπή"
+
+#: ../src/gnome-cmd-file-popmenu.c:459 ../src/gnome-cmd-main-menu.c:553
+msgid "_Copy"
+msgstr "Αντι_γραφή"
+
+#: ../src/gnome-cmd-file-popmenu.c:466 ../src/gnome-cmd-main-menu.c:565
+msgid "_Delete"
+msgstr "_Διαγραφή"
+
+#: ../src/gnome-cmd-file-popmenu.c:473
+msgid "Rename"
+msgstr "Μετονομασία"
+
+#: ../src/gnome-cmd-file-popmenu.c:481
+#: ../src/gnome-cmd-file-props-dialog.c:475
+msgid "Properties"
+msgstr "Ιδιότητες"
+
+#: ../src/gnome-cmd-file-popmenu.c:539
+msgid "Other..."
+msgstr "Άλλο..."
+
+#: ../src/gnome-cmd-file-props-dialog.c:63 ../src/utils.c:965
+#, fuzzy, c-format
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] "%s byte"
+msgstr[1] "%s byte"
+
+#: ../src/gnome-cmd-file-props-dialog.c:210
+#: ../src/gnome-cmd-file-props-dialog.c:346
+#, fuzzy
+msgid "No default application registered"
+msgstr "Καθορισμός της προεπιλεγμένης γραμματοσειράς εφαρμογών"
+
+#: ../src/gnome-cmd-file-props-dialog.c:302
+#: ../src/gnome-cmd-file-selector.c:1990
+msgid "Filename:"
+msgstr "Όνομα Αρχείου:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:313
+msgid "Symlink target:"
+msgstr "Στόχος συμβολικού συνδέσμου:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:322
+msgid "Type:"
+msgstr "Τύπος:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:329
+msgid "MIME Type:"
+msgstr "Τύπος MIME:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:337
+msgid "Opens with:"
+msgstr "Ανοίγει με:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:348
+msgid "_Change"
+msgstr "Α_λλαγή"
+
+#: ../src/gnome-cmd-file-props-dialog.c:360
+msgid "Accessed:"
+msgstr "Προσπελάστηκε:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:367
+msgid "Modified:"
+msgstr "Τροποποιήθηκε:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:377
+msgid "Size:"
+msgstr "Μέγεθος:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:413
+msgid "Owner and group"
+msgstr "Ιδοκτήτης και ομάδα"
+
+#: ../src/gnome-cmd-file-props-dialog.c:427
+msgid "Access permissions"
+msgstr "Δικαώμαρα πρόσβασης"
+
+#: ../src/gnome-cmd-file-props-dialog.c:450
+msgid "File Properties"
+msgstr "Ιδιότητες αρχείου"
+
+#: ../src/gnome-cmd-file-props-dialog.c:479
+msgid "Permissions"
+msgstr "Δικαιώματα"
+
+#: ../src/gnome-cmd-file-selector.c:186
+#, fuzzy, c-format
+msgid "%s of %s kB in %d of %d file selected"
+msgid_plural "%s of %s kB in %d of %d files selected"
+msgstr[0] "%s από %s kB σε %d από %d επιλεγμένο αρχείο"
+msgstr[1] "%s από %s kB σε %d από %d επιλεγμένο αρχείο"
+
+#: ../src/gnome-cmd-file-selector.c:701
+#, fuzzy, c-format
+msgid "%s free"
+msgstr "Διαθέσιμη"
+
+#: ../src/gnome-cmd-file-selector.c:705
+#, fuzzy
+msgid "Unknown disk usage"
+msgstr "Άγνωστος τύπος αρχείου"
+
+#: ../src/gnome-cmd-file-selector.c:1131
+#, c-format
+msgid "List failed: %s\n"
+msgstr ""
+
+#: ../src/gnome-cmd-file-selector.c:1723
+#, fuzzy, c-format
+msgid "Failed to open connection: %s\n"
+msgstr "Αποτυχία ανοίγματος \"%s\": %s\n"
+
+#: ../src/gnome-cmd-file-selector.c:1927
+#: ../src/gnome-cmd-make-copy-dialog.c:68 ../src/gnome-cmd-rename-dialog.c:53
+#, fuzzy
+msgid "No filename entered"
+msgstr "Δεν έχετε δώσει όνομα αρχείου."
+
+#: ../src/gnome-cmd-file-selector.c:1962
+msgid "No filename given"
+msgstr "Δεν έχετε δώσει όνομα αρχείου"
+
+#: ../src/gnome-cmd-file-selector.c:1996
+msgid "New Text File"
+msgstr "Νέο αρχείο κειμένου"
+
+#: ../src/gnome-cmd-file-selector.c:2173
+msgid "Symlink name:"
+msgstr ""
+
+#: ../src/gnome-cmd-file-selector.c:2177
+#, c-format
+msgid "Symlink to %s"
+msgstr "Συμβολικός σύνδεσμος σε %s"
+
+#: ../src/gnome-cmd-file-selector.c:2179
+msgid "Create Symbolic Link"
+msgstr "Δημιουργία συμβολικού συνδέσμου"
+
+#: ../src/gnome-cmd-file-selector.c:2250
+msgid "Filter:"
+msgstr "Φίλτρο:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:157
 #, c-format
 msgid "Enter password for %s@%s"
 msgstr "Εισάγετε κωδικό για %s@%s"
 
-#: src/gnome-cmd-ftp-dialog.c:168
+#: ../src/gnome-cmd-ftp-dialog.c:162
 msgid "Enter Password"
 msgstr "Εισάγετε κωδικό"
 
-#: src/gnome-cmd-ftp-dialog.c:215
+#: ../src/gnome-cmd-ftp-dialog.c:211
 msgid "No alias specified"
 msgstr "Δεν έχει καθοριστεί ψευδώνυμο"
 
-#: src/gnome-cmd-ftp-dialog.c:218
+#: ../src/gnome-cmd-ftp-dialog.c:214
 msgid "No host specified"
 msgstr "Δεν έχει οριστεί όνομα συστήματος"
 
-#: src/gnome-cmd-ftp-dialog.c:221
+#: ../src/gnome-cmd-ftp-dialog.c:217
 #, c-format
 msgid "Invalid port number: %s"
 msgstr "Μη έγκυρος αριθμός θύρας: %s"
 
-#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-options-dialog.c:1472
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-options-dialog.c:1534
 msgid "Alias:"
 msgstr "Ψευδώνυμα:"
 
-#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Host:"
 msgstr "Σύστημα:"
 
-#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Port:"
 msgstr "Θύρα:"
 
-#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "User:"
 msgstr "Χρήστης:"
 
-#: src/gnome-cmd-ftp-dialog.c:298 src/gnome-cmd-ftp-dialog.c:299
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Password:"
 msgstr "Κωδικός:"
 
-#: src/gnome-cmd-ftp-dialog.c:323
-msgid "New FTP Server"
-msgstr "Νέος εξυπηρετητής FTP"
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
+msgid "Remote Dir:"
+msgstr ""
 
-#: src/gnome-cmd-ftp-dialog.c:348
-msgid "Edit FTP Server"
-msgstr "Επεξεργασία εξυπηρετητή FTP"
+#: ../src/gnome-cmd-ftp-dialog.c:318
+#, fuzzy
+msgid "New FTP Connection"
+msgstr "Σύνδεση FTP"
 
-#: src/gnome-cmd-ftp-dialog.c:378
+#: ../src/gnome-cmd-ftp-dialog.c:342
+#, fuzzy
+msgid "Edit FTP Connection"
+msgstr "Σύνδεση FTP"
+
+#: ../src/gnome-cmd-ftp-dialog.c:374
 msgid "No server selected"
 msgstr "Δεν έχει επιλεγεί εξυπηρετητής"
 
-#: src/gnome-cmd-ftp-dialog.c:506 src/gnome-cmd-main-win.c:1354
+#: ../src/gnome-cmd-ftp-dialog.c:495 ../src/gnome-cmd-main-win.c:1395
 msgid "FTP Connect"
 msgstr "Σύνδεση FTP"
 
-#: src/gnome-cmd-ftp-dialog.c:512
-msgid "Servers"
-msgstr "Εξυπηρετητές"
+#: ../src/gnome-cmd-ftp-dialog.c:500
+#, fuzzy
+msgid "Connections"
+msgstr "Συν_δέσεις"
 
-#: src/gnome-cmd-ftp-dialog.c:532 src/gnome-cmd-options-dialog.c:1626
+#: ../src/gnome-cmd-ftp-dialog.c:520 ../src/gnome-cmd-options-dialog.c:1695
 msgid "Alias"
 msgstr "Ψευδώνυμο"
 
-#: src/gnome-cmd-ftp-dialog.c:537 src/gnome-cmd-list-popmenu.c:145
+#: ../src/gnome-cmd-ftp-dialog.c:525 ../src/gnome-cmd-list-popmenu.c:141
 msgid "_New..."
 msgstr "_Νέο..."
 
-#: src/gnome-cmd-ftp-dialog.c:553
+#: ../src/gnome-cmd-ftp-dialog.c:539
 msgid "Anonymous password:"
 msgstr "Ανώνυμος κωδικός:"
 
-#: src/gnome-cmd-ftp-dialog.c:563
+#: ../src/gnome-cmd-ftp-dialog.c:548
 msgid "Connect"
 msgstr "Σύνδεση"
 
-#: src/gnome-cmd-ftp-dialog.c:670
+#: ../src/gnome-cmd-ftp-dialog.c:644
 msgid "FTP Quick Connect"
 msgstr ""
 
-#: src/gnome-cmd-list-popmenu.c:126
+#: ../src/gnome-cmd-list-popmenu.c:122
 msgid "_Directory"
 msgstr "Κα_ταλόγος"
 
-#: src/gnome-cmd-list-popmenu.c:133
+#: ../src/gnome-cmd-list-popmenu.c:129
 msgid "_Text file"
 msgstr "Αρχείο _κειμένου"
 
-#: src/gnome-cmd-list-popmenu.c:152 src/gnome-cmd-main-menu.c:571
+#: ../src/gnome-cmd-list-popmenu.c:148 ../src/gnome-cmd-main-menu.c:559
 msgid "_Paste"
 msgstr "Επι_κόλληση"
 
-#: src/gnome-cmd-list-popmenu.c:159 src/gnome-cmd-main-menu.c:626
+#: ../src/gnome-cmd-list-popmenu.c:155 ../src/gnome-cmd-main-menu.c:614
 msgid "_Refresh"
 msgstr "Ανα_νέωση"
 
-#: src/gnome-cmd-main-menu.c:389
+#: ../src/gnome-cmd-main-menu.c:380
 msgid "Switch to Horizontal Layout"
 msgstr "Αλλαγή σε οριζόντια διάταξη"
 
-#: src/gnome-cmd-main-menu.c:394
+#: ../src/gnome-cmd-main-menu.c:385
 msgid "Switch to Vertical Layout"
 msgstr "Αλλαγή σε κάθετη διάταξη"
 
-#: src/gnome-cmd-main-menu.c:462
+#: ../src/gnome-cmd-main-menu.c:450
 msgid "Change _Owner/Group"
 msgstr "Αλλαγή ι_διοκτήτη/Ομάδας"
 
-#: src/gnome-cmd-main-menu.c:468
+#: ../src/gnome-cmd-main-menu.c:456
 msgid "Change Per_missions"
 msgstr "Αλλαγή _δικαιωμάτων"
 
-#: src/gnome-cmd-main-menu.c:474
+#: ../src/gnome-cmd-main-menu.c:462
 msgid "Advanced _Rename Tool"
 msgstr "Εργαλείο προ_χωρημένης μετονομασίας"
 
-#: src/gnome-cmd-main-menu.c:480
+#: ../src/gnome-cmd-main-menu.c:468
 #, fuzzy
 msgid "Create _Symbolic Link"
 msgstr "Δημιουργία Σύνδεσμος"
 
-#: src/gnome-cmd-main-menu.c:486
+#: ../src/gnome-cmd-main-menu.c:474
 msgid "_Properties..."
 msgstr "_Ιδιότητες..."
 
-#: src/gnome-cmd-main-menu.c:493
+#: ../src/gnome-cmd-main-menu.c:481
 msgid "_Diff"
 msgstr "_Diff"
 
-#: src/gnome-cmd-main-menu.c:500
+#: ../src/gnome-cmd-main-menu.c:488
 msgid "_Quit"
 msgstr "Έ_ξοδος"
 
-#: src/gnome-cmd-main-menu.c:511
+#: ../src/gnome-cmd-main-menu.c:499
 msgid "_Select All"
 msgstr "Ε_πιλογή Όλων"
 
-#: src/gnome-cmd-main-menu.c:517
+#: ../src/gnome-cmd-main-menu.c:505
 msgid "_Unselect All"
 msgstr "Αποεπι_λογή όλων"
 
-#: src/gnome-cmd-main-menu.c:523
+#: ../src/gnome-cmd-main-menu.c:511
 msgid "Select with _Pattern"
 msgstr "Επιλογή με _μοτίβο"
 
-#: src/gnome-cmd-main-menu.c:529
+#: ../src/gnome-cmd-main-menu.c:517
 msgid "Unselect with P_attern"
 msgstr "Αποεπιλογή με μοτίβο"
 
-#: src/gnome-cmd-main-menu.c:535
+#: ../src/gnome-cmd-main-menu.c:523
 msgid "_Invert Selection"
 msgstr "Αντιστρο_φή Επιλογής"
 
-#: src/gnome-cmd-main-menu.c:541
+#: ../src/gnome-cmd-main-menu.c:529
 msgid "_Restore Selection"
 msgstr "Επαναφο_ρά επιλογής"
 
-#: src/gnome-cmd-main-menu.c:548
-msgid "_Compare Directries"
-msgstr ""
+#: ../src/gnome-cmd-main-menu.c:536
+#, fuzzy
+msgid "_Compare Directories"
+msgstr "Κατάλογοι"
 
-#: src/gnome-cmd-main-menu.c:559
+#: ../src/gnome-cmd-main-menu.c:547
 msgid "Cu_t"
 msgstr "Αποκο_πή"
 
-#: src/gnome-cmd-main-menu.c:584
+#: ../src/gnome-cmd-main-menu.c:572
 msgid "Copy _File Names"
 msgstr "Αντιγραφή ονομάτων α_ρχείων"
 
-#: src/gnome-cmd-main-menu.c:591
+#: ../src/gnome-cmd-main-menu.c:579
 msgid "_Search..."
 msgstr "Ανα_ζήτηση..."
 
-#: src/gnome-cmd-main-menu.c:597
+#: ../src/gnome-cmd-main-menu.c:585
 msgid "_Quick Search..."
 msgstr "_Γρήγορη αναζήτηση..."
 
-#: src/gnome-cmd-main-menu.c:603
+#: ../src/gnome-cmd-main-menu.c:591
 msgid "_Enable Filter..."
 msgstr "Ενεργοποίηση _φίλτρου..."
 
-#: src/gnome-cmd-main-menu.c:614
+#: ../src/gnome-cmd-main-menu.c:602
 msgid "_Back"
 msgstr "_Πίσω"
 
-#: src/gnome-cmd-main-menu.c:620
+#: ../src/gnome-cmd-main-menu.c:608
 msgid "_Forward"
 msgstr "_Μπροστά"
 
-#: src/gnome-cmd-main-menu.c:633
+#: ../src/gnome-cmd-main-menu.c:621
 msgid "Show Device Buttons"
 msgstr "Εμφάνιση κουμπιών συσκευής"
 
-#: src/gnome-cmd-main-menu.c:639
+#: ../src/gnome-cmd-main-menu.c:627
 msgid "Show Toolbar"
 msgstr "Εμφάνιση εργαλειοθήκης"
 
-#: src/gnome-cmd-main-menu.c:645
+#: ../src/gnome-cmd-main-menu.c:633
 msgid "Show Commandline"
 msgstr "Εμφάνιση γραμμής εντολών"
 
-#: src/gnome-cmd-main-menu.c:651
+#: ../src/gnome-cmd-main-menu.c:639
 msgid "Show Buttonbar"
 msgstr "Εμφάνιση εργαλειοθήκης κουμπιών"
 
-#: src/gnome-cmd-main-menu.c:658
+#: ../src/gnome-cmd-main-menu.c:646
 msgid "Show Hidden Files"
 msgstr "Εμφάνιση κρυφών αρχείων"
 
-#: src/gnome-cmd-main-menu.c:664
+#: ../src/gnome-cmd-main-menu.c:652
 msgid "Show Backup Files"
 msgstr "Εμφάνιση αντιγράφων ασφαλείας."
 
-#: src/gnome-cmd-main-menu.c:676
+#: ../src/gnome-cmd-main-menu.c:664
 msgid "_Bookmark this Directory..."
 msgstr "Προσ_θήκη σελιδοδείκτη για αυτόν κατάλογο..."
 
-#: src/gnome-cmd-main-menu.c:682
+#: ../src/gnome-cmd-main-menu.c:670
 msgid "_Manage Bookmarks..."
 msgstr "Δια_χείριση σελιδοδεικτών..."
 
-#: src/gnome-cmd-main-menu.c:694
+#: ../src/gnome-cmd-main-menu.c:682
 msgid "_Configure Plugins..."
 msgstr "_Ρύθμιση πρόσθετων λειτουργιών..."
 
-#: src/gnome-cmd-main-menu.c:706
+#: ../src/gnome-cmd-main-menu.c:694
 msgid "_Options..."
 msgstr "_Επιλογές"
 
-#: src/gnome-cmd-main-menu.c:712
+#: ../src/gnome-cmd-main-menu.c:700
 msgid "Edit _Mime Types..."
 msgstr "Επεξεργασία τύπων _Mime..."
 
-#: src/gnome-cmd-main-menu.c:723
+#: ../src/gnome-cmd-main-menu.c:711
 msgid "FTP _Connect..."
 msgstr ""
 
-#: src/gnome-cmd-main-menu.c:729
+#: ../src/gnome-cmd-main-menu.c:717
 msgid "FTP _Quick Connect..."
 msgstr ""
 
-#: src/gnome-cmd-main-menu.c:740
-msgid "User _Manual..."
-msgstr "Εγχειρίδιο _χρήστη..."
+#: ../src/gnome-cmd-main-menu.c:728
+#, fuzzy
+msgid "_Contents"
+msgstr "Συν_δέσεις"
 
-#: src/gnome-cmd-main-menu.c:747
-msgid "_About..."
-msgstr "_Περί..."
+#: ../src/gnome-cmd-main-menu.c:734
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: ../src/gnome-cmd-main-menu.c:740
+#, fuzzy
+msgid "GNOME Commander on the _Web"
+msgstr "GNOME Commander"
+
+#: ../src/gnome-cmd-main-menu.c:746
+#, fuzzy
+msgid "Report a _Problem"
+msgstr "Πρόβλημα Xfer"
+
+#: ../src/gnome-cmd-main-menu.c:753 ../src/plugin_manager.c:440
+msgid "_About"
+msgstr "_Περί"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
-#: src/gnome-cmd-main-menu.c:766
+#. File Menu
+#: ../src/gnome-cmd-main-menu.c:772 ../src/libgviewer/viewer-window.c:991
 msgid "_File"
 msgstr "_Αρχείο"
 
-#: src/gnome-cmd-main-menu.c:774
+#: ../src/gnome-cmd-main-menu.c:780
 msgid "_Mark"
 msgstr "Ση_μείωση"
 
-#: src/gnome-cmd-main-menu.c:778 src/gnome-cmd-search-popup.c:175
+#: ../src/gnome-cmd-main-menu.c:784 ../src/libgviewer/viewer-window.c:994
 msgid "_View"
 msgstr "_Προβολή"
 
-#: src/gnome-cmd-main-menu.c:783
+#: ../src/gnome-cmd-main-menu.c:789 ../src/libgviewer/viewer-window.c:1005
 msgid "_Settings"
 msgstr "_Ρυθμίσεις"
 
-#: src/gnome-cmd-main-menu.c:787
+#: ../src/gnome-cmd-main-menu.c:793
 msgid "_Connections"
 msgstr "Συν_δέσεις"
 
-#: src/gnome-cmd-main-menu.c:791
+#: ../src/gnome-cmd-main-menu.c:797
 msgid "_Bookmarks"
 msgstr "_Σελιδοδείκτες"
 
-#: src/gnome-cmd-main-menu.c:795
+#: ../src/gnome-cmd-main-menu.c:801
 msgid "_Plugins"
 msgstr "Πρόσ_θετες Λειτουργίες"
 
-#: src/gnome-cmd-main-menu.c:799
+#: ../src/gnome-cmd-main-menu.c:805 ../src/libgviewer/viewer-window.c:1011
 msgid "_Help"
 msgstr "_Βοήθεια"
 
-#: src/gnome-cmd-main-win.c:447
+#: ../src/gnome-cmd-main-win.c:487
 msgid "F3 View"
 msgstr "F3 Προβολή"
 
-#: src/gnome-cmd-main-win.c:450
+#: ../src/gnome-cmd-main-win.c:489
 msgid "F4 Edit"
 msgstr "F4 Επεξεργασία"
 
-#: src/gnome-cmd-main-win.c:453
+#: ../src/gnome-cmd-main-win.c:491
 msgid "F5 Copy"
 msgstr "F5 Αντιγραφή"
 
-#: src/gnome-cmd-main-win.c:456
+#: ../src/gnome-cmd-main-win.c:493
 msgid "F6 Move"
 msgstr "F6 Μετακίνηση"
 
-#: src/gnome-cmd-main-win.c:459
+#: ../src/gnome-cmd-main-win.c:495
 msgid "F7 Mkdir"
 msgstr "F7 Mkdir"
 
-#: src/gnome-cmd-main-win.c:462
+#: ../src/gnome-cmd-main-win.c:497
 msgid "F8 Delete"
 msgstr "F8 Διαγραφή"
 
-#: src/gnome-cmd-main-win.c:465
+#: ../src/gnome-cmd-main-win.c:499
 msgid "F9 Search"
 msgstr "F9 Αναζήτηση"
 
-#: src/gnome-cmd-main-win.c:468
+#: ../src/gnome-cmd-main-win.c:501
 msgid "F10 Quit"
 msgstr "F10 Έξοδος"
 
-#: src/gnome-cmd-main-win.c:1296
+#: ../src/gnome-cmd-main-win.c:1308
 msgid "Refresh"
 msgstr "Ανανέωση"
 
-#: src/gnome-cmd-main-win.c:1303
-msgid "Back in history"
-msgstr "Πίσω στο ιστορικό"
+#: ../src/gnome-cmd-main-win.c:1315
+#, fuzzy
+msgid "Up one directory"
+msgstr "Καταλόγος  θεμάτων εικονιδίων:"
 
-#: src/gnome-cmd-main-win.c:1310
-msgid "Forward in history"
-msgstr "Μπροστά στο ιστορικό"
+#: ../src/gnome-cmd-main-win.c:1322
+msgid "Goto the oldest"
+msgstr ""
 
-#: src/gnome-cmd-main-win.c:1318
-msgid "Copy file names"
-msgstr "Αντιγραφή ονομάτων αρχείων"
+#: ../src/gnome-cmd-main-win.c:1329
+msgid "Go back"
+msgstr ""
 
-#: src/gnome-cmd-main-win.c:1325
+#: ../src/gnome-cmd-main-win.c:1336
+#, fuzzy
+msgid "Go forward"
+msgstr "_Μπροστά"
+
+#: ../src/gnome-cmd-main-win.c:1343
+msgid "Goto the latest"
+msgstr ""
+
+#: ../src/gnome-cmd-main-win.c:1351
+msgid "Copy file names (SHIFT for full paths)"
+msgstr ""
+
+#: ../src/gnome-cmd-main-win.c:1358
 msgid "Cut"
 msgstr "Αποκοπή"
 
-#: src/gnome-cmd-main-win.c:1332 src/gnome-cmd-prepare-copy-dialog.c:86
+#: ../src/gnome-cmd-main-win.c:1365 ../src/gnome-cmd-prepare-copy-dialog.c:87
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: src/gnome-cmd-main-win.c:1339
+#: ../src/gnome-cmd-main-win.c:1372
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: src/gnome-cmd-main-win.c:1361
+#: ../src/gnome-cmd-main-win.c:1387
+msgid "Edit (SHIFT for new document)"
+msgstr ""
+
+#: ../src/gnome-cmd-main-win.c:1402
 msgid "Drop connection"
 msgstr "Κλείσιμο σύνδεσης"
 
-#: src/gnome-cmd-make-copy-dialog.c:154
-#: src/gnome-cmd-prepare-copy-dialog.c:152
+#: ../src/gnome-cmd-make-copy-dialog.c:149
+#: ../src/gnome-cmd-prepare-copy-dialog.c:144
 #, c-format
 msgid "Copy \"%s\" to"
 msgstr "Αντιγραφή \"%s\" σε"
 
-#: src/gnome-cmd-make-copy-dialog.c:162
+#: ../src/gnome-cmd-make-copy-dialog.c:157
 msgid "Copy File"
 msgstr "Αντιγραφή αρχείου"
 
-#: src/gnome-cmd-mkdir-dialog.c:48
+#: ../src/gnome-cmd-mkdir-dialog.c:49
 msgid "A directory name must be entered"
 msgstr "Πρέπει να εισαχθεί ένας κατάλογος"
 
-#: src/gnome-cmd-mkdir-dialog.c:141
+#: ../src/gnome-cmd-mkdir-dialog.c:137
 msgid "Directory name:"
 msgstr "Όνομα καταλόγου:"
 
-#: src/gnome-cmd-mkdir-dialog.c:149
+#: ../src/gnome-cmd-mkdir-dialog.c:145
 msgid "Make Directory"
 msgstr "Δημιουργία καταλόγου"
 
-#: src/gnome-cmd-options-dialog.c:63
+#: ../src/gnome-cmd-options-dialog.c:62
 msgid "Use right mouse button to"
 msgstr "Χρήση του δεξιού κουμπιού του ποντικιού για"
 
-#: src/gnome-cmd-options-dialog.c:66
+#: ../src/gnome-cmd-options-dialog.c:65
 msgid "Show popup menu"
 msgstr "Εμφάνιση αναδυόμενου μενού"
 
-#: src/gnome-cmd-options-dialog.c:70
+#: ../src/gnome-cmd-options-dialog.c:69
 msgid "Select files"
 msgstr "Επιλογή αρχείων"
 
-#: src/gnome-cmd-options-dialog.c:79
+#: ../src/gnome-cmd-options-dialog.c:78
 msgid "Match filenames using"
 msgstr ""
 
-#: src/gnome-cmd-options-dialog.c:82
+#: ../src/gnome-cmd-options-dialog.c:81
 msgid "Shell syntax"
 msgstr "Σύνταξη φλοιού"
 
-#: src/gnome-cmd-options-dialog.c:86
+#: ../src/gnome-cmd-options-dialog.c:85
 msgid "Regex syntax"
 msgstr ""
 
-#: src/gnome-cmd-options-dialog.c:96
+#: ../src/gnome-cmd-options-dialog.c:94
 msgid "Sorting options"
 msgstr "Επιλογές ταξινόμησης"
 
-#: src/gnome-cmd-options-dialog.c:99 src/gnome-cmd-patternsel-dialog.c:160
-msgid "Case sensitive"
-msgstr "Case sensitive"
+#: ../src/gnome-cmd-options-dialog.c:105
+#, fuzzy
+msgid "Quick search using"
+msgstr "_Γρήγορη αναζήτηση..."
 
-#: src/gnome-cmd-options-dialog.c:109
-msgid "Confirmation options"
-msgstr "Επιλογές ρύθμισης"
+#: ../src/gnome-cmd-options-dialog.c:108
+msgid "CTRL+ALT+letters"
+msgstr ""
 
-#: src/gnome-cmd-options-dialog.c:112
-msgid "Confirm before delete"
-msgstr "Επιβεβαίωση πριν την διαγραφή"
+#: ../src/gnome-cmd-options-dialog.c:111
+msgid "ALT+letters (menu access with F10)"
+msgstr ""
 
-#: src/gnome-cmd-options-dialog.c:122
+#: ../src/gnome-cmd-options-dialog.c:119
 msgid "Directory options"
 msgstr "Επιλογές καταλόγου"
 
-#: src/gnome-cmd-options-dialog.c:125
+#: ../src/gnome-cmd-options-dialog.c:122
 msgid "Directory cache size"
 msgstr "Μέγεθος λανθάνουσας μνήμης καταλόγου"
 
-#: src/gnome-cmd-options-dialog.c:214
+#: ../src/gnome-cmd-options-dialog.c:202
 #, fuzzy
 msgid "Size display mode"
 msgstr "%s: μή έγκυρη λειτουργία εμφάνισης [%s]\n"
 
-#: src/gnome-cmd-options-dialog.c:217
+#: ../src/gnome-cmd-options-dialog.c:205
 #, fuzzy
 msgid "Powered"
 msgstr "Χρώμα πτώσης"
 
-#: src/gnome-cmd-options-dialog.c:222
+#: ../src/gnome-cmd-options-dialog.c:210
 #, fuzzy
 msgid "Grouped"
 msgstr "Novell GroupWise"
 
-#: src/gnome-cmd-options-dialog.c:227
+#: ../src/gnome-cmd-options-dialog.c:215
 msgid "Plain"
 msgstr "Απλό"
 
-#: src/gnome-cmd-options-dialog.c:237
+#: ../src/gnome-cmd-options-dialog.c:225
 msgid "Permission display mode"
 msgstr "Λειτουργία εμφάνισης δικαιωμάτων"
 
-#: src/gnome-cmd-options-dialog.c:240
+#: ../src/gnome-cmd-options-dialog.c:228
 msgid "Text (rw-r--r--)"
 msgstr "Κείμενο (rw-r--r--)"
 
-#: src/gnome-cmd-options-dialog.c:245
-msgid "Number (311)"
+#: ../src/gnome-cmd-options-dialog.c:233
+#, fuzzy
+msgid "Number (644)"
 msgstr "Αριθμός  (311)"
 
-#: src/gnome-cmd-options-dialog.c:255
+#: ../src/gnome-cmd-options-dialog.c:243
 msgid "Date format"
 msgstr "Μορφή ημερομηνίας"
 
-#: src/gnome-cmd-options-dialog.c:258
+#: ../src/gnome-cmd-options-dialog.c:246
 msgid "Format:"
 msgstr "Μορφή:"
 
-#: src/gnome-cmd-options-dialog.c:266
+#: ../src/gnome-cmd-options-dialog.c:254
 msgid "_Test"
 msgstr "_Δοκιμή"
 
-#: src/gnome-cmd-options-dialog.c:269
+#: ../src/gnome-cmd-options-dialog.c:257
 msgid "Test result:"
 msgstr "Αποτέλεσμα Δοκιμής:"
 
-#: src/gnome-cmd-options-dialog.c:279
+#: ../src/gnome-cmd-options-dialog.c:266
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
-msgstr "Δείτε την σελίδα του εγχειριδίου για \"strftime\", για βοήθεια στην ρύθμιση του αλφαριθμητικού μορφής."
+msgstr ""
+"Δείτε τη σελίδα του εγχειριδίου για \"strftime\", για βοήθεια στη ρύθμιση "
+"του αλφαριθμητικού μορφής."
 
-#: src/gnome-cmd-options-dialog.c:401
+#: ../src/gnome-cmd-options-dialog.c:383
 msgid "Edit Colors..."
 msgstr "Επεξεργασία χρωμάτων..."
 
-#: src/gnome-cmd-options-dialog.c:408
+#: ../src/gnome-cmd-options-dialog.c:390
 msgid "Colors"
 msgstr "Χρώματα"
 
-#: src/gnome-cmd-options-dialog.c:445
+#: ../src/gnome-cmd-options-dialog.c:427
 msgid "Foreground"
 msgstr "Προσκήνιο"
 
-#: src/gnome-cmd-options-dialog.c:447
+#: ../src/gnome-cmd-options-dialog.c:429
 msgid "Background"
 msgstr "Παρασκήνιο"
 
-#: src/gnome-cmd-options-dialog.c:449
+#: ../src/gnome-cmd-options-dialog.c:431
 msgid "Default:"
 msgstr "Προεπιλογή:"
 
-#: src/gnome-cmd-options-dialog.c:451
+#: ../src/gnome-cmd-options-dialog.c:433
 msgid "Selected file:"
 msgstr "Επιλεγμένο αρχείο:"
 
-#: src/gnome-cmd-options-dialog.c:453
+#: ../src/gnome-cmd-options-dialog.c:435
 msgid "Cursor:"
 msgstr "Δρομέας:"
 
-#: src/gnome-cmd-options-dialog.c:470
+#: ../src/gnome-cmd-options-dialog.c:452
 msgid "With filename"
 msgstr "Με όνομα αρχείου."
 
-#: src/gnome-cmd-options-dialog.c:471
+#: ../src/gnome-cmd-options-dialog.c:453
 msgid "In separate column"
 msgstr "Σε ξεχωριστή στήλη"
 
-#: src/gnome-cmd-options-dialog.c:472
+#: ../src/gnome-cmd-options-dialog.c:454
 msgid "In both columns"
 msgstr "Και στις δυό στήλες"
 
-#: src/gnome-cmd-options-dialog.c:476
+#: ../src/gnome-cmd-options-dialog.c:458
 msgid "No icons"
 msgstr "Χωρίς εικονίδια"
 
-#: src/gnome-cmd-options-dialog.c:477
+#: ../src/gnome-cmd-options-dialog.c:459
 msgid "File type icons"
 msgstr "Εικονίδια τύπου αρχείου"
 
-#: src/gnome-cmd-options-dialog.c:478
+#: ../src/gnome-cmd-options-dialog.c:460
 msgid "MIME icons"
 msgstr "Εικονίδια MIME"
 
-#: src/gnome-cmd-options-dialog.c:482
+#: ../src/gnome-cmd-options-dialog.c:464
 #, fuzzy
 msgid "Respect theme colors"
 msgstr "Χρή_ση προεπιλεγμένων χρωμάτων θέματος"
 
-#: src/gnome-cmd-options-dialog.c:483
+#: ../src/gnome-cmd-options-dialog.c:465
 msgid "Modern"
 msgstr ""
 
-#: src/gnome-cmd-options-dialog.c:484
+#: ../src/gnome-cmd-options-dialog.c:466
+#, fuzzy
+msgid "Fusion"
+msgstr "Έκδοση"
+
+#: ../src/gnome-cmd-options-dialog.c:467
 #, fuzzy
 msgid "Classic"
 msgstr "Κλασσικό"
 
-#: src/gnome-cmd-options-dialog.c:485
+#: ../src/gnome-cmd-options-dialog.c:468
 msgid "Custom"
 msgstr "Προσαρμοσμένο"
 
-#: src/gnome-cmd-options-dialog.c:501
+#: ../src/gnome-cmd-options-dialog.c:484
 msgid "File panes"
 msgstr "Ταμπλώ αρχείου"
 
-#: src/gnome-cmd-options-dialog.c:516
+#: ../src/gnome-cmd-options-dialog.c:495
 msgid "Font:"
 msgstr "Γραμματοσειρά:"
 
-#: src/gnome-cmd-options-dialog.c:518
+#: ../src/gnome-cmd-options-dialog.c:497
 msgid "Row height:"
 msgstr "Ύψος γραμμής:"
 
 #. File extensions
-#: src/gnome-cmd-options-dialog.c:522
+#: ../src/gnome-cmd-options-dialog.c:501
 msgid "Display file extensions:"
 msgstr "Προβολή επεκτάσεων αρχείου:"
 
 #. Graphical mode
-#: src/gnome-cmd-options-dialog.c:530
+#: ../src/gnome-cmd-options-dialog.c:509
 msgid "Graphical mode:"
 msgstr "Γραφική λειτουργία:"
 
 #. Color scheme
-#: src/gnome-cmd-options-dialog.c:540
+#: ../src/gnome-cmd-options-dialog.c:518
 msgid "Color scheme:"
 msgstr "Σχήμα χρώματος"
 
-#: src/gnome-cmd-options-dialog.c:553
+#: ../src/gnome-cmd-options-dialog.c:530
 msgid "Edit..."
 msgstr "Επεξεργασία..."
 
-#: src/gnome-cmd-options-dialog.c:563
-msgid "Colorize files according to the LS_COLORS enviroment variable"
-msgstr "Χρωματισμός αρχείων σύμφωνα με την μεταβλητή περιβάλλοντος LS_COLORS"
+#. LS_COLORS
+#: ../src/gnome-cmd-options-dialog.c:537
+#, fuzzy
+msgid "Colorize files according to the LS_COLORS environment variable"
+msgstr "Χρωματισμός αρχείων σύμφωνα με τη μεταβλητή περιβάλλοντος LS_COLORS"
 
-#: src/gnome-cmd-options-dialog.c:575
+#: ../src/gnome-cmd-options-dialog.c:547
 msgid "MIME icon settings"
 msgstr "Ρυθμίσεις εικονιδίου MIME"
 
-#: src/gnome-cmd-options-dialog.c:592
+#: ../src/gnome-cmd-options-dialog.c:560
 msgid "Icon size:"
 msgstr "Μέγεθος εικονιδίου:"
 
-#: src/gnome-cmd-options-dialog.c:594
+#: ../src/gnome-cmd-options-dialog.c:562
 msgid "Scaling quality:"
 msgstr "Ποιότητα κλίμακας:"
 
-#: src/gnome-cmd-options-dialog.c:596
+#: ../src/gnome-cmd-options-dialog.c:564
 msgid "Theme icon directory:"
 msgstr "Καταλόγος  θεμάτων εικονιδίων:"
 
-#: src/gnome-cmd-options-dialog.c:598
+#: ../src/gnome-cmd-options-dialog.c:566
 msgid "Document icon directory:"
 msgstr "Κατάλογος εικονιδίου εγγράφου:"
 
-#: src/gnome-cmd-options-dialog.c:715
-msgid "Filetypes to hide"
-msgstr ""
+#: ../src/gnome-cmd-options-dialog.c:648
+msgid "Confirm before delete"
+msgstr "Επιβεβαίωση πριν τη διαγραφή"
 
-#: src/gnome-cmd-options-dialog.c:718
-msgid "Unknown"
-msgstr "Άγνωστο"
-
-#: src/gnome-cmd-options-dialog.c:723
-msgid "Regular files"
-msgstr "Κανονικά αρχεία"
-
-#: src/gnome-cmd-options-dialog.c:728
-msgid "Directories"
-msgstr "Κατάλογοι"
-
-#: src/gnome-cmd-options-dialog.c:733
-msgid "Fifo files"
-msgstr "Αρχεία Fifo"
-
-#: src/gnome-cmd-options-dialog.c:738
-msgid "Socket files"
-msgstr "Αρχεία Socket"
-
-#: src/gnome-cmd-options-dialog.c:743
-msgid "Character devices"
-msgstr "Συσκευές χαρακτήρα"
-
-#: src/gnome-cmd-options-dialog.c:748
+#: ../src/gnome-cmd-options-dialog.c:656
 #, fuzzy
-msgid "Block devices"
-msgstr "Συσκευή μπλοκ"
-
-#: src/gnome-cmd-options-dialog.c:756
-msgid "Also hide"
-msgstr ""
-
-#: src/gnome-cmd-options-dialog.c:759
-msgid "Hidden files"
-msgstr "Κρυφά αρχεία"
-
-#: src/gnome-cmd-options-dialog.c:764 src/gnome-cmd-options-dialog.c:777
-msgid "Backup files"
-msgstr "Αρχεία αντιγράφων ασφαλείας"
-
-#: src/gnome-cmd-options-dialog.c:769
-msgid "Symlinks"
-msgstr ""
-
-#: src/gnome-cmd-options-dialog.c:1036
-msgid "Label:"
-msgstr "Ετικέτα:"
-
-#: src/gnome-cmd-options-dialog.c:1038
-msgid "Command:"
-msgstr "Εντολή:"
-
-#: src/gnome-cmd-options-dialog.c:1040 src/gnome-cmd-options-dialog.c:1478
-msgid "Icon:"
-msgstr "Εικονίδιο:"
-
-#: src/gnome-cmd-options-dialog.c:1061
-#, fuzzy
-msgid "Can handle multiple files"
-msgstr "Μπορεί να ανοίγει πολλα_πλά αρχεία"
-
-#: src/gnome-cmd-options-dialog.c:1065
-msgid "Can handle URIs"
-msgstr "Μπορεί να χειριστεί URLs"
-
-#: src/gnome-cmd-options-dialog.c:1069
-msgid "Requires terminal"
-msgstr "Απαιτεί τερματικό"
-
-#: src/gnome-cmd-options-dialog.c:1076
-#, fuzzy
-msgid "Show for"
-msgstr "Εμφάνιση πλαισίου"
-
-#: src/gnome-cmd-options-dialog.c:1085
-msgid "All directories"
-msgstr "Όλοι οι κατάλογοι"
-
-#: src/gnome-cmd-options-dialog.c:1091
-msgid "All directories and files"
-msgstr "Όλοι οι κατάλογοι και αρχεία"
-
-#: src/gnome-cmd-options-dialog.c:1097
-msgid "Some files"
-msgstr "Μερικά αρχεία"
-
-#: src/gnome-cmd-options-dialog.c:1108
-msgid "File patterns"
-msgstr "Μοτίβα αρχείου"
-
-#: src/gnome-cmd-options-dialog.c:1133
-msgid "New Application"
-msgstr "Νέα εφαρμογή"
-
-#: src/gnome-cmd-options-dialog.c:1144
-msgid "Edit Application"
-msgstr "Επεξεργασία εφαρμογής"
-
-#: src/gnome-cmd-options-dialog.c:1230
-msgid "Always download remote files before opening in external programs"
-msgstr "Να μεταφορτώνονται πάντα απομακρυσμένα αρχεία πριν να ανοιχθούν με εξωτερικά προγράμματα"
-
-#: src/gnome-cmd-options-dialog.c:1234
-msgid "MIME applications"
-msgstr "Εφρμογές MIME"
-
-#: src/gnome-cmd-options-dialog.c:1238
-msgid "Standard programs"
-msgstr ""
-
-#: src/gnome-cmd-options-dialog.c:1241
-msgid "Viewer:"
-msgstr "Εφαρμογή προβολής:"
-
-#: src/gnome-cmd-options-dialog.c:1243
-msgid "Editor:"
-msgstr "Επεξεργαστής:"
-
-#: src/gnome-cmd-options-dialog.c:1245
-msgid "Differ:"
-msgstr "Differ:"
-
-#: src/gnome-cmd-options-dialog.c:1247
-msgid "Terminal:"
-msgstr "Τερματικό:"
-
-#: src/gnome-cmd-options-dialog.c:1266
-msgid "Other favorite apps"
-msgstr "Άλλες αγαπημένες εφαρμογές"
-
-#: src/gnome-cmd-options-dialog.c:1273
-msgid "Label"
-msgstr "Ετικέτα"
-
-#: src/gnome-cmd-options-dialog.c:1474
-msgid "Device:"
-msgstr "Συσκευή:"
-
-#: src/gnome-cmd-options-dialog.c:1476
-msgid "Mount point:"
-msgstr "Σημείο προσάρτησης:"
-
-#: src/gnome-cmd-options-dialog.c:1520
-msgid "New Device"
-msgstr "Νέα συσκευή"
-
-#: src/gnome-cmd-options-dialog.c:1532
-msgid "Edit Device"
-msgstr "Επεξεργασία συσκευής"
-
-#: src/gnome-cmd-options-dialog.c:1616 src/gnome-cmd-options-dialog.c:1826
-msgid "Devices"
-msgstr "Συσκευές"
-
-#: src/gnome-cmd-options-dialog.c:1658
-msgid "Show only the icons"
-msgstr "Προβολή μόνο των εικονιδίων"
-
-#: src/gnome-cmd-options-dialog.c:1663
-#, fuzzy
-msgid "Skip mounting (useful when using super-mount)"
-msgstr "Προσπέραση"
-
-#: src/gnome-cmd-options-dialog.c:1796
-msgid "General"
-msgstr "Γενικά"
-
-#: src/gnome-cmd-options-dialog.c:1802
-msgid "Format"
-msgstr "Μορφή"
-
-#: src/gnome-cmd-options-dialog.c:1808
-msgid "Layout"
-msgstr "Διάταξη"
-
-#: src/gnome-cmd-options-dialog.c:1814
-msgid "Filters"
-msgstr "Φίλτρα"
-
-#: src/gnome-cmd-options-dialog.c:1820
-msgid "Programs"
-msgstr "Προγράμματα"
-
-#: src/gnome-cmd-patternsel-dialog.c:136
-#, fuzzy
-msgid "Select Using Pattern"
-msgstr "Επιλογή Μοτίβου"
-
-#: src/gnome-cmd-patternsel-dialog.c:136
-#, fuzzy
-msgid "Unselect Using Pattern"
-msgstr "Μοτίβο"
-
-#: src/gnome-cmd-patternsel-dialog.c:147
-msgid "Pattern:"
-msgstr "Μοτίβο:"
+msgid "Copy overwrite"
+msgstr "Αντιγραφή αρχείου"
 
 #.
 #. * Create prepare copy specific widgets
 #.
-#: src/gnome-cmd-prepare-copy-dialog.c:93
-#: src/gnome-cmd-prepare-move-dialog.c:87
+#: ../src/gnome-cmd-options-dialog.c:659 ../src/gnome-cmd-options-dialog.c:679
+#: ../src/gnome-cmd-prepare-copy-dialog.c:94
+#: ../src/gnome-cmd-prepare-move-dialog.c:87
 msgid "Silently"
 msgstr ""
 
-#: src/gnome-cmd-prepare-copy-dialog.c:102
-#: src/gnome-cmd-prepare-move-dialog.c:96
+#: ../src/gnome-cmd-options-dialog.c:663 ../src/gnome-cmd-options-dialog.c:683
+#, fuzzy
+msgid "Query first"
+msgstr "Ερώτημα Πρώτη"
+
+#: ../src/gnome-cmd-options-dialog.c:667 ../src/gnome-cmd-options-dialog.c:687
+#, fuzzy
+msgid "Skip all"
+msgstr "Προσπέραση Όλων"
+
+#: ../src/gnome-cmd-options-dialog.c:676
+msgid "Move overwrite"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.c:764
+msgid "Filetypes to hide"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.c:767
+msgid "Unknown"
+msgstr "Άγνωστο"
+
+#: ../src/gnome-cmd-options-dialog.c:772
+msgid "Regular files"
+msgstr "Κανονικά αρχεία"
+
+#: ../src/gnome-cmd-options-dialog.c:777
+msgid "Directories"
+msgstr "Κατάλογοι"
+
+#: ../src/gnome-cmd-options-dialog.c:782
+msgid "Fifo files"
+msgstr "Αρχεία Fifo"
+
+#: ../src/gnome-cmd-options-dialog.c:787
+msgid "Socket files"
+msgstr "Αρχεία Socket"
+
+#: ../src/gnome-cmd-options-dialog.c:792
+msgid "Character devices"
+msgstr "Συσκευές χαρακτήρα"
+
+#: ../src/gnome-cmd-options-dialog.c:797
+#, fuzzy
+msgid "Block devices"
+msgstr "Συσκευή μπλοκ"
+
+#: ../src/gnome-cmd-options-dialog.c:805
+msgid "Also hide"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.c:808
+msgid "Hidden files"
+msgstr "Κρυφά αρχεία"
+
+#: ../src/gnome-cmd-options-dialog.c:813 ../src/gnome-cmd-options-dialog.c:826
+msgid "Backup files"
+msgstr "Αρχεία αντιγράφων ασφαλείας"
+
+#: ../src/gnome-cmd-options-dialog.c:818
+msgid "Symlinks"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.c:1092
+msgid "Label:"
+msgstr "Ετικέτα:"
+
+#: ../src/gnome-cmd-options-dialog.c:1094
+msgid "Command:"
+msgstr "Εντολή:"
+
+#: ../src/gnome-cmd-options-dialog.c:1096
+#: ../src/gnome-cmd-options-dialog.c:1540
+msgid "Icon:"
+msgstr "Εικονίδιο:"
+
+#: ../src/gnome-cmd-options-dialog.c:1117
+#, fuzzy
+msgid "Can handle multiple files"
+msgstr "Μπορεί να ανοίγει πολλα_πλά αρχεία"
+
+#: ../src/gnome-cmd-options-dialog.c:1121
+msgid "Can handle URIs"
+msgstr "Μπορεί να χειριστεί URLs"
+
+#: ../src/gnome-cmd-options-dialog.c:1125
+msgid "Requires terminal"
+msgstr "Απαιτεί τερματικό"
+
+#: ../src/gnome-cmd-options-dialog.c:1132
+#, fuzzy
+msgid "Show for"
+msgstr "Εμφάνιση πλαισίου"
+
+#: ../src/gnome-cmd-options-dialog.c:1141
+msgid "All directories"
+msgstr "Όλοι οι κατάλογοι"
+
+#: ../src/gnome-cmd-options-dialog.c:1147
+msgid "All directories and files"
+msgstr "Όλοι οι κατάλογοι και αρχεία"
+
+#: ../src/gnome-cmd-options-dialog.c:1153
+msgid "Some files"
+msgstr "Μερικά αρχεία"
+
+#: ../src/gnome-cmd-options-dialog.c:1164
+msgid "File patterns"
+msgstr "Μοτίβα αρχείου"
+
+#: ../src/gnome-cmd-options-dialog.c:1189
+msgid "New Application"
+msgstr "Νέα εφαρμογή"
+
+#: ../src/gnome-cmd-options-dialog.c:1201
+msgid "Edit Application"
+msgstr "Επεξεργασία εφαρμογής"
+
+#: ../src/gnome-cmd-options-dialog.c:1291
+msgid "Always download remote files before opening in external programs"
+msgstr ""
+"Να μεταφορτώνονται πάντα απομακρυσμένα αρχεία πριν να ανοιχθούν με εξωτερικά "
+"προγράμματα"
+
+#: ../src/gnome-cmd-options-dialog.c:1293
+msgid "MIME applications"
+msgstr "Εφρμογές MIME"
+
+#: ../src/gnome-cmd-options-dialog.c:1297
+msgid "Standard programs"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.c:1300
+msgid "Viewer:"
+msgstr "Εφαρμογή προβολής:"
+
+#: ../src/gnome-cmd-options-dialog.c:1302
+msgid "Editor:"
+msgstr "Επεξεργαστής:"
+
+#: ../src/gnome-cmd-options-dialog.c:1304
+msgid "Differ:"
+msgstr "Differ:"
+
+#: ../src/gnome-cmd-options-dialog.c:1306
+msgid "Terminal:"
+msgstr "Τερματικό:"
+
+#: ../src/gnome-cmd-options-dialog.c:1312
+msgid "Use Internal Viewer"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.c:1329
+msgid "Other favorite apps"
+msgstr "Άλλες αγαπημένες εφαρμογές"
+
+#: ../src/gnome-cmd-options-dialog.c:1336
+msgid "Label"
+msgstr "Ετικέτα"
+
+#: ../src/gnome-cmd-options-dialog.c:1536
+msgid "Device:"
+msgstr "Συσκευή:"
+
+#: ../src/gnome-cmd-options-dialog.c:1538
+msgid "Mount point:"
+msgstr "Σημείο προσάρτησης:"
+
+#: ../src/gnome-cmd-options-dialog.c:1582
+msgid "New Device"
+msgstr "Νέα συσκευή"
+
+#: ../src/gnome-cmd-options-dialog.c:1595
+msgid "Edit Device"
+msgstr "Επεξεργασία συσκευής"
+
+#: ../src/gnome-cmd-options-dialog.c:1685
+#: ../src/gnome-cmd-options-dialog.c:1878
+msgid "Devices"
+msgstr "Συσκευές"
+
+#: ../src/gnome-cmd-options-dialog.c:1725
+msgid "Show only the icons"
+msgstr "Προβολή μόνο των εικονιδίων"
+
+#: ../src/gnome-cmd-options-dialog.c:1729
+#, fuzzy
+msgid "Skip mounting (useful when using super-mount)"
+msgstr "Προσπέραση"
+
+#: ../src/gnome-cmd-options-dialog.c:1848
+msgid "General"
+msgstr "Γενικά"
+
+#: ../src/gnome-cmd-options-dialog.c:1853
+msgid "Format"
+msgstr "Μορφή"
+
+#: ../src/gnome-cmd-options-dialog.c:1858
+msgid "Layout"
+msgstr "Διάταξη"
+
+#: ../src/gnome-cmd-options-dialog.c:1863
+#, fuzzy
+msgid "Confirmation"
+msgstr "Επιλογές ρύθμισης"
+
+#: ../src/gnome-cmd-options-dialog.c:1868
+msgid "Filters"
+msgstr "Φίλτρα"
+
+#: ../src/gnome-cmd-options-dialog.c:1873
+msgid "Programs"
+msgstr "Προγράμματα"
+
+#: ../src/gnome-cmd-patternsel-dialog.c:130
+#, fuzzy
+msgid "Select Using Pattern"
+msgstr "Επιλογή Μοτίβου"
+
+#: ../src/gnome-cmd-patternsel-dialog.c:130
+#, fuzzy
+msgid "Unselect Using Pattern"
+msgstr "Μοτίβο"
+
+#: ../src/gnome-cmd-patternsel-dialog.c:137
+msgid "Pattern:"
+msgstr "Μοτίβο:"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.c:101
+#: ../src/gnome-cmd-prepare-move-dialog.c:94
 #, fuzzy
 msgid "Query First"
 msgstr "Ερώτημα Πρώτη"
 
-#: src/gnome-cmd-prepare-copy-dialog.c:111
-#: src/gnome-cmd-prepare-move-dialog.c:105 src/gnome-cmd-xfer.c:176
+#: ../src/gnome-cmd-prepare-copy-dialog.c:108
+#: ../src/gnome-cmd-prepare-move-dialog.c:101 ../src/gnome-cmd-xfer.c:176
 msgid "Skip All"
 msgstr "Προσπέραση Όλων"
 
-#: src/gnome-cmd-prepare-copy-dialog.c:121
+#: ../src/gnome-cmd-prepare-copy-dialog.c:118
 msgid "Follow Links"
 msgstr "Ακολούθηση συνδέσμων"
 
 #.
 #. * Customize prepare xfer widgets
 #.
-#: src/gnome-cmd-prepare-copy-dialog.c:136
-#: src/gnome-cmd-prepare-move-dialog.c:120
+#: ../src/gnome-cmd-prepare-copy-dialog.c:128
+#: ../src/gnome-cmd-prepare-move-dialog.c:113
 msgid "Overwrite Files"
 msgstr "Αντικατάσταση αρχείων"
 
-#: src/gnome-cmd-prepare-copy-dialog.c:156
-#, c-format
+#: ../src/gnome-cmd-prepare-copy-dialog.c:148
+#, fuzzy, c-format
 msgid "copy %d file to"
-msgstr "αντιγραφή %d αρχείου σε"
+msgid_plural "copy %d files to"
+msgstr[0] "αντιγραφή %d αρχείου σε"
+msgstr[1] "αντιγραφή %d αρχείου σε"
 
-#: src/gnome-cmd-prepare-move-dialog.c:80
+#: ../src/gnome-cmd-prepare-move-dialog.c:80
 msgid "Move"
 msgstr "Μετακίνηση"
 
-#: src/gnome-cmd-prepare-move-dialog.c:135
+#: ../src/gnome-cmd-prepare-move-dialog.c:128
 #, c-format
 msgid "Move \"%s\" to"
 msgstr "Μετακίνηση \"%s\" σε:"
 
-#: src/gnome-cmd-prepare-move-dialog.c:139
-#, c-format
-#, fuzzy
+#: ../src/gnome-cmd-prepare-move-dialog.c:132
+#, fuzzy, c-format
 msgid "move %d file to"
-msgstr "Αδύνατη η απομάκρυνση αρχείου %s: %s\n"
+msgid_plural "move %d files to"
+msgstr[0] "Αδύνατη η απομάκρυνση αρχείου %s: %s\n"
+msgstr[1] "Αδύνατη η απομάκρυνση αρχείου %s: %s\n"
 
-#: src/gnome-cmd-prepare-xfer-dialog.c:114
-#: src/gnome-cmd-prepare-xfer-dialog.c:153
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:115
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:154
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr "Ο κατάλογος '%s' δεν υπάρχει.  Θέλετε να δημιουργηθεί;"
 
-#: src/gnome-cmd-quicksearch-popup.c:249
+#: ../src/gnome-cmd-quicksearch-popup.c:261
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: src/gnome-cmd-rename-dialog.c:147
+#: ../src/gnome-cmd-rename-dialog.c:147
 #, c-format
 msgid "Rename \"%s\" to"
 msgstr "Μετονομασία \"%s\" σε:"
 
-#: src/gnome-cmd-rename-dialog.c:155
+#: ../src/gnome-cmd-rename-dialog.c:155
 msgid "Rename File"
 msgstr "Μετονομασία Αρχείου"
 
-#: src/gnome-cmd-search-dialog.c:184
-#, c-format
-#, fuzzy
+#: ../src/gnome-cmd-search-dialog.c:185
+#, fuzzy, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Αποτυχία  fdopen() αρχείου καταγραφής %s: %s\n"
 
-#: src/gnome-cmd-search-dialog.c:193
-#, c-format
-#, fuzzy
+#: ../src/gnome-cmd-search-dialog.c:194
+#, fuzzy, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Αποτυχία ανάγνωσης θέματος από αρχείο %s: %s\n"
 
-#: src/gnome-cmd-search-dialog.c:255
-#, c-format
-#, fuzzy
+#: ../src/gnome-cmd-search-dialog.c:255
+#, fuzzy, c-format
 msgid "Searching in: %s"
 msgstr "Ψάνχετε για ένα %s."
 
-#: src/gnome-cmd-search-dialog.c:399
-#, c-format
-#, fuzzy
+#: ../src/gnome-cmd-search-dialog.c:405
+#, fuzzy, c-format
 msgid "Found %d match before I was stopped"
-msgstr ""
+msgid_plural "Found %d matches before I was stopped"
+msgstr[0] ""
+"πριν #-#-#-#-#  GNOME210-evolution.HEAD.el.po (el)  #-#-#-#-#\n"
+"Ι\n"
+"#-#-#-#-#  GNOME210-gnopernicus.HEAD.el.po (el)  #-#-#-#-#\n"
+"I"
+msgstr[1] ""
 "πριν #-#-#-#-#  GNOME210-evolution.HEAD.el.po (el)  #-#-#-#-#\n"
 "Ι\n"
 "#-#-#-#-#  GNOME210-gnopernicus.HEAD.el.po (el)  #-#-#-#-#\n"
 "I"
 
-#: src/gnome-cmd-search-dialog.c:406
-#, c-format
-#, fuzzy
+#: ../src/gnome-cmd-search-dialog.c:412
+#, fuzzy, c-format
 msgid "Found %d match"
-msgstr "Βρέθηκε %d χρήστης σε %s"
+msgid_plural "Found %d matches"
+msgstr[0] "Βρέθηκε %d χρήστης σε %s"
+msgstr[1] "Βρέθηκε %d χρήστης σε %s"
 
-#: src/gnome-cmd-search-dialog.c:737
+#: ../src/gnome-cmd-search-dialog.c:739
 msgid "Search..."
 msgstr "Αναζήτηση..."
 
 #. Search for
-#: src/gnome-cmd-search-dialog.c:752
+#: ../src/gnome-cmd-search-dialog.c:752
 msgid "Search for: "
 msgstr "Αναζήτηση για: "
 
 #. Search in
-#: src/gnome-cmd-search-dialog.c:766
+#: ../src/gnome-cmd-search-dialog.c:764
 msgid "Search in: "
 msgstr "Αναζήτηση σε:"
 
 #. Find text
-#: src/gnome-cmd-search-dialog.c:780
+#: ../src/gnome-cmd-search-dialog.c:778
 msgid "Find text: "
 msgstr "Εύρεση κειμένου:"
 
-#: src/gnome-cmd-search-dialog.c:797
+#. Recurse check
+#: ../src/gnome-cmd-search-dialog.c:793
 #, fuzzy
 msgid "Search Recursively"
 msgstr "Αναζήτηση"
 
 #. Case check
-#: src/gnome-cmd-search-dialog.c:805
+#: ../src/gnome-cmd-search-dialog.c:800
 msgid "Case Sensitive"
 msgstr "Case Sensitive"
 
-#: src/gnome-cmd-search-dialog.c:817
+#: ../src/gnome-cmd-search-dialog.c:811
 msgid "Goto"
 msgstr "Μετάβαση σε"
 
-#: src/gnome-cmd-search-popup.c:190
-msgid "Chmod"
-msgstr "Chmod"
-
-#: src/gnome-cmd-smb-path.c:331
-#, c-format
-#, fuzzy
+#: ../src/gnome-cmd-smb-path.c:328
+#, fuzzy, c-format
 msgid "Can't find a host or workgroup named %s\n"
 msgstr "εύρεση a or ο"
 
-#: src/gnome-cmd-xfer-progress-win.c:37
-msgid "stopping..."
-msgstr "διακοπή...."
-
-#: src/gnome-cmd-xfer-progress-win.c:88
-msgid "Progress"
-msgstr "Πρόοδος"
-
-#: src/gnome-cmd-xfer-progress-win.c:174
-#, c-format
-msgid "%d%% of %s copied"
-msgstr "%d%% από %s αντιγράφηκε"
-
-#: src/gnome-cmd-xfer-progress-win.c:179
-#, c-format
-msgid "%d%% copied"
-msgstr "%d%% αντιγράφηκε"
-
-#: src/gnome-cmd-xfer.c:170
+#: ../src/gnome-cmd-xfer.c:170
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -1790,15 +1922,15 @@ msgstr ""
 "\n"
 " Θέλετε να το αντικαταστήσετε;\n"
 
-#: src/gnome-cmd-xfer.c:176
+#: ../src/gnome-cmd-xfer.c:176
 msgid "Replace"
 msgstr "Αντικατάσταση"
 
-#: src/gnome-cmd-xfer.c:176
+#: ../src/gnome-cmd-xfer.c:176
 msgid "Replace All"
 msgstr "Αντικατάσταση Όλων"
 
-#: src/gnome-cmd-xfer.c:190
+#: ../src/gnome-cmd-xfer.c:190
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -1809,71 +1941,234 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/gnome-cmd-xfer.c:195
+#: ../src/gnome-cmd-xfer.c:195
 msgid "Xfer problem"
 msgstr "Πρόβλημα Xfer"
 
-#: src/gnome-cmd-xfer.c:233
+#: ../src/gnome-cmd-xfer.c:233
 msgid "copying..."
 msgstr "αντιγραφή..."
 
-#: src/gnome-cmd-xfer.c:241
+#: ../src/gnome-cmd-xfer.c:241
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[αρχείο %ld από %ld] \"%s\""
 
-#: src/gnome-cmd-xfer.c:391
+#: ../src/gnome-cmd-xfer.c:391
 #, fuzzy
 msgid ""
-"Copying a directory into it self is a bad idea.\n"
-"The whole operation was canceled."
+"Copying a directory into itself is a bad idea.\n"
+"The whole operation was cancelled."
 msgstr "Αντιγραφή a self είναι a."
 
-#: src/gnome-cmd-xfer.c:438
+#: ../src/gnome-cmd-xfer.c:438
 msgid "preparing..."
 msgstr "προετοιμασία..."
 
-#: src/gnome-cmd-xfer.c:533
+#: ../src/gnome-cmd-xfer.c:533
 msgid "downloading to /tmp"
 msgstr "μεταφόρτωση σε /tmp"
 
-#: src/imageloader.c:124
+#: ../src/gnome-cmd-xfer-progress-win.c:38
+msgid "stopping..."
+msgstr "διακοπή...."
+
+#: ../src/gnome-cmd-xfer-progress-win.c:86
+msgid "Progress"
+msgstr "Πρόοδος"
+
+#: ../src/gnome-cmd-xfer-progress-win.c:169
+#, c-format
+msgid "%d%% of %s copied"
+msgstr "%d%% από %s αντιγράφηκε"
+
+#: ../src/gnome-cmd-xfer-progress-win.c:174
+#, c-format
+msgid "%d%% copied"
+msgstr "%d%% αντιγράφηκε"
+
+#: ../src/imageloader.c:127
 #, fuzzy
-msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgid ""
+"Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr "αρχείο είδος ο"
 
-#: src/imageloader.c:126 src/imageloader.c:152
+#: ../src/imageloader.c:129 ../src/imageloader.c:156
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr "Προσπάθεια φόρτωσης %s εναλλακτικά\n"
 
-#: src/imageloader.c:130 src/imageloader.c:155
-#, fuzzy
+#: ../src/imageloader.c:133 ../src/imageloader.c:159
+#, fuzzy, c-format
 msgid ""
-"Cant find the pixmap anywhere. Make sure you have installed the program or "
-"is executing gnome-commander from the gnome-commander-x.y.z/src directory\n"
+"Can't find the pixmap anywhere. Make sure you have installed the program or "
+"is executing gnome-commander from the gnome-commander-%s/src directory\n"
 msgstr "εύρεση πρόγραμμα or είναι ν ο"
 
-#: src/imageloader.c:150
+#: ../src/imageloader.c:155
 #, fuzzy
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr "ο"
 
-#: src/main.c:56
+#: ../src/libgviewer/viewer-widget.c:206
+#, c-format
+msgid "Position: %lu of %lu\tColumn: %d\t%s"
+msgstr ""
+
+#: ../src/libgviewer/viewer-widget.c:210
+msgid "Wrap"
+msgstr ""
+
+#: ../src/libgviewer/viewer-widget.c:230
+#, c-format
+msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
+msgstr ""
+
+#: ../src/libgviewer/viewer-widget.c:232
+msgid "Fit-to-Window"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:768
+#, fuzzy
+msgid "_Close"
+msgstr "Χρώματα"
+
+#: ../src/libgviewer/viewer-window.c:777 ../src/libgviewer/viewer-window.c:997
+#, fuzzy
+msgid "_Text"
+msgstr "_Δοκιμή"
+
+#: ../src/libgviewer/viewer-window.c:781
+msgid "_Binary"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:785
+msgid "_Hex dump"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:789
+#: ../src/libgviewer/viewer-window.c:1002
+#, fuzzy
+msgid "_Image"
+msgstr "Α_λλαγή"
+
+#: ../src/libgviewer/viewer-window.c:794
+msgid "_Zoom In"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:799
+msgid "Zoom _Out"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:804
+msgid "_Normal Size"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:809
+msgid "Best _Fit"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:823
+#, fuzzy
+msgid "_Copy Text Selection"
+msgstr "Αντιστρο_φή Επιλογής"
+
+#: ../src/libgviewer/viewer-window.c:830
+msgid "_No Parsing (original file)"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:835
+msgid "_HTML Parser"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:840
+msgid "_PS/PDF Parser"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:847
+msgid "_Wrap lines"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:853
+msgid "_Encoding"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:895
+msgid "_Show EXIF/IPTC Information"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:901
+msgid "_Rotate Clockwise"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:906
+msgid "Rotate Counter Clockwis_e"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:911
+msgid "_Rotate 180°"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:916
+msgid "Flip _Vertical"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:921
+msgid "Flip _Horizontal"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:931
+msgid "_Binary Mode"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:937
+msgid "_Decimal Offset in Hexdump"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:943
+msgid "_Save Current Settings"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:953
+msgid "_20 chars/line"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:958
+msgid "_40 chars/line"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:963
+msgid "_80 chars/line"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:973
+msgid "Quick Help"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:978
+#, fuzzy
+msgid "About"
+msgstr "_Περί"
+
+#: ../src/main.c:53 ../src/main.c:62
 msgid "Specify debug flags to use"
 msgstr "Καθορισμός σημαιών αποσφαλμάτωσης για χρήση"
 
-#: src/main.c:58
+#: ../src/main.c:54 ../src/main.c:63
 msgid "Specify the start directory for the left pane"
 msgstr "Καθορισμός του καταλόγου εκκίνησης για το αριστερό ταμπλώ"
 
-#: src/main.c:60
+#: ../src/main.c:55 ../src/main.c:64
 msgid "Specify the start directory for the right pane"
 msgstr "Καθορισμός του καταλόγου εκκίνησης για το δεξί ταμπλώ"
 
-#: src/owner.c:98
-#, c-format
+#: ../src/main.c:103
 #, fuzzy
+msgid "File Manager"
+msgstr "Ταμπλώ αρχείου"
+
+#: ../src/owner.c:98
+#, fuzzy, c-format
 msgid ""
 "When parsing the users and groups on this system it was found that the user %"
 "s is part of the group %s. This user can however not be found.\n"
@@ -1883,48 +2178,57 @@ msgstr ""
 "#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
 "και στο είναι από ομάδα not ο"
 
-#: src/plugin_manager.c:361
+#: ../src/plugin_manager.c:344
 msgid "Disable"
 msgstr "Απενεργοποίηση"
 
-#: src/plugin_manager.c:366
+#: ../src/plugin_manager.c:349
 msgid "Enable"
 msgstr "Ενεργοποίηση"
 
-#: src/plugin_manager.c:435
+#: ../src/plugin_manager.c:418
 msgid "Available plugins"
 msgstr "Διαθέσιμες πρόσθετες λειτουργίες"
 
-#: src/plugin_manager.c:441
+#: ../src/plugin_manager.c:424
 msgid "Name"
 msgstr "Όνομα"
 
-#: src/plugin_manager.c:442
+#: ../src/plugin_manager.c:425
 msgid "Version"
 msgstr "Έκδοση"
 
-#: src/plugin_manager.c:443
+#: ../src/plugin_manager.c:426
 msgid "File"
 msgstr "Αρχείο"
 
-#: src/plugin_manager.c:449
+#: ../src/plugin_manager.c:431
 msgid "_Enable"
 msgstr "Ενερ_γοποίηση"
 
-#: src/plugin_manager.c:454
+#: ../src/plugin_manager.c:435
 msgid "_Configure"
 msgstr "_Ρύθμιση"
 
-#: src/plugin_manager.c:460
-msgid "_About"
-msgstr "_Περί"
+#: ../src/useractions.c:72
+#, fuzzy
+msgid "No file selected"
+msgstr "Δεν έχει επιλεγεί εξυπηρετητής"
 
-#: src/useractions.c:263
+#: ../src/useractions.c:283
 #, c-format
 msgid "running \"%s\"\n"
 msgstr "εκτελείται \"%s\"\n"
 
-#: src/useractions.c:668
+#: ../src/useractions.c:719
+msgid "There was an error opening home page."
+msgstr ""
+
+#: ../src/useractions.c:730
+msgid "There was an error reporting problem."
+msgstr ""
+
+#: ../src/useractions.c:755
 #, fuzzy
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr ""
@@ -1935,19 +2239,19 @@ msgstr ""
 
 #. xgettext:
 #. * Replace this with your name when translating
-#: src/useractions.c:673
+#: ../src/useractions.c:760
 #, fuzzy
 msgid "No translation is currently in use."
 msgstr "Όχι είναι in."
 
-#: src/utils.c:519
-#, c-format
-#, fuzzy
+#: ../src/utils.c:516
+#, fuzzy, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
-"Όχι εξ ορισμού εφαρμογή για είδος Αρχείο #-#-#-#-#  GNOME210-gcalctool.HEAD.el.po (el)  #-#-#-#-#\n"
+"Όχι εξ ορισμού εφαρμογή για είδος Αρχείο #-#-#-#-#  GNOME210-gcalctool.HEAD."
+"el.po (el)  #-#-#-#-#\n"
 "and\n"
 "#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
 "και in #-#-#-#-#  GNOME210-dasher.HEAD.el.po (el)  #-#-#-#-#\n"
@@ -1955,9 +2259,8 @@ msgstr ""
 "#-#-#-#-#  GNOME210-gnome-control-center.HEAD.el.po (el)  #-#-#-#-#\n"
 "Control Κέντρο προσθήκη."
 
-#: src/utils.c:599
-#, c-format
-#, fuzzy
+#: ../src/utils.c:593
+#, fuzzy, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
@@ -1967,65 +2270,115 @@ msgstr ""
 "#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
 "και αρχείο?"
 
-#: src/utils.c:602
+#: ../src/utils.c:596
 msgid "Make Executable?"
 msgstr "Δημιουργία εκτελέσιμου;"
 
-#: src/utils.c:629
+#: ../src/utils.c:623
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
-msgstr "Το \"%s\" είναι ένα εκτελέσιμο αρχείο κειμένου. Θέλετε να το εκτελέσετε, ή να εμφανίσετε τα περιεχόμενά του;"
+msgstr ""
+"Το \"%s\" είναι ένα εκτελέσιμο αρχείο κειμένου. Θέλετε να το εκτελέσετε, ή "
+"να εμφανίσετε τα περιεχόμενά του;"
 
-#: src/utils.c:631
+#: ../src/utils.c:625
 msgid "Run or Display"
 msgstr "Εκτέλεση ή Εμφάνιση"
 
-#: src/utils.c:632
+#: ../src/utils.c:626
 msgid "Display"
 msgstr "Εμφάνιση"
 
-#: src/utils.c:632
+#: ../src/utils.c:626
 msgid "Run"
 msgstr "Εκτέλεση"
 
-#: src/utils.c:668
-#, c-format
-#, fuzzy
+#: ../src/utils.c:662 ../src/utils.c:736
+#, fuzzy, c-format
 msgid ""
-"%s does not know how to open remote files. Do you want to download the file "
+"%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgstr ""
-"not άνοιγμα αρχείο a τοποθεσία #-#-#-#-#  GNOME210-gcalctool.HEAD.el.po (el)  #-#-#-#-#\n"
-"and\n"
-"#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
-"και άνοιγμα?"
-
-#: src/utils.c:742
-#, c-format
-#, fuzzy
-msgid ""
+msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr ""
-"not άνοιγμα a τοποθεσία #-#-#-#-#  GNOME210-gcalctool.HEAD.el.po (el)  #-#-#-#-#\n"
+msgstr[0] ""
+"not άνοιγμα αρχείο a τοποθεσία #-#-#-#-#  GNOME210-gcalctool.HEAD.el.po "
+"(el)  #-#-#-#-#\n"
+"and\n"
+"#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
+"και άνοιγμα?"
+msgstr[1] ""
+"not άνοιγμα αρχείο a τοποθεσία #-#-#-#-#  GNOME210-gcalctool.HEAD.el.po "
+"(el)  #-#-#-#-#\n"
 "and\n"
 "#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
 "και άνοιγμα?"
 
-#: src/utils.c:1363
+#: ../src/utils.c:1175
+#, c-format
+msgid ""
+"Failed to create a directory in which to store temporary files.\n"
+"Error message: %s\n"
+msgstr ""
+
+#: ../src/utils.c:1346
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Δημιουργία καταλόγου %s... "
 
-#: src/utils.c:1368
+#: ../src/utils.c:1351
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Αποτυχία δημιουργίας του καταλόγου %s."
 
-#: src/utils.c:1374
+#: ../src/utils.c:1357
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Αδύνατη η ανάγνωση από τον κατάλογο  %s: %s\n"
 
+#: ../src/utils.c:1488
+msgid "There was an error displaying help."
+msgstr ""
+
+#~ msgid "Case sens"
+#~ msgstr "Case sens"
+
+#~ msgid "New FTP Server"
+#~ msgstr "Νέος εξυπηρετητής FTP"
+
+#~ msgid "Edit FTP Server"
+#~ msgstr "Επεξεργασία εξυπηρετητή FTP"
+
+#~ msgid "Servers"
+#~ msgstr "Εξυπηρετητές"
+
+#~ msgid "User _Manual..."
+#~ msgstr "Εγχειρίδιο _χρήστη..."
+
+#~ msgid "_About..."
+#~ msgstr "_Περί..."
+
+#~ msgid "Back in history"
+#~ msgstr "Πίσω στο ιστορικό"
+
+#~ msgid "Forward in history"
+#~ msgstr "Μπροστά στο ιστορικό"
+
+#~ msgid "Copy file names"
+#~ msgstr "Αντιγραφή ονομάτων αρχείων"
+
+#~ msgid "Chmod"
+#~ msgstr "Chmod"
+
+#, fuzzy
+#~ msgid ""
+#~ "%s does not know how to open remote files. Do you want to download the "
+#~ "files to a temporary location and then open them?"
+#~ msgstr ""
+#~ "not άνοιγμα a τοποθεσία #-#-#-#-#  GNOME210-gcalctool.HEAD.el.po (el)  #-"
+#~ "#-#-#-#\n"
+#~ "and\n"
+#~ "#-#-#-#-#  GNOME210-gnomemeeting.HEAD.el.po (el)  #-#-#-#-#\n"
+#~ "και άνοιγμα?"
