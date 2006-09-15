@@ -426,12 +426,12 @@ msgid ""
 "Could not chmod %s\n"
 "%s"
 msgstr ""
-"No s'han pogut canviar els permissos de %s\n"
+"No s'han pogut canviar els permisos de %s\n"
 "%s"
 
 #: src/gnome-cmd-chmod-dialog.c:214
 msgid "Access Permissions"
-msgstr "Permissos d'accés"
+msgstr "Permisos d'accés"
 
 #: src/gnome-cmd-chmod-dialog.c:232
 msgid "Apply Recursively for"
@@ -761,7 +761,7 @@ msgstr "Propietari i grup"
 
 #: src/gnome-cmd-file-props-dialog.c:427
 msgid "Access permissions"
-msgstr "Permissos d'accés"
+msgstr "Permisos d'accés"
 
 #: src/gnome-cmd-file-props-dialog.c:450
 msgid "File Properties"
@@ -770,7 +770,7 @@ msgstr "Propietats del fitxer"
 # Mozilla 1.3->permissions.label
 #: src/gnome-cmd-file-props-dialog.c:479
 msgid "Permissions"
-msgstr "Permissos"
+msgstr "Permisos"
 
 #: src/gnome-cmd-file-selector.c:194
 #, c-format
@@ -1329,7 +1329,7 @@ msgstr "Senzill"
 
 #: src/gnome-cmd-options-dialog.c:237
 msgid "Permission display mode"
-msgstr "Mode de visualització dels permissos"
+msgstr "Mode de visualització dels permisos"
 
 #: src/gnome-cmd-options-dialog.c:240
 msgid "Text (rw-r--r--)"
@@ -1858,7 +1858,7 @@ msgstr "Vés a"
 
 #: src/gnome-cmd-search-popup.c:190
 msgid "Chmod"
-msgstr "Canvia els permissos"
+msgstr "Canvia els permisos"
 
 #: src/gnome-cmd-smb-path.c:331
 #, c-format
@@ -1936,7 +1936,7 @@ msgid ""
 "The whole operation was canceled."
 msgstr ""
 "No es pot copiar un directori dins d'ell mateix.\n"
-"S'ha cancel·lat la operació."
+"S'ha cancel·lat l'operació."
 
 #: src/gnome-cmd-xfer.c:438
 msgid "preparing..."
