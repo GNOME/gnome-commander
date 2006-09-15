@@ -1,3 +1,11 @@
+2006-09-14  Dušan Hokův  <dusan@mirc.cz>
+
+	* pixmaps/mime-icons/Makefile.am:
+	* pixmaps/mime-icons/gnome-x-directory-smb-server.png:
+	* pixmaps/mime-icons/gnome-x-directory-smb-workgroup.png:
+	* src/gnome-cmd-dir.c:
+	Icons for samba servers and workgroups
+
 2006-09-01  Piotr Eljasiak  <epiotr@use.pl>
 
 	* gnome-cmd-file-list.c:

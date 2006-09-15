@@ -457,37 +457,44 @@ create_file_list (GnomeCmdDir *dir, GList *info_list)
     GList *tmp, *file_list = NULL;
 
     /* create a new list with GnomeCmdFile objects */
-    tmp = info_list;
-    while (tmp) {
-        GnomeCmdFile *finfo;
+
+    for (tmp = info_list; tmp; tmp = tmp->next)
+    {
         GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
-        GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
-        if (info && info->name) {
-            if (strcmp (info->name, ".") == 0 || strcmp (info->name, "..") == 0) {
+
+        if (info && info->name)
+        {
+            GnomeCmdFile *finfo;
+            GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
+
+            if (strcmp (info->name, ".") == 0 || strcmp (info->name, "..") == 0)
+            {
                 gnome_vfs_file_info_unref (info);
-                tmp = tmp->next;
                 continue;
             }
 
             if (GNOME_CMD_IS_CON_SMB (con)
                 && info->mime_type
-                && !strcmp (info->mime_type, "application/x-gnome-app-info")
-                && strcmp (info->name, ".directory")) {
+                && (strcmp (info->mime_type, "application/x-gnome-app-info") == 0 ||
+                    strcmp (info->mime_type, "application/x-desktop") == 0)
+                && strcmp (info->name, ".directory"))
+            {
                 // This is a hack to make samba workgroups etc
                 // look like normal directories
                 info->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
-                info->mime_type = g_strdup ("x-directory/normal");
+                // Determining smb mime type: workgroup or server
+                gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+
+                info->mime_type = strcmp (uri_str, "smb:///") == 0 ? g_strdup ("x-directory/smb-workgroup") :
+                                                                     g_strdup ("x-directory/smb-server");
             }
 
-            if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-                finfo = GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir));
-            else
-                finfo = gnome_cmd_file_new (info, dir);
+            finfo = info->type == GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir)) :
+                                                                  gnome_cmd_file_new (info, dir);
 
             gnome_cmd_file_ref (finfo);
             file_list = g_list_append (file_list, finfo);
         }
-        tmp = tmp->next;
     }
 
     return file_list;
