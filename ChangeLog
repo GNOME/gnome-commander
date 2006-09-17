@@ -1,3 +1,8 @@
+2006-09-17  Dušan Hokův  <dusan@mirc.cz>
+
+	* src/*.c:
+	Add missing '#include <config.h>'
+
 2006-09-14  Dušan Hokův  <dusan@mirc.cz>
 
 	* pixmaps/mime-icons/Makefile.am:
