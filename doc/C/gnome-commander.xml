@@ -3511,6 +3511,9 @@
                             <para>New python-like indices for advanced file rename templates</para>
                         </listitem>
                         <listitem>
+                            <para>Support for Exif and IPTC metags in advanced file rename templates</para>
+                        </listitem>
+                        <listitem>
                             <para>Revamped application menus</para>
                         </listitem>
                         <listitem>

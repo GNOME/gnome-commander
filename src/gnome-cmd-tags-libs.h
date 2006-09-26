@@ -1,0 +1,64 @@
+/*
+    GNOME Commander - A GNOME based file manager
+    Copyright (C) 2001-2006 Marcus Bjurman
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+*/
+
+#ifndef __GNOME_CMD_TAGS_LIBS_H__
+#define __GNOME_CMD_TAGS_LIBS_H__
+
+#include <config.h>
+
+#include "gnome-cmd-file.h"
+#include "gnome-cmd-tags.h"
+
+G_BEGIN_DECLS
+
+// gboolean gcmd_tags_{TAGLIB}_is_supported(void);
+// void gcmd_tags_{TAGLIB}_load_metadata(GnomeCmdFile *finfo);
+// void gcmd_tags_{TAGLIB}_free_metadata(GnomeCmdFile *finfo);
+// const gchar *gcmd_tags_{TAGLIB}_get_value(GnomeCmdFile *finfo, guint libtag);
+// const gchar *gcmd_tags_{TAGLIB}_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+// const gchar *gcmd_tags_{TAGLIB}_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+// const gchar *gcmd_tags_{TAGLIB}_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+
+gboolean gcmd_tags_libexif_is_supported(void);
+void gcmd_tags_libexif_load_metadata(GnomeCmdFile *finfo);
+void gcmd_tags_libexif_free_metadata(GnomeCmdFile *finfo);
+const gchar *gcmd_tags_libexif_get_value(GnomeCmdFile *finfo, guint libtag);
+const gchar *gcmd_tags_libexif_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_libexif_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_libexif_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+
+gboolean gcmd_tags_libiptcdata_is_supported(void);
+void gcmd_tags_libiptcdata_load_metadata(GnomeCmdFile *finfo);
+void gcmd_tags_libiptcdata_free_metadata(GnomeCmdFile *finfo);
+const gchar *gcmd_tags_libiptcdata_get_value(GnomeCmdFile *finfo, guint libclass, guint libtag);
+const gchar *gcmd_tags_libiptcdata_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_libiptcdata_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_libiptcdata_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+
+gboolean gcmd_tags_icclib_is_supported(void);
+void gcmd_tags_icclib_load_metadata(GnomeCmdFile *finfo);
+void gcmd_tags_icclib_free_metadata(GnomeCmdFile *finfo);
+const gchar *gcmd_tags_icclib_get_value(GnomeCmdFile *finfo, guint libclass, guint libtag);
+const gchar *gcmd_tags_icclib_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_icclib_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_icclib_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+
+G_END_DECLS
+
+#endif // __GNOME_CMD_TAGS_LIBS_H__

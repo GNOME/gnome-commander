@@ -29,6 +29,7 @@
 #include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-xfer.h"
+#include "gnome-cmd-tags-libs.h"
 #include "libgviewer/libgviewer.h"
 
 #define MAX_TYPE_LENGTH 2
@@ -78,13 +79,26 @@ destroy (GtkObject *object)
 {
     GnomeCmdFile *file = GNOME_CMD_FILE (object);
 
+#ifdef HAVE_EXIF
+    gcmd_tags_libexif_free_metadata(file);
+#endif
+
+#ifdef HAVE_IPTC
+    gcmd_tags_libiptcdata_free_metadata(file);
+#endif
+
+#ifdef HAVE_ICC
+    gcmd_tags_icclib_free_metadata(file);
+#endif
+
     if (file->info->name[0] != '.')
         DEBUG ('f', "file destroying 0x%x %s\n", (guint)file, file->info->name);
     gnome_vfs_file_info_unref (file->info);
     if (file->priv->dir_handle)
         handle_unref (file->priv->dir_handle);
 
-    if (DEBUG_ENABLED ('c')) {
+    if (DEBUG_ENABLED ('c'))
+    {
         all_files = g_list_remove (all_files, file);
         deleted_files_cnt++;
     }
@@ -106,6 +120,7 @@ class_init (GnomeCmdFileClass *klass)
     object_class->destroy = destroy;
 }
 
+
 static void
 init (GnomeCmdFile *file)
 {
@@ -114,13 +129,29 @@ init (GnomeCmdFile *file)
     file->priv = g_new0 (GnomeCmdFilePrivate, 1);
     file->priv->dir_handle = NULL;
 
-    if (DEBUG_ENABLED ('c')) {
+    if (DEBUG_ENABLED ('c'))
+    {
         all_files = g_list_append (all_files, file);
         created_files_cnt++;
     }
 
     file->priv->last_update.tv_sec = 0;
     file->priv->last_update.tv_usec = 0;
+
+#ifdef HAVE_EXIF
+    file->exif.metadata = NULL;
+    file->exif.accessed = FALSE;
+#endif
+
+#ifdef HAVE_IPTC
+    file->iptc.metadata = NULL;
+    file->iptc.accessed = FALSE;
+#endif
+
+#ifdef HAVE_ICC
+    file->icc.metadata = NULL;
+    file->icc.accessed = FALSE;
+#endif
 }
 
 

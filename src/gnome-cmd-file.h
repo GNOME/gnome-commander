@@ -20,6 +20,9 @@
 #ifndef __GNOME_CMD_FILE_H__
 #define __GNOME_CMD_FILE_H__
 
+#include <config.h>
+
+
 #define GNOME_CMD_FILE(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_file_get_type (), GnomeCmdFile)
 #define GNOME_CMD_FILE_CLASS(klass) \
@@ -31,6 +34,13 @@
 typedef struct _GnomeCmdFile        GnomeCmdFile;
 typedef struct _GnomeCmdFileClass   GnomeCmdFileClass;
 typedef struct _GnomeCmdFilePrivate GnomeCmdFilePrivate;
+typedef struct _GnomeCmdFileMetadata GnomeCmdFileMetadata;
+
+struct _GnomeCmdFileMetadata
+{
+    gboolean accessed;
+    gpointer metadata;
+};
 
 struct _GnomeCmdFile
 {
@@ -38,6 +48,15 @@ struct _GnomeCmdFile
 
     GnomeVFSFileInfo *info;
     GnomeCmdFilePrivate *priv;
+#ifdef HAVE_EXIF
+    GnomeCmdFileMetadata exif;
+#endif
+#ifdef HAVE_IPTC
+    GnomeCmdFileMetadata iptc;
+#endif
+#ifdef HAVE_LCMS
+    GnomeCmdFileMetadata icc;
+#endif
 };
 
 struct _GnomeCmdFileClass

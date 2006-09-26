@@ -1,3 +1,17 @@
+2006-09-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-lexer.l:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-tags-libs.c:
+	* src/gnome-cmd-tags-libs.h:
+	* src/gnome-cmd-tags.c:
+	* src/gnome-cmd-tags.h:
+	Added suddort for Exif and IPTC metatags in advrename
+
 2006-09-17  Dušan Hokův  <dusan@mirc.cz>
 
 	* src/*.c:

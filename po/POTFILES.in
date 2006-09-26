@@ -41,6 +41,7 @@ src/gnome-cmd-quicksearch-popup.c
 src/gnome-cmd-rename-dialog.c
 src/gnome-cmd-search-dialog.c
 src/gnome-cmd-smb-path.c
+src/gnome-cmd-tags.c
 src/gnome-cmd-xfer.c
 src/gnome-cmd-xfer-progress-win.c
 src/imageloader.c
@@ -51,6 +52,8 @@ src/libgviewer/image-render.c
 src/libgviewer/inputmodes.c
 src/libgviewer/libgviewer.c
 src/libgviewer/scroll-box.c
+src/libgviewer/search-dlg.c
+src/libgviewer/search-progress-dlg.c
 src/libgviewer/text-render.c
 src/libgviewer/viewer-widget.c
 src/libgviewer/viewer-window.c

@@ -23,6 +23,7 @@
 
 
 %{
+#include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,6 +32,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-advrename-lexer.h"
+#include "gnome-cmd-tags.h"
 #include "utils.h"
 
 
@@ -45,7 +47,7 @@
 
 #define   MAX_PRECISION   16
 
-enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,PARENT_DIR,GRANDPARENT_DIR,TAG_FILE,TAG_ID3,TAG_EXIF,TAG_IPTC};
+enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,PARENT_DIR,GRANDPARENT_DIR,METATAG};
 
 typedef struct
 {
@@ -58,6 +60,7 @@ typedef struct
       int beg;          // default: 0
       int end;          // default: 0
       GString *name;    // default: NULL
+      GnomeCmdTag tag;  // default: TAG_NONE
       GList   *opt;     // default: NULL
     } tag;
     struct
@@ -86,12 +89,18 @@ uint       0*[1-9][0-9]*
 
 range      {int}|{int}?:{int}?|{int},{uint}
 
-file       [fF][iI][lL][eE]
-id3        [iI][dD]3
-exif       [eE][xX][iI][fF]
-iptc       [iI][pP][tT][cC]
+audio       [aA][uU][dD][iI][oO]
+chm         [cC][hH][mM]
+doc         [dD][oO][cC]
+exif        [eE][xX][iI][fF]
+file        [fF][iI][lL][eE]
+icc         [iI][cC][cC]
+id3         [iI][dD]3
+image       [iI][mM][aA][gG][eE]
+iptc        [iI][pP][tT][cC]
+rpm         [rR][pP][mM]
 
-tag_name   {file}|{id3}|{exif}|{iptc}
+tag_name   {exif}|{iptc}|{image}
 
 %%
 
@@ -100,8 +109,6 @@ tag_name   {file}|{id3}|{exif}|{iptc}
   static int from, to;
 %}
 
-
-\$T\({tag_name},[a-zA-Z][a-zA-Z0-9]*(,[^,)]+)*,0+(,{int})?\)   ECHO;        // don't substitute $T(file|id3|exif|iptc,tag,...,0,...)
 
 \$[egnNp]\({range}\)            {
                                   gchar **a = g_strsplit_set(yytext+3,":,()",0);
@@ -157,56 +164,21 @@ tag_name   {file}|{id3}|{exif}|{iptc}
                                   fname_template = g_list_append(fname_template, (gpointer) p);
                                 }
 
-\$T\({tag_name},[a-zA-Z][a-zA-Z0-9]*(,[^,)]+)*(,{range})?\)   {
+\$T\({tag_name}\.[a-zA-Z][a-zA-Z0-9]+(,[^,)]+)*\)   {
 
-                                  gchar **a = g_strsplit_set(yytext+3,":,()",0);
+                                  gchar **a = g_strsplit_set(yytext+3,",()",0);
                                   guint n = g_strv_length(a);                     // glib >= 2.6
 
                                   CHUNK *p = g_new0(CHUNK,1);
 
-                                  int optind = 0;
                                   int i;
 
-                                  from = to = 0;
-
-                                  if (n>3)    // if there is any tag option ...
-                                  {
-                                    gchar *s = g_strjoinv(",",a+n-3);
-
-                                    optind = sscanf(s,"%d,%d,",&from,&to);
-
-                                    if (optind!=2)
-                                    {
-                                      from = 1;
-                                      optind = sscanf(s,"%*[^,],%d,",&from);
-                                    }
-
-                                    g_free(s);
-                                  }
-
-                                  switch (yytext[4])
-                                  {
-                                    case 'i':
-                                    case 'I': p->type = TAG_FILE; break;
-
-                                    case 'd':
-                                    case 'D': p->type = TAG_ID3;  break;
-
-                                    case 'x':
-                                    case 'X': p->type = TAG_EXIF; break;
-
-                                    case 'p':
-                                    case 'P': p->type = TAG_IPTC; break;
-
-                                    default : break;
-                                  }
-
-                                  p->tag.beg = from;
-                                  p->tag.end = to;
-                                  p->tag.name = g_string_new(a[1]);
+                                  p->type = METATAG;
+                                  p->tag.name = g_string_new(a[0]);
+                                  p->tag.tag = gcmd_tags_get_tag_by_long_name(a[0]);
                                   p->tag.opt = NULL;
 
-                                  for (i=n-optind; i>2; --i)
+                                  for (i=n-2; i>0; --i)
                                     p->tag.opt = g_list_prepend(p->tag.opt, (gpointer) g_string_new(a[i]));
 
                                   g_strfreev(a);
@@ -300,9 +272,13 @@ void gnome_cmd_advrename_parse_fname(const char *fname)
 
       switch (p->type)
       {
-        case TEXT :  g_string_free(p->s,TRUE);
-                     g_free(p);
-                     break;
+        case TEXT:
+            g_string_free(p->s,TRUE);
+            g_free(p);
+            break;
+
+        case METATAG:
+            break;
       }
     }
 
@@ -457,12 +433,16 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
                     p->counter.n += p->counter.step;
                     break;
 
-      case TAG_FILE:
-      case TAG_ID3:
-      case TAG_EXIF:
-      case TAG_IPTC:
-                    mksubstr(p->tag.name->len,p,&from,&length);
-                    fmt = g_string_append_len(fmt,p->tag.name->str+from,length);
+      case METATAG: {
+                        const gchar *tag_value = p->tag.tag!=TAG_NONE ? gcmd_tags_get_value(finfo,p->tag.tag) :
+                                                                        gcmd_tags_get_value_by_long_name(finfo,p->tag.name->str);
+
+                        if (tag_value)
+                        {
+                            mksubstr(strlen(tag_value),p,&from,&length);
+                            fmt = g_string_append_len(fmt,tag_value+from,length);
+                        }
+                    }
                     break;
 
       default :     break;
