@@ -71,6 +71,28 @@ guint advrename_dialog_default_res_column_width[ADVRENAME_DIALOG_RES_NUM_COLUMNS
 static void do_test (GnomeCmdAdvrenameDialog *dialog);
 
 
+static GtkWidget * create_menu_button(gchar *label_text, int n)
+{
+    GtkWidget *arrow = gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_NONE);
+    GtkWidget *label = gtk_label_new(label_text);
+    GtkWidget *hbox = gtk_hbox_new(FALSE, 3);
+    GtkWidget *button;
+
+    gtk_box_pack_start(GTK_BOX(hbox), label, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(hbox), arrow, FALSE, FALSE, 0);
+
+    button = gtk_button_new();
+    gtk_container_add(GTK_CONTAINER(button), hbox);
+
+    gtk_widget_set_events(button, GDK_BUTTON_PRESS_MASK);
+    // g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(menu_button_button_press_cb), (gpointer) n);
+
+    gtk_widget_show_all(button);
+
+    return button;
+}
+
+
 static void
 free_data (GnomeCmdAdvrenameDialog *dialog)
 {
@@ -741,7 +763,6 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     GtkWidget *vbox;
     GtkWidget *sw;
     GtkWidget *bbox;
-    GtkWidget *hbox;
     GtkWidget *btn;
     GtkWidget *cat;
     GtkWidget *table;
@@ -770,8 +791,8 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
 
     /* Template stuff
      */
-    hbox = create_hbox (dialog, FALSE, 12);
-    cat = create_category (dialog, hbox, _("Template"));
+    table = create_table (dialog, 2, 2);
+    cat = create_category (dialog, table, _("Template"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
 
     in_dialog->priv->templ_combo = create_combo (dialog);
@@ -782,7 +803,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_signal_connect (GTK_OBJECT (in_dialog->priv->templ_entry),
                         "changed", GTK_SIGNAL_FUNC (on_templ_entry_changed),
                         dialog);
-    gtk_box_pack_start (GTK_BOX (hbox), in_dialog->priv->templ_combo, TRUE, TRUE, 0);
+    gtk_table_attach (GTK_TABLE (table), in_dialog->priv->templ_combo, 0, 1, 0, 1, GTK_EXPAND|GTK_FILL, GTK_EXPAND|GTK_FILL, 0, 0);
     if (in_dialog->priv->defaults->templates->ents)
         gtk_combo_set_popdown_strings (
             GTK_COMBO (in_dialog->priv->templ_combo),
@@ -790,12 +811,31 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     else
         gtk_entry_set_text (GTK_ENTRY (in_dialog->priv->templ_entry), "$N");
 
-    bbox = create_hbuttonbox (dialog);
-    gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
+    bbox = create_vbuttonbox (dialog);
+    table_add (table, bbox, 1, 0, GTK_FILL);
+    gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
-    btn = create_button (dialog, _("Options..."), GTK_SIGNAL_FUNC (on_template_options_clicked));
+    btn = create_button (dialog, _("O_ptions..."), GTK_SIGNAL_FUNC (on_template_options_clicked));
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
+    bbox = create_hbuttonbox (dialog);
+    table_add (table, bbox, 0, 1, GTK_EXPAND|GTK_FILL);
+    gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
+
+    btn = create_menu_button (_("Dir"),-1);
+    gtk_container_add (GTK_CONTAINER (bbox), btn);
+
+    btn = create_menu_button (_("Name"),-1);
+    gtk_container_add (GTK_CONTAINER (bbox), btn);
+
+    btn = create_menu_button (_("Counter"),-1);
+    gtk_container_add (GTK_CONTAINER (bbox), btn);
+
+    btn = create_menu_button (_("Date"),-1);
+    gtk_container_add (GTK_CONTAINER (bbox), btn);
+
+    btn = create_menu_button (_("Metatag"),-1);
+    gtk_container_add (GTK_CONTAINER (bbox), btn);
 
     /* Regex stuff
      */

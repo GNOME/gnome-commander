@@ -13,6 +13,7 @@ New features:
  * Support for archives (gz,bz2,zip,lha,rar,jar,7-zip,zoo,deb,rpm) via FileRoller plugin
  * New python-like indices for advanced file rename templates
  * Support for Exif and IPTC metags in advanced file rename templates
+ * Fast access to advrename template placeholders
  * Revamped application menus
  * Saving window state across sessions
  * New icon for internal viewer

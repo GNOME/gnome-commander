@@ -10,7 +10,7 @@
 * Tab completion at the built-in command line
 * Splitting/merging files
 * Write configuration and bookmark changes immediately to file
-* Support for file meta tags (exif, iptc, mp3, vorbis, *ml, pdf, ...) - custom columns
+* Support for file meta tags (icc, mp3, vorbis, *ml, pdf, ...) - custom columns
 * Umounting a device via device button
 * advrename & FAM: do not re-sort file list for every single renamed file
 * Bookmark icons for ordinary folders in the device toolbar

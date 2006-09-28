@@ -714,6 +714,10 @@
                         <entry><para>File counter with specified digit number (precision)</para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>$T(metatag)</para></entry>
+                        <entry><para>Metadata tag</para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>$$</para></entry>
                         <entry><para>A literal "$" character</para></entry>
                     </row>
@@ -3512,6 +3516,9 @@
                         </listitem>
                         <listitem>
                             <para>Support for Exif and IPTC metags in advanced file rename templates</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fast access to advrename template placeholders</para>
                         </listitem>
                         <listitem>
                             <para>Revamped application menus</para>
