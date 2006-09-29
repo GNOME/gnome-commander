@@ -10,8 +10,8 @@
 * Tab completion at the built-in command line
 * Splitting/merging files
 * Write configuration and bookmark changes immediately to file
-* Support for file meta tags (icc, mp3, vorbis, *ml, pdf, ...) - custom columns
-* Umounting a device via device button
+* Support for file meta tags (exif, iptc, icc, mp3, vorbis, *ml, pdf, ...) - custom columns
+* Unmounting a device via device button
 * advrename & FAM: do not re-sort file list for every single renamed file
 * Bookmark icons for ordinary folders in the device toolbar
 * User defined categories for grouping bookmarks
@@ -38,6 +38,7 @@
 * Custom columns support
 * 'Directory Tree' with ALT+F10
 * Brief file listing (see mc)
+* File properties - presentation of all available metatags
 * 'Subdirectory View' - showing contents of a given dir and all its
   subdirs in one file list. It gives the possibility of mass operation
   like: copy/move/rename/delete for all subdirs files. _Very_ handy.
@@ -46,13 +47,13 @@
 // Search tool
 
 * File search - advanced criteria (according to file size, date or attr)
-* Support for file meta tags (exif, iptc, mp3, vorbis, *ml, pdf, ...)
+* Support for file meta tags (exif, iptc, icc, mp3, vorbis, *ml, pdf, ...)
 
 
 // Advrename tool
 
 * The advrename dialog should have a feature to convert between upper/lowercase.
-* Support for file meta tags (exif, iptc, mp3, vorbis, *ml, pdf, ...)
+* Support for file meta tags (icc, mp3, vorbis, *ml, pdf, ...)
 
 
 // Internal viewer
