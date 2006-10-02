@@ -1951,7 +1951,7 @@
                     <row valign="top">
                         <entry><para>IPTC.ObjectCycle</para></entry>
                         <entry><para>Object Cycle</para></entry>
-                        <entry><para>Where 'a' is morning, 'b' is evening, 'b' is both</para></entry>
+                        <entry><para>Where 'a' is morning, 'p' is evening, 'b' is both</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>IPTC.ObjectName</para></entry>

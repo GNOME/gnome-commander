@@ -934,7 +934,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_OBJECT_ATTRIBUTE, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.ObjectCycle", TAG_IPTC, TAG_IPTC_OBJECTCYCLE, N_("Object Cycle"), N_("Where 'a' is morning, 'b' is evening, 'b' is both.")
+                                                   {"IPTC.ObjectCycle", TAG_IPTC, TAG_IPTC_OBJECTCYCLE, N_("Object Cycle"), N_("Where 'a' is morning, 'p' is evening, 'b' is both.")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_OBJECT_CYCLE, IPTC_RECORD_APP_2
 #endif
