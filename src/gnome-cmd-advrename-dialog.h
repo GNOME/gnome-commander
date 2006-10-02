@@ -58,6 +58,7 @@ struct _GnomeCmdAdvrenameDialogClass
 
 #define ADVRENAME_DIALOG_PAT_NUM_COLUMNS 3
 #define ADVRENAME_DIALOG_RES_NUM_COLUMNS 2
+
 extern guint advrename_dialog_default_pat_column_width[ADVRENAME_DIALOG_PAT_NUM_COLUMNS];
 extern guint advrename_dialog_default_res_column_width[ADVRENAME_DIALOG_RES_NUM_COLUMNS];
 

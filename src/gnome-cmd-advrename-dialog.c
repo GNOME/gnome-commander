@@ -28,6 +28,7 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-clist.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-tags.h"
 #include "utils.h"
 
 
@@ -40,6 +41,9 @@ typedef struct
     GnomeCmdFile *finfo;
     gchar *new_name;
 } RenameEntry;
+
+
+enum {DIR_MENU, NAME_MENU, COUNTER_MENU, DATE_MENU, METATAG_MENU, NUM_MENUS};
 
 
 struct _GnomeCmdAdvrenameDialogPrivate
@@ -59,6 +63,8 @@ struct _GnomeCmdAdvrenameDialogPrivate
     GtkWidget *remove_all_btn;
     GtkWidget *templ_combo;
     GtkWidget *templ_entry;
+
+    GtkWidget *menu[NUM_MENUS];
 };
 
 
@@ -71,21 +77,158 @@ guint advrename_dialog_default_res_column_width[ADVRENAME_DIALOG_RES_NUM_COLUMNS
 static void do_test (GnomeCmdAdvrenameDialog *dialog);
 
 
-static GtkWidget * create_menu_button(gchar *label_text, int n)
+//inline
+static void insert_tag(GnomeCmdAdvrenameDialog *dialog, const gchar *text)
 {
-    GtkWidget *arrow = gtk_arrow_new(GTK_ARROW_DOWN, GTK_SHADOW_NONE);
-    GtkWidget *label = gtk_label_new(label_text);
-    GtkWidget *hbox = gtk_hbox_new(FALSE, 3);
-    GtkWidget *button;
+    GtkEditable *editable = (GtkEditable *) dialog->priv->templ_entry;
+    gint pos = gtk_editable_get_position(editable);
+
+    gtk_editable_insert_text (editable, text, strlen(text), &pos);
+    gtk_editable_set_position(editable, pos);
+    gtk_widget_grab_focus((GtkWidget *) editable);
+    gtk_editable_select_region(editable,pos,pos);
+}
+
+
+static void insert_text_tag(gpointer data, guint n, GtkWidget *widget)
+{
+    static gchar *placeholder[] = {"$g",
+                                   "$p",
+                                   "$N",
+                                   "$n",
+                                   "$e",
+                                   "$c",
+                                   "$c(2)",
+                                   "%x",
+                                   "%Y-%m-%d",
+                                   "%y-%m-%d",
+                                   "%y.%m.%d",
+                                   "%y%m%d",
+                                   "%d.%m.%y",
+                                   "%m-%d-%y",
+                                   "%Y",
+                                   "%y",
+                                   "%m",
+                                   "%b",
+                                   "%d",
+                                   "%X",
+                                   "%H.%M.%S",
+                                   "%H-%M-%S",
+                                   "%H%M%S",
+                                   "%H",
+                                   "%M",
+                                   "%S"};
+
+    g_return_if_fail(n < sizeof(placeholder)/sizeof(placeholder[0]));
+
+    insert_tag((GnomeCmdAdvrenameDialog *) data, placeholder[n]);
+}
+
+
+static void insert_num_tag(gpointer data, guint tag, GtkWidget *widget)
+{
+    gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name(tag));
+    insert_tag((GnomeCmdAdvrenameDialog *) data, s);
+    g_free(s);
+}
+
+
+static void on_menu_button_clicked(GtkButton *widget, gpointer data)
+{
+    GtkWidget *menu = (GtkWidget *) data;
+    GdkEventButton *event = (GdkEventButton *) gtk_get_current_event();
+
+    if (event == NULL)
+        gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 1, gtk_get_current_event_time());
+    else
+        if (event->button == 1)
+            gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+}
+
+
+static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int menu_type)
+{
+    static GtkItemFactoryEntry dir_items[] =     {{N_("/Grandparent"), NULL, insert_text_tag, 0},
+                                                  {N_("/Parent"), NULL, insert_text_tag, 1}};
+
+    static GtkItemFactoryEntry name_items[] =    {{N_("/File name"), NULL, insert_text_tag, 2},
+                                                  {N_("/File name without extension"), NULL, insert_text_tag, 3},
+                                                  {N_("/File extension"), NULL, insert_text_tag, 4}};
+
+    static GtkItemFactoryEntry counter_items[] = {{N_("/Counter"), NULL, insert_text_tag, 5},
+                                                  {N_("/Counter (precision)"), NULL, insert_text_tag, 6}};
+
+    static GtkItemFactoryEntry date_items[] =    {{N_("/Date/<locale>"), NULL, insert_text_tag, 7},
+                                                  {N_("/Date/yyyy-mm-dd"), NULL, insert_text_tag, 8},
+                                                  {N_("/Date/yy-mm-dd"), NULL, insert_text_tag, 9},
+                                                  {N_("/Date/yy.mm.dd"), NULL, insert_text_tag, 10},
+                                                  {N_("/Date/yymmdd"), NULL, insert_text_tag, 11},
+                                                  {N_("/Date/dd.mm.yy"), NULL, insert_text_tag, 12},
+                                                  {N_("/Date/mm-dd-yy"), NULL, insert_text_tag, 13},
+                                                  {N_("/Date/yyyy"), NULL, insert_text_tag, 14},
+                                                  {N_("/Date/yy"), NULL, insert_text_tag, 15},
+                                                  {N_("/Date/mm"), NULL, insert_text_tag, 16},
+                                                  {N_("/Date/mmm"), NULL, insert_text_tag, 17},
+                                                  {N_("/Date/dd"), NULL, insert_text_tag, 18},
+                                                  {N_("/Time/<locale>"), NULL, insert_text_tag, 19},
+                                                  {N_("/Time/HH.MM.SS"), NULL, insert_text_tag, 20},
+                                                  {N_("/Time/HH-MM-SS"), NULL, insert_text_tag, 21},
+                                                  {N_("/Time/HHMMSS"), NULL, insert_text_tag, 22},
+                                                  {N_("/Time/HH"), NULL, insert_text_tag, 23},
+                                                  {N_("/Time/MM"), NULL, insert_text_tag, 24},
+                                                  {N_("/Time/SS"), NULL, insert_text_tag, 25}};
+
+    //static GnomeCmdTag metatags[] = {};
+
+    static GtkItemFactoryEntry *items[] = {dir_items,
+                                           name_items,
+                                           counter_items,
+                                           date_items};
+
+    static guint items_size[] = {sizeof(dir_items)/sizeof(dir_items[0]),
+                                 sizeof(name_items)/sizeof(name_items[0]),
+                                 sizeof(counter_items)/sizeof(counter_items[0]),
+                                 sizeof(date_items)/sizeof(date_items[0])};
+
+    switch (menu_type)
+    {
+        case DIR_MENU:
+        case NAME_MENU:
+        case COUNTER_MENU:
+        case DATE_MENU:
+            break;
+
+        case METATAG_MENU:
+            return NULL;
+
+        default:
+            return NULL;
+    }
+
+    GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+
+    gtk_item_factory_create_items (ifac, items_size[menu_type], items[menu_type], dialog);
+
+    return gtk_item_factory_get_widget (ifac, "<main>");
+}
+
+
+static GtkWidget *create_button_with_menu(GnomeCmdAdvrenameDialog *dialog, gchar *label_text, int menu_type)
+{
+    GtkWidget *arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_NONE);
+    GtkWidget *label = gtk_label_new (label_text);
+    GtkWidget *hbox = gtk_hbox_new (FALSE, 3);
 
     gtk_box_pack_start(GTK_BOX(hbox), label, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(hbox), arrow, FALSE, FALSE, 0);
 
-    button = gtk_button_new();
-    gtk_container_add(GTK_CONTAINER(button), hbox);
+    GtkWidget *button = gtk_button_new();
+    gtk_container_add (GTK_CONTAINER(button), hbox);
 
-    gtk_widget_set_events(button, GDK_BUTTON_PRESS_MASK);
-    // g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(menu_button_button_press_cb), (gpointer) n);
+    dialog->priv->menu[menu_type] = create_placeholder_menu (dialog, menu_type);
+
+    gtk_widget_set_events (button, GDK_BUTTON_PRESS_MASK);
+    g_signal_connect (G_OBJECT(button), "clicked", G_CALLBACK(on_menu_button_clicked), dialog->priv->menu[menu_type]);
 
     gtk_widget_show_all(button);
 
@@ -118,7 +261,7 @@ format_entry (PatternEntry *entry, gchar **text)
 {
     text[0] = entry->from;
     text[1] = entry->to;
-    text[2] = entry->case_sens?_("Yes"):_("No");
+    text[2] = entry->case_sens ? _("Yes") : _("No");
     text[3] = NULL;
 }
 
@@ -211,12 +354,10 @@ update_entry (PatternEntry *entry,
               GnomeCmdStringDialog *string_dialog,
               const gchar **values)
 {
-    GtkWidget *case_check;
-
     if (!values[0])
         return g_strdup (_("Invalid source pattern"));
 
-    case_check = lookup_widget (GTK_WIDGET (string_dialog), "case_check");
+    GtkWidget *case_check = lookup_widget (GTK_WIDGET (string_dialog), "case_check");
 
     if (entry->from) g_free (entry->from);
     if (entry->to) g_free (entry->to);
@@ -365,7 +506,7 @@ create_new_name (const gchar *name, GList *patterns)
     gchar *tmp = NULL;
     gchar *new_name = g_strdup (name);
 
-    for ( ; patterns; patterns = patterns->next)
+    for (; patterns; patterns = patterns->next)
     {
         PatternEntry *entry = (PatternEntry*)patterns->data;
 
@@ -391,7 +532,7 @@ static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
         dialog->priv->defaults->counter_increment);
     gnome_cmd_advrename_parse_fname (templ_string);
 
-    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next )
+    for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
         gchar fname[256];
         RenameEntry *entry = (RenameEntry*)tmp->data;
@@ -408,7 +549,7 @@ static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 {
     GList *tmp;
 
-    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next )
+    for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
         RenameEntry *entry = (RenameEntry*)tmp->data;
 
@@ -425,7 +566,7 @@ change_names (GnomeCmdAdvrenameDialog *dialog)
 {
     GList *tmp;
 
-    for ( tmp = dialog->priv->entries; tmp; tmp = tmp->next )
+    for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
         RenameEntry *entry = (RenameEntry*)tmp->data;
 
@@ -452,7 +593,8 @@ static void on_rule_remove (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
     GtkWidget *pat_list = dialog->priv->pat_list;
     PatternEntry *entry = get_pattern_entry_from_row (dialog, GTK_CLIST (pat_list)->focus_row);
 
-    if (entry) {
+    if (entry)
+    {
         dialog->priv->defaults->patterns = g_list_remove (dialog->priv->defaults->patterns, entry);
         gtk_clist_remove (GTK_CLIST (pat_list), GTK_CLIST (pat_list)->focus_row);
         update_remove_all_button (dialog);
@@ -531,7 +673,6 @@ on_rule_moved (GtkCList *clist, gint arg1, gint arg2,
                GnomeCmdAdvrenameDialog *dialog)
 {
     GList *pats = dialog->priv->defaults->patterns;
-    gpointer data;
 
     if (!pats
         || MAX (arg1, arg2) >= g_list_length (pats)
@@ -539,9 +680,9 @@ on_rule_moved (GtkCList *clist, gint arg1, gint arg2,
         || arg1 == arg2)
         return;
 
-    data = g_list_nth_data (pats, arg1);
-    pats = g_list_remove (pats, data);
+    gpointer data = g_list_nth_data (pats, arg1);
 
+    pats = g_list_remove (pats, data);
     pats = g_list_insert (pats, data, arg2);
 
     dialog->priv->defaults->patterns =  pats;
@@ -552,6 +693,7 @@ static void
 save_settings (GnomeCmdAdvrenameDialog *dialog)
 {
     const gchar *template = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
+
     history_add (dialog->priv->defaults->templates, g_strdup (template));
 }
 
@@ -594,7 +736,8 @@ static void on_help (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 static gboolean
 on_dialog_keypress (GnomeCmdAdvrenameDialog *dialog, GdkEventKey *event)
 {
-    if (event->keyval == GDK_Escape) {
+    if (event->keyval == GDK_Escape)
+    {
         gtk_widget_destroy (GTK_WIDGET (dialog));
         return TRUE;
     }
@@ -623,7 +766,8 @@ static gboolean
 on_templ_entry_keypress (GtkEntry *entry, GdkEventKey *event,
                          GnomeCmdAdvrenameDialog *dialog)
 {
-    if (event->keyval == GDK_Return) {
+    if (event->keyval == GDK_Return)
+    {
         do_test (dialog);
         return TRUE;
     }
@@ -664,8 +808,6 @@ static void
 on_template_options_clicked (GtkButton *button,
                              GnomeCmdAdvrenameDialog *dialog)
 {
-    GtkWidget *dlg;
-    GtkWidget *check;
     const gchar *labels[] = {
         _("Counter start value:"),
         _("Counter increment:"),
@@ -673,12 +815,12 @@ on_template_options_clicked (GtkButton *button,
     };
     gchar *s;
 
-    dlg = gnome_cmd_string_dialog_new (
+    GtkWidget *dlg = gnome_cmd_string_dialog_new (
         _("Template Options"), labels, 3,
         (GnomeCmdStringDialogCallback)on_template_options_ok, dialog);
     gtk_widget_ref (dlg);
 
-    check = create_check (GTK_WIDGET (dlg), _("Auto-update when the template is entered"), "auto-update-check");
+    GtkWidget *check = create_check (GTK_WIDGET (dlg), _("Auto-update when the template is entered"), "auto-update-check");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), dialog->priv->defaults->auto_update);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dlg), check);
 
@@ -759,15 +901,12 @@ class_init (GnomeCmdAdvrenameDialogClass *klass)
 static void
 init (GnomeCmdAdvrenameDialog *in_dialog)
 {
-    GtkWidget *dialog;
     GtkWidget *vbox;
     GtkWidget *sw;
     GtkWidget *bbox;
     GtkWidget *btn;
     GtkWidget *cat;
     GtkWidget *table;
-    GtkAccelGroup *accel_group;
-    GList *tmp;
 
     in_dialog->priv = g_new0 (GnomeCmdAdvrenameDialogPrivate, 1);
 
@@ -775,9 +914,9 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     in_dialog->priv->sel_entry = NULL;
     in_dialog->priv->defaults = gnome_cmd_data_get_advrename_defaults ();
 
-    accel_group = gtk_accel_group_new ();
+    GtkAccelGroup *accel_group = gtk_accel_group_new ();
 
-    dialog = GTK_WIDGET (in_dialog);
+    GtkWidget *dialog = GTK_WIDGET (in_dialog);
     gtk_object_set_data (GTK_OBJECT (dialog), "dialog", dialog);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Advanced Rename Tool"));
     gtk_window_set_default_size (GTK_WINDOW (dialog),
@@ -805,9 +944,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
                         dialog);
     gtk_table_attach (GTK_TABLE (table), in_dialog->priv->templ_combo, 0, 1, 0, 1, GTK_EXPAND|GTK_FILL, GTK_EXPAND|GTK_FILL, 0, 0);
     if (in_dialog->priv->defaults->templates->ents)
-        gtk_combo_set_popdown_strings (
-            GTK_COMBO (in_dialog->priv->templ_combo),
-            in_dialog->priv->defaults->templates->ents);
+        gtk_combo_set_popdown_strings (GTK_COMBO (in_dialog->priv->templ_combo), in_dialog->priv->defaults->templates->ents);
     else
         gtk_entry_set_text (GTK_ENTRY (in_dialog->priv->templ_entry), "$N");
 
@@ -822,19 +959,19 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     table_add (table, bbox, 0, 1, GTK_EXPAND|GTK_FILL);
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
-    btn = create_menu_button (_("Dir"),-1);
+    btn = create_button_with_menu (in_dialog, _("Dir"), DIR_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
-    btn = create_menu_button (_("Name"),-1);
+    btn = create_button_with_menu (in_dialog, _("Name"), NAME_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
-    btn = create_menu_button (_("Counter"),-1);
+    btn = create_button_with_menu (in_dialog, _("Counter"),COUNTER_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
-    btn = create_menu_button (_("Date"),-1);
+    btn = create_button_with_menu (in_dialog, _("Date"), DATE_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
-    btn = create_menu_button (_("Metatag"),-1);
+    btn = create_button_with_menu (in_dialog, _("Metatag"), METATAG_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
     /* Regex stuff
@@ -911,7 +1048,9 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_widget_grab_focus (in_dialog->priv->pat_list);
     gtk_window_add_accel_group (GTK_WINDOW (dialog), accel_group);
 
-    for ( tmp = in_dialog->priv->defaults->patterns; tmp; tmp = tmp->next )
+    GList *tmp;
+
+    for (tmp = in_dialog->priv->defaults->patterns; tmp; tmp = tmp->next)
     {
         PatternEntry *entry = (PatternEntry*)tmp->data;
         add_pattern_entry (in_dialog, entry);
@@ -948,7 +1087,7 @@ gnome_cmd_advrename_dialog_new (GList *files)
 
     dialog->priv->files = gnome_cmd_file_list_copy (files);
 
-    for ( tmp = dialog->priv->files; tmp; tmp = tmp->next )
+    for (tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
         if (strcmp (finfo->info->name, "..") != 0)

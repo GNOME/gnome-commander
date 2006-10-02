@@ -1,3 +1,9 @@
+2006-10-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-advrename-dialog.h:
+	More work on buttons for fast access to advrename template placeholders
+
 2006-09-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.c:
