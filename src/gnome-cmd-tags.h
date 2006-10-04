@@ -279,7 +279,7 @@ typedef enum {
     TAG_IPTC_MAXSUBFILESIZE,                // maximum size for a subfile dataset (8:10) containing a portion of the object data
     TAG_IPTC_MODELVERSION,                  // version of IIM part 1
     TAG_IPTC_OBJECTATTRIBUTE,               // defines the nature of the object independent of the subject
-    TAG_IPTC_OBJECTCYCLE,                   // where 'a' is morning, 'b' is evening, 'b' is both
+    TAG_IPTC_OBJECTCYCLE,                   // where 'a' is morning, 'p' is evening, 'b' is both
     TAG_IPTC_OBJECTNAME,                    // shorthand reference for the object
     TAG_IPTC_OBJECTSIZEANNOUNCED,           // total size of the object data if it is known
     TAG_IPTC_OBJECTTYPE,                    // distinguishes between different types of objects within the IIM
@@ -319,6 +319,7 @@ typedef enum {
 GnomeCmdTag gcmd_tags_get_tag_by_long_name(const gchar *tag_name);
 GnomeCmdTag gcmd_tags_get_tag_by_name(const GnomeCmdTagClass tag_class, const gchar *tag_name);
 const gchar *gcmd_tags_get_name(GnomeCmdTag tag);
+const gchar *gcmd_tags_get_class_name(GnomeCmdTag tag);
 const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag);
 const gchar *gcmd_tags_get_value_by_long_name(GnomeCmdFile *finfo, const gchar *tag_name);
 const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, GnomeCmdTagClass tag_class, const gchar *tag_name);

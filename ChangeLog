@@ -1,3 +1,10 @@
+2006-10-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-tags.c:
+	* src/gnome-cmd-tags.h:
+	More work on 'Metatag' button
+
 2006-10-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.c:

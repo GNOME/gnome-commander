@@ -759,7 +759,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_BYLINE_TITLE, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.Caption", TAG_IPTC, TAG_IPTC_CAPTION, N_("Caption/Abstract"), N_("A textual description of the data")
+                                                   {"IPTC.Caption", TAG_IPTC, TAG_IPTC_CAPTION, N_("Caption, Abstract"), N_("A textual description of the data")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_CAPTION, IPTC_RECORD_APP_2
 #endif
@@ -989,7 +989,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_PROGRAM_VERSION, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.Province", TAG_IPTC, TAG_IPTC_PROVINCE, N_("Province/State"), N_("The Province/State where the object originates.")
+                                                   {"IPTC.Province", TAG_IPTC, TAG_IPTC_PROVINCE, N_("Province, State"), N_("The Province/State where the object originates.")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_STATE, IPTC_RECORD_APP_2
 #endif
@@ -1049,7 +1049,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_SPECIAL_INSTRUCTIONS, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.State", TAG_IPTC, TAG_IPTC_STATE, N_("Province/State"), N_("The Province/State where the object originates.")
+                                                   {"IPTC.State", TAG_IPTC, TAG_IPTC_STATE, N_("Province, State"), N_("The Province/State where the object originates.")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_STATE, IPTC_RECORD_APP_2
 #endif
@@ -1104,7 +1104,6 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
 
 static char empty_string[] = "";
 static char int_buff[4096];
-
 
 
 static int tagcmp(const void *t1, const void *t2)
@@ -1192,6 +1191,48 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const GnomeCmdTagClass tag_class, const gc
 const gchar *gcmd_tags_get_name(GnomeCmdTag tag)
 {
     return metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].name;
+}
+
+
+const gchar *gcmd_tags_get_class_name(GnomeCmdTag tag)
+{
+    switch (metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].class)
+    {
+        case TAG_AUDIO:
+            return _("Audio");
+
+        case TAG_CHM:
+            return "CHM";
+
+        case TAG_DOC:
+            return _("Doc");
+
+        case TAG_EXIF:
+            return "Exif";
+
+        case TAG_FILE:
+            return _("File");
+
+        case TAG_ICC:
+            return "ICC";
+
+        case TAG_ID3:
+            return "ID3";
+
+        case TAG_IMAGE:
+            return _("Image");
+
+        case TAG_IPTC:
+            return "IPTC";
+
+        case TAG_RPM:
+            return "RPM";
+
+        default:
+            break;
+    }
+
+    return empty_string;
 }
 
 
@@ -1352,6 +1393,7 @@ const gchar *gcmd_tags_get_value_by_long_name(GnomeCmdFile *finfo, const gchar *
 
     return ret_val;
 }
+
 
 const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, GnomeCmdTagClass tag_class, const gchar *tag_name)
 {
@@ -1674,6 +1716,8 @@ const gchar *gcmd_tags_image_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag)
 
     return ret_val;
 }
+
+
 const gchar *gcmd_tags_image_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name)
 {
     return empty_string;

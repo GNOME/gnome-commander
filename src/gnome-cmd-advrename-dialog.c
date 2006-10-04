@@ -178,7 +178,104 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                                   {N_("/Time/MM"), NULL, insert_text_tag, 24},
                                                   {N_("/Time/SS"), NULL, insert_text_tag, 25}};
 
-    //static GnomeCmdTag metatags[] = {};
+    static GnomeCmdTag metatags[] = {
+                                     // TAG_AUDIO_ALBUMARTIST, TAG_AUDIO_ALBUMGAIN, TAG_AUDIO_ALBUMPEAKGAIN,
+                                     // TAG_AUDIO_ALBUMTRACKCOUNT, TAG_AUDIO_ALBUM, TAG_AUDIO_ARTIST, TAG_AUDIO_BITRATE,
+                                     // TAG_AUDIO_CHANNELS, TAG_AUDIO_CODECVERSION, TAG_AUDIO_CODEC, TAG_AUDIO_COMMENT,
+                                     // TAG_AUDIO_COVERALBUMTHUMBNAILPATH, TAG_AUDIO_DISCNO, TAG_AUDIO_DURATION,
+                                     // TAG_AUDIO_GENRE, TAG_AUDIO_ISNEW, TAG_AUDIO_LASTPLAY, TAG_AUDIO_LYRICS,
+                                     // TAG_AUDIO_MBALBUMARTISTID, TAG_AUDIO_MBALBUMID, TAG_AUDIO_MBARTISTID,
+                                     // TAG_AUDIO_MBTRACKID, TAG_AUDIO_PERFORMER, TAG_AUDIO_PLAYCOUNT,
+                                     // TAG_AUDIO_RELEASEDATE, TAG_AUDIO_SAMPLERATE, TAG_AUDIO_TITLE, TAG_AUDIO_TRACKGAIN,
+                                     // TAG_AUDIO_TRACKNO, TAG_AUDIO_TRACKPEAKGAIN, TAG_DOC_AUTHOR,
+
+                                     // TAG_DOC_COMMENTS, TAG_DOC_CREATED, TAG_DOC_KEYWORDS, TAG_DOC_PAGECOUNT,
+                                     // TAG_DOC_SUBJECT, TAG_DOC_TITLE, TAG_DOC_WORDCOUNT, TAG_EXIF_APERTUREVALUE,
+
+                                     // TAG_FILE_ACCESSED, TAG_FILE_CONTENT, TAG_FILE_DESCRIPTION, TAG_FILE_FORMAT,
+                                     // TAG_FILE_ICONPATH, TAG_FILE_KEYWORDS, TAG_FILE_LARGETHUMBNAILPATH, TAG_FILE_LINK,
+                                     // TAG_FILE_MODIFIED, TAG_FILE_NAME, TAG_FILE_PATH, TAG_FILE_PERMISSIONS,
+                                     // TAG_FILE_PUBLISHER, TAG_FILE_RANK, TAG_FILE_SIZE, TAG_FILE_SMALLTHUMBNAILPATH,
+
+                                     TAG_IMAGE_ALBUM, TAG_IMAGE_CAMERAMAKE, TAG_IMAGE_CAMERAMODEL,
+                                     TAG_IMAGE_COMMENTS, TAG_IMAGE_COPYRIGHT, TAG_IMAGE_CREATOR,
+                                     TAG_IMAGE_DATE, TAG_IMAGE_DESCRIPTION, TAG_IMAGE_EXPOSUREPROGRAM,
+                                     TAG_IMAGE_EXPOSURETIME, TAG_IMAGE_FLASH, TAG_IMAGE_FNUMBER,
+                                     TAG_IMAGE_FOCALLENGTH, TAG_IMAGE_HEIGHT, TAG_IMAGE_ISOSPEED,
+                                     TAG_IMAGE_KEYWORDS, TAG_IMAGE_METERINGMODE, TAG_IMAGE_ORIENTATION,
+                                     TAG_IMAGE_SOFTWARE, TAG_IMAGE_TITLE, TAG_IMAGE_WHITEBALANCE,
+                                     TAG_IMAGE_WIDTH,
+
+                                     TAG_NONE,
+
+                                     TAG_EXIF_ARTIST, TAG_EXIF_BATTERYLEVEL, TAG_EXIF_BITSPERSAMPLE,
+                                     TAG_EXIF_BRIGHTNESSVALUE, TAG_EXIF_CFAPATTERN,
+                                     TAG_EXIF_COLORSPACE, TAG_EXIF_COMPONENTSCONFIGURATION,
+                                     TAG_EXIF_COMPRESSEDBITSPERPIXEL, TAG_EXIF_COMPRESSION, TAG_EXIF_CONTRAST,
+                                     TAG_EXIF_COPYRIGHT, TAG_EXIF_CUSTOMRENDERED, TAG_EXIF_DATETIME,
+                                     TAG_EXIF_DATETIMEDIGITIZED, TAG_EXIF_DATETIMEORIGINAL,
+                                     TAG_EXIF_DEVICESETTINGDESCRIPTION, TAG_EXIF_DIGITALZOOMRATIO,
+                                     TAG_EXIF_DOCUMENTNAME, TAG_EXIF_EXIFVERSION,
+                                     TAG_EXIF_EXPOSUREBIASVALUE, TAG_EXIF_EXPOSUREINDEX, TAG_EXIF_EXPOSUREMODE,
+                                     TAG_EXIF_EXPOSUREPROGRAM, TAG_EXIF_EXPOSURETIME, TAG_EXIF_FILESOURCE,
+                                     TAG_EXIF_FILLORDER, TAG_EXIF_FLASH, TAG_EXIF_FLASHENERGY,
+                                     TAG_EXIF_FLASHPIXVERSION, TAG_EXIF_FNUMBER, TAG_EXIF_FOCALLENGTH,
+                                     TAG_EXIF_FOCALLENGTHIN35MMFILM, TAG_EXIF_FOCALPLANERESOLUTIONUNIT,
+                                     TAG_EXIF_FOCALPLANEXRESOLUTION, TAG_EXIF_FOCALPLANEYRESOLUTION,
+                                     TAG_EXIF_GAINCONTROL, TAG_EXIF_GAMMA, TAG_EXIF_GPSALTITUDE,
+                                     TAG_EXIF_GPSLATITUDE, TAG_EXIF_GPSLONGITUDE,
+                                     TAG_EXIF_GPSVERSIONID, TAG_EXIF_IMAGEDESCRIPTION, TAG_EXIF_IMAGELENGTH,
+                                     TAG_EXIF_IMAGEUNIQUEID, TAG_EXIF_IMAGEWIDTH,
+                                     TAG_EXIF_INTERCOLORPROFILE, TAG_EXIF_INTEROPERABILITYINDEX, TAG_EXIF_INTEROPERABILITYVERSION,
+                                     TAG_EXIF_IPTCNAA, TAG_EXIF_ISOSPEEDRATINGS, TAG_EXIF_JPEGINTERCHANGEFORMAT,
+                                     TAG_EXIF_JPEGINTERCHANGEFORMATLENGTH, TAG_EXIF_LIGHTSOURCE,
+                                     TAG_EXIF_MAKE, TAG_EXIF_MAKERNOTE, TAG_EXIF_MAXAPERTUREVALUE,
+                                     TAG_EXIF_METERINGMODE, TAG_EXIF_MODEL, TAG_EXIF_NEWCFAPATTERN,
+                                     TAG_EXIF_NEWSUBFILETYPE, TAG_EXIF_OECF, TAG_EXIF_ORIENTATION,
+                                     TAG_EXIF_PHOTOMETRICINTERPRETATION, TAG_EXIF_PIXELXDIMENSION,
+                                     TAG_EXIF_PIXELYDIMENSION, TAG_EXIF_PLANARCONFIGURATION,
+                                     TAG_EXIF_PRIMARYCHROMATICITIES, TAG_EXIF_REFERENCEBLACKWHITE,
+                                     TAG_EXIF_RELATEDIMAGEFILEFORMAT, TAG_EXIF_RELATEDIMAGELENGTH,
+                                     TAG_EXIF_RELATEDIMAGEWIDTH, TAG_EXIF_RELATEDSOUNDFILE, TAG_EXIF_RESOLUTIONUNIT,
+                                     TAG_EXIF_ROWSPERSTRIP, TAG_EXIF_SAMPLESPERPIXEL, TAG_EXIF_SATURATION,
+                                     TAG_EXIF_SCENECAPTURETYPE, TAG_EXIF_SCENETYPE, TAG_EXIF_SENSINGMETHOD,
+                                     TAG_EXIF_SHARPNESS, TAG_EXIF_SHUTTERSPEEDVALUE, TAG_EXIF_SOFTWARE,
+                                     TAG_EXIF_SPATIALFREQUENCYRESPONSE, TAG_EXIF_SPECTRALSENSITIVITY,
+                                     TAG_EXIF_STRIPBYTECOUNTS, TAG_EXIF_STRIPOFFSETS,
+                                     TAG_EXIF_SUBJECTAREA, TAG_EXIF_SUBJECTDISTANCE, TAG_EXIF_SUBJECTDISTANCERANGE,
+                                     TAG_EXIF_SUBJECTLOCATION, TAG_EXIF_SUBSECTIME, TAG_EXIF_SUBSECTIMEDIGITIZED,
+                                     TAG_EXIF_SUBSECTIMEORIGINAL, TAG_EXIF_TIFFEPSTANDARDID, TAG_EXIF_TRANSFERFUNCTION,
+                                     TAG_EXIF_TRANSFERRANGE, TAG_EXIF_USERCOMMENT, TAG_EXIF_WHITEBALANCE,
+                                     TAG_EXIF_WHITEPOINT, TAG_EXIF_XRESOLUTION,
+                                     TAG_EXIF_YCBCRCOEFFICIENTS, TAG_EXIF_YCBCRPOSITIONING,
+                                     TAG_EXIF_YCBCRSUBSAMPLING, TAG_EXIF_YRESOLUTION,
+
+                                     TAG_IPTC_ACTIONADVISED, TAG_IPTC_ARMID, TAG_IPTC_ARMVERSION,
+                                     TAG_IPTC_AUDIODURATION, TAG_IPTC_AUDIOOUTCUE, TAG_IPTC_AUDIOSAMPLINGRATE,
+                                     TAG_IPTC_AUDIOSAMPLINGRES, TAG_IPTC_AUDIOTYPE, TAG_IPTC_BYLINE,
+                                     TAG_IPTC_BYLINETITLE, TAG_IPTC_CAPTION, TAG_IPTC_CATEGORY, TAG_IPTC_CHARACTERSET,
+                                     TAG_IPTC_CITY, TAG_IPTC_CONFIRMEDDATASIZE, TAG_IPTC_CONTACT,
+                                     TAG_IPTC_CONTENTLOCCODE, TAG_IPTC_CONTENTLOCNAME, TAG_IPTC_COPYRIGHTNOTICE,
+                                     TAG_IPTC_COUNTRYCODE, TAG_IPTC_COUNTRYNAME, TAG_IPTC_CREDIT, TAG_IPTC_DATECREATED,
+                                     TAG_IPTC_DATESENT, TAG_IPTC_DESTINATION, TAG_IPTC_DIGITALCREATIONDATE,
+                                     TAG_IPTC_DIGITALCREATIONTIME, TAG_IPTC_EDITORIALUPDATE, TAG_IPTC_EDITSTATUS,
+                                     TAG_IPTC_ENVELOPENUM, TAG_IPTC_ENVELOPEPRIORITY, TAG_IPTC_EXPIRATIONDATE,
+                                     TAG_IPTC_EXPIRATIONTIME, TAG_IPTC_FILEFORMAT, TAG_IPTC_FILEVERSION,
+                                     TAG_IPTC_FIXTUREID, TAG_IPTC_HEADLINE, TAG_IPTC_IMAGEORIENTATION,
+                                     TAG_IPTC_IMAGETYPE, TAG_IPTC_KEYWORDS, TAG_IPTC_LANGUAGEID,
+                                     TAG_IPTC_MAXOBJECTSIZE, TAG_IPTC_MAXSUBFILESIZE, TAG_IPTC_MODELVERSION,
+                                     TAG_IPTC_OBJECTATTRIBUTE, TAG_IPTC_OBJECTCYCLE, TAG_IPTC_OBJECTNAME,
+                                     TAG_IPTC_OBJECTSIZEANNOUNCED, TAG_IPTC_OBJECTTYPE, TAG_IPTC_ORIGINATINGPROGRAM,
+                                     TAG_IPTC_ORIGTRANSREF, TAG_IPTC_PREVIEWDATA, TAG_IPTC_PREVIEWFORMAT,
+                                     TAG_IPTC_PREVIEWFORMATVER, TAG_IPTC_PRODUCTID, TAG_IPTC_PROGRAMVERSION,
+                                     TAG_IPTC_PROVINCE, TAG_IPTC_RASTERIZEDCAPTION, TAG_IPTC_RECORDVERSION,
+                                     TAG_IPTC_REFERENCEDATE, TAG_IPTC_REFERENCENUMBER, TAG_IPTC_REFERENCESERVICE,
+                                     TAG_IPTC_RELEASEDATE, TAG_IPTC_RELEASETIME, TAG_IPTC_SERVICEID,
+                                     TAG_IPTC_SIZEMODE, TAG_IPTC_SOURCE, TAG_IPTC_SPECIALINSTRUCTIONS,
+                                     TAG_IPTC_SUBFILE, TAG_IPTC_SUBJECTREFERENCE, TAG_IPTC_SUBLOCATION,
+                                     TAG_IPTC_SUPPLCATEGORY, TAG_IPTC_TIMECREATED, TAG_IPTC_TIMESENT, TAG_IPTC_UNO,
+                                     TAG_IPTC_URGENCY, TAG_IPTC_WRITEREDITOR
+                                    };
 
     static GtkItemFactoryEntry *items[] = {dir_items,
                                            name_items,
@@ -196,20 +293,54 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
         case NAME_MENU:
         case COUNTER_MENU:
         case DATE_MENU:
-            break;
+            {
+                GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+
+                gtk_item_factory_create_items (ifac, items_size[menu_type], items[menu_type], dialog);
+
+                return gtk_item_factory_get_widget (ifac, "<main>");
+            }
 
         case METATAG_MENU:
-            return NULL;
+            {
+                GtkItemFactoryEntry *items = g_try_new0(GtkItemFactoryEntry, sizeof(metatags)/sizeof(metatags[0]));
+
+                g_return_val_if_fail (items != NULL, NULL);
+
+                gint i;
+
+                for (i=0; i<sizeof(metatags)/sizeof(metatags[0]); ++i)
+                {
+                    GtkItemFactoryEntry *p = items+i;
+                    
+                    if (metatags[i]==TAG_NONE)
+                    {
+                        p->path = g_strdup("/");
+                        p->item_type = "<Separator>";
+                    }
+                    else
+                    {
+                        p->path = g_strdup_printf ("/%s/%s", gcmd_tags_get_class_name(metatags[i]), gcmd_tags_get_title(metatags[i]));
+                        p->callback = insert_num_tag;
+                        p->callback_action = metatags[i];
+                    }
+                }
+
+                GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+
+                gtk_item_factory_create_items (ifac, sizeof(metatags)/sizeof(metatags[0]), items, dialog);
+
+                for (i=0; i<sizeof(metatags)/sizeof(metatags[0]); ++i)
+                    g_free(items[i].path);
+
+                g_free (items);
+
+                return gtk_item_factory_get_widget (ifac, "<main>");
+            }
 
         default:
             return NULL;
     }
-
-    GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
-
-    gtk_item_factory_create_items (ifac, items_size[menu_type], items[menu_type], dialog);
-
-    return gtk_item_factory_get_widget (ifac, "<main>");
 }
 
 
