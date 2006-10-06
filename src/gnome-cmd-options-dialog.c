@@ -1600,8 +1600,8 @@ on_device_edit (GtkWidget *button, GtkWidget *parent)
 static void
 on_device_remove (GtkWidget *button, GtkWidget *frame)
 {
-    GnomeCmdConDevice *dev;
     GtkCList *clist = GTK_CLIST (lookup_widget (frame, "device_clist"));
+    GnomeCmdConDevice *dev;
 
     if (clist->focus_row >= 0) {
         dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, clist->focus_row));
@@ -1616,11 +1616,10 @@ static void
 on_device_selected (GtkCList *clist, gint row, gint column,
                     GdkEventButton *event, GtkWidget *parent)
 {
-    GnomeCmdConDevice *dev;
     GtkWidget *remove_button = lookup_widget (parent, "remove_device_button");
     GtkWidget *edit_button = lookup_widget (parent, "edit_device_button");
 
-    dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, row));
+    GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, row));
     gtk_object_set_data (GTK_OBJECT (parent), "selected_device", dev);
 
     gtk_widget_set_sensitive (remove_button, TRUE);

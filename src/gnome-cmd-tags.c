@@ -261,7 +261,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , EXIF_TAG_FOCAL_LENGTH
 #endif
                                                    },
-                                                   {"Exif.FocalLengthIn35mmFilm", TAG_EXIF, TAG_EXIF_FOCALLENGTHIN35MMFILM, N_("Focal Length In 35mm Film"), N_("This tag indicates the equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the FocalLength tag.")
+                                                   {"Exif.FocalLengthIn35mmFilm", TAG_EXIF, TAG_EXIF_FOCALLENGTHIN35MMFILM, N_("Focal Length In 35mm Film"), N_("This tag indicates the equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <Exif.FocalLength> tag.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_FOCAL_LENGTH_IN_35MM_FILM
 #endif
@@ -291,12 +291,12 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
 //                                                   , EXIF_TAG_GAMMA
 #endif
                                                    },
-                                                   {"Exif.GPS.Altitude", TAG_EXIF, TAG_EXIF_GPSALTITUDE, N_("Altitude"), N_("Indicates the altitude based on the reference in GPSAltitudeRef. The reference unit is meters.")
+                                                   {"Exif.GPS.Altitude", TAG_EXIF, TAG_EXIF_GPSALTITUDE, N_("Altitude"), N_("Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The reference unit is meters.")
 #ifdef HAVE_EXIF
 //                                                   , EXIF_TAG_GPS_ALTITUDE
 #endif
                                                    },
-                                                   {"Exif.GPS.AltitudeRef", TAG_EXIF, TAG_EXIF_GPSALTITUDEREF, N_("Altitude Reference"), N_("Indicates the altitude used as the reference altitude. If the reference is sea level and the altitude is above sea level, 0 is given. If the altitude is below sea level, a value of 1 is given and the altitude is indicated as an absolute value in the GSPAltitude tag. The reference unit is meters.")
+                                                   {"Exif.GPS.AltitudeRef", TAG_EXIF, TAG_EXIF_GPSALTITUDEREF, N_("Altitude Reference"), N_("Indicates the altitude used as the reference altitude. If the reference is sea level and the altitude is above sea level, 0 is given. If the altitude is below sea level, a value of 1 is given and the altitude is indicated as an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is meters.")
 #ifdef HAVE_EXIF
 //                                                   , EXIF_TAG_GPS_ALTITUDE_REF
 #endif
@@ -656,7 +656,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , EXIF_TAG_YCBCR_COEFFICIENTS
 #endif
                                                    },
-                                                   {"Exif.YCbCrPositioning", TAG_EXIF, TAG_EXIF_YCBCRPOSITIONING, N_("YCbCr Positioning"), N_("The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended in this standard that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning.")
+                                                   {"Exif.YCbCrPositioning", TAG_EXIF, TAG_EXIF_YCBCRPOSITIONING, N_("YCbCr Positioning"), N_("The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_YCBCR_POSITIONING
 #endif
@@ -749,7 +749,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_AUDIO_TYPE, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.Byline", TAG_IPTC, TAG_IPTC_BYLINE, N_("By-line"), N_("Name of the creator of the object, e.g. writer, photographer or graphic artist.")
+                                                   {"IPTC.Byline", TAG_IPTC, TAG_IPTC_BYLINE, N_("By-line"), N_("Name of the creator of the object, e.g. writer, photographer or graphic artist (multiple values allowed).")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_BYLINE, IPTC_RECORD_APP_2
 #endif
@@ -784,17 +784,17 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_CONFIRMED_DATA_SIZE, IPTC_RECORD_POSTOBJ_DATA
 #endif
                                                    },
-                                                   {"IPTC.Contact", TAG_IPTC, TAG_IPTC_CONTACT, N_("Contact"), N_("The person or organization which can provide further background information on the object.")
+                                                   {"IPTC.Contact", TAG_IPTC, TAG_IPTC_CONTACT, N_("Contact"), N_("The person or organization which can provide further background information on the object (multiple values allowed).")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_CONTACT, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.ContentLocCode", TAG_IPTC, TAG_IPTC_CONTENTLOCCODE, N_("Content Location Code"), N_("Indicates the code of a country/geographical location referenced by the content of the object.")
+                                                   {"IPTC.ContentLocCode", TAG_IPTC, TAG_IPTC_CONTENTLOCCODE, N_("Content Location Code"), N_("Indicates the code of a country/geographical location referenced by the content of the object (multiple values allowed).")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_CONTENT_LOC_CODE, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.ContentLocName", TAG_IPTC, TAG_IPTC_CONTENTLOCNAME, N_("Content Location Name"), N_("A full, publishable name of a country/geographical location referenced by the content of the object.")
+                                                   {"IPTC.ContentLocName", TAG_IPTC, TAG_IPTC_CONTENTLOCNAME, N_("Content Location Name"), N_("A full, publishable name of a country/geographical location referenced by the content of the object (multiple values allowed).")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_CONTENT_LOC_NAME, IPTC_RECORD_APP_2
 #endif
@@ -904,7 +904,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_IMAGE_TYPE, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.Keywords", TAG_IPTC, TAG_IPTC_KEYWORDS, N_("Keywords"), N_("Used to indicate specific information retrieval words.")
+                                                   {"IPTC.Keywords", TAG_IPTC, TAG_IPTC_KEYWORDS, N_("Keywords"), N_("Used to indicate specific information retrieval words (multiple values allowed).")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_KEYWORDS, IPTC_RECORD_APP_2
 #endif
@@ -929,7 +929,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_MODEL_VERSION, IPTC_RECORD_OBJECT_ENV
 #endif
                                                    },
-                                                   {"IPTC.ObjectAttribute", TAG_IPTC, TAG_IPTC_OBJECTATTRIBUTE, N_("Object Attribute Reference"), N_("Defines the nature of the object independent of the subject.")
+                                                   {"IPTC.ObjectAttribute", TAG_IPTC, TAG_IPTC_OBJECTATTRIBUTE, N_("Object Attribute Reference"), N_("Defines the nature of the object independent of the subject (multiple values allowed).")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_OBJECT_ATTRIBUTE, IPTC_RECORD_APP_2
 #endif
@@ -1074,7 +1074,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_SUPPL_CATEGORY, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.TimeCreated", TAG_IPTC, TAG_IPTC_TIMECREATED, N_("Time Created"), N_("The time the intellectual content of the object was created rather than the date of the creation of the physical representation.")
+                                                   {"IPTC.TimeCreated", TAG_IPTC, TAG_IPTC_TIMECREATED, N_("Time Created"), N_("The time the intellectual content of the object was created rather than the date of the creation of the physical representation (multiple values allowed).")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_TIME_CREATED, IPTC_RECORD_APP_2
 #endif
@@ -1094,7 +1094,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    , IPTC_TAG_URGENCY, IPTC_RECORD_APP_2
 #endif
                                                    },
-                                                   {"IPTC.WriterEditor", TAG_IPTC, TAG_IPTC_WRITEREDITOR, N_("Writer/Editor"), N_("The name of the person involved in the writing, editing or correcting the object or caption/abstract")
+                                                   {"IPTC.WriterEditor", TAG_IPTC, TAG_IPTC_WRITEREDITOR, N_("Writer/Editor"), N_("The name of the person involved in the writing, editing or correcting the object or caption/abstract (multiple values allowed)")
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_WRITER_EDITOR, IPTC_RECORD_APP_2
 #endif

@@ -109,7 +109,7 @@
         <date>&date;</date>
         <revdescription>
             <para role="author">Documentation Writer 2
-        <email>docwriter2@gnome.org</email>
+                <email>docwriter2@gnome.org</email>
             </para>
             <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
@@ -119,7 +119,7 @@
         <date>Release date of previous manual.</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
-        <email>epiotr@cvs.gnome.org</email>
+                <email>epiotr@cvs.gnome.org</email>
             </para>
             <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
@@ -1131,7 +1131,8 @@
                     <row valign="top">
                         <entry><para>Exif.FocalLengthIn35mmFilm</para></entry>
                         <entry><para>Focal Length In 35mm Film</para></entry>
-                        <entry><para>This tag indicates the equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the FocalLength tag</para></entry>
+                        <entry><para>This tag indicates the equivalent focal length assuming a 35mm film camera, in mm.
+ A value of 0 means the focal length is unknown. Note that this tag differs from the <term>Exif.FocalLength</term> tag</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FocalPlaneResolutionUnit</para></entry>
@@ -1521,7 +1522,7 @@
                     <row valign="top">
                         <entry><para>Exif.YCbCrPositioning</para></entry>
                         <entry><para>YCbCr Positioning</para></entry>
-                        <entry><para>The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended in this standard that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <term>Exif.YCbCrPositioning</term>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning</para></entry>
+                        <entry><para>The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <term>Exif.YCbCrPositioning</term>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.YCbCrSubSampling</para></entry>
@@ -3211,11 +3212,11 @@
         </row>
         <row valign="top">
             <entry><para>CTRL+.</para></entry>
-            <entry><para>Copy the current working directory from the inactive file-list to the active one</para></entry>
+            <entry><para>Copy the current working directory from the inactive file list to the active one</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+.</para></entry>
-            <entry><para>Copy the current working directory from the active file-list to the inactive one</para></entry>
+            <entry><para>Copy the current working directory from the active file list to the inactive one</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -3224,6 +3225,18 @@
         <row valign="top">
             <entry><para>CTRL+R</para></entry>
             <entry><para>Refresh the active file list</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+O</para></entry>
+            <entry><para>Options dialog</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+SHIFT+H</para></entry>
+            <entry><para>Toggle hidden files on/off</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+G</para></entry>
@@ -3532,6 +3545,14 @@
                         <listitem>
                             <para>New or updated translations: ca, cs, de, el, en_GB, es, eu, hu, it, ne, ru, sv, vi</para>
                         </listitem>
+                        <listitem>
+                            <para>New key bindings:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para><keycap>CTRL+SHIFT+H</keycap>   Toggle hidden files on/off</para>
+                                </listitem>
+                            </itemizedlist>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>
@@ -3692,7 +3713,7 @@
                                     <para><keycap>SHIFT+M</keycap>        Multi-Rename-Tool</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>CTRL+SHIFT+.</keycap>   Copying the current working directory from the active file-list to the inactive one</para>
+                                    <para><keycap>CTRL+SHIFT+.</keycap>   Copying the current working directory from the active file list to the inactive one</para>
                                 </listitem>
                                 <listitem>
                                     <para><keycap>CTRL+=</keycap>         Select all files</para>
@@ -3764,7 +3785,7 @@
                                     <para><keycap>SHIFT+F10</keycap>      Bring up the file context menu (the windows menu key also works)</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>CTRL+.</keycap>         Copy the current working directory from the inactive file-list to the active one</para>
+                                    <para><keycap>CTRL+.</keycap>         Copy the current working directory from the inactive file list to the active one</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>
@@ -3783,7 +3804,7 @@
                             <para>The ext column is now hidden when the extension is only showed together with the filename</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed unnecessary redraws of the file-list when dragging files over it</para>
+                            <para>Fixed unnecessary redraws of the file list when dragging files over it</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem with ftp-connections that didn't disappear from the connection toolbars when disconnected</para>
@@ -3800,7 +3821,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>The dir indicator above each file-list can now be used to navigate upwards in the directory structure</para>
+                            <para>The dir indicator above each file list can now be used to navigate upwards in the directory structure</para>
                         </listitem>
                     </itemizedlist>
                 </para>
@@ -3817,7 +3838,7 @@
                             <para>Fixed bug when selecting multiple files with shift+mouse button</para>
                         </listitem>
                         <listitem>
-                            <para>Stopped superfluous updates of the file-list on machines with the imon kernel patch applied</para>
+                            <para>Stopped superfluous updates of the file list on machines with the imon kernel patch applied</para>
                         </listitem>
                         <listitem>
                             <para>Cleaned up the file-popup menu</para>

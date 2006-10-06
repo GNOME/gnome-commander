@@ -1,3 +1,10 @@
+2006-10-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-main-win.c:
+	Added CTRL+SHIFT+H for toggle of hidden files filter
+
 2006-10-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.c:
@@ -304,7 +311,7 @@
 
 2006-04-05  Clytie Siddall  <clytie@riverland.net.au>
 
-	* configure.in:	
+	* configure.in:
 	Added vi in ALL_LINGUAS line.
 
 2006-04-03  Piotr Eljasiak  <epiotr@use.pl>
@@ -468,7 +475,7 @@
 
 2006-03-08  Piotr Eljasiak  <epiotr@use.pl>
 
-	* src/gnome-cmd-file-selector.c: 
+	* src/gnome-cmd-file-selector.c:
         Fixed wrong i18n, reported by Špela Počkar
 
 2006-03-08 Špela Počkar <spela.pockar@gmail.com>

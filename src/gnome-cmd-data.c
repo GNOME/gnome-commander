@@ -1950,6 +1950,13 @@ gnome_cmd_data_get_type_filter (GnomeVFSFileType type)
 }
 
 
+void
+gnome_cmd_data_set_hidden_filter (gboolean hide)
+{
+    data->priv->filter_settings.hidden = hide;
+}
+
+
 gboolean
 gnome_cmd_data_get_hidden_filter (void)
 {

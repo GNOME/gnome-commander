@@ -1116,6 +1116,15 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                 connections_close_current (NULL, NULL);
                 return TRUE;
 
+            case GDK_H:
+            case GDK_h:
+                gnome_cmd_data_set_hidden_filter (!gnome_cmd_data_get_hidden_filter ());
+                gnome_cmd_style_create ();
+                gnome_cmd_main_win_update_style (main_win);
+                gnome_cmd_data_save ();
+
+                return TRUE;
+
         }
     }
     else if (state_is_ctrl (event->state))
