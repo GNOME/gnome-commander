@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander-it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-01 13:03+0200\n"
+"POT-Creation-Date: 2006-10-08 00:43+0200\n"
 "PO-Revision-Date: 2006-05-11 00:46+0200\n"
 "Last-Translator: Alberto Bertoncini <>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -41,7 +41,7 @@ msgstr "Nessuna descrizione di errore disponibile"
 #: ../plugins/cvs/cvs-plugin.c:299
 #: ../plugins/fileroller/file-roller-plugin.c:343
 #: ../src/gnome-cmd-ftp-dialog.c:536 ../src/gnome-cmd-options-dialog.c:1114
-#: ../src/gnome-cmd-options-dialog.c:1828
+#: ../src/gnome-cmd-options-dialog.c:1827
 #: ../src/gnome-cmd-prepare-copy-dialog.c:133
 #: ../src/gnome-cmd-prepare-move-dialog.c:118
 msgid "Options"
@@ -189,148 +189,260 @@ msgstr "_Ringraziamenti"
 msgid "About %s"
 msgstr "Informazioni %s"
 
-#: ../src/gnome-cmd-advrename-dialog.c:121
+#: ../src/gnome-cmd-advrename-dialog.c:151
+msgid "/Grandparent"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:152
+msgid "/Parent"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:154
+#, fuzzy
+msgid "/File name"
+msgstr "Nome del file:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:155
+msgid "/File name without extension"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:156
+#, fuzzy
+msgid "/File extension"
+msgstr "Versione"
+
+#: ../src/gnome-cmd-advrename-dialog.c:158
+#, fuzzy
+msgid "/Counter"
+msgstr "_Sommario"
+
+#: ../src/gnome-cmd-advrename-dialog.c:159
+#, fuzzy
+msgid "/Counter (precision)"
+msgstr "Altra revisione"
+
+#: ../src/gnome-cmd-advrename-dialog.c:161
+msgid "/Date/<locale>"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:162
+msgid "/Date/yyyy-mm-dd"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:163
+msgid "/Date/yy-mm-dd"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:164
+msgid "/Date/yy.mm.dd"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:165
+msgid "/Date/yymmdd"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:166
+msgid "/Date/dd.mm.yy"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:167
+msgid "/Date/mm-dd-yy"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:168
+msgid "/Date/yyyy"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:169
+#, fuzzy
+msgid "/Date/yy"
+msgstr "Data:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:170
+#, fuzzy
+msgid "/Date/mm"
+msgstr "Data:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:171
+#, fuzzy
+msgid "/Date/mmm"
+msgstr "Data:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:172
+#, fuzzy
+msgid "/Date/dd"
+msgstr "Data:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:173
+msgid "/Time/<locale>"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:174
+msgid "/Time/HH.MM.SS"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:175
+msgid "/Time/HH-MM-SS"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:176
+msgid "/Time/HHMMSS"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:177
+msgid "/Time/HH"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:178
+msgid "/Time/MM"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:179
+msgid "/Time/SS"
+msgstr ""
+
+#: ../src/gnome-cmd-advrename-dialog.c:395
 #: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "Yes"
 msgstr "Si"
 
-#: ../src/gnome-cmd-advrename-dialog.c:121
+#: ../src/gnome-cmd-advrename-dialog.c:395
 #: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "No"
 msgstr "No"
 
-#: ../src/gnome-cmd-advrename-dialog.c:217
+#: ../src/gnome-cmd-advrename-dialog.c:489
 msgid "Invalid source pattern"
 msgstr "Modello sorgente non valido"
 
-#: ../src/gnome-cmd-advrename-dialog.c:291
+#: ../src/gnome-cmd-advrename-dialog.c:563
 msgid "Replace this:"
 msgstr "Sostituisci questo:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:291
-#: ../src/gnome-cmd-advrename-dialog.c:849
+#: ../src/gnome-cmd-advrename-dialog.c:563
+#: ../src/gnome-cmd-advrename-dialog.c:1117
 msgid "With this"
 msgstr "Con questo:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:303
+#: ../src/gnome-cmd-advrename-dialog.c:575
 msgid "Case sensitive matching"
 msgstr "Maiuscole/minuscole"
 
-#: ../src/gnome-cmd-advrename-dialog.c:440
+#: ../src/gnome-cmd-advrename-dialog.c:712
 msgid "New Rule"
 msgstr "Nuova regola"
 
-#: ../src/gnome-cmd-advrename-dialog.c:446
+#: ../src/gnome-cmd-advrename-dialog.c:718
 msgid "Edit Rule"
 msgstr "Edita regola"
 
-#: ../src/gnome-cmd-advrename-dialog.c:670
+#: ../src/gnome-cmd-advrename-dialog.c:943
 msgid "Counter start value:"
 msgstr "Valore di inizio contatore:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:671
+#: ../src/gnome-cmd-advrename-dialog.c:944
 msgid "Counter increment:"
 msgstr "Incremento contatore:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:672
+#: ../src/gnome-cmd-advrename-dialog.c:945
 msgid "Counter minimum digit count:"
 msgstr "Numero minimo cifre contatore:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:677
+#: ../src/gnome-cmd-advrename-dialog.c:950
 msgid "Template Options"
 msgstr "Opzioni template"
 
-#: ../src/gnome-cmd-advrename-dialog.c:681
+#: ../src/gnome-cmd-advrename-dialog.c:954
 msgid "Auto-update when the template is entered"
 msgstr "Aggiorna automaticamente quando il template è inserito"
 
-#: ../src/gnome-cmd-advrename-dialog.c:782
+#: ../src/gnome-cmd-advrename-dialog.c:1052
 msgid "Advanced Rename Tool"
 msgstr "Strumento multi rinomina"
 
-#: ../src/gnome-cmd-advrename-dialog.c:795
+#: ../src/gnome-cmd-advrename-dialog.c:1065
 msgid "Template"
 msgstr "Template"
 
-#: ../src/gnome-cmd-advrename-dialog.c:818
+#: ../src/gnome-cmd-advrename-dialog.c:1086
 #, fuzzy
 msgid "O_ptions..."
 msgstr "Opzioni..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:825
+#: ../src/gnome-cmd-advrename-dialog.c:1093
 #, fuzzy
 msgid "Dir"
 msgstr "dir"
 
-#: ../src/gnome-cmd-advrename-dialog.c:828 ../src/gnome-cmd-tags.c:683
+#: ../src/gnome-cmd-advrename-dialog.c:1096 ../src/gnome-cmd-tags.c:683
 #: ../src/plugin_manager.c:424
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gnome-cmd-advrename-dialog.c:831
+#: ../src/gnome-cmd-advrename-dialog.c:1099
 #, fuzzy
 msgid "Counter"
 msgstr "_Sommario"
 
-#: ../src/gnome-cmd-advrename-dialog.c:834 ../src/gnome-cmd-tags.c:696
+#: ../src/gnome-cmd-advrename-dialog.c:1102 ../src/gnome-cmd-tags.c:696
 #, fuzzy
 msgid "Date"
 msgstr "Data:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:837
+#: ../src/gnome-cmd-advrename-dialog.c:1105
 msgid "Metatag"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.c:843
+#: ../src/gnome-cmd-advrename-dialog.c:1111
 msgid "Regex replacing"
 msgstr "Sostituzione regex"
 
-#: ../src/gnome-cmd-advrename-dialog.c:848
+#: ../src/gnome-cmd-advrename-dialog.c:1116
 msgid "Replace this"
 msgstr "Sostituisci questo"
 
-#: ../src/gnome-cmd-advrename-dialog.c:850
+#: ../src/gnome-cmd-advrename-dialog.c:1118
 #: ../src/gnome-cmd-options-dialog.c:97
 #: ../src/gnome-cmd-patternsel-dialog.c:147
 msgid "Case sensitive"
 msgstr "Maiuscole/minuscole"
 
-#: ../src/gnome-cmd-advrename-dialog.c:862
+#: ../src/gnome-cmd-advrename-dialog.c:1130
 #: ../src/gnome-cmd-options-dialog.c:1342
-#: ../src/gnome-cmd-options-dialog.c:1701
+#: ../src/gnome-cmd-options-dialog.c:1700
 msgid "_Add..."
 msgstr "_Aggiungi..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:865 ../src/gnome-cmd-ftp-dialog.c:527
+#: ../src/gnome-cmd-advrename-dialog.c:1133 ../src/gnome-cmd-ftp-dialog.c:527
 #: ../src/gnome-cmd-options-dialog.c:1346
-#: ../src/gnome-cmd-options-dialog.c:1705
+#: ../src/gnome-cmd-options-dialog.c:1704
 msgid "_Edit..."
 msgstr "_Edita..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:869
+#: ../src/gnome-cmd-advrename-dialog.c:1137
 #: ../src/gnome-cmd-bookmark-dialog.c:468 ../src/gnome-cmd-ftp-dialog.c:530
 #: ../src/gnome-cmd-options-dialog.c:1352
-#: ../src/gnome-cmd-options-dialog.c:1711
+#: ../src/gnome-cmd-options-dialog.c:1710
 msgid "_Remove"
 msgstr "_Rimuovi"
 
-#: ../src/gnome-cmd-advrename-dialog.c:873
+#: ../src/gnome-cmd-advrename-dialog.c:1141
 msgid "Re_move All"
 msgstr "Ri_muovi tutti"
 
-#: ../src/gnome-cmd-advrename-dialog.c:894
+#: ../src/gnome-cmd-advrename-dialog.c:1162
 msgid "Result"
 msgstr "Risultato"
 
-#: ../src/gnome-cmd-advrename-dialog.c:899
+#: ../src/gnome-cmd-advrename-dialog.c:1167
 msgid "Current filenames"
 msgstr "Nome corrente del file"
 
-#: ../src/gnome-cmd-advrename-dialog.c:900
+#: ../src/gnome-cmd-advrename-dialog.c:1168
 msgid "New filenames"
 msgstr "Nuovo nome del file"
 
-#: ../src/gnome-cmd-advrename-dialog.c:907
+#: ../src/gnome-cmd-advrename-dialog.c:1175
 #, fuzzy
 msgid "Rese_t"
 msgstr "Reset"
@@ -625,7 +737,7 @@ msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Vuoi cancellare il file selezionato?"
 msgstr[1] "Vuoi cancellare il file selezionato?"
 
-#: ../src/gnome-cmd-delete-dialog.c:318 ../src/gnome-cmd-main-win.c:1379
+#: ../src/gnome-cmd-delete-dialog.c:318 ../src/gnome-cmd-main-win.c:1388
 #: ../src/gnome-cmd-options-dialog.c:645
 msgid "Delete"
 msgstr "Cancella"
@@ -855,7 +967,7 @@ msgid "Failed to open connection: %s\n"
 msgstr "Problema ad aprire la connessione:·%s\n"
 
 #: ../src/gnome-cmd-file-selector.c:1927
-#: ../src/gnome-cmd-make-copy-dialog.c:68 ../src/gnome-cmd-rename-dialog.c:53
+#: ../src/gnome-cmd-make-copy-dialog.c:68
 msgid "No filename entered"
 msgstr "Nessun nome di file inserito"
 
@@ -944,7 +1056,7 @@ msgstr "FTP Connetti"
 msgid "No server selected"
 msgstr "Nessun server selezionato"
 
-#: ../src/gnome-cmd-ftp-dialog.c:495 ../src/gnome-cmd-main-win.c:1395
+#: ../src/gnome-cmd-ftp-dialog.c:495 ../src/gnome-cmd-main-win.c:1404
 msgid "FTP Connect"
 msgstr "FTP Connetti"
 
@@ -953,7 +1065,7 @@ msgstr "FTP Connetti"
 msgid "Connections"
 msgstr "_Connessioni"
 
-#: ../src/gnome-cmd-ftp-dialog.c:520 ../src/gnome-cmd-options-dialog.c:1695
+#: ../src/gnome-cmd-ftp-dialog.c:520 ../src/gnome-cmd-options-dialog.c:1694
 msgid "Alias"
 msgstr "Alias"
 
@@ -1137,7 +1249,7 @@ msgstr "FTP Connetti _veloce..."
 msgid "_Contents"
 msgstr "_Sommario"
 
-#: ../src/gnome-cmd-main-menu.c:734
+#: ../src/gnome-cmd-main-menu.c:734 ../src/libgviewer/viewer-window.c:1030
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
@@ -1151,13 +1263,14 @@ msgstr "GNOME·Commander"
 msgid "Report a _Problem"
 msgstr "Problema Xfer"
 
-#: ../src/gnome-cmd-main-menu.c:753 ../src/plugin_manager.c:440
+#: ../src/gnome-cmd-main-menu.c:753 ../src/libgviewer/viewer-window.c:1037
+#: ../src/plugin_manager.c:440
 msgid "_About"
 msgstr "_Informazioni"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.c:772 ../src/libgviewer/viewer-window.c:991
+#: ../src/gnome-cmd-main-menu.c:772 ../src/libgviewer/viewer-window.c:1050
 msgid "_File"
 msgstr "_File"
 
@@ -1165,11 +1278,11 @@ msgstr "_File"
 msgid "_Mark"
 msgstr "_Seleziona"
 
-#: ../src/gnome-cmd-main-menu.c:784 ../src/libgviewer/viewer-window.c:994
+#: ../src/gnome-cmd-main-menu.c:784 ../src/libgviewer/viewer-window.c:1053
 msgid "_View"
 msgstr "_Visualizza"
 
-#: ../src/gnome-cmd-main-menu.c:789 ../src/libgviewer/viewer-window.c:1005
+#: ../src/gnome-cmd-main-menu.c:789 ../src/libgviewer/viewer-window.c:1064
 msgid "_Settings"
 msgstr "_Impostazioni"
 
@@ -1185,7 +1298,7 @@ msgstr "Se_gnalibri"
 msgid "_Plugins"
 msgstr "_Plugins"
 
-#: ../src/gnome-cmd-main-menu.c:805 ../src/libgviewer/viewer-window.c:1011
+#: ../src/gnome-cmd-main-menu.c:805 ../src/libgviewer/viewer-window.c:1069
 msgid "_Help"
 msgstr "_Aiuto"
 
@@ -1221,51 +1334,51 @@ msgstr "F9 Cerca"
 msgid "F10 Quit"
 msgstr "F10 Esci"
 
-#: ../src/gnome-cmd-main-win.c:1308
+#: ../src/gnome-cmd-main-win.c:1317
 msgid "Refresh"
 msgstr "Aggiorna"
 
-#: ../src/gnome-cmd-main-win.c:1315
+#: ../src/gnome-cmd-main-win.c:1324
 msgid "Up one directory"
 msgstr "Su di un livello"
 
-#: ../src/gnome-cmd-main-win.c:1322
+#: ../src/gnome-cmd-main-win.c:1331
 msgid "Goto the oldest"
 msgstr "Vai all'inizio"
 
-#: ../src/gnome-cmd-main-win.c:1329
+#: ../src/gnome-cmd-main-win.c:1338
 msgid "Go back"
 msgstr "Vai indietro"
 
-#: ../src/gnome-cmd-main-win.c:1336
+#: ../src/gnome-cmd-main-win.c:1345
 msgid "Go forward"
 msgstr "Vai avanti"
 
-#: ../src/gnome-cmd-main-win.c:1343
+#: ../src/gnome-cmd-main-win.c:1352
 msgid "Goto the latest"
 msgstr "Vai all'ultimo"
 
-#: ../src/gnome-cmd-main-win.c:1351
+#: ../src/gnome-cmd-main-win.c:1360
 msgid "Copy file names (SHIFT for full paths)"
 msgstr "Copia i nomi dei file·(SHIFT·per percorsi completi)"
 
-#: ../src/gnome-cmd-main-win.c:1358
+#: ../src/gnome-cmd-main-win.c:1367
 msgid "Cut"
 msgstr "Taglia"
 
-#: ../src/gnome-cmd-main-win.c:1365 ../src/gnome-cmd-prepare-copy-dialog.c:87
+#: ../src/gnome-cmd-main-win.c:1374 ../src/gnome-cmd-prepare-copy-dialog.c:87
 msgid "Copy"
 msgstr "Copia"
 
-#: ../src/gnome-cmd-main-win.c:1372
+#: ../src/gnome-cmd-main-win.c:1381
 msgid "Paste"
 msgstr "Incolla"
 
-#: ../src/gnome-cmd-main-win.c:1387
+#: ../src/gnome-cmd-main-win.c:1396
 msgid "Edit (SHIFT for new document)"
 msgstr "Edita·(SHIFT·per nuovo documento)"
 
-#: ../src/gnome-cmd-main-win.c:1402
+#: ../src/gnome-cmd-main-win.c:1411
 msgid "Drop connection"
 msgstr "Stacca connessione"
 
@@ -1705,40 +1818,40 @@ msgstr "Nuovo dispositivo"
 msgid "Edit Device"
 msgstr "Edita dispositivo"
 
-#: ../src/gnome-cmd-options-dialog.c:1685
-#: ../src/gnome-cmd-options-dialog.c:1878
+#: ../src/gnome-cmd-options-dialog.c:1684
+#: ../src/gnome-cmd-options-dialog.c:1877
 msgid "Devices"
 msgstr "Dispositivi"
 
-#: ../src/gnome-cmd-options-dialog.c:1725
+#: ../src/gnome-cmd-options-dialog.c:1724
 msgid "Show only the icons"
 msgstr "Mostra solo le icone"
 
-#: ../src/gnome-cmd-options-dialog.c:1729
+#: ../src/gnome-cmd-options-dialog.c:1728
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Salta montaggio (utile quando è usato super mount)"
 
-#: ../src/gnome-cmd-options-dialog.c:1848
+#: ../src/gnome-cmd-options-dialog.c:1847
 msgid "General"
 msgstr "Generale"
 
-#: ../src/gnome-cmd-options-dialog.c:1853 ../src/gnome-cmd-tags.c:677
+#: ../src/gnome-cmd-options-dialog.c:1852 ../src/gnome-cmd-tags.c:677
 msgid "Format"
 msgstr "Formato"
 
-#: ../src/gnome-cmd-options-dialog.c:1858
+#: ../src/gnome-cmd-options-dialog.c:1857
 msgid "Layout"
 msgstr "Layout"
 
-#: ../src/gnome-cmd-options-dialog.c:1863
+#: ../src/gnome-cmd-options-dialog.c:1862
 msgid "Confirmation"
 msgstr "Conferme"
 
-#: ../src/gnome-cmd-options-dialog.c:1868
+#: ../src/gnome-cmd-options-dialog.c:1867
 msgid "Filters"
 msgstr "Filtri"
 
-#: ../src/gnome-cmd-options-dialog.c:1873
+#: ../src/gnome-cmd-options-dialog.c:1872
 msgid "Programs"
 msgstr "Programmi"
 
@@ -1808,15 +1921,6 @@ msgstr "La cartella·'%s'·non esiste,·vuoi crearla?"
 #: ../src/gnome-cmd-quicksearch-popup.c:261
 msgid "Search"
 msgstr "Cerca"
-
-#: ../src/gnome-cmd-rename-dialog.c:147
-#, c-format
-msgid "Rename \"%s\" to"
-msgstr "Rinomina \"%s\"·in"
-
-#: ../src/gnome-cmd-rename-dialog.c:155
-msgid "Rename File"
-msgstr "Rinomina file"
 
 #: ../src/gnome-cmd-search-dialog.c:185
 #, c-format
@@ -2542,7 +2646,7 @@ msgstr ""
 msgid ""
 "This tag indicates the equivalent focal length assuming a 35mm film camera, "
 "in mm. A value of 0 means the focal length is unknown. Note that this tag "
-"differs from the FocalLength tag."
+"differs from the <Exif.FocalLength> tag."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:269
@@ -2597,7 +2701,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:294
 msgid ""
-"Indicates the altitude based on the reference in GPSAltitudeRef. The "
+"Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The "
 "reference unit is meters."
 msgstr ""
 
@@ -2610,7 +2714,8 @@ msgid ""
 "Indicates the altitude used as the reference altitude. If the reference is "
 "sea level and the altitude is above sea level, 0 is given. If the altitude "
 "is below sea level, a value of 1 is given and the altitude is indicated as "
-"an absolute value in the GSPAltitude tag. The reference unit is meters."
+"an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is "
+"meters."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:304
@@ -3322,14 +3427,14 @@ msgid ""
 "The position of chrominance components in relation to the luminance "
 "component. This field is designated only for JPEG compressed data or "
 "uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr "
-"= 4:2:2 it is recommended in this standard that 2 (co-sited) be used to "
-"record data, in order to improve the image quality when viewed on TV "
-"systems. When this field does not exist, the reader shall assume the TIFF "
-"default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is "
-"recommended. If the reader does not have the capability of supporting both "
-"kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF default "
-"regardless of the value in this field. It is preferable that readers be able "
-"to support both centered and co-sited positioning."
+"= 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order "
+"to improve the image quality when viewed on TV systems. When this field does "
+"not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr "
+"= 4:2:0, the TIFF default (centered) is recommended. If the reader does not "
+"have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it "
+"shall follow the TIFF default regardless of the value in this field. It is "
+"preferable that readers be able to support both centered and co-sited "
+"positioning."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:664
@@ -3671,7 +3776,7 @@ msgstr ""
 #: ../src/gnome-cmd-tags.c:752
 msgid ""
 "Name of the creator of the object, e.g. writer, photographer or graphic "
-"artist."
+"artist (multiple values allowed)."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:757
@@ -3683,7 +3788,7 @@ msgid "Title of the creator or creators of the object."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:762
-msgid "Caption/Abstract"
+msgid "Caption, Abstract"
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:762
@@ -3736,7 +3841,7 @@ msgstr "Connetti"
 #: ../src/gnome-cmd-tags.c:787
 msgid ""
 "The person or organization which can provide further background information "
-"on the object."
+"on the object (multiple values allowed)."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:792
@@ -3746,7 +3851,7 @@ msgstr ""
 #: ../src/gnome-cmd-tags.c:792
 msgid ""
 "Indicates the code of a country/geographical location referenced by the "
-"content of the object."
+"content of the object (multiple values allowed)."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:797
@@ -3756,7 +3861,7 @@ msgstr ""
 #: ../src/gnome-cmd-tags.c:797
 msgid ""
 "A full, publishable name of a country/geographical location referenced by "
-"the content of the object."
+"the content of the object (multiple values allowed)."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:802
@@ -3948,7 +4053,9 @@ msgid "Indicates the data format of the image object."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:907
-msgid "Used to indicate specific information retrieval words."
+msgid ""
+"Used to indicate specific information retrieval words (multiple values "
+"allowed)."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:912
@@ -3993,7 +4100,9 @@ msgid "Object Attribute Reference"
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:932
-msgid "Defines the nature of the object independent of the subject."
+msgid ""
+"Defines the nature of the object independent of the subject (multiple values "
+"allowed)."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:937
@@ -4001,7 +4110,7 @@ msgid "Object Cycle"
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:937
-msgid "Where 'a' is morning, 'b' is evening, 'b' is both."
+msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:942
@@ -4088,7 +4197,7 @@ msgid "The version of the originating program."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:992 ../src/gnome-cmd-tags.c:1052
-msgid "Province/State"
+msgid "Province, State"
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:992 ../src/gnome-cmd-tags.c:1052
@@ -4233,7 +4342,8 @@ msgstr ""
 #: ../src/gnome-cmd-tags.c:1077
 msgid ""
 "The time the intellectual content of the object was created rather than the "
-"date of the creation of the physical representation."
+"date of the creation of the physical representation (multiple values "
+"allowed)."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1082
@@ -4271,8 +4381,25 @@ msgstr ""
 #: ../src/gnome-cmd-tags.c:1097
 msgid ""
 "The name of the person involved in the writing, editing or correcting the "
-"object or caption/abstract"
+"object or caption/abstract (multiple values allowed)"
 msgstr ""
+
+#: ../src/gnome-cmd-tags.c:1202
+msgid "Audio"
+msgstr ""
+
+#: ../src/gnome-cmd-tags.c:1208
+msgid "Doc"
+msgstr ""
+
+#: ../src/gnome-cmd-tags.c:1214 ../src/plugin_manager.c:426
+msgid "File"
+msgstr "File"
+
+#: ../src/gnome-cmd-tags.c:1223
+#, fuzzy
+msgid "Image"
+msgstr "_Immagine"
 
 #: ../src/gnome-cmd-tags-libs.c:45
 msgid "<Exif tags not supported>"
@@ -4391,6 +4518,36 @@ msgstr ""
 "Non·è·possibile·caricare·i·pixmap, tentativo di "
 "caricamento·dalla·cartella·sorgente\n"
 
+#: ../src/libgviewer/search-dlg.c:322
+msgid "Find"
+msgstr ""
+
+#. Search mode radio buttons
+#: ../src/libgviewer/search-dlg.c:352 ../src/libgviewer/viewer-window.c:815
+#: ../src/libgviewer/viewer-window.c:1056
+msgid "_Text"
+msgstr "_Testo"
+
+#: ../src/libgviewer/search-dlg.c:354
+#, fuzzy
+msgid "_Hex"
+msgstr "_Aiuto"
+
+#. Case-Sensitive Checkbox
+#: ../src/libgviewer/search-dlg.c:363
+msgid "_Match case"
+msgstr ""
+
+#: ../src/libgviewer/search-progress-dlg.c:76
+#, fuzzy
+msgid "Searching..."
+msgstr "Cerca..."
+
+#: ../src/libgviewer/search-progress-dlg.c:197
+#, fuzzy, c-format
+msgid "Searching for \"%s\""
+msgstr "Cerca in: %s"
+
 #: ../src/libgviewer/viewer-widget.c:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
@@ -4409,122 +4566,137 @@ msgstr "Dimensione immagine:·%dx%d\tBits/sample:·%d\tZoom:·%s"
 msgid "Fit-to-Window"
 msgstr "Adatta alla finestra"
 
-#: ../src/libgviewer/viewer-window.c:768
+#: ../src/libgviewer/viewer-window.c:194 ../src/utils.c:1488
+msgid "There was an error displaying help."
+msgstr "C'è stato un errore nella visualizzazione dell'aiuto"
+
+#: ../src/libgviewer/viewer-window.c:806
 msgid "_Close"
 msgstr "_Chiudi"
 
-#: ../src/libgviewer/viewer-window.c:777 ../src/libgviewer/viewer-window.c:997
-msgid "_Text"
-msgstr "_Testo"
-
-#: ../src/libgviewer/viewer-window.c:781
+#: ../src/libgviewer/viewer-window.c:819
 msgid "_Binary"
 msgstr "_Binario"
 
-#: ../src/libgviewer/viewer-window.c:785
+#: ../src/libgviewer/viewer-window.c:823
 msgid "_Hex dump"
 msgstr "_Esadecimale"
 
-#: ../src/libgviewer/viewer-window.c:789
-#: ../src/libgviewer/viewer-window.c:1002
+#: ../src/libgviewer/viewer-window.c:827
+#: ../src/libgviewer/viewer-window.c:1061
 msgid "_Image"
 msgstr "_Immagine"
 
-#: ../src/libgviewer/viewer-window.c:794
+#: ../src/libgviewer/viewer-window.c:832
 msgid "_Zoom In"
 msgstr "_Zoom avanti"
 
-#: ../src/libgviewer/viewer-window.c:799
+#: ../src/libgviewer/viewer-window.c:837
 msgid "Zoom _Out"
 msgstr "Z_oom indietro"
 
-#: ../src/libgviewer/viewer-window.c:804
+#: ../src/libgviewer/viewer-window.c:842
 msgid "_Normal Size"
 msgstr "Dimensione _normale"
 
-#: ../src/libgviewer/viewer-window.c:809
+#: ../src/libgviewer/viewer-window.c:847
 msgid "Best _Fit"
 msgstr "_Adatta"
 
-#: ../src/libgviewer/viewer-window.c:823
+#: ../src/libgviewer/viewer-window.c:861
 msgid "_Copy Text Selection"
 msgstr "_Copia testo selezionato"
 
-#: ../src/libgviewer/viewer-window.c:830
+#: ../src/libgviewer/viewer-window.c:866
+msgid "Find..."
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:871
+#, fuzzy
+msgid "Find Next"
+msgstr "Trova testo"
+
+#: ../src/libgviewer/viewer-window.c:876
+msgid "Find Previous"
+msgstr ""
+
+#: ../src/libgviewer/viewer-window.c:883
 msgid "_No Parsing (original file)"
 msgstr "_Nessuna analisi (file originale)"
 
-#: ../src/libgviewer/viewer-window.c:835
+#: ../src/libgviewer/viewer-window.c:888
 msgid "_HTML Parser"
 msgstr "Analizzatore _HTML"
 
-#: ../src/libgviewer/viewer-window.c:840
+#: ../src/libgviewer/viewer-window.c:893
 msgid "_PS/PDF Parser"
 msgstr "Analizzatore _PS/PDF"
 
-#: ../src/libgviewer/viewer-window.c:847
+#: ../src/libgviewer/viewer-window.c:900
 msgid "_Wrap lines"
 msgstr "_A capo automatico"
 
-#: ../src/libgviewer/viewer-window.c:853
+#: ../src/libgviewer/viewer-window.c:906
 msgid "_Encoding"
 msgstr "Codi_fica"
 
-#: ../src/libgviewer/viewer-window.c:895
+#: ../src/libgviewer/viewer-window.c:948
 msgid "_Show EXIF/IPTC Information"
 msgstr "Mostra·_informazioni EXIF/IPTC"
 
-#: ../src/libgviewer/viewer-window.c:901
+#: ../src/libgviewer/viewer-window.c:954
 msgid "_Rotate Clockwise"
 msgstr "_Ruota in senso orario"
 
-#: ../src/libgviewer/viewer-window.c:906
+#: ../src/libgviewer/viewer-window.c:959
 msgid "Rotate Counter Clockwis_e"
 msgstr "Ruota in _senso antiorario"
 
-#: ../src/libgviewer/viewer-window.c:911
+#: ../src/libgviewer/viewer-window.c:964
 msgid "_Rotate 180°"
 msgstr "R_uota di 180°"
 
-#: ../src/libgviewer/viewer-window.c:916
+#: ../src/libgviewer/viewer-window.c:969
 msgid "Flip _Vertical"
 msgstr "Rifletti _verticalmente"
 
-#: ../src/libgviewer/viewer-window.c:921
+#: ../src/libgviewer/viewer-window.c:974
 msgid "Flip _Horizontal"
 msgstr "Rifletti _orizzontalmente"
 
-#: ../src/libgviewer/viewer-window.c:931
+#: ../src/libgviewer/viewer-window.c:984
 msgid "_Binary Mode"
 msgstr "Modo _Binario"
 
-#: ../src/libgviewer/viewer-window.c:937
+#: ../src/libgviewer/viewer-window.c:990
 msgid "_Decimal Offset in Hexdump"
 msgstr "Offset _decimale in esadecimale"
 
-#: ../src/libgviewer/viewer-window.c:943
+#: ../src/libgviewer/viewer-window.c:996
 msgid "_Save Current Settings"
 msgstr "_Salva le impostazioni correnti"
 
-#: ../src/libgviewer/viewer-window.c:953
+#: ../src/libgviewer/viewer-window.c:1006
 msgid "_20 chars/line"
 msgstr "_20 caratteri/linea"
 
-#: ../src/libgviewer/viewer-window.c:958
+#: ../src/libgviewer/viewer-window.c:1011
 msgid "_40 chars/line"
 msgstr "_40 caratteri/linea"
 
-#: ../src/libgviewer/viewer-window.c:963
+#: ../src/libgviewer/viewer-window.c:1016
 msgid "_80 chars/line"
 msgstr "_80 caratteri/linea"
 
-#: ../src/libgviewer/viewer-window.c:973
-msgid "Quick Help"
+#: ../src/libgviewer/viewer-window.c:1025
+#, fuzzy
+msgid "Quick _Help"
 msgstr "Help rapido"
 
-#: ../src/libgviewer/viewer-window.c:978
-msgid "About"
-msgstr "Informazioni"
+#: ../src/libgviewer/viewer-window.c:1248
+#, c-format
+msgid "Pattern \"%s\" was not found"
+msgstr ""
 
 #: ../src/main.c:53 ../src/main.c:62
 msgid "Specify debug flags to use"
@@ -4567,10 +4739,6 @@ msgstr "Plugins disponibili"
 #: ../src/plugin_manager.c:425
 msgid "Version"
 msgstr "Versione"
-
-#: ../src/plugin_manager.c:426
-msgid "File"
-msgstr "File"
 
 #: ../src/plugin_manager.c:431
 msgid "_Enable"
@@ -4694,9 +4862,14 @@ msgstr "Problema nel creare la cartella %s"
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Non posso leggere dalla cartella·%s:·%s\n"
 
-#: ../src/utils.c:1488
-msgid "There was an error displaying help."
-msgstr "C'è stato un errore nella visualizzazione dell'aiuto"
+#~ msgid "Rename \"%s\" to"
+#~ msgstr "Rinomina \"%s\"·in"
+
+#~ msgid "Rename File"
+#~ msgstr "Rinomina file"
+
+#~ msgid "About"
+#~ msgstr "Informazioni"
 
 #~ msgid "Case sens"
 #~ msgstr "Maius/minus"
