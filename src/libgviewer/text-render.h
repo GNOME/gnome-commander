@@ -20,6 +20,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __TEXT_RENDER_H__
 #define __TEXT_RENDER_H__
 
@@ -105,6 +106,13 @@ const gchar*	text_render_get_encoding(TextRender *w);
 
 void            text_render_copy_selection(TextRender *w);
 
+offset_type	text_render_get_current_offset(TextRender *w);
+
+offset_type	text_render_get_last_displayed_offset(TextRender *w);
+
+void 		text_render_ensure_offset_visible(TextRender *w, offset_type offset);
+
+void		text_render_set_marker(TextRender *w, offset_type start, offset_type end);
 
 G_END_DECLS
 

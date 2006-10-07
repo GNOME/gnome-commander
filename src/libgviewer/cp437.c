@@ -27,7 +27,7 @@
 */
 
 /* see "http://en.wikipedia.org/wiki/CP437" */
-static unsigned int ascii_cp437_to_unicode[256] = {
+unsigned int ascii_cp437_to_unicode[256] = {
 0x2E, /* NULL will be shown as a dot */
 0x263A,
 0x263B,
@@ -286,33 +286,3 @@ static unsigned int ascii_cp437_to_unicode[256] = {
 0xA0
 };
 
-static int unicode2utf8(unsigned int unicode, unsigned char*out)
-{
-	int bytes_needed = 0 ;
-	if (unicode<0x80) {
-		bytes_needed = 1 ;
-		out[0] = (unsigned char)(unicode&0xFF) ;
-	}
-	else
-	if (unicode<0x0800) {
-		bytes_needed = 2 ;
-		out[0] = (unsigned char)(unicode>>6 | 0xC0) ;
-		out[1] = (unsigned char)((unicode&0x3F)| 0x80) ;
-	}
-	else
-	if (unicode<0x10000) {
-		bytes_needed = 3 ;
-		out[0] = (unsigned char)((unicode>>12) | 0xE0) ;
-		out[1] = (unsigned char)(((unicode>>6) & 0x3F) | 0x80) ;
-		out[2] = (unsigned char)((unicode & 0x3F) | 0x80) ;
-	}
-	else {
-		bytes_needed = 4 ;
-		out[0] = (unsigned char)((unicode>>18) | 0xE0) ;
-		out[1] = (unsigned char)(((unicode>>12) & 0x3F) | 0x80) ;
-		out[2] = (unsigned char)(((unicode>>6) & 0x3F) | 0x80) ;
-		out[3] = (unsigned char)((unicode & 0x3F) | 0x80) ;
-	}
-
-	return bytes_needed ;
-}

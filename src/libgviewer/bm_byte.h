@@ -21,35 +21,35 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef __LIBGVIEWER_TYPES_H__
-#define __LIBGVIEWER_TYPES_H__
+#ifndef __GVIEWER_BM_BYTE_H__
+#define __GVIEWER_BM_BYTE_H__
+
+#include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
-/* TODO: Change these for Big-Endian machines */
+typedef struct _GVIEWER_BMBYTE_DATA GViewerBMByteData;
+	
+struct _GVIEWER_BMBYTE_DATA
+{
+	/* good-suffix-shift array, one element for each (unique) character in the search pattern */
+	int *good;
+	
+	/* bad characters jump table.
+	    since we're searching on BYTES, we can use an array of 256 elements */
+	int *bad ;
+	
+	guint8 *pattern ;
+	int pattern_len ;
+} ;
 
-#define is_displayable(c) (((c) >= 0x20) && ((c) < 0x7f))
+/* Create the Boyer-Moore jump tables.
+    pattern is the search pattern, UTF8 string (null-terminated)*/
+GViewerBMByteData* create_bm_byte_data(const guint8 *pattern, const gint length);
 
-#define GV_FIRST_BYTE(x)  ((unsigned char)(x)&0xFF)
-#define GV_SECOND_BYTE(x) ((unsigned char)((x)>>8)&0xFF)
-#define GV_THIRD_BYTE(x)  ((unsigned char)((x)>>16)&0xFF)
-#define GV_FOURTH_BYTE(x) ((unsigned char)((x)>>24)&0xFF)
-
-/*
- Note:
- UTF-8 encoding supports up to 6 (six) bytes per single character.
- We use only 32bits (4 bytes) to hold a UTF-8 data.
- This means some exotic UTF-8 characters are NOT supported...
-*/
-typedef guint32  char_type ;
-#define INVALID_CHAR ((char_type) -1)
-/*
- Note:
- Currently on files<2GB are supported (even though this is unsigned)
-*/
-typedef unsigned long offset_type;
-#define INVALID_OFFSET ((offset_type) -1)
+void free_bm_byte_data(GViewerBMByteData *data);
 
 G_END_DECLS
 
-#endif // __LIBGVIEWER_TYPES_H__
+#endif /* __GLIBVIEWER_BM_BYTE_H__ */

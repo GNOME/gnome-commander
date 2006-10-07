@@ -53,6 +53,8 @@ src/libgviewer/image-render.c
 src/libgviewer/inputmodes.c
 src/libgviewer/libgviewer.c
 src/libgviewer/scroll-box.c
+src/libgviewer/search-dlg.c
+src/libgviewer/search-progress-dlg.c
 src/libgviewer/text-render.c
 src/libgviewer/viewer-widget.c
 src/libgviewer/viewer-window.c

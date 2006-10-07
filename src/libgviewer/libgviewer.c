@@ -22,5 +22,3 @@
 */
 
 #include <config.h>
-
-

@@ -35,6 +35,7 @@
 #include <libgnome/libgnome.h>
 
 #include "libgviewer.h"
+#include "search-dlg.h"
 
 #define G_OBJ_CHARSET_KEY "charset"
 #define G_OBJ_DISPMODE_KEY "dispmode"
@@ -51,9 +52,10 @@
 
 static GtkWindowClass *parent_class = NULL ;
 
-#define MAX_SCALE_FACTOR_INDEX 13
-static double image_scale_factors[MAX_SCALE_FACTOR_INDEX] = {
+static double image_scale_factors[] = {
     0.25,0.5,0.75,1,1.25,1.50,2,2.5,3,3.5,4,4.5,5};
+
+const static int MAX_SCALE_FACTOR_INDEX = sizeof(image_scale_factors)/sizeof(double);
 
 #ifdef EXTERNAL_TOOLS
 typedef struct _GViewerWindowExternalTool GViewerWindowExternalTool ;
@@ -85,18 +87,22 @@ struct _GViewerWindowPrivate
     int      exit_data_fd ;
     gboolean exif_active;
 
-    GViewer    *active_viewer;
+    GViewer *active_viewer;
 
-    int     current_scale_index;
+    int current_scale_index;
 
     gchar *filename;
-    guint     statusbar_ctx_id ;
+    guint statusbar_ctx_id ;
     gboolean status_bar_msg;
 
 #ifdef EXTERNAL_TOOLS
     GHashTable *external_tools;
     GViewerWindowExternalTool *active_external_tool;
 #endif
+
+    GViewerSearcher *srchr;
+    gchar *search_pattern;
+    gint  search_pattern_len;
 };
 
 static void gviewer_window_init(GViewerWindow *w);
@@ -129,6 +135,9 @@ static void menu_view_internal_viewer(GtkMenuItem *item, GViewerWindow *obj) ;
 static void menu_view_exif_information(GtkMenuItem *item, GViewerWindow *obj) ;
 
 static void menu_edit_copy(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_edit_find_next(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_edit_find_prev(GtkMenuItem *item, GViewerWindow *obj) ;
 
 static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj) ;
 static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj) ;
@@ -144,16 +153,46 @@ static void menu_settings_binary_bytes_per_line(GtkMenuItem *item, GViewerWindow
 static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *obj) ;
 static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *obj) ;
 
-#ifdef HAVE_HELP_ABOUT
 static void menu_help_quick_help(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj) ;
+#ifdef HAVE_HELP_ABOUT
 static void menu_help_about(GtkMenuItem *item, GViewerWindow *obj) ;
 #endif
-
 
 static void set_zoom_in(GViewerWindow *obj) ;
 static void set_zoom_out(GViewerWindow *obj) ;
 static void set_zoom_normal(GViewerWindow *obj) ;
 static void set_zoom_best_fit(GViewerWindow *obj) ;
+
+
+static void gnome_cmd_error_message(const gchar *title, GError *error)
+{
+    GtkWidget *dialog = gtk_message_dialog_new (NULL,
+                                                GTK_DIALOG_DESTROY_WITH_PARENT,
+                                                GTK_MESSAGE_ERROR,
+                                                GTK_BUTTONS_CLOSE,
+                                                title);
+
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), error->message);
+
+    g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (gtk_widget_destroy), NULL);
+
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_widget_show (dialog);
+
+    g_error_free (error);
+}
+
+
+static void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id)
+{
+    GError *error = NULL;
+
+    gnome_help_display (file_name, link_id, &error);
+
+    if (error != NULL)
+        gnome_cmd_error_message(_("There was an error displaying help."), error);
+}
 
 
 /*****************************************
@@ -176,7 +215,7 @@ GtkWidget* gviewer_window_file_view   (const gchar * filename,GViewerWindowSetti
     gviewer_window_load_file(GVIEWER_WINDOW(w), filename);
 
     if (initial_settings)
-        gviewer_window_set_settings(GVIEWER_WINDOW(w),initial_settings);
+        gviewer_window_set_settings(GVIEWER_WINDOW(w), initial_settings);
 
     return w;
 }
@@ -195,6 +234,7 @@ void gviewer_window_load_file    (GViewerWindow *obj, const gchar *filename)
 
     gtk_window_set_title(GTK_WINDOW(obj), obj->priv->filename);
 }
+
 
 GtkType gviewer_window_get_type (void)
 {
@@ -220,9 +260,7 @@ GtkType gviewer_window_get_type (void)
 GtkWidget*
 gviewer_window_new (GViewerWindowSettings *initial_settings)
 {
-    GViewerWindow *w;
-
-    w = gtk_type_new (gviewer_window_get_type ());
+    GViewerWindow *w = gtk_type_new (gviewer_window_get_type ());
 
     return GTK_WIDGET (w);
 }
@@ -274,7 +312,6 @@ gviewer_window_init (GViewerWindow *w)
 {
     GtkWindow *win ;
 
-
     w->priv = g_new0(GViewerWindowPrivate,1);
 
     w->priv->status_bar_msg = FALSE ;
@@ -301,14 +338,13 @@ gviewer_window_init (GViewerWindow *w)
     gtk_widget_show (w->priv->vbox);
 
     w->priv->menubar = gviewer_window_create_menus(w);
-      gtk_widget_show (w->priv->menubar);
-      gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->menubar, FALSE, FALSE, 0);
+    gtk_widget_show (w->priv->menubar);
+    gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->menubar, FALSE, FALSE, 0);
 
     w->priv->viewer = (GViewer*)gviewer_new();
     g_object_ref(G_OBJECT(w->priv->viewer)) ;
     gtk_widget_show(GTK_WIDGET(w->priv->viewer)) ;
-      gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET(w->priv->viewer), TRUE, TRUE, 0);
-
+    gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET(w->priv->viewer), TRUE, TRUE, 0);
     w->priv->exif_viewer = (GViewer*)gviewer_new();
     g_object_ref(G_OBJECT(w->priv->exif_viewer)) ;
 
@@ -322,7 +358,6 @@ gviewer_window_init (GViewerWindow *w)
 
     w->priv->statusbar_ctx_id  = gtk_statusbar_get_context_id(
         GTK_STATUSBAR(w->priv->statusbar), "info") ;
-
 
     gtk_widget_grab_focus(GTK_WIDGET(w->priv->viewer));
 
@@ -339,8 +374,6 @@ gviewer_window_init (GViewerWindow *w)
 static void gviewer_window_status_line_changed(GViewer *obj, const gchar* status_line, GViewerWindow* wnd)
 {
     GViewerWindow *w;
-
-
 
     g_return_if_fail (wnd!= NULL);
     g_return_if_fail (IS_GVIEWER_WINDOW (wnd));
@@ -367,8 +400,6 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
     g_return_if_fail(IS_GVIEWER_WINDOW(obj));
     g_return_if_fail(settings!=NULL);
     g_return_if_fail(obj->priv->viewer!=NULL);
-
-
 
     gviewer_set_font_size(obj->priv->viewer,settings->font_size);
     gviewer_set_tab_size(obj->priv->viewer,settings->tab_size);
@@ -483,6 +514,7 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
     g_return_val_if_fail (widget!= NULL,FALSE);
     g_return_val_if_fail (IS_GVIEWER_WINDOW (widget),FALSE);
+
     w = GVIEWER_WINDOW (widget);
 
     if (event->state & GDK_CONTROL_MASK) {
@@ -492,6 +524,15 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
         case GDK_W:
             gtk_widget_destroy(GTK_WIDGET(w));
             return TRUE ;
+        }
+    }
+
+    if (event->state & GDK_SHIFT_MASK) {
+        switch (event->keyval)
+        {
+        case GDK_F7:
+           menu_edit_find_next(NULL,w);
+           return TRUE;
         }
     }
 
@@ -506,6 +547,10 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
     case GDK_KP_Subtract:
        set_zoom_out(w);
        return TRUE;
+
+    case GDK_F7:
+       menu_edit_find(NULL,w);
+       return TRUE;
     }
 
     return FALSE;
@@ -513,9 +558,8 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
 static GtkWidget* create_menu_seperator(GtkWidget* container)
 {
-    GtkWidget *separatormenuitem1;
+    GtkWidget *separatormenuitem1 = gtk_separator_menu_item_new ();
 
-    separatormenuitem1 = gtk_separator_menu_item_new ();
     gtk_widget_show (separatormenuitem1);
     gtk_container_add (GTK_CONTAINER (container), separatormenuitem1);
     gtk_widget_set_sensitive (separatormenuitem1, FALSE);
@@ -539,10 +583,8 @@ create_ui_pixmap (GtkWidget *window,
                   gconstpointer pixmap_info,
                   GtkIconSize size)
 {
-    GtkWidget *pixmap;
+    GtkWidget *pixmap = NULL;
     char *name;
-
-    pixmap = NULL;
 
     switch (pixmap_type) {
     case GNOME_APP_PIXMAP_STOCK:
@@ -562,8 +604,7 @@ create_ui_pixmap (GtkWidget *window,
         name = gnome_pixmap_file (pixmap_info);
 
         if (!name)
-            g_warning ("Could not find GNOME pixmap file %s",
-                    (char *) pixmap_info);
+            g_warning ("Could not find GNOME pixmap file %s", (char *) pixmap_info);
         else {
             pixmap = gnome_pixmap_new_from_file (name);
             g_free (name);
@@ -632,8 +673,7 @@ static GtkWidget* create_menu_item (MENUITEMTYPE type,
                        GTK_ICON_SIZE_MENU);
         if (pixmap) {
             gtk_widget_show (pixmap);
-            gtk_image_menu_item_set_image (
-                GTK_IMAGE_MENU_ITEM (menuitem), pixmap);
+            gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (menuitem), pixmap);
         }
 
         }
@@ -645,8 +685,7 @@ static GtkWidget* create_menu_item (MENUITEMTYPE type,
         gtk_widget_add_accelerator (menuitem, "activate", accel,
                   keyval, modifier, GTK_ACCEL_VISIBLE);
 
-    g_signal_connect ( G_OBJECT(menuitem), "activate",
-            callback, userdata);
+    g_signal_connect ( G_OBJECT(menuitem), "activate", callback, userdata);
 
     return menuitem;
 }
@@ -660,9 +699,8 @@ static GtkWidget* create_radio_menu_item (GSList **group,
                       GCallback callback,
                       gpointer userdata)
 {
-    GtkWidget *menuitem;
+    GtkWidget *menuitem = gtk_radio_menu_item_new_with_mnemonic (*group,_(name));
 
-    menuitem = gtk_radio_menu_item_new_with_mnemonic (*group,_(name));
     *group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
 
     if (accel && keyval)
@@ -822,6 +860,21 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
     MENU_ITEM_DATA text_menu_items[] = {
         {MI_NORMAL,_("_Copy Text Selection"),GDK_C,GDK_CONTROL_MASK,
                 G_CALLBACK(menu_edit_copy),
+                GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_COPY,
+                NO_GOBJ_KEY,NO_GOBJ_VAL,
+                NO_MENU_ITEM,NO_GSLIST},
+        {MI_NORMAL,_("Find..."),GDK_F,GDK_CONTROL_MASK,
+                G_CALLBACK(menu_edit_find),
+                GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+                NO_GOBJ_KEY,NO_GOBJ_VAL,
+                NO_MENU_ITEM,NO_GSLIST},
+        {MI_NORMAL,_("Find Next"),GDK_F3,NO_MODIFIER,
+                G_CALLBACK(menu_edit_find_next),
+                NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
+                NO_GOBJ_KEY,NO_GOBJ_VAL,
+                NO_MENU_ITEM,NO_GSLIST},
+        {MI_NORMAL,_("Find Previous"),GDK_F3,GDK_SHIFT_MASK,
+                G_CALLBACK(menu_edit_find_prev),
                 NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
                 NO_GOBJ_KEY,NO_GOBJ_VAL,
                 NO_MENU_ITEM,NO_GSLIST},
@@ -866,28 +919,28 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 
     GSList *text_encoding_list = NULL ;
     MENU_ITEM_DATA encoding_menu_items[] = {
-        ENCODING_MENU_ITEM("_UTF-8",             GDK_u,"UTF8"),
-        ENCODING_MENU_ITEM("English (US-_ASCII)",    GDK_a,"ASCII"),
-        ENCODING_MENU_ITEM("Terminal (CP437)",             GDK_q,"CP437"),
-        ENCODING_MENU_ITEM("Arabic (ISO-8859-6)",    NO_KEYVAL,"ISO-8859-6" ),
-        ENCODING_MENU_ITEM("Arabic (Windows, CP1256)",     NO_KEYVAL,"ARABIC" ),
-        ENCODING_MENU_ITEM("Arabic (Dos, CP864)",    NO_KEYVAL,"CP864" ),
-        ENCODING_MENU_ITEM("Baltic (ISO-8859-4)",    NO_KEYVAL,"ISO-8859-4"),
-        ENCODING_MENU_ITEM("Central European (ISO-8859-2)",NO_KEYVAL,"ISO-8859-2"),
-        ENCODING_MENU_ITEM("Central European (CP1250)",    NO_KEYVAL,"CP1250" ),
-        ENCODING_MENU_ITEM("Cyrillic (ISO-8859-5)",    NO_KEYVAL,"ISO-8859-5"),
-        ENCODING_MENU_ITEM("Cyrillic (CP1251)",            NO_KEYVAL,"CP1251" ),
-        ENCODING_MENU_ITEM("Greek (ISO-8859-7)",    NO_KEYVAL,"ISO-8859-7" ),
-        ENCODING_MENU_ITEM("Greek (CP1253)",        NO_KEYVAL,"CP1253" ),
-        ENCODING_MENU_ITEM("Hebrew (Windows, CP1255)",     NO_KEYVAL,"HEBREW" ),
-        ENCODING_MENU_ITEM("Hebrew (Dos, CP862)",    NO_KEYVAL,"CP862" ),
-        ENCODING_MENU_ITEM("Hebrew (ISO-8859-8)",    NO_KEYVAL,"ISO-8859-8" ),
-        ENCODING_MENU_ITEM("Latin 9 (ISO-8859-15))",    NO_KEYVAL,"ISO-8859-15" ),
-        ENCODING_MENU_ITEM("Maltese (ISO-8859-3)",    NO_KEYVAL,"ISO-8859-3" ),
-        ENCODING_MENU_ITEM("Turkish (ISO-8859-9)",    NO_KEYVAL,"ISO-8859-9" ),
-        ENCODING_MENU_ITEM("Turkish (CP1254)",            NO_KEYVAL,"CP1254" ),
-        ENCODING_MENU_ITEM("Western (CP1252)",            NO_KEYVAL,"CP1252" ),
-        ENCODING_MENU_ITEM("Western (ISO-8859-1)",    NO_KEYVAL,"ISO-8859-1" ),
+        ENCODING_MENU_ITEM("_UTF-8",                        GDK_u,      "UTF8"),
+        ENCODING_MENU_ITEM("English (US-_ASCII)",           GDK_a,      "ASCII"),
+        ENCODING_MENU_ITEM("Terminal (CP437)",              GDK_q,      "CP437"),
+        ENCODING_MENU_ITEM("Arabic (ISO-8859-6)",           NO_KEYVAL,  "ISO-8859-6" ),
+        ENCODING_MENU_ITEM("Arabic (Windows, CP1256)",      NO_KEYVAL,  "ARABIC" ),
+        ENCODING_MENU_ITEM("Arabic (Dos, CP864)",           NO_KEYVAL,  "CP864" ),
+        ENCODING_MENU_ITEM("Baltic (ISO-8859-4)",           NO_KEYVAL,  "ISO-8859-4"),
+        ENCODING_MENU_ITEM("Central European (ISO-8859-2)", NO_KEYVAL,  "ISO-8859-2"),
+        ENCODING_MENU_ITEM("Central European (CP1250)",     NO_KEYVAL,  "CP1250" ),
+        ENCODING_MENU_ITEM("Cyrillic (ISO-8859-5)",         NO_KEYVAL,  "ISO-8859-5"),
+        ENCODING_MENU_ITEM("Cyrillic (CP1251)",             NO_KEYVAL,  "CP1251" ),
+        ENCODING_MENU_ITEM("Greek (ISO-8859-7)",            NO_KEYVAL,  "ISO-8859-7" ),
+        ENCODING_MENU_ITEM("Greek (CP1253)",                NO_KEYVAL,  "CP1253" ),
+        ENCODING_MENU_ITEM("Hebrew (Windows, CP1255)",      NO_KEYVAL,  "HEBREW" ),
+        ENCODING_MENU_ITEM("Hebrew (Dos, CP862)",           NO_KEYVAL,  "CP862" ),
+        ENCODING_MENU_ITEM("Hebrew (ISO-8859-8)",           NO_KEYVAL,  "ISO-8859-8" ),
+        ENCODING_MENU_ITEM("Latin 9 (ISO-8859-15))",        NO_KEYVAL,  "ISO-8859-15" ),
+        ENCODING_MENU_ITEM("Maltese (ISO-8859-3)",          NO_KEYVAL,  "ISO-8859-3" ),
+        ENCODING_MENU_ITEM("Turkish (ISO-8859-9)",          NO_KEYVAL,  "ISO-8859-9" ),
+        ENCODING_MENU_ITEM("Turkish (CP1254)",              NO_KEYVAL,  "CP1254" ),
+        ENCODING_MENU_ITEM("Western (CP1252)",              NO_KEYVAL,  "CP1252" ),
+        ENCODING_MENU_ITEM("Western (ISO-8859-1)",          NO_KEYVAL,  "ISO-8859-1" ),
         {MI_NONE}
     };
 
@@ -968,21 +1021,27 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
         {MI_NONE}
     };
 
-#ifdef HAVE_HELP_ABOUT
     MENU_ITEM_DATA help_menu_items[] = {
-        {MI_NORMAL,_("Quick Help"),GDK_F1,NO_MODIFIER,
+        {MI_NORMAL,_("Quick _Help"),GDK_F1,NO_MODIFIER,
                 G_CALLBACK(menu_help_quick_help),
+                GNOME_APP_PIXMAP_STOCK, GTK_STOCK_HELP,
+                NO_GOBJ_KEY,NO_GOBJ_VAL,
+                NO_MENU_ITEM,NO_GSLIST},
+        {MI_NORMAL,_("_Keyboard Shortcuts"),NO_KEYVAL,NO_MODIFIER,
+                G_CALLBACK(menu_help_keyboard),
                 NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
                 NO_GOBJ_KEY,NO_GOBJ_VAL,
                 NO_MENU_ITEM,NO_GSLIST},
-        {MI_NORMAL,_("About"),NO_KEYVAL,NO_MODIFIER,
+#ifdef HAVE_HELP_ABOUT
+        {MI_SEPERATOR},
+        {MI_NORMAL,_("_About"),NO_KEYVAL,NO_MODIFIER,
                 G_CALLBACK(menu_help_about),
-                NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
+                GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ABOUT,
                 NO_GOBJ_KEY,NO_GOBJ_VAL,
                 NO_MENU_ITEM,NO_GSLIST},
+#endif
         {MI_NONE}
     };
-#endif
 
     int_viewer_menu = gtk_menu_bar_new ();
     obj->priv->accel_group = gtk_accel_group_new ();
@@ -1007,10 +1066,8 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 
     create_menu_items( binary_mode_settings_submenu, obj->priv->accel_group, obj, binmode_settings_menu_items);
 
-#ifdef HAVE_HELP_ABOUT
     submenu = create_sub_menu(_("_Help"), int_viewer_menu) ;
     create_menu_items( submenu, obj->priv->accel_group, obj, help_menu_items );
-#endif
 
     gtk_window_add_accel_group (GTK_WINDOW(obj), obj->priv->accel_group);
     return int_viewer_menu;
@@ -1144,6 +1201,7 @@ static void menu_view_zoom_best_fit(GtkMenuItem *item, GViewerWindow *obj)
     set_zoom_best_fit(obj);
 }
 
+
 static void menu_settings_binary_bytes_per_line(GtkMenuItem *item, GViewerWindow *obj)
 {
     int bytes_per_line;
@@ -1168,6 +1226,139 @@ static void menu_edit_copy(GtkMenuItem *item, GViewerWindow *obj)
     gviewer_copy_selection(obj->priv->active_viewer);
 }
 
+static void start_find_thread(GViewerWindow *obj, gboolean forward)
+{
+    offset_type result;
+    GtkWidget *w;
+
+    g_viewer_searcher_start_search(obj->priv->srchr,forward);
+    gviewer_show_search_progress_dlg(GTK_WINDOW(obj),
+                        obj->priv->search_pattern,
+                        g_viewer_searcher_get_abort_indicator(obj->priv->srchr),
+                        g_viewer_searcher_get_complete_indicator(obj->priv->srchr),
+                        g_viewer_searcher_get_progress_indicator(obj->priv->srchr));
+
+    g_viewer_searcher_join(obj->priv->srchr);
+
+    if (g_viewer_searcher_get_end_of_search(obj->priv->srchr)) {
+        w = gtk_message_dialog_new(GTK_WINDOW(obj),
+                    GTK_DIALOG_MODAL,
+                    GTK_MESSAGE_INFO,
+                    GTK_BUTTONS_OK,
+                    _("Pattern \"%s\" was not found"),
+                    obj->priv->search_pattern ) ;
+        gtk_dialog_run (GTK_DIALOG (w));
+        gtk_widget_destroy (w);
+    } else {
+        result = g_viewer_searcher_get_search_result(obj->priv->srchr) ;
+        text_render_set_marker(gviewer_get_text_render(obj->priv->viewer),
+                result,
+                result + (forward?1:-1) * obj->priv->search_pattern_len) ;
+        text_render_ensure_offset_visible(gviewer_get_text_render(obj->priv->viewer),result);
+    }
+}
+
+static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
+{
+    GViewerSearchDlg* srch_dlg;
+    GtkWidget *w ;
+    guint8* buffer;
+    guint buflen;
+
+    g_return_if_fail(obj);
+    g_return_if_fail(obj->priv->active_viewer);
+
+    /* Show the Search Dialog */
+    w = gviewer_search_dlg_new(GTK_WINDOW(obj));
+    if (gtk_dialog_run(GTK_DIALOG(w))!=GTK_RESPONSE_OK) {
+        gtk_widget_destroy(w);
+        return;
+    }
+
+    /* If a previous search is active, delete it */
+    if (obj->priv->srchr!=NULL) {
+        g_object_unref(obj->priv->srchr);
+        obj->priv->srchr = NULL ;
+
+        if (obj->priv->search_pattern!=NULL) {
+            g_free(obj->priv->search_pattern);
+            obj->priv->search_pattern = NULL ;
+        }
+    }
+
+    /* Get the search information from the search dialog */
+    srch_dlg = GVIEWER_SEARCH_DLG(w);
+    obj->priv->search_pattern = gviewer_search_dlg_get_search_text_string(srch_dlg);
+
+    /* Create & prepare the search object  */
+    obj->priv->srchr = g_viewer_searcher_new();
+
+    if (gviewer_search_dlg_get_search_mode(srch_dlg)==SEARCH_MODE_TEXT) {
+        /* Text search */
+        g_viewer_searcher_setup_new_text_search(obj->priv->srchr,
+            text_render_get_input_mode_data(
+                gviewer_get_text_render(obj->priv->viewer)),
+            text_render_get_current_offset(
+                gviewer_get_text_render(obj->priv->viewer)),
+            gv_file_get_max_offset (
+                text_render_get_file_ops(
+                    gviewer_get_text_render(obj->priv->viewer))),
+            obj->priv->search_pattern,
+            gviewer_search_dlg_get_case_sensitive(srch_dlg)) ;
+        obj->priv->search_pattern_len = strlen(obj->priv->search_pattern);
+    } else {
+        /* Hex Search */
+        buffer = gviewer_search_dlg_get_search_hex_buffer(srch_dlg, &buflen);
+        g_return_if_fail(buffer!=NULL);
+        obj->priv->search_pattern_len = buflen;
+        g_viewer_searcher_setup_new_hex_search(obj->priv->srchr,
+            text_render_get_input_mode_data(
+                gviewer_get_text_render(obj->priv->viewer)),
+            text_render_get_current_offset(
+                gviewer_get_text_render(obj->priv->viewer)),
+            gv_file_get_max_offset (
+                text_render_get_file_ops(
+                    gviewer_get_text_render(obj->priv->viewer))),
+            buffer, buflen) ;
+
+        g_free(buffer);
+    }
+
+    gtk_widget_destroy(w);
+
+
+    /* call  "find_next" to actually do the search */
+    start_find_thread(obj,TRUE);
+}
+
+static void menu_edit_find_next(GtkMenuItem *item, GViewerWindow *obj)
+{
+    g_return_if_fail(obj);
+    g_return_if_fail(obj->priv->active_viewer);
+
+    if (obj->priv->srchr==NULL) {
+        /*
+            if no search is active, call "menu_edit_find".
+            (which will call "menu_edit_find_next" again */
+        menu_edit_find(item,obj);
+        return ;
+    }
+
+    start_find_thread(obj,TRUE);
+}
+
+static void menu_edit_find_prev(GtkMenuItem *item, GViewerWindow *obj)
+{
+    g_return_if_fail(obj);
+    g_return_if_fail(obj->priv->active_viewer);
+
+    if (obj->priv->srchr==NULL) {
+        return ;
+    }
+
+    start_find_thread(obj,FALSE);
+}
+
 static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj)
 {
     gboolean wrap;
@@ -1186,6 +1377,7 @@ static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj)
     }
 }
 
+
 static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *obj)
 {
     gboolean hex;
@@ -1200,62 +1392,34 @@ static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *o
     }
 }
 
-static gchar* get_string (const gchar *path, const gchar *def)
-{
-    gboolean b = FALSE;
-    gchar *value = gnome_config_get_string_with_default (path, &b);
-    if (b)
-        return g_strdup (def);
-    return value;
-}
-
-static gint get_int (const gchar *path, int def)
-{
-    gboolean b = FALSE;
-    gint value = gnome_config_get_int_with_default (path, &b);
-    if (b)
-        return def;
-    return value;
-}
-
-static gboolean get_bool (const gchar *path, gboolean def)
-{
-    gboolean b = FALSE;
-    gboolean value = gnome_config_get_bool_with_default (path, &b);
-    if (b)
-        return def;
-    return value;
-}
-
-#define DEFAULT_PATH_PREFIX "/gnome-commander/internal_viewer/"
 void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings)
 {
     gchar *temp;
     g_return_if_fail(settings!=NULL);
 
-    temp = get_string(DEFAULT_PATH_PREFIX "charset","ASCII");
+    temp = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "charset","ASCII");
     strncpy(settings->charset,temp,sizeof(settings->charset));
     g_free(temp);
 
-    temp = get_string(DEFAULT_PATH_PREFIX "fixed_font_name","Monospace");
+    temp = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "fixed_font_name","Monospace");
     strncpy(settings->fixed_font_name,temp,sizeof(settings->fixed_font_name));
     g_free(temp);
 
-    temp = get_string(DEFAULT_PATH_PREFIX "variable_font_name","Sans");
+    temp = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "variable_font_name","Sans");
     strncpy(settings->variable_font_name,temp,sizeof(settings->variable_font_name));
     g_free(temp);
 
-    settings->hex_decimal_offset = get_bool(DEFAULT_PATH_PREFIX "hex_offset_display",TRUE);
-    settings->wrap_mode = get_bool(DEFAULT_PATH_PREFIX "wrap_mode",TRUE );
+    settings->hex_decimal_offset = gviewer_get_bool(GVIEWER_DEFAULT_PATH_PREFIX "hex_offset_display",TRUE);
+    settings->wrap_mode = gviewer_get_bool(GVIEWER_DEFAULT_PATH_PREFIX "wrap_mode",TRUE );
 
-    settings->font_size = get_int(DEFAULT_PATH_PREFIX "font_size", 12);
-    settings->tab_size = get_int(DEFAULT_PATH_PREFIX "tab_size ", 8);
-    settings->binary_bytes_per_line = get_int(DEFAULT_PATH_PREFIX "binary_bytes_per_line", 80);
+    settings->font_size = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "font_size", 12);
+    settings->tab_size = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "tab_size ", 8);
+    settings->binary_bytes_per_line = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "binary_bytes_per_line", 80);
 
-    settings->rect.x = get_int(DEFAULT_PATH_PREFIX "x", -2);
-    settings->rect.y = get_int(DEFAULT_PATH_PREFIX "y", -2);
-    settings->rect.width = get_int(DEFAULT_PATH_PREFIX "width", -1);
-    settings->rect.height = get_int(DEFAULT_PATH_PREFIX "height", -1);
+    settings->rect.x = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "x", -2);
+    settings->rect.y = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "y", -2);
+    settings->rect.width = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "width", -1);
+    settings->rect.height = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "height", -1);
 }
 
 static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *obj)
@@ -1267,30 +1431,36 @@ static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *obj)
 
     gviewer_window_get_current_settings(obj,&settings);
 
-    gnome_config_set_string(DEFAULT_PATH_PREFIX "charset",settings.charset);
-    gnome_config_set_string(DEFAULT_PATH_PREFIX "fixed_font_name",settings.fixed_font_name);
-    gnome_config_set_string(DEFAULT_PATH_PREFIX "variable_font_name",settings.variable_font_name);
+    gnome_config_set_string(GVIEWER_DEFAULT_PATH_PREFIX "charset", settings.charset);
+    gnome_config_set_string(GVIEWER_DEFAULT_PATH_PREFIX "fixed_font_name", settings.fixed_font_name);
+    gnome_config_set_string(GVIEWER_DEFAULT_PATH_PREFIX "variable_font_name", settings.variable_font_name);
 
-    gnome_config_set_bool(DEFAULT_PATH_PREFIX "hex_offset_display",settings.hex_decimal_offset);
-    gnome_config_set_bool(DEFAULT_PATH_PREFIX "wrap_mode",settings.wrap_mode);
+    gnome_config_set_bool(GVIEWER_DEFAULT_PATH_PREFIX "hex_offset_display", settings.hex_decimal_offset);
+    gnome_config_set_bool(GVIEWER_DEFAULT_PATH_PREFIX "wrap_mode", settings.wrap_mode);
 
-    gnome_config_set_int(DEFAULT_PATH_PREFIX "font_size", settings.font_size);
-    gnome_config_set_int(DEFAULT_PATH_PREFIX "tab_size ", settings.tab_size );
-    gnome_config_set_int(DEFAULT_PATH_PREFIX "binary_bytes_per_line", settings.binary_bytes_per_line);
+    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "font_size", settings.font_size);
+    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "tab_size ", settings.tab_size );
+    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "binary_bytes_per_line", settings.binary_bytes_per_line);
 
-    gnome_config_set_int(DEFAULT_PATH_PREFIX "x", settings.rect.x);
-    gnome_config_set_int(DEFAULT_PATH_PREFIX "y", settings.rect.y);
-    gnome_config_set_int(DEFAULT_PATH_PREFIX "width", settings.rect.width);
-    gnome_config_set_int(DEFAULT_PATH_PREFIX "height", settings.rect.height);
+    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "x", settings.rect.x);
+    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "y", settings.rect.y);
+    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "width", settings.rect.width);
+    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "height", settings.rect.height);
 
     gnome_config_sync();
 }
 
-#ifdef HAVE_HELP_ABOUT
 static void menu_help_quick_help(GtkMenuItem *item, GViewerWindow *obj)
 {
+    gnome_cmd_help_display("gnome-commander.xml", "gnome-commander-internal-viewer");
 }
 
+static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj)
+{
+    gnome_cmd_help_display("gnome-commander.xml", "gnome-commander-internal-viewer-keyboard");
+}
+
+#ifdef HAVE_HELP_ABOUT
 static void menu_help_about(GtkMenuItem *item, GViewerWindow *obj)
 {
 }
@@ -1312,19 +1482,15 @@ static void gviewer_window_add_external_tool(GViewerWindow *obj, const gchar *na
     tool->command = g_strdup(command);
     tool->attached_fd = -1 ;
 
-    g_hash_table_insert(obj->priv->external_tools,
-            g_strdup(name), tool );
+    g_hash_table_insert(obj->priv->external_tools, g_strdup(name), tool );
 }
 
 static int gviewer_window_run_external_tool(GViewerWindow *obj, GViewerWindowExternalTool *tool)
 {
     FILE* file;
     int fd = -1;
-    int ret ;
     gchar* cmd_with_filename = NULL ;
     gchar* cmd_with_redir = NULL;
-
-
 
     g_return_val_if_fail(obj!=NULL,-1);
     g_return_val_if_fail(tool!=NULL,-1);
@@ -1347,22 +1513,17 @@ static int gviewer_window_run_external_tool(GViewerWindow *obj, GViewerWindowExt
 
     cmd_with_redir = g_strdup_printf("%s >&%d", cmd_with_filename, fd);
 
-    ret = system(cmd_with_redir) ;
-
-    if (ret==-1) {
+    if (system(cmd_with_redir)==-1) {
         fd = -1 ;
         g_warning("Program execution (%s) failed", cmd_with_redir);
         goto error ;
     }
-
 
 error:
     if (cmd_with_filename)
         g_free(cmd_with_filename);
     if (cmd_with_redir)
         g_free(cmd_with_redir);
-
-
 
     return fd ;
 }
@@ -1486,6 +1647,7 @@ static void gviewer_window_hide_exif_viewer(GViewerWindow *obj)
     obj->priv->active_viewer = obj->priv->viewer;
 }
 
+
 static void set_zoom_in(GViewerWindow *obj)
 {
     g_return_if_fail(obj);
@@ -1501,7 +1663,7 @@ static void set_zoom_in(GViewerWindow *obj)
            if (size==0 || size>32)  return;
 
            size++;
-              gviewer_set_font_size(obj->priv->active_viewer,size);
+           gviewer_set_font_size(obj->priv->active_viewer,size);
         }
         break;
 
@@ -1526,11 +1688,11 @@ static void set_zoom_in(GViewerWindow *obj)
     }
 }
 
+
 static void set_zoom_out(GViewerWindow *obj)
 {
     g_return_if_fail(obj);
     g_return_if_fail(obj->priv->viewer);
-
 
     switch (gviewer_get_display_mode(obj->priv->viewer)) {
     case DISP_MODE_TEXT_FIXED:
@@ -1567,6 +1729,7 @@ static void set_zoom_out(GViewerWindow *obj)
     }
 }
 
+
 static void set_zoom_normal(GViewerWindow *obj)
 {
     g_return_if_fail(obj);
@@ -1588,6 +1751,7 @@ static void set_zoom_normal(GViewerWindow *obj)
         break;
     }
 }
+
 
 static void set_zoom_best_fit(GViewerWindow *obj)
 {

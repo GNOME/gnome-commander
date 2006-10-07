@@ -28,6 +28,7 @@
 #include "gvtypes.h"
 
 #include "inputmodes.h"
+#include "cp437.h"
 
 struct _GVInputModesData
 {
@@ -176,7 +177,6 @@ int gv_input_mode_get_raw_byte(GVInputModesData *imd, offset_type offset)
 ******************************************************************************/
 
 /************ ASCII input mode *****************/
-#include "cp437.c"
 
 static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encoding)
 {
@@ -342,8 +342,8 @@ static void inputmode_utf8_activate(GVInputModesData *imd)
 	g_return_if_fail(imd!=NULL);
 	
 	imd->get_char = inputmode_utf8_get_char;
-	imd->get_next_offset = inputmode_utf8_get_next_offset;
 	imd->get_prev_offset = inputmode_utf8_get_previous_offset;
+	imd->get_next_offset = inputmode_utf8_get_next_offset;
 	g_free(imd->input_mode_name);
 	imd->input_mode_name = g_strdup("UTF8");
 }

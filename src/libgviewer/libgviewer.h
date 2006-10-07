@@ -20,6 +20,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __LIB_GVIEWER_H__
 #define __LIB_GVIEWER_H__
 
@@ -28,6 +29,7 @@
 #include <gtk/gtktable.h>
 
 #include "gvtypes.h"
+#include "viewer-utils.h"
 #include "fileops.h"
 #include "inputmodes.h"
 #include "datapresentation.h"
@@ -36,5 +38,8 @@
 #include "text-render.h"
 #include "viewer-widget.h"
 #include "viewer-window.h"
+#include "search-dlg.h"
+#include "searcher.h"
+#include "search-progress-dlg.h"
 
 #endif

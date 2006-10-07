@@ -20,6 +20,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #ifndef __GVIEWER_H__
 #define __GVIEWER_H__
 
@@ -97,6 +98,8 @@ double         gviewer_get_scale_factor(GViewer *obj);
 
 void           gviewer_image_operation(GViewer *obj, IMAGEOPERATION op);
 void           gviewer_copy_selection(GViewer *obj);
+
+TextRender*    gviewer_get_text_render(GViewer *obj);
 
 G_END_DECLS
 

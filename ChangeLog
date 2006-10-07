@@ -1,3 +1,24 @@
+2006-10-08  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/libgbiewer/viewer-window.c:
+	* src/libgviewer/bm_byte.{c.h}:
+	* src/libgviewer/bm_chartype.{c,h}:
+	* src/libgviewer/cp437.{c,h}:
+	* src/libgviewer/input_mode.c:
+	* src/libgviewer/libgviewer.h:
+	* src/libgviewer/Makefile.am:
+	* src/libgviewer/search-dlg.{c,h}:
+	* src/libgviewer/searcher.{c,h}:
+	* src/libgviewer/search-progress-dlg.{c,h}:
+	* src/libgviewer/text-render.{c,h}:
+	* src/libgviewer/viewer-utils.{c,h}:
+	* src/libgviewer/viewer-widget.{c,h}:
+	* tests/gviewer/Makefile.am:
+	* tests/gviewer/bm_byte_test.c:
+	* tests/gviewer/bm_chartype_test.c:
+	* tests/gviewer/utils_test.c:
+	Added "Find" feature to the internal viewer
+
 2006-10-07  vlad <b100dian@gmail.com>
   
 	* src/gnome-cmd-file-list.c:
@@ -207,27 +228,6 @@
 2006-05-19  Stephanos Manos <stefmanos@gmail.com>
 
 	* data/gnome-commander.spec.in: Fix scrollkeeper database update problem.
-
-2006-05-18  Assaf Gordon  <agordon88@gmail.com>
-
-	* src/libgbiewer/viewer-window.c:
-	* src/libgviewer/bm_byte.{c.h}:
-	* src/libgviewer/bm_chartype.{c,h}:
-	* src/libgviewer/cp437.{c,h}:
-	* src/libgviewer/input_mode.c:
-	* src/libgviewer/libgviewer.h:
-	* src/libgviewer/Makefile.am:
-	* src/libgviewer/search-dlg.{c,h}:
-	* src/libgviewer/searcher.{c,h}:
-	* src/libgviewer/search-progress-dlg.{c,h}:
-	* src/libgviewer/text-render.{c,h}:
-	* src/libgviewer/viewer-utils.{c,h}:
-	* src/libgviewer/viewer-widget.{c,h}:
-	* tests/gviewer/Makefile.am:
-	* tests/gviewer/bm_byte_test.c:
-	* tests/gviewer/bm_chartype_test.c:
-	* tests/gviewer/utils_test.c:
-	Added "Find" feature to the internal viewer.
 
 2006-05-17  vlad <b100dian@gmail.com>
 

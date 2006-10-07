@@ -18,7 +18,14 @@ libgviewer_la_SOURCES = \
 	fileops.c fileops.h \
 	libgviewer.c libgviewer.h \
 	gvtypes.h \
-	cp437.c
+	cp437.c cp437.h \
+	search-dlg.c search-dlg.h \
+	search-progress-dlg.h \
+	search-progress-dlg.c \
+	searcher.c searcher.h \
+	bm_chartype.c bm_chartype.h \
+	bm_byte.c bm_byte.h \
+	viewer-utils.c viewer-utils.h
 
 libgviewer_la_LIBADD = 	$(GNOMEUI_LIBS) $(GLIB_LIBS) $(GTK_LIBS)
 libgviewer_la_LDFLAGS = $(GNOMEUI_LIBS) $(GLIB_LIBS) $(GTK_LIBS)
