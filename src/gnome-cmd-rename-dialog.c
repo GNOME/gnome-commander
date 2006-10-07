@@ -22,6 +22,7 @@
 #include "gnome-cmd-rename-dialog.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-main-win.h"
+#include "gnome-cmd-style.h"
 #include "utils.h"
 
 
@@ -29,57 +30,56 @@ struct _GnomeCmdRenameDialogPrivate
 {
     GnomeCmdFile *finfo;
     GnomeCmdMainWin *mw;
+    GtkEntry *textbox;
 };
 
 
-static GnomeCmdStringDialogClass *parent_class = NULL;
-
+static GtkWindowClass *parent_class = NULL;
 
 
 static gboolean
-on_ok (GnomeCmdStringDialog *string_dialog,
-       const gchar **values,
-       GnomeCmdRenameDialog *dialog)
+on_dialog_keypressed (GtkWidget *widget,
+                      GdkEventKey *event,
+                      gpointer user_data)
 {
+    GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG(widget);
+    const gchar *new_fname;
     GnomeVFSResult ret;
-    const gchar *filename = values[0];
 
-    g_return_val_if_fail (dialog, TRUE);
-    g_return_val_if_fail (dialog->priv, TRUE);
-    g_return_val_if_fail (dialog->priv->finfo, TRUE);
-
-    if (!filename) {
-        gnome_cmd_string_dialog_set_error_desc (
-            string_dialog, g_strdup (_("No filename entered")));
-        return FALSE;
-    }
-
-    ret = gnome_cmd_file_rename (dialog->priv->finfo, filename);
-    if (ret == GNOME_VFS_OK) {
-        gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_active_fs (main_win)->list,
-                                        filename, TRUE);
-        gnome_cmd_file_unref (dialog->priv->finfo);
+    if (event->keyval == GDK_Escape) {
+        gnome_cmd_file_unref( dialog->priv->finfo );
+        gtk_widget_destroy(widget);
         return TRUE;
     }
 
-    gnome_cmd_string_dialog_set_error_desc (GNOME_CMD_STRING_DIALOG (dialog),
-                                            g_strdup (gnome_vfs_result_to_string (ret)));
+    if (event->keyval == GDK_Return) {
+        new_fname = gtk_entry_get_text( dialog->priv->textbox );
+        ret = gnome_cmd_file_rename (dialog->priv->finfo, new_fname);
+
+        gnome_cmd_file_unref (dialog->priv->finfo);
+        gtk_widget_destroy( widget );
+        /* TODO: if (ret != GNOME_VFS_OK) { */
+        return TRUE;
+
+    }
 
     return FALSE;
 }
 
 
-static void
-on_cancel (GtkWidget *widget, GnomeCmdRenameDialog *dialog)
+static gboolean
+on_focus_out (GtkWidget *widget,
+                      GdkEventKey *event)
 {
-    gnome_cmd_file_unref (dialog->priv->finfo);
+    gnome_cmd_file_unref( GNOME_CMD_RENAME_DIALOG(widget)->priv->finfo );
+    gtk_widget_destroy( widget );
+    return TRUE;
 }
 
 
 /*******************************
  * Gtk class implementation
  *******************************/
-
 static void
 destroy (GtkObject *object)
 {
@@ -109,7 +109,7 @@ class_init (GnomeCmdRenameDialogClass *klass)
     object_class = GTK_OBJECT_CLASS (klass);
     widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_string_dialog_get_type ());
+    parent_class = gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -119,6 +119,12 @@ static void
 init (GnomeCmdRenameDialog *dialog)
 {
     dialog->priv = g_new (GnomeCmdRenameDialogPrivate, 1);
+    gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event",
+                        (GtkSignalFunc)on_dialog_keypressed, NULL);
+    gtk_signal_connect (GTK_OBJECT (dialog), "focus-out-event",
+                        (GtkSignalFunc)on_focus_out, NULL);
+
+
 }
 
 
@@ -128,11 +134,8 @@ init (GnomeCmdRenameDialog *dialog)
  ***********************************/
 
 GtkWidget*
-gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo)
+gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gint height)
 {
-    const gchar *labels[] = {""};
-    gchar *msg;
-    GtkWidget *msg_label;
     gchar *fname;
     GnomeCmdRenameDialog *dialog;
 
@@ -144,27 +147,22 @@ gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo)
     gnome_cmd_file_ref (finfo);
 
     fname = get_utf8 (gnome_cmd_file_get_name (finfo));
-    msg = g_strdup_printf (_("Rename \"%s\" to"), fname);
-    msg_label = create_label (GTK_WIDGET (dialog), msg);
-    g_free (msg);
 
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), msg_label);
+    gtk_window_set_has_frame( GTK_WINDOW(dialog), 0 );
+    gtk_window_set_decorated( GTK_WINDOW(dialog), 0 );
+    gtk_widget_set_uposition( GTK_WIDGET(dialog), x, y );
+    gtk_window_set_skip_taskbar_hint( GTK_WINDOW(dialog), TRUE );
 
-    gnome_cmd_string_dialog_setup_with_cancel (
-        GNOME_CMD_STRING_DIALOG (dialog),
-        _("Rename File"),
-        labels,
-        1,
-        (GnomeCmdStringDialogCallback)on_ok,
-        GTK_SIGNAL_FUNC (on_cancel),
-        dialog);
+    gtk_widget_set_usize( GTK_WIDGET(dialog), width + 1, height + 1);
+    dialog->priv->textbox = GTK_ENTRY(gtk_entry_new());
+    gtk_widget_set_usize( GTK_WIDGET(dialog->priv->textbox), width, height);
+    gtk_container_add( GTK_CONTAINER(dialog), GTK_WIDGET(dialog->priv->textbox) );
+    gtk_widget_set_style( GTK_WIDGET(dialog->priv->textbox), list_style );
 
-    gnome_cmd_string_dialog_set_value (
-        GNOME_CMD_STRING_DIALOG (dialog), 0, fname);
-    g_free (fname);
+    gtk_entry_set_text(dialog->priv->textbox, fname);
+    gtk_entry_select_region (dialog->priv->textbox, 0, -1);
 
-    gtk_entry_select_region (
-        GTK_ENTRY (GNOME_CMD_STRING_DIALOG (dialog)->entries[0]), 0, -1);
+    gtk_widget_show(GTK_WIDGET(dialog->priv->textbox));
 
     return GTK_WIDGET (dialog);
 }
@@ -189,8 +187,9 @@ gnome_cmd_rename_dialog_get_type         (void)
             (GtkClassInitFunc) NULL
         };
 
-        dlg_type = gtk_type_unique (gnome_cmd_string_dialog_get_type (), &dlg_info);
+        dlg_type = gtk_type_unique (gtk_window_get_type (), &dlg_info);
     }
+
     return dlg_type;
 }
 

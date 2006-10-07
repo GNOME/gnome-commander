@@ -3534,6 +3534,9 @@
                             <para>Fast access to advrename template placeholders</para>
                         </listitem>
                         <listitem>
+                            <para>In-place rename (SHIFT+F6)</para>
+                        </listitem>
+                        <listitem>
                             <para>Revamped application menus</para>
                         </listitem>
                         <listitem>

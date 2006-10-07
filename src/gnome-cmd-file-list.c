@@ -181,14 +181,41 @@ show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
 }
 
 
-static void focus_file_at_row (GnomeCmdFileList *fl,
-                               gint row)
+/* Given a GnomeFileList, returns the upper-left corner of the selected file
+ *
+ */
+static void get_focus_row_coordinates( GnomeCmdFileList *fl, gint *x, gint *y, gint *width, gint *height )
+{
+    #define CELL_SPACING 1
+    #define COLUMN_INSET 3
+
+    gint ox, oy, row, rowh, colx;
+    GnomeCmdExtDispMode ext_disp_mode;
+    
+    ext_disp_mode = gnome_cmd_data_get_ext_disp_mode();
+
+    gdk_window_get_origin (GTK_CLIST(fl)->clist_window, &ox, &oy);
+    row = GTK_CLIST (fl)->focus_row;
+    rowh = GTK_CLIST (fl)->row_height + CELL_SPACING;
+    colx = GTK_CLIST (fl)->column[1].area.x - COLUMN_INSET - CELL_SPACING;
+    *width = GTK_CLIST (fl)->column[1].area.width + COLUMN_INSET * 2;
+    if ( ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME )
+        *width += GTK_CLIST (fl)->column[2].area.width + COLUMN_INSET + CELL_SPACING;
+    *height = rowh + CELL_SPACING * 2;
+
+    *x = ox + colx;
+    *y = oy + row*rowh + GTK_CLIST (fl)->voffset;
+}
+
+
+static void focus_file_at_row (GnomeCmdFileList *fl, gint row)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     GTK_CLIST (fl)->focus_row = row;
     fl->priv->cur_file = row;
     gtk_clist_select_row (GTK_CLIST (fl), row, 0);
+
 }
 
 
@@ -646,28 +673,15 @@ init_dnd (GnomeCmdFileList *fl)
 }
 
 
-/* This function should set x and y to the position of the current focus_row
- *
- */
-static void
-get_focus_row_coordinates (GnomeCmdFileList *fl, gint *x, gint *y)
+
+static void popup_position_function (GtkMenu *menu, gint *x, gint *y, gboolean *push_in, gpointer user_data)
 {
-    gint ox, oy, row, rowh, colh;
+    GnomeCmdFileList *fl;
+    gint w,h;
 
-    *x = 0;
-    *y = 0;
-
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    gdk_window_get_origin (GTK_WIDGET (fl)->window, &ox, &oy);
-    row = GTK_CLIST (fl)->focus_row;
-    rowh = GTK_CLIST (fl)->row_height;
-    colh = GTK_CLIST (fl)->column_title_area.height;
-
-    *x = ox;
-    *y = oy + (row+2)*rowh + colh;
+    fl = GNOME_CMD_FILE_LIST(user_data);
+    get_focus_row_coordinates( fl, x, y, &w, &h );
 }
-
 
 static void
 show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
@@ -678,16 +692,16 @@ show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     gtk_widget_ref (menu);
     gtk_object_set_data_full (GTK_OBJECT (fl), "file_popup_menu", menu, (GtkDestroyNotify)gtk_widget_unref);
 
-    gnome_popup_menu_do_popup (menu, NULL, fl, event, fl, NULL);
+    gnome_popup_menu_do_popup (menu, (GtkMenuPositionFunc)popup_position_function, fl, event, fl, NULL);
 }
 
 
 static void
 show_file_popup_with_warp (GnomeCmdFileList *fl)
 {
-    gint x, y;
+    gint x, y, w, h;
 
-    get_focus_row_coordinates (fl, &x, &y);
+    get_focus_row_coordinates (fl, &x, &y, &w, &h);
 
     //FIXME: Warp the pointer to x, y here
 
@@ -1793,6 +1807,7 @@ gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
 }
 
 
+
 /******************************************************************************
 *
 *   Function: gnome_cmd_file_list_get_focused_file
@@ -2106,14 +2121,17 @@ gnome_cmd_file_list_get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo
 void
 gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
 {
+
     GnomeCmdFile *finfo;
+    gint x, y, w, h;
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     finfo = gnome_cmd_file_list_get_selected_file (fl);
 
     if (GNOME_CMD_IS_FILE (finfo)) {
-        GtkWidget *dialog = gnome_cmd_rename_dialog_new (finfo);
+        get_focus_row_coordinates( fl, &x, &y, &w, &h );
+        GtkWidget *dialog = gnome_cmd_rename_dialog_new (finfo, x, y, w, h);
 
         gtk_widget_ref (dialog);
         gtk_widget_show (dialog);

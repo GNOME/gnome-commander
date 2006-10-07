@@ -1,3 +1,10 @@
+2006-10-07  vlad <b100dian@gmail.com>
+  
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-rename-dialog.c:
+	* src/gnome-cmd-rename-dialog.h:
+	Added in-place rename (SHIFT+F6)
+
 2006-10-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.c:

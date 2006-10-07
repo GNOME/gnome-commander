@@ -40,19 +40,19 @@ typedef struct _GnomeCmdRenameDialogClass GnomeCmdRenameDialogClass;
 
 struct _GnomeCmdRenameDialog
 {
-    GnomeCmdStringDialog parent;
+    GtkWindow parent;
     GnomeCmdRenameDialogPrivate *priv;
 };
 
 
 struct _GnomeCmdRenameDialogClass
 {
-    GnomeCmdStringDialogClass parent_class;
+    GtkWindowClass parent_class;
 };
 
 
 GtkWidget*
-gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo);
+gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gint height);
 
 GtkType
 gnome_cmd_rename_dialog_get_type (void);
