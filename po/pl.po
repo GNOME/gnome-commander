@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-08 00:43+0200\n"
-"PO-Revision-Date: 2006-10-08 00:53+0100\n"
+"PO-Revision-Date: 2006-10-08 13:15+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -343,7 +343,7 @@ msgstr "Szablon"
 
 #: ../src/gnome-cmd-advrename-dialog.c:1086
 msgid "O_ptions..."
-msgstr "_Opcje"
+msgstr "Opcje..."
 
 #: ../src/gnome-cmd-advrename-dialog.c:1093
 msgid "Dir"
@@ -421,7 +421,7 @@ msgstr "Nowa nazwa pliku"
 
 #: ../src/gnome-cmd-advrename-dialog.c:1175
 msgid "Rese_t"
-msgstr "Przywróć"
+msgstr "_Przywróć"
 
 #: ../src/gnome-cmd-bookmark-dialog.c:69
 msgid "Bookmark name:"
@@ -1089,7 +1089,7 @@ msgstr "_Plik tekstowy"
 #: ../src/gnome-cmd-list-popmenu.c:148
 #: ../src/gnome-cmd-main-menu.c:559
 msgid "_Paste"
-msgstr "_Wklej"
+msgstr "Wk_lej"
 
 #: ../src/gnome-cmd-list-popmenu.c:155
 #: ../src/gnome-cmd-main-menu.c:614
@@ -1150,7 +1150,7 @@ msgstr "Odznacz wybór"
 
 #: ../src/gnome-cmd-main-menu.c:523
 msgid "_Invert Selection"
-msgstr "_Odwróć zaznaczenie"
+msgstr "Od_wróć zaznaczenie"
 
 #: ../src/gnome-cmd-main-menu.c:529
 msgid "_Restore Selection"
@@ -1166,7 +1166,7 @@ msgstr "_Wytnij"
 
 #: ../src/gnome-cmd-main-menu.c:572
 msgid "Copy _File Names"
-msgstr "Kopiuj &Nazwy Plików"
+msgstr "Kopiuj _nazwy plików"
 
 #: ../src/gnome-cmd-main-menu.c:579
 msgid "_Search..."
@@ -1174,11 +1174,11 @@ msgstr "_Szukaj..."
 
 #: ../src/gnome-cmd-main-menu.c:585
 msgid "_Quick Search..."
-msgstr "Szybkie _wyszukiwanie"
+msgstr "Szy_bkie wyszukiwanie"
 
 #: ../src/gnome-cmd-main-menu.c:591
 msgid "_Enable Filter..."
-msgstr "_Włącz filtr..."
+msgstr "Włącz _filtr..."
 
 #: ../src/gnome-cmd-main-menu.c:602
 msgid "_Back"
@@ -1436,18 +1436,16 @@ msgid "Sorting options"
 msgstr "Opcje sortowania"
 
 #: ../src/gnome-cmd-options-dialog.c:105
-#, fuzzy
 msgid "Quick search using"
-msgstr "Wyczyść szybkie wyszukiwanie"
+msgstr "Szybkie wyszukiwanie"
 
 #: ../src/gnome-cmd-options-dialog.c:108
-#, fuzzy
 msgid "CTRL+ALT+letters"
-msgstr "Alt+Ctrl zmienia grupę."
+msgstr "CTRL+ALT+znak"
 
 #: ../src/gnome-cmd-options-dialog.c:111
 msgid "ALT+letters (menu access with F10)"
-msgstr ""
+msgstr "ALT+znak (dostęp do menu za pomocą F10)"
 
 #: ../src/gnome-cmd-options-dialog.c:119
 msgid "Directory options"
@@ -1853,7 +1851,7 @@ msgstr "Ustawienia"
 
 #: ../src/gnome-cmd-options-dialog.c:1862
 msgid "Confirmation"
-msgstr "Potwierdzenie"
+msgstr "Potwierdzenia"
 
 #: ../src/gnome-cmd-options-dialog.c:1867
 msgid "Filters"
@@ -4109,7 +4107,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1092
 msgid "Urgency"
-msgstr ""
+msgstr "Ważność"
 
 #: ../src/gnome-cmd-tags.c:1092
 msgid "Specifies the editorial urgency of content and not necessarily the envelope handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
