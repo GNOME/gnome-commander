@@ -5,7 +5,7 @@ AM_CPPFLAGS = -Wall \
 	$(GNOMEUI_CFLAGS) \
 	-I$(top_builddir)/src
 
-noinst_PROGRAMS = fileops inputmodes datapresentation textrenderer imagerenderer dualrenderer viewerwidget viewerwindow
+noinst_PROGRAMS = fileops inputmodes datapresentation textrenderer imagerenderer dualrenderer viewerwidget viewerwindow bm_byte_test bm_chartype_test utils_test search_dlg_test
 
 TESTLIBS = $(GLIB_LIBS) $(GTK_LIBS) $(GNOMEUI_LIBS) $(top_builddir)/src/libgviewer/libgviewer.la
 
@@ -40,3 +40,19 @@ viewerwidget_LDFLAGS = $(TESTLIBS)
 viewerwindow_SOURCES = viewerwindow.c
 viewerwindow_LDADD = $(TESTLIBS)
 viewerwindow_LDFLAGS = $(TESTLIBS)
+
+bm_byte_test_SOURCES = bm_byte_test.c
+bm_byte_test_LDADD = $(TESTLIBS)
+bm_byte_test_LDFLAGS = $(TESTLIBS)
+
+bm_chartype_test_SOURCES = bm_chartype_test.c
+bm_chartype_test_LDADD = $(TESTLIBS)
+bm_chartype_test_LDFLAGS = $(TESTLIBS)
+
+utils_test_SOURCES = utils_test.c
+utils_test_LDADD = $(TESTLIBS)
+utils_test_LDFLAGS = $(TESTLIBS)
+
+search_dlg_test_SOURCES = search_dlg_test.c
+search_dlg_test_LDADD = $(TESTLIBS)
+search_dlg_test_LDFLAGS = $(TESTLIBS)
