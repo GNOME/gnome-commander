@@ -95,7 +95,7 @@ on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     gchar *target_name = gtk_object_get_data (GTK_OBJECT (item), "target_name");
     gchar *cmd, *t;
 
-    t = g_dirname (local_path);
+    t = g_path_get_dirname (local_path);
     target_dir = target_name ? g_build_path (G_DIR_SEPARATOR_S, t, target_name, NULL) : g_strdup (t);
     g_free (t);
     g_free (target_name);
@@ -107,7 +107,7 @@ on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     archive_arg = g_shell_quote (local_path);
     cmd = g_strdup_printf ("file-roller %s %s", target_arg, archive_arg);
 
-    t = g_dirname (local_path);
+    t = g_path_get_dirname (local_path);
     gnome_execute_shell (t, cmd);
     g_free (t);
 

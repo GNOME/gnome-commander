@@ -909,7 +909,7 @@ void
 gnome_cmd_file_execute (GnomeCmdFile *finfo)
 {
     gchar *fpath = gnome_cmd_file_get_real_path (finfo),
-          *dpath = g_dirname (fpath),
+          *dpath = g_path_get_dirname (fpath),
           *cmd = g_strdup_printf ("./%s", finfo->info->name);
 
     run_command_indir (cmd, dpath, app_needs_terminal (finfo));

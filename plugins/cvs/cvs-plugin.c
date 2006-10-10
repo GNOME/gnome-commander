@@ -84,7 +84,7 @@ on_dummy (GtkMenuItem *item, gpointer data)
 static gboolean
 change_cwd (const gchar *fpath)
 {
-    gchar *dir = g_dirname (fpath);
+    gchar *dir = g_path_get_dirname (fpath);
 
     if (dir)
     {

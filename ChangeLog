@@ -1,3 +1,13 @@
+2006-10-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/fileroller/file-roller-plugin.c:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-search-dialog.c:
+	Reaplacing obsoleted g_dirname() with g_path_get_dirname()
+
 2006-10-08  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/libgbiewer/viewer-window.c:

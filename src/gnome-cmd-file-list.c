@@ -818,8 +818,8 @@ sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 
     gchar *t1 = gnome_cmd_file_get_path (f1);
     gchar *t2 = gnome_cmd_file_get_path (f2);
-    gchar *d1 = g_dirname (t1);
-    gchar *d2 = g_dirname (t2);
+    gchar *d1 = g_path_get_dirname (t1);
+    gchar *d2 = g_path_get_dirname (t2);
 
     if (strcmp (f1->info->name, "..") == 0)
         ret = -1;
@@ -1405,7 +1405,7 @@ format_file_for_display (GnomeCmdFile *finfo, FileFormatData *data, gboolean tre
      *
      */
     t = gnome_cmd_file_get_path (finfo);
-    t2 = g_dirname (t);
+    t2 = g_path_get_dirname (t);
     g_free (t);
     data->dpath = get_utf8 (t2);
     g_free (t2);

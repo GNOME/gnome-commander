@@ -86,7 +86,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         else if (res == GNOME_VFS_OK) {
             /* There exists something else, asume that the user wants to
                overwrite it for now */
-            gchar *tmp = g_dirname (dest_path);
+            gchar *tmp = g_path_get_dirname (dest_path);
             dest_dir = gnome_cmd_dir_new (
                 con, gnome_cmd_con_create_path (con, tmp));
             g_free (tmp);
@@ -94,7 +94,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         }
         else {
             /* Nothing existed, check if the parent dir exists */
-            gchar *parent_dir = g_dirname (dest_path);
+            gchar *parent_dir = g_path_get_dirname (dest_path);
             res = gnome_cmd_con_get_path_target_type (con, parent_dir, &type);
             if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
                 /* yup, xfer to it */
