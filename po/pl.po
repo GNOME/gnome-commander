@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-08 00:43+0200\n"
-"PO-Revision-Date: 2006-10-08 13:15+0100\n"
+"PO-Revision-Date: 2006-10-11 00:11+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1638,7 +1638,7 @@ msgstr "Potwierdzanie usunięcia pliku"
 #: ../src/gnome-cmd-options-dialog.c:656
 #, fuzzy
 msgid "Copy overwrite"
-msgstr "Rób kopię &zapasową zamiast nadpisywania"
+msgstr "Zastąpić motyw?"
 
 #.
 #. * Create prepare copy specific widgets
@@ -2054,7 +2054,7 @@ msgstr "Artysta"
 #: ../src/gnome-cmd-tags.c:61
 #, fuzzy
 msgid "Artist of the track."
-msgstr "Artysta na ścieżce - tytuł ścieżki"
+msgstr "ArtWykonawca utworu."
 
 #: ../src/gnome-cmd-tags.c:62
 #, fuzzy
@@ -2098,7 +2098,7 @@ msgstr "Komentarz"
 #: ../src/gnome-cmd-tags.c:66
 #, fuzzy
 msgid "Comments on the track."
-msgstr "%track (w wykonaniu %artist), (z albumu %)"
+msgstr "Comments on the track."
 
 #: ../src/gnome-cmd-tags.c:67
 msgid "Cover album thumbnail path"
@@ -2155,9 +2155,8 @@ msgid "Lyrics"
 msgstr "Słowa piosenki"
 
 #: ../src/gnome-cmd-tags.c:73
-#, fuzzy
 msgid "Lyrics of the track."
-msgstr "Przełącz u&twory"
+msgstr "Tekst piosenki."
 
 #: ../src/gnome-cmd-tags.c:74
 #, fuzzy
@@ -2171,7 +2170,7 @@ msgstr ""
 #: ../src/gnome-cmd-tags.c:75
 #, fuzzy
 msgid "MB Album ID"
-msgstr "Podaj identyfikator albumu dla zestawu Video CD"
+msgstr "Unikalne ID wystawiającego"
 
 #: ../src/gnome-cmd-tags.c:75
 msgid "MusicBrainz album ID in UUID format."
@@ -2180,7 +2179,7 @@ msgstr ""
 #: ../src/gnome-cmd-tags.c:76
 #, fuzzy
 msgid "MB Artist ID"
-msgstr "Album \"%s\", artysta: \"%s\", długość: \"%s\", rok: \"%s\", gatunek: \"%s\", ID: \"%s\""
+msgstr "Unikalne ID wystawiającego"
 
 #: ../src/gnome-cmd-tags.c:76
 msgid "MusicBrainz artist ID in UUID format."
@@ -2395,7 +2394,7 @@ msgstr "Znacznik informacji o przestrzeni kolorów jest zawsze zapisywany w celu
 #: ../src/gnome-cmd-tags.c:134
 #, fuzzy
 msgid "Components Configuration"
-msgstr "Pliki konfiguracyjne"
+msgstr "Konfiguracja kornponetów"
 
 #: ../src/gnome-cmd-tags.c:134
 msgid "Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences."
@@ -2724,7 +2723,7 @@ msgstr "Łańcuch znaków opisujący tytuł obrazu.  Kodów dwubajtowe znaków n
 #: ../src/gnome-cmd-tags.c:339
 #, fuzzy
 msgid "Image Length"
-msgstr "Maksymalna długość nazwy pliku obrazka"
+msgstr "Długość autouzupełniania"
 
 #: ../src/gnome-cmd-tags.c:339
 msgid "The number of rows of image data. In JPEG compressed data a JPEG marker is used instead of this tag."
@@ -2753,7 +2752,7 @@ msgstr "Liczba kolumn danych obrazu, różna liczbie pikseli w wierszu. W danych
 #: ../src/gnome-cmd-tags.c:359
 #, fuzzy
 msgid "Interoperability IFD Pointer"
-msgstr "Ekran zawierający kursor"
+msgstr "Wskaźnik Exif IFD"
 
 #: ../src/gnome-cmd-tags.c:359
 msgid "Interoperability IFD is composed of tags which stores the information to ensure the Interoperability and pointed by the following tag located in Exif IFD. The Interoperability structure of Interoperability IFD is the same as TIFF defined IFD structure but does not contain the image data characteristically compared with normal TIFF IFD."
@@ -2945,7 +2944,7 @@ msgstr "Powiązany format pliku"
 #: ../src/gnome-cmd-tags.c:489
 #, fuzzy
 msgid "Related Image Length"
-msgstr "Maksymalna długość nazwy pliku obrazka"
+msgstr "Powiązany format pliku"
 
 #: ../src/gnome-cmd-tags.c:494
 #, fuzzy
@@ -3118,7 +3117,7 @@ msgstr "Zdefiniowane przez Adobe Corporation, aby pozwolić na drzewa TIFF w pli
 #: ../src/gnome-cmd-tags.c:599
 #, fuzzy
 msgid "Subsec Time"
-msgstr "Przy&spieszenie kursora:"
+msgstr "Data i czas (obrazu cyfrowego)"
 
 #: ../src/gnome-cmd-tags.c:599
 msgid "A tag used to record fractions of seconds for the <Exif.DateTime> tag."
@@ -3212,7 +3211,7 @@ msgstr "Rozmieszczenie YCbCr"
 #: ../src/gnome-cmd-tags.c:659
 #, fuzzy
 msgid "The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning."
-msgstr "Rozmieszczenie składowych chrominancji w stosunku do składowej luminancji. To pole ma znaczenie tylko dla danych skompresowanych algorytmem JPEG lub nieskompresowanych danych YCbCr. Domyślne dla TIFF jest 1 (wyśrodkowane); ale kiedy Y:Cb:Cr = 4:2:2, zaleca się w stosowanie 2 (położone razem) w celu poprawienia jakości obrazu w przypadku oglądania na telewizorze. Kiedy to pole nie istnieje, czytający powinien założyć wartość domyślną dla TIFF. W przypadku Y:Cb:Cr = 4:2:0, zalecana jest wartość domyślna dla TIFF (wyśrodkowane). Jeśli czytający nie ma możliwości obsługi obu rodzajów rozmieszczenia, powinien używać domyślnej wartości TIFF niezależnie od wartości tego pola. Zaleca się, żeby czytający byli w stanie obsłużyć oba rodzaje rozmieszczenia."
+msgstr "Rozmieszczenie składowych chrominancji w stosunku do składowej luminancji. To pole ma znaczenie tylko dla danych skompresowanych algorytmem JPEG lub nieskompresowanych danych YCbCr. Domyślne dla TIFF jest 1 (wyśrodkowane); ale kiedy Y:Cb:Cr = 4:2:2, zaleca się w tym standardzie 2 (położone razem) w celu poprawienia jakości obrazu w przypadku oglądania na telewizorze. Kiedy to pole nie istnieje, czytający powinien założyć wartość domyślną dla TIFF. W przypadku Y:Cb:Cr = 4:2:0, zalecana jest wartość domyślna dla TIFF (wyśrodkowane). Jeśli czytający nie ma możliwości obsługi obu rodzajów rozmieszczenia, powinien używać domyślnej wartości TIFF niezależnie od wartości tego pola. Zaleca się, żeby czytający byli w stanie obsłużyć oba rodzaje rozmieszczenia."
 
 #: ../src/gnome-cmd-tags.c:664
 msgid "YCbCr Sub-Sampling"
@@ -3300,7 +3299,7 @@ msgstr "Zmodyfikowany"
 #: ../src/gnome-cmd-tags.c:682
 #, fuzzy
 msgid "Last modified datetime."
-msgstr "Ostatnia modyfikacja"
+msgstr "Data ostatniego dostępu."
 
 #: ../src/gnome-cmd-tags.c:683
 msgid "File name excluding path but including the file extension."
@@ -3469,18 +3468,16 @@ msgid "The type of action that this object provides to a previous object. '01' O
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:717
-#, fuzzy
 msgid "ARM Identifier"
-msgstr "Identyfikator algorytmu"
+msgstr "Identyfikator ARM"
 
 #: ../src/gnome-cmd-tags.c:717
 msgid "Identifies the Abstract Relationship Method (ARM)."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:722
-#, fuzzy
 msgid "ARM Version"
-msgstr "Wersja %1 na %2"
+msgstr "Wersja ARM"
 
 #: ../src/gnome-cmd-tags.c:722
 msgid "Identifies the version of the Abstract Relationship Method (ARM)."
@@ -3581,7 +3578,7 @@ msgstr "Miasto"
 #: ../src/gnome-cmd-tags.c:777
 #, fuzzy
 msgid "City of object origin."
-msgstr "Wyznacza środek obiektu na podstawie jego zawartości"
+msgstr "Wybierz pochodzenie szablonu"
 
 #: ../src/gnome-cmd-tags.c:782
 #, fuzzy
@@ -3624,9 +3621,8 @@ msgid "Copyright Notice"
 msgstr "Uwaga o prawach autorskich"
 
 #: ../src/gnome-cmd-tags.c:802
-#, fuzzy
 msgid "Any necessary copyright notice."
-msgstr "Prawa autorskie dotyczące czytnika slrn:"
+msgstr "Uwagi dotyczące praw autorskich."
 
 #: ../src/gnome-cmd-tags.c:807
 msgid "Country Code"
@@ -3762,9 +3758,8 @@ msgid "File Version"
 msgstr "Wersja pliku"
 
 #: ../src/gnome-cmd-tags.c:882
-#, fuzzy
 msgid "Version of the file format."
-msgstr "Niepoprawny format pliku wersji"
+msgstr "Wersja formatu pliku."
 
 #: ../src/gnome-cmd-tags.c:887
 #, fuzzy
@@ -3784,9 +3779,8 @@ msgid "A publishable entry providing a synopsis of the contents of the object."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:897
-#, fuzzy
 msgid "Image Orientation"
-msgstr "Położenie tacki."
+msgstr "Orientacja strony"
 
 #: ../src/gnome-cmd-tags.c:897
 msgid "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' for square."
@@ -3798,7 +3792,7 @@ msgstr "Typ obrazu"
 
 #: ../src/gnome-cmd-tags.c:902
 msgid "Indicates the data format of the image object."
-msgstr ""
+msgstr "Oznacza format danych obiektu."
 
 #: ../src/gnome-cmd-tags.c:907
 msgid "Used to indicate specific information retrieval words (multiple values allowed)."
@@ -3813,9 +3807,8 @@ msgid "The major national language of the object, according to the 2-letter code
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:917
-#, fuzzy
 msgid "Maximum Object Size"
-msgstr "Maksymalny rozmiar cache: "
+msgstr "Maksymalny rozmiar obiektu"
 
 #: ../src/gnome-cmd-tags.c:917
 msgid "The largest possible size of the object if the size is not known."
@@ -3835,9 +3828,8 @@ msgid "Model Version"
 msgstr "Wersja modelu"
 
 #: ../src/gnome-cmd-tags.c:927
-#, fuzzy
 msgid "Version of IIM part 1."
-msgstr "<To nie jest część certyfikatu>"
+msgstr "Wersja IIM (część pierwsza)"
 
 #: ../src/gnome-cmd-tags.c:932
 #, fuzzy
@@ -3855,7 +3847,7 @@ msgstr "Zmiana wygaszacza po"
 
 #: ../src/gnome-cmd-tags.c:937
 msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
-msgstr ""
+msgstr "Gdzie 'a' oznacza rano, 'p' wieczór, 'b' - obie wartości."
 
 #: ../src/gnome-cmd-tags.c:942
 msgid "Object Name"
@@ -3872,7 +3864,7 @@ msgstr "Zaznacz <b>obiekt(y)</b>, do których wkleić rozmiar."
 
 #: ../src/gnome-cmd-tags.c:947
 msgid "The total size of the object data if it is known."
-msgstr ""
+msgstr "Całkowity rozmiar danych obiektu."
 
 #: ../src/gnome-cmd-tags.c:952
 msgid "Object Type Reference"
@@ -3911,22 +3903,20 @@ msgid "The object preview data"
 msgstr "Wyświetla podgląd danych w postaci przygotowanej do druku"
 
 #: ../src/gnome-cmd-tags.c:972
-#, fuzzy
 msgid "Preview File Format"
-msgstr "Błędny format pliku."
+msgstr "Format podglądu pliku"
 
 #: ../src/gnome-cmd-tags.c:972
 msgid "Binary value indicating the file format of the object preview data in dataset 2:202."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:977
-#, fuzzy
 msgid "Preview File Format Version"
-msgstr "Niepoprawny format pliku wersji"
+msgstr "Preview File Format Version"
 
 #: ../src/gnome-cmd-tags.c:977
 msgid "The version of the preview file format specified in 2:200."
-msgstr ""
+msgstr "Wersja formatu podglądu pliku zdefiniowana w 2:200."
 
 #: ../src/gnome-cmd-tags.c:982
 msgid "Product ID"
@@ -4265,9 +4255,8 @@ msgstr "_Szesnastkowo"
 
 #. Case-Sensitive Checkbox
 #: ../src/libgviewer/search-dlg.c:363
-#, fuzzy
 msgid "_Match case"
-msgstr "_Rozróżnianie małych i wielkich liter"
+msgstr "_Rozróżnianie wielkości liter"
 
 #: ../src/libgviewer/search-progress-dlg.c:76
 msgid "Searching..."
