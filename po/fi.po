@@ -2,12 +2,19 @@
 # Copyright (C) 2006 Ilkka Tuohela
 # Ilkka Tuohela <hile@iki.fi> 2006.
 #
+#: ../src/gnome-cmd-tags.c:104 ../src/gnome-cmd-tags.c:124
+#: ../src/gnome-cmd-tags.c:189 ../src/gnome-cmd-tags.c:234
+#: ../src/gnome-cmd-tags.c:344 ../src/gnome-cmd-tags.c:369
+#: ../src/gnome-cmd-tags.c:374 ../src/gnome-cmd-tags.c:379
+#: ../src/gnome-cmd-tags.c:399 ../src/gnome-cmd-tags.c:484
+#: ../src/gnome-cmd-tags.c:489 ../src/gnome-cmd-tags.c:494
+#: ../src/gnome-cmd-tags.c:614 ../src/gnome-cmd-tags.c:624
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-05 16:02+0300\n"
-"PO-Revision-Date: 2006-10-15 08:53+0300\n"
+"POT-Creation-Date: 2006-10-15 09:02+0300\n"
+"PO-Revision-Date: 2006-10-15 09:38+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -106,7 +113,7 @@ msgstr "Viesti:"
 
 #: ../plugins/fileroller/file-roller-plugin.c:182
 msgid "What filename should the new archive have?"
-msgstr ""
+msgstr "Minkäniminen uuden arkiston tulisi olla?"
 
 #: ../plugins/fileroller/file-roller-plugin.c:184
 msgid "Create Archive"
@@ -335,7 +342,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-advrename-dialog.c:1052
 msgid "Advanced Rename Tool"
-msgstr ""
+msgstr "Kehittynyt uudelleennimeämistyökalu"
 
 #: ../src/gnome-cmd-advrename-dialog.c:1065
 msgid "Template"
@@ -522,6 +529,8 @@ msgid ""
 "Could not chmod %s\n"
 "%s"
 msgstr ""
+"Chmod kohteelle %s ei onnistunut\n"
+"%s"
 
 #: ../src/gnome-cmd-chmod-dialog.c:204
 msgid "Access Permissions"
@@ -529,7 +538,7 @@ msgstr "Pääsyoikeudet"
 
 #: ../src/gnome-cmd-chmod-dialog.c:222
 msgid "Apply Recursively for"
-msgstr ""
+msgstr "Toteuta rekursiivisesti kohteelle"
 
 #: ../src/gnome-cmd-chown-dialog.c:53
 #, c-format
@@ -537,6 +546,8 @@ msgid ""
 "Could not chown %s\n"
 "%s"
 msgstr ""
+"Chown kohteelle %s ei onnistunut\n"
+"%s"
 
 #: ../src/gnome-cmd-chown-dialog.c:175
 msgid "Chown"
@@ -568,6 +579,8 @@ msgid ""
 "Volume unmounting succeeded.\n"
 "It is safe to eject the media."
 msgstr ""
+"Taltion irrotus onnistui.\n"
+"Media voidaan irrottaa tietokoneesta turvallisesti."
 
 #: ../src/gnome-cmd-con-device.c:206
 #, c-format
@@ -575,6 +588,8 @@ msgid ""
 "Volume unmounting failed:\n"
 "%s %s"
 msgstr ""
+"Taltion irrotus epäonnistui:\n"
+"%s %s"
 
 #: ../src/gnome-cmd-con-device.c:207
 msgid "Unknown Error"
@@ -623,12 +638,12 @@ msgstr "Katkaise yhteys: %s"
 #: ../src/gnome-cmd-con-ftp.c:313
 #, c-format
 msgid "Creates the FTP connection to %s"
-msgstr ""
+msgstr "Luo FTP-yhteyden kohteeseen %s"
 
 #: ../src/gnome-cmd-con-ftp.c:314
 #, c-format
 msgid "Removes the FTP connection to %s"
-msgstr ""
+msgstr "Poistaa FTP-yhteyden kohteeseen %s"
 
 #: ../src/gnome-cmd-con-home.c:130
 msgid "Home"
@@ -640,7 +655,7 @@ msgstr "Siirry: Kotiin"
 
 #: ../src/gnome-cmd-con-smb.c:95
 msgid "Failed to browse the network. Is the SMB module installed?"
-msgstr ""
+msgstr "Verkon selaus ei onnistunut. Onko SMB-moduli asennettu?"
 
 #: ../src/gnome-cmd-con-smb.c:212
 msgid "SMB"
@@ -690,7 +705,7 @@ msgstr "Ohita"
 #: ../src/gnome-cmd-delete-dialog.c:305
 #, c-format
 msgid "Do you want to delete \"%s\"?"
-msgstr ""
+msgstr "Haluatko poistaa kohteen \"%s\"?"
 
 #: ../src/gnome-cmd-delete-dialog.c:310
 #, c-format
@@ -1042,7 +1057,7 @@ msgstr "Yhdistä"
 
 #: ../src/gnome-cmd-ftp-dialog.c:644
 msgid "FTP Quick Connect"
-msgstr ""
+msgstr "FTP-pikayhteys"
 
 #: ../src/gnome-cmd-list-popmenu.c:122
 msgid "_Directory"
@@ -1078,11 +1093,11 @@ msgstr "Muuta oi_keuksia"
 
 #: ../src/gnome-cmd-main-menu.c:462
 msgid "Advanced _Rename Tool"
-msgstr ""
+msgstr "Kehittynyt _uudellennimeäminen"
 
 #: ../src/gnome-cmd-main-menu.c:468
 msgid "Create _Symbolic Link"
-msgstr ""
+msgstr "Luo _symbolinen linkki"
 
 #: ../src/gnome-cmd-main-menu.c:474
 msgid "_Properties..."
@@ -1202,7 +1217,7 @@ msgstr "_Yhdistä FTP..."
 
 #: ../src/gnome-cmd-main-menu.c:717
 msgid "FTP _Quick Connect..."
-msgstr ""
+msgstr "FTP-_pikayhteys..."
 
 #: ../src/gnome-cmd-main-menu.c:728
 msgid "_Contents"
@@ -1317,7 +1332,7 @@ msgstr "Siirry viimeisimpään"
 
 #: ../src/gnome-cmd-main-win.c:1360
 msgid "Copy file names (SHIFT for full paths)"
-msgstr ""
+msgstr "Kopioi tiedostonimet (SHIFTin kanssa koko polkunimet)"
 
 #: ../src/gnome-cmd-main-win.c:1367
 msgid "Cut"
@@ -1351,7 +1366,7 @@ msgstr "Kopioi tiedosto"
 
 #: ../src/gnome-cmd-mkdir-dialog.c:49
 msgid "A directory name must be entered"
-msgstr ""
+msgstr "Kansion nimi täytyy antaa"
 
 #: ../src/gnome-cmd-mkdir-dialog.c:137
 msgid "Directory name:"
@@ -1363,43 +1378,43 @@ msgstr "Luo kansio"
 
 #: ../src/gnome-cmd-options-dialog.c:62
 msgid "Use right mouse button to"
-msgstr ""
+msgstr "Käytä oikeaa hiiren nappia toimintoon "
 
 #: ../src/gnome-cmd-options-dialog.c:65
 msgid "Show popup menu"
-msgstr ""
+msgstr "näytä ponnahdusikkuna"
 
 #: ../src/gnome-cmd-options-dialog.c:69
 msgid "Select files"
-msgstr "Valitse tiedostot"
+msgstr "valitse tiedostot"
 
 #: ../src/gnome-cmd-options-dialog.c:78
 msgid "Match filenames using"
-msgstr ""
+msgstr "täsmää tiedostonimet käyttäen"
 
 #: ../src/gnome-cmd-options-dialog.c:81
 msgid "Shell syntax"
-msgstr ""
+msgstr "komentotulkin syntaksia"
 
 #: ../src/gnome-cmd-options-dialog.c:85
 msgid "Regex syntax"
-msgstr ""
+msgstr "regex-syntaksia"
 
 #: ../src/gnome-cmd-options-dialog.c:94
 msgid "Sorting options"
-msgstr ""
+msgstr "Järjestysvalitsimet"
 
 #: ../src/gnome-cmd-options-dialog.c:105
 msgid "Quick search using"
-msgstr ""
+msgstr "Pikahaku käyttäen"
 
 #: ../src/gnome-cmd-options-dialog.c:108
 msgid "CTRL+ALT+letters"
-msgstr ""
+msgstr "CTRL+ALT+kirjaimia"
 
 #: ../src/gnome-cmd-options-dialog.c:111
 msgid "ALT+letters (menu access with F10)"
-msgstr ""
+msgstr "ALT+kirjaimia (valikko näppäimestä F10)"
 
 #: ../src/gnome-cmd-options-dialog.c:119
 msgid "Directory options"
@@ -1489,51 +1504,51 @@ msgstr "Kursori:"
 
 #: ../src/gnome-cmd-options-dialog.c:452
 msgid "With filename"
-msgstr ""
+msgstr "Tiedostonimellä"
 
 #: ../src/gnome-cmd-options-dialog.c:453
 msgid "In separate column"
-msgstr ""
+msgstr "Eri sarakkeissa"
 
 #: ../src/gnome-cmd-options-dialog.c:454
 msgid "In both columns"
-msgstr ""
+msgstr "Molemmissa sarakkeissa"
 
 #: ../src/gnome-cmd-options-dialog.c:458
 msgid "No icons"
-msgstr ""
+msgstr "Ei kuvakkeita"
 
 #: ../src/gnome-cmd-options-dialog.c:459
 msgid "File type icons"
-msgstr ""
+msgstr "Tiedostotyypin kuvakkeet"
 
 #: ../src/gnome-cmd-options-dialog.c:460
 msgid "MIME icons"
-msgstr ""
+msgstr "MIME-kuvakkeet"
 
 #: ../src/gnome-cmd-options-dialog.c:464
 msgid "Respect theme colors"
-msgstr ""
+msgstr "Käytä teeman värejä"
 
 #: ../src/gnome-cmd-options-dialog.c:465
 msgid "Modern"
-msgstr ""
+msgstr "Moderni"
 
 #: ../src/gnome-cmd-options-dialog.c:466
 msgid "Fusion"
-msgstr ""
+msgstr "Fuusio"
 
 #: ../src/gnome-cmd-options-dialog.c:467
 msgid "Classic"
-msgstr ""
+msgstr "Klassinen"
 
 #: ../src/gnome-cmd-options-dialog.c:468
 msgid "Custom"
-msgstr ""
+msgstr "Oma"
 
 #: ../src/gnome-cmd-options-dialog.c:484
 msgid "File panes"
-msgstr ""
+msgstr "Tiedostopaneelit"
 
 #: ../src/gnome-cmd-options-dialog.c:495
 msgid "Font:"
@@ -1546,7 +1561,7 @@ msgstr "Rivin korkeus:"
 #. File extensions
 #: ../src/gnome-cmd-options-dialog.c:501
 msgid "Display file extensions:"
-msgstr ""
+msgstr "Näytä tiedostopäätteet:"
 
 #. Graphical mode
 #: ../src/gnome-cmd-options-dialog.c:509
@@ -1556,7 +1571,7 @@ msgstr "Graafinen tila:"
 #. Color scheme
 #: ../src/gnome-cmd-options-dialog.c:518
 msgid "Color scheme:"
-msgstr ""
+msgstr "Väriskeema:"
 
 #: ../src/gnome-cmd-options-dialog.c:530
 msgid "Edit..."
@@ -1593,7 +1608,7 @@ msgstr "Vahvista ennen poistoa"
 
 #: ../src/gnome-cmd-options-dialog.c:656
 msgid "Copy overwrite"
-msgstr ""
+msgstr "Kopionti ylikirjoittaa"
 
 #.
 #. * Create prepare copy specific widgets
@@ -1602,7 +1617,7 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-copy-dialog.c:94
 #: ../src/gnome-cmd-prepare-move-dialog.c:87
 msgid "Silently"
-msgstr ""
+msgstr "Ilman viestiä"
 
 #: ../src/gnome-cmd-options-dialog.c:663 ../src/gnome-cmd-options-dialog.c:683
 msgid "Query first"
@@ -1614,11 +1629,11 @@ msgstr "Ohita kaikki"
 
 #: ../src/gnome-cmd-options-dialog.c:676
 msgid "Move overwrite"
-msgstr ""
+msgstr "Siirto ylikirjoittaa"
 
 #: ../src/gnome-cmd-options-dialog.c:764
 msgid "Filetypes to hide"
-msgstr ""
+msgstr "Piilotettavat tiedostotyypit"
 
 #: ../src/gnome-cmd-options-dialog.c:767
 msgid "Unknown"
@@ -1666,7 +1681,7 @@ msgstr "Symboliset linkit"
 
 #: ../src/gnome-cmd-options-dialog.c:1092
 msgid "Label:"
-msgstr ""
+msgstr "Otsikko:"
 
 #: ../src/gnome-cmd-options-dialog.c:1094
 msgid "Command:"
@@ -1679,19 +1694,19 @@ msgstr "Kuvake:"
 
 #: ../src/gnome-cmd-options-dialog.c:1117
 msgid "Can handle multiple files"
-msgstr ""
+msgstr "Osaa käsitellä useita tiedostoja"
 
 #: ../src/gnome-cmd-options-dialog.c:1121
 msgid "Can handle URIs"
-msgstr ""
+msgstr "Osaa käsitellä URI-viitteitä"
 
 #: ../src/gnome-cmd-options-dialog.c:1125
 msgid "Requires terminal"
-msgstr ""
+msgstr "Vaatii päätteen"
 
 #: ../src/gnome-cmd-options-dialog.c:1132
 msgid "Show for"
-msgstr ""
+msgstr "Näytä kohteille"
 
 #: ../src/gnome-cmd-options-dialog.c:1141
 msgid "All directories"
@@ -1699,7 +1714,7 @@ msgstr "Kaikki kansiot"
 
 #: ../src/gnome-cmd-options-dialog.c:1147
 msgid "All directories and files"
-msgstr ""
+msgstr "Kaikki kansiot ja tiedostot"
 
 #: ../src/gnome-cmd-options-dialog.c:1153
 msgid "Some files"
@@ -1719,7 +1734,7 @@ msgstr "Muokkaa sovellusta"
 
 #: ../src/gnome-cmd-options-dialog.c:1291
 msgid "Always download remote files before opening in external programs"
-msgstr ""
+msgstr "Nouda aina etätiedostot ennen avaamista ulkoisissa ohjelmissa"
 
 #: ../src/gnome-cmd-options-dialog.c:1293
 msgid "MIME applications"
@@ -1739,7 +1754,7 @@ msgstr "Muokkain:"
 
 #: ../src/gnome-cmd-options-dialog.c:1304
 msgid "Differ:"
-msgstr ""
+msgstr "Erot:"
 
 #: ../src/gnome-cmd-options-dialog.c:1306
 msgid "Terminal:"
@@ -1755,7 +1770,7 @@ msgstr "Muut suosikkisovellukset"
 
 #: ../src/gnome-cmd-options-dialog.c:1336
 msgid "Label"
-msgstr ""
+msgstr "Otsikko"
 
 #: ../src/gnome-cmd-options-dialog.c:1536
 msgid "Device:"
@@ -1784,7 +1799,7 @@ msgstr "Näytä vain kuvakkeet"
 
 #: ../src/gnome-cmd-options-dialog.c:1728
 msgid "Skip mounting (useful when using super-mount)"
-msgstr ""
+msgstr "Ohita liittäminen (hyödyllinen käytettäessä super-mountia)"
 
 #: ../src/gnome-cmd-options-dialog.c:1847
 msgid "General"
@@ -1825,7 +1840,7 @@ msgstr "Malli:"
 #: ../src/gnome-cmd-prepare-copy-dialog.c:101
 #: ../src/gnome-cmd-prepare-move-dialog.c:94
 msgid "Query First"
-msgstr ""
+msgstr "Kysy ensin"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.c:108
 #: ../src/gnome-cmd-prepare-move-dialog.c:101 ../src/gnome-cmd-xfer.c:177
@@ -1842,7 +1857,7 @@ msgstr "Seuraa linkkejä"
 #: ../src/gnome-cmd-prepare-copy-dialog.c:128
 #: ../src/gnome-cmd-prepare-move-dialog.c:113
 msgid "Overwrite Files"
-msgstr ""
+msgstr "Ylikirjoita tiedostot"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.c:148
 #, c-format
@@ -1858,7 +1873,7 @@ msgstr "Siirrä"
 #: ../src/gnome-cmd-prepare-move-dialog.c:128
 #, c-format
 msgid "Move \"%s\" to"
-msgstr ""
+msgstr "Siirrä \"%s\" kohteeseen"
 
 #: ../src/gnome-cmd-prepare-move-dialog.c:132
 #, c-format
@@ -1871,380 +1886,380 @@ msgstr[1] ""
 #: ../src/gnome-cmd-prepare-xfer-dialog.c:154
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
-msgstr ""
+msgstr "Kansio \"%s\" ei ole olemassa, haluatko luoda sen?"
 
 #: ../src/gnome-cmd-quicksearch-popup.c:261
 msgid "Search"
-msgstr ""
+msgstr "Etsi"
 
 #: ../src/gnome-cmd-search-dialog.c:185
 #, c-format
 msgid "Failed to open file %s: %s\n"
-msgstr ""
+msgstr "Tiedostoa %s ei voi avata: %s\n"
 
 #: ../src/gnome-cmd-search-dialog.c:194
 #, c-format
 msgid "Failed to read from file %s: %s\n"
-msgstr ""
+msgstr "Tiedostosta %s ei voi lukea: %s\n"
 
 #: ../src/gnome-cmd-search-dialog.c:255
 #, c-format
 msgid "Searching in: %s"
-msgstr ""
+msgstr "Etsitään kohteesta: %s"
 
 #: ../src/gnome-cmd-search-dialog.c:405
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Löytyi %d osuma ennen keskeyttämistä"
+msgstr[1] "Löytyi %d osumaa ennen keskeyttämistä"
 
 #: ../src/gnome-cmd-search-dialog.c:412
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Löytyi %d osuma"
+msgstr[1] "Löytyi %d osumaa"
 
 #: ../src/gnome-cmd-search-dialog.c:739
 msgid "Search..."
-msgstr ""
+msgstr "Etsi..."
 
 #. Search for
 #: ../src/gnome-cmd-search-dialog.c:752
 msgid "Search for: "
-msgstr ""
+msgstr "Etsi merkkijonoa:"
 
 #. Search in
 #: ../src/gnome-cmd-search-dialog.c:764
 msgid "Search in: "
-msgstr ""
+msgstr "Etsi lähteestä: "
 
 #. Find text
 #: ../src/gnome-cmd-search-dialog.c:778
 msgid "Find text: "
-msgstr ""
+msgstr "Etsi tekstiä: "
 
 #. Recurse check
 #: ../src/gnome-cmd-search-dialog.c:793
 msgid "Search Recursively"
-msgstr ""
+msgstr "Etsi rekursiivisesti"
 
 #. Case check
 #: ../src/gnome-cmd-search-dialog.c:800
 msgid "Case Sensitive"
-msgstr ""
+msgstr "Kirjainkoko merkitsee"
 
 #: ../src/gnome-cmd-search-dialog.c:811
 msgid "Goto"
-msgstr ""
+msgstr "Siirry"
 
 #: ../src/gnome-cmd-smb-path.c:329
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
-msgstr ""
+msgstr "Verkkonimeä tai työryhmää %s ei löydy\n"
 
 #: ../src/gnome-cmd-tags.c:56
 msgid "Album Artist"
-msgstr ""
+msgstr "Esittäjä"
 
 #: ../src/gnome-cmd-tags.c:56
 msgid "Artist of the album."
-msgstr ""
+msgstr "Levyn esittäjä."
 
 #: ../src/gnome-cmd-tags.c:57
 msgid "Album Gain"
-msgstr ""
+msgstr "Levyn taso"
 
 #: ../src/gnome-cmd-tags.c:57
 msgid "Gain adjustment of album."
-msgstr ""
+msgstr "Levyn voimakkuustaso."
 
 #: ../src/gnome-cmd-tags.c:58
 msgid "Album Peak Gain"
-msgstr ""
+msgstr "Levyn piikkitaso"
 
 #: ../src/gnome-cmd-tags.c:58
 msgid "Peak gain adjustment of album."
-msgstr ""
+msgstr "Levyn voimakkuustason piikki."
 
 #: ../src/gnome-cmd-tags.c:59
 msgid "Album Track Count"
-msgstr ""
+msgstr "Levyn kappalemäärä"
 
 #: ../src/gnome-cmd-tags.c:59
 msgid "Total number of tracks on the album."
-msgstr ""
+msgstr "Levyn kappaleiden lukumäärä."
 
 #: ../src/gnome-cmd-tags.c:60 ../src/gnome-cmd-tags.c:690
 msgid "Album"
-msgstr ""
+msgstr "Levy"
 
 #: ../src/gnome-cmd-tags.c:60
 msgid "Name of the album."
-msgstr ""
+msgstr "Levyn nimi."
 
 #: ../src/gnome-cmd-tags.c:61 ../src/gnome-cmd-tags.c:99
 msgid "Artist"
-msgstr ""
+msgstr "Esittäjä"
 
 #: ../src/gnome-cmd-tags.c:61
 msgid "Artist of the track."
-msgstr ""
+msgstr "Kappaleen esittäjä."
 
 #: ../src/gnome-cmd-tags.c:62
 msgid "Bitrate"
-msgstr ""
+msgstr "Bittinopeus"
 
 #: ../src/gnome-cmd-tags.c:62
 msgid "Bitrate in kbps."
-msgstr ""
+msgstr "Bittonopeus kbps-lukuna."
 
 #: ../src/gnome-cmd-tags.c:63
 msgid "Channels"
-msgstr ""
+msgstr "Kanavia"
 
 #: ../src/gnome-cmd-tags.c:63
 msgid "Number of channels in the audio (2 = stereo)."
-msgstr ""
+msgstr "Äänitiedoston kanavien lukumäärä (2 = stereo)."
 
 #: ../src/gnome-cmd-tags.c:64
 msgid "Codec Version"
-msgstr ""
+msgstr "Kodekin versio"
 
 #: ../src/gnome-cmd-tags.c:64
 msgid "Codec version."
-msgstr ""
+msgstr "Kodekin versio."
 
 #: ../src/gnome-cmd-tags.c:65
 msgid "Codec"
-msgstr ""
+msgstr "Kodekki"
 
 #: ../src/gnome-cmd-tags.c:65
 msgid "Codec encoding description."
-msgstr ""
+msgstr "Pakkauskodekin kuvaus."
 
 #: ../src/gnome-cmd-tags.c:66
 msgid "Comment"
-msgstr ""
+msgstr "Kommentti"
 
 #: ../src/gnome-cmd-tags.c:66
 msgid "Comments on the track."
-msgstr ""
+msgstr "Kappaleen kommentit"
 
 #: ../src/gnome-cmd-tags.c:67
 msgid "Cover album thumbnail path"
-msgstr ""
+msgstr "Kansikuvan pienoiskuvan polku"
 
 #: ../src/gnome-cmd-tags.c:67
 msgid "File path to thumbnail image of the cover album."
-msgstr ""
+msgstr "Tiedostopolku levyn kansikuvan pienoiskuvaan."
 
 #: ../src/gnome-cmd-tags.c:68
 msgid "Disc Number"
-msgstr ""
+msgstr "Levyn numero"
 
 #: ../src/gnome-cmd-tags.c:68
 msgid "Specifies which disc the track is on."
-msgstr ""
+msgstr "Määrittää minkä numeroisella levyllä kappale on."
 
 #: ../src/gnome-cmd-tags.c:69
 msgid "Duration"
-msgstr ""
+msgstr "Kesto"
 
 #: ../src/gnome-cmd-tags.c:69
 msgid "Duration of track in seconds."
-msgstr ""
+msgstr "Kappaleen kesto sekunteina."
 
 #: ../src/gnome-cmd-tags.c:70
 msgid "Genre"
-msgstr ""
+msgstr "Tyyli"
 
 #: ../src/gnome-cmd-tags.c:70
 msgid "Type of music classification for the track as defined in ID3 spec."
-msgstr ""
+msgstr "ID3-määrittelyn mukainen kappaleen tyyliluokittelu."
 
 #: ../src/gnome-cmd-tags.c:71
 msgid "Is new"
-msgstr ""
+msgstr "Uusi"
 
 #: ../src/gnome-cmd-tags.c:71
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
-msgstr ""
+msgstr "Aseta arvoon \"1\" jos kappale on uusi käyttäjälle (oletus \"0\")"
 
 #: ../src/gnome-cmd-tags.c:72
 msgid "Last Play"
-msgstr ""
+msgstr "Viimeksi soitettu"
 
 #: ../src/gnome-cmd-tags.c:72
 msgid "When track was last played."
-msgstr ""
+msgstr "Milloin kappale soitettiin viimeksi."
 
 #: ../src/gnome-cmd-tags.c:73
 msgid "Lyrics"
-msgstr ""
+msgstr "Sanoitukset"
 
 #: ../src/gnome-cmd-tags.c:73
 msgid "Lyrics of the track."
-msgstr ""
+msgstr "Kappaleen sanoitukset."
 
 #: ../src/gnome-cmd-tags.c:74
 msgid "MB album artist id"
-msgstr ""
+msgstr "MB levy-esittäjätunniste"
 
 #: ../src/gnome-cmd-tags.c:74
 msgid "MusicBrainz album artist ID in UUID format."
-msgstr ""
+msgstr "MusicBrainzin levy- ja esittäjätunniste UUID-muodossa."
 
 #: ../src/gnome-cmd-tags.c:75
 msgid "MB Album ID"
-msgstr ""
+msgstr "MB levytunniste"
 
 #: ../src/gnome-cmd-tags.c:75
 msgid "MusicBrainz album ID in UUID format."
-msgstr ""
+msgstr "MusicBrainzin levytunniste UUID-muodossa."
 
 #: ../src/gnome-cmd-tags.c:76
 msgid "MB Artist ID"
-msgstr ""
+msgstr "MB esittäjätunniste"
 
 #: ../src/gnome-cmd-tags.c:76
 msgid "MusicBrainz artist ID in UUID format."
-msgstr ""
+msgstr "MusicBrainzin esittäjätunniste UUID-muodossa."
 
 #: ../src/gnome-cmd-tags.c:77
 msgid "MB Track ID"
-msgstr ""
+msgstr "MB kappaletunniste"
 
 #: ../src/gnome-cmd-tags.c:77
 msgid "MusicBrainz track ID in UUID format."
-msgstr ""
+msgstr "MusicBrainzin kappaletunniste UUID-muodossa."
 
 #: ../src/gnome-cmd-tags.c:78
 msgid "Performer"
-msgstr ""
+msgstr "Esittäjä"
 
 #: ../src/gnome-cmd-tags.c:78
 msgid "Name of the performer/conductor of the music."
-msgstr ""
+msgstr "Musiikin esittäjän tai kapellimestarin nimi."
 
 #: ../src/gnome-cmd-tags.c:79
 msgid "Play Count"
-msgstr ""
+msgstr "Soittokerrat"
 
 #: ../src/gnome-cmd-tags.c:79
 msgid "Number of times the track has been played."
-msgstr ""
+msgstr "Kuinka monta kertaa kappale on soitettu."
 
 #: ../src/gnome-cmd-tags.c:80 ../src/gnome-cmd-tags.c:1022
 msgid "Release Date"
-msgstr ""
+msgstr "Julkaisupäivä"
 
 #: ../src/gnome-cmd-tags.c:80
 msgid "Date track was released."
-msgstr ""
+msgstr "Kappaleen julkaisupäivä."
 
 #: ../src/gnome-cmd-tags.c:81
 msgid "Sample Rate"
-msgstr ""
+msgstr "Näytteenottotaajuus"
 
 #: ../src/gnome-cmd-tags.c:81
 msgid "Sample rate in Hz."
-msgstr ""
+msgstr "Näytteenottotaajuus hertzeinä."
 
 #: ../src/gnome-cmd-tags.c:82 ../src/gnome-cmd-tags.c:92
 #: ../src/gnome-cmd-tags.c:709
 msgid "Title"
-msgstr ""
+msgstr "Nimi"
 
 #: ../src/gnome-cmd-tags.c:82
 msgid "Title of the track."
-msgstr ""
+msgstr "Kappaleen nimi."
 
 #: ../src/gnome-cmd-tags.c:83
 msgid "Track Gain"
-msgstr ""
+msgstr "Kappalen taso"
 
 #: ../src/gnome-cmd-tags.c:83
 msgid "Gain adjustment of the track."
-msgstr ""
+msgstr "Kappaleen voimakkuustaso."
 
 #: ../src/gnome-cmd-tags.c:84
 msgid "Track Number"
-msgstr ""
+msgstr "Kappalenumero"
 
 #: ../src/gnome-cmd-tags.c:84
 msgid "Position of track on the album."
-msgstr ""
+msgstr "Kappaleen numero levyllä."
 
 #: ../src/gnome-cmd-tags.c:85
 msgid "Track Peak Gain"
-msgstr ""
+msgstr "Kappaleen piikkitaso"
 
 #: ../src/gnome-cmd-tags.c:85
 msgid "Peak gain adjustment of track."
-msgstr ""
+msgstr "Kappaleen voimakkuustason piikki."
 
 #: ../src/gnome-cmd-tags.c:86
 msgid "Author"
-msgstr ""
+msgstr "Kirjoittaja"
 
 #: ../src/gnome-cmd-tags.c:86 ../src/gnome-cmd-tags.c:695
 msgid "Name of the author."
-msgstr ""
+msgstr "Kirjoittajan nimi."
 
 #: ../src/gnome-cmd-tags.c:87 ../src/gnome-cmd-tags.c:693
 msgid "Comments"
-msgstr ""
+msgstr "Kommentit"
 
 #: ../src/gnome-cmd-tags.c:87 ../src/gnome-cmd-tags.c:693
 msgid "User definable free text."
-msgstr ""
+msgstr "Käyttäjän määrittelemä vapaa kommentti."
 
 #: ../src/gnome-cmd-tags.c:88
 msgid "Created"
-msgstr ""
+msgstr "Luotu"
 
 #: ../src/gnome-cmd-tags.c:88
 msgid "Datetime document was originally."
-msgstr ""
+msgstr "Asiakirjan alkuperäinen luontipäivä."
 
 #: ../src/gnome-cmd-tags.c:89 ../src/gnome-cmd-tags.c:679
 #: ../src/gnome-cmd-tags.c:705 ../src/gnome-cmd-tags.c:907
 msgid "Keywords"
-msgstr ""
+msgstr "Avainsanat"
 
 #: ../src/gnome-cmd-tags.c:89 ../src/gnome-cmd-tags.c:705
 msgid "String of keywords."
-msgstr ""
+msgstr "Merkkijono avainsanoja."
 
 #: ../src/gnome-cmd-tags.c:90
 msgid "Page Count"
-msgstr ""
+msgstr "Sivumäärä"
 
 #: ../src/gnome-cmd-tags.c:90
 msgid "Number of pages in document."
-msgstr ""
+msgstr "Asiakirjan sivujen lukumäärä."
 
 #: ../src/gnome-cmd-tags.c:91
 msgid "Subject"
-msgstr ""
+msgstr "Aihe"
 
 #: ../src/gnome-cmd-tags.c:91
 msgid "Document subject."
-msgstr ""
+msgstr "Asiakirjan aihe."
 
 #: ../src/gnome-cmd-tags.c:92
 msgid "Title of the document."
-msgstr ""
+msgstr "Asiakirjan otsikko."
 
 #: ../src/gnome-cmd-tags.c:93
 msgid "Word Count"
-msgstr ""
+msgstr "Sanojen lukumäärä"
 
 #: ../src/gnome-cmd-tags.c:93
 msgid "Total number of chars in document."
-msgstr ""
+msgstr "Kuinka monta sanaa asiakirjassa on."
 
 #: ../src/gnome-cmd-tags.c:94
 msgid "Aperture"
@@ -2264,11 +2279,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:104
 msgid "Battery Level"
-msgstr ""
+msgstr "Akun taso"
 
 #: ../src/gnome-cmd-tags.c:109
 msgid "Bits per Sample"
-msgstr ""
+msgstr "Bittejä näytteessä"
 
 #: ../src/gnome-cmd-tags.c:109
 msgid ""
@@ -2279,7 +2294,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:114
 msgid "Brightness"
-msgstr ""
+msgstr "Kirkkaus"
 
 #: ../src/gnome-cmd-tags.c:114
 msgid ""
@@ -2289,7 +2304,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:119 ../src/gnome-cmd-tags.c:434
 msgid "CFA Pattern"
-msgstr ""
+msgstr "CFA-malli"
 
 #: ../src/gnome-cmd-tags.c:119
 msgid ""
@@ -2303,7 +2318,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:129
 msgid "Color Space"
-msgstr ""
+msgstr "Väriavaruus"
 
 #: ../src/gnome-cmd-tags.c:129
 msgid ""
@@ -2340,7 +2355,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:144
 msgid "Compression"
-msgstr ""
+msgstr "Pakkaus"
 
 #: ../src/gnome-cmd-tags.c:144
 msgid ""
@@ -2351,7 +2366,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:149
 msgid "Contrast"
-msgstr ""
+msgstr "Kontrasti"
 
 #: ../src/gnome-cmd-tags.c:149
 msgid ""
@@ -2361,7 +2376,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:154 ../src/gnome-cmd-tags.c:694
 msgid "Copyright"
-msgstr ""
+msgstr "Tekijänoikeudet"
 
 #: ../src/gnome-cmd-tags.c:154
 msgid ""
@@ -2384,7 +2399,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:159
 msgid "Custom Rendered"
-msgstr ""
+msgstr "Oma piirto"
 
 #: ../src/gnome-cmd-tags.c:159
 msgid ""
@@ -2395,23 +2410,23 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:164
 msgid "Date and Time"
-msgstr ""
+msgstr "Päiväys ja aika"
 
 #: ../src/gnome-cmd-tags.c:164
 msgid "The date and time of image creation."
-msgstr ""
+msgstr "Kuvan luontipäivä ja aika."
 
 #: ../src/gnome-cmd-tags.c:169
 msgid "Date and Time (digitized)"
-msgstr ""
+msgstr "Päivä ja aika (digitalisoitu)"
 
 #: ../src/gnome-cmd-tags.c:169
 msgid "The date and time when the image was stored as digital data."
-msgstr ""
+msgstr "Kuvan digaaliseen muotoon siirron päivä ja aika."
 
 #: ../src/gnome-cmd-tags.c:174
 msgid "Date and Time (original)"
-msgstr ""
+msgstr "Päivä ja aika (alkuperäinen)"
 
 #: ../src/gnome-cmd-tags.c:174
 msgid ""
@@ -2441,11 +2456,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:189
 msgid "Document Name"
-msgstr ""
+msgstr "Asiakirjan nimi"
 
 #: ../src/gnome-cmd-tags.c:194
 msgid "Exif IFD Pointer"
-msgstr ""
+msgstr "Exif IFD -osoitin"
 
 #: ../src/gnome-cmd-tags.c:194
 msgid ""
@@ -2455,7 +2470,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:199
 msgid "Exif Version"
-msgstr ""
+msgstr "Exif-versio"
 
 #: ../src/gnome-cmd-tags.c:199
 msgid ""
@@ -2514,7 +2529,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:229
 msgid "File Source"
-msgstr ""
+msgstr "Tiedoston lähde"
 
 #: ../src/gnome-cmd-tags.c:229
 msgid ""
@@ -2524,11 +2539,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:234
 msgid "Fill Order"
-msgstr ""
+msgstr "Täyttöjärjestys"
 
 #: ../src/gnome-cmd-tags.c:239 ../src/gnome-cmd-tags.c:700
 msgid "Flash"
-msgstr ""
+msgstr "Salama"
 
 #: ../src/gnome-cmd-tags.c:239
 msgid ""
@@ -2537,7 +2552,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:244
 msgid "Flash Energy"
-msgstr ""
+msgstr "Salaman energia"
 
 #: ../src/gnome-cmd-tags.c:244
 msgid ""
@@ -2555,11 +2570,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:254
 msgid "F Number"
-msgstr ""
+msgstr "F-arvo"
 
 #: ../src/gnome-cmd-tags.c:254
 msgid "The F number."
-msgstr ""
+msgstr "F-arvo."
 
 #: ../src/gnome-cmd-tags.c:259 ../src/gnome-cmd-tags.c:702
 msgid "Focal Length"
@@ -2614,7 +2629,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:284
 msgid "Gain Control"
-msgstr ""
+msgstr "Tasonsäätö"
 
 #: ../src/gnome-cmd-tags.c:284
 msgid "This tag indicates the degree of overall image gain adjustment."
@@ -2663,7 +2678,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:309
 msgid "Latitude"
-msgstr ""
+msgstr "Leveyspiiri"
 
 #: ../src/gnome-cmd-tags.c:309
 msgid ""
@@ -2686,7 +2701,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:319
 msgid "Longitude"
-msgstr ""
+msgstr "Pituuspiiri"
 
 #: ../src/gnome-cmd-tags.c:319
 msgid ""
@@ -2709,7 +2724,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:329
 msgid "GPS tag version"
-msgstr ""
+msgstr "GPS-tagin versio"
 
 #: ../src/gnome-cmd-tags.c:329
 msgid ""
@@ -2719,7 +2734,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:334
 msgid "Image Description"
-msgstr ""
+msgstr "Kuvan kuvaus"
 
 #: ../src/gnome-cmd-tags.c:334
 msgid ""
@@ -2744,7 +2759,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:349
 msgid "Image Unique ID"
-msgstr ""
+msgstr "Kuvan yksilöllinen tunniste"
 
 #: ../src/gnome-cmd-tags.c:349
 msgid ""
@@ -2755,7 +2770,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:354
 msgid "Image Width"
-msgstr ""
+msgstr "Kuvan leveys"
 
 #: ../src/gnome-cmd-tags.c:354
 msgid ""
@@ -2796,11 +2811,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:379
 msgid "IPTC/NAA"
-msgstr ""
+msgstr "IPTC/NAA"
 
 #: ../src/gnome-cmd-tags.c:384
 msgid "ISO Speed Ratings"
-msgstr ""
+msgstr "ISO-nopeusarvot"
 
 #: ../src/gnome-cmd-tags.c:384
 msgid ""
@@ -2810,7 +2825,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:389
 msgid "JPEG Interchange Format"
-msgstr ""
+msgstr "JPEG-muoto"
 
 #: ../src/gnome-cmd-tags.c:389
 msgid ""
@@ -2820,7 +2835,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:394
 msgid "JPEG Interchange Format Length"
-msgstr ""
+msgstr "JPEG-muodon pituus"
 
 #: ../src/gnome-cmd-tags.c:394
 msgid ""
@@ -2837,15 +2852,15 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:404
 msgid "Light Source"
-msgstr ""
+msgstr "Valonlähde"
 
 #: ../src/gnome-cmd-tags.c:404
 msgid "The kind of light source."
-msgstr ""
+msgstr "Valonlähteen tyyppi."
 
 #: ../src/gnome-cmd-tags.c:409
 msgid "Manufacturer"
-msgstr ""
+msgstr "Valmistaja"
 
 #: ../src/gnome-cmd-tags.c:409
 msgid ""
@@ -2884,7 +2899,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:429
 msgid "Model"
-msgstr ""
+msgstr "Malli"
 
 #: ../src/gnome-cmd-tags.c:429
 msgid ""
@@ -2910,7 +2925,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:444
 msgid "OECF"
-msgstr ""
+msgstr "OECF"
 
 #: ../src/gnome-cmd-tags.c:444
 msgid ""
@@ -2921,11 +2936,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:449 ../src/gnome-cmd-tags.c:707
 msgid "Orientation"
-msgstr ""
+msgstr "Suunta"
 
 #: ../src/gnome-cmd-tags.c:449
 msgid "The image orientation viewed in terms of rows and columns."
-msgstr ""
+msgstr "Kuvan suunta esitettynä riveinä ja sarakkeina."
 
 #: ../src/gnome-cmd-tags.c:454
 msgid "Photometric Interpretation"
@@ -3003,15 +3018,15 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:489
 msgid "Related Image Length"
-msgstr ""
+msgstr "Liittyvä kuvan pituus"
 
 #: ../src/gnome-cmd-tags.c:494
 msgid "Related Image Width"
-msgstr ""
+msgstr "Liittyvä kuvan leveys"
 
 #: ../src/gnome-cmd-tags.c:499
 msgid "Related Sound File"
-msgstr ""
+msgstr "Liittyvä äänitiedosto"
 
 #: ../src/gnome-cmd-tags.c:499
 msgid ""
@@ -3109,7 +3124,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:539
 msgid "Sharpness"
-msgstr ""
+msgstr "Terävyys"
 
 #: ../src/gnome-cmd-tags.c:539
 msgid ""
@@ -3129,7 +3144,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:549 ../src/gnome-cmd-tags.c:708
 msgid "Software"
-msgstr ""
+msgstr "Ohjelmisto"
 
 #: ../src/gnome-cmd-tags.c:549
 msgid ""
@@ -3274,7 +3289,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:629
 msgid "User Comment"
-msgstr ""
+msgstr "Käyttäjän kommentti"
 
 #: ../src/gnome-cmd-tags.c:629
 msgid ""
@@ -3299,7 +3314,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:634 ../src/gnome-cmd-tags.c:710
 msgid "White Balance"
-msgstr ""
+msgstr "Valkotasapaino"
 
 #: ../src/gnome-cmd-tags.c:634
 msgid "The white balance mode set when the image was shot."
@@ -3317,15 +3332,15 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:644
 msgid "XML Packet"
-msgstr ""
+msgstr "XML-paketti"
 
 #: ../src/gnome-cmd-tags.c:644
 msgid "XMP Metadata."
-msgstr ""
+msgstr "XMP-metatietoja."
 
 #: ../src/gnome-cmd-tags.c:649
 msgid "x Resolution"
-msgstr ""
+msgstr "x-tarkkuus"
 
 #: ../src/gnome-cmd-tags.c:649
 msgid ""
@@ -3395,15 +3410,15 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:675
 msgid "Content"
-msgstr ""
+msgstr "Sisältö"
 
 #: ../src/gnome-cmd-tags.c:675
 msgid "File's contents filtered as plain text."
-msgstr ""
+msgstr "Tiedoston sisältö suodatettuna selväkieliseksi tekstiksi."
 
 #: ../src/gnome-cmd-tags.c:676 ../src/gnome-cmd-tags.c:697
 msgid "Description"
-msgstr ""
+msgstr "Kuvaus"
 
 #: ../src/gnome-cmd-tags.c:676
 msgid "Editable free text/notes."
@@ -3416,7 +3431,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:678
 msgid "Icon Path"
-msgstr ""
+msgstr "Kuvakkeen polku"
 
 #: ../src/gnome-cmd-tags.c:678
 msgid "Editable file URI for a custom icon for the file."
@@ -3437,19 +3452,19 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:681
 msgid "Link"
-msgstr ""
+msgstr "Linkki"
 
 #: ../src/gnome-cmd-tags.c:681
 msgid "URI of link target."
-msgstr ""
+msgstr "Linkin kohteen URI."
 
 #: ../src/gnome-cmd-tags.c:682
 msgid "Modified"
-msgstr ""
+msgstr "Muokattu"
 
 #: ../src/gnome-cmd-tags.c:682
 msgid "Last modified datetime."
-msgstr ""
+msgstr "Milloin viimeksi muokattu."
 
 #: ../src/gnome-cmd-tags.c:683
 msgid "File name excluding path but including the file extension."
@@ -3457,7 +3472,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:684
 msgid "Path"
-msgstr ""
+msgstr "Polku"
 
 #: ../src/gnome-cmd-tags.c:684
 msgid "Full file path of file excluding the filename."
@@ -3469,7 +3484,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:686
 msgid "Publisher"
-msgstr ""
+msgstr "Julkaisija"
 
 #: ../src/gnome-cmd-tags.c:686
 msgid ""
@@ -3489,7 +3504,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:688
 msgid "Size"
-msgstr ""
+msgstr "Koko"
 
 #: ../src/gnome-cmd-tags.c:688
 msgid ""
@@ -3498,7 +3513,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:689
 msgid "Small Thumbnail Path"
-msgstr ""
+msgstr "Pienen pienoiskuvan polku"
 
 #: ../src/gnome-cmd-tags.c:689
 msgid ""
@@ -3512,7 +3527,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:691
 msgid "Camera Make"
-msgstr ""
+msgstr "Kameran valmistaja"
 
 #: ../src/gnome-cmd-tags.c:691
 msgid "Make of camera used to take the image."
@@ -3520,7 +3535,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:692
 msgid "Camera Model"
-msgstr ""
+msgstr "Kameran malli"
 
 #: ../src/gnome-cmd-tags.c:692
 msgid "Model of camera used to take the image."
@@ -3540,7 +3555,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:697
 msgid "Description of the image."
-msgstr ""
+msgstr "Kuvan kuvaus."
 
 #: ../src/gnome-cmd-tags.c:698
 msgid ""
@@ -3571,15 +3586,15 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:703
 msgid "Height"
-msgstr ""
+msgstr "Korkeus"
 
 #: ../src/gnome-cmd-tags.c:703
 msgid "Height in pixels."
-msgstr ""
+msgstr "Korkeus pikseleinä."
 
 #: ../src/gnome-cmd-tags.c:704
 msgid "ISO Speed"
-msgstr ""
+msgstr "ISO-nopeus"
 
 #: ../src/gnome-cmd-tags.c:704
 msgid ""
@@ -3615,11 +3630,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:711
 msgid "Width"
-msgstr ""
+msgstr "Leveys"
 
 #: ../src/gnome-cmd-tags.c:711
 msgid "Width in pixels."
-msgstr ""
+msgstr "Leveys pikseleinä."
 
 #: ../src/gnome-cmd-tags.c:712
 msgid "Action Advised"
@@ -3649,7 +3664,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:727
 msgid "Audio Duration"
-msgstr ""
+msgstr "Äänen kesto"
 
 #: ../src/gnome-cmd-tags.c:727
 msgid "The running time of the audio data in the form HHMMSS."
@@ -3665,7 +3680,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:737
 msgid "Audio Sampling Rate"
-msgstr ""
+msgstr "Äänen näytteistysnopeus"
 
 #: ../src/gnome-cmd-tags.c:737
 msgid "The sampling rate in Hz of the audio data."
@@ -3681,7 +3696,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:747
 msgid "Audio Type"
-msgstr ""
+msgstr "Äänen tyyppi"
 
 #: ../src/gnome-cmd-tags.c:747
 msgid ""
@@ -3716,7 +3731,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:767
 msgid "Category"
-msgstr ""
+msgstr "Luokka"
 
 #: ../src/gnome-cmd-tags.c:767
 msgid ""
@@ -3736,23 +3751,23 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:777
 msgid "City"
-msgstr ""
+msgstr "Kaupunki"
 
 #: ../src/gnome-cmd-tags.c:777
 msgid "City of object origin."
-msgstr ""
+msgstr "Kohteen lähdekaupunki."
 
 #: ../src/gnome-cmd-tags.c:782
 msgid "Confirmed Data Size"
-msgstr ""
+msgstr "Vahvistettu tiedon koko"
 
 #: ../src/gnome-cmd-tags.c:782
 msgid "Total size of the object data."
-msgstr ""
+msgstr "Kohteen koko kaikkiaan."
 
 #: ../src/gnome-cmd-tags.c:787
 msgid "Contact"
-msgstr ""
+msgstr "Yhteystiedot"
 
 #: ../src/gnome-cmd-tags.c:787
 msgid ""
@@ -3782,7 +3797,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:802
 msgid "Copyright Notice"
-msgstr ""
+msgstr "Tekijänoikeudet"
 
 #: ../src/gnome-cmd-tags.c:802
 msgid "Any necessary copyright notice."
@@ -3790,7 +3805,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:807
 msgid "Country Code"
-msgstr ""
+msgstr "Maakoodi"
 
 #: ../src/gnome-cmd-tags.c:807
 msgid "The code of the country/primary location where the object was created."
@@ -3798,7 +3813,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:812
 msgid "Country Name"
-msgstr ""
+msgstr "Maan nimi"
 
 #: ../src/gnome-cmd-tags.c:812
 msgid "The name of the country/primary location where the object was created."
@@ -3815,7 +3830,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:822
 msgid "Date Created"
-msgstr ""
+msgstr "Luontipäivä"
 
 #: ../src/gnome-cmd-tags.c:822
 msgid ""
@@ -3825,7 +3840,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:827
 msgid "Date Sent"
-msgstr ""
+msgstr "Lähetyspäivä"
 
 #: ../src/gnome-cmd-tags.c:827
 msgid "The day the service sent the material."
@@ -3833,7 +3848,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:832
 msgid "Destination"
-msgstr ""
+msgstr "Kohde"
 
 #: ../src/gnome-cmd-tags.c:832
 msgid "Routing information."
@@ -3868,7 +3883,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:852
 msgid "Edit Status"
-msgstr ""
+msgstr "Muokkaustila"
 
 #: ../src/gnome-cmd-tags.c:852
 msgid "Status of the object, according to the practice of the provider."
@@ -3895,7 +3910,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:867
 msgid "Expiration Date"
-msgstr ""
+msgstr "Vanhenemispäivä"
 
 #: ../src/gnome-cmd-tags.c:867
 msgid "Designates the latest date the provider intends the object to be used."
@@ -3903,7 +3918,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:872
 msgid "Expiration Time"
-msgstr ""
+msgstr "Vanhenemisaika"
 
 #: ../src/gnome-cmd-tags.c:872
 msgid "Designates the latest time the provider intends the object to be used."
@@ -3911,7 +3926,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:877
 msgid "File Format"
-msgstr ""
+msgstr "Tiedostomuoto"
 
 #: ../src/gnome-cmd-tags.c:877
 msgid "File format of the data described by this metadata."
@@ -3919,11 +3934,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:882
 msgid "File Version"
-msgstr ""
+msgstr "Tiedoston versio"
 
 #: ../src/gnome-cmd-tags.c:882
 msgid "Version of the file format."
-msgstr ""
+msgstr "Tiedostomuodon versio."
 
 #: ../src/gnome-cmd-tags.c:887
 msgid "Fixture Identifier"
@@ -3945,7 +3960,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:897
 msgid "Image Orientation"
-msgstr ""
+msgstr "Kuvan suunta"
 
 #: ../src/gnome-cmd-tags.c:897
 msgid ""
@@ -3955,7 +3970,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:902
 msgid "Image Type"
-msgstr ""
+msgstr "Kuvan tyyppi"
 
 #: ../src/gnome-cmd-tags.c:902
 msgid "Indicates the data format of the image object."
@@ -3969,7 +3984,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:912
 msgid "Language Identifier"
-msgstr ""
+msgstr "Kielitunniste"
 
 #: ../src/gnome-cmd-tags.c:912
 msgid ""
@@ -3997,7 +4012,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:927
 msgid "Model Version"
-msgstr ""
+msgstr "Mallin versio"
 
 #: ../src/gnome-cmd-tags.c:927
 msgid "Version of IIM part 1."
@@ -4089,7 +4104,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:982
 msgid "Product ID"
-msgstr ""
+msgstr "Tuotteen tunniste"
 
 #: ../src/gnome-cmd-tags.c:982
 msgid "Allows a provider to identify subsets of its overall service."
@@ -4097,7 +4112,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:987
 msgid "Program Version"
-msgstr ""
+msgstr "Ohjelman versio"
 
 #: ../src/gnome-cmd-tags.c:987
 msgid "The version of the originating program."
@@ -4105,7 +4120,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:992 ../src/gnome-cmd-tags.c:1052
 msgid "Province, State"
-msgstr ""
+msgstr "Osavaltio tai lääni"
 
 #: ../src/gnome-cmd-tags.c:992 ../src/gnome-cmd-tags.c:1052
 msgid "The Province/State where the object originates."
@@ -4131,7 +4146,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1007
 msgid "Reference Date"
-msgstr ""
+msgstr "Viitepäivä"
 
 #: ../src/gnome-cmd-tags.c:1007
 msgid "The date of a prior envelope to which the current object refers."
@@ -4163,7 +4178,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1027
 msgid "Release Time"
-msgstr ""
+msgstr "Julkaisupäivä"
 
 #: ../src/gnome-cmd-tags.c:1027
 msgid ""
@@ -4172,7 +4187,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1032
 msgid "Service Identifier"
-msgstr ""
+msgstr "Palvelun tunniste"
 
 #: ../src/gnome-cmd-tags.c:1032
 msgid "Identifies the provider and product."
@@ -4180,7 +4195,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1037
 msgid "Size Mode"
-msgstr ""
+msgstr "Koon tila"
 
 #: ../src/gnome-cmd-tags.c:1037
 msgid "Set to 0 if the size of the object is known and 1 if not known."
@@ -4188,7 +4203,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1042
 msgid "Source"
-msgstr ""
+msgstr "Lähde"
 
 #: ../src/gnome-cmd-tags.c:1042
 msgid "The original owner of the intellectual content of the object."
@@ -4241,7 +4256,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1077
 msgid "Time Created"
-msgstr ""
+msgstr "Luontiaika"
 
 #: ../src/gnome-cmd-tags.c:1077
 msgid ""
@@ -4252,7 +4267,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1082
 msgid "Time Sent"
-msgstr ""
+msgstr "Lähetysaika"
 
 #: ../src/gnome-cmd-tags.c:1082
 msgid "The time the service sent the material."
@@ -4290,19 +4305,19 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1202
 msgid "Audio"
-msgstr ""
+msgstr "Ääni"
 
 #: ../src/gnome-cmd-tags.c:1208
 msgid "Doc"
-msgstr ""
+msgstr "Asiakirja"
 
 #: ../src/gnome-cmd-tags.c:1214 ../src/plugin_manager.c:426
 msgid "File"
-msgstr ""
+msgstr "Tiedosto"
 
 #: ../src/gnome-cmd-tags.c:1223
 msgid "Image"
-msgstr ""
+msgstr "Kuva"
 
 #: ../src/gnome-cmd-tags-libs.c:45
 msgid "<Exif tags not supported>"
@@ -4326,11 +4341,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer.c:177
 msgid "Replace"
-msgstr ""
+msgstr "Korvaa"
 
 #: ../src/gnome-cmd-xfer.c:177
 msgid "Replace All"
-msgstr ""
+msgstr "Korvaa kaikki"
 
 #: ../src/gnome-cmd-xfer.c:191
 #, c-format
@@ -4342,16 +4357,16 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer.c:196
 msgid "Xfer problem"
-msgstr ""
+msgstr "Siirto-ongelma"
 
 #: ../src/gnome-cmd-xfer.c:234
 msgid "copying..."
-msgstr ""
+msgstr "kopioidaan..."
 
 #: ../src/gnome-cmd-xfer.c:242
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
-msgstr ""
+msgstr "[tiedosto %ld / %ld] \"%s\""
 
 #: ../src/gnome-cmd-xfer.c:392
 msgid ""
@@ -4361,29 +4376,30 @@ msgstr ""
 
 #: ../src/gnome-cmd-xfer.c:439
 msgid "preparing..."
-msgstr ""
+msgstr "valmistellaan..."
 
 #: ../src/gnome-cmd-xfer.c:534
 msgid "downloading to /tmp"
-msgstr ""
+msgstr "noudetaan /tmp-kansioon"
 
 #: ../src/gnome-cmd-xfer-progress-win.c:38
 msgid "stopping..."
-msgstr ""
+msgstr "pysäytetään..."
+
 
 #: ../src/gnome-cmd-xfer-progress-win.c:86
 msgid "Progress"
-msgstr ""
+msgstr "Edistyminen"
 
 #: ../src/gnome-cmd-xfer-progress-win.c:169
 #, c-format
 msgid "%d%% of %s copied"
-msgstr ""
+msgstr "%d%% / %s kopioitu"
 
 #: ../src/gnome-cmd-xfer-progress-win.c:174
 #, c-format
 msgid "%d%% copied"
-msgstr ""
+msgstr "%d%% kopioitu"
 
 #: ../src/imageloader.c:127
 msgid ""
@@ -4408,40 +4424,40 @@ msgstr ""
 
 #: ../src/libgviewer/search-dlg.c:322
 msgid "Find"
-msgstr ""
+msgstr "Etsi"
 
 #. Search mode radio buttons
 #: ../src/libgviewer/search-dlg.c:352 ../src/libgviewer/viewer-window.c:815
 #: ../src/libgviewer/viewer-window.c:1056
 msgid "_Text"
-msgstr ""
+msgstr "_Teksti"
 
 #: ../src/libgviewer/search-dlg.c:354
 msgid "_Hex"
-msgstr ""
+msgstr "_Hex"
 
 #. Case-Sensitive Checkbox
 #: ../src/libgviewer/search-dlg.c:363
 msgid "_Match case"
-msgstr ""
+msgstr "_Täsmää kirjainkoko"
 
 #: ../src/libgviewer/search-progress-dlg.c:76
 msgid "Searching..."
-msgstr ""
+msgstr "Etsitään..."
 
 #: ../src/libgviewer/search-progress-dlg.c:197
 #, c-format
 msgid "Searching for \"%s\""
-msgstr ""
+msgstr "Etsitään \"%s\""
 
 #: ../src/libgviewer/viewer-widget.c:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
-msgstr ""
+msgstr "Sijainti: %lu / %lu\tSarake: %d\t%s"
 
 #: ../src/libgviewer/viewer-widget.c:210
 msgid "Wrap"
-msgstr ""
+msgstr "Rivitä"
 
 #: ../src/libgviewer/viewer-widget.c:230
 #, c-format
@@ -4458,52 +4474,52 @@ msgstr ""
 
 #: ../src/libgviewer/viewer-window.c:806
 msgid "_Close"
-msgstr ""
+msgstr "_Sulje"
 
 #: ../src/libgviewer/viewer-window.c:819
 msgid "_Binary"
-msgstr ""
+msgstr "_Binääri"
 
 #: ../src/libgviewer/viewer-window.c:823
 msgid "_Hex dump"
-msgstr ""
+msgstr "_Hex-dumppaus"
 
 #: ../src/libgviewer/viewer-window.c:827
 #: ../src/libgviewer/viewer-window.c:1061
 msgid "_Image"
-msgstr ""
+msgstr "_Kuva"
 
 #: ../src/libgviewer/viewer-window.c:832
 msgid "_Zoom In"
-msgstr ""
+msgstr "_Lähennä"
 
 #: ../src/libgviewer/viewer-window.c:837
 msgid "Zoom _Out"
-msgstr ""
+msgstr "L_oitonna"
 
 #: ../src/libgviewer/viewer-window.c:842
 msgid "_Normal Size"
-msgstr ""
+msgstr "_Normaalikoko"
 
 #: ../src/libgviewer/viewer-window.c:847
 msgid "Best _Fit"
-msgstr ""
+msgstr "Paras _sovitus"
 
 #: ../src/libgviewer/viewer-window.c:861
 msgid "_Copy Text Selection"
-msgstr ""
+msgstr "_Kopioi tekstivalinta"
 
 #: ../src/libgviewer/viewer-window.c:866
 msgid "Find..."
-msgstr ""
+msgstr "Etsi..."
 
 #: ../src/libgviewer/viewer-window.c:871
 msgid "Find Next"
-msgstr ""
+msgstr "Etsi seuraava"
 
 #: ../src/libgviewer/viewer-window.c:876
 msgid "Find Previous"
-msgstr ""
+msgstr "Etsi edellinen"
 
 #: ../src/libgviewer/viewer-window.c:883
 msgid "_No Parsing (original file)"
@@ -4511,19 +4527,19 @@ msgstr ""
 
 #: ../src/libgviewer/viewer-window.c:888
 msgid "_HTML Parser"
-msgstr ""
+msgstr "_HTML-tulkinta"
 
 #: ../src/libgviewer/viewer-window.c:893
 msgid "_PS/PDF Parser"
-msgstr ""
+msgstr "_PS/PDF-tulkinta"
 
 #: ../src/libgviewer/viewer-window.c:900
 msgid "_Wrap lines"
-msgstr ""
+msgstr "_Rivitä rivit"
 
 #: ../src/libgviewer/viewer-window.c:906
 msgid "_Encoding"
-msgstr ""
+msgstr "_Koodaus"
 
 #: ../src/libgviewer/viewer-window.c:948
 msgid "_Show EXIF/IPTC Information"
@@ -4539,19 +4555,19 @@ msgstr ""
 
 #: ../src/libgviewer/viewer-window.c:964
 msgid "_Rotate 180°"
-msgstr ""
+msgstr "_Kierrä 180"
 
 #: ../src/libgviewer/viewer-window.c:969
 msgid "Flip _Vertical"
-msgstr ""
+msgstr "Peilaa _pystysuunnassa"
 
 #: ../src/libgviewer/viewer-window.c:974
 msgid "Flip _Horizontal"
-msgstr ""
+msgstr "Peilaa _vaakasuunnassa"
 
 #: ../src/libgviewer/viewer-window.c:984
 msgid "_Binary Mode"
-msgstr ""
+msgstr "_Binääritila"
 
 #: ../src/libgviewer/viewer-window.c:990
 msgid "_Decimal Offset in Hexdump"
@@ -4563,24 +4579,24 @@ msgstr ""
 
 #: ../src/libgviewer/viewer-window.c:1006
 msgid "_20 chars/line"
-msgstr ""
+msgstr "_20 merkkiä/rivi"
 
 #: ../src/libgviewer/viewer-window.c:1011
 msgid "_40 chars/line"
-msgstr ""
+msgstr "_40 merkkiä/rivi"
 
 #: ../src/libgviewer/viewer-window.c:1016
 msgid "_80 chars/line"
-msgstr ""
+msgstr "_80 merkkiä/rivi"
 
 #: ../src/libgviewer/viewer-window.c:1025
 msgid "Quick _Help"
-msgstr ""
+msgstr "Pikao_hje"
 
 #: ../src/libgviewer/viewer-window.c:1248
 #, c-format
 msgid "Pattern \"%s\" was not found"
-msgstr ""
+msgstr "Mallia \"%s\" ei löydy"
 
 #: ../src/main.c:53 ../src/main.c:62
 msgid "Specify debug flags to use"
@@ -4724,5 +4740,5 @@ msgstr "Kansiota \"%s\" ei voitu luoda"
 #: ../src/utils.c:1357
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
-msgstr ""
+msgstr "Kansiosta %s ei voitu lukea: %s\n"
 
