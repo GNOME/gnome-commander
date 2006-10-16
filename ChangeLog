@@ -1,4 +1,8 @@
-2006-10-10  Piotr Eljasiak  <epiotr@use.pl>
+##############################################################################
+#                                   1.2.1                                    #
+##############################################################################
+
+2006-10-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* data/gnome-commander.desktop.in.in:
 	Fixed bug #333898 (deprecated icon suffix in desktop file)
