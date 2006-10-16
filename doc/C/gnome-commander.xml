@@ -4,7 +4,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.1">
   <!ENTITY manrevision "1.2.1">
-  <!ENTITY date "September 2006">
+  <!ENTITY date "October 2006">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -417,18 +417,6 @@
       perform the following tasks:
       <itemizedlist>
         <listitem>
-          <para><xref linkend="gnome-commander-open-image"/></para>
-        </listitem>
-        <listitem>
-          <para><xref linkend="gnome-commander-manipulate-view"/></para>
-        </listitem>
-        <listitem>
-          <para><xref linkend="gnome-commander-scroll-image"/></para>
-        </listitem>
-        <listitem>
-          <para><xref linkend="gnome-commander-close-image"/></para>
-        </listitem>
-        <listitem>
           <para><xref linkend="gnome-commander-advanced-rename"/></para>
         </listitem>
         <listitem>
@@ -436,139 +424,6 @@
             </para>
         </listitem>
       </itemizedlist> </para>
-    <!-- ================ Usage Subsection ================================ -->
-    <sect2 id="gnome-commander-open-image">
-      <title>To Open an Image</title>
-      <para>To open an image, choose
-    <menuchoice>
-      <guimenu>File</guimenu>
-      <guimenuitem>Open Image</guimenuitem>
-    </menuchoice>. The
-    <guilabel>Open Image</guilabel> dialog is displayed. Select the file
-    that you want to open, then click
-    <guibutton>OK</guibutton>. To open another image in a new window,
-    choose
-    <menuchoice>
-      <guimenu>File</guimenu>
-      <guimenuitem>Create New Window</guimenuitem>
-    </menuchoice>. Choose
-    <menuchoice>
-      <guimenu>File</guimenu>
-      <guimenuitem>Open Image</guimenuitem>
-    </menuchoice>
-    to select the file that you want to open. You can also drag an image
-    from another application such as a file manager to the &app;
-    window. If the &app; window is empty, the application displays
-    the image in the window. If the window is not empty, the
-    application starts a new window to display the file. The
-    application displays the name of the image file and the size
-    of the image in pixels in the titlebar of the window. </para>
-      <para>
-    If you try to open an image file format that &app; does
-    not recognize, the application displays an error
-    message.
-      </para>
-      <caution>
-      <para>This is a caution.</para>
-      </caution>
-    </sect2>
-    <!-- ================ Usage Subsection ================================ -->
-    <sect2 id="gnome-commander-manipulate-view">
-      <title>To Manipulate the View of an Image</title>
-      <para>You can use the following methods to resize the view of an image in
-    the &app; window:</para>
-      <itemizedlist>
-    <listitem>
-      <para>To enlarge the view of an image, choose
-        <menuchoice>
-          <guimenu>View</guimenu>
-          <guimenuitem>Zoom In</guimenuitem>
-        </menuchoice>.</para>
-    </listitem>
-    <listitem>
-      <para>To shrink the view of an image, choose
-        <menuchoice>
-          <guimenu>View</guimenu>
-          <guimenuitem>Zoom Out</guimenuitem>
-        </menuchoice>.</para>
-    </listitem>
-    <listitem>
-      <para>To view the image at its actual size, choose
-        <menuchoice>
-          <guimenu>View</guimenu>
-          <guimenuitem>Zoom 1:1</guimenuitem>
-        </menuchoice>. </para>
-    </listitem>
-    <listitem>
-      <para>To enlarge or shrink the view of an image so that the image
-        fits the &app; window, choose
-        <menuchoice>
-          <guimenu>View</guimenu>
-          <guimenuitem>Fit to Window</guimenuitem>
-        </menuchoice>.</para>
-    </listitem>
-    <listitem>
-      <para>To enlarge or shrink the image to a specific zoom factor,
-        choose
-        <menuchoice>
-          <guimenu>View</guimenu>
-          <guimenuitem>Zoom factor</guimenuitem>
-        </menuchoice>, then choose the appropriate zoom factor from the
-        drop-down list.</para>
-    </listitem>
-    <listitem>
-      <para>To display the image in full screen mode, choose
-        <menuchoice>
-          <guimenu>View</guimenu>
-          <guimenuitem>Full Screen</guimenuitem>
-        </menuchoice>. Full screen mode displays the image in a window that
-        fills the full screen. The window does not contain a
-        window frame, titlebar,
-        menubar, or toolbar. To exit from this mode, press the
-        <keycap>Esc</keycap> key or
-        <keycombo>
-              <keycap>Ctrl</keycap>
-          <keycap>W</keycap>
-        </keycombo>.
-      </para>
-    </listitem>
-      </itemizedlist>
-    </sect2>
-    <!-- ================ Usage Subsection ================================ -->
-    <sect2 id="gnome-commander-scroll-image">
-      <title>To Scroll an Image</title>
-      <para>To scroll around an image that is larger than the image window or
-    full screen window, you can use the following methods:</para>
-      <itemizedlist>
-    <listitem>
-      <para>Use the arrow keys on the keyboard.</para>
-    </listitem>
-    <listitem>
-      <para>Drag the image in the opposite direction to the direction in
-        which you want to scroll. For example, if you want to
-          scroll down the image, drag the image upwards in the window.</para>
-    </listitem>
-    <listitem>
-      <para>Use the scrollbars on the window.</para>
-    </listitem>
-      </itemizedlist>
-    </sect2>
-    <!-- ================ Usage Subsection ================================ -->
-    <sect2 id="gnome-commander-close-image">
-      <title>To Close an Image</title>
-      <para>To close an image, choose
-    <menuchoice>
-      <guimenu>File</guimenu>
-      <guimenuitem>Close This Window</guimenuitem>
-    </menuchoice>. If the window is the last
-    &app; window open, the application exits. </para>
-      <para>To quit &app; and close all of the
-    windows that you opened in the current session, choose
-    <menuchoice>
-      <guimenu>File</guimenu>
-      <guimenuitem>Exit</guimenuitem>
-    </menuchoice>. </para>
-    </sect2>
     <!-- ================ Advanced Rename Subsection ======================= -->
     <sect2 id="gnome-commander-advanced-rename">
         <title>Advanced file renaming</title>
@@ -615,7 +470,9 @@
                   <guilabel>Regex replacing</guilabel>
               </term>
               <listitem>
-                  <para>...</para>
+                  <para>List of regular expression patterns. The patterns are matched in against
+                        <guilabel>Template</guilabel>. If matched, patterns are replaced
+                        with their corresponding replacements. The order of execution is top-bottom.</para>
               </listitem>
           </varlistentry>
           <varlistentry>
@@ -628,7 +485,7 @@
           </varlistentry>
           <varlistentry>
               <term>
-                  <guilabel>Options</guilabel>
+                  <guibutton>Options</guibutton>
               </term>
               <listitem>
                   <para>Additional settings for file name processing (start value, step and precision for counters).</para>
@@ -636,7 +493,7 @@
           </varlistentry>
           <varlistentry>
               <term>
-                  <guilabel>OK</guilabel>
+                  <guibutton>OK</guibutton>
               </term>
               <listitem>
                   <para>Starts to rename files. A warning message will popup in case of any name conflicts.</para>
@@ -644,7 +501,7 @@
           </varlistentry>
           <varlistentry>
               <term>
-                  <guilabel>Cancel</guilabel>
+                  <guibutton>Cancel</guibutton>
               </term>
               <listitem>
                   <para>Closes the dialog without file renaming.</para>
@@ -2363,17 +2220,17 @@
     </sect2>
     <!-- ================ Internal Viewer Subsection ======================= -->
     <sect2 id="gnome-commander-internal-viewer">
-      <title>Using the Internal Viewer</title>
-      <para>The internal viewer allows viewing contents of files in text, unicode, binary, hex or graphical mode.</para>
+        <title>Using the Internal Viewer</title>
+        <para>The internal viewer allows viewing contents of files in text, unicode, binary, hex or graphical mode.</para>
 
-      <para>To start viewing files use F3 (default viewer - defined in
-      <menuchoice>
-      <guimenu>Settings</guimenu>
-      <guimenuitem>Options...</guimenuitem>
-      </menuchoice>) or SHIFT+F3 (internal viewer). The internal viewer
-    uses MMAP whenever possible for the fastest file loading.</para>
+        <para>To start viewing files use <keycap>F3</keycap> (default viewer - defined in
+        <menuchoice>
+          <guimenu>Settings</guimenu>
+          <guimenuitem>Options...</guimenuitem>
+        </menuchoice>) or <keycap>SHIFT+F3</keycap> (internal viewer). The internal viewer
+        uses MMAP whenever possible for the fastest file loading.</para>
 
-      <sect3 id="gnome-commander-internal-viewer-modes">
+        <sect3 id="gnome-commander-internal-viewer-modes">
         <title>View Modes</title>
         <para>The
           <guilabel>View Modes</guilabel> group contains the preferences
@@ -2439,106 +2296,176 @@
             </listitem>
           </varlistentry>
         </variablelist>
-      </sect3>
-      <sect3 id="gnome-commander-internal-viewer-keyboard">
-      <title>Keyboard mappings</title>
-      <informaltable frame="topbot">
+        </sect3>
+
+        <sect3 id="gnome-commander-internal-viewer-open-image">
+            <title>Open an Image</title>
+            <para>To open an image, choose
+            <menuchoice>
+                <guimenu>File</guimenu>
+                <guimenuitem>Open Image</guimenuitem>
+            </menuchoice>. The
+            <guilabel>Open Image</guilabel> dialog is displayed. Select the file
+            that you want to open, then click <guibutton>OK</guibutton>.
+            To open another image in a new window, choose
+            <menuchoice>
+                <guimenu>File</guimenu>
+                <guimenuitem>Create New Window</guimenuitem>
+            </menuchoice>. Choose
+            <menuchoice>
+                <guimenu>File</guimenu>
+                <guimenuitem>Open Image</guimenuitem>
+            </menuchoice>
+            to select the file that you want to open. You can also drag an image
+            from another application such as a file manager to the &app;
+            window. If the &app; window is empty, the application displays
+            the image in the window. If the window is not empty, the
+            application starts a new window to display the file. The
+            application displays the name of the image file and the size
+            of the image in pixels in the titlebar of the window. </para>
+            <para>
+            If you try to open an image file format that &app; does
+            not recognize, the application displays an error message.
+            </para>
+            <caution>
+                <para>This is a caution.</para>
+            </caution>
+        </sect3>
+
+        <sect3 id="gnome-commander-internal-viewer-scroll-image">
+            <title>To Scroll an Image</title>
+            <para>To scroll around an image that is larger than the image window or
+                  full screen window, you can use the following methods:</para>
+            <itemizedlist>
+                <listitem>
+                <para>Use the arrow keys on the keyboard.</para>
+                </listitem>
+                <listitem>
+                <para>Drag the image in the opposite direction to the direction in
+                      which you want to scroll. For example, if you want to
+                      scroll down the image, drag the image upwards in the window.</para>
+                </listitem>
+                <listitem>
+                <para>Use the scrollbars on the window.</para>
+                </listitem>
+            </itemizedlist>
+        </sect3>
+
+        <sect3 id="gnome-commander-internal-viewer-close-image">
+            <title>To Close an Image</title>
+            <para>To close an image, choose
+            <menuchoice>
+                <guimenu>File</guimenu>
+                <guimenuitem>Close This Window</guimenuitem>
+            </menuchoice>. If the window is the last
+            &app; window open, the application exits. </para>
+            <para>To quit &app; and close all of the
+            windows that you opened in the current session, choose
+            <menuchoice>
+                <guimenu>File</guimenu>
+                <guimenuitem>Exit</guimenuitem>
+            </menuchoice>. </para>
+        </sect3>
+
+        <sect3 id="gnome-commander-internal-viewer-keyboard">
+        <title>Keyboard mappings</title>
+        <informaltable frame="topbot">
         <tgroup cols="2">
-            <colspec colname="col1"/>
-            <colspec colname="col2"/>
+        <colspec colname="col1"/>
+        <colspec colname="col2"/>
         <thead>
         <row valign="top">
-            <entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
-            <entry colname="col2" valign="top"><para>Mapping</para></entry>
+        <entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
+        <entry colname="col2" valign="top"><para>Mapping</para></entry>
         </row>
         </thead>
         <tbody>
         <row valign="top">
-            <entry><para>Escape</para><para>CTRL+W</para></entry>
-            <entry><para>Closes the internal viewer window</para></entry>
+        <entry><para>Escape</para><para>CTRL+W</para></entry>
+        <entry><para>Closes the internal viewer window</para></entry>
         </row>
         <row valign="top">
-            <entry><para>W</para></entry>
-            <entry><para>Toggles line wrapping (applicable only in text display modes)</para></entry>
+        <entry><para>W</para></entry>
+        <entry><para>Toggles line wrapping (applicable only in text display modes)</para></entry>
         </row>
         <row valign="top">
-            <entry><para>Input Modes:</para></entry>
+        <entry><para>Input Modes:</para></entry>
         </row>
         <row valign="top">
-            <entry><para>A</para></entry>
-            <entry><para>Sets ASCII input mode. When in ASCII mode, you can also set the required character encoding
-            from the "View|Character Encoding" submenu</para></entry>
+        <entry><para>A</para></entry>
+        <entry><para>Sets ASCII input mode. When in ASCII mode, you can also set the required character encoding
+        from the "View|Character Encoding" submenu</para></entry>
         </row>
         <row valign="top">
-            <entry><para>Q</para></entry>
-            <entry><para>Sets ASCII input mode, with codepage 437 encoding (suitable for binary and hex mode viewing)</para></entry>
+        <entry><para>Q</para></entry>
+        <entry><para>Sets ASCII input mode, with codepage 437 encoding (suitable for binary and hex mode viewing)</para></entry>
         </row>
         <row valign="top">
-            <entry><para>U</para></entry>
-            <entry><para>Sets UTF-8 input mode</para></entry>
+        <entry><para>U</para></entry>
+        <entry><para>Sets UTF-8 input mode</para></entry>
         </row>
         <row valign="top">
-            <entry><para>Display modes:</para></entry>
+        <entry><para>Display modes:</para></entry>
         </row>
         <row valign="top">
-            <entry><para>1</para></entry>
-            <entry><para>Sets display mode to text, with fixed width font</para></entry>
+        <entry><para>1</para></entry>
+        <entry><para>Sets display mode to text, with fixed width font</para></entry>
         </row>
         <row valign="top">
-            <entry><para>2</para></entry>
-            <entry><para>Sets display mode to binary. Switching to Binary display mode
-            will automatically set ASCII input mode (UTF-8 is not supported with binary display)</para></entry>
+        <entry><para>2</para></entry>
+        <entry><para>Sets display mode to binary. Switching to Binary display mode
+        will automatically set ASCII input mode (UTF-8 is not supported with binary display)</para></entry>
         </row>
         <row valign="top">
-            <entry><para>3</para></entry>
-            <entry><para>Sets display mode to hex dump. Switching to hex display mode
-            will automatically set ASCII input mode (UTF-8 is not supported with hex dump display)</para></entry>
+        <entry><para>3</para></entry>
+        <entry><para>Sets display mode to hex dump. Switching to hex display mode
+        will automatically set ASCII input mode (UTF-8 is not supported with hex dump display)</para></entry>
         </row>
         <row valign="top">
-            <entry><para>4</para></entry>
-            <entry><para>Tries to load the file as an image. Loading is done using GDK,
-            so every GDK-supported format should work.</para></entry>
+        <entry><para>4</para></entry>
+        <entry><para>Tries to load the file as an image. Loading is done using GDK,
+        so every GDK-supported format should work.</para></entry>
         </row>
         <row valign="top">
-            <entry><para>Zooming:</para></entry>
+        <entry><para>Zooming:</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL++</para></entry>
-            <entry><para>Zooms in or increment the font size</para></entry>
+        <entry><para>CTRL++</para></entry>
+        <entry><para>Zooms in or increment the font size</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+-</para></entry>
-            <entry><para>Zooms out or decrement the font size</para></entry>
+        <entry><para>CTRL+-</para></entry>
+        <entry><para>Zooms out or decrement the font size</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+0</para></entry>
-            <entry><para>Sets normal size</para></entry>
+        <entry><para>CTRL+0</para></entry>
+        <entry><para>Sets normal size</para></entry>
         </row>
         <row valign="top">
-            <entry><para>Image manipulation:</para></entry>
+        <entry><para>Image manipulation:</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+R</para></entry>
-            <entry><para>Rotates the image 90&deg; (applicable only in IMAGE display mode)</para></entry>
+        <entry><para>CTRL+R</para></entry>
+        <entry><para>Rotates the image 90&deg; (applicable only in IMAGE display mode)</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+SHIFT+R</para></entry>
-            <entry><para>Rotates the image 270&deg; (applicable only in IMAGE display mode)</para></entry>
+        <entry><para>CTRL+SHIFT+R</para></entry>
+        <entry><para>Rotates the image 270&deg; (applicable only in IMAGE display mode)</para></entry>
         </row>
         <row valign="top">
-            <entry><para>Image manipulation:</para></entry>
+        <entry><para>Image manipulation:</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+S</para></entry>
-            <entry>
-                <para>Saves the current window size, input mode, and other settings as the default.</para>
-                <note><para>Starting display mode is determined by the file's content, and is not saved as a user setting.</para></note>
-            </entry>
+        <entry><para>CTRL+S</para></entry>
+        <entry>
+            <para>Saves the current window size, input mode, and other settings as the default.</para>
+            <note><para>Starting display mode is determined by the file's content, and is not saved as a user setting.</para></note>
+        </entry>
         </row>
         </tbody>
         </tgroup>
         </informaltable>
-      </sect3>
+        </sect3>
     </sect2>
   </sect1>
 
@@ -3496,7 +3423,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.1</para></entry>
-            <entry><para>2006-10-??</para></entry>
+            <entry><para>2006-10-16</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -3549,7 +3476,7 @@
                             <para>Updated help docs</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: ca, cs, de, el, en_GB, es, eu, hu, it, ne, ru, sv, vi</para>
+                            <para>New or updated translations: ca, cs, de, el, en_GB, es, eu, fi, hu, it, ne, ru, sv, vi</para>
                         </listitem>
                         <listitem>
                             <para>New key bindings:</para>
