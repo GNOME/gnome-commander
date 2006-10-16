@@ -3438,6 +3438,9 @@
                             <para>Fixed problem with refreshing after chown or chmod</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #333898 (deprecated icon suffix in desktop file)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #347561 (plugin directory set incorrectly)</para>
                         </listitem>
                         <listitem>

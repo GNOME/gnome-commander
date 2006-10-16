@@ -1,3 +1,8 @@
+2006-10-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* data/gnome-commander.desktop.in.in:
+	Fixed bug #333898 (deprecated icon suffix in desktop file)
+
 2006-10-15  Ilkka Tuohela  <hile@iki.fi>
 
 	* configure.in: Added fi to ALL_LINGUAS
