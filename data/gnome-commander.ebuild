@@ -1,22 +1,21 @@
 # Copyright 1999-2004 Gentoo Technologies, Inc.
 # Distributed under the terms of the GNU General Public License, v2 or later
-# Maintainer: Nuno Araujo <araujo_n@russo79.com>
-# $Header$
-
-S="${WORKDIR}/${P}"
+# Maintainer: Dirk Göttel <dgoettel@freenet.de>
+# $Header:
 
 inherit gnome2
 
 DESCRIPTION="A full featured, dual-pane file manager for Gnome2"
 HOMEPAGE="http://www.nongnu.org/gcmd/"
 
-SRC_URI="http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/1.2/${P}.tar.bz2";
+SRC_URI="http://ftp.gnome.org/pub/GNOME/sources/${PN}/1.2/${P}.tar.bz2";
+
+KEYWORDS="alpha amd64 ia64 ppc ppc64 sparc x86"
 
 LICENSE="GPL-2"
 
-IUSE="doc exif"
+IUSE="doc exif iptc"
 SLOT="0"
-KEYWORDS="alpha amd64 ia64 ppc ppc64 sparc x86"
 
 RDEPEND=">=x11-libs/gtk+-2.6.0
 	>=gnome-base/gnome-vfs-2.0
@@ -27,10 +26,10 @@ RDEPEND=">=x11-libs/gtk+-2.6.0
 		app-admin/gamin
 		app-admin/fam
 	)
-	exif? media-libs/libexif"
+	exif? media-libs/libexif
+	iptc? media-libs/libiptcdata"
 
-DEPEND="${RDEPEND}
-	dev-util/intltool
+DEPEND="dev-util/intltool
 	dev-util/pkgconfig"
 
 src_compile() {
