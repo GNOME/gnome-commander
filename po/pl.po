@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-08 00:43+0200\n"
-"PO-Revision-Date: 2006-10-11 00:11+0100\n"
+"PO-Revision-Date: 2006-10-23 23:41+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -944,9 +944,9 @@ msgid "Unknown disk usage"
 msgstr "Nieznana zajętość dysku"
 
 #: ../src/gnome-cmd-file-selector.c:1131
-#, fuzzy, c-format
+#, c-format
 msgid "List failed: %s\n"
-msgstr "Nie powiodło się wypisanie listy grup: %s"
+msgstr "Nie powiodło się wypisanie listy: %s\n"
 
 #: ../src/gnome-cmd-file-selector.c:1723
 #, c-format
@@ -1190,19 +1190,19 @@ msgstr "_Dalej"
 
 #: ../src/gnome-cmd-main-menu.c:621
 msgid "Show Device Buttons"
-msgstr "Pokaż przyciski urządzeń"
+msgstr "Pokaż przyciski _urządzeń"
 
 #: ../src/gnome-cmd-main-menu.c:627
 msgid "Show Toolbar"
-msgstr "Pokaż pasek narzędzi"
+msgstr "Pokaż pasek _narzędzi"
 
 #: ../src/gnome-cmd-main-menu.c:633
 msgid "Show Commandline"
-msgstr "Pokaż linię poleceń"
+msgstr "Pokaż linię _poleceń"
 
 #: ../src/gnome-cmd-main-menu.c:639
 msgid "Show Buttonbar"
-msgstr "Pokaż przyciski klawiszy funkcyjnych"
+msgstr "Pokaż przyciski klawiszy _funkcyjnych"
 
 #: ../src/gnome-cmd-main-menu.c:646
 msgid "Show Hidden Files"
@@ -1299,7 +1299,7 @@ msgstr "_Wtyczki"
 #: ../src/gnome-cmd-main-menu.c:805
 #: ../src/libgviewer/viewer-window.c:1069
 msgid "_Help"
-msgstr "Pomo_c..."
+msgstr "Pomo_c"
 
 #: ../src/gnome-cmd-main-win.c:487
 msgid "F3 View"
@@ -1377,9 +1377,8 @@ msgid "Paste"
 msgstr "Wklej"
 
 #: ../src/gnome-cmd-main-win.c:1396
-#, fuzzy
 msgid "Edit (SHIFT for new document)"
-msgstr "Pozwala na utworzenie lub modyfikację reguł filtrowania listów"
+msgstr "Edytuj (SHIFT dla utworzenia nowego dokumentu)"
 
 #: ../src/gnome-cmd-main-win.c:1411
 msgid "Drop connection"
@@ -2052,9 +2051,8 @@ msgid "Artist"
 msgstr "Artysta"
 
 #: ../src/gnome-cmd-tags.c:61
-#, fuzzy
 msgid "Artist of the track."
-msgstr "ArtWykonawca utworu."
+msgstr "Wykonawca utworu."
 
 #: ../src/gnome-cmd-tags.c:62
 #, fuzzy
@@ -2142,9 +2140,8 @@ msgid "Set to \"1\" if track is new to the user (default \"0\")."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:72
-#, fuzzy
 msgid "Last Play"
-msgstr "Odtworzenie dźwięku"
+msgstr "Ostatnio odtwarzane"
 
 #: ../src/gnome-cmd-tags.c:72
 msgid "When track was last played."
@@ -2333,9 +2330,8 @@ msgid "Word Count"
 msgstr "Liczba słów"
 
 #: ../src/gnome-cmd-tags.c:93
-#, fuzzy
 msgid "Total number of chars in document."
-msgstr "Sumaryczna liczba stron w dokumencie"
+msgstr "Łączna liczba znaków w dokumencie"
 
 #: ../src/gnome-cmd-tags.c:94
 msgid "Aperture"
@@ -2392,9 +2388,8 @@ msgid "The color space information tag is always recorded as the color space spe
 msgstr "Znacznik informacji o przestrzeni kolorów jest zawsze zapisywany w celu określenia przestrzeni kolorów. Zwykle używane jest sRGB (=1) do określenia przestrzeni kolorów w oparciu o warunki i środowisko monitora PC. Jeśli użyta jest inna przestrzeń kolorów niż sRGB, ustawiona jest wartość \"nieskalibrowana\" (Uncalibrated, =FFFF.H). Dane obrazu zapisane jako nieskalibrowane mogą być traktowane jako sRGB przy konwersji do FlashPix. O sRGB p. załącznik E."
 
 #: ../src/gnome-cmd-tags.c:134
-#, fuzzy
 msgid "Components Configuration"
-msgstr "Konfiguracja kornponetów"
+msgstr "Konfiguracja kornponentów"
 
 #: ../src/gnome-cmd-tags.c:134
 msgid "Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences."
@@ -2602,9 +2597,8 @@ msgid "Focal Length In 35mm Film"
 msgstr "Ogniskowa dla filmu 35mm"
 
 #: ../src/gnome-cmd-tags.c:264
-#, fuzzy
 msgid "This tag indicates the equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <Exif.FocalLength> tag."
-msgstr "Ten znacznik określa odpowiednik ogniskowej w mm przy założeniu aparatu na film 35 mm. Wartość 0 oznacza, że ogniskowa jest nieznana. Należy zauważyć, że ten znacznik różni się od znacznika FocalLength."
+msgstr "Znacznik określa odpowiednik ogniskowej w mm w odniesieniu do aparatu dla filmów 35 mm. Wartość 0 oznacza nieznaną ogniskową. Znacznik różni się od znacznika <Exif.FocalLength>."
 
 #: ../src/gnome-cmd-tags.c:269
 msgid "Focal Plane Resolution Unit"
@@ -2620,7 +2614,7 @@ msgstr "Rozdzielczość X płaszczyzny ogniskowej"
 
 #: ../src/gnome-cmd-tags.c:274
 msgid "Indicates the number of pixels in the image width (X) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
-msgstr ""
+msgstr "Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla szerokości obrazu (X) w płaszczyźnie ogniskowej aparatu."
 
 #: ../src/gnome-cmd-tags.c:279
 msgid "Focal Plane y-Resolution"
@@ -2628,7 +2622,7 @@ msgstr "Rozdzielczość Y płaszczyzny ogniskowej"
 
 #: ../src/gnome-cmd-tags.c:279
 msgid "Indicates the number of pixels in the image height (V) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
-msgstr ""
+msgstr "Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla wysokości obrazu (Y) w płaszczyźnie ogniskowej aparatu."
 
 #: ../src/gnome-cmd-tags.c:284
 msgid "Gain Control"
@@ -3209,9 +3203,8 @@ msgid "YCbCr Positioning"
 msgstr "Rozmieszczenie YCbCr"
 
 #: ../src/gnome-cmd-tags.c:659
-#, fuzzy
 msgid "The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning."
-msgstr "Rozmieszczenie składowych chrominancji w stosunku do składowej luminancji. To pole ma znaczenie tylko dla danych skompresowanych algorytmem JPEG lub nieskompresowanych danych YCbCr. Domyślne dla TIFF jest 1 (wyśrodkowane); ale kiedy Y:Cb:Cr = 4:2:2, zaleca się w tym standardzie 2 (położone razem) w celu poprawienia jakości obrazu w przypadku oglądania na telewizorze. Kiedy to pole nie istnieje, czytający powinien założyć wartość domyślną dla TIFF. W przypadku Y:Cb:Cr = 4:2:0, zalecana jest wartość domyślna dla TIFF (wyśrodkowane). Jeśli czytający nie ma możliwości obsługi obu rodzajów rozmieszczenia, powinien używać domyślnej wartości TIFF niezależnie od wartości tego pola. Zaleca się, żeby czytający byli w stanie obsłużyć oba rodzaje rozmieszczenia."
+msgstr "Rozmieszczenie składowych chrominancji w stosunku do składowej luminancji. To pole ma znaczenie tylko dla danych skompresowanych algorytmem JPEG lub nieskompresowanych danych YCbCr. Wartością domyślną dla TIFF jest 1 (wyśrodkowanie); niemniej dla Y:Cb:Cr = 4:2:2 zaleca się wartość 2 (położenie razem) w celu poprawienia jakości obrazów oglądanych w telewizorze. Kiedy to pole nie istnieje, zakłada się wartość domyślną dla TIFF. W przypadku Y:Cb:Cr = 4:2:0, zalecana jest wartość domyślna dla TIFF (wyśrodkowanie). W przypadku możliwości obsługi obu rodzajów rozmieszczenia, należy użyć domyślnej wartości TIFF niezależnie od wartości tego pola."
 
 #: ../src/gnome-cmd-tags.c:664
 msgid "YCbCr Sub-Sampling"
@@ -3276,7 +3269,7 @@ msgstr "Lista słów kluczowych"
 #: ../src/gnome-cmd-tags.c:680
 #, fuzzy
 msgid "Large Thumbnail Path"
-msgstr "Przekroczono długość ścieżki"
+msgstr "Wyświetlaj &pełną ścieżkę"
 
 #: ../src/gnome-cmd-tags.c:680
 msgid "Editable file URI for a larger thumbnail of the file suitable for previews."
@@ -3860,7 +3853,7 @@ msgstr "Dowolna etykieta tekstowa obiektu"
 #: ../src/gnome-cmd-tags.c:947
 #, fuzzy
 msgid "Object Size Announced"
-msgstr "Zaznacz <b>obiekt(y)</b>, do których wkleić rozmiar."
+msgstr "Maksymalny rozmiar obiektu"
 
 #: ../src/gnome-cmd-tags.c:947
 msgid "The total size of the object data if it is known."
@@ -4045,18 +4038,16 @@ msgid "The object data itself. Subfiles must be sequential so that the subfiles 
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1062
-#, fuzzy
 msgid "Subject Reference"
-msgstr "_Szybki odnośnik"
+msgstr "Obiekt odniesienia"
 
 #: ../src/gnome-cmd-tags.c:1062
 msgid "A structured definition of the subject matter. It must contain an IPR, an 8 digit Subject Reference Number and an optional Subject Name, Subject Matter Name, and Subject Detail Name each separated by a colon (:)."
 msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1067
-#, fuzzy
 msgid "Sub-location"
-msgstr "Otwarcie położenia"
+msgstr "Sublokalizacja"
 
 #: ../src/gnome-cmd-tags.c:1067
 msgid "The location within a city from which the object originates."
