@@ -1,3 +1,8 @@
+2006-10-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	Reorganized menu buttons for Exif and IPTC
+
 2006-10-23  Dirk Göttel <dgoettel@freenet.de>
 
 	* data/gnome-commander.ebuild:
