@@ -3422,6 +3422,42 @@
     </thead>
     <tbody>
         <row valign="top">
+            <entry><para>1.2.2</para></entry>
+            <entry><para>2006-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem with ...</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #nnnn (...)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Updated help docs</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: en_GB</para>
+                        </listitem>
+                        <listitem>
+                            <para>New key bindings:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para><keycap>CTRL+SHIFT+H</keycap>   Toggle hidden files on/off</para>
+                                </listitem>
+                            </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
             <entry><para>1.2.1</para></entry>
             <entry><para>2006-10-16</para></entry>
             <entry>
