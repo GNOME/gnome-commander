@@ -148,35 +148,35 @@ static void on_menu_button_clicked(GtkButton *widget, gpointer data)
 
 static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int menu_type)
 {
-    static GtkItemFactoryEntry dir_items[] =     {{N_("/Grandparent"), NULL, insert_text_tag, 0},
-                                                  {N_("/Parent"), NULL, insert_text_tag, 1}};
+    GtkItemFactoryEntry dir_items[] =     {{_("/Grandparent"), NULL, insert_text_tag, 0},
+                                           {_("/Parent"), NULL, insert_text_tag, 1}};
 
-    static GtkItemFactoryEntry name_items[] =    {{N_("/File name"), NULL, insert_text_tag, 2},
-                                                  {N_("/File name without extension"), NULL, insert_text_tag, 3},
-                                                  {N_("/File extension"), NULL, insert_text_tag, 4}};
+    GtkItemFactoryEntry name_items[] =    {{_("/File name"), NULL, insert_text_tag, 2},
+                                           {_("/File name without extension"), NULL, insert_text_tag, 3},
+                                           {_("/File extension"), NULL, insert_text_tag, 4}};
 
-    static GtkItemFactoryEntry counter_items[] = {{N_("/Counter"), NULL, insert_text_tag, 5},
-                                                  {N_("/Counter (precision)"), NULL, insert_text_tag, 6}};
+    GtkItemFactoryEntry counter_items[] = {{_("/Counter"), NULL, insert_text_tag, 5},
+                                           {_("/Counter (precision)"), NULL, insert_text_tag, 6}};
 
-    static GtkItemFactoryEntry date_items[] =    {{N_("/Date/<locale>"), NULL, insert_text_tag, 7},
-                                                  {N_("/Date/yyyy-mm-dd"), NULL, insert_text_tag, 8},
-                                                  {N_("/Date/yy-mm-dd"), NULL, insert_text_tag, 9},
-                                                  {N_("/Date/yy.mm.dd"), NULL, insert_text_tag, 10},
-                                                  {N_("/Date/yymmdd"), NULL, insert_text_tag, 11},
-                                                  {N_("/Date/dd.mm.yy"), NULL, insert_text_tag, 12},
-                                                  {N_("/Date/mm-dd-yy"), NULL, insert_text_tag, 13},
-                                                  {N_("/Date/yyyy"), NULL, insert_text_tag, 14},
-                                                  {N_("/Date/yy"), NULL, insert_text_tag, 15},
-                                                  {N_("/Date/mm"), NULL, insert_text_tag, 16},
-                                                  {N_("/Date/mmm"), NULL, insert_text_tag, 17},
-                                                  {N_("/Date/dd"), NULL, insert_text_tag, 18},
-                                                  {N_("/Time/<locale>"), NULL, insert_text_tag, 19},
-                                                  {N_("/Time/HH.MM.SS"), NULL, insert_text_tag, 20},
-                                                  {N_("/Time/HH-MM-SS"), NULL, insert_text_tag, 21},
-                                                  {N_("/Time/HHMMSS"), NULL, insert_text_tag, 22},
-                                                  {N_("/Time/HH"), NULL, insert_text_tag, 23},
-                                                  {N_("/Time/MM"), NULL, insert_text_tag, 24},
-                                                  {N_("/Time/SS"), NULL, insert_text_tag, 25}};
+    GtkItemFactoryEntry date_items[] =    {{_("/Date/<locale>"), NULL, insert_text_tag, 7},
+                                           {_("/Date/yyyy-mm-dd"), NULL, insert_text_tag, 8},
+                                           {_("/Date/yy-mm-dd"), NULL, insert_text_tag, 9},
+                                           {_("/Date/yy.mm.dd"), NULL, insert_text_tag, 10},
+                                           {_("/Date/yymmdd"), NULL, insert_text_tag, 11},
+                                           {_("/Date/dd.mm.yy"), NULL, insert_text_tag, 12},
+                                           {_("/Date/mm-dd-yy"), NULL, insert_text_tag, 13},
+                                           {_("/Date/yyyy"), NULL, insert_text_tag, 14},
+                                           {_("/Date/yy"), NULL, insert_text_tag, 15},
+                                           {_("/Date/mm"), NULL, insert_text_tag, 16},
+                                           {_("/Date/mmm"), NULL, insert_text_tag, 17},
+                                           {_("/Date/dd"), NULL, insert_text_tag, 18},
+                                           {_("/Time/<locale>"), NULL, insert_text_tag, 19},
+                                           {_("/Time/HH.MM.SS"), NULL, insert_text_tag, 20},
+                                           {_("/Time/HH-MM-SS"), NULL, insert_text_tag, 21},
+                                           {_("/Time/HHMMSS"), NULL, insert_text_tag, 22},
+                                           {_("/Time/HH"), NULL, insert_text_tag, 23},
+                                           {_("/Time/MM"), NULL, insert_text_tag, 24},
+                                           {_("/Time/SS"), NULL, insert_text_tag, 25}};
 
     static GnomeCmdTag metatags[] = {
                                      // TAG_AUDIO_ALBUMARTIST, TAG_AUDIO_ALBUMGAIN, TAG_AUDIO_ALBUMPEAKGAIN,
@@ -187,10 +187,14 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      // TAG_AUDIO_MBALBUMARTISTID, TAG_AUDIO_MBALBUMID, TAG_AUDIO_MBARTISTID,
                                      // TAG_AUDIO_MBTRACKID, TAG_AUDIO_PERFORMER, TAG_AUDIO_PLAYCOUNT,
                                      // TAG_AUDIO_RELEASEDATE, TAG_AUDIO_SAMPLERATE, TAG_AUDIO_TITLE, TAG_AUDIO_TRACKGAIN,
-                                     // TAG_AUDIO_TRACKNO, TAG_AUDIO_TRACKPEAKGAIN, TAG_DOC_AUTHOR,
+                                     // TAG_AUDIO_TRACKNO, TAG_AUDIO_TRACKPEAKGAIN,
 
-                                     // TAG_DOC_COMMENTS, TAG_DOC_CREATED, TAG_DOC_KEYWORDS, TAG_DOC_PAGECOUNT,
+                                     // TAG_NONE,
+
+                                     // TAG_DOC_AUTHOR, TAG_DOC_COMMENTS, TAG_DOC_CREATED, TAG_DOC_KEYWORDS, TAG_DOC_PAGECOUNT,
                                      // TAG_DOC_SUBJECT, TAG_DOC_TITLE, TAG_DOC_WORDCOUNT, TAG_EXIF_APERTUREVALUE,
+
+                                     // TAG_NONE,
 
                                      // TAG_FILE_ACCESSED, TAG_FILE_CONTENT, TAG_FILE_DESCRIPTION, TAG_FILE_FORMAT,
                                      // TAG_FILE_ICONPATH, TAG_FILE_KEYWORDS, TAG_FILE_LARGETHUMBNAILPATH, TAG_FILE_LINK,
@@ -227,10 +231,10 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_EXIF_DATETIMEDIGITIZED, TAG_EXIF_DATETIMEORIGINAL,
                                      TAG_EXIF_DEVICESETTINGDESCRIPTION, TAG_EXIF_DIGITALZOOMRATIO,
                                      TAG_EXIF_EXIFVERSION,
-                                     TAG_EXIF_EXPOSUREINDEX, 
+                                     TAG_EXIF_EXPOSUREINDEX,
                                      TAG_EXIF_EXPOSURETIME, TAG_EXIF_FILESOURCE,
-                                     TAG_EXIF_FILLORDER, 
-                                     TAG_EXIF_FLASHPIXVERSION, 
+                                     TAG_EXIF_FILLORDER,
+                                     TAG_EXIF_FLASHPIXVERSION,
                                      TAG_EXIF_FOCALLENGTHIN35MMFILM, TAG_EXIF_FOCALPLANERESOLUTIONUNIT,
                                      TAG_EXIF_FOCALPLANEXRESOLUTION, TAG_EXIF_FOCALPLANEYRESOLUTION,
                                      TAG_EXIF_GAINCONTROL, TAG_EXIF_GAMMA, TAG_EXIF_GPSALTITUDE,
@@ -239,7 +243,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_EXIF_INTERCOLORPROFILE, TAG_EXIF_INTEROPERABILITYINDEX, TAG_EXIF_INTEROPERABILITYVERSION,
                                      TAG_EXIF_IPTCNAA, TAG_EXIF_JPEGINTERCHANGEFORMAT,
                                      TAG_EXIF_JPEGINTERCHANGEFORMATLENGTH, TAG_EXIF_LIGHTSOURCE,
-                                     TAG_EXIF_MAKE, TAG_EXIF_MAKERNOTE, 
+                                     TAG_EXIF_MAKE, TAG_EXIF_MAKERNOTE,
                                      TAG_EXIF_METERINGMODE, TAG_EXIF_MODEL, TAG_EXIF_NEWCFAPATTERN,
                                      TAG_EXIF_NEWSUBFILETYPE, TAG_EXIF_OECF, TAG_EXIF_ORIENTATION,
                                      TAG_EXIF_PHOTOMETRICINTERPRETATION, TAG_EXIF_PLANARCONFIGURATION,
@@ -270,8 +274,8 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_IPTC_ACTIONADVISED, TAG_IPTC_ARMID, TAG_IPTC_ARMVERSION,
                                      TAG_IPTC_AUDIODURATION, TAG_IPTC_AUDIOOUTCUE, TAG_IPTC_AUDIOSAMPLINGRATE,
                                      TAG_IPTC_AUDIOSAMPLINGRES, TAG_IPTC_AUDIOTYPE,
-                                     TAG_IPTC_CATEGORY, TAG_IPTC_CHARACTERSET, TAG_IPTC_CONFIRMEDDATASIZE, 
-                                     TAG_IPTC_CONTENTLOCCODE, TAG_IPTC_CONTENTLOCNAME, 
+                                     TAG_IPTC_CATEGORY, TAG_IPTC_CHARACTERSET, TAG_IPTC_CONFIRMEDDATASIZE,
+                                     TAG_IPTC_CONTENTLOCCODE, TAG_IPTC_CONTENTLOCNAME,
                                      TAG_IPTC_DATECREATED, TAG_IPTC_DATESENT,
                                      TAG_IPTC_DESTINATION, TAG_IPTC_EDITORIALUPDATE, TAG_IPTC_EDITSTATUS,
                                      TAG_IPTC_ENVELOPENUM, TAG_IPTC_ENVELOPEPRIORITY, TAG_IPTC_EXPIRATIONDATE,
@@ -285,15 +289,15 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_IPTC_PROVINCE, TAG_IPTC_RASTERIZEDCAPTION, TAG_IPTC_RECORDVERSION,
                                      TAG_IPTC_REFERENCEDATE, TAG_IPTC_REFERENCENUMBER, TAG_IPTC_REFERENCESERVICE,
                                      TAG_IPTC_RELEASEDATE, TAG_IPTC_RELEASETIME, TAG_IPTC_SERVICEID,
-                                     TAG_IPTC_SIZEMODE, TAG_IPTC_SOURCE, TAG_IPTC_SUBFILE, TAG_IPTC_SUBJECTREFERENCE, 
+                                     TAG_IPTC_SIZEMODE, TAG_IPTC_SOURCE, TAG_IPTC_SUBFILE, TAG_IPTC_SUBJECTREFERENCE,
                                      TAG_IPTC_SUPPLCATEGORY, TAG_IPTC_TIMECREATED, TAG_IPTC_TIMESENT, TAG_IPTC_UNO,
                                      TAG_IPTC_URGENCY, TAG_IPTC_WRITEREDITOR
                                     };
 
-    static GtkItemFactoryEntry *items[] = {dir_items,
-                                           name_items,
-                                           counter_items,
-                                           date_items};
+    GtkItemFactoryEntry *items[] = {dir_items,
+                                    name_items,
+                                    counter_items,
+                                    date_items};
 
     static guint items_size[] = {sizeof(dir_items)/sizeof(dir_items[0]),
                                  sizeof(name_items)/sizeof(name_items[0]),
@@ -325,7 +329,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                 for (i=0; i<sizeof(metatags)/sizeof(metatags[0]); ++i)
                 {
                     GtkItemFactoryEntry *p = items+i;
-                    
+
                     if (metatags[i]==TAG_NONE)
                     {
                         p->path = g_strdup("/");

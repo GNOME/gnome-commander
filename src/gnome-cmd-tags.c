@@ -1450,13 +1450,13 @@ const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, GnomeCmdTagClass t
 
 const gchar *gcmd_tags_get_title(GnomeCmdTag tag)
 {
-    return metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].title;
+    return _(metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].title);
 }
 
 
 const gchar *gcmd_tags_get_description(GnomeCmdTag tag)
 {
-    return metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].description;
+    return _(metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].description);
 }
 
 // -----------------------------------------------------------------------------

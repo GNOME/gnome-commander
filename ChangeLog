@@ -1,3 +1,9 @@
+2006-10-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-tags.c:
+	Fixed bug with i18n for metatag title and description
+
 2006-10-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.c:
