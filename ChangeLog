@@ -2,7 +2,11 @@
 
 	* src/gnome-cmd-advrename-dialog.c:
 	* src/gnome-cmd-tags.c:
-	Fixed bug with i18n for metatag title and description
+	i18n for metatag title and description
+	
+	* src/gnome-cmd-chmod-dialog.c:
+	* src/gnome-cmd-file-list.c:
+	i18n for N_()
 
 2006-10-24  Piotr Eljasiak  <epiotr@use.pl>
 

@@ -489,7 +489,7 @@ create_column_titles (GnomeCmdFileList *fl)
         gtk_object_set_data_full (GTK_OBJECT (fl), "column-hbox", hbox, (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (hbox);
 
-        fl->priv->column_labels[i] = gtk_label_new (file_list_column[i].title);
+        fl->priv->column_labels[i] = gtk_label_new (_(file_list_column[i].title));
         gtk_widget_ref (fl->priv->column_labels[i]);
         gtk_object_set_data_full (GTK_OBJECT (fl), "column-label", fl->priv->column_labels[i],
                                   (GtkDestroyNotify) gtk_widget_unref);

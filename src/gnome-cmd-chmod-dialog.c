@@ -261,8 +261,8 @@ gnome_cmd_chmod_dialog_new (GList *files)
 
     show_perms (dialog);
 
-    strings = g_list_append (strings, recurse_opts[CHMOD_ALL_FILES]);
-    strings = g_list_append (strings, recurse_opts[CHMOD_DIRS_ONLY]);
+    strings = g_list_append (strings, _(recurse_opts[CHMOD_ALL_FILES]));
+    strings = g_list_append (strings, _(recurse_opts[CHMOD_DIRS_ONLY]));
 
     gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->recurse_combo), strings);
 
