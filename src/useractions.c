@@ -43,8 +43,7 @@ static GnomeCmdFileList *get_active_fl ()
 {
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs (main_win);
 
-    if (fs) return fs->list;
-    return NULL;
+    return fs ? fs->list : NULL;
 }
 
 
@@ -173,7 +172,7 @@ file_edit                           (GtkMenuItem     *menuitem,
     GdkModifierType mask;
 
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
-    
+
     if (mask & GDK_SHIFT_MASK)
         gnome_cmd_file_selector_start_editor (get_active_fs ());
     else
@@ -209,9 +208,29 @@ void
 file_create_symlink                 (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_focused_file (get_active_fl ());
-    gnome_cmd_file_selector_create_symlink (
-        gnome_cmd_main_win_get_inactive_fs (main_win), finfo);
+    GnomeCmdFileSelector *inactive_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
+    GList *f = gnome_cmd_file_list_get_selected_files (get_active_fl ());
+    guint selected_files = g_list_length (f);
+
+    if (selected_files > 1)
+    {
+        gchar *msg = g_strdup_printf (ngettext("Create symbolic links of %i file in %s?",
+                                               "Create symbolic links of %i files in %s?",
+                                               selected_files),
+                                      selected_files, gnome_cmd_dir_get_display_path (gnome_cmd_file_selector_get_directory(inactive_fs)));
+
+        gint choice = run_simple_dialog (GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 1, _("Cancel"), _("Create"), NULL);
+
+        g_free (msg);
+
+        if (choice==1)
+            gnome_cmd_file_selector_create_symlinks (inactive_fs, f);
+    }
+   else
+   {
+        GnomeCmdFile *finfo = gnome_cmd_file_list_get_focused_file (get_active_fl ());
+        gnome_cmd_file_selector_create_symlink (inactive_fs, finfo);
+   }
 }
 
 
@@ -252,7 +271,7 @@ file_diff                           (GtkMenuItem     *menuitem,
         GnomeCmdFile *finfo2 = NULL;
         gboolean found = FALSE;
         GList *all_files = gnome_cmd_file_list_get_all_files (GNOME_CMD_FILE_LIST (gnome_cmd_main_win_get_inactive_fs (main_win)->list));
-        
+
 
         /**
          * Go through all the files in the other list until we find one with the same name
@@ -276,8 +295,7 @@ file_diff                           (GtkMenuItem     *menuitem,
         cmd = g_strdup_printf (gnome_cmd_data_get_differ (), p1, p2?:"");
 
         g_free (p1);
-        if (p2)
-            g_free (p2);
+        g_free (p2);
 
         run_command (cmd, FALSE);
         g_print (_("running \"%s\"\n"), cmd);
@@ -346,7 +364,7 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
     static gchar sep[] = " ";
 
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
-    
+
     GnomeCmdFileList *fl = get_active_fl ();
     GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
     GList *i;
@@ -356,7 +374,7 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
 
     sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
 
-    for (i = sfl; i; i = i->next) 
+    for (i = sfl; i; i = i->next)
     {
         GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
 

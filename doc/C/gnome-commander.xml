@@ -3429,7 +3429,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem with ...</para>
+                            <para>Fixed problem with symlink creation for multiple file selection</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem #nnnn (...)</para>

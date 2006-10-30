@@ -148,8 +148,10 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
                                     GdkEventKey *event);
 
 void
-gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs,
-                                        GnomeCmdFile *finfo);
+gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo);
+
+//void
+//gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files)
 
 void
 gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs);
