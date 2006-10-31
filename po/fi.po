@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-15 09:02+0300\n"
-"PO-Revision-Date: 2006-10-15 09:38+0300\n"
+"POT-Creation-Date: 2006-10-31 07:07+0300\n"
+"PO-Revision-Date: 2006-10-31 07:17+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -285,144 +285,144 @@ msgstr "/Aika/MM"
 msgid "/Time/SS"
 msgstr "/Aika/SS"
 
-#: ../src/gnome-cmd-advrename-dialog.c:395
+#: ../src/gnome-cmd-advrename-dialog.c:412
 #: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "Yes"
 msgstr "Kyllä"
 
-#: ../src/gnome-cmd-advrename-dialog.c:395
+#: ../src/gnome-cmd-advrename-dialog.c:412
 #: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
 msgid "No"
 msgstr "Ei"
 
-#: ../src/gnome-cmd-advrename-dialog.c:489
+#: ../src/gnome-cmd-advrename-dialog.c:506
 msgid "Invalid source pattern"
 msgstr "Virhellinen lähdekuvio"
 
-#: ../src/gnome-cmd-advrename-dialog.c:563
+#: ../src/gnome-cmd-advrename-dialog.c:580
 msgid "Replace this:"
 msgstr "Korvaa tämä:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:563
-#: ../src/gnome-cmd-advrename-dialog.c:1117
+#: ../src/gnome-cmd-advrename-dialog.c:580
+#: ../src/gnome-cmd-advrename-dialog.c:1134
 msgid "With this"
 msgstr "Tällä"
 
-#: ../src/gnome-cmd-advrename-dialog.c:575
+#: ../src/gnome-cmd-advrename-dialog.c:592
 msgid "Case sensitive matching"
 msgstr "Täsmää kirjainkokoon"
 
-#: ../src/gnome-cmd-advrename-dialog.c:712
+#: ../src/gnome-cmd-advrename-dialog.c:729
 msgid "New Rule"
 msgstr "Uusi sääntö"
 
-#: ../src/gnome-cmd-advrename-dialog.c:718
+#: ../src/gnome-cmd-advrename-dialog.c:735
 msgid "Edit Rule"
 msgstr "Muokkaa sääntöä"
 
-#: ../src/gnome-cmd-advrename-dialog.c:943
+#: ../src/gnome-cmd-advrename-dialog.c:960
 msgid "Counter start value:"
 msgstr "Laskurin alkuarvo:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:944
+#: ../src/gnome-cmd-advrename-dialog.c:961
 msgid "Counter increment:"
 msgstr "Laskurin kasvatus:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:945
+#: ../src/gnome-cmd-advrename-dialog.c:962
 msgid "Counter minimum digit count:"
 msgstr "Laskurin numeroiden minimimäärä:"
 
-#: ../src/gnome-cmd-advrename-dialog.c:950
+#: ../src/gnome-cmd-advrename-dialog.c:967
 msgid "Template Options"
 msgstr "Pohjien valinnat"
 
-#: ../src/gnome-cmd-advrename-dialog.c:954
+#: ../src/gnome-cmd-advrename-dialog.c:971
 msgid "Auto-update when the template is entered"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.c:1052
+#: ../src/gnome-cmd-advrename-dialog.c:1069
 msgid "Advanced Rename Tool"
 msgstr "Kehittynyt uudelleennimeämistyökalu"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1065
+#: ../src/gnome-cmd-advrename-dialog.c:1082
 msgid "Template"
 msgstr "Pohja"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1086
+#: ../src/gnome-cmd-advrename-dialog.c:1103
 msgid "O_ptions..."
 msgstr "_Valinnat..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:1093
+#: ../src/gnome-cmd-advrename-dialog.c:1110
 msgid "Dir"
 msgstr "Kansio"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1096 ../src/gnome-cmd-tags.c:683
+#: ../src/gnome-cmd-advrename-dialog.c:1113 ../src/gnome-cmd-tags.c:683
 #: ../src/plugin_manager.c:424
 msgid "Name"
 msgstr "Nimi"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1099
+#: ../src/gnome-cmd-advrename-dialog.c:1116
 msgid "Counter"
 msgstr "Laskuri"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1102 ../src/gnome-cmd-tags.c:696
+#: ../src/gnome-cmd-advrename-dialog.c:1119 ../src/gnome-cmd-tags.c:696
 msgid "Date"
 msgstr "Päiväys"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1105
+#: ../src/gnome-cmd-advrename-dialog.c:1122
 msgid "Metatag"
 msgstr "Metatagi"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1111
+#: ../src/gnome-cmd-advrename-dialog.c:1128
 msgid "Regex replacing"
 msgstr "Regex-korvaus"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1116
+#: ../src/gnome-cmd-advrename-dialog.c:1133
 msgid "Replace this"
 msgstr "Korvaa tämä"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1118
+#: ../src/gnome-cmd-advrename-dialog.c:1135
 #: ../src/gnome-cmd-options-dialog.c:97
 #: ../src/gnome-cmd-patternsel-dialog.c:147
 msgid "Case sensitive"
 msgstr "Kirjainkoko merkitsee"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1130
+#: ../src/gnome-cmd-advrename-dialog.c:1147
 #: ../src/gnome-cmd-options-dialog.c:1342
 #: ../src/gnome-cmd-options-dialog.c:1700
 msgid "_Add..."
 msgstr "_Lisää..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:1133 ../src/gnome-cmd-ftp-dialog.c:527
+#: ../src/gnome-cmd-advrename-dialog.c:1150 ../src/gnome-cmd-ftp-dialog.c:527
 #: ../src/gnome-cmd-options-dialog.c:1346
 #: ../src/gnome-cmd-options-dialog.c:1704
 msgid "_Edit..."
 msgstr "_Muokkaa..."
 
-#: ../src/gnome-cmd-advrename-dialog.c:1137
+#: ../src/gnome-cmd-advrename-dialog.c:1154
 #: ../src/gnome-cmd-bookmark-dialog.c:468 ../src/gnome-cmd-ftp-dialog.c:530
 #: ../src/gnome-cmd-options-dialog.c:1352
 #: ../src/gnome-cmd-options-dialog.c:1710
 msgid "_Remove"
 msgstr "_Poista"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1141
+#: ../src/gnome-cmd-advrename-dialog.c:1158
 msgid "Re_move All"
 msgstr "Poista _kaikki"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1162
+#: ../src/gnome-cmd-advrename-dialog.c:1179
 msgid "Result"
 msgstr "Tulos"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1167
+#: ../src/gnome-cmd-advrename-dialog.c:1184
 msgid "Current filenames"
 msgstr "Nykyiset tiedostonimet"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1168
+#: ../src/gnome-cmd-advrename-dialog.c:1185
 msgid "New filenames"
 msgstr "Uudet tiedostonimet"
 
-#: ../src/gnome-cmd-advrename-dialog.c:1175
+#: ../src/gnome-cmd-advrename-dialog.c:1192
 msgid "Rese_t"
 msgstr "_Tyhjennä"
 
@@ -3994,7 +3994,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:917
 msgid "Maximum Object Size"
-msgstr ""
+msgstr "Kohteen enimmäiskoko"
 
 #: ../src/gnome-cmd-tags.c:917
 msgid "The largest possible size of the object if the size is not known."
@@ -4002,7 +4002,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:922
 msgid "Max Subfile Size"
-msgstr ""
+msgstr "Alitiedoston enimmäiskoko"
 
 #: ../src/gnome-cmd-tags.c:922
 msgid ""
@@ -4016,7 +4016,7 @@ msgstr "Mallin versio"
 
 #: ../src/gnome-cmd-tags.c:927
 msgid "Version of IIM part 1."
-msgstr ""
+msgstr "IIM-osan 1 versio."
 
 #: ../src/gnome-cmd-tags.c:932
 msgid "Object Attribute Reference"
@@ -4038,7 +4038,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:942
 msgid "Object Name"
-msgstr ""
+msgstr "Kohteen nimi"
 
 #: ../src/gnome-cmd-tags.c:942
 msgid "A shorthand reference for the object."
@@ -4062,7 +4062,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:957
 msgid "Originating Program"
-msgstr ""
+msgstr "Alkuperäinen ohjelma"
 
 #: ../src/gnome-cmd-tags.c:957
 msgid "The type of program used to originate the object."
@@ -4078,29 +4078,31 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:967
 msgid "Preview Data"
-msgstr ""
+msgstr "Esikatselutiedot"
 
 #: ../src/gnome-cmd-tags.c:967
 msgid "The object preview data"
-msgstr ""
+msgstr "Kohteen esikatselutiedot"
 
 #: ../src/gnome-cmd-tags.c:972
 msgid "Preview File Format"
-msgstr ""
+msgstr "Esikatselun tiedostomuoto"
 
 #: ../src/gnome-cmd-tags.c:972
 msgid ""
 "Binary value indicating the file format of the object preview data in "
 "dataset 2:202."
 msgstr ""
+"Binääriarvo, joka kertoo kohteen esikatselutiedon muodon datajoukossa "
+"2:202."
 
 #: ../src/gnome-cmd-tags.c:977
 msgid "Preview File Format Version"
-msgstr ""
+msgstr "Esikatselun tiedostomuodon versio"
 
 #: ../src/gnome-cmd-tags.c:977
 msgid "The version of the preview file format specified in 2:200."
-msgstr ""
+msgstr "Esikatselun tiedostomuodon versio, määritelty joukossa 2:200."
 
 #: ../src/gnome-cmd-tags.c:982
 msgid "Product ID"
@@ -4154,7 +4156,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1012
 msgid "Reference Number"
-msgstr ""
+msgstr "Viitenumero"
 
 #: ../src/gnome-cmd-tags.c:1012
 msgid ""
@@ -4211,7 +4213,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1047
 msgid "Special Instructions"
-msgstr ""
+msgstr "Lisäohjeet"
 
 #: ../src/gnome-cmd-tags.c:1047
 msgid "Other editorial instructions concerning the use of the object."
@@ -4219,7 +4221,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1057
 msgid "Subfile"
-msgstr ""
+msgstr "Alitiedosto"
 
 #: ../src/gnome-cmd-tags.c:1057
 msgid ""
@@ -4240,11 +4242,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1067
 msgid "Sub-location"
-msgstr ""
+msgstr "Tarkempi sijainti"
 
 #: ../src/gnome-cmd-tags.c:1067
 msgid "The location within a city from which the object originates."
-msgstr ""
+msgstr "Tarkempi sijainti kaupungissa, josta kuva on lähtöisin."
 
 #: ../src/gnome-cmd-tags.c:1072
 msgid "Supplemental Category"
@@ -4275,7 +4277,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1087
 msgid "Unique Name of Object"
-msgstr ""
+msgstr "Kohteen yksilöllinen nimi"
 
 #: ../src/gnome-cmd-tags.c:1087
 msgid ""
@@ -4295,7 +4297,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-tags.c:1097
 msgid "Writer/Editor"
-msgstr ""
+msgstr "Kirjoittaja tai muokkaaja"
 
 #: ../src/gnome-cmd-tags.c:1097
 msgid ""
@@ -4321,15 +4323,15 @@ msgstr "Kuva"
 
 #: ../src/gnome-cmd-tags-libs.c:45
 msgid "<Exif tags not supported>"
-msgstr ""
+msgstr "<EXIF-merkinnät eivät ole tuettu>"
 
 #: ../src/gnome-cmd-tags-libs.c:48
 msgid "<IPTC tags not supported>"
-msgstr ""
+msgstr "<IPTC-merkinnät eivät ole tuettu>"
 
 #: ../src/gnome-cmd-tags-libs.c:51
 msgid "<ICC tags not supported>"
-msgstr ""
+msgstr "<ICC-merkinnät eivät ole tuettu>"
 
 #: ../src/gnome-cmd-xfer.c:171
 #, c-format
@@ -4338,6 +4340,9 @@ msgid ""
 "\n"
 "Do you want to overwrite it?\n"
 msgstr ""
+"Tiedosto \"%s\" on jo olemassa.\n"
+"\n"
+"Haluatko korvata sen?\n"
 
 #: ../src/gnome-cmd-xfer.c:177
 msgid "Replace"
@@ -4354,6 +4359,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Virhe kopioitaessa kohteeseen %s\n"
+"\n"
+"%s"
 
 #: ../src/gnome-cmd-xfer.c:196
 msgid "Xfer problem"
@@ -4373,6 +4381,8 @@ msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
 msgstr ""
+"Kansion kopiointi itseensä on huono idea.\n"
+"Toimenpide peruttiin kokonaan."
 
 #: ../src/gnome-cmd-xfer.c:439
 msgid "preparing..."
@@ -4385,7 +4395,6 @@ msgstr "noudetaan /tmp-kansioon"
 #: ../src/gnome-cmd-xfer-progress-win.c:38
 msgid "stopping..."
 msgstr "pysäytetään..."
-
 
 #: ../src/gnome-cmd-xfer-progress-win.c:86
 msgid "Progress"
@@ -4409,7 +4418,7 @@ msgstr ""
 #: ../src/imageloader.c:129 ../src/imageloader.c:156
 #, c-format
 msgid "Trying to load %s instead\n"
-msgstr ""
+msgstr "Yritetään ladata %s sen sijasta\n"
 
 #: ../src/imageloader.c:133 ../src/imageloader.c:159
 #, c-format
@@ -4462,11 +4471,11 @@ msgstr "Rivitä"
 #: ../src/libgviewer/viewer-widget.c:230
 #, c-format
 msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
-msgstr ""
+msgstr "Kuvan koko: %d × %d\tbittejä/näyte %d\tzoomaus: %s"
 
 #: ../src/libgviewer/viewer-widget.c:232
 msgid "Fit-to-Window"
-msgstr ""
+msgstr "Sovita ikkunaan"
 
 #: ../src/libgviewer/viewer-window.c:194 ../src/utils.c:1488
 msgid "There was an error displaying help."
@@ -4523,7 +4532,7 @@ msgstr "Etsi edellinen"
 
 #: ../src/libgviewer/viewer-window.c:883
 msgid "_No Parsing (original file)"
-msgstr ""
+msgstr "_Ei tulkintaa (alkuperäinen tiedosto)"
 
 #: ../src/libgviewer/viewer-window.c:888
 msgid "_HTML Parser"
@@ -4543,15 +4552,15 @@ msgstr "_Koodaus"
 
 #: ../src/libgviewer/viewer-window.c:948
 msgid "_Show EXIF/IPTC Information"
-msgstr ""
+msgstr "_Näytä EXIF- ja IPTC-tietoja"
 
 #: ../src/libgviewer/viewer-window.c:954
 msgid "_Rotate Clockwise"
-msgstr ""
+msgstr "_Kierrä myötäpäivään"
 
 #: ../src/libgviewer/viewer-window.c:959
 msgid "Rotate Counter Clockwis_e"
-msgstr ""
+msgstr "Kierrä _vastapäivään"
 
 #: ../src/libgviewer/viewer-window.c:964
 msgid "_Rotate 180°"
@@ -4696,6 +4705,8 @@ msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
 msgstr ""
+"\"%s\" on suoritettava tekstitiedosto. Haluatko suorittaa sen vai näyttää "
+"sen sisällön?"
 
 #: ../src/utils.c:625
 msgid "Run or Display"
@@ -4718,7 +4729,11 @@ msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
 msgstr[0] ""
+"%s ei osaa avata etätiedostoja. Haluatko noutaa tiedoston väliaikaiskansioon "
+"ja avata sen sieltä?"
 msgstr[1] ""
+"%s ei osaa avata etätiedostoja. Haluatko noutaa tiedoston väliaikaiskansioon "
+"ja avata sen sieltä?"
 
 #: ../src/utils.c:1175
 #, c-format
@@ -4726,6 +4741,8 @@ msgid ""
 "Failed to create a directory in which to store temporary files.\n"
 "Error message: %s\n"
 msgstr ""
+"Väliaikaistiedostojen tallennusta varten ei voitu luoda kansiota.\n"
+"Virheviesti: %s\n"
 
 #: ../src/utils.c:1346
 #, c-format
