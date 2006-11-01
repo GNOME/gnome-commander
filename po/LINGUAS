@@ -1,2 +1,36 @@
-# Set of available languages. 
-de es fr pl ru sk sv
+# please keep this list sorted alphabetically
+#
+ca
+cs
+de
+el
+en_CA
+en_GB
+es
+eu
+fi
+fr
+ga
+hr
+hu
+it
+nb
+ne
+nl
+pa
+pl
+pt
+pt_BR
+ro
+ru
+rw
+sk
+sl
+sq
+sr
+sr@Latn
+sv
+uk
+vi
+zh_CN
+zh_TW
