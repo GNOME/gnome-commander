@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-31 07:07+0300\n"
-"PO-Revision-Date: 2006-10-31 07:17+0300\n"
+"POT-Creation-Date: 2006-11-02 17:08+0300\n"
+"PO-Revision-Date: 2006-11-02 17:50+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -693,12 +693,13 @@ msgstr "Ongelma poistossa"
 msgid "Abort"
 msgstr "Keskeytä"
 
-#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-xfer.c:197
+#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-file-selector.c:2224
+#: ../src/gnome-cmd-xfer.c:197
 msgid "Retry"
 msgstr "Yritä uudestaan"
 
-#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-xfer.c:177
-#: ../src/gnome-cmd-xfer.c:197
+#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-file-selector.c:2224
+#: ../src/gnome-cmd-xfer.c:177 ../src/gnome-cmd-xfer.c:197
 msgid "Skip"
 msgstr "Ohita"
 
@@ -719,7 +720,8 @@ msgstr[1] "Haluatko poistaa %d valittua tiedostoa?"
 msgid "Delete"
 msgstr "Poista"
 
-#: ../src/gnome-cmd-delete-dialog.c:319 ../src/utils.c:597 ../src/utils.c:626
+#: ../src/gnome-cmd-delete-dialog.c:319 ../src/gnome-cmd-file-selector.c:2224
+#: ../src/useractions.c:222 ../src/utils.c:597 ../src/utils.c:626
 msgid "Cancel"
 msgstr "Peru"
 
@@ -865,7 +867,7 @@ msgid "No default application registered"
 msgstr "Oletussovellusta ei ole rekisteröity"
 
 #: ../src/gnome-cmd-file-props-dialog.c:302
-#: ../src/gnome-cmd-file-selector.c:1990
+#: ../src/gnome-cmd-file-selector.c:1992
 msgid "Filename:"
 msgstr "Tiedostonimi:"
 
@@ -917,59 +919,65 @@ msgstr "Tiedoston ominaisuudet"
 msgid "Permissions"
 msgstr "Oikeudet"
 
-#: ../src/gnome-cmd-file-selector.c:186
+#: ../src/gnome-cmd-file-selector.c:182
 #, c-format
 msgid "%s of %s kB in %d of %d file selected"
 msgid_plural "%s of %s kB in %d of %d files selected"
 msgstr[0] "%s / %s kt %d / %d tiedosto valittu"
 msgstr[1] "%s / %s kt %d / %d tiedostossa valittu"
 
-#: ../src/gnome-cmd-file-selector.c:701
+#: ../src/gnome-cmd-file-selector.c:712
 #, c-format
 msgid "%s free"
 msgstr "%s vapaana"
 
-#: ../src/gnome-cmd-file-selector.c:705
+#: ../src/gnome-cmd-file-selector.c:716
 msgid "Unknown disk usage"
 msgstr "Levynkäyttö ei ole tiedossa"
 
-#: ../src/gnome-cmd-file-selector.c:1131
+#: ../src/gnome-cmd-file-selector.c:1141
 #, c-format
 msgid "List failed: %s\n"
 msgstr "Listaus epäonnistui: %s\n"
 
-#: ../src/gnome-cmd-file-selector.c:1723
+#: ../src/gnome-cmd-file-selector.c:1737
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Yhteyttä ei voitu avata: %s\n"
 
-#: ../src/gnome-cmd-file-selector.c:1927
+#: ../src/gnome-cmd-file-selector.c:1928
 #: ../src/gnome-cmd-make-copy-dialog.c:68
 msgid "No filename entered"
 msgstr "Tiedostonimeä ei syötetty"
 
-#: ../src/gnome-cmd-file-selector.c:1962
+#: ../src/gnome-cmd-file-selector.c:1964
 msgid "No filename given"
 msgstr "Tiedostonimeä ei annettu"
 
-#: ../src/gnome-cmd-file-selector.c:1996
+#: ../src/gnome-cmd-file-selector.c:1998
 msgid "New Text File"
 msgstr "Uusi tekstitiedosto"
 
-#: ../src/gnome-cmd-file-selector.c:2173
+#: ../src/gnome-cmd-file-selector.c:2171
 msgid "Symlink name:"
 msgstr "Symlinkin nimi:"
 
-#: ../src/gnome-cmd-file-selector.c:2177
+#: ../src/gnome-cmd-file-selector.c:2174 ../src/gnome-cmd-file-selector.c:2201
 #, c-format
-msgid "Symlink to %s"
-msgstr "Tee symlink kohteeseen %s"
+msgid "link to %s"
+msgstr "linkki kohteeseen %s"
 
-#: ../src/gnome-cmd-file-selector.c:2179
+#: ../src/gnome-cmd-file-selector.c:2177 ../src/gnome-cmd-file-selector.c:2224
+#: ../src/useractions.c:222
 msgid "Create Symbolic Link"
 msgstr "Luo symbolinen linkki"
 
-#: ../src/gnome-cmd-file-selector.c:2250
+#: ../src/gnome-cmd-file-selector.c:2224 ../src/gnome-cmd-options-dialog.c:667
+#: ../src/gnome-cmd-options-dialog.c:687
+msgid "Skip all"
+msgstr "Ohita kaikki"
+
+#: ../src/gnome-cmd-file-selector.c:2300
 msgid "Filter:"
 msgstr "Suodatin:"
 
@@ -1580,7 +1588,7 @@ msgstr "Muokaa..."
 #. LS_COLORS
 #: ../src/gnome-cmd-options-dialog.c:537
 msgid "Colorize files according to the LS_COLORS environment variable"
-msgstr ""
+msgstr "Väritä tiedostot LS_COLORS-ympäristömuuttujan perusteella"
 
 #: ../src/gnome-cmd-options-dialog.c:547
 msgid "MIME icon settings"
@@ -1622,10 +1630,6 @@ msgstr "Ilman viestiä"
 #: ../src/gnome-cmd-options-dialog.c:663 ../src/gnome-cmd-options-dialog.c:683
 msgid "Query first"
 msgstr "Kysy ensin"
-
-#: ../src/gnome-cmd-options-dialog.c:667 ../src/gnome-cmd-options-dialog.c:687
-msgid "Skip all"
-msgstr "Ohita kaikki"
 
 #: ../src/gnome-cmd-options-dialog.c:676
 msgid "Move overwrite"
@@ -4093,8 +4097,7 @@ msgid ""
 "Binary value indicating the file format of the object preview data in "
 "dataset 2:202."
 msgstr ""
-"Binääriarvo, joka kertoo kohteen esikatselutiedon muodon datajoukossa "
-"2:202."
+"Binääriarvo, joka kertoo kohteen esikatselutiedon muodon datajoukossa 2:202."
 
 #: ../src/gnome-cmd-tags.c:977
 msgid "Preview File Format Version"
@@ -4654,30 +4657,41 @@ msgstr "_Käytä"
 msgid "_Configure"
 msgstr "_Määrittele"
 
-#: ../src/useractions.c:72
+#: ../src/useractions.c:71
 msgid "No file selected"
 msgstr "Tiedostoa ei ole valittu"
 
-#: ../src/useractions.c:283
+#: ../src/useractions.c:217
+#, c-format
+msgid "Create symbolic links of %i file in %s?"
+msgid_plural "Create symbolic links of %i files in %s?"
+msgstr[0] "Luodaanko symboliset linkit %i tiedostosta kohteeseen %s?"
+msgstr[1] "Luodaanko symboliset linkit %i tiedostosta kohteeseen %s?"
+
+#: ../src/useractions.c:222
+msgid "Create"
+msgstr "Luo"
+
+#: ../src/useractions.c:301
 #, c-format
 msgid "running \"%s\"\n"
 msgstr "suoritetaan \"%s\"\n"
 
-#: ../src/useractions.c:719
+#: ../src/useractions.c:737
 msgid "There was an error opening home page."
 msgstr "Virhe avattaessa kotisivua."
 
-#: ../src/useractions.c:730
+#: ../src/useractions.c:748
 msgid "There was an error reporting problem."
 msgstr "Virhe raportoitaessa ongelmaa."
 
-#: ../src/useractions.c:755
+#: ../src/useractions.c:773
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Nopea ja tehokas tiedostonselain Gnomelle"
 
 #. xgettext:
 #. * Replace this with your name when translating
-#: ../src/useractions.c:760
+#: ../src/useractions.c:778
 msgid "No translation is currently in use."
 msgstr ""
 
@@ -4687,6 +4701,9 @@ msgid ""
 "No default application found for the mime-type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
+"MIME-tyypille %s ei löydy oletussovellusta.\n"
+"Voit määritellä oletussovellukset ohjauskeskuksen kohdasta "
+"\"Tiedostotyypit ja ohjelmat\"."
 
 #: ../src/utils.c:593
 #, c-format
@@ -4694,6 +4711,8 @@ msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
+"\"%s\" näyttäisi olevan suoritettava tiedosto, mutta siitä puuttuu "
+"suoritusoikeudet. Haluatko asettaa suoritusoikeudet ja suorittaa ohjelman?"
 
 #: ../src/utils.c:596
 msgid "Make Executable?"
@@ -4758,4 +4777,3 @@ msgstr "Kansiota \"%s\" ei voitu luoda"
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Kansiosta %s ei voitu lukea: %s\n"
-
