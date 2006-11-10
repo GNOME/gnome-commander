@@ -30,6 +30,12 @@
 	* src/tags/id3lib/id3_bugfix.h:
 	Added support for ID3 metatags in advrename
 
+	* doc/C/gnome-commander.xml:
+	* po/POTFILES.in:
+	* src/tags/gnome-cmd-tags.c:
+	Fixed inprecise ID3.Duration title
+
+
 2006-10-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.c:

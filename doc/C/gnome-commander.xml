@@ -1578,7 +1578,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>ID3.Duration.MMSS</para></entry>
-                        <entry><para>Duration</para></entry>
+                        <entry><para>Duration [MM:SS]</para></entry>
                         <entry><para>Duration of track as MM:SS</para></entry>
                     </row>
                     <row valign="top">

@@ -19,13 +19,13 @@ src/gnome-cmd-con-ftp.c
 src/gnome-cmd-con-home.c
 src/gnome-cmd-con-smb.c
 src/gnome-cmd-delete-dialog.c
-src/gnome-cmd-dir.c
 src/gnome-cmd-dir-indicator.c
-src/gnome-cmd-file.c
+src/gnome-cmd-dir.c
 src/gnome-cmd-file-list.c
 src/gnome-cmd-file-popmenu.c
 src/gnome-cmd-file-props-dialog.c
 src/gnome-cmd-file-selector.c
+src/gnome-cmd-file.c
 src/gnome-cmd-ftp-dialog.c
 src/gnome-cmd-list-popmenu.c
 src/gnome-cmd-main-menu.c
@@ -41,8 +41,8 @@ src/gnome-cmd-quicksearch-popup.c
 src/gnome-cmd-rename-dialog.c
 src/gnome-cmd-search-dialog.c
 src/gnome-cmd-smb-path.c
-src/gnome-cmd-xfer.c
 src/gnome-cmd-xfer-progress-win.c
+src/gnome-cmd-xfer.c
 src/imageloader.c
 src/libgviewer/cp437.c
 src/libgviewer/datapresentation.c
@@ -59,9 +59,9 @@ src/libgviewer/viewer-window.c
 src/main.c
 src/owner.c
 src/plugin_manager.c
-src/tags/gnome-cmd-tags.c
+src/tags/gnome-cmd-tags-audio.c
 src/tags/gnome-cmd-tags-id3.c
 src/tags/gnome-cmd-tags-libs.c
-src/tags/id3lib/id3_tag.c
+src/tags/gnome-cmd-tags.c
 src/useractions.c
 src/utils.c

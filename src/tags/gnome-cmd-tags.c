@@ -781,7 +781,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
 #endif
                                                    },
                                                    {"ID3.Duration", TAG_ID3, TAG_ID3_DURATION, N_("Duration"), N_("Duration of track in seconds.")},
-                                                   {"ID3.Duration.MMSS", TAG_ID3, TAG_ID3_DURATIONMMSS, N_("Duration"), N_("Duration of track as MM:SS.")},
+                                                   {"ID3.Duration.MMSS", TAG_ID3, TAG_ID3_DURATIONMMSS, N_("Duration [MM:SS]"), N_("Duration of track as MM:SS.")},
                                                    {"ID3.Emphasis", TAG_ID3, TAG_ID3_EMPHASIS, N_("Emphasis"), N_("Emphasis.")},
                                                    {"ID3.EncodedBy", TAG_ID3, TAG_ID3_ENCODEDBY, N_("Encoded By"), N_("Person or organisation that encoded the audio file. This field may contain a copyright message, if the audio file also is copyrighted by the encoder.")
 #ifdef HAVE_ID3
