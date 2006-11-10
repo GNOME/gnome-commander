@@ -164,7 +164,7 @@ tag_name   {audio}|{exif}|{id3}|{iptc}|{image}
                                   fname_template = g_list_append(fname_template, (gpointer) p);
                                 }
 
-\$T\({tag_name}\.[a-zA-Z][a-zA-Z0-9]+(,[^,)]+)*\)   {
+\$T\({tag_name}(\.[a-zA-Z][a-zA-Z0-9]+)+(,[^,)]+)*\)   {
 
                                   gchar **a = g_strsplit_set(yytext+3,",()",0);
                                   guint n = g_strv_length(a);                     // glib >= 2.6
