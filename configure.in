@@ -28,7 +28,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 ALL_LINGUAS="ca cs de el en_CA en_GB es eu fi fr ga hr hu it nb ne nl pa pl pt pt_BR ro ru rw sk sl sq sr sr@Latn sv uk vi zh_CN zh_TW"
 AM_GLIB_GNU_GETTEXT
 
-		
+
 dnl ===================
 dnl Check for libraries
 dnl ===================
@@ -41,9 +41,11 @@ GNOMEUI_REQ=2.0.0
 GNOMEVFS_REQ=2.0.0
 LIBEXIF_REQ=0.6.12
 LIBIPTCDATA_REQ=0.2.1
+ID3LIB_REQ=3.8.1
 
 AC_SUBST(LIBEXIF_REQ)
 AC_SUBST(LIBIPTCDATA_REQ)
+AC_SUBST(ID3LIB_REQ)
 
 dnl Check for glib
 AC_MSG_CHECKING(if glib >= ${GLIB_REQ} exists)
@@ -206,8 +208,21 @@ fi
 AM_CONDITIONAL(ENABLE_LCMS, test x$have_lcms = xyes)
 
 
+dnl Check for id3lib support
+AC_ARG_WITH(id3lib, [  --without-id3lib	  disable ID3 support])
+have_id3=no
+if test x$with_id3lib != xno; then
+    AC_SEARCH_LIBS(ID3Tag_Link, "id3" "id3 -lstdc++" "id3 -lz" "id3 -lz -lstdc++", have_id3=yes, AC_MSG_WARN(id3lib not found); have_id3=no)
+fi
+if test "x$have_id3" = "xyes"; then
+   AC_DEFINE(HAVE_ID3, 1, [Define to 1 if you have id3lib support])
+fi
+
+
 dnl Check for libchm support
-AC_CHECK_LIB(chm, chm_open, have_chm=yes, has_chm=no)
+AC_ARG_WITH(libchm, [  --without-libchm	  disable CHM support])
+have_chm=no
+AC_CHECK_LIB(chm, chm_open, have_chm=yes, have_chm=no)
 AM_CONDITIONAL(HAVE_CHM, test "x$have_chm" = "xyes")
 
 
@@ -240,12 +255,12 @@ AC_DEFINE_UNQUOTED(PACKAGE_LOCALE_DIR, "${PREFIX}/${DATADIRNAME}/locale", [defin
 dnl Set PIXMAPS_DIR in config.h.
 AC_DEFINE_UNQUOTED(PIXMAPS_DIR, "${PREFIX}/share/pixmaps/${PACKAGE}", [pixmaps location])
 
-		
+
 dnl Set GNOME_PREFIX in config.h.
 GNOME_PREFIX_TMP=`pkg-config --variable=prefix libgnome-2.0`
 AC_DEFINE_UNQUOTED(GNOME_PREFIX, "$GNOME_PREFIX_TMP", "")
 
-		
+
 dnl Set DATA_DIR in config.h.
 if test "x${datadir}" = 'x${prefix}/share'; then
   if test "x${prefix}" = "xNONE"; then
@@ -260,7 +275,7 @@ fi
 
 dnl Set HELP_DIR in config.h.
 AC_DEFINE_UNQUOTED(HELP_DIR, "${PREFIX}/share/gnome/help/${PACKAGE}", "")
-	
+
 
 PLUGIN_LIBTOOL_FLAGS="-module -avoid-version"
 AC_SUBST(PLUGIN_LIBTOOL_FLAGS)
@@ -287,6 +302,8 @@ plugins/Makefile
 plugins/test/Makefile
 po/Makefile.in
 src/Makefile
+src/tags/Makefile
+src/tags/id3lib/Makefile
 src/libgviewer/Makefile
 tests/Makefile
 tests/gviewer/Makefile
@@ -303,6 +320,7 @@ echo "=========================================="
 echo ""
 echo "The following settings will be used:"
 echo ""
+echo "  host           : ${host}"
 echo "  prefix         : ${prefix}"
 echo "  module support : ${GMODULE_AVAIL}"
 echo "  compiler       : ${CC}"
@@ -314,9 +332,10 @@ echo "Optional file metadata support:"
 echo ""
 echo "  Exif support   : ${have_exif}"
 echo "  IPTC support   : ${have_iptc}"
+echo "  ID3 support    : ${have_id3}"
 echo ""
 echo ""
-echo "The following libraries will be used:" 
+echo "The following libraries will be used:"
 echo ""
 echo "  glib     : ${GLIB_VERSION}    in ${GLIB_PREFIX}"
 echo "  gtk+     : ${GTK_VERSION}    in ${GTK_PREFIX}"
@@ -326,5 +345,5 @@ echo "  gnome-vfs: ${GNOMEVFS_VERSION}    in ${GNOMEVFS_PREFIX}"
 echo ""
 echo ""
 echo ""
-echo "Type 'make' to compile and then 'make install' to install"
+echo "Type 'make' to build $PACKAGE-$VERSION and then 'make install' to install"
 echo ""

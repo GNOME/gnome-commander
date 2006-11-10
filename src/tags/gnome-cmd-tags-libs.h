@@ -59,6 +59,14 @@ const gchar *gcmd_tags_icclib_get_value_by_name(GnomeCmdFile *finfo, const gchar
 const gchar *gcmd_tags_icclib_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 const gchar *gcmd_tags_icclib_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 
+gboolean gcmd_tags_id3lib_is_supported(void);
+void gcmd_tags_id3lib_load_metadata(GnomeCmdFile *finfo);
+void gcmd_tags_id3lib_free_metadata(GnomeCmdFile *finfo);
+const gchar *gcmd_tags_id3lib_get_value(GnomeCmdFile *finfo, guint libtag);
+const gchar *gcmd_tags_id3lib_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_id3lib_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_id3lib_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+
 G_END_DECLS
 
 #endif // __GNOME_CMD_TAGS_LIBS_H__

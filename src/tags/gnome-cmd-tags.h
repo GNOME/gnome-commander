@@ -212,6 +212,108 @@ typedef enum {
     TAG_FILE_RANK,                          // editable file rank for grading favourites. Value should be in the range 1..10
     TAG_FILE_SIZE,                          // size of the file in bytes or if a directory no. of items it contains
     TAG_FILE_SMALLTHUMBNAILPATH,            // editable file uri for a small thumbnail of the file suitable for use in icon views
+    TAG_ID3_ALBUM,                          // album
+    TAG_ID3_ALBUMSORTORDER,                 // album sort order
+    TAG_ID3_AUDIOCRYPTO,                    // audio encryption
+    TAG_ID3_AUDIOSEEKPOINT,                 // audio seek point index
+    TAG_ID3_BAND,                           // band
+    TAG_ID3_BITRATE,                        // bitrate in kbps
+    TAG_ID3_BPM,                            // BPM (beats per minute)
+    TAG_ID3_BUFFERSIZE,                     // recommended buffer size
+    TAG_ID3_CDID,                           // music CD identifier
+    TAG_ID3_CHANNELMODE,                    // channel mode
+    TAG_ID3_CHANNELS,                       // number of channels in the audio (2 = stereo)
+    TAG_ID3_COMMENT,                        // comments
+    TAG_ID3_COMMERCIAL,                     // commercial frame
+    TAG_ID3_COMPOSER,                       // composer
+    TAG_ID3_CONDUCTOR,                      // conductor
+    TAG_ID3_CONTENTGROUP,                   // content group description
+    TAG_ID3_CONTENTTYPE,                    // type of music classification for the track as defined in ID3 spec
+    TAG_ID3_COPYRIGHT,                      // copyright message
+    TAG_ID3_CRYPTOREG,                      // encryption method registration
+    TAG_ID3_DATE,                           // date
+    TAG_ID3_DURATION,                       // duration of track in seconds
+    TAG_ID3_DURATIONMMSS,                   // duration of track in MM:SS
+    TAG_ID3_EMPHASIS,                       // emphasis
+    TAG_ID3_ENCODEDBY,                      // encoded by
+    TAG_ID3_ENCODERSETTINGS,                // software
+    TAG_ID3_ENCODINGTIME,                   // encoding time
+    TAG_ID3_EQUALIZATION,                   // equalization
+    TAG_ID3_EQUALIZATION2,                  // equalisation (2)
+    TAG_ID3_EVENTTIMING,                    // event timing codes
+    TAG_ID3_FILEOWNER,                      // file owner
+    TAG_ID3_FILETYPE,                       // file type
+    TAG_ID3_FRAMES,                         // number of frames
+    TAG_ID3_GENERALOBJECT,                  // general encapsulated object
+    TAG_ID3_GENRE,                          // type of music classification for the track as defined in ID3 spec
+    TAG_ID3_GROUPINGREG,                    // group identification registration
+    TAG_ID3_INITIALKEY,                     // initial key
+    TAG_ID3_INVOLVEDPEOPLE,                 // involved people list
+    TAG_ID3_INVOLVEDPEOPLE2,                // involved people list
+    TAG_ID3_ISRC,                           // ISRC (international standard recording code)
+    TAG_ID3_LANGUAGE,                       // language(s)
+    TAG_ID3_LEADARTIST,                     // lead performer(s)
+    TAG_ID3_LINKEDINFO,                     // linked information
+    TAG_ID3_LYRICIST,                       // lyricist
+    TAG_ID3_MEDIATYPE,                      // media type
+    TAG_ID3_MIXARTIST,                      // interpreted, remixed, or otherwise modified by
+    TAG_ID3_MOOD,                           // mood
+    TAG_ID3_MPEGLAYER,                      // MPEG layer
+    TAG_ID3_MPEGLOOKUP,                     // MPEG location lookup table
+    TAG_ID3_MPEGVERSION,                    // MPEG version
+    TAG_ID3_MUSICIANCREDITLIST,             // musician credits list
+    TAG_ID3_NETRADIOOWNER,                  // internet radio station owner
+    TAG_ID3_NETRADIOSTATION,                // internet radio station name
+    TAG_ID3_ORIGALBUM,                      // original album
+    TAG_ID3_ORIGARTIST,                     // original artist(s)
+    TAG_ID3_ORIGFILENAME,                   // original filename
+    TAG_ID3_ORIGLYRICIST,                   // original lyricist(s)
+    TAG_ID3_ORIGRELEASETIME,                // original release time
+    TAG_ID3_ORIGYEAR,                       // original release year
+    TAG_ID3_OWNERSHIP,                      // ownership frame
+    TAG_ID3_PARTINSET,                      // part of a set
+    TAG_ID3_PERFORMERSORTORDER,             // performer sort order
+    TAG_ID3_PICTURE,                        // attached picture
+    TAG_ID3_PLAYCOUNTER,                    // play counter
+    TAG_ID3_PLAYLISTDELAY,                  // playlist delay
+    TAG_ID3_POPULARIMETER,                  // popularimeter
+    TAG_ID3_POSITIONSYNC,                   // position synchronisation frame
+    TAG_ID3_PRIVATE,                        // private frame
+    TAG_ID3_PRODUCEDNOTICE,                 // produced notice
+    TAG_ID3_PUBLISHER,                      // publisher
+    TAG_ID3_RECORDINGDATES,                 // recording dates
+    TAG_ID3_RECORDINGTIME,                  // recording time
+    TAG_ID3_RELEASETIME,                    // release time
+    TAG_ID3_REVERB,                         // reverb
+    TAG_ID3_SAMPLERATE,                     // sample rate in Hz
+    TAG_ID3_SETSUBTITLE,                    // set subtitle
+    TAG_ID3_SIGNATURE,                      // signature frame
+    TAG_ID3_SIZE,                           // size
+    TAG_ID3_SONGLEN,                        // length
+    TAG_ID3_SUBTITLE,                       // subtitle
+    TAG_ID3_SYNCEDLYRICS,                   // synchronized lyric
+    TAG_ID3_SYNCEDTEMPO,                    // synchronized tempo codes
+    TAG_ID3_TAGGINGTIME,                    // tagging time
+    TAG_ID3_TERMSOFUSE,                     // terms of use
+    TAG_ID3_TIME,                           // time
+    TAG_ID3_TITLE,                          // title
+    TAG_ID3_TITLESORTORDER,                 // title sort order
+    TAG_ID3_TRACKNUM,                       // track number
+    TAG_ID3_UNIQUEFILEID,                   // unique file identifier
+    TAG_ID3_UNSYNCEDLYRICS,                 // unsynchronized lyric
+    TAG_ID3_USERTEXT,                       // user defined text information
+    TAG_ID3_VOLUMEADJ,                      // relative volume adjustment
+    TAG_ID3_VOLUMEADJ2,                     // relative volume adjustment (2)
+    TAG_ID3_WWWARTIST,                      // official artist
+    TAG_ID3_WWWAUDIOFILE,                   // official audio file webpage
+    TAG_ID3_WWWAUDIOSOURCE,                 // official audio source webpage
+    TAG_ID3_WWWCOMMERCIALINFO,              // commercial information
+    TAG_ID3_WWWCOPYRIGHT,                   // copyright
+    TAG_ID3_WWWPAYMENT,                     // payment
+    TAG_ID3_WWWPUBLISHER,                   // official publisher webpage
+    TAG_ID3_WWWRADIOPAGE,                   // official internet radio station homepage
+    TAG_ID3_WWWUSER,                        // user defined URL link
+    TAG_ID3_YEAR,                           // year
     TAG_IMAGE_ALBUM,                        // name of an album the image belongs to
     TAG_IMAGE_CAMERAMAKE,                   // make of camera used to take the image
     TAG_IMAGE_CAMERAMODEL,                  // model of camera used to take the image
@@ -318,6 +420,7 @@ typedef enum {
 
 GnomeCmdTag gcmd_tags_get_tag_by_long_name(const gchar *tag_name);
 GnomeCmdTag gcmd_tags_get_tag_by_name(const GnomeCmdTagClass tag_class, const gchar *tag_name);
+GnomeCmdTag *gcmd_tags_get_pointer_to_tag(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_name(GnomeCmdTag tag);
 const gchar *gcmd_tags_get_class_name(GnomeCmdTag tag);
 const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag);

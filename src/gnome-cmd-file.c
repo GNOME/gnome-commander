@@ -29,7 +29,7 @@
 #include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-xfer.h"
-#include "gnome-cmd-tags-libs.h"
+#include "tags/gnome-cmd-tags-libs.h"
 #include "libgviewer/libgviewer.h"
 
 #define MAX_TYPE_LENGTH 2
@@ -89,6 +89,10 @@ destroy (GtkObject *object)
 
 #ifdef HAVE_ICC
     gcmd_tags_icclib_free_metadata(file);
+#endif
+
+#ifdef HAVE_ID3
+    gcmd_tags_id3lib_free_metadata(file);
 #endif
 
     if (file->info->name[0] != '.')
@@ -151,6 +155,11 @@ init (GnomeCmdFile *file)
 #ifdef HAVE_ICC
     file->icc.metadata = NULL;
     file->icc.accessed = FALSE;
+#endif
+
+#ifdef HAVE_ID3
+    file->id3.metadata = NULL;
+    file->id3.accessed = FALSE;
 #endif
 }
 

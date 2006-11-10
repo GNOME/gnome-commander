@@ -1,3 +1,35 @@
+2006-11-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* doc/C/gnome-commander.xml:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-advrename-lexer.l:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-selector.h:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-tags-libs.c:
+	* src/gnome-cmd-tags-libs.h:
+	* src/gnome-cmd-tags.c:
+	* src/gnome-cmd-tags.h:
+	* src/useractions.c:
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-audio.c:
+	* src/tags/gnome-cmd-tags-audio.h:
+	* src/tags/gnome-cmd-tags-id3.c:
+	* src/tags/gnome-cmd-tags-id3.h:
+	* src/tags/gnome-cmd-tags-libs.c:
+	* src/tags/gnome-cmd-tags-libs.h:
+	* src/tags/gnome-cmd-tags.c:
+	* src/tags/gnome-cmd-tags.h:
+	* src/tags/id3lib/Makefile.am:
+	* src/tags/id3lib/c_wrapper.cpp:
+	* src/tags/id3lib/genres.h:
+	* src/tags/id3lib/id3_bugfix.h:
+	Added support for ID3 metatags in advrename
+
 2006-10-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.c:
@@ -10,7 +42,7 @@
 	* src/gnome-cmd-advrename-dialog.c:
 	* src/gnome-cmd-tags.c:
 	i18n for metatag title and description
-	
+
 	* src/gnome-cmd-chmod-dialog.c:
 	* src/gnome-cmd-file-list.c:
 	i18n for N_()
@@ -77,7 +109,7 @@
 	Added "Find" feature to the internal viewer
 
 2006-10-07  vlad <b100dian@gmail.com>
-  
+
 	* src/gnome-cmd-file-list.c:
 	* src/gnome-cmd-rename-dialog.c:
 	* src/gnome-cmd-rename-dialog.h:
@@ -120,7 +152,7 @@
 	* src/gnome-cmd-tags-libs.h:
 	* src/gnome-cmd-tags.c:
 	* src/gnome-cmd-tags.h:
-	Added suddort for Exif and IPTC metatags in advrename
+	Added support for Exif and IPTC metatags in advrename
 
 2006-09-17  Dušan Hokův  <dusan@mirc.cz>
 

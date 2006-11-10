@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem with symlink creation for multiple file selection
 
 New features:
+ * Support for ID3 metags in advanced file rename templates
  * New or updated translations: en_GB, fi
  * New key bindings:
 

@@ -17,6 +17,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+
 #include <config.h>
 
 #include <stdio.h>
@@ -35,6 +36,10 @@
 #ifdef HAVE_LCMS
 #include <icc34.h>
 #include <lcms.h>
+#endif
+
+#ifdef HAVE_ID3
+#include <id3.h>
 #endif
 
 
@@ -211,9 +216,9 @@ const gchar *gcmd_tags_libiptcdata_get_value(GnomeCmdFile *finfo, guint libclass
 
     char *dest = int_buff;
     guint avail_dest = sizeof(int_buff);
-    
+
     *dest = '\0';
-    
+
     if (!ds)
         return NULL;
 
@@ -224,18 +229,18 @@ const gchar *gcmd_tags_libiptcdata_get_value(GnomeCmdFile *finfo, guint libclass
             dest = g_stpcpy(dest, " ");
             avail_dest += 1;              //  += strlen(" ")
         }
-    
+
         if (iptc_dataset_get_as_str (ds, dest, avail_dest))
         {
             unsigned len = strlen(g_strstrip(dest));
-    
+
             avail_dest -= len;
             dest += len;
         }
-    
+
         iptc_dataset_unref(ds);
     }
-    
+
     return int_buff;
 #else
     return no_support_for_libiptcdata_tags_string;
@@ -392,3 +397,5 @@ const gchar *gcmd_tags_icclib_get_description_by_name(GnomeCmdFile *finfo, const
     return no_support_for_icclib_tags_string;
 #endif
 }
+
+

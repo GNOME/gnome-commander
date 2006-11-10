@@ -1,16 +1,12 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = libgviewer
+SUBDIRS = tags libgviewer
 
 AM_CPPFLAGS = \
 	-Wall \
 	-I$(top_srcdir) \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
-	$(EXIF_CFLAGS) \
-	$(IPTCDATA_CFLAGS) \
-	$(LCMS_CFLAGS) \
-	$(CHM_CFLAGS) \
 	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\"
 
 bin_PROGRAMS = gnome-commander gcmd-block
@@ -80,8 +76,6 @@ gnome_commander_SOURCES = \
 	gnome-cmd-make-copy-dialog.h gnome-cmd-make-copy-dialog.c \
 	gnome-cmd-search-dialog.h gnome-cmd-search-dialog.c \
 	gnome-cmd-style.h gnome-cmd-style.c \
-	gnome-cmd-tags.h gnome-cmd-tags.c \
-	gnome-cmd-tags-libs.h gnome-cmd-tags-libs.c \
 	gnome-cmd-xfer.h gnome-cmd-xfer.c \
 	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.c
 
@@ -93,7 +87,9 @@ gnome_commander_LDADD = \
 	$(LCMS_LIBS) \
 	$(CHM_LIBS) \
 	$(top_builddir)/libgcmd/libgcmd.la \
-	$(top_builddir)/src/libgviewer/libgviewer.la
+	tags/libgcmd-tags.a \
+	tags/id3lib/libgcmd-id3lib.a \
+	libgviewer/libgviewer.la
 
 gnome_commander_LDFLAGS = \
 	$(GNOMEUI_LIBS) \

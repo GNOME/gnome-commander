@@ -41,8 +41,6 @@ src/gnome-cmd-quicksearch-popup.c
 src/gnome-cmd-rename-dialog.c
 src/gnome-cmd-search-dialog.c
 src/gnome-cmd-smb-path.c
-src/gnome-cmd-tags.c
-src/gnome-cmd-tags-libs.c
 src/gnome-cmd-xfer.c
 src/gnome-cmd-xfer-progress-win.c
 src/imageloader.c
@@ -61,5 +59,9 @@ src/libgviewer/viewer-window.c
 src/main.c
 src/owner.c
 src/plugin_manager.c
+src/tags/gnome-cmd-tags.c
+src/tags/gnome-cmd-tags-id3.c
+src/tags/gnome-cmd-tags-libs.c
+src/tags/id3lib/id3_tag.c
 src/useractions.c
 src/utils.c

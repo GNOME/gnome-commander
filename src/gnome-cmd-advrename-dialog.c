@@ -28,7 +28,7 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-clist.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-tags.h"
+#include "tags/gnome-cmd-tags.h"
 #include "utils.h"
 
 
@@ -179,23 +179,18 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                            {_("/Time/SS"), NULL, insert_text_tag, 25}};
 
     static GnomeCmdTag metatags[] = {
-                                     // TAG_AUDIO_ALBUMARTIST, TAG_AUDIO_ALBUMGAIN, TAG_AUDIO_ALBUMPEAKGAIN,
-                                     // TAG_AUDIO_ALBUMTRACKCOUNT, TAG_AUDIO_ALBUM, TAG_AUDIO_ARTIST, TAG_AUDIO_BITRATE,
-                                     // TAG_AUDIO_CHANNELS, TAG_AUDIO_CODECVERSION, TAG_AUDIO_CODEC, TAG_AUDIO_COMMENT,
-                                     // TAG_AUDIO_COVERALBUMTHUMBNAILPATH, TAG_AUDIO_DISCNO, TAG_AUDIO_DURATION,
-                                     // TAG_AUDIO_GENRE, TAG_AUDIO_ISNEW, TAG_AUDIO_LASTPLAY, TAG_AUDIO_LYRICS,
-                                     // TAG_AUDIO_MBALBUMARTISTID, TAG_AUDIO_MBALBUMID, TAG_AUDIO_MBARTISTID,
-                                     // TAG_AUDIO_MBTRACKID, TAG_AUDIO_PERFORMER, TAG_AUDIO_PLAYCOUNT,
-                                     // TAG_AUDIO_RELEASEDATE, TAG_AUDIO_SAMPLERATE, TAG_AUDIO_TITLE, TAG_AUDIO_TRACKGAIN,
-                                     // TAG_AUDIO_TRACKNO, TAG_AUDIO_TRACKPEAKGAIN,
+                                     TAG_AUDIO_ALBUMARTIST, TAG_AUDIO_ALBUMGAIN, TAG_AUDIO_ALBUMPEAKGAIN,
+                                     TAG_AUDIO_ALBUMTRACKCOUNT, TAG_AUDIO_ALBUM, TAG_AUDIO_ARTIST, TAG_AUDIO_BITRATE,
+                                     TAG_AUDIO_CHANNELS, TAG_AUDIO_CODECVERSION, TAG_AUDIO_CODEC, TAG_AUDIO_COMMENT,
+                                     TAG_AUDIO_COVERALBUMTHUMBNAILPATH, TAG_AUDIO_DISCNO, TAG_AUDIO_DURATION,
+                                     TAG_AUDIO_GENRE, TAG_AUDIO_ISNEW, TAG_AUDIO_LASTPLAY, TAG_AUDIO_LYRICS,
+                                     TAG_AUDIO_MBALBUMARTISTID, TAG_AUDIO_MBALBUMID, TAG_AUDIO_MBARTISTID,
+                                     TAG_AUDIO_MBTRACKID, TAG_AUDIO_PERFORMER, TAG_AUDIO_PLAYCOUNT,
+                                     TAG_AUDIO_RELEASEDATE, TAG_AUDIO_SAMPLERATE, TAG_AUDIO_TITLE, TAG_AUDIO_TRACKGAIN,
+                                     TAG_AUDIO_TRACKNO, TAG_AUDIO_TRACKPEAKGAIN,
 
-                                     // TAG_NONE,
-
-                                     // TAG_DOC_AUTHOR, TAG_DOC_COMMENTS, TAG_DOC_CREATED, TAG_DOC_KEYWORDS, TAG_DOC_PAGECOUNT,
-                                     // TAG_DOC_SUBJECT, TAG_DOC_TITLE, TAG_DOC_WORDCOUNT, TAG_EXIF_APERTUREVALUE,
-
-                                     // TAG_NONE,
-
+                                     // TAG_DOC_AUTHOR, TAG_DOC_COMMENTS, TAG_DOC_CREATED, TAG_DOC_KEYWORDS,
+                                     // TAG_DOC_PAGECOUNT, TAG_DOC_SUBJECT, TAG_DOC_TITLE, TAG_DOC_WORDCOUNT,
                                      // TAG_FILE_ACCESSED, TAG_FILE_CONTENT, TAG_FILE_DESCRIPTION, TAG_FILE_FORMAT,
                                      // TAG_FILE_ICONPATH, TAG_FILE_KEYWORDS, TAG_FILE_LARGETHUMBNAILPATH, TAG_FILE_LINK,
                                      // TAG_FILE_MODIFIED, TAG_FILE_NAME, TAG_FILE_PATH, TAG_FILE_PERMISSIONS,
@@ -212,6 +207,47 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
 
                                      TAG_NONE,
 
+                                     TAG_ID3_ALBUM, TAG_ID3_BAND, TAG_ID3_BITRATE,
+                                     TAG_ID3_CHANNELS, TAG_ID3_CONTENTTYPE,
+                                     TAG_ID3_DURATION, TAG_ID3_DURATIONMMSS,
+                                     TAG_ID3_GENRE, TAG_ID3_LEADARTIST, TAG_ID3_SAMPLERATE,
+                                     TAG_ID3_TITLE, TAG_ID3_TRACKNUM,
+
+                                     TAG_ID3_ALBUMSORTORDER, TAG_ID3_AUDIOCRYPTO,
+                                     TAG_ID3_AUDIOSEEKPOINT,
+                                     TAG_ID3_BPM, TAG_ID3_BUFFERSIZE, TAG_ID3_CDID,
+                                     TAG_ID3_CHANNELMODE, TAG_ID3_COMMENT,
+                                     TAG_ID3_COMMERCIAL, TAG_ID3_COMPOSER, TAG_ID3_CONDUCTOR,
+                                     TAG_ID3_CONTENTGROUP, TAG_ID3_COPYRIGHT,
+                                     TAG_ID3_CRYPTOREG, TAG_ID3_DATE,
+                                     TAG_ID3_EMPHASIS, TAG_ID3_ENCODEDBY,
+                                     TAG_ID3_ENCODERSETTINGS, TAG_ID3_ENCODINGTIME, TAG_ID3_EQUALIZATION,
+                                     TAG_ID3_EQUALIZATION2, TAG_ID3_EVENTTIMING, TAG_ID3_FILEOWNER,
+                                     TAG_ID3_FILETYPE, TAG_ID3_FRAMES, TAG_ID3_GENERALOBJECT,
+                                     TAG_ID3_GROUPINGREG, TAG_ID3_INITIALKEY,
+                                     TAG_ID3_INVOLVEDPEOPLE, TAG_ID3_INVOLVEDPEOPLE2, TAG_ID3_ISRC,
+                                     TAG_ID3_LANGUAGE, TAG_ID3_LINKEDINFO,
+                                     TAG_ID3_LYRICIST, TAG_ID3_MEDIATYPE, TAG_ID3_MIXARTIST,
+                                     TAG_ID3_MOOD, TAG_ID3_MPEGLAYER, TAG_ID3_MPEGLOOKUP,
+                                     TAG_ID3_MPEGVERSION, TAG_ID3_MUSICIANCREDITLIST,
+                                     TAG_ID3_NETRADIOOWNER, TAG_ID3_NETRADIOSTATION,
+                                     TAG_ID3_ORIGALBUM, TAG_ID3_ORIGARTIST, TAG_ID3_ORIGFILENAME,
+                                     TAG_ID3_ORIGLYRICIST, TAG_ID3_ORIGRELEASETIME, TAG_ID3_ORIGYEAR,
+                                     TAG_ID3_OWNERSHIP, TAG_ID3_PARTINSET, TAG_ID3_PERFORMERSORTORDER,
+                                     TAG_ID3_PICTURE, TAG_ID3_PLAYCOUNTER, TAG_ID3_PLAYLISTDELAY,
+                                     TAG_ID3_POPULARIMETER, TAG_ID3_POSITIONSYNC, TAG_ID3_PRIVATE,
+                                     TAG_ID3_PRODUCEDNOTICE, TAG_ID3_PUBLISHER, TAG_ID3_RECORDINGDATES,
+                                     TAG_ID3_RECORDINGTIME, TAG_ID3_RELEASETIME, TAG_ID3_REVERB,
+                                     TAG_ID3_SETSUBTITLE, TAG_ID3_SIGNATURE,
+                                     TAG_ID3_SIZE, TAG_ID3_SONGLEN, TAG_ID3_SUBTITLE, TAG_ID3_SYNCEDLYRICS,
+                                     TAG_ID3_SYNCEDTEMPO, TAG_ID3_TAGGINGTIME, TAG_ID3_TERMSOFUSE,
+                                     TAG_ID3_TIME, TAG_ID3_TITLESORTORDER,
+                                     TAG_ID3_UNIQUEFILEID, TAG_ID3_UNSYNCEDLYRICS, TAG_ID3_USERTEXT,
+                                     TAG_ID3_VOLUMEADJ, TAG_ID3_VOLUMEADJ2, TAG_ID3_WWWARTIST,
+                                     TAG_ID3_WWWAUDIOFILE, TAG_ID3_WWWAUDIOSOURCE, TAG_ID3_WWWCOMMERCIALINFO,
+                                     TAG_ID3_WWWCOPYRIGHT, TAG_ID3_WWWPAYMENT, TAG_ID3_WWWPUBLISHER,
+                                     TAG_ID3_WWWRADIOPAGE, TAG_ID3_WWWUSER, TAG_ID3_YEAR,
+
                                      TAG_EXIF_COPYRIGHT, TAG_EXIF_DATETIME,
                                      TAG_EXIF_EXPOSUREBIASVALUE, TAG_EXIF_EXPOSUREMODE, TAG_EXIF_EXPOSUREPROGRAM,
                                      TAG_EXIF_FLASH, TAG_EXIF_FLASHENERGY,
@@ -224,9 +260,9 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_EXIF_CUSTOMRENDERED, TAG_EXIF_COLORSPACE,
                                      TAG_EXIF_DOCUMENTNAME, TAG_EXIF_USERCOMMENT,
 
-                                     TAG_EXIF_ARTIST, TAG_EXIF_BATTERYLEVEL, TAG_EXIF_BITSPERSAMPLE,
-                                     TAG_EXIF_BRIGHTNESSVALUE, TAG_EXIF_CFAPATTERN,
-                                     TAG_EXIF_COMPONENTSCONFIGURATION,
+                                     TAG_EXIF_APERTUREVALUE, TAG_EXIF_ARTIST, TAG_EXIF_BATTERYLEVEL,
+                                     TAG_EXIF_BITSPERSAMPLE, TAG_EXIF_BRIGHTNESSVALUE,
+                                     TAG_EXIF_CFAPATTERN, TAG_EXIF_COMPONENTSCONFIGURATION,
                                      TAG_EXIF_COMPRESSEDBITSPERPIXEL, TAG_EXIF_COMPRESSION, TAG_EXIF_CONTRAST,
                                      TAG_EXIF_DATETIMEDIGITIZED, TAG_EXIF_DATETIMEORIGINAL,
                                      TAG_EXIF_DEVICESETTINGDESCRIPTION, TAG_EXIF_DIGITALZOOMRATIO,

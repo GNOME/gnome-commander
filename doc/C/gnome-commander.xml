@@ -185,7 +185,7 @@
                 <para>Plugin support</para>
             </listitem>
             <listitem>
-                <para>Fast file viewer for text, images and image meta data (Exif and IPTC)</para>
+                <para>Fast file viewer for text, images and image meta data (Exif, IPTC and ID3)</para>
             </listitem>
             <listitem>
                 <para>Tools for advanced batch renaming of files, searching, quick file name searching in current dir,
@@ -1470,6 +1470,516 @@
                         <entry><para>File.SmallThumbnailPath</para></entry>
                         <entry><para>Small Thumbnail Path</para></entry>
                         <entry><para>Editable file URI for a small thumbnail of the file suitable for use in icon views</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Album</para></entry>
+                        <entry><para>Album</para></entry>
+                        <entry><para>Name of the album</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.AlbumSortOrder</para></entry>
+                        <entry><para>Album Sort Order</para></entry>
+                        <entry><para>String which should be used instead of the album name for sorting purposes</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.AudioCrypto</para></entry>
+                        <entry><para>Audio Encryption</para></entry>
+                        <entry><para>Frame indicates if the audio stream is encrypted, and by whom</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.AudioSeekPoint</para></entry>
+                        <entry><para>Audio Seek Point</para></entry>
+                        <entry><para>Fractional offset within the audio data, providing a starting point from which to find an appropriate point to start decoding</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Band</para></entry>
+                        <entry><para>Band</para></entry>
+                        <entry><para>Additional information about the performers in the recording</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Bitrate</para></entry>
+                        <entry><para>Bitrate</para></entry>
+                        <entry><para>Bitrate in kbps</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.BPM</para></entry>
+                        <entry><para>BPM</para></entry>
+                        <entry><para>BPM (beats per minute)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.BufferSize</para></entry>
+                        <entry><para>Buffer Size</para></entry>
+                        <entry><para>Recommended buffer size</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.CDID</para></entry>
+                        <entry><para>CD ID</para></entry>
+                        <entry><para>Music CD identifier</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.ChannelMode</para></entry>
+                        <entry><para>Channel mode</para></entry>
+                        <entry><para>Channel mode</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Channels</para></entry>
+                        <entry><para>Channels</para></entry>
+                        <entry><para>Number of channels in the audio (2 = stereo)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Comment</para></entry>
+                        <entry><para>Comment</para></entry>
+                        <entry><para>Comments on the track</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Commercial</para></entry>
+                        <entry><para>Commercial</para></entry>
+                        <entry><para>Commercial frame</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Composer</para></entry>
+                        <entry><para>Composer</para></entry>
+                        <entry><para>Composer</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Conductor</para></entry>
+                        <entry><para>Conductor</para></entry>
+                        <entry><para>Conductor</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.ContentGroup</para></entry>
+                        <entry><para>Content Group</para></entry>
+                        <entry><para>Content group description</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.ContentType</para></entry>
+                        <entry><para>Content Type</para></entry>
+                        <entry><para>Type of music classification for the track as defined in ID3 spec</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Copyright</para></entry>
+                        <entry><para>Copyright</para></entry>
+                        <entry><para>Copyright message</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.CryptoReg</para></entry>
+                        <entry><para>Encryption Registration</para></entry>
+                        <entry><para>Encryption method registration</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Date</para></entry>
+                        <entry><para>Date</para></entry>
+                        <entry><para>Date</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Duration</para></entry>
+                        <entry><para>Duration</para></entry>
+                        <entry><para>Duration of track in seconds</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Duration.MMSS</para></entry>
+                        <entry><para>Duration</para></entry>
+                        <entry><para>Duration of track as MM:SS</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Emphasis</para></entry>
+                        <entry><para>Emphasis</para></entry>
+                        <entry><para>Emphasis</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.EncodedBy</para></entry>
+                        <entry><para>Encoded By</para></entry>
+                        <entry><para>Person or organisation that encoded the audio file. This field may contain a copyright message, if the audio file also is copyrighted by the encoder</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.EncoderSettings</para></entry>
+                        <entry><para>Encoder Settings</para></entry>
+                        <entry><para>Software</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.EncodingTime</para></entry>
+                        <entry><para>Encoding Time</para></entry>
+                        <entry><para>Encoding time</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Equalization</para></entry>
+                        <entry><para>Equalization</para></entry>
+                        <entry><para>Equalization</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Equalization2</para></entry>
+                        <entry><para>Equalization 2</para></entry>
+                        <entry><para>Equalisation curve predifine within the audio file</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.EventTiming</para></entry>
+                        <entry><para>Event Timing</para></entry>
+                        <entry><para>Event timing codes</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.FileOwner</para></entry>
+                        <entry><para>File Owner</para></entry>
+                        <entry><para>File owner</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.FileType</para></entry>
+                        <entry><para>File Type</para></entry>
+                        <entry><para>File type</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Frames</para></entry>
+                        <entry><para>Frames</para></entry>
+                        <entry><para>Number of frames</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.GeneralObject</para></entry>
+                        <entry><para>General Object</para></entry>
+                        <entry><para>General encapsulated object</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Genre</para></entry>
+                        <entry><para>Genre</para></entry>
+                        <entry><para>Type of music classification for the track as defined in ID3 spec</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.GroupingReg</para></entry>
+                        <entry><para>Grouping Registration</para></entry>
+                        <entry><para>Group identification registration</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.InitialKey</para></entry>
+                        <entry><para>Initial Key</para></entry>
+                        <entry><para>Initial key</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.InvolvedPeople</para></entry>
+                        <entry><para>Involved People</para></entry>
+                        <entry><para>Involved people list</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.InvolvedPeople2</para></entry>
+                        <entry><para>InvolvedPeople2</para></entry>
+                        <entry><para>Involved people list</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.ISRC</para></entry>
+                        <entry><para>ISRC</para></entry>
+                        <entry><para>ISRC (international standard recording code)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Language</para></entry>
+                        <entry><para>Language</para></entry>
+                        <entry><para>Language</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.LeadArtist</para></entry>
+                        <entry><para>Lead Artist</para></entry>
+                        <entry><para>Lead performer(s)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.LinkedInfo</para></entry>
+                        <entry><para>Linked Info</para></entry>
+                        <entry><para>Linked information</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Lyricist</para></entry>
+                        <entry><para>Lyricist</para></entry>
+                        <entry><para>Lyricist</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.MediaType</para></entry>
+                        <entry><para>Media Type</para></entry>
+                        <entry><para>Media type</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.MixArtist</para></entry>
+                        <entry><para>Mix Artist</para></entry>
+                        <entry><para>Interpreted, remixed, or otherwise modified by</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Mood</para></entry>
+                        <entry><para>Mood</para></entry>
+                        <entry><para>Mood</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.MPEG.Layer</para></entry>
+                        <entry><para>Layer</para></entry>
+                        <entry><para>MPEG layer</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.MPEG.Lookup</para></entry>
+                        <entry><para>MPEG Lookup</para></entry>
+                        <entry><para>MPEG location lookup table</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.MPEG.Version</para></entry>
+                        <entry><para>MPEG Version</para></entry>
+                        <entry><para>MPEG version</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.MusicianCreditList</para></entry>
+                        <entry><para>Musician Credit List</para></entry>
+                        <entry><para>Musician credits list</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.NetRadioOwner</para></entry>
+                        <entry><para>Net Radio Owner</para></entry>
+                        <entry><para>Internet radio station owner</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.NetRadiostation</para></entry>
+                        <entry><para>Net Radiostation</para></entry>
+                        <entry><para>Internet radio station name</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.OriginalAlbum</para></entry>
+                        <entry><para>Original Album</para></entry>
+                        <entry><para>Original album</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.OriginalArtist</para></entry>
+                        <entry><para>Original Artist</para></entry>
+                        <entry><para>Original artist</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.OriginalFileName</para></entry>
+                        <entry><para>Original File Name</para></entry>
+                        <entry><para>Original filename</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.OriginalLyricist</para></entry>
+                        <entry><para>Original Lyricist</para></entry>
+                        <entry><para>Original lyricist</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.OriginalReleaseTime</para></entry>
+                        <entry><para>Original Release Time</para></entry>
+                        <entry><para>Original release time</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.OriginalYear</para></entry>
+                        <entry><para>Original Year</para></entry>
+                        <entry><para>Original release year</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Ownership</para></entry>
+                        <entry><para>Ownership</para></entry>
+                        <entry><para>Ownership frame</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.PartInSet</para></entry>
+                        <entry><para>Part of a Set</para></entry>
+                        <entry><para>Part of a set the audio came from</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.PerformerSortOrder</para></entry>
+                        <entry><para>Performer Sort Order</para></entry>
+                        <entry><para>Performer sort order</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Picture</para></entry>
+                        <entry><para>Picture</para></entry>
+                        <entry><para>Attached picture</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.PlayCounter</para></entry>
+                        <entry><para>Play Counter</para></entry>
+                        <entry><para>Number of times a file has been played</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.PlaylistDelay</para></entry>
+                        <entry><para>Playlist Delay</para></entry>
+                        <entry><para>Playlist delay</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Popularimeter</para></entry>
+                        <entry><para>Popularimeter</para></entry>
+                        <entry><para>Rating of the audio file</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.PositionSync</para></entry>
+                        <entry><para>Position Sync</para></entry>
+                        <entry><para>Position synchronisation frame</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Private</para></entry>
+                        <entry><para>Private</para></entry>
+                        <entry><para>Private frame</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.ProducedNotice</para></entry>
+                        <entry><para>Produced Notice</para></entry>
+                        <entry><para>Produced notice</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Publisher</para></entry>
+                        <entry><para>Publisher</para></entry>
+                        <entry><para>Publisher</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.RecordingDates</para></entry>
+                        <entry><para>Recording Dates</para></entry>
+                        <entry><para>Recording dates</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.RecordingTime</para></entry>
+                        <entry><para>Recording Time</para></entry>
+                        <entry><para>Recording time</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.ReleaseTime</para></entry>
+                        <entry><para>Release Time</para></entry>
+                        <entry><para>Release time</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Reverb</para></entry>
+                        <entry><para>Reverb</para></entry>
+                        <entry><para>Reverb</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.SampleRate</para></entry>
+                        <entry><para>Sample Rate</para></entry>
+                        <entry><para>Sample rate in Hz</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.SetSubtitle</para></entry>
+                        <entry><para>Set Subtitle</para></entry>
+                        <entry><para>Subtitle of the part of a set this track belongs to</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Signature</para></entry>
+                        <entry><para>Signature</para></entry>
+                        <entry><para>Signature frame</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Size</para></entry>
+                        <entry><para>Size</para></entry>
+                        <entry><para>Size of the audio file in bytes, excluding the ID3 tag</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.SongLength</para></entry>
+                        <entry><para>Song length</para></entry>
+                        <entry><para>Length of the song in milliseconds</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Subtitle</para></entry>
+                        <entry><para>Subtitle</para></entry>
+                        <entry><para>Subtitle</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Syncedlyrics</para></entry>
+                        <entry><para>Syncedlyrics</para></entry>
+                        <entry><para>Synchronized lyric</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.SyncedTempo</para></entry>
+                        <entry><para>Synchronized Tempo</para></entry>
+                        <entry><para>Synchronized tempo codes</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.TaggingTime</para></entry>
+                        <entry><para>Tagging Time</para></entry>
+                        <entry><para>Tagging time</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.TermsOfUse</para></entry>
+                        <entry><para>Terms Of Use</para></entry>
+                        <entry><para>Terms of use</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Time</para></entry>
+                        <entry><para>Time</para></entry>
+                        <entry><para>Time</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Title</para></entry>
+                        <entry><para>Title</para></entry>
+                        <entry><para>Title of the track</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Titlesortorder</para></entry>
+                        <entry><para>Titlesortorder</para></entry>
+                        <entry><para>Title sort order</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.TrackNo</para></entry>
+                        <entry><para>Track number</para></entry>
+                        <entry><para>Position of track on the album</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.UniqueFileID</para></entry>
+                        <entry><para>Unique File ID</para></entry>
+                        <entry><para>Unique file identifier</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.UnsyncedLyrics</para></entry>
+                        <entry><para>Unsynchronized Lyrics</para></entry>
+                        <entry><para>Unsynchronized lyric</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.UserText</para></entry>
+                        <entry><para>User Text</para></entry>
+                        <entry><para>User defined text information</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.VolumeAdj</para></entry>
+                        <entry><para>Volume Adjustment</para></entry>
+                        <entry><para>Relative volume adjustment</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.VolumeAdj2</para></entry>
+                        <entry><para>Volume Adjustment 2</para></entry>
+                        <entry><para>Relative volume adjustment</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.WWWArtist</para></entry>
+                        <entry><para>WWW Artist</para></entry>
+                        <entry><para>Official artist</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.WWWAudioFile</para></entry>
+                        <entry><para>WWW Audio File</para></entry>
+                        <entry><para>Official audio file webpage</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.WWWAudioSource</para></entry>
+                        <entry><para>WWW Audio Source</para></entry>
+                        <entry><para>Official audio source webpage</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.WWWCommercialInfo</para></entry>
+                        <entry><para>WWW Commercial Info</para></entry>
+                        <entry><para>URL pointing at a webpage containing commercial information</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.WWWCopyright</para></entry>
+                        <entry><para>WWW Copyright</para></entry>
+                        <entry><para>URL pointing at a webpage that holds copyright</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.WWWPayment</para></entry>
+                        <entry><para>WWW Payment</para></entry>
+                        <entry><para>URL pointing at a webpage that will handle the process of paying for this file</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.WWWPublisher</para></entry>
+                        <entry><para>WWW Publisher</para></entry>
+                        <entry><para>URL pointing at the official webpage for the publisher</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.WWWRadioPage</para></entry>
+                        <entry><para>WWW Radio Page</para></entry>
+                        <entry><para>Official internet radio station homepage</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.WWWUser</para></entry>
+                        <entry><para>WWW User</para></entry>
+                        <entry><para>User defined URL link</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>ID3.Year</para></entry>
+                        <entry><para>Year</para></entry>
+                        <entry><para>Year</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Image.Album</para></entry>
@@ -3440,7 +3950,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Updated help docs</para>
+                            <para>Support for ID3 metags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: en_GB, fi</para>
