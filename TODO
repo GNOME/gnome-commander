@@ -10,6 +10,7 @@
 * Tab completion at the built-in command line
 * Splitting/merging files
 * Write configuration and bookmark changes immediately to file
+* Optional deleting to .Thrash
 * Support for file meta tags (exif, iptc, icc, mp3, vorbis, *ml, pdf, ...) - custom columns
 * Unmounting a device via device button
 * advrename & FAM: do not re-sort file list for every single renamed file
@@ -53,7 +54,7 @@
 // Advrename tool
 
 * The advrename dialog should have a feature to convert between upper/lowercase.
-* Support for file meta tags (icc, mp3, vorbis, *ml, pdf, ...)
+* Support for file meta tags (icc, vorbis, *ml, pdf, ...)
 
 
 // Internal viewer
