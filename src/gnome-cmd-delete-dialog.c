@@ -26,6 +26,7 @@
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
 
+
 typedef struct {
     GtkWidget *progbar;
     GtkWidget *proglabel;
@@ -37,7 +38,7 @@ typedef struct {
     // where the answer is delivered
     gint problem_action;
 
-    // the filename of the file that cant be deleted
+    // the filename of the file that can't be deleted
     gchar *problem_file;
 
     // the cause that the file cant be deleted
@@ -83,7 +84,7 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
 
     if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
         data->vfs_status = info->vfs_status;
-        data->problem_file = info->source_name;
+        data->problem_file = str_uri_basename(info->source_name);
         data->problem = TRUE;
 
         g_mutex_unlock (data->mutex);
@@ -92,6 +93,7 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
         g_mutex_lock (data->mutex);
         ret = data->problem_action;
         data->problem_action = -1;
+        g_free(data->problem_file);
         data->problem_file = NULL;
         data->vfs_status = GNOME_VFS_OK;
     }
@@ -108,7 +110,8 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
 
         ret = !data->stop;
     }
-    else {
+    else 
+    {
         data->vfs_status = info->vfs_status;
     }
 
@@ -160,8 +163,7 @@ create_delete_progress_win (DeleteData *data)
     bbox = create_hbuttonbox (data->progwin);
     gtk_container_add (GTK_CONTAINER (vbox), bbox);
 
-    button = create_stock_button_with_data (
-        data->progwin, GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), data);
+    button = create_stock_button_with_data (data->progwin, GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), data);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
@@ -181,7 +183,7 @@ perform_delete_operation (DeleteData *data)
     gint num_files = g_list_length (data->files);
 
     /* Go through all files and add the uri of the appropriate ones to a list */
-    for ( i=0 ; i<num_files; i++ ) {
+    for (i=0 ; i<num_files; i++) {
         GnomeVFSURI *uri;
         GnomeCmdFile *finfo = (GnomeCmdFile*)g_list_nth_data (data->files, i);
 
@@ -222,6 +224,7 @@ update_delete_status_widgets (DeleteData *data)
     if (data->problem) {
         const gchar *error = gnome_vfs_result_to_string (data->vfs_status);
         gchar *msg = g_strdup_printf (_("Error while deleting %s\n\n%s"), data->problem_file, error);
+
         data->problem_action = run_simple_dialog (
             GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_ERROR, msg, _("Delete problem"),
             -1, _("Abort"), _("Retry"), _("Skip"), NULL);
@@ -241,7 +244,7 @@ update_delete_status_widgets (DeleteData *data)
             create_error_dialog (gnome_vfs_result_to_string (data->vfs_status));
 
         if (data->files)
-            for ( tmp = data->files; tmp; tmp = tmp->next )
+            for (tmp = data->files; tmp; tmp = tmp->next)
             {
                 GnomeCmdFile *finfo = GNOME_CMD_FILE (tmp->data);
                 GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);

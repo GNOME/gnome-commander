@@ -4,6 +4,7 @@ gnome-commander 1.2.2
 
 Bug fixes:
  * Fixed problem with symlink creation for multiple file selection
+ * Fixed problem #367744 (filename not correctly displayed)
 
 New features:
  * Support for ID3 metags in advanced file rename templates
