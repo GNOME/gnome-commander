@@ -101,7 +101,9 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
         if (info->file_index >= 0 && info->files_total > 0) {
             gfloat f = (gfloat)info->file_index/(gfloat)info->files_total;
             if (data->msg) g_free (data->msg);
-            data->msg = g_strdup_printf ("[%ld of %ld] Files deleted",
+            data->msg = g_strdup_printf (ngettext("Deleted %ld of %ld file",
+                                                  "Deleted %ld of %ld files",
+                                                  info->file_total),
                                          info->file_index, info->files_total);
             if (f < 0.001f) f = 0.001f;
             if (f > 0.999f) f = 0.999f;
@@ -223,7 +225,7 @@ update_delete_status_widgets (DeleteData *data)
 
     if (data->problem) {
         const gchar *error = gnome_vfs_result_to_string (data->vfs_status);
-        gchar *msg = g_strdup_printf (_("Error while deleting %s\n\n%s"), data->problem_file, error);
+        gchar *msg = g_strdup_printf (_("Error while deleting \"%s\"\n\n%s"), data->problem_file, error);
 
         data->problem_action = run_simple_dialog (
             GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_ERROR, msg, _("Delete problem"),
