@@ -103,7 +103,7 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
             if (data->msg) g_free (data->msg);
             data->msg = g_strdup_printf (ngettext("Deleted %ld of %ld file",
                                                   "Deleted %ld of %ld files",
-                                                  info->file_total),
+                                                  info->files_total),
                                          info->file_index, info->files_total);
             if (f < 0.001f) f = 0.001f;
             if (f > 0.999f) f = 0.999f;
