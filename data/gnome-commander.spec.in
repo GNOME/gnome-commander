@@ -24,7 +24,7 @@ Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME.
 Group:         Applications/File
 License:       GPL2
 URL:           http://www.freesoftware.fsf.org/gcmd/
-Source0:       http://freesoftware.fsf.org/download/gcmd/gcmd.pkg/@VERSION@/@PACKAGE@-@VERSION@.tar%{srcext}
+Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/gnome-commander/1.2/@PACKAGE@-@VERSION@.tar%{srcext}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: scrollkeeper gettext >= 0.10.36
 Requires:      gtk2 >= 2.6
@@ -113,6 +113,9 @@ fi
 %{_datadir}/pixmaps
 
 %changelog
+* Tue Nov 14 2006 Piotr Eljasiak <epiotr@use.pl>
+- fixed Source0 address
+
 * Mon Jul 17 2006 Piotr Eljasiak <epiotr@use.pl>
 - added glib dependencies
 
