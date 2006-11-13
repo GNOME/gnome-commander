@@ -27,6 +27,8 @@
 
 G_BEGIN_DECLS
 
+#define TRACE(x,fmt)  printf("TRACE  " #x ": " #fmt "\n", x)
+
 gboolean DEBUG_ENABLED (gchar flag);
 void DEBUG (gchar flag, const gchar *fmt, ...);
 void warn_print (const gchar *fmt, ...);

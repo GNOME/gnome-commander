@@ -1,3 +1,8 @@
+2006-11-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/utils.h:
+	Added TRACE() macro
+
 2006-11-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-delete-dialog.c:
