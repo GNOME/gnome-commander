@@ -2171,7 +2171,7 @@ gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *
     const gchar *labels[] = {_("Symlink name:")};
 
     gchar *fname = get_utf8 (gnome_cmd_file_get_name (finfo));
-    gchar *text = g_strdup_printf (_("link to %s"), fname);
+    gchar *text = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
     g_free (fname);
 
     GtkWidget *dialog = gnome_cmd_string_dialog_new (_("Create Symbolic Link"),
@@ -2198,7 +2198,7 @@ gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
         gchar *fname = get_utf8 (gnome_cmd_file_get_name (finfo));
-        gchar *symlink_name = g_strdup_printf (_("link to %s"), fname);
+        gchar *symlink_name = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
 
         GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->priv->cwd, symlink_name);
 

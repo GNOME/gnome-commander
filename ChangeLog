@@ -1,3 +1,10 @@
+2006-11-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-selector.c:
+	Made symlink prefix ("link to %s") user configurable
+
 2006-11-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.h:

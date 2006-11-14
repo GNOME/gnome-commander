@@ -102,6 +102,7 @@ struct _GnomeCmdDataPrivate
     gchar                *backup_pattern;
     GList                *backup_pattern_list;
     GdkWindowState       main_win_state;
+    gchar                *symlink_prefix;
 
     gchar *viewer;
     gchar *editor;
@@ -1182,6 +1183,11 @@ gnome_cmd_data_save                      (void)
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", data->priv->toolbar_visibility);
     gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", data->priv->buttonbar_visibility);
 
+    if (data->priv->symlink_prefix && *data->priv->symlink_prefix && strcmp(data->priv->symlink_prefix,_("link to %s"))!=0)
+        gnome_cmd_data_set_string ("/options/symlink_prefix", data->priv->symlink_prefix);
+    else
+        gnome_cmd_data_set_string ("/options/symlink_prefix", "");
+
     gnome_cmd_data_set_int    ("/options/main_win_pos_x", data->priv->main_win_pos[0]);
     gnome_cmd_data_set_int    ("/options/main_win_pos_y", data->priv->main_win_pos[1]);
 
@@ -1390,6 +1396,13 @@ gnome_cmd_data_load                      (void)
     data->priv->toolbar_visibility = gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE);
     data->priv->buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
 
+    data->priv->symlink_prefix = gnome_cmd_data_get_string ("/options/symlink_prefix", _("link to %s"));
+    if (!*data->priv->symlink_prefix || strcmp(data->priv->symlink_prefix, _("link to %s"))==0)
+    {
+        g_free(data->priv->symlink_prefix);
+        data->priv->symlink_prefix = NULL;
+    }
+    
     data->priv->sort_column[LEFT] = gnome_cmd_data_get_int ("/options/sort_column_left", FILE_LIST_COLUMN_NAME);
     data->priv->sort_direction[LEFT] = gnome_cmd_data_get_bool ( "/options/sort_direction_left", FILE_LIST_SORT_ASCENDING);
     data->priv->sort_column[RIGHT] = gnome_cmd_data_get_int ("/options/sort_column_right", FILE_LIST_COLUMN_NAME);
@@ -2349,3 +2362,16 @@ void gnome_cmd_data_set_main_win_state (GdkWindowState state)
     data->priv->main_win_state = state;
 //    data->priv->main_win_state = gdk_window_get_state (GTK_WIDGET (main_win)->window);
 }
+
+
+const gchar *gnome_cmd_data_get_symlink_prefix (void)
+{
+    return data->priv->symlink_prefix ? data->priv->symlink_prefix : _("link to %s");
+}
+
+
+void gnome_cmd_data_set_symlink_prefix (const gchar *value)
+{
+    data->priv->symlink_prefix = g_strdup (value);
+}
+

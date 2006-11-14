@@ -462,6 +462,12 @@ gnome_cmd_data_get_main_win_state (void);
 void
 gnome_cmd_data_set_main_win_state (GdkWindowState state);
 
+const gchar *
+gnome_cmd_data_get_symlink_prefix (void);
+
+void
+gnome_cmd_data_set_symlink_prefix (const gchar *value);
+
 G_END_DECLS
 
 #endif // __GNOME_CMD_DATA_H__
