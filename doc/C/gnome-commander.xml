@@ -3910,6 +3910,111 @@
     <title>&app; configuration files</title>
     <para>This section gives an overview of the configuration files used by &app;:
     </para>
+    <variablelist>
+        <varlistentry>
+            <term>
+                <guilabel>~/.gnome-commander/connections</guilabel>
+            </term>
+            <listitem>
+                <para></para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>
+                <guilabel>~/.gnome-commander/devices</guilabel>
+            </term>
+            <listitem>
+                <para></para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>
+                <guilabel>~/.gnome-commander/fav-apps</guilabel>
+            </term>
+            <listitem>
+                <para></para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>
+                <guilabel>~/.gnome2/gnome-commander</guilabel>
+            </term>
+            <listitem>
+                <para>
+                    <informaltable frame="topbot">
+                        <tgroup cols="5">
+                            <colspec colname="col1"/>
+                            <colspec colname="col2"/>
+                            <colspec colname="col3"/>
+                            <colspec colname="col4"/>
+                            <colspec colname="col5"/>
+                            <thead>
+                                <row valign="top">
+                                    <entry colname="col1" colsep="0" valign="top"><para>Section</para></entry>
+                                    <entry colname="col2" valign="top"><para>Key</para></entry>
+                                    <entry colname="col4" valign="top"><para>Type</para></entry>
+                                    <entry colname="col3" valign="top"><para>Value</para></entry>
+                                    <entry colname="col5" valign="top"><para>Refer to</para></entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row valign="top">
+                                    <entry><para>[ftp]</para></entry>
+                                    <entry><para>anonymous_password</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[options]</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[sort]</para></entry>
+                                    <entry><para>case_sensitive</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[confirm]</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[colors]</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </informaltable>
+                </para>
+            </listitem>
+        </varlistentry>
+        <varlistentry>
+            <term>
+                <guilabel>~/.gnome2/gnome-commander-size</guilabel>
+            </term>
+            <listitem>
+                <para></para>
+            </listitem>
+        </varlistentry>
+    </variablelist>
   </sect1>
 
 <!-- ============= Release overview ======================= -->
@@ -3951,6 +4056,9 @@
                     <itemizedlist>
                         <listitem>
                             <para>Support for ID3 metags in advanced file rename templates</para>
+                        </listitem>
+                        <listitem>
+                            <para>Updated help docs</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: en_GB, fi, it, pl, sv</para>
