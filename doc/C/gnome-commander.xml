@@ -185,7 +185,10 @@
                 <para>Plugin support</para>
             </listitem>
             <listitem>
-                <para>Fast file viewer for text, images and image meta data (Exif, IPTC and ID3)</para>
+                <para>Fast file viewer for text and images</para>
+            </listitem>
+            <listitem>
+                <para>Meta data support for Exif, IPTC and ID3 tags</para>
             </listitem>
             <listitem>
                 <para>Tools for advanced batch renaming of files, searching, quick file name searching in current dir,
@@ -3952,8 +3955,8 @@
                                 <row valign="top">
                                     <entry colname="col1" colsep="0" valign="top"><para>Section</para></entry>
                                     <entry colname="col2" valign="top"><para>Key</para></entry>
-                                    <entry colname="col4" valign="top"><para>Type</para></entry>
-                                    <entry colname="col3" valign="top"><para>Value</para></entry>
+                                    <entry colname="col3" valign="top"><para>Type</para></entry>
+                                    <entry colname="col4" valign="top"><para>Value</para></entry>
                                     <entry colname="col5" valign="top"><para>Refer to</para></entry>
                                 </row>
                             </thead>
@@ -3967,7 +3970,321 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para>[options]</para></entry>
+                                    <entry><para>backup_filter</para></entry>
                                     <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>btn_relief</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>cmdline_history_length</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>cmdline_visibility</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>conbuttons_visibility</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>counter_increment</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>counter_precision</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>counter_start</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>date_disp_mode</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>dir_cache_size</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>document_icon_dir</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>ext_disp_mode</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>filter_type</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>hidden_filter</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>icon_scale_quality</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>icon_size</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>layout</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>list_font</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>list_orientation</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>list_row_height</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>main_win_pos_x</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>main_win_pos_y</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>perm_disp_mode</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>rename-history-size</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>right_mouse_button_mode</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>show_block_device</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>show_char_device</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>show_directory</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>show_fifo</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>show_regular</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>show_socket</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>show_symbolic_link</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>show_toolbar</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>show_unknown</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>size_disp_mode</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>sort_column_left</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>sort_column_right</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>sort_direction_left</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>sort_direction_right</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>start_dir_left</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>start_dir_right</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>symlink_prefix</para></entry>
+                                    <entry><para>string</para></entry>
+                                    <entry><para>Empty value means 'use "link to %s" for symlink' 
+                                                (or translation if available), other values = use given string 
+                                                for symlink name. 
+                                                <note>
+                                                  <para>"%s" is crucial here - it is expanded to original filename.</para>
+                                                </note>
+                                    </para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>template-auto-update</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>template-history-size</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>theme_icon_dir</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -3981,14 +4298,490 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para>[confirm]</para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>delete</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para>[colors]</para></entry>
+                                    <entry><para>curs_bg</para></entry>
                                     <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>curs_fg</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>mode</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>norm_bg</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>norm_fg</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>sel_bg</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>sel_fg</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>use_ls_colors</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[programs]</para></entry>
+                                    <entry><para>buttonbar_visibility</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>differ</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>editor</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>honor_expect_uris</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>skip_mounting</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>term</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>toolbar_visibility</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>use_internal_viewer</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>viewer</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[devices]</para></entry>
+                                    <entry><para>only_icon</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[quick-connect]</para></entry>
+                                    <entry><para>host</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>port</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>user</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[defaults]</para></entry>
+                                    <entry><para>backup_pattern</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>last_pattern</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[search-history]</para></entry>
+                                    <entry><para>case_sens</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>height</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern1</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern2</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern3</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern4</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern5</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern6</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern7</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern8</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name_pattern9</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>recursive</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>width</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[advrename]</para></entry>
+                                    <entry><para>height</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>pat_col_widths0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>pat_col_widths1</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>pat_col_widths2</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>res_col_widths0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>res_col_widths1</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>sep_value</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>width</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[local_bookmarks]</para></entry>
+                                    <entry><para>count</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>name0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>path0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[smb_bookmarks]</para></entry>
+                                    <entry><para>count</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[plugins]</para></entry>
+                                    <entry><para>auto_load0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>auto_load1</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>count</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[template-history]</para></entry>
+                                    <entry><para>template0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[rename-history-from]</para></entry>
+                                    <entry><para>from0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>from1</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[rename-history-to]</para></entry>
+                                    <entry><para>to0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>to1</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[rename-history-csens]</para></entry>
+                                    <entry><para>csens0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>csens1</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para>[cmdline-history]</para></entry>
+                                    <entry><para>line0</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>line1</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>line2</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>line3</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>line4</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>line5</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>line6</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>line7</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>line8</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>line9</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -4757,7 +5550,7 @@
   <sect1 id="gnome-commander-about">
     <title>About &app;</title>
     <para> &app; was primarily written by the former maintainer - Marcus Bjurman,
-    who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in 2004.
+    who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in January 2004.
     Currently &app; is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>)
     with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Micha (<email>codejodler@gmx.ch</email>).
 
