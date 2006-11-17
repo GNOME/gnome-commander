@@ -4840,7 +4840,10 @@
                             <para>Fixed problem with symlink creation for multiple file selection</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed bug #367744 (filename not correctly displayed)</para>
+                            <para>Fixed problem #367744 (filename not correctly displayed)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #374282 (searching with recursive symlinks)</para>
                         </listitem>
                     </itemizedlist>
                 </para>

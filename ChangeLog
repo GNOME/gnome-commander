@@ -1,3 +1,10 @@
+2006-11-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-chmod-dialog.c:
+	* src/gnome-cmd-chown-dialog.c:
+	* src/gnome-cmd-search-dialog.c:
+	Fixed bug #374282 (searching with recursive symlinks)
+
 2006-11-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.c:

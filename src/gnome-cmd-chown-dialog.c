@@ -72,7 +72,8 @@ static void do_chown (GnomeCmdFile *in_finfo, uid_t uid, gid_t gid, gboolean rec
             GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
             if (strcmp (finfo->info->name, ".") != 0
                 && strcmp (finfo->info->name, "..") != 0
-                && finfo->info->flags != GNOME_VFS_FILE_FLAGS_SYMLINK) {
+                && !GNOME_VFS_FILE_INFO_SYMLINK(finfo->info)) 
+            {
                 do_chown (finfo, uid, gid, TRUE);
             }
         }

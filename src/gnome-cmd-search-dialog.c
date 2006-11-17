@@ -285,10 +285,10 @@ search_dir_r (GnomeCmdDir *dir, SearchData *data)
         /* If the current file is a directory lets continue our recursion */
         if (GNOME_CMD_IS_DIR (finfo) && data->recurse)
         {
-            /* we dont want to go backwards or follow symlinks */
+            /* we don't want to go backwards or follow symlinks */
             if (strcmp (finfo->info->name, ".") != 0
                 && strcmp (finfo->info->name, "..") != 0
-                && finfo->info->flags != GNOME_VFS_FILE_FLAGS_SYMLINK)
+                && !GNOME_VFS_FILE_INFO_SYMLINK(finfo->info))
             {
                 GnomeCmdDir *new_dir = GNOME_CMD_DIR (finfo);
 
