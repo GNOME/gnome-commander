@@ -18,6 +18,7 @@ src/gnome-cmd-con-device.c
 src/gnome-cmd-con-ftp.c
 src/gnome-cmd-con-home.c
 src/gnome-cmd-con-smb.c
+src/gnome-cmd-data.c
 src/gnome-cmd-delete-dialog.c
 src/gnome-cmd-dir-indicator.c
 src/gnome-cmd-dir.c
