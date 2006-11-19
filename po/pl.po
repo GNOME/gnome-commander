@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-10 23:26+0100\n"
-"PO-Revision-Date: 2006-11-11 00:09+0100\n"
+"POT-Creation-Date: 2006-11-19 17:16+0100\n"
+"PO-Revision-Date: 2006-11-19 17:29+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -531,11 +531,11 @@ msgstr ""
 "Nie można wykonać chmod %s\n"
 "%s"
 
-#: ../src/gnome-cmd-chmod-dialog.c:204
+#: ../src/gnome-cmd-chmod-dialog.c:205
 msgid "Access Permissions"
 msgstr "Prawa dostępu"
 
-#: ../src/gnome-cmd-chmod-dialog.c:222
+#: ../src/gnome-cmd-chmod-dialog.c:223
 msgid "Apply Recursively for"
 msgstr "Zastosuj rekursywnie do"
 
@@ -548,11 +548,11 @@ msgstr ""
 "Nie można wykonać chown na %s\n"
 "%s"
 
-#: ../src/gnome-cmd-chown-dialog.c:175
+#: ../src/gnome-cmd-chown-dialog.c:176
 msgid "Chown"
 msgstr "Chown"
 
-#: ../src/gnome-cmd-chown-dialog.c:188
+#: ../src/gnome-cmd-chown-dialog.c:189
 msgid "Apply Recursively"
 msgstr "Zastosuj do podkatalogów"
 
@@ -666,50 +666,66 @@ msgstr "Szukanie grup roboczych i hostów"
 msgid "Go to: Samba Network"
 msgstr "Idź do: Sieć Samby"
 
-#: ../src/gnome-cmd-delete-dialog.c:145
+#: ../src/gnome-cmd-data.c:1186
+#: ../src/gnome-cmd-data.c:1399
+#: ../src/gnome-cmd-data.c:1400
+#: ../src/gnome-cmd-data.c:2369
+#, c-format
+msgid "link to %s"
+msgstr "dowiązanie do %s"
+
+#: ../src/gnome-cmd-delete-dialog.c:104
+#, c-format
+msgid "Deleted %ld of %ld file"
+msgid_plural "Deleted %ld of %ld files"
+msgstr[0] "Usunięto %ld z %ld pliku"
+msgstr[1] "Usunięto %ld z %ld plików"
+msgstr[2] "Usunięto %ld z %ld plików"
+
+#: ../src/gnome-cmd-delete-dialog.c:150
 msgid "Deleting..."
 msgstr "Usuwanie..."
 
-#: ../src/gnome-cmd-delete-dialog.c:224
+#: ../src/gnome-cmd-delete-dialog.c:228
 #, c-format
 msgid ""
-"Error while deleting %s\n"
+"Error while deleting \"%s\"\n"
 "\n"
 "%s"
 msgstr ""
-"Błąd w czasie usuwania %s\n"
+"Błąd w czasie usuwania \"%s\"\n"
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-delete-dialog.c:226
+#: ../src/gnome-cmd-delete-dialog.c:231
 msgid "Delete problem"
 msgstr "Problem usuwania"
 
-#: ../src/gnome-cmd-delete-dialog.c:227
+#: ../src/gnome-cmd-delete-dialog.c:232
 #: ../src/gnome-cmd-xfer.c:177
 #: ../src/gnome-cmd-xfer.c:197
 msgid "Abort"
 msgstr "Przerwij"
 
-#: ../src/gnome-cmd-delete-dialog.c:227
+#: ../src/gnome-cmd-delete-dialog.c:232
 #: ../src/gnome-cmd-file-selector.c:2224
 #: ../src/gnome-cmd-xfer.c:197
 msgid "Retry"
 msgstr "Ponów"
 
-#: ../src/gnome-cmd-delete-dialog.c:227
+#: ../src/gnome-cmd-delete-dialog.c:232
 #: ../src/gnome-cmd-file-selector.c:2224
 #: ../src/gnome-cmd-xfer.c:177
 #: ../src/gnome-cmd-xfer.c:197
 msgid "Skip"
 msgstr "Pomiń"
 
-#: ../src/gnome-cmd-delete-dialog.c:305
+#: ../src/gnome-cmd-delete-dialog.c:310
 #, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "Czy chcesz usunąć \"%s\" ?"
 
-#: ../src/gnome-cmd-delete-dialog.c:310
+#: ../src/gnome-cmd-delete-dialog.c:315
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -717,13 +733,13 @@ msgstr[0] "Czy chcesz usunąć %d zaznaczony plik ?"
 msgstr[1] "Czy chcesz usunąć %d zaznaczone pliki ?"
 msgstr[2] "Czy chcesz usunąć %d zaznaczonych plików ?"
 
-#: ../src/gnome-cmd-delete-dialog.c:318
+#: ../src/gnome-cmd-delete-dialog.c:323
 #: ../src/gnome-cmd-main-win.c:1388
 #: ../src/gnome-cmd-options-dialog.c:645
 msgid "Delete"
 msgstr "Usuń"
 
-#: ../src/gnome-cmd-delete-dialog.c:319
+#: ../src/gnome-cmd-delete-dialog.c:324
 #: ../src/gnome-cmd-file-selector.c:2224
 #: ../src/useractions.c:222
 #: ../src/utils.c:597
@@ -731,7 +747,7 @@ msgstr "Usuń"
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: ../src/gnome-cmd-delete-dialog.c:319
+#: ../src/gnome-cmd-delete-dialog.c:324
 #: ../src/utils.c:597
 msgid "OK"
 msgstr "OK"
@@ -942,12 +958,6 @@ msgstr "Nowy plik tekstowy"
 #: ../src/gnome-cmd-file-selector.c:2171
 msgid "Symlink name:"
 msgstr "Nazwa linku symbolicznego:"
-
-#: ../src/gnome-cmd-file-selector.c:2174
-#: ../src/gnome-cmd-file-selector.c:2201
-#, fuzzy, c-format
-msgid "link to %s"
-msgstr "dowiązanie do %s"
 
 #: ../src/gnome-cmd-file-selector.c:2177
 #: ../src/gnome-cmd-file-selector.c:2224
@@ -1375,7 +1385,7 @@ msgstr "Ostatnie wiadomości"
 
 #: ../src/gnome-cmd-main-win.c:1360
 msgid "Copy file names (SHIFT for full paths)"
-msgstr ""
+msgstr "Kopiuj nazwy plików (z SHIFT całe ścieżki)"
 
 #: ../src/gnome-cmd-main-win.c:1367
 msgid "Cut"
@@ -1514,7 +1524,7 @@ msgstr "Wynik testu:"
 
 #: ../src/gnome-cmd-options-dialog.c:266
 msgid "See the manual page for \"strftime\" for help on how to set the format string."
-msgstr "Zajrzyj do manuala pod \"strftime\" aby uzyskać pomoc odnośnie formatu."
+msgstr "Zajrzyj do manuala dla \"strftime\" aby uzyskać pomoc odnośnie formatu."
 
 #: ../src/gnome-cmd-options-dialog.c:383
 msgid "Edit Colors..."
@@ -1649,9 +1659,8 @@ msgid "Confirm before delete"
 msgstr "Potwierdzanie usunięcia pliku"
 
 #: ../src/gnome-cmd-options-dialog.c:656
-#, fuzzy
 msgid "Copy overwrite"
-msgstr "Zastąpić motyw?"
+msgstr "Nadpisz kopiowane pliki"
 
 #.
 #. * Create prepare copy specific widgets
@@ -1669,9 +1678,8 @@ msgid "Query first"
 msgstr "Z potwierdzeniem"
 
 #: ../src/gnome-cmd-options-dialog.c:676
-#, fuzzy
 msgid "Move overwrite"
-msgstr "Zastąpić motyw?"
+msgstr "Nadpisz przenoszone pliki"
 
 #: ../src/gnome-cmd-options-dialog.c:764
 msgid "Filetypes to hide"
@@ -2340,29 +2348,24 @@ msgid "_Configure"
 msgstr "_Konfiguracja"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:44
-#, fuzzy
 msgid "<ID3 tags not supported>"
-msgstr "<Znaczniki Exif nie są obsługiwane>"
+msgstr "<Znaczniki ID3 nie są obsługiwane>"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:307
-#, fuzzy
 msgid "Undefined"
 msgstr "Niezdefiniowany"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:308
-#, fuzzy
 msgid "Layer III"
-msgstr "MPEG %d Layer III"
+msgstr "Warstwa III"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:309
-#, fuzzy
 msgid "Layer II"
-msgstr "P_roste II..."
+msgstr "Warstwa II"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:310
-#, fuzzy
 msgid "Layer I"
-msgstr "1 warstwa"
+msgstr "Warstwa I"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:316
 #: ../src/tags/gnome-cmd-tags-id3.c:333
@@ -2372,27 +2375,22 @@ msgid "Reserved"
 msgstr "zarezerwowany"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:323
-#, fuzzy
 msgid "Stereo"
 msgstr "Stereo"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:324
-#, fuzzy
 msgid "Joint stereo"
 msgstr "Łączone stereo"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:325
-#, fuzzy
 msgid "Dual channel"
 msgstr "Podwójny kanał"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:326
-#, fuzzy
 msgid "Single channel"
 msgstr "Pojedynczy kanał"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:331
-#, fuzzy
 msgid "None"
 msgstr "Brak"
 
@@ -2401,7 +2399,6 @@ msgid "10-15ms"
 msgstr "10-15ms"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:334
-#, fuzzy
 msgid "CCIT J17"
 msgstr "CCIT J.17"
 
@@ -2493,7 +2490,7 @@ msgstr "Kanały"
 #: ../src/tags/gnome-cmd-tags.c:68
 #: ../src/tags/gnome-cmd-tags.c:737
 msgid "Number of channels in the audio (2 = stereo)."
-msgstr ""
+msgstr "Liczba kanałów (2 = stereo)"
 
 #: ../src/tags/gnome-cmd-tags.c:69
 msgid "Codec Version"
@@ -3744,7 +3741,7 @@ msgstr "Pełna ścieżka wyłączając nazwę pliku."
 
 #: ../src/tags/gnome-cmd-tags.c:690
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
-msgstr ""
+msgstr "Prawa dostępu w formacie Unix, tj. \"-rw-r--r--\"."
 
 #: ../src/tags/gnome-cmd-tags.c:691
 #: ../src/tags/gnome-cmd-tags.c:995
@@ -3821,23 +3818,20 @@ msgid "BPM"
 msgstr "BPM"
 
 #: ../src/tags/gnome-cmd-tags.c:721
-#, fuzzy
 msgid "BPM (beats per minute)."
-msgstr "Uderzeń na minutę (BPM):   od"
+msgstr "BPM (uderzeń na minutę)."
 
 #: ../src/tags/gnome-cmd-tags.c:726
 msgid "Buffer Size"
 msgstr "Wielkość bufora"
 
 #: ../src/tags/gnome-cmd-tags.c:726
-#, fuzzy
 msgid "Recommended buffer size."
-msgstr " K - Rozmiar Buforu Historii :"
+msgstr "Zalecany rozmiar bufora."
 
 #: ../src/tags/gnome-cmd-tags.c:731
-#, fuzzy
 msgid "CD ID"
-msgstr "ID pozycji"
+msgstr "CD ID"
 
 #: ../src/tags/gnome-cmd-tags.c:731
 #, fuzzy
@@ -3873,13 +3867,12 @@ msgid "Composer."
 msgstr "Kompozytor."
 
 #: ../src/tags/gnome-cmd-tags.c:753
-#, fuzzy
 msgid "Conductor"
-msgstr "Licznik"
+msgstr "Dyrygent"
 
 #: ../src/tags/gnome-cmd-tags.c:753
 msgid "Conductor."
-msgstr ""
+msgstr "Dyrygent."
 
 #: ../src/tags/gnome-cmd-tags.c:758
 #, fuzzy
@@ -3916,9 +3909,8 @@ msgid "Date."
 msgstr "Data."
 
 #: ../src/tags/gnome-cmd-tags.c:784
-#, fuzzy
 msgid "Duration [MM:SS]"
-msgstr "%hh:%mm:%ss"
+msgstr "Czas trwania [MM:SS]"
 
 #: ../src/tags/gnome-cmd-tags.c:784
 #, fuzzy
@@ -3948,9 +3940,8 @@ msgid "Encoder Settings"
 msgstr "Ustawienia autouzupełniania"
 
 #: ../src/tags/gnome-cmd-tags.c:791
-#, fuzzy
 msgid "Software."
-msgstr "Oprogramowanie"
+msgstr "Oprogramowanie."
 
 #: ../src/tags/gnome-cmd-tags.c:796
 #, fuzzy
@@ -4096,24 +4087,20 @@ msgid "Linked information."
 msgstr "Informacje o dokumencie"
 
 #: ../src/tags/gnome-cmd-tags.c:873
-#, fuzzy
 msgid "Lyricist"
-msgstr "Słowa piosenki"
+msgstr "Autor tekstów"
 
 #: ../src/tags/gnome-cmd-tags.c:873
-#, fuzzy
 msgid "Lyricist."
-msgstr "Słowa piosenki"
+msgstr "Autor tekstów."
 
 #: ../src/tags/gnome-cmd-tags.c:878
-#, fuzzy
 msgid "Media Type"
 msgstr "Typ mediów"
 
 #: ../src/tags/gnome-cmd-tags.c:878
-#, fuzzy
 msgid "Media type."
-msgstr "Typ papieru:"
+msgstr "Typ mediów."
 
 #: ../src/tags/gnome-cmd-tags.c:883
 #, fuzzy
@@ -4137,9 +4124,8 @@ msgid "Layer"
 msgstr "Warstwa"
 
 #: ../src/tags/gnome-cmd-tags.c:893
-#, fuzzy
 msgid "MPEG layer."
-msgstr "MPEG %d Layer III"
+msgstr "Warstwa MPEG."
 
 #: ../src/tags/gnome-cmd-tags.c:894
 #, fuzzy
@@ -4277,9 +4263,8 @@ msgid "Performer sort order."
 msgstr "Domyślna kolejność uporządkowywania"
 
 #: ../src/tags/gnome-cmd-tags.c:960
-#, fuzzy
 msgid "Picture"
-msgstr "Obrazek"
+msgstr "Obraz"
 
 #: ../src/tags/gnome-cmd-tags.c:960
 #, fuzzy
@@ -4325,14 +4310,12 @@ msgid "Position synchronisation frame."
 msgstr "Nieznane położenie \"%s\" elementu ramki"
 
 #: ../src/tags/gnome-cmd-tags.c:985
-#, fuzzy
 msgid "Private"
 msgstr "Prywatny"
 
 #: ../src/tags/gnome-cmd-tags.c:985
-#, fuzzy
 msgid "Private frame."
-msgstr "Pokaż ramkę"
+msgstr "Ramka prywatna."
 
 #: ../src/tags/gnome-cmd-tags.c:990
 #, fuzzy
@@ -4386,7 +4369,7 @@ msgstr "_Usuń"
 
 #: ../src/tags/gnome-cmd-tags.c:1015
 msgid "Reverb."
-msgstr ""
+msgstr "Echo."
 
 #: ../src/tags/gnome-cmd-tags.c:1021
 #, fuzzy
@@ -4422,14 +4405,12 @@ msgid "Length of the song in milliseconds."
 msgstr "Długość cyklu migotania kursora, w milisekundach"
 
 #: ../src/tags/gnome-cmd-tags.c:1041
-#, fuzzy
 msgid "Subtitle"
-msgstr "Napisy"
+msgstr "Podtytuł"
 
 #: ../src/tags/gnome-cmd-tags.c:1041
-#, fuzzy
 msgid "Subtitle."
-msgstr "Napisy"
+msgstr "Podtytuł."
 
 #: ../src/tags/gnome-cmd-tags.c:1046
 msgid "Syncedlyrics"
@@ -4461,14 +4442,12 @@ msgid "Tagging time."
 msgstr "Przy&spieszenie kursora:"
 
 #: ../src/tags/gnome-cmd-tags.c:1061
-#, fuzzy
 msgid "Terms Of Use"
-msgstr "Użycie karety"
+msgstr "Warunki użytkowania"
 
 #: ../src/tags/gnome-cmd-tags.c:1061
-#, fuzzy
 msgid "Terms of use."
-msgstr "Użycie karety"
+msgstr "Warunki użytkowania."
 
 #: ../src/tags/gnome-cmd-tags.c:1066
 msgid "Time"
@@ -4488,24 +4467,20 @@ msgid "Title sort order."
 msgstr "Domyślna kolejność uporządkowywania"
 
 #: ../src/tags/gnome-cmd-tags.c:1081
-#, fuzzy
 msgid "Track number"
 msgstr "Numer ścieżki"
 
 #: ../src/tags/gnome-cmd-tags.c:1086
-#, fuzzy
 msgid "Unique File ID"
-msgstr "Unikalne ID wystawiającego"
+msgstr "Unikalny ID pliku"
 
 #: ../src/tags/gnome-cmd-tags.c:1086
-#, fuzzy
 msgid "Unique file identifier."
-msgstr "Proszę wpisać unikatowy identyfikator!"
+msgstr "Unikalny identyfikator pliku."
 
 #: ../src/tags/gnome-cmd-tags.c:1091
-#, fuzzy
 msgid "Unsynchronized Lyrics"
-msgstr "&Wyświetl słowa piosenki"
+msgstr "Niezsynchronizowane słowa piosenki"
 
 #: ../src/tags/gnome-cmd-tags.c:1091
 #, fuzzy
@@ -4513,9 +4488,8 @@ msgid "Unsynchronized lyric."
 msgstr "&Zdarzenia tekstu piosenki"
 
 #: ../src/tags/gnome-cmd-tags.c:1096
-#, fuzzy
 msgid "User Text"
-msgstr "Text entered by user"
+msgstr "Tekst użytkownika"
 
 #: ../src/tags/gnome-cmd-tags.c:1096
 #, fuzzy
@@ -4523,9 +4497,8 @@ msgid "User defined text information."
 msgstr "Ignoruj informację &kontekstową"
 
 #: ../src/tags/gnome-cmd-tags.c:1101
-#, fuzzy
 msgid "Volume Adjustment"
-msgstr "Ustawienie opóźnienia"
+msgstr "Regulacja głośności"
 
 #: ../src/tags/gnome-cmd-tags.c:1101
 #: ../src/tags/gnome-cmd-tags.c:1106
@@ -4639,9 +4612,8 @@ msgid "Name of an album the image belongs to."
 msgstr "Użytkownik, do którego należy obrazek."
 
 #: ../src/tags/gnome-cmd-tags.c:1162
-#, fuzzy
 msgid "Camera Make"
-msgstr "Utwórz stereo "
+msgstr "Producent aparatu"
 
 #: ../src/tags/gnome-cmd-tags.c:1162
 msgid "Make of camera used to take the image."
@@ -4785,9 +4757,8 @@ msgid "The content at the end of the audio data."
 msgstr "Nieoczekiwany koniec danych zrzutu"
 
 #: ../src/tags/gnome-cmd-tags.c:1208
-#, fuzzy
 msgid "Audio Sampling Rate"
-msgstr "&Próbkowanie:"
+msgstr "Próbkowanie"
 
 #: ../src/tags/gnome-cmd-tags.c:1208
 msgid "The sampling rate in Hz of the audio data."
@@ -4803,9 +4774,8 @@ msgid "The number of bits in each audio sample."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1218
-#, fuzzy
 msgid "Audio Type"
-msgstr "_Rodzaj wyjścia dźwięku:"
+msgstr "Rodzaj dźwięĸu"
 
 #: ../src/tags/gnome-cmd-tags.c:1218
 msgid "The number of channels and type of audio (music, text, etc.) in the object."
@@ -5263,9 +5233,8 @@ msgid "The Envelope Number of a prior envelope to which the current object refer
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1488
-#, fuzzy
 msgid "Reference Service"
-msgstr "Odwołanie do typu usługi"
+msgstr "Odwołanie do usługi"
 
 #: ../src/tags/gnome-cmd-tags.c:1488
 msgid "The Service Identifier of a prior envelope to which the current object refers."
@@ -5411,7 +5380,6 @@ msgstr[1] "Utwórz link symboliczny"
 msgstr[2] "Utwórz link symboliczny"
 
 #: ../src/useractions.c:222
-#, fuzzy
 msgid "Create"
 msgstr "Utwórz"
 
