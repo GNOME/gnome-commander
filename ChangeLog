@@ -1,4 +1,9 @@
-2006-11-19  Piotr Eljasiak  <epiotr@use.pl>
+2006-11-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	Fixed mismatched horizontal/vertical menu entries
+
+2006-11-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.c:
 	* src/gnome-cmd-options-dialog.c:

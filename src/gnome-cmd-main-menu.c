@@ -376,13 +376,14 @@ update_view_menu (GnomeCmdMainMenu *main_menu)
     GdkPixmap *pm;
     GdkBitmap *bm;
 
-    if (gnome_cmd_data_get_list_orientation ()) {
-        label = g_strdup (_("Switch to Horizontal Layout"));
+    if (gnome_cmd_data_get_list_orientation ())
+    {
+        label = g_strdup (_("Switch to Vertical Layout"));
         pm = IMAGE_get_pixmap (PIXMAP_SWITCH_V);
         bm = IMAGE_get_mask (PIXMAP_SWITCH_V);
     }
     else {
-        label = g_strdup (_("Switch to Vertical Layout"));
+        label = g_strdup (_("Switch to Horizontal Layout"));
         pm = IMAGE_get_pixmap (PIXMAP_SWITCH_H);
         bm = IMAGE_get_mask (PIXMAP_SWITCH_H);
     }
