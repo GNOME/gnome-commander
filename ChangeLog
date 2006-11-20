@@ -1,3 +1,10 @@
+2006-11-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-types.h:
+	New colour scheme
+
 2006-11-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-chmod-dialog.c:

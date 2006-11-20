@@ -1283,6 +1283,14 @@ gnome_cmd_data_load                      (void)
     data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].curs_fg = gdk_color_new (0,0,0);
     data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].respect_theme = FALSE;
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_fg = gdk_color_new (0,65535,65535);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_bg = gdk_color_new (0,0,32896);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_fg = gdk_color_new (65535,65535,0);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_bg = gdk_color_new (32896,32896,32896);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_fg = gdk_color_new (0,0,0);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_bg = gdk_color_new (43690,43690,43690);
+
     data->priv->color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     data->priv->color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;
     data->priv->color_themes[GNOME_CMD_COLOR_NONE].norm_bg = NULL;
@@ -1354,7 +1362,7 @@ gnome_cmd_data_load                      (void)
         g_free (tmp);
     }
 
-    data->priv->color_mode = gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_CLASSIC);
+    data->priv->color_mode = gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_DEEP_BLUE);
 
     gnome_cmd_data_get_color ("/colors/norm_fg", data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_get_color ("/colors/norm_bg", data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);

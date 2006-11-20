@@ -465,6 +465,7 @@ create_layout_tab (GtkWidget *parent)
         _("Modern"),
         _("Fusion"),
         _("Classic"),
+        _("Deep blue"),
         _("Custom"),
         NULL
     };
