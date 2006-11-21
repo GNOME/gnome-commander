@@ -271,7 +271,8 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
     if (pixmap && mask)
         pixmap_widget = gtk_pixmap_new (pixmap, mask);
 
-    if (pixmap_widget) {
+    if (pixmap_widget)
+    {
         gtk_widget_show (pixmap_widget);
         gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap_widget);
     }
@@ -288,7 +289,8 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
 
 
     /* Connect to the signal and set user data */
-    if (callback) {
+    if (callback)
+    {
         gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, user_data);
         gtk_signal_connect (GTK_OBJECT (item), "activate", callback, user_data);
     }
@@ -326,30 +328,28 @@ add_bookmark_menu_item (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCm
 static void
 add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCmdBookmarkGroup *group)
 {
-    GtkWidget *submenu;
-    GtkWidget *item;
-    GnomeCmdPixmap *pixmap;
-    GList *bookmarks = group->bookmarks;
+    GList *bookmarks;
 
     g_return_if_fail (GTK_IS_MENU_SHELL (menu));
     g_return_if_fail (bookmarks != NULL);
 
-    pixmap = gnome_cmd_con_get_go_pixmap (group->con);
-    item = add_menu_item (main_menu, menu, gnome_cmd_con_get_alias (group->con), NULL,
-                          pixmap?pixmap->pixmap:NULL, pixmap?pixmap->mask:NULL,
-                          NULL, NULL);
+    GnomeCmdPixmap *pixmap = gnome_cmd_con_get_go_pixmap (group->con);
+    GtkWidget *item = add_menu_item (main_menu, menu, gnome_cmd_con_get_alias (group->con), NULL,
+                                     pixmap?pixmap->pixmap:NULL, pixmap?pixmap->mask:NULL,
+                                     NULL, NULL);
 
     /* Remeber this bookmarks item-widget so that we can remove it later */
     main_menu->priv->group_menuitems = g_list_append (main_menu->priv->group_menuitems, item);
 
 
     /* Add bookmarks for this group */
-    submenu = gtk_menu_new ();
+    GtkWidget *submenu = gtk_menu_new ();
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), submenu);
-    while (bookmarks) {
+
+    for (bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next)
+    {
         GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)bookmarks->data;
         add_bookmark_menu_item (main_menu, GTK_MENU_SHELL (submenu), bookmark);
-        bookmarks = bookmarks->next;
     }
 }
 
@@ -656,6 +656,12 @@ init (GnomeCmdMainMenu *main_menu)
             NULL
         },
         MENUTYPE_SEPARATOR,
+        {
+            MENU_TYPE_ITEM, _("_Equal Panel Size"), "Ctrl+Shift+=", NULL,
+            view_equal_panes, NULL,
+            GNOME_APP_PIXMAP_NONE, NULL,
+            NULL
+        },
         MENUTYPE_END
     };
 
@@ -898,18 +904,16 @@ add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con,
 void
 gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
 {
-    GList *all_cons, *ftp_cons, *dev_cons, *tmp;
-    GnomeCmdConList *con_list;
-    GtkMenuShell *connections_menu;
+    GList *tmp;
     gint match_count;
 
     g_return_if_fail (GNOME_CMD_IS_MAIN_MENU (main_menu));
 
-    connections_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
-    con_list = gnome_cmd_data_get_con_list ();
-    all_cons = gnome_cmd_con_list_get_all (con_list);
-    ftp_cons = gnome_cmd_con_list_get_all_ftp (con_list);
-    dev_cons = gnome_cmd_con_list_get_all_dev (con_list);
+    GtkMenuShell *connections_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
+    GnomeCmdConList *con_list = gnome_cmd_data_get_con_list ();
+    GList *all_cons = gnome_cmd_con_list_get_all (con_list);
+    GList *ftp_cons = gnome_cmd_con_list_get_all_ftp (con_list);
+    GList *dev_cons = gnome_cmd_con_list_get_all_dev (con_list);
 
     /* Remove all old items */
     g_list_foreach (main_menu->priv->connections_menuitems, (GFunc)gtk_widget_destroy, NULL);
@@ -921,18 +925,17 @@ gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
 
     /* Add all open connections */
     match_count = 0;
-    tmp = all_cons;
-    while (tmp) {
+    for (tmp = all_cons; tmp; tmp = tmp->next)
+    {
         GnomeCmdCon *con = GNOME_CMD_CON (tmp->data);
-        if (!GNOME_CMD_IS_CON_FTP (con) || gnome_cmd_con_is_open (con)) {
-            add_connection (
-                main_menu, con,
-                gnome_cmd_con_get_go_text (con),
-                gnome_cmd_con_get_go_pixmap (con),
-                GTK_SIGNAL_FUNC (connections_change));
+        if (!GNOME_CMD_IS_CON_FTP (con) || gnome_cmd_con_is_open (con))
+        {
+            add_connection (main_menu, con,
+                            gnome_cmd_con_get_go_text (con),
+                            gnome_cmd_con_get_go_pixmap (con),
+                            GTK_SIGNAL_FUNC (connections_change));
             match_count++;
         }
-        tmp = tmp->next;
     }
 
     /* separator */
@@ -942,16 +945,14 @@ gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
             add_separator (main_menu, connections_menu));
 
     /* Add all open connections that are not permanent */
-    tmp = all_cons;
-    while (tmp) {
+    for (tmp = all_cons; tmp; tmp = tmp->next)
+    {
         GnomeCmdCon *con = GNOME_CMD_CON (tmp->data);
         if (gnome_cmd_con_is_closeable (con) && gnome_cmd_con_is_open (con))
-            add_connection (
-                main_menu, con,
-                gnome_cmd_con_get_close_text (con),
-                gnome_cmd_con_get_close_pixmap (con),
-                GTK_SIGNAL_FUNC (connections_close));
-        tmp = tmp->next;
+            add_connection (main_menu, con,
+                            gnome_cmd_con_get_close_text (con),
+                            gnome_cmd_con_get_close_pixmap (con),
+                            GTK_SIGNAL_FUNC (connections_close));
     }
 }
 
@@ -975,13 +976,13 @@ gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu)
 
     /* Add bookmark groups */
     cons = gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ());
-    while (cons) {
+    for (; cons; cons = cons->next)
+    {
         GnomeCmdCon *con = GNOME_CMD_CON (cons->data);
         GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
         GtkMenuShell *bookmarks_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->bookmarks_menu)->submenu);
         if (group->bookmarks)
             add_bookmark_group (main_menu, bookmarks_menu, group);
-        cons = cons->next;
     }
 }
 

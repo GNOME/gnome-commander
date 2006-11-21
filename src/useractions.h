@@ -241,6 +241,10 @@ void
 view_refresh                           (GtkMenuItem     *menuitem,
                                          gpointer        not_used);
 
+void
+view_equal_panes                       (GtkMenuItem     *menuitem,
+                                         gpointer        not_used);
+
 
 /************** Bookmarks Menu **************/
 void

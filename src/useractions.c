@@ -597,7 +597,15 @@ view_refresh                           (GtkMenuItem     *menuitem,
 }
 
 
-/************** Options Menu **************/
+void
+view_equal_panes                       (GtkMenuItem     *menuitem,
+                                         gpointer        not_used)
+{
+    gnome_cmd_main_win_set_equal_panes (GTK_WIDGET (main_win));
+}
+
+
+                                         /************** Options Menu **************/
 void
 options_edit                        (GtkMenuItem     *menuitem,
                                      gpointer        not_used)

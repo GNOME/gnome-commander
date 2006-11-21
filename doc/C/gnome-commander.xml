@@ -3675,6 +3675,10 @@
             <entry><para>Toggle hidden files on/off</para></entry>
         </row>
         <row valign="top">
+            <entry><para>CTRL+SHIFT+=</para></entry>
+            <entry><para>Set both panels equal</para></entry>
+        </row>
+        <row valign="top">
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
@@ -4259,9 +4263,9 @@
                                     <entry><para></para></entry>
                                     <entry><para>symlink_prefix</para></entry>
                                     <entry><para>string</para></entry>
-                                    <entry><para>Empty value means 'use "link to %s" for symlink' 
-                                                (or translation if available), other values = use given string 
-                                                for symlink name. 
+                                    <entry><para>Empty value means 'use "link to %s" for symlink'
+                                                (or translation if available), other values = use given string
+                                                for symlink name.
                                                 <note>
                                                   <para>"%s" is crucial here - it is expanded to original filename.</para>
                                                 </note>
@@ -4831,7 +4835,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.2</para></entry>
-            <entry><para>2006-??-??</para></entry>
+            <entry><para>2006-12-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -4863,7 +4867,7 @@
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycap>CTRL+SHIFT+H</keycap>   Toggle hidden files on/off</para>
+                                    <para><keycap>CTRL+SHIFT+=</keycap>   Set both panels equal</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>

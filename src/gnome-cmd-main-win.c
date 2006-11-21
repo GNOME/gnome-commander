@@ -95,7 +95,7 @@ struct _GnomeCmdMainWinPrivate
     GtkWidget *tb_cap_cut_btn;
     GtkWidget *tb_cap_copy_btn;
     GtkWidget *tb_cap_paste_btn;
-    
+
     guint key_snooper_id ;
 };
 
@@ -110,17 +110,17 @@ static void
 gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
 
-gint gnome_cmd_key_snooper(GtkWidget *grab_widget, 
+gint gnome_cmd_key_snooper(GtkWidget *grab_widget,
             GdkEventKey *event, GnomeCmdMainWin *mw)
 {
     GnomeCmdFileSelector* fs;
-    
+
     g_return_val_if_fail(mw!=NULL, FALSE);
     g_return_val_if_fail(mw->priv!=NULL,FALSE);
-    
+
     if (event->type!=GDK_KEY_PRESS)
         return FALSE;
-    
+
     if ( !( (event->keyval >= GDK_A && event->keyval <= GDK_Z) ||
             (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
             (event->keyval == GDK_period) ) )
@@ -129,22 +129,22 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget,
 
     if (!gnome_cmd_data_get_alt_quick_search())
         return FALSE;
-    
+
     if (!state_is_alt(event->state))
         return FALSE;
-    
+
     fs = gnome_cmd_main_win_get_active_fs(mw) ;
     if (fs==NULL || fs->list==NULL)
         return FALSE;
-    
+
     if (!GTK_WIDGET_HAS_FOCUS(GTK_WIDGET(fs->list)))
         return FALSE;
-    
+
     if (!gnome_cmd_file_list_quicksearch_shown(fs->list)) {
         gnome_cmd_file_list_show_quicksearch(fs->list, event->keyval) ;
         return TRUE;
     }
-     
+
     return FALSE ;
 }
 
@@ -781,7 +781,7 @@ destroy (GtkObject *object)
         gtk_key_snooper_remove(main_win->priv->key_snooper_id) ;
     main_win->priv->key_snooper_id = 0 ;
     }
-    
+
     dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, LEFT));
     if (con_home == gnome_cmd_dir_get_connection (dir))
         gnome_cmd_data_set_start_dir (LEFT, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
@@ -1122,9 +1122,12 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                 gnome_cmd_style_create ();
                 gnome_cmd_main_win_update_style (main_win);
                 gnome_cmd_data_save ();
-
                 return TRUE;
 
+            case GDK_equal:
+            case GDK_plus:
+                gnome_cmd_main_win_set_equal_panes (mw);
+                return TRUE;
         }
     }
     else if (state_is_ctrl (event->state))
@@ -1579,4 +1582,11 @@ gnome_cmd_main_win_set_cap_state (GnomeCmdMainWin *mw, gboolean state)
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
     gtk_widget_set_sensitive (mw->priv->tb_cap_paste_btn, state);
+}
+
+
+void
+gnome_cmd_main_win_set_equal_panes (GnomeCmdMainWin *mw)
+{
+    slide_set_50_50 (NULL, NULL);
 }
