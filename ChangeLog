@@ -1,3 +1,8 @@
+2006-11-22  <petr.pisar@atlas.cz>
+
+	* src/utils.c:
+	Use locale formatting for grouping file size digits
+
 2006-11-22  Piotr Eljasiak  <epiotr@use.pl>
 
 	* doc/C/gnome-commander.xml:

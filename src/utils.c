@@ -450,43 +450,7 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
     }
     else if (size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
     {
-        int i,j,len,outlen;
-        char tmp[256];
-        char *out;
-
-        sprintf (tmp, "%llu", size);
-        len = strlen (tmp);
-
-        if (len < 4)
-        {
-            strncpy (buf, tmp, 64);
-            return buf;
-        }
-
-        outlen = len/3 + len;
-
-        if ((len/3)*3 == len)
-            outlen--;
-
-        out = buf;
-        memset (out, '\0', 64);
-
-        for ( i=len-1,j=outlen-1 ; i>=0 ; i--,j-- )
-        {
-            if (((outlen-j)/4)*4 == outlen-j)
-            {
-#ifdef HAVE_LOCALE_H
-                gchar sep = locale_information->thousands_sep[0];
-
-                out[j] = sep!='\0' ? sep : ',';
-#else
-                out[j] = ',';
-#endif
-                i++;
-            }
-            else
-                out[j] = tmp[i];
-        }
+        g_snprintf (buf, sizeof(buf), "%'llu", size);
     }
     else
     {

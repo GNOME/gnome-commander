@@ -4,6 +4,7 @@ gnome-commander 1.2.2
 
 Bug fixes:
  * Fixed problem with symlink creation for multiple file selection
+ * Fixed problem with grouping of file size digits
  * Fixed problem #367744 (filename not correctly displayed)
  * Fixed problem #374282 (searching with recursive symlinks)
 
