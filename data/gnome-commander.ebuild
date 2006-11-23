@@ -14,7 +14,7 @@ KEYWORDS="alpha amd64 ia64 ppc ppc64 sparc x86"
 
 LICENSE="GPL-2"
 
-IUSE="doc exif iptc"
+IUSE="doc exif iptc id3"
 SLOT="0"
 
 RDEPEND=">=x11-libs/gtk+-2.6.0
@@ -27,7 +27,9 @@ RDEPEND=">=x11-libs/gtk+-2.6.0
 		app-admin/fam
 	)
 	exif? media-libs/libexif
-	iptc? media-libs/libiptcdata"
+	iptc? media-libs/libiptcdata
+	id3?  media-libs/id3lib
+	"
 
 DEPEND="dev-util/intltool
 	dev-util/pkgconfig"
