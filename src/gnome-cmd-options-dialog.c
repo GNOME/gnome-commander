@@ -207,6 +207,11 @@ create_format_tab (GtkWidget *parent)
     if (gnome_cmd_data_get_size_disp_mode () == GNOME_CMD_SIZE_DISP_MODE_POWERED)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
+    radio = create_radio (parent, get_radio_group (radio), _("<locale>"), "size_locale_radio");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (gnome_cmd_data_get_size_disp_mode () == GNOME_CMD_SIZE_DISP_MODE_LOCALE)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+
     radio = create_radio (parent, get_radio_group (radio), _("Grouped"), "size_grouped_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data_get_size_disp_mode () == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
@@ -275,6 +280,7 @@ static void
 store_format_options (GnomeCmdOptionsDialog *dialog)
 {
     GtkWidget *size_powered_radio = lookup_widget (GTK_WIDGET (dialog), "size_powered_radio");
+    GtkWidget *size_locale_radio = lookup_widget (GTK_WIDGET (dialog), "size_locale_radio");
     GtkWidget *size_grouped_radio = lookup_widget (GTK_WIDGET (dialog), "size_grouped_radio");
     GtkWidget *perm_text_radio = lookup_widget (GTK_WIDGET (dialog), "perm_text_radio");
     GtkWidget *entry = lookup_widget (GTK_WIDGET (dialog), "date_format_entry");
@@ -282,6 +288,8 @@ store_format_options (GnomeCmdOptionsDialog *dialog)
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_powered_radio)))
         gnome_cmd_data_set_size_disp_mode (GNOME_CMD_SIZE_DISP_MODE_POWERED);
+    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_locale_radio)))
+        gnome_cmd_data_set_size_disp_mode (GNOME_CMD_SIZE_DISP_MODE_LOCALE);
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_grouped_radio)))
         gnome_cmd_data_set_size_disp_mode (GNOME_CMD_SIZE_DISP_MODE_GROUPED);
     else

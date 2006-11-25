@@ -427,37 +427,62 @@ void perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
 
 const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_mode)
 {
-    static gchar buf[64];
+    static gchar buf0[64];
+    static gchar buf1[128];
 
-    if (size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
+    gint i;
+
+    switch (size_disp_mode)
     {
-        gchar *prefixes[5] = {"B ","kB ","MB ","GB ","TB "};
-        gint i=0;
-        gdouble dsize = (gdouble)size;
+        case GNOME_CMD_SIZE_DISP_MODE_POWERED:
+            {
+                static gchar *prefixes[] = {"B","kB","MB","GB","TB","PB"};
+                gdouble dsize = (gdouble) size;
 
-        for ( i=0 ; i<5 ; i++ )
-        {
-            if (dsize > 1024)
-                dsize /= 1024;
-            else
-                break;
-        }
+                for (i=0; i<ARRAY_ELEMENTS(prefixes) && dsize>1024; i++)
+                    dsize /= 1024;
 
-        if (i)
-            g_snprintf (buf, sizeof (buf), "%.1f %s", dsize, prefixes[i]);
-        else
-            g_snprintf (buf, sizeof(buf), "%llu %s", size, prefixes[0]);
-    }
-    else if (size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
-    {
-        g_snprintf (buf, sizeof(buf), "%'llu", size);
-    }
-    else
-    {
-        g_snprintf (buf, sizeof(buf), "%llu", size);
+                if (i)
+                    g_snprintf (buf0, sizeof(buf0), "%.1f %s ", dsize, prefixes[i]);
+                else
+                    g_snprintf (buf0, sizeof(buf0), "%llu %s ", size, prefixes[0]);
+            }
+            break;
+
+        case GNOME_CMD_SIZE_DISP_MODE_GROUPED:
+            {
+                gint len = g_snprintf (buf0, sizeof(buf0), "%llu ", size);
+
+                if (len < 5)
+                    return buf0;
+
+                gchar *sep = " ";
+
+                gchar *src  = buf0;
+                gchar *dest = buf1;
+
+                *dest++ = *src++;
+
+                for (i=len; i>0; i--)
+                {
+                    if (i>2 && i%3 == 2)
+                        dest = g_stpcpy (dest, sep);
+                    *dest++ = *src++;
+                }
+            }
+
+            return buf1;
+
+        case GNOME_CMD_SIZE_DISP_MODE_LOCALE:
+            g_snprintf (buf0, sizeof(buf0), "%'llu ", size);
+            break;
+
+        case GNOME_CMD_SIZE_DISP_MODE_PLAIN:
+            g_snprintf (buf0, sizeof(buf0), "%llu ", size);
+            break;
     }
 
-    return buf;
+    return buf0;
 }
 
 
@@ -923,15 +948,14 @@ GList *string_history_add (GList *in, const gchar *value, gint maxsize)
 const gchar *
 create_nice_size_str (GnomeVFSFileSize size)
 {
-    const gchar *s1;
     static gchar str1[64];
-    s1 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED);
+    const gchar *s1 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED);
     snprintf (str1, sizeof (str1), ngettext("%s byte","%s bytes",size), s1);
 
-    if (size >= 1000) {
-        const gchar *s2;
+    if (size >= 1000)
+    {
         static gchar str2[128];
-        s2 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED);
+        const gchar *s2 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_POWERED);
         snprintf (str2, sizeof (str2), "%s (%s)", s2, str1);
         return str2;
     }

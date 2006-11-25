@@ -135,13 +135,15 @@ show_dir_tree_sizes (GnomeCmdFileSelector *fs)
 static void
 update_selected_files_label (GnomeCmdFileSelector *fs)
 {
-    GList *all_files;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    all_files = gnome_cmd_file_list_get_all_files (fs->list);
+    GList *all_files = gnome_cmd_file_list_get_all_files (fs->list);
     if (!all_files)
         return;
+
+    GnomeCmdSizeDispMode size_mode = gnome_cmd_data_get_size_disp_mode();
+    if (size_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED)
+        size_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
 
     if (g_list_length (all_files) >= 0)
     {
@@ -176,8 +178,8 @@ update_selected_files_label (GnomeCmdFileSelector *fs)
         sel_kb = sel_bytes / 1024;
         total_kb = total_bytes / 1024;
 
-        sel_str = g_strdup (size2string (sel_kb, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
-        total_str = g_strdup (size2string (total_kb, GNOME_CMD_SIZE_DISP_MODE_GROUPED));
+        sel_str = g_strdup (size2string (sel_kb, size_mode));
+        total_str = g_strdup (size2string (total_kb, size_mode));
 
         info_str = g_strdup_printf (ngettext("%s of %s kB in %d of %d file selected",
                                              "%s of %s kB in %d of %d files selected",

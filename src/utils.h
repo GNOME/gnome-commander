@@ -27,7 +27,8 @@
 
 G_BEGIN_DECLS
 
-#define TRACE(x,fmt)  printf("TRACE  " #x ": " #fmt "\n", x)
+#define TRACE(x,fmt)         printf("TRACE  " #x ": " #fmt "\n", x)
+#define ARRAY_ELEMENTS(a)   (sizeof(a)/sizeof(a[0]))
 
 gboolean DEBUG_ENABLED (gchar flag);
 void DEBUG (gchar flag, const gchar *fmt, ...);
@@ -40,7 +41,6 @@ const char **convert_varargs_to_name_array (va_list args);
 gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
                         GtkMessageType msg_type,
                         const char *text, const char *title, gint def_response, ...);
-
 
 
 gboolean string2int (const gchar *s, gint *i);

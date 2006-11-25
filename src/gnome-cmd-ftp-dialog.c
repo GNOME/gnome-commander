@@ -290,7 +290,7 @@ create_ftp_server_dialog (const gchar *title,
     const gchar *labels2[] = {_("Host:"), _("Port:"), _("User:"), _("Password:"), _("Remote Dir:")};
 
     const gchar **labels = with_alias ? labels1 : labels2;
-    const guint labels_size = with_alias ? sizeof(labels1)/sizeof(gchar *) : sizeof(labels2)/sizeof(gchar *);
+    const guint labels_size = with_alias ? ARRAY_ELEMENTS(labels1) : ARRAY_ELEMENTS(labels2);
 
     GtkWidget *dialog;
     GtkWidget *pw_entry;
