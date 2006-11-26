@@ -4852,6 +4852,9 @@
                         <listitem>
                             <para>Fixed problem #374282 (searching with recursive symlinks)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem #377706 (selecting files with SHIFT+PGDN)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

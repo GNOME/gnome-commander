@@ -7,6 +7,7 @@ Bug fixes:
  * Fixed problem with grouping of file size digits
  * Fixed problem #367744 (filename not correctly displayed)
  * Fixed problem #374282 (searching with recursive symlinks)
+ * Fixed problem #377706 (selecting files with SHIFT+PGDN)
 
 New features:
  * Support for ID3 metags in advanced file rename templates
