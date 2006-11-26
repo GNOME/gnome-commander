@@ -1010,13 +1010,31 @@ on_scroll_vertical                  (GtkCList        *clist,
         if (start_row < 0 || end_row < 0)
             return;
 
-        if (scroll_type == GTK_SCROLL_STEP_BACKWARD || scroll_type == GTK_SCROLL_STEP_FORWARD)
-            toggle_file_at_row (fl, start_row);
-        else
+        TRACE(start_row,%u);
+        TRACE(end_row,%u);
+        TRACE(clist->focus_row,%u);
+        switch (scroll_type)
         {
-            toggle_file_range (fl, start_row, end_row);
-            if (clist->focus_row < num_files - 1)
-                focus_file_at_row (fl, ++clist->focus_row);            ;
+            case GTK_SCROLL_STEP_BACKWARD:
+            case GTK_SCROLL_STEP_FORWARD:
+                toggle_file_at_row (fl, start_row);
+                break;
+                
+            case GTK_SCROLL_PAGE_BACKWARD:
+                toggle_file_range (fl, start_row, end_row);
+                if (clist->focus_row > 0)
+                    focus_file_at_row (fl, --clist->focus_row);
+                break;
+
+            case GTK_SCROLL_PAGE_FORWARD:
+                toggle_file_range (fl, start_row, end_row);
+                if (clist->focus_row < num_files - 1)
+                    focus_file_at_row (fl, ++clist->focus_row);
+                break;
+
+            default:
+                toggle_file_range (fl, start_row, end_row);
+                break;
         }
     }
 
