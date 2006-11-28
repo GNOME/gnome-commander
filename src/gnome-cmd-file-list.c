@@ -1010,9 +1010,6 @@ on_scroll_vertical                  (GtkCList        *clist,
         if (start_row < 0 || end_row < 0)
             return;
 
-        TRACE(start_row,%u);
-        TRACE(end_row,%u);
-        TRACE(clist->focus_row,%u);
         switch (scroll_type)
         {
             case GTK_SCROLL_STEP_BACKWARD:
