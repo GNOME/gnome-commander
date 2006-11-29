@@ -18,7 +18,7 @@
 * User defined categories for grouping bookmarks
 * Support for SSH+FTP and WebDAV
 * Editing remote files
-* Python plugins 
+* Python plugins
 * More plugins:
     - creating tarballs from selected files
     - compressing/decompressing (gz & bz2)
@@ -28,6 +28,7 @@
     - converting txt <-> pdf
     - other mc-like extensions ?
     - sending file as email attachment (configurable mail command)
+* Root (administrator) mode - for root privileges
 * vfolders for selecting files from arbitrary URI 
   (visible file selection can be merged internally to the vfolder at any point,
    and then the usual multiple file actions can be applied)
