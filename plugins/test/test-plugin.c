@@ -24,9 +24,10 @@
 #include "test-plugin.xpm"
 
 #define NAME "Example"
-#define COPYRIGHT "Copyright 2003-2006 Marcus Bjurman"
+#define COPYRIGHT "Copyright \xc2\xa9 2003-2006 Marcus Bjurman"
 #define AUTHOR "Marcus Bjurman <marbj499@student.liu.se>"
 #define WEBPAGE "http://www.nongnu.org/gcmd"
+
 
 static PluginInfo plugin_nfo = {
     GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION,

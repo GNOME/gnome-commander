@@ -103,16 +103,13 @@ void
 file_copy                           (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
-    GnomeCmdFileSelector *src_fs;
-    GnomeCmdFileSelector *dest_fs;
+    if (!main_win)  return;
 
-    if (main_win) {
-        src_fs = gnome_cmd_main_win_get_active_fs (main_win);
-        dest_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
+    GnomeCmdFileSelector *src_fs = gnome_cmd_main_win_get_active_fs (main_win);
+    GnomeCmdFileSelector *dest_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
 
-        if (src_fs && dest_fs)
-            gnome_cmd_prepare_copy_dialog_show (src_fs, dest_fs);
-    }
+    if (src_fs && dest_fs)
+        gnome_cmd_prepare_copy_dialog_show (src_fs, dest_fs);
 }
 
 
@@ -120,16 +117,13 @@ void
 file_move                           (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
-    GnomeCmdFileSelector *src_fs;
-    GnomeCmdFileSelector *dest_fs;
+    if (!main_win)  return;
 
-    if (main_win) {
-        src_fs = gnome_cmd_main_win_get_active_fs (main_win);
-        dest_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
+    GnomeCmdFileSelector *src_fs = gnome_cmd_main_win_get_active_fs (main_win);
+    GnomeCmdFileSelector *dest_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
 
-        if (src_fs && dest_fs)
-            gnome_cmd_prepare_move_dialog_show (src_fs, dest_fs);
-    }
+    if (src_fs && dest_fs)
+        gnome_cmd_prepare_move_dialog_show (src_fs, dest_fs);
 }
 
 
@@ -331,9 +325,7 @@ edit_search                         (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
     GnomeCmdFileSelector *fs = get_active_fs ();
-    GtkWidget *dialog =
-        gnome_cmd_search_dialog_new (
-            gnome_cmd_file_selector_get_directory (fs));
+    GtkWidget *dialog = gnome_cmd_search_dialog_new (gnome_cmd_file_selector_get_directory (fs));
     gtk_widget_ref (dialog);
     gtk_widget_show (dialog);
 }
@@ -359,9 +351,9 @@ void
 edit_copy_fnames                    (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
-    GdkModifierType mask;
-
     static gchar sep[] = " ";
+
+    GdkModifierType mask;
 
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
@@ -656,15 +648,12 @@ void
 connections_close           (GtkMenuItem     *menuitem,
                              GnomeCmdCon *con)
 {
-    GnomeCmdCon *c1, *c2, *home;
-    GnomeCmdFileSelector *active, *inactive;
+    GnomeCmdFileSelector *active = gnome_cmd_main_win_get_active_fs (main_win);
+    GnomeCmdFileSelector *inactive = gnome_cmd_main_win_get_inactive_fs (main_win);
 
-    active = gnome_cmd_main_win_get_active_fs (main_win);
-    inactive = gnome_cmd_main_win_get_inactive_fs (main_win);
-
-    c1 = gnome_cmd_file_selector_get_connection (active);
-    c2 = gnome_cmd_file_selector_get_connection (inactive);
-    home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
+    GnomeCmdCon *c1 = gnome_cmd_file_selector_get_connection (active);
+    GnomeCmdCon *c2 = gnome_cmd_file_selector_get_connection (inactive);
+    GnomeCmdCon *home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
 
     if (con == c1)
         gnome_cmd_file_selector_set_connection (active, home, NULL);
@@ -761,32 +750,34 @@ void
 help_about                          (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
-    gchar *authors[] = {
+    static const gchar *authors[] = {
         "Marcus Bjurman <marbj499@student.liu.se>",
         "Piotr Eljasiak <epiotr@use.pl>",
         "Assaf Gordon <agordon88@gmail.com>",
         NULL
     };
 
-    gchar *docers[] = {
+    static const gchar *documenters[] = {
         "Marcus Bjurman <marbj499@student.liu.se>",
         "Piotr Eljasiak <epiotr@use.pl>",
         NULL
     };
 
-    GtkWidget *dialog = gnome_about_new (
-        "GNOME Commander",
-        VERSION,
-        "Copyright (C) 2001-2006 Marcus Bjurman",
-        _("A fast and powerful file manager for the GNOME desktop"),
-        (const gchar**)authors,
-        (const gchar**)docers,
-        /* xgettext:
-         * Replace this with your name when translating  */
-        _("No translation is currently in use."),
-        NULL);
+    static const gchar copyright[] = \
+        // "Copyright \xc2\xa9 2001-2006 Marcus Bjurman\n"
+        "Copyright \xc2\xa9 2001-2006 Marcus Bjurman";
 
-    gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-    gtk_widget_ref (dialog);
-    gtk_widget_show (dialog);
+    static const gchar comments[] = \
+        N_("A fast and powerful file manager for the GNOME desktop");
+
+    gtk_show_about_dialog (GTK_WINDOW (main_win),
+                   "authors", authors,
+                   "comments", _(comments),
+                   "copyright", copyright,
+                   "documenters", documenters,
+                   "translator-credits", _("translator-credits"),
+                   "version", VERSION,
+                   "website", "http://www.nongnu.org/gcmd",
+                   "name", PACKAGE,
+                   NULL);
 }

@@ -1,3 +1,12 @@
+2006-12-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/fileroller/file-roller-plugin.c:
+	* plugins/test/test-plugin.c:
+	* src/gnome-cmd-about-plugin.c:
+	* src/useractions.c:
+	Prettify about dialogs
+
 2006-11-26  Koos Jan Niesink  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-file-list.c:
