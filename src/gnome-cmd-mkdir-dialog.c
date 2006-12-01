@@ -35,44 +35,39 @@ struct _GnomeCmdMkdirDialogPrivate
 static GnomeCmdStringDialogClass *parent_class = NULL;
 
 
-
 static gboolean
 on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdMkdirDialog *dialog)
 {
-    GnomeVFSURI *uri;
-    GnomeVFSResult result;
     const gchar *filename = values[0];
 
     /* dont create any directory if no name was passed or cancel was selected */
-    if (filename == NULL || strcmp (filename, "") == 0) {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog,
-                                                g_strdup (_("A directory name must be entered")));
+    if (filename == NULL || *filename == 0)
+    {
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("A directory name must be entered")));
         return FALSE;
     }
 
-    uri = gnome_cmd_dir_get_child_uri (dialog->priv->dir, filename);
+    GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (dialog->priv->dir, filename);
 
-    result = gnome_vfs_make_directory_for_uri (
-        uri,
-        GNOME_VFS_PERM_USER_READ|GNOME_VFS_PERM_USER_WRITE|GNOME_VFS_PERM_USER_EXEC|
-        GNOME_VFS_PERM_GROUP_READ|GNOME_VFS_PERM_GROUP_EXEC|
-        GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
+    GnomeVFSResult result = gnome_vfs_make_directory_for_uri (uri,
+                                                              GNOME_VFS_PERM_ACCESS_READABLE|
+                                                              GNOME_VFS_PERM_USER_WRITE|
+                                                              GNOME_VFS_PERM_ACCESS_EXECUTABLE);
 
-    if (result == GNOME_VFS_OK) {
+    if (result == GNOME_VFS_OK)
+    {
         gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
         gnome_cmd_dir_file_created (dialog->priv->dir, uri_str);
         g_free (uri_str);
-        gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_active_fs (main_win)->list,
-                                        filename, TRUE);
+
+        gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_active_fs (main_win)->list, filename, TRUE);
         gnome_cmd_dir_unref (dialog->priv->dir);
         gnome_vfs_uri_unref (uri);
         return TRUE;
     }
 
     gnome_vfs_uri_unref (uri);
-    gnome_cmd_string_dialog_set_error_desc (
-        string_dialog,
-        g_strdup (gnome_vfs_result_to_string (result)));
+    gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (gnome_vfs_result_to_string (result)));
     return FALSE;
 }
 
