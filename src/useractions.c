@@ -778,6 +778,6 @@ help_about                          (GtkMenuItem     *menuitem,
                    "translator-credits", _("translator-credits"),
                    "version", VERSION,
                    "website", "http://www.nongnu.org/gcmd",
-                   "name", PACKAGE,
+                   "name", "GNOME Commander",
                    NULL);
 }

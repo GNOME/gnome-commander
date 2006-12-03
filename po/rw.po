@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-10 23:26+0100\n"
+"POT-Creation-Date: 2006-12-03 01:31+0100\n"
 "PO-Revision-Date: 2005-03-31 20:55-0700\n"
 "Last-Translator: Steve Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -47,31 +47,31 @@ msgid "No error description available"
 msgstr "Ikosa Isobanuramiterere Bihari"
 
 # basctl/source\basicide\moduldlg.src:RID_DLG_LIBS.RID_FL_OPTIONS.text
-#: ../plugins/cvs/cvs-plugin.c:299
-#: ../plugins/fileroller/file-roller-plugin.c:343
-#: ../src/gnome-cmd-ftp-dialog.c:536 ../src/gnome-cmd-options-dialog.c:1114
-#: ../src/gnome-cmd-options-dialog.c:1827
+#: ../plugins/cvs/cvs-plugin.c:301
+#: ../plugins/fileroller/file-roller-plugin.c:344
+#: ../src/gnome-cmd-ftp-dialog.c:536 ../src/gnome-cmd-options-dialog.c:1123
+#: ../src/gnome-cmd-options-dialog.c:1836
 #: ../src/gnome-cmd-prepare-copy-dialog.c:133
 #: ../src/gnome-cmd-prepare-move-dialog.c:118
 msgid "Options"
 msgstr "Amahitamo"
 
-#: ../plugins/cvs/cvs-plugin.c:313
+#: ../plugins/cvs/cvs-plugin.c:315
 #, fuzzy
 msgid "CVS options"
 msgstr "Amahitamo"
 
-#: ../plugins/cvs/cvs-plugin.c:316
+#: ../plugins/cvs/cvs-plugin.c:318
 #, fuzzy
 msgid "Compression level"
 msgstr "urwego"
 
-#: ../plugins/cvs/cvs-plugin.c:325
+#: ../plugins/cvs/cvs-plugin.c:327
 #, fuzzy
 msgid "Unified diff format"
 msgstr "Imiterere"
 
-#: ../plugins/cvs/cvs-plugin.c:433
+#: ../plugins/cvs/cvs-plugin.c:435
 #, fuzzy
 msgid "A plugin that eventually will be a simple CVS client"
 msgstr "A a Byoroheje Umukiriya"
@@ -143,58 +143,58 @@ msgstr "Imirongo."
 msgid "Message:"
 msgstr "Ubutumwa:"
 
-#: ../plugins/fileroller/file-roller-plugin.c:182
+#: ../plugins/fileroller/file-roller-plugin.c:183
 #, fuzzy
 msgid "What filename should the new archive have?"
 msgstr "Izina ry'idosiye: i Gishya"
 
-#: ../plugins/fileroller/file-roller-plugin.c:184
+#: ../plugins/fileroller/file-roller-plugin.c:185
 msgid "Create Archive"
 msgstr ""
 
-#: ../plugins/fileroller/file-roller-plugin.c:286
+#: ../plugins/fileroller/file-roller-plugin.c:287
 msgid "Create Archive..."
 msgstr ""
 
-#: ../plugins/fileroller/file-roller-plugin.c:300
+#: ../plugins/fileroller/file-roller-plugin.c:301
 #, fuzzy
 msgid "Extract in Current Directory"
 msgstr "in"
 
-#: ../plugins/fileroller/file-roller-plugin.c:305
+#: ../plugins/fileroller/file-roller-plugin.c:306
 #, fuzzy, c-format
 msgid "Extract to '%s'"
 msgstr "Kuri"
 
-#: ../plugins/fileroller/file-roller-plugin.c:357
+#: ../plugins/fileroller/file-roller-plugin.c:358
 #, fuzzy
 msgid "File-roller options"
 msgstr "Idosiye Amahitamo"
 
-#: ../plugins/fileroller/file-roller-plugin.c:360
+#: ../plugins/fileroller/file-roller-plugin.c:361
 #, fuzzy
 msgid "Default type"
 msgstr "Ubwoko"
 
-#: ../plugins/fileroller/file-roller-plugin.c:476
+#: ../plugins/fileroller/file-roller-plugin.c:477
 #, fuzzy
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
 msgstr "A Idosiye kugirango Na Byegeranijwe Ubushyinguro"
 
-#: ../plugins/test/test-plugin.c:232
+#: ../plugins/test/test-plugin.c:233
 #, fuzzy
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
 msgstr "ni Urugero ni Nka a Byoroheje Urugero kugirango"
 
-#: ../src/gnome-cmd-about-plugin.c:184
+#: ../src/gnome-cmd-about-plugin.c:182
 msgid "Credits"
 msgstr ""
 
-#: ../src/gnome-cmd-about-plugin.c:212
+#: ../src/gnome-cmd-about-plugin.c:211
 #, fuzzy
 msgid "Written by"
 msgstr "ku"
@@ -204,7 +204,7 @@ msgstr "ku"
 msgid "Documented by"
 msgstr "ku"
 
-#: ../src/gnome-cmd-about-plugin.c:238
+#: ../src/gnome-cmd-about-plugin.c:239
 #, fuzzy
 msgid "Translated by"
 msgstr "ku"
@@ -337,12 +337,12 @@ msgid "/Time/SS"
 msgstr ""
 
 #: ../src/gnome-cmd-advrename-dialog.c:448
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:728
 msgid "Yes"
 msgstr "Yego"
 
 #: ../src/gnome-cmd-advrename-dialog.c:448
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:728
 msgid "No"
 msgstr "Oya"
 
@@ -455,16 +455,16 @@ msgstr "Imyandikire y'inyuguti nkuru/nto"
 
 # padmin/source\padialog.src:RID_FONTNAMEDIALOG.RID_FNTNM_BTN_IMPORT.text
 #: ../src/gnome-cmd-advrename-dialog.c:1183
-#: ../src/gnome-cmd-options-dialog.c:1342
-#: ../src/gnome-cmd-options-dialog.c:1700
+#: ../src/gnome-cmd-options-dialog.c:1351
+#: ../src/gnome-cmd-options-dialog.c:1709
 #, fuzzy
 msgid "_Add..."
 msgstr "Kongeraho"
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_DBUI_QUERY_EDIT_JOINCONNECTION.text
 #: ../src/gnome-cmd-advrename-dialog.c:1186 ../src/gnome-cmd-ftp-dialog.c:527
-#: ../src/gnome-cmd-options-dialog.c:1346
-#: ../src/gnome-cmd-options-dialog.c:1704
+#: ../src/gnome-cmd-options-dialog.c:1355
+#: ../src/gnome-cmd-options-dialog.c:1713
 #, fuzzy
 msgid "_Edit..."
 msgstr "Kwandika..."
@@ -475,8 +475,8 @@ msgstr "Kwandika..."
 # padmin/source\rtsetup.src:RID_RTS_COMMANDPAGE.RID_RTS_CMD_BTN_REMOVE.text
 #: ../src/gnome-cmd-advrename-dialog.c:1190
 #: ../src/gnome-cmd-bookmark-dialog.c:468 ../src/gnome-cmd-ftp-dialog.c:530
-#: ../src/gnome-cmd-options-dialog.c:1352
-#: ../src/gnome-cmd-options-dialog.c:1710
+#: ../src/gnome-cmd-options-dialog.c:1361
+#: ../src/gnome-cmd-options-dialog.c:1719
 #, fuzzy
 msgid "_Remove"
 msgstr "Gukuraho"
@@ -570,7 +570,7 @@ msgstr ""
 # basctl/source\basicide\moduldlg.src:RID_TP_MODULS.RID_PB_EDIT.text
 # #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
 # basctl/source\basicide\moduldlg.src:RID_TP_LIBS.RID_PB_EDIT.text
-#: ../src/gnome-cmd-bookmark-dialog.c:463 ../src/gnome-cmd-main-menu.c:776
+#: ../src/gnome-cmd-bookmark-dialog.c:463 ../src/gnome-cmd-main-menu.c:783
 #, fuzzy
 msgid "_Edit"
 msgstr "Guhindura"
@@ -629,7 +629,7 @@ msgid "Number view:"
 msgstr "Kureba"
 
 # 146
-#: ../src/gnome-cmd-chmod-dialog.c:40 ../src/gnome-cmd-options-dialog.c:1135
+#: ../src/gnome-cmd-chmod-dialog.c:40 ../src/gnome-cmd-options-dialog.c:1144
 msgid "All files"
 msgstr "amadosiye yose"
 
@@ -644,11 +644,11 @@ msgid ""
 "%s"
 msgstr "OYA"
 
-#: ../src/gnome-cmd-chmod-dialog.c:204
+#: ../src/gnome-cmd-chmod-dialog.c:205
 msgid "Access Permissions"
 msgstr ""
 
-#: ../src/gnome-cmd-chmod-dialog.c:222
+#: ../src/gnome-cmd-chmod-dialog.c:223
 #, fuzzy
 msgid "Apply Recursively for"
 msgstr "kugirango"
@@ -660,11 +660,11 @@ msgid ""
 "%s"
 msgstr "OYA"
 
-#: ../src/gnome-cmd-chown-dialog.c:175
+#: ../src/gnome-cmd-chown-dialog.c:176
 msgid "Chown"
 msgstr ""
 
-#: ../src/gnome-cmd-chown-dialog.c:188
+#: ../src/gnome-cmd-chown-dialog.c:189
 msgid "Apply Recursively"
 msgstr ""
 
@@ -785,44 +785,57 @@ msgstr "kugirango Na"
 msgid "Go to: Samba Network"
 msgstr "Kuri"
 
-#: ../src/gnome-cmd-delete-dialog.c:145
+#: ../src/gnome-cmd-data.c:1186 ../src/gnome-cmd-data.c:1407
+#: ../src/gnome-cmd-data.c:1408 ../src/gnome-cmd-data.c:2377
+#, fuzzy, c-format
+msgid "link to %s"
+msgstr "Kuri"
+
+#: ../src/gnome-cmd-delete-dialog.c:104
+#, fuzzy, c-format
+msgid "Deleted %ld of %ld file"
+msgid_plural "Deleted %ld of %ld files"
+msgstr[0] "[IDOSIYE Bya"
+msgstr[1] "[IDOSIYE Bya"
+
+#: ../src/gnome-cmd-delete-dialog.c:150
 msgid "Deleting..."
 msgstr ""
 
-#: ../src/gnome-cmd-delete-dialog.c:224
-#, c-format
+#: ../src/gnome-cmd-delete-dialog.c:228
+#, fuzzy, c-format
 msgid ""
-"Error while deleting %s\n"
+"Error while deleting \"%s\"\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "Kuri"
 
-#: ../src/gnome-cmd-delete-dialog.c:226
+#: ../src/gnome-cmd-delete-dialog.c:231
 msgid "Delete problem"
 msgstr ""
 
-#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-xfer.c:177
+#: ../src/gnome-cmd-delete-dialog.c:232 ../src/gnome-cmd-xfer.c:177
 #: ../src/gnome-cmd-xfer.c:197
 msgid "Abort"
 msgstr "Ntibyakunze"
 
 # 5169
-#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-file-selector.c:2224
+#: ../src/gnome-cmd-delete-dialog.c:232 ../src/gnome-cmd-file-selector.c:2226
 #: ../src/gnome-cmd-xfer.c:197
 msgid "Retry"
 msgstr "Ongera ugerageze"
 
-#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-file-selector.c:2224
+#: ../src/gnome-cmd-delete-dialog.c:232 ../src/gnome-cmd-file-selector.c:2226
 #: ../src/gnome-cmd-xfer.c:177 ../src/gnome-cmd-xfer.c:197
 msgid "Skip"
 msgstr ""
 
-#: ../src/gnome-cmd-delete-dialog.c:305
+#: ../src/gnome-cmd-delete-dialog.c:310
 #, fuzzy, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "Kuri Gusiba"
 
-#: ../src/gnome-cmd-delete-dialog.c:310
+#: ../src/gnome-cmd-delete-dialog.c:315
 #, fuzzy, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
@@ -832,19 +845,19 @@ msgstr[0] "Kuri Gusiba i Byahiswemo IDOSIYE"
 # basctl/source\basicide\basidesh.src:RID_POPUP_TABBAR.SID_BASICIDE_DELETECURRENT.text
 # #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
 # basctl/source\basicide\brkdlg.src:RID_BASICIDE_BREAKPOINTDLG.RID_PB_DEL.text
-#: ../src/gnome-cmd-delete-dialog.c:318 ../src/gnome-cmd-main-win.c:1388
-#: ../src/gnome-cmd-options-dialog.c:645
+#: ../src/gnome-cmd-delete-dialog.c:323 ../src/gnome-cmd-main-win.c:1391
+#: ../src/gnome-cmd-options-dialog.c:654
 msgid "Delete"
 msgstr "Gusiba"
 
 # crashrep/source\all\crashrep.lng:%CANCEL_BUTTON%.text
-#: ../src/gnome-cmd-delete-dialog.c:319 ../src/gnome-cmd-file-selector.c:2224
-#: ../src/useractions.c:222 ../src/utils.c:597 ../src/utils.c:626
+#: ../src/gnome-cmd-delete-dialog.c:324 ../src/gnome-cmd-file-selector.c:2226
+#: ../src/useractions.c:216 ../src/utils.c:586 ../src/utils.c:615
 msgid "Cancel"
 msgstr "Kureka"
 
 # crashrep/source\all\crashrep.lng:%OK_BUTTON%.text
-#: ../src/gnome-cmd-delete-dialog.c:319 ../src/utils.c:597
+#: ../src/gnome-cmd-delete-dialog.c:324 ../src/utils.c:586
 msgid "OK"
 msgstr "YEGO"
 
@@ -944,7 +957,7 @@ msgid "_Cut"
 msgstr "Gukata"
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_COPY.text
-#: ../src/gnome-cmd-file-popmenu.c:459 ../src/gnome-cmd-main-menu.c:553
+#: ../src/gnome-cmd-file-popmenu.c:459 ../src/gnome-cmd-main-menu.c:554
 #, fuzzy
 msgid "_Copy"
 msgstr "Gukoporora"
@@ -953,7 +966,7 @@ msgstr "Gukoporora"
 # basctl/source\basicide\basidesh.src:RID_POPUP_TABBAR.SID_BASICIDE_DELETECURRENT.text
 # #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
 # basctl/source\basicide\brkdlg.src:RID_BASICIDE_BREAKPOINTDLG.RID_PB_DEL.text
-#: ../src/gnome-cmd-file-popmenu.c:466 ../src/gnome-cmd-main-menu.c:565
+#: ../src/gnome-cmd-file-popmenu.c:466 ../src/gnome-cmd-main-menu.c:566
 #, fuzzy
 msgid "_Delete"
 msgstr "Gusiba"
@@ -977,7 +990,7 @@ msgstr "indangakintu"
 msgid "Other..."
 msgstr "Ikindi..."
 
-#: ../src/gnome-cmd-file-props-dialog.c:63 ../src/utils.c:965
+#: ../src/gnome-cmd-file-props-dialog.c:63 ../src/utils.c:953
 #, fuzzy, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -990,7 +1003,7 @@ msgid "No default application registered"
 msgstr "Mburabuzi Porogaramu"
 
 #: ../src/gnome-cmd-file-props-dialog.c:302
-#: ../src/gnome-cmd-file-selector.c:1992
+#: ../src/gnome-cmd-file-selector.c:1994
 msgid "Filename:"
 msgstr "Izina ry'idosiye:"
 
@@ -1055,69 +1068,64 @@ msgstr "ibiranga/ibigize dosiye"
 msgid "Permissions"
 msgstr "Uruhushya"
 
-#: ../src/gnome-cmd-file-selector.c:182
+#: ../src/gnome-cmd-file-selector.c:184
 #, fuzzy, c-format
 msgid "%s of %s kB in %d of %d file selected"
 msgid_plural "%s of %s kB in %d of %d files selected"
 msgstr[0] "%sBya in Bya IDOSIYE Byahiswemo"
 
-#: ../src/gnome-cmd-file-selector.c:712
+#: ../src/gnome-cmd-file-selector.c:714
 #, c-format
 msgid "%s free"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.c:716
+#: ../src/gnome-cmd-file-selector.c:718
 #, fuzzy
 msgid "Unknown disk usage"
 msgstr "IDOSIYE Ubwoko"
 
-#: ../src/gnome-cmd-file-selector.c:1141
+#: ../src/gnome-cmd-file-selector.c:1143
 #, c-format
 msgid "List failed: %s\n"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.c:1737
+#: ../src/gnome-cmd-file-selector.c:1739
 #, fuzzy, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Kuri Gufungura Ukwihuza"
 
-#: ../src/gnome-cmd-file-selector.c:1928
+#: ../src/gnome-cmd-file-selector.c:1930
 #: ../src/gnome-cmd-make-copy-dialog.c:68
 #, fuzzy
 msgid "No filename entered"
 msgstr "Izina ry'idosiye:"
 
-#: ../src/gnome-cmd-file-selector.c:1964
+#: ../src/gnome-cmd-file-selector.c:1966
 #, fuzzy
 msgid "No filename given"
 msgstr "Izina ry'idosiye:"
 
-#: ../src/gnome-cmd-file-selector.c:1998
+#: ../src/gnome-cmd-file-selector.c:2000
 #, fuzzy
 msgid "New Text File"
 msgstr "Idosiye"
 
-#: ../src/gnome-cmd-file-selector.c:2171
+#: ../src/gnome-cmd-file-selector.c:2173
 #, fuzzy
 msgid "Symlink name:"
 msgstr "Izina:"
 
-#: ../src/gnome-cmd-file-selector.c:2174 ../src/gnome-cmd-file-selector.c:2201
-#, fuzzy, c-format
-msgid "link to %s"
-msgstr "Kuri"
-
-#: ../src/gnome-cmd-file-selector.c:2177 ../src/gnome-cmd-file-selector.c:2224
-#: ../src/useractions.c:222
+#: ../src/gnome-cmd-file-selector.c:2179 ../src/gnome-cmd-file-selector.c:2226
+#: ../src/useractions.c:216
 msgid "Create Symbolic Link"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.c:2224 ../src/gnome-cmd-options-dialog.c:667
-#: ../src/gnome-cmd-options-dialog.c:687
+#: ../src/gnome-cmd-file-selector.c:2226 ../src/gnome-cmd-options-dialog.c:676
+#: ../src/gnome-cmd-options-dialog.c:696
 msgid "Skip all"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.c:2300
+#: ../src/gnome-cmd-file-selector.c:2302
 #, fuzzy
 msgid "Filter:"
 msgstr "Muyunguruzi..."
@@ -1188,7 +1196,7 @@ msgstr "Umuyoboro Umubare"
 # #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
 # dbaccess/source/ui/inc/toolbox.hrc:MID_DBUI_QUERY_VIEW_ALIASES.text
 # #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
-#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-options-dialog.c:1534
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-options-dialog.c:1543
 #, fuzzy
 msgid "Alias:"
 msgstr "Irihimbano"
@@ -1231,7 +1239,7 @@ msgstr "Ukwihuza"
 msgid "No server selected"
 msgstr "Seriveri Byahiswemo"
 
-#: ../src/gnome-cmd-ftp-dialog.c:495 ../src/gnome-cmd-main-win.c:1404
+#: ../src/gnome-cmd-ftp-dialog.c:495 ../src/gnome-cmd-main-win.c:1407
 msgid "FTP Connect"
 msgstr ""
 
@@ -1244,7 +1252,7 @@ msgstr "Ukwihuza"
 # #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
 # dbaccess/source/ui/inc/toolbox.hrc:MID_DBUI_QUERY_VIEW_ALIASES.text
 # #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
-#: ../src/gnome-cmd-ftp-dialog.c:520 ../src/gnome-cmd-options-dialog.c:1694
+#: ../src/gnome-cmd-ftp-dialog.c:520 ../src/gnome-cmd-options-dialog.c:1703
 msgid "Alias"
 msgstr "Irihimbano"
 
@@ -1280,40 +1288,40 @@ msgid "_Text file"
 msgstr "Idosiye y'umwandiko"
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_PASTE.text
-#: ../src/gnome-cmd-list-popmenu.c:148 ../src/gnome-cmd-main-menu.c:559
+#: ../src/gnome-cmd-list-popmenu.c:148 ../src/gnome-cmd-main-menu.c:560
 #, fuzzy
 msgid "_Paste"
 msgstr "Komeka"
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_REFRESH.text
-#: ../src/gnome-cmd-list-popmenu.c:155 ../src/gnome-cmd-main-menu.c:614
+#: ../src/gnome-cmd-list-popmenu.c:155 ../src/gnome-cmd-main-menu.c:615
 #, fuzzy
 msgid "_Refresh"
 msgstr "Kugira gishya"
 
-#: ../src/gnome-cmd-main-menu.c:380
-#, fuzzy
-msgid "Switch to Horizontal Layout"
-msgstr "Kuri"
-
-#: ../src/gnome-cmd-main-menu.c:385
+#: ../src/gnome-cmd-main-menu.c:381
 #, fuzzy
 msgid "Switch to Vertical Layout"
 msgstr "Kuri"
 
-#: ../src/gnome-cmd-main-menu.c:450
+#: ../src/gnome-cmd-main-menu.c:386
+#, fuzzy
+msgid "Switch to Horizontal Layout"
+msgstr "Kuri"
+
+#: ../src/gnome-cmd-main-menu.c:451
 msgid "Change _Owner/Group"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:456
+#: ../src/gnome-cmd-main-menu.c:457
 msgid "Change Per_missions"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:462
+#: ../src/gnome-cmd-main-menu.c:463
 msgid "Advanced _Rename Tool"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:468
+#: ../src/gnome-cmd-main-menu.c:469
 msgid "Create _Symbolic Link"
 msgstr ""
 
@@ -1321,16 +1329,16 @@ msgstr ""
 # basctl/source\basicide\basidesh.src:RID_POPUP_BRKPROPS.RID_BRKPROPS.text
 # #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
 # basctl/source\basicide\basidesh.src:RID_POPUP_DLGED.SID_SHOW_PROPERTYBROWSER.text
-#: ../src/gnome-cmd-main-menu.c:474
+#: ../src/gnome-cmd-main-menu.c:475
 #, fuzzy
 msgid "_Properties..."
 msgstr "Indangakintu..."
 
-#: ../src/gnome-cmd-main-menu.c:481
+#: ../src/gnome-cmd-main-menu.c:482
 msgid "_Diff"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:488
+#: ../src/gnome-cmd-main-menu.c:489
 #, fuzzy
 msgid "_Quit"
 msgstr "Kuvamo"
@@ -1339,46 +1347,46 @@ msgstr "Kuvamo"
 # padmin/source\padialog.src:RID_FONTIMPORT_DIALOG.RID_FIMP_BTN_SELECTALL.text
 # #-#-#-#-#  padmin.pot (PACKAGE VERSION)  #-#-#-#-#
 # padmin/source\padialog.src:RID_ADDP_PAGE_OLDPRINTERS.RID_ADDP_OLD_BTN_SELECTALL.text
-#: ../src/gnome-cmd-main-menu.c:499
+#: ../src/gnome-cmd-main-menu.c:500
 #, fuzzy
 msgid "_Select All"
 msgstr "Hitamo byose"
 
-#: ../src/gnome-cmd-main-menu.c:505
+#: ../src/gnome-cmd-main-menu.c:506
 msgid "_Unselect All"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:511
+#: ../src/gnome-cmd-main-menu.c:512
 #, fuzzy
 msgid "Select with _Pattern"
 msgstr "Na:"
 
-#: ../src/gnome-cmd-main-menu.c:517
+#: ../src/gnome-cmd-main-menu.c:518
 #, fuzzy
 msgid "Unselect with P_attern"
 msgstr "Na:"
 
-#: ../src/gnome-cmd-main-menu.c:523
+#: ../src/gnome-cmd-main-menu.c:524
 msgid "_Invert Selection"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:529
+#: ../src/gnome-cmd-main-menu.c:530
 msgid "_Restore Selection"
 msgstr ""
 
 # 1677
-#: ../src/gnome-cmd-main-menu.c:536
+#: ../src/gnome-cmd-main-menu.c:537
 #, fuzzy
 msgid "_Compare Directories"
 msgstr "ububiko bw'amaderese"
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_CUT.text
-#: ../src/gnome-cmd-main-menu.c:547
+#: ../src/gnome-cmd-main-menu.c:548
 #, fuzzy
 msgid "Cu_t"
 msgstr "Gukata"
 
-#: ../src/gnome-cmd-main-menu.c:572
+#: ../src/gnome-cmd-main-menu.c:573
 #, fuzzy
 msgid "Copy _File Names"
 msgstr "Idosiye"
@@ -1387,105 +1395,109 @@ msgstr "Idosiye"
 # so3/src\svuidlg.src:MD_INSERT_OLEOBJECT.BTN_FILEPATH.text
 # #-#-#-#-#  so3.pot (PACKAGE VERSION)  #-#-#-#-#
 # so3/src\svuidlg.src:MD_INSERT_OBJECT_APPLET.BTN_CLASS.text
-#: ../src/gnome-cmd-main-menu.c:579
+#: ../src/gnome-cmd-main-menu.c:580
 #, fuzzy
 msgid "_Search..."
 msgstr "Gushakisha..."
 
-#: ../src/gnome-cmd-main-menu.c:585
+#: ../src/gnome-cmd-main-menu.c:586
 msgid "_Quick Search..."
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:591
+#: ../src/gnome-cmd-main-menu.c:592
 msgid "_Enable Filter..."
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:602
+#: ../src/gnome-cmd-main-menu.c:603
 #, fuzzy
 msgid "_Back"
 msgstr "Inyuma"
 
 # sch/sdi\schslots.src:SID_ROW_MOREFRONT.text
-#: ../src/gnome-cmd-main-menu.c:608
+#: ../src/gnome-cmd-main-menu.c:609
 #, fuzzy
 msgid "_Forward"
 msgstr "Imbere"
 
-#: ../src/gnome-cmd-main-menu.c:621
+#: ../src/gnome-cmd-main-menu.c:622
 msgid "Show Device Buttons"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:627
+#: ../src/gnome-cmd-main-menu.c:628
 msgid "Show Toolbar"
 msgstr "Erekana UmwanyaBikoresho"
 
-#: ../src/gnome-cmd-main-menu.c:633
+#: ../src/gnome-cmd-main-menu.c:634
 msgid "Show Commandline"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:639
+#: ../src/gnome-cmd-main-menu.c:640
 msgid "Show Buttonbar"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:646
+#: ../src/gnome-cmd-main-menu.c:647
 msgid "Show Hidden Files"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:652
+#: ../src/gnome-cmd-main-menu.c:653
 msgid "Show Backup Files"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:664
+#: ../src/gnome-cmd-main-menu.c:660
+msgid "_Equal Panel Size"
+msgstr ""
+
+#: ../src/gnome-cmd-main-menu.c:671
 #, fuzzy
 msgid "_Bookmark this Directory..."
 msgstr "iyi"
 
-#: ../src/gnome-cmd-main-menu.c:670
+#: ../src/gnome-cmd-main-menu.c:677
 #, fuzzy
 msgid "_Manage Bookmarks..."
 msgstr "Yobora ibimenyetso..."
 
-#: ../src/gnome-cmd-main-menu.c:682
+#: ../src/gnome-cmd-main-menu.c:689
 msgid "_Configure Plugins..."
 msgstr ""
 
 # crashrep/source\all\crashrep.lng:%OPTIONS_BUTTON%.text
-#: ../src/gnome-cmd-main-menu.c:694
+#: ../src/gnome-cmd-main-menu.c:701
 #, fuzzy
 msgid "_Options..."
 msgstr "Amahitamo..."
 
-#: ../src/gnome-cmd-main-menu.c:700
+#: ../src/gnome-cmd-main-menu.c:707
 msgid "Edit _Mime Types..."
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:711
+#: ../src/gnome-cmd-main-menu.c:718
 msgid "FTP _Connect..."
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:717
+#: ../src/gnome-cmd-main-menu.c:724
 msgid "FTP _Quick Connect..."
 msgstr ""
 
 # offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_SB_STARBASEOPTIONS.2.text
-#: ../src/gnome-cmd-main-menu.c:728
+#: ../src/gnome-cmd-main-menu.c:735
 #, fuzzy
 msgid "_Contents"
 msgstr "Ukwihuza"
 
-#: ../src/gnome-cmd-main-menu.c:734 ../src/libgviewer/viewer-window.c:1030
+#: ../src/gnome-cmd-main-menu.c:741 ../src/libgviewer/viewer-window.c:1030
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:740
+#: ../src/gnome-cmd-main-menu.c:747
 msgid "GNOME Commander on the _Web"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:746
+#: ../src/gnome-cmd-main-menu.c:753
 msgid "Report a _Problem"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:753 ../src/libgviewer/viewer-window.c:1037
+#: ../src/gnome-cmd-main-menu.c:760 ../src/libgviewer/viewer-window.c:1037
 #: ../src/plugin_manager.c:440
 #, fuzzy
 msgid "_About"
@@ -1494,13 +1506,13 @@ msgstr "Bigyanye"
 # sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_HFCMD_FILE.text
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.c:772 ../src/libgviewer/viewer-window.c:1050
+#: ../src/gnome-cmd-main-menu.c:779 ../src/libgviewer/viewer-window.c:1050
 #, fuzzy
 msgid "_File"
 msgstr "IDOSIYE"
 
 # sw/source\ui\config\redlopt.src:TP_REDLINE_OPT.FT_MARKPOS.text
-#: ../src/gnome-cmd-main-menu.c:780
+#: ../src/gnome-cmd-main-menu.c:787
 #, fuzzy
 msgid "_Mark"
 msgstr "Ikimenyetso"
@@ -1509,33 +1521,33 @@ msgstr "Ikimenyetso"
 # basctl/source\basicide\basidesh.src:RID_BASICMENU.MN_VIEW.text
 # #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
 # basctl/source\basicide\basidesh.src:RID_BASICPLUGINMENU.MN_PLVIEW.text
-#: ../src/gnome-cmd-main-menu.c:784 ../src/libgviewer/viewer-window.c:1053
+#: ../src/gnome-cmd-main-menu.c:791 ../src/libgviewer/viewer-window.c:1053
 #, fuzzy
 msgid "_View"
 msgstr "Kureba"
 
-#: ../src/gnome-cmd-main-menu.c:789 ../src/libgviewer/viewer-window.c:1064
+#: ../src/gnome-cmd-main-menu.c:796 ../src/libgviewer/viewer-window.c:1064
 #, fuzzy
 msgid "_Settings"
 msgstr "Amagenamiterere"
 
 # offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_SB_STARBASEOPTIONS.2.text
-#: ../src/gnome-cmd-main-menu.c:793
+#: ../src/gnome-cmd-main-menu.c:800
 #, fuzzy
 msgid "_Connections"
 msgstr "Ukwihuza"
 
 # sfx2/source\appl\newhelp.src:WIN_HELP_INDEX.TC_INDEX.HELP_INDEX_PAGE_BOOKMARKS.text
-#: ../src/gnome-cmd-main-menu.c:797
+#: ../src/gnome-cmd-main-menu.c:804
 #, fuzzy
 msgid "_Bookmarks"
 msgstr "Ibirango"
 
-#: ../src/gnome-cmd-main-menu.c:801
+#: ../src/gnome-cmd-main-menu.c:808
 msgid "_Plugins"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.c:805 ../src/libgviewer/viewer-window.c:1069
+#: ../src/gnome-cmd-main-menu.c:812 ../src/libgviewer/viewer-window.c:1069
 #, fuzzy
 msgid "_Help"
 msgstr "Ifashayobora"
@@ -1573,57 +1585,57 @@ msgid "F10 Quit"
 msgstr ""
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_REFRESH.text
-#: ../src/gnome-cmd-main-win.c:1317
+#: ../src/gnome-cmd-main-win.c:1320
 msgid "Refresh"
 msgstr "Kugira gishya"
 
-#: ../src/gnome-cmd-main-win.c:1324
+#: ../src/gnome-cmd-main-win.c:1327
 #, fuzzy
 msgid "Up one directory"
 msgstr "Agashushondanga bushyinguro"
 
-#: ../src/gnome-cmd-main-win.c:1331
+#: ../src/gnome-cmd-main-win.c:1334
 msgid "Goto the oldest"
 msgstr ""
 
-#: ../src/gnome-cmd-main-win.c:1338
+#: ../src/gnome-cmd-main-win.c:1341
 msgid "Go back"
 msgstr ""
 
 # sch/sdi\schslots.src:SID_ROW_MOREFRONT.text
-#: ../src/gnome-cmd-main-win.c:1345
+#: ../src/gnome-cmd-main-win.c:1348
 #, fuzzy
 msgid "Go forward"
 msgstr "Imbere"
 
-#: ../src/gnome-cmd-main-win.c:1352
+#: ../src/gnome-cmd-main-win.c:1355
 msgid "Goto the latest"
 msgstr ""
 
-#: ../src/gnome-cmd-main-win.c:1360
+#: ../src/gnome-cmd-main-win.c:1363
 msgid "Copy file names (SHIFT for full paths)"
 msgstr ""
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_CUT.text
-#: ../src/gnome-cmd-main-win.c:1367
+#: ../src/gnome-cmd-main-win.c:1370
 msgid "Cut"
 msgstr "Gukata"
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_COPY.text
-#: ../src/gnome-cmd-main-win.c:1374 ../src/gnome-cmd-prepare-copy-dialog.c:87
+#: ../src/gnome-cmd-main-win.c:1377 ../src/gnome-cmd-prepare-copy-dialog.c:87
 msgid "Copy"
 msgstr "Gukoporora"
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_PASTE.text
-#: ../src/gnome-cmd-main-win.c:1381
+#: ../src/gnome-cmd-main-win.c:1384
 msgid "Paste"
 msgstr "Komeka"
 
-#: ../src/gnome-cmd-main-win.c:1396
+#: ../src/gnome-cmd-main-win.c:1399
 msgid "Edit (SHIFT for new document)"
 msgstr ""
 
-#: ../src/gnome-cmd-main-win.c:1411
+#: ../src/gnome-cmd-main-win.c:1414
 #, fuzzy
 msgid "Drop connection"
 msgstr "Ukwihuza"
@@ -1645,16 +1657,16 @@ msgstr "Gukoporora ku"
 msgid "Copy File"
 msgstr "Idosiye"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:49
+#: ../src/gnome-cmd-mkdir-dialog.c:46
 #, fuzzy
 msgid "A directory name must be entered"
 msgstr "A bushyinguro Izina:"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:137
+#: ../src/gnome-cmd-mkdir-dialog.c:132
 msgid "Directory name:"
 msgstr "Izina y'ububiko:"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:145
+#: ../src/gnome-cmd-mkdir-dialog.c:140
 msgid "Make Directory"
 msgstr ""
 
@@ -1723,48 +1735,52 @@ msgid "Powered"
 msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.c:210
+msgid "<locale>"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.c:215
 msgid "Grouped"
 msgstr ""
 
 # sw/source\ui\misc\insrule.src:DLG_INSERT_RULER.ST_SIMPLE.text
-#: ../src/gnome-cmd-options-dialog.c:215
+#: ../src/gnome-cmd-options-dialog.c:220
 msgid "Plain"
 msgstr "Byuzuye"
 
-#: ../src/gnome-cmd-options-dialog.c:225
+#: ../src/gnome-cmd-options-dialog.c:230
 #, fuzzy
 msgid "Permission display mode"
 msgstr "Kugaragaza Ubwoko"
 
-#: ../src/gnome-cmd-options-dialog.c:228
+#: ../src/gnome-cmd-options-dialog.c:233
 #, fuzzy
 msgid "Text (rw-r--r--)"
 msgstr "R R"
 
-#: ../src/gnome-cmd-options-dialog.c:233
+#: ../src/gnome-cmd-options-dialog.c:238
 msgid "Number (644)"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:243
+#: ../src/gnome-cmd-options-dialog.c:248
 msgid "Date format"
 msgstr "Imiterere y'itariki"
 
-#: ../src/gnome-cmd-options-dialog.c:246
+#: ../src/gnome-cmd-options-dialog.c:251
 msgid "Format:"
 msgstr "Imiterere:"
 
 # sc/source\ui\src\scfuncs.src:RID_SC_FUNCTION_DESCRIPTIONS1.SC_OPCODE_IF.2.text
-#: ../src/gnome-cmd-options-dialog.c:254
+#: ../src/gnome-cmd-options-dialog.c:259
 #, fuzzy
 msgid "_Test"
 msgstr "Igerageza"
 
-#: ../src/gnome-cmd-options-dialog.c:257
+#: ../src/gnome-cmd-options-dialog.c:262
 #, fuzzy
 msgid "Test result:"
 msgstr "Igisubizo"
 
-#: ../src/gnome-cmd-options-dialog.c:266
+#: ../src/gnome-cmd-options-dialog.c:271
 #, fuzzy
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
@@ -1773,16 +1789,16 @@ msgstr ""
 "i Bikorwa Ipaji kugirango kugirango Ifashayobora ku Kuri Gushyiraho i "
 "Imiterere Ikurikiranyanyuguti"
 
-#: ../src/gnome-cmd-options-dialog.c:383
+#: ../src/gnome-cmd-options-dialog.c:391
 msgid "Edit Colors..."
 msgstr ""
 
 # offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_GENERAL_OPTIONS.9.text
-#: ../src/gnome-cmd-options-dialog.c:390
+#: ../src/gnome-cmd-options-dialog.c:398
 msgid "Colors"
 msgstr "Amabara"
 
-#: ../src/gnome-cmd-options-dialog.c:427
+#: ../src/gnome-cmd-options-dialog.c:435
 msgid "Foreground"
 msgstr ""
 
@@ -1790,157 +1806,161 @@ msgstr ""
 # officecfg/registry\schema\org\openoffice\Office\WriterWeb.xcs:....Print.Content.Background.text
 # #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
 # officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....Print.Content.Background.text
-#: ../src/gnome-cmd-options-dialog.c:429
+#: ../src/gnome-cmd-options-dialog.c:437
 msgid "Background"
 msgstr "Mbuganyuma"
 
-#: ../src/gnome-cmd-options-dialog.c:431
+#: ../src/gnome-cmd-options-dialog.c:439
 msgid "Default:"
 msgstr "Mburabuzi:"
 
-#: ../src/gnome-cmd-options-dialog.c:433
+#: ../src/gnome-cmd-options-dialog.c:441
 #, fuzzy
 msgid "Selected file:"
 msgstr "IDOSIYE"
 
 # 1316
-#: ../src/gnome-cmd-options-dialog.c:435
+#: ../src/gnome-cmd-options-dialog.c:443
 #, fuzzy
 msgid "Cursor:"
 msgstr "indanga"
 
-#: ../src/gnome-cmd-options-dialog.c:452
+#: ../src/gnome-cmd-options-dialog.c:460
 #, fuzzy
 msgid "With filename"
 msgstr "Izina ry'idosiye:"
 
-#: ../src/gnome-cmd-options-dialog.c:453
+#: ../src/gnome-cmd-options-dialog.c:461
 #, fuzzy
 msgid "In separate column"
 msgstr "Inkingi"
 
-#: ../src/gnome-cmd-options-dialog.c:454
+#: ../src/gnome-cmd-options-dialog.c:462
 #, fuzzy
 msgid "In both columns"
 msgstr "Byombi Inkingi"
 
-#: ../src/gnome-cmd-options-dialog.c:458
+#: ../src/gnome-cmd-options-dialog.c:466
 #, fuzzy
 msgid "No icons"
 msgstr "Udushushondanga"
 
-#: ../src/gnome-cmd-options-dialog.c:459
+#: ../src/gnome-cmd-options-dialog.c:467
 #, fuzzy
 msgid "File type icons"
 msgstr "Idosiye Ubwoko Udushushondanga"
 
-#: ../src/gnome-cmd-options-dialog.c:460
+#: ../src/gnome-cmd-options-dialog.c:468
 #, fuzzy
 msgid "MIME icons"
 msgstr "Udushushondanga"
 
-#: ../src/gnome-cmd-options-dialog.c:464
+#: ../src/gnome-cmd-options-dialog.c:472
 #, fuzzy
 msgid "Respect theme colors"
 msgstr "Amabara"
 
 # officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....StyleType.PreferredStyle..1.text
-#: ../src/gnome-cmd-options-dialog.c:465
+#: ../src/gnome-cmd-options-dialog.c:473
 msgid "Modern"
 msgstr "Bigezweho"
 
 # goodies/source\filter.vcl\eps\dlgeps.src:DLG_EXPORT_EPS.GRP_VERSION.text
-#: ../src/gnome-cmd-options-dialog.c:466
+#: ../src/gnome-cmd-options-dialog.c:474
 #, fuzzy
 msgid "Fusion"
 msgstr "Verisiyo"
 
 # officecfg/registry\schema\org\openoffice\Office\Writer.xcs:....StyleType.PreferredStyle..2.text
-#: ../src/gnome-cmd-options-dialog.c:467
+#: ../src/gnome-cmd-options-dialog.c:475
 msgid "Classic"
 msgstr "Bisanzwe"
 
-#: ../src/gnome-cmd-options-dialog.c:468
+#: ../src/gnome-cmd-options-dialog.c:476
+msgid "Deep blue"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.c:477
 #, fuzzy
 msgid "Custom"
 msgstr "Guhanga"
 
-#: ../src/gnome-cmd-options-dialog.c:484
+#: ../src/gnome-cmd-options-dialog.c:493
 #, fuzzy
 msgid "File panes"
 msgstr "Idosiye"
 
-#: ../src/gnome-cmd-options-dialog.c:495
+#: ../src/gnome-cmd-options-dialog.c:504
 msgid "Font:"
 msgstr "Intego-nyuguti:"
 
-#: ../src/gnome-cmd-options-dialog.c:497
+#: ../src/gnome-cmd-options-dialog.c:506
 #, fuzzy
 msgid "Row height:"
 msgstr "Uburebure bw'Umurongo..."
 
 #. File extensions
-#: ../src/gnome-cmd-options-dialog.c:501
+#: ../src/gnome-cmd-options-dialog.c:510
 #, fuzzy
 msgid "Display file extensions:"
 msgstr "IDOSIYE Umigereka"
 
 #. Graphical mode
-#: ../src/gnome-cmd-options-dialog.c:509
+#: ../src/gnome-cmd-options-dialog.c:518
 #, fuzzy
 msgid "Graphical mode:"
 msgstr "Ubwoko"
 
 # svx/source\options\optcolor.src:RID_SVXPAGE_COLORCONFIG.FL_COLORSCHEME.text
 #. Color scheme
-#: ../src/gnome-cmd-options-dialog.c:518
+#: ../src/gnome-cmd-options-dialog.c:527
 #, fuzzy
 msgid "Color scheme:"
 msgstr "Igishusho cy'ibara"
 
 # dbaccess/source/ui/inc/toolbox.hrc:MID_DBUI_QUERY_EDIT_JOINCONNECTION.text
-#: ../src/gnome-cmd-options-dialog.c:530
+#: ../src/gnome-cmd-options-dialog.c:539
 msgid "Edit..."
 msgstr "Kwandika..."
 
 #. LS_COLORS
-#: ../src/gnome-cmd-options-dialog.c:537
+#: ../src/gnome-cmd-options-dialog.c:546
 #, fuzzy
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Idosiye Kuri i IMPINDURAGACIRO"
 
-#: ../src/gnome-cmd-options-dialog.c:547
+#: ../src/gnome-cmd-options-dialog.c:556
 #, fuzzy
 msgid "MIME icon settings"
 msgstr "Agashushondanga Amagenamiterere"
 
 # offmgr/source\offapp\dialog\optgdlg.src:OFA_TP_VIEW.FT_BIG.text
-#: ../src/gnome-cmd-options-dialog.c:560
+#: ../src/gnome-cmd-options-dialog.c:569
 #, fuzzy
 msgid "Icon size:"
 msgstr "Ingano y'agashushondanga"
 
-#: ../src/gnome-cmd-options-dialog.c:562
+#: ../src/gnome-cmd-options-dialog.c:571
 #, fuzzy
 msgid "Scaling quality:"
 msgstr "Ubwiza"
 
-#: ../src/gnome-cmd-options-dialog.c:564
+#: ../src/gnome-cmd-options-dialog.c:573
 #, fuzzy
 msgid "Theme icon directory:"
 msgstr "Agashushondanga bushyinguro"
 
-#: ../src/gnome-cmd-options-dialog.c:566
+#: ../src/gnome-cmd-options-dialog.c:575
 #, fuzzy
 msgid "Document icon directory:"
 msgstr "Agashushondanga bushyinguro"
 
-#: ../src/gnome-cmd-options-dialog.c:648
+#: ../src/gnome-cmd-options-dialog.c:657
 #, fuzzy
 msgid "Confirm before delete"
 msgstr "Mbere Gusiba"
 
-#: ../src/gnome-cmd-options-dialog.c:656
+#: ../src/gnome-cmd-options-dialog.c:665
 #, fuzzy
 msgid "Copy overwrite"
 msgstr "Idosiye"
@@ -1948,214 +1968,214 @@ msgstr "Idosiye"
 #.
 #. * Create prepare copy specific widgets
 #.
-#: ../src/gnome-cmd-options-dialog.c:659 ../src/gnome-cmd-options-dialog.c:679
+#: ../src/gnome-cmd-options-dialog.c:668 ../src/gnome-cmd-options-dialog.c:688
 #: ../src/gnome-cmd-prepare-copy-dialog.c:94
 #: ../src/gnome-cmd-prepare-move-dialog.c:87
 msgid "Silently"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:663 ../src/gnome-cmd-options-dialog.c:683
+#: ../src/gnome-cmd-options-dialog.c:672 ../src/gnome-cmd-options-dialog.c:692
 msgid "Query first"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:676
+#: ../src/gnome-cmd-options-dialog.c:685
 msgid "Move overwrite"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:764
+#: ../src/gnome-cmd-options-dialog.c:773
 #, fuzzy
 msgid "Filetypes to hide"
 msgstr "Kuri Gushisha"
 
 # filter/source\xsltdialog\xmlfilterdialogstrings.src:STR_UNKNOWN_APPLICATION.text
 #. unknown tag
-#: ../src/gnome-cmd-options-dialog.c:767 ../src/tags/gnome-cmd-tags-id3.c:183
+#: ../src/gnome-cmd-options-dialog.c:776 ../src/tags/gnome-cmd-tags-id3.c:183
 msgid "Unknown"
 msgstr "Kitazwi"
 
-#: ../src/gnome-cmd-options-dialog.c:772
+#: ../src/gnome-cmd-options-dialog.c:781
 #, fuzzy
 msgid "Regular files"
 msgstr "Idosiye"
 
 # 1677
-#: ../src/gnome-cmd-options-dialog.c:777
+#: ../src/gnome-cmd-options-dialog.c:786
 msgid "Directories"
 msgstr "ububiko bw'amaderese"
 
-#: ../src/gnome-cmd-options-dialog.c:782
+#: ../src/gnome-cmd-options-dialog.c:791
 #, fuzzy
 msgid "Fifo files"
 msgstr "Idosiye"
 
-#: ../src/gnome-cmd-options-dialog.c:787
+#: ../src/gnome-cmd-options-dialog.c:796
 #, fuzzy
 msgid "Socket files"
 msgstr "Idosiye"
 
-#: ../src/gnome-cmd-options-dialog.c:792
+#: ../src/gnome-cmd-options-dialog.c:801
 msgid "Character devices"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:797
+#: ../src/gnome-cmd-options-dialog.c:806
 msgid "Block devices"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:805
+#: ../src/gnome-cmd-options-dialog.c:814
 #, fuzzy
 msgid "Also hide"
 msgstr "Gushisha"
 
-#: ../src/gnome-cmd-options-dialog.c:808
+#: ../src/gnome-cmd-options-dialog.c:817
 #, fuzzy
 msgid "Hidden files"
 msgstr "Idosiye"
 
-#: ../src/gnome-cmd-options-dialog.c:813 ../src/gnome-cmd-options-dialog.c:826
+#: ../src/gnome-cmd-options-dialog.c:822 ../src/gnome-cmd-options-dialog.c:835
 #, fuzzy
 msgid "Backup files"
 msgstr "Idosiye"
 
-#: ../src/gnome-cmd-options-dialog.c:818
+#: ../src/gnome-cmd-options-dialog.c:827
 msgid "Symlinks"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1092
+#: ../src/gnome-cmd-options-dialog.c:1101
 #, fuzzy
 msgid "Label:"
 msgstr "Akayobozi:"
 
 # padmin/source\padialog.src:RID_PADIALOG.RID_PA_TXT_COMMAND.text
-#: ../src/gnome-cmd-options-dialog.c:1094
+#: ../src/gnome-cmd-options-dialog.c:1103
 msgid "Command:"
 msgstr "Komandi:"
 
 # sfx2/source\toolbox\tbxopdlg.src:TP_CONFIG_OBJECTBAR.STR_SYMBOL.text
-#: ../src/gnome-cmd-options-dialog.c:1096
-#: ../src/gnome-cmd-options-dialog.c:1540
+#: ../src/gnome-cmd-options-dialog.c:1105
+#: ../src/gnome-cmd-options-dialog.c:1549
 #, fuzzy
 msgid "Icon:"
 msgstr "Agashushondanga"
 
-#: ../src/gnome-cmd-options-dialog.c:1117
+#: ../src/gnome-cmd-options-dialog.c:1126
 #, fuzzy
 msgid "Can handle multiple files"
 msgstr "Igikubo Idosiye"
 
-#: ../src/gnome-cmd-options-dialog.c:1121
+#: ../src/gnome-cmd-options-dialog.c:1130
 msgid "Can handle URIs"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1125
+#: ../src/gnome-cmd-options-dialog.c:1134
 msgid "Requires terminal"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1132
+#: ../src/gnome-cmd-options-dialog.c:1141
 #, fuzzy
 msgid "Show for"
 msgstr "kugirango"
 
-#: ../src/gnome-cmd-options-dialog.c:1141
+#: ../src/gnome-cmd-options-dialog.c:1150
 #, fuzzy
 msgid "All directories"
 msgstr "ububiko bw'amaderese"
 
-#: ../src/gnome-cmd-options-dialog.c:1147
+#: ../src/gnome-cmd-options-dialog.c:1156
 #, fuzzy
 msgid "All directories and files"
 msgstr "ububiko bw'amaderese Na Idosiye"
 
-#: ../src/gnome-cmd-options-dialog.c:1153
+#: ../src/gnome-cmd-options-dialog.c:1162
 #, fuzzy
 msgid "Some files"
 msgstr "Idosiye"
 
-#: ../src/gnome-cmd-options-dialog.c:1164
+#: ../src/gnome-cmd-options-dialog.c:1173
 #, fuzzy
 msgid "File patterns"
 msgstr "Idosiye"
 
-#: ../src/gnome-cmd-options-dialog.c:1189
+#: ../src/gnome-cmd-options-dialog.c:1198
 msgid "New Application"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1201
+#: ../src/gnome-cmd-options-dialog.c:1210
 msgid "Edit Application"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1291
+#: ../src/gnome-cmd-options-dialog.c:1300
 #, fuzzy
 msgid "Always download remote files before opening in external programs"
 msgstr "Gufungura Idosiye Mbere Gufungura%S in external Porogaramu"
 
-#: ../src/gnome-cmd-options-dialog.c:1293
+#: ../src/gnome-cmd-options-dialog.c:1302
 #, fuzzy
 msgid "MIME applications"
 msgstr "Porogaramu"
 
-#: ../src/gnome-cmd-options-dialog.c:1297
+#: ../src/gnome-cmd-options-dialog.c:1306
 #, fuzzy
 msgid "Standard programs"
 msgstr "Porogaramu"
 
-#: ../src/gnome-cmd-options-dialog.c:1300
+#: ../src/gnome-cmd-options-dialog.c:1309
 msgid "Viewer:"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1302
+#: ../src/gnome-cmd-options-dialog.c:1311
 #, fuzzy
 msgid "Editor:"
 msgstr "Muhinduzi"
 
-#: ../src/gnome-cmd-options-dialog.c:1304
+#: ../src/gnome-cmd-options-dialog.c:1313
 msgid "Differ:"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1306
+#: ../src/gnome-cmd-options-dialog.c:1315
 msgid "Terminal:"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1312
+#: ../src/gnome-cmd-options-dialog.c:1321
 msgid "Use Internal Viewer"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1329
+#: ../src/gnome-cmd-options-dialog.c:1338
 #, fuzzy
 msgid "Other favorite apps"
 msgstr "Icyatoranijwe"
 
-#: ../src/gnome-cmd-options-dialog.c:1336
+#: ../src/gnome-cmd-options-dialog.c:1345
 msgid "Label"
 msgstr "Akarango"
 
-#: ../src/gnome-cmd-options-dialog.c:1536
+#: ../src/gnome-cmd-options-dialog.c:1545
 msgid "Device:"
 msgstr "Ububiko:"
 
-#: ../src/gnome-cmd-options-dialog.c:1538
+#: ../src/gnome-cmd-options-dialog.c:1547
 #, fuzzy
 msgid "Mount point:"
 msgstr "Akadomo"
 
-#: ../src/gnome-cmd-options-dialog.c:1582
+#: ../src/gnome-cmd-options-dialog.c:1591
 msgid "New Device"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1595
+#: ../src/gnome-cmd-options-dialog.c:1604
 msgid "Edit Device"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1684
-#: ../src/gnome-cmd-options-dialog.c:1877
+#: ../src/gnome-cmd-options-dialog.c:1693
+#: ../src/gnome-cmd-options-dialog.c:1886
 msgid "Devices"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:1724
+#: ../src/gnome-cmd-options-dialog.c:1733
 #, fuzzy
 msgid "Show only the icons"
 msgstr "i Udushushondanga"
 
-#: ../src/gnome-cmd-options-dialog.c:1728
+#: ../src/gnome-cmd-options-dialog.c:1737
 #, fuzzy
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Ryari: ikoresha hejuru"
@@ -2169,11 +2189,11 @@ msgstr "Ryari: ikoresha hejuru"
 # #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
 # #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
 # #-#-#-#-#  dbaccess.pot (PACKAGE VERSION)  #-#-#-#-#
-#: ../src/gnome-cmd-options-dialog.c:1847
+#: ../src/gnome-cmd-options-dialog.c:1856
 msgid "General"
 msgstr "Rusange"
 
-#: ../src/gnome-cmd-options-dialog.c:1852 ../src/tags/gnome-cmd-tags.c:682
+#: ../src/gnome-cmd-options-dialog.c:1861 ../src/tags/gnome-cmd-tags.c:682
 msgid "Format"
 msgstr "Imiterere"
 
@@ -2181,21 +2201,21 @@ msgstr "Imiterere"
 # sch/source\core\glob.src:STR_LAYOUT.text
 # #-#-#-#-#  sch.pot (PACKAGE VERSION)  #-#-#-#-#
 # sch/source\ui\dlg\attrib.src:TAB_DATA_POINT.1.TP_LAYOUT.text
-#: ../src/gnome-cmd-options-dialog.c:1857
+#: ../src/gnome-cmd-options-dialog.c:1866
 msgid "Layout"
 msgstr "Imigaragarire"
 
-#: ../src/gnome-cmd-options-dialog.c:1862
+#: ../src/gnome-cmd-options-dialog.c:1871
 #, fuzzy
 msgid "Confirmation"
 msgstr "Amahitamo"
 
 # framework/source\classes\fltdlg.src:DLG_FILTER_SELECT.FL_FILTER.text
-#: ../src/gnome-cmd-options-dialog.c:1867
+#: ../src/gnome-cmd-options-dialog.c:1876
 msgid "Filters"
 msgstr "Muyunguruzi"
 
-#: ../src/gnome-cmd-options-dialog.c:1872
+#: ../src/gnome-cmd-options-dialog.c:1881
 msgid "Programs"
 msgstr "Porogaramu"
 
@@ -2502,7 +2522,7 @@ msgstr ""
 msgid "Fit-to-Window"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:194 ../src/utils.c:1488
+#: ../src/libgviewer/viewer-window.c:194 ../src/utils.c:1476
 msgid "There was an error displaying help."
 msgstr ""
 
@@ -6001,7 +6021,7 @@ msgstr "Guhindura"
 msgid "No file selected"
 msgstr "Seriveri Byahiswemo"
 
-#: ../src/useractions.c:217
+#: ../src/useractions.c:211
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
@@ -6009,37 +6029,34 @@ msgstr[0] ""
 msgstr[1] ""
 
 # svx/source\gallery2\gallery.src:RID_SVXDLG_GALLERY_SEARCH_PROGRESS.FL_SEARCH_DIR.text
-#: ../src/useractions.c:222
+#: ../src/useractions.c:216
 #, fuzzy
 msgid "Create"
 msgstr "Ububiko"
 
-#: ../src/useractions.c:301
+#: ../src/useractions.c:295
 #, c-format
 msgid "running \"%s\"\n"
 msgstr ""
 
-#: ../src/useractions.c:737
+#: ../src/useractions.c:734
 msgid "There was an error opening home page."
 msgstr ""
 
-#: ../src/useractions.c:748
+#: ../src/useractions.c:745
 msgid "There was an error reporting problem."
 msgstr ""
 
-#: ../src/useractions.c:773
+#: ../src/useractions.c:771
 #, fuzzy
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "A Byihuta Na IDOSIYE Muyobozi kugirango i Ibiro"
 
-#. xgettext:
-#. * Replace this with your name when translating
 #: ../src/useractions.c:778
-#, fuzzy
-msgid "No translation is currently in use."
-msgstr "Umwandiko wahinduwe ururimi ni in Gukoresha"
+msgid "translator-credits"
+msgstr "Steve Murphy <murf@e-tools.com>"
 
-#: ../src/utils.c:516
+#: ../src/utils.c:505
 #, fuzzy, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -6048,7 +6065,7 @@ msgstr ""
 "Mburabuzi Porogaramu Byabonetse kugirango i Ubwoko i Idosiye Na Porogaramu "
 "Ipaji in i Kuri Kongeramo"
 
-#: ../src/utils.c:593
+#: ../src/utils.c:582
 #, fuzzy, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -6057,24 +6074,24 @@ msgstr ""
 "\"%s\"Kuri a Nyabibiri IDOSIYE i Kuri Gushyiraho Na Hanyuma Gukoresha i "
 "IDOSIYE"
 
-#: ../src/utils.c:596
+#: ../src/utils.c:585
 msgid "Make Executable?"
 msgstr ""
 
-#: ../src/utils.c:623
+#: ../src/utils.c:612
 #, fuzzy, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
 msgstr "\"%s\"ni Umwandiko IDOSIYE Kuri Gukoresha Cyangwa Kugaragaza Ibigize"
 
-#: ../src/utils.c:625
+#: ../src/utils.c:614
 #, fuzzy
 msgid "Run or Display"
 msgstr "Cyangwa"
 
 # offmgr/source\offapp\dialog\optgdlg.src:OFA_TP_VIEW.GB_APPEARANCE.text
-#: ../src/utils.c:626
+#: ../src/utils.c:615
 msgid "Display"
 msgstr "Kugaragaza"
 
@@ -6082,11 +6099,11 @@ msgstr "Kugaragaza"
 # basctl/source\basicide\basidesh.src:RID_BASICIDE_OBJECTBAR.SID_BASICRUN.text
 # #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
 # basctl/source\basicide\macrodlg.src:RID_STR_RUN.text
-#: ../src/utils.c:626
+#: ../src/utils.c:615
 msgid "Run"
 msgstr "Gukoresha"
 
-#: ../src/utils.c:662 ../src/utils.c:736
+#: ../src/utils.c:651 ../src/utils.c:725
 #, fuzzy, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -6101,27 +6118,31 @@ msgstr[1] ""
 "%sOYA Kuri Gufungura Idosiye Kuri Gufungura i IDOSIYE Kuri a By'igihe gito "
 "Ahantu Na Hanyuma Gufungura"
 
-#: ../src/utils.c:1175
+#: ../src/utils.c:1163
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
 "Error message: %s\n"
 msgstr ""
 
-#: ../src/utils.c:1346
+#: ../src/utils.c:1334
 #, fuzzy, c-format
 msgid "Creating directory %s... "
 msgstr "bushyinguro"
 
-#: ../src/utils.c:1351
+#: ../src/utils.c:1339
 #, fuzzy, c-format
 msgid "Failed to create the directory %s"
 msgstr "Kuri Kurema i bushyinguro"
 
-#: ../src/utils.c:1357
+#: ../src/utils.c:1345
 #, fuzzy, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Gusoma Bivuye i bushyinguro"
+
+#, fuzzy
+#~ msgid "No translation is currently in use."
+#~ msgstr "Umwandiko wahinduwe ururimi ni in Gukoresha"
 
 # basctl/source\basicide\basidesh.src:RID_POPUP_TABBAR.SID_BASICIDE_RENAMECURRENT.text
 #, fuzzy

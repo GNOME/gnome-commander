@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-10 23:26+0100\n"
+"POT-Creation-Date: 2006-12-03 01:31+0100\n"
 "PO-Revision-Date: 2006-11-02 17:50+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -34,28 +34,28 @@ msgstr "Gnomen komentaja"
 msgid "No error description available"
 msgstr "Virheen kuvausta ei ole saatavilla"
 
-#: ../plugins/cvs/cvs-plugin.c:299
-#: ../plugins/fileroller/file-roller-plugin.c:343
-#: ../src/gnome-cmd-ftp-dialog.c:536 ../src/gnome-cmd-options-dialog.c:1114
-#: ../src/gnome-cmd-options-dialog.c:1827
+#: ../plugins/cvs/cvs-plugin.c:301
+#: ../plugins/fileroller/file-roller-plugin.c:344
+#: ../src/gnome-cmd-ftp-dialog.c:536 ../src/gnome-cmd-options-dialog.c:1123
+#: ../src/gnome-cmd-options-dialog.c:1836
 #: ../src/gnome-cmd-prepare-copy-dialog.c:133
 #: ../src/gnome-cmd-prepare-move-dialog.c:118
 msgid "Options"
 msgstr "Valinnat"
 
-#: ../plugins/cvs/cvs-plugin.c:313
+#: ../plugins/cvs/cvs-plugin.c:315
 msgid "CVS options"
 msgstr "CVS-valinnat"
 
-#: ../plugins/cvs/cvs-plugin.c:316
+#: ../plugins/cvs/cvs-plugin.c:318
 msgid "Compression level"
 msgstr "Pakkaustaso"
 
-#: ../plugins/cvs/cvs-plugin.c:325
+#: ../plugins/cvs/cvs-plugin.c:327
 msgid "Unified diff format"
 msgstr "Unified diff -muoto"
 
-#: ../plugins/cvs/cvs-plugin.c:433
+#: ../plugins/cvs/cvs-plugin.c:435
 msgid "A plugin that eventually will be a simple CVS client"
 msgstr "Liitännäinen, josta myöhemmin tulee yksinkertainen CVS-asiakas"
 
@@ -111,52 +111,52 @@ msgstr "Riviä:"
 msgid "Message:"
 msgstr "Viesti:"
 
-#: ../plugins/fileroller/file-roller-plugin.c:182
+#: ../plugins/fileroller/file-roller-plugin.c:183
 msgid "What filename should the new archive have?"
 msgstr "Minkäniminen uuden arkiston tulisi olla?"
 
-#: ../plugins/fileroller/file-roller-plugin.c:184
+#: ../plugins/fileroller/file-roller-plugin.c:185
 msgid "Create Archive"
 msgstr "Luo arkisto"
 
-#: ../plugins/fileroller/file-roller-plugin.c:286
+#: ../plugins/fileroller/file-roller-plugin.c:287
 msgid "Create Archive..."
 msgstr "Luo arkisto..."
 
-#: ../plugins/fileroller/file-roller-plugin.c:300
+#: ../plugins/fileroller/file-roller-plugin.c:301
 msgid "Extract in Current Directory"
 msgstr "Pura nykyiseen kansioon"
 
-#: ../plugins/fileroller/file-roller-plugin.c:305
+#: ../plugins/fileroller/file-roller-plugin.c:306
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Pura kansioon \"%s\""
 
-#: ../plugins/fileroller/file-roller-plugin.c:357
+#: ../plugins/fileroller/file-roller-plugin.c:358
 msgid "File-roller options"
 msgstr "File-rollerin valitsimet"
 
-#: ../plugins/fileroller/file-roller-plugin.c:360
+#: ../plugins/fileroller/file-roller-plugin.c:361
 msgid "Default type"
 msgstr "Oletustyyppi"
 
-#: ../plugins/fileroller/file-roller-plugin.c:476
+#: ../plugins/fileroller/file-roller-plugin.c:477
 msgid ""
 "A plugin that adds File Roller shortcuts for creating and extracting "
 "compressed archives."
 msgstr ""
 
-#: ../plugins/test/test-plugin.c:232
+#: ../plugins/test/test-plugin.c:233
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
 msgstr ""
 
-#: ../src/gnome-cmd-about-plugin.c:184
+#: ../src/gnome-cmd-about-plugin.c:182
 msgid "Credits"
 msgstr "Tekijät"
 
-#: ../src/gnome-cmd-about-plugin.c:212
+#: ../src/gnome-cmd-about-plugin.c:211
 msgid "Written by"
 msgstr "Kirjoittanut"
 
@@ -164,7 +164,7 @@ msgstr "Kirjoittanut"
 msgid "Documented by"
 msgstr "Dokumentoinut"
 
-#: ../src/gnome-cmd-about-plugin.c:238
+#: ../src/gnome-cmd-about-plugin.c:239
 msgid "Translated by"
 msgstr "Kääntänyt"
 
@@ -286,12 +286,12 @@ msgid "/Time/SS"
 msgstr "/Aika/SS"
 
 #: ../src/gnome-cmd-advrename-dialog.c:448
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:728
 msgid "Yes"
 msgstr "Kyllä"
 
 #: ../src/gnome-cmd-advrename-dialog.c:448
-#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:739
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:728
 msgid "No"
 msgstr "Ei"
 
@@ -389,21 +389,21 @@ msgid "Case sensitive"
 msgstr "Kirjainkoko merkitsee"
 
 #: ../src/gnome-cmd-advrename-dialog.c:1183
-#: ../src/gnome-cmd-options-dialog.c:1342
-#: ../src/gnome-cmd-options-dialog.c:1700
+#: ../src/gnome-cmd-options-dialog.c:1351
+#: ../src/gnome-cmd-options-dialog.c:1709
 msgid "_Add..."
 msgstr "_Lisää..."
 
 #: ../src/gnome-cmd-advrename-dialog.c:1186 ../src/gnome-cmd-ftp-dialog.c:527
-#: ../src/gnome-cmd-options-dialog.c:1346
-#: ../src/gnome-cmd-options-dialog.c:1704
+#: ../src/gnome-cmd-options-dialog.c:1355
+#: ../src/gnome-cmd-options-dialog.c:1713
 msgid "_Edit..."
 msgstr "_Muokkaa..."
 
 #: ../src/gnome-cmd-advrename-dialog.c:1190
 #: ../src/gnome-cmd-bookmark-dialog.c:468 ../src/gnome-cmd-ftp-dialog.c:530
-#: ../src/gnome-cmd-options-dialog.c:1352
-#: ../src/gnome-cmd-options-dialog.c:1710
+#: ../src/gnome-cmd-options-dialog.c:1361
+#: ../src/gnome-cmd-options-dialog.c:1719
 msgid "_Remove"
 msgstr "_Poista"
 
@@ -468,7 +468,7 @@ msgstr "polku"
 msgid "_Goto"
 msgstr "_Siirry"
 
-#: ../src/gnome-cmd-bookmark-dialog.c:463 ../src/gnome-cmd-main-menu.c:776
+#: ../src/gnome-cmd-bookmark-dialog.c:463 ../src/gnome-cmd-main-menu.c:783
 msgid "_Edit"
 msgstr "_Muokkaa"
 
@@ -516,7 +516,7 @@ msgstr "Tekstinäkymä:"
 msgid "Number view:"
 msgstr "Numeronäkymä:"
 
-#: ../src/gnome-cmd-chmod-dialog.c:40 ../src/gnome-cmd-options-dialog.c:1135
+#: ../src/gnome-cmd-chmod-dialog.c:40 ../src/gnome-cmd-options-dialog.c:1144
 msgid "All files"
 msgstr "Kaikki tiedostot"
 
@@ -533,11 +533,11 @@ msgstr ""
 "Chmod kohteelle %s ei onnistunut\n"
 "%s"
 
-#: ../src/gnome-cmd-chmod-dialog.c:204
+#: ../src/gnome-cmd-chmod-dialog.c:205
 msgid "Access Permissions"
 msgstr "Pääsyoikeudet"
 
-#: ../src/gnome-cmd-chmod-dialog.c:222
+#: ../src/gnome-cmd-chmod-dialog.c:223
 msgid "Apply Recursively for"
 msgstr "Toteuta rekursiivisesti kohteelle"
 
@@ -550,11 +550,11 @@ msgstr ""
 "Chown kohteelle %s ei onnistunut\n"
 "%s"
 
-#: ../src/gnome-cmd-chown-dialog.c:175
+#: ../src/gnome-cmd-chown-dialog.c:176
 msgid "Chown"
 msgstr "Chown"
 
-#: ../src/gnome-cmd-chown-dialog.c:188
+#: ../src/gnome-cmd-chown-dialog.c:189
 msgid "Apply Recursively"
 msgstr "Toteuta rekursiivisesti"
 
@@ -670,14 +670,27 @@ msgstr "Etsitään työryhmiä ja palvelimia"
 msgid "Go to: Samba Network"
 msgstr "Siirry: Samba-verkkoon"
 
-#: ../src/gnome-cmd-delete-dialog.c:145
+#: ../src/gnome-cmd-data.c:1186 ../src/gnome-cmd-data.c:1407
+#: ../src/gnome-cmd-data.c:1408 ../src/gnome-cmd-data.c:2377
+#, c-format
+msgid "link to %s"
+msgstr "linkki kohteeseen %s"
+
+#: ../src/gnome-cmd-delete-dialog.c:104
+#, fuzzy, c-format
+msgid "Deleted %ld of %ld file"
+msgid_plural "Deleted %ld of %ld files"
+msgstr[0] "[tiedosto %ld / %ld] \"%s\""
+msgstr[1] "[tiedosto %ld / %ld] \"%s\""
+
+#: ../src/gnome-cmd-delete-dialog.c:150
 msgid "Deleting..."
 msgstr "Poistetaan..."
 
-#: ../src/gnome-cmd-delete-dialog.c:224
-#, c-format
+#: ../src/gnome-cmd-delete-dialog.c:228
+#, fuzzy, c-format
 msgid ""
-"Error while deleting %s\n"
+"Error while deleting \"%s\"\n"
 "\n"
 "%s"
 msgstr ""
@@ -685,48 +698,48 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-delete-dialog.c:226
+#: ../src/gnome-cmd-delete-dialog.c:231
 msgid "Delete problem"
 msgstr "Ongelma poistossa"
 
-#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-xfer.c:177
+#: ../src/gnome-cmd-delete-dialog.c:232 ../src/gnome-cmd-xfer.c:177
 #: ../src/gnome-cmd-xfer.c:197
 msgid "Abort"
 msgstr "Keskeytä"
 
-#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-file-selector.c:2224
+#: ../src/gnome-cmd-delete-dialog.c:232 ../src/gnome-cmd-file-selector.c:2226
 #: ../src/gnome-cmd-xfer.c:197
 msgid "Retry"
 msgstr "Yritä uudestaan"
 
-#: ../src/gnome-cmd-delete-dialog.c:227 ../src/gnome-cmd-file-selector.c:2224
+#: ../src/gnome-cmd-delete-dialog.c:232 ../src/gnome-cmd-file-selector.c:2226
 #: ../src/gnome-cmd-xfer.c:177 ../src/gnome-cmd-xfer.c:197
 msgid "Skip"
 msgstr "Ohita"
 
-#: ../src/gnome-cmd-delete-dialog.c:305
+#: ../src/gnome-cmd-delete-dialog.c:310
 #, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "Haluatko poistaa kohteen \"%s\"?"
 
-#: ../src/gnome-cmd-delete-dialog.c:310
+#: ../src/gnome-cmd-delete-dialog.c:315
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Haluatko poistaa valitun tiedoston?"
 msgstr[1] "Haluatko poistaa %d valittua tiedostoa?"
 
-#: ../src/gnome-cmd-delete-dialog.c:318 ../src/gnome-cmd-main-win.c:1388
-#: ../src/gnome-cmd-options-dialog.c:645
+#: ../src/gnome-cmd-delete-dialog.c:323 ../src/gnome-cmd-main-win.c:1391
+#: ../src/gnome-cmd-options-dialog.c:654
 msgid "Delete"
 msgstr "Poista"
 
-#: ../src/gnome-cmd-delete-dialog.c:319 ../src/gnome-cmd-file-selector.c:2224
-#: ../src/useractions.c:222 ../src/utils.c:597 ../src/utils.c:626
+#: ../src/gnome-cmd-delete-dialog.c:324 ../src/gnome-cmd-file-selector.c:2226
+#: ../src/useractions.c:216 ../src/utils.c:586 ../src/utils.c:615
 msgid "Cancel"
 msgstr "Peru"
 
-#: ../src/gnome-cmd-delete-dialog.c:319 ../src/utils.c:597
+#: ../src/gnome-cmd-delete-dialog.c:324 ../src/utils.c:586
 msgid "OK"
 msgstr "OK"
 
@@ -802,11 +815,11 @@ msgstr "_Suorita"
 msgid "_Cut"
 msgstr "_Leikkaa"
 
-#: ../src/gnome-cmd-file-popmenu.c:459 ../src/gnome-cmd-main-menu.c:553
+#: ../src/gnome-cmd-file-popmenu.c:459 ../src/gnome-cmd-main-menu.c:554
 msgid "_Copy"
 msgstr "_Kopioi"
 
-#: ../src/gnome-cmd-file-popmenu.c:466 ../src/gnome-cmd-main-menu.c:565
+#: ../src/gnome-cmd-file-popmenu.c:466 ../src/gnome-cmd-main-menu.c:566
 msgid "_Delete"
 msgstr "_Poista"
 
@@ -823,7 +836,7 @@ msgstr "Ominaisuudet"
 msgid "Other..."
 msgstr "Muu..."
 
-#: ../src/gnome-cmd-file-props-dialog.c:63 ../src/utils.c:965
+#: ../src/gnome-cmd-file-props-dialog.c:63 ../src/utils.c:953
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -836,7 +849,7 @@ msgid "No default application registered"
 msgstr "Oletussovellusta ei ole rekisteröity"
 
 #: ../src/gnome-cmd-file-props-dialog.c:302
-#: ../src/gnome-cmd-file-selector.c:1992
+#: ../src/gnome-cmd-file-selector.c:1994
 msgid "Filename:"
 msgstr "Tiedostonimi:"
 
@@ -888,65 +901,60 @@ msgstr "Tiedoston ominaisuudet"
 msgid "Permissions"
 msgstr "Oikeudet"
 
-#: ../src/gnome-cmd-file-selector.c:182
+#: ../src/gnome-cmd-file-selector.c:184
 #, c-format
 msgid "%s of %s kB in %d of %d file selected"
 msgid_plural "%s of %s kB in %d of %d files selected"
 msgstr[0] "%s / %s kt %d / %d tiedosto valittu"
 msgstr[1] "%s / %s kt %d / %d tiedostossa valittu"
 
-#: ../src/gnome-cmd-file-selector.c:712
+#: ../src/gnome-cmd-file-selector.c:714
 #, c-format
 msgid "%s free"
 msgstr "%s vapaana"
 
-#: ../src/gnome-cmd-file-selector.c:716
+#: ../src/gnome-cmd-file-selector.c:718
 msgid "Unknown disk usage"
 msgstr "Levynkäyttö ei ole tiedossa"
 
-#: ../src/gnome-cmd-file-selector.c:1141
+#: ../src/gnome-cmd-file-selector.c:1143
 #, c-format
 msgid "List failed: %s\n"
 msgstr "Listaus epäonnistui: %s\n"
 
-#: ../src/gnome-cmd-file-selector.c:1737
+#: ../src/gnome-cmd-file-selector.c:1739
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Yhteyttä ei voitu avata: %s\n"
 
-#: ../src/gnome-cmd-file-selector.c:1928
+#: ../src/gnome-cmd-file-selector.c:1930
 #: ../src/gnome-cmd-make-copy-dialog.c:68
 msgid "No filename entered"
 msgstr "Tiedostonimeä ei syötetty"
 
-#: ../src/gnome-cmd-file-selector.c:1964
+#: ../src/gnome-cmd-file-selector.c:1966
 msgid "No filename given"
 msgstr "Tiedostonimeä ei annettu"
 
-#: ../src/gnome-cmd-file-selector.c:1998
+#: ../src/gnome-cmd-file-selector.c:2000
 msgid "New Text File"
 msgstr "Uusi tekstitiedosto"
 
-#: ../src/gnome-cmd-file-selector.c:2171
+#: ../src/gnome-cmd-file-selector.c:2173
 msgid "Symlink name:"
 msgstr "Symlinkin nimi:"
 
-#: ../src/gnome-cmd-file-selector.c:2174 ../src/gnome-cmd-file-selector.c:2201
-#, c-format
-msgid "link to %s"
-msgstr "linkki kohteeseen %s"
-
-#: ../src/gnome-cmd-file-selector.c:2177 ../src/gnome-cmd-file-selector.c:2224
-#: ../src/useractions.c:222
+#: ../src/gnome-cmd-file-selector.c:2179 ../src/gnome-cmd-file-selector.c:2226
+#: ../src/useractions.c:216
 msgid "Create Symbolic Link"
 msgstr "Luo symbolinen linkki"
 
-#: ../src/gnome-cmd-file-selector.c:2224 ../src/gnome-cmd-options-dialog.c:667
-#: ../src/gnome-cmd-options-dialog.c:687
+#: ../src/gnome-cmd-file-selector.c:2226 ../src/gnome-cmd-options-dialog.c:676
+#: ../src/gnome-cmd-options-dialog.c:696
 msgid "Skip all"
 msgstr "Ohita kaikki"
 
-#: ../src/gnome-cmd-file-selector.c:2300
+#: ../src/gnome-cmd-file-selector.c:2302
 msgid "Filter:"
 msgstr "Suodatin:"
 
@@ -1004,7 +1012,7 @@ msgstr "Verkkonimeä ei ole määritelty"
 msgid "Invalid port number: %s"
 msgstr "Virheellinen porttinumero: %s"
 
-#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-options-dialog.c:1534
+#: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-options-dialog.c:1543
 msgid "Alias:"
 msgstr "Alias:"
 
@@ -1040,7 +1048,7 @@ msgstr "Muokkaa FTP-yhteyttä"
 msgid "No server selected"
 msgstr "Palvelinta ei ole valittu"
 
-#: ../src/gnome-cmd-ftp-dialog.c:495 ../src/gnome-cmd-main-win.c:1404
+#: ../src/gnome-cmd-ftp-dialog.c:495 ../src/gnome-cmd-main-win.c:1407
 msgid "FTP Connect"
 msgstr "Yhdistä FTP:llä"
 
@@ -1048,7 +1056,7 @@ msgstr "Yhdistä FTP:llä"
 msgid "Connections"
 msgstr "Yhteydet"
 
-#: ../src/gnome-cmd-ftp-dialog.c:520 ../src/gnome-cmd-options-dialog.c:1694
+#: ../src/gnome-cmd-ftp-dialog.c:520 ../src/gnome-cmd-options-dialog.c:1703
 msgid "Alias"
 msgstr "Alias"
 
@@ -1076,210 +1084,214 @@ msgstr "_Kansio"
 msgid "_Text file"
 msgstr "_Tekstitiedosto"
 
-#: ../src/gnome-cmd-list-popmenu.c:148 ../src/gnome-cmd-main-menu.c:559
+#: ../src/gnome-cmd-list-popmenu.c:148 ../src/gnome-cmd-main-menu.c:560
 msgid "_Paste"
 msgstr "_Liitä"
 
-#: ../src/gnome-cmd-list-popmenu.c:155 ../src/gnome-cmd-main-menu.c:614
+#: ../src/gnome-cmd-list-popmenu.c:155 ../src/gnome-cmd-main-menu.c:615
 msgid "_Refresh"
 msgstr "_Päivätä"
 
-#: ../src/gnome-cmd-main-menu.c:380
-msgid "Switch to Horizontal Layout"
-msgstr "Vaihda vaaka-asetteluun"
-
-#: ../src/gnome-cmd-main-menu.c:385
+#: ../src/gnome-cmd-main-menu.c:381
 msgid "Switch to Vertical Layout"
 msgstr "Vaihda pystyasetteluun"
 
-#: ../src/gnome-cmd-main-menu.c:450
+#: ../src/gnome-cmd-main-menu.c:386
+msgid "Switch to Horizontal Layout"
+msgstr "Vaihda vaaka-asetteluun"
+
+#: ../src/gnome-cmd-main-menu.c:451
 msgid "Change _Owner/Group"
 msgstr "Muuta _omistajaa tai ryhmää"
 
-#: ../src/gnome-cmd-main-menu.c:456
+#: ../src/gnome-cmd-main-menu.c:457
 msgid "Change Per_missions"
 msgstr "Muuta oi_keuksia"
 
-#: ../src/gnome-cmd-main-menu.c:462
+#: ../src/gnome-cmd-main-menu.c:463
 msgid "Advanced _Rename Tool"
 msgstr "Kehittynyt _uudellennimeäminen"
 
-#: ../src/gnome-cmd-main-menu.c:468
+#: ../src/gnome-cmd-main-menu.c:469
 msgid "Create _Symbolic Link"
 msgstr "Luo _symbolinen linkki"
 
-#: ../src/gnome-cmd-main-menu.c:474
+#: ../src/gnome-cmd-main-menu.c:475
 msgid "_Properties..."
 msgstr "_Ominaisuudet..."
 
-#: ../src/gnome-cmd-main-menu.c:481
+#: ../src/gnome-cmd-main-menu.c:482
 msgid "_Diff"
 msgstr "_Diff"
 
-#: ../src/gnome-cmd-main-menu.c:488
+#: ../src/gnome-cmd-main-menu.c:489
 msgid "_Quit"
 msgstr "_Lopeta"
 
-#: ../src/gnome-cmd-main-menu.c:499
+#: ../src/gnome-cmd-main-menu.c:500
 msgid "_Select All"
 msgstr "Valitse k_aikki"
 
-#: ../src/gnome-cmd-main-menu.c:505
+#: ../src/gnome-cmd-main-menu.c:506
 msgid "_Unselect All"
 msgstr "Peru kaikki _valinnat"
 
-#: ../src/gnome-cmd-main-menu.c:511
+#: ../src/gnome-cmd-main-menu.c:512
 msgid "Select with _Pattern"
 msgstr "Valitse _mallin perusteella"
 
-#: ../src/gnome-cmd-main-menu.c:517
+#: ../src/gnome-cmd-main-menu.c:518
 msgid "Unselect with P_attern"
 msgstr "Peru valinta m_allin perusteella"
 
-#: ../src/gnome-cmd-main-menu.c:523
+#: ../src/gnome-cmd-main-menu.c:524
 msgid "_Invert Selection"
 msgstr "_Käännä valinta"
 
-#: ../src/gnome-cmd-main-menu.c:529
+#: ../src/gnome-cmd-main-menu.c:530
 msgid "_Restore Selection"
 msgstr "_Palauta valinta"
 
-#: ../src/gnome-cmd-main-menu.c:536
+#: ../src/gnome-cmd-main-menu.c:537
 msgid "_Compare Directories"
 msgstr "_Vertaa kansioita"
 
-#: ../src/gnome-cmd-main-menu.c:547
+#: ../src/gnome-cmd-main-menu.c:548
 msgid "Cu_t"
 msgstr "_Leikkaa"
 
-#: ../src/gnome-cmd-main-menu.c:572
+#: ../src/gnome-cmd-main-menu.c:573
 msgid "Copy _File Names"
 msgstr "Kopioi _tiedostonimiä"
 
-#: ../src/gnome-cmd-main-menu.c:579
+#: ../src/gnome-cmd-main-menu.c:580
 msgid "_Search..."
 msgstr "_Etsi..."
 
-#: ../src/gnome-cmd-main-menu.c:585
+#: ../src/gnome-cmd-main-menu.c:586
 msgid "_Quick Search..."
 msgstr "_Pikahaku..."
 
-#: ../src/gnome-cmd-main-menu.c:591
+#: ../src/gnome-cmd-main-menu.c:592
 msgid "_Enable Filter..."
 msgstr "_Käytä suodatinta..."
 
-#: ../src/gnome-cmd-main-menu.c:602
+#: ../src/gnome-cmd-main-menu.c:603
 msgid "_Back"
 msgstr "_Takaisin"
 
-#: ../src/gnome-cmd-main-menu.c:608
+#: ../src/gnome-cmd-main-menu.c:609
 msgid "_Forward"
 msgstr "_Eteenpäin"
 
-#: ../src/gnome-cmd-main-menu.c:621
+#: ../src/gnome-cmd-main-menu.c:622
 msgid "Show Device Buttons"
 msgstr "Näytä laitepainikkeet"
 
-#: ../src/gnome-cmd-main-menu.c:627
+#: ../src/gnome-cmd-main-menu.c:628
 msgid "Show Toolbar"
 msgstr "Näytä työkalupalkki"
 
-#: ../src/gnome-cmd-main-menu.c:633
+#: ../src/gnome-cmd-main-menu.c:634
 msgid "Show Commandline"
 msgstr "Näytä komentorivi"
 
-#: ../src/gnome-cmd-main-menu.c:639
+#: ../src/gnome-cmd-main-menu.c:640
 msgid "Show Buttonbar"
 msgstr "Näytä painikepalkki"
 
-#: ../src/gnome-cmd-main-menu.c:646
+#: ../src/gnome-cmd-main-menu.c:647
 msgid "Show Hidden Files"
 msgstr "Näytä piilotiedostot"
 
-#: ../src/gnome-cmd-main-menu.c:652
+#: ../src/gnome-cmd-main-menu.c:653
 msgid "Show Backup Files"
 msgstr "Näytä varmuuskopiotiedostot"
 
-#: ../src/gnome-cmd-main-menu.c:664
+#: ../src/gnome-cmd-main-menu.c:660
+msgid "_Equal Panel Size"
+msgstr ""
+
+#: ../src/gnome-cmd-main-menu.c:671
 msgid "_Bookmark this Directory..."
 msgstr "Lisää _kirjanmerkki tähän kansioon..."
 
-#: ../src/gnome-cmd-main-menu.c:670
+#: ../src/gnome-cmd-main-menu.c:677
 msgid "_Manage Bookmarks..."
 msgstr "_Hallitse kirjanmerkkejä..."
 
-#: ../src/gnome-cmd-main-menu.c:682
+#: ../src/gnome-cmd-main-menu.c:689
 msgid "_Configure Plugins..."
 msgstr "_Määrittele liitännäiset..."
 
-#: ../src/gnome-cmd-main-menu.c:694
+#: ../src/gnome-cmd-main-menu.c:701
 msgid "_Options..."
 msgstr "_Valinnat..."
 
-#: ../src/gnome-cmd-main-menu.c:700
+#: ../src/gnome-cmd-main-menu.c:707
 msgid "Edit _Mime Types..."
 msgstr "Muokkaa _MIME-tyyppejä..."
 
-#: ../src/gnome-cmd-main-menu.c:711
+#: ../src/gnome-cmd-main-menu.c:718
 msgid "FTP _Connect..."
 msgstr "_Yhdistä FTP..."
 
-#: ../src/gnome-cmd-main-menu.c:717
+#: ../src/gnome-cmd-main-menu.c:724
 msgid "FTP _Quick Connect..."
 msgstr "FTP-_pikayhteys..."
 
-#: ../src/gnome-cmd-main-menu.c:728
+#: ../src/gnome-cmd-main-menu.c:735
 msgid "_Contents"
 msgstr "_Sisältö"
 
-#: ../src/gnome-cmd-main-menu.c:734 ../src/libgviewer/viewer-window.c:1030
+#: ../src/gnome-cmd-main-menu.c:741 ../src/libgviewer/viewer-window.c:1030
 msgid "_Keyboard Shortcuts"
 msgstr "_Näppäinoikotiet"
 
-#: ../src/gnome-cmd-main-menu.c:740
+#: ../src/gnome-cmd-main-menu.c:747
 msgid "GNOME Commander on the _Web"
 msgstr "Gnome Commander _verkossa"
 
-#: ../src/gnome-cmd-main-menu.c:746
+#: ../src/gnome-cmd-main-menu.c:753
 msgid "Report a _Problem"
 msgstr "Raportoi _vika"
 
-#: ../src/gnome-cmd-main-menu.c:753 ../src/libgviewer/viewer-window.c:1037
+#: ../src/gnome-cmd-main-menu.c:760 ../src/libgviewer/viewer-window.c:1037
 #: ../src/plugin_manager.c:440
 msgid "_About"
 msgstr "_Tietoja"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.c:772 ../src/libgviewer/viewer-window.c:1050
+#: ../src/gnome-cmd-main-menu.c:779 ../src/libgviewer/viewer-window.c:1050
 msgid "_File"
 msgstr "_Tiedosto"
 
-#: ../src/gnome-cmd-main-menu.c:780
+#: ../src/gnome-cmd-main-menu.c:787
 msgid "_Mark"
 msgstr "_Merkitse"
 
-#: ../src/gnome-cmd-main-menu.c:784 ../src/libgviewer/viewer-window.c:1053
+#: ../src/gnome-cmd-main-menu.c:791 ../src/libgviewer/viewer-window.c:1053
 msgid "_View"
 msgstr "_Näytä"
 
-#: ../src/gnome-cmd-main-menu.c:789 ../src/libgviewer/viewer-window.c:1064
+#: ../src/gnome-cmd-main-menu.c:796 ../src/libgviewer/viewer-window.c:1064
 msgid "_Settings"
 msgstr "_Asetukset"
 
-#: ../src/gnome-cmd-main-menu.c:793
+#: ../src/gnome-cmd-main-menu.c:800
 msgid "_Connections"
 msgstr "_Yhteydet"
 
-#: ../src/gnome-cmd-main-menu.c:797
+#: ../src/gnome-cmd-main-menu.c:804
 msgid "_Bookmarks"
 msgstr "_Kirjanmerkit"
 
-#: ../src/gnome-cmd-main-menu.c:801
+#: ../src/gnome-cmd-main-menu.c:808
 msgid "_Plugins"
 msgstr "_Liitännäiset"
 
-#: ../src/gnome-cmd-main-menu.c:805 ../src/libgviewer/viewer-window.c:1069
+#: ../src/gnome-cmd-main-menu.c:812 ../src/libgviewer/viewer-window.c:1069
 msgid "_Help"
 msgstr "O_hje"
 
@@ -1315,51 +1327,51 @@ msgstr "F9 etsi"
 msgid "F10 Quit"
 msgstr "F10 lopeta"
 
-#: ../src/gnome-cmd-main-win.c:1317
+#: ../src/gnome-cmd-main-win.c:1320
 msgid "Refresh"
 msgstr "Virkistä"
 
-#: ../src/gnome-cmd-main-win.c:1324
+#: ../src/gnome-cmd-main-win.c:1327
 msgid "Up one directory"
 msgstr "Yksi kansio ylös"
 
-#: ../src/gnome-cmd-main-win.c:1331
+#: ../src/gnome-cmd-main-win.c:1334
 msgid "Goto the oldest"
 msgstr "Siirry vanhimpaan"
 
-#: ../src/gnome-cmd-main-win.c:1338
+#: ../src/gnome-cmd-main-win.c:1341
 msgid "Go back"
 msgstr "Siirry takaisin"
 
-#: ../src/gnome-cmd-main-win.c:1345
+#: ../src/gnome-cmd-main-win.c:1348
 msgid "Go forward"
 msgstr "Siirry eteenpäin"
 
-#: ../src/gnome-cmd-main-win.c:1352
+#: ../src/gnome-cmd-main-win.c:1355
 msgid "Goto the latest"
 msgstr "Siirry viimeisimpään"
 
-#: ../src/gnome-cmd-main-win.c:1360
+#: ../src/gnome-cmd-main-win.c:1363
 msgid "Copy file names (SHIFT for full paths)"
 msgstr "Kopioi tiedostonimet (SHIFTin kanssa koko polkunimet)"
 
-#: ../src/gnome-cmd-main-win.c:1367
+#: ../src/gnome-cmd-main-win.c:1370
 msgid "Cut"
 msgstr "Leikkaa"
 
-#: ../src/gnome-cmd-main-win.c:1374 ../src/gnome-cmd-prepare-copy-dialog.c:87
+#: ../src/gnome-cmd-main-win.c:1377 ../src/gnome-cmd-prepare-copy-dialog.c:87
 msgid "Copy"
 msgstr "Kopioi"
 
-#: ../src/gnome-cmd-main-win.c:1381
+#: ../src/gnome-cmd-main-win.c:1384
 msgid "Paste"
 msgstr "Liitä"
 
-#: ../src/gnome-cmd-main-win.c:1396
+#: ../src/gnome-cmd-main-win.c:1399
 msgid "Edit (SHIFT for new document)"
 msgstr "Muokkaa (SHIFTin kanssa uusi asiakirja)"
 
-#: ../src/gnome-cmd-main-win.c:1411
+#: ../src/gnome-cmd-main-win.c:1414
 msgid "Drop connection"
 msgstr "Lopeta yhteys"
 
@@ -1373,15 +1385,15 @@ msgstr "Kopioi \"%s\" kohteeseen"
 msgid "Copy File"
 msgstr "Kopioi tiedosto"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:49
+#: ../src/gnome-cmd-mkdir-dialog.c:46
 msgid "A directory name must be entered"
 msgstr "Kansion nimi täytyy antaa"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:137
+#: ../src/gnome-cmd-mkdir-dialog.c:132
 msgid "Directory name:"
 msgstr "Kansion nimi:"
 
-#: ../src/gnome-cmd-mkdir-dialog.c:145
+#: ../src/gnome-cmd-mkdir-dialog.c:140
 msgid "Make Directory"
 msgstr "Luo kansio"
 
@@ -1442,392 +1454,402 @@ msgid "Powered"
 msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.c:210
+#, fuzzy
+msgid "<locale>"
+msgstr "/Päiväys/<locale>"
+
+#: ../src/gnome-cmd-options-dialog.c:215
 msgid "Grouped"
 msgstr "Ryhmitetty"
 
-#: ../src/gnome-cmd-options-dialog.c:215
+#: ../src/gnome-cmd-options-dialog.c:220
 msgid "Plain"
 msgstr "Yksinkertainen"
 
-#: ../src/gnome-cmd-options-dialog.c:225
+#: ../src/gnome-cmd-options-dialog.c:230
 msgid "Permission display mode"
 msgstr "Oikeuksien näyttötila"
 
-#: ../src/gnome-cmd-options-dialog.c:228
+#: ../src/gnome-cmd-options-dialog.c:233
 msgid "Text (rw-r--r--)"
 msgstr "Teksti (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.c:233
+#: ../src/gnome-cmd-options-dialog.c:238
 msgid "Number (644)"
 msgstr "Numero (644)"
 
-#: ../src/gnome-cmd-options-dialog.c:243
+#: ../src/gnome-cmd-options-dialog.c:248
 msgid "Date format"
 msgstr "Päiväyksen muoto"
 
-#: ../src/gnome-cmd-options-dialog.c:246
+#: ../src/gnome-cmd-options-dialog.c:251
 msgid "Format:"
 msgstr "Muoto:"
 
-#: ../src/gnome-cmd-options-dialog.c:254
+#: ../src/gnome-cmd-options-dialog.c:259
 msgid "_Test"
 msgstr "_Testaa"
 
-#: ../src/gnome-cmd-options-dialog.c:257
+#: ../src/gnome-cmd-options-dialog.c:262
 msgid "Test result:"
 msgstr "Testin tulos:"
 
-#: ../src/gnome-cmd-options-dialog.c:266
+#: ../src/gnome-cmd-options-dialog.c:271
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.c:383
+#: ../src/gnome-cmd-options-dialog.c:391
 msgid "Edit Colors..."
 msgstr "Muokkaa värejä..."
 
-#: ../src/gnome-cmd-options-dialog.c:390
+#: ../src/gnome-cmd-options-dialog.c:398
 msgid "Colors"
 msgstr "Värit"
 
-#: ../src/gnome-cmd-options-dialog.c:427
+#: ../src/gnome-cmd-options-dialog.c:435
 msgid "Foreground"
 msgstr "Edustaväri"
 
-#: ../src/gnome-cmd-options-dialog.c:429
+#: ../src/gnome-cmd-options-dialog.c:437
 msgid "Background"
 msgstr "Taustaväri"
 
-#: ../src/gnome-cmd-options-dialog.c:431
+#: ../src/gnome-cmd-options-dialog.c:439
 msgid "Default:"
 msgstr "Oletus:"
 
-#: ../src/gnome-cmd-options-dialog.c:433
+#: ../src/gnome-cmd-options-dialog.c:441
 msgid "Selected file:"
 msgstr "Valittu tiedosto:"
 
-#: ../src/gnome-cmd-options-dialog.c:435
+#: ../src/gnome-cmd-options-dialog.c:443
 msgid "Cursor:"
 msgstr "Kursori:"
 
-#: ../src/gnome-cmd-options-dialog.c:452
+#: ../src/gnome-cmd-options-dialog.c:460
 msgid "With filename"
 msgstr "Tiedostonimellä"
 
-#: ../src/gnome-cmd-options-dialog.c:453
+#: ../src/gnome-cmd-options-dialog.c:461
 msgid "In separate column"
 msgstr "Eri sarakkeissa"
 
-#: ../src/gnome-cmd-options-dialog.c:454
+#: ../src/gnome-cmd-options-dialog.c:462
 msgid "In both columns"
 msgstr "Molemmissa sarakkeissa"
 
-#: ../src/gnome-cmd-options-dialog.c:458
+#: ../src/gnome-cmd-options-dialog.c:466
 msgid "No icons"
 msgstr "Ei kuvakkeita"
 
-#: ../src/gnome-cmd-options-dialog.c:459
+#: ../src/gnome-cmd-options-dialog.c:467
 msgid "File type icons"
 msgstr "Tiedostotyypin kuvakkeet"
 
-#: ../src/gnome-cmd-options-dialog.c:460
+#: ../src/gnome-cmd-options-dialog.c:468
 msgid "MIME icons"
 msgstr "MIME-kuvakkeet"
 
-#: ../src/gnome-cmd-options-dialog.c:464
+#: ../src/gnome-cmd-options-dialog.c:472
 msgid "Respect theme colors"
 msgstr "Käytä teeman värejä"
 
-#: ../src/gnome-cmd-options-dialog.c:465
+#: ../src/gnome-cmd-options-dialog.c:473
 msgid "Modern"
 msgstr "Moderni"
 
-#: ../src/gnome-cmd-options-dialog.c:466
+#: ../src/gnome-cmd-options-dialog.c:474
 msgid "Fusion"
 msgstr "Fuusio"
 
-#: ../src/gnome-cmd-options-dialog.c:467
+#: ../src/gnome-cmd-options-dialog.c:475
 msgid "Classic"
 msgstr "Klassinen"
 
-#: ../src/gnome-cmd-options-dialog.c:468
+#: ../src/gnome-cmd-options-dialog.c:476
+#, fuzzy
+msgid "Deep blue"
+msgstr "Ongelma poistossa"
+
+#: ../src/gnome-cmd-options-dialog.c:477
 msgid "Custom"
 msgstr "Oma"
 
-#: ../src/gnome-cmd-options-dialog.c:484
+#: ../src/gnome-cmd-options-dialog.c:493
 msgid "File panes"
 msgstr "Tiedostopaneelit"
 
-#: ../src/gnome-cmd-options-dialog.c:495
+#: ../src/gnome-cmd-options-dialog.c:504
 msgid "Font:"
 msgstr "Kirjasin:"
 
-#: ../src/gnome-cmd-options-dialog.c:497
+#: ../src/gnome-cmd-options-dialog.c:506
 msgid "Row height:"
 msgstr "Rivin korkeus:"
 
 #. File extensions
-#: ../src/gnome-cmd-options-dialog.c:501
+#: ../src/gnome-cmd-options-dialog.c:510
 msgid "Display file extensions:"
 msgstr "Näytä tiedostopäätteet:"
 
 #. Graphical mode
-#: ../src/gnome-cmd-options-dialog.c:509
+#: ../src/gnome-cmd-options-dialog.c:518
 msgid "Graphical mode:"
 msgstr "Graafinen tila:"
 
 #. Color scheme
-#: ../src/gnome-cmd-options-dialog.c:518
+#: ../src/gnome-cmd-options-dialog.c:527
 msgid "Color scheme:"
 msgstr "Väriskeema:"
 
-#: ../src/gnome-cmd-options-dialog.c:530
+#: ../src/gnome-cmd-options-dialog.c:539
 msgid "Edit..."
 msgstr "Muokaa..."
 
 #. LS_COLORS
-#: ../src/gnome-cmd-options-dialog.c:537
+#: ../src/gnome-cmd-options-dialog.c:546
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Väritä tiedostot LS_COLORS-ympäristömuuttujan perusteella"
 
-#: ../src/gnome-cmd-options-dialog.c:547
+#: ../src/gnome-cmd-options-dialog.c:556
 msgid "MIME icon settings"
 msgstr "MIME-kuvakkeen asetukset"
 
-#: ../src/gnome-cmd-options-dialog.c:560
+#: ../src/gnome-cmd-options-dialog.c:569
 msgid "Icon size:"
 msgstr "Kuvakkeen koko:"
 
-#: ../src/gnome-cmd-options-dialog.c:562
+#: ../src/gnome-cmd-options-dialog.c:571
 msgid "Scaling quality:"
 msgstr "Skaalauksen laatu:"
 
-#: ../src/gnome-cmd-options-dialog.c:564
+#: ../src/gnome-cmd-options-dialog.c:573
 msgid "Theme icon directory:"
 msgstr "Teeman kuvakekansio:"
 
-#: ../src/gnome-cmd-options-dialog.c:566
+#: ../src/gnome-cmd-options-dialog.c:575
 msgid "Document icon directory:"
 msgstr "Asiakirjakuvakkeiden kansio:"
 
-#: ../src/gnome-cmd-options-dialog.c:648
+#: ../src/gnome-cmd-options-dialog.c:657
 msgid "Confirm before delete"
 msgstr "Vahvista ennen poistoa"
 
-#: ../src/gnome-cmd-options-dialog.c:656
+#: ../src/gnome-cmd-options-dialog.c:665
 msgid "Copy overwrite"
 msgstr "Kopionti ylikirjoittaa"
 
 #.
 #. * Create prepare copy specific widgets
 #.
-#: ../src/gnome-cmd-options-dialog.c:659 ../src/gnome-cmd-options-dialog.c:679
+#: ../src/gnome-cmd-options-dialog.c:668 ../src/gnome-cmd-options-dialog.c:688
 #: ../src/gnome-cmd-prepare-copy-dialog.c:94
 #: ../src/gnome-cmd-prepare-move-dialog.c:87
 msgid "Silently"
 msgstr "Ilman viestiä"
 
-#: ../src/gnome-cmd-options-dialog.c:663 ../src/gnome-cmd-options-dialog.c:683
+#: ../src/gnome-cmd-options-dialog.c:672 ../src/gnome-cmd-options-dialog.c:692
 msgid "Query first"
 msgstr "Kysy ensin"
 
-#: ../src/gnome-cmd-options-dialog.c:676
+#: ../src/gnome-cmd-options-dialog.c:685
 msgid "Move overwrite"
 msgstr "Siirto ylikirjoittaa"
 
-#: ../src/gnome-cmd-options-dialog.c:764
+#: ../src/gnome-cmd-options-dialog.c:773
 msgid "Filetypes to hide"
 msgstr "Piilotettavat tiedostotyypit"
 
 #. unknown tag
-#: ../src/gnome-cmd-options-dialog.c:767 ../src/tags/gnome-cmd-tags-id3.c:183
+#: ../src/gnome-cmd-options-dialog.c:776 ../src/tags/gnome-cmd-tags-id3.c:183
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: ../src/gnome-cmd-options-dialog.c:772
+#: ../src/gnome-cmd-options-dialog.c:781
 msgid "Regular files"
 msgstr "Tavalliset tiedostot"
 
-#: ../src/gnome-cmd-options-dialog.c:777
+#: ../src/gnome-cmd-options-dialog.c:786
 msgid "Directories"
 msgstr "Kansiot"
 
-#: ../src/gnome-cmd-options-dialog.c:782
+#: ../src/gnome-cmd-options-dialog.c:791
 msgid "Fifo files"
 msgstr "FIFO-tiedostot"
 
-#: ../src/gnome-cmd-options-dialog.c:787
+#: ../src/gnome-cmd-options-dialog.c:796
 msgid "Socket files"
 msgstr "Pistoketiedostot"
 
-#: ../src/gnome-cmd-options-dialog.c:792
+#: ../src/gnome-cmd-options-dialog.c:801
 msgid "Character devices"
 msgstr "Merkkilaitteet"
 
-#: ../src/gnome-cmd-options-dialog.c:797
+#: ../src/gnome-cmd-options-dialog.c:806
 msgid "Block devices"
 msgstr "Lohkolaitteet"
 
-#: ../src/gnome-cmd-options-dialog.c:805
+#: ../src/gnome-cmd-options-dialog.c:814
 msgid "Also hide"
 msgstr "Piilota myös"
 
-#: ../src/gnome-cmd-options-dialog.c:808
+#: ../src/gnome-cmd-options-dialog.c:817
 msgid "Hidden files"
 msgstr "Piilotiedostot"
 
-#: ../src/gnome-cmd-options-dialog.c:813 ../src/gnome-cmd-options-dialog.c:826
+#: ../src/gnome-cmd-options-dialog.c:822 ../src/gnome-cmd-options-dialog.c:835
 msgid "Backup files"
 msgstr "Varmuuskopiotiedostot"
 
-#: ../src/gnome-cmd-options-dialog.c:818
+#: ../src/gnome-cmd-options-dialog.c:827
 msgid "Symlinks"
 msgstr "Symboliset linkit"
 
-#: ../src/gnome-cmd-options-dialog.c:1092
+#: ../src/gnome-cmd-options-dialog.c:1101
 msgid "Label:"
 msgstr "Otsikko:"
 
-#: ../src/gnome-cmd-options-dialog.c:1094
+#: ../src/gnome-cmd-options-dialog.c:1103
 msgid "Command:"
 msgstr "Komento:"
 
-#: ../src/gnome-cmd-options-dialog.c:1096
-#: ../src/gnome-cmd-options-dialog.c:1540
+#: ../src/gnome-cmd-options-dialog.c:1105
+#: ../src/gnome-cmd-options-dialog.c:1549
 msgid "Icon:"
 msgstr "Kuvake:"
 
-#: ../src/gnome-cmd-options-dialog.c:1117
+#: ../src/gnome-cmd-options-dialog.c:1126
 msgid "Can handle multiple files"
 msgstr "Osaa käsitellä useita tiedostoja"
 
-#: ../src/gnome-cmd-options-dialog.c:1121
+#: ../src/gnome-cmd-options-dialog.c:1130
 msgid "Can handle URIs"
 msgstr "Osaa käsitellä URI-viitteitä"
 
-#: ../src/gnome-cmd-options-dialog.c:1125
+#: ../src/gnome-cmd-options-dialog.c:1134
 msgid "Requires terminal"
 msgstr "Vaatii päätteen"
 
-#: ../src/gnome-cmd-options-dialog.c:1132
+#: ../src/gnome-cmd-options-dialog.c:1141
 msgid "Show for"
 msgstr "Näytä kohteille"
 
-#: ../src/gnome-cmd-options-dialog.c:1141
+#: ../src/gnome-cmd-options-dialog.c:1150
 msgid "All directories"
 msgstr "Kaikki kansiot"
 
-#: ../src/gnome-cmd-options-dialog.c:1147
+#: ../src/gnome-cmd-options-dialog.c:1156
 msgid "All directories and files"
 msgstr "Kaikki kansiot ja tiedostot"
 
-#: ../src/gnome-cmd-options-dialog.c:1153
+#: ../src/gnome-cmd-options-dialog.c:1162
 msgid "Some files"
 msgstr "Jotkut tiedostot"
 
-#: ../src/gnome-cmd-options-dialog.c:1164
+#: ../src/gnome-cmd-options-dialog.c:1173
 msgid "File patterns"
 msgstr "Tiedostomallit"
 
-#: ../src/gnome-cmd-options-dialog.c:1189
+#: ../src/gnome-cmd-options-dialog.c:1198
 msgid "New Application"
 msgstr "Uusi sovellus"
 
-#: ../src/gnome-cmd-options-dialog.c:1201
+#: ../src/gnome-cmd-options-dialog.c:1210
 msgid "Edit Application"
 msgstr "Muokkaa sovellusta"
 
-#: ../src/gnome-cmd-options-dialog.c:1291
+#: ../src/gnome-cmd-options-dialog.c:1300
 msgid "Always download remote files before opening in external programs"
 msgstr "Nouda aina etätiedostot ennen avaamista ulkoisissa ohjelmissa"
 
-#: ../src/gnome-cmd-options-dialog.c:1293
+#: ../src/gnome-cmd-options-dialog.c:1302
 msgid "MIME applications"
 msgstr "MIME-sovellukset"
 
-#: ../src/gnome-cmd-options-dialog.c:1297
+#: ../src/gnome-cmd-options-dialog.c:1306
 msgid "Standard programs"
 msgstr "Oletusohjelmat"
 
-#: ../src/gnome-cmd-options-dialog.c:1300
+#: ../src/gnome-cmd-options-dialog.c:1309
 msgid "Viewer:"
 msgstr "Katselin:"
 
-#: ../src/gnome-cmd-options-dialog.c:1302
+#: ../src/gnome-cmd-options-dialog.c:1311
 msgid "Editor:"
 msgstr "Muokkain:"
 
-#: ../src/gnome-cmd-options-dialog.c:1304
+#: ../src/gnome-cmd-options-dialog.c:1313
 msgid "Differ:"
 msgstr "Erot:"
 
-#: ../src/gnome-cmd-options-dialog.c:1306
+#: ../src/gnome-cmd-options-dialog.c:1315
 msgid "Terminal:"
 msgstr "Pääte:"
 
-#: ../src/gnome-cmd-options-dialog.c:1312
+#: ../src/gnome-cmd-options-dialog.c:1321
 msgid "Use Internal Viewer"
 msgstr "Käytä sisäistä katselinta"
 
-#: ../src/gnome-cmd-options-dialog.c:1329
+#: ../src/gnome-cmd-options-dialog.c:1338
 msgid "Other favorite apps"
 msgstr "Muut suosikkisovellukset"
 
-#: ../src/gnome-cmd-options-dialog.c:1336
+#: ../src/gnome-cmd-options-dialog.c:1345
 msgid "Label"
 msgstr "Otsikko"
 
-#: ../src/gnome-cmd-options-dialog.c:1536
+#: ../src/gnome-cmd-options-dialog.c:1545
 msgid "Device:"
 msgstr "Laite:"
 
-#: ../src/gnome-cmd-options-dialog.c:1538
+#: ../src/gnome-cmd-options-dialog.c:1547
 msgid "Mount point:"
 msgstr "Liitospiste:"
 
-#: ../src/gnome-cmd-options-dialog.c:1582
+#: ../src/gnome-cmd-options-dialog.c:1591
 msgid "New Device"
 msgstr "Uusi laite"
 
-#: ../src/gnome-cmd-options-dialog.c:1595
+#: ../src/gnome-cmd-options-dialog.c:1604
 msgid "Edit Device"
 msgstr "Muokkaa laitetta"
 
-#: ../src/gnome-cmd-options-dialog.c:1684
-#: ../src/gnome-cmd-options-dialog.c:1877
+#: ../src/gnome-cmd-options-dialog.c:1693
+#: ../src/gnome-cmd-options-dialog.c:1886
 msgid "Devices"
 msgstr "Laitteet"
 
-#: ../src/gnome-cmd-options-dialog.c:1724
+#: ../src/gnome-cmd-options-dialog.c:1733
 msgid "Show only the icons"
 msgstr "Näytä vain kuvakkeet"
 
-#: ../src/gnome-cmd-options-dialog.c:1728
+#: ../src/gnome-cmd-options-dialog.c:1737
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Ohita liittäminen (hyödyllinen käytettäessä super-mountia)"
 
-#: ../src/gnome-cmd-options-dialog.c:1847
+#: ../src/gnome-cmd-options-dialog.c:1856
 msgid "General"
 msgstr "Yleistä"
 
-#: ../src/gnome-cmd-options-dialog.c:1852 ../src/tags/gnome-cmd-tags.c:682
+#: ../src/gnome-cmd-options-dialog.c:1861 ../src/tags/gnome-cmd-tags.c:682
 msgid "Format"
 msgstr "Muoto"
 
-#: ../src/gnome-cmd-options-dialog.c:1857
+#: ../src/gnome-cmd-options-dialog.c:1866
 msgid "Layout"
 msgstr "Asettelu"
 
-#: ../src/gnome-cmd-options-dialog.c:1862
+#: ../src/gnome-cmd-options-dialog.c:1871
 msgid "Confirmation"
 msgstr "Vahvistus"
 
-#: ../src/gnome-cmd-options-dialog.c:1867
+#: ../src/gnome-cmd-options-dialog.c:1876
 msgid "Filters"
 msgstr "Suodattimet"
 
-#: ../src/gnome-cmd-options-dialog.c:1872
+#: ../src/gnome-cmd-options-dialog.c:1881
 msgid "Programs"
 msgstr "Ohjelmat"
 
@@ -2109,7 +2131,7 @@ msgstr "Kuvan koko: %d × %d\tbittejä/näyte %d\tzoomaus: %s"
 msgid "Fit-to-Window"
 msgstr "Sovita ikkunaan"
 
-#: ../src/libgviewer/viewer-window.c:194 ../src/utils.c:1488
+#: ../src/libgviewer/viewer-window.c:194 ../src/utils.c:1476
 msgid "There was an error displaying help."
 msgstr ""
 
@@ -5505,41 +5527,39 @@ msgstr "Kuva"
 msgid "No file selected"
 msgstr "Tiedostoa ei ole valittu"
 
-#: ../src/useractions.c:217
+#: ../src/useractions.c:211
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Luodaanko symboliset linkit %i tiedostosta kohteeseen %s?"
 msgstr[1] "Luodaanko symboliset linkit %i tiedostosta kohteeseen %s?"
 
-#: ../src/useractions.c:222
+#: ../src/useractions.c:216
 msgid "Create"
 msgstr "Luo"
 
-#: ../src/useractions.c:301
+#: ../src/useractions.c:295
 #, c-format
 msgid "running \"%s\"\n"
 msgstr "suoritetaan \"%s\"\n"
 
-#: ../src/useractions.c:737
+#: ../src/useractions.c:734
 msgid "There was an error opening home page."
 msgstr "Virhe avattaessa kotisivua."
 
-#: ../src/useractions.c:748
+#: ../src/useractions.c:745
 msgid "There was an error reporting problem."
 msgstr "Virhe raportoitaessa ongelmaa."
 
-#: ../src/useractions.c:773
+#: ../src/useractions.c:771
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Nopea ja tehokas tiedostonselain Gnomelle"
 
-#. xgettext:
-#. * Replace this with your name when translating
 #: ../src/useractions.c:778
-msgid "No translation is currently in use."
-msgstr ""
+msgid "translator-credits"
+msgstr "Ilkka Tuohela <hile@iki.fi>"
 
-#: ../src/utils.c:516
+#: ../src/utils.c:505
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -5549,7 +5569,7 @@ msgstr ""
 "Voit määritellä oletussovellukset ohjauskeskuksen kohdasta \"Tiedostotyypit "
 "ja ohjelmat\"."
 
-#: ../src/utils.c:593
+#: ../src/utils.c:582
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -5558,11 +5578,11 @@ msgstr ""
 "\"%s\" näyttäisi olevan suoritettava tiedosto, mutta siitä puuttuu "
 "suoritusoikeudet. Haluatko asettaa suoritusoikeudet ja suorittaa ohjelman?"
 
-#: ../src/utils.c:596
+#: ../src/utils.c:585
 msgid "Make Executable?"
 msgstr "Muutetaanko suoritettavaksi?"
 
-#: ../src/utils.c:623
+#: ../src/utils.c:612
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
@@ -5571,19 +5591,19 @@ msgstr ""
 "\"%s\" on suoritettava tekstitiedosto. Haluatko suorittaa sen vai näyttää "
 "sen sisällön?"
 
-#: ../src/utils.c:625
+#: ../src/utils.c:614
 msgid "Run or Display"
 msgstr "Suorita tai näytä"
 
-#: ../src/utils.c:626
+#: ../src/utils.c:615
 msgid "Display"
 msgstr "Näytä"
 
-#: ../src/utils.c:626
+#: ../src/utils.c:615
 msgid "Run"
 msgstr "Suorita"
 
-#: ../src/utils.c:662 ../src/utils.c:736
+#: ../src/utils.c:651 ../src/utils.c:725
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -5598,7 +5618,7 @@ msgstr[1] ""
 "%s ei osaa avata etätiedostoja. Haluatko noutaa tiedoston väliaikaiskansioon "
 "ja avata sen sieltä?"
 
-#: ../src/utils.c:1175
+#: ../src/utils.c:1163
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -5607,17 +5627,17 @@ msgstr ""
 "Väliaikaistiedostojen tallennusta varten ei voitu luoda kansiota.\n"
 "Virheviesti: %s\n"
 
-#: ../src/utils.c:1346
+#: ../src/utils.c:1334
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Luodaan kansiota %s..."
 
-#: ../src/utils.c:1351
+#: ../src/utils.c:1339
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Kansiota \"%s\" ei voitu luoda"
 
-#: ../src/utils.c:1357
+#: ../src/utils.c:1345
 #, c-format
 msgid "Couldn't read from the directory %s: %s\n"
 msgstr "Kansiosta %s ei voitu lukea: %s\n"
