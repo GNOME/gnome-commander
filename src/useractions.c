@@ -779,5 +779,6 @@ help_about                          (GtkMenuItem     *menuitem,
                    "version", VERSION,
                    "website", "http://www.nongnu.org/gcmd",
                    "name", "GNOME Commander",
+                   "logo-icon-name", PACKAGE_NAME,
                    NULL);
 }
