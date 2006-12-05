@@ -379,7 +379,7 @@ popup_dir_history (GnomeCmdDirIndicator *indicator)
     if (GTK_WIDGET (indicator)->allocation.width > 100)
         w = GTK_WIDGET (indicator)->allocation.width;
 
-    gtk_widget_set_usize (indicator->priv->dir_history_popup, w, -1);
+    gtk_widget_set_size_request (indicator->priv->dir_history_popup, w, -1);
 }
 
 
@@ -444,7 +444,7 @@ popup_bookmarks (GnomeCmdDirIndicator *indicator)
     if (GTK_WIDGET (indicator)->allocation.width > 100)
         w = GTK_WIDGET (indicator)->allocation.width;
 
-    gtk_widget_set_usize (indicator->priv->bookmark_popup, w, -1);
+    gtk_widget_set_size_request (indicator->priv->bookmark_popup, w, -1);
 }
 
 

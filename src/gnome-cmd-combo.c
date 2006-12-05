@@ -177,7 +177,7 @@ gnome_cmd_combo_popup_list (GnomeCmdCombo *combo)
     get_pos (combo, &x, &y, &height, &width);
 
     gtk_widget_set_uposition (combo->popwin, x, y);
-    gtk_widget_set_usize (combo->popwin, width, height);
+    gtk_widget_set_size_request (combo->popwin, width, height);
     gtk_widget_realize (combo->popwin);
     gdk_window_resize (combo->popwin->window, width, height);
     gtk_widget_show (combo->popwin);
@@ -384,7 +384,7 @@ init (GnomeCmdCombo *combo)
     gtk_widget_ref (combo->entry);
     gtk_object_set_data_full (GTK_OBJECT (combo), "entry", combo->entry, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (combo->entry);
-    gtk_widget_set_usize (combo->entry, 60, -1);
+    gtk_widget_set_size_request (combo->entry, 60, -1);
     gtk_entry_set_editable (GTK_ENTRY (combo->entry), FALSE);
     GTK_WIDGET_UNSET_FLAGS (combo->entry, GTK_CAN_FOCUS);
 

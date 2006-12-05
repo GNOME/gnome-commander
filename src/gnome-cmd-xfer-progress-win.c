@@ -85,7 +85,7 @@ init (GnomeCmdXferProgressWin *win)
 
     gtk_window_set_title (GTK_WINDOW (win), _("Progress"));
     gtk_window_set_policy (GTK_WINDOW (win), FALSE, FALSE, FALSE);
-    gtk_widget_set_usize (GTK_WIDGET (win), 300, -1);
+    gtk_widget_set_size_request (GTK_WIDGET (win), 300, -1);
 
     vbox = create_vbox (w, FALSE, 6);
     gtk_container_add (GTK_CONTAINER (win), vbox);

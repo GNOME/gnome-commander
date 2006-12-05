@@ -43,27 +43,28 @@ on_dialog_keypressed (GtkWidget *widget,
                       gpointer user_data)
 {
     GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG(widget);
-    const gchar *new_fname;
-    GnomeVFSResult ret;
 
-    if (event->keyval == GDK_Escape) {
-        gnome_cmd_file_unref( dialog->priv->finfo );
-        gtk_widget_destroy(widget);
-        return TRUE;
+    switch (event->keyval)
+    {
+        case GDK_Escape:
+            gnome_cmd_file_unref (dialog->priv->finfo);
+            gtk_widget_destroy(widget);
+            return TRUE;
+
+        case GDK_Return:
+            {
+                const gchar *new_fname = gtk_entry_get_text (dialog->priv->textbox);
+                GnomeVFSResult ret = gnome_cmd_file_rename (dialog->priv->finfo, new_fname);
+
+                gnome_cmd_file_unref (dialog->priv->finfo);
+                gtk_widget_destroy (widget);
+                /* TODO: if (ret != GNOME_VFS_OK) { */
+            }
+            return TRUE;
+
+        default:
+            return FALSE;
     }
-
-    if (event->keyval == GDK_Return) {
-        new_fname = gtk_entry_get_text( dialog->priv->textbox );
-        ret = gnome_cmd_file_rename (dialog->priv->finfo, new_fname);
-
-        gnome_cmd_file_unref (dialog->priv->finfo);
-        gtk_widget_destroy( widget );
-        /* TODO: if (ret != GNOME_VFS_OK) { */
-        return TRUE;
-
-    }
-
-    return FALSE;
 }
 
 
@@ -71,8 +72,8 @@ static gboolean
 on_focus_out (GtkWidget *widget,
                       GdkEventKey *event)
 {
-    gnome_cmd_file_unref( GNOME_CMD_RENAME_DIALOG(widget)->priv->finfo );
-    gtk_widget_destroy( widget );
+    gnome_cmd_file_unref (GNOME_CMD_RENAME_DIALOG(widget)->priv->finfo);
+    gtk_widget_destroy (widget);
     return TRUE;
 }
 
@@ -103,11 +104,8 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdRenameDialogClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (klass);
-    widget_class = GTK_WIDGET_CLASS (klass);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;
@@ -119,14 +117,9 @@ static void
 init (GnomeCmdRenameDialog *dialog)
 {
     dialog->priv = g_new (GnomeCmdRenameDialogPrivate, 1);
-    gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event",
-                        (GtkSignalFunc)on_dialog_keypressed, NULL);
-    gtk_signal_connect (GTK_OBJECT (dialog), "focus-out-event",
-                        (GtkSignalFunc)on_focus_out, NULL);
-
-
+    gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event", (GtkSignalFunc)on_dialog_keypressed, NULL);
+    gtk_signal_connect (GTK_OBJECT (dialog), "focus-out-event", (GtkSignalFunc)on_focus_out, NULL);
 }
-
 
 
 /***********************************
@@ -136,28 +129,25 @@ init (GnomeCmdRenameDialog *dialog)
 GtkWidget*
 gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gint height)
 {
-    gchar *fname;
-    GnomeCmdRenameDialog *dialog;
-
     g_return_val_if_fail (finfo != NULL, NULL);
 
-    dialog = gtk_type_new (gnome_cmd_rename_dialog_get_type ());
+    GnomeCmdRenameDialog *dialog = gtk_type_new (gnome_cmd_rename_dialog_get_type ());
 
     dialog->priv->finfo = finfo;
     gnome_cmd_file_ref (finfo);
 
-    fname = get_utf8 (gnome_cmd_file_get_name (finfo));
+    gchar *fname = get_utf8 (gnome_cmd_file_get_name (finfo));
 
-    gtk_window_set_has_frame( GTK_WINDOW(dialog), 0 );
-    gtk_window_set_decorated( GTK_WINDOW(dialog), 0 );
-    gtk_widget_set_uposition( GTK_WIDGET(dialog), x, y );
-    gtk_window_set_skip_taskbar_hint( GTK_WINDOW(dialog), TRUE );
+    gtk_window_set_has_frame (GTK_WINDOW(dialog), 0);
+    gtk_window_set_decorated (GTK_WINDOW(dialog), 0);
+    gtk_widget_set_uposition (GTK_WIDGET(dialog), x, y);
+    gtk_window_set_skip_taskbar_hint (GTK_WINDOW(dialog), TRUE);
 
-    gtk_widget_set_usize( GTK_WIDGET(dialog), width + 1, height + 1);
+    gtk_widget_set_size_request (GTK_WIDGET(dialog), width + 1, height + 1);
     dialog->priv->textbox = GTK_ENTRY(gtk_entry_new());
-    gtk_widget_set_usize( GTK_WIDGET(dialog->priv->textbox), width, height);
-    gtk_container_add( GTK_CONTAINER(dialog), GTK_WIDGET(dialog->priv->textbox) );
-    gtk_widget_set_style( GTK_WIDGET(dialog->priv->textbox), list_style );
+    gtk_widget_set_size_request (GTK_WIDGET(dialog->priv->textbox), width, height);
+    gtk_container_add (GTK_CONTAINER(dialog), GTK_WIDGET(dialog->priv->textbox));
+    gtk_widget_set_style (GTK_WIDGET(dialog->priv->textbox), list_style);
 
     gtk_entry_set_text(dialog->priv->textbox, fname);
     gtk_entry_select_region (dialog->priv->textbox, 0, -1);

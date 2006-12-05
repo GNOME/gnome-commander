@@ -1,3 +1,17 @@
+2006-12-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-bookmark-dialog.c:
+	* src/gnome-cmd-combo.c:
+	* src/gnome-cmd-delete-dialog.c:
+	* src/gnome-cmd-dir-indicator.c:
+	* src/gnome-cmd-ftp-dialog.c:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-rename-dialog.c:
+	* src/gnome-cmd-search-dialog.c:
+	* src/gnome-cmd-xfer-progress-win.c:
+	Replaced deprecated gtk_widget_set_usize() with gtk_widget_set_size_request()
+
 2006-12-01  Piotr Eljasiak  <epiotr@use.pl>
 
 	* plugins/cvs/cvs-plugin.c:

@@ -426,7 +426,7 @@ init (GnomeCmdBookmarkDialog *in_dialog)
 
     dialog = GTK_WIDGET (in_dialog);
     gtk_object_set_data (GTK_OBJECT (dialog), "dialog", dialog);
-    gtk_widget_set_usize (GTK_WIDGET (dialog), 400, 400);
+    gtk_widget_set_size_request (GTK_WIDGET (dialog), 400, 400);
     gtk_window_set_default_size (GTK_WINDOW (dialog), 500, 400);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Bookmarks"));
 

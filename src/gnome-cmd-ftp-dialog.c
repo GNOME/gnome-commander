@@ -510,7 +510,7 @@ init (GnomeCmdFtpDialog *ftp_dialog)
     gtk_clist_set_row_height (GTK_CLIST (ftp_dialog->priv->server_list), 16);
     gtk_widget_show (ftp_dialog->priv->server_list);
     gtk_container_add (GTK_CONTAINER (sw), ftp_dialog->priv->server_list);
-    gtk_widget_set_usize (ftp_dialog->priv->server_list, -1, 200);
+    gtk_widget_set_size_request (ftp_dialog->priv->server_list, -1, 200);
     gtk_clist_set_column_width (GTK_CLIST (ftp_dialog->priv->server_list), 0, 16);
     gtk_clist_set_column_width (GTK_CLIST (ftp_dialog->priv->server_list), 1, 80);
     gtk_clist_column_titles_show (GTK_CLIST (ftp_dialog->priv->server_list));

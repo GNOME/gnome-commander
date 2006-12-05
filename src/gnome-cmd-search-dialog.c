@@ -834,7 +834,7 @@ init (GnomeCmdSearchDialog *dialog)
     gtk_object_set_data_full (
         GTK_OBJECT (window), "result_list", dialog->priv->result_list,
         (GtkDestroyNotify) gtk_widget_unref);
-    gtk_widget_set_usize (dialog->priv->result_list, -1, 200);
+    gtk_widget_set_size_request (dialog->priv->result_list, -1, 200);
     gtk_widget_show (dialog->priv->result_list);
     gtk_container_add (GTK_CONTAINER (sw), dialog->priv->result_list);
     gtk_container_set_border_width (GTK_CONTAINER (dialog->priv->result_list), 4);

@@ -311,7 +311,7 @@ init (GnomeCmdPrepareXferDialog *dialog)
     gtk_signal_connect_after (GTK_OBJECT (dialog->ok_button), "clicked",
                               GTK_SIGNAL_FUNC (on_ok), dialog);
 
-    gtk_widget_set_usize (GTK_WIDGET (dialog), 500, -1);
+    gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, -1);
 }
 
 

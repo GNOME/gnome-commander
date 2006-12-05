@@ -719,7 +719,7 @@ restore_size_and_pos (GnomeCmdMainWin *mw)
     gint w, h, x, y;
 
     gnome_cmd_data_get_main_win_size (&w, &h);
-    gtk_widget_set_usize (GTK_WIDGET (main_win), w, h);
+    gtk_widget_set_size_request (GTK_WIDGET (main_win), w, h);
 
     gnome_cmd_data_get_main_win_pos (&x, &y);
     if (x >= 0 && y >= 0)
