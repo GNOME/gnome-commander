@@ -48,7 +48,8 @@ load_plugin (PluginData *data)
     PluginConstructorFunc init_func;
     GnomeCmdPlugin *plugin;
 
-    if (!module) {
+    if (!module)
+    {
         g_printerr ("ERROR: Failed to load the plugin '%s': %s\n", data->fname, g_module_error ());
         return;
     }
@@ -62,7 +63,8 @@ load_plugin (PluginData *data)
 
     /* Try to get the plugin info */
     data->info = info_func ();
-    if (!data->info) {
+    if (!data->info)
+    {
         g_printerr ("ERROR: The plugin-file '%s' did not return valid plugin info:\n", data->fname);
         g_printerr ("  The function '%s' returned NULL\n", MODULE_INFO_FUNC);
         g_module_close (module);
@@ -86,7 +88,8 @@ load_plugin (PluginData *data)
 
     /* Try to initialize the plugin */
     plugin = init_func ();
-    if (!plugin) {
+    if (!plugin)
+    {
         g_printerr ("ERROR: The plugin '%s' could not be initialized:\n", data->info->name);
         g_printerr ("  The '%s' function returned NULL\n", MODULE_INIT_FUNC);
         g_module_close (module);
@@ -142,24 +145,28 @@ scan_plugins_in_dir (const gchar *dpath)
     char prev_dir[256];
     struct dirent *ent;
 
-    if (dir == NULL) {
+    if (dir == NULL)
+    {
         gchar *msg = g_strdup_printf ("Could not list files in %s: %s\n", dpath, strerror (errno));
         warn_print (msg);
         g_free (msg);
         return;
     }
 
-    getcwd (prev_dir, 256);
+    getcwd (prev_dir, sizeof(prev_dir));
     chdir (dpath);
 
-    while ((ent = readdir (dir)) != NULL) {
+    while ((ent = readdir (dir)) != NULL)
+    {
         struct stat buf;
 
         if (strcmp (ent->d_name+strlen(ent->d_name)-3, ".so") != 0)
             continue;
 
-        if (stat (ent->d_name, &buf) == 0) {
-            if (buf.st_mode & S_IFREG) {
+        if (stat (ent->d_name, &buf) == 0)
+        {
+            if (buf.st_mode & S_IFREG)
+            {
                 /* the direntry has the .so extension and is a regular file
                    lets accept it */
                 PluginData *data = g_new (PluginData, 1);
@@ -170,7 +177,8 @@ scan_plugins_in_dir (const gchar *dpath)
                 data->menu = NULL;
                 data->autoload = FALSE;
                 activate_plugin (data);
-                if (!data->loaded) {
+                if (!data->loaded)
+                {
                     g_free (data->fname);
                     g_free (data->fpath);
                     g_free (data);
@@ -187,7 +195,8 @@ scan_plugins_in_dir (const gchar *dpath)
 
     closedir (dir);
 
-    if (prev_dir) chdir (prev_dir);
+    if (prev_dir)
+        chdir (prev_dir);
 }
 
 
