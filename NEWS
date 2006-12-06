@@ -12,7 +12,7 @@ Bug fixes:
 New features:
  * Support for ID3 metags in advanced file rename templates
  * Updated help docs
- * New or updated translations: ar, en_GB, fi, it, pl, sv
+ * New or updated translations: ar, en_GB, es, fi, it, pl, sv
  * New key bindings:
       CTRL+SHIFT+=   Set both panels equal
 
