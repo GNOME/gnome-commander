@@ -51,16 +51,13 @@ static GtkFrameClass *parent_class = NULL;
 /*******************************
  * Gtk class implementation
  *******************************/
-
 static void
 destroy (GtkObject *object)
 {
     GnomeCmdDirIndicator *dir_indicator = GNOME_CMD_DIR_INDICATOR (object);
 
-    if (dir_indicator->priv->slashCharPosition)
-        g_free (dir_indicator->priv->slashCharPosition);
-    if (dir_indicator->priv->slashPixelPosition)
-        g_free (dir_indicator->priv->slashPixelPosition);
+    g_free (dir_indicator->priv->slashCharPosition);
+    g_free (dir_indicator->priv->slashPixelPosition);
     g_free (dir_indicator->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
@@ -71,11 +68,8 @@ destroy (GtkObject *object)
 static void
 class_init (GnomeCmdDirIndicatorClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (klass);
-    widget_class = GTK_WIDGET_CLASS (klass);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
     parent_class = gtk_type_class (gtk_frame_get_type ());
 
     object_class->destroy = destroy;
@@ -92,16 +86,17 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 
-    if (event->type == GDK_BUTTON_PRESS && event->button == 1) {
+    if (event->type == GDK_BUTTON_PRESS && event->button == 1)
+    {
         /* left click - work out the path */
-        gchar *chTo;
         const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
-        chTo = g_strdup(labelText);
+        gchar *chTo = g_strdup(labelText);
         gint x = (gint)event->x;
         gint i;
 
-        for (i = 0; i < indicator->priv->numPositions; i++) {
-            if (x < indicator->priv->slashPixelPosition[i]) {
+        for (i = 0; i < indicator->priv->numPositions; i++)
+            if (x < indicator->priv->slashPixelPosition[i])
+            {
                 strncpy (chTo, labelText, indicator->priv->slashCharPosition[i]);
                 chTo[indicator->priv->slashCharPosition[i]] = 0x0;
                 gnome_cmd_main_win_switch_fs (main_win, fs);
@@ -109,11 +104,11 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
                 g_free (chTo);
                 return TRUE;
             }
-        }
 
         /* pointer is after directory name - just return */
         return TRUE;
     }
+
     return FALSE;
 }
 
@@ -127,7 +122,8 @@ update_markup (GnomeCmdDirIndicator *indicator, gint i)
         return;
 
     s = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
-    if (i > 0) {
+    if (i > 0)
+    {
         gchar *mt, *ms;
         gchar *t = g_strdup (&s[indicator->priv->slashCharPosition[i]]);
         s[indicator->priv->slashCharPosition[i]] = '\0';
@@ -139,9 +135,8 @@ update_markup (GnomeCmdDirIndicator *indicator, gint i)
         g_free (mt);
         g_free (ms);
     }
-    else {
+    else
         m = get_mono_text (s);
-    }
 
     gtk_label_set_markup (GTK_LABEL (indicator->priv->label), m);
     g_free (s);
@@ -167,12 +162,12 @@ on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
     iX = (gint)event->x;
     iY = (gint)event->y;
 
-    for (i = 0; i < indicator->priv->numPositions; i++) {
-        if (iX < indicator->priv->slashPixelPosition[i]) {
+    for (i = 0; i < indicator->priv->numPositions; i++)
+    {
+        if (iX < indicator->priv->slashPixelPosition[i])
+        {
             /* underline the part that is selected */
-            GdkCursor* cursor;
-
-            cursor = gdk_cursor_new(GDK_HAND2);
+            GdkCursor *cursor = gdk_cursor_new(GDK_HAND2);
             gdk_window_set_cursor(GTK_WIDGET(indicator)->window, cursor);
             gdk_cursor_destroy(cursor);
 
@@ -203,25 +198,23 @@ on_dir_indicator_leave (GnomeCmdDirIndicator *indicator,
     return TRUE;
 }
 
+
 static int
-getPixelSize (const char *s, int size)
+get_string_pixel_size (const char *s, int len)
 {
     /* find the size, in pixels, of the given string */
-    gchar *buf, *ms;
-    gchar *utf8buf;
     gint xSize, ySize;
-    GtkLabel *label;
-    PangoLayout *layout;
 
-    buf = g_strndup(s,size) ;
-    utf8buf = get_utf8 (buf);
+    gchar *buf = g_strndup(s, len);
+    gchar *utf8buf = get_utf8 (buf);
 
-    label = GTK_LABEL (gtk_label_new (utf8buf));
-    ms = get_mono_text (utf8buf);
+    GtkLabel *label = GTK_LABEL (gtk_label_new (utf8buf));
+    gchar *ms = get_mono_text (utf8buf);
     gtk_label_set_markup (label, ms);
     g_free (ms);
     g_object_ref (label);
-    layout = gtk_label_get_layout (label);
+
+    PangoLayout *layout = gtk_label_get_layout (label);
     pango_layout_get_pixel_size (layout, &xSize, &ySize);
 
     /* we're finished with the label */
@@ -236,11 +229,13 @@ getPixelSize (const char *s, int size)
 static gboolean
 on_bookmark_button_clicked (GtkWidget *button, GnomeCmdDirIndicator *indicator)
 {
-    if (indicator->priv->bookmark_is_popped) {
+    if (indicator->priv->bookmark_is_popped)
+    {
         gtk_widget_hide (indicator->priv->bookmark_popup);
         indicator->priv->bookmark_is_popped = FALSE;
     }
-    else {
+    else
+    {
         gnome_cmd_dir_indicator_show_bookmarks (indicator);
         indicator->priv->bookmark_is_popped = TRUE;
     }
@@ -252,11 +247,13 @@ on_bookmark_button_clicked (GtkWidget *button, GnomeCmdDirIndicator *indicator)
 static gboolean
 on_history_button_clicked (GtkWidget *button, GnomeCmdDirIndicator *indicator)
 {
-    if (indicator->priv->history_is_popped) {
+    if (indicator->priv->history_is_popped)
+    {
         gtk_widget_hide (indicator->priv->dir_history_popup);
         indicator->priv->history_is_popped = FALSE;
     }
-    else {
+    else
+    {
         gnome_cmd_dir_indicator_show_history (indicator);
         indicator->priv->history_is_popped = TRUE;
     }
@@ -312,11 +309,9 @@ get_popup_pos (GtkMenu *menu,
                gint *x, gint *y, gboolean push_in,
                GnomeCmdDirIndicator *indicator)
 {
-    GtkWidget *w;
-
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 
-    w = GTK_WIDGET (indicator->priv->fs->list);
+    GtkWidget *w = GTK_WIDGET (indicator->priv->fs->list);
 
     gdk_window_get_origin (w->window, x, y);
 }
@@ -326,9 +321,7 @@ static void
 add_menu_item (GnomeCmdDirIndicator *indicator, GtkMenuShell *shell, const gchar *text,
                GtkSignalFunc func, gpointer data)
 {
-    GtkWidget *item;
-
-    item = text ? gtk_menu_item_new_with_label (text) : gtk_menu_item_new ();
+    GtkWidget *item = text ? gtk_menu_item_new_with_label (text) : gtk_menu_item_new ();
 
     gtk_widget_ref (item);
     gtk_object_set_data (GTK_OBJECT (item), "indicator", indicator);
@@ -364,7 +357,8 @@ popup_dir_history (GnomeCmdDirIndicator *indicator)
     con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
     history = gnome_cmd_con_get_dir_history (con);
 
-    for ( l = history->ents; l; l = l->next ) {
+    for (l=history->ents; l; l=l->next)
+    {
         gchar *path = (gchar*)l->data;
         add_menu_item (
             indicator,
@@ -390,7 +384,7 @@ on_bookmarks_add_current (GtkMenuItem *item, GnomeCmdDirIndicator *indicator)
     GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
-    GnomeCmdBookmark *bm = g_new (GnomeCmdBookmark, 1);
+    GnomeCmdBookmark *bm = g_new0 (GnomeCmdBookmark, 1);
 
     bm->name = g_strdup (gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)));
     bm->path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
@@ -425,7 +419,8 @@ popup_bookmarks (GnomeCmdDirIndicator *indicator)
     con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
     group = gnome_cmd_con_get_bookmarks (con);
 
-    for ( l = group->bookmarks; l; l = l->next ) {
+    for (l = group->bookmarks; l; l = l->next)
+    {
         GnomeCmdBookmark *bm = (GnomeCmdBookmark*)l->data;
         add_menu_item (
             indicator,
@@ -453,13 +448,14 @@ init (GnomeCmdDirIndicator *indicator)
 {
     GtkWidget *hbox, *arrow, *bbox;
 
-    indicator->priv = g_new (GnomeCmdDirIndicatorPrivate, 1);
-    indicator->priv->dir_history_popup = NULL;
-    indicator->priv->bookmark_popup = NULL;
-    indicator->priv->history_is_popped = FALSE;
-    indicator->priv->slashCharPosition = NULL;
-    indicator->priv->slashPixelPosition = NULL;
-    indicator->priv->numPositions = 0;
+    indicator->priv = g_new0 (GnomeCmdDirIndicatorPrivate, 1);
+    // below assignments are not necessary any longer due to above g_new0()
+    // indicator->priv->dir_history_popup = NULL;
+    // indicator->priv->bookmark_popup = NULL;
+    // indicator->priv->history_is_popped = FALSE;
+    // indicator->priv->slashCharPosition = NULL;
+    // indicator->priv->slashPixelPosition = NULL;
+    // indicator->priv->numPositions = 0;
 
     /* create the directory label and it's event box */
     indicator->priv->event_box = gtk_event_box_new ();
@@ -520,11 +516,12 @@ gnome_cmd_dir_indicator_get_type    (void)
 {
     static GtkType type = 0;
 
-    if (type == 0) {
+    if (type == 0)
+    {
         GtkTypeInfo info = {
             "GnomeCmdDirIndicator",
-            sizeof (GnomeCmdDirIndicator),
-            sizeof (GnomeCmdDirIndicatorClass),
+            sizeof(GnomeCmdDirIndicator),
+            sizeof(GnomeCmdDirIndicatorClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
             /* reserved_1 */ NULL,
@@ -544,11 +541,7 @@ gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
     GnomeCmdDirIndicator *dir_indicator = gtk_type_new (gnome_cmd_dir_indicator_get_type ());
 
-    gtk_signal_connect (
-        GTK_OBJECT (dir_indicator),
-        "button_press_event",
-        G_CALLBACK (on_dir_indicator_clicked),
-        fs);
+    gtk_signal_connect (GTK_OBJECT (dir_indicator), "button_press_event", G_CALLBACK (on_dir_indicator_clicked), fs);
 
     dir_indicator->priv->fs = fs;
 
@@ -556,65 +549,71 @@ gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 }
 
 
+static gint count_chars(const gchar *s, const gchar *set)
+{
+    gint n=0;
+
+    while (*s)
+        if (strchr(set,*s++))
+            ++n;
+
+    return n;
+}
+
+
 void
 gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *path)
 {
-    gint i;
-    gint numSlashes = 0;
     gchar *s = get_utf8 (path);
-
     gtk_label_set_text (GTK_LABEL (indicator->priv->label), s);
     update_markup (indicator, 0);
 
+    gint i;
+    gint numSlashes = 0;
+
     /* Count the number of slashes in the string */
-    for (i = 0; i < strlen (path); i++) {
-        if (*(path + i) == '/')
+    for (i=0; i < strlen (path); i++)
+        if (*(path+i) == '/')
             numSlashes++;
-    }
 
-    /* there will now be numSlashes+1 entries */
-    /* first entry is just slash (root) */
-    /* 1..numSlashes-1 is /dir/dir etc. */
-    /* last entry will be whole string */
-    if (indicator->priv->slashCharPosition) {
-        g_free (indicator->priv->slashCharPosition);
-        indicator->priv->slashCharPosition = NULL ;
-    }
+    g_free (indicator->priv->slashCharPosition);
+    g_free (indicator->priv->slashPixelPosition);
+    indicator->priv->slashCharPosition = NULL;
+    indicator->priv->slashPixelPosition = NULL;
 
-    if (indicator->priv->slashPixelPosition) {
-        g_free (indicator->priv->slashPixelPosition);
-        indicator->priv->slashPixelPosition = NULL ;
-    }
-
-    if (numSlashes > 0) {
-        /* if there are any slashes then allocate some memory
-           for storing their positions (both in char positions through
-           the string, and pixel positions on the display */
-        indicator->priv->slashCharPosition = g_malloc ((numSlashes + 1) * sizeof (int));
-        indicator->priv->slashPixelPosition = g_malloc ((numSlashes + 1) * sizeof (int));
+    // if there are any slashes then allocate some memory
+    // for storing their positions (both in char positions through
+    // the string, and pixel positions on the display
+    if (numSlashes > 0)
+    {
+        // there will now be numSlashes+1 entries
+        // first entry is just slash (root)
+        // 1..numSlashes-1 is /dir/dir etc.
+        // last entry will be whole string
+        indicator->priv->slashCharPosition = g_malloc ((numSlashes+1) * sizeof(int));
+        indicator->priv->slashPixelPosition = g_malloc ((numSlashes+1) * sizeof(int));
         indicator->priv->slashCharPosition[0] = 1;
-        indicator->priv->slashPixelPosition[0] = getPixelSize (path, 1);
+        indicator->priv->slashPixelPosition[0] = get_string_pixel_size (path, 1);
         numSlashes = 1;
 
-        for (i = 1; i < strlen (path); i++) {
-            if (*(path + i) == '/') {
-                /* underline everything up to but not including slash
-                 * but include the slash when calculating pixel size,
-                 * as /directory/ = /directory when doing chdir */
+        for (i=1; i<strlen (path); i++)
+            if (*(path+i) == '/')
+            {
+                // underline everything up to but not including slash
+                // but include the slash when calculating pixel size,
+                // as "/directory/" == "/directory" when doing chdir
                 indicator->priv->slashCharPosition[numSlashes] = i;
-                indicator->priv->slashPixelPosition[numSlashes] = getPixelSize (path, i + 1);
+                indicator->priv->slashPixelPosition[numSlashes] = get_string_pixel_size (path, i+1);
                 numSlashes++;
             }
-        }
 
         /* make an entry that is the whole size of the path */
         indicator->priv->slashCharPosition[numSlashes] = strlen (path);
-        indicator->priv->slashPixelPosition[numSlashes] = getPixelSize (path, strlen (path));
+        indicator->priv->slashPixelPosition[numSlashes] = get_string_pixel_size (path, strlen (path));
         numSlashes++;
-        indicator->priv->numPositions = numSlashes;
     }
-    else
-        indicator->priv->numPositions = 0;
+
+    indicator->priv->numPositions = numSlashes;
 
     g_free (s);
 }
