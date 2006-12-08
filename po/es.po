@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-06 21:09+0100\n"
-"PO-Revision-Date: 2006-12-06 21:16+0100\n"
+"PO-Revision-Date: 2006-12-08 17:34+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -239,20 +239,19 @@ msgstr "/Fecha/yymmdd"
 
 #: ../src/gnome-cmd-advrename-dialog.c:166
 msgid "/Date/dd.mm.yy"
-msgstr ""
+msgstr "/Fecha/dd.mm.yy"
 
 #: ../src/gnome-cmd-advrename-dialog.c:167
 msgid "/Date/mm-dd-yy"
-msgstr ""
+msgstr "/Fecha/mm-dd-yy"
 
 #: ../src/gnome-cmd-advrename-dialog.c:168
 msgid "/Date/yyyy"
-msgstr ""
+msgstr "/Fecha/yyyy"
 
 #: ../src/gnome-cmd-advrename-dialog.c:169
-#, fuzzy
 msgid "/Date/yy"
-msgstr "Fecha:"
+msgstr "/Fecha/yy"
 
 #: ../src/gnome-cmd-advrename-dialog.c:170
 msgid "/Date/mm"
@@ -268,31 +267,31 @@ msgstr "/Fecha/dd"
 
 #: ../src/gnome-cmd-advrename-dialog.c:173
 msgid "/Time/<locale>"
-msgstr "/Hota/<locale>"
+msgstr "/Hora/<locale>"
 
 #: ../src/gnome-cmd-advrename-dialog.c:174
 msgid "/Time/HH.MM.SS"
-msgstr ""
+msgstr "/Hora/HH.MM.SS"
 
 #: ../src/gnome-cmd-advrename-dialog.c:175
 msgid "/Time/HH-MM-SS"
-msgstr ""
+msgstr "/Hora/HH-MM-SS"
 
 #: ../src/gnome-cmd-advrename-dialog.c:176
 msgid "/Time/HHMMSS"
-msgstr ""
+msgstr "/Hora/HHMMSS"
 
 #: ../src/gnome-cmd-advrename-dialog.c:177
 msgid "/Time/HH"
-msgstr ""
+msgstr "/Hora/HH"
 
 #: ../src/gnome-cmd-advrename-dialog.c:178
 msgid "/Time/MM"
-msgstr ""
+msgstr "/Hora/MM"
 
 #: ../src/gnome-cmd-advrename-dialog.c:179
 msgid "/Time/SS"
-msgstr ""
+msgstr "/Hora/SS"
 
 #: ../src/gnome-cmd-advrename-dialog.c:448
 #: ../src/gnome-cmd-prepare-xfer-dialog.c:119 ../src/utils.c:728
@@ -381,7 +380,7 @@ msgstr "Fecha"
 
 #: ../src/gnome-cmd-advrename-dialog.c:1158
 msgid "Metatag"
-msgstr ""
+msgstr "Metaetiqueta"
 
 #: ../src/gnome-cmd-advrename-dialog.c:1164
 msgid "Regex replacing"
@@ -1221,7 +1220,7 @@ msgstr "Mostrar archivos de respaldo"
 
 #: ../src/gnome-cmd-main-menu.c:660
 msgid "_Equal Panel Size"
-msgstr ""
+msgstr "Tamaño del panel _igual"
 
 #: ../src/gnome-cmd-main-menu.c:671
 msgid "_Bookmark this Directory..."
@@ -1229,7 +1228,7 @@ msgstr "_Marcar este directorio..."
 
 #: ../src/gnome-cmd-main-menu.c:677
 msgid "_Manage Bookmarks..."
-msgstr "_Administrar marcadores..."
+msgstr "_Gestionar marcadores..."
 
 #: ../src/gnome-cmd-main-menu.c:689
 msgid "_Configure Plugins..."
@@ -1466,7 +1465,7 @@ msgstr "Avanzado"
 
 #: ../src/gnome-cmd-options-dialog.c:210
 msgid "<locale>"
-msgstr ""
+msgstr "<locale>"
 
 #: ../src/gnome-cmd-options-dialog.c:215
 msgid "Grouped"
@@ -2104,7 +2103,7 @@ msgstr ""
 
 #: ../src/libgviewer/search-dlg.c:322
 msgid "Find"
-msgstr ""
+msgstr "Buscar"
 
 #. Search mode radio buttons
 #: ../src/libgviewer/search-dlg.c:352 ../src/libgviewer/viewer-window.c:815
@@ -2276,7 +2275,7 @@ msgstr "Ay_uda rápida"
 #: ../src/libgviewer/viewer-window.c:1248
 #, c-format
 msgid "Pattern \"%s\" was not found"
-msgstr ""
+msgstr "No se encontró el patrón %s"
 
 #: ../src/main.c:53 ../src/main.c:62
 msgid "Specify debug flags to use"
@@ -2334,44 +2333,44 @@ msgstr "_Configurar"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:44
 msgid "<ID3 tags not supported>"
-msgstr ""
+msgstr "<Etiquetas ID3 no soportadas>"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:307
 msgid "Undefined"
-msgstr ""
+msgstr "Indefinido"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:308
 msgid "Layer III"
-msgstr ""
+msgstr "Layer III"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:309
 msgid "Layer II"
-msgstr ""
+msgstr "Layer II"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:310
 msgid "Layer I"
-msgstr ""
+msgstr "Layer I"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:316 ../src/tags/gnome-cmd-tags-id3.c:333
 #: ../src/tags/gnome-cmd-tags-id3.c:363
 msgid "Reserved"
-msgstr ""
+msgstr "Reservado"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:323
 msgid "Stereo"
-msgstr ""
+msgstr "Estéreo"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:324
 msgid "Joint stereo"
-msgstr ""
+msgstr "Joint estéreo"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:325
 msgid "Dual channel"
-msgstr ""
+msgstr "Canal dual"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:326
 msgid "Single channel"
-msgstr ""
+msgstr "Canal simple"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:331
 msgid "None"
@@ -2379,39 +2378,39 @@ msgstr "Ninguno"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:332
 msgid "10-15ms"
-msgstr ""
+msgstr "10-15ms"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:334
 msgid "CCIT J17"
-msgstr ""
+msgstr "CCIT J17"
 
 #: ../src/tags/gnome-cmd-tags-libs.c:50
 msgid "<Exif tags not supported>"
-msgstr ""
+msgstr "<Etiquetas EXIF no soportadas>"
 
 #: ../src/tags/gnome-cmd-tags-libs.c:53
 msgid "<IPTC tags not supported>"
-msgstr ""
+msgstr "<Etiquetas IPTC no soportadas>"
 
 #: ../src/tags/gnome-cmd-tags-libs.c:56
 msgid "<ICC tags not supported>"
-msgstr ""
+msgstr "<Etiquetas ICC no soportadas>"
 
 #: ../src/tags/gnome-cmd-tags.c:61
 msgid "Album Artist"
-msgstr ""
+msgstr "Artista del álbum"
 
 #: ../src/tags/gnome-cmd-tags.c:61
 msgid "Artist of the album."
-msgstr ""
+msgstr "Artista del álbum."
 
 #: ../src/tags/gnome-cmd-tags.c:62
 msgid "Album Gain"
-msgstr ""
+msgstr "Ganancia del álbum"
 
 #: ../src/tags/gnome-cmd-tags.c:62
 msgid "Gain adjustment of album."
-msgstr ""
+msgstr "Ajuste de ganancia del álbum."
 
 #: ../src/tags/gnome-cmd-tags.c:63
 msgid "Album Peak Gain"
@@ -2432,7 +2431,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.c:65 ../src/tags/gnome-cmd-tags.c:695
 #: ../src/tags/gnome-cmd-tags.c:1161
 msgid "Album"
-msgstr ""
+msgstr "Álbum"
 
 #: ../src/tags/gnome-cmd-tags.c:65 ../src/tags/gnome-cmd-tags.c:695
 msgid "Name of the album."
@@ -2440,7 +2439,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:66 ../src/tags/gnome-cmd-tags.c:104
 msgid "Artist"
-msgstr ""
+msgstr "Artista"
 
 #: ../src/tags/gnome-cmd-tags.c:66
 msgid "Artist of the track."
@@ -2460,25 +2459,23 @@ msgstr "Canales"
 
 #: ../src/tags/gnome-cmd-tags.c:68 ../src/tags/gnome-cmd-tags.c:737
 msgid "Number of channels in the audio (2 = stereo)."
-msgstr ""
+msgstr "Número de canales en el sonido (2 = estéreo)."
 
 #: ../src/tags/gnome-cmd-tags.c:69
-#, fuzzy
 msgid "Codec Version"
-msgstr "Versión"
+msgstr "Versión del códec"
 
 #: ../src/tags/gnome-cmd-tags.c:69
 msgid "Codec version."
-msgstr ""
+msgstr "Versión del códec."
 
 #: ../src/tags/gnome-cmd-tags.c:70
-#, fuzzy
 msgid "Codec"
-msgstr "Conectar"
+msgstr "Códec"
 
 #: ../src/tags/gnome-cmd-tags.c:70
 msgid "Codec encoding description."
-msgstr ""
+msgstr "Descripción del códec"
 
 #: ../src/tags/gnome-cmd-tags.c:71 ../src/tags/gnome-cmd-tags.c:738
 msgid "Comment"
@@ -2486,7 +2483,7 @@ msgstr "Comentario"
 
 #: ../src/tags/gnome-cmd-tags.c:71 ../src/tags/gnome-cmd-tags.c:738
 msgid "Comments on the track."
-msgstr ""
+msgstr "Comentarios en la pista."
 
 #: ../src/tags/gnome-cmd-tags.c:72
 msgid "Cover album thumbnail path"
@@ -2498,7 +2495,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:73
 msgid "Disc Number"
-msgstr ""
+msgstr "Número de disco"
 
 #: ../src/tags/gnome-cmd-tags.c:73
 msgid "Specifies which disc the track is on."
@@ -2506,7 +2503,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:74 ../src/tags/gnome-cmd-tags.c:783
 msgid "Duration"
-msgstr ""
+msgstr "Duración"
 
 #: ../src/tags/gnome-cmd-tags.c:74 ../src/tags/gnome-cmd-tags.c:783
 msgid "Duration of track in seconds."
@@ -2531,19 +2528,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:77
 msgid "Last Play"
-msgstr ""
+msgstr "Última reproducción"
 
 #: ../src/tags/gnome-cmd-tags.c:77
 msgid "When track was last played."
-msgstr ""
+msgstr "Cuando se reprodujo la última pista."
 
 #: ../src/tags/gnome-cmd-tags.c:78
 msgid "Lyrics"
-msgstr ""
+msgstr "Letras"
 
 #: ../src/tags/gnome-cmd-tags.c:78
 msgid "Lyrics of the track."
-msgstr ""
+msgstr "Letras de la pista."
 
 #: ../src/tags/gnome-cmd-tags.c:79
 msgid "MB album artist ID"
@@ -2586,9 +2583,8 @@ msgid "Name of the performer/conductor of the music."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:84
-#, fuzzy
 msgid "Play Count"
-msgstr "Apariencia"
+msgstr "Contador de reproducción"
 
 #: ../src/tags/gnome-cmd-tags.c:84
 msgid "Number of times the track has been played."
@@ -2603,19 +2599,17 @@ msgid "Date track was released."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:86 ../src/tags/gnome-cmd-tags.c:1020
-#, fuzzy
 msgid "Sample Rate"
-msgstr "Plantilla"
+msgstr "Velocidad de muestreo"
 
 #: ../src/tags/gnome-cmd-tags.c:86 ../src/tags/gnome-cmd-tags.c:1020
 msgid "Sample rate in Hz."
-msgstr ""
+msgstr "Velocidad de muestreo en Hz."
 
 #: ../src/tags/gnome-cmd-tags.c:87 ../src/tags/gnome-cmd-tags.c:97
 #: ../src/tags/gnome-cmd-tags.c:1071 ../src/tags/gnome-cmd-tags.c:1180
-#, fuzzy
 msgid "Title"
-msgstr "Archivo"
+msgstr "Título"
 
 #: ../src/tags/gnome-cmd-tags.c:87 ../src/tags/gnome-cmd-tags.c:1071
 msgid "Title of the track."
@@ -2631,7 +2625,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:89
 msgid "Track Number"
-msgstr ""
+msgstr "Número de pista"
 
 #: ../src/tags/gnome-cmd-tags.c:89 ../src/tags/gnome-cmd-tags.c:1081
 msgid "Position of track on the album."
@@ -2646,18 +2640,16 @@ msgid "Peak gain adjustment of track."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:91
-#, fuzzy
 msgid "Author"
-msgstr "Autor:"
+msgstr "Autor"
 
 #: ../src/tags/gnome-cmd-tags.c:91 ../src/tags/gnome-cmd-tags.c:1166
 msgid "Name of the author."
-msgstr ""
+msgstr "Nombre del autor."
 
 #: ../src/tags/gnome-cmd-tags.c:92 ../src/tags/gnome-cmd-tags.c:1164
-#, fuzzy
 msgid "Comments"
-msgstr "_Contenido"
+msgstr "Comentarios"
 
 #: ../src/tags/gnome-cmd-tags.c:92 ../src/tags/gnome-cmd-tags.c:1164
 msgid "User definable free text."
@@ -2693,7 +2685,6 @@ msgid "Subject"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:96
-#, fuzzy
 msgid "Document subject."
 msgstr "Documentado por"
 
@@ -2742,7 +2733,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:119
 msgid "Brightness"
-msgstr ""
+msgstr "Brillo"
 
 #: ../src/tags/gnome-cmd-tags.c:119
 msgid ""
@@ -2751,9 +2742,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:124 ../src/tags/gnome-cmd-tags.c:439
-#, fuzzy
 msgid "CFA Pattern"
-msgstr "Patrón:"
+msgstr "Patrón CFA:"
 
 #: ../src/tags/gnome-cmd-tags.c:124
 msgid ""
@@ -2766,9 +2756,8 @@ msgid "CFA Repeat Pattern Dim"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:134
-#, fuzzy
 msgid "Color Space"
-msgstr "Esquema de colores:"
+msgstr "Esquema de colores"
 
 #: ../src/tags/gnome-cmd-tags.c:134
 msgid ""
@@ -2780,9 +2769,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:139
-#, fuzzy
 msgid "Components Configuration"
-msgstr "Confirmación"
+msgstr "Configuración de componentes"
 
 #: ../src/tags/gnome-cmd-tags.c:139
 msgid ""
@@ -2795,9 +2783,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:144
-#, fuzzy
 msgid "Compressed Bits per Pixel"
-msgstr "Nivel de  compresión"
+msgstr "Bits comprimidos por píxel"
 
 #: ../src/tags/gnome-cmd-tags.c:144
 msgid ""
@@ -2806,9 +2793,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:149
-#, fuzzy
 msgid "Compression"
-msgstr "Nivel de  compresión"
+msgstr "Compresión"
 
 #: ../src/tags/gnome-cmd-tags.c:149
 msgid ""
@@ -2829,9 +2815,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:159 ../src/tags/gnome-cmd-tags.c:768
 #: ../src/tags/gnome-cmd-tags.c:1165
-#, fuzzy
 msgid "Copyright"
-msgstr "Copiar"
+msgstr "Copyright"
 
 #: ../src/tags/gnome-cmd-tags.c:159
 msgid ""
@@ -2910,9 +2895,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:194
-#, fuzzy
 msgid "Document Name"
-msgstr "Documentado por"
+msgstr "Nombre del documento"
 
 #: ../src/tags/gnome-cmd-tags.c:199
 msgid "Exif IFD Pointer"
@@ -2925,9 +2909,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:204
-#, fuzzy
 msgid "Exif Version"
-msgstr "Versión"
+msgstr "Versión EXIF"
 
 #: ../src/tags/gnome-cmd-tags.c:204
 msgid ""
@@ -2985,9 +2968,8 @@ msgid "Exposure time, given in seconds."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:234
-#, fuzzy
 msgid "File Source"
-msgstr "Propiedades del archivo"
+msgstr "Origen del archivo"
 
 #: ../src/tags/gnome-cmd-tags.c:234
 msgid ""
@@ -3018,9 +3000,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:254
-#, fuzzy
 msgid "FlashPixVersion"
-msgstr "Versión"
+msgstr "FlashPixVersion"
 
 #: ../src/tags/gnome-cmd-tags.c:254
 msgid "The FlashPix format version supported by a FPXR file."
@@ -3227,9 +3208,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:359
-#, fuzzy
 msgid "Image Width"
-msgstr "Comparar"
+msgstr "Ancho de la imagen"
 
 #: ../src/tags/gnome-cmd-tags.c:359
 msgid ""
@@ -3357,9 +3337,8 @@ msgid "The metering mode."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:434
-#, fuzzy
 msgid "Model"
-msgstr "Moderno"
+msgstr "Modelo"
 
 #: ../src/tags/gnome-cmd-tags.c:434
 msgid ""
@@ -3376,9 +3355,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:444
-#, fuzzy
 msgid "New Subfile Type"
-msgstr "Nuevos nombres de archivos"
+msgstr "Nuevos tipo de subarchivo"
 
 #: ../src/tags/gnome-cmd-tags.c:444
 msgid "A general indication of the kind of data contained in this subfile."
@@ -3397,7 +3375,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:454 ../src/tags/gnome-cmd-tags.c:1178
 msgid "Orientation"
-msgstr ""
+msgstr "Orientación"
 
 #: ../src/tags/gnome-cmd-tags.c:454
 msgid "The image orientation viewed in terms of rows and columns."
@@ -3440,9 +3418,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:474
-#, fuzzy
 msgid "Planar Configuration"
-msgstr "Confirmación"
+msgstr "Configuración planar"
 
 #: ../src/tags/gnome-cmd-tags.c:474
 msgid ""
@@ -3864,27 +3841,24 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:679
-#, fuzzy
 msgid "Accessed"
-msgstr "Accedido:"
+msgstr "Accedido"
 
 #: ../src/tags/gnome-cmd-tags.c:679
 msgid "Last access datetime."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:680
-#, fuzzy
 msgid "Content"
-msgstr "_Contenido"
+msgstr "Contenido"
 
 #: ../src/tags/gnome-cmd-tags.c:680
 msgid "File's contents filtered as plain text."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:681 ../src/tags/gnome-cmd-tags.c:1168
-#, fuzzy
 msgid "Description"
-msgstr "Opciones de directorio"
+msgstr "Descripción"
 
 #: ../src/tags/gnome-cmd-tags.c:681
 msgid "Editable free text/notes."
@@ -3919,14 +3893,12 @@ msgid "Link"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:686
-#, fuzzy
 msgid "URI of link target."
-msgstr "Destino del enlace simbólico:"
+msgstr "URI del enlace de destino."
 
 #: ../src/tags/gnome-cmd-tags.c:687
-#, fuzzy
 msgid "Modified"
-msgstr "Modificado:"
+msgstr "Modificado"
 
 #: ../src/tags/gnome-cmd-tags.c:687
 msgid "Last modified datetime."
@@ -3937,9 +3909,8 @@ msgid "File name excluding path but including the file extension."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:689
-#, fuzzy
 msgid "Path"
-msgstr "ruta"
+msgstr "Ruta"
 
 #: ../src/tags/gnome-cmd-tags.c:689
 msgid "Full file path of file excluding the filename."
@@ -3970,9 +3941,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:693 ../src/tags/gnome-cmd-tags.c:1031
-#, fuzzy
 msgid "Size"
-msgstr "Tamaño:"
+msgstr "Tamaño"
 
 #: ../src/tags/gnome-cmd-tags.c:693
 msgid "Size of the file in bytes or if a directory number of items it contains."
@@ -4047,14 +4017,12 @@ msgid "Music CD identifier."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:736
-#, fuzzy
 msgid "Channel mode"
-msgstr "Cancelar"
+msgstr "Modo del canal"
 
 #: ../src/tags/gnome-cmd-tags.c:736
-#, fuzzy
 msgid "Channel mode."
-msgstr "Cancelar"
+msgstr "Modo del canal."
 
 #: ../src/tags/gnome-cmd-tags.c:743
 msgid "Commercial"
@@ -4083,23 +4051,20 @@ msgid "Conductor."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:758
-#, fuzzy
 msgid "Content Group"
-msgstr "_Contenido"
+msgstr "Grupo de contenido"
 
 #: ../src/tags/gnome-cmd-tags.c:758
 msgid "Content group description."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:763
-#, fuzzy
 msgid "Content Type"
-msgstr "_Contenido"
+msgstr "Tipo de contenido"
 
 #: ../src/tags/gnome-cmd-tags.c:768
-#, fuzzy
 msgid "Copyright message."
-msgstr "Copiar"
+msgstr "Mensaje de Copyright"
 
 #: ../src/tags/gnome-cmd-tags.c:773
 msgid "Encryption Registration"
@@ -4110,9 +4075,8 @@ msgid "Encryption method registration."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:778
-#, fuzzy
 msgid "Date."
-msgstr "Fecha:"
+msgstr "Fecha."
 
 #: ../src/tags/gnome-cmd-tags.c:784
 msgid "Duration [MM:SS]"
@@ -4141,18 +4105,16 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:791
-#, fuzzy
 msgid "Encoder Settings"
-msgstr "Configuración de iconos MIME"
+msgstr "Configuración del codificador"
 
 #: ../src/tags/gnome-cmd-tags.c:791
 msgid "Software."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:796
-#, fuzzy
 msgid "Encoding Time"
-msgstr "_Codificación"
+msgstr "Hora de codificación"
 
 #: ../src/tags/gnome-cmd-tags.c:796
 #, fuzzy
@@ -4213,9 +4175,8 @@ msgid "Number of frames."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:827
-#, fuzzy
 msgid "General Object"
-msgstr "General"
+msgstr "Objeto general"
 
 #: ../src/tags/gnome-cmd-tags.c:827
 msgid "General encapsulated object."
@@ -4309,21 +4270,20 @@ msgid "Interpreted, remixed, or otherwise modified by."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:888
-#, fuzzy
 msgid "Mood"
-msgstr "Moderno"
+msgstr "Sentimiento"
 
 #: ../src/tags/gnome-cmd-tags.c:888
 msgid "Mood."
-msgstr ""
+msgstr "Sentimiento."
 
 #: ../src/tags/gnome-cmd-tags.c:893
 msgid "Layer"
-msgstr ""
+msgstr "Capa"
 
 #: ../src/tags/gnome-cmd-tags.c:893
 msgid "MPEG layer."
-msgstr ""
+msgstr "Capa MPEG."
 
 #: ../src/tags/gnome-cmd-tags.c:894
 msgid "MPEG Lookup"
@@ -4502,12 +4462,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:995
 msgid "Publisher."
-msgstr ""
+msgstr "Editor"
 
 #: ../src/tags/gnome-cmd-tags.c:1000
-#, fuzzy
 msgid "Recording Dates"
-msgstr "Versión"
+msgstr "Fechas de grabación"
 
 #: ../src/tags/gnome-cmd-tags.c:1000
 msgid "Recording dates."
@@ -4532,9 +4491,8 @@ msgid "Release time."
 msgstr "Renombrar archivo"
 
 #: ../src/tags/gnome-cmd-tags.c:1015
-#, fuzzy
 msgid "Reverb"
-msgstr "_Eliminar"
+msgstr "Reverberación"
 
 #: ../src/tags/gnome-cmd-tags.c:1015
 msgid "Reverb."
@@ -4562,7 +4520,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1036
 msgid "Song length"
-msgstr ""
+msgstr "Longitud de la canción"
 
 #: ../src/tags/gnome-cmd-tags.c:1036
 msgid "Length of the song in milliseconds."
@@ -4743,8 +4701,9 @@ msgid "User defined URL link."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1156
+#, fuzzy
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: ../src/tags/gnome-cmd-tags.c:1156
 msgid "Year."
@@ -4981,7 +4940,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1248
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: ../src/tags/gnome-cmd-tags.c:1248
 msgid "City of object origin."
@@ -5045,14 +5004,13 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1283
 msgid "Country Name"
-msgstr ""
+msgstr "Nombre del país"
 
 #: ../src/tags/gnome-cmd-tags.c:1283
 msgid "The name of the country/primary location where the object was created."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1288
-#, fuzzy
 msgid "Credit"
 msgstr "Créditos"
 
@@ -5160,22 +5118,20 @@ msgid "Designates the latest time the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1348
-#, fuzzy
 msgid "File Format"
-msgstr "Formato"
+msgstr "Formato de archivo"
 
 #: ../src/tags/gnome-cmd-tags.c:1348
 msgid "File format of the data described by this metadata."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1353
-#, fuzzy
 msgid "File Version"
-msgstr "Versión"
+msgstr "Versión de archivo"
 
 #: ../src/tags/gnome-cmd-tags.c:1353
 msgid "Version of the file format."
-msgstr ""
+msgstr "Versión del formato de archivo"
 
 #: ../src/tags/gnome-cmd-tags.c:1358
 msgid "Fixture Identifier"
