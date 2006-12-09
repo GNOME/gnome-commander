@@ -28,6 +28,7 @@
 #include "imageloader.h"
 #include "utils.h"
 
+
 struct _GnomeCmdDirIndicatorPrivate
 {
     GtkWidget *event_box;
@@ -122,14 +123,14 @@ update_markup (GnomeCmdDirIndicator *indicator, gint i)
         return;
 
     s = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
-    if (i > 0)
+    
+    if (i >= 0)
     {
-        gchar *mt, *ms;
         gchar *t = g_strdup (&s[indicator->priv->slashCharPosition[i]]);
         s[indicator->priv->slashCharPosition[i]] = '\0';
 
-        mt = get_mono_text (t);
-        ms = get_bold_mono_text (s);
+        gchar *mt = get_mono_text (t);
+        gchar *ms = get_bold_mono_text (s);
         m = g_strdup_printf ("%s%s", ms, mt);
         g_free (t);
         g_free (mt);
@@ -162,7 +163,7 @@ on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
     iX = (gint)event->x;
     iY = (gint)event->y;
 
-    for (i = 0; i < indicator->priv->numPositions; i++)
+    for (i=0; i < indicator->priv->numPositions; i++)
     {
         if (iX < indicator->priv->slashPixelPosition[i])
         {
@@ -177,12 +178,13 @@ on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
         }
 
         /* clear underline, cursor=pointer */
-        update_markup (indicator, 0);
+        update_markup (indicator, -1);
         gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
     }
 
     return TRUE;
 }
+
 
 static gint
 on_dir_indicator_leave (GnomeCmdDirIndicator *indicator,
@@ -192,7 +194,7 @@ on_dir_indicator_leave (GnomeCmdDirIndicator *indicator,
     g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 
     /* clear underline, cursor=pointer */
-    update_markup (indicator, 0);
+    update_markup (indicator, -1);
     gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
 
     return TRUE;
@@ -450,12 +452,12 @@ init (GnomeCmdDirIndicator *indicator)
 
     indicator->priv = g_new0 (GnomeCmdDirIndicatorPrivate, 1);
     // below assignments are not necessary any longer due to above g_new0()
-    // indicator->priv->dir_history_popup = NULL;
-    // indicator->priv->bookmark_popup = NULL;
-    // indicator->priv->history_is_popped = FALSE;
-    // indicator->priv->slashCharPosition = NULL;
-    // indicator->priv->slashPixelPosition = NULL;
-    // indicator->priv->numPositions = 0;
+    //  indicator->priv->dir_history_popup = NULL;
+    //  indicator->priv->bookmark_popup = NULL;
+    //  indicator->priv->history_is_popped = FALSE;
+    //  indicator->priv->slashCharPosition = NULL;
+    //  indicator->priv->slashPixelPosition = NULL;
+    //  indicator->priv->numPositions = 0;
 
     /* create the directory label and it's event box */
     indicator->priv->event_box = gtk_event_box_new ();
@@ -549,73 +551,74 @@ gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 }
 
 
-static gint count_chars(const gchar *s, const gchar *set)
-{
-    gint n=0;
-
-    while (*s)
-        if (strchr(set,*s++))
-            ++n;
-
-    return n;
-}
-
-
 void
 gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *path)
 {
     gchar *s = get_utf8 (path);
     gtk_label_set_text (GTK_LABEL (indicator->priv->label), s);
-    update_markup (indicator, 0);
-
-    gint i;
-    gint numSlashes = 0;
-
-    /* Count the number of slashes in the string */
-    for (i=0; i < strlen (path); i++)
-        if (*(path+i) == '/')
-            numSlashes++;
+    update_markup (indicator, -1);
+    g_free (s);
 
     g_free (indicator->priv->slashCharPosition);
     g_free (indicator->priv->slashPixelPosition);
+    indicator->priv->numPositions = 0;
     indicator->priv->slashCharPosition = NULL;
     indicator->priv->slashPixelPosition = NULL;
 
-    // if there are any slashes then allocate some memory
-    // for storing their positions (both in char positions through
-    // the string, and pixel positions on the display
-    if (numSlashes > 0)
+    if (!path)
+        return;
+
+    gboolean isUNC = g_str_has_prefix(path,"\\\\");
+
+    if (!isUNC && *path!=G_DIR_SEPARATOR)
+        return;
+
+    const gchar sep = isUNC ? '\\' : G_DIR_SEPARATOR;
+    GArray *pos = g_array_sized_new (FALSE, FALSE, sizeof(gint), 16);
+    gint i;
+
+    for (s = isUNC ? path+2 : path+1; *s; ++s)
+        if (*s==sep)
+        {
+            i = s-path;
+            g_array_append_val (pos, i);
+        }
+
+    gint path_len = s-path;
+
+    // allocate memory for storing (back)slashes positions
+    // (both char positions within the string and their pixel positions in the display)
+
+    // now there will be pos->len+1 entries for UNC:
+    //    [0..pos->len-1] is '\\host\share\dir' etc.
+    //    last entry [pos->len] will be the whole UNC
+    // and pos->len+2 entries otherwise:
+    //    first entry [0] is just '/' (root)
+    //    [1..pos->len] is '/dir/dir' etc.
+    //    last entry [pos->len+1] will be the whole path
+
+    indicator->priv->numPositions = isUNC || path_len==1 ? pos->len+1 : pos->len+2;
+    indicator->priv->slashCharPosition = g_new (gint, indicator->priv->numPositions);
+    indicator->priv->slashPixelPosition = g_new (gint, indicator->priv->numPositions);
+
+    gint pos_idx = 0;
+
+    if (!isUNC && path_len>1)
     {
-        // there will now be numSlashes+1 entries
-        // first entry is just slash (root)
-        // 1..numSlashes-1 is /dir/dir etc.
-        // last entry will be whole string
-        indicator->priv->slashCharPosition = g_malloc ((numSlashes+1) * sizeof(int));
-        indicator->priv->slashPixelPosition = g_malloc ((numSlashes+1) * sizeof(int));
-        indicator->priv->slashCharPosition[0] = 1;
-        indicator->priv->slashPixelPosition[0] = get_string_pixel_size (path, 1);
-        numSlashes = 1;
-
-        for (i=1; i<strlen (path); i++)
-            if (*(path+i) == '/')
-            {
-                // underline everything up to but not including slash
-                // but include the slash when calculating pixel size,
-                // as "/directory/" == "/directory" when doing chdir
-                indicator->priv->slashCharPosition[numSlashes] = i;
-                indicator->priv->slashPixelPosition[numSlashes] = get_string_pixel_size (path, i+1);
-                numSlashes++;
-            }
-
-        /* make an entry that is the whole size of the path */
-        indicator->priv->slashCharPosition[numSlashes] = strlen (path);
-        indicator->priv->slashPixelPosition[numSlashes] = get_string_pixel_size (path, strlen (path));
-        numSlashes++;
+        indicator->priv->slashCharPosition[pos_idx] = 1;
+        indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, 1);
     }
 
-    indicator->priv->numPositions = numSlashes;
+    for (i=0; i < pos->len; i++)
+    {
+        indicator->priv->slashCharPosition[pos_idx] = g_array_index (pos, gint, i);
+        indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, g_array_index (pos, gint, i)+1);
+    }
 
-    g_free (s);
+    indicator->priv->slashCharPosition[pos_idx] = path_len;
+    indicator->priv->slashPixelPosition[pos_idx] = get_string_pixel_size (path, path_len);
+
+    g_array_free (pos, TRUE);
 }
 
 

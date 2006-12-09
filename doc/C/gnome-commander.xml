@@ -4847,6 +4847,9 @@
                             <para>Fixed problem with grouping of file size digits</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem with SMB UNC handling</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #367744 (filename not correctly displayed)</para>
                         </listitem>
                         <listitem>
