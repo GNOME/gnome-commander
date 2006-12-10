@@ -2,6 +2,11 @@
 #                                   1.2.2                                    #
 ##############################################################################
 
+2006-12-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-dir-indicator.c:
+	Yet another fix for SMB UNC handling
+
 2006-12-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-dir-indicator.c:

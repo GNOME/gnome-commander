@@ -589,34 +589,40 @@ gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *p
     // allocate memory for storing (back)slashes positions
     // (both char positions within the string and their pixel positions in the display)
 
-    // now there will be pos->len+1 entries for UNC:
-    //    [0..pos->len-1] is '\\host\share\dir' etc.
-    //    last entry [pos->len] will be the whole UNC
+    // now there will be pos->len entries for UNC:
+    //    [0..pos->len-2] is '\\host\share\dir' etc.
+    //    last entry [pos->len-1] will be the whole UNC
+    // pos->len+1 (1) entries for '/' (root):
+    //    last entry [pos->len] will be the whole path ('/')
     // and pos->len+2 entries otherwise:
     //    first entry [0] is just '/' (root)
     //    [1..pos->len] is '/dir/dir' etc.
     //    last entry [pos->len+1] will be the whole path
 
-    indicator->priv->numPositions = isUNC || path_len==1 ? pos->len+1 : pos->len+2;
+    indicator->priv->numPositions = isUNC ? pos->len :
+                                    path_len==1 ? pos->len+1 : pos->len+2;
     indicator->priv->slashCharPosition = g_new (gint, indicator->priv->numPositions);
     indicator->priv->slashPixelPosition = g_new (gint, indicator->priv->numPositions);
 
     gint pos_idx = 0;
-
+    
     if (!isUNC && path_len>1)
     {
         indicator->priv->slashCharPosition[pos_idx] = 1;
         indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, 1);
     }
-
-    for (i=0; i < pos->len; i++)
+    
+    for (i = isUNC ? 1 : 0; i < pos->len; i++)
     {
         indicator->priv->slashCharPosition[pos_idx] = g_array_index (pos, gint, i);
         indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, g_array_index (pos, gint, i)+1);
     }
 
-    indicator->priv->slashCharPosition[pos_idx] = path_len;
-    indicator->priv->slashPixelPosition[pos_idx] = get_string_pixel_size (path, path_len);
+    if (indicator->priv->numPositions>0)
+    {
+        indicator->priv->slashCharPosition[pos_idx] = path_len;
+        indicator->priv->slashPixelPosition[pos_idx] = get_string_pixel_size (path, path_len);
+    }
 
     g_array_free (pos, TRUE);
 }
