@@ -3341,6 +3341,14 @@
 <!-- This section contains info about the keyboard mappings.-->
   <sect1 id="gnome-commander-keyboard">
     <title>Keyboard mappings for &app;</title>
+        <note>
+          <para>Some keyboard shortcuts may not work as expected under the Gnome  
+                environment. The reason for that is that Gnome uses some global
+                shortcuts (i.e. <keycap>ALT+F7</keycap> moves the entire application window), 
+                which suppresses assigned keyboard mapping of &app;. Use the GNOME
+                Keyboard Shortcuts preference tool to customize the default keyboard
+                shortcuts to your requirements.</para>
+        </note>
         <informaltable frame="topbot">
         <tgroup cols="2">
             <colspec colname="col1"/>
@@ -4835,7 +4843,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.2</para></entry>
-            <entry><para>2006-12-10</para></entry>
+            <entry><para>2006-12-11</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
