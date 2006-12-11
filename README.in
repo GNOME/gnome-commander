@@ -1,8 +1,8 @@
-				GNOME Commander Version @VERSION@
+                GNOME Commander Version @VERSION@
 
-				Copyright (C) 2001-2006
-				Marcus Bjurman <marbj499@student.liu.se>
-				http://www.freesoftware.fsf.org/gcmd/
+                Copyright (C) 2001-2006
+                Marcus Bjurman <marbj499@student.liu.se>
+                http://www.freesoftware.fsf.org/gcmd/
 
 
 Topics:
@@ -48,16 +48,16 @@ Cool hacks:
 
 Translations:
   * Since this program now is in the gnome cvs tree, translations should be
-    commited directly to the tree there. I do not wish to manually commit
-	updates for each language any more.
+    commited directly to the tree there.
 
-Graphics:	
+Graphics:
   * Help on the default low-res mime theme (pixmaps/mime-icons) is very welcome.
 
 Plugins:
   * If you have created a new plugin let us know about it on the mailing list.
-  
-					   
+
+
+
 3. Building
 --------------------------------
 This is a list of required libraries:
@@ -70,6 +70,13 @@ This is a list of required libraries:
     gnome-commander makes use of that functionality by being able to update
     its visible directories even when files are create/deleted or changed in
     other programs.
+
+  * libexif:
+    Optional.
+
+  * libiptcdata
+
+  * libid3
 
 
 
@@ -92,14 +99,14 @@ in the AUTHORS file.
 [Q1] When will GNOME Commander support browsing of compressed archives?
 
 [A1] This will be done when GnomeVFS gets it working. All file operations are
-	 done using this API so it would be very impractical to implement it using
-	 some other library.
+     done using this API so it would be very impractical to implement it using
+     some other library.
 
 
 [Q2] Some of the keyboard shortcuts in GNOME Commander are also used by my
      window manager, can they be changed?
 
-[A2] Not at the moment, but maybe later on.	 
+[A2] Not at the moment, but maybe later on.
 
 
 

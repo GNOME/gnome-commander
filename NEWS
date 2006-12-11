@@ -3,9 +3,7 @@ gnome-commander 1.2.3
 ---------------
 
 Bug fixes:
-
-New features:
- * New key bindings:
+ * Fixed problem #384752 (wrong permissions for new dirs)
 
 
 ===================================

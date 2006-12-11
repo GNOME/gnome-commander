@@ -50,10 +50,9 @@ on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdMkdirD
     GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (dialog->priv->dir, filename);
 
     GnomeVFSResult result = gnome_vfs_make_directory_for_uri (uri,
-                                                              GNOME_VFS_PERM_ACCESS_READABLE|
-                                                              GNOME_VFS_PERM_USER_WRITE|
-                                                              GNOME_VFS_PERM_ACCESS_EXECUTABLE);
-
+                                                              GNOME_VFS_PERM_USER_READ|GNOME_VFS_PERM_USER_WRITE|GNOME_VFS_PERM_USER_EXEC|
+                                                              GNOME_VFS_PERM_GROUP_READ|GNOME_VFS_PERM_GROUP_EXEC|
+                                                              GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
     if (result == GNOME_VFS_OK)
     {
         gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
