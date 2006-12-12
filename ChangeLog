@@ -1,3 +1,7 @@
+2006-12-12  sstanev <sstanev@narod.ru>
+
+	* configure.in: Added bg in ALL_LINGUAS
+
 2006-12-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in: Bumped version to 1.2.4

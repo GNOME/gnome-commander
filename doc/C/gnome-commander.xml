@@ -2,8 +2,8 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.2.3">
-  <!ENTITY manrevision "1.2.3">
+  <!ENTITY appversion "1.2.4">
+  <!ENTITY manrevision "1.2.4">
   <!ENTITY date "January 2007">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
@@ -4841,6 +4841,39 @@
         </row>
     </thead>
     <tbody>
+        <row valign="top">
+            <entry><para>1.2.4</para></entry>
+            <entry><para>2007-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem ...</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Updated help docs</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: bg</para>
+                        </listitem>
+                        <listitem>
+                            <para>New key bindings:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para><keycap>CTRL+SHIFT+=</keycap>   ...</para>
+                                </listitem>
+                            </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
         <row valign="top">
             <entry><para>1.2.3</para></entry>
             <entry><para>2006-12-11</para></entry>
