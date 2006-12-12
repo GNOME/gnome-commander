@@ -16,13 +16,13 @@
 
 Name:          @PACKAGE@
 Version:       @VERSION@
-Release:       %{rel}
-Summary:       GNOME Commander is a nice and fast file manager for the GNOME desktop. 
+Release:       %{rel}%{?dist}
+Summary:       GNOME Commander is a nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
 Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME.
 
 Group:         Applications/File
-License:       GPL2
+License:       GPL
 URL:           http://www.freesoftware.fsf.org/gcmd/
 Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/gnome-commander/1.2/@PACKAGE@-@VERSION@.tar%{srcext}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -46,16 +46,27 @@ Requires(postun): scrollkeeper
 Distribution:  Any
 
 %description
-GNOME Commander is a nice and fast file manager for the GNOME desktop. In addition to performing the basic filemanager functions the program is also an FTP-client and it can browse SMB-networks.
+GNOME Commander is a nice and fast file manager for the GNOME desktop. 
+In addition to performing the basic filemanager functions the program is also 
+an FTP-client and it can browse SMB-networks.
 
 %description -l pl
-GNOME Commander to niewielki i wydajny menadżer plików umożliwiający wykonywanie za pomocą klawiatury wszystkich standardowych operacji na plikach. Dostępne są również dodatkowe funkcje jak np. obsługa FTP, czy też obsługa sieci SMB.
+GNOME Commander to niewielki i wydajny menadżer plików umożliwiający 
+wykonywanie za pomocą klawiatury wszystkich standardowych operacji na plikach.
+Dostępne są również dodatkowe funkcje jak np. obsługa FTP, czy też obsługa 
+sieci SMB.
 
 %description -l ru
-Быстро работающий файловый менеджер для Gnome. Может выполнять большинство типовых операций с файлами, умеет обнаруживать изменения, внесенные в файлы другими программами, и автоматически обновлять отображаемый список файлов. Поддерживает описания файловых структур в формате DND и кодировки MIME. Реализует на базовом уровне поддержку FTP через GnomeVFS.
+Быстро работающий файловый менеджер для Gnome. Может выполнять большинство 
+типовых операций с файлами, умеет обнаруживать изменения, внесенные в файлы 
+другими программами, и автоматически обновлять отображаемый список файлов. 
+Поддерживает описания файловых структур в формате DND и кодировки MIME. 
+Реализует на базовом уровне поддержку FTP через GnomeVFS.
 
 %description -l sv
-GNOME Commander är en snabb och smidig filhanderare för GNOME. Utöver att kunna hantera filer på din egen dator så kan programmet även ansluta till FTP-servrar och SMB-nätverk.
+GNOME Commander är en snabb och smidig filhanderare för GNOME. 
+Utöver att kunna hantera filer på din egen dator så kan programmet även 
+ansluta till FTP-servrar och SMB-nätverk.
 
 %prep
 %setup -q
@@ -113,6 +124,14 @@ fi
 %{_datadir}/pixmaps
 
 %changelog
+* Tue Dec 12 2006 Stephanos Manos <stefmanos AT gmail DOT com> @VERSION@-1
+- Minor cleanups/fixes to make rpmlint silent
+       -changelog: entries starting with % (added a second %)
+       -changelog: replaced tabs with spaces
+       -descriptions: splitted in multiple lines
+       -summary: removed ending dot
+       -license: changed license-tag form GPL2 to GPL
+
 * Tue Nov 14 2006 Piotr Eljasiak <epiotr@use.pl>
 - fixed Source0 address
 
@@ -121,10 +140,10 @@ fi
 
 * Sun May 14 2006 Stephanos Manos <stefmanos@gmail.com>
 - Fixed Scrollkeeper database update
-	-disabled scrollkeeper update from make
-	-added scrollkeeper-database-update in the %post & %postun section
-- Added %post & %postun entries for the desktop file
-- Added %post & %postun entries for the gtk+ icon cache file
+        -disabled scrollkeeper update from make
+        -added scrollkeeper-database-update in the %%post & %%postun section
+- Added %%post & %%postun entries for the desktop file
+- Added %%post & %%postun entries for the gtk+ icon cache file
 
 * Sun Apr 9 2006 Piotr Eljasiak <epiotr@use.pl>
 - minor cleanups
@@ -133,8 +152,8 @@ fi
 - added OMF files
 
 * Mon Feb 13 2006 Piotr Eljasiak <epiotr@use.pl>
-- install @PACKAGE@ icon to %{_datadir}/pixmaps/
-- install @PACKAGE@.1* to %{_mandir}/man1/
+- install @PACKAGE@ icon to %%{_datadir}/pixmaps/
+- install @PACKAGE@.1* to %%{_mandir}/man1/
 
 * Sat Feb 11 2006 Piotr Eljasiak <epiotr@use.pl>
 - set default srcext to .bz2
