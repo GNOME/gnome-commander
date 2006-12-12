@@ -38,34 +38,37 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
                         GList *results, /* GnomeVFSGetFileInfoResult* items */
                         GnomeCmdCon *con)
 {
-    GnomeCmdConSmb *smb_con;
-    GnomeVFSGetFileInfoResult *r;
-
     g_return_if_fail (results != NULL);
 
-    smb_con = GNOME_CMD_CON_SMB (con);
+    GnomeCmdConSmb *smb_con = GNOME_CMD_CON_SMB (con);
 
-    if (con->state == CON_STATE_OPENING) {
-        r = (GnomeVFSGetFileInfoResult*)results->data;
-        if (r && r->result == GNOME_VFS_OK) {
+    if (con->state == CON_STATE_OPENING)
+    {
+        GnomeVFSGetFileInfoResult *r = (GnomeVFSGetFileInfoResult*)results->data;
+
+        if (r && r->result == GNOME_VFS_OK)
+        {
             gnome_vfs_file_info_ref (r->file_info);
             con->state = CON_STATE_OPEN;
             con->base_info = r->file_info;
             con->open_result = CON_OPEN_OK;
         }
-        else if (r) {
+        else if (r)
+        {
             con->state = CON_STATE_CLOSED;
             con->open_result = CON_OPEN_FAILED;
             con->open_failed_reason = r->result;
         }
-        else {
+        else
+        {
             g_warning ("No result at all\n");
             con->state = CON_STATE_CLOSED;
             con->open_result = CON_OPEN_FAILED;
         }
     }
-    else if (con->state == CON_STATE_CANCELLING)
-        DEBUG('m', "The open operation was cancelled, doing nothing\n");
+    else
+        if (con->state == CON_STATE_CANCELLING)
+            DEBUG('m', "The open operation was cancelled, doing nothing\n");
     else
         DEBUG('m', "Strange ConState %d\n", con->state);
 
@@ -76,19 +79,15 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
 static void
 smb_open (GnomeCmdCon *con)
 {
-    GList *uri_list;
-    GnomeVFSAsyncHandle *handle;
-    GnomeVFSURI *uri;
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_FOLLOW_LINKS
-        | GNOME_VFS_FILE_INFO_GET_MIME_TYPE
-        | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE;
-
-    if (!con->base_path) {
+    if (!con->base_path)
+    {
         con->base_path = gnome_cmd_smb_path_new (NULL, NULL, NULL);
         gtk_object_ref (GTK_OBJECT (con->base_path));
     }
-    uri = gnome_cmd_con_create_uri (con, con->base_path);
-    if (!uri) {
+
+    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
+    if (!uri)
+    {
         DEBUG('m', "gnome_cmd_con_create_uri returned NULL\n");
         con->state = CON_STATE_CLOSED;
         con->open_result = CON_OPEN_FAILED;
@@ -97,10 +96,15 @@ smb_open (GnomeCmdCon *con)
     }
 
     DEBUG('l', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, 0));
-    uri_list = g_list_append (NULL, uri);
+    GList *uri_list = g_list_append (NULL, uri);
 
     con->state = CON_STATE_OPENING;
     con->open_result = CON_OPEN_IN_PROGRESS;
+
+    GnomeVFSAsyncHandle *handle;
+    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_FOLLOW_LINKS
+        | GNOME_VFS_FILE_INFO_GET_MIME_TYPE
+        | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE;
 
     gnome_vfs_async_get_file_info (
         &handle,
@@ -137,8 +141,6 @@ static GnomeVFSURI *
 smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     GnomeVFSURI *u1, *u2;
-    const gchar *p;
-    gchar *s;
 
     u1 = gnome_vfs_uri_new ("smb:");
     if (!u1) return NULL;
@@ -147,8 +149,8 @@ smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
     gnome_vfs_uri_unref (u1);
     if (!u2) return NULL;
 
-    p = gnome_vfs_uri_get_path (u2);
-    s = g_strdup_printf ("smb:/%s", p);
+    const gchar *p = gnome_vfs_uri_get_path (u2);
+    gchar *s = g_strdup_printf ("smb:/%s", p);
     u1 = gnome_vfs_uri_new (s);
     gnome_vfs_uri_unref (u2);
     g_free (s);
@@ -184,11 +186,9 @@ destroy (GtkObject *object)
 static void
 class_init (GnomeCmdConSmbClass *klass)
 {
-    GtkObjectClass *object_class;
-    GnomeCmdConClass *con_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    con_class = GNOME_CMD_CON_CLASS (klass);
     parent_class = gtk_type_class (gnome_cmd_con_get_type ());
 
     object_class->destroy = destroy;
@@ -257,9 +257,7 @@ gnome_cmd_con_smb_get_type         (void)
 GnomeCmdCon *
 gnome_cmd_con_smb_new (void)
 {
-    GnomeCmdConSmb *con;
-
-    con = gtk_type_new (gnome_cmd_con_smb_get_type ());
+    GnomeCmdConSmb *con = gtk_type_new (gnome_cmd_con_smb_get_type ());
 
     return GNOME_CMD_CON (con);
 }

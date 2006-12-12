@@ -65,15 +65,13 @@ blocking_list (const gchar *uri_str, GList **list)
 static GList *
 get_hosts (const gchar *wg)
 {
-    GnomeVFSResult result;
-    GList *fileinfos, *list;
-    gchar *uri_str;
+    GList *fileinfos;
 
-    uri_str = g_strdup_printf ("smb://%s", wg);
-    result = blocking_list (uri_str, &fileinfos);
+    gchar *uri_str = g_strdup_printf ("smb://%s", wg);
+    GnomeVFSResult result = blocking_list (uri_str, &fileinfos);
     g_free (uri_str);
 
-    list = NULL;
+    GList *list = NULL;
 
     if (result == GNOME_VFS_OK)
         g_list_foreach (fileinfos, (GFunc)add_host_to_list, &list);
@@ -85,12 +83,11 @@ get_hosts (const gchar *wg)
 static GList *
 get_wgs ()
 {
-    GnomeVFSResult result;
-    GList *fileinfos, *list;
+    GList *fileinfos;
 
-    result = blocking_list ("smb://", &fileinfos);
+    GnomeVFSResult result = blocking_list ("smb://", &fileinfos);
 
-    list = NULL;
+    GList *list = NULL;
 
     if (result == GNOME_VFS_OK)
         g_list_foreach (fileinfos, (GFunc)add_wg_to_list, &list);
@@ -160,18 +157,19 @@ gnome_cmd_smb_net_get_entity (const gchar *name)
     SmbEntity *ent;
     gboolean b = FALSE;
 
-    if (!entities) {
+    if (!entities) 
+    {
         DEBUG ('s', "Building the SMB database for the first time.\n");
         rebuild_map ();
         b = TRUE;
     }
 
     ent = g_hash_table_lookup (entities, name);
-    if (!ent && !b) {
+    if (!ent && !b) 
+    {
         DEBUG ('s', "Entity not found, rebuilding the database\n");
         rebuild_map ();
         ent = g_hash_table_lookup (entities, name);
-
     }
 
     if (ent)
@@ -179,8 +177,6 @@ gnome_cmd_smb_net_get_entity (const gchar *name)
     else
         DEBUG ('s', "No entity named %s found\n", name);
 
-
     return ent;
 }
-
 

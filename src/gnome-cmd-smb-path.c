@@ -106,7 +106,9 @@ smb_path_get_child (GnomeCmdPath *path, const gchar *child)
     g_return_val_if_fail (child != NULL, NULL);
     g_return_val_if_fail (child[0] != '/', NULL);
 
-    gchar *a = NULL, *b = NULL, *c = NULL;
+    gchar *a = NULL,
+          *b = NULL,
+          *c = NULL;
 
     GnomeCmdSmbPath *smb_path = GNOME_CMD_SMB_PATH (path);
 
@@ -270,18 +272,17 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
     gint i;
     gchar *s, *t;
     gchar **v;
-    gchar *a = NULL, *b = NULL, *c = NULL;
-    SmbEntity *ent;
+    gchar *a = NULL,
+          *b = NULL,
+          *c = NULL;
     GnomeCmdPath *out = NULL;
 
     DEBUG('s', "Creating smb-path for %s\n", path_str);
 
     t = g_strdup (path_str);
 
-    /* Replace \ with / */
-    for (i=0 ; i<strlen(t) ; i++)
-        if (t[i] == '\\')
-            t[i] = '/';
+    /* Replace '\' with '/' */
+    g_strdelimit (t, "\\", '/');
 
     /* Eat up all leading slashes */
     for (s=g_strdup (t); *s=='/'; ++s)
@@ -310,7 +311,8 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
             }
         }
 
-        ent = gnome_cmd_smb_net_get_entity (a);
+        SmbEntity *ent = gnome_cmd_smb_net_get_entity (a);
+
         if (ent)
         {
             if (ent->type == SMB_WORKGROUP)

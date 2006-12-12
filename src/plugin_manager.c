@@ -55,7 +55,8 @@ load_plugin (PluginData *data)
     }
 
     /* Try to get a reference to the "get_plugin_info" function */
-    if (!g_module_symbol (module, MODULE_INFO_FUNC, (gpointer*)&info_func)) {
+    if (!g_module_symbol (module, MODULE_INFO_FUNC, (gpointer*)&info_func))
+    {
         g_printerr ("ERROR: The plugin-file '%s' has no function named '%s'.\n", data->fname, MODULE_INFO_FUNC);
         g_module_close (module);
         return;
@@ -72,7 +73,8 @@ load_plugin (PluginData *data)
     }
 
     /* Check that the plugin is compatible */
-    if (data->info->plugin_system_version != GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION) {
+    if (data->info->plugin_system_version != GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION)
+    {
         g_printerr ("ERROR: The plugin '%s' is not compatible with this version of %s:\n", data->info->name, PACKAGE);
         g_printerr ("  Plugin system supported by the plugin is %d, it should be %d\n", data->info->plugin_system_version,
                     GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION);
@@ -80,7 +82,8 @@ load_plugin (PluginData *data)
     }
 
     /* Try to get a reference to the "create_plugin" function */
-    if (!g_module_symbol (module, MODULE_INIT_FUNC, (gpointer*)&init_func)) {
+    if (!g_module_symbol (module, MODULE_INIT_FUNC, (gpointer*)&init_func))
+    {
         g_printerr ("ERROR: The plugin '%s' has no '%s' function\n", data->info->name, MODULE_INIT_FUNC);
         g_module_close (module);
         return;
@@ -106,8 +109,6 @@ load_plugin (PluginData *data)
 static void
 activate_plugin (PluginData *data)
 {
-    GnomeCmdState *state;
-
     if (data->active)
         return;
 
@@ -119,7 +120,7 @@ activate_plugin (PluginData *data)
 
     data->active = TRUE;
 
-    state = gnome_cmd_main_win_get_state (main_win);
+    GnomeCmdState *state = gnome_cmd_main_win_get_state (main_win);
     data->menu = gnome_cmd_plugin_create_main_menu (data->plugin, state);
     if (data->menu)
         gnome_cmd_main_win_add_plugin_menu (main_win, data);
@@ -167,8 +168,8 @@ scan_plugins_in_dir (const gchar *dpath)
         {
             if (buf.st_mode & S_IFREG)
             {
-                /* the direntry has the .so extension and is a regular file
-                   lets accept it */
+                // the direntry has the .so extension and is a regular file
+                // lets accept it
                 PluginData *data = g_new (PluginData, 1);
                 data->fname = g_strdup (ent->d_name);
                 data->fpath = g_build_path (G_DIR_SEPARATOR_S, dpath, ent->d_name, NULL);
@@ -202,16 +203,14 @@ scan_plugins_in_dir (const gchar *dpath)
 
 void plugin_manager_init (void)
 {
-    gchar *user_dir;
-    GList *l;
-
-    if (plugins) {
+    if (plugins)
+    {
         warn_print ("plugin_manager already initiated\n");
         return;
     }
 
     /* find user plugins */
-    user_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir(), ".gnome-commander/plugins", NULL);
+    gchar *user_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir(), ".gnome-commander/plugins", NULL);
     create_dir_if_needed (user_dir);
     scan_plugins_in_dir (user_dir);
     g_free (user_dir);
@@ -220,12 +219,14 @@ void plugin_manager_init (void)
     scan_plugins_in_dir (PLUGIN_DIR);
 
     /* activate plugins */
-    for ( l = gnome_cmd_data_get_auto_load_plugins (); l; l = l->next )
+    GList *l;
+    
+    for (l=gnome_cmd_data_get_auto_load_plugins (); l; l=l->next)
     {
         char *name = (gchar*)l->data;
         GList *l2;
 
-        for ( l2 = plugins; l2; l2 = l2->next)
+        for (l2 = plugins; l2; l2 = l2->next)
         {
             PluginData *data = (PluginData*)l2->data;
             if (strcmp (name, data->fname) == 0)
@@ -234,7 +235,7 @@ void plugin_manager_init (void)
     }
 
     /* inactivate plugins that shouldn't be autoloaded */
-    for ( l = plugins; l; l = l->next)
+    for (l=plugins; l; l=l->next)
     {
         PluginData *data = (PluginData*)l->data;
         if (!data->autoload)
@@ -248,7 +249,7 @@ void plugin_manager_shutdown (void)
     GList *l;
     GList *out = NULL;
 
-    for ( l = plugins; l; l = l->next )
+    for (l=plugins; l; l=l->next)
     {
         PluginData *data = (PluginData*)l->data;
         if (data->active)
@@ -280,8 +281,9 @@ update_plugin_list (GtkCList *list, GtkWidget *dialog)
     gint row = 0;
     gboolean only_update = (list->rows > 0);
 
-    tmp = plugins;
-    while (tmp) {
+
+    for (tmp=plugins; tmp; tmp=tmp->next)
+    {
         PluginData *data = (PluginData*)tmp->data;
         gchar *text[5];
 
@@ -305,7 +307,6 @@ update_plugin_list (GtkCList *list, GtkWidget *dialog)
         gtk_clist_set_row_data (list, row, data);
 
         row++;
-        tmp = tmp->next;
     }
 
     gtk_clist_select_row (list, old_focus, 0);
@@ -320,14 +321,12 @@ do_toggle (GtkWidget *dialog)
 
     if (!data) return;
 
-    if (data->active) {
+    if (data->active)
         inactivate_plugin (data);
-        update_plugin_list (list, dialog);
-    }
-    else {
+    else
         activate_plugin (data);
-        update_plugin_list (list, dialog);
-    }
+
+    update_plugin_list (list, dialog);
 }
 
 
@@ -342,23 +341,16 @@ on_plugin_selected (GtkCList *list, gint row, gint column,
     PluginData *data = get_selected_plugin (list);
     g_return_if_fail (data != NULL);
 
-    if (event && event->type == GDK_2BUTTON_PRESS && event->button == 1) {
+    if (event && event->type == GDK_2BUTTON_PRESS && event->button == 1)
+    {
         do_toggle (dialog);
         return;
     }
 
     gtk_widget_set_sensitive (about_button, TRUE);
-
-    if (data->active) {
-        gtk_button_set_label (GTK_BUTTON (toggle_button), _("Disable"));
-        gtk_widget_set_sensitive (toggle_button, TRUE);
-        gtk_widget_set_sensitive (conf_button, TRUE);
-    }
-    else {
-        gtk_button_set_label (GTK_BUTTON (toggle_button), _("Enable"));
-        gtk_widget_set_sensitive (toggle_button, TRUE);
-        gtk_widget_set_sensitive (conf_button, FALSE);
-    }
+    gtk_button_set_label (GTK_BUTTON (toggle_button), data->active ? _("Disable") : _("Enable"));
+    gtk_widget_set_sensitive (toggle_button, TRUE);
+    gtk_widget_set_sensitive (conf_button, data->active);
 }
 
 
@@ -401,11 +393,10 @@ on_about (GtkButton *button, GtkWidget *dialog)
 {
     GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
     PluginData *data = get_selected_plugin (list);
-    GtkWidget *about;
+    GtkWidget *about = gnome_cmd_about_plugin_new (data->info);
 
     g_return_if_fail (data != NULL);
 
-    about = gnome_cmd_about_plugin_new (data->info);
     gtk_window_set_transient_for (GTK_WINDOW (about), GTK_WINDOW (main_win));
     gtk_widget_ref (about);
     gtk_widget_show (about);
@@ -459,12 +450,14 @@ void plugin_manager_show (void)
     avail_list = lookup_widget (avail_list, "avail_list");
     gtk_signal_connect (GTK_OBJECT (avail_list), "unselect-row", GTK_SIGNAL_FUNC (on_plugin_unselected), dialog);
 
-    if (!exec_pixmap) {
+    if (!exec_pixmap)
+    {
         exec_pixmap = IMAGE_get_pixmap (PIXMAP_EXEC_WHEEL);
         exec_mask = IMAGE_get_mask (PIXMAP_EXEC_WHEEL);
     }
 
-    if (!blank_pixmap) {
+    if (!blank_pixmap)
+    {
         blank_pixmap = IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_BLANK);
         blank_mask = IMAGE_get_mask (PIXMAP_FLIST_ARROW_BLANK);
     }
@@ -478,5 +471,3 @@ void plugin_manager_show (void)
     gtk_window_set_resizable(GTK_WIDGET (dialog), TRUE);
     gtk_widget_show_all (GTK_WIDGET (dialog));
 }
-
-
