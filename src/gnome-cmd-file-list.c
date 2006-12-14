@@ -2306,7 +2306,9 @@ gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
     finfo = gnome_cmd_file_list_get_selected_file (fl);
 
     if (finfo)
-        gnome_cmd_file_view (finfo, internal_viewer!=-1 ? internal_viewer : gnome_cmd_data_get_use_internal_viewer ());
+        if (finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+            gnome_cmd_file_view (finfo, internal_viewer!=-1 ? internal_viewer : 
+                                                              gnome_cmd_data_get_use_internal_viewer ());
 }
 
 
