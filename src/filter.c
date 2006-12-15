@@ -17,6 +17,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+#include <config.h>
 #include <sys/types.h>
 #include <regex.h>
 #include "gnome-cmd-includes.h"

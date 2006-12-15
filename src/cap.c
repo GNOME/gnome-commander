@@ -16,6 +16,7 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "cap.h"
@@ -30,6 +31,7 @@
 static int _type = 0;
 static GList *_files = NULL;
 static GnomeCmdFileList *_fl = NULL;
+
 
 static void
 on_xfer_done (GList *files, gpointer data)
@@ -48,6 +50,7 @@ static void update_refs (GnomeCmdFileList *fl, GList *files)
     _fl = fl;
 }
 
+
 static void cut_and_paste (GnomeCmdDir *to)
 {
     gnome_cmd_dir_ref (to);
@@ -62,6 +65,7 @@ static void cut_and_paste (GnomeCmdDir *to)
     _fl = NULL;
     gnome_cmd_main_win_set_cap_state (main_win, FALSE);
 }
+
 
 static void copy_and_paste (GnomeCmdDir *to)
 {
@@ -78,6 +82,7 @@ static void copy_and_paste (GnomeCmdDir *to)
     gnome_cmd_main_win_set_cap_state (main_win, FALSE);
 }
 
+
 void cap_cut_files (GnomeCmdFileList *fl, GList *files)
 {
     update_refs (fl, files);
@@ -85,6 +90,7 @@ void cap_cut_files (GnomeCmdFileList *fl, GList *files)
     _type = GNOME_CMD_CUTTED;
     gnome_cmd_main_win_set_cap_state (main_win, TRUE);
 }
+
 
 
 void cap_copy_files (GnomeCmdFileList *fl, GList *files)
