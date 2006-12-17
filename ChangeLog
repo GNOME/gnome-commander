@@ -1,3 +1,9 @@
+2006-12-17  Stephanos Manos <stefmanos@gmail.com>
+
+	* data/gnome-commander.spec.in:
+	Removed unnecessary .a libs from rpm
+	Added dependencies for optional libs
+
 2006-12-14  Henry Yonathan <henry.yonathan@gmail.com>
 
 	* src/gnome-cmd-file-list.c:

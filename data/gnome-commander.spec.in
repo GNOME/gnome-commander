@@ -19,7 +19,7 @@ Version:       @VERSION@
 Release:       %{rel}%{?dist}
 Summary:       GNOME Commander is a nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
-Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME.
+Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
 
 Group:         Applications/File
 License:       GPL
@@ -42,6 +42,11 @@ Requires(postun): desktop-file-utils
 
 Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
+
+BuildRequires:   id3lib-devel libexif-devel 
+#libiptcdata-devel
+Requires:        id3lib libexif 
+#libiptcdata
 
 Distribution:  Any
 
@@ -77,7 +82,13 @@ ansluta till FTP-servrar och SMB-nätverk.
 
 %install
 %{__rm} -rf %{buildroot}
-%makeinstall
+%{__make} DESTDIR=%{buildroot} install
+
+#Remove not needed .a files
+%{__rm} %{buildroot}%{_libdir}/gnome-commander/libgviewer.a
+%{__rm} %{buildroot}%{_libdir}/gnome-commander/plugins/libfileroller.a
+%{__rm} %{buildroot}%{_libdir}/gnome-commander/libgcmd.a
+%{__rm} %{buildroot}%{_libdir}/gnome-commander/plugins/libcvs.a
 
 %find_lang %{name}
 
@@ -124,7 +135,11 @@ fi
 %{_datadir}/pixmaps
 
 %changelog
-* Tue Dec 12 2006 Stephanos Manos <stefmanos AT gmail DOT com> @VERSION@-1
+* Fri Dec 15 2006 Stephanos Manos <stefmanos AT gmail DOT com> @VERSION@-1
+- remove not needed .a files
+- added build and runtime deps for libexif id3lib
+
+* Tue Dec 12 2006 Stephanos Manos <stefmanos AT gmail DOT com>
 - Minor cleanups/fixes to make rpmlint silent
        -changelog: entries starting with % (added a second %)
        -changelog: replaced tabs with spaces
