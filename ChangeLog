@@ -1,3 +1,9 @@
+2006-12-17  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	Use version requirements for rpm from configure.in
+
 2006-12-17  Stephanos Manos <stefmanos@gmail.com>
 
 	* data/gnome-commander.spec.in:

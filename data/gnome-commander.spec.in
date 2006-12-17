@@ -27,26 +27,30 @@ URL:           http://www.freesoftware.fsf.org/gcmd/
 Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/gnome-commander/1.2/@PACKAGE@-@VERSION@.tar%{srcext}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: scrollkeeper gettext >= 0.10.36
-Requires:      gtk2 >= 2.6
-Requires:      glib >= 2.6
-Requires:      gnome-vfs2 >= 2.0
-BuildRequires: gnome-vfs2-devel >= 2.0
-Requires:      libgnomeui >= 2.0
-BuildRequires: libgnomeui-devel >= 2.0
+Requires:      glib2 >= @GLIB_REQ@
+BuildRequires: glib2-devel >= @GLIB_REQ@
+Requires:      gtk2 >= @GTK_REQ@
+BuildRequires: gtk2-devel >= @GTK_REQ@
+Requires:      gnome-vfs2 >= @GNOMEVFS_REQ@
+BuildRequires: gnome-vfs2-devel >= @GNOMEVFS_REQ@
+Requires:      libgnomeui >= @GNOMEUI_REQ@
+BuildRequires: libgnomeui-devel >= @GNOMEUI_REQ@
 BuildRequires: intltool
 BuildRequires: gnome-doc-utils >= 0.3.2
 
-BuildRequires: gnome-doc-utils >= 0.3.2
 Requires(post): desktop-file-utils
 Requires(postun): desktop-file-utils
 
 Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
 
-BuildRequires:   id3lib-devel libexif-devel 
-#libiptcdata-devel
-Requires:        id3lib libexif 
-#libiptcdata
+BuildRequires:   libexif-devel >= @LIBEXIF_REQ@
+#BuildRequires:  libiptcdata-devel >= @LIBIPTCDATA_REQ@
+BuildRequires:   id3lib-devel >= @ID3LIB_REQ@
+
+Requires:        libexif >= @LIBEXIF_REQ@
+#Requires:       libiptcdata >= @LIBIPTCDATA_REQ@
+Requires:        id3lib >= @ID3LIB_REQ@
 
 Distribution:  Any
 
@@ -118,7 +122,6 @@ if [ -x %{_bindir}/gtk-update-icon-cache ]; then
    %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
 fi
 
-    
 %clean
 %{__rm} -rf %{buildroot}
 
@@ -135,12 +138,16 @@ fi
 %{_datadir}/pixmaps
 
 %changelog
-* Fri Dec 15 2006 Stephanos Manos <stefmanos AT gmail DOT com> @VERSION@-1
-- remove not needed .a files
+* Sun Dec 17 2006 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+- use version requirements from configure.in
+- changed dependencies from glib to glib2
+
+* Fri Dec 15 2006 Stephanos Manos <stefmanos AT gmail DOT com> 1.2.4-1
+- removed not needed .a files
 - added build and runtime deps for libexif id3lib
 
-* Tue Dec 12 2006 Stephanos Manos <stefmanos AT gmail DOT com>
-- Minor cleanups/fixes to make rpmlint silent
+* Tue Dec 12 2006 Stephanos Manos <stefmanos AT gmail DOT com> 1.2.4-1
+- minor cleanups/fixes to make rpmlint silent
        -changelog: entries starting with % (added a second %)
        -changelog: replaced tabs with spaces
        -descriptions: splitted in multiple lines

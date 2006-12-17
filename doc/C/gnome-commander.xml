@@ -4851,6 +4851,9 @@
                         <listitem>
                             <para>Fixed problem with opening dirs by intviewer</para>
                         </listitem>
+                        <listitem>
+                            <para>Build fixes</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
