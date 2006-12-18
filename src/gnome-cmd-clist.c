@@ -555,7 +555,7 @@ on_realize                          (GtkCList *clist,
 {
     gint i;
 
-    for (i=0 ; i<clist->columns ; i++ ) {
+    for (i=0 ; i<clist->columns ; i++) {
         if (clist->column[i].button)
             GTK_WIDGET_UNSET_FLAGS (clist->column[i].button, GTK_CAN_FOCUS);
     }
@@ -660,11 +660,11 @@ gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 
     clist = g_object_new (gnome_cmd_clist_get_type(), "n_columns", columns, NULL);
 
-    for ( i=0 ; i<columns ; i++ )
+    for (i=0 ; i<columns ; i++)
         gtk_clist_set_column_auto_resize (GTK_CLIST (clist), i, TRUE);
 
     if (titles != NULL) {
-        for ( i=0 ; i<columns; i++ )
+        for (i=0 ; i<columns; i++)
             gtk_clist_set_column_title (GTK_CLIST (clist), i, titles[i]);
     }
 

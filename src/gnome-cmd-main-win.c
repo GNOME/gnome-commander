@@ -121,9 +121,9 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget,
     if (event->type!=GDK_KEY_PRESS)
         return FALSE;
 
-    if ( !( (event->keyval >= GDK_A && event->keyval <= GDK_Z) ||
+    if (!((event->keyval >= GDK_A && event->keyval <= GDK_Z) ||
             (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
-            (event->keyval == GDK_period) ) )
+            (event->keyval == GDK_period)))
         return FALSE;
 
 
@@ -211,7 +211,7 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
     if (!toolbar_tooltips)
         toolbar_tooltips = gtk_tooltips_new ();
 
-    for ( i=0 ; uiinfo[i].type != GNOME_APP_UI_ENDOFINFO ; i++ ) {
+    for (i=0 ; uiinfo[i].type != GNOME_APP_UI_ENDOFINFO ; i++) {
         GtkWidget *w;
 
         if (uiinfo[i].type == GNOME_APP_UI_SEPARATOR) {
@@ -223,7 +223,7 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 
             w = create_styled_button (NULL);
             gtk_signal_connect (GTK_OBJECT (w), "clicked", uiinfo[i].moreinfo, uiinfo[i].user_data);
-            gtk_tooltips_set_tip ( toolbar_tooltips, w, uiinfo[i].hint, NULL);
+            gtk_tooltips_set_tip (toolbar_tooltips, w, uiinfo[i].hint, NULL);
             GTK_WIDGET_UNSET_FLAGS (w, GTK_CAN_FOCUS);
 
             pixmap = create_ui_pixmap (
@@ -374,7 +374,7 @@ create_slide_popup ()
 
     /* Set default callback data
      */
-    for ( i = 0; popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
+    for (i = 0; popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
         if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
 
     menu = gtk_menu_new ();
@@ -612,7 +612,7 @@ on_size_allocate                  (GtkWidget *widget,
                                    GtkAllocation *allocation,
                                    gpointer user_data)
 {
-    switch( gnome_cmd_data_get_main_win_state() ) {
+    switch(gnome_cmd_data_get_main_win_state()) {
     case GDK_WINDOW_STATE_ICONIFIED:
     case GDK_WINDOW_STATE_MAXIMIZED:
     case GDK_WINDOW_STATE_FULLSCREEN:
@@ -725,7 +725,7 @@ restore_size_and_pos (GnomeCmdMainWin *mw)
     if (x >= 0 && y >= 0)
         gtk_window_move (GTK_WINDOW (mw), x, y);
 
-    switch( gnome_cmd_data_get_main_win_state() ) {
+    switch(gnome_cmd_data_get_main_win_state()) {
     case GDK_WINDOW_STATE_MAXIMIZED:
     case GDK_WINDOW_STATE_FULLSCREEN:
         gtk_window_maximize (GTK_WINDOW (mw));

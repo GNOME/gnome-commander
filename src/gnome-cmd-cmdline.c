@@ -46,7 +46,8 @@ update_history_combo (GnomeCmdCmdline *cmdline)
 
     gnome_cmd_combo_clear (GNOME_CMD_COMBO (cmdline->priv->combo));
 
-    while (tmp) {
+    for (; tmp; tmp = tmp->next)
+    {
         gchar *command = (gchar*)tmp->data;
         gchar *text[2];
 
@@ -54,7 +55,6 @@ update_history_combo (GnomeCmdCmdline *cmdline)
         text[1] = NULL;
 
         gnome_cmd_combo_append (GNOME_CMD_COMBO (cmdline->priv->combo), text, command);
-        tmp = tmp->next;
     }
 
     gtk_clist_select_row (GTK_CLIST (GNOME_CMD_COMBO (cmdline->priv->combo)->list), 0, 0);

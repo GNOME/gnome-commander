@@ -114,7 +114,7 @@ set_selected_group (GnomeCmdBookmarkDialog *dialog, GnomeCmdBookmarkGroup *group
 
     gtk_clist_clear (GTK_CLIST (dialog->priv->dir_list));
 
-    for ( bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next )
+    for (bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next)
     {
         GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)bookmarks->data;
         do_add_bookmark (dialog, bookmark);
@@ -307,10 +307,10 @@ static void
 add_groups (GnomeCmdBookmarkDialog *dialog)
 {
     gchar *text[3];
-    gint row;
-    GList *groups = dialog->priv->groups;
+    GList *groups;
 
-    while (groups) {
+    for (groups = dialog->priv->groups; groups; groups = groups->next) 
+    {
         GnomeCmdBookmarkGroup *group = (GnomeCmdBookmarkGroup*)groups->data;
         GnomeCmdPixmap *pixmap = gnome_cmd_con_get_open_pixmap (group->con);
 
@@ -318,10 +318,8 @@ add_groups (GnomeCmdBookmarkDialog *dialog)
         text[1] = (gchar*)gnome_cmd_con_get_alias (group->con);
         text[2] = NULL;
 
-        row = gnome_cmd_combo_append (GNOME_CMD_COMBO (dialog->priv->combo), text, group);
+        gint row = gnome_cmd_combo_append (GNOME_CMD_COMBO (dialog->priv->combo), text, group);
         gnome_cmd_combo_set_pixmap (GNOME_CMD_COMBO (dialog->priv->combo), row, 0, pixmap);
-
-        groups = groups->next;
     }
 }
 
@@ -336,7 +334,7 @@ add_bookmarks (GnomeCmdBookmarkDialog *dialog)
     g_return_if_fail (current_con != NULL);
 
     /* Then add bookmarks for all connections */
-    for (all_cons = gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ()); all_cons; all_cons = all_cons->next ) 
+    for (all_cons = gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ()); all_cons; all_cons = all_cons->next) 
     {
         GnomeCmdCon *con = (GnomeCmdCon*)all_cons->data;
         group = gnome_cmd_con_get_bookmarks (con);

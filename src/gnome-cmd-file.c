@@ -469,7 +469,7 @@ gnome_cmd_file_get_extension (GnomeCmdFile *file)
         return NULL;
 
     len = strlen (file->info->name);
-    for ( i=len ; i>0 ; i-- ) {
+    for (i=len ; i>0 ; i--) {
         if (file->info->name[i] == '.')
             return &file->info->name[i+1];
     }

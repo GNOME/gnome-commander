@@ -152,12 +152,9 @@ static void set_text_history(GViewerSearchDlg *sdlg)
 {
 	GList *strings;
 
-	strings = sdlg->priv->text_pattern_history;
-	while (strings) {
+	for (strings = sdlg->priv->text_pattern_history; strings; strings = strings->next)
 		if (strings->data!=NULL)
 			gtk_combo_box_prepend_text(GTK_COMBO_BOX(sdlg->priv->entry), (gchar*)strings->data);
-		strings = strings->next;
-	}
 }
 
 static void set_text_mode(GViewerSearchDlg *sdlg)
@@ -179,12 +176,9 @@ static void set_hex_mode(GViewerSearchDlg *sdlg)
 #if HEX_HISTORY
 	GList *strings;
 
-	strings = sdlg->priv->hex_pattern_history;
-	while (strings) {
+	for (strings = sdlg->priv->hex_pattern_history; strings; strings = strings->next) 
 		if (strings->data!=NULL)
 			gtk_combo_box_prepend_text(GTK_COMBO_BOX(sdlg->priv->entry), (gchar*)strings->data);
-		strings = strings->next;
-	}
 #endif
 
 	gtk_widget_grab_focus(sdlg->priv->entry);
@@ -300,7 +294,7 @@ void entry_changed(GtkEntry *entry,gpointer  user_data)
 		enable = (buf!=NULL) && (len>0) ;
 		if (buf)
 			g_free(buf);
-	} else { 
+	} else {
 		/* SEARCH_MODE_TEXT */
 		enable = (strlen(gtk_entry_get_text(entry))>0) ;
 	}

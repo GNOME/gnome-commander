@@ -1,7 +1,7 @@
 /*
-    LibGViewer - GTK+ File Viewer library 
+    LibGViewer - GTK+ File Viewer library
     Copyright (C) 2006 Assaf Gordon
-    
+
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
@@ -35,7 +35,7 @@ gchar* gviewer_get_string (const gchar *path, const gchar *def)
 	gboolean b = FALSE;
 	gchar *value = gnome_config_get_string_with_default (path, &b);
 	if (b)
-		return g_strdup (def);	
+		return g_strdup (def);
 	return value;
 }
 
@@ -60,40 +60,34 @@ gboolean gviewer_get_bool (const gchar *path, gboolean def)
 void   gviewer_free_string_history (GList *strings)
 {
     GList *temp;
-	
-    temp = strings;
-    while (temp) {
-	if (temp->data!=NULL) {
-		g_free(temp->data);
-		temp->data = NULL ;
-	}
-        temp = temp->next;
-    }
+
+    for (temp = strings; temp; temp = temp->next)
+        if (temp->data!=NULL)
+        {
+            g_free(temp->data);
+            temp->data = NULL ;
+        }
     g_list_free(strings);
 }
 
 void gviewer_write_string_history (gchar *format, GList *strings)
 {
-    gint i = 0;
+    gint i;
     gchar key[128];
 
-    while (strings) {
+    for (i=0; strings; strings = strings->next, ++i)
+    {
         snprintf (key, sizeof (key), format, i);
-	gnome_config_set_string(key, (gchar*)strings->data);
-        strings = strings->next;
-        i++;
+        gnome_config_set_string(key, (gchar*)strings->data);
     }
 }
 
 gboolean gviewer_find_string_history(GList *strings, const gchar *text)
 {
-    while (strings) {
-	if (strings->data!=NULL) {
-		if (strcmp( (gchar*)strings->data, text)==0)
-			return TRUE ;
-	}
-        strings= strings->next;
-    }
+    for (; strings; strings = strings->next)
+    	if (strings->data!=NULL)
+    		if (strcmp( (gchar*)strings->data, text)==0)
+    			return TRUE ;
     return FALSE;
 }
 
@@ -153,7 +147,7 @@ char_type* convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
 	guint32 unicode_char;
 	const gchar* pos;
 	char_type *result;
-	
+
 	g_return_val_if_fail(utf8text!=NULL,NULL);
 	g_return_val_if_fail(array_length!=NULL,NULL);
 
@@ -161,15 +155,15 @@ char_type* convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
 
 	length = g_utf8_strlen(utf8text,-1);
 	g_return_val_if_fail(length>0,NULL);
-	
+
 	result = g_new0(char_type, length) ;
 	*array_length = length ;
-	
+
 	index = 0;
 	pos = utf8text ;
 	while (index<length) {
 		unicode_char = g_utf8_get_char(pos);
-		
+
 		unicode2utf8(unicode_char, (unsigned char*)&result[index]) ;
 
 		pos = g_utf8_next_char(pos);
@@ -179,7 +173,7 @@ char_type* convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
 		}
 		index++;
 	}
-	
+
 	return result;
 }
 
@@ -187,14 +181,14 @@ guint8 *mem_reverse(const guint8 *buffer, guint buflen)
 {
 	guint8* result ;
 	guint i,j;
-	
+
 	g_return_val_if_fail(buffer!=NULL,NULL);
 	g_return_val_if_fail(buflen>0,NULL);
-	
+
 	result = g_new0(guint8, buflen);
 	for (i=0, j=buflen-1;i<buflen;i++,j--)
 		result[i] = buffer[j];
-	
+
 	return result;
 }
 
@@ -204,10 +198,10 @@ guint8 *text2hex(const gchar* text, /*out*/ guint *buflen)
 	int idx,len;
 	guint8 value ;
 	gboolean high_nib;
-	
+
 	g_return_val_if_fail(text!=NULL,NULL) ;
 	g_return_val_if_fail(buflen!=NULL,NULL) ;
-	
+
 	idx = 0;
 	len = 0 ;
 	while ( text[idx]) {
@@ -220,12 +214,12 @@ guint8 *text2hex(const gchar* text, /*out*/ guint *buflen)
 		} else
 			return NULL;
 	}
-	
+
 	if (len % 2 != 0)
 		return NULL ;
-	
+
 	result = g_new0(guint8, len);
-	
+
 	idx = 0;
 	len = 0;
 	high_nib = TRUE ;

@@ -113,7 +113,7 @@ void IMAGE_init (void)
     /*
      * Load misc icons
      */
-    for ( i=1 ; i<NUM_PIXMAPS ; i++ )
+    for (i=1 ; i<NUM_PIXMAPS ; i++)
     {
         gchar *path = g_build_path (G_DIR_SEPARATOR_S, PIXMAPS_DIR, pixmap_files[i], NULL);
 
@@ -141,7 +141,7 @@ void IMAGE_init (void)
     /*
      * Load file type icons
      */
-    for ( i=0 ; i<NUM_FILE_TYPE_PIXMAPS ; i++ )
+    for (i=0 ; i<NUM_FILE_TYPE_PIXMAPS ; i++)
     {
         CacheEntry *e = &file_type_pixmaps[i];
         gchar *path = g_build_path (G_DIR_SEPARATOR_S, PIXMAPS_DIR, file_type_pixmap_files[i], NULL);
@@ -210,7 +210,7 @@ get_mime_icon_name (const gchar *mime_type)
     gint l = strlen(tmp);
 
     /* replace '/' with '-' */
-    for ( i=0 ; i<l ; i++ )
+    for (i=0 ; i<l ; i++)
         if (tmp[i] == '/')
             tmp[i] = '-';
 
@@ -299,7 +299,7 @@ get_category_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
     gint i;
 
-    for ( i=0 ; i<NUM_CATEGORIES ; i++ )
+    for (i=0 ; i<NUM_CATEGORIES ; i++)
         if (strncmp (mime_type, categories[i][0], strlen (categories[i][0])) == 0)
             return g_build_path (G_DIR_SEPARATOR_S, icon_dir, categories[i][1], NULL);
 
@@ -524,7 +524,7 @@ void IMAGE_free (void)
 {
     int i;
 
-    for ( i=0 ; i<NUM_PIXMAPS ; i++ )
+    for (i=0 ; i<NUM_PIXMAPS ; i++)
     {
         if (pixmaps[i]) gnome_cmd_pixmap_free (pixmaps[i]);
         pixmaps[i] = NULL;

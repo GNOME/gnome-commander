@@ -103,9 +103,7 @@ gnome_cmd_file_collection_get_type         (void)
 GnomeCmdFileCollection *
 gnome_cmd_file_collection_new (void)
 {
-    GnomeCmdFileCollection *collection;
-
-    collection = gtk_type_new (gnome_cmd_file_collection_get_type ());
+    GnomeCmdFileCollection *collection = gtk_type_new (gnome_cmd_file_collection_get_type ());
 
     return collection;
 }
@@ -115,15 +113,12 @@ void
 gnome_cmd_file_collection_add (GnomeCmdFileCollection *collection,
                                GnomeCmdFile *file)
 {
-    gchar *uri_str;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection));
     g_return_if_fail (GNOME_CMD_IS_FILE (file));
 
-    collection->priv->list = g_list_append (
-        collection->priv->list, file);
+    collection->priv->list = g_list_append (collection->priv->list, file);
 
-    uri_str = gnome_cmd_file_get_uri_str (file);
+    gchar *uri_str = gnome_cmd_file_get_uri_str (file);
     g_hash_table_insert (collection->priv->map, uri_str, file);
     gnome_cmd_file_ref (file);
 }
@@ -133,11 +128,8 @@ void
 gnome_cmd_file_collection_add_list (GnomeCmdFileCollection *collection,
                                     GList *files)
 {
-    while (files) {
-        gnome_cmd_file_collection_add (
-            collection, GNOME_CMD_FILE (files->data));
-        files = files->next;
-    }
+    for (; files; files = files->next)
+        gnome_cmd_file_collection_add (collection, GNOME_CMD_FILE (files->data));
 }
 
 
@@ -145,15 +137,12 @@ void
 gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection,
                                   GnomeCmdFile *file)
 {
-    gchar *uri_str;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection));
     g_return_if_fail (GNOME_CMD_IS_FILE (file));
 
-    collection->priv->list = g_list_remove (
-        collection->priv->list, file);
+    collection->priv->list = g_list_remove (collection->priv->list, file);
 
-    uri_str = gnome_cmd_file_get_uri_str (file);
+    gchar *uri_str = gnome_cmd_file_get_uri_str (file);
     g_hash_table_remove (collection->priv->map, uri_str);
     g_free (uri_str);
 }
@@ -163,14 +152,11 @@ void
 gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection,
                                          const gchar *uri_str)
 {
-    GnomeCmdFile *file;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection));
     g_return_if_fail (uri_str != NULL);
 
-    file = gnome_cmd_file_collection_lookup (collection, uri_str);
-    collection->priv->list = g_list_remove (
-        collection->priv->list, file);
+    GnomeCmdFile *file = gnome_cmd_file_collection_lookup (collection, uri_str);
+    collection->priv->list = g_list_remove (collection->priv->list, file);
 
     g_hash_table_remove (collection->priv->map, uri_str);
 }
@@ -204,8 +190,7 @@ gnome_cmd_file_collection_clear (GnomeCmdFileCollection *collection)
     g_list_free (collection->priv->list);
     collection->priv->list = NULL;
     g_hash_table_destroy (collection->priv->map);
-    collection->priv->map = g_hash_table_new_full (
-        g_str_hash, g_str_equal, g_free, (GDestroyNotify)gnome_cmd_file_unref);
+    collection->priv->map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)gnome_cmd_file_unref);
 }
 
 

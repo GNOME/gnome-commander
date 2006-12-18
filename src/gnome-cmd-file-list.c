@@ -559,8 +559,7 @@ build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         GList *tmp = sel_files;
         GList *uri_str_list = NULL;
 
-        /* create a list with the uri's of the selected files
-           and calculate the total_length needed */
+        /* create a list with the uri's of the selected files and calculate the total_length needed */
         while (tmp)
         {
             GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;

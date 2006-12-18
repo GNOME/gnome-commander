@@ -438,7 +438,7 @@ remove_vfs_volume (GnomeVFSVolume *volume)
             device_fn = (gchar*)gnome_cmd_con_device_get_device_fn (device);
             mountp = gnome_cmd_con_device_get_mountp (device);
 
-            if ( (strcmp(device_fn, path)==0) && (strcmp(mountp,localpath)==0) ) {
+            if ((strcmp(device_fn, path)==0) && (strcmp(mountp,localpath)==0)) {
                 DEBUG('m',"Remove Volume:\ndevice_fn = %s\tmountp = %s\n",
                 device_fn,mountp);
                 gnome_cmd_con_list_remove_device(data->priv->con_list, device);
@@ -519,7 +519,7 @@ add_vfs_volume (GnomeVFSVolume *volume)
     localpath = gnome_vfs_get_local_path_from_uri (uri);
 
     DEBUG('m',"name = %s\n", name);
-    DEBUG('m',"path = %s\n", path );
+    DEBUG('m',"path = %s\n", path);
     DEBUG('m',"uri = %s\n", uri);
     DEBUG('m',"local = %s\n", localpath);
     DEBUG('m',"icon = %s (full path = %s)\n", icon, iconpath);
@@ -721,13 +721,15 @@ load_fav_apps (const gchar *fname)
         gchar *name2, *cmd2, *icon_path2, *pattern_string2;
         gint target, handles_uris, handles_multiple, requires_terminal;
 
-        do {
+        do
+        {
             ret = fscanf (fd, "%s %s %s %d %s %d %d %d\n",
                           name, cmd, icon_path,
                           &target, pattern_string,
                           &handles_uris, &handles_multiple, &requires_terminal);
 
-            if (ret == 8) {
+            if (ret == 8)
+            {
                 name2      = gnome_vfs_unescape_string (name, NULL);
                 cmd2       = gnome_vfs_unescape_string (cmd, NULL);
                 icon_path2 = gnome_vfs_unescape_string (icon_path, NULL);
@@ -745,7 +747,8 @@ load_fav_apps (const gchar *fname)
                 g_free (icon_path2);
                 g_free (pattern_string2);
             }
-        } while (ret == 8);
+        }
+        while (ret == 8);
 
         fclose (fd);
     }
@@ -762,11 +765,10 @@ write_string_history (gchar *format, GList *strings)
     gint i = 0;
     gchar key[128];
 
-    while (strings) {
+    for (i = 0; strings; strings = strings->next, ++i)
+    {
         snprintf (key, sizeof (key), format, i);
         gnome_cmd_data_set_string (key, (gchar*)strings->data);
-        strings = strings->next;
-        i++;
     }
 }
 
@@ -776,7 +778,8 @@ write_int_array (const gchar *format, gint *array, gint length)
 {
     gint i;
 
-    for ( i=0; i<length; i++ ) {
+    for (i=0; i<length; i++)
+    {
         gchar *name = g_strdup_printf (format, i);
         gnome_cmd_data_set_int (name, array[i]);
         g_free (name);
@@ -819,12 +822,12 @@ write_rename_history ()
     GList *from=NULL, *to=NULL, *csens=NULL;
     GList *tmp = data->priv->advrename_defaults->patterns;
 
-    while (tmp) {
+    for (; tmp; tmp = tmp->next)
+    {
         PatternEntry *entry = (PatternEntry*)tmp->data;
         from = g_list_append (from, entry->from);
         to = g_list_append (to, entry->to);
         csens = g_list_append (csens, entry->case_sens?t:f);
-        tmp = tmp->next;
     }
 
     gnome_cmd_data_set_int ("/options/template-auto-update", data->priv->advrename_defaults->auto_update);
@@ -863,7 +866,7 @@ write_local_bookmarks ()
     GList *names = NULL;
     GList *paths = NULL;
 
-    for ( tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next ) {
+    for (tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next) {
         GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)tmp->data;
         names = g_list_append (names, bookmark->name);
         paths = g_list_append (paths, bookmark->path);
@@ -883,7 +886,7 @@ write_smb_bookmarks ()
     GList *names = NULL;
     GList *paths = NULL;
 
-    for ( tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next ) {
+    for (tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next) {
         GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*) tmp->data;
         names = g_list_append (names, bookmark->name);
         paths = g_list_append (paths, bookmark->path);
@@ -908,7 +911,7 @@ load_int_array (const gchar *format, gint *array, gint length)
 {
     gint i;
 
-    for ( i=0; i<length; i++ ) {
+    for (i=0; i<length; i++) {
         gchar *name = g_strdup_printf (format, i);
         array[i] = gnome_cmd_data_get_int (name, array[i]);
         g_free (name);
@@ -1000,7 +1003,8 @@ load_rename_history ()
     tmp_to = to = load_string_history ("/rename-history-to/to%d", size);
     tmp_csens = csens = load_string_history ("/rename-history-csens/csens%d", size);
 
-    while (tmp_from && size > 0) {
+    while (tmp_from && size > 0)
+    {
         PatternEntry *entry = g_new0 (PatternEntry, 1);
         entry->from = (gchar*)tmp_from->data;
         entry->to = (gchar*)tmp_to->data;
@@ -1033,7 +1037,7 @@ load_local_bookmarks ()
     gint i;
     GList *bookmarks = NULL;
 
-    for ( i=0; i<size; i++ ) {
+    for (i=0; i<size; i++) {
         GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
         bookmark->name = g_list_nth_data (names, i);
         bookmark->path = g_list_nth_data (paths, i);
@@ -1059,7 +1063,7 @@ load_smb_bookmarks ()
 
     con = gnome_cmd_con_list_get_smb (data->priv->con_list);
 
-    for ( i=0; i<size; i++ ) {
+    for (i=0; i<size; i++) {
         GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
         bookmark->name = g_list_nth_data (names, i);
         bookmark->path = g_list_nth_data (paths, i);
@@ -1120,7 +1124,7 @@ gnome_cmd_data_save                      (void)
 {
     gint i;
 
-    for ( i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++ ) {
+    for (i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++) {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/bookmark_dialog_col_width%d", i);
         gnome_config_set_int (tmp, data->priv->bookmark_dialog_col_width[i]);
         g_free (tmp);
@@ -1212,7 +1216,7 @@ gnome_cmd_data_save                      (void)
     gnome_config_set_int ("/gnome-commander-size/main_win/width", data->priv->main_win_width);
     gnome_config_set_int ("/gnome-commander-size/main_win/height", data->priv->main_win_height);
 
-    for ( i=0; i<FILE_LIST_NUM_COLUMNS; i++ ) {
+    for (i=0; i<FILE_LIST_NUM_COLUMNS; i++) {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
         gnome_config_set_int (tmp, data->priv->fs_col_width[i]);
         g_free (tmp);
@@ -1350,13 +1354,13 @@ gnome_cmd_data_load                      (void)
     data->priv->main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
     data->priv->main_win_height = get_int ("/gnome-commander-size/main_win/height", 400);
 
-    for ( i=0; i<FILE_LIST_NUM_COLUMNS; i++ ) {
+    for (i=0; i<FILE_LIST_NUM_COLUMNS; i++) {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
         data->priv->fs_col_width[i] = get_int (tmp, file_list_column[i].default_width);
         g_free (tmp);
     }
 
-    for ( i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++ ) {
+    for (i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++) {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/bookmark_dialog_col_width%d", i);
         data->priv->bookmark_dialog_col_width[i] = get_int (tmp, bookmark_dialog_default_column_width[i]);
         g_free (tmp);
@@ -1410,9 +1414,9 @@ gnome_cmd_data_load                      (void)
         g_free(data->priv->symlink_prefix);
         data->priv->symlink_prefix = NULL;
     }
-    
+
     data->priv->sort_column[LEFT] = gnome_cmd_data_get_int ("/options/sort_column_left", FILE_LIST_COLUMN_NAME);
-    data->priv->sort_direction[LEFT] = gnome_cmd_data_get_bool ( "/options/sort_direction_left", FILE_LIST_SORT_ASCENDING);
+    data->priv->sort_direction[LEFT] = gnome_cmd_data_get_bool ("/options/sort_direction_left", FILE_LIST_SORT_ASCENDING);
     data->priv->sort_column[RIGHT] = gnome_cmd_data_get_int ("/options/sort_column_right", FILE_LIST_COLUMN_NAME);
     data->priv->sort_direction[RIGHT] = gnome_cmd_data_get_bool ("/options/sort_direction_right", FILE_LIST_SORT_ASCENDING);
 

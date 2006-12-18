@@ -78,7 +78,6 @@ static void
 free_xfer_data (XferData *data)
 {
     GList *tmp_list;
-    GnomeVFSURI *uri;
 
     if (data->on_completed_func)
         data->on_completed_func (data->on_completed_data, NULL);
@@ -86,15 +85,13 @@ free_xfer_data (XferData *data)
     g_list_free (data->src_uri_list);
 
     /* free the list with target uris */
-    tmp_list = data->dest_uri_list;
-    while (tmp_list)
+    for (tmp_list = data->dest_uri_list; tmp_list; tmp_list = tmp_list->next)
     {
-        uri = (GnomeVFSURI*)tmp_list->data;
+        GnomeVFSURI *uri = (GnomeVFSURI*)tmp_list->data;
         gnome_vfs_uri_unref (uri);
-        tmp_list = tmp_list->next;
     }
-    g_list_free (data->dest_uri_list);
 
+    g_list_free (data->dest_uri_list);
     g_free (data);
 }
 
@@ -331,7 +328,7 @@ remove_basename (gchar *in)
     gint i;
     gchar *out = g_strdup (in);
 
-    for ( i=strlen(out)-1 ; i>0 ; i-- ) {
+    for (i=strlen(out)-1 ; i>0 ; i--) {
         if (out[i] == '/') {
             out[i] = '\0';
             return out;
@@ -385,22 +382,23 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     /*
      * Sanity check
      */
-    tmp = src_uri_list;
-    while (tmp) {
+    for (tmp = src_uri_list; tmp; tmp = tmp->next)
+    {
         src_uri = (GnomeVFSURI*)tmp->data;
-        if (uri_is_parent_to_dir_or_equal (src_uri, to_dir)) {
+        if (uri_is_parent_to_dir_or_equal (src_uri, to_dir))
+        {
             create_error_dialog (_("Copying a directory into itself is a bad idea.\nThe whole operation was cancelled."));
             return;
         }
-        if (file_is_already_in_dir (src_uri, to_dir)) {
+        if (file_is_already_in_dir (src_uri, to_dir))
+        {
             if (dest_fn && strcmp (
-                dest_fn, gnome_vfs_uri_extract_short_name (src_uri)) == 0) {
+                dest_fn, gnome_vfs_uri_extract_short_name (src_uri)) == 0)
+            {
                 DEBUG ('x', "Copying a file to the same directory as it's already in, is not permitted\n");
                 return;
             }
         }
-
-        tmp = tmp->next;
     }
 
     data = create_xfer_data (
@@ -410,29 +408,27 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
 
     num_files = g_list_length (src_uri_list);
 
-    if (g_list_length (src_uri_list) == 1 && dest_fn != NULL) {
+    if (g_list_length (src_uri_list) == 1 && dest_fn != NULL)
+    {
         dest_uri = gnome_cmd_dir_get_child_uri (to_dir, dest_fn);
 
         data->dest_uri_list = g_list_append (data->dest_uri_list, dest_uri);
     }
-    else {
-        while (src_uri_list) {
-            gchar *basename;
+    else
+    {
+        for (; src_uri_list; src_uri_list = src_uri_list->next)
+        {
             src_uri = (GnomeVFSURI*)src_uri_list->data;
-            basename = gnome_vfs_unescape_string (
-                gnome_vfs_uri_extract_short_name (src_uri), 0);
+            gchar *basename = gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name (src_uri), 0);
 
             dest_uri = gnome_cmd_dir_get_child_uri (to_dir, basename);
             g_free (basename);
 
             data->dest_uri_list = g_list_append (data->dest_uri_list, dest_uri);
-
-            src_uri_list = src_uri_list->next;
         }
     }
 
-    if (dest_fn != NULL)
-        g_free (dest_fn);
+    g_free (dest_fn);
 
     data->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new ());
     gtk_widget_ref (GTK_WIDGET (data->win));

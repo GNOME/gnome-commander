@@ -192,21 +192,23 @@ static void  dev_vfs_umount_callback    (gboolean succeeded,
             error ? error : "",
             detailed_error ? detailed_error : "");
 
-    if (succeeded) {
+    if (succeeded)
+    {
             msgbox = gtk_message_dialog_new(GTK_WINDOW(main_win),
                             GTK_DIALOG_MODAL,
                             GTK_MESSAGE_INFO,
                             GTK_BUTTONS_OK,
                             _("Volume unmounting succeeded.\nIt is safe to eject the media."));
-    } else {
+    }
+    else
+    {
             msgbox = gtk_message_dialog_new(GTK_WINDOW(main_win),
                             GTK_DIALOG_MODAL,
                             GTK_MESSAGE_ERROR,
                             GTK_BUTTONS_OK,
                             _("Volume unmounting failed:\n%s %s"),
                             error ? error : _("Unknown Error"),
-                            detailed_error ? detailed_error: ""
-                            );
+                            detailed_error ? detailed_error: "");
     }
     gtk_dialog_run (GTK_DIALOG (msgbox));
     gtk_widget_destroy (msgbox);
@@ -217,19 +219,20 @@ dev_close (GnomeCmdCon *con)
 {
     gint ret;
     gchar *cmd;
-    GnomeCmdConDevice *dev_con;
 
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), FALSE);
 
-    dev_con = GNOME_CMD_CON_DEVICE (con);
+    GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
 
     gnome_cmd_con_set_default_dir (con, NULL);
     gnome_cmd_con_set_cwd (con, NULL);
 
     chdir (g_get_home_dir ());
 
-    if (dev_con->priv->autovolume) {
-        if (dev_con->priv->vfsvol) {
+    if (dev_con->priv->autovolume)
+    {
+        if (dev_con->priv->vfsvol)
+        {
             gchar *name;
             name = gnome_vfs_volume_get_display_name (dev_con->priv->vfsvol);
             DEBUG ('m', "umounting VFS volume \"%s\"\n", name);
@@ -239,7 +242,8 @@ dev_close (GnomeCmdCon *con)
         }
         ret = 0;
     }
-    else {
+    else
+    {
         DEBUG ('m', "umounting %s\n", dev_con->priv->mountp);
         cmd = g_strdup_printf ("umount %s", dev_con->priv->mountp);
         ret = system (cmd);
@@ -247,11 +251,12 @@ dev_close (GnomeCmdCon *con)
         g_free (cmd);
     }
 
-    if (ret == 0) {
+    if (ret == 0)
+    {
         con->state = CON_STATE_CLOSED;
     }
 
-    return (ret == 0);
+    return ret == 0;
 }
 
 
@@ -317,7 +322,7 @@ destroy (GtkObject *object)
     gnome_vfs_volume_unref(con->priv->vfsvol);
     con->priv->vfsvol = NULL ;
     }
-    
+
     g_free (con->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
@@ -512,7 +517,7 @@ gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *icon_pa
 
 
 void
-gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev,    const gboolean autovol )
+gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev,    const gboolean autovol)
 {
     g_return_if_fail (dev != NULL);
     g_return_if_fail (dev->priv != NULL);
@@ -523,7 +528,7 @@ gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev,    const gboolean auto
 
 void
 gnome_cmd_con_device_set_vfs_volume    (GnomeCmdConDevice *dev,
-                                          GnomeVFSVolume *vfsvol )
+                                          GnomeVFSVolume *vfsvol)
 {
     g_return_if_fail (dev != NULL);
     g_return_if_fail (dev->priv != NULL);

@@ -265,11 +265,11 @@ search_dir_r (GnomeCmdDir *dir, SearchData *data)
 
     if (dir==NULL)
     return;
-    
+
     gnome_cmd_dir_list_files (dir, FALSE);
     gnome_cmd_dir_get_files (dir, &files);
     tmp = files;
-    
+
     if (tmp==NULL)
     return;
 
@@ -371,19 +371,15 @@ perform_search_operation (SearchData *data)
 static gboolean
 update_search_status_widgets (SearchData *data)
 {
-    GList *files;
-
     g_mutex_lock (data->pdata.mutex);
 
     /* Add all files found since last update to the list */
-    files = data->pdata.files;
-    while (files) {
-        gnome_cmd_file_list_add_file (
-            GNOME_CMD_FILE_LIST (data->dialog->priv->result_list),
-            GNOME_CMD_FILE (files->data), -1);
-        files = files->next;
-    }
-    if (data->pdata.files) {
+    GList *files;
+    for (files = data->pdata.files; files; files = files->next)
+        gnome_cmd_file_list_add_file (GNOME_CMD_FILE_LIST (data->dialog->priv->result_list),
+                                      GNOME_CMD_FILE (files->data), -1);
+    if (data->pdata.files) 
+    {
         g_list_free (data->pdata.files);
         data->pdata.files = NULL;
     }

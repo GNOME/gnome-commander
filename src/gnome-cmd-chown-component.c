@@ -125,17 +125,15 @@ load_users_and_groups (GnomeCmdChownComponent *comp)
     }
 
     /* fill the groups combo with all groups that the user is part of if ordinary user or all groups if root */
+    GList *tmp = prog_user->uid != 0 ? prog_user->groups : OWNER_get_all_groups ();
+
+    for (; tmp; tmp = tmp->next) 
     {
-        GList *tmp = prog_user->uid != 0 ? prog_user->groups : OWNER_get_all_groups ();
-
-        while (tmp) {
-            group_t *group = (group_t*)tmp->data;
-            comp->priv->group_strings = g_list_append (comp->priv->group_strings, g_strdup (group->name));
-            tmp = tmp->next;
-        }
-
-        gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->group_combo), comp->priv->group_strings);
+        group_t *group = (group_t*)tmp->data;
+        comp->priv->group_strings = g_list_append (comp->priv->group_strings, g_strdup (group->name));
     }
+
+    gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->group_combo), comp->priv->group_strings);
 }
 
 

@@ -87,12 +87,14 @@ calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
     if (result != GNOME_VFS_OK) return;
     if (!list) return;
 
-    tmp = list;
-    while (tmp) {
+    for (tmp = list; tmp; tmp = tmp->next)
+    {
         GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
 
-        if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0) {
-            if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+        if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
+        {
+            if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+            {
                 GnomeVFSURI *new_uri = gnome_vfs_uri_append_file_name (uri, info->name);
                 calc_tree_size_r (data, new_uri);
                 gnome_vfs_uri_unref (new_uri);
@@ -100,15 +102,12 @@ calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
             else
                 data->size += info->size;
         }
-
-        tmp = tmp->next;
     }
 
-    tmp = list;
-    while (tmp) {
+    for (tmp = list; tmp; tmp = tmp->next)
+    {
         GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
         gnome_vfs_file_info_unref (info);
-        tmp = tmp->next;
     }
 
     g_list_free (list);
@@ -161,15 +160,12 @@ static gboolean
 update_count_status (GnomeCmdFilePropsDialogPrivate *data)
 {
     g_mutex_lock (data->mutex);
-    if (data->size_label) {
-        gtk_label_set_text (
-            GTK_LABEL (data->size_label), data->msg);
-    }
+    if (data->size_label)
+        gtk_label_set_text (GTK_LABEL (data->size_label), data->msg);
     g_mutex_unlock (data->mutex);
 
-    if (data->count_done) {
-
-
+    if (data->count_done)
+    {
         /* Returning FALSE here stops the timeout callbacks */
         return FALSE;
     }
@@ -189,26 +185,19 @@ do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 
     data->thread = g_thread_create ((PthreadFunc)calc_tree_size_func, data, TRUE, NULL);
 
-    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (),
-                     (GtkFunction)update_count_status,
-                     data);
+    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)update_count_status, data);
 }
 
 
 static void
 on_change_default_app (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 {
-    gchar *appname;
-    GnomeVFSMimeApplication *vfs_app;
 
     edit_mimetypes (data->finfo->info->mime_type, TRUE);
 
-    vfs_app = gnome_vfs_mime_get_default_application (data->finfo->info->mime_type);
-    if (vfs_app) {
-        appname = vfs_app->name;
-    }
-    else
-        appname = g_strdup (_("No default application registered"));
+    GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (data->finfo->info->mime_type);
+
+    gchar *appname = vfs_app ? vfs_app->name : g_strdup (_("No default application registered"));
 
     gtk_label_set_text (GTK_LABEL (data->app_label), appname);
 
