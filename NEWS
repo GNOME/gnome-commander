@@ -8,6 +8,9 @@ Bug fixes:
 
 New features:
  * New or updated translations: bg
+ * New key bindings:
+      CTRL+\         Go to the root directory
+      CTRL+`         Go to the home directory
 
 
 ===================================

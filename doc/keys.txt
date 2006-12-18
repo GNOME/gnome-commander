@@ -74,6 +74,9 @@ RIGHT or CTRL+PageDown
 ALT+LEFT        Go back to the last visited directory
 ALT+RIGHT       Go forward to the next visited directory
 
+CTRL+\          Go to the root directory
+CTRL+`          Go to the home directory
+
 DELETE          Delete files
 
 CTRL+C          Copy files to clipboard (not a global one yet)

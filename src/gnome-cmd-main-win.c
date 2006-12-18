@@ -1182,6 +1182,15 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
             case GDK_g:
                 connections_ftp_quick_connect (NULL, NULL);
                 return TRUE;
+
+           case GDK_backslash:
+               gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_active_fs (main_win), "/");
+               return TRUE;
+
+           case GDK_quoteleft:
+           case GDK_asciitilde:
+               gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_active_fs (main_win), "~");
+               return TRUE;
         }
     }
     else if (state_is_alt_shift (event->state))

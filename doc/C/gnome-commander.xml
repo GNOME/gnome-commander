@@ -3573,6 +3573,18 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para>CTRL+\</para></entry>
+            <entry><para>Go to the root directory</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para>CTRL+`</para></entry>
+            <entry><para>Go to the home directory</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
             <entry><para>INSERT</para></entry>
             <entry><para>Select file or directory</para></entry>
         </row>
@@ -4869,7 +4881,10 @@
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycap>CTRL+SHIFT+=</keycap>   ...</para>
+                                    <para><keycap>CTRL+\</keycap>   Go to the root directory</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>CTRL+`</keycap>   Go to the home directory</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>
