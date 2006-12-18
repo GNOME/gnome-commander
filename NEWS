@@ -4,6 +4,7 @@ gnome-commander 1.2.4
 
 Bug fixes:
  * Fixed problem with opening dirs by intviewer
+ * Fixed problem with editing dirs by gcmd
  * Build fixes
 
 New features:
