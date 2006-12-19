@@ -73,9 +73,9 @@ gboolean DEBUG_ENABLED (gchar flag)
  * i: imageloader
  * p: directory pool
  * l: directory listings
- * m: connection debug.
+ * m: connection debug
  * n: directory-monitoring debug
- * s: smb network browser debugging.
+ * s: smb network browser debugging
  * v: internal viewr
  * w: widget_lookup debugging
  * y: brief mime-based imageload debugging
@@ -256,9 +256,7 @@ gboolean string2int (const gchar *s, gint *i)
 
 gboolean string2uint (const gchar *s, guint *i)
 {
-    int ret = sscanf (s, "%d", i);
-
-    return (ret == 1);
+    return sscanf (s, "%d", i) == 1;
 }
 
 
@@ -300,7 +298,7 @@ gboolean string2uchar (const gchar *s, guchar *c)
 
 gboolean string2float (const gchar *s, gfloat *f)
 {
-    return sscanf (s, "%f", f)==1;
+    return sscanf (s, "%f", f) == 1;
 }
 
 
@@ -534,19 +532,16 @@ on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 {
     if (id == GTK_RESPONSE_YES)
     {
-        GnomeVFSURI *src_uri, *dest_uri;
-        GnomeCmdCon *con;
-        GnomeCmdPath *path;
         gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (dldata->finfo));
 
         if (!path_str) return;
+
         dldata->args[1] = (gpointer)path_str;
 
-        src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (dldata->finfo));
-
-        path = gnome_cmd_plain_path_new (path_str);
-        con = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
-        dest_uri = gnome_cmd_con_create_uri (con, path);
+        GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (dldata->finfo));
+        GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
+        GnomeCmdCon *con = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
+        GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (con, path);
         gtk_object_destroy (GTK_OBJECT (path));
 
         gnome_cmd_xfer_tmp_download (src_uri,
@@ -579,8 +574,8 @@ void mime_exec_single (GnomeCmdFile *finfo)
     if (!finfo->info->mime_type)
         return;
 
-    /* Check if the file is a binary executable that lacks the executable bit
-     */
+    // Check if the file is a binary executable that lacks the executable bit
+
     if (!gnome_cmd_file_is_executable (finfo))
     {
         if (gnome_cmd_file_has_mime_type (finfo, "application/x-executable-binary"))
@@ -604,9 +599,8 @@ void mime_exec_single (GnomeCmdFile *finfo)
     }
 
 
-    /* If the file is executable but not a binary file, check if the user wants to
-     * exec it or open it.
-     */
+    // If the file is executable but not a binary file, check if the user wants to exec it or open it
+
     if (gnome_cmd_file_is_executable (finfo))
     {
         if (gnome_cmd_file_has_mime_type (finfo, "application/x-executable-binary"))
@@ -644,7 +638,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
     app = gnome_cmd_app_new_from_vfs_app (vfs_app);
     gnome_vfs_mime_application_free (vfs_app);
 
-    args = g_new (gpointer, 2);
+    args = g_new0 (gpointer, 2);
 
     if (gnome_cmd_file_is_local (finfo))
     {
@@ -667,7 +661,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
             GtkWidget *dialog = gtk_message_dialog_new (
                 GTK_WINDOW (main_win), GTK_DIALOG_MODAL,
                 GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, msg);
-            TmpDlData *dldata = g_new (TmpDlData, 1);
+            TmpDlData *dldata = g_new0 (TmpDlData, 1);
             args[0] = (gpointer)app;
             dldata->finfo = finfo;
             dldata->dialog = dialog;
@@ -751,17 +745,14 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
                 if (retid == 1)
                 {
-                    GnomeCmdCon *con;
-                    GnomeCmdPath *path;
-                    GnomeVFSURI *src_uri, *dest_uri;
                     gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (finfo));
 
                     if (!path_str) return;
 
-                    src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (finfo));
-                    path = gnome_cmd_plain_path_new (path_str);
-                    con = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
-                    dest_uri = gnome_cmd_con_create_uri (con, path);
+                    GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (finfo));
+                    GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
+                    GnomeCmdCon *con = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
+                    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (con, path);
                     gtk_object_destroy (GTK_OBJECT (path));
 
                     src_uri_list = g_list_append (src_uri_list, src_uri);
@@ -774,7 +765,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
     g_list_free (files);
 
-    args = g_new (gpointer, 2);
+    args = g_new0 (gpointer, 2);
     args[0] = app;
     args[1] = local_files;
 
@@ -1300,7 +1291,7 @@ gchar *unc_to_unix (const gchar *path)
 
 GdkColor *gdk_color_new (gushort r, gushort g, gushort b)
 {
-    GdkColor *c = g_new (GdkColor, 1);
+    GdkColor *c = g_new0 (GdkColor, 1);
     c->pixel = 0;
     c->red = r;
     c->green = g;
@@ -1354,11 +1345,7 @@ create_dir_if_needed (const gchar *dpath)
         if (errno == ENOENT)
         {
             g_print (_("Creating directory %s... "), dpath);
-            if (mkdir (dpath, S_IRUSR|S_IWUSR|S_IXUSR) == 0)
-            {
-                return TRUE;
-            }
-            else
+            if (mkdir (dpath, S_IRUSR|S_IWUSR|S_IXUSR) == 0)  return TRUE;  else
             {
                 gchar *msg = g_strdup_printf (_("Failed to create the directory %s"), dpath);
                 perror (msg);
@@ -1366,12 +1353,7 @@ create_dir_if_needed (const gchar *dpath)
             }
         }
         else
-        {
-            gchar *msg = g_strdup_printf (_("Couldn't read from the directory %s: %s\n"),
-                                          dpath, strerror (errno));
-            warn_print (msg);
-            g_free (msg);
-        }
+            g_warning(_("Couldn't read from the directory %s: %s"), dpath, strerror (errno));
 
         return FALSE;
     }

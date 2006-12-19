@@ -25,8 +25,6 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-con.h"
-#include "gnome-cmd-dir.h"
-#include "gnome-cmd-file.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
@@ -50,10 +48,11 @@ on_ok (GtkButton *button, gpointer user_data)
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->silent)))
         dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->query)))
-        dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_QUERY;
     else
-        dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_SKIP;
+        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->query)))
+            dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_QUERY;
+        else
+            dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_SKIP;
 
     dlg->xferOptions = GNOME_VFS_XFER_REMOVESOURCE;
 }
@@ -63,15 +62,19 @@ void
 gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
                                     GnomeCmdFileSelector *to)
 {
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (from));
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (to));
+
     GSList *group = NULL;
-    PrepareMoveData *data = g_new (PrepareMoveData, 1);
+    PrepareMoveData *data = g_new0 (PrepareMoveData, 1);
     GnomeCmdFile *finfo;
     gint num_files;
     gchar *dest_dir_frame_msg, *text;
     GtkWidget *label;
     GList *tmp = gnome_cmd_file_list_get_selected_files (from->list);
 
-    if (!tmp) {
+    if (!tmp)
+    {
         g_list_free (tmp);
         return;
     }
@@ -105,7 +108,7 @@ gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
     gtk_widget_show (data->skip);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->skip, FALSE, FALSE, 0);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data_get_confirm_overwrite_move ())), TRUE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data_get_confirm_overwrite_move ())), TRUE);
 
     /*
      * Customize prepare xfer widgets
@@ -123,7 +126,8 @@ gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
     num_files = g_list_length (data->dialog->src_files);
     finfo = (GnomeCmdFile*)data->dialog->src_files->data;
 
-    if (num_files == 1) {
+    if (num_files == 1)
+    {
         gchar *fname = get_utf8 (finfo->info->name);
         dest_dir_frame_msg = g_strdup_printf (_("Move \"%s\" to"), fname);
         g_free (fname);

@@ -33,7 +33,6 @@
 #define XFER_PRIORITY 0
 
 
-
 typedef struct
 {
     GnomeVFSXferOptions xferOptions;
@@ -83,7 +82,7 @@ free_xfer_data (XferData *data)
 
     g_list_free (data->src_uri_list);
 
-    // free the list with target uris
+    //  free the list with target uris
     for (tmp_list = data->dest_uri_list; tmp_list; tmp_list = tmp_list->next)
     {
         GnomeVFSURI *uri = (GnomeVFSURI*)tmp_list->data;
@@ -162,43 +161,41 @@ async_xfer_callback (GnomeVFSAsyncHandle *handle,
             data->cur_file_name = g_strdup (info->source_name);
     }
 
-    if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
+    if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
+    {
         gchar *t = gnome_vfs_get_local_path_from_uri (info->target_name);
         gchar *fn = get_utf8 (t);
         gchar *msg = g_strdup_printf (_("The file \"%s\" already exists.\n\nDo you want to overwrite it?\n"), fn);
-        gint ret;
 
         gdk_threads_enter ();
-        ret = run_simple_dialog (
-            GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_ERROR, msg, " ",
-            -1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
+        gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_ERROR, msg, " ",
+                                      1, _("Abort"), _("Replace"), _("Replace All"), _("Skip"), _("Skip All"), NULL);
         g_free (msg);
         g_free (fn);
         g_free (t);
         data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE;
         gdk_threads_leave ();
-        return ret;
+        return ret==-1 ? 0 : ret;
     }
-    else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR
-             && data->prev_status != GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE) {
-        const gchar *error = gnome_vfs_result_to_string (info->vfs_status);
-        gchar *t = gnome_vfs_get_local_path_from_uri (info->target_name);
-        gchar *fn = get_utf8 (t);
-        gchar *msg = g_strdup_printf (
-            _("Error while copying to %s\n\n%s"), fn, error);
-        gint ret;
+    else
+        if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR
+            && data->prev_status != GNOME_VFS_XFER_PROGRESS_STATUS_OVERWRITE)
+        {
+            const gchar *error = gnome_vfs_result_to_string (info->vfs_status);
+            gchar *t = gnome_vfs_get_local_path_from_uri (info->target_name);
+            gchar *fn = get_utf8 (t);
+            gchar *msg = g_strdup_printf (_("Error while copying to %s\n\n%s"), fn, error);
 
-        gdk_threads_leave ();
-        ret = run_simple_dialog (
-            GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_ERROR, msg, _("Xfer problem"),
-            -1, _("Abort"), _("Retry"), _("Skip"), NULL);
-        g_free (msg);
-        g_free (fn);
-        g_free (t);
-        data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR;
-        gdk_threads_leave ();
-        return ret;
-    }
+            gdk_threads_enter ();
+            gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_ERROR, msg, _("Transfer problem"),
+                                          -1, _("Abort"), _("Retry"), _("Skip"), NULL);
+            g_free (msg);
+            g_free (fn);
+            g_free (t);
+            data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR;
+            gdk_threads_leave ();
+            return ret==-1 ? 0 : ret;
+        }
 
     if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED)
     {
@@ -215,7 +212,8 @@ async_xfer_callback (GnomeVFSAsyncHandle *handle,
 static gboolean
 update_xfer_gui_func (XferData *data)
 {
-    if (data->win && data->win->cancel_pressed) {
+    if (data->win && data->win->cancel_pressed)
+    {
         data->aborted = TRUE;
 
         if (data->on_completed_func)
@@ -227,8 +225,6 @@ update_xfer_gui_func (XferData *data)
 
     if (data->cur_phase == GNOME_VFS_XFER_PHASE_COPYING)
     {
-        gfloat total_diff=0;
-
         if (data->prev_phase != GNOME_VFS_XFER_PHASE_COPYING)
         {
             gnome_cmd_xfer_progress_win_set_action (data->win, _("copying..."));
@@ -245,47 +241,44 @@ update_xfer_gui_func (XferData *data)
 
             data->prev_file = data->cur_file;
 
-            if (msg) g_free (msg);
-            if (fn) g_free (fn);
-            if (t) g_free (t);
+            g_free (msg);
+            g_free (fn);
+            g_free (t);
         }
 
-        if (data->bytes_total > 0) {
-            gfloat total_prog;
+        if (data->bytes_total > 0)
+        {
+            gfloat total_prog = (gfloat)((gdouble)data->total_bytes_copied / (gdouble)data->bytes_total);
+            gfloat total_diff = total_prog - data->prev_totalprog;
 
-            total_prog = (gfloat)((gdouble)data->total_bytes_copied / (gdouble)data->bytes_total);
-            total_diff = total_prog - data->prev_totalprog;
-
-            if ((total_diff > (gfloat)0.01 && total_prog >= 0.0 && total_prog <= 1.0)
-                || data->first_time) {
+            if ((total_diff > (gfloat)0.01 && total_prog >= 0.0 && total_prog <= 1.0) || data->first_time)
+            {
                 data->first_time = FALSE;
-                gnome_cmd_xfer_progress_win_set_total_progress (
-                    data->win, data->total_bytes_copied, data->bytes_total);
+                gnome_cmd_xfer_progress_win_set_total_progress (data->win, data->total_bytes_copied, data->bytes_total);
                 while (gtk_events_pending ())
                     gtk_main_iteration_do (FALSE);
             }
         }
-
     }
 
-    if (data->done) {
-        /* Remove files from the source file-list when a move
-           operation has finished */
-        if (data->xferOptions & GNOME_VFS_XFER_REMOVESOURCE) {
+    if (data->done)
+    {
+        // Remove files from the source file-list when a move operation has finished
+        if (data->xferOptions & GNOME_VFS_XFER_REMOVESOURCE)
             if (data->src_fl && data->src_files)
-                gnome_cmd_file_list_remove_files (
-                    data->src_fl, data->src_files);
-        }
+                gnome_cmd_file_list_remove_files (data->src_fl, data->src_files);
 
-        // Only update the files if needed
-        if (data->to_dir) {
+        //  Only update the files if needed
+        if (data->to_dir)
+        {
             gnome_cmd_dir_relist_files (data->to_dir, FALSE);
             gnome_cmd_main_win_focus_file_lists (main_win);
             gnome_cmd_dir_unref (data->to_dir);
             data->to_dir = NULL;
         }
 
-        if (data->win) {
+        if (data->win)
+        {
             gtk_widget_destroy (GTK_WIDGET (data->win));
             data->win = NULL;
         }
@@ -330,28 +323,25 @@ remove_basename (gchar *in)
     gint i;
     gchar *out = g_strdup (in);
 
-    for (i=strlen(out)-1; i>0; i--) {
-        if (out[i] == '/') {
+    for (i=strlen(out)-1 ; i>0 ; i--)
+        if (out[i] == '/')
+        {
             out[i] = '\0';
             return out;
         }
-    }
 
     return NULL;
 }
 
 
 static gboolean
-file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir) {
-    gchar *uri_str, *tmp;
-    gchar *dir_uri_str;
-    gboolean ret;
+file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
+{
+    gchar *tmp = gnome_vfs_uri_to_string (uri, 0);
+    gchar *uri_str = remove_basename (tmp);
+    gchar *dir_uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
 
-    tmp = gnome_vfs_uri_to_string (uri, 0);
-    uri_str = remove_basename (tmp);
-    dir_uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
-
-    ret = (strcmp (uri_str, dir_uri_str) == 0);
+    gboolean ret = (strcmp (uri_str, dir_uri_str) == 0);
 
     g_free (uri_str);
     g_free (dir_uri_str);
@@ -393,14 +383,11 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
             return;
         }
         if (file_is_already_in_dir (src_uri, to_dir))
-        {
-            if (dest_fn && strcmp (
-                dest_fn, gnome_vfs_uri_extract_short_name (src_uri)) == 0)
+            if (dest_fn && strcmp (dest_fn, gnome_vfs_uri_extract_short_name (src_uri)) == 0)
             {
                 DEBUG ('x', "Copying a file to the same directory as it's already in, is not permitted\n");
                 return;
             }
-        }
     }
 
     data = create_xfer_data (
@@ -437,24 +424,22 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     gtk_window_set_title (GTK_WINDOW (data->win), _("preparing..."));
     gtk_widget_show (GTK_WIDGET (data->win));
 
-    // start the transfer
-    result = gnome_vfs_async_xfer (
-        &data->handle,
-        data->src_uri_list,
-        data->dest_uri_list,
-        xferOptions,
-        GNOME_VFS_XFER_ERROR_MODE_QUERY,
-        xferOverwriteMode,
-        XFER_PRIORITY,
-        (GnomeVFSAsyncXferProgressCallback)async_xfer_callback,
-        data,
-        xfer_callback,
-        data);
+    //  start the transfer
+    result = gnome_vfs_async_xfer (&data->handle,
+                                   data->src_uri_list,
+                                   data->dest_uri_list,
+                                   xferOptions,
+                                   GNOME_VFS_XFER_ERROR_MODE_QUERY,
+                                   xferOverwriteMode,
+                                   XFER_PRIORITY,
+                                   (GnomeVFSAsyncXferProgressCallback)async_xfer_callback,
+                                   data,
+                                   xfer_callback,
+                                   data);
 
-    gtk_timeout_add (
-        gnome_cmd_data_get_gui_update_rate (),
-        (GtkFunction)update_xfer_gui_func,
-        data);
+    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (),
+                     (GtkFunction)update_xfer_gui_func,
+                     data);
 }
 
 
@@ -498,13 +483,12 @@ gnome_cmd_xfer_tmp_download (GnomeVFSURI *src_uri,
     g_return_if_fail (src_uri != NULL);
     g_return_if_fail (dest_uri != NULL);
 
-    gnome_cmd_xfer_tmp_download_multiple (
-        g_list_append (NULL, src_uri),
-        g_list_append (NULL, dest_uri),
-        xferOptions,
-        xferOverwriteMode,
-        on_completed_func,
-        on_completed_data);
+    gnome_cmd_xfer_tmp_download_multiple (g_list_append (NULL, src_uri),
+                                          g_list_append (NULL, dest_uri),
+                                          xferOptions,
+                                          xferOverwriteMode,
+                                          on_completed_func,
+                                          on_completed_data);
 
 }
 
@@ -523,32 +507,28 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
     g_return_if_fail (src_uri_list != NULL);
     g_return_if_fail (dest_uri_list != NULL);
 
-    data = create_xfer_data (
-        xferOptions, src_uri_list, dest_uri_list,
-        NULL, NULL, NULL,
-        (GFunc)on_completed_func, on_completed_data);
+    data = create_xfer_data (xferOptions, src_uri_list, dest_uri_list,
+                             NULL, NULL, NULL,
+                             (GFunc)on_completed_func, on_completed_data);
 
     data->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new ());
     gtk_window_set_title (GTK_WINDOW (data->win), _("downloading to /tmp"));
     gtk_widget_show (GTK_WIDGET (data->win));
 
-    // start the transfer
-    result = gnome_vfs_async_xfer (
-        &data->handle,
-        data->src_uri_list,
-        data->dest_uri_list,
-        xferOptions,
-        GNOME_VFS_XFER_ERROR_MODE_ABORT,
-        xferOverwriteMode,
-        XFER_PRIORITY,
-        (GnomeVFSAsyncXferProgressCallback)async_xfer_callback,
-        data,
-        xfer_callback,
-        data);
+    //  start the transfer
+    result = gnome_vfs_async_xfer (&data->handle,
+                                   data->src_uri_list,
+                                   data->dest_uri_list,
+                                   xferOptions,
+                                   GNOME_VFS_XFER_ERROR_MODE_ABORT,
+                                   xferOverwriteMode,
+                                   XFER_PRIORITY,
+                                   (GnomeVFSAsyncXferProgressCallback)async_xfer_callback,
+                                   data,
+                                   xfer_callback,
+                                   data);
 
-    gtk_timeout_add (
-        gnome_cmd_data_get_gui_update_rate (),
-        (GtkFunction)update_xfer_gui_func,
-        data);
+    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (),
+                     (GtkFunction)update_xfer_gui_func,
+                     data);
 }
-

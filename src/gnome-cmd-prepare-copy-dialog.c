@@ -49,10 +49,11 @@ on_ok (GtkButton *button, gpointer user_data)
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->silent)))
         dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE;
-    else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->query)))
-        dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_QUERY;
     else
-        dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_SKIP;
+        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->query)))
+            dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_QUERY;
+        else
+            dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_SKIP;
 
     dlg->xferOptions = GNOME_VFS_XFER_RECURSIVE;
 
@@ -65,24 +66,23 @@ void
 gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from,
                                     GnomeCmdFileSelector *to)
 {
-    GSList *group = NULL;
-    PrepareCopyData *data;
-    GnomeCmdFile *finfo;
-    gint num_files;
-    gchar *dest_dir_frame_msg, *text;
-    GList *tmp;
-    GtkWidget *label;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (from));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (to));
 
-    tmp = gnome_cmd_file_list_get_selected_files (from->list);
-    if (!tmp) {
+    GSList *group = NULL;
+    PrepareCopyData *data = g_new0 (PrepareCopyData, 1);
+    GnomeCmdFile *finfo;
+    gint num_files;
+    gchar *dest_dir_frame_msg, *text;
+    GtkWidget *label;
+    GList *tmp = gnome_cmd_file_list_get_selected_files (from->list);
+
+    if (!tmp)
+    {
         g_list_free (tmp);
         return;
     }
 
-    data = g_new (PrepareCopyData, 1);
     data->dialog = GNOME_CMD_PREPARE_XFER_DIALOG (gnome_cmd_prepare_xfer_dialog_new (from, to));
     gtk_window_set_title (GTK_WINDOW (data->dialog), _("Copy"));
     gtk_widget_ref (GTK_WIDGET (data->dialog));
@@ -112,7 +112,7 @@ gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from,
     gtk_widget_show (data->skip);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->skip, FALSE, FALSE, 0);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data_get_confirm_overwrite_copy ())), TRUE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data_get_confirm_overwrite_copy ())), TRUE);
 
 
     data->follow_links = gtk_check_button_new_with_label (_("Follow Links"));
@@ -139,7 +139,8 @@ gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from,
     num_files = g_list_length (data->dialog->src_files);
     finfo = (GnomeCmdFile*)data->dialog->src_files->data;
 
-    if (num_files == 1) {
+    if (num_files == 1)
+    {
         gchar *fname = get_utf8 (finfo->info->name);
         dest_dir_frame_msg = g_strdup_printf (_("Copy \"%s\" to"), fname);
         g_free (fname);
