@@ -47,10 +47,10 @@
 
 #define D fprintf(stderr,"%s:%d - %s\n", __FILE__,__LINE__,__FUNCTION__);
 
-/* EXTERNAL TOOLS DISABLED in coming stable release */
+// EXTERNAL TOOLS DISABLED in coming stable release
 #undef EXTERNAL_TOOLS
 
-static GtkWindowClass *parent_class = NULL ;
+static GtkWindowClass *parent_class = NULL;
 
 static double image_scale_factors[] = {
     0.25,0.5,0.75,1,1.25,1.50,2,2.5,3,3.5,4,4.5,5};
@@ -58,18 +58,18 @@ static double image_scale_factors[] = {
 const static int MAX_SCALE_FACTOR_INDEX = sizeof(image_scale_factors)/sizeof(double);
 
 #ifdef EXTERNAL_TOOLS
-typedef struct _GViewerWindowExternalTool GViewerWindowExternalTool ;
+typedef struct _GViewerWindowExternalTool GViewerWindowExternalTool;
 struct _GViewerWindowExternalTool
 {
     gchar *name;
-    gchar *command ;
-    int   attached_fd ;
+    gchar *command;
+    int   attached_fd;
 };
 #endif
 
 struct _GViewerWindowPrivate
 {
-    /* Gtk User Interface */
+    // Gtk User Interface
     GtkWidget *vbox;
     GViewer *viewer;
     GtkWidget *menubar;
@@ -84,7 +84,7 @@ struct _GViewerWindowPrivate
     GViewerWindowSettings state;
 
     GViewer *exif_viewer;
-    int      exit_data_fd ;
+    int      exit_data_fd;
     gboolean exif_active;
 
     GViewer *active_viewer;
@@ -92,7 +92,7 @@ struct _GViewerWindowPrivate
     int current_scale_index;
 
     gchar *filename;
-    guint statusbar_ctx_id ;
+    guint statusbar_ctx_id;
     gboolean status_bar_msg;
 
 #ifdef EXTERNAL_TOOLS
@@ -124,45 +124,45 @@ static void gviewer_window_activate_internal_viewer(GViewerWindow *obj);
 static void gviewer_window_show_exif_viewer(GViewerWindow *obj);
 static void gviewer_window_hide_exif_viewer(GViewerWindow *obj);
 
-/* Event Handlers */
-static void menu_file_close (GtkMenuItem *item, GViewerWindow *obj) ;
+// Event Handlers
+static void menu_file_close (GtkMenuItem *item, GViewerWindow *obj);
 
 #ifdef EXTERNAL_TOOLS
-static void menu_view_external_tool(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_view_internal_viewer(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_view_external_tool(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_view_internal_viewer(GtkMenuItem *item, GViewerWindow *obj);
 #endif
 
-static void menu_view_exif_information(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_view_exif_information(GtkMenuItem *item, GViewerWindow *obj);
 
-static void menu_edit_copy(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_edit_find_next(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_edit_find_prev(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_edit_copy(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_edit_find_next(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_edit_find_prev(GtkMenuItem *item, GViewerWindow *obj);
 
-static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_view_set_charset(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_view_zoom_in(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_view_zoom_out(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_view_zoom_normal(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_view_zoom_best_fit(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_view_set_charset(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_view_zoom_in(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_view_zoom_out(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_view_zoom_normal(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_view_zoom_best_fit(GtkMenuItem *item, GViewerWindow *obj);
 
-static void menu_image_operation(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_image_operation(GtkMenuItem *item, GViewerWindow *obj);
 
-static void menu_settings_binary_bytes_per_line(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_settings_binary_bytes_per_line(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *obj);
 
-static void menu_help_quick_help(GtkMenuItem *item, GViewerWindow *obj) ;
-static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_help_quick_help(GtkMenuItem *item, GViewerWindow *obj);
+static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj);
 #ifdef HAVE_HELP_ABOUT
-static void menu_help_about(GtkMenuItem *item, GViewerWindow *obj) ;
+static void menu_help_about(GtkMenuItem *item, GViewerWindow *obj);
 #endif
 
-static void set_zoom_in(GViewerWindow *obj) ;
-static void set_zoom_out(GViewerWindow *obj) ;
-static void set_zoom_normal(GViewerWindow *obj) ;
-static void set_zoom_best_fit(GViewerWindow *obj) ;
+static void set_zoom_in(GViewerWindow *obj);
+static void set_zoom_out(GViewerWindow *obj);
+static void set_zoom_normal(GViewerWindow *obj);
+static void set_zoom_best_fit(GViewerWindow *obj);
 
 
 static void gnome_cmd_error_message(const gchar *title, GError *error)
@@ -203,14 +203,14 @@ GtkWidget* gviewer_window_file_view   (const gchar * filename,GViewerWindowSetti
 {
     GViewerWindowSettings set;
 
-    GtkWidget *w ;
+    GtkWidget *w;
 
     if (initial_settings==NULL) {
         gviewer_window_load_settings(&set);
-        initial_settings = &set ;
+        initial_settings = &set;
     }
 
-    w = gviewer_window_new(initial_settings) ;
+    w = gviewer_window_new(initial_settings);
 
     gviewer_window_load_file(GVIEWER_WINDOW(w), filename);
 
@@ -275,15 +275,15 @@ static void
 gviewer_window_class_init (GViewerWindowClass *klass)
 {
     GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class ;
+    GtkWidgetClass *widget_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
     widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = gtk_type_class(gtk_window_get_type ());
 
-    object_class->destroy = gviewer_window_destroy ;
-    widget_class->map = gviewer_window_map ;
+    object_class->destroy = gviewer_window_destroy;
+    widget_class->map = gviewer_window_map;
 }
 
 #ifdef EXTERNAL_TOOLS
@@ -310,23 +310,23 @@ static void gviewer_window_destroy_external_tool(GViewerWindowExternalTool *tool
 static void
 gviewer_window_init (GViewerWindow *w)
 {
-    GtkWindow *win ;
+    GtkWindow *win;
 
     w->priv = g_new0(GViewerWindowPrivate,1);
 
-    w->priv->status_bar_msg = FALSE ;
-    w->priv->filename = NULL ;
+    w->priv->status_bar_msg = FALSE;
+    w->priv->filename = NULL;
 #ifdef EXTERNAL_TOOLS
-    w->priv->active_external_tool = NULL ;
+    w->priv->active_external_tool = NULL;
 #endif
-    w->priv->exit_data_fd = -1 ;
-    w->priv->exif_active = FALSE ;
+    w->priv->exit_data_fd = -1;
+    w->priv->exif_active = FALSE;
     w->priv->current_scale_index = 3;
 
 #ifdef EXTERNAL_TOOLS
     w->priv->external_tools = g_hash_table_new_full(g_str_hash,g_str_equal,
                     (GDestroyNotify)gviewer_window_destroy_key,
-                    (GDestroyNotify)gviewer_window_destroy_external_tool) ;
+                    (GDestroyNotify)gviewer_window_destroy_external_tool);
 #endif
 
     win = GTK_WINDOW(w);
@@ -342,14 +342,14 @@ gviewer_window_init (GViewerWindow *w)
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->menubar, FALSE, FALSE, 0);
 
     w->priv->viewer = (GViewer*)gviewer_new();
-    g_object_ref(G_OBJECT(w->priv->viewer)) ;
-    gtk_widget_show(GTK_WIDGET(w->priv->viewer)) ;
+    g_object_ref(G_OBJECT(w->priv->viewer));
+    gtk_widget_show(GTK_WIDGET(w->priv->viewer));
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET(w->priv->viewer), TRUE, TRUE, 0);
     w->priv->exif_viewer = (GViewer*)gviewer_new();
-    g_object_ref(G_OBJECT(w->priv->exif_viewer)) ;
+    g_object_ref(G_OBJECT(w->priv->exif_viewer));
 
     g_signal_connect(G_OBJECT(w->priv->viewer),"status_line_changed",
-        G_CALLBACK(gviewer_window_status_line_changed), (gpointer)w) ;
+        G_CALLBACK(gviewer_window_status_line_changed), (gpointer)w);
 
 
     w->priv->statusbar = gtk_statusbar_new ();
@@ -357,7 +357,7 @@ gviewer_window_init (GViewerWindow *w)
       gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->statusbar, FALSE, FALSE, 0);
 
     w->priv->statusbar_ctx_id  = gtk_statusbar_get_context_id(
-        GTK_STATUSBAR(w->priv->statusbar), "info") ;
+        GTK_STATUSBAR(w->priv->statusbar), "info");
 
     gtk_widget_grab_focus(GTK_WIDGET(w->priv->viewer));
 
@@ -382,14 +382,14 @@ static void gviewer_window_status_line_changed(GViewer *obj, const gchar* status
 
     if (w->priv->status_bar_msg) {
         gtk_statusbar_pop(
-            GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id ) ;
-        w->priv->status_bar_msg = FALSE ;
+            GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id );
+        w->priv->status_bar_msg = FALSE;
     }
 
     if (status_line) {
         gtk_statusbar_push(
             GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id,
-            status_line) ;
+            status_line);
         w->priv->status_bar_msg = TRUE;
     }
 }
@@ -437,7 +437,7 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
         settings->rect.width, settings->rect.height);
 
 #if 0
-    /* This doesn't work because the window is not shown yet */
+    // This doesn't work because the window is not shown yet
     if (GTK_WIDGET(obj)->window)
         gdk_window_move(GTK_WIDGET(obj)->window,
             settings->rect.x, settings->rect.y);
@@ -461,10 +461,10 @@ void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWi
             &settings->rect.x,
             &settings->rect.y);
     } else {
-        settings->rect.x = 0 ;
-        settings->rect.y = 0 ;
-        settings->rect.width = 100 ;
-        settings->rect.height = 100 ;
+        settings->rect.x = 0;
+        settings->rect.y = 0;
+        settings->rect.width = 100;
+        settings->rect.height = 100;
     }
     settings->font_size = gviewer_get_font_size(obj->priv->viewer);
     settings->wrap_mode = gviewer_get_wrap_mode(obj->priv->viewer);
@@ -485,8 +485,8 @@ gviewer_window_destroy (GtkObject *widget)
     w = GVIEWER_WINDOW (widget);
 
     if (w->priv) {
-        g_object_unref(G_OBJECT(w->priv->viewer)) ;
-        g_object_unref(G_OBJECT(w->priv->exif_viewer)) ;
+        g_object_unref(G_OBJECT(w->priv->viewer));
+        g_object_unref(G_OBJECT(w->priv->exif_viewer));
 
 #ifdef EXTERNAL_TOOLS
         g_hash_table_destroy(w->priv->external_tools);
@@ -494,7 +494,7 @@ gviewer_window_destroy (GtkObject *widget)
 
         if (w->priv->filename)
             g_free(w->priv->filename);
-        w->priv->filename = NULL ;
+        w->priv->filename = NULL;
 
         if (w->priv->exit_data_fd!=-1)
             close(w->priv->exit_data_fd);
@@ -523,7 +523,7 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
         case GDK_w:
         case GDK_W:
             gtk_widget_destroy(GTK_WIDGET(w));
-            return TRUE ;
+            return TRUE;
         }
     }
 
@@ -621,13 +621,13 @@ create_ui_pixmap (GtkWidget *window,
 }
 
 typedef struct {
-    MENUITEMTYPE menutype ;
-    const gchar* label ;
+    MENUITEMTYPE menutype;
+    const gchar* label;
 
     guint keyval;
     guint modifier;
 
-    GCallback callback ;
+    GCallback callback;
 
     GnomeUIPixmapType pixmap_type;
     gconstpointer pixmap_info;
@@ -638,7 +638,7 @@ typedef struct {
     GtkWidget **menu_item_widget;
 
     GSList **radio_list;
-} MENU_ITEM_DATA ;
+} MENU_ITEM_DATA;
 
 static GtkWidget* create_menu_item (MENUITEMTYPE type,
                       const gchar* name,
@@ -719,7 +719,7 @@ static GtkWidget* create_radio_menu_item (GSList **group,
 static GtkWidget* create_sub_menu(const gchar *name, GtkWidget* container)
 {
     GtkWidget* menuitem4;
-    GtkWidget* menu4 ;
+    GtkWidget* menu4;
 
     menuitem4 = gtk_menu_item_new_with_mnemonic (_(name));
     gtk_widget_show (menuitem4);
@@ -738,19 +738,19 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
     g_return_if_fail(container!=NULL);
 
     while (menudata!=NULL && menudata->menutype!=MI_NONE) {
-        GtkWidget *item = NULL ;
+        GtkWidget *item = NULL;
 
         switch(menudata->menutype)
         {
         case MI_NONE:
-            break ;
+            break;
 
         case MI_SUBMENU:
-            item = create_sub_menu(menudata->label, container) ;
-            break ;
+            item = create_sub_menu(menudata->label, container);
+            break;
 
         case MI_SEPERATOR:
-            item =     create_menu_seperator(container) ;
+            item =     create_menu_seperator(container);
             break;
 
         case MI_NORMAL:
@@ -782,9 +782,9 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
             g_object_set_data(G_OBJECT(item), menudata->gobj_key,menudata->gobj_val);
 
         if (menudata->menu_item_widget)
-            *menudata->menu_item_widget = item ;
+            *menudata->menu_item_widget = item;
 
-        menudata++ ;
+        menudata++;
     }
 }
 
@@ -810,7 +810,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
         {MI_NONE}
     };
 
-    GSList *view_mode_list = NULL ;
+    GSList *view_mode_list = NULL;
     MENU_ITEM_DATA view_menu_items[] = {
         {MI_RADIO,_("_Text"),GDK_1,NO_MODIFIER,G_CALLBACK(menu_view_display_mode),
                 NO_PIXMAP_TYPE,NO_PIXMAP_INFO,
@@ -855,7 +855,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 
     GtkWidget *encoding_submenu = NULL;
 #ifdef EXTERNAL_TOOLS
-    GSList *text_parser_list = NULL ;
+    GSList *text_parser_list = NULL;
 #endif
     MENU_ITEM_DATA text_menu_items[] = {
         {MI_NORMAL,_("_Copy Text Selection"),GDK_C,GDK_CONTROL_MASK,
@@ -917,7 +917,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
     G_OBJ_CHARSET_KEY, (gpointer)value, \
     NO_MENU_ITEM, &text_encoding_list}
 
-    GSList *text_encoding_list = NULL ;
+    GSList *text_encoding_list = NULL;
     MENU_ITEM_DATA encoding_menu_items[] = {
         ENCODING_MENU_ITEM("_UTF-8",                        GDK_u,      "UTF8"),
         ENCODING_MENU_ITEM("English (US-_ASCII)",           GDK_a,      "ASCII"),
@@ -979,7 +979,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
         {MI_NONE}
     };
 
-    GtkWidget* binary_mode_settings_submenu = NULL ;
+    GtkWidget* binary_mode_settings_submenu = NULL;
     MENU_ITEM_DATA settings_menu_items[] = {
         {MI_SUBMENU, _("_Binary Mode"), NO_KEYVAL, NO_MODIFIER,
                 G_CALLBACK(NULL),
@@ -1001,7 +1001,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
         {MI_NONE}
     };
 
-    GSList *binmode_chars_per_line_list = NULL ;
+    GSList *binmode_chars_per_line_list = NULL;
     MENU_ITEM_DATA binmode_settings_menu_items[] = {
         {MI_RADIO,_("_20 chars/line"),GDK_2, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                 G_CALLBACK(menu_settings_binary_bytes_per_line),
@@ -1046,27 +1046,27 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
     int_viewer_menu = gtk_menu_bar_new ();
     obj->priv->accel_group = gtk_accel_group_new ();
 
-    /* File Menu */
-    submenu = create_sub_menu(_("_File"), int_viewer_menu) ;
+    // File Menu
+    submenu = create_sub_menu(_("_File"), int_viewer_menu);
     create_menu_items( submenu, obj->priv->accel_group, obj, file_menu_items );
 
-    submenu = create_sub_menu(_("_View"), int_viewer_menu) ;
+    submenu = create_sub_menu(_("_View"), int_viewer_menu);
     create_menu_items( submenu, obj->priv->accel_group, obj, view_menu_items );
 
-    submenu = create_sub_menu(_("_Text"), int_viewer_menu) ;
+    submenu = create_sub_menu(_("_Text"), int_viewer_menu);
     create_menu_items( submenu, obj->priv->accel_group, obj, text_menu_items );
-    /* "encoding_submenu" was initialized when "text_menu_items" is usd to create the "text" menu*/
+    // "encoding_submenu" was initialized when "text_menu_items" is usd to create the "text" menu
     create_menu_items( encoding_submenu, obj->priv->accel_group, obj, encoding_menu_items );
 
     submenu = create_sub_menu(_("_Image"), int_viewer_menu);
     create_menu_items( submenu, obj->priv->accel_group, obj, image_menu_items );
 
-    submenu = create_sub_menu(_("_Settings"), int_viewer_menu) ;
+    submenu = create_sub_menu(_("_Settings"), int_viewer_menu);
     create_menu_items( submenu, obj->priv->accel_group, obj, settings_menu_items );
 
     create_menu_items( binary_mode_settings_submenu, obj->priv->accel_group, obj, binmode_settings_menu_items);
 
-    submenu = create_sub_menu(_("_Help"), int_viewer_menu) ;
+    submenu = create_sub_menu(_("_Help"), int_viewer_menu);
     create_menu_items( submenu, obj->priv->accel_group, obj, help_menu_items );
 
     gtk_window_add_accel_group (GTK_WINDOW(obj), obj->priv->accel_group);
@@ -1074,7 +1074,7 @@ static void create_menu_items ( GtkWidget *container, GtkAccelGroup* accel,
 }
 
 
-/* Event Handlers */
+// Event Handlers
 static void menu_file_close (GtkMenuItem *item, GViewerWindow *obj)
 {
     gtk_widget_destroy(GTK_WIDGET(obj));
@@ -1086,7 +1086,7 @@ static void menu_view_exif_information(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail(obj->priv->viewer!=NULL);
 
     if (gviewer_get_display_mode(obj->priv->viewer) != DISP_MODE_IMAGE)
-        return ;
+        return;
 
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(item))) {
         gviewer_window_show_exif_viewer(obj);
@@ -1106,7 +1106,7 @@ static void menu_view_external_tool(GtkMenuItem *item, GViewerWindow *obj)
     tool = (char*)g_object_get_data(G_OBJECT(item),G_OBJ_EXTERNAL_TOOL_KEY);
     g_return_if_fail(tool);
 
-    gviewer_window_activate_external_tool(obj,tool) ;
+    gviewer_window_activate_external_tool(obj,tool);
     gtk_widget_draw(GTK_WIDGET(obj->priv->viewer),NULL);
 }
 
@@ -1124,7 +1124,7 @@ static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail(obj->priv->viewer);
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(item)))
-        return ;
+        return;
 
     dispmode = (VIEWERDISPLAYMODE)g_object_get_data(G_OBJECT(item),G_OBJ_DISPMODE_KEY);
 
@@ -1141,7 +1141,7 @@ static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
         gviewer_window_hide_exif_viewer(obj);
     }
 
-    gviewer_set_display_mode(obj->priv->viewer,dispmode) ;
+    gviewer_set_display_mode(obj->priv->viewer,dispmode);
     gtk_widget_grab_focus(GTK_WIDGET(obj->priv->viewer));
 
     gtk_widget_draw(GTK_WIDGET(obj->priv->viewer),NULL);
@@ -1149,18 +1149,18 @@ static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
 
 static void menu_view_set_charset(GtkMenuItem *item, GViewerWindow *obj)
 {
-    gchar *charset = NULL ;
+    gchar *charset = NULL;
 
     g_return_if_fail(obj);
     g_return_if_fail(obj->priv->viewer);
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(item)))
-        return ;
+        return;
 
     charset = g_object_get_data(G_OBJECT(item),G_OBJ_CHARSET_KEY);
     g_return_if_fail(charset!=NULL);
 
-    /* ASCII is set implicitly when setting a charset */
+    // ASCII is set implicitly when setting a charset
     //gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(w->priv->ascii_menu_item), TRUE);
 
     gviewer_set_encoding(obj->priv->viewer,charset);
@@ -1210,11 +1210,11 @@ static void menu_settings_binary_bytes_per_line(GtkMenuItem *item, GViewerWindow
     g_return_if_fail(obj->priv->viewer);
 
     if (!gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(item)))
-        return ;
+        return;
 
     bytes_per_line = (int)g_object_get_data(G_OBJECT(item),G_OBJ_BYTES_PER_LINE_KEY);
 
-    gviewer_set_fixed_limit(obj->priv->viewer,bytes_per_line) ;
+    gviewer_set_fixed_limit(obj->priv->viewer,bytes_per_line);
     gtk_widget_draw(GTK_WIDGET(obj->priv->viewer),NULL);
 }
 
@@ -1246,14 +1246,14 @@ static void start_find_thread(GViewerWindow *obj, gboolean forward)
                     GTK_MESSAGE_INFO,
                     GTK_BUTTONS_OK,
                     _("Pattern \"%s\" was not found"),
-                    obj->priv->search_pattern ) ;
+                    obj->priv->search_pattern );
         gtk_dialog_run (GTK_DIALOG (w));
         gtk_widget_destroy (w);
     } else {
-        result = g_viewer_searcher_get_search_result(obj->priv->srchr) ;
+        result = g_viewer_searcher_get_search_result(obj->priv->srchr);
         text_render_set_marker(gviewer_get_text_render(obj->priv->viewer),
                 result,
-                result + (forward?1:-1) * obj->priv->search_pattern_len) ;
+                result + (forward?1:-1) * obj->priv->search_pattern_len);
         text_render_ensure_offset_visible(gviewer_get_text_render(obj->priv->viewer),result);
     }
 }
@@ -1261,40 +1261,40 @@ static void start_find_thread(GViewerWindow *obj, gboolean forward)
 static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
 {
     GViewerSearchDlg* srch_dlg;
-    GtkWidget *w ;
+    GtkWidget *w;
     guint8* buffer;
     guint buflen;
 
     g_return_if_fail(obj);
     g_return_if_fail(obj->priv->active_viewer);
 
-    /* Show the Search Dialog */
+    // Show the Search Dialog
     w = gviewer_search_dlg_new(GTK_WINDOW(obj));
     if (gtk_dialog_run(GTK_DIALOG(w))!=GTK_RESPONSE_OK) {
         gtk_widget_destroy(w);
         return;
     }
 
-    /* If a previous search is active, delete it */
+    // If a previous search is active, delete it
     if (obj->priv->srchr!=NULL) {
         g_object_unref(obj->priv->srchr);
-        obj->priv->srchr = NULL ;
+        obj->priv->srchr = NULL;
 
         if (obj->priv->search_pattern!=NULL) {
             g_free(obj->priv->search_pattern);
-            obj->priv->search_pattern = NULL ;
+            obj->priv->search_pattern = NULL;
         }
     }
 
-    /* Get the search information from the search dialog */
+    // Get the search information from the search dialog
     srch_dlg = GVIEWER_SEARCH_DLG(w);
     obj->priv->search_pattern = gviewer_search_dlg_get_search_text_string(srch_dlg);
 
-    /* Create & prepare the search object  */
+    // Create & prepare the search object
     obj->priv->srchr = g_viewer_searcher_new();
 
     if (gviewer_search_dlg_get_search_mode(srch_dlg)==SEARCH_MODE_TEXT) {
-        /* Text search */
+        // Text search
         g_viewer_searcher_setup_new_text_search(obj->priv->srchr,
             text_render_get_input_mode_data(
                 gviewer_get_text_render(obj->priv->viewer)),
@@ -1304,10 +1304,10 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
                 text_render_get_file_ops(
                     gviewer_get_text_render(obj->priv->viewer))),
             obj->priv->search_pattern,
-            gviewer_search_dlg_get_case_sensitive(srch_dlg)) ;
+            gviewer_search_dlg_get_case_sensitive(srch_dlg));
         obj->priv->search_pattern_len = strlen(obj->priv->search_pattern);
     } else {
-        /* Hex Search */
+        // Hex Search
         buffer = gviewer_search_dlg_get_search_hex_buffer(srch_dlg, &buflen);
         g_return_if_fail(buffer!=NULL);
         obj->priv->search_pattern_len = buflen;
@@ -1319,7 +1319,7 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
             gv_file_get_max_offset (
                 text_render_get_file_ops(
                     gviewer_get_text_render(obj->priv->viewer))),
-            buffer, buflen) ;
+            buffer, buflen);
 
         g_free(buffer);
     }
@@ -1327,7 +1327,7 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
     gtk_widget_destroy(w);
 
 
-    /* call  "find_next" to actually do the search */
+    // call  "find_next" to actually do the search
     start_find_thread(obj,TRUE);
 }
 
@@ -1341,7 +1341,7 @@ static void menu_edit_find_next(GtkMenuItem *item, GViewerWindow *obj)
             if no search is active, call "menu_edit_find".
             (which will call "menu_edit_find_next" again */
         menu_edit_find(item,obj);
-        return ;
+        return;
     }
 
     start_find_thread(obj,TRUE);
@@ -1353,7 +1353,7 @@ static void menu_edit_find_prev(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail(obj->priv->active_viewer);
 
     if (obj->priv->srchr==NULL) {
-        return ;
+        return;
     }
 
     start_find_thread(obj,FALSE);
@@ -1469,7 +1469,7 @@ static void menu_help_about(GtkMenuItem *item, GViewerWindow *obj)
 #ifdef EXTERNAL_TOOLS
 static void gviewer_window_add_external_tool(GViewerWindow *obj, const gchar *name, const gchar* command )
 {
-    GViewerWindowExternalTool *tool ;
+    GViewerWindowExternalTool *tool;
 
     g_return_if_fail(obj);
     g_return_if_fail(name);
@@ -1480,7 +1480,7 @@ static void gviewer_window_add_external_tool(GViewerWindow *obj, const gchar *na
 
     tool->name = g_strdup(name);
     tool->command = g_strdup(command);
-    tool->attached_fd = -1 ;
+    tool->attached_fd = -1;
 
     g_hash_table_insert(obj->priv->external_tools, g_strdup(name), tool );
 }
@@ -1489,7 +1489,7 @@ static int gviewer_window_run_external_tool(GViewerWindow *obj, GViewerWindowExt
 {
     FILE* file;
     int fd = -1;
-    gchar* cmd_with_filename = NULL ;
+    gchar* cmd_with_filename = NULL;
     gchar* cmd_with_redir = NULL;
 
     g_return_val_if_fail(obj!=NULL,-1);
@@ -1497,7 +1497,7 @@ static int gviewer_window_run_external_tool(GViewerWindow *obj, GViewerWindowExt
     g_return_val_if_fail(tool->command!=NULL,-1);
     g_return_val_if_fail(obj->priv->filename!=NULL,-1);
 
-    file = tmpfile() ;
+    file = tmpfile();
     if (file==NULL) {
         g_warning("Failed to create temporary file");
         goto error;
@@ -1514,9 +1514,9 @@ static int gviewer_window_run_external_tool(GViewerWindow *obj, GViewerWindowExt
     cmd_with_redir = g_strdup_printf("%s >&%d", cmd_with_filename, fd);
 
     if (system(cmd_with_redir)==-1) {
-        fd = -1 ;
+        fd = -1;
         g_warning("Program execution (%s) failed", cmd_with_redir);
-        goto error ;
+        goto error;
     }
 
 error:
@@ -1525,7 +1525,7 @@ error:
     if (cmd_with_redir)
         g_free(cmd_with_redir);
 
-    return fd ;
+    return fd;
 }
 #endif
 
@@ -1533,13 +1533,13 @@ static int gviewer_window_run_exif(GViewerWindow *obj)
 {
     FILE* file;
     int fd = -1;
-    int ret ;
+    int ret;
     gchar* cmd_with_redir = NULL;
 
     g_return_val_if_fail(obj!=NULL,-1);
     g_return_val_if_fail(obj->priv->filename!=NULL,-1);
 
-    file = tmpfile() ;
+    file = tmpfile();
     if (file==NULL) {
         g_warning("Failed to create temporary file");
         goto error;
@@ -1552,7 +1552,7 @@ static int gviewer_window_run_exif(GViewerWindow *obj)
     }
 
     cmd_with_redir = g_strdup_printf("iptc '%s' >&%d", obj->priv->filename, fd);
-    ret = system(cmd_with_redir) ;
+    ret = system(cmd_with_redir);
     if (ret==-1) {
         g_warning("IPTC execution (%s) failed", cmd_with_redir);
     }
@@ -1560,51 +1560,51 @@ static int gviewer_window_run_exif(GViewerWindow *obj)
         g_free(cmd_with_redir);
 
     cmd_with_redir = g_strdup_printf("exif '%s' >&%d", obj->priv->filename, fd);
-    ret = system(cmd_with_redir) ;
+    ret = system(cmd_with_redir);
     if (ret==-1) {
         g_warning("EXIF execution (%s) failed", cmd_with_redir);
     }
     g_free(cmd_with_redir);
 
 error:
-    return fd ;
+    return fd;
 }
 
 #ifdef EXTERNAL_TOOLS
 static void gviewer_window_activate_external_tool(GViewerWindow *obj, const gchar *name)
 {
-    GViewerWindowExternalTool *tool ;
+    GViewerWindowExternalTool *tool;
 
     g_return_if_fail(obj!=NULL);
     g_return_if_fail(name!=NULL);
 
-    tool = g_hash_table_lookup(obj->priv->external_tools, name) ;
+    tool = g_hash_table_lookup(obj->priv->external_tools, name);
     if (tool==NULL) {
         g_warning("Could not find external tool \"%s\"", name);
         return;
     }
 
     if (obj->priv->active_external_tool==tool)
-        return ;
+        return;
 
     if (tool->attached_fd==-1)
         tool->attached_fd = gviewer_window_run_external_tool(obj,tool);
     g_return_if_fail(tool->attached_fd!=-1);
 
-    obj->priv->active_external_tool = tool ;
-    gviewer_load_filedesc(obj->priv->viewer,tool->attached_fd) ;
+    obj->priv->active_external_tool = tool;
+    gviewer_load_filedesc(obj->priv->viewer,tool->attached_fd);
 }
 
 static void gviewer_window_activate_internal_viewer(GViewerWindow *obj)
 {
     g_return_if_fail(obj!=NULL);
 
-    /* internal viewer is already active */
+    // internal viewer is already active
     if (obj->priv->active_external_tool==NULL)
         return;
 
-    obj->priv->active_external_tool = NULL ;
-    gviewer_load_file(obj->priv->viewer,obj->priv->filename) ;
+    obj->priv->active_external_tool = NULL;
+    gviewer_load_file(obj->priv->viewer,obj->priv->filename);
 }
 #endif
 
@@ -1614,7 +1614,7 @@ static void gviewer_window_show_exif_viewer(GViewerWindow *obj)
     g_return_if_fail(obj->priv->exif_viewer!=NULL);
 
     if (obj->priv->exif_active)
-        return ;
+        return;
 
     if (obj->priv->exit_data_fd==-1)
         obj->priv->exit_data_fd = gviewer_window_run_exif(obj);
@@ -1623,7 +1623,7 @@ static void gviewer_window_show_exif_viewer(GViewerWindow *obj)
     gviewer_load_filedesc(obj->priv->exif_viewer, obj->priv->exit_data_fd);
     gtk_widget_show(GTK_WIDGET(obj->priv->exif_viewer));
 
-    obj->priv->exif_active = TRUE ;
+    obj->priv->exif_active = TRUE;
     gtk_box_pack_start (GTK_BOX (obj->priv->vbox),
         GTK_WIDGET(obj->priv->exif_viewer), TRUE, TRUE, 0);
 
@@ -1638,9 +1638,9 @@ static void gviewer_window_hide_exif_viewer(GViewerWindow *obj)
     g_return_if_fail(obj->priv->exif_viewer!=NULL);
 
     if (!obj->priv->exif_active)
-        return ;
+        return;
 
-    obj->priv->exif_active = FALSE ;
+    obj->priv->exif_active = FALSE;
     gtk_container_remove(GTK_CONTAINER(obj->priv->vbox),GTK_WIDGET(obj->priv->exif_viewer));
     gtk_widget_grab_focus(GTK_WIDGET(obj->priv->viewer));
 
@@ -1672,14 +1672,14 @@ static void set_zoom_in(GViewerWindow *obj)
            gviewer_set_best_fit(obj->priv->viewer,FALSE);
 
            if (obj->priv->current_scale_index<MAX_SCALE_FACTOR_INDEX-1)
-              obj->priv->current_scale_index++ ;
+              obj->priv->current_scale_index++;
 
            if (gviewer_get_scale_factor(obj->priv->viewer) ==
                image_scale_factors[obj->priv->current_scale_index])
               return;
 
            gviewer_set_scale_factor(obj->priv->viewer,
-              image_scale_factors[obj->priv->current_scale_index] ) ;
+              image_scale_factors[obj->priv->current_scale_index] );
        }
        break;
 
@@ -1713,14 +1713,14 @@ static void set_zoom_out(GViewerWindow *obj)
            gviewer_set_best_fit(obj->priv->viewer,FALSE);
 
            if (obj->priv->current_scale_index>0)
-               obj->priv->current_scale_index-- ;
+               obj->priv->current_scale_index--;
 
            if (gviewer_get_scale_factor(obj->priv->viewer) ==
               image_scale_factors[obj->priv->current_scale_index])
               return;
 
            gviewer_set_scale_factor(obj->priv->viewer,
-              image_scale_factors[obj->priv->current_scale_index] ) ;
+              image_scale_factors[obj->priv->current_scale_index] );
        }
        break;
 
@@ -1739,12 +1739,12 @@ static void set_zoom_normal(GViewerWindow *obj)
     case DISP_MODE_TEXT_FIXED:
     case DISP_MODE_BINARY:
     case DISP_MODE_HEXDUMP:
-       /* needs to completed with resetting to default font size */
+       // needs to completed with resetting to default font size
        break;
 
     case DISP_MODE_IMAGE:
        gviewer_set_best_fit(obj->priv->viewer,FALSE);
-       gviewer_set_scale_factor(obj->priv->viewer,1 ) ;
+       gviewer_set_scale_factor(obj->priv->viewer,1 );
        break;
 
     default:

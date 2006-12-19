@@ -39,25 +39,25 @@
    action, keyboard shortcuts are caught by the different components by them self */
 
 typedef enum {
-    MENU_TYPE_END,        /* No more items, use it at the end of an array */
-    MENU_TYPE_ITEM,       /* Normal item, or radio item if it is inside a radioitems group */
+    MENU_TYPE_END,        // No more items, use it at the end of an array
+    MENU_TYPE_ITEM,       // Normal item, or radio item if it is inside a radioitems group
     MENU_TYPE_BASIC,
-    MENU_TYPE_TOGGLEITEM, /* Toggle (check box) item */
-    MENU_TYPE_RADIOITEMS, /* Radio item group */
-    MENU_TYPE_SUBTREE,    /* Item that defines a subtree/submenu */
-    MENU_TYPE_SEPARATOR   /* Separator line (menus) or blank space (toolbars) */
+    MENU_TYPE_TOGGLEITEM, // Toggle (check box) item
+    MENU_TYPE_RADIOITEMS, // Radio item group
+    MENU_TYPE_SUBTREE,    // Item that defines a subtree/submenu
+    MENU_TYPE_SEPARATOR   // Separator line (menus) or blank space (toolbars)
 } MenuType;
 
 
 typedef struct {
-    MenuType type;          /* Type of item */
-    gchar *label;            /* The text to use for this menu-item */
-    gchar *shortcut;        /* The shortcut for this menu-item */
-    gchar *tooltip;         /* The tooltip of this menu-item */
+    MenuType type;          // Type of item
+    gchar *label;            // The text to use for this menu-item
+    gchar *shortcut;        // The shortcut for this menu-item
+    gchar *tooltip;         // The tooltip of this menu-item
     gpointer moreinfo;        /* For an item, toggleitem, this is a pointer to the
                                function to call when the item is activated. */
-    gpointer user_data;        /* Data pointer to pass to callbacks */
-    GnomeUIPixmapType pixmap_type;    /* Type of pixmap for the item */
+    gpointer user_data;        // Data pointer to pass to callbacks
+    GnomeUIPixmapType pixmap_type;    // Type of pixmap for the item
     gconstpointer pixmap_info;      /* Pointer to the pixmap information:
                                      *
                                      * For GNOME_APP_PIXMAP_STOCK, a
@@ -213,7 +213,7 @@ create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent, MenuData *spec)
     gtk_widget_show (item);
 
     if (spec->type == MENU_TYPE_ITEM) {
-        /* Connect to the signal and set user data */
+        // Connect to the signal and set user data
         gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, spec->user_data);
 
         gtk_signal_connect (GTK_OBJECT (item), "activate", GTK_SIGNAL_FUNC (spec->moreinfo), spec->user_data);
@@ -281,14 +281,14 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 
 
-    /* Create the contents of the menu item */
+    // Create the contents of the menu item
     label = gtk_label_new (text);
     gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
     gtk_widget_show (label);
     gtk_container_add (GTK_CONTAINER (item), label);
 
 
-    /* Connect to the signal and set user data */
+    // Connect to the signal and set user data
     if (callback)
     {
         gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, user_data);
@@ -320,7 +320,7 @@ add_bookmark_menu_item (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCm
                           IMAGE_get_pixmap (PIXMAP_BOOKMARK), IMAGE_get_mask (PIXMAP_BOOKMARK),
                           GTK_SIGNAL_FUNC (on_bookmark_selected), bookmark);
 
-    /* Remeber this bookmarks item-widget so that we can remove it later */
+    // Remeber this bookmarks item-widget so that we can remove it later
     main_menu->priv->bookmark_menuitems = g_list_append (main_menu->priv->bookmark_menuitems, item);
 }
 
@@ -338,11 +338,11 @@ add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCmdBoo
                                      pixmap?pixmap->pixmap:NULL, pixmap?pixmap->mask:NULL,
                                      NULL, NULL);
 
-    /* Remeber this bookmarks item-widget so that we can remove it later */
+    // Remeber this bookmarks item-widget so that we can remove it later
     main_menu->priv->group_menuitems = g_list_append (main_menu->priv->group_menuitems, item);
 
 
-    /* Add bookmarks for this group */
+    // Add bookmarks for this group
     GtkWidget *submenu = gtk_menu_new ();
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), submenu);
 
@@ -915,15 +915,15 @@ gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
     GList *ftp_cons = gnome_cmd_con_list_get_all_ftp (con_list);
     GList *dev_cons = gnome_cmd_con_list_get_all_dev (con_list);
 
-    /* Remove all old items */
+    // Remove all old items
     g_list_foreach (main_menu->priv->connections_menuitems, (GFunc)gtk_widget_destroy, NULL);
     g_list_free (main_menu->priv->connections_menuitems);
     main_menu->priv->connections_menuitems = NULL;
 
-    /* separator */
+    // separator
     main_menu->priv->connections_menuitems = g_list_append (main_menu->priv->connections_menuitems, add_separator (main_menu, connections_menu));
 
-    /* Add all open connections */
+    // Add all open connections
     match_count = 0;
     for (tmp = all_cons; tmp; tmp = tmp->next)
     {
@@ -938,13 +938,13 @@ gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
         }
     }
 
-    /* separator */
+    // separator
     if (match_count)
         main_menu->priv->connections_menuitems = g_list_append (
             main_menu->priv->connections_menuitems,
             add_separator (main_menu, connections_menu));
 
-    /* Add all open connections that are not permanent */
+    // Add all open connections that are not permanent
     for (tmp = all_cons; tmp; tmp = tmp->next)
     {
         GnomeCmdCon *con = GNOME_CMD_CON (tmp->data);
@@ -964,17 +964,17 @@ gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu)
 
     g_return_if_fail (GNOME_CMD_IS_MAIN_MENU (main_menu));
 
-    /* Remove all old bookmark menu items */
+    // Remove all old bookmark menu items
     g_list_foreach (main_menu->priv->bookmark_menuitems, (GFunc)gtk_widget_destroy, NULL);
     g_list_free (main_menu->priv->bookmark_menuitems);
     main_menu->priv->bookmark_menuitems = NULL;
 
-    /* Remove all old group menu items */
+    // Remove all old group menu items
     g_list_foreach (main_menu->priv->group_menuitems, (GFunc)gtk_widget_destroy, NULL);
     g_list_free (main_menu->priv->group_menuitems);
     main_menu->priv->group_menuitems = NULL;
 
-    /* Add bookmark groups */
+    // Add bookmark groups
     cons = gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ());
     for (; cons; cons = cons->next)
     {

@@ -32,7 +32,7 @@ struct _GnomeCmdQuicksearchPopupPrivate {
 
     GList *matches;
     GList *pos;
-    GnomeCmdFile *last_focused_file ;
+    GnomeCmdFile *last_focused_file;
 };
 
 
@@ -40,7 +40,7 @@ static void
 focus_file (GnomeCmdQuicksearchPopup *popup, GnomeCmdFile *finfo)
 {
     gint row = gnome_cmd_file_list_get_row_from_file (popup->priv->fl, finfo);
-    popup->priv->last_focused_file = finfo ;
+    popup->priv->last_focused_file = finfo;
     if (row > 0)
     {
         gtk_clist_moveto (GTK_CLIST (popup->priv->fl), row, 0, 1, 0);
@@ -92,7 +92,7 @@ set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
         }
     }
 
-    /* If no file matches the new filter, focus on the last file that matched a previous filter */
+    // If no file matches the new filter, focus on the last file that matched a previous filter
     if (popup->priv->matches==NULL && popup->priv->last_focused_file!=NULL)
         popup->priv->matches = g_list_append (popup->priv->matches, popup->priv->last_focused_file);
 
@@ -110,7 +110,7 @@ hide_popup (GnomeCmdQuicksearchPopup *popup)
     gtk_widget_grab_focus (GTK_WIDGET (popup->priv->fl));
     if (popup->priv->matches)
         g_list_free (popup->priv->matches);
-    popup->priv->last_focused_file = NULL ;
+    popup->priv->last_focused_file = NULL;
     gtk_widget_hide (GTK_WIDGET (popup));
 }
 
@@ -131,7 +131,7 @@ on_key_pressed                      (GtkWidget *entry,
                                      GdkEventKey *event,
                                      GnomeCmdQuicksearchPopup *popup)
 {
-    /* While in quicksearch, treat "ALT/CTRL + key" as a simple "key" */
+    // While in quicksearch, treat "ALT/CTRL + key" as a simple "key"
     if (event->state & GDK_CONTROL_MASK || event->state & GDK_MOD1_MASK) {
         event->state &= ~(GDK_CONTROL_MASK|GDK_MOD1_MASK);
     }
@@ -327,7 +327,7 @@ gnome_cmd_quicksearch_popup_new              (GnomeCmdFileList *fl)
     popup = gtk_type_new (gnome_cmd_quicksearch_popup_get_type ());
     GTK_WINDOW (popup)->type = GTK_WINDOW_POPUP;
     popup->priv->fl = fl;
-    popup->priv->last_focused_file = NULL ;
+    popup->priv->last_focused_file = NULL;
     set_popup_position (popup);
 
     return GTK_WIDGET (popup);

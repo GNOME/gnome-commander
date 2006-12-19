@@ -96,7 +96,7 @@ struct _GnomeCmdMainWinPrivate
     GtkWidget *tb_cap_copy_btn;
     GtkWidget *tb_cap_paste_btn;
 
-    guint key_snooper_id ;
+    guint key_snooper_id;
 };
 
 static GnomeAppClass *parent_class = NULL;
@@ -133,7 +133,7 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget,
     if (!state_is_alt(event->state))
         return FALSE;
 
-    fs = gnome_cmd_main_win_get_active_fs(mw) ;
+    fs = gnome_cmd_main_win_get_active_fs(mw);
     if (fs==NULL || fs->list==NULL)
         return FALSE;
 
@@ -141,11 +141,11 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget,
         return FALSE;
 
     if (!gnome_cmd_file_list_quicksearch_shown(fs->list)) {
-        gnome_cmd_file_list_show_quicksearch(fs->list, event->keyval) ;
+        gnome_cmd_file_list_show_quicksearch(fs->list, event->keyval);
         return TRUE;
     }
 
-    return FALSE ;
+    return FALSE;
 }
 
 
@@ -211,7 +211,7 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
     if (!toolbar_tooltips)
         toolbar_tooltips = gtk_tooltips_new ();
 
-    for (i=0 ; uiinfo[i].type != GNOME_APP_UI_ENDOFINFO ; i++) {
+    for (i=0; uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; i++) {
         GtkWidget *w;
 
         if (uiinfo[i].type == GNOME_APP_UI_SEPARATOR) {
@@ -521,7 +521,7 @@ on_slide_button_press (GtkWidget *widget, GdkEventButton *event, GnomeCmdMainWin
     if (event->type == GDK_BUTTON_PRESS && event->button == 3) {
         GtkPaned *paned = GTK_PANED (mw->priv->paned);
 
-        /* Check that the handle was clicked and not one of the children */
+        // Check that the handle was clicked and not one of the children
         if (paned->handle == event->window) {
             gtk_menu_popup (GTK_MENU(create_slide_popup ()), NULL, NULL, NULL, NULL,
                             event->button, event->time);
@@ -778,8 +778,8 @@ destroy (GtkObject *object)
     GnomeCmdCon *con_home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
 
     if (main_win && main_win->priv && main_win->priv->key_snooper_id) {
-        gtk_key_snooper_remove(main_win->priv->key_snooper_id) ;
-    main_win->priv->key_snooper_id = 0 ;
+        gtk_key_snooper_remove(main_win->priv->key_snooper_id);
+    main_win->priv->key_snooper_id = 0;
     }
 
     dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, LEFT));
@@ -946,7 +946,7 @@ init (GnomeCmdMainWin *mw)
     gtk_window_add_accel_group (GTK_WINDOW (main_win), mw->priv->accel_group);
     gnome_cmd_main_win_focus_file_lists (main_win);
 
-    mw->priv->key_snooper_id = gtk_key_snooper_install((GtkKeySnoopFunc)gnome_cmd_key_snooper,(gpointer)mw) ;
+    mw->priv->key_snooper_id = gtk_key_snooper_install((GtkKeySnoopFunc)gnome_cmd_key_snooper,(gpointer)mw);
 }
 
 
@@ -1228,7 +1228,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
         switch (event->keyval)
         {
             case GDK_Tab:
-                /* hack to avoid the deafult handling of the tab-key */
+                // hack to avoid the deafult handling of the tab-key
                 clear_event_key (event);
                 gnome_cmd_main_win_switch_fs (mw, gnome_cmd_main_win_get_inactive_fs (mw));
                 return TRUE;

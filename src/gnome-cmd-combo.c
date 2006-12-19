@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, 
+ * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
  * Boston, MA 02110-1301, USA.
  */
 
@@ -403,7 +403,7 @@ init (GnomeCmdCombo *combo)
     gtk_box_pack_start (GTK_BOX (combo), combo->entry, TRUE, TRUE, 0);
     gtk_box_pack_end (GTK_BOX (combo), combo->button, FALSE, FALSE, 0);
 
-    /* connect button signals */
+    // connect button signals
     gtk_signal_connect (GTK_OBJECT (combo->button), "clicked", (GtkSignalFunc) on_popup_button_release, combo);
 
     combo->popwin = gtk_window_new (GTK_WINDOW_POPUP);
@@ -414,7 +414,7 @@ init (GnomeCmdCombo *combo)
     gtk_widget_set_events (combo->popwin, GDK_KEY_PRESS_MASK);
     gtk_widget_set_events (combo->popwin, GDK_BUTTON_PRESS_MASK);
 
-    /* connect popupwin signals */
+    // connect popupwin signals
     gtk_signal_connect (GTK_OBJECT (combo->popwin), "button-release-event", GTK_SIGNAL_FUNC (on_popwin_button_released), combo);
     gtk_signal_connect (GTK_OBJECT (combo->popwin), "key-press-event", GTK_SIGNAL_FUNC (on_popwin_keypress), combo);
     gtk_signal_connect (GTK_OBJECT (combo->popwin), "show", GTK_SIGNAL_FUNC (on_popwin_show), combo);
@@ -500,7 +500,7 @@ gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles)
     gtk_container_add (GTK_CONTAINER (combo->popup), combo->list);
     gtk_widget_show (combo->list);
 
-    /* connect list signals */
+    // connect list signals
     gtk_signal_connect (GTK_OBJECT (combo->list), "button-press-event", GTK_SIGNAL_FUNC (on_list_button_press), combo);
     gtk_signal_connect (GTK_OBJECT (combo->list), "button-release-event", GTK_SIGNAL_FUNC (on_list_button_release), combo);
     gtk_signal_connect (GTK_OBJECT (combo->list), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_press), combo);

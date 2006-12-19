@@ -89,7 +89,7 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
 
     if (event->type == GDK_BUTTON_PRESS && event->button == 1)
     {
-        /* left click - work out the path */
+        // left click - work out the path
         const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
         gchar *chTo = g_strdup(labelText);
         gint x = (gint)event->x;
@@ -106,7 +106,7 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
                 return TRUE;
             }
 
-        /* pointer is after directory name - just return */
+        // pointer is after directory name - just return
         return TRUE;
     }
 
@@ -123,7 +123,7 @@ update_markup (GnomeCmdDirIndicator *indicator, gint i)
         return;
 
     s = g_strdup (gtk_label_get_text (GTK_LABEL (indicator->priv->label)));
-    
+
     if (i >= 0)
     {
         gchar *t = g_strdup (&s[indicator->priv->slashCharPosition[i]]);
@@ -159,7 +159,7 @@ on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
     if (indicator->priv->slashPixelPosition == NULL)
         return FALSE;
 
-    /* find out where in the label the pointer is at */
+    // find out where in the label the pointer is at
     iX = (gint)event->x;
     iY = (gint)event->y;
 
@@ -167,7 +167,7 @@ on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
     {
         if (iX < indicator->priv->slashPixelPosition[i])
         {
-            /* underline the part that is selected */
+            // underline the part that is selected
             GdkCursor *cursor = gdk_cursor_new(GDK_HAND2);
             gdk_window_set_cursor(GTK_WIDGET(indicator)->window, cursor);
             gdk_cursor_destroy(cursor);
@@ -177,7 +177,7 @@ on_dir_indicator_motion (GnomeCmdDirIndicator *indicator,
             return TRUE;
         }
 
-        /* clear underline, cursor=pointer */
+        // clear underline, cursor=pointer
         update_markup (indicator, -1);
         gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
     }
@@ -193,7 +193,7 @@ on_dir_indicator_leave (GnomeCmdDirIndicator *indicator,
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator), FALSE);
 
-    /* clear underline, cursor=pointer */
+    // clear underline, cursor=pointer
     update_markup (indicator, -1);
     gdk_window_set_cursor(GTK_WIDGET (indicator)->window, NULL);
 
@@ -204,7 +204,7 @@ on_dir_indicator_leave (GnomeCmdDirIndicator *indicator,
 static int
 get_string_pixel_size (const char *s, int len)
 {
-    /* find the size, in pixels, of the given string */
+    // find the size, in pixels, of the given string
     gint xSize, ySize;
 
     gchar *buf = g_strndup(s, len);
@@ -219,7 +219,7 @@ get_string_pixel_size (const char *s, int len)
     PangoLayout *layout = gtk_label_get_layout (label);
     pango_layout_get_pixel_size (layout, &xSize, &ySize);
 
-    /* we're finished with the label */
+    // we're finished with the label
     gtk_object_sink (GTK_OBJECT (label));
     g_free (utf8buf);
     g_free (buf);
@@ -459,7 +459,7 @@ init (GnomeCmdDirIndicator *indicator)
     //  indicator->priv->slashPixelPosition = NULL;
     //  indicator->priv->numPositions = 0;
 
-    /* create the directory label and it's event box */
+    // create the directory label and it's event box
     indicator->priv->event_box = gtk_event_box_new ();
     gtk_widget_ref (indicator->priv->event_box);
     gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "motion_notify_event",
@@ -473,7 +473,7 @@ init (GnomeCmdDirIndicator *indicator)
     indicator->priv->label = create_label (GTK_WIDGET (indicator), "not initialized");
     gtk_container_add (GTK_CONTAINER (indicator->priv->event_box), indicator->priv->label);
 
-    /* create the history popup button */
+    // create the history popup button
     indicator->priv->history_button = gtk_button_new ();
     GTK_WIDGET_UNSET_FLAGS (indicator->priv->history_button, GTK_CAN_FOCUS);
     gtk_widget_ref (indicator->priv->history_button);
@@ -489,14 +489,14 @@ init (GnomeCmdDirIndicator *indicator)
     gtk_widget_show (arrow);
     gtk_container_add (GTK_CONTAINER (indicator->priv->history_button), arrow);
 
-    /* create the bookmark popup button */
+    // create the bookmark popup button
     indicator->priv->bookmark_button = create_styled_pixmap_button (NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_BOOKMARK));
     GTK_WIDGET_UNSET_FLAGS (indicator->priv->bookmark_button, GTK_CAN_FOCUS);
     gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button), gnome_cmd_data_get_button_relief ());
     gtk_object_set_data_full (GTK_OBJECT (indicator), "button", indicator->priv->bookmark_button, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (indicator->priv->bookmark_button);
 
-    /* pack */
+    // pack
     hbox = create_hbox (GTK_WIDGET (indicator), FALSE, 10);
     gtk_container_add (GTK_CONTAINER (indicator), hbox);
     gtk_box_pack_start (GTK_BOX (hbox), indicator->priv->event_box, TRUE, TRUE, 0);
@@ -605,13 +605,13 @@ gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *p
     indicator->priv->slashPixelPosition = g_new (gint, indicator->priv->numPositions);
 
     gint pos_idx = 0;
-    
+
     if (!isUNC && path_len>1)
     {
         indicator->priv->slashCharPosition[pos_idx] = 1;
         indicator->priv->slashPixelPosition[pos_idx++] = get_string_pixel_size (path, 1);
     }
-    
+
     for (i = isUNC ? 1 : 0; i < pos->len; i++)
     {
         indicator->priv->slashCharPosition[pos_idx] = g_array_index (pos, gint, i);

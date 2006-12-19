@@ -249,7 +249,7 @@ gnome_cmd_about_plugin_instance_init (GnomeCmdAboutPlugin *about)
 {
     GtkWidget *vbox, *hbox, *image, *label, *alignment, *button;
 
-    /* Data */
+    // Data
 
     GnomeCmdAboutPluginPrivate *priv = g_new0 (GnomeCmdAboutPluginPrivate, 1);
     about->priv = priv;
@@ -267,7 +267,7 @@ gnome_cmd_about_plugin_instance_init (GnomeCmdAboutPlugin *about)
     gtk_container_set_border_width (GTK_CONTAINER (about), 5);
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (about)->vbox), 5);
 
-    /* Widgets */
+    // Widgets
     vbox = gtk_vbox_new (FALSE, 8);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 5);
 
@@ -297,11 +297,11 @@ gnome_cmd_about_plugin_instance_init (GnomeCmdAboutPlugin *about)
 
     gtk_widget_show (vbox);
 
-    /* Add the close button */
+    // Add the close button
     gtk_dialog_add_button (GTK_DIALOG (about), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
     gtk_dialog_set_default_response (GTK_DIALOG (about), GTK_RESPONSE_CLOSE);
 
-    /* Add the credits button */
+    // Add the credits button
     image = gtk_image_new_from_stock (GNOME_STOCK_ABOUT, GTK_ICON_SIZE_BUTTON);
 
     label = gtk_label_new_with_mnemonic (_("C_redits"));
@@ -580,7 +580,7 @@ gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, c
     gint i;
     GSList *list;
 
-    /* Free the old list */
+    // Free the old list
     switch (prop_id)
     {
     case PROP_AUTHORS:
@@ -591,7 +591,7 @@ gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, c
         break;
     default:
         g_assert_not_reached ();
-        list = NULL; /* silence warning */
+        list = NULL; // silence warning
     }
 
     gnome_cmd_about_plugin_free_person_list (list);

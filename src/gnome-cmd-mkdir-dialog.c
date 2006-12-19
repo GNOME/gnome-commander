@@ -40,7 +40,7 @@ on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdMkdirD
 {
     const gchar *filename = values[0];
 
-    /* dont create any directory if no name was passed or cancel was selected */
+    // dont create any directory if no name was passed or cancel was selected
     if (filename == NULL || *filename == 0)
     {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("A directory name must be entered")));

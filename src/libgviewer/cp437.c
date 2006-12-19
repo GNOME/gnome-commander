@@ -1,7 +1,7 @@
 /*
-    LibGViewer - GTK+ File Viewer library 
+    LibGViewer - GTK+ File Viewer library
     Copyright (C) 2006 Assaf Gordon
-    
+
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
@@ -26,9 +26,9 @@
  It is not compiled by itself.
 */
 
-/* see "http://en.wikipedia.org/wiki/CP437" */
+// see "http://en.wikipedia.org/wiki/CP437"
 unsigned int ascii_cp437_to_unicode[256] = {
-0x2E, /* NULL will be shown as a dot */
+0x2E, // NULL will be shown as a dot
 0x263A,
 0x263B,
 0x2665,

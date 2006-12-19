@@ -223,12 +223,12 @@ gnome_cmd_app_set_pattern_string (GnomeCmdApp *app,
 
     app->priv->pattern_string = g_strdup (pattern_string);
 
-    /* Free old list with patterns */
+    // Free old list with patterns
     g_list_foreach (app->priv->pattern_list, (GFunc)g_free, NULL);
     g_list_free (app->priv->pattern_list);
     app->priv->pattern_list = NULL;
 
-    /* Create the new one */
+    // Create the new one
     i = 0;
     ents = g_strsplit (pattern_string, ";", 0);
     while (ents[i]) {

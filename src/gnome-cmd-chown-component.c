@@ -108,7 +108,7 @@ load_users_and_groups (GnomeCmdChownComponent *comp)
 
     g_return_if_fail (prog_user != NULL);
 
-    /* disable user combo if user is not root, else fill the combo with all users in the system */
+    // disable user combo if user is not root, else fill the combo with all users in the system
     if (prog_user->uid != 0)
         gtk_widget_set_sensitive (comp->priv->user_combo, FALSE);
     else {
@@ -124,10 +124,10 @@ load_users_and_groups (GnomeCmdChownComponent *comp)
         gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->user_combo), comp->priv->user_strings);
     }
 
-    /* fill the groups combo with all groups that the user is part of if ordinary user or all groups if root */
+    // fill the groups combo with all groups that the user is part of if ordinary user or all groups if root
     GList *tmp = prog_user->uid != 0 ? prog_user->groups : OWNER_get_all_groups ();
 
-    for (; tmp; tmp = tmp->next) 
+    for (; tmp; tmp = tmp->next)
     {
         group_t *group = (group_t*)tmp->data;
         comp->priv->group_strings = g_list_append (comp->priv->group_strings, g_strdup (group->name));

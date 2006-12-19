@@ -39,8 +39,7 @@ typedef struct
     GnomeVFSXferOptions xferOptions;
     GnomeVFSAsyncHandle *handle;
 
-    // Source and target uri's. The first src_uri should be transfered to the
-    // first dest_uri and so on...
+    // Source and target uri's. The first src_uri should be transfered to the first dest_uri and so on...
     GList *src_uri_list;
     GList *dest_uri_list;
 
@@ -84,7 +83,7 @@ free_xfer_data (XferData *data)
 
     g_list_free (data->src_uri_list);
 
-    /* free the list with target uris */
+    // free the list with target uris
     for (tmp_list = data->dest_uri_list; tmp_list; tmp_list = tmp_list->next)
     {
         GnomeVFSURI *uri = (GnomeVFSURI*)tmp_list->data;
@@ -151,9 +150,10 @@ async_xfer_callback (GnomeVFSAsyncHandle *handle,
     if (data->aborted)
         return 0;
 
-    if (info->source_name != NULL) {
-        if (data->cur_file_name
-            && strcmp (data->cur_file_name, info->source_name) != 0) {
+    if (info->source_name != NULL)
+    {
+        if (data->cur_file_name && strcmp (data->cur_file_name, info->source_name) != 0)
+        {
             g_free (data->cur_file_name);
             data->cur_file_name = NULL;
         }
@@ -200,7 +200,8 @@ async_xfer_callback (GnomeVFSAsyncHandle *handle,
         return ret;
     }
 
-    if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED) {
+    if (info->phase == GNOME_VFS_XFER_PHASE_COMPLETED)
+    {
         gnome_cmd_main_win_focus_file_lists (main_win);
         data->done = TRUE;
     }
@@ -224,20 +225,21 @@ update_xfer_gui_func (XferData *data)
         return FALSE;
     }
 
-    if (data->cur_phase == GNOME_VFS_XFER_PHASE_COPYING) {
+    if (data->cur_phase == GNOME_VFS_XFER_PHASE_COPYING)
+    {
         gfloat total_diff=0;
 
-        if (data->prev_phase != GNOME_VFS_XFER_PHASE_COPYING) {
+        if (data->prev_phase != GNOME_VFS_XFER_PHASE_COPYING)
+        {
             gnome_cmd_xfer_progress_win_set_action (data->win, _("copying..."));
             data->prev_file = -1;
         }
 
-        if (data->prev_file != data->cur_file) {
+        if (data->prev_file != data->cur_file)
+        {
             gchar *t = str_uri_basename (data->cur_file_name);
             gchar *fn = get_utf8 (t);
-            gchar *msg = g_strdup_printf (
-                _("[file %ld of %ld] \"%s\""),
-                data->cur_file, data->files_total, fn);
+            gchar *msg = g_strdup_printf (_("[file %ld of %ld] \"%s\""), data->cur_file, data->files_total, fn);
 
             gnome_cmd_xfer_progress_win_set_msg (data->win, msg);
 
@@ -275,7 +277,7 @@ update_xfer_gui_func (XferData *data)
                     data->src_fl, data->src_files);
         }
 
-        /* Only update the files if needed */
+        // Only update the files if needed
         if (data->to_dir) {
             gnome_cmd_dir_relist_files (data->to_dir, FALSE);
             gnome_cmd_main_win_focus_file_lists (main_win);
@@ -328,7 +330,7 @@ remove_basename (gchar *in)
     gint i;
     gchar *out = g_strdup (in);
 
-    for (i=strlen(out)-1 ; i>0 ; i--) {
+    for (i=strlen(out)-1; i>0; i--) {
         if (out[i] == '/') {
             out[i] = '\0';
             return out;
@@ -435,7 +437,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     gtk_window_set_title (GTK_WINDOW (data->win), _("preparing..."));
     gtk_widget_show (GTK_WIDGET (data->win));
 
-    /* start the transfer */
+    // start the transfer
     result = gnome_vfs_async_xfer (
         &data->handle,
         data->src_uri_list,
@@ -530,7 +532,7 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
     gtk_window_set_title (GTK_WINDOW (data->win), _("downloading to /tmp"));
     gtk_widget_show (GTK_WIDGET (data->win));
 
-    /* start the transfer */
+    // start the transfer
     result = gnome_vfs_async_xfer (
         &data->handle,
         data->src_uri_list,

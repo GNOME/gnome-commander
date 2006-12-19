@@ -37,7 +37,7 @@ typedef struct {
     gboolean count_done;
     gchar *msg;
 
-    /* Properties tab stuff */
+    // Properties tab stuff
     gboolean stop;
     GnomeVFSFileSize size;
     GnomeVFSURI *uri;
@@ -45,7 +45,7 @@ typedef struct {
     GtkWidget *size_label;
     GtkWidget *app_label;
 
-    /* Permissions tab stuff */
+    // Permissions tab stuff
     GtkWidget *chown_component;
     GtkWidget *chmod_component;
 
@@ -166,7 +166,7 @@ update_count_status (GnomeCmdFilePropsDialogPrivate *data)
 
     if (data->count_done)
     {
-        /* Returning FALSE here stops the timeout callbacks */
+        // Returning FALSE here stops the timeout callbacks
         return FALSE;
     }
 

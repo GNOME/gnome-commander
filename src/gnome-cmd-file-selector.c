@@ -100,7 +100,7 @@ set_same_directory (GnomeCmdFileSelector *fs, GnomeCmdFileSelector *other)
 static void
 show_list_popup (GnomeCmdFileSelector *fs)
 {
-    /* create the popup menu */
+    // create the popup menu
     GtkWidget *menu = gnome_cmd_list_popmenu_new (fs);
     gtk_widget_ref (menu);
 
@@ -313,7 +313,7 @@ update_files (GnomeCmdFileSelector *fs)
 //    if (gnome_cmd_con_open_is_needed (fs->priv->con))
 //        gnome_cmd_con_open (fs->priv->con);
 
-    /* sort out the files to show */
+    // sort out the files to show
     for (gnome_cmd_dir_get_files (dir, &list); list; list = list->next)
     {
         GnomeCmdFile *finfo = GNOME_CMD_FILE (list->data);
@@ -322,7 +322,7 @@ update_files (GnomeCmdFileSelector *fs)
             list2 = g_list_append (list2, finfo);
     }
 
-    /* Create a parent dir file (..) if appropriate */
+    // Create a parent dir file (..) if appropriate
     path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
     if (path && strcmp (path, G_DIR_SEPARATOR_S) != 0)
         list2 = g_list_append (list2, create_parent_dir_file (dir));
@@ -644,14 +644,14 @@ init_dnd (GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
 
-    /* Set up drag source */
+    // Set up drag source
 
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_begin", GTK_SIGNAL_FUNC (drag_begin), fs);
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_end", GTK_SIGNAL_FUNC (drag_end), fs);
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_leave", GTK_SIGNAL_FUNC (drag_leave), fs);
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_data_delete", GTK_SIGNAL_FUNC (drag_data_delete), fs);
 
-    /* Set up drag destination */
+    // Set up drag destination
 
     gtk_drag_dest_set (GTK_WIDGET (fs->list),
                        GTK_DEST_DEFAULT_DROP,
@@ -745,7 +745,7 @@ goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
         dir = unquote_if_needed (in_dir);
 
     if (strcmp (dir, "..") == 0) {
-        /* lets get the parent directory */
+        // lets get the parent directory
         new_dir = gnome_cmd_dir_get_parent (cur_dir);
         if (!new_dir) {
             g_free (dir);
@@ -754,7 +754,7 @@ goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
         focus_dir = gnome_cmd_file_get_name (GNOME_CMD_FILE (cur_dir));
     }
     else {
-        /* check if it's an absolute address or not */
+        // check if it's an absolute address or not
         if (dir[0] == '/') {
             new_dir = gnome_cmd_dir_new (fs->priv->con, gnome_cmd_con_create_path (fs->priv->con, dir));
         }
@@ -770,7 +770,7 @@ goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
     if (new_dir)
         gnome_cmd_file_selector_set_directory (fs, new_dir);
 
-    /* focus the current dir when going back to the parent dir */
+    // focus the current dir when going back to the parent dir
     if (focus_dir)
         gnome_cmd_file_list_focus_file (fs->list, focus_dir, FALSE);
 
@@ -783,8 +783,8 @@ do_file_specific_action                  (GnomeCmdFileSelector *fs,
                                           GnomeCmdFile *finfo)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-    g_return_if_fail (finfo!=NULL) ;
-    g_return_if_fail (finfo->info!=NULL) ;
+    g_return_if_fail (finfo!=NULL);
+    g_return_if_fail (finfo->info!=NULL);
 
     if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
         if (strcmp (finfo->info->name, "..") == 0)
@@ -1303,13 +1303,13 @@ init (GnomeCmdFileSelector *fs)
 
     vbox = GTK_VBOX (fs);
 
-    /* create the box used for packing the dir_combo and buttons */
+    // create the box used for packing the dir_combo and buttons
     gnome_cmd_file_selector_update_conbuttons_visibility (fs);
 
-    /* create the box used for packing the con_combo and information */
+    // create the box used for packing the con_combo and information
     fs->con_hbox = create_hbox (GTK_WIDGET (fs), FALSE, 2);
 
-    /* create the list */
+    // create the list
     fs->list_widget = gnome_cmd_file_list_new ();
     gtk_widget_ref (fs->list_widget);
     gtk_object_set_data_full (GTK_OBJECT (fs), "list_widget", fs->list_widget,
@@ -1317,7 +1317,7 @@ init (GnomeCmdFileSelector *fs)
     fs->list = GNOME_CMD_FILE_LIST (fs->list_widget);
     gnome_cmd_file_list_show_column (fs->list, FILE_LIST_COLUMN_DIR, FALSE);
 
-    /* create the connection combo */
+    // create the connection combo
     fs->con_combo = gnome_cmd_combo_new (2, 1, NULL);
     gtk_widget_ref (fs->con_combo);
     gtk_object_set_data_full (GTK_OBJECT (fs),
@@ -1329,14 +1329,14 @@ init (GnomeCmdFileSelector *fs)
     gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 1, 60);
     GTK_WIDGET_UNSET_FLAGS (GNOME_CMD_COMBO (fs->con_combo)->button, GTK_CAN_FOCUS);
 
-    /* Create the free space on volume label */
+    // Create the free space on volume label
     fs->vol_label = gtk_label_new ("");
     gtk_widget_ref (fs->vol_label);
     gtk_object_set_data_full (GTK_OBJECT (fs), "vol_label", fs->vol_label,
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_misc_set_alignment (GTK_MISC (fs->vol_label), 1, 0.5);
 
-    /* create the root button */
+    // create the root button
     fs->root_btn = create_styled_pixmap_button (
         NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_ROOT_DIR));
     gtk_object_set_data_full (GTK_OBJECT (fs),
@@ -1344,14 +1344,14 @@ init (GnomeCmdFileSelector *fs)
                               (GtkDestroyNotify) gtk_widget_unref);
     GTK_WIDGET_UNSET_FLAGS (fs->root_btn, GTK_CAN_FOCUS);
 
-    /* create the directory indicator */
+    // create the directory indicator
     fs->dir_indicator = gnome_cmd_dir_indicator_new (fs);
     gtk_widget_ref (fs->dir_indicator);
     gtk_object_set_data_full (GTK_OBJECT (fs),
                               "dir_indicator", fs->dir_indicator,
                               (GtkDestroyNotify) gtk_widget_unref);
 
-    /* create the scrollwindow that we'll place the list in */
+    // create the scrollwindow that we'll place the list in
     fs->scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_ref (fs->scrolledwindow);
     gtk_object_set_data_full (GTK_OBJECT (fs),
@@ -1360,14 +1360,14 @@ init (GnomeCmdFileSelector *fs)
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (fs->scrolledwindow),
                                     GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
-    /* create the info label */
+    // create the info label
     fs->info_label = gtk_label_new ("not initialized");
     gtk_widget_ref (fs->info_label);
     gtk_object_set_data_full (GTK_OBJECT (fs), "infolabel", fs->info_label,
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_misc_set_alignment (GTK_MISC (fs->info_label), 0.0f, 0.5f);
 
-    /* pack the widgets */
+    // pack the widgets
     gtk_box_pack_start (GTK_BOX (fs), fs->con_hbox, FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), fs->dir_indicator, FALSE, FALSE, 0);
     gtk_container_add (GTK_CONTAINER (fs->scrolledwindow), fs->list_widget);
@@ -1380,10 +1380,10 @@ init (GnomeCmdFileSelector *fs)
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->root_btn, FALSE, FALSE, 0);
 
 
-    /* initialize dnd */
+    // initialize dnd
     init_dnd (fs);
 
-    /* connect signals */
+    // connect signals
     gtk_signal_connect (GTK_OBJECT (fs), "realize",
                         GTK_SIGNAL_FUNC (on_realize), fs);
 
@@ -1413,7 +1413,7 @@ init (GnomeCmdFileSelector *fs)
                         GTK_SIGNAL_FUNC (on_con_list_list_changed), fs);
 
 
-    /* show the widgets */
+    // show the widgets
     gtk_widget_show (GTK_WIDGET (vbox));
     gtk_widget_show (fs->con_hbox);
     gtk_widget_show (fs->dir_indicator);
@@ -1506,10 +1506,10 @@ gnome_cmd_file_selector_start_editor      (GnomeCmdFileSelector *fs)
     if (!gnome_cmd_con_is_local (fs->priv->con))
         return;
 
-    /* create a command with an empty argument to the editor */
+    // create a command with an empty argument to the editor
     cmd = g_strdup (gnome_cmd_data_get_editor ());
     l = strlen(cmd);
-    for (i=0 ; i<l ; i++)
+    for (i=0; i<l; i++)
         if (cmd[i] == ' ')
         {
             cmd[i] = '\0';
@@ -1960,7 +1960,7 @@ on_create_symlink_ok (GnomeCmdStringDialog *string_dialog,
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
     g_return_val_if_fail (fs->priv->sym_file != NULL, TRUE);
 
-    /* dont create any symlink if no name was passed or cancel was selected */
+    // dont create any symlink if no name was passed or cancel was selected
     if (name == NULL || strcmp (name, "") == 0)
     {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No filename given")));
@@ -2208,7 +2208,7 @@ gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files)
         g_free (symlink_name);
 
         GnomeVFSResult result;
-        
+
         do
         {
             result = gnome_vfs_create_symbolic_link (uri, gnome_cmd_file_get_uri_str (finfo));

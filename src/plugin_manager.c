@@ -28,7 +28,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-about-plugin.h"
 
-/* The names of these functions shall never change */
+// The names of these functions shall never change
 #define MODULE_INIT_FUNC "create_plugin"
 #define MODULE_INFO_FUNC "get_plugin_info"
 
@@ -54,7 +54,7 @@ load_plugin (PluginData *data)
         return;
     }
 
-    /* Try to get a reference to the "get_plugin_info" function */
+    // Try to get a reference to the "get_plugin_info" function
     if (!g_module_symbol (module, MODULE_INFO_FUNC, (gpointer*)&info_func))
     {
         g_printerr ("ERROR: The plugin-file '%s' has no function named '%s'.\n", data->fname, MODULE_INFO_FUNC);
@@ -62,7 +62,7 @@ load_plugin (PluginData *data)
         return;
     }
 
-    /* Try to get the plugin info */
+    // Try to get the plugin info
     data->info = info_func ();
     if (!data->info)
     {
@@ -72,7 +72,7 @@ load_plugin (PluginData *data)
         return;
     }
 
-    /* Check that the plugin is compatible */
+    // Check that the plugin is compatible
     if (data->info->plugin_system_version != GNOME_CMD_PLUGIN_SYSTEM_CURRENT_VERSION)
     {
         g_printerr ("ERROR: The plugin '%s' is not compatible with this version of %s:\n", data->info->name, PACKAGE);
@@ -81,7 +81,7 @@ load_plugin (PluginData *data)
         return;
     }
 
-    /* Try to get a reference to the "create_plugin" function */
+    // Try to get a reference to the "create_plugin" function
     if (!g_module_symbol (module, MODULE_INIT_FUNC, (gpointer*)&init_func))
     {
         g_printerr ("ERROR: The plugin '%s' has no '%s' function\n", data->info->name, MODULE_INIT_FUNC);
@@ -89,7 +89,7 @@ load_plugin (PluginData *data)
         return;
     }
 
-    /* Try to initialize the plugin */
+    // Try to initialize the plugin
     plugin = init_func ();
     if (!plugin)
     {
@@ -99,7 +99,7 @@ load_plugin (PluginData *data)
         return;
     }
 
-    /* All is OK, everyone is happy */
+    // All is OK, everyone is happy
     data->plugin = plugin;
     data->module = module;
     data->loaded = TRUE;
@@ -168,8 +168,7 @@ scan_plugins_in_dir (const gchar *dpath)
         {
             if (buf.st_mode & S_IFREG)
             {
-                // the direntry has the .so extension and is a regular file
-                // lets accept it
+                // the direntry has the .so extension and is a regular file, lets accept it
                 PluginData *data = g_new (PluginData, 1);
                 data->fname = g_strdup (ent->d_name);
                 data->fpath = g_build_path (G_DIR_SEPARATOR_S, dpath, ent->d_name, NULL);
@@ -209,18 +208,18 @@ void plugin_manager_init (void)
         return;
     }
 
-    /* find user plugins */
+    // find user plugins
     gchar *user_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir(), ".gnome-commander/plugins", NULL);
     create_dir_if_needed (user_dir);
     scan_plugins_in_dir (user_dir);
     g_free (user_dir);
 
-    /* find system plugins */
+    // find system plugins
     scan_plugins_in_dir (PLUGIN_DIR);
 
-    /* activate plugins */
+    // activate plugins
     GList *l;
-    
+
     for (l=gnome_cmd_data_get_auto_load_plugins (); l; l=l->next)
     {
         char *name = (gchar*)l->data;
@@ -234,7 +233,7 @@ void plugin_manager_init (void)
         }
     }
 
-    /* inactivate plugins that shouldn't be autoloaded */
+    // inactivate plugins that shouldn't be autoloaded
     for (l=plugins; l; l=l->next)
     {
         PluginData *data = (PluginData*)l->data;

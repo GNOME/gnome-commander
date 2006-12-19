@@ -1,7 +1,7 @@
 /*
-    LibGViewer - GTK+ File Viewer library 
+    LibGViewer - GTK+ File Viewer library
     Copyright (C) 2006 Assaf Gordon
-    
+
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
@@ -32,11 +32,11 @@
 static void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
 {
    int i ;
-   for (i=0;i<256;i++) 
-	   bad[i] = m ;
-   
+   for (i=0;i<256;i++)
+       bad[i] = m ;
+
    for (i = 0; i < m - 1; ++i)
-	   bad[(int)pattern[i]] = m - i - 1;
+       bad[(int)pattern[i]] = m - i - 1;
 }
 
 /************************************************
@@ -44,7 +44,7 @@ static void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
 ************************************************/
 static void suffixes(guint8 *pattern, int m, /* out */ int *suff) {
    int f, g, i;
- 
+
    f = 0;
    suff[m - 1] = m;
    g = m - 1;
@@ -65,11 +65,11 @@ static void suffixes(guint8 *pattern, int m, /* out */ int *suff) {
 static void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good) {
    int i, j;
    int *suff;
-	
+
    suff = g_new0(int, m);
-	
+
    suffixes(pattern, m, suff);
- 
+
    for (i = 0; i < m; ++i)
       good[i] = m;
    j = 0;
@@ -80,50 +80,50 @@ static void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good) {
                good[j] = m - 1 - i;
    for (i = 0; i <= m - 2; ++i)
       good[m - 1 - suff[i]] = m - 1 - i;
-   
+
    g_free(suff);
 }
 
 GViewerBMByteData* create_bm_byte_data(const guint8 *pattern, const gint length)
 {
-	GViewerBMByteData *data;
-	
-	g_return_val_if_fail(pattern!=NULL,NULL);
-	g_return_val_if_fail(length>0,NULL);
-	
-	data = g_new0(GViewerBMByteData,1);
-	
-	data->pattern_len = length ;
-	data->pattern = g_new(guint8, length);
-	memcpy(data->pattern, pattern, length);
+    GViewerBMByteData *data;
 
-	data->bad = g_new0(int, 256);
-	badchar_compute(data->pattern,data->pattern_len,data->bad);
-	
-	data->good = g_new0(int, data->pattern_len);
-	goodsuff_compute(data->pattern,data->pattern_len, data->good);
-	
-	return data;
+    g_return_val_if_fail(pattern!=NULL,NULL);
+    g_return_val_if_fail(length>0,NULL);
+
+    data = g_new0(GViewerBMByteData,1);
+
+    data->pattern_len = length ;
+    data->pattern = g_new(guint8, length);
+    memcpy(data->pattern, pattern, length);
+
+    data->bad = g_new0(int, 256);
+    badchar_compute(data->pattern,data->pattern_len,data->bad);
+
+    data->good = g_new0(int, data->pattern_len);
+    goodsuff_compute(data->pattern,data->pattern_len, data->good);
+
+    return data;
 }
 
 void free_bm_byte_data(GViewerBMByteData *data)
 {
-	if (data==NULL)
-		return ;
-	
-	if (data->good!=NULL)
-		g_free(data->good);
-	data->good=NULL;
-	
-	if (data->bad!=NULL)
-		g_free(data->bad);
-	data->bad = NULL ;
-	
-	if (data->pattern!=NULL)
-		g_free(data->pattern);
-	data->pattern = NULL ;
-	
-	data->pattern_len = 0 ;
-	
-	g_free(data);
+    if (data==NULL)
+        return ;
+
+    if (data->good!=NULL)
+        g_free(data->good);
+    data->good=NULL;
+
+    if (data->bad!=NULL)
+        g_free(data->bad);
+    data->bad = NULL ;
+
+    if (data->pattern!=NULL)
+        g_free(data->pattern);
+    data->pattern = NULL ;
+
+    data->pattern_len = 0 ;
+
+    g_free(data);
 }

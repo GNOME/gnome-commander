@@ -58,7 +58,7 @@ on_dialog_keypressed (GtkWidget *widget,
 
                 gnome_cmd_file_unref (dialog->priv->finfo);
                 gtk_widget_destroy (widget);
-                /* TODO: if (ret != GNOME_VFS_OK) { */
+                // TODO: if (ret != GNOME_VFS_OK) {
             }
             return TRUE;
 

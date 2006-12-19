@@ -1,7 +1,7 @@
 /*
-    LibGViewer - GTK+ File Viewer library 
+    LibGViewer - GTK+ File Viewer library
     Copyright (C) 2006 Assaf Gordon
-    
+
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
@@ -54,20 +54,20 @@ GType g_viewer_searcher_get_type();
 GViewerSearcher *g_viewer_searcher_new();
 
 
-void g_viewer_searcher_setup_new_text_search( GViewerSearcher *srchr, 
+void g_viewer_searcher_setup_new_text_search( GViewerSearcher *srchr,
 				 GVInputModesData *imd,
 				 offset_type start_offset,
 				 offset_type max_offset,
 				 const gchar *text,
 				 gboolean case_sensitive) ;
 
-void g_viewer_searcher_setup_new_hex_search( GViewerSearcher *srchr, 
+void g_viewer_searcher_setup_new_hex_search( GViewerSearcher *srchr,
 				 GVInputModesData *imd,
 				 offset_type start_offset,
 				 offset_type max_offset,
 				 const guint8 *buffer, guint buflen ) ;
 
-/*  
+/*
     call "g_viewer_searcher_start_search" to start the search thread.
     Make sure the search parameters have been configured BEFORE starting the thread.
     Remember to 'join' the search thread wih "g_viewer_searcher_join"

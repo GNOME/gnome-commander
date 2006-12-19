@@ -196,7 +196,7 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     int result, i;
 
 
-    /* Create the dialog. */
+    // Create the dialog.
     va_start (button_title_args, def_response);
     button_titles = convert_varargs_to_name_array (button_title_args);
     va_end (button_title_args);
@@ -206,7 +206,7 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
         gtk_window_set_title (GTK_WINDOW (dialog), title);
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
-    for (i=0 ; button_titles[i] != NULL ; i++)
+    for (i=0; button_titles[i] != NULL; i++)
         gtk_dialog_add_button (GTK_DIALOG (dialog), button_titles[i], i);
 
     g_free (button_titles);
@@ -214,7 +214,7 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     if (def_response>=0)
         gtk_dialog_set_default_response(GTK_DIALOG (dialog), def_response);
 
-    /* Allow close. */
+    // Allow close.
     if (ignore_close_box)
     {
         gtk_signal_connect (GTK_OBJECT (dialog),
@@ -233,7 +233,7 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     gtk_window_set_wmclass (GTK_WINDOW (dialog), "dialog", "Eel");
 
 
-    /* Run it. */
+    // Run it.
     do
     {
         gtk_widget_show (dialog);
@@ -322,7 +322,7 @@ gchar *str_uri_basename (const gchar *uri)
     if (len < 2)
         return NULL;
 
-    for (i=0 ; i<len ; i++)
+    for (i=0; i<len; i++)
     {
         if (uri[i] == '/')
             last_slash = i;
@@ -865,7 +865,7 @@ strings_to_uris (gchar *data)
     GList *uri_list = NULL;
     gchar **filenames = g_strsplit (data, "\r\n", STRINGS_TO_URIS_CHUNK);
 
-    for (i=0 ; filenames[i] != NULL ; i++) {
+    for (i=0; filenames[i] != NULL; i++) {
         gchar *fn;
         GnomeVFSURI *uri;
 
@@ -942,7 +942,7 @@ GList *string_history_add (GList *in, const gchar *value, gint maxsize)
                               (gchar*)value,
                               (GCompareFunc)strcmp);
 
-    /* if the same value has been given before move it first in the list */
+    // if the same value has been given before move it first in the list
     if (tmp != NULL) {
         out = g_list_remove_link (in, tmp);
         tmp->next = out;
@@ -950,12 +950,12 @@ GList *string_history_add (GList *in, const gchar *value, gint maxsize)
             out->prev = tmp;
         out = tmp;
     }
-    /* or if its new just add it */
+    // or if its new just add it
     else {
         out = g_list_prepend (in, g_strdup (value));
     }
 
-    /* don't let the history get to long */
+    // don't let the history get too long
     while (g_list_length (out) > maxsize) {
         tmp = g_list_last (out);
         g_free (tmp->data);
@@ -987,7 +987,7 @@ create_nice_size_str (GnomeVFSFileSize size)
 
 gchar* quote_if_needed (const gchar *in)
 {
-    //return strpbrk(in," ;&$'\"?")==NULL ? g_strdup (in) : g_strdup_printf ("'%s'", in);
+    //return strpbrk(in,";&$'\"?")==NULL ? g_strdup (in) : g_strdup_printf ("'%s'", in);
     return g_shell_quote (in);
 }
 
@@ -999,7 +999,7 @@ gchar* unquote_if_needed (const gchar *in)
     g_return_val_if_fail (in != NULL, NULL);
 
     l = strlen (in);
-    /* Check if the first and last character is a quote */
+    // Check if the first and last character is a quote
     if (l>1 && strchr("'\"",in[0])!=NULL && in[0]==in[l-1]) {
         gchar *out = g_strdup (in+1);
         out[l-2] = '\0';
@@ -1261,7 +1261,7 @@ transform (gchar *s, gchar from, gchar to)
     gint i;
     gint len = strlen (s);
 
-    for (i=0 ; i<len ; i++)
+    for (i=0; i<len; i++)
         if (s[i] == from) s[i] = to;
 }
 

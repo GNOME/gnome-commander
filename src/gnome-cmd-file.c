@@ -469,7 +469,7 @@ gnome_cmd_file_get_extension (GnomeCmdFile *file)
         return NULL;
 
     len = strlen (file->info->name);
-    for (i=len ; i>0 ; i--) {
+    for (i=len; i>0; i--) {
         if (file->info->name[i] == '.')
             return &file->info->name[i+1];
     }
@@ -784,7 +784,7 @@ gnome_cmd_file_view (GnomeCmdFile *finfo, gint internal_viewer)
     g_return_if_fail (finfo != NULL);
     g_return_if_fail (has_parent_dir (finfo));
 
-    /* If the file is local there is no need to download it */
+    // If the file is local there is no need to download it
     if (gnome_cmd_dir_is_local (get_parent_dir (finfo))) {
         gchar *fpath = gnome_cmd_file_get_real_path (finfo);
         do_view_file (fpath, internal_viewer);
@@ -792,7 +792,7 @@ gnome_cmd_file_view (GnomeCmdFile *finfo, gint internal_viewer)
         return;
     }
 
-    /* The file is remote, let's download it to a temporary file first */
+    // The file is remote, let's download it to a temporary file first
     path_str = get_temp_download_filepath (gnome_cmd_file_get_name (finfo));
     if (!path_str) return;
 

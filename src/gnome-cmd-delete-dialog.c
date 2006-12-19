@@ -112,7 +112,7 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
 
         ret = !data->stop;
     }
-    else 
+    else
     {
         data->vfs_status = info->vfs_status;
     }
@@ -184,8 +184,8 @@ perform_delete_operation (DeleteData *data)
     GnomeVFSXferErrorMode xferErrorMode = GNOME_VFS_XFER_ERROR_MODE_QUERY;
     gint num_files = g_list_length (data->files);
 
-    /* Go through all files and add the uri of the appropriate ones to a list */
-    for (i=0 ; i<num_files; i++) {
+    // Go through all files and add the uri of the appropriate ones to a list
+    for (i=0; i<num_files; i++) {
         GnomeVFSURI *uri;
         GnomeCmdFile *finfo = (GnomeCmdFile*)g_list_nth_data (data->files, i);
 
@@ -259,7 +259,7 @@ update_delete_status_widgets (DeleteData *data)
 
         cleanup (data);
 
-        /* Returning FALSE here stops the timeout callbacks */
+        // Returning FALSE here stops the timeout callbacks
         return FALSE;
     }
 

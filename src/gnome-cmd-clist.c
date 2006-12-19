@@ -34,10 +34,10 @@ struct _GnomeCmdCListPrivate {
  * TEST TEST TEST
  ****/
 
-/* this defigns the base grid spacing */
+// this defines the base grid spacing
 #define CELL_SPACING 1
 
-/* added the horizontal space at the beginning and end of a row*/
+// added the horizontal space at the beginning and end of a row
 #define COLUMN_INSET 3
 
 
@@ -74,7 +74,7 @@ COLUMN_FROM_XPIXEL (GtkCList * clist, gint x)
             return i;
     }
 
-    /* no match */
+    // no match
     return -1;
 }
 
@@ -87,12 +87,12 @@ COLUMN_FROM_XPIXEL (GtkCList * clist, gint x)
  * the list width */
 #define COLUMN_LEFT(clist, colnum) ((clist)->column[(colnum)].area.x)
 
-/* returns the total height of the list */
+// returns the total height of the list
 #define LIST_HEIGHT(clist)         (((clist)->row_height * ((clist)->rows)) + \
                     (CELL_SPACING * ((clist)->rows + 1)))
 
 
-/* returns the total width of the list */
+// returns the total width of the list
 static inline gint
 LIST_WIDTH (GtkCList * clist)
 {
@@ -108,7 +108,7 @@ LIST_WIDTH (GtkCList * clist)
   return 0;
 }
 
-/* returns the GList item for the nth row */
+// returns the GList item for the nth row
 #define    ROW_ELEMENT(clist, row)    (((row) == (clist)->rows - 1) ? \
                  (clist)->row_list_end : \
                  g_list_nth ((clist)->row_list, (row)))
@@ -284,24 +284,23 @@ draw_row (GtkCList     *clist,
 
     g_return_if_fail (clist != NULL);
 
-    /* bail now if we arn't drawable yet */
+    // bail out now if we aren't drawable yet
     if (!GTK_WIDGET_DRAWABLE (clist) || row < 0 || row >= clist->rows)
         return;
 
     widget = GTK_WIDGET (clist);
 
-    /* if the function is passed the pointer to the row instead of null,
-     * it avoids this expensive lookup */
+    // if the function is passed the pointer to the row instead of null, it avoids this expensive lookup
     if (!clist_row)
         clist_row = ROW_ELEMENT (clist, row)->data;
 
-    /* rectangle of the entire row */
+    // rectangle of the entire row
     row_rectangle.x = 0;
     row_rectangle.y = ROW_TOP_YPIXEL (clist, row);
     row_rectangle.width = clist->clist_window_width;
     row_rectangle.height = clist->row_height;
 
-    /* rectangle of the cell spacing above the row */
+    // rectangle of the cell spacing above the row
     cell_rectangle.x = 0;
     cell_rectangle.y = row_rectangle.y - CELL_SPACING;
     cell_rectangle.width = row_rectangle.width;
@@ -324,7 +323,7 @@ draw_row (GtkCList     *clist,
 
     state = clist_row->state;
 
-    /* draw the cell borders and background */
+    // draw the cell borders and background
     if (area)
     {
         rect = &intersect_rectangle;
@@ -338,13 +337,12 @@ draw_row (GtkCList     *clist,
                                 intersect_rectangle.width,
                                 intersect_rectangle.height);
 
-        /* the last row has to clear its bottom cell spacing too */
+        // the last row has to clear its bottom cell spacing too
         if (clist_row == clist->row_list_end->data)
         {
             cell_rectangle.y += clist->row_height + CELL_SPACING;
 
-            if (gdk_rectangle_intersect (area, &cell_rectangle,
-                                         &intersect_rectangle))
+            if (gdk_rectangle_intersect (area, &cell_rectangle, &intersect_rectangle))
                 gdk_draw_rectangle (clist->clist_window,
                                     widget->style->base_gc[GTK_STATE_NORMAL],
                                     TRUE,
@@ -369,7 +367,7 @@ draw_row (GtkCList     *clist,
                             cell_rectangle.width,
                             cell_rectangle.height);
 
-        /* the last row has to clear its bottom cell spacing too */
+        // the last row has to clear its bottom cell spacing too
         if (clist_row == clist->row_list_end->data)
         {
             cell_rectangle.y += clist->row_height + CELL_SPACING;
@@ -386,7 +384,7 @@ draw_row (GtkCList     *clist,
 
     for (last_column = clist->columns - 1; last_column >= 0 && !clist->column[last_column].visible; last_column--);
 
-    /* iterate and draw all the columns (row cells) and draw their contents */
+    // iterate and draw all the columns (row cells) and draw their contents
     for (i = 0; i < clist->columns; i++)
     {
         GtkStyle *style;
@@ -408,24 +406,22 @@ draw_row (GtkCList     *clist,
         clip_rectangle.x = clist->column[i].area.x + clist->hoffset;
         clip_rectangle.width = clist->column[i].area.width;
 
-        /* calculate clipping region clipping region */
+        // calculate clipping region clipping region
         clip_rectangle.x -= COLUMN_INSET + CELL_SPACING;
         clip_rectangle.width += (2 * COLUMN_INSET + CELL_SPACING +
                                  (i == last_column) * CELL_SPACING);
 
-        if (area && !gdk_rectangle_intersect (area, &clip_rectangle,
-                                              &intersect_rectangle))
+        if (area && !gdk_rectangle_intersect (area, &clip_rectangle, &intersect_rectangle))
             continue;
 
         gdk_draw_rectangle (clist->clist_window, bg_gc, TRUE,
                             rect->x, rect->y, rect->width, rect->height);
 
         clip_rectangle.x += COLUMN_INSET + CELL_SPACING;
-        clip_rectangle.width -= (2 * COLUMN_INSET + CELL_SPACING +
-                                 (i == last_column) * CELL_SPACING);
+        clip_rectangle.width -= (2 * COLUMN_INSET + CELL_SPACING + (i == last_column) * CELL_SPACING);
 
 
-        /* calculate real width for column justification */
+        // calculate real width for column justification
 
         layout = my_gtk_clist_create_cell_layout (clist, clist_row, i);
         if (layout)
@@ -444,10 +440,12 @@ draw_row (GtkCList     *clist,
                 gdk_window_get_size (GTK_CELL_PIXMAP (clist_row->cell[i])->pixmap, &pixmap_width, &height);
                 width += pixmap_width;
                 break;
-            case GTK_CELL_PIXTEXT:
+
+                case GTK_CELL_PIXTEXT:
                 gdk_window_get_size (GTK_CELL_PIXTEXT (clist_row->cell[i])->pixmap, &pixmap_width, &height);
                 width += pixmap_width + GTK_CELL_PIXTEXT (clist_row->cell[i])->spacing;
                 break;
+
             default:
                 break;
         }
@@ -457,16 +455,18 @@ draw_row (GtkCList     *clist,
             case GTK_JUSTIFY_LEFT:
                 offset = clip_rectangle.x + clist_row->cell[i].horizontal;
                 break;
+
             case GTK_JUSTIFY_RIGHT:
                 offset = (clip_rectangle.x + clist_row->cell[i].horizontal + clip_rectangle.width - width);
                 break;
+
             case GTK_JUSTIFY_CENTER:
             case GTK_JUSTIFY_FILL:
-                offset = (clip_rectangle.x + clist_row->cell[i].horizontal + (clip_rectangle.width / 2) - (width / 2));
+                offset = (clip_rectangle.x + clist_row->cell[i].horizontal + (clip_rectangle.width/2) - (width/2));
                 break;
         };
 
-        /* Draw Text and/or Pixmap */
+        // Draw Text and/or Pixmap
         switch (clist_row->cell[i].type)
         {
             case GTK_CELL_PIXMAP:
@@ -489,7 +489,7 @@ draw_row (GtkCList     *clist,
                                       pixmap_width, height);
                 offset += GTK_CELL_PIXTEXT (clist_row->cell[i])->spacing;
 
-                /* Fall through */
+                // Fall through
             case GTK_CELL_TEXT:
                 if (layout)
                 {
@@ -509,23 +509,23 @@ draw_row (GtkCList     *clist,
         }
     }
 
-    /* draw focus rectangle */
+    // draw focus rectangle
     if (GNOME_CMD_CLIST (clist)->drag_motion_row == row)
     {
         if (!area)
             gdk_draw_rectangle (clist->clist_window, clist->xor_gc, FALSE,
                                 row_rectangle.x, row_rectangle.y,
                                 row_rectangle.width - 1, row_rectangle.height - 1);
-        else if (gdk_rectangle_intersect (area, &row_rectangle,
-                                          &intersect_rectangle))
-        {
-            gdk_gc_set_clip_rectangle (clist->xor_gc, &intersect_rectangle);
-            gdk_draw_rectangle (clist->clist_window, clist->xor_gc, FALSE,
-                                row_rectangle.x, row_rectangle.y,
-                                row_rectangle.width - 1,
-                                row_rectangle.height - 1);
-            gdk_gc_set_clip_rectangle (clist->xor_gc, NULL);
-        }
+        else
+            if (gdk_rectangle_intersect (area, &row_rectangle, &intersect_rectangle))
+            {
+                gdk_gc_set_clip_rectangle (clist->xor_gc, &intersect_rectangle);
+                gdk_draw_rectangle (clist->clist_window, clist->xor_gc, FALSE,
+                                    row_rectangle.x, row_rectangle.y,
+                                    row_rectangle.width - 1,
+                                    row_rectangle.height - 1);
+                gdk_gc_set_clip_rectangle (clist->xor_gc, NULL);
+            }
     }
 }
 
@@ -555,14 +555,13 @@ on_realize                          (GtkCList *clist,
 {
     gint i;
 
-    for (i=0 ; i<clist->columns ; i++) {
+    for (i=0; i<clist->columns; i++)
         if (clist->column[i].button)
             GTK_WIDGET_UNSET_FLAGS (clist->column[i].button, GTK_CAN_FOCUS);
-    }
-    if (GTK_CLIST(clist)->hadjustment) {
+
+    if (GTK_CLIST(clist)->hadjustment)
         gtk_signal_connect_after(GTK_OBJECT(GTK_CLIST(clist)->hadjustment), "value-changed",
             GTK_SIGNAL_FUNC(on_hadj_value_changed), clist);
-    }
 }
 
 
@@ -660,13 +659,12 @@ gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 
     clist = g_object_new (gnome_cmd_clist_get_type(), "n_columns", columns, NULL);
 
-    for (i=0 ; i<columns ; i++)
+    for (i=0; i<columns; i++)
         gtk_clist_set_column_auto_resize (GTK_CLIST (clist), i, TRUE);
 
-    if (titles != NULL) {
-        for (i=0 ; i<columns; i++)
+    if (titles != NULL)
+        for (i=0; i<columns; i++)
             gtk_clist_set_column_title (GTK_CLIST (clist), i, titles[i]);
-    }
 
     return GTK_WIDGET (clist);
 }
@@ -714,11 +712,9 @@ gnome_cmd_clist_get_row (GnomeCmdCList *clist, gint x, gint y)
 void
 gnome_cmd_clist_set_drag_row (GnomeCmdCList *clist, gint row)
 {
-    gint last_row;
-
     g_return_if_fail (GNOME_CMD_IS_CLIST (clist));
 
-    last_row = GNOME_CMD_CLIST (clist)->drag_motion_row;
+    gint last_row = GNOME_CMD_CLIST (clist)->drag_motion_row;
     GNOME_CMD_CLIST (clist)->drag_motion_row = row;
 
     if (row == last_row) return;

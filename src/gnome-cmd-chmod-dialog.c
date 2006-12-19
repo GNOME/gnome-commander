@@ -91,7 +91,7 @@ static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
             GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
             if (strcmp (finfo->info->name, ".") != 0
                 && strcmp (finfo->info->name, "..") != 0
-                && !GNOME_VFS_FILE_INFO_SYMLINK(finfo->info)) 
+                && !GNOME_VFS_FILE_INFO_SYMLINK(finfo->info))
             {
                 do_chmod (finfo, perm, TRUE, mode);
             }

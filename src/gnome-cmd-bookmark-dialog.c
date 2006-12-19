@@ -309,7 +309,7 @@ add_groups (GnomeCmdBookmarkDialog *dialog)
     gchar *text[3];
     GList *groups;
 
-    for (groups = dialog->priv->groups; groups; groups = groups->next) 
+    for (groups = dialog->priv->groups; groups; groups = groups->next)
     {
         GnomeCmdBookmarkGroup *group = (GnomeCmdBookmarkGroup*)groups->data;
         GnomeCmdPixmap *pixmap = gnome_cmd_con_get_open_pixmap (group->con);
@@ -333,8 +333,8 @@ add_bookmarks (GnomeCmdBookmarkDialog *dialog)
 
     g_return_if_fail (current_con != NULL);
 
-    /* Then add bookmarks for all connections */
-    for (all_cons = gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ()); all_cons; all_cons = all_cons->next) 
+    // Then add bookmarks for all connections
+    for (all_cons = gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ()); all_cons; all_cons = all_cons->next)
     {
         GnomeCmdCon *con = (GnomeCmdCon*)all_cons->data;
         group = gnome_cmd_con_get_bookmarks (con);

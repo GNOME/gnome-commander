@@ -34,17 +34,17 @@
 
 #include "scroll-box.h"
 
-static GtkTableClass *parent_class = NULL ;
+static GtkTableClass *parent_class = NULL;
 
-/* Class Private Data */
+// Class Private Data
 struct _ScrollBoxPrivate
 {
     GtkWidget *hscroll;
     GtkWidget *vscroll;
-    GtkWidget *client ;
+    GtkWidget *client;
 };
 
-/* Gtk class related static functions */
+// Gtk class related static functions
 static void scroll_box_init (ScrollBox *w);
 static void scroll_box_class_init (ScrollBoxClass *klass);
 
@@ -94,7 +94,7 @@ scroll_box_class_init (ScrollBoxClass *klass)
     object_class = GTK_OBJECT_CLASS (klass);
     parent_class = gtk_type_class(gtk_table_get_type());
 
-    object_class->destroy = scroll_box_destroy ;
+    object_class->destroy = scroll_box_destroy;
 }
 
 static void
@@ -116,10 +116,10 @@ scroll_box_init (ScrollBox *w)
     gtk_table_attach (GTK_TABLE (w), w->priv->hscroll, 0, 1, 1, 2,
             (GtkAttachOptions) (GTK_FILL),
             (GtkAttachOptions) (GTK_FILL), 0, 0);
-    w->priv->client = NULL ;
+    w->priv->client = NULL;
 
-    g_signal_connect(G_OBJECT(w),"button-press-event", G_CALLBACK(scroll_box_button_press), (gpointer)w) ;
-    g_signal_connect(G_OBJECT(w),"destroy-event", G_CALLBACK(scroll_box_destroy), (gpointer)w) ;
+    g_signal_connect(G_OBJECT(w),"button-press-event", G_CALLBACK(scroll_box_button_press), (gpointer)w);
+    g_signal_connect(G_OBJECT(w),"destroy-event", G_CALLBACK(scroll_box_destroy), (gpointer)w);
 }
 
 static void
@@ -134,8 +134,8 @@ scroll_box_destroy (GtkObject *widget)
 
     if (w->priv) {
         if (w->priv->client)
-            g_object_unref(G_OBJECT(w->priv->client)) ;
-        w->priv->client=NULL ;
+            g_object_unref(G_OBJECT(w->priv->client));
+        w->priv->client=NULL;
 
         g_free(w->priv);
         w->priv = NULL;
@@ -174,14 +174,14 @@ void scroll_box_set_client ( ScrollBox *obj, GtkWidget* client)
 
     if (obj->priv->client) {
         if (obj->priv->client)
-            g_object_unref(G_OBJECT(obj->priv->client)) ;
-        obj->priv->client=NULL ;
+            g_object_unref(G_OBJECT(obj->priv->client));
+        obj->priv->client=NULL;
     }
 
     g_return_if_fail(client!=NULL);
     g_object_ref(G_OBJECT(client));
     gtk_widget_show(client);
-    obj->priv->client = client ;
+    obj->priv->client = client;
     gtk_table_attach (GTK_TABLE (obj), client , 0, 1, 0, 1,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);

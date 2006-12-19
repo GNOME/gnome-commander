@@ -1,7 +1,7 @@
 /*
-    LibGViewer - GTK+ File Viewer library 
+    LibGViewer - GTK+ File Viewer library
     Copyright (C) 2006 Assaf Gordon
-    
+
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
@@ -38,11 +38,11 @@ struct _GVIEWER_BM_CHARTYPE_DATA
 	int good_len;
 	
 	/* bad-characters table, implemented as a hash table.
-	   The classic Boyer-moore assumes a small,finite alphabet (such as "ASCII" only), 
+	   The classic Boyer-moore assumes a small,finite alphabet (such as "ASCII" only),
 	   but we need to search every possible UTF8 character  - using a array is not practicle */
 	GHashTable* bad;
 	
-	/* Search pattern, represented as char_type array (each element = one guint32 = one utf8 character) 
+	/* Search pattern, represented as char_type array (each element = one guint32 = one utf8 character)
 	   This is NOT a UTF8 string.  see "doc/internal_viewer_hacking" and "inputmodes.{c,h}" for more details*/
 	char_type *pattern ;
 	int pattern_len ;

@@ -281,10 +281,10 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
 
     t = g_strdup (path_str);
 
-    /* Replace '\' with '/' */
+    // Replace '\' with '/'
     g_strdelimit (t, "\\", '/');
 
-    /* Eat up all leading slashes */
+    // Eat up all leading slashes
     for (s=g_strdup (t); *s=='/'; ++s)
         if (!strlen (s))
             return NULL;

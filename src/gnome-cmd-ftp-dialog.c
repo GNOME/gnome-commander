@@ -142,7 +142,7 @@ on_connect_btn_clicked (GtkButton         *button,
         const gchar *uname = gnome_cmd_con_ftp_get_user_name (server);
         const gchar *pw = gnome_cmd_con_ftp_get_pw (server);
 
-        /* store the anonymous password as the user might have changed it */
+        // store the anonymous password as the user might have changed it
         gnome_cmd_data_set_ftp_anonymous_password (anon_pw);
 
 

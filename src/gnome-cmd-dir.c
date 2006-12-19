@@ -456,7 +456,7 @@ create_file_list (GnomeCmdDir *dir, GList *info_list)
 {
     GList *tmp, *file_list = NULL;
 
-    /* create a new list with GnomeCmdFile objects */
+    // create a new list with GnomeCmdFile objects
 
     for (tmp = info_list; tmp; tmp = tmp->next)
     {

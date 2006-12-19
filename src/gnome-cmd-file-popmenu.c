@@ -252,13 +252,13 @@ add_fav_app_menu_item (GnomeCmdFilePopmenu *menu,
     gtk_menu_shell_insert (GTK_MENU_SHELL (menu), item, pos);
 
 
-    /* Create the contents of the menu item */
+    // Create the contents of the menu item
     label = gtk_label_new (gnome_cmd_app_get_name (app));
     gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
     gtk_widget_show (label);
     gtk_container_add (GTK_CONTAINER (item), label);
 
-    /* Connect to the signal and set user data */
+    // Connect to the signal and set user data
     gtk_object_set_data (GTK_OBJECT (item),
                          GNOMEUIINFO_KEY_UIDATA,
                          data);
@@ -313,7 +313,7 @@ fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
                     return FALSE;
 
-                /* Check that the file matches atleast one pattern */
+                // Check that the file matches atleast one pattern
                 GList *patterns = gnome_cmd_app_get_pattern_list (app);
                 for (; patterns; patterns = patterns->next)
                 {
@@ -530,7 +530,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     if (i >= 0)
         apps_uiinfo[i++].type = GNOME_APP_UI_SEPARATOR;
 
-    /* Add open with other */
+    // Add open with other
     i++;
     apps_uiinfo[i].type = GNOME_APP_UI_ITEM;
     apps_uiinfo[i].label = g_strdup (_("Other..."));

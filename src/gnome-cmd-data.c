@@ -504,13 +504,13 @@ add_vfs_volume (GnomeVFSVolume *volume)
     name = gnome_vfs_volume_get_display_name (volume);
     drive = gnome_vfs_volume_get_drive (volume);
 
-    /* Try to load the icon, using current theme */
+    // Try to load the icon, using current theme
     iconpath = NULL;
     icontheme = gtk_icon_theme_get_default();
     if (icontheme) {
         iconinfo = gtk_icon_theme_lookup_icon (icontheme,icon,16,0);
         if (iconinfo) {
-        /* This returned string should not be free, see gtk documentation */
+        // This returned string should not be free, see gtk documentation
         iconpath = gtk_icon_info_get_filename (iconinfo);
         }
     }
@@ -614,7 +614,7 @@ static void
 drive_disconnected (GnomeVFSVolumeMonitor *volume_monitor,
                     GnomeVFSDrive           *drive)
 {
-    /* TODO: Remove from Drives combobox */
+    // TODO: Remove from Drives combobox
 }
 #endif
 
@@ -1093,19 +1093,19 @@ gnome_cmd_data_free                      (void)
     {
         if (data->priv)
         {
-            /* free the connections */
+            // free the connections
             gtk_object_unref (GTK_OBJECT (data->priv->con_list));
 
-            /* free the anonymous password string */
+            // free the anonymous password string
             g_free (data->priv->ftp_anonymous_password);
 
-            /* free the dateformat string */
+            // free the dateformat string
             g_free (data->priv->date_format);
 
-            /* free the font name strings */
+            // free the font name strings
             g_free (data->priv->list_font);
 
-            /* free the external programs strings */
+            // free the external programs strings
             g_free (data->priv->viewer);
             g_free (data->priv->editor);
             g_free (data->priv->differ);

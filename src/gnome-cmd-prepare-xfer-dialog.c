@@ -48,7 +48,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
     user_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->dest_dir_entry)));
 
-    /* Make whatever the user entered into a valid path if possible */
+    // Make whatever the user entered into a valid path if possible
     user_path_len = strlen (user_path);
     if (!user_path || user_path_len <= 0) {
         dest_path = user_path;
@@ -68,7 +68,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         g_free (tmp);
     }
 
-    /* Check if something exists at the given path and find out what it is */
+    // Check if something exists at the given path and find out what it is
     res = gnome_cmd_con_get_path_target_type (con, dest_path, &type);
 
     if (res != GNOME_VFS_OK && res != GNOME_VFS_ERROR_NOT_FOUND)
@@ -78,7 +78,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         GnomeCmdFile *finfo = GNOME_CMD_FILE (dialog->src_files->data);
 
         if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-            /* There exists a directory, copy into it using the original filename */
+            // There exists a directory, copy into it using the original filename
             dest_dir = gnome_cmd_dir_new (
                 con, gnome_cmd_con_create_path (con, dest_path));
             dest_fn = g_strdup (gnome_cmd_file_get_name (finfo));
@@ -93,18 +93,18 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             dest_fn = g_strdup (g_basename (dest_path));
         }
         else {
-            /* Nothing existed, check if the parent dir exists */
+            // Nothing existed, check if the parent dir exists
             gchar *parent_dir = g_path_get_dirname (dest_path);
             res = gnome_cmd_con_get_path_target_type (con, parent_dir, &type);
             if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-                /* yup, xfer to it */
+                // yup, xfer to it
                 dest_dir = gnome_cmd_dir_new (
                     con, gnome_cmd_con_create_path (con, parent_dir));
                 g_free (parent_dir);
                 dest_fn = g_strdup (g_basename (dest_path));
             }
             else if (res == GNOME_VFS_OK) {
-                /* the parent dir was a file, abort! */
+                // the parent dir was a file, abort!
                 g_free (parent_dir);
                 goto bailout;
             }
@@ -139,12 +139,12 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     }
     else {
         if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-            /* There exists a directory, copy to it */
+            // There exists a directory, copy to it
             dest_dir = gnome_cmd_dir_new (
                 con, gnome_cmd_con_create_path (con, dest_path));
         }
         else if (res == GNOME_VFS_OK) {
-            /* There exists something which is not a directory, abort! */
+            // There exists something which is not a directory, abort!
             goto bailout;
         }
         else {
@@ -271,7 +271,7 @@ init (GnomeCmdPrepareXferDialog *dialog)
     GtkWidget *options_hbox;
 
 
-    /* dest dir */
+    // dest dir
     dest_dir_vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
 
     dialog->dest_dir_frame = create_category (GTK_WIDGET (dialog), dest_dir_vbox, "");
@@ -286,7 +286,7 @@ init (GnomeCmdPrepareXferDialog *dialog)
                         GTK_SIGNAL_FUNC (on_dest_dir_entry_keypressed), dialog);
 
 
-    /* options */
+    // options
     options_hbox = create_hbox (GTK_WIDGET (dialog), TRUE, 6);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), options_hbox);
 
@@ -300,7 +300,7 @@ init (GnomeCmdPrepareXferDialog *dialog)
     gtk_container_add (GTK_CONTAINER (options_hbox), dialog->right_vbox_frame);
 
 
-    /* buttons */
+    // buttons
     dialog->cancel_button = gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, NULL, NULL);
     dialog->ok_button = gnome_cmd_dialog_add_button (

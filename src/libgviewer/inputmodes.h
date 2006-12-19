@@ -1,7 +1,7 @@
 /*
-    LibGViewer - GTK+ File Viewer library 
+    LibGViewer - GTK+ File Viewer library
     Copyright (C) 2006 Assaf Gordon
-    
+
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman

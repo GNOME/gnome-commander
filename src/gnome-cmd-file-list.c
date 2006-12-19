@@ -52,10 +52,10 @@
 
 
 enum {
-    FILE_CLICKED,        /* A file in the list was clicked */
-    LIST_CLICKED,        /* The file-list widget was clicked */
-    EMPTY_SPACE_CLICKED, /* The file-list was clicked but not on a file */
-    SELECTION_CHANGED,   /* At least on file was selected/unselected */
+    FILE_CLICKED,        // A file in the list was clicked
+    LIST_CLICKED,        // The file-list widget was clicked
+    EMPTY_SPACE_CLICKED, // The file-list was clicked but not on a file
+    SELECTION_CHANGED,   // At least on file was selected/unselected
     LAST_SIGNAL
 };
 
@@ -105,7 +105,7 @@ struct _GnomeCmdFileListPrivate {
     gint current_col;
     gboolean sort_raising[FILE_LIST_NUM_COLUMNS];
     GnomeCmdFileCollection *shown_files;
-    GList *selected_files;                         /* contains GnomeCmdFile pointers */
+    GList *selected_files;                         // contains GnomeCmdFile pointers
     gint cur_file;
     gboolean shift_down;
     gint shift_down_row;
@@ -559,7 +559,7 @@ build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         GList *tmp = sel_files;
         GList *uri_str_list = NULL;
 
-        /* create a list with the uri's of the selected files and calculate the total_length needed */
+        // create a list with the uri's of the selected files and calculate the total_length needed
         while (tmp)
         {
             GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
@@ -583,11 +583,11 @@ build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
             tmp = tmp->next;
         }
 
-        /* allocate memory */
+        // allocate memory
         total_len++;
         data = copy = g_malloc (total_len+1);
 
-        /* put the uri_str_list in the allocated memory */
+        // put the uri_str_list in the allocated memory
         tmp = uri_str_list;
         while (tmp)
         {
@@ -689,7 +689,7 @@ static void popup_position_function (GtkMenu *menu, gint *x, gint *y, gboolean *
 static void
 show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
 {
-    /* create the popup menu */
+    // create the popup menu
     GtkWidget *menu = gnome_cmd_file_popmenu_new (fl);
     if (!menu) return;
     gtk_widget_ref (menu);
@@ -1532,7 +1532,7 @@ add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
                               gnome_cmd_file_get_type_mask (finfo));
     }
 
-    /* If we have been waiting for this file to show up, focus it */
+    // If we have been waiting for this file to show up, focus it
     if (fl->priv->focus_later &&
         strcmp (gnome_cmd_file_get_name (finfo), fl->priv->focus_later) == 0)
         focus_file_at_row (fl, row);
@@ -1628,7 +1628,7 @@ gnome_cmd_file_list_insert_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
         }
     }
 
-    /* Insert the file at the end of the list */
+    // Insert the file at the end of the list
     gnome_cmd_file_list_add_file (fl, finfo, -1);
 }
 
@@ -2112,7 +2112,7 @@ gnome_cmd_file_list_sort (GnomeCmdFileList *fl)
     gtk_clist_freeze (GTK_CLIST (fl));
     gtk_clist_clear (GTK_CLIST (fl));
 
-    /* Resort the files and readd them to the list */
+    // Resort the files and readd them to the list
     list = gnome_cmd_file_list_get_all_files (fl);
     list = gnome_vfs_list_sort (list, fl->priv->sort_func, fl);
     while (list != NULL)
@@ -2134,7 +2134,7 @@ gnome_cmd_file_list_sort (GnomeCmdFileList *fl)
         gtk_clist_moveto (GTK_CLIST (fl), selrow, -1, 1, 0);
     }
 
-    /* reselect the previously selected files */
+    // reselect the previously selected files
     for (list = fl->priv->selected_files; list != NULL; list = list->next)
         select_file (fl, GNOME_CMD_FILE (list->data));
 
@@ -2307,7 +2307,7 @@ gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
     if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         create_error_dialog(_("Not an ordinary file: %s"), finfo->info->name);
     else
-        gnome_cmd_file_view (finfo, internal_viewer!=-1 ? internal_viewer : 
+        gnome_cmd_file_view (finfo, internal_viewer!=-1 ? internal_viewer :
                                                           gnome_cmd_data_get_use_internal_viewer ());
 }
 

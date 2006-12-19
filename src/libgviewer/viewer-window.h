@@ -1,7 +1,7 @@
 /*
-    LibGViewer - GTK+ File Viewer library 
+    LibGViewer - GTK+ File Viewer library
     Copyright (C) 2006 Assaf Gordon
-    
+
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
@@ -27,45 +27,45 @@
 G_BEGIN_DECLS
 
 #define GVIEWER_WINDOW(obj) \
-	GTK_CHECK_CAST (obj, gviewer_window_get_type (), GViewerWindow)
+    GTK_CHECK_CAST (obj, gviewer_window_get_type (), GViewerWindow)
 #define GVIEWER_WINDOW_CLASS(clss) \
-	GTK_CHECK_CLASS_CAST (clss, gviewer_window_get_type(), GViewerWindowClass)
+    GTK_CHECK_CLASS_CAST (clss, gviewer_window_get_type(), GViewerWindowClass)
 #define IS_GVIEWER_WINDOW(obj) \
-	GTK_CHECK_TYPE (obj, gviewer_window_get_type())
+    GTK_CHECK_TYPE (obj, gviewer_window_get_type())
 
 typedef struct _GViewerWindow GViewerWindow;
 typedef struct _GViewerWindowPrivate GViewerWindowPrivate;
 typedef struct _GViewerWindowClass GViewerWindowClass;
 typedef struct _GViewerWindowSettings GViewerWindowSettings;
-	
-	
+
+
 struct _GViewerWindowSettings
 {
-	GdkRectangle rect;
-	
-	gchar fixed_font_name[256];
-	gchar variable_font_name[256];
-	gchar charset[256];
-	
-	guint font_size;
-	guint tab_size ;
-	guint binary_bytes_per_line ;
-	
-	gboolean wrap_mode;
-	gboolean hex_decimal_offset ;
+    GdkRectangle rect;
+
+    gchar fixed_font_name[256];
+    gchar variable_font_name[256];
+    gchar charset[256];
+
+    guint font_size;
+    guint tab_size ;
+    guint binary_bytes_per_line ;
+
+    gboolean wrap_mode;
+    gboolean hex_decimal_offset ;
 } ;
 
 struct _GViewerWindow
 {
-	GtkWindow parent;
+    GtkWindow parent;
 
-	GViewerWindowPrivate *priv;
+    GViewerWindowPrivate *priv;
 };
 
 
 struct _GViewerWindowClass
 {
-	GtkWindowClass parent_class;
+    GtkWindowClass parent_class;
 };
 
 
@@ -76,7 +76,7 @@ GtkWidget*
 gviewer_window_new              (GViewerWindowSettings *initial_settings);
 
 void
-gviewer_window_load_file	(GViewerWindow *obj, const gchar *filename);
+gviewer_window_load_file    (GViewerWindow *obj, const gchar *filename);
 
 GtkWidget* gviewer_window_file_view (const gchar * filename,GViewerWindowSettings *initial_settings);
 

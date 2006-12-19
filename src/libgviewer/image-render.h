@@ -1,7 +1,7 @@
 /*
-    LibGViewer - GTK+ File Viewer library 
+    LibGViewer - GTK+ File Viewer library
     Copyright (C) 2006 Assaf Gordon
-    
+
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
@@ -30,44 +30,44 @@ G_BEGIN_DECLS
 #define IMAGE_RENDER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, image_render_get_type (), ImageRenderClass)
 #define IS_IMAGE_RENDER(obj)       GTK_CHECK_TYPE (obj, image_render_get_type ())
 
-#define IMAGE_RENDER_DEFAULT_WIDTH	(100)
-#define IMAGE_RENDER_DEFAULT_HEIGHT	(200)
-typedef struct _ImageRender       	ImageRender;
-typedef struct _ImageRenderPrivate	ImageRenderPrivate;
-typedef struct _ImageRenderClass  	ImageRenderClass;
-typedef struct _ImageRenderStatus	ImageRenderStatus;
+#define IMAGE_RENDER_DEFAULT_WIDTH    (100)
+#define IMAGE_RENDER_DEFAULT_HEIGHT    (200)
+typedef struct _ImageRender           ImageRender;
+typedef struct _ImageRenderPrivate    ImageRenderPrivate;
+typedef struct _ImageRenderClass      ImageRenderClass;
+typedef struct _ImageRenderStatus    ImageRenderStatus;
 
 struct _ImageRender
 {
-	GtkWidget widget;
-	ImageRenderPrivate *priv;
+    GtkWidget widget;
+    ImageRenderPrivate *priv;
 };
 
 struct _ImageRenderClass
 {
-	GtkWidgetClass parent_class;
-	void (*image_status_changed)  (ImageRender *obj, ImageRenderStatus *status);
+    GtkWidgetClass parent_class;
+    void (*image_status_changed)  (ImageRender *obj, ImageRenderStatus *status);
 };
 
 struct _ImageRenderStatus
 {
-	gboolean best_fit;
-	gdouble  scale_factor ;
-	gint	 image_width ;
-	gint	 image_height ;
-	gint 	 bits_per_sample ;
+    gboolean best_fit;
+    gdouble  scale_factor ;
+    gint     image_width ;
+    gint     image_height ;
+    gint      bits_per_sample ;
 };
 
 typedef enum
 {
-	ROTATE_CLOCKWISE,
-	ROTATE_COUNTERCLOCKWISE,
-	ROTATE_UPSIDEDOWN,
-	FLIP_VERTICAL,
-	FLIP_HORIZONTAL
+    ROTATE_CLOCKWISE,
+    ROTATE_COUNTERCLOCKWISE,
+    ROTATE_UPSIDEDOWN,
+    FLIP_VERTICAL,
+    FLIP_HORIZONTAL
 } IMAGEOPERATION ;
 
-GtkWidget*     image_render_new	(void);
+GtkWidget*     image_render_new    (void);
 GtkType        image_render_get_type        (void);
 
 GtkAdjustment* image_render_get_h_adjustment (ImageRender *obj);
@@ -75,12 +75,12 @@ void           image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *a
 GtkAdjustment* image_render_get_v_adjustment (ImageRender *obj);
 void           image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
 
-void 	       image_render_load_file(ImageRender *obj, const gchar *filename) ;
+void            image_render_load_file(ImageRender *obj, const gchar *filename) ;
 
-void	       image_render_set_best_fit(ImageRender *obj, gboolean active);
+void           image_render_set_best_fit(ImageRender *obj, gboolean active);
 gboolean       image_render_get_best_fit(ImageRender *obj);
 
-void	       image_render_set_scale_factor(ImageRender *obj, double scalefactor);
+void           image_render_set_scale_factor(ImageRender *obj, double scalefactor);
 double         image_render_get_scale_factor(ImageRender *obj);
 
 void           image_render_operation(ImageRender *obk, IMAGEOPERATION op);

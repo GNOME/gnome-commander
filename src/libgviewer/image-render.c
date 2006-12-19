@@ -46,25 +46,25 @@ static guint image_render_signals[LAST_SIGNAL] = { 0 };
 
 
 
-/* Class Private Data */
+// Class Private Data
 struct _ImageRenderPrivate
 {
-    guint8 button; /* The button pressed in "button_press_event" */
+    guint8 button; // The button pressed in "button_press_event"
 
     GtkAdjustment *h_adjustment;
-    /* Old values from h_adjustment stored so we know when something changes */
+    // Old values from h_adjustment stored so we know when something changes
     gfloat old_h_adj_value;
     gfloat old_h_adj_lower;
     gfloat old_h_adj_upper;
 
     GtkAdjustment *v_adjustment;
-    /* Old values from v_adjustment stored so we know when something changes */
+    // Old values from v_adjustment stored so we know when something changes
     gfloat old_v_adj_value;
     gfloat old_v_adj_lower;
     gfloat old_v_adj_upper;
 
     gchar*     filename;
-    gboolean      scaled_pixbuf_loaded ;
+    gboolean      scaled_pixbuf_loaded;
     GdkPixbuf    *orig_pixbuf;
     GdkPixbuf    *disp_pixbuf;
     gboolean    best_fit;
@@ -74,7 +74,7 @@ struct _ImageRenderPrivate
     gint            orig_pixbuf_loaded;
 };
 
-/* Gtk class related static functions */
+// Gtk class related static functions
 static void image_render_init (ImageRender *w);
 static void image_render_class_init (ImageRenderClass *klass);
 static void image_render_destroy (GtkObject *object);
@@ -237,27 +237,27 @@ image_render_init (ImageRender *w)
 {
     w->priv = g_new0(ImageRenderPrivate,1);
 
-    w->priv->button = 0 ;
+    w->priv->button = 0;
 
-    w->priv->scaled_pixbuf_loaded = FALSE ;
-    w->priv->filename = NULL ;
+    w->priv->scaled_pixbuf_loaded = FALSE;
+    w->priv->filename = NULL;
 
-    w->priv->h_adjustment = NULL ;
-    w->priv->old_h_adj_value = 0.0 ;
-    w->priv->old_h_adj_lower = 0.0 ;
-    w->priv->old_h_adj_upper = 0.0 ;
+    w->priv->h_adjustment = NULL;
+    w->priv->old_h_adj_value = 0.0;
+    w->priv->old_h_adj_lower = 0.0;
+    w->priv->old_h_adj_upper = 0.0;
 
-    w->priv->v_adjustment = NULL ;
-    w->priv->old_v_adj_value = 0.0 ;
-    w->priv->old_v_adj_lower = 0.0 ;
-    w->priv->old_v_adj_upper = 0.0 ;
+    w->priv->v_adjustment = NULL;
+    w->priv->old_v_adj_value = 0.0;
+    w->priv->old_v_adj_lower = 0.0;
+    w->priv->old_v_adj_upper = 0.0;
 
     w->priv->best_fit = FALSE;
-    w->priv->scale_factor = 1.3 ;
-    w->priv->orig_pixbuf = NULL ;
-    w->priv->disp_pixbuf = NULL ;
+    w->priv->scale_factor = 1.3;
+    w->priv->orig_pixbuf = NULL;
+    w->priv->disp_pixbuf = NULL;
 
-    GTK_WIDGET_SET_FLAGS(GTK_WIDGET(w),GTK_CAN_FOCUS) ;
+    GTK_WIDGET_SET_FLAGS(GTK_WIDGET(w),GTK_CAN_FOCUS);
 }
 
 static void
@@ -283,17 +283,17 @@ image_render_destroy (GtkObject *object)
         */
         if (w->priv->pixbuf_loading_thread &&
             (g_atomic_int_get(&w->priv->orig_pixbuf_loaded)==0)) {
-                /* Loader thread still running, so do nothing */
+                // Loader thread still running, so do nothing
         } else {
             image_render_free_pixbuf(w);
 
             if (w->priv->v_adjustment)
                 gtk_object_unref (GTK_OBJECT(w->priv->v_adjustment));
-            w->priv->v_adjustment = NULL ;
+            w->priv->v_adjustment = NULL;
 
             if (w->priv->h_adjustment)
                 gtk_object_unref (GTK_OBJECT(w->priv->h_adjustment));
-            w->priv->h_adjustment = NULL ;
+            w->priv->h_adjustment = NULL;
 
             g_free(w->priv);
             w->priv = NULL;
@@ -311,10 +311,10 @@ static void image_render_notify_status_changed(ImageRender *w)
     g_return_if_fail (w!= NULL);
     g_return_if_fail (IS_IMAGE_RENDER (w));
 
-    memset(&stat, 0, sizeof(stat)) ;
+    memset(&stat, 0, sizeof(stat));
 
-    stat.best_fit = w->priv->best_fit ;
-    stat.scale_factor = w->priv->scale_factor ;
+    stat.best_fit = w->priv->best_fit;
+    stat.scale_factor = w->priv->scale_factor;
 
     if (w->priv->orig_pixbuf!=NULL) {
         stat.image_width = gdk_pixbuf_get_width(w->priv->orig_pixbuf);
@@ -322,8 +322,8 @@ static void image_render_notify_status_changed(ImageRender *w)
         stat.bits_per_sample = gdk_pixbuf_get_bits_per_sample(w->priv->orig_pixbuf);
     } else {
         stat.image_width = 0;
-        stat.image_height = 0 ;
-        stat.bits_per_sample = 0 ;
+        stat.image_height = 0;
+        stat.bits_per_sample = 0;
     }
 
     gtk_signal_emit (
@@ -450,39 +450,39 @@ static gboolean image_render_expose( GtkWidget *widget, GdkEventExpose *event )
         gdk_draw_pixbuf(widget->window,
                 NULL,
                 w->priv->disp_pixbuf,
-                0,0, /* source X,Y */
-                xc,yc, /* Dest X,Y */
-                -1,-1, /* Source W,H */
-                 GDK_RGB_DITHER_NONE,0,0) ;
+                0,0, // source X,Y
+                xc,yc, // Dest X,Y
+                -1,-1, // Source W,H
+                 GDK_RGB_DITHER_NONE,0,0);
     } else {
         gint src_x,src_y;
         gint dst_x,dst_y;
         gint width,height;
 
         if ( widget->allocation.width > gdk_pixbuf_get_width(w->priv->disp_pixbuf)) {
-            src_x = 0 ;
+            src_x = 0;
             dst_x = widget->allocation.width / 2 - gdk_pixbuf_get_width(w->priv->disp_pixbuf)/2;
             width = gdk_pixbuf_get_width(w->priv->disp_pixbuf);
         } else {
             src_x = (int)w->priv->h_adjustment->value;
-            dst_x = 0 ;
+            dst_x = 0;
             width = MIN(widget->allocation.width,gdk_pixbuf_get_width(w->priv->disp_pixbuf));
             if (src_x + width > gdk_pixbuf_get_width(w->priv->disp_pixbuf))
-                src_x = gdk_pixbuf_get_width(w->priv->disp_pixbuf) - width ;
+                src_x = gdk_pixbuf_get_width(w->priv->disp_pixbuf) - width;
         }
 
 
         if ( (int)w->priv->h_adjustment->value > gdk_pixbuf_get_height(w->priv->disp_pixbuf) ) {
-            src_y = 0 ;
+            src_y = 0;
             dst_y = widget->allocation.height / 2 - gdk_pixbuf_get_height(w->priv->disp_pixbuf)/2;
             height = gdk_pixbuf_get_height(w->priv->disp_pixbuf);
         } else {
-            src_y = (int)w->priv->v_adjustment->value ;
-            dst_y = 0 ;
+            src_y = (int)w->priv->v_adjustment->value;
+            dst_y = 0;
             height = MIN(widget->allocation.height, gdk_pixbuf_get_height(w->priv->disp_pixbuf));
 
             if (src_y + height > gdk_pixbuf_get_height(w->priv->disp_pixbuf))
-                src_y = gdk_pixbuf_get_height(w->priv->disp_pixbuf) - height ;
+                src_y = gdk_pixbuf_get_height(w->priv->disp_pixbuf) - height;
         }
 
 #if 0
@@ -495,7 +495,7 @@ static gboolean image_render_expose( GtkWidget *widget, GdkEventExpose *event )
             widget->allocation.width,
             widget->allocation.height,
             (int)w->priv->h_adjustment->value,
-            (int)w->priv->v_adjustment->value) ;
+            (int)w->priv->v_adjustment->value);
 #endif
         gdk_draw_pixbuf(widget->window,
                 NULL,
@@ -503,7 +503,7 @@ static gboolean image_render_expose( GtkWidget *widget, GdkEventExpose *event )
                 src_x,src_y,
                 dst_x,dst_y,
                 width,height,
-                 GDK_RGB_DITHER_NONE,0,0) ;
+                 GDK_RGB_DITHER_NONE,0,0);
     }
 
     if (g_atomic_int_get(&w->priv->orig_pixbuf_loaded)==0) {
@@ -522,13 +522,13 @@ static gboolean image_render_button_press( GtkWidget *widget, GdkEventButton *ev
 
     w = IMAGE_RENDER (widget);
 
-    /* TODO: Replace (1) with your on conditional for grabbing the mouse */
+    // TODO: Replace (1) with your on conditional for grabbing the mouse
     if (!w->priv->button && (1) ){
         gtk_grab_add (widget);
 
         w->priv->button = event->button;
 
-        /* gtk_dial_update_mouse (dial, event->x, event->y); */
+        // gtk_dial_update_mouse (dial, event->x, event->y);
     }
 
     return FALSE;
@@ -574,7 +574,7 @@ static gboolean image_render_motion_notify( GtkWidget *widget, GdkEventMotion *e
         if (event->is_hint || (event->window != widget->window))
             gdk_window_get_pointer (widget->window, &x, &y, &mods);
 
-        /* TODO: respond to motion event */
+        // TODO: respond to motion event
     }
 
     return FALSE;
@@ -717,33 +717,33 @@ static void image_render_free_pixbuf(ImageRender *obj)
 
     image_render_wait_for_loader_thread(obj);
 
-    obj->priv->orig_pixbuf_loaded = 0 ;
-    obj->priv->scaled_pixbuf_loaded = FALSE ;
+    obj->priv->orig_pixbuf_loaded = 0;
+    obj->priv->scaled_pixbuf_loaded = FALSE;
 
     if (obj->priv->orig_pixbuf)
-        g_object_unref(G_OBJECT(obj->priv->orig_pixbuf)) ;
-    obj->priv->orig_pixbuf = NULL ;
+        g_object_unref(G_OBJECT(obj->priv->orig_pixbuf));
+    obj->priv->orig_pixbuf = NULL;
 
     if (obj->priv->disp_pixbuf)
-        g_object_unref(G_OBJECT(obj->priv->disp_pixbuf)) ;
-    obj->priv->disp_pixbuf = NULL ;
+        g_object_unref(G_OBJECT(obj->priv->disp_pixbuf));
+    obj->priv->disp_pixbuf = NULL;
 
     if (obj->priv->filename)
         g_free(obj->priv->filename);
-    obj->priv->filename = NULL ;
+    obj->priv->filename = NULL;
 }
 
 static gpointer image_render_pixbuf_loading_thread(gpointer data)
 {
-    GError *err = NULL ;
-    ImageRender *obj  = (ImageRender*)data ;
+    GError *err = NULL;
+    ImageRender *obj  = (ImageRender*)data;
 
-    obj->priv->orig_pixbuf = gdk_pixbuf_new_from_file(obj->priv->filename,&err) ;
+    obj->priv->orig_pixbuf = gdk_pixbuf_new_from_file(obj->priv->filename,&err);
 
     g_atomic_int_inc(&obj->priv->orig_pixbuf_loaded);
 
     g_object_unref(G_OBJECT(obj));
-    return NULL ;
+    return NULL;
 }
 
 void image_render_wait_for_loader_thread(ImageRender *obj)
@@ -761,24 +761,24 @@ void image_render_wait_for_loader_thread(ImageRender *obj)
         */
         while (1) {
             if (g_atomic_int_get(&obj->priv->orig_pixbuf_loaded)!=0)
-                break ;
+                break;
             g_usleep(1000);
         }
-        obj->priv->orig_pixbuf_loaded = 0 ;
-        obj->priv->pixbuf_loading_thread = NULL ;
+        obj->priv->orig_pixbuf_loaded = 0;
+        obj->priv->pixbuf_loading_thread = NULL;
     }
 }
 
 void image_render_load_scaled_pixbuf(ImageRender *obj)
 {
-    GError *err = NULL ;
+    GError *err = NULL;
     int width;
     int height;
 
     g_return_if_fail(obj!=NULL);
     g_return_if_fail(IS_IMAGE_RENDER(obj));
     g_return_if_fail(obj->priv->filename!=NULL);
-    g_return_if_fail(obj->priv->scaled_pixbuf_loaded==FALSE) ;
+    g_return_if_fail(obj->priv->scaled_pixbuf_loaded==FALSE);
 
     g_return_if_fail(GTK_WIDGET_REALIZED(GTK_WIDGET(obj)));
 
@@ -788,14 +788,14 @@ void image_render_load_scaled_pixbuf(ImageRender *obj)
     obj->priv->disp_pixbuf  = gdk_pixbuf_new_from_file_at_scale(obj->priv->filename,width,height,TRUE,&err);
 
     if (err) {
-        g_warning("pixbuf loading failed: %s",err->message) ;
+        g_warning("pixbuf loading failed: %s",err->message);
         g_error_free(err);
-        obj->priv->orig_pixbuf = NULL ;
-        obj->priv->disp_pixbuf = NULL ;
-        return ;
+        obj->priv->orig_pixbuf = NULL;
+        obj->priv->disp_pixbuf = NULL;
+        return;
     }
 
-    obj->priv->scaled_pixbuf_loaded = TRUE ;
+    obj->priv->scaled_pixbuf_loaded = TRUE;
 }
 
 void image_render_start_background_pixbuf_loading(ImageRender *obj)
@@ -805,13 +805,13 @@ void image_render_start_background_pixbuf_loading(ImageRender *obj)
     g_return_if_fail(obj->priv->filename!=NULL);
 
     if (obj->priv->pixbuf_loading_thread!=NULL)
-        return ;
+        return;
 
-    obj->priv->orig_pixbuf_loaded = 0 ;
+    obj->priv->orig_pixbuf_loaded = 0;
 
-    /* Start background loading */
-    g_object_ref(G_OBJECT(obj)) ;
-    obj->priv->pixbuf_loading_thread = g_thread_create( image_render_pixbuf_loading_thread, (gpointer)obj, FALSE, NULL ) ;
+    // Start background loading
+    g_object_ref(G_OBJECT(obj));
+    obj->priv->pixbuf_loading_thread = g_thread_create( image_render_pixbuf_loading_thread, (gpointer)obj, FALSE, NULL );
 }
 
 void image_render_load_file(ImageRender *obj, const gchar *filename)
@@ -824,61 +824,61 @@ void image_render_load_file(ImageRender *obj, const gchar *filename)
     g_return_if_fail(obj->priv->filename==NULL);
 
     obj->priv->filename = g_strdup(filename);
-    obj->priv->scaled_pixbuf_loaded = FALSE ;
-    obj->priv->orig_pixbuf_loaded = 0 ;
+    obj->priv->scaled_pixbuf_loaded = FALSE;
+    obj->priv->orig_pixbuf_loaded = 0;
 
-    return ;
+    return;
 }
 
 static void image_render_prepare_disp_pixbuf(ImageRender* obj)
 {
-    int width ;
-    int height ;
+    int width;
+    int height;
 
     g_return_if_fail(obj!=NULL);
     g_return_if_fail(IS_IMAGE_RENDER(obj));
 
-    /* this will be set only if the loader thread finished loading the big pixbuf */
+    // this will be set only if the loader thread finished loading the big pixbuf
     if (g_atomic_int_get(&obj->priv->orig_pixbuf_loaded)==0) {
-        return ;
+        return;
     }
 
     if (!GTK_WIDGET_REALIZED (GTK_WIDGET(obj)))
         return;
 
     if (obj->priv->disp_pixbuf)
-        g_object_unref(G_OBJECT(obj->priv->disp_pixbuf)) ;
-    obj->priv->disp_pixbuf = NULL ;
+        g_object_unref(G_OBJECT(obj->priv->disp_pixbuf));
+    obj->priv->disp_pixbuf = NULL;
 
     if (gdk_pixbuf_get_height(obj->priv->orig_pixbuf)==0)
-        return ;
+        return;
 
     if (obj->priv->best_fit) {
         if ( gdk_pixbuf_get_height(obj->priv->orig_pixbuf) < GTK_WIDGET(obj)->allocation.height
             &&
              gdk_pixbuf_get_width(obj->priv->orig_pixbuf) < GTK_WIDGET(obj)->allocation.width) {
-                 /* no need to scale down */
+                 // no need to scale down
 
-                 obj->priv->disp_pixbuf = obj->priv->orig_pixbuf ;
-                 g_object_ref(G_OBJECT(obj->priv->disp_pixbuf)) ;
-                 return ;
+                 obj->priv->disp_pixbuf = obj->priv->orig_pixbuf;
+                 g_object_ref(G_OBJECT(obj->priv->disp_pixbuf));
+                 return;
              }
 
-        height = GTK_WIDGET(obj)->allocation.height ;
+        height = GTK_WIDGET(obj)->allocation.height;
         width = (((double)GTK_WIDGET(obj)->allocation.height) /
               gdk_pixbuf_get_height(obj->priv->orig_pixbuf))*
                 gdk_pixbuf_get_width(obj->priv->orig_pixbuf);
 
         if (width >= GTK_WIDGET(obj)->allocation.width) {
-            width = GTK_WIDGET(obj)->allocation.width ;
+            width = GTK_WIDGET(obj)->allocation.width;
             height = (((double)GTK_WIDGET(obj)->allocation.width) /
                   gdk_pixbuf_get_width(obj->priv->orig_pixbuf))*
                     gdk_pixbuf_get_height(obj->priv->orig_pixbuf);
         }
 
         if (width<=1 || height<=1) {
-            obj->priv->disp_pixbuf = NULL ;
-            return ;
+            obj->priv->disp_pixbuf = NULL;
+            return;
         }
 
         obj->priv->disp_pixbuf = gdk_pixbuf_scale_simple(
@@ -887,7 +887,7 @@ static void image_render_prepare_disp_pixbuf(ImageRender* obj)
                 height,
                 GDK_INTERP_NEAREST);
     } else {
-        /* not "best_fit" = scaling mode */
+        // not "best_fit" = scaling mode
         obj->priv->disp_pixbuf = gdk_pixbuf_scale_simple(
                 obj->priv->orig_pixbuf,
                 (int)(gdk_pixbuf_get_width(obj->priv->orig_pixbuf) * obj->priv->scale_factor),
@@ -904,7 +904,7 @@ static void image_render_update_adjustments(ImageRender* obj)
     g_return_if_fail(IS_IMAGE_RENDER(obj));
 
     if (!obj->priv->disp_pixbuf)
-        return ;
+        return;
 
     if (obj->priv->best_fit ||
         (
@@ -929,7 +929,7 @@ static void image_render_update_adjustments(ImageRender* obj)
             obj->priv->h_adjustment->lower = 0;
             obj->priv->h_adjustment->upper = gdk_pixbuf_get_width(
                     obj->priv->disp_pixbuf);
-            obj->priv->h_adjustment->page_size = GTK_WIDGET(obj)->allocation.width ;
+            obj->priv->h_adjustment->page_size = GTK_WIDGET(obj)->allocation.width;
             gtk_adjustment_changed(obj->priv->h_adjustment);
         }
         if (obj->priv->v_adjustment) {
@@ -947,7 +947,7 @@ void image_render_set_best_fit(ImageRender *obj, gboolean active)
     g_return_if_fail(obj!=NULL);
     g_return_if_fail(IS_IMAGE_RENDER(obj));
 
-    obj->priv->best_fit = active ;
+    obj->priv->best_fit = active;
     image_render_prepare_disp_pixbuf(obj);
     image_render_redraw(obj);
 }
@@ -989,13 +989,13 @@ void image_render_operation(ImageRender *obj, IMAGEOPERATION op)
     switch(op)
     {
     case ROTATE_CLOCKWISE:
-        temp = gdk_pixbuf_rotate_simple(obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_CLOCKWISE) ;
+        temp = gdk_pixbuf_rotate_simple(obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_CLOCKWISE);
         break;
     case ROTATE_COUNTERCLOCKWISE:
-        temp = gdk_pixbuf_rotate_simple(obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE) ;
+        temp = gdk_pixbuf_rotate_simple(obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
         break;
     case ROTATE_UPSIDEDOWN:
-        temp = gdk_pixbuf_rotate_simple(obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_UPSIDEDOWN) ;
+        temp = gdk_pixbuf_rotate_simple(obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_UPSIDEDOWN);
         break;
     case FLIP_VERTICAL:
         temp = gdk_pixbuf_flip(obj->priv->orig_pixbuf, FALSE);
@@ -1007,9 +1007,9 @@ void image_render_operation(ImageRender *obj, IMAGEOPERATION op)
         g_return_if_fail(!"Unknown image operation");
     }
 
-    g_object_unref(obj->priv->orig_pixbuf) ;
+    g_object_unref(obj->priv->orig_pixbuf);
 
-    obj->priv->orig_pixbuf = temp ;
+    obj->priv->orig_pixbuf = temp;
 
     image_render_prepare_disp_pixbuf(obj);
 }

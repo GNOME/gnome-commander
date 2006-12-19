@@ -49,12 +49,12 @@ extern GHashTable *all_dirs_map;
 extern GList *all_files;
 
 
-struct poptOption popt_options[] = {                                          
+struct poptOption popt_options[] = {
     {"debug", 'd', POPT_ARG_STRING, &debug_flags, 0, N_("Specify debug flags to use"), NULL},
     {"start-left-dir", 'l', POPT_ARG_STRING, &start_dir_left, 0, N_("Specify the start directory for the left pane"), NULL},
     {"start-right-dir", 'r', POPT_ARG_STRING, &start_dir_right, 0, N_("Specify the start directory for the right pane"), NULL},
-    {NULL, 0, 0, NULL, 0, NULL, NULL}                                       
-};                                                                          
+    {NULL, 0, 0, NULL, 0, NULL, NULL}
+};
 
 
 static const GOptionEntry options [] =
@@ -64,7 +64,7 @@ static const GOptionEntry options [] =
     {"start-right-dir", 'r', 0, G_OPTION_ARG_STRING, &start_dir_right, N_("Specify the start directory for the right pane"), NULL},
     {NULL}
 };
-  
+
 
 int
 main (int argc, char *argv[])

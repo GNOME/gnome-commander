@@ -50,15 +50,15 @@ void parse_command_line(int argc, char* argv[])
 {
     if (argc<3)
         usage() ;
-        
+
     input_mode = g_strdup(argv[1]);
     filename = g_strdup(argv[2]);
-    
+
     if (argc>3)
         start = atol(argv[3]);
     else
         start = 0 ;
-    
+
     if (argc>4)
         end = atol(argv[4]);
     else
@@ -68,20 +68,20 @@ void parse_command_line(int argc, char* argv[])
 int init()
 {
     fops = gv_fileops_new();
-    
+
     if (gv_file_open(fops, filename)==-1) {
         fprintf(stderr,"Failed to open \"%s\"\n", filename) ;
         return -1;
     }
-    
+
     if (end==-1)
         end = gv_file_get_max_offset(fops);
 
     imd = gv_input_modes_new();
     gv_init_input_modes(imd, (get_byte_proc)gv_file_get_byte, fops);
-    
+
     gv_set_input_mode(imd,input_mode);
-    
+
     return 0;
 }
 
@@ -89,11 +89,11 @@ void cleanup()
 {
     g_free(filename);
     g_free(input_mode);
-    
+
     if (fops)
         gv_file_free(fops);
     g_free(fops) ;
-    
+
     if (imd)
         gv_free_input_modes(imd);
     g_free(imd);
@@ -103,13 +103,13 @@ int main(int argc, char* argv[])
 {
     offset_type current;
     char_type value ;
-    
+
     parse_command_line(argc,argv);
-    
+
     if (init()==-1)
         goto error;
-        
-    
+
+
     current = start;
     while (current < end) {
         /* Read a UTF8 character from the input file.
@@ -117,27 +117,27 @@ int main(int argc, char* argv[])
         value = gv_input_mode_get_utf8_char(imd, current);
         if (value==INVALID_CHAR)
             break ;
-            
-        /* move to the next character's offset */
+
+        // move to the next character's offset
         current = gv_input_get_next_char_offset(imd,current);
-        
-        /* value is UTF-8 character, packed into 32bits */
+
+        // value is UTF-8 character, packed into 32bits
         printf("%c", GV_FIRST_BYTE(value)) ;
         if (GV_SECOND_BYTE(value)) {
             printf("%c", GV_SECOND_BYTE(value)) ;
-            
+
             if (GV_THIRD_BYTE(value)) {
                 printf("%c", GV_THIRD_BYTE(value)) ;
-                
+
                 if (GV_FOURTH_BYTE(value)) {
                     printf("%c", GV_FOURTH_BYTE(value)) ;
                 }
             }
         }
     }
-    
 
-error:    
+
+error:
     cleanup();
     return 0;
 }

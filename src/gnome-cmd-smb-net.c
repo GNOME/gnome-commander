@@ -157,7 +157,7 @@ gnome_cmd_smb_net_get_entity (const gchar *name)
     SmbEntity *ent;
     gboolean b = FALSE;
 
-    if (!entities) 
+    if (!entities)
     {
         DEBUG ('s', "Building the SMB database for the first time.\n");
         rebuild_map ();
@@ -165,7 +165,7 @@ gnome_cmd_smb_net_get_entity (const gchar *name)
     }
 
     ent = g_hash_table_lookup (entities, name);
-    if (!ent && !b) 
+    if (!ent && !b)
     {
         DEBUG ('s', "Entity not found, rebuilding the database\n");
         rebuild_map ();

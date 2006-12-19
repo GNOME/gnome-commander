@@ -242,13 +242,13 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
 
     gtk_widget_show (item);
 
-    /* Create the contents of the menu item */
+    // Create the contents of the menu item
     label = gtk_label_new (name);
     gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
     gtk_widget_show (label);
     gtk_container_add (GTK_CONTAINER (item), label);
 
-    /* Connect to the signal and set user data */
+    // Connect to the signal and set user data
     gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
 
     if (callback)
@@ -364,7 +364,7 @@ configure (GnomeCmdPlugin *plugin)
     combo = create_combo (dialog);
     table_add (table, combo, 1, 1, GTK_FILL);
 
-    for (i=0 ; handled_extensions[i] != NULL ; i++)
+    for (i=0; handled_extensions[i] != NULL; i++)
         items = g_list_append (items, handled_extensions[i]);
 
     gtk_combo_set_popdown_strings (GTK_COMBO (combo), items);

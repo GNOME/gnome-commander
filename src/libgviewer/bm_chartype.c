@@ -34,28 +34,28 @@
 ***********************************/
 static GHashTable* bch_create()
 {
-	return g_hash_table_new(g_direct_hash,g_direct_equal);
+    return g_hash_table_new(g_direct_hash,g_direct_equal);
 }
 
 
 static void bch_free(GHashTable *bch)
 {
-	g_hash_table_destroy(bch);
+    g_hash_table_destroy(bch);
 }
 
 
 static void bch_set_value(GHashTable *bch, int key, int value)
 {
-	g_hash_table_insert(bch, (gpointer)key, (gpointer)value);
+    g_hash_table_insert(bch, (gpointer)key, (gpointer)value);
 }
 
 
 int bch_get_value(GViewerBMChartypeData *data, char_type key, int default_value)
 {
-	gint value;
-	value = (gint)g_hash_table_lookup(data->bad, (gpointer)CHARTYPE_CASE(key, data->case_sensitive));
+    gint value;
+    value = (gint)g_hash_table_lookup(data->bad, (gpointer)CHARTYPE_CASE(key, data->case_sensitive));
 
-	return value==0 ? default_value : value;
+    return value==0 ? default_value : value;
 }
 
 
@@ -64,7 +64,7 @@ static void bch_compute(GHashTable* bch,char_type *pattern, int m, gboolean case
    int i;
 
    for (i = 0; i < m - 1; ++i)
-	   bch_set_value(bch, CHARTYPE_CASE(pattern[i],case_sens), m-i-1) ;
+       bch_set_value(bch, CHARTYPE_CASE(pattern[i],case_sens), m-i-1) ;
 }
 
 
@@ -115,68 +115,68 @@ static void goodsuff_compute(char_type *pattern, int m, gboolean case_sens, /*ou
 
 GViewerBMChartypeData* create_bm_chartype_data(const gchar*pattern, gboolean case_sensitive)
 {
-	GViewerBMChartypeData* data = g_new0(GViewerBMChartypeData,1);
+    GViewerBMChartypeData* data = g_new0(GViewerBMChartypeData,1);
 
-	data->case_sensitive = case_sensitive;
+    data->case_sensitive = case_sensitive;
 
-	data->pattern = convert_utf8_to_chartype_array(pattern, &data->pattern_len);
-	if (!data->pattern)
-		goto error;
+    data->pattern = convert_utf8_to_chartype_array(pattern, &data->pattern_len);
+    if (!data->pattern)
+        goto error;
 
-	data->bad = bch_create();
-	bch_compute(data->bad, data->pattern,data->pattern_len, case_sensitive);
+    data->bad = bch_create();
+    bch_compute(data->bad, data->pattern,data->pattern_len, case_sensitive);
 
-	data->good = g_new0(int, data->pattern_len);
-	goodsuff_compute(data->pattern,data->pattern_len, case_sensitive, data->good);
+    data->good = g_new0(int, data->pattern_len);
+    goodsuff_compute(data->pattern,data->pattern_len, case_sensitive, data->good);
 
-	return data;
+    return data;
 
 error:
-	free_bm_chartype_data(data);
-	return NULL;
+    free_bm_chartype_data(data);
+    return NULL;
 }
 
 
 void free_bm_chartype_data(GViewerBMChartypeData*data)
 {
-	if (data==NULL)
-		return ;
+    if (data==NULL)
+        return ;
 
-	if (data->good!=NULL)
-		g_free(data->good);
-	data->good=NULL;
+    if (data->good!=NULL)
+        g_free(data->good);
+    data->good=NULL;
 
-	if (data->bad!=NULL)
-		bch_free(data->bad);
-	data->bad = NULL ;
+    if (data->bad!=NULL)
+        bch_free(data->bad);
+    data->bad = NULL ;
 
-	if (data->pattern!=NULL)
-		g_free(data->pattern);
-	data->pattern = NULL ;
+    if (data->pattern!=NULL)
+        g_free(data->pattern);
+    data->pattern = NULL ;
 
-	data->pattern_len = 0 ;
+    data->pattern_len = 0 ;
 
-	g_free(data);
+    g_free(data);
 }
 
 
 gboolean bm_chartype_equal(GViewerBMChartypeData *data, int pattern_index, char_type ch)
 {
-	return	CHARTYPE_CASE(data->pattern[pattern_index], data->case_sensitive)
-		==
-		CHARTYPE_CASE(ch,data->case_sensitive);
+    return    CHARTYPE_CASE(data->pattern[pattern_index], data->case_sensitive)
+        ==
+        CHARTYPE_CASE(ch,data->case_sensitive);
 }
 
 
 int bm_chartype_get_advancement(GViewerBMChartypeData *data, int pattern_index,  char_type ch)
 {
-	int m = data->pattern_len ;
+    int m = data->pattern_len ;
 
-	return MAX(data->good[pattern_index], bch_get_value(data, ch, m) - m + 1 + pattern_index);
+    return MAX(data->good[pattern_index], bch_get_value(data, ch, m) - m + 1 + pattern_index);
 }
 
 
 int bm_chartype_get_good_match_advancement(GViewerBMChartypeData *data)
 {
-	return data->good[0];
+    return data->good[0];
 }
