@@ -1,11 +1,17 @@
+2006-12-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-list-popmenu.c:
+	* src/gnome-cmd-main-win.c:
+	Use GNOMEUIINFO_* helpers
+
 2006-12-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-prepare-copy-dialog.c:
 	* src/gnome-cmd-prepare-move-dialog.c:
 	* src/gnome-cmd-xfer.c:
 	* src/utils.c:
-	Set default action fo 'Replace' for overwriting confirmation dialog
-	The dialog can closed with ESC now
+	Set default action to 'Replace' for overwriting confirmation dialog
+	The dialog can be closed with ESC now
 
 2006-12-18  Koos Jan Niesink  <kjniesink@yahoo.co.uk>
 

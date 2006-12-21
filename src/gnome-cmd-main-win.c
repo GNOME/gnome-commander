@@ -113,8 +113,6 @@ gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
 gint gnome_cmd_key_snooper(GtkWidget *grab_widget,
             GdkEventKey *event, GnomeCmdMainWin *mw)
 {
-    GnomeCmdFileSelector* fs;
-
     g_return_val_if_fail(mw!=NULL, FALSE);
     g_return_val_if_fail(mw->priv!=NULL,FALSE);
 
@@ -126,26 +124,25 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget,
             (event->keyval == GDK_period)))
         return FALSE;
 
-
     if (!gnome_cmd_data_get_alt_quick_search())
         return FALSE;
 
     if (!state_is_alt(event->state))
         return FALSE;
 
-    fs = gnome_cmd_main_win_get_active_fs(mw);
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs(mw);
     if (fs==NULL || fs->list==NULL)
         return FALSE;
 
     if (!GTK_WIDGET_HAS_FOCUS(GTK_WIDGET(fs->list)))
         return FALSE;
 
-    if (!gnome_cmd_file_list_quicksearch_shown(fs->list)) {
-        gnome_cmd_file_list_show_quicksearch(fs->list, event->keyval);
-        return TRUE;
-    }
+    if (gnome_cmd_file_list_quicksearch_shown(fs->list))
+        return FALSE;
 
-    return FALSE;
+    gnome_cmd_file_list_show_quicksearch(fs->list, event->keyval);
+
+    return TRUE;
 }
 
 
@@ -177,11 +174,13 @@ create_separator (gboolean vertical)
     GtkWidget *sep;
     GtkWidget *box;
 
-    if (vertical) {
+    if (vertical)
+    {
         sep = gtk_vseparator_new ();
         box = gtk_vbox_new (FALSE, 0);
     }
-    else {
+    else
+    {
         sep = gtk_hseparator_new ();
         box = gtk_hbox_new (FALSE, 0);
     }
@@ -211,14 +210,14 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
     if (!toolbar_tooltips)
         toolbar_tooltips = gtk_tooltips_new ();
 
-    for (i=0; uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; i++) {
+    for (i=0; uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; i++)
+    {
         GtkWidget *w;
 
-        if (uiinfo[i].type == GNOME_APP_UI_SEPARATOR) {
+        if (uiinfo[i].type == GNOME_APP_UI_SEPARATOR)
             w = create_separator (TRUE);
-        }
-        else {
-
+        else
+        {
             GtkWidget *pixmap;
 
             w = create_styled_button (NULL);
@@ -230,7 +229,8 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
                 GTK_WIDGET (mw),
                 uiinfo[i].pixmap_type, uiinfo[i].pixmap_info,
                 GTK_ICON_SIZE_LARGE_TOOLBAR);
-            if (pixmap) {
+            if (pixmap)
+            {
                 gtk_widget_ref (pixmap);
                 gtk_widget_show (pixmap);
                 gtk_container_add (GTK_CONTAINER (w), pixmap);
@@ -316,73 +316,32 @@ slide_set_0_100 (GtkMenu *menu, gpointer user_data)
 static GtkWidget *
 create_slide_popup ()
 {
-    gint i;
-    GtkWidget *menu;
-
     static GnomeUIInfo popmenu_uiinfo[] =
     {
-        {
-            GNOME_APP_UI_ITEM, "100 - 0",
-            NULL,
-            slide_set_100_0, NULL, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, "80 - 20",
-            NULL,
-            slide_set_80_20, NULL, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, "60 - 40",
-            NULL,
-            slide_set_60_40, NULL, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, "50 - 50",
-            NULL,
-            slide_set_50_50, NULL, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, "40 - 60",
-            NULL,
-            slide_set_40_60, NULL, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, "20 - 80",
-            NULL,
-            slide_set_20_80, NULL, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, "0 - 100",
-            NULL,
-            slide_set_0_100, NULL, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            0, 0, NULL
-        }
+        GNOMEUIINFO_ITEM_NONE("100 - 0", NULL, slide_set_100_0),
+        GNOMEUIINFO_ITEM_NONE("80 - 20", NULL, slide_set_80_20),
+        GNOMEUIINFO_ITEM_NONE("60 - 40", NULL, slide_set_60_40),
+        GNOMEUIINFO_ITEM_NONE("50 - 50", NULL, slide_set_50_50),
+        GNOMEUIINFO_ITEM_NONE("40 - 60", NULL, slide_set_40_60),
+        GNOMEUIINFO_ITEM_NONE("20 - 80", NULL, slide_set_20_80),
+        GNOMEUIINFO_ITEM_NONE("0 - 100", NULL, slide_set_100_0),
+        GNOMEUIINFO_END
     };
 
-    /* Set default callback data
-     */
+    // Set default callback data
+
+    guint i;
+
     for (i = 0; popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
         if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
+            popmenu_uiinfo[i].user_data = main_win;
 
-    menu = gtk_menu_new ();
+    GtkWidget *menu = gtk_menu_new ();
     gtk_widget_ref (menu);
     gtk_object_set_data_full (GTK_OBJECT (main_win), "slide-popup", menu, (GtkDestroyNotify)gtk_widget_unref);
 
-    /* Fill the menu
-     */
+    // Fill the menu
+
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), popmenu_uiinfo, NULL, FALSE, 0);
 
     return GTK_WIDGET (menu);
@@ -682,18 +641,22 @@ update_drop_con_button            (GnomeCmdMainWin *mw,
     gtk_tooltips_set_tip (toolbar_tooltips, btn, gnome_cmd_con_get_close_tooltip (con), NULL);
     gtk_widget_set_sensitive (btn, TRUE);
 
-    if (pm) {
+    if (pm)
+    {
         GtkWidget *pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
-        if (pixmap) {
+        if (pixmap)
+        {
             gtk_widget_ref (pixmap);
             gtk_widget_show (pixmap);
             gtk_container_add (GTK_CONTAINER (btn), pixmap);
             prev_pixmap = pixmap;
         }
     }
-    else {
+    else
+    {
         GtkWidget *label = gtk_label_new (gnome_cmd_con_get_close_text (con));
-        if (label) {
+        if (label)
+        {
             gtk_widget_ref (label);
             gtk_widget_show (label);
             gtk_container_add (GTK_CONTAINER (btn), label);
@@ -725,11 +688,15 @@ restore_size_and_pos (GnomeCmdMainWin *mw)
     if (x >= 0 && y >= 0)
         gtk_window_move (GTK_WINDOW (mw), x, y);
 
-    switch(gnome_cmd_data_get_main_win_state()) {
-    case GDK_WINDOW_STATE_MAXIMIZED:
-    case GDK_WINDOW_STATE_FULLSCREEN:
-        gtk_window_maximize (GTK_WINDOW (mw));
-        break;
+    switch (gnome_cmd_data_get_main_win_state ())
+    {
+        case GDK_WINDOW_STATE_MAXIMIZED:
+        case GDK_WINDOW_STATE_FULLSCREEN:
+            gtk_window_maximize (GTK_WINDOW (mw));
+            break;
+
+        default:
+            break;
     }
 }
 
@@ -747,18 +714,18 @@ on_window_state_event (GtkWidget *mw, GdkEventWindowState *event, gpointer user_
 
     switch (event->new_window_state)
     {
-            case GDK_WINDOW_STATE_MAXIMIZED:    // not usable
-            case GDK_WINDOW_STATE_FULLSCREEN:   // not usable
-                    break;
+        case GDK_WINDOW_STATE_MAXIMIZED:    // not usable
+        case GDK_WINDOW_STATE_FULLSCREEN:   // not usable
+                break;
 
-            case GDK_WINDOW_STATE_ICONIFIED:
-                        if (gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_MAXIMIZED ||  // prev state
-                            gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_FULLSCREEN)
-                        break;  // not usable
+        case GDK_WINDOW_STATE_ICONIFIED:
+                if (gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_MAXIMIZED ||  // prev state
+                    gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_FULLSCREEN)
+                break;  // not usable
 
-            default:            // other are usable
-                gdk_window_get_root_origin (mw->window, &x, &y);
-                gnome_cmd_data_set_main_win_pos (x, y);
+        default:            // other are usable
+            gdk_window_get_root_origin (mw->window, &x, &y);
+            gnome_cmd_data_set_main_win_pos (x, y);
     }
 
     gnome_cmd_data_set_main_win_state (event->new_window_state);
@@ -777,9 +744,10 @@ destroy (GtkObject *object)
     GnomeCmdDir *dir;
     GnomeCmdCon *con_home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
 
-    if (main_win && main_win->priv && main_win->priv->key_snooper_id) {
+    if (main_win && main_win->priv && main_win->priv->key_snooper_id)
+    {
         gtk_key_snooper_remove(main_win->priv->key_snooper_id);
-    main_win->priv->key_snooper_id = 0;
+        main_win->priv->key_snooper_id = 0;
     }
 
     dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, LEFT));
@@ -1223,48 +1191,56 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
             break;
         }
     }
-    else if (state_is_blank (event->state))
-    {
-        switch (event->keyval)
-        {
-            case GDK_Tab:
-                // hack to avoid the deafult handling of the tab-key
-                clear_event_key (event);
-                gnome_cmd_main_win_switch_fs (mw, gnome_cmd_main_win_get_inactive_fs (mw));
-                return TRUE;
+    else
+        if (state_is_blank (event->state))
+            switch (event->keyval)
+            {
+                case GDK_Tab:
+                    // hack to avoid the deafult handling of the tab-key
+                    clear_event_key (event);
+                    gnome_cmd_main_win_switch_fs (mw, gnome_cmd_main_win_get_inactive_fs (mw));
+                    return TRUE;
 
-            case GDK_F1:
-                on_help_clicked (NULL, mw);
-                return TRUE;
-            case GDK_F2:
-                on_rename_clicked (NULL, mw);
-                return TRUE;
-            case GDK_F3:
-                on_view_clicked (NULL, mw);
-                return TRUE;
-            case GDK_F4:
-                on_edit_clicked (NULL, mw);
-                return TRUE;
-            case GDK_F5:
-                on_copy_clicked (NULL, mw);
-                return TRUE;
-            case GDK_F6:
-                on_move_clicked (NULL, mw);
-                return TRUE;
-            case GDK_F7:
-                on_mkdir_clicked (NULL, mw);
-                return TRUE;
-            case GDK_F8:
-                on_delete_clicked (NULL, mw);
-                return TRUE;
-            case GDK_F9:
-                on_search_clicked (NULL, mw);
-                return TRUE;
-            case GDK_F10:
-                on_quit_clicked (NULL, mw);
-                return TRUE;
-        }
-    }
+                case GDK_F1:
+                    on_help_clicked (NULL, mw);
+                    return TRUE;
+
+                case GDK_F2:
+                    on_rename_clicked (NULL, mw);
+                    return TRUE;
+
+                case GDK_F3:
+                    on_view_clicked (NULL, mw);
+                    return TRUE;
+
+                case GDK_F4:
+                    on_edit_clicked (NULL, mw);
+                    return TRUE;
+
+                case GDK_F5:
+                    on_copy_clicked (NULL, mw);
+                    return TRUE;
+
+                case GDK_F6:
+                    on_move_clicked (NULL, mw);
+                    return TRUE;
+
+                case GDK_F7:
+                    on_mkdir_clicked (NULL, mw);
+                    return TRUE;
+
+                case GDK_F8:
+                    on_delete_clicked (NULL, mw);
+                    return TRUE;
+
+                case GDK_F9:
+                    on_search_clicked (NULL, mw);
+                    return TRUE;
+
+                case GDK_F10:
+                    on_quit_clicked (NULL, mw);
+                    return TRUE;
+            }
 
     if (gnome_cmd_file_selector_keypressed (gnome_cmd_main_win_get_active_fs (mw), event))
         return TRUE;
@@ -1322,122 +1298,40 @@ gnome_cmd_main_win_update_bookmarks (GnomeCmdMainWin *mw)
 void
 gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
 {
-    GnomeUIInfo toolbar_uiinfo[] =
+    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
+
+    static GnomeUIInfo toolbar_uiinfo[] =
     {
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Refresh"),
-            view_refresh, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REFRESH,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Up one directory"),
-            view_up, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_UP,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Goto the oldest"),
-            view_first, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GOTO_FIRST,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Go back"),
-            view_back, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_BACK,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Go forward"),
-            view_forward, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_FORWARD,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Goto the latest"),
-            view_last, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GOTO_LAST,
-            0, 0, NULL
-        },
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Refresh"), view_refresh, GTK_STOCK_REFRESH),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Up one directory"), view_up, GTK_STOCK_GO_UP),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Goto the oldest"), view_first, GTK_STOCK_GOTO_FIRST),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Go back"), view_back, GTK_STOCK_GO_BACK),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Go forward"), view_forward, GTK_STOCK_GO_FORWARD),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Goto the latest"), view_last, GTK_STOCK_GOTO_LAST),
         GNOMEUIINFO_SEPARATOR,
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Copy file names (SHIFT for full paths)"),
-            edit_copy_fnames, NULL, NULL,
-            GNOME_APP_PIXMAP_DATA, copy_file_names_xpm,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Cut"),
-            file_cap_cut, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CUT,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Copy"),
-            file_cap_copy, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_COPY,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Paste"),
-            file_cap_paste, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PASTE,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Delete"),
-            file_delete, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DELETE,
-            0, 0, NULL
-        },
+        GNOMEUIINFO_ITEM(NULL, N_("Copy file names (SHIFT for full paths)"), edit_copy_fnames, copy_file_names_xpm),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Cut"), file_cap_cut, GTK_STOCK_CUT),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Copy"), file_cap_copy, GTK_STOCK_COPY),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Paste"), file_cap_paste, GTK_STOCK_PASTE),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Delete"), file_delete, GTK_STOCK_DELETE),
         GNOMEUIINFO_SEPARATOR,
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Edit (SHIFT for new document)"),
-            file_edit, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_EDIT,
-            0, 0, NULL
-        },
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Edit (SHIFT for new document)"), file_edit, GTK_STOCK_EDIT),
         GNOMEUIINFO_SEPARATOR,
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("FTP Connect"),
-            connections_ftp_connect, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, NULL,
-            _("Drop connection"),
-            connections_close_current, NULL, NULL,
-            0, 0,
-            0, 0, NULL
-        },
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("FTP Connect"), connections_ftp_connect, GTK_STOCK_CONNECT),
+        GNOMEUIINFO_ITEM_NONE(NULL, N_("Drop connection"), connections_close_current),
         GNOMEUIINFO_END
     };
 
-    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
-
-    if (gnome_cmd_data_get_toolbar_visibility ()) {
+    if (gnome_cmd_data_get_toolbar_visibility ())
+    {
         create_toolbar (mw, toolbar_uiinfo);
         gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->toolbar, FALSE, TRUE, 0);
         gtk_box_reorder_child (GTK_BOX (mw->priv->vbox), mw->priv->toolbar, 2);
         gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->toolbar_sep, FALSE, TRUE, 0);
         gtk_box_reorder_child (GTK_BOX (mw->priv->vbox), mw->priv->toolbar_sep, 3);
     }
-    else {
+    else
+    {
         if (mw->priv->toolbar)
             gtk_widget_destroy (mw->priv->toolbar);
         if (mw->priv->toolbar_sep)
@@ -1455,12 +1349,14 @@ gnome_cmd_main_win_update_buttonbar_visibility (GnomeCmdMainWin *mw)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
-    if (gnome_cmd_data_get_buttonbar_visibility ()) {
+    if (gnome_cmd_data_get_buttonbar_visibility ())
+    {
         create_buttonbar (mw);
         gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->buttonbar_sep, FALSE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->buttonbar, FALSE, TRUE, 0);
     }
-    else {
+    else
+    {
         if (mw->priv->buttonbar)
             gtk_widget_destroy (mw->priv->buttonbar);
         if (mw->priv->buttonbar_sep)
@@ -1476,7 +1372,8 @@ gnome_cmd_main_win_update_cmdline_visibility (GnomeCmdMainWin *mw)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
-    if (gnome_cmd_data_get_cmdline_visibility ()) {
+    if (gnome_cmd_data_get_cmdline_visibility ())
+    {
         gint pos = 3;
         mw->priv->cmdline_sep = create_separator (FALSE);
         mw->priv->cmdline = gnome_cmd_cmdline_new ();
@@ -1562,18 +1459,14 @@ gnome_cmd_main_win_add_plugin_menu (GnomeCmdMainWin *mw, PluginData *data)
 GnomeCmdState *
 gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw)
 {
-    GnomeCmdState *state;
-    GnomeCmdDir *dir1, *dir2;
-    GnomeCmdFileSelector *fs1, *fs2;
-
     g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
 
-    fs1 = gnome_cmd_main_win_get_active_fs (main_win);
-    fs2 = gnome_cmd_main_win_get_inactive_fs (main_win);
-    dir1 = gnome_cmd_file_selector_get_directory (fs1);
-    dir2 = gnome_cmd_file_selector_get_directory (fs2);
+    GnomeCmdFileSelector *fs1 = gnome_cmd_main_win_get_active_fs (main_win);
+    GnomeCmdFileSelector *fs2 = gnome_cmd_main_win_get_inactive_fs (main_win);
+    GnomeCmdDir *dir1 = gnome_cmd_file_selector_get_directory (fs1);
+    GnomeCmdDir *dir2 = gnome_cmd_file_selector_get_directory (fs2);
 
-    state = &mw->priv->state;
+    GnomeCmdState *state = &mw->priv->state;
     state->active_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir1));
     state->inactive_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir2));
     state->active_dir_files = gnome_cmd_file_list_get_all_files (fs1->list);

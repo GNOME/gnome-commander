@@ -113,81 +113,41 @@ init (GnomeCmdListPopmenu *menu)
 GtkWidget*
 gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
 {
-    int i;
-    GnomeCmdListPopmenu *menu;
+    g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), NULL);
 
     static GnomeUIInfo new_uiinfo[] =
     {
-        {
-            GNOME_APP_UI_ITEM, N_("_Directory"),
-            NULL,
-            on_new_directory, NULL, NULL,
-            GNOME_APP_PIXMAP_DATA, file_type_dir_xpm,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, N_("_Text file"),
-            NULL,
-            on_new_textfile, NULL, NULL,
-            GNOME_APP_PIXMAP_DATA, file_type_regular_xpm,
-            0, 0, NULL
-        },
+        GNOMEUIINFO_ITEM(N_("_Directory"), NULL, on_new_directory, file_type_dir_xpm),
+        GNOMEUIINFO_ITEM(N_("_Text File"), NULL, on_new_textfile, file_type_regular_xpm),
         GNOMEUIINFO_END
     };
 
     static GnomeUIInfo popmenu_uiinfo[] =
     {
-        {
-            GNOME_APP_UI_SUBTREE, N_("_New..."),
-            NULL,
-            new_uiinfo, NULL, NULL,
-            GNOME_APP_PIXMAP_NONE, NULL,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, N_("_Paste"),
-            NULL,
-            on_paste, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PASTE,
-            0, 0, NULL
-        },
-        {
-            GNOME_APP_UI_ITEM, N_("_Refresh"),
-            NULL,
-            on_refresh, NULL, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REFRESH,
-            0, 0, NULL
-        },
+        GNOMEUIINFO_SUBTREE(N_("_New..."), new_uiinfo),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Paste"), NULL, on_paste, GNOME_STOCK_MENU_PASTE),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Refresh"), NULL, on_refresh, GNOME_STOCK_MENU_REFRESH),
         GNOMEUIINFO_END
     };
 
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), NULL);
 
-    menu = gtk_type_new (gnome_cmd_list_popmenu_get_type ());
+    // Set default callback data
 
+    int i;
 
-    /* Set default callback data
-     */
-    i = 0;
-    while (new_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO) {
-        if (new_uiinfo[i].type == GNOME_APP_UI_ITEM) {
+    for (i = 0; new_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
+        if (new_uiinfo[i].type == GNOME_APP_UI_ITEM)
             new_uiinfo[i].user_data = fs;
-        }
-        i++;
-    }
-    i = 0;
-    while (popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO) {
-        if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM) {
+
+    for (i = 0; popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
+        if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
             popmenu_uiinfo[i].user_data = fs;
-        }
-        i++;
-    }
 
+    GnomeCmdListPopmenu *menu = gtk_type_new (gnome_cmd_list_popmenu_get_type ());
 
-    /* Fill the menu
-     */
-    gnome_app_fill_menu (GTK_MENU_SHELL (menu), popmenu_uiinfo,
-                         NULL, FALSE, 0);
+    // Fill the menu
+
+    gnome_app_fill_menu (GTK_MENU_SHELL (menu), popmenu_uiinfo, NULL, FALSE, 0);
 
     return GTK_WIDGET (menu);
 }
