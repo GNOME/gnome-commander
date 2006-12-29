@@ -17,7 +17,7 @@
 Name:          @PACKAGE@
 Version:       @VERSION@
 Release:       %{rel}%{?dist}
-Summary:       GNOME Commander is a nice and fast file manager for the GNOME desktop
+Summary:       A nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
 Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
 
@@ -26,20 +26,22 @@ License:       GPL
 URL:           http://www.freesoftware.fsf.org/gcmd/
 Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/gnome-commander/1.2/@PACKAGE@-@VERSION@.tar%{srcext}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: scrollkeeper gettext >= 0.10.36
-Requires:      glib2 >= @GLIB_REQ@
+
+BuildRequires: desktop-file-utils
+BuildRequires: scrollkeeper
+BuildRequires: gettext >= 0.10.36
 BuildRequires: glib2-devel >= @GLIB_REQ@
-Requires:      gtk2 >= @GTK_REQ@
 BuildRequires: gtk2-devel >= @GTK_REQ@
-Requires:      gnome-vfs2 >= @GNOMEVFS_REQ@
 BuildRequires: gnome-vfs2-devel >= @GNOMEVFS_REQ@
-Requires:      libgnomeui >= @GNOMEUI_REQ@
 BuildRequires: libgnomeui-devel >= @GNOMEUI_REQ@
 BuildRequires: intltool
 BuildRequires: gnome-doc-utils >= 0.3.2
+BuildRequires: perl(XML::Parser)
 
-Requires(post): desktop-file-utils
-Requires(postun): desktop-file-utils
+Requires:      glib2 >= @GLIB_REQ@
+Requires:      gtk2 >= @GTK_REQ@
+Requires:      gnome-vfs2 >= @GNOMEVFS_REQ@
+Requires:      libgnomeui >= @GNOMEUI_REQ@
 
 Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
@@ -51,8 +53,6 @@ BuildRequires:   id3lib-devel >= @ID3LIB_REQ@
 Requires:        libexif >= @LIBEXIF_REQ@
 #Requires:       libiptcdata >= @LIBIPTCDATA_REQ@
 Requires:        id3lib >= @ID3LIB_REQ@
-
-Distribution:  Any
 
 %description
 GNOME Commander is a nice and fast file manager for the GNOME desktop. 
@@ -86,41 +86,29 @@ ansluta till FTP-servrar och SMB-nätverk.
 
 %install
 %{__rm} -rf %{buildroot}
-%{__make} DESTDIR=%{buildroot} install
+%{__make} \
+   INSTALL="%{__install} -c -p" \
+   DESTDIR=%{buildroot} \
+   install
+
+desktop-file-install \
+   --delete-original \
+   --vendor '' \
+   --remove-category Application \
+   --dir %{buildroot}%{_datadir}/applications \
+   %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 #Remove not needed .a files
-%{__rm} %{buildroot}%{_libdir}/gnome-commander/libgviewer.a
-%{__rm} %{buildroot}%{_libdir}/gnome-commander/plugins/libfileroller.a
-%{__rm} %{buildroot}%{_libdir}/gnome-commander/libgcmd.a
-%{__rm} %{buildroot}%{_libdir}/gnome-commander/plugins/libcvs.a
+%{__rm} -f %{buildroot}%{_libdir}/%{name}/*.a
+%{__rm} -f %{buildroot}%{_libdir}/%{name}/*/*.a
 
 %find_lang %{name}
 
 %post
-#scrollkeeper
 scrollkeeper-update -q -o %{_datadir}/omf/%{name} || :
 
-#install the desktop file in menus
-update-desktop-database &> /dev/null ||:
-
-#update icon cache
-touch --no-create %{_datadir}/icons/hicolor || :
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
-fi
-
 %postun
-#scrollkeeper
 scrollkeeper-update -q || :
-
-#uninstall the desktop file in menus
-update-desktop-database &> /dev/null ||:
-
-#update icon cache
-touch --no-create %{_datadir}/icons/hicolor || :
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
-fi
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -128,16 +116,23 @@ fi
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc AUTHORS BUGS ChangeLog COPYING INSTALL NEWS README TODO doc/*.txt
-%doc %{_mandir}/man1/@PACKAGE@.1*
+
 %{_bindir}/*
-%{_libdir}/@PACKAGE@/lib*
-%{_libdir}/@PACKAGE@/plugins/lib*
-%{_datadir}/applications/@PACKAGE@.desktop
-%{_datadir}/gnome/help/@PACKAGE@/*
-%{_datadir}/omf
-%{_datadir}/pixmaps
+%{_libdir}/%{name}/
+%{_mandir}/man1/%{name}.1*
+
+%{_datadir}/applications/%{name}.desktop
+
+%{_datadir}/gnome/help/%{name}/
+%{_datadir}/omf/%{name}/
+
+%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Thu Dec 21 2006 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.3-2
+- Clean up.
+
 * Sun Dec 17 2006 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - use version requirements from configure.in
 - changed dependencies from glib to glib2
@@ -153,7 +148,6 @@ fi
        -descriptions: splitted in multiple lines
        -summary: removed ending dot
        -license: changed license-tag form GPL2 to GPL
-
 * Tue Nov 14 2006 Piotr Eljasiak <epiotr@use.pl>
 - fixed Source0 address
 
