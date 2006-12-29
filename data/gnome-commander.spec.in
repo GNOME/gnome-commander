@@ -99,8 +99,8 @@ desktop-file-install \
    %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 #Remove not needed .a files
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/*.a
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/*/*.a
+%{__rm} -f %{buildroot}%{_libdir}/%{name}/*.{a,la}
+%{__rm} -f %{buildroot}%{_libdir}/%{name}/*/*.{a,la}
 
 %find_lang %{name}
 
@@ -137,11 +137,11 @@ scrollkeeper-update -q || :
 - use version requirements from configure.in
 - changed dependencies from glib to glib2
 
-* Fri Dec 15 2006 Stephanos Manos <stefmanos AT gmail DOT com> 1.2.4-1
+* Fri Dec 15 2006 Stephanos Manos <stefmanos AT gmail DOT com> - 1.2.4-1
 - removed not needed .a files
 - added build and runtime deps for libexif id3lib
 
-* Tue Dec 12 2006 Stephanos Manos <stefmanos AT gmail DOT com> 1.2.4-1
+* Tue Dec 12 2006 Stephanos Manos <stefmanos AT gmail DOT com> - 1.2.4-1
 - minor cleanups/fixes to make rpmlint silent
        -changelog: entries starting with % (added a second %)
        -changelog: replaced tabs with spaces
