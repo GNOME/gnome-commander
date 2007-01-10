@@ -1,0 +1,5295 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-commander\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-12-22 05:30+0100\n"
+"PO-Revision-Date: 2007-01-05 05:47+0530\n"
+"Last-Translator: yangka <yanang_ka@hotmail.com>\n"
+"Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Poedit-Language: Dzongkha\n"
+"X-Poedit-Country: BHUTAN\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../data/gnome-commander.desktop.in.in.h:1
+msgid "A two paned file manager"
+msgstr "པེན་གཉིས་ཡོད་མི་ཡིག་སྣོད་འཛིན་སྐྱོང་ན་ཅིག"
+
+#: ../data/gnome-commander.desktop.in.in.h:2
+msgid "GNOME Commander"
+msgstr "ཇི་ནོམ་གཙོ་དཔོན།"
+
+#: ../libgcmd/gnome-cmd-string-dialog.c:130
+msgid "No error description available"
+msgstr "འགྲེལ་བཤད་འཛོལ་བ་ཐོབ་ཚུགསཔ་མེད།"
+
+#: ../plugins/cvs/cvs-plugin.c:301
+#: ../plugins/fileroller/file-roller-plugin.c:344
+#: ../src/gnome-cmd-ftp-dialog.c:536
+#: ../src/gnome-cmd-options-dialog.c:1123
+#: ../src/gnome-cmd-options-dialog.c:1836
+#: ../src/gnome-cmd-prepare-copy-dialog.c:133
+#: ../src/gnome-cmd-prepare-move-dialog.c:121
+msgid "Options"
+msgstr "གདམ་ཁ་ཚུ།"
+
+#: ../plugins/cvs/cvs-plugin.c:315
+msgid "CVS options"
+msgstr "སི་ཝི་ཨེསི་གདམ་ཁ་ཚུ།"
+
+#: ../plugins/cvs/cvs-plugin.c:318
+msgid "Compression level"
+msgstr "ཨེབ་བཙུགས་གནས་རིམ།"
+
+#: ../plugins/cvs/cvs-plugin.c:327
+msgid "Unified diff format"
+msgstr "གཅིག་མཚུངས་ཁྱད་པར་རྩ་སྒྲིག"
+
+#: ../plugins/cvs/cvs-plugin.c:435
+msgid "A plugin that eventually will be a simple CVS client"
+msgstr "པ་ལག་ཨིན་ཅིག་དེ་མཐའ་ཐུག་ལུ་སི་ཝི་ཨེསི་ཞབས་ཏོག་སྤྱོད་མི་འཇམ་སམ་འོང་།"
+
+#: ../plugins/cvs/interface.c:161
+msgid "Compare with"
+msgstr "དང་གཅིག་ཁར་ག་བསྡུར་བརྐྱབ་ནི།"
+
+#: ../plugins/cvs/interface.c:164
+msgid "HEAD"
+msgstr "མགུ་ཏོག"
+
+#: ../plugins/cvs/interface.c:168
+msgid "The previous revision"
+msgstr "ཧེ་མམ་གྱི་བསྐྱར་སྦྱོང་་འདི།"
+
+#: ../plugins/cvs/interface.c:174
+msgid "Other revision"
+msgstr "གཞན་བསྐྱར་སྦྱོང་།"
+
+#: ../plugins/cvs/interface.c:261
+msgid "CVS Diff"
+msgstr "སི་ཝི་ཨེསི་ཁྱད་པར།"
+
+#: ../plugins/cvs/interface.c:428
+msgid "revision"
+msgstr "བསྐྱར་སྦྱོང་།"
+
+#: ../plugins/cvs/interface.c:442
+msgid "Revision:"
+msgstr "བསྐྱར་སྦྱོང་།:"
+
+#: ../plugins/cvs/interface.c:460
+msgid "Compare..."
+msgstr "ག་བསྡུར་བརྐྱབ་ནི།..."
+
+#: ../plugins/cvs/interface.c:463
+msgid "Author:"
+msgstr "རྩོམ་པ་པོ།:"
+
+#: ../plugins/cvs/interface.c:477
+msgid "Date:"
+msgstr "ཚེས་གྲངས།:"
+
+#: ../plugins/cvs/interface.c:491
+msgid "State:"
+msgstr "གནས་ལུགས།:"
+
+#: ../plugins/cvs/interface.c:505
+msgid "Lines:"
+msgstr "གྱལ་ཚུ།:"
+
+#: ../plugins/cvs/interface.c:519
+msgid "Message:"
+msgstr "འཕྲིན་དོན།:"
+
+#: ../plugins/fileroller/file-roller-plugin.c:183
+msgid "What filename should the new archive have?"
+msgstr "ཡིག་མཛོད་གསརཔ་འདི་ལུ་ཡིག་སྣོད་མིང་ག་ཅིག་ཡོདཔ་སྨོ?"
+
+#: ../plugins/fileroller/file-roller-plugin.c:185
+msgid "Create Archive"
+msgstr "ཡིག་མཛོད་གསར་བསྐྲུན་འབད།"
+
+#: ../plugins/fileroller/file-roller-plugin.c:287
+msgid "Create Archive..."
+msgstr "ཡིག་མཛོད་གསར་བསྐྲུན་འབད།..."
+
+#: ../plugins/fileroller/file-roller-plugin.c:301
+msgid "Extract in Current Directory"
+msgstr "ད་ལྟོའི་སྣོད་ཐོ་ནང་ཕྱིར་འདོན་འབད།"
+
+#: ../plugins/fileroller/file-roller-plugin.c:306
+#, c-format
+msgid "Extract to '%s'"
+msgstr "ལུ་ཕྱིར་འདོན་འབད། '%s'"
+
+#: ../plugins/fileroller/file-roller-plugin.c:358
+msgid "File-roller options"
+msgstr "ཡིག་སྣོད-སྒྲིལ་བྱེད་གདམ་ཁ་ཚུ།"
+
+#: ../plugins/fileroller/file-roller-plugin.c:361
+msgid "Default type"
+msgstr "སྔོན་སྒྲིག་དབྱེ་བ།"
+
+#: ../plugins/fileroller/file-roller-plugin.c:477
+msgid "A plugin that adds File Roller shortcuts for creating and extracting compressed archives."
+msgstr "ཡིག་སྣོད་སྒྲིལ་བྱེད་མགྱོགས་ཐབས་ཚུ་གི་དོན་ལུ་གསར་བསྐྲུན་འབད་ནི་དང་ཨེབ་བཙུགས་ཡོད་མི་ཡིག་མཛོད་་ཕྱིར་འདོན་འབད་ནི་ཁ་སྐོང་འབད་མི་པ་ལག་ཨིན་ཅིག"
+
+#: ../plugins/test/test-plugin.c:233
+msgid "This is an example plugin that is mostly useful as a simple example for aspiring plugin hackers"
+msgstr "གསང་དཀྲོགས་པ་ལག་ཨིན་ཨེསི་པི་རིང་དོན་ལུ་དཔེར་བརྗོད་འཇམ་སམ་ཅིག་བཟུམ་སྦེ་ཕན་ཐོགས་ཆེ་ཤོས་ཅན་འདི་པ་ལག་ཨིན་དཔེར་བརྗོད་ཅིག་ཨིན།"
+
+#: ../src/gnome-cmd-about-plugin.c:182
+msgid "Credits"
+msgstr "ངོ་བསྟོད་ཚུ།"
+
+#: ../src/gnome-cmd-about-plugin.c:211
+msgid "Written by"
+msgstr "འབྲི་མི།"
+
+#: ../src/gnome-cmd-about-plugin.c:226
+msgid "Documented by"
+msgstr "ཡིག་ཐོག་ལུ་བཀོད་མི།"
+
+#: ../src/gnome-cmd-about-plugin.c:239
+msgid "Translated by"
+msgstr "སྐད་བསྒྱུར་འབད་མི།"
+
+#: ../src/gnome-cmd-about-plugin.c:295
+msgid "Plugin Webpage"
+msgstr "པ་ལག་ཨིན་ཝེབ་ཤོག་ལེབ།"
+
+#: ../src/gnome-cmd-about-plugin.c:307
+msgid "C_redits"
+msgstr "ངོ་བསྟོད་ཚུ།(_r)"
+
+#: ../src/gnome-cmd-about-plugin.c:521
+#, c-format
+msgid "About %s"
+msgstr "སྐོར་ལས། %s"
+
+#: ../src/gnome-cmd-advrename-dialog.c:151
+msgid "/Grandparent"
+msgstr "/གེརེན་རྩ་ལག"
+
+#: ../src/gnome-cmd-advrename-dialog.c:152
+msgid "/Parent"
+msgstr "/རྩ་ལག"
+
+#: ../src/gnome-cmd-advrename-dialog.c:154
+msgid "/File name"
+msgstr "/ཡིག་སྣོད་མིང་།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:155
+msgid "/File name without extension"
+msgstr "/ཡིག་སྣོད་མིང་རྒྱ་བསྐྱེད་མེདཔ་སྦེ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:156
+msgid "/File extension"
+msgstr "/ཡིག་སྣོད་རྒྱ་བསྐྱེད།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:158
+msgid "/Counter"
+msgstr "/གདོང་ལེན།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:159
+msgid "/Counter (precision)"
+msgstr "/གདོང་ལེན(ཀྲིག་ཀྲི།)"
+
+#: ../src/gnome-cmd-advrename-dialog.c:161
+msgid "/Date/<locale>"
+msgstr "/ཚེས་གྲངས/<locale>"
+
+#: ../src/gnome-cmd-advrename-dialog.c:162
+msgid "/Date/yyyy-mm-dd"
+msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི་ཝའི་ཝའི-ཨེམ་ཨེམ-ཌི་ཌི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:163
+msgid "/Date/yy-mm-dd"
+msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི-ཨེམ་ཨེམ-ཌི་ཌི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:164
+msgid "/Date/yy.mm.dd"
+msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི.ཨེམ་ཨེམ.ཌི་ཌི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:165
+msgid "/Date/yymmdd"
+msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི་ཨེམ་ཨེམ་ཌི་ཌི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:166
+msgid "/Date/dd.mm.yy"
+msgstr "/ཚེས་གྲངས།/ཌི་ཌི.ཨེམ་ཨེམ.ཝའི་ཝའི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:167
+msgid "/Date/mm-dd-yy"
+msgstr "/ཚེས་གྲངས།/ཨེམ་ཨེམ-ཌི་ཌི-ཝའི་ཝའི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:168
+msgid "/Date/yyyy"
+msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི་ཝའི་ཝའི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:169
+msgid "/Date/yy"
+msgstr "/ཚེས་གྲངས།/ཝའི་ཝའི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:170
+msgid "/Date/mm"
+msgstr "/ཚེསགྲངས།/ཨེམ་ཨེམ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:171
+msgid "/Date/mmm"
+msgstr "/ཚེས་གྲངས།/ཨེམ་ཨེམ་ཨེམ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:172
+msgid "/Date/dd"
+msgstr "/ཚེས་གྲངས།/ཌི་ཌི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:173
+msgid "/Time/<locale>"
+msgstr "/དུས་ཚོད།/<locale>"
+
+#: ../src/gnome-cmd-advrename-dialog.c:174
+msgid "/Time/HH.MM.SS"
+msgstr "/དུས་ཚོད།/ཨེཆ་ཨེཆ.ཨེམ་ཨེམ.ཨེསི་ཨེསི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:175
+msgid "/Time/HH-MM-SS"
+msgstr "/དུས་ཚོད།/ཨེཆ་ཨེཆ-ཨེམ་ཨེམ-ཨེསི་ཨེསི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:176
+msgid "/Time/HHMMSS"
+msgstr "/དུས་ཚོད།/ཨེཆ་ཨེཆ་ཨེམ་ཨེམ་ཨེསི་ཨེསི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:177
+msgid "/Time/HH"
+msgstr "/དུས་ཚོད།/ཨེཆ་ཨེཆ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:178
+msgid "/Time/MM"
+msgstr "/དུས་ཚོད།/ཨེམ་ཨེམ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:179
+msgid "/Time/SS"
+msgstr "/དུས་ཚོད།/ཨེསི་ཨེསི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:448
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119
+#: ../src/utils.c:742
+msgid "Yes"
+msgstr "ཨིན།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:448
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:119
+#: ../src/utils.c:742
+msgid "No"
+msgstr "མེན།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:542
+msgid "Invalid source pattern"
+msgstr "ནུས་མེད་འབྱུང་ཁུངས་དཔེ་གཞི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:616
+msgid "Replace this:"
+msgstr "འདི་ཚབ་བཙུགས།:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:616
+#: ../src/gnome-cmd-advrename-dialog.c:1170
+msgid "With this"
+msgstr "འདི་དང་གཅིག་ཁར།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:628
+msgid "Case sensitive matching"
+msgstr "ཡི་གུ་ཆེ་ཆུང་གི་ཉེན་ཁ་མཐུན་སྒྲིག"
+
+#: ../src/gnome-cmd-advrename-dialog.c:765
+msgid "New Rule"
+msgstr "ལམ་ལུགས་གསརཔ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:771
+msgid "Edit Rule"
+msgstr "ལམ་ལུགས་ཞུན་དག་འབད།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:996
+msgid "Counter start value:"
+msgstr "འགོ་བཙུགས་གནས་གོང་གདོང་ལེན།:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:997
+msgid "Counter increment:"
+msgstr "ཡར་འཕར་གདོང་ལེན།:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:998
+msgid "Counter minimum digit count:"
+msgstr "ཨང་ཡིག་གྱངས་ཁ་རྐྱབས་ནི་ཉུང་མཐའ་གདོང་ལེན།:"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1003
+msgid "Template Options"
+msgstr "ཊེམ་པེ་ལེཊི་གདམ་ཁ་ཚུ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1007
+msgid "Auto-update when the template is entered"
+msgstr "ཊེམ་པེ་ལེཊི་འདི་བཙུགས་ཡོད་པའི་སྐབས་རང་བཞིན་དུས་མཐུན་བཟོ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1105
+msgid "Advanced Rename Tool"
+msgstr "ཡར་བསྐྱོད་འབད་ཡོད་མི་བསྐྱར་མིང་བཏགས་ནི་ལག་ཆས།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1118
+msgid "Template"
+msgstr "ཊེམ་པེ་ལེཊི།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1139
+msgid "O_ptions..."
+msgstr "གདམ་ཁ་ཚུ།(_o)..."
+
+#: ../src/gnome-cmd-advrename-dialog.c:1146
+msgid "Dir"
+msgstr "སྣོད་ཐོ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1149
+#: ../src/plugin_manager.c:423
+#: ../src/tags/gnome-cmd-tags.c:688
+msgid "Name"
+msgstr "མིང་།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1152
+msgid "Counter"
+msgstr "གདོང་ལེན།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1155
+#: ../src/tags/gnome-cmd-tags.c:778
+#: ../src/tags/gnome-cmd-tags.c:1167
+msgid "Date"
+msgstr "ཚེས་གྲངས།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1158
+msgid "Metatag"
+msgstr "མེ་ཊ་ངོ་རྟགས།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1164
+msgid "Regex replacing"
+msgstr "རི་ཇེགསི་ཚབ་བཙུགས་དོ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1169
+msgid "Replace this"
+msgstr "འདི་ཚབ་བཙུགས།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1171
+#: ../src/gnome-cmd-options-dialog.c:97
+#: ../src/gnome-cmd-patternsel-dialog.c:147
+msgid "Case sensitive"
+msgstr "ཡི་གུ་ཆེ་ཆུང་ཉེན་ཁ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1183
+#: ../src/gnome-cmd-options-dialog.c:1351
+#: ../src/gnome-cmd-options-dialog.c:1709
+msgid "_Add..."
+msgstr "ཁ་སྐོང་རྐྱབས།(_A)..."
+
+#: ../src/gnome-cmd-advrename-dialog.c:1186
+#: ../src/gnome-cmd-ftp-dialog.c:527
+#: ../src/gnome-cmd-options-dialog.c:1355
+#: ../src/gnome-cmd-options-dialog.c:1713
+msgid "_Edit..."
+msgstr "ཞུན་དག་འབད།(_E)..."
+
+#: ../src/gnome-cmd-advrename-dialog.c:1190
+#: ../src/gnome-cmd-bookmark-dialog.c:466
+#: ../src/gnome-cmd-ftp-dialog.c:530
+#: ../src/gnome-cmd-options-dialog.c:1361
+#: ../src/gnome-cmd-options-dialog.c:1719
+msgid "_Remove"
+msgstr "རྩ་བསྐྲད་གཏང་།(_R)"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1194
+msgid "Re_move All"
+msgstr "ཆ་མཉམ་རྩ་བསྐྲད་གཏང་།(_m)"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1215
+msgid "Result"
+msgstr "འགྲུབ་འབྲས།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1220
+msgid "Current filenames"
+msgstr "ད་ལྟོའི་ཡིག་སྣོད་མིང་།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1221
+msgid "New filenames"
+msgstr "ཡིག་སྣོད་མིང་གསརཔ་ཚུ།"
+
+#: ../src/gnome-cmd-advrename-dialog.c:1228
+msgid "Rese_t"
+msgstr "སླར་སྒྲིག(_t)"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:69
+msgid "Bookmark name:"
+msgstr "དེབ་རྟགས་མིང་།:"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:70
+msgid "Bookmark target:"
+msgstr "དེབ་རྟགས་དམིགས་གཏད།:"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:158
+msgid "Bookmark name is missing"
+msgstr "དེབ་རྟགས་མིང་འདི་བརླག་སྟོར་ཞུགས་ཡོདཔ།"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:163
+msgid "Bookmark target is missing"
+msgstr "དེབ་རྟགས་དམིགས་གཏད་འདི་བརླག་སྟོཡ་ཞུགས་ཡོདཔ།"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:183
+msgid "Edit Bookmark"
+msgstr "དེབ་རྟགས་ཞུན་དག་འབད།"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:429
+#: ../src/gnome-cmd-bookmark-dialog.c:441
+msgid "Bookmarks"
+msgstr "དེབ་རྟགས་ཚུ།"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:432
+msgid "Bookmark Groups"
+msgstr "དེབ་རྟགས་སྡེ་ཚན་ཚུ།"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:448
+#: ../src/gnome-cmd-file-list.c:89
+msgid "name"
+msgstr "མིང་།"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:449
+msgid "path"
+msgstr "འགྲུལ་ལམ།"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:456
+msgid "_Goto"
+msgstr "ལུ་འགྱོ།(_G)"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:461
+#: ../src/gnome-cmd-main-menu.c:783
+msgid "_Edit"
+msgstr "ཞུན་དག་འབད།(_E)"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:573
+msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding\n"
+msgstr "སྣོད་ཐོ་འདི་ལུ་སྣོད་ཐོ་ཅིག་འཚོལ་ཞིབ་འགྲུལ་ལམ་ཧྲིལ་བུམ་འདི་དེབ་རྟགས་བཀལ་ནི་ལུ་ཡུ་ཊི་ཨེཕ་-༨ ཨིན་ཀོ་ཌིང་ནུས་ཅན་ནང་དགོཔ་ཨིན།\n"
+
+#: ../src/gnome-cmd-bookmark-dialog.c:580
+msgid "New Bookmark"
+msgstr "དེབ་རྟགས་གསརཔ།"
+
+#: ../src/gnome-cmd-chmod-component.c:126
+msgid "Read"
+msgstr "ལྷག"
+
+#: ../src/gnome-cmd-chmod-component.c:126
+msgid "Write"
+msgstr "འབྲི།"
+
+#: ../src/gnome-cmd-chmod-component.c:126
+msgid "Execute"
+msgstr "ལག་ལེན་འཐབ་ནི།"
+
+#: ../src/gnome-cmd-chmod-component.c:127
+#: ../src/gnome-cmd-chown-component.c:86
+msgid "Owner:"
+msgstr "བདག་པོ།:"
+
+#: ../src/gnome-cmd-chmod-component.c:127
+#: ../src/gnome-cmd-chown-component.c:89
+msgid "Group:"
+msgstr "སྡེ་ཚན།:"
+
+#: ../src/gnome-cmd-chmod-component.c:127
+msgid "Others:"
+msgstr "གཞན་ཚུ།:"
+
+#: ../src/gnome-cmd-chmod-component.c:159
+msgid "Text view:"
+msgstr "ཚིག་ཡིག་མཐོང་སྣང་།:"
+
+#: ../src/gnome-cmd-chmod-component.c:162
+msgid "Number view:"
+msgstr "ཨང་མཐོང་སྣང་།:"
+
+#: ../src/gnome-cmd-chmod-dialog.c:40
+#: ../src/gnome-cmd-options-dialog.c:1144
+msgid "All files"
+msgstr "ཡིག་སྣོད་ཚུ་ཆ་མཉམ།"
+
+#: ../src/gnome-cmd-chmod-dialog.c:41
+msgid "Directories only"
+msgstr "སྣོད་ཐོ་ཚུ་རྐྱངམ་ཅིག"
+
+#: ../src/gnome-cmd-chmod-dialog.c:71
+#, c-format
+msgid ""
+"Could not chmod %s\n"
+"%s"
+msgstr ""
+"སི་ཨེཆ་མོཌི་མ་ཚུགསཔ། %s\n"
+"%s"
+
+#: ../src/gnome-cmd-chmod-dialog.c:205
+msgid "Access Permissions"
+msgstr "གནང་བ་ཚུ་འཛུལ་སྤྱོད་འབད་ནི།"
+
+#: ../src/gnome-cmd-chmod-dialog.c:223
+msgid "Apply Recursively for"
+msgstr "དོན་ལུ་ལོག་རིམ་འཇུག་སྤྱོད་འབད།"
+
+#: ../src/gnome-cmd-chown-dialog.c:53
+#, c-format
+msgid ""
+"Could not chown %s\n"
+"%s"
+msgstr ""
+"ཅོའོན་མ་ཚུགསཔ། %s\n"
+"%s"
+
+#: ../src/gnome-cmd-chown-dialog.c:176
+msgid "Chown"
+msgstr "ཅོའུན།"
+
+#: ../src/gnome-cmd-chown-dialog.c:189
+msgid "Apply Recursively"
+msgstr "ལོག་རིམ་འཇུག་སྤྱོད་འབད།"
+
+#: ../src/gnome-cmd-con-device.c:110
+msgid "Failed to execute the mount command"
+msgstr "བརྩེགས་ཅན་བརད་བཀོད་འདི་ལག་ལེན་འཐབ་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ།"
+
+#: ../src/gnome-cmd-con-device.c:117
+msgid "Mount failed: Permission denied"
+msgstr "བརྩེགས་ཅན་འཐུས་ཤོར་ཡོདཔ།: གནང་བ་ཉན་མ་བཏུབ།"
+
+#: ../src/gnome-cmd-con-device.c:120
+msgid "Mount failed: No medium found"
+msgstr "བརྩེགས་ཅན་འཐུས་ཤོར་ཡོདཔ།: བརྡ་ལམ་འཚོལ་མ་ཐོབ་པར་ཡོདཔ།"
+
+#: ../src/gnome-cmd-con-device.c:124
+#, c-format
+msgid "Mount failed: mount exited with existatus %d"
+msgstr "བརྩེགས་ཅན་འཐུས་ཤོར་ཡོདཔ།: བརྩེགས་ཅན་དང་གཅིག་ཁར་ཨི་ཨེགསི་ཨའི་གནས་ཚཐ་ཕྱིར་ཐོན་ཡོདཔ། %d"
+
+#: ../src/gnome-cmd-con-device.c:201
+msgid ""
+"Volume unmounting succeeded.\n"
+"It is safe to eject the media."
+msgstr ""
+"སྐད་ཤུགས་བརྩེགས་བཤོལ་འབད་ནི་མཐར་འཁྱོལ་ཡོདཔ་ཨིན།\n"
+"བརྡ་ལམ་འདི་ཕྱིར་བཏོན་ནི་ཉེན་མེད་ཨིན།"
+
+#: ../src/gnome-cmd-con-device.c:209
+#, c-format
+msgid ""
+"Volume unmounting failed:\n"
+"%s %s"
+msgstr ""
+"སྐད་ཤུགས་བརྩེགས་བཤོལ་འཐུས་ཤོར་ཡོདཔ།:\n"
+"%s %s"
+
+#: ../src/gnome-cmd-con-device.c:210
+msgid "Unknown Error"
+msgstr "མ་ཤེས་པའི་འཛོལ་བ།"
+
+#: ../src/gnome-cmd-con-device.c:418
+#, c-format
+msgid "Mounting %s"
+msgstr "སྦྱར་བརྩེགས་འབད་དོ། %s"
+
+#: ../src/gnome-cmd-con-device.c:436
+#, c-format
+msgid "Go to: %s (%s)"
+msgstr "ལུ་འགྱོ།: %s (%s)"
+
+#: ../src/gnome-cmd-con-device.c:437
+#, c-format
+msgid "Mount: %s"
+msgstr "སྦྱར་བརྩེགས།: %s"
+
+#: ../src/gnome-cmd-con-device.c:438
+#, c-format
+msgid "Unmount: %s"
+msgstr "བརྩེགས་བཤོལ།: %s"
+
+#: ../src/gnome-cmd-con-ftp.c:277
+#, c-format
+msgid "Connecting to %s\n"
+msgstr "ལུ་མཐུད་ལམ་མཐུད་དོ། %s\n"
+
+#: ../src/gnome-cmd-con-ftp.c:295
+#, c-format
+msgid "Go to: %s"
+msgstr "ལུ་འགྱོ།: %s"
+
+#: ../src/gnome-cmd-con-ftp.c:296
+#, c-format
+msgid "Connect to: %s"
+msgstr "ལུ་མཐུད་ལམ་མཐུད།: %s"
+
+#: ../src/gnome-cmd-con-ftp.c:297
+#, c-format
+msgid "Disconnect from: %s"
+msgstr "ལས་མཐུད་ལམ་བཏོག་ནི།: %s"
+
+#: ../src/gnome-cmd-con-ftp.c:313
+#, c-format
+msgid "Creates the FTP connection to %s"
+msgstr "ལུ་ཨེཕ་ཊི་པི་མཐུད་ལམ་འདི་གསར་བསྐྲུན་འབདཝ་ཨིན། %s"
+
+#: ../src/gnome-cmd-con-ftp.c:314
+#, c-format
+msgid "Removes the FTP connection to %s"
+msgstr "ལུ་ཨེཕ་ཊི་པི་མཐུད་ལམ་འདི་རྩ་བསྐྲད་གཏངམ་ཨིན། %s"
+
+#: ../src/gnome-cmd-con-home.c:130
+msgid "Home"
+msgstr "ཁྱིམ།"
+
+#: ../src/gnome-cmd-con-home.c:138
+msgid "Go to: Home"
+msgstr "ལུ་འགྱོ: ཁྱིམ།"
+
+#: ../src/gnome-cmd-con-smb.c:94
+msgid "Failed to browse the network. Is the SMB module installed?"
+msgstr "ཡོངས་འབྲེལ་འདི་བརྡ་འཚོལ་འབད་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ། ཨེསི་ཨེམ་བི་ཚད་གཞི་འདི་གཞི་བཙུགས་འབད་ནུག་ག?"
+
+#: ../src/gnome-cmd-con-smb.c:212
+msgid "SMB"
+msgstr "ཨེསི་ཨེམ་བི།"
+
+#: ../src/gnome-cmd-con-smb.c:213
+msgid "Searching for workgroups and hosts"
+msgstr "ལཱ་སྡེ་ཚུ་དང་ཧོསཊི་དོན་ལུ་འཚོལ་ཞིབ་འབད་དོ།"
+
+#: ../src/gnome-cmd-con-smb.c:220
+msgid "Go to: Samba Network"
+msgstr "སམ་བ་ཡོངས་འབྲེལ་: ལུ་འགྱོ།"
+
+#: ../src/gnome-cmd-data.c:1190
+#: ../src/gnome-cmd-data.c:1411
+#: ../src/gnome-cmd-data.c:1412
+#: ../src/gnome-cmd-data.c:2381
+#, c-format
+msgid "link to %s"
+msgstr "ལུ་འབྲེལ་མཐུད་འབད། %s"
+
+#: ../src/gnome-cmd-delete-dialog.c:104
+#, c-format
+msgid "Deleted %ld of %ld file"
+msgid_plural "Deleted %ld of %ld files"
+msgstr[0] "གི་ %ld ཡིག་སྣོད་ %ld བཏོན་གཏང་ཡོདཔ།"
+msgstr[1] "གི་ %ld ཡིག་སྣོད་ཚུ་ %ld བཏོན་གཏང་ཡོདཔ།"
+
+#: ../src/gnome-cmd-delete-dialog.c:150
+msgid "Deleting..."
+msgstr "བཏོན་གཏང་དོ།..."
+
+#: ../src/gnome-cmd-delete-dialog.c:228
+#, c-format
+msgid ""
+"Error while deleting \"%s\"\n"
+"\n"
+"%s"
+msgstr ""
+"བཏོན་གཏང་བའི་སྐབས་འཛོལ་བ། \"%s\"\n"
+"\n"
+"%s"
+
+#: ../src/gnome-cmd-delete-dialog.c:231
+msgid "Delete problem"
+msgstr "དཀའ་ངལ་བཏོན་གཏང་།"
+
+#: ../src/gnome-cmd-delete-dialog.c:232
+#: ../src/gnome-cmd-xfer.c:172
+#: ../src/gnome-cmd-xfer.c:191
+msgid "Abort"
+msgstr "བར་བཤོལ་གཏང་།"
+
+#: ../src/gnome-cmd-delete-dialog.c:232
+#: ../src/gnome-cmd-file-selector.c:2226
+#: ../src/gnome-cmd-xfer.c:191
+msgid "Retry"
+msgstr "སླར་བརྩོལ།"
+
+#: ../src/gnome-cmd-delete-dialog.c:232
+#: ../src/gnome-cmd-file-selector.c:2226
+#: ../src/gnome-cmd-xfer.c:172
+#: ../src/gnome-cmd-xfer.c:191
+msgid "Skip"
+msgstr "གོམ་འགྱོ།"
+
+#: ../src/gnome-cmd-delete-dialog.c:310
+#, c-format
+msgid "Do you want to delete \"%s\"?"
+msgstr "ཁྱོད་ཀྱིས་བཏོན་གཏང་ནི་ཨིན་ན \"%s\"?"
+
+#: ../src/gnome-cmd-delete-dialog.c:315
+#, c-format
+msgid "Do you want to delete the selected file?"
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] "ཁྱོད་ཀྱིས་སེལ་འཐུ་འབད་ཡོད་མི་ཡིག་སྣོད་འདི་བཏོན་གཏང་ནི་ཨིན་ན?"
+msgstr[1] "ཁྱོད་ཀྱིས་སེལ་འཐུ་འབད་ཡོད་མི་ཡིག་སྣོད་ཚུ་%d བཏོན་གཏང་ནི་ཨིན་ན?"
+
+#: ../src/gnome-cmd-delete-dialog.c:323
+#: ../src/gnome-cmd-main-win.c:1316
+#: ../src/gnome-cmd-options-dialog.c:654
+msgid "Delete"
+msgstr "བཏོན་གཏང་།"
+
+#: ../src/gnome-cmd-delete-dialog.c:324
+#: ../src/gnome-cmd-file-selector.c:2226
+#: ../src/useractions.c:216
+#: ../src/utils.c:588
+#: ../src/utils.c:618
+msgid "Cancel"
+msgstr "ཆ་མེད་གཏང་།"
+
+#: ../src/gnome-cmd-delete-dialog.c:324
+#: ../src/utils.c:588
+msgid "OK"
+msgstr "བཏུབ།"
+
+#: ../src/gnome-cmd-dir-indicator.c:436
+msgid "Add current dir"
+msgstr "ད་ལྟོའི་སྣོད་ཐོ་ཁ་སྐོང་རྐྱབས།"
+
+#: ../src/gnome-cmd-dir-indicator.c:437
+msgid "Manage bookmarks..."
+msgstr "དེབ་རྟགས་ཚུ་འཛིན་སྐྱོང་འབད།..."
+
+#: ../src/gnome-cmd-dir.c:573
+msgid "Waiting for file list"
+msgstr "ཡིག་སྣོད་ཐོ་ཡིག་དོན་ལུ་བསྒུག་དོ།"
+
+#: ../src/gnome-cmd-file-list.c:90
+msgid "ext"
+msgstr "ཨི་ཨེགསི་ཊི།"
+
+#: ../src/gnome-cmd-file-list.c:91
+msgid "dir"
+msgstr "སྣོད་ཐོ།"
+
+#: ../src/gnome-cmd-file-list.c:92
+msgid "size"
+msgstr "ཚད།"
+
+#: ../src/gnome-cmd-file-list.c:93
+msgid "date"
+msgstr "ཚེས་གྲངས།"
+
+#: ../src/gnome-cmd-file-list.c:94
+msgid "perm"
+msgstr "པི་ཨི་ཨར་ཨེམ།"
+
+#: ../src/gnome-cmd-file-list.c:95
+msgid "uid"
+msgstr "ཡུ་ཨའི་ཌི།"
+
+#: ../src/gnome-cmd-file-list.c:96
+msgid "gid"
+msgstr "ཇི་ཨའི་ཌི།"
+
+#: ../src/gnome-cmd-file-list.c:2308
+#: ../src/gnome-cmd-file-list.c:2325
+#, c-format
+msgid "Not an ordinary file: %s"
+msgstr "ཡིག་སྣོད་དཀྱུ་མ་ཅིག་མེན།: %s"
+
+#: ../src/gnome-cmd-file-popmenu.c:130
+msgid "Invalid command"
+msgstr "ནུས་མེད་བརྡ་བཀོད།"
+
+#: ../src/gnome-cmd-file-popmenu.c:158
+msgid "Application:"
+msgstr "གློག་རིམ།:"
+
+#: ../src/gnome-cmd-file-popmenu.c:162
+msgid "Open with other..."
+msgstr "གཞན་དང་གཅིག་ཁར་ཁ་ཕྱེ།..."
+
+#: ../src/gnome-cmd-file-popmenu.c:166
+msgid "Needs terminal"
+msgstr "ཊར་མི་ནཱལ་དགོཔ།"
+
+#: ../src/gnome-cmd-file-popmenu.c:414
+msgid "_Open"
+msgstr "ཁ་ཕྱེ།(_O)"
+
+#: ../src/gnome-cmd-file-popmenu.c:421
+msgid "_Open with..."
+msgstr "དང་གཅིག་ཁར་ཁ་ཕྱེ།(_O)..."
+
+#: ../src/gnome-cmd-file-popmenu.c:433
+msgid "_Execute"
+msgstr "ལག་ལེན་འཐབ་ནི།(_E)"
+
+#: ../src/gnome-cmd-file-popmenu.c:451
+msgid "_Cut"
+msgstr "བཏོག(_C)"
+
+#: ../src/gnome-cmd-file-popmenu.c:458
+#: ../src/gnome-cmd-main-menu.c:554
+msgid "_Copy"
+msgstr "འདྲ་ཕཤུས་འབད།(_C)"
+
+#: ../src/gnome-cmd-file-popmenu.c:465
+#: ../src/gnome-cmd-main-menu.c:566
+msgid "_Delete"
+msgstr "བཏོན་གཏང་།(_D)"
+
+#: ../src/gnome-cmd-file-popmenu.c:472
+msgid "Rename"
+msgstr "བསྐྱར་མིང་བཏགས་ནི།"
+
+#: ../src/gnome-cmd-file-popmenu.c:480
+#: ../src/gnome-cmd-file-props-dialog.c:465
+msgid "Properties"
+msgstr "རྒྱུ་དངོས་ཚུ།"
+
+#: ../src/gnome-cmd-file-popmenu.c:536
+msgid "Other..."
+msgstr "གཞན།..."
+
+#: ../src/gnome-cmd-file-props-dialog.c:64
+#: ../src/utils.c:965
+#, c-format
+msgid "%s byte"
+msgid_plural "%s bytes"
+msgstr[0] "%s བཱའིཊི།"
+msgstr[1] "%s བཱའིཊི་ཚུ།"
+
+#: ../src/gnome-cmd-file-props-dialog.c:200
+#: ../src/gnome-cmd-file-props-dialog.c:336
+msgid "No default application registered"
+msgstr "སྔོན་སྒྲིག་གློག་རིམ་ཐོ་འགོ་འབད་ཡོད་མི་མེདཔ།"
+
+#: ../src/gnome-cmd-file-props-dialog.c:292
+#: ../src/gnome-cmd-file-selector.c:1994
+msgid "Filename:"
+msgstr "ཡིག་སྣོད་མིང་།:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:303
+msgid "Symlink target:"
+msgstr "རིམ་ལུགས་འབྲེལ་མཐུད་དམིགས་གཏད།:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:312
+msgid "Type:"
+msgstr "དབྱེ་བ།:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:319
+msgid "MIME Type:"
+msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ།:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:327
+msgid "Opens with:"
+msgstr "དང་གཅིག་ཁར་ཁ་ཕྱེཝ་ཨིན།:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:338
+msgid "_Change"
+msgstr "བསྒྱུར་བཅོས།(_C)"
+
+#: ../src/gnome-cmd-file-props-dialog.c:350
+msgid "Accessed:"
+msgstr "འཛུལ་སྤྱོད་འབད་ཡོདཔ།:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:357
+msgid "Modified:"
+msgstr "ལེགས་བཅོས་འབད་ཡོདཔ།:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:367
+msgid "Size:"
+msgstr "ཚད།:"
+
+#: ../src/gnome-cmd-file-props-dialog.c:403
+msgid "Owner and group"
+msgstr "བདག་པོ་དང་སྡེ་ཚན།"
+
+#: ../src/gnome-cmd-file-props-dialog.c:417
+msgid "Access permissions"
+msgstr "གནང་བ་ཚུ་འཛུལ་སྤྱོད་འབད་ནི།"
+
+#: ../src/gnome-cmd-file-props-dialog.c:440
+msgid "File Properties"
+msgstr "ཡིག་སྣོད་རྒྱུ་དངོས་ཚུ།"
+
+#: ../src/gnome-cmd-file-props-dialog.c:469
+#: ../src/tags/gnome-cmd-tags.c:690
+msgid "Permissions"
+msgstr "གནང་བ་ཚུ།"
+
+#: ../src/gnome-cmd-file-selector.c:184
+#, c-format
+msgid "%s of %s kB in %d of %d file selected"
+msgid_plural "%s of %s kB in %d of %d files selected"
+msgstr[0] "%s གི་ %s kB ནང་ %d གི་ %d ཡིག་སྣོད་སེལ་འཐུ་འབད་ཡོདཔ།"
+msgstr[1] "%s གི་ %s kB ནང་ %d གི་ %d ཡིག་སྣོད་ཚུ་སེལ་འཐུ་འབད་ཡོདཔ།"
+
+#: ../src/gnome-cmd-file-selector.c:714
+#, c-format
+msgid "%s free"
+msgstr "%s རང་དབང་།"
+
+#: ../src/gnome-cmd-file-selector.c:718
+msgid "Unknown disk usage"
+msgstr "མ་ཤེས་པའི་ཌེཀསི་བེད་སྤྱོད།"
+
+#: ../src/gnome-cmd-file-selector.c:1143
+#, c-format
+msgid "List failed: %s\n"
+msgstr "ཐོ་ཡིག་འཐུས་ཤོར་ཡོདཔ།: %s\n"
+
+#: ../src/gnome-cmd-file-selector.c:1739
+#, c-format
+msgid "Failed to open connection: %s\n"
+msgstr "མཐུད་ལམ་མཐུད་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ།: %s\n"
+
+#: ../src/gnome-cmd-file-selector.c:1930
+#: ../src/gnome-cmd-make-copy-dialog.c:68
+msgid "No filename entered"
+msgstr "ཡིག་སྣོད་མིང་བཙུགས་མེདཔ།"
+
+#: ../src/gnome-cmd-file-selector.c:1966
+msgid "No filename given"
+msgstr "ཡིག་སྣོད་མིང་གྲ་སྒྲིག་མེདཔ།"
+
+#: ../src/gnome-cmd-file-selector.c:2000
+msgid "New Text File"
+msgstr "ཚིག་ཡིག་ཡིག་སྣོད་གསརཔ།"
+
+#: ../src/gnome-cmd-file-selector.c:2173
+msgid "Symlink name:"
+msgstr "རིམ་ལུགས་འབྲུལ་མཐུད་མིང་།:"
+
+#: ../src/gnome-cmd-file-selector.c:2179
+#: ../src/gnome-cmd-file-selector.c:2226
+#: ../src/useractions.c:216
+msgid "Create Symbolic Link"
+msgstr "བརྡ་མཚོན་པའི་འབྲེལ་ལམ་གསར་བསྐྲུན་འབད།"
+
+#: ../src/gnome-cmd-file-selector.c:2226
+#: ../src/gnome-cmd-options-dialog.c:676
+#: ../src/gnome-cmd-options-dialog.c:696
+msgid "Skip all"
+msgstr "ཆ་མཉམ་གོམ་འགྱོ།"
+
+#: ../src/gnome-cmd-file-selector.c:2302
+msgid "Filter:"
+msgstr "ཚགས་མ།:"
+
+#: ../src/gnome-cmd-file.c:629
+msgid "Unknown file type"
+msgstr "མ་ཤེས་པའི་ཡིག་སྣོད་དབྱེ་བ།"
+
+#: ../src/gnome-cmd-file.c:630
+msgid "Regular file"
+msgstr "དུས་རྒྱུན་ཡིག་སྣོད།"
+
+#: ../src/gnome-cmd-file.c:631
+msgid "Directory"
+msgstr "སྣོད་ཐོ།"
+
+#: ../src/gnome-cmd-file.c:632
+msgid "FIFO"
+msgstr "ཨེཕ་ཨའི་ཨེཕ་ཨོ།"
+
+#: ../src/gnome-cmd-file.c:633
+msgid "UNIX Socket"
+msgstr "ཡུ་ཨེན་ཨའི་ཨེགསི་སོ་ཀེཊི།"
+
+#: ../src/gnome-cmd-file.c:634
+msgid "Character device"
+msgstr "ཡིག་འབྲུ་ཐབས་འཕྲུལ།"
+
+#: ../src/gnome-cmd-file.c:635
+msgid "Block device"
+msgstr "ཐབས་འཕྲུལ་འགག"
+
+#: ../src/gnome-cmd-file.c:636
+msgid "Symbolic link"
+msgstr "བརྡ་མཚོན་པའི་འབྲེལ་མཐུད།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:157
+#, c-format
+msgid "Enter password for %s@%s"
+msgstr "དོན་ལུ་ཆོག་ཡིག་བཙུགས། %s@%s"
+
+#: ../src/gnome-cmd-ftp-dialog.c:162
+msgid "Enter Password"
+msgstr "ཆོག་ཡིག་བཙུགས།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:211
+msgid "No alias specified"
+msgstr "མིང་གཞན་གསལ་བཀོད་འབད་མེདཔ།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:214
+msgid "No host specified"
+msgstr "ཧོསཊི་གསལ་བཀོད་འབད་མེདཔ།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:217
+#, c-format
+msgid "Invalid port number: %s"
+msgstr "ནུས་མེད་འདྲེན་ལམ་ཨང་།: %s"
+
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-options-dialog.c:1543
+msgid "Alias:"
+msgstr "མིང་གཞན།:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
+msgid "Host:"
+msgstr "ཧོསཊི།:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
+msgid "Port:"
+msgstr "འདྲེན་ལམ།:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
+msgid "User:"
+msgstr "ལག་ལེན་པ།:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
+msgid "Password:"
+msgstr "ཆོག་ཡིག:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:289
+#: ../src/gnome-cmd-ftp-dialog.c:290
+msgid "Remote Dir:"
+msgstr "ཐག་རིང་གི་སྣོད་ཐོ།:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:318
+msgid "New FTP Connection"
+msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་གསརཔ།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:342
+msgid "Edit FTP Connection"
+msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་ཞུན་དག་འབད།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:374
+msgid "No server selected"
+msgstr "སར་བར་སེལ་འཐུ་འབད་ཡོད་མི་མེདཔ།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:495
+#: ../src/gnome-cmd-main-win.c:1320
+msgid "FTP Connect"
+msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་མཐུད།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:500
+msgid "Connections"
+msgstr "མཐུད་ལམ་ཚུ།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:520
+#: ../src/gnome-cmd-options-dialog.c:1703
+msgid "Alias"
+msgstr "མིང་གཞན།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:525
+#: ../src/gnome-cmd-list-popmenu.c:127
+msgid "_New..."
+msgstr "གསརཔ།(_N)..."
+
+#: ../src/gnome-cmd-ftp-dialog.c:539
+msgid "Anonymous password:"
+msgstr "མིང་མེད་ཆོག་ཡིག:"
+
+#: ../src/gnome-cmd-ftp-dialog.c:548
+msgid "Connect"
+msgstr "མཐུད་ལམ་མཐུད།"
+
+#: ../src/gnome-cmd-ftp-dialog.c:644
+msgid "FTP Quick Connect"
+msgstr "ཨེཕ་ཊི་པི་འཕྲལ་མགྱོགས་མཐུད་ལམ་མཐུད།"
+
+#: ../src/gnome-cmd-list-popmenu.c:120
+msgid "_Directory"
+msgstr "སྣོད་ཐོ།(_D)"
+
+#: ../src/gnome-cmd-list-popmenu.c:121
+msgid "_Text File"
+msgstr "ཚིག་ཡིག་ཡིག་སྣོད།(_T)"
+
+#: ../src/gnome-cmd-list-popmenu.c:128
+#: ../src/gnome-cmd-main-menu.c:560
+msgid "_Paste"
+msgstr "སྦྱར།(_P)"
+
+#: ../src/gnome-cmd-list-popmenu.c:129
+#: ../src/gnome-cmd-main-menu.c:615
+msgid "_Refresh"
+msgstr "ཡང་སེལ་འབད།(_R)"
+
+#: ../src/gnome-cmd-main-menu.c:381
+msgid "Switch to Vertical Layout"
+msgstr "ཀེར་ཕྲང་སྒྲིག་བཀོད་ལུ་སོར་བསྒྱུར་འབད།"
+
+#: ../src/gnome-cmd-main-menu.c:386
+msgid "Switch to Horizontal Layout"
+msgstr "ཐད་སྙོམས་སྒྲིག་བཀོད་ལུ་སོར་བསྒྱུར་འབད།"
+
+#: ../src/gnome-cmd-main-menu.c:451
+msgid "Change _Owner/Group"
+msgstr "བདག་པོ/སྡེ་ཚན་བསྒྱུར་བཅོས་འབད།(_O)"
+
+#: ../src/gnome-cmd-main-menu.c:457
+msgid "Change Per_missions"
+msgstr "གནང་བ་ཚུ་བསྒྱུར་འབད།(_m)"
+
+#: ../src/gnome-cmd-main-menu.c:463
+msgid "Advanced _Rename Tool"
+msgstr "ཡར་བསྐྱོད་འབད་ཡོད་མི་བསྐྱར་མིང་བཏགས་ནི་ལག་ཆས།(_R)"
+
+#: ../src/gnome-cmd-main-menu.c:469
+msgid "Create _Symbolic Link"
+msgstr "བརྡ་མཚོན་པའི་འབྲེལ་མཐུད་གསར་བསྐྲུན་འབད།(_S)"
+
+#: ../src/gnome-cmd-main-menu.c:475
+msgid "_Properties..."
+msgstr "རྒྱུ་དངོས་ཚུ།(_P)..."
+
+#: ../src/gnome-cmd-main-menu.c:482
+msgid "_Diff"
+msgstr "ཁྱད་པར།(_D)"
+
+#: ../src/gnome-cmd-main-menu.c:489
+msgid "_Quit"
+msgstr "སྤང་།(_Q)"
+
+#: ../src/gnome-cmd-main-menu.c:500
+msgid "_Select All"
+msgstr "ཆ་མཉམ་སེལ་འཐུ་འབད།(_S)"
+
+#: ../src/gnome-cmd-main-menu.c:506
+msgid "_Unselect All"
+msgstr "ཆ་མཉམ་སེལ་འཐུ་བཤོལ།(_U)"
+
+#: ../src/gnome-cmd-main-menu.c:512
+msgid "Select with _Pattern"
+msgstr "དཔེ་གཞི་དང་གཅིག་ཁར་སེལ་འཐུ་འབད།(_P)"
+
+#: ../src/gnome-cmd-main-menu.c:518
+msgid "Unselect with P_attern"
+msgstr "དཔེ་གཞི་དང་གཅིག་ཁར་སེལ་འཐུ་བཤོལ།(_a)"
+
+#: ../src/gnome-cmd-main-menu.c:524
+msgid "_Invert Selection"
+msgstr "སེལ་འཐུ་གནས་ལོག་འབད།(_I)"
+
+#: ../src/gnome-cmd-main-menu.c:530
+msgid "_Restore Selection"
+msgstr "སེལ་འཐུ་སོར་ཆུད་འབད།(_R)"
+
+#: ../src/gnome-cmd-main-menu.c:537
+msgid "_Compare Directories"
+msgstr "སྣོད་ཐོ་ཚུ་ག་བསྡུར་རྐྱབས།(_C)"
+
+#: ../src/gnome-cmd-main-menu.c:548
+msgid "Cu_t"
+msgstr "བཏོག(_t)"
+
+#: ../src/gnome-cmd-main-menu.c:573
+msgid "Copy _File Names"
+msgstr "ཡིག་སྣོད་མིང་ཚུ་འདྲ་བཤུས་འབད།(_F)"
+
+#: ../src/gnome-cmd-main-menu.c:580
+msgid "_Search..."
+msgstr "འཚོལ་ཞིབ་འབད།(_S)..."
+
+#: ../src/gnome-cmd-main-menu.c:586
+msgid "_Quick Search..."
+msgstr "འཕྲལ་མགྱོགས་འཚོལ་ཞིབ་འབད།(_Q)..."
+
+#: ../src/gnome-cmd-main-menu.c:592
+msgid "_Enable Filter..."
+msgstr "ཚགས་མ་ལྕོགས་ཅན་བཟོ།(_E)..."
+
+#: ../src/gnome-cmd-main-menu.c:603
+msgid "_Back"
+msgstr "རྒྱབ།(_B)"
+
+#: ../src/gnome-cmd-main-menu.c:609
+msgid "_Forward"
+msgstr "གདོང་བསྐྱོད།(_F)"
+
+#: ../src/gnome-cmd-main-menu.c:622
+msgid "Show Device Buttons"
+msgstr "ཐབས་འཕྲུལ་ཨེབ་རྟ་ཚུ་སྟོན།"
+
+#: ../src/gnome-cmd-main-menu.c:628
+msgid "Show Toolbar"
+msgstr "ལག་ཆས་ཕྲ་རིང་སྟོན།"
+
+#: ../src/gnome-cmd-main-menu.c:634
+msgid "Show Commandline"
+msgstr "བརྡ་བཀོད་གྱལ་སྟོན།"
+
+#: ../src/gnome-cmd-main-menu.c:640
+msgid "Show Buttonbar"
+msgstr "ཨེབ་རྟ་ཕྲ་རིང་སྟོན།"
+
+#: ../src/gnome-cmd-main-menu.c:647
+msgid "Show Hidden Files"
+msgstr "གསང་བའི་ཡིག་སྣོད་ཚུ་སྟོན།"
+
+#: ../src/gnome-cmd-main-menu.c:653
+msgid "Show Backup Files"
+msgstr "རྒྱབ་ཐག་ཡིག་སྣོད་ཚུ་སྟོན།"
+
+#: ../src/gnome-cmd-main-menu.c:660
+msgid "_Equal Panel Size"
+msgstr "པེ་ནཱལ་ཚད་མཉམ་པ།(_E)"
+
+#: ../src/gnome-cmd-main-menu.c:671
+msgid "_Bookmark this Directory..."
+msgstr "སྣོད་ཐོ་འདི་དེབ་རྟགས་བཀལ།(_B)"
+
+#: ../src/gnome-cmd-main-menu.c:677
+msgid "_Manage Bookmarks..."
+msgstr "དེབ་རྟགས་ཚུ་འཛིན་སྐྱོང་འབད།(_M)..."
+
+#: ../src/gnome-cmd-main-menu.c:689
+msgid "_Configure Plugins..."
+msgstr "པ་ལག་ཨིན་ཚུ་རིམ་སྒྲིག(_C)..."
+
+#: ../src/gnome-cmd-main-menu.c:701
+msgid "_Options..."
+msgstr "གདམ་ཁ་ཚུ།(_O)..."
+
+#: ../src/gnome-cmd-main-menu.c:707
+msgid "Edit _Mime Types..."
+msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ་ཚུ་ཞུན་དག་འབད།(_M)..."
+
+#: ../src/gnome-cmd-main-menu.c:718
+msgid "FTP _Connect..."
+msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་མཐུད།(_C)..."
+
+#: ../src/gnome-cmd-main-menu.c:724
+msgid "FTP _Quick Connect..."
+msgstr "ཨེཕ་ཊི་པི་འཕྲལ་མགྱོགས་མཐུད་ལམ་མཐུད།(_Q)..."
+
+#: ../src/gnome-cmd-main-menu.c:735
+msgid "_Contents"
+msgstr "ནང་དོན་ཚུ།(_C)"
+
+#: ../src/gnome-cmd-main-menu.c:741
+#: ../src/libgviewer/viewer-window.c:1030
+msgid "_Keyboard Shortcuts"
+msgstr "ལྡེ་སྒྲོམ་མགྱོགས་ཐབས་ཚུ།(_K)"
+
+#: ../src/gnome-cmd-main-menu.c:747
+msgid "GNOME Commander on the _Web"
+msgstr "ཝེབ་འདི་གུ་ཇི་ནོམ་གཙོ་དཔོན།(_W)"
+
+#: ../src/gnome-cmd-main-menu.c:753
+msgid "Report a _Problem"
+msgstr "དཀའ་ངལ་ཅིག་སྙན་ཞུ།(_P)"
+
+#: ../src/gnome-cmd-main-menu.c:760
+#: ../src/libgviewer/viewer-window.c:1037
+#: ../src/plugin_manager.c:439
+msgid "_About"
+msgstr "སྐོར་ལས།(_A)"
+
+#. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
+#. File Menu
+#: ../src/gnome-cmd-main-menu.c:779
+#: ../src/libgviewer/viewer-window.c:1050
+msgid "_File"
+msgstr "ཡིག་སྣོད།(_F)"
+
+#: ../src/gnome-cmd-main-menu.c:787
+msgid "_Mark"
+msgstr "རྟགས།(_M)"
+
+#: ../src/gnome-cmd-main-menu.c:791
+#: ../src/libgviewer/viewer-window.c:1053
+msgid "_View"
+msgstr "སྟོན།(_V)"
+
+#: ../src/gnome-cmd-main-menu.c:796
+#: ../src/libgviewer/viewer-window.c:1064
+msgid "_Settings"
+msgstr "སྒྲིག་སྟངས་ཚུ།(_S)"
+
+#: ../src/gnome-cmd-main-menu.c:800
+msgid "_Connections"
+msgstr "མཐུད་ལམ་ཚུ།(_C)"
+
+#: ../src/gnome-cmd-main-menu.c:804
+msgid "_Bookmarks"
+msgstr "དེབ་རྟགས་ཚུ།(_B)"
+
+#: ../src/gnome-cmd-main-menu.c:808
+msgid "_Plugins"
+msgstr "པ་ལག་ཨིནསི།(_P)"
+
+#: ../src/gnome-cmd-main-menu.c:812
+#: ../src/libgviewer/viewer-window.c:1069
+msgid "_Help"
+msgstr "གྲོགས་རམ།(_H)"
+
+#: ../src/gnome-cmd-main-win.c:446
+msgid "F3 View"
+msgstr "ཨེཕ་༣་ སྟོན།"
+
+#: ../src/gnome-cmd-main-win.c:448
+msgid "F4 Edit"
+msgstr "ཨེཕ་༤ ཞུན་དག་འབད།"
+
+#: ../src/gnome-cmd-main-win.c:450
+msgid "F5 Copy"
+msgstr "ཨེཕ་༥ འདྲ་བཤུས་འབད།"
+
+#: ../src/gnome-cmd-main-win.c:452
+msgid "F6 Move"
+msgstr "ཨེཕ་༦་ སྤོ།"
+
+#: ../src/gnome-cmd-main-win.c:454
+msgid "F7 Mkdir"
+msgstr "ཨེཕ་༧ ཨེམ་ཀེ་སྣོད་ཐོ།"
+
+#: ../src/gnome-cmd-main-win.c:456
+msgid "F8 Delete"
+msgstr "ཨེཕ་༨ བཏོན་གཏང་།"
+
+#: ../src/gnome-cmd-main-win.c:458
+msgid "F9 Search"
+msgstr "ཨེཕ་༩ འཚོལ་ཞིབ་འབད།"
+
+#: ../src/gnome-cmd-main-win.c:460
+msgid "F10 Quit"
+msgstr "ཨེཕ་༡༠ སྤང་།"
+
+#: ../src/gnome-cmd-main-win.c:1305
+msgid "Refresh"
+msgstr "ཡང་སེལ།"
+
+#: ../src/gnome-cmd-main-win.c:1306
+msgid "Up one directory"
+msgstr "སྣོད་ཐོ་གཅིག་ཡར།"
+
+#: ../src/gnome-cmd-main-win.c:1307
+msgid "Goto the oldest"
+msgstr "རྙིང་ཤོས་འདི་ལུ་འགྱོ།"
+
+#: ../src/gnome-cmd-main-win.c:1308
+msgid "Go back"
+msgstr "ལོག་འགྱོ།"
+
+#: ../src/gnome-cmd-main-win.c:1309
+msgid "Go forward"
+msgstr "གདོང་བསྐྱོད་འགྱོ།"
+
+#: ../src/gnome-cmd-main-win.c:1310
+msgid "Goto the latest"
+msgstr "མཐའ་མཇུག་འདི་ལུ་འགྱོ།"
+
+#: ../src/gnome-cmd-main-win.c:1312
+msgid "Copy file names (SHIFT for full paths)"
+msgstr "ཡིག་སྣོད་མིང་ཚུ་འདྲ་བཤུས་འབད(འགྲུལ་ལམ་གངམ་ཚུ་གི་དོན་ལུ་སོར་ལྡེ།)།"
+
+#: ../src/gnome-cmd-main-win.c:1313
+msgid "Cut"
+msgstr "བཏོག"
+
+#: ../src/gnome-cmd-main-win.c:1314
+#: ../src/gnome-cmd-prepare-copy-dialog.c:87
+msgid "Copy"
+msgstr "འདྲ་བཤུས་འབད།"
+
+#: ../src/gnome-cmd-main-win.c:1315
+msgid "Paste"
+msgstr "སྦྱར།"
+
+#: ../src/gnome-cmd-main-win.c:1318
+msgid "Edit (SHIFT for new document)"
+msgstr "ཞུན་དག(ཡིག་ཆ་གསརཔ་གི་དོན་ལུ་སོར་ལྡེ།)"
+
+#: ../src/gnome-cmd-main-win.c:1321
+msgid "Drop connection"
+msgstr "མཐུད་ལམ་བཀོག་བཞག"
+
+#: ../src/gnome-cmd-make-copy-dialog.c:149
+#: ../src/gnome-cmd-prepare-copy-dialog.c:145
+#, c-format
+msgid "Copy \"%s\" to"
+msgstr "ལུ་ \"%s\" འདྲ་བཤུས་འབད།"
+
+#: ../src/gnome-cmd-make-copy-dialog.c:157
+msgid "Copy File"
+msgstr "ཡིག་སྣོད་འདྲ་བཤུས་འབད།"
+
+#: ../src/gnome-cmd-mkdir-dialog.c:46
+msgid "A directory name must be entered"
+msgstr "སྣོད་ཐོ་མིང་ཅིག་བཙུགས་དགོཔ།"
+
+#: ../src/gnome-cmd-mkdir-dialog.c:131
+msgid "Directory name:"
+msgstr "སྣོད་ཐོ་མིང་།:"
+
+#: ../src/gnome-cmd-mkdir-dialog.c:139
+msgid "Make Directory"
+msgstr "སྣོད་ཐོ་བཟོ།:"
+
+#: ../src/gnome-cmd-options-dialog.c:62
+msgid "Use right mouse button to"
+msgstr "ལུ་མཱའུསི་ཨེབ་རྟ་གཡསཔ་ལག་ལེན་འཐབ།"
+
+#: ../src/gnome-cmd-options-dialog.c:65
+msgid "Show popup menu"
+msgstr "པོཔ་ཨཔ་དཀར་ཆག་སྟོན།"
+
+#: ../src/gnome-cmd-options-dialog.c:69
+msgid "Select files"
+msgstr "ཡིག་སྣོད་ཚུ་སྟོན།"
+
+#: ../src/gnome-cmd-options-dialog.c:78
+msgid "Match filenames using"
+msgstr "ལག་ལེན་འཐབ་དེ་ཡིག་སྣོད་མིང་ཚུ་མཐུན་སྒྲིག་འབད།"
+
+#: ../src/gnome-cmd-options-dialog.c:81
+msgid "Shell syntax"
+msgstr "ཤལ་ཚིག་སྦྱོར།"
+
+#: ../src/gnome-cmd-options-dialog.c:85
+msgid "Regex syntax"
+msgstr "རི་ཇེགསི་ཚིག་སྦྱོར།"
+
+#: ../src/gnome-cmd-options-dialog.c:94
+msgid "Sorting options"
+msgstr "གདམ་ཁ་ཚུ་དབྱེ་སེལ་འབད་དོ།"
+
+#: ../src/gnome-cmd-options-dialog.c:105
+msgid "Quick search using"
+msgstr "འཕྲལ་མགྱོགས་འཚོལ་ཞིབ་ལག་ལེན་འཐབ་དོ།"
+
+#: ../src/gnome-cmd-options-dialog.c:108
+msgid "CTRL+ALT+letters"
+msgstr "ཚད་འཛིན་+གདམ་ལྡེ་+ཡི་གུ་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:111
+msgid "ALT+letters (menu access with F10)"
+msgstr "གདམ་ལྡེ་+ཡི་གུ་ཚུ(འཛུལ་སྤྱོད་འབད་ནི་དཀར་ཆག་དང་གཅིག་ཁར་ཨེཕ་༡༠།)"
+
+#: ../src/gnome-cmd-options-dialog.c:119
+msgid "Directory options"
+msgstr "སྣོད་ཐོ་གདམ་ཁ་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:122
+msgid "Directory cache size"
+msgstr "སྣོད་ཐོ་འདྲ་མཛོད་ཚད།"
+
+#: ../src/gnome-cmd-options-dialog.c:202
+msgid "Size display mode"
+msgstr "ཚད་བཀྲམ་སྟོན་ཐབས་ལམ།"
+
+#: ../src/gnome-cmd-options-dialog.c:205
+msgid "Powered"
+msgstr "ནུས་ཤུགས་ཡོདཔ།"
+
+#: ../src/gnome-cmd-options-dialog.c:210
+msgid "<locale>"
+msgstr "<locale>"
+
+#: ../src/gnome-cmd-options-dialog.c:215
+msgid "Grouped"
+msgstr "སྡེ་ཚན་བཟོ་ཡོདཔ།"
+
+#: ../src/gnome-cmd-options-dialog.c:220
+msgid "Plain"
+msgstr "ཉག་རྐྱང་།"
+
+#: ../src/gnome-cmd-options-dialog.c:230
+msgid "Permission display mode"
+msgstr "གནང་བ་བཀྲམ་སྟོན་ཐབས་ལམ།"
+
+#: ../src/gnome-cmd-options-dialog.c:233
+msgid "Text (rw-r--r--)"
+msgstr "ཚིག་ཡིག་  (rw-r--r--)"
+
+#: ../src/gnome-cmd-options-dialog.c:238
+msgid "Number (644)"
+msgstr "ཨང་།(༦༤༤)"
+
+#: ../src/gnome-cmd-options-dialog.c:248
+msgid "Date format"
+msgstr "ཚེས་གྲངས་རྩ་སྒྲིག"
+
+#: ../src/gnome-cmd-options-dialog.c:251
+msgid "Format:"
+msgstr "རྩ་སྒྲིག:"
+
+#: ../src/gnome-cmd-options-dialog.c:259
+msgid "_Test"
+msgstr "བརྟག་ཞིབ།(_T)"
+
+#: ../src/gnome-cmd-options-dialog.c:262
+msgid "Test result:"
+msgstr "བརྟག་ཞིབ་འགྲུབ་འབྲས།:"
+
+#: ../src/gnome-cmd-options-dialog.c:271
+msgid "See the manual page for \"strftime\" for help on how to set the format string."
+msgstr "རྩ་སྒྲིག་ཡིག་རྒྱུན་གུ་གཞི་སྒྲིག་འབད་ནི་ལུ་གྲོགས་རམ་དོན་ལུ་\"strftime\"དོན་ལུ་ལག་དེབ་ཤོག་ལེབ་འདི་བལྟ།"
+
+#: ../src/gnome-cmd-options-dialog.c:391
+msgid "Edit Colors..."
+msgstr "ཚོས་གཞི་ཚུ་ཞུན་དག་འབད།..."
+
+#: ../src/gnome-cmd-options-dialog.c:398
+msgid "Colors"
+msgstr "ཚོས་གཞི་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:435
+msgid "Foreground"
+msgstr "གདོང་གཞི།"
+
+#: ../src/gnome-cmd-options-dialog.c:437
+msgid "Background"
+msgstr "རྒྱབ་གཞི།"
+
+#: ../src/gnome-cmd-options-dialog.c:439
+msgid "Default:"
+msgstr "སྔོན་སྒྲིག:"
+
+#: ../src/gnome-cmd-options-dialog.c:441
+msgid "Selected file:"
+msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཡིག་སྣོད།:"
+
+#: ../src/gnome-cmd-options-dialog.c:443
+msgid "Cursor:"
+msgstr "འོད་རྟགས།:"
+
+#: ../src/gnome-cmd-options-dialog.c:460
+msgid "With filename"
+msgstr "ཡིག་སྣོད་མིང་དང་གཅིག་ཁར།"
+
+#: ../src/gnome-cmd-options-dialog.c:461
+msgid "In separate column"
+msgstr "སོ་སོ་་ཀེར་ཐིག་ནང་།"
+
+#: ../src/gnome-cmd-options-dialog.c:462
+msgid "In both columns"
+msgstr "ཀེར་ཐིག་གཉིས་ཆ་རང་ནང་།"
+
+#: ../src/gnome-cmd-options-dialog.c:466
+msgid "No icons"
+msgstr "ངོས་དཔར་ཚུ་མེད།"
+
+#: ../src/gnome-cmd-options-dialog.c:467
+msgid "File type icons"
+msgstr "ཡིག་སྣོད་དབྱེ་བའི་ངོས་དཔར་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:468
+msgid "MIME icons"
+msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་ངོས་དཔར་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:472
+msgid "Respect theme colors"
+msgstr "བརྗོད་དོན་ཚོས་གཞི་ཚུ་བརྩི་བཀུར་འབད།"
+
+#: ../src/gnome-cmd-options-dialog.c:473
+msgid "Modern"
+msgstr "དེང་སང་།"
+
+#: ../src/gnome-cmd-options-dialog.c:474
+msgid "Fusion"
+msgstr "གཅིག་སྡུད།"
+
+#: ../src/gnome-cmd-options-dialog.c:475
+msgid "Classic"
+msgstr "སྔོན་སྲོལ།"
+
+#: ../src/gnome-cmd-options-dialog.c:476
+msgid "Deep blue"
+msgstr "སྔོ་ནག"
+
+#: ../src/gnome-cmd-options-dialog.c:477
+msgid "Custom"
+msgstr "སྲོལ་སྒྲིག"
+
+#: ../src/gnome-cmd-options-dialog.c:493
+msgid "File panes"
+msgstr "ཡིག་སྣོད་པེན་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:504
+msgid "Font:"
+msgstr "ཡིག་གཟུགས།:"
+
+#: ../src/gnome-cmd-options-dialog.c:506
+msgid "Row height:"
+msgstr "གྱལ་མཐོ་ཚད།:"
+
+#. File extensions
+#: ../src/gnome-cmd-options-dialog.c:510
+msgid "Display file extensions:"
+msgstr "ཡིག་སྣོད་རྒྱ་བསྐྱེད་ཚུ་བཀྲམ་བཏོན་འབད།:"
+
+#. Graphical mode
+#: ../src/gnome-cmd-options-dialog.c:518
+msgid "Graphical mode:"
+msgstr "ཚད་རིས་ཀྱི་ཐབས་ལམ།:"
+
+#. Color scheme
+#: ../src/gnome-cmd-options-dialog.c:527
+msgid "Color scheme:"
+msgstr "ཚོས་གཞི་འཆར་ལས།:"
+
+#: ../src/gnome-cmd-options-dialog.c:539
+msgid "Edit..."
+msgstr "ཞུན་དག་འབད།..."
+
+#. LS_COLORS
+#: ../src/gnome-cmd-options-dialog.c:546
+msgid "Colorize files according to the LS_COLORS environment variable"
+msgstr "ཨེལ་ཨེསི་ཚོས་གཞི་མཐའ་འཁོར་འགྱུར་ཅན་འདི་ལུ་འཁྲིལ་ཏེ་ཡིག་སྣོད་ཚུའི་ཚོས་གཞི་བཟོ།"
+
+#: ../src/gnome-cmd-options-dialog.c:556
+msgid "MIME icon settings"
+msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་ངོས་དཔར་སྒྲིག་སྟངས་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:569
+msgid "Icon size:"
+msgstr "ངོས་དཔར་ཚད།:"
+
+#: ../src/gnome-cmd-options-dialog.c:571
+msgid "Scaling quality:"
+msgstr "ཚད་རྟགས་སྤུས་ཚད།:"
+
+#: ../src/gnome-cmd-options-dialog.c:573
+msgid "Theme icon directory:"
+msgstr "བརྗོད་དོན་ངོས་དཔར་སྣོད་ཐོ།:"
+
+#: ../src/gnome-cmd-options-dialog.c:575
+msgid "Document icon directory:"
+msgstr "ཡིག་ཆ་ངོས་དཔར་སྣོད་ཐོ།:"
+
+#: ../src/gnome-cmd-options-dialog.c:657
+msgid "Confirm before delete"
+msgstr "བཏོན་གཏང་ནིའི་ཧེ་མ་ངེས་དཔྱད་འབད།"
+
+#: ../src/gnome-cmd-options-dialog.c:665
+msgid "Copy overwrite"
+msgstr "ཚབ་སྲུང་འབད་ནི་འདྲ་བཤུས་འབད།"
+
+#.
+#. * Create prepare copy specific widgets
+#.
+#: ../src/gnome-cmd-options-dialog.c:668
+#: ../src/gnome-cmd-options-dialog.c:688
+#: ../src/gnome-cmd-prepare-copy-dialog.c:94
+#: ../src/gnome-cmd-prepare-move-dialog.c:90
+msgid "Silently"
+msgstr "སྒྲ་མེད།"
+
+#: ../src/gnome-cmd-options-dialog.c:672
+#: ../src/gnome-cmd-options-dialog.c:692
+msgid "Query first"
+msgstr "དང་པ་འདྲི་དཔྱད།"
+
+#: ../src/gnome-cmd-options-dialog.c:685
+msgid "Move overwrite"
+msgstr "འཚབ་སྲུང་འབད་ནི་སྤོ།"
+
+#: ../src/gnome-cmd-options-dialog.c:773
+msgid "Filetypes to hide"
+msgstr "ཡིག་སྣོད་དབྱེ་བ་ཚུ་གསང་ནི་ལུ།"
+
+#. unknown tag
+#: ../src/gnome-cmd-options-dialog.c:776
+#: ../src/tags/gnome-cmd-tags-id3.c:183
+msgid "Unknown"
+msgstr "མ་ཤེསཔ།"
+
+#: ../src/gnome-cmd-options-dialog.c:781
+msgid "Regular files"
+msgstr "དུས་རྒྱུན་ཡིག་སྣོད་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:786
+msgid "Directories"
+msgstr "སྣོད་ཐོ་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:791
+msgid "Fifo files"
+msgstr "ཕི་ཕོ་ཡིག་སྣོད་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:796
+msgid "Socket files"
+msgstr "སོ་ཀེཊི་ཡིག་སྣོད་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:801
+msgid "Character devices"
+msgstr "ཡིག་འབྲུ་ཐབས་འཕྲུལ་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:806
+msgid "Block devices"
+msgstr "ཐབས་འཕྲུལ་ཚུ་འགག"
+
+#: ../src/gnome-cmd-options-dialog.c:814
+msgid "Also hide"
+msgstr "ཡང་གསང་།"
+
+#: ../src/gnome-cmd-options-dialog.c:817
+msgid "Hidden files"
+msgstr "གསང་བའི་ཡིག་སྣོད་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:822
+#: ../src/gnome-cmd-options-dialog.c:835
+msgid "Backup files"
+msgstr "རྒྱབ་ཐག་ཡིག་སྣོད་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:827
+msgid "Symlinks"
+msgstr "བརྡ་མཚོན་པའི་འབྲེལ་མཐུད་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1101
+msgid "Label:"
+msgstr "ཁ་ཡིག:"
+
+#: ../src/gnome-cmd-options-dialog.c:1103
+msgid "Command:"
+msgstr "བརྡ་བཀོད།:"
+
+#: ../src/gnome-cmd-options-dialog.c:1105
+#: ../src/gnome-cmd-options-dialog.c:1549
+msgid "Icon:"
+msgstr "ངོས་དཔར།:"
+
+#: ../src/gnome-cmd-options-dialog.c:1126
+msgid "Can handle multiple files"
+msgstr "སྣ་མང་ཡིག་སྣོད་ཚུ་ལེགས་སྐྱོང་འཐབ་ཚུགས།"
+
+#: ../src/gnome-cmd-options-dialog.c:1130
+msgid "Can handle URIs"
+msgstr "ཡུ་ཨར་ཨེལ་ཚུ་ལེགས་སྐྱོང་འཐབ་ཚུགས།"
+
+#: ../src/gnome-cmd-options-dialog.c:1134
+msgid "Requires terminal"
+msgstr "ཊར་མི་ནཱལ་དགོས་མཁོ་ཡོདཔ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1141
+msgid "Show for"
+msgstr "དོན་ལུ་སྟོན།"
+
+#: ../src/gnome-cmd-options-dialog.c:1150
+msgid "All directories"
+msgstr "སྣོད་ཐོ་ཆ་མཉམ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1156
+msgid "All directories and files"
+msgstr "སྣོད་ཐོ་ཆ་མཉམ་དང་ཡིག་སྣོད་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1162
+msgid "Some files"
+msgstr "ཡིག་སྣོད་ལ་ལོ་ཅིག"
+
+#: ../src/gnome-cmd-options-dialog.c:1173
+msgid "File patterns"
+msgstr "ཡིག་སྣོད་དཔེ་གཞི་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1198
+msgid "New Application"
+msgstr "གློག་རིམ་གསརཔ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1210
+msgid "Edit Application"
+msgstr "གློག་རིམ་ཞུན་དག་འབད།"
+
+#: ../src/gnome-cmd-options-dialog.c:1300
+msgid "Always download remote files before opening in external programs"
+msgstr "ཕྱིའི་ལས་རིམ་ཚུ་ནང་ཁ་ཕྱེ་བའི་ཧེ་མ་ཨ་རྟག་རང་ཐག་རིང་གི་ཡིག་སྣོད་ཚུ་ཕབ་ལེན་འབད།"
+
+#: ../src/gnome-cmd-options-dialog.c:1302
+msgid "MIME applications"
+msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་གློག་རིམ་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1306
+msgid "Standard programs"
+msgstr "ཚད་ལྡན་ལས་རིམ་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1309
+msgid "Viewer:"
+msgstr "བལྟ་མི།:"
+
+#: ../src/gnome-cmd-options-dialog.c:1311
+msgid "Editor:"
+msgstr "ཞུན་དག་པ།:"
+
+#: ../src/gnome-cmd-options-dialog.c:1313
+msgid "Differ:"
+msgstr "སོ་སོ་འགྱུར་ནི།:"
+
+#: ../src/gnome-cmd-options-dialog.c:1315
+msgid "Terminal:"
+msgstr "ཊར་མི་ནཱལ།:"
+
+#: ../src/gnome-cmd-options-dialog.c:1321
+msgid "Use Internal Viewer"
+msgstr "བར་མཚམས་མཐོང་བྱེད་ལག་ལེན་འཐབ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1338
+msgid "Other favorite apps"
+msgstr "གཞན་དགའ་མི་ཨེཔསི།"
+
+#: ../src/gnome-cmd-options-dialog.c:1345
+msgid "Label"
+msgstr "ཁ་ཡིག"
+
+#: ../src/gnome-cmd-options-dialog.c:1545
+msgid "Device:"
+msgstr "ཐབས་འཕྲུལ།:"
+
+#: ../src/gnome-cmd-options-dialog.c:1547
+msgid "Mount point:"
+msgstr "སྦྱར་བརྩེགས་འབད་ས།:"
+
+#: ../src/gnome-cmd-options-dialog.c:1591
+msgid "New Device"
+msgstr "ཐབས་འཕྲུལ་གསརཔ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1604
+msgid "Edit Device"
+msgstr "ཐབས་འཕྲུལ་ཞུན་དག་འབད།"
+
+#: ../src/gnome-cmd-options-dialog.c:1693
+#: ../src/gnome-cmd-options-dialog.c:1886
+msgid "Devices"
+msgstr "ཐབས་འཕྲུལ་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1733
+msgid "Show only the icons"
+msgstr "ངོས་དཔར་ཚུ་རྐྱངམ་ཅིག་སྟོན།"
+
+#: ../src/gnome-cmd-options-dialog.c:1737
+msgid "Skip mounting (useful when using super-mount)"
+msgstr "སྦྱར་བརྩེགས་འབད་ནི་གོམ་འགྱོ(ཡང་དག་སྦྱར་བརྩེགས་ལག་ལེན་འཐབ་པའི་སྐབས་ཕན་ཐོགས་ཅན་ཨིན།)།"
+
+#: ../src/gnome-cmd-options-dialog.c:1856
+msgid "General"
+msgstr "ཡོངས་ཁྱབ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1861
+#: ../src/tags/gnome-cmd-tags.c:682
+msgid "Format"
+msgstr "རྩ་སྒྲིག"
+
+#: ../src/gnome-cmd-options-dialog.c:1866
+msgid "Layout"
+msgstr "སྒྲིག་བཀོད།"
+
+#: ../src/gnome-cmd-options-dialog.c:1871
+msgid "Confirmation"
+msgstr "ངེས་དཔྱད།"
+
+#: ../src/gnome-cmd-options-dialog.c:1876
+msgid "Filters"
+msgstr "ཚགས་མ་ཚུ།"
+
+#: ../src/gnome-cmd-options-dialog.c:1881
+msgid "Programs"
+msgstr "ལས་རིམ་ཚུ།"
+
+#: ../src/gnome-cmd-patternsel-dialog.c:130
+msgid "Select Using Pattern"
+msgstr "ལག་ལེན་འཐབ་ནི་དཔེ་གཞི་སེལ་འཐུ་འབད།"
+
+#: ../src/gnome-cmd-patternsel-dialog.c:130
+msgid "Unselect Using Pattern"
+msgstr "ལག་ལེན་འཐབ་ནི་དཔེ་གཞི་སེལ་འཐུ་བཤོལ།"
+
+#: ../src/gnome-cmd-patternsel-dialog.c:137
+msgid "Pattern:"
+msgstr "དཔེ་གཞི།:"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.c:101
+#: ../src/gnome-cmd-prepare-move-dialog.c:97
+msgid "Query First"
+msgstr "དང་པ་འདྲི་དཔྱད།"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.c:108
+#: ../src/gnome-cmd-prepare-move-dialog.c:104
+#: ../src/gnome-cmd-xfer.c:172
+msgid "Skip All"
+msgstr "ཆ་མཉམ་གོམ་འགྱོ།"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.c:118
+msgid "Follow Links"
+msgstr "འབྲེལ་ལམཚུ་རྗེས་སུ་འབྲང་ནི།"
+
+#.
+#. * Customize prepare xfer widgets
+#.
+#: ../src/gnome-cmd-prepare-copy-dialog.c:128
+#: ../src/gnome-cmd-prepare-move-dialog.c:116
+msgid "Overwrite Files"
+msgstr "ཚབ་སྲུང་འབད་ནི་ཡིག་སྣོད་ཚུ།"
+
+#: ../src/gnome-cmd-prepare-copy-dialog.c:149
+#, c-format
+msgid "copy %d file to"
+msgid_plural "copy %d files to"
+msgstr[0] "ལུ་ %d ཡིག་སྣོད་འདྲ་བཤུས་འབད།"
+msgstr[1] "ལུ་ %d ཡིག་སྣོད་ཚུ་འདྲ་བཤུས་འབད།"
+
+#: ../src/gnome-cmd-prepare-move-dialog.c:83
+msgid "Move"
+msgstr "སྤོ།"
+
+#: ../src/gnome-cmd-prepare-move-dialog.c:132
+#, c-format
+msgid "Move \"%s\" to"
+msgstr "ལུ་ \"%s\" སྤོ།"
+
+#: ../src/gnome-cmd-prepare-move-dialog.c:136
+#, c-format
+msgid "move %d file to"
+msgid_plural "move %d files to"
+msgstr[0] "ལུ་ %d ཡིག་སྣོད་ཚུ་སྤོ།"
+msgstr[1] "ལུ་ %d ཡིག་སྣོད་ཚུ་སྤོ།"
+
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:115
+#: ../src/gnome-cmd-prepare-xfer-dialog.c:154
+#, c-format
+msgid "The directory '%s' doesn't exist, do you want to create it?"
+msgstr "སྣོད་ཐོ་འདི་'%s'མེདཔ་ལས་ཁྱོད་ཀྱི་གསར་བསྐྲུན་འབད་ནི་ཨིན་ན?"
+
+#: ../src/gnome-cmd-quicksearch-popup.c:261
+msgid "Search"
+msgstr "འཚོལ་ཞིབ་འབད་ནི།"
+
+#: ../src/gnome-cmd-search-dialog.c:185
+#, c-format
+msgid "Failed to open file %s: %s\n"
+msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ། %s: %s\n"
+
+#: ../src/gnome-cmd-search-dialog.c:194
+#, c-format
+msgid "Failed to read from file %s: %s\n"
+msgstr "ཡིག་སྣོད་ལས་ལྷག་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ། %s: %s\n"
+
+#: ../src/gnome-cmd-search-dialog.c:255
+#, c-format
+msgid "Searching in: %s"
+msgstr "ནང་འཚོལ་ཞིབ་འབད་དོ།: %s"
+
+#: ../src/gnome-cmd-search-dialog.c:401
+#, c-format
+msgid "Found %d match before I was stopped"
+msgid_plural "Found %d matches before I was stopped"
+msgstr[0] "ང་བཀག་ཡོད་པའི་ཧེ་མ་མཐུན་སྒྲིག %d འཚོལ་ཐོབ་ཡོདཔ།"
+msgstr[1] "ང་བཀག་ཡོད་པའི་ཧེ་མ་མཐུན་སྒྲིག་ཚུ་ %d འཚོལ་ཐོབ་ཡོདཔ།"
+
+#: ../src/gnome-cmd-search-dialog.c:408
+#, c-format
+msgid "Found %d match"
+msgid_plural "Found %d matches"
+msgstr[0] "མཐུན་སྒྲིག་ %d ཐོབ་ཡོདཔ།"
+msgstr[1] "མཐུན་སྒྲིག་ཚུ་ %d ཐོབ་ཡོདཔ།"
+
+#: ../src/gnome-cmd-search-dialog.c:735
+msgid "Search..."
+msgstr "འཚོལ་ཞིབ་འབད།..."
+
+#. Search for
+#: ../src/gnome-cmd-search-dialog.c:748
+msgid "Search for: "
+msgstr "དོན་ལུ་འཚོལ་ཞིབ་འབད།: "
+
+#. Search in
+#: ../src/gnome-cmd-search-dialog.c:760
+msgid "Search in: "
+msgstr "ནང་འཚོལ་ཞིབ་འབད།: "
+
+#. Find text
+#: ../src/gnome-cmd-search-dialog.c:774
+msgid "Find text: "
+msgstr "ཚིག་ཡིག་འཚོལ།: "
+
+#. Recurse check
+#: ../src/gnome-cmd-search-dialog.c:789
+msgid "Search Recursively"
+msgstr "ལོག་རིམ་འཚོལ་ཞིབ་འབད།"
+
+#. Case check
+#: ../src/gnome-cmd-search-dialog.c:796
+msgid "Case Sensitive"
+msgstr "ཡི་གུ་ཆེ་ཆུང་གི་ཉེན་ཁ།"
+
+#: ../src/gnome-cmd-search-dialog.c:807
+msgid "Goto"
+msgstr "ལུ་འགྱོ།"
+
+#: ../src/gnome-cmd-smb-path.c:329
+#, c-format
+msgid "Can't find a host or workgroup named %s\n"
+msgstr "ཧོསཊི་ཡང་ན་ལཱ་སྡེ་མིང་བཏགས་ཡོད་མི་ཅིག་འཚོལ་མ་ཐོབ། %s\n"
+
+#: ../src/gnome-cmd-xfer-progress-win.c:38
+msgid "stopping..."
+msgstr "བཀག་དོ།..."
+
+#: ../src/gnome-cmd-xfer-progress-win.c:86
+msgid "Progress"
+msgstr "ཡར་འཕེལ།"
+
+#: ../src/gnome-cmd-xfer-progress-win.c:169
+#, c-format
+msgid "%d%% of %s copied"
+msgstr "%d%% གི་ %s འདྲ་བཤུས་འབད་ཡོདཔ།"
+
+#: ../src/gnome-cmd-xfer-progress-win.c:174
+#, c-format
+msgid "%d%% copied"
+msgstr "%d%% འདྲ་བཤུས་འབད་ཡོདཔ།"
+
+#: ../src/gnome-cmd-xfer.c:168
+#, c-format
+msgid ""
+"The file \"%s\" already exists.\n"
+"\n"
+"Do you want to overwrite it?\n"
+msgstr ""
+"ཡིག་སྣོད་འདི་ \"%s\" ཧེ་མ་ལས་ཡོདཔ།\n"
+"\n"
+"ཁྱོད་ཀྱིས་ཚབ་སྲུང་འབད་ནི་ཨིན་ན?\n"
+
+#: ../src/gnome-cmd-xfer.c:172
+msgid "Replace"
+msgstr "ཚབ་བཙུགས།"
+
+#: ../src/gnome-cmd-xfer.c:172
+msgid "Replace All"
+msgstr "ཆ་མཉམ་ཚབ་བཙུགས།"
+
+#: ../src/gnome-cmd-xfer.c:187
+#, c-format
+msgid ""
+"Error while copying to %s\n"
+"\n"
+"%s"
+msgstr ""
+"ལུ་འདྲ་བཤུས་འབད་བའི་སྐབས་འཛོལ་བ། %s\n"
+"\n"
+"%s"
+
+#: ../src/gnome-cmd-xfer.c:190
+msgid "Transfer problem"
+msgstr "དཀའ་ངལ་གནས་སོར་་གཏང་།"
+
+#: ../src/gnome-cmd-xfer.c:230
+msgid "copying..."
+msgstr "འདྲ་བཤུས་འབད་དོ།..."
+
+#: ../src/gnome-cmd-xfer.c:238
+#, c-format
+msgid "[file %ld of %ld] \"%s\""
+msgstr "[གི་ %ld ཡིག་སྣོད %ld] \"%s\""
+
+#: ../src/gnome-cmd-xfer.c:382
+msgid ""
+"Copying a directory into itself is a bad idea.\n"
+"The whole operation was cancelled."
+msgstr ""
+"སྣོད་ཐོ་ཅིག་འདིའི་ནང་ན་འགྲ་བཤུས་འབད་ནི་འདི་རང་གནས་སྐབས་བྱང་ཉེས་ཨིན།\n"
+"བཀོལ་སྤྱོད་ཧྲིལ་བུམ་ཆ་མེད་གཏང་ཡོདཔ།"
+
+#: ../src/gnome-cmd-xfer.c:424
+msgid "preparing..."
+msgstr "གྲ་སྒྲིག་འབད་དོ།..."
+
+#: ../src/gnome-cmd-xfer.c:515
+msgid "downloading to /tmp"
+msgstr " ཊི་ཨེམ་པི་/ལུ་ཕབ་ལེན་འབད་དོ།"
+
+#: ../src/imageloader.c:127
+msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgstr "གཞི་བཙུགས་ཡོད་མི་ཡིག་སྣོད་དབྱེ་བ་པར་ཁྲ་མངོན་གསལ་འབད་མ་ཚུགསཔ་ལས་ འབྱུང་ཁུངས་སྣོད་ཐོ་ལས་མངོན་གསལ་འབད་ནི་ལུ་འབད་རྩོལ་འབད་དོ།\n"
+
+#: ../src/imageloader.c:129
+#: ../src/imageloader.c:155
+#, c-format
+msgid "Trying to load %s instead\n"
+msgstr "ཚབ་ལུ་ %s མངོན་གསལ་འབད་ནི་ལུ་འབད་རྩོལ་འབད་དོ།\n"
+
+#: ../src/imageloader.c:133
+#: ../src/imageloader.c:158
+#, c-format
+msgid "Can't find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory\n"
+msgstr "པར་ཁྲ་འདི་ག་སྟེ་ཡང་འཚོལ་མ་ཐོབ། ཁྱོད་ཀྱིས་ཇི་ནོམ་-་གཙོ་དཔོན་-%s/src སྣོད་ཐོ་འདི་ལས་ཇི་ནོམ་-གཙོ་དཔོན་ལག་ལེན་འཐབ་ནི་ཡང་ན་ལས་རིམ་འདི་གཞི་བཙུགས་འབད་ཡོདཔ་ངེས་ཏིག་བཟོ།\n"
+
+#: ../src/imageloader.c:154
+msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
+msgstr "པར་ཁྲ་གཞི་བཙུགས་འབད་ཡོད་མི་མངོན་གསལ་འབད་མ་ཚུགསཔ་ལས་ འབྱུང་ཁུངས་སྣོད་ཐོ་ལས་མངོན་གསལ་འབད་ནི་ལུ་འབད་རྩོལ་འབད་དོ།\n"
+
+#: ../src/libgviewer/search-dlg.c:316
+msgid "Find"
+msgstr "འཚོལ།"
+
+#. Search mode radio buttons
+#: ../src/libgviewer/search-dlg.c:346
+#: ../src/libgviewer/viewer-window.c:815
+#: ../src/libgviewer/viewer-window.c:1056
+msgid "_Text"
+msgstr "ཚིག་ཡིག(_T)"
+
+#: ../src/libgviewer/search-dlg.c:348
+msgid "_Hex"
+msgstr "ཧེགསི།(_H)"
+
+#. Case-Sensitive Checkbox
+#: ../src/libgviewer/search-dlg.c:357
+msgid "_Match case"
+msgstr "ཡི་གུ་མཐུན་སྒྲིག་འབད།(_M)"
+
+#: ../src/libgviewer/search-progress-dlg.c:76
+msgid "Searching..."
+msgstr "འཚོལ་ཞིབ་འབད་དོ།..."
+
+#: ../src/libgviewer/search-progress-dlg.c:197
+#, c-format
+msgid "Searching for \"%s\""
+msgstr "དོན་ལུ་འཚོལ་ཞིབ་འབད་དོ། \"%s\""
+
+#: ../src/libgviewer/viewer-widget.c:206
+#, c-format
+msgid "Position: %lu of %lu\tColumn: %d\t%s"
+msgstr "ཊི་ཀེར་ཐིག་: %lu གི་ %luགནས་ས།: %d\t%s"
+
+#: ../src/libgviewer/viewer-widget.c:210
+msgid "Wrap"
+msgstr "ལོག་མཚམས།"
+
+#: ../src/libgviewer/viewer-widget.c:230
+#, c-format
+msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
+msgstr "ཊི་བིཊི་ཚུ་དཔེ་ཚད: %dx%d ཊི་རྒྱས་ཟུམ།: %dགཟུགས་བརྙན་ཚད: %s"
+
+#: ../src/libgviewer/viewer-widget.c:232
+msgid "Fit-to-Window"
+msgstr "ཝིནཌོ་-ལུ-་ཚུད་སྒྲིག་འབད།"
+
+#: ../src/libgviewer/viewer-window.c:194
+#: ../src/utils.c:1476
+msgid "There was an error displaying help."
+msgstr "གྲོགས་རམ་བཀྲམ་སྟོན་འབད་ནི་འཛོལ་བ་འབྱུང་ཡོདཔ།"
+
+#: ../src/libgviewer/viewer-window.c:806
+msgid "_Close"
+msgstr "ཁ་བསྡམས།(_C)"
+
+#: ../src/libgviewer/viewer-window.c:819
+msgid "_Binary"
+msgstr "ཟུང་ལྡན།(_B)"
+
+#: ../src/libgviewer/viewer-window.c:823
+msgid "_Hex dump"
+msgstr "ཧེགསི་བཀོག་བཞག(_H)"
+
+#: ../src/libgviewer/viewer-window.c:827
+#: ../src/libgviewer/viewer-window.c:1061
+msgid "_Image"
+msgstr "གཟུགས་བརྙན།(_I)"
+
+#: ../src/libgviewer/viewer-window.c:832
+msgid "_Zoom In"
+msgstr "ཕྱིར་རྒྱས་ཟུམ།(_Z)"
+
+#: ../src/libgviewer/viewer-window.c:837
+msgid "Zoom _Out"
+msgstr "ནང་རྒྱས་ཟུམ།(_O)"
+
+#: ../src/libgviewer/viewer-window.c:842
+msgid "_Normal Size"
+msgstr "སྤྱིར་བཏང་ཚད།(_N)"
+
+#: ../src/libgviewer/viewer-window.c:847
+msgid "Best _Fit"
+msgstr "ལེགས་སྒྲིག(_F)"
+
+#: ../src/libgviewer/viewer-window.c:861
+msgid "_Copy Text Selection"
+msgstr "ཚིག་ཡིག་སེལ་འཐུ་འདྲ་བཤུས་འབད།(_C)"
+
+#: ../src/libgviewer/viewer-window.c:866
+msgid "Find..."
+msgstr "འཚོལ།..."
+
+#: ../src/libgviewer/viewer-window.c:871
+msgid "Find Next"
+msgstr "ཤུལ་མམ་འཚོལ།"
+
+#: ../src/libgviewer/viewer-window.c:876
+msgid "Find Previous"
+msgstr "ཧེ་མམ་གྱི་འཚོལ།"
+
+#: ../src/libgviewer/viewer-window.c:883
+msgid "_No Parsing (original file)"
+msgstr "མིང་དཔྱད་འབད་ནི་མེད(ཡིག་སྣོད་ངོ་མ)།(_N)"
+
+#: ../src/libgviewer/viewer-window.c:888
+msgid "_HTML Parser"
+msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་མིང་དཔྱདཔ།(_H)"
+
+#: ../src/libgviewer/viewer-window.c:893
+msgid "_PS/PDF Parser"
+msgstr "པི་ཨེསི/པི་ཌི་ཨེཕ་མིང་དཔྱདཔ།(_P)"
+
+#: ../src/libgviewer/viewer-window.c:900
+msgid "_Wrap lines"
+msgstr "གྱལ་ཚུ་ལོག་མཚམས་བཟོ་ནི།(_W)"
+
+#: ../src/libgviewer/viewer-window.c:906
+msgid "_Encoding"
+msgstr "ཨིན་ཀོ་ཌིང་།(_E)"
+
+#: ../src/libgviewer/viewer-window.c:948
+msgid "_Show EXIF/IPTC Information"
+msgstr "ཨི་ཨེགསི་ཨའི་ཨེཕ་/ཨའི་པི་ཊི་སི་བརྡ་དོན་སྟོན།(_S)"
+
+#: ../src/libgviewer/viewer-window.c:954
+msgid "_Rotate Clockwise"
+msgstr "གཡས་སྐོར་བསྒྱིར།(_R)"
+
+#: ../src/libgviewer/viewer-window.c:959
+msgid "Rotate Counter Clockwis_e"
+msgstr "གདོང་ལེན་གཡས་སྐོར་བསྒྱིར།(_e)"
+
+#: ../src/libgviewer/viewer-window.c:964
+msgid "_Rotate 180°"
+msgstr " ༡༨༠°བསྒྱིར།(_R)"
+
+#: ../src/libgviewer/viewer-window.c:969
+msgid "Flip _Vertical"
+msgstr "ཀེར་ཕྲང་མྱུར་ལྷོག(_V)"
+
+#: ../src/libgviewer/viewer-window.c:974
+msgid "Flip _Horizontal"
+msgstr "ཐད་སྙོམས་མྱུར་ལྷོག(_H)"
+
+#: ../src/libgviewer/viewer-window.c:984
+msgid "_Binary Mode"
+msgstr "ཐབས་ལམ་ཟུང་ལྡན།(_B)"
+
+#: ../src/libgviewer/viewer-window.c:990
+msgid "_Decimal Offset in Hexdump"
+msgstr "ཧེགསི་བཀོག་བཞག་ནང་བཅུ་ཚག་པར་ལེན།(_D)"
+
+#: ../src/libgviewer/viewer-window.c:996
+msgid "_Save Current Settings"
+msgstr "ད་ལྟོའི་སྒྲིག་སྟངས་ཚུ་སྲུང་བཞག་འབད།(_S)"
+
+#: ../src/libgviewer/viewer-window.c:1006
+msgid "_20 chars/line"
+msgstr "ཡིག་འབྲུ་/གྱལ་ ༢༠།(_2)"
+
+#: ../src/libgviewer/viewer-window.c:1011
+msgid "_40 chars/line"
+msgstr "ཡིག་འབྲུ་/གྱལ་༤༠།(_4)"
+
+#: ../src/libgviewer/viewer-window.c:1016
+msgid "_80 chars/line"
+msgstr "ཡིག་འབྲུ་/གྱལ་ ༨༠།(_8)"
+
+#: ../src/libgviewer/viewer-window.c:1025
+msgid "Quick _Help"
+msgstr "འཕྲལ་མགྱོགས་གྲོགས་རམ།(_H)"
+
+#: ../src/libgviewer/viewer-window.c:1248
+#, c-format
+msgid "Pattern \"%s\" was not found"
+msgstr "དཔེ་གཞི་ \"%s\" དེ་འཚོལ་མ་ཐོབ་པར་ཡོདཔ།"
+
+#: ../src/main.c:53
+#: ../src/main.c:62
+msgid "Specify debug flags to use"
+msgstr "རྐྱེན་སེལ་ཟུར་རྟགས་ཚུ་ལག་ལེན་འཐབ་ནི་ལུ་གསལ་བཀོད་འབད།"
+
+#: ../src/main.c:54
+#: ../src/main.c:63
+msgid "Specify the start directory for the left pane"
+msgstr "གཡོན་པེན་འདི་གི་དོན་ལུ་འགོ་བཙུགས་སྣོད་ཐོ་འདི་གསལ་བཀོད་འབད།"
+
+#: ../src/main.c:55
+#: ../src/main.c:64
+msgid "Specify the start directory for the right pane"
+msgstr "གཡས་པེན་འདི་གི་དོན་ལུ་འགོ་བཙུགས་སྣོད་ཐོ་འདི་གསལ་བཀོད་འབད།"
+
+#: ../src/main.c:103
+msgid "File Manager"
+msgstr "ཡིག་སྣོད་འཛིན་སྐྱོང་པ།"
+
+#: ../src/owner.c:99
+#, c-format
+msgid "When parsing the users and groups on this system it was found that the user %s is part of the group %s. This user can however not be found.\n"
+msgstr "རིམ་ལུགས་འདི་གུ་སྡེ་ཚན་ཚུ་དང་ལག་ལེན་པ་ཚུ་མིང་དཔྱད་འབད་བའི་སྐབས་ལག་ལེན་པ་འདི་ %s སྡེ་ཚན་འདི་གི་ཡན་ལག་མེནམ་ %s ཨིནམ་ཤེས་ཡོདཔ་ཨིན། ལག་ལེན་འདི་ག་དེ་འབད་རུང་འཚོལ་མི་ཐོབ་ཨིན།\n"
+
+#: ../src/plugin_manager.c:350
+msgid "Disable"
+msgstr "ལྕོགས་མིན་བཟོ།"
+
+#: ../src/plugin_manager.c:350
+msgid "Enable"
+msgstr "ལྕོགས་ཅན་བཟོ།"
+
+#: ../src/plugin_manager.c:417
+msgid "Available plugins"
+msgstr "པ་ལག་ཨིན་ཚུ་ཐོབ་ཚུགསཔ།"
+
+#: ../src/plugin_manager.c:424
+msgid "Version"
+msgstr "ཐོན་རིམ།"
+
+#: ../src/plugin_manager.c:425
+#: ../src/tags/gnome-cmd-tags.c:1693
+msgid "File"
+msgstr "ཡིག་སྣོད།"
+
+#: ../src/plugin_manager.c:430
+msgid "_Enable"
+msgstr "ལྕོགས་ཅན་བཟོ།(_E)"
+
+#: ../src/plugin_manager.c:434
+msgid "_Configure"
+msgstr "རིམ་སྒྲིག(_C)"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:44
+msgid "<ID3 tags not supported>"
+msgstr "<ID3 tags not supported>"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:307
+msgid "Undefined"
+msgstr "ངེས་འཛིན་མ་འབདཝ།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:308
+msgid "Layer III"
+msgstr "བང་རིམ་ ཨའི་ཨའི་ཨའི།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:309
+msgid "Layer II"
+msgstr "བང་རིམ་ཨའི་ཨའི།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:310
+msgid "Layer I"
+msgstr "བང་རིམ་ཨའི།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:316
+#: ../src/tags/gnome-cmd-tags-id3.c:333
+#: ../src/tags/gnome-cmd-tags-id3.c:363
+msgid "Reserved"
+msgstr "ཟུར་གསོག་འབད་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:323
+msgid "Stereo"
+msgstr "གླུ་སྒྲོམ།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:324
+msgid "Joint stereo"
+msgstr "གླུ་སྒྲོམ་མཐུད་མཚམས།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:325
+msgid "Dual channel"
+msgstr "ཟུང་ལྡན་རྒྱུན་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:326
+msgid "Single channel"
+msgstr "རྒྱུན་ལམ་རྐྱང་པ།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:331
+msgid "None"
+msgstr "ཅི་མེད།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:332
+msgid "10-15ms"
+msgstr "མི་ལི་སྐར་ཆ་ ༡༠-༡༥།"
+
+#: ../src/tags/gnome-cmd-tags-id3.c:334
+msgid "CCIT J17"
+msgstr "སི་སི་ཨའི་ཊི་ཇེ་ ༡༧།"
+
+#: ../src/tags/gnome-cmd-tags-libs.c:50
+msgid "<Exif tags not supported>"
+msgstr "<Exif tags not supported>"
+
+#: ../src/tags/gnome-cmd-tags-libs.c:53
+msgid "<IPTC tags not supported>"
+msgstr "<IPTC tags not supported>"
+
+#: ../src/tags/gnome-cmd-tags-libs.c:56
+msgid "<ICC tags not supported>"
+msgstr "<ICC tags not supported>"
+
+#: ../src/tags/gnome-cmd-tags.c:61
+msgid "Album Artist"
+msgstr "གླུ་མཛོད་གླུ་གཞས་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:61
+msgid "Artist of the album."
+msgstr "གླུ་མཛོད་འདི་གི་གླུ་གཞས་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:62
+msgid "Album Gain"
+msgstr "གླུ་མཛོད་ཁེ་ཕན།"
+
+#: ../src/tags/gnome-cmd-tags.c:62
+msgid "Gain adjustment of album."
+msgstr "གླུ་མཛོན་གྱི་བདེ་སྒྲིག་ཁེ་ཕན།"
+
+#: ../src/tags/gnome-cmd-tags.c:63
+msgid "Album Peak Gain"
+msgstr "གླུ་མཛོད་རྩེ་མོ་ཁེ་ཕན།"
+
+#: ../src/tags/gnome-cmd-tags.c:63
+msgid "Peak gain adjustment of album."
+msgstr "གླུ་མཛོད་ཀྱི་རྩེ་མོ་ཁེ་ཕན་བདེ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:64
+msgid "Album Track Count"
+msgstr "གླུ་མཛོད་གླུ་རིམ་གྱངས་ཁ་རྐྱབས་ནི།"
+
+#: ../src/tags/gnome-cmd-tags.c:64
+msgid "Total number of tracks on the album."
+msgstr "གླུ་མཛོད་འདི་གུ་གླུ་རིམ་ཚུ་གི་ཨང་བསྡོམས།"
+
+#: ../src/tags/gnome-cmd-tags.c:65
+#: ../src/tags/gnome-cmd-tags.c:695
+#: ../src/tags/gnome-cmd-tags.c:1161
+msgid "Album"
+msgstr "གླུ་མཛོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:65
+#: ../src/tags/gnome-cmd-tags.c:695
+msgid "Name of the album."
+msgstr "གླུ་མཛོད་འདི་གི་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:66
+#: ../src/tags/gnome-cmd-tags.c:104
+msgid "Artist"
+msgstr "གླུ་གཞས་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:66
+msgid "Artist of the track."
+msgstr "གླུ་རིམ་འདི་གི་གླུ་གཞས་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:67
+#: ../src/tags/gnome-cmd-tags.c:720
+msgid "Bitrate"
+msgstr "བིཊི་རེཊི།"
+
+#: ../src/tags/gnome-cmd-tags.c:67
+#: ../src/tags/gnome-cmd-tags.c:720
+msgid "Bitrate in kbps."
+msgstr "ཀེ་བི་པི་ཨེསི་ནང་བིཊི་རེཊི།"
+
+#: ../src/tags/gnome-cmd-tags.c:68
+#: ../src/tags/gnome-cmd-tags.c:737
+msgid "Channels"
+msgstr "རྒྱུན་ལམ་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:68
+#: ../src/tags/gnome-cmd-tags.c:737
+msgid "Number of channels in the audio (2 = stereo)."
+msgstr "རྣར་ཉན་འདི་ནང་(༢་=གླུ་སྒྲོམ)རྒྱུན་ལམ་ཚུ་གི་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:69
+msgid "Codec Version"
+msgstr "ཀོ་ཌེཀ་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:69
+msgid "Codec version."
+msgstr "ཀོ་ཌེཀ་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:70
+msgid "Codec"
+msgstr "ཀོ་ཌེཀ།"
+
+#: ../src/tags/gnome-cmd-tags.c:70
+msgid "Codec encoding description."
+msgstr "ཀོ་ཌེཀ་ཨིན་ཀོ་ཌིང་འགྲེལ་བཤད།"
+
+#: ../src/tags/gnome-cmd-tags.c:71
+#: ../src/tags/gnome-cmd-tags.c:738
+msgid "Comment"
+msgstr "བསམ་བཀོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:71
+#: ../src/tags/gnome-cmd-tags.c:738
+msgid "Comments on the track."
+msgstr "གླུ་རིམ་འདི་གུ་བསམ་བཀོད་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:72
+msgid "Cover album thumbnail path"
+msgstr "གླུ་མཛོད་མཐེ་གཟེར་འགྲུལ་ལམ་ཁེབས།"
+
+#: ../src/tags/gnome-cmd-tags.c:72
+msgid "File path to thumbnail image of the cover album."
+msgstr "གླུ་མཛོད་ཁེབས་འདི་གི་མཐེ་གཟེར་གཟུགས་བརྙན་ལུ་ཡིག་སྣོད་འགྲུལ་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:73
+msgid "Disc Number"
+msgstr "ཌིསིཀ་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:73
+msgid "Specifies which disc the track is on."
+msgstr "གླུ་རིམ་འདི་ཌིསིཀ་ག་གུ་ཡོདཔ་ཨིན་ན་གསལ་བཀོད་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:74
+#: ../src/tags/gnome-cmd-tags.c:783
+msgid "Duration"
+msgstr "དུས་ཡུན།"
+
+#: ../src/tags/gnome-cmd-tags.c:74
+#: ../src/tags/gnome-cmd-tags.c:783
+msgid "Duration of track in seconds."
+msgstr "སྐར་ཆག་ཚུ་ནང་གླུ་རིམ་གྱི་དུས་ཡུན།"
+
+#: ../src/tags/gnome-cmd-tags.c:75
+#: ../src/tags/gnome-cmd-tags.c:832
+msgid "Genre"
+msgstr "རིགས།"
+
+#: ../src/tags/gnome-cmd-tags.c:75
+#: ../src/tags/gnome-cmd-tags.c:763
+#: ../src/tags/gnome-cmd-tags.c:832
+msgid "Type of music classification for the track as defined in ID3 spec."
+msgstr "ཨའི་ཌི་༣ ཨེསི་པིསི་ནང་ངེས་འཛིན་འབད་ཡོད་མི་བཟུམ་གླུ་རིམ་འདི་གི་དོན་ལུ་སྙན་ཆ་དབྱེ་བཟོ་གི་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:76
+msgid "Is new"
+msgstr "འདི་གསརཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:76
+msgid "Set to \"1\" if track is new to the user (default \"0\")."
+msgstr "གླུ་རིམ་འདི་ལག་ལེན་པ་འདི་ལུ་ གསརཔ་ཨིན་པ་ཅིན་\"1\"ལུ་གཞི་སྒྲིག་འབད།  (སྔོན་སྒྲིག \"0\")"
+
+#: ../src/tags/gnome-cmd-tags.c:77
+msgid "Last Play"
+msgstr "མཇུག་མམ་གཏང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:77
+msgid "When track was last played."
+msgstr "གླུ་རིམ་དེ་མཇུག་གཏང་ཡོད་པའི་སྐབས།"
+
+#: ../src/tags/gnome-cmd-tags.c:78
+msgid "Lyrics"
+msgstr "གླུ་ཚིག་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:78
+msgid "Lyrics of the track."
+msgstr "གླུ་རིམ་འདི་གི་གླུ་ཚིག་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:79
+msgid "MB album artist ID"
+msgstr "ཨེམ་བི་གླུ་མཛོད་གླུ་གཞས་པའི་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:79
+msgid "MusicBrainz album artist ID in UUID format."
+msgstr "ཡུ་ཡུ་ཨའི་ཌི་རྩ་སྒྲིག་ནང་མུས་སིཀ་བེརེནཛི་གླུ་མཛོད་གླུ་གཞས་པའི་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:80
+msgid "MB Album ID"
+msgstr "ཨེམ་བི་གླུ་མཛོད་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:80
+msgid "MusicBrainz album ID in UUID format."
+msgstr "ཡུ་ཡུ་ཨའི་ཌི་རྩ་སྒྲིག་ནང་མུས་སིཀ་བེརེནཛི་གླུ་མཛོད་ཀྱི་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:81
+msgid "MB Artist ID"
+msgstr "ཨེམ་བི་གླུ་གཞས་པའི་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:81
+msgid "MusicBrainz artist ID in UUID format."
+msgstr "ཡུ་ཡུ་ཨའི་ཌི་རྩ་སྒྲིག་ནང་མུས་སིཀསི་བེརེནཛི་གླུ་གཞས་པའི་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:82
+msgid "MB Track ID"
+msgstr "ཨེམ་བི་གླུ་རིམ་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:82
+msgid "MusicBrainz track ID in UUID format."
+msgstr "ཡུ་ཡུ་ཨའི་ཌི་རྩ་སྒྲིག་ནང་མུས་སིཀསི་བེརེནཛི་གླུ་རིམ་གྱི་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:83
+msgid "Performer"
+msgstr "ལཱ་འགན་འགྲུབ་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:83
+msgid "Name of the performer/conductor of the music."
+msgstr "སྙན་ཆ་འདི་གི་ལཱ་འགན་འགྲུབ་མི/འགོ་འདྲེན་འཐབ་མི་འདི་གི་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:84
+msgid "Play Count"
+msgstr "གཏང་་ནི་གྱངས་ཁ་རྐྱབས།"
+
+#: ../src/tags/gnome-cmd-tags.c:84
+msgid "Number of times the track has been played."
+msgstr "གཏང་ཚར་མི་གླུ་རིམ་འདིའི་ཐེངས་ཚུ་གི་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:85
+#: ../src/tags/gnome-cmd-tags.c:1493
+msgid "Release Date"
+msgstr "གསར་སྟོན་ཚེས་གྲངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:85
+msgid "Date track was released."
+msgstr "གླུ་རིམ་ཚེས་གྲངས་དེ་གསར་སྟོན་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:86
+#: ../src/tags/gnome-cmd-tags.c:1020
+msgid "Sample Rate"
+msgstr "དཔེ་ཚད་མགྱོགས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:86
+#: ../src/tags/gnome-cmd-tags.c:1020
+msgid "Sample rate in Hz."
+msgstr "ཨེཆ་ཛེཊི་ནང་དཔེ་ཚད་མགྱོགས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:87
+#: ../src/tags/gnome-cmd-tags.c:97
+#: ../src/tags/gnome-cmd-tags.c:1071
+#: ../src/tags/gnome-cmd-tags.c:1180
+msgid "Title"
+msgstr "མགོ་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:87
+#: ../src/tags/gnome-cmd-tags.c:1071
+msgid "Title of the track."
+msgstr "གླུ་རིམ་འདི་གི་མགོ་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:88
+msgid "Track Gain"
+msgstr "གླུ་རིམ་ཁེ་ཕན།"
+
+#: ../src/tags/gnome-cmd-tags.c:88
+msgid "Gain adjustment of the track."
+msgstr "གླུ་རིམ་འདི་གི་ཁེ་ཕན་བདེ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:89
+msgid "Track Number"
+msgstr "གླུ་རིམ་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:89
+#: ../src/tags/gnome-cmd-tags.c:1081
+msgid "Position of track on the album."
+msgstr "གླུ་མཛོད་འདི་གུ་གླུ་རིམ་གྱི་གནས་ས།"
+
+#: ../src/tags/gnome-cmd-tags.c:90
+msgid "Track Peak Gain"
+msgstr "གླུ་རིམ་རྩེ་མོ་ཁེ་ཕན།"
+
+#: ../src/tags/gnome-cmd-tags.c:90
+msgid "Peak gain adjustment of track."
+msgstr "གླུ་རིམ་གྱི་རྩེ་མོ་ཁེ་ཕན་བདེ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:91
+msgid "Author"
+msgstr "རྩོམ་པ་པོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:91
+#: ../src/tags/gnome-cmd-tags.c:1166
+msgid "Name of the author."
+msgstr "རྩོམ་པ་པོ་འདི་གི་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:92
+#: ../src/tags/gnome-cmd-tags.c:1164
+msgid "Comments"
+msgstr "བསམ་བཀོད་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:92
+#: ../src/tags/gnome-cmd-tags.c:1164
+msgid "User definable free text."
+msgstr "ངེས་འཛིན་འབད་བཏུབ་པའི་ཚིག་ཡིག་རང་དབང་ལག་ལེན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:93
+msgid "Created"
+msgstr "གསར་བསྐྲུན་འབད་ཡོད་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:93
+msgid "Datetime document was originally."
+msgstr "ཚེས་གྲངས་དུས་ཚོད་ཡིག་ཆ་དེ་ངོ་མ་སྦེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:94
+#: ../src/tags/gnome-cmd-tags.c:684
+#: ../src/tags/gnome-cmd-tags.c:1176
+#: ../src/tags/gnome-cmd-tags.c:1378
+msgid "Keywords"
+msgstr "གཙོ་ཚིག་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:94
+#: ../src/tags/gnome-cmd-tags.c:1176
+msgid "String of keywords."
+msgstr "གཙོ་ཚིག་ཚུ་གི་ཡིག་རྒྱུན།"
+
+#: ../src/tags/gnome-cmd-tags.c:95
+msgid "Page Count"
+msgstr "ཤོག་ལེབ་གྱངས་ཁ་རྐྱབས།"
+
+#: ../src/tags/gnome-cmd-tags.c:95
+msgid "Number of pages in document."
+msgstr "ཡིག་ཆ་ནང་ཤོག་ལེབ་ཚུ་གི་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:96
+msgid "Subject"
+msgstr "དོན་ཚན།"
+
+#: ../src/tags/gnome-cmd-tags.c:96
+msgid "Document subject."
+msgstr "ཡིག་ཆ་དོན་ཚན།"
+
+#: ../src/tags/gnome-cmd-tags.c:97
+msgid "Title of the document."
+msgstr "ཡིག་ཆ་འདི་གི་མགོ་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:98
+msgid "Word Count"
+msgstr "མིངཤ་ཚིག་གྱངས་ཁ་རྐྱབས།"
+
+#: ../src/tags/gnome-cmd-tags.c:98
+msgid "Total number of chars in document."
+msgstr "ཡིག་ཆ་ནང་ཡིག་འབྲུ་ཚུ་གི་ཨང་བསྡོམས།"
+
+#: ../src/tags/gnome-cmd-tags.c:99
+msgid "Aperture"
+msgstr "པར་ཆས་དོང་ཆུང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:99
+msgid "The lens aperture. The unit is the APEX value."
+msgstr "དྭངས་ཤེལ་པར་ཆས་དོང་ཆུང་འདི། ཆ་ཕྲན་འདི་ཨེ་པི་ཨི་ཨེགསི་གནས་གོང་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:104
+msgid "Name of the camera owner, photographer or image creator. The detailed format is not specified, but it is recommended that the information be written for ease of Interoperability. When the field is left blank, it is treated as unknown."
+msgstr "པར་ཆས་བདག་པོ་ དཔར་བཏབ་མི་ཡང་ན་གཟུགས་བརྙན་གསར་བསྐྲུན་འབད་མི་འདི་གི་མིང་། རྩ་སྒྲིག་རྒྱས་བཤད་འདི་གསལ་བཀོད་མ་འབད་བར་ཡོདཔ་ ཨིན་རུང་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་གི་ལྷོད་ལྷོད་དོན་ལུ་བརྡ་དོན་འདི་འབྲི་དགོཔ་སྦེ་འོས་སྦྱོར་འབད་ཡོདཔ། ས་སྒོ་འདི་སྟོངམ་སྦེ་བཞག་པའི་སྐབས་འདི་ལུ་མ་ཤེསཔ་སྦེ་བརྩི་འཇོག་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:109
+msgid "Battery Level"
+msgstr "འཕྲུལ་ལྟོ་གནས་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:114
+msgid "Bits per Sample"
+msgstr "དཔེ་ཚད་རེ་རེ་བིཊིསི།"
+
+#: ../src/tags/gnome-cmd-tags.c:114
+msgid "The number of bits per image component. Each component of the image is 8 bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr "གཟུགས་བརྙན་ཆ་ཤས་རེ་རེ་བིཊིསི་རེ་གི་ཨང་འདི། གཟུགས་བརྙན་འདི་གི་ཆ་ཤས་རེ་རེ་ལུ་བིཊིསི་ ༨ རེ་ཡོདཔ་ལས་ངོ་རྟགས་འདི་གི་གནས་གོང་འདི་་ ༨་ཨིན། ཇེ་པི་ཨི་ཇི་་ཨེབ་བཙུགས་གནས་སྡུད་ནང་ངོ་རྟགས་འདི་གི་ཚབ་ལུ་ཇེ་པི་ཨི་ཇི་རྟགས་བཀོད་པ་ཅིག་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:119
+msgid "Brightness"
+msgstr "དཀར་མདངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:119
+msgid "The value of brightness. The unit is the APEX value. Ordinarily it is given in the range of -99.99 to 99.99."
+msgstr "དཀར་མདངས་ཀྱི་གནས་གོང་འདི། ཆ་ཕྲན་འདི་ཨེ་པི་ཨི་ཨེགསི་གནས་གོང་ཨིན། དཀྱུ་མ་སྦེ་འདི་ཁྱབ་ཚད་ -༩༩.༩༩ ལས་༩༩.༩༩་ནང་ལུ་བྱིན་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:124
+#: ../src/tags/gnome-cmd-tags.c:439
+msgid "CFA Pattern"
+msgstr "སི་ཨེཕ་ཨེ་དཔེ་གཞི།"
+
+#: ../src/tags/gnome-cmd-tags.c:124
+msgid "The color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods."
+msgstr "ཅིབས་ཚོས་གཞི་མངའ་ཁོངས་ཚོར་འཕྲུལ་གཅིག་འདི་ལག་ལེན་འཐབ་ཡོད་པའི་སྐབས་གཟུགས་བརྙན་ཚོར་འཕྲུལ་འདི་གི་ཚོས་གཞི་ཚགས་མ་ཨེ་རེ་(སི་ཨེཕ་ཨེ་)ཐིག་རྩིས་ཀྱི་དཔེ་གཞི་འདི། འདི་གིས་ཚོར་འཕྲུལ་ཐབས་ལམ་ཚུ་ཆ་མཉམ་ལུ་འཇུག་སྤྱོད་མི་འབད།"
+
+#: ../src/tags/gnome-cmd-tags.c:129
+msgid "CFA Repeat Pattern Dim"
+msgstr "སི་ཨེཕ་ཨེ་ཡང་བསྐྱར་དཔེ་ཚད་མདངས་གྲིབ།"
+
+#: ../src/tags/gnome-cmd-tags.c:134
+msgid "Color Space"
+msgstr "ཚོས་གཞི་བར་སྟོང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:134
+msgid "The color space information tag is always recorded as the color space specifier. Normally sRGB (=1) is used to define the color space based on the PC monitor conditions and environment. If a color space other than sRGB is used, Uncalibrated (=FFFF.H) is set. Image data recorded as Uncalibrated can be treated as sRGB when it is converted to FlashPix."
+msgstr "ཚོས་གཞི་བར་སྟོང་བརྡ་དོན་ངོ་རྟགས་འདི་ཨ་རྟག་རང་ཚོས་གཞི་བར་སྟོང་གསལ་བཀོད་པ་སྦེ་སྒྲ་བཟུང་ཡོདཔ་ཨིན། སྤྱིར་བཏང་ཨེསི་ཨར་ཇི་བི་(=1)འདི་པི་སི་ལྟ་རྟོག་པ་གནས་སྟངས་ཚུ་དང་མཐའ་འཁོར་འདི་གུ་གཞི་བཞག་ཡོད་མི་ཚོས་གཞི་བར་སྟོང་འདི་ངེས་འཛིན་འབད་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན། ཚོས་གཞི་བར་སྟོང་ཅིག་ལས་གཞན་ཨེསི་ཨར་ཇི་བི་འདི་ལག་ལེན་འཐབ་ཡོད་པ་ཅིན་  (=FFFF.H)ཚད་རྟགས་བཀལ་བཤོལ་འདི་གཞི་སྒྲིག་ཡོདཔ་ཨིན། གཟུགསབརྙན་གནས་སྡུད་ཚད་རྟགས་བཀལ་བཤོལ་སྦེ་སྒྲ་བཟུང་ཡོད་མི་འདི་རིབ་སྟོན་པར་ལུ་གཞི་བསྒྱུར་འབད་ཚར་བའི་སྐབས་ཨེསི་ཨར་ཇི་བི་སྦེ་བརྩི་འཇོག་འབདཝ་ཨིན། "
+
+#: ../src/tags/gnome-cmd-tags.c:139
+msgid "Components Configuration"
+msgstr "རིམ་སྒྲིག་ཆ་ཤས་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:139
+msgid "Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences."
+msgstr "བརྡ་དོན་ཨེབ་བཙུགས་གནས་སྡུད་ལུ་དམིགས་བསལ་འབད། ཆ་ཤས་རེ་རེ་གི་རྒྱུན་ལམ་ཚུ་ ཆ་ཤས་དང་པ་ལས་ཆ་ཤས་བཞི་པ་འདི་ལུ་གོ་རིམ་ནང་བདེ་ཞིབ་འབད་ཡོདཔ་ཨིན། ཨེབ་བཙུགས་བཤོལ་ཡོད་མི་བཞི་་འདི་གནས་སྡུད་བདེ་ཞིབ་འདི་<Exif.PhotometricInterpretation>ངོ་རྟགས་འདི་ནང་གྲ་སྒྲིག་ཡོདཔ་ཨིན། ག་དེ་འབད་རུང་<Exif.PhotometricInterpretation>གིས་རྐྱངམ་ཅིག་ ཝའི་ སི་བི་དང་སི་ཨར་གྱི་གོ་རིམ་འདི་སླབ་ཚུགསཔ་ལས་ཚུར་ ཨེབ་བཙུགས་འབད་ཡོད་མི་གནས་སྡུད་ཀྱིས་ཝའི་ སི་བི་ དང་སི་ཨར་ ལས་གཞན་ཆ་ཤས་ཚུ་ལག་ལེན་འཐབ་ནི་དང་གཞན་འབྱུང་རིམ་ཚུ་གི་རྒྱབ་སྐྱོར་ལྕོགས་ཅན་བཟོ་ནི་ལུ་ལག་ལེན་འཐབ་བཏུབ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:144
+msgid "Compressed Bits per Pixel"
+msgstr "པིག་སེལ་རེ་ལུ་བིཊིསི་ཨེབ་བཙུགས་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:144
+msgid "Information specific to compressed data. The compression mode used for a compressed image is indicated in unit bits per pixel."
+msgstr "ཨེབ་བཙུགས་གནས་སྡུད་ལུ་བརྡ་དོན་དམིགས་བསལ། ཨེབ་བཙུགས་གཟུགས་བརྙན་ཅིག་གི་དོན་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་ཨེབ་བཙུགས་ཐབས་ལམ་འདི་ཆ་ཕྲན་བིཊིསི་པིག་སེལ་རེ་རེ་ནང་བརྡ་སྟོན་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:149
+msgid "Compression"
+msgstr "ཨེབ་བཙུགས།"
+
+#: ../src/tags/gnome-cmd-tags.c:149
+msgid "The compression scheme used for the image data. When a primary image is JPEG compressed, this designation is not necessary and is omitted. When thumbnails use JPEG compression, this tag value is set to 6."
+msgstr "གཟུགས་བརྙན་གནས་སྡུད་འདི་གི་དོན་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་ཨེབ་བཙུགས་ལས་འཆར་འདི། གཞི་རིམ་གཟུགས་བརྙན་འདི་ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་ཡོད་པའི་སྐབས་གོ་གནས་འདི་ཉེར་མཁོ་མེདཔ་ལས་འདི་སྐྱུར་བཞག་ཡོདཔ་ཨིན།་མཐེ་གཟེར་ཚུ་གི་ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་ལག་ལེན་འཐབ་པའི་སྐབས་ངོ་རྟགས་གནས་གོང་འདི་ ༦་ ལུ་གཞི་སྒྲིག་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:154
+msgid "Contrast"
+msgstr "ཚོན་མདངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:154
+msgid "The direction of contrast processing applied by the camera when the image was shot."
+msgstr "པར་ཆས་ཀྱིས་གཟུགས་བརྙན་འདི་པར་བཏབ་ཡོད་པའི་སྐབས་མཚོན་མདངས་བཟོ་སྦྱོར་གྱི་འཇུག་སྤྱོད་འབད་ཡོད་མི་བཀོད་རྒྱ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:159
+#: ../src/tags/gnome-cmd-tags.c:768
+#: ../src/tags/gnome-cmd-tags.c:1165
+msgid "Copyright"
+msgstr "འདྲ་བཤུས་དབང་ཆ།"
+
+#: ../src/tags/gnome-cmd-tags.c:159
+msgid "Copyright information. The tag is used to indicate both the photographer and editor copyrights. It is the copyright notice of the person or organization claiming rights to the image. The Interoperability copyright statement including date and rights should be written in this field; e.g., \"Copyright, John Smith, 19xx. All rights reserved.\". The field records both the photographer and editor copyrights, with each recorded in a separate part of the statement. When there is a clear distinction between the photographer and editor copyrights, these are to be written in the order of photographer followed by editor copyright, separated by NULL (in this case, since the statement also ends with a NULL, there are two NULL codes) (see example 1). When only the photographer is given, it is terminated by one NULL code. When only the editor copyright is given, the photographer copyright part consists of one space followed by a terminating NULL code, then the editor copyright is given. When the field is left blank, it is treated as unknown."
+msgstr "བརྡ་དོན་འདྲ་བཤུས་དབང་ཆ།  ངོ་རྟགས་འདི་ཕོ་ཊོ་ག་ར་ཕར་དང་ཞུན་དག་པའི་འདྲ་བཤུས་དབང་ཆ་གཉིས་ཆ་བརྡ་སྟོན་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།  གཟུགས་བརྙན་འདི་ལུ་དབང་ཆ་ཡོད་པའི་འགོ་འདྲེན་ཡང་ན་གང་ཟག་འདི་གི་འདྲ་བཤུས་དབང་ཆ་བརྡ་བསྐུལ་འདི་ཨིན།  ས་སྒོ་འདི་ནང་ཚེས་གྲངས་དང་དབང་ཆ་ཚུ་གྲངས་སུ་བཙུགས་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་འདྲ་བཤུས་དབང་ཆ་གསལ་བཤད་འདི་འབྲི་དགོཔ་ཨིན། དཔེར་ན་ \"Copyright, John Smith, 19xx. All rights reserved.\"། ས་སྒོ་འདི་གིས་ཕོ་ཊོ་ག་ར་ཕར་དང་ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་ཚུ་དང་གཅིག་ཁར་གསལ་བཤད་འདི་གི་སོ་སོ་ཁ་འཕྲལ་འཕྱལཝ་ཡན་ལག་ཅིག་ནང་རེ་རེ་སྒྲ་བཟུང་ཡོད་མི་གཉིས་ཆ་རང་སྒྲ་བཟུངམ་ཨིན།  ཕོ་ཊོ་ག་ར་ཕར་དང་ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་ཚུ་གི་བར་ན་ཁྱད་རྟགས་ཅན་བསལ་བ་ཅིག་ཡོད་པའི་སྐབས་སྟོང་ཆ་གིས་སོ་སོ་འཕྱལ་ཡོད་མི་ (གནད་དོན་འདི་ནང་ གསལ་བཤད་འདི་ཡང་སྟོང་ཆ་ཅིག་གིས་མཇུག་བསྡུཝ་ལས་སྟོང་ཆ་ཨང་རྟགས་གཉིས་ཡོད།)ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་གིས་རྗེས་སུ་འབྲང་་ཡོད་མི་ཕོ་ཊོ་ག་ར་ཕར་གྱི་གོ་རིམ་འབྲི་དགོཔ་ཨིན། (དཔེར་བརྗོད་ ༡་ པམ་ནང་་བལྟ།) ཕོ་ཊོ་ག་ར་ཕར་འདི་རྐྱངམ་ཅིག་གྲ་སྒྲིག་ཡོདཔ་ད་སྟོང་ཆ་ཨང་རྟགས་གཅིག་གིས་རྩ་གྲོལ་གཏང་ཡོདཔ་ཨིན།  ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་འདི་གྲ་སྒྲིག་ཡོདཔ་ད་ ཕོ་ཊོ་ག་ར་ཕར་འདྲ་བཤུས་དབང་ཆ་ཡན་ལག་འདི་རྩ་གྲོལ་སྟོང་ཆ་ཨང་རྟགས་ཅིག་གིས་རྗེས་སུ་འབྲང་ཡོད་མི་བར་སྟོང་གཅིག་གི་རིམ་མཐུན་ཡོདཔ་ལས་དེ་ལས་ ཞུན་དག་པ་འདྲ་བཤུས་དབང་ཆ་འདི་གྲ་སྒྲིག་ཡོདཔ་ཨིན།  ས་སྒོ་འདི་སྟོངམ་བཞག་ཡོདཔ་ད་་ འདི་ལུ་མ་ཤེསཔ་སྦེ་བརྩི་འཇོག་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:164
+msgid "Custom Rendered"
+msgstr "སྲོལ་སྒྲིག་ལྷག་སྟོན་འབད་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:164
+msgid "The use of special processing on image data, such as rendering geared to output. When special processing is performed, the reader is expected to disable or minimize any further processing."
+msgstr "གཟུགས་བརྙན་གནས་སྡུད་གུ་་དམིགས་བསལ་ལས་སྦྱོར་གྱི་ལག་ལེན་འཐབ་ནི་འདི་ དཔེར་ན་པའུཊི་པུཊི་ལུ་གི་ཡརཌི་ལྷག་སྟོན་བཟུམ་ཨིན། དམིགས་བསལ་ལས་སྦྱོར་འདི་ལས་འགན་འགྲུབ་ཡོད་པའི་སྐབས་ ལྷག་མི་འདི་གིས་ལས་སྦྱོར་ཐབས་གང་རུང་ཆུང་ཀུ་བཟོ་ནི་ཡང་ན་ལྕོགས་མིན་བཟོ་ནི་ལུ་རེ་བ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:169
+msgid "Date and Time"
+msgstr "ཚེས་གྲངས་དང་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:169
+msgid "The date and time of image creation."
+msgstr "གཟུགས་བརྙན་གསར་བསྐྲུན་འབད་ནི་གི་ཚེས་གྲངས་དང་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:174
+msgid "Date and Time (digitized)"
+msgstr "ཚེས་གྲངས་དང་དུས་ཚོད(ཨང་ཡིག་བཟོ་ཡོད་མི།)"
+
+#: ../src/tags/gnome-cmd-tags.c:174
+msgid "The date and time when the image was stored as digital data."
+msgstr "གཟུགས་བརྙན་འདི་ཌི་ཇི་ཊཱལ་གནས་སྡུད་སྦེ་གསོག་འཇོག་འབད་ཡོད་པའི་སྐབས་ཚེས་གྲངས་དང་དུས་ཚོད་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:179
+msgid "Date and Time (original)"
+msgstr "ཚེས་གྲངས་དང་དུས་ཚོད(ངོ་མ།)།"
+
+#: ../src/tags/gnome-cmd-tags.c:179
+msgid "The date and time when the original image data was generated. For a digital still camera the date and time the picture was taken are recorded."
+msgstr "གཟུགས་བརྙན་གནས་སྡུད་ངོ་མ་འདི་བཟོ་བཏོན་འབད་ཡོད་མི་གི་ཚེས་གྲངས་དང་དུས་ཚོད་འདི། ཌི་ཇི་ཊཱལ་འགུལ་མེད་པར་ཆས་ཅིག་གི་དོན་ལུ་ཚེས་གྲངས་དང་དུས་ཚོད་འདི་ནང་བཏབ་མི་པར་འདི་དྲན་ཐོ་འབད་ཡོདཔ་ཨིན། "
+
+#: ../src/tags/gnome-cmd-tags.c:184
+msgid "Device Setting Description"
+msgstr "ཐབས་འཕྲུལ་སྒྲིག་སྟངས་འགྲེལ་བཤད།"
+
+#: ../src/tags/gnome-cmd-tags.c:184
+msgid "Information on the picture-taking conditions of a particular camera model. The tag is used only to indicate the picture-taking conditions in the reader."
+msgstr "བྱེ་བྲག་པར་ཆས་དཔེ་ཅིག་གི་པར་བཏབ་ནི་གནས་སྟངས་ཚུ་གུ་བརྡ་དོན། ངོ་རྟགས་འདི་ལྷག་ནི་ནང་པར་བཏབ་ནི་གནས་སྟངས་ཚུ་བརྡ་སྟོན་ནི་ལུ་རྐྱངམ་ཅིག་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:189
+msgid "Digital Zoom Ratio"
+msgstr "ཌི་ཇི་ཊཱལ་རྒྱས་ཟུམ་དཔྱ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:189
+msgid "The digital zoom ratio when the image was shot. If the numerator of the recorded value is 0, this indicates that digital zoom was not used."
+msgstr "གཟུགས་བརྙན་དེ་པར་བཏབ་པའི་སྐབས་ཌི་ཇི་ཊཱལ་རྒྱས་ཟུམ་དཔྱད་ཚད་འདི། དཔྱ་གྲངས་འདི་གི་སྒྲ་བཟུང་འབད་ཡོད་མི་གནས་གོང་འདི་ ༠ ཨིན་པ་ཅིན་ ཌི་ཇི་ཊཱལ་རྒྱས་ཟུམ་དེ་ལག་ལེན་མ་འཐབ་པར་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:194
+msgid "Document Name"
+msgstr "ཡིག་ཆ་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:199
+msgid "Exif IFD Pointer"
+msgstr "ཨི་ཨེགསི་ཨའི་ཨེཕ་ ཨའི་ཨེཕ་ཌི་དཔག་བྱེད།"
+
+#: ../src/tags/gnome-cmd-tags.c:199
+msgid "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure as that of the IFD specified in TIFF."
+msgstr "ཨི་ཨེགསི་ཨའི་ཨེཕ་ ཨའི་ཨེཕ་ཌི་འདི་ལུ་དཔག་བྱེད་འདི། ཨི་ཨེགསི་ཨའི་ཨེཕ་ཨའི་ཨེཕ་ཌི་འདི་ལུ་ ཊི་ཨའི་ཨེཕ་ཨེཕ་ནང་གསལ་བཀོད་འབད་ཡོད་མི་ཨའི་ཨེཕ་ཌི་འདི་གི་གཞི་བཀོད་ཅོག་འཐདཔ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:204
+msgid "Exif Version"
+msgstr "ཨི་ཨེགསི་ཨའི་ཨེཕ་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:204
+msgid "The version of Exif standard supported. Nonexistence of this field is taken to mean nonconformance to the standard."
+msgstr "ཨི་ཨེགསི་ཨའི་ཨེཕ་ཚད་ལྡན་རྒྱབ་སྐྱོར་འབད་ཡོད་མི་གི་ཐོན་རིམ་འདི། ས་སྒོ་འདི་གནས་པ་མེན་མི་ལུ་ཚད་ལྡན་འདི་ལུ་ངེས་དཔྱད་འབད་མེནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:209
+msgid "Exposure Bias"
+msgstr "མདངས་ཕོག་ཕྱོགས་རིས།"
+
+#: ../src/tags/gnome-cmd-tags.c:209
+msgid "The exposure bias. The units is the APEX value. Ordinarily it is given in the range of -99.99 to 99.99."
+msgstr "ཙདངས་ཕོག་ཕྱོགས་རིས་འདི། ཆ་ཕྲན་འདི་ཨེ་པི་ཨི་ཨེགསི་གནས་གོང་འདི་ཨིན། ཁྱབ་ཚད་འདི་ནང་གི་-༩༩.༩༩ ལས་༩༩.༩༩་ལུ་བྱིན་ཡོད་མི་འདི་ངོ་མ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:214
+msgid "Exposure Index"
+msgstr "མདངས་ཕོག་ཟུར་ཐོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:214
+msgid "The exposure index selected on the camera or input device at the time the image is captured."
+msgstr "པར་ཆས་ཡང་ན་ཨིན་པུཊི་ཐབས་འཕྲུལ་གུ་སེལ་འཐུ་འབད་ཡོད་མི་མདངས་ཕོག་ཟུར་ཐོ་འདི་དུས་ཚོད་ལུ་གཟུགས་བརྙན་འདི་འཛིན་བཟུང་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:219
+msgid "Exposure Mode"
+msgstr "མདངས་ཕོག་ཐབས་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:219
+msgid "This tag indicates the exposure mode set when the image was shot. In auto-bracketing mode, the camera shoots a series of frames of the same scene at different exposure settings."
+msgstr "ངོ་རྟགས་འདི་གིས་གཟུགས་བརྙན་དེ་པར་བཏབ་པའི་སྐབས་མདངས་ཕོག་ཐབས་ལམ་གཞི་སྒྲིག་འདི་བརྡ་སྟོནམ་ཨིན། ར་ང་བཞིན་གུག་ཤད་ཅན་ཐབས་ལམ་ནང་པར་ཆས་འདི་གིས་སོ་སོ་མདངས་ཕོག་སྒྲིག་སྟངས་ཚུ་ལུ་འཆར་སྣང་ཅོག་འཐདཔ་འདི་གི་གཞི་ཁྲམ་ཚུ་གི་རྒྱུན་རིམ་ཅིག་པར་བཏབ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:224
+#: ../src/tags/gnome-cmd-tags.c:1169
+msgid "Exposure Program"
+msgstr "མདངས་ཕོག་ལས་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:224
+msgid "The class of the program used by the camera to set exposure when the picture is taken."
+msgstr "པར་བཏབ་པའི་སྐབས་མདངས་ཕོག་གཞི་སྒྲིག་ལུ་པར་ཆས་ཀྱིས་ལག་ལེཔ་འཐབ་ཡོད་མི་ལས་རིམ་འདི་གི་དབྱེ་རིགས་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:229
+#: ../src/tags/gnome-cmd-tags.c:1170
+msgid "Exposure Time"
+msgstr "མདངས་ཕོག་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:229
+msgid "Exposure time, given in seconds."
+msgstr "སྐར་ཆག་ཚུ་ནང་བྱིན་ཡོད་མི་མདངས་ཕོག་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:234
+msgid "File Source"
+msgstr "ཡིག་སྣོད་འབྱུང་ཁུངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:234
+msgid "Indicates the image source. If a DSC recorded the image, this tag value of this tag always be set to 3, indicating that the image was recorded on a DSC."
+msgstr "གཟུགས་བརྙན་འབྱུང་ཁུངས་འདི་བརྡ་སྟོནམ་ཨིན། ཌི་ཨེསི་སི་ཅིག་གིས་གཟུགས་བརྙན་འདི་དྲན་ཐོ་བཀོད་ཡོད་པ་ཅིན་ གཟུགས་བརྙན་འདི་ ཌི་ཨེསི་སི་ཅིག་གུ་དྲན་ཐོ་བཀོད་ཡོད་པའི་བརྡ་སྟོན་དེ་ ངོ་རྟགས་གནས་གོང་འདི་གི་ངོ་རྟགས་འདི་ཨ་རྟག་རང་ ༣ ལུ་གཞི་སྒྲིག་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:239
+msgid "Fill Order"
+msgstr "བཀོད་རྒྱ་བཀང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:244
+#: ../src/tags/gnome-cmd-tags.c:1171
+msgid "Flash"
+msgstr "རིབ་སྟོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:244
+msgid "This tag is recorded when an image is taken using a strobe light (flash)."
+msgstr "སི་ཊོབ་འོད་ཅིག་ལག་ལེན་འཐབ་གཟུགས་བརྙན་ཅིག་བཏབ་པའི་སྐབས་ངོ་རྟགས་འདི་སྒྲ་བཟུང་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:249
+msgid "Flash Energy"
+msgstr "རིབ་སྟོན་ནུས་ཤུགས།"
+
+#: ../src/tags/gnome-cmd-tags.c:249
+msgid "Indicates the strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds (BCPS)."
+msgstr "བིམ་ཀན་ཌལ་ནུས་ཤུགས་སྐར་ཆག་ཚུ་(བི་སི་པི་ཨེསི།)ནང་འཇལ་ཡོད་མི་བཟུམ་གཟུགས་བརྙན་འདི་དུས་ཚོད་ལུ་འཛིན་བཟུང་ཡོད་པའི་སྐབས་སི་ཊོབ་ནུས་ཤུགས་འདི་བརྡ་སྟོནམ་ཨིན། "
+
+#: ../src/tags/gnome-cmd-tags.c:254
+msgid "FlashPixVersion"
+msgstr "རིབ་སྟོན་པར་ཐོན་ཡིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:254
+msgid "The FlashPix format version supported by a FPXR file."
+msgstr "ཨེཕ་པི་ཨེགསི་ཨར་ཡིག་སྣོད་ཅིག་གིས་རྒྱབ་སྐྱོར་འབད་ཡོད་མི་རིབ་སྟོན་པིགསི་རྩ་སྒྲིག་ཐོན་རིམ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:259
+msgid "F Number"
+msgstr "ཨེཕ་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:259
+msgid "The F number."
+msgstr "ཨེཕ་ཨང་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:264
+#: ../src/tags/gnome-cmd-tags.c:1173
+msgid "Focal Length"
+msgstr "ཕོ་ཀཱལ་རིང་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:264
+msgid "The actual focal length of the lens, in mm. Conversion is not made to the focal length of a 35 mm film camera."
+msgstr "ཨེམ་ཨེམ་ནང་དྭངས་ཤེལ་འདི་གི་ཕོ་ཀཱལ་རིང་ཚད་ངོ་མ་འདི། ཨེམ་ཨེམ་ ༣༥ གློག་བརྙན་པར་ཆས་ཅིག་གི་ཕོ་ཀཱལ་རིང་ཚད་འདི་ལུ་གཞི་བསྒྱུར་མ་བཟོ་བ་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:269
+msgid "Focal Length In 35mm Film"
+msgstr "ཨེམ་ཨེམ་ ༣༥་ གློག་བརྙན་ནང་ཕོ་ཀཱལ་རིང་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:269
+msgid "This tag indicates the equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <Exif.FocalLength> tag."
+msgstr "ངོ་རྟགས་འདི་གིས་ཨེམ་ཨེམ་ནང་གློག་བརྙན་་པར་ཆས་ ཨེམ་ཨེམ་༣༥་ ཕོ་ཀཱལ་རིང་ཚད་་འདྲ་མཉམ་ཚོད་དཔག་འདི་བརྡ་སྟོནམ་ཨིན། ༠ གི་ གནས་གོང་ཅིག་འདི་ཕོ་ཀཱལ་རིང་ཚད་འདི་མ་ཤེསཔ་ཨིན། དྲན་འཛིན་ངོ་རྟགས་འདི་<Exif.FocalLength>ངོ་རྟགས་འདི་ལས་སོ་སོ་འགྱུརཝ་ཨིན། "
+
+#: ../src/tags/gnome-cmd-tags.c:274
+msgid "Focal Plane Resolution Unit"
+msgstr "ཕོ་ཀཱལ་བྱིལ་ལི་ཧུམ་ཆ་ཆ་ཕྲན།"
+
+#: ../src/tags/gnome-cmd-tags.c:274
+msgid "Indicates the unit for measuring <Exif.FocalPlaneXResolution> and <Exif.FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
+msgstr "འཇལ་ནི་དོན་ལུ་ <Exif.FocalPlaneXResolution> དང་ <Exif.FocalPlaneYResolution> ཆ་ཕྲན་འདི་བརྡ་སྟོནམ་ཨིན། གནས་གོང་འདི་ <Exif.ResolutionUnit>བཟུམ་སྦེ་ཅོག་འཐདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:279
+msgid "Focal Plane x-Resolution"
+msgstr "ཕོ་ཀཱལ་བྱིལ་ལི་ཨེགསི་ཧུམ་ཆ།"
+
+#: ../src/tags/gnome-cmd-tags.c:279
+msgid "Indicates the number of pixels in the image width (X) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
+msgstr "གཟུགས་བརྙན་རྒྱ་ཚད་བཀོད་རྒྱ་་(ཨེགསི་)འདི་ནང་ <Exif.FocalPlaneResolutionUnit> པར་ཆས་ཕོ་ཀཱལ་བྱིལ་ལི་འདི་གུ་རེ་རེ་གི་པིག་སེལ་ཚུ་གི་ཨང་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:284
+msgid "Focal Plane y-Resolution"
+msgstr "ཕོ་ཀཱལ་བྱིལ་ལི་ཝའི་ཧུམ་ཆ།"
+
+#: ../src/tags/gnome-cmd-tags.c:284
+msgid "Indicates the number of pixels in the image height (V) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
+msgstr "གཟུགས་བརྙན་མཐོ་ཚད་བཀོད་རྒྱ་འདི་ནང་ (ཝི་)  <Exif.FocalPlaneResolutionUnit> པར་ཆས་ཕོ་ཀཱལ་བྱིལ་ལི་འདི་གུ་པིག་སེལ་ཚུ་གི་ཨང་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:289
+msgid "Gain Control"
+msgstr "ཚད་འཛིན་ཁེ་ཕན།"
+
+#: ../src/tags/gnome-cmd-tags.c:289
+msgid "This tag indicates the degree of overall image gain adjustment."
+msgstr "ངོ་རྟགས་འདི་གིས་གཟུགས་བརྙན་ཁེ་ཕན་བདེ་སྒྲིག་ཡོངས་བསྡོམས་ཀྱི་དབྱེ་རིམ་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:294
+msgid "Gamma"
+msgstr "གམ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:294
+msgid "Indicates the value of coefficient gamma."
+msgstr "གྲངས་རྟགས་གམ་མ་གི་གནས་གོང་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:299
+msgid "Altitude"
+msgstr "ས་ཁའི་མཐོ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:299
+msgid "Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The reference unit is meters."
+msgstr "ནང་་གཞི་བསྟུན་འབད་མི་གུ་ <Exif.GPS.AltitudeRef>ས་ཁའི་མཐོ་ཚད་གཞི་བཞག་འདི་བརྡ་སྟོནམ་ཨིན།  གཞི་བསྟུན་ཆ་ཕྲན་འདི་མི་ཊར་ཚུ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:304
+msgid "Altitude Reference"
+msgstr "ས་ཁའི་མཐོ་ཚད་གཞི་བསྟུན།"
+
+#: ../src/tags/gnome-cmd-tags.c:304
+msgid "Indicates the altitude used as the reference altitude. If the reference is sea level and the altitude is above sea level, 0 is given. If the altitude is below sea level, a value of 1 is given and the altitude is indicated as an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is meters."
+msgstr "ས་ཁའི་མཐོ་ཚད་གཞི་བསྟུན་སྦེ་ལག་ལེན་འཐབ་ཡོད་མི་ས་ཁའི་མཐོ་ཚད་འདི་བརྡ་སྟོནམ་ཨིན། གཞི་བསྟུན་འདི་མཚོ་གནས་རིམ་དང་ས་ཁའི་མཐོ་ཚད་འདི་མཚོའི་ལྟག་གི་གནས་རིམ་ཨིན་པ་ཅིན་ ༠་ བྱིན་ཡོདཔ་ཨིན། ས་ཁའི་མཐོ་ཚད་འདི་མཚོའི་འོག་ལས་ཨིན་པཅིན་ གནས་གོང་འདི་ ༡ བྱིན་ཡོདཔ་དང་ ས་ཁའི་མཐོ་ཚད་འདི་<Exif.GPS.Altitude> ངོ་རྟགས་འདི་ནང་གནས་གོང་ཡང་དག་སྦེ་བརྡ་སྟོན་ཡོདཔ་ཨིན། གཞི་བསྟུན་ཆ་ཕྲན་འདི་མི་ཊར་ཚུ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:309
+msgid "GPS Info IFDPointer"
+msgstr "ཇི་པི་ཨེསི་བརྡ་དོན་ཨའི་ཨེཕ་ཌི་དཔག་བྱེད།"
+
+#: ../src/tags/gnome-cmd-tags.c:309
+msgid "A pointer to the GPS Info IFD. The Interoperability structure of the GPS Info IFD, like that of Exif IFD, has no image data."
+msgstr "ཇི་པི་ཨེསི་བརྡ་དོན་ཨའི་ཨེཕ་ཌི་འདི་ལུ་དཔག་བྱེད་ཅིག ཨི་ཨེགསི་ཨའི་ཨེཕ་ཨའི་ཨེཕ་ཌི་བཟུམ་འབད་མི་ཇི་པི་ཨེསི་བརྡ་དོན་ཨའི་ཨེཕ་ཌི་གཞི་བཀོད་འགོ་བརྗོད་གླུ་གཞས་པ་བཏུབ་མི་ལུ་གཞུགས་བརྙན་གནས་སྡུད་མེད།"
+
+#: ../src/tags/gnome-cmd-tags.c:314
+msgid "Latitude"
+msgstr "སྐེད་ཐིག"
+
+#: ../src/tags/gnome-cmd-tags.c:314
+msgid "Indicates the latitude. The latitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is dd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal places, the format is dd/1,mmmm/100,0/1."
+msgstr "ལྷོ་བྱང་མཚམས་ཐིག་འདི་བརྡ་སྟོནམ་ཨིན། ལྷ་བྱང་མཚམས་ཐིག་འདི་ སྐར་མ་དང་སྐར་ཆ་ཚུ་རིམ་བཞིན་་གྲ་སྒྲིག་ཡོད་མི་དབྱེ་རིམ་མཚུངས་གྲངས་གནས་གོང་ཚུ་གསུམ་སྦེ་སླབ་ཡོདཔ་ཨིན། དབྱེ་རིམ་ཚུ་ སྐར་མ་དང་སྐར་ཆག་ཚུ་སླབ་ཡོདཔ་ད་ རྩ་སྒྲིག་འདི་ ཌི་ཌི་/༡ ཨེམ་ཨེམ་/༡ ཨེསི་ཨེསི/༡ ཨིན། དབྱེ་རིམ་ཚུ་དང་སྐར་མ་ཚུ་ལག་ལེན་འཐབ་ཡོདཔ་དང་ དཔེར་ན་སྐར་མ་ཚུ་གི་དཔྱ་ཕྲན་ཚུ་བཅུ་ཚག་ས་གནས་གཉིས་ཚུན་ཚོད་གྲ་སྒྲིག་ཡོདཔ་ཨིན་རྩ་སྒྲིག་འདི་ ཌི་ཌི/༡ ཨེམ་ཨེམ་ཨེམ་ཨེམ/༡༠༠ ༠/༡ ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:319
+msgid "North or South Latitude"
+msgstr "ནུབ་ཡང་ན་ལྷོའི་སྐེད་ཐིག"
+
+#: ../src/tags/gnome-cmd-tags.c:319
+msgid "Indicates whether the latitude is north or south latitude. The ASCII value 'N' indicates north latitude, and 'S' is south latitude."
+msgstr "ལྷོ་བྱང་མཐོ་ཚད་འདི་བྱང་ཡང་ན་ལྷོའི་ལྷོ་བྱང་མཚམས་ཐིག་ཨིན་ན་བརྡ་སྟོནམ་ཨིན།  ཨེ་ཨེསི་སི་ཨའི་ཨའི་གནས་གོང་འདི་ 'N' བྱང་ལྷོ་མཚམས་ཐིག་་དང་ 'S' ལྷོའི་ ལྷོ་བྱང་མཚམས་ཐིག་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:324
+msgid "Longitude"
+msgstr "གཞུང་ཐིག"
+
+#: ../src/tags/gnome-cmd-tags.c:324
+msgid "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
+msgstr "ལྷོ་བྱང་མཚམས་ཐིག་འདི་བརྡ་སྟོནམ་ཨིན།  ལྷོ་བྱང་མཚམས་ཐིག་འདི་མཚུངས་གྲངས་གནས་གོང་དབྱེ་རིམ་གསུམ་སྦེ་ སྐར་མ་དང་སྐར་ཆག་ཚུ་རིམ་བཞིན་སླབ་ཡོདཔ་ཨིན།  དབྱེ་རིམ་ཚུ་སྐར་མ་དང་སྐར་ཆག་ཚུ་སླབ་ཡོདཔ་ད་ རྩ་སྒྲིག་འདི་ ཌི་ཌི་ཌི/༡ ཨེམ་ཨེམ་/༡ ཨེསི་ཨེསི་/༡ ཨིན།  དབྱེ་རིམ་ཚུ་དང་སྐར་མ་ཚུ་ལག་ལེན་འཐབ་ཡོདཔ་དང་ དཔེར་ན་ སྐར་མ་ཚུ་གི་དཔྱ་ཕྲན་ཚུ་ བཅུ་ཚག་ས་གནས་གཉིས་ཚུན་ཚོད་གྲ་སྒྲིག་ཡོདཔ་ཨིན་ རྩ་སྒྲིག་འདི་ ཌི་ཌི་ཌི་/༡ ཨེམ་ཨེམ་ཨེམ་ཨེམ་/༡༠༠ ༠/༡ ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:329
+msgid "East or West Longitude"
+msgstr "ཤར་ཡང་ན་ནུབ་ཀྱི་གཞུང་ཐིག"
+
+#: ../src/tags/gnome-cmd-tags.c:329
+msgid "Indicates whether the longitude is east or west longitude. ASCII 'E' indicates east longitude, and 'W' is west longitude."
+msgstr "གཞུང་ཐིག་འདི་ཤར་ཡང་ན་ནུབ་ཀྱི་གཞུང་ཐིག་ཨིན་ན་བརྡ་སྟོནམ་ཨིན། ཨེ་ཨེསི་སི་ཨའི་ཨའི་ 'E' གིས་ཤར་གྱི་གཞུང་ཐིག་བརྡ་སྟོནམ་ཨིནམ་དང་  'W'ནུབ་ཀྱིས་གཞུང་ཐིག་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:334
+msgid "GPS tag version"
+msgstr "ཇི་པི་ཨེསི་ངོ་རྟགས་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:334
+msgid "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when <Exif.GPS.Info> tag is present."
+msgstr "ཐོན་རིམ་ <Exif.GPS.InfoIFD>གྱི་བརྡ་སྟོནམ་ཨིན། ངོ་རྟགས་འདི་སྟོན་མའི་སྐབས་  <Exif.GPS.Info> ངོ་རྟགས་འདི་ངེས་མཁོ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:339
+msgid "Image Description"
+msgstr "གཟུགས་བརྙན་འགྲེལ་བཤད།"
+
+#: ../src/tags/gnome-cmd-tags.c:339
+msgid "A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif.UserComment> is to be used."
+msgstr "གཟུགས་བརྙན་འདི་གི་མགོ་མིང་འདི་བྱིན་མི་ཡིག་འབྲུ་ཡིག་རྒྱུན་འདི།  ཡིག་འབྲུ་ཨང་རྟགས་བཱའིཊིསི་-གཉིས་ལག་ལེན་འཐབ་མི་བཏུབ་ཨིན། བཱའིཊིསི་-༢ ཨང་རྟགས་ཉེར་མཁོའི་སྐབས་ སྒེར་དོན་ངོ་རྟགས་ཨི་ཨེགསི་ཨའི་ཨེཕ་ འདི་<Exif.UserComment> འདི་ལག་ལེན་འཐབ་དགོཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:344
+msgid "Image Length"
+msgstr "གཟུགས་བརྙན་རིང་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:344
+msgid "The number of rows of image data. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr "གཟུགས་བརྙན་གནས་སྡུད་ཀྱི་གྱལ་ཚུ་གི་ཨང་འདི། ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་གནས་སྡུད་ནང་ངོ་རྟགས་འདི་གི་ཚབ་མ་ཇེ་པི་ཨི་ཇི་རྟགས་བཀོད་པ་ཅིག་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:349
+msgid "Image Resources Block"
+msgstr "གཟུགས་བརྙན་ཐོན་ཁུངས་ཚུའི་སྡེབ་ཚན།"
+
+#: ../src/tags/gnome-cmd-tags.c:354
+msgid "Image Unique ID"
+msgstr "གཟུགས་བརྙན་མཐུན་མོང་མ་ཡིན་པའི་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:354
+msgid "This tag indicates an identifier assigned uniquely to each image. It is recorded as an ASCII string equivalent to hexadecimal notation and 128-bit fixed length."
+msgstr "ངོ་རྟགས་འདི་གིས་གཟུགས་བརྙན་རེ་རེ་ལུ་མཐུན་མོང་མ་ཡིན་པ་འགན་སྤྲོད་ཡོད་མི་ངོས་འཛིན་པ་ཅིག་བརྡ་སྟོནམ་ཨིན། འདི་ཨེ་ཨེསི་ཨའི་ཨའི་ ཡིག་རྒྱུན་འདྲ་མཉམ་ཅིག་ཧེག་ཟ་ཌི་སི་མཱལ་་དབྱངས་རྟགས་དང་ བིཊི་༡༢༨ རིང་ཚད་གཏན་བཟོ་ཡོད་མི་སྦེ་སྒྲ་བཟུང་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:359
+msgid "Image Width"
+msgstr "གཟུགས་བརྙན་རྒྱ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:359
+msgid "The number of columns of image data, equal to the number of pixels per row. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr "གཟུགས་བརྙན་གནས་སྡུད་ཀྱི་ཀེར་ཐིག་ཚུ་གི་ཨང་འདི་ གྱལ་རེ་གི་པིག་སེལ་ཚུ་གི་ཨང་འདི་ལུ་འདྲ་མཉམ་ཨིན། ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་གནས་སྡུད་ནང་ངོ་རྟགས་འདི་གི་ཚབ་མ་ཇེ་པི་ཨི་ཇི་རྟགས་བཀོད་པ་ཅིག་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:364
+msgid "Inter Color Profile"
+msgstr "ཕན་ཚུན་ཚོས་གཞི་གསལ་སྡུད།"
+
+#: ../src/tags/gnome-cmd-tags.c:369
+msgid "Interoperability IFD Pointer"
+msgstr "ཨིན་ཊར་ཨོ་པ་རེ་བི་ལི་ཊི་ཨའི་ཨེཕ་ཌི་དཔག་བྱེད།"
+
+#: ../src/tags/gnome-cmd-tags.c:369
+msgid "Interoperability IFD is composed of tags which stores the information to ensure the Interoperability and pointed by the following tag located in Exif IFD. The Interoperability structure of Interoperability IFD is the same as TIFF defined IFD structure but does not contain the image data characteristically compared with normal TIFF IFD."
+msgstr "ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ཨའི་ཨེཕ་ཌི་འདི་ཨི་ཨེགསི་ཨའི་ཨེཕ་ཨའི་ཨེཕ་ཌི་ནང་འོག་གི་་ངོ་རྟགས་གནས་ཡོད་མི་འདི་གིས་རྩེ་དཔག་ཡོད་མི་དང་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་འདི་ངེས་གཏན་བཟོ་ནི་ལུ་བརྡ་དོན་འདི་གསོག་འཇོག་འབད་མི་ངོ་རྟགས་ཚུ་གི་བརྩམ་ཡོད་མི་ཨིན། ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ཨའི་ཨེཕ་ཌི་གི་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་གཞི་བཀོད་འདི་ཊི་ཨའི་ཨེཕ་ཨེཕ་་ཨའི་ཨེཕ་ཌི་གཞི་བཀོད་ངེས་འཛིན་འབད་ཡོད་མི་ཅག་འཐདཔ་ཨིན་རུང་ སྤྱིར་བཏང་ཊི་ཨའི་ཨེཕ་ཨེཕ་ ཨའི་ཨེཕ་ཌི་དང་གཅིག་ཁར་ག་བསྡུར་འབད་ཡོད་མི་་གཟུགས་བརྙན་གནས་སྡུད་ཡིག་འབྲུ་འདི་མེདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:374
+msgid "Interoperability Index"
+msgstr "ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ཟུར་ཐོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:374
+msgid "Indicates the identification of the Interoperability rule. Use \"R98\" for stating ExifR98 Rules. Four bytes used including the termination code (NULL)."
+msgstr "ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ལམ་ལུགས་འདི་གི་་ངོ་རྟགས་འདི་བརྡ་སྟོནམ་ཨིན།  ཨི་ཨེགསི་ཨའི་ཨེཕ་ཨར་༩༨ ལམ་ལུགས་ཚུ་  གསལ་བཤད་འབད་ནི་དོན་ལུ་ \"R98\" ལག་ལེན་འཐབ། རྩ་གྲོལ་ཨང་རྟགས(ཨེན་ཡུ་ཨེལ་ཨེལ)་འདི་གྲངས་སུ་བཙུགས་བཱའིཊིསི་བཞི་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:379
+msgid "Interoperability Version"
+msgstr "ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:384
+msgid "IPTC/NAA"
+msgstr "ཨའི་པི་ཊི་སི/ཨེན་ཨེ་ཨེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:389
+msgid "ISO Speed Ratings"
+msgstr "ཨའི་ཨེསི་ཨོ་མགྱོགས་ཚད་གོང་ཚད་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:389
+msgid "Indicates the ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232."
+msgstr "ཨའི་ཨེསི་ཨོ་ ༡༢༢༣༢ ནང་གསལ་བཀོད་འབད་ཡོད་མི་བཟུམ་སྦེ་པར་ཆས་ཡང་ན་ཨིན་པུཊི་ཐབས་འཕྲུལ་འདི་གི་ཨའི་ཨེསི་ཨོ་མགྱོགས་ཚད་དང་ཨའི་ཨེསི་ཨོ་ལྷོ་བྱང་མཚམས་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:394
+msgid "JPEG Interchange Format"
+msgstr "ཇེ་པི་ཨི་ཇི་ཕན་ཚུན་བརྗེ་སོར་རྩ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:394
+msgid "The offset to the start byte (SOI) of JPEG compressed thumbnail data. This is not used for primary image JPEG data."
+msgstr "ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་མཐེ་གཟེར་གནས་སྡུད་ཀྱི་འགོ་བཙུགས་བཱའིཊི་(ཨེསི་ཨོ་ཨའི་)འདི་ལུ་པར་ལེན་འདི། གཞི་རིམ་གཟུགས་བརྙན་ཇེ་པི་ཨི་ཇི་གནས་སྡུད་དོན་ལུ་ལག་ལེན་མ་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:399
+msgid "JPEG Interchange Format Length"
+msgstr "ཇེ་པི་ཨི་ཇི་ཕན་ཚུན་བརྗེ་སོར་རྩ་སྒྲིག་རིང་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:399
+msgid "The number of bytes of JPEG compressed thumbnail data. This is not used for primary image JPEG data. JPEG thumbnails are not divided but are recorded as a continuous JPEG bitstream from SOI to EOI. Appn and COM markers should not be recorded. Compressed thumbnails must be recorded in no more than 64 Kbytes, including all other data to be recorded in APP1."
+msgstr "ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་ཡོད་མི་མཐེ་གཟེར་གནས་སྡུད་ཀྱི་བཱའིཊིསི་གི་ཨང་འདི། འདི་གཞི་རིམ་གཟུགས་བརྙན་ཇེ་པི་ཨི་ཇི་གནས་སྡུད་ཀྱི་དོན་ལུ་ལག་ལེན་མི་འཐབ། ཇེ་པི་ཨི་ཇི་མཐེ་གཟེར་ཚུ་བགོ་མེད་ཨིན་རུང་ ཨེསི་ཨོ་ཨའི་ལས་ཨི་ཨོ་ཨའི་ལུ་བི་ཊི་རྒྱུན་རིམ་ཇེ་པི་ཨི་ཇི་འཕྲོ་མཐུད་ཅན་ཅིག་བཟུམ་སྦེ་སྒྲ་བཟུང་འབད་ཡོདཔ་ཨིན། མཇུག་བསྣོད་དང་སི་ཨོ་ཨེམ་རྟགས་བཀོད་པ་ཚུ་སྒྲ་བཟུང་འབད་མི་དགོཔ་ཨིན། ཨེབ་བཙུགས་མཐེ་གཟེར་ཚུ་ཀེ་བཱའིཊིསི་ ༦༤ ལས་མངམ་ནང་སྒྲ་བཟུང་འབད་ནི་ གཞན་ཨེ་པི་པི་༡ ནང་སྒྲ་བཟུང་འབད་དགོཔ་གནས་སྡུད་ཆ་མཉམ་གྲངས་སུ་བཙུགས་འབད་དགོཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:404
+msgid "JPEG Proc"
+msgstr "ཇེ་པི་ཨི་ཇི་པི་ཨར་ཨོ་སི།"
+
+#: ../src/tags/gnome-cmd-tags.c:409
+msgid "Light Source"
+msgstr "རིང་ཚད་འབྱུང་ཁུངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:409
+msgid "The kind of light source."
+msgstr "རིང་ཚད་འབྱུང་ཁུངས་ཀྱི་དབྱེ་ཁག་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:414
+msgid "Manufacturer"
+msgstr "བཟོ་བསྐྲུན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:414
+msgid "The manufacturer of the recording equipment. This is the manufacturer of the DSC, scanner, video digitizer or other equipment that generated the image. When the field is left blank, it is treated as unknown."
+msgstr "སྒྲ་བཟུང་མཁོ་ཆས་འདི་གི་བཟོ་བསྐྲུན་པ་འདི། གཟུགས་བརྙན་འདི་བཟོ་བཏོན་འབད་ཡོད་མི་དེ་གཞན་མཁོ་ཆས་ཡང་ན་ཝི་ཌིའོ་ཌི་ཇི་ཊཱལ་ཛའིར་ པར་ལེན་འཕྲུལ་ཆས་ ཌི་ཨེསི་སི་འདི་གི་བཟོ་བསྐྲུན་པ་འདི་ཨིན། ས་སྒོ་འདི་སྟོངམ་བཞགཔ་ད་འདི་མ་ཤེསཔ་སྦེ་བརྩི་འཇོག་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:419
+msgid "Maker Note"
+msgstr "དྲན་འཛིན་བཟོ་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:419
+msgid "A tag for manufacturers of Exif writers to record any desired information. The contents are up to the manufacturer."
+msgstr "རེ་འདུན་ཡོད་མི་བརྡ་དོན་གང་རུང་སྒྲ་བཟུང་འབད་ནི་ལུ་་ཨི་ཨེགསི་ཨའི་ཨེཕ་རྩོམ་འབྲི་པ་ཚུ་གི་་བཟོ་བསྐྲུན་འབད་ནི་ཚུ་གི་དོན་ལུ་ངོ་རྟགས་ཅིག ནང་དོན་ཚུ་བཟོ་བསྐྲུན་འབད་ནི་ལུ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:424
+msgid "Max Aperture Value"
+msgstr "པར་ཆས་དོང་ཆུང་གནས་གོང་མཐོ་ཤོས།"
+
+#: ../src/tags/gnome-cmd-tags.c:424
+msgid "The smallest F number of the lens. The unit is the APEX value. Ordinarily it is given in the range of 00.00 to 99.99, but it is not limited to this range."
+msgstr "དྭངས་ཤེལ་འདི་གི་ཨང་ཨེཕ་ཆུང་ཤོས་འདི། ཆ་ཕྲན་འདི་ཨེ་པི་ཨི་ཨེགསི་གནས་གོང་འདི་ཨིན། ཁྱད་ཚབ་ཀྱི་ ༠༠.༠༠་ལས་༩༩.༩༩་ནང་བྱིན་ཡོད་མི་ངོ་མ་ཨིན་རུང་ ཁྱད་ཚབ་འདི་ལུ་བཅད་མཚམས་མེདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:429
+#: ../src/tags/gnome-cmd-tags.c:1177
+msgid "Metering Mode"
+msgstr "ཐབས་ལམ་མི་ཊ་རིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:429
+msgid "The metering mode."
+msgstr "ཐབས་ལམ་མི་ཊ་རིང་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:434
+msgid "Model"
+msgstr "དཔེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:434
+msgid "The model name or model number of the equipment. This is the model name or number of the DSC, scanner, video digitizer or other equipment that generated the image. When the field is left blank, it is treated as unknown."
+msgstr "མཁོ་ཆས་འདི་གི་དཔེ་ཨང་ཡང་ན་དཔེ་མིང་འདི། གཟུགས་བརྙན་འདི་བཟོ་བཏོན་འོད་ཡོད་མི་གཞན་མཁོ་ཆས་ཡང་ན་ཝི་ཌིའོ་ཌི་ཇི་ཊཱལ་ཛའིར་པར་ལེན་འཕྲུལ་ཆས་ ཌི་ཨེསི་སི་འདི་གི་ཨང་ཡང་ན་དཔེ་མིང་འདི་ཨིན། ས་སྒོ་འདི་སྟོངམ་བཞགཔ་ད་འདི་མ་ཤེསཔ་སྦེ་བརྩི་འཇོག་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:439
+msgid "Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods."
+msgstr "ཅིབས་ཚོས་གཞི་མངའ་ཁོངས་ཚོར་འཕྲུལ་གཅིག་ལག་ལེན་འཐབ་ཡོད་པའི་སྐབས་གཟུགས་བརྙན་ཚོར་འཕྲུལ་འདི་གི་ཚོས་གཞི་ཚགས་མ་ཨེ་རེ་(སི་ཨེཕ་ཨེ་)ཐིག་རྩིས་ཀྱི་དཔེ་གཞི་འདི་བརྡ་སྟོནམ་ཨིན། ཚོར་འཕྲུལ་ཐབས་ལམ་ཚུ་ཆ་མཉམ་ལུ་འཇུག་སྤྱོད་མི་འབད།"
+
+#: ../src/tags/gnome-cmd-tags.c:444
+msgid "New Subfile Type"
+msgstr "ཡན་ལག་ཡིག་སྣོད་དབྱེ་བ་གསརཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:444
+msgid "A general indication of the kind of data contained in this subfile."
+msgstr "ཡིག་སྣོད་ཡན་ལག་འདི་ནང་ཡོད་མི་གནས་སྡུད་ཀྱི་དབྱེ་ཁག་འདི་གི་ཡོངས་ཁྱབ་བརྡ་སྟོན་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:449
+msgid "OECF"
+msgstr "ཨོ་ཨི་སི་ཨེཕ།"
+
+#: ../src/tags/gnome-cmd-tags.c:449
+msgid "Indicates the Opto-Electoric Conversion Function (OECF) specified in ISO 14524. <Exif.OECF> is the relationship between the camera optical input and the image values."
+msgstr "ཨའི་ཨེསི་ཨོ་ ༡༤༥༢༤ ནང་གསལ་བཀོད་འབད་ཡོད་མི་་ཨོ་པི་ཊི་ཨོ་གློག་ཆས་གཞི་བསྒྱུར་ལས་འགན་ (ཨོ་ཨི་སི་ཨེཕ་) འདི་བརྡ་སྟོནམ་ཨིན། <Exif.OECF> འདི་པར་ཆས་མཐོང་བའི་ཨིན་པུཊི་དང་གཟུགས་བརྙན་གནས་གོང་ཚུ་གི་བར་ན་མཐུན་འབྲེལ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:454
+#: ../src/tags/gnome-cmd-tags.c:1178
+msgid "Orientation"
+msgstr "ཕྱོགས།"
+
+#: ../src/tags/gnome-cmd-tags.c:454
+msgid "The image orientation viewed in terms of rows and columns."
+msgstr "གྱལ་ཚུ་དང་ཀེར་ཐིག་ཚུ་གི་དོན་ཚིག་ནང་གཟུགས་བརྙན་ཕྱོགས་སྟོན་ཡོད་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:459
+msgid "Photometric Interpretation"
+msgstr "ཕོ་ཊོ་མི་ཊིཀསི་གོ་དོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:459
+msgid "The pixel composition. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr "པིག་སེལ་རྩོམ་བྲིས་འདི། ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་གནས་སྡུད་ནང་ངོ་རྟགས་འདི་གི་ཚབ་མ་ཇེ་པི་ཨི་ཇི་རྟགས་བཀོད་པ་འདི་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:464
+msgid "Pixel X Dimension"
+msgstr "པིག་སེལ་ཨེགསི་མཚོན་གྲངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:464
+msgid "Information specific to compressed data. When a compressed file is recorded, the valid width of the meaningful image must be recorded in this tag, whether or not there is padding data or a restart marker. This tag should not exist in an uncompressed file."
+msgstr "ཨེབ་བཙུགས་ཡོད་མི་གནས་སྡུད་ལུ་བརྡ་དོན་དམིགས་བསལ། ཨེབ་བཙུགས་ཡིག་སྣོད་ཅིག་སྒྲ་བཟུང་ཡོད་པའི་སྐབས་་གཟུགས་བརྙན་འདི་གི་དོན་ལྡན་ནུས་ཅན་རྒྱ་ཚད་འདི་ངོ་རྟགས་འདི་ནང་སྒྲ་བཟུང་འབད་ཡོདཔ་ བར་་ཤབས་་གནས་སྡུད་ཡང་ན་ལོག་འགོ་བཙུགས་རྟགས་བཀོད་པ་ཅིག་མེད་ཡོད་རུང་་དགོཔ་ཨིན། ངོ་རྟགས་འདི་ཨེབ་བཙུགས་བཤོལ་ཡིག་སྣོད་ཅིག་ནང་མེད་པ་དགོཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:469
+msgid "Pixel Y Dimension"
+msgstr "པིག་སེལ་ཝའི་མཚོན་གྲངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:469
+msgid "Information specific to compressed data. When a compressed file is recorded, the valid height of the meaningful image must be recorded in this tag, whether or not there is padding data or a restart marker. This tag should not exist in an uncompressed file. Since data padding is unnecessary in the vertical direction, the number of lines recorded in this valid image height tag will in fact be the same as that recorded in the SOF."
+msgstr "ཨེབ་བཙུགས་ཡོད་མི་གནས་སྡུད་ལུ་བརྡ་དོན་གསལ་བཀོད་འབད། ཨེབ་བཙུགས་ཡོད་མི་ཡིག་སྣོད་ཅིག་སྒྲ་བཟུང་འབད་ཡོདཔ་ད་བར་ཤབས་གནས་སྡུད་ཡང་ན་ལོག་འགོ་བཙུགས་རྟགས་བཀོད་པ་འདི་ཨིན་རུང་མེན་རུང་ ངོ་རྟགས་འདི་ནང་དོན་ལྡན་གཟུགས་བརྙན་འདི་གི་ནུས་ཅན་མཐོ་ཚད་སྒྲ་བཟུང་འབད་དགོཔ་ཨིན། ངོ་རྟགས་འདི་ཨེབ་བཙུགས་བཤོལ་ཡིག་སྣོད་ཅིག་ནང་མེདཔ་དགོཔ་ཨིན། གནས་སྡུད་བར་ཤབས་འདི་ཀེར་ཕྲང་བཀོད་རྒྱ་འདི་ནང་ཉེར་མཁོ་མེདཔ་ལས་ཚུར་ནུས་ཅན་གཟུགས་བརྙན་མཐོ་ཚད་ངོ་རྟགས་འདི་ནང་སྒྲ་བཟུང་འབད་ཡོད་མི་གྱལ་ཚུ་གི་ཨང་འདི་ ཨེསི་ཨོ་ཨེཕ་འདི་ནང་སྒྲ་བཟུང་འབད་ཡོད་མི་བཟུམ་སྦེ་ཅོག་འཐདཔ་འོངམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:474
+msgid "Planar Configuration"
+msgstr "པ་ལ་ནར་རིམ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:474
+msgid "Indicates whether pixel components are recorded in a chunky or planar format. In JPEG compressed files a JPEG marker is used instead of this tag. If this field does not exist, the TIFF default of 1 (chunky) is assumed."
+msgstr "པིག་སེལ་ཆ་ཤས་ཚུ་ཅང་ཀི་ཅིག་ཡང་ན་པ་ལ་ནར་་ནང་སྒྲ་བཟུང་ཡོད་རུང་མེད་རུང་བརྡ་སྟོནམ་ཨིན། ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་ཡོད་མི་ཡིག་སྣོད་ཚུ་ནང་ངོ་རྟགས་འདི་གི་ཚབ་མ་ཇེ་པི་ཨི་ཇི་རྟགས་བཀོད་པ་འདི་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན། ས་སྒོ་འདི་མེད་པ་ཅིན་ (ཅང་ཀི་)༡ གི་ ཊི་ཨའི་ཨེཕ་ཨེཕ་སྔོན་སྒྲིག་འདི་ཚོད་དཔག་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:479
+msgid "Primary Chromaticities"
+msgstr "གཞི་རིམ་ཀོརོ་མ་ཊིསི་ཊིསི།"
+
+#: ../src/tags/gnome-cmd-tags.c:479
+msgid "The chromaticity of the three primary colors of the image. Normally this tag is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
+msgstr "གཟུགས་བརྙན་འདི་གི་གཞི་རིམ་ཚོས་གཞི་གསུམ་ཚུ་གི་ཀོརོམ་ཊིསི་ཊི་འདི།  སྤྱིར་བཏང་གི་ངོ་རྟགས་འདི་ཉེར་མཁོ་མེདཔ་ལས་ཚུར་ཚོས་གཞི་བར་སྟོང་འདི་ <Exif.ColorSpace> ངོ་རྟགས་འདི་ནང་གསལ་བཀོད་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:484
+msgid "Reference Black/White"
+msgstr "གཞི་བསྟུན་གནགཔོ/དཀརཔོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:484
+msgid "The reference black point value and reference white point value. No defaults are given in TIFF, but the values below are given as defaults here. The color space is declared in a color space information tag, with the default being the value that gives the optimal image characteristics Interoperability these conditions."
+msgstr "གཞི་བསྟུན་གནགཔོ་རྩེ་གནས་གོང་དང་གཞི་བསྟུན་དཀརཔོ་རྩེ་གནས་གོང་འདི། ཊི་ཨའི་ཨེཕ་ཨེཕ་ནང་སྔོན་སྒྲིག་ཚུ་མ་བྱིན་པར་ཡོད་ ཨིན་རུང་འོག་ལུ་གནས་གོང་ཚུ་སྔོན་སྒྲིག་བཟུམ་སྦེ་བྱིན་ཡོདཔ་ཨིན། ཚོས་གཞི་བར་སྟོང་འདི་ཚོས་གཞི་བར་སྟོང་བརྡ་དོན་ངོ་རྟགས་ཅིག་ནང་གསལ་བསྒྲགས་འབད་ཡོདཔ་དང་གཅིག་ཁར་སྔོན་སྒྲིག་འདི་གནས་གོང་དེ་གནས་སྟངས་འདི་ཚུ་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་གཟུགས་བརྙན་ཡིག་འབྲུ་ཚུ་གང་དྲག་བྱིནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:489
+msgid "Related Image File Format"
+msgstr "འབྲེལ་བ་ཡོད་མི་གཟུགས་བརྙན་ཡིག་སྣོད་རྩ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:494
+msgid "Related Image Length"
+msgstr "འབྲེལ་བ་ཡོད་མི་གཟུགས་བརྙན་རིང་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:499
+msgid "Related Image Width"
+msgstr "འབྲེལ་བ་ཡོད་མི་གཟུགས་བརྙན་རྒྱ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:504
+msgid "Related Sound File"
+msgstr "འབྲེལ་བ་ཡོད་མི་སྒྲ་སྐད་ཡིག་སྣོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:504
+msgid "This tag is used to record the name of an audio file related to the image data. The only relational information recorded here is the Exif audio file name and extension (an ASCII string consisting of 8 characters + '.' + 3 characters). The path is not recorded. When using this tag, audio files must be recorded in conformance to the Exif audio format. Writers are also allowed to store the data such as Audio within APP2 as FlashPix extension stream data. Audio files must be recorded in conformance to the Exif audio format. If multiple files are mapped to one file, the above format is used to record just one audio file name. If there are multiple audio files, the first recorded file is given. When there are three Exif audio files \"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple relational information, a variety of playback possibilities can be supported. The method of using relational information is left to the implementation on the playback side. Since this information is an ASCII character string, it is terminated by NULL. When this tag is used to map audio files, the relation of the audio file to image data must also be indicated on the audio file end."
+msgstr "ངོ་རྟགས་འདི་གཟུགས་བརྙན་གནས་སྡུད་འདི་ལུ་རྣར་ཉན་ཡིག་སྣོད་འབྲེལ་བའི་མིང་འདི་སྒྲ་བཟུང་འབད་ནི་ལུ་ལག་ལེན་འཐབ་བཏུབ་ཨིན།  མཚུངས་གྲངས་བརྡ་དོན་སྒྲ་བཟུང་འབད་ཡོད་མི་རྐྱངམ་ཅིགཔ་འདི་ཨི་ཨེགསི་ཨའི་ཨེཕ་རྣར་ཉན་མིང་དང་རྒྱ་བསྐྱེད་ (ཨེ་ཨེསི་སི་ཨའི་ཨའི་ཡིག་རྒྱུན་ཡིག་འབྲུ་ ༨ གི་རིམ་མཐུན་འབད་མི་ + '.' + ཡིག་འབྲུ་ ༣ )ཨིན།  འགྲུལ་ལམ་འདི་སྒྲ་བཟུང་འབད་མེདཔ།  ངོ་རྟགས་འདི་ལག་ལེན་འཐབ་པའི་སྐབས་རྣར་་ཉན་ཡིག་སྣོད་ཚུ་ཨི་ཨེགསི་ཨའི་ཨེཕ་རྣར་ཉན་རྩ་སྒྲིག་འདི་ལུ་ཀོན་ཕོ་མེནསི་ནང་སྒྲ་བཟུང་འབད་དགོཔ་ཨིན། རྩོམ་འབྲི་པ་ཚུ་ཡང་རིབ་སྟོན་པར་རྒྱ་བསྐྱེད་རྒྱུན་རིམ་གནས་སྡུད་བཟུམ་སྦེ་ ༢ཨེ་པི་པི་ ནང་འཁོད་རྣར་ཉན་བཟུམ་སྦེ་གནས་སྡུད་འདི་གསགོ་འཇོག་འབད་བཅུགཔ་ཨིན།  རྣར་ཉན་ཡིག་སྣོད་ཚུ་ཨི་ཨེགསི་ཨའི་ཨེཕ་རྣར་ཉན་རྩ་སྒྲིག་་འདི་ལུ་ཀོན་ཕོ་མེནསི་ནང་སྒྲ་བཟུང་འབད་དགོཔ་ཨིན།  སྣ་མང་ཡིག་སྣོད་ཚུ་ཡིག་སྣོད་གཅིག་ལུ་ས་ཁྲ་བཟོ་ཡོད་པ་ཅིན་ ལྟག་གི་རྩ་སྒྲིག་འདི་རྣར་་ཉན་ཡིག་སྣོད་མིང་གཅིག་སྒྲ་བཟུང་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།  སྣ་མང་ཡིག་སྣོད་ཚུ་ཡོད་པ་ཅིན་ དང་པ་སྒྲ་བཟུང་འབད་ཡོད་མི་ཡིག་སྣོད་འདི་གྲ་སྒྲིག་ཡོདཔ་ཨིན།  ཨི་ཨེགསི་ཨའི་ཨི་ཨེཕ་རྣར་ཉན་ཡིག་སྣོད་ཚུ་ཡོད་པ་ཅིན་ \"SND00001.WAV\" \"SND00002.WAV\" དང་\"SND00003.WAV\"ཁོང་གི་དོན་ལུ་གཟུགས་བརྙན་ཡིག་སྣོད་མིང་འདི་ \"DSC00001.JPG\"བརྡ་སྟོནམ་ཨིན།  སྣ་མང་མཚུངས་གྲངས་བརྡ་དོན་མཉམ་བསྡོམས་དེ་གིས་གླུ་གཞས་གཏང་ཡོད་མི་གི་འདྲ་མིན་སྣ་ཚོགས་ཅིག་རྒྱབ་སྐྱོར་འབད་བཏུབ་ཨིན།  མཐུན་ལམ་བརྡ་དོན་ལག་ལེན་འཐབ་ནི་གི་ཐབས་ལམ་འདི་གླུ་གཞས་གཏང་མི་ས་ཁོངས་འདི་གུ་བསྟར་སྤྱོད་འདི་ལུ་བཀོད་བཞག་ཡོདཔ་ཨིན། བརྡ་དོན་འདི་ཨེ་ཨེསི་སི་ཨའི་ཨའི་ཡིག་འབྲུ་ཡིག་རྒྱུན་ཨིནམ་ལས་ཚུར་ སྟོང་ཆ་གིས་རྩ་གྲོལ་གཏང་ཡོདཔ་ཨིན།  ངོ་རྟགས་འདི་རྣར་ཉན་ཡིག་སྣོད་ཚུ་ས་ཁྲ་བཟོ་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ད་ རྣར་ཉན་ཡིག་སྣོད་གཟུགས་བརྙན་གནས་སྡུད་ལུ་འབྲེལ་བ་འདི་རྣར་ཉན་ཡིག་སྣོད་མཇུག་འདི་གུ་བརྡ་སྟོན་དགོཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:509
+msgid "Resolution Unit"
+msgstr "ཧུམ་ཆ་ཕྲན།"
+
+#: ../src/tags/gnome-cmd-tags.c:509
+msgid "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is designated."
+msgstr "ཆ་ཕྲན་འདི་གི་དོན་ལུ་ <Exif.XResolution> དང་ <Exif.YResolution>འཇལ་ནི་དོན་ལུ་ཨིན། ཆ་ཕྲན་ཅོག་འཐདཔ་འདི་ <Exif.XResolution> དང་ <Exif.YResolution>གཉིས་ཆ་རང་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན། གཟུགས་བརྙན་ཧུམ་ཆ་འདི་མ་ཤེས་པ་ཅིན་ (ཨིན་ཅེས་ཚུ་)༢ བཀོད་སྒྲིག་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:514
+msgid "Rows per Strip"
+msgstr "བཤུབ་རེའི་གྱལ་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:514
+msgid "The number of rows per strip. This is the number of rows in the image of one strip when an image is divided into strips. With JPEG compressed data this designation is not needed and is omitted."
+msgstr "བཤུབ་རེ་གྱལ་ཚུ་གི་ཨང་འདི། གཟུགས་བརྙན་ཅིག་བཤུབ་ཚུའི་ནང་བགོ་ཡོད་པའི་སྐབས་བཤུབ་གཅིག་གི་གཟུགས་བརྙན་འདི་ནང་གྱལ་ཚུ་གི་ཨང་འདི་ཨིན། ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་ཡོད་མི་གནས་སྡུད་དང་གཅིག་ཁར་གོ་གནས་འདི་མ་དགོཔ་ལས་སྐྱུར་བཞག་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:519
+msgid "Samples per Pixel"
+msgstr "པིག་སེལ་རེའི་དཔེ་ཚད་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:519
+msgid "The number of components per pixel. Since this standard applies to RGB and YCbCr images, the value set for this tag is 3. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr "པིག་སེལ་རེ་རེ་ཆ་ཤས་ཚུ་གི་ཨང་འདི། ཨར་ཇི་བི་དང་ཝའི་སི་བི་སི་ཨར་གཟུགས་བརྙན་ཚུ་ལུ་ཚད་ལྡན་འདི་འཇུག་སྤྱོད་འབདཝ་ལས་ཚུར་་ ངོ་རྟགས་འདི་གི་དོནལུ་གཞི་སྒྲིག་འབད་མི་གནས་གོང་འདི་ ༣ ཨིན། ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་གནས་སྡུད་ནང་ངོ་རྟགས་འདི་གི་ཚབ་མ་ཇེ་པི་ཨི་ཇི་རྟགས་བཀོད་པ་ཅིག་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:524
+msgid "Saturation"
+msgstr "མཐའ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:524
+msgid "This tag indicates the direction of saturation processing applied by the camera when the image was shot."
+msgstr "ངོ་རྟགས་འདི་གིས་གཟུགས་བརྙན་འདི་བཏབ་པའི་སྐབས་པར་ཆས་ཀྱིས་འཇུག་སྤྱོད་འབད་ཡོད་མི་མཐའ་ཚད་ལས་སྦྱོར་གྱི་ཕྱོགས་འདི་་བརྡ་སྟོནམ་ཨིན། "
+
+#: ../src/tags/gnome-cmd-tags.c:529
+msgid "Scene Capture Type"
+msgstr "འཆར་སྣང་འཛིན་བཟུང་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:529
+msgid "This tag indicates the type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <Exif.SceneType> tag."
+msgstr "ངོ་རྟགས་འདི་གིས་པར་བཏབ་ཡོད་མི་འཆར་སྣང་གི་དབྱེ་བ་འདི་བརྡ་སྟོནམ་ཨིན། འདི་ཡང་གཟུགས་བརྙན་དེ་བཏབ་ཡོད་མི་ནང་ཐབས་ལམ་འདི་སྒྲ་བཟུང་་ནི་ལུ་ལག་ལེན་འཐབ་བཏུབ་ཨིན། དྲན་འཛིན་ དེ་ངོ་རྟགས་ལས་ <Exif.SceneType> སོ་སོ་འགྱུར་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:534
+msgid "Scene Type"
+msgstr "འཆར་སྣང་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:534
+msgid "Indicates the type of scene. If a DSC recorded the image, this tag value must always be set to 1, indicating that the image was directly photographed."
+msgstr "འཆར་སྣང་གི་དབྱེ་བ་འདི་བརྡ་སྟོནམ་ཨིན། ཌི་ཨེསི་སི་ཅིག་གིས་གཟུགས་བརྙན་འདི་སྒྲ་བཟུང་ཡོད་པ་ཅིན་ གཟུགས་བརྙན་དེ་ཐད་ཀར་དུ་ཕོ་ཊོ་གར་ཕབཌི་བརྡ་སྟོན་དེ་ངོ་རྟགས་གནས་གོང་འདི་ཨ་རྟག་རང་ ༡ ལུ་གཞི་སྒྲིག་འབད་དགོཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:539
+msgid "Sensing Method"
+msgstr "ཚོར་འཕྲུལ་ཐབས་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:539
+msgid "Indicates the image sensor type on the camera or input device."
+msgstr "པར་ཆས་ཡང་ན་ཨིན་པུཊི་ཐབས་འཕྲུལ་འདི་གུ་གཟུགས་བརྙན་ཚོར་འཕྲུལ་དབྱེ་བ་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:544
+msgid "Sharpness"
+msgstr "རྣོ་ཅན་གྱི་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:544
+msgid "This tag indicates the direction of sharpness processing applied by the camera when the image was shot."
+msgstr "ངོ་རྟགས་འདི་གིས་གཟུགས་བརྙན་འདི་བཏབ་པའི་སྐབས་པར་ཆས་ཀྱིས་འཇུག་སྤྱོད་འབད་ཡོད་མི་རྣོ་ཅན་ལས་སྦྱོར་གྱི་བཀོད་རྒྱ་འདི་བརྡ་སྟོནམ་ཨིན། "
+
+#: ../src/tags/gnome-cmd-tags.c:549
+msgid "Shutter speed"
+msgstr "འགེབས་བྱེད་མགྱོགས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:549
+msgid "Shutter speed. The unit is the APEX (Additive System of Photographic Exposure) setting."
+msgstr "འགེབས་བྱེད་མགྱོགས་ཚད། ཆ་ཕྲན་འདི་ཨེ་པི་ཨི་ཨེགསི་(ཕོ་ཊོ་ག་ར་ཕིཀ་མདངས་ཕོག་གི་བསྡོམས་བཏུབ་རིམ་ལུགས)སྒྲིག་སྟངས་འདི་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:554
+#: ../src/tags/gnome-cmd-tags.c:1179
+msgid "Software"
+msgstr "མཉེན་ཆས།"
+
+#: ../src/tags/gnome-cmd-tags.c:554
+msgid "This tag records the name and version of the software or firmware of the camera or image input device used to generate the image. When the field is left blank, it is treated as unknown."
+msgstr "ངོ་རྟགས་འདི་གིས་གཟུགས་བརྙན་འདི་བཟོ་བཏོན་འབད་ནི་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་པར་ཆས་ཡང་གཟུགས་བརྙན་ཨིན་པུཊི་ཐབས་འཕྲུལ་གྱི་མཉེན་ཆས་ཡང་ན་ཚོང་ལས་ཁང་གི་ཅ་ཆས་ཀྱི་མིང་དང་ཐོན་རིམ་འདི་སྒྲ་བཟུངམ་ཨིན། ས་སྒོ་འདི་སྟོངམ་སྦེ་བཞགཔ་ད་འདི་མ་ཤེསཔ་སྦེ་བརྩི་འཇོག་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:559
+msgid "Spatial Frequency Response"
+msgstr "སྟོང་ཆའི་འབྱུང་ཐེངས་ལན།"
+
+#: ../src/tags/gnome-cmd-tags.c:559
+msgid "This tag records the camera or input device spatial frequency table and SFR values in the direction of image width, image height, and diagonal direction, as specified in ISO 12233."
+msgstr "ངོ་རྟགས་འདི་གིས་པར་ཆས་དང་ཨིན་པུཊི་ཐབས་འཕྲུལ་འབྱུང་ཐེངས་ཐིག་ཁྲམ་་དང་ ཨའི་ཨེསི་ཨོ་ ༡༢༢༣༣ ནང་གསལ་བཀོད་འབད་ཡོད་མི་བཟུམ་གཟུགས་བརྙན་རྒྱ་ཚད་ཀྱི་བཀོད་རྒྱ་ གཟུགས་བརྙན་གྱི་མཐོ་ཚད་ དང་གསེག་ཐིག་ཅན་བཀོད་རྒྱའི་ཕྱོགས་ནང་ཨེསི་ཨེཕ་ཨར་གནས་གོང་ཚུ་སྒྲ་བཟུངམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:564
+msgid "Spectral Sensitivity"
+msgstr "སྟོང་ཆའི་ཉེན་ཁ་ཅན།"
+
+#: ../src/tags/gnome-cmd-tags.c:564
+msgid "Indicates the spectral sensitivity of each channel of the camera used."
+msgstr "པར་ཆས་འདི་ལག་ལེན་འཐབ་ཡོད་མི་གི་རྒྱུན་ལམ་རེ་རེ་གི་སི་པིཊིརེལ་ཉེན་ཁ་ཅན་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:569
+msgid "Strip Byte Count"
+msgstr "བཤུབ་བཱའིཊི་གྱངས་རྐྱབས།"
+
+#: ../src/tags/gnome-cmd-tags.c:569
+msgid "The total number of bytes in each strip. With JPEG compressed data this designation is not needed and is omitted."
+msgstr "བཤུབ་རེ་རེ་ནང་བཱའིཊིསི་གི་ཨང་ཕསྡོམས་འདི། ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་ཡོད་མི་གནས་སྡུད་དང་གཅིག་ཁར་གོ་གནས་འདི་མི་དགོཔ་ལས་སྐྱུར་བཞག་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:574
+msgid "Strip Offsets"
+msgstr "བཤུབ་པར་ལེན་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:574
+msgid "For each strip, the byte offset of that strip. It is recommended that this be selected so the number of strip bytes does not exceed 64 Kbytes. With JPEG compressed data this designation is not needed and is omitted."
+msgstr "བཤུབ་དེ་གི་བཱའིཊི་པར་ལེན་འདི་བཤུབ་རེ་རེ་དོན་ལུ། བཱའིཊིསི་བཤུབ་གིས་ཀེ་བཱའིཊིསི་ ༦༤ ལྷག་ནི་མེད་མི་ཨང་་སེལ་འཐུ་འབད་ཡོདཔ་སྦེ་འོས་སྦྱོར་འབད་ཡོདཔ་ཨིན། ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་གནས་སྡུད་དང་གཅིག་ཁར་གོ་གནས་འདི་མི་དགོཔ་ལས་སྐྱུར་བཞག་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:579
+msgid "Sub IFD Offsets"
+msgstr "ཨའི་ཨེཕ་ཌི་པར་ལེན་ཡན་ལག་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:579
+msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
+msgstr "ཊི་ཨའི་ཨེཕ་ཨེཕ་ཡིག་སྣོད་ནང་འཁོད་རྩ་བའི་ཊི་ཨའི་ཨེཕ་ཨེཕ་ལྕོགས་ཅན་ལུ་ཨེ་ཌོ་བི་ལས་ཁང་གིས་ངེས་འཛིན་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:584
+msgid "Subject Area"
+msgstr "དོན་ཚན་མངའ་ཁོངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:584
+msgid "This tag indicates the location and area of the main subject in the overall scene."
+msgstr "ངོ་རྟགས་འདི་གིས་གནས་ཁོངས་དང་འཆར་སྣང་སྤྱིར་བསྡོམས་འདི་ནང་དོན་ཚན་གཙོ་བོ་འདི་གི་མངའ་ཁོངས་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:589
+msgid "Subject Distance"
+msgstr "དོན་ཚན་གྱང་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:589
+msgid "The distance to the subject, given in meters."
+msgstr "མི་ཊར་ཚུ་ནང་བྱིན་ཡོད་མི་དོན་ཚན་འདི་ལུ་གྱང་ཚད་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:594
+msgid "Subject Distance Range"
+msgstr "དོན་ཚན་གྱང་ཚད་ཁྱབ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:594
+msgid "This tag indicates the distance to the subject."
+msgstr "ངོ་རྟགས་འདི་གིས་དོན་ཚན་འདི་ལུ་གྱང་ཚད་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:599
+msgid "Subject Location"
+msgstr "དོན་ཚན་གནས་ཁོངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:599
+msgid "Indicates the location of the main subject in the scene. The value of this tag represents the pixel at the center of the main subject relative to the left edge, prior to rotation processing as per the <Exif.Rotation> tag. The first value indicates the X column number and second indicates the Y row number."
+msgstr "འཆར་སྣང་ནང་དོན་ཚན་གཙོ་བོ་འདི་གི་གནས་ཁོངས་འདི་བརྡ་སྟོནམ་ཨིན། ངོ་རྟགས་འདི་གི་གནས་གོང་འདི་གིས་<Exif.Rotation>ངོ་རྟགས་འདི་རེ་སྦེ་ལས་སྦྱོར་སྒྱིར་ནི་ལུ་གོང་ལུ་མཐའམ་གཡོན་འདི་ལུ་འབྲེལ་བ་ཡོད་པའི་དོན་ཚན་གཙོ་བོ་འདི་གི་དབུས་ལུ་པིག་སེལ་འདི་ཁྱད་ཚབ་འབདཝ་ཨིན། གནས་གོང་དང་པམ་འདི་གིས་ཀེར་ཐིག་ཨང་ཨེགསི་་དང་ གཉིས་པམ་འདི་གིས་གྱལ་ཨང་ཝའི་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:604
+msgid "Subsec Time"
+msgstr "དབྱེ་ཚན་ཡན་ལག་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:604
+msgid "A tag used to record fractions of seconds for the <Exif.DateTime> tag."
+msgstr "ངོ་རྟགས་ཅིག་ངོ་རྟགས་འདི་གི་དོན་ལུ་སྐར་ཆག་ཚུ་གི་ <Exif.DateTime> དཔྱ་ཕྲན་ཚུ་གི་སྒྲ་བཟུང་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:609
+msgid "Subsec Time Digitized"
+msgstr "དབྱེ་ཚན་ཡན་ལག་དུས་ཚོད་ཨང་ཡིག་བཟོ་ཡོད་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:609
+msgid "A tag used to record fractions of seconds for the <Exif.DateTimeDigitized> tag."
+msgstr "ངོ་རྟགས་ཅིག་ངོ་རྟགས་འདི་གི་དོན་ལུ་<Exif.DateTimeDigitized> སྐར་ཆག་ཚུ་གི་དཔྱ་ཕྲན་ཚུ་གི་སྒྲ་བཟུང་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:614
+msgid "Subsec Time Original"
+msgstr "དབྱེ་ཚན་ཡན་ལག་དུས་ཚོད་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:614
+msgid "A tag used to record fractions of seconds for the <Exif.DateTimeOriginal> tag."
+msgstr "ངོ་རྟགས་ཅིག་ངོ་རྟགས་འདི་གི་དོན་ལུ་ <Exif.DateTimeOriginal> སྐར་ཆག་ཚུ་གི་དཔྱ་ཕྲན་ཚུ་སྒྲ་བཟུང་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:619
+msgid "TIFF/EP Standard ID"
+msgstr "ཊི་ཨའི་ཨེཕ་ཨེཕ/ཨི་པི་ཨའི་ཌི་ཚད་ལྡན།"
+
+#: ../src/tags/gnome-cmd-tags.c:624
+msgid "Transfer Function"
+msgstr "ལས་འགན་གནས་སོར་གཏང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:624
+msgid "A transfer function for the image, described in tabular style. Normally this tag is not necessary, since color space is specified in <Exif.ColorSpace> tag."
+msgstr "རེའུ་མིག་ཅན་བཟོ་རྣམ་ནང་འགྲེལ་བཤད་འབད་ཡོད་མི་གཟུགས་བརྙན་འདི་གི་གནས་སོར་ལས་འགན་ཅིག སྤྱིར་བཏང་གི་ངོ་རྟགས་འདི་ཉེར་མཁོ་མེདཔ་ལས་ཚུར་ ངོ་རྟགས་ནང་ <Exif.ColorSpace> ཚོས་གཞི་བར་སྟོང་གསལ་བཀོད་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:629
+msgid "Transfer Range"
+msgstr "ཁྱབ་ཚད་གནས་སོར་གཏང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:634
+msgid "User Comment"
+msgstr "ལག་ལེན་པའི་བསམ་བཀོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:634
+msgid "A tag for Exif users to write keywords or comments on the image besides those in <Exif.ImageDescription>, and without the character code limitations of the <Exif.ImageDescription> tag. The character code used in the <Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte area at the start of the tag data area. The unused portion of the area is padded with NULL (\"00.h\"). ID codes are assigned by means of registration. The value of CountN is determinated based on the 8 bytes in the character code area and the number of bytes in the user comment part. Since the TYPE is not ASCII, NULL termination is not necessary. The ID code for the <Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may be Undefined. The Undefined name is UndefinedText, and the ID code is filled with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the <Exif.UserComment> tag must have a function for determining the ID code. This function is not required in Exif readers that do not use the <Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is recommended that the ID code be ASCII and that the following user comment part be filled with blank characters [20.H]."
+msgstr "ཨི་ཨེགསི་ཨའི་ཨེཕ་ལག་ལེན་པ་ཚུ་གི་དོན་ལུ་གཙོ་ཚིག་ཚུ་འབྲི་ནི་ཡང་ན་གཞན་ལས་ལྷག་པའི་གཟུགས་བརྙན་འདི་གི་བསམ་བཀོད་ཚུ་ <Exif.ImageDescription>དང་ཡིག་འབྲུ་ཨང་རྟགས་ཚད་མེདཔ་སྦེ་ <Exif.ImageDescription> ངོ་རྟགས་འདི་གི་ཨིན།  ཡིག་འབྲུ་ཨང་རྟགས་ <Exif.UserComment> ངོ་རྟགས་འདི་ནང་ལག་ལེན་འཐབ་ཡོད་མི་འདི་ངོ་རྟགས་གནས་སྡུད་མངའ་ཁོངས་འདི་གི་འགོ་བཙུགས་ལུ་ མངའ་ཁོངས་བཱའིཊི་ ༨་གཏན་བཟོ་ཡོད་མི་ཅིག་ནང་ཨའི་ཌི་ཨང་རྟགས་ཅིག་གུ་གཞི་བཞག་ཐོག་ལས་ངོས་འཛིན་འབད་ཡོདཔ་ཨིན།   མངའ་ཁོངས་འདི་གི་ལག་ལེན་བཤོལ་སྙོམས་ཚད་འདི་སྟོང་ཆ་དང་གཅིག་ཁར་བར་ཤབས་ཡོདཔ་ཨིན (\"00.h\")། ཨའི་ཌི་ཨང་རྟགས་ཚུ་ཐོ་འགོད་ཀྱི་འབད་འགན་སྤྲོད་ཡོདཔ་ཨིན། གྱངས་ཁ་རྐྱབས་ཨེན་གྱི་གནས་གོང་འདི་ཡིག་འབྲུ་ཨང་རྟགས་མངའ་ཁོངས་འདི་ནང་བཱའིཊིསི་ ༨ འདི་གུ་་དང་ ལག་ལེན་པ་བསམ་བཀོད་ཡན་ལག་འདི་ནང་བཱའིཊིསི་གི་ཨང་འདི་གཞི་བཞག་ཐོག་ལས་གཏན་འབེབས་བཟོ་ཡོདཔ་ཨིན།  དབྱེ་བ་འདི་ཨེ་ཨེསི་སི་ཨའི་ཨའི་མེན་པ་ལས་ཚུར་ སྟོང་ཆ་རྩ་གྲོལ་འདི་ཉེར་མཁོ་མེད། མངའ་ཁོངས་འདི་གིས་དོན་ལུ་ <Exif.UserComment> ཨའི་ཌི་ཨང་རྟགས་འདི་ཇེ་ཨའི་ཨེསི་ཡང་ན་ཨེ་ཨེསི་སི་ཨའི་ཨའི་སྦེ་ཨང་རྟགས་ངེས་འཛིན་འབད་ཡོདཔ་ཡང་ན་ངེས་འཛིན་བཤོལ་མེདཔ་ཨིན། ངེས་འཛིན་བཤོལ་མིང་འདི་ངེས་འཛིན་བཤོལ་ཚིག་ཡིག་ དང་ཨའི་ཌི་ཨང་རྟགས་འདི་བཱའིཊིསི་༨ དང་གཅིག་ཁར་བཀང་ཡོདཔ་ཨིན\"NULL\" (\"00.H\")། ཨི་ཨེགསི་ཨའི་ཨེཕ་ལྷག་མི་ངོ་རྟགས་འདི་ <Exif.UserComment> ལྷག་མི་འདི་ཨའི་ཌི་ཨང་རྟགས་འདི་གཏན་འབེབས་བཟོ་ནི་དོན་ལུ་ལས་འགན་དགོཔ་ཨིན།  ལས་འགན་འདི་ཨི་ཨེགསི་ཨའི་ཨེཕ་ལྷག་མི་ <Exif.UserComment> ངོ་རྟགས་འདི་ལག་ལེན་མ་འཐབ་མི་ནང་དགོས་མཁོ་མེདཔ་ཨིན།  མངའ་ཁོངས་ཅིག་ས་ཁོངས་རུ་གཞི་སྒྲིག་ཡོད་པའི་སྐབས་ ཨའི་ཌི་ཨང་རྟགས་འདི་ཨེ་ཨེསི་སི་ཨའི་ཨའི་སྦེ་འོས་སྦྱོར་འབད་ཡོདཔ་དང་ འོག་གི་ལག་ལེན་པ་བསམ་བཀོད་ཡན་ལག་འདི་<Exif.UserComment> ཡིག་འབྲུ་སྟོངམ་སྦེ་བཀང་བཞག་དགོཔ་ characters [20.H]ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:639
+#: ../src/tags/gnome-cmd-tags.c:1181
+msgid "White Balance"
+msgstr "དཀརཔོ་ཚད་སྙོམས།"
+
+#: ../src/tags/gnome-cmd-tags.c:639
+msgid "The white balance mode set when the image was shot."
+msgstr "གཟུགས་བརྙན་འདི་བཏབ་ཡོད་པའི་སྐབས་ཚད་སྙོམས་ཐབས་ལམ་དཀརཔོ་འདི་གཞི་སྒྲིག་འབད།"
+
+#: ../src/tags/gnome-cmd-tags.c:644
+msgid "White Point"
+msgstr "དཀརཔོ་རྩེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:644
+msgid "The chromaticity of the white point of the image. Normally this tag is not necessary, since color space is specified in <Exif.ColorSpace> tag."
+msgstr "གཟུགས་བརྙན་འདི་གི་དཀརཔོ་ཚད་འདི་གི་ཀོརོམ་ཊིསི་ཊི་འདི། སྤྱིར་བཏང་གི་ངོ་རྟགས་འདི་ཉེར་མཁོ་མེདཔ་ལས་ཚུར་ ངོ་རྟགས་ནང་ <Exif.ColorSpace> ཚོས་གཞི་བར་སྟོང་འདི་གསལ་བཀོད་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:649
+msgid "XML Packet"
+msgstr "ཨེགསི་ཨེམ་ཨེལ་འཕྲིན་ཚན།"
+
+#: ../src/tags/gnome-cmd-tags.c:649
+msgid "XMP Metadata."
+msgstr "ཨེགསི་ཨེམ་པི་མི་ཊ་གནས་སྡུད།"
+
+#: ../src/tags/gnome-cmd-tags.c:654
+msgid "x Resolution"
+msgstr "ཨེགསི་ཧུམ་ཆ།"
+
+#: ../src/tags/gnome-cmd-tags.c:654
+msgid "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> direction. When the image resolution is unknown, 72 [dpi] is designated."
+msgstr "བཀོད་རྒྱ་འདི་ནང་ <Exif.ResolutionUnit> པིག་སེལ་རེ་གི་ <Exif.ImageWidth> ཨང་འདི། གཟུགས་བརྙན་ཧུམ་ཆ་འདི་མ་ཤེསཔ་ཨིན་པ་ཅིན་  [dpi] ༧༢་ འདི་བཀོད་སྒྲིག་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:659
+msgid "YCbCr Coefficients"
+msgstr "ཝའི་སི་བི་སི་ཨར་གྲངས་རྟགས་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:659
+msgid "The matrix coefficients for transformation from RGB to YCbCr image data. No default is given in TIFF; but here \"Color Space Guidelines\" is used as the default. The color space is declared in a color space information tag, with the default being the value that gives the optimal image characteristics Interoperability this condition."
+msgstr "ཨར་ཇི་བི་ལས་ཝའི་སི་བི་སི་ཨར་གཟུགས་བརྙན་གནས་སྡུད་ལུ་བཟོ་བསྒྱུར་འབད་ནི་དོན་ལུ་མེ་ཊེགསི་གྲངས་རྟགས་འདི། ཊི་ཨའི་ཨེཕ་ཨེཕ་ནང་སྔོན་སྒྲིག་གྲ་སྒྲིག་མེད་ཨིན་རུང་ ན་ལུ་\"Color Space Guidelines\" སྔོན་སྒྲིག་བཟུམ་སྦེ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན། ཚོས་གཞི་བར་སྟོང་འདི་ཚོས་གཞི་བར་སྟོང་བརྡ་དོན་ངོ་རྟགས་་དང་གཅིག་ཁར་ སྔོན་སྒྲིག་འདི་གནས་གོང་འབད་གནས་སྟངས་འདི་གཟུགས་བརྙན་ཡིག་འབྲུ་ཚུ་ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་གང་དྲག་སྦེ་བྱིནམ་གསལ་བསྒྲགས་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:664
+msgid "YCbCr Positioning"
+msgstr "ཝའི་སི་བི་སི་ཨར་གནས་ས་བཀོད་ནི།"
+
+#: ../src/tags/gnome-cmd-tags.c:664
+msgid "The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning."
+msgstr "ལུ་མིི་ནེནསི་ཆ་ཤས་འདི་ལུ་འབྲེལ་བའི་ཀོརོ་མི་ནེནསི་ཆ་ཤས་ཚུ་གི་གནས་ས་འདི།  ས་སྒོ་འདི་ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་ཡོད་མི་གནས་སྡུད་ཡང་ན་ཝའི་སི་བི་སི་ཨར་གནས་སྡུད་ཨེབ་བཙུགས་བཤོལ་དོན་ལུ་བཀོད་སྒྲིག་འབད་ཡོདཔ་ཨིན། ཊི་ཨའི་ཨེཕ་ཨེཕ་སྔོན་སྒྲིག་འདི་  (དབུས་སྒྲིག)༡ ཨིན་རུང་  ཝའི་:སི་བི་:སི་ཨར་ = ༤:༢:༢  འདི་གནས་སྡུད་སྒྲ་བཟུང་ནི་ལུ་ལག་ལེན་འཐབ་ནི་ ༢(སི་ཨོ་-ས་ཁོངས།)་ ཊི་ཝི་རིམ་ལུགས་ཚུ་གུ་བལྟ་བའི་སྐབས་གཟུགས་བརྙན་སྤུས་ཚད་འདི་ལེགས་བཟོ་འབད་ནི་དོན་ལུ་འོས་སྦྱོར་འབད་ཡོདཔ་ཨིན། ས་སྒོ་འདི་མེདཔ་ད་ལྷག་མི་འདི་གིས་ཊི་ཨའི་ཨེཕ་ཨེཕ་སྔོན་སྒྲིག་འདི་ཚོད་དཔག་འོང་། གནད་དོན་འདི་ནང་ ཝའི་:སི་བི་:སི་ཨར་ = ༤:༢:༠  ཊི་ཨའི་ཨེཕ་ཨེཕ་སྔོན་སྒྲིག་ (དབུས་སྒྲིག) འདི་འོས་སྦྱོར་འབད་ཡོདཔ་ཨིན།  ལྷག་མི་འདི་ལུ་ <Exif.YCbCrPositioning>གི་དབྱེ་བ་གཉིས་ཆ་རང་རྒྱབ་སྐྱོར་འབད་ནི་གི་ལྕོགས་གྲུབ་མེད་པ་ཅིན་ དེ་ལས་ས་སྒོ་འདི་ནང་གནས་གོང་འདི་གི་ཊི་ཨའི་ཨེཕ་ཨེཕ་སྔོན་སྒྲིག་དབྱེ་བ་མེད་པར་རྗེས་སུ་འབྲང་དགོཔ་ཨིན།  ལྷག་མི་ཚུ་གིས་དབུས་སྒྲིག་དང་སི་ཨོ་ས་ཁོངས་གནས་ས་བཀོད་ནི་གཉིས་ཆ་རང་རྐྱབ་སྐྱོར་འབད་ནི་ལུ་དགའ་བཏུབ་ཚུགསཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:669
+msgid "YCbCr Sub-Sampling"
+msgstr "ཝའི་སི་བི་སི་ཨར་དཔེ་ཚད་ཡན་ལག"
+
+#: ../src/tags/gnome-cmd-tags.c:669
+msgid "The sampling ratio of chrominance components in relation to the luminance component. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr "འོད་ཤུགས་ཆ་ཤས་འདི་ལུ་འབྲེལ་བ་ཡོད་མི་ནང་ཀོརོ་མའིནསི་གི་དཔེ་ཚད་དཔྱ་ཚད་འདི། ཇེ་པི་ཨི་ཇི་ཨེབ་བཙུགས་ཡོད་མི་གནས་སྡུད་ནང་ངོ་རྟགས་འདི་གི་ཚབ་མ་ཇེ་པི་ཨི་ཇི་རྟགས་བཀོད་པ་ཅིག་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:674
+msgid "y Resolution"
+msgstr "ཝའི་ཧུམ་ཆ།"
+
+#: ../src/tags/gnome-cmd-tags.c:674
+msgid "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> direction. The same value as <Exif.XResolution> is designated."
+msgstr "བཀོད་རྒྱ་འདི་ནང་པིག་སེལ་རེ་གི་ <Exif.ResolutionUnit> ཨང་ <Exif.ImageLength> འདི།  གནས་གོང་ཅོག་འཐདཔ་ <Exif.XResolution> བཀོད་སྒྲིག་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:679
+msgid "Accessed"
+msgstr "འཛུལ་སྤྱོད་འབད་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:679
+msgid "Last access datetime."
+msgstr "མཇུག་འཛུལ་སྤྱོད་འབད་ཡོད་མི་ཚེས་གྲངས་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:680
+msgid "Content"
+msgstr "ནང་དོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:680
+msgid "File's contents filtered as plain text."
+msgstr "ཡིག་སྣོད་ཀྱི་ནང་དོན་ཚུཚིག་ཡིག་ཉག་རྐྱང་སྦེ་ཚགས་མ་བཟོ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:681
+#: ../src/tags/gnome-cmd-tags.c:1168
+msgid "Description"
+msgstr "འགྲེལ་བཤད།"
+
+#: ../src/tags/gnome-cmd-tags.c:681
+msgid "Editable free text/notes."
+msgstr "ཞུན་དག་འབད་བཏུབ་མི་ཚིག་ཡིག/དྲན་འཛིན་རང་དབང་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:682
+msgid "MIME type of the file or if a directory it should contain value \"Folder\""
+msgstr "ཡིག་སྣོད་འདི་གི་ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ་ཡང་ན་སྣོད་ཐོ་ཅིག་གི་ནང་ན་གནས་གོང་ཡོད་དགོ་པ་ཅིན \"Folder\"།"
+
+#: ../src/tags/gnome-cmd-tags.c:683
+msgid "Icon Path"
+msgstr "ངོས་དཔར་འགྲུལ་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:683
+msgid "Editable file URI for a custom icon for the file."
+msgstr "ཡིག་སྣོད་འདིའི་དོན་ལུ་སྲོལ་སྒྲིག་ངོས་དཔར་ཅིག་གི་དོན་ལུ་ཞུན་དག་འབད་བཏུབ་མི་ཡུ་ཨར་ཨེལ་ཡིག་སྣོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:684
+msgid "Editable array of keywords."
+msgstr "གཙོ་ཚིག་ཚུ་གི་ཞུན་དག་འབད་བཏུབ་མི་ཨེ་རེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:685
+msgid "Large Thumbnail Path"
+msgstr "མཐེ་གཟེར་འགྲུལ་ལམ་སྦོམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:685
+msgid "Editable file URI for a larger thumbnail of the file suitable for previews."
+msgstr "སྔོན་ལྟ་ཚུ་གི་དོན་ལུ་ཡིག་སྣོད་འོས་འབབ་ཅན་གྱི་མཐེ་གཟེར་སྦོམ་མི་ཅིག་གི་དོན་ལུ་ཞུན་དག་འབད་བཏུབ་མི་ཡིག་སྣོད་ཡུ་ཨར་ཨའི།"
+
+#: ../src/tags/gnome-cmd-tags.c:686
+msgid "Link"
+msgstr "འབྲེལ་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:686
+msgid "URI of link target."
+msgstr "འབྲེལ་ལམ་དམིགས་གཏད་ཀྱི་ཡུ་ཨར་ཨེལ།"
+
+#: ../src/tags/gnome-cmd-tags.c:687
+msgid "Modified"
+msgstr "ལེགས་བཅོས་འབད་ཡོད་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:687
+msgid "Last modified datetime."
+msgstr "མཇུག་ལེགས་བཅོས་འབད་ཡོད་མི་ཚེས་གྲངས་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:688
+msgid "File name excluding path but including the file extension."
+msgstr "ཡིག་སྣོད་མིང་གྲངས་ལས་བཏོན་གཏང་ནི་འགྲུལ་ལམ་ཨིན་རུང་ཡིག་སྣོད་རྒྱ་བསྐྱེད་འདི་གྲངས་སུ་བཙུགས་ནི།"
+
+#: ../src/tags/gnome-cmd-tags.c:689
+msgid "Path"
+msgstr "འགྲུལ་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:689
+msgid "Full file path of file excluding the filename."
+msgstr "ཡིག་སྣོད་གྲངས་ལས་བཏོན་གཏང་མི་ཡིག་སྣོད་མིང་འདི་གི་ཡིག་སྣོད་འགྲུལ་ལམ་གངམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:690
+msgid "Permission string in unix format eg \"-rw-r--r--\"."
+msgstr "ཡུ་ནིགསི་རྩ་སྒྲིག་ནང་ཡིག་རྒྱུན་གནང་བ་ དཔེར་ན་ \"-rw-r--r--\"."
+
+#: ../src/tags/gnome-cmd-tags.c:691
+#: ../src/tags/gnome-cmd-tags.c:995
+msgid "Publisher"
+msgstr "དཔར་བསྐྲུན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:691
+msgid "Editable DC type for the name of the publisher of the file (EG dc:publisher field in RSS feed)."
+msgstr "ཡིག་སྣོད་(ཨི་ཇི་ ཌི་སི་:ཨར་ཨེསི་ཨེསི་ཤོག་ཀུ་བཙུགས་ནི་ནང་དཔེ་བསྐྲུན་པ)འདི་གི་དཔེ་བསྐྲུན་པ་འདི་གི་མིང་འདི་གི་དོན་ལུ་ཞུན་དག་འབད་བཏུབ་མི་ཌི་སི་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:692
+msgid "Rank"
+msgstr "ཁྱབ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:692
+msgid "Editable file rank for grading favourites. Value should be in the range 1..10."
+msgstr "དགའ་མི་ཡར་བསྐྱེད་དོན་ལུ་ཞུན་དག་འབད་བཏུབ་མི་ཡིག་སྣོད་རཱན་ཀི། གནས་གོང་འདི་་ཁྱབ་ཚད་ ༡..༡༠ འདི་ནང་དགོཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:693
+#: ../src/tags/gnome-cmd-tags.c:1031
+msgid "Size"
+msgstr "ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:693
+msgid "Size of the file in bytes or if a directory number of items it contains."
+msgstr "བཱའིཊིསི་ནང་ཡིག་སྣོད་ཡང་ན་འདི་ནང་ན་ཡོད་མི་རྣམ་གྲངས་ཚུ་གི་སྣོད་ཐོ་ཨང་ཅིག་་ཡོད་པ་ཅིན་གྱི་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:694
+msgid "Small Thumbnail Path"
+msgstr "མཐེ་གཟེར་འགྲུལ་ལམ་ཆུང་ཀུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:694
+msgid "Editable file URI for a small thumbnail of the file suitable for use in icon views."
+msgstr "ངོས་དཔར་མཐོང་སྣང་ཚུ་ནང་ལག་ལེན་འཐབ་ནི་དོན་ལུ་ཡིག་སྣོད་འོས་འབབ་འདི་གི་མཐེ་གཟེར་ཆུང་ཀུ་ཅིག་གི་དོན་ལུ་ཞུན་དག་འབད་བཏུབ་མི་ཡིག་སྣོད་ཡུ་ཨར་ཨའི།"
+
+#: ../src/tags/gnome-cmd-tags.c:700
+msgid "Album Sort Order"
+msgstr "གླུ་མཛོད་དབྱེ་སེལ་གོ་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:700
+msgid "String which should be used instead of the album name for sorting purposes."
+msgstr "དབྱེ་སེལ་དགོས་དོན་ཚུ་གི་དོན་ལུ་གླུ་མཛོད་མིང་འདི་གི་ཚབ་མ་ལག་ལེན་འཐབ་དགོཔ་ཨིན་མི་ཡིག་རྒྱུན།"
+
+#: ../src/tags/gnome-cmd-tags.c:705
+msgid "Audio Encryption"
+msgstr "རྣར་ཉན་གསང་བཟོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:705
+msgid "Frame indicates if the audio stream is encrypted, and by whom."
+msgstr "གཞི་ཁྲམ་འདི་གིས་རྣར་ཉན་རྒྱུན་རིམ་འདི་གསང་བཟོས་ཡོད་པ་ཅིན་དང་ག་གིས་ཨིན་ན་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:710
+msgid "Audio Seek Point"
+msgstr "རྣར་ཉན་འཚོལ་རྩེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:710
+msgid "Fractional offset within the audio data, providing a starting point from which to find an appropriate point to start decoding."
+msgstr "འགོ་བཙུགས་ཌི་ཀོ་ཌིང་ལུ་འོས་ལྡན་ཚད་ཅིག་འཚོལ་ནི་ལས་འགོ་བཙུགས་ཚད་ཅིག་བྱིན་རྣར་ཉན་གནས་སྡུད་འདིའི་ནང་འཁོད་པར་ལེན་དཔྱ་ཕྲན་ཅན།"
+
+#: ../src/tags/gnome-cmd-tags.c:715
+msgid "Band"
+msgstr "བེནཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:715
+msgid "Additional information about the performers in the recording."
+msgstr "སྒྲ་བཟུང་འབད་ནི་ནང་ལཱ་འགན་འགྲུ་བ་ཚུ་གི་སྐོར་ལས་བརྡ་དོན་ཁ་སྐོང་རྐྱབས་ནི།"
+
+#: ../src/tags/gnome-cmd-tags.c:721
+msgid "BPM"
+msgstr "བི་པི་ཨེམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:721
+msgid "BPM (beats per minute)."
+msgstr "བི་པི་ཨེམ(སྐར་མ་རེ་བིཊིསི་རེ།)"
+
+#: ../src/tags/gnome-cmd-tags.c:726
+msgid "Buffer Size"
+msgstr "གནད་ཁོངས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:726
+msgid "Recommended buffer size."
+msgstr "འོས་སྦྱོར་འབད་ཡོད་མི་གནད་ཁོངས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:731
+msgid "CD ID"
+msgstr "སི་ཌི་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:731
+msgid "Music CD identifier."
+msgstr "སི་ཌི་སྙན་ཆ་ངོས་འཛིན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:736
+msgid "Channel mode"
+msgstr "རྒྱུན་ལམ་ཐབས་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:736
+msgid "Channel mode."
+msgstr "རྒྱུན་ལམ་ཐབས་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:743
+msgid "Commercial"
+msgstr "ཚོང་འབྲེལ།"
+
+#: ../src/tags/gnome-cmd-tags.c:743
+msgid "Commercial frame."
+msgstr "ཚོང་འབྲེལ་གཞི་ཁྲམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:748
+msgid "Composer"
+msgstr "རྩོམ་མཁན།"
+
+#: ../src/tags/gnome-cmd-tags.c:748
+msgid "Composer."
+msgstr "རྩོམ་མཁན།"
+
+#: ../src/tags/gnome-cmd-tags.c:753
+msgid "Conductor"
+msgstr "འགོ་འདྲེན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:753
+msgid "Conductor."
+msgstr "འགོ་འདྲེན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:758
+msgid "Content Group"
+msgstr "ནང་དོན་སྡེ་ཚན།"
+
+#: ../src/tags/gnome-cmd-tags.c:758
+msgid "Content group description."
+msgstr "ནང་དོན་སྡེ་ཚན་འགྲེལ་བཤད།"
+
+#: ../src/tags/gnome-cmd-tags.c:763
+msgid "Content Type"
+msgstr "ནང་དོན་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:768
+msgid "Copyright message."
+msgstr "འདྲ་བཤུས་དབང་ཆ་འཕྲིན་དོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:773
+msgid "Encryption Registration"
+msgstr "གསང་བཟོ་ཐོ་འགོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:773
+msgid "Encryption method registration."
+msgstr "གསང་བཟོ་ཐབས་ལམ་ཐོ་འགོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:778
+msgid "Date."
+msgstr "ཚེས་གྲངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:784
+msgid "Duration [MM:SS]"
+msgstr "དུས་ཡུན[ཨེམ་ཨེམ:ཨེསི་ཨེསི།]"
+
+#: ../src/tags/gnome-cmd-tags.c:784
+msgid "Duration of track as MM:SS."
+msgstr "གླུ་རིམ་གྱི་དུས་ཡུན་ཨེམ་ཨེམ་:ཨེསི་ཨེསི་སྦེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:785
+msgid "Emphasis"
+msgstr "གཙོ་བཏོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:785
+msgid "Emphasis."
+msgstr "གཙོ་བཏོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:786
+msgid "Encoded By"
+msgstr "གིས་ཨིན་ཀོ་ཌིཌི་འབད་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:786
+msgid "Person or organisation that encoded the audio file. This field may contain a copyright message, if the audio file also is copyrighted by the encoder."
+msgstr "རྣར་ཉན་ཡིག་སྣོད་འདི་ཨིན་ཀོཌེཌི་འབད་མི་གང་ཟག་ཡང་ན་འགོ་འདྲེན་འབད་མི། རྣར་ཉན་ཡིག་སྣོད་དེ་ཡང་ཨིན་ཀོ་ཌར་འདི་གིས་འདྲ་བཤུས་དབང་ཆ་ཡོད་པ་ཅིན་ས་སྒོ་འདི་ནང་ན་འདྲ་བཤུས་ཆ་འཕྲིན་དོན་ཅིག་ཡོདཔ་འོང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:791
+msgid "Encoder Settings"
+msgstr "ཨིན་ཀོ་ཌར་སྒྲིག་སྟངས་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:791
+msgid "Software."
+msgstr "མཉེན་ཆས།"
+
+#: ../src/tags/gnome-cmd-tags.c:796
+msgid "Encoding Time"
+msgstr "ཨིན་ཀོ་ཌིང་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:796
+msgid "Encoding time."
+msgstr "ཨིན་ཀོ་ཌིང་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:801
+msgid "Equalization"
+msgstr "མཉམ་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:801
+msgid "Equalization."
+msgstr "མཉམ་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:806
+msgid "Equalization 2"
+msgstr "མཉམ་པ་ ༢།"
+
+#: ../src/tags/gnome-cmd-tags.c:806
+msgid "Equalisation curve predifine within the audio file."
+msgstr "རྣར་ཉན་ཡིག་སྣོད་འདིའི་ནང་འཁོད་མཉམ་ཆ་གུག་གུགཔ་སྔ་གོང་ངེས་འཛིན་འབད་ནི།"
+
+#: ../src/tags/gnome-cmd-tags.c:811
+msgid "Event Timing"
+msgstr "འབྱུང་ལས་དུས་འཛིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:811
+msgid "Event timing codes."
+msgstr "འབྱུང་ལས་དུས་འཛིན་ཨང་རྟགས་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:816
+msgid "File Owner"
+msgstr "ཡིག་སྣོད་བདག་པོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:816
+msgid "File owner."
+msgstr "ཡིག་སྣོད་བདག་པོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:821
+msgid "File Type"
+msgstr "ཡིག་སྣོད་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:821
+msgid "File type."
+msgstr "ཡིག་སྣོད་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:826
+msgid "Frames"
+msgstr "གཞི་ཁྲམ་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:826
+msgid "Number of frames."
+msgstr "གཞི་ཁྲམ་ཚུ་གི་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:827
+msgid "General Object"
+msgstr "དངོས་པོ་ཡོངས་ཁྱབ།"
+
+#: ../src/tags/gnome-cmd-tags.c:827
+msgid "General encapsulated object."
+msgstr "ཡོངས་ཁྱབ་བསྡུས་དོན་བཀོད་ཡོད་མི་དངོས་པོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:833
+msgid "Grouping Registration"
+msgstr "སྡེ་བཟོ་ཐོ་འགོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:833
+msgid "Group identification registration."
+msgstr "སྡེ་ཚན་ངོ་རྟགས་ཐོ་འགོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:838
+msgid "Initial Key"
+msgstr "འགོ་ཐོག་ལྡེ་མིག"
+
+#: ../src/tags/gnome-cmd-tags.c:838
+msgid "Initial key."
+msgstr "འགོ་ཐོག་ལྡེ་མིག"
+
+#: ../src/tags/gnome-cmd-tags.c:843
+msgid "Involved People"
+msgstr "འབྲེལ་བ་ཡོད་མི་མི་མང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:843
+#: ../src/tags/gnome-cmd-tags.c:848
+msgid "Involved people list."
+msgstr "འབྲེལ་བ་ཡོད་མི་མི་མང་ཐོ་ཡིག"
+
+#: ../src/tags/gnome-cmd-tags.c:848
+msgid "InvolvedPeople2"
+msgstr "འབྲེལ་བ་ཡོད་མི་མི་མང་༢།"
+
+#: ../src/tags/gnome-cmd-tags.c:853
+msgid "ISRC"
+msgstr "ཨའི་ཨེསི་ཨར་སི།"
+
+#: ../src/tags/gnome-cmd-tags.c:853
+msgid "ISRC (international standard recording code)."
+msgstr "ཨའི་ཨེསི་ཨར་སི(རྒྱལ་སྤྱི་ཚད་ལྡན་སྒྲ་བཟུང་ཨང་རྟགས།)"
+
+#: ../src/tags/gnome-cmd-tags.c:858
+msgid "Language"
+msgstr "ཁ་སྐད།"
+
+#: ../src/tags/gnome-cmd-tags.c:858
+msgid "Language."
+msgstr "ཁ་སྐད།"
+
+#: ../src/tags/gnome-cmd-tags.c:863
+msgid "Lead Artist"
+msgstr "གླུ་གཞསཔ་འགོ་ཁྲིད།"
+
+#: ../src/tags/gnome-cmd-tags.c:863
+msgid "Lead performer(s)."
+msgstr "ལཱ་འགན་འགྲུབ་མི་འགོ་ཁྲིད(ཨེསི)།"
+
+#: ../src/tags/gnome-cmd-tags.c:868
+msgid "Linked Info"
+msgstr "བརྡ་དོན་འབྲེལ་མཐུད་འབད་ཡོད་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:868
+msgid "Linked information."
+msgstr "བརྡ་དོན་འབྲེལ་མཐུད་འབད་ཡོད་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:873
+msgid "Lyricist"
+msgstr "གླུ་ཚིག་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:873
+msgid "Lyricist."
+msgstr "གླུ་ཚིག་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:878
+msgid "Media Type"
+msgstr "བརྡ་བརྒྱུད་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:878
+msgid "Media type."
+msgstr "བརྡ་བརྒྱུད་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:883
+msgid "Mix Artist"
+msgstr "གླུ་གཞསཔ་སླ་བསྲེ་ནི།"
+
+#: ../src/tags/gnome-cmd-tags.c:883
+msgid "Interpreted, remixed, or otherwise modified by."
+msgstr "ཁ་བསྒྱུར་འབད་ཡོདཔ་ ལོག་སླ་བསྲེ་ཡོད་མི་ ཡང་ན་དེ་མེན་པ་ཅིན་གིས་ལེགས་བཅོས་འབད་ཡོད་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:888
+msgid "Mood"
+msgstr "སེམས་ཀྱི་དཀར་ནག"
+
+#: ../src/tags/gnome-cmd-tags.c:888
+msgid "Mood."
+msgstr "སེམས་ཀྱི་དཀར་ནག"
+
+#: ../src/tags/gnome-cmd-tags.c:893
+msgid "Layer"
+msgstr "བང་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:893
+msgid "MPEG layer."
+msgstr "ཨེམ་པི་ཨི་ཇི་བང་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:894
+msgid "MPEG Lookup"
+msgstr "ཨེམ་པི་ཨི་ཇི་བལྟ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:894
+msgid "MPEG location lookup table."
+msgstr "ཨེམ་པི་ཨི་ཇི་གནས་ཁོངས་བལྟ་བ་ཐིག་ཁྲམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:899
+msgid "MPEG Version"
+msgstr "ཨེམ་པི་ཨི་ཇི་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:899
+msgid "MPEG version."
+msgstr "ཨེམ་པི་ཨི་ཇི་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:900
+msgid "Musician Credit List"
+msgstr "སྙན་ཆ་སྤྲོ་མི་ངོ་བསྟོད་ཐོ་ཡིག"
+
+#: ../src/tags/gnome-cmd-tags.c:900
+msgid "Musician credits list."
+msgstr "སྙན་ཆ་སྤྲོ་མི་ངོ་བསྟོད་ཐོ་ཡིག"
+
+#: ../src/tags/gnome-cmd-tags.c:905
+msgid "Net Radio Owner"
+msgstr "ནེཊེ་རེ་ཌིའོ་བདག་པོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:905
+msgid "Internet radio station owner."
+msgstr "ཨིན་ཊར་ནེཊི་རེ་ཌིའོ་ལྟེ་བ་བདག་པོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:910
+msgid "Net Radiostation"
+msgstr "ནེཊི་རེ་ཌིའོ་ལྟེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:910
+msgid "Internet radio station name."
+msgstr "ཨིན་ཊར་ནེཊི་རེ་ཌིའོ་ལྟེ་བ་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:915
+msgid "Original Album"
+msgstr "གླུ་མཛོད་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:915
+msgid "Original album."
+msgstr "གླུ་མཛོད་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:920
+msgid "Original Artist"
+msgstr "གླུ་གཞསཔ་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:920
+msgid "Original artist."
+msgstr "གླུ་གཞསཔ་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:925
+msgid "Original File Name"
+msgstr "ཡིག་སྣོད་མིང་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:925
+msgid "Original filename."
+msgstr "ཡིག་སྣོད་མིང་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:930
+msgid "Original Lyricist"
+msgstr "གླུ་ཚིག་པ་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:930
+msgid "Original lyricist."
+msgstr "གླུ་ཚིག་པ་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:935
+msgid "Original Release Time"
+msgstr "གསར་སྟོན་དུས་ཚོད་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:935
+msgid "Original release time."
+msgstr "གསར་སྟོན་དུས་ཚོད་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:940
+msgid "Original Year"
+msgstr "ལོ་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:940
+msgid "Original release year."
+msgstr "གསར་སྟོན་ལོ་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:945
+msgid "Ownership"
+msgstr "བདག་དབང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:945
+msgid "Ownership frame."
+msgstr "བདག་དབང་གཞི་ཁྲམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:950
+msgid "Part of a Set"
+msgstr "གཞི་སྒྲིག་ཅིག་གི་ཡན་ལག"
+
+#: ../src/tags/gnome-cmd-tags.c:950
+msgid "Part of a set the audio came from."
+msgstr "ལས་འོང་ཡོད་མི་རྣར་ཉན་འདིའི་གཞི་སྒྲིག་ཅིག་གི་ཡན་ལག"
+
+#: ../src/tags/gnome-cmd-tags.c:955
+msgid "Performer Sort Order"
+msgstr "ལཱ་འགན་འགྲུབ་མི་དབྱེ་སེལ་གོ་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:955
+msgid "Performer sort order."
+msgstr "ལཱ་འགན་འགྲུ་བ་མི་དབྱེ་སེལ་གོ་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:960
+msgid "Picture"
+msgstr "པར།"
+
+#: ../src/tags/gnome-cmd-tags.c:960
+msgid "Attached picture."
+msgstr "མཉམ་སྦྲགས་ཡོད་མི་པར།"
+
+#: ../src/tags/gnome-cmd-tags.c:965
+msgid "Play Counter"
+msgstr "གདོང་ལེན་གཏང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:965
+msgid "Number of times a file has been played."
+msgstr "ཡིག་སྣོད་ཅིག་གཏང་ཡོད་མི་ཐེངས་ཚུ་གི་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:970
+msgid "Playlist Delay"
+msgstr "གླུ་ཐོ་ཕྱིར་འགྱངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:970
+msgid "Playlist delay."
+msgstr "གླུ་ཐོ་ཕྱིར་འགྱངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:975
+msgid "Popularimeter"
+msgstr "ཡོངས་གྲགས་ཅན་མི་ཊར།"
+
+#: ../src/tags/gnome-cmd-tags.c:975
+msgid "Rating of the audio file."
+msgstr "རྣར་ཉན་ཡིག་སྣོད་འདི་གི་མགྱོགས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:980
+msgid "Position Sync"
+msgstr "མཉམ་འབྱུང་གནས་ས།"
+
+#: ../src/tags/gnome-cmd-tags.c:980
+msgid "Position synchronisation frame."
+msgstr "མཉམ་འབྱུང་གནས་ས་གཞི་ཁྲམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:985
+msgid "Private"
+msgstr "སྒེར་དོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:985
+msgid "Private frame."
+msgstr "སྒེར་དོན་གཞི་ཁྲམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:990
+msgid "Produced Notice"
+msgstr "བཟོ་སྟོན་བརྡ་བསྐུལ།"
+
+#: ../src/tags/gnome-cmd-tags.c:990
+msgid "Produced notice."
+msgstr "བཟོ་སྟོན་འབད་ཡོད་མི་བརྡ་བསྐུལ།"
+
+#: ../src/tags/gnome-cmd-tags.c:995
+msgid "Publisher."
+msgstr "དཔེ་བསྐྲུན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1000
+msgid "Recording Dates"
+msgstr "སྒྲ་བཟུང་ཚེས་གྲངས་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1000
+msgid "Recording dates."
+msgstr "སྒྲ་བཟུང་ཚེས་གྲངས་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1005
+msgid "Recording Time"
+msgstr "སྒྲ་བཟུང་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1005
+msgid "Recording time."
+msgstr "སྒྲ་བཟུང་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1010
+#: ../src/tags/gnome-cmd-tags.c:1498
+msgid "Release Time"
+msgstr "གསར་སྟོན་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1010
+msgid "Release time."
+msgstr "གསར་སྟོན་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1015
+msgid "Reverb"
+msgstr "རི་བར་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1015
+msgid "Reverb."
+msgstr "རི་བར་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1021
+msgid "Set Subtitle"
+msgstr "མགོ་མིང་འོགམ་གཞི་སྒྲིག་འབད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1021
+msgid "Subtitle of the part of a set this track belongs to."
+msgstr "གླུ་རིམ་འདི་བང་ནི་ལུ་གཞི་སྒྲིག་ཅིག་གི་ཡན་ལག་འདི་གི་མགོ་མིང་ཡན་ལག"
+
+#: ../src/tags/gnome-cmd-tags.c:1026
+msgid "Signature"
+msgstr "མིང་རྟགས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1026
+msgid "Signature frame."
+msgstr "མིང་རྟགས་གཞི་ཁྲམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1031
+msgid "Size of the audio file in bytes, excluding the ID3 tag."
+msgstr "ཨའི་ཌི་༣ ངོ་རྟགས་གྲངས་ལས་བཏོན་དེ་ བཱའིཊིསི་ནང་གི་་རྣར་ཉན་འདི་གི་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1036
+msgid "Song length"
+msgstr "ཞབས་ཁྲ་རིང་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1036
+msgid "Length of the song in milliseconds."
+msgstr "མི་ལི་སྐར་ཆག་ཚུ་ནང་གི་ཞབས་ཁྲ་འདི་གི་རིང་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1041
+msgid "Subtitle"
+msgstr "མགོ་མིང་ཡན་ལག"
+
+#: ../src/tags/gnome-cmd-tags.c:1041
+msgid "Subtitle."
+msgstr "མགོ་མིང་ཡན་ལག"
+
+#: ../src/tags/gnome-cmd-tags.c:1046
+msgid "Syncedlyrics"
+msgstr "སིང་ཌི་གླུ་ཚིག་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1046
+msgid "Synchronized lyric."
+msgstr "མཉམ་འབྱུང་ཡོད་མི་གླུ་ཚིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1051
+msgid "Synchronized Tempo"
+msgstr "མཉམ་འབྱུང་བཟོ་ཡོད་མི་གནས་སྐབས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1051
+msgid "Synchronized tempo codes."
+msgstr "མཉམ་འབྱུང་བཟོ་ཡོད་མི་གནས་སྐབས་ཨང་རྟགས་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1056
+msgid "Tagging Time"
+msgstr "ངོ་རྟགས་བཏགས་ནི་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1056
+msgid "Tagging time."
+msgstr "ངོ་རྟགས་བཏགས་ནི་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1061
+msgid "Terms Of Use"
+msgstr "ལག་ལེན་འཐབ་ནི་གི་དོན་ཚིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1061
+msgid "Terms of use."
+msgstr "ལག་ལེན་འཐབ་ནི་གི་དོན་ཚིག་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1066
+msgid "Time"
+msgstr "དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1066
+msgid "Time."
+msgstr "དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1076
+msgid "Titlesortorder"
+msgstr "མགོ་མིང་དབྱེ་སེལ་གོ་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1076
+msgid "Title sort order."
+msgstr "མགོ་མིང་དབྱེ་སེལ་གོ་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1081
+msgid "Track number"
+msgstr "གླུ་རིམ་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1086
+msgid "Unique File ID"
+msgstr "མཐུན་མོང་མ་ཡོན་པའི་ཡིག་སྣོད་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1086
+msgid "Unique file identifier."
+msgstr "མཐུན་མོང་མ་ཡིན་པའི་ཡིག་སྣོད་ངོས་འཛིན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1091
+msgid "Unsynchronized Lyrics"
+msgstr "མཉམ་འབྱུང་བཤོལ་ཡོད་མི་གླུ་ཚིག་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1091
+msgid "Unsynchronized lyric."
+msgstr "མཉམ་འབྱུང་བཤོལ་ཡོད་མི་གླུ་ཚིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1096
+msgid "User Text"
+msgstr "ལག་ལེན་པའི་ཚིག་ཡིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1096
+msgid "User defined text information."
+msgstr "ལག་ལེན་པ་ངེས་འཛིན་འབད་ཡོད་མི་ཚིག་ཡིག་བརྡ་དོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1101
+msgid "Volume Adjustment"
+msgstr "སྐད་ཤུགས་བདེ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1101
+#: ../src/tags/gnome-cmd-tags.c:1106
+msgid "Relative volume adjustment."
+msgstr "འབྲེལ་བའི་སྐད་ཤུགས་བདེ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1106
+msgid "Volume Adjustment 2"
+msgstr "སྐད་ཤུགས་བདེ་སྒྲིག་ ༢།"
+
+#: ../src/tags/gnome-cmd-tags.c:1111
+msgid "WWW Artist"
+msgstr "ཌབ་ལུ་ཌབ་ལུ་ཌབ་ལུ་གླུ་གཞས་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1111
+msgid "Official artist."
+msgstr "གཞུང་འབྲེལ་གླུ་གཞས་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1116
+msgid "WWW Audio File"
+msgstr "ཌབ་ལུ་ཌབ་ལུ་ཌབ་ལུ་རྣར་ཉན་ཡིག་སྣོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1116
+msgid "Official audio file webpage."
+msgstr "གཞུང་འབྲེལ་རྣར་་ཉན་ཡིག་སྣོད་ཝེབ་ཤོག་ལེབ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1121
+msgid "WWW Audio Source"
+msgstr "ཌབ་ལུ་ཌབ་ལུ་ཌབ་ལུ་རྣར་ཉན་འབྱུང་ཁུངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1121
+msgid "Official audio source webpage."
+msgstr "གཞུང་འབྲེལ་རྣར་་ཉན་འབྱུང་ཁུངས་ཝེབ་ཤོག་ལེབ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1126
+msgid "WWW Commercial Info"
+msgstr "ཌབ་ལུ་ཌབ་ལུ་ཌབ་ལུ་་ཚོང་འབྲེལ་བརྡ་དོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1126
+msgid "URL pointing at a webpage containing commercial information."
+msgstr "ཝེབ་ཤོག་ལེབ་ཚོང་འབྲེལ་བརྡ་དོན་ཡོད་མི་ཅིག་ལུ་ཡུ་ཨར་ཨེལ་དཔག་བྱེད་འབད་དོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1131
+msgid "WWW Copyright"
+msgstr "ཌབ་ལུ་ཌབ་ལུ་ཌབ་ལུ་འདྲ་བཤུས་དབང་ཆ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1131
+msgid "URL pointing at a webpage that holds copyright."
+msgstr "འདྲ་བཤུས་དབང་ཆ་འཆང་མི་ཝེབ་ཤོག་ལེབ་ཅིག་ལུ་ཡུ་ཨར་ཨེལ་གྱིས་བརྡ་སྟོན་འབད་དོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1136
+msgid "WWW Payment"
+msgstr "ཌབ་ལུ་ཌབ་ལུ་ཌབ་ལུ་གླ་དངུལ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1136
+msgid "URL pointing at a webpage that will handle the process of paying for this file."
+msgstr "ཡིག་སྣོད་འདི་གི་དོན་ལུ་སྤྲོད་ནི་གི་ལས་སྦྱོར་འདི་ལེགས་སྐྱོང་འཐབ་ནི་ཝེས་ཤོག་ལེབ་ཅིག་ལུ་ཡུ་ཨར་ཨེལ་དབག་བྱེད་འབད་དོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1141
+msgid "WWW Publisher"
+msgstr "ཌབ་ལུ་ཌབ་ལུ་ཌབ་ལུ་དཔེ་བསྐྲུན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1141
+msgid "URL pointing at the official webpage for the publisher."
+msgstr "ཡུ་ཨར་ཨེལ་གྱིས་གཞུང་འབྲེལ་ཝེབ་ཤོག་ལེབ་འདི་ལུ་དཔེ་བསྐྲུན་འདི་གི་དོན་ལུ་བརྡ་སྟོན་འབད་དོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1146
+msgid "WWW Radio Page"
+msgstr "ཌབ་ལུ་ཌབ་ལུ་ཌབ་ལུ་རི་ཌིའོ་ཤོག་ལེབ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1146
+msgid "Official internet radio station homepage."
+msgstr "གཞུང་འབྲེལ་ཨིན་ཊར་ནེཊི་ལྟེ་བའི་ཁྱིམ་ཤོག་ལེབ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1151
+msgid "WWW User"
+msgstr "ཌབ་ལུ་ཌབ་ལུ་ཌབ་ལུ་ལག་ལེན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1151
+msgid "User defined URL link."
+msgstr "ལག་ལེན་པ་ངེས་འཛིན་འབད་ཡོད་མི་ཡུ་ཨར་ཨེལ་འབྲེལ་མཐུད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1156
+msgid "Year"
+msgstr "ལོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1156
+msgid "Year."
+msgstr "ལོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1161
+msgid "Name of an album the image belongs to."
+msgstr "གཟུགས་བརྙན་འདི་ལུ་བང་མི་གླུ་མཛོད་ཅིག་གི་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1162
+msgid "Camera Make"
+msgstr "པར་ཆས་བཟོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1162
+msgid "Make of camera used to take the image."
+msgstr "གཟུགས་བརྙན་འདི་བཏབ་ནི་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་པར་ཆས་ཀྱི་བཟོ་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1163
+msgid "Camera Model"
+msgstr "པར་ཆས་དཔེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1163
+msgid "Model of camera used to take the image."
+msgstr "གཟུགས་བརྙན་འདི་བཏབ་ནི་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་པར་ཆས་ཀྱི་དཔེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1165
+msgid "Embedded copyright message."
+msgstr "གནས་འདྲེན་འདྲ་བཤུས་དབང་ཆ་འཕྲིན་དོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1166
+msgid "Creator"
+msgstr "གསར་བསྐྲུན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1167
+msgid "Datetime image was originally created."
+msgstr "ཚེས་གྲངས་དུས་ཚོད་གཟུགས་བརྙན་དེ་ངོ་མ་སྦེ་གསར་བསྐྲུན་འབད་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1168
+msgid "Description of the image."
+msgstr "གཟུགས་བརྙན་འདི་གི་འགྲེལ་བཤད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1169
+msgid "The program used by the camera to set exposure when the picture is taken. EG Manual, Normal, Aperture priority etc."
+msgstr "པར་འདི་བཏབ་པའི་སྐབས་མདངས་ཕོག་གཞི་སྒྲིག་ལུ་པར་ཆས་འདི་གིས་ལག་ལེན་འཐབ་ཡོད་མི་ལས་རིམ་འདི། ཨི་ཇི་ལག་དེབ་ སྤྱིར་བཏང་ པར་ཆས་དོང་ཆུང་གཙོ་རིམ་ལ་སོགས་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1170
+msgid "Exposure time used to capture the photo in seconds."
+msgstr "སྐར་ཆག་ཚུ་ནང་པར་འདི་འཛིན་བཟུང་འབད་ནི་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་མདངས་ཕོག་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1171
+msgid "Set to \"1\" if flash was fired."
+msgstr "རིབ་སྟོན་དེ་མེ་བཏང་ཡོད་པ་ཅིན་ \"1\" ལུ་གཞི་སྒྲིག་འབད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1172
+msgid "F number"
+msgstr "ཨེཕ་ ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1172
+msgid "Diameter of the aperture relative to the effective focal length of the lens."
+msgstr "དྭངས་ཤེལ་འདི་གི་ནུས་ཅན་ཕོ་ཀཱལ་རིང་ཚད་འདི་ལུ་འབྲེལ་བ་ཡོད་མི་པར་ཆས་དོང་ཆུང་འདི་གི་སྒོར་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1173
+msgid "Focal length of lens in mm."
+msgstr "ཨེམ་ཨེམ་ནང་དྭངས་ཤེལ་གྱི་རིང་ཚད་ཕོ་ཀཱལ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1174
+msgid "Height"
+msgstr "མཐོ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1174
+msgid "Height in pixels."
+msgstr "པིག་སེལ་ཚུ་ནང་མཐོ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1175
+msgid "ISO Speed"
+msgstr "ཨའི་ཨེསི་ཨོ་མགྱོགས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1175
+msgid "ISO speed used to acquire the document contents. For example, 100, 200, 400, etc."
+msgstr "ཡིག་ཆ་ནང་དོན་ཚུ་འཐོབ་ནི་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་ཨའི་ཨེསི་ཨོ་མགྱོགས་ཚད། དཔེར་ན་ ༡༠༠ ༢༠༠ ༤༠༠ ལ་སོགས་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1177
+msgid "Metering mode used to acquire the image (IE Unknown, Average, CenterWeightedAverage, Spot, MultiSpot, Pattern, Partial)."
+msgstr "གཟུགས་བརྙན་འདི་(ཨའི་ཨི་མ་ཤེསཔ་ ཆ་སྙོམས་ དབུས་ལྗིད་ཚད་ཡོད་མི་ཆ་སྙོམས་ ས་ཁོངས་ སྣ་མང་ས་ཁོངས་ དཔེ་གཞི་ ཆ་ཤས།)འཐོབ་ནི་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་མི་ཊ་རིང་ཐབས་ལམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1178
+msgid "Represents the orientation of the image wrt camera (IE \"top,left\" or \"bottom,right\")."
+msgstr "གཟུགས་བརྙན་ཌབ་ལུ་ཨར་ཊི་པར་ཆས་འདི་གི་ཕྱོགས་འདི་ཁྱད་ཚབ་འབདཝ་ཨིན། (IE \"top,left\" or \"bottom,right\")."
+
+#: ../src/tags/gnome-cmd-tags.c:1179
+msgid "Software used to produce/enhance the image."
+msgstr "གཟུགས་བརྙན་འདི་བཟོ་སྟོན་/གོང་སྤེལ་ནི་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་མཉེན་ཆས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1180
+msgid "Title of image."
+msgstr "གཟུགས་བརྙན་གྱི་མགོ་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1181
+msgid "White balance setting of the camera when the picture was taken (auto or manual)."
+msgstr "པར་དེ་བཏབ་(རང་བཞིན་ཡང་ལག་དེབ་)པའི་སྐབས་པར་ཆས་འདི་གི་ཚད་སྙོམས་སྒྲིག་སྟངས་དཀརཔོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1182
+msgid "Width"
+msgstr "རྒྱ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1182
+msgid "Width in pixels."
+msgstr "པིག་སེལ་ཚུ་ནང་རྒྱ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1183
+msgid "Action Advised"
+msgstr "བྱ་བ་བསླབ་བྱ་བྱིན་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1183
+msgid "The type of action that this object provides to a previous object. '01' Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+msgstr "ཧེ་མམ་གྱི་དངོས་པོ་ཅིག་ལུ་དངོས་པོ་འདི་བྱིན་མཁན་བྱ་བ་དེ་གི་དབྱེ་བ།  '01' དངོས་པོ་གསད '02' དངོས་པོ་ཚབ་མ་བཙུགས་ནི '03' དངོས་པོ་མཇུག་བསྣོན་འབད་ནི་ '04' དངོས་པོ་གཞི་བསྟུན་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1188
+msgid "ARM Identifier"
+msgstr "ཨེ་ཨར་ཨེམ་ངོས་འཛིན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1188
+msgid "Identifies the Abstract Relationship Method (ARM)."
+msgstr "སྙིང་བཅུད་མཐུན་ལམ་ཐབས་ལམ་(ཨེ་ཨར་ཨེམ)འདི་ངོས་འཛིན་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1193
+msgid "ARM Version"
+msgstr "ཨེ་ཨར་ཨེམ་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1193
+msgid "Identifies the version of the Abstract Relationship Method (ARM)."
+msgstr "སྙིང་བཙུད་མཐུན་ལམ་ཐབས་ལམ་(ཨེ་ཨར་ཨེམ)འདི་གི་ཐོན་རིམ་འདི་ངོས་འཛིན་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1198
+msgid "Audio Duration"
+msgstr "རྣར་ཉན་དུས་ཡུན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1198
+msgid "The running time of the audio data in the form HHMMSS."
+msgstr "ཨེཆ་ཨེཆ་ཨེམ་ཨེམ་ཨེསི་ཨེསི་འབྲི་ཤོག་འདི་ནང་རྣར་ཉན་གནས་སྡུད་འདི་གི་གཡོག་བཀོལ་བའི་དུས་ཚོད་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1203
+msgid "Audio Outcue"
+msgstr "རྣར་ཉན་ཨའུཊི་ཚིག་བརྡ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1203
+msgid "The content at the end of the audio data."
+msgstr "རྣར་ཉན་གནས་སྡུད་འདི་གི་མཇུག་ལུ་ནང་དོན་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1208
+msgid "Audio Sampling Rate"
+msgstr "རྣར་ཉན་དཔེ་ཚད་མགྱོགས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1208
+msgid "The sampling rate in Hz of the audio data."
+msgstr "རྣར་ཉན་གནས་སྡུད་འདི་གི་ཨེཆ་ཛེཌི་ནང་དཔེ་ཚད་མགྱོགས་ཚད་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1213
+msgid "Audio Sampling Resolution"
+msgstr "རྣར་ཉན་དཔེ་ཚད་ཧུམ་ཆ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1213
+msgid "The number of bits in each audio sample."
+msgstr "རྣར་ཉན་དཔེ་ཚད་རེ་རེ་ནང་བིཊིསི་གི་ཨང་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1218
+msgid "Audio Type"
+msgstr "རྣར་ཉན་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1218
+msgid "The number of channels and type of audio (music, text, etc.) in the object."
+msgstr "རྒྱུན་ལམ་ཚུ་དང་དངོས་པོ་འདི་ནང་རྣར་ཉན་གྱི་དབྱེ་བ་གི་ཨང་འདི་(སྙན་ཆ་ ཚིག་ཡིག་ ལ་སོགས་པ།)།"
+
+#: ../src/tags/gnome-cmd-tags.c:1223
+msgid "By-line"
+msgstr "གྱལ་-གྱིས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1223
+msgid "Name of the creator of the object, e.g. writer, photographer or graphic artist (multiple values allowed)."
+msgstr "དངོས་པོ་འདི་གི་གསར་བསྐྲུན་པ་འདི་གི་མིང་ དཔེར་ན་ རྩོམ་འབྲི་པ་ པར་བཏབ་མི་ཡང་ན་ཚད་རིས་རི་མོ་མཁན་(སྣ་མང་གནས་གོང་འབད་བཅུག་མི་ཚུ།)།"
+
+#: ../src/tags/gnome-cmd-tags.c:1228
+msgid "By-line Title"
+msgstr "གྱལ་མགོ་མིང་-གྱིས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1228
+msgid "Title of the creator or creators of the object."
+msgstr "གསར་བསྐྲུན་པ་ཡང་ན་དངོས་པོ་འདི་གི་གསར་བསྐྲུན་པ་ཚུ་གི་མགོ་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1233
+msgid "Caption, Abstract"
+msgstr "དཔར་བཤད་ སྙིང་བཅུད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1233
+msgid "A textual description of the data"
+msgstr "གནས་སྡུད་འདི་གི་ཚིག་ཡིག་གི་འགྲེལ་བཤད་ཅིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1238
+msgid "Category"
+msgstr "དབྱེ་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1238
+msgid "Identifies the subject of the object in the opinion of the provider (Deprecated)."
+msgstr "བྱིན་མཁན་འདི་གི་(ངོས་ལེན་མེད་པ།)བསམ་འཆར་ནང་དངོས་པོ་འདི་གི་དོན་ཚན་འདི་ངོས་འཛིན་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1243
+msgid "Coded Character Set"
+msgstr "ཨང་རྟགས་ཡོད་མི་ཡིག་འབྲུ་གཞི་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1243
+msgid "Control functions used for the announcement, invocation or designation of coded character sets."
+msgstr "ཨང་རྟགས་ཡོད་མི་ཡིག་འབྲུ་གཞི་སྒྲིག་ཚུ་གི་གསལ་བསྒྲགས་ ལས་བཀོལ་ཡང་ན་གོ་གནས་དོན་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་ཚད་འཛིན་ལས་འགན་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1248
+msgid "City"
+msgstr "གྲོང་སྡེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1248
+msgid "City of object origin."
+msgstr "དངོས་པོ་འགོ་ཐོག་་འབྱུང་སའི་གྲོང་སྡེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1253
+msgid "Confirmed Data Size"
+msgstr "ངེས་དཔྱད་འབད་ཡོད་མི་ཚེས་གྲངས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1253
+msgid "Total size of the object data."
+msgstr "དངོས་པོ་ཚེས་གྲངས་འདི་གི་ཚད་བསྡོམས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1258
+msgid "Contact"
+msgstr "འབྲེལ་ས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1258
+msgid "The person or organization which can provide further background information on the object (multiple values allowed)."
+msgstr "དངོས་པོ་འདི་གུ་(སྣ་མང་གནས་གོང་ཚུ་འབད་བཅུག་མི།)རྒྱབ་གཞི་བརྡ་དོན་ཐེབས་བྱིན་ཚུགས་མི་གང་ཟག་ཡང་ན་འགོ་འདྲེན་པ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1263
+msgid "Content Location Code"
+msgstr "ནང་དོན་གནས་ཁོངས་ཨང་རྟགས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1263
+msgid "Indicates the code of a country/geographical location referenced by the content of the object (multiple values allowed)."
+msgstr "དངོས་པོ་(སྣ་མང་གནས་གོང་འབད་བཅུག་མི་ཚུ།)འདི་གི་ནང་དོན་གིས་གཞི་བསྟུན་འབད་ཡོད་མི་རྒྱལ་ཁབ་/ས་ཆའི་གནས་ཁོངས་ཅིག་གི་ཨང་རྟགས་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1268
+msgid "Content Location Name"
+msgstr "ནང་དོན་གནས་ཁོངས་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1268
+msgid "A full, publishable name of a country/geographical location referenced by the content of the object (multiple values allowed)."
+msgstr "དངོས་པོ་འདི་གི་ནང་དོན་གྱིས་(སྣ་མང་གནས་གོང་ཚུ་འབད་བཅུག་མི།)རྒྱལ་ཁབ/ས་ཆའི་གནས་ཁོངས་གཞི་བསྟུན་འབད་ཡོད་མི་ཅིག་གི་དཔེ་བསྐྲུན་འབད་བཏུབ་མི་མིང་གངམ་ཅིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1273
+msgid "Copyright Notice"
+msgstr "འདྲ་བཤུས་དབང་ཆ་བརྡ་བསྐུལ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1273
+msgid "Any necessary copyright notice."
+msgstr "ཉེར་མཐོ་འདྲ་བཤུས་དབང་ཆ་བརྡ་བསྐུལ་གང་རུང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1278
+msgid "Country Code"
+msgstr "རྒྱལ་ཁབ་ཀྱི་ཨང་རྟགས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1278
+msgid "The code of the country/primary location where the object was created."
+msgstr "དངོས་པོ་འདི་ག་སྟེ་གསར་བསྐྲུན་འབད་ཡོད་མི་རྒྱལ་ཁབ་/གཞི་རིམ་འདི་གི་ཨང་རྟགས་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1283
+msgid "Country Name"
+msgstr "རྐྱལ་ཁབ་ཀྱི་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1283
+msgid "The name of the country/primary location where the object was created."
+msgstr "དངོས་པོ་འདི་ག་སྟེ་གསར་བསྐྲུན་འབད་ཡོད་མི་རྒྱལ་ཁབ་/གཞི་རིམ་གནས་ཁོངས་འདི་གི་མིང་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1288
+msgid "Credit"
+msgstr "ངོ་བསྟོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1288
+msgid "Identifies the provider of the object, not necessarily the owner/creator."
+msgstr "བདག་པོ་/གསར་བསྐྲུན་པ་འདི་ཉེར་མཁོ་མེན་མི་ དངོས་པོ་འདི་གི་བྱིན་མཁན་འདི་ངོས་འཛིན་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1293
+msgid "Date Created"
+msgstr "ཚེས་གྲངས་གསར་བསྐྲུན་འབད་ཡོད་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1293
+msgid "The date the intellectual content of the object was created rather than the date of the creation of the physical representation."
+msgstr "དངོས་པོ་འདི་གི་བློ་རིག་གི་ནང་དོན་ཚེས་གྲངས་འདི་དངོས་ཅན་ཁྱད་ཚབ་འདི་གི་གསར་བསྐྲུན་འབད་ནི་གི་ཚེས་གྲངས་ལས་གསར་བསྐྲུན་འབད་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1298
+msgid "Date Sent"
+msgstr "ཚེས་གྲངས་བཏང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1298
+msgid "The day the service sent the material."
+msgstr "ཅ་ཆས་འདི་ཞབས་ཏོག་བཏང་མི་ཉིནམ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1303
+msgid "Destination"
+msgstr "འགྲོ་ཡུལ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1303
+msgid "Routing information."
+msgstr "ལམ་འགྲུལ་བརྡ་དོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1308
+msgid "Digital Creation Date"
+msgstr "ཌི་ཇི་ཊཱལ་གསར་བསྐྲུན་ཚེས་གྲངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1308
+msgid "The date the digital representation of the object was created."
+msgstr "དངོས་པོ་འདི་གསར་བསྐྲུན་འབད་ཡོད་མི་གི་ཌི་ཇི་ཊཱལ་ཁྱད་ཚབ་ཚེས་གྲངས་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1313
+msgid "Digital Creation Time"
+msgstr "ཌི་ཇི་ཊཱལ་གསར་བསྐྲུན་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1313
+msgid "The time the digital representation of the object was created."
+msgstr "དངོས་པོ་འདི་གསར་བསྐྲུན་འབད་ཡོད་མི་གི་ཌི་ཇི་ཊཱལ་ཁྱད་ཚབ་དུས་ཚོད་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1318
+msgid "Editorial Update"
+msgstr "རྩོམ་སྒྲིག་པའི་འབྲི་རྩོམ་དུས་མཐུན་བཟོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1318
+msgid "Indicates the type of update this object provides to a previous object. The link to the previous object is made using the ARM. '01' indicates an additional language."
+msgstr "དངོས་པོ་ཧེ་མམ་ཅིག་ལུ་བྱིན་མི་དངོས་པོ་འདི་དུས་མཐུན་བཟོ་མི་གི་དབྱེ་འདི་བརྡ་སྟོནམ་ཨིན། ཧེ་མམ་གྱི་དངོས་པོ་འདི་ལུ་འབྲེལ་ལམ་འདི་ཨེ་ཨར་ཨེམ་འདི་ལག་ལེན་འཐབ་དེ་བཟོ་བཟོཝ་ཨིན། '01' འདི་ཁ་སྐད་ཁ་སྐོང་རྐྱབས་ནི་ཅིག་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1323
+msgid "Edit Status"
+msgstr "གནས་ཚད་ཞུན་དག་འབད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1323
+msgid "Status of the object, according to the practice of the provider."
+msgstr "བྱིན་མཁན་འདི་གི་སྦྱང་བ་འབད་ལུ་འཁྲིལ་དེ་དངོས་པོ་འདི་གི་གནས་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1328
+msgid "Envelope Number"
+msgstr "ཡིག་བཤུབ་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1328
+msgid "A number unique for the date in 1:70 and the service ID in 1:30."
+msgstr "༡:༣༠་ ནང་ཨའི་ཌི་ཞབས་ཏོག་འདི་དང་ ༡:༧༠་ ནང་ཚེས་གྲངས་འདི་གི་དོན་ལུ་མཐུན་མོང་མ་ཡིན་པའི་ཨང་ཅིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1333
+msgid "Envelope Priority"
+msgstr "ཡིག་བཤུབ་གཙོ་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1333
+msgid "Specifies the envelope handling priority and not the editorial urgency. '1' for most urgent, '5' for normal, and '8' for least urgent. '9' is user-defined."
+msgstr "ཡིག་བཤུབ་ལེགས་སྐྱོང་འཐབ་པ་གཙོ་རིམ་འདི་གསལ་བཀོད་འབདཝ་དང་རྩོམ་སྒྲིག་པའི་འབྲི་རྩོམ་འཕྲལ་མཁོ་མེནམ།  '1' འཕྲལ་མཐོ་མང་ཤོས་དོན་ལུ་ '5' སྤྱིར་བཏང་དོན་ལུ་ དང་ '8' འཕྲལ་མཁོ་ཉུང་མཐའ་དོན་ལུ་ཨིན། '9' འདི་ལག་ལེན་པ་-ངེས་འཛིན་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1338
+msgid "Expiration Date"
+msgstr "དུས་ཡོལ་ཚེས་གྲངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1338
+msgid "Designates the latest date the provider intends the object to be used."
+msgstr "བྱིན་མཁན་གྱི་རེ་བ་ལྟར་དུ་ལག་ལེན་འཐབ་ནི་དངོས་པོ་འདི་མཐའ་མཇུག་ཚེས་གྲངས་འདི་བཀོད་སྒྲིག་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1343
+msgid "Expiration Time"
+msgstr "དུས་ཡོལ་དུས་ཚོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1343
+msgid "Designates the latest time the provider intends the object to be used."
+msgstr "བྱིན་མཁན་གྱི་རེ་བ་ལྟར་དུ་ལག་ལེན་འཐབ་ནི་དངོས་པོ་འདི་མཐའ་མཇུག་དུས་ཚོད་འདི་བཀོད་སྒྲིག་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1348
+msgid "File Format"
+msgstr "ཡིག་སྣོད་རྩ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1348
+msgid "File format of the data described by this metadata."
+msgstr "མི་ཊ་གནས་སྡུད་འདི་གིས་གནས་སྡུད་འགྲེལ་བཤད་འབད་ཡོད་མི་་གི་་ཡིག་སྣོད་རྩ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1353
+msgid "File Version"
+msgstr "ཡིག་སྣོད་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1353
+msgid "Version of the file format."
+msgstr "ཡིག་སྣོད་རྩ་སྒྲིག་འདི་གི་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1358
+msgid "Fixture Identifier"
+msgstr "གཏན་འབེབས་རེའུ་མིག་ངོས་འཛིན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1358
+msgid "Identifies objects that recur often and predictably, enabling users to immediately find or recall such an object."
+msgstr "དངོས་པོ་ཚུ་འཕྲལ་འཕྲལ་སླར་འབྱུང་མི་དང་སྔོན་བཤད་བཏུབ་མི་ ལག་ལེན་པ་ཚུ་དེ་འཕྲལ་ལས་དངོས་པོ་ཅིག་འཚོལ་ནི་ཡང་ན་སླར་དྲན་འབད་ནི་ལུ་ལྕོགས་ཅན་བཟོ་ནི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1363
+msgid "Headline"
+msgstr "གཙོ་དོན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1363
+msgid "A publishable entry providing a synopsis of the contents of the object."
+msgstr "དངོས་པོ་འདི་གི་ནང་དོན་འདི་གི་དཔེ་བསྐྲུན་འབད་བཏུབ་པའི་ཐོ་བཀོད་བྱིན་མཁན་བཅུད་དོན་ཅིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1368
+msgid "Image Orientation"
+msgstr "གཟུགས་བརྙན་ཕྱོགས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1368
+msgid "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' for square."
+msgstr "གཟུགས་བརྙན་མངའ་ཁོངས་འདི་གི་སྒྲིག་བཀོད་འདི་: 'P' ཡར་་ཕྲང་དོན་ལུ་ 'L' ཀེ་ཀེ་དོན་ལུ་ དང་ 'S' གྲུ་བཞི་དོན་ལུ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1373
+msgid "Image Type"
+msgstr "གཟུགས་བརྙན་དབྱེ་བ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1373
+msgid "Indicates the data format of the image object."
+msgstr "གཟུགས་བརྙན་དངོས་པོ་འདི་གི་གནས་སྡུད་རྩ་སྒྲིག་འདི་བརྡ་སྟོནམ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1378
+msgid "Used to indicate specific information retrieval words (multiple values allowed)."
+msgstr "བརད་དོན་སླར་འདྲེན་མིང་ཚིག་(སྣ་མང་གནས་གོང་འབད་བཅུག་མི་ཚུ།)དམིགས་བསལ་བརྡ་སྟོན་ནི་ལུ་ལག་ལེན་འཐབ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1383
+msgid "Language Identifier"
+msgstr "ཁ་སྐད་ངོས་འཛིན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1383
+msgid "The major national language of the object, according to the 2-letter codes of ISO 639:1988."
+msgstr "ཨའི་ཨེསི་ཨོ་༦༣༩:༡༩༨༨་ གི་ཡི་གུ་ ༢་ ཀྱི་ཨང་རྟགས་ཚུ་ལུ་འཁྲིལ་དེ་དངོས་པོ་འདི་གི་རྒྱལ་ཡོངས་ཁ་སྐད་ཤུགས་ཅན་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1388
+msgid "Maximum Object Size"
+msgstr "དངོས་པོ་ཚད་མང་མཐའ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1388
+msgid "The largest possible size of the object if the size is not known."
+msgstr "ཚད་འདི་མ་ཤེས་པ་ཅིན་དངོས་པོ་འདི་གི་ཡོད་པའི་ཚད་ཧ་ཀྱང་སྦོམ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1393
+msgid "Max Subfile Size"
+msgstr "ཡིག་སྣོད་ཡན་ལག་ཚད་མང་མཐའ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1393
+msgid "The maximum size for a subfile dataset (8:10) containing a portion of the object data."
+msgstr "དངོས་པོ་གནས་སྡུད་འདི་གི་ཆ་ཚད་ཅིག་ཡོད་མི་ཡིག་སྣོད་ཡན་ལག་གནས་སྡུད་གཞི་སྒྲིག(༨:༡༠)ཅིག་གི་དོན་ལུ་ཚད་མང་མཐའ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1398
+msgid "Model Version"
+msgstr "དཔེ་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1398
+msgid "Version of IIM part 1."
+msgstr "ཨའི་ཨའི་ཨེམ་ཡན་ལག་ ༡ གི་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1403
+msgid "Object Attribute Reference"
+msgstr "དངོས་པོ་ཁྱད་ཆོས་གཞི་བསྟུན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1403
+msgid "Defines the nature of the object independent of the subject (multiple values allowed)."
+msgstr "དོན་ཚན་འདི་གི་དངོས་པོ་རང་དབང་འདི་གི་རང་བཞིན་འདི་ངེས་འཛིན་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1408
+msgid "Object Cycle"
+msgstr "དངོས་པོ་བསྐྱར་འཁོར།"
+
+#: ../src/tags/gnome-cmd-tags.c:1408
+msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
+msgstr "ཡོད་ས་ 'a' དྲོ་པ 'p' ཕྱི་རུ 'b' འདི་གཉིས་ཆ་རང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1413
+msgid "Object Name"
+msgstr "དངོས་པོ་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1413
+msgid "A shorthand reference for the object."
+msgstr "དངོས་པོ་འདི་གི་དོན་ལུ་ཤོཊི་ཧེནཌི་གཞི་བསྟུན་ཅིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1418
+msgid "Object Size Announced"
+msgstr "དངོས་པོ་ཚད་གསལ་བསྒྲགས་འབད་ཡོདཔ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1418
+msgid "The total size of the object data if it is known."
+msgstr "ཡོངས་གྲགས་ཨིན་པ་ཅིན་དངོས་པོ་གནས་སྡུད་འདི་གི་ཚད་བསྡོམས་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1423
+msgid "Object Type Reference"
+msgstr "དངོས་པོ་དབྱེ་བ་གཞི་བསྟུན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1423
+msgid "Distinguishes between different types of objects within the IIM."
+msgstr "ཨའི་ཨའི་ཨེམ་ནང་འཁོད་དངོས་པོ་ཚུ་གི་སོ་སོ་དབྱེ་བ་ཚུ་གི་བར་ན་ཁྱད་འཕགས་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1428
+msgid "Originating Program"
+msgstr "ལས་རིམ་འགོ་ཐོག་འབྱིུང་ས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1428
+msgid "The type of program used to originate the object."
+msgstr "དངོས་པོ་འདི་འགོ་ཐོག་འབྱུང་ས་ལུ་ལག་ལེན་འཐབ་ཡོད་མི་ལས་རིམ་གྱི་དབྱེ་བ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1433
+msgid "Original Transmission Reference"
+msgstr "སྤེལ་བཀྲམ་གཞི་བསྟུན་ངོ་མ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1433
+msgid "A code representing the location of original transmission."
+msgstr "སྤེལ་བཀྲམ་ངོ་མ་གི་གནས་ཁོངས་འདི་གི་ཨང་རྟགས་ཁྱད་ཚབ་ཅིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1438
+msgid "Preview Data"
+msgstr "སྔོན་ལྟ་ཚེས་གྲངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1438
+msgid "The object preview data"
+msgstr "དངོས་པོ་སྔོན་ལྟ་ཚེས་གྲངས་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1443
+msgid "Preview File Format"
+msgstr "སྔོན་ལྟ་ཡིག་སྣོད་རྩ་སྒྲིག"
+
+#: ../src/tags/gnome-cmd-tags.c:1443
+msgid "Binary value indicating the file format of the object preview data in dataset 2:202."
+msgstr "༢:༢༠༢་ གནས་སྡུད་གཞི་སྒྲིག་ནང་སྔོན་ལྟ་གནས་སྡུད་དངོས་པོ་འདི་གི་ཡིག་སྣོད་རྩ་སྒྲིིག་འདི་བརྡ་སྟོན་པའི་ཟུང་ལྡན་གནས་གོང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1448
+msgid "Preview File Format Version"
+msgstr "སྔོན་ལྟ་ཡིག་སྣོད་རྩ་སྒྲིག་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1448
+msgid "The version of the preview file format specified in 2:200."
+msgstr "༢:༢༠༠་ ནང་གསལ་བཀོད་འབད་ཡོད་མི་སྔོན་ལྟ་ཡིག་སྣོད་རྩ་སྒྲིག་འདི་གི་ཐོན་རིམ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1453
+msgid "Product ID"
+msgstr "ཐོན་རྐྱེན་ཨའི་ཌི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1453
+msgid "Allows a provider to identify subsets of its overall service."
+msgstr "བྱིན་མཁན་ཅིག་སྤྱིར་བསྡོམས་འདི་གི་གཞི་སྒྲིག་ཡན་ལག་ཚུ་ངོས་འཛིན་འབད་ནི་ལུ་འབད་བཅུགཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1458
+msgid "Program Version"
+msgstr "ལས་རིམ་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1458
+msgid "The version of the originating program."
+msgstr "འགོ་ཐོག་འབྱུང་ས་ལས་རིམ་འདི་གི་ཐོན་རིམ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1463
+#: ../src/tags/gnome-cmd-tags.c:1523
+msgid "Province, State"
+msgstr "མངའ་རིས་ མངའ་སྡེ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1463
+#: ../src/tags/gnome-cmd-tags.c:1523
+msgid "The Province/State where the object originates."
+msgstr "དངོས་པོ་འགོ་ཐོག་འབྱུང་སའི་མངའ་རིས་/མངའ་སྡེ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1468
+msgid "Rasterized Caption"
+msgstr "རེསི་ཊར་རའིིཌི་འགོ་བརྗོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1468
+msgid "Contains rasterized object description and is used where characters that have not been coded are required for the caption."
+msgstr "ཪེསི་ཊར་རའིཛིཌི་དངོས་པོ་འགྲེལ་བཤད་་དང་ཡིག་འབྲུ་ཚུ་ཨང་རྟགས་ཡོད་མི་དང་འགོ་བརྗོད་འདི་གི་དོན་ལུ་དགོས་མཁོ་ཡོད་མི་ཚུ་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1473
+msgid "Record Version"
+msgstr "དྲན་ཐོ་ཐོན་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1473
+msgid "Identifies the version of the IIM, Part 2"
+msgstr "ཨའི་ཨའི་ཨེམ་ ཡན་ལག་༢ འདི་གི་ཐོན་རིམ་འདི་ངོས་འཛིན་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1478
+msgid "Reference Date"
+msgstr "གཞི་བསྟུན་ཚེས་གྲངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1478
+msgid "The date of a prior envelope to which the current object refers."
+msgstr "ད་ལྟོའི་དངོས་པོ་གཞི་བསྟུན་འབད་མི་གོང་ལུ་ཡིག་བཤུབ་ཅིག་གི་ཚེས་གྲངས་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1483
+msgid "Reference Number"
+msgstr "གཞི་བསྟུན་ཨང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1483
+msgid "The Envelope Number of a prior envelope to which the current object refers."
+msgstr "ད་ལྟོའི་དངོས་པོ་གཞི་བསྟུན་འབད་མི་ལུ་གོང་ལུ་ཡིག་བཤུབ་ཅིག་གི་ཡིག་བཤུབ་ཨང་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1488
+msgid "Reference Service"
+msgstr "གཞི་བསྟུན་ཞབས་ཏོག"
+
+#: ../src/tags/gnome-cmd-tags.c:1488
+msgid "The Service Identifier of a prior envelope to which the current object refers."
+msgstr "ད་ལྟོའི་དངོས་པོ་གཞི་བསྟུན་འབད་མི་ལུ་གོང་ལུ་ཡིག་བཤུབ་ཅིག་གི་ཞབས་ཏོག་ངོས་འཛིན་པ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1493
+msgid "Designates the earliest date the provider intends the object to be used."
+msgstr "བྱིན་མཁན་གྱི་རེ་བ་ལྟར་དུ་ལག་ལེན་འཐབ་ནི་དངོས་པོ་འདི་ཚེས་གྲངས་སྔ་ཆ་འདི་ལུ་བཀོད་སྒྲིག་བཟོཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1498
+msgid "Designates the earliest time the provider intends the object to be used."
+msgstr "བྱིན་མཁན་རེ་བ་ལྟར་དུ་ལག་ལེན་འཐབ་ནི་ཨིན་མི་དངོས་པོ་འདི་དུས་ཚོད་སྔ་ཆ་་འདི་ལུ་བཀོད་སྒྲིག་བཟོཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1503
+msgid "Service Identifier"
+msgstr "ཞབས་ཏོག་ངོས་འཛིན་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1503
+msgid "Identifies the provider and product."
+msgstr "བྱིན་མཁན་དང་ཐོན་རྐྱེན་འདི་ངོས་འཛིན་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1508
+msgid "Size Mode"
+msgstr "ཐབས་ལམ་ཚད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1508
+msgid "Set to 0 if the size of the object is known and 1 if not known."
+msgstr "དངོས་པོ་འདི་གི་ཚད་འདི་ཡོངས་གྲགས་མེན་པ་ཅིན་༡་་དང་ཡོངས་གྲགས་ཨིན་པ་ཅིན་༠་ ལུ་གཞི་སྒྲིག་འབད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1513
+msgid "Source"
+msgstr "འབྱུང་ཁུངས།"
+
+#: ../src/tags/gnome-cmd-tags.c:1513
+msgid "The original owner of the intellectual content of the object."
+msgstr "དངོས་པོ་འདི་གི་བློ་རིག་ནང་དོན་འདི་གི་བདག་པོ་ངོ་མ་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1518
+msgid "Special Instructions"
+msgstr "དམིགས་བསལ་བསླབ་སྟོན་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1518
+msgid "Other editorial instructions concerning the use of the object."
+msgstr "གཞན་རྩོམ་སྒྲིག་པའི་འབྲི་རྩོམ་བསླབ་སྟོན་འབྲེལ་བའི་དངོས་པོ་འདི་གི་ལག་ལེན་འཐབ་ནི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1528
+msgid "Subfile"
+msgstr "ཡིག་སྣོད་ཡན་ལག"
+
+#: ../src/tags/gnome-cmd-tags.c:1528
+msgid "The object data itself. Subfiles must be sequential so that the subfiles may be reassembled."
+msgstr "དངོས་པོ་གནས་སྡུད་འདི་རང་། ཡིག་སྣོད་ཡན་ལག་ཚུ་ལོག་མཉམ་སྒྲིག་འབད་ནི་ལུ་ཡིག་སྣོད་ཡན་ལག་ཚུ་འབྱུང་རིམ་སྦེ་དགོཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1533
+msgid "Subject Reference"
+msgstr "དོན་ཚན་གཞི་བསྟུན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1533
+msgid "A structured definition of the subject matter. It must contain an IPR, an 8 digit Subject Reference Number and an optional Subject Name, Subject Matter Name, and Subject Detail Name each separated by a colon (:)."
+msgstr "དོན་ཚན་འདི་གི་དོན་ལུ་་གཞི་བཀོད་ཡོད་མི་འགྲེལ་བཤད་ཅིག འདི་ནང་ལུ་ཨའི་པི་ཨར་ཅིག་ ཨང་ཡིག་་༨ དོན་ཚན་གཞི་བསྟུན་ཨང་ཅིག་དང་གདམ་ཁ་ཅན་དོན་ཚན་མིང་ཅིག་ དོན་ཚན་མིང་ དང་ (:)ཀོ་ལཱོན་ཅིག་གིས་རེ་རེ་སོ་སོ་འཕྲལ་འཕྲལཝ་དོན་ཚན་རྒྱས་བཤད་མིང་་ཡོད་དགོཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1538
+msgid "Sub-location"
+msgstr "གནས་ཁོངས-ཡན་ལག"
+
+#: ../src/tags/gnome-cmd-tags.c:1538
+msgid "The location within a city from which the object originates."
+msgstr "དངོས་པོ་འགོ་ཐོག་འབྱུང་ས་འདི་ལས་གྲོང་སྡེ་ཅིག་གི་གནས་ཁོངས་ནང་འཁོད།"
+
+#: ../src/tags/gnome-cmd-tags.c:1543
+msgid "Supplemental Category"
+msgstr "ལྷན་ཐབས་དབྱེ་རིམ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1543
+msgid "Further refines the subject of the object (Deprecated)."
+msgstr "དངོས་པོ(ངོས་ལེན་མེད་པ)་འདི་གི་དོན་ཚན་འདི་ཐེབས་ལེགས་དྭངས་འབདཝ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1548
+msgid "Time Created"
+msgstr "དུས་ཚོད་གསར་བསྐྲུན་འབད་ཡོད་མི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1548
+msgid "The time the intellectual content of the object was created rather than the date of the creation of the physical representation (multiple values allowed)."
+msgstr "དངོས་པོ་འདི་གི་བློ་རིག་གི་ནང་དོན་འདི་གི་དུས་ཚོད་འདི་དངོས་ཅན་ཁྱད་ཚབ་(སྣ་མང་གནས་གོང་ཚུ་འབད་བཅུག་ཡོད་མི།)འདི་གི་ཚེས་གྲངས་གསར་བསྐྲུན་འབད་ནི་ལས་གསར་བསྐྲུན་འབད་ཡོདཔ་ཨིན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1553
+msgid "Time Sent"
+msgstr "དུས་ཚོད་བཏང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1553
+msgid "The time the service sent the material."
+msgstr "ཞབས་ཏོག་བཏང་མི་ཅ་ཆས་འདིའི་དུས་ཚོད་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1558
+msgid "Unique Name of Object"
+msgstr "དངོས་པོའི་མཐུན་མོང་མ་ཡིན་པའི་མིང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1558
+msgid "An eternal, globally unique identification for the object, independent of provider and for any media form."
+msgstr "དངོས་པོ་འདི་གི་དོན་ལུ་ཕྱིའི་མཐུན་མོང་མ་ཡིན་པའི་སྤྱི་ཁྱབ་ངོ་རྟགས་ བརྡ་ལམ་འབྲི་ཤོག་གང་རུང་གི་དོན་ལུ་དང་བྱིན་མཁན་རང་དབང་ངོ་རྐྱང་།"
+
+#: ../src/tags/gnome-cmd-tags.c:1563
+msgid "Urgency"
+msgstr "འཕྲལ་མཁོ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1563
+msgid "Specifies the editorial urgency of content and not necessarily the envelope handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+msgstr "ནང་དོན་གྱི་རྩོམ་སྒྲིག་པའི་འབྲི་རྩོམ་འཕྲལ་མཁོ་འདི་གསལ་བཀོད་འབདཝ་དང་ ཡིག་བཤུབ་ལེགས་སྐྱོང་འཐབ་པ་གཙོ་རིམ་འདི་ཉེར་མཁོ་མེདཔ་ཨིན། '1' འདི་་འཕྲལ་མཐོ་ཆེ་ཤོས་ '5' སྤྱིར་བཏང་ དང་ '8' འཕྲལ་མཁོ་ཉུང་མཐའ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1568
+msgid "Writer/Editor"
+msgstr "རྩོམ་འབྲི་པ/ཞུན་དག་པ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1568
+msgid "The name of the person involved in the writing, editing or correcting the object or caption/abstract (multiple values allowed)"
+msgstr "དངོས་པོ་ཡང་ན་དཔར་བཤད་/སྙིང་བཅུད་(སྣ་མང་གནས་གོང་ཚུ་བཅུག་ཡོད་མི་)རྩོམ་སྒྲིག་ ཞུན་དག་འབད་ནི་ཡང་ན་ནོར་བཅོས་འབད་ནི་འདི་ནང་འབྲེལ་བ་ཡོད་མི་གང་ཟག་འདི་གི་མིང་འདི།"
+
+#: ../src/tags/gnome-cmd-tags.c:1681
+msgid "Audio"
+msgstr "རྣར་ཉན།"
+
+#: ../src/tags/gnome-cmd-tags.c:1687
+msgid "Doc"
+msgstr "ཡིག་ཆ།"
+
+#: ../src/tags/gnome-cmd-tags.c:1702
+msgid "Image"
+msgstr "གཟུགས་བརྙན།"
+
+#: ../src/useractions.c:71
+msgid "No file selected"
+msgstr "ཡིག་སྣོད་སེལ་འཐུ་མེདཔ།"
+
+#: ../src/useractions.c:211
+#, c-format
+msgid "Create symbolic links of %i file in %s?"
+msgid_plural "Create symbolic links of %i files in %s?"
+msgstr[0] "ནང་ཡིག་སྣོད་ཚུ་ %i གི་བརྡ་མཚོན་པའི་འབྲེལ་མཐུད་ཚུ་གསར་བསྐྲུན་འབད་ནི་ཨིན་ན %s?"
+msgstr[1] "ནང་ཡིག་སྣོད་ཚུ་ %i གི་བརྡ་མཚོན་པའི་འབྲེལ་མཐུད་ཚུ་གསར་བསྐྲུན་འབད་ནི་ཨིན་ན %s?"
+
+#: ../src/useractions.c:216
+msgid "Create"
+msgstr "གསར་བསྐྲུན་འབད་ནི།"
+
+#: ../src/useractions.c:295
+#, c-format
+msgid "running \"%s\"\n"
+msgstr "གཡོག་བཀོལ་བའི་བསྒང་། \"%s\"\n"
+
+#: ../src/useractions.c:734
+msgid "There was an error opening home page."
+msgstr "ཁྱིམ་ཤོག་ལེབ་ཁ་ཕྱེ་བའི་འཛོལ་བ་འབྱུང་ཡོདཔ།"
+
+#: ../src/useractions.c:745
+msgid "There was an error reporting problem."
+msgstr "དཀའ་ངལ་སྙན་ཞུ་འབད་བའི་འཛོལ་བ་འབྱུང་ཡོདཔ།"
+
+#: ../src/useractions.c:771
+msgid "A fast and powerful file manager for the GNOME desktop"
+msgstr "ཇི་ནོམ་ཌེཀསི་ཊོཔ་འདི་གི་དོན་ལུ་མགྱོགས་དྲགས་དང་ཡིག་སྣོད་འཛིན་སྐྱོང་ནུས་ཤུགས་ཅན་ཅིག"
+
+#: ../src/useractions.c:778
+msgid "translator-credits"
+msgstr "སྐད་བསྒྱུར་པའི་ངོ་བསྟོད་ཚུ།"
+
+#: ../src/utils.c:507
+#, c-format
+msgid ""
+"No default application found for the mime-type %s.\n"
+"Open the \"File types and programs\" page in the Control Center to add one."
+msgstr ""
+"ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ་འདི་གི་དོན་ལུ་སྔོན་སྒྲིག་གློག་རིམ་འཚོལ་ཐོབ་མེདཔ། %s.\n"
+"གཅིག་ཁ་སྐོང་རྐྱབས་ནི་ལུ་ཚད་འཛིན་དབུས་འདི་ནང་ \"File types and programs\" ཤོག་ལེབ་འདི་ཁ་ཕྱེ།"
+
+#: ../src/utils.c:584
+#, c-format
+msgid "\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"
+msgstr "\"%s\" ཟུང་ལྡན་ལག་ལེན་འཐབ་བཏུབ་པའི་ཡིག་སྣོད་ཅིག་ཨིནམ་བཟུམ་ཅིག་ཨིན་རུང་འདི་ལུ་ལག་ལེན་འཐབ་བཏུབ་པའི་བིཊི་འདི་ལྡང་མིན་ཡོདཔ་ཨིན། ཁྱོད་ཀྱིས་འདི་གཞི་སྒྲིག་འབད་སྦེ་ཡིག་སྣོད་འདི་གཡོག་བཀོལ་ནི་ཨིན་ན།?"
+
+#: ../src/utils.c:587
+msgid "Make Executable?"
+msgstr "ལག་ལེན་འཐབ་བཏུབ་བཟོ་ནི་ཨིན་ན?"
+
+#: ../src/utils.c:615
+#, c-format
+msgid "\"%s\" is an executable text file. Do you want to run it, or display it's contents?"
+msgstr "\"%s\" འདི་ལག་ལེན་འཐབ་བཏུབ་པའི་ཚིག་ཡིག་ཡིག་སྣོད་ཅིག་ཨིན། ཁྱོད་ཀྱིས་འདི་གཡོག་བཀོལ་ནི་ཡང་ན་འདིའི་ནང་དོན་བཀྲམ་སྟོན་འབད་ནི་ཨིན་ན?"
+
+#: ../src/utils.c:617
+msgid "Run or Display"
+msgstr "གཡོག་བཀོལ་ཡང་ན་བཀྲམ་སྟོན་འབད།"
+
+#: ../src/utils.c:618
+msgid "Display"
+msgstr "བཀྲམ་སྟོན་འབད།"
+
+#: ../src/utils.c:618
+msgid "Run"
+msgstr "གཡོག་བཀོལ།"
+
+#: ../src/utils.c:660
+#: ../src/utils.c:739
+#, c-format
+msgid "%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"
+msgid_plural "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?"
+msgstr[0] "%s གིས་ཐག་རིང་གི་ཡིག་སྣོད་ཁ་ག་དེ་ཕྱེ་ནི་ཨིན་ན་མི་ཤེས་པས། ཁྱོད་ཀྱིས་ཡིག་སྣོད་འདི་གནས་སྐབས་གནས་ཁོངས་ཅིག་ལུ་ཕབ་ལེན་འབད་སྦེ་དེ་ལས་ཁ་ཕྱེ་ནི་ཨིན་ན།?"
+msgstr[1] "%s གིས་ཐག་རིང་གི་ཡིག་སྣོད་ཚུ་ག་དེ་ཁ་ཕྱེ་ནི་ཨིན་ན་མི་ཤེས་པས། ཁྱོད་ཀྱིས་ཡིག་སྣོད་ཚུ་གནས་སྐབས་གནས་ཁོངས་ཅིག་ལུ་ཕབ་ལེན་འབད་སྦེ་དེ་ཚུ་ཁ་ཕྱེ་ནི་ཨིན་ན།?"
+
+#: ../src/utils.c:1178
+#, c-format
+msgid ""
+"Failed to create a directory in which to store temporary files.\n"
+"Error message: %s\n"
+msgstr ""
+"གནས་སྐབས་ཡིག་སྣོད་ཚུ་གསོག་འཇོག་འབད་ནི་ནང་སྣོད་ཐོ་ཅིག་གསར་བསྐྲུན་འབད་ནི་འཐུས་ཤོར་འབྱུང་ཡོདཔ།\n"
+"འཕྲིན་དོན་འཛོལ་བ།: %s\n"
+
+#: ../src/utils.c:1347
+#, c-format
+msgid "Creating directory %s... "
+msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་དོ། %s... "
+
+#: ../src/utils.c:1350
+#, c-format
+msgid "Failed to create the directory %s"
+msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་ནི་འཐུས་ཤོར་འབྱུང་ཡོདཔ། %s"
+
+#: ../src/utils.c:1356
+#, c-format
+msgid "Couldn't read from the directory %s: %s"
+msgstr "སྣོད་ཐོ་འདི་ལས་ལྷག་མ་ཚུགས། %s: %s"
+
