@@ -1,4 +1,4 @@
-# Copyright 1999-2004 Gentoo Technologies, Inc.
+# Copyright 1999-2006 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License, v2 or later
 # Maintainer: Dirk Göttel <dgoettel@freenet.de>
 # $Header:
@@ -26,12 +26,12 @@ RDEPEND=">=x11-libs/gtk+-2.6.0
 		app-admin/gamin
 		app-admin/fam
 	)
-	exif? media-libs/libexif
-	iptc? media-libs/libiptcdata
-	id3?  media-libs/id3lib
-	"
+	exif? ( media-libs/libexif )
+	iptc? ( media-libs/libiptcdata )
+	id3?  ( media-libs/id3lib" )
 
-DEPEND="dev-util/intltool
+DEPEND="${RDEPEND}
+	dev-util/intltool
 	dev-util/pkgconfig"
 
 src_compile() {
@@ -43,7 +43,8 @@ src_compile() {
 	emake || die
 }
 
+DOCS="AUTHORS BUGS ChangeLog NEWS README TODO"
+
 src_install () {
 	emake DESTDIR=${D} install || die
-	dodoc AUTHORS ChangeLog COPYING INSTALL NEWS README TODO
 }
