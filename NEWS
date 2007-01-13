@@ -5,6 +5,7 @@ gnome-commander 1.2.4
 Bug fixes:
  * Fixed problem with opening dirs by intviewer
  * Fixed problem with editing dirs by gcmd
+ * Fixed problem #371948 and #388970 (file path not escaped)
  * Build fixes
 
 New features:

@@ -1918,10 +1918,11 @@ on_new_textfile_ok (GnomeCmdStringDialog *string_dialog,
                     const gchar **values,
                     GnomeCmdFileSelector *fs)
 {
-    gchar *cmd, *dpath;
-    gchar *filepath;
     const gchar *filename = values[0];
-    GnomeCmdDir *dir;
+    gchar *dpath;
+    gchar *filepath;
+    gchar *escaped_filepath;
+    gchar *cmd;
 
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
 
@@ -1931,7 +1932,7 @@ on_new_textfile_ok (GnomeCmdStringDialog *string_dialog,
         return FALSE;
     }
 
-    dir = gnome_cmd_file_selector_get_directory (fs);
+    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (fs);
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
 
     dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
@@ -1939,10 +1940,13 @@ on_new_textfile_ok (GnomeCmdStringDialog *string_dialog,
     g_free (dpath);
     g_return_val_if_fail (filepath, TRUE);
 
-    cmd = g_strdup_printf (gnome_cmd_data_get_editor (), filepath);
-    g_return_val_if_fail (cmd, TRUE);
+    escaped_filepath = g_strdup_printf ("\"%s\"", filepath);
+    cmd = g_strdup_printf (gnome_cmd_data_get_editor (), escaped_filepath);
+    g_free (filepath);
+    g_free (escaped_filepath);
 
-    run_command (cmd, FALSE);
+    if (cmd)
+        run_command (cmd, FALSE);
 
     return TRUE;
 }

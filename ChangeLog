@@ -1,3 +1,8 @@
+2007-01-14  Koos Jan Niesink  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-file-selector.c:
+	Fixed bug #371948 and #388970 (file path not escaped)
+
 2007-01-10  Pema Geyleg  <pema.geyleg@gmail.com>
 
 	* configure.in: Added 'dz' to ALL_LINGUAS.
