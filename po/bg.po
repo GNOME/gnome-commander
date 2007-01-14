@@ -2,8 +2,8 @@
 # This file is distributed under the same license as the GnomeCommander package.
 # <>, 2006.
 # , fuzzy
-# 
-# 
+#
+#
 #: ../src/tags/gnome-cmd-tags.c:109 ../src/tags/gnome-cmd-tags.c:129
 #: ../src/tags/gnome-cmd-tags.c:194 ../src/tags/gnome-cmd-tags.c:239
 #: ../src/tags/gnome-cmd-tags.c:349 ../src/tags/gnome-cmd-tags.c:364
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GnomeCommander HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-22 00:56+0200\n"
-"PO-Revision-Date: 2006-12-22 01:35+0200\n"
-"Last-Translator:  sstanev <sstanev@narod.ru>\n"
+"POT-Creation-Date: 2007-01-14 13:47+0200\n"
+"PO-Revision-Date: 2007-01-12 16:18+0200\n"
+"Last-Translator: \n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,7 +59,7 @@ msgstr ""
 
 #: ../plugins/cvs/cvs-plugin.c:435
 msgid "A plugin that eventually will be a simple CVS client"
-msgstr ""
+msgstr "Приствка, която би могла да стане прост CVS потребител"
 
 #: ../plugins/cvs/interface.c:161
 msgid "Compare with"
@@ -154,7 +154,9 @@ msgstr ""
 msgid ""
 "This is an example plugin that is mostly useful as a simple example for "
 "aspiring plugin hackers"
-msgstr "Това е примерна приставка, която е най- полезна като прост пример за вдъхновяване на създателите на приставки"
+msgstr ""
+"Това е примерна приставка, която е най- полезна като прост пример за "
+"вдъхновяване на създателите на приставки"
 
 #: ../src/gnome-cmd-about-plugin.c:182
 msgid "Credits"
@@ -481,8 +483,8 @@ msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
 msgstr ""
-"За да отметнете папка, целият път към нея трябва да е в"
-"правилно UTF-8 обозначаване (кодиране)\n"
+"За да отметнете папка, целият път към нея трябва да е вправилно UTF-8 "
+"обозначаване (кодиране)\n"
 
 #: ../src/gnome-cmd-bookmark-dialog.c:580
 msgid "New Bookmark"
@@ -685,7 +687,9 @@ msgstr "връзка към %s"
 #: ../src/gnome-cmd-delete-dialog.c:104
 #, c-format
 msgid "Deleted %ld of %ld file"
-msgstr ""
+msgid_plural "Deleted %ld of %ld files"
+msgstr[0] "Изтрит %ld от %ld файл"
+msgstr[1] "Изтрити %ld от %ld  файла"
 
 #: ../src/gnome-cmd-delete-dialog.c:150
 msgid "Deleting..."
@@ -790,7 +794,7 @@ msgstr "група"
 #: ../src/gnome-cmd-file-list.c:2308 ../src/gnome-cmd-file-list.c:2325
 #, c-format
 msgid "Not an ordinary file: %s"
-msgstr ""
+msgstr "Необичаен файл: %s"
 
 #: ../src/gnome-cmd-file-popmenu.c:130
 msgid "Invalid command"
@@ -929,12 +933,12 @@ msgstr "Неизвестна дискова употреба"
 #: ../src/gnome-cmd-file-selector.c:1143
 #, c-format
 msgid "List failed: %s\n"
-msgstr ""
+msgstr "Извличането на списъка неуспешно: %s\n"
 
 #: ../src/gnome-cmd-file-selector.c:1739
 #, c-format
 msgid "Failed to open connection: %s\n"
-msgstr ""
+msgstr "Неуспешно отваряне на свръзка: %s\n"
 
 #: ../src/gnome-cmd-file-selector.c:1930
 #: ../src/gnome-cmd-make-copy-dialog.c:68
@@ -981,7 +985,7 @@ msgstr "Папка"
 
 #: ../src/gnome-cmd-file.c:632
 msgid "FIFO"
-msgstr ""
+msgstr "Куп (стек)"
 
 #: ../src/gnome-cmd-file.c:633
 msgid "UNIX Socket"
@@ -1002,7 +1006,7 @@ msgstr "Мека връзка"
 #: ../src/gnome-cmd-ftp-dialog.c:157
 #, c-format
 msgid "Enter password for %s@%s"
-msgstr ""
+msgstr "Въведи парола за %s@%s"
 
 #: ../src/gnome-cmd-ftp-dialog.c:162
 msgid "Enter Password"
@@ -1362,7 +1366,7 @@ msgstr "Иди в последната"
 
 #: ../src/gnome-cmd-main-win.c:1372
 msgid "Copy file names (SHIFT for full paths)"
-msgstr ""
+msgstr "Запомни файловите имена (SHIFT за пълните пътища)"
 
 #: ../src/gnome-cmd-main-win.c:1379
 msgid "Cut"
@@ -1378,7 +1382,7 @@ msgstr "Постави"
 
 #: ../src/gnome-cmd-main-win.c:1408
 msgid "Edit (SHIFT for new document)"
-msgstr ""
+msgstr "Обработка (SHIFT за нов документ)"
 
 #: ../src/gnome-cmd-main-win.c:1423
 msgid "Drop connection"
@@ -1444,7 +1448,7 @@ msgstr "Контрол+Алт+букви"
 
 #: ../src/gnome-cmd-options-dialog.c:111
 msgid "ALT+letters (menu access with F10)"
-msgstr ""
+msgstr "ALT+букви (достъп до менюто с F10)"
 
 #: ../src/gnome-cmd-options-dialog.c:119
 msgid "Directory options"
@@ -1518,11 +1522,11 @@ msgstr "Цветове"
 
 #: ../src/gnome-cmd-options-dialog.c:435
 msgid "Foreground"
-msgstr ""
+msgstr "Букви"
 
 #: ../src/gnome-cmd-options-dialog.c:437
 msgid "Background"
-msgstr ""
+msgstr "Гръб (фон)"
 
 #: ../src/gnome-cmd-options-dialog.c:439
 msgid "Default:"
@@ -1554,7 +1558,7 @@ msgstr "Без значки"
 
 #: ../src/gnome-cmd-options-dialog.c:467
 msgid "File type icons"
-msgstr ""
+msgstr "Значки (икони) за файловия вид"
 
 #: ../src/gnome-cmd-options-dialog.c:468
 msgid "MIME icons"
@@ -1562,7 +1566,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.c:472
 msgid "Respect theme colors"
-msgstr ""
+msgstr "Използвай цветовете на темите"
 
 #: ../src/gnome-cmd-options-dialog.c:473
 msgid "Modern"
@@ -1570,7 +1574,7 @@ msgstr "Съвременен"
 
 #: ../src/gnome-cmd-options-dialog.c:474
 msgid "Fusion"
-msgstr ""
+msgstr "Сплавяне"
 
 #: ../src/gnome-cmd-options-dialog.c:475
 msgid "Classic"
@@ -1749,7 +1753,7 @@ msgstr "Всички папки"
 
 #: ../src/gnome-cmd-options-dialog.c:1156
 msgid "All directories and files"
-msgstr ""
+msgstr "Всички папки и файлове"
 
 #: ../src/gnome-cmd-options-dialog.c:1162
 msgid "Some files"
@@ -1757,7 +1761,7 @@ msgstr "Някои файлове"
 
 #: ../src/gnome-cmd-options-dialog.c:1173
 msgid "File patterns"
-msgstr "Файлова шарка (шаблон("
+msgstr "Файлова шарка (шаблон)"
 
 #: ../src/gnome-cmd-options-dialog.c:1198
 msgid "New Application"
@@ -1770,6 +1774,7 @@ msgstr ""
 #: ../src/gnome-cmd-options-dialog.c:1300
 msgid "Always download remote files before opening in external programs"
 msgstr ""
+"Винаги сваляй отдалечените файлове, преди да ги отвориш с външно приложение"
 
 #: ../src/gnome-cmd-options-dialog.c:1302
 msgid "MIME applications"
@@ -1777,7 +1782,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.c:1306
 msgid "Standard programs"
-msgstr ""
+msgstr "Стандартни приложения"
 
 #: ../src/gnome-cmd-options-dialog.c:1309
 msgid "Viewer:"
@@ -1922,7 +1927,7 @@ msgstr[1] "премести %d файла в "
 #: ../src/gnome-cmd-prepare-xfer-dialog.c:154
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
-msgstr ""
+msgstr "Папката '%s' не съществува, искаш ли да я създадеш?"
 
 #: ../src/gnome-cmd-quicksearch-popup.c:261
 msgid "Search"
@@ -1931,12 +1936,12 @@ msgstr "Търси"
 #: ../src/gnome-cmd-search-dialog.c:185
 #, c-format
 msgid "Failed to open file %s: %s\n"
-msgstr ""
+msgstr "Неуспешно отваряне на файл %s: %s\n"
 
 #: ../src/gnome-cmd-search-dialog.c:194
 #, c-format
 msgid "Failed to read from file %s: %s\n"
-msgstr ""
+msgstr "Неуспешно четене от файл %s: %s\n"
 
 #: ../src/gnome-cmd-search-dialog.c:255
 #, c-format
@@ -1993,7 +1998,7 @@ msgstr "Иди в"
 #: ../src/gnome-cmd-smb-path.c:329
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
-msgstr ""
+msgstr "Не намирам приемник или работна група с име %s\n"
 
 #: ../src/gnome-cmd-xfer-progress-win.c:38
 msgid "stopping..."
@@ -2006,7 +2011,7 @@ msgstr "Ход"
 #: ../src/gnome-cmd-xfer-progress-win.c:169
 #, c-format
 msgid "%d%% of %s copied"
-msgstr ""
+msgstr "%d%% от %s презаписани"
 
 #: ../src/gnome-cmd-xfer-progress-win.c:174
 #, c-format
@@ -2020,6 +2025,9 @@ msgid ""
 "\n"
 "Do you want to overwrite it?\n"
 msgstr ""
+"Файлът \"%s\" вече съществува.\n"
+"\n"
+"Искаш ли да го заместиш?\n"
 
 #: ../src/gnome-cmd-xfer.c:172
 msgid "Replace"
@@ -2036,6 +2044,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Грешка при презаписа в %s\n"
+"\n"
+"%s"
 
 #: ../src/gnome-cmd-xfer.c:190
 msgid "Transfer problem"
@@ -2048,13 +2059,15 @@ msgstr "презаписвам..."
 #: ../src/gnome-cmd-xfer.c:238
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
-msgstr ""
+msgstr "[файл %ld от %ld] \"%s\""
 
 #: ../src/gnome-cmd-xfer.c:382
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
 msgstr ""
+"Презаписът на папка в самата нея е лошо хрумване.\n"
+"Цялото действие бе отменено."
 
 #: ../src/gnome-cmd-xfer.c:424
 msgid "preparing..."
@@ -2072,7 +2085,7 @@ msgstr ""
 #: ../src/imageloader.c:129 ../src/imageloader.c:155
 #, c-format
 msgid "Trying to load %s instead\n"
-msgstr ""
+msgstr "Опитвам се да заредя %s вместо\n"
 
 #: ../src/imageloader.c:133 ../src/imageloader.c:158
 #, c-format
@@ -2116,7 +2129,7 @@ msgstr "Търся \"%s\""
 #: ../src/libgviewer/viewer-widget.c:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
-msgstr ""
+msgstr "Разположение: %lu от %lu\tСтълб: %d\t%s"
 
 #: ../src/libgviewer/viewer-widget.c:210
 msgid "Wrap"
@@ -2125,7 +2138,7 @@ msgstr "Пренасяне"
 #: ../src/libgviewer/viewer-widget.c:230
 #, c-format
 msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
-msgstr ""
+msgstr "Размер на изображението: %dx%d\tБита/извадка: %d\tПриближение: %s"
 
 #: ../src/libgviewer/viewer-widget.c:232
 msgid "Fit-to-Window"
@@ -2133,7 +2146,7 @@ msgstr "Намествай в прозореца"
 
 #: ../src/libgviewer/viewer-window.c:194 ../src/utils.c:1476
 msgid "There was an error displaying help."
-msgstr ""
+msgstr "Появи се грешка при показване на помощта."
 
 #: ../src/libgviewer/viewer-window.c:806
 msgid "_Close"
@@ -2166,11 +2179,11 @@ msgstr "_Обичаен размер"
 
 #: ../src/libgviewer/viewer-window.c:847
 msgid "Best _Fit"
-msgstr ""
+msgstr "Най- добро _вместване"
 
 #: ../src/libgviewer/viewer-window.c:861
 msgid "_Copy Text Selection"
-msgstr ""
+msgstr "_Запомни избрания текст"
 
 #: ../src/libgviewer/viewer-window.c:866
 msgid "Find..."
@@ -2186,15 +2199,15 @@ msgstr "Намери предходното"
 
 #: ../src/libgviewer/viewer-window.c:883
 msgid "_No Parsing (original file)"
-msgstr ""
+msgstr "_Без разбор (iизходен файл)"
 
 #: ../src/libgviewer/viewer-window.c:888
 msgid "_HTML Parser"
-msgstr ""
+msgstr "_HTML разборник (parser)"
 
 #: ../src/libgviewer/viewer-window.c:893
 msgid "_PS/PDF Parser"
-msgstr ""
+msgstr "_PS/PDF разборник (praser)"
 
 #: ../src/libgviewer/viewer-window.c:900
 msgid "_Wrap lines"
@@ -2210,11 +2223,11 @@ msgstr ""
 
 #: ../src/libgviewer/viewer-window.c:954
 msgid "_Rotate Clockwise"
-msgstr ""
+msgstr "_Завърти по часовника"
 
 #: ../src/libgviewer/viewer-window.c:959
 msgid "Rotate Counter Clockwis_e"
-msgstr ""
+msgstr "Завърти обратно на часовника"
 
 #: ../src/libgviewer/viewer-window.c:964
 msgid "_Rotate 180°"
@@ -2230,11 +2243,11 @@ msgstr "Обърни _водоравно"
 
 #: ../src/libgviewer/viewer-window.c:984
 msgid "_Binary Mode"
-msgstr ""
+msgstr "_Двоична работа"
 
 #: ../src/libgviewer/viewer-window.c:990
 msgid "_Decimal Offset in Hexdump"
-msgstr ""
+msgstr "_Десетично отместване в 16тична извадка"
 
 #: ../src/libgviewer/viewer-window.c:996
 msgid "_Save Current Settings"
@@ -2259,7 +2272,7 @@ msgstr "Бърза помощ"
 #: ../src/libgviewer/viewer-window.c:1248
 #, c-format
 msgid "Pattern \"%s\" was not found"
-msgstr ""
+msgstr "Шарката \"%s\" не бе открита"
 
 #: ../src/main.c:53 ../src/main.c:62
 msgid "Specify debug flags to use"
@@ -2314,7 +2327,7 @@ msgstr "_Настройки"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:44
 msgid "<ID3 tags not supported>"
-msgstr ""
+msgstr "<ID3 етикети не се поддържат>"
 
 #: ../src/tags/gnome-cmd-tags-id3.c:307
 msgid "Undefined"
@@ -2367,19 +2380,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-libs.c:50
 msgid "<Exif tags not supported>"
-msgstr ""
+msgstr "<Exif не се поддържат>"
 
 #: ../src/tags/gnome-cmd-tags-libs.c:53
 msgid "<IPTC tags not supported>"
-msgstr ""
+msgstr "<IPTC не се поддържат>"
 
 #: ../src/tags/gnome-cmd-tags-libs.c:56
 msgid "<ICC tags not supported>"
-msgstr ""
+msgstr "<ICC не се поддържат>"
 
 #: ../src/tags/gnome-cmd-tags.c:61
 msgid "Album Artist"
-msgstr ""
+msgstr "Изпълнител на албума"
 
 #: ../src/tags/gnome-cmd-tags.c:61
 msgid "Artist of the album."
@@ -2407,7 +2420,7 @@ msgstr "Брой парчета в сбирката"
 
 #: ../src/tags/gnome-cmd-tags.c:64
 msgid "Total number of tracks on the album."
-msgstr ""
+msgstr "Общ брой парчета в сбирката (албума)."
 
 #: ../src/tags/gnome-cmd-tags.c:65 ../src/tags/gnome-cmd-tags.c:695
 #: ../src/tags/gnome-cmd-tags.c:1161
@@ -2416,15 +2429,15 @@ msgstr "Сбирка"
 
 #: ../src/tags/gnome-cmd-tags.c:65 ../src/tags/gnome-cmd-tags.c:695
 msgid "Name of the album."
-msgstr ""
+msgstr "Име на сбирката (албума)."
 
 #: ../src/tags/gnome-cmd-tags.c:66 ../src/tags/gnome-cmd-tags.c:104
 msgid "Artist"
-msgstr ""
+msgstr "Изпълнител"
 
 #: ../src/tags/gnome-cmd-tags.c:66
 msgid "Artist of the track."
-msgstr ""
+msgstr "Изпълнител на парчето."
 
 #: ../src/tags/gnome-cmd-tags.c:67 ../src/tags/gnome-cmd-tags.c:720
 msgid "Bitrate"
@@ -2480,7 +2493,7 @@ msgstr "Диск номер"
 
 #: ../src/tags/gnome-cmd-tags.c:73
 msgid "Specifies which disc the track is on."
-msgstr ""
+msgstr "Указва на кой диск е парчето."
 
 #: ../src/tags/gnome-cmd-tags.c:74 ../src/tags/gnome-cmd-tags.c:783
 msgid "Duration"
@@ -2488,7 +2501,7 @@ msgstr "Продължителност"
 
 #: ../src/tags/gnome-cmd-tags.c:74 ../src/tags/gnome-cmd-tags.c:783
 msgid "Duration of track in seconds."
-msgstr ""
+msgstr "Продължителност на парчетата в секунди."
 
 #: ../src/tags/gnome-cmd-tags.c:75 ../src/tags/gnome-cmd-tags.c:832
 msgid "Genre"
@@ -2506,6 +2519,7 @@ msgstr "Е нов"
 #: ../src/tags/gnome-cmd-tags.c:76
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
 msgstr ""
+"Установи на \"1\", ако парчето е ново за потребителя (подразбрано \"0\")."
 
 #: ../src/tags/gnome-cmd-tags.c:77
 msgid "Last Play"
@@ -2521,7 +2535,7 @@ msgstr "Стихове"
 
 #: ../src/tags/gnome-cmd-tags.c:78
 msgid "Lyrics of the track."
-msgstr ""
+msgstr "Стихове на парчето"
 
 #: ../src/tags/gnome-cmd-tags.c:79
 msgid "MB album artist ID"
@@ -2594,11 +2608,11 @@ msgstr "Заглавие"
 
 #: ../src/tags/gnome-cmd-tags.c:87 ../src/tags/gnome-cmd-tags.c:1071
 msgid "Title of the track."
-msgstr ""
+msgstr "Заглавие на парчето."
 
 #: ../src/tags/gnome-cmd-tags.c:88
 msgid "Track Gain"
-msgstr ""
+msgstr "Праг на парчето"
 
 #: ../src/tags/gnome-cmd-tags.c:88
 msgid "Gain adjustment of the track."
@@ -2606,7 +2620,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:89
 msgid "Track Number"
-msgstr ""
+msgstr "Поредност на парчето"
 
 #: ../src/tags/gnome-cmd-tags.c:89 ../src/tags/gnome-cmd-tags.c:1081
 msgid "Position of track on the album."
@@ -2622,11 +2636,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:91
 msgid "Author"
-msgstr ""
+msgstr "Автор"
 
 #: ../src/tags/gnome-cmd-tags.c:91 ../src/tags/gnome-cmd-tags.c:1166
 msgid "Name of the author."
-msgstr ""
+msgstr "Име на автора."
 
 #: ../src/tags/gnome-cmd-tags.c:92 ../src/tags/gnome-cmd-tags.c:1164
 msgid "Comments"
@@ -2634,7 +2648,7 @@ msgstr "Забележки"
 
 #: ../src/tags/gnome-cmd-tags.c:92 ../src/tags/gnome-cmd-tags.c:1164
 msgid "User definable free text."
-msgstr ""
+msgstr "Свободен потребителски текст."
 
 #: ../src/tags/gnome-cmd-tags.c:93
 msgid "Created"
@@ -2651,7 +2665,7 @@ msgstr "Ключови думи"
 
 #: ../src/tags/gnome-cmd-tags.c:94 ../src/tags/gnome-cmd-tags.c:1176
 msgid "String of keywords."
-msgstr ""
+msgstr "Низ на ключовите думи."
 
 #: ../src/tags/gnome-cmd-tags.c:95
 msgid "Page Count"
@@ -2659,7 +2673,7 @@ msgstr "Брой страници"
 
 #: ../src/tags/gnome-cmd-tags.c:95
 msgid "Number of pages in document."
-msgstr ""
+msgstr "Брой страници в документа"
 
 #: ../src/tags/gnome-cmd-tags.c:96
 msgid "Subject"
@@ -2667,11 +2681,11 @@ msgstr "Предмет"
 
 #: ../src/tags/gnome-cmd-tags.c:96
 msgid "Document subject."
-msgstr ""
+msgstr "Тема на документа."
 
 #: ../src/tags/gnome-cmd-tags.c:97
 msgid "Title of the document."
-msgstr ""
+msgstr "Заглавието на документа."
 
 #: ../src/tags/gnome-cmd-tags.c:98
 msgid "Word Count"
@@ -2679,7 +2693,7 @@ msgstr "Брой думи"
 
 #: ../src/tags/gnome-cmd-tags.c:98
 msgid "Total number of chars in document."
-msgstr ""
+msgstr "Брой знаци в документа"
 
 #: ../src/tags/gnome-cmd-tags.c:99
 msgid "Aperture"
@@ -2687,7 +2701,7 @@ msgstr "Разтвор"
 
 #: ../src/tags/gnome-cmd-tags.c:99
 msgid "The lens aperture. The unit is the APEX value."
-msgstr ""
+msgstr "Разтвора (апертурата) не лещите. МЕ е в APEX стойност."
 
 #: ../src/tags/gnome-cmd-tags.c:104
 msgid ""
@@ -2696,6 +2710,10 @@ msgid ""
 "ease of Interoperability. When the field is left blank, it is treated as "
 "unknown."
 msgstr ""
+"Име на собственика на снимачката, фотографа или създателя на изображението. "
+"Форматът не се описва подробно, но се препоръчва информацията да бъде "
+"записана, за улесняване на преносимостта. Когато полето е оставено празно, "
+"то се счита за неизвестно."
 
 #: ../src/tags/gnome-cmd-tags.c:109
 msgid "Battery Level"
@@ -2765,7 +2783,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:144
 msgid "Compressed Bits per Pixel"
-msgstr ""
+msgstr "Уплътнени бита за точка"
 
 #: ../src/tags/gnome-cmd-tags.c:144
 msgid ""
@@ -2835,19 +2853,19 @@ msgstr "Дата и време"
 
 #: ../src/tags/gnome-cmd-tags.c:169
 msgid "The date and time of image creation."
-msgstr ""
+msgstr "Датата и времето на създаване на изображението."
 
 #: ../src/tags/gnome-cmd-tags.c:174
 msgid "Date and Time (digitized)"
-msgstr ""
+msgstr "Дата и време (цифровани)"
 
 #: ../src/tags/gnome-cmd-tags.c:174
 msgid "The date and time when the image was stored as digital data."
-msgstr ""
+msgstr "Датата и времето са били съхранени като цифрови данни."
 
 #: ../src/tags/gnome-cmd-tags.c:179
 msgid "Date and Time (original)"
-msgstr ""
+msgstr "Дата и време (изходни)"
 
 #: ../src/tags/gnome-cmd-tags.c:179
 msgid ""
@@ -2857,7 +2875,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:184
 msgid "Device Setting Description"
-msgstr ""
+msgstr "Описание на настройките на устройството"
 
 #: ../src/tags/gnome-cmd-tags.c:184
 msgid ""
@@ -2867,7 +2885,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:189
 msgid "Digital Zoom Ratio"
-msgstr ""
+msgstr "Стойност на цифровото приближение"
 
 #: ../src/tags/gnome-cmd-tags.c:189
 msgid ""
@@ -2877,7 +2895,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:194
 msgid "Document Name"
-msgstr ""
+msgstr "Име на документа"
 
 #: ../src/tags/gnome-cmd-tags.c:199
 msgid "Exif IFD Pointer"
@@ -2942,7 +2960,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:229 ../src/tags/gnome-cmd-tags.c:1170
 msgid "Exposure Time"
-msgstr ""
+msgstr "Време на излагане (експозиция)"
 
 #: ../src/tags/gnome-cmd-tags.c:229
 msgid "Exposure time, given in seconds."
@@ -2969,11 +2987,11 @@ msgstr "Светкавица"
 #: ../src/tags/gnome-cmd-tags.c:244
 msgid ""
 "This tag is recorded when an image is taken using a strobe light (flash)."
-msgstr ""
+msgstr "Тази бележка е вписана при заснемане със светкавица."
 
 #: ../src/tags/gnome-cmd-tags.c:249
 msgid "Flash Energy"
-msgstr ""
+msgstr "Енергия на светкавицата"
 
 #: ../src/tags/gnome-cmd-tags.c:249
 msgid ""
@@ -3030,7 +3048,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:279
 msgid "Focal Plane x-Resolution"
-msgstr ""
+msgstr "Водоравна разделителна способност на фокусната равнина"
 
 #: ../src/tags/gnome-cmd-tags.c:279
 msgid ""
@@ -3040,7 +3058,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:284
 msgid "Focal Plane y-Resolution"
-msgstr ""
+msgstr "Отвесна разделителна на фокусната равнина"
 
 #: ../src/tags/gnome-cmd-tags.c:284
 msgid ""
@@ -3050,7 +3068,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:289
 msgid "Gain Control"
-msgstr ""
+msgstr "Управление на добива"
 
 #: ../src/tags/gnome-cmd-tags.c:289
 msgid "This tag indicates the degree of overall image gain adjustment."
@@ -3066,7 +3084,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:299
 msgid "Altitude"
-msgstr ""
+msgstr "Височина"
 
 #: ../src/tags/gnome-cmd-tags.c:299
 msgid ""
@@ -3099,7 +3117,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:314
 msgid "Latitude"
-msgstr ""
+msgstr "Ширина"
 
 #: ../src/tags/gnome-cmd-tags.c:314
 msgid ""
@@ -3112,7 +3130,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:319
 msgid "North or South Latitude"
-msgstr ""
+msgstr "Северна или южна ширина"
 
 #: ../src/tags/gnome-cmd-tags.c:319
 msgid ""
@@ -3135,7 +3153,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:329
 msgid "East or West Longitude"
-msgstr ""
+msgstr "Източна или западна дължина"
 
 #: ../src/tags/gnome-cmd-tags.c:329
 msgid ""
@@ -3155,7 +3173,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:339
 msgid "Image Description"
-msgstr ""
+msgstr "Описание на изображението"
 
 #: ../src/tags/gnome-cmd-tags.c:339
 msgid ""
@@ -3236,13 +3254,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:389
 msgid "ISO Speed Ratings"
-msgstr ""
+msgstr "Посочени скорости по ISO"
 
 #: ../src/tags/gnome-cmd-tags.c:389
 msgid ""
 "Indicates the ISO Speed and ISO Latitude of the camera or input device as "
 "specified in ISO 12232."
 msgstr ""
+"Показва скоростите по ISO и дължината по ISO на снимачката или входното "
+"устройство, както е указано в ISO 12232."
 
 #: ../src/tags/gnome-cmd-tags.c:394
 msgid "JPEG Interchange Format"
@@ -3281,7 +3301,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:414
 msgid "Manufacturer"
-msgstr ""
+msgstr "Производител"
 
 #: ../src/tags/gnome-cmd-tags.c:414
 msgid ""
@@ -3292,7 +3312,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:419
 msgid "Maker Note"
-msgstr ""
+msgstr "Бележка на създателя"
 
 #: ../src/tags/gnome-cmd-tags.c:419
 msgid ""
@@ -3302,7 +3322,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:424
 msgid "Max Aperture Value"
-msgstr ""
+msgstr "Най- голяма стойност на разтвора"
 
 #: ../src/tags/gnome-cmd-tags.c:424
 msgid ""
@@ -3338,7 +3358,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:444
 msgid "New Subfile Type"
-msgstr ""
+msgstr "Вид на новия подфайл"
 
 #: ../src/tags/gnome-cmd-tags.c:444
 msgid "A general indication of the kind of data contained in this subfile."
@@ -3365,7 +3385,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:459
 msgid "Photometric Interpretation"
-msgstr ""
+msgstr "Фотометрично допълване (интерполиране)"
 
 #: ../src/tags/gnome-cmd-tags.c:459
 msgid ""
@@ -3375,7 +3395,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:464
 msgid "Pixel X Dimension"
-msgstr ""
+msgstr "Водоравен размер на точката (пиксела)"
 
 #: ../src/tags/gnome-cmd-tags.c:464
 msgid ""
@@ -3387,7 +3407,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:469
 msgid "Pixel Y Dimension"
-msgstr ""
+msgstr "Отвесен размер на точката (пиксела)"
 
 #: ../src/tags/gnome-cmd-tags.c:469
 msgid ""
@@ -3401,7 +3421,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:474
 msgid "Planar Configuration"
-msgstr ""
+msgstr "Равннинно разположение"
 
 #: ../src/tags/gnome-cmd-tags.c:474
 msgid ""
@@ -3412,7 +3432,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:479
 msgid "Primary Chromaticities"
-msgstr ""
+msgstr "Първични цветности"
 
 #: ../src/tags/gnome-cmd-tags.c:479
 msgid ""
@@ -3439,15 +3459,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:494
 msgid "Related Image Length"
-msgstr ""
+msgstr "Дъжина на свързания образ"
 
 #: ../src/tags/gnome-cmd-tags.c:499
 msgid "Related Image Width"
-msgstr ""
+msgstr "Ширина на свързания образ"
 
 #: ../src/tags/gnome-cmd-tags.c:504
 msgid "Related Sound File"
-msgstr ""
+msgstr "Свързан звуков файл"
 
 #: ../src/tags/gnome-cmd-tags.c:504
 msgid ""
@@ -3473,7 +3493,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:509
 msgid "Resolution Unit"
-msgstr ""
+msgstr "Мерна единица на разделителна способност"
 
 #: ../src/tags/gnome-cmd-tags.c:509
 msgid ""
@@ -3484,7 +3504,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:514
 msgid "Rows per Strip"
-msgstr ""
+msgstr "Реда на ивица"
 
 #: ../src/tags/gnome-cmd-tags.c:514
 msgid ""
@@ -3527,7 +3547,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:534
 msgid "Scene Type"
-msgstr ""
+msgstr "Вид сцена"
 
 #: ../src/tags/gnome-cmd-tags.c:534
 msgid ""
@@ -3545,7 +3565,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:544
 msgid "Sharpness"
-msgstr ""
+msgstr "Отчетливост"
 
 #: ../src/tags/gnome-cmd-tags.c:544
 msgid ""
@@ -3555,7 +3575,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:549
 msgid "Shutter speed"
-msgstr ""
+msgstr "Скорост на затвора"
 
 #: ../src/tags/gnome-cmd-tags.c:549
 msgid ""
@@ -3565,7 +3585,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:554 ../src/tags/gnome-cmd-tags.c:1179
 msgid "Software"
-msgstr ""
+msgstr "Софтуер"
 
 #: ../src/tags/gnome-cmd-tags.c:554
 msgid ""
@@ -3587,7 +3607,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:564
 msgid "Spectral Sensitivity"
-msgstr ""
+msgstr "Спектрална чувствителност"
 
 #: ../src/tags/gnome-cmd-tags.c:564
 msgid "Indicates the spectral sensitivity of each channel of the camera used."
@@ -3634,11 +3654,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:589
 msgid "Subject Distance"
-msgstr ""
+msgstr "Разстояние до предмета"
 
 #: ../src/tags/gnome-cmd-tags.c:589
 msgid "The distance to the subject, given in meters."
-msgstr ""
+msgstr "Разстояние до предмета, указано в метри."
 
 #: ../src/tags/gnome-cmd-tags.c:594
 msgid "Subject Distance Range"
@@ -3650,7 +3670,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:599
 msgid "Subject Location"
-msgstr ""
+msgstr "Разположение на предмета"
 
 #: ../src/tags/gnome-cmd-tags.c:599
 msgid ""
@@ -3695,7 +3715,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:624
 msgid "Transfer Function"
-msgstr ""
+msgstr "Действие пренос"
 
 #: ../src/tags/gnome-cmd-tags.c:624
 msgid ""
@@ -3901,7 +3921,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:690
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
-msgstr ""
+msgstr "Низ за правата в юникс подредба, например \"-rw-r--r--\"."
 
 #: ../src/tags/gnome-cmd-tags.c:691 ../src/tags/gnome-cmd-tags.c:995
 msgid "Publisher"
@@ -3971,7 +3991,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:715
 msgid "Band"
-msgstr ""
+msgstr "Лента"
 
 #: ../src/tags/gnome-cmd-tags.c:715
 msgid "Additional information about the performers in the recording."
@@ -4169,23 +4189,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:838
 msgid "Initial Key"
-msgstr ""
+msgstr "Първоначален ключ"
 
 #: ../src/tags/gnome-cmd-tags.c:838
 msgid "Initial key."
-msgstr ""
+msgstr "Първоначален ключ."
 
 #: ../src/tags/gnome-cmd-tags.c:843
 msgid "Involved People"
-msgstr ""
+msgstr "Участници"
 
 #: ../src/tags/gnome-cmd-tags.c:843 ../src/tags/gnome-cmd-tags.c:848
 msgid "Involved people list."
-msgstr ""
+msgstr "Списък на участниците"
 
 #: ../src/tags/gnome-cmd-tags.c:848
 msgid "InvolvedPeople2"
-msgstr ""
+msgstr "Участници2"
 
 #: ../src/tags/gnome-cmd-tags.c:853
 msgid "ISRC"
@@ -4205,19 +4225,19 @@ msgstr "Език."
 
 #: ../src/tags/gnome-cmd-tags.c:863
 msgid "Lead Artist"
-msgstr ""
+msgstr "Водещ художник/ артист"
 
 #: ../src/tags/gnome-cmd-tags.c:863
 msgid "Lead performer(s)."
-msgstr ""
+msgstr "Водещ(и) изпълнител(и)."
 
 #: ../src/tags/gnome-cmd-tags.c:868
 msgid "Linked Info"
-msgstr ""
+msgstr "Свързани данни"
 
 #: ../src/tags/gnome-cmd-tags.c:868
 msgid "Linked information."
-msgstr ""
+msgstr "Свързани данни."
 
 #: ../src/tags/gnome-cmd-tags.c:873
 msgid "Lyricist"
@@ -4249,7 +4269,7 @@ msgstr "Настроение"
 
 #: ../src/tags/gnome-cmd-tags.c:888
 msgid "Mood."
-msgstr ""
+msgstr "Настроение."
 
 #: ../src/tags/gnome-cmd-tags.c:893
 msgid "Layer"
@@ -4257,7 +4277,7 @@ msgstr "Слой"
 
 #: ../src/tags/gnome-cmd-tags.c:893
 msgid "MPEG layer."
-msgstr ""
+msgstr "MPEG слой."
 
 #: ../src/tags/gnome-cmd-tags.c:894
 msgid "MPEG Lookup"
@@ -4285,7 +4305,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:905
 msgid "Net Radio Owner"
-msgstr ""
+msgstr "Собственик на мрежовото радио"
 
 #: ../src/tags/gnome-cmd-tags.c:905
 msgid "Internet radio station owner."
@@ -4369,7 +4389,7 @@ msgstr "Ред на подреждане на изпълнителите"
 
 #: ../src/tags/gnome-cmd-tags.c:955
 msgid "Performer sort order."
-msgstr "Ред·на·подреждане·на·изпълнителите"
+msgstr "Ред на подреждане на изпълнителите"
 
 #: ../src/tags/gnome-cmd-tags.c:960
 msgid "Picture"
@@ -4433,23 +4453,23 @@ msgstr "Издател."
 
 #: ../src/tags/gnome-cmd-tags.c:1000
 msgid "Recording Dates"
-msgstr ""
+msgstr "Дати на запис"
 
 #: ../src/tags/gnome-cmd-tags.c:1000
 msgid "Recording dates."
-msgstr ""
+msgstr "Дати на запис."
 
 #: ../src/tags/gnome-cmd-tags.c:1005
 msgid "Recording Time"
-msgstr ""
+msgstr "Време на запис"
 
 #: ../src/tags/gnome-cmd-tags.c:1005
 msgid "Recording time."
-msgstr ""
+msgstr "Време на запис"
 
 #: ../src/tags/gnome-cmd-tags.c:1010 ../src/tags/gnome-cmd-tags.c:1498
 msgid "Release Time"
-msgstr ""
+msgstr "Време на издаване"
 
 #: ../src/tags/gnome-cmd-tags.c:1010
 msgid "Release time."
@@ -4525,11 +4545,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1061
 msgid "Terms Of Use"
-msgstr ""
+msgstr "Условия за употреба"
 
 #: ../src/tags/gnome-cmd-tags.c:1061
 msgid "Terms of use."
-msgstr ""
+msgstr "Условия за употреба."
 
 #: ../src/tags/gnome-cmd-tags.c:1066
 msgid "Time"
@@ -4541,7 +4561,7 @@ msgstr "Време."
 
 #: ../src/tags/gnome-cmd-tags.c:1076
 msgid "Titlesortorder"
-msgstr ""
+msgstr "Ред на подреждане на заглавията"
 
 #: ../src/tags/gnome-cmd-tags.c:1076
 msgid "Title sort order."
@@ -4683,7 +4703,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1163
 msgid "Camera Model"
-msgstr ""
+msgstr "Модел снимачка"
 
 #: ../src/tags/gnome-cmd-tags.c:1163
 msgid "Model of camera used to take the image."
@@ -4703,7 +4723,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1168
 msgid "Description of the image."
-msgstr ""
+msgstr "Описание на изображението"
 
 #: ../src/tags/gnome-cmd-tags.c:1169
 msgid ""
@@ -4734,15 +4754,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1174
 msgid "Height"
-msgstr ""
+msgstr "Височина"
 
 #: ../src/tags/gnome-cmd-tags.c:1174
 msgid "Height in pixels."
-msgstr ""
+msgstr "Височина в точки (пиксели)"
 
 #: ../src/tags/gnome-cmd-tags.c:1175
 msgid "ISO Speed"
-msgstr ""
+msgstr "Скорост по ISO"
 
 #: ../src/tags/gnome-cmd-tags.c:1175
 msgid ""
@@ -4812,7 +4832,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1198
 msgid "Audio Duration"
-msgstr ""
+msgstr "Продължителност на звука"
 
 #: ../src/tags/gnome-cmd-tags.c:1198
 msgid "The running time of the audio data in the form HHMMSS."
@@ -4832,7 +4852,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1208
 msgid "The sampling rate in Hz of the audio data."
-msgstr ""
+msgstr "Плътност на данните на звука в Хц."
 
 #: ../src/tags/gnome-cmd-tags.c:1213
 msgid "Audio Sampling Resolution"
@@ -4844,7 +4864,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1218
 msgid "Audio Type"
-msgstr ""
+msgstr "Вид звук"
 
 #: ../src/tags/gnome-cmd-tags.c:1218
 msgid ""
@@ -4915,7 +4935,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1258
 msgid "Contact"
-msgstr ""
+msgstr "Данни за свръзка"
 
 #: ../src/tags/gnome-cmd-tags.c:1258
 msgid ""
@@ -4953,7 +4973,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1278
 msgid "Country Code"
-msgstr ""
+msgstr "Обозначение на страната"
 
 #: ../src/tags/gnome-cmd-tags.c:1278
 msgid "The code of the country/primary location where the object was created."
@@ -5066,7 +5086,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1343
 msgid "Expiration Time"
-msgstr ""
+msgstr "Дата на изтичане"
 
 #: ../src/tags/gnome-cmd-tags.c:1343
 msgid "Designates the latest time the provider intends the object to be used."
@@ -5074,7 +5094,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1348
 msgid "File Format"
-msgstr ""
+msgstr "Файлов формат"
 
 #: ../src/tags/gnome-cmd-tags.c:1348
 msgid "File format of the data described by this metadata."
@@ -5132,7 +5152,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1383
 msgid "Language Identifier"
-msgstr ""
+msgstr "Езиков указател"
 
 #: ../src/tags/gnome-cmd-tags.c:1383
 msgid ""
@@ -5331,7 +5351,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1503
 msgid "Service Identifier"
-msgstr ""
+msgstr "Указател на услугата"
 
 #: ../src/tags/gnome-cmd-tags.c:1503
 msgid "Identifies the provider and product."
@@ -5384,11 +5404,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1538
 msgid "Sub-location"
-msgstr ""
+msgstr "Подмясто"
 
 #: ../src/tags/gnome-cmd-tags.c:1538
 msgid "The location within a city from which the object originates."
-msgstr ""
+msgstr "Мястото в града, от което произхожда предметът."
 
 #: ../src/tags/gnome-cmd-tags.c:1543
 msgid "Supplemental Category"
@@ -5419,7 +5439,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1558
 msgid "Unique Name of Object"
-msgstr ""
+msgstr "Еднозначно име на предмета"
 
 #: ../src/tags/gnome-cmd-tags.c:1558
 msgid ""
@@ -5439,7 +5459,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.c:1568
 msgid "Writer/Editor"
-msgstr ""
+msgstr "Писател/ Обработчик"
 
 #: ../src/tags/gnome-cmd-tags.c:1568
 msgid ""
@@ -5493,7 +5513,7 @@ msgstr "Бърз и мощен файлов управител за Гном"
 
 #: ../src/useractions.c:778
 msgid "translator-credits"
-msgstr ""
+msgstr "преводач-благодарности"
 
 #: ../src/utils.c:507
 #, c-format
@@ -5519,6 +5539,8 @@ msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display it's "
 "contents?"
 msgstr ""
+"\"%s\" е изпълним словесен файл. Иска ли да го изпълня или да покажа "
+"съдържанието му?"
 
 #: ../src/utils.c:617
 msgid "Run or Display"
@@ -5537,9 +5559,15 @@ msgstr "Изпълни"
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
+msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr ""
+msgstr[0] ""
+"%s не знае как да отвори отдалечения файл. Искате ли да свалите файла във "
+"временно място и тогава да го отворите?"
+msgstr[1] ""
+"%s не знае как да отвори отдалечените файлове. Искате ли да свалите "
+"файловете във временно място и тогава да го отворите?"
 
 #: ../src/utils.c:1178
 #, c-format
@@ -5554,17 +5582,17 @@ msgstr ""
 #: ../src/utils.c:1347
 #, c-format
 msgid "Creating directory %s... "
-msgstr ""
+msgstr "Създавам папка %s... "
 
 #: ../src/utils.c:1350
 #, c-format
 msgid "Failed to create the directory %s"
-msgstr ""
+msgstr "Неуспешно създаване на папка %s"
 
 #: ../src/utils.c:1356
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
-msgstr ""
+msgstr "Неуспешно четене от папка %s: %s"
 
 #~ msgid "/Time/<locale>/Time/HH.MM.SS"
 #~ msgstr "/Време/ЧЧ.ММ.СС"
