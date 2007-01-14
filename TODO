@@ -18,7 +18,6 @@
 * User defined categories for grouping bookmarks
 * Support for SSH+FTP and WebDAV
 * Editing remote files
-* Python plugins
 * More plugins:
     - creating tarballs from selected files
     - compressing/decompressing (gz & bz2)

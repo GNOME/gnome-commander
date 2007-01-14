@@ -719,7 +719,7 @@ gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
         con->priv->all_dirs_map = g_hash_table_new_full (
             g_str_hash, g_str_equal, g_free, NULL);
 
-    DEBUG ('p', "ADDING 0x%x %s to the cache\n", (guint)dir, uri_str);
+    DEBUG ('k', "ADDING 0x%x %s to the cache\n", (guint)dir, uri_str);
     g_hash_table_insert (con->priv->all_dirs_map, uri_str, dir);
 }
 
@@ -734,7 +734,7 @@ gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
 
     uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
 
-    DEBUG ('p', "REMOVING 0x%x %s from the cache\n", (guint)dir, uri_str);
+    DEBUG ('k', "REMOVING 0x%x %s from the cache\n", (guint)dir, uri_str);
     g_hash_table_remove (con->priv->all_dirs_map, uri_str);
     g_free (uri_str);
 }
@@ -752,10 +752,10 @@ gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
         dir = g_hash_table_lookup (con->priv->all_dirs_map, uri_str);
 
     if (dir) {
-        DEBUG ('p', "FOUND 0x%x %s in the hash-table, reusing it!\n", (guint)dir, uri_str);
+        DEBUG ('k', "FOUND 0x%x %s in the hash-table, reusing it!\n", (guint)dir, uri_str);
         return dir;
     }
 
-    DEBUG ('p', "FAILED to find %s in the hash-table\n", uri_str);
+    DEBUG ('k', "FAILED to find %s in the hash-table\n", uri_str);
     return NULL;
 }

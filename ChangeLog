@@ -1,3 +1,26 @@
+2007-01-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* Makefile.am:
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	* m4/python.m4:
+	* pixmaps/Makefile.am:
+	* pixmaps/python-plugin.svg:
+	* plugins/Makefile.am:
+	* plugins/python/Makefile.am:
+	* plugins/python/md5sum/Makefile.am:
+	* plugins/python/md5sum/md5sum.py:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-con.c:
+	* src/gnome-cmd-dir-pool.c:
+	* src/gnome-cmd-file-popmenu.c:
+	* src/gnome-cmd-python-plugin.c:
+	* src/gnome-cmd-python-plugin.h:
+	* src/main.c:
+	* src/utils.c:
+	Added support for python plugins
+
 2007-01-14  Koos Jan Niesink  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-file-selector.c:

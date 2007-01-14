@@ -9,6 +9,7 @@ Bug fixes:
  * Build fixes
 
 New features:
+ * Support for python plugins
  * New or updated translations: bg dz
  * New key bindings:
       CTRL+\         Go to the root directory

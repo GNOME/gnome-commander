@@ -38,6 +38,7 @@ src/gnome-cmd-patternsel-dialog.c
 src/gnome-cmd-prepare-copy-dialog.c
 src/gnome-cmd-prepare-move-dialog.c
 src/gnome-cmd-prepare-xfer-dialog.c
+src/gnome-cmd-python-plugin.c
 src/gnome-cmd-quicksearch-popup.c
 src/gnome-cmd-rename-dialog.c
 src/gnome-cmd-search-dialog.c

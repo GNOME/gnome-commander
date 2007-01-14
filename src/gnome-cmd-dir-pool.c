@@ -43,7 +43,7 @@ check_cache_maxsize (GnomeCmdDirPool *pool)
         GnomeCmdDir *dir = (GnomeCmdDir*)g_list_last (pool->priv->queue)->data;
         g_hash_table_remove (pool->priv->map, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
         pool->priv->queue = g_list_remove (pool->priv->queue, dir);
-        DEBUG ('p', "removing %s 0x%x from the pool\n",
+        DEBUG ('k', "removing %s 0x%x from the pool\n",
                gnome_cmd_dir_get_path (dir), dir);
         gnome_cmd_dir_unref (dir);
 
@@ -158,7 +158,7 @@ gnome_cmd_dir_pool_add (GnomeCmdDirPool *pool, GnomeCmdDir *dir)
     g_return_if_fail (GNOME_CMD_IS_DIR_POOL (pool));
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    DEBUG ('p', "adding %s 0x%x to the pool\n",
+    DEBUG ('k', "adding %s 0x%x to the pool\n",
            gnome_cmd_dir_get_path (dir), dir);
     gnome_cmd_dir_ref (dir);
     pool->priv->queue = g_list_prepend (pool->priv->queue, dir);

@@ -71,12 +71,13 @@ gboolean DEBUG_ENABLED (gchar flag)
  * f: file ref-counting
  * g: run_command debugging
  * i: imageloader
- * p: directory pool
+ * k: directory pool
  * l: directory listings
- * m: connection debug
- * n: directory-monitoring debug
+ * m: connection debugging
+ * n: directory-monitoring debugging
+ * p: python plugins debugging
  * s: smb network browser debugging
- * v: internal viewr
+ * v: internal viewer
  * w: widget_lookup debugging
  * y: brief mime-based imageload debugging
  * z: detailed mime-based imageload debugging

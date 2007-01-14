@@ -29,6 +29,8 @@
 #include "ls_colors.h"
 #include "imageloader.h"
 #include "plugin_manager.h"
+#include "gnome-cmd-python-plugin.h"
+
 
 GnomeCmdMainWin *main_win;
 GtkWidget *main_win_widget;
@@ -122,9 +124,15 @@ main (int argc, char *argv[])
 
     gtk_widget_show (GTK_WIDGET (main_win));
     plugin_manager_init ();
+#ifdef HAVE_PYTHON
+    python_plugin_manager_init ();
+#endif
 
     gtk_main ();
 
+#ifdef HAVE_PYTHON
+    python_plugin_manager_shutdown ();
+#endif
     plugin_manager_shutdown ();
     gnome_cmd_data_save ();
     gnome_vfs_shutdown ();

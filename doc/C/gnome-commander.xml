@@ -354,16 +354,19 @@
                         <para><guilabel>i</guilabel> image loader</para>
                     </listitem>
                     <listitem>
-                        <para><guilabel>p</guilabel> directory pool</para>
+                        <para><guilabel>k</guilabel> directory pool</para>
                     </listitem>
                     <listitem>
                         <para><guilabel>l</guilabel> directory listings</para>
                     </listitem>
                     <listitem>
-                        <para><guilabel>m</guilabel> connection debug</para>
+                        <para><guilabel>m</guilabel> connection debugging</para>
                     </listitem>
                     <listitem>
-                        <para><guilabel>n</guilabel> directory monitoring debug</para>
+                        <para><guilabel>n</guilabel> directory monitoring debugging</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>p</guilabel> python plugins debugging</para>
                     </listitem>
                     <listitem>
                         <para><guilabel>s</guilabel> SMB network browser debugging</para>
@@ -4877,6 +4880,9 @@
                 <para>New features:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Support for python plugins</para>
+                        </listitem>
                         <listitem>
                             <para>Updated help docs</para>
                         </listitem>

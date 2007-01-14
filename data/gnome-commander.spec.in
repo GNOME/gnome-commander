@@ -98,9 +98,8 @@ desktop-file-install \
    --dir %{buildroot}%{_datadir}/applications \
    %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-#Remove not needed .a files
 %{__rm} -f %{buildroot}%{_libdir}/%{name}/*.{a,la}
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/*/*.{a,la}
+%{__rm} -f %{buildroot}%{_libdir}/%{name}/*/*.{a,la,py}
 
 %find_lang %{name}
 
@@ -130,6 +129,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Wed Jan 10 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+- removed unneeded .py files
+
 * Thu Dec 21 2006 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.3-2
 - Clean up.
 
