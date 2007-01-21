@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY author "Piotr Eljasiak">
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.4">
   <!ENTITY manrevision "1.2.4">
-  <!ENTITY date "January 2007">
+  <!ENTITY date "February 2007">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -24,16 +25,13 @@
 <article id="index" lang="en">
 <!-- please do not change the id; for translations, change lang to -->
 <!-- appropriate code -->
-  <articleinfo>
-    <title>&app; Manual V&manrevision;</title>
 
-    <copyright>
-      <year>2000</year>
-      <year>2001</year>
-      <holder>DOCUMENTATION WRITER 2</holder>
-    </copyright>
+  <articleinfo>
+    <title>&app; Manual</title>
+    <subtitle>&app; Desktop Application Manual V&manrevision;</subtitle>
     <copyright>
       <year>2006</year>
+      <year>2007</year>
       <holder>Piotr Eljasiak</holder>
     </copyright>
 <!-- translators: uncomment this:
@@ -48,7 +46,7 @@
      not specified, the publisher/author is the same for all versions of the
      document.  -->
     <publisher>
-      <publishername> GNOME Documentation Project</publishername>
+      <publishername>&publisher;</publishername>
     </publisher>
 
    &legal;
@@ -56,6 +54,7 @@
         other legal stuff such as "NO WARRANTY" statement. Please do not change
     any of this. -->
 
+<!--
     <authorgroup>
       <author>
         <firstname>Documentation</firstname>
@@ -86,8 +85,8 @@
         </affiliation>
         <contrib>Latin translation</contrib>
       </othercredit>
--->
-    </authorgroup>
+
+    </authorgroup> -->
 
 
 <!-- According to GNU FDL, revision history is mandatory if you are -->
@@ -136,6 +135,9 @@
       </para>
 <!-- Translators may also add here feedback address for translations -->
     </legalnotice>
+    <abstract role="description">
+        <para>&app; is a lighweight and fast file manager for the GNOME desktop.</para>
+    </abstract>
   </articleinfo>
 
   <indexterm zone="index">
