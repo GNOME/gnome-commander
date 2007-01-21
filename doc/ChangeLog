@@ -1,0 +1,4 @@
+2007-01-22  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-commander.xml:
+	Updated links to gcmd repository (cvs -> svn)
