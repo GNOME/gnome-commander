@@ -18,6 +18,7 @@
 * User defined categories for grouping bookmarks
 * Support for SSH+FTP and WebDAV
 * Editing remote files
+* Optional file deselection after completed action (copy, rename, ...)
 * More plugins:
     - creating tarballs from selected files
     - compressing/decompressing (gz & bz2)
