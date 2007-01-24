@@ -10,7 +10,7 @@ Bug fixes:
 
 New features:
  * Support for python plugins
- * New or updated translations: bg dz
+ * New or updated translations: bg dz en_GB
  * New key bindings:
       CTRL+\         Go to the root directory
       CTRL+`         Go to the home directory
