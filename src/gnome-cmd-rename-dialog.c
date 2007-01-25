@@ -52,6 +52,7 @@ on_dialog_keypressed (GtkWidget *widget,
             return TRUE;
 
         case GDK_Return:
+        case GDK_KP_Enter:
             {
                 const gchar *new_fname = gtk_entry_get_text (dialog->priv->textbox);
                 GnomeVFSResult ret = gnome_cmd_file_rename (dialog->priv->finfo, new_fname);

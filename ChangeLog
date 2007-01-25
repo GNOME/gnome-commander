@@ -1,3 +1,8 @@
+2007-01-25  Mike Crash <mike@mikecrash.com>
+
+	* src/gnome-cmd-rename-dialog.c:
+	Added GDK_KP_Enter handling
+
 2007-01-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* Makefile.am:
