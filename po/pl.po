@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-03 01:31+0100\n"
-"PO-Revision-Date: 2007-01-14 02:19+0100\n"
+"PO-Revision-Date: 2007-01-28 00:36+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1976,7 +1976,7 @@ msgstr "Nie można czytać z pliku %s: %s\n"
 #: ../src/gnome-cmd-search-dialog.c:255
 #, c-format
 msgid "Searching in: %s"
-msgstr "Wyszukaiwanie w: %s"
+msgstr "Wyszukiwanie w: %s"
 
 #: ../src/gnome-cmd-search-dialog.c:405
 #, c-format
@@ -3898,7 +3898,6 @@ msgid "Content group description."
 msgstr "Brak opisu"
 
 #: ../src/tags/gnome-cmd-tags.c:763
-#, fuzzy
 msgid "Content Type"
 msgstr "Typ zawartości"
 
@@ -4774,7 +4773,7 @@ msgstr "Próbkowanie"
 
 #: ../src/tags/gnome-cmd-tags.c:1208
 msgid "The sampling rate in Hz of the audio data."
-msgstr ""
+msgstr "Częstotliwość próbkowania danych w Hz"
 
 #: ../src/tags/gnome-cmd-tags.c:1213
 #, fuzzy
