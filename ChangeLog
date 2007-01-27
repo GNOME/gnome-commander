@@ -1,5 +1,10 @@
 2007-01-28  Mike Crash <mike@mikecrash.com>
 
+	* src/libgviewer/search-dlg.c:
+	Make search entry selected by default
+
+2007-01-28  Mike Crash <mike@mikecrash.com>
+
 	* src/gnome-cmd-search-dialog.c:
 	Fixed bug #351952 (crash while doing a content search)
 

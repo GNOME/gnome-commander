@@ -373,6 +373,8 @@ search_dlg_init (GViewerSearchDlg *sdlg)
                     sdlg->priv->case_sensitive );
     if (sdlg->priv->last_entry_text!=NULL)
         gtk_entry_set_text(GTK_ENTRY(entry), sdlg->priv->last_entry_text);
+
+    gtk_widget_grab_focus (sdlg->priv->entry);
 }
 
 static void search_dlg_destroy (GtkObject *object)
