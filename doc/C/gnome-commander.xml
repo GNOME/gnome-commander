@@ -4879,6 +4879,9 @@
                             <para>Fixed problem with editing dirs by gcmd</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #351952 (crash while doing a content search)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #371948 and #388970 (file path not escaped)</para>
                         </listitem>
                         <listitem>

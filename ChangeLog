@@ -1,3 +1,8 @@
+2007-01-28  Mike Crash <mike@mikecrash.com>
+
+	* src/gnome-cmd-search-dialog.c:
+	Fixed bug #351952 (crash while doing a content search)
+
 2007-01-25  Mike Crash <mike@mikecrash.com>
 
 	* src/gnome-cmd-rename-dialog.c:

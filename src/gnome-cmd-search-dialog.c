@@ -227,10 +227,14 @@ static gboolean
 content_matches (GnomeCmdFile *finfo, SearchData *data)
 {
     static regmatch_t match;
+    gint ret = REG_NOMATCH;
     gchar *buf = load_file (finfo);
-    gint ret = regexec (data->content_regex, buf, 1, &match, 0);
-    g_free (buf);
-    return (ret == 0);
+    if (buf)
+    {
+        ret = regexec (data->content_regex, buf, 1, &match, 0);
+        g_free (buf);
+    }
+    return ret == 0;
 }
 
 
