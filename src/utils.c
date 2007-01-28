@@ -58,7 +58,7 @@ static gchar *tmp_file_dir = NULL;
 gboolean DEBUG_ENABLED (gchar flag)
 {
     if (debug_flags != NULL)
-       return (strchr(debug_flags, flag) != 0);
+       return strchr(debug_flags, flag) != 0;
 
     return FALSE;
 }
@@ -249,9 +249,7 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 
 gboolean string2int (const gchar *s, gint *i)
 {
-    int ret = sscanf (s, "%d", i);
-
-    return (ret == 1);
+    return sscanf (s, "%d", i) == 1;
 }
 
 
@@ -266,7 +264,7 @@ gboolean string2short (const gchar *s, gshort *sh)
     int i,ret;
     ret = sscanf (s, "%d", &i);
     *sh = i;
-    return (ret == 1);
+    return ret == 1;
 }
 
 
@@ -275,7 +273,7 @@ gboolean string2ushort (const gchar *s, gushort *sh)
     int i,ret;
     ret = sscanf (s, "%d", &i);
     *sh = i;
-    return (ret == 1);
+    return ret == 1;
 }
 
 
@@ -284,7 +282,7 @@ gboolean string2char (const gchar *s, gchar *c)
     int i, ret;
     ret = sscanf (s, "%d", &i);
     *c = i;
-    return (ret == 1);
+    return ret == 1;
 }
 
 
@@ -293,7 +291,7 @@ gboolean string2uchar (const gchar *s, guchar *c)
     int i, ret;
     ret = sscanf (s, "%d", &i);
     *c = i;
-    return (ret == 1);
+    return ret == 1;
 }
 
 

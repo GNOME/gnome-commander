@@ -45,7 +45,7 @@ on_ok (GtkButton *button, GnomeCmdStringDialog *dialog)
         gint i;
         gchar **values = (gchar**)g_new (gpointer, dialog->rows);
 
-        for ( i=0 ; i<dialog->rows ; i++ )
+        for ( i=0; i<dialog->rows; i++ )
             values[i] = (gchar*)gtk_entry_get_text (GTK_ENTRY (dialog->entries[i]));
 
         valid = dialog->priv->ok_cb (dialog, (const gchar**)values, dialog->priv->data);
@@ -132,7 +132,7 @@ setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
     table = create_table (dialog, rows, 2);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), table);
 
-    for ( i=0 ; i<rows ; i++ ) {
+    for ( i=0; i<rows; i++ ) {
         string_dialog->labels[i] = create_label (dialog, "");
         table_add (table, string_dialog->labels[i], 0, i, GTK_FILL);
 
@@ -233,7 +233,7 @@ gnome_cmd_string_dialog_setup_with_cancel (GnomeCmdStringDialog *dialog,
     gnome_cmd_string_dialog_set_cancel_cb (dialog, cancel_cb);
 
     if (labels)
-        for ( i=0 ; i<rows ; i++ )
+        for ( i=0; i<rows; i++ )
             gnome_cmd_string_dialog_set_label (dialog, i, labels[i]);
 }
 

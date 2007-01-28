@@ -39,11 +39,9 @@ static void destroy(GObject *a, gpointer data)
 
 int main(int argc, char* argv[])
 {
-    GtkWidget *w ;
-
     gnome_init("gnome-commander","0.1",argc,argv);
     
-    w = gviewer_window_file_view(argv[1],NULL);
+    GtkWidget *w = gviewer_window_file_view(argv[1],NULL);
     
     gtk_widget_show(w);
     

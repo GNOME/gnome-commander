@@ -323,7 +323,7 @@ remove_basename (gchar *in)
     gint i;
     gchar *out = g_strdup (in);
 
-    for (i=strlen(out)-1 ; i>0 ; i--)
+    for (i=strlen(out)-1; i>0; i--)
         if (out[i] == '/')
         {
             out[i] = '\0';

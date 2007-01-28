@@ -90,7 +90,7 @@ ext_color (gchar *key, gchar *val)
     col->fg = NULL;
     col->bg = NULL;
 
-    for (i=0 ; i<ret ; i++) {
+    for (i=0; i<ret; i++) {
         if (n[i] >= 30 && n[i] <= 37)
             col->fg = code2color (n[i]);
         else if (n[i] >= 40 && n[i] <= 47)
@@ -130,7 +130,7 @@ type_color (gchar *key, gchar *val)
     }
 
     ret = sscanf (val, "%d;%d;%d", &n[0], &n[1], &n[2]);
-    for (i=0 ; i<ret ; i++) {
+    for (i=0; i<ret; i++) {
         if (n[i] >= 30 && n[i] <= 37)
             col->fg = code2color (n[i]);
         else if (n[i] >= 40 && n[i] <= 47)

@@ -77,7 +77,7 @@ gboolean history_can_back (History *history)
     g_return_val_if_fail (history != NULL, FALSE);
     g_return_val_if_fail (history->pos != NULL, FALSE);
 
-    return (history->pos->next != NULL);
+    return history->pos->next != NULL;
 }
 
 
@@ -86,7 +86,7 @@ gboolean history_can_forward (History *history)
     g_return_val_if_fail (history != NULL, FALSE);
     g_return_val_if_fail (history->pos != NULL, FALSE);
 
-    return (history->pos->prev != NULL);
+    return history->pos->prev != NULL;
 }
 
 

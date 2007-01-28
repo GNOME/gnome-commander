@@ -116,7 +116,7 @@ filter_match (Filter *filter, gchar *text)
     switch (filter->type)
     {
         case FILTER_TYPE_REGEX:
-            return (regexec (filter->re_exp, text, 1, &match, 0) == 0);
+            return regexec (filter->re_exp, text, 1, &match, 0) == 0;
 
         case FILTER_TYPE_FNMATCH:
             return (fnmatch (filter->fn_exp, text, filter->fn_flags) == 0);

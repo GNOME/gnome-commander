@@ -45,7 +45,6 @@ struct _GnomeCmdConDevicePrivate
 static GnomeCmdConClass *parent_class = NULL;
 
 
-
 static gboolean
 is_mounted (GnomeCmdCon *con)
 {
@@ -320,7 +319,7 @@ destroy (GtkObject *object)
 
     if (con->priv->vfsvol) {
     gnome_vfs_volume_unref(con->priv->vfsvol);
-    con->priv->vfsvol = NULL ;
+    con->priv->vfsvol = NULL;
     }
 
     g_free (con->priv);

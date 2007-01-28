@@ -744,9 +744,9 @@ my_strcmp (const gchar *s1, const gchar *s2, gboolean raising)
         ret = g_strcasecmp (s1,s2);
 
     if (ret > 0)
-        return (raising?-1:1);
+        return raising ? -1 : 1;
     else if (ret < 0)
-        return (raising?1:-1);
+        return raising ? 1 : -1;
 
     return 0;
 }
@@ -756,9 +756,9 @@ static gint
 my_intcmp (gint i1, gint i2, gboolean raising)
 {
     if (i1 > i2)
-        return (raising?-1:1);
+        return raising ? -1 : 1;
     else if (i2 > i1)
-        return (raising?1:-1);
+        return raising ? 1 : -1;
 
     return 0;
 }
@@ -2334,7 +2334,7 @@ gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl)
     g_return_val_if_fail(GNOME_CMD_IS_FILE_LIST(fl),FALSE);
     g_return_val_if_fail(fl->priv!=NULL,FALSE);
 
-    return (fl->priv->quicksearch_popup!=NULL);
+    return fl->priv->quicksearch_popup!=NULL;
 }
 
 void

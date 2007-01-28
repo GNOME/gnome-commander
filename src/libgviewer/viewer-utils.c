@@ -65,7 +65,7 @@ void   gviewer_free_string_history (GList *strings)
         if (temp->data!=NULL)
         {
             g_free(temp->data);
-            temp->data = NULL ;
+            temp->data = NULL;
         }
     g_list_free(strings);
 }
@@ -87,7 +87,7 @@ gboolean gviewer_find_string_history(GList *strings, const gchar *text)
     for (; strings; strings = strings->next)
         if (strings->data!=NULL)
             if (strcmp( (gchar*)strings->data, text)==0)
-                return TRUE ;
+                return TRUE;
     return FALSE;
 }
 
@@ -111,33 +111,33 @@ GList *gviewer_load_string_history (gchar *format, gint size)
 
 int unicode2utf8(unsigned int unicode, unsigned char*out)
 {
-    int bytes_needed = 0 ;
+    int bytes_needed = 0;
     if (unicode<0x80) {
-        bytes_needed = 1 ;
-        out[0] = (unsigned char)(unicode&0xFF) ;
+        bytes_needed = 1;
+        out[0] = (unsigned char)(unicode&0xFF);
     }
     else
     if (unicode<0x0800) {
-        bytes_needed = 2 ;
-        out[0] = (unsigned char)(unicode>>6 | 0xC0) ;
-        out[1] = (unsigned char)((unicode&0x3F)| 0x80) ;
+        bytes_needed = 2;
+        out[0] = (unsigned char)(unicode>>6 | 0xC0);
+        out[1] = (unsigned char)((unicode&0x3F)| 0x80);
     }
     else
     if (unicode<0x10000) {
-        bytes_needed = 3 ;
-        out[0] = (unsigned char)((unicode>>12) | 0xE0) ;
-        out[1] = (unsigned char)(((unicode>>6) & 0x3F) | 0x80) ;
-        out[2] = (unsigned char)((unicode & 0x3F) | 0x80) ;
+        bytes_needed = 3;
+        out[0] = (unsigned char)((unicode>>12) | 0xE0);
+        out[1] = (unsigned char)(((unicode>>6) & 0x3F) | 0x80);
+        out[2] = (unsigned char)((unicode & 0x3F) | 0x80);
     }
     else {
-        bytes_needed = 4 ;
-        out[0] = (unsigned char)((unicode>>18) | 0xE0) ;
-        out[1] = (unsigned char)(((unicode>>12) & 0x3F) | 0x80) ;
-        out[2] = (unsigned char)(((unicode>>6) & 0x3F) | 0x80) ;
-        out[3] = (unsigned char)((unicode & 0x3F) | 0x80) ;
+        bytes_needed = 4;
+        out[0] = (unsigned char)((unicode>>18) | 0xE0);
+        out[1] = (unsigned char)(((unicode>>12) & 0x3F) | 0x80);
+        out[2] = (unsigned char)(((unicode>>6) & 0x3F) | 0x80);
+        out[3] = (unsigned char)((unicode & 0x3F) | 0x80);
     }
 
-    return bytes_needed ;
+    return bytes_needed;
 }
 
 char_type* convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *array_length)
@@ -156,15 +156,15 @@ char_type* convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
     length = g_utf8_strlen(utf8text,-1);
     g_return_val_if_fail(length>0,NULL);
 
-    result = g_new0(char_type, length) ;
-    *array_length = length ;
+    result = g_new0(char_type, length);
+    *array_length = length;
 
     index = 0;
-    pos = utf8text ;
+    pos = utf8text;
     while (index<length) {
         unicode_char = g_utf8_get_char(pos);
 
-        unicode2utf8(unicode_char, (unsigned char*)&result[index]) ;
+        unicode2utf8(unicode_char, (unsigned char*)&result[index]);
 
         pos = g_utf8_next_char(pos);
         if (pos==NULL) {
@@ -179,7 +179,7 @@ char_type* convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
 
 guint8 *mem_reverse(const guint8 *buffer, guint buflen)
 {
-    guint8* result ;
+    guint8* result;
     guint i,j;
 
     g_return_val_if_fail(buffer!=NULL,NULL);
@@ -194,16 +194,16 @@ guint8 *mem_reverse(const guint8 *buffer, guint buflen)
 
 guint8 *text2hex(const gchar* text, /*out*/ guint *buflen)
 {
-    guint8 *result ;
+    guint8 *result;
     int idx,len;
-    guint8 value ;
+    guint8 value;
     gboolean high_nib;
 
-    g_return_val_if_fail(text!=NULL,NULL) ;
-    g_return_val_if_fail(buflen!=NULL,NULL) ;
+    g_return_val_if_fail(text!=NULL,NULL);
+    g_return_val_if_fail(buflen!=NULL,NULL);
 
     idx = 0;
-    len = 0 ;
+    len = 0;
     while ( text[idx]) {
         if (text[idx]==' ')
             idx++;
@@ -216,24 +216,24 @@ guint8 *text2hex(const gchar* text, /*out*/ guint *buflen)
     }
 
     if (len % 2 != 0)
-        return NULL ;
+        return NULL;
 
     result = g_new0(guint8, len);
 
     idx = 0;
     len = 0;
-    high_nib = TRUE ;
-    value = 0 ;
+    high_nib = TRUE;
+    value = 0;
     while ( text[idx]) {
         if (g_ascii_isxdigit(text[idx])) {
             if (high_nib)
                 value = g_ascii_xdigit_value(text[idx]) * 16;
             else {
-                value += g_ascii_xdigit_value(text[idx]) ;
-                result[len] = value ;
+                value += g_ascii_xdigit_value(text[idx]);
+                result[len] = value;
                 len++;
             }
-            high_nib = !high_nib ;
+            high_nib = !high_nib;
         };
         idx++;
     }
@@ -244,6 +244,6 @@ guint8 *text2hex(const gchar* text, /*out*/ guint *buflen)
 char_type chartype_toupper(char_type ch)
 {
     if (ch>='a' && ch<='z')
-        return (char_type)(ch & ~0x20) ;
+        return (char_type)(ch & ~0x20);
     return ch;
 }

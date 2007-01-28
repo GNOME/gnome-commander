@@ -28,54 +28,48 @@
 
 void usage()
 {
-    fprintf(stderr,"This program tests the file operations module in 'libgviewer'.\n\n" ) ;
+    fprintf(stderr,"This program tests the file operations module in 'libgviewer'.\n\n" );
 
-    fprintf(stderr,"Usage: test-fileops filename [start_offset] [end_offset]\n" ) ;
-    fprintf(stderr,"\t'filename' will be printed to STDOUT.\n" ) ;
-    fprintf(stderr,"\t'start_offset' and 'end_offset' are optinal.\n\n" ) ;
+    fprintf(stderr,"Usage: test-fileops filename [start_offset] [end_offset]\n" );
+    fprintf(stderr,"\t'filename' will be printed to STDOUT.\n" );
+    fprintf(stderr,"\t'start_offset' and 'end_offset' are optinal.\n\n" );
     exit(0);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     ViewerFileOps *fops;
-    offset_type start = 0 ;
-    offset_type end = 0 ;
-    offset_type current ;
-    int value ;
-    
+    offset_type start = 0;
+    offset_type end = 0;
+    offset_type current;
+    int value;
+
     if (argc<=1)
-        usage() ;
-    
+        usage();
+
     fops = gv_fileops_new();
-    
+
     if (gv_file_open(fops, argv[1])==-1) {
-        fprintf(stderr,"Failed to open \"%s\"\n", argv[1]) ;
+        fprintf(stderr,"Failed to open \"%s\"\n", argv[1]);
         goto error;
     }
-    
-    if (argc>=3)
-        start = atol(argv[2]);    
-    else
-        start = 0 ;
-    
-    if (argc>=4)
-        end = atol(argv[3]);    
-    else
-        end = gv_file_get_max_offset(fops);
 
-    current = start ;
-    while (current < end) {
+    start = argc>=3 ? atol(argv[2]) : 0;
+
+    end = argc>=4 ? atol(argv[3]) : gv_file_get_max_offset(fops);
+
+    
+    for (current = start; current < end; current++) 
+    {
         value = gv_file_get_byte(fops, current);
-        current++ ;
-        
+
         if (value==-1)
-            break ;
-        
+            break;
+
         printf("%c",(unsigned char)value);
     }
-    
-error:    
+
+error:
     gv_file_free(fops);
     g_free(fops);
     return 0;

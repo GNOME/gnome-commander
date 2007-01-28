@@ -64,7 +64,7 @@ static void bch_compute(GHashTable* bch,char_type *pattern, int m, gboolean case
    int i;
 
    for (i = 0; i < m - 1; ++i)
-       bch_set_value(bch, CHARTYPE_CASE(pattern[i],case_sens), m-i-1) ;
+       bch_set_value(bch, CHARTYPE_CASE(pattern[i],case_sens), m-i-1);
 }
 
 
@@ -140,7 +140,7 @@ error:
 void free_bm_chartype_data(GViewerBMChartypeData*data)
 {
     if (data==NULL)
-        return ;
+        return;
 
     if (data->good!=NULL)
         g_free(data->good);
@@ -148,13 +148,13 @@ void free_bm_chartype_data(GViewerBMChartypeData*data)
 
     if (data->bad!=NULL)
         bch_free(data->bad);
-    data->bad = NULL ;
+    data->bad = NULL;
 
     if (data->pattern!=NULL)
         g_free(data->pattern);
-    data->pattern = NULL ;
+    data->pattern = NULL;
 
-    data->pattern_len = 0 ;
+    data->pattern_len = 0;
 
     g_free(data);
 }
@@ -170,7 +170,7 @@ gboolean bm_chartype_equal(GViewerBMChartypeData *data, int pattern_index, char_
 
 int bm_chartype_get_advancement(GViewerBMChartypeData *data, int pattern_index,  char_type ch)
 {
-    int m = data->pattern_len ;
+    int m = data->pattern_len;
 
     return MAX(data->good[pattern_index], bch_get_value(data, ch, m) - m + 1 + pattern_index);
 }

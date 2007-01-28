@@ -135,11 +135,11 @@ init (GnomeCmdChmodComponent *comp)
     gtk_table_set_row_spacings (GTK_TABLE (table), 6);
     gtk_table_set_col_spacings (GTK_TABLE (table), 6);
 
-    for (y=0 ; y<3 ; y++) {
+    for (y=0; y<3; y++) {
         GtkWidget *lbl = create_label (GTK_WIDGET (comp), check_categories[y]);
         table_add (GTK_WIDGET (table), lbl, 0, y, GTK_FILL);
 
-        for (x=0 ; x<3 ; x++) {
+        for (x=0; x<3; x++) {
             comp->priv->check_boxes[y][x] =
                 create_check (GTK_WIDGET (comp), check_text[x], "check");
             gtk_signal_connect (GTK_OBJECT (comp->priv->check_boxes[y][x]), "toggled",
@@ -216,8 +216,8 @@ gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
     gint x,y;
     GnomeVFSFilePermissions perms = 0;
 
-    for (y=0 ; y<3 ; y++) {
-        for (x=0 ; x<3 ; x++) {
+    for (y=0; y<3; y++) {
+        for (x=0; x<3; x++) {
             if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (comp->priv->check_boxes[y][x])))
                 perms |= check_perm[y][x];
         }
@@ -233,8 +233,8 @@ gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component,
 {
     gint x,y;
 
-    for (y=0 ; y<3 ; y++) {
-        for (x=0 ; x<3 ; x++) {
+    for (y=0; y<3; y++) {
+        for (x=0; x<3; x++) {
             gtk_toggle_button_set_active (
                 GTK_TOGGLE_BUTTON (component->priv->check_boxes[y][x]),
                 perms & check_perm[y][x]);

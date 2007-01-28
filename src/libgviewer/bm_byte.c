@@ -31,9 +31,9 @@
 
 static void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
 {
-   int i ;
+   int i;
    for (i=0;i<256;i++)
-       bad[i] = m ;
+       bad[i] = m;
 
    for (i = 0; i < m - 1; ++i)
        bad[(int)pattern[i]] = m - i - 1;
@@ -93,7 +93,7 @@ GViewerBMByteData* create_bm_byte_data(const guint8 *pattern, const gint length)
 
     data = g_new0(GViewerBMByteData,1);
 
-    data->pattern_len = length ;
+    data->pattern_len = length;
     data->pattern = g_new(guint8, length);
     memcpy(data->pattern, pattern, length);
 
@@ -109,7 +109,7 @@ GViewerBMByteData* create_bm_byte_data(const guint8 *pattern, const gint length)
 void free_bm_byte_data(GViewerBMByteData *data)
 {
     if (data==NULL)
-        return ;
+        return;
 
     if (data->good!=NULL)
         g_free(data->good);
@@ -117,13 +117,13 @@ void free_bm_byte_data(GViewerBMByteData *data)
 
     if (data->bad!=NULL)
         g_free(data->bad);
-    data->bad = NULL ;
+    data->bad = NULL;
 
     if (data->pattern!=NULL)
         g_free(data->pattern);
-    data->pattern = NULL ;
+    data->pattern = NULL;
 
-    data->pattern_len = 0 ;
+    data->pattern_len = 0;
 
     g_free(data);
 }

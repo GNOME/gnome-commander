@@ -33,18 +33,18 @@
 static gchar* filename = NULL;
 static gchar* encoding = NULL;
 static VIEWERDISPLAYMODE dispmode = DISP_MODE_TEXT_FIXED;
-static guint tab_size ;
-static guint fixed_limit ;
-static gboolean wrap_mode ;
+static guint tab_size;
+static guint fixed_limit;
+static gboolean wrap_mode;
 static gboolean best_fit = TRUE;
-static double scale_factor = 1.0 ;
+static double scale_factor = 1.0;
 static gboolean auto_detect_display_mode = TRUE;
 
 void usage()
 {
-    fprintf(stderr,"This program tests the gviewer widget in 'libgviewer'.\n\n" ) ;
+    fprintf(stderr,"This program tests the gviewer widget in 'libgviewer'.\n\n" );
 
-    fprintf(stderr,"Usage: test-textrenderer [-e encoding] [-d dispmode] [-w] [-f fixed_limit] [-t tab_size] [-s scale] filename\n\n" ) ;
+    fprintf(stderr,"Usage: test-textrenderer [-e encoding] [-d dispmode] [-w] [-f fixed_limit] [-t tab_size] [-s scale] filename\n\n" );
     
     fprintf(stderr,"\t-e enconding: ASCII, UTF8, CP437, CP1251, etc\n");
     fprintf(stderr,"\t-d Display Mode:\n\t     auto(default)\n\t     Text\n\t     Binary\n\t     Hex\n\t      Image\n");
@@ -59,23 +59,23 @@ void usage()
 void parse_command_line(int argc, char* argv[])
 {
     extern char* optarg;
-    extern int optind, opterr, optopt ;
+    extern int optind, opterr, optopt;
     int c;
     
-    tab_size = 8 ;
-    fixed_limit = 40 ;
+    tab_size = 8;
+    fixed_limit = 40;
     dispmode = DISP_MODE_TEXT_FIXED;
     encoding = g_strdup("ASCII");
     wrap_mode = FALSE;
-    best_fit = TRUE ;
-    scale_factor = 1.0 ;
-    auto_detect_display_mode = TRUE ;
+    best_fit = TRUE;
+    scale_factor = 1.0;
+    auto_detect_display_mode = TRUE;
     
     while ( (c=getopt(argc,argv,"d:e:f:t:s:w")) != -1 ) {
         switch(c)
         {
         case 's':
-            best_fit = FALSE ;
+            best_fit = FALSE;
             scale_factor = atof(optarg);
             if (scale_factor<0.1 || scale_factor>3.0) {
                 warnx("Invalid scale factor \"%f\".\n", scale_factor);
@@ -84,28 +84,28 @@ void parse_command_line(int argc, char* argv[])
             break;
 
         case 'w':
-            wrap_mode = TRUE ;
+            wrap_mode = TRUE;
             break;
         
         case 'e':
             g_free(encoding);
             encoding = g_strdup(optarg);
-            break ;
+            break;
         
         case 'd':
-            auto_detect_display_mode = FALSE ;
+            auto_detect_display_mode = FALSE;
             if (g_ascii_strcasecmp(optarg,"fixed")==0)
-                dispmode = DISP_MODE_TEXT_FIXED ;
+                dispmode = DISP_MODE_TEXT_FIXED;
             else if (g_ascii_strcasecmp(optarg,"binary")==0)
-                dispmode = DISP_MODE_BINARY ;
+                dispmode = DISP_MODE_BINARY;
             else if (g_ascii_strcasecmp(optarg,"hex")==0)
-                dispmode = DISP_MODE_HEXDUMP ;
+                dispmode = DISP_MODE_HEXDUMP;
             else if (g_ascii_strcasecmp(optarg,"image")==0)
                 dispmode = DISP_MODE_IMAGE;
             else if (g_ascii_strcasecmp(optarg,"auto")==0)
                 auto_detect_display_mode = TRUE;
             else {
-                warnx("Invalid display mode \"%s\".\n", optarg) ;
+                warnx("Invalid display mode \"%s\".\n", optarg);
                 usage();
             }                
             break;
@@ -119,12 +119,12 @@ void parse_command_line(int argc, char* argv[])
             break;
         
         case 'f':
-            fixed_limit = atoi(optarg) ;
+            fixed_limit = atoi(optarg);
             if (fixed_limit<=0) {
                 warnx("Invalid fixed limit \"%s\".\n", optarg);
                 usage();
             }
-            break ;
+            break;
 
         default:
             usage();
@@ -152,7 +152,7 @@ int main(int argc, char* argv[])
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_container_set_border_width (GTK_CONTAINER (window), 0);
     
-    viewer = gviewer_new() ;
+    viewer = gviewer_new();
     gviewer_load_file(GVIEWER(viewer), filename);
     
     if (!auto_detect_display_mode)
@@ -167,7 +167,7 @@ int main(int argc, char* argv[])
     
     gtk_widget_show(viewer);
 
-    gtk_container_add(GTK_CONTAINER(window), viewer) ;
+    gtk_container_add(GTK_CONTAINER(window), viewer);
     gtk_widget_show(window);
     
     gtk_main();
