@@ -26,31 +26,31 @@
 
 G_BEGIN_DECLS
 
-#define GVIEWER_SEARCH_PROGRESS_DLG(obj)   		  GTK_CHECK_CAST (obj, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlg)
+#define GVIEWER_SEARCH_PROGRESS_DLG(obj)          GTK_CHECK_CAST (obj, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlg)
 #define GVIEWER_SEARCH_PROGRESS_DLG_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlgClass)
 #define IS_GVIEWER_SEARCH_PROGRESS_DLG(obj)       GTK_CHECK_TYPE (obj, gviewer_search_progress_dlg_get_type())
 
-typedef struct _GViewerSearchProgressDlg       	GViewerSearchProgressDlg;
-typedef struct _GViewerSearchProgressDlgPrivate	GViewerSearchProgressDlgPrivate;
-typedef struct _GViewerSearchProgressDlgClass  	GViewerSearchProgressDlgClass;
-typedef struct _GViewerSearchProgressDlgStatus	GViewerSearchProgressDlgStatus;
+typedef struct _GViewerSearchProgressDlg        GViewerSearchProgressDlg;
+typedef struct _GViewerSearchProgressDlgPrivate GViewerSearchProgressDlgPrivate;
+typedef struct _GViewerSearchProgressDlgClass   GViewerSearchProgressDlgClass;
+typedef struct _GViewerSearchProgressDlgStatus  GViewerSearchProgressDlgStatus;
 
 struct _GViewerSearchProgressDlg
 {
-	GtkDialog dialog;
-	GViewerSearchProgressDlgPrivate *priv;
+    GtkDialog dialog;
+    GViewerSearchProgressDlgPrivate *priv;
 };
 
 struct _GViewerSearchProgressDlgClass
 {
-	GtkDialogClass parent_class;
+    GtkDialogClass parent_class;
 };
 
 GType gviewer_search_progress_dlg_get_type (void);
 
 void gviewer_show_search_progress_dlg(GtkWindow *parent,
-									  const gchar *searching_text,
-									  gint* abort, gint* complete, gint* progress);
+                                      const gchar *searching_text,
+                                      gint *abort, gint *complete, gint *progress);
 
 G_END_DECLS
 

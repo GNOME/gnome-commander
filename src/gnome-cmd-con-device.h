@@ -79,11 +79,11 @@ gnome_cmd_con_device_set_icon_path       (GnomeCmdConDevice *dev,
                                           const gchar *icon_path);
 
 void
-gnome_cmd_con_device_set_autovol    (GnomeCmdConDevice *dev,
-                                          const gboolean autovol );
+gnome_cmd_con_device_set_autovol         (GnomeCmdConDevice *dev,
+                                          const gboolean autovol);
 void
 gnome_cmd_con_device_set_vfs_volume    (GnomeCmdConDevice *dev,
-                                          GnomeVFSVolume *vfsvol );
+                                          GnomeVFSVolume *vfsvol);
 
 const gchar*
 gnome_cmd_con_device_get_alias           (GnomeCmdConDevice *dev);

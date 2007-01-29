@@ -31,7 +31,7 @@ typedef struct
     char *name;
     char *passwd;
     gid_t gid;
-    GList *members;     /* stores the  members as char* strings */
+    GList *members;     /* stores the  members as char *strings */
 } group_t;
 
 

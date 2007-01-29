@@ -76,10 +76,10 @@ static void load_search_dlg_state(GViewerSearchDlg *sdlg)
 #endif
 
     sdlg->priv->last_entry_text = gviewer_get_string(
-            GVIEWER_DEFAULT_PATH_PREFIX "last_text", "" );
+            GVIEWER_DEFAULT_PATH_PREFIX "last_text", "");
 
     sdlg->priv->searchmode = SEARCH_MODE_TEXT;
-    i = gviewer_get_int( GVIEWER_DEFAULT_PATH_PREFIX "last_mode", (int)SEARCH_MODE_TEXT);
+    i = gviewer_get_int(GVIEWER_DEFAULT_PATH_PREFIX "last_mode", (int)SEARCH_MODE_TEXT);
     if (i==(int)SEARCH_MODE_HEX)
         sdlg->priv->searchmode = SEARCH_MODE_HEX;
 
@@ -92,8 +92,8 @@ static void save_search_dlg_state(GViewerSearchDlg *sdlg)
     g_return_if_fail(sdlg!=NULL);
     g_return_if_fail(sdlg->priv!=NULL);
 
-    gnome_config_set_int( GVIEWER_DEFAULT_PATH_PREFIX "last_mode", (int)sdlg->priv->searchmode);
-    gnome_config_set_bool( GVIEWER_DEFAULT_PATH_PREFIX "case_sens", sdlg->priv->case_sensitive);
+    gnome_config_set_int(GVIEWER_DEFAULT_PATH_PREFIX "last_mode", (int)sdlg->priv->searchmode);
+    gnome_config_set_bool(GVIEWER_DEFAULT_PATH_PREFIX "case_sens", sdlg->priv->case_sensitive);
 
     gviewer_write_string_history(GVIEWER_DEFAULT_PATH_PREFIX "text_pattern%d", sdlg->priv->text_pattern_history);
 
@@ -101,29 +101,27 @@ static void save_search_dlg_state(GViewerSearchDlg *sdlg)
     gviewer_write_string_history(GVIEWER_DEFAULT_PATH_PREFIX "hex_pattern%d", sdlg->priv->hex_pattern_history);
 #endif
 
-    gnome_config_set_string( GVIEWER_DEFAULT_PATH_PREFIX "last_text", sdlg->priv->last_entry_text);
+    gnome_config_set_string(GVIEWER_DEFAULT_PATH_PREFIX "last_text", sdlg->priv->last_entry_text);
 
     gnome_config_sync();
 }
 
-guint8* gviewer_search_dlg_get_search_hex_buffer(GViewerSearchDlg *sdlg, /*out*/ guint *buflen)
+guint8 *gviewer_search_dlg_get_search_hex_buffer(GViewerSearchDlg *sdlg, /*out*/ guint *buflen)
 {
-    guint8* result;
-
     g_return_val_if_fail(sdlg!=NULL,NULL);
     g_return_val_if_fail(sdlg->priv!=NULL,NULL);
     g_return_val_if_fail(buflen!=NULL,NULL);
     g_return_val_if_fail(sdlg->priv->search_hex_buffer!=NULL,NULL);
     g_return_val_if_fail(sdlg->priv->search_hex_buflen>0,NULL);
 
-    result = g_new0(guint8, sdlg->priv->search_hex_buflen);
+    guint8 *result = g_new0(guint8, sdlg->priv->search_hex_buflen);
     memcpy(result, sdlg->priv->search_hex_buffer,sdlg->priv->search_hex_buflen);
 
     *buflen = sdlg->priv->search_hex_buflen;
     return result;
 }
 
-gchar *gviewer_search_dlg_get_search_text_string(GViewerSearchDlg* sdlg)
+gchar *gviewer_search_dlg_get_search_text_string(GViewerSearchDlg *sdlg)
 {
     g_return_val_if_fail(sdlg!=NULL,NULL);
     g_return_val_if_fail(sdlg->priv!=NULL,NULL);
@@ -132,7 +130,7 @@ gchar *gviewer_search_dlg_get_search_text_string(GViewerSearchDlg* sdlg)
     return g_strdup(sdlg->priv->search_text_string);
 }
 
-SEARCHMODE gviewer_search_dlg_get_search_mode(GViewerSearchDlg* sdlg)
+SEARCHMODE gviewer_search_dlg_get_search_mode(GViewerSearchDlg *sdlg)
 {
     g_return_val_if_fail(sdlg!=NULL,SEARCH_MODE_TEXT);
     g_return_val_if_fail(sdlg->priv!=NULL,SEARCH_MODE_TEXT);
@@ -140,7 +138,7 @@ SEARCHMODE gviewer_search_dlg_get_search_mode(GViewerSearchDlg* sdlg)
     return sdlg->priv->searchmode;
 }
 
-gboolean gviewer_search_dlg_get_case_sensitive(GViewerSearchDlg* sdlg)
+gboolean gviewer_search_dlg_get_case_sensitive(GViewerSearchDlg *sdlg)
 {
     g_return_val_if_fail(sdlg!=NULL,TRUE);
     g_return_val_if_fail(sdlg->priv!=NULL,TRUE);
@@ -278,7 +276,7 @@ search_dlg_class_init(GViewerSearchDlgClass *klass)
 
 void entry_changed(GtkEntry *entry,gpointer  user_data)
 {
-    guint8* buf;
+    guint8 *buf;
     guint len;
     gboolean enable = FALSE;
     GViewerSearchDlg *sdlg;
@@ -370,7 +368,7 @@ search_dlg_init (GViewerSearchDlg *sdlg)
     }
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sdlg->priv->case_sensitive_checkbox),
-                    sdlg->priv->case_sensitive );
+                    sdlg->priv->case_sensitive);
     if (sdlg->priv->last_entry_text!=NULL)
         gtk_entry_set_text(GTK_ENTRY(entry), sdlg->priv->last_entry_text);
 
@@ -387,7 +385,7 @@ static void search_dlg_destroy (GtkObject *object)
     w = GVIEWER_SEARCH_DLG(object);
 
     if (w->priv) {
-        save_search_dlg_state ( w );
+        save_search_dlg_state (w);
 
         if (w->priv->search_text_string)
             g_free(w->priv->search_text_string);
@@ -446,14 +444,14 @@ gviewer_search_dlg_get_type (void)
 GtkWidget*
 gviewer_search_dlg_new (GtkWindow *parent)
 {
-    GViewerSearchDlg* dlg = gtk_type_new (gviewer_search_dlg_get_type());
+    GViewerSearchDlg *dlg = gtk_type_new (gviewer_search_dlg_get_type());
 
     return GTK_WIDGET (dlg);
 }
 
 void gviewer_show_search_dlg(GtkWindow *parent)
 {
-    GViewerSearchDlg* dlg  = NULL;
+    GViewerSearchDlg *dlg  = NULL;
     GtkWidget *w = gviewer_search_dlg_new(parent);
     gchar *text;
 

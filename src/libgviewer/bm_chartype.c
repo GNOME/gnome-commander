@@ -32,7 +32,7 @@
 /***********************************
     Bad Character hash-table functions
 ***********************************/
-static GHashTable* bch_create()
+static GHashTable *bch_create()
 {
     return g_hash_table_new(g_direct_hash,g_direct_equal);
 }
@@ -59,7 +59,7 @@ int bch_get_value(GViewerBMChartypeData *data, char_type key, int default_value)
 }
 
 
-static void bch_compute(GHashTable* bch,char_type *pattern, int m, gboolean case_sens)
+static void bch_compute(GHashTable *bch,char_type *pattern, int m, gboolean case_sens)
 {
    int i;
 
@@ -71,7 +71,8 @@ static void bch_compute(GHashTable* bch,char_type *pattern, int m, gboolean case
 /************************************************
   Helpfer function to compute the suffixes of each character for the good-suffixes array
 ************************************************/
-static void suffixes(char_type *pattern, int m, gboolean case_sens, int *suff) {
+static void suffixes(char_type *pattern, int m, gboolean case_sens, int *suff)
+{
    int f, g, i;
 
    f = 0;
@@ -92,7 +93,8 @@ static void suffixes(char_type *pattern, int m, gboolean case_sens, int *suff) {
 }
 
 
-static void goodsuff_compute(char_type *pattern, int m, gboolean case_sens, /*out*/ int *good) {
+static void goodsuff_compute(char_type *pattern, int m, gboolean case_sens, /*out*/ int *good)
+{
    int *suff = g_new0(int, m);
    int i, j;
 
@@ -113,9 +115,9 @@ static void goodsuff_compute(char_type *pattern, int m, gboolean case_sens, /*ou
 }
 
 
-GViewerBMChartypeData* create_bm_chartype_data(const gchar*pattern, gboolean case_sensitive)
+GViewerBMChartypeData *create_bm_chartype_data(const gchar *pattern, gboolean case_sensitive)
 {
-    GViewerBMChartypeData* data = g_new0(GViewerBMChartypeData,1);
+    GViewerBMChartypeData *data = g_new0(GViewerBMChartypeData,1);
 
     data->case_sensitive = case_sensitive;
 

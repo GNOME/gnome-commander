@@ -30,40 +30,40 @@ G_BEGIN_DECLS
 #define GVIEWER_SEARCH_DLG_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_search_dlg_get_type(), GViewerSearchDlgClass)
 #define IS_GVIEWER_SEARCH_DLG(obj)       GTK_CHECK_TYPE (obj, gviewer_search_dlg_get_type())
 
-typedef struct _GViewerSearchDlg       	GViewerSearchDlg;
-typedef struct _GViewerSearchDlgPrivate	GViewerSearchDlgPrivate;
-typedef struct _GViewerSearchDlgClass  	GViewerSearchDlgClass;
-typedef struct _GViewerSearchDlgStatus	GViewerSearchDlgStatus;
+typedef struct _GViewerSearchDlg        GViewerSearchDlg;
+typedef struct _GViewerSearchDlgPrivate GViewerSearchDlgPrivate;
+typedef struct _GViewerSearchDlgClass   GViewerSearchDlgClass;
+typedef struct _GViewerSearchDlgStatus  GViewerSearchDlgStatus;
 
 typedef enum {
-	SEARCH_MODE_TEXT,
-	SEARCH_MODE_HEX
+    SEARCH_MODE_TEXT,
+    SEARCH_MODE_HEX
 } SEARCHMODE;
 
 struct _GViewerSearchDlg
 {
-	GtkDialog dialog;
-	GViewerSearchDlgPrivate *priv;
+    GtkDialog dialog;
+    GViewerSearchDlgPrivate *priv;
 };
 
 struct _GViewerSearchDlgClass
 {
-	GtkDialogClass parent_class;
+    GtkDialogClass parent_class;
 };
 
 GType gviewer_search_dlg_get_type (void);
 
-GtkWidget* gviewer_search_dlg_new (GtkWindow *parent);
+GtkWidget *gviewer_search_dlg_new (GtkWindow *parent);
 
-SEARCHMODE gviewer_search_dlg_get_search_mode(GViewerSearchDlg* sdlg);
+SEARCHMODE gviewer_search_dlg_get_search_mode(GViewerSearchDlg *sdlg);
 
 /* returns string is strdup-ed, caller must "g_free" it */
-gchar *gviewer_search_dlg_get_search_text_string(GViewerSearchDlg* sdlg);
+gchar *gviewer_search_dlg_get_search_text_string(GViewerSearchDlg *sdlg);
 
 /* returned buffer is "g_new0-ed", caller must "g_free" it */
-guint8* gviewer_search_dlg_get_search_hex_buffer(GViewerSearchDlg *sdlg, /*out*/ guint *buflen);
+guint8 *gviewer_search_dlg_get_search_hex_buffer(GViewerSearchDlg *sdlg, /*out*/ guint *buflen);
 
-gboolean gviewer_search_dlg_get_case_sensitive(GViewerSearchDlg* sdlg);
+gboolean gviewer_search_dlg_get_case_sensitive(GViewerSearchDlg *sdlg);
 
 void gviewer_show_search_dlg(GtkWindow *parent);
 

@@ -1,4 +1,4 @@
-Internel-Viewer Internals
+Internal-Viewer Internals
 -------------------------
 
 This short document will detail the internals of the 'libgviewer' library,

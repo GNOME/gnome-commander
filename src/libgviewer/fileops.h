@@ -38,7 +38,7 @@ G_BEGIN_DECLS
 
 typedef struct _ViewerFileOps ViewerFileOps;
 
-ViewerFileOps* gv_fileops_new();
+ViewerFileOps *gv_fileops_new();
 
 /*
     returns -1 on failure

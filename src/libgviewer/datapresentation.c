@@ -71,7 +71,7 @@ static offset_type binfixed_get_eol(GVDataPresentation *dp, offset_type start_of
 /*********************************************************
    Data presentation public functions
 *********************************************************/
-GVDataPresentation* gv_data_presentation_new()
+GVDataPresentation *gv_data_presentation_new()
 {
     return g_new0(GVDataPresentation,1);
 }
@@ -286,8 +286,8 @@ static offset_type find_previous_wrapped_text_line(GVDataPresentation *dp, offse
     /* step 1:
         find TWO previous CR/LF = start offset of previous text line
     */
-    offset = find_previous_crlf(dp, offset );
-    offset = find_previous_crlf(dp, offset );
+    offset = find_previous_crlf(dp, offset);
+    offset = find_previous_crlf(dp, offset);
     if (offset>0)
         offset = gv_input_get_next_char_offset(dp->imd,offset);
 
@@ -339,7 +339,7 @@ static offset_type wrap_scroll_lines(GVDataPresentation *dp, offset_type current
         delta = abs(delta);
         forward = FALSE;
     }
-    while (delta--                                                    ) {
+    while (delta--) {
         offset_type temp;
 
         if (forward)
@@ -404,7 +404,7 @@ static offset_type binfixed_align_offset(GVDataPresentation *dp, offset_type off
 
     if (offset > dp->max_offset)
         offset = dp->max_offset;
-    o = ( (offset_type)(offset / dp->fixed_count) * dp->fixed_count );
+    o = ((offset_type)(offset / dp->fixed_count) * dp->fixed_count);
 
     return o;
 }

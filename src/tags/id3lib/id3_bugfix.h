@@ -44,7 +44,7 @@ extern "C"
   ID3_C_EXPORT ID3_FieldType         CCONV ID3Field_GetType        (const ID3Field *field);
   //ID3_C_EXPORT ID3_FieldID           CCONV ID3Field_GetID          (const ID3Field *field);
 
-  ID3_C_EXPORT const Mp3_Headerinfo* CCONV ID3Tag_GetMp3HeaderInfo (ID3Tag *tag);
+  ID3_C_EXPORT const Mp3_Headerinfo *CCONV ID3Tag_GetMp3HeaderInfo (ID3Tag *tag);
 
 #ifdef __cplusplus
 }

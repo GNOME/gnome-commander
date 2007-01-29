@@ -77,7 +77,7 @@ struct _ViewerFileOps
 };
 
 
-ViewerFileOps* gv_fileops_new()
+ViewerFileOps *gv_fileops_new()
 {
     ViewerFileOps *fops = g_new0(ViewerFileOps,1);
     g_return_val_if_fail(fops!=NULL,NULL);
@@ -112,14 +112,14 @@ static int gv_file_internal_open(ViewerFileOps *ops, int fd)
     // Make sure we are working with a regular file
     if (fstat (fd, &ops->s) == -1) {
         close (fd);
-        g_warning( "Cannot stat fileno(%d): %s ",
+        g_warning("Cannot stat fileno(%d): %s ",
             fd, unix_error_string (errno));
         return -1;
     }
 
     if (!S_ISREG (ops->s.st_mode)) {
         close (fd);
-        g_warning( "Cannot view: not a regular file ");
+        g_warning("Cannot view: not a regular file ");
         return -1;
     }
 

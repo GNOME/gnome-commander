@@ -17,7 +17,7 @@ libgcmd_la_SOURCES = \
 	libgcmd-widget-factory.h libgcmd-widget-factory.c \
 	plugin-info.h \
 	libgcmd-deps.h \
-	libgcmd.h 
+	libgcmd.h
 
 
 libgcmd_la_LIBADD = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)

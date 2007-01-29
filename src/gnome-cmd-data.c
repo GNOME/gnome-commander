@@ -389,9 +389,9 @@ static gboolean load_ftp_servers (const gchar *fname)
 
 
 static gboolean
-vfs_is_uri_local(const char* uri)
+vfs_is_uri_local(const char *uri)
 {
-    GnomeVFSURI* pURI = NULL;
+    GnomeVFSURI *pURI = NULL;
     gboolean b;
 
     pURI = gnome_vfs_uri_new(uri);
@@ -454,7 +454,7 @@ remove_vfs_volume (GnomeVFSVolume *volume)
 
 
 static gboolean
-device_mount_point_exists(GnomeCmdConList *list, const gchar* mountpoint)
+device_mount_point_exists(GnomeCmdConList *list, const gchar *mountpoint)
 {
     gboolean rc = FALSE;
     GList *tmp;

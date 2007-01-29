@@ -65,7 +65,7 @@ exec_with_app (GList *files, GnomeCmdApp *app)
  * This is a hash-table callback function
  */
 static void
-htcb_exec_with_app (const gchar* key,
+htcb_exec_with_app (const gchar *key,
                     OpenWithData *data,
                     gpointer user_data)
 {

@@ -48,12 +48,12 @@ struct _GViewerWindowSettings
     gchar charset[256];
 
     guint font_size;
-    guint tab_size ;
-    guint binary_bytes_per_line ;
+    guint tab_size;
+    guint binary_bytes_per_line;
 
     gboolean wrap_mode;
-    gboolean hex_decimal_offset ;
-} ;
+    gboolean hex_decimal_offset;
+};
 
 struct _GViewerWindow
 {
@@ -78,7 +78,7 @@ gviewer_window_new              (GViewerWindowSettings *initial_settings);
 void
 gviewer_window_load_file    (GViewerWindow *obj, const gchar *filename);
 
-GtkWidget* gviewer_window_file_view (const gchar * filename,GViewerWindowSettings *initial_settings);
+GtkWidget *gviewer_window_file_view (const gchar * filename,GViewerWindowSettings *initial_settings);
 
 void gviewer_window_get_current_settings(GViewerWindow *obj, /* out */ GViewerWindowSettings *settings);
 void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSettings *settings);

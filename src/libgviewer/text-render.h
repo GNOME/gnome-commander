@@ -30,89 +30,89 @@ G_BEGIN_DECLS
 #define TEXT_RENDER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, text_render_get_type (), TextRenderClass)
 #define IS_TEXT_RENDER(obj)       GTK_CHECK_TYPE (obj, text_render_get_type ())
 
-#define TEXT_RENDER_DEFAULT_WIDTH	(100)
-#define TEXT_RENDER_DEFAULT_HEIGHT	(200)
-typedef struct _TextRender       	TextRender;
-typedef struct _TextRenderPrivate	TextRenderPrivate;
-typedef struct _TextRenderClass  	TextRenderClass;
-typedef struct _TextRenderStatus	TextRenderStatus;
+#define TEXT_RENDER_DEFAULT_WIDTH   (100)
+#define TEXT_RENDER_DEFAULT_HEIGHT  (200)
+typedef struct _TextRender          TextRender;
+typedef struct _TextRenderPrivate   TextRenderPrivate;
+typedef struct _TextRenderClass     TextRenderClass;
+typedef struct _TextRenderStatus    TextRenderStatus;
 
 struct _TextRender
 {
-	GtkWidget widget;
-	TextRenderPrivate *priv;
+    GtkWidget widget;
+    TextRenderPrivate *priv;
 };
 
 struct _TextRenderClass
 {
-	GtkWidgetClass parent_class;
+    GtkWidgetClass parent_class;
 
-	void (* text_status_changed)  (TextRender *obj, TextRenderStatus *status);
+    void (* text_status_changed)  (TextRender *obj, TextRenderStatus *status);
 };
 
 typedef enum {
-	TR_DISP_MODE_TEXT,
-	TR_DISP_MODE_BINARY,
-	TR_DISP_MODE_HEXDUMP
+    TR_DISP_MODE_TEXT,
+    TR_DISP_MODE_BINARY,
+    TR_DISP_MODE_HEXDUMP
 } TEXTDISPLAYMODE;
 
 struct _TextRenderStatus
 {
-	offset_type current_offset ;
-	offset_type size;
-	int	    column;
-	const char * encoding;
-	gboolean    wrap_mode;
+    offset_type current_offset;
+    offset_type size;
+    int         column;
+    const char *encoding;
+    gboolean    wrap_mode;
 };
 
 
-GtkWidget*     text_render_new	(void);
+GtkWidget     *text_render_new (void);
 GtkType        text_render_get_type        (void);
 
-GtkAdjustment* text_render_get_h_adjustment (TextRender *obj);
+GtkAdjustment *text_render_get_h_adjustment (TextRender *obj);
 void           text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment);
-GtkAdjustment* text_render_get_v_adjustment (TextRender *obj);
+GtkAdjustment *text_render_get_v_adjustment (TextRender *obj);
 void           text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment);
 
 void           text_render_attach_external_v_range(TextRender *obj, GtkRange *range);
 
-void 	       text_render_load_file(TextRender *w, const gchar *filename) ;
-void 	       text_render_load_filedesc(TextRender *w, int filedesc) ;
+void           text_render_load_file(TextRender *w, const gchar *filename);
+void           text_render_load_filedesc(TextRender *w, int filedesc);
 
 void           text_render_set_display_mode(TextRender *w, TEXTDISPLAYMODE mode);
-TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w) ;
+TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w);
 
-ViewerFileOps* text_render_get_file_ops(TextRender *w);
-GVInputModesData* text_render_get_input_mode_data(TextRender *w);
-GVDataPresentation* text_render_get_data_presentation(TextRender *w);
+ViewerFileOps      *text_render_get_file_ops(TextRender *w);
+GVInputModesData   *text_render_get_input_mode_data(TextRender *w);
+GVDataPresentation *text_render_get_data_presentation(TextRender *w);
 
-void		text_render_set_tab_size(TextRender *w, int tab_size);
-int		text_render_get_tab_size(TextRender *w);
+void        text_render_set_tab_size(TextRender *w, int tab_size);
+int         text_render_get_tab_size(TextRender *w);
 
-void		text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE);
-gboolean	text_render_get_wrap_mode(TextRender *w);
+void        text_render_set_wrap_mode(TextRender *w, gboolean ACTIVE);
+gboolean    text_render_get_wrap_mode(TextRender *w);
 
-void		text_render_set_fixed_limit(TextRender *w, int fixed_limit);
-int		text_render_get_fixed_limit(TextRender *w);
+void        text_render_set_fixed_limit(TextRender *w, int fixed_limit);
+int         text_render_get_fixed_limit(TextRender *w);
 
-void		text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET);
-gboolean        text_render_get_hex_offset_display(TextRender *w);
+void        text_render_set_hex_offset_display(TextRender *w, gboolean HEX_OFFSET);
+gboolean    text_render_get_hex_offset_display(TextRender *w);
 
-void		text_render_set_font_size(TextRender *w, int font_size);
-int             text_render_get_font_size(TextRender *w);
+void        text_render_set_font_size(TextRender *w, int font_size);
+int         text_render_get_font_size(TextRender *w);
 
-void		text_render_set_encoding(TextRender *w, const char* encoding);
-const gchar*	text_render_get_encoding(TextRender *w);
+void        text_render_set_encoding(TextRender *w, const char *encoding);
+const gchar *text_render_get_encoding(TextRender *w);
 
-void            text_render_copy_selection(TextRender *w);
+void        text_render_copy_selection(TextRender *w);
 
-offset_type	text_render_get_current_offset(TextRender *w);
+offset_type text_render_get_current_offset(TextRender *w);
 
-offset_type	text_render_get_last_displayed_offset(TextRender *w);
+offset_type text_render_get_last_displayed_offset(TextRender *w);
 
-void 		text_render_ensure_offset_visible(TextRender *w, offset_type offset);
+void        text_render_ensure_offset_visible(TextRender *w, offset_type offset);
 
-void		text_render_set_marker(TextRender *w, offset_type start, offset_type end);
+void        text_render_set_marker(TextRender *w, offset_type start, offset_type end);
 
 G_END_DECLS
 

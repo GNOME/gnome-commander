@@ -24,7 +24,7 @@
 
 
 /* GENRE_MAX is the last genre number that can be used */
-#define GENRE_MAX ( sizeof(id3_genres)/sizeof(id3_genres[0]) - 1 )
+#define GENRE_MAX (sizeof(id3_genres)/sizeof(id3_genres[0]) - 1)
 #define ID3_INVALID_GENRE 255
 
 /**
@@ -32,7 +32,7 @@
     \param IndeX number of genre using in id3v1
     \return pointer to genre as string
 */
-#define genre_no(IndeX) ( IndeX < (sizeof(id3_genres)/sizeof(*id3_genres) ) ? id3_genres[IndeX] : "Unknown" )
+#define genre_no(IndeX) (IndeX < (sizeof(id3_genres)/sizeof(*id3_genres)) ? id3_genres[IndeX] : "Unknown")
 
 
 /*

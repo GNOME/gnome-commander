@@ -13,4 +13,4 @@ libfileroller_la_SOURCES = \
 	file-roller-plugin.h file-roller-plugin.c \
 	file-roller.xpm file-roller-small.xpm
 
-libfileroller_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS) 
+libfileroller_la_LDFLAGS = $(GNOMEUI_LIBS) $(GNOMEVFS_LIBS)

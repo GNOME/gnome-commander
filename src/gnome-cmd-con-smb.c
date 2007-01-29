@@ -35,7 +35,7 @@ static GnomeCmdConClass *parent_class = NULL;
 
 static void
 get_file_info_callback (GnomeVFSAsyncHandle *handle,
-                        GList *results, /* GnomeVFSGetFileInfoResult* items */
+                        GList *results, /* GnomeVFSGetFileInfoResult *items */
                         GnomeCmdCon *con)
 {
     g_return_if_fail (results != NULL);

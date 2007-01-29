@@ -30,8 +30,8 @@
 
 #include <libgviewer/libgviewer.h>
 
-static gchar* filename = NULL;
-static gchar* encoding = NULL;
+static gchar *filename = NULL;
+static gchar *encoding = NULL;
 static VIEWERDISPLAYMODE dispmode = DISP_MODE_TEXT_FIXED;
 static guint tab_size;
 static guint fixed_limit;
@@ -42,10 +42,10 @@ static gboolean auto_detect_display_mode = TRUE;
 
 void usage()
 {
-    fprintf(stderr,"This program tests the gviewer widget in 'libgviewer'.\n\n" );
+    fprintf(stderr,"This program tests the gviewer widget in 'libgviewer'.\n\n");
 
-    fprintf(stderr,"Usage: test-textrenderer [-e encoding] [-d dispmode] [-w] [-f fixed_limit] [-t tab_size] [-s scale] filename\n\n" );
-    
+    fprintf(stderr,"Usage: test-textrenderer [-e encoding] [-d dispmode] [-w] [-f fixed_limit] [-t tab_size] [-s scale] filename\n\n");
+
     fprintf(stderr,"\t-e enconding: ASCII, UTF8, CP437, CP1251, etc\n");
     fprintf(stderr,"\t-d Display Mode:\n\t     auto(default)\n\t     Text\n\t     Binary\n\t     Hex\n\t      Image\n");
     fprintf(stderr,"\t-w In fixed/variable text displays, turns on wrapping.\n");
@@ -56,12 +56,12 @@ void usage()
     exit(0);
 }
 
-void parse_command_line(int argc, char* argv[])
+void parse_command_line(int argc, char *argv[])
 {
-    extern char* optarg;
+    extern char *optarg;
     extern int optind, opterr, optopt;
     int c;
-    
+
     tab_size = 8;
     fixed_limit = 40;
     dispmode = DISP_MODE_TEXT_FIXED;
@@ -70,8 +70,8 @@ void parse_command_line(int argc, char* argv[])
     best_fit = TRUE;
     scale_factor = 1.0;
     auto_detect_display_mode = TRUE;
-    
-    while ( (c=getopt(argc,argv,"d:e:f:t:s:w")) != -1 ) {
+
+    while ((c=getopt(argc,argv,"d:e:f:t:s:w")) != -1) {
         switch(c)
         {
         case 's':
@@ -86,12 +86,12 @@ void parse_command_line(int argc, char* argv[])
         case 'w':
             wrap_mode = TRUE;
             break;
-        
+
         case 'e':
             g_free(encoding);
             encoding = g_strdup(optarg);
             break;
-        
+
         case 'd':
             auto_detect_display_mode = FALSE;
             if (g_ascii_strcasecmp(optarg,"fixed")==0)
@@ -107,9 +107,9 @@ void parse_command_line(int argc, char* argv[])
             else {
                 warnx("Invalid display mode \"%s\".\n", optarg);
                 usage();
-            }                
+            }
             break;
-        
+
         case 't':
             tab_size = atoi(optarg);
             if (tab_size <=0) {
@@ -117,7 +117,7 @@ void parse_command_line(int argc, char* argv[])
                 usage();
             }
             break;
-        
+
         case 'f':
             fixed_limit = atoi(optarg);
             if (fixed_limit<=0) {
@@ -131,8 +131,8 @@ void parse_command_line(int argc, char* argv[])
             break;
         }
     }
-    
-    if ( optind == argc ) {
+
+    if (optind == argc) {
         warnx("Need file name to work with...\n");
         usage();
     }
@@ -140,37 +140,37 @@ void parse_command_line(int argc, char* argv[])
 }
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     GtkWidget *window;
     GtkWidget *viewer;
-    
+
     gtk_init(&argc,&argv);
-    
+
     parse_command_line(argc,argv);
-    
+
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_container_set_border_width (GTK_CONTAINER (window), 0);
-    
+
     viewer = gviewer_new();
     gviewer_load_file(GVIEWER(viewer), filename);
-    
+
     if (!auto_detect_display_mode)
         gviewer_set_display_mode(GVIEWER(viewer),dispmode);
-    
+
     gviewer_set_encoding(GVIEWER(viewer),encoding);
     gviewer_set_tab_size(GVIEWER(viewer),tab_size);
     gviewer_set_fixed_limit(GVIEWER(viewer),40);
     gviewer_set_wrap_mode(GVIEWER(viewer),wrap_mode);
     gviewer_set_best_fit(GVIEWER(viewer),best_fit);
     gviewer_set_scale_factor(GVIEWER(viewer),scale_factor);
-    
+
     gtk_widget_show(viewer);
 
     gtk_container_add(GTK_CONTAINER(window), viewer);
     gtk_widget_show(window);
-    
+
     gtk_main();
-    
+
     return 0;
 }

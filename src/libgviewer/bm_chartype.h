@@ -30,29 +30,29 @@
 G_BEGIN_DECLS
 
 typedef struct _GVIEWER_BM_CHARTYPE_DATA GViewerBMChartypeData;
-	
+
 struct _GVIEWER_BM_CHARTYPE_DATA
 {
-	/* good-suffix-shift array, one element for each (unique) character in the search pattern */
-	int *good;
-	int good_len;
-	
-	/* bad-characters table, implemented as a hash table.
-	   The classic Boyer-moore assumes a small,finite alphabet (such as "ASCII" only),
-	   but we need to search every possible UTF8 character  - using a array is not practicle */
-	GHashTable* bad;
-	
-	/* Search pattern, represented as char_type array (each element = one guint32 = one utf8 character)
-	   This is NOT a UTF8 string.  see "doc/internal_viewer_hacking" and "inputmodes.{c,h}" for more details*/
-	char_type *pattern ;
-	int pattern_len ;
-	gboolean case_sensitive ;
-} ;
+    /* good-suffix-shift array, one element for each (unique) character in the search pattern */
+    int *good;
+    int good_len;
+
+    /* bad-characters table, implemented as a hash table.
+       The classic Boyer-moore assumes a small,finite alphabet (such as "ASCII" only),
+       but we need to search every possible UTF8 character  - using a array is not practicle */
+    GHashTable *bad;
+
+    /* Search pattern, represented as char_type array (each element = one guint32 = one utf8 character)
+       This is NOT a UTF8 string.  see "doc/internal_viewer_hacking" and "inputmodes.{c,h}" for more details*/
+    char_type *pattern;
+    int pattern_len;
+    gboolean case_sensitive;
+};
 
 
 /* Create the Boyer-Moore jump tables.
     pattern is the search pattern, UTF8 string (null-terminated)*/
-GViewerBMChartypeData* create_bm_chartype_data(const gchar*pattern, gboolean case_sensitive);
+GViewerBMChartypeData *create_bm_chartype_data(const gchar*pattern, gboolean case_sensitive);
 
 void free_bm_chartype_data(GViewerBMChartypeData*data);
 

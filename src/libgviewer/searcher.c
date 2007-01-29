@@ -215,7 +215,7 @@ offset_type g_viewer_searcher_get_search_result(GViewerSearcher *src)
 }
 
 
-void g_viewer_searcher_setup_new_text_search( GViewerSearcher *srchr,
+void g_viewer_searcher_setup_new_text_search(GViewerSearcher *srchr,
                              GVInputModesData *imd,
                              offset_type start_offset,
                              offset_type max_offset,
@@ -256,13 +256,13 @@ void g_viewer_searcher_setup_new_text_search( GViewerSearcher *srchr,
     srchr->priv->searchmode = TEXT;
 }
 
-void g_viewer_searcher_setup_new_hex_search( GViewerSearcher *srchr,
+void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
                              GVInputModesData *imd,
                              offset_type start_offset,
                              offset_type max_offset,
                              const guint8 *buffer, guint buflen)
 {
-    guint8* rev_buffer;
+    guint8 *rev_buffer;
 
     g_return_if_fail(srchr!=NULL);
     g_return_if_fail(srchr->priv!=NULL);
@@ -309,12 +309,12 @@ void update_progress_indicator (GViewerSearcher *src, offset_type pos)
     g_atomic_int_compare_and_exchange(&src->priv->progress_value, oldval, (gint)d);
 }
 
-gboolean check_abort_request ( GViewerSearcher *src)
+gboolean check_abort_request (GViewerSearcher *src)
 {
     return (g_atomic_int_get(&src->priv->abort_indicator)!=0);
 }
 
-gboolean search_hex_forward ( GViewerSearcher *src )
+gboolean search_hex_forward (GViewerSearcher *src)
 {
     offset_type m,n,j;
     int i;
@@ -362,7 +362,7 @@ gboolean search_hex_forward ( GViewerSearcher *src )
     return found;
 }
 
-gboolean search_hex_backward ( GViewerSearcher *src )
+gboolean search_hex_backward (GViewerSearcher *src)
 {
     offset_type m,n,j;
     int i;
@@ -411,7 +411,7 @@ gboolean search_hex_backward ( GViewerSearcher *src )
     return found;
 }
 
-gboolean search_text_forward ( GViewerSearcher *src )
+gboolean search_text_forward (GViewerSearcher *src)
 {
     offset_type m,n,j,t,delta;
     int i;
@@ -471,7 +471,7 @@ gboolean search_text_forward ( GViewerSearcher *src )
     return found;
 }
 
-gboolean search_text_backward ( GViewerSearcher *src )
+gboolean search_text_backward (GViewerSearcher *src)
 {
     offset_type m,n,j,t,delta;
     int i;
@@ -551,7 +551,7 @@ gpointer search_func(gpointer user_data)
 
     src->priv->search_reached_end = !found;
 
-    g_atomic_int_add( & src->priv->completed_indicator, 1 );
+    g_atomic_int_add(& src->priv->completed_indicator, 1);
 
     return NULL;
 }

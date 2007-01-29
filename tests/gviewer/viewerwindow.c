@@ -37,16 +37,16 @@ static void destroy(GObject *a, gpointer data)
     gtk_main_quit();
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     gnome_init("gnome-commander","0.1",argc,argv);
-    
+
     GtkWidget *w = gviewer_window_file_view(argv[1],NULL);
-    
+
     gtk_widget_show(w);
-    
+
     g_signal_connect(G_OBJECT(w),"delete-event",G_CALLBACK(destroy),NULL);
-    
+
     gtk_main();
 
     return 0;

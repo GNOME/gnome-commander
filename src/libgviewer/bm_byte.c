@@ -84,7 +84,7 @@ static void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good) {
    g_free(suff);
 }
 
-GViewerBMByteData* create_bm_byte_data(const guint8 *pattern, const gint length)
+GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length)
 {
     GViewerBMByteData *data;
 

@@ -32,54 +32,54 @@
 #include <libgviewer/libgviewer.h>
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-	SEARCHMODE sm;
-	gchar *text;
-	guint8 *buffer;
-	guint i;
-	guint buflen;
-	GViewerSearchDlg* srch_dlg;
-	GtkWidget *w;
+    SEARCHMODE sm;
+    gchar *text;
+    guint8 *buffer;
+    guint i;
+    guint buflen;
+    GViewerSearchDlg *srch_dlg;
+    GtkWidget *w;
 
-	gnome_init("gnome-commander","0.1",argc,argv);
+    gnome_init("gnome-commander","0.1",argc,argv);
 
-	w = gviewer_search_dlg_new(NULL);
-	g_warning("_new finished");
-	if (gtk_dialog_run(GTK_DIALOG(w))==GTK_RESPONSE_OK) {
-		srch_dlg = GVIEWER_SEARCH_DLG(w);
+    w = gviewer_search_dlg_new(NULL);
+    g_warning("_new finished");
+    if (gtk_dialog_run(GTK_DIALOG(w))==GTK_RESPONSE_OK) {
+        srch_dlg = GVIEWER_SEARCH_DLG(w);
 
-		sm = gviewer_search_dlg_get_search_mode(srch_dlg);
-		if (sm == SEARCH_MODE_TEXT) {
-			printf("Search mode: text\n");
-			printf("Case Mode: %ssensitive\n",
-				gviewer_search_dlg_get_case_sensitive(srch_dlg) ?
-				"" : "in" );
+        sm = gviewer_search_dlg_get_search_mode(srch_dlg);
+        if (sm == SEARCH_MODE_TEXT) {
+            printf("Search mode: text\n");
+            printf("Case Mode: %ssensitive\n",
+                gviewer_search_dlg_get_case_sensitive(srch_dlg) ?
+                "" : "in");
 
-			text = gviewer_search_dlg_get_search_text_string(srch_dlg);
-			printf("Text: \"%s\"\n", text);
-			g_free(text);
+            text = gviewer_search_dlg_get_search_text_string(srch_dlg);
+            printf("Text: \"%s\"\n", text);
+            g_free(text);
 
-		} else {
-			printf("Search mode: hex\n");
-			buffer = gviewer_search_dlg_get_search_hex_buffer(srch_dlg, &buflen);
+        } else {
+            printf("Search mode: hex\n");
+            buffer = gviewer_search_dlg_get_search_hex_buffer(srch_dlg, &buflen);
 
-			printf("Buffer Length: %d bytes\n", buflen);
-			if (buflen>0 && buffer!=NULL) {
-				printf("Buffer:\n");
-				for (i=0;i<buflen;i++) {
-					printf("%02x ", buffer[i]);
-					if (i>0 && (i%16==0))
-						printf("\n");
-				}
-				printf("\n");
-			}
-		}
+            printf("Buffer Length: %d bytes\n", buflen);
+            if (buflen>0 && buffer!=NULL) {
+                printf("Buffer:\n");
+                for (i=0;i<buflen;i++) {
+                    printf("%02x ", buffer[i]);
+                    if (i>0 && (i%16==0))
+                        printf("\n");
+                }
+                printf("\n");
+            }
+        }
 
-	} else {
-		printf ( "Search Canceled\n" );
-	}
-	gtk_widget_destroy(w);
+    } else {
+        printf ("Search Canceled\n");
+    }
+    gtk_widget_destroy(w);
 
-	return 0;
+    return 0;
 }

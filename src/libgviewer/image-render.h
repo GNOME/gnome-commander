@@ -52,10 +52,10 @@ struct _ImageRenderClass
 struct _ImageRenderStatus
 {
     gboolean best_fit;
-    gdouble  scale_factor ;
-    gint     image_width ;
-    gint     image_height ;
-    gint      bits_per_sample ;
+    gdouble  scale_factor;
+    gint     image_width;
+    gint     image_height;
+    gint      bits_per_sample;
 };
 
 typedef enum
@@ -65,17 +65,17 @@ typedef enum
     ROTATE_UPSIDEDOWN,
     FLIP_VERTICAL,
     FLIP_HORIZONTAL
-} IMAGEOPERATION ;
+} IMAGEOPERATION;
 
-GtkWidget*     image_render_new    (void);
+GtkWidget     *image_render_new    (void);
 GtkType        image_render_get_type        (void);
 
-GtkAdjustment* image_render_get_h_adjustment (ImageRender *obj);
+GtkAdjustment *image_render_get_h_adjustment (ImageRender *obj);
 void           image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
-GtkAdjustment* image_render_get_v_adjustment (ImageRender *obj);
+GtkAdjustment *image_render_get_v_adjustment (ImageRender *obj);
 void           image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment);
 
-void            image_render_load_file(ImageRender *obj, const gchar *filename) ;
+void            image_render_load_file(ImageRender *obj, const gchar *filename);
 
 void           image_render_set_best_fit(ImageRender *obj, gboolean active);
 gboolean       image_render_get_best_fit(ImageRender *obj);

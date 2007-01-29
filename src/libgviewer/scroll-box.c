@@ -49,7 +49,7 @@ static void scroll_box_init (ScrollBox *w);
 static void scroll_box_class_init (ScrollBoxClass *klass);
 
 static void scroll_box_destroy (GtkObject *widget);
-static gboolean scroll_box_button_press( GtkWidget *widget,GdkEventButton *event, gpointer data );
+static gboolean scroll_box_button_press(GtkWidget *widget,GdkEventButton *event, gpointer data);
 
 /*****************************************
     public functions
@@ -145,7 +145,7 @@ scroll_box_destroy (GtkObject *widget)
         (* GTK_OBJECT_CLASS (parent_class)->destroy)(widget);
 }
 
-GtkRange* scroll_box_get_v_range(ScrollBox *obj)
+GtkRange *scroll_box_get_v_range(ScrollBox *obj)
 {
     g_return_val_if_fail (obj!= NULL, FALSE);
     g_return_val_if_fail (IS_SCROLL_BOX (obj), FALSE);
@@ -154,7 +154,7 @@ GtkRange* scroll_box_get_v_range(ScrollBox *obj)
 }
 
 
-static gboolean scroll_box_button_press( GtkWidget *widget, GdkEventButton *event, gpointer data)
+static gboolean scroll_box_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
     ScrollBox *w;
 
@@ -167,7 +167,7 @@ static gboolean scroll_box_button_press( GtkWidget *widget, GdkEventButton *even
     return FALSE;
 }
 
-void scroll_box_set_client ( ScrollBox *obj, GtkWidget* client)
+void scroll_box_set_client (ScrollBox *obj, GtkWidget *client)
 {
     g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_SCROLL_BOX (obj));
@@ -187,7 +187,7 @@ void scroll_box_set_client ( ScrollBox *obj, GtkWidget* client)
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
 }
 
-GtkWidget*     scroll_box_get_client ( ScrollBox *obj )
+GtkWidget     *scroll_box_get_client (ScrollBox *obj)
 {
     g_return_val_if_fail (obj!= NULL, NULL);
     g_return_val_if_fail (IS_SCROLL_BOX (obj), NULL);
@@ -211,7 +211,7 @@ void scroll_box_set_v_adjustment (ScrollBox *obj, GtkAdjustment *adjustment)
     gtk_range_set_adjustment(GTK_RANGE(obj->priv->vscroll), adjustment);
 }
 
-GtkAdjustment* scroll_box_get_h_adjustment (ScrollBox *obj)
+GtkAdjustment *scroll_box_get_h_adjustment (ScrollBox *obj)
 {
     g_return_val_if_fail (obj != NULL,NULL);
     g_return_val_if_fail (IS_SCROLL_BOX(obj),NULL);
@@ -219,7 +219,7 @@ GtkAdjustment* scroll_box_get_h_adjustment (ScrollBox *obj)
     return gtk_range_get_adjustment(GTK_RANGE(obj->priv->hscroll));
 }
 
-GtkAdjustment* scroll_box_get_v_adjustment (ScrollBox *obj)
+GtkAdjustment *scroll_box_get_v_adjustment (ScrollBox *obj)
 {
     g_return_val_if_fail (obj != NULL,NULL);
     g_return_val_if_fail (IS_SCROLL_BOX(obj),NULL);

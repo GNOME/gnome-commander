@@ -29,24 +29,24 @@
 
 static offset_type start;
 static offset_type end;
-static gchar* filename = NULL;
-static gchar* input_mode = NULL;
+static gchar *filename = NULL;
+static gchar *input_mode = NULL;
 static ViewerFileOps *fops = NULL;
 static GVInputModesData *imd = NULL;
 
 void usage()
 {
-    fprintf(stderr,"This program tests the input mode module in 'libgviewer'.\n\n" );
+    fprintf(stderr,"This program tests the input mode module in 'libgviewer'.\n\n");
 
-    fprintf(stderr,"Usage: test-inputmodes mode filename [start_offset] [end_offset]\n" );
-    fprintf(stderr,"\t'filename' will be printed to STDOUT, always in UTF-8 encoding.\n" );
-    fprintf(stderr,"\t'start_offset' and 'end_offset' are optinal.\n\n" );
-    fprintf(stderr,"\tmode = input mode. possible values:\n" );
-    fprintf(stderr,"\tASCII\n\tCP437\n\tUTF8\n\tAnd all other encodings readable by Iconv library.\n" );
+    fprintf(stderr,"Usage: test-inputmodes mode filename [start_offset] [end_offset]\n");
+    fprintf(stderr,"\t'filename' will be printed to STDOUT, always in UTF-8 encoding.\n");
+    fprintf(stderr,"\t'start_offset' and 'end_offset' are optinal.\n\n");
+    fprintf(stderr,"\tmode = input mode. possible values:\n");
+    fprintf(stderr,"\tASCII\n\tCP437\n\tUTF8\n\tAnd all other encodings readable by Iconv library.\n");
     exit(0);
 }
 
-void parse_command_line(int argc, char* argv[])
+void parse_command_line(int argc, char *argv[])
 {
     if (argc<3)
         usage();
@@ -99,7 +99,7 @@ void cleanup()
     g_free(imd);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     offset_type current;
     char_type value;

@@ -31,7 +31,7 @@
 #include <libgviewer/libgviewer.h>
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     GtkWidget *window;
     GtkWidget *tscrollbox, *iscrollbox;
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
         scroll_box_get_v_adjustment(SCROLL_BOX(iscrollbox)));
     image_render_set_h_adjustment(IMAGE_RENDER(imgr),
         scroll_box_get_h_adjustment(SCROLL_BOX(iscrollbox)));
-    image_render_load_file(IMAGE_RENDER(imgr), "/home/assaf/Projects/gnome-cmd/00012.jpg" );
+    image_render_load_file(IMAGE_RENDER(imgr), "/home/assaf/Projects/gnome-cmd/00012.jpg");
     image_render_set_best_fit(IMAGE_RENDER(imgr), TRUE);
     image_render_set_scale_factor(IMAGE_RENDER(imgr), 1);
     scroll_box_set_client(SCROLL_BOX(iscrollbox),imgr);
@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
         scroll_box_get_v_adjustment(SCROLL_BOX(tscrollbox)));
     text_render_set_h_adjustment(TEXT_RENDER(textr),
         scroll_box_get_h_adjustment(SCROLL_BOX(tscrollbox)));
-    text_render_load_file(TEXT_RENDER(textr), "/home/assaf/Projects/gnome-cmd/00012.txt" );
+    text_render_load_file(TEXT_RENDER(textr), "/home/assaf/Projects/gnome-cmd/00012.txt");
     scroll_box_set_client(SCROLL_BOX(tscrollbox),textr);
     gtk_widget_show(textr);
     gtk_widget_show(tscrollbox);

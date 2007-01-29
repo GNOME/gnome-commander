@@ -22,7 +22,7 @@ Added automatic download of remove files when opening them or viewing them
 
 
 branches:[:alnum:]*;  {
-	gchar tmp[256];	
+	gchar tmp[256];
 	sscanf (yytext+9,"%s", tmp);
 	printf ("BranchesTEST: %s\n", tmp);
 }
@@ -36,7 +36,7 @@ branches:[:alnum:]*;  {
 %option outfile="parser.c"
 
 %{
-#include <stdio.h> 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -53,7 +53,7 @@ static LogHistory *log = NULL;
 %%
 
 ----\nrevision.*\n	{
-	gchar tmp[256];	
+	gchar tmp[256];
 
     fprintf (stderr, "LEX: Creating revision\n");
 	sscanf (yytext+14,"%s", tmp);
@@ -71,11 +71,11 @@ date:.*$  {
     fprintf (stderr, "LEX: Creating date\n");
     sscanf (yytext, "date: %s %s  author: %s  state: %s  lines: %s %s",
 		d, t, a, s, l1, l2);
-		
+
 	g_strdelimit (t, ";", '\0');
 	g_strdelimit (a, ";", '\0');
 	g_strdelimit (s, ";", '\0');
-		
+
 	rev->date = g_strdup_printf ("%s %s", d, t);
 	rev->author = g_strdup (a);
 	rev->state = g_strdup (s);
@@ -105,7 +105,7 @@ static Revision *rev_new ()
 }
 
 
-static void rev_free (Revision *rev) 
+static void rev_free (Revision *rev)
 {
 	if (rev) {
 		g_free (rev->number);
@@ -144,7 +144,7 @@ LogHistory *log_create (CvsPlugin *plugin, const gchar *fname)
 {
 	gchar *cmd;
 
-	log = log_new ();	
+	log = log_new ();
 	log->fname = g_strdup (fname);
 	log->plugin = plugin;
 	cmd = g_strdup_printf ("cvs -z%d log %s",
@@ -157,8 +157,8 @@ LogHistory *log_create (CvsPlugin *plugin, const gchar *fname)
     fprintf (stderr, "LEX: 1\n");
 	yylex ();
     fprintf (stderr, "LEX: 2\n");
-	
+
 	pclose (yyin);
-	
+
 	return log;
 }

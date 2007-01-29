@@ -41,31 +41,31 @@ typedef struct _GViewerSearcherPrivate GViewerSearcherPrivate;
 typedef struct _GViewerSearcherClass GViewerSearcherClass;
 
 struct _GViewerSearcher {
-	GObject parent;
-	GViewerSearcherPrivate *priv;
+    GObject parent;
+    GViewerSearcherPrivate *priv;
 };
 
 struct _GViewerSearcherClass {
-	GObjectClass parent_class;
-	/* Add Signal Functions Here */
+    GObjectClass parent_class;
+    /* Add Signal Functions Here */
 };
 
 GType g_viewer_searcher_get_type();
 GViewerSearcher *g_viewer_searcher_new();
 
 
-void g_viewer_searcher_setup_new_text_search( GViewerSearcher *srchr,
-				 GVInputModesData *imd,
-				 offset_type start_offset,
-				 offset_type max_offset,
-				 const gchar *text,
-				 gboolean case_sensitive) ;
+void g_viewer_searcher_setup_new_text_search(GViewerSearcher *srchr,
+                 GVInputModesData *imd,
+                 offset_type start_offset,
+                 offset_type max_offset,
+                 const gchar *text,
+                 gboolean case_sensitive);
 
-void g_viewer_searcher_setup_new_hex_search( GViewerSearcher *srchr,
-				 GVInputModesData *imd,
-				 offset_type start_offset,
-				 offset_type max_offset,
-				 const guint8 *buffer, guint buflen ) ;
+void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
+                 GVInputModesData *imd,
+                 offset_type start_offset,
+                 offset_type max_offset,
+                 const guint8 *buffer, guint buflen);
 
 /*
     call "g_viewer_searcher_start_search" to start the search thread.
@@ -78,15 +78,15 @@ void g_viewer_searcher_join(GViewerSearcher *src);
 
 
 /*
-	returns TRUE if the search has reached the last (or first if searching backwards) offset.
-	should be called ONLY after the search thread is done (ensure it with g_viewer_searcher_join)
+    returns TRUE if the search has reached the last (or first if searching backwards) offset.
+    should be called ONLY after the search thread is done (ensure it with g_viewer_searcher_join)
 */
 gboolean g_viewer_searcher_get_end_of_search(GViewerSearcher *src);
 
 /*
-	returns the found at which the search found the string
-	(only valid if "g_viewer_searcher_get_end_of_search" returned FALSE).
-	should be called ONLY after the search thread is done (ensure it with g_viewer_searcher_join)
+    returns the found at which the search found the string
+    (only valid if "g_viewer_searcher_get_end_of_search" returned FALSE).
+    should be called ONLY after the search thread is done (ensure it with g_viewer_searcher_join)
 */
 offset_type g_viewer_searcher_get_search_result(GViewerSearcher *src);
 

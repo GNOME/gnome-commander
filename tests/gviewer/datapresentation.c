@@ -33,8 +33,8 @@
 
 static offset_type start_line;
 static offset_type end_line;
-static gchar* filename = NULL;
-static gchar* encoding = NULL;
+static gchar *filename = NULL;
+static gchar *encoding = NULL;
 static PRESENTATION presentation;
 static ViewerFileOps *fops = NULL;
 static GVInputModesData *imd = NULL;
@@ -46,10 +46,10 @@ static gboolean hexdump;
 
 void usage()
 {
-    fprintf(stderr,"This program tests the data-presentation module in 'libgviewer'.\n\n" );
+    fprintf(stderr,"This program tests the data-presentation module in 'libgviewer'.\n\n");
 
     fprintf(stderr,"Usage: test-datapresentation [-e encoding] [-p presentation] [-w wrap limit]\n");
-    fprintf(stderr,"\t\t[-f fixed limit] [-t tab size] [-x] filename [start_line] [end_line]\n\n" );
+    fprintf(stderr,"\t\t[-f fixed limit] [-t tab size] [-x] filename [start_line] [end_line]\n\n");
 
     fprintf(stderr,"\t-e enconding: ASCII, UTF8, CP437, CP1251, etc\n");
     fprintf(stderr,"\t-p presentation: NOWRAP, WRAP, FIXED.\n");
@@ -64,9 +64,9 @@ void usage()
     exit(0);
 }
 
-void parse_command_line(int argc, char* argv[])
+void parse_command_line(int argc, char *argv[])
 {
-    extern char* optarg;
+    extern char *optarg;
     extern int optind, opterr, optopt;
     int c;
 
@@ -79,7 +79,7 @@ void parse_command_line(int argc, char* argv[])
     presentation = PRSNT_NO_WRAP;
     encoding = g_strdup("ASCII");
 
-    while ( (c=getopt(argc,argv,"xe:p:f:t:w:")) != -1 ) {
+    while ((c=getopt(argc,argv,"xe:p:f:t:w:")) != -1) {
         switch(c)
         {
         case 'x':
@@ -139,16 +139,16 @@ void parse_command_line(int argc, char* argv[])
         fixed_limit = 16;
     }
 
-    if ( optind == argc ) {
+    if (optind == argc) {
         warnx("Need file name to work with...\n");
         usage();
     }
     filename = g_strdup(argv[optind++]);
 
-    if ( optind < argc ) {
+    if (optind < argc) {
         start_line = atol(argv[optind++]);
     }
-    if ( optind < argc ) {
+    if (optind < argc) {
         end_line = atol(argv[optind++]);
     }
 
@@ -268,7 +268,7 @@ int display_hexdump_line(offset_type start_of_line, offset_type end_of_line)
     char_type value;
     offset_type current;
 
-    printf("%08lx ", (unsigned long)start_of_line );
+    printf("%08lx ", (unsigned long) start_of_line);
 
     current = start_of_line;
     while (current < end_of_line) {
@@ -294,7 +294,7 @@ int display_hexdump_line(offset_type start_of_line, offset_type end_of_line)
     return 0;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     offset_type current;
     int lines;

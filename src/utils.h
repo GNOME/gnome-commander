@@ -81,8 +81,8 @@ GList *strings_to_uris (gchar *data);
 
 GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri);
 const gchar *create_nice_size_str (GnomeVFSFileSize size);
-gchar* quote_if_needed (const gchar *in);
-gchar* unquote_if_needed (const gchar *in);
+gchar *quote_if_needed (const gchar *in);
+gchar *unquote_if_needed (const gchar *in);
 void stop_kp (GtkObject *obj);
 
 GList *string_history_add (GList *in, const gchar *value, gint maxsize);

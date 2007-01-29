@@ -55,26 +55,26 @@ Requires:        libexif >= @LIBEXIF_REQ@
 Requires:        id3lib >= @ID3LIB_REQ@
 
 %description
-GNOME Commander is a nice and fast file manager for the GNOME desktop. 
-In addition to performing the basic filemanager functions the program is also 
+GNOME Commander is a nice and fast file manager for the GNOME desktop.
+In addition to performing the basic filemanager functions the program is also
 an FTP-client and it can browse SMB-networks.
 
 %description -l pl
-GNOME Commander to niewielki i wydajny menadżer plików umożliwiający 
+GNOME Commander to niewielki i wydajny menadżer plików umożliwiający
 wykonywanie za pomocą klawiatury wszystkich standardowych operacji na plikach.
-Dostępne są również dodatkowe funkcje jak np. obsługa FTP, czy też obsługa 
+Dostępne są również dodatkowe funkcje jak np. obsługa FTP, czy też obsługa
 sieci SMB.
 
 %description -l ru
-Быстро работающий файловый менеджер для Gnome. Может выполнять большинство 
-типовых операций с файлами, умеет обнаруживать изменения, внесенные в файлы 
-другими программами, и автоматически обновлять отображаемый список файлов. 
-Поддерживает описания файловых структур в формате DND и кодировки MIME. 
+Быстро работающий файловый менеджер для Gnome. Может выполнять большинство
+типовых операций с файлами, умеет обнаруживать изменения, внесенные в файлы
+другими программами, и автоматически обновлять отображаемый список файлов.
+Поддерживает описания файловых структур в формате DND и кодировки MIME.
 Реализует на базовом уровне поддержку FTP через GnomeVFS.
 
 %description -l sv
-GNOME Commander är en snabb och smidig filhanderare för GNOME. 
-Utöver att kunna hantera filer på din egen dator så kan programmet även 
+GNOME Commander är en snabb och smidig filhanderare för GNOME.
+Utöver att kunna hantera filer på din egen dator så kan programmet även
 ansluta till FTP-servrar och SMB-nätverk.
 
 %prep
@@ -199,7 +199,7 @@ scrollkeeper-update -q || :
 - added dependencies
 
 * Mon Jun 24 2002 Piotr Eljasiak <epiotr@use.pl>
-- more cleanup in install section 
+- more cleanup in install section
 
 * Sat Jun 15 2002 Piotr Eljasiak <epiotr@use.pl>
 - simplified install and files sections

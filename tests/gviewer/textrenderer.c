@@ -30,8 +30,8 @@
 
 #include <libgviewer/libgviewer.h>
 
-static gchar* filename = NULL;
-static gchar* encoding = NULL;
+static gchar *filename = NULL;
+static gchar *encoding = NULL;
 static TEXTDISPLAYMODE dispmode = TR_DISP_MODE_TEXT;
 static guint tab_size;
 static guint fixed_limit;
@@ -39,9 +39,9 @@ static gboolean wrap_mode;
 
 void usage()
 {
-    fprintf(stderr,"This program tests the text-render widget in 'libgviewer'.\n\n" );
+    fprintf(stderr,"This program tests the text-render widget in 'libgviewer'.\n\n");
 
-    fprintf(stderr,"Usage: test-textrenderer [-e encoding] [-d dispmode] [-w] [-f fixed_limit] [-t tab_size] filename\n\n" );
+    fprintf(stderr,"Usage: test-textrenderer [-e encoding] [-d dispmode] [-w] [-f fixed_limit] [-t tab_size] filename\n\n");
     
     fprintf(stderr,"\t-e enconding: ASCII, UTF8, CP437, CP1251, etc\n");
     fprintf(stderr,"\t-d Display Mode:\n\t     Fixed(text)\n\t     Binary\n\t     Hex\n");
@@ -52,9 +52,9 @@ void usage()
     exit(0);
 }
 
-void parse_command_line(int argc, char* argv[])
+void parse_command_line(int argc, char *argv[])
 {
-    extern char* optarg;
+    extern char *optarg;
     extern int optind, opterr, optopt;
     int c;
     
@@ -64,7 +64,7 @@ void parse_command_line(int argc, char* argv[])
     encoding = g_strdup("ASCII");
     wrap_mode = FALSE;
     
-    while ( (c=getopt(argc,argv,"d:e:f:t:w")) != -1 ) {
+    while ((c=getopt(argc,argv,"d:e:f:t:w")) != -1) {
         switch(c)
         {
         case 'w':
@@ -111,14 +111,14 @@ void parse_command_line(int argc, char* argv[])
         }
     }
     
-    if ( optind == argc ) {
+    if (optind == argc) {
         warnx("Need file name to work with...\n");
         usage();
     }
     filename = g_strdup(argv[optind++]);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     GtkWidget *window;
     GtkWidget *scrollbox;
@@ -142,7 +142,7 @@ int main(int argc, char* argv[])
     text_render_set_h_adjustment(TEXT_RENDER(textr),
         scroll_box_get_h_adjustment(SCROLL_BOX(scrollbox)));
 
-    text_render_load_file(TEXT_RENDER(textr), filename );
+    text_render_load_file(TEXT_RENDER(textr), filename);
     text_render_set_display_mode(TEXT_RENDER(textr), dispmode);
     text_render_set_tab_size(TEXT_RENDER(textr), tab_size);
     text_render_set_wrap_mode(TEXT_RENDER(textr), wrap_mode);

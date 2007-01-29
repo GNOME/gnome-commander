@@ -30,7 +30,7 @@
 #include "gvtypes.h"
 #include "viewer-utils.h"
 
-gchar* gviewer_get_string (const gchar *path, const gchar *def)
+gchar *gviewer_get_string (const gchar *path, const gchar *def)
 {
     gboolean b = FALSE;
     gchar *value = gnome_config_get_string_with_default (path, &b);
@@ -86,7 +86,7 @@ gboolean gviewer_find_string_history(GList *strings, const gchar *text)
 {
     for (; strings; strings = strings->next)
         if (strings->data!=NULL)
-            if (strcmp( (gchar*)strings->data, text)==0)
+            if (strcmp((gchar*)strings->data, text)==0)
                 return TRUE;
     return FALSE;
 }
@@ -140,12 +140,12 @@ int unicode2utf8(unsigned int unicode, unsigned char*out)
     return bytes_needed;
 }
 
-char_type* convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *array_length)
+char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *array_length)
 {
     glong length;
     glong index;
     guint32 unicode_char;
-    const gchar* pos;
+    const gchar *pos;
     char_type *result;
 
     g_return_val_if_fail(utf8text!=NULL,NULL);
@@ -179,7 +179,7 @@ char_type* convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
 
 guint8 *mem_reverse(const guint8 *buffer, guint buflen)
 {
-    guint8* result;
+    guint8 *result;
     guint i,j;
 
     g_return_val_if_fail(buffer!=NULL,NULL);
@@ -192,7 +192,7 @@ guint8 *mem_reverse(const guint8 *buffer, guint buflen)
     return result;
 }
 
-guint8 *text2hex(const gchar* text, /*out*/ guint *buflen)
+guint8 *text2hex(const gchar *text, /*out*/ guint *buflen)
 {
     guint8 *result;
     int idx,len;
@@ -204,7 +204,7 @@ guint8 *text2hex(const gchar* text, /*out*/ guint *buflen)
 
     idx = 0;
     len = 0;
-    while ( text[idx]) {
+    while (text[idx]) {
         if (text[idx]==' ')
             idx++;
         else
@@ -224,7 +224,7 @@ guint8 *text2hex(const gchar* text, /*out*/ guint *buflen)
     len = 0;
     high_nib = TRUE;
     value = 0;
-    while ( text[idx]) {
+    while (text[idx]) {
         if (g_ascii_isxdigit(text[idx])) {
             if (high_nib)
                 value = g_ascii_xdigit_value(text[idx]) * 16;

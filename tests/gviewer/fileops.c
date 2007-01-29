@@ -28,11 +28,11 @@
 
 void usage()
 {
-    fprintf(stderr,"This program tests the file operations module in 'libgviewer'.\n\n" );
+    fprintf(stderr,"This program tests the file operations module in 'libgviewer'.\n\n");
 
-    fprintf(stderr,"Usage: test-fileops filename [start_offset] [end_offset]\n" );
-    fprintf(stderr,"\t'filename' will be printed to STDOUT.\n" );
-    fprintf(stderr,"\t'start_offset' and 'end_offset' are optinal.\n\n" );
+    fprintf(stderr,"Usage: test-fileops filename [start_offset] [end_offset]\n");
+    fprintf(stderr,"\t'filename' will be printed to STDOUT.\n");
+    fprintf(stderr,"\t'start_offset' and 'end_offset' are optimal.\n\n");
     exit(0);
 }
 
@@ -58,8 +58,8 @@ int main(int argc, char *argv[])
 
     end = argc>=4 ? atol(argv[3]) : gv_file_get_max_offset(fops);
 
-    
-    for (current = start; current < end; current++) 
+
+    for (current = start; current < end; current++)
     {
         value = gv_file_get_byte(fops, current);
 

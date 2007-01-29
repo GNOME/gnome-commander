@@ -69,7 +69,7 @@ static offset_type inputmode_utf8_get_previous_offset(GVInputModesData *imd, off
 static offset_type inputmode_utf8_get_next_offset(GVInputModesData *imd, offset_type offset);
 static void inputmode_utf8_activate(GVInputModesData *imd);
 
-GVInputModesData* gv_input_modes_new()
+GVInputModesData *gv_input_modes_new()
 {
     return g_new0(GVInputModesData,1);
 }
@@ -116,7 +116,7 @@ const char*gv_get_input_mode(GVInputModesData *imd)
     return imd->input_mode_name;
 }
 
-void gv_set_input_mode(GVInputModesData *imd, const gchar* input_mode)
+void gv_set_input_mode(GVInputModesData *imd, const gchar *input_mode)
 {
     if (g_ascii_strcasecmp(input_mode,"ASCII")==0 ||
         g_ascii_strcasecmp(input_mode,"CP437")==0) {
@@ -188,7 +188,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
     // First thing, set ASCII input mode, which will be the default if anything fails
     memset(imd->ascii_charset_translation,0,sizeof(imd->ascii_charset_translation));
     for (i=0;i<256;i++) {
-        if (is_displayable(i) )
+        if (is_displayable(i))
             imd->ascii_charset_translation[i] = i;
         else
             imd->ascii_charset_translation[i] = '.';
@@ -247,7 +247,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
 
         result = g_iconv(icnv,
                 &ginbuf, &ginleft,
-                &goutbuf, &goutleft );
+                &goutbuf, &goutleft);
         if (result != 0 || i<32) {
             imd->ascii_charset_translation[i] = '.';
         }
@@ -311,7 +311,7 @@ static offset_type inputmode_ascii_get_previous_offset(GVInputModesData *imd, of
 
     if (offset>0) {
         current_char = inputmode_ascii_get_char(imd, offset);
-        if (current_char=='\n' ) {
+        if (current_char=='\n') {
             prev_char = inputmode_ascii_get_char(imd, offset-1);
             if (prev_char=='\r')
                 offset--;
@@ -326,7 +326,7 @@ static offset_type inputmode_ascii_get_next_offset(GVInputModesData *imd, offset
     char_type current_char, next_char;
 
     current_char = inputmode_ascii_get_char(imd, offset);
-    if (current_char=='\r' ) {
+    if (current_char=='\r') {
         next_char = inputmode_ascii_get_char(imd, offset+1);
         if (next_char=='\n')
             offset++;
@@ -426,7 +426,7 @@ static char_type inputmode_utf8_get_char(GVInputModesData *imd, offset_type offs
 
     if (!utf8_is_valid_char(imd,offset)) {
         g_warning("invalid UTF characeter at offset %lu (%02x)",offset,
-            (unsigned char )gv_input_mode_get_byte(imd,offset));
+            (unsigned char)gv_input_mode_get_byte(imd,offset));
         return '.';
     }
 

@@ -28,22 +28,22 @@ G_BEGIN_DECLS
 
 #define GVIEWER_DEFAULT_PATH_PREFIX "/gnome-commander/internal_viewer/"
 
-gchar*   gviewer_get_string (const gchar *path, const gchar *def);
+gchar   *gviewer_get_string (const gchar *path, const gchar *def);
 gint     gviewer_get_int (const gchar *path, int def);
 gboolean gviewer_get_bool (const gchar *path, gboolean def);
 
-void   gviewer_write_string_history (gchar *format, GList *strings);
-GList* gviewer_load_string_history (gchar *format, gint size);
-void   gviewer_free_string_history (GList *strings);
+void     gviewer_write_string_history (gchar *format, GList *strings);
+GList   *gviewer_load_string_history (gchar *format, gint size);
+void     gviewer_free_string_history (GList *strings);
 gboolean gviewer_find_string_history(GList *strings, const gchar *text);
 
-int unicode2utf8(unsigned int unicode, unsigned char*out);
-char_type* convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *array_length);
+int unicode2utf8(unsigned int unicode, unsigned char *out);
+char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *array_length);
 
 guint8 *mem_reverse(const guint8 *buffer, guint buflen);
 
 /* returns NULL if 'text' is not a valid hex string (whitespaces are OK, and are ignored) */
-guint8 *text2hex(const gchar* text, /*out*/ guint *buflen);
+guint8 *text2hex(const gchar *text, /*out*/ guint *buflen);
 
 /*  if "ch" is lower case english letter (a-z), returns UPPER case letter, otherwise returns unmodified "ch" */
 char_type chartype_toupper(char_type ch);

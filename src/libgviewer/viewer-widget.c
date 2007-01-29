@@ -77,7 +77,7 @@ static void gviewer_destroy (GtkObject *object);
 static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status, GViewer *viewer);
 static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *status, GViewer *viewer);
 
-static VIEWERDISPLAYMODE guess_display_mode(const unsigned char* data, int len);
+static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len);
 static void gviewer_auto_detect_display_mode(GViewer *obj);
 
 /*****************************************
@@ -255,13 +255,13 @@ gviewer_destroy (GtkObject *widget)
         (*GTK_OBJECT_CLASS(parent_class)->destroy)(widget);
 }
 
-static VIEWERDISPLAYMODE guess_display_mode(const unsigned char* data, int len)
+static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
 {
     int i;
     gboolean control_chars = FALSE; /* True if found ASCII < 0x20 */
     gboolean ascii_chars = FALSE;
     gboolean extended_chars = FALSE; /* True if found ASCII >= 0x80 */
-    const char* mime=NULL;
+    const char *mime=NULL;
 
     mime = gnome_vfs_get_mime_type_for_data(data,len);
 
@@ -292,7 +292,7 @@ void gviewer_auto_detect_display_mode(GViewer *obj)
     int i;
     int count;
     unsigned char temp[DETECTION_BUF_LEN];
-    ViewerFileOps* fops = NULL;
+    ViewerFileOps *fops = NULL;
 
     g_return_if_fail(obj!=NULL);
     obj->priv->dispmode = DISP_MODE_TEXT_FIXED;
@@ -411,7 +411,7 @@ void gviewer_load_file(GViewer *obj, const gchar*filename)
     gviewer_set_display_mode(obj, obj->priv->dispmode);
 }
 
-const gchar* gviewer_get_filename(GViewer *obj)
+const gchar *gviewer_get_filename(GViewer *obj)
 {
     g_return_val_if_fail (obj!= NULL, NULL);
     g_return_val_if_fail (IS_GVIEWER (obj), NULL);
@@ -475,7 +475,7 @@ int gviewer_get_fixed_limit(GViewer *obj)
     return text_render_get_fixed_limit(obj->priv->textr);
 }
 
-void gviewer_set_encoding(GViewer *obj, const char* encoding)
+void gviewer_set_encoding(GViewer *obj, const char *encoding)
 {
     g_return_if_fail (obj!= NULL);
     g_return_if_fail (IS_GVIEWER (obj));
@@ -484,7 +484,7 @@ void gviewer_set_encoding(GViewer *obj, const char* encoding)
     text_render_set_encoding(obj->priv->textr,encoding);
 }
 
-const gchar* gviewer_get_encoding(GViewer *obj)
+const gchar *gviewer_get_encoding(GViewer *obj)
 {
     g_return_val_if_fail (obj!= NULL,NULL);
     g_return_val_if_fail (IS_GVIEWER (obj),NULL);
@@ -567,7 +567,7 @@ double gviewer_get_scale_factor(GViewer *obj)
     return image_render_get_scale_factor(obj->priv->imgr);
 }
 
-TextRender*    gviewer_get_text_render(GViewer *obj)
+TextRender *gviewer_get_text_render(GViewer *obj)
 {
     g_return_val_if_fail (obj!= NULL,0);
     g_return_val_if_fail (IS_GVIEWER (obj),0);

@@ -37,7 +37,7 @@ static void set_bool (const gchar *path, gboolean value)
     gnome_config_set_bool (path, value);
 }
 
-static gchar* get_string (const gchar *path, const gchar *def)
+static gchar *get_string (const gchar *path, const gchar *def)
 {
     gboolean b = FALSE;
     gchar *value = gnome_config_get_string_with_default (path, &b);

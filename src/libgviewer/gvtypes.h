@@ -41,7 +41,7 @@ G_BEGIN_DECLS
  We use only 32bits (4 bytes) to hold a UTF-8 data.
  This means some exotic UTF-8 characters are NOT supported...
 */
-typedef guint32  char_type ;
+typedef guint32  char_type;
 #define INVALID_CHAR ((char_type) -1)
 /*
  Note:

@@ -30,23 +30,23 @@
 G_BEGIN_DECLS
 
 typedef struct _GVIEWER_BMBYTE_DATA GViewerBMByteData;
-	
+
 struct _GVIEWER_BMBYTE_DATA
 {
-	/* good-suffix-shift array, one element for each (unique) character in the search pattern */
-	int *good;
-	
-	/* bad characters jump table.
-	    since we're searching on BYTES, we can use an array of 256 elements */
-	int *bad ;
-	
-	guint8 *pattern ;
-	int pattern_len ;
-} ;
+    /* good-suffix-shift array, one element for each (unique) character in the search pattern */
+    int *good;
+
+    /* bad characters jump table.
+        since we're searching on BYTES, we can use an array of 256 elements */
+    int *bad;
+
+    guint8 *pattern;
+    int pattern_len;
+};
 
 /* Create the Boyer-Moore jump tables.
     pattern is the search pattern, UTF8 string (null-terminated)*/
-GViewerBMByteData* create_bm_byte_data(const guint8 *pattern, const gint length);
+GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length);
 
 void free_bm_byte_data(GViewerBMByteData *data);
 

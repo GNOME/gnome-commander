@@ -29,7 +29,7 @@
     - other mc-like extensions ?
     - sending file as email attachment (configurable mail command)
 * Root (administrator) mode - for root privileges
-* vfolders for selecting files from arbitrary URI 
+* vfolders for selecting files from arbitrary URI
   (visible file selection can be merged internally to the vfolder at any point,
    and then the usual multiple file actions can be applied)
 
@@ -76,7 +76,7 @@
 * Help button for every dialog
 * Plugin API (when ready)
 
- 
+
 
 Discussed stuff (not assigned to a version yet)
 -----------------------------------------------

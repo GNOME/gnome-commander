@@ -30,32 +30,32 @@ G_BEGIN_DECLS
 #define SCROLL_BOX_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, scroll_box_get_type (), ScrollBoxClass)
 #define IS_SCROLL_BOX(obj)       GTK_CHECK_TYPE (obj, scroll_box_get_type ())
 
-typedef struct _ScrollBox       	ScrollBox;
-typedef struct _ScrollBoxPrivate	ScrollBoxPrivate;
-typedef struct _ScrollBoxClass  	ScrollBoxClass;
+typedef struct _ScrollBox           ScrollBox;
+typedef struct _ScrollBoxPrivate    ScrollBoxPrivate;
+typedef struct _ScrollBoxClass      ScrollBoxClass;
 
 struct _ScrollBox
 {
-	GtkTable table;
-	ScrollBoxPrivate *priv;
+    GtkTable table;
+    ScrollBoxPrivate *priv;
 };
 
 struct _ScrollBoxClass
 {
-	GtkTableClass parent_class;
+    GtkTableClass parent_class;
 };
 
-GtkWidget*     scroll_box_new	(void);
-GtkType        scroll_box_get_type        (void);
-void	       scroll_box_set_client ( ScrollBox *obj, GtkWidget* client);
-GtkWidget*     scroll_box_get_client ( ScrollBox *obj ) ;
+GtkWidget     *scroll_box_new (void);
+GtkType        scroll_box_get_type (void);
+void           scroll_box_set_client (ScrollBox *obj, GtkWidget *client);
+GtkWidget     *scroll_box_get_client (ScrollBox *obj);
 
-GtkAdjustment* scroll_box_get_h_adjustment (ScrollBox *obj);
+GtkAdjustment *scroll_box_get_h_adjustment (ScrollBox *obj);
 void           scroll_box_set_h_adjustment (ScrollBox *obj, GtkAdjustment *adjustment);
-GtkAdjustment* scroll_box_get_v_adjustment (ScrollBox *obj);
+GtkAdjustment *scroll_box_get_v_adjustment (ScrollBox *obj);
 void           scroll_box_set_v_adjustment (ScrollBox *obj, GtkAdjustment *adjustment);
 
-GtkRange*      scroll_box_get_v_range(ScrollBox *obj);
+GtkRange      *scroll_box_get_v_range(ScrollBox *obj);
 
 G_END_DECLS
 

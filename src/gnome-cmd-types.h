@@ -20,7 +20,7 @@
 #define __GNOME_CMD_TYPES_H__
 
 typedef struct _GnomeCmdBookmarkGroup GnomeCmdBookmarkGroup;
-typedef gchar* GnomeCmdDateFormat;
+typedef gchar *GnomeCmdDateFormat;
 
 #include "gnome-cmd-con.h"
 

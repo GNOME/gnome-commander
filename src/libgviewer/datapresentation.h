@@ -30,20 +30,20 @@ typedef struct _GVDataPresentation GVDataPresentation;
 
 typedef enum
 {
-	PRSNT_NO_WRAP,
-	PRSNT_WRAP,
-	
-	/* Here, BIN_FIXED is "fixed number of binary characters per line"
-	   (e.g. CHAR=BYTE, no UTF-8 or other translations) */
-	PRSNT_BIN_FIXED
+    PRSNT_NO_WRAP,
+    PRSNT_WRAP,
+
+    /* Here, BIN_FIXED is "fixed number of binary characters per line"
+       (e.g. CHAR=BYTE, no UTF-8 or other translations) */
+    PRSNT_BIN_FIXED
 } PRESENTATION;
 
-GVDataPresentation* gv_data_presentation_new();
+GVDataPresentation *gv_data_presentation_new();
 
 void gv_init_data_presentation(GVDataPresentation *dp, GVInputModesData *imd, offset_type max_offset);
 void gv_free_data_presentation(GVDataPresentation *dp);
 
-void gv_set_data_presentation_mode(GVDataPresentation *dp, PRESENTATION present) ;
+void gv_set_data_presentation_mode(GVDataPresentation *dp, PRESENTATION present);
 PRESENTATION gv_get_data_presentation_mode(GVDataPresentation *dp);
 void gv_set_wrap_limit(GVDataPresentation *dp, guint chars_per_line);
 void gv_set_fixed_count(GVDataPresentation *dp, guint chars_per_line);
