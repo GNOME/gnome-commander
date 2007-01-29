@@ -1,3 +1,14 @@
+2007-01-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* plugins/fileroller/file-roller-plugin.c:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-selector.h:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-smb-path.c:
+	* src/libgviewer/inputmodes.c:
+	* src/tags/gnome-cmd-tags.c:
+	Fixed some build warnings
+
 2007-01-28  Mike Crash <mike@mikecrash.com>
 
 	* src/libgviewer/search-dlg.c:

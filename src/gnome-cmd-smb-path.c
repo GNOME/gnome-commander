@@ -269,7 +269,6 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
 {
     g_return_val_if_fail (path_str != NULL, NULL);
 
-    gint i;
     gchar *s, *t;
     gchar **v;
     gchar *a = NULL,
@@ -284,13 +283,15 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
     // Replace '\' with '/'
     g_strdelimit (t, "\\", '/');
 
+    s = g_strdup (t);
+    g_free (t);
+    
     // Eat up all leading slashes
-    for (s=g_strdup (t); *s=='/'; ++s)
+    for (; *s=='/'; ++s)
         if (!strlen (s))
             return NULL;
 
     v = g_strsplit (s, G_DIR_SEPARATOR_S, 0);
-    g_free (t);
     if (v[0] != NULL)
     {
         a = g_strdup (v[0]);
@@ -319,7 +320,6 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
                 out = gnome_cmd_smb_path_new (a, b, c);
             else
             {
-                gchar *t = b;
                 b = c ? g_strdup_printf ("/%s%s", b, c) : g_strdup_printf ("/%s", b);
                 g_free (c);
                 out = gnome_cmd_smb_path_new (ent->workgroup_name, a, b);

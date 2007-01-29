@@ -294,21 +294,22 @@ create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
         gchar *fname = g_strdup (finfo->info->name);
         gint i;
 
-        for (i=0; handled_extensions[i] != NULL && ! (fname, handled_extensions[i]); ++i)
-        {
-            gchar *text;
+        for (i=0; handled_extensions[i]; ++i)
+            if (g_str_has_suffix (fname, handled_extensions[i]))
+            {
+                item = create_menu_item (_("Extract in Current Directory"),
+                    TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+                items = g_list_append (items, item);
 
-            item = create_menu_item (_("Extract in Current Directory"),
-                TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
-            items = g_list_append (items, item);
+                fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
 
-            fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
-            text = g_strdup_printf (_("Extract to '%s'"), fname);
-            item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
-            gtk_object_set_data (GTK_OBJECT (item), "target_name", g_strdup (fname));
-            items = g_list_append (items, item);
-            g_free (text);
-        }
+                gchar *text = g_strdup_printf (_("Extract to '%s'"), fname);
+                item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+                gtk_object_set_data (GTK_OBJECT (item), "target_name", g_strdup (fname));
+                items = g_list_append (items, item);
+                g_free (text);
+                break;
+            }
         g_free (fname);
     }
 

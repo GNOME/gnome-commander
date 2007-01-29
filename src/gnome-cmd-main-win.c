@@ -324,7 +324,7 @@ create_slide_popup ()
         GNOMEUIINFO_ITEM_NONE("50 - 50", NULL, slide_set_50_50),
         GNOMEUIINFO_ITEM_NONE("40 - 60", NULL, slide_set_40_60),
         GNOMEUIINFO_ITEM_NONE("20 - 80", NULL, slide_set_20_80),
-        GNOMEUIINFO_ITEM_NONE("0 - 100", NULL, slide_set_100_0),
+        GNOMEUIINFO_ITEM_NONE("0 - 100", NULL, slide_set_0_100),
         GNOMEUIINFO_END
     };
 

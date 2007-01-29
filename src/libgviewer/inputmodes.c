@@ -28,6 +28,7 @@
 #include "gvtypes.h"
 
 #include "inputmodes.h"
+#include "viewer-utils.h"
 #include "cp437.h"
 
 struct _GVInputModesData
