@@ -28,7 +28,7 @@ RDEPEND=">=x11-libs/gtk+-2.6.0
 	)
 	exif? ( media-libs/libexif )
 	iptc? ( media-libs/libiptcdata )
-	id3?  ( media-libs/id3lib" )
+	id3?  ( media-libs/id3lib )"
 
 DEPEND="${RDEPEND}
 	dev-util/intltool
