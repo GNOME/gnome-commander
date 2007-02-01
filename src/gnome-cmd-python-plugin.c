@@ -185,7 +185,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     Py_XDECREF(pmod);
 
     if (!pURIclass)
-        goto out_A;
+        goto out_B;
 
     PyObject *pName = PyString_FromString(plugin->fname);
     PyObject *pModule = PyImport_Import(pName);
@@ -196,7 +196,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
         PyErr_Print();
         g_warning("Failed to load '%s'", plugin->path);
 
-        goto out_B;
+        goto out_C;
     }
 
     PyObject *pFunc = PyObject_GetAttrString(pModule, MODULE_INIT_FUNC);
@@ -207,7 +207,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
             PyErr_Print();
         g_warning("Cannot find function '%s'", MODULE_INIT_FUNC);
 
-        goto out_C;
+        goto out_D;
     }
 
     GnomeCmdFileSelector *active_fs = gnome_cmd_main_win_get_active_fs (mw);
@@ -215,7 +215,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     GnomeCmdFileList     *active_fl = active_fs ? active_fs->list : NULL;
 
     if (!GNOME_CMD_IS_FILE_LIST (active_fl))
-        goto out_C;
+        goto out_D;
 
     GList *selected_files = gnome_cmd_file_list_get_selected_files (active_fl);
     selected_files = gnome_cmd_file_list_sort_selection (selected_files, active_fl);
@@ -229,7 +229,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     if (!n)
     {
         retval = TRUE;
-        goto out_C;
+        goto out_D;
     }
 
     gchar *active_dir = gnome_cmd_dir_get_display_path (gnome_cmd_file_selector_get_directory (active_fs));
@@ -285,17 +285,19 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
 
     Py_XDECREF(pValue);
 
-  out_C:
+  out_D:
 
     Py_XDECREF(pFunc);
 
-  out_B:
+  out_C:
 
     Py_XDECREF(pModule);
 
-  out_A:
+  out_B:
 
     Py_XDECREF(pURIclass);
+
+  out_A:
 
     return retval;
 }

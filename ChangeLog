@@ -1,3 +1,12 @@
+2007-02-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	Added build and runtime deps for python and gnome-python2-gnomevfs
+
+	* src/gnome-cmd-python-plugin.c:
+	Fixed build warning
+
 2007-01-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* plugins/fileroller/file-roller-plugin.c:
@@ -13,8 +22,6 @@
 
 	* src/libgviewer/search-dlg.c:
 	Make search entry selected by default
-
-2007-01-28  Mike Crash <mike@mikecrash.com>
 
 	* src/gnome-cmd-search-dialog.c:
 	Fixed bug #351952 (crash while doing a content search)

@@ -46,10 +46,13 @@ Requires:      libgnomeui >= @GNOMEUI_REQ@
 Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
 
+BuildRequires:   python-devel >= @PYTHON_REQ@
 BuildRequires:   libexif-devel >= @LIBEXIF_REQ@
 #BuildRequires:  libiptcdata-devel >= @LIBIPTCDATA_REQ@
 BuildRequires:   id3lib-devel >= @ID3LIB_REQ@
 
+Requires:        python >= @PYTHON_REQ@
+Requires:        gnome-python2-gnomevfs
 Requires:        libexif >= @LIBEXIF_REQ@
 #Requires:       libiptcdata >= @LIBIPTCDATA_REQ@
 Requires:        id3lib >= @ID3LIB_REQ@
@@ -129,6 +132,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Wed Jan 30 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+- added build and runtime deps for python and gnome-python2-gnomevfs
+
 * Wed Jan 10 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - removed unneeded .py files
 
