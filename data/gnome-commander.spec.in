@@ -50,12 +50,14 @@ BuildRequires:   python-devel >= @PYTHON_REQ@
 BuildRequires:   libexif-devel >= @LIBEXIF_REQ@
 #BuildRequires:  libiptcdata-devel >= @LIBIPTCDATA_REQ@
 BuildRequires:   id3lib-devel >= @ID3LIB_REQ@
+BuildRequires:   libgsf-1-devel >= @LIBGSF_REQ@
 
 Requires:        python >= @PYTHON_REQ@
 Requires:        gnome-python2-gnomevfs
 Requires:        libexif >= @LIBEXIF_REQ@
 #Requires:       libiptcdata >= @LIBIPTCDATA_REQ@
 Requires:        id3lib >= @ID3LIB_REQ@
+Requires:        libgsf-1 >= @LIBGSF_REQ@
 
 %description
 GNOME Commander is a nice and fast file manager for the GNOME desktop.

@@ -73,13 +73,52 @@ typedef enum {
     TAG_AUDIO_TRACKNO,                      // position of track on the album
     TAG_AUDIO_TRACKPEAKGAIN,                // peak gain adjustment of track
     TAG_DOC_AUTHOR,                         // name of the author
+    TAG_DOC_BYTECOUNT,                      // number of bytes in the document
+    TAG_DOC_CASESENSITIVE,                  // case sensitive
+    TAG_DOC_CATEGORY,                       // category
+    TAG_DOC_CELLCOUNT,                      // number of cells in the spreadsheet document
+    TAG_DOC_CHARACTERCOUNT,                 // number of characters in the document
+    TAG_DOC_CODEPAGE,                       // the MS codepage to encode strings for metadata
     TAG_DOC_COMMENTS,                       // user definable free text
-    TAG_DOC_CREATED,                        // datetime document was originally
-    TAG_DOC_KEYWORDS,                       // string of keywords
-    TAG_DOC_PAGECOUNT,                      // no. of pages in document
+    TAG_DOC_COMPANY,                        // organization that the <Doc.Creator> entity is associated with
+    TAG_DOC_CREATED,                        // datetime document was originally created
+    TAG_DOC_CREATOR,                        // an entity primarily responsible for making the content of the resource, typically a person, organization, or service
+    TAG_DOC_DATECREATED,                    // date associated with an event in the life cycle of the resource (creation/publication date)
+    TAG_DOC_DATEMODIFIED,                   // the last time the document was saved
+    TAG_DOC_DESCRIPTION,                    // an acccount of the content of the resource
+    TAG_DOC_DICTIONARY,                     // dictionary
+    TAG_DOC_EDITINGDURATION,                // the total time taken until the last modification
+    TAG_DOC_GENERATOR,                      // the application that generated this document
+    TAG_DOC_HIDDENSLIDECOUNT,               // number of hidden slides in the presentation document
+    TAG_DOC_IMAGECOUNT,                     // number of images in the document
+    TAG_DOC_INITIALCREATOR,                 // specifies the name of the person who created the document initially
+    TAG_DOC_KEYWORD,                        // searchable, indexable keywords
+    TAG_DOC_KEYWORDS,                       // searchable, indexable keywords
+    TAG_DOC_LANGUAGE,                       // the locale language of the intellectual content of the resource
+    TAG_DOC_LASTPRINTED,                    // the last time this document was printed
+    TAG_DOC_LASTSAVEDBY,                    // the entity that made the last change to the document, typically a person, organization, or service
+    TAG_DOC_LINECOUNT,                      // number of liness in the document
+    TAG_DOC_LINKSDIRTY,                     // links dirty
+    TAG_DOC_LOCALESYSTEMDEFAULT,            // identifier representing the default system locale
+    TAG_DOC_MMCLIPCOUNT,                    // number of multimedia clips in the document
+    TAG_DOC_MANAGER,                        // name of the manager of <Doc.Creator> entity
+    TAG_DOC_NOTECOUNT,                      // number of "notes" in the document
+    TAG_DOC_OBJECTCOUNT,                    // number of objects (OLE and other graphics) in the document
+    TAG_DOC_PAGECOUNT,                      // number of pages in the document
+    TAG_DOC_PARAGRAPHCOUNT,                 // number of paragraphs in the document
+    TAG_DOC_PRESENTATIONFORMAT,             // type of presentation, like "On-screen Show", "SlideView", etc
+    TAG_DOC_PRINTDATE,                      // specifies the date and time when the document was last printed
+    TAG_DOC_PRINTEDBY,                      // specifies the name of the last person who printed the document
+    TAG_DOC_REVISIONCOUNT,                  // number of revision on the document
+    TAG_DOC_SCALE,                          // scale
+    TAG_DOC_SECURITY,                       // one of: "Password protected", "Read-only recommended", "Read-only enforced" or "Locked for annotations"
+    TAG_DOC_SLIDECOUNT,                     // number of slides in the presentation document
+    TAG_DOC_SPREADSHEETCOUNT,               // number of pages in the document
     TAG_DOC_SUBJECT,                        // document subject
-    TAG_DOC_TITLE,                          // title of document
-    TAG_DOC_WORDCOUNT,                      // total no. of chars in document
+    TAG_DOC_TABLECOUNT,                     // number of tables in the document
+    TAG_DOC_TEMPLATE,                       // the template file that is been used to generate this document
+    TAG_DOC_TITLE,                          // title of the document
+    TAG_DOC_WORDCOUNT,                      // number of words in the document
     TAG_EXIF_APERTUREVALUE,                 // lens aperture
     TAG_EXIF_ARTIST,                        // person who created the image
     TAG_EXIF_BATTERYLEVEL,                  // battery level
@@ -417,7 +456,8 @@ typedef enum {
     NUMBER_OF_TAGS
 } GnomeCmdTag;
 
-
+void gcmd_tags_init();
+void gcmd_tags_shutdown();
 GnomeCmdTag gcmd_tags_get_tag_by_long_name(const gchar *tag_name);
 GnomeCmdTag gcmd_tags_get_tag_by_name(const GnomeCmdTagClass tag_class, const gchar *tag_name);
 GnomeCmdTag *gcmd_tags_get_pointer_to_tag(const GnomeCmdTag tag);

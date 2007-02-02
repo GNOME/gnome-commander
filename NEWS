@@ -11,6 +11,8 @@ Bug fixes:
 
 New features:
  * Support for python plugins
+ * Support for OLE and ODF metags in advanced file rename templates
+ * Updated help docs
  * New or updated translations: bg dz en_GB sl sv
  * New key bindings:
       CTRL+\         Go to the root directory

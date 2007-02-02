@@ -1,3 +1,23 @@
+2007-02-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-advrename-lexer.l:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/main.c:
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-audio.h:
+	* src/tags/gnome-cmd-tags-doc.c:
+	* src/tags/gnome-cmd-tags-doc.h:
+	* src/tags/gnome-cmd-tags-id3.h:
+	* src/tags/gnome-cmd-tags.c:
+	* src/tags/gnome-cmd-tags.h:
+	* src/utils.c:
+	Added support for OLE and ODF metags in advanced file rename templates
+
 2007-02-01  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:

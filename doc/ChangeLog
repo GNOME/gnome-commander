@@ -1,4 +1,10 @@
+2007-01-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/gnome-commander.1:
+	* doc/C/gnome-commander.xml:
+	Added support for OLE and ODF metags in advanced file rename templates
+
 2007-01-22  Piotr Eljasiak  <epiotr@use.pl>
 
-	* src/gnome-commander.xml:
+	* doc/C/gnome-commander.xml:
 	Updated links to gcmd repository (cvs -> svn)

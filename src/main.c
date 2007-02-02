@@ -30,6 +30,7 @@
 #include "imageloader.h"
 #include "plugin_manager.h"
 #include "gnome-cmd-python-plugin.h"
+#include "tags/gnome-cmd-tags.h"
 
 
 GnomeCmdMainWin *main_win;
@@ -121,8 +122,9 @@ main (int argc, char *argv[])
 
     main_win_widget = gnome_cmd_main_win_new ();
     main_win = GNOME_CMD_MAIN_WIN (main_win_widget);
-
     gtk_widget_show (GTK_WIDGET (main_win));
+
+    gcmd_tags_init();
     plugin_manager_init ();
 #ifdef HAVE_PYTHON
     python_plugin_manager_init ();
@@ -134,6 +136,7 @@ main (int argc, char *argv[])
     python_plugin_manager_shutdown ();
 #endif
     plugin_manager_shutdown ();
+    gcmd_tags_shutdown();
     gnome_cmd_data_save ();
     gnome_vfs_shutdown ();
     OWNER_free ();

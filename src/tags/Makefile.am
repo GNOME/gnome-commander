@@ -12,10 +12,12 @@ AM_CPPFLAGS = \
 	$(IPTCDATA_CFLAGS) \
 	$(LCMS_CFLAGS) \
 	$(CHM_CFLAGS) \
+	$(GSF_CFLAGS) \
 	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\"
 
 libgcmd_tags_a_SOURCES = \
 	gnome-cmd-tags.h gnome-cmd-tags.c \
 	gnome-cmd-tags-libs.h gnome-cmd-tags-libs.c \
 	gnome-cmd-tags-audio.h gnome-cmd-tags-audio.c \
-	gnome-cmd-tags-id3.h gnome-cmd-tags-id3.c
+	gnome-cmd-tags-id3.h gnome-cmd-tags-id3.c \
+	gnome-cmd-tags-doc.h gnome-cmd-tags-doc.c

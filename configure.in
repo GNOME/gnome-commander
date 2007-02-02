@@ -43,6 +43,7 @@ PYTHON_REQ=2.4
 LIBEXIF_REQ=0.6.12
 LIBIPTCDATA_REQ=0.2.1
 ID3LIB_REQ=3.8.3
+LIBGSF_REQ=1.12.0
 
 AC_SUBST(GLIB_REQ)
 AC_SUBST(GTK_REQ)
@@ -52,6 +53,7 @@ AC_SUBST(PYTHON_REQ)
 AC_SUBST(LIBEXIF_REQ)
 AC_SUBST(LIBIPTCDATA_REQ)
 AC_SUBST(ID3LIB_REQ)
+AC_SUBST(LIBGSF_REQ)
 
 dnl Check for glib
 AC_MSG_CHECKING(if glib >= ${GLIB_REQ} exists)
@@ -230,6 +232,17 @@ AC_ARG_WITH(libchm, [  --without-libchm      disable CHM support])
 have_chm=no
 AC_CHECK_LIB(chm, chm_open, have_chm=yes, have_chm=no)
 AM_CONDITIONAL(HAVE_CHM, test "x$have_chm" = "xyes")
+
+
+dnl Check for libgsf support
+AC_ARG_WITH(libgsf, [  --without-libgsf      disable gsf support])
+have_gsf=no
+if test x$with_libgsf != xno; then
+    PKG_CHECK_MODULES(GSF, libgsf-1 >= $LIBGSF_REQ, have_gsf=yes, have_gsf=no)
+fi
+if test "x$have_gsf" = "xyes"; then
+   AC_DEFINE(HAVE_GSF, 1, [Define to 1 if you have libgsf support])
+fi
 
 
 dnl =============================
@@ -422,6 +435,8 @@ echo ""
 echo "  Exif support   : ${have_exif}"
 echo "  IPTC support   : ${have_iptc}"
 echo "  ID3 support    : ${have_id3}"
+echo "  OLE2 support   : ${have_gsf}"
+echo "  ODF support    : ${have_gsf}"
 echo ""
 echo ""
 echo "The following libraries will be used:"

@@ -100,7 +100,7 @@ image       [iI][mM][aA][gG][eE]
 iptc        [iI][pP][tT][cC]
 rpm         [rR][pP][mM]
 
-tag_name   {audio}|{exif}|{id3}|{iptc}|{image}
+tag_name   {audio}|{doc}|{exif}|{id3}|{image}|{iptc}
 
 %%
 

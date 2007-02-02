@@ -17,8 +17,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef __GNOME_CMD_TAGS_AUDIO_H__
-#define __GNOME_CMD_TAGS_AUDIO_H__
+#ifndef __GNOME_CMD_TAGS_DOC_H__
+#define __GNOME_CMD_TAGS_DOC_H__
 
 #include <config.h>
 
@@ -27,11 +27,16 @@
 
 G_BEGIN_DECLS
 
-void gcmd_tags_audio_init();
-void gcmd_tags_audio_shutdown();
-const gchar *gcmd_tags_audio_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag);
-const gchar *gcmd_tags_audio_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+void gcmd_tags_libgsf_init();
+void gcmd_tags_libgsf_shutdown();
+gboolean gcmd_tags_libgsf_is_supported(void);
+void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo);
+void gcmd_tags_libgsf_free_metadata(GnomeCmdFile *finfo);
+const gchar *gcmd_tags_libgsf_get_value(GnomeCmdFile *finfo, guint tag);
+const gchar *gcmd_tags_libgsf_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_libgsf_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_libgsf_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 
 G_END_DECLS
 
-#endif // __GNOME_CMD_TAGS_AUDIO_H__
+#endif // __GNOME_CMD_TAGS_DOC_H__

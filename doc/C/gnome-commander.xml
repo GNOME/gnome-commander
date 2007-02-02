@@ -187,7 +187,7 @@
                 <para>Fast file viewer for text and images</para>
             </listitem>
             <listitem>
-                <para>Meta data support for Exif, IPTC and ID3 tags</para>
+                <para>Meta data support for Exif, IPTC, ID3, OLE2 and ODF tags</para>
             </listitem>
             <listitem>
                 <para>Tools for advanced batch renaming of files, searching, quick file name searching in current dir,
@@ -362,28 +362,31 @@
                         <para><guilabel>m</guilabel> connection debugging</para>
                     </listitem>
                     <listitem>
-                        <para><guilabel>n</guilabel> directory monitoring debugging</para>
+                        <para><guilabel>n</guilabel> directory monitoring</para>
                     </listitem>
                     <listitem>
-                        <para><guilabel>p</guilabel> python plugins debugging</para>
+                        <para><guilabel>p</guilabel> python plugins</para>
                     </listitem>
                     <listitem>
-                        <para><guilabel>s</guilabel> SMB network browser debugging</para>
+                        <para><guilabel>s</guilabel> SMB network browser</para>
+                    </listitem>
+                    <listitem>
+                        <para><guilabel>t</guilabel> metadata tags</para>
                     </listitem>
                     <listitem>
                         <para><guilabel>v</guilabel> internal viewer</para>
                     </listitem>
                     <listitem>
-                        <para><guilabel>w</guilabel> widget_lookup debugging</para>
+                        <para><guilabel>w</guilabel> widget_lookup</para>
                     </listitem>
                     <listitem>
                         <para><guilabel>x</guilabel> xfer</para>
                     </listitem>
                     <listitem>
-                        <para><guilabel>y</guilabel> brief MIME based imageload debugging</para>
+                        <para><guilabel>y</guilabel> brief MIME based imageload</para>
                     </listitem>
                     <listitem>
-                        <para><guilabel>z</guilabel> detailed MIME based imageload debugging</para>
+                        <para><guilabel>z</guilabel> detailed MIME based imageload</para>
                     </listitem>
                 </itemizedlist>
               </listitem>
@@ -606,7 +609,7 @@
         <term>$T(Exif.DateTime)</term> to get image capture date/time and to insert it to new
         filename (metatags names are case insensitive, so we could use also
         <term>$T(exif.datetime)</term> here). The generic <term>'Audio.'</term>,
-        <term>'Doc.'</term>, <term>'File'</term> and <term>'Image.'</term>  metatags are independent
+        <term>'Doc.'</term>, <term>'File.'</term> and <term>'Image.'</term>  metatags are independent
         of the used framework and they provide unified access to respectively audio, doc, file or image metadata.
         Please refer to
         <ulink url="http://freedesktop.org/wiki/Standards_2fshared_2dfilemetadata_2dspec" type="http">freedesktop.org</ulink>
@@ -781,29 +784,229 @@
                         <entry><para>Name of the author</para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>Doc.ByteCount</para></entry>
+                        <entry><para>Byte Count</para></entry>
+                        <entry><para>Number of bytes in the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.CaseSensitive</para></entry>
+                        <entry><para>Case Sensitive</para></entry>
+                        <entry><para>Case sensitive</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Category</para></entry>
+                        <entry><para>Category</para></entry>
+                        <entry><para>Category</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.CellCount</para></entry>
+                        <entry><para>Cell Count</para></entry>
+                        <entry><para>Number of cells in the spreadsheet document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.CharacterCount</para></entry>
+                        <entry><para>Character Count</para></entry>
+                        <entry><para>Number of characters in the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Codepage</para></entry>
+                        <entry><para>Codepage</para></entry>
+                        <entry><para>The MS codepage to encode strings for metadata</para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>Doc.Comments</para></entry>
                         <entry><para>Comments</para></entry>
                         <entry><para>User definable free text</para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>Doc.Company</para></entry>
+                        <entry><para>Company</para></entry>
+                        <entry><para>Organization that the <term>Doc.Creator</term> entity is associated with</para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>Doc.Created</para></entry>
                         <entry><para>Created</para></entry>
-                        <entry><para>Datetime document was originally</para></entry>
+                        <entry><para>Datetime document was originally created</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Creator</para></entry>
+                        <entry><para>Creator</para></entry>
+                        <entry><para>An entity primarily responsible for making the content of the resource, typically a person, organization, or service</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.DateCreated</para></entry>
+                        <entry><para>Date Created</para></entry>
+                        <entry><para>Date associated with an event in the life cycle of the resource (creation/publication date)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.DateModified</para></entry>
+                        <entry><para>Date Modified</para></entry>
+                        <entry><para>The last time the document was saved</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Description</para></entry>
+                        <entry><para>Description</para></entry>
+                        <entry><para>An acccount of the content of the resource</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Dictionary</para></entry>
+                        <entry><para>Dictionary</para></entry>
+                        <entry><para>Dictionary</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.EditingDuration</para></entry>
+                        <entry><para>Editing Duration</para></entry>
+                        <entry><para>The total time taken until the last modification</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Generator</para></entry>
+                        <entry><para>Generator</para></entry>
+                        <entry><para>The application that generated this document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.HiddenSlideCount</para></entry>
+                        <entry><para>Hidden Slide Count</para></entry>
+                        <entry><para>Number of hidden slides in the presentation document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.ImageCount</para></entry>
+                        <entry><para>Image Count</para></entry>
+                        <entry><para>Number of images in the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.InitialCreator</para></entry>
+                        <entry><para>Initial Creator</para></entry>
+                        <entry><para>Specifies the name of the person who created the document initially</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Keyword</para></entry>
+                        <entry><para>Keywords</para></entry>
+                        <entry><para>Searchable, indexable keywords</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Doc.Keywords</para></entry>
                         <entry><para>Keywords</para></entry>
-                        <entry><para>String of keywords</para></entry>
+                        <entry><para>Searchable, indexable keywords</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Language</para></entry>
+                        <entry><para>Language</para></entry>
+                        <entry><para>The locale language of the intellectual content of the resource</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.LastPrinted</para></entry>
+                        <entry><para>Last Printed</para></entry>
+                        <entry><para>The last time this document was printed</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.LastSavedBy</para></entry>
+                        <entry><para>Last Saved By</para></entry>
+                        <entry><para>The entity that made the last change to the document, typically a person, organization, or service</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.LineCount</para></entry>
+                        <entry><para>Line Count</para></entry>
+                        <entry><para>Number of liness in the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.LinksDirty</para></entry>
+                        <entry><para>Links Dirty</para></entry>
+                        <entry><para>Links dirty</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.LocaleSystemDefault</para></entry>
+                        <entry><para>Locale System Default</para></entry>
+                        <entry><para>Identifier representing the default system locale</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.MMClipCount</para></entry>
+                        <entry><para>MM Clip Count</para></entry>
+                        <entry><para>Number of multimedia clips in the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Manager</para></entry>
+                        <entry><para>Manager</para></entry>
+                        <entry><para>Name of the manager of <term>Doc.Creator</term> entity</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.NoteCount</para></entry>
+                        <entry><para>Note Count</para></entry>
+                        <entry><para>Number of "notes" in the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.ObjectCount</para></entry>
+                        <entry><para>Object Count</para></entry>
+                        <entry><para>Number of objects (OLE and other graphics) in the document</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Doc.PageCount</para></entry>
                         <entry><para>Page Count</para></entry>
-                        <entry><para>Number of pages in document</para></entry>
+                        <entry><para>Number of pages in the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.ParagraphCount</para></entry>
+                        <entry><para>Paragraph Count</para></entry>
+                        <entry><para>Number of paragraphs in the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.PresentationFormat</para></entry>
+                        <entry><para>Presentation Format</para></entry>
+                        <entry><para>Type of presentation, like "On-screen Show", "SlideView", etc</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.PrintDate</para></entry>
+                        <entry><para>Print Date</para></entry>
+                        <entry><para>Specifies the date and time when the document was last printed</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.PrintedBy</para></entry>
+                        <entry><para>Printed By</para></entry>
+                        <entry><para>Specifies the name of the last person who printed the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.RevisionCount</para></entry>
+                        <entry><para>Revision Count</para></entry>
+                        <entry><para>Number of revision on the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Scale</para></entry>
+                        <entry><para>Scale</para></entry>
+                        <entry><para>Scale</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Security</para></entry>
+                        <entry><para>Security</para></entry>
+                        <entry><para>One of: "Password protected", "Read-only recommended", "Read-only enforced" or "Locked for annotations"</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.SlideCount</para></entry>
+                        <entry><para>Slide Count</para></entry>
+                        <entry><para>Number of slides in the presentation document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.SpreadsheetCount</para></entry>
+                        <entry><para>Spreadsheet Count</para></entry>
+                        <entry><para>Number of pages in the document</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Doc.Subject</para></entry>
                         <entry><para>Subject</para></entry>
                         <entry><para>Document subject</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.TableCount</para></entry>
+                        <entry><para>Table Count</para></entry>
+                        <entry><para>Number of tables in the document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Template</para></entry>
+                        <entry><para>Template</para></entry>
+                        <entry><para>The template file that is been used to generate this document</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>Doc.Thumbnail</para></entry>
+                        <entry><para>Thumbnail</para></entry>
+                        <entry><para>Thumbnail data of the document, typically a preview image of the document</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Doc.Title</para></entry>
@@ -813,7 +1016,7 @@
                     <row valign="top">
                         <entry><para>Doc.WordCount</para></entry>
                         <entry><para>Word Count</para></entry>
-                        <entry><para>Total number of chars in document</para></entry>
+                        <entry><para>Number of words in the document</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ApertureValue</para></entry>
@@ -4867,7 +5070,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.4</para></entry>
-            <entry><para>2007-??-??</para></entry>
+            <entry><para>2007-02-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -4894,6 +5097,9 @@
                     <itemizedlist>
                         <listitem>
                             <para>Support for python plugins</para>
+                        </listitem>
+                        <listitem>
+                            <para>Support for OLE and ODF metags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
                             <para>Updated help docs</para>

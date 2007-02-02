@@ -40,6 +40,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-tags-audio.h"
+#include "gnome-cmd-tags-doc.h"
 #include "gnome-cmd-tags-libs.h"
 
 
@@ -59,7 +60,7 @@ typedef struct _GnomeCmdTagName GnomeCmdTagName;
 
 static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", ""},
                                                    {"Audio.AlbumArtist", TAG_AUDIO, TAG_AUDIO_ALBUMARTIST, N_("Album Artist"), N_("Artist of the album.")},
-                                                   {"Audio.AlbumGain", TAG_AUDIO, TAG_AUDIO_ALBUMGAIN, N_("Album Gain"), N_("Gain adjustment of album.")},
+                                                   {"Audio.AlbumGain", TAG_AUDIO, TAG_AUDIO_ALBUMGAIN, N_("Album Gain"), N_("Gain adjustment of the album.")},
                                                    {"Audio.AlbumPeakGain", TAG_AUDIO, TAG_AUDIO_ALBUMPEAKGAIN, N_("Album Peak Gain"), N_("Peak gain adjustment of album.")},
                                                    {"Audio.AlbumTrackCount", TAG_AUDIO, TAG_AUDIO_ALBUMTRACKCOUNT, N_("Album Track Count"), N_("Total number of tracks on the album.")},
                                                    {"Audio.Album", TAG_AUDIO, TAG_AUDIO_ALBUM, N_("Album"), N_("Name of the album.")},
@@ -88,14 +89,53 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
                                                    {"Audio.TrackGain", TAG_AUDIO, TAG_AUDIO_TRACKGAIN, N_("Track Gain"), N_("Gain adjustment of the track.")},
                                                    {"Audio.TrackNo", TAG_AUDIO, TAG_AUDIO_TRACKNO, N_("Track Number"), N_("Position of track on the album.")},
                                                    {"Audio.TrackPeakGain", TAG_AUDIO, TAG_AUDIO_TRACKPEAKGAIN, N_("Track Peak Gain"), N_("Peak gain adjustment of track.")},
-                                                   {"Doc.Author", TAG_DOC, TAG_DOC_AUTHOR, N_("Author"), N_("Name of the author.")},
+                                                   {"Doc.Author", TAG_DOC, TAG_DOC_CREATOR, N_("Author"), N_("Name of the author.")},
+                                                   {"Doc.ByteCount", TAG_DOC, TAG_DOC_BYTECOUNT, N_("Byte Count"), N_("Number of bytes in the document.")},
+                                                   {"Doc.CaseSensitive", TAG_DOC, TAG_DOC_CASESENSITIVE, N_("Case Sensitive"), N_("Case sensitive.")},
+                                                   {"Doc.Category", TAG_DOC, TAG_DOC_CATEGORY, N_("Category"), N_("Category.")},
+                                                   {"Doc.CellCount", TAG_DOC, TAG_DOC_CELLCOUNT, N_("Cell Count"), N_("Number of cells in the spreadsheet document.")},
+                                                   {"Doc.CharacterCount", TAG_DOC, TAG_DOC_CHARACTERCOUNT, N_("Character Count"), N_("Number of characters in the document.")},
+                                                   {"Doc.Codepage", TAG_DOC, TAG_DOC_CODEPAGE, N_("Codepage"), N_("The MS codepage to encode strings for metadata.")},
                                                    {"Doc.Comments", TAG_DOC, TAG_DOC_COMMENTS, N_("Comments"), N_("User definable free text.")},
-                                                   {"Doc.Created", TAG_DOC, TAG_DOC_CREATED, N_("Created"), N_("Datetime document was originally.")},
-                                                   {"Doc.Keywords", TAG_DOC, TAG_DOC_KEYWORDS, N_("Keywords"), N_("String of keywords.")},
-                                                   {"Doc.PageCount", TAG_DOC, TAG_DOC_PAGECOUNT, N_("Page Count"), N_("Number of pages in document.")},
+                                                   {"Doc.Company", TAG_DOC, TAG_DOC_COMPANY, N_("Company"), N_("Organization that the <Doc.Creator> entity is associated with.")},
+                                                   {"Doc.Created", TAG_DOC, TAG_DOC_DATECREATED, N_("Created"), N_("Datetime document was originally created.")},
+                                                   {"Doc.Creator", TAG_DOC, TAG_DOC_CREATOR, N_("Creator"), N_("An entity primarily responsible for making the content of the resource, typically a person, organization, or service.")},
+                                                   {"Doc.DateCreated", TAG_DOC, TAG_DOC_DATECREATED, N_("Date Created"), N_("Date associated with an event in the life cycle of the resource (creation/publication date).")},
+                                                   {"Doc.DateModified", TAG_DOC, TAG_DOC_DATEMODIFIED, N_("Date Modified"), N_("The last time the document was saved.")},
+                                                   {"Doc.Description", TAG_DOC, TAG_DOC_DESCRIPTION, N_("Description"), N_("An acccount of the content of the resource.")},
+                                                   {"Doc.Dictionary", TAG_DOC, TAG_DOC_DICTIONARY, N_("Dictionary"), N_("Dictionary.")},
+                                                   {"Doc.EditingDuration", TAG_DOC, TAG_DOC_EDITINGDURATION, N_("Editing Duration"), N_("The total time taken until the last modification.")},
+                                                   {"Doc.Generator", TAG_DOC, TAG_DOC_GENERATOR, N_("Generator"), N_("The application that generated this document.")},
+                                                   {"Doc.HiddenSlideCount", TAG_DOC, TAG_DOC_HIDDENSLIDECOUNT, N_("Hidden Slide Count"), N_("Number of hidden slides in the presentation document.")},
+                                                   {"Doc.ImageCount", TAG_DOC, TAG_DOC_IMAGECOUNT, N_("Image Count"), N_("Number of images in the document.")},
+                                                   {"Doc.InitialCreator", TAG_DOC, TAG_DOC_INITIALCREATOR, N_("Initial Creator"), N_("Specifies the name of the person who created the document initially.")},
+                                                   {"Doc.Keyword", TAG_DOC, TAG_DOC_KEYWORDS, N_("Keywords"), N_("Searchable, indexable keywords.")},
+                                                   {"Doc.Keywords", TAG_DOC, TAG_DOC_KEYWORDS, N_("Keywords"), N_("Searchable, indexable keywords.")},
+                                                   {"Doc.Language", TAG_DOC, TAG_DOC_LANGUAGE, N_("Language"), N_("The locale language of the intellectual content of the resource.")},
+                                                   {"Doc.LastPrinted", TAG_DOC, TAG_DOC_LASTPRINTED, N_("Last Printed"), N_("The last time this document was printed.")},
+                                                   {"Doc.LastSavedBy", TAG_DOC, TAG_DOC_LASTSAVEDBY, N_("Last Saved By"), N_("The entity that made the last change to the document, typically a person, organization, or service.")},
+                                                   {"Doc.LineCount", TAG_DOC, TAG_DOC_LINECOUNT, N_("Line Count"), N_("Number of liness in the document.")},
+                                                   {"Doc.LinksDirty", TAG_DOC, TAG_DOC_LINKSDIRTY, N_("Links Dirty"), N_("Links dirty.")},
+                                                   {"Doc.LocaleSystemDefault", TAG_DOC, TAG_DOC_LOCALESYSTEMDEFAULT, N_("Locale System Default"), N_("Identifier representing the default system locale.")},
+                                                   {"Doc.MMClipCount", TAG_DOC, TAG_DOC_MMCLIPCOUNT, N_("Multimedia Clip Count"), N_("Number of multimedia clips in the document.")},
+                                                   {"Doc.Manager", TAG_DOC, TAG_DOC_MANAGER, N_("Manager"), N_("Name of the manager of <Doc.Creator> entity.")},
+                                                   {"Doc.NoteCount", TAG_DOC, TAG_DOC_NOTECOUNT, N_("Note Count"), N_("Number of \"notes\" in the document.")},
+                                                   {"Doc.ObjectCount", TAG_DOC, TAG_DOC_OBJECTCOUNT, N_("Object Count"), N_("Number of objects (OLE and other graphics) in the document.")},
+                                                   {"Doc.PageCount", TAG_DOC, TAG_DOC_PAGECOUNT, N_("Page Count"), N_("Number of pages in the document.")},
+                                                   {"Doc.ParagraphCount", TAG_DOC, TAG_DOC_PARAGRAPHCOUNT, N_("Paragraph Count"), N_("Number of paragraphs in the document.")},
+                                                   {"Doc.PresentationFormat", TAG_DOC, TAG_DOC_PRESENTATIONFORMAT, N_("Presentation Format"), N_("Type of presentation, like \"On-screen Show\", \"SlideView\", etc.")},
+                                                   {"Doc.PrintDate", TAG_DOC, TAG_DOC_PRINTDATE, N_("Print Date"), N_("Specifies the date and time when the document was last printed.")},
+                                                   {"Doc.PrintedBy", TAG_DOC, TAG_DOC_PRINTEDBY, N_("Printed By"), N_("Specifies the name of the last person who printed the document.")},
+                                                   {"Doc.RevisionCount", TAG_DOC, TAG_DOC_REVISIONCOUNT, N_("Revision Count"), N_("Number of revision on the document.")},
+                                                   {"Doc.Scale", TAG_DOC, TAG_DOC_SCALE, N_("Scale"), N_("Scale.")},
+                                                   {"Doc.Security", TAG_DOC, TAG_DOC_SECURITY, N_("Security"), N_("One of: \"Password protected\", \"Read-only recommended\", \"Read-only enforced\" or \"Locked for annotations\".")},
+                                                   {"Doc.SlideCount", TAG_DOC, TAG_DOC_SLIDECOUNT, N_("Slide Count"), N_("Number of slides in the presentation document.")},
+                                                   {"Doc.SpreadsheetCount", TAG_DOC, TAG_DOC_SPREADSHEETCOUNT, N_("Spreadsheet Count"), N_("Number of pages in the document.")},
                                                    {"Doc.Subject", TAG_DOC, TAG_DOC_SUBJECT, N_("Subject"), N_("Document subject.")},
+                                                   {"Doc.TableCount", TAG_DOC, TAG_DOC_TABLECOUNT, N_("Table Count"), N_("Number of tables in the document.")},
+                                                   {"Doc.Template", TAG_DOC, TAG_DOC_TEMPLATE, N_("Template"), N_("The template file that is been used to generate this document.")},
                                                    {"Doc.Title", TAG_DOC, TAG_DOC_TITLE, N_("Title"), N_("Title of the document.")},
-                                                   {"Doc.WordCount", TAG_DOC, TAG_DOC_WORDCOUNT, N_("Word Count"), N_("Total number of chars in document.")},
+                                                   {"Doc.WordCount", TAG_DOC, TAG_DOC_WORDCOUNT, N_("Word Count"), N_("Number of words in the document.")},
                                                    {"Exif.ApertureValue", TAG_EXIF, TAG_EXIF_APERTUREVALUE, N_("Aperture"), N_("The lens aperture. The unit is the APEX value.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_APERTURE_VALUE
@@ -1582,6 +1622,18 @@ static int tagcmp(const void *t1, const void *t2)
 }
 
 
+void gcmd_tags_init()
+{
+    gcmd_tags_libgsf_init();
+}
+
+
+void gcmd_tags_shutdown()
+{
+    gcmd_tags_libgsf_shutdown();
+}
+
+
 const gchar *gcmd_tags_image_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag);
 const gchar *gcmd_tags_image_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 
@@ -1658,8 +1710,6 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const GnomeCmdTagClass tag_class, const gc
 }
 
 
-
-
 GnomeCmdTag *gcmd_tags_get_pointer_to_tag(const GnomeCmdTag tag)
 {
     return &(metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].tag);
@@ -1733,7 +1783,8 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag)
 
         case TAG_CHM  : break;
 
-        case TAG_DOC  : break;
+        case TAG_DOC  : ret_val = gcmd_tags_libgsf_get_value(finfo, tag);
+                        break;
 
         case TAG_FILE : break;
 
