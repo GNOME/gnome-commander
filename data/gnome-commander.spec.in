@@ -43,21 +43,22 @@ Requires:      gtk2 >= @GTK_REQ@
 Requires:      gnome-vfs2 >= @GNOMEVFS_REQ@
 Requires:      libgnomeui >= @GNOMEUI_REQ@
 
-Requires(post): scrollkeeper
+Requires:         meld
+Requires(post):   scrollkeeper
 Requires(postun): scrollkeeper
 
 BuildRequires:   python-devel >= @PYTHON_REQ@
 BuildRequires:   libexif-devel >= @LIBEXIF_REQ@
 #BuildRequires:  libiptcdata-devel >= @LIBIPTCDATA_REQ@
 BuildRequires:   id3lib-devel >= @ID3LIB_REQ@
-BuildRequires:   libgsf-1-devel >= @LIBGSF_REQ@
+BuildRequires:   libgsf-devel >= @LIBGSF_REQ@
 
 Requires:        python >= @PYTHON_REQ@
 Requires:        gnome-python2-gnomevfs
 Requires:        libexif >= @LIBEXIF_REQ@
 #Requires:       libiptcdata >= @LIBIPTCDATA_REQ@
 Requires:        id3lib >= @ID3LIB_REQ@
-Requires:        libgsf-1 >= @LIBGSF_REQ@
+Requires:        libgsf >= @LIBGSF_REQ@
 
 %description
 GNOME Commander is a nice and fast file manager for the GNOME desktop.
@@ -134,8 +135,14 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Sun Feb 4 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+- added libgsf dependencies
+
 * Wed Jan 30 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - added build and runtime deps for python and gnome-python2-gnomevfs
+
+* Tue Jan 20 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.3-5
+- Require meld (#225324)
 
 * Wed Jan 10 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - removed unneeded .py files
