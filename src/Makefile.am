@@ -98,7 +98,7 @@ gnome_commander_LDADD = \
 	$(top_builddir)/libgcmd/libgcmd.la \
 	tags/libgcmd-tags.a \
 	tags/id3lib/libgcmd-id3lib.a \
-	libgviewer/libgviewer.la
+	libgviewer/libgviewer.a
 
 gnome_commander_LDFLAGS = \
 	$(GNOMEUI_LIBS) \

@@ -7,7 +7,7 @@ AM_CPPFLAGS = -Wall \
 
 noinst_PROGRAMS = fileops inputmodes datapresentation textrenderer imagerenderer dualrenderer viewerwidget viewerwindow bm_byte_test bm_chartype_test utils_test search_dlg_test
 
-TESTLIBS = $(GLIB_LIBS) $(GTK_LIBS) $(GNOMEUI_LIBS) $(top_builddir)/src/libgviewer/libgviewer.la
+TESTLIBS = $(GLIB_LIBS) $(GTK_LIBS) $(GNOMEUI_LIBS) $(top_builddir)/src/libgviewer/libgviewer.a
 
 fileops_SOURCES = fileops.c
 fileops_LDADD = $(TESTLIBS)
