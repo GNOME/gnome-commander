@@ -97,7 +97,7 @@ typedef enum {
     TAG_DOC_LANGUAGE,                       // the locale language of the intellectual content of the resource
     TAG_DOC_LASTPRINTED,                    // the last time this document was printed
     TAG_DOC_LASTSAVEDBY,                    // the entity that made the last change to the document, typically a person, organization, or service
-    TAG_DOC_LINECOUNT,                      // number of liness in the document
+    TAG_DOC_LINECOUNT,                      // number of lines in the document
     TAG_DOC_LINKSDIRTY,                     // links dirty
     TAG_DOC_LOCALESYSTEMDEFAULT,            // identifier representing the default system locale
     TAG_DOC_MMCLIPCOUNT,                    // number of multimedia clips in the document
