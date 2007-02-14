@@ -1614,6 +1614,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", 
 
 
 static char empty_string[] = "";
+static char int_buff[4096];
 
 
 static int tagcmp(const void *t1, const void *t2)
