@@ -1,3 +1,17 @@
+2007-02-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-exif.c:
+	* src/tags/gnome-cmd-tags-exif.h:
+	* src/tags/gnome-cmd-tags-icc.c:
+	* src/tags/gnome-cmd-tags-icc.h:
+	* src/tags/gnome-cmd-tags-iptcdata.c:
+	* src/tags/gnome-cmd-tags-iptcdata.h:
+	* src/tags/gnome-cmd-tags-libs.c:
+	* src/tags/gnome-cmd-tags-libs.h:
+	* src/tags/gnome-cmd-tags.c:
+	Split gcmd_tags_*() functions into separate files
+
 2007-02-14  Koos Jan Niesink  <kjniesink@yahoo.co.uk>
 
 	* src/tags/gnome-cmd-tags.c:

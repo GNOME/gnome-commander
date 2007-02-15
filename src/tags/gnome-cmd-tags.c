@@ -39,9 +39,13 @@
 #endif
 
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-tags-libs.h"
 #include "gnome-cmd-tags-audio.h"
 #include "gnome-cmd-tags-doc.h"
-#include "gnome-cmd-tags-libs.h"
+#include "gnome-cmd-tags-exif.h"
+#include "gnome-cmd-tags-icc.h"
+#include "gnome-cmd-tags-id3.h"
+#include "gnome-cmd-tags-iptcdata.h"
 
 
 struct _GnomeCmdTagName {

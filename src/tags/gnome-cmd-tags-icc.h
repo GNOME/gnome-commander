@@ -17,8 +17,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef __GNOME_CMD_TAGS_LIBS_H__
-#define __GNOME_CMD_TAGS_LIBS_H__
+#ifndef __GNOME_CMD_TAGS_ICC_H__
+#define __GNOME_CMD_TAGS_ICC_H__
 
 #include <config.h>
 
@@ -27,26 +27,14 @@
 
 G_BEGIN_DECLS
 
-gboolean gcmd_tags_libexif_is_supported(void);
-void gcmd_tags_libexif_load_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_libexif_free_metadata(GnomeCmdFile *finfo);
-
-gboolean gcmd_tags_libiptcdata_is_supported(void);
-void gcmd_tags_libiptcdata_load_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_libiptcdata_free_metadata(GnomeCmdFile *finfo);
-
 gboolean gcmd_tags_icclib_is_supported(void);
 void gcmd_tags_icclib_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_icclib_free_metadata(GnomeCmdFile *finfo);
-
-gboolean gcmd_tags_id3lib_is_supported(void);
-void gcmd_tags_id3lib_load_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_id3lib_free_metadata(GnomeCmdFile *finfo);
-
-gboolean gcmd_tags_libgsf_is_supported(void);
-void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_libgsf_free_metadata(GnomeCmdFile *finfo);
+const gchar *gcmd_tags_icclib_get_value(GnomeCmdFile *finfo, guint libclass, guint libtag);
+const gchar *gcmd_tags_icclib_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_icclib_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+const gchar *gcmd_tags_icclib_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 
 G_END_DECLS
 
-#endif // __GNOME_CMD_TAGS_LIBS_H__
+#endif // __GNOME_CMD_TAGS_ICC_H__
