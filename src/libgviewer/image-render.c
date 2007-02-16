@@ -736,7 +736,7 @@ static void image_render_free_pixbuf(ImageRender *obj)
 static gpointer image_render_pixbuf_loading_thread(gpointer data)
 {
     GError *err = NULL;
-    ImageRender *obj  = (ImageRender*)data;
+    ImageRender *obj  = (ImageRender *) data;
 
     obj->priv->orig_pixbuf = gdk_pixbuf_new_from_file(obj->priv->filename,&err);
 

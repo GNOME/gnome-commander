@@ -55,7 +55,7 @@ load_plugin (PluginData *data)
     }
 
     // Try to get a reference to the "get_plugin_info" function
-    if (!g_module_symbol (module, MODULE_INFO_FUNC, (gpointer*)&info_func))
+    if (!g_module_symbol (module, MODULE_INFO_FUNC, (gpointer *) &info_func))
     {
         g_printerr ("ERROR: The plugin-file '%s' has no function named '%s'.\n", data->fname, MODULE_INFO_FUNC);
         g_module_close (module);
@@ -82,7 +82,7 @@ load_plugin (PluginData *data)
     }
 
     // Try to get a reference to the "create_plugin" function
-    if (!g_module_symbol (module, MODULE_INIT_FUNC, (gpointer*)&init_func))
+    if (!g_module_symbol (module, MODULE_INIT_FUNC, (gpointer *) &init_func))
     {
         g_printerr ("ERROR: The plugin '%s' has no '%s' function\n", data->info->name, MODULE_INIT_FUNC);
         g_module_close (module);
@@ -222,12 +222,12 @@ void plugin_manager_init (void)
 
     for (l=gnome_cmd_data_get_auto_load_plugins (); l; l=l->next)
     {
-        char *name = (gchar*)l->data;
+        char *name = (gchar *) l->data;
         GList *l2;
 
         for (l2 = plugins; l2; l2 = l2->next)
         {
-            PluginData *data = (PluginData*)l2->data;
+            PluginData *data = (PluginData *) l2->data;
             if (strcmp (name, data->fname) == 0)
                 data->autoload = TRUE;
         }
@@ -236,7 +236,7 @@ void plugin_manager_init (void)
     // inactivate plugins that shouldn't be autoloaded
     for (l=plugins; l; l=l->next)
     {
-        PluginData *data = (PluginData*)l->data;
+        PluginData *data = (PluginData *) l->data;
         if (!data->autoload)
             inactivate_plugin (data);
     }
@@ -250,7 +250,7 @@ void plugin_manager_shutdown (void)
 
     for (l=plugins; l; l=l->next)
     {
-        PluginData *data = (PluginData*)l->data;
+        PluginData *data = (PluginData *) l->data;
         if (data->active)
             out = g_list_append (out, data->fname);
     }
@@ -268,7 +268,7 @@ GList *plugin_manager_get_all (void)
 PluginData *
 get_selected_plugin (GtkCList *list)
 {
-    return (PluginData*)gtk_clist_get_row_data (list, list->focus_row);
+    return (PluginData *) gtk_clist_get_row_data (list, list->focus_row);
 }
 
 
@@ -283,7 +283,7 @@ update_plugin_list (GtkCList *list, GtkWidget *dialog)
 
     for (tmp=plugins; tmp; tmp=tmp->next)
     {
-        PluginData *data = (PluginData*)tmp->data;
+        PluginData *data = (PluginData *) tmp->data;
         gchar *text[5];
 
         text[0] = NULL;

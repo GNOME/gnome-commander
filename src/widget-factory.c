@@ -32,5 +32,3 @@ create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **tit
     gtk_widget_show (combo);
     return combo;
 }
-
-

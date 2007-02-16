@@ -129,7 +129,7 @@ show_dir_tree_sizes (GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     for (files = gnome_cmd_file_list_get_all_files (fs->list); files; files = files->next)
-        gnome_cmd_file_list_show_dir_size (fs->list, (GnomeCmdFile*)files->data);
+        gnome_cmd_file_list_show_dir_size (fs->list, (GnomeCmdFile *) files->data);
 }
 
 
@@ -157,7 +157,7 @@ update_selected_files_label (GnomeCmdFileSelector *fs)
 
         for (tmp = all_files; tmp; tmp = tmp->next)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
+            GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
             if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
             {
                 total_bytes += finfo->info->size;
@@ -168,7 +168,7 @@ update_selected_files_label (GnomeCmdFileSelector *fs)
         sel_files = gnome_cmd_file_list_get_marked_files (fs->list);
         for (tmp = sel_files; tmp; tmp = tmp->next)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
+            GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
             if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
             {
                 sel_bytes += finfo->info->size;
@@ -443,7 +443,7 @@ drag_data_received (GtkWidget          *widget,
 
     if (g_list_length (uri_list) == 1)
     {
-        GnomeVFSURI *uri = (GnomeVFSURI*)uri_list->data;
+        GnomeVFSURI *uri = (GnomeVFSURI *) uri_list->data;
         to_fn = gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name (uri), 0);
     }
 
@@ -676,14 +676,14 @@ update_dir_combo (GnomeCmdFileSelector *fs)
 
     gnome_cmd_combo_clear (GNOME_CMD_COMBO (fs->dir_combo));
 
-    while (tmp) {
+    for (; tmp; tmp = tmp->next) 
+    {
         gchar *text[2];
 
-        text[0] = (gchar*)tmp->data;
+        text[0] = (gchar *) tmp->data;
         text[1] = NULL;
 
         gnome_cmd_combo_append (GNOME_CMD_COMBO (fs->dir_combo), text, tmp->data);
-        tmp = tmp->next;
     }
 
     if (fs->priv->dir_history->ents && fs->priv->dir_history->pos)
@@ -1841,7 +1841,7 @@ gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
         gint row;
         gchar *text[3];
         GnomeCmdPixmap *pixmap;
-        GnomeCmdCon *con = (GnomeCmdCon*)l->data;
+        GnomeCmdCon *con = (GnomeCmdCon *) l->data;
 
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
             && !GNOME_CMD_IS_CON_SMB (con))  continue;
@@ -1850,7 +1850,7 @@ gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
             found_my_con = TRUE;
 
         text[0] = NULL;
-        text[1] = (gchar*)gnome_cmd_con_get_alias (con);
+        text[1] = (gchar *) gnome_cmd_con_get_alias (con);
         text[2] = NULL;
 
         pixmap = gnome_cmd_con_get_go_pixmap (con);

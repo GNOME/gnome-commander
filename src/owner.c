@@ -176,11 +176,11 @@ static void check_user_default_groups ()
     for (utmp=all_users; utmp; utmp=utmp->next)
     {
         group_t *def_group = NULL;
-        user = (user_t*)utmp->data;
+        user = (user_t *) utmp->data;
 
         for (gtmp=user->groups; gtmp; gtmp = gtmp->next)
         {
-            group = (group_t*)gtmp->data;
+            group = (group_t *) gtmp->data;
 
             if (group->gid == user->gid)
                 def_group = group;
@@ -324,14 +324,14 @@ void OWNER_free (void)
     /* free users */
     for (users = all_users; users; users = users->next)
     {
-        user_t *user = (user_t*)users->data;
+        user_t *user = (user_t *) users->data;
         free_user (user);
     }
 
     /* free groups */
     for (groups = all_groups; groups; groups = groups->next)
     {
-        group_t *group = (group_t*)groups->data;
+        group_t *group = (group_t *) groups->data;
         free_group (group);
     }
 

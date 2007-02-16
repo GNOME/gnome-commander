@@ -44,7 +44,7 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
 
     if (con->state == CON_STATE_OPENING)
     {
-        GnomeVFSGetFileInfoResult *r = (GnomeVFSGetFileInfoResult*)results->data;
+        GnomeVFSGetFileInfoResult *r = (GnomeVFSGetFileInfoResult *) results->data;
 
         if (r && r->result == GNOME_VFS_OK)
         {

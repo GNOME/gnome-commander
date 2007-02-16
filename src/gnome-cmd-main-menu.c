@@ -348,7 +348,7 @@ add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCmdBoo
 
     for (bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next)
     {
-        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)bookmarks->data;
+        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
         add_bookmark_menu_item (main_menu, GTK_MENU_SHELL (submenu), bookmark);
     }
 }

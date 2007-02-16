@@ -187,7 +187,7 @@ perform_delete_operation (DeleteData *data)
     // Go through all files and add the uri of the appropriate ones to a list
     for (i=0; i<num_files; i++) {
         GnomeVFSURI *uri;
-        GnomeCmdFile *finfo = (GnomeCmdFile*)g_list_nth_data (data->files, i);
+        GnomeCmdFile *finfo = (GnomeCmdFile *) g_list_nth_data (data->files, i);
 
         if (g_strcasecmp(finfo->info->name, "..") == 0
             || g_strcasecmp(finfo->info->name, ".") == 0) continue;
@@ -301,7 +301,7 @@ gnome_cmd_delete_dialog_show (GList *files)
 
     if (num_files == 1) {
         gchar *fname;
-        finfo = (GnomeCmdFile*)g_list_nth_data (data->files, 0);
+        finfo = (GnomeCmdFile *) g_list_nth_data (data->files, 0);
         if (g_strcasecmp(finfo->info->name, "..") == 0) {
             g_free (data);
             return;

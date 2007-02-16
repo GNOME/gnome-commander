@@ -58,7 +58,7 @@ search_progress_dlg_class_init(GViewerSearchProgressDlgClass *klass)
 {
     GtkObjectClass *object_class;
 
-    object_class = (GtkObjectClass*)klass;
+    object_class = (GtkObjectClass *) klass;
 
     parent_class = gtk_type_class (gtk_dialog_get_type ());
 

@@ -272,7 +272,7 @@ file_diff                           (GtkMenuItem     *menuitem,
          */
         for (tmp = all_files; tmp; tmp = tmp->next)
         {
-            finfo2 = (GnomeCmdFile*)tmp->data;
+            finfo2 = (GnomeCmdFile *) tmp->data;
 
             if (strcmp (gnome_cmd_file_get_name (finfo), gnome_cmd_file_get_name (finfo2)) == 0)
             {
@@ -371,8 +371,8 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
         GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
 
         if (finfo)
-          *f++ = (mask & GDK_SHIFT_MASK) ? (char*)gnome_cmd_file_get_real_path (finfo) :
-                                           (char*)gnome_cmd_file_get_name (finfo);
+          *f++ = (mask & GDK_SHIFT_MASK) ? (char *) gnome_cmd_file_get_real_path (finfo) :
+                                           (char *) gnome_cmd_file_get_name (finfo);
     }
 
     *f = NULL;

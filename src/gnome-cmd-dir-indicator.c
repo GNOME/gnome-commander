@@ -361,7 +361,7 @@ popup_dir_history (GnomeCmdDirIndicator *indicator)
 
     for (l=history->ents; l; l=l->next)
     {
-        gchar *path = (gchar*)l->data;
+        gchar *path = (gchar *) l->data;
         add_menu_item (
             indicator,
             GTK_MENU_SHELL (indicator->priv->dir_history_popup),
@@ -423,7 +423,7 @@ popup_bookmarks (GnomeCmdDirIndicator *indicator)
 
     for (l = group->bookmarks; l; l = l->next)
     {
-        GnomeCmdBookmark *bm = (GnomeCmdBookmark*)l->data;
+        GnomeCmdBookmark *bm = (GnomeCmdBookmark *) l->data;
         add_menu_item (
             indicator,
             GTK_MENU_SHELL (indicator->priv->bookmark_popup),

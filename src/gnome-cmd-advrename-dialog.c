@@ -449,7 +449,7 @@ free_data (GnomeCmdAdvrenameDialog *dialog)
 
     for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
-        RenameEntry *entry = (RenameEntry*)tmp->data;
+        RenameEntry *entry = (RenameEntry *) tmp->data;
         g_free (entry->new_name);
         g_free (entry);
     }
@@ -712,7 +712,7 @@ create_new_name (const gchar *name, GList *patterns)
 
     for (; patterns; patterns = patterns->next)
     {
-        PatternEntry *entry = (PatternEntry*)patterns->data;
+        PatternEntry *entry = (PatternEntry *) patterns->data;
 
         tmp = new_name;
 
@@ -739,7 +739,7 @@ static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
     for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
         gchar fname[256];
-        RenameEntry *entry = (RenameEntry*)tmp->data;
+        RenameEntry *entry = (RenameEntry *) tmp->data;
         GList *patterns = dialog->priv->defaults->patterns;
 
         gnome_cmd_advrename_gen_fname (fname, sizeof (fname), entry->finfo);
@@ -755,7 +755,7 @@ static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 
     for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
-        RenameEntry *entry = (RenameEntry*)tmp->data;
+        RenameEntry *entry = (RenameEntry *) tmp->data;
 
         gtk_clist_set_text (GTK_CLIST (dialog->priv->res_list),
                             get_row_from_rename_entry (dialog, entry),
@@ -772,7 +772,7 @@ change_names (GnomeCmdAdvrenameDialog *dialog)
 
     for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
-        RenameEntry *entry = (RenameEntry*)tmp->data;
+        RenameEntry *entry = (RenameEntry *) tmp->data;
 
         if (strcmp (entry->finfo->info->name, entry->new_name) != 0)
             gnome_cmd_file_rename (entry->finfo, entry->new_name);
@@ -833,7 +833,7 @@ static void on_rule_selected (GtkCList *list, gint row, gint column,
     gtk_widget_set_sensitive (dialog->priv->remove_btn, TRUE);
     gtk_widget_set_sensitive (dialog->priv->edit_btn, TRUE);
     update_move_buttons (dialog, row);
-    dialog->priv->sel_entry = (PatternEntry*)g_list_nth_data (dialog->priv->defaults->patterns, row);
+    dialog->priv->sel_entry = (PatternEntry *) g_list_nth_data (dialog->priv->defaults->patterns, row);
 }
 
 
@@ -1256,7 +1256,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
 
     for (tmp = in_dialog->priv->defaults->patterns; tmp; tmp = tmp->next)
     {
-        PatternEntry *entry = (PatternEntry*)tmp->data;
+        PatternEntry *entry = (PatternEntry *) tmp->data;
         add_pattern_entry (in_dialog, entry);
     }
 
@@ -1293,7 +1293,7 @@ gnome_cmd_advrename_dialog_new (GList *files)
 
     for (tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
+        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
         if (strcmp (finfo->info->name, "..") != 0)
             add_rename_entry (dialog, finfo);
     }

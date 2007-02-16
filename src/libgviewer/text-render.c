@@ -261,8 +261,8 @@ text_render_class_init (TextRenderClass *klass)
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = (GtkObjectClass*) klass;
-    widget_class = (GtkWidgetClass*) klass;
+    object_class = (GtkObjectClass *) klass;
+    widget_class = (GtkWidgetClass *) klass;
 
     parent_class = gtk_type_class (gtk_widget_get_type ());
 
@@ -1144,7 +1144,7 @@ static guint text_render_filter_undisplayable_chars(TextRender *obj)
         value = gv_input_mode_byte_to_utf8(obj->priv->im, (unsigned char)i);
         text_render_utf8_clear_buf(obj);
         text_render_utf8_print_char(obj,value);
-        pango_layout_set_text(layout, (char*)obj->priv->utf8buf, obj->priv->utf8buf_length);
+        pango_layout_set_text(layout, (char *) obj->priv->utf8buf, obj->priv->utf8buf_length);
         pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
 #if 0
         printf("char (%03d, %02x), utf8buf_len(%d) utf8((%02x %02x %02x %02x), width = %d\n",
@@ -1235,7 +1235,7 @@ static int text_render_utf8_printf(TextRender *w, const char *format, ...)
     text_render_reserve_utf8buf(w,w->priv->utf8buf_length+101);
 
     va_start(ap, format);
-    new_length = vsnprintf((char*)&w->priv->utf8buf[w->priv->utf8buf_length], 100, format, ap);
+    new_length = vsnprintf((char *) &w->priv->utf8buf[w->priv->utf8buf_length], 100, format, ap);
     va_end(ap);
 
     w->priv->utf8buf_length += new_length;
@@ -1742,7 +1742,7 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
     if (show_marker)
         marker_closer(w, marker_shown);
 
-    pango_layout_set_markup (w->priv->layout, (gchar*)w->priv->utf8buf, w->priv->utf8buf_length);
+    pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
     gdk_draw_layout(GTK_WIDGET(w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
 
     return 0;
@@ -1806,7 +1806,7 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
     if (show_marker)
         marker_closer(w, marker_shown);
 
-    pango_layout_set_markup (w->priv->layout, (gchar*)w->priv->utf8buf, w->priv->utf8buf_length);
+    pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
     gdk_draw_layout(GTK_WIDGET(w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
 
     return 0;
@@ -1985,7 +1985,7 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
     if (show_marker)
         marker_closer(w, marker_shown);
 
-    pango_layout_set_markup (w->priv->layout, (gchar*)w->priv->utf8buf, w->priv->utf8buf_length);
+    pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
     gdk_draw_layout(GTK_WIDGET(w)->window, w->priv->gc, 0, y, w->priv->layout);
 
     return 0;

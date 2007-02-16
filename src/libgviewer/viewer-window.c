@@ -341,11 +341,11 @@ gviewer_window_init (GViewerWindow *w)
     gtk_widget_show (w->priv->menubar);
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->menubar, FALSE, FALSE, 0);
 
-    w->priv->viewer = (GViewer*)gviewer_new();
+    w->priv->viewer = (GViewer *) gviewer_new();
     g_object_ref(G_OBJECT(w->priv->viewer));
     gtk_widget_show(GTK_WIDGET(w->priv->viewer));
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET(w->priv->viewer), TRUE, TRUE, 0);
-    w->priv->exif_viewer = (GViewer*)gviewer_new();
+    w->priv->exif_viewer = (GViewer *) gviewer_new();
     g_object_ref(G_OBJECT(w->priv->exif_viewer));
 
     g_signal_connect(G_OBJECT(w->priv->viewer),"status_line_changed",
@@ -1103,7 +1103,7 @@ static void menu_view_external_tool(GtkMenuItem *item, GViewerWindow *obj)
     g_return_if_fail(obj!=NULL);
     g_return_if_fail(obj->priv->viewer!=NULL);
 
-    tool = (char*)g_object_get_data(G_OBJECT(item),G_OBJ_EXTERNAL_TOOL_KEY);
+    tool = (char *) g_object_get_data(G_OBJECT(item),G_OBJ_EXTERNAL_TOOL_KEY);
     g_return_if_fail(tool);
 
     gviewer_window_activate_external_tool(obj,tool);

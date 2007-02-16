@@ -460,7 +460,7 @@ create_file_list (GnomeCmdDir *dir, GList *info_list)
 
     for (tmp = info_list; tmp; tmp = tmp->next)
     {
-        GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
+        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
 
         if (info && info->name)
         {

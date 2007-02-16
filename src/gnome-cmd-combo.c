@@ -229,7 +229,7 @@ on_popwin_button_released (GtkWidget        *button,
     if (event->button != 1) return FALSE;
 
     // Check to see if we clicked inside the popwin
-    child = gtk_get_event_widget ((GdkEvent*) event);
+    child = gtk_get_event_widget ((GdkEvent *) event);
     while (child && child != (combo->popwin))
         child = child->parent;
 

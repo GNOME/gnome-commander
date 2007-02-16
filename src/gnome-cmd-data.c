@@ -156,7 +156,7 @@ static void write_ftp_servers (const gchar *fname)
 
                 for (bookmarks = bookmark_group->bookmarks; bookmarks; bookmarks = bookmarks->next)
                 {
-                    GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)bookmarks->data;
+                    GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
                     gchar *name = gnome_vfs_escape_string (bookmark->name);
                     gchar *path = gnome_vfs_escape_string (bookmark->path);
 
@@ -191,9 +191,9 @@ write_devices (const gchar *fname)
             if (device &&
                 !gnome_cmd_con_device_get_autovol(device)) {
                 gchar *alias = gnome_vfs_escape_string (gnome_cmd_con_device_get_alias (device));
-                gchar *device_fn = (gchar*)gnome_cmd_con_device_get_device_fn (device);
+                gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
                 gchar *mountp = gnome_vfs_escape_string (gnome_cmd_con_device_get_mountp (device));
-                gchar *icon_path = (gchar*)gnome_cmd_con_device_get_icon_path (device);
+                gchar *icon_path = (gchar *) gnome_cmd_con_device_get_icon_path (device);
 
                 if (device_fn && device_fn[0] != '\0')
                     device_fn = gnome_vfs_escape_string (device_fn);
@@ -233,7 +233,7 @@ write_fav_apps (const gchar *fname)
         GList *tmp;
 
         for (tmp = data->priv->fav_apps; tmp != NULL; tmp = tmp->next) {
-            GnomeCmdApp *app = (GnomeCmdApp*)tmp->data;
+            GnomeCmdApp *app = (GnomeCmdApp *) tmp->data;
             if (app) {
                 gchar *name = gnome_vfs_escape_string (gnome_cmd_app_get_name (app));
                 gchar *cmd = gnome_vfs_escape_string (gnome_cmd_app_get_command (app));
@@ -435,7 +435,7 @@ remove_vfs_volume (GnomeVFSVolume *volume)
         if (device && gnome_cmd_con_device_get_autovol(device)) {
             gchar *device_fn;
             const gchar *mountp;
-            device_fn = (gchar*)gnome_cmd_con_device_get_device_fn (device);
+            device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
             mountp = gnome_cmd_con_device_get_mountp (device);
 
             if ((strcmp(device_fn, path)==0) && (strcmp(mountp,localpath)==0)) {
@@ -768,7 +768,7 @@ write_string_history (gchar *format, GList *strings)
     for (i = 0; strings; strings = strings->next, ++i)
     {
         snprintf (key, sizeof (key), format, i);
-        gnome_cmd_data_set_string (key, (gchar*)strings->data);
+        gnome_cmd_data_set_string (key, (gchar *) strings->data);
     }
 }
 
@@ -824,7 +824,7 @@ write_rename_history ()
 
     for (; tmp; tmp = tmp->next)
     {
-        PatternEntry *entry = (PatternEntry*)tmp->data;
+        PatternEntry *entry = (PatternEntry *) tmp->data;
         from = g_list_append (from, entry->from);
         to = g_list_append (to, entry->to);
         csens = g_list_append (csens, entry->case_sens?t:f);
@@ -867,7 +867,7 @@ write_local_bookmarks ()
     GList *paths = NULL;
 
     for (tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next) {
-        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)tmp->data;
+        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) tmp->data;
         names = g_list_append (names, bookmark->name);
         paths = g_list_append (paths, bookmark->path);
     }
@@ -887,7 +887,7 @@ write_smb_bookmarks ()
     GList *paths = NULL;
 
     for (tmp = bookmarks = gnome_cmd_con_get_bookmarks (con)->bookmarks; tmp; tmp = tmp->next) {
-        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*) tmp->data;
+        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) tmp->data;
         names = g_list_append (names, bookmark->name);
         paths = g_list_append (paths, bookmark->path);
     }
@@ -1006,9 +1006,9 @@ load_rename_history ()
     while (tmp_from && size > 0)
     {
         PatternEntry *entry = g_new0 (PatternEntry, 1);
-        entry->from = (gchar*)tmp_from->data;
-        entry->to = (gchar*)tmp_to->data;
-        entry->case_sens = ((gchar*)tmp_csens->data)[0] == 'T';
+        entry->from = (gchar *) tmp_from->data;
+        entry->to = (gchar *) tmp_to->data;
+        entry->case_sens = ((gchar *) tmp_csens->data)[0] == 'T';
 
         tmp_from = tmp_from->next;
         tmp_to = tmp_to->next;

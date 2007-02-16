@@ -40,7 +40,7 @@ check_cache_maxsize (GnomeCmdDirPool *pool)
 {
     // remove the last dir if maxsize is exceeded
     while (g_list_length (pool->priv->queue) > gnome_cmd_data_get_dir_cache_size ()) {
-        GnomeCmdDir *dir = (GnomeCmdDir*)g_list_last (pool->priv->queue)->data;
+        GnomeCmdDir *dir = (GnomeCmdDir *) g_list_last (pool->priv->queue)->data;
         g_hash_table_remove (pool->priv->map, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
         pool->priv->queue = g_list_remove (pool->priv->queue, dir);
         DEBUG ('k', "removing %s 0x%x from the pool\n",
@@ -179,7 +179,7 @@ static void
 print_dir (GnomeCmdDir *dir, gpointer data)
 {
     g_printerr ("%d %s\n",
-                *((gint*)((gint)GNOME_CMD_FILE (dir)->priv+4)),
+                *((gint *) ((gint)GNOME_CMD_FILE (dir)->priv+4)),
                 gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
 }
 

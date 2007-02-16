@@ -248,7 +248,7 @@ char *gv_file_load(ViewerFileOps *ops, int fd)
 
     if (ops->data == NULL ||
         lseek (ops->file, 0, SEEK_SET) != 0 ||
-        read (ops->file, (char*)ops->data,
+        read (ops->file, (char *) ops->data,
             ops->s.st_size) != ops->s.st_size) {
         g_free (ops->data);
         gv_file_close (ops);

@@ -280,7 +280,7 @@ search_dir_r (GnomeCmdDir *dir, SearchData *data)
     // Let's iterate through all files
     while (tmp)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
+        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
         // If the stopbutton was pressed let's abort here
         if (data->stopped)

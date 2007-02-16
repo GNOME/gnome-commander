@@ -513,8 +513,8 @@ no_mime_app_found_error (gchar *mime_type)
 
 static void do_mime_exec_single (gpointer *args)
 {
-    GnomeCmdApp *app = (GnomeCmdApp*)args[0];
-    gchar *path = (gchar*)args[1];
+    GnomeCmdApp *app = (GnomeCmdApp *) args[0];
+    gchar *path = (gchar *) args[1];
     gchar *arg = g_shell_quote (path);
     gchar *cmd = g_strdup_printf ("%s %s", gnome_cmd_app_get_command (app), arg);
 
@@ -553,7 +553,7 @@ on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
     }
     else
     {
-        gnome_cmd_app_free ((GnomeCmdApp*)dldata->args[0]);
+        gnome_cmd_app_free ((GnomeCmdApp *) dldata->args[0]);
         g_free (dldata->args);
     }
 
@@ -679,8 +679,8 @@ void mime_exec_single (GnomeCmdFile *finfo)
 static void do_mime_exec_multiple (gpointer *args)
 {
     gchar *cmd;
-    GnomeCmdApp *app = (GnomeCmdApp*)args[0];
-    GList *files = (GList*)args[1];
+    GnomeCmdApp *app = (GnomeCmdApp *) args[0];
+    GList *files = (GList *) args[1];
 
     if (files)
     {
@@ -688,7 +688,7 @@ static void do_mime_exec_multiple (gpointer *args)
 
         for (; files; files = files->next)
         {
-            gchar *path = (gchar*)files->data;
+            gchar *path = (gchar *) files->data;
             gchar *tmp = cmd;
             gchar *arg = g_shell_quote (path);
             cmd = g_strdup_printf ("%s %s", tmp, arg);
@@ -721,7 +721,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
     for (; files; files = files->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile*)files->data;
+        GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
 
         if (gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (finfo)))
             local_files = g_list_append (local_files, g_strdup (gnome_cmd_file_get_real_path (finfo)));
@@ -902,7 +902,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 
     for (tmp = list; tmp; tmp = tmp->next)
     {
-        GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
+        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
         if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0) {
             if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
                 GnomeVFSURI *new_dir_uri = gnome_vfs_uri_append_file_name (dir_uri, info->name);
@@ -915,7 +915,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
     }
 
     for (tmp = list; tmp; tmp = tmp->next)
-        gnome_vfs_file_info_unref ((GnomeVFSFileInfo*)tmp->data);
+        gnome_vfs_file_info_unref ((GnomeVFSFileInfo *) tmp->data);
 
     g_list_free (list);
     g_free (dir_uri_str);
@@ -930,7 +930,7 @@ GList *string_history_add (GList *in, const gchar *value, gint maxsize)
     GList *out;
 
     tmp = g_list_find_custom (in,
-                              (gchar*)value,
+                              (gchar *) value,
                               (GCompareFunc)strcmp);
 
     // if the same value has been given before move it first in the list
@@ -1145,7 +1145,7 @@ gboolean app_needs_terminal (GnomeCmdFile *finfo)
 
     for (tmp = libs; tmp; tmp = tmp->next)
     {
-        gchar *lib = (gchar*)tmp->data;
+        gchar *lib = (gchar *) tmp->data;
         lib = g_strstrip (lib);
         if (strncmp (lib, "libX11", 6) == 0)
         {
@@ -1440,7 +1440,7 @@ gboolean patlist_matches (GList *pattern_list, const gchar *s)
     GList *tmp;
 
     for (tmp = pattern_list; tmp; tmp = tmp->next)
-        if (fnmatch ((gchar*)tmp->data, s, FNM_NOESCAPE|FNM_CASEFOLD) == 0)
+        if (fnmatch ((gchar *) tmp->data, s, FNM_NOESCAPE|FNM_CASEFOLD) == 0)
             return TRUE;
 
     return FALSE;

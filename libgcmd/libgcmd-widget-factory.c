@@ -41,8 +41,7 @@ lookup_widget                          (GtkWidget       *widget,
         widget = parent;
     }
 
-    found_widget = (GtkWidget*) gtk_object_get_data (GTK_OBJECT (widget),
-                                                     widget_name);
+    found_widget = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (widget), widget_name);
     if (!found_widget)
         g_warning ("Widget not found: %s", widget_name);
     return found_widget;
@@ -62,8 +61,7 @@ lookup_widget                          (GtkWidget       *widget,
 GtkWidget *
 create_frame (GtkWidget *parent, const gchar *text, gint spacing)
 {
-    GtkWidget *frame;
-    frame = gtk_frame_new (text);
+    GtkWidget *frame = gtk_frame_new (text);
     gtk_widget_ref (frame);
     gtk_object_set_data_full (GTK_OBJECT (parent), "spaced_frame", frame,
                               (GtkDestroyNotify) gtk_widget_unref);
@@ -71,6 +69,7 @@ create_frame (GtkWidget *parent, const gchar *text, gint spacing)
     gtk_widget_show (frame);
     return frame;
 }
+
 
 GtkWidget *
 create_tabframe (GtkWidget *parent)
@@ -80,6 +79,7 @@ create_tabframe (GtkWidget *parent)
     return frame;
 }
 
+
 GtkWidget *
 create_space_frame (GtkWidget *parent, gint space)
 {
@@ -88,12 +88,11 @@ create_space_frame (GtkWidget *parent, gint space)
     return frame;
 }
 
+
 GtkWidget *
 create_table (GtkWidget *parent, gint rows, gint cols)
 {
-    GtkWidget *table;
-
-    table = gtk_table_new (rows, cols, FALSE);
+    GtkWidget *table = gtk_table_new (rows, cols, FALSE);
     gtk_widget_ref (table);
     gtk_object_set_data_full (GTK_OBJECT (parent), "table", table,
                               (GtkDestroyNotify) gtk_widget_unref);
@@ -104,12 +103,11 @@ create_table (GtkWidget *parent, gint rows, gint cols)
     return table;
 }
 
+
 GtkWidget *
 create_vbox (GtkWidget *parent, gboolean h, gint s)
 {
-    GtkWidget *vbox;
-
-    vbox = gtk_vbox_new (h, s);
+    GtkWidget *vbox = gtk_vbox_new (h, s);
     gtk_widget_ref (vbox);
     gtk_object_set_data_full (GTK_OBJECT (parent), "vbox", vbox,
                               (GtkDestroyNotify) gtk_widget_unref);
@@ -118,12 +116,11 @@ create_vbox (GtkWidget *parent, gboolean h, gint s)
     return vbox;
 }
 
+
 GtkWidget *
 create_hbox (GtkWidget *parent, gboolean h, gint s)
 {
-    GtkWidget *hbox;
-
-    hbox = gtk_hbox_new (h, s);
+    GtkWidget *hbox = gtk_hbox_new (h, s);
     gtk_widget_ref (hbox);
     gtk_object_set_data_full (GTK_OBJECT (parent), "hbox", hbox,
                               (GtkDestroyNotify) gtk_widget_unref);
@@ -132,17 +129,20 @@ create_hbox (GtkWidget *parent, gboolean h, gint s)
     return hbox;
 }
 
+
 GtkWidget *
 create_tabvbox (GtkWidget *parent)
 {
     return create_vbox (parent, FALSE, 6);
 }
 
+
 GtkWidget *
 create_tabhbox (GtkWidget *parent)
 {
     return create_hbox (parent, FALSE, 6);
 }
+
 
 GtkWidget *
 create_label (GtkWidget *parent, const gchar *text)
@@ -159,20 +159,19 @@ create_label (GtkWidget *parent, const gchar *text)
     return label;
 }
 
+
 GtkWidget *
 create_bold_label (GtkWidget *parent, const gchar *text)
 {
-    GtkWidget *label;
-    gchar *s;
+    GtkWidget *label = create_label (parent, text);
 
-    label = create_label (parent, text);
-
-    s = get_bold_text (text);
+    gchar *s = get_bold_text (text);
     gtk_label_set_markup (GTK_LABEL (label), s);
     g_free (s);
 
     return label;
 }
+
 
 GtkWidget *
 create_hsep (GtkWidget *parent)
@@ -185,6 +184,7 @@ create_hsep (GtkWidget *parent)
     return sep;
 }
 
+
 GtkWidget *
 create_vsep (GtkWidget *parent)
 {
@@ -195,6 +195,7 @@ create_vsep (GtkWidget *parent)
     gtk_widget_show (sep);
     return sep;
 }
+
 
 GtkWidget *
 create_space_hbox (GtkWidget *parent, GtkWidget *content)
@@ -207,6 +208,7 @@ create_space_hbox (GtkWidget *parent, GtkWidget *content)
 
     return hbox;
 }
+
 
 GtkWidget *
 create_category (GtkWidget *parent, GtkWidget *content, gchar *title)
@@ -225,6 +227,7 @@ create_category (GtkWidget *parent, GtkWidget *content, gchar *title)
     return frame;
 }
 
+
 GtkWidget *
 create_named_button_with_data (GtkWidget *parent, gchar *label, gchar *name, GtkSignalFunc func, gpointer data)
 {
@@ -233,13 +236,11 @@ create_named_button_with_data (GtkWidget *parent, gchar *label, gchar *name, Gtk
     GtkWidget *w = gtk_button_new_with_label ("");
 
     key = gtk_label_parse_uline (GTK_LABEL (GTK_BIN (w)->child), label);
-    gtk_widget_add_accelerator (
-        w, "clicked", accel_group,
-        key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
+    gtk_widget_add_accelerator (w, "clicked", accel_group,
+                                key, GDK_MOD1_MASK, (GtkAccelFlags) 0);
     gtk_window_add_accel_group (GTK_WINDOW (parent), accel_group);
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent),
-                              name, w,
+    gtk_object_set_data_full (GTK_OBJECT (parent), name, w,
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (w);
     if (func)
@@ -276,8 +277,7 @@ create_named_stock_button_with_data (GtkWidget *parent, gpointer stock, gchar *n
 {
     GtkWidget *w = gtk_button_new_from_stock (stock);
     gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent),
-                              name, w,
+    gtk_object_set_data_full (GTK_OBJECT (parent), name, w,
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (w);
     if (func)
@@ -320,6 +320,7 @@ create_entry (GtkWidget *parent, gchar *name, const gchar *value)
     return w;
 }
 
+
 GtkWidget *
 create_check (GtkWidget *parent, gchar *text, gchar *name)
 {
@@ -334,6 +335,7 @@ create_check (GtkWidget *parent, gchar *text, gchar *name)
     return btn;
 }
 
+
 GtkWidget *
 create_radio (GtkWidget *parent, GSList *group, gchar *text, gchar *name)
 {
@@ -347,6 +349,7 @@ create_radio (GtkWidget *parent, GSList *group, gchar *text, gchar *name)
 
     return btn;
 }
+
 
 GtkWidget *
 create_spin (GtkWidget *parent, gchar *name, gint min, gint max, gint value)
@@ -365,6 +368,7 @@ create_spin (GtkWidget *parent, gchar *name, gint min, gint max, gint value)
     return spin;
 }
 
+
 GtkWidget *
 create_color_picker (GtkWidget *parent, gchar *name)
 {
@@ -375,6 +379,7 @@ create_color_picker (GtkWidget *parent, gchar *name)
     gtk_widget_show (w);
     return w;
 }
+
 
 GtkWidget *
 create_icon_entry (GtkWidget *parent, gchar *name, const gchar *icon_path)
@@ -389,6 +394,7 @@ create_icon_entry (GtkWidget *parent, gchar *name, const gchar *icon_path)
     return icon_entry;
 }
 
+
 GtkWidget *
 create_font_picker (GtkWidget *parent, gchar *name)
 {
@@ -399,6 +405,7 @@ create_font_picker (GtkWidget *parent, gchar *name)
     gtk_widget_show (w);
     return w;
 }
+
 
 GtkWidget *
 create_scale (GtkWidget *parent, gchar *name, gint value, gint min, gint max)
@@ -414,6 +421,7 @@ create_scale (GtkWidget *parent, gchar *name, gint value, gint min, gint max)
 
     return scale;
 }
+
 
 GtkWidget *
 create_file_entry (GtkWidget *parent, gchar *name, const gchar *value)
@@ -436,6 +444,7 @@ create_file_entry (GtkWidget *parent, gchar *name, const gchar *value)
 
     return fentry;
 }
+
 
 GtkWidget *
 create_clist (GtkWidget *parent, gchar *name, gint cols, gint rowh,
@@ -470,6 +479,7 @@ create_clist (GtkWidget *parent, gchar *name, gint cols, gint rowh,
     return sw;
 }
 
+
 void
 create_clist_column (GtkWidget *sw, gint col, gint width, gchar *label)
 {
@@ -477,6 +487,7 @@ create_clist_column (GtkWidget *sw, gint col, gint width, gchar *label)
     gtk_clist_set_column_width (GTK_CLIST (clist), col, width);
     gtk_clist_set_column_title (GTK_CLIST (clist), col, label);
 }
+
 
 GtkWidget *
 create_vbuttonbox (GtkWidget *parent)
@@ -491,6 +502,7 @@ create_vbuttonbox (GtkWidget *parent)
     return w;
 }
 
+
 GtkWidget *
 create_hbuttonbox (GtkWidget *parent)
 {
@@ -503,6 +515,7 @@ create_hbuttonbox (GtkWidget *parent)
     return w;
 }
 
+
 GtkWidget *
 create_combo (GtkWidget *parent)
 {
@@ -514,27 +527,26 @@ create_combo (GtkWidget *parent)
     return combo;
 }
 
+
 GtkWidget *
 create_option_menu (GtkWidget *parent, gchar **items)
 {
     gint i = 0;
-    GtkWidget *menu, *item;
-    GtkWidget *optmenu;
 
-    optmenu = gtk_option_menu_new ();
+    GtkWidget *optmenu = gtk_option_menu_new ();
     gtk_widget_ref (optmenu);
     gtk_object_set_data_full (GTK_OBJECT (parent), "optmenu", optmenu,
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (optmenu);
 
-    menu = gtk_menu_new ();
+    GtkWidget *menu = gtk_menu_new ();
     gtk_widget_show (menu);
 
-    while (items[i]) {
-        item = gtk_menu_item_new_with_label (items[i]);
+    for (i = 0; items[i]; i++)
+    {
+        GtkWidget *item = gtk_menu_item_new_with_label (items[i]);
         gtk_widget_show (item);
         gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-        i++;
     }
 
     gtk_option_menu_set_menu (GTK_OPTION_MENU (optmenu), menu);
@@ -542,11 +554,13 @@ create_option_menu (GtkWidget *parent, gchar **items)
     return optmenu;
 }
 
+
 const gchar *
 get_combo_text (GtkWidget *combo)
 {
     return gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (combo)->entry));
 }
+
 
 GtkWidget *
 create_progress_bar (GtkWidget *parent)
@@ -560,26 +574,26 @@ create_progress_bar (GtkWidget *parent)
     return w;
 }
 
+
 GSList *
 get_radio_group (GtkWidget *radio)
 {
     return gtk_radio_button_group (GTK_RADIO_BUTTON (radio));
 }
 
+
 void
 table_add (GtkWidget *table, GtkWidget *w, gint x, gint y, GtkAttachOptions x_opts)
 {
-    gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1,
-                      x_opts,
-                      (GtkAttachOptions)0, 0, 0);
+    gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1, x_opts, (GtkAttachOptions)0, 0, 0);
 }
+
 
 void
 table_add_y (GtkWidget *table, GtkWidget *w, gint x, gint y,
              GtkAttachOptions x_opts, GtkAttachOptions y_opts)
 {
-    gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1,
-                      x_opts, y_opts, 0, 0);
+    gtk_table_attach (GTK_TABLE (table), w, x, x+1, y, y+1, x_opts, y_opts, 0, 0);
 }
 
 
@@ -648,13 +662,11 @@ create_error_dialog (const gchar *msg, ...)
     vsprintf (string, msg, argptr);
     va_end (argptr);
 
-    dialog = gtk_message_dialog_new (
-        GTK_WINDOW (main_win_widget), GTK_DIALOG_MODAL,
-        GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, string);
+    dialog = gtk_message_dialog_new (GTK_WINDOW (main_win_widget), GTK_DIALOG_MODAL,
+                                     GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, string);
     gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "response",
-                        GTK_SIGNAL_FUNC (on_response), dialog);
+    gtk_signal_connect (GTK_OBJECT (dialog), "response", GTK_SIGNAL_FUNC (on_response), dialog);
 
     gtk_widget_show (dialog);
 }
@@ -681,4 +693,3 @@ create_warning_dialog (const gchar *msg, ...)
 
     gtk_widget_show (dialog);
 }
-

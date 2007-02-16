@@ -152,7 +152,7 @@ static void set_text_history(GViewerSearchDlg *sdlg)
 
     for (strings = sdlg->priv->text_pattern_history; strings; strings = strings->next)
         if (strings->data!=NULL)
-            gtk_combo_box_prepend_text(GTK_COMBO_BOX(sdlg->priv->entry), (gchar*)strings->data);
+            gtk_combo_box_prepend_text(GTK_COMBO_BOX(sdlg->priv->entry), (gchar *) strings->data);
 }
 
 static void set_text_mode(GViewerSearchDlg *sdlg)
@@ -176,7 +176,7 @@ static void set_hex_mode(GViewerSearchDlg *sdlg)
 
     for (strings = sdlg->priv->hex_pattern_history; strings; strings = strings->next)
         if (strings->data!=NULL)
-            gtk_combo_box_prepend_text(GTK_COMBO_BOX(sdlg->priv->entry), (gchar*)strings->data);
+            gtk_combo_box_prepend_text(GTK_COMBO_BOX(sdlg->priv->entry), (gchar *) strings->data);
 #endif
 
     gtk_widget_grab_focus(sdlg->priv->entry);
@@ -268,7 +268,7 @@ static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchD
 static void
 search_dlg_class_init(GViewerSearchDlgClass *klass)
 {
-    GtkObjectClass *object_class = (GtkObjectClass*)klass;
+    GtkObjectClass *object_class = (GtkObjectClass *) klass;
 
     parent_class = gtk_type_class (gtk_dialog_get_type ());
     object_class->destroy = search_dlg_destroy;

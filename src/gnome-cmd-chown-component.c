@@ -116,7 +116,7 @@ load_users_and_groups (GnomeCmdChownComponent *comp)
 
         for (tmp = OWNER_get_all_users (); tmp; tmp = tmp->next)
         {
-            user_t *user = (user_t*)tmp->data;
+            user_t *user = (user_t *) tmp->data;
 
             comp->priv->user_strings = g_list_append (comp->priv->user_strings, g_strdup (user->name));
         }
@@ -129,7 +129,7 @@ load_users_and_groups (GnomeCmdChownComponent *comp)
 
     for (; tmp; tmp = tmp->next)
     {
-        group_t *group = (group_t*)tmp->data;
+        group_t *group = (group_t *) tmp->data;
         comp->priv->group_strings = g_list_append (comp->priv->group_strings, g_strdup (group->name));
     }
 

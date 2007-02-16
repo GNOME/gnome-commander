@@ -925,7 +925,7 @@ add_app_to_list (GtkCList *clist, GnomeCmdApp *app)
     pm = gnome_cmd_app_get_pixmap (app);
 
     text[0] = NULL;
-    text[1] = (gchar*)gnome_cmd_app_get_name (app);
+    text[1] = (gchar *) gnome_cmd_app_get_name (app);
 
     row = gtk_clist_append (GTK_CLIST (clist), text);
     if (pm)
@@ -987,9 +987,9 @@ get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd, gchar **ico
     GtkWidget *multiple_check = lookup_widget (dialog, "handle_multiple");
     GtkWidget *terminal_check = lookup_widget (dialog, "requires_terminal");
 
-    *name = (gchar*)gtk_entry_get_text (GTK_ENTRY (name_entry));
-    *cmd = (gchar*)gtk_entry_get_text (GTK_ENTRY (cmd_entry));
-    *icon_path = (gchar*)gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (icon_entry));
+    *name = (gchar *) gtk_entry_get_text (GTK_ENTRY (name_entry));
+    *cmd = (gchar *) gtk_entry_get_text (GTK_ENTRY (cmd_entry));
+    *icon_path = (gchar *) gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (icon_entry));
     *pattern_string = NULL;
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (target_files)))
         *target = APP_TARGET_ALL_FILES;
@@ -999,7 +999,7 @@ get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd, gchar **ico
         *target = APP_TARGET_ALL_DIRS_AND_FILES;
     else {
         *target = APP_TARGET_SOME_FILES;
-        *pattern_string = (gchar*)gtk_entry_get_text (GTK_ENTRY (pattern_entry));
+        *pattern_string = (gchar *) gtk_entry_get_text (GTK_ENTRY (pattern_entry));
     }
 
     *handles_uris = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (uris_check));
@@ -1054,7 +1054,7 @@ on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
                            &handles_uris, &handles_multiple, &requires_terminal);
     if (!name || strlen (name) < 1) return;
 
-    app = (GnomeCmdApp*)gtk_object_get_data (GTK_OBJECT (options_dialog), "selected_app");
+    app = (GnomeCmdApp *) gtk_object_get_data (GTK_OBJECT (options_dialog), "selected_app");
     if (!app) return;
 
     gnome_cmd_app_set_name (app, name);
@@ -1202,7 +1202,7 @@ on_app_add (GtkWidget *button, GtkWidget *parent)
 static void
 on_app_edit (GtkWidget *button, GtkWidget *parent)
 {
-    GnomeCmdApp *app = (GnomeCmdApp*)gtk_object_get_data (
+    GnomeCmdApp *app = (GnomeCmdApp *) gtk_object_get_data (
         GTK_OBJECT (parent), "selected_app");
     if (app) {
         GtkWidget *dialog = create_app_dialog (
@@ -1220,7 +1220,7 @@ on_app_selected (GtkCList *clist, gint row, gint column,
     GtkWidget *remove_button = lookup_widget (parent, "remove_app_button");
     GtkWidget *edit_button = lookup_widget (parent, "edit_app_button");
 
-    app = (GnomeCmdApp*)gtk_clist_get_row_data (clist, row);
+    app = (GnomeCmdApp *) gtk_clist_get_row_data (clist, row);
     gtk_object_set_data (GTK_OBJECT (parent), "selected_app", app);
 
     gtk_widget_set_sensitive (remove_button, TRUE);
@@ -1256,7 +1256,7 @@ on_app_remove (GtkWidget *button, GtkWidget *frame)
     GtkCList *clist = GTK_CLIST (lookup_widget (frame, "app_clist"));
 
     if (clist->focus_row >= 0) {
-        app = (GnomeCmdApp*)gtk_clist_get_row_data (clist, clist->focus_row);
+        app = (GnomeCmdApp *) gtk_clist_get_row_data (clist, clist->focus_row);
         gnome_cmd_data_remove_fav_app (app);
         gtk_clist_remove (clist, clist->focus_row);
     }
@@ -1374,7 +1374,7 @@ create_programs_tab (GtkWidget *parent)
 
     clist = gtk_object_get_data (GTK_OBJECT (parent), "app_clist");
     for (apps = gnome_cmd_data_get_fav_apps (); apps; apps = apps->next)
-        add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp*)apps->data);
+        add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp *) apps->data);
 
     return frame;
 }
@@ -1416,7 +1416,7 @@ add_device_to_list (GtkCList *clist, GnomeCmdConDevice *dev)
     pm = gnome_cmd_con_get_open_pixmap (GNOME_CMD_CON (dev));
 
     text[0] = NULL;
-    text[1] = (gchar*)gnome_cmd_con_device_get_alias (dev);
+    text[1] = (gchar *) gnome_cmd_con_device_get_alias (dev);
 
     row = gtk_clist_append (GTK_CLIST (clist), text);
     if (pm)
@@ -1466,9 +1466,9 @@ get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device,
     GtkWidget *mountp_entry = lookup_widget (dialog, "mountp_entry");
     GtkWidget *icon_entry = lookup_widget (dialog, "device_iconentry");
 
-    *alias = (gchar*)gtk_entry_get_text (GTK_ENTRY (alias_entry));
-    *device = (gchar*)gtk_entry_get_text (GTK_ENTRY (device_entry));
-    *mountp = (gchar*)gtk_entry_get_text (GTK_ENTRY (mountp_entry));
+    *alias = (gchar *) gtk_entry_get_text (GTK_ENTRY (alias_entry));
+    *device = (gchar *) gtk_entry_get_text (GTK_ENTRY (device_entry));
+    *mountp = (gchar *) gtk_entry_get_text (GTK_ENTRY (mountp_entry));
     *icon_path = gnome_icon_entry_get_filename (GNOME_ICON_ENTRY (icon_entry));
 }
 

@@ -78,7 +78,7 @@ void gviewer_write_string_history (gchar *format, GList *strings)
     for (i=0; strings; strings = strings->next, ++i)
     {
         snprintf (key, sizeof (key), format, i);
-        gnome_config_set_string(key, (gchar*)strings->data);
+        gnome_config_set_string(key, (gchar *) strings->data);
     }
 }
 
@@ -86,7 +86,7 @@ gboolean gviewer_find_string_history(GList *strings, const gchar *text)
 {
     for (; strings; strings = strings->next)
         if (strings->data!=NULL)
-            if (strcmp((gchar*)strings->data, text)==0)
+            if (strcmp((gchar *) strings->data, text)==0)
                 return TRUE;
     return FALSE;
 }

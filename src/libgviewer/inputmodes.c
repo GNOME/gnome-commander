@@ -241,8 +241,8 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
 
         memset(outbuf,0,sizeof(outbuf));
 
-        ginbuf = (gchar*)inbuf;
-        goutbuf = (gchar*)outbuf;
+        ginbuf = (gchar *) inbuf;
+        goutbuf = (gchar *) outbuf;
         ginleft = 1;
         goutleft = sizeof(outbuf);
 

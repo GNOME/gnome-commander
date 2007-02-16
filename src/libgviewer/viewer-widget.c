@@ -148,7 +148,7 @@ gviewer_init (GViewer *w)
     w->priv->img_initialized = FALSE;
     w->priv->dispmode = DISP_MODE_TEXT_FIXED;
 
-    w->priv->textr = (TextRender*) text_render_new();
+    w->priv->textr = (TextRender *) text_render_new();
 
     gviewer_set_tab_size(w, DEFAULT_TAB_SIZE);
     gviewer_set_wrap_mode(w, DEFAULT_WRAP_MODE);
@@ -167,7 +167,7 @@ gviewer_init (GViewer *w)
     gtk_widget_show(w->priv->tscrollbox);
     g_object_ref(G_OBJECT(w->priv->tscrollbox));
 
-    w->priv->imgr  = (ImageRender*) image_render_new();
+    w->priv->imgr  = (ImageRender *) image_render_new();
     gviewer_set_best_fit(w, DEFAULT_BEST_FIT);
     gviewer_set_scale_factor(w, DEFAULT_SCALE_FACTOR);
     w->priv->iscrollbox = scroll_box_new();

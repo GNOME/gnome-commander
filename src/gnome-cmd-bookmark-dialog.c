@@ -116,7 +116,7 @@ set_selected_group (GnomeCmdBookmarkDialog *dialog, GnomeCmdBookmarkGroup *group
 
     for (bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next)
     {
-        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)bookmarks->data;
+        GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
         do_add_bookmark (dialog, bookmark);
     }
 }
@@ -125,7 +125,7 @@ set_selected_group (GnomeCmdBookmarkDialog *dialog, GnomeCmdBookmarkGroup *group
 static void on_dir_goto (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 {
     GtkCList *dir_list = GTK_CLIST (dialog->priv->dir_list);
-    GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)gtk_clist_get_row_data (dir_list, dir_list->focus_row);
+    GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) gtk_clist_get_row_data (dir_list, dir_list->focus_row);
 
     gnome_cmd_bookmark_goto (bookmark);
 
@@ -136,7 +136,7 @@ static void on_dir_goto (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 static void on_dir_remove (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 {
     GtkCList *dir_list = GTK_CLIST (dialog->priv->dir_list);
-    GnomeCmdBookmark *bookmark = (GnomeCmdBookmark*)gtk_clist_get_row_data (dir_list, dir_list->focus_row);
+    GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) gtk_clist_get_row_data (dir_list, dir_list->focus_row);
     gtk_clist_remove (dir_list, dir_list->focus_row);
 
     bookmark->group->bookmarks = g_list_remove (bookmark->group->bookmarks, bookmark);
@@ -311,11 +311,11 @@ add_groups (GnomeCmdBookmarkDialog *dialog)
 
     for (groups = dialog->priv->groups; groups; groups = groups->next)
     {
-        GnomeCmdBookmarkGroup *group = (GnomeCmdBookmarkGroup*)groups->data;
+        GnomeCmdBookmarkGroup *group = (GnomeCmdBookmarkGroup *) groups->data;
         GnomeCmdPixmap *pixmap = gnome_cmd_con_get_open_pixmap (group->con);
 
         text[0] = NULL;
-        text[1] = (gchar*)gnome_cmd_con_get_alias (group->con);
+        text[1] = (gchar *) gnome_cmd_con_get_alias (group->con);
         text[2] = NULL;
 
         gint row = gnome_cmd_combo_append (GNOME_CMD_COMBO (dialog->priv->combo), text, group);
@@ -336,7 +336,7 @@ add_bookmarks (GnomeCmdBookmarkDialog *dialog)
     // Then add bookmarks for all connections
     for (all_cons = gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ()); all_cons; all_cons = all_cons->next)
     {
-        GnomeCmdCon *con = (GnomeCmdCon*)all_cons->data;
+        GnomeCmdCon *con = (GnomeCmdCon *) all_cons->data;
         group = gnome_cmd_con_get_bookmarks (con);
 
         if (group->bookmarks) {

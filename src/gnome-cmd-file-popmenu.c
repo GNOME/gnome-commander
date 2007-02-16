@@ -94,11 +94,11 @@ cb_exec_default (GtkMenuItem *menu_item, GList *files)
 
     for (; files; files = files->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile*)files->data;
+        GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
         GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (finfo->info->mime_type);
         if (vfs_app)
         {
-            OpenWithData *data = (OpenWithData*)g_hash_table_lookup (hash, vfs_app->id);
+            OpenWithData *data = (OpenWithData *) g_hash_table_lookup (hash, vfs_app->id);
             if (!data)
             {
                 data = g_new0 (OpenWithData, 1);
@@ -275,7 +275,7 @@ fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_DIRS:
             for (; files; files = files->next)
             {
-                finfo = (GnomeCmdFile*)files->data;
+                finfo = (GnomeCmdFile *) files->data;
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
                     return FALSE;
             }
@@ -284,7 +284,7 @@ fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_FILES:
             for (; files; files = files->next)
             {
-                finfo = (GnomeCmdFile*)files->data;
+                finfo = (GnomeCmdFile *) files->data;
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
                     return FALSE;
             }
@@ -293,7 +293,7 @@ fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_DIRS_AND_FILES:
             for (; files; files = files->next)
             {
-                finfo = (GnomeCmdFile*)files->data;
+                finfo = (GnomeCmdFile *) files->data;
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR
                     && finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
                     return FALSE;
@@ -306,7 +306,7 @@ fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 gboolean ok = FALSE;
                 gint fn_flags = FNM_NOESCAPE | FNM_CASEFOLD;
 
-                finfo = (GnomeCmdFile*)files->data;
+                finfo = (GnomeCmdFile *) files->data;
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
                     return FALSE;
 
@@ -314,7 +314,7 @@ fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 GList *patterns = gnome_cmd_app_get_pattern_list (app);
                 for (; patterns; patterns = patterns->next)
                 {
-                    gchar *pattern = (gchar*)patterns->data;
+                    gchar *pattern = (gchar *) patterns->data;
                     ok |= fnmatch (pattern, finfo->info->name, fn_flags) == 0;
                 }
 
@@ -433,7 +433,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     GnomeCmdFilePopmenu *menu = gtk_type_new (gnome_cmd_file_popmenu_get_type ());
 
-    GnomeCmdFile *finfo = (GnomeCmdFile*)files->data;
+    GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
 
 
     // Fill the "Open with..." menu with applications
@@ -444,7 +444,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     vfs_apps = tmp = gnome_vfs_mime_get_all_applications (finfo->info->mime_type);
     for (; vfs_apps && i < MAX_OPEN_WITH_APPS; vfs_apps = vfs_apps->next)
     {
-        GnomeVFSMimeApplication *vfs_app = (GnomeVFSMimeApplication*)vfs_apps->data;
+        GnomeVFSMimeApplication *vfs_app = (GnomeVFSMimeApplication *) vfs_apps->data;
 
         if (vfs_app)
         {
@@ -504,7 +504,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     match_count = 0;
     for (tmp=gnome_cmd_data_get_fav_apps (); tmp; tmp = tmp->next)
     {
-        GnomeCmdApp *app = (GnomeCmdApp*)tmp->data;
+        GnomeCmdApp *app = (GnomeCmdApp *) tmp->data;
         if (fav_app_matches_files (app, files))
         {
             add_fav_app_menu_item (menu, app, pos++, files);
@@ -514,7 +514,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     for (tmp=plugin_manager_get_all (); tmp; tmp = tmp->next)
     {
-        PluginData *data = (PluginData*)tmp->data;
+        PluginData *data = (PluginData *) tmp->data;
         if (data->active)
         {
             GList *items = gnome_cmd_plugin_create_popup_menu_items (data->plugin,

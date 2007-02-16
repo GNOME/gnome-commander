@@ -43,7 +43,7 @@ typedef struct
 static void
 on_ok (GtkButton *button, gpointer user_data)
 {
-    PrepareMoveData *data = (PrepareMoveData*)user_data;
+    PrepareMoveData *data = (PrepareMoveData *) user_data;
     GnomeCmdPrepareXferDialog *dlg = data->dialog;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->silent)))
@@ -124,7 +124,7 @@ gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
     g_free (text);
 
     num_files = g_list_length (data->dialog->src_files);
-    finfo = (GnomeCmdFile*)data->dialog->src_files->data;
+    finfo = (GnomeCmdFile *) data->dialog->src_files->data;
 
     if (num_files == 1)
     {

@@ -71,8 +71,8 @@ load_ftp_connections (GnomeCmdFtpDialog *dialog)
             gchar *text[4];
 
             text[0] = NULL;
-            text[1] = (gchar*)gnome_cmd_con_ftp_get_alias (server);
-            text[2] = (gchar*)gnome_cmd_con_ftp_get_host_name (server);
+            text[1] = (gchar *) gnome_cmd_con_ftp_get_alias (server);
+            text[2] = (gchar *) gnome_cmd_con_ftp_get_host_name (server);
             text[3] = NULL;
             row = gtk_clist_append (server_list, text);
             if (!row)

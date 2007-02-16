@@ -386,7 +386,7 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
     if (type == GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK)
         return FALSE;
 
-    CacheEntry *entry = (CacheEntry*)g_hash_table_lookup (mime_cache, mime_type);
+    CacheEntry *entry = (CacheEntry *) g_hash_table_lookup (mime_cache, mime_type);
     if (!entry)
     {
         // We're looking up this mime-type for the first time

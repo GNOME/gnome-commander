@@ -22,9 +22,9 @@ Added automatic download of remove files when opening them or viewing them
 
 
 branches:[:alnum:]*;  {
-	gchar tmp[256];
-	sscanf (yytext+9,"%s", tmp);
-	printf ("BranchesTEST: %s\n", tmp);
+    gchar tmp[256];
+    sscanf (yytext+9,"%s", tmp);
+    printf ("BranchesTEST: %s\n", tmp);
 }
 
 
@@ -52,47 +52,47 @@ static LogHistory *log = NULL;
 
 %%
 
-----\nrevision.*\n	{
-	gchar tmp[256];
+----\nrevision.*\n    {
+    gchar tmp[256];
 
     fprintf (stderr, "LEX: Creating revision\n");
-	sscanf (yytext+14,"%s", tmp);
+    sscanf (yytext+14,"%s", tmp);
 
-	rev = rev_new ();
-	rev->number = g_strdup (tmp);
-	log->revisions = g_list_append (log->revisions, rev);
-	log->rev_names = g_list_append (log->rev_names, rev->number);
-	g_hash_table_insert (log->rev_map, rev->number, rev);
+    rev = rev_new ();
+    rev->number = g_strdup (tmp);
+    log->revisions = g_list_append (log->revisions, rev);
+    log->rev_names = g_list_append (log->rev_names, rev->number);
+    g_hash_table_insert (log->rev_map, rev->number, rev);
 }
 
 date:.*$  {
-	gchar d[16], t[16], a[64], s[32], l1[8], l2[8];
+    gchar d[16], t[16], a[64], s[32], l1[8], l2[8];
 
     fprintf (stderr, "LEX: Creating date\n");
     sscanf (yytext, "date: %s %s  author: %s  state: %s  lines: %s %s",
-		d, t, a, s, l1, l2);
+        d, t, a, s, l1, l2);
 
-	g_strdelimit (t, ";", '\0');
-	g_strdelimit (a, ";", '\0');
-	g_strdelimit (s, ";", '\0');
+    g_strdelimit (t, ";", '\0');
+    g_strdelimit (a, ";", '\0');
+    g_strdelimit (s, ";", '\0');
 
-	rev->date = g_strdup_printf ("%s %s", d, t);
-	rev->author = g_strdup (a);
-	rev->state = g_strdup (s);
-	rev->lines = g_strdup_printf ("%s %s", l1, l2);
+    rev->date = g_strdup_printf ("%s %s", d, t);
+    rev->author = g_strdup (a);
+    rev->state = g_strdup (s);
+    rev->lines = g_strdup_printf ("%s %s", l1, l2);
 }
 
 
 ^.*\n---   {
     fprintf (stderr, "LEX: Found message1\n");
-	if (rev)
-		rev->message = g_strdup (yytext);
+    if (rev)
+        rev->message = g_strdup (yytext);
 }
 
 ^.*\n===========================   {
     fprintf (stderr, "LEX: Found message2\n");
-	if (rev)
-		rev->message = g_strdup (yytext);
+    if (rev)
+        rev->message = g_strdup (yytext);
     yyterminate();
 }
 
@@ -101,64 +101,64 @@ date:.*$  {
 
 static Revision *rev_new ()
 {
-	return g_new0 (Revision, 1);
+    return g_new0 (Revision, 1);
 }
 
 
 static void rev_free (Revision *rev)
 {
-	if (rev) {
-		g_free (rev->number);
-		g_free (rev->date);
-		g_free (rev->author);
-		g_free (rev->state);
-		g_free (rev->lines);
-		g_free (rev->message);
-		g_free (rev);
-	}
+    if (rev) {
+        g_free (rev->number);
+        g_free (rev->date);
+        g_free (rev->author);
+        g_free (rev->state);
+        g_free (rev->lines);
+        g_free (rev->message);
+        g_free (rev);
+    }
 }
 
 
 static LogHistory *log_new ()
 {
-	LogHistory *log = g_new (LogHistory, 1);
-	log->revisions = NULL;
-	log->rev_names = NULL;
-	log->rev_map = g_hash_table_new (g_str_hash, g_str_equal);
-	return log;
+    LogHistory *log = g_new (LogHistory, 1);
+    log->revisions = NULL;
+    log->rev_names = NULL;
+    log->rev_map = g_hash_table_new (g_str_hash, g_str_equal);
+    return log;
 }
 
 
 void log_free (LogHistory *log)
 {
-	GList *revs = log->revisions;
-	while (revs) {
-		Revision *rev = (Revision*)revs->data;
-		rev_free (rev);
-		revs = revs->next;
-	}
+    GList *revs = NULL;
+    for (revs = log->revisions; revs; revs = revs->next)
+    {
+        Revision *rev = (Revision *) revs->data;
+        rev_free (rev);
+    }
 }
 
 
 LogHistory *log_create (CvsPlugin *plugin, const gchar *fname)
 {
-	gchar *cmd;
+    gchar *cmd;
 
-	log = log_new ();
-	log->fname = g_strdup (fname);
-	log->plugin = plugin;
-	cmd = g_strdup_printf ("cvs -z%d log %s",
-						   plugin->compression_level,
-						   log->fname);
+    log = log_new ();
+    log->fname = g_strdup (fname);
+    log->plugin = plugin;
+    cmd = g_strdup_printf ("cvs -z%d log %s",
+                           plugin->compression_level,
+                           log->fname);
 
-	yyin = popen (cmd, "r");
-	if (!yyin) return NULL;
+    yyin = popen (cmd, "r");
+    if (!yyin) return NULL;
 
     fprintf (stderr, "LEX: 1\n");
-	yylex ();
+    yylex ();
     fprintf (stderr, "LEX: 2\n");
 
-	pclose (yyin);
+    pclose (yyin);
 
-	return log;
+    return log;
 }

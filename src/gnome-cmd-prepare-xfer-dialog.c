@@ -371,7 +371,7 @@ gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
 
     if (g_list_length (dialog->src_files) == 1) {
         gchar *t, *path, *fname;
-        GnomeCmdFile *finfo = (GnomeCmdFile*)dialog->src_files->data;
+        GnomeCmdFile *finfo = (GnomeCmdFile *) dialog->src_files->data;
 
         t = gnome_cmd_file_get_path (GNOME_CMD_FILE (dialog->default_dest_dir));
         path = get_utf8 (t);

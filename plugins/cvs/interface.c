@@ -65,7 +65,7 @@ on_compare_ok (GtkButton *button, GtkWidget *dialog)
     GtkWidget *combo = lookup_widget (GTK_WIDGET (button), "rev_combo");
     GtkWidget *head_radio = lookup_widget (GTK_WIDGET (button), "head_radio");
     GtkWidget *prev_rev_radio = lookup_widget (GTK_WIDGET (button), "prev_rev_radio");
-    LogHistory *log_history = (LogHistory*)lookup_widget (GTK_WIDGET (button), "log_history");
+    LogHistory *log_history = (LogHistory *) lookup_widget (GTK_WIDGET (button), "log_history");
 
     selected_rev = gtk_object_get_data (GTK_OBJECT (dialog), "selected_rev");
     selected_other_rev = get_combo_text (combo);
@@ -119,15 +119,13 @@ on_other_rev_toggled (GtkToggleButton *btn, GtkWidget *dialog)
 static Revision *
 find_prev_rev (LogHistory *h, Revision *rev)
 {
-    GList *l;
-
-    l = g_list_find (h->revisions, rev);
+    GList *l = g_list_find (h->revisions, rev);
     if (!l) return NULL;
 
     l = l->next;
     if (!l) return NULL;
 
-    return (Revision*)l->data;
+    return (Revision *) l->data;
 }
 
 
@@ -545,8 +543,8 @@ add_log_tab (CvsPlugin *plugin, const gchar *fname)
     tab_label = create_tab_label (notebook, fname, GTK_SIGNAL_FUNC (on_close_tab), hpaned);
     gtk_notebook_append_page (GTK_NOTEBOOK (notebook), hpaned, tab_label);
 
-    revs = log_history->revisions;
-    while (revs) {
+    for (revs = log_history->revisions; revs; revs = revs->next) 
+    {
         Revision *rev = (Revision *)revs->data;
         gint row;
         gchar *text[2];
@@ -555,7 +553,6 @@ add_log_tab (CvsPlugin *plugin, const gchar *fname)
         // Add this rev. to the list
         row = gtk_clist_append (GTK_CLIST (rev_list), text);
         gtk_clist_set_row_data (GTK_CLIST (rev_list), row, rev);
-        revs = revs->next;
     }
 
     gtk_signal_connect (GTK_OBJECT (rev_list), "select_row",

@@ -89,7 +89,7 @@ calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
 
     for (tmp = list; tmp; tmp = tmp->next)
     {
-        GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
+        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
 
         if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
         {
@@ -106,7 +106,7 @@ calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
 
     for (tmp = list; tmp; tmp = tmp->next)
     {
-        GnomeVFSFileInfo *info = (GnomeVFSFileInfo*)tmp->data;
+        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
         gnome_vfs_file_info_unref (info);
     }
 

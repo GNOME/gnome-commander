@@ -72,7 +72,7 @@ set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
     GList *files = gnome_cmd_file_list_get_all_files (popup->priv->fl);
     for (; files; files = files->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile*)files->data;
+        GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
         gint res;
 
         if (gnome_cmd_data_get_case_sens_sort ())

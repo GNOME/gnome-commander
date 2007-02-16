@@ -69,7 +69,7 @@ static void do_chown (GnomeCmdFile *in_finfo, uid_t uid, gid_t gid, gboolean rec
 
         for (tmp = files; tmp; tmp = tmp->next)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
+            GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
             if (strcmp (finfo->info->name, ".") != 0
                 && strcmp (finfo->info->name, "..") != 0
                 && !GNOME_VFS_FILE_INFO_SYMLINK(finfo->info))
@@ -105,7 +105,7 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
 
     for (tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile*)tmp->data;
+        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
         g_return_if_fail (finfo != NULL);
 

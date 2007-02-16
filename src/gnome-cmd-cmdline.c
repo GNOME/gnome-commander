@@ -48,7 +48,7 @@ update_history_combo (GnomeCmdCmdline *cmdline)
 
     for (; tmp; tmp = tmp->next)
     {
-        gchar *command = (gchar*)tmp->data;
+        gchar *command = (gchar *) tmp->data;
         gchar *text[2];
 
         text[0] = command;
