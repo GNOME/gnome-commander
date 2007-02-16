@@ -36,17 +36,6 @@ static char no_support_for_libiptcdata_tags_string[] = N_("<IPTC tags not suppor
 #endif
 
 
-// inline    // move --> gnome-cmd-tags-libs.h
-gboolean gcmd_tags_libiptcdata_is_supported(void)
-{
-#ifdef HAVE_IPTC
-    return TRUE;
-#else
-    return FALSE;
-#endif
-}
-
-
 // inline
 void gcmd_tags_libiptcdata_load_metadata(GnomeCmdFile *finfo)
 {

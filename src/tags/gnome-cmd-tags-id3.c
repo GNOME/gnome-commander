@@ -414,18 +414,6 @@ static void Read_MPEG_Header_Info (GHashTable *metadata, ID3Tag *id3_tag)
 #endif
 
 
-
-// inline    // move --> gnome-cmd-tags-libs.h
-gboolean gcmd_tags_id3lib_is_supported(void)
-{
-#ifdef HAVE_ID3
-    return TRUE;
-#else
-    return FALSE;
-#endif
-}
-
-
 // inline
 void gcmd_tags_id3lib_load_metadata(GnomeCmdFile *finfo)
 {

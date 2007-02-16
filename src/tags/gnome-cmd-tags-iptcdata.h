@@ -27,7 +27,6 @@
 
 G_BEGIN_DECLS
 
-gboolean gcmd_tags_libiptcdata_is_supported(void);
 void gcmd_tags_libiptcdata_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_libiptcdata_free_metadata(GnomeCmdFile *finfo);
 const gchar *gcmd_tags_libiptcdata_get_value(GnomeCmdFile *finfo, guint libclass, guint libtag);

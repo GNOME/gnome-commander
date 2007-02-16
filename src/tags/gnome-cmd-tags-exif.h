@@ -27,7 +27,6 @@
 
 G_BEGIN_DECLS
 
-gboolean gcmd_tags_libexif_is_supported(void);
 void gcmd_tags_libexif_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_libexif_free_metadata(GnomeCmdFile *finfo);
 const gchar *gcmd_tags_libexif_get_value(GnomeCmdFile *finfo, guint libtag);

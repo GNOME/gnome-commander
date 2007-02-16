@@ -37,17 +37,6 @@ static char no_support_for_libexif_tags_string[] = N_("<Exif tags not supported>
 #endif
 
 
-// inline    // move --> gnome-cmd-tags-libs.h
-gboolean gcmd_tags_libexif_is_supported(void)
-{
-#ifdef HAVE_EXIF
-    return TRUE;
-#else
-    return FALSE;
-#endif
-}
-
-
 // inline
 void gcmd_tags_libexif_load_metadata(GnomeCmdFile *finfo)
 {

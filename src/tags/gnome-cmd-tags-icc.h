@@ -27,7 +27,6 @@
 
 G_BEGIN_DECLS
 
-gboolean gcmd_tags_icclib_is_supported(void);
 void gcmd_tags_icclib_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_icclib_free_metadata(GnomeCmdFile *finfo);
 const gchar *gcmd_tags_icclib_get_value(GnomeCmdFile *finfo, guint libclass, guint libtag);

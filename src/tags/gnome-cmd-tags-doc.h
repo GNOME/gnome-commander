@@ -29,7 +29,6 @@ G_BEGIN_DECLS
 
 void gcmd_tags_libgsf_init();
 void gcmd_tags_libgsf_shutdown();
-gboolean gcmd_tags_libgsf_is_supported(void);
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_libgsf_free_metadata(GnomeCmdFile *finfo);
 const gchar *gcmd_tags_libgsf_get_value(GnomeCmdFile *finfo, guint tag);

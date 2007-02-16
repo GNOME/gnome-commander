@@ -27,23 +27,48 @@
 
 G_BEGIN_DECLS
 
-gboolean gcmd_tags_libexif_is_supported(void);
+#ifdef HAVE_EXIF
+#define gcmd_tags_libexif_is_supported()        TRUE
+#else
+#define gcmd_tags_libexif_is_supported()        FALSE
+#endif
+
+#ifdef HAVE_IPTC
+#define gcmd_tags_libiptcdata_is_supported()    TRUE
+#else
+#define gcmd_tags_libiptcdata_is_supported()    FALSE
+#endif
+
+#ifdef HAVE_LCMS
+#define gcmd_tags_icclib_is_supported()         TRUE
+#else
+#define gcmd_tags_icclib_is_supported()         FALSE
+#endif
+
+#ifdef HAVE_ID3
+#define gcmd_tags_id3lib_is_supported()         TRUE
+#else
+#define gcmd_tags_id3lib_is_supported()         FALSE
+#endif
+
+#ifdef HAVE_GSF
+#define gcmd_tags_libgsf_is_supported()         TRUE
+#else
+#define gcmd_tags_libgsf_is_supported()         FALSE
+#endif
+
 void gcmd_tags_libexif_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_libexif_free_metadata(GnomeCmdFile *finfo);
 
-gboolean gcmd_tags_libiptcdata_is_supported(void);
 void gcmd_tags_libiptcdata_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_libiptcdata_free_metadata(GnomeCmdFile *finfo);
 
-gboolean gcmd_tags_icclib_is_supported(void);
 void gcmd_tags_icclib_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_icclib_free_metadata(GnomeCmdFile *finfo);
 
-gboolean gcmd_tags_id3lib_is_supported(void);
 void gcmd_tags_id3lib_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_id3lib_free_metadata(GnomeCmdFile *finfo);
 
-gboolean gcmd_tags_libgsf_is_supported(void);
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_libgsf_free_metadata(GnomeCmdFile *finfo);
 

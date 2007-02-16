@@ -443,12 +443,6 @@ static void process_msole_infile(GsfInfile *infile, GHashTable *metadata)
             continue;
         }
     }
-
-    unsigned int lid = 0x0402; // GSF_LE_GET_GUINT16();
-    const char *lang = lid2lang(lid);
-
-    if (lang)
-        DEBUG('t', "\t\t%s (): %s\n", GSF_META_NAME_LANGUAGE, lang);
 }
 #endif
 
@@ -467,17 +461,6 @@ void gcmd_tags_libgsf_shutdown()
 {
 #ifdef HAVE_GSF
     gsf_shutdown();
-#endif
-}
-
-
-// inline    // move --> gnome-cmd-tags-libs.h
-gboolean gcmd_tags_libgsf_is_supported(void)
-{
-#ifdef HAVE_GSF
-    return TRUE;
-#else
-    return FALSE;
 #endif
 }
 
