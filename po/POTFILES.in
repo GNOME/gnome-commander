@@ -64,7 +64,6 @@ src/plugin_manager.c
 src/tags/gnome-cmd-tags-audio.c
 src/tags/gnome-cmd-tags-doc.c
 src/tags/gnome-cmd-tags-id3.c
-src/tags/gnome-cmd-tags-libs.c
 src/tags/gnome-cmd-tags.c
 src/useractions.c
 src/utils.c
