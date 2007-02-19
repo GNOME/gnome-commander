@@ -1,3 +1,14 @@
+2007-02-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-dir.h:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-path.c:
+	* src/gnome-cmd-plain-path.c:
+	* src/gnome-cmd-python-plugin.c:
+	* src/useractions.c:
+	Fix for active/inactive dir paths passed to python plugins
+
 2007-02-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags-doc.c:

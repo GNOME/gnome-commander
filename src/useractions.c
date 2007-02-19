@@ -360,9 +360,8 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
     GnomeCmdFileList *fl = get_active_fl ();
     GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
     GList *i;
-    gchar **fnames = g_new (char*, g_list_length (sfl) + 1);
+    gchar **fnames = g_new (char *, g_list_length (sfl) + 1);
     gchar **f = fnames;
-    gchar *s;
 
     sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
 
@@ -377,7 +376,7 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
 
     *f = NULL;
 
-    s = g_strjoinv(sep,fnames);
+    gchar *s = g_strjoinv(sep,fnames);
 
     gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), s, -1);
 

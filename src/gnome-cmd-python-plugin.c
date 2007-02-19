@@ -232,8 +232,12 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
         goto out_D;
     }
 
-    gchar *active_dir = gnome_cmd_dir_get_display_path (gnome_cmd_file_selector_get_directory (active_fs));
-    gchar *inactive_dir = gnome_cmd_dir_get_display_path (gnome_cmd_file_selector_get_directory (inactive_fs));
+    GnomeVFSURI *active_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (active_fs));
+    GnomeVFSURI *inactive_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (inactive_fs));
+    gchar *active_dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (active_dir_uri), NULL);
+    gchar *inactive_dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (inactive_dir_uri), NULL);
+    gnome_vfs_uri_unref (active_dir_uri);
+    gnome_vfs_uri_unref (inactive_dir_uri);
 
     XID main_win_xid = GDK_WINDOW_XID (GTK_WIDGET (mw)->window);
 

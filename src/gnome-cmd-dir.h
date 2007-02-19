@@ -113,6 +113,9 @@ void gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path);
 void gnome_cmd_dir_update_path (GnomeCmdDir *dir);
 gchar *gnome_cmd_dir_get_display_path (GnomeCmdDir *dir);
 
+GnomeVFSURI *gnome_cmd_dir_get_uri (GnomeCmdDir *dir);
+gchar       *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir);
+
 GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filename);
 gchar       *gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename);
 

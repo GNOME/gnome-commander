@@ -205,7 +205,8 @@ init (GnomeCmdDir *dir)
     dir->dialog = NULL;
     dir->state = DIR_STATE_EMPTY;
 
-    if (DEBUG_ENABLED ('c')) {
+    if (DEBUG_ENABLED ('c'))
+    {
         created_dirs_cnt++;
         all_dirs = g_list_append (all_dirs, dir);
     }
@@ -304,7 +305,8 @@ gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
     uri_str = gnome_vfs_uri_to_string (uri, 0);
 
     dir = gnome_cmd_con_cache_lookup (con, uri_str);
-    if (dir) {
+    if (dir)
+    {
         g_free (uri_str);
         gnome_vfs_uri_unref (uri);
         gnome_cmd_file_update_info (GNOME_CMD_FILE (dir), info);
@@ -345,14 +347,16 @@ gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     uri_str = gnome_vfs_uri_to_string (uri, 0);
 
     dir = gnome_cmd_con_cache_lookup (con, uri_str);
-    if (dir) {
+    if (dir)
+    {
         g_free (uri_str);
         return dir;
     }
 
     info = gnome_vfs_file_info_new ();
     res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
-    if (res == GNOME_VFS_OK) {
+    if (res == GNOME_VFS_OK)
+    {
         dir = gtk_type_new (gnome_cmd_dir_get_type ());
         gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, NULL);
 
@@ -362,7 +366,8 @@ gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
 
         gnome_cmd_con_add_to_cache (con, dir);
     }
-    else {
+    else
+    {
         create_error_dialog (gnome_vfs_result_to_string (res));
         gnome_vfs_file_info_unref (info);
     }
@@ -377,11 +382,9 @@ gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
 GnomeCmdDir *
 gnome_cmd_dir_get_parent (GnomeCmdDir *dir)
 {
-    GnomeCmdPath *path;
-
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    path = gnome_cmd_path_get_parent (dir->priv->path);
+    GnomeCmdPath *path = gnome_cmd_path_get_parent (dir->priv->path);
     if (!path)
         return NULL;
 
@@ -392,11 +395,9 @@ gnome_cmd_dir_get_parent (GnomeCmdDir *dir)
 GnomeCmdDir *
 gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child)
 {
-    GnomeCmdPath *path;
-
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    path = gnome_cmd_path_get_child (dir->priv->path, child);
+    GnomeCmdPath *path = gnome_cmd_path_get_child (dir->priv->path, child);
     if (!path)
         return NULL;
 
@@ -504,7 +505,8 @@ create_file_list (GnomeCmdDir *dir, GList *info_list)
 static void
 on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult result)
 {
-    if (dir->state == DIR_STATE_LISTED) {
+    if (dir->state == DIR_STATE_LISTED)
+    {
         DEBUG('l', "File listing succeded\n");
 
         if (gnome_cmd_file_collection_get_size (dir->priv->file_collection))
@@ -515,7 +517,8 @@ on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult result)
         dir->state = DIR_STATE_LISTED;
         g_list_free (infolist);
 
-        if (dir->dialog) {
+        if (dir->dialog)
+        {
             gtk_widget_destroy (dir->dialog);
             dir->dialog = NULL;
         }
@@ -525,10 +528,12 @@ on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult result)
         DEBUG('l', "Emitting list_ok signal\n");
         gtk_signal_emit (GTK_OBJECT (dir), dir_signals[LIST_OK], dir->priv->files);
     }
-    else if (dir->state == DIR_STATE_EMPTY) {
+    else if (dir->state == DIR_STATE_EMPTY)
+    {
         DEBUG('l', "File listing failed: %s\n", gnome_vfs_result_to_string (result));
 
-        if (dir->dialog) {
+        if (dir->dialog)
+        {
             gtk_widget_destroy (dir->dialog);
             dir->dialog = NULL;
         }
@@ -545,7 +550,8 @@ on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult result)
 static void
 on_dir_list_cancel (GtkButton *btn, GnomeCmdDir *dir)
 {
-    if (dir->state == DIR_STATE_LISTING) {
+    if (dir->state == DIR_STATE_LISTING)
+    {
         DEBUG('l', "on_dir_list_cancel\n");
         dirlist_cancel (dir);
 
@@ -672,16 +678,33 @@ gnome_cmd_dir_get_display_path (GnomeCmdDir *dir)
 }
 
 
+GnomeVFSURI *gnome_cmd_dir_get_uri (GnomeCmdDir *dir)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
+
+    return gnome_cmd_dir_get_child_uri(dir, ".");
+}
+
+
+gchar *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
+
+    GnomeVFSURI *uri = gnome_cmd_dir_get_uri (dir);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+    gnome_vfs_uri_unref (uri);
+
+    return uri_str;
+}
+
+
 GnomeVFSURI *
 gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filename)
 {
-    GnomeVFSURI *uri;
-    GnomeCmdPath *path;
-
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    path = gnome_cmd_path_get_child (dir->priv->path, filename);
-    uri = gnome_cmd_con_create_uri (dir->priv->con, path);
+    GnomeCmdPath *path = gnome_cmd_path_get_child (dir->priv->path, filename);
+    GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);
     gtk_object_destroy (GTK_OBJECT (path));
 
     return uri;
@@ -691,13 +714,10 @@ gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filename)
 gchar *
 gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename)
 {
-    gchar *uri_str;
-    GnomeVFSURI *uri;
-
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    uri = gnome_cmd_dir_get_child_uri (dir, filename);
-    uri_str = gnome_vfs_uri_to_string (uri, 0);
+    GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (dir, filename);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
     gnome_vfs_uri_unref (uri);
 
     return uri_str;
@@ -707,12 +727,10 @@ gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename)
 static gboolean
 file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
 {
-    GnomeCmdFile *finfo;
-
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
     g_return_val_if_fail (uri_str != NULL, TRUE);
 
-    finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
+    GnomeCmdFile *finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
 
     return finfo != NULL;
 }
@@ -821,7 +839,8 @@ gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
 
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    if (dir->priv->monitor_users == 0) {
+    if (dir->priv->monitor_users == 0)
+    {
         gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
 
         result = gnome_vfs_monitor_add (
@@ -852,8 +871,10 @@ gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir)
 
     dir->priv->monitor_users--;
 
-    if (dir->priv->monitor_users == 0) {
-        if (dir->priv->monitor_handle) {
+    if (dir->priv->monitor_users == 0)
+    {
+        if (dir->priv->monitor_handle)
+        {
             GnomeVFSResult result = gnome_vfs_monitor_cancel (dir->priv->monitor_handle);
             if (result == GNOME_VFS_OK)
                 DEBUG('n', "Removed monitor from 0x%x %s\n",

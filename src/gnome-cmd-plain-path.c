@@ -119,11 +119,9 @@ destroy (GtkObject *object)
 static void
 class_init (GnomeCmdPlainPathClass *klass)
 {
-    GtkObjectClass *object_class;
-    GnomeCmdPathClass *path_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GnomeCmdPathClass *path_class = GNOME_CMD_PATH_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    path_class = GNOME_CMD_PATH_CLASS (klass);
     parent_class = gtk_type_class (gnome_cmd_path_get_type ());
 
     object_class->destroy = destroy;
@@ -182,4 +180,3 @@ gnome_cmd_plain_path_new (const gchar *path)
 
     return GNOME_CMD_PATH (plain_path);
 }
-
