@@ -31,8 +31,6 @@ import md5
 
 def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
     parent_dir = string.split(active_cwd, os.sep)[-1]
-    print string.split(active_cwd, os.sep)
-    print parent_dir
     if parent_dir=='':
         parent_dir = 'root'
     f_md5sum = file(inactive_cwd+os.sep+parent_dir+'.md5sum', 'w')
