@@ -31,16 +31,17 @@ import md5
 
 def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
     parent_dir = string.split(active_cwd, os.sep)[-1]
+    print string.split(active_cwd, os.sep)
+    print parent_dir
     if parent_dir=='':
         parent_dir = 'root'
-    f_md5sum = file(parent_dir+'.md5sum','w')
+    f_md5sum = file(inactive_cwd+os.sep+parent_dir+'.md5sum', 'w')
     for uri in selected_files:
         if gnomevfs.get_file_info(uri).type==gnomevfs.FILE_TYPE_REGULAR:
-            fname = gnomevfs.get_file_info(uri).name
-            f = file(fname,'rb')
+            f = file(active_cwd+os.sep+uri.short_name, 'rb')
             file_content = f.read()
             f.close()
             md5sum = md5.new(file_content).hexdigest()
-            f_md5sum.write('%s  %s\n' % (md5sum, fname))
+            f_md5sum.write('%s  %s\n' % (md5sum, uri.short_name))
     f_md5sum.close()
     return True
