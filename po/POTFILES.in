@@ -62,8 +62,11 @@ src/main.c
 src/owner.c
 src/plugin_manager.c
 src/tags/gnome-cmd-tags-audio.c
-src/tags/gnome-cmd-tags-doc.c
-src/tags/gnome-cmd-tags-id3.c
 src/tags/gnome-cmd-tags.c
+src/tags/gnome-cmd-tags-doc.c
+src/tags/gnome-cmd-tags-exif.c
+src/tags/gnome-cmd-tags-icc.c
+src/tags/gnome-cmd-tags-id3.c
+src/tags/gnome-cmd-tags-iptcdata.c
 src/useractions.c
 src/utils.c
