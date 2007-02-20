@@ -63,6 +63,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-quicksearch-popup.h gnome-cmd-quicksearch-popup.c \
 	gnome-cmd-rename-dialog.h gnome-cmd-rename-dialog.c \
 	gnome-cmd-search-dialog.h gnome-cmd-search-dialog.c \
+	gnome-cmd-smb-auth.h gnome-cmd-smb-auth.c \
 	gnome-cmd-smb-net.h gnome-cmd-smb-net.c \
 	gnome-cmd-smb-path.h gnome-cmd-smb-path.c \
 	gnome-cmd-style.h gnome-cmd-style.c \

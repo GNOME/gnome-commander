@@ -5,7 +5,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.4">
   <!ENTITY manrevision "1.2.4">
-  <!ENTITY date "February 2007">
+  <!ENTITY date "March 2007">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -5070,7 +5070,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.4</para></entry>
-            <entry><para>2007-02-??</para></entry>
+            <entry><para>2007-03-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -5100,6 +5100,9 @@
                         </listitem>
                         <listitem>
                             <para>Support for OLE and ODF metags in advanced file rename templates</para>
+                        </listitem>
+                        <listitem>
+                            <para>Support for SMB authentication</para>
                         </listitem>
                         <listitem>
                             <para>Updated help docs</para>
