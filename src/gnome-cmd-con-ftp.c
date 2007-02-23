@@ -45,24 +45,25 @@ get_file_info_func (GnomeCmdCon *con)
     GnomeVFSResult res;
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
 
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_FOLLOW_LINKS
-                                     | GNOME_VFS_FILE_INFO_GET_MIME_TYPE
-                                     | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE;
+    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 
-    DEBUG('m', "FTP: Connecting to %s\n", gnome_vfs_uri_to_string (uri, 0));
+    DEBUG('m', "FTP: Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
     con->base_info = gnome_vfs_file_info_new ();
 
     res = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
 
     gnome_vfs_uri_unref (uri);
 
-    if (con->state == CON_STATE_OPENING) {
+    if (con->state == CON_STATE_OPENING)
+    {
         DEBUG('m', "State was OPENING, setting flags\n");
-        if (res == GNOME_VFS_OK) {
+        if (res == GNOME_VFS_OK)
+        {
             con->state = CON_STATE_OPEN;
             con->open_result = CON_OPEN_OK;
         }
-        else {
+        else
+        {
             con->state = CON_STATE_CLOSED;
             con->open_failed_reason = res;
             con->open_result = CON_OPEN_FAILED;
@@ -93,7 +94,8 @@ ftp_open (GnomeCmdCon *con)
 
     DEBUG('m', "Opening FTP connection\n");
 
-    if (!con->base_path) {
+    if (!con->base_path)
+    {
         con->base_path = gnome_cmd_plain_path_new (G_DIR_SEPARATOR_S);
         gtk_object_ref (GTK_OBJECT (con->base_path));
     }
@@ -193,7 +195,7 @@ class_init (GnomeCmdConFtpClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_con_get_type ());
+    parent_class = (GnomeCmdConClass *) gtk_type_class (gnome_cmd_con_get_type ());
 
     object_class->destroy = destroy;
 
@@ -263,9 +265,7 @@ gnome_cmd_con_ftp_new     (const gchar *alias,
                            const gchar *pw,
                            const gchar *remote_dir)
 {
-    GnomeCmdConFtp *con;
-
-    con = gtk_type_new (gnome_cmd_con_ftp_get_type ());
+    GnomeCmdConFtp *con = (GnomeCmdConFtp *) gtk_type_new (gnome_cmd_con_ftp_get_type ());
 
     gnome_cmd_con_ftp_set_alias (con, alias);
     gnome_cmd_con_ftp_set_host_name (con, host_name);

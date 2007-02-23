@@ -22,7 +22,8 @@
 #include "gnome-cmd-app.h"
 
 
-struct _GnomeCmdAppPrivate {
+struct _GnomeCmdAppPrivate
+{
     gchar *name;
     gchar *cmd;
     gchar *icon_path;
@@ -41,8 +42,8 @@ struct _GnomeCmdAppPrivate {
 GnomeCmdApp*
 gnome_cmd_app_new ()
 {
-    GnomeCmdApp *app = g_malloc (sizeof (GnomeCmdApp));
-    app->priv = g_malloc (sizeof (GnomeCmdAppPrivate));
+    GnomeCmdApp *app = g_new (GnomeCmdApp, 1);
+    app->priv = g_new0 (GnomeCmdAppPrivate, 1);
     app->priv->name = NULL;
     app->priv->cmd = NULL;
     app->priv->icon_path = NULL;
@@ -93,7 +94,7 @@ gnome_cmd_app_new_from_vfs_app   (GnomeVFSMimeApplication *vfs_app)
         vfs_app->name,
         vfs_app->command,
         NULL,
-        0,
+        APP_TARGET_ALL_FILES,
         NULL,
         vfs_app->expects_uris == GNOME_VFS_MIME_APPLICATION_ARGUMENT_TYPE_URIS,
         vfs_app->can_open_multiple_files,

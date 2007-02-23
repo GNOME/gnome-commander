@@ -24,7 +24,8 @@
 
 G_BEGIN_DECLS
 
-typedef struct {
+typedef struct
+{
     GnomeVFSFileType type;
     gchar *ext;
     GdkColor *fg, *bg;

@@ -51,7 +51,8 @@
 #define POPUP_TIMEOUT 750
 
 
-enum {
+enum
+{
     FILE_CLICKED,        // A file in the list was clicked
     LIST_CLICKED,        // The file-list widget was clicked
     EMPTY_SPACE_CLICKED, // The file-list was clicked but not on a file
@@ -96,7 +97,8 @@ GnomeCmdFileListColumn file_list_column[FILE_LIST_NUM_COLUMNS] =
  {FILE_LIST_COLUMN_GROUP,N_("gid"),50,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc)sort_by_group}};
 
 
-struct _GnomeCmdFileListPrivate {
+struct _GnomeCmdFileListPrivate
+{
     GtkWidget *column_pixmaps[FILE_LIST_NUM_COLUMNS];
     GtkWidget *column_labels[FILE_LIST_NUM_COLUMNS];
     GtkWidget *popup_menu;
@@ -585,7 +587,7 @@ build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
 
         // allocate memory
         total_len++;
-        data = copy = g_malloc (total_len+1);
+        data = copy = (gchar *) g_malloc (total_len+1);
 
         // put the uri_str_list in the allocated memory
         tmp = uri_str_list;
@@ -632,10 +634,9 @@ drag_data_get (GtkWidget        *widget,
                GnomeCmdFileList *fl)
 {
     int len;
-    char *data;
     GList *files;
 
-    data = build_selected_file_list (fl, &len);
+    gchar *data = (gchar *) build_selected_file_list (fl, &len);
 
     if (!data) return;
 
@@ -643,13 +644,13 @@ drag_data_get (GtkWidget        *widget,
     {
         case TARGET_URI_LIST:
         case TARGET_TEXT_PLAIN:
-            gtk_selection_data_set (selection_data, selection_data->target, 8, data, len);
+            gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) data, len);
             break;
 
         case TARGET_URL:
             files = gnome_vfs_uri_list_parse (data);
             if (files)
-                gtk_selection_data_set (selection_data, selection_data->target, 8, files->data, strlen (files->data));
+                gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) files->data, strlen ((const char *) files->data));
             g_list_foreach (files, (GFunc)g_free, NULL);
             break;
 
@@ -668,11 +669,9 @@ init_dnd (GnomeCmdFileList *fl)
 
     gtk_drag_source_set (GTK_WIDGET (fl), GDK_BUTTON1_MASK,
                          drag_types, ELEMENTS (drag_types),
-                         (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY
-                          | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
+                         (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
 
-    gtk_signal_connect (GTK_OBJECT (fl), "drag_data_get",
-                        GTK_SIGNAL_FUNC (drag_data_get), fl);
+    gtk_signal_connect (GTK_OBJECT (fl), "drag_data_get", GTK_SIGNAL_FUNC (drag_data_get), fl);
 }
 
 
@@ -1046,8 +1045,6 @@ on_scroll_vertical                  (GtkCList        *clist,
 static gboolean
 on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCmdFileList *fl)
 {
-    gint row;
-
     g_return_val_if_fail (clist != NULL, FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
@@ -1057,7 +1054,7 @@ on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCmdFileList *fl)
 
     gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[LIST_CLICKED], event);
 
-    row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fl), event->x, event->y);
+    gint row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fl), event->x, event->y);
     if (row < 0)
     {
         gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[EMPTY_SPACE_CLICKED], event);
@@ -1253,12 +1250,10 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdFileListClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    widget_class = GTK_WIDGET_CLASS (klass);
-    parent_class = gtk_type_class (gnome_cmd_clist_get_type ());
+    parent_class = (GnomeCmdCListClass *) gtk_type_class (gnome_cmd_clist_get_type ());
 
     file_list_signals[FILE_CLICKED] =
         gtk_signal_new ("file_clicked",
@@ -1377,9 +1372,7 @@ gnome_cmd_file_list_get_type         (void)
 GtkWidget*
 gnome_cmd_file_list_new ()
 {
-    GnomeCmdFileList *fl;
-
-    fl = g_object_new (gnome_cmd_file_list_get_type(), "n_columns", FILE_LIST_NUM_COLUMNS, NULL);
+    GnomeCmdFileList *fl = (GnomeCmdFileList *) g_object_new (gnome_cmd_file_list_get_type(), "n_columns", FILE_LIST_NUM_COLUMNS, NULL);
 
     create_column_titles (fl);
 

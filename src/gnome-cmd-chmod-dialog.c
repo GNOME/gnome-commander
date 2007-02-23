@@ -30,7 +30,8 @@
 #include "utils.h"
 
 
-typedef enum {
+typedef enum
+{
     CHMOD_ALL_FILES,
     CHMOD_DIRS_ONLY,
     CHMOD_MAX
@@ -185,7 +186,7 @@ class_init (GnomeCmdChmodDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -208,7 +209,7 @@ init (GnomeCmdChmodDialog *dialog)
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), vbox);
 
 
-    dialog->priv->chmod_component = gnome_cmd_chmod_component_new (0);
+    dialog->priv->chmod_component = gnome_cmd_chmod_component_new ((GnomeVFSFilePermissions) 0);
     gtk_widget_ref (dialog->priv->chmod_component);
     gtk_object_set_data_full (GTK_OBJECT (chmod_dialog),
                               "chmod_component", dialog->priv->chmod_component,
@@ -247,12 +248,9 @@ init (GnomeCmdChmodDialog *dialog)
 GtkWidget*
 gnome_cmd_chmod_dialog_new (GList *files)
 {
-    GList *strings = NULL;
-    GnomeCmdChmodDialog *dialog;
-
     g_return_val_if_fail (files != NULL, NULL);
 
-    dialog = gtk_type_new (gnome_cmd_chmod_dialog_get_type ());
+    GnomeCmdChmodDialog *dialog = (GnomeCmdChmodDialog *) gtk_type_new (gnome_cmd_chmod_dialog_get_type ());
     dialog->priv->files = gnome_cmd_file_list_copy (files);
 
     dialog->priv->finfo = (GnomeCmdFile *) dialog->priv->files->data;
@@ -261,6 +259,8 @@ gnome_cmd_chmod_dialog_new (GList *files)
     dialog->priv->perms = dialog->priv->finfo->info->permissions;
 
     show_perms (dialog);
+
+    GList *strings = NULL;
 
     strings = g_list_append (strings, _(recurse_opts[CHMOD_ALL_FILES]));
     strings = g_list_append (strings, _(recurse_opts[CHMOD_DIRS_ONLY]));

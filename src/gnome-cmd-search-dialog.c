@@ -126,7 +126,8 @@ on_pattern_entry_keypressed (GtkWidget            *entry,
                              GdkEventKey          *event,
                              GnomeCmdSearchDialog *dialog)
 {
-    if (state_is_blank (event->state) && event->keyval == GDK_Return) {
+    if (state_is_blank (event->state) && event->keyval == GDK_Return)
+    {
         on_search (NULL, dialog);
         event->keyval = GDK_Escape;
         return TRUE;
@@ -170,18 +171,17 @@ static gchar*
 load_file (GnomeCmdFile *finfo)
 {
     GnomeVFSFileSize ret;
-    gchar *buf, *uri_str;
-    GnomeVFSResult result;
     GnomeVFSHandle *handle;
 
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
 
-    buf = g_malloc (finfo->info->size+1);
-    uri_str = gnome_cmd_file_get_uri_str (finfo);
-    result = gnome_vfs_open (&handle, uri_str, GNOME_VFS_OPEN_READ);
+    gchar *buf = (gchar *) g_malloc (finfo->info->size+1);
+    gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
+    GnomeVFSResult result = gnome_vfs_open (&handle, uri_str, GNOME_VFS_OPEN_READ);
 
-    if (result != GNOME_VFS_OK) {
+    if (result != GNOME_VFS_OK)
+    {
         warn_print (_("Failed to open file %s: %s\n"),
                     uri_str, gnome_vfs_result_to_string (result));
         g_free (uri_str);
@@ -190,7 +190,8 @@ load_file (GnomeCmdFile *finfo)
     }
 
     result = gnome_vfs_read (handle, buf, finfo->info->size, &ret);
-    if (result != GNOME_VFS_OK) {
+    if (result != GNOME_VFS_OK)
+    {
         warn_print (_("Failed to read from file %s: %s\n"),
                     uri_str, gnome_vfs_result_to_string (result));
         g_free (uri_str);
@@ -250,7 +251,8 @@ search_dir_r (GnomeCmdDir *dir, SearchData *data)
 
 
     // update the search status data
-    if (!data->dialog_destroyed) {
+    if (!data->dialog_destroyed)
+    {
         g_mutex_lock (data->pdata.mutex);
 
         path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
@@ -296,7 +298,8 @@ search_dir_r (GnomeCmdDir *dir, SearchData *data)
             {
                 GnomeCmdDir *new_dir = GNOME_CMD_DIR (finfo);
 
-                if (new_dir) {
+                if (new_dir)
+                {
                     gnome_cmd_dir_ref (new_dir);
                     search_dir_r (new_dir, data);
                     gnome_cmd_dir_unref (new_dir);
@@ -454,7 +457,8 @@ on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
 {
     SearchData *data = dialog->priv->data;
 
-    if (data) {
+    if (data)
+    {
         if (!data->search_done)
             gtk_timeout_remove (data->update_gui_timeout_id);
 
@@ -704,7 +708,7 @@ class_init (GnomeCmdSearchDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
 
     object_class->destroy = destroy;
 
@@ -753,7 +757,7 @@ init (GnomeCmdSearchDialog *dialog)
     table_add (table, label, 0, 0, GTK_FILL);
 
     dialog->priv->pattern_combo = create_combo (window);
-    table_add (table, dialog->priv->pattern_combo, 1, 0, GTK_EXPAND|GTK_FILL);
+    table_add (table, dialog->priv->pattern_combo, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     if (defaults->name_patterns)
         gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo), defaults->name_patterns);
 
@@ -765,7 +769,7 @@ init (GnomeCmdSearchDialog *dialog)
     table_add (table, label, 0, 1, GTK_FILL);
 
     dialog->priv->dir_browser = create_file_entry (window, "dir_browser", "");
-    table_add (table, dialog->priv->dir_browser, 1, 1, GTK_EXPAND|GTK_FILL);
+    table_add (table, dialog->priv->dir_browser, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     if (defaults->directories)
         gtk_combo_set_popdown_strings (
             GTK_COMBO (gnome_file_entry_gnome_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser))),
@@ -779,7 +783,7 @@ init (GnomeCmdSearchDialog *dialog)
     table_add (table, dialog->priv->find_text_check, 0, 2, GTK_FILL);
 
     dialog->priv->find_text_combo = create_combo (window);
-    table_add (table, dialog->priv->find_text_combo, 1, 2, GTK_EXPAND|GTK_FILL);
+    table_add (table, dialog->priv->find_text_combo, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_widget_set_sensitive (dialog->priv->find_text_combo, FALSE);
     if (defaults->content_patterns)
         gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->find_text_combo), defaults->content_patterns);
@@ -906,10 +910,11 @@ gnome_cmd_search_dialog_new (GnomeCmdDir *default_dir)
 {
     gchar *path;
     gchar *new_path;
-    GnomeCmdSearchDialog *dialog = gtk_type_new (gnome_cmd_search_dialog_get_type ());
+    GnomeCmdSearchDialog *dialog = (GnomeCmdSearchDialog *) gtk_type_new (gnome_cmd_search_dialog_get_type ());
 
     path = gnome_cmd_file_get_path (GNOME_CMD_FILE (default_dir));
-    if (path[strlen(path)-1] != '/') {
+    if (path[strlen(path)-1] != '/')
+    {
         new_path = g_strdup_printf ("%s/", path);
         g_free (path);
     }

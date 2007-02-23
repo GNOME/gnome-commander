@@ -44,7 +44,8 @@ typedef struct _GnomeCmdAboutPlugin        GnomeCmdAboutPlugin;
 typedef struct _GnomeCmdAboutPluginClass   GnomeCmdAboutPluginClass;
 typedef struct _GnomeCmdAboutPluginPrivate GnomeCmdAboutPluginPrivate;
 
-struct _GnomeCmdAboutPlugin {
+struct _GnomeCmdAboutPlugin
+{
     GtkDialog parent;
 
     GnomeCmdAboutPluginPrivate *priv;

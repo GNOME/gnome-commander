@@ -40,7 +40,8 @@ void history_free (History *history)
 {
     g_return_if_fail (history != NULL);
 
-    if (history->ents) {
+    if (history->ents)
+    {
         g_list_foreach (history->ents, (GFunc)g_free, NULL);
         g_list_free (history->ents);
     }
@@ -60,7 +61,8 @@ void history_add (History *history, const gchar *text)
     /* If we are in the middle of the history list, lets kill
        all items that are in front of us */
     l = history->ents;
-    while (l && l != history->pos) {
+    while (l && l != history->pos)
+    {
         g_free (l->data);
         n = g_list_remove_link (l, l);
         g_list_free (l);

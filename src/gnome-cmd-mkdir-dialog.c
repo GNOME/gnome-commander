@@ -55,7 +55,7 @@ on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdMkdirD
                                                               GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
     if (result == GNOME_VFS_OK)
     {
-        gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
         gnome_cmd_dir_file_created (dialog->priv->dir, uri_str);
         g_free (uri_str);
 
@@ -108,7 +108,7 @@ class_init (GnomeCmdMkdirDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_string_dialog_get_type ());
+    parent_class = (GnomeCmdStringDialogClass *) gtk_type_class (gnome_cmd_string_dialog_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -129,7 +129,7 @@ GtkWidget*
 gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
 {
     const gchar *labels[] = {_("Directory name:"), NULL};
-    GnomeCmdMkdirDialog *dialog = gtk_type_new (gnome_cmd_mkdir_dialog_get_type ());
+    GnomeCmdMkdirDialog *dialog = (GnomeCmdMkdirDialog *) gtk_type_new (gnome_cmd_mkdir_dialog_get_type ());
 
     dialog->priv->dir = dir;
     gnome_cmd_dir_ref (dir);

@@ -36,7 +36,8 @@ int deleted_dirs_cnt = 0;
 
 GList *all_dirs = NULL;
 
-enum {
+enum
+{
     FILE_CREATED,
     FILE_DELETED,
     FILE_CHANGED,
@@ -108,7 +109,7 @@ destroy (GtkObject *object)
 {
     GnomeCmdDir *dir = GNOME_CMD_DIR (object);
 
-    DEBUG ('d', "dir destroying 0x%x %s\n", (guint)dir, gnome_cmd_path_get_path (dir->priv->path));
+    DEBUG ('d', "dir destroying 0x%p %s\n", dir, gnome_cmd_path_get_path (dir->priv->path));
 
     gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
 
@@ -141,7 +142,7 @@ class_init (GnomeCmdDirClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdFileClass *file_class = GNOME_CMD_FILE_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_file_get_type ());
+    parent_class = (GnomeCmdFileClass *) gtk_type_class (gnome_cmd_file_get_type ());
 
     dir_signals[FILE_CREATED] =
         gtk_signal_new ("file_created",
@@ -265,18 +266,19 @@ gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent)
         gnome_cmd_dir_get_path (parent), info->name);
 
     uri = gnome_cmd_con_create_uri (con, path);
-    uri_str = gnome_vfs_uri_to_string (uri, 0);
+    uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 
     dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uri_str);
     g_free (uri_str);
     gnome_vfs_uri_unref (uri);
-    if (dir) {
+    if (dir)
+    {
         gtk_object_destroy (GTK_OBJECT (path));
         gnome_cmd_file_update_info (GNOME_CMD_FILE (dir), info);
         return dir;
     }
 
-    dir = gtk_type_new (gnome_cmd_dir_get_type ());
+    dir = (GnomeCmdDir *) gtk_type_new (gnome_cmd_dir_get_type ());
     gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, parent);
 
     dir->priv->con = con;
@@ -294,17 +296,13 @@ gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
                             GnomeCmdPath *path,
                             GnomeCmdCon *con)
 {
-    GnomeCmdDir *dir;
-    GnomeVFSURI *uri;
-    gchar *uri_str;
-
     g_return_val_if_fail (info != NULL, NULL);
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
 
-    uri = gnome_cmd_con_create_uri (con, path);
-    uri_str = gnome_vfs_uri_to_string (uri, 0);
+    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 
-    dir = gnome_cmd_con_cache_lookup (con, uri_str);
+    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
     if (dir)
     {
         g_free (uri_str);
@@ -313,7 +311,7 @@ gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
         return dir;
     }
 
-    dir = gtk_type_new (gnome_cmd_dir_get_type ());
+    dir = (GnomeCmdDir *) gtk_type_new (gnome_cmd_dir_get_type ());
     gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, NULL);
 
     dir->priv->con = con;
@@ -329,24 +327,21 @@ gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
 GnomeCmdDir *
 gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
 {
-    GnomeCmdDir *dir = NULL;
-    GnomeVFSFileInfo *info;
-    GnomeVFSURI *uri;
-    gchar *uri_str;
-    GnomeVFSResult res;
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_FOLLOW_LINKS
-        | GNOME_VFS_FILE_INFO_GET_MIME_TYPE
-        | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE;
-
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
     g_return_val_if_fail (GNOME_CMD_IS_PATH (path), NULL);
 
-    uri = gnome_cmd_con_create_uri (con, path);
+    GnomeVFSFileInfo *info;
+    GnomeVFSResult res;
+    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
+                                                                  GNOME_VFS_FILE_INFO_GET_MIME_TYPE |
+                                                                  GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
+
+    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
     if (!uri) return NULL;
 
-    uri_str = gnome_vfs_uri_to_string (uri, 0);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 
-    dir = gnome_cmd_con_cache_lookup (con, uri_str);
+    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (con, uri_str);
     if (dir)
     {
         g_free (uri_str);
@@ -357,7 +352,7 @@ gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path)
     res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
     if (res == GNOME_VFS_OK)
     {
-        dir = gtk_type_new (gnome_cmd_dir_get_type ());
+        dir = (GnomeCmdDir *) gtk_type_new (gnome_cmd_dir_get_type ());
         gnome_cmd_file_setup (GNOME_CMD_FILE (dir), info, NULL);
 
         dir->priv->con = con;
@@ -691,7 +686,7 @@ gchar *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
     GnomeVFSURI *uri = gnome_cmd_dir_get_uri (dir);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     gnome_vfs_uri_unref (uri);
 
     return uri_str;
@@ -717,7 +712,7 @@ gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
     GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (dir, filename);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     gnome_vfs_uri_unref (uri);
 
     return uri_str;
@@ -744,7 +739,7 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
     GnomeVFSResult res;
     GnomeVFSFileInfo *info;
     GnomeCmdFile *finfo;
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
+    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (uri_str != NULL);
@@ -853,7 +848,7 @@ gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
         if (result == GNOME_VFS_OK)
             DEBUG('n', "Added monitor to 0x%x %s\n", dir, uri_str);
         else
-            DEBUG ('n', "Failed to add monitor to 0x%x %s: %s\n", (guint)dir, uri_str, gnome_vfs_result_to_string (result));
+            DEBUG ('n', "Failed to add monitor to 0x%p %s: %s\n", dir, uri_str, gnome_vfs_result_to_string (result));
 
         g_free (uri_str);
     }
@@ -877,11 +872,11 @@ gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir)
         {
             GnomeVFSResult result = gnome_vfs_monitor_cancel (dir->priv->monitor_handle);
             if (result == GNOME_VFS_OK)
-                DEBUG('n', "Removed monitor from 0x%x %s\n",
+                DEBUG('n', "Removed monitor from 0x%p %s\n",
                       dir, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
             else
-                DEBUG('n', "Failed to remove monitor from 0x%x %s: %s\n",
-                      (guint)dir, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)),
+                DEBUG('n', "Failed to remove monitor from 0x%p %s: %s\n",
+                      dir, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)),
                       gnome_vfs_result_to_string (result));
 
             dir->priv->monitor_handle = NULL;

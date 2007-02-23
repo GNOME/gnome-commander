@@ -64,7 +64,8 @@ on_ok (GnomeCmdStringDialog *string_dialog,
     g_return_val_if_fail (dialog->priv, TRUE);
     g_return_val_if_fail (dialog->priv->finfo, TRUE);
 
-    if (!filename) {
+    if (!filename)
+    {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No filename entered")));
         return FALSE;
     }
@@ -112,7 +113,7 @@ class_init (GnomeCmdMakeCopyDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_string_dialog_get_type ());
+    parent_class = (GnomeCmdStringDialogClass *) gtk_type_class (gnome_cmd_string_dialog_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -133,21 +134,18 @@ GtkWidget*
 gnome_cmd_make_copy_dialog_new (GnomeCmdFile *finfo, GnomeCmdDir *dir)
 {
     const gchar *labels[] = {""};
-    gchar *msg;
-    GtkWidget *msg_label;
-    GnomeCmdMakeCopyDialog *dialog;
 
     g_return_val_if_fail (finfo != NULL, NULL);
 
-    dialog = gtk_type_new (gnome_cmd_make_copy_dialog_get_type ());
+    GnomeCmdMakeCopyDialog *dialog = (GnomeCmdMakeCopyDialog *) gtk_type_new (gnome_cmd_make_copy_dialog_get_type ());
 
     dialog->priv->finfo = finfo;
     dialog->priv->dir = dir;
     gnome_cmd_file_ref (finfo);
     gnome_cmd_file_ref (GNOME_CMD_FILE (dir));
 
-    msg = g_strdup_printf (_("Copy \"%s\" to"), gnome_cmd_file_get_name (finfo));
-    msg_label = create_label (GTK_WIDGET (dialog), msg);
+    gchar *msg = g_strdup_printf (_("Copy \"%s\" to"), gnome_cmd_file_get_name (finfo));
+    GtkWidget *msg_label = create_label (GTK_WIDGET (dialog), msg);
     g_free (msg);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), msg_label);

@@ -20,8 +20,9 @@
 #ifndef __GNOME_CMD_ADVRENAME_LEXER_H__
 #define __GNOME_CMD_ADVRENAME_LEXER_H__
 
-
 #include "gnome-cmd-file.h"
+
+G_BEGIN_DECLS
 
 void gnome_cmd_advrename_reset_counter(unsigned start, unsigned precision, unsigned step);
 void gnome_cmd_advrename_parse_fname(const char *fname);

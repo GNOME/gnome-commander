@@ -26,7 +26,8 @@
 static GtkCListClass *parent_class = NULL;
 
 
-struct _GnomeCmdCListPrivate {
+struct _GnomeCmdCListPrivate
+{
 };
 
 
@@ -292,7 +293,7 @@ draw_row (GtkCList     *clist,
 
     // if the function is passed the pointer to the row instead of null, it avoids this expensive lookup
     if (!clist_row)
-        clist_row = ROW_ELEMENT (clist, row)->data;
+        clist_row = (GtkCListRow *) ROW_ELEMENT (clist, row)->data;
 
     // rectangle of the entire row
     row_rectangle.x = 0;
@@ -593,7 +594,7 @@ class_init (GnomeCmdCListClass *klass)
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
     GtkCListClass *clist_class = GTK_CLIST_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_clist_get_type ());
+    parent_class = (GtkCListClass *) gtk_type_class (gtk_clist_get_type ());
 
     object_class->destroy = destroy;
 
@@ -654,10 +655,8 @@ gnome_cmd_clist_new (gint columns)
 GtkWidget*
 gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 {
+    GnomeCmdCList *clist = (GnomeCmdCList *) g_object_new (gnome_cmd_clist_get_type(), "n_columns", columns, NULL);
     gint i;
-    GnomeCmdCList *clist;
-
-    clist = g_object_new (gnome_cmd_clist_get_type(), "n_columns", columns, NULL);
 
     for (i=0; i<columns; i++)
         gtk_clist_set_column_auto_resize (GTK_CLIST (clist), i, TRUE);

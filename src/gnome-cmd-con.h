@@ -41,14 +41,16 @@ typedef struct _GnomeCmdConPrivate GnomeCmdConPrivate;
 
 G_BEGIN_DECLS
 
-typedef enum {
+typedef enum
+{
     CON_STATE_CLOSED,
     CON_STATE_OPEN,
     CON_STATE_OPENING,
     CON_STATE_CANCELLING
 } ConState;
 
-typedef enum {
+typedef enum
+{
     CON_OPEN_OK,
     CON_OPEN_FAILED,
     CON_OPEN_CANCELLED,

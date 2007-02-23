@@ -120,7 +120,7 @@ create_general_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     label = create_label (parent, _("Directory cache size"));
-    table_add (table, label, 0, 1, 0);
+    table_add (table, label, 0, 1, (GtkAttachOptions) 0);
     spin = create_spin (parent, "dir_cache_size", 5, 50, gnome_cmd_data_get_dir_cache_size());
     table_add (table, spin, 1, 1, GTK_FILL);
 
@@ -266,7 +266,7 @@ create_format_tab (GtkWidget *parent)
     gtk_object_set_data_full (GTK_OBJECT (parent), "date_format_test_label",
                               label, (GtkDestroyNotify)gtk_widget_unref);
     gtk_signal_connect (GTK_OBJECT (label), "realize",GTK_SIGNAL_FUNC (on_date_format_update), parent);
-    table_add (table, label, 1, 1, GTK_EXPAND|GTK_FILL);
+    table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     label = create_label (parent, _("See the manual page for \"strftime\" for help on how to set the format string."));
     gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
@@ -512,7 +512,7 @@ create_layout_tab (GtkWidget *parent)
 
     fe_optmenu = create_option_menu (parent, ext_modes);
     gtk_object_set_data (GTK_OBJECT (parent), "fe_optmenu", fe_optmenu);
-    table_add (table, fe_optmenu, 1, 2, GTK_FILL|GTK_EXPAND);
+    table_add (table, fe_optmenu, 1, 2, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     // Graphical mode
     label = create_label (parent, _("Graphical mode:"));
@@ -521,14 +521,14 @@ create_layout_tab (GtkWidget *parent)
     lm_optmenu = create_option_menu (parent, gfx_modes);
     gtk_object_set_data (GTK_OBJECT (parent), "lm_optmenu", lm_optmenu);
     gtk_signal_connect (GTK_OBJECT (lm_optmenu), "changed", GTK_SIGNAL_FUNC (on_layout_mode_changed), parent);
-    table_add (table, lm_optmenu, 1, 3, GTK_FILL|GTK_EXPAND);
+    table_add (table, lm_optmenu, 1, 3, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     // Color scheme
     label = create_label (parent, _("Color scheme:"));
     table_add (table, label, 0, 4, GTK_FILL);
 
     hbox = create_hbox (parent, FALSE, 6);
-    table_add (table, hbox, 1, 4, GTK_FILL|GTK_EXPAND);
+    table_add (table, hbox, 1, 4, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     cm_optmenu = create_option_menu (parent, color_modes);
     gtk_object_set_data (GTK_OBJECT (parent), "cm_optmenu", cm_optmenu);
@@ -622,7 +622,7 @@ store_layout_options (GnomeCmdOptionsDialog *dialog)
     {
         GtkAdjustment *adj;
         adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
-        gnome_cmd_data_set_icon_scale_quality (adj->value);
+        gnome_cmd_data_set_icon_scale_quality ((GdkInterpType) adj->value);
     }
 
     gnome_cmd_data_set_list_row_height (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin)));
@@ -1011,7 +1011,6 @@ get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd, gchar **ico
 static void
 on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
 {
-    GnomeCmdApp *app;
     gint target;
     gboolean handles_uris, handles_multiple, requires_terminal;
     gchar *name, *cmd, *icon_path, *pattern_string;
@@ -1024,9 +1023,10 @@ on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
                            &handles_uris, &handles_multiple, &requires_terminal);
     if (!name || strlen (name) < 1) return;
 
-    app = gnome_cmd_app_new_with_values (name, cmd, icon_path,
-                                         target, pattern_string,
-                                         handles_uris, handles_multiple, requires_terminal);
+    GnomeCmdApp *app = gnome_cmd_app_new_with_values (name, cmd, icon_path,
+                                                      (AppTarget) target,
+                                                      pattern_string,
+                                                      handles_uris, handles_multiple, requires_terminal);
     gnome_cmd_data_add_fav_app (app);
     add_app_to_list (GTK_CLIST (clist), app);
     gtk_widget_destroy (dialog);
@@ -1060,7 +1060,7 @@ on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
     gnome_cmd_app_set_name (app, name);
     gnome_cmd_app_set_command (app, cmd);
     gnome_cmd_app_set_icon_path (app, icon_path);
-    gnome_cmd_app_set_target (app, target);
+    gnome_cmd_app_set_target (app, (AppTarget) target);
     if (pattern_string)
         gnome_cmd_app_set_pattern_string (app, pattern_string);
     gnome_cmd_app_set_handles_uris (app, handles_uris);
@@ -1107,12 +1107,12 @@ create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkSignalFunc on_cance
 
     if (app) s = gnome_cmd_app_get_name (app);
     entry = create_entry (dialog, "name_entry", s);
-    table_add (table, entry, 1, 0, GTK_EXPAND|GTK_FILL);
+    table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_widget_grab_focus (entry);
 
     if (app) s = gnome_cmd_app_get_command (app);
     entry = create_entry (dialog, "cmd_entry", s);
-    table_add (table, entry, 1, 1, GTK_EXPAND|GTK_FILL);
+    table_add (table, entry, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     if (app) s = gnome_cmd_app_get_icon_path (app);
     entry = create_icon_entry (dialog, "icon_entry", s);
@@ -1146,33 +1146,33 @@ create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkSignalFunc on_cance
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (radio),
         gnome_cmd_app_get_target (app) == APP_TARGET_ALL_FILES);
-    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 0, 1, GTK_FILL, 0, 0, 0);
+    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 0, 1, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
     radio = create_radio (dialog, get_radio_group(radio), _("All directories"),
                           "show_for_all_dirs");
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (radio),
         gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS);
-    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 1, 2, GTK_FILL, 0, 0, 0);
+    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 1, 2, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
     radio = create_radio (dialog, get_radio_group(radio), _("All directories and files"),
                           "show_for_all_dirs_and_files");
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (radio),
         gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS_AND_FILES);
-    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 2, 3, GTK_FILL, 0, 0, 0);
+    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 2, 3, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
     radio = create_radio (dialog, get_radio_group(radio), _("Some files"),
                           "show_for_some_files");
     if (app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (radio),
         gnome_cmd_app_get_target (app) == APP_TARGET_SOME_FILES);
-    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 3, 4, GTK_FILL, 0, 0, 0);
+    gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 3, 4, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
     if (!app) gtk_toggle_button_set_active (
         GTK_TOGGLE_BUTTON (radio), TRUE);
     gtk_signal_connect (GTK_OBJECT (radio), "toggled",
                         GTK_SIGNAL_FUNC (on_some_files_toggled), dialog);
 
     label = create_label (dialog, _("File patterns"));
-    table_add (table, label, 0, 4, 0);
-    entry = create_entry (dialog, "pattern_entry", app?gnome_cmd_app_get_pattern_string (app):"*.ext1;*.ext2");
+    table_add (table, label, 0, 4, (GtkAttachOptions) 0);
+    entry = create_entry (dialog, "pattern_entry", app ? gnome_cmd_app_get_pattern_string (app) : "*.ext1;*.ext2");
     table_add (table, entry, 1, 4, GTK_FILL);
     if (app && gnome_cmd_app_get_target (app) != APP_TARGET_SOME_FILES)
         gtk_widget_set_sensitive (entry, FALSE);
@@ -1316,22 +1316,20 @@ create_programs_tab (GtkWidget *parent)
     table_add (table, label, 0, 4, GTK_FILL);
 
     entry = create_entry (parent, "viewer", gnome_cmd_data_get_viewer());
-    table_add (table, entry, 1, 0, GTK_EXPAND|GTK_FILL);
+    table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     check = create_check (parent, _("Use Internal Viewer"), "use_internal_viewer");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_use_internal_viewer ());
-    table_add (table, check, 1, 1, GTK_EXPAND|GTK_FILL);
+    table_add (table, check, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "editor", gnome_cmd_data_get_editor());
-    table_add (table, entry, 1, 2, GTK_EXPAND|GTK_FILL);
+    table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "differ", gnome_cmd_data_get_differ());
-    table_add (table, entry, 1, 3, GTK_EXPAND|GTK_FILL);
+    table_add (table, entry, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "term", gnome_cmd_data_get_term());
-    table_add (table, entry, 1, 4, GTK_EXPAND|GTK_FILL);
+    table_add (table, entry, 1, 4, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
 
-    /*
-     * Other favorite apps frame
-     */
+    //Other favorite apps frame
 
     hbox = create_hbox (parent, FALSE, 0);
     gtk_box_set_spacing (GTK_BOX (hbox), 12);
@@ -1372,7 +1370,7 @@ create_programs_tab (GtkWidget *parent)
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    clist = gtk_object_get_data (GTK_OBJECT (parent), "app_clist");
+    clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (parent), "app_clist");
     for (apps = gnome_cmd_data_get_fav_apps (); apps; apps = apps->next)
         add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp *) apps->data);
 
@@ -1551,16 +1549,16 @@ create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on_ok, GtkSignalFunc
 
     if (dev) s = gnome_cmd_con_device_get_alias (dev);
     entry = create_entry (dialog, "alias_entry", s);
-    table_add (table, entry, 1, 0, GTK_EXPAND|GTK_FILL);
+    table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_widget_grab_focus (entry);
 
     if (dev) s = gnome_cmd_con_device_get_device_fn (dev);
     entry = create_file_entry (dialog, "device_entry", s);
-    table_add (table, entry, 1, 1, GTK_EXPAND|GTK_FILL);
+    table_add (table, entry, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     if (dev) s = gnome_cmd_con_device_get_mountp (dev);
     entry = create_file_entry (dialog, "mountp_entry", s);
-    table_add (table, entry, 1, 2, GTK_EXPAND|GTK_FILL);
+    table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     if (dev) s = gnome_cmd_con_device_get_icon_path (dev);
     entry = create_icon_entry (dialog, "device_iconentry", s);
@@ -1739,10 +1737,10 @@ create_devices_tab (GtkWidget *parent)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_skip_mounting());
 
 
-    clist = gtk_object_get_data (GTK_OBJECT (parent), "device_clist");
+    clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (parent), "device_clist");
     for (devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data_get_con_list ()); devices; devices = devices->next)
-        if (!gnome_cmd_con_device_get_autovol(devices->data))
-        add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));
+        if (!gnome_cmd_con_device_get_autovol((GnomeCmdConDevice *) devices->data))
+            add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));
 
     return frame;
 }
@@ -1815,7 +1813,7 @@ class_init (GnomeCmdOptionsDialogClass *klass)
     object_class = GTK_OBJECT_CLASS (klass);
     widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
 
     object_class->destroy = destroy;
 
@@ -1923,10 +1921,10 @@ gnome_cmd_options_dialog_get_type         (void)
 }
 
 
-GtkWidget*
+GtkWidget *
 gnome_cmd_options_dialog_new (void)
 {
-    return gtk_type_new (gnome_cmd_options_dialog_get_type ());
+    return (GtkWidget *) gtk_type_new (gnome_cmd_options_dialog_get_type ());
 }
 
 

@@ -24,7 +24,8 @@
 
 G_BEGIN_DECLS
 
-typedef enum {
+typedef enum
+{
     APP_TARGET_ALL_FILES,
     APP_TARGET_ALL_DIRS,
     APP_TARGET_ALL_DIRS_AND_FILES,

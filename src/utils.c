@@ -591,7 +591,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
 
             if (ret != 1)  return;  else
             {
-                GnomeVFSResult res = gnome_cmd_file_chmod (finfo, finfo->info->permissions|GNOME_VFS_PERM_USER_EXEC);
+                GnomeVFSResult res = gnome_cmd_file_chmod (finfo, (GnomeVFSFilePermissions) (finfo->info->permissions|GNOME_VFS_PERM_USER_EXEC));
                 if (res != GNOME_VFS_OK)
                     return;
             }
@@ -769,7 +769,8 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     args[0] = app;
     args[1] = local_files;
 
-    if (src_uri_list) {
+    if (src_uri_list)
+    {
         gnome_cmd_xfer_tmp_download_multiple (
             src_uri_list,
             dest_uri_list,
@@ -778,9 +779,8 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
             GTK_SIGNAL_FUNC (do_mime_exec_multiple),
             args);
     }
-    else {
+    else
         do_mime_exec_multiple (args);
-    }
 }
 
 
@@ -852,21 +852,20 @@ void clear_event_key (GdkEventKey *event)
 GList *
 strings_to_uris (gchar *data)
 {
-    int i;
     GList *uri_list = NULL;
     gchar **filenames = g_strsplit (data, "\r\n", STRINGS_TO_URIS_CHUNK);
+    int i;
 
-    for (i=0; filenames[i] != NULL; i++) {
-        gchar *fn;
-        GnomeVFSURI *uri;
-
-        if (i == STRINGS_TO_URIS_CHUNK) {
+    for (i=0; filenames[i] != NULL; i++)
+    {
+        if (i == STRINGS_TO_URIS_CHUNK)
+        {
             uri_list = g_list_concat (uri_list, strings_to_uris (filenames[i]));
             break;
         }
 
-        fn = g_strdup (filenames[i]);
-        uri = gnome_vfs_uri_new (fn);
+        gchar *fn = g_strdup (filenames[i]);
+        GnomeVFSURI *uri = gnome_vfs_uri_new (fn);
         fix_uri (uri);
         if (uri)
             uri_list = g_list_append (uri_list, uri);
@@ -881,14 +880,14 @@ strings_to_uris (gchar *data)
 GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 {
     GnomeVFSFileSize size = 0;
-    GnomeVFSFileInfoOptions infoOpts = 0;
+    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_DEFAULT;
     GList *list = NULL, *tmp;
     gchar *dir_uri_str;
     GnomeVFSResult result;
 
     if (!dir_uri) return -1;
 
-    dir_uri_str = gnome_vfs_uri_to_string (dir_uri, 0);
+    dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
 
     if (!dir_uri_str) return -1;
 
@@ -903,8 +902,10 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
     for (tmp = list; tmp; tmp = tmp->next)
     {
         GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
-        if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0) {
-            if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+        if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
+        {
+            if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+            {
                 GnomeVFSURI *new_dir_uri = gnome_vfs_uri_append_file_name (dir_uri, info->name);
                 size += calc_tree_size (new_dir_uri);
                 gnome_vfs_uri_unref (new_dir_uri);
@@ -926,15 +927,12 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 
 GList *string_history_add (GList *in, const gchar *value, gint maxsize)
 {
-    GList *tmp;
+    GList *tmp = g_list_find_custom (in, (gchar *) value, (GCompareFunc)strcmp);
     GList *out;
 
-    tmp = g_list_find_custom (in,
-                              (gchar *) value,
-                              (GCompareFunc)strcmp);
-
     // if the same value has been given before move it first in the list
-    if (tmp != NULL) {
+    if (tmp != NULL)
+    {
         out = g_list_remove_link (in, tmp);
         tmp->next = out;
         if (out)
@@ -942,12 +940,12 @@ GList *string_history_add (GList *in, const gchar *value, gint maxsize)
         out = tmp;
     }
     // or if its new just add it
-    else {
+    else
         out = g_list_prepend (in, g_strdup (value));
-    }
 
     // don't let the history get too long
-    while (g_list_length (out) > maxsize) {
+    while (g_list_length (out) > maxsize)
+    {
         tmp = g_list_last (out);
         g_free (tmp->data);
         out = g_list_remove_link (out, tmp);
@@ -985,13 +983,14 @@ gchar *quote_if_needed (const gchar *in)
 
 gchar *unquote_if_needed (const gchar *in)
 {
-    gint l;
 
     g_return_val_if_fail (in != NULL, NULL);
 
-    l = strlen (in);
+    gint l = strlen (in);
+
     // Check if the first and last character is a quote
-    if (l>1 && strchr("'\"",in[0])!=NULL && in[0]==in[l-1]) {
+    if (l>1 && strchr("'\"",in[0])!=NULL && in[0]==in[l-1])
+    {
         gchar *out = g_strdup (in+1);
         out[l-2] = '\0';
         return out;
@@ -1009,28 +1008,24 @@ void stop_kp (GtkObject *obj)
 
 GtkWidget *create_styled_button (const gchar *text)
 {
-    GtkWidget *w;
-
-    if (text)
-        w = gtk_button_new_with_label (text);
-    else
-        w = gtk_button_new ();
+    GtkWidget *w = text ? gtk_button_new_with_label (text) : gtk_button_new ();
 
     gtk_button_set_relief (GTK_BUTTON (w), gnome_cmd_data_get_button_relief ());
     gtk_widget_ref (w);
     gtk_widget_show (w);
+
     return w;
 }
 
 
 GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
 {
+    g_return_val_if_fail (text || pm, NULL);
+
     GtkWidget *btn;
     GtkWidget *hbox;
     GtkWidget *label = NULL;
     GtkWidget *pixmap = NULL;
-
-    g_return_val_if_fail (text || pm, NULL);
 
     btn = create_styled_button (NULL);
 
@@ -1039,9 +1034,11 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
     gtk_widget_ref (hbox);
     gtk_widget_show (hbox);
 
-    if (pm) {
+    if (pm)
+    {
         pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
-        if (pixmap) {
+        if (pixmap)
+        {
             gtk_widget_ref (pixmap);
             gtk_object_set_data_full (GTK_OBJECT (btn), "pixmap", pixmap,
                                       (GtkDestroyNotify) gtk_widget_unref);
@@ -1049,7 +1046,8 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
         }
     }
 
-    if (text) {
+    if (text)
+    {
         label = gtk_label_new (text);
         gtk_widget_ref (label);
         gtk_object_set_data_full (GTK_OBJECT (btn), "label", label,
@@ -1059,13 +1057,15 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
 
     if (pm && !text)
         gtk_container_add (GTK_CONTAINER (btn), pixmap);
-    else if (!pm && text)
-        gtk_container_add (GTK_CONTAINER (btn), label);
-    else {
-        gtk_box_pack_start (GTK_BOX (hbox), pixmap, FALSE, TRUE, 0);
-        gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
-        gtk_container_add (GTK_CONTAINER (btn), hbox);
-    }
+    else
+        if (!pm && text)
+            gtk_container_add (GTK_CONTAINER (btn), label);
+        else
+        {
+            gtk_box_pack_start (GTK_BOX (hbox), pixmap, FALSE, TRUE, 0);
+            gtk_box_pack_start (GTK_BOX (hbox), label, TRUE, TRUE, 0);
+            gtk_container_add (GTK_CONTAINER (btn), hbox);
+        }
 
     return btn;
 }
@@ -1122,7 +1122,8 @@ GList *app_get_linked_libs (GnomeCmdFile *finfo)
     while ((s = fgets (tmp, sizeof(tmp), fd)))
     {
         char **v = g_strsplit (s, " ", 1);
-        if (v) {
+        if (v)
+        {
             libs = g_list_append (libs, g_strdup (v[0]));
             g_strfreev (v);
         }
@@ -1212,19 +1213,19 @@ create_ui_pixmap (GtkWidget *window,
     switch (pixmap_type)
     {
         case GNOME_APP_PIXMAP_STOCK:
-            pixmap = gtk_image_new_from_stock (pixmap_info, size);
+            pixmap = gtk_image_new_from_stock ((const gchar *) pixmap_info, size);
             break;
 
         case GNOME_APP_PIXMAP_DATA:
             if (pixmap_info)
-                pixmap = gnome_pixmap_new_from_xpm_d ((const char**)pixmap_info);
+                pixmap = gnome_pixmap_new_from_xpm_d ((const char **) pixmap_info);
             break;
 
         case GNOME_APP_PIXMAP_NONE:
             break;
 
         case GNOME_APP_PIXMAP_FILENAME:
-            name = gnome_pixmap_file (pixmap_info);
+            name = gnome_pixmap_file ((const gchar *) pixmap_info);
 
             if (!name)
                 g_warning ("Could not find GNOME pixmap file %s",
@@ -1259,12 +1260,10 @@ transform (gchar *s, gchar from, gchar to)
 
 gchar *unix_to_unc (const gchar *path)
 {
-    gchar *out;
-
     g_return_val_if_fail (path != NULL, NULL);
     g_return_val_if_fail (path[0] == '/', NULL);
 
-    out = g_malloc (strlen(path)+2);
+    gchar *out = (gchar *) g_malloc (strlen(path)+2);
     out[0] = '\\';
     strcpy (out+1, path);
     transform (out+1, '/', '\\');
@@ -1275,13 +1274,11 @@ gchar *unix_to_unc (const gchar *path)
 
 gchar *unc_to_unix (const gchar *path)
 {
-    gchar *out;
-
     g_return_val_if_fail (path != NULL, NULL);
     g_return_val_if_fail (path[0] == '\\', NULL);
     g_return_val_if_fail (path[1] == '\\', NULL);
 
-    out = g_malloc(strlen(path));
+    gchar *out = (gchar *) g_malloc(strlen(path));
     strcpy (out, path+1);
     transform (out, '\\', '/');
 
@@ -1296,6 +1293,7 @@ GdkColor *gdk_color_new (gushort r, gushort g, gushort b)
     c->red = r;
     c->green = g;
     c->blue = b;
+
     return c;
 }
 

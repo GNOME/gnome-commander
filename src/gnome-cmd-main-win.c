@@ -40,13 +40,11 @@
 #include "../pixmaps/copy_file_names.xpm"
 
 
-enum {
-  SWITCH_FS,
-  LAST_SIGNAL
-};
+enum {SWITCH_FS, LAST_SIGNAL};
 
 
-enum {
+enum
+{
   TOOLBAR_BTN_FIRST = 2,
   TOOLBAR_BTN_BACK = 3,
   TOOLBAR_BTN_FORWARD = 4,
@@ -221,7 +219,7 @@ create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
             GtkWidget *pixmap;
 
             w = create_styled_button (NULL);
-            gtk_signal_connect (GTK_OBJECT (w), "clicked", uiinfo[i].moreinfo, uiinfo[i].user_data);
+            gtk_signal_connect (GTK_OBJECT (w), "clicked", GTK_SIGNAL_FUNC (uiinfo[i].moreinfo), uiinfo[i].user_data);
             gtk_tooltips_set_tip (toolbar_tooltips, w, uiinfo[i].hint, NULL);
             GTK_WIDGET_UNSET_FLAGS (w, GTK_CAN_FOCUS);
 
@@ -776,7 +774,7 @@ class_init (GnomeCmdMainWinClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_app_get_type ());
+    parent_class = (GnomeAppClass *) gtk_type_class (gnome_app_get_type ());
 
     main_win_signals[SWITCH_FS] =
         gtk_signal_new ("switch_fs",
@@ -944,10 +942,10 @@ gnome_cmd_main_win_get_type         (void)
 }
 
 
-GtkWidget*
+GtkWidget *
 gnome_cmd_main_win_new              ()
 {
-    GnomeCmdMainWin *mw = gtk_type_new (gnome_cmd_main_win_get_type ());
+    GnomeCmdMainWin *mw = (GnomeCmdMainWin *) gtk_type_new (gnome_cmd_main_win_get_type ());
 
     return GTK_WIDGET (mw);
 }
@@ -1268,7 +1266,7 @@ gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
     if (fs == gnome_cmd_main_win_get_active_fs (mw))
         return;
 
-    mw->priv->current_fs = !mw->priv->current_fs;
+    mw->priv->current_fs = (FileSelectorID) !mw->priv->current_fs;
     gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_active_fs (mw), TRUE);
     gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_inactive_fs (mw), FALSE);
 

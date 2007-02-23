@@ -59,7 +59,7 @@ GtkWidget *
 gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs);
 
 void
-gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *path);
+gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *path);
 
 void
 gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean value);

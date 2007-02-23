@@ -69,7 +69,7 @@ get_size_disp_string (GnomeVFSFileSize size)
 static void
 calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
 {
-    GnomeVFSFileInfoOptions infoOpts = 0;
+    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_DEFAULT;
     GnomeVFSResult result;
     GList *list = NULL, *tmp;
     gchar *uri_str;
@@ -78,11 +78,10 @@ calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
         g_thread_exit (NULL);
 
     if (!uri) return;
-    uri_str = gnome_vfs_uri_to_string (uri, 0);
+    uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     if (!uri_str) return;
 
-    result = gnome_vfs_directory_list_load (
-        &list, uri_str, infoOpts);
+    result = gnome_vfs_directory_list_load (&list, uri_str, infoOpts);
 
     if (result != GNOME_VFS_OK) return;
     if (!list) return;
@@ -296,7 +295,7 @@ create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     data->filename_entry = create_entry (
         dialog, "filename_entry", fname);
     g_free (fname);
-    table_add (table, data->filename_entry, 1, y++, GTK_FILL|GTK_EXPAND);
+    table_add (table, data->filename_entry, 1, y++, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
     gtk_editable_set_position (GTK_EDITABLE (data->filename_entry), 0);
 
     if (data->finfo->info->symlink_name) {
@@ -404,7 +403,7 @@ create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
 
 
-    data->chmod_component = gnome_cmd_chmod_component_new (0);
+    data->chmod_component = gnome_cmd_chmod_component_new ((GnomeVFSFilePermissions) 0);
     gtk_widget_ref (data->chmod_component);
     gtk_object_set_data_full (GTK_OBJECT (data->dialog),
                               "chmod_component", data->chmod_component,

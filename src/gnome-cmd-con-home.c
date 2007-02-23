@@ -62,10 +62,8 @@ home_open_is_needed (GnomeCmdCon *con)
 static GnomeVFSURI *
 home_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
-    GnomeVFSURI *u1, *u2;
-
-    u1 = gnome_vfs_uri_new ("file:");
-    u2 = gnome_vfs_uri_append_path (u1, gnome_cmd_path_get_path (path));
+    GnomeVFSURI *u1 = gnome_vfs_uri_new ("file:");
+    GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, gnome_cmd_path_get_path (path));
     gnome_vfs_uri_unref (u1);
 
     return u2;
@@ -99,12 +97,10 @@ destroy (GtkObject *object)
 static void
 class_init (GnomeCmdConHomeClass *klass)
 {
-    GtkObjectClass *object_class;
-    GnomeCmdConClass *con_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    con_class = GNOME_CMD_CON_CLASS (klass);
-    parent_class = gtk_type_class (gnome_cmd_con_get_type ());
+    parent_class = (GnomeCmdConClass *) gtk_type_class (gnome_cmd_con_get_type ());
 
     object_class->destroy = destroy;
 
@@ -181,9 +177,7 @@ gnome_cmd_con_home_get_type         (void)
 GnomeCmdCon *
 gnome_cmd_con_home_new (void)
 {
-    GnomeCmdConHome *con;
-
-    con = gtk_type_new (gnome_cmd_con_home_get_type ());
+    GnomeCmdConHome *con = (GnomeCmdConHome *) gtk_type_new (gnome_cmd_con_home_get_type ());
 
     return GNOME_CMD_CON (con);
 }

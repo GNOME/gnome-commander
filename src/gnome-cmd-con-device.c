@@ -84,9 +84,7 @@ do_mount_thread_func (GnomeCmdCon *con)
     GnomeVFSURI *uri;
     GnomeVFSResult result;
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_FOLLOW_LINKS
-        | GNOME_VFS_FILE_INFO_GET_MIME_TYPE
-        | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE;
+    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 
     g_return_if_fail (GNOME_CMD_IS_CON_DEVICE (con));
 
@@ -139,19 +137,20 @@ do_mount_thread_func (GnomeCmdCon *con)
     uri = gnome_cmd_con_create_uri (con, con->base_path);
     if (!uri) return;
 
-    uri_str = gnome_vfs_uri_to_string (uri, 0);
+    uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     con->base_info = gnome_vfs_file_info_new ();
-    result = gnome_vfs_get_file_info_uri (
-        uri, con->base_info, infoOpts);
+    result = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
 
     gnome_vfs_uri_unref (uri);
     g_free (uri_str);
 
-    if (result == GNOME_VFS_OK) {
+    if (result == GNOME_VFS_OK)
+    {
         con->state = CON_STATE_OPEN;
         con->open_result = CON_OPEN_OK;
     }
-    else {
+    else
+    {
         gnome_vfs_file_info_unref (con->base_info);
         con->base_info = NULL;
         con->open_failed_reason = result;
@@ -337,7 +336,7 @@ class_init (GnomeCmdConDeviceClass *klass)
 
     object_class = GTK_OBJECT_CLASS (klass);
     con_class = GNOME_CMD_CON_CLASS (klass);
-    parent_class = gtk_type_class (gnome_cmd_con_get_type ());
+    parent_class = (GnomeCmdConClass *) gtk_type_class (gnome_cmd_con_get_type ());
 
     object_class->destroy = destroy;
 
@@ -404,7 +403,7 @@ gnome_cmd_con_device_new (const gchar *alias,
                           const gchar *mountp,
                           const gchar *icon_path)
 {
-    GnomeCmdConDevice *dev = gtk_type_new (gnome_cmd_con_device_get_type ());
+    GnomeCmdConDevice *dev = (GnomeCmdConDevice *) gtk_type_new (gnome_cmd_con_device_get_type ());
 
     gnome_cmd_con_device_set_device_fn (dev, device_fn);
     gnome_cmd_con_device_set_mountp (dev, mountp);

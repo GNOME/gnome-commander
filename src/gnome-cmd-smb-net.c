@@ -22,6 +22,7 @@
 #include "gnome-cmd-smb-net.h"
 #include "utils.h"
 
+
 static GHashTable *entities = NULL;
 static gchar *current_wg_name;
 
@@ -154,7 +155,6 @@ rebuild_map ()
 SmbEntity *
 gnome_cmd_smb_net_get_entity (const gchar *name)
 {
-    SmbEntity *ent;
     gboolean b = FALSE;
 
     if (!entities)
@@ -164,12 +164,12 @@ gnome_cmd_smb_net_get_entity (const gchar *name)
         b = TRUE;
     }
 
-    ent = g_hash_table_lookup (entities, name);
+    SmbEntity *ent = (SmbEntity *) g_hash_table_lookup (entities, name);
     if (!ent && !b)
     {
         DEBUG ('s', "Entity not found, rebuilding the database\n");
         rebuild_map ();
-        ent = g_hash_table_lookup (entities, name);
+        ent = (SmbEntity *) g_hash_table_lookup (entities, name);
     }
 
     if (ent)

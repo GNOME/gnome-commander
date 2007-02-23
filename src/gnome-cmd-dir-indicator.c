@@ -71,7 +71,8 @@ class_init (GnomeCmdDirIndicatorClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-    parent_class = gtk_type_class (gtk_frame_get_type ());
+
+    parent_class = (GtkFrameClass *) gtk_type_class (gtk_frame_get_type ());
 
     object_class->destroy = destroy;
 }
@@ -92,7 +93,7 @@ on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator,
         // left click - work out the path
         const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
         gchar *chTo = g_strdup(labelText);
-        gint x = (gint)event->x;
+        gint x = (gint) event->x;
         gint i;
 
         for (i = 0; i < indicator->priv->numPositions; i++)
@@ -283,10 +284,11 @@ on_bookmark_popup_hide (GtkMenu *menu, GnomeCmdDirIndicator *indicator)
 static void
 on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
 {
-    GnomeCmdDirIndicator *indicator = gtk_object_get_data (GTK_OBJECT (item), "indicator");
+    g_return_if_fail (path != NULL);
+
+    GnomeCmdDirIndicator *indicator = (GnomeCmdDirIndicator *) gtk_object_get_data (GTK_OBJECT (item), "indicator");
 
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
-    g_return_if_fail (path != NULL);
 
     gnome_cmd_main_win_switch_fs (main_win, indicator->priv->fs);
     gnome_cmd_file_selector_goto_directory (indicator->priv->fs, path);
@@ -296,10 +298,11 @@ on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
 static void
 on_bookmark_item_selected (GtkMenuItem *item, GnomeCmdBookmark *bm)
 {
-    GnomeCmdDirIndicator *indicator = gtk_object_get_data (GTK_OBJECT (item), "indicator");
+    g_return_if_fail (bm != NULL);
+
+    GnomeCmdDirIndicator *indicator = (GnomeCmdDirIndicator *) gtk_object_get_data (GTK_OBJECT (item), "indicator");
 
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
-    g_return_if_fail (bm != NULL);
 
     gnome_cmd_main_win_switch_fs (main_win, indicator->priv->fs);
     gnome_cmd_file_selector_goto_directory (indicator->priv->fs, bm->path);
@@ -541,7 +544,7 @@ gnome_cmd_dir_indicator_get_type    (void)
 GtkWidget *
 gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
-    GnomeCmdDirIndicator *dir_indicator = gtk_type_new (gnome_cmd_dir_indicator_get_type ());
+    GnomeCmdDirIndicator *dir_indicator = (GnomeCmdDirIndicator *) gtk_type_new (gnome_cmd_dir_indicator_get_type ());
 
     gtk_signal_connect (GTK_OBJECT (dir_indicator), "button_press_event", G_CALLBACK (on_dir_indicator_clicked), fs);
 
@@ -552,7 +555,7 @@ gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 
 
 void
-gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, const gchar *path)
+gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *path)
 {
     gchar *s = get_utf8 (path);
     gtk_label_set_text (GTK_LABEL (indicator->priv->label), s);

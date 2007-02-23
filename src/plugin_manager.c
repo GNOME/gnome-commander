@@ -467,6 +467,6 @@ void plugin_manager_show (void)
     gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win));
 
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, 300);
-    gtk_window_set_resizable(GTK_WIDGET (dialog), TRUE);
+    gtk_window_set_resizable((GtkWindow *) GTK_WIDGET (dialog), TRUE);
     gtk_widget_show_all (GTK_WIDGET (dialog));
 }

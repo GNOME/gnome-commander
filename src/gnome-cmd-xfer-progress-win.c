@@ -66,7 +66,7 @@ class_init (GnomeCmdXferProgressWinClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_window_get_type ());
+    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -116,7 +116,7 @@ init (GnomeCmdXferProgressWin *win)
 GtkWidget*
 gnome_cmd_xfer_progress_win_new ()
 {
-    GnomeCmdXferProgressWin *win = gtk_type_new (gnome_cmd_xfer_progress_win_get_type ());
+    GnomeCmdXferProgressWin *win = (GnomeCmdXferProgressWin *) gtk_type_new (gnome_cmd_xfer_progress_win_get_type ());
 
     return GTK_WIDGET (win);
 }
@@ -157,7 +157,8 @@ gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
     gfloat prog = -1.0f;
     gint prog_percent = -1;
 
-    if (bytes_total > 0) {
+    if (bytes_total > 0)
+    {
         prog = (gdouble)bytes_copied / (gdouble)bytes_total;
         prog_percent = (gint)(prog*100.0f);
     }

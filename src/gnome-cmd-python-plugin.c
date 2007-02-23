@@ -51,7 +51,7 @@ scan_plugins_in_dir (const gchar *dpath)
     }
 
     long dir_size = pathconf(".", _PC_PATH_MAX);
-    gchar *prev_dir = g_malloc (dir_size);
+    gchar *prev_dir = (gchar *) g_malloc (dir_size);
 
     if (!prev_dir)
     {
@@ -168,6 +168,11 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
 {
     gboolean retval = FALSE;
 
+    PyObject *pURIclass = NULL;
+    PyObject *pName = NULL;
+    PyObject *pModule = NULL;
+    PyObject *pFunc = NULL;
+
     DEBUG('p', "Calling %s." MODULE_INIT_FUNC "()\n", plugin->fname);
 
     PyObject *pmod = PyImport_ImportModule("gnomevfs");
@@ -181,14 +186,14 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
         goto out_A;
     }
 
-    PyObject *pURIclass = PyObject_GetAttrString(pmod, "URI");
+    pURIclass = PyObject_GetAttrString(pmod, "URI");
     Py_XDECREF(pmod);
 
     if (!pURIclass)
         goto out_B;
 
-    PyObject *pName = PyString_FromString(plugin->fname);
-    PyObject *pModule = PyImport_Import(pName);
+    pName = PyString_FromString(plugin->fname);
+    pModule = PyImport_Import(pName);
     Py_XDECREF(pName);
 
     if (!pModule)
@@ -199,7 +204,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
         goto out_C;
     }
 
-    PyObject *pFunc = PyObject_GetAttrString(pModule, MODULE_INIT_FUNC);
+    pFunc = PyObject_GetAttrString(pModule, MODULE_INIT_FUNC);
 
     if (!pFunc || !PyCallable_Check(pFunc))
     {
@@ -210,19 +215,27 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
         goto out_D;
     }
 
-    GnomeCmdFileSelector *active_fs = gnome_cmd_main_win_get_active_fs (mw);
-    GnomeCmdFileSelector *inactive_fs = gnome_cmd_main_win_get_inactive_fs (mw);
-    GnomeCmdFileList     *active_fl = active_fs ? active_fs->list : NULL;
+    GnomeCmdFileSelector *active_fs;
+    GnomeCmdFileSelector *inactive_fs;
+    GnomeCmdFileList     *active_fl;
+
+    active_fs = gnome_cmd_main_win_get_active_fs (mw);
+    inactive_fs = gnome_cmd_main_win_get_inactive_fs (mw);
+    active_fl = active_fs ? active_fs->list : NULL;
 
     if (!GNOME_CMD_IS_FILE_LIST (active_fl))
         goto out_D;
 
-    GList *selected_files = gnome_cmd_file_list_get_selected_files (active_fl);
-    selected_files = gnome_cmd_file_list_sort_selection (selected_files, active_fl);
+    GList *selected_files;
+    GList *f;
 
-    GList *f = selected_files;
-    gint n = g_list_length (selected_files);
+    selected_files = gnome_cmd_file_list_get_selected_files (active_fl);
+    f = selected_files = gnome_cmd_file_list_sort_selection (selected_files, active_fl);
+
     gint i;
+    gint n;
+
+    n = g_list_length (selected_files);
 
     DEBUG('p', "Selected files: %d\n", n);
 
@@ -232,19 +245,30 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
         goto out_D;
     }
 
-    GnomeVFSURI *active_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (active_fs));
-    GnomeVFSURI *inactive_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (inactive_fs));
-    gchar *active_dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (active_dir_uri), NULL);
-    gchar *inactive_dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (inactive_dir_uri), NULL);
+    GnomeVFSURI *active_dir_uri;
+    GnomeVFSURI *inactive_dir_uri;
+    gchar *active_dir;
+    gchar *inactive_dir;
+
+    active_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (active_fs));
+    inactive_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (inactive_fs));
+    active_dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (active_dir_uri), NULL);
+    inactive_dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (inactive_dir_uri), NULL);
     gnome_vfs_uri_unref (active_dir_uri);
     gnome_vfs_uri_unref (inactive_dir_uri);
 
-    XID main_win_xid = GDK_WINDOW_XID (GTK_WIDGET (mw)->window);
+    XID main_win_xid;
 
-    PyObject *pMainWinXID = PyLong_FromUnsignedLong (main_win_xid);
-    PyObject *pActiveCwd = PyString_FromString (active_dir);
-    PyObject *pInactiveCwd = PyString_FromString (inactive_dir);
-    PyObject *pSelectedFiles = PyTuple_New(n);
+    PyObject *pMainWinXID;
+    PyObject *pActiveCwd;
+    PyObject *pInactiveCwd;
+    PyObject *pSelectedFiles;
+
+    main_win_xid = GDK_WINDOW_XID (GTK_WIDGET (mw)->window);
+    pMainWinXID = PyLong_FromUnsignedLong (main_win_xid);
+    pActiveCwd = PyString_FromString (active_dir);
+    pInactiveCwd = PyString_FromString (inactive_dir);
+    pSelectedFiles = PyTuple_New(n);
 
     DEBUG('p', "Main window XID: %lu (%#lx)\n", main_win_xid, main_win_xid);
     DEBUG('p', "Active directory:   %s\n", active_dir);
@@ -269,7 +293,8 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     g_free (inactive_dir);
     g_list_free (selected_files);
 
-    PyObject *pValue = PyObject_CallFunctionObjArgs(pFunc, pMainWinXID, pActiveCwd, pInactiveCwd, pSelectedFiles, NULL);
+    PyObject *pValue;
+    pValue = PyObject_CallFunctionObjArgs(pFunc, pMainWinXID, pActiveCwd, pInactiveCwd, pSelectedFiles, NULL);
 
     if (pValue)
     {

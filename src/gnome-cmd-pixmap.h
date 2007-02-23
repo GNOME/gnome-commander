@@ -22,7 +22,8 @@
 
 G_BEGIN_DECLS
 
-typedef struct {
+typedef struct
+{
     GdkPixbuf *pixbuf;
     GdkPixmap *pixmap;
     GdkBitmap *mask;

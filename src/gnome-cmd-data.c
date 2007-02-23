@@ -183,7 +183,8 @@ write_devices (const gchar *fname)
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
 
-    if (fd != NULL) {
+    if (fd != NULL)
+    {
         GList *tmp;
 
         for (tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp != NULL; tmp = tmp->next) {
@@ -229,12 +230,14 @@ write_fav_apps (const gchar *fname)
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
 
-    if (fd != NULL) {
+    if (fd != NULL)
+    {
         GList *tmp;
 
         for (tmp = data->priv->fav_apps; tmp != NULL; tmp = tmp->next) {
             GnomeCmdApp *app = (GnomeCmdApp *) tmp->data;
-            if (app) {
+            if (app)
+            {
                 gchar *name = gnome_vfs_escape_string (gnome_cmd_app_get_name (app));
                 gchar *cmd = gnome_vfs_escape_string (gnome_cmd_app_get_command (app));
                 gchar *icon_path = gnome_vfs_escape_string (gnome_cmd_app_get_icon_path (app));
@@ -483,7 +486,8 @@ device_mount_point_exists(GnomeCmdConList *list, const gchar *mountpoint)
 static void
 add_vfs_volume (GnomeVFSVolume *volume)
 {
-    char *path, *uri, *name, *icon,*localpath, *iconpath;
+    char *path, *uri, *name, *icon,*localpath;
+    const gchar *iconpath;
     GnomeVFSDrive *drive;
     GnomeCmdConDevice *ConDev;
     GtkIconInfo *iconinfo;
@@ -494,7 +498,8 @@ add_vfs_volume (GnomeVFSVolume *volume)
 
     uri = gnome_vfs_volume_get_activation_uri (volume);
 
-    if (!vfs_is_uri_local(uri)) {
+    if (!vfs_is_uri_local(uri))
+    {
         g_free(uri);
         return;
     }
@@ -507,12 +512,12 @@ add_vfs_volume (GnomeVFSVolume *volume)
     // Try to load the icon, using current theme
     iconpath = NULL;
     icontheme = gtk_icon_theme_get_default();
-    if (icontheme) {
-        iconinfo = gtk_icon_theme_lookup_icon (icontheme,icon,16,0);
-        if (iconinfo) {
+    if (icontheme)
+    {
+        iconinfo = gtk_icon_theme_lookup_icon (icontheme, icon, 16, GTK_ICON_LOOKUP_USE_BUILTIN);
         // This returned string should not be free, see gtk documentation
-        iconpath = gtk_icon_info_get_filename (iconinfo);
-        }
+        if (iconinfo)
+            iconpath = gtk_icon_info_get_filename (iconinfo);
     }
 
 
@@ -642,15 +647,17 @@ load_vfs_auto_devices()
     GnomeVFSVolumeMonitor *monitor;
     monitor = gnome_vfs_get_volume_monitor ();
     volumes = gnome_vfs_volume_monitor_get_mounted_volumes (monitor);
-    for (l = volumes; l != NULL; l = l->next) {
-        add_vfs_volume (l->data);
-        gnome_vfs_volume_unref (l->data);
+    for (l = volumes; l != NULL; l = l->next)
+    {
+        add_vfs_volume ((GnomeVFSVolume *) l->data);
+        gnome_vfs_volume_unref ((GnomeVFSVolume *) l->data);
     }
     g_list_free (volumes);
 
 #if 0
     drives = gnome_vfs_volume_monitor_get_connected_drives (monitor);
-    for (l = drives; l != NULL; l = l->next) {
+    for (l = drives; l != NULL; l = l->next)
+    {
         add_vfs_drive (l->data);
         gnome_vfs_drive_unref (l->data);
     }
@@ -709,13 +716,11 @@ load_devices (const gchar *fname)
 static void
 load_fav_apps (const gchar *fname)
 {
-    gchar *path;
-    FILE *fd;
-
     data->priv->fav_apps = NULL;
-    path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
-    fd = fopen (path, "r");
-    if (fd != NULL) {
+    gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
+    FILE *fd = fopen (path, "r");
+    if (fd != NULL)
+    {
         int ret;
         gchar name[256], cmd[256], icon_path[256], pattern_string[256];
         gchar *name2, *cmd2, *icon_path2, *pattern_string2;
@@ -739,7 +744,7 @@ load_fav_apps (const gchar *fname)
                     data->priv->fav_apps,
                     gnome_cmd_app_new_with_values (
                         name2, cmd2, icon_path2,
-                        target, pattern_string2,
+                        (AppTarget) target, pattern_string2,
                         handles_uris, handles_multiple, requires_terminal));
 
                 g_free (name2);
@@ -774,7 +779,7 @@ write_string_history (gchar *format, GList *strings)
 
 
 static void
-write_int_array (const gchar *format, gint *array, gint length)
+write_uint_array (const gchar *format, guint *array, gint length)
 {
     gint i;
 
@@ -817,8 +822,6 @@ write_search_defaults ()
 static void
 write_rename_history ()
 {
-    static gchar t[2] = "T";
-    static gchar f[2] = "F";
     GList *from=NULL, *to=NULL, *csens=NULL;
     GList *tmp = data->priv->advrename_defaults->patterns;
 
@@ -827,19 +830,19 @@ write_rename_history ()
         PatternEntry *entry = (PatternEntry *) tmp->data;
         from = g_list_append (from, entry->from);
         to = g_list_append (to, entry->to);
-        csens = g_list_append (csens, entry->case_sens?t:f);
+        csens = g_list_append (csens, (gpointer) (entry->case_sens ? "T" : "F"));
     }
 
     gnome_cmd_data_set_int ("/options/template-auto-update", data->priv->advrename_defaults->auto_update);
     gnome_cmd_data_set_int ("/advrename/width", data->priv->advrename_defaults->width);
     gnome_cmd_data_set_int ("/advrename/height", data->priv->advrename_defaults->height);
 
-    write_int_array ("/advrename/pat_col_widths%d",
-                     advrename_dialog_default_pat_column_width,
-                     ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
-    write_int_array ("/advrename/res_col_widths%d",
-                     advrename_dialog_default_res_column_width,
-                     ADVRENAME_DIALOG_RES_NUM_COLUMNS);
+    write_uint_array ("/advrename/pat_col_widths%d",
+                      advrename_dialog_default_pat_column_width,
+                      ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
+    write_uint_array ("/advrename/res_col_widths%d",
+                      advrename_dialog_default_res_column_width,
+                      ADVRENAME_DIALOG_RES_NUM_COLUMNS);
 
     gnome_cmd_data_set_int ("/advrename/sep_value", data->priv->advrename_defaults->sep_value);
 
@@ -907,11 +910,12 @@ write_auto_load_plugins ()
 
 
 static void
-load_int_array (const gchar *format, gint *array, gint length)
+load_uint_array (const gchar *format, guint *array, gint length)
 {
     gint i;
 
-    for (i=0; i<length; i++) {
+    for (i=0; i<length; i++)
+    {
         gchar *name = g_strdup_printf (format, i);
         array[i] = gnome_cmd_data_get_int (name, array[i]);
         g_free (name);
@@ -922,13 +926,13 @@ load_int_array (const gchar *format, gint *array, gint length)
 static GList *
 load_string_history (gchar *format, gint size)
 {
-    gint i;
-    gchar *key, *value;
     GList *list = NULL;
+    gint i;
 
-    for (i = 0; i < size || size == -1; ++i) {
-        key = g_strdup_printf (format, i);
-        value = gnome_cmd_data_get_string (key, NULL);
+    for (i = 0; i < size || size == -1; ++i)
+    {
+        gchar *key = g_strdup_printf (format, i);
+        gchar *value = gnome_cmd_data_get_string (key, NULL);
         g_free (key);
         if (!value)
             break;
@@ -976,12 +980,12 @@ load_rename_history ()
     data->priv->advrename_defaults->width = gnome_cmd_data_get_int ("/advrename/width", 450);
     data->priv->advrename_defaults->height = gnome_cmd_data_get_int ("/advrename/height", 400);
 
-    load_int_array ("/advrename/pat_col_widths%d",
-                    advrename_dialog_default_pat_column_width,
-                    ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
-    load_int_array ("/advrename/res_col_widths%d",
-                    advrename_dialog_default_res_column_width,
-                    ADVRENAME_DIALOG_RES_NUM_COLUMNS);
+    load_uint_array ("/advrename/pat_col_widths%d",
+                     advrename_dialog_default_pat_column_width,
+                     ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
+    load_uint_array ("/advrename/res_col_widths%d",
+                     advrename_dialog_default_res_column_width,
+                     ADVRENAME_DIALOG_RES_NUM_COLUMNS);
 
     data->priv->advrename_defaults->sep_value = gnome_cmd_data_get_int ("/advrename/sep_value", 150);
 
@@ -1037,10 +1041,11 @@ load_local_bookmarks ()
     gint i;
     GList *bookmarks = NULL;
 
-    for (i=0; i<size; i++) {
+    for (i=0; i<size; i++)
+    {
         GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
-        bookmark->name = g_list_nth_data (names, i);
-        bookmark->path = g_list_nth_data (paths, i);
+        bookmark->name = (gchar *) g_list_nth_data (names, i);
+        bookmark->path = (gchar *) g_list_nth_data (paths, i);
         bookmark->group = gnome_cmd_con_get_bookmarks (con);
         bookmarks = g_list_append (bookmarks, bookmark);
     }
@@ -1053,20 +1058,19 @@ static void
 load_smb_bookmarks ()
 {
     gint i;
-    GList *names, *paths;
     GList *bookmarks = NULL;
-    GnomeCmdCon *con;
 
     gint size = gnome_cmd_data_get_int ("/smb_bookmarks/count", 0);
-    names = load_string_history ("/smb_bookmarks/name%d", size);
-    paths = load_string_history ("/smb_bookmarks/path%d", size);
+    GList *names = load_string_history ("/smb_bookmarks/name%d", size);
+    GList *paths = load_string_history ("/smb_bookmarks/path%d", size);
 
-    con = gnome_cmd_con_list_get_smb (data->priv->con_list);
+    GnomeCmdCon *con = gnome_cmd_con_list_get_smb (data->priv->con_list);
 
-    for (i=0; i<size; i++) {
+    for (i=0; i<size; i++)
+    {
         GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
-        bookmark->name = g_list_nth_data (names, i);
-        bookmark->path = g_list_nth_data (paths, i);
+        bookmark->name = (gchar *) g_list_nth_data (names, i);
+        bookmark->path = (gchar *) g_list_nth_data (paths, i);
         bookmark->group = gnome_cmd_con_get_bookmarks (con);
         bookmarks = g_list_append (bookmarks, bookmark);
     }
@@ -1305,8 +1309,8 @@ gnome_cmd_data_load                      (void)
 
     data->priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/ftp/anonymous_password", "you@provider.com");
 
-    data->priv->size_disp_mode = gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED);
-    data->priv->perm_disp_mode = gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
+    data->priv->size_disp_mode = (GnomeCmdSizeDispMode) gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED);
+    data->priv->perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
 
 #ifdef HAVE_LOCALE_H
     data->priv->date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%H:%M %x");
@@ -1314,13 +1318,13 @@ gnome_cmd_data_load                      (void)
     data->priv->date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%H:%M %d/%m %Y");
 #endif
 
-    data->priv->layout = gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
+    data->priv->layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
 
     data->priv->list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
 
     data->priv->confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
-    data->priv->confirm_copy_overwrite = gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
-    data->priv->confirm_move_overwrite = gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
+    data->priv->confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
+    data->priv->confirm_move_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/move_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
 
     data->priv->filter_settings.file_types[GNOME_VFS_FILE_TYPE_UNKNOWN] =
         gnome_cmd_data_get_bool ("/options/show_unknown", FALSE);
@@ -1354,19 +1358,21 @@ gnome_cmd_data_load                      (void)
     data->priv->main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
     data->priv->main_win_height = get_int ("/gnome-commander-size/main_win/height", 400);
 
-    for (i=0; i<FILE_LIST_NUM_COLUMNS; i++) {
+    for (i=0; i<FILE_LIST_NUM_COLUMNS; i++)
+    {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
         data->priv->fs_col_width[i] = get_int (tmp, file_list_column[i].default_width);
         g_free (tmp);
     }
 
-    for (i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++) {
+    for (i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++)
+    {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/bookmark_dialog_col_width%d", i);
         data->priv->bookmark_dialog_col_width[i] = get_int (tmp, bookmark_dialog_default_column_width[i]);
         g_free (tmp);
     }
 
-    data->priv->color_mode = gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_DEEP_BLUE);
+    data->priv->color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_DEEP_BLUE);
 
     gnome_cmd_data_get_color ("/colors/norm_fg", data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_get_color ("/colors/norm_bg", data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
@@ -1377,18 +1383,18 @@ gnome_cmd_data_load                      (void)
 
     data->priv->list_font = gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1");
 
-    data->priv->ext_disp_mode = gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
-    data->priv->right_mouse_button_mode = gnome_cmd_data_get_int ("/options/right_mouse_button_mode",RIGHT_BUTTON_POPUPS_MENU);
+    data->priv->ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
+    data->priv->right_mouse_button_mode = (GnomeCmdRightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode",RIGHT_BUTTON_POPUPS_MENU);
     data->priv->show_toolbar = gnome_cmd_data_get_bool ("/options/show_toolbar", TRUE);
     data->priv->icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
-    data->priv->icon_scale_quality = gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
+    data->priv->icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
     data->priv->theme_icon_dir = gnome_cmd_data_get_string ("/options/theme_icon_dir", theme_icon_dir);
     g_free (theme_icon_dir);
     data->priv->document_icon_dir = gnome_cmd_data_get_string ("/options/document_icon_dir", document_icon_dir);
     g_free (document_icon_dir);
     data->priv->cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
-    data->priv->btn_relief = gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
-    data->priv->filter_type = gnome_cmd_data_get_int ("/options/filter_type", FILTER_TYPE_FNMATCH);
+    data->priv->btn_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
+    data->priv->filter_type = (FilterType) gnome_cmd_data_get_int ("/options/filter_type", FILTER_TYPE_FNMATCH);
     data->priv->list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
     data->priv->conbuttons_visibility = gnome_cmd_data_get_bool ("/options/conbuttons_visibility", TRUE);
     data->priv->cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
@@ -1440,7 +1446,7 @@ gnome_cmd_data_load                      (void)
     data->priv->quick_connect_port = gnome_cmd_data_get_int    ("/quick-connect/port", 21);
     data->priv->quick_connect_user = gnome_cmd_data_get_string ("/quick-connect/user", "anonymous");
 
-    data->priv->main_win_state = gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
+    data->priv->main_win_state = (GdkWindowState) gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
 
     load_cmdline_history ();
     //load_dir_history ();

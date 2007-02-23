@@ -37,20 +37,23 @@ on_files_listed (GnomeVFSAsyncHandle *handle,
 {
     DEBUG('l', "on_files_listed\n");
 
-    if (result != GNOME_VFS_OK && result != GNOME_VFS_ERROR_EOF) {
+    if (result != GNOME_VFS_OK && result != GNOME_VFS_ERROR_EOF)
+    {
         DEBUG ('l', "Directory listing failed, %s\n", gnome_vfs_result_to_string (result));
         dir->state = DIR_STATE_EMPTY;
         dir->list_result = result;
     }
 
-    if (entries_read > 0 && list != NULL) {
+    if (entries_read > 0 && list != NULL)
+    {
         g_list_foreach (list, (GFunc)gnome_vfs_file_info_ref, NULL);
         dir->infolist = g_list_concat (dir->infolist, g_list_copy (list));
         dir->list_counter += entries_read;
         DEBUG ('l', "files listed: %d\n", dir->list_counter);
     }
 
-    if (result == GNOME_VFS_ERROR_EOF) {
+    if (result == GNOME_VFS_ERROR_EOF)
+    {
         dir->state = DIR_STATE_LISTED;
         dir->list_result = GNOME_VFS_OK;
         DEBUG('l', "All files listed\n");
@@ -63,7 +66,8 @@ update_list_progress (GnomeCmdDir *dir)
 {
     DEBUG ('l', "Checking list progress...\n");
 
-    if (dir->state == DIR_STATE_LISTING) {
+    if (dir->state == DIR_STATE_LISTING)
+    {
         gchar *msg = g_strdup_printf ("%d files listed", dir->list_counter);
         gtk_label_set_text (GTK_LABEL (dir->label), msg);
         progress_bar_update (dir->pbar, 50);
@@ -81,18 +85,15 @@ update_list_progress (GnomeCmdDir *dir)
 static void
 visprog_list (GnomeCmdDir *dir)
 {
-    gchar *uri_str;
-    GnomeVFSURI *uri;
-    GnomeVFSFileInfoOptions infoOpts;
-
     DEBUG('l', "visprog_list\n");
 
-    infoOpts = GNOME_VFS_FILE_INFO_FOLLOW_LINKS
-        | GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
+    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 
-    uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir));
-    uri_str = gnome_vfs_uri_to_string (uri, 0);
+    GnomeVFSURI *uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir));
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+
     DEBUG('l', "visprog_list: %s\n", uri_str);
+
     g_free (uri_str);
 
     gnome_vfs_async_load_directory_uri (
@@ -111,29 +112,24 @@ visprog_list (GnomeCmdDir *dir)
 static void
 blocking_list (GnomeCmdDir *dir)
 {
-    gchar *uri_str;
-    GnomeVFSFileInfoOptions infoOpts;
-
     DEBUG('l', "blocking_list\n");
 
-    infoOpts = GNOME_VFS_FILE_INFO_FOLLOW_LINKS
-        | GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
+    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
 
-    uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
+    gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
     DEBUG('l', "blocking_list: %s\n", uri_str);
 
-    dir->list_result = gnome_vfs_directory_list_load (
-        &dir->infolist,
-        uri_str,
-        infoOpts);
+    dir->list_result = gnome_vfs_directory_list_load (&dir->infolist, uri_str, infoOpts);
 
     g_free (uri_str);
 
-    if (dir->list_result == GNOME_VFS_OK) {
+    if (dir->list_result == GNOME_VFS_OK)
+    {
         dir->state = DIR_STATE_LISTED;
-        dir->done_func (dir, dir->infolist, GNOME_VFS_OK);
+        dir->done_func (dir, dir->infolist, dir->list_result);
     }
-    else {
+    else
+    {
         dir->state = DIR_STATE_EMPTY;
         dir->done_func (dir, NULL, dir->list_result);
     }
@@ -151,7 +147,8 @@ dirlist_list (GnomeCmdDir *dir, gboolean visprog)
     dir->list_result = GNOME_VFS_OK;
     dir->state = DIR_STATE_LISTING;
 
-    if (!visprog) {
+    if (!visprog)
+    {
         blocking_list (dir);
         return;
     }

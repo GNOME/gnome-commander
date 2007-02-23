@@ -38,19 +38,16 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     GnomeVFSResult res;
     GnomeVFSFileType type;
     GnomeCmdDir *dest_dir;
-    GnomeCmdCon *con;
-    gchar *user_path;
-    gchar *dest_fn;
+    gchar *dest_fn = NULL;
     gchar *dest_path;
-    gint user_path_len;
 
-    dest_fn = NULL;
-    con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
-    user_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->dest_dir_entry)));
+    GnomeCmdCon *con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
+    gchar *user_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->dest_dir_entry)));
 
     // Make whatever the user entered into a valid path if possible
-    user_path_len = strlen (user_path);
-    if (!user_path || user_path_len <= 0) {
+    gint user_path_len = strlen (user_path);
+    if (!user_path || user_path_len <= 0)
+    {
         dest_path = user_path;
         goto bailout;
     }
@@ -60,7 +57,8 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
     if (user_path[0] == '/')
         dest_path = user_path;
-    else {
+    else
+    {
         gchar *tmp = gnome_cmd_file_get_path (GNOME_CMD_FILE (
             gnome_cmd_file_selector_get_directory (dialog->src_fs)));
         dest_path = g_build_path (G_DIR_SEPARATOR_S, tmp, user_path, NULL);
@@ -74,43 +72,47 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     if (res != GNOME_VFS_OK && res != GNOME_VFS_ERROR_NOT_FOUND)
         goto bailout;
 
-    if (g_list_length (dialog->src_files) == 1) {
+    if (g_list_length (dialog->src_files) == 1)
+    {
         GnomeCmdFile *finfo = GNOME_CMD_FILE (dialog->src_files->data);
 
-        if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+        if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        {
             // There exists a directory, copy into it using the original filename
             dest_dir = gnome_cmd_dir_new (
                 con, gnome_cmd_con_create_path (con, dest_path));
             dest_fn = g_strdup (gnome_cmd_file_get_name (finfo));
         }
-        else if (res == GNOME_VFS_OK) {
-            /* There exists something else, asume that the user wants to
-               overwrite it for now */
+        else
+        if (res == GNOME_VFS_OK)
+        {
+            // There exists something else, asume that the user wants to overwrite it for now
             gchar *tmp = g_path_get_dirname (dest_path);
-            dest_dir = gnome_cmd_dir_new (
-                con, gnome_cmd_con_create_path (con, tmp));
+            dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, tmp));
             g_free (tmp);
             dest_fn = g_strdup (g_basename (dest_path));
         }
-        else {
+        else
+        {
             // Nothing existed, check if the parent dir exists
             gchar *parent_dir = g_path_get_dirname (dest_path);
             res = gnome_cmd_con_get_path_target_type (con, parent_dir, &type);
-            if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+            if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+            {
                 // yup, xfer to it
-                dest_dir = gnome_cmd_dir_new (
-                    con, gnome_cmd_con_create_path (con, parent_dir));
+                dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, parent_dir));
                 g_free (parent_dir);
                 dest_fn = g_strdup (g_basename (dest_path));
             }
-            else if (res == GNOME_VFS_OK) {
+            else if (res == GNOME_VFS_OK)
+            {
                 // the parent dir was a file, abort!
                 g_free (parent_dir);
                 goto bailout;
             }
-            else {
-                /* Nothing exists, ask the user if a new directory might be suitable
-                   in the path that he specified */
+            else
+            {
+                // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
                 gchar *msg = g_strdup_printf (
                     _("The directory '%s' doesn't exist, do you want to create it?"),
                     g_basename (parent_dir));
@@ -119,10 +121,11 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                     -1, _("No"), _("Yes"), NULL);
                 g_free (msg);
 
-                if (choise == 1) {
-                    GnomeVFSResult mkdir_result =
-                        gnome_cmd_con_mkdir (con, parent_dir);
-                    if (mkdir_result != GNOME_VFS_OK) {
+                if (choise == 1)
+                {
+                    GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, parent_dir);
+                    if (mkdir_result != GNOME_VFS_OK)
+                    {
                         create_error_dialog (gnome_vfs_result_to_string (mkdir_result));
                         goto bailout;
                     }
@@ -137,32 +140,38 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             }
         }
     }
-    else {
-        if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+    else
+    {
+        if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        {
             // There exists a directory, copy to it
-            dest_dir = gnome_cmd_dir_new (
-                con, gnome_cmd_con_create_path (con, dest_path));
+            dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
         }
-        else if (res == GNOME_VFS_OK) {
+        else if (res == GNOME_VFS_OK)
+        {
             // There exists something which is not a directory, abort!
             goto bailout;
         }
-        else {
+        else
+        {
             /* Nothing exists, ask the user if a new directory might be suitable
                in the path that he specified */
             gchar *msg = g_strdup_printf (
                 _("The directory '%s' doesn't exist, do you want to create it?"),
                 g_basename (dest_path));
-            GtkWidget *dialog = gtk_message_dialog_new (
-                GTK_WINDOW (main_win), 0, GTK_BUTTONS_OK_CANCEL,
-                GTK_MESSAGE_QUESTION, msg);
+            GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (main_win), 
+                                                        (GtkDialogFlags) 0,
+                                                        GTK_MESSAGE_QUESTION,
+                                                        GTK_BUTTONS_OK_CANCEL,
+                                                        msg);
             gint choise = gtk_dialog_run (GTK_DIALOG (dialog));
             g_free (msg);
 
-            if (choise == GTK_RESPONSE_OK) {
-                GnomeVFSResult mkdir_result =
-                    gnome_cmd_con_mkdir (con, dest_path);
-                if (mkdir_result != GNOME_VFS_OK) {
+            if (choise == GTK_RESPONSE_OK)
+            {
+                GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, dest_path);
+                if (mkdir_result != GNOME_VFS_OK)
+                {
                     create_error_dialog (gnome_vfs_result_to_string (mkdir_result));
                     goto bailout;
                 }
@@ -170,8 +179,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             else
                 goto bailout;
 
-            dest_dir = gnome_cmd_dir_new (
-                con, gnome_cmd_con_create_path (con, dest_path));
+            dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
         }
     }
 
@@ -215,7 +223,8 @@ on_dest_dir_entry_keypressed (GtkEntry *entry,
                               GdkEventKey *event,
                               GnomeCmdPrepareXferDialog *dialog)
 {
-    if (event->keyval == GDK_Return) {
+    if (event->keyval == GDK_Return)
+    {
         gtk_signal_emit_by_name (GTK_OBJECT (dialog->ok_button), "clicked", dialog, NULL);
         return TRUE;
     }
@@ -251,13 +260,11 @@ map (GtkWidget *widget)
 static void
 class_init (GnomeCmdPrepareXferDialogClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    widget_class = GTK_WIDGET_CLASS (klass);
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
 
-    parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -270,13 +277,11 @@ init (GnomeCmdPrepareXferDialog *dialog)
     GtkWidget *dest_dir_fileentry;
     GtkWidget *options_hbox;
 
-
     // dest dir
     dest_dir_vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
 
     dialog->dest_dir_frame = create_category (GTK_WIDGET (dialog), dest_dir_vbox, "");
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), dialog->dest_dir_frame);
-
 
     dest_dir_fileentry = create_file_entry (GTK_WIDGET (dialog), "file-entry", "");
     gtk_box_pack_start (GTK_BOX (dest_dir_vbox), dest_dir_fileentry, FALSE, FALSE, 0);
@@ -347,39 +352,39 @@ gnome_cmd_prepare_xfer_dialog_get_type         (void)
 static gboolean
 path_points_at_directory (GnomeCmdFileSelector *to, const gchar *dest_path)
 {
-    GnomeVFSResult res;
     GnomeVFSFileType type;
-    GnomeCmdCon *con;
 
-    con = gnome_cmd_file_selector_get_connection (to);
-    res = gnome_cmd_con_get_path_target_type (con, dest_path, &type);
+    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (to);
+    GnomeVFSResult res = gnome_cmd_con_get_path_target_type (con, dest_path, &type);
+
     return res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY;
 }
 
 
-GtkWidget*
+GtkWidget *
 gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
                                    GnomeCmdFileSelector *to)
 {
     gchar *dest_str;
-    GnomeCmdPrepareXferDialog *dialog = gtk_type_new (gnome_cmd_prepare_xfer_dialog_get_type ());
+    GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) gtk_type_new (gnome_cmd_prepare_xfer_dialog_get_type ());
 
     dialog->src_files = gnome_cmd_file_list_get_selected_files (from->list);
     gnome_cmd_file_list_ref (dialog->src_files);
     dialog->default_dest_dir = gnome_cmd_file_selector_get_directory (to);
     dialog->src_fs = from;
 
-    if (g_list_length (dialog->src_files) == 1) {
-        gchar *t, *path, *fname;
+    if (g_list_length (dialog->src_files) == 1)
+    {
         GnomeCmdFile *finfo = (GnomeCmdFile *) dialog->src_files->data;
 
-        t = gnome_cmd_file_get_path (GNOME_CMD_FILE (dialog->default_dest_dir));
-        path = get_utf8 (t);
+        gchar *t = gnome_cmd_file_get_path (GNOME_CMD_FILE (dialog->default_dest_dir));
+        gchar *path = get_utf8 (t);
+        gchar *fname = get_utf8 (finfo->info->name);
         g_free (t);
-        fname = get_utf8 (finfo->info->name);
 
         dest_str = g_build_path (G_DIR_SEPARATOR_S, path, fname, NULL);
-        if (path_points_at_directory (to, dest_str)) {
+        if (path_points_at_directory (to, dest_str))
+        {
             g_free (dest_str);
             dest_str = g_strdup (path);
         }
@@ -387,7 +392,8 @@ gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
         g_free (path);
         g_free (fname);
     }
-    else {
+    else
+    {
         gchar *t = gnome_cmd_file_get_path (GNOME_CMD_FILE (dialog->default_dest_dir));
         dest_str = get_utf8 (t);
         g_free (t);

@@ -27,7 +27,8 @@
 
 static GtkWindowClass *parent_class = NULL;
 
-struct _GnomeCmdQuicksearchPopupPrivate {
+struct _GnomeCmdQuicksearchPopupPrivate
+{
     GnomeCmdFileList *fl;
 
     GList *matches;
@@ -243,7 +244,7 @@ class_init (GnomeCmdQuicksearchPopupClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_window_get_type ());
+    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
 
     object_class->destroy = destroy;
     widget_class->map = map;
@@ -324,7 +325,7 @@ gnome_cmd_quicksearch_popup_new              (GnomeCmdFileList *fl)
 {
     GnomeCmdQuicksearchPopup *popup;
 
-    popup = gtk_type_new (gnome_cmd_quicksearch_popup_get_type ());
+    popup = (GnomeCmdQuicksearchPopup *) gtk_type_new (gnome_cmd_quicksearch_popup_get_type ());
     GTK_WINDOW (popup)->type = GTK_WINDOW_POPUP;
     popup->priv->fl = fl;
     popup->priv->last_focused_file = NULL;

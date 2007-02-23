@@ -69,7 +69,8 @@ struct _GnomeCmdFileSelectorClass
 };
 
 
-typedef enum {
+typedef enum
+{
     LEFT,
     RIGHT
 } FileSelectorID;

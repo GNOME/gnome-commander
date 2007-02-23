@@ -37,7 +37,8 @@ typedef struct _GnomeCmdFileListClass GnomeCmdFileListClass;
 
 G_BEGIN_DECLS
 
-typedef enum {
+typedef enum
+{
     FILE_LIST_COLUMN_ICON,
     FILE_LIST_COLUMN_NAME,
     FILE_LIST_COLUMN_EXT,
@@ -60,7 +61,8 @@ typedef enum {
 #define TARGET_URL_TYPE                 "_NETSCAPE_URL"
 
 /* Standard DnD types */
-typedef enum {
+typedef enum
+{
         TARGET_MC_DESKTOP_ICON,
         TARGET_URI_LIST,
         TARGET_TEXT_PLAIN,
@@ -81,30 +83,26 @@ struct _GnomeCmdFileListClass
 {
     GnomeCmdCListClass parent_class;
 
-    void (* file_clicked)        (GnomeCmdFileList *fl,
-                                  GnomeCmdFile *finfo,
-                                  GdkEventButton *button);
-    void (* list_clicked)        (GnomeCmdFileList *fl,
-                                  GdkEventButton *button);
-    void (* empty_space_clicked) (GnomeCmdFileList *fl,
-                                  GdkEventButton *button);
+    void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEventButton *button);
+    void (* list_clicked)        (GnomeCmdFileList *fl, GdkEventButton *button);
+    void (* empty_space_clicked) (GnomeCmdFileList *fl, GdkEventButton *button);
     void (* selection_changed)   (GnomeCmdFileList *fl);
 };
 
 
-enum { FILE_LIST_SORT_ASCENDING=FALSE, FILE_LIST_SORT_DESCENDING=TRUE };
+enum {FILE_LIST_SORT_ASCENDING=FALSE, FILE_LIST_SORT_DESCENDING=TRUE};
 
 typedef gint (* GnomeVFSListCompareFunc) (gconstpointer a, gconstpointer b, gpointer data);
 
 
 typedef struct
 {
-  guint id;
-  gchar *title;
-  guint default_width;
-  GtkJustification justification;
-  gboolean default_sort_direction;
-  GnomeVFSListCompareFunc sort_func;
+    guint id;
+    gchar *title;
+    guint default_width;
+    GtkJustification justification;
+    gboolean default_sort_direction;
+    GnomeVFSListCompareFunc sort_func;
 } GnomeCmdFileListColumn;
 
 

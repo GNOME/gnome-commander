@@ -95,7 +95,8 @@ struct _GnomeCmdBookmarkGroup
 };
 
 
-typedef struct {
+typedef struct
+{
     gchar *name;
     gchar *path;
     GnomeCmdBookmarkGroup *group;

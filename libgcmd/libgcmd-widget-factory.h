@@ -80,16 +80,16 @@ GtkWidget *
 create_named_button_with_data (GtkWidget *parent, gchar *label, gchar *name, GtkSignalFunc func, gpointer data);
 
 GtkWidget *
-create_stock_button (GtkWidget *parent, gpointer stock, GtkSignalFunc func);
+create_stock_button (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func);
 
 GtkWidget *
-create_named_stock_button (GtkWidget *parent, gpointer stock, gchar *name, GtkSignalFunc func);
+create_named_stock_button (GtkWidget *parent, gconstpointer stock, gchar *name, GtkSignalFunc func);
 
 GtkWidget *
-create_stock_button_with_data (GtkWidget *parent, gpointer stock, GtkSignalFunc func, gpointer data);
+create_stock_button_with_data (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func, gpointer data);
 
 GtkWidget *
-create_named_stock_button_with_data (GtkWidget *parent, gpointer stock, gchar *name, GtkSignalFunc func, gpointer data);
+create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, gchar *name, GtkSignalFunc func, gpointer data);
 
 GtkWidget *
 create_entry (GtkWidget *parent, gchar *name, const gchar *value);

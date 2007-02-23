@@ -157,7 +157,7 @@ class_init (GnomeCmdChownDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -204,18 +204,13 @@ init (GnomeCmdChownDialog *dialog)
 GtkWidget*
 gnome_cmd_chown_dialog_new (GList *files)
 {
-    GnomeCmdChownDialog *dialog;
-    GnomeCmdFile *finfo;
-
     g_return_val_if_fail (files != NULL, NULL);
 
-    dialog = gtk_type_new (gnome_cmd_chown_dialog_get_type ());
+    GnomeCmdChownDialog *dialog = (GnomeCmdChownDialog *) gtk_type_new (gnome_cmd_chown_dialog_get_type ());
     dialog->priv->files = gnome_cmd_file_list_copy (files);
-    finfo = GNOME_CMD_FILE (dialog->priv->files->data);
+    GnomeCmdFile *finfo = GNOME_CMD_FILE (dialog->priv->files->data);
 
-    gnome_cmd_chown_component_set (
-        GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component),
-        finfo->info->uid, finfo->info->gid);
+    gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component), finfo->info->uid, finfo->info->gid);
 
     return GTK_WIDGET (dialog);
 }

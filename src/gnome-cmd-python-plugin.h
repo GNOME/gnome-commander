@@ -24,7 +24,8 @@
 
 G_BEGIN_DECLS
 
-typedef struct {
+typedef struct
+{
     gchar *name;        // plugin name
     gchar *path;        // full path to plugin (including file name, but without ext: .py or .pyc)
     gchar *fname;       // file name (without ext: .py or .pyc)

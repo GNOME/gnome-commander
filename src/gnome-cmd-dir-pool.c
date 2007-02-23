@@ -25,6 +25,7 @@
 #include "gnome-cmd-data.h"
 #include "utils.h"
 
+
 struct _GnomeCmdDirPoolPrivate
 {
     GList *queue;
@@ -39,12 +40,12 @@ static void
 check_cache_maxsize (GnomeCmdDirPool *pool)
 {
     // remove the last dir if maxsize is exceeded
-    while (g_list_length (pool->priv->queue) > gnome_cmd_data_get_dir_cache_size ()) {
+    while (g_list_length (pool->priv->queue) > gnome_cmd_data_get_dir_cache_size ())
+    {
         GnomeCmdDir *dir = (GnomeCmdDir *) g_list_last (pool->priv->queue)->data;
         g_hash_table_remove (pool->priv->map, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
         pool->priv->queue = g_list_remove (pool->priv->queue, dir);
-        DEBUG ('k', "removing %s 0x%x from the pool\n",
-               gnome_cmd_dir_get_path (dir), dir);
+        DEBUG ('k', "removing %s 0x%x from the pool\n", gnome_cmd_dir_get_path (dir), dir);
         gnome_cmd_dir_unref (dir);
 
         DEBUG('p', "queue size: %d  map size: %d\n",
@@ -75,10 +76,9 @@ destroy (GtkObject *object)
 static void
 class_init (GnomeCmdDirPoolClass *klass)
 {
-    GtkObjectClass *object_class;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
 
-    object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = gtk_type_class (gtk_object_get_type ());
+    parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
     object_class->destroy = destroy;
 }
@@ -92,7 +92,6 @@ init (GnomeCmdDirPool *pool)
     pool->priv->map = g_hash_table_new (g_str_hash, g_str_equal);
     pool->priv->queue = NULL;
 }
-
 
 
 /***********************************
@@ -124,26 +123,22 @@ gnome_cmd_dir_pool_get_type         (void)
 }
 
 
-GnomeCmdDirPool*
+GnomeCmdDirPool *
 gnome_cmd_dir_pool_new (void)
 {
-    GnomeCmdDirPool *pool;
-
-    pool = gtk_type_new (gnome_cmd_dir_pool_get_type ());
-
-    return pool;
+    return (GnomeCmdDirPool *) gtk_type_new (gnome_cmd_dir_pool_get_type ());
 }
 
 
 GnomeCmdDir *
 gnome_cmd_dir_pool_get (GnomeCmdDirPool *pool, const gchar *path)
 {
-    GnomeCmdDir *dir;
-
     g_return_val_if_fail (GNOME_CMD_IS_DIR_POOL (pool), NULL);
 
-    dir = g_hash_table_lookup (pool->priv->map, path);
-    if (dir) {
+    GnomeCmdDir *dir = (GnomeCmdDir *) g_hash_table_lookup (pool->priv->map, path);
+
+    if (dir)
+    {
         // move it first in the queue
         pool->priv->queue = g_list_remove (pool->priv->queue, dir);
         pool->priv->queue = g_list_prepend (pool->priv->queue, dir);
@@ -152,20 +147,21 @@ gnome_cmd_dir_pool_get (GnomeCmdDirPool *pool, const gchar *path)
     return dir;
 }
 
+
 void
 gnome_cmd_dir_pool_add (GnomeCmdDirPool *pool, GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR_POOL (pool));
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    DEBUG ('k', "adding %s 0x%x to the pool\n",
-           gnome_cmd_dir_get_path (dir), dir);
+    DEBUG ('k', "adding %s 0x%x to the pool\n", gnome_cmd_dir_get_path (dir), dir);
     gnome_cmd_dir_ref (dir);
     pool->priv->queue = g_list_prepend (pool->priv->queue, dir);
     g_hash_table_insert (pool->priv->map, (gpointer)gnome_cmd_dir_get_path (dir), dir);
 
     check_cache_maxsize (pool);
 }
+
 
 void
 gnome_cmd_dir_pool_remove (GnomeCmdDirPool *pool, GnomeCmdDir *dir)
@@ -175,13 +171,13 @@ gnome_cmd_dir_pool_remove (GnomeCmdDirPool *pool, GnomeCmdDir *dir)
 
 extern GList *all_dirs;
 
+
 static void
 print_dir (GnomeCmdDir *dir, gpointer data)
 {
-    g_printerr ("%d %s\n",
-                *((gint *) ((gint)GNOME_CMD_FILE (dir)->priv+4)),
-                gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
+    g_printerr ("%s\n", gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
 }
+
 
 void
 gnome_cmd_dir_pool_show_state (GnomeCmdDirPool *pool)

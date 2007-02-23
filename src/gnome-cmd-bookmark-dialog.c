@@ -272,11 +272,11 @@ on_dialog_keypress (GnomeCmdBookmarkDialog *dialog, GdkEventKey *event)
 static void on_dir_selected (GtkCList *list, gint row, gint column,
                               GdkEventButton *event, GnomeCmdBookmarkDialog *dialog)
 {
-    if (event && event->type == GDK_2BUTTON_PRESS) {
+    if (event && event->type == GDK_2BUTTON_PRESS)
         on_dir_goto (NULL, dialog);
-    }
-    else {
-        dialog->priv->sel_bookmark = gtk_clist_get_row_data (list, row);
+    else
+    {
+        dialog->priv->sel_bookmark = (GnomeCmdBookmark *) gtk_clist_get_row_data (list, row);
         gtk_widget_set_sensitive (dialog->priv->remove_btn, TRUE);
         gtk_widget_set_sensitive (dialog->priv->edit_btn, TRUE);
         gtk_widget_set_sensitive (dialog->priv->goto_btn, TRUE);
@@ -339,8 +339,9 @@ add_bookmarks (GnomeCmdBookmarkDialog *dialog)
         GnomeCmdCon *con = (GnomeCmdCon *) all_cons->data;
         group = gnome_cmd_con_get_bookmarks (con);
 
-        if (group->bookmarks) {
-            group->data = (gpointer)dialog;
+        if (group->bookmarks)
+        {
+            group->data = (gpointer *) dialog;
             dialog->priv->groups = g_list_append (dialog->priv->groups, group);
 
             if (con == current_con)
@@ -402,7 +403,7 @@ class_init (GnomeCmdBookmarkDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -533,7 +534,7 @@ gnome_cmd_bookmark_dialog_get_type (void)
 GtkWidget *
 gnome_cmd_bookmark_dialog_new (void)
 {
-    GnomeCmdBookmarkDialog *dialog = gtk_type_new (gnome_cmd_bookmark_dialog_get_type ());
+    GnomeCmdBookmarkDialog *dialog = (GnomeCmdBookmarkDialog *) gtk_type_new (gnome_cmd_bookmark_dialog_get_type ());
 
     add_bookmarks (dialog);
 

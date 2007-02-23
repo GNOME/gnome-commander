@@ -110,8 +110,8 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
     data->win = NULL;
     data->cur_file_name = NULL;
     data->prev_status = GNOME_VFS_XFER_PROGRESS_STATUS_OK;
-    data->cur_phase = -1;
-    data->prev_phase = -1;
+    data->cur_phase = (GnomeVFSXferPhase) -1;
+    data->prev_phase = (GnomeVFSXferPhase) -1;
     data->cur_file = -1;
     data->prev_file = -1;
     data->files_total = 0;
@@ -305,8 +305,8 @@ uri_is_parent_to_dir_or_equal (GnomeVFSURI *uri, GnomeCmdDir *dir)
 
     is_parent = gnome_vfs_uri_is_parent (uri, dir_uri, TRUE);
 
-    uri_str = gnome_vfs_uri_to_string (uri, 0);
-    dir_uri_str = gnome_vfs_uri_to_string (dir_uri, 0);
+    uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
     is_equal = gnome_vfs_uris_match (uri_str, dir_uri_str);
 
     g_free (uri_str);
@@ -337,7 +337,7 @@ remove_basename (gchar *in)
 static gboolean
 file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
 {
-    gchar *tmp = gnome_vfs_uri_to_string (uri, 0);
+    gchar *tmp = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     gchar *uri_str = remove_basename (tmp);
     gchar *dir_uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
 

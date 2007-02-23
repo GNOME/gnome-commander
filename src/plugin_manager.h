@@ -24,7 +24,8 @@
 
 G_BEGIN_DECLS
 
-typedef struct {
+typedef struct
+{
     gboolean active;
     gboolean loaded;
     gboolean autoload;

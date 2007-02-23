@@ -81,7 +81,7 @@ smb_path_get_parent (GnomeCmdPath *path)
                 GnomeVFSURI *u2 = gnome_vfs_uri_get_parent (u1);
                 g_return_val_if_fail (u2 != NULL, NULL);
 
-                gchar *s = gnome_vfs_uri_to_string (u2, 0);
+                gchar *s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_NONE);
                 gnome_vfs_uri_unref (u2);
 
                 c = gnome_vfs_get_local_path_from_uri (s);
@@ -182,7 +182,7 @@ class_init (GnomeCmdSmbPathClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPathClass *path_class = GNOME_CMD_PATH_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_path_get_type ());
+    parent_class = (GnomeCmdPathClass *) gtk_type_class (gnome_cmd_path_get_type ());
 
     object_class->destroy = destroy;
 
@@ -234,7 +234,7 @@ gnome_cmd_smb_path_new (const gchar *workgroup,
                         const gchar *resource,
                         const gchar *resource_path)
 {
-    GnomeCmdSmbPath *smb_path = gtk_type_new (gnome_cmd_smb_path_get_type ());
+    GnomeCmdSmbPath *smb_path = (GnomeCmdSmbPath *) gtk_type_new (gnome_cmd_smb_path_get_type ());
 
     if (workgroup)
     {
@@ -285,7 +285,7 @@ gnome_cmd_smb_path_new_from_str (const gchar *path_str)
 
     s = g_strdup (t);
     g_free (t);
-    
+
     // Eat up all leading slashes
     for (; *s=='/'; ++s)
         if (!strlen (s))

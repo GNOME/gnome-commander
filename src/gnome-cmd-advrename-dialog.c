@@ -127,7 +127,7 @@ static void insert_text_tag(gpointer data, guint n, GtkWidget *widget)
 
 static void insert_num_tag(gpointer data, guint tag, GtkWidget *widget)
 {
-    gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name(tag));
+    gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name((GnomeCmdTag) tag));
     insert_tag((GnomeCmdAdvrenameDialog *) data, s);
     g_free(s);
 }
@@ -148,35 +148,35 @@ static void on_menu_button_clicked(GtkButton *widget, gpointer data)
 
 static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int menu_type)
 {
-    GtkItemFactoryEntry dir_items[] =     {{_("/Grandparent"), NULL, insert_text_tag, 0},
-                                           {_("/Parent"), NULL, insert_text_tag, 1}};
+    GtkItemFactoryEntry dir_items[] =     {{_("/Grandparent"), NULL, (GtkItemFactoryCallback) insert_text_tag, 0},
+                                           {_("/Parent"), NULL, (GtkItemFactoryCallback) insert_text_tag, 1}};
 
-    GtkItemFactoryEntry name_items[] =    {{_("/File name"), NULL, insert_text_tag, 2},
-                                           {_("/File name without extension"), NULL, insert_text_tag, 3},
-                                           {_("/File extension"), NULL, insert_text_tag, 4}};
+    GtkItemFactoryEntry name_items[] =    {{_("/File name"), NULL, (GtkItemFactoryCallback) insert_text_tag, 2},
+                                           {_("/File name without extension"), NULL, (GtkItemFactoryCallback) insert_text_tag, 3},
+                                           {_("/File extension"), NULL, (GtkItemFactoryCallback) insert_text_tag, 4}};
 
-    GtkItemFactoryEntry counter_items[] = {{_("/Counter"), NULL, insert_text_tag, 5},
-                                           {_("/Counter (precision)"), NULL, insert_text_tag, 6}};
+    GtkItemFactoryEntry counter_items[] = {{_("/Counter"), NULL, (GtkItemFactoryCallback) insert_text_tag, 5},
+                                           {_("/Counter (precision)"), NULL, (GtkItemFactoryCallback) insert_text_tag, 6}};
 
-    GtkItemFactoryEntry date_items[] =    {{_("/Date/<locale>"), NULL, insert_text_tag, 7},
-                                           {_("/Date/yyyy-mm-dd"), NULL, insert_text_tag, 8},
-                                           {_("/Date/yy-mm-dd"), NULL, insert_text_tag, 9},
-                                           {_("/Date/yy.mm.dd"), NULL, insert_text_tag, 10},
-                                           {_("/Date/yymmdd"), NULL, insert_text_tag, 11},
-                                           {_("/Date/dd.mm.yy"), NULL, insert_text_tag, 12},
-                                           {_("/Date/mm-dd-yy"), NULL, insert_text_tag, 13},
-                                           {_("/Date/yyyy"), NULL, insert_text_tag, 14},
-                                           {_("/Date/yy"), NULL, insert_text_tag, 15},
-                                           {_("/Date/mm"), NULL, insert_text_tag, 16},
-                                           {_("/Date/mmm"), NULL, insert_text_tag, 17},
-                                           {_("/Date/dd"), NULL, insert_text_tag, 18},
-                                           {_("/Time/<locale>"), NULL, insert_text_tag, 19},
-                                           {_("/Time/HH.MM.SS"), NULL, insert_text_tag, 20},
-                                           {_("/Time/HH-MM-SS"), NULL, insert_text_tag, 21},
-                                           {_("/Time/HHMMSS"), NULL, insert_text_tag, 22},
-                                           {_("/Time/HH"), NULL, insert_text_tag, 23},
-                                           {_("/Time/MM"), NULL, insert_text_tag, 24},
-                                           {_("/Time/SS"), NULL, insert_text_tag, 25}};
+    GtkItemFactoryEntry date_items[] =    {{_("/Date/<locale>"), NULL, (GtkItemFactoryCallback) insert_text_tag, 7},
+                                           {_("/Date/yyyy-mm-dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 8},
+                                           {_("/Date/yy-mm-dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 9},
+                                           {_("/Date/yy.mm.dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 10},
+                                           {_("/Date/yymmdd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 11},
+                                           {_("/Date/dd.mm.yy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 12},
+                                           {_("/Date/mm-dd-yy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 13},
+                                           {_("/Date/yyyy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 14},
+                                           {_("/Date/yy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 15},
+                                           {_("/Date/mm"), NULL, (GtkItemFactoryCallback) insert_text_tag, 16},
+                                           {_("/Date/mmm"), NULL, (GtkItemFactoryCallback) insert_text_tag, 17},
+                                           {_("/Date/dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 18},
+                                           {_("/Time/<locale>"), NULL, (GtkItemFactoryCallback) insert_text_tag, 19},
+                                           {_("/Time/HH.MM.SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 20},
+                                           {_("/Time/HH-MM-SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 21},
+                                           {_("/Time/HHMMSS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 22},
+                                           {_("/Time/HH"), NULL, (GtkItemFactoryCallback) insert_text_tag, 23},
+                                           {_("/Time/MM"), NULL, (GtkItemFactoryCallback) insert_text_tag, 24},
+                                           {_("/Time/SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 25}};
 
     static GnomeCmdTag metatags[] = {
                                      TAG_AUDIO_ALBUMARTIST, TAG_AUDIO_ALBUMGAIN, TAG_AUDIO_ALBUMPEAKGAIN,
@@ -394,7 +394,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                     else
                     {
                         p->path = g_strdup_printf ("/%s/%s", gcmd_tags_get_class_name(metatags[i]), gcmd_tags_get_title(metatags[i]));
-                        p->callback = insert_num_tag;
+                        p->callback = (GtkItemFactoryCallback) insert_num_tag;
                         p->callback_action = metatags[i];
                     }
                 }
@@ -480,7 +480,7 @@ rename_entry_new (void)
 static PatternEntry *
 get_pattern_entry_from_row (GnomeCmdAdvrenameDialog *dialog, gint row)
 {
-    return gtk_clist_get_row_data (GTK_CLIST (dialog->priv->pat_list), row);
+    return (PatternEntry *) gtk_clist_get_row_data (GTK_CLIST (dialog->priv->pat_list), row);
 }
 
 
@@ -603,7 +603,7 @@ on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog,
 {
     GtkWidget *pat_list = dialog->priv->pat_list;
     gint row = GTK_CLIST (pat_list)->focus_row;
-    PatternEntry *entry = g_list_nth_data (dialog->priv->defaults->patterns, row);
+    PatternEntry *entry = (PatternEntry *) g_list_nth_data (dialog->priv->defaults->patterns, row);
     gchar *text[3], *error_desc;
 
     g_return_val_if_fail (entry != NULL, TRUE);
@@ -682,7 +682,7 @@ apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
                     if (match_size)
                     {
                         gchar **v;
-                        gchar *match = g_malloc (match_size+1);
+                        gchar *match = (gchar *) g_malloc (match_size+1);
                         gchar *tail;
 
                         g_utf8_strncpy (match, in+re_match_info.rm_so, match_size);
@@ -896,9 +896,9 @@ on_rule_moved (GtkCList *clist, gint arg1, gint arg2,
 static void
 save_settings (GnomeCmdAdvrenameDialog *dialog)
 {
-    const gchar *template = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
+    const gchar *template_string = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
 
-    history_add (dialog->priv->defaults->templates, g_strdup (template));
+    history_add (dialog->priv->defaults->templates, g_strdup (template_string));
 }
 
 
@@ -1096,7 +1096,7 @@ class_init (GnomeCmdAdvrenameDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -1146,7 +1146,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_signal_connect (GTK_OBJECT (in_dialog->priv->templ_entry),
                         "changed", GTK_SIGNAL_FUNC (on_templ_entry_changed),
                         dialog);
-    gtk_table_attach (GTK_TABLE (table), in_dialog->priv->templ_combo, 0, 1, 0, 1, GTK_EXPAND|GTK_FILL, GTK_EXPAND|GTK_FILL, 0, 0);
+    gtk_table_attach (GTK_TABLE (table), in_dialog->priv->templ_combo, 0, 1, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL), (GtkAttachOptions) (GTK_EXPAND|GTK_FILL), 0, 0);
     if (in_dialog->priv->defaults->templates->ents)
         gtk_combo_set_popdown_strings (GTK_COMBO (in_dialog->priv->templ_combo), in_dialog->priv->defaults->templates->ents);
     else
@@ -1160,7 +1160,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
     bbox = create_hbuttonbox (dialog);
-    table_add (table, bbox, 0, 1, GTK_EXPAND|GTK_FILL);
+    table_add (table, bbox, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
     btn = create_button_with_menu (in_dialog, _("Dir"), DIR_MENU);
@@ -1185,7 +1185,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
 
     sw = create_clist (dialog, "pat_list", 3, 16, GTK_SIGNAL_FUNC (on_rule_selected), GTK_SIGNAL_FUNC (on_rule_moved));
-    gtk_table_attach (GTK_TABLE (table), sw, 0, 1, 0, 1, GTK_EXPAND|GTK_FILL, GTK_EXPAND|GTK_FILL, 0, 0);
+    gtk_table_attach (GTK_TABLE (table), sw, 0, 1, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL), (GtkAttachOptions) (GTK_EXPAND|GTK_FILL), 0, 0);
     create_clist_column (sw, 0, advrename_dialog_default_pat_column_width[0], _("Replace this"));
     create_clist_column (sw, 1, advrename_dialog_default_pat_column_width[1], _("With this"));
     create_clist_column (sw, 2, advrename_dialog_default_pat_column_width[2], _("Case sensitive"));
@@ -1197,7 +1197,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
                         dialog);
 
     bbox = create_hbuttonbox (dialog);
-    table_add (table, bbox, 0, 1, GTK_EXPAND|GTK_FILL);
+    table_add (table, bbox, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
     in_dialog->priv->add_btn = create_button (dialog, _("_Add..."), GTK_SIGNAL_FUNC (on_rule_add));
@@ -1283,10 +1283,10 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
  * Public functions
  ***********************************/
 
-GtkWidget*
+GtkWidget *
 gnome_cmd_advrename_dialog_new (GList *files)
 {
-    GnomeCmdAdvrenameDialog *dialog = gtk_type_new (gnome_cmd_advrename_dialog_get_type ());
+    GnomeCmdAdvrenameDialog *dialog = (GnomeCmdAdvrenameDialog *) gtk_type_new (gnome_cmd_advrename_dialog_get_type ());
     GList *tmp;
 
     dialog->priv->files = gnome_cmd_file_list_copy (files);

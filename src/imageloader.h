@@ -28,7 +28,8 @@ G_BEGIN_DECLS
  * If you add a pixmap id here be sure to add its filename in
  * the array in imageloader.c
  */
-typedef enum {
+typedef enum
+{
     PIXMAP_NONE,
 
     PIXMAP_FLIST_ARROW_UP,

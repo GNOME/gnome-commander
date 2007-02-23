@@ -100,7 +100,7 @@ destroy (GtkObject *object)
 #endif
 
     if (file->info->name[0] != '.')
-        DEBUG ('f', "file destroying 0x%x %s\n", (guint)file, file->info->name);
+        DEBUG ('f', "file destroying 0x%p %s\n", file, file->info->name);
     gnome_vfs_file_info_unref (file->info);
     if (file->priv->dir_handle)
         handle_unref (file->priv->dir_handle);
@@ -123,7 +123,7 @@ class_init (GnomeCmdFileClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_file_info_get_type ());
+    parent_class = (GnomeCmdFileInfoClass *) gtk_type_class (gnome_cmd_file_info_get_type ());
 
     object_class->destroy = destroy;
 }
@@ -205,7 +205,7 @@ gnome_cmd_file_get_type         (void)
 GnomeCmdFile *
 gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 {
-    GnomeCmdFile *finfo = gtk_type_new (gnome_cmd_file_get_type ());
+    GnomeCmdFile *finfo = (GnomeCmdFile *) gtk_type_new (gnome_cmd_file_get_type ());
 
     gnome_cmd_file_setup (finfo, info, dir);
 
@@ -221,7 +221,8 @@ gnome_cmd_file_setup (GnomeCmdFile *finfo, GnomeVFSFileInfo *info, GnomeCmdDir *
     finfo->info = info;
     GNOME_CMD_FILE_INFO (finfo)->info = info;
 
-    if (dir) {
+    if (dir)
+    {
         finfo->priv->dir_handle = gnome_cmd_dir_get_handle (dir);
         handle_ref (finfo->priv->dir_handle);
 
@@ -245,7 +246,7 @@ gnome_cmd_file_ref (GnomeCmdFile *file)
 
     char c = GNOME_CMD_IS_DIR (file) ? 'd' : 'f';
 
-    DEBUG (c, "refing: 0x%x %s to %d\n", (guint)file, file->info->name, file->priv->ref_cnt);
+    DEBUG (c, "refing: 0x%p %s to %d\n", file, file->info->name, file->priv->ref_cnt);
 }
 
 
@@ -258,7 +259,7 @@ gnome_cmd_file_unref (GnomeCmdFile *file)
 
     char c = GNOME_CMD_IS_DIR (file) ? 'd' : 'f';
 
-    DEBUG (c, "un-refing: 0x%x %s to %d\n", (guint)file, file->info->name, file->priv->ref_cnt);
+    DEBUG (c, "un-refing: 0x%p %s to %d\n", file, file->info->name, file->priv->ref_cnt);
     if (file->priv->ref_cnt < 1)
         gtk_object_destroy (GTK_OBJECT (file));
 }
@@ -267,8 +268,8 @@ gnome_cmd_file_unref (GnomeCmdFile *file)
 GnomeVFSResult
 gnome_cmd_file_chmod (GnomeCmdFile *file, GnomeVFSFilePermissions perm)
 {
-    g_return_val_if_fail (file != NULL, 0);
-    g_return_val_if_fail (file->info != NULL, 0);
+    g_return_val_if_fail (file != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
+    g_return_val_if_fail (file->info != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
     file->info->permissions = perm;
     GnomeVFSURI *uri = gnome_cmd_file_get_uri (file);
@@ -291,8 +292,8 @@ gnome_cmd_file_chown (GnomeCmdFile *file, uid_t uid, gid_t gid)
     GnomeVFSResult ret;
     GnomeVFSURI *uri;
 
-    g_return_val_if_fail (file != NULL, 0);
-    g_return_val_if_fail (file->info != NULL, 0);
+    g_return_val_if_fail (file != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
+    g_return_val_if_fail (file->info != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
     if (uid != -1)
         file->info->uid = uid;
@@ -319,11 +320,11 @@ gnome_cmd_file_rename (GnomeCmdFile *finfo, const gchar *new_name)
     GnomeVFSResult result;
     GnomeVFSURI *uri;
 
-    g_return_val_if_fail (finfo, FALSE);
-    g_return_val_if_fail (finfo->info, FALSE);
+    g_return_val_if_fail (finfo, GNOME_VFS_ERROR_CORRUPTED_DATA);
+    g_return_val_if_fail (finfo->info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
     new_info = gnome_vfs_file_info_dup (finfo->info);
-    g_return_val_if_fail (new_info, FALSE);
+    g_return_val_if_fail (new_info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
     g_free (new_info->name);
     new_info->name = g_strdup (new_name);
@@ -449,7 +450,7 @@ gnome_cmd_file_get_uri_str (GnomeCmdFile *finfo)
     g_return_val_if_fail (GNOME_CMD_IS_FILE (finfo), NULL);
 
     GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     gnome_vfs_uri_unref (uri);
 
     return uri_str;
@@ -741,7 +742,7 @@ do_view_file (const gchar *path, gint internal_viewer)
     {
         case TRUE : {
                         arg = gnome_vfs_unescape_string (path, NULL);
-                        viewer = gviewer_window_file_view(arg, NULL);
+                        viewer = (GViewer *) gviewer_window_file_view(arg, NULL);
                         gtk_widget_show(GTK_WIDGET(viewer));
                         gdk_window_set_icon (GTK_WIDGET(viewer)->window, NULL,
                                              IMAGE_get_pixmap (PIXMAP_INTERNAL_VIEWER),

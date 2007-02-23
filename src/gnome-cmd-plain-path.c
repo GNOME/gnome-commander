@@ -64,7 +64,7 @@ plain_path_get_parent (GnomeCmdPath *path)
     gnome_vfs_uri_unref (u1);
     if (!u2) return NULL;
 
-    s = gnome_vfs_uri_to_string (u2, 0);
+    s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_NONE);
     parent = gnome_cmd_plain_path_new (gnome_vfs_get_local_path_from_uri (s));
     gnome_vfs_uri_unref (u2);
     g_free (s);
@@ -122,7 +122,7 @@ class_init (GnomeCmdPlainPathClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPathClass *path_class = GNOME_CMD_PATH_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_path_get_type ());
+    parent_class = (GnomeCmdPathClass *) gtk_type_class (gnome_cmd_path_get_type ());
 
     object_class->destroy = destroy;
 
@@ -173,9 +173,7 @@ gnome_cmd_plain_path_get_type         (void)
 GnomeCmdPath *
 gnome_cmd_plain_path_new (const gchar *path)
 {
-    GnomeCmdPlainPath *plain_path;
-
-    plain_path = gtk_type_new (gnome_cmd_plain_path_get_type ());
+    GnomeCmdPlainPath *plain_path = (GnomeCmdPlainPath *) gtk_type_new (gnome_cmd_plain_path_get_type ());
     plain_path->priv->path = g_strdup (path);
 
     return GNOME_CMD_PATH (plain_path);

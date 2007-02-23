@@ -99,7 +99,7 @@ class_init (GnomeCmdPatternselDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_dialog_get_type ());
+    parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -121,7 +121,7 @@ gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 {
     GtkWidget *hbox, *vbox, *label;
     SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
-    GnomeCmdPatternselDialog *dialog = gtk_type_new (gnome_cmd_patternsel_dialog_get_type ());
+    GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) gtk_type_new (gnome_cmd_patternsel_dialog_get_type ());
     dialog->priv->mode = mode;
     dialog->priv->fl = fl;
 

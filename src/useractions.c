@@ -592,7 +592,7 @@ void
 view_equal_panes                       (GtkMenuItem     *menuitem,
                                          gpointer        not_used)
 {
-    gnome_cmd_main_win_set_equal_panes (GTK_WIDGET (main_win));
+    gnome_cmd_main_win_set_equal_panes ((GnomeCmdMainWin *) GTK_WIDGET (main_win));
 }
 
 
@@ -750,24 +750,21 @@ help_about                          (GtkMenuItem     *menuitem,
                                      gpointer        not_used)
 {
     static const gchar *authors[] = {
-        "Marcus Bjurman <marbj499@student.liu.se>",
-        "Piotr Eljasiak <epiotr@use.pl>",
-        "Assaf Gordon <agordon88@gmail.com>",
-        NULL
-    };
+                                        "Marcus Bjurman <marbj499@student.liu.se>",
+                                        "Piotr Eljasiak <epiotr@use.pl>",
+                                        "Assaf Gordon <agordon88@gmail.com>",
+                                        NULL
+                                    };
 
     static const gchar *documenters[] = {
-        "Marcus Bjurman <marbj499@student.liu.se>",
-        "Piotr Eljasiak <epiotr@use.pl>",
-        NULL
-    };
+                                            "Marcus Bjurman <marbj499@student.liu.se>",
+                                            "Piotr Eljasiak <epiotr@use.pl>",
+                                            NULL
+                                        };
 
-    static const gchar copyright[] = \
-        // "Copyright \xc2\xa9 2001-2006 Marcus Bjurman\n"
-        "Copyright \xc2\xa9 2001-2006 Marcus Bjurman";
+    static const gchar copyright[] = "Copyright \xc2\xa9 2001-2006 Marcus Bjurman";
 
-    static const gchar comments[] = \
-        N_("A fast and powerful file manager for the GNOME desktop");
+    static const gchar comments[] = N_("A fast and powerful file manager for the GNOME desktop");
 
     gtk_show_about_dialog (GTK_WINDOW (main_win),
                    "authors", authors,

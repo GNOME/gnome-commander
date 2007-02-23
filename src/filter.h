@@ -24,7 +24,8 @@
 
 G_BEGIN_DECLS
 
-typedef enum {
+typedef enum
+{
     FILTER_TYPE_REGEX,
     FILTER_TYPE_FNMATCH
 } FilterType;

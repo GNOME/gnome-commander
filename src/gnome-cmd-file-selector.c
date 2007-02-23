@@ -74,10 +74,7 @@ struct _GnomeCmdFileSelectorPrivate {
     gint autoscroll_y;
 };
 
-enum {
-  CHANGED_DIR,
-  LAST_SIGNAL
-};
+enum {CHANGED_DIR, LAST_SIGNAL};
 
 static guint file_selector_signals[LAST_SIGNAL] = { 0 };
 
@@ -288,9 +285,9 @@ create_parent_dir_file (GnomeCmdDir *dir)
     info->mime_type = g_strdup ("x-directory/normal");
     info->size = 0;
     info->refcount = 1;
-    info->valid_fields = GNOME_VFS_FILE_INFO_FIELDS_TYPE
-        | GNOME_VFS_FILE_INFO_FIELDS_SIZE
-        | GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE;
+    info->valid_fields = (GnomeVFSFileInfoFields) (GNOME_VFS_FILE_INFO_FIELDS_TYPE |
+                                                   GNOME_VFS_FILE_INFO_FIELDS_SIZE |
+                                                   GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE);
 
     GnomeCmdFile *finfo = gnome_cmd_file_new (info, dir);
     return finfo;
@@ -439,7 +436,7 @@ drag_data_received (GtkWidget          *widget,
     /* Transform the drag data to a list with uris
      *
      */
-    uri_list = strings_to_uris (selection_data->data);
+    uri_list = strings_to_uris ((gchar *) selection_data->data);
 
     if (g_list_length (uri_list) == 1)
     {
@@ -655,7 +652,7 @@ init_dnd (GnomeCmdFileSelector *fs)
     gtk_drag_dest_set (GTK_WIDGET (fs->list),
                        GTK_DEST_DEFAULT_DROP,
                        drop_types, ELEMENTS (drop_types),
-                       GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK);
+                       (GdkDragAction) (GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK));
 
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_motion", GTK_SIGNAL_FUNC (drag_motion), fs);
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_leave", GTK_SIGNAL_FUNC (drag_leave), fs);
@@ -931,7 +928,7 @@ on_con_btn_clicked                      (GtkButton *button,
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GnomeCmdCon *con = gtk_object_get_data (GTK_OBJECT (button), "con");
+    GnomeCmdCon *con = (GnomeCmdCon *) gtk_object_get_data (GTK_OBJECT (button), "con");
 
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
@@ -1276,7 +1273,7 @@ class_init (GnomeCmdFileSelectorClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);;
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_vbox_get_type ());
+    parent_class = (GtkVBoxClass *) gtk_type_class (gtk_vbox_get_type ());
 
     file_selector_signals[CHANGED_DIR] =
         gtk_signal_new ("changed_dir",
@@ -1475,7 +1472,7 @@ gnome_cmd_file_selector_get_type         (void)
 GtkWidget *
 gnome_cmd_file_selector_new              (void)
 {
-    GnomeCmdFileSelector *fs = gtk_type_new (gnome_cmd_file_selector_get_type ());
+    GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) gtk_type_new (gnome_cmd_file_selector_get_type ());
 
     return GTK_WIDGET (fs);
 }
@@ -1986,7 +1983,7 @@ on_create_symlink_ok (GnomeCmdStringDialog *string_dialog,
 
     if (result == GNOME_VFS_OK)
     {
-        gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
         gnome_cmd_dir_file_created (fs->priv->cwd, uri_str);
         g_free (uri_str);
         gnome_vfs_uri_unref (uri);
@@ -2232,7 +2229,7 @@ gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files)
 
             if (result == GNOME_VFS_OK)
             {
-                gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
+                gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
                 gnome_cmd_dir_file_created (fs->priv->cwd, uri_str);
                 g_free (uri_str);
             }

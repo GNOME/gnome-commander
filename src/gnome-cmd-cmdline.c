@@ -225,7 +225,7 @@ class_init (GnomeCmdCmdlineClass *klass)
     object_class = GTK_OBJECT_CLASS (klass);
     widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_hbox_get_type ());
+    parent_class = (GtkHBoxClass *) gtk_type_class (gtk_hbox_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -294,7 +294,7 @@ init (GnomeCmdCmdline *cmdline)
 GtkWidget*
 gnome_cmd_cmdline_new ()
 {
-    GnomeCmdCmdline *cmdline = gtk_type_new (gnome_cmd_cmdline_get_type ());
+    GnomeCmdCmdline *cmdline = (GnomeCmdCmdline *) gtk_type_new (gnome_cmd_cmdline_get_type ());
 
     gnome_cmd_cmdline_set_history (cmdline, gnome_cmd_data_get_cmdline_history ());
     update_history_combo (cmdline);

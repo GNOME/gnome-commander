@@ -20,6 +20,7 @@
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-module-callback.h>
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-smb-auth.h"
 
 
 static void /* GnomeVFSModuleCallback */
@@ -27,11 +28,11 @@ vfs_full_authentication_callback (const GnomeVFSModuleCallbackFullAuthentication
                                   GnomeVFSModuleCallbackFullAuthenticationOut *out_args, size_t out_size,
                                   gpointer user_data)
 {
-    GtkWidget *gpwd =  GNOME_PASSWORD_DIALOG (gnome_password_dialog_new (_("Enter password"),
-                                                                         _("Problem: access not permitted\n\n"
-                                                                           "please supply user credentials\n\n"
-                                                                           "Remember: wrong credentials may lead to account locking"),
-                                                                         "", "", FALSE));
+    GnomePasswordDialog *gpwd =  GNOME_PASSWORD_DIALOG (gnome_password_dialog_new (_("Enter password"),
+                                                                                   _("Problem: access not permitted\n\n"
+                                                                                     "please supply user credentials\n\n"
+                                                                                     "Remember: wrong credentials may lead to account locking"),
+                                                                                     "", "", FALSE));
 
     gnome_password_dialog_set_show_domain(gpwd, in_args->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_DOMAIN);
     gnome_password_dialog_set_domain (gpwd, in_args->domain);
@@ -55,5 +56,6 @@ vfs_full_authentication_callback (const GnomeVFSModuleCallbackFullAuthentication
 void gnome_cmd_smb_auth_init (void)
 {
     gnome_vfs_module_callback_set_default (GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION,
-                                           vfs_full_authentication_callback, GINT_TO_POINTER (0), NULL);
+                                           (GnomeVFSModuleCallback) vfs_full_authentication_callback,
+                                           GINT_TO_POINTER (0), NULL);
 }

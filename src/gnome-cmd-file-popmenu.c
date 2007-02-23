@@ -371,7 +371,8 @@ class_init (GnomeCmdFilePopmenuClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_menu_get_type ());
+    parent_class = (GtkMenuClass *) gtk_type_class (gtk_menu_get_type ());
+
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -431,7 +432,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     GList *files = gnome_cmd_file_list_get_selected_files (fl);
     if (!files) return NULL;
 
-    GnomeCmdFilePopmenu *menu = gtk_type_new (gnome_cmd_file_popmenu_get_type ());
+    GnomeCmdFilePopmenu *menu = (GnomeCmdFilePopmenu *) gtk_type_new (gnome_cmd_file_popmenu_get_type ());
 
     GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
 
@@ -456,7 +457,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
             i++;
             apps_uiinfo[i].type = GNOME_APP_UI_ITEM;
             apps_uiinfo[i].label = g_strdup (gnome_cmd_app_get_name (data->app));
-            apps_uiinfo[i].moreinfo = cb_exec_with_app;
+            apps_uiinfo[i].moreinfo = (gpointer) cb_exec_with_app;
             apps_uiinfo[i].user_data = data;
 
             menu->priv->data_list = g_list_append (menu->priv->data_list, data);
@@ -470,7 +471,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     i++;
     apps_uiinfo[i].type = GNOME_APP_UI_ITEM;
     apps_uiinfo[i].label = g_strdup (_("Other..."));
-    apps_uiinfo[i].moreinfo = on_open_with_other;
+    apps_uiinfo[i].moreinfo = (gpointer) on_open_with_other;
     apps_uiinfo[i].user_data = files;
 
     gnome_vfs_mime_application_list_free (tmp);
@@ -547,7 +548,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
             {
                 tmp->type = GNOME_APP_UI_ITEM;
                 tmp->label = _(data->name);
-                tmp->moreinfo = on_execute_py_plugin;
+                tmp->moreinfo = (gpointer) on_execute_py_plugin;
                 tmp->user_data = data;
                 tmp->pixmap_type = GNOME_APP_PIXMAP_NONE; // GNOME_APP_PIXMAP_FILENAME;
                 // tmp->pixmap_info = "pixmaps/python-plugin.svg";

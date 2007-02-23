@@ -42,7 +42,8 @@ typedef void (* DirListDoneFunc) (GnomeCmdDir *dir,
 
 G_BEGIN_DECLS
 
-typedef enum {
+typedef enum
+{
     DIR_STATE_EMPTY,
     DIR_STATE_LISTED,
     DIR_STATE_LISTING,

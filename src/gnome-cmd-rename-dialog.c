@@ -59,7 +59,7 @@ on_dialog_keypressed (GtkWidget *widget,
 
                 gnome_cmd_file_unref (dialog->priv->finfo);
                 gtk_widget_destroy (widget);
-                // TODO: if (ret != GNOME_VFS_OK) {
+                // TODO: if (ret != GNOME_VFS_OK)
             }
             return TRUE;
 
@@ -108,7 +108,7 @@ class_init (GnomeCmdRenameDialogClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_window_get_type ());
+    parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -132,7 +132,7 @@ gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gi
 {
     g_return_val_if_fail (finfo != NULL, NULL);
 
-    GnomeCmdRenameDialog *dialog = gtk_type_new (gnome_cmd_rename_dialog_get_type ());
+    GnomeCmdRenameDialog *dialog = (GnomeCmdRenameDialog *) gtk_type_new (gnome_cmd_rename_dialog_get_type ());
 
     dialog->priv->finfo = finfo;
     gnome_cmd_file_ref (finfo);

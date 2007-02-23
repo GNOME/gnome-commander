@@ -36,7 +36,8 @@ struct _GnomeCmdConPrivate
     GHashTable     *all_dirs_map;
 };
 
-enum {
+enum
+{
     UPDATED,
     CLOSE,
     OPEN_DONE,
@@ -109,7 +110,7 @@ class_init (GnomeCmdConClass *klass)
     GtkObjectClass *object_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = gtk_type_class (gtk_object_get_type ());
+    parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
     signals[UPDATED] =
         gtk_signal_new ("updated",
@@ -653,20 +654,14 @@ gnome_cmd_con_get_path_target_type (GnomeCmdCon *con,
                                     const gchar *path_str,
                                     GnomeVFSFileType *type)
 {
-    GnomeVFSFileInfo *info;
-    GnomeVFSURI *uri;
-    GnomeCmdPath *path;
-    GnomeVFSResult res;
-    GnomeVFSFileInfoOptions infoOpts = 0;
-
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), GNOME_VFS_ERROR_BAD_PARAMETERS);
     g_return_val_if_fail (path_str != NULL, GNOME_VFS_ERROR_BAD_PARAMETERS);
 
-    path = gnome_cmd_con_create_path (con, path_str);
-    uri = gnome_cmd_con_create_uri (con, path);
-    info = gnome_vfs_file_info_new ();
-    res = gnome_vfs_get_file_info_uri (
-        uri, info, infoOpts);
+    GnomeCmdPath *path = gnome_cmd_con_create_path (con, path_str);
+    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
+    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
+    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_DEFAULT;
+    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
 
     if (res == GNOME_VFS_OK)
         *type = info->type;
@@ -719,7 +714,7 @@ gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
         con->priv->all_dirs_map = g_hash_table_new_full (
             g_str_hash, g_str_equal, g_free, NULL);
 
-    DEBUG ('k', "ADDING 0x%x %s to the cache\n", (guint)dir, uri_str);
+    DEBUG ('k', "ADDING 0x%p %s to the cache\n", dir, uri_str);
     g_hash_table_insert (con->priv->all_dirs_map, uri_str, dir);
 }
 
@@ -734,7 +729,7 @@ gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
 
     uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
 
-    DEBUG ('k', "REMOVING 0x%x %s from the cache\n", (guint)dir, uri_str);
+    DEBUG ('k', "REMOVING 0x%p %s from the cache\n", dir, uri_str);
     g_hash_table_remove (con->priv->all_dirs_map, uri_str);
     g_free (uri_str);
 }
@@ -749,10 +744,11 @@ gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
     g_return_val_if_fail (uri_str != NULL, NULL);
 
     if (con->priv->all_dirs_map)
-        dir = g_hash_table_lookup (con->priv->all_dirs_map, uri_str);
+        dir = (GnomeCmdDir *) g_hash_table_lookup (con->priv->all_dirs_map, uri_str);
 
-    if (dir) {
-        DEBUG ('k', "FOUND 0x%x %s in the hash-table, reusing it!\n", (guint)dir, uri_str);
+    if (dir)
+    {
+        DEBUG ('k', "FOUND 0x%p %s in the hash-table, reusing it!\n", dir, uri_str);
         return dir;
     }
 

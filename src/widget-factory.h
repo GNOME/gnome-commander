@@ -20,6 +20,8 @@
 #ifndef __WIDGET_FACTORY_H__
 #define __WIDGET_FACTORY_H__
 
+#include "libgcmd/libgcmd-deps.h"
+
 G_BEGIN_DECLS
 
 GtkWidget *

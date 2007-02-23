@@ -58,8 +58,7 @@ static user_t *create_user (struct passwd *pw, gboolean zombie)
         user->realname = g_strdup (pw->pw_gecos);
         user->homedir =  g_strdup (pw->pw_dir);
         user->shell =    g_strdup (pw->pw_shell);
-        user->groups =   NULL; /* filled in later when going through the group
-                                  members*/
+        user->groups =   NULL; // filled in later when going through the group members
 
         return user;
     }
@@ -70,13 +69,14 @@ static user_t *create_user (struct passwd *pw, gboolean zombie)
 
 static group_t *create_group (struct group *gr, gboolean zombie)
 {
+    group_t *group = NULL;
+    
     if (gr)
     {
-        group_t *group = g_new(group_t,1);
-        char **members;
-
         g_assert (gr->gr_name);
         g_assert (gr->gr_passwd);
+
+        group = g_new(group_t,1);
 
         group->zombie =  zombie;
         group->name =    g_strdup (gr->gr_name);
@@ -84,7 +84,7 @@ static group_t *create_group (struct group *gr, gboolean zombie)
         group->gid =     gr->gr_gid;
         group->members = NULL;
 
-        members = gr->gr_mem;
+        char **members = gr->gr_mem;
 
         while (members && *members)
         {
@@ -100,11 +100,9 @@ static group_t *create_group (struct group *gr, gboolean zombie)
 
             members++;
         }
-
-        return group;
     }
 
-    return NULL;
+    return group;
 }
 
 
@@ -130,39 +128,31 @@ static void free_group (group_t *group)
 
 static void lookup_all_users ()
 {
-    user_t *user;
     struct passwd *pw;
 
     setpwent ();
 
     while ((pw = getpwent ()) != NULL)
-    {
-        user = create_user (pw, FALSE);
-        all_users = g_list_append (all_users, user);
-    }
+        all_users = g_list_append (all_users, create_user (pw, FALSE));
 
     endpwent ();
 
-    all_users = g_list_sort (all_users, (GCompareFunc)compare_users);
+    all_users = g_list_sort (all_users, (GCompareFunc) compare_users);
 }
 
 
 static void lookup_all_groups ()
 {
-    group_t *group;
     struct group *gr;
 
     setgrent ();
 
     while ((gr = getgrent ()) != NULL)
-    {
-        group = create_group (gr,FALSE);
-        all_groups = g_list_append (all_groups, group);
-    }
+        all_groups = g_list_append (all_groups, create_group (gr, FALSE));
 
     endgrent ();
 
-    all_groups = g_list_sort (all_groups, (GCompareFunc)compare_groups);
+    all_groups = g_list_sort (all_groups, (GCompareFunc) compare_groups);
 }
 
 
@@ -178,7 +168,7 @@ static void check_user_default_groups ()
         group_t *def_group = NULL;
         user = (user_t *) utmp->data;
 
-        for (gtmp=user->groups; gtmp; gtmp = gtmp->next)
+        for (gtmp=user->groups; gtmp; gtmp=gtmp->next)
         {
             group = (group_t *) gtmp->data;
 
@@ -205,10 +195,10 @@ user_t *OWNER_get_user_by_uid (uid_t uid)
     GList *tmp;
     user_t *user;
 
-    /* try to locate the user in the list of already found users */
-    for (tmp=all_users; tmp; tmp = tmp->next)
+    // try to locate the user in the list of already found users
+    for (tmp = all_users; tmp; tmp = tmp->next)
     {
-        user = tmp->data;
+        user = (user_t *) tmp->data;
 
         if (uid == user->uid)
             return user;
@@ -239,10 +229,10 @@ user_t *OWNER_get_user_by_name (const char *name)
 {
     GList *tmp;
 
-    /* try to locate the user in the list of already found users */
+    // try to locate the user in the list of already found users
     for (tmp = all_users; tmp; tmp = tmp->next)
     {
-        user_t *user = tmp->data;
+        user_t *user = (user_t *) tmp->data;
 
         if (strcmp (name, user->name) == 0)
             return user;
@@ -256,16 +246,16 @@ group_t *OWNER_get_group_by_gid (gid_t gid)
 {
     GList *tmp;
 
-    /* try to locate the group in the list of already found groups */
+    // try to locate the group in the list of already found groups
     for (tmp = all_groups; tmp; tmp = tmp->next)
     {
-        group_t *group = tmp->data;
+        group_t *group = (group_t *) tmp->data;
 
         if (gid == group->gid)
             return group;
     }
 
-    /* there is no such group in the system, lets create a blank group with the specified gid */
+    // there is no such group in the system, lets create a blank group with the specified gid
     {
         struct group gr;
 
@@ -290,11 +280,10 @@ group_t *OWNER_get_group_by_name (const char *name)
 {
     GList *tmp;
 
-
-    /* try to locate the group in the list of already found groups */
+    // try to locate the group in the list of already found groups
     for (tmp = all_groups; tmp; tmp = tmp->next)
     {
-        group_t *group = tmp->data;
+        group_t *group = (group_t *) tmp->data;
 
         if (strcmp (name, group->name) == 0)
             return group;

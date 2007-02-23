@@ -69,7 +69,8 @@ typedef struct
     gint sep_value;
 } AdvrenameDefaults;
 
-typedef struct {
+typedef struct
+{
     gboolean file_types[8];
 
     gboolean hidden;

@@ -328,7 +328,8 @@ load_icon (const gchar *icon_path,
 
 
     // Load the symlink overlay pixmap
-    if (!symlink_pixbuf) {
+    if (!symlink_pixbuf)
+    {
         if (pixmaps[PIXMAP_OVERLAY_SYMLINK])
             symlink_pixbuf = pixmaps[PIXMAP_OVERLAY_SYMLINK]->pixbuf;
     }

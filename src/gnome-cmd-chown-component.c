@@ -66,7 +66,7 @@ class_init (GnomeCmdChownComponentClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_table_get_type ());
+    parent_class = (GtkTableClass *) gtk_type_class (gtk_table_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -90,10 +90,10 @@ init (GnomeCmdChownComponent *comp)
     table_add (GTK_WIDGET (comp), label, 0, 1, GTK_FILL);
 
     comp->priv->user_combo = create_combo (GTK_WIDGET (comp));
-    table_add (GTK_WIDGET (comp), comp->priv->user_combo, 1, 0, GTK_FILL|GTK_EXPAND);
+    table_add (GTK_WIDGET (comp), comp->priv->user_combo, 1, 0, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     comp->priv->group_combo = create_combo (GTK_WIDGET (comp));
-    table_add (GTK_WIDGET (comp), comp->priv->group_combo, 1, 1, GTK_FILL|GTK_EXPAND);
+    table_add (GTK_WIDGET (comp), comp->priv->group_combo, 1, 1, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 }
 
 
@@ -140,7 +140,7 @@ load_users_and_groups (GnomeCmdChownComponent *comp)
 GtkWidget*
 gnome_cmd_chown_component_new (void)
 {
-    GnomeCmdChownComponent *comp = gtk_type_new (gnome_cmd_chown_component_get_type ());
+    GnomeCmdChownComponent *comp = (GnomeCmdChownComponent *) gtk_type_new (gnome_cmd_chown_component_get_type ());
 
     load_users_and_groups (comp);
 

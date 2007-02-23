@@ -95,16 +95,16 @@ smb_open (GnomeCmdCon *con)
         return;
     }
 
-    DEBUG('l', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, 0));
+    DEBUG('l', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
     GList *uri_list = g_list_append (NULL, uri);
 
     con->state = CON_STATE_OPENING;
     con->open_result = CON_OPEN_IN_PROGRESS;
 
     GnomeVFSAsyncHandle *handle;
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_FOLLOW_LINKS
-        | GNOME_VFS_FILE_INFO_GET_MIME_TYPE
-        | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE;
+    GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS |
+                                                                  GNOME_VFS_FILE_INFO_GET_MIME_TYPE |
+                                                                  GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 
     gnome_vfs_async_get_file_info (
         &handle,
@@ -189,7 +189,7 @@ class_init (GnomeCmdConSmbClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
 
-    parent_class = gtk_type_class (gnome_cmd_con_get_type ());
+    parent_class = (GnomeCmdConClass *) gtk_type_class (gnome_cmd_con_get_type ());
 
     object_class->destroy = destroy;
 
@@ -257,7 +257,5 @@ gnome_cmd_con_smb_get_type         (void)
 GnomeCmdCon *
 gnome_cmd_con_smb_new (void)
 {
-    GnomeCmdConSmb *con = gtk_type_new (gnome_cmd_con_smb_get_type ());
-
-    return GNOME_CMD_CON (con);
+    return GNOME_CMD_CON (gtk_type_new (gnome_cmd_con_smb_get_type ()));
 }

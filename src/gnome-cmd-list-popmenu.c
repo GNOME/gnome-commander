@@ -93,7 +93,7 @@ class_init (GnomeCmdListPopmenuClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_menu_get_type ());
+    parent_class = (GtkMenuClass *) gtk_type_class (gtk_menu_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 }
@@ -143,7 +143,7 @@ gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
         if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
             popmenu_uiinfo[i].user_data = fs;
 
-    GnomeCmdListPopmenu *menu = gtk_type_new (gnome_cmd_list_popmenu_get_type ());
+    GnomeCmdListPopmenu *menu = (GnomeCmdListPopmenu *) gtk_type_new (gnome_cmd_list_popmenu_get_type ());
 
     // Fill the menu
 

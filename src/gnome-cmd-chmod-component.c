@@ -36,10 +36,7 @@ struct _GnomeCmdChmodComponentPrivate
     GtkWidget *numberview_label;
 };
 
-enum {
-    PERMS_CHANGED,
-    LAST_SIGNAL
-};
+enum {PERMS_CHANGED, LAST_SIGNAL};
 
 
 static GtkVBoxClass *parent_class = NULL;
@@ -98,7 +95,7 @@ class_init (GnomeCmdChmodComponentClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_vbox_get_type ());
+    parent_class = (GtkVBoxClass *) gtk_type_class (gtk_vbox_get_type ());
     object_class->destroy = destroy;
     widget_class->map = map;
 
@@ -163,10 +160,10 @@ init (GnomeCmdChmodComponent *comp)
     table_add (table, label, 0, 1, GTK_FILL);
 
     comp->priv->textview_label = create_label (GTK_WIDGET (comp), "");
-    table_add (table, comp->priv->textview_label, 1, 0, GTK_FILL|GTK_EXPAND);
+    table_add (table, comp->priv->textview_label, 1, 0, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     comp->priv->numberview_label = create_label (GTK_WIDGET (comp), "");
-    table_add (table, comp->priv->numberview_label, 1, 1, GTK_FILL|GTK_EXPAND);
+    table_add (table, comp->priv->numberview_label, 1, 1, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 }
 
 
@@ -177,7 +174,7 @@ init (GnomeCmdChmodComponent *comp)
 GtkWidget*
 gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms)
 {
-    GnomeCmdChmodComponent *comp = gtk_type_new (gnome_cmd_chmod_component_get_type ());
+    GnomeCmdChmodComponent *comp = (GnomeCmdChmodComponent *) gtk_type_new (gnome_cmd_chmod_component_get_type ());
 
     gnome_cmd_chmod_component_set_perms (comp, perms);
 
@@ -214,14 +211,12 @@ GnomeVFSFilePermissions
 gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
 {
     gint x,y;
-    GnomeVFSFilePermissions perms = 0;
+    GnomeVFSFilePermissions perms = (GnomeVFSFilePermissions) 0;
 
-    for (y=0; y<3; y++) {
-        for (x=0; x<3; x++) {
+    for (y=0; y<3; y++)
+        for (x=0; x<3; x++)
             if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (comp->priv->check_boxes[y][x])))
                 perms |= check_perm[y][x];
-        }
-    }
 
     return perms;
 }
@@ -233,11 +228,7 @@ gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component,
 {
     gint x,y;
 
-    for (y=0; y<3; y++) {
-        for (x=0; x<3; x++) {
-            gtk_toggle_button_set_active (
-                GTK_TOGGLE_BUTTON (component->priv->check_boxes[y][x]),
-                perms & check_perm[y][x]);
-        }
-    }
+    for (y=0; y<3; y++)
+        for (x=0; x<3; x++)
+            gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (component->priv->check_boxes[y][x]), perms & check_perm[y][x]);
 }

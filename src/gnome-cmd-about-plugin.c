@@ -1,7 +1,7 @@
 /* Ripped from libgnomeui and adjusted to my needs. Original comments left intact below.
 
     Copyright (C) 2003-2006 Marcus Bjurman <marbj499@student.liu.se>
- */
+*/
 /* gnome-about.c - An about box widget for gnome.
 
    Copyright (C) 2001 CodeFactory AB
@@ -30,7 +30,13 @@
 #include "gnome-cmd-about-plugin.h"
 
 
-struct _GnomeCmdAboutPluginPrivate {
+#define CALL_PARENT(parent_class_cast, parent, name, args)               \
+        ((parent_class_cast(parent##_parent_class)->name != NULL) ?      \
+                 parent_class_cast(parent##_parent_class)->name args : (void)0)
+
+
+struct _GnomeCmdAboutPluginPrivate
+{
     gchar *name;
     gchar *version;
     gchar *copyright;
@@ -49,7 +55,8 @@ struct _GnomeCmdAboutPluginPrivate {
     GtkWidget *web_button;
 };
 
-enum {
+enum
+{
     PROP_0,
     PROP_NAME,
     PROP_VERSION,
@@ -67,14 +74,12 @@ static void gnome_cmd_about_plugin_finalize (GObject *object);
 static void gnome_cmd_about_plugin_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void gnome_cmd_about_plugin_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 
-GNOME_CLASS_BOILERPLATE (GnomeCmdAboutPlugin, gnome_cmd_about_plugin, GtkDialog, GTK_TYPE_DIALOG)
+//GNOME_CLASS_BOILERPLATE (GnomeCmdAboutPlugin, gnome_cmd_about_plugin, GtkDialog, (GTypeFlags) GTK_TYPE_DIALOG)
+G_DEFINE_TYPE (GnomeCmdAboutPlugin, gnome_cmd_about_plugin, GTK_TYPE_DIALOG)
 
 static void
 gnome_cmd_about_plugin_update_authors_label (GnomeCmdAboutPlugin *about, GtkWidget *label)
 {
-    GSList *list;
-    gchar *tmp;
-
     if (about->priv->authors == NULL)
     {
         gtk_widget_hide (label);
@@ -84,10 +89,11 @@ gnome_cmd_about_plugin_update_authors_label (GnomeCmdAboutPlugin *about, GtkWidg
         gtk_widget_show (label);
 
     GString *string = g_string_new (NULL);
+    GSList *list;
 
     for (list = about->priv->authors; list; list = list->next)
     {
-        tmp = g_markup_escape_text (list->data, -1);
+        gchar *tmp = g_markup_escape_text ((gchar *) list->data, -1);
         g_string_append (string, tmp);
 
         if (list->next)
@@ -103,21 +109,22 @@ gnome_cmd_about_plugin_update_authors_label (GnomeCmdAboutPlugin *about, GtkWidg
 static void
 gnome_cmd_about_plugin_update_documenters_label (GnomeCmdAboutPlugin *about, GtkWidget *label)
 {
-    GSList *list;
-    gchar *tmp;
 
     if (about->priv->documenters == NULL)
     {
         gtk_widget_hide (label);
         return;
     }
-    else
-        gtk_widget_show (label);
+
+    gtk_widget_show (label);
 
     GString *string = g_string_new (NULL);
 
-    for (list = about->priv->documenters; list; list = list->next) {
-        tmp = g_markup_escape_text (list->data, -1);
+    GSList *list;
+
+    for (list = about->priv->documenters; list; list = list->next)
+    {
+        gchar *tmp = g_markup_escape_text ((gchar *) list->data, -1);
         g_string_append (string, tmp);
 
         if (list->next)
@@ -133,19 +140,17 @@ gnome_cmd_about_plugin_update_documenters_label (GnomeCmdAboutPlugin *about, Gtk
 static void
 gnome_cmd_about_plugin_update_translation_information_label (GnomeCmdAboutPlugin *about, GtkWidget *label)
 {
-    gchar *tmp;
-
     if (about->priv->translator_credits == NULL)
     {
         gtk_widget_hide (label);
         return;
     }
-    else
-        gtk_widget_show (label);
+
+    gtk_widget_show (label);
 
     GString *string = g_string_new (NULL);
 
-    tmp = g_markup_escape_text (about->priv->translator_credits, -1);
+    gchar *tmp = g_markup_escape_text (about->priv->translator_credits, -1);
     g_string_append (string, tmp);
     g_free (tmp);
 
@@ -202,9 +207,7 @@ gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *about)
         label = _create_label ();
 
         sw = gtk_scrolled_window_new (NULL, NULL);
-        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
-                        GTK_POLICY_AUTOMATIC,
-                        GTK_POLICY_AUTOMATIC);
+        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
         gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
         gtk_viewport_set_shadow_type (GTK_VIEWPORT (GTK_BIN (sw)->child), GTK_SHADOW_NONE);
 
@@ -217,9 +220,7 @@ gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *about)
         label = _create_label ();
 
         sw = gtk_scrolled_window_new (NULL, NULL);
-        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw),
-                        GTK_POLICY_AUTOMATIC,
-                        GTK_POLICY_AUTOMATIC);
+        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
         gtk_scrolled_window_add_with_viewport (GTK_SCROLLED_WINDOW (sw), label);
         gtk_viewport_set_shadow_type (GTK_VIEWPORT (GTK_BIN (sw)->child), GTK_SHADOW_NONE);
 
@@ -245,12 +246,11 @@ gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *about)
 
 
 static void
-gnome_cmd_about_plugin_instance_init (GnomeCmdAboutPlugin *about)
+gnome_cmd_about_plugin_init (GnomeCmdAboutPlugin *about)
 {
     GtkWidget *vbox, *hbox, *image, *label, *alignment, *button;
 
     // Data
-
     GnomeCmdAboutPluginPrivate *priv = g_new0 (GnomeCmdAboutPluginPrivate, 1);
     about->priv = priv;
 
@@ -361,7 +361,7 @@ gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
                                   "Program name",
                                   "The name of the program",
                                   NULL,
-                                  G_PARAM_READWRITE));
+                                  (GParamFlags) G_PARAM_READWRITE));
 
     g_object_class_install_property (object_class,
                      PROP_VERSION,
@@ -369,14 +369,14 @@ gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
                                   "Program version",
                                   "The version of the program",
                                   NULL,
-                                  G_PARAM_READWRITE));
+                                  (GParamFlags) G_PARAM_READWRITE));
     g_object_class_install_property (object_class,
                      PROP_COPYRIGHT,
                      g_param_spec_string ("copyright",
                                   "Copyright string",
                                   "Copyright information for the program",
                                   NULL,
-                                  G_PARAM_READWRITE));
+                                  (GParamFlags) G_PARAM_READWRITE));
 
     g_object_class_install_property (object_class,
                      PROP_COMMENTS,
@@ -384,7 +384,7 @@ gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
                                   "Comments string",
                                   "Comments about the program",
                                   NULL,
-                                  G_PARAM_READWRITE));
+                                  (GParamFlags) G_PARAM_READWRITE));
     g_object_class_install_property (object_class,
                      PROP_AUTHORS,
                      g_param_spec_value_array ("authors",
@@ -394,7 +394,7 @@ gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
                                             "Author entry",
                                             "A single author entry",
                                             NULL,
-                                            G_PARAM_READWRITE),
+                                            (GParamFlags) G_PARAM_READWRITE),
                                    G_PARAM_WRITABLE));
     g_object_class_install_property (object_class,
                      PROP_DOCUMENTERS,
@@ -405,7 +405,7 @@ gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
                                             "Documenter entry",
                                             "A single documenter entry",
                                             NULL,
-                                            G_PARAM_READWRITE),
+                                            (GParamFlags) G_PARAM_READWRITE),
                                    G_PARAM_WRITABLE));
 
     g_object_class_install_property (object_class,
@@ -414,7 +414,7 @@ gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
                                   "Translator credits",
                                   "Credits to the translators. This string should be marked as translatable",
                                   NULL,
-                                  G_PARAM_READWRITE));
+                                  (GParamFlags) G_PARAM_READWRITE));
 
     g_object_class_install_property (object_class,
                      PROP_WEBPAGE,
@@ -422,7 +422,7 @@ gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
                                   "Webpage for the plugin",
                                   "Webpage",
                                   NULL,
-                                  G_PARAM_READWRITE));
+                                  (GParamFlags) G_PARAM_READWRITE));
 
 }
 
@@ -569,38 +569,37 @@ gnome_cmd_about_plugin_finalize (GObject *object)
     g_free (about->priv);
     about->priv = NULL;
 
-    GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (object));
+    CALL_PARENT (G_OBJECT_CLASS, gnome_cmd_about_plugin, finalize, (object));
 }
 
 
 static void
 gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, const GValue *persons)
 {
-    GValueArray *value_array;
-    gint i;
-    GSList *list;
+    GSList *list = NULL;
 
     // Free the old list
     switch (prop_id)
     {
-    case PROP_AUTHORS:
-        list = about->priv->authors;
-        break;
-    case PROP_DOCUMENTERS:
-        list = about->priv->documenters;
-        break;
-    default:
-        g_assert_not_reached ();
-        list = NULL; // silence warning
+        case PROP_AUTHORS:
+            list = about->priv->authors;
+            break;
+        case PROP_DOCUMENTERS:
+            list = about->priv->documenters;
+            break;
+        default:
+            g_assert_not_reached ();
     }
 
     gnome_cmd_about_plugin_free_person_list (list);
     list = NULL;
 
-    value_array = g_value_get_boxed (persons);
+    GValueArray *value_array = (GValueArray *) g_value_get_boxed (persons);
 
     if (value_array == NULL)
         return;
+
+    guint i;
 
     for (i = 0; i < value_array->n_values; i++)
         list = g_slist_prepend (list, g_value_dup_string (&value_array->values[i]));
@@ -632,7 +631,7 @@ set_value_array_from_list (GValue *value, GSList *list)
 
     for (tmp = list; tmp; tmp = tmp->next)
     {
-        char *str = tmp->data;
+        char *str = (char *) tmp->data;
 
         g_value_init (&tmp_value, G_TYPE_STRING);
         g_value_set_string (&tmp_value, str);
@@ -815,7 +814,7 @@ gnome_cmd_about_plugin_new (PluginInfo *info)
 
     GnomeCmdAboutPlugin *about;
 
-    about = g_object_new (GNOME_CMD_TYPE_ABOUT_PLUGIN, NULL);
+    about = (GnomeCmdAboutPlugin *) g_object_new (GNOME_CMD_TYPE_ABOUT_PLUGIN, NULL);
         gnome_cmd_about_plugin_construct(
         about,
         info->name, info->version, info->copyright, info->comments,

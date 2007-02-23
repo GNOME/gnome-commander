@@ -42,7 +42,7 @@ class_init (GnomeCmdPathClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
 
-    parent_class = gtk_type_class (gtk_object_get_type ());
+    parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
     object_class->destroy = destroy;
 

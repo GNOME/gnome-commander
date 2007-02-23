@@ -35,7 +35,8 @@
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-data.h"
 
-enum {
+enum
+{
   ITEM_SELECTED,
   POPWIN_HIDDEN,
   LAST_SIGNAL
@@ -337,7 +338,7 @@ class_init (GnomeCmdComboClass *klass)
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    parent_class = gtk_type_class (gtk_hbox_get_type ());
+    parent_class = (GtkHBoxClass *) gtk_type_class (gtk_hbox_get_type ());
     object_class = (GtkObjectClass *) klass;
     widget_class = (GtkWidgetClass *) klass;
 
@@ -480,7 +481,7 @@ gnome_cmd_combo_get_type (void)
 GtkWidget *
 gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles)
 {
-    GnomeCmdCombo *combo =  gtk_type_new (gnome_cmd_combo_get_type ());
+    GnomeCmdCombo *combo =  (GnomeCmdCombo *) gtk_type_new (gnome_cmd_combo_get_type ());
 
     combo->text_col = text_col;
     combo->sel_data = NULL;
@@ -607,16 +608,15 @@ gnome_cmd_combo_update_style (GnomeCmdCombo *combo)
 static void
 gnome_cmd_combo_item_selected (GnomeCmdCombo *combo, gpointer data)
 {
-    gint row;
-
     g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
 
     gtk_widget_hide (combo->popwin);
     combo->is_popped = FALSE;
 
-    row = gtk_clist_find_row_from_data (GTK_CLIST (combo->list), data);
+    gint row = gtk_clist_find_row_from_data (GTK_CLIST (combo->list), data);
 
-    if (gtk_clist_get_text (GTK_CLIST (combo->list), row, combo->text_col, &combo->sel_text)) {
+    if (gtk_clist_get_text (GTK_CLIST (combo->list), row, combo->text_col, &combo->sel_text))
+    {
         combo->sel_data = data;
         gtk_entry_set_text (GTK_ENTRY (combo->entry), combo->sel_text);
     }

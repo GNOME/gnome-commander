@@ -58,7 +58,7 @@ on_ok (GtkButton *button, gpointer user_data)
     dlg->xferOptions = GNOME_VFS_XFER_RECURSIVE;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->follow_links)))
-        dlg->xferOptions |= GNOME_VFS_XFER_FOLLOW_LINKS;
+        (dlg->xferOptions) |= GNOME_VFS_XFER_FOLLOW_LINKS;
 }
 
 
@@ -126,12 +126,12 @@ gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from,
      * Customize prepare xfer widgets
      */
     text = get_bold_text (_("Overwrite Files"));
-    label = gtk_object_get_data (GTK_OBJECT (data->dialog->left_vbox_frame), "label");
+    label = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (data->dialog->left_vbox_frame), "label");
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
 
     text = get_bold_text (_("Options"));
-    label = gtk_object_get_data (GTK_OBJECT (data->dialog->right_vbox_frame), "label");
+    label = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (data->dialog->right_vbox_frame), "label");
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
 
@@ -149,7 +149,7 @@ gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from,
         dest_dir_frame_msg = g_strdup_printf (ngettext("copy %d file to","copy %d files to",num_files), num_files);
 
     text = get_bold_text (dest_dir_frame_msg);
-    label = gtk_object_get_data (GTK_OBJECT (data->dialog->dest_dir_frame), "label");
+    label = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (data->dialog->dest_dir_frame), "label");
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
 
