@@ -216,7 +216,7 @@ gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
     for (y=0; y<3; y++)
         for (x=0; x<3; x++)
             if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (comp->priv->check_boxes[y][x])))
-                perms |= check_perm[y][x];
+                (int &) perms |= check_perm[y][x];
 
     return perms;
 }

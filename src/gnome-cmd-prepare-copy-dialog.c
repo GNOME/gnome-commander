@@ -58,7 +58,7 @@ on_ok (GtkButton *button, gpointer user_data)
     dlg->xferOptions = GNOME_VFS_XFER_RECURSIVE;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->follow_links)))
-        (dlg->xferOptions) |= GNOME_VFS_XFER_FOLLOW_LINKS;
+        (int &) (dlg->xferOptions) |= GNOME_VFS_XFER_FOLLOW_LINKS;
 }
 
 
