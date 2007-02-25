@@ -1,3 +1,8 @@
+2007-02-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-popmenu.cc:
+	Fixed problem with RMB popoup menu.
+
 2007-02-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/*.{c,h}:

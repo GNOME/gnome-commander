@@ -392,7 +392,7 @@ init (GnomeCmdFilePopmenu *menu)
 GtkWidget*
 gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 {
-    gint i, pos, match_count;
+    gint pos, match_count;
     GList *vfs_apps, *tmp;
 
     // Make place for separator and open with other...
@@ -439,8 +439,10 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     // Fill the "Open with..." menu with applications
 
-    i = -1;
+    gint i = -1;
     menu->priv->data_list = NULL;
+
+    TRACE(i, %i);
 
     vfs_apps = tmp = gnome_vfs_mime_get_all_applications (finfo->info->mime_type);
     for (; vfs_apps && i < MAX_OPEN_WITH_APPS; vfs_apps = vfs_apps->next)
@@ -454,8 +456,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
             data->files = files;
             data->app = gnome_cmd_app_new_from_vfs_app (vfs_app);
 
-            i++;
-            apps_uiinfo[i].type = GNOME_APP_UI_ITEM;
+            apps_uiinfo[++i].type = GNOME_APP_UI_ITEM;
             apps_uiinfo[i].label = g_strdup (gnome_cmd_app_get_name (data->app));
             apps_uiinfo[i].moreinfo = (gpointer) cb_exec_with_app;
             apps_uiinfo[i].user_data = data;
@@ -464,26 +465,27 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         }
     }
 
+    TRACE(i, %i);
+
     if (i >= 0)
-        apps_uiinfo[i++].type = GNOME_APP_UI_SEPARATOR;
+        apps_uiinfo[++i].type = GNOME_APP_UI_SEPARATOR;
 
     // Add open with other
-    i++;
-    apps_uiinfo[i].type = GNOME_APP_UI_ITEM;
+    apps_uiinfo[++i].type = GNOME_APP_UI_ITEM;
     apps_uiinfo[i].label = g_strdup (_("Other..."));
     apps_uiinfo[i].moreinfo = (gpointer) on_open_with_other;
     apps_uiinfo[i].user_data = files;
 
     gnome_vfs_mime_application_list_free (tmp);
-    apps_uiinfo[i+1].type = GNOME_APP_UI_ENDOFINFO;
+    apps_uiinfo[++i].type = GNOME_APP_UI_ENDOFINFO;
 
     // Set default callback data
 
-    for (i=0; open_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
+    for (gint i=0; open_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
         if (open_uiinfo[i].type == GNOME_APP_UI_ITEM)
             open_uiinfo[i].user_data = fl;
 
-    for (i=0; other_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
+    for (gint i=0; other_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
         if (other_uiinfo[i].type == GNOME_APP_UI_ITEM)
             other_uiinfo[i].user_data = fl;
 
