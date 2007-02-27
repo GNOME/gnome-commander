@@ -21,6 +21,8 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-pixmap.h"
 
+using namespace std;
+
 
 GnomeCmdPixmap *
 gnome_cmd_pixmap_new_from_file (const gchar *filepath)

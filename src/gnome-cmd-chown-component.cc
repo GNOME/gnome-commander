@@ -25,6 +25,8 @@
 #include "gnome-cmd-chown-component.h"
 #include "owner.h"
 
+using namespace std;
+
 
 struct _GnomeCmdChownComponentPrivate
 {

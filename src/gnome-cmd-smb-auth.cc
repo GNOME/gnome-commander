@@ -22,6 +22,8 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-smb-auth.h"
 
+using namespace std;
+
 
 static void /* GnomeVFSModuleCallback */
 vfs_full_authentication_callback (const GnomeVFSModuleCallbackFullAuthenticationIn *in_args, size_t in_size,

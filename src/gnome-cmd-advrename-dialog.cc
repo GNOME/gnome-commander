@@ -31,6 +31,8 @@
 #include "tags/gnome-cmd-tags.h"
 #include "utils.h"
 
+using namespace std;
+
 
 // static GdkColor black   = {0,0,0,0};
 // static GdkColor red     = {0,0xffff,0,0};

@@ -22,6 +22,8 @@
 #include "history.h"
 #include "utils.h"
 
+using namespace std;
+
 
 History *history_new (gint max)
 {

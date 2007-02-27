@@ -29,6 +29,8 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-about-plugin.h"
 
+using namespace std;
+
 
 #define CALL_PARENT(parent_class_cast, parent, name, args)               \
         ((parent_class_cast(parent##_parent_class)->name != NULL) ?      \

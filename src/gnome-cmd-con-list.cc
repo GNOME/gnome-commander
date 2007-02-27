@@ -25,6 +25,9 @@
 #include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-con-list.h"
 
+using namespace std;
+
+
 struct _GnomeCmdConListPrivate
 {
     gboolean update_lock;

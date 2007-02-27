@@ -23,6 +23,8 @@
 #include "gnome-cmd-smb-net.h"
 #include "utils.h"
 
+using namespace std;
+
 
 struct _GnomeCmdSmbPathPrivate
 {

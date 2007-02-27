@@ -30,6 +30,9 @@
 #include "filter.h"
 #include "utils.h"
 
+using namespace std;
+
+
 static GnomeCmdDialogClass *parent_class = NULL;
 
 #define PBAR_MAX 50

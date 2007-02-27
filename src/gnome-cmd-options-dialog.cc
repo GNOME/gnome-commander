@@ -28,6 +28,8 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-combo.h"
 
+using namespace std;
+
 
 static GnomeCmdDialogClass *parent_class = NULL;
 

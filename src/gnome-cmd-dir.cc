@@ -29,6 +29,9 @@
 #include "dirlist.h"
 #include "utils.h"
 
+using namespace std;
+
+
 #define DIR_PBAR_MAX 50
 
 int created_dirs_cnt = 0;

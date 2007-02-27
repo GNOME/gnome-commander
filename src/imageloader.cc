@@ -23,6 +23,9 @@
 #include "utils.h"
 #include "gnome-cmd-data.h"
 
+using namespace std;
+
+
 #define NUM_FILE_TYPE_PIXMAPS 8
 
 

@@ -39,6 +39,8 @@
 
 #include "../pixmaps/copy_file_names.xpm"
 
+using namespace std;
+
 
 enum {SWITCH_FS, LAST_SIGNAL};
 

@@ -22,6 +22,8 @@
 #include "gnome-cmd-combo.h"
 #include "widget-factory.h"
 
+using namespace std;
+
 
 GtkWidget *
 create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)

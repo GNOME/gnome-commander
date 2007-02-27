@@ -27,6 +27,8 @@
 #include "../pixmaps/file-type-icons/file_type_dir.xpm"
 #include "../pixmaps/file-type-icons/file_type_regular.xpm"
 
+using namespace std;
+
 
 static GtkMenuClass *parent_class = NULL;
 

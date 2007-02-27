@@ -28,6 +28,8 @@
 #include "useractions.h"
 #include "owner.h"
 
+using namespace std;
+
 
 struct _GnomeCmdChownDialogPrivate
 {

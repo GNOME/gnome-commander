@@ -23,6 +23,8 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-xfer.h"
 
+using namespace std;
+
 
 struct _GnomeCmdMakeCopyDialogPrivate
 {

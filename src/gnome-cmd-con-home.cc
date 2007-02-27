@@ -23,6 +23,8 @@
 #include "gnome-cmd-plain-path.h"
 #include "imageloader.h"
 
+using namespace std;
+
 
 struct _GnomeCmdConHomePrivate
 {

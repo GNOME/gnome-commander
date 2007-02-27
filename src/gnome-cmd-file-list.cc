@@ -40,6 +40,9 @@
 #include "gnome-cmd-file-collection.h"
 #include "ls_colors.h"
 
+using namespace std;
+
+
 /* Controlls if file-uris should be escaped for local files when drag-N-dropping
  * Setting this seems be more portable when dropping on old file-managers as gmc etc.
  */

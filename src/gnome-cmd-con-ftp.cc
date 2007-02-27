@@ -24,6 +24,9 @@
 #include "imageloader.h"
 #include "utils.h"
 
+using namespace std;
+
+
 struct _GnomeCmdConFtpPrivate
 {
     gchar *alias;

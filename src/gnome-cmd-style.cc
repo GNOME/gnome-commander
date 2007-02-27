@@ -23,6 +23,9 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-types.h"
 
+using namespace std;
+
+
 GtkStyle *list_style = NULL;
 GtkStyle *sel_list_style = NULL;
 

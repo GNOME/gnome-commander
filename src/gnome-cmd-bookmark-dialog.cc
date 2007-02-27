@@ -33,6 +33,8 @@
 #include "gnome-cmd-combo.h"
 #include "widget-factory.h"
 
+using namespace std;
+
 
 struct _GnomeCmdBookmarkDialogPrivate
 {

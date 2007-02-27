@@ -21,6 +21,8 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-path.h"
 
+using namespace std;
+
 
 static GtkObjectClass *parent_class = NULL;
 

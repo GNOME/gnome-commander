@@ -32,6 +32,8 @@
 
 #include "../pixmaps/exec_wheel.xpm"
 
+using namespace std;
+
 
 /* These following types are slightly changed from the originals in the GnomeUI library
    We need special types because we neeed to place non-changeable shortcuts in the

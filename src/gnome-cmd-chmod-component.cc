@@ -22,6 +22,9 @@
 #include "gnome-cmd-chmod-component.h"
 #include "utils.h"
 
+using namespace std;
+
+
 GnomeVFSFilePermissions check_perm[3][3] = {
     {GNOME_VFS_PERM_USER_READ, GNOME_VFS_PERM_USER_WRITE, GNOME_VFS_PERM_USER_EXEC},
     {GNOME_VFS_PERM_GROUP_READ, GNOME_VFS_PERM_GROUP_WRITE, GNOME_VFS_PERM_GROUP_EXEC},

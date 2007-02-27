@@ -28,6 +28,9 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
 
+using namespace std;
+
+
 static GtkHBoxClass *parent_class = NULL;
 
 struct _GnomeCmdCmdlinePrivate

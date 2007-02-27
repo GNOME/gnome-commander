@@ -42,7 +42,11 @@
 #include "utils.h"
 #include "gnome-cmd-make-copy-dialog.h"
 
+using namespace std;
+
+
 #define FS_PBAR_MAX 50
+
 
 GtkTargetEntry drop_types [] = {
     { TARGET_URI_LIST_TYPE, 0, TARGET_URI_LIST },

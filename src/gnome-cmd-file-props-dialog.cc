@@ -28,6 +28,8 @@
 #include "utils.h"
 #include "imageloader.h"
 
+using namespace std;
+
 
 typedef struct {
     GtkWidget *dialog;

@@ -24,6 +24,9 @@
 #include "gnome-cmd-dir.h"
 #include "utils.h"
 
+using namespace std;
+
+
 struct _GnomeCmdConPrivate
 {
     GnomeCmdDir    *cwd;           // current working directory

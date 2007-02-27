@@ -35,6 +35,9 @@
 #endif
 #include <fnmatch.h>
 
+using namespace std;
+
+
 typedef struct
 {
     GnomeCmdFile *finfo;

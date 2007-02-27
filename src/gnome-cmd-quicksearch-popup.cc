@@ -24,6 +24,8 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-data.h"
 
+using namespace std;
+
 
 static GtkWindowClass *parent_class = NULL;
 

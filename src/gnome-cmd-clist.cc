@@ -23,6 +23,9 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-style.h"
 
+using namespace std;
+
+
 static GtkCListClass *parent_class = NULL;
 
 

@@ -27,6 +27,9 @@
 #include "gnome-cmd-python-plugin.h"
 #include "utils.h"
 
+using namespace std;
+
+
 #define MODULE_INIT_FUNC "main"
 
 

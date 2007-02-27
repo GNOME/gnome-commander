@@ -21,13 +21,16 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-plain-path.h"
 
+using namespace std;
+
+
 struct _GnomeCmdPlainPathPrivate
 {
     gchar *path;
 };
 
-static GnomeCmdPathClass *parent_class = NULL;
 
+static GnomeCmdPathClass *parent_class = NULL;
 
 
 static const gchar *

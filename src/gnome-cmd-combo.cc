@@ -35,6 +35,9 @@
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-data.h"
 
+using namespace std;
+
+
 enum
 {
   ITEM_SELECTED,

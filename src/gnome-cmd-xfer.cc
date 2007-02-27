@@ -29,6 +29,8 @@
 #include "gnome-cmd-data.h"
 #include "utils.h"
 
+using namespace std;
+
 
 #define XFER_PRIORITY 0
 

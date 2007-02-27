@@ -30,6 +30,9 @@
 
 #include <fnmatch.h>
 
+using namespace std;
+
+
 static Filter *
 new_regex (const gchar *exp, gboolean case_sens)
 {

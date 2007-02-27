@@ -33,6 +33,8 @@
 #include "gnome-cmd-python-plugin.h"
 #include "tags/gnome-cmd-tags.h"
 
+using namespace std;
+
 
 GnomeCmdMainWin *main_win;
 GtkWidget *main_win_widget;

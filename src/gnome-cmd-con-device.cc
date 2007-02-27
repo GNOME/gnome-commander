@@ -30,6 +30,8 @@
 
 #include "gnome-cmd-main-win.h"
 
+using namespace std;
+
 
 struct _GnomeCmdConDevicePrivate
 {

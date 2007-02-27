@@ -22,6 +22,9 @@
 #include "owner.h"
 #include "utils.h"
 
+using namespace std;
+
+
 GList *all_users;
 GList *all_groups;
 

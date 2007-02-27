@@ -25,6 +25,9 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
 
+using namespace std;
+
+
 #define GNOME_CMD_CUTTED 1
 #define GNOME_CMD_COPIED 2
 

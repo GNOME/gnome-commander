@@ -29,6 +29,8 @@
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
 
+using namespace std;
+
 
 typedef struct
 {

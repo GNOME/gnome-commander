@@ -22,6 +22,8 @@
 #include "gnome-cmd-smb-net.h"
 #include "utils.h"
 
+using namespace std;
+
 
 static GHashTable *entities = NULL;
 static gchar *current_wg_name;

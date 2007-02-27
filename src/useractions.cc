@@ -38,6 +38,8 @@
 #include "gnome-cmd-ftp-dialog.h"
 #include "utils.h"
 
+using namespace std;
+
 
 static GnomeCmdFileList *get_active_fl ()
 {

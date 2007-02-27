@@ -34,6 +34,8 @@
 #endif
 #include <fnmatch.h>
 
+using namespace std;
+
 
 #define MAX_OPEN_WITH_APPS 20
 

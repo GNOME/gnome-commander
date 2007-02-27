@@ -32,6 +32,9 @@
 #include "tags/gnome-cmd-tags-libs.h"
 #include "libgviewer/libgviewer.h"
 
+using namespace std;
+
+
 #define MAX_TYPE_LENGTH 2
 #define MAX_NAME_LENGTH 128
 #define MAX_OWNER_LENGTH 128

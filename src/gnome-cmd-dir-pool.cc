@@ -25,6 +25,8 @@
 #include "gnome-cmd-data.h"
 #include "utils.h"
 
+using namespace std;
+
 
 struct _GnomeCmdDirPoolPrivate
 {

@@ -23,6 +23,8 @@
 #include "utils.h"
 #include "dirlist.h"
 
+using namespace std;
+
 
 #define FILES_PER_NOTIFICATION 50
 #define LIST_PRIORITY 0

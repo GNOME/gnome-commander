@@ -29,6 +29,8 @@
 #include "useractions.h"
 #include "utils.h"
 
+using namespace std;
+
 
 typedef enum
 {

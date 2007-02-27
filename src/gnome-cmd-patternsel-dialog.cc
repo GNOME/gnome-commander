@@ -24,6 +24,9 @@
 #include "gnome-cmd-file-list.h"
 #include "utils.h"
 
+using namespace std;
+
+
 struct _GnomeCmdPatternselDialogPrivate
 {
     GnomeCmdFileList *fl;

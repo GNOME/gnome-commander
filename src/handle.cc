@@ -21,6 +21,8 @@
 #include <glib.h>
 #include "handle.h"
 
+using namespace std;
+
 
 Handle  *handle_new (gpointer ref)
 {

@@ -28,6 +28,9 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-about-plugin.h"
 
+using namespace std;
+
+
 // The names of these functions shall never change
 #define MODULE_INIT_FUNC "create_plugin"
 #define MODULE_INFO_FUNC "get_plugin_info"

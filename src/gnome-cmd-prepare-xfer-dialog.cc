@@ -29,6 +29,9 @@
 #include "gnome-cmd-main-win.h"
 #include "utils.h"
 
+using namespace std;
+
+
 static GnomeCmdDialogClass *parent_class = NULL;
 
 

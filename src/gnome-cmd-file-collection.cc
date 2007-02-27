@@ -21,6 +21,9 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-collection.h"
 
+using namespace std;
+
+
 struct _GnomeCmdFileCollectionPrivate
 {
     GHashTable *map;

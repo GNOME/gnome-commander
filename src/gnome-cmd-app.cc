@@ -21,6 +21,8 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-app.h"
 
+using namespace std;
+
 
 struct _GnomeCmdAppPrivate
 {

@@ -25,6 +25,8 @@
 #include "gnome-cmd-style.h"
 #include "utils.h"
 
+using namespace std;
+
 
 struct _GnomeCmdRenameDialogPrivate
 {
