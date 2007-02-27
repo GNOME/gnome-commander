@@ -39,11 +39,9 @@ gnome_cmd_pixmap_new_from_file (const gchar *filepath)
 GnomeCmdPixmap *
 gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf)
 {
-    GnomeCmdPixmap *pixmap;
-
     g_return_val_if_fail (pixbuf != NULL, NULL);
 
-    pixmap = g_new (GnomeCmdPixmap, 1);
+    GnomeCmdPixmap *pixmap = g_new (GnomeCmdPixmap, 1);
     pixmap->pixbuf = pixbuf;
 //    gdk_pixbuf_ref (pixmap->pixbuf);
 

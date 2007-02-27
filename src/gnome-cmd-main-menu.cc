@@ -911,9 +911,6 @@ add_connection (GnomeCmdMainMenu *main_menu, GnomeCmdCon *con,
 void
 gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
 {
-    GList *tmp;
-    gint match_count;
-
     g_return_if_fail (GNOME_CMD_IS_MAIN_MENU (main_menu));
 
     GtkMenuShell *connections_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
@@ -931,8 +928,9 @@ gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
     main_menu->priv->connections_menuitems = g_list_append (main_menu->priv->connections_menuitems, add_separator (main_menu, connections_menu));
 
     // Add all open connections
-    match_count = 0;
-    for (tmp = all_cons; tmp; tmp = tmp->next)
+    gint match_count = 0;
+
+    for (GList *tmp = all_cons; tmp; tmp = tmp->next)
     {
         GnomeCmdCon *con = GNOME_CMD_CON (tmp->data);
         if (!GNOME_CMD_IS_CON_FTP (con) || gnome_cmd_con_is_open (con))
@@ -952,7 +950,7 @@ gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
             add_separator (main_menu, connections_menu));
 
     // Add all open connections that are not permanent
-    for (tmp = all_cons; tmp; tmp = tmp->next)
+    for (GList *tmp = all_cons; tmp; tmp = tmp->next)
     {
         GnomeCmdCon *con = GNOME_CMD_CON (tmp->data);
         if (gnome_cmd_con_is_closeable (con) && gnome_cmd_con_is_open (con))

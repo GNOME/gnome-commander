@@ -47,10 +47,13 @@
 #include "gnome-cmd-tags-id3.h"
 #include "gnome-cmd-tags-iptcdata.h"
 
+using namespace std;
 
-struct _GnomeCmdTagName {
+
+struct GnomeCmdTagName
+{
     const gchar *name;
-    GnomeCmdTagClass class;
+    GnomeCmdTagClass tag_class;
     GnomeCmdTag tag;
     const gchar *title;
     const gchar *description;
@@ -59,10 +62,7 @@ struct _GnomeCmdTagName {
 };
 
 
-typedef struct _GnomeCmdTagName GnomeCmdTagName;
-
-
-static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE, TAG_NONE, "", ""},
+static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE, "", ""},
                                                    {"Audio.AlbumArtist", TAG_AUDIO, TAG_AUDIO_ALBUMARTIST, N_("Album Artist"), N_("Artist of the album.")},
                                                    {"Audio.AlbumGain", TAG_AUDIO, TAG_AUDIO_ALBUMGAIN, N_("Album Gain"), N_("Gain adjustment of the album.")},
                                                    {"Audio.AlbumPeakGain", TAG_AUDIO, TAG_AUDIO_ALBUMPEAKGAIN, N_("Album Peak Gain"), N_("Peak gain adjustment of album.")},
@@ -1640,7 +1640,6 @@ void gcmd_tags_shutdown()
 
 
 const gchar *gcmd_tags_image_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag);
-const gchar *gcmd_tags_image_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 
 
 GnomeCmdTag gcmd_tags_get_tag_by_long_name(const gchar *tag_name)
@@ -1709,7 +1708,7 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const GnomeCmdTagClass tag_class, const gc
 
     tag.name = g_strconcat(tag.name,tag_name,NULL);
     elem = (GnomeCmdTagName *) bsearch(&tag,metatags,NUMBER_OF_TAGS,sizeof(GnomeCmdTagName),tagcmp);
-    g_free(tag.name);
+    g_free((gpointer) tag.name);
 
     return elem ? elem->tag : TAG_NONE;
 }
@@ -1729,7 +1728,7 @@ const gchar *gcmd_tags_get_name(GnomeCmdTag tag)
 
 const gchar *gcmd_tags_get_class_name(GnomeCmdTag tag)
 {
-    switch (metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].class)
+    switch (metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].tag_class)
     {
         case TAG_AUDIO:
             return _("Audio");
@@ -1778,7 +1777,7 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag)
     if (tag>=NUMBER_OF_TAGS)
         return ret_val;
 
-    switch (metatags[tag].class)
+    switch (metatags[tag].tag_class)
     {
         case TAG_AUDIO: ret_val = gcmd_tags_audio_get_value(finfo, tag);
                         break;
@@ -1806,6 +1805,8 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag)
                         break;
 
         case TAG_RPM  : break;
+
+        default:        break;
     }
 
     return ret_val ? ret_val : empty_string;
@@ -1824,7 +1825,7 @@ const gchar *gcmd_tags_get_value_by_long_name(GnomeCmdFile *finfo, const gchar *
     if (tag!=TAG_NONE)
         return gcmd_tags_get_value(finfo, tag);
 
-    switch (metatags[tag].class)
+    switch (metatags[tag].tag_class)
     {
         case TAG_AUDIO: break;
 
@@ -2194,5 +2195,3 @@ const gchar *gcmd_tags_image_get_value_by_name(GnomeCmdFile *finfo, const gchar 
 {
     return empty_string;
 }
-
-// -----------------------------------------------------------------------------

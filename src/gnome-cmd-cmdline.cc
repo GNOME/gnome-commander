@@ -455,13 +455,11 @@ gnome_cmd_cmdline_get_history (GnomeCmdCmdline *cmdline)
 void
 gnome_cmd_cmdline_set_history  (GnomeCmdCmdline *cmdline, GList *history)
 {
-    GList *tmp;
-
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
     // free the old history
 
-    for (tmp = cmdline->priv->history; tmp; tmp = tmp->next)
+    for (GList *tmp = cmdline->priv->history; tmp; tmp = tmp->next)
         g_free (tmp->data);
 
     cmdline->priv->history = history;

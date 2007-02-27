@@ -125,9 +125,7 @@ show_dir_tree_sizes (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GList *files;
-
-    for (files = gnome_cmd_file_list_get_all_files (fs->list); files; files = files->next)
+    for (GList *files = gnome_cmd_file_list_get_all_files (fs->list); files; files = files->next)
         gnome_cmd_file_list_show_dir_size (fs->list, (GnomeCmdFile *) files->data);
 }
 
@@ -238,43 +236,43 @@ set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir)
 static gboolean
 file_is_wanted (GnomeCmdFileSelector *fs, GnomeVFSFileInfo *info)
 {
-        if (info->type == GNOME_VFS_FILE_TYPE_UNKNOWN
-            && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_UNKNOWN))
-            return FALSE;
-        if (info->type == GNOME_VFS_FILE_TYPE_REGULAR
-            && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_REGULAR))
-            return FALSE;
-        if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY
-            && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_DIRECTORY))
-            return FALSE;
-        if (info->type == GNOME_VFS_FILE_TYPE_FIFO
-            && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_FIFO))
-            return FALSE;
-        if (info->type == GNOME_VFS_FILE_TYPE_SOCKET
-            && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SOCKET))
-            return FALSE;
-        if (info->type == GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE
-            && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE))
-            return FALSE;
-        if (info->type == GNOME_VFS_FILE_TYPE_BLOCK_DEVICE
-            && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_BLOCK_DEVICE))
-            return FALSE;
-        if ((info->flags == GNOME_VFS_FILE_FLAGS_SYMLINK
-             || info->symlink_name != NULL)
-            && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK))
-            return FALSE;
-        if (strcmp (info->name, ".") == 0)
-            return FALSE;
-        if (strcmp (info->name, "..") == 0)
-            return FALSE;
-        if (info->name[0] == '.'
-            && gnome_cmd_data_get_hidden_filter ())
-            return FALSE;
-        if (gnome_cmd_data_get_backup_filter () &&
-            patlist_matches (gnome_cmd_data_get_backup_pattern_list (), info->name))
-            return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_UNKNOWN
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_UNKNOWN))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_REGULAR
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_REGULAR))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_DIRECTORY))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_FIFO
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_FIFO))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_SOCKET
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SOCKET))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_BLOCK_DEVICE
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_BLOCK_DEVICE))
+        return FALSE;
+    if ((info->flags == GNOME_VFS_FILE_FLAGS_SYMLINK
+         || info->symlink_name != NULL)
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK))
+        return FALSE;
+    if (strcmp (info->name, ".") == 0)
+        return FALSE;
+    if (strcmp (info->name, "..") == 0)
+        return FALSE;
+    if (info->name[0] == '.'
+        && gnome_cmd_data_get_hidden_filter ())
+        return FALSE;
+    if (gnome_cmd_data_get_backup_filter () &&
+        patlist_matches (gnome_cmd_data_get_backup_pattern_list (), info->name))
+        return FALSE;
 
-        return TRUE;
+    return TRUE;
 }
 
 
@@ -667,11 +665,10 @@ init_dnd (GnomeCmdFileSelector *fs)
 static void
 update_dir_combo (GnomeCmdFileSelector *fs)
 {/*
-    GList *tmp;
 
-    if (!fs->priv->dir_history) return;
+    if (!fs->priv->dir_history)  return;
 
-    tmp = fs->priv->dir_history->ents;
+    GList *tmp = fs->priv->dir_history->ents;
 
     gnome_cmd_combo_clear (GNOME_CMD_COMBO (fs->dir_combo));
 
@@ -949,8 +946,7 @@ create_con_buttons (GnomeCmdFileSelector *fs)
     if (!gnome_cmd_data_get_conbuttons_visibility ())
         return;
 
-    GList *l;
-    for (l = fs->priv->old_btns; l; l=l->next)
+    for (GList *l = fs->priv->old_btns; l; l=l->next)
         gtk_object_destroy (GTK_OBJECT (l->data));
 
     g_list_free (fs->priv->old_btns);
@@ -959,7 +955,7 @@ create_con_buttons (GnomeCmdFileSelector *fs)
     if (!tooltips)
         tooltips = gtk_tooltips_new ();
 
-    for (l=gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ()); l; l=l->next)
+    for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ()); l; l=l->next)
     {
         GtkWidget *btn, *label;
         GtkWidget *hbox;
@@ -1705,12 +1701,10 @@ on_con_open_cancel (GtkButton *button, GnomeCmdFileSelector *fs)
 static gboolean
 update_con_open_progress (GnomeCmdFileSelector *fs)
 {
-    const gchar *msg;
-
     if (!fs->priv->con_open_dialog)
         return FALSE;
 
-    msg = gnome_cmd_con_get_open_msg (fs->priv->con_opening);
+    const gchar *msg = gnome_cmd_con_get_open_msg (fs->priv->con_opening);
     gtk_label_set_text (GTK_LABEL (fs->priv->con_open_dialog_label), msg);
     progress_bar_update (fs->priv->con_open_dialog_pbar, FS_PBAR_MAX);
 
@@ -1841,7 +1835,6 @@ gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
 
     fs->priv->selection_lock = TRUE;
 
-    GList *l;
     gboolean found_my_con = FALSE;
 
     gnome_cmd_combo_clear (GNOME_CMD_COMBO (fs->con_combo));
@@ -1852,7 +1845,7 @@ gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
 
     GnomeCmdConList *con_list = gnome_cmd_data_get_con_list ();
 
-    for (l=gnome_cmd_con_list_get_all (con_list); l; l = l->next)
+    for (GList *l=gnome_cmd_con_list_get_all (con_list); l; l = l->next)
     {
         gint row;
         gchar *text[3];

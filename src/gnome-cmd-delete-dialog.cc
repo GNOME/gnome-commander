@@ -29,7 +29,8 @@
 using namespace std;
 
 
-typedef struct {
+typedef struct
+{
     GtkWidget *progbar;
     GtkWidget *proglabel;
     GtkWidget *progwin;
@@ -176,40 +177,38 @@ create_delete_progress_win (DeleteData *data)
 }
 
 
-static void
-perform_delete_operation (DeleteData *data)
+static void perform_delete_operation (DeleteData *data)
 {
-    int i;
-    GnomeVFSResult result;
     GList *uri_list = NULL;
-    GnomeVFSXferOptions xferOptions = GNOME_VFS_XFER_DEFAULT;
-    GnomeVFSXferErrorMode xferErrorMode = GNOME_VFS_XFER_ERROR_MODE_QUERY;
     gint num_files = g_list_length (data->files);
 
     // Go through all files and add the uri of the appropriate ones to a list
-    for (i=0; i<num_files; i++) {
-        GnomeVFSURI *uri;
+    for (gint i=0; i<num_files; i++)
+    {
         GnomeCmdFile *finfo = (GnomeCmdFile *) g_list_nth_data (data->files, i);
 
         if (g_strcasecmp(finfo->info->name, "..") == 0
             || g_strcasecmp(finfo->info->name, ".") == 0) continue;
 
-        uri = gnome_cmd_file_get_uri (finfo);
+        GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
         if (!uri) continue;
 
         gnome_vfs_uri_ref (uri);
         uri_list = g_list_append (uri_list, uri);
     }
 
-    if (uri_list != NULL) {
-        result = gnome_vfs_xfer_delete_list (
-            uri_list,
-            xferErrorMode,
-            xferOptions,
-            (GnomeVFSXferProgressCallback)delete_progress_callback,
-            data);
+    if (uri_list != NULL)
+    {
+        GnomeVFSXferOptions xferOptions = GNOME_VFS_XFER_DEFAULT;
+        GnomeVFSXferErrorMode xferErrorMode = GNOME_VFS_XFER_ERROR_MODE_QUERY;
 
-        g_list_foreach (uri_list, (GFunc)gnome_vfs_uri_unref, NULL);
+        GnomeVFSResult result = gnome_vfs_xfer_delete_list (uri_list,
+                                                            xferErrorMode,
+                                                            xferOptions,
+                                                            (GnomeVFSXferProgressCallback) delete_progress_callback,
+                                                            data);
+
+        g_list_foreach (uri_list, (GFunc) gnome_vfs_uri_unref, NULL);
         g_list_free (uri_list);
     }
 
@@ -242,13 +241,11 @@ update_delete_status_widgets (DeleteData *data)
 
     if (data->delete_done)
     {
-        GList *tmp;
-
         if (data->vfs_status != GNOME_VFS_OK)
             create_error_dialog (gnome_vfs_result_to_string (data->vfs_status));
 
         if (data->files)
-            for (tmp = data->files; tmp; tmp = tmp->next)
+            for (GList *tmp = data->files; tmp; tmp = tmp->next)
             {
                 GnomeCmdFile *finfo = GNOME_CMD_FILE (tmp->data);
                 GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);

@@ -57,8 +57,7 @@ struct _GnomeCmdFilePrivate
 };
 
 
-static gboolean
-has_parent_dir (GnomeCmdFile *finfo)
+inline gboolean has_parent_dir (GnomeCmdFile *finfo)
 {
     return finfo->priv->dir_handle && finfo->priv->dir_handle->ref;
 }
@@ -292,9 +291,6 @@ gnome_cmd_file_chmod (GnomeCmdFile *file, GnomeVFSFilePermissions perm)
 GnomeVFSResult
 gnome_cmd_file_chown (GnomeCmdFile *file, uid_t uid, gid_t gid)
 {
-    GnomeVFSResult ret;
-    GnomeVFSURI *uri;
-
     g_return_val_if_fail (file != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
     g_return_val_if_fail (file->info != NULL, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
@@ -302,8 +298,8 @@ gnome_cmd_file_chown (GnomeCmdFile *file, uid_t uid, gid_t gid)
         file->info->uid = uid;
     file->info->gid = gid;
 
-    uri = gnome_cmd_file_get_uri (file);
-    ret = gnome_vfs_set_file_info_uri (uri, file->info, GNOME_VFS_SET_FILE_INFO_OWNER);
+    GnomeVFSURI *uri = gnome_cmd_file_get_uri (file);
+    GnomeVFSResult ret = gnome_vfs_set_file_info_uri (uri, file->info, GNOME_VFS_SET_FILE_INFO_OWNER);
     gnome_vfs_uri_unref (uri);
 
     if (has_parent_dir (file))
@@ -319,21 +315,17 @@ gnome_cmd_file_chown (GnomeCmdFile *file, uid_t uid, gid_t gid)
 GnomeVFSResult
 gnome_cmd_file_rename (GnomeCmdFile *finfo, const gchar *new_name)
 {
-    GnomeVFSFileInfo *new_info;
-    GnomeVFSResult result;
-    GnomeVFSURI *uri;
-
     g_return_val_if_fail (finfo, GNOME_VFS_ERROR_CORRUPTED_DATA);
     g_return_val_if_fail (finfo->info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
-    new_info = gnome_vfs_file_info_dup (finfo->info);
+    GnomeVFSFileInfo *new_info = gnome_vfs_file_info_dup (finfo->info);
     g_return_val_if_fail (new_info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
     g_free (new_info->name);
     new_info->name = g_strdup (new_name);
 
-    uri = gnome_cmd_file_get_uri (finfo);
-    result = gnome_vfs_set_file_info_uri (uri, new_info, GNOME_VFS_SET_FILE_INFO_NAME);
+    GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
+    GnomeVFSResult result = gnome_vfs_set_file_info_uri (uri, new_info, GNOME_VFS_SET_FILE_INFO_NAME);
     gnome_vfs_uri_unref (uri);
 
     if (result == GNOME_VFS_OK && has_parent_dir (finfo))
@@ -348,18 +340,7 @@ gnome_cmd_file_rename (GnomeCmdFile *finfo, const gchar *new_name)
 }
 
 
-const gchar *
-gnome_cmd_file_get_name (GnomeCmdFile *file)
-{
-    g_return_val_if_fail (file != NULL, NULL);
-    g_return_val_if_fail (file->info != NULL, NULL);
-
-    return file->info->name;
-}
-
-
-gchar *
-gnome_cmd_file_get_quoted_name (GnomeCmdFile *file)
+gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *file)
 {
     g_return_val_if_fail (file != NULL, NULL);
     g_return_val_if_fail (file->info != NULL, NULL);
@@ -368,8 +349,7 @@ gnome_cmd_file_get_quoted_name (GnomeCmdFile *file)
 }
 
 
-gchar *
-gnome_cmd_file_get_path (GnomeCmdFile *finfo)
+gchar *gnome_cmd_file_get_path (GnomeCmdFile *finfo)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
@@ -522,8 +502,7 @@ gnome_cmd_file_get_group (GnomeCmdFile *file)
 }
 
 
-static const gchar *
-date2string (time_t date, gboolean overide_disp_setting)
+inline const gchar *date2string (time_t date, gboolean overide_disp_setting)
 {
     return time2string (date, overide_disp_setting?"%c":gnome_cmd_data_get_date_format ());
 }
@@ -650,11 +629,11 @@ gnome_cmd_file_get_type_desc (GnomeCmdFile *finfo)
 GdkPixmap *
 gnome_cmd_file_get_type_pixmap (GnomeCmdFile *finfo)
 {
-    GdkPixmap *pm;
-    GdkBitmap *mask;
-
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
+
+    GdkPixmap *pm;
+    GdkBitmap *mask;
 
     IMAGE_get_pixmap_and_mask (finfo->info->type, finfo->info->mime_type, finfo->info->symlink_name != NULL, &pm, &mask);
 
@@ -665,11 +644,11 @@ gnome_cmd_file_get_type_pixmap (GnomeCmdFile *finfo)
 GdkBitmap *
 gnome_cmd_file_get_type_mask (GnomeCmdFile *finfo)
 {
-    GdkPixmap *pm;
-    GdkBitmap *mask;
-
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
+
+    GdkPixmap *pm;
+    GdkBitmap *mask;
 
     IMAGE_get_pixmap_and_mask (finfo->info->type, finfo->info->mime_type, finfo->info->symlink_name != NULL, &pm, &mask);
 
@@ -778,13 +757,13 @@ on_file_downloaded_for_view (gchar *path)
 void
 gnome_cmd_file_view (GnomeCmdFile *finfo, gint internal_viewer)
 {
+    g_return_if_fail (finfo != NULL);
+    g_return_if_fail (has_parent_dir (finfo));
+
     gchar *path_str;
     GnomeCmdPath *path;
     GnomeVFSURI *src_uri, *dest_uri;
     GnomeCmdCon *con;
-
-    g_return_if_fail (finfo != NULL);
-    g_return_if_fail (has_parent_dir (finfo));
 
     // If the file is local there is no need to download it
     if (gnome_cmd_dir_is_local (get_parent_dir (finfo)))
@@ -998,7 +977,7 @@ gnome_cmd_file_list_ref (GList *files)
 {
     g_return_if_fail (files != NULL);
 
-    g_list_foreach (files, (GFunc)gnome_cmd_file_ref, NULL);
+    g_list_foreach (files, (GFunc) gnome_cmd_file_ref, NULL);
 }
 
 
@@ -1020,13 +999,13 @@ void gnome_cmd_file_list_unref (GList *files)
 {
     g_return_if_fail (files != NULL);
 
-    g_list_foreach (files, (GFunc)gnome_cmd_file_unref, NULL);
+    g_list_foreach (files, (GFunc) gnome_cmd_file_unref, NULL);
 }
 
 
-static gulong tv2ms (GTimeVal *t)
+inline gulong tv2ms (const GTimeVal &t)
 {
-    return t->tv_sec * 1000 + t->tv_usec/1000;
+    return t.tv_sec * 1000 + t.tv_usec/1000;
 }
 
 
@@ -1036,7 +1015,7 @@ gboolean gnome_cmd_file_needs_update (GnomeCmdFile *file)
 
     g_get_current_time (&t);
 
-    if (tv2ms (&t) - tv2ms (&file->priv->last_update) > gnome_cmd_data_get_gui_update_rate ())
+    if (tv2ms (t) - tv2ms (file->priv->last_update) > gnome_cmd_data_get_gui_update_rate ())
     {
         file->priv->last_update = t;
         return TRUE;

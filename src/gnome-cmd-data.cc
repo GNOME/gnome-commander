@@ -114,7 +114,7 @@ struct _GnomeCmdDataPrivate
 };
 
 
-static gint get_int (const gchar *path, int def)
+inline gint get_int (const gchar *path, int def)
 {
     gboolean b = FALSE;
     gint value = gnome_config_get_int_with_default (path, &b);
@@ -130,11 +130,9 @@ static void write_ftp_servers (const gchar *fname)
 
     if (fd != NULL)
     {
-        GList *tmp;
-
         chmod (path, S_IRUSR|S_IWUSR);
 
-        for (tmp = gnome_cmd_con_list_get_all_ftp (data->priv->con_list); tmp; tmp = tmp->next)
+        for (GList *tmp = gnome_cmd_con_list_get_all_ftp (data->priv->con_list); tmp; tmp = tmp->next)
         {
             GnomeCmdConFtp *server = GNOME_CMD_CON_FTP (tmp->data);
 
@@ -147,7 +145,6 @@ static void write_ftp_servers (const gchar *fname)
                 gchar *uname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_user_name (server));
                 gchar *pw    = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_pw (server));
                 GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (GNOME_CMD_CON (server));
-                GList *bookmarks;
 
                 fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp:", alias, hname, port, remote_dir, uname, pw?:"");
 
@@ -157,7 +154,7 @@ static void write_ftp_servers (const gchar *fname)
                 g_free (uname);
                 g_free (pw);
 
-                for (bookmarks = bookmark_group->bookmarks; bookmarks; bookmarks = bookmarks->next)
+                for (GList *bookmarks = bookmark_group->bookmarks; bookmarks; bookmarks = bookmarks->next)
                 {
                     GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
                     gchar *name = gnome_vfs_escape_string (bookmark->name);
@@ -188,12 +185,11 @@ write_devices (const gchar *fname)
 
     if (fd != NULL)
     {
-        GList *tmp;
-
-        for (tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp != NULL; tmp = tmp->next) {
+        for (GList *tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp != NULL; tmp = tmp->next)
+        {
             GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
-            if (device &&
-                !gnome_cmd_con_device_get_autovol(device)) {
+            if (device && !gnome_cmd_con_device_get_autovol(device))
+            {
                 gchar *alias = gnome_vfs_escape_string (gnome_cmd_con_device_get_alias (device));
                 gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
                 gchar *mountp = gnome_vfs_escape_string (gnome_cmd_con_device_get_mountp (device));
@@ -235,9 +231,8 @@ write_fav_apps (const gchar *fname)
 
     if (fd != NULL)
     {
-        GList *tmp;
-
-        for (tmp = data->priv->fav_apps; tmp != NULL; tmp = tmp->next) {
+        for (GList *tmp = data->priv->fav_apps; tmp != NULL; tmp = tmp->next)
+        {
             GnomeCmdApp *app = (GnomeCmdApp *) tmp->data;
             if (app)
             {
@@ -394,8 +389,7 @@ static gboolean load_ftp_servers (const gchar *fname)
 }
 
 
-static gboolean
-vfs_is_uri_local(const char *uri)
+inline gboolean vfs_is_uri_local (const char *uri)
 {
     GnomeVFSURI *pURI = NULL;
     gboolean b;
@@ -422,13 +416,13 @@ static void
 remove_vfs_volume (GnomeVFSVolume *volume)
 {
     char *path, *uri, *localpath;
-    GList *tmp;
 
     if (!gnome_vfs_volume_is_user_visible (volume))
         return;
 
     uri = gnome_vfs_volume_get_activation_uri (volume);
-    if (!vfs_is_uri_local(uri)) {
+    if (!vfs_is_uri_local(uri))
+    {
         g_free(uri);
         return;
     }
@@ -436,7 +430,7 @@ remove_vfs_volume (GnomeVFSVolume *volume)
     path = gnome_vfs_volume_get_device_path (volume);
     localpath = gnome_vfs_get_local_path_from_uri(uri);
 
-    for (tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp != NULL; tmp = tmp->next) {
+    for (GList *tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp != NULL; tmp = tmp->next) {
         GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
         if (device && gnome_cmd_con_device_get_autovol(device)) {
             gchar *device_fn;
@@ -463,25 +457,25 @@ static gboolean
 device_mount_point_exists(GnomeCmdConList *list, const gchar *mountpoint)
 {
     gboolean rc = FALSE;
-    GList *tmp;
 
-    for (tmp = gnome_cmd_con_list_get_all_dev (list); tmp != NULL; tmp = tmp->next) {
+    for (GList *tmp = gnome_cmd_con_list_get_all_dev (list); tmp != NULL; tmp = tmp->next)
+    {
         GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
-        if (device &&
-        !gnome_cmd_con_device_get_autovol(device)) {
-        gchar *mountp = gnome_vfs_escape_string (gnome_cmd_con_device_get_mountp (device));
-        gchar *mountp2= gnome_vfs_unescape_string (mountp, NULL);
+        if (device && !gnome_cmd_con_device_get_autovol(device))
+        {
+            gchar *mountp = gnome_vfs_escape_string (gnome_cmd_con_device_get_mountp (device));
+            gchar *mountp2= gnome_vfs_unescape_string (mountp, NULL);
 
-        if (strcmp(mountp2, mountpoint)==0)
-            rc = TRUE;
+            rc = strcmp(mountp2, mountpoint)==0;
 
-        g_free (mountp);
-        g_free (mountp2);
+            g_free (mountp);
+            g_free (mountp2);
 
-        if (rc)
-            break;
+            if (rc)
+                break;
         }
     }
+
     return rc;
 }
 
@@ -489,17 +483,13 @@ device_mount_point_exists(GnomeCmdConList *list, const gchar *mountpoint)
 static void
 add_vfs_volume (GnomeVFSVolume *volume)
 {
-    char *path, *uri, *name, *icon,*localpath;
-    const gchar *iconpath;
-    GnomeVFSDrive *drive;
-    GnomeCmdConDevice *ConDev;
-    GtkIconInfo *iconinfo;
-    GtkIconTheme *icontheme;
-
     if (!gnome_vfs_volume_is_user_visible (volume))
         return;
 
-    uri = gnome_vfs_volume_get_activation_uri (volume);
+    GnomeCmdConDevice *ConDev;
+    GtkIconInfo *iconinfo;
+
+    char *uri = gnome_vfs_volume_get_activation_uri (volume);
 
     if (!vfs_is_uri_local(uri))
     {
@@ -507,14 +497,14 @@ add_vfs_volume (GnomeVFSVolume *volume)
         return;
     }
 
-    path = gnome_vfs_volume_get_device_path (volume);
-    icon = gnome_vfs_volume_get_icon (volume);
-    name = gnome_vfs_volume_get_display_name (volume);
-    drive = gnome_vfs_volume_get_drive (volume);
+    char *path = gnome_vfs_volume_get_device_path (volume);
+    char *icon = gnome_vfs_volume_get_icon (volume);
+    char *name = gnome_vfs_volume_get_display_name (volume);
+    GnomeVFSDrive *drive = gnome_vfs_volume_get_drive (volume);
 
     // Try to load the icon, using current theme
-    iconpath = NULL;
-    icontheme = gtk_icon_theme_get_default();
+    const gchar *iconpath = NULL;
+    GtkIconTheme *icontheme = gtk_icon_theme_get_default();
     if (icontheme)
     {
         iconinfo = gtk_icon_theme_lookup_icon (icontheme, icon, 16, GTK_ICON_LOOKUP_USE_BUILTIN);
@@ -523,8 +513,7 @@ add_vfs_volume (GnomeVFSVolume *volume)
             iconpath = gtk_icon_info_get_filename (iconinfo);
     }
 
-
-    localpath = gnome_vfs_get_local_path_from_uri (uri);
+    char *localpath = gnome_vfs_get_local_path_from_uri (uri);
 
     DEBUG('m',"name = %s\n", name);
     DEBUG('m',"path = %s\n", path);
@@ -532,16 +521,16 @@ add_vfs_volume (GnomeVFSVolume *volume)
     DEBUG('m',"local = %s\n", localpath);
     DEBUG('m',"icon = %s (full path = %s)\n", icon, iconpath);
 
-    /* Don't create a new device connect if one already exists.
-                This can happen if the user manually added the same device in "Options|Devices" menu */
-    if (!device_mount_point_exists(data->priv->con_list, localpath)) {
-    ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, iconpath);
-    gnome_cmd_con_device_set_autovol(ConDev, TRUE);
-    gnome_cmd_con_device_set_vfs_volume(ConDev, volume);
-    gnome_cmd_con_list_add_device (data->priv->con_list,ConDev);
-    } else {
-    DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", localpath);
+    // Don't create a new device connect if one already exists. This can happen if the user manually added the same device in "Options|Devices" menu
+    if (!device_mount_point_exists(data->priv->con_list, localpath))
+    {
+        ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, iconpath);
+        gnome_cmd_con_device_set_autovol(ConDev, TRUE);
+        gnome_cmd_con_device_set_vfs_volume(ConDev, volume);
+        gnome_cmd_con_list_add_device (data->priv->con_list,ConDev);
     }
+    else
+        DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", localpath);
 
     g_free (path);
     g_free (uri);
@@ -565,7 +554,8 @@ add_vfs_drive (GnomeVFSDrive *drive)
 
     uri = gnome_vfs_drive_get_activation_uri (drive);
 
-    if (!vfs_is_uri_local(uri)) {
+    if (!vfs_is_uri_local(uri))
+    {
         g_free(uri);
         return;
     }

@@ -91,9 +91,8 @@ gnome_cmd_about_plugin_update_authors_label (GnomeCmdAboutPlugin *about, GtkWidg
         gtk_widget_show (label);
 
     GString *string = g_string_new (NULL);
-    GSList *list;
 
-    for (list = about->priv->authors; list; list = list->next)
+    for (GSList *list = about->priv->authors; list; list = list->next)
     {
         gchar *tmp = g_markup_escape_text ((gchar *) list->data, -1);
         g_string_append (string, tmp);
@@ -122,9 +121,7 @@ gnome_cmd_about_plugin_update_documenters_label (GnomeCmdAboutPlugin *about, Gtk
 
     GString *string = g_string_new (NULL);
 
-    GSList *list;
-
-    for (list = about->priv->documenters; list; list = list->next)
+    for (GSList *list = about->priv->documenters; list; list = list->next)
     {
         gchar *tmp = g_markup_escape_text ((gchar *) list->data, -1);
         g_string_append (string, tmp);
@@ -601,9 +598,7 @@ gnome_cmd_about_plugin_set_persons (GnomeCmdAboutPlugin *about, guint prop_id, c
     if (value_array == NULL)
         return;
 
-    guint i;
-
-    for (i = 0; i < value_array->n_values; i++)
+    for (guint i = 0; i < value_array->n_values; i++)
         list = g_slist_prepend (list, g_value_dup_string (&value_array->values[i]));
 
     list = g_slist_reverse (list);
@@ -629,9 +624,8 @@ set_value_array_from_list (GValue *value, GSList *list)
     GValueArray *array = g_value_array_new (length);
 
     GValue tmp_value = { 0 };
-    GSList *tmp;
 
-    for (tmp = list; tmp; tmp = tmp->next)
+    for (GSList *tmp = list; tmp; tmp = tmp->next)
     {
         char *str = (char *) tmp->data;
 
@@ -746,9 +740,8 @@ gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
 {
     GValueArray *authors_array = g_value_array_new (0);
     GValueArray *documenters_array;
-    gint i;
 
-    for (i = 0; authors[i] != NULL; i++)
+    for (gint i = 0; authors[i] != NULL; i++)
     {
         GValue value = {0, };
 
@@ -761,7 +754,7 @@ gnome_cmd_about_plugin_construct (GnomeCmdAboutPlugin *about,
     {
         documenters_array = g_value_array_new (0);
 
-        for (i = 0; documenters[i] != NULL; i++)
+        for (gint i = 0; documenters[i] != NULL; i++)
         {
             GValue value = {0, };
 

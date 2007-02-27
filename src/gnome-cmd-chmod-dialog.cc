@@ -66,30 +66,34 @@ static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
     g_return_if_fail (in_finfo->info != NULL);
 
     if (!(recursive && mode == CHMOD_DIRS_ONLY
-          && in_finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)) {
+          && in_finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY))
+    {
         GnomeVFSResult ret = gnome_cmd_file_chmod (in_finfo, perm);
 
-        if (ret != GNOME_VFS_OK) {
+        if (ret != GNOME_VFS_OK)
+        {
             gchar *fpath = gnome_cmd_file_get_real_path (in_finfo);
             gchar *msg = g_strdup_printf (_("Could not chmod %s\n%s"), fpath, gnome_vfs_result_to_string (ret));
             create_error_dialog (msg);
             g_free (msg);
             g_free (fpath);
         }
-        else if (!recursive) {
+        else if (!recursive)
+        {
             return;
         }
     }
 
-    if (in_finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+    if (in_finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    {
         GnomeCmdDir *dir = GNOME_CMD_DIR (in_finfo);
-        GList *files, *tmp;
+        GList *files;
 
         gnome_cmd_dir_ref (dir);
         gnome_cmd_dir_list_files (dir, FALSE);
         gnome_cmd_dir_get_files (dir, &files);
 
-        for (tmp = files; tmp; tmp = tmp->next)
+        for (GList *tmp = files; tmp; tmp = tmp->next)
         {
             GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
             if (strcmp (finfo->info->name, ".") != 0
@@ -106,9 +110,7 @@ static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
 
 static void do_chmod_files (GnomeCmdChmodDialog *dialog)
 {
-    GList *tmp;
-
-    for (tmp = dialog->priv->files; tmp; tmp = tmp->next)
+    for (GList *tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
         gboolean recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));

@@ -66,17 +66,15 @@ struct _GnomeCmdCListPrivate
 static inline gint
 COLUMN_FROM_XPIXEL (GtkCList * clist, gint x)
 {
-    gint i, cx;
+    for (gint i = 0; i < clist->columns; i++)
+        if (clist->column[i].visible)
+        {
+            gint cx = clist->column[i].area.x + clist->hoffset;
 
-    for (i = 0; i < clist->columns; i++)
-    if (clist->column[i].visible)
-    {
-        cx = clist->column[i].area.x + clist->hoffset;
-
-        if (x >= (cx - (COLUMN_INSET + CELL_SPACING)) &&
-            x <= (cx + clist->column[i].area.width + COLUMN_INSET))
-            return i;
-    }
+            if (x >= (cx - (COLUMN_INSET + CELL_SPACING)) &&
+                x <= (cx + clist->column[i].area.width + COLUMN_INSET))
+                return i;
+        }
 
     // no match
     return -1;
@@ -276,7 +274,8 @@ draw_row (GtkCList     *clist,
           gint          row,
           GtkCListRow  *clist_row)
 {
-    GtkWidget *widget;
+    g_return_if_fail (clist != NULL);
+
     GdkRectangle *rect;
     GdkRectangle row_rectangle;
     GdkRectangle cell_rectangle;
@@ -284,15 +283,12 @@ draw_row (GtkCList     *clist,
     GdkRectangle intersect_rectangle;
     gint last_column;
     gint state;
-    gint i;
-
-    g_return_if_fail (clist != NULL);
 
     // bail out now if we aren't drawable yet
     if (!GTK_WIDGET_DRAWABLE (clist) || row < 0 || row >= clist->rows)
         return;
 
-    widget = GTK_WIDGET (clist);
+    GtkWidget *widget = GTK_WIDGET (clist);
 
     // if the function is passed the pointer to the row instead of null, it avoids this expensive lookup
     if (!clist_row)
@@ -389,7 +385,7 @@ draw_row (GtkCList     *clist,
     for (last_column = clist->columns - 1; last_column >= 0 && !clist->column[last_column].visible; last_column--);
 
     // iterate and draw all the columns (row cells) and draw their contents
-    for (i = 0; i < clist->columns; i++)
+    for (gint i = 0; i < clist->columns; i++)
     {
         GtkStyle *style;
         GdkGC *fg_gc;
@@ -557,9 +553,7 @@ static void
 on_realize                          (GtkCList *clist,
                                      gpointer data)
 {
-    gint i;
-
-    for (i=0; i<clist->columns; i++)
+    for (gint i=0; i<clist->columns; i++)
         if (clist->column[i].button)
             GTK_WIDGET_UNSET_FLAGS (clist->column[i].button, GTK_CAN_FOCUS);
 
@@ -659,13 +653,12 @@ GtkWidget*
 gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 {
     GnomeCmdCList *clist = (GnomeCmdCList *) g_object_new (gnome_cmd_clist_get_type(), "n_columns", columns, NULL);
-    gint i;
 
-    for (i=0; i<columns; i++)
+    for (gint i=0; i<columns; i++)
         gtk_clist_set_column_auto_resize (GTK_CLIST (clist), i, TRUE);
 
     if (titles != NULL)
-        for (i=0; i<columns; i++)
+        for (gint i=0; i<columns; i++)
             gtk_clist_set_column_title (GTK_CLIST (clist), i, titles[i]);
 
     return GTK_WIDGET (clist);

@@ -364,19 +364,18 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
                            GtkSignalFunc on_completed_func,
                            gpointer on_completed_data)
 {
+    g_return_if_fail (src_uri_list != NULL);
+    g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
+
     GnomeVFSURI *src_uri, *dest_uri;
     GnomeVFSResult result;
     gint num_files;
     XferData *data;
-    GList *tmp;
-
-    g_return_if_fail (src_uri_list != NULL);
-    g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
 
     /*
      * Sanity check
      */
-    for (tmp = src_uri_list; tmp; tmp = tmp->next)
+    for (GList *tmp = src_uri_list; tmp; tmp = tmp->next)
     {
         src_uri = (GnomeVFSURI *) tmp->data;
         if (uri_is_parent_to_dir_or_equal (src_uri, to_dir))
@@ -439,9 +438,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
                                    xfer_callback,
                                    data);
 
-    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (),
-                     (GtkFunction)update_xfer_gui_func,
-                     data);
+    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)update_xfer_gui_func, data);
 }
 
 
@@ -455,12 +452,10 @@ gnome_cmd_xfer_start (GList *src_files,
                       GtkSignalFunc on_completed_func,
                       gpointer on_completed_data)
 {
-    GList *src_uri_list = NULL;
-
     g_return_if_fail (src_files != NULL);
     g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
 
-    src_uri_list = file_list_to_uri_list (src_files);
+    GList *src_uri_list = file_list_to_uri_list (src_files);
 
     gnome_cmd_xfer_uris_start (src_uri_list,
                                to_dir,
@@ -491,7 +486,6 @@ gnome_cmd_xfer_tmp_download (GnomeVFSURI *src_uri,
                                           xferOverwriteMode,
                                           on_completed_func,
                                           on_completed_data);
-
 }
 
 
@@ -503,11 +497,10 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
                                       GtkSignalFunc on_completed_func,
                                       gpointer on_completed_data)
 {
-    GnomeVFSResult result;
-    XferData *data;
-
     g_return_if_fail (src_uri_list != NULL);
     g_return_if_fail (dest_uri_list != NULL);
+
+    XferData *data;
 
     data = create_xfer_data (xferOptions, src_uri_list, dest_uri_list,
                              NULL, NULL, NULL,
@@ -518,6 +511,7 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
     gtk_widget_show (GTK_WIDGET (data->win));
 
     //  start the transfer
+    GnomeVFSResult result;
     result = gnome_vfs_async_xfer (&data->handle,
                                    data->src_uri_list,
                                    data->dest_uri_list,

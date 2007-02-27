@@ -79,8 +79,7 @@ guint advrename_dialog_default_res_column_width[ADVRENAME_DIALOG_RES_NUM_COLUMNS
 static void do_test (GnomeCmdAdvrenameDialog *dialog);
 
 
-//inline
-static void insert_tag(GnomeCmdAdvrenameDialog *dialog, const gchar *text)
+inline void insert_tag(GnomeCmdAdvrenameDialog *dialog, const gchar *text)
 {
     GtkEditable *editable = (GtkEditable *) dialog->priv->templ_entry;
     gint pos = gtk_editable_get_position(editable);
@@ -382,9 +381,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
 
                 g_return_val_if_fail (items != NULL, NULL);
 
-                gint i;
-
-                for (i=0; i<ARRAY_ELEMENTS(metatags); ++i)
+                for (gint i=0; i<ARRAY_ELEMENTS(metatags); ++i)
                 {
                     GtkItemFactoryEntry *p = items+i;
 
@@ -405,7 +402,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
 
                 gtk_item_factory_create_items (ifac, ARRAY_ELEMENTS(metatags), items, dialog);
 
-                for (i=0; i<ARRAY_ELEMENTS(metatags); ++i)
+                for (gint i=0; i<ARRAY_ELEMENTS(metatags); ++i)
                     g_free(items[i].path);
 
                 g_free (items);
@@ -445,11 +442,9 @@ static GtkWidget *create_button_with_menu(GnomeCmdAdvrenameDialog *dialog, gchar
 static void
 free_data (GnomeCmdAdvrenameDialog *dialog)
 {
-    GList *tmp;
-
     gnome_cmd_file_list_free (dialog->priv->files);
 
-    for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
+    for (GList *tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
         RenameEntry *entry = (RenameEntry *) tmp->data;
         g_free (entry->new_name);
@@ -462,8 +457,7 @@ free_data (GnomeCmdAdvrenameDialog *dialog)
 }
 
 
-static void
-format_entry (PatternEntry *entry, gchar **text)
+inline void format_entry (PatternEntry *entry, gchar **text)
 {
     text[0] = entry->from;
     text[1] = entry->to;
@@ -472,29 +466,25 @@ format_entry (PatternEntry *entry, gchar **text)
 }
 
 
-static RenameEntry *
-rename_entry_new (void)
+inline RenameEntry *rename_entry_new (void)
 {
     return g_new0 (RenameEntry, 1);
 }
 
 
-static PatternEntry *
-get_pattern_entry_from_row (GnomeCmdAdvrenameDialog *dialog, gint row)
+inline PatternEntry *get_pattern_entry_from_row (GnomeCmdAdvrenameDialog *dialog, gint row)
 {
     return (PatternEntry *) gtk_clist_get_row_data (GTK_CLIST (dialog->priv->pat_list), row);
 }
 
 
-static gint
-get_row_from_rename_entry (GnomeCmdAdvrenameDialog *dialog, RenameEntry *entry)
+inline gint get_row_from_rename_entry (GnomeCmdAdvrenameDialog *dialog, RenameEntry *entry)
 {
     return gtk_clist_find_row_from_data (GTK_CLIST (dialog->priv->res_list), entry);
 }
 
 
-static void
-add_rename_entry (GnomeCmdAdvrenameDialog *dialog, GnomeCmdFile *finfo)
+inline void add_rename_entry (GnomeCmdAdvrenameDialog *dialog, GnomeCmdFile *finfo)
 {
     gint row;
     gchar *text[3],
@@ -515,31 +505,34 @@ add_rename_entry (GnomeCmdAdvrenameDialog *dialog, GnomeCmdFile *finfo)
 }
 
 
-static void update_move_buttons (GnomeCmdAdvrenameDialog *dialog, int row)
+inline void update_move_buttons (GnomeCmdAdvrenameDialog *dialog, int row)
 {
-    if (row == 0) {
+    if (row == 0)
+    {
         gtk_widget_set_sensitive (dialog->priv->move_up_btn, FALSE);
         gtk_widget_set_sensitive (dialog->priv->move_down_btn, g_list_length (dialog->priv->defaults->patterns) > 1);
     }
-    else if (row == g_list_length (dialog->priv->defaults->patterns) - 1) {
-        gtk_widget_set_sensitive (dialog->priv->move_down_btn, FALSE);
-        gtk_widget_set_sensitive (dialog->priv->move_up_btn, g_list_length (dialog->priv->defaults->patterns) > 1);
-    }
-    else {
-        gtk_widget_set_sensitive (dialog->priv->move_up_btn, TRUE);
-        gtk_widget_set_sensitive (dialog->priv->move_down_btn, TRUE);
-    }
+    else
+        if (row == g_list_length (dialog->priv->defaults->patterns) - 1)
+        {
+            gtk_widget_set_sensitive (dialog->priv->move_down_btn, FALSE);
+            gtk_widget_set_sensitive (dialog->priv->move_up_btn, g_list_length (dialog->priv->defaults->patterns) > 1);
+        }
+        else
+        {
+            gtk_widget_set_sensitive (dialog->priv->move_up_btn, TRUE);
+            gtk_widget_set_sensitive (dialog->priv->move_down_btn, TRUE);
+        }
 }
 
 
-static void update_remove_all_button (GnomeCmdAdvrenameDialog *dialog)
+inline void update_remove_all_button (GnomeCmdAdvrenameDialog *dialog)
 {
     gtk_widget_set_sensitive (dialog->priv->remove_all_btn, dialog->priv->defaults->patterns != NULL);
 }
 
 
-static void
-add_pattern_entry (GnomeCmdAdvrenameDialog *dialog, PatternEntry *entry)
+inline void add_pattern_entry (GnomeCmdAdvrenameDialog *dialog, PatternEntry *entry)
 {
     gint row;
     gchar *text[3];
@@ -555,7 +548,7 @@ add_pattern_entry (GnomeCmdAdvrenameDialog *dialog, PatternEntry *entry)
 }
 
 
-static gchar*
+inline gchar*
 update_entry (PatternEntry *entry,
               GnomeCmdStringDialog *string_dialog,
               const gchar **values)
@@ -730,7 +723,6 @@ create_new_name (const gchar *name, GList *patterns)
 static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
 {
     const gchar *templ_string = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
-    GList *tmp;
 
     gnome_cmd_advrename_reset_counter (
         dialog->priv->defaults->counter_start,
@@ -738,7 +730,7 @@ static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
         dialog->priv->defaults->counter_increment);
     gnome_cmd_advrename_parse_fname (templ_string);
 
-    for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
+    for (GList *tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
         gchar fname[256];
         RenameEntry *entry = (RenameEntry *) tmp->data;
@@ -753,9 +745,7 @@ static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
 
 static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 {
-    GList *tmp;
-
-    for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
+    for (GList *tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
         RenameEntry *entry = (RenameEntry *) tmp->data;
 
@@ -770,9 +760,7 @@ static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 static void
 change_names (GnomeCmdAdvrenameDialog *dialog)
 {
-    GList *tmp;
-
-    for (tmp = dialog->priv->entries; tmp; tmp = tmp->next)
+    for (GList *tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
         RenameEntry *entry = (RenameEntry *) tmp->data;
 
@@ -1134,8 +1122,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
                         GTK_SIGNAL_FUNC (on_dialog_size_allocate), dialog);
 
 
-    /* Template stuff
-     */
+    // Template stuff
     table = create_table (dialog, 2, 2);
     cat = create_category (dialog, table, _("Template"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
@@ -1180,8 +1167,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     btn = create_button_with_menu (in_dialog, _("Metatag"), METATAG_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
-    /* Regex stuff
-     */
+    // Regex stuff
     table = create_table (dialog, 2, 2);
     cat = create_category (dialog, table, _("Regex replacing"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
@@ -1231,8 +1217,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->move_down_btn), FALSE);
 
 
-    /* Result list stuff
-     */
+    // Result list stuff
     vbox = create_vbox (dialog, FALSE, 0);
     cat = create_category (dialog, vbox, _("Result"));
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), cat);
@@ -1244,8 +1229,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     in_dialog->priv->res_list = lookup_widget (GTK_WIDGET (sw), "res_list");
 
 
-    /* Dialog stuff
-     */
+    // Dialog stuff
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("Rese_t"), GTK_SIGNAL_FUNC (on_reset), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
@@ -1254,9 +1238,7 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_widget_grab_focus (in_dialog->priv->pat_list);
     gtk_window_add_accel_group (GTK_WINDOW (dialog), accel_group);
 
-    GList *tmp;
-
-    for (tmp = in_dialog->priv->defaults->patterns; tmp; tmp = tmp->next)
+    for (GList *tmp = in_dialog->priv->defaults->patterns; tmp; tmp = tmp->next)
     {
         PatternEntry *entry = (PatternEntry *) tmp->data;
         add_pattern_entry (in_dialog, entry);
@@ -1285,15 +1267,13 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
  * Public functions
  ***********************************/
 
-GtkWidget *
-gnome_cmd_advrename_dialog_new (GList *files)
+GtkWidget *gnome_cmd_advrename_dialog_new (GList *files)
 {
     GnomeCmdAdvrenameDialog *dialog = (GnomeCmdAdvrenameDialog *) gtk_type_new (gnome_cmd_advrename_dialog_get_type ());
-    GList *tmp;
 
     dialog->priv->files = gnome_cmd_file_list_copy (files);
 
-    for (tmp = dialog->priv->files; tmp; tmp = tmp->next)
+    for (GList *tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
         if (strcmp (finfo->info->name, "..") != 0)
@@ -1306,8 +1286,7 @@ gnome_cmd_advrename_dialog_new (GList *files)
 }
 
 
-GtkType
-gnome_cmd_advrename_dialog_get_type         (void)
+GtkType gnome_cmd_advrename_dialog_get_type         (void)
 {
     static GtkType dlg_type = 0;
 

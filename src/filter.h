@@ -46,13 +46,9 @@ typedef struct
 } Filter;
 
 
-Filter  *filter_new   (const gchar *exp,
-                       gboolean case_sens);
-
+Filter  *filter_new   (const gchar *exp, gboolean case_sens);
 void     filter_free  (Filter *filter);
-
-gboolean filter_match (Filter *filter,
-                       gchar *text);
+gboolean filter_match (Filter *filter, gchar *text);
 
 G_END_DECLS
 

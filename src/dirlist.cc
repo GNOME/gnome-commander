@@ -98,21 +98,19 @@ visprog_list (GnomeCmdDir *dir)
 
     g_free (uri_str);
 
-    gnome_vfs_async_load_directory_uri (
-        &dir->list_handle,
-        uri,
-        infoOpts,
-        FILES_PER_NOTIFICATION,
-        LIST_PRIORITY,
-        (GnomeVFSAsyncDirectoryLoadCallback)on_files_listed,
-        dir);
+    gnome_vfs_async_load_directory_uri (&dir->list_handle,
+                                        uri,
+                                        infoOpts,
+                                        FILES_PER_NOTIFICATION,
+                                        LIST_PRIORITY,
+                                        (GnomeVFSAsyncDirectoryLoadCallback)on_files_listed,
+                                        dir);
 
     gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)update_list_progress, dir);
 }
 
 
-static void
-blocking_list (GnomeCmdDir *dir)
+static void blocking_list (GnomeCmdDir *dir)
 {
     DEBUG('l', "blocking_list\n");
 
@@ -138,8 +136,7 @@ blocking_list (GnomeCmdDir *dir)
 }
 
 
-void
-dirlist_list (GnomeCmdDir *dir, gboolean visprog)
+void dirlist_list (GnomeCmdDir *dir, gboolean visprog)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
@@ -159,8 +156,7 @@ dirlist_list (GnomeCmdDir *dir, gboolean visprog)
 }
 
 
-void
-dirlist_cancel (GnomeCmdDir *dir)
+void dirlist_cancel (GnomeCmdDir *dir)
 {
     dir->state = DIR_STATE_EMPTY;
     dir->list_result = GNOME_VFS_OK;

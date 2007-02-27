@@ -90,10 +90,9 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
     gid_t gid = -1;
     user_t *user = OWNER_get_program_user();
     gboolean recurse;
-    GList *tmp;
 
-
-    if (user && user->uid == 0) {
+    if (user && user->uid == 0)
+    {
         uid = gnome_cmd_chown_component_get_owner (
             GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component));
         g_return_if_fail (uid >= 0);
@@ -105,7 +104,7 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
 
     recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
 
-    for (tmp = dialog->priv->files; tmp; tmp = tmp->next)
+    for (GList *tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 

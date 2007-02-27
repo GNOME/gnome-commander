@@ -34,14 +34,17 @@ gboolean DEBUG_ENABLED (gchar flag);
 void DEBUG (gchar flag, const gchar *fmt, ...);
 void warn_print (const gchar *fmt, ...);
 
-void run_command (const gchar *command, gboolean term);
 void run_command_indir (const gchar *command, const gchar *dir, gboolean term);
+
+inline void run_command (const gchar *command, gboolean term)
+{
+    run_command_indir (command, NULL, term);
+}
 
 const char **convert_varargs_to_name_array (va_list args);
 gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
                         GtkMessageType msg_type,
                         const char *text, const char *title, gint def_response, ...);
-
 
 gboolean string2int (const gchar *s, gint *i);
 gboolean string2uint (const gchar *s, guint *i);
@@ -55,7 +58,6 @@ gchar *int2string (gint i);
 
 gchar *str_uri_basename (const gchar *uri);
 
-
 void type2string (GnomeVFSFileType type, gchar *buf, guint max);
 void name2string (gchar *filename, gchar *buf, guint max);
 void perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max);
@@ -68,14 +70,48 @@ void mime_exec_single (GnomeCmdFile *finfo);
 void mime_exec_multiple (GList *files, GnomeCmdApp *app);
 
 void clear_event_key (GdkEventKey *event);
-gboolean state_is_blank (gint state);
-gboolean state_is_shift (gint state);
-gboolean state_is_ctrl (gint state);
-gboolean state_is_alt (gint state);
-gboolean state_is_alt_shift (gint state);
-gboolean state_is_ctrl_alt (gint state);
-gboolean state_is_ctrl_shift (gint state);
-gboolean state_is_ctrl_alt_shift (gint state);
+
+inline gboolean state_is_blank (gint state)
+{
+    gboolean ret = (state & GDK_SHIFT_MASK) || (state & GDK_CONTROL_MASK) || (state & GDK_MOD1_MASK);
+
+    return !ret;
+}
+
+inline gboolean state_is_shift (gint state)
+{
+    return (state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
+}
+
+inline gboolean state_is_ctrl (gint state)
+{
+    return !(state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
+}
+
+inline gboolean state_is_alt (gint state)
+{
+    return !(state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+}
+
+inline gboolean state_is_alt_shift (gint state)
+{
+    return (state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+}
+
+inline gboolean state_is_ctrl_alt (gint state)
+{
+    return !(state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+}
+
+inline gboolean state_is_ctrl_shift (gint state)
+{
+    return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
+}
+
+inline gboolean state_is_ctrl_alt_shift (gint state)
+{
+    return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
+}
 
 GList *strings_to_uris (gchar *data);
 
@@ -89,8 +125,9 @@ GList *string_history_add (GList *in, const gchar *value, gint maxsize);
 
 GtkWidget *create_styled_button (const gchar *text);
 GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pixmap);
+
 void set_cursor_busy_for_widget (GtkWidget *widget);
-void set_cursor_default_for_widget (GtkWidget *widget);
+inline void set_cursor_default_for_widget (GtkWidget *widget) {  gdk_window_set_cursor (widget->window, NULL);  }
 void set_cursor_busy (void);
 void set_cursor_default (void);
 

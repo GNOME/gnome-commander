@@ -113,12 +113,6 @@ void warn_print (const gchar *fmt, ...)
 }
 
 
-void run_command (const gchar *command, gboolean term)
-{
-    run_command_indir (command, NULL, term);
-}
-
-
 void run_command_indir (const gchar *in_command, const gchar *dir, gboolean term)
 {
     gchar *command;
@@ -333,8 +327,7 @@ gchar *str_uri_basename (const gchar *uri)
 }
 
 
-void
-type2string (GnomeVFSFileType type, gchar *buf, guint max)
+void type2string (GnomeVFSFileType type, gchar *buf, guint max)
 {
     char *s;
 
@@ -502,8 +495,7 @@ const gchar *time2string (time_t t, const gchar *date_format)
 }
 
 
-static void
-no_mime_app_found_error (gchar *mime_type)
+inline void no_mime_app_found_error (gchar *mime_type)
 {
     gchar *msg;
 
@@ -601,7 +593,6 @@ void mime_exec_single (GnomeCmdFile *finfo)
         }
     }
 
-
     // If the file is executable but not a binary file, check if the user wants to exec it or open it
 
     if (gnome_cmd_file_is_executable (finfo))
@@ -681,13 +672,12 @@ void mime_exec_single (GnomeCmdFile *finfo)
 
 static void do_mime_exec_multiple (gpointer *args)
 {
-    gchar *cmd;
     GnomeCmdApp *app = (GnomeCmdApp *) args[0];
     GList *files = (GList *) args[1];
 
     if (files)
     {
-        cmd = g_strdup_printf ("%s ", gnome_cmd_app_get_command (app));
+        gchar *cmd = g_strdup_printf ("%s ", gnome_cmd_app_get_command (app));
 
         for (; files; files = files->next)
         {
@@ -711,16 +701,15 @@ static void do_mime_exec_multiple (gpointer *args)
 
 void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 {
+    g_return_if_fail (files != NULL);
+    g_return_if_fail (app != NULL);
+
     GList *src_uri_list = NULL;
     GList *dest_uri_list = NULL;
-    gpointer *args;
     GList *local_files = NULL;
     gboolean asked = FALSE;
     guint no_of_remote_files = 0;
     gint retid;
-
-    g_return_if_fail (files != NULL);
-    g_return_if_fail (app != NULL);
 
     for (; files; files = files->next)
     {
@@ -768,7 +757,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
     g_list_free (files);
 
-    args = g_new0 (gpointer, 2);
+    gpointer *args = g_new0 (gpointer, 2);
     args[0] = app;
     args[1] = local_files;
 
@@ -784,58 +773,6 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     }
     else
         do_mime_exec_multiple (args);
-}
-
-
-gboolean state_is_blank (gint state)
-{
-    gboolean ret;
-
-    ret = (state & GDK_SHIFT_MASK) || (state & GDK_CONTROL_MASK) || (state & GDK_MOD1_MASK);
-
-    return !ret;
-}
-
-
-gboolean state_is_shift (gint state)
-{
-    return (state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
-}
-
-
-gboolean state_is_ctrl (gint state)
-{
-    return !(state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
-}
-
-
-gboolean state_is_alt (gint state)
-{
-    return !(state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
-}
-
-
-gboolean state_is_alt_shift (gint state)
-{
-    return (state & GDK_SHIFT_MASK) && !(state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
-}
-
-
-gboolean state_is_ctrl_alt (gint state)
-{
-    return !(state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
-}
-
-
-gboolean state_is_ctrl_shift (gint state)
-{
-    return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && !(state & GDK_MOD1_MASK);
-}
-
-
-gboolean state_is_ctrl_alt_shift (gint state)
-{
-    return (state & GDK_SHIFT_MASK) && (state & GDK_CONTROL_MASK) && (state & GDK_MOD1_MASK);
 }
 
 
@@ -857,9 +794,8 @@ strings_to_uris (gchar *data)
 {
     GList *uri_list = NULL;
     gchar **filenames = g_strsplit (data, "\r\n", STRINGS_TO_URIS_CHUNK);
-    int i;
 
-    for (i=0; filenames[i] != NULL; i++)
+    for (gint i=0; filenames[i] != NULL; i++)
     {
         if (i == STRINGS_TO_URIS_CHUNK)
         {
@@ -884,7 +820,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 {
     GnomeVFSFileSize size = 0;
     GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_DEFAULT;
-    GList *list = NULL, *tmp;
+    GList *list = NULL;
     gchar *dir_uri_str;
     GnomeVFSResult result;
 
@@ -902,7 +838,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
     if (!list)
         return 0;
 
-    for (tmp = list; tmp; tmp = tmp->next)
+    for (GList *tmp = list; tmp; tmp = tmp->next)
     {
         GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
         if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
@@ -918,7 +854,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
         }
     }
 
-    for (tmp = list; tmp; tmp = tmp->next)
+    for (GList *tmp = list; tmp; tmp = tmp->next)
         gnome_vfs_file_info_unref ((GnomeVFSFileInfo *) tmp->data);
 
     g_list_free (list);
@@ -1086,20 +1022,14 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
 }
 
 
-void set_cursor_default_for_widget (GtkWidget *widget)
-{
-    gdk_window_set_cursor (widget->window, NULL);
-}
-
-
 void set_cursor_busy (void)
-{
+{  
     set_cursor_busy_for_widget (GTK_WIDGET (main_win));
 }
 
 
 void set_cursor_default (void)
-{
+{  
     set_cursor_default_for_widget (GTK_WIDGET (main_win));
 }
 
@@ -1138,7 +1068,6 @@ GList *app_get_linked_libs (GnomeCmdFile *finfo)
 
 gboolean app_needs_terminal (GnomeCmdFile *finfo)
 {
-    GList *tmp;
     gboolean need_term = TRUE;
 
     if (strcmp (finfo->info->mime_type, "application/x-executable-binary"))
@@ -1147,7 +1076,7 @@ gboolean app_needs_terminal (GnomeCmdFile *finfo)
     GList *libs = app_get_linked_libs (finfo);
     if  (!libs) return FALSE;
 
-    for (tmp = libs; tmp; tmp = tmp->next)
+    for (GList *tmp = libs; tmp; tmp = tmp->next)
     {
         gchar *lib = (gchar *) tmp->data;
         lib = g_strstrip (lib);
@@ -1253,10 +1182,9 @@ create_ui_pixmap (GtkWidget *window,
 static void
 transform (gchar *s, gchar from, gchar to)
 {
-    gint i;
     gint len = strlen (s);
 
-    for (i=0; i<len; i++)
+    for (gint i=0; i<len; i++)
         if (s[i] == from) s[i] = to;
 }
 
@@ -1337,11 +1265,11 @@ GList *file_list_to_info_list (GList *files)
 gboolean
 create_dir_if_needed (const gchar *dpath)
 {
-    DIR *dir;
-
     g_return_val_if_fail (dpath, FALSE);
 
-    if ((dir = opendir (dpath)) == NULL)
+    DIR *dir = opendir (dpath);
+
+    if (!dir)
     {
         if (errno == ENOENT)
         {
@@ -1415,12 +1343,12 @@ GList *patlist_new (const gchar *pattern_string)
 {
     g_return_val_if_fail (pattern_string != NULL, NULL);
 
-    gint i;
     GList *patlist = NULL;
-
     gchar **ents = g_strsplit (pattern_string, ";", 0);
-    for (i = 0; ents[i]; i++)
+
+    for (gint i = 0; ents[i]; i++)
         patlist = g_list_append (patlist, ents[i]);
+
     g_free (ents);
 
     return patlist;
@@ -1438,9 +1366,7 @@ void patlist_free (GList *pattern_list)
 
 gboolean patlist_matches (GList *pattern_list, const gchar *s)
 {
-    GList *tmp;
-
-    for (tmp = pattern_list; tmp; tmp = tmp->next)
+    for (GList *tmp = pattern_list; tmp; tmp = tmp->next)
         if (fnmatch ((gchar *) tmp->data, s, FNM_NOESCAPE|FNM_CASEFOLD) == 0)
             return TRUE;
 

@@ -25,8 +25,7 @@
 using namespace std;
 
 
-GtkWidget *
-create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)
+GtkWidget *create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)
 {
     GtkWidget *combo = gnome_cmd_combo_new (num_cols, text_col, titles);
     gtk_widget_ref (combo);

@@ -262,17 +262,14 @@ file_diff                           (GtkMenuItem     *menuitem,
 
     if (finfo)
     {
-        GList *tmp;
         gchar *cmd, *p1, *p2 = NULL;
         GnomeCmdFile *finfo2 = NULL;
         gboolean found = FALSE;
         GList *all_files = gnome_cmd_file_list_get_all_files (GNOME_CMD_FILE_LIST (gnome_cmd_main_win_get_inactive_fs (main_win)->list));
 
 
-        /**
-         * Go through all the files in the other list until we find one with the same name
-         */
-        for (tmp = all_files; tmp; tmp = tmp->next)
+         // Go through all the files in the other list until we find one with the same name
+        for (GList *tmp = all_files; tmp; tmp = tmp->next)
         {
             finfo2 = (GnomeCmdFile *) tmp->data;
 
@@ -311,10 +308,11 @@ file_exit                           (GtkMenuItem     *menuitem,
         case GDK_WINDOW_STATE_MAXIMIZED:
         case GDK_WINDOW_STATE_FULLSCREEN:
         case GDK_WINDOW_STATE_ICONIFIED:
-                break;
+            break;
+
         default:
-                gdk_window_get_root_origin (GTK_WIDGET (main_win)->window, &x, &y);
-                gnome_cmd_data_set_main_win_pos (x, y);
+            gdk_window_get_root_origin (GTK_WIDGET (main_win)->window, &x, &y);
+            gnome_cmd_data_set_main_win_pos (x, y);
     }
 
     gtk_widget_destroy (GTK_WIDGET (main_win));
@@ -361,13 +359,12 @@ edit_copy_fnames                    (GtkMenuItem     *menuitem,
 
     GnomeCmdFileList *fl = get_active_fl ();
     GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
-    GList *i;
     gchar **fnames = g_new (char *, g_list_length (sfl) + 1);
     gchar **f = fnames;
 
     sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
 
-    for (i = sfl; i; i = i->next)
+    for (GList *i = sfl; i; i = i->next)
     {
         GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
 

@@ -16,11 +16,11 @@ AM_CPPFLAGS = \
 	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\"
 
 libgcmd_tags_a_SOURCES = \
-	gnome-cmd-tags.h gnome-cmd-tags.c \
+	gnome-cmd-tags.h gnome-cmd-tags.cc \
 	gnome-cmd-tags-libs.h \
-	gnome-cmd-tags-audio.h gnome-cmd-tags-audio.c \
-	gnome-cmd-tags-doc.h gnome-cmd-tags-doc.c \
-	gnome-cmd-tags-exif.h gnome-cmd-tags-exif.c \
-	gnome-cmd-tags-icc.h gnome-cmd-tags-icc.c \
-	gnome-cmd-tags-id3.h gnome-cmd-tags-id3.c \
-	gnome-cmd-tags-iptcdata.h gnome-cmd-tags-iptcdata.c
+	gnome-cmd-tags-audio.h gnome-cmd-tags-audio.cc \
+	gnome-cmd-tags-doc.h gnome-cmd-tags-doc.cc \
+	gnome-cmd-tags-exif.h gnome-cmd-tags-exif.cc \
+	gnome-cmd-tags-icc.h gnome-cmd-tags-icc.cc \
+	gnome-cmd-tags-id3.h gnome-cmd-tags-id3.cc \
+	gnome-cmd-tags-iptcdata.h gnome-cmd-tags-iptcdata.cc

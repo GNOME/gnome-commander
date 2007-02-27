@@ -24,8 +24,7 @@
 
 G_BEGIN_DECLS
 
-GtkWidget *
-create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles);
+GtkWidget *create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles);
 
 G_END_DECLS
 

@@ -36,14 +36,19 @@
 #include "utils.h"
 
 #ifdef HAVE_GSF
-#include <gsf/gsf-infile-msole.h>
 #include <gsf/gsf-infile.h>
+#include <gsf/gsf-infile-msole.h>
+#include <gsf/gsf-infile-zip.h>
 #include <gsf/gsf-input-memory.h>
 #include <gsf/gsf-input-stdio.h>
 #include <gsf/gsf-meta-names.h>
 #include <gsf/gsf-msole-utils.h>
+#include <gsf/gsf-opendoc-utils.h>
 #include <gsf/gsf-utils.h>
 #endif
+
+using namespace std;
+
 
 static char empty_string[] = "";
 
@@ -114,7 +119,7 @@ static int gsf_tagcmp(const void *t1, const void *t2)
 }
 
 
-static GnomeCmdTag *get_gcmd_tag(const gchar *gsf_tag)
+inline GnomeCmdTag *get_gcmd_tag(gchar *gsf_tag)
 {
     TAG t;
 
@@ -257,9 +262,9 @@ static const gchar *lid2lang(guint lid)
 
 static void process_metadata(gpointer key, gpointer value, gpointer user_data)
 {
-    const char *type = key;
-    const GsfDocProp *prop = value;
-    GHashTable *metadata = user_data;
+    char *type = (char *) key;
+    const GsfDocProp *prop = (const GsfDocProp *) value;
+    GHashTable *metadata = (GHashTable *) user_data;
 
     if (!key || !value || !metadata)  return;
 
@@ -344,8 +349,8 @@ static void process_msole_SO(GsfInput *input, GHashTable *metadata)
     if (size < 0x374) // == 0x375 ??
         return;
 
-    gchar *buf = g_malloc0(size);
-    gsf_input_read(input, size, buf);
+    gchar *buf = (gchar *) g_malloc0(size);
+    gsf_input_read(input, size, (guint8 *) buf);
     if ((buf[0] != 0x0F) || (buf[1] != 0x0) ||
       (strncmp(&buf[2], SfxDocumentInfo, strlen(SfxDocumentInfo))) ||
       (buf[0x11] != 0x0B) ||
@@ -406,9 +411,7 @@ static void process_msole_infile(GsfInfile *infile, GHashTable *metadata)
         // g_object_unref (G_OBJECT(src));
     // }
 
-    guint i;
-
-    for (i=0; i<gsf_infile_num_children (infile); i++)
+    for (gint i=0; i<gsf_infile_num_children (infile); i++)
     {
         const gchar *name = gsf_infile_name_by_index (infile, i);
 
@@ -498,10 +501,10 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
     GsfInfile *infile = NULL;
 
     if ((infile = gsf_infile_msole_new (input, NULL)))
-        process_msole_infile(infile, finfo->gsf.metadata = g_hash_table_new_full (g_int_hash, g_int_equal, NULL, g_free));
+        process_msole_infile(infile, (GHashTable *) (finfo->gsf.metadata = g_hash_table_new_full (g_int_hash, g_int_equal, NULL, g_free)));
     else
         if ((infile = gsf_infile_zip_new (input, NULL)))
-            process_opendoc_infile(infile, finfo->gsf.metadata = g_hash_table_new_full (g_int_hash, g_int_equal, NULL, g_free));
+            process_opendoc_infile(infile, (GHashTable *) (finfo->gsf.metadata = g_hash_table_new_full (g_int_hash, g_int_equal, NULL, g_free)));
 
     if (infile)
         g_object_unref (G_OBJECT (infile));
@@ -520,7 +523,7 @@ void gcmd_tags_libgsf_free_metadata(GnomeCmdFile *finfo)
 
 #ifdef HAVE_GSF
     if (finfo->gsf.accessed)
-        g_hash_table_destroy(finfo->gsf.metadata);
+        g_hash_table_destroy((GHashTable *) finfo->gsf.metadata);
     finfo->gsf.metadata = NULL;
 #endif
 }
@@ -533,7 +536,7 @@ const gchar *gcmd_tags_libgsf_get_value(GnomeCmdFile *finfo, guint tag)
 #ifdef HAVE_GSF
     gcmd_tags_libgsf_load_metadata(finfo);
 
-    const gchar *value = (const gchar *) g_hash_table_lookup(finfo->gsf.metadata, &tag);
+    const gchar *value = (const gchar *) g_hash_table_lookup((GHashTable *) finfo->gsf.metadata, &tag);
 
     return value ? value : empty_string;
 #else

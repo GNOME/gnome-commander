@@ -29,6 +29,8 @@
 #include <lcms.h>
 #endif
 
+using namespace std;
+
 
 static char empty_string[] = "";
 static char int_buff[4096];

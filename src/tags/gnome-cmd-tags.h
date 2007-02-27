@@ -26,21 +26,24 @@
 
 G_BEGIN_DECLS
 
-typedef enum {
-    TAG_FILE  = -1,
-    TAG_CHM   = 1 << 6,
-    TAG_EXIF  = 1 << 7,
-    TAG_IPTC  = 1 << 8,
-    TAG_ICC   = 1 << 9,
-    TAG_ID3   = 1 << 10,
-    TAG_RPM   = 1 << 11,
-    TAG_AUDIO = TAG_ID3+1,
-    TAG_DOC   = TAG_CHM+1,
-    TAG_IMAGE = TAG_EXIF | TAG_IPTC | TAG_ICC
+typedef enum
+{
+    TAG_NONE_CLASS  = 0,
+    TAG_FILE        = -1,
+    TAG_CHM         = 1 << 6,
+    TAG_EXIF        = 1 << 7,
+    TAG_IPTC        = 1 << 8,
+    TAG_ICC         = 1 << 9,
+    TAG_ID3         = 1 << 10,
+    TAG_RPM         = 1 << 11,
+    TAG_AUDIO       = TAG_ID3+1,
+    TAG_DOC         = TAG_CHM+1,
+    TAG_IMAGE       = TAG_EXIF | TAG_IPTC | TAG_ICC
 } GnomeCmdTagClass;
 
 
-typedef enum {
+typedef enum
+{
     TAG_NONE,
     TAG_AUDIO_ALBUMARTIST,                  // artist of the album
     TAG_AUDIO_ALBUMGAIN,                    // gain adjustment of album

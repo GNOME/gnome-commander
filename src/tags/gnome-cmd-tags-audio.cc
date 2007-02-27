@@ -22,7 +22,10 @@
 #include <stdio.h>
 
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-tags-audio.h"
 #include "gnome-cmd-tags-id3.h"
+
+using namespace std;
 
 
 static char empty_string[] = "";

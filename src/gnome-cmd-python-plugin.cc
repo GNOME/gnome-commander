@@ -142,9 +142,7 @@ void python_plugin_manager_init ()
 
 void python_plugin_manager_shutdown ()
 {
-    GList *l;
-
-    for (l=py_plugins; l; l=l->next)
+    for (GList *l=py_plugins; l; l=l->next)
     {
         PythonPluginData *data = (PythonPluginData *)l->data;
         g_free (data->name);
@@ -235,7 +233,6 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     selected_files = gnome_cmd_file_list_get_selected_files (active_fl);
     f = selected_files = gnome_cmd_file_list_sort_selection (selected_files, active_fl);
 
-    gint i;
     gint n;
 
     n = g_list_length (selected_files);
@@ -277,7 +274,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     DEBUG('p', "Active directory:   %s\n", active_dir);
     DEBUG('p', "Inactive directory: %s\n", inactive_dir);
 
-    for (i=0; f; f=f->next, ++i)
+    for (gint i=0; f; f=f->next, ++i)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) f->data;
         gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);

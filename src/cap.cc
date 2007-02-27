@@ -44,7 +44,7 @@ on_xfer_done (GList *files, gpointer data)
 }
 
 
-static void update_refs (GnomeCmdFileList *fl, GList *files)
+inline void update_refs (GnomeCmdFileList *fl, GList *files)
 {
     if (_files != NULL)
         gnome_cmd_file_list_free (_files);
@@ -54,7 +54,7 @@ static void update_refs (GnomeCmdFileList *fl, GList *files)
 }
 
 
-static void cut_and_paste (GnomeCmdDir *to)
+inline void cut_and_paste (GnomeCmdDir *to)
 {
     gnome_cmd_dir_ref (to);
     gnome_cmd_xfer_start (_files,
@@ -70,7 +70,7 @@ static void cut_and_paste (GnomeCmdDir *to)
 }
 
 
-static void copy_and_paste (GnomeCmdDir *to)
+inline void copy_and_paste (GnomeCmdDir *to)
 {
     gnome_cmd_dir_ref (to);
     gnome_cmd_xfer_start (_files,
@@ -112,9 +112,11 @@ void cap_paste_files (GnomeCmdDir *dir)
         case GNOME_CMD_CUTTED:
             cut_and_paste (dir);
             break;
+
         case GNOME_CMD_COPIED:
             copy_and_paste (dir);
             break;
+
         default:
             return;
     }

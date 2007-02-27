@@ -146,16 +146,13 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget,
 }
 
 
-static GtkWidget *
-add_buttonbar_button (char *label,
-                      GnomeCmdMainWin *mw,
-                      char *data_label,
-                      GtkAccelGroup *accel_group,
-                      gint accel_signal_id)
+inline GtkWidget *add_buttonbar_button (char *label,
+                                        GnomeCmdMainWin *mw,
+                                        char *data_label,
+                                        GtkAccelGroup *accel_group,
+                                        gint accel_signal_id)
 {
-    GtkWidget *button;
-
-    button = create_styled_button (label);
+    GtkWidget *button = create_styled_button (label);
     gtk_object_set_data_full (GTK_OBJECT (main_win),
                               data_label,
                               button,

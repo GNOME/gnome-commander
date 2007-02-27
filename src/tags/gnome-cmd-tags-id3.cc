@@ -38,6 +38,9 @@
 #include <id3.h>
 #endif
 
+using namespace std;
+
+
 static char empty_string[] = "";
 
 #ifndef HAVE_ID3
@@ -61,8 +64,8 @@ static int id3_tagcmp(const void *t1, const void *t2)
 }
 
 
-enum {ID3FID_GENRE=ID3FID_LASTFRAMEID+1,
-      ID3FID_NUM_FRAMES};
+const ID3_FrameID ID3FID_GENRE = (ID3_FrameID) (ID3FID_LASTFRAMEID+1);
+const gint ID3FID_NUM_FRAMES   =               (ID3FID_GENRE+1);
 
 
 static GnomeCmdTag *get_gcmd_tag(const ID3_FrameID id3_tag)
@@ -175,7 +178,7 @@ static GnomeCmdTag *get_gcmd_tag(const ID3_FrameID id3_tag)
 }
 
 
-static gchar *get_genre (guint genre_code)
+inline gchar *get_genre (guint genre_code)
 {
     if (genre_code>=ID3_INVALID_GENRE)    /* empty */
         return "";
@@ -244,7 +247,7 @@ static void ID3Frame_GetString(GHashTable *metadata, const ID3Frame *frame)
     }
 
     size = ID3Field_Size (field);
-    s = g_try_malloc0 (size+1);   // since glib >= 2.8
+    s = (gchar *) g_try_malloc0 (size+1);   // since glib >= 2.8
 
     if (!s)  return;
 
@@ -277,7 +280,7 @@ static void ID3Frame_GetString(GHashTable *metadata, const ID3Frame *frame)
                     g_free(s0);
                 }
 
-                g_hash_table_replace(metadata, get_gcmd_tag(ID3FID_GENRE), g_strdup(s));
+                g_hash_table_replace(metadata, get_gcmd_tag((ID3_FrameID) ID3FID_GENRE), g_strdup(s));
             }
             break;
 
@@ -434,12 +437,11 @@ void gcmd_tags_id3lib_load_metadata(GnomeCmdFile *finfo)
     ID3Tag_Link(id3_tag, gnome_cmd_file_get_real_path(finfo));
 
     ID3TagConstIterator *iter = ID3Tag_CreateConstIterator(id3_tag);
-    const ID3Frame *frame;
 
-    Read_MPEG_Header_Info(finfo->id3.metadata, id3_tag);
+    Read_MPEG_Header_Info((GHashTable *) finfo->id3.metadata, id3_tag);
 
-    for (frame=ID3TagConstIterator_GetNext(iter); frame; frame=ID3TagConstIterator_GetNext(iter))
-        ID3Frame_GetString(finfo->id3.metadata, frame);
+    for (const ID3Frame *frame=ID3TagConstIterator_GetNext(iter); frame; frame=ID3TagConstIterator_GetNext(iter))
+        ID3Frame_GetString((GHashTable *) finfo->id3.metadata, frame);
 
     ID3TagConstIterator_Delete(iter);
     ID3Tag_Delete(id3_tag);
@@ -453,7 +455,7 @@ void gcmd_tags_id3lib_free_metadata(GnomeCmdFile *finfo)
 
 #ifdef HAVE_ID3
     if (finfo->id3.accessed)
-        g_hash_table_destroy(finfo->id3.metadata);
+        g_hash_table_destroy((GHashTable *) finfo->id3.metadata);
     finfo->id3.metadata = NULL;
 #endif
 }
@@ -587,7 +589,7 @@ const gchar *gcmd_tags_id3lib_get_value(GnomeCmdFile *finfo, guint tag)
 #ifdef HAVE_ID3
     gcmd_tags_id3lib_load_metadata(finfo);
 
-    const gchar *value = (const gchar *) g_hash_table_lookup(finfo->id3.metadata, &tag);
+    const gchar *value = (const gchar *) g_hash_table_lookup((GHashTable *) finfo->id3.metadata, &tag);
 
     return value ? value : empty_string;
 #else

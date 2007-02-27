@@ -28,6 +28,8 @@
 #include <libexif/exif-content.h>
 #endif
 
+using namespace std;
+
 
 static char empty_string[] = "";
 static char int_buff[4096];
@@ -61,7 +63,7 @@ void gcmd_tags_libexif_free_metadata(GnomeCmdFile *finfo)
 
 #ifdef HAVE_EXIF
     if (finfo->exif.accessed)
-        exif_data_free(finfo->exif.metadata);
+        exif_data_free((ExifData *) finfo->exif.metadata);
     finfo->exif.metadata = NULL;
 #endif
 }
@@ -78,8 +80,8 @@ const gchar *gcmd_tags_libexif_get_value(GnomeCmdFile *finfo, guint libtag)
 
 #ifdef HAVE_EXIF
     gcmd_tags_libexif_load_metadata(finfo);
-    data = finfo->exif.metadata;
-    entry = exif_data_get_entry(data, libtag);
+    data = (ExifData *) finfo->exif.metadata;
+    entry = exif_data_get_entry(data, (ExifTag) libtag);
 
     if (!entry)
         return NULL;

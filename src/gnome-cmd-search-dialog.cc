@@ -216,8 +216,7 @@ load_file (GnomeCmdFile *finfo)
  * Determinates if the name of a file matches an regexp
  *
  */
-static gboolean
-name_matches (gchar *name, SearchData *data)
+inline gboolean name_matches (gchar *name, SearchData *data)
 {
     return filter_match (data->name_filter, name);
 }
@@ -227,7 +226,7 @@ name_matches (gchar *name, SearchData *data)
  * Determinates if the content of a file matches an regexp
  *
  */
-static gboolean
+inline gboolean
 content_matches (GnomeCmdFile *finfo, SearchData *data)
 {
     static regmatch_t match;
@@ -384,8 +383,7 @@ update_search_status_widgets (SearchData *data)
     g_mutex_lock (data->pdata.mutex);
 
     // Add all files found since last update to the list
-    GList *files;
-    for (files = data->pdata.files; files; files = files->next)
+    for (GList *files = data->pdata.files; files; files = files->next)
         gnome_cmd_file_list_add_file (GNOME_CMD_FILE_LIST (data->dialog->priv->result_list),
                                       GNOME_CMD_FILE (files->data), -1);
     if (data->pdata.files)
@@ -646,7 +644,7 @@ handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDi
             gnome_cmd_file_list_view (fl, -1);
             return TRUE;
 
-            case GDK_F4:
+        case GDK_F4:
             gnome_cmd_file_list_edit (fl);
             return TRUE;
     }
@@ -672,7 +670,8 @@ on_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDial
 static void
 find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDialog *dialog)
 {
-    if (gtk_toggle_button_get_active (togglebutton)) {
+    if (gtk_toggle_button_get_active (togglebutton))
+    {
         gtk_widget_set_sensitive (dialog->priv->find_text_combo, TRUE);
         gtk_widget_grab_focus (dialog->priv->find_text_entry);
     }

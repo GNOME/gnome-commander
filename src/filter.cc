@@ -33,8 +33,7 @@
 using namespace std;
 
 
-static Filter *
-new_regex (const gchar *exp, gboolean case_sens)
+static Filter *new_regex (const gchar *exp, gboolean case_sens)
 {
     int flags = 0;
     Filter *filter = g_new (Filter, 1);
@@ -49,8 +48,7 @@ new_regex (const gchar *exp, gboolean case_sens)
 }
 
 
-static Filter *
-new_fnmatch (const gchar *exp, gboolean case_sens)
+static Filter *new_fnmatch (const gchar *exp, gboolean case_sens)
 {
     Filter *filter = g_new (Filter, 1);
 
@@ -86,8 +84,7 @@ filter_new (const gchar *exp, gboolean case_sens)
 }
 
 
-void
-filter_free (Filter *filter)
+void filter_free (Filter *filter)
 {
     g_return_if_fail (filter != NULL);
 
@@ -110,10 +107,10 @@ filter_free (Filter *filter)
 }
 
 
-gboolean
-filter_match (Filter *filter, gchar *text)
+gboolean filter_match (Filter *filter, gchar *text)
 {
     static regmatch_t match;
+
     g_return_val_if_fail (filter != NULL, FALSE);
 
     switch (filter->type)

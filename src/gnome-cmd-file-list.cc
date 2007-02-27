@@ -133,8 +133,7 @@ typedef struct
 } FileFormatData;
 
 
-static int
-get_num_files (GnomeCmdFileList *fl)
+inline int get_num_files (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), -1);
 
@@ -142,8 +141,7 @@ get_num_files (GnomeCmdFileList *fl)
 }
 
 
-static GnomeCmdFile *
-get_file_at_row (GnomeCmdFileList *fl, gint row)
+inline GnomeCmdFile *get_file_at_row (GnomeCmdFileList *fl, gint row)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
@@ -151,8 +149,7 @@ get_file_at_row (GnomeCmdFileList *fl, gint row)
 }
 
 
-static gint
-get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
+inline gint get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), -1);
     g_return_val_if_fail (finfo != NULL, -1);
@@ -212,7 +209,7 @@ static void get_focus_row_coordinates(GnomeCmdFileList *fl, gint *x, gint *y, gi
 }
 
 
-static void focus_file_at_row (GnomeCmdFileList *fl, gint row)
+inline void focus_file_at_row (GnomeCmdFileList *fl, gint row)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -269,12 +266,10 @@ select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 static void
 unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 {
-    gint row;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (finfo != NULL);
 
-    row = get_row_from_file (fl, finfo);
+    gint row = get_row_from_file (fl, finfo);
     if (row == -1)
         return;
 
@@ -305,31 +300,25 @@ unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 }
 
 
-static void
-toggle_file (GnomeCmdFileList *fl,
-             GnomeCmdFile *finfo)
+inline void toggle_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 {
-    gint row;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (finfo != NULL);
 
-    row = get_row_from_file (fl, finfo);
+    gint row = get_row_from_file (fl, finfo);
+
     if (row == -1)
         return;
 
     if (row < gnome_cmd_file_collection_get_size (fl->priv->shown_files))
-    {
         if (g_list_index (fl->priv->selected_files, finfo) == -1)
             select_file (fl, finfo);
         else
             unselect_file (fl, finfo);
-    }
 }
 
 
-static void
-select_file_at_row (GnomeCmdFileList *fl, gint row)
+inline void select_file_at_row (GnomeCmdFileList *fl, gint row)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -342,28 +331,23 @@ select_file_at_row (GnomeCmdFileList *fl, gint row)
 }
 
 
-static void
-select_file_range (GnomeCmdFileList *fl,
-                   gint start_row, gint end_row)
+inline void select_file_range (GnomeCmdFileList *fl, gint start_row, gint end_row)
 {
-    gint i;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     if (start_row > end_row)
     {
-        i = start_row;
+        gint i = start_row;
         start_row = end_row;
         end_row = i;
     }
 
-    for (i=start_row; i<=end_row; i++)
+    for (gint i=start_row; i<=end_row; i++)
         select_file_at_row (fl, i);
 }
 
 
-static void
-toggle_file_at_row (GnomeCmdFileList *fl, gint row)
+inline void toggle_file_at_row (GnomeCmdFileList *fl, gint row)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -376,22 +360,18 @@ toggle_file_at_row (GnomeCmdFileList *fl, gint row)
 }
 
 
-static void
-toggle_file_range (GnomeCmdFileList *fl,
-                   gint start_row, gint end_row)
+inline void toggle_file_range (GnomeCmdFileList *fl, gint start_row, gint end_row)
 {
-    gint i;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     if (start_row > end_row)
     {
-        i = start_row;
+        gint i = start_row;
         start_row = end_row;
         end_row = i;
     }
 
-    for (i=start_row; i<=end_row; i++)
+    for (gint i=start_row; i<=end_row; i++)
         toggle_file_at_row (fl, i);
 }
 
@@ -399,20 +379,19 @@ toggle_file_range (GnomeCmdFileList *fl,
 static void toggle_files_with_same_extension (GnomeCmdFileList *fl,
                                               gboolean select)
 {
-    GList *tmp, *sel;
-    GnomeCmdFile *f;
-    const gchar *ext1, *ext2;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    f = gnome_cmd_file_list_get_selected_file (fl);
+    GList *sel;
+    const gchar *ext1, *ext2;
+
+    GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (fl);
     if (!f) return;
     ext1 = gnome_cmd_file_get_extension (f);
     if (!ext1) return;
 
     sel = g_list_copy (gnome_cmd_file_list_get_selected_files (fl));
 
-    for (tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
+    for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
@@ -440,12 +419,10 @@ toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_s
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GList *tmp;
-
     Filter *filter = filter_new (pattern, case_sens);
     g_return_if_fail (filter != NULL);
 
-    for (tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
+    for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
@@ -1871,14 +1848,12 @@ gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl)
 void
 gnome_cmd_file_list_select_all (GnomeCmdFileList *fl)
 {
-    GList *tmp;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     gnome_cmd_file_list_free (fl->priv->selected_files);
     fl->priv->selected_files = NULL;
 
-    for (tmp = gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
+    for (GList *tmp = gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
         select_file (fl, (GnomeCmdFile *) tmp->data);
 }
 
@@ -1886,11 +1861,11 @@ gnome_cmd_file_list_select_all (GnomeCmdFileList *fl)
 void
 gnome_cmd_file_list_unselect_all (GnomeCmdFileList *fl)
 {
-    GList *tmp;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    for (tmp = g_list_copy (fl->priv->selected_files); tmp; tmp = tmp->next)
+    GList *tmp;
+  
+    for (GList *tmp = g_list_copy (fl->priv->selected_files); tmp; tmp = tmp->next)
         unselect_file (fl, (GnomeCmdFile *) tmp->data);
 
     gnome_cmd_file_list_free (fl->priv->selected_files);
@@ -1932,20 +1907,16 @@ gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl,
                                 const gchar *focus_file,
                                 gboolean scroll_to_file)
 {
-    GList *tmp;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    tmp = gnome_cmd_file_list_get_all_files (fl);
-    while (tmp)
+    for (GList *tmp = gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
     {
-        gint row;
-
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+
         g_return_if_fail (finfo != NULL);
         g_return_if_fail (finfo->info != NULL);
 
-        row = get_row_from_file (fl, finfo);
+        gint row = get_row_from_file (fl, finfo);
         if (row == -1)
             return;
 
@@ -1957,7 +1928,6 @@ gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl,
                 gtk_clist_moveto (GTK_CLIST (fl), row, 0, 0, 0);
             return;
         }
-        tmp = tmp->next;
     }
 
     /* The file was not found, remember the filename in case the file gets
@@ -1995,9 +1965,8 @@ gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl)
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     GList *sel = g_list_copy (fl->priv->selected_files);
-    GList *tmp;
 
-    for (tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
+    for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 

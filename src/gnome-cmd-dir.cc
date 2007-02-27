@@ -265,8 +265,7 @@ gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (parent), NULL);
 
     con = gnome_cmd_dir_get_connection (parent);
-    path = gnome_cmd_path_get_child (
-        gnome_cmd_dir_get_path (parent), info->name);
+    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), info->name);
 
     uri = gnome_cmd_con_create_uri (con, path);
     uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
@@ -453,11 +452,11 @@ gnome_cmd_dir_get_files (GnomeCmdDir *dir, GList **files)
 static GList *
 create_file_list (GnomeCmdDir *dir, GList *info_list)
 {
-    GList *tmp, *file_list = NULL;
+    GList *file_list = NULL;
 
     // create a new list with GnomeCmdFile objects
 
-    for (tmp = info_list; tmp; tmp = tmp->next)
+    for (GList *tmp = info_list; tmp; tmp = tmp->next)
     {
         GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
 
@@ -562,8 +561,6 @@ on_dir_list_cancel (GtkButton *btn, GnomeCmdDir *dir)
 static void
 create_list_progress_dialog (GnomeCmdDir *dir)
 {
-    GtkWidget *vbox;
-
     dir->dialog = gnome_cmd_dialog_new (NULL);
     gtk_widget_ref (dir->dialog);
 
@@ -572,7 +569,7 @@ create_list_progress_dialog (GnomeCmdDir *dir)
         GNOME_STOCK_BUTTON_CANCEL,
         GTK_SIGNAL_FUNC (on_dir_list_cancel), dir);
 
-    vbox = create_vbox (dir->dialog, FALSE, 0);
+    GtkWidget *vbox = create_vbox (dir->dialog, FALSE, 0);
 
     dir->label = create_label (dir->dialog, _("Waiting for file list"));
 
@@ -599,7 +596,7 @@ gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog)
     if (dir->priv->lock) return;
     dir->priv->lock = TRUE;
 
-    dir->done_func = (DirListDoneFunc)on_list_done;
+    dir->done_func = (DirListDoneFunc) on_list_done;
 
     if (visprog)
         create_list_progress_dialog (dir);
@@ -621,9 +618,8 @@ gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
                visprog);
         gnome_cmd_dir_relist_files (dir, visprog);
     }
-    else {
+    else 
         gtk_signal_emit (GTK_OBJECT (dir), dir_signals[LIST_OK], dir->priv->files);
-    }
 }
 
 
@@ -652,16 +648,13 @@ gnome_cmd_dir_set_path (GnomeCmdDir *dir, GnomeCmdPath *path)
 void
 gnome_cmd_dir_update_path (GnomeCmdDir *dir)
 {
-    GnomeCmdPath *path;
-    GnomeCmdDir *parent;
-
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    parent = gnome_cmd_dir_get_parent (dir);
+    GnomeCmdDir *parent = gnome_cmd_dir_get_parent (dir);
     if (!parent)
         return;
 
-    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)));
+    GnomeCmdPath *path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)));
     if (path)
         gnome_cmd_dir_set_path (dir, path);
 }
@@ -771,13 +764,13 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
  */
 void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
 {
-    GnomeCmdFile *finfo;
-
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (uri_str != NULL);
 
-    finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
+    GnomeCmdFile *finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
+
     g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], finfo);
 
     gnome_cmd_file_collection_remove_by_uri (dir->priv->file_collection, uri_str);
@@ -790,21 +783,17 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
  */
 void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 {
-    GnomeCmdFile *finfo;
-    GnomeVFSResult res;
-    GnomeVFSURI *uri;
-    GnomeVFSFileInfo *info;
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
-
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (uri_str != NULL);
 
-    finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
+    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
+    GnomeCmdFile *finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
+
     g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
 
-    uri = gnome_cmd_file_get_uri (finfo);
-    info = gnome_vfs_file_info_new ();
-    res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
+    GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
+    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
+    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
     gnome_vfs_uri_unref (uri);
 
     gnome_cmd_file_update_info (finfo, info);
