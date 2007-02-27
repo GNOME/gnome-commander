@@ -70,7 +70,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-types.h \
 	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.cc \
 	gnome-cmd-xfer.h gnome-cmd-xfer.cc \
-	handle.h handle.cc \
+	handle.h \
 	history.h history.cc \
 	imageloader.cc imageloader.h \
 	ls_colors.h ls_colors.cc \

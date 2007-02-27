@@ -221,14 +221,11 @@ void plugin_manager_init (void)
     scan_plugins_in_dir (PLUGIN_DIR);
 
     // activate plugins
-    GList *l;
-
-    for (l=gnome_cmd_data_get_auto_load_plugins (); l; l=l->next)
+    for (GList *l=gnome_cmd_data_get_auto_load_plugins (); l; l=l->next)
     {
         char *name = (gchar *) l->data;
-        GList *l2;
 
-        for (l2 = plugins; l2; l2 = l2->next)
+        for (GList *l2 = plugins; l2; l2 = l2->next)
         {
             PluginData *data = (PluginData *) l2->data;
             if (strcmp (name, data->fname) == 0)
@@ -237,7 +234,7 @@ void plugin_manager_init (void)
     }
 
     // inactivate plugins that shouldn't be autoloaded
-    for (l=plugins; l; l=l->next)
+    for (GList *l=plugins; l; l=l->next)
     {
         PluginData *data = (PluginData *) l->data;
         if (!data->autoload)
@@ -248,10 +245,9 @@ void plugin_manager_init (void)
 
 void plugin_manager_shutdown (void)
 {
-    GList *l;
     GList *out = NULL;
 
-    for (l=plugins; l; l=l->next)
+    for (GList *l=plugins; l; l=l->next)
     {
         PluginData *data = (PluginData *) l->data;
         if (data->active)
@@ -278,13 +274,11 @@ get_selected_plugin (GtkCList *list)
 static void
 update_plugin_list (GtkCList *list, GtkWidget *dialog)
 {
-    GList *tmp;
     gint old_focus = list->focus_row;
     gint row = 0;
     gboolean only_update = (list->rows > 0);
 
-
-    for (tmp=plugins; tmp; tmp=tmp->next)
+    for (GList *tmp=plugins; tmp; tmp=tmp->next)
     {
         PluginData *data = (PluginData *) tmp->data;
         gchar *text[5];

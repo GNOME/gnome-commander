@@ -29,11 +29,45 @@ typedef struct
 } Handle;
 
 
-Handle  *handle_new (gpointer ref);
-void     handle_free (Handle *h);
-void     handle_ref (Handle *h);
-void     handle_unref (Handle *h);
-gpointer handle_get_ref (Handle *h);
+inline Handle *handle_new (gpointer ref)
+{
+    Handle *h = g_new (Handle, 1);
+
+    h->ref_count = 1;
+    h->ref = ref;
+
+    return h;
+}
+
+inline void handle_free (Handle *h)
+{
+    g_return_if_fail (h);
+    g_return_if_fail (h->ref_count > 0);
+
+    g_free (h);
+}
+
+inline void handle_ref (Handle *h)
+{
+    g_return_if_fail (h);
+
+    h->ref_count++;
+}
+
+inline void handle_unref (Handle *h)
+{
+    g_return_if_fail (h);
+    g_return_if_fail (h->ref_count > 0);
+
+    h->ref_count--;
+}
+
+inline gpointer handle_get_ref (Handle *h)
+{
+    g_return_val_if_fail (h, NULL);
+
+    return h->ref;
+}
 
 G_END_DECLS
 

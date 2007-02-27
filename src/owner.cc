@@ -73,7 +73,7 @@ static user_t *create_user (struct passwd *pw, gboolean zombie)
 static group_t *create_group (struct group *gr, gboolean zombie)
 {
     group_t *group = NULL;
-    
+
     if (gr)
     {
         g_assert (gr->gr_name);
@@ -195,11 +195,10 @@ static void check_user_default_groups ()
 
 user_t *OWNER_get_user_by_uid (uid_t uid)
 {
-    GList *tmp;
     user_t *user;
 
     // try to locate the user in the list of already found users
-    for (tmp = all_users; tmp; tmp = tmp->next)
+    for (GList *tmp = all_users; tmp; tmp = tmp->next)
     {
         user = (user_t *) tmp->data;
 
@@ -230,10 +229,8 @@ user_t *OWNER_get_user_by_uid (uid_t uid)
 
 user_t *OWNER_get_user_by_name (const char *name)
 {
-    GList *tmp;
-
     // try to locate the user in the list of already found users
-    for (tmp = all_users; tmp; tmp = tmp->next)
+    for (GList *tmp = all_users; tmp; tmp = tmp->next)
     {
         user_t *user = (user_t *) tmp->data;
 
@@ -247,10 +244,8 @@ user_t *OWNER_get_user_by_name (const char *name)
 
 group_t *OWNER_get_group_by_gid (gid_t gid)
 {
-    GList *tmp;
-
     // try to locate the group in the list of already found groups
-    for (tmp = all_groups; tmp; tmp = tmp->next)
+    for (GList *tmp = all_groups; tmp; tmp = tmp->next)
     {
         group_t *group = (group_t *) tmp->data;
 
@@ -259,32 +254,27 @@ group_t *OWNER_get_group_by_gid (gid_t gid)
     }
 
     // there is no such group in the system, lets create a blank group with the specified gid
-    {
-        struct group gr;
+    struct group gr;
 
-        gr.gr_gid = gid;
-        gr.gr_name = g_strdup_printf ("%d",gid);
-        gr.gr_passwd = "";
-        gr.gr_mem = NULL;
+    gr.gr_gid = gid;
+    gr.gr_name = g_strdup_printf ("%d",gid);
+    gr.gr_passwd = "";
+    gr.gr_mem = NULL;
 
-        group_t *group = create_group (&gr,TRUE);
-        if (group)
-            all_groups = g_list_append (all_groups, group);
+    group_t *group = create_group (&gr,TRUE);
+    if (group)
+        all_groups = g_list_append (all_groups, group);
 
-        g_free (gr.gr_name);
+    g_free (gr.gr_name);
 
-        return group;
-    }
-    return NULL;
+    return group;
 }
 
 
 group_t *OWNER_get_group_by_name (const char *name)
 {
-    GList *tmp;
-
     // try to locate the group in the list of already found groups
-    for (tmp = all_groups; tmp; tmp = tmp->next)
+    for (GList *tmp = all_groups; tmp; tmp = tmp->next)
     {
         group_t *group = (group_t *) tmp->data;
 
