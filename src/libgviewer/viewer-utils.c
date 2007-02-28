@@ -244,6 +244,6 @@ guint8 *text2hex(const gchar *text, /*out*/ guint *buflen)
 char_type chartype_toupper(char_type ch)
 {
     if (ch>='a' && ch<='z')
-        return (char_type)(ch & ~0x20);
+        return (char_type) (ch & ~0x20);
     return ch;
 }

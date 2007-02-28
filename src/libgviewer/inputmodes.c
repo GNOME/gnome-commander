@@ -437,17 +437,17 @@ static char_type inputmode_utf8_get_char(GVInputModesData *imd, offset_type offs
         return gv_input_mode_get_byte(imd,offset);
 
     if (len==2)
-        return (char_type)gv_input_mode_get_byte(imd,offset) +
-               (char_type)(gv_input_mode_get_byte(imd,offset+1)<<8);
+        return (char_type) gv_input_mode_get_byte(imd,offset) +
+               (char_type) (gv_input_mode_get_byte(imd,offset+1)<<8);
     if (len==3)
-        return (char_type)gv_input_mode_get_byte(imd,offset) +
-               (char_type)(gv_input_mode_get_byte(imd,offset+1)<<8)+
-               (char_type)(gv_input_mode_get_byte(imd,offset+2)<<16);
+        return (char_type) gv_input_mode_get_byte(imd,offset) +
+               (char_type) (gv_input_mode_get_byte(imd,offset+1)<<8)+
+               (char_type) (gv_input_mode_get_byte(imd,offset+2)<<16);
     if (len==4)
-        return (char_type)gv_input_mode_get_byte(imd,offset) +
-               (char_type)(gv_input_mode_get_byte(imd,offset+1)<<8)+
-               (char_type)(gv_input_mode_get_byte(imd,offset+2)<<16)+
-               (char_type)(gv_input_mode_get_byte(imd,offset+3)<<24);
+        return (char_type) gv_input_mode_get_byte(imd,offset) +
+               (char_type) (gv_input_mode_get_byte(imd,offset+1)<<8)+
+               (char_type) (gv_input_mode_get_byte(imd,offset+2)<<16)+
+               (char_type) (gv_input_mode_get_byte(imd,offset+3)<<24);
 
     return -1;
 }

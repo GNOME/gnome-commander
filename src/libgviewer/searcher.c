@@ -37,7 +37,8 @@ enum SearchMode {
     HEX
 };
 
-struct _GViewerSearcherPrivate {
+struct _GViewerSearcherPrivate
+{
     // gint-s for the indicator's atomic operations
     gint abort_indicator;
     gint completed_indicator;
@@ -66,13 +67,15 @@ struct _GViewerSearcherPrivate {
 typedef struct _GViewerSearcherSignal GViewerSearcherSignal;
 typedef enum _GViewerSearcherSignalType GViewerSearcherSignalType;
 
-enum _GViewerSearcherSignalType {
+enum _GViewerSearcherSignalType
+{
     // Place Signal Types Here
     SIGNAL_TYPE_EXAMPLE,
     LAST_SIGNAL
 };
 
-struct _GViewerSearcherSignal {
+struct _GViewerSearcherSignal
+{
     GViewerSearcher *object;
 };
 
@@ -80,13 +83,12 @@ struct _GViewerSearcherSignal {
 static GObjectClass *parent_class = NULL;
 
 
-
-GType
-g_viewer_searcher_get_type()
+GType g_viewer_searcher_get_type()
 {
     static GType type = 0;
 
-    if(type == 0) {
+    if(type == 0)
+    {
         static const GTypeInfo our_info = {
             sizeof (GViewerSearcherClass),
             NULL,
@@ -106,8 +108,7 @@ g_viewer_searcher_get_type()
     return type;
 }
 
-static void
-g_viewer_searcher_class_init(GViewerSearcherClass *klass)
+static void g_viewer_searcher_class_init(GViewerSearcherClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
@@ -119,8 +120,7 @@ g_viewer_searcher_class_init(GViewerSearcherClass *klass)
      */
 }
 
-static void
-g_viewer_searcher_init(GViewerSearcher *obj)
+static void g_viewer_searcher_init(GViewerSearcher *obj)
 {
     obj->priv = g_new0(GViewerSearcherPrivate, 1);
     // Initialize private members, etc.
@@ -133,27 +133,31 @@ g_viewer_searcher_init(GViewerSearcher *obj)
 
 }
 
-static void
-g_viewer_searcher_finalize(GObject *object)
+static void g_viewer_searcher_finalize(GObject *object)
 {
     GViewerSearcher *cobj;
     cobj = G_VIEWERSEARCHER(object);
 
     // Free private members, etc.
-    if (cobj->priv) {
-        if (cobj->priv->ct_data!=NULL) {
+    if (cobj->priv)
+    {
+        if (cobj->priv->ct_data!=NULL)
+        {
             free_bm_chartype_data(cobj->priv->ct_data);
             cobj->priv->ct_data = NULL;
         }
-        if (cobj->priv->ct_reverse_data!=NULL) {
+        if (cobj->priv->ct_reverse_data!=NULL)
+        {
             free_bm_chartype_data(cobj->priv->ct_reverse_data);
             cobj->priv->ct_reverse_data = NULL;
         }
-        if (cobj->priv->b_data!=NULL) {
+        if (cobj->priv->b_data!=NULL)
+        {
             free_bm_byte_data(cobj->priv->b_data);
             cobj->priv->b_data = NULL;
         }
-        if (cobj->priv->b_reverse_data!=NULL) {
+        if (cobj->priv->b_reverse_data!=NULL)
+        {
             free_bm_byte_data(cobj->priv->b_reverse_data);
             cobj->priv->b_reverse_data = NULL;
         }
@@ -164,12 +168,9 @@ g_viewer_searcher_finalize(GObject *object)
     G_OBJECT_CLASS(parent_class)->finalize(object);
 }
 
-GViewerSearcher *
-g_viewer_searcher_new()
+GViewerSearcher *g_viewer_searcher_new()
 {
-    GViewerSearcher *obj;
-
-    obj = G_VIEWERSEARCHER(g_object_new(G_TYPE_VIEWERSEARCHER, NULL));
+    GViewerSearcher *obj = G_VIEWERSEARCHER(g_object_new(G_TYPE_VIEWERSEARCHER, NULL));
 
     return obj;
 }
@@ -182,7 +183,7 @@ gint * g_viewer_searcher_get_complete_indicator(GViewerSearcher *src)
     return &src->priv->completed_indicator;
 }
 
-gint * g_viewer_searcher_get_abort_indicator(GViewerSearcher *src)
+gint *g_viewer_searcher_get_abort_indicator(GViewerSearcher *src)
 {
     g_return_val_if_fail(src!=NULL,NULL);
     g_return_val_if_fail(src->priv!=NULL,NULL);
@@ -190,7 +191,7 @@ gint * g_viewer_searcher_get_abort_indicator(GViewerSearcher *src)
     return &src->priv->abort_indicator;
 }
 
-gint * g_viewer_searcher_get_progress_indicator(GViewerSearcher *src)
+gint *g_viewer_searcher_get_progress_indicator(GViewerSearcher *src)
 {
     g_return_val_if_fail(src!=NULL,NULL);
     g_return_val_if_fail(src->priv!=NULL,NULL);
@@ -298,20 +299,17 @@ void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
 
 void update_progress_indicator (GViewerSearcher *src, offset_type pos)
 {
-    gdouble d;
-    gint oldval;
+    gdouble d = (pos*1000.0) / src->priv->max_offset;
 
-    d = (pos*1000.0) / src->priv->max_offset;
-
-    /* This is very bad... (besides being not atomic at all)
+    /*This is very bad... (besides being not atomic at all)
        TODO: replace with a gmutex */
-    oldval = g_atomic_int_get(&src->priv->progress_value);
+    gint oldval = g_atomic_int_get(&src->priv->progress_value);
     g_atomic_int_compare_and_exchange(&src->priv->progress_value, oldval, (gint)d);
 }
 
 gboolean check_abort_request (GViewerSearcher *src)
 {
-    return (g_atomic_int_get(&src->priv->abort_indicator)!=0);
+    return g_atomic_int_get(&src->priv->abort_indicator)!=0;
 }
 
 gboolean search_hex_forward (GViewerSearcher *src)
@@ -330,8 +328,10 @@ gboolean search_hex_forward (GViewerSearcher *src)
     j = src->priv->start_offset;
     update_counter = src->priv->update_interval;
 
-    while (j <= n - m) {
-        for (i = m - 1; i >= 0; --i) {
+    while (j <= n - m)
+    {
+        for (i = m - 1; i >= 0; --i)
+        {
             value = (guint8) gv_input_mode_get_raw_byte(src->priv->imd, i+j);
             if (data->pattern[i] != value)
                 break;

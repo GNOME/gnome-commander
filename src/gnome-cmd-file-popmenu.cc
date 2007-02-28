@@ -444,8 +444,6 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     gint i = -1;
     menu->priv->data_list = NULL;
 
-    TRACE(i, %i);
-
     vfs_apps = tmp = gnome_vfs_mime_get_all_applications (finfo->info->mime_type);
     for (; vfs_apps && i < MAX_OPEN_WITH_APPS; vfs_apps = vfs_apps->next)
     {
@@ -466,8 +464,6 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
             menu->priv->data_list = g_list_append (menu->priv->data_list, data);
         }
     }
-
-    TRACE(i, %i);
 
     if (i >= 0)
         apps_uiinfo[++i].type = GNOME_APP_UI_SEPARATOR;

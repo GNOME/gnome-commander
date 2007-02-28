@@ -27,12 +27,12 @@ using namespace std;
 
 History *history_new (gint max)
 {
-    History *history = g_new (History, 1);
+    History *history = g_new0 (History, 1);
 
-    history->ents = NULL;
-    history->pos = NULL;
-    history->max = max;
-    history->lock = FALSE;
+    // history->ents = NULL;
+    // history->pos = NULL;
+    // history->max = max;
+    // history->lock = FALSE;
 
     return history;
 }
@@ -54,19 +54,17 @@ void history_free (History *history)
 
 void history_add (History *history, const gchar *text)
 {
-    GList *l, *n;
-
     g_return_if_fail (history != NULL);
 
-    if (history->lock) return;
+    if (history->lock)
+        return;
 
-    /* If we are in the middle of the history list, lets kill
-       all items that are in front of us */
-    l = history->ents;
+    /* If we are in the middle of the history list, lets kill all items that are in front of us */
+    GList *l = history->ents;
     while (l && l != history->pos)
     {
         g_free (l->data);
-        n = g_list_remove_link (l, l);
+        GList *n = g_list_remove_link (l, l);
         g_list_free (l);
         l = n;
     }
@@ -102,7 +100,7 @@ const gchar *history_first (History *history)
     if (history->pos->next)
         history->pos = g_list_last(history->pos);
 
-    return (const gchar*)history->pos->data;
+    return (const gchar*) history->pos->data;
 }
 
 
@@ -114,7 +112,7 @@ const gchar *history_back (History *history)
     if (history->pos->next)
         history->pos = history->pos->next;
 
-    return (const gchar*)history->pos->data;
+    return (const gchar*) history->pos->data;
 }
 
 
@@ -126,7 +124,7 @@ const gchar *history_forward (History *history)
     if (history->pos->prev)
         history->pos = history->pos->prev;
 
-    return (const gchar*)history->pos->data;
+    return (const gchar*) history->pos->data;
 }
 
 
@@ -138,7 +136,5 @@ const gchar *history_last (History *history)
     if (history->pos->prev)
         history->pos = g_list_first(history->pos);
 
-    return (const gchar*)history->pos->data;
+    return (const gchar*) history->pos->data;
 }
-
-

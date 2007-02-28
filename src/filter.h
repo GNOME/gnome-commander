@@ -31,19 +31,13 @@ typedef enum
 } FilterType;
 
 
-typedef struct
+struct Filter
 {
-    /* common stuff */
-    FilterType type;
-
-    /* regex filtering stuff */
-    regex_t *re_exp;
-
-    /* fnmatch filtering stuff */
-    char *fn_exp;
-    int fn_flags;
-
-} Filter;
+    FilterType type;    // common stuff
+    regex_t *re_exp;    // regex filtering stuff
+    char *fn_exp;       // fnmatch filtering stuff
+    int fn_flags;       // fnmatch filtering stuff
+};
 
 
 Filter  *filter_new   (const gchar *exp, gboolean case_sens);

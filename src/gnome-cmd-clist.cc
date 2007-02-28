@@ -63,8 +63,7 @@ struct _GnomeCmdCListPrivate
 
 /* returns the column index from a x pixel location in the
  * context of the clist's hoffset */
-static inline gint
-COLUMN_FROM_XPIXEL (GtkCList * clist, gint x)
+inline gint COLUMN_FROM_XPIXEL (GtkCList * clist, gint x)
 {
     for (gint i = 0; i < clist->columns; i++)
         if (clist->column[i].visible)
@@ -91,12 +90,11 @@ COLUMN_FROM_XPIXEL (GtkCList * clist, gint x)
 
 // returns the total height of the list
 #define LIST_HEIGHT(clist)         (((clist)->row_height * ((clist)->rows)) + \
-                    (CELL_SPACING * ((clist)->rows + 1)))
+                                    (CELL_SPACING * ((clist)->rows + 1)))
 
 
 // returns the total width of the list
-static inline gint
-LIST_WIDTH (GtkCList * clist)
+inline gint LIST_WIDTH (GtkCList * clist)
 {
   gint last_column;
 
@@ -104,16 +102,14 @@ LIST_WIDTH (GtkCList * clist)
        last_column >= 0 && !clist->column[last_column].visible; last_column--);
 
   if (last_column >= 0)
-    return (clist->column[last_column].area.x +
-        clist->column[last_column].area.width +
-        COLUMN_INSET + CELL_SPACING);
+    return clist->column[last_column].area.x + clist->column[last_column].area.width + COLUMN_INSET + CELL_SPACING;
+
   return 0;
 }
 
 // returns the GList item for the nth row
-#define    ROW_ELEMENT(clist, row)    (((row) == (clist)->rows - 1) ? \
-                 (clist)->row_list_end : \
-                 g_list_nth ((clist)->row_list, (row)))
+#define    ROW_ELEMENT(clist, row)    (((row) == (clist)->rows - 1) ? (clist)->row_list_end : \
+                                                                      g_list_nth ((clist)->row_list, (row)))
 
 static void
 get_cell_style (GtkCList     *clist,
@@ -126,8 +122,7 @@ get_cell_style (GtkCList     *clist,
 {
     gint fg_state;
 
-    if ((state == GTK_STATE_NORMAL) &&
-        (GTK_WIDGET (clist)->state == GTK_STATE_INSENSITIVE))
+    if ((state == GTK_STATE_NORMAL) && (GTK_WIDGET (clist)->state == GTK_STATE_INSENSITIVE))
         fg_state = GTK_STATE_INSENSITIVE;
     else
         fg_state = state;
@@ -145,40 +140,43 @@ get_cell_style (GtkCList     *clist,
                 *bg_gc = clist_row->cell[column].style->base_gc[state];
         }
     }
-    else if (clist_row->style)
-    {
-        if (style)
-            *style = clist_row->style;
-        if (fg_gc)
-            *fg_gc = clist_row->style->fg_gc[fg_state];
-        if (bg_gc) {
-            if (state == GTK_STATE_SELECTED)
-                *bg_gc = clist_row->style->bg_gc[state];
-            else
-                *bg_gc = clist_row->style->base_gc[state];
-        }
-    }
     else
-    {
-        if (style)
-            *style = GTK_WIDGET (clist)->style;
-        if (fg_gc)
-            *fg_gc = GTK_WIDGET (clist)->style->fg_gc[fg_state];
-        if (bg_gc) {
-            if (state == GTK_STATE_SELECTED)
-                *bg_gc = GTK_WIDGET (clist)->style->bg_gc[state];
-            else
-                *bg_gc = GTK_WIDGET (clist)->style->base_gc[state];
-        }
-
-        if (state != GTK_STATE_SELECTED)
+        if (clist_row->style)
         {
-            if (fg_gc && clist_row->fg_set)
-                *fg_gc = clist->fg_gc;
-            if (bg_gc && clist_row->bg_set)
-                *bg_gc = clist->bg_gc;
+            if (style)
+                *style = clist_row->style;
+            if (fg_gc)
+                *fg_gc = clist_row->style->fg_gc[fg_state];
+            if (bg_gc)
+            {
+                if (state == GTK_STATE_SELECTED)
+                    *bg_gc = clist_row->style->bg_gc[state];
+                else
+                    *bg_gc = clist_row->style->base_gc[state];
+            }
         }
-    }
+        else
+        {
+            if (style)
+                *style = GTK_WIDGET (clist)->style;
+            if (fg_gc)
+                *fg_gc = GTK_WIDGET (clist)->style->fg_gc[fg_state];
+            if (bg_gc)
+            {
+                if (state == GTK_STATE_SELECTED)
+                    *bg_gc = GTK_WIDGET (clist)->style->bg_gc[state];
+                else
+                    *bg_gc = GTK_WIDGET (clist)->style->base_gc[state];
+            }
+
+            if (state != GTK_STATE_SELECTED)
+            {
+                if (fg_gc && clist_row->fg_set)
+                    *fg_gc = clist->fg_gc;
+                if (bg_gc && clist_row->bg_set)
+                    *bg_gc = clist->bg_gc;
+            }
+        }
 }
 
 
@@ -236,12 +234,11 @@ my_gtk_clist_create_cell_layout (GtkCList       *clist,
 {
     PangoLayout *layout;
     GtkStyle *style;
-    GtkCell *cell;
     gchar *text;
 
     get_cell_style (clist, clist_row, GTK_STATE_NORMAL, column, &style, NULL, NULL);
 
-    cell = &clist_row->cell[column];
+    GtkCell *cell = &clist_row->cell[column];
 
     switch (cell->type)
     {
@@ -441,7 +438,7 @@ draw_row (GtkCList     *clist,
                 width += pixmap_width;
                 break;
 
-                case GTK_CELL_PIXTEXT:
+            case GTK_CELL_PIXTEXT:
                 gdk_window_get_size (GTK_CELL_PIXTEXT (clist_row->cell[i])->pixmap, &pixmap_width, &height);
                 width += pixmap_width + GTK_CELL_PIXTEXT (clist_row->cell[i])->spacing;
                 break;
@@ -504,6 +501,7 @@ draw_row (GtkCList     *clist,
                     gdk_gc_set_clip_rectangle (fg_gc, NULL);
                 }
                 break;
+
             default:
                 break;
         }
@@ -642,15 +640,13 @@ gnome_cmd_clist_get_type         (void)
 }
 
 
-GtkWidget*
-gnome_cmd_clist_new (gint columns)
+GtkWidget *gnome_cmd_clist_new (gint columns)
 {
     return gnome_cmd_clist_new_with_titles (columns, NULL);
 }
 
 
-GtkWidget*
-gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
+GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 {
     GnomeCmdCList *clist = (GnomeCmdCList *) g_object_new (gnome_cmd_clist_get_type(), "n_columns", columns, NULL);
 
@@ -665,15 +661,13 @@ gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 }
 
 
-void
-gnome_cmd_clist_update_style (GnomeCmdCList *clist)
+void gnome_cmd_clist_update_style (GnomeCmdCList *clist)
 {
     gtk_widget_set_style (GTK_WIDGET (clist), list_style);
 }
 
 
-gint
-gnome_cmd_clist_get_voffset (GnomeCmdCList *clist)
+gint gnome_cmd_clist_get_voffset (GnomeCmdCList *clist)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CLIST (clist), 0);
 
@@ -681,8 +675,7 @@ gnome_cmd_clist_get_voffset (GnomeCmdCList *clist)
 }
 
 
-void
-gnome_cmd_clist_set_voffset         (GnomeCmdCList *clist, gint voffset)
+void gnome_cmd_clist_set_voffset         (GnomeCmdCList *clist, gint voffset)
 {
     g_return_if_fail (GNOME_CMD_IS_CLIST (clist));
 
@@ -690,8 +683,7 @@ gnome_cmd_clist_set_voffset         (GnomeCmdCList *clist, gint voffset)
 }
 
 
-gint
-gnome_cmd_clist_get_row (GnomeCmdCList *clist, gint x, gint y)
+gint gnome_cmd_clist_get_row (GnomeCmdCList *clist, gint x, gint y)
 {
     gint row;
 
@@ -704,8 +696,7 @@ gnome_cmd_clist_get_row (GnomeCmdCList *clist, gint x, gint y)
 }
 
 
-void
-gnome_cmd_clist_set_drag_row (GnomeCmdCList *clist, gint row)
+void gnome_cmd_clist_set_drag_row (GnomeCmdCList *clist, gint row)
 {
     g_return_if_fail (GNOME_CMD_IS_CLIST (clist));
 

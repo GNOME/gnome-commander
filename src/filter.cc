@@ -33,24 +33,24 @@
 using namespace std;
 
 
-static Filter *new_regex (const gchar *exp, gboolean case_sens)
+inline Filter *new_regex (const gchar *exp, gboolean case_sens)
 {
-    int flags = 0;
-    Filter *filter = g_new (Filter, 1);
+    Filter *filter = g_new0 (Filter, 1);
 
     filter->type = FILTER_TYPE_REGEX;
     filter->re_exp = g_new (regex_t, 1);
 
-    if (case_sens) flags = REG_ICASE;
+    int flags = case_sens ? REG_ICASE : 0;
+
     regcomp (filter->re_exp, exp, flags);
 
     return filter;
 }
 
 
-static Filter *new_fnmatch (const gchar *exp, gboolean case_sens)
+inline Filter *new_fnmatch (const gchar *exp, gboolean case_sens)
 {
-    Filter *filter = g_new (Filter, 1);
+    Filter *filter = g_new0 (Filter, 1);
 
     filter->type = FILTER_TYPE_FNMATCH;
     filter->fn_exp = g_strdup (exp);
@@ -63,8 +63,7 @@ static Filter *new_fnmatch (const gchar *exp, gboolean case_sens)
 }
 
 
-Filter *
-filter_new (const gchar *exp, gboolean case_sens)
+Filter *filter_new (const gchar *exp, gboolean case_sens)
 {
     FilterType type = gnome_cmd_data_get_filter_type ();
 
@@ -119,8 +118,7 @@ gboolean filter_match (Filter *filter, gchar *text)
             return regexec (filter->re_exp, text, 1, &match, 0) == 0;
 
         case FILTER_TYPE_FNMATCH:
-            return (fnmatch (filter->fn_exp, text, filter->fn_flags) == 0);
-            break;
+            return fnmatch (filter->fn_exp, text, filter->fn_flags) == 0;
 
         default:
             g_printerr ("Unknown FilterType (%d) in filter_match\n", filter->type);
@@ -128,5 +126,3 @@ gboolean filter_match (Filter *filter, gchar *text)
 
     return FALSE;
 }
-
-
