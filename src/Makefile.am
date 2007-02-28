@@ -18,7 +18,7 @@ gnome_commander_SOURCES = \
 	filter.h filter.cc \
 	gnome-cmd-about-plugin.h gnome-cmd-about-plugin.cc \
 	gnome-cmd-advrename-dialog.h gnome-cmd-advrename-dialog.cc \
-	gnome-cmd-advrename-lexer.h gnome-cmd-advrename-lexer.l \
+	gnome-cmd-advrename-lexer.h gnome-cmd-advrename-lexer.ll \
 	gnome-cmd-app.h gnome-cmd-app.cc \
 	gnome-cmd-bookmark-dialog.h gnome-cmd-bookmark-dialog.cc \
 	gnome-cmd-chmod-component.h gnome-cmd-chmod-component.cc \

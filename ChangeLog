@@ -1,5 +1,8 @@
 2007-02-28  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-advrename-lexer.l:
+	Migration to C++
+
 	* src/*.cc:
 	C++: add 'using namespace std'
 
