@@ -63,8 +63,7 @@ inline gboolean has_parent_dir (GnomeCmdFile *finfo)
 }
 
 
-static GnomeCmdDir *
-get_parent_dir (GnomeCmdFile *finfo)
+inline GnomeCmdDir *get_parent_dir (GnomeCmdFile *finfo)
 {
     g_return_val_if_fail (finfo->priv->dir_handle != NULL, NULL);
 

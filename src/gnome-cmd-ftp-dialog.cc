@@ -215,7 +215,7 @@ update_server_from_strings (GnomeCmdConFtp **server,
     if (!host)
         return g_strdup (_("No host specified"));
 
-    if (!string2ushort (port, &iport))
+    if (!string2ushort (port, iport))
         return g_strdup_printf (_("Invalid port number: %s"), port);
 
     if (!(*server))

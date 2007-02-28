@@ -245,66 +245,6 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 }
 
 
-gboolean string2int (const gchar *s, gint *i)
-{
-    return sscanf (s, "%d", i) == 1;
-}
-
-
-gboolean string2uint (const gchar *s, guint *i)
-{
-    return sscanf (s, "%d", i) == 1;
-}
-
-
-gboolean string2short (const gchar *s, gshort *sh)
-{
-    int i,ret;
-    ret = sscanf (s, "%d", &i);
-    *sh = i;
-    return ret == 1;
-}
-
-
-gboolean string2ushort (const gchar *s, gushort *sh)
-{
-    int i,ret;
-    ret = sscanf (s, "%d", &i);
-    *sh = i;
-    return ret == 1;
-}
-
-
-gboolean string2char (const gchar *s, gchar *c)
-{
-    int i, ret;
-    ret = sscanf (s, "%d", &i);
-    *c = i;
-    return ret == 1;
-}
-
-
-gboolean string2uchar (const gchar *s, guchar *c)
-{
-    int i, ret;
-    ret = sscanf (s, "%d", &i);
-    *c = i;
-    return ret == 1;
-}
-
-
-gboolean string2float (const gchar *s, gfloat *f)
-{
-    return sscanf (s, "%f", f) == 1;
-}
-
-
-char *int2string (int i)
-{
-    return g_strdup_printf ("%d", i);
-}
-
-
 gchar *str_uri_basename (const gchar *uri)
 {
     if (!uri)
@@ -939,12 +879,6 @@ gchar *unquote_if_needed (const gchar *in)
 }
 
 
-void stop_kp (GtkObject *obj)
-{
-    gtk_signal_emit_stop_by_name (obj, "key-press-event");
-}
-
-
 GtkWidget *create_styled_button (const gchar *text)
 {
     GtkWidget *w = text ? gtk_button_new_with_label (text) : gtk_button_new ();
@@ -1023,13 +957,13 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
 
 
 void set_cursor_busy (void)
-{  
+{
     set_cursor_busy_for_widget (GTK_WIDGET (main_win));
 }
 
 
 void set_cursor_default (void)
-{  
+{
     set_cursor_default_for_widget (GTK_WIDGET (main_win));
 }
 

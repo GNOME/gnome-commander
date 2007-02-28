@@ -41,7 +41,7 @@
 using namespace std;
 
 
-static GnomeCmdFileList *get_active_fl ()
+inline GnomeCmdFileList *get_active_fl ()
 {
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs (main_win);
 
@@ -49,13 +49,13 @@ static GnomeCmdFileList *get_active_fl ()
 }
 
 
-static GnomeCmdFileSelector *get_active_fs ()
+inline GnomeCmdFileSelector *get_active_fs ()
 {
     return gnome_cmd_main_win_get_active_fs (main_win);
 }
 
 
-static GnomeCmdFileSelector *get_inactive_fs ()
+inline GnomeCmdFileSelector *get_inactive_fs ()
 {
     return gnome_cmd_main_win_get_inactive_fs (main_win);
 }
@@ -64,8 +64,7 @@ static GnomeCmdFileSelector *get_inactive_fs ()
 /**
  * The file returned from this function is not to be unrefed
  */
-static GnomeCmdFile *
-get_selected_file ()
+inline  GnomeCmdFile *get_selected_file ()
 {
     GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (get_active_fl ());
 

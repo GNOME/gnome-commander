@@ -1,5 +1,12 @@
 2007-02-28  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-ftp-dialog.cc:
+	* src/useractions.cc:
+	* src/utils.cc:
+	* src/utils.h:
+	C++: inline the most popular functions
+
 	* src/gnome-cmd-advrename-lexer.l:
 	Migration to C++
 

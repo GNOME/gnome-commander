@@ -20,6 +20,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#include <stdio.h>
+
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-pixmap.h"
@@ -46,15 +48,57 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
                         GtkMessageType msg_type,
                         const char *text, const char *title, gint def_response, ...);
 
-gboolean string2int (const gchar *s, gint *i);
-gboolean string2uint (const gchar *s, guint *i);
-gboolean string2short (const gchar *s, gshort *sh);
-gboolean string2ushort (const gchar *s, gushort *sh);
-gboolean string2char (const gchar *s, gchar *c);
-gboolean string2uchar (const gchar *s, guchar *c);
-gboolean string2float (const gchar *s, gfloat *f);
+inline gboolean string2int (const gchar *s, gint &i)
+{
+    return sscanf (s, "%d", &i) == 1;
+}
 
-gchar *int2string (gint i);
+inline gboolean string2uint (const gchar *s, guint &i)
+{
+    return sscanf (s, "%ud", &i) == 1;
+}
+
+inline gboolean string2short (const gchar *s, gshort &sh)
+{
+    int i;
+    int ret = sscanf (s, "%d", &i);
+    sh = i;
+    return ret == 1;
+}
+
+inline gboolean string2ushort (const gchar *s, gushort &sh)
+{
+    int i;
+    int ret = sscanf (s, "%d", &i);
+    sh = i;
+    return ret == 1;
+}
+
+inline gboolean string2char (const gchar *s, gchar &c)
+{
+    int i;
+    int ret = sscanf (s, "%d", &i);
+    c = i;
+    return ret == 1;
+}
+
+inline gboolean string2uchar (const gchar *s, guchar &c)
+{
+    int i;
+    int ret = sscanf (s, "%d", &i);
+    c = i;
+    return ret == 1;
+}
+
+inline gboolean string2float (const gchar *s, gfloat &f)
+{
+    return sscanf (s, "%f", &f) == 1;
+}
+
+inline char *int2string (gint i)
+{
+    return g_strdup_printf ("%d", i);
+}
 
 gchar *str_uri_basename (const gchar *uri);
 
@@ -119,7 +163,11 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri);
 const gchar *create_nice_size_str (GnomeVFSFileSize size);
 gchar *quote_if_needed (const gchar *in);
 gchar *unquote_if_needed (const gchar *in);
-void stop_kp (GtkObject *obj);
+
+inline void stop_kp (GtkObject *obj)
+{
+    gtk_signal_emit_stop_by_name (obj, "key-press-event");
+}
 
 GList *string_history_add (GList *in, const gchar *value, gint maxsize);
 
