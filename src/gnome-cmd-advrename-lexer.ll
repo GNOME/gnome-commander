@@ -243,11 +243,9 @@ tag_name   {audio}|{doc}|{exif}|{id3}|{image}|{iptc}
 
 void gnome_cmd_advrename_reset_counter(unsigned start, unsigned precision, unsigned step)
 {
-  GList *gl = fname_template;
-
-  for (; gl; gl=gl->next)
+  for (GList *gl = fname_template; gl; gl=gl->next)
   {
-    CHUNK *p = gl->data;
+    CHUNK *p = (CHUNK *) gl->data;
 
     if (p->type==COUNTER)
       p->counter.n = p->counter.start;
@@ -264,11 +262,9 @@ void gnome_cmd_advrename_parse_fname(const char *fname)
 {
   if (fname_template)               // delete fname_template if any
   {
-    GList *gl = fname_template;
-
-    for (; gl; gl=gl->next)
+    for (GList *gl = fname_template; gl; gl=gl->next)
     {
-      CHUNK *p = gl->data;
+      CHUNK *p = (CHUNK *) gl->data;
 
       switch (p->type)
       {
@@ -393,7 +389,7 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 
   for (; gl; gl=gl->next)
   {
-    CHUNK *p = gl->data;
+    CHUNK *p = (CHUNK *) gl->data;
 
     switch (p->type)
     {
