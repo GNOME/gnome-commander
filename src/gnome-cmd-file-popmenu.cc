@@ -383,6 +383,54 @@ init (GnomeCmdFilePopmenu *menu)
 }
 
 
+inline gchar *string_double_underscores (const gchar *string)
+{
+    if (!string)
+        return NULL;
+
+    int underscores = 0;
+
+    for (const gchar *p = string; *p; p++)
+        underscores += (*p == '_');
+
+    if (underscores == 0)
+        return g_strdup (string);
+
+    gchar *escaped = g_new (char, strlen (string) + underscores + 1);
+    gchar *q = escaped;
+
+    for (const gchar *p = string; *p; p++, q++)
+    {
+        /* Add an extra underscore. */
+        if (*p == '_')
+            *q++ = '_';
+        *q = *p;
+    }
+    *q = '\0';
+
+    return escaped;
+}
+
+
+inline gchar *get_default_application_action_name(GList *files)
+{
+    if (g_list_length(files)>1)
+        return g_strdup(_("_Open"));
+
+    GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
+    gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
+    GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, finfo->info->mime_type);
+
+    g_free (uri_str);
+    gchar *escaped_app_name = string_double_underscores (app->name);
+    gnome_vfs_mime_application_free (app);
+    gchar *retval = g_strdup_printf (_("_Open with \"%s\""), escaped_app_name);
+    g_free (escaped_app_name);
+
+    return retval;
+}
+
+
 /***********************************
  * Public functions
  ***********************************/
@@ -481,13 +529,16 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         if (other_uiinfo[i].type == GNOME_APP_UI_ITEM)
             other_uiinfo[i].user_data = fl;
 
+    open_uiinfo[0].label = get_default_application_action_name(files);  // must be freed after gnome_app_fill_menu ()
     open_uiinfo[0].user_data = files;
     exec_uiinfo[0].user_data = files;
 
     // Fill the menu
-
     pos = 0;
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), open_uiinfo, NULL, FALSE, pos);
+
+    g_free ((gpointer) open_uiinfo[0].label);
+
     pos += 3;
     if (gnome_cmd_file_is_executable (finfo) && g_list_length (files) == 1)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), exec_uiinfo, NULL, FALSE, pos++);
@@ -533,7 +584,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         GnomeUIInfo *py_uiinfo = g_new0 (GnomeUIInfo, n+1);
         GnomeUIInfo *tmp;
 
-        for (tmp = py_uiinfo; py_plugins; py_plugins = py_plugins->next, ++tmp)
+        for (GnomeUIInfo *tmp = py_uiinfo; py_plugins; py_plugins = py_plugins->next, ++tmp)
         {
             PythonPluginData *data = (PythonPluginData *) py_plugins->data;
 
@@ -553,6 +604,8 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), py_uiinfo, NULL, FALSE, pos);
         pos += n;
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
+
+        g_free (py_uiinfo);
     }
 
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), other_uiinfo, NULL, FALSE, pos++);
