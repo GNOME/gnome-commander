@@ -22,6 +22,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-user-actions.h"
 #include "owner.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-con.h"

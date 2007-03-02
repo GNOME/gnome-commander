@@ -24,7 +24,7 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
-#include "useractions.h"
+#include "gnome-cmd-user-actions.h"
 #include "imageloader.h"
 #include "utils.h"
 

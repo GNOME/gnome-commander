@@ -20,7 +20,7 @@
 #include <config.h>
 #include <gtk/gtkclipboard.h>
 #include "gnome-cmd-includes.h"
-#include "useractions.h"
+#include "gnome-cmd-user-actions.h"
 #include "gnome-cmd-main-win.h"
 #include "plugin_manager.h"
 #include "gnome-cmd-file.h"

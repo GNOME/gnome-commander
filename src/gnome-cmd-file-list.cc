@@ -18,8 +18,8 @@
 */
 
 #include <config.h>
-#include "gnome-cmd-includes.h"
 #include <regex.h>
+#include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file.h"
@@ -38,12 +38,13 @@
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
+#include "gnome-cmd-user-actions.h"
 #include "ls_colors.h"
 
 using namespace std;
 
 
-/* Controlls if file-uris should be escaped for local files when drag-N-dropping
+/* Controls if file-uris should be escaped for local files when drag-N-dropping
  * Setting this seems be more portable when dropping on old file-managers as gmc etc.
  */
 #define UNESCAPE_LOCAL_FILES
@@ -1864,7 +1865,7 @@ gnome_cmd_file_list_unselect_all (GnomeCmdFileList *fl)
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     GList *tmp;
-  
+
     for (GList *tmp = g_list_copy (fl->priv->selected_files); tmp; tmp = tmp->next)
         unselect_file (fl, (GnomeCmdFile *) tmp->data);
 

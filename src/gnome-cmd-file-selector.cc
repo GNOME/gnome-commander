@@ -36,7 +36,7 @@
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-dir-indicator.h"
 #include "gnome-cmd-list-popmenu.h"
-#include "useractions.h"
+#include "gnome-cmd-user-actions.h"
 #include "history.h"
 #include "cap.h"
 #include "utils.h"

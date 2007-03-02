@@ -68,6 +68,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-smb-path.h gnome-cmd-smb-path.cc \
 	gnome-cmd-style.h gnome-cmd-style.cc \
 	gnome-cmd-types.h \
+	gnome-cmd-user-actions.h gnome-cmd-user-actions.cc \
 	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.cc \
 	gnome-cmd-xfer.h gnome-cmd-xfer.cc \
 	handle.h \
@@ -77,7 +78,6 @@ gnome_commander_SOURCES = \
 	main.cc \
 	owner.h owner.cc \
 	plugin_manager.h plugin_manager.cc \
-	useractions.h useractions.cc \
 	utils.h utils.cc \
 	widget-factory.h widget-factory.cc
 

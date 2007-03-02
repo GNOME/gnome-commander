@@ -25,7 +25,7 @@
 #include "gnome-cmd-chown-dialog.h"
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-dir.h"
-#include "useractions.h"
+#include "gnome-cmd-user-actions.h"
 #include "owner.h"
 
 using namespace std;

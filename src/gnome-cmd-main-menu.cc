@@ -28,7 +28,7 @@
 #include "gnome-cmd-data.h"
 #include "utils.h"
 #include "imageloader.h"
-#include "useractions.h"
+#include "gnome-cmd-user-actions.h"
 
 #include "../pixmaps/exec_wheel.xpm"
 

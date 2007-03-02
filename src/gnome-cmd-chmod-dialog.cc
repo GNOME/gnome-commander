@@ -26,7 +26,7 @@
 #include "gnome-cmd-chmod-component.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
-#include "useractions.h"
+#include "gnome-cmd-user-actions.h"
 #include "utils.h"
 
 using namespace std;

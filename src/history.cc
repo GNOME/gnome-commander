@@ -31,7 +31,7 @@ History *history_new (gint max)
 
     // history->ents = NULL;
     // history->pos = NULL;
-    // history->max = max;
+    history->max = max;
     // history->lock = FALSE;
 
     return history;

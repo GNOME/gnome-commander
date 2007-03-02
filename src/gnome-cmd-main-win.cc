@@ -24,7 +24,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-file-selector.h"
-#include "useractions.h"
+#include "gnome-cmd-user-actions.h"
 #include "plugin_manager.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-main-menu.h"
