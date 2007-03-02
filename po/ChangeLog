@@ -1,3 +1,7 @@
+2007-03-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* pl.po: Updated Polish translation.
+
 2007-02-17  David Lodge <dave@cirt.net>
 
 	* POTFILES.in: Removed gnome-cmd-tags-lib.c
