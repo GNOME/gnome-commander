@@ -87,8 +87,7 @@ static guint file_selector_signals[LAST_SIGNAL] = { 0 };
  * Utility functions
  *******************************/
 
-static void
-set_same_directory (GnomeCmdFileSelector *fs, GnomeCmdFileSelector *other)
+inline void set_same_directory (GnomeCmdFileSelector *fs, GnomeCmdFileSelector *other)
 {
     GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (other);
     GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (other);
@@ -100,8 +99,7 @@ set_same_directory (GnomeCmdFileSelector *fs, GnomeCmdFileSelector *other)
 }
 
 
-static void
-show_list_popup (GnomeCmdFileSelector *fs)
+inline void show_list_popup (GnomeCmdFileSelector *fs)
 {
     // create the popup menu
     GtkWidget *menu = gnome_cmd_list_popmenu_new (fs);
@@ -111,8 +109,7 @@ show_list_popup (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-show_selected_dir_tree_size (GnomeCmdFileSelector *fs)
+inline void show_selected_dir_tree_size (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -121,8 +118,7 @@ show_selected_dir_tree_size (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-show_dir_tree_sizes (GnomeCmdFileSelector *fs)
+inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -216,19 +212,11 @@ set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir)
         fs->priv->cwd = NULL;
     }
 
-    if (dir)
-        gnome_cmd_file_selector_set_directory (fs, dir);
-    else
-        if (gnome_cmd_con_should_remember_dir (con))
-        {
-            dir = gnome_cmd_con_get_cwd (con);
-            gnome_cmd_file_selector_set_directory (fs, dir);
-        }
-        else
-        {
-            dir = gnome_cmd_con_get_default_dir (con);
-            gnome_cmd_file_selector_set_directory (fs, dir);
-        }
+    if (!dir)
+        dir = gnome_cmd_con_should_remember_dir (con) ? gnome_cmd_con_get_cwd (con) :
+                                                        gnome_cmd_con_get_default_dir (con);
+
+    gnome_cmd_file_selector_set_directory (fs, dir);
 
     gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), con);
 }
@@ -339,7 +327,7 @@ update_files (GnomeCmdFileSelector *fs)
 }
 
 
-static void update_direntry (GnomeCmdFileSelector *fs)
+inline void update_direntry (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -353,8 +341,7 @@ static void update_direntry (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_list_show_make_copy_dialog (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_list_show_make_copy_dialog (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -374,8 +361,7 @@ gnome_cmd_file_list_show_make_copy_dialog (GnomeCmdFileSelector *fs)
  * DnD functions
  **/
 
-static void
-restore_drag_indicator (GnomeCmdFileSelector *fs)
+inline void restore_drag_indicator (GnomeCmdFileSelector *fs)
 {
     gnome_cmd_clist_set_drag_row (GNOME_CMD_CLIST (fs->list), -1);
 }
@@ -797,8 +783,7 @@ do_file_specific_action                  (GnomeCmdFileSelector *fs,
 }
 
 
-static gboolean
-file_is_in_list (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
+inline gboolean file_is_in_list (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
 {
     return g_list_index (gnome_cmd_file_list_get_all_files (fs->list), finfo) != -1;
 }
@@ -1241,8 +1226,7 @@ on_root_btn_clicked                      (GtkButton *button,
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (object);
 
@@ -1254,16 +1238,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdFileSelectorClass *klass)
+static void class_init (GnomeCmdFileSelectorClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);;
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -1292,6 +1274,7 @@ init (GnomeCmdFileSelector *fs)
     GtkWidget *padding;
 
     fs->priv = g_new0 (GnomeCmdFileSelectorPrivate, 1);
+
     fs->priv->realized = FALSE;
     fs->priv->cwd = NULL;
     fs->priv->lwd = NULL;
@@ -1464,8 +1447,7 @@ gnome_cmd_file_selector_get_type         (void)
 }
 
 
-GtkWidget *
-gnome_cmd_file_selector_new              (void)
+GtkWidget * gnome_cmd_file_selector_new              (void)
 {
     GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) gtk_type_new (gnome_cmd_file_selector_get_type ());
 

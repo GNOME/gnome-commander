@@ -1395,31 +1395,23 @@ strip_extension (const gchar *fname)
 static void
 format_file_for_display (GnomeCmdFile *finfo, FileFormatData *data, gboolean tree_size)
 {
-    gchar *t, *t2;
-    gchar *size;
-
-
-    /* If the user wants a character insted of icon for filetype set it now
-     *
-     */
+    // If the user wants a character insted of icon for filetype set it now
     if (gnome_cmd_data_get_layout () == GNOME_CMD_LAYOUT_TEXT)
         data->text[FILE_LIST_COLUMN_ICON] = (gchar *) gnome_cmd_file_get_type_string (finfo);
     else
         data->text[FILE_LIST_COLUMN_ICON] = NULL;
 
-    /* Prepare the strings to show
-     *
-     */
-    t = gnome_cmd_file_get_path (finfo);
-    t2 = g_path_get_dirname (t);
-    g_free (t);
+    // Prepare the strings to show
+    gchar *t1 = gnome_cmd_file_get_path (finfo);
+    gchar *t2 = g_path_get_dirname (t1);
     data->dpath = get_utf8 (t2);
+    g_free (t1);
     g_free (t2);
 
     if (gnome_cmd_data_get_ext_disp_mode() == GNOME_CMD_EXT_DISP_STRIPPED
         && finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
-        {
-        t = strip_extension (gnome_cmd_file_get_name (finfo));
+    {
+        gchar *t = strip_extension (gnome_cmd_file_get_name (finfo));
         data->fname = get_utf8 (t);
         g_free (t);
     }
@@ -1431,18 +1423,12 @@ format_file_for_display (GnomeCmdFile *finfo, FileFormatData *data, gboolean tre
     else
         data->fext = NULL;
 
-    if (tree_size)
-        size = (gchar *) gnome_cmd_file_get_tree_size (finfo);
-    else
-        size = (gchar *) gnome_cmd_file_get_size (finfo);
-
-    /* Set other file information
-     *
-     */
+    //Set other file information
     data->text[FILE_LIST_COLUMN_NAME]  = data->fname;
     data->text[FILE_LIST_COLUMN_EXT]   = data->fext;
     data->text[FILE_LIST_COLUMN_DIR]   = data->dpath;
-    data->text[FILE_LIST_COLUMN_SIZE]  = size;
+    data->text[FILE_LIST_COLUMN_SIZE]  = tree_size ? (gchar *) gnome_cmd_file_get_tree_size (finfo) :
+                                                     (gchar *) gnome_cmd_file_get_size (finfo);
     data->text[FILE_LIST_COLUMN_DATE]  = (gchar *) gnome_cmd_file_get_mdate (finfo, FALSE);
     data->text[FILE_LIST_COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (finfo);
     data->text[FILE_LIST_COLUMN_OWNER] = (gchar *) gnome_cmd_file_get_owner (finfo);
@@ -2579,7 +2565,8 @@ gnome_vfs_list_sort_merge (GList *l1,
             l->prev = lprev;
             lprev = l;
             l1 = l1->next;
-        } else
+        }
+        else
         {
             l->next = l2;
             l = l->next;

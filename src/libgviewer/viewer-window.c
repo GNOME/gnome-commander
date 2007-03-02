@@ -37,14 +37,15 @@
 #include "libgviewer.h"
 #include "search-dlg.h"
 
-#define G_OBJ_CHARSET_KEY "charset"
-#define G_OBJ_DISPMODE_KEY "dispmode"
+#define G_OBJ_CHARSET_KEY        "charset"
+#define G_OBJ_DISPMODE_KEY       "dispmode"
 #define G_OBJ_BYTES_PER_LINE_KEY "bytesperline"
-#define G_OBJ_IMAGE_OP_KEY "imageop"
-#define G_OBJ_EXTERNAL_TOOL_KEY "exttool"
+#define G_OBJ_IMAGE_OP_KEY       "imageop"
+#define G_OBJ_EXTERNAL_TOOL_KEY  "exttool"
 
 #undef HAVE_HELP_ABOUT
 
+#define ARRAY_ELEMENTS(a)   (sizeof(a)/sizeof(a[0])) 
 #define D fprintf(stderr,"%s:%d - %s\n", __FILE__,__LINE__,__FUNCTION__);
 
 // EXTERNAL TOOLS DISABLED in coming stable release
@@ -52,10 +53,9 @@
 
 static GtkWindowClass *parent_class = NULL;
 
-static double image_scale_factors[] = {
-    0.25,0.5,0.75,1,1.25,1.50,2,2.5,3,3.5,4,4.5,5};
+static double image_scale_factors[] = {0.25, 0.5, 0.75, 1, 1.25, 1.50, 2, 2.5, 3, 3.5, 4, 4.5, 5};
 
-const static int MAX_SCALE_FACTOR_INDEX = sizeof(image_scale_factors)/sizeof(double);
+const static int MAX_SCALE_FACTOR_INDEX = ARRAY_ELEMENTS(image_scale_factors);
 
 #ifdef EXTERNAL_TOOLS
 typedef struct _GViewerWindowExternalTool GViewerWindowExternalTool;
@@ -191,7 +191,7 @@ static void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id)
     gnome_help_display (file_name, link_id, &error);
 
     if (error != NULL)
-        gnome_cmd_error_message(_("There was an error displaying help."), error);
+        gnome_cmd_error_message (_("There was an error displaying help."), error);
 }
 
 
@@ -373,23 +373,20 @@ gviewer_window_init (GViewerWindow *w)
 
 static void gviewer_window_status_line_changed(GViewer *obj, const gchar *status_line, GViewerWindow *wnd)
 {
-    GViewerWindow *w;
-
-    g_return_if_fail (wnd!= NULL);
+    g_return_if_fail (wnd != NULL);
     g_return_if_fail (IS_GVIEWER_WINDOW (wnd));
 
-    w = GVIEWER_WINDOW (wnd);
+    GViewerWindow *w = GVIEWER_WINDOW (wnd);
 
-    if (w->priv->status_bar_msg) {
-        gtk_statusbar_pop(
-            GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id);
+    if (w->priv->status_bar_msg)
+    {
+        gtk_statusbar_pop(GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id);
         w->priv->status_bar_msg = FALSE;
     }
 
-    if (status_line) {
-        gtk_statusbar_push(
-            GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id,
-            status_line);
+    if (status_line)
+    {
+        gtk_statusbar_push(GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id, status_line);
         w->priv->status_bar_msg = TRUE;
     }
 }
@@ -407,18 +404,18 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
     gviewer_set_fixed_limit(obj->priv->viewer,settings->binary_bytes_per_line);
     switch(settings->binary_bytes_per_line)
     {
-    case 20:
-        gtk_check_menu_item_set_active(
-            GTK_CHECK_MENU_ITEM(obj->priv->fixed_limit_menu_items[0]),TRUE);
-        break;
-    case 40:
-        gtk_check_menu_item_set_active(
-            GTK_CHECK_MENU_ITEM(obj->priv->fixed_limit_menu_items[1]),TRUE);
-        break;
-    case 80:
-        gtk_check_menu_item_set_active(
-            GTK_CHECK_MENU_ITEM(obj->priv->fixed_limit_menu_items[2]),TRUE);
-        break;
+        case 20:
+            gtk_check_menu_item_set_active(
+                GTK_CHECK_MENU_ITEM(obj->priv->fixed_limit_menu_items[0]),TRUE);
+            break;
+        case 40:
+            gtk_check_menu_item_set_active(
+                GTK_CHECK_MENU_ITEM(obj->priv->fixed_limit_menu_items[1]),TRUE);
+            break;
+        case 80:
+            gtk_check_menu_item_set_active(
+                GTK_CHECK_MENU_ITEM(obj->priv->fixed_limit_menu_items[2]),TRUE);
+            break;
     }
 
     gviewer_set_wrap_mode(obj->priv->viewer,settings->wrap_mode);
@@ -439,8 +436,7 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
 #if 0
     // This doesn't work because the window is not shown yet
     if (GTK_WIDGET(obj)->window)
-        gdk_window_move(GTK_WIDGET(obj)->window,
-            settings->rect.x, settings->rect.y);
+        gdk_window_move(GTK_WIDGET(obj)->window, settings->rect.x, settings->rect.y);
 #endif
     gtk_window_set_position(GTK_WINDOW(obj),GTK_WIN_POS_CENTER);
 }
@@ -517,40 +513,43 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
     w = GVIEWER_WINDOW (widget);
 
-    if (event->state & GDK_CONTROL_MASK) {
+    if (event->state & GDK_CONTROL_MASK)
+    {
         switch (event->keyval)
         {
-        case GDK_w:
-        case GDK_W:
-            gtk_widget_destroy(GTK_WIDGET(w));
-            return TRUE;
+            case GDK_w:
+            case GDK_W:
+                gtk_widget_destroy(GTK_WIDGET(w));
+                return TRUE;
         }
     }
 
-    if (event->state & GDK_SHIFT_MASK) {
+    if (event->state & GDK_SHIFT_MASK)
+    {
         switch (event->keyval)
         {
-        case GDK_F7:
-           menu_edit_find_next(NULL,w);
+            case GDK_F7:
+               menu_edit_find_next(NULL,w);
+               return TRUE;
+        }
+    }
+
+    switch (event->keyval)
+    {
+        case GDK_plus:
+        case GDK_KP_Add:
+        case GDK_equal:
+           set_zoom_in(w);
            return TRUE;
-        }
-    }
 
-    switch (event->keyval) {
-    case GDK_plus:
-    case GDK_KP_Add:
-    case GDK_equal:
-       set_zoom_in(w);
-       return TRUE;
+        case GDK_minus:
+        case GDK_KP_Subtract:
+           set_zoom_out(w);
+           return TRUE;
 
-    case GDK_minus:
-    case GDK_KP_Subtract:
-       set_zoom_out(w);
-       return TRUE;
-
-    case GDK_F7:
-       menu_edit_find(NULL,w);
-       return TRUE;
+        case GDK_F7:
+           menu_edit_find(NULL,w);
+           return TRUE;
     }
 
     return FALSE;
@@ -586,35 +585,36 @@ create_ui_pixmap (GtkWidget *window,
     GtkWidget *pixmap = NULL;
     char *name;
 
-    switch (pixmap_type) {
-    case GNOME_APP_PIXMAP_STOCK:
-        pixmap = gtk_image_new_from_stock (pixmap_info, size);
-        break;
+    switch (pixmap_type)
+    {
+        case GNOME_APP_PIXMAP_STOCK:
+            pixmap = gtk_image_new_from_stock (pixmap_info, size);
+            break;
 
-    case GNOME_APP_PIXMAP_DATA:
-        if (pixmap_info)
-            pixmap = gnome_pixmap_new_from_xpm_d ((const char**)pixmap_info);
+        case GNOME_APP_PIXMAP_DATA:
+            if (pixmap_info)
+                pixmap = gnome_pixmap_new_from_xpm_d ((const char **) pixmap_info);
 
-        break;
+            break;
 
-    case GNOME_APP_PIXMAP_NONE:
-        break;
+        case GNOME_APP_PIXMAP_NONE:
+            break;
 
-    case GNOME_APP_PIXMAP_FILENAME:
-        name = gnome_pixmap_file (pixmap_info);
+        case GNOME_APP_PIXMAP_FILENAME:
+            name = gnome_pixmap_file (pixmap_info);
 
-        if (!name)
-            g_warning ("Could not find GNOME pixmap file %s", (char *) pixmap_info);
-        else {
-            pixmap = gnome_pixmap_new_from_file (name);
-            g_free (name);
-        }
+            if (!name)
+                g_warning ("Could not find GNOME pixmap file %s", (char *) pixmap_info);
+            else {
+                pixmap = gnome_pixmap_new_from_file (name);
+                g_free (name);
+            }
 
-        break;
+            break;
 
-    default:
-        g_assert_not_reached ();
-        g_warning("Invalid pixmap_type %d", (int) pixmap_type);
+        default:
+            g_assert_not_reached ();
+            g_warning("Invalid pixmap_type %d", (int) pixmap_type);
     }
 
     return pixmap;
@@ -655,13 +655,14 @@ static GtkWidget *create_menu_item (MENUITEMTYPE type,
 
     switch(type)
     {
-    case MI_CHECK:
-        menuitem = gtk_check_menu_item_new_with_mnemonic (_(name));
-        break;
-    case MI_NORMAL:
-    default:
-        menuitem = gtk_image_menu_item_new_with_mnemonic (_(name));
-        break;
+        case MI_CHECK:
+            menuitem = gtk_check_menu_item_new_with_mnemonic (_(name));
+            break;
+
+        case MI_NORMAL:
+        default:
+            menuitem = gtk_image_menu_item_new_with_mnemonic (_(name));
+            break;
     }
 
     if (pixmap_type != GNOME_APP_PIXMAP_NONE &&
@@ -737,45 +738,48 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel,
     g_return_if_fail(menudata!=NULL);
     g_return_if_fail(container!=NULL);
 
-    while (menudata!=NULL && menudata->menutype!=MI_NONE) {
+    while (menudata!=NULL && menudata->menutype!=MI_NONE) 
+    {
         GtkWidget *item = NULL;
 
         switch(menudata->menutype)
         {
-        case MI_NONE:
-            break;
+            case MI_NONE:
+                break;
 
-        case MI_SUBMENU:
-            item = create_sub_menu(menudata->label, container);
-            break;
+            case MI_SUBMENU:
+                item = create_sub_menu(menudata->label, container);
+                break;
 
-        case MI_SEPERATOR:
-            item =     create_menu_seperator(container);
-            break;
+            case MI_SEPERATOR:
+                item = create_menu_seperator(container);
+                break;
 
-        case MI_NORMAL:
-        case MI_CHECK:
-            item = create_menu_item(menudata->menutype,
-                menudata->label, container,
-                menudata->keyval ? accel : NULL,
-                menudata->keyval,
-                menudata->modifier,
-                menudata->callback,
-                menudata->pixmap_type, menudata->pixmap_info, user_data);
-            break;
+            case MI_NORMAL:
+            case MI_CHECK:
+                item = create_menu_item(menudata->menutype,
+                                        menudata->label, container,
+                                        menudata->keyval ? accel : NULL,
+                                        menudata->keyval,
+                                        menudata->modifier,
+                                        menudata->callback,
+                                        menudata->pixmap_type, menudata->pixmap_info, user_data);
+                break;
 
-        case MI_RADIO:
-            if (menudata->radio_list==NULL) {
-                g_warning("radio_list field is NULL in \"%s\" menu item", menudata->label);
-            } else {
-                item = create_radio_menu_item(menudata->radio_list,
-                    menudata->label, container,
-                    menudata->keyval ? accel : NULL,
-                    menudata->keyval,
-                    menudata->modifier,
-                    menudata->callback,user_data);
-            }
-            break;
+            case MI_RADIO:
+                if (menudata->radio_list==NULL) 
+                {
+                    g_warning("radio_list field is NULL in \"%s\" menu item", menudata->label);
+                } else 
+                {
+                    item = create_radio_menu_item(menudata->radio_list,
+                                                  menudata->label, container,
+                                                  menudata->keyval ? accel : NULL,
+                                                  menudata->keyval,
+                                                  menudata->modifier,
+                                                  menudata->callback,user_data);
+                }
+                break;
         }
 
         if (menudata->gobj_key)

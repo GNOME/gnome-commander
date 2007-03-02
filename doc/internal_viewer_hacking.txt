@@ -2,7 +2,7 @@ Internal-Viewer Internals
 -------------------------
 
 This short document will detail the internals of the 'libgviewer' library,
-which implements GnomeCommander's Internal-Viewer.
+which implements GNOME Commander's Internal-Viewer.
 
 If you plan to hack the internal viewer, add features or just browse the source
 for fun, I recommend reading this document first.
@@ -17,7 +17,7 @@ Table of Content
     2.1.  File Operations module (fileops.c)
     2.2.  Input mode translations module (inputmodes.c)
           2.2.1.  CP437 encoding utilities (cp437.c)
-    2.3.  Data presentation module(datapresentation.c)
+    2.3.  Data presentation module (datapresentation.c)
     2.4.  Scroll Box widget (scroll-box.c)
     2.5.  Text Render widget (text-render.c)
     2.6.  Image Render widget (image-render.c)
@@ -39,31 +39,31 @@ Table of Content
 1.  General
 -----------
 The 'libgviewer' library aims to be a complete, fast, useable, user-friendly
-viewer window for the GnomeCommander project.
+viewer window for the GNOME Commander project.
 
 Key Features:
   * Fast loading -
-      If possible, does not load the entire file into memory.
+      If possible, does not load the entire file into memory
   * Text Handling -
-      Multiple character-set encodings,  including UTF8 and Code page 437.
+      Multiple character-set encodings, including UTF-8 and code page 437
   * Versatile Text display -
-      Fixed and Variable width fonts, line wrapping, hex dump.
+      Fixed and Variable width fonts, line wrapping, hex dump
   * Versatile Image display -
-      Every GDKable image format can be displayed (jpg,png,gif,svg, etc).
+      Every GDKable image format can be displayed (jpg, png, gif, svg, etc)
   * Image Manipulations -
       Rotating, Flipping, Zooming
   * Usability -
-      easy keyboard navigation for (almost) all operations
+      Easy keyboard navigation for (almost) all operations
 
 Some other viewers that you can try (if you're not pleased with 'libgviewer'):
   * "Total Commander" has an excellent internal viewer.
     Very power full and fast. If you use That-Other-Operation-System,
     I suggest you give it a try.
     You can also use Total Commander on *nix systems under Wine.
-  * "Midnight Commander" (MC) has a very good internal viewer.
-    (actually, the file operation module is largely based on midnight
-    commander's internal viewer code).
-    MC is a console application, so UTF8 and multiple charset encodings are not
+  * "Midnight Commander" (MC) has a very good internal viewer
+    (actually, the file operation module is largely based on Midnight
+    Commander's internal viewer code).
+    MC is a console application, so UTF-8 and multiple charset encodings are not
     easily displayed.
   * "Krusader" (KDE's twin-panel file manager) has a good,
     feature-packed internal viewer. The downside (IMHO) is that it tries to
@@ -78,25 +78,25 @@ Some other viewers that you can try (if you're not pleased with 'libgviewer'):
 
   * The modules: inputmodes, datapresentation
     are semi-object oriented but they are not GObjects in any sense.
-    (internally the use function pointers for polymorphism),
+    (internally they use function pointers for polymorphism).
 
-  * All text handling is UTF8 based.
-    (To be consistent with Pango, the GTK+ text rendering engine).
+  * All text handling is UTF-8 based
+    (To be consistent with Pango, the GTK+ text-rendering engine).
 
   * "char_type" is the internal representation of a single UTF-8 character, in
-    a 32bit variable. (This might be a problem: UTF8 characters which occupy 5 or
+    a 32bit variable. (This might be a problem: UTF-8 characters which occupy 5 or
     6 bytes cannot be handled by the current internal viewer code).
 
-  * If the UTF8 character is one byte long, the LSB of the 'char_type'
+  * If the UTF-8 character is one byte long, the LSB of the 'char_type'
     variable contains the value, the other three bytes are zero.
-    If the UTF8 character is two byte long, the two LSBs of the 'char_type'
+    If the UTF-8 character is two byte long, the two LSBs of the 'char_type'
     variable contain the value, the other two are zero.
-    The same goes for three and four bytes long UTF8 characters.
+    The same goes for three and four bytes long UTF-8 characters.
     You can use the macros GV_{FIRST,SEONCD,etc}_BYTE (defined in 'gvtypes.h')
     To check the 'char_type' variable.
 
   * "offset_type", whenever used, ALWAYS means BYTE offset in the file.
-    It never means Character offset (this is important for UTF8 files,
+    It never means Character offset (this is important for UTF-8 files,
     where a single character is not necessarily a single byte).
     The "inputmodes" module provides functions to move to the next and previous
     character offsets.
@@ -106,7 +106,7 @@ Some other viewers that you can try (if you're not pleased with 'libgviewer'):
     bigger than 2GB is not supported....)
 
   * There are no static variables in to modules (except the GTK+'s parent_class)
-    So using multiple viewers widgets in the same application should be OK.
+    So using multiple viewers' widgets in the same application should be OK.
     However, the modules are not guaranteed to be thread-safe, so the same
     viewer-widget should not be accessed from two different threads.
 
@@ -125,25 +125,25 @@ buffers) to read directly from a pipe (e.g. running an external program and
 sending the STDOUT directly to the viewer). This part was not ported to the
 "libgviewer", but it can be later added (if need arises).
 
-Read "fileops.h" for the list of functions (they are pretty self-explainatoty).
+Read "fileops.h" for the list of functions (they are pretty self-explanatory).
 Use "gv_file_get_byte" to read a single byte from the file.
 
 2.2.  Input mode translations module (inputmodes.c)
 ---------------------------------------------------
 The Input Mode module is responsible for reading raw bytes from a file, and
-translating them to UTF8 characters(the rest of 'libgviewer' is always UTF8).
+translating them to UTF-8 characters(the rest of 'libgviewer' is always UTF-8).
 
 If using a one-byte-per-character encoding, a quick translation table is built
-(in "inputmode_ascii_activate"), with a UTF8 value for each possible byte value.
+(in "inputmode_ascii_activate"), with a UTF-8 value for each possible byte value.
 Later, when a character is requested (with "gv_input_mode_get_utf8_char"),
-The byte from the file is translated to the corresponding UTF8 character.
+The byte from the file is translated to the corresponding UTF-8 character.
 
-If using a multibyte-per-character encoding (currently only UTF8 is supported),
+If using a multibyte-per-character encoding (currently only UTF-8 is supported),
 The "inputmode_utf8_get_char" is used to read the required number of bytes from
-the file and return a single UTF8 character.
+the file and return a single UTF-8 character.
 
 When higher levels/other modules wish to read the file, they use:
- * "gv_input_mode_get_utf8_char" to read a single UTF8 char from the file, at
+ * "gv_input_mode_get_utf8_char" to read a single UTF-8 char from the file, at
    the requested offset (ALWAYS byte offset).
  * "gv_input_mode_get_next_char_offset","gv_input_mode_get_previous_char_offset"
    To move across the file. These functions translate from character offset to
@@ -155,10 +155,10 @@ When higher levels/other modules wish to read the file, they use:
 A note about control characters (tab='\t', CR='\r', LF='\n'):
 The inputmodes modules NEVER translates these control characters.
 "gv_input_mode_get_utf8_char" will return these control characters without
-translating them, even if they can be translated to a valid UTF8 character
+translating them, even if they can be translated to a valid UTF-8 character
 (for example, when using CP437 encoding).
-Other modules which want to display the UTF8 equivalents of these control
-characters can use "gv_input_mode_byte_to_utf8" to get the actual UTF8 value.
+Other modules which want to display the UTF-8 equivalents of these control
+characters can use "gv_input_mode_byte_to_utf8" to get the actual UTF-8 value.
 (See "text_render_display_line" in "text-render.c".)
 
 2.2.1.  CP437 encoding helpers (cp437.c)
@@ -173,13 +173,13 @@ So I made special helper functions to make it work.
 (See "inputmode_ascii_activate" in "inputmodes.c").
 More details on CP437 can be found at "http://en.wikipedia.org/wiki/CP437".
 
-2.3.  Data presentation module(datapresentation.c)
+2.3.  Data presentation module (datapresentation.c)
 --------------------------------------------------
 The data presentation module is responsible for moving around the file,
 calculating the offsets of the start of the line and
 the end of the line.
 
-This modules tries to hide away the nasty details of line wrapping (but it only
+These modules tries to hide away the nasty details of line wrapping (but it only
 works for fixed-width fonts).
 
 The are several modes of calculations:
@@ -217,19 +217,19 @@ Three display modes are supported:
 Displaying and selecting text in the three display modes are implemented using
 function call backs (the functions are at the end of the file).
 
-The is some black voodoo there trying to block forbidden conbinations
-(Like UTF8 with Binary mode, or Line Wrapping with Variable width font).
+The is some black voodoo there trying to block forbidden combinations
+(Like UTF-8 with Binary mode, or Line Wrapping with Variable width font).
 This should be fixed in future versions.
 
 Pango-ism:
 * character width is calculated in "get_max_char_width".
 
-* Pango fails to draw some valid UTF8 characters, and using
+* Pango fails to draw some valid UTF-8 characters, and using
   "text_render_filter_undisplayable_chars" we make sure they are not displayed.
 
-* Text-Render uses "char_type" to hold each UTF8 character (always 4 bytes),
-  But Pango wants real UTF8 strings (variable number of bytes per character).
-  "text_render_utf8_printf" and "text_render_utf8_print_char" take care of that.
+* Text-Render uses "char_type" to hold each UTF-8 character (always 4 bytes),
+  But Pango wants real UTF-8 strings (variable number of bytes per character).
+  "text_render_UTF-8_printf" and "text_render_utf8_print_char" take care of that.
 
 Signals:
 TextRender emits one signal (status changed), whenever the view is updated.
@@ -284,8 +284,8 @@ into one signal ("status-line-changed").
 
 2.8.  Viewer window (viewer-window.c)
 -------------------------------------
-ViewerWindot is a full-blown Top-Level GtkWindow, displaying a Viewer Widget,
-With user-friendly menu items.
+ViewerWindow is a full-blown top-level GtkWindow, displaying a Viewer Widget,
+with user-friendly menu items.
 All operations on ViewerWidget/TextRender/ImageRender are possible from the menus.
 
 Extra features (on top of the ViewerWidget's features)
@@ -295,8 +295,7 @@ Extra features (on top of the ViewerWidget's features)
 One simple function "gviewer_window_file_view" can be used to create the window
 and load the file (including display mode autodetection).
 The function returns a "GtkWidget" (which is actually a GtkWindow).
-You need to "gtk_widget_show" the widget.
-You can also the the window's Icon.
+You need to "gtk_widget_show" the widget. You can also the window's icon.
 See "do_view_file" in "gnome-cmd-file.c" for an example.
 
 
@@ -305,24 +304,23 @@ See "do_view_file" in "gnome-cmd-file.c" for an example.
 Inside the "gviewer_test" sub-directory you'll find module testers, one for each
 module (as specified in section 2, above).
 
-The learn how to use each module, check the appropriate tester:
+The learn how to use each module, check the appropriate tester.
+
+All module test programs, when run without command line parameters, 
+bring usage instructions.
 
 3.1. test-fileops
------------------
-Uses the "fileops" module to load and display the file.
-Exactly like "cat".
 
-Run without command line parameters to see usage instructions.
+-----------------
+Uses the "fileops" module to load and display the file. Exactly like "cat".
 
 3.2. test-inputmodes
 --------------------
 Uses the "inputmodes" module (on top of "fileops") to load the file,
-and translate it from the requested charset to UTF8.
+and translate it from the requested charset to UTF-8.
 Output is sent to stdout ALWAYS in UTF-8 (because the whole viewer library uses
-UTF8 internally).
-This is very similar to using "iconv" with "--to-code" set to UTF8.
-
-Run without command line parameters to see usage instructions.
+UTF-8 internally).
+This is very similar to using "iconv" with "--to-code" set to UTF-8.
 
 3.3. test-datapresentation
 ---------------------------
@@ -330,21 +328,18 @@ Uses "datapresentation" module to display the input file in various formats.
 Output format can be text (with or without wrapping), binary or hex.
 Input mode charset translation can also be specified.
 Output is sent to stdout.
-Run without command line parameters to see usage instructions.
 
 3.4. test-textrender
 --------------------
 Create a primitive GtkWindow and puts a TextRender widget in it.
 There is almost no user interface (menus and such), so you must set the options
 (display mode, charset encoding, wrapping etc) from the command line.
-Run without command line parameters to see usage instructions.
 
 3.5. test-imagerender
 ---------------------
 Create a primitive GtkWindow and puts an ImageRender widget in it.
 There is almost no user interface (menus and alike), so you must set the options
 (scaling/best-fit) from the command line.
-Run without command line parameters to see usage instructions.
 
 3.6. test-viewerwidget
 ----------------------
@@ -352,15 +347,13 @@ Create a primitive GtkWindow and puts a Viewer widget in it.
 There is almost no user interface (menus and alike), so you must set the options
 (display mode, wrapping, scaling, etc.) from the command line.
 
-ViewerWidget combines TextRender and ImageRender widgets, so you can specify a
-display mode (Text/Binary/Hex/Image) or use auto detection.
-
-Run without command line parameters to see usage instructions.
+ViewerWidget combines TextRender and ImageRender widgets, so you can specify
+a display mode (Text/Binary/Hex/Image) or use auto detection.
 
 3.7. text-viewerwindow
 ----------------------
 This is complete, stand-alone viewer window, with menus and everything.
-Specify a file to view on command line.
+Specify files to view on command line.
 
 4.  Using the internal viewer in your project
 ---------------------------------------------
@@ -369,11 +362,11 @@ Specify a file to view on command line.
 ----------------------------
 To include an external Viewer window in your project (meaning a new top level
 window will be displayed with the desired file), simply link with the libgviewer
-library,
-add
+library, add
+
 "#include <libgviewer/libgviewer.h>"
-to your file, and call "gviewer_window_file_view" (don't forget "gtk_widget_show").
-See "test-viewerwindow.c" for a simple example.
+
+to your file, and call "gviewer_window_file_view()" (don't forget "gtk_widget_show()").
 See "gnome-cmd-file.c" for an example with icon changing.
 
 4.2.  Embedding the Viewer Widget
