@@ -20,6 +20,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#include <iostream> 
+
 #include <stdio.h>
 
 #include "gnome-cmd-file.h"
@@ -29,7 +31,8 @@
 
 G_BEGIN_DECLS
 
-#define TRACE(x,fmt)         printf("TRACE  " #x ": " #fmt "\n", x)
+#define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": " << (s) << std:: endl
+
 #define ARRAY_ELEMENTS(a)   (sizeof(a)/sizeof(a[0]))
 
 gboolean DEBUG_ENABLED (gchar flag);

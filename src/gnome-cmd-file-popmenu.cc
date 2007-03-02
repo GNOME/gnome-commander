@@ -56,8 +56,7 @@ struct _GnomeCmdFilePopmenuPrivate
 };
 
 
-static void
-exec_with_app (GList *files, GnomeCmdApp *app)
+inline void exec_with_app (GList *files, GnomeCmdApp *app)
 {
     mime_exec_multiple (files, app);
 }
@@ -82,15 +81,14 @@ htcb_exec_with_app (const gchar *key,
 static void
 cb_exec_with_app (GtkMenuItem *menu_item, OpenWithData *data)
 {
-     exec_with_app (data->files, data->app);
+    exec_with_app (data->files, data->app);
 }
 
 
 /* Iterates through all files and gets their default application.
  * All files with the same default app are grouped together and opened in one call.
  */
-static void
-cb_exec_default (GtkMenuItem *menu_item, GList *files)
+static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
 {
     GHashTable *hash = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -267,8 +265,7 @@ add_fav_app_menu_item (GnomeCmdFilePopmenu *menu,
 }
 
 
-static gboolean
-fav_app_matches_files (GnomeCmdApp *app, GList *files)
+static gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
 {
     GnomeCmdFile *finfo;
 
@@ -329,8 +326,7 @@ fav_app_matches_files (GnomeCmdApp *app, GList *files)
 }
 
 
-static void
-add_plugin_menu_items (GnomeCmdFilePopmenu *menu, GList *items, gint pos)
+inline void add_plugin_menu_items (GnomeCmdFilePopmenu *menu, GList *items, gint pos)
 {
     for (; items; items = items->next)
     {
@@ -440,7 +436,6 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
 
     // Fill the "Open with..." menu with applications
-
     gint i = -1;
     menu->priv->data_list = NULL;
 
@@ -478,7 +473,6 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     apps_uiinfo[++i].type = GNOME_APP_UI_ENDOFINFO;
 
     // Set default callback data
-
     for (gint i=0; open_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
         if (open_uiinfo[i].type == GNOME_APP_UI_ITEM)
             open_uiinfo[i].user_data = fl;
@@ -501,9 +495,8 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
 
     // Add favorite applications
-
     match_count = 0;
-    for (tmp=gnome_cmd_data_get_fav_apps (); tmp; tmp = tmp->next)
+    for (GList *tmp=gnome_cmd_data_get_fav_apps (); tmp; tmp = tmp->next)
     {
         GnomeCmdApp *app = (GnomeCmdApp *) tmp->data;
         if (fav_app_matches_files (app, files))
@@ -513,7 +506,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         }
     }
 
-    for (tmp=plugin_manager_get_all (); tmp; tmp = tmp->next)
+    for (GList *tmp=plugin_manager_get_all (); tmp; tmp = tmp->next)
     {
         PluginData *data = (PluginData *) tmp->data;
         if (data->active)

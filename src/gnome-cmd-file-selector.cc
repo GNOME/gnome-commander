@@ -55,7 +55,8 @@ GtkTargetEntry drop_types [] = {
 
 static GtkVBoxClass *parent_class = NULL;
 
-struct _GnomeCmdFileSelectorPrivate {
+struct _GnomeCmdFileSelectorPrivate
+{
     GtkWidget *filter_box;
 
     gboolean active;
@@ -641,16 +642,13 @@ init_dnd (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-
     // Set up drag source
-
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_begin", GTK_SIGNAL_FUNC (drag_begin), fs);
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_end", GTK_SIGNAL_FUNC (drag_end), fs);
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_leave", GTK_SIGNAL_FUNC (drag_leave), fs);
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_data_delete", GTK_SIGNAL_FUNC (drag_data_delete), fs);
 
     // Set up drag destination
-
     gtk_drag_dest_set (GTK_WIDGET (fs->list),
                        GTK_DEST_DEFAULT_DROP,
                        drop_types, ELEMENTS (drop_types),
@@ -694,17 +692,16 @@ static void
 update_vol_label (GnomeCmdFileSelector *fs)
 
 {
-    gchar *s;
-    GnomeVFSFileSize free_space;
-    GnomeVFSResult res;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CON (fs->priv->con));
 
+    gchar *s;
+
     if (gnome_cmd_con_can_show_free_space (fs->priv->con))
     {
+        GnomeVFSFileSize free_space;
         GnomeVFSURI *uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (fs->priv->cwd));
-        res = gnome_vfs_get_volume_free_space (uri, &free_space);
+        GnomeVFSResult res = gnome_vfs_get_volume_free_space (uri, &free_space);
         gnome_vfs_uri_unref (uri);
 
         if (res == GNOME_VFS_OK)
@@ -1247,9 +1244,7 @@ on_root_btn_clicked                      (GtkButton *button,
 static void
 destroy (GtkObject *object)
 {
-    GnomeCmdFileSelector *fs;
-
-    fs = GNOME_CMD_FILE_SELECTOR (object);
+    GnomeCmdFileSelector *fs = GNOME_CMD_FILE_SELECTOR (object);
 
     gnome_cmd_dir_unref (fs->priv->cwd);
     g_free (fs->priv);
@@ -1847,9 +1842,7 @@ gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
 
     for (GList *l=gnome_cmd_con_list_get_all (con_list); l; l = l->next)
     {
-        gint row;
         gchar *text[3];
-        GnomeCmdPixmap *pixmap;
         GnomeCmdCon *con = (GnomeCmdCon *) l->data;
 
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
@@ -1862,11 +1855,14 @@ gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
         text[1] = (gchar *) gnome_cmd_con_get_alias (con);
         text[2] = NULL;
 
-        pixmap = gnome_cmd_con_get_go_pixmap (con);
+        GnomeCmdPixmap *pixmap = gnome_cmd_con_get_go_pixmap (con);
 
-        row = gnome_cmd_combo_append (GNOME_CMD_COMBO (fs->con_combo), text, con);
         if (pixmap)
+        {
+            gint row = gnome_cmd_combo_append (GNOME_CMD_COMBO (fs->con_combo), text, con);
+
             gnome_cmd_combo_set_pixmap (GNOME_CMD_COMBO (fs->con_combo), row, 0, pixmap);
+        }
     }
 
     fs->priv->selection_lock = FALSE;

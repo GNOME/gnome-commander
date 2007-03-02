@@ -920,9 +920,8 @@ static GList *
 load_string_history (gchar *format, gint size)
 {
     GList *list = NULL;
-    gint i;
 
-    for (i = 0; i < size || size == -1; ++i)
+    for (gint i = 0; i < size || size == -1; ++i)
     {
         gchar *key = g_strdup_printf (format, i);
         gchar *value = gnome_cmd_data_get_string (key, NULL);
