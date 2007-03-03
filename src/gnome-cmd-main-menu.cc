@@ -324,7 +324,7 @@ add_bookmark_menu_item (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCm
                           IMAGE_get_pixmap (PIXMAP_BOOKMARK), IMAGE_get_mask (PIXMAP_BOOKMARK),
                           GTK_SIGNAL_FUNC (on_bookmark_selected), bookmark);
 
-    // Remeber this bookmarks item-widget so that we can remove it later
+    // Remember this bookmarks item-widget so that we can remove it later
     main_menu->priv->bookmark_menuitems = g_list_append (main_menu->priv->bookmark_menuitems, item);
 }
 
@@ -332,17 +332,15 @@ add_bookmark_menu_item (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCm
 static void
 add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCmdBookmarkGroup *group)
 {
-    GList *bookmarks;
-
     g_return_if_fail (GTK_IS_MENU_SHELL (menu));
-    g_return_if_fail (bookmarks != NULL);
+    g_return_if_fail (group != NULL);
 
     GnomeCmdPixmap *pixmap = gnome_cmd_con_get_go_pixmap (group->con);
     GtkWidget *item = add_menu_item (main_menu, menu, gnome_cmd_con_get_alias (group->con), NULL,
                                      pixmap?pixmap->pixmap:NULL, pixmap?pixmap->mask:NULL,
                                      NULL, NULL);
 
-    // Remeber this bookmarks item-widget so that we can remove it later
+    // Remember this bookmarks item-widget so that we can remove it later
     main_menu->priv->group_menuitems = g_list_append (main_menu->priv->group_menuitems, item);
 
 
@@ -350,12 +348,13 @@ add_bookmark_group (GnomeCmdMainMenu *main_menu, GtkMenuShell *menu, GnomeCmdBoo
     GtkWidget *submenu = gtk_menu_new ();
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), submenu);
 
-    for (bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next)
+    for (GList *bookmarks = group->bookmarks; bookmarks; bookmarks = bookmarks->next)
     {
         GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
         add_bookmark_menu_item (main_menu, GTK_MENU_SHELL (submenu), bookmark);
     }
 }
+
 
 static void
 update_view_menu (GnomeCmdMainMenu *main_menu);
