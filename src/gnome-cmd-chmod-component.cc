@@ -100,7 +100,7 @@ class_init (GnomeCmdChmodComponentClass *klass)
 
     parent_class = (GtkVBoxClass *) gtk_type_class (gtk_vbox_get_type ());
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
 
     klass->perms_changed = on_perms_changed;
 

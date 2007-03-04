@@ -785,7 +785,7 @@ class_init (GnomeCmdMainWinClass *klass)
             1, GTK_TYPE_POINTER);
 
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
     klass->switch_fs = gnome_cmd_main_win_real_switch_fs;
 }
 

@@ -1819,7 +1819,7 @@ class_init (GnomeCmdOptionsDialogClass *klass)
 
     object_class->destroy = destroy;
 
-    widget_class->map = map;
+    widget_class->map = ::map;
 }
 
 

@@ -441,7 +441,7 @@ class_init (GnomeCmdMainMenuClass *klass)
 
     parent_class = (GtkMenuBarClass *) gtk_type_class (gtk_menu_bar_get_type ());
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
 }
 
 

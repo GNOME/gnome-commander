@@ -70,7 +70,7 @@ class_init (GnomeCmdChownComponentClass *klass)
 
     parent_class = (GtkTableClass *) gtk_type_class (gtk_table_get_type ());
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
 }
 
 

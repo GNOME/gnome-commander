@@ -1274,7 +1274,7 @@ class_init (GnomeCmdFileListClass *klass)
                         0);
 
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
     klass->file_clicked = NULL;
     klass->list_clicked = NULL;
     klass->selection_changed = NULL;

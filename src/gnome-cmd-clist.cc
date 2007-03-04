@@ -593,7 +593,7 @@ class_init (GnomeCmdCListClass *klass)
 
     object_class->destroy = destroy;
 
-    widget_class->map = map;
+    widget_class->map = ::map;
 
     clist_class->draw_row = draw_row;
 }

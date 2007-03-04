@@ -230,7 +230,7 @@ class_init (GnomeCmdCmdlineClass *klass)
 
     parent_class = (GtkHBoxClass *) gtk_type_class (gtk_hbox_get_type ());
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
 }
 
 

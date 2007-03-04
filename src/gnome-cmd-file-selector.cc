@@ -1262,7 +1262,7 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
             1, GTK_TYPE_POINTER);
 
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
     klass->changed_dir = NULL;
 }
 

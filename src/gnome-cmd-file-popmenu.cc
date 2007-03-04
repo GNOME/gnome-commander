@@ -372,7 +372,7 @@ class_init (GnomeCmdFilePopmenuClass *klass)
     parent_class = (GtkMenuClass *) gtk_type_class (gtk_menu_get_type ());
 
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
 }
 
 

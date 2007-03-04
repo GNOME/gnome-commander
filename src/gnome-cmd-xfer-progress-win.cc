@@ -69,7 +69,7 @@ class_init (GnomeCmdXferProgressWinClass *klass)
 
     parent_class = (GtkWindowClass *) gtk_type_class (gtk_window_get_type ());
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
 }
 
 

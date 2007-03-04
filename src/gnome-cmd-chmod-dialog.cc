@@ -192,7 +192,7 @@ class_init (GnomeCmdChmodDialogClass *klass)
 
     parent_class = (GnomeCmdDialogClass *) gtk_type_class (gnome_cmd_dialog_get_type ());
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
 }
 
 

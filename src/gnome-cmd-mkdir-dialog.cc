@@ -112,7 +112,7 @@ class_init (GnomeCmdMkdirDialogClass *klass)
 
     parent_class = (GnomeCmdStringDialogClass *) gtk_type_class (gnome_cmd_string_dialog_get_type ());
     object_class->destroy = destroy;
-    widget_class->map = map;
+    widget_class->map = ::map;
 }
 
 
