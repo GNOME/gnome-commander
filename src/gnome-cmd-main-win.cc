@@ -1060,14 +1060,6 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                 }
                 return TRUE;
 
-            case GDK_F3:
-                file_external_view (NULL, NULL);
-                return TRUE;
-
-            case GDK_F7:
-                edit_search (NULL, NULL);
-                return TRUE;
-
             case GDK_F8:
                 if (gnome_cmd_data_get_cmdline_visibility ())
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));
@@ -1078,15 +1070,6 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
     {
         switch (event->keyval)
         {
-            case GDK_F5:
-                file_create_symlink (NULL, NULL);
-                return TRUE;
-
-            case GDK_F:
-            case GDK_f:
-                connections_close_current (NULL, NULL);
-                return TRUE;
-
             case GDK_H:
             case GDK_h:
                 gnome_cmd_data_set_hidden_filter (!gnome_cmd_data_get_hidden_filter ());
@@ -1129,29 +1112,9 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                 }
                 return TRUE;
 
-            case GDK_D:
-            case GDK_d:
-                bookmarks_edit (NULL, NULL);
-                return TRUE;
-
             case GDK_Q:
             case GDK_q:
                 gtk_widget_destroy (GTK_WIDGET (main_win));
-                return TRUE;
-
-            case GDK_O:
-            case GDK_o:
-                options_edit (NULL, NULL);
-                return TRUE;
-
-            case GDK_F:
-            case GDK_f:
-                connections_ftp_connect (NULL, NULL);
-                return TRUE;
-
-            case GDK_G:
-            case GDK_g:
-                connections_ftp_quick_connect (NULL, NULL);
                 return TRUE;
 
            case GDK_backslash:
@@ -1313,9 +1276,9 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
         GNOMEUIINFO_ITEM_STOCK(NULL, N_("Goto the latest"), view_last, GTK_STOCK_GOTO_LAST),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM(NULL, N_("Copy file names (SHIFT for full paths)"), edit_copy_fnames, copy_file_names_xpm),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Cut"), file_cap_cut, GTK_STOCK_CUT),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Copy"), file_cap_copy, GTK_STOCK_COPY),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Paste"), file_cap_paste, GTK_STOCK_PASTE),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Cut"), edit_cap_cut, GTK_STOCK_CUT),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Copy"), edit_cap_copy, GTK_STOCK_COPY),
+        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Paste"), edit_cap_paste, GTK_STOCK_PASTE),
         GNOMEUIINFO_ITEM_STOCK(NULL, N_("Delete"), file_delete, GTK_STOCK_DELETE),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(NULL, N_("Edit (SHIFT for new document)"), file_edit, GTK_STOCK_EDIT),

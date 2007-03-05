@@ -549,19 +549,19 @@ init (GnomeCmdMainMenu *main_menu)
     {
         {
             MENU_TYPE_ITEM, _("Cu_t"), "Ctrl+X", NULL,
-            (gpointer) file_cap_cut, NULL,
+            (gpointer) edit_cap_cut, NULL,
             GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CUT,
             NULL
         },
         {
             MENU_TYPE_ITEM, _("_Copy"), "Ctrl+C", NULL,
-            (gpointer) file_cap_copy, NULL,
+            (gpointer) edit_cap_copy, NULL,
             GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_COPY,
             NULL
         },
         {
             MENU_TYPE_ITEM, _("_Paste"), "Ctrl+V", NULL,
-            (gpointer) file_cap_paste, NULL,
+            (gpointer) edit_cap_paste, NULL,
             GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PASTE,
             NULL
         },

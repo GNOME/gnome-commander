@@ -338,6 +338,9 @@
                 <para>Possible flags:</para>
                 <itemizedlist>
                     <listitem>
+                        <para><guilabel>a</guilabel> user actions debugging</para>
+                    </listitem>
+                    <listitem>
                         <para><guilabel>c</guilabel> file and directory counting</para>
                     </listitem>
                     <listitem>
@@ -5100,6 +5103,9 @@
                         </listitem>
                         <listitem>
                             <para>Support for OLE and ODF metags in advanced file rename templates</para>
+                        </listitem>
+                        <listitem>
+                            <para>Support for user defined shortcuts</para>
                         </listitem>
                         <listitem>
                             <para>Support for SMB authentication</para>

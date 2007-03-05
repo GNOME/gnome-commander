@@ -1170,6 +1170,8 @@ static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeC
         ret = TRUE;
     else if (gnome_cmd_main_win_keypressed (main_win, event))
         ret = TRUE;
+    else if (gcmd_user_actions.handle_key_event(main_win, fs, fs->list, event))
+        ret = TRUE;
 
     if (ret)
         stop_kp (GTK_OBJECT (clist));
@@ -2024,10 +2026,6 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
     {
         switch (event->keyval)
         {
-            case GDK_F3:
-                file_internal_view (NULL, NULL);
-                return TRUE;
-
             case GDK_F4:
                 gnome_cmd_file_selector_start_editor (fs);
                 return TRUE;

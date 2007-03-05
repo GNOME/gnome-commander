@@ -17,305 +17,145 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef __USERACTIONS_H__
-#define __USERACTIONS_H__
+#ifndef __GNOME_CMD_USER_ACTIONS_H__
+#define __GNOME_CMD_USER_ACTIONS_H__
 
+#include <map>
+
+#include <gdk/gdkevents.h>
+
+#include "gnome-cmd-file-list.h"
+#include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 
 G_BEGIN_DECLS
 
+#define GNOME_CMD_USER_ACTION(f)   void f(GtkMenuItem *menuitem, gpointer user_data)
+typedef void (*GnomeCmdUserActionFunc) (GtkMenuItem *menuitem, gpointer user_data);
+
+
+class GnomeCmdUserActions
+{
+  private:
+
+    struct UserAction
+    {
+        GnomeCmdUserActionFunc func;
+        gpointer user_data;
+
+        UserAction(): func(NULL), user_data(NULL)  {}
+        UserAction(GnomeCmdUserActionFunc _func, gpointer _user_data): func(_func), user_data(_user_data)  {}
+    };
+
+    std::map <GdkEventKey, UserAction> action;
+
+  public:
+
+    void init();
+    void shutdown();
+    gboolean register_action(guint state, guint keyval, const gchar *name, gpointer user_data=NULL);
+    gboolean register_action(guint keyval, const gchar *name, gpointer user_data=NULL);
+    void unregister(const gchar *name);
+    void unregister(guint state, guint keyval);
+    void unregister(guint keyval)                                           {  unregister(0, keyval);  }
+
+    gboolean handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, GdkEventKey *event);
+};
+
+
+inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *name, gpointer user_data)
+{
+    return register_action(0, keyval, name, user_data);
+}
+
+
+extern GnomeCmdUserActions gcmd_user_actions;
+
+
 /************** File Menu **************/
-void
-file_cap_cut                        (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_cap_copy                       (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_cap_paste                      (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_copy                           (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_move                           (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_delete                         (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_view                           (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-file_internal_view                  (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-file_external_view                  (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-file_edit                           (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_chmod                          (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_chown                          (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_mkdir                          (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_properties                     (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_diff                           (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_rename                         (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_create_symlink                 (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-file_advrename                      (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-file_run                           (GtkMenuItem     *menuitem,
-                                    gpointer        not_used);
-
-void
-file_umount                        (GtkMenuItem     *menuitem,
-                                    gpointer        not_used);
-
-void
-file_exit                           (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
+GNOME_CMD_USER_ACTION(file_copy);
+GNOME_CMD_USER_ACTION(file_move);
+GNOME_CMD_USER_ACTION(file_delete);
+GNOME_CMD_USER_ACTION(file_view);
+GNOME_CMD_USER_ACTION(file_internal_view);
+GNOME_CMD_USER_ACTION(file_external_view);
+GNOME_CMD_USER_ACTION(file_edit);
+GNOME_CMD_USER_ACTION(file_chmod);
+GNOME_CMD_USER_ACTION(file_chown);
+GNOME_CMD_USER_ACTION(file_mkdir);
+GNOME_CMD_USER_ACTION(file_properties);
+GNOME_CMD_USER_ACTION(file_diff);
+GNOME_CMD_USER_ACTION(file_rename);
+GNOME_CMD_USER_ACTION(file_create_symlink);
+GNOME_CMD_USER_ACTION(file_advrename);
+GNOME_CMD_USER_ACTION(file_run);
+GNOME_CMD_USER_ACTION(file_umount);
+GNOME_CMD_USER_ACTION(file_exit);
 
 /************** Mark Menu **************/
-void
-mark_toggle                         (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-mark_toggle_and_step                (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-mark_select_all                     (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
-void
-mark_unselect_all                   (GtkMenuItem     *menuitem,
-                                       gpointer        not_used);
-
-void
-mark_select_with_pattern            (GtkMenuItem    *menuitem,
-                                     gpointer        not_used);
-
-void
-mark_unselect_with_pattern            (GtkMenuItem    *menuitem,
-                                       gpointer        not_used);
-
-void
-mark_invert_selection                 (GtkMenuItem    *menuitem,
-                                       gpointer        not_used);
-
-void
-mark_select_all_with_same_extension   (GtkMenuItem    *menuitem,
-                                       gpointer        not_used);
-
-void
-mark_unselect_all_with_same_extension   (GtkMenuItem    *menuitem,
-                                         gpointer        not_used);
-
-void
-mark_restore_selection                 (GtkMenuItem    *menuitem,
-                                        gpointer        not_used);
-
-void
-mark_compare_directories               (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
+GNOME_CMD_USER_ACTION(mark_toggle);
+GNOME_CMD_USER_ACTION(mark_toggle_and_step);
+GNOME_CMD_USER_ACTION(mark_select_all);
+GNOME_CMD_USER_ACTION(mark_unselect_all);
+GNOME_CMD_USER_ACTION(mark_select_with_pattern);
+GNOME_CMD_USER_ACTION(mark_unselect_with_pattern);
+GNOME_CMD_USER_ACTION(mark_invert_selection);
+GNOME_CMD_USER_ACTION(mark_select_all_with_same_extension);
+GNOME_CMD_USER_ACTION(mark_unselect_all_with_same_extension);
+GNOME_CMD_USER_ACTION(mark_restore_selection);
+GNOME_CMD_USER_ACTION(mark_compare_directories);
 
 /************** Edit Menu **************/
-void
-edit_search                         (GtkMenuItem     *menuitem,
-                                      gpointer        not_used);
-
-void
-edit_quick_search                   (GtkMenuItem     *menuitem,
-                                      gpointer        not_used);
-
-void
-edit_filter                         (GtkMenuItem     *menuitem,
-                                      gpointer        not_used);
-
-
-void
-edit_copy_fnames                    (GtkMenuItem     *menuitem,
-                                      gpointer        not_used);
-
+GNOME_CMD_USER_ACTION(edit_cap_cut);
+GNOME_CMD_USER_ACTION(edit_cap_copy);
+GNOME_CMD_USER_ACTION(edit_cap_paste);
+GNOME_CMD_USER_ACTION(edit_search);
+GNOME_CMD_USER_ACTION(edit_quick_search);
+GNOME_CMD_USER_ACTION(edit_filter);
+GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
 /************** View Menu **************/
-void
-view_conbuttons                        (GtkCheckMenuItem     *menuitem,
-                                         gpointer              not_used);
-
-void
-view_toolbar                           (GtkCheckMenuItem     *menuitem,
-                                         gpointer              not_used);
-
-void
-view_buttonbar                         (GtkCheckMenuItem     *menuitem,
-                                         gpointer              not_used);
-
-void
-view_cmdline                           (GtkCheckMenuItem     *menuitem,
-                                         gpointer              not_used);
-
-void
-view_hidden_files                      (GtkCheckMenuItem     *menuitem,
-                                         gpointer              not_used);
-
-void
-view_backup_files                      (GtkCheckMenuItem     *menuitem,
-                                         gpointer              not_used);
-
-void
-view_up                                (GtkMenuItem     *menuitem,
-                                         gpointer        not_used);
-
-void
-view_first                             (GtkMenuItem     *menuitem,
-                                         gpointer        not_used);
-
-void
-view_back                              (GtkMenuItem     *menuitem,
-                                         gpointer        not_used);
-
-void
-view_forward                           (GtkMenuItem     *menuitem,
-                                         gpointer        not_used);
-
-void
-view_last                              (GtkMenuItem     *menuitem,
-                                         gpointer        not_used);
-
-void
-view_refresh                           (GtkMenuItem     *menuitem,
-                                         gpointer        not_used);
-
-void
-view_equal_panes                       (GtkMenuItem     *menuitem,
-                                         gpointer        not_used);
-
+GNOME_CMD_USER_ACTION(view_conbuttons);
+GNOME_CMD_USER_ACTION(view_toolbar);
+GNOME_CMD_USER_ACTION(view_buttonbar);
+GNOME_CMD_USER_ACTION(view_cmdline);
+GNOME_CMD_USER_ACTION(view_hidden_files);
+GNOME_CMD_USER_ACTION(view_backup_files);
+GNOME_CMD_USER_ACTION(view_up);
+GNOME_CMD_USER_ACTION(view_first);
+GNOME_CMD_USER_ACTION(view_back);
+GNOME_CMD_USER_ACTION(view_forward);
+GNOME_CMD_USER_ACTION(view_last);
+GNOME_CMD_USER_ACTION(view_refresh);
+GNOME_CMD_USER_ACTION(view_equal_panes);
 
 /************** Bookmarks Menu **************/
-void
-bookmarks_add_current               (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-void
-bookmarks_edit                      (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
+GNOME_CMD_USER_ACTION(bookmarks_add_current);
+GNOME_CMD_USER_ACTION(bookmarks_edit);
+GNOME_CMD_USER_ACTION(bookmarks_goto);
 
 /************** Options Menu **************/
-void
-options_edit                        (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-options_edit_mime_types             (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
+GNOME_CMD_USER_ACTION(options_edit);
+GNOME_CMD_USER_ACTION(options_edit_mime_types);
 
 /************** Connections Menu **************/
-void
-connections_ftp_connect             (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-connections_ftp_quick_connect       (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-connections_change                  (GtkMenuItem     *menuitem,
-                                     GnomeCmdCon     *con);
-
-void
-connections_close                   (GtkMenuItem     *menuitem,
-                                     GnomeCmdCon     *con);
-
-void
-connections_close_current            (GtkMenuItem     *menuitem,
-                                      gpointer         not_used);
-
+GNOME_CMD_USER_ACTION(connections_ftp_connect);
+GNOME_CMD_USER_ACTION(connections_ftp_quick_connect);
+GNOME_CMD_USER_ACTION(connections_change);
+GNOME_CMD_USER_ACTION(connections_close);
+GNOME_CMD_USER_ACTION(connections_close_current);
 
 /************** Plugins Menu ***********/
-void
-plugins_configure                   (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-
+GNOME_CMD_USER_ACTION(plugins_configure);
+GNOME_CMD_USER_ACTION(plugins_execute_python);
 
 /************** Help Menu **************/
-
-void
-help_help                           (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-help_keyboard                       (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-help_web                            (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-help_problem                        (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
-
-void
-help_about                          (GtkMenuItem     *menuitem,
-                                     gpointer        not_used);
+GNOME_CMD_USER_ACTION(help_help);
+GNOME_CMD_USER_ACTION(help_keyboard);
+GNOME_CMD_USER_ACTION(help_web);
+GNOME_CMD_USER_ACTION(help_problem);
+GNOME_CMD_USER_ACTION(help_about);
 
 G_END_DECLS
 
-#endif // __USERACTIONS_H__
+#endif // __GNOME_CMD_USER_ACTIONS_H__

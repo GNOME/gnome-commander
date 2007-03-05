@@ -1,3 +1,15 @@
+2007-03-??  Piotr Eljasiak  <epiotr@use.pl>
+
+	* po/POTFILES.in:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	* src/main.cc:
+	* src/utils.cc:
+	Initial support for user defined shortcuts (via configuration file)
+
 2007-03-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/Makefile.am:

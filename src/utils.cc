@@ -69,6 +69,7 @@ gboolean DEBUG_ENABLED (gchar flag)
 /**
  * The already reserved debug flags:
  * --------------------------------
+ * a: user actions debugging
  * c: file and directory counting
  * d: directory ref-counting
  * f: file ref-counting

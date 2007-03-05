@@ -125,6 +125,7 @@ main (int argc, char *argv[])
 
     gnome_cmd_style_create ();
     OWNER_init ();
+    gcmd_user_actions.init();
 
     main_win_widget = gnome_cmd_main_win_new ();
     main_win = GNOME_CMD_MAIN_WIN (main_win_widget);
@@ -142,7 +143,8 @@ main (int argc, char *argv[])
     python_plugin_manager_shutdown ();
 #endif
     plugin_manager_shutdown ();
-    gcmd_tags_shutdown();
+    gcmd_tags_shutdown ();
+    gcmd_user_actions.shutdown();
     gnome_cmd_data_save ();
     gnome_vfs_shutdown ();
     OWNER_free ();
