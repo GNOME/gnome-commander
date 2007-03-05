@@ -1,0 +1,275 @@
+===================================
+gnome-commander 1.2.4
+---------------
+
+Bug fixes:
+ * Fixed problem with opening dirs by intviewer
+ * Fixed problem with editing dirs by gcmd
+ * Fixed problem #351952 (crash while doing a content search)
+ * Fixed problem #371948 and #388970 (file path not escaped)
+ * Build fixes
+
+New features:
+ * Support for python plugins
+ * Support for OLE and ODF metags in advanced file rename templates
+ * Support for SMB authentication
+ * Updated help docs
+ * New or updated translations: bg dz en_GB pl sl sv
+ * New key bindings:
+      CTRL+\         Go to the root directory
+      CTRL+`         Go to the home directory
+
+
+===================================
+gnome-commander 1.2.3
+---------------
+
+Bug fixes:
+ * Fixed problem #384752 (wrong permissions for new dirs)
+
+
+===================================
+gnome-commander 1.2.2
+---------------
+
+Bug fixes:
+ * Fixed problem with symlink creation for multiple file selection
+ * Fixed problem with grouping of file size digits
+ * Fixed problem with SMB UNC handling
+ * Fixed problem #367744 (filename not correctly displayed)
+ * Fixed problem #374282 (searching with recursive symlinks)
+ * Fixed problem #377706 (selecting files with SHIFT+PGDN)
+
+New features:
+ * Support for ID3 metags in advanced file rename templates
+ * Updated help docs
+ * New or updated translations: ar, en_GB, es, fi, it, pl, sv
+ * New key bindings:
+      CTRL+SHIFT+=   Set both panels equal
+
+
+===================================
+gnome-commander 1.2.1
+---------------
+
+Bug fixes:
+ * Fixed problem with scrollkeeper database update
+ * Fix for crash when cmd dir indicator is empty
+ * Fixed problem with refreshing after chown or chmod
+ * Fixed problem #333898 (deprecated icon suffix in desktop file)
+ * Fixed problem #347561 (plugin directory set incorrectly)
+ * Fixed problem #347817 (incorrect use of Makefile linker flags)
+
+New features:
+ * Support for archives (gz,bz2,zip,lha,rar,jar,7-zip,zoo,deb,rpm) via FileRoller plugin
+ * New python-like indices for advanced file rename templates
+ * Support for Exif and IPTC metags in advanced file rename templates
+ * Fast access to advrename template placeholders
+ * In-place rename (SHIFT+F6)
+ * Revamped application menus
+ * Saving window state across sessions
+ * "Find" feature for internal viewer
+ * New icon for internal viewer
+ * Updated help docs
+ * New or updated translations: ca, cs, de, el, en_GB, es, eu, fi, hu, it, ne, pl, ru, sv, vi
+ * New key bindings:
+      CTRL+SHIFT+H   Toggle hidden files on/off
+
+
+===================================
+gnome-commander 1.2.0
+---------------
+
+Bug fixes:
+ * Fixed problem #171051 (crashes on search with non-existent path)
+ * Fixed problem with the lack of gnome menu entry
+ * Fixed a crash when viewing SMB connections
+ * Fixed problem #309877 (strange artifacts with horizontal scrolling)
+ * Fixed problem #332258 (left/right start directory parameter)
+ * Fixed problem #332261 (exec_prefix not properly parsed during configure/makefiles)
+ * Fixed problem #336649 (permission numbers presentation)
+ * Fixed problem with crashes when using broken or non-matching regex pattern in advrename
+
+New features:
+ * Monitoring of mounted volumes
+ * Rewritten internal viewer
+ * External tools and Exif/IPTC tags viewer for internal viewer
+ * Zooming for internal viewer
+ * Text selection for internal viewer
+ * Revamped toolbar layout
+ * Options for controlling copy and move overwriting
+ * Copying selected full file paths with SHIFT+click on toolbar button
+ * Better handling the change of the column sorting key
+ * Initial doc framework
+ * New or updated translations: de, es, eu, hu, pl, ro, ru, sl, sv, vi
+ * New key bindings:
+      SHIFT+F3       Internal viewer
+      ALT+F3         External viewer
+      ALT+letters    Quick search
+      CTRL+SHIFT+A   Deselecting all files
+
+
+===================================
+gnome-commander 1.1.7
+---------------
+
+Bug fixes:
+ * Fixed crash when trying to copy the currently selected files
+ * Fixed filename escaping
+ * Fixed CTRL+ALT+letter bad responsiveness when typing too fast
+ * Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)
+ * Fixed problem #138933 (infinite recursion when drag'n'dropping a directory to it self)
+ * Fixed problem with the disconnect button not behaving correctly when connecting to ftp-servers
+   and being in supermount mode
+ * Fixed update after renaming without FAM
+
+New features:
+ * New GNOME commander logo
+ * Added internal F3 viewer
+ * Copying selected filename(s) to clipboard
+ * Inserting selected file full path to the cmdline when pressing CTRL+SHIFT+ENTER
+ * Multi-Rename-Tool - new $g placeholder for grandparent dir
+ * Toolbar buttons (cut,copy and paste) are now sensitive to the current state
+ * Manage Bookmarks dialog is now accessible also via the bookmarks shortcut
+ * New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, pt_BR, rw, uk, zh_TW
+ * New key bindings:
+      CTRL+M        Multi-Rename-Tool
+      CTRL+SHIFT+.  Copying the current working directory from the active file-list to the inactive one
+      CTRL+=        Select all files
+      CTRL+-        Unselect all files
+      =             Select files using a pattern
+
+
+===================================
+gnome-commander 1.1.6
+---------------
+
+Bug fixes:
+ * Fixed crash when navigating back in the history and then entering
+   another dir.
+ * Fixed ftp-quick-connect problems.
+ * The quick-search function can now also be started by typing capital
+   letters.
+ * CTRL+ALT no longer needs to be used to activate quick-search when the
+   cmdline is hidden.
+
+New features:
+ * Updated the cvs-plugin so that it can be used to diff and log files.
+ * Changed to using bold text instead of underlined in the dir-indicator when
+   focused by the mouse cursor.
+ * Made the cwd label selectable (the one left of the cmdline).
+ * Added "CTRL+." shortcut to copy the cwd from the inactive file-list to
+   the active one.
+ * Added the shortcut "shift+f10" to bring up the file context menu (the
+   windows menu key also works)
+ * Removed the 'Save Position' menu item. Size and position are now saved
+   automaticly instead.
+ * Sorting column and direction is now remembered.
+ * Added button to the directory indicator to popup the directory history.
+ * F2 now opens the rename dialog instead of refreshing the active file
+   list.
+ * Added history to the select and unselect by pattern dialogs.
+
+
+===================================
+gnome-commander 1.1.5
+---------------
+
+Bug fixes:
+ * The ext-column is now hidden when the extension is only showed together
+   with the filename.
+ * Fixed unnecessary redraws of the file-list when dragging files over it.
+ * Fixed problem with ftp-connections that didn't disappear from the
+   connection toolbars when disconnected.
+ * The program no longer tries to center itself on the desktop.
+ * Fixed problems when renaming directories.
+
+New features:
+ * The dir-indicator above each file-list can now be used to navigate
+   upwards in the directory structure.
+
+
+===================================
+gnome-commander 1.1.4
+---------------
+
+Bug fixes:
+ * Fixed bug when selecting multiple files with shift+mouse button.
+ * Stopped superfluous updates of the file-list on machines with the imon
+   kernel patch applied.
+ * Cleaned up the file-popup menu.
+ * Fixed "File not found"-bug when browsing to the parent dir when the
+   parent dir contained spaces.
+ * Fixed possible async error when cancelling a xfer operation.
+ * Reworked the layout tab and removed the colors tab in the options
+   dialog.
+ * Improved plugin-system.
+
+
+===================================
+gnome-commander 1.1.3
+---------------
+
+Bug fixes:
+ * Fixed a crash that happened when moving files on a machine with a snappy
+   FAM installation. This lead to that gnome-commander tried to remove the
+   same file twice from a list.
+ * Accessing files on mounted devices should now work better.
+ * Devices without the device filename should not disappear anymore.
+ * Fixed so that the feature where the terminal window stays open after
+   a program has finished works more reliably.
+ * Fixes bug where a new directory would appear many times
+   in the same file-list until reloaded.
+
+New features:
+ * The delete confirmation can now be disabled.
+ * Better error messages when a mount fails.
+ * Made the calculation of a directory's total size start automaticly
+   when the file prefs dialog is shown.
+ * Added filter for backup files and added that and the filter for hidden
+   files to the main menu for faster access.
+
+
+===================================
+gnome-commander 1.1.2
+---------------
+
+Bug fixes:
+ * Handles non-utf8 filenames much better.
+ * Removed unsafe uri-creation.
+
+New features:
+ * There are now three ways to show with file-extensions.
+
+
+===================================
+gnome-commander 1.1.1
+---------------
+
+Bug fixes:
+ * Stopped showing the file extension in both the name column and the ext
+   column.
+ * Fixed crashes that happened when browsing directories.
+ * Fixed update problems when copying and moving files.
+ * The connection combo boxes should now show the correct connection as
+   selected all the time.
+ * Removed some bugs related to selecting files using the keyboard.
+ * Fixed the edit mime-types feature.
+
+New features:
+ * Added a button to change the default mime-app in the file-props dialog.
+
+
+===================================
+gnome-commander 1.1.0
+---------------
+
+Bug fixes:
+  <none>
+
+New features:
+  SMB browsing
+  Plugins
+  Major rewrite of alot of code
+
+

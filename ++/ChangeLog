@@ -1,0 +1,2389 @@
+2007-02-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/*.{c,h}:
+	Migration to C++
+
+2007-02-20  <lizard@blue.dyn-o-saur.com>
+
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-smb-auth.c:
+	* src/gnome-cmd-smb-auth.h:
+	* src/main.c:
+	Added SMB authentication
+
+2007-02-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-dir.h:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-path.c:
+	* src/gnome-cmd-plain-path.c:
+	* src/gnome-cmd-python-plugin.c:
+	* src/useractions.c:
+	Fix for active/inactive dir paths passed to python plugins
+
+2007-02-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags-doc.c:
+	* src/tags/gnome-cmd-tags-doc.h:
+	* src/tags/gnome-cmd-tags-exif.c:
+	* src/tags/gnome-cmd-tags-exif.h:
+	* src/tags/gnome-cmd-tags-icc.c:
+	* src/tags/gnome-cmd-tags-icc.h:
+	* src/tags/gnome-cmd-tags-id3.c:
+	* src/tags/gnome-cmd-tags-id3.h:
+	* src/tags/gnome-cmd-tags-iptcdata.c:
+	* src/tags/gnome-cmd-tags-iptcdata.h:
+	* src/tags/gnome-cmd-tags-libs.h:
+	Define gcmd_tags_*_is_supported() as macros
+
+2007-02-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-exif.c:
+	* src/tags/gnome-cmd-tags-exif.h:
+	* src/tags/gnome-cmd-tags-icc.c:
+	* src/tags/gnome-cmd-tags-icc.h:
+	* src/tags/gnome-cmd-tags-iptcdata.c:
+	* src/tags/gnome-cmd-tags-iptcdata.h:
+	* src/tags/gnome-cmd-tags-libs.c:
+	* src/tags/gnome-cmd-tags-libs.h:
+	* src/tags/gnome-cmd-tags.c:
+	Split gcmd_tags_*() functions into separate files
+
+2007-02-14  Koos Jan Niesink  <kjniesink@yahoo.co.uk>
+
+	* src/tags/gnome-cmd-tags.c:
+	Fix build error (partially revert commit #697)
+
+2007-02-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/Makefile.am:
+	* src/libgviewer/Makefile.am:
+	* tests/gviewer/Makefile.am:
+	Link libgviewer library statically
+
+2007-02-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-advrename-lexer.l:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/main.c:
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-audio.h:
+	* src/tags/gnome-cmd-tags-doc.c:
+	* src/tags/gnome-cmd-tags-doc.h:
+	* src/tags/gnome-cmd-tags-id3.h:
+	* src/tags/gnome-cmd-tags.c:
+	* src/tags/gnome-cmd-tags.h:
+	* src/utils.c:
+	Added support for OLE and ODF metags in advanced file rename templates
+
+2007-02-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	Added build and runtime deps for python and gnome-python2-gnomevfs
+
+	* src/gnome-cmd-python-plugin.c:
+	Fixed build warning
+
+2007-01-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* plugins/fileroller/file-roller-plugin.c:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-selector.h:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-smb-path.c:
+	* src/libgviewer/inputmodes.c:
+	* src/tags/gnome-cmd-tags.c:
+	Fixed some build warnings
+
+2007-01-28  Mike Crash <mike@mikecrash.com>
+
+	* src/libgviewer/search-dlg.c:
+	Make search entry selected by default
+
+	* src/gnome-cmd-search-dialog.c:
+	Fixed bug #351952 (crash while doing a content search)
+
+2007-01-25  Mike Crash <mike@mikecrash.com>
+
+	* src/gnome-cmd-rename-dialog.c:
+	Added GDK_KP_Enter handling
+
+2007-01-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* Makefile.am:
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	* m4/python.m4:
+	* pixmaps/Makefile.am:
+	* pixmaps/python-plugin.svg:
+	* plugins/Makefile.am:
+	* plugins/python/Makefile.am:
+	* plugins/python/md5sum/Makefile.am:
+	* plugins/python/md5sum/md5sum.py:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-con.c:
+	* src/gnome-cmd-dir-pool.c:
+	* src/gnome-cmd-file-popmenu.c:
+	* src/gnome-cmd-python-plugin.c:
+	* src/gnome-cmd-python-plugin.h:
+	* src/main.c:
+	* src/utils.c:
+	Added support for python plugins
+
+2007-01-14  Koos Jan Niesink  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-file-selector.c:
+	Fixed bug #371948 and #388970 (file path not escaped)
+
+2007-01-10  Pema Geyleg  <pema.geyleg@gmail.com>
+
+	* configure.in: Added 'dz' to ALL_LINGUAS.
+
+2006-12-28  Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp>
+
+	* data/gnome-commander.spec.in:
+	Clean up
+
+2006-12-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-list-popmenu.c:
+	* src/gnome-cmd-main-win.c:
+	Use GNOMEUIINFO_* helpers
+
+2006-12-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-prepare-copy-dialog.c:
+	* src/gnome-cmd-prepare-move-dialog.c:
+	* src/gnome-cmd-xfer.c:
+	* src/utils.c:
+	Set default action to 'Replace' for overwriting confirmation dialog
+	The dialog can be closed with ESC now
+
+2006-12-18  Koos Jan Niesink  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-file-list.c:
+	Prevent gcmd from editing dirs
+
+2006-12-18  Henry Yonathan <henry.yonathan@gmail.com>
+
+	* src/gnome-cmd-main-win.c:
+	Added shortcut CTRL+\ as 'Go to the root dir'
+	Added shortcut CTRL+` as 'Go to the home dir'
+
+2006-12-17  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	Use version requirements for rpm from configure.in
+
+2006-12-17  Stephanos Manos <stefmanos@gmail.com>
+
+	* data/gnome-commander.spec.in:
+	Removed unnecessary .a libs from rpm
+	Added dependencies for optional libs
+
+2006-12-14  Henry Yonathan <henry.yonathan@gmail.com>
+
+	* src/gnome-cmd-file-list.c:
+	Prevent int-viewer from opening dirs
+
+2006-12-12  Stephanos Manos <stefmanos@gmail.com>
+
+	* data/gnome-commander.spec.in:
+	Minor cleanups/fixes to make rpmlint silent
+
+2006-12-12  sstanev <sstanev@narod.ru>
+
+	* configure.in: Added bg in ALL_LINGUAS
+
+2006-12-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in: Bumped version to 1.2.4
+
+
+
+##############################################################################
+#                                   1.2.3                                    #
+##############################################################################
+
+2006-12-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in: Bumped version to 1.2.3
+
+	* src/gnome-cmd-mkdir-dialog.c:
+	Fixed bug #384752 (wrong permissions for new dirs)
+
+
+
+##############################################################################
+#                                   1.2.2                                    #
+##############################################################################
+
+2006-12-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-dir-indicator.c:
+	Yet another fix for SMB UNC handling
+
+2006-12-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-dir-indicator.c:
+	Fixed SMB UNC handling
+
+2006-12-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-bookmark-dialog.c:
+	* src/gnome-cmd-combo.c:
+	* src/gnome-cmd-delete-dialog.c:
+	* src/gnome-cmd-dir-indicator.c:
+	* src/gnome-cmd-ftp-dialog.c:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-rename-dialog.c:
+	* src/gnome-cmd-search-dialog.c:
+	* src/gnome-cmd-xfer-progress-win.c:
+	Replaced deprecated gtk_widget_set_usize() with gtk_widget_set_size_request()
+
+2006-12-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/fileroller/file-roller-plugin.c:
+	* plugins/test/test-plugin.c:
+	* src/gnome-cmd-about-plugin.c:
+	* src/useractions.c:
+	Prettify about dialogs
+
+2006-11-26  Koos Jan Niesink  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-file-list.c:
+	Fixed bug #377706 (selecting files with SHIFT+PGDN)
+
+2006-11-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-ftp-dialog.c:
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-types.h:
+	* src/utils.c:
+	* src/utils.h:
+	More work on grouping of file size digits
+
+2006-11-23  Dirk Göttel <dgoettel@freenet.de>
+
+	* data/gnome-commander.ebuild:
+	Updated ebuild file for gentoo systems
+
+2006-11-22  <petr.pisar@atlas.cz>
+
+	* src/utils.c:
+	Use locale formatting for grouping file size digits
+
+2006-11-22  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/C/gnome-commander.xml:
+	* doc/keys.txt:
+	* src/gnome-cmd-main-menu.c:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-main-win.h:
+	* src/useractions.c:
+	* src/useractions.h:
+	Added CTRL+SHIFT+= for setting equal panels
+
+2006-11-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	Fixed mismatched horizontal/vertical menu entries
+
+2006-11-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-types.h:
+	New colour scheme
+
+2006-11-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-chmod-dialog.c:
+	* src/gnome-cmd-chown-dialog.c:
+	* src/gnome-cmd-search-dialog.c:
+	Fixed bug #374282 (searching with recursive symlinks)
+
+2006-11-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-selector.c:
+	Made symlink prefix ("link to %s") user configurable
+
+2006-11-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/utils.h:
+	Added TRACE() macro
+
+2006-11-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-delete-dialog.c:
+	i18n
+
+2006-11-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-delete-dialog.c:
+	Fixed bug #367744 (filename not correctly displayed)
+
+2006-11-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* doc/C/gnome-commander.xml:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-advrename-lexer.l:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-selector.h:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-tags-libs.c:
+	* src/gnome-cmd-tags-libs.h:
+	* src/gnome-cmd-tags.c:
+	* src/gnome-cmd-tags.h:
+	* src/useractions.c:
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-audio.c:
+	* src/tags/gnome-cmd-tags-audio.h:
+	* src/tags/gnome-cmd-tags-id3.c:
+	* src/tags/gnome-cmd-tags-id3.h:
+	* src/tags/gnome-cmd-tags-libs.c:
+	* src/tags/gnome-cmd-tags-libs.h:
+	* src/tags/gnome-cmd-tags.c:
+	* src/tags/gnome-cmd-tags.h:
+	* src/tags/id3lib/Makefile.am:
+	* src/tags/id3lib/c_wrapper.cpp:
+	* src/tags/id3lib/genres.h:
+	* src/tags/id3lib/id3_bugfix.h:
+	Added support for ID3 metatags in advrename
+
+	* doc/C/gnome-commander.xml:
+	* po/POTFILES.in:
+	* src/tags/gnome-cmd-tags.c:
+	Fixed inprecise ID3.Duration title
+
+
+2006-10-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-selector.h:
+	* src/useractions.c:
+	Fixed symlink creation for multiple selection
+
+2006-10-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-tags.c:
+	i18n for metatag title and description
+
+	* src/gnome-cmd-chmod-dialog.c:
+	* src/gnome-cmd-file-list.c:
+	i18n for N_()
+
+2006-10-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	Reorganized menu buttons for Exif and IPTC
+
+2006-10-23  Dirk Göttel <dgoettel@freenet.de>
+
+	* data/gnome-commander.ebuild:
+	Updated ebuild file for gentoo systems
+	* data/libiptcdata.ebuild:
+        Added ebuild file for gentoo systems
+
+2006-10-23  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in: Bumped version to 1.2.2
+
+
+##############################################################################
+#                                   1.2.1                                    #
+##############################################################################
+
+2006-10-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	* data/gnome-commander.desktop.in.in:
+	Fixed bug #333898 (deprecated icon suffix in desktop file)
+
+2006-10-15  Ilkka Tuohela  <hile@iki.fi>
+
+	* configure.in: Added fi to ALL_LINGUAS
+
+2006-10-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/fileroller/file-roller-plugin.c:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-search-dialog.c:
+	Reaplacing obsoleted g_dirname() with g_path_get_dirname()
+
+2006-10-08  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/libgbiewer/viewer-window.c:
+	* src/libgviewer/bm_byte.{c.h}:
+	* src/libgviewer/bm_chartype.{c,h}:
+	* src/libgviewer/cp437.{c,h}:
+	* src/libgviewer/input_mode.c:
+	* src/libgviewer/libgviewer.h:
+	* src/libgviewer/Makefile.am:
+	* src/libgviewer/search-dlg.{c,h}:
+	* src/libgviewer/searcher.{c,h}:
+	* src/libgviewer/search-progress-dlg.{c,h}:
+	* src/libgviewer/text-render.{c,h}:
+	* src/libgviewer/viewer-utils.{c,h}:
+	* src/libgviewer/viewer-widget.{c,h}:
+	* tests/gviewer/Makefile.am:
+	* tests/gviewer/bm_byte_test.c:
+	* tests/gviewer/bm_chartype_test.c:
+	* tests/gviewer/utils_test.c:
+	Added "Find" feature to the internal viewer
+
+2006-10-07  vlad <b100dian@gmail.com>
+
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-rename-dialog.c:
+	* src/gnome-cmd-rename-dialog.h:
+	Added in-place rename (SHIFT+F6)
+
+2006-10-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-main-win.c:
+	Added CTRL+SHIFT+H for toggle of hidden files filter
+
+2006-10-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-tags.c:
+	* src/gnome-cmd-tags.h:
+	More work on 'Metatag' button
+
+2006-10-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-advrename-dialog.h:
+	More work on buttons for fast access to advrename template placeholders
+
+2006-09-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	Added buttons for fast access to advrename template placeholders
+
+2006-09-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-lexer.l:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-tags-libs.c:
+	* src/gnome-cmd-tags-libs.h:
+	* src/gnome-cmd-tags.c:
+	* src/gnome-cmd-tags.h:
+	Added support for Exif and IPTC metatags in advrename
+
+2006-09-17  Dušan Hokův  <dusan@mirc.cz>
+
+	* src/*.c:
+	Add missing '#include <config.h>'
+
+2006-09-14  Dušan Hokův  <dusan@mirc.cz>
+
+	* pixmaps/mime-icons/Makefile.am:
+	* pixmaps/mime-icons/gnome-x-directory-smb-server.png:
+	* pixmaps/mime-icons/gnome-x-directory-smb-workgroup.png:
+	* src/gnome-cmd-dir.c:
+	Icons for samba servers and workgroups
+
+2006-09-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* gnome-cmd-file-list.c:
+        Set default sorting of size column to descending.
+
+2006-08-30  Roma <romanr@ua.fm>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-main-win.c:
+	* src/useractions.c:
+	Save the window state across sessions.
+
+2006-08-10  Dirk Göttel <dgoettel@freenet.de>
+
+	* data/gnome-commander.ebuild:
+	Updated ebuild file for gentoo systems.
+
+2006-08-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* *.h:
+	Added C_BEGIN_DECLS and C_END_DECLS.
+
+	* plugins/fileroller.c:
+	Added support for archives via FileRoller.
+
+	* pixmaps/Makefile.am:
+	* src/gnome-cmd-main-menu.c:
+	* src/gnome-cmd-pixmap.c:
+	* src/imageloader.c:
+	* src/imageloader.h:
+	Remove excessive icons.
+
+2006-08-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	Use GNOME stock items for menus.
+
+2006-08-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.l:
+	Added python-like indices for placeholders in advrename.
+
+2006-07-31  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	Added 'help' button to advrename dlg.
+
+2006-07-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/C/figures/gnome-commander_dialog_adv_rename.png:
+	* doc/C/figures/gnome-commander_window.png:
+	* doc/C/gnome-commander.xml:
+	* doc/Makefile.am:
+	Updated docs
+
+2006-07-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.c:
+	Detect malformed (empty) 'connections' file
+
+2006-07-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* plugins/test/Makefile.am:
+	Do not install test plugin
+
+	* src/gnome-cmd-con-ftp.c:
+	* src/gnome-cmd-con-ftp.h:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-ftp-dialog.c:
+	Added partial support for setting ftp remote dir
+
+2006-07-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* src/Makefile.am:
+	Set PLUGIN_DIR in Makefile.am
+
+2006-07-17  <dmacks@netspace.org>
+
+	* plugins/cvs/Makefile.am:
+	* plugins/fileroller/Makefile.am:
+	* plugins/test/Makefile.am:
+	Incorrect use of Makefile linker flags
+
+2006-07-17  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con-device.c:
+	* src/gnome-cmd-data.c:
+	* src/utils.c:
+	Added some minor safety precautions for fgets().
+
+	* cofigure.in:
+	* data/gnome-commander.spec.in:
+	Added glib dependencies (>=2.6.0)
+
+2006-06-27  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	* src/useractions.c:
+	* src/useractions.h:
+	* src/utils.c:
+	* src/utils.h:
+	Added new entries ("GNOME Commander on the Web", "Report a Problem") to Help menu
+
+2006-06-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-chmod-dialog.c:
+	* src/gnome-cmd-chown-dialog.c:
+	Fixed problem with refreshing after chown or chmod
+
+	* src/useractions.c:
+	i18n
+
+2006-06-15  Magnus Stålnacke  <jemamo@telia.com>
+
+	* pixmaps/internal-viewer.xpm:
+	New internal viewer icon.
+
+2006-06-15  Assaf Gordon  <agordon88@gmail.com>
+
+	* pixmaps/internal-viewer.xpm:
+	* pixmaps/Makefile.am:
+	* src/gnome-cmd-file.c:
+	* src/imageloader.c:
+	* src/imageloader.h:
+	New internal viewer icon.
+
+2006-05-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.c:
+	Do not hide ext column when selected GNOME_CMD_EXT_DISP_WITH_FNAME ("With filename")
+
+2006-05-28  Dima  <dmitry_ky@ua.fm>
+
+	* src/gnome-cmd-dir-indicator.c:
+	Bug fix for crash when cmd dir indicator is empty
+
+2006-05-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-cmdline.c:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-main-win.h:
+	Replaced gnome_cmd_main_win_get_left_fs() and gnome_cmd_main_win_get_right_fs()
+	with gnome_cmd_main_win_get_fs()
+
+2006-05-19  Stephanos Manos <stefmanos@gmail.com>
+
+	* data/gnome-commander.spec.in: Fix scrollkeeper database update problem.
+
+2006-05-17  vlad <b100dian@gmail.com>
+
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-rename-dialog.c:
+	* src/gnome-cmd-rename-dialog.h:
+	Added in-place rename (SHIFT+F6)
+
+2006-05-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	* src/useractions.{c,h}:
+	* src/utils.{c,h}:
+	Added 'Keyboard Shortcuts' to 'Help' menu.
+
+
+##############################################################################
+#                                   1.2.0                                    #
+##############################################################################
+
+2006-05-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* Makefile.am:
+	Add m4/*.m4 only to EXTRA_DIST (instead of previous the whole m4/)
+
+2006-05-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/main.c:
+	Replaced GNOME_PARAM_GOPTION_CONTEXT with GNOME_PARAM_POPT_TABLE to avoid dependency on GNOME-2.14.0
+
+2006-04-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/main.c:
+	* src/gnome-cmd-advrename-dialog.h:
+	* configure.in:
+	Added missing gnome_program_init().
+
+2006-04-22  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-advrename-dialog.h:
+	* src/gnome-cmd-data.c:
+	Fixed crash if using broken or non-matching regex pattern in advrename.
+
+2006-04-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* libgcmd/libgcmd-utils.c:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-ftp-dialog.c:
+	* src/libgviewer/text-render.c:
+	* src/useractions.c:
+	* src/utils.c:
+	gcc warnings cleanup.
+
+2006-04-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* autogen.sh:	Script update.
+
+2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Remove obsolete entry for no_NO.
+	* po/no.po: And the translation.
+
+2006-04-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:	Bumped version to 1.2.0
+
+	* mkinstalldirs: Added missing mkinstalldirs
+
+2006-04-11  Remus Boara  <rem@eclipsedesign.net>
+
+	* configure.in:	Added ro to ALL_LINGUAS.
+
+2006-04-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* BUGS: Added info on bugs submission.
+
+2006-04-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-xfer.c:
+	* src/utils.c:
+	Fixed a few typos in gettext translations.
+
+	* src/gnome-cmd-options-dialog.h:
+	Added missing GNOME_CMD_OPTIONS_DIALOG_TAB_CONFIRMATION definition.
+
+2006-04-05  Clytie Siddall  <clytie@riverland.net.au>
+
+	* configure.in:
+	Added vi in ALL_LINGUAS line.
+
+2006-04-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-types.h:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	More options in 'Option|Confirmation' tab.
+
+	* gnome-cmd-prepare-copy-dialog.c:
+	* gnome-cmd-prepare-move-dialog.c:
+	* gnome-cmd-make-copy-dialog.c:
+        Use Options settings for copy and move overwrite confirmation.
+
+	* gnome-cmd-file.c:
+	* gnome-cmd-file.h:
+	* gnome-cmd-file-list.c:
+	* gnome-cmd-file-list.h:
+	* gnome-cmd-file-selector.c:
+	* gnome-cmd-main-win.c:
+	* gnome-cmd-search-dialog.c:
+	* useractions.c:
+	* useractions.h:
+	Added new key bindings: SHIFT+F3 for internal viewer and ALT+F3 for external one
+
+	* src/gnome-cmd-data.c:
+	Replaced xterm with gnome-terminal
+
+2006-04-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-options-dialog.c:
+	Modified 'Quick search' item in 'Options|General' tab.
+	Added new 'Option|Confirmation' tab.
+
+2006-03-31  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/utils.c:
+	Fixed bug #336649 (permission numbers).
+
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-selector.h:
+	Removed unused microbutton.
+
+2006-03-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-win.c:
+	* src/useractions.c:
+	Added SHIFT+click on 'copy fnames' toolbar button for copying selected full paths to clipboard.
+
+2006-03-29  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-main-win.c:
+	Fixed bug #309877 (strange artifacts with horizontal scrolling).
+
+2006-03-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/useractions.c:
+	SHIFT+click on toolbar edit button opens a new document.
+
+2006-03-28  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-main-win.c:
+	Small fix for ALT+[LETTER].
+
+	* src/gnome-cmd-main-win.c:
+        Fixed bug #332258 (left/right start directory parameter).
+
+	* src/gnome-cmd-quicksearch-popup.c:
+	Fixed leaving the focus on the last file that matched the quick-search filter.
+
+2006-03-27  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-selector.h:
+	* src/useractions.c:
+	* src/useractions.h:
+	* src/history.c:
+	* src/history.h:
+	Revamped toolbar layout.
+
+2006-03-24  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-options-dialog.c:
+	Quick search by ALT+Letter(s)
+
+2006-03-23  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-dir-indicator.c:
+	* src/gnome-cmd-search-dialog.c:
+	* src/owner.c:
+	* src/utils.c:
+	Fixed memory bugs
+
+2006-03-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.c:
+        Added CTRL+SHIFT+A for deselecting all files (for conformance with HIG 2.0)
+
+2006-03-17  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-file-selector.c:
+	Fixed a crash when viewing "SMB" connections.
+
+	* src/ls_colors.c:
+	Variable val might be read from uninitialized memory (if key is null)
+
+2006-03-15  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-search-dialog.c:
+	This should fix bug #171051
+
+	* src/libgviewer/text-render.c:
+	Fixed endless loop when viewing files > 40MB
+
+	* src/libgviewer/cp437.c:
+	* src/libgviewer/datapresentation.c:
+	* src/libgviewer/datapresentation.h:
+	* src/libgviewer/fileops.c:
+	* src/libgviewer/fileops.h:
+	* src/libgviewer/gvtypes.h:
+	* src/libgviewer/image-render.c:
+	* src/libgviewer/image-render.h:
+	* src/libgviewer/inputmodes.c:
+	* src/libgviewer/inputmodes.h:
+	* src/libgviewer/libgviewer.c:
+	* src/libgviewer/libgviewer.h:
+	* src/libgviewer/scroll-box.c:
+	* src/libgviewer/scroll-box.h:
+	* src/libgviewer/text-render.c:
+	* src/libgviewer/text-render.h:
+	* src/libgviewer/viewer-widget.c:
+	* src/libgviewer/viewer-widget.h:
+	* src/libgviewer/viewer-window.c:
+	* src/libgviewer/viewer-window.h:
+	Added missing GPL
+
+2006-03-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/libgviewer/viewer-widget.c:
+        i18n
+
+2006-03-09  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/libgviewer/fileops.c:
+        Fixed bad initialization in gv_fileops_new()
+
+2006-03-08  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-con-device.c:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-options-dialog.c:
+        Fixed the VFS auto volume mounting.
+
+2006-03-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.c:
+        Fixed wrong i18n, reported by Špela Počkar
+
+2006-03-08 Špela Počkar <spela.pockar@gmail.com>
+
+	* configure.in: Added Slovenian (sl) to ALL_LINGUAS.
+
+2006-03-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/libgviewer/viewer-window.c:
+        Minor int viewer navigation cleanup.
+
+	* configue.in:
+	* src/libgviewer/fileops.c:
+        Used HAVE_MMAP from autoconf check
+
+2006-03-05  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/libgviewer:
+        Reworked internal viewer plus new features:
+        external tools and EXIF/IPTC tags viewer
+
+2006-03-04  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-options-dialog.c:
+        Fix typo.
+
+	* doc/internal_viewer_hacking.txt:
+        Added new file
+
+	* tests/gviewer/*:
+        Added tests for libgviewer
+
+2006-02-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-file-list.c:
+        Prettifying code ;o)
+
+2006-02-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/imageloader.{c,h}:
+        Added desktop pixmap.
+
+	* pixmaps/:
+	* pixmaps/device-icons:
+        New and updated icons.
+
+	* */*.{c,h}:
+        Code cleanup.
+
+	* gnome-cmd-file-list.h:
+	* gnome-cmd-file-list.c:
+	* gnome-cmd-data.c:
+	* gnome-cmd-main-win.c:
+	* gnome-cmd-data.h :
+	* gnome-cmd-file-selector.h:
+        One step closer towards 'Custom Columns'. Changed col sorting direction when selecting
+        (now sets to default col sort direction)
+
+
+2006-02-26  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-con-device.c:
+	* src/gnome-cmd-con-device.h:
+	* src/gnome-cmd-data.c:
+        Added monitoring of mounted volumes.
+
+2006-02-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-types.h:
+        Added new color scheme - Fusion
+
+2006-02-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-internal-viewer.c:
+        i18n
+
+2006-02-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/main.c:
+	* data/gnome-commander.1:
+        Renamed options for start {left,right} pane dir
+
+2006-02-13  Magnus Stålnacke  <jemamo@telia.com>
+
+	* doc/create_archive.png:
+	* doc/extract_archive.png:
+        Updated doc files
+
+2006-02-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* Makefile.am:
+	* data/gnome-commander.desktop.in.in:
+	* data/gnome-commander.ebuild:
+	* data/gnome-commander.spec.in:
+	* data/Makefile.am:
+        Added ebuild file for gentoo systems
+        Moved gnome-commander.{desktop.in,spec}.in to data/
+
+2006-02-11  Assaf Gordon  <agordon88@gmail.com>
+
+	* doc/gnome-commander.1:
+	* doc/Makefile.am:
+	* gnome-commander.spec.in:
+        Added general man pages on gnome-commander
+
+2006-02-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+        Version bumped to 1.2.0-pre
+
+	* configure.in:
+	* Makefile.am:
+	* gnome-commander-desktop.in.in:
+	* gnome-commander.spec.in:
+	* po/POTFILES.in:
+	* pixmaps/Makefile.am:
+        Fixed problem with the lack of gnome menu entry
+
+	* Makefile.am:
+        Removed dependency on mkinstalldirs
+
+2006-02-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* gnome-commander.spec.in:
+        Changed required gtk+ version to 2.6.0 or more
+
+2006-02-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-data.c:
+        Changed default viewer and editor: emacs -> gedit
+
+	* gnome-commander.spec.in:
+        Changed default tarball ext to bz2
+
+2006-02-11  Assaf Gordon  <agordon88@gmail.com>
+
+	* pixmap/{flip,rotate}-*.xpm:
+	* src/gnome-cmd-internal-viewer.c:
+	Made internal viewer menu consistent with 'Eye of GNOME'
+
+2006-02-09  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-options-dialog.c:
+	Added option for enabling/disabling 'Internal Viewer'
+
+2006-02-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-internal-viewer.c:
+	* src/utils.c:
+        i18n
+
+2006-02-08  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/Makefile.am:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-internal-viewer.c:
+	* src/gnome-cmd-internal-viewer.h:
+	* src/utils.c:
+	Added internal F3 viewer
+
+2006-02-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* pixmaps/gnome-commander.{png,xpm}: new GNOME commander logo
+	* pixmaps/gcmd-icon?.{png,xcf,xpm}: removed old icons
+
+2006-02-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-delete-dialog.c:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-xfer.c:
+	* src/utils.c:
+	* src/utils.h:
+	Set default button to OK in 'Delete' dialog
+
+2006-02-05  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-file.c:
+	Fixed filename escaping
+
+2006-02-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	Fixed typo.
+
+2006-02-03  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-file-selector.c:
+	Added CTRL+SHIFT+. for copying the current working directory from the active file-list to the inactive one.
+
+2006-02-02  Assaf Gordon  <agordon88@gmail.com>
+
+	* src/gnome-cmd-file-list.c:
+	Added new keybindings for SelectAll/UnselectAll and SelectPatternDialog (for notebook users)
+
+	* src/gnome-cmd-file-selector.c:
+	FAMD - do not monitor the last visited dir
+
+	* src/gnome-cmd-quicksearch-popup.c:
+	Fixed CTRL+ALT+letter not responding when typed too fast
+
+2006-02-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	Updated copyright info.
+
+2005-09-07  Inaki Larranaga  <dooteo@euskalgnu.org>
+
+	* configure.in: Added "eu" to ALL_LINGUAS.
+
+2005-09-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.l:
+	Reworked (and simplified) internal representation for fname templates.
+
+2005-08-31  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.l:
+	Added support for id3 and exif tags ($T placeholder).
+
+2005-08-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.l:
+	Added $g placeholder for grandparent dir.
+
+2005-08-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* */Makefile.am:
+	* configure.in:
+	* autogen.sh:
+	Refreshed autotools scripts.
+
+	* AUTHOR:
+	* gnome-commander.spec.in:
+	* po/pl.po:
+	email update
+
+2005-08-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-search-popup.{c,h}:
+	* po/POTFILES.in:
+	Removed unused files.
+
+2005-07-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-selector.c:
+	Removed conflicting 'static' declaration.
+
+2005-07-21  Chao-Hsiung Liao  <j_h_liau@yahoo.com.tw>
+
+	* configure.in: Added "zh_TW" to ALL_LINGUAS.
+
+2005-04-22  Pawan Chitrakar  <pawan@nplinux.org>
+
+	* configure.in: Added ne in ALL_LINGUAS
+
+2005-04-01  Steve Murphy  <murf@e-tools.com>
+
+        * configure.in: Added "rw" to ALL_LINGUAS.
+
+2005-03-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* gnome-commander.spec.in:
+	Some cosmetics.
+
+2005-02-26  Kostas Papadimas  <pkst@gnome.org>
+
+        * configure.in: Added "el" (Greek) to ALL_LINGUAS.
+
+2005-02-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.l:
+        Fixed debian bug #288933 for amd64/gcc-4.0 compiling from Andreas Jochens (aj@andaco.de)
+
+2005-01-30  Piotr Eljasiak  <epiotr@use.pl>
+
+        Updated copyright info.
+
+2005-01-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* gnome-commander.spec.in:
+	Fixed typo: rpm --> rpmbuild
+
+2004-12-25  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Add «nb» to ALL_LINGUAS
+
+2004-11-24  Amanpreet Singh Alam<amanlinux@netscape.net>
+
+	*configure.in: Add pa ot ALL_LINGUAS
+
+2004-05-04  Gustavo Maciel Dias Vieira  <gdvieira@zaz.com.br>
+
+	* configure.in: Added pt_BR to ALL_LINGUAS.
+
+2004-05-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-dir-indicator.c:
+	* src/gnome-cmd-main-menu.c:
+	Connected Manage Bookmarks dialog to the bookmarks shortcut.
+
+2004-04-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-props-dialog.c:
+	* src/utils.c:
+	i18n & pluralized "%s bytes".
+
+	* src/gnome-cmd-data.c:
+	* src/utils.c:
+	Added some minor safety precautions.
+
+2004-04-28  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-dir-indicator.c:
+	* src/gnome-cmd-dir-indicator.h:
+	* src/utils.c:
+	Added a bookmarks shortcut to the directory indicator.
+
+	* src/gnome-cmd-file.c (gnome_cmd_file_get_real_path):
+	Fixed crash when trying to copy the currently selected files
+	path to the cmdline by pressing ctrl+shift+enter.
+
+2004-04-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.c:
+	i18n of symlink name if SHIFT+CTRL+F5.
+
+2004-04-24  Andras Timar  <timar@gnome.hu>
+
+	* configure.in: Added hu to ALL_LINGUAS.
+
+2004-04-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.c:
+	Added shortcut CTRL+M to Multi-Rename-Tool for better compliance with
+	Total Commander.
+
+2004-04-19  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-main-win.c (update_drop_con_button):
+	Fixed problem with the disconnect button not behaving correctly when
+	connecting to ftp-servers and being in supermount mode.
+
+	* src/gnome-cmd-xfer.c:
+	Fixed problem with infinite recursion when drag n dropping a directory
+	to it self. This should fix big #138933.
+
+	* src/gnome-cmd-main-win.c
+	(gnome_cmd_main_win_update_list_orientation):
+	Fixed a bug that made the file-lists change size when browsing
+	directories. This should fix big #128872.
+
+2004-04-17  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-dir.h:
+	* src/gnome-cmd-file.c:
+	Fixed update after renaming without FAM.
+
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	Fixed bug #136643.
+
+2004-04-16  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-xfer.c (update_xfer_gui_func):
+	Removed a debug printf.
+
+	* src/cap.c:
+	* src/gnome-cmd-main-win.c:
+	Made the toolbar buttons for cut,copy and paste sensitive
+	to the current state.
+
+	* src/useractions.c:
+	Fixed some code style issues and a spelling error. The spelling error
+	fixes bug #140055.
+
+	* src/gnome-cmd-xfer.c:
+	* src/gnome-cmd-mkdir-dialog.c:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-main-win.h:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-delete-dialog.c:
+	Rollbacked a previous commit that broke the feature that file-lists
+	refresh even without FAM when files are modifed by gcmd itself.
+
+2004-04-11  Adam Weinberger  <adamw@gnome.org>
+
+	* configure.in: Added en_CA to ALL_LINGUAS.
+
+2004-04-10  Gareth Owen  <gowen72@yahoo.com>
+
+	* configure.in: Added en_GB to ALL_LINGUAS
+
+2004-04-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.c:
+	Some cosmetics to make text of menu shortcuts more compliant with other Gnome apps.
+
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-main-menu.c:
+	* src/gnome-cmd-main-win.c:
+	* src/useractions.c:
+	* src/useractions.h:
+	Added copying selected filenames to clipboard
+
+2004-03-17 Maxim Dziumanenko <mvd@mylinux.com.ua>
+
+	* configure.in: Added "uk" (Ukrainian) to ALL_LINGUAS.
+
+2004-03-10 Alastair McKinstry <mckinstry@computer.org>
+
+	* configure.in: Added Irish to ALL_LINGUAS.
+
+2004-03-10  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Added Norwegian to ALL_LINGUAS.
+
+##############################################################################
+#                                   1.1.6                                    #
+##############################################################################
+2004-02-06  Robert Sedak  <robert.sedak@sk.htnet.hr>
+
+        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+
+2004-01-19  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* README.in:
+	Updated small details all over.
+
+	* plugins/cvs/Makefile.am:
+	* plugins/cvs/callbacks.c:
+	* plugins/cvs/callbacks.h:
+	* plugins/cvs/close.xpm:
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/cvs/cvs-plugin.h:
+	* plugins/cvs/cvs-plugin.xpm:
+	* plugins/cvs/interface.c:
+	* plugins/cvs/interface.h:
+	* plugins/cvs/parser.h:
+	* plugins/cvs/parser.l:
+	Updated the cvs-plugin so that it can be used to diff and log files.
+
+	* src/history.c (history_add):
+	Fixed crash when navigating back in the history and then entering
+	another dir.
+
+	* libgcmd/libgcmd-widget-factory.c:
+	* libgcmd/libgcmd-widget-factory.h:
+	Added function to create GtkOptionMenu's and fill them with options.
+
+	* src/gnome-cmd-options-dialog.c:
+	Changed to using GtkOptionMenu's instead of the combo boxes where
+	appropriate.
+
+	* src/gnome-cmd-dir-indicator.c:
+	Removed unused stuff.
+
+	* src/gnome-cmd-file-list.c (gnome_cmd_file_list_sort):
+	Fixed bogus focus row when changing sorting column in the inactive
+	file-list.
+
+2004-01-17  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-con.c:
+	* src/gnome-cmd-con.h:
+	Fixed a problem when opening multiple temporary ftp connections to the
+	same url.
+
+	* src/plugin_manager.c:
+	Plugins can now be toggled between active and inactive state by
+	double-clicking.
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-con-list.c:
+	* src/gnome-cmd-con-list.h:
+	* src/gnome-cmd-ftp-dialog.c:
+	Fixed ftp-quick-connect problems.
+
+	* libgcmd/libgcmd-utils.c:
+	* libgcmd/libgcmd-utils.h:
+	Added more text markup convenience functions.
+
+	* src/gnome-cmd-dir-indicator.c:
+	Changed to using bold text instead of underlined when focused by the
+	mouse cursor.
+
+	* src/gnome-cmd-cmdline.c (init):
+	Made the cwd label selectable.
+
+2004-01-16  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* libgcmd/gnome-cmd-dialog.c:
+	The main window was always used instead of the window passed as a
+	parameter.
+
+	* libgcmd/libgcmd-widget-factory.h:
+	* libgcmd/libgcmd-widget-factory.c:
+	Added function to get the selected text of a combo box.
+
+	* src/gnome-cmd-xfer.c:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-main-win.h:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-dir-indicator.c:
+	* src/gnome-cmd-bookmark-dialog.c:
+	Fixed focus problems.
+
+2004-01-15  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-about-plugin.c (gnome_cmd_about_plugin_class_init):
+	Marked some strings as non-translatable since they are never seen in
+	the gui.
+
+	* src/gnome-cmd-rename-dialog.c (on_ok):
+	* src/gnome-cmd-file-list.c:
+	Fixed the issue with the focus sometimes being on the wrong file
+	after a rename. Also reduced the timeout for the file context menu to
+	750 ms instead of 1000.
+
+2004-01-14  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/utils.c:
+	* src/utils.h:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-selector.c:
+	Make quicksearch work for uppercase characters too.
+
+	* src/gnome-cmd-file-selector.c (on_list_key_pressed_private):
+	If the cmdline is not visible make input go to quicksearch instead.
+
+	* src/gnome-cmd-dir-indicator.c (popup_dir_history):
+	The directory history popup is now atleast as wide as the file-list.
+
+	* src/gnome-cmd-main-win.c:
+	* src/main.c (main):
+	Fixed some non-initialized variables.
+
+	* src/gnome-cmd-ftp-dialog.c (create_ftp_server_dialog):
+	Fixed crash when bringing up the quick-connect dialog two times in a
+	row.
+
+	* src/gnome-cmd-file-selector.c:
+	* doc/keys.txt:
+	Added "CTRL+." shortcut to copy the cwd from the inactive file-list to
+	the active one.
+
+	* src/gnome-cmd-con.c (gnome_cmd_con_set_cwd):
+	Mixed up == and != in the previous commit for this file.
+
+	* src/gnome-cmd-file-list.c (gnome_cmd_file_list_keypressed):
+	* doc/keys.txt:
+	Added the shortcut "shift+f10" to bring up the file context menu.
+
+	* src/gnome-cmd-con-list.c:
+	* src/gnome-cmd-con-list.h:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-smb-path.c:
+	* src/utils.c:
+	* src/utils.h:
+	Made it possible to 'cd' to smb paths from the cmdline.
+	Made it possible to customize the filepatterns that are to be treated
+	as backup files.
+
+	* src/gnome-cmd-file-list.c:
+	Fixed problem with newly created directories not being focused.
+
+2004-01-13  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-con.c (gnome_cmd_con_set_cwd):
+	Fixed problem with the cwd of connections being set to directories
+	belonging to other connections.
+
+	* plugins/test/test-plugin.c:
+	* plugins/cvs/cvs-plugin.c:
+	Updated to work with the newest GnomeCmdState.
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-data.c:
+	Fixed crash when trying to edit the custom color scheme.
+
+	* src/useractions.c:
+	* src/useractions.h:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-main-menu.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-data.c:
+	Removed the 'Save Position' menu item. Size and position are now saved
+	automaticly instead.
+
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-data.c:
+	Sorting column and direction is now remembered.
+
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-dir-indicator.h:
+	* src/gnome-cmd-dir-indicator.c:
+	Added button to the directory indicator to popup the directory history.
+
+2004-01-12  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-rename-dialog.c (gnome_cmd_rename_dialog_new):
+	Made the filename in the textbox selected when the dialog in shown.
+
+	* src/gnome-cmd-file-list.c (gnome_cmd_file_list_keypressed):
+	The ordinary + and - keys can now be used to open the select and
+	unselect by pattern dialogs. Before only the keys on the numerical
+	part of the keyboard worked.
+
+	* src/gnome-cmd-main-win.c:
+	F2 now opens the rename dialog instead of refreshing the active file
+	list.
+
+	* libgcmd/gnome-cmd-dialog.h:
+	* libgcmd/gnome-cmd-dialog.c:
+	* src/gnome-cmd-search-dialog.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-patternsel-dialog.c:
+	Added history to the select and unselect by pattern dialogs.
+
+##############################################################################
+#                                   1.1.5                                    #
+##############################################################################
+2004-01-11  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file.c (gnome_cmd_file_rename):
+	Fixed some more update problems after renaming directories.
+
+	* src/gnome-cmd-main-win.c (init):
+	Removed a line that made gnome-commander be placed centered on the
+	desktop. The job of placing gnome-commander should be left to the
+	window manager.
+
+2004-01-10  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file-collection.c:
+	* src/gnome-cmd-file-collection.h:
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-file.c:
+	Fixed crash when renaming a directory. This should once again fix
+	bug #129179.
+
+2004-01-06  Jordi Mallach  <jordi@sindominio.net>
+
+	* configure.in (ALL_LINGUAS): Added "ca" (Catalan).
+
+2003-12-27  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/Makefile.am:
+	* src/gnome-cmd-delete-dialog.c:
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-file-collection.c:
+	* src/gnome-cmd-file-collection.h:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-mkdir-dialog.c:
+	* src/gnome-cmd-xfer.c:
+	Cleaned up file monitoring code. This should fix bug #129325.
+
+	* src/gnome-cmd-xfer.c (update_xfer_gui_func):
+	Refreshing the target directory after a xfer seems to move the input
+	focus to the corresponding file-selector. Fixed this by simply setting
+	the focus right again after each xfer. This should fix bug #128871.
+
+2003-12-26  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-dir-indicator.c:
+	The pointer now turns in to the pointing hand when the dir-indicator
+	is focused. Patch submitted by Kevin James.
+
+	* src/gnome-cmd-dir.c (gnome_cmd_dir_new):
+	Fixed crash when renaming a directory multiple times and repeatedly
+	going in and out of it. This should fix bug #129179.
+
+2003-12-23  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_show_filter):
+	Fixed a crash when pressing the 'x' to close the filter-box. This
+	should fix bug #128764.
+
+	* src/gnome-cmd-dir-indicator.h:
+	* src/gnome-cmd-dir-indicator.c:
+	* src/gnome-cmd-file-selector.c:
+	Applied a patch from Kevin James that makes the dir-indicator into
+	a control that can be clicked to changed the cwd. Before applying
+	I did some changes to make the code better follow the GC coding style.
+
+2003-12-17  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* doc/tips_tricks.txt:
+	Fixed some lines that where more then 80 chars wide.
+
+2003-12-08  Stanislav Brabec  <sbrabec@suse.cz>
+
+	* configure.in: Added cs to ALL_LINGUAS.
+
+2003-12-05  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file-selector.c:
+	Fixed problem with connections that stayed active even though
+	they couldn't be opened.
+
+	* src/gnome-cmd-con.c (gnome_cmd_con_close):
+	Fixed problem with ftp-connections that didn't disappear from the
+	connection toolbars when disconnected.
+
+2003-12-04  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* plugins/test/test-plugin.c:
+	* plugins/cvs/interface.c:
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/fileroller/file-roller-plugin.c:
+	Fixed some translation markup issues.
+
+	* src/gnome-cmd-clist.c:
+	* src/gnome-cmd-clist.h:
+	* src/gnome-cmd-file-selector.c:
+	Fixed unnecessary redraws of the file-list when dragging files over it.
+	This fixes bug #128510.
+
+2003-12-03  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-con-smb.c (smb_open):
+	Avoid segfault when a NULL uri is returned from create_uri.
+
+2003-12-03  Danilo Šegan  <dsegan@gmx.net>
+
+	* configure.in: Added "sr" and "sr@Latn" to ALL_LINGUAS.
+
+2003-12-02  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_reload):
+	* src/gnome-cmd-xfer.c (update_xfer_gui_func):
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-dir.h:
+	Fixed some issues with file-lists not updating.
+
+	* src/gnome-cmd-dir.c (gnome_cmd_dir_new_with_con):
+	Plain wrong object_destroy removed.
+
+	* gnome-commander.spec.in:
+	Changed the desktop dir to match the new one.
+
+	* po/POTFILES.in:
+	* gnome-commander.desktop:
+	* gnome-commander.desktop.in:
+	* Makefile.am:
+	Made the desktop file translatable through the .po files.
+	This fixes #128251.
+
+2003-12-01  Duarte Loreto <happyguy_pt@hotmail.com>
+
+	* configure.in: Added Portuguese (pt) to ALL_LINGUAS.
+
+2003-11-27  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/utils.c:
+	* src/utils.h:
+	Added hack to fix uris created from uri-strings.
+
+	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_update_style):
+	The ext-column is now hidden when the extension is only showed together
+	with the filename.
+
+2003-11-25  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file.c (gnome_cmd_file_rename):
+	* src/gnome-cmd-dir.h:
+	* src/gnome-cmd-dir.c:
+	Renaming a directory and then entering it immediately now works.
+
+
+##############################################################################
+#                                   1.1.4                                    #
+##############################################################################
+2003-11-24  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* libgcmd/Makefile.am:
+	* libgcmd/gnome-cmd-dialog.c:
+	* libgcmd/gnome-cmd-dialog.h:
+	* libgcmd/gnome-cmd-file-info.c:
+	* libgcmd/gnome-cmd-file-info.h:
+	* libgcmd/gnome-cmd-plugin.c:
+	* libgcmd/gnome-cmd-plugin.h:
+	* libgcmd/gnome-cmd-state.h:
+	* libgcmd/gnome-cmd-string-dialog.c:
+	* libgcmd/gnome-cmd-string-dialog.h:
+	* libgcmd/libgcmd-data.c:
+	* libgcmd/libgcmd-data.h:
+	* libgcmd/libgcmd-utils.c:
+	* libgcmd/libgcmd-utils.h:
+	* libgcmd/libgcmd-widget-factory.c:
+	* libgcmd/libgcmd-widget-factory.h:
+	* libgcmd/libgcmd.h:
+	* plugins/cvs/Makefile.am:
+	* plugins/cvs/callbacks.c:
+	* plugins/cvs/cvs-plugin.h:
+	* plugins/cvs/interface.c:
+	* plugins/fileroller/Makefile.am:
+	* plugins/test/Makefile.am:
+	* src/Makefile.am:
+	* src/gnome-cmd-includes.h:
+	* src/main.c:
+	Fixed the include issues for real.
+
+	* libgcmd/Makefile.am:
+	* libgcmd/gnome-cmd-dialog.h:
+	* libgcmd/gnome-cmd-file-info.h:
+	* libgcmd/gnome-cmd-plugin.h:
+	* libgcmd/gnome-cmd-state.h:
+	* libgcmd/gnome-cmd-string-dialog.h:
+	* libgcmd/libgcmd-data.h:
+	* libgcmd/libgcmd-utils.h:
+	* libgcmd/libgcmd-widget-factory.h:
+	* libgcmd/libgcmd.h:
+	* plugins/cvs/Makefile.am:
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/fileroller/Makefile.am:
+	* plugins/fileroller/file-roller-plugin.c:
+	* plugins/test/Makefile.am:
+	* plugins/test/test-plugin.c:
+	* src/Makefile.am:
+	Fixed include issues.
+
+	* src/gnome-cmd-file-list.c:
+	Fixed bug when selecting multiple files with shift+mouse button.
+
+	* src/gnome-cmd-file-selector.c (update_selected_files_label):
+	Fixed the problem with the selected-files-label not being updated at
+	startup.
+
+	* src/gnome-cmd-types.h:
+	* src/gnome-cmd-options-dialog.c (create_layout_tab):
+	* src/gnome-cmd-data.c (gnome_cmd_data_load):
+	Tweaked the color-themes.
+
+2003-11-23  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/history.c:
+	* src/history.h:
+	* src/gnome-cmd-file-selector.c:
+	Fixed some directory history problems.
+
+	* src/utils.c (size2string):
+	Improved the alignment in the file-size column when using a non fixed
+	font.
+
+        * src/gnome-cmd-xfer.c:
+        Fixed possible async errors when cancelling a xfer operation. Also
+	fixed the bug where choosing abort in the overwrite dialog caused the
+        vfs-error dialog to appear.
+
+        * src/gnome-cmd-file.c:
+        * src/gnome-cmd-file.h:
+        * src/gnome-cmd-file-list.c:
+        Stopped superfluous updates of the file-list by remembering
+        the last time a file was updated.
+
+2003-11-22  Marcus Bjurman  <marbj499@student.liu.se>
+
+        * src/gnome-cmd-bookmark-dialog.c:
+        * src/gnome-cmd-cmdline.c:
+        * src/gnome-cmd-combo.c:
+        * src/gnome-cmd-combo.h:
+        * src/gnome-cmd-data.c:
+        * src/gnome-cmd-data.h:
+        * src/gnome-cmd-file-list.c:
+        * src/gnome-cmd-file-selector.c:
+        * src/gnome-cmd-main-win.c:
+        * src/gnome-cmd-options-dialog.c:
+        * src/gnome-cmd-options-dialog.h:
+        * src/gnome-cmd-style.c:
+        * src/gnome-cmd-style.h:
+        * src/gnome-cmd-types.h:
+        * src/widget-factory.c:
+        * src/widget-factory.h:
+        Improved the combo class and compensated for that in different classes
+        that used it. Also stopped changing fonts in all places except the
+        file panes.
+
+        * src/gnome-cmd-options-dialog.c:
+        Removed the color tab and added that stuff to the layout tab.
+
+2003-11-21  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/plugin_manager.c (plugin_manager_show):
+	Placed the widget_show call after the widget_set_usize since that seems
+	to mather on fluxbox atleast.
+
+	* src/useractions.c:
+	Updated the about-dialog.
+
+	* src/gnome-cmd-file-popmenu.c:
+	Cleaned up the menu by removing the chmod,chown,view and edit items.
+
+2003-11-20  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/main.c:
+	* src/gnome-cmd-con.c:
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-file.c:
+	* src/ls_colors.c:
+	* src/main.c:
+	* src/plugin_manager.c:
+	* src/utils.c:
+	* libgcmd/gnome-cmd-file-info.c:
+	Fixed some memory leaks.
+
+	* src/gnome-cmd-smb-path.c (smb_path_get_parent):
+	* src/gnome-cmd-plain-path.c (plain_path_get_parent):
+	Fixed "File not found"-bug when browsing to the parent dir when the
+	parent dir contained spaces. This was caused by using
+	the gnome_vfs_uri_get_path method wrongly.
+
+2003-11-18  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* libgcmd/gnome-cmd-string-dialog.c:
+	Dont make all string-dialogs resizable.
+
+	* libgcmd/gnome-cmd-dialog.c (gnome_cmd_dialog_set_resizable):
+	* libgcmd/gnome-cmd-dialog.h:
+	Added method to set resize policy.
+
+	* src/gnome-cmd-search-dialog.c:
+	Made the dialog resizable.
+
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	Made the dialog wider.
+
+	* src/gnome-cmd-file-selector.c (create_con_buttons):
+	Made the icons centered in the buttons.
+
+	* src/useractions.c:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-file-props-dialog.c:
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-options-dialog.c:
+	Cleanup.
+
+	* src/gnome-cmd-chown-dialog.c:
+	* src/gnome-cmd-chmod-dialog.c:
+	* src/gnome-cmd-bookmark-dialog.c:
+	* src/gnome-cmd-dir.c:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-ftp-dialog.c:
+	widget_hide -> widget_destroy for dialogs.
+
+	* src/plugin_manager.c:
+	* src/gnome-cmd-about-plugin.c:
+	* src/gnome-cmd-about-plugin.h:
+	* libgcmd/gnome-cmd-plugin.c:
+	* libgcmd/gnome-cmd-plugin.h:
+	* libgcmd/plugin-ingo.h:
+	Adjusted the plugin api.
+
+	* libgcmd/libgcmd-widget-factory.c:
+	* libgcmd/libgcmd-widget-factory.h:
+	* libgcmd/gnome-cmd-string-dialog.c:
+	Removed some slack.
+
+	* libgcmd/gnome-cmd-dialog.c:
+	Made all dialogs transient against the main window per default.
+
+2003-11-17  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-prepare-copy-dialog.c:
+	* src/gnome-cmd-prepare-copy-dialog.h:
+	* src/gnome-cmd-prepare-move-dialog.c:
+	* src/gnome-cmd-prepare-move-dialog.h:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-prepare-xfer-dialog.h:
+	* src/useractions.c:
+	Entering a non-absolute path in the prepare-xfer dialog now
+	moves the files to the active file-list.
+
+	* src/plugin_manager.c:
+	Added plugin info window.
+
+	* src/gnome-cmd-con.c (gnome_cmd_con_mkdir):
+	Changed unref->sink for temporary object.
+
+	* src/utils.c:
+	Close dialogs when ESC is pressed.
+
+2003-11-16  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* configure.in:
+	* plugins/Makefile.am:
+	* plugins/fileroller/Makefile.am:
+	* plugins/fileroller/file-roller-plugin.c:
+	* plugins/fileroller/file-roller-plugin.h:
+	* plugins/fileroller/file-roller-small.xpm:
+	* plugins/fileroller/file-roller.xpm:
+	Added new plugin.
+
+	* plugins/cvs/Makefile.am:
+	* plugins/cvs/callbacks.c:
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/test/test-plugin.c:
+	Updated to the new plugin system.
+
+	* libgcmd/Makefile.am
+	* libgcmd/gnome-cmd-plugin.c:
+	* libgcmd/gnome-cmd-plugin.h:
+	* libgcmd/gnome-cmd-state.h:
+	* libgcmd/libgcmd.h:
+	* libgcmd/gnome-cmd-dialog.c:
+	* libgcmd/gnome-cmd-dialog.h:
+	* libgcmd/gnome-cmd-file-info.c:
+	* libgcmd/gnome-cmd-file-info.h:
+	* libgcmd/gnome-cmd-string-dialog.c:
+	* libgcmd/gnome-cmd-string-dialog.h:
+	* libgcmd/libgcmd-data.c:
+	* libgcmd/libgcmd-data.h:
+	* libgcmd/libgcmd-deps.h:
+	* libgcmd/libgcmd-utils.c:
+	* libgcmd/libgcmd-utils.h:
+	* libgcmd/libgcmd-widget-factory.c:
+	* libgcmd/libgcmd-widget-factory.h:
+	* libgcmd/plugin-info.h:
+	* libgcmd/Makefile.am
+	* libgcmd/dirlist.c:
+	* libgcmd/gnome-cmd-advrename-dialog.c:
+	* libgcmd/gnome-cmd-advrename-dialog.h:
+	* libgcmd/gnome-cmd-bookmark-dialog.c:
+	* libgcmd/gnome-cmd-bookmark-dialog.h:
+	* libgcmd/gnome-cmd-chmod-component.c:
+	* libgcmd/gnome-cmd-chmod-component.h:
+	* libgcmd/gnome-cmd-chmod-dialog.c:
+	* libgcmd/gnome-cmd-chmod-dialog.h:
+	* libgcmd/gnome-cmd-chown-component.c:
+	* libgcmd/gnome-cmd-chown-component.h:
+	* libgcmd/gnome-cmd-chown-dialog.c:
+	* libgcmd/gnome-cmd-chown-dialog.h:
+	* libgcmd/gnome-cmd-cmdline.c:
+	* libgcmd/gnome-cmd-con-device.c:
+	* libgcmd/gnome-cmd-data.c:
+	* libgcmd/gnome-cmd-delete-dialog.c:
+	* libgcmd/gnome-cmd-dialog.c:
+	* libgcmd/gnome-cmd-dialog.h:
+	* libgcmd/gnome-cmd-dir-indicator.c:
+	* libgcmd/gnome-cmd-dir.c:
+	* libgcmd/gnome-cmd-file-list.c:
+	* libgcmd/gnome-cmd-file-popmenu.c:
+	* libgcmd/gnome-cmd-file-props-dialog.c:
+	* libgcmd/gnome-cmd-file-selector.c:
+	* libgcmd/gnome-cmd-file.c:
+	* libgcmd/gnome-cmd-file.h:
+	* libgcmd/gnome-cmd-ftp-dialog.c:
+	* libgcmd/gnome-cmd-ftp-dialog.h:
+	* libgcmd/gnome-cmd-includes.h:
+	* libgcmd/gnome-cmd-main-menu.c:
+	* libgcmd/gnome-cmd-main-menu.h:
+	* libgcmd/gnome-cmd-main-win.c:
+	* libgcmd/gnome-cmd-make-copy-dialog.c:
+	* libgcmd/gnome-cmd-make-copy-dialog.h:
+	* libgcmd/gnome-cmd-mkdir-dialog.h:
+	* libgcmd/gnome-cmd-options-dialog.c:
+	* libgcmd/gnome-cmd-patternsel-dialog.h:
+	* libgcmd/gnome-cmd-prepare-xfer-dialog.c:
+	* libgcmd/gnome-cmd-prepare-xfer-dialog.h:
+	* libgcmd/gnome-cmd-rename-dialog.c:
+	* libgcmd/gnome-cmd-rename-dialog.h:
+	* libgcmd/gnome-cmd-search-dialog.c:
+	* libgcmd/gnome-cmd-search-dialog.h:
+	* libgcmd/gnome-cmd-smb-path.c:
+	* libgcmd/gnome-cmd-string-dialog.c:
+	* libgcmd/gnome-cmd-string-dialog.h:
+	* libgcmd/gnome-cmd-xfer-progress-win.c:
+	* libgcmd/gnome-cmd-xfer.c:
+	* libgcmd/main.c:
+	* libgcmd/plugin_manager.c:
+	* libgcmd/plugin_manager.h:
+	* libgcmd/support.c:
+	* libgcmd/support.h:
+	* libgcmd/useractions.c:
+	* libgcmd/utils.c:
+	* libgcmd/utils.h:
+	* libgcmd/widget-factory.c:
+	* libgcmd/widget-factory.h:
+	Reworked the plugin system. This resulted in quite many files being
+	moved from the src directory to the libgcmd dito.
+	And yes this is a quite big log-entry :)
+
+2003-11-15  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file-selector.c (on_dir_list_ok):
+	Fixed small visual artifact when switching between different
+	connections.
+
+	* src/gnome-cmd-combo.c:
+	Made the combo behave abit better when using the mouse to select items.
+
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-clist.c:
+	* src/gnome-cmd-clist.h:
+	Moved the get_row method from the FileList to the CList class.
+
+	* src/gnome-cmd-cmdline.c (update_history_combo):
+	Select the top row after each update.
+
+
+##############################################################################
+#                                   1.1.3                                    #
+##############################################################################
+2003-11-14  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-delete-dialog.c:
+	Simplified.
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-options-dialog.h:
+	Changed base class from GtkDialog to GnomeCmdDialog.
+
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	Changed the name of gnome_cmd_file_get_quoted_path to
+	gnome_cmd_file_get_real_quoted_path and made it quote the real
+	path instead of the virtual.
+
+	* src/gnome-cmd-dir.c:
+	Fixed crash when mounting a device a second time. This was caused by
+	the use of gtk_object_destroy instead of ref/unref.
+
+	* src/gnome-cmd-con.c:
+	Removed printerr.
+
+	* src/gnome-cmd-con-device.c:
+	Added some type checks.
+
+	* src/gnome-cmd-options-dialog.c (create_device_dialog):
+	Made the PIXMAPS_DIR/device-icons folder the default when opening
+	the icon-entry in the create/edit device dialog.
+
+	* src/gnome-cmd-chmod-dialog.c:
+	* src/gnome-cmd-chown-dialog.c:
+	* src/gnome-cmd-file-popmenu.c:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/utils.c:
+	Stopped using file_get_path where file_get_real_path should be used.
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-delete-dialog.c:
+	* src/gnome-cmd-options-dialog.c:
+	Applied a patch that added an option to disable the
+	'confirm before delete' dialog.
+	The patch was made by Damian Gawêda <roniuch@stevenet.eu.org>
+
+	* src/utils.c:
+	Added dialog when an executable text file is opened that asks if the
+	file should be executed or displayed. Also added a dialog that offers
+	to set the executable bit for files that has the mime-type
+	"application/x-executable-binary" but lacks the executable bit.
+
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	The owning directory now gets notified when the permissions or owner
+	of a file changes. Also added two functions for checking the mime_type
+	of a file.
+
+	* src/utils.h:
+	* src/utils.c:
+	* src/gnome-cmd-delete-dialog.c:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-xfer.c:
+	Added GtkMessageType argument to the run_simple_dialog function.
+
+	* src/gnome-cmd-con-ftp.c:
+	Preventive change to avoid problems with escaping of hostnames.
+
+	* src/dirlist.c:
+	Stopped using FORCE_FAST_MIME_TYPE to make gnomevfs follow symlinks.
+
+2003-11-13  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-con.c (gnome_cmd_con_get_path_target_type):
+	Removed dumb printerr.
+
+	* src/gnome-cmd-file-list.c (gnome_cmd_file_list_remove_file):
+	Fixed bug when moving files on a machine with a snappy FAM installation.
+	This lead to that gnome-commander tried to remove the same file twice
+	from a list.
+
+2003-11-12  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-data.c:
+	Fixed bug in device-file loading and writing.
+
+	* src/gnome-cmd-con-device.c:
+	* src/gnome-cmd-con.c:
+	* src/gnome-cmd-con.h:
+ 	* src/gnome-cmd-file-selector.c:
+	Better error messages are now shown when a mount fails.
+
+2003-11-11  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/widget-factory.h:
+	* src/widget-factory.c:
+	Added create_bold_label function.
+
+	* src/gnome-cmd-file-props-dialog.c:
+	Made some labels bold.
+	Removed the Calculate size button and made the calculation start
+	automaticly when the dialog is shown for a directory.
+
+2003-11-10  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-main-menu.c:
+	* src/gnome-cmd-file-selector.c (file_is_wanted):
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/useractions.c:
+	* src/useractions.h:
+	Added filter for backup files and added that and the filter for hidden
+	files to the main menu for faster access.
+
+	* src/imageloader.c:
+	* src/imageloader.h:
+	* src/gnome-cmd-main-menu.c (update_view_menu):
+	Added pixmap for the switch to vertical/horizontal mode menu-item.
+
+	* src/utils.c (run_command_indir):
+	Fixed so that the feature where the terminal window stays open after
+	a program has finished works more reliably.
+
+	* src/gnome-cmd-main-win.c (create_toolbar):
+	Fixed the size of the pixmaps in the toolbar.
+
+	* src/gnome-cmd-main-menu.c (create_menu_item):
+	Fixed the size of the pixmaps in the menu.
+
+	* src/useractions.c (file_diff):
+	* src/gnome-cmd-file.c:
+	Fixed quoting of files.
+
+	* src/gnome-cmd-data.c (gnome_cmd_data_load):
+	Stopped using single quotes (') in the default application format
+	strings. Those are now instead added automaticly by gnome-commander.
+
+	* src/gnome-cmd-cmdline.c:
+	gnome_cmd_file_get_path -> gnome_cmd_file_get_real_path
+
+
+
+2003-11-07  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/utils.c:
+	Don't asume /tmp is the tmp-dir (use g_get_tmp_dir instead).
+
+	* src/utils.c:
+	* src/plugin_manager.c:
+	* src/main.c:
+	* src/imageloader.c:
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-file-selector.c:
+	Use g_build_path to build paths
+
+	* src/utils.c:
+	* src/gnome-cmd-file-popmenu.c:
+	Use g_shell_quote to quote parameters
+
+	* src/gnome-cmd-file-selector.c (on_dir_list_ok):
+	Fixed problem where signals where connected multiple times on the
+	same directory. Fixes bug where a new directory would appear many times
+	in the same file-list until reloaded.
+
+
+##############################################################################
+#                                   1.1.2                                    #
+##############################################################################
+2003-11-07  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-list.h:
+	Cleanup (removed duplicated code).
+
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-types.h:
+	* src/gnome-cmd-options-dialog.c:
+	There are now three different modes to display the file extensions.
+
+	* src/gnome-cmd-delete-dialog.c:
+	Made the delete-dialog closeable with ESC.
+
+	* src/gnome-cmd-xfer.c:
+	Fixed problem with moved files not disappearing from the source
+	file-list.
+
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/utils.c:
+	Removed some old debug printerr's.
+
+	* src/gnome-cmd-prepare-xfer-dialog.c
+          (gnome_cmd_prepare_xfer_dialog_new):
+	Use g_build_path to build paths.
+
+	* src/utils.c:
+	* src/gnome-cmd-file-selector.c (gnome_cmd_file_selector_start_editor):
+	Replaced calls to gnome_cmd_file_get_path with
+	gnome_cmd_file_get_real_path
+
+	* src/gnome-cmd-file.c (gnome_cmd_file_get_real_path):
+	* src/gnome-cmd-file.h:
+	Added call to get the real path. Needed for device connections that have
+	part of the real path (the mountpoint) hidden.
+
+	* src/gnome-cmd-con-device.c (dev_create_uri):
+	* src/gnome-cmd-con-smb.c (smb_create_uri):
+	Fixed compile warning (const).
+
+	* src/gnome-cmd-con-device.c (dev_create_uri):
+	Cleanup.
+
+	* src/gnome-cmd-search-dialog.c (init):
+	Removed the statusbar resize handle.
+
+	* src/gnome-cmd-xfer.c (async_xfer_callback):
+	* src/gnome-cmd-rename-dialog.c (gnome_cmd_rename_dialog_new):
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	* src/gnome-cmd-prepare-move-dialog.c
+	  (gnome_cmd_prepare_move_dialog_show):
+	* src/gnome-cmd-prepare-copy-dialog.c
+	  (gnome_cmd_prepare_copy_dialog_show):
+	* src/gnome-cmd-file-selector.c
+	  (gnome_cmd_file_selector_create_symlink):
+	* src/gnome-cmd-file-props-dialog.c (create_properties_tab):
+	* src/gnome-cmd-dir-indicator.c (gnome_cmd_dir_indicator_set_dir):
+	* src/gnome-cmd-delete-dialog.c (gnome_cmd_delete_dialog_show):
+	* src/gnome-cmd-cmdline.c (gnome_cmd_cmdline_set_dir):
+	* src/gnome-cmd-file-list.c:
+	Added UTF-8 verification/conversion.
+
+	* src/gnome-cmd-file-list.c:
+	Removed duplicated code.
+
+	* src/gnome-cmd-bookmark-dialog.c:
+	Disabled the ability to create bookmarks to directories that have
+	a path that is not in valid UTF-8 encoding.
+
+	* src/gnome-cmd-advrename-dialog.c:
+	* src/gnome-cmd-advrename-lexer.l:
+	Converted to work with utf8.
+
+	* src/gnome-cmd-smb-path.c (smb_path_get_parent):
+	Removed unsafe uri-creation.
+
+2003-11-06  Marcus Bjurman  <marbj499@student.liu.se>
+
+	* src/gnome-cmd-plain-path.c (plain_path_get_child):
+	Removed unsafe uri-creation.
+
+	* src/gnome-cmd-dir.c (gnome_cmd_dir_new):
+	Don't try to add null pointers to the directory cache.
+
+	* src/gnome-cmd-quicksearch-popup.c:
+	Fixed crash when clicking the file-list without closing the quick-search
+	box.
+
+	* src/gnome-cmd-con-home.c:
+	* src/gnome-cmd-con-device.c:
+	* src/gnome-cmd-con-ftp.c:
+	* src/gnome-cmd-con-smb.c:
+	* src/gnome-cmd-file.c:
+	* src/utils.c:
+	Made uri creation safer.
+
+	* src/gnome-cmd-delete-dialog.c (perform_delete_operation):
+	Small syntax fix.
+
+	* src/utils.c:
+	Added question before downloading remote files when the user tried to
+	open them.
+
+	* src/gnome-cmd-smb-path.c (gnome_cmd_smb_path_new_from_str):
+	The path was setup incorrectly from a string.
+
+	* src/gnome-cmd-con-smb.c:
+	The base_path was initialized to early which made bookmarks unusable.
+
+	* src/gnome-cmd-con-ftp.c:
+	Fixed broken uri-creation.
+
+
+2003-11-05  Marcus Bjurman <marbj499@student.liu.se>
+
+	* src/gnome-cmd-con-ftp.c (get_file_info_func):
+	Fixed a bug where the password for a ftp-server was freed by mistake.
+
+
+##############################################################################
+#                                   1.1.1                                    #
+##############################################################################
+2003-11-05  Marcus Bjurman <marbj499@student.liu.se>
+
+	* src/main.c (main):
+	Added call to bind_textdomain_codeset
+
+	* src/utils.c (get_utf8):
+	Fixed crash when the function was passed a NULL string.
+
+	* src/gnome-cmd-file-list.c:
+	Stopped showing the file extension in both the name column and the ext
+	column.
+
+	* src/gnome-cmd-dir.c:
+	Fixed crashes that happened when browsing directories.
+
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-xfer.c:
+	Fixed update problems when copying and moving files.
+
+
+2003-11-04  Marcus Bjurman <marbj499@student.liu.se>
+
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-con.c:
+	* src/gnome-cmd-con.h:
+	The connection combo boxes should now show the correct connection as
+	selected all the time.
+
+	* src/gnome-cmd-file-list.c:
+	Removed some bugs related to selecting files using the keyboard.
+
+	* src/useractions.c:
+	* src/utils.c:
+	* src/utils.h:
+	* src/gnome-cmd-file-props-dialog.c:
+	Fixed the edit mime-types feature and added a button to do the same in
+	the file-props dialog.
+
+	* src/gnome-cmd-prepare-xfer-dialog.c:
+	Fixed some bugs that showed up when moving or copying
+	files using F5 or F6.
+
+
+# ChangeLog started at 1.1.0

@@ -1,0 +1,233 @@
+# Release number can be specified with rpm --define 'rel SOMETHING' ...
+# If no such --define is used, the release number is 1.
+#
+# Source archive's extension can be specified with rpm --define 'srcext .foo'
+# where .foo is the source archive's actual extension.
+# To compile an RPM from a .gz source archive, give the command
+#   rpmbuild -tb --define 'srcext .gz' @PACKAGE@-@VERSION@.tar.gz
+#
+
+%if %{?rel:0}%{!?rel:1}
+%define rel 1
+%endif
+%if %{?srcext:0}%{!?srcext:1}
+%define srcext .bz2
+%endif
+
+Name:          @PACKAGE@
+Version:       @VERSION@
+Release:       %{rel}%{?dist}
+Summary:       A nice and fast file manager for the GNOME desktop
+Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
+Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
+
+Group:         Applications/File
+License:       GPL
+URL:           http://www.freesoftware.fsf.org/gcmd/
+Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/gnome-commander/1.2/@PACKAGE@-@VERSION@.tar%{srcext}
+BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires: desktop-file-utils
+BuildRequires: scrollkeeper
+BuildRequires: gettext >= 0.10.36
+BuildRequires: glib2-devel >= @GLIB_REQ@
+BuildRequires: gtk2-devel >= @GTK_REQ@
+BuildRequires: gnome-vfs2-devel >= @GNOMEVFS_REQ@
+BuildRequires: libgnomeui-devel >= @GNOMEUI_REQ@
+BuildRequires: intltool
+BuildRequires: gnome-doc-utils >= 0.3.2
+BuildRequires: perl(XML::Parser)
+
+Requires:      glib2 >= @GLIB_REQ@
+Requires:      gtk2 >= @GTK_REQ@
+Requires:      gnome-vfs2 >= @GNOMEVFS_REQ@
+Requires:      libgnomeui >= @GNOMEUI_REQ@
+
+Requires:         meld
+Requires(post):   scrollkeeper
+Requires(postun): scrollkeeper
+
+BuildRequires:   python-devel >= @PYTHON_REQ@
+BuildRequires:   libexif-devel >= @LIBEXIF_REQ@
+#BuildRequires:  libiptcdata-devel >= @LIBIPTCDATA_REQ@
+BuildRequires:   id3lib-devel >= @ID3LIB_REQ@
+BuildRequires:   libgsf-devel >= @LIBGSF_REQ@
+
+Requires:        python >= @PYTHON_REQ@
+Requires:        gnome-python2-gnomevfs
+Requires:        libexif >= @LIBEXIF_REQ@
+#Requires:       libiptcdata >= @LIBIPTCDATA_REQ@
+Requires:        id3lib >= @ID3LIB_REQ@
+Requires:        libgsf >= @LIBGSF_REQ@
+
+%description
+GNOME Commander is a nice and fast file manager for the GNOME desktop.
+In addition to performing the basic filemanager functions the program is also
+an FTP-client and it can browse SMB-networks.
+
+%description -l pl
+GNOME Commander to niewielki i wydajny menadżer plików umożliwiający
+wykonywanie za pomocą klawiatury wszystkich standardowych operacji na plikach.
+Dostępne są również dodatkowe funkcje jak np. obsługa FTP, czy też obsługa
+sieci SMB.
+
+%description -l ru
+Быстро работающий файловый менеджер для Gnome. Может выполнять большинство
+типовых операций с файлами, умеет обнаруживать изменения, внесенные в файлы
+другими программами, и автоматически обновлять отображаемый список файлов.
+Поддерживает описания файловых структур в формате DND и кодировки MIME.
+Реализует на базовом уровне поддержку FTP через GnomeVFS.
+
+%description -l sv
+GNOME Commander är en snabb och smidig filhanderare för GNOME.
+Utöver att kunna hantera filer på din egen dator så kan programmet även
+ansluta till FTP-servrar och SMB-nätverk.
+
+%prep
+%setup -q
+
+%build
+%configure --disable-scrollkeeper
+%{__make} %{?_smp_mflags}
+
+%install
+%{__rm} -rf %{buildroot}
+%{__make} \
+   INSTALL="%{__install} -c -p" \
+   DESTDIR=%{buildroot} \
+   install
+
+desktop-file-install \
+   --delete-original \
+   --vendor '' \
+   --remove-category Application \
+   --dir %{buildroot}%{_datadir}/applications \
+   %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+%{__rm} -f %{buildroot}%{_libdir}/%{name}/*.{a,la}
+%{__rm} -f %{buildroot}%{_libdir}/%{name}/*/*.{a,la,py}
+
+%find_lang %{name}
+
+%post
+scrollkeeper-update -q -o %{_datadir}/omf/%{name} || :
+
+%postun
+scrollkeeper-update -q || :
+
+%clean
+%{__rm} -rf %{buildroot}
+
+%files -f %{name}.lang
+%defattr(-,root,root,-)
+%doc AUTHORS BUGS ChangeLog COPYING INSTALL NEWS README TODO doc/*.txt
+
+%{_bindir}/*
+%{_libdir}/%{name}/
+%{_mandir}/man1/%{name}.1*
+
+%{_datadir}/applications/%{name}.desktop
+
+%{_datadir}/gnome/help/%{name}/
+%{_datadir}/omf/%{name}/
+
+%{_datadir}/pixmaps/%{name}.png
+%{_datadir}/pixmaps/%{name}/
+
+%changelog
+* Sun Feb 4 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+- added libgsf dependencies
+
+* Wed Jan 30 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+- added build and runtime deps for python and gnome-python2-gnomevfs
+
+* Tue Jan 20 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.3-5
+- Require meld (#225324)
+
+* Wed Jan 10 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+- removed unneeded .py files
+
+* Thu Dec 21 2006 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.3-2
+- Clean up.
+
+* Sun Dec 17 2006 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
+- use version requirements from configure.in
+- changed dependencies from glib to glib2
+
+* Fri Dec 15 2006 Stephanos Manos <stefmanos AT gmail DOT com> - 1.2.4-1
+- removed not needed .a files
+- added build and runtime deps for libexif id3lib
+
+* Tue Dec 12 2006 Stephanos Manos <stefmanos AT gmail DOT com> - 1.2.4-1
+- minor cleanups/fixes to make rpmlint silent
+       -changelog: entries starting with % (added a second %)
+       -changelog: replaced tabs with spaces
+       -descriptions: splitted in multiple lines
+       -summary: removed ending dot
+       -license: changed license-tag form GPL2 to GPL
+* Tue Nov 14 2006 Piotr Eljasiak <epiotr@use.pl>
+- fixed Source0 address
+
+* Mon Jul 17 2006 Piotr Eljasiak <epiotr@use.pl>
+- added glib dependencies
+
+* Sun May 14 2006 Stephanos Manos <stefmanos@gmail.com>
+- Fixed Scrollkeeper database update
+        -disabled scrollkeeper update from make
+        -added scrollkeeper-database-update in the %%post & %%postun section
+- Added %%post & %%postun entries for the desktop file
+- Added %%post & %%postun entries for the gtk+ icon cache file
+
+* Sun Apr 9 2006 Piotr Eljasiak <epiotr@use.pl>
+- minor cleanups
+
+* Thu Mar 5 2006 Piotr Eljasiak <epiotr@use.pl>
+- added OMF files
+
+* Mon Feb 13 2006 Piotr Eljasiak <epiotr@use.pl>
+- install @PACKAGE@ icon to %%{_datadir}/pixmaps/
+- install @PACKAGE@.1* to %%{_mandir}/man1/
+
+* Sat Feb 11 2006 Piotr Eljasiak <epiotr@use.pl>
+- set default srcext to .bz2
+
+* Fri Jan 28 2005 Piotr Eljasiak <epiotr@use.pl>
+- fixed typo: rpm --> rpmbuild
+
+* Mon May 03 2004 Piotr Eljasiak <epiotr@use.pl>
+- converted spec file to utf-8
+- used RPM macros a bit more
+
+* Thu Jun 19 2003 Piotr Eljasiak <epiotr@use.pl>
+- added libraries
+
+* Tue Mar 25 2003 Piotr Eljasiak <epiotr@use.pl>
+- updated Sources
+
+* Mon Jan 20 2003 Piotr Eljasiak <epiotr@use.pl>
+- added build dependencies
+
+* Fri Jan 10 2003 Piotr Eljasiak <epiotr@use.pl>
+- added localization
+
+* Thu Jan 09 2003 Piotr Eljasiak <epiotr@use.pl>
+- added dependencies
+
+* Mon Jun 24 2002 Piotr Eljasiak <epiotr@use.pl>
+- more cleanup in install section
+
+* Sat Jun 15 2002 Piotr Eljasiak <epiotr@use.pl>
+- simplified install and files sections
+
+* Mon Jun 10 2002 Piotr Eljasiak <epiotr@use.pl>
+- .spec file is now generated from .spec.in
+
+* Mon Jun 10 2002 Marcus Bjurman <marbj499@student.liu.se>
+- The default icon for this project is now called gnome-commander.png
+  The xpm variant of the same icon is now also renamed in the same manner.
+
+* Sat Mar  9 2002 Marcus Bjurman <marbj499@student.liu.se>
+- Pumped up the version nr
+
+* Sun Nov  4 2001 Marcus Bjurman <marbj499@student.liu.se>
+- Initial build.

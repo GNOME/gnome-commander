@@ -1,0 +1,141 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH GNOME-COMMANDER 1 "Jul 27 2006"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+gnome-commander \- A GNOME file manager
+.SH SYNOPSIS
+.B gnome-commander
+[-d STRING] [--help] [--version] [gtk,gnome,bonobo options]
+.br
+.SH DESCRIPTION
+.B GNOME Commander
+is a fast and powerful graphical filemanager for the GNOME desktop environment,
+it has a "two-pane" interface in the tradition of Norton and Midnight Commander.
+.SH OPTIONS
+.TP
+.B \-\-help
+Show summary of options.
+.TP
+.B \-\-version
+Show version of program.
+.TP
+.B \-l, \-\-start-left-dir=STRING
+Specify the start directory for the left pane
+.TP
+.B \-r, \-\-start-right-dir=STRING
+Specify the start directory for the right pane
+.TP
+.B \-d, \-\-debug=STRING
+Specify debug flags to use.
+Debug output will be written to STDOUT.
+.br
+Possible flags:
+.br
+c: file and directory counting
+.br
+d: directory ref-counting
+.br
+f: file ref-counting
+.br
+g: run_command debugging
+.br
+i: imageloader
+.br
+k: directory pool
+.br
+l: directory listings
+.br
+m: connection debugging
+.br
+n: directory monitoring
+.br
+p: python plugins
+.br
+s: SMB network browser
+.br
+t: metadata tags
+.br
+v: internal viewer
+.br
+w: widget_lookup
+.br
+x: xfer
+.br
+y: brief MIME based imageload
+.br
+z: detailed MIME based imageload
+.br
+.TP
+.B [gtk,gnome,bonobo options]
+Standard gtk, gnome, bonobo options are supported. Use
+.B --help
+to see possible options.
+.SH EXAMPLES
+.TP
+.B gnome-commander -d nvl
+Starts gnome-commander with debugging of directory listings, internal viewer
+and directory monitoring facilities.
+.SH FILES
+.TP
+.B ~/.gnome2/gnome-commander
+User settings.
+.TP
+.B ~/.gnome-commander/devices
+List of user defined devices (see "Devices" tab in the "Options" dialog).
+.TP
+.B ~/.gnome-commander/fav-apps
+List of user defined applications (see "Programs" tab in the "Options" dialog).
+.TP
+.B ~/.gnome-commander/connections
+List of FTP servers (see "Connections" menu).
+.TP
+.B ~/.gnome-commander/ftp-servers
+List of FTP servers (deprecated).
+.TP
+.B ~/.gnome-commander/plugins
+User specific plugins.
+.TP
+.B /usr/lib/gnome-commander/plugins
+System-wide plugins.
+.SH BUGS
+If you find any bugs, please report them (or better yet, fix them
+and send a patch). See the
+.B GNOME Commander
+home page for more information:
+.br
+http://www.nongnu.org/gcmd/
+.SH AUTHOR
+.B GNOME Commander
+was originally developed by Marcus Bjurman.
+.br
+Piotr Eljasiak <epiotr@use.pl> is the current project manager.
+Magnus Stålnacke <jemamo@telia.com> maintains the
+.B GNOME Commander
+home page. Assaf Gordon <agordon88@gmail.com> added the internal viewer code
+and other features.
+.br
+Translations and other contributions by numerous people. See the
+.B
+AUTHORS
+file in the source tarball for the detailed list.
+
+The original manual page was written by Michael Vogt <mvo@debian.org>,
+for the Debian GNU/Linux system. Current manual page is maintained
+as the part of the
+.B
+GNOME Commander
+project.
