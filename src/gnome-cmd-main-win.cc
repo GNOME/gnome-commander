@@ -500,12 +500,11 @@ on_main_win_realize                    (GtkWidget       *widget,
     gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, LEFT), TRUE);
     gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, RIGHT), FALSE);
 /*
-    if (gnome_cmd_data_get_cmdline_visibility ()) {
+    if (gnome_cmd_data_get_cmdline_visibility ()) 
+    {
         gchar *dpath = gnome_cmd_file_get_path (
-                GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (
-                                    gnome_cmd_main_win_get_fs (mw, LEFT))));
-        gnome_cmd_cmdline_set_dir (
-            GNOME_CMD_CMDLINE (mw->priv->cmdline), dpath);
+                GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (mw, LEFT))));
+        gnome_cmd_cmdline_set_dir (GNOME_CMD_CMDLINE (mw->priv->cmdline), dpath);
         g_free (dpath);
     }
 */
@@ -534,12 +533,12 @@ on_right_fs_select                     (GtkCList *list,
                                         GdkEventButton *event,
                                         GnomeCmdMainWin *mw)
 {
-        mw->priv->current_fs = RIGHT;
+    mw->priv->current_fs = RIGHT;
 
-        gnome_cmd_file_selector_set_active (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT]), TRUE);
-        gnome_cmd_file_selector_set_active (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT]), FALSE);
+    gnome_cmd_file_selector_set_active (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT]), TRUE);
+    gnome_cmd_file_selector_set_active (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT]), FALSE);
 
-        return FALSE;
+    return FALSE;
 }
 
 
@@ -568,13 +567,15 @@ on_size_allocate                  (GtkWidget *widget,
                                    GtkAllocation *allocation,
                                    gpointer user_data)
 {
-    switch(gnome_cmd_data_get_main_win_state()) {
-    case GDK_WINDOW_STATE_ICONIFIED:
-    case GDK_WINDOW_STATE_MAXIMIZED:
-    case GDK_WINDOW_STATE_FULLSCREEN:
+    switch(gnome_cmd_data_get_main_win_state())
+    {
+        case GDK_WINDOW_STATE_FULLSCREEN:
+        case GDK_WINDOW_STATE_ICONIFIED:
+        case GDK_WINDOW_STATE_MAXIMIZED:
             break;
-    default:
-        gnome_cmd_data_set_main_win_size (allocation->width, allocation->height);
+
+        default:
+            gnome_cmd_data_set_main_win_size (allocation->width, allocation->height);
     }
 }
 
@@ -586,8 +587,10 @@ update_browse_buttons             (GnomeCmdMainWin *mw,
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (fs == gnome_cmd_main_win_get_active_fs (mw)) {
-        if (gnome_cmd_data_get_toolbar_visibility ()) {
+    if (fs == gnome_cmd_main_win_get_active_fs (mw)) 
+    {
+        if (gnome_cmd_data_get_toolbar_visibility ()) 
+        {
             gtk_widget_set_sensitive (mw->priv->tb_first_btn, gnome_cmd_file_selector_can_back (fs));
             gtk_widget_set_sensitive (mw->priv->tb_back_btn, gnome_cmd_file_selector_can_back (fs));
             gtk_widget_set_sensitive (mw->priv->tb_fwd_btn, gnome_cmd_file_selector_can_forward (fs));
@@ -603,33 +606,37 @@ static void
 update_drop_con_button            (GnomeCmdMainWin *mw,
                                    GnomeCmdFileSelector *fs)
 {
+    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+
     GtkWidget *btn;
     GnomeCmdPixmap *pm;
     GnomeCmdCon *con;
     static GtkWidget *prev_pixmap = NULL;
 
-    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
     con = gnome_cmd_file_selector_get_connection (fs);
+    if (!con)
+        return;
+
     if (!gnome_cmd_data_get_toolbar_visibility ()
         || (gnome_cmd_data_get_skip_mounting () && GNOME_CMD_IS_CON_DEVICE (con)))
         return;
 
     btn = mw->priv->tb_con_drop_btn;
-    if (!con)
-        return;
     g_return_if_fail (GTK_IS_BUTTON (btn));
 
-    if (prev_pixmap) {
+    if (prev_pixmap) 
+    {
         gtk_widget_destroy (prev_pixmap);
         prev_pixmap = NULL;
     }
 
-    if (gnome_cmd_con_is_closeable (con)) {
+    if (gnome_cmd_con_is_closeable (con)) 
+    {
         pm = gnome_cmd_con_get_close_pixmap (con);
     }
-    else {
+    else 
+    {
         gtk_widget_set_sensitive (btn, FALSE);
         return;
     }
@@ -716,8 +723,8 @@ on_window_state_event (GtkWidget *mw, GdkEventWindowState *event, gpointer user_
                 break;
 
         case GDK_WINDOW_STATE_ICONIFIED:
-                if (gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_MAXIMIZED ||  // prev state
-                    gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_FULLSCREEN)
+            if (gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_MAXIMIZED ||  // prev state
+                gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_FULLSCREEN)
                 break;  // not usable
 
         default:            // other are usable
@@ -738,7 +745,6 @@ on_window_state_event (GtkWidget *mw, GdkEventWindowState *event, gpointer user_
 static void
 destroy (GtkObject *object)
 {
-    GnomeCmdDir *dir;
     GnomeCmdCon *con_home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
 
     if (main_win && main_win->priv && main_win->priv->key_snooper_id)
@@ -747,7 +753,7 @@ destroy (GtkObject *object)
         main_win->priv->key_snooper_id = 0;
     }
 
-    dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, LEFT));
+    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, LEFT));
     if (con_home == gnome_cmd_dir_get_connection (dir))
         gnome_cmd_data_set_start_dir (LEFT, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
 

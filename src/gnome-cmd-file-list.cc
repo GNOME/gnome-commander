@@ -2315,16 +2315,12 @@ gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
 }
 
 
-gboolean
-gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl,
-                                GdkEventKey *event)
+gboolean gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *event)
 {
-    gint num_files;
-
     g_return_val_if_fail (event != NULL, FALSE);
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
 
-    num_files = get_num_files (fl);
+    gint num_files = get_num_files (fl);
 
     if (state_is_alt (event->state))
     {

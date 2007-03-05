@@ -1159,13 +1159,8 @@ on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileSelecto
 }
 
 
-/* This function should only be called for input made when the file-selector
- * was focused
- */
-static gboolean
-on_list_key_pressed                      (GtkCList *clist,
-                                          GdkEventKey *event,
-                                          GnomeCmdFileSelector *fs)
+// This function should only be called for input made when the file-selector was focused
+static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeCmdFileSelector *fs)
 {
     gboolean ret = FALSE;
 
