@@ -14,6 +14,7 @@ bin_PROGRAMS = gnome-commander gcmd-block
 
 gnome_commander_SOURCES = \
 	cap.cc cap.h \
+	dict.cc dict.h \
 	dirlist.h dirlist.cc \
 	filter.h filter.cc \
 	gnome-cmd-about-plugin.h gnome-cmd-about-plugin.cc \

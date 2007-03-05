@@ -1,3 +1,10 @@
+2007-03-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/Makefile.am:
+	* src/dict.cc:
+	* srcdict.h:
+	Generic dictionary class (std::string <-> typename T)
+
 2007-03-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-popmenu.cc:
