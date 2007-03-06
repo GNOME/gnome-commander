@@ -66,7 +66,7 @@ void gcmd_tags_libiptcdata_free_metadata(GnomeCmdFile *finfo)
 
 #ifdef HAVE_IPTC
     if (finfo->iptc.metadata)
-        iptc_data_unref(finfo->iptc.metadata);
+        iptc_data_unref((IptcData *) finfo->iptc.metadata);
 
     finfo->iptc.metadata = NULL;
 #endif
@@ -79,7 +79,7 @@ const gchar *gcmd_tags_libiptcdata_get_value(GnomeCmdFile *finfo, guint libclass
 #ifdef HAVE_IPTC
     gcmd_tags_libiptcdata_load_metadata(finfo);
 
-    IptcDataSet *ds = iptc_data_get_dataset(finfo->iptc.metadata,libclass,libtag);
+    IptcDataSet *ds = iptc_data_get_dataset((IptcData *) finfo->iptc.metadata, (IptcRecord) libclass, (IptcTag) libtag);
 
     char *dest = int_buff;
     guint avail_dest = sizeof(int_buff);
@@ -89,7 +89,7 @@ const gchar *gcmd_tags_libiptcdata_get_value(GnomeCmdFile *finfo, guint libclass
     if (!ds)
         return NULL;
 
-    for (ds = iptc_data_get_dataset(finfo->iptc.metadata, libclass, libtag); ds; ds = iptc_data_get_next_dataset (finfo->iptc.metadata, ds, libclass, libtag))
+    for (ds = iptc_data_get_dataset((IptcData *) finfo->iptc.metadata, (IptcRecord) libclass, (IptcTag) libtag); ds; ds = iptc_data_get_next_dataset ((IptcData *) finfo->iptc.metadata, ds, (IptcRecord) libclass, (IptcTag) libtag))
     {
         if (avail_dest<sizeof(int_buff) && avail_dest>2)
         {
@@ -129,7 +129,7 @@ const gchar *gcmd_tags_libiptcdata_get_value_by_name(GnomeCmdFile *finfo, const 
     if (iptc_tag_find_by_name ("Keywords", &record, &tag) < 0)
         return NULL;
 
-    ds = iptc_data_get_dataset(finfo->iptc.metadata,record,tag);
+    ds = iptc_data_get_dataset((IptcData *) finfo->iptc.metadata,record,tag);
 
     return ds ? iptc_dataset_get_as_str(ds,int_buff,sizeof(int_buff)) : NULL;
 #else
