@@ -45,45 +45,27 @@
 <!-- An address can be added to the publisher information.  If a role is
      not specified, the publisher/author is the same for all versions of the
      document.  -->
-    <publisher>
-      <publishername>&publisher;</publishername>
-    </publisher>
+      <publisher role="maintainer">
+        <publishername>GNOME Documentation Project</publishername>
+      </publisher>
 
    &legal;
+
    <!-- This file  contains link to license for the documentation (GNU FDL), and
         other legal stuff such as "NO WARRANTY" statement. Please do not change
     any of this. -->
 
-<!--
-    <authorgroup>
-      <author>
-        <firstname>Documentation</firstname>
-        <surname>Writer 2</surname>
+    <author>
+        <firstname>GNOME Documentation Project</firstname>
+        <surname></surname>
         <affiliation>
-            <orgname>GNOME Documentation Project</orgname>
-            <address> <email>doc-writer2@gnome.org</email> </address>
+            <orgname>GNOME</orgname>
         </affiliation>
-      </author>
-      <author>
-        <firstname>Documentation</firstname>
-        <surname>Writer 1</surname>
-        <affiliation>
-            <orgname>GNOME Documentation Project</orgname>
-            <address> <email>doc-writer1@gnome.org</email> </address>
-        </affiliation>
-      </author>
-
-      <othercredit role="translator">
-        <firstname>Latin</firstname>
-        <surname>Translator 1</surname>
-        <affiliation>
-            <orgname>Latin Translation Team</orgname>
-            <address> <email>translator@gnome.org</email> </address>
-        </affiliation>
-        <contrib>Latin translation</contrib>
-      </othercredit>
-
-    </authorgroup> -->
+    </author>
+    <author>
+        <firstname>Piotr</firstname>
+        <surname>Eljasiak</surname>
+    </author>
 
 
 <!-- According to GNU FDL, revision history is mandatory if you are -->
@@ -2715,10 +2697,10 @@
                     <para><guilabel>(start_index:end_index)</guilabel></para>
                 </listitem>
                 <listitem>
-                    <para><guilabel>(start_index)</guilabel> &equiv; (start_index:)</para>
+                    <para><guilabel>(start_index)</guilabel> &#x2261; (start_index:)</para>
                 </listitem>
                 <listitem>
-                    <para><guilabel>(start_index,length)</guilabel> &equiv; (start_index:start_index+length)</para>
+                    <para><guilabel>(start_index,length)</guilabel> &#x2261; (start_index:start_index+length)</para>
                 </listitem>
             </itemizedlist>
         </term>
@@ -3167,11 +3149,11 @@
         </row>
         <row valign="top">
         <entry><para>CTRL+R</para></entry>
-        <entry><para>Rotates the image 90&deg; (applicable only in IMAGE display mode)</para></entry>
+        <entry><para>Rotates the image 90&#x00b0; (applicable only in IMAGE display mode)</para></entry>
         </row>
         <row valign="top">
         <entry><para>CTRL+SHIFT+R</para></entry>
-        <entry><para>Rotates the image 270&deg; (applicable only in IMAGE display mode)</para></entry>
+        <entry><para>Rotates the image 270&#x00b0; (applicable only in IMAGE display mode)</para></entry>
         </row>
         <row valign="top">
         <entry><para>Image manipulation:</para></entry>
@@ -3565,6 +3547,7 @@
         <row valign="top">
             <entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
             <entry colname="col2" valign="top"><para>Mapping</para></entry>
+            <entry colname="col3" valign="top"><para>User definable</para></entry>
         </row>
         </thead>
         <tbody>
@@ -3627,6 +3610,7 @@
         <row valign="top">
             <entry><para>ALT+F3</para></entry>
             <entry><para>View with external viewer</para></entry>
+            <entry><para>+</para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+F7</para></entry>
@@ -3647,6 +3631,7 @@
         <row valign="top">
             <entry><para>SHIFT+F3</para></entry>
             <entry><para>View with internal viewer</para></entry>
+            <entry><para>+</para></entry>
         </row>
         <row valign="top">
             <entry><para>SHIFT+F4</para></entry>
@@ -3695,6 +3680,7 @@
         <row valign="top">
             <entry><para>CTRL+SHIFT+F5</para></entry>
             <entry><para>Create symbolic link</para></entry>
+            <entry><para>+</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -3857,10 +3843,12 @@
         <row valign="top">
             <entry><para>CTRL+D</para></entry>
             <entry><para>Open favorite directories (bookmarks)</para></entry>
+            <entry><para>+</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+M</para></entry>
             <entry><para>Multi-Rename-Tool</para></entry>
+            <entry><para>+</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+T</para></entry>
@@ -3897,6 +3885,7 @@
         <row valign="top">
             <entry><para>CTRL+O</para></entry>
             <entry><para>Options dialog</para></entry>
+            <entry><para>+</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+H</para></entry>
@@ -3913,14 +3902,17 @@
         <row valign="top">
             <entry><para>CTRL+G</para></entry>
             <entry><para>FTP Quick Connect</para></entry>
+            <entry><para>+</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+F</para></entry>
             <entry><para>Connect to FTP server</para></entry>
+            <entry><para>+</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+F</para></entry>
             <entry><para>Connect from FTP server</para></entry>
+            <entry><para>+</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -3984,6 +3976,40 @@
         </informaltable>
   </sect1>
 
+<!-- ============= Plugins ================================ -->
+<!-- This section contains info about the python plugins.-->
+  <sect1 id="gnome-commander-python-plugins">
+  <title>Python plugins</title>
+  <para>
+  Working with Plugins
+
+You can add extra features to &app; by enabling plugins. A plugin is a supplementary program that enhances the functionality of an application. 
+Plugins add new items to the &app; menus for the new features they provide.
+
+Several plugins come built-in with &app;, and you can install more. The &app; website lists third-party plugins.
+
+To enable and disable plugins, or see which plugins are currently enabled, use the Plugins Preferences.
+
+The following plugins come built-in with &app;:
+
+Change Case allows you to change the case of the selected text.
+Document Statistics shows the number of lines, words, and characters in the document. 
+External Tools allows you to execute external commands from gedit.
+File Browser allows you to browse your files and folders in the side pane.
+
+Plugin API
+
+Sample plugin
+
+Python resources
+* Pygtk
+* GnomeVFS
+* Code snippets
+
+md5sum
+
+</para>
+  </sect1>
 <!-- ============= Tips and tricks ======================== -->
 <!-- This section contains info some very simple tips and tricks.-->
   <sect1 id="gnome-commander-tips-and-tricks">
@@ -4084,7 +4110,7 @@
     </varlistentry>
 
   </variablelist>
- </sect1>
+  </sect1>
 
 <!-- ============= Installation =========================== -->
 <!-- This section contains info about the program installation.-->
@@ -5114,7 +5140,7 @@
                             <para>Updated help docs</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: bg cs dz en_GB pl sl sv</para>
+                            <para>New or updated translations: bg, cs, dz, en_GB, pl, sl, sv</para>
                         </listitem>
                         <listitem>
                             <para>New key bindings:</para>
