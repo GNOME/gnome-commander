@@ -1268,23 +1268,23 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
 
     static GnomeUIInfo toolbar_uiinfo[] =
     {
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Refresh"), view_refresh, GTK_STOCK_REFRESH),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Up one directory"), view_up, GTK_STOCK_GO_UP),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Goto the oldest"), view_first, GTK_STOCK_GOTO_FIRST),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Go back"), view_back, GTK_STOCK_GO_BACK),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Go forward"), view_forward, GTK_STOCK_GO_FORWARD),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Goto the latest"), view_last, GTK_STOCK_GOTO_LAST),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Refresh"), view_refresh, GTK_STOCK_REFRESH),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Up one directory"), view_up, GTK_STOCK_GO_UP),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Goto the oldest"), view_first, GTK_STOCK_GOTO_FIRST),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Go back"), view_back, GTK_STOCK_GO_BACK),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Go forward"), view_forward, GTK_STOCK_GO_FORWARD),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Goto the latest"), view_last, GTK_STOCK_GOTO_LAST),
         GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM(NULL, N_("Copy file names (SHIFT for full paths)"), edit_copy_fnames, copy_file_names_xpm),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Cut"), edit_cap_cut, GTK_STOCK_CUT),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Copy"), edit_cap_copy, GTK_STOCK_COPY),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Paste"), edit_cap_paste, GTK_STOCK_PASTE),
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Delete"), file_delete, GTK_STOCK_DELETE),
+        GNOMEUIINFO_ITEM(NULL, _("Copy file names (SHIFT for full paths)"), edit_copy_fnames, copy_file_names_xpm),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Cut"), edit_cap_cut, GTK_STOCK_CUT),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Copy"), edit_cap_copy, GTK_STOCK_COPY),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Paste"), edit_cap_paste, GTK_STOCK_PASTE),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Delete"), file_delete, GTK_STOCK_DELETE),
         GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("Edit (SHIFT for new document)"), file_edit, GTK_STOCK_EDIT),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Edit (SHIFT for new document)"), file_edit, GTK_STOCK_EDIT),
         GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(NULL, N_("FTP Connect"), connections_ftp_connect, GTK_STOCK_CONNECT),
-        GNOMEUIINFO_ITEM_NONE(NULL, N_("Drop connection"), connections_close_current),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("FTP Connect"), connections_ftp_connect, GTK_STOCK_CONNECT),
+        GNOMEUIINFO_ITEM_NONE(NULL, _("Drop connection"), connections_close_current),
         GNOMEUIINFO_END
     };
 
