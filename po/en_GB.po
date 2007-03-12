@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-11 23:24+0000\n"
-"PO-Revision-Date: 2007-03-11 23:24-0000\n"
+"POT-Creation-Date: 2007-03-12 07:10+0000\n"
+"PO-Revision-Date: 2007-03-12 07:10-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -710,13 +710,13 @@ msgid "Abort"
 msgstr "Abort"
 
 #: ../src/gnome-cmd-delete-dialog.cc:233
-#: ../src/gnome-cmd-file-selector.cc:2208
+#: ../src/gnome-cmd-file-selector.cc:2240
 #: ../src/gnome-cmd-xfer.cc:193
 msgid "Retry"
 msgstr "Retry"
 
 #: ../src/gnome-cmd-delete-dialog.cc:233
-#: ../src/gnome-cmd-file-selector.cc:2208
+#: ../src/gnome-cmd-file-selector.cc:2240
 #: ../src/gnome-cmd-xfer.cc:174
 #: ../src/gnome-cmd-xfer.cc:193
 msgid "Skip"
@@ -741,7 +741,7 @@ msgid "Delete"
 msgstr "Delete"
 
 #: ../src/gnome-cmd-delete-dialog.cc:323
-#: ../src/gnome-cmd-file-selector.cc:2208
+#: ../src/gnome-cmd-file-selector.cc:2240
 #: ../src/gnome-cmd-user-actions.cc:339
 #: ../src/utils.cc:524
 #: ../src/utils.cc:553
@@ -793,8 +793,8 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:2260
-#: ../src/gnome-cmd-file-list.cc:2277
+#: ../src/gnome-cmd-file-list.cc:2258
+#: ../src/gnome-cmd-file-list.cc:2275
 #, c-format
 msgid "Not an ordinary file: %s"
 msgstr "Not an ordinary file: %s"
@@ -816,48 +816,49 @@ msgid "Needs terminal"
 msgstr "Needs terminal"
 
 #: ../src/gnome-cmd-file-popmenu.cc:418
-#: ../src/gnome-cmd-file-popmenu.cc:449
+#: ../src/gnome-cmd-file-popmenu.cc:427
+#: ../src/gnome-cmd-file-popmenu.cc:453
 msgid "_Open"
 msgstr "_Open"
 
-#: ../src/gnome-cmd-file-popmenu.cc:427
+#: ../src/gnome-cmd-file-popmenu.cc:431
 #, c-format
 msgid "_Open with \"%s\""
 msgstr "_Open with \"%s\""
 
-#: ../src/gnome-cmd-file-popmenu.cc:450
+#: ../src/gnome-cmd-file-popmenu.cc:454
 msgid "Open With..."
 msgstr "Open With..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:456
+#: ../src/gnome-cmd-file-popmenu.cc:460
 msgid "E_xecute"
 msgstr "E_xecute"
 
-#: ../src/gnome-cmd-file-popmenu.cc:468
+#: ../src/gnome-cmd-file-popmenu.cc:472
 #: ../src/gnome-cmd-main-menu.cc:551
 msgid "Cu_t"
 msgstr "Cu_t"
 
-#: ../src/gnome-cmd-file-popmenu.cc:469
+#: ../src/gnome-cmd-file-popmenu.cc:473
 #: ../src/gnome-cmd-main-menu.cc:557
 msgid "_Copy"
 msgstr "_Copy"
 
-#: ../src/gnome-cmd-file-popmenu.cc:470
+#: ../src/gnome-cmd-file-popmenu.cc:474
 #: ../src/gnome-cmd-main-menu.cc:569
 msgid "_Delete"
 msgstr "_Delete"
 
-#: ../src/gnome-cmd-file-popmenu.cc:471
+#: ../src/gnome-cmd-file-popmenu.cc:475
 msgid "Rename"
 msgstr "Rename"
 
-#: ../src/gnome-cmd-file-popmenu.cc:473
+#: ../src/gnome-cmd-file-popmenu.cc:477
 #: ../src/gnome-cmd-main-menu.cc:478
 msgid "_Properties..."
 msgstr "_Properties..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:516
+#: ../src/gnome-cmd-file-popmenu.cc:520
 msgid "Other..."
 msgstr "Other..."
 
@@ -875,7 +876,7 @@ msgid "No default application registered"
 msgstr "No default application registered"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:293
-#: ../src/gnome-cmd-file-selector.cc:1978
+#: ../src/gnome-cmd-file-selector.cc:2010
 msgid "Filename:"
 msgstr "Filename:"
 
@@ -932,94 +933,101 @@ msgstr "Properties"
 msgid "Permissions"
 msgstr "Permissions"
 
-#: ../src/gnome-cmd-file-selector.cc:179
+#: ../src/gnome-cmd-file-selector.cc:192
 #, c-format
-msgid "%s of %s kB in %d of %d file selected"
-msgid_plural "%s of %s kB in %d of %d files selected"
-msgstr[0] "%s of %s kB in %d of %d file selected"
-msgstr[1] "%s of %s kB in %d of %d files selected"
+msgid "%s of %s kB in %d of %d file"
+msgid_plural "%s of %s kB in %d of %d files"
+msgstr[0] "%s of %s kB in %d of %d file"
+msgstr[1] "%s of %s kB in %d of %d files"
 
-#: ../src/gnome-cmd-file-selector.cc:696
+#: ../src/gnome-cmd-file-selector.cc:196
+#, c-format
+msgid "%s, %d of %d dir selected"
+msgid_plural "%s, %d of %d dirs selected"
+msgstr[0] "%s, %d of %d dir selected"
+msgstr[1] "%s, %d of %d dirs selected"
+
+#: ../src/gnome-cmd-file-selector.cc:726
 #, c-format
 msgid "%s free"
 msgstr "%s free"
 
-#: ../src/gnome-cmd-file-selector.cc:700
+#: ../src/gnome-cmd-file-selector.cc:730
 msgid "Unknown disk usage"
 msgstr "Unknown disk usage"
 
-#: ../src/gnome-cmd-file-selector.cc:1136
+#: ../src/gnome-cmd-file-selector.cc:1168
 #, c-format
 msgid "List failed: %s\n"
 msgstr "List failed: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1725
+#: ../src/gnome-cmd-file-selector.cc:1757
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Failed to open connection: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1912
+#: ../src/gnome-cmd-file-selector.cc:1944
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
 msgstr "No filename entered"
 
-#: ../src/gnome-cmd-file-selector.cc:1949
+#: ../src/gnome-cmd-file-selector.cc:1981
 msgid "No filename given"
 msgstr "No filename given"
 
-#: ../src/gnome-cmd-file-selector.cc:1981
+#: ../src/gnome-cmd-file-selector.cc:2013
 msgid "New Text File"
 msgstr "New Text File"
 
-#: ../src/gnome-cmd-file-selector.cc:2155
+#: ../src/gnome-cmd-file-selector.cc:2187
 msgid "Symlink name:"
 msgstr "Symlink name:"
 
-#: ../src/gnome-cmd-file-selector.cc:2161
-#: ../src/gnome-cmd-file-selector.cc:2208
+#: ../src/gnome-cmd-file-selector.cc:2193
+#: ../src/gnome-cmd-file-selector.cc:2240
 #: ../src/gnome-cmd-user-actions.cc:339
 msgid "Create Symbolic Link"
 msgstr "Create Symbolic Link"
 
-#: ../src/gnome-cmd-file-selector.cc:2208
+#: ../src/gnome-cmd-file-selector.cc:2240
 #: ../src/gnome-cmd-options-dialog.cc:678
 #: ../src/gnome-cmd-options-dialog.cc:698
 msgid "Skip all"
 msgstr "Skip all"
 
-#: ../src/gnome-cmd-file-selector.cc:2284
+#: ../src/gnome-cmd-file-selector.cc:2316
 msgid "Filter:"
 msgstr "Filter:"
 
-#: ../src/gnome-cmd-file.cc:608
+#: ../src/gnome-cmd-file.cc:628
 msgid "Unknown file type"
 msgstr "Unknown file type"
 
-#: ../src/gnome-cmd-file.cc:609
+#: ../src/gnome-cmd-file.cc:629
 msgid "Regular file"
 msgstr "Regular file"
 
-#: ../src/gnome-cmd-file.cc:610
+#: ../src/gnome-cmd-file.cc:630
 msgid "Directory"
 msgstr "Directory"
 
-#: ../src/gnome-cmd-file.cc:611
+#: ../src/gnome-cmd-file.cc:631
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:612
+#: ../src/gnome-cmd-file.cc:632
 msgid "UNIX Socket"
 msgstr "UNIX Socket"
 
-#: ../src/gnome-cmd-file.cc:613
+#: ../src/gnome-cmd-file.cc:633
 msgid "Character device"
 msgstr "Character device"
 
-#: ../src/gnome-cmd-file.cc:614
+#: ../src/gnome-cmd-file.cc:634
 msgid "Block device"
 msgstr "Block device"
 
-#: ../src/gnome-cmd-file.cc:615
+#: ../src/gnome-cmd-file.cc:635
 msgid "Symbolic link"
 msgstr "Symbolic link"
 
