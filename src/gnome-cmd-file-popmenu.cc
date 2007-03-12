@@ -422,6 +422,10 @@ inline gchar *get_default_application_action_name(GList *files)
     GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, finfo->info->mime_type);
 
     g_free (uri_str);
+
+    if (!app)
+        return g_strdup(_("_Open"));
+
     gchar *escaped_app_name = string_double_underscores (app->name);
     gnome_vfs_mime_application_free (app);
     gchar *retval = g_strdup_printf (_("_Open with \"%s\""), escaped_app_name);
