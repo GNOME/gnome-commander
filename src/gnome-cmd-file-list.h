@@ -264,6 +264,9 @@ gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
 gboolean
 gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *event);
 
+void
+gnome_cmd_file_list_invalidate_tree_size (GnomeCmdFileList *fl);
+
 G_END_DECLS
 
 #endif // __GNOME_CMD_FILE_LIST_H__

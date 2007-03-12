@@ -14,6 +14,7 @@ New features:
  * Support for OLE and ODF metags in advanced file rename templates
  * Support for user defined shortcuts (via configuration file)
  * Support for SMB authentication
+ * Added displaying total size of files in selected subirs
  * Updated help docs
  * New or updated translations: bg cs dz en_GB pl sl sv
  * New key bindings:

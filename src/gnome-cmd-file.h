@@ -109,7 +109,8 @@ const gchar *gnome_cmd_file_get_adate (GnomeCmdFile *finfo, gboolean overide_dis
 const gchar *gnome_cmd_file_get_mdate (GnomeCmdFile *finfo, gboolean overide_disp_setting);
 const gchar *gnome_cmd_file_get_cdate (GnomeCmdFile *finfo, gboolean overide_disp_setting);
 const gchar *gnome_cmd_file_get_size (GnomeCmdFile *finfo);
-const gchar *gnome_cmd_file_get_tree_size (GnomeCmdFile *finfo);
+GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *finfo);
+const gchar *gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_perm (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_mime_type_desc (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_mime_type (GnomeCmdFile *finfo);
@@ -143,6 +144,10 @@ void gnome_cmd_file_is_deleted (GnomeCmdFile *finfo);
 void gnome_cmd_file_execute (GnomeCmdFile *finfo);
 
 gboolean gnome_cmd_file_needs_update (GnomeCmdFile *finfo);
+
+//misc tree size functions
+void gnome_cmd_file_invalidate_tree_size (GnomeCmdFile *finfo);
+gboolean gnome_cmd_file_has_tree_size (GnomeCmdFile *finfo);
 
 G_END_DECLS
 

@@ -1427,7 +1427,7 @@ format_file_for_display (GnomeCmdFile *finfo, FileFormatData *data, gboolean tre
     data->text[FILE_LIST_COLUMN_NAME]  = data->fname;
     data->text[FILE_LIST_COLUMN_EXT]   = data->fext;
     data->text[FILE_LIST_COLUMN_DIR]   = data->dpath;
-    data->text[FILE_LIST_COLUMN_SIZE]  = tree_size ? (gchar *) gnome_cmd_file_get_tree_size (finfo) :
+    data->text[FILE_LIST_COLUMN_SIZE]  = tree_size ? (gchar *) gnome_cmd_file_get_tree_size_as_str (finfo) :
                                                      (gchar *) gnome_cmd_file_get_size (finfo);
     data->text[FILE_LIST_COLUMN_DATE]  = (gchar *) gnome_cmd_file_get_mdate (finfo, FALSE);
     data->text[FILE_LIST_COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (finfo);
@@ -1544,13 +1544,13 @@ gnome_cmd_file_list_add_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint ro
 void
 gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sort)
 {
-    GList *list, *tmp;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     gnome_cmd_file_list_remove_all_files (fl);
 
     if (!files) return;
+
+    GList *list, *tmp;
 
     list = g_list_copy (files);
 
@@ -1861,14 +1861,12 @@ gnome_cmd_file_list_unselect_all (GnomeCmdFileList *fl)
 }
 
 
-void
-gnome_cmd_file_list_toggle (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_toggle (GnomeCmdFileList *fl)
 {
-    GnomeCmdFile *finfo;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    finfo = get_file_at_row (fl, fl->priv->cur_file);
+    GnomeCmdFile *finfo = get_file_at_row (fl, fl->priv->cur_file);
+
     if (finfo)
         toggle_file (fl, finfo);
 }
@@ -2611,4 +2609,21 @@ GList *
 gnome_cmd_file_list_sort_selection (GList *list, GnomeCmdFileList *fl)
 {
     return gnome_vfs_list_sort(list, (GnomeVFSListCompareFunc)fl->priv->sort_func, fl);
+}
+
+
+void
+gnome_cmd_file_list_invalidate_tree_size (GnomeCmdFileList *fl)
+{
+
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    GList *all_files = gnome_cmd_file_list_get_all_files (fl);
+
+    for (GList *tmp = all_files; tmp; tmp = tmp->next)
+    {
+        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+            gnome_cmd_file_invalidate_tree_size (finfo);
+    }
 }

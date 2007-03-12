@@ -118,78 +118,108 @@ inline void show_selected_dir_tree_size (GnomeCmdFileSelector *fs)
 }
 
 
-inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    for (GList *files = gnome_cmd_file_list_get_all_files (fs->list); files; files = files->next)
-        gnome_cmd_file_list_show_dir_size (fs->list, (GnomeCmdFile *) files->data);
-}
-
-
-static void
-update_selected_files_label (GnomeCmdFileSelector *fs)
+inline void update_selected_files_label (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     GList *all_files = gnome_cmd_file_list_get_all_files (fs->list);
+
     if (!all_files)
         return;
 
-    GnomeCmdSizeDispMode size_mode = gnome_cmd_data_get_size_disp_mode();
+    GnomeVFSFileSize sel_bytes = 0;
+    GnomeVFSFileSize total_bytes = 0;
+    gint num_files = 0;
+    gint num_dirs = 0;
+    gint num_sel_files = 0;
+    gint num_sel_dirs = 0;
+
+    GnomeCmdSizeDispMode size_mode = gnome_cmd_data_get_size_disp_mode ();
     if (size_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED)
         size_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
 
-    if (g_list_length (all_files) >= 0)
+    for (GList *tmp = all_files; tmp; tmp = tmp->next)
     {
-        GList *sel_files, *tmp;
-        gchar *info_str, *sel_str, *total_str;
-        GnomeVFSFileSize sel_kb, sel_bytes = 0;
-        GnomeVFSFileSize total_kb, total_bytes = 0;
-        gint num_files = 0;
-        gint num_sel_files = 0;
+        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
-        for (tmp = all_files; tmp; tmp = tmp->next)
+        switch (finfo->info->type)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
-            if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
-            {
-                total_bytes += finfo->info->size;
+            case GNOME_VFS_FILE_TYPE_DIRECTORY:
+                if (strcmp(finfo->info->name, "..") != 0)
+                {
+                    num_dirs++;
+                    if (gnome_cmd_file_has_tree_size (finfo))
+                        total_bytes += gnome_cmd_file_get_tree_size (finfo);
+                }
+                break;
+
+            case GNOME_VFS_FILE_TYPE_REGULAR:
                 num_files++;
-            }
+                total_bytes += finfo->info->size;
+                break;
+
+            default:
+                break;
         }
-
-        sel_files = gnome_cmd_file_list_get_marked_files (fs->list);
-        for (tmp = sel_files; tmp; tmp = tmp->next)
-        {
-            GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
-            if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
-            {
-                sel_bytes += finfo->info->size;
-                num_sel_files++;
-            }
-        }
-
-        sel_kb = sel_bytes / 1024;
-        total_kb = total_bytes / 1024;
-
-        sel_str = g_strdup (size2string (sel_kb, size_mode));
-        total_str = g_strdup (size2string (total_kb, size_mode));
-
-        info_str = g_strdup_printf (ngettext("%s of %s kB in %d of %d file selected",
-                                             "%s of %s kB in %d of %d files selected",
-                                             num_files),
-                                    sel_str, total_str, num_sel_files, num_files);
-
-        gtk_label_set_text (GTK_LABEL (fs->info_label), info_str);
-
-        if (sel_files)
-            g_list_free (sel_files);
-
-        g_free (sel_str);
-        g_free (total_str);
-        g_free (info_str);
     }
+
+    GList *sel_files = gnome_cmd_file_list_get_marked_files (fs->list);
+    for (GList *tmp = sel_files; tmp; tmp = tmp->next)
+    {
+        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+
+        switch (finfo->info->type)
+        {
+            case GNOME_VFS_FILE_TYPE_DIRECTORY:
+                num_sel_dirs++;
+                if (gnome_cmd_file_has_tree_size (finfo))
+                    sel_bytes += gnome_cmd_file_get_tree_size (finfo);
+                break;
+
+            case GNOME_VFS_FILE_TYPE_REGULAR:
+                num_sel_files++;
+                sel_bytes += finfo->info->size;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    gchar *sel_str = g_strdup (size2string (sel_bytes/1024, size_mode));
+    gchar *total_str = g_strdup (size2string (total_bytes/1024, size_mode));
+
+    gchar *file_str = g_strdup_printf (ngettext("%s of %s kB in %d of %d file",
+                                                "%s of %s kB in %d of %d files",
+                                                num_files),
+                                       sel_str, total_str, num_sel_files, num_files);
+    gchar *info_str = g_strdup_printf (ngettext("%s, %d of %d dir selected",
+                                                "%s, %d of %d dirs selected",
+                                                num_dirs),
+                                       file_str, num_sel_dirs, num_dirs);
+
+    gtk_label_set_text (GTK_LABEL (fs->info_label), info_str);
+
+    if (sel_files)
+        g_list_free (sel_files);
+
+    g_free (sel_str);
+    g_free (total_str);
+    g_free (file_str);
+    g_free (info_str);
+}
+
+
+inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+
+    gnome_cmd_file_list_invalidate_tree_size (fs->list);    // ???
+
+    for (GList *files = gnome_cmd_file_list_get_all_files (fs->list); files; files = files->next)
+        gnome_cmd_file_list_show_dir_size (fs->list, (GnomeCmdFile *) files->data);
+
+    update_selected_files_label (fs);
 }
 
 
@@ -775,6 +805,8 @@ do_file_specific_action                  (GnomeCmdFileSelector *fs,
 
     if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
+        gnome_cmd_file_list_invalidate_tree_size (fs->list);
+
         if (strcmp (finfo->info->name, "..") == 0)
             goto_directory (fs, "..");
         else

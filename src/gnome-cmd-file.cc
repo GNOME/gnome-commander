@@ -54,6 +54,7 @@ struct _GnomeCmdFilePrivate
     Handle *dir_handle;
     GTimeVal last_update;
     gint ref_cnt;
+    GnomeVFSFileSize tree_size;
 };
 
 
@@ -137,6 +138,8 @@ init (GnomeCmdFile *file)
 
     file->priv = g_new0 (GnomeCmdFilePrivate, 1);
     file->priv->dir_handle = NULL;
+
+    file->priv->tree_size = -1;
 
     if (DEBUG_ENABLED ('c'))
     {
@@ -555,8 +558,29 @@ gnome_cmd_file_get_size (GnomeCmdFile *file)
 }
 
 
+GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *file)
+{
+    g_return_val_if_fail (file != NULL, 0);
+
+    if (file->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+        return file->info->size;
+
+    if (strcmp (file->info->name, "..") == 0)
+        return 0;
+
+    if (file->priv->tree_size != -1)
+        return file->priv->tree_size;
+
+    GnomeVFSURI *uri = gnome_cmd_file_get_uri (file);
+    file->priv->tree_size = calc_tree_size (uri);
+    gnome_vfs_uri_unref (uri);
+
+    return file->priv->tree_size;
+}
+
+
 const gchar *
-gnome_cmd_file_get_tree_size (GnomeCmdFile *file)
+gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *file)
 {
     g_return_val_if_fail (file != NULL, NULL);
     g_return_val_if_fail (file->info != NULL, NULL);
@@ -567,11 +591,7 @@ gnome_cmd_file_get_tree_size (GnomeCmdFile *file)
     if (strcmp (file->info->name, "..") == 0)
         return gnome_cmd_file_get_size (file);
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (file);
-    const gchar *size = size2string (calc_tree_size (uri), gnome_cmd_data_get_size_disp_mode ());
-    gnome_vfs_uri_unref (uri);
-
-    return size;
+    return size2string (gnome_cmd_file_get_tree_size (file), gnome_cmd_data_get_size_disp_mode());
 }
 
 
@@ -1021,4 +1041,20 @@ gboolean gnome_cmd_file_needs_update (GnomeCmdFile *file)
     }
 
     return FALSE;
+}
+
+
+void gnome_cmd_file_invalidate_tree_size (GnomeCmdFile *finfo)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+
+    finfo->priv->tree_size = -1;
+}
+
+
+gboolean gnome_cmd_file_has_tree_size (GnomeCmdFile *finfo)
+{
+    g_return_val_if_fail (finfo != NULL, FALSE);
+
+    return finfo->priv->tree_size != -1;
 }
