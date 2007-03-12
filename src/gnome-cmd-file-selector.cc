@@ -148,8 +148,7 @@ inline void update_selected_files_label (GnomeCmdFileSelector *fs)
                 if (strcmp(finfo->info->name, "..") != 0)
                 {
                     num_dirs++;
-                    if (gnome_cmd_file_has_tree_size (finfo))
-                        total_bytes += gnome_cmd_file_get_tree_size (finfo);
+                    total_bytes += gnome_cmd_file_get_tree_size (finfo);
                 }
                 break;
 
@@ -172,8 +171,7 @@ inline void update_selected_files_label (GnomeCmdFileSelector *fs)
         {
             case GNOME_VFS_FILE_TYPE_DIRECTORY:
                 num_sel_dirs++;
-                if (gnome_cmd_file_has_tree_size (finfo))
-                    sel_bytes += gnome_cmd_file_get_tree_size (finfo);
+                sel_bytes += gnome_cmd_file_get_tree_size (finfo);
                 break;
 
             case GNOME_VFS_FILE_TYPE_REGULAR:
@@ -214,7 +212,7 @@ inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    gnome_cmd_file_list_invalidate_tree_size (fs->list);    // ???
+    gnome_cmd_file_list_invalidate_tree_size (fs->list);
 
     for (GList *files = gnome_cmd_file_list_get_all_files (fs->list); files; files = files->next)
         gnome_cmd_file_list_show_dir_size (fs->list, (GnomeCmdFile *) files->data);
