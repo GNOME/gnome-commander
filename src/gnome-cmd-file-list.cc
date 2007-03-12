@@ -1392,19 +1392,18 @@ strip_extension (const gchar *fname)
 }
 
 
-static void
-format_file_for_display (GnomeCmdFile *finfo, FileFormatData *data, gboolean tree_size)
+inline void format_file_for_display (GnomeCmdFile *finfo, FileFormatData &data, gboolean tree_size)
 {
     // If the user wants a character insted of icon for filetype set it now
     if (gnome_cmd_data_get_layout () == GNOME_CMD_LAYOUT_TEXT)
-        data->text[FILE_LIST_COLUMN_ICON] = (gchar *) gnome_cmd_file_get_type_string (finfo);
+        data.text[FILE_LIST_COLUMN_ICON] = (gchar *) gnome_cmd_file_get_type_string (finfo);
     else
-        data->text[FILE_LIST_COLUMN_ICON] = NULL;
+        data.text[FILE_LIST_COLUMN_ICON] = NULL;
 
     // Prepare the strings to show
     gchar *t1 = gnome_cmd_file_get_path (finfo);
     gchar *t2 = g_path_get_dirname (t1);
-    data->dpath = get_utf8 (t2);
+    data.dpath = get_utf8 (t2);
     g_free (t1);
     g_free (t2);
 
@@ -1412,60 +1411,51 @@ format_file_for_display (GnomeCmdFile *finfo, FileFormatData *data, gboolean tre
         && finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
         gchar *t = strip_extension (gnome_cmd_file_get_name (finfo));
-        data->fname = get_utf8 (t);
+        data.fname = get_utf8 (t);
         g_free (t);
     }
     else
-        data->fname = get_utf8 (gnome_cmd_file_get_name (finfo));
+        data.fname = get_utf8 (gnome_cmd_file_get_name (finfo));
 
     if (gnome_cmd_data_get_ext_disp_mode() != GNOME_CMD_EXT_DISP_WITH_FNAME)
-        data->fext = get_utf8 (gnome_cmd_file_get_extension (finfo));
+        data.fext = get_utf8 (gnome_cmd_file_get_extension (finfo));
     else
-        data->fext = NULL;
+        data.fext = NULL;
 
     //Set other file information
-    data->text[FILE_LIST_COLUMN_NAME]  = data->fname;
-    data->text[FILE_LIST_COLUMN_EXT]   = data->fext;
-    data->text[FILE_LIST_COLUMN_DIR]   = data->dpath;
-    data->text[FILE_LIST_COLUMN_SIZE]  = tree_size ? (gchar *) gnome_cmd_file_get_tree_size_as_str (finfo) :
-                                                     (gchar *) gnome_cmd_file_get_size (finfo);
-    data->text[FILE_LIST_COLUMN_DATE]  = (gchar *) gnome_cmd_file_get_mdate (finfo, FALSE);
-    data->text[FILE_LIST_COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (finfo);
-    data->text[FILE_LIST_COLUMN_OWNER] = (gchar *) gnome_cmd_file_get_owner (finfo);
-    data->text[FILE_LIST_COLUMN_GROUP] = (gchar *) gnome_cmd_file_get_group (finfo);
-    data->text[FILE_LIST_NUM_COLUMNS]  = NULL;
+    data.text[FILE_LIST_COLUMN_NAME]  = data.fname;
+    data.text[FILE_LIST_COLUMN_EXT]   = data.fext;
+    data.text[FILE_LIST_COLUMN_DIR]   = data.dpath;
+    data.text[FILE_LIST_COLUMN_SIZE]  = tree_size ? (gchar *) gnome_cmd_file_get_tree_size_as_str (finfo) :
+                                                    (gchar *) gnome_cmd_file_get_size (finfo);
+    data.text[FILE_LIST_COLUMN_DATE]  = (gchar *) gnome_cmd_file_get_mdate (finfo, FALSE);
+    data.text[FILE_LIST_COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (finfo);
+    data.text[FILE_LIST_COLUMN_OWNER] = (gchar *) gnome_cmd_file_get_owner (finfo);
+    data.text[FILE_LIST_COLUMN_GROUP] = (gchar *) gnome_cmd_file_get_group (finfo);
+    data.text[FILE_LIST_NUM_COLUMNS]  = NULL;
 }
 
 
-static void
-cleanup_file_format (FileFormatData *data)
+inline void cleanup_file_format (FileFormatData &data)
 {
-    g_free (data->dpath);
-    g_free (data->fname);
-    if (data->fext)
-        g_free (data->fext);
+    g_free (data.dpath);
+    g_free (data.fname);
+    g_free (data.fext);
 }
 
 
-static void
-add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
+inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
 {
-    gint row;
-    GtkCList *clist;
+    GtkCList *clist = GTK_CLIST (fl);
     FileFormatData data;
 
-    clist = GTK_CLIST (fl);
+    format_file_for_display (finfo, data, FALSE);
 
-    format_file_for_display (finfo, &data, FALSE);
+    gint row = in_row == -1 ? gtk_clist_append (clist, data.text) : gtk_clist_insert (clist, in_row, data.text);
 
-    row = in_row == -1 ? gtk_clist_append (clist, data.text) : gtk_clist_insert (clist, in_row, data.text);
+    cleanup_file_format (data);
 
-    cleanup_file_format (&data);
-
-
-    /* Setup row data and color
-     *
-     */
+    // Setup row data and color
     if (!gnome_cmd_data_get_use_ls_colors ())
         gtk_clist_set_row_style (clist, row, list_style);
     else
@@ -1482,9 +1472,7 @@ add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
 
     gtk_clist_set_row_data (clist, row, finfo);
 
-    /* If the use wants icons to show file types set it now
-     *
-     */
+    // If the use wants icons to show file types set it now
     if (gnome_cmd_data_get_layout () != GNOME_CMD_LAYOUT_TEXT)
     {
         gtk_clist_set_pixmap (clist, row, 0,
@@ -1606,39 +1594,36 @@ gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     if (row == -1)
         return;
 
-    format_file_for_display (finfo, &data, FALSE);
+    format_file_for_display (finfo, data, FALSE);
 
     for (i=1; i<FILE_LIST_NUM_COLUMNS; i++)
         gtk_clist_set_text (GTK_CLIST (fl), row, i, data.text[i]);
 
-    cleanup_file_format (&data);
+    cleanup_file_format (data);
 }
 
 
-void
-gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
+void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 {
-    gint i,row;
-    FileFormatData data;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
 
-    row = get_row_from_file (fl, finfo);
+    gint row = get_row_from_file (fl, finfo);
     if (row == -1)
         return;
 
-    format_file_for_display (finfo, &data, TRUE);
+    FileFormatData data;
 
-    for (i=1; i<FILE_LIST_NUM_COLUMNS; i++)
+    format_file_for_display (finfo, data, TRUE);
+
+    for (gint i=1; i<FILE_LIST_NUM_COLUMNS; i++)
         gtk_clist_set_text (GTK_CLIST (fl), row, i, data.text[i]);
 
-    cleanup_file_format (&data);
+    cleanup_file_format (data);
 }
 
 
-void
-gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
+void gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 {
     gint row;
 
@@ -1657,31 +1642,26 @@ gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 }
 
 
-void
-gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *uri_str)
+void gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *uri_str)
 {
-    GnomeCmdFile *file;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (uri_str != NULL);
 
-    file = gnome_cmd_file_collection_lookup (fl->priv->shown_files, uri_str);
+    GnomeCmdFile *file = gnome_cmd_file_collection_lookup (fl->priv->shown_files, uri_str);
     g_return_if_fail (GNOME_CMD_IS_FILE (file));
 
     gnome_cmd_file_list_remove_file (fl, file);
 }
 
 
-void
-gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files)
+void gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files)
 {
     for (; files; files = files->next)
         gnome_cmd_file_list_remove_file (fl, (GnomeCmdFile *) files->data);
 }
 
 
-void
-gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -1708,17 +1688,15 @@ gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl)
 *
 ******************************************************************************/
 
-GList*
-gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
+GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
 {
-    GnomeCmdFile *file;
 
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
     if (fl->priv->selected_files)
         return g_list_copy (fl->priv->selected_files);
 
-    file = gnome_cmd_file_list_get_selected_file (fl);
+    GnomeCmdFile *file = gnome_cmd_file_list_get_selected_file (fl);
 
     return file ? g_list_append (NULL, file) : NULL;
 }
@@ -1742,8 +1720,7 @@ gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
 *
 ******************************************************************************/
 
-GList*
-gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl)
+GList *gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
@@ -1770,8 +1747,7 @@ gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl)
 *
 ******************************************************************************/
 
-GList*
-gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl)
+GList *gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
@@ -1794,14 +1770,11 @@ gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl)
 *
 ******************************************************************************/
 
-GnomeCmdFile*
-gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
+GnomeCmdFile * gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
 {
-    GnomeCmdFile *finfo;
-
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
-    finfo = gnome_cmd_file_list_get_focused_file (fl);
+    GnomeCmdFile *finfo = gnome_cmd_file_list_get_focused_file (fl);
 
     return !finfo || strcmp (finfo->info->name, "..") == 0 ? NULL : finfo;
 }
@@ -1823,8 +1796,7 @@ gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
 *
 ******************************************************************************/
 
-GnomeCmdFile*
-gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl)
+GnomeCmdFile *gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
@@ -1832,8 +1804,7 @@ gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl)
 }
 
 
-void
-gnome_cmd_file_list_select_all (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_select_all (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -1845,19 +1816,19 @@ gnome_cmd_file_list_select_all (GnomeCmdFileList *fl)
 }
 
 
-void
-gnome_cmd_file_list_unselect_all (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_unselect_all (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GList *tmp;
+    GList *selfiles = g_list_copy (fl->priv->selected_files);
 
-    for (GList *tmp = g_list_copy (fl->priv->selected_files); tmp; tmp = tmp->next)
+    for (GList *tmp = selfiles; tmp; tmp = tmp->next)
         unselect_file (fl, (GnomeCmdFile *) tmp->data);
+
+    g_list_free (selfiles);
 
     gnome_cmd_file_list_free (fl->priv->selected_files);
     fl->priv->selected_files = NULL;
-    g_list_free (tmp);
 }
 
 
@@ -1872,14 +1843,13 @@ void gnome_cmd_file_list_toggle (GnomeCmdFileList *fl)
 }
 
 
-void
-gnome_cmd_file_list_toggle_and_step (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_toggle_and_step (GnomeCmdFileList *fl)
 {
-    GnomeCmdFile *finfo;
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    finfo = get_file_at_row (fl, fl->priv->cur_file);
+    GnomeCmdFile *finfo = get_file_at_row (fl, fl->priv->cur_file);
+
     if (finfo)
         toggle_file (fl, finfo);
     if (fl->priv->cur_file < get_num_files (fl)-1)
@@ -1923,29 +1893,25 @@ gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl,
 }
 
 
-void
-gnome_cmd_file_list_select_row (GnomeCmdFileList *fl, gint row)
+void gnome_cmd_file_list_select_row (GnomeCmdFileList *fl, gint row)
 {
     focus_file_at_row (fl, row == -1 ? fl->priv->cur_file : row);
 }
 
 
-void
-gnome_cmd_file_list_select_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens)
+void gnome_cmd_file_list_select_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens)
 {
     toggle_with_pattern (fl, pattern, case_sens, TRUE);
 }
 
 
-void
-gnome_cmd_file_list_unselect_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens)
+void gnome_cmd_file_list_unselect_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens)
 {
     toggle_with_pattern (fl, pattern, case_sens, FALSE);
 }
 
 
-void
-gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -1968,49 +1934,42 @@ gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl)
 }
 
 
-void
-gnome_cmd_file_list_select_all_with_same_extension (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_select_all_with_same_extension (GnomeCmdFileList *fl)
 {
     toggle_files_with_same_extension (fl, TRUE);
 }
 
 
-void
-gnome_cmd_file_list_unselect_all_with_same_extension (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_unselect_all_with_same_extension (GnomeCmdFileList *fl)
 {
     toggle_files_with_same_extension (fl, FALSE);
 }
 
 
-void
-gnome_cmd_file_list_restore_selection (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_restore_selection (GnomeCmdFileList *fl)
 {
 }
 
 
-static gint
-compare_filename(GnomeCmdFile *f1, GnomeCmdFile *f2)
+static gint compare_filename(GnomeCmdFile *f1, GnomeCmdFile *f2)
 {
     return strcmp(f1->info->name, f2->info->name);
 }
 
 
-void
-gnome_cmd_file_list_compare_directories (void)
+void gnome_cmd_file_list_compare_directories (void)
 {
     GnomeCmdFileSelector *fs1 = gnome_cmd_main_win_get_active_fs (main_win);
     GnomeCmdFileList     *fl1 = fs1 ? fs1->list : NULL;
     GnomeCmdFileSelector *fs2 = gnome_cmd_main_win_get_inactive_fs (main_win);
     GnomeCmdFileList     *fl2 = fs2 ? fs2->list : NULL;
 
-    GList *i;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl1) || GNOME_CMD_IS_FILE_LIST (fl2));
 
     gnome_cmd_file_list_unselect_all (fl1);
     gnome_cmd_file_list_select_all (fl2);
 
-    for (i=gnome_cmd_file_list_get_all_files(fl1); i; i=i->next)
+    for (GList *i=gnome_cmd_file_list_get_all_files(fl1); i; i=i->next)
     {
         GnomeCmdFile *f1 = (GnomeCmdFile *) i->data;
         GnomeCmdFile *f2;
@@ -2612,8 +2571,7 @@ gnome_cmd_file_list_sort_selection (GList *list, GnomeCmdFileList *fl)
 }
 
 
-void
-gnome_cmd_file_list_invalidate_tree_size (GnomeCmdFileList *fl)
+void gnome_cmd_file_list_invalidate_tree_size (GnomeCmdFileList *fl)
 {
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));

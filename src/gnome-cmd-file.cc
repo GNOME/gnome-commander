@@ -579,8 +579,7 @@ GnomeVFSFileSize gnome_cmd_file_get_tree_size (GnomeCmdFile *file)
 }
 
 
-const gchar *
-gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *file)
+const gchar * gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *file)
 {
     g_return_val_if_fail (file != NULL, NULL);
     g_return_val_if_fail (file->info != NULL, NULL);
@@ -595,8 +594,7 @@ gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *file)
 }
 
 
-const gchar *
-gnome_cmd_file_get_perm (GnomeCmdFile *file)
+const gchar * gnome_cmd_file_get_perm (GnomeCmdFile *file)
 {
     static gchar perm_str[MAX_PERM_LENGTH];
 

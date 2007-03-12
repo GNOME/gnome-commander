@@ -840,8 +840,7 @@ add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
 }
 
 
-static void
-add_cwd_to_cmdline (GnomeCmdFileSelector *fs)
+inline void add_cwd_to_cmdline (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
