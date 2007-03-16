@@ -30,6 +30,7 @@
 #include "gvtypes.h"
 #include "viewer-utils.h"
 
+
 gchar *gviewer_get_string (const gchar *path, const gchar *def)
 {
     gboolean b = FALSE;
@@ -38,6 +39,7 @@ gchar *gviewer_get_string (const gchar *path, const gchar *def)
         return g_strdup (def);
     return value;
 }
+
 
 gint gviewer_get_int (const gchar *path, int def)
 {
@@ -48,6 +50,7 @@ gint gviewer_get_int (const gchar *path, int def)
     return value;
 }
 
+
 gboolean gviewer_get_bool (const gchar *path, gboolean def)
 {
     gboolean b = FALSE;
@@ -57,7 +60,8 @@ gboolean gviewer_get_bool (const gchar *path, gboolean def)
     return value;
 }
 
-void   gviewer_free_string_history (GList *strings)
+
+void gviewer_free_string_history (GList *strings)
 {
     GList *temp;
 
@@ -69,6 +73,7 @@ void   gviewer_free_string_history (GList *strings)
         }
     g_list_free(strings);
 }
+
 
 void gviewer_write_string_history (gchar *format, GList *strings)
 {
@@ -82,6 +87,7 @@ void gviewer_write_string_history (gchar *format, GList *strings)
     }
 }
 
+
 gboolean gviewer_find_string_history(GList *strings, const gchar *text)
 {
     for (; strings; strings = strings->next)
@@ -91,13 +97,15 @@ gboolean gviewer_find_string_history(GList *strings, const gchar *text)
     return FALSE;
 }
 
+
 GList *gviewer_load_string_history (gchar *format, gint size)
 {
     gint i;
     gchar *key, *value;
     GList *list = NULL;
 
-    for (i = 0; i < size || size == -1; ++i) {
+    for (i = 0; i < size || size == -1; ++i)
+    {
         key = g_strdup_printf (format, i);
         value = gviewer_get_string(key, NULL);
         g_free (key);
@@ -109,27 +117,32 @@ GList *gviewer_load_string_history (gchar *format, gint size)
     return list;
 }
 
+
 int unicode2utf8(unsigned int unicode, unsigned char*out)
 {
     int bytes_needed = 0;
-    if (unicode<0x80) {
+    if (unicode<0x80)
+    {
         bytes_needed = 1;
         out[0] = (unsigned char)(unicode&0xFF);
     }
     else
-    if (unicode<0x0800) {
+    if (unicode<0x0800)
+    {
         bytes_needed = 2;
         out[0] = (unsigned char)(unicode>>6 | 0xC0);
         out[1] = (unsigned char)((unicode&0x3F)| 0x80);
     }
     else
-    if (unicode<0x10000) {
+    if (unicode<0x10000)
+    {
         bytes_needed = 3;
         out[0] = (unsigned char)((unicode>>12) | 0xE0);
         out[1] = (unsigned char)(((unicode>>6) & 0x3F) | 0x80);
         out[2] = (unsigned char)((unicode & 0x3F) | 0x80);
     }
-    else {
+    else
+    {
         bytes_needed = 4;
         out[0] = (unsigned char)((unicode>>18) | 0xE0);
         out[1] = (unsigned char)(((unicode>>12) & 0x3F) | 0x80);
@@ -140,6 +153,7 @@ int unicode2utf8(unsigned int unicode, unsigned char*out)
     return bytes_needed;
 }
 
+
 char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *array_length)
 {
     glong length;
@@ -148,67 +162,71 @@ char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
     const gchar *pos;
     char_type *result;
 
-    g_return_val_if_fail(utf8text!=NULL,NULL);
-    g_return_val_if_fail(array_length!=NULL,NULL);
+    g_return_val_if_fail(utf8text!=NULL, NULL);
+    g_return_val_if_fail(array_length!=NULL, NULL);
 
-    g_return_val_if_fail(g_utf8_validate(utf8text,-1,NULL),NULL);
+    g_return_val_if_fail(g_utf8_validate(utf8text, -1, NULL), NULL);
 
-    length = g_utf8_strlen(utf8text,-1);
-    g_return_val_if_fail(length>0,NULL);
+    length = g_utf8_strlen(utf8text, -1);
+    g_return_val_if_fail(length>0, NULL);
 
     result = g_new0(char_type, length);
     *array_length = length;
 
-    index = 0;
     pos = utf8text;
-    while (index<length) {
+    for (index=0; index<length; ++index)
+    {
         unicode_char = g_utf8_get_char(pos);
 
         unicode2utf8(unicode_char, (unsigned char*)&result[index]);
 
         pos = g_utf8_next_char(pos);
-        if (pos==NULL) {
+        if (pos==NULL)
+        {
             g_warning("unexpected NULL found in UTF8 string");
             break;
         }
-        index++;
     }
 
     return result;
 }
 
+
 guint8 *mem_reverse(const guint8 *buffer, guint buflen)
 {
     guint8 *result;
-    guint i,j;
+    guint i, j;
 
-    g_return_val_if_fail(buffer!=NULL,NULL);
-    g_return_val_if_fail(buflen>0,NULL);
+    g_return_val_if_fail(buffer!=NULL, NULL);
+    g_return_val_if_fail(buflen>0, NULL);
 
     result = g_new0(guint8, buflen);
-    for (i=0, j=buflen-1;i<buflen;i++,j--)
+    for (i=0, j=buflen-1;i<buflen;i++, j--)
         result[i] = buffer[j];
 
     return result;
 }
 
+
 guint8 *text2hex(const gchar *text, /*out*/ guint *buflen)
 {
+    g_return_val_if_fail(text!=NULL, NULL);
+    g_return_val_if_fail(buflen!=NULL, NULL);
+
     guint8 *result;
-    int idx,len;
+    int idx, len;
     guint8 value;
     gboolean high_nib;
 
-    g_return_val_if_fail(text!=NULL,NULL);
-    g_return_val_if_fail(buflen!=NULL,NULL);
-
     idx = 0;
     len = 0;
-    while (text[idx]) {
+    while (text[idx])
+    {
         if (text[idx]==' ')
             idx++;
         else
-        if (g_ascii_isxdigit(text[idx])) {
+        if (g_ascii_isxdigit(text[idx]))
+        {
             idx++;
             len++;
         } else
@@ -220,26 +238,26 @@ guint8 *text2hex(const gchar *text, /*out*/ guint *buflen)
 
     result = g_new0(guint8, len);
 
-    idx = 0;
     len = 0;
     high_nib = TRUE;
     value = 0;
-    while (text[idx]) {
-        if (g_ascii_isxdigit(text[idx])) {
+    for (idx=0; text[idx]; ++idx)
+        if (g_ascii_isxdigit(text[idx]))
+        {
             if (high_nib)
                 value = g_ascii_xdigit_value(text[idx]) * 16;
-            else {
+            else
+            {
                 value += g_ascii_xdigit_value(text[idx]);
                 result[len] = value;
                 len++;
             }
             high_nib = !high_nib;
         };
-        idx++;
-    }
     *buflen = len;
     return result;
 }
+
 
 char_type chartype_toupper(char_type ch)
 {

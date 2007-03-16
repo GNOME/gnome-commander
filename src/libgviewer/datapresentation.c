@@ -73,15 +73,16 @@ static offset_type binfixed_get_eol(GVDataPresentation *dp, offset_type start_of
 *********************************************************/
 GVDataPresentation *gv_data_presentation_new()
 {
-    return g_new0(GVDataPresentation,1);
+    return g_new0(GVDataPresentation, 1);
 }
+
 
 void gv_init_data_presentation(GVDataPresentation *dp, GVInputModesData *imd, offset_type max_offset)
 {
     g_return_if_fail(dp!=NULL);
     g_return_if_fail(imd!=NULL);
 
-    memset(dp,0,sizeof(GVDataPresentation));
+    memset(dp, 0, sizeof(GVDataPresentation));
     dp->imd = imd;
     dp->max_offset = max_offset;
     dp->tab_size = 8;
@@ -89,9 +90,11 @@ void gv_init_data_presentation(GVDataPresentation *dp, GVInputModesData *imd, of
     gv_set_data_presentation_mode(dp, PRSNT_NO_WRAP);
 }
 
+
 void gv_free_data_presentation(GVDataPresentation *dp)
 {
 }
+
 
 void gv_set_data_presentation_mode(GVDataPresentation *dp, PRESENTATION present)
 {
@@ -120,11 +123,13 @@ void gv_set_data_presentation_mode(GVDataPresentation *dp, PRESENTATION present)
     }
 }
 
+
 PRESENTATION gv_get_data_presentation_mode(GVDataPresentation *dp)
 {
-    g_return_val_if_fail(dp!=NULL,PRSNT_NO_WRAP);
+    g_return_val_if_fail(dp!=NULL, PRSNT_NO_WRAP);
     return dp->presentation_mode;
 }
+
 
 void gv_set_tab_size(GVDataPresentation *dp, guint tab_size)
 {
@@ -139,30 +144,34 @@ void gv_set_fixed_count(GVDataPresentation *dp, guint chars_per_line)
     dp->fixed_count = chars_per_line;
 }
 
+
 void gv_set_wrap_limit(GVDataPresentation *dp, guint chars_per_line)
 {
     g_return_if_fail(dp!=NULL);
     dp->wrap_limit= chars_per_line;
 }
 
+
 offset_type gv_align_offset_to_line_start(GVDataPresentation *dp, offset_type offset)
 {
-    g_return_val_if_fail(dp!=NULL,0);
-    g_return_val_if_fail(dp->align_offset_to_line_start!=NULL,0);
+    g_return_val_if_fail(dp!=NULL, 0);
+    g_return_val_if_fail(dp->align_offset_to_line_start!=NULL, 0);
     return dp->align_offset_to_line_start(dp, offset);
 }
 
+
 offset_type gv_scroll_lines(GVDataPresentation *dp, offset_type current_offset, int delta)
 {
-    g_return_val_if_fail(dp!=NULL,0);
-    g_return_val_if_fail(dp->scroll_lines!=NULL,0);
+    g_return_val_if_fail(dp!=NULL, 0);
+    g_return_val_if_fail(dp->scroll_lines!=NULL, 0);
     return dp->scroll_lines(dp, current_offset, delta);
 }
 
+
 offset_type gv_get_end_of_line_offset(GVDataPresentation *dp, offset_type start_of_line)
 {
-    g_return_val_if_fail(dp!=NULL,0);
-    g_return_val_if_fail(dp->get_end_of_line_offset!=NULL,0);
+    g_return_val_if_fail(dp!=NULL, 0);
+    g_return_val_if_fail(dp->get_end_of_line_offset!=NULL, 0);
     return dp->get_end_of_line_offset(dp, start_of_line);
 }
 
@@ -181,11 +190,12 @@ static offset_type find_previous_crlf(GVDataPresentation *dp, offset_type start)
 
     offset = start;
 
-    while (1) {
+    while (TRUE)
+    {
         if (offset<=0)
             return 0;
 
-        offset = gv_input_get_previous_char_offset(dp->imd,offset);
+        offset = gv_input_get_previous_char_offset(dp->imd, offset);
         value = gv_input_mode_get_utf8_char(dp->imd, offset);
 
         if (value==INVALID_CHAR)
@@ -199,21 +209,23 @@ static offset_type find_previous_crlf(GVDataPresentation *dp, offset_type start)
     return offset;
 }
 
+
 static offset_type nowrap_align_offset(GVDataPresentation *dp, offset_type offset)
 {
-    char_type value;
-    while (offset>0) {
-        value = gv_input_mode_get_utf8_char(dp->imd, offset);
+    while (offset>0)
+    {
+        char_type value = gv_input_mode_get_utf8_char(dp->imd, offset);
         if (value==INVALID_CHAR)
             return 0;
         if (value=='\r' || value=='\n')
             break;
-        offset = gv_input_get_previous_char_offset(dp->imd,offset);
+        offset = gv_input_get_previous_char_offset(dp->imd, offset);
     }
     if (offset>0)
-        return gv_input_get_next_char_offset(dp->imd,offset);
+        return gv_input_get_next_char_offset(dp->imd, offset);
     return 0;
 }
+
 
 static offset_type nowrap_scroll_lines(GVDataPresentation *dp, offset_type current_offset, int delta)
 {
@@ -222,21 +234,24 @@ static offset_type nowrap_scroll_lines(GVDataPresentation *dp, offset_type curre
     if (delta==0)
         return current_offset;
 
-    if (delta<0) {
+    if (delta<0)
+    {
         delta = abs(delta);
         forward = FALSE;
     }
-    while (delta--) {
+    while (delta--)
+    {
         offset_type temp;
 
-        if (forward) {
+        if (forward)
             temp = nowrap_get_eol(dp, current_offset);
-        } else {
+        else
+        {
             // We need TWO CR/LF. this is not an error
             temp = find_previous_crlf(dp, current_offset);
             temp = find_previous_crlf(dp, temp);
             if (temp>0)
-                temp = gv_input_get_next_char_offset(dp->imd,temp);
+                temp = gv_input_get_next_char_offset(dp->imd, temp);
         }
 
         // Offset didn't changed ? we've reached eof
@@ -249,6 +264,7 @@ static offset_type nowrap_scroll_lines(GVDataPresentation *dp, offset_type curre
     return current_offset;
 }
 
+
 static offset_type nowrap_get_eol(GVDataPresentation *dp, offset_type start_of_line)
 {
     offset_type offset;
@@ -256,22 +272,25 @@ static offset_type nowrap_get_eol(GVDataPresentation *dp, offset_type start_of_l
 
     offset = start_of_line;
 
-    while (1) {
+    while (TRUE)
+    {
         value = gv_input_mode_get_utf8_char(dp->imd, offset);
 
         if (value==INVALID_CHAR)
             break;
 
-        offset = gv_input_get_next_char_offset(dp->imd,offset);
+        offset = gv_input_get_next_char_offset(dp->imd, offset);
 
         // break upon end of line
-        if (value=='\n' || value=='\r') {
+        if (value=='\n' || value=='\r')
+        {
             break;
         }
     }
 
     return offset;
 }
+
 
 /*
     returns the start offset of the previous line,
@@ -289,12 +308,13 @@ static offset_type find_previous_wrapped_text_line(GVDataPresentation *dp, offse
     offset = find_previous_crlf(dp, offset);
     offset = find_previous_crlf(dp, offset);
     if (offset>0)
-        offset = gv_input_get_next_char_offset(dp->imd,offset);
+        offset = gv_input_get_next_char_offset(dp->imd, offset);
 
     /* Step 2
     */
 
-    while (1) {
+    while (TRUE)
+    {
         offset_type next_line_offset;
 
         next_line_offset = wrap_get_eol(dp, offset);
@@ -314,19 +334,22 @@ static offset_type find_previous_wrapped_text_line(GVDataPresentation *dp, offse
     return 0;
 }
 
+
 static offset_type wrap_align_offset(GVDataPresentation *dp, offset_type offset)
 {
-    offset_type line_start,temp;
+    offset_type line_start, temp;
 
     line_start = nowrap_align_offset(dp, offset);
     temp = line_start;
 
-    while (temp<=offset) {
+    while (temp<=offset)
+    {
         line_start = temp;
-        temp = wrap_scroll_lines(dp,  temp, 1);
+        temp = wrap_scroll_lines(dp, temp, 1);
     }
     return line_start;
 }
+
 
 static offset_type wrap_scroll_lines(GVDataPresentation *dp, offset_type current_offset, int delta)
 {
@@ -335,17 +358,19 @@ static offset_type wrap_scroll_lines(GVDataPresentation *dp, offset_type current
     if (delta==0)
         return current_offset;
 
-    if (delta<0) {
+    if (delta<0)
+    {
         delta = abs(delta);
         forward = FALSE;
     }
-    while (delta--) {
+    while (delta--)
+    {
         offset_type temp;
 
         if (forward)
             temp = wrap_get_eol(dp, current_offset);
         else
-            temp = find_previous_wrapped_text_line(dp,current_offset);
+            temp = find_previous_wrapped_text_line(dp, current_offset);
 
 
         // Offset didn't changed ? we've reached eof
@@ -357,6 +382,7 @@ static offset_type wrap_scroll_lines(GVDataPresentation *dp, offset_type current
 
     return current_offset;
 }
+
 
 static offset_type wrap_get_eol(GVDataPresentation *dp, offset_type start_of_line)
 {
@@ -371,18 +397,18 @@ static offset_type wrap_get_eol(GVDataPresentation *dp, offset_type start_of_lin
 
     offset = start_of_line;
 
-    while (1) {
+    while (TRUE)
+    {
         value = gv_input_mode_get_utf8_char(dp->imd, offset);
 
         if (value==INVALID_CHAR)
             break;
 
-        offset = gv_input_get_next_char_offset(dp->imd,offset);
+        offset = gv_input_get_next_char_offset(dp->imd, offset);
 
         // break upon end of line
-        if (value=='\n' || value=='\r') {
+        if (value=='\n' || value=='\r')
             break;
-        }
 
         if (value=='\t')
             char_count += dp->tab_size;
@@ -396,11 +422,12 @@ static offset_type wrap_get_eol(GVDataPresentation *dp, offset_type start_of_lin
     return offset;
 }
 
+
 static offset_type binfixed_align_offset(GVDataPresentation *dp, offset_type offset)
 {
     offset_type o;
 
-    g_return_val_if_fail(dp->fixed_count>0,offset);
+    g_return_val_if_fail(dp->fixed_count>0, offset);
 
     if (offset > dp->max_offset)
         offset = dp->max_offset;
@@ -409,17 +436,20 @@ static offset_type binfixed_align_offset(GVDataPresentation *dp, offset_type off
     return o;
 }
 
+
 static offset_type binfixed_scroll_lines(GVDataPresentation *dp, offset_type current_offset, int delta)
 {
-    g_return_val_if_fail(dp->fixed_count>0,current_offset);
+    g_return_val_if_fail(dp->fixed_count>0, current_offset);
 
-    if (delta > 0) {
+    if (delta > 0)
+    {
         if (current_offset + delta * dp->fixed_count > dp->max_offset)
             delta = (dp->max_offset-current_offset) / dp->fixed_count;
 
         return delta * dp->fixed_count + current_offset;
     }
-    else {
+    else
+    {
         delta = abs(delta);
 
         if (delta * dp->fixed_count > current_offset)
@@ -428,6 +458,7 @@ static offset_type binfixed_scroll_lines(GVDataPresentation *dp, offset_type cur
         return current_offset - delta * dp->fixed_count;
     }
 }
+
 
 static offset_type binfixed_get_eol(GVDataPresentation *dp, offset_type start_of_line)
 {
@@ -438,4 +469,3 @@ static offset_type binfixed_get_eol(GVDataPresentation *dp, offset_type start_of
 
     return start_of_line + dp->fixed_count;
 }
-

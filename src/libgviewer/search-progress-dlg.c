@@ -50,8 +50,9 @@ static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GView
 
     g_return_if_fail(sdlg->priv->abort_indicator!=NULL);
 
-    g_atomic_int_add(sdlg->priv->abort_indicator,1);
+    g_atomic_int_add(sdlg->priv->abort_indicator, 1);
 }
+
 
 static void
 search_progress_dlg_class_init(GViewerSearchProgressDlgClass *klass)
@@ -65,36 +66,38 @@ search_progress_dlg_class_init(GViewerSearchProgressDlgClass *klass)
     object_class->destroy = search_progress_dlg_destroy;
 }
 
+
 static void
 search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 {
-    sdlg->priv = g_new0(GViewerSearchProgressDlgPrivate,1);
+    sdlg->priv = g_new0(GViewerSearchProgressDlgPrivate, 1);
 
     GtkDialog *dlg = GTK_DIALOG(sdlg);
     sdlg->priv->progress = 0;
 
-    gtk_window_set_title(GTK_WINDOW(dlg),_("Searching..."));
-    gtk_window_set_modal(GTK_WINDOW(dlg),TRUE);
-    gtk_dialog_add_button(dlg,GTK_STOCK_STOP,12);
+    gtk_window_set_title(GTK_WINDOW(dlg), _("Searching..."));
+    gtk_window_set_modal(GTK_WINDOW(dlg), TRUE);
+    gtk_dialog_add_button(dlg, GTK_STOCK_STOP, 12);
 
-    g_signal_connect_swapped(GTK_WIDGET(dlg), "response",G_CALLBACK(search_progress_dlg_action_response),sdlg);
+    g_signal_connect_swapped(GTK_WIDGET(dlg), "response", G_CALLBACK(search_progress_dlg_action_response), sdlg);
 
     // Text Label
     sdlg->priv->label = gtk_label_new("");
 
-    gtk_box_pack_start(GTK_BOX(dlg->vbox),sdlg->priv->label,FALSE,TRUE,5);
+    gtk_box_pack_start(GTK_BOX(dlg->vbox), sdlg->priv->label, FALSE, TRUE, 5);
 
     // Progress Bar
     sdlg->priv->progressbar = gtk_progress_bar_new();
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sdlg->priv->progressbar),"0.0");
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sdlg->priv->progressbar),0.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sdlg->priv->progressbar), "0.0");
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sdlg->priv->progressbar), 0.0);
 
-    gtk_box_pack_start(GTK_BOX(dlg->vbox),sdlg->priv->progressbar,TRUE,TRUE,0);
+    gtk_box_pack_start(GTK_BOX(dlg->vbox), sdlg->priv->progressbar, TRUE, TRUE, 0);
 
     gtk_widget_show_all(dlg->vbox);
 
     gtk_widget_show(GTK_WIDGET(dlg));
 }
+
 
 static void search_progress_dlg_destroy (GtkObject *object)
 {
@@ -105,18 +108,15 @@ static void search_progress_dlg_destroy (GtkObject *object)
 
     w = GVIEWER_SEARCH_PROGRESS_DLG(object);
 
-    if (w->priv) {
-
-        g_free(w->priv);
-        w->priv = NULL;
-    }
+    g_free(w->priv);
+    w->priv = NULL;
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
-GType
-gviewer_search_progress_dlg_get_type (void)
+
+GType gviewer_search_progress_dlg_get_type (void)
 {
   static GType ttt_type = 0;
   if (!ttt_type)
@@ -130,7 +130,7 @@ gviewer_search_progress_dlg_get_type (void)
     NULL, // class_finalize
     NULL, // class_data
     sizeof (GViewerSearchProgressDlg),
-    0,    // n_preallocs
+    0, // n_preallocs
     (GInstanceInitFunc) search_progress_dlg_init,
       };
 
@@ -143,38 +143,40 @@ gviewer_search_progress_dlg_get_type (void)
   return ttt_type;
 }
 
-GtkWidget*
-gviewer_search_progress_dlg_new (GtkWindow *parent)
+
+GtkWidget* gviewer_search_progress_dlg_new (GtkWindow *parent)
 {
     GViewerSearchProgressDlg *dlg = gtk_type_new (gviewer_search_progress_dlg_get_type());
 
     return GTK_WIDGET (dlg);
 }
 
+
 gboolean search_progress_dlg_timeout(gpointer data)
 {
-    GViewerSearchProgressDlg *w;
+    g_return_val_if_fail (data != NULL, FALSE);
+    g_return_val_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG(data), FALSE);
+
     gdouble progress;
     gchar text[20];
 
-    g_return_val_if_fail (data != NULL,FALSE);
-    g_return_val_if_fail (IS_GVIEWER_SEARCH_PROGRESS_DLG(data),FALSE);
-
-    w = GVIEWER_SEARCH_PROGRESS_DLG(data);
+    GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG(data);
 
     progress = g_atomic_int_get(w->priv->progress_value);
 
-    g_snprintf(text,sizeof(text),"%3.1f%%", progress/10.0);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(w->priv->progressbar),text);
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(w->priv->progressbar),progress/1000.0);
+    g_snprintf(text, sizeof(text), "%3.1f%%", progress/10.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(w->priv->progressbar), text);
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(w->priv->progressbar), progress/1000.0);
 
-    if (g_atomic_int_get(w->priv->completed_indicator)!=0) {
+    if (g_atomic_int_get(w->priv->completed_indicator)!=0)
+    {
         gtk_dialog_response(GTK_DIALOG(w), GTK_RESPONSE_CANCEL);
         return FALSE;
     }
 
     return TRUE;
 }
+
 
 void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_text,
                                       gint *abort, gint *complete, gint *progress)
@@ -195,7 +197,7 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
     g_return_if_fail(searching_text!=NULL);
 
     str = g_strdup_printf(_("Searching for \"%s\""), searching_text);
-    gtk_label_set_text(GTK_LABEL(dlg->priv->label),str);
+    gtk_label_set_text(GTK_LABEL(dlg->priv->label), str);
 
     dlg->priv->abort_indicator = abort;
     dlg->priv->progress_value = progress;
@@ -204,13 +206,13 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
     timeout_source_id = g_timeout_add(300, search_progress_dlg_timeout, (gpointer)dlg);
 
     dprogress = g_atomic_int_get(dlg->priv->progress_value);
-    g_snprintf(text,sizeof(text),"%3.1f%%", dprogress/10.0);
-    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(dlg->priv->progressbar),text);
-    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(dlg->priv->progressbar),dprogress/1000.0);
+    g_snprintf(text, sizeof(text), "%3.1f%%", dprogress/10.0);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(dlg->priv->progressbar), text);
+    gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(dlg->priv->progressbar), dprogress/1000.0);
 
     gtk_dialog_run(GTK_DIALOG(dlg));
 
-    src = g_main_context_find_source_by_id(NULL,timeout_source_id);
+    src = g_main_context_find_source_by_id(NULL, timeout_source_id);
     if (src)
         g_source_destroy(src);
 

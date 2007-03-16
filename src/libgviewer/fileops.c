@@ -79,12 +79,13 @@ struct _ViewerFileOps
 
 ViewerFileOps *gv_fileops_new()
 {
-    ViewerFileOps *fops = g_new0(ViewerFileOps,1);
-    g_return_val_if_fail(fops!=NULL,NULL);
+    ViewerFileOps *fops = g_new0(ViewerFileOps, 1);
+    g_return_val_if_fail(fops!=NULL, NULL);
 
     fops->file = -1;
     return fops;
 }
+
 
 /*
   TODO: Make this thread-safe!
@@ -101,23 +102,26 @@ const char *unix_error_string (int error_num)
     return buffer;
 }
 
+
 static int gv_file_internal_open(ViewerFileOps *ops, int fd)
 {
     const gchar *error;
     int cntlflags;
 
-    g_return_val_if_fail(ops!=NULL,-1);
-    g_return_val_if_fail(fd>2,-1);
+    g_return_val_if_fail(ops!=NULL, -1);
+    g_return_val_if_fail(fd>2, -1);
 
     // Make sure we are working with a regular file
-    if (fstat (fd, &ops->s) == -1) {
+    if (fstat (fd, &ops->s) == -1)
+    {
         close (fd);
         g_warning("Cannot stat fileno(%d): %s ",
             fd, unix_error_string (errno));
         return -1;
     }
 
-    if (!S_ISREG (ops->s.st_mode)) {
+    if (!S_ISREG (ops->s.st_mode))
+    {
         close (fd);
         g_warning("Cannot view: not a regular file ");
         return -1;
@@ -125,13 +129,15 @@ static int gv_file_internal_open(ViewerFileOps *ops, int fd)
 
     // We don't need O_NONBLOCK after opening the file, unset it
     cntlflags = fcntl (fd, F_GETFL, 0);
-    if (cntlflags != -1) {
+    if (cntlflags != -1)
+    {
         cntlflags &= ~O_NONBLOCK;
         fcntl (fd, F_SETFL, cntlflags);
     }
 
     error = gv_file_load(ops, fd);
-    if (error) {
+    if (error)
+    {
         close(fd);
         g_warning("Failed to open file: %s", error);
         return -1;
@@ -142,14 +148,16 @@ static int gv_file_internal_open(ViewerFileOps *ops, int fd)
     return 0;
 }
 
+
 int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
 {
     g_free(ops->filename);
 
-    g_return_val_if_fail(filedesc>2,-1);
+    g_return_val_if_fail(filedesc>2, -1);
 
     int fd = dup(filedesc);
-    if (fd==-1) {
+    if (fd==-1)
+    {
         g_warning("file_open_fd failed, 'dup' returned -1");
         return -1;
     }
@@ -157,43 +165,49 @@ int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
     return gv_file_internal_open(ops, fd);
 }
 
+
 int gv_file_open(ViewerFileOps *ops, const gchar* _file)
 {
     int fd;
 
     g_free(ops->filename);
 
-    g_return_val_if_fail(_file!=NULL,-1);
-    g_return_val_if_fail(_file[0]!=0,-1);
+    g_return_val_if_fail(_file!=NULL, -1);
+    g_return_val_if_fail(_file[0]!=0, -1);
 
     ops->filename = g_strdup(_file);
 
     // Open the file
-    if ((fd = open (_file, O_RDONLY | O_NONBLOCK)) == -1) {
-        g_warning("Cannot open \"%s\"\n %s ",_file, unix_error_string (errno));
+    if ((fd = open (_file, O_RDONLY | O_NONBLOCK)) == -1)
+    {
+        g_warning("Cannot open \"%s\"\n %s ", _file, unix_error_string (errno));
         return -1;
     }
 
     return gv_file_internal_open(ops, fd);
 }
 
+
 offset_type gv_file_get_max_offset(ViewerFileOps *ops)
 {
-    g_return_val_if_fail(ops!=NULL,0);
+    g_return_val_if_fail(ops!=NULL, 0);
 
     return ops->s.st_size;
 }
+
 
 void gv_file_close (ViewerFileOps *ops)
 {
     g_return_if_fail(ops!=NULL);
 
-    if (ops->file != -1) {
+    if (ops->file != -1)
+    {
         close (ops->file);
         ops->file = -1;
     }
     memset(&ops->s, 0, sizeof(ops->s));
 }
+
 
 // return values: NULL for success, else points to error message
 char * gv_file_init_growing_view (ViewerFileOps *ops, const char *filename)
@@ -206,28 +220,30 @@ char * gv_file_init_growing_view (ViewerFileOps *ops, const char *filename)
     return NULL;
 }
 
+
 /*
     returns  NULL on success
 */
 char *gv_file_load(ViewerFileOps *ops, int fd)
 {
-    g_return_val_if_fail(ops!=NULL,"invalid ops paramter");
+    g_return_val_if_fail(ops!=NULL, "invalid ops paramter");
 
     ops->file = fd;
 
-    if (ops->s.st_size == 0) {
+    if (ops->s.st_size == 0)
+    {
         // Must be one of those nice files that grow (/proc)
         gv_file_close (ops);
         return gv_file_init_growing_view (ops, ops->filename);
     }
 #ifdef HAVE_MMAP
     if ((size_t) ops->s.st_size == ops->s.st_size)
-        ops->data = mmap (0, ops->s.st_size, PROT_READ,
-                  MAP_FILE | MAP_SHARED, ops->file, 0);
+        ops->data = mmap (0, ops->s.st_size, PROT_READ, MAP_FILE | MAP_SHARED, ops->file, 0);
     else
         ops->data = MAP_FAILED;
 
-    if (ops->data != MAP_FAILED) {
+    if (ops->data != MAP_FAILED)
+    {
         // mmap worked
         ops->first = 0;
         ops->bytes_read = ops->s.st_size;
@@ -248,8 +264,8 @@ char *gv_file_load(ViewerFileOps *ops, int fd)
 
     if (ops->data == NULL ||
         lseek (ops->file, 0, SEEK_SET) != 0 ||
-        read (ops->file, (char *) ops->data,
-            ops->s.st_size) != ops->s.st_size) {
+        read (ops->file, (char *) ops->data, ops->s.st_size) != ops->s.st_size)
+    {
         g_free (ops->data);
         gv_file_close (ops);
         return gv_file_init_growing_view (ops, ops->filename);
@@ -260,51 +276,58 @@ char *gv_file_load(ViewerFileOps *ops, int fd)
     return NULL;
 }
 
+
 /*
     returns: -1 on failure
         0->255 value on success
 */
 int gv_file_get_byte (ViewerFileOps *ops, offset_type byte_index)
 {
+    g_return_val_if_fail(ops!=NULL, -1);
+
     int page = byte_index / VIEW_PAGE_SIZE + 1;
     int offset = byte_index % VIEW_PAGE_SIZE;
     int i, n;
 
-    g_return_val_if_fail(ops!=NULL,-1);
-
-    if (ops->growing_buffer) {
-    if (page > ops->blocks) {
-        ops->block_ptr = g_realloc (ops->block_ptr,
-                     page * sizeof (char *));
-        for (i = ops->blocks; i < page; i++) {
-        char *p = g_try_malloc (VIEW_PAGE_SIZE);
-        ops->block_ptr[i] = p;
-        if (!p)
-            return '\n';
-        n = read (ops->file, p, VIEW_PAGE_SIZE);
+    if (ops->growing_buffer)
+    {
+        if (page > ops->blocks)
+        {
+            ops->block_ptr = g_realloc (ops->block_ptr,
+                         page * sizeof (char *));
+            for (i = ops->blocks; i < page; i++)
+            {
+                char *p = g_try_malloc (VIEW_PAGE_SIZE);
+                ops->block_ptr[i] = p;
+                if (!p)
+                    return '\n';
+                n = read (ops->file, p, VIEW_PAGE_SIZE);
 /*
- * FIXME: Errors are ignored at this point
- * Also should report preliminary EOF
- */
-        if (n != -1)
-            ops->bytes_read += n;
-        if (ops->s.st_size < ops->bytes_read) {
-            ops->bottom_first = INVALID_OFFSET; // Invalidate cache
-            ops->s.st_size = ops->bytes_read;
-            ops->last_byte = ops->bytes_read;
+         * FIXME: Errors are ignored at this point
+         * Also should report preliminary EOF
+         */
+                if (n != -1)
+                    ops->bytes_read += n;
+                if (ops->s.st_size < ops->bytes_read)
+                {
+                    ops->bottom_first = INVALID_OFFSET; // Invalidate cache
+                    ops->s.st_size = ops->bytes_read;
+                    ops->last_byte = ops->bytes_read;
+                }
+            }
+            ops->blocks = page;
         }
-        }
-        ops->blocks = page;
+        if (byte_index >= ops->bytes_read)
+            return -1;
+        else
+            return ops->block_ptr[page - 1][offset];
     }
-    if (byte_index >= ops->bytes_read) {
-        return -1;
-    } else
-        return ops->block_ptr[page - 1][offset];
-    } else {
-    if (byte_index >= ops->last_byte) {
-        return -1;
-    } else
-        return ops->data[byte_index];
+    else
+    {
+        if (byte_index >= ops->last_byte)
+            return -1;
+        else
+            return ops->data[byte_index];
     }
 }
 
@@ -318,17 +341,18 @@ void gv_file_free(ViewerFileOps *ops)
 
 
 #ifdef HAVE_MMAP
-    if (ops->mmapping) {
+    if (ops->mmapping)
+    {
         munmap (ops->data, ops->s.st_size);
     }
 #endif                // HAVE_MMAP
     gv_file_close (ops);
 
     // Block_ptr may be zero if the file was a file with 0 bytes
-    if (ops->growing_buffer && ops->block_ptr) {
-        for (i = 0; i < ops->blocks; i++) {
+    if (ops->growing_buffer && ops->block_ptr)
+    {
+        for (i = 0; i < ops->blocks; i++)
             g_free (ops->block_ptr[i]);
-        }
         g_free (ops->block_ptr);
     }
 }

@@ -35,7 +35,7 @@
 
 static GtkDialogClass *parent_class = NULL;
 
-void entry_changed(GtkEntry *entry,gpointer  user_data);
+void entry_changed(GtkEntry *entry, gpointer  user_data);
 static void search_dlg_destroy (GtkObject *object);
 static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchDlg *sdlg);
 
@@ -59,6 +59,7 @@ struct _GViewerSearchDlgPrivate
     GList      *hex_pattern_history;
 #endif
 };
+
 
 static void load_search_dlg_state(GViewerSearchDlg *sdlg)
 {
@@ -87,6 +88,7 @@ static void load_search_dlg_state(GViewerSearchDlg *sdlg)
                 GVIEWER_DEFAULT_PATH_PREFIX "case_sens", FALSE);
 }
 
+
 static void save_search_dlg_state(GViewerSearchDlg *sdlg)
 {
     g_return_if_fail(sdlg!=NULL);
@@ -106,45 +108,50 @@ static void save_search_dlg_state(GViewerSearchDlg *sdlg)
     gnome_config_sync();
 }
 
+
 guint8 *gviewer_search_dlg_get_search_hex_buffer(GViewerSearchDlg *sdlg, /*out*/ guint *buflen)
 {
-    g_return_val_if_fail(sdlg!=NULL,NULL);
-    g_return_val_if_fail(sdlg->priv!=NULL,NULL);
-    g_return_val_if_fail(buflen!=NULL,NULL);
-    g_return_val_if_fail(sdlg->priv->search_hex_buffer!=NULL,NULL);
-    g_return_val_if_fail(sdlg->priv->search_hex_buflen>0,NULL);
+    g_return_val_if_fail(sdlg!=NULL, NULL);
+    g_return_val_if_fail(sdlg->priv!=NULL, NULL);
+    g_return_val_if_fail(buflen!=NULL, NULL);
+    g_return_val_if_fail(sdlg->priv->search_hex_buffer!=NULL, NULL);
+    g_return_val_if_fail(sdlg->priv->search_hex_buflen>0, NULL);
 
     guint8 *result = g_new0(guint8, sdlg->priv->search_hex_buflen);
-    memcpy(result, sdlg->priv->search_hex_buffer,sdlg->priv->search_hex_buflen);
+    memcpy(result, sdlg->priv->search_hex_buffer, sdlg->priv->search_hex_buflen);
 
     *buflen = sdlg->priv->search_hex_buflen;
     return result;
 }
 
+
 gchar *gviewer_search_dlg_get_search_text_string(GViewerSearchDlg *sdlg)
 {
-    g_return_val_if_fail(sdlg!=NULL,NULL);
-    g_return_val_if_fail(sdlg->priv!=NULL,NULL);
-    g_return_val_if_fail(sdlg->priv->search_text_string!=NULL,NULL);
+    g_return_val_if_fail(sdlg!=NULL, NULL);
+    g_return_val_if_fail(sdlg->priv!=NULL, NULL);
+    g_return_val_if_fail(sdlg->priv->search_text_string!=NULL, NULL);
 
     return g_strdup(sdlg->priv->search_text_string);
 }
 
+
 SEARCHMODE gviewer_search_dlg_get_search_mode(GViewerSearchDlg *sdlg)
 {
-    g_return_val_if_fail(sdlg!=NULL,SEARCH_MODE_TEXT);
-    g_return_val_if_fail(sdlg->priv!=NULL,SEARCH_MODE_TEXT);
+    g_return_val_if_fail(sdlg!=NULL, SEARCH_MODE_TEXT);
+    g_return_val_if_fail(sdlg->priv!=NULL, SEARCH_MODE_TEXT);
 
     return sdlg->priv->searchmode;
 }
 
+
 gboolean gviewer_search_dlg_get_case_sensitive(GViewerSearchDlg *sdlg)
 {
-    g_return_val_if_fail(sdlg!=NULL,TRUE);
-    g_return_val_if_fail(sdlg->priv!=NULL,TRUE);
+    g_return_val_if_fail(sdlg!=NULL, TRUE);
+    g_return_val_if_fail(sdlg->priv!=NULL, TRUE);
 
     return sdlg->priv->case_sensitive;
 }
+
 
 static void set_text_history(GViewerSearchDlg *sdlg)
 {
@@ -154,6 +161,7 @@ static void set_text_history(GViewerSearchDlg *sdlg)
         if (strings->data!=NULL)
             gtk_combo_box_prepend_text(GTK_COMBO_BOX(sdlg->priv->entry), (gchar *) strings->data);
 }
+
 
 static void set_text_mode(GViewerSearchDlg *sdlg)
 {
@@ -166,6 +174,7 @@ static void set_text_mode(GViewerSearchDlg *sdlg)
     w = GTK_ENTRY(gtk_bin_get_child(GTK_BIN(sdlg->priv->entry)));
     entry_changed(w, (gpointer)sdlg);
 }
+
 
 static void set_hex_mode(GViewerSearchDlg *sdlg)
 {
@@ -190,6 +199,7 @@ static void set_hex_mode(GViewerSearchDlg *sdlg)
     entry_changed(w, (gpointer)sdlg);
 }
 
+
 static void search_mode_text(GtkToggleButton *btn, GViewerSearchDlg *sdlg)
 {
     g_return_if_fail(btn!=NULL);
@@ -200,6 +210,7 @@ static void search_mode_text(GtkToggleButton *btn, GViewerSearchDlg *sdlg)
 
     set_text_mode(sdlg);
 }
+
 
 static void search_mode_hex(GtkToggleButton *btn, GViewerSearchDlg *sdlg)
 {
@@ -212,9 +223,9 @@ static void search_mode_hex(GtkToggleButton *btn, GViewerSearchDlg *sdlg)
     set_hex_mode(sdlg);
 }
 
+
 static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchDlg *sdlg)
 {
-    gchar *pattern;
     g_return_if_fail(sdlg!=NULL);
     g_return_if_fail(sdlg->priv!=NULL);
 
@@ -224,37 +235,42 @@ static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchD
     g_return_if_fail(sdlg->priv->search_text_string==NULL);
     g_return_if_fail(sdlg->priv->search_hex_buffer==NULL);
 
-    if (sdlg->priv->searchmode==SEARCH_MODE_TEXT) {
+    gchar *pattern;
 
+    if (sdlg->priv->searchmode==SEARCH_MODE_TEXT)
+    {
         // Text mode search
         pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(sdlg->priv->entry));
 
         sdlg->priv->search_text_string = g_strdup(pattern);
 
         // Add a new text pattern to the history list
-        if (!gviewer_find_string_history(sdlg->priv->text_pattern_history, pattern)) {
+        if (!gviewer_find_string_history(sdlg->priv->text_pattern_history, pattern))
+        {
             sdlg->priv->text_pattern_history = g_list_append(sdlg->priv->text_pattern_history, pattern);
         }
-        if (g_list_length(sdlg->priv->text_pattern_history)>SEARCH_DLG_MAX_HISTORY) {
+        if (g_list_length(sdlg->priv->text_pattern_history)>SEARCH_DLG_MAX_HISTORY)
+        {
             sdlg->priv->text_pattern_history = g_list_delete_link(sdlg->priv->text_pattern_history,
                     g_list_first(sdlg->priv->text_pattern_history));
         }
 
         sdlg->priv->case_sensitive = gtk_toggle_button_get_active(
             GTK_TOGGLE_BUTTON(sdlg->priv->case_sensitive_checkbox));
-    } else {
+    }
+    else
+    {
         // Hex Mode Search
         pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(sdlg->priv->entry));
         sdlg->priv->search_text_string = g_strdup(pattern);
 
-        sdlg->priv->search_hex_buffer = text2hex(pattern,&sdlg->priv->search_hex_buflen);
+        sdlg->priv->search_hex_buffer = text2hex(pattern, &sdlg->priv->search_hex_buflen);
         g_return_if_fail(sdlg->priv->search_hex_buffer!=NULL);
 
 #if HEX_HISTORY
         // Add a new text pattern to the history list
-        if (!gviewer_find_string_history(sdlg->priv->hex_pattern_history, pattern)) {
+        if (!gviewer_find_string_history(sdlg->priv->hex_pattern_history, pattern))
             sdlg->priv->hex_pattern_history = g_list_prepend(sdlg->priv->hex_pattern_history, pattern);
-        }
 #endif
 
     }
@@ -265,8 +281,8 @@ static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchD
     sdlg->priv->last_entry_text = g_strdup(pattern);
 }
 
-static void
-search_dlg_class_init(GViewerSearchDlgClass *klass)
+
+static void search_dlg_class_init(GViewerSearchDlgClass *klass)
 {
     GtkObjectClass *object_class = (GtkObjectClass *) klass;
 
@@ -274,53 +290,55 @@ search_dlg_class_init(GViewerSearchDlgClass *klass)
     object_class->destroy = search_dlg_destroy;
 }
 
-void entry_changed(GtkEntry *entry,gpointer  user_data)
-{
-    guint8 *buf;
-    guint len;
-    gboolean enable = FALSE;
-    GViewerSearchDlg *sdlg;
 
+void entry_changed(GtkEntry *entry, gpointer  user_data)
+{
     g_return_if_fail (IS_GVIEWER_SEARCH_DLG(user_data));
-    sdlg = GVIEWER_SEARCH_DLG(user_data);
+
+    gboolean enable = FALSE;
+
+    GViewerSearchDlg *sdlg = GVIEWER_SEARCH_DLG(user_data);
     g_return_if_fail(sdlg->priv!=NULL);
 
-    if (sdlg->priv->searchmode==SEARCH_MODE_HEX) {
+    if (sdlg->priv->searchmode==SEARCH_MODE_HEX)
+    {
         // Only if the use entered a valid hex string, enable the "find" button
-        buf = text2hex(gtk_entry_get_text(entry), &len);
+        guint len;
+        guint8 *buf = text2hex(gtk_entry_get_text(entry), &len);
 
         enable = (buf!=NULL) && (len>0);
-        if (buf)
-            g_free(buf);
-    } else {
+        g_free(buf);
+    }
+    else
+    {
         // SEARCH_MODE_TEXT
         enable = (strlen(gtk_entry_get_text(entry))>0);
     }
-    gtk_dialog_set_response_sensitive(GTK_DIALOG(user_data),GTK_RESPONSE_OK,enable);
+    gtk_dialog_set_response_sensitive(GTK_DIALOG(user_data), GTK_RESPONSE_OK, enable);
 }
 
-static void
-search_dlg_init (GViewerSearchDlg *sdlg)
+
+static void search_dlg_init (GViewerSearchDlg *sdlg)
 {
     GtkTable *table;
     GtkWidget *entry;
 
-    sdlg->priv = g_new0(GViewerSearchDlgPrivate,1);
+    sdlg->priv = g_new0(GViewerSearchDlgPrivate, 1);
 
     GtkDialog *dlg = GTK_DIALOG(sdlg);
 
     load_search_dlg_state(sdlg);
 
-    gtk_window_set_title(GTK_WINDOW(dlg),_("Find"));
-    gtk_window_set_modal(GTK_WINDOW(dlg),TRUE);
-    gtk_dialog_add_button(dlg,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL);
-    gtk_dialog_add_button(dlg,GTK_STOCK_FIND,GTK_RESPONSE_OK);
-    gtk_dialog_set_default_response(dlg,GTK_RESPONSE_OK);
+    gtk_window_set_title(GTK_WINDOW(dlg), _("Find"));
+    gtk_window_set_modal(GTK_WINDOW(dlg), TRUE);
+    gtk_dialog_add_button(dlg, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+    gtk_dialog_add_button(dlg, GTK_STOCK_FIND, GTK_RESPONSE_OK);
+    gtk_dialog_set_default_response(dlg, GTK_RESPONSE_OK);
 
-    g_signal_connect_swapped(GTK_WIDGET(dlg), "response", G_CALLBACK(search_dlg_action_response),sdlg);
+    g_signal_connect_swapped(GTK_WIDGET(dlg), "response", G_CALLBACK(search_dlg_action_response), sdlg);
 
     // 2x4 Table
-    table = GTK_TABLE(gtk_table_new(2, 2,FALSE));
+    table = GTK_TABLE(gtk_table_new(2, 2, FALSE));
     gtk_table_set_row_spacings (GTK_TABLE (table), 6);
     gtk_table_set_col_spacings (GTK_TABLE (table), 6);
     gtk_box_pack_start (GTK_BOX(dlg->vbox), GTK_WIDGET(table), FALSE, TRUE, 0);
@@ -329,40 +347,43 @@ search_dlg_init (GViewerSearchDlg *sdlg)
     // Label
     sdlg->priv->label = gtk_label_new(NULL);
     gtk_label_set_markup_with_mnemonic(GTK_LABEL(sdlg->priv->label), "_Search for:");
-    gtk_table_attach(table, sdlg->priv->label, 0, 1, 0, 1, GTK_FILL,GTK_FILL,0,0);
+    gtk_table_attach(table, sdlg->priv->label, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
     // Entry Box
     sdlg->priv->entry = gtk_combo_box_entry_new_text();
     entry = gtk_bin_get_child(GTK_BIN(sdlg->priv->entry));
     g_object_set(entry, "activates-default", TRUE, NULL);
-    g_signal_connect(entry,"changed",G_CALLBACK(entry_changed), sdlg);
-    gtk_table_attach(table, sdlg->priv->entry, 1, 3, 0, 1, GTK_FILL,GTK_FILL,0,0);
+    g_signal_connect(entry, "changed", G_CALLBACK(entry_changed), sdlg);
+    gtk_table_attach(table, sdlg->priv->entry, 1, 3, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
     set_text_history(sdlg);
 
     // Search mode radio buttons
-    sdlg->priv->text_mode = gtk_radio_button_new_with_mnemonic(NULL,_("_Text"));
+    sdlg->priv->text_mode = gtk_radio_button_new_with_mnemonic(NULL, _("_Text"));
     sdlg->priv->hex_mode = gtk_radio_button_new_with_mnemonic_from_widget(
-                GTK_RADIO_BUTTON(sdlg->priv->text_mode),_("_Hex"));
+                GTK_RADIO_BUTTON(sdlg->priv->text_mode), _("_Hex"));
 
-    g_signal_connect(sdlg->priv->text_mode,"toggled",G_CALLBACK(search_mode_text), sdlg);
-    g_signal_connect(sdlg->priv->hex_mode, "toggled",G_CALLBACK(search_mode_hex), sdlg);
+    g_signal_connect(sdlg->priv->text_mode, "toggled", G_CALLBACK(search_mode_text), sdlg);
+    g_signal_connect(sdlg->priv->hex_mode, "toggled", G_CALLBACK(search_mode_hex), sdlg);
 
-    gtk_table_attach(table, sdlg->priv->text_mode, 1, 2, 1, 2, GTK_FILL,GTK_FILL,0,0);
-    gtk_table_attach(table, sdlg->priv->hex_mode, 1, 2, 2, 3, GTK_FILL,GTK_FILL,0,0);
+    gtk_table_attach(table, sdlg->priv->text_mode, 1, 2, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
+    gtk_table_attach(table, sdlg->priv->hex_mode, 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 
     // Case-Sensitive Checkbox
     sdlg->priv->case_sensitive_checkbox = gtk_check_button_new_with_mnemonic(_("_Match case"));
-    gtk_table_attach(table, sdlg->priv->case_sensitive_checkbox, 2, 3, 1, 2, GTK_EXPAND|GTK_FILL,GTK_FILL,0,0);
+    gtk_table_attach(table, sdlg->priv->case_sensitive_checkbox, 2, 3, 1, 2, GTK_EXPAND|GTK_FILL, GTK_FILL, 0, 0);
 
     gtk_widget_show_all(sdlg->priv->table);
     gtk_widget_show(GTK_WIDGET(dlg));
 
     // Restore the previously saved state (loaded with "load_search_dlg_state")
-    if (sdlg->priv->searchmode==SEARCH_MODE_HEX) {
+    if (sdlg->priv->searchmode==SEARCH_MODE_HEX)
+    {
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sdlg->priv->hex_mode), TRUE);
         set_hex_mode(sdlg);
-    } else {
+    }
+    else
+    {
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sdlg->priv->text_mode), TRUE);
         set_text_mode(sdlg);
     }
@@ -375,6 +396,7 @@ search_dlg_init (GViewerSearchDlg *sdlg)
     gtk_widget_grab_focus (sdlg->priv->entry);
 }
 
+
 static void search_dlg_destroy (GtkObject *object)
 {
     GViewerSearchDlg *w;
@@ -384,7 +406,8 @@ static void search_dlg_destroy (GtkObject *object)
 
     w = GVIEWER_SEARCH_DLG(object);
 
-    if (w->priv) {
+    if (w->priv)
+    {
         save_search_dlg_state (w);
 
         if (w->priv->search_text_string)
@@ -413,8 +436,8 @@ static void search_dlg_destroy (GtkObject *object)
         (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
-GType
-gviewer_search_dlg_get_type (void)
+
+GType gviewer_search_dlg_get_type (void)
 {
   static GType ttt_type = 0;
   if (!ttt_type)
@@ -428,7 +451,7 @@ gviewer_search_dlg_get_type (void)
     NULL, // class_finalize
     NULL, // class_data
     sizeof (GViewerSearchDlg),
-    0,    // n_preallocs
+    0, // n_preallocs
     (GInstanceInitFunc) search_dlg_init,
       };
 
@@ -441,13 +464,14 @@ gviewer_search_dlg_get_type (void)
   return ttt_type;
 }
 
-GtkWidget*
-gviewer_search_dlg_new (GtkWindow *parent)
+
+GtkWidget* gviewer_search_dlg_new (GtkWindow *parent)
 {
     GViewerSearchDlg *dlg = gtk_type_new (gviewer_search_dlg_get_type());
 
     return GTK_WIDGET (dlg);
 }
+
 
 void gviewer_show_search_dlg(GtkWindow *parent)
 {

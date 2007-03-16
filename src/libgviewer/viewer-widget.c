@@ -87,7 +87,8 @@ static void gviewer_auto_detect_display_mode(GViewer *obj);
 GtkType gviewer_get_type (void)
 {
     static GtkType type = 0;
-    if (type == 0)    {
+    if (type == 0)
+    {
         GTypeInfo info =
         {
             sizeof (GViewerClass),
@@ -100,28 +101,24 @@ GtkType gviewer_get_type (void)
             0,
             (GInstanceInitFunc) gviewer_init
         };
-        type = g_type_register_static(GTK_TYPE_TABLE, "gviewerwidget", &info,0);
+        type = g_type_register_static(GTK_TYPE_TABLE, "gviewerwidget", &info, 0);
     }
 
     return type;
 }
 
-GtkWidget*
-gviewer_new (void)
-{
-    GViewer *w;
 
-    w = gtk_type_new (gviewer_get_type ());
+GtkWidget* gviewer_new (void)
+{
+    GViewer *w = gtk_type_new (gviewer_get_type ());
 
     return GTK_WIDGET (w);
 }
 
-static void
-gviewer_class_init (GViewerClass *klass)
-{
-    GtkObjectClass *object_class;
 
-    object_class = GTK_OBJECT_CLASS(klass);
+static void gviewer_class_init (GViewerClass *klass)
+{
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS(klass);
 
     parent_class = gtk_type_class (gtk_table_get_type ());
 
@@ -137,13 +134,13 @@ gviewer_class_init (GViewerClass *klass)
             1, GTK_TYPE_STRING);
 }
 
-static void
-gviewer_init (GViewer *w)
-{
-    w->priv = g_new0(GViewerPrivate,1);
 
-    gtk_table_resize(GTK_TABLE(w), 1,1);
-    gtk_table_set_homogeneous(GTK_TABLE(w),FALSE);
+static void gviewer_init (GViewer *w)
+{
+    w->priv = g_new0(GViewerPrivate, 1);
+
+    gtk_table_resize(GTK_TABLE(w), 1, 1);
+    gtk_table_set_homogeneous(GTK_TABLE(w), FALSE);
 
     w->priv->img_initialized = FALSE;
     w->priv->dispmode = DISP_MODE_TEXT_FIXED;
@@ -162,7 +159,7 @@ gviewer_init (GViewer *w)
         scroll_box_get_h_adjustment(SCROLL_BOX(w->priv->tscrollbox)));
     text_render_attach_external_v_range(w->priv->textr,
         scroll_box_get_v_range(SCROLL_BOX(w->priv->tscrollbox)));
-    scroll_box_set_client(SCROLL_BOX(w->priv->tscrollbox),GTK_WIDGET(w->priv->textr));
+    scroll_box_set_client(SCROLL_BOX(w->priv->tscrollbox), GTK_WIDGET(w->priv->textr));
     gtk_widget_show(GTK_WIDGET(w->priv->textr));
     gtk_widget_show(w->priv->tscrollbox);
     g_object_ref(G_OBJECT(w->priv->tscrollbox));
@@ -177,7 +174,7 @@ gviewer_init (GViewer *w)
         scroll_box_get_h_adjustment(SCROLL_BOX(w->priv->iscrollbox)));
     image_render_set_best_fit(w->priv->imgr, TRUE);
     image_render_set_scale_factor(w->priv->imgr, 1);
-    scroll_box_set_client(SCROLL_BOX(w->priv->iscrollbox),GTK_WIDGET(w->priv->imgr));
+    scroll_box_set_client(SCROLL_BOX(w->priv->iscrollbox), GTK_WIDGET(w->priv->imgr));
     gtk_widget_show(GTK_WIDGET(w->priv->imgr));
     gtk_widget_show(w->priv->iscrollbox);
     g_object_ref(G_OBJECT(w->priv->iscrollbox));
@@ -187,11 +184,12 @@ gviewer_init (GViewer *w)
         (GtkAttachOptions)(GTK_FILL|GTK_EXPAND),
         (GtkAttachOptions)(GTK_FILL|GTK_EXPAND), 0, 0);
 
-    g_signal_connect(G_OBJECT(w),"destroy-event", G_CALLBACK(gviewer_destroy), (gpointer)w);
+    g_signal_connect(G_OBJECT(w), "destroy-event", G_CALLBACK(gviewer_destroy), (gpointer)w);
 
-    g_signal_connect(G_OBJECT(w->priv->textr),"text_status_changed", G_CALLBACK(gviewer_text_status_update), (gpointer)w);
-    g_signal_connect(G_OBJECT(w->priv->imgr),"image_status_changed", G_CALLBACK(gviewer_image_status_update), (gpointer)w);
+    g_signal_connect(G_OBJECT(w->priv->textr), "text_status_changed", G_CALLBACK(gviewer_text_status_update), (gpointer)w);
+    g_signal_connect(G_OBJECT(w->priv->imgr), "image_status_changed", G_CALLBACK(gviewer_image_status_update), (gpointer)w);
 }
+
 
 #define MAX_STATUS_LENGTH 100
 static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status, GViewer *viewer)
@@ -202,7 +200,7 @@ static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status
     g_return_if_fail (IS_GVIEWER (viewer));
     g_return_if_fail (status!=NULL);
 
-    g_snprintf(temp,MAX_STATUS_LENGTH,
+    g_snprintf(temp, MAX_STATUS_LENGTH,
         _("Position: %lu of %lu\tColumn: %d\t%s"),
         (unsigned long)status->current_offset,
         (unsigned long)status->size,
@@ -213,6 +211,7 @@ static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status
         GTK_OBJECT(viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
 }
 
+
 static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *status, GViewer *viewer)
 {
     gchar temp[MAX_STATUS_LENGTH];
@@ -222,28 +221,29 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *sta
     g_return_if_fail (IS_GVIEWER (viewer));
     g_return_if_fail (status!=NULL);
 
-    if (!status->best_fit){
-        g_snprintf(scale,10,"%d %%",
-            (int)(status->scale_factor*100.0));
+    if (!status->best_fit)
+    {
+        g_snprintf(scale, 10, "%d %%", (int)(status->scale_factor*100.0));
     }
-    g_snprintf(temp,MAX_STATUS_LENGTH,
+    g_snprintf(temp, MAX_STATUS_LENGTH,
         _("Image size: %dx%d\tBits/sample: %d\tZoom: %s"),
-        status->image_width,status->image_height,status->bits_per_sample,
+        status->image_width, status->image_height, status->bits_per_sample,
         status->best_fit?_("Fit-to-Window"):scale);
 
     gtk_signal_emit (
         GTK_OBJECT(viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
 }
 
-static void
-gviewer_destroy (GtkObject *widget)
+
+static void gviewer_destroy (GtkObject *widget)
 {
     g_return_if_fail (widget!= NULL);
     g_return_if_fail (IS_GVIEWER (widget));
 
     GViewer *w = GVIEWER (widget);
 
-    if (w->priv) {
+    if (w->priv)
+    {
         g_object_unref(G_OBJECT(w->priv->iscrollbox));
         g_object_unref(G_OBJECT(w->priv->tscrollbox));
 
@@ -255,6 +255,7 @@ gviewer_destroy (GtkObject *widget)
         (*GTK_OBJECT_CLASS(parent_class)->destroy)(widget);
 }
 
+
 static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
 {
     int i;
@@ -263,14 +264,15 @@ static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
     gboolean extended_chars = FALSE; /* True if found ASCII >= 0x80 */
     const char *mime=NULL;
 
-    mime = gnome_vfs_get_mime_type_for_data(data,len);
+    mime = gnome_vfs_get_mime_type_for_data(data, len);
 
-    if (g_strncasecmp(mime,"image/",6)==0)
+    if (g_strncasecmp(mime, "image/", 6)==0)
         return DISP_MODE_IMAGE;
 
 
     /* Hex File ?  */
-    for (i=0;i<len;i++) {
+    for (i=0;i<len;i++)
+    {
         if (data[i]<0x20 && data[i]!=10 && data[i]!=13 && data[i]!=9)
             control_chars = TRUE;
         if (data[i]>=0x80)
@@ -285,6 +287,7 @@ static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
 
     return DISP_MODE_TEXT_FIXED;
 }
+
 
 void gviewer_auto_detect_display_mode(GViewer *obj)
 {
@@ -308,10 +311,11 @@ void gviewer_auto_detect_display_mode(GViewer *obj)
         gv_file_get_max_offset(fops));
 
     for (i=0;i<count;i++)
-        temp[i] = gv_file_get_byte(fops,i);
+        temp[i] = gv_file_get_byte(fops, i);
 
-    obj->priv->dispmode = guess_display_mode(temp,count);
+    obj->priv->dispmode = guess_display_mode(temp, count);
 }
+
 
 void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
 {
@@ -320,7 +324,8 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
     g_return_if_fail (obj!= NULL);
     g_return_if_fail (IS_GVIEWER (obj));
 
-    if (mode==DISP_MODE_IMAGE && !obj->priv->img_initialized) {
+    if (mode==DISP_MODE_IMAGE && !obj->priv->img_initialized)
+    {
         /* do lazy-initialization of the image render, only when the user
             first asks to display the file as image */
         obj->priv->img_initialized = TRUE;
@@ -352,8 +357,10 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
         break;
     }
 
-    if (client != obj->priv->last_client) {
-        if (obj->priv->last_client!=NULL) {
+    if (client != obj->priv->last_client)
+    {
+        if (obj->priv->last_client!=NULL)
+        {
             gtk_container_remove(GTK_CONTAINER(obj), obj->priv->last_client);
         }
 
@@ -367,6 +374,7 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
     }
 }
 
+
 VIEWERDISPLAYMODE gviewer_get_display_mode(GViewer *obj)
 {
     g_return_val_if_fail (obj!= NULL, DISP_MODE_TEXT_FIXED);
@@ -374,6 +382,7 @@ VIEWERDISPLAYMODE gviewer_get_display_mode(GViewer *obj)
 
     return obj->priv->dispmode;
 }
+
 
 void gviewer_load_filedesc(GViewer *obj, int fd)
 {
@@ -391,6 +400,7 @@ void gviewer_load_filedesc(GViewer *obj, int fd)
 
     gviewer_set_display_mode(obj, obj->priv->dispmode);
 }
+
 
 void gviewer_load_file(GViewer *obj, const gchar*filename)
 {
@@ -411,6 +421,7 @@ void gviewer_load_file(GViewer *obj, const gchar*filename)
     gviewer_set_display_mode(obj, obj->priv->dispmode);
 }
 
+
 const gchar *gviewer_get_filename(GViewer *obj)
 {
     g_return_val_if_fail (obj!= NULL, NULL);
@@ -420,23 +431,26 @@ const gchar *gviewer_get_filename(GViewer *obj)
     return obj->priv->filename;
 }
 
+
 void gviewer_set_tab_size(GViewer *obj, int tab_size)
 {
     g_return_if_fail (obj!= NULL);
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->textr);
 
-    text_render_set_tab_size(obj->priv->textr,tab_size);
+    text_render_set_tab_size(obj->priv->textr, tab_size);
 }
+
 
 int gviewer_get_tab_size(GViewer *obj)
 {
-    g_return_val_if_fail (obj!= NULL,0);
-    g_return_val_if_fail (IS_GVIEWER (obj),0);
-    g_return_val_if_fail (obj->priv->textr,0);
+    g_return_val_if_fail (obj!= NULL, 0);
+    g_return_val_if_fail (IS_GVIEWER (obj), 0);
+    g_return_val_if_fail (obj->priv->textr, 0);
 
     return text_render_get_tab_size(obj->priv->textr);
 }
+
 
 void gviewer_set_wrap_mode(GViewer *obj, gboolean ACTIVE)
 {
@@ -447,11 +461,12 @@ void gviewer_set_wrap_mode(GViewer *obj, gboolean ACTIVE)
     text_render_set_wrap_mode(obj->priv->textr, ACTIVE);
 }
 
+
 gboolean gviewer_get_wrap_mode(GViewer *obj)
 {
-    g_return_val_if_fail (obj!= NULL,FALSE);
-    g_return_val_if_fail (IS_GVIEWER (obj),FALSE);
-    g_return_val_if_fail (obj->priv->textr,FALSE);
+    g_return_val_if_fail (obj!= NULL, FALSE);
+    g_return_val_if_fail (IS_GVIEWER (obj), FALSE);
+    g_return_val_if_fail (obj->priv->textr, FALSE);
 
     return text_render_get_wrap_mode(obj->priv->textr);
 }
@@ -463,17 +478,19 @@ void gviewer_set_fixed_limit(GViewer *obj, int fixed_limit)
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->textr);
 
-    text_render_set_fixed_limit(obj->priv->textr,fixed_limit);
+    text_render_set_fixed_limit(obj->priv->textr, fixed_limit);
 }
+
 
 int gviewer_get_fixed_limit(GViewer *obj)
 {
-    g_return_val_if_fail (obj!= NULL,0);
-    g_return_val_if_fail (IS_GVIEWER (obj),0);
-    g_return_val_if_fail (obj->priv->textr,0);
+    g_return_val_if_fail (obj!= NULL, 0);
+    g_return_val_if_fail (IS_GVIEWER (obj), 0);
+    g_return_val_if_fail (obj->priv->textr, 0);
 
     return text_render_get_fixed_limit(obj->priv->textr);
 }
+
 
 void gviewer_set_encoding(GViewer *obj, const char *encoding)
 {
@@ -481,17 +498,19 @@ void gviewer_set_encoding(GViewer *obj, const char *encoding)
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->textr);
 
-    text_render_set_encoding(obj->priv->textr,encoding);
+    text_render_set_encoding(obj->priv->textr, encoding);
 }
+
 
 const gchar *gviewer_get_encoding(GViewer *obj)
 {
-    g_return_val_if_fail (obj!= NULL,NULL);
-    g_return_val_if_fail (IS_GVIEWER (obj),NULL);
-    g_return_val_if_fail (obj->priv->textr,NULL);
+    g_return_val_if_fail (obj!= NULL, NULL);
+    g_return_val_if_fail (IS_GVIEWER (obj), NULL);
+    g_return_val_if_fail (obj->priv->textr, NULL);
 
     return text_render_get_encoding(obj->priv->textr);
 }
+
 
 void gviewer_set_font_size(GViewer *obj, int font_size)
 {
@@ -499,14 +518,15 @@ void gviewer_set_font_size(GViewer *obj, int font_size)
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->textr);
 
-    text_render_set_font_size(obj->priv->textr,font_size);
+    text_render_set_font_size(obj->priv->textr, font_size);
 }
+
 
 int gviewer_get_font_size(GViewer *obj)
 {
-    g_return_val_if_fail (obj!= NULL,0);
-    g_return_val_if_fail (IS_GVIEWER (obj),0);
-    g_return_val_if_fail (obj->priv->textr,0);
+    g_return_val_if_fail (obj!= NULL, 0);
+    g_return_val_if_fail (IS_GVIEWER (obj), 0);
+    g_return_val_if_fail (obj->priv->textr, 0);
 
     return text_render_get_font_size(obj->priv->textr);
 }
@@ -518,17 +538,19 @@ void gviewer_set_hex_offset_display(GViewer *obj, gboolean HEX_OFFSET)
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->textr);
 
-    text_render_set_hex_offset_display(obj->priv->textr,HEX_OFFSET);
+    text_render_set_hex_offset_display(obj->priv->textr, HEX_OFFSET);
 }
+
 
 gboolean gviewer_get_hex_offset_display(GViewer *obj)
 {
-    g_return_val_if_fail (obj!= NULL,FALSE);
-    g_return_val_if_fail (IS_GVIEWER (obj),FALSE);
-    g_return_val_if_fail (obj->priv->textr,FALSE);
+    g_return_val_if_fail (obj!= NULL, FALSE);
+    g_return_val_if_fail (IS_GVIEWER (obj), FALSE);
+    g_return_val_if_fail (obj->priv->textr, FALSE);
 
     return text_render_get_hex_offset_display(obj->priv->textr);
 }
+
 
 void gviewer_set_best_fit(GViewer *obj, gboolean active)
 {
@@ -536,14 +558,15 @@ void gviewer_set_best_fit(GViewer *obj, gboolean active)
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->imgr);
 
-    image_render_set_best_fit(obj->priv->imgr,active);
+    image_render_set_best_fit(obj->priv->imgr, active);
 }
+
 
 gboolean gviewer_get_best_fit(GViewer *obj)
 {
-    g_return_val_if_fail (obj!= NULL,FALSE);
-    g_return_val_if_fail (IS_GVIEWER (obj),FALSE);
-    g_return_val_if_fail (obj->priv->textr,FALSE);
+    g_return_val_if_fail (obj!= NULL, FALSE);
+    g_return_val_if_fail (IS_GVIEWER (obj), FALSE);
+    g_return_val_if_fail (obj->priv->textr, FALSE);
 
     return image_render_get_best_fit(obj->priv->imgr);
 }
@@ -558,25 +581,28 @@ void gviewer_set_scale_factor(GViewer *obj, double scalefactor)
     image_render_set_scale_factor(obj->priv->imgr, scalefactor);
 }
 
+
 double gviewer_get_scale_factor(GViewer *obj)
 {
-    g_return_val_if_fail (obj!= NULL,0);
-    g_return_val_if_fail (IS_GVIEWER (obj),0);
-    g_return_val_if_fail (obj->priv->imgr,0);
+    g_return_val_if_fail (obj!= NULL, 0);
+    g_return_val_if_fail (IS_GVIEWER (obj), 0);
+    g_return_val_if_fail (obj->priv->imgr, 0);
 
     return image_render_get_scale_factor(obj->priv->imgr);
 }
 
+
 TextRender *gviewer_get_text_render(GViewer *obj)
 {
-    g_return_val_if_fail (obj!= NULL,0);
-    g_return_val_if_fail (IS_GVIEWER (obj),0);
-    g_return_val_if_fail (obj->priv->textr,0);
+    g_return_val_if_fail (obj!= NULL, 0);
+    g_return_val_if_fail (IS_GVIEWER (obj), 0);
+    g_return_val_if_fail (obj->priv->textr, 0);
 
     return obj->priv->textr;
 }
 
-void  gviewer_image_operation(GViewer *obj, IMAGEOPERATION op)
+
+void gviewer_image_operation(GViewer *obj, IMAGEOPERATION op)
 {
     g_return_if_fail (obj!= NULL);
     g_return_if_fail (IS_GVIEWER (obj));
@@ -584,6 +610,7 @@ void  gviewer_image_operation(GViewer *obj, IMAGEOPERATION op)
 
     return image_render_operation(obj->priv->imgr, op);
 }
+
 
 void gviewer_copy_selection(GViewer *obj)
 {
