@@ -184,7 +184,9 @@ on_execute (GtkMenuItem *menu_item, GList *files)
 static void
 on_execute_py_plugin (GtkMenuItem *menu_item, PythonPluginData *data)
 {
+#ifdef HAVE_PYTHON
     gnome_cmd_python_plugin_execute(data, main_win);
+#endif
 }
 
 
@@ -580,7 +582,10 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     if (match_count > 0)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
 
-    GList *py_plugins = gnome_cmd_python_plugin_get_list();
+    GList *py_plugins = NULL;
+#ifdef HAVE_PYTHON
+    py_plugins = gnome_cmd_python_plugin_get_list();
+#endif
     guint n = g_list_length (py_plugins);
 
     if (n)

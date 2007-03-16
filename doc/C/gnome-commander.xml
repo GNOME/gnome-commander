@@ -5243,6 +5243,9 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>Fixed problem #371948 and #388970 (file path not escaped)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #412162 (build with --enable-python=no)</para>
+                        </listitem>
+                        <listitem>
                             <para>Build fixes</para>
                         </listitem>
                     </itemizedlist>

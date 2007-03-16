@@ -1,3 +1,8 @@
+2007-03-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-popmenu.cc:
+	Fixed problem #412162 (build with --enable-python=no)
+
 2007-03-12  koos  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-file-list.cc:
