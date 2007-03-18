@@ -162,7 +162,7 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             gchar *msg = g_strdup_printf (
                 _("The directory '%s' doesn't exist, do you want to create it?"),
                 g_basename (dest_path));
-            GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (main_win), 
+            GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (main_win),
                                                         (GtkDialogFlags) 0,
                                                         GTK_MESSAGE_QUESTION,
                                                         GTK_BUTTONS_OK_CANCEL,

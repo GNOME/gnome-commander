@@ -187,9 +187,9 @@ gnome_cmd_app_set_icon_path       (GnomeCmdApp *app,
     app->priv->icon_path = g_strdup (icon_path);
 
     //FIXME: Check GError here
-    if ((tmp = gdk_pixbuf_new_from_file (icon_path, NULL)) != NULL) {
-        GdkPixbuf *pixbuf = gdk_pixbuf_scale_simple (
-            tmp, 16, 16, GDK_INTERP_HYPER);
+    if ((tmp = gdk_pixbuf_new_from_file (icon_path, NULL)) != NULL)
+    {
+        GdkPixbuf *pixbuf = gdk_pixbuf_scale_simple (tmp, 16, 16, GDK_INTERP_HYPER);
 
         if (pixbuf)
             app->priv->pixmap = gnome_cmd_pixmap_new_from_pixbuf (pixbuf);
@@ -199,9 +199,7 @@ gnome_cmd_app_set_icon_path       (GnomeCmdApp *app,
 }
 
 
-void
-gnome_cmd_app_set_target         (GnomeCmdApp *app,
-                                  AppTarget target)
+void gnome_cmd_app_set_target (GnomeCmdApp *app, AppTarget target)
 {
     g_return_if_fail (app != NULL);
     g_return_if_fail (app->priv != NULL);
@@ -210,13 +208,8 @@ gnome_cmd_app_set_target         (GnomeCmdApp *app,
 }
 
 
-void
-gnome_cmd_app_set_pattern_string (GnomeCmdApp *app,
-                                  const gchar *pattern_string)
+void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *pattern_string)
 {
-    gint i;
-    gchar **ents;
-
     g_return_if_fail (app != NULL);
     g_return_if_fail (app->priv != NULL);
     g_return_if_fail (pattern_string != NULL);
@@ -232,12 +225,10 @@ gnome_cmd_app_set_pattern_string (GnomeCmdApp *app,
     app->priv->pattern_list = NULL;
 
     // Create the new one
-    i = 0;
-    ents = g_strsplit (pattern_string, ";", 0);
-    while (ents[i]) {
+    gchar **ents = g_strsplit (pattern_string, ";", 0);
+    for (gint i=0; ents[i]; ++i)
         app->priv->pattern_list = g_list_append (app->priv->pattern_list, ents[i]);
-        i++;
-    }
+
     g_free (ents);
 }
 

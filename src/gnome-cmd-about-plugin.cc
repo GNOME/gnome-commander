@@ -178,7 +178,8 @@ gnome_cmd_about_plugin_display_credits_dialog (GnomeCmdAboutPlugin *about)
 {
     GtkWidget *dialog, *label, *notebook, *sw;
 
-    if (about->priv->credits_dialog != NULL) {
+    if (about->priv->credits_dialog != NULL)
+    {
         gtk_window_present (GTK_WINDOW (about->priv->credits_dialog));
         return;
     }

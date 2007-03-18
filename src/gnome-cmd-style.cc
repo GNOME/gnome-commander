@@ -30,28 +30,27 @@ GtkStyle *list_style = NULL;
 GtkStyle *sel_list_style = NULL;
 
 
-static GtkStyle *
-create_list_style ()
+static GtkStyle *create_list_style ()
 {
-    GtkStyle *style;
     GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
     const gchar *font_name = gnome_cmd_data_get_list_font ();
+    GtkStyle *style = gtk_style_new ();
 
-    style = gtk_style_new ();
-
-    if (strcmp (font_name, "default") != 0) {
+    if (strcmp (font_name, "default") != 0)
+    {
         PangoFontDescription *pfont;
         pfont = pango_font_description_from_string (font_name);
 
-        if (pfont
-            && pango_font_description_get_size (pfont) != 0) {
+        if (pfont && pango_font_description_get_size (pfont) != 0)
+        {
             if (style->font_desc)
                 pango_font_description_free (style->font_desc);
             style->font_desc = pfont;
         }
     }
 
-    if (!cols->respect_theme) {
+    if (!cols->respect_theme)
+    {
         style->fg[GTK_STATE_SELECTED] = *cols->curs_fg;
         style->text[GTK_STATE_NORMAL] = *cols->norm_fg;
         style->fg[GTK_STATE_NORMAL] = *cols->norm_fg;
@@ -65,8 +64,7 @@ create_list_style ()
 }
 
 
-static GtkStyle *
-create_sel_list_style ()
+static GtkStyle *create_sel_list_style ()
 {
     GtkStyle *style;
     GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
@@ -74,19 +72,20 @@ create_sel_list_style ()
 
     style = gtk_style_new ();
 
-    if (strcmp (font_name, "default") != 0) {
-        PangoFontDescription *pfont;
-        pfont = pango_font_description_from_string (font_name);
+    if (strcmp (font_name, "default") != 0)
+    {
+        PangoFontDescription *pfont = pango_font_description_from_string (font_name);
 
-        if (pfont &&
-            pango_font_description_get_size (pfont) != 0) {
+        if (pfont && pango_font_description_get_size (pfont) != 0)
+        {
             if (style->font_desc)
                 pango_font_description_free (style->font_desc);
             style->font_desc = pfont;
         }
     }
 
-    if (!cols->respect_theme) {
+    if (!cols->respect_theme)
+    {
         style->fg[GTK_STATE_SELECTED] = *cols->sel_fg;
         style->fg[GTK_STATE_NORMAL] = *cols->sel_fg;
         style->text[GTK_STATE_NORMAL] = *cols->sel_fg;

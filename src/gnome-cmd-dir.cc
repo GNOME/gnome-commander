@@ -618,7 +618,7 @@ gnome_cmd_dir_list_files (GnomeCmdDir *dir, gboolean visprog)
                visprog);
         gnome_cmd_dir_relist_files (dir, visprog);
     }
-    else 
+    else
         gtk_signal_emit (GTK_OBJECT (dir), dir_signals[LIST_OK], dir->priv->files);
 }
 

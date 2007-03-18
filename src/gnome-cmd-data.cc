@@ -430,15 +430,16 @@ remove_vfs_volume (GnomeVFSVolume *volume)
     path = gnome_vfs_volume_get_device_path (volume);
     localpath = gnome_vfs_get_local_path_from_uri(uri);
 
-    for (GList *tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp != NULL; tmp = tmp->next) {
+    for (GList *tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp != NULL; tmp = tmp->next)
+    {
         GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
-        if (device && gnome_cmd_con_device_get_autovol(device)) {
-            gchar *device_fn;
-            const gchar *mountp;
-            device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
-            mountp = gnome_cmd_con_device_get_mountp (device);
+        if (device && gnome_cmd_con_device_get_autovol(device))
+        {
+            gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
+            const gchar *mountp = gnome_cmd_con_device_get_mountp (device);
 
-            if ((strcmp(device_fn, path)==0) && (strcmp(mountp,localpath)==0)) {
+            if ((strcmp(device_fn, path)==0) && (strcmp(mountp,localpath)==0))
+            {
                 DEBUG('m',"Remove Volume:\ndevice_fn = %s\tmountp = %s\n",
                 device_fn,mountp);
                 gnome_cmd_con_list_remove_device(data->priv->con_list, device);

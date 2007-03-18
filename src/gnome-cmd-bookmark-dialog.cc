@@ -154,12 +154,14 @@ static gboolean on_edit_ok (GnomeCmdStringDialog *string_dialog, const gchar **v
 
     g_return_val_if_fail (dialog->priv->sel_bookmark != NULL, TRUE);
 
-    if (!name) {
+    if (!name)
+    {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("Bookmark name is missing")));
         return FALSE;
     }
 
-    if (!path) {
+    if (!path)
+    {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("Bookmark target is missing")));
         return FALSE;
     }
@@ -190,18 +192,22 @@ static void update_move_buttons (GnomeCmdBookmarkDialog *dialog, int row)
 {
     GtkCList *dir_list = GTK_CLIST (dialog->priv->dir_list);
 
-    if (row == 0) {
+    if (row == 0)
+    {
         gtk_widget_set_sensitive (dialog->priv->move_up_btn, FALSE);
         gtk_widget_set_sensitive (dialog->priv->move_down_btn, dir_list->rows > 1);
     }
-    else if (row == dir_list->rows - 1) {
-        gtk_widget_set_sensitive (dialog->priv->move_down_btn, FALSE);
-        gtk_widget_set_sensitive (dialog->priv->move_up_btn, dir_list->rows > 1);
-    }
-    else {
-        gtk_widget_set_sensitive (dialog->priv->move_up_btn, TRUE);
-        gtk_widget_set_sensitive (dialog->priv->move_down_btn, TRUE);
-    }
+    else
+        if (row == dir_list->rows - 1)
+        {
+            gtk_widget_set_sensitive (dialog->priv->move_down_btn, FALSE);
+            gtk_widget_set_sensitive (dialog->priv->move_up_btn, dir_list->rows > 1);
+        }
+        else
+        {
+            gtk_widget_set_sensitive (dialog->priv->move_up_btn, TRUE);
+            gtk_widget_set_sensitive (dialog->priv->move_down_btn, TRUE);
+        }
 }
 
 

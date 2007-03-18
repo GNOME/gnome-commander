@@ -577,7 +577,8 @@ on_add_rule_dialog_ok (GnomeCmdStringDialog *string_dialog,
     PatternEntry *entry = g_new0 (PatternEntry, 1);
 
     error_desc = update_entry (entry, string_dialog, values);
-    if (error_desc != NULL) {
+    if (error_desc != NULL)
+    {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
         return FALSE;
     }
@@ -604,7 +605,8 @@ on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog,
     g_return_val_if_fail (entry != NULL, TRUE);
 
     error_desc = update_entry (entry, string_dialog, values);
-    if (error_desc != NULL) {
+    if (error_desc != NULL)
+    {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
         return FALSE;
     }
@@ -842,7 +844,8 @@ static void on_rule_move_up (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
     GtkCList *clist = GTK_CLIST (dialog->priv->pat_list);
 
-    if (clist->focus_row >= 1) {
+    if (clist->focus_row >= 1)
+    {
         gtk_clist_row_move (clist, clist->focus_row, clist->focus_row-1);
         update_move_buttons (dialog, clist->focus_row);
         do_test (dialog);
@@ -854,7 +857,8 @@ static void on_rule_move_down (GtkButton *button, GnomeCmdAdvrenameDialog *dialo
 {
     GtkCList *clist = GTK_CLIST (dialog->priv->pat_list);
 
-    if (clist->focus_row >= 0) {
+    if (clist->focus_row >= 0)
+    {
         gtk_clist_row_move (clist, clist->focus_row, clist->focus_row+1);
         update_move_buttons (dialog, clist->focus_row);
         do_test (dialog);

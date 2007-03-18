@@ -228,7 +228,8 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
     GtkWidget *item, *label;
     GtkWidget *pixmap = NULL;
 
-    if (show_pixmap) {
+    if (show_pixmap)
+    {
         item = gtk_image_menu_item_new ();
         pixmap = gnome_pixmap_new_from_xpm_d ((const gchar**)file_roller_small_xpm);
         if (pixmap)

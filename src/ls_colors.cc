@@ -86,7 +86,9 @@ static LsColor *ext_color (gchar *key, gchar *val)
     if (ret < 1)
         return NULL;
 
-    do {key++;} while (key[0] == '.');
+    do
+        key++;
+    while (key[0] == '.');
     col = g_new (LsColor, 1);
     col->type = GNOME_VFS_FILE_TYPE_REGULAR;
     col->ext = g_strdup (key);

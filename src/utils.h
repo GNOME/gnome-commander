@@ -20,7 +20,7 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
-#include <iostream> 
+#include <iostream>
 
 #include <stdio.h>
 

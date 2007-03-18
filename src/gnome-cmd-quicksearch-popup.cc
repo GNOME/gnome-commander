@@ -135,7 +135,8 @@ on_key_pressed                      (GtkWidget *entry,
                                      GnomeCmdQuicksearchPopup *popup)
 {
     // While in quicksearch, treat "ALT/CTRL + key" as a simple "key"
-    if (event->state & GDK_CONTROL_MASK || event->state & GDK_MOD1_MASK) {
+    if (event->state & GDK_CONTROL_MASK || event->state & GDK_MOD1_MASK)
+    {
         event->state &= ~(GDK_CONTROL_MASK|GDK_MOD1_MASK);
     }
 

@@ -306,7 +306,7 @@ module (as specified in section 2, above).
 
 The learn how to use each module, check the appropriate tester.
 
-All module test programs, when run without command line parameters, 
+All module test programs, when run without command line parameters,
 bring usage instructions.
 
 3.1. test-fileops

@@ -543,7 +543,7 @@ add_log_tab (CvsPlugin *plugin, const gchar *fname)
     tab_label = create_tab_label (notebook, fname, GTK_SIGNAL_FUNC (on_close_tab), hpaned);
     gtk_notebook_append_page (GTK_NOTEBOOK (notebook), hpaned, tab_label);
 
-    for (revs = log_history->revisions; revs; revs = revs->next) 
+    for (revs = log_history->revisions; revs; revs = revs->next)
     {
         Revision *rev = (Revision *)revs->data;
         gint row;

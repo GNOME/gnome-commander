@@ -999,7 +999,8 @@ get_app_dialog_values (GtkWidget *dialog, gchar **name, gchar **cmd, gchar **ico
         *target = APP_TARGET_ALL_DIRS;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (target_dirs_and_files)))
         *target = APP_TARGET_ALL_DIRS_AND_FILES;
-    else {
+    else
+    {
         *target = APP_TARGET_SOME_FILES;
         *pattern_string = (gchar *) gtk_entry_get_text (GTK_ENTRY (pattern_entry));
     }
@@ -1204,11 +1205,10 @@ on_app_add (GtkWidget *button, GtkWidget *parent)
 static void
 on_app_edit (GtkWidget *button, GtkWidget *parent)
 {
-    GnomeCmdApp *app = (GnomeCmdApp *) gtk_object_get_data (
-        GTK_OBJECT (parent), "selected_app");
-    if (app) {
-        GtkWidget *dialog = create_app_dialog (
-            app, GTK_SIGNAL_FUNC (on_edit_app_dialog_ok), GTK_SIGNAL_FUNC (on_app_dialog_cancel), parent);
+    GnomeCmdApp *app = (GnomeCmdApp *) gtk_object_get_data (GTK_OBJECT (parent), "selected_app");
+    if (app)
+    {
+        GtkWidget *dialog = create_app_dialog (app, GTK_SIGNAL_FUNC (on_edit_app_dialog_ok), GTK_SIGNAL_FUNC (on_app_dialog_cancel), parent);
         gtk_window_set_title (GTK_WINDOW (dialog), _("Edit Application"));
     }
 }
@@ -1610,10 +1610,10 @@ static void
 on_device_remove (GtkWidget *button, GtkWidget *frame)
 {
     GtkCList *clist = GTK_CLIST (lookup_widget (frame, "device_clist"));
-    GnomeCmdConDevice *dev;
 
-    if (clist->focus_row >= 0) {
-        dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, clist->focus_row));
+    if (clist->focus_row >= 0)
+    {
+        GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, clist->focus_row));
         gnome_cmd_con_list_remove_device (gnome_cmd_data_get_con_list (), dev);
         gtk_clist_remove (clist, clist->focus_row);
         gnome_cmd_con_list_remove_device (gnome_cmd_data_get_con_list (), dev);

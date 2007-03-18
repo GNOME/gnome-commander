@@ -500,7 +500,7 @@ on_main_win_realize                    (GtkWidget       *widget,
     gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, LEFT), TRUE);
     gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, RIGHT), FALSE);
 /*
-    if (gnome_cmd_data_get_cmdline_visibility ()) 
+    if (gnome_cmd_data_get_cmdline_visibility ())
     {
         gchar *dpath = gnome_cmd_file_get_path (
                 GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (mw, LEFT))));
@@ -587,9 +587,9 @@ update_browse_buttons             (GnomeCmdMainWin *mw,
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (fs == gnome_cmd_main_win_get_active_fs (mw)) 
+    if (fs == gnome_cmd_main_win_get_active_fs (mw))
     {
-        if (gnome_cmd_data_get_toolbar_visibility ()) 
+        if (gnome_cmd_data_get_toolbar_visibility ())
         {
             gtk_widget_set_sensitive (mw->priv->tb_first_btn, gnome_cmd_file_selector_can_back (fs));
             gtk_widget_set_sensitive (mw->priv->tb_back_btn, gnome_cmd_file_selector_can_back (fs));
@@ -625,17 +625,17 @@ update_drop_con_button            (GnomeCmdMainWin *mw,
     btn = mw->priv->tb_con_drop_btn;
     g_return_if_fail (GTK_IS_BUTTON (btn));
 
-    if (prev_pixmap) 
+    if (prev_pixmap)
     {
         gtk_widget_destroy (prev_pixmap);
         prev_pixmap = NULL;
     }
 
-    if (gnome_cmd_con_is_closeable (con)) 
+    if (gnome_cmd_con_is_closeable (con))
     {
         pm = gnome_cmd_con_get_close_pixmap (con);
     }
-    else 
+    else
     {
         gtk_widget_set_sensitive (btn, FALSE);
         return;

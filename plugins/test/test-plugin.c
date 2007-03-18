@@ -62,13 +62,14 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
     GtkWidget *item, *label;
     GtkWidget *pixmap = NULL;
 
-    if (show_pixmap) {
+    if (show_pixmap)
+    {
         item = gtk_image_menu_item_new ();
-        pixmap = gnome_pixmap_new_from_xpm_d ((const gchar**)test_plugin_xpm);
-        if (pixmap) {
+        pixmap = gnome_pixmap_new_from_xpm_d ((const gchar**) test_plugin_xpm);
+        if (pixmap)
+        {
             gtk_widget_show (pixmap);
-            gtk_image_menu_item_set_image (
-                GTK_IMAGE_MENU_ITEM (item), pixmap);
+            gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap);
         }
     }
     else
@@ -225,7 +226,8 @@ GnomeCmdPlugin *create_plugin (void)
 
 PluginInfo *get_plugin_info (void)
 {
-    if (!plugin_nfo.authors) {
+    if (!plugin_nfo.authors)
+    {
         plugin_nfo.authors = g_new (gchar*, 2);
         plugin_nfo.authors[0] = AUTHOR;
         plugin_nfo.authors[1] = NULL;
