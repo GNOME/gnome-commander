@@ -2143,6 +2143,7 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
                 gnome_cmd_file_list_toggle (fs->list);
                 show_selected_dir_tree_size (fs);
                 stop_kp (GTK_OBJECT (fs->list));
+                update_selected_files_label (fs);
                 set_cursor_default ();
                 return TRUE;
 

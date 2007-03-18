@@ -1,3 +1,8 @@
+2007-03-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.cc:
+	Fix for wrong display of subdirs files selected with SPACE
+
 2007-03-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-popmenu.cc:
