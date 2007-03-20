@@ -123,7 +123,7 @@ inline gint get_int (const gchar *path, int def)
 }
 
 
-static void write_ftp_servers (const gchar *fname)
+inline void write_ftp_servers (const gchar *fname)
 {
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE  *fd = fopen (path, "w");
@@ -177,8 +177,7 @@ static void write_ftp_servers (const gchar *fname)
 }
 
 
-static void
-write_devices (const gchar *fname)
+inline void write_devices (const gchar *fname)
 {
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
@@ -223,8 +222,7 @@ write_devices (const gchar *fname)
 }
 
 
-static void
-write_fav_apps (const gchar *fname)
+inline void write_fav_apps (const gchar *fname)
 {
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
@@ -266,7 +264,7 @@ write_fav_apps (const gchar *fname)
 }
 
 
-static gboolean load_ftp_servers (const gchar *fname)
+inline gboolean load_ftp_servers (const gchar *fname)
 {
     guint prev_ftp_cons_no = g_list_length(gnome_cmd_con_list_get_all_ftp(data->priv->con_list));
 
@@ -412,8 +410,7 @@ inline gboolean vfs_is_uri_local (const char *uri)
 }
 
 
-static void
-remove_vfs_volume (GnomeVFSVolume *volume)
+inline void remove_vfs_volume (GnomeVFSVolume *volume)
 {
     char *path, *uri, *localpath;
 
@@ -454,8 +451,7 @@ remove_vfs_volume (GnomeVFSVolume *volume)
 }
 
 
-static gboolean
-device_mount_point_exists(GnomeCmdConList *list, const gchar *mountpoint)
+inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *mountpoint)
 {
     gboolean rc = FALSE;
 
@@ -481,8 +477,7 @@ device_mount_point_exists(GnomeCmdConList *list, const gchar *mountpoint)
 }
 
 
-static void
-add_vfs_volume (GnomeVFSVolume *volume)
+inline void add_vfs_volume (GnomeVFSVolume *volume)
 {
     if (!gnome_vfs_volume_is_user_visible (volume))
         return;
@@ -586,17 +581,13 @@ add_vfs_drive (GnomeVFSDrive *drive)
 }
 #endif
 
-static void
-volume_mounted (GnomeVFSVolumeMonitor *volume_monitor,
-                GnomeVFSVolume           *volume)
+static void volume_mounted (GnomeVFSVolumeMonitor *volume_monitor, GnomeVFSVolume *volume)
 {
     add_vfs_volume(volume);
 }
 
 
-static void
-volume_unmounted (GnomeVFSVolumeMonitor *volume_monitor,
-                  GnomeVFSVolume           *volume)
+static void volume_unmounted (GnomeVFSVolumeMonitor *volume_monitor, GnomeVFSVolume *volume)
 {
     remove_vfs_volume(volume);
 }
@@ -617,8 +608,7 @@ drive_disconnected (GnomeVFSVolumeMonitor *volume_monitor,
 }
 #endif
 
-static void
-set_vfs_volume_monitor()
+inline void set_vfs_volume_monitor()
 {
       monitor = gnome_vfs_get_volume_monitor ();
 
@@ -631,8 +621,7 @@ set_vfs_volume_monitor()
 }
 
 
-static void
-load_vfs_auto_devices()
+inline void load_vfs_auto_devices()
 {
     GList *l, *volumes;
 #if 0
@@ -660,8 +649,7 @@ load_vfs_auto_devices()
 }
 
 
-static void
-load_devices (const gchar *fname)
+inline void load_devices (const gchar *fname)
 {
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "r");
@@ -707,8 +695,7 @@ load_devices (const gchar *fname)
 }
 
 
-static void
-load_fav_apps (const gchar *fname)
+inline void load_fav_apps (const gchar *fname)
 {
     data->priv->fav_apps = NULL;
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
@@ -758,8 +745,7 @@ load_fav_apps (const gchar *fname)
 }
 
 
-static void
-write_string_history (gchar *format, GList *strings)
+inline void write_string_history (gchar *format, GList *strings)
 {
     gint i = 0;
     gchar key[128];
@@ -772,12 +758,9 @@ write_string_history (gchar *format, GList *strings)
 }
 
 
-static void
-write_uint_array (const gchar *format, guint *array, gint length)
+inline void write_uint_array (const gchar *format, guint *array, gint length)
 {
-    gint i;
-
-    for (i=0; i<length; i++)
+    for (gint i=0; i<length; i++)
     {
         gchar *name = g_strdup_printf (format, i);
         gnome_cmd_data_set_int (name, array[i]);
@@ -786,8 +769,7 @@ write_uint_array (const gchar *format, guint *array, gint length)
 }
 
 
-static void
-write_cmdline_history ()
+inline void write_cmdline_history ()
 {
     if (!data->priv->cmdline_visibility)
         return;
@@ -798,8 +780,7 @@ write_cmdline_history ()
 }
 
 
-static void
-write_search_defaults ()
+inline void write_search_defaults ()
 {
     gnome_cmd_data_set_int ("/search-history/width",data->priv->search_defaults->width);
     gnome_cmd_data_set_int ("/search-history/height",data->priv->search_defaults->height);
@@ -813,13 +794,13 @@ write_search_defaults ()
 }
 
 
-static void
-write_rename_history ()
+inline void write_rename_history ()
 {
-    GList *from=NULL, *to=NULL, *csens=NULL;
-    GList *tmp = data->priv->advrename_defaults->patterns;
+    GList *from=NULL;
+    GList *to=NULL;
+    GList *csens=NULL;
 
-    for (; tmp; tmp = tmp->next)
+    for (GList *tmp = data->priv->advrename_defaults->patterns; tmp; tmp = tmp->next)
     {
         PatternEntry *entry = (PatternEntry *) tmp->data;
         from = g_list_append (from, entry->from);
@@ -831,17 +812,12 @@ write_rename_history ()
     gnome_cmd_data_set_int ("/advrename/width", data->priv->advrename_defaults->width);
     gnome_cmd_data_set_int ("/advrename/height", data->priv->advrename_defaults->height);
 
-    write_uint_array ("/advrename/pat_col_widths%d",
-                      advrename_dialog_default_pat_column_width,
-                      ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
-    write_uint_array ("/advrename/res_col_widths%d",
-                      advrename_dialog_default_res_column_width,
-                      ADVRENAME_DIALOG_RES_NUM_COLUMNS);
+    write_uint_array ("/advrename/pat_col_widths%d", advrename_dialog_default_pat_column_width, ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
+    write_uint_array ("/advrename/res_col_widths%d", advrename_dialog_default_res_column_width, ADVRENAME_DIALOG_RES_NUM_COLUMNS);
 
     gnome_cmd_data_set_int ("/advrename/sep_value", data->priv->advrename_defaults->sep_value);
 
-    gnome_cmd_data_set_int ("/options/template-history-size",
-             g_list_length (data->priv->advrename_defaults->templates->ents));
+    gnome_cmd_data_set_int ("/options/template-history-size", g_list_length (data->priv->advrename_defaults->templates->ents));
     write_string_history ("/template-history/template%d", data->priv->advrename_defaults->templates->ents);
 
     gnome_cmd_data_set_int ("/options/counter_start", data->priv->advrename_defaults->counter_start);
@@ -855,8 +831,7 @@ write_rename_history ()
 }
 
 
-static void
-write_local_bookmarks ()
+inline void write_local_bookmarks ()
 {
     GnomeCmdCon *con = gnome_cmd_con_list_get_home (data->priv->con_list);
     GList *tmp, *bookmarks;
@@ -875,8 +850,7 @@ write_local_bookmarks ()
 }
 
 
-static void
-write_smb_bookmarks ()
+inline void write_smb_bookmarks ()
 {
     GnomeCmdCon *con = gnome_cmd_con_list_get_smb (data->priv->con_list);
     GList *tmp, *bookmarks;
@@ -895,20 +869,16 @@ write_smb_bookmarks ()
 }
 
 
-static void
-write_auto_load_plugins ()
+inline void write_auto_load_plugins ()
 {
     gnome_cmd_data_set_int ("/plugins/count",g_list_length (data->priv->auto_load_plugins));
     write_string_history ("/plugins/auto_load%d",data->priv->auto_load_plugins);
 }
 
 
-static void
-load_uint_array (const gchar *format, guint *array, gint length)
+inline void load_uint_array (const gchar *format, guint *array, gint length)
 {
-    gint i;
-
-    for (i=0; i<length; i++)
+    for (gint i=0; i<length; i++)
     {
         gchar *name = g_strdup_printf (format, i);
         array[i] = gnome_cmd_data_get_int (name, array[i]);
@@ -917,8 +887,7 @@ load_uint_array (const gchar *format, guint *array, gint length)
 }
 
 
-static GList *
-load_string_history (gchar *format, gint size)
+inline GList *load_string_history (gchar *format, gint size)
 {
     GList *list = NULL;
 
@@ -936,15 +905,13 @@ load_string_history (gchar *format, gint size)
 }
 
 
-static void
-load_cmdline_history ()
+inline void load_cmdline_history ()
 {
     data->priv->cmdline_history = load_string_history ("/cmdline-history/line%d", -1);
 }
 
 
-static void
-load_search_defaults ()
+inline void load_search_defaults ()
 {
     data->priv->search_defaults = g_new (SearchDefaults, 1);
 
@@ -959,8 +926,7 @@ load_search_defaults ()
 }
 
 
-static void
-load_rename_history ()
+inline void load_rename_history ()
 {
     gint size;
     GList *from=NULL, *to=NULL, *csens=NULL;
@@ -1022,8 +988,7 @@ load_rename_history ()
 }
 
 
-static void
-load_local_bookmarks ()
+inline void load_local_bookmarks ()
 {
     gint size = gnome_cmd_data_get_int ("/local_bookmarks/count", 0);
     GList *names = load_string_history ("/local_bookmarks/name%d", size);
@@ -1047,8 +1012,7 @@ load_local_bookmarks ()
 }
 
 
-static void
-load_smb_bookmarks ()
+inline void load_smb_bookmarks ()
 {
     gint i;
     GList *bookmarks = NULL;
@@ -1072,8 +1036,7 @@ load_smb_bookmarks ()
 }
 
 
-static void
-load_auto_load_plugins ()
+inline void load_auto_load_plugins ()
 {
     gint count;
 
@@ -1083,8 +1046,7 @@ load_auto_load_plugins ()
 }
 
 
-void
-gnome_cmd_data_free                      (void)
+void gnome_cmd_data_free (void)
 {
     if (data)
     {
@@ -1116,8 +1078,7 @@ gnome_cmd_data_free                      (void)
 }
 
 
-void
-gnome_cmd_data_save                      (void)
+void gnome_cmd_data_save (void)
 {
     gint i;
 
@@ -1242,8 +1203,7 @@ gnome_cmd_data_save                      (void)
 }
 
 
-void
-gnome_cmd_data_load                      (void)
+void gnome_cmd_data_load (void)
 {
     gint i;
     gchar *document_icon_dir = g_strdup_printf ("%s/share/pixmaps/document-icons/", GNOME_PREFIX);
@@ -1451,8 +1411,7 @@ gnome_cmd_data_load                      (void)
 }
 
 
-void
-gnome_cmd_data_load_more (void)
+void gnome_cmd_data_load_more (void)
 {
     data->priv->con_list = gnome_cmd_con_list_new ();
     gnome_cmd_con_list_begin_update (data->priv->con_list);
@@ -1466,22 +1425,19 @@ gnome_cmd_data_load_more (void)
 }
 
 
-GnomeCmdConList *
-gnome_cmd_data_get_con_list              (void)
+GnomeCmdConList *gnome_cmd_data_get_con_list (void)
 {
     return data->priv->con_list;
 }
 
 
-const gchar *
-gnome_cmd_data_get_ftp_anonymous_password (void)
+const gchar *gnome_cmd_data_get_ftp_anonymous_password (void)
 {
     return data->priv->ftp_anonymous_password;
 }
 
 
-void
-gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
+void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
 {
     if (data->priv->ftp_anonymous_password)
         g_free (data->priv->ftp_anonymous_password);
@@ -1490,8 +1446,7 @@ gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
 }
 
 
-void
-gnome_cmd_data_add_fav_app                (GnomeCmdApp *app)
+void gnome_cmd_data_add_fav_app (GnomeCmdApp *app)
 {
     g_return_if_fail (app != NULL);
 
@@ -1499,8 +1454,7 @@ gnome_cmd_data_add_fav_app                (GnomeCmdApp *app)
 }
 
 
-void
-gnome_cmd_data_remove_fav_app             (GnomeCmdApp *app)
+void gnome_cmd_data_remove_fav_app (GnomeCmdApp *app)
 {
     g_return_if_fail (app != NULL);
 
@@ -1508,56 +1462,49 @@ gnome_cmd_data_remove_fav_app             (GnomeCmdApp *app)
 }
 
 
-GList*
-gnome_cmd_data_get_fav_apps               (void)
+GList *gnome_cmd_data_get_fav_apps (void)
 {
     return data->priv->fav_apps;
 }
 
 
-void
-gnome_cmd_data_set_fav_apps               (GList *apps)
+void gnome_cmd_data_set_fav_apps (GList *apps)
 {
     data->priv->fav_apps = apps;
 }
 
 
-GnomeCmdSizeDispMode
-gnome_cmd_data_get_size_disp_mode        (void)
+GnomeCmdSizeDispMode gnome_cmd_data_get_size_disp_mode (void)
 {
     return data->priv->size_disp_mode;
 }
 
 
 void
-gnome_cmd_data_set_size_disp_mode        (GnomeCmdSizeDispMode mode)
+gnome_cmd_data_set_size_disp_mode (GnomeCmdSizeDispMode mode)
 {
     data->priv->size_disp_mode = mode;
 }
 
 
-GnomeCmdPermDispMode
-gnome_cmd_data_get_perm_disp_mode        (void)
+GnomeCmdPermDispMode gnome_cmd_data_get_perm_disp_mode (void)
 {
     return data->priv->perm_disp_mode;
 }
 
-void
-gnome_cmd_data_set_perm_disp_mode        (GnomeCmdPermDispMode mode)
+void gnome_cmd_data_set_perm_disp_mode (GnomeCmdPermDispMode mode)
 {
     data->priv->perm_disp_mode = mode;
 }
 
 
-GnomeCmdDateFormat
-gnome_cmd_data_get_date_format           (void)
+GnomeCmdDateFormat gnome_cmd_data_get_date_format (void)
 {
     return data->priv->date_format;
 }
 
 
-void
-gnome_cmd_data_set_date_format           (GnomeCmdDateFormat format)
+void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format)
 {
     if (data->priv->date_format)
         g_free (data->priv->date_format);
@@ -1566,94 +1513,81 @@ gnome_cmd_data_set_date_format           (GnomeCmdDateFormat format)
 }
 
 
-GnomeCmdLayout
-gnome_cmd_data_get_layout                (void)
+GnomeCmdLayout gnome_cmd_data_get_layout (void)
 {
     return data->priv->layout;
 }
 
 
-void
-gnome_cmd_data_set_layout                (GnomeCmdLayout layout)
+void gnome_cmd_data_set_layout (GnomeCmdLayout layout)
 {
     data->priv->layout = layout;
 }
 
 
-GnomeCmdColorMode
-gnome_cmd_data_get_color_mode (void)
+GnomeCmdColorMode gnome_cmd_data_get_color_mode (void)
 {
     return data->priv->color_mode;
 }
 
 
-void
-gnome_cmd_data_set_color_mode (GnomeCmdColorMode mode)
+void gnome_cmd_data_set_color_mode (GnomeCmdColorMode mode)
 {
     data->priv->color_mode = mode;
 }
 
 
-GnomeCmdColorTheme*
-gnome_cmd_data_get_current_color_theme (void)
+GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme (void)
 {
     return &data->priv->color_themes[data->priv->color_mode];
 }
 
 
-GnomeCmdColorTheme*
-gnome_cmd_data_get_custom_color_theme (void)
+GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme (void)
 {
     return &data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM];
 }
 
 
-gint
-gnome_cmd_data_get_list_row_height                (void)
+gint gnome_cmd_data_get_list_row_height (void)
 {
     return data->priv->list_row_height;
 }
 
 
-void
-gnome_cmd_data_set_list_row_height                (gint height)
+void gnome_cmd_data_set_list_row_height (gint height)
 {
     data->priv->list_row_height = height;
 }
 
 
-void
-gnome_cmd_data_set_ext_disp_mode (GnomeCmdExtDispMode mode)
+void gnome_cmd_data_set_ext_disp_mode (GnomeCmdExtDispMode mode)
 {
     data->priv->ext_disp_mode = mode;
 }
 
 
-GnomeCmdExtDispMode
-gnome_cmd_data_get_ext_disp_mode        (void)
+GnomeCmdExtDispMode gnome_cmd_data_get_ext_disp_mode (void)
 {
     return data->priv->ext_disp_mode;
 }
 
 
-void
-gnome_cmd_data_set_main_win_size        (gint width, gint height)
+void gnome_cmd_data_set_main_win_size (gint width, gint height)
 {
     data->priv->main_win_width = width;
     data->priv->main_win_height = height;
 }
 
 
-void
-gnome_cmd_data_get_main_win_size        (gint *width, gint *height)
+void gnome_cmd_data_get_main_win_size (gint *width, gint *height)
 {
     *width = data->priv->main_win_width;
     *height = data->priv->main_win_height;
 }
 
 
-void
-gnome_cmd_data_set_viewer               (const gchar *command)
+void gnome_cmd_data_set_viewer (const gchar *command)
 {
     if (data->priv->viewer)
         g_free (data->priv->viewer);
@@ -1661,8 +1595,7 @@ gnome_cmd_data_set_viewer               (const gchar *command)
 }
 
 
-void
-gnome_cmd_data_set_editor               (const gchar *command)
+void gnome_cmd_data_set_editor (const gchar *command)
 {
     if (data->priv->editor)
         g_free (data->priv->editor);
@@ -1670,8 +1603,7 @@ gnome_cmd_data_set_editor               (const gchar *command)
 }
 
 
-void
-gnome_cmd_data_set_differ               (const gchar *command)
+void gnome_cmd_data_set_differ (const gchar *command)
 {
     if (data->priv->differ)
         g_free (data->priv->differ);
@@ -1679,8 +1611,7 @@ gnome_cmd_data_set_differ               (const gchar *command)
 }
 
 
-void
-gnome_cmd_data_set_term                (const gchar *term)
+void gnome_cmd_data_set_term (const gchar *term)
 {
     if (data->priv->term)
         g_free (data->priv->term);
@@ -1689,97 +1620,85 @@ gnome_cmd_data_set_term                (const gchar *term)
 }
 
 
-const gchar *
-gnome_cmd_data_get_viewer               (void)
+const gchar *gnome_cmd_data_get_viewer (void)
 {
     return data->priv->viewer;
 }
 
 
-const gchar *
-gnome_cmd_data_get_editor               (void)
+const gchar *gnome_cmd_data_get_editor (void)
 {
     return data->priv->editor;
 }
 
 
-const gchar *
-gnome_cmd_data_get_differ               (void)
+const gchar *gnome_cmd_data_get_differ (void)
 {
     return data->priv->differ;
 }
 
 
-const gchar *
-gnome_cmd_data_get_term                (void)
+const gchar *gnome_cmd_data_get_term (void)
 {
     return data->priv->term;
 }
 
 
-gboolean
-gnome_cmd_data_get_case_sens_sort       (void)
+gboolean gnome_cmd_data_get_case_sens_sort (void)
 {
     return data->priv->case_sens_sort;
 }
 
 
-void
-gnome_cmd_data_set_case_sens_sort       (gboolean value)
+void gnome_cmd_data_set_case_sens_sort (gboolean value)
 {
     data->priv->case_sens_sort = value;
 }
 
 
-gboolean
-gnome_cmd_data_get_confirm_delete       (void)
+gboolean gnome_cmd_data_get_confirm_delete (void)
 {
     return data->priv->confirm_delete;
 }
 
 
-void
-gnome_cmd_data_set_confirm_delete       (gboolean value)
+void gnome_cmd_data_set_confirm_delete (gboolean value)
 {
     data->priv->confirm_delete = value;
 }
 
 
-GnomeCmdConfirmOverwriteMode
-gnome_cmd_data_get_confirm_overwrite_copy(void)
+GnomeCmdConfirmOverwriteMode gnome_cmd_data_get_confirm_overwrite_copy (void)
 {
     return data->priv->confirm_copy_overwrite;
 }
 
 
-void
-gnome_cmd_data_set_confirm_overwrite_copy(GnomeCmdConfirmOverwriteMode value)
+void gnome_cmd_data_set_confirm_overwrite_copy (GnomeCmdConfirmOverwriteMode value)
 {
     data->priv->confirm_copy_overwrite = value;
 }
 
 
-GnomeCmdConfirmOverwriteMode
-gnome_cmd_data_get_confirm_overwrite_move(void)
+GnomeCmdConfirmOverwriteMode gnome_cmd_data_get_confirm_overwrite_move (void)
 {
     return data->priv->confirm_move_overwrite;
 }
 
 
-void
-gnome_cmd_data_set_confirm_overwrite_move(GnomeCmdConfirmOverwriteMode value)
+void gnome_cmd_data_set_confirm_overwrite_move (GnomeCmdConfirmOverwriteMode value)
 {
     data->priv->confirm_move_overwrite = value;
 }
 
 
-const gchar *gnome_cmd_data_get_list_font          (void)
+const gchar *gnome_cmd_data_get_list_font (void)
 {
     return data->priv->list_font;
 }
 
 
-void gnome_cmd_data_set_list_font            (const gchar *list_font)
+void gnome_cmd_data_set_list_font (const gchar *list_font)
 {
     if (data->priv->list_font != NULL)
         g_free (data->priv->list_font);
@@ -1787,71 +1706,63 @@ void gnome_cmd_data_set_list_font            (const gchar *list_font)
 }
 
 
-void
-gnome_cmd_data_set_right_mouse_button_mode (GnomeCmdRightMouseButtonMode mode)
+void gnome_cmd_data_set_right_mouse_button_mode (GnomeCmdRightMouseButtonMode mode)
 {
     data->priv->right_mouse_button_mode = mode;
 }
 
 
-GnomeCmdRightMouseButtonMode
-gnome_cmd_data_get_right_mouse_button_mode (void)
+GnomeCmdRightMouseButtonMode gnome_cmd_data_get_right_mouse_button_mode (void)
 {
     return data->priv->right_mouse_button_mode;
 }
 
 
-void
-gnome_cmd_data_set_show_toolbar        (gboolean value)
+void gnome_cmd_data_set_show_toolbar (gboolean value)
 {
     data->priv->show_toolbar = value;
 }
 
 
 gboolean
-gnome_cmd_data_get_show_toolbar        (void)
+gnome_cmd_data_get_show_toolbar (void)
 {
     return data->priv->show_toolbar;
 }
 
 
-guint
-gnome_cmd_data_get_icon_size           (void)
+guint gnome_cmd_data_get_icon_size (void)
 {
     return data->priv->icon_size;
 }
 
 
-void
-gnome_cmd_data_set_icon_size           (guint size)
+void gnome_cmd_data_set_icon_size (guint size)
 {
     data->priv->icon_size = size;
 }
 
 
-GdkInterpType
-gnome_cmd_data_get_icon_scale_quality  (void)
+GdkInterpType gnome_cmd_data_get_icon_scale_quality (void)
 {
     return data->priv->icon_scale_quality;
 }
 
 
 void
-gnome_cmd_data_set_icon_scale_quality  (GdkInterpType quality)
+gnome_cmd_data_set_icon_scale_quality (GdkInterpType quality)
 {
     data->priv->icon_scale_quality = quality;
 }
 
 
-const gchar *
-gnome_cmd_data_get_theme_icon_dir       (void)
+const gchar *gnome_cmd_data_get_theme_icon_dir (void)
 {
     return data->priv->theme_icon_dir;
 }
 
 
-void
-gnome_cmd_data_set_theme_icon_dir       (const gchar *dir)
+void gnome_cmd_data_set_theme_icon_dir (const gchar *dir)
 {
     if (data->priv->theme_icon_dir)
         g_free (data->priv->theme_icon_dir);
@@ -1860,15 +1771,13 @@ gnome_cmd_data_set_theme_icon_dir       (const gchar *dir)
 }
 
 
-const gchar *
-gnome_cmd_data_get_document_icon_dir       (void)
+const gchar *gnome_cmd_data_get_document_icon_dir (void)
 {
     return data->priv->document_icon_dir;
 }
 
 
-void
-gnome_cmd_data_set_document_icon_dir       (const gchar *dir)
+void gnome_cmd_data_set_document_icon_dir (const gchar *dir)
 {
     if (data->priv->document_icon_dir)
         g_free (data->priv->document_icon_dir);
@@ -1877,8 +1786,7 @@ gnome_cmd_data_set_document_icon_dir       (const gchar *dir)
 }
 
 
-void
-gnome_cmd_data_set_fs_col_width        (guint column, gint width)
+void gnome_cmd_data_set_fs_col_width (guint column, gint width)
 {
     if (column > FILE_LIST_NUM_COLUMNS)
         return;
@@ -1887,8 +1795,7 @@ gnome_cmd_data_set_fs_col_width        (guint column, gint width)
 }
 
 
-gint
-gnome_cmd_data_get_fs_col_width        (guint column)
+gint gnome_cmd_data_get_fs_col_width (guint column)
 {
     if (column > FILE_LIST_NUM_COLUMNS)
         return 0;
@@ -1897,346 +1804,297 @@ gnome_cmd_data_get_fs_col_width        (guint column)
 }
 
 
-void
-gnome_cmd_data_set_bookmark_dialog_col_width        (guint column, gint width)
+void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width)
 {
     data->priv->bookmark_dialog_col_width[column] = width;
 }
 
 
-gint
-gnome_cmd_data_get_bookmark_dialog_col_width        (guint column)
+gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column)
 {
     return data->priv->bookmark_dialog_col_width[column];
 }
 
 
-gint
-gnome_cmd_data_get_cmdline_history_length (void)
+gint gnome_cmd_data_get_cmdline_history_length (void)
 {
     return data->priv->cmdline_history_length;
 }
 
 
-void
-gnome_cmd_data_set_cmdline_history_length (gint length)
+void gnome_cmd_data_set_cmdline_history_length (gint length)
 {
     data->priv->cmdline_history_length = length;
 }
 
 
-GList *
-gnome_cmd_data_get_cmdline_history (void)
+GList *gnome_cmd_data_get_cmdline_history (void)
 {
     return data->priv->cmdline_history;
 }
 
 
-void
-gnome_cmd_data_set_button_relief (GtkReliefStyle relief)
+void gnome_cmd_data_set_button_relief (GtkReliefStyle relief)
 {
     data->priv->btn_relief = relief;
 }
 
 
-GtkReliefStyle
-gnome_cmd_data_get_button_relief (void)
+GtkReliefStyle gnome_cmd_data_get_button_relief (void)
 {
     return data->priv->btn_relief;
 }
 
 
-void
-gnome_cmd_data_set_filter_type (FilterType type)
+void gnome_cmd_data_set_filter_type (FilterType type)
 {
     data->priv->filter_type = type;
 }
 
 
-FilterType
-gnome_cmd_data_get_filter_type (void)
+FilterType gnome_cmd_data_get_filter_type (void)
 {
     return data->priv->filter_type;
 }
 
 
-FilterSettings *
-gnome_cmd_data_get_filter_settings (void)
+FilterSettings *gnome_cmd_data_get_filter_settings (void)
 {
     return &data->priv->filter_settings;
 }
 
 
-gboolean
-gnome_cmd_data_get_type_filter (GnomeVFSFileType type)
+gboolean gnome_cmd_data_get_type_filter (GnomeVFSFileType type)
 {
     return data->priv->filter_settings.file_types[type];
 }
 
 
-void
-gnome_cmd_data_set_hidden_filter (gboolean hide)
+void gnome_cmd_data_set_hidden_filter (gboolean hide)
 {
     data->priv->filter_settings.hidden = hide;
 }
 
 
-gboolean
-gnome_cmd_data_get_hidden_filter (void)
+gboolean gnome_cmd_data_get_hidden_filter (void)
 {
     return data->priv->filter_settings.hidden;
 }
 
 
-gboolean
-gnome_cmd_data_get_backup_filter (void)
+gboolean gnome_cmd_data_get_backup_filter (void)
 {
     return data->priv->filter_settings.backup;
 }
 
 
-gboolean
-gnome_cmd_data_get_other_filter (void)
+gboolean gnome_cmd_data_get_other_filter (void)
 {
     return FALSE;
 }
 
 
-void
-gnome_cmd_data_set_device_only_icon    (gboolean value)
+void gnome_cmd_data_set_device_only_icon (gboolean value)
 {
     data->priv->device_only_icon = value;
 }
 
 
-gboolean
-gnome_cmd_data_get_device_only_icon    (void)
+gboolean gnome_cmd_data_get_device_only_icon (void)
 {
     return data->priv->device_only_icon;
 }
 
 
-gint
-gnome_cmd_data_get_dir_cache_size      (void)
+gint gnome_cmd_data_get_dir_cache_size (void)
 {
     return data->priv->dir_cache_size;
 }
 
 
-void
-gnome_cmd_data_set_dir_cache_size      (gint size)
+void gnome_cmd_data_set_dir_cache_size (gint size)
 {
     data->priv->dir_cache_size = size;
 }
 
 
-gboolean
-gnome_cmd_data_get_use_ls_colors (void)
+gboolean gnome_cmd_data_get_use_ls_colors (void)
 {
     return data->priv->use_ls_colors;
 }
 
 
-void
-gnome_cmd_data_set_use_ls_colors (gboolean value)
+void gnome_cmd_data_set_use_ls_colors (gboolean value)
 {
     data->priv->use_ls_colors = value;
 }
 
 
-SearchDefaults *
-gnome_cmd_data_get_search_defaults (void)
+SearchDefaults *gnome_cmd_data_get_search_defaults (void)
 {
     return data->priv->search_defaults;
 }
 
 
-const gchar *
-gnome_cmd_data_get_quick_connect_host  (void)
+const gchar *gnome_cmd_data_get_quick_connect_host (void)
 {
     return data->priv->quick_connect_host;
 }
 
 
-const gchar *
-gnome_cmd_data_get_quick_connect_user  (void)
+const gchar *gnome_cmd_data_get_quick_connect_user (void)
 {
     return data->priv->quick_connect_user;
 }
 
 
-gint
-gnome_cmd_data_get_quick_connect_port  (void)
+gint gnome_cmd_data_get_quick_connect_port (void)
 {
     return data->priv->quick_connect_port;
 }
 
 
-void
-gnome_cmd_data_set_quick_connect_host  (const gchar *value)
+void gnome_cmd_data_set_quick_connect_host (const gchar *value)
 {
     g_free (data->priv->quick_connect_host);
     data->priv->quick_connect_host = g_strdup (value);
 }
 
 
-void
-gnome_cmd_data_set_quick_connect_user  (const gchar *value)
+void gnome_cmd_data_set_quick_connect_user (const gchar *value)
 {
     g_free (data->priv->quick_connect_user);
     data->priv->quick_connect_user = g_strdup (value);
 }
 
 
-void
-gnome_cmd_data_set_quick_connect_port  (gint value)
+void gnome_cmd_data_set_quick_connect_port (gint value)
 {
     data->priv->quick_connect_port = value;
 }
 
 
-GnomeCmdBookmarkGroup *
-gnome_cmd_data_get_local_bookmarks (void)
+GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks (void)
 {
     return gnome_cmd_con_get_bookmarks (gnome_cmd_con_list_get_home (data->priv->con_list));
 }
 
 
-gboolean
-gnome_cmd_data_get_honor_expect_uris (void)
+gboolean gnome_cmd_data_get_honor_expect_uris (void)
 {
     return data->priv->honor_expect_uris;
 }
 
 
-void
-gnome_cmd_data_set_honor_expect_uris (gboolean value)
+void gnome_cmd_data_set_honor_expect_uris (gboolean value)
 {
     data->priv->honor_expect_uris = value;
 }
 
 
-gboolean
-gnome_cmd_data_get_use_internal_viewer (void)
+gboolean gnome_cmd_data_get_use_internal_viewer (void)
 {
     return data->priv->use_internal_viewer;
 }
 
 
-void
-gnome_cmd_data_set_use_internal_viewer (gboolean value)
+void gnome_cmd_data_set_use_internal_viewer (gboolean value)
 {
     data->priv->use_internal_viewer = value;
 }
 
 
-gboolean
-gnome_cmd_data_get_alt_quick_search (void)
+gboolean gnome_cmd_data_get_alt_quick_search (void)
 {
     return data->priv->alt_quick_search;
 }
 
 
-void
-gnome_cmd_data_set_alt_quick_search (gboolean value)
+void gnome_cmd_data_set_alt_quick_search (gboolean value)
 {
     data->priv->alt_quick_search = value;
 }
 
 
-gboolean
-gnome_cmd_data_get_skip_mounting (void)
+gboolean gnome_cmd_data_get_skip_mounting (void)
 {
     return data->priv->skip_mounting;
 }
 
 
-void
-gnome_cmd_data_set_skip_mounting (gboolean value)
+void gnome_cmd_data_set_skip_mounting (gboolean value)
 {
     data->priv->skip_mounting = value;
 }
 
 
-gboolean
-gnome_cmd_data_get_toolbar_visibility (void)
+gboolean gnome_cmd_data_get_toolbar_visibility (void)
 {
     return data->priv->toolbar_visibility;
 }
 
 
-gboolean
-gnome_cmd_data_get_buttonbar_visibility (void)
+gboolean gnome_cmd_data_get_buttonbar_visibility (void)
 {
     return data->priv->buttonbar_visibility;
 }
 
 
-void
-gnome_cmd_data_set_toolbar_visibility (gboolean value)
+void gnome_cmd_data_set_toolbar_visibility (gboolean value)
 {
     data->priv->toolbar_visibility = value;
 }
 
 
-void
-gnome_cmd_data_set_buttonbar_visibility (gboolean value)
+void gnome_cmd_data_set_buttonbar_visibility (gboolean value)
 {
     data->priv->buttonbar_visibility = value;
 }
 
 
-AdvrenameDefaults *
-gnome_cmd_data_get_advrename_defaults (void)
+AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults (void)
 {
     return data->priv->advrename_defaults;
 }
 
 
-void
-gnome_cmd_data_set_list_orientation (gboolean vertical)
+void gnome_cmd_data_set_list_orientation (gboolean vertical)
 {
     data->priv->list_orientation = vertical;
 }
 
 
-gboolean
-gnome_cmd_data_get_list_orientation (void)
+gboolean gnome_cmd_data_get_list_orientation (void)
 {
     return data->priv->list_orientation;
 }
 
 
-gboolean
-gnome_cmd_data_get_conbuttons_visibility (void)
+gboolean gnome_cmd_data_get_conbuttons_visibility (void)
 {
     return data->priv->conbuttons_visibility;
 }
 
 
-void
-gnome_cmd_data_set_conbuttons_visibility (gboolean value)
+void gnome_cmd_data_set_conbuttons_visibility (gboolean value)
 {
     data->priv->conbuttons_visibility = value;
 }
 
 
-gboolean
-gnome_cmd_data_get_cmdline_visibility (void)
+gboolean gnome_cmd_data_get_cmdline_visibility (void)
 {
     return data->priv->cmdline_visibility;
 }
 
 
-void
-gnome_cmd_data_set_cmdline_visibility (gboolean value)
+void gnome_cmd_data_set_cmdline_visibility (gboolean value)
 {
     data->priv->cmdline_visibility = value;
 }
 
 
-void
-gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir)
+void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir)
 {
     if (data->priv->start_dirs[fs])
         g_free (data->priv->start_dirs[fs]);
@@ -2245,50 +2103,43 @@ gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir)
 }
 
 
-const gchar *
-gnome_cmd_data_get_start_dir (gboolean fs)
+const gchar *gnome_cmd_data_get_start_dir (gboolean fs)
 {
     return data->priv->start_dirs[fs];
 }
 
 
-void
-gnome_cmd_data_set_last_pattern (const gchar *value)
+void gnome_cmd_data_set_last_pattern (const gchar *value)
 {
     data->priv->last_pattern = g_strdup (value);
 }
 
 
-const gchar *
-gnome_cmd_data_get_last_pattern (void)
+const gchar *gnome_cmd_data_get_last_pattern (void)
 {
     return data->priv->last_pattern;
 }
 
 
-GList *
-gnome_cmd_data_get_auto_load_plugins ()
+GList *gnome_cmd_data_get_auto_load_plugins ()
 {
     return data->priv->auto_load_plugins;
 }
 
 
-void
-gnome_cmd_data_set_auto_load_plugins (GList *plugins)
+void gnome_cmd_data_set_auto_load_plugins (GList *plugins)
 {
     data->priv->auto_load_plugins = plugins;
 }
 
 
-guint
-gnome_cmd_data_get_gui_update_rate (void)
+guint gnome_cmd_data_get_gui_update_rate (void)
 {
     return data->priv->gui_update_rate;
 }
 
 
-void
-gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direction)
+void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direction)
 {
     if (!gnome_cmd_main_win_get_fs (main_win, LEFT) ||
         gnome_cmd_main_win_get_fs (main_win, LEFT)->list == fl) {
@@ -2303,8 +2154,7 @@ gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direc
 }
 
 
-void
-gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction)
+void gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction)
 {
     if (gnome_cmd_main_win_get_fs (main_win, LEFT)->list == fl) {
         data->priv->sort_column[LEFT] = col;
@@ -2317,24 +2167,21 @@ gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean directi
 }
 
 
-void
-gnome_cmd_data_set_main_win_pos (gint x, gint y)
+void gnome_cmd_data_set_main_win_pos (gint x, gint y)
 {
     data->priv->main_win_pos[0] = x;
     data->priv->main_win_pos[1] = y;
 }
 
 
-void
-gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
+void gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
 {
     *x = data->priv->main_win_pos[0];
     *y = data->priv->main_win_pos[1];
 }
 
 
-void
-gnome_cmd_data_set_backup_pattern (const gchar *value)
+void gnome_cmd_data_set_backup_pattern (const gchar *value)
 {
     if (data->priv->backup_pattern)
         g_free (data->priv->backup_pattern);
@@ -2348,15 +2195,13 @@ gnome_cmd_data_set_backup_pattern (const gchar *value)
 }
 
 
-const gchar *
-gnome_cmd_data_get_backup_pattern (void)
+const gchar *gnome_cmd_data_get_backup_pattern (void)
 {
     return data->priv->backup_pattern;
 }
 
 
-GList *
-gnome_cmd_data_get_backup_pattern_list (void)
+GList *gnome_cmd_data_get_backup_pattern_list (void)
 {
     return data->priv->backup_pattern_list;
 }
@@ -2385,4 +2230,3 @@ void gnome_cmd_data_set_symlink_prefix (const gchar *value)
 {
     data->priv->symlink_prefix = g_strdup (value);
 }
-
