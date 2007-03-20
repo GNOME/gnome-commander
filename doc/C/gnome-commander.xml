@@ -5266,7 +5266,10 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>Support for SMB authentication</para>
                         </listitem>
                         <listitem>
-                            <para>Added displaying total size of files in selected subirs</para>
+                            <para>Displaying total size of files in selected subirs</para>
+                        </listitem>
+                        <listitem>
+                            <para>'cd -' for changing to the previous working directory</para>
                         </listitem>
                         <listitem>
                             <para>Updated help docs</para>

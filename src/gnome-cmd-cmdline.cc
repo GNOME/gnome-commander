@@ -80,28 +80,33 @@ static void
 on_exec (GnomeCmdCmdline *cmdline, gboolean term)
 {
     const gchar *text;
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs (main_win);
 
     text = gtk_entry_get_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
     text = g_strstrip (g_strdup (text));
 
-    if (strlen (text) > 3 && strncmp (text, "cd ", 3) == 0) {
-        const gchar *dir = text + 3;
-        dir = g_strstrip (g_strdup (dir));
-        gnome_cmd_file_selector_goto_directory (fs, dir);
-    }
-    else if (strcmp (text, "cd") == 0) {
-        gnome_cmd_file_selector_goto_directory (fs, "~");
-    }
-    else {
-        if (gnome_cmd_con_is_local (gnome_cmd_file_selector_get_connection (fs))) {
-            GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (fs);
-            gchar *fpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs (main_win);
 
-            run_command_indir (text, fpath, term);
-            g_free (fpath);
-        }
+    if (strlen (text) > 3 && strncmp (text, "cd ", 3) == 0)
+    {
+        const gchar *dir = g_strstrip (g_strdup (text + 3));
+
+        if (strcmp (dir, "-") ==0)
+            gnome_cmd_file_selector_back (fs);
+        else
+            gnome_cmd_file_selector_goto_directory (fs, dir);
     }
+    else
+        if (strcmp (text, "cd") == 0)
+            gnome_cmd_file_selector_goto_directory (fs, "~");
+        else
+            if (gnome_cmd_con_is_local (gnome_cmd_file_selector_get_connection (fs)))
+            {
+                GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (fs);
+                gchar *fpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
+
+                run_command_indir (text, fpath, term);
+                g_free (fpath);
+            }
 
     add_to_history (cmdline, text);
     gnome_cmd_cmdline_set_text (cmdline, "");

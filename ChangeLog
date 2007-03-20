@@ -1,3 +1,8 @@
+2007-03-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-cmdline.c:
+	Added 'cd -' for changing to the previous working directory from the cmdline
+
 2007-03-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:
