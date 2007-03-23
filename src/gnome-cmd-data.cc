@@ -747,10 +747,9 @@ inline void load_fav_apps (const gchar *fname)
 
 inline void write_string_history (gchar *format, GList *strings)
 {
-    gint i = 0;
     gchar key[128];
 
-    for (i = 0; strings; strings = strings->next, ++i)
+    for (gint i=0; strings; strings=strings->next, ++i)
     {
         snprintf (key, sizeof (key), format, i);
         gnome_cmd_data_set_string (key, (gchar *) strings->data);
@@ -891,7 +890,7 @@ inline GList *load_string_history (gchar *format, gint size)
 {
     GList *list = NULL;
 
-    for (gint i = 0; i < size || size == -1; ++i)
+    for (gint i=0; i<size || size==-1; ++i)
     {
         gchar *key = g_strdup_printf (format, i);
         gchar *value = gnome_cmd_data_get_string (key, NULL);
@@ -996,10 +995,9 @@ inline void load_local_bookmarks ()
 
     GnomeCmdCon *con = gnome_cmd_con_list_get_home (data->priv->con_list);
 
-    gint i;
     GList *bookmarks = NULL;
 
-    for (i=0; i<size; i++)
+    for (gint i=0; i<size; i++)
     {
         GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
         bookmark->name = (gchar *) g_list_nth_data (names, i);
@@ -1014,7 +1012,6 @@ inline void load_local_bookmarks ()
 
 inline void load_smb_bookmarks ()
 {
-    gint i;
     GList *bookmarks = NULL;
 
     gint size = gnome_cmd_data_get_int ("/smb_bookmarks/count", 0);
@@ -1023,7 +1020,7 @@ inline void load_smb_bookmarks ()
 
     GnomeCmdCon *con = gnome_cmd_con_list_get_smb (data->priv->con_list);
 
-    for (i=0; i<size; i++)
+    for (gint i=0; i<size; i++)
     {
         GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
         bookmark->name = (gchar *) g_list_nth_data (names, i);
@@ -1080,9 +1077,8 @@ void gnome_cmd_data_free (void)
 
 void gnome_cmd_data_save (void)
 {
-    gint i;
-
-    for (i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++) {
+    for (gint i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++)
+    {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/bookmark_dialog_col_width%d", i);
         gnome_config_set_int (tmp, data->priv->bookmark_dialog_col_width[i]);
         g_free (tmp);
@@ -1174,7 +1170,8 @@ void gnome_cmd_data_save (void)
     gnome_config_set_int ("/gnome-commander-size/main_win/width", data->priv->main_win_width);
     gnome_config_set_int ("/gnome-commander-size/main_win/height", data->priv->main_win_height);
 
-    for (i=0; i<FILE_LIST_NUM_COLUMNS; i++) {
+    for (gint i=0; i<FILE_LIST_NUM_COLUMNS; i++)
+    {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
         gnome_config_set_int (tmp, data->priv->fs_col_width[i]);
         g_free (tmp);
@@ -1205,12 +1202,11 @@ void gnome_cmd_data_save (void)
 
 void gnome_cmd_data_load (void)
 {
-    gint i;
     gchar *document_icon_dir = g_strdup_printf ("%s/share/pixmaps/document-icons/", GNOME_PREFIX);
     gchar *theme_icon_dir    = g_strdup_printf ("%s/mime-icons", PIXMAPS_DIR);
 
-    data = g_new (GnomeCmdData, 1);
-    data->priv = g_new (GnomeCmdDataPrivate, 1);
+    data = g_new0 (GnomeCmdData, 1);
+    data->priv = g_new0 (GnomeCmdDataPrivate, 1);
 
     data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].respect_theme = FALSE;
     data->priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
@@ -1311,14 +1307,14 @@ void gnome_cmd_data_load (void)
     data->priv->main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
     data->priv->main_win_height = get_int ("/gnome-commander-size/main_win/height", 400);
 
-    for (i=0; i<FILE_LIST_NUM_COLUMNS; i++)
+    for (gint i=0; i<FILE_LIST_NUM_COLUMNS; i++)
     {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
         data->priv->fs_col_width[i] = get_int (tmp, file_list_column[i].default_width);
         g_free (tmp);
     }
 
-    for (i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++)
+    for (gint i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++)
     {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/bookmark_dialog_col_width%d", i);
         data->priv->bookmark_dialog_col_width[i] = get_int (tmp, bookmark_dialog_default_column_width[i]);

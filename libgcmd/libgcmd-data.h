@@ -22,30 +22,21 @@
 
 G_BEGIN_DECLS
 
-void
-gnome_cmd_data_set_string (const gchar *path, const gchar *value);
+void gnome_cmd_data_set_string (const gchar *path, const gchar *value);
 
-void
-gnome_cmd_data_set_int (const gchar *path, int value);
+void gnome_cmd_data_set_int (const gchar *path, int value);
 
-void
-gnome_cmd_data_set_bool (const gchar *path, gboolean value);
+void gnome_cmd_data_set_bool (const gchar *path, gboolean value);
 
-void
-gnome_cmd_data_set_color (const gchar *path, GdkColor *color);
+void gnome_cmd_data_set_color (const gchar *path, GdkColor *color);
 
-gchar*
-gnome_cmd_data_get_string (const gchar *path, const gchar *def);
+gchar *gnome_cmd_data_get_string (const gchar *path, const gchar *def);
 
-gint
-gnome_cmd_data_get_int (const gchar *path, int def);
+gint gnome_cmd_data_get_int (const gchar *path, int def);
 
-gboolean
-gnome_cmd_data_get_bool (const gchar *path, gboolean def);
+gboolean gnome_cmd_data_get_bool (const gchar *path, gboolean def);
 
-void
-gnome_cmd_data_get_color (const gchar *path, GdkColor *color);
-
+void gnome_cmd_data_get_color (const gchar *path, GdkColor *color);
 
 G_END_DECLS
 
