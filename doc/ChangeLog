@@ -1,3 +1,8 @@
+2007-03-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/C/gnome-commander.xml:
+	Added support for user defined shortcuts (via configuration file)
+
 2007-01-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* doc/gnome-commander.1:

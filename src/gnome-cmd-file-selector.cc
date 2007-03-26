@@ -2104,11 +2104,6 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
                 gnome_cmd_file_selector_cap_paste (fs);
                 return TRUE;
 
-            case GDK_R:
-            case GDK_r:
-                gnome_cmd_file_selector_reload (fs);
-                return TRUE;
-
             case GDK_P:
             case GDK_p:
                 add_cwd_to_cmdline (fs);

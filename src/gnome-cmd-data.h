@@ -29,6 +29,7 @@ typedef struct _GnomeCmdDataPrivate GnomeCmdDataPrivate;
 #include "gnome-cmd-file-list.h"
 #include "filter.h"
 #include "history.h"
+#include "dict.h"
 
 G_BEGIN_DECLS
 
@@ -468,6 +469,9 @@ gnome_cmd_data_get_symlink_prefix (void);
 
 void
 gnome_cmd_data_set_symlink_prefix (const gchar *value);
+
+
+extern DICT<guint> gdk_key_names;
 
 G_END_DECLS
 

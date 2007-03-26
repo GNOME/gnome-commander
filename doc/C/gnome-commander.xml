@@ -3548,255 +3548,313 @@
         <row valign="top">
             <entry colname="col1" colsep="0" valign="top"><para>Shortcut</para></entry>
             <entry colname="col2" valign="top"><para>Mapping</para></entry>
-            <entry colname="col3" valign="top"><para>User definable</para></entry>
+            <entry colname="col3" align="center" valign="top"><para>User definable</para></entry>
         </row>
         </thead>
         <tbody>
         <row valign="top">
             <entry><para>F1</para></entry>
             <entry><para>Help</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>F2</para></entry>
             <entry><para>Refresh files in the active file list</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>F3</para></entry>
             <entry><para>View files</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>F4</para></entry>
             <entry><para>Edit files</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>F5</para></entry>
             <entry><para>Copy files</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>F6</para></entry>
             <entry><para>Rename or move files</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>F7</para></entry>
             <entry><para>Create directory</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>F8</para></entry>
             <entry><para>Delete files</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>F9</para></entry>
             <entry><para>Search</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>F10</para></entry>
             <entry><para>Quit</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+1</para></entry>
             <entry><para>Change left connection</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+2</para></entry>
             <entry><para>Change right connection</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+F3</para></entry>
             <entry><para>View with external viewer</para></entry>
-            <entry><para>+</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+F7</para></entry>
             <entry><para>Search</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+F8</para></entry>
             <entry><para>Open the history list for the command line</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>SHIFT+F2</para></entry>
             <entry><para>Compare directories</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>SHIFT+F3</para></entry>
             <entry><para>View with internal viewer</para></entry>
-            <entry><para>+</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>SHIFT+F4</para></entry>
             <entry><para>Edit a new file</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>SHIFT+F5</para></entry>
             <entry><para>Make a copy a file in the current directory.</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>SHIFT+F6</para></entry>
             <entry><para>Rename a file</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>SHIFT+F10</para></entry>
             <entry><para>Bring up the context menu for the selected files.</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+F3</para></entry>
             <entry><para>Sort by name</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+F4</para></entry>
             <entry><para>Sort by extension</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+F5</para></entry>
             <entry><para>Sort by date/time</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+F6</para></entry>
             <entry><para>Sort by size</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+F7</para></entry>
             <entry><para>Unsorted</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+F5</para></entry>
             <entry><para>Create symbolic link</para></entry>
-            <entry><para>+</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>=</para></entry>
             <entry><para>Select files using a pattern</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>NUM +</para></entry>
             <entry><para>Select files using a pattern</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>NUM -</para></entry>
             <entry><para>Unselect files using a pattern</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>NUM *</para></entry>
             <entry><para>Invert selection</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>NUM /</para></entry>
             <entry><para>Restore selection</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+=</para></entry>
             <entry><para>Select all files</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+-</para></entry>
             <entry><para>Unselect all files</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+NUM +</para></entry>
             <entry><para>Select all files with the same extension</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+NUM -</para></entry>
             <entry><para>Unselect all files with the same extension</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>BACKSPACE</para><para>LEFT</para><para>CTRL+PageUp</para></entry>
             <entry><para>Change to parent directory (cd ..)</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ENTER</para></entry>
             <entry><para>Change directory or execute command line if not empty</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>SHIFT+ENTER</para></entry>
             <entry><para>Execute command line in the defined terminal and leaves the terminal window open</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>RIGHT</para><para>CTRL+PageDown</para></entry>
             <entry><para>Change directory</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+LEFT</para></entry>
             <entry><para>Go back to the last visited directory</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+RIGHT</para></entry>
             <entry><para>Go forward to the next visited directory</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+\</para></entry>
             <entry><para>Go to the root directory</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+`</para></entry>
             <entry><para>Go to the home directory</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>INSERT</para></entry>
             <entry><para>Select file or directory</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>SPACE</para></entry>
             <entry><para>Select file or directory (as INSERT). If SPACE is used on an unselected directory under the cursor,
             the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+ENTER</para></entry>
             <entry><para>Show properties for the selected file</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
@@ -3804,162 +3862,195 @@
             <entry><para>ALT+SHIFT+ENTER</para></entry>
             <entry><para>The contents of all directories in the current directory are counted. The sizes of the directories are then shown
             in the "full" view instead of the string DIR</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>DELETE</para></entry>
             <entry><para>Delete files</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+C</para></entry>
             <entry><para>Copy files to clipboard (not a global one yet)</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+X</para></entry>
             <entry><para>Cut files to clipboard (not a global one yet)</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+V</para></entry>
             <entry><para>Paste from clipboard to current dir (not a global one yet)</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+A</para></entry>
             <entry><para>Select all files</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+A</para></entry>
             <entry><para>Unselect all files</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+D</para></entry>
             <entry><para>Open favorite directories (bookmarks)</para></entry>
-            <entry><para>+</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+M</para></entry>
             <entry><para>Multi-Rename-Tool</para></entry>
-            <entry><para>+</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+T</para></entry>
             <entry><para>Multi-Rename-Tool</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>TAB</para></entry>
             <entry><para>Switch between left and right file list</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+U</para></entry>
             <entry><para>Switch between left and right file list</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+.</para></entry>
             <entry><para>Copy the current working directory from the inactive file list to the active one</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+.</para></entry>
             <entry><para>Copy the current working directory from the active file list to the inactive one</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+R</para></entry>
             <entry><para>Refresh the active file list</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+O</para></entry>
             <entry><para>Options dialog</para></entry>
-            <entry><para>+</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+H</para></entry>
             <entry><para>Toggle hidden files on/off</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+=</para></entry>
             <entry><para>Set both panels equal</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+G</para></entry>
             <entry><para>FTP Quick Connect</para></entry>
-            <entry><para>+</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+F</para></entry>
             <entry><para>Connect to FTP server</para></entry>
-            <entry><para>+</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+F</para></entry>
-            <entry><para>Connect from FTP server</para></entry>
-            <entry><para>+</para></entry>
+            <entry><para>Disconnect from FTP server</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ALT+Letter(s)</para><para>CTRL+ALT+Letter(s)</para></entry>
             <entry><para>Quick search for a file name (starting with specified letter) in the current directory</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>Letter</para></entry>
             <entry><para>Redirect to command line, cursor jumps to command line</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>ESC</para></entry>
             <entry><para>Clear the command line</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+K</para></entry>
             <entry><para>Delete to the end of line</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+W</para></entry>
             <entry><para>Delete the word to the left of the cursor</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+T</para></entry>
             <entry><para>Delete the word to the right of the cursor</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+P</para></entry>
             <entry><para>The full path of the current directory is added to the command line</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+ENTER</para></entry>
             <entry><para>The file name under the cursor in the source directory is added to the end of the command line</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
             <entry><para>CTRL+SHIFT+ENTER</para></entry>
             <entry><para>The file name under the cursor including its path is added to the end of the command line</para></entry>
+            <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para></para></entry>
             <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
@@ -3967,9 +4058,6 @@
             <entry><para>CTRL+DOWN</para><para>ALT+F8</para></entry>
             <entry><para>A list with the latest command lines (history list) is opened. Use the UP and DOWN cursor keys to select an entry.
             By pressing the LEFT or RIGHT key, you can edit the command line. This automatically closes the list</para></entry>
-        </row>
-        <row valign="top">
-            <entry><para></para></entry>
             <entry><para></para></entry>
         </row>
         </tbody>
@@ -4000,7 +4088,6 @@
                     allows you to create  MD5 (128-bit) checksums of the selected files</para>
                 </listitem>
             </itemizedlist>
-            </para>
         </sect2>
         <sect2 id="gnome-commander-python-plugins-api">
             <title>Plugin API</title>
@@ -4974,127 +5061,43 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                 </row>
                                 <row valign="top">
                                     <entry><para>[template-history]</para></entry>
-                                    <entry><para>template0</para></entry>
+                                    <entry><para>template<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para>[rename-history-from]</para></entry>
-                                    <entry><para>from0</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>from1</para></entry>
+                                    <entry><para>from<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para>[rename-history-to]</para></entry>
-                                    <entry><para>to0</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>to1</para></entry>
+                                    <entry><para>to<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para>[rename-history-csens]</para></entry>
-                                    <entry><para>csens0</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>csens1</para></entry>
+                                    <entry><para>csens<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para>[cmdline-history]</para></entry>
-                                    <entry><para>line0</para></entry>
+                                    <entry><para>line<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>line1</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>line2</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>line3</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>line4</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>line5</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>line6</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>line7</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>line8</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>line9</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>[key-bindings]</para></entry>
+                                    <entry><para><emphasis>key</emphasis></para></entry>
+                                    <entry><para>string</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>

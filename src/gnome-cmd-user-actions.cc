@@ -33,6 +33,7 @@
 #include "gnome-cmd-options-dialog.h"
 #include "gnome-cmd-prepare-copy-dialog.h"
 #include "gnome-cmd-prepare-move-dialog.h"
+#include "gnome-cmd-python-plugin.h"
 #include "gnome-cmd-search-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "plugin_manager.h"
@@ -94,13 +95,76 @@ inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
 }
 
 
+inline string key2str(guint state, guint key_val)
+{
+    string key_name;
+
+    if (state & GDK_SHIFT_MASK)    key_name += "<shift>";
+    if (state & GDK_CONTROL_MASK)  key_name += "<control>";
+    if (state & GDK_MOD1_MASK)     key_name += "<alt>";
+
+    if (g_ascii_isalnum (key_val))
+        key_name += g_ascii_tolower (key_val);
+    else
+        key_name += gdk_key_names[key_val];
+
+    return key_name;
+}
+
+
+inline string key2str(const GdkEventKey &event)
+{
+    return key2str(event.state, event.keyval);
+}
+
+
+inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
+{
+    g_strdown (s);
+
+    gchar *key = strrchr(s, '>');       // find last '>'
+    key = key ? key+1 : s;
+
+    key_val = gdk_key_names[key];
+    state = 0;
+
+     if (key_val==GDK_VoidSymbol)
+        if (strlen(key)==1 && g_ascii_isalnum (*key))
+            key_val = *key;
+
+    if (strstr (s, "<shift>"))    state |= GDK_SHIFT_MASK;
+    if (strstr (s, "<control>"))  state |= GDK_CONTROL_MASK;
+    if (strstr (s, "<alt>"))      state |= GDK_MOD1_MASK;
+
+    GdkEventKey event;
+
+    event.keyval = key_val;
+    event.state = state;
+
+    return event;
+}
+
+
+inline GdkEventKey str2key(gchar *s, GdkEventKey &event)
+{
+    return str2key(s, event.state, event.keyval);
+}
+
+
+inline GdkEventKey str2key(gchar *s)
+{
+    GdkEventKey event;
+
+    return str2key(s, event);
+}
+
+
 void GnomeCmdUserActions::init()
 {
     actions.add(bookmarks_add_current, "bookmarks.add_current");
     actions.add(bookmarks_edit, "bookmarks.edit");
     actions.add(bookmarks_goto, "bookmarks.goto");
-    actions.add(connections_change, "connections.change");
-    actions.add(connections_close, "connections.close");
+    actions.add(connections_close_current, "connections.close");
     actions.add(connections_close_current, "connections.close_current");
     actions.add(connections_ftp_connect, "connections.ftp_connect");
     actions.add(connections_ftp_quick_connect, "connections.ftp_quick_connect");
@@ -160,39 +224,173 @@ void GnomeCmdUserActions::init()
     register_action(GDK_F9, "edit.search");
     register_action(GDK_F10, "file.exit");
 
-    register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_f, "connections.close_current");
-    register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F, "connections.close_current");
-    register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F5, "file.create_symlink");
+    load("key-bindings");
 
-    register_action(GDK_CONTROL_MASK, GDK_d, "bookmarks.edit");
-    register_action(GDK_CONTROL_MASK, GDK_D, "bookmarks.edit");
-    register_action(GDK_CONTROL_MASK, GDK_f, "connections.ftp_connect");
-    register_action(GDK_CONTROL_MASK, GDK_F, "connections.ftp_connect");
-    register_action(GDK_CONTROL_MASK, GDK_m, "file.advrename");
-    register_action(GDK_CONTROL_MASK, GDK_M, "file.advrename");
-    register_action(GDK_CONTROL_MASK, GDK_g, "connections.ftp_quick_connect");
-    register_action(GDK_CONTROL_MASK, GDK_G, "connections.ftp_quick_connect");
-    register_action(GDK_CONTROL_MASK, GDK_o, "options.edit");
-    register_action(GDK_CONTROL_MASK, GDK_O, "options.edit");
-    register_action(GDK_CONTROL_MASK, GDK_F12, "edit.filter");
+    if (!registered("bookmarks.edit"))
+        register_action(GDK_CONTROL_MASK, GDK_D, "bookmarks.edit");
 
-    register_action(GDK_MOD1_MASK, GDK_F3, "file.external_view");
-    register_action(GDK_SHIFT_MASK, GDK_F3, "file.internal_view");
+    if (!registered("connections.close_current"))
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F, "connections.close_current");
 
-    register_action(GDK_MOD1_MASK, GDK_F7, "edit.search");
-}
+    if (!registered("connections.ftp_connect"))
+        register_action(GDK_CONTROL_MASK, GDK_F, "connections.ftp_connect");
+
+    if (!registered("connections.ftp_quick_connect"))
+        register_action(GDK_CONTROL_MASK, GDK_G, "connections.ftp_quick_connect");
+
+    if (!registered("edit.filter"))
+        register_action(GDK_CONTROL_MASK, GDK_F12, "edit.filter");
+
+    if (!registered("edit.search"))
+        register_action(GDK_MOD1_MASK, GDK_F7, "edit.search");
+
+    if (!registered("file.advrename"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_M, "file.advrename");
+        register_action(GDK_CONTROL_MASK, GDK_T, "file.advrename");
+    }
+
+    if (!registered("file.create_symlink"))
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F5, "file.create_symlink");
+
+    if (!registered("file.external_view"))
+        register_action(GDK_MOD1_MASK, GDK_F3, "file.external_view");
+
+    if (!registered("file.internal_view"))
+        register_action(GDK_SHIFT_MASK, GDK_F3, "file.internal_view");
+
+    if (!registered("mark.select_all"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_A, "mark.select_all");
+        register_action(GDK_CONTROL_MASK, GDK_equal, "mark.select_all");
+        register_action(GDK_CONTROL_MASK, GDK_KP_Add, "mark.select_all");
+    }
+
+    if (!registered("mark.unselect_all"))
+    {
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_A, "mark.unselect_all");
+        register_action(GDK_CONTROL_MASK, GDK_minus, "mark.unselect_all");
+        register_action(GDK_CONTROL_MASK, GDK_KP_Subtract, "mark.unselect_all");
+    }
+
+    if (!registered("options.edit"))
+        register_action(GDK_CONTROL_MASK, GDK_O, "options.edit");
+
+    if (!registered("view.refresh"))
+        register_action(GDK_CONTROL_MASK, GDK_R, "view.refresh");
+ }
 
 
 void GnomeCmdUserActions::shutdown()
 {
+    // don't write 'hardcoded' Fn actions to config file
+
+    unregister(GDK_F3);
+    unregister(GDK_F4);
+    unregister(GDK_F5);
+    unregister(GDK_F6);
+    unregister(GDK_F7);
+    unregister(GDK_F8);
+    unregister(GDK_F9);
+    unregister(GDK_F10);
+
+    write("key-bindings");
+
+    action.clear();
 }
 
 
-gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const gchar *name, gpointer user_data)
+void GnomeCmdUserActions::load(const gchar *section)
 {
-    GnomeCmdUserActionFunc func=actions[name];
+    string section_path = G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S;
+           section_path += section;
+           section_path += G_DIR_SEPARATOR;
 
-    if (func==NULL)
+    char *key = NULL;
+    char *action_name = NULL;
+
+    for (gpointer i=gnome_config_init_iterator(section_path.c_str()); (i=gnome_config_iterator_next(i, &key, &action_name)); )
+    {
+        DEBUG('a',"[%s]\t%s=%s\n", section, key, action_name);
+
+        char *action_options = strchr(action_name, '|');
+
+        if (action_options)
+        {
+            *action_options = '\0';
+            g_strstrip (++action_options);
+        }
+
+        g_strstrip (action_name);
+        g_strdown (action_name);
+
+        if (actions[action_name])
+        {
+            guint keyval;
+            guint state;
+
+            str2key(key, state, keyval);
+
+            if (keyval!=GDK_VoidSymbol)
+                register_action(state, keyval, action_name, action_options);
+            else
+                g_warning ("[%s] invalid key name: '%s' - ignored", section, key);
+        }
+        else
+            g_warning ("[%s] unknown user action: '%s' - ignored", section, action_name);
+
+        g_free (key);
+        g_free (action_name);
+    }
+}
+
+
+void GnomeCmdUserActions::write(const gchar *section)
+{
+    string section_path = G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S;
+           section_path += section;
+           section_path += G_DIR_SEPARATOR;
+
+    char *key = NULL;
+    char *action_name = NULL;
+
+    for (gpointer i=gnome_config_init_iterator (section_path.c_str()); (i=gnome_config_iterator_next (i, &key, &action_name)); )
+    {
+        string curr_key = key;
+        string norm_key = key2str(str2key(key));    // <ALT><Ctrl>F3 -> <ctrl><alt>f3
+
+        if (curr_key!=norm_key)
+        {
+            gnome_config_clean_key ((section_path+curr_key).c_str());
+            gnome_config_set_string ((section_path+norm_key).c_str(), action_name);
+        }
+
+        g_free (key);
+        g_free (action_name);
+    }
+
+    for (map<GdkEventKey, UserAction>::const_iterator i=action.begin(); i!=action.end(); ++i)
+    {
+        string path = section_path + key2str(i->first);
+
+        string action_name = actions[i->second.func];
+
+        if (!i->second.user_data.empty())
+        {
+            action_name += '|';
+            action_name += i->second.user_data;
+        }
+
+        gnome_config_set_string (path.c_str(), action_name.c_str());
+    }
+}
+
+
+gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const gchar *name, const char *user_data)
+{
+    GnomeCmdUserActionFunc func = actions[name];
+
+    if (!func)
         return FALSE;
 
     GdkEventKey event;
@@ -203,7 +401,15 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     if (action.find(event)!=action.end())
         return FALSE;
 
-    action[event] = UserAction(func, user_data);
+    if (!g_ascii_isalpha (keyval))
+        action[event] = UserAction(func, user_data);
+    else
+    {
+        event.keyval = g_ascii_toupper (keyval);
+        action[event] = UserAction(func, user_data);
+        event.keyval = g_ascii_tolower (keyval);
+        action[event] = UserAction(func, user_data);
+    }
 
     return TRUE;
 }
@@ -223,6 +429,32 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
 }
 
 
+gboolean GnomeCmdUserActions::registered(const gchar *name)
+{
+    GnomeCmdUserActionFunc func = actions[name];
+
+    if (!func)
+        return FALSE;
+
+    for (map<GdkEventKey, UserAction>::const_iterator i=action.begin(); i!=action.end(); ++i)
+        if (i->second.func==func)
+            return TRUE;
+
+    return FALSE;
+}
+
+
+gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
+{
+    GdkEventKey event;
+
+    event.keyval = keyval;
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK);
+
+    return action.find(event)!=action.end();
+}
+
+
 gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, GdkEventKey *event)
 {
     map <GdkEventKey, UserAction>::const_iterator pos = action.find(*event);
@@ -230,14 +462,10 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     if (pos==action.end())
         return FALSE;
 
-    DEBUG('a', "Key pressed\tkeyval: %u, shift:%u, ctrl: %u, alt: %u\n", event->keyval,
-                                                                         (event->state & GDK_SHIFT_MASK)==GDK_SHIFT_MASK,
-                                                                         (event->state & GDK_CONTROL_MASK)==GDK_CONTROL_MASK,
-                                                                         (event->state & GDK_MOD1_MASK)==GDK_MOD1_MASK);
-
+    DEBUG('a', "Key event:  %s (%#x)\n", key2str(*event).c_str(), event->keyval);
     DEBUG('a', "Handling key event by %s()\n", actions[pos->second.func].c_str());
 
-    (*pos->second.func) (NULL, pos->second.user_data);
+    (*pos->second.func) (NULL, (gpointer) (pos->second.user_data.empty() ? NULL : pos->second.user_data.c_str()));
 
     return TRUE;
 }
@@ -775,6 +1003,23 @@ void plugins_configure (GtkMenuItem *menuitem, gpointer not_used)
 
 void plugins_execute_python (GtkMenuItem *menuitem, gpointer python_script)
 {
+    if (!python_script)
+        return;
+
+#ifdef HAVE_PYTHON
+    for (GList *py_plugins = gnome_cmd_python_plugin_get_list(); py_plugins; py_plugins = py_plugins->next)
+    {
+        PythonPluginData *py_plugin = (PythonPluginData *) py_plugins->data;
+
+        if (!g_ascii_strcasecmp (py_plugin->name, (gchar *) python_script))
+        {
+            gnome_cmd_python_plugin_execute (py_plugin, main_win);
+            return;
+        }
+    }
+#else
+    g_warning ("Python plugins not supported");
+#endif
 }
 
 

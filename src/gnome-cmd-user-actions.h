@@ -20,6 +20,7 @@
 #ifndef __GNOME_CMD_USER_ACTIONS_H__
 #define __GNOME_CMD_USER_ACTIONS_H__
 
+#include <string>
 #include <map>
 
 #include <gdk/gdkevents.h>
@@ -41,10 +42,11 @@ class GnomeCmdUserActions
     struct UserAction
     {
         GnomeCmdUserActionFunc func;
-        gpointer user_data;
+        std::string user_data;
 
-        UserAction(): func(NULL), user_data(NULL)  {}
-        UserAction(GnomeCmdUserActionFunc _func, gpointer _user_data): func(_func), user_data(_user_data)  {}
+        UserAction(): func(NULL)      {}
+
+        UserAction(GnomeCmdUserActionFunc _func, const char *_user_data);
     };
 
     std::map <GdkEventKey, UserAction> action;
@@ -53,17 +55,30 @@ class GnomeCmdUserActions
 
     void init();
     void shutdown();
-    gboolean register_action(guint state, guint keyval, const gchar *name, gpointer user_data=NULL);
-    gboolean register_action(guint keyval, const gchar *name, gpointer user_data=NULL);
+
+    void load(const gchar *section);
+    void write(const gchar *section);
+
+    gboolean register_action(guint state, guint keyval, const gchar *name, const char *user_data=NULL);
+    gboolean register_action(guint keyval, const gchar *name, const char *user_data=NULL);
     void unregister(const gchar *name);
     void unregister(guint state, guint keyval);
-    void unregister(guint keyval)                                           {  unregister(0, keyval);  }
+    void unregister(guint keyval)                                           {  unregister(0, keyval);         }
+    gboolean registered(const gchar *name);
+    gboolean registered(guint state, guint keyval);
+    gboolean registered(guint keyval)                                       {  return registered(0, keyval);  }
 
     gboolean handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, GdkEventKey *event);
 };
 
 
-inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *name, gpointer user_data)
+inline GnomeCmdUserActions::UserAction::UserAction(GnomeCmdUserActionFunc _func, const char *_user_data): func(_func)
+{
+    if (_user_data)
+        user_data = _user_data;
+}
+
+inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *name, const char *user_data)
 {
     return register_action(0, keyval, name, user_data);
 }

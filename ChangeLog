@@ -1,3 +1,13 @@
+2007-03-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	src/gnome-cmd-data.cc:
+	src/gnome-cmd-data.h:
+	src/gnome-cmd-file-list.cc:
+	src/gnome-cmd-file-selector.cc:
+	src/gnome-cmd-user-actions.cc:
+	src/gnome-cmd-user-actions.h:
+	Added support for user defined shortcuts (via configuration file)
+
 2007-03-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-cmdline.c:

@@ -2350,17 +2350,6 @@ gboolean gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *even
                 return TRUE;
         }
     }
-    else if (state_is_ctrl_shift (event->state))
-    {
-        switch (event->keyval)
-        {
-            case GDK_a:
-            case GDK_A:
-                gnome_cmd_file_list_unselect_all (fl);
-                return TRUE;
-
-        }
-    }
     else if (state_is_ctrl (event->state))
     {
         switch (event->keyval)
@@ -2375,34 +2364,18 @@ gboolean gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *even
                 gnome_cmd_file_list_cap_copy (fl);
                 return TRUE;
 
-            case GDK_m:
-            case GDK_M:
-            case GDK_t:
-            case GDK_T:
-                gnome_cmd_file_list_show_advrename_dialog (fl);
-                return TRUE;
-
-            case GDK_a:
-            case GDK_A:
-            case GDK_KP_Add:
-            case GDK_equal:
-                gnome_cmd_file_list_select_all (fl);
-                return TRUE;
-
-            case GDK_minus:
-            case GDK_KP_Subtract:
-                gnome_cmd_file_list_unselect_all (fl);
-                return TRUE;
-
             case GDK_F3:
                 on_column_clicked (GTK_CLIST (fl), FILE_LIST_COLUMN_NAME, fl);
                 return TRUE;
+
             case GDK_F4:
                 on_column_clicked (GTK_CLIST (fl), FILE_LIST_COLUMN_EXT, fl);
                 return TRUE;
+
             case GDK_F5:
                 on_column_clicked (GTK_CLIST (fl), FILE_LIST_COLUMN_DATE, fl);
                 return TRUE;
+
             case GDK_F6:
                 on_column_clicked (GTK_CLIST (fl), FILE_LIST_COLUMN_SIZE, fl);
                 return TRUE;
