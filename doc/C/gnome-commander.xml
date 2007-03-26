@@ -5,7 +5,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.4">
   <!ENTITY manrevision "1.2.4">
-  <!ENTITY date "March 2007">
+  <!ENTITY date "April 2007">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -83,11 +83,11 @@
 <!-- to V3.0, and so on. -->
     <revhistory>
       <revision>
-        <revnumber>GNOME Commander Manual V&manrevision;</revnumber>
-        <date>&date;</date>
+        <revnumber>GNOME Commander Manual V1.2.4;</revnumber>
+        <date>2007-04-??</date>
         <revdescription>
-            <para role="author">Documentation Writer 2
-                <email>docwriter2@gnome.org</email>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
             </para>
             <para role="publisher">GNOME Documentation Project</para>
         </revdescription>
@@ -285,7 +285,7 @@
       <variablelist>
         <varlistentry>
           <term>
-            <guilabel>Options</guilabel> </term>
+            <guilabel>Options</guilabel></term>
           <listitem>
             <itemizedlist>
               <listitem>
@@ -387,10 +387,10 @@
         </varlistentry>
         <varlistentry>
           <term>
-            <guilabel>Examples</guilabel> </term>
+            <guilabel>Examples</guilabel></term>
           <listitem>
               <para>
-                <command>gnome-commander -d nvl</command>
+                <command>gnome-commander <option>-d nvl</option></command>
               </para>
               <para>
                 Starts &app; with debugging of directory listings, internal viewer and directory monitoring facilities.
@@ -416,7 +416,7 @@
             <para><xref linkend="gnome-commander-internal-viewer"/>
             </para>
         </listitem>
-      </itemizedlist> </para>
+      </itemizedlist></para>
     <!-- ================ Advanced Rename Subsection ======================= -->
     <sect2 id="gnome-commander-advanced-rename">
         <title>Advanced file renaming</title>
@@ -424,7 +424,8 @@
         It allows you to easily rename lots of files in one go.
         The filenames can be created by parts of the original filename, its path,
         numbering the files or accessing hundreds of informations about the file,
-        like creation date or <link linkend="gnome-commander-advanced-rename-metadata-tags">Exif/IPTC</link> informations of an image.</para>
+        like creation date or <link linkend="gnome-commander-advanced-rename-metadata-tags">Exif/IPTC</link>
+        informations of an image.</para>
 
         <para>When started, the following dialog is displayed:</para>
 
@@ -1182,12 +1183,14 @@
                         <entry><para>Exif.FocalLengthIn35mmFilm</para></entry>
                         <entry><para>Focal Length In 35mm Film</para></entry>
                         <entry><para>This tag indicates the equivalent focal length assuming a 35mm film camera, in mm.
- A value of 0 means the focal length is unknown. Note that this tag differs from the <term>Exif.FocalLength</term> tag</para></entry>
+                                     A value of 0 means the focal length is unknown. Note that this tag differs from the
+                                     <term>Exif.FocalLength</term> tag</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FocalPlaneResolutionUnit</para></entry>
                         <entry><para>Focal Plane Resolution Unit</para></entry>
-                        <entry><para>Indicates the unit for measuring <term>Exif.FocalPlaneXResolution</term> and <term>Exif.FocalPlaneYResolution</term>. This value is the same as the <term>Exif.ResolutionUnit</term></para></entry>
+                        <entry><para>Indicates the unit for measuring <term>Exif.FocalPlaneXResolution</term> and <term>Exif.FocalPlaneYResolution</term>.
+                                     This value is the same as the <term>Exif.ResolutionUnit</term></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FocalPlaneXResolution</para></entry>
@@ -2941,15 +2944,15 @@
         <variablelist>
           <varlistentry>
             <term>
-              <guilabel>Character Encodings</guilabel> </term>
+              <guilabel>Character Encodings</guilabel></term>
             <term>
-              <guilabel>Text Display Mode</guilabel> </term>
+              <guilabel>Text Display Mode</guilabel></term>
             <term>
-              <guilabel>Binary Display Mode</guilabel> </term>
+              <guilabel>Binary Display Mode</guilabel></term>
             <term>
-              <guilabel>Hex dump Display Mode</guilabel> </term>
+              <guilabel>Hex dump Display Mode</guilabel></term>
             <term>
-              <guilabel>Image Display Mode</guilabel> </term>
+              <guilabel>Image Display Mode</guilabel></term>
             <listitem>
               <para>Use this drop-down list box to specify when to use
             scrollbars to scroll through an image. Select one of
@@ -2957,14 +2960,14 @@
               <itemizedlist>
             <listitem>
               <para>
-                <guilabel>Never</guilabel> </para>
+                <guilabel>Never</guilabel></para>
               <para>This option never displays scrollbars. You can use the
                 arrow keys on the keyboard or the mouse to scroll
                 through the image. </para>
             </listitem>
             <listitem>
               <para>
-                <guilabel>Only if image does not fit</guilabel> </para>
+                <guilabel>Only if image does not fit</guilabel></para>
               <para>This option displays scrollbars when the image is
                 larger than the image window.</para>
             </listitem>
@@ -2976,7 +2979,7 @@
           <varlistentry>
             <term>
               <guilabel>Pick window size and zoom factor
-            automatically</guilabel> </term>
+            automatically</guilabel></term>
             <listitem>
               <para>Select this option to resize the image window to fit the
             image or to resize the image to fit the image
@@ -2989,7 +2992,7 @@
           </varlistentry>
           <varlistentry>
             <term>
-              <guilabel>Open images in a new window</guilabel> </term>
+              <guilabel>Open images in a new window</guilabel></term>
             <listitem>
               <para>Select this option to open a new
             &app; window each time you open an image. If you do
@@ -3198,7 +3201,7 @@
       <variablelist>
     <varlistentry>
       <term>
-        <guilabel>Interpolation type</guilabel> </term>
+        <guilabel>Interpolation type</guilabel></term>
       <listitem>
         <para>Use this drop-down list box to specify the
           interpolation method that &app; uses when the
@@ -3206,17 +3209,15 @@
         <itemizedlist>
           <listitem>
         <para>
-          <guilabel>Nearest neighbor</guilabel> </para>
+          <guilabel>Nearest neighbor</guilabel></para>
         <para>This method of interpolation takes a location in the
-          original image and replicates the pixel that is
-          nearest to this location. When
-          you zoom in on an image, the pixels are
-          replicated. When you zoom out of an
+          original image and replicates the pixel that is nearest to this location. When
+          you zoom in on an image, the pixels are replicated. When you zoom out of an
           image, the image loses some of its detail. </para>
           </listitem>
           <listitem>
         <para>
-          <guilabel>Bilinear</guilabel> </para>
+          <guilabel>Bilinear</guilabel></para>
         <para>This is a simple and fast method of interpolation. When
           you zoom in on an image, &app; uses up to four
           adjacent pixels to compute the colors of the new
@@ -3226,7 +3227,7 @@
           </listitem>
           <listitem>
         <para>
-          <guilabel>Hyperbolic</guilabel> </para>
+          <guilabel>Hyperbolic</guilabel></para>
         <para>This is a high-quality, slow method of interpolation. The
           application performs interpolation on the image in
           the manner described in
@@ -3239,7 +3240,7 @@
     </varlistentry>
     <varlistentry>
       <term>
-        <guilabel>Transparency type</guilabel> </term>
+        <guilabel>Transparency type</guilabel></term>
       <listitem>
         <para>Use this drop-down list box to specify how
           &app; displays transparent or partially opaque
@@ -3247,33 +3248,33 @@
         <itemizedlist>
           <listitem>
         <para>
-          <guilabel>Dark checks</guilabel> </para>
+          <guilabel>Dark checks</guilabel></para>
         <para>This option displays black and dark gray checks.</para>
           </listitem>
           <listitem>
         <para>
-          <guilabel>Midtone checks</guilabel> </para>
+          <guilabel>Midtone checks</guilabel></para>
         <para>This option displays dark gray and light gray
           checks.</para>
           </listitem>
           <listitem>
         <para>
-          <guilabel>Light checks</guilabel> </para>
+          <guilabel>Light checks</guilabel></para>
         <para>This option displays light gray and white checks.</para>
           </listitem>
           <listitem>
         <para>
-          <guilabel>Black only</guilabel> </para>
+          <guilabel>Black only</guilabel></para>
         <para>This option displays solid black.</para>
           </listitem>
           <listitem>
         <para>
-          <guilabel>Gray only</guilabel> </para>
+          <guilabel>Gray only</guilabel></para>
         <para>This option displays solid gray.</para>
           </listitem>
           <listitem>
         <para>
-          <guilabel>White only</guilabel> </para>
+          <guilabel>White only</guilabel></para>
         <para>This option displays solid white.</para>
           </listitem>
         </itemizedlist>
@@ -3283,7 +3284,7 @@
     </varlistentry>
     <varlistentry>
       <term>
-        <guilabel>Check size</guilabel> </term>
+        <guilabel>Check size</guilabel></term>
       <listitem>
         <para>Use this drop-down list box to specify the size of the checks
           to use to display transparent or partially opaque
@@ -3314,7 +3315,7 @@
     </varlistentry>
     <varlistentry>
       <term>
-        <guilabel>Dither type</guilabel> </term>
+        <guilabel>Dither type</guilabel></term>
       <listitem>
         <para>Use this drop-down list box to specify the dithering method
           to use to display images. Dithering is a technique that
@@ -3325,18 +3326,18 @@
         <itemizedlist>
           <listitem>
         <para>
-          <guilabel>None</guilabel> </para>
+          <guilabel>None</guilabel></para>
         <para>This option does not use dithering. </para>
           </listitem>
           <listitem>
         <para>
-          <guilabel>Normal (pseudocolor)</guilabel> </para>
+          <guilabel>Normal (pseudocolor)</guilabel></para>
         <para>This option performs dithering on pseudocolor displays,
           which use a limited palette of colors. </para>
           </listitem>
           <listitem>
         <para>
-          <guilabel>Maximum (high color)</guilabel> </para>
+          <guilabel>Maximum (high color)</guilabel></para>
         <para>This option performs dithering on pseudocolor and high
           color displays. </para>
           </listitem>
@@ -3347,7 +3348,7 @@
     </varlistentry>
     <varlistentry>
       <term>
-        <guilabel>Two-pass scrolling</guilabel> </term>
+        <guilabel>Two-pass scrolling</guilabel></term>
       <listitem>
         <para>Select this option to render an image in two passes
           when you scroll the image quickly. The first pass
@@ -3375,7 +3376,7 @@
         <para>
           <xref linkend="gnome-commander-viewer-prefs-full-screen"/></para>
       </listitem>
-    </itemizedlist> </para>
+    </itemizedlist></para>
       <sect3 id="gnome-commander-viewer-prefs-image-window">
     <title>Image Windows</title>
     <para>The
@@ -3384,7 +3385,7 @@
     <variablelist>
       <varlistentry>
         <term>
-          <guilabel>Use scrollbars</guilabel> </term>
+          <guilabel>Use scrollbars</guilabel></term>
         <listitem>
           <para>Use this drop-down list box to specify when to use
         scrollbars to scroll through an image. Select one of
@@ -3392,14 +3393,14 @@
           <itemizedlist>
         <listitem>
           <para>
-            <guilabel>Never</guilabel> </para>
+            <guilabel>Never</guilabel></para>
           <para>This option never displays scrollbars. You can use the
             arrow keys on the keyboard or the mouse to scroll
             through the image. </para>
         </listitem>
         <listitem>
           <para>
-            <guilabel>Only if image does not fit</guilabel> </para>
+            <guilabel>Only if image does not fit</guilabel></para>
           <para>This option displays scrollbars when the image is
             larger than the image window.</para>
         </listitem>
@@ -3411,7 +3412,7 @@
       <varlistentry>
         <term>
           <guilabel>Pick window size and zoom factor
-        automatically</guilabel> </term>
+        automatically</guilabel></term>
         <listitem>
           <para>Select this option to resize the image window to fit the
         image or to resize the image to fit the image
@@ -3424,7 +3425,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>Open images in a new window</guilabel> </term>
+          <guilabel>Open images in a new window</guilabel></term>
         <listitem>
           <para>Select this option to open a new
         &app; window each time you open an image. If you do
@@ -3443,7 +3444,7 @@
     <variablelist>
       <varlistentry>
         <term>
-          <guilabel>Use scrollbars</guilabel> </term>
+          <guilabel>Use scrollbars</guilabel></term>
         <listitem>
           <para>Use this drop-down list box to specify when to use
         scrollbars to scroll through an image. Select one of the following
@@ -3451,14 +3452,14 @@
           <itemizedlist>
         <listitem>
           <para>
-            <guilabel>Never</guilabel> </para>
+            <guilabel>Never</guilabel></para>
           <para>This option never displays scrollbars. You can use the
             arrow keys on the keyboard or the mouse to scroll
             through the image. </para>
         </listitem>
         <listitem>
           <para>
-            <guilabel>Only if image does not fit</guilabel> </para>
+            <guilabel>Only if image does not fit</guilabel></para>
           <para>This option displays scrollbars when the image is
             larger than the full screen. </para>
         </listitem>
@@ -3469,7 +3470,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>Use 1:1 zoom factor</guilabel> </term>
+          <guilabel>Use 1:1 zoom factor</guilabel></term>
         <listitem>
           <para>Select this option to use the 1:1 zoom factor when you open
         an image. The 1:1 zoom factor displays the image at
@@ -3479,7 +3480,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>Use same zoom factor as image window</guilabel> </term>
+          <guilabel>Use same zoom factor as image window</guilabel></term>
 
         <listitem>
           <para>Select this option to use the same zoom factor that the
@@ -3490,7 +3491,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>Fit all images to screen</guilabel> </term>
+          <guilabel>Fit all images to screen</guilabel></term>
         <listitem>
           <para>Select this option to resize images to fill the full screen
         when you open the images in full screen mode. </para>
@@ -3499,7 +3500,7 @@
       </varlistentry>
       <varlistentry>
         <term>
-          <guilabel>Fit standard-sized images to screen</guilabel> </term>
+          <guilabel>Fit standard-sized images to screen</guilabel></term>
         <listitem>
           <para>Select this option to automatically resize images
         that are the same size as standard screens so that the
@@ -3982,20 +3983,21 @@
     <title>Python plugins</title>
         <sect2 id="gnome-commander-python-plugins-working-with">
             <title>Working with plugins</title>
-            <para>
-            You can add extra features to &app; by enabling plugins. A plugin is a supplementary program that enhances the functionality of an application.
-            Plugins add new items to the &app; menus for the new features they provide.
+            <para>You can add extra features to &app; by enabling plugins.
+            A plugin is a supplementary program that enhances the functionality of an application.
+            Plugins add new items to the &app; menus for the new features they provide.</para>
 
-            Several plugins come built-in with &app;, and you can install more.
+            <para>Several plugins come built-in with &app;, and you can install more.</para>
 
-            The &app; first looks for python plugins in ~/.gnome-commander/plugins/ directory,
-            and then in PLUGIN_DIR ($(libdir)/$(PACKAGE)/plugins) if not found.
+            <para>The &app; first looks for python plugins in ~/.gnome-commander/plugins/ directory,
+            and then in $(libdir)/$(PACKAGE)/plugins directory if not found.</para>
 
-            The following plugins come built-in with &app;:
+            <para>The following plugins come built-in with &app;:</para>
 
             <itemizedlist>
                 <listitem>
-                    <para>Change Case allows you to change the case of the selected text</para>
+                    <para><xref linkend="gnome-commander-python-plugins-md5sum"/>
+                    allows you to create  MD5 (128-bit) checksums of the selected files</para>
                 </listitem>
             </itemizedlist>
             </para>
@@ -4037,8 +4039,6 @@
                         def copy()
                         def is_parent(item, recursive)
                         def resolve_relative(relative_reference)
-                    ----------------------------
-                    Description
 
                     Attributes
                     dirname	Read/Write	The name of the directory in which the file pointed to by this URI is located.
@@ -4056,7 +4056,7 @@
                     user_name	Read	User name (for schemes which require authorization).
                     </para>
                 </sect3>
-                <sect3 id="gnome-commander-python-plugins-api">
+                <sect3 id="gnome-commander-python-plugins-api-gnomevfs-fileinfo">
                     <title>gnomevfs.FileInfo</title>
                     <para>
                     Attributes
@@ -4108,26 +4108,28 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
         <sect2 id="gnome-commander-python-plugins-md5sum">
             <title>md5sum plugin</title>
             <para>
-            #!/usr/bin/env python
+            <programlisting>
+    #!/usr/bin/env python
 
-            try:
-                import gnomevfs
-            except ImportError:
-                import gnome.vfs as gnomevfs
+    try:
+        import gnomevfs
+    except ImportError:
+        import gnome.vfs as gnomevfs
 
-            import md5
+    import md5
 
 
-            def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
+    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files):
 
-                for uri in selected_files:
-                    fname = gnomevfs.get_file_info(uri).name
-                    f = file.open(fname,'rb')
-                    file_content = f.read()
-                    f.close()
-                    md5sum = md5.new(file_content).hexdigest()
-                    print md5sum, fname
-                return True
+        for uri in selected_files:
+            fname = gnomevfs.get_file_info(uri).name
+            f = file.open(fname,'rb')
+            file_content = f.read()
+            f.close()
+            md5sum = md5.new(file_content).hexdigest()
+            print md5sum, fname
+        return True
+            </programlisting>
             </para>
             <note>
               <para>The latest version of md5sum code can be found in
@@ -4145,7 +4147,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
   <variablelist>
     <varlistentry>
       <term>
-        <guilabel>Handling archives</guilabel> </term>
+        <guilabel>Handling archives</guilabel></term>
       <listitem>
         <para>&app; still lacks built in browsing of compressed archives. However the program can be configured so
         that working with archives becomes quite practical anyway. This is how you do it:</para>
@@ -4170,7 +4172,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
 
     <varlistentry>
       <term>
-        <guilabel>Using removable media</guilabel> </term>
+        <guilabel>Using removable media</guilabel></term>
       <listitem>
         <para>If you use removable devices such as CDs, floppies and cameras a lot you can make &app;
         automatically take care of mounting them by following this guide:</para>
@@ -4196,7 +4198,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
 
     <varlistentry>
       <term>
-        <guilabel>Opening a full terminal</guilabel> </term>
+        <guilabel>Opening a full terminal</guilabel></term>
       <listitem>
         <para>Sometimes you want a quick way of opening a full terminal window with the current directory as the terminals working directory.
         Well, that is easy, just type <application>sh</application>, or maybe <application>bash</application> if you prefer,
@@ -4206,7 +4208,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
 
     <varlistentry>
       <term>
-        <guilabel>Using Nautilus icon theme</guilabel> </term>
+        <guilabel>Using Nautilus icon theme</guilabel></term>
       <listitem>
       <warning>
       <para>This is outdated info since Nautilus and later Gnome versions no longer use these kind of themes.</para>
@@ -4874,70 +4876,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>name_pattern0</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>name_pattern1</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>name_pattern2</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>name_pattern3</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>name_pattern4</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>name_pattern5</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>name_pattern6</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>name_pattern7</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>name_pattern8</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>name_pattern9</para></entry>
+                                    <entry><para>name_pattern<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -4965,35 +4904,14 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>pat_col_widths0</para></entry>
+                                    <entry><para>pat_col_widths<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>pat_col_widths1</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>pat_col_widths2</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>res_col_widths0</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>res_col_widths1</para></entry>
+                                    <entry><para>res_col_widths<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5021,14 +4939,14 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>name0</para></entry>
+                                    <entry><para>name<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>path0</para></entry>
+                                    <entry><para>path<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5042,14 +4960,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                 </row>
                                 <row valign="top">
                                     <entry><para>[plugins]</para></entry>
-                                    <entry><para>auto_load0</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>auto_load1</para></entry>
+                                    <entry><para>auto_load<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5225,7 +5136,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
     <tbody>
         <row valign="top">
             <entry><para>1.2.4</para></entry>
-            <entry><para>2007-03-??</para></entry>
+            <entry><para>2007-04-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -6026,7 +5937,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
         and those with programming knowledge are very welcome to suggest fixes and/or send patches to the developers,
         all in the spirit of free and open source software.</para>
 
-  <para>Given enough eyeballs, all bugs are shallow.</para>
+  <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
 
   <para>//Linus law.</para>
  </sect1>
@@ -6050,7 +5961,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
     <para>
       To report a bug or make a suggestion regarding this application or
       this manual, follow the directions in this
-      <ulink url="ghelp:gnome-feedback"   type="help">document</ulink>.
+      <ulink url="ghelp:gnome-feedback" type="help">document</ulink>.
     </para>
 
     <para> This program is distributed under the terms of the GNU
