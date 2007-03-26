@@ -896,14 +896,11 @@ GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pm)
 {
     g_return_val_if_fail (text || pm, NULL);
 
-    GtkWidget *btn;
-    GtkWidget *hbox;
+    GtkWidget *btn = create_styled_button (NULL);
+    GtkWidget *hbox = gtk_hbox_new (FALSE, 1);
     GtkWidget *label = NULL;
     GtkWidget *pixmap = NULL;
 
-    btn = create_styled_button (NULL);
-
-    hbox = gtk_hbox_new (FALSE, 1);
     gtk_object_set_data_full (GTK_OBJECT (btn), "hbox", hbox, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_ref (hbox);
     gtk_widget_show (hbox);
@@ -1095,8 +1092,7 @@ create_ui_pixmap (GtkWidget *window,
             name = gnome_pixmap_file ((const gchar *) pixmap_info);
 
             if (!name)
-                g_warning ("Could not find GNOME pixmap file %s",
-                        (char *) pixmap_info);
+                g_warning ("GNOME pixmap file %s cannot be found", (char *) pixmap_info);
             else
             {
                 pixmap = gnome_pixmap_new_from_file (name);
@@ -1174,7 +1170,7 @@ GList *file_list_to_uri_list (GList *files)
         GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
 
         if (!uri)
-            g_warning ("NULL uri!!!\n");
+            g_warning ("NULL uri!!!");
         else
             uris = g_list_append (uris, uri);
     }

@@ -208,7 +208,7 @@ create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent, MenuData *spec)
             break;
 
         default:
-            g_warning ("This MENU_TYPE is not implemented\n");
+            g_warning ("This MENU_TYPE is not implemented");
             return NULL;
     }
 

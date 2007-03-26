@@ -1548,11 +1548,8 @@ gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sor
         tmp = list;
 
     gtk_clist_freeze (GTK_CLIST (fl));
-    while (tmp)
-    {
+    for (; tmp; tmp = tmp->next)
         gnome_cmd_file_list_add_file (fl, GNOME_CMD_FILE (tmp->data), -1);
-        tmp = tmp->next;
-    }
     gtk_clist_thaw (GTK_CLIST (fl));
 
     if (list)
@@ -1563,10 +1560,9 @@ gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sor
 void
 gnome_cmd_file_list_insert_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 {
-    gint i;
     gint num_files = get_num_files (fl);
 
-    for (i=0; i<num_files; i++)
+    for (gint i=0; i<num_files; i++)
     {
         GnomeCmdFile *finfo2 = get_file_at_row (fl, i);
         if (fl->priv->sort_func (finfo2, finfo, fl) == 1)
@@ -1584,19 +1580,17 @@ gnome_cmd_file_list_insert_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 void
 gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 {
-    FileFormatData data;
-    gint i,row;
-
     if (!gnome_cmd_file_needs_update (finfo))
         return;
 
-    row = get_row_from_file (fl, finfo);
+    gint row = get_row_from_file (fl, finfo);
     if (row == -1)
         return;
 
+    FileFormatData data;
     format_file_for_display (finfo, data, FALSE);
 
-    for (i=1; i<FILE_LIST_NUM_COLUMNS; i++)
+    for (gint i=1; i<FILE_LIST_NUM_COLUMNS; i++)
         gtk_clist_set_text (GTK_CLIST (fl), row, i, data.text[i]);
 
     cleanup_file_format (data);
@@ -1625,12 +1619,10 @@ void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finf
 
 void gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 {
-    gint row;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (finfo != NULL);
 
-    row = get_row_from_file (fl, finfo);
+    gint row = get_row_from_file (fl, finfo);
     if (row >= 0)
     {
         gtk_clist_remove (GTK_CLIST (fl), row);
@@ -1724,10 +1716,7 @@ GList *gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
-    if (fl->priv->selected_files)
-        return g_list_copy (fl->priv->selected_files);
-
-    return NULL;
+    return fl->priv->selected_files ? g_list_copy (fl->priv->selected_files) : NULL;
 }
 
 

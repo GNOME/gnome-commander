@@ -63,7 +63,7 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
         }
         else
         {
-            g_warning ("No result at all\n");
+            g_warning ("No result at all");
             con->state = CON_STATE_CLOSED;
             con->open_result = CON_OPEN_FAILED;
         }
