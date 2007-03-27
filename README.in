@@ -47,7 +47,7 @@ Cool hacks:
   * Write a good explanation of what the patch does.
 
 Translations:
-  * Since this program now is in the gnome cvs tree, translations should be
+  * Since this program now is in the gnome svn tree, translations should be
     commited directly to the tree there.
 
 Graphics:
@@ -72,12 +72,16 @@ This is a list of required libraries:
     other programs.
 
   * libexif:
-    Optional.
+    Optional - for EXIF support.
 
   * libiptcdata
+    Optional - for IPTC support.
 
   * libid3
+    Optional - for ID3 support.
 
+  * libgsf
+    Optional - for OLE and ODF support.
 
 
 4. Communication
@@ -101,13 +105,6 @@ in the AUTHORS file.
 [A1] This will be done when GnomeVFS gets it working. All file operations are
      done using this API so it would be very impractical to implement it using
      some other library.
-
-
-[Q2] Some of the keyboard shortcuts in GNOME Commander are also used by my
-     window manager, can they be changed?
-
-[A2] Not at the moment, but maybe later on.
-
 
 
 
