@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-10 16:33+0100\n"
-"PO-Revision-Date: 2007-03-10 17:36+0100\n"
+"POT-Creation-Date: 2007-03-27 21:58+0200\n"
+"PO-Revision-Date: 2007-03-28 20:37+0100\n"
 "Last-Translator: Dusan Hokuv <dusan@mirc.cz>\n"
 "Language-Team: Czech Language team <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,9 +35,9 @@ msgid "No error description available"
 msgstr "Popis chyby není k dispozici"
 
 #: ../plugins/cvs/cvs-plugin.c:301
-#: ../plugins/fileroller/file-roller-plugin.c:345
+#: ../plugins/fileroller/file-roller-plugin.c:346
 #: ../src/gnome-cmd-ftp-dialog.cc:542
-#: ../src/gnome-cmd-options-dialog.cc:1125
+#: ../src/gnome-cmd-options-dialog.cc:1126
 #: ../src/gnome-cmd-options-dialog.cc:1836
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:136
 #: ../src/gnome-cmd-prepare-move-dialog.cc:123
@@ -120,60 +120,60 @@ msgstr "Jaký název souboru by měl mít nový archiv?"
 msgid "Create Archive"
 msgstr "Vytvořit archiv"
 
-#: ../plugins/fileroller/file-roller-plugin.c:287
+#: ../plugins/fileroller/file-roller-plugin.c:288
 msgid "Create Archive..."
 msgstr "Vytvořit archiv..."
 
-#: ../plugins/fileroller/file-roller-plugin.c:300
+#: ../plugins/fileroller/file-roller-plugin.c:301
 msgid "Extract in Current Directory"
 msgstr "Rozbalit do aktuálního adresáře"
 
-#: ../plugins/fileroller/file-roller-plugin.c:306
+#: ../plugins/fileroller/file-roller-plugin.c:307
 #, c-format
 msgid "Extract to '%s'"
 msgstr "Rozbalit do '%s'"
 
-#: ../plugins/fileroller/file-roller-plugin.c:359
+#: ../plugins/fileroller/file-roller-plugin.c:360
 msgid "File-roller options"
 msgstr "Možnosti File-rolleru"
 
-#: ../plugins/fileroller/file-roller-plugin.c:362
+#: ../plugins/fileroller/file-roller-plugin.c:363
 msgid "Default type"
 msgstr "Implicitní typ"
 
-#: ../plugins/fileroller/file-roller-plugin.c:478
+#: ../plugins/fileroller/file-roller-plugin.c:479
 msgid "A plugin that adds File Roller shortcuts for creating and extracting compressed archives."
 msgstr "Zásuvný modul, který přidává zkratky File Rolleru pro tvorbu a rozbalování komprimovaných archivů."
 
-#: ../plugins/test/test-plugin.c:233
+#: ../plugins/test/test-plugin.c:235
 msgid "This is an example plugin that is mostly useful as a simple example for aspiring plugin hackers"
 msgstr "Toto je ukázkový zásuvný modul, který užitečný hlavně jako jednoduchý příklad pro nadějné hackery zásuvných modulů"
 
-#: ../src/gnome-cmd-about-plugin.cc:186
+#: ../src/gnome-cmd-about-plugin.cc:187
 msgid "Credits"
 msgstr "Kredity"
 
-#: ../src/gnome-cmd-about-plugin.cc:213
+#: ../src/gnome-cmd-about-plugin.cc:214
 msgid "Written by"
 msgstr "Napsali"
 
-#: ../src/gnome-cmd-about-plugin.cc:226
+#: ../src/gnome-cmd-about-plugin.cc:227
 msgid "Documented by"
 msgstr "Zdokumentovali"
 
-#: ../src/gnome-cmd-about-plugin.cc:239
+#: ../src/gnome-cmd-about-plugin.cc:240
 msgid "Translated by"
 msgstr "Přeložili"
 
-#: ../src/gnome-cmd-about-plugin.cc:294
+#: ../src/gnome-cmd-about-plugin.cc:295
 msgid "Plugin Webpage"
 msgstr "WWW stránka zásuvných modulů"
 
-#: ../src/gnome-cmd-about-plugin.cc:306
+#: ../src/gnome-cmd-about-plugin.cc:307
 msgid "C_redits"
 msgstr "_Kredity"
 
-#: ../src/gnome-cmd-about-plugin.cc:520
+#: ../src/gnome-cmd-about-plugin.cc:521
 #, c-format
 msgid "About %s"
 msgstr "O %s"
@@ -203,9 +203,8 @@ msgid "/Counter"
 msgstr "/Počítadlo"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:160
-#, fuzzy
 msgid "/Counter (precision)"
-msgstr "Jinou verzí"
+msgstr "/Počítadlo (precizní)"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:162
 msgid "/Date/<locale>"
@@ -299,136 +298,136 @@ msgstr "Ne"
 msgid "Invalid source pattern"
 msgstr "Neplatný vzor zdroje"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:631
+#: ../src/gnome-cmd-advrename-dialog.cc:633
 msgid "Replace this:"
 msgstr "Nahradit toto:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:631
-#: ../src/gnome-cmd-advrename-dialog.cc:1178
+#: ../src/gnome-cmd-advrename-dialog.cc:633
+#: ../src/gnome-cmd-advrename-dialog.cc:1182
 msgid "With this"
 msgstr "Tímto"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:643
+#: ../src/gnome-cmd-advrename-dialog.cc:645
 msgid "Case sensitive matching"
 msgstr "Rozlišovat velikost písmen"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:775
+#: ../src/gnome-cmd-advrename-dialog.cc:777
 msgid "New Rule"
 msgstr "Nové pravidlo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:781
+#: ../src/gnome-cmd-advrename-dialog.cc:783
 msgid "Edit Rule"
 msgstr "Upravit pravidlo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1006
+#: ../src/gnome-cmd-advrename-dialog.cc:1010
 msgid "Counter start value:"
 msgstr "Počáteční hodnota počítadla:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1007
+#: ../src/gnome-cmd-advrename-dialog.cc:1011
 msgid "Counter increment:"
 msgstr "Krok počítadla:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1008
+#: ../src/gnome-cmd-advrename-dialog.cc:1012
 msgid "Counter minimum digit count:"
 msgstr "Minimální počet číslic počítadla:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1013
+#: ../src/gnome-cmd-advrename-dialog.cc:1017
 msgid "Template Options"
 msgstr "Možnosti šablony"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1017
+#: ../src/gnome-cmd-advrename-dialog.cc:1021
 msgid "Auto-update when the template is entered"
 msgstr "Automaticky aktualizovat při zadání šablony"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1115
+#: ../src/gnome-cmd-advrename-dialog.cc:1119
 msgid "Advanced Rename Tool"
 msgstr "Pokročilý nástroj pro přejmenovávání"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1127
+#: ../src/gnome-cmd-advrename-dialog.cc:1131
 #: ../src/tags/gnome-cmd-tags.cc:140
 msgid "Template"
 msgstr "Šablona"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1148
+#: ../src/gnome-cmd-advrename-dialog.cc:1152
 msgid "O_ptions..."
 msgstr "Mož_nosti..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1155
+#: ../src/gnome-cmd-advrename-dialog.cc:1159
 msgid "Dir"
 msgstr "adr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1158
+#: ../src/gnome-cmd-advrename-dialog.cc:1162
 #: ../src/plugin_manager.cc:420
 #: ../src/tags/gnome-cmd-tags.cc:732
 msgid "Name"
 msgstr "Název"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1161
+#: ../src/gnome-cmd-advrename-dialog.cc:1165
 msgid "Counter"
 msgstr "Počítadlo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1164
+#: ../src/gnome-cmd-advrename-dialog.cc:1168
 #: ../src/tags/gnome-cmd-tags.cc:822
 #: ../src/tags/gnome-cmd-tags.cc:1211
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1167
+#: ../src/gnome-cmd-advrename-dialog.cc:1171
 msgid "Metatag"
 msgstr "Metaznačka"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1172
+#: ../src/gnome-cmd-advrename-dialog.cc:1176
 msgid "Regex replacing"
 msgstr "Náhrada regex"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1177
+#: ../src/gnome-cmd-advrename-dialog.cc:1181
 msgid "Replace this"
 msgstr "Nahradit toto"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1179
+#: ../src/gnome-cmd-advrename-dialog.cc:1183
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:150
 msgid "Case sensitive"
 msgstr "Rozlišovat velikost písmen"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1191
+#: ../src/gnome-cmd-advrename-dialog.cc:1195
 #: ../src/gnome-cmd-options-dialog.cc:1351
 #: ../src/gnome-cmd-options-dialog.cc:1709
 msgid "_Add..."
 msgstr "_Přidat..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1194
+#: ../src/gnome-cmd-advrename-dialog.cc:1198
 #: ../src/gnome-cmd-ftp-dialog.cc:533
 #: ../src/gnome-cmd-options-dialog.cc:1355
 #: ../src/gnome-cmd-options-dialog.cc:1713
 msgid "_Edit..."
 msgstr "_Upravit..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1198
-#: ../src/gnome-cmd-bookmark-dialog.cc:465
+#: ../src/gnome-cmd-advrename-dialog.cc:1202
+#: ../src/gnome-cmd-bookmark-dialog.cc:471
 #: ../src/gnome-cmd-ftp-dialog.cc:536
 #: ../src/gnome-cmd-options-dialog.cc:1361
 #: ../src/gnome-cmd-options-dialog.cc:1719
 msgid "_Remove"
 msgstr "_Odstranit"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1202
+#: ../src/gnome-cmd-advrename-dialog.cc:1206
 msgid "Re_move All"
 msgstr "Odstranit _vše"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1222
+#: ../src/gnome-cmd-advrename-dialog.cc:1226
 msgid "Result"
 msgstr "Výsledek"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1227
+#: ../src/gnome-cmd-advrename-dialog.cc:1231
 msgid "Current filenames"
 msgstr "Aktuální názvy souborů"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1228
+#: ../src/gnome-cmd-advrename-dialog.cc:1232
 msgid "New filenames"
 msgstr "Nové názvy souborů"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1234
+#: ../src/gnome-cmd-advrename-dialog.cc:1238
 msgid "Rese_t"
 msgstr "Obnovi_t původní"
 
@@ -440,50 +439,50 @@ msgstr "Název záložky:"
 msgid "Bookmark target:"
 msgstr "Cíl záložky:"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:158
+#: ../src/gnome-cmd-bookmark-dialog.cc:159
 msgid "Bookmark name is missing"
 msgstr "Chybí název záložky"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:163
+#: ../src/gnome-cmd-bookmark-dialog.cc:165
 msgid "Bookmark target is missing"
 msgstr "Chybí cíl záložky"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:183
+#: ../src/gnome-cmd-bookmark-dialog.cc:185
 msgid "Edit Bookmark"
 msgstr "Upravit záložku"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:428
-#: ../src/gnome-cmd-bookmark-dialog.cc:440
+#: ../src/gnome-cmd-bookmark-dialog.cc:434
+#: ../src/gnome-cmd-bookmark-dialog.cc:446
 msgid "Bookmarks"
 msgstr "Záložky"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:431
+#: ../src/gnome-cmd-bookmark-dialog.cc:437
 msgid "Bookmark Groups"
 msgstr "Skupiny záložek"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:447
+#: ../src/gnome-cmd-bookmark-dialog.cc:453
 #: ../src/gnome-cmd-file-list.cc:94
 msgid "name"
 msgstr "název"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:448
+#: ../src/gnome-cmd-bookmark-dialog.cc:454
 msgid "path"
 msgstr "cesta"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:455
+#: ../src/gnome-cmd-bookmark-dialog.cc:461
 msgid "_Goto"
 msgstr "_Přejít na"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:460
+#: ../src/gnome-cmd-bookmark-dialog.cc:466
 #: ../src/gnome-cmd-main-menu.cc:789
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:572
+#: ../src/gnome-cmd-bookmark-dialog.cc:578
 msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding\n"
 msgstr "Chcete-li vytvořit záložku pro adresář, celá cesta musí být v kódování UTF-8\n"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:579
+#: ../src/gnome-cmd-bookmark-dialog.cc:585
 msgid "New Bookmark"
 msgstr "Nová záložka"
 
@@ -522,7 +521,7 @@ msgid "Number view:"
 msgstr "Číselný pohled:"
 
 #: ../src/gnome-cmd-chmod-dialog.cc:43
-#: ../src/gnome-cmd-options-dialog.cc:1146
+#: ../src/gnome-cmd-options-dialog.cc:1147
 msgid "All files"
 msgstr "Všechny soubory"
 
@@ -676,10 +675,10 @@ msgstr "Hledám skupiny a počítače"
 msgid "Go to: Samba Network"
 msgstr "Přejít na síť Samba"
 
-#: ../src/gnome-cmd-data.cc:1186
-#: ../src/gnome-cmd-data.cc:1409
-#: ../src/gnome-cmd-data.cc:1410
-#: ../src/gnome-cmd-data.cc:2379
+#: ../src/gnome-cmd-data.cc:1147
+#: ../src/gnome-cmd-data.cc:1369
+#: ../src/gnome-cmd-data.cc:1370
+#: ../src/gnome-cmd-data.cc:2390
 #, c-format
 msgid "link to %s"
 msgstr "Symbolický odkaz na %s"
@@ -718,13 +717,13 @@ msgid "Abort"
 msgstr "Přerušit"
 
 #: ../src/gnome-cmd-delete-dialog.cc:233
-#: ../src/gnome-cmd-file-selector.cc:2208
+#: ../src/gnome-cmd-file-selector.cc:2235
 #: ../src/gnome-cmd-xfer.cc:193
 msgid "Retry"
 msgstr "Opakovat"
 
 #: ../src/gnome-cmd-delete-dialog.cc:233
-#: ../src/gnome-cmd-file-selector.cc:2208
+#: ../src/gnome-cmd-file-selector.cc:2235
 #: ../src/gnome-cmd-xfer.cc:174
 #: ../src/gnome-cmd-xfer.cc:193
 msgid "Skip"
@@ -750,8 +749,8 @@ msgid "Delete"
 msgstr "Odstranit"
 
 #: ../src/gnome-cmd-delete-dialog.cc:323
-#: ../src/gnome-cmd-file-selector.cc:2208
-#: ../src/gnome-cmd-user-actions.cc:339
+#: ../src/gnome-cmd-file-selector.cc:2235
+#: ../src/gnome-cmd-user-actions.cc:567
 #: ../src/utils.cc:524
 #: ../src/utils.cc:553
 msgid "Cancel"
@@ -802,11 +801,11 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:2260
-#: ../src/gnome-cmd-file-list.cc:2277
-#, fuzzy, c-format
+#: ../src/gnome-cmd-file-list.cc:2206
+#: ../src/gnome-cmd-file-list.cc:2223
+#, c-format
 msgid "Not an ordinary file: %s"
-msgstr "Zobrazit _nezpracovaný (původní soubor)"
+msgstr "Není normální soubor: %s"
 
 #: ../src/gnome-cmd-file-popmenu.cc:129
 msgid "Invalid command"
@@ -824,49 +823,50 @@ msgstr "Otevřít s..."
 msgid "Needs terminal"
 msgstr "Vyžaduje terminál"
 
-#: ../src/gnome-cmd-file-popmenu.cc:418
-#: ../src/gnome-cmd-file-popmenu.cc:449
+#: ../src/gnome-cmd-file-popmenu.cc:420
+#: ../src/gnome-cmd-file-popmenu.cc:429
+#: ../src/gnome-cmd-file-popmenu.cc:455
 msgid "_Open"
 msgstr "_Otevřít"
 
-#: ../src/gnome-cmd-file-popmenu.cc:427
+#: ../src/gnome-cmd-file-popmenu.cc:433
 #, c-format
 msgid "_Open with \"%s\""
 msgstr "_Otevřít s \"%s\""
 
-#: ../src/gnome-cmd-file-popmenu.cc:450
+#: ../src/gnome-cmd-file-popmenu.cc:456
 msgid "Open With..."
 msgstr "Otevřít s..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:456
+#: ../src/gnome-cmd-file-popmenu.cc:462
 msgid "E_xecute"
 msgstr "S_pustit"
 
-#: ../src/gnome-cmd-file-popmenu.cc:468
+#: ../src/gnome-cmd-file-popmenu.cc:474
 #: ../src/gnome-cmd-main-menu.cc:551
 msgid "Cu_t"
 msgstr "_Vyjmout"
 
-#: ../src/gnome-cmd-file-popmenu.cc:469
+#: ../src/gnome-cmd-file-popmenu.cc:475
 #: ../src/gnome-cmd-main-menu.cc:557
 msgid "_Copy"
 msgstr "_Kopírovat"
 
-#: ../src/gnome-cmd-file-popmenu.cc:470
+#: ../src/gnome-cmd-file-popmenu.cc:476
 #: ../src/gnome-cmd-main-menu.cc:569
 msgid "_Delete"
 msgstr "_Odstranit"
 
-#: ../src/gnome-cmd-file-popmenu.cc:471
+#: ../src/gnome-cmd-file-popmenu.cc:477
 msgid "Rename"
 msgstr "Přejmenovat"
 
-#: ../src/gnome-cmd-file-popmenu.cc:473
+#: ../src/gnome-cmd-file-popmenu.cc:479
 #: ../src/gnome-cmd-main-menu.cc:478
 msgid "_Properties..."
 msgstr "_Vlastnosti..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:516
+#: ../src/gnome-cmd-file-popmenu.cc:522
 msgid "Other..."
 msgstr "Jiné..."
 
@@ -885,7 +885,7 @@ msgid "No default application registered"
 msgstr "Není zaregistrována implicitní aplikace"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:293
-#: ../src/gnome-cmd-file-selector.cc:1978
+#: ../src/gnome-cmd-file-selector.cc:2009
 msgid "Filename:"
 msgstr "Název souboru:"
 
@@ -942,95 +942,103 @@ msgstr "Vlastnosti"
 msgid "Permissions"
 msgstr "Práva"
 
-#: ../src/gnome-cmd-file-selector.cc:179
+#: ../src/gnome-cmd-file-selector.cc:192
 #, c-format
-msgid "%s of %s kB in %d of %d file selected"
-msgid_plural "%s of %s kB in %d of %d files selected"
+msgid "%s of %s kB in %d of %d file"
+msgid_plural "%s of %s kB in %d of %d files"
 msgstr[0] "%s z %s kB v %d z %d vybraných souborů"
 msgstr[1] "%s z %s kB v %d z %d vybraných souborů"
 msgstr[2] "%s z %s kB v %d z %d vybraných souborů"
 
-#: ../src/gnome-cmd-file-selector.cc:696
+#: ../src/gnome-cmd-file-selector.cc:196
+#, c-format
+msgid "%s, %d of %d dir selected"
+msgid_plural "%s, %d of %d dirs selected"
+msgstr[0] "%s, %d z %d vybraných adresářů"
+msgstr[1] "%s, %d z %d vybraných adresářů"
+msgstr[2] "%s, %d z %d vybraných adresářů"
+
+#: ../src/gnome-cmd-file-selector.cc:726
 #, c-format
 msgid "%s free"
 msgstr "%s volných"
 
-#: ../src/gnome-cmd-file-selector.cc:700
+#: ../src/gnome-cmd-file-selector.cc:730
 msgid "Unknown disk usage"
 msgstr "Informaci o obsazení disku nelze zjistit"
 
-#: ../src/gnome-cmd-file-selector.cc:1136
+#: ../src/gnome-cmd-file-selector.cc:1167
 #, c-format
 msgid "List failed: %s\n"
 msgstr "Výpis selhal: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1725
+#: ../src/gnome-cmd-file-selector.cc:1756
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Nemohu otevřít spojení: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1912
+#: ../src/gnome-cmd-file-selector.cc:1943
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
 msgstr "Nebyl zadán název souboru"
 
-#: ../src/gnome-cmd-file-selector.cc:1949
+#: ../src/gnome-cmd-file-selector.cc:1980
 msgid "No filename given"
 msgstr "Nebyl zadán název souboru"
 
-#: ../src/gnome-cmd-file-selector.cc:1981
+#: ../src/gnome-cmd-file-selector.cc:2012
 msgid "New Text File"
 msgstr "Nový textový soubor"
 
-#: ../src/gnome-cmd-file-selector.cc:2155
+#: ../src/gnome-cmd-file-selector.cc:2182
 msgid "Symlink name:"
 msgstr "Název symbolického odkazu:"
 
-#: ../src/gnome-cmd-file-selector.cc:2161
-#: ../src/gnome-cmd-file-selector.cc:2208
-#: ../src/gnome-cmd-user-actions.cc:339
+#: ../src/gnome-cmd-file-selector.cc:2188
+#: ../src/gnome-cmd-file-selector.cc:2235
+#: ../src/gnome-cmd-user-actions.cc:567
 msgid "Create Symbolic Link"
 msgstr "Vytvořit symbolický odkaz"
 
-#: ../src/gnome-cmd-file-selector.cc:2208
+#: ../src/gnome-cmd-file-selector.cc:2235
 #: ../src/gnome-cmd-options-dialog.cc:678
 #: ../src/gnome-cmd-options-dialog.cc:698
 msgid "Skip all"
 msgstr "Přeskočit vše"
 
-#: ../src/gnome-cmd-file-selector.cc:2284
+#: ../src/gnome-cmd-file-selector.cc:2311
 msgid "Filter:"
 msgstr "Filtr:"
 
-#: ../src/gnome-cmd-file.cc:608
+#: ../src/gnome-cmd-file.cc:626
 msgid "Unknown file type"
 msgstr "Neznámý typ souboru"
 
-#: ../src/gnome-cmd-file.cc:609
+#: ../src/gnome-cmd-file.cc:627
 msgid "Regular file"
 msgstr "Obyčejný soubor"
 
-#: ../src/gnome-cmd-file.cc:610
+#: ../src/gnome-cmd-file.cc:628
 msgid "Directory"
 msgstr "Adresář"
 
-#: ../src/gnome-cmd-file.cc:611
+#: ../src/gnome-cmd-file.cc:629
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:612
+#: ../src/gnome-cmd-file.cc:630
 msgid "UNIX Socket"
 msgstr "UNIXový soket"
 
-#: ../src/gnome-cmd-file.cc:613
+#: ../src/gnome-cmd-file.cc:631
 msgid "Character device"
 msgstr "Znakové zařízení"
 
-#: ../src/gnome-cmd-file.cc:614
+#: ../src/gnome-cmd-file.cc:632
 msgid "Block device"
 msgstr "Blokové zařízení"
 
-#: ../src/gnome-cmd-file.cc:615
+#: ../src/gnome-cmd-file.cc:633
 msgid "Symbolic link"
 msgstr "Symbolický odkaz"
 
@@ -1292,7 +1300,7 @@ msgid "_Contents"
 msgstr "_Obsahuje"
 
 #: ../src/gnome-cmd-main-menu.cc:744
-#: ../src/libgviewer/viewer-window.c:1034
+#: ../src/libgviewer/viewer-window.c:1031
 msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové zkratky"
 
@@ -1305,7 +1313,7 @@ msgid "Report a _Problem"
 msgstr "Ohlásit chy_bu"
 
 #: ../src/gnome-cmd-main-menu.cc:763
-#: ../src/libgviewer/viewer-window.c:1041
+#: ../src/libgviewer/viewer-window.c:1038
 #: ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "O _aplikaci"
@@ -1313,7 +1321,7 @@ msgstr "O _aplikaci"
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
 #: ../src/gnome-cmd-main-menu.cc:785
-#: ../src/libgviewer/viewer-window.c:1054
+#: ../src/libgviewer/viewer-window.c:1051
 msgid "_File"
 msgstr "_Soubor"
 
@@ -1322,12 +1330,12 @@ msgid "_Mark"
 msgstr "_Označit"
 
 #: ../src/gnome-cmd-main-menu.cc:797
-#: ../src/libgviewer/viewer-window.c:1057
+#: ../src/libgviewer/viewer-window.c:1054
 msgid "_View"
 msgstr "_Zobrazit"
 
 #: ../src/gnome-cmd-main-menu.cc:802
-#: ../src/libgviewer/viewer-window.c:1068
+#: ../src/libgviewer/viewer-window.c:1065
 msgid "_Settings"
 msgstr "N_astavení"
 
@@ -1344,7 +1352,7 @@ msgid "_Plugins"
 msgstr "Zásuvné _moduly"
 
 #: ../src/gnome-cmd-main-menu.cc:818
-#: ../src/libgviewer/viewer-window.c:1073
+#: ../src/libgviewer/viewer-window.c:1070
 msgid "_Help"
 msgstr "_Nápověda"
 
@@ -1761,52 +1769,52 @@ msgstr "Záložní soubory"
 msgid "Symlinks"
 msgstr "Symbolické odkazy"
 
-#: ../src/gnome-cmd-options-dialog.cc:1103
+#: ../src/gnome-cmd-options-dialog.cc:1104
 msgid "Label:"
 msgstr "Popisek:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1105
+#: ../src/gnome-cmd-options-dialog.cc:1106
 msgid "Command:"
 msgstr "Příkaz:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1107
+#: ../src/gnome-cmd-options-dialog.cc:1108
 #: ../src/gnome-cmd-options-dialog.cc:1549
 msgid "Icon:"
 msgstr "Ikona:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1128
+#: ../src/gnome-cmd-options-dialog.cc:1129
 msgid "Can handle multiple files"
 msgstr "Umí zpracovat více souborů"
 
-#: ../src/gnome-cmd-options-dialog.cc:1132
+#: ../src/gnome-cmd-options-dialog.cc:1133
 msgid "Can handle URIs"
 msgstr "Umí zpracovat URI"
 
-#: ../src/gnome-cmd-options-dialog.cc:1136
+#: ../src/gnome-cmd-options-dialog.cc:1137
 msgid "Requires terminal"
 msgstr "Vyžaduje terminál"
 
-#: ../src/gnome-cmd-options-dialog.cc:1143
+#: ../src/gnome-cmd-options-dialog.cc:1144
 msgid "Show for"
 msgstr "Zobrazovat pro"
 
-#: ../src/gnome-cmd-options-dialog.cc:1152
+#: ../src/gnome-cmd-options-dialog.cc:1153
 msgid "All directories"
 msgstr "Všechny adresáře"
 
-#: ../src/gnome-cmd-options-dialog.cc:1158
+#: ../src/gnome-cmd-options-dialog.cc:1159
 msgid "All directories and files"
 msgstr "Všechny soubory a adresáře"
 
-#: ../src/gnome-cmd-options-dialog.cc:1164
+#: ../src/gnome-cmd-options-dialog.cc:1165
 msgid "Some files"
 msgstr "Některé soubory"
 
-#: ../src/gnome-cmd-options-dialog.cc:1175
+#: ../src/gnome-cmd-options-dialog.cc:1176
 msgid "File patterns"
 msgstr "Vzory souborů"
 
-#: ../src/gnome-cmd-options-dialog.cc:1200
+#: ../src/gnome-cmd-options-dialog.cc:1201
 msgid "New Application"
 msgstr "Nová aplikace"
 
@@ -1978,26 +1986,26 @@ msgstr "Adresář '%s' neexistuje, chcete jej vytvořit?"
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
 msgstr "Nelze načíst modul pythonu 'gnomevfs' ('gnome.vfs')\n"
 
-#: ../src/gnome-cmd-quicksearch-popup.cc:264
+#: ../src/gnome-cmd-quicksearch-popup.cc:265
 msgid "Search"
 msgstr "Hledat"
 
-#: ../src/gnome-cmd-search-dialog.cc:188
+#: ../src/gnome-cmd-search-dialog.cc:184
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Nemohu otevřít soubor %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:198
+#: ../src/gnome-cmd-search-dialog.cc:193
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Nemohu číst ze souboru: %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:263
+#: ../src/gnome-cmd-search-dialog.cc:257
 #, c-format
 msgid "Searching in: %s"
 msgstr "Hledám v: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:409
+#: ../src/gnome-cmd-search-dialog.cc:406
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
@@ -2005,7 +2013,7 @@ msgstr[0] "Před přerušením jsem našel %d výskyt"
 msgstr[1] "Před přerušením jsem našel %d výskyty"
 msgstr[2] "Před přerušením jsem našel %d výskytů"
 
-#: ../src/gnome-cmd-search-dialog.cc:416
+#: ../src/gnome-cmd-search-dialog.cc:413
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -2013,42 +2021,41 @@ msgstr[0] "Nalezen %d výskyt"
 msgstr[1] "Nalezeny %d výskyty"
 msgstr[2] "Nalezeno %d výskytů"
 
-#: ../src/gnome-cmd-search-dialog.cc:745
+#: ../src/gnome-cmd-search-dialog.cc:725
 msgid "Search..."
 msgstr "Hledat..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:758
+#: ../src/gnome-cmd-search-dialog.cc:738
 msgid "Search for: "
 msgstr "Hledat: "
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:770
+#: ../src/gnome-cmd-search-dialog.cc:750
 msgid "Search in: "
 msgstr "Hledat v:"
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:784
+#: ../src/gnome-cmd-search-dialog.cc:764
 msgid "Find text: "
 msgstr "Hledat text: "
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:799
+#: ../src/gnome-cmd-search-dialog.cc:778
 msgid "Search Recursively"
 msgstr "Hledat rekurzivně"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:806
+#: ../src/gnome-cmd-search-dialog.cc:785
 #: ../src/tags/gnome-cmd-tags.cc:98
 msgid "Case Sensitive"
 msgstr "Rozlišovat velikost písmen"
 
-#: ../src/gnome-cmd-search-dialog.cc:817
+#: ../src/gnome-cmd-search-dialog.cc:796
 msgid "Goto"
 msgstr "Přejít na"
 
 #: ../src/gnome-cmd-smb-auth.cc:33
-#, fuzzy
 msgid "Enter password"
 msgstr "Zadejte heslo"
 
@@ -2066,40 +2073,40 @@ msgstr ""
 msgid "Can't find a host or workgroup named %s\n"
 msgstr "Nemohu najít počítač nebo skupinu pojmenovanou %s\n"
 
-#: ../src/gnome-cmd-user-actions.cc:74
+#: ../src/gnome-cmd-user-actions.cc:75
 msgid "No file selected"
 msgstr "Nebyl zvolen žádný soubor"
 
-#: ../src/gnome-cmd-user-actions.cc:334
-#, fuzzy, c-format
+#: ../src/gnome-cmd-user-actions.cc:562
+#, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
-msgstr[0] "Vytvořit symbolický odkaz"
-msgstr[1] "Vytvořit symbolický odkaz"
-msgstr[2] "Vytvořit symbolický odkaz"
+msgstr[0] "Vytvořit symbolický odkaz %i souboru v %s? "
+msgstr[1] "Vytvořit symbolické odkazy %i souborů v %s?"
+msgstr[2] "Vytvořit symbolické odkazy %i souborů v %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:339
+#: ../src/gnome-cmd-user-actions.cc:567
 msgid "Create"
 msgstr "Vytvořit"
 
-#: ../src/gnome-cmd-user-actions.cc:406
+#: ../src/gnome-cmd-user-actions.cc:634
 #, c-format
 msgid "running \"%s\"\n"
 msgstr "spouštím \"%s\"\n"
 
-#: ../src/gnome-cmd-user-actions.cc:800
+#: ../src/gnome-cmd-user-actions.cc:1045
 msgid "There was an error opening home page."
 msgstr "Při otevírání domovské stránky došlo k chybě."
 
-#: ../src/gnome-cmd-user-actions.cc:809
+#: ../src/gnome-cmd-user-actions.cc:1054
 msgid "There was an error reporting problem."
 msgstr "Ohlášení chyby se nezdařilo."
 
-#: ../src/gnome-cmd-user-actions.cc:830
+#: ../src/gnome-cmd-user-actions.cc:1075
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Rychlý a mocný správce souborů pro prostředí pracovní plochy GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:838
+#: ../src/gnome-cmd-user-actions.cc:1083
 msgid "translator-credits"
 msgstr ""
 "Dusan Hokuv <dusan@mirc.cz>\n"
@@ -2204,181 +2211,180 @@ msgstr "Nemohu najít ikony. Zkontrolujte, zda jste program nainstalovali nebo s
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr "Nemohu načíst nainstalovanou pixmapu, pokouším se načíst ze zdrojového adresáře\n"
 
-#: ../src/libgviewer/search-dlg.c:314
+#: ../src/libgviewer/search-dlg.c:332
 msgid "Find"
 msgstr "Najít"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.c:344
-#: ../src/libgviewer/viewer-window.c:819
-#: ../src/libgviewer/viewer-window.c:1060
+#: ../src/libgviewer/search-dlg.c:362
+#: ../src/libgviewer/viewer-window.c:816
+#: ../src/libgviewer/viewer-window.c:1057
 msgid "_Text"
 msgstr "_Text"
 
-#: ../src/libgviewer/search-dlg.c:346
+#: ../src/libgviewer/search-dlg.c:364
 msgid "_Hex"
 msgstr "_Hex"
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.c:355
+#: ../src/libgviewer/search-dlg.c:373
 msgid "_Match case"
-msgstr ""
+msgstr "_dodržet velikost"
 
-#: ../src/libgviewer/search-progress-dlg.c:76
+#: ../src/libgviewer/search-progress-dlg.c:78
 msgid "Searching..."
 msgstr "Hledám..."
 
-#: ../src/libgviewer/search-progress-dlg.c:197
+#: ../src/libgviewer/search-progress-dlg.c:199
 #, c-format
 msgid "Searching for \"%s\""
 msgstr "Hledám \"%s\""
 
-#: ../src/libgviewer/viewer-widget.c:206
+#: ../src/libgviewer/viewer-widget.c:204
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Pozice: %lu z %lu\tSloupec: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.c:210
+#: ../src/libgviewer/viewer-widget.c:208
 msgid "Wrap"
 msgstr "Zalamovat"
 
-#: ../src/libgviewer/viewer-widget.c:230
+#: ../src/libgviewer/viewer-widget.c:229
 #, c-format
 msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
 msgstr "Velikost obrázku: %dx%d\tBarevná hloubka: %d b\tZvětšení: %s"
 
-#: ../src/libgviewer/viewer-widget.c:232
+#: ../src/libgviewer/viewer-widget.c:231
 msgid "Fit-to-Window"
 msgstr "Přizpůsobit velikosti okna"
 
 #: ../src/libgviewer/viewer-window.c:194
-#: ../src/utils.cc:1338
+#: ../src/utils.cc:1334
 msgid "There was an error displaying help."
 msgstr "Při zobrazování nápovědy došlo k chybě."
 
-#: ../src/libgviewer/viewer-window.c:810
+#: ../src/libgviewer/viewer-window.c:807
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: ../src/libgviewer/viewer-window.c:823
+#: ../src/libgviewer/viewer-window.c:820
 msgid "_Binary"
 msgstr "_Binárně"
 
-#: ../src/libgviewer/viewer-window.c:827
+#: ../src/libgviewer/viewer-window.c:824
 msgid "_Hex dump"
 msgstr "Š_estnáctkový výpis"
 
-#: ../src/libgviewer/viewer-window.c:831
-#: ../src/libgviewer/viewer-window.c:1065
+#: ../src/libgviewer/viewer-window.c:828
+#: ../src/libgviewer/viewer-window.c:1062
 msgid "_Image"
 msgstr "_Obrázek"
 
-#: ../src/libgviewer/viewer-window.c:836
+#: ../src/libgviewer/viewer-window.c:833
 msgid "_Zoom In"
 msgstr "Z_většit"
 
-#: ../src/libgviewer/viewer-window.c:841
+#: ../src/libgviewer/viewer-window.c:838
 msgid "Zoom _Out"
 msgstr "Z_menšit"
 
-#: ../src/libgviewer/viewer-window.c:846
+#: ../src/libgviewer/viewer-window.c:843
 msgid "_Normal Size"
 msgstr "Výcho_zí velikost"
 
-#: ../src/libgviewer/viewer-window.c:851
+#: ../src/libgviewer/viewer-window.c:848
 msgid "Best _Fit"
 msgstr "Přizpůsobit velikosti _okna"
 
-#: ../src/libgviewer/viewer-window.c:865
+#: ../src/libgviewer/viewer-window.c:862
 msgid "_Copy Text Selection"
 msgstr "_Zkopírovat vybraný text"
 
-#: ../src/libgviewer/viewer-window.c:870
+#: ../src/libgviewer/viewer-window.c:867
 msgid "Find..."
 msgstr "Najít..."
 
-#: ../src/libgviewer/viewer-window.c:875
+#: ../src/libgviewer/viewer-window.c:872
 msgid "Find Next"
 msgstr "Hledat další"
 
-#: ../src/libgviewer/viewer-window.c:880
+#: ../src/libgviewer/viewer-window.c:877
 msgid "Find Previous"
 msgstr "Najít předchozí"
 
-#: ../src/libgviewer/viewer-window.c:887
+#: ../src/libgviewer/viewer-window.c:884
 msgid "_No Parsing (original file)"
 msgstr "Zobrazit _nezpracovaný (původní soubor)"
 
-#: ../src/libgviewer/viewer-window.c:892
+#: ../src/libgviewer/viewer-window.c:889
 msgid "_HTML Parser"
 msgstr "Zpracovat jako _HTML"
 
-#: ../src/libgviewer/viewer-window.c:897
+#: ../src/libgviewer/viewer-window.c:894
 msgid "_PS/PDF Parser"
 msgstr "Zpracovat jako _PS/PDF"
 
-#: ../src/libgviewer/viewer-window.c:904
+#: ../src/libgviewer/viewer-window.c:901
 msgid "_Wrap lines"
 msgstr "_Zalamovat řádky"
 
-#: ../src/libgviewer/viewer-window.c:910
+#: ../src/libgviewer/viewer-window.c:907
 msgid "_Encoding"
 msgstr "_Kódování"
 
-#: ../src/libgviewer/viewer-window.c:952
+#: ../src/libgviewer/viewer-window.c:949
 msgid "_Show EXIF/IPTC Information"
 msgstr "_Zobrazovat informaci EXIF/IPTC"
 
-#: ../src/libgviewer/viewer-window.c:958
+#: ../src/libgviewer/viewer-window.c:955
 msgid "_Rotate Clockwise"
 msgstr "_Otočit ve směru hodinových ručiček"
 
-#: ../src/libgviewer/viewer-window.c:963
+#: ../src/libgviewer/viewer-window.c:960
 msgid "Rotate Counter Clockwis_e"
 msgstr "Otočit _proti směru hodinových ručiček"
 
-#: ../src/libgviewer/viewer-window.c:968
+#: ../src/libgviewer/viewer-window.c:965
 msgid "_Rotate 180°"
 msgstr "_Otočit o 180°"
 
-#: ../src/libgviewer/viewer-window.c:973
+#: ../src/libgviewer/viewer-window.c:970
 msgid "Flip _Vertical"
 msgstr "Převrátit _svisle"
 
-#: ../src/libgviewer/viewer-window.c:978
+#: ../src/libgviewer/viewer-window.c:975
 msgid "Flip _Horizontal"
 msgstr "Převrátit _vodorovně"
 
-#: ../src/libgviewer/viewer-window.c:988
+#: ../src/libgviewer/viewer-window.c:985
 msgid "_Binary Mode"
 msgstr "_Binární režim"
 
-#: ../src/libgviewer/viewer-window.c:994
+#: ../src/libgviewer/viewer-window.c:991
 msgid "_Decimal Offset in Hexdump"
 msgstr "_Desítkový offset v šestnáctkovém výpisu"
 
-#: ../src/libgviewer/viewer-window.c:1000
+#: ../src/libgviewer/viewer-window.c:997
 msgid "_Save Current Settings"
 msgstr "_Uložit současné nastavení"
 
-#: ../src/libgviewer/viewer-window.c:1010
+#: ../src/libgviewer/viewer-window.c:1007
 msgid "_20 chars/line"
 msgstr "_20 znaků na řádek"
 
-#: ../src/libgviewer/viewer-window.c:1015
+#: ../src/libgviewer/viewer-window.c:1012
 msgid "_40 chars/line"
 msgstr "_40 znaků na řádek"
 
-#: ../src/libgviewer/viewer-window.c:1020
+#: ../src/libgviewer/viewer-window.c:1017
 msgid "_80 chars/line"
 msgstr "_80 znaků na řádek"
 
-#: ../src/libgviewer/viewer-window.c:1029
-#, fuzzy
+#: ../src/libgviewer/viewer-window.c:1026
 msgid "Quick _Help"
-msgstr "Rychlá nápověda"
+msgstr "Rychlá _nápověda"
 
-#: ../src/libgviewer/viewer-window.c:1252
+#: ../src/libgviewer/viewer-window.c:1237
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "Vzorek \"%s\" nebyl nalezen"
@@ -2438,11 +2444,11 @@ msgstr "_Nastavit"
 
 #: ../src/tags/gnome-cmd-tags.cc:66
 msgid "Album Artist"
-msgstr ""
+msgstr "Interpret alba"
 
 #: ../src/tags/gnome-cmd-tags.cc:66
 msgid "Artist of the album."
-msgstr ""
+msgstr "Interpret alba."
 
 #: ../src/tags/gnome-cmd-tags.cc:67
 msgid "Album Gain"
@@ -2463,17 +2469,17 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:69
 msgid "Album Track Count"
-msgstr ""
+msgstr "Počet stop alba"
 
 #: ../src/tags/gnome-cmd-tags.cc:69
 msgid "Total number of tracks on the album."
-msgstr ""
+msgstr "Celkový počet stop alba."
 
 #: ../src/tags/gnome-cmd-tags.cc:70
 #: ../src/tags/gnome-cmd-tags.cc:739
 #: ../src/tags/gnome-cmd-tags.cc:1205
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:70
 #: ../src/tags/gnome-cmd-tags.cc:739
@@ -2483,22 +2489,21 @@ msgstr "Název alba."
 #: ../src/tags/gnome-cmd-tags.cc:71
 #: ../src/tags/gnome-cmd-tags.cc:148
 msgid "Artist"
-msgstr ""
+msgstr "Interpret"
 
 #: ../src/tags/gnome-cmd-tags.cc:71
 msgid "Artist of the track."
-msgstr ""
+msgstr "Interpret stopy."
 
 #: ../src/tags/gnome-cmd-tags.cc:72
 #: ../src/tags/gnome-cmd-tags.cc:764
-#, fuzzy
 msgid "Bitrate"
-msgstr "Stav:"
+msgstr "Bitrate"
 
 #: ../src/tags/gnome-cmd-tags.cc:72
 #: ../src/tags/gnome-cmd-tags.cc:764
 msgid "Bitrate in kbps."
-msgstr ""
+msgstr "Bitrate v kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:73
 #: ../src/tags/gnome-cmd-tags.cc:781
@@ -2508,7 +2513,7 @@ msgstr "Kanálů"
 #: ../src/tags/gnome-cmd-tags.cc:73
 #: ../src/tags/gnome-cmd-tags.cc:781
 msgid "Number of channels in the audio (2 = stereo)."
-msgstr ""
+msgstr "Počet kanálů ve zvukovém záznamu (2 = stereo)."
 
 #: ../src/tags/gnome-cmd-tags.cc:74
 msgid "Codec Version"
@@ -2533,9 +2538,8 @@ msgstr "Komentář"
 
 #: ../src/tags/gnome-cmd-tags.cc:76
 #: ../src/tags/gnome-cmd-tags.cc:782
-#, fuzzy
 msgid "Comments on the track."
-msgstr "Poznámky o programu"
+msgstr "Komentáře ke stopě."
 
 #: ../src/tags/gnome-cmd-tags.cc:77
 msgid "Cover album thumbnail path"
@@ -2576,27 +2580,27 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:81
 msgid "Is new"
-msgstr ""
+msgstr "Novinka"
 
 #: ../src/tags/gnome-cmd-tags.cc:81
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
-msgstr ""
+msgstr "Nastavte na \"1\" pokud je stopa nová pro uživatele (výchozí \"0\")."
 
 #: ../src/tags/gnome-cmd-tags.cc:82
 msgid "Last Play"
-msgstr ""
+msgstr "Naposledy přehráno"
 
 #: ../src/tags/gnome-cmd-tags.cc:82
 msgid "When track was last played."
-msgstr ""
+msgstr "Kdy byla naposledy stopa přehrána."
 
 #: ../src/tags/gnome-cmd-tags.cc:83
 msgid "Lyrics"
-msgstr ""
+msgstr "Texty písní"
 
 #: ../src/tags/gnome-cmd-tags.cc:83
 msgid "Lyrics of the track."
-msgstr ""
+msgstr "Texty písní ke stopě."
 
 #: ../src/tags/gnome-cmd-tags.cc:84
 msgid "MB album artist ID"
@@ -2639,9 +2643,8 @@ msgid "Name of the performer/conductor of the music."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:89
-#, fuzzy
 msgid "Play Count"
-msgstr "Uspořádání"
+msgstr "Počet přehrání"
 
 #: ../src/tags/gnome-cmd-tags.cc:89
 msgid "Number of times the track has been played."
@@ -2658,14 +2661,13 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:91
 #: ../src/tags/gnome-cmd-tags.cc:1064
-#, fuzzy
 msgid "Sample Rate"
-msgstr "Šablona"
+msgstr "Vzorkovací frekvence"
 
 #: ../src/tags/gnome-cmd-tags.cc:91
 #: ../src/tags/gnome-cmd-tags.cc:1064
 msgid "Sample rate in Hz."
-msgstr ""
+msgstr "Vzorkovací frekvence v Hz."
 
 #: ../src/tags/gnome-cmd-tags.cc:92
 #: ../src/tags/gnome-cmd-tags.cc:141
@@ -2677,7 +2679,7 @@ msgstr "Název"
 #: ../src/tags/gnome-cmd-tags.cc:92
 #: ../src/tags/gnome-cmd-tags.cc:1115
 msgid "Title of the track."
-msgstr ""
+msgstr "Název stopy."
 
 #: ../src/tags/gnome-cmd-tags.cc:93
 msgid "Track Gain"
@@ -2689,12 +2691,12 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:94
 msgid "Track Number"
-msgstr ""
+msgstr "Číslo stopy"
 
 #: ../src/tags/gnome-cmd-tags.cc:94
 #: ../src/tags/gnome-cmd-tags.cc:1125
 msgid "Position of track on the album."
-msgstr ""
+msgstr "Číslo stopy v albu."
 
 #: ../src/tags/gnome-cmd-tags.cc:95
 msgid "Track Peak Gain"
@@ -2710,9 +2712,8 @@ msgstr "Autor"
 
 #: ../src/tags/gnome-cmd-tags.cc:96
 #: ../src/tags/gnome-cmd-tags.cc:1210
-#, fuzzy
 msgid "Name of the author."
-msgstr "Název programu"
+msgstr "Jméno autora."
 
 #: ../src/tags/gnome-cmd-tags.cc:97
 msgid "Byte Count"
@@ -2779,11 +2780,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:105
 msgid "Created"
-msgstr ""
+msgstr "Vytvořeno"
 
 #: ../src/tags/gnome-cmd-tags.cc:105
 msgid "Datetime document was originally created."
-msgstr ""
+msgstr "Datum a čas vytvoření původního dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:106
 #: ../src/tags/gnome-cmd-tags.cc:1210
@@ -2796,18 +2797,16 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:107
 #: ../src/tags/gnome-cmd-tags.cc:1337
-#, fuzzy
 msgid "Date Created"
-msgstr "Formát data"
+msgstr "Datum vytvoření"
 
 #: ../src/tags/gnome-cmd-tags.cc:107
 msgid "Date associated with an event in the life cycle of the resource (creation/publication date)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:108
-#, fuzzy
 msgid "Date Modified"
-msgstr "Změněn:"
+msgstr "Datum změny"
 
 #: ../src/tags/gnome-cmd-tags.cc:108
 msgid "The last time the document was saved."
@@ -2832,18 +2831,16 @@ msgid "Dictionary."
 msgstr "Slovník."
 
 #: ../src/tags/gnome-cmd-tags.cc:111
-#, fuzzy
 msgid "Editing Duration"
-msgstr "Upravit aplikaci"
+msgstr "Doba úprav"
 
 #: ../src/tags/gnome-cmd-tags.cc:111
 msgid "The total time taken until the last modification."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:112
-#, fuzzy
 msgid "Generator"
-msgstr "Obecné"
+msgstr "Vygeneroval"
 
 #: ../src/tags/gnome-cmd-tags.cc:112
 msgid "The application that generated this document."
@@ -2858,18 +2855,16 @@ msgid "Number of hidden slides in the presentation document."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:114
-#, fuzzy
 msgid "Image Count"
-msgstr "Uspořádání"
+msgstr "Počet obrázků"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Number of images in the document."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:115
-#, fuzzy
 msgid "Initial Creator"
-msgstr "Adresář"
+msgstr "Původní tvůrce"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Specifies the name of the person who created the document initially."
@@ -2881,12 +2876,12 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:1220
 #: ../src/tags/gnome-cmd-tags.cc:1422
 msgid "Keywords"
-msgstr ""
+msgstr "Klíčová slova"
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 #: ../src/tags/gnome-cmd-tags.cc:117
 msgid "Searchable, indexable keywords."
-msgstr ""
+msgstr "Klíčová slova, vhodná pro vyhledávání a indexování."
 
 #: ../src/tags/gnome-cmd-tags.cc:118
 #: ../src/tags/gnome-cmd-tags.cc:902
@@ -2918,9 +2913,8 @@ msgid "Line Count"
 msgstr "Počet řádků"
 
 #: ../src/tags/gnome-cmd-tags.cc:121
-#, fuzzy
 msgid "Number of lines in the document."
-msgstr "Počet znaků v dokumentu."
+msgstr "Počet řádků v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:122
 msgid "Links Dirty"
@@ -2947,9 +2941,8 @@ msgid "Number of multimedia clips in the document."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:125
-#, fuzzy
 msgid "Manager"
-msgstr "Správce souborů"
+msgstr "Správce"
 
 #: ../src/tags/gnome-cmd-tags.cc:125
 msgid "Name of the manager of <Doc.Creator> entity."
@@ -3013,9 +3006,8 @@ msgid "Specifies the name of the last person who printed the document."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:133
-#, fuzzy
 msgid "Revision Count"
-msgstr "Verze 1:"
+msgstr "Číslo verze"
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "Number of revision on the document."
@@ -3038,9 +3030,8 @@ msgid "One of: \"Password protected\", \"Read-only recommended\", \"Read-only en
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:136
-#, fuzzy
 msgid "Slide Count"
-msgstr "Uspořádání"
+msgstr "Počet snímků"
 
 #: ../src/tags/gnome-cmd-tags.cc:136
 msgid "Number of slides in the presentation document."
@@ -3055,14 +3046,12 @@ msgid "Subject"
 msgstr "Předmět"
 
 #: ../src/tags/gnome-cmd-tags.cc:138
-#, fuzzy
 msgid "Document subject."
-msgstr "Zdokumentovali"
+msgstr "Předmět dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:139
-#, fuzzy
 msgid "Table Count"
-msgstr "Uspořádání"
+msgstr "Počet tabulek"
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "Number of tables in the document."
@@ -3130,18 +3119,16 @@ msgid "CFA Repeat Pattern Dim"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:178
-#, fuzzy
 msgid "Color Space"
-msgstr "Schéma barev:"
+msgstr "Barevný prostor"
 
 #: ../src/tags/gnome-cmd-tags.cc:178
 msgid "The color space information tag is always recorded as the color space specifier. Normally sRGB (=1) is used to define the color space based on the PC monitor conditions and environment. If a color space other than sRGB is used, Uncalibrated (=FFFF.H) is set. Image data recorded as Uncalibrated can be treated as sRGB when it is converted to FlashPix."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:183
-#, fuzzy
 msgid "Components Configuration"
-msgstr "Potvrzování"
+msgstr "Konfigurace komponent"
 
 #: ../src/tags/gnome-cmd-tags.cc:183
 msgid "Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences."
@@ -3332,11 +3319,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:303
 msgid "F Number"
-msgstr ""
+msgstr "F číslo"
 
 #: ../src/tags/gnome-cmd-tags.cc:303
 msgid "The F number."
-msgstr ""
+msgstr "F číslo."
 
 #: ../src/tags/gnome-cmd-tags.cc:308
 #: ../src/tags/gnome-cmd-tags.cc:1217
@@ -3692,9 +3679,8 @@ msgid "Related Image Width"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:548
-#, fuzzy
 msgid "Related Sound File"
-msgstr "Přejmenovat soubor"
+msgstr "Příbuzný zvukový soubor"
 
 #: ../src/tags/gnome-cmd-tags.cc:548
 msgid "This tag is used to record the name of an audio file related to the image data. The only relational information recorded here is the Exif audio file name and extension (an ASCII string consisting of 8 characters + '.' + 3 characters). The path is not recorded. When using this tag, audio files must be recorded in conformance to the Exif audio format. Writers are also allowed to store the data such as Audio within APP2 as FlashPix extension stream data. Audio files must be recorded in conformance to the Exif audio format. If multiple files are mapped to one file, the above format is used to record just one audio file name. If there are multiple audio files, the first recorded file is given. When there are three Exif audio files \"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple relational information, a variety of playback possibilities can be supported. The method of using relational information is left to the implementation on the playback side. Since this information is an ASCII character string, it is terminated by NULL. When this tag is used to map audio files, the relation of the audio file to image data must also be indicated on the audio file end."
@@ -3967,9 +3953,8 @@ msgid "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> 
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:723
-#, fuzzy
 msgid "Accessed"
-msgstr "Použit:"
+msgstr "Přistoupeno"
 
 #: ../src/tags/gnome-cmd-tags.cc:723
 msgid "Last access datetime."
@@ -4016,9 +4001,8 @@ msgid "Link"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:730
-#, fuzzy
 msgid "URI of link target."
-msgstr "Cíl symbolického odkazu:"
+msgstr "Cíl symbolického odkazu."
 
 #: ../src/tags/gnome-cmd-tags.cc:731
 msgid "Modified"
@@ -4135,14 +4119,12 @@ msgid "Music CD identifier."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:780
-#, fuzzy
 msgid "Channel mode"
-msgstr "Zrušit"
+msgstr "Mód kanálu"
 
 #: ../src/tags/gnome-cmd-tags.cc:780
-#, fuzzy
 msgid "Channel mode."
-msgstr "Zrušit"
+msgstr "Mód kanálu."
 
 #: ../src/tags/gnome-cmd-tags.cc:787
 msgid "Commercial"
@@ -4170,23 +4152,20 @@ msgid "Conductor."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:802
-#, fuzzy
 msgid "Content Group"
-msgstr "_Obsahuje"
+msgstr "Skupina obsahu"
 
 #: ../src/tags/gnome-cmd-tags.cc:802
 msgid "Content group description."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:807
-#, fuzzy
 msgid "Content Type"
-msgstr "_Obsahuje"
+msgstr "Typ obsahu"
 
 #: ../src/tags/gnome-cmd-tags.cc:812
-#, fuzzy
 msgid "Copyright message."
-msgstr "Řetězec copyrightu"
+msgstr "Řetězec copyrightu."
 
 #: ../src/tags/gnome-cmd-tags.cc:817
 msgid "Encryption Registration"
@@ -4225,28 +4204,24 @@ msgid "Person or organisation that encoded the audio file. This field may contai
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:835
-#, fuzzy
 msgid "Encoder Settings"
-msgstr "Nastavení ikon MIME"
+msgstr "Nastavení enkodéru"
 
 #: ../src/tags/gnome-cmd-tags.cc:835
 msgid "Software."
 msgstr "Software."
 
 #: ../src/tags/gnome-cmd-tags.cc:840
-#, fuzzy
 msgid "Encoding Time"
-msgstr "_Kódování"
+msgstr "Doba kódování"
 
 #: ../src/tags/gnome-cmd-tags.cc:840
-#, fuzzy
 msgid "Encoding time."
-msgstr "_Kódování"
+msgstr "Doba kódování."
 
 #: ../src/tags/gnome-cmd-tags.cc:845
-#, fuzzy
 msgid "Equalization"
-msgstr "Aplikace MIME"
+msgstr "Ekvalizace"
 
 #: ../src/tags/gnome-cmd-tags.cc:845
 msgid "Equalization."
@@ -4373,9 +4348,8 @@ msgid "Media Type"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:922
-#, fuzzy
 msgid "Media type."
-msgstr "Implicitní typ"
+msgstr "Typ média."
 
 #: ../src/tags/gnome-cmd-tags.cc:927
 msgid "Mix Artist"
@@ -4463,9 +4437,8 @@ msgid "Original File Name"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:969
-#, fuzzy
 msgid "Original filename."
-msgstr "S názvem souboru"
+msgstr "Originální název souboru. "
 
 #: ../src/tags/gnome-cmd-tags.cc:974
 msgid "Original Lyricist"
@@ -4525,9 +4498,8 @@ msgid "Attached picture."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1009
-#, fuzzy
 msgid "Play Counter"
-msgstr "Uspořádání"
+msgstr "Počet přehrání"
 
 #: ../src/tags/gnome-cmd-tags.cc:1009
 msgid "Number of times a file has been played."
@@ -4558,9 +4530,8 @@ msgid "Position synchronisation frame."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1029
-#, fuzzy
 msgid "Private"
-msgstr "Zápis"
+msgstr "Soukromý"
 
 #: ../src/tags/gnome-cmd-tags.cc:1029
 msgid "Private frame."
@@ -4597,14 +4568,12 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1054
 #: ../src/tags/gnome-cmd-tags.cc:1542
-#, fuzzy
 msgid "Release Time"
-msgstr "Přejmenovat soubor"
+msgstr "Čas vydání"
 
 #: ../src/tags/gnome-cmd-tags.cc:1054
-#, fuzzy
 msgid "Release time."
-msgstr "Přejmenovat soubor"
+msgstr "Čas vydání."
 
 #: ../src/tags/gnome-cmd-tags.cc:1059
 #, fuzzy
@@ -4644,9 +4613,8 @@ msgid "Length of the song in milliseconds."
 msgstr "Délka skladby v milisekundách."
 
 #: ../src/tags/gnome-cmd-tags.cc:1085
-#, fuzzy
 msgid "Subtitle"
-msgstr "Soubor"
+msgstr "Podtitul"
 
 #: ../src/tags/gnome-cmd-tags.cc:1085
 msgid "Subtitle."
@@ -4706,11 +4674,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1130
 msgid "Unique File ID"
-msgstr ""
+msgstr "Unikátní ID souboru"
 
 #: ../src/tags/gnome-cmd-tags.cc:1130
 msgid "Unique file identifier."
-msgstr ""
+msgstr "Unikátní identifikátor souboru."
 
 #: ../src/tags/gnome-cmd-tags.cc:1135
 msgid "Unsynchronized Lyrics"
@@ -4743,11 +4711,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1155
 msgid "WWW Artist"
-msgstr ""
+msgstr "WWW umělec"
 
 #: ../src/tags/gnome-cmd-tags.cc:1155
 msgid "Official artist."
-msgstr ""
+msgstr "Oficiální umělec."
 
 #: ../src/tags/gnome-cmd-tags.cc:1160
 msgid "WWW Audio File"
@@ -4835,11 +4803,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1207
 msgid "Camera Model"
-msgstr ""
+msgstr "Model fotoaparátu"
 
 #: ../src/tags/gnome-cmd-tags.cc:1207
 msgid "Model of camera used to take the image."
-msgstr ""
+msgstr "Model fotoaparátu, který zhotovil snímek."
 
 #: ../src/tags/gnome-cmd-tags.cc:1209
 msgid "Embedded copyright message."
@@ -4863,7 +4831,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1215
 msgid "Set to \"1\" if flash was fired."
-msgstr ""
+msgstr "Nastavte na \"1\" pokud byl použit blesk."
 
 #: ../src/tags/gnome-cmd-tags.cc:1216
 msgid "F number"
@@ -4879,15 +4847,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1218
 msgid "Height"
-msgstr ""
+msgstr "Výška"
 
 #: ../src/tags/gnome-cmd-tags.cc:1218
 msgid "Height in pixels."
-msgstr ""
+msgstr "Výška v pixelech."
 
 #: ../src/tags/gnome-cmd-tags.cc:1219
 msgid "ISO Speed"
-msgstr ""
+msgstr "ISO rychlost"
 
 #: ../src/tags/gnome-cmd-tags.cc:1219
 msgid "ISO speed used to acquire the document contents. For example, 100, 200, 400, etc."
@@ -4911,7 +4879,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1224
 msgid "Title of image."
-msgstr ""
+msgstr "Název obrázku."
 
 #: ../src/tags/gnome-cmd-tags.cc:1225
 msgid "White balance setting of the camera when the picture was taken (auto or manual)."
@@ -4919,11 +4887,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1226
 msgid "Width"
-msgstr ""
+msgstr "Šířka"
 
 #: ../src/tags/gnome-cmd-tags.cc:1226
 msgid "Width in pixels."
-msgstr ""
+msgstr "Šířka v pixelech."
 
 #: ../src/tags/gnome-cmd-tags.cc:1227
 msgid "Action Advised"
@@ -5018,9 +4986,8 @@ msgid "Identifies the subject of the object in the opinion of the provider (Depr
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1287
-#, fuzzy
 msgid "Coded Character Set"
-msgstr "Znakové zařízení"
+msgstr "Znaková sada"
 
 #: ../src/tags/gnome-cmd-tags.cc:1287
 msgid "Control functions used for the announcement, invocation or designation of coded character sets."
@@ -5035,9 +5002,8 @@ msgid "City of object origin."
 msgstr "Město původu objektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:1297
-#, fuzzy
 msgid "Confirmed Data Size"
-msgstr "Potvrzování"
+msgstr "Potvrzená velikost dat"
 
 #: ../src/tags/gnome-cmd-tags.cc:1297
 msgid "Total size of the object data."
@@ -5104,9 +5070,8 @@ msgid "The date the intellectual content of the object was created rather than t
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1342
-#, fuzzy
 msgid "Date Sent"
-msgstr "Rozlišovat velikost písmen"
+msgstr "Datum odeslání"
 
 #: ../src/tags/gnome-cmd-tags.cc:1342
 msgid "The day the service sent the material."
@@ -5117,9 +5082,8 @@ msgid "Destination"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1347
-#, fuzzy
 msgid "Routing information."
-msgstr "Nastavení třídění"
+msgstr "Routovací informace."
 
 #: ../src/tags/gnome-cmd-tags.cc:1352
 msgid "Digital Creation Date"
@@ -5198,9 +5162,8 @@ msgid "File Version"
 msgstr "Verze souboru"
 
 #: ../src/tags/gnome-cmd-tags.cc:1397
-#, fuzzy
 msgid "Version of the file format."
-msgstr "Verze programu"
+msgstr "Verze formátu souboru."
 
 #: ../src/tags/gnome-cmd-tags.cc:1402
 msgid "Fixture Identifier"
@@ -5312,11 +5275,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1472
 msgid "Originating Program"
-msgstr ""
+msgstr "Původníprogram"
 
 #: ../src/tags/gnome-cmd-tags.cc:1472
 msgid "The type of program used to originate the object."
-msgstr ""
+msgstr "Typ programu použitý pro vytvoření objektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:1477
 msgid "Original Transmission Reference"
@@ -5385,9 +5348,8 @@ msgid "Contains rasterized object description and is used where characters that 
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1517
-#, fuzzy
 msgid "Record Version"
-msgstr "Verze"
+msgstr "Verze nahrávky"
 
 #: ../src/tags/gnome-cmd-tags.cc:1517
 msgid "Identifies the version of the IIM, Part 2"
@@ -5434,7 +5396,6 @@ msgid "Identifies the provider and product."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1552
-#, fuzzy
 msgid "Size Mode"
 msgstr "Režim zobrazování velikosti"
 
@@ -5624,11 +5585,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-exif.cc:38
 msgid "<Exif tags not supported>"
-msgstr ""
+msgstr "<Exif značky nejsou podporovány>"
 
 #: ../src/tags/gnome-cmd-tags-icc.cc:39
 msgid "<ICC tags not supported>"
-msgstr ""
+msgstr "<ICC značky nejsou podporovány>"
 
 #: ../src/tags/gnome-cmd-tags-id3.cc:47
 msgid "<ID3 tags not supported>"
@@ -5662,15 +5623,15 @@ msgstr "Stereo"
 
 #: ../src/tags/gnome-cmd-tags-id3.cc:327
 msgid "Joint stereo"
-msgstr ""
+msgstr "Stereo"
 
 #: ../src/tags/gnome-cmd-tags-id3.cc:328
 msgid "Dual channel"
-msgstr ""
+msgstr "Dva kanály"
 
 #: ../src/tags/gnome-cmd-tags-id3.cc:329
 msgid "Single channel"
-msgstr ""
+msgstr "Jeden kanál"
 
 #: ../src/tags/gnome-cmd-tags-id3.cc:334
 msgid "None"
@@ -5686,7 +5647,7 @@ msgstr "CCIT J17"
 
 #: ../src/tags/gnome-cmd-tags-iptcdata.cc:38
 msgid "<IPTC tags not supported>"
-msgstr ""
+msgstr "<IPTC značky nejsou podporovány>"
 
 #: ../src/utils.cc:443
 #, c-format
@@ -5732,7 +5693,7 @@ msgstr[0] "Aplikace %s nemůže otevřít tento typ souboru. Chcete soubor stáh
 msgstr[1] "Aplikace %s nemůže otevřít tyto typy souborů. Chcete soubory stáhnout do adresáře pro dočasné soubory a poté je otevřít?"
 msgstr[2] "Aplikace %s nemůže otevřít tyto typy souborů. Chcete soubory stáhnout do adresáře pro dočasné soubory a poté je otevřít?"
 
-#: ../src/utils.cc:1046
+#: ../src/utils.cc:1043
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -5741,17 +5702,17 @@ msgstr ""
 "Nepodařilo se vytvořit adresář pro dočasné soubory.\n"
 "Chybové hlášení: %s\n"
 
-#: ../src/utils.cc:1211
+#: ../src/utils.cc:1207
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Vytvářím adresář %s... "
 
-#: ../src/utils.cc:1214
+#: ../src/utils.cc:1210
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Nemohu vytvořit adresář %s"
 
-#: ../src/utils.cc:1220
+#: ../src/utils.cc:1216
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr "Nemohu číst z adresáře %s: %s"
@@ -5849,5 +5810,4 @@ msgstr "Nemohu číst z adresáře %s: %s"
 #~ msgstr "stav"
 #~ msgid "group"
 #~ msgstr "skupina"
-
 
