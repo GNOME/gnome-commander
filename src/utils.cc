@@ -192,9 +192,8 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     va_list button_title_args;
     const char **button_titles;
     GtkWidget *dialog;
-//    GtkWidget *top_widget;
-    int result, i;
-
+    // GtkWidget *top_widget;
+    int result;
 
     // Create the dialog.
     va_start (button_title_args, def_response);
@@ -204,9 +203,8 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_win), GTK_DIALOG_MODAL, msg_type, GTK_BUTTONS_NONE, text);
     if (title)
         gtk_window_set_title (GTK_WINDOW (dialog), title);
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
-    for (i=0; button_titles[i] != NULL; i++)
+    for (int i=0; button_titles[i]; i++)
         gtk_dialog_add_button (GTK_DIALOG (dialog), button_titles[i], i);
 
     g_free (button_titles);
@@ -216,22 +214,11 @@ run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 
     // Allow close.
     if (ignore_close_box)
-    {
-        gtk_signal_connect (GTK_OBJECT (dialog),
-                            "delete_event",
-                            GTK_SIGNAL_FUNC (delete_event_callback),
-                            NULL);
-    }
+        gtk_signal_connect (GTK_OBJECT (dialog), "delete_event", GTK_SIGNAL_FUNC (delete_event_callback), NULL);
     else
-    {
-        gtk_signal_connect (GTK_OBJECT (dialog),
-                            "key-press-event",
-                            GTK_SIGNAL_FUNC (on_run_dialog_keypress),
-                            dialog);
-    }
+        gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event", GTK_SIGNAL_FUNC (on_run_dialog_keypress), dialog);
 
     gtk_window_set_wmclass (GTK_WINDOW (dialog), "dialog", "Eel");
-
 
     // Run it.
     do

@@ -1,3 +1,8 @@
+2007-03-31  koos  <kjniesink@yahoo.co.uk>
+
+	* src/utils.cc:
+	Removed gtk dialog warning
+
 2007-03-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	src/gnome-cmd-data.cc:
