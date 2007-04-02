@@ -1380,7 +1380,7 @@ void gnome_cmd_data_load (void)
 
     data->priv->viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
     data->priv->editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
-    data->priv->differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s %s");
+    data->priv->differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
     data->priv->term   = gnome_cmd_data_get_string ("/programs/term", "gnome-terminal -e %s");
 
     data->priv->device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);

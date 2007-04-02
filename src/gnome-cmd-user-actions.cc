@@ -52,6 +52,14 @@ inline GnomeCmdFileList *get_active_fl ()
 }
 
 
+inline GnomeCmdFileList *get_inactive_fl ()
+{
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_inactive_fs (main_win);
+
+    return fs ? fs->list : NULL;
+}
+
+
 inline GnomeCmdFileSelector *get_active_fs ()
 {
     return gnome_cmd_main_win_get_active_fs (main_win);
@@ -64,16 +72,42 @@ inline GnomeCmdFileSelector *get_inactive_fs ()
 }
 
 
-/**
- * The file returned from this function is not to be unrefed
- */
-inline GnomeCmdFile *get_selected_file ()
+
+// The file returned from this function is not to be unrefed
+inline GnomeCmdFile *get_selected_active_file ()
 {
     GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (get_active_fl ());
 
     if (!finfo)
         create_error_dialog (_("No file selected"));
     return finfo;
+}
+
+
+// The file returned from this function is not to be unrefed
+inline GnomeCmdFile *get_selected_inactive_file ()
+{
+    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (get_inactive_fl ());
+
+    if (!finfo)
+        create_error_dialog (_("No file selected"));
+    return finfo;
+}
+
+
+inline gboolean append_real_path (string &s, GnomeCmdFile *finfo)
+{
+    if (!finfo)
+        return FALSE;
+
+    gchar *name = g_shell_quote (gnome_cmd_file_get_real_path (finfo));
+
+    s += ' ';
+    s += name;
+
+    g_free (name);
+
+    return TRUE;
 }
 
 
@@ -599,39 +633,43 @@ void file_properties (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdFile *finfo = get_selected_file ();
+    GnomeCmdFileList *active_fl = get_active_fl ();
+    GList *sel_files = gnome_cmd_file_list_get_selected_files (active_fl);
 
-    if (finfo)
+    string s;
+
+    switch (g_list_length (sel_files))
     {
-        gchar *cmd, *p1, *p2 = NULL;
-        GnomeCmdFile *finfo2 = NULL;
-        gboolean found = FALSE;
-        GList *all_files = gnome_cmd_file_list_get_all_files (GNOME_CMD_FILE_LIST (gnome_cmd_main_win_get_inactive_fs (main_win)->list));
+        case 0:
+            return;
 
-        // Go through all the files in the other list until we find one with the same name
-        for (GList *tmp = all_files; tmp; tmp = tmp->next)
-        {
-            finfo2 = (GnomeCmdFile *) tmp->data;
+        case 1:
+            if (!append_real_path (s, get_selected_active_file ()) || !append_real_path (s, get_selected_inactive_file ()))
+                s.clear();
+            break;
 
-            if (strcmp (gnome_cmd_file_get_name (finfo), gnome_cmd_file_get_name (finfo2)) == 0)
-            {
-                found = TRUE;
-                break;
-            }
-        }
+        case 2:
+        case 3:
+            sel_files = gnome_cmd_file_list_sort_selection (sel_files, active_fl);
 
-        p1 = g_shell_quote (gnome_cmd_file_get_real_path (finfo));
+            for (GList *i = sel_files; i; i = i->next)
+                append_real_path (s, GNOME_CMD_FILE (i->data));
+            break;
 
-        if (found)
-            p2 = g_shell_quote (gnome_cmd_file_get_real_path (finfo2));
+        default:
+            create_error_dialog (_("Too many selected files"));
+            break;
+    }
 
-        cmd = g_strdup_printf (gnome_cmd_data_get_differ (), p1, p2?:"");
+    g_list_free (sel_files);
 
-        g_free (p1);
-        g_free (p2);
+    if (!s.empty())
+    {
+        gchar *cmd = g_strdup_printf (gnome_cmd_data_get_differ (), s.c_str(), "");
 
+        g_print (_("running `%s'\n"), cmd);
         run_command (cmd, FALSE);
-        g_print (_("running \"%s\"\n"), cmd);
+
         g_free (cmd);
     }
 }

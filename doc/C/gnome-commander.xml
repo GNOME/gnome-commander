@@ -5186,6 +5186,9 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>'cd -' for changing to the previous working directory</para>
                         </listitem>
                         <listitem>
+                            <para>More intuitive usage of diff tool</para>
+                        </listitem>
+                        <listitem>
                             <para>Updated help docs</para>
                         </listitem>
                         <listitem>
