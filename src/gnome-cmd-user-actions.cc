@@ -708,7 +708,7 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer not_used)
 
     GnomeCmdFileList *fl = get_active_fl ();
     GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
-    gchar **fnames = g_new (char*, g_list_length (sfl) + 1);
+    gchar **fnames = g_new (char *, g_list_length (sfl) + 1);
     gchar **f = fnames;
 
     sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
@@ -905,7 +905,6 @@ void view_refresh (GtkMenuItem *menuitem, gpointer not_used)
 void view_equal_panes (GtkMenuItem *menuitem, gpointer not_used)
 {
     gnome_cmd_main_win_set_equal_panes ((GnomeCmdMainWin *) GTK_WIDGET (main_win));
-
 }
 
 
@@ -1027,7 +1026,7 @@ void plugins_execute_python (GtkMenuItem *menuitem, gpointer python_script)
 
 void help_help (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_help_display("gnome-commander.xml",NULL);
+    gnome_cmd_help_display("gnome-commander.xml");
 }
 
 

@@ -1754,32 +1754,28 @@ void gnome_cmd_data_get_main_win_size (gint *width, gint *height)
 
 void gnome_cmd_data_set_viewer (const gchar *command)
 {
-    if (data->priv->viewer)
-        g_free (data->priv->viewer);
+    g_free (data->priv->viewer);
     data->priv->viewer = g_strdup (command);
 }
 
 
 void gnome_cmd_data_set_editor (const gchar *command)
 {
-    if (data->priv->editor)
-        g_free (data->priv->editor);
+    g_free (data->priv->editor);
     data->priv->editor = g_strdup (command);
 }
 
 
 void gnome_cmd_data_set_differ (const gchar *command)
 {
-    if (data->priv->differ)
-        g_free (data->priv->differ);
+    g_free (data->priv->differ);
     data->priv->differ = g_strdup (command);
 }
 
 
 void gnome_cmd_data_set_term (const gchar *term)
 {
-    if (data->priv->term)
-        g_free (data->priv->term);
+    g_free (data->priv->term);
 
     data->priv->term = g_strdup (term);
 }
@@ -1865,8 +1861,7 @@ const gchar *gnome_cmd_data_get_list_font (void)
 
 void gnome_cmd_data_set_list_font (const gchar *list_font)
 {
-    if (data->priv->list_font != NULL)
-        g_free (data->priv->list_font);
+    g_free (data->priv->list_font);
     data->priv->list_font = g_strdup (list_font);
 }
 
@@ -1929,8 +1924,7 @@ const gchar *gnome_cmd_data_get_theme_icon_dir (void)
 
 void gnome_cmd_data_set_theme_icon_dir (const gchar *dir)
 {
-    if (data->priv->theme_icon_dir)
-        g_free (data->priv->theme_icon_dir);
+    g_free (data->priv->theme_icon_dir);
 
     data->priv->theme_icon_dir = g_strdup (dir);
 }
@@ -1944,8 +1938,7 @@ const gchar *gnome_cmd_data_get_document_icon_dir (void)
 
 void gnome_cmd_data_set_document_icon_dir (const gchar *dir)
 {
-    if (data->priv->document_icon_dir)
-        g_free (data->priv->document_icon_dir);
+    g_free (data->priv->document_icon_dir);
 
     data->priv->document_icon_dir = g_strdup (dir);
 }
@@ -2306,29 +2299,33 @@ guint gnome_cmd_data_get_gui_update_rate (void)
 
 void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direction)
 {
-    if (!gnome_cmd_main_win_get_fs (main_win, LEFT) ||
-        gnome_cmd_main_win_get_fs (main_win, LEFT)->list == fl) {
+    if (!gnome_cmd_main_win_get_fs (main_win, LEFT) || gnome_cmd_main_win_get_fs (main_win, LEFT)->list == fl)
+    {
         *col = data->priv->sort_column[LEFT];
         *direction = data->priv->sort_direction[LEFT];
     }
-    else if (!gnome_cmd_main_win_get_fs (main_win, RIGHT) ||
-             gnome_cmd_main_win_get_fs (main_win, RIGHT)->list == fl) {
-        *col = data->priv->sort_column[RIGHT];
-        *direction = data->priv->sort_direction[RIGHT];
-    }
+    else
+        if (!gnome_cmd_main_win_get_fs (main_win, RIGHT) || gnome_cmd_main_win_get_fs (main_win, RIGHT)->list == fl)
+        {
+            *col = data->priv->sort_column[RIGHT];
+            *direction = data->priv->sort_direction[RIGHT];
+        }
 }
 
 
 void gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction)
 {
-    if (gnome_cmd_main_win_get_fs (main_win, LEFT)->list == fl) {
+    if (gnome_cmd_main_win_get_fs (main_win, LEFT)->list == fl)
+    {
         data->priv->sort_column[LEFT] = col;
         data->priv->sort_direction[LEFT] = direction;
     }
-    else if (gnome_cmd_main_win_get_fs (main_win, RIGHT)->list == fl) {
-        data->priv->sort_column[RIGHT] = col;
-        data->priv->sort_direction[RIGHT] = direction;
-    }
+    else
+        if (gnome_cmd_main_win_get_fs (main_win, RIGHT)->list == fl)
+        {
+            data->priv->sort_column[RIGHT] = col;
+            data->priv->sort_direction[RIGHT] = direction;
+        }
 }
 
 
@@ -2348,8 +2345,7 @@ void gnome_cmd_data_get_main_win_pos (gint *x, gint *y)
 
 void gnome_cmd_data_set_backup_pattern (const gchar *value)
 {
-    if (data->priv->backup_pattern)
-        g_free (data->priv->backup_pattern);
+    g_free (data->priv->backup_pattern);
 
     data->priv->backup_pattern = g_strdup (value);
 
