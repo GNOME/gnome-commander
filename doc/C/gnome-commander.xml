@@ -5185,10 +5185,10 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>Support for OLE and ODF metags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
-                            <para>Support for user defined shortcuts</para>
+                            <para>User defined shortcuts</para>
                         </listitem>
                         <listitem>
-                            <para>Support for SMB authentication</para>
+                            <para>SMB authentication</para>
                         </listitem>
                         <listitem>
                             <para>Displaying total size of files in selected subirs</para>

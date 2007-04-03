@@ -223,8 +223,7 @@ inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir)
+static void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir)
 {
     fs->priv->con = con;
     fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
@@ -252,8 +251,7 @@ set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir)
 }
 
 
-static gboolean
-file_is_wanted (GnomeCmdFileSelector *fs, GnomeVFSFileInfo *info)
+static gboolean file_is_wanted (GnomeCmdFileSelector *fs, GnomeVFSFileInfo *info)
 {
     if (info->type == GNOME_VFS_FILE_TYPE_UNKNOWN
         && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_UNKNOWN))
@@ -295,8 +293,7 @@ file_is_wanted (GnomeCmdFileSelector *fs, GnomeVFSFileInfo *info)
 }
 
 
-static GnomeCmdFile *
-create_parent_dir_file (GnomeCmdDir *dir)
+static GnomeCmdFile *create_parent_dir_file (GnomeCmdDir *dir)
 {
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
 
@@ -315,8 +312,7 @@ create_parent_dir_file (GnomeCmdDir *dir)
 }
 
 
-static void
-update_files (GnomeCmdFileSelector *fs)
+static void update_files (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -397,8 +393,7 @@ inline void restore_drag_indicator (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-unref_uri_list (GList *list)
+static void unref_uri_list (GList *list)
 {
     g_return_if_fail (list != NULL);
 
@@ -445,16 +440,12 @@ drag_data_received (GtkWidget          *widget,
     }
 
 
-    /* Find the row that the file was dropped on
-     *
-     */
+    // Find the row that the file was dropped on
     y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
     if (y < 0) return;
     row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->list), x, y);
 
-    /* Transform the drag data to a list with uris
-     *
-     */
+    // Transform the drag data to a list with uris
     uri_list = strings_to_uris ((gchar *) selection_data->data);
 
     if (g_list_length (uri_list) == 1)
@@ -483,9 +474,7 @@ drag_data_received (GtkWidget          *widget,
 
     gnome_cmd_dir_ref (to);
 
-    /* Start the xfer
-     *
-     */
+    // Start the xfer
     gnome_cmd_xfer_uris_start (uri_list,
                                to,
                                NULL,
@@ -498,21 +487,18 @@ drag_data_received (GtkWidget          *widget,
 }
 
 
-static void
-drag_begin (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileSelector *fs)
+static void drag_begin (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileSelector *fs)
 {
 }
 
 
-static void
-drag_end (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileSelector *fs)
+static void drag_end (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileSelector *fs)
 {
     restore_drag_indicator (fs);
 }
 
 
-static void
-drag_leave (GtkWidget *widget, GdkDragContext *context, guint time, GnomeCmdFileSelector *fs)
+static void drag_leave (GtkWidget *widget, GdkDragContext *context, guint time, GnomeCmdFileSelector *fs)
 {
     if (fs->priv->autoscroll_timeout > 0)
     {
@@ -524,10 +510,7 @@ drag_leave (GtkWidget *widget, GdkDragContext *context, guint time, GnomeCmdFile
 }
 
 
-static void
-drag_data_delete (GtkWidget *widget,
-                  GdkDragContext *drag_context,
-                  GnomeCmdFileSelector *fs)
+static void drag_data_delete (GtkWidget *widget, GdkDragContext *drag_context, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -540,8 +523,7 @@ drag_data_delete (GtkWidget *widget,
 }
 
 
-static gboolean
-do_scroll (GnomeCmdFileSelector *fs)
+static gboolean do_scroll (GnomeCmdFileSelector *fs)
 {
     gint w, h;
     gint focus_row, top_row, bottom_row;
@@ -562,18 +544,14 @@ do_scroll (GnomeCmdFileSelector *fs)
     if (!fs->priv->autoscroll_dir)
     {
         if (focus_row > 0)
-        {
             gtk_clist_moveto (clist, top_row-1, 0, 0, 0);
-        }
         else
             return FALSE;
     }
     else
     {
         if (focus_row < row_count)
-        {
             gtk_clist_moveto (clist, top_row+1, 0, 0, 0);
-        }
         else
             return FALSE;
     }
@@ -582,8 +560,7 @@ do_scroll (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
+static void autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
 {
     if (y < 0) return;
 
@@ -653,8 +630,7 @@ drag_motion (GtkWidget *widget,
 }
 
 
-static void
-init_dnd (GnomeCmdFileSelector *fs)
+static void init_dnd (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -676,8 +652,7 @@ init_dnd (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-update_dir_combo (GnomeCmdFileSelector *fs)
+static void update_dir_combo (GnomeCmdFileSelector *fs)
 {/*
 
     if (!fs->priv->dir_history)  return;
@@ -704,9 +679,7 @@ update_dir_combo (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-update_vol_label (GnomeCmdFileSelector *fs)
-
+static void update_vol_label (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CON (fs->priv->con));
@@ -738,8 +711,7 @@ update_vol_label (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
+static void goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (in_dir != NULL);
@@ -795,9 +767,7 @@ goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
 }
 
 
-static void
-do_file_specific_action                  (GnomeCmdFileSelector *fs,
-                                          GnomeCmdFile *finfo)
+static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (finfo!=NULL);
@@ -821,8 +791,7 @@ inline gboolean file_is_in_list (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
 }
 
 
-static void
-add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
+static void add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -860,15 +829,13 @@ inline void add_cwd_to_cmdline (GnomeCmdFileSelector *fs)
  * Callbacks
  *******************************/
 
-static void
-on_con_list_list_changed (GnomeCmdConList *con_list, GnomeCmdFileSelector *fs)
+static void on_con_list_list_changed (GnomeCmdConList *con_list, GnomeCmdFileSelector *fs)
 {
     gnome_cmd_file_selector_update_connections (fs);
 }
 
 
-static void
-on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
+static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
@@ -882,8 +849,7 @@ on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector
 }
 
 
-static void
-on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
+static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
@@ -897,8 +863,7 @@ on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector
 }
 
 
-static void
-on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
+static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
@@ -912,10 +877,7 @@ on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector
 }
 
 
-static void
-on_con_combo_item_selected              (GnomeCmdCombo *con_combo,
-                                         GnomeCmdCon *con,
-                                         GnomeCmdFileSelector *fs)
+static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CON (con));
@@ -925,9 +887,7 @@ on_con_combo_item_selected              (GnomeCmdCombo *con_combo,
 }
 
 
-static void
-on_combo_popwin_hidden              (GnomeCmdCombo *combo,
-                                     GnomeCmdFileSelector *fs)
+static void on_combo_popwin_hidden (GnomeCmdCombo *combo, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -936,9 +896,7 @@ on_combo_popwin_hidden              (GnomeCmdCombo *combo,
 }
 
 
-static void
-on_con_btn_clicked                      (GtkButton *button,
-                                         GnomeCmdFileSelector *fs)
+static void on_con_btn_clicked (GtkButton *button, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -951,8 +909,7 @@ on_con_btn_clicked                      (GtkButton *button,
 }
 
 
-static void
-create_con_buttons (GnomeCmdFileSelector *fs)
+static void create_con_buttons (GnomeCmdFileSelector *fs)
 {
     static GtkTooltips *tooltips = NULL;
 
@@ -1021,9 +978,7 @@ create_con_buttons (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-on_realize                               (GnomeCmdFileSelector *fs,
-                                          gpointer user_data)
+static void on_realize (GnomeCmdFileSelector *fs, gpointer user_data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -1034,9 +989,7 @@ on_realize                               (GnomeCmdFileSelector *fs,
 }
 
 
-static void
-on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo,
-                      GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_2BUTTON_PRESS)
         if (event->button == 1)
@@ -1044,9 +997,7 @@ on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo,
 }
 
 
-static void
-on_list_list_clicked (GnomeCmdFileList *fl, GdkEventButton *event,
-                      GnomeCmdFileSelector *fs)
+static void on_list_list_clicked (GnomeCmdFileList *fl, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_BUTTON_PRESS)
     {
@@ -1058,9 +1009,7 @@ on_list_list_clicked (GnomeCmdFileList *fl, GdkEventButton *event,
 }
 
 
-static void
-on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *event,
-                             GnomeCmdFileSelector *fs)
+static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_BUTTON_PRESS)
         if (event->button == 3)
@@ -1068,15 +1017,13 @@ on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *event,
 }
 
 
-static void
-on_list_selection_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
+static void on_list_selection_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
 {
     update_selected_files_label (fs);
 }
 
 
-static void
-on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
+static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -1147,8 +1094,7 @@ on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
 }
 
 
-static gboolean
-set_home_connection (GnomeCmdFileSelector *fs)
+static gboolean set_home_connection (GnomeCmdFileSelector *fs)
 {
     g_printerr ("Setting home connection\n");
     gnome_cmd_file_selector_set_connection (fs, gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()), NULL);
@@ -1157,8 +1103,7 @@ set_home_connection (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileSelector *fs)
+static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileSelector *fs)
 {
     DEBUG('l', "on_dir_list_failed\n");
 
@@ -1175,8 +1120,7 @@ on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCmdFileSelecto
     set_cursor_default_for_widget (GTK_WIDGET (fs));
     gtk_widget_set_sensitive (GTK_WIDGET (fs), TRUE);
 
-    if (fs->priv->lwd
-        && fs->priv->con == gnome_cmd_dir_get_connection (fs->priv->lwd))
+    if (fs->priv->lwd && fs->priv->con == gnome_cmd_dir_get_connection (fs->priv->lwd))
     {
         fs->priv->cwd = fs->priv->lwd;
         gtk_signal_connect (GTK_OBJECT (fs->priv->cwd), "list-ok",
@@ -1211,10 +1155,7 @@ static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeC
 }
 
 
-static gboolean
-on_list_key_pressed_private              (GtkCList *clist,
-                                          GdkEventKey *event,
-                                          GnomeCmdFileSelector *fs)
+static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event, GnomeCmdFileSelector *fs)
 {
     if (state_is_blank (event->state) || state_is_shift (event->state))
     {
@@ -1241,9 +1182,7 @@ on_list_key_pressed_private              (GtkCList *clist,
 }
 
 
-static void
-on_root_btn_clicked                      (GtkButton *button,
-                                          GnomeCmdFileSelector *fs)
+static void on_root_btn_clicked (GtkButton *button, GnomeCmdFileSelector *fs)
 {
     gnome_cmd_main_win_switch_fs (main_win, fs);
     goto_directory (fs, G_DIR_SEPARATOR_S);
@@ -1295,8 +1234,7 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
 }
 
 
-static void
-init (GnomeCmdFileSelector *fs)
+static void init (GnomeCmdFileSelector *fs)
 {
     GtkVBox *vbox;
     GtkWidget *padding;
@@ -1450,8 +1388,7 @@ init (GnomeCmdFileSelector *fs)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_file_selector_get_type         (void)
+GtkType gnome_cmd_file_selector_get_type (void)
 {
     static GtkType fs_type = 0;
 
@@ -1475,7 +1412,7 @@ gnome_cmd_file_selector_get_type         (void)
 }
 
 
-GtkWidget * gnome_cmd_file_selector_new              (void)
+GtkWidget *gnome_cmd_file_selector_new (void)
 {
     GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) gtk_type_new (gnome_cmd_file_selector_get_type ());
 
@@ -1483,8 +1420,7 @@ GtkWidget * gnome_cmd_file_selector_new              (void)
 }
 
 
-GnomeCmdDir*
-gnome_cmd_file_selector_get_directory    (GnomeCmdFileSelector *fs)
+GnomeCmdDir *gnome_cmd_file_selector_get_directory (GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), NULL);
 
@@ -1492,8 +1428,7 @@ gnome_cmd_file_selector_get_directory    (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_reload           (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_reload (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -1506,8 +1441,7 @@ gnome_cmd_file_selector_reload           (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_start_editor      (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_DIR (fs->priv->cwd));
@@ -1516,28 +1450,23 @@ gnome_cmd_file_selector_start_editor      (GnomeCmdFileSelector *fs)
     if (!gnome_cmd_con_is_local (fs->priv->con))
         return;
 
-    gint i;
-    gint l;
-    gchar *cmd, *dpath;
-
     // create a command with an empty argument to the editor
-    cmd = g_strdup (gnome_cmd_data_get_editor ());
-    l = strlen(cmd);
-    for (i=0; i<l; i++)
+    gchar *cmd = g_strdup (gnome_cmd_data_get_editor ());
+    gint l = strlen(cmd);
+    for (gint i=0; i<l; i++)
         if (cmd[i] == ' ')
         {
             cmd[i] = '\0';
             break;
         }
 
-    dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->priv->cwd));
+    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->priv->cwd));
     run_command_indir (cmd, dpath, FALSE);
     g_free (dpath);
 }
 
 
-void
-gnome_cmd_file_selector_first             (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_first (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -1552,8 +1481,7 @@ gnome_cmd_file_selector_first             (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_back             (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -1567,8 +1495,7 @@ gnome_cmd_file_selector_back             (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_forward           (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_forward (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -1583,14 +1510,14 @@ gnome_cmd_file_selector_forward           (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_last              (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_last (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     if (!fs->priv->dir_history) return;
 
-    if (history_can_forward (fs->priv->dir_history)) {
+    if (history_can_forward (fs->priv->dir_history))
+    {
         fs->priv->dir_history->lock = TRUE;
         goto_directory (fs, history_last (fs->priv->dir_history));
         fs->priv->dir_history->lock = FALSE;
@@ -1598,8 +1525,7 @@ gnome_cmd_file_selector_last              (GnomeCmdFileSelector *fs)
 }
 
 
-gboolean
-gnome_cmd_file_selector_can_back (GnomeCmdFileSelector *fs)
+gboolean gnome_cmd_file_selector_can_back (GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), FALSE);
 
@@ -1609,8 +1535,7 @@ gnome_cmd_file_selector_can_back (GnomeCmdFileSelector *fs)
 }
 
 
-gboolean
-gnome_cmd_file_selector_can_forward (GnomeCmdFileSelector *fs)
+gboolean gnome_cmd_file_selector_can_forward (GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), FALSE);
 
@@ -1620,8 +1545,7 @@ gnome_cmd_file_selector_can_forward (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *dir)
+void gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
@@ -1659,17 +1583,13 @@ gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *di
 }
 
 
-void
-gnome_cmd_file_selector_goto_directory   (GnomeCmdFileSelector *fs,
-                                          const gchar *dir)
+void gnome_cmd_file_selector_goto_directory (GnomeCmdFileSelector *fs, const gchar *dir)
 {
     goto_directory (fs, dir);
 }
 
 
-void
-gnome_cmd_file_selector_set_active       (GnomeCmdFileSelector *fs,
-                                          gboolean value)
+void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean value)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -1687,8 +1607,7 @@ gnome_cmd_file_selector_set_active       (GnomeCmdFileSelector *fs,
 }
 
 
-static void
-on_con_open_cancel (GtkButton *button, GnomeCmdFileSelector *fs)
+static void on_con_open_cancel (GtkButton *button, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (fs->priv->con_opening != NULL);
@@ -1703,8 +1622,7 @@ on_con_open_cancel (GtkButton *button, GnomeCmdFileSelector *fs)
 }
 
 
-static gboolean
-update_con_open_progress (GnomeCmdFileSelector *fs)
+static gboolean update_con_open_progress (GnomeCmdFileSelector *fs)
 {
     if (!fs->priv->con_open_dialog)
         return FALSE;
@@ -1717,8 +1635,7 @@ update_con_open_progress (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-on_con_open_done (GnomeCmdCon *con, GnomeCmdFileSelector *fs)
+static void on_con_open_done (GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (fs->priv->con_opening != NULL);
@@ -1736,16 +1653,14 @@ on_con_open_done (GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 }
 
 
-static void
-on_con_open_failed (GnomeCmdCon *con, const gchar *emsg, GnomeVFSResult result,
-                    GnomeCmdFileSelector *fs)
+static void on_con_open_failed (GnomeCmdCon *con, const gchar *emsg, GnomeVFSResult result, GnomeCmdFileSelector *fs)
 {
-    gchar *s;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (fs->priv->con_opening != NULL);
     g_return_if_fail (fs->priv->con_opening == con);
     g_return_if_fail (fs->priv->con_open_dialog != NULL);
+
+    gchar *s;
 
     DEBUG('m', "on_con_open_failed\n");
     gtk_signal_disconnect_by_data (GTK_OBJECT (con), fs);
@@ -1766,8 +1681,7 @@ on_con_open_failed (GnomeCmdCon *con, const gchar *emsg, GnomeVFSResult result,
 }
 
 
-static void
-create_con_open_progress_dialog (GnomeCmdFileSelector *fs)
+static void create_con_open_progress_dialog (GnomeCmdFileSelector *fs)
 {
     GtkWidget *vbox;
 
@@ -1799,10 +1713,7 @@ create_con_open_progress_dialog (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs,
-                                        GnomeCmdCon *con,
-                                        GnomeCmdDir *dir)
+void gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CON (con));
@@ -1830,8 +1741,7 @@ gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs,
 }
 
 
-void
-gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -1887,8 +1797,7 @@ gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
 }
 
 
-GnomeCmdCon *
-gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs)
+GnomeCmdCon *gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), NULL);
 
@@ -1896,8 +1805,7 @@ gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -1912,10 +1820,8 @@ gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_show_mkdir_dialog (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_show_mkdir_dialog (GnomeCmdFileSelector *fs)
 {
-
     GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (fs);
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
@@ -1927,10 +1833,7 @@ gnome_cmd_file_selector_show_mkdir_dialog (GnomeCmdFileSelector *fs)
 }
 
 
-static gboolean
-on_new_textfile_ok (GnomeCmdStringDialog *string_dialog,
-                    const gchar **values,
-                    GnomeCmdFileSelector *fs)
+static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
 
@@ -1964,10 +1867,7 @@ on_new_textfile_ok (GnomeCmdStringDialog *string_dialog,
 }
 
 
-static gboolean
-on_create_symlink_ok (GnomeCmdStringDialog *string_dialog,
-                      const gchar **values,
-                      GnomeCmdFileSelector *fs)
+static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
     g_return_val_if_fail (fs->priv->sym_file != NULL, TRUE);
@@ -2001,8 +1901,7 @@ on_create_symlink_ok (GnomeCmdStringDialog *string_dialog,
 }
 
 
-void
-gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -2018,8 +1917,7 @@ gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
 }
 
 
-void
-gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -2030,9 +1928,7 @@ gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs)
 }
 
 
-gboolean
-gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
-                                    GdkEventKey *event)
+gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventKey *event)
 {
     g_return_val_if_fail (event != NULL, FALSE);
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), FALSE);
@@ -2176,8 +2072,7 @@ gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
 }
 
 
-void
-gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
+void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
 {
     const gchar *labels[] = {_("Symlink name:")};
 
@@ -2198,8 +2093,7 @@ gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *
 }
 
 
-void
-gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files)
+void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -2245,8 +2139,7 @@ gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files)
 }
 
 
-void
-gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs)
+void gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -2272,8 +2165,7 @@ gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs)
 }
 
 
-static void
-on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
+static void on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
 {
     if (!fs->priv->filter_box) return;
 
@@ -2282,8 +2174,7 @@ on_filter_box_close (GtkButton *btn, GnomeCmdFileSelector *fs)
 }
 
 
-gboolean
-on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdFileSelector *fs)
+gboolean on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdFileSelector *fs)
 {
     if (state_is_blank (event->state))
         if (event->keyval == GDK_Escape)
@@ -2296,8 +2187,7 @@ on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdFileSelec
 }
 
 
-void
-gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c)
+void gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
