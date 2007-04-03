@@ -1,4 +1,9 @@
-2007-03-26  Piotr Eljasiak  <epiotr@use.pl>
+2007-04-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	Added shortcut CTRL+5 to md5sum python plugin
+
+2007-04-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
 	* src/gnome-cmd-user-actions.cc:

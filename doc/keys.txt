@@ -103,6 +103,8 @@ CTRL+G          FTP Quick Connect
 CTRL+F          Connect to FTP server
 CTRL+SHIFT+F    Disconnect from FTP server
 
+CTRL+5          Create MD5 checksum
+
 ALT+Letter(s)
 CTRL+ALT+Letter(s)
                 Quick search for a file name (starting with specified letter)

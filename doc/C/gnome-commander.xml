@@ -4011,6 +4011,16 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para>CTRL+5</para></entry>
+            <entry><para>Create MD5 (128-bit) checksum</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
             <entry><para>ALT+Letter(s)</para><para>CTRL+ALT+Letter(s)</para></entry>
             <entry><para>Quick search for a file name (starting with specified letter) in the current directory</para></entry>
             <entry><para></para></entry>
@@ -5182,6 +5192,14 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>Support for python plugins</para>
                         </listitem>
                         <listitem>
+                            <para>New python plugin:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para><command>md5sum</command>   Create MD5 (128-bit) checksum</para>
+                                </listitem>
+                            </itemizedlist>
+                        </listitem>
+                        <listitem>
                             <para>Support for OLE and ODF metags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
@@ -5213,6 +5231,9 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                 </listitem>
                                 <listitem>
                                     <para><keycap>CTRL+`</keycap>   Go to the home directory</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycap>CTRL+5</keycap>   Create MD5 (128-bit) checksum</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>

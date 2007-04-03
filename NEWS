@@ -12,6 +12,8 @@ Bug fixes:
 
 New features:
  * Support for python plugins
+ * New python plugin:
+      md5sum         Create MD5 (128-bit) checksum
  * Support for OLE and ODF metags in advanced file rename templates
  * Support for user defined shortcuts (via configuration file)
  * Support for SMB authentication
@@ -23,6 +25,7 @@ New features:
  * New key bindings:
       CTRL+\         Go to the root directory
       CTRL+`         Go to the home directory
+      CTRL+5         Create MD5 (128-bit) checksum
 
 
 ===================================

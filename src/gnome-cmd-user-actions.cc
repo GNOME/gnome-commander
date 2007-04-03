@@ -310,6 +310,12 @@ void GnomeCmdUserActions::init()
     if (!registered("options.edit"))
         register_action(GDK_CONTROL_MASK, GDK_O, "options.edit");
 
+    if (!registered("plugins.execute_python"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_5, "plugins.execute_python", "md5sum");
+        register_action(GDK_CONTROL_MASK, GDK_KP_5, "plugins.execute_python", "md5sum");
+    }
+
     if (!registered("view.refresh"))
         register_action(GDK_CONTROL_MASK, GDK_R, "view.refresh");
  }
