@@ -100,6 +100,7 @@ GNOME_CMD_USER_ACTION(file_chown);
 GNOME_CMD_USER_ACTION(file_mkdir);
 GNOME_CMD_USER_ACTION(file_properties);
 GNOME_CMD_USER_ACTION(file_diff);
+GNOME_CMD_USER_ACTION(file_sync_dirs);
 GNOME_CMD_USER_ACTION(file_rename);
 GNOME_CMD_USER_ACTION(file_create_symlink);
 GNOME_CMD_USER_ACTION(file_advrename);

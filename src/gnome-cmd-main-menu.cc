@@ -487,6 +487,12 @@ init (GnomeCmdMainMenu *main_menu)
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
         },
+        {
+            MENU_TYPE_ITEM, _("S_ynchonize Directories"), "", NULL,
+            (gpointer) file_sync_dirs, NULL,
+            GNOME_APP_PIXMAP_NONE, NULL,
+            NULL
+        },
         MENUTYPE_SEPARATOR,
         {
             MENU_TYPE_ITEM, _("_Quit"), "Ctrl+Q", NULL,

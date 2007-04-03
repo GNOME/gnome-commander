@@ -5218,6 +5218,9 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>More intuitive usage of diff tool</para>
                         </listitem>
                         <listitem>
+                            <para>Directory synchronizing</para>
+                        </listitem>
+                        <listitem>
                             <para>Updated help docs</para>
                         </listitem>
                         <listitem>

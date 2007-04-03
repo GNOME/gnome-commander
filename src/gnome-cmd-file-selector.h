@@ -64,101 +64,68 @@ struct _GnomeCmdFileSelectorClass
 {
     GtkVBoxClass parent_class;
 
-    void (* changed_dir)       (GnomeCmdFileSelector *fs,
-                                GnomeCmdDir *dir);
+    void (* changed_dir) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
 };
 
 
 typedef enum
 {
     LEFT,
-    RIGHT
+    RIGHT,
+    ACTIVE,
+    INACTIVE
 } FileSelectorID;
 
 
-GtkType
-gnome_cmd_file_selector_get_type         (void);
+GtkType gnome_cmd_file_selector_get_type (void);
 
-GtkWidget*
-gnome_cmd_file_selector_new              (void);
+GtkWidget* gnome_cmd_file_selector_new (void);
 
-GnomeCmdDir*
-gnome_cmd_file_selector_get_directory    (GnomeCmdFileSelector *fs);
+GnomeCmdDir *gnome_cmd_file_selector_get_directory (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
 
-void
-gnome_cmd_file_selector_set_directory    (GnomeCmdFileSelector *fs,
-                                          GnomeCmdDir *dir);
+void gnome_cmd_file_selector_goto_directory (GnomeCmdFileSelector *fs, const gchar *dir);
 
-void
-gnome_cmd_file_selector_goto_directory   (GnomeCmdFileSelector *fs,
-                                          const gchar *dir);
+void gnome_cmd_file_selector_reload (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_file_selector_reload           (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_file_selector_start_editor      (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_first (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_forward (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_last (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_file_selector_first            (GnomeCmdFileSelector *fs);
+gboolean gnome_cmd_file_selector_can_back (GnomeCmdFileSelector *fs);
+gboolean gnome_cmd_file_selector_can_forward (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_file_selector_back             (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean value);
 
-void
-gnome_cmd_file_selector_forward           (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_file_selector_last              (GnomeCmdFileSelector *fs);
+GnomeCmdCon *gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir);
 
-gboolean
-gnome_cmd_file_selector_can_back          (GnomeCmdFileSelector *fs);
+inline gboolean gnome_cmd_file_selector_is_local (GnomeCmdFileSelector *fs)
+{
+    return gnome_cmd_con_is_local (gnome_cmd_file_selector_get_connection (fs));
+}
 
-gboolean
-gnome_cmd_file_selector_can_forward       (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_file_selector_set_active       (GnomeCmdFileSelector *fs,
-                                          gboolean value);
+void gnome_cmd_file_selector_show_mkdir_dialog (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs,
-                                        GnomeCmdCon *con,
-                                        GnomeCmdDir *start_dir);
+void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);
 
-GnomeCmdCon *
-gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs);
+gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventKey *event);
 
-void
-gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo);
+void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files);
 
-void
-gnome_cmd_file_selector_show_mkdir_dialog (GnomeCmdFileSelector *fs);
+void gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs);
-
-void
-gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);
-
-gboolean
-gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs,
-                                    GdkEventKey *event);
-
-void
-gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo);
-
-void
-gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files);
-
-void
-gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs);
-
-void
-gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c);
+void gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c);
 
 G_END_DECLS
 

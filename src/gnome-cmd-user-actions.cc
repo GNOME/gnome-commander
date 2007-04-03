@@ -95,6 +95,15 @@ inline GnomeCmdFile *get_selected_inactive_file ()
 }
 
 
+inline gboolean append_real_path (string &s, const gchar *name)
+{
+    s += ' ';
+    s += name;
+
+    return TRUE;
+}
+
+
 inline gboolean append_real_path (string &s, GnomeCmdFile *finfo)
 {
     if (!finfo)
@@ -102,8 +111,7 @@ inline gboolean append_real_path (string &s, GnomeCmdFile *finfo)
 
     gchar *name = g_shell_quote (gnome_cmd_file_get_real_path (finfo));
 
-    s += ' ';
-    s += name;
+    append_real_path (s, name);
 
     g_free (name);
 
@@ -225,6 +233,7 @@ void GnomeCmdUserActions::init()
     actions.add(file_properties, "file.properties");
     actions.add(file_rename, "file.rename");
     // actions.add(file_run, "file.run");
+    actions.add(file_sync_dirs, "file.synchronize_directories");
     // actions.add(file_umount, "file.umount");
     actions.add(file_view, "file.view");
     actions.add(help_about, "help.about");
@@ -639,7 +648,14 @@ void file_properties (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 {
+    if (!gnome_cmd_file_selector_is_local (gnome_cmd_main_win_get_active_fs (main_win)))
+    {
+        create_error_dialog (_("Operation not supported on remote file systems"));
+        return;
+    }
+
     GnomeCmdFileList *active_fl = get_active_fl ();
+
     GList *sel_files = gnome_cmd_file_list_get_selected_files (active_fl);
 
     string s;
@@ -650,8 +666,11 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
             return;
 
         case 1:
-            if (!append_real_path (s, get_selected_active_file ()) || !append_real_path (s, get_selected_inactive_file ()))
-                s.clear();
+            if (!gnome_cmd_file_selector_is_local (gnome_cmd_main_win_get_inactive_fs (main_win)))
+                create_error_dialog (_("Operation not supported on remote file systems"));
+            else
+                if (!append_real_path (s, get_selected_active_file ()) || !append_real_path (s, get_selected_inactive_file ()))
+                    s.clear();
             break;
 
         case 2:
@@ -678,6 +697,42 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
         g_free (cmd);
     }
+}
+
+
+void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *active_fs = gnome_cmd_main_win_get_active_fs (main_win);
+    GnomeCmdFileSelector *inactive_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
+
+    if (!gnome_cmd_file_selector_is_local (active_fs) || !gnome_cmd_file_selector_is_local (inactive_fs))
+    {
+        create_error_dialog (_("Operation not supported on remote file systems"));
+        return;
+    }
+
+    GnomeVFSURI *active_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (active_fs));
+    GnomeVFSURI *inactive_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (inactive_fs));
+    gchar *active_dir = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (active_dir_uri), NULL);
+    gchar *inactive_dir = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (inactive_dir_uri), NULL);
+
+    gnome_vfs_uri_unref (active_dir_uri);
+    gnome_vfs_uri_unref (inactive_dir_uri);
+
+    string s;
+
+    append_real_path (s, active_dir);
+    append_real_path (s, inactive_dir);
+
+    g_free (active_dir);
+    g_free (inactive_dir);
+
+    gchar *cmd = g_strdup_printf (gnome_cmd_data_get_differ (), s.c_str(), "");
+
+    g_print (_("running `%s'\n"), cmd);
+    run_command (cmd, FALSE);
+
+    g_free (cmd);
 }
 
 

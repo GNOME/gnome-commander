@@ -15,11 +15,12 @@ New features:
  * New python plugin:
       md5sum         Create MD5 (128-bit) checksum
  * Support for OLE and ODF metags in advanced file rename templates
- * Support for user defined shortcuts (via configuration file)
- * Support for SMB authentication
+ * User defined shortcuts (via configuration file)
+ * SMB authentication
  * Displaying total size of files in selected subirs
  * 'cd -' for changing to the previous working directory
  * More intuitive usage of diff tool
+ * Directory synchronizing
  * Updated help docs
  * New or updated translations: bg cs dz en_GB pl sl sv
  * New key bindings:
