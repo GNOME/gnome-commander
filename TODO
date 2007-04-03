@@ -54,13 +54,14 @@
 
 // Advrename tool
 
-* The advrename dialog should have a feature to convert between upper/lowercase.
+* The advrename dialog should have a feature to convert between upper/lowercase
+* Addressing components of a regexp in the replacement text (\0, \1, ..., \9)
 * Support for file meta tags (icc, vorbis, *ml, pdf, ...)
 
 
 // Internal viewer
 
-* Selecting text in browser (ctrl-c and xbuffer)
+* Selecting text in browser (CTRL-C and xbuffer)
 * Multiple files browsing
 * Preloading consecutive images
 
