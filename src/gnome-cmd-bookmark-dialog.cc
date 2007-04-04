@@ -332,7 +332,7 @@ add_groups (GnomeCmdBookmarkDialog *dialog)
 static void
 add_bookmarks (GnomeCmdBookmarkDialog *dialog)
 {
-    GnomeCmdCon *current_con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_active_fs (main_win));
+    GnomeCmdCon *current_con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (main_win, ACTIVE));
     GnomeCmdBookmarkGroup *group, *current_group = NULL;
 
     g_return_if_fail (current_con != NULL);
@@ -553,7 +553,7 @@ static gboolean
 on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, gpointer data)
 {
     GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_active_fs (main_win));
+    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (main_win, ACTIVE));
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
     bookmark->name = g_strdup (values[0]);
@@ -571,7 +571,7 @@ on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, g
 void
 gnome_cmd_bookmark_add_current (void)
 {
-    GnomeCmdDir *cwd = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_active_fs (main_win));
+    GnomeCmdDir *cwd = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE));
     gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (cwd));
 
     if (!g_utf8_validate (path, -1, NULL)) {
@@ -593,7 +593,7 @@ void
 gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 {
     GnomeCmdCon *current_con;
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs (main_win);
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
 
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 

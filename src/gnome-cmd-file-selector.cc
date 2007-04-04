@@ -1945,7 +1945,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
                 return TRUE;
 
             case GDK_greater:
-                set_same_directory (gnome_cmd_main_win_get_inactive_fs (main_win),fs);
+                set_same_directory (gnome_cmd_main_win_get_fs (main_win, INACTIVE), fs);
                 return TRUE;
         }
     }
@@ -2021,7 +2021,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
                 return TRUE;
 
             case GDK_period:
-                set_same_directory (fs, gnome_cmd_main_win_get_inactive_fs (main_win));
+                set_same_directory (fs, gnome_cmd_main_win_get_fs (main_win, INACTIVE));
                 return TRUE;
         }
     }

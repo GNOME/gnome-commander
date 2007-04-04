@@ -1004,7 +1004,7 @@ gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu)
 
     g_return_if_fail (GNOME_CMD_IS_MAIN_MENU (main_menu));
 
-    fs = gnome_cmd_main_win_get_active_fs (main_win);
+    fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
 
     gtk_widget_set_sensitive (main_menu->priv->menu_view_back, gnome_cmd_file_selector_can_back (fs));
     gtk_widget_set_sensitive (main_menu->priv->menu_view_forward, gnome_cmd_file_selector_can_forward (fs));

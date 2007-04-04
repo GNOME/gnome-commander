@@ -165,6 +165,26 @@ GList *gnome_cmd_python_plugin_get_list()
 }
 
 
+inline gchar *get_dir_as_str(GnomeCmdMainWin *mw, FileSelectorID id)
+{
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, id);
+
+    if (!fs)
+        return NULL;
+
+    GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (fs));
+
+    if (!dir_uri)
+        return NULL;
+
+    gchar *dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (dir_uri), NULL);
+
+    gnome_vfs_uri_unref (dir_uri);
+
+    return dir;
+}
+
+
 gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCmdMainWin *mw)
 {
     gboolean retval = FALSE;
@@ -217,11 +237,9 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     }
 
     GnomeCmdFileSelector *active_fs;
-    GnomeCmdFileSelector *inactive_fs;
     GnomeCmdFileList     *active_fl;
 
-    active_fs = gnome_cmd_main_win_get_active_fs (mw);
-    inactive_fs = gnome_cmd_main_win_get_inactive_fs (mw);
+    active_fs = gnome_cmd_main_win_get_fs (mw, ACTIVE);
     active_fl = active_fs ? active_fs->list : NULL;
 
     if (!GNOME_CMD_IS_FILE_LIST (active_fl))
@@ -245,17 +263,11 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
         goto out_D;
     }
 
-    GnomeVFSURI *active_dir_uri;
-    GnomeVFSURI *inactive_dir_uri;
     gchar *active_dir;
     gchar *inactive_dir;
 
-    active_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (active_fs));
-    inactive_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (inactive_fs));
-    active_dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (active_dir_uri), NULL);
-    inactive_dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (inactive_dir_uri), NULL);
-    gnome_vfs_uri_unref (active_dir_uri);
-    gnome_vfs_uri_unref (inactive_dir_uri);
+    active_dir = get_dir_as_str (mw, ACTIVE);
+    inactive_dir = get_dir_as_str (mw, INACTIVE);
 
     XID main_win_xid;
 

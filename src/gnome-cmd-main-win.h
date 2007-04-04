@@ -47,90 +47,50 @@ struct _GnomeCmdMainWinClass
 {
     GnomeAppClass parent_class;
 
-    void (* switch_fs)       (GnomeCmdMainWin *mw,
-                              GnomeCmdFileSelector *fs);
+    void (* switch_fs) (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 };
 
 
 extern GnomeCmdMainWin *main_win;
 
 
-GtkType
-gnome_cmd_main_win_get_type              (void);
+GtkType gnome_cmd_main_win_get_type (void);
 
-GtkWidget*
-gnome_cmd_main_win_new                   (void);
+GtkWidget *gnome_cmd_main_win_new (void);
 
-GnomeCmdFileSelector*
-gnome_cmd_main_win_get_active_fs         (GnomeCmdMainWin *mw);
+GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *mw, FileSelectorID fs);
+gboolean gnome_cmd_main_win_is_fs_active (GnomeCmdMainWin *mw, FileSelectorID fs);
+void gnome_cmd_main_win_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
-GnomeCmdFileSelector*
-gnome_cmd_main_win_get_inactive_fs       (GnomeCmdMainWin *mw);
+GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline (GnomeCmdMainWin *mw);
 
-GnomeCmdFileSelector*
-gnome_cmd_main_win_get_fs                (GnomeCmdMainWin *mw, FileSelectorID fs);
+void gnome_cmd_main_win_update_style (GnomeCmdMainWin *mw);
 
-GnomeCmdCmdline*
-gnome_cmd_main_win_get_cmdline           (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_hide_embterm (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_show_embterm (GnomeCmdMainWin *mw);
 
-void
-gnome_cmd_main_win_update_style          (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_new_cwd (GnomeCmdMainWin *mw, const gchar *cwd);
 
-void
-gnome_cmd_main_win_hide_embterm          (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_focus_cmdline (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_focus_file_lists (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_refocus (GnomeCmdMainWin *mw);
 
-void
-gnome_cmd_main_win_show_embterm          (GnomeCmdMainWin *mw);
+gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event);
 
-void
-gnome_cmd_main_win_new_cwd               (GnomeCmdMainWin *mw,
-                                          const gchar *cwd);
+void gnome_cmd_main_win_update_bookmarks (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_update_connections (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_update_cmdline_visibility (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_update_buttonbar_visibility (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw);
 
-void
-gnome_cmd_main_win_focus_cmdline         (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_add_plugin_menu (GnomeCmdMainWin *mw, PluginData *data);
 
-void
-gnome_cmd_main_win_focus_file_lists      (GnomeCmdMainWin *mw);
+GnomeCmdState *gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw);
 
-void
-gnome_cmd_main_win_refocus               (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_set_cap_state (GnomeCmdMainWin *mw, gboolean state);
 
-gboolean
-gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
-                                          GdkEventKey *event);
-void
-gnome_cmd_main_win_switch_fs             (GnomeCmdMainWin *mw,
-                                          GnomeCmdFileSelector *fs);
-
-void
-gnome_cmd_main_win_update_bookmarks      (GnomeCmdMainWin *mw);
-
-void
-gnome_cmd_main_win_update_connections    (GnomeCmdMainWin *mw);
-
-void
-gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw);
-
-void
-gnome_cmd_main_win_update_cmdline_visibility (GnomeCmdMainWin *mw);
-
-void
-gnome_cmd_main_win_update_buttonbar_visibility (GnomeCmdMainWin *mw);
-
-void
-gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw);
-
-void
-gnome_cmd_main_win_add_plugin_menu (GnomeCmdMainWin *mw, PluginData *data);
-
-GnomeCmdState *
-gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw);
-
-void
-gnome_cmd_main_win_set_cap_state (GnomeCmdMainWin *mw, gboolean state);
-
-void
-gnome_cmd_main_win_set_equal_panes (GnomeCmdMainWin *mw);
+void gnome_cmd_main_win_set_equal_panes (GnomeCmdMainWin *mw);
 
 G_END_DECLS
 

@@ -3,6 +3,20 @@
 	* src/gnome-cmd-data.cc:
 	Set default "/options/date_disp_mode" to "%x %R"
 
+	* src/gnome-cmd-bookmark-dialog.cc:
+	* src/gnome-cmd-cmdline.cc:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-ftp-dialog.cc:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-main-win.h:
+	* src/gnome-cmd-mkdir-dialog.cc:
+	* src/gnome-cmd-python-plugin.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	* src/gnome-cmd-user-actions.cc:
+	Replace all gnome_cmd_main_win_get_{active,inactive}_fs(...) with 
+	equivalent gnome_cmd_main_win_get_fs (...,{ACTIVE,INACTIVE})
+
 2007-04-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:

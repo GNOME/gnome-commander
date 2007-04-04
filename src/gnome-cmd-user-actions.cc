@@ -44,50 +44,24 @@
 using namespace std;
 
 
-inline GnomeCmdFileList *get_active_fl ()
+inline GnomeCmdFileSelector *get_fs (const FileSelectorID fsID)
 {
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs (main_win);
+    return gnome_cmd_main_win_get_fs (main_win, fsID);
+}
+
+
+inline GnomeCmdFileList *get_fl (const FileSelectorID fsID)
+{
+    GnomeCmdFileSelector *fs = get_fs (fsID);
 
     return fs ? fs->list : NULL;
 }
 
 
-inline GnomeCmdFileList *get_inactive_fl ()
-{
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_inactive_fs (main_win);
-
-    return fs ? fs->list : NULL;
-}
-
-
-inline GnomeCmdFileSelector *get_active_fs ()
-{
-    return gnome_cmd_main_win_get_active_fs (main_win);
-}
-
-
-inline GnomeCmdFileSelector *get_inactive_fs ()
-{
-    return gnome_cmd_main_win_get_inactive_fs (main_win);
-}
-
-
-
 // The file returned from this function is not to be unrefed
-inline GnomeCmdFile *get_selected_active_file ()
+inline GnomeCmdFile *get_selected_file (const FileSelectorID fsID)
 {
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (get_active_fl ());
-
-    if (!finfo)
-        create_error_dialog (_("No file selected"));
-    return finfo;
-}
-
-
-// The file returned from this function is not to be unrefed
-inline GnomeCmdFile *get_selected_inactive_file ()
-{
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (get_inactive_fl ());
+    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (get_fl (fsID));
 
     if (!finfo)
         create_error_dialog (_("No file selected"));
@@ -525,8 +499,8 @@ void file_copy (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (!main_win)  return;
 
-    GnomeCmdFileSelector *src_fs = gnome_cmd_main_win_get_active_fs (main_win);
-    GnomeCmdFileSelector *dest_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
+    GnomeCmdFileSelector *src_fs = get_fs (ACTIVE);
+    GnomeCmdFileSelector *dest_fs = get_fs (INACTIVE);
 
     if (src_fs && dest_fs)
         gnome_cmd_prepare_copy_dialog_show (src_fs, dest_fs);
@@ -537,8 +511,8 @@ void file_move (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (!main_win)  return;
 
-    GnomeCmdFileSelector *src_fs = gnome_cmd_main_win_get_active_fs (main_win);
-    GnomeCmdFileSelector *dest_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
+    GnomeCmdFileSelector *src_fs = get_fs (ACTIVE);
+    GnomeCmdFileSelector *dest_fs = get_fs (INACTIVE);
 
     if (src_fs && dest_fs)
         gnome_cmd_prepare_move_dialog_show (src_fs, dest_fs);
@@ -547,25 +521,25 @@ void file_move (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_delete (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_delete_dialog (get_active_fl ());
+    gnome_cmd_file_list_show_delete_dialog (get_fl (ACTIVE));
 }
 
 
 void file_view (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_view (get_active_fl (), -1);
+    gnome_cmd_file_list_view (get_fl (ACTIVE), -1);
 }
 
 
 void file_internal_view (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_view (get_active_fl (), TRUE);
+    gnome_cmd_file_list_view (get_fl (ACTIVE), TRUE);
 }
 
 
 void file_external_view (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_view (get_active_fl (), FALSE);
+    gnome_cmd_file_list_view (get_fl (ACTIVE), FALSE);
 }
 
 
@@ -576,34 +550,34 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
     if (mask & GDK_SHIFT_MASK)
-        gnome_cmd_file_selector_start_editor (get_active_fs ());
+        gnome_cmd_file_selector_start_editor (get_fs (ACTIVE));
     else
-        gnome_cmd_file_list_edit (get_active_fl ());
+        gnome_cmd_file_list_edit (get_fl (ACTIVE));
 }
 
 
 void file_chmod (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_chmod_dialog (get_active_fl ());
+    gnome_cmd_file_list_show_chmod_dialog (get_fl (ACTIVE));
 }
 
 
 void file_chown (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_chown_dialog (get_active_fl ());
+    gnome_cmd_file_list_show_chown_dialog (get_fl (ACTIVE));
 }
 
 
 void file_mkdir (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_show_mkdir_dialog (get_active_fs ());
+    gnome_cmd_file_selector_show_mkdir_dialog (get_fs (ACTIVE));
 }
 
 
 void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdFileSelector *inactive_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
-    GList *f = gnome_cmd_file_list_get_selected_files (get_active_fl ());
+    GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
+    GList *f = gnome_cmd_file_list_get_selected_files (get_fl (ACTIVE));
     guint selected_files = g_list_length (f);
 
     if (selected_files > 1)
@@ -622,7 +596,7 @@ void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
     }
    else
    {
-        GnomeCmdFile *finfo = gnome_cmd_file_list_get_focused_file (get_active_fl ());
+        GnomeCmdFile *finfo = gnome_cmd_file_list_get_focused_file (get_fl (ACTIVE));
         gnome_cmd_file_selector_create_symlink (inactive_fs, finfo);
    }
 }
@@ -630,31 +604,31 @@ void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_rename (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_rename_dialog (get_active_fl ());
+    gnome_cmd_file_list_show_rename_dialog (get_fl (ACTIVE));
 }
 
 
 void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_advrename_dialog (get_active_fl ());
+    gnome_cmd_file_list_show_advrename_dialog (get_fl (ACTIVE));
 }
 
 
 void file_properties (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_properties_dialog (get_active_fl ());
+    gnome_cmd_file_list_show_properties_dialog (get_fl (ACTIVE));
 }
 
 
 void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 {
-    if (!gnome_cmd_file_selector_is_local (gnome_cmd_main_win_get_active_fs (main_win)))
+    if (!gnome_cmd_file_selector_is_local (get_fs (ACTIVE)))
     {
         create_error_dialog (_("Operation not supported on remote file systems"));
         return;
     }
 
-    GnomeCmdFileList *active_fl = get_active_fl ();
+    GnomeCmdFileList *active_fl = get_fl (ACTIVE);
 
     GList *sel_files = gnome_cmd_file_list_get_selected_files (active_fl);
 
@@ -666,10 +640,10 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
             return;
 
         case 1:
-            if (!gnome_cmd_file_selector_is_local (gnome_cmd_main_win_get_inactive_fs (main_win)))
+            if (!gnome_cmd_file_selector_is_local (get_fs (INACTIVE)))
                 create_error_dialog (_("Operation not supported on remote file systems"));
             else
-                if (!append_real_path (s, get_selected_active_file ()) || !append_real_path (s, get_selected_inactive_file ()))
+                if (!append_real_path (s, get_selected_file (ACTIVE)) || !append_real_path (s, get_selected_file (INACTIVE)))
                     s.clear();
             break;
 
@@ -702,8 +676,8 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdFileSelector *active_fs = gnome_cmd_main_win_get_active_fs (main_win);
-    GnomeCmdFileSelector *inactive_fs = gnome_cmd_main_win_get_inactive_fs (main_win);
+    GnomeCmdFileSelector *active_fs = get_fs (ACTIVE);
+    GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
 
     if (!gnome_cmd_file_selector_is_local (active_fs) || !gnome_cmd_file_selector_is_local (inactive_fs))
     {
@@ -760,25 +734,25 @@ void file_exit (GtkMenuItem *menuitem, gpointer not_used)
 /************** Edit Menu **************/
 void edit_cap_cut (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_cap_cut (get_active_fl ());
+    gnome_cmd_file_list_cap_cut (get_fl (ACTIVE));
 }
 
 
 void edit_cap_copy (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_cap_copy (get_active_fl ());
+    gnome_cmd_file_list_cap_copy (get_fl (ACTIVE));
 }
 
 
 void edit_cap_paste (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_cap_paste (get_active_fs ());
+    gnome_cmd_file_selector_cap_paste (get_fs (ACTIVE));
 }
 
 
 void edit_search (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdFileSelector *fs = get_active_fs ();
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
     GtkWidget *dialog = gnome_cmd_search_dialog_new (gnome_cmd_file_selector_get_directory (fs));
     gtk_widget_ref (dialog);
     gtk_widget_show (dialog);
@@ -787,13 +761,13 @@ void edit_search (GtkMenuItem *menuitem, gpointer not_used)
 
 void edit_quick_search (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_quicksearch (get_active_fl (), 0);
+    gnome_cmd_file_list_show_quicksearch (get_fl (ACTIVE), 0);
 }
 
 
 void edit_filter (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_show_filter (get_active_fs (), 0);
+    gnome_cmd_file_selector_show_filter (get_fs (ACTIVE), 0);
 }
 
 
@@ -805,7 +779,7 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer not_used)
 
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
-    GnomeCmdFileList *fl = get_active_fl ();
+    GnomeCmdFileList *fl = get_fl (ACTIVE);
     GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
     gchar **fnames = g_new (char *, g_list_length (sfl) + 1);
     gchar **f = fnames;
@@ -836,61 +810,61 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer not_used)
 /************** Mark Menu **************/
 void mark_toggle (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_toggle (get_active_fl ());
+    gnome_cmd_file_list_toggle (get_fl (ACTIVE));
 }
 
 
 void mark_toggle_and_step (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_toggle_and_step (get_active_fl ());
+    gnome_cmd_file_list_toggle_and_step (get_fl (ACTIVE));
 }
 
 
 void mark_select_all (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_select_all (get_active_fl ());
+    gnome_cmd_file_list_select_all (get_fl (ACTIVE));
 }
 
 
 void mark_unselect_all (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_unselect_all (get_active_fl ());
+    gnome_cmd_file_list_unselect_all (get_fl (ACTIVE));
 }
 
 
 void mark_select_with_pattern (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_selpat_dialog (get_active_fl (), TRUE);
+    gnome_cmd_file_list_show_selpat_dialog (get_fl (ACTIVE), TRUE);
 }
 
 
 void mark_unselect_with_pattern (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_selpat_dialog (get_active_fl (), FALSE);
+    gnome_cmd_file_list_show_selpat_dialog (get_fl (ACTIVE), FALSE);
 }
 
 
 void mark_invert_selection (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_invert_selection (get_active_fl ());
+    gnome_cmd_file_list_invert_selection (get_fl (ACTIVE));
 }
 
 
 void mark_select_all_with_same_extension (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_select_all_with_same_extension (get_active_fl ());
+    gnome_cmd_file_list_select_all_with_same_extension (get_fl (ACTIVE));
 }
 
 
 void mark_unselect_all_with_same_extension (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_unselect_all_with_same_extension (get_active_fl ());
+    gnome_cmd_file_list_unselect_all_with_same_extension (get_fl (ACTIVE));
 }
 
 
 void mark_restore_selection (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_restore_selection (get_active_fl ());
+    gnome_cmd_file_list_restore_selection (get_fl (ACTIVE));
 }
 
 
@@ -908,8 +882,8 @@ void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data_set_conbuttons_visibility (checkitem->active);
-    gnome_cmd_file_selector_update_conbuttons_visibility (get_active_fs ());
-    gnome_cmd_file_selector_update_conbuttons_visibility (get_inactive_fs ());
+    gnome_cmd_file_selector_update_conbuttons_visibility (get_fs (ACTIVE));
+    gnome_cmd_file_selector_update_conbuttons_visibility (get_fs (INACTIVE));
 }
 
 
@@ -949,8 +923,8 @@ void view_hidden_files (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data_get_filter_settings()->hidden = !checkitem->active;
-    gnome_cmd_file_selector_reload (get_active_fs ());
-    gnome_cmd_file_selector_reload (get_inactive_fs ());
+    gnome_cmd_file_selector_reload (get_fs (ACTIVE));
+    gnome_cmd_file_selector_reload (get_fs (INACTIVE));
 }
 
 
@@ -960,44 +934,44 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data_get_filter_settings()->backup = !checkitem->active;
-    gnome_cmd_file_selector_reload (get_active_fs ());
-    gnome_cmd_file_selector_reload (get_inactive_fs ());
+    gnome_cmd_file_selector_reload (get_fs (ACTIVE));
+    gnome_cmd_file_selector_reload (get_fs (INACTIVE));
 }
 
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_goto_directory (get_active_fs (), "..");
+    gnome_cmd_file_selector_goto_directory (get_fs (ACTIVE), "..");
 }
 
 
 void view_first (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_first (get_active_fs ());
+    gnome_cmd_file_selector_first (get_fs (ACTIVE));
 }
 
 
 void view_back (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_back (get_active_fs ());
+    gnome_cmd_file_selector_back (get_fs (ACTIVE));
 }
 
 
 void view_forward (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_forward (get_active_fs ());
+    gnome_cmd_file_selector_forward (get_fs (ACTIVE));
 }
 
 
 void view_last (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_last (get_active_fs ());
+    gnome_cmd_file_selector_last (get_fs (ACTIVE));
 }
 
 
 void view_refresh (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_reload (get_active_fs ());
+    gnome_cmd_file_selector_reload (get_fs (ACTIVE));
 }
 
 
@@ -1040,14 +1014,14 @@ void connections_ftp_quick_connect (GtkMenuItem *menuitem, gpointer not_used)
 
 void connections_change (GtkMenuItem *menuitem, gpointer con)
 {
-    gnome_cmd_file_selector_set_connection (get_active_fs (), (GnomeCmdCon *) con, NULL);
+    gnome_cmd_file_selector_set_connection (get_fs (ACTIVE), (GnomeCmdCon *) con, NULL);
 }
 
 
 void connections_close (GtkMenuItem *menuitem, gpointer con)
 {
-    GnomeCmdFileSelector *active = gnome_cmd_main_win_get_active_fs (main_win);
-    GnomeCmdFileSelector *inactive = gnome_cmd_main_win_get_inactive_fs (main_win);
+    GnomeCmdFileSelector *active = get_fs (ACTIVE);
+    GnomeCmdFileSelector *inactive = get_fs (INACTIVE);
 
     GnomeCmdCon *c1 = gnome_cmd_file_selector_get_connection (active);
     GnomeCmdCon *c2 = gnome_cmd_file_selector_get_connection (inactive);
@@ -1064,7 +1038,7 @@ void connections_close (GtkMenuItem *menuitem, gpointer con)
 
 void connections_close_current (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (get_active_fs ());
+    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (get_fs (ACTIVE));
 
     connections_close (menuitem, con);
 }

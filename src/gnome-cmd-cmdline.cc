@@ -84,7 +84,7 @@ on_exec (GnomeCmdCmdline *cmdline, gboolean term)
     text = gtk_entry_get_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
     text = g_strstrip (g_strdup (text));
 
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs (main_win);
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
 
     if (strlen (text) > 3 && strncmp (text, "cd ", 3) == 0)
     {
@@ -187,7 +187,7 @@ on_fs_changed_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, GnomeCmdCmdline *
     g_return_if_fail (dir != NULL);
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    if (fs != gnome_cmd_main_win_get_active_fs (main_win)) return;
+    if (fs != gnome_cmd_main_win_get_fs (main_win, ACTIVE)) return;
 
     dpath = gnome_cmd_dir_get_display_path (dir);
     gnome_cmd_cmdline_set_dir (cmdline, dpath);
@@ -535,7 +535,7 @@ gnome_cmd_cmdline_keypressed   (GnomeCmdCmdline *cmdline,
             {
                 gboolean ret;
                 GdkEventKey event2;
-                GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs (main_win);
+                GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
                 GtkWidget *file_list = fs->list_widget;
 
                 gtk_widget_grab_focus (file_list);

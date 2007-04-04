@@ -130,7 +130,7 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget,
     if (!state_is_alt(event->state))
         return FALSE;
 
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs(mw);
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, ACTIVE);
     if (fs==NULL || fs->list==NULL)
         return FALSE;
 
@@ -587,7 +587,7 @@ update_browse_buttons             (GnomeCmdMainWin *mw,
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (fs == gnome_cmd_main_win_get_active_fs (mw))
+    if (fs == gnome_cmd_main_win_get_fs (mw, ACTIVE))
     {
         if (gnome_cmd_data_get_toolbar_visibility ())
         {
@@ -956,39 +956,28 @@ gnome_cmd_main_win_new              ()
 }
 
 
-GnomeCmdFileSelector*
-gnome_cmd_main_win_get_active_fs         (GnomeCmdMainWin *mw)
+GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *mw, FileSelectorID fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
 
-    if (!mw->priv->file_selector[mw->priv->current_fs])
-        return NULL;
+    switch (fs)
+    {
+        case LEFT:
+        case RIGHT:
+            return mw->priv->file_selector[fs] ? 
+                   GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[fs]) : NULL;
+        
+        case ACTIVE:
+            return mw->priv->file_selector[mw->priv->current_fs] ? 
+                   GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[mw->priv->current_fs]) : NULL;
 
-    return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[mw->priv->current_fs]);
-}
+        case INACTIVE:
+            return mw->priv->file_selector[!mw->priv->current_fs] ?
+                   GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[!mw->priv->current_fs]): NULL;
 
-
-GnomeCmdFileSelector*
-gnome_cmd_main_win_get_inactive_fs         (GnomeCmdMainWin *mw)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
-
-    if (!mw->priv->file_selector[!mw->priv->current_fs])
-        return NULL;
-
-    return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[!mw->priv->current_fs]);
-}
-
-
-GnomeCmdFileSelector*
-gnome_cmd_main_win_get_fs                (GnomeCmdMainWin *mw, FileSelectorID fs)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
-
-    if (!mw->priv->file_selector[fs])
-        return NULL;
-
-    return GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[fs]);
+       default:
+            return NULL;
+    }
 }
 
 
@@ -1021,8 +1010,8 @@ gnome_cmd_main_win_focus_cmdline         (GnomeCmdMainWin *mw)
 void
 gnome_cmd_main_win_focus_file_lists      (GnomeCmdMainWin *mw)
 {
-    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_active_fs (mw), TRUE);
-    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_inactive_fs (mw), FALSE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, ACTIVE), TRUE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, INACTIVE), FALSE);
 
     mw->priv->focused_widget = mw->priv->file_selector[mw->priv->current_fs];
 }
@@ -1118,12 +1107,12 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                 return TRUE;
 
            case GDK_backslash:
-               gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_active_fs (main_win), "/");
+               gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE), "/");
                return TRUE;
 
            case GDK_quoteleft:
            case GDK_asciitilde:
-               gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_active_fs (main_win), "~");
+               gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE), "~");
                return TRUE;
         }
     }
@@ -1141,7 +1130,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                 gnome_cmd_dir_pool_show_state (
                     gnome_cmd_con_get_dir_pool (
                         gnome_cmd_file_selector_get_connection (
-                            gnome_cmd_main_win_get_active_fs (mw))));
+                            gnome_cmd_main_win_get_fs (mw, ACTIVE))));
                 break;
 
             case GDK_f:
@@ -1151,7 +1140,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                     gnome_cmd_data_get_con_list ())->data);
 
                 gnome_cmd_file_selector_set_connection (
-                    gnome_cmd_main_win_get_active_fs (main_win),
+                    gnome_cmd_main_win_get_fs (main_win, ACTIVE),
                     GNOME_CMD_CON (con), NULL);
             }
             break;
@@ -1164,7 +1153,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                 case GDK_Tab:
                     // hack to avoid the deafult handling of the tab-key
                     clear_event_key (event);
-                    gnome_cmd_main_win_switch_fs (mw, gnome_cmd_main_win_get_inactive_fs (mw));
+                    gnome_cmd_main_win_switch_fs (mw, gnome_cmd_main_win_get_fs (mw, INACTIVE));
                     return TRUE;
 
                 case GDK_F1:
@@ -1208,7 +1197,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
                     return TRUE;
             }
 
-    if (gnome_cmd_file_selector_keypressed (gnome_cmd_main_win_get_active_fs (mw), event))
+    if (gnome_cmd_file_selector_keypressed (gnome_cmd_main_win_get_fs (mw, ACTIVE), event))
         return TRUE;
 
     return FALSE;
@@ -1225,18 +1214,23 @@ gnome_cmd_main_win_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
 }
 
 
+gboolean gnome_cmd_main_win_is_fs_active (GnomeCmdMainWin *mw, FileSelectorID fs)
+{
+    return mw->priv->current_fs == fs;
+}
+
 static void
 gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (fs == gnome_cmd_main_win_get_active_fs (mw))
+    if (fs == gnome_cmd_main_win_get_fs (mw, ACTIVE))
         return;
 
     mw->priv->current_fs = (FileSelectorID) !mw->priv->current_fs;
-    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_active_fs (mw), TRUE);
-    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_inactive_fs (mw), FALSE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, ACTIVE), TRUE);
+    gnome_cmd_file_selector_set_active (gnome_cmd_main_win_get_fs (mw, INACTIVE), FALSE);
 
     update_browse_buttons (mw, fs);
     update_drop_con_button (mw, fs);
@@ -1306,7 +1300,7 @@ gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
         mw->priv->toolbar_sep = NULL;
     }
 
-    update_drop_con_button (mw, gnome_cmd_main_win_get_active_fs (mw));
+    update_drop_con_button (mw, gnome_cmd_main_win_get_fs (mw, ACTIVE));
 }
 
 
@@ -1427,8 +1421,8 @@ gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw)
 {
     g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
 
-    GnomeCmdFileSelector *fs1 = gnome_cmd_main_win_get_active_fs (main_win);
-    GnomeCmdFileSelector *fs2 = gnome_cmd_main_win_get_inactive_fs (main_win);
+    GnomeCmdFileSelector *fs1 = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
+    GnomeCmdFileSelector *fs2 = gnome_cmd_main_win_get_fs (main_win, INACTIVE);
     GnomeCmdDir *dir1 = gnome_cmd_file_selector_get_directory (fs1);
     GnomeCmdDir *dir2 = gnome_cmd_file_selector_get_directory (fs2);
 

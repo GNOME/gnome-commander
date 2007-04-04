@@ -94,7 +94,7 @@ load_ftp_connections (GnomeCmdFtpDialog *dialog)
 static gboolean
 do_connect_real (GnomeCmdConFtp *server)
 {
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_active_fs (main_win);
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
     gnome_cmd_file_selector_set_connection (fs, con, NULL);
