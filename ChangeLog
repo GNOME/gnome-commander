@@ -1,3 +1,8 @@
+2007-04-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	Set default "/options/date_disp_mode" to "%x %R"
+
 2007-04-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:

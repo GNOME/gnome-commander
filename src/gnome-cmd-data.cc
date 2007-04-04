@@ -1265,9 +1265,9 @@ void gnome_cmd_data_load (void)
     data->priv->perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
 
 #ifdef HAVE_LOCALE_H
-    data->priv->date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%H:%M %x");
+    data->priv->date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%x %R");
 #else
-    data->priv->date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%H:%M %d/%m %Y");
+    data->priv->date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%D %R");
 #endif
 
     data->priv->layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
