@@ -1122,7 +1122,7 @@ void help_problem (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
-    if (!gnome_url_show("http://bugzilla.gnome.org/browse.ccgi?product=gnome-commander", &error))
+    if (!gnome_url_show("http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", &error))
         gnome_cmd_error_message(_("There was an error reporting problem."), error);
 }
 
