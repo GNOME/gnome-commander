@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-27 21:58+0200\n"
-"PO-Revision-Date: 2007-03-28 20:37+0100\n"
+"PO-Revision-Date: 2007-04-09 11:30+0100\n"
 "Last-Translator: Dusan Hokuv <dusan@mirc.cz>\n"
 "Language-Team: Czech Language team <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -180,11 +180,11 @@ msgstr "O %s"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:152
 msgid "/Grandparent"
-msgstr ""
+msgstr "/Prarodič"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:153
 msgid "/Parent"
-msgstr ""
+msgstr "/Rodič"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:155
 msgid "/File name"
@@ -2067,6 +2067,11 @@ msgid ""
 "\n"
 "Remember: wrong credentials may lead to account locking"
 msgstr ""
+"Problém: přístup není povolen\n"
+"\n"
+"prosím zadejte přihlašovací údaje\n"
+"\n"
+"Nezapomeňte: špatné údaje mohou vést k zablokování účtu"
 
 #: ../src/gnome-cmd-smb-path.cc:331
 #, c-format
@@ -2529,7 +2534,7 @@ msgstr "Kodek"
 
 #: ../src/tags/gnome-cmd-tags.cc:75
 msgid "Codec encoding description."
-msgstr ""
+msgstr "Popis kódovacího kodeku."
 
 #: ../src/tags/gnome-cmd-tags.cc:76
 #: ../src/tags/gnome-cmd-tags.cc:782
@@ -2730,7 +2735,7 @@ msgstr "Rozlišovat velikost písmen."
 #: ../src/tags/gnome-cmd-tags.cc:99
 #: ../src/tags/gnome-cmd-tags.cc:1282
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 #: ../src/tags/gnome-cmd-tags.cc:99
 msgid "Category."
@@ -2758,7 +2763,7 @@ msgstr "Kódová stránka"
 
 #: ../src/tags/gnome-cmd-tags.cc:102
 msgid "The MS codepage to encode strings for metadata."
-msgstr ""
+msgstr "Kódová stránka MS pro zakódování řetězců pro metadata."
 
 #: ../src/tags/gnome-cmd-tags.cc:103
 #: ../src/tags/gnome-cmd-tags.cc:1208
@@ -2776,7 +2781,7 @@ msgstr "Společnost"
 
 #: ../src/tags/gnome-cmd-tags.cc:104
 msgid "Organization that the <Doc.Creator> entity is associated with."
-msgstr ""
+msgstr "Organizace, se kterou je spojen tvůrce dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:105
 msgid "Created"
@@ -2810,7 +2815,7 @@ msgstr "Datum změny"
 
 #: ../src/tags/gnome-cmd-tags.cc:108
 msgid "The last time the document was saved."
-msgstr ""
+msgstr "Datum posledního uložení dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:109
 #: ../src/tags/gnome-cmd-tags.cc:725
@@ -2836,7 +2841,7 @@ msgstr "Doba úprav"
 
 #: ../src/tags/gnome-cmd-tags.cc:111
 msgid "The total time taken until the last modification."
-msgstr ""
+msgstr "Celkový čas uplynulý od poslední úpravy."
 
 #: ../src/tags/gnome-cmd-tags.cc:112
 msgid "Generator"
@@ -2844,15 +2849,15 @@ msgstr "Vygeneroval"
 
 #: ../src/tags/gnome-cmd-tags.cc:112
 msgid "The application that generated this document."
-msgstr ""
+msgstr "Aplikace, která vytvořila tento dokument."
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Hidden Slide Count"
-msgstr ""
+msgstr "Počet skrytých snímků"
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Number of hidden slides in the presentation document."
-msgstr ""
+msgstr "Počet skrytých snímků v prezentaci."
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Image Count"
@@ -2860,7 +2865,7 @@ msgstr "Počet obrázků"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Number of images in the document."
-msgstr ""
+msgstr "Počet obrázků v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Initial Creator"
@@ -2868,7 +2873,7 @@ msgstr "Původní tvůrce"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Specifies the name of the person who created the document initially."
-msgstr ""
+msgstr "Určuje jméno osoby, která vytvořila původní dokument."
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 #: ../src/tags/gnome-cmd-tags.cc:117
@@ -2934,11 +2939,11 @@ msgstr "Identifikátor reprezentující výchozí lokalizaci systému."
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "Multimedia Clip Count"
-msgstr ""
+msgstr "Počet multimediálních klipů"
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "Number of multimedia clips in the document."
-msgstr ""
+msgstr "Počet multimediálních klipů v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:125
 msgid "Manager"
@@ -2946,7 +2951,7 @@ msgstr "Správce"
 
 #: ../src/tags/gnome-cmd-tags.cc:125
 msgid "Name of the manager of <Doc.Creator> entity."
-msgstr ""
+msgstr "Jméno manažera entity tvůrce."
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Note Count"
@@ -2995,7 +3000,7 @@ msgstr "Datum tisku"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
 msgid "Specifies the date and time when the document was last printed."
-msgstr ""
+msgstr "Ukazuje datum a čas posledního vytištění dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:132
 msgid "Printed By"
@@ -3003,7 +3008,7 @@ msgstr "Vytisknul(a)"
 
 #: ../src/tags/gnome-cmd-tags.cc:132
 msgid "Specifies the name of the last person who printed the document."
-msgstr ""
+msgstr "Určuje jméno osoby, která naposledy dokument vytiskla."
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "Revision Count"
@@ -3011,7 +3016,7 @@ msgstr "Číslo verze"
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "Number of revision on the document."
-msgstr ""
+msgstr "Číslo revize dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 msgid "Scale"
@@ -3091,7 +3096,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:158
 msgid "Bits per Sample"
-msgstr ""
+msgstr "Bitů na vzorek"
 
 #: ../src/tags/gnome-cmd-tags.cc:158
 msgid "The number of bits per image component. Each component of the image is 8 bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker is used instead of this tag."
@@ -3099,11 +3104,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:163
 msgid "Brightness"
-msgstr ""
+msgstr "Jas"
 
 #: ../src/tags/gnome-cmd-tags.cc:163
 msgid "The value of brightness. The unit is the APEX value. Ordinarily it is given in the range of -99.99 to 99.99."
-msgstr ""
+msgstr "Hodnota jasu. Jednotkou je APEX hodnota. Rozsah hodnot je od -99.99 do 99.99."
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 #: ../src/tags/gnome-cmd-tags.cc:483
@@ -3153,11 +3158,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "Contrast"
-msgstr ""
+msgstr "Kontrast"
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "The direction of contrast processing applied by the camera when the image was shot."
-msgstr ""
+msgstr "Nastavení kontrastu fotoaparátu při pořízení snímku."
 
 #: ../src/tags/gnome-cmd-tags.cc:203
 #: ../src/tags/gnome-cmd-tags.cc:812
@@ -3294,11 +3299,11 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:288
 #: ../src/tags/gnome-cmd-tags.cc:1215
 msgid "Flash"
-msgstr ""
+msgstr "Blesk"
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid "This tag is recorded when an image is taken using a strobe light (flash)."
-msgstr ""
+msgstr "Tato značka je zaznamenána, pokud je snímek vytvořen s použitím blesku."
 
 #: ../src/tags/gnome-cmd-tags.cc:293
 msgid "Flash Energy"
@@ -3309,9 +3314,8 @@ msgid "Indicates the strobe energy at the time the image is captured, as measure
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-#, fuzzy
 msgid "FlashPixVersion"
-msgstr "Verze"
+msgstr "FlashPixVerze"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "The FlashPix format version supported by a FPXR file."
@@ -4096,11 +4100,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:765
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: ../src/tags/gnome-cmd-tags.cc:765
 msgid "BPM (beats per minute)."
-msgstr ""
+msgstr "BPM (beats per minute)."
 
 #: ../src/tags/gnome-cmd-tags.cc:770
 msgid "Buffer Size"
@@ -4261,16 +4265,15 @@ msgstr "Typ souboru."
 
 #: ../src/tags/gnome-cmd-tags.cc:870
 msgid "Frames"
-msgstr ""
+msgstr "Snímků"
 
 #: ../src/tags/gnome-cmd-tags.cc:870
 msgid "Number of frames."
-msgstr ""
+msgstr "Počet snímků."
 
 #: ../src/tags/gnome-cmd-tags.cc:871
-#, fuzzy
 msgid "General Object"
-msgstr "Obecné"
+msgstr "Hlavní objekt"
 
 #: ../src/tags/gnome-cmd-tags.cc:871
 msgid "General encapsulated object."
@@ -4312,11 +4315,11 @@ msgstr "ISRC"
 
 #: ../src/tags/gnome-cmd-tags.cc:897
 msgid "ISRC (international standard recording code)."
-msgstr ""
+msgstr "ISRC (international standard recording code)."
 
 #: ../src/tags/gnome-cmd-tags.cc:902
 msgid "Language."
-msgstr ""
+msgstr "Jazyk."
 
 #: ../src/tags/gnome-cmd-tags.cc:907
 msgid "Lead Artist"
@@ -4337,15 +4340,15 @@ msgstr "Nastavení třídění"
 
 #: ../src/tags/gnome-cmd-tags.cc:917
 msgid "Lyricist"
-msgstr ""
+msgstr "Textař"
 
 #: ../src/tags/gnome-cmd-tags.cc:917
 msgid "Lyricist."
-msgstr ""
+msgstr "Textař."
 
 #: ../src/tags/gnome-cmd-tags.cc:922
 msgid "Media Type"
-msgstr ""
+msgstr "Typ média"
 
 #: ../src/tags/gnome-cmd-tags.cc:922
 msgid "Media type."
@@ -4449,9 +4452,8 @@ msgid "Original lyricist."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:979
-#, fuzzy
 msgid "Original Release Time"
-msgstr "Přejmenovat soubor"
+msgstr "Původní datum vydání"
 
 #: ../src/tags/gnome-cmd-tags.cc:979
 msgid "Original release time."
@@ -4491,11 +4493,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1004
 msgid "Picture"
-msgstr ""
+msgstr "Obrázek"
 
 #: ../src/tags/gnome-cmd-tags.cc:1004
 msgid "Attached picture."
-msgstr ""
+msgstr "Přiložený obrázek."
 
 #: ../src/tags/gnome-cmd-tags.cc:1009
 msgid "Play Counter"
@@ -4576,9 +4578,8 @@ msgid "Release time."
 msgstr "Čas vydání."
 
 #: ../src/tags/gnome-cmd-tags.cc:1059
-#, fuzzy
 msgid "Reverb"
-msgstr "_Odstranit"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1059
 msgid "Reverb."
@@ -4670,7 +4671,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1125
 msgid "Track number"
-msgstr ""
+msgstr "Stopa číslo"
 
 #: ../src/tags/gnome-cmd-tags.cc:1130
 msgid "Unique File ID"
@@ -4819,7 +4820,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1212
 msgid "Description of the image."
-msgstr ""
+msgstr "Popis obrázku."
 
 #: ../src/tags/gnome-cmd-tags.cc:1213
 msgid "The program used by the camera to set exposure when the picture is taken. EG Manual, Normal, Aperture priority etc."
@@ -4951,7 +4952,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1262
 msgid "Audio Type"
-msgstr ""
+msgstr "Typ audia"
 
 #: ../src/tags/gnome-cmd-tags.cc:1262
 msgid "The number of channels and type of audio (music, text, etc.) in the object."
@@ -5019,11 +5020,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1307
 msgid "Content Location Code"
-msgstr ""
+msgstr "Kód země"
 
 #: ../src/tags/gnome-cmd-tags.cc:1307
 msgid "Indicates the code of a country/geographical location referenced by the content of the object (multiple values allowed)."
-msgstr ""
+msgstr "Indikuje kód země/zeměpisné polohy objektu (povoleno více hodnot)."
 
 #: ../src/tags/gnome-cmd-tags.cc:1312
 msgid "Content Location Name"
@@ -5051,11 +5052,11 @@ msgstr "Kód země/hlavní umístění, kde byl objekt vytvořen."
 
 #: ../src/tags/gnome-cmd-tags.cc:1327
 msgid "Country Name"
-msgstr ""
+msgstr "Název státu"
 
 #: ../src/tags/gnome-cmd-tags.cc:1327
 msgid "The name of the country/primary location where the object was created."
-msgstr ""
+msgstr "Název státu/země, kde byl objekt vytvořen."
 
 #: ../src/tags/gnome-cmd-tags.cc:1332
 msgid "Credit"
@@ -5079,7 +5080,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1347
 msgid "Destination"
-msgstr ""
+msgstr "Cíl"
 
 #: ../src/tags/gnome-cmd-tags.cc:1347
 msgid "Routing information."
@@ -5087,11 +5088,11 @@ msgstr "Routovací informace."
 
 #: ../src/tags/gnome-cmd-tags.cc:1352
 msgid "Digital Creation Date"
-msgstr ""
+msgstr "Datum digitálního vytvoření"
 
 #: ../src/tags/gnome-cmd-tags.cc:1352
 msgid "The date the digital representation of the object was created."
-msgstr ""
+msgstr "Datum reprezentující vytvoření objektu v digitální podobě."
 
 #: ../src/tags/gnome-cmd-tags.cc:1357
 msgid "Digital Creation Time"
@@ -5291,19 +5292,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1482
 msgid "Preview Data"
-msgstr ""
+msgstr "Data náhledu"
 
 #: ../src/tags/gnome-cmd-tags.cc:1482
 msgid "The object preview data"
-msgstr ""
+msgstr "Data náhledu objektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:1487
 msgid "Preview File Format"
-msgstr ""
+msgstr "Formát náhledu souboru"
 
 #: ../src/tags/gnome-cmd-tags.cc:1487
 msgid "Binary value indicating the file format of the object preview data in dataset 2:202."
-msgstr ""
+msgstr "Binární hodnota indikující formát souboru náhledu objektu v datasetu 2:202."
 
 #: ../src/tags/gnome-cmd-tags.cc:1492
 msgid "Preview File Format Version"
@@ -5332,12 +5333,12 @@ msgstr "Verze původního programu."
 #: ../src/tags/gnome-cmd-tags.cc:1507
 #: ../src/tags/gnome-cmd-tags.cc:1567
 msgid "Province, State"
-msgstr ""
+msgstr "Provincie, stát"
 
 #: ../src/tags/gnome-cmd-tags.cc:1507
 #: ../src/tags/gnome-cmd-tags.cc:1567
 msgid "The Province/State where the object originates."
-msgstr ""
+msgstr "Provincie/stát odkud objekt pochází."
 
 #: ../src/tags/gnome-cmd-tags.cc:1512
 msgid "Rasterized Caption"
@@ -5357,19 +5358,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1522
 msgid "Reference Date"
-msgstr ""
+msgstr "Datum reference"
 
 #: ../src/tags/gnome-cmd-tags.cc:1522
 msgid "The date of a prior envelope to which the current object refers."
-msgstr ""
+msgstr "Datum, které je odkazováno ve vybraném objektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:1527
 msgid "Reference Number"
-msgstr ""
+msgstr "Referenční číslo"
 
 #: ../src/tags/gnome-cmd-tags.cc:1527
 msgid "The Envelope Number of a prior envelope to which the current object refers."
-msgstr ""
+msgstr "Referenční číslo, které je odkazováno ve vybraném objektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:1532
 msgid "Reference Service"
@@ -5453,35 +5454,35 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:1592
 msgid "Time Created"
-msgstr ""
+msgstr "Datum vytvoření"
 
 #: ../src/tags/gnome-cmd-tags.cc:1592
 msgid "The time the intellectual content of the object was created rather than the date of the creation of the physical representation (multiple values allowed)."
-msgstr ""
+msgstr "Datum vytvoření obsahu objektu (povoleno více hodnot)."
 
 #: ../src/tags/gnome-cmd-tags.cc:1597
 msgid "Time Sent"
-msgstr ""
+msgstr "Datum odeslání"
 
 #: ../src/tags/gnome-cmd-tags.cc:1597
 msgid "The time the service sent the material."
-msgstr ""
+msgstr "Datum odeslání materiálu službou."
 
 #: ../src/tags/gnome-cmd-tags.cc:1602
 msgid "Unique Name of Object"
-msgstr ""
+msgstr "Unikátní název objektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:1602
 msgid "An eternal, globally unique identification for the object, independent of provider and for any media form."
-msgstr ""
+msgstr "Globálně unikátní identifikace objektu, nezávislá na poskytovateli a formě média."
 
 #: ../src/tags/gnome-cmd-tags.cc:1607
 msgid "Urgency"
-msgstr ""
+msgstr "Důležitost"
 
 #: ../src/tags/gnome-cmd-tags.cc:1607
 msgid "Specifies the editorial urgency of content and not necessarily the envelope handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
-msgstr ""
+msgstr "Určuje důležitost obsahu (prioritu). '1' je nejdůležitější, '5' normální a '8' nedůležité."
 
 #: ../src/tags/gnome-cmd-tags.cc:1612
 msgid "Writer/Editor"
