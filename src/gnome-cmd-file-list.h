@@ -111,161 +111,85 @@ extern GtkTargetEntry drag_types[];
 extern GtkTargetEntry drop_types[];
 
 
-GtkType
-gnome_cmd_file_list_get_type            (void);
+GtkType gnome_cmd_file_list_get_type (void);
 
-GtkWidget*
-gnome_cmd_file_list_new                 (void);
+GtkWidget *gnome_cmd_file_list_new (void);
 
-void
-gnome_cmd_file_list_show_column         (GnomeCmdFileList *fl,
-                                         GnomeCmdFileListColumnID col,
-                                         gboolean value);
+void gnome_cmd_file_list_show_column (GnomeCmdFileList *fl, GnomeCmdFileListColumnID col, gboolean value);
 
-void
-gnome_cmd_file_list_update_style        (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_add_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row);
+void gnome_cmd_file_list_add_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row);
+void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sort);
+void gnome_cmd_file_list_insert_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
+void gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 
-void
-gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sort);
+void gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
+void gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *uri_str);
+void gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files);
+void gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_insert_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
+void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 
-void
-gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
+GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
+GList *gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
+GList *gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *uri_str);
+GnomeCmdFile *gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files);
+GnomeCmdFile *gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_select_all (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_unselect_all (GnomeCmdFileList *fl);
 
-GList*
-gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_toggle (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_toggle_and_step (GnomeCmdFileList *fl);
 
-GList*
-gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
 
-GList*
-gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_select_row (GnomeCmdFileList *fl, gint row);
 
-GnomeCmdFile*
-gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_select_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens);
+void gnome_cmd_file_list_unselect_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens);
+void gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_select_all_with_same_extension (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_unselect_all_with_same_extension (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_restore_selection (GnomeCmdFileList *fl);
 
-GnomeCmdFile*
-gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_compare_directories (void);
 
-void
-gnome_cmd_file_list_select_all (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_sort (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_unselect_all (GnomeCmdFileList *fl);
+GList *gnome_cmd_file_list_sort_selection (GList *list, GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_toggle (GnomeCmdFileList *fl);
+GnomeCmdFile *gnome_cmd_file_list_get_file_at_row (GnomeCmdFileList *fl, gint row);
 
-void
-gnome_cmd_file_list_toggle_and_step (GnomeCmdFileList *fl);
+gint gnome_cmd_file_list_get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 
-void
-gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl,
-                                const gchar *focus_file,
-                                gboolean scroll_to_file);
+void gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_show_chown_dialog (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode);
 
-void
-gnome_cmd_file_list_select_row (GnomeCmdFileList *fl, gint row);
+void gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_select_pattern (GnomeCmdFileList *fl,
-                                    const gchar *pattern, gboolean case_sens);
+void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer);
 
-void
-gnome_cmd_file_list_unselect_pattern (GnomeCmdFileList *fl,
-                                      const gchar *pattern, gboolean case_sens);
+void gnome_cmd_file_list_edit (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
 
-void
-gnome_cmd_file_list_select_all_with_same_extension (GnomeCmdFileList *fl);
+gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
 
-void
-gnome_cmd_file_list_unselect_all_with_same_extension (GnomeCmdFileList *fl);
+gboolean gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *event);
 
-void
-gnome_cmd_file_list_restore_selection (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_compare_directories (void);
-
-void
-gnome_cmd_file_list_sort (GnomeCmdFileList *fl);
-
-GList *
-gnome_cmd_file_list_sort_selection (GList *list, GnomeCmdFileList *fl);
-
-GnomeCmdFile *
-gnome_cmd_file_list_get_file_at_row (GnomeCmdFileList *fl, gint row);
-
-gint
-gnome_cmd_file_list_get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
-
-void
-gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_show_chown_dialog (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode);
-
-void
-gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer);
-
-void
-gnome_cmd_file_list_edit (GnomeCmdFileList *fl);
-
-void
-gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
-
-gboolean
-gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
-
-gboolean
-gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *event);
-
-void
-gnome_cmd_file_list_invalidate_tree_size (GnomeCmdFileList *fl);
+void gnome_cmd_file_list_invalidate_tree_size (GnomeCmdFileList *fl);
 
 G_END_DECLS
 
