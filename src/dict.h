@@ -1,94 +1,213 @@
+/*
+    GNOME Commander - A GNOME based file manager
+    Copyright (C) 2001-2006 Marcus Bjurman
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+*/
+
 #ifndef __DICT_H
 #define __DICT_H
 
-
+#include <utility>
 #include <map>
 #include <string>
 
 
-class BASE_DICT
+template <typename KEY, typename VAL=std::string>
+class DICT
 {
-  protected:
+    typedef std::map<KEY,const VAL *> KEY_COLL;
+    typedef std::map<VAL,const KEY *> VAL_COLL;
 
-    static const std::string empty_string;
+    KEY_COLL k_coll;
+    VAL_COLL v_coll;
+
+    const KEY NO_KEY;
+    const VAL NO_VALUE;
+
+  public:
+
+    DICT(const KEY no_key=KEY(), const VAL no_val=VAL()): NO_KEY(no_key), NO_VALUE(no_val)   {}
+
+    void add(const KEY k, const VAL &v);
+    void add(const VAL v, const KEY &k)             {  add(k,v);  }
+
+    void clear()                                    {  k_coll.clear(); v_coll.clear();  }
+
+    const VAL &operator [] (const KEY k) const;
+    const KEY &operator [] (const VAL v) const;
+};
+
+
+template <typename KEY, typename VAL>
+inline void DICT<KEY,VAL>::add(const KEY k, const VAL &v)
+{
+    std::pair<typename KEY_COLL::iterator,bool> k_pos = k_coll.insert(make_pair(k,(VAL *) NULL));
+    std::pair<typename VAL_COLL::iterator,bool> v_pos = v_coll.insert(make_pair(v,(KEY *) NULL));
+
+    if (k_pos.second)
+        k_pos.first->second = &v_pos.first->first;
+
+    if (v_pos.second)
+        v_pos.first->second = &k_pos.first->first;
+}
+
+
+template <typename KEY, typename VAL>
+inline const VAL &DICT<KEY,VAL>::operator [] (const KEY k) const
+{
+    typename KEY_COLL::const_iterator pos = k_coll.find(k);
+
+    if (pos==k_coll.end())
+        return NO_VALUE;
+
+    return pos->second ? *pos->second : NO_VALUE;
+}
+
+
+template <typename KEY, typename VAL>
+inline const KEY &DICT<KEY,VAL>::operator [] (const VAL v) const
+{
+    typename VAL_COLL::const_iterator pos = v_coll.find(v);
+
+    if (pos==v_coll.end())
+        return NO_KEY;
+
+    return pos->second ? *pos->second : NO_KEY;
+}
+
+
+template <typename T>
+class DICT<T,T>
+{
+    typedef std::map<T,const T *> T_COLL;
+
+    T_COLL t_coll;
+
+    const T NO_VALUE;
+
+  public:
+
+    DICT(const T no_val=T()): NO_VALUE(no_val)   {}
+
+    void add(const T k, const T &v);
+
+    void clear()                                    {  t_coll.clear();  }
+
+    const T &operator [] (const T k) const;
 };
 
 
 template <typename T>
-class DICT: public BASE_DICT
+inline void DICT<T,T>::add(const T k, const T &v)
 {
-    typedef std::map<T,std::string> IDX_COLL;
-    typedef std::map<std::string,T> NAME_COLL;
+    std::pair<typename T_COLL::iterator,bool> k_pos = t_coll.insert(make_pair(k,(T *) NULL));
+    std::pair<typename T_COLL::iterator,bool> v_pos = t_coll.insert(make_pair(v,(T *) NULL));
 
-    IDX_COLL idx;
-    NAME_COLL name;
+    if (k_pos.second)
+        k_pos.first->second = &v_pos.first->first;
 
-    const T NONE;
-
-  public:
-
-    DICT(const T none): NONE(none)               {}
-
-    void add(const T n, const std::string &s);
-    void add(const T n, const char *s)           {  add(n,std::string(s));  }
-
-    const std::string &operator [] (const T n) const;
-    const T operator [] (const std::string &s) const;
-    const T operator [] (const char *s) const          {  return operator [] (std::string(s));  }
-};
-
-
-template <typename T>
-inline void DICT<T>::add(const T n, const std::string &s)
-{
-  idx.insert(make_pair(n,s));
-  name.insert(make_pair(s,n));
+    if (v_pos.second)
+        v_pos.first->second = &k_pos.first->first;
 }
 
 
 template <typename T>
-inline const std::string &DICT<T>::operator [] (const T n) const
+inline const T &DICT<T,T>::operator [] (const T k) const
 {
-  typename IDX_COLL::const_iterator i = idx.find(n);
+    typename T_COLL::const_iterator pos = t_coll.find(k);
 
-  return i!=idx.end() ? i->second : empty_string;
+    if (pos==t_coll.end())
+        return NO_VALUE;
+
+    return pos->second ? *pos->second : NO_VALUE;
 }
 
 
-template <typename T>
-inline const T DICT<T>::operator [] (const std::string &s) const
+template <typename KEY, typename VAL>
+inline void load_data(DICT<KEY,VAL> &dict, void *a, unsigned n)
 {
-  typename NAME_COLL::const_iterator i = name.find(s);
+    if (!a)
+        return;
 
-  return i!=name.end() ? i->second : NONE;
-}
-
-
-template <>
-class DICT<std::string>: public BASE_DICT
-{
-    typedef std::map<std::string,std::string> IDX_COLL;
-
-    IDX_COLL idx;
-
-    const std::string NONE;
-
-  public:
-
-    DICT(const std::string none): NONE(none)               {}
-
-    void add(const std::string &n, const std::string &s)   {  idx.insert(make_pair(n,s));           }
-    void add(const char *n, const char *s)                 {  add(std::string(n),std::string(s));   }
-
-    const std::string operator [] (const std::string &s) const
+    typedef struct
     {
-      IDX_COLL::const_iterator i = idx.find(s);
+        KEY key;
+        VAL value;
+    } TUPLE;
 
-      return i!=idx.end() ? i->second : NONE;
-    }
+    TUPLE *t = static_cast<TUPLE *>(a);
 
-    const std::string operator [] (const char *s) const    {  return operator [] (std::string(s));  }
-};
+    for (unsigned i=0; i<n; ++i, ++t)
+         dict.add(t->key,t->value);
+}
 
+
+template <typename KEY>
+inline void load_data(DICT<KEY,std::string> &dict, void *a, unsigned n)
+{
+    if (!a)
+        return;
+
+    typedef struct
+    {
+        KEY  key;
+        char *value;
+    } TUPLE;
+
+    TUPLE *t = static_cast<TUPLE *>(a);
+
+    for (unsigned i=0; i<n; ++i, ++t)
+         dict.add(t->key,t->value);
+}
+
+
+template <typename VAL>
+inline void load_data(DICT<std::string,VAL> &dict, void *a, unsigned n)
+{
+    if (!a)
+        return;
+
+    typedef struct
+    {
+        char *key;
+        VAL  value;
+    } TUPLE;
+
+    TUPLE *t = static_cast<TUPLE *>(a);
+
+    for (unsigned i=0; i<n; ++i, ++t)
+         dict.add(t->key,t->value);
+}
+
+
+inline void load_data(DICT<std::string,std::string> &dict, void *a, unsigned n)
+{
+    if (!a)
+        return;
+
+    typedef struct
+    {
+        char *key;
+        char *value;
+    } TUPLE;
+
+    TUPLE *t = static_cast<TUPLE *>(a);
+
+    for (unsigned i=0; i<n; ++i, ++t)
+         dict.add(t->key,t->value);
+}
 
 #endif

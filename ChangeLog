@@ -1,3 +1,9 @@
+2007-04-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/Makefile.am:
+	* src/dict.h:
+	More generalized version of DICT<> class
+
 2007-04-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
@@ -92,7 +98,7 @@
 
 	* src/Makefile.am:
 	* src/dict.cc:
-	* srcdict.h:
+	* src/dict.h:
 	Generic dictionary class (std::string <-> typename T)
 
 2007-03-02  Piotr Eljasiak  <epiotr@use.pl>
