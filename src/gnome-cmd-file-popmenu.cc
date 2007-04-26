@@ -591,9 +591,9 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     if (n)
     {
         GnomeUIInfo *py_uiinfo = g_new0 (GnomeUIInfo, n+1);
-        GnomeUIInfo *tmp;
+        GnomeUIInfo *tmp = py_uiinfo;
 
-        for (GnomeUIInfo *tmp = py_uiinfo; py_plugins; py_plugins = py_plugins->next, ++tmp)
+        for (; py_plugins; py_plugins = py_plugins->next, ++tmp)
         {
             PythonPluginData *data = (PythonPluginData *) py_plugins->data;
 

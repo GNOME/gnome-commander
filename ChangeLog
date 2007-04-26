@@ -1,3 +1,8 @@
+2007-04-27  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-popmenu.cc:
+	Fixed crash when right clicking on any file.
+
 2007-04-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/Makefile.am:
