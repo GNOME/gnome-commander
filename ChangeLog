@@ -1,5 +1,8 @@
 2007-04-27  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/dirlist.cc:
+	i18 of progress bar message
+
 	* src/gnome-cmd-file-popmenu.cc:
 	Fixed crash when right clicking on any file.
 

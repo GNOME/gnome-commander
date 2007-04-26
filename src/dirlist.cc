@@ -70,7 +70,7 @@ update_list_progress (GnomeCmdDir *dir)
 
     if (dir->state == DIR_STATE_LISTING)
     {
-        gchar *msg = g_strdup_printf ("%d files listed", dir->list_counter);
+        gchar *msg = g_strdup_printf (ngettext ("%d file listed", "%d files listed", dir->list_counter), dir->list_counter);
         gtk_label_set_text (GTK_LABEL (dir->label), msg);
         progress_bar_update (dir->pbar, 50);
         DEBUG('l', "%s\n", msg);
@@ -84,8 +84,7 @@ update_list_progress (GnomeCmdDir *dir)
 }
 
 
-static void
-visprog_list (GnomeCmdDir *dir)
+inline void visprog_list (GnomeCmdDir *dir)
 {
     DEBUG('l', "visprog_list\n");
 
@@ -110,7 +109,7 @@ visprog_list (GnomeCmdDir *dir)
 }
 
 
-static void blocking_list (GnomeCmdDir *dir)
+inline void blocking_list (GnomeCmdDir *dir)
 {
     DEBUG('l', "blocking_list\n");
 
