@@ -85,7 +85,8 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
 
     g_mutex_lock (data->mutex);
 
-    if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
+    if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR)
+    {
         data->vfs_status = info->vfs_status;
         data->problem_file = str_uri_basename(info->source_name);
         data->problem = TRUE;
@@ -100,25 +101,26 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
         data->problem_file = NULL;
         data->vfs_status = GNOME_VFS_OK;
     }
-    else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK) {
-        if (info->file_index >= 0 && info->files_total > 0) {
-            gfloat f = (gfloat)info->file_index/(gfloat)info->files_total;
-            if (data->msg) g_free (data->msg);
-            data->msg = g_strdup_printf (ngettext("Deleted %ld of %ld file",
-                                                  "Deleted %ld of %ld files",
-                                                  info->files_total),
-                                         info->file_index, info->files_total);
-            if (f < 0.001f) f = 0.001f;
-            if (f > 0.999f) f = 0.999f;
-            data->progress = f;
-        }
-
-        ret = !data->stop;
-    }
     else
-    {
-        data->vfs_status = info->vfs_status;
-    }
+        if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_OK)
+        {
+            if (info->file_index >= 0 && info->files_total > 0)
+            {
+                gfloat f = (gfloat)info->file_index/(gfloat)info->files_total;
+                g_free (data->msg);
+                data->msg = g_strdup_printf (ngettext("Deleted %ld of %ld file",
+                                                      "Deleted %ld of %ld files",
+                                                      info->files_total),
+                                             info->file_index, info->files_total);
+                if (f < 0.001f) f = 0.001f;
+                if (f > 0.999f) f = 0.999f;
+                data->progress = f;
+            }
+
+            ret = !data->stop;
+        }
+        else
+            data->vfs_status = info->vfs_status;
 
     g_mutex_unlock (data->mutex);
 
@@ -283,29 +285,30 @@ do_delete (DeleteData *data)
 void
 gnome_cmd_delete_dialog_show (GList *files)
 {
-    GnomeCmdFile *finfo;
-    gint ret, num_files;
+    gint ret;
     gchar *msg;
 
-    DeleteData *data = g_new (DeleteData, 1);
+    DeleteData *data = g_new0 (DeleteData, 1);
 
     data->files = gnome_cmd_file_list_copy (files);
-    data->stop = FALSE;
-    data->problem = FALSE;
-    data->delete_done = FALSE;
-    data->mutex = NULL;
-    data->msg = NULL;
+    // data->stop = FALSE;
+    // data->problem = FALSE;
+    // data->delete_done = FALSE;
+    // data->mutex = NULL;
+    // data->msg = NULL;
 
-    num_files = g_list_length (data->files);
+    gint num_files = g_list_length (data->files);
 
-    if (num_files == 1) {
-        gchar *fname;
-        finfo = (GnomeCmdFile *) g_list_nth_data (data->files, 0);
-        if (g_strcasecmp(finfo->info->name, "..") == 0) {
+    if (num_files == 1)
+    {
+        GnomeCmdFile *finfo = (GnomeCmdFile *) g_list_nth_data (data->files, 0);
+        if (g_strcasecmp(finfo->info->name, "..") == 0)
+        {
             g_free (data);
             return;
         }
-        fname = get_utf8 (finfo->info->name);
+
+        gchar *fname = get_utf8 (finfo->info->name);
         msg = g_strdup_printf (_("Do you want to delete \"%s\"?"), fname);
         g_free (fname);
     }

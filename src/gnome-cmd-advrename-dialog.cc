@@ -558,8 +558,8 @@ update_entry (PatternEntry *entry,
 
     GtkWidget *case_check = lookup_widget (GTK_WIDGET (string_dialog), "case_check");
 
-    if (entry->from) g_free (entry->from);
-    if (entry->to) g_free (entry->to);
+    g_free (entry->from);
+    g_free (entry->to);
     entry->from = g_strdup (values[0]);
     entry->to = g_strdup (values[1]);
     entry->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_check));

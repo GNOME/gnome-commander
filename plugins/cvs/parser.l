@@ -107,7 +107,8 @@ static Revision *rev_new ()
 
 static void rev_free (Revision *rev)
 {
-    if (rev) {
+    if (rev) 
+    {
         g_free (rev->number);
         g_free (rev->date);
         g_free (rev->author);

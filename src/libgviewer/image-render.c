@@ -722,12 +722,10 @@ static void image_render_v_adjustment_changed (GtkAdjustment *adjustment, gpoint
 
 static void image_render_v_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data)
 {
-    ImageRender *obj;
-
     g_return_if_fail (adjustment != NULL);
     g_return_if_fail (data != NULL);
 
-    obj = IMAGE_RENDER (data);
+    ImageRender *obj = IMAGE_RENDER (data);
 
     if (obj->priv->old_v_adj_value != adjustment->value)
     {
@@ -755,8 +753,7 @@ static void image_render_free_pixbuf(ImageRender *obj)
         g_object_unref(G_OBJECT(obj->priv->disp_pixbuf));
     obj->priv->disp_pixbuf = NULL;
 
-    if (obj->priv->filename)
-        g_free(obj->priv->filename);
+    g_free(obj->priv->filename);
     obj->priv->filename = NULL;
 }
 

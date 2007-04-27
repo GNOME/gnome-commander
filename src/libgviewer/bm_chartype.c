@@ -146,16 +146,14 @@ void free_bm_chartype_data(GViewerBMChartypeData*data)
     if (data==NULL)
         return;
 
-    if (data->good!=NULL)
-        g_free(data->good);
+    g_free(data->good);
     data->good=NULL;
 
     if (data->bad!=NULL)
         bch_free(data->bad);
     data->bad = NULL;
 
-    if (data->pattern!=NULL)
-        g_free(data->pattern);
+    g_free(data->pattern);
     data->pattern = NULL;
 
     data->pattern_len = 0;

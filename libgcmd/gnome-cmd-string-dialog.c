@@ -324,8 +324,7 @@ gnome_cmd_string_dialog_set_error_desc (GnomeCmdStringDialog *dialog, gchar *msg
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
     g_return_if_fail (msg != NULL);
 
-    if (dialog->priv->error_desc)
-        g_free (dialog->priv->error_desc);
+    g_free (dialog->priv->error_desc);
 
     dialog->priv->error_desc = g_strdup (msg);
 }

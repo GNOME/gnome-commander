@@ -86,9 +86,9 @@ static void get_color (const gchar *path, GdkColor *color)
     if (color_str != def)
         g_free (color_str);
 
-    color->red   = (gushort)red;
-    color->green = (gushort)green;
-    color->blue  = (gushort)blue;
+    color->red   = (gushort) red;
+    color->green = (gushort) green;
+    color->blue  = (gushort) blue;
 
     g_free (def);
 }

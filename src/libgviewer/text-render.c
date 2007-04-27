@@ -1495,8 +1495,7 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
             return;
         }
 
-    if (w->priv->encoding)
-        g_free(w->priv->encoding);
+    g_free(w->priv->encoding);
     w->priv->encoding = g_strdup(encoding);
     gv_set_input_mode(w->priv->im, encoding);
     text_render_filter_undisplayable_chars(w);

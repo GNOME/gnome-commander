@@ -276,8 +276,7 @@ static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchD
     }
 
     // Store the text
-    if (sdlg->priv->last_entry_text!=NULL)
-        g_free(sdlg->priv->last_entry_text);
+    g_free(sdlg->priv->last_entry_text);
     sdlg->priv->last_entry_text = g_strdup(pattern);
 }
 
@@ -399,19 +398,16 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
 
 static void search_dlg_destroy (GtkObject *object)
 {
-    GViewerSearchDlg *w;
-
     g_return_if_fail (object != NULL);
     g_return_if_fail (IS_GVIEWER_SEARCH_DLG(object));
 
-    w = GVIEWER_SEARCH_DLG(object);
+    GViewerSearchDlg *w = GVIEWER_SEARCH_DLG(object);
 
     if (w->priv)
     {
         save_search_dlg_state (w);
 
-        if (w->priv->search_text_string)
-            g_free(w->priv->search_text_string);
+        g_free(w->priv->search_text_string);
         w->priv->search_text_string = NULL;
 
         if (w->priv->text_pattern_history!=NULL)
@@ -424,8 +420,7 @@ static void search_dlg_destroy (GtkObject *object)
         w->priv->hex_pattern_history=NULL;
 #endif
 
-        if (w->priv->last_entry_text!=NULL)
-            g_free(w->priv->last_entry_text);
+        g_free(w->priv->last_entry_text);
         w->priv->last_entry_text = NULL;
 
         g_free(w->priv);

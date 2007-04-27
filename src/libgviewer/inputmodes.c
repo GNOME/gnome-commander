@@ -190,12 +190,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
     // First thing, set ASCII input mode, which will be the default if anything fails
     memset(imd->ascii_charset_translation, 0, sizeof(imd->ascii_charset_translation));
     for (i=0; i<256; i++)
-    {
-        if (is_displayable(i))
-            imd->ascii_charset_translation[i] = i;
-        else
-            imd->ascii_charset_translation[i] = '.';
-    }
+        imd->ascii_charset_translation[i] = is_displayable(i) ? i : '.';
     imd->get_char = inputmode_ascii_get_char;
     imd->get_next_offset = inputmode_ascii_get_next_offset;
     imd->get_prev_offset = inputmode_ascii_get_previous_offset;

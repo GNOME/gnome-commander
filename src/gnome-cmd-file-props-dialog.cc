@@ -118,7 +118,7 @@ calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
         g_thread_exit (NULL);
 
     g_mutex_lock (data->mutex);
-    if (data->msg) g_free (data->msg);
+    g_free (data->msg);
     data->msg = g_strdup (get_size_disp_string (data->size));
     g_mutex_unlock (data->mutex);
 }

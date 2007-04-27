@@ -1507,10 +1507,8 @@ static int gviewer_window_run_external_tool(GViewerWindow *obj, GViewerWindowExt
     }
 
 error:
-    if (cmd_with_filename)
-        g_free(cmd_with_filename);
-    if (cmd_with_redir)
-        g_free(cmd_with_redir);
+    g_free(cmd_with_filename);
+    g_free(cmd_with_redir);
 
     return fd;
 }
@@ -1546,8 +1544,7 @@ static int gviewer_window_run_exif(GViewerWindow *obj)
     {
         g_warning("IPTC execution (%s) failed", cmd_with_redir);
     }
-    if (cmd_with_redir)
-        g_free(cmd_with_redir);
+    g_free(cmd_with_redir);
 
     cmd_with_redir = g_strdup_printf("exif '%s' >&%d", obj->priv->filename, fd);
     ret = system(cmd_with_redir);

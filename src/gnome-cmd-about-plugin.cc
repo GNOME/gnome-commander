@@ -451,8 +451,7 @@ gnome_cmd_about_plugin_set_webpage (GnomeCmdAboutPlugin *about, const gchar *web
 {
     if (!webpage) return;
 
-    if (about->priv->webpage)
-        g_free (about->priv->webpage);
+    g_free (about->priv->webpage);
 
     about->priv->webpage = g_strdup (webpage);
     gnome_href_set_url (GNOME_HREF (about->priv->web_button), webpage);
