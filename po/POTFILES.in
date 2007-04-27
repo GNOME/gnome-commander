@@ -7,7 +7,7 @@ plugins/cvs/cvs-plugin.c
 plugins/cvs/interface.c
 plugins/fileroller/file-roller-plugin.c
 plugins/test/test-plugin.c
-src/dirlist.cc.cc
+src/dirlist.cc
 src/gnome-cmd-about-plugin.cc
 src/gnome-cmd-advrename-dialog.cc
 src/gnome-cmd-bookmark-dialog.cc
