@@ -65,10 +65,7 @@ inline void exec_with_app (GList *files, GnomeCmdApp *app)
 /* Used by exec_default for each list of files that shares the same default application
  * This is a hash-table callback function
  */
-static void
-htcb_exec_with_app (const gchar *key,
-                    OpenWithData *data,
-                    gpointer user_data)
+static void htcb_exec_with_app (const gchar *key, OpenWithData *data, gpointer user_data)
 {
     exec_with_app (data->files, data->app);
     g_free (data);
@@ -78,8 +75,7 @@ htcb_exec_with_app (const gchar *key,
 /* Executes a list of files with the same application
  *
  */
-static void
-cb_exec_with_app (GtkMenuItem *menu_item, OpenWithData *data)
+static void cb_exec_with_app (GtkMenuItem *menu_item, OpenWithData *data)
 {
     exec_with_app (data->files, data->app);
 }
@@ -150,8 +146,7 @@ on_open_with_other_ok (GnomeCmdStringDialog *string_dialog,
 }
 
 
-static void
-on_open_with_other (GtkMenuItem *menu_item, GList *files)
+static void on_open_with_other (GtkMenuItem *menu_item, GList *files)
 {
     const gchar *labels[] = {_("Application:")};
     GtkWidget *dialog;
@@ -172,8 +167,7 @@ on_open_with_other (GtkMenuItem *menu_item, GList *files)
 }
 
 
-static void
-on_execute (GtkMenuItem *menu_item, GList *files)
+static void on_execute (GtkMenuItem *menu_item, GList *files)
 {
     GnomeCmdFile *finfo = GNOME_CMD_FILE (files->data);
 
@@ -181,8 +175,7 @@ on_execute (GtkMenuItem *menu_item, GList *files)
 }
 
 
-static void
-on_execute_py_plugin (GtkMenuItem *menu_item, PythonPluginData *data)
+static void on_execute_py_plugin (GtkMenuItem *menu_item, PythonPluginData *data)
 {
 #ifdef HAVE_PYTHON
     gnome_cmd_python_plugin_execute(data, main_win);
@@ -190,46 +183,37 @@ on_execute_py_plugin (GtkMenuItem *menu_item, PythonPluginData *data)
 }
 
 
-static void
-on_cut (GtkMenuItem *item, GnomeCmdFileList *fl)
+static void on_cut (GtkMenuItem *item, GnomeCmdFileList *fl)
 {
     gnome_cmd_file_list_cap_cut (fl);
 }
 
 
-static void
-on_copy (GtkMenuItem *item, GnomeCmdFileList *fl)
+static void on_copy (GtkMenuItem *item, GnomeCmdFileList *fl)
 {
     gnome_cmd_file_list_cap_copy (fl);
 }
 
 
-static void
-on_delete (GtkMenuItem *item, GnomeCmdFileList *fl)
+static void on_delete (GtkMenuItem *item, GnomeCmdFileList *fl)
 {
     gnome_cmd_file_list_show_delete_dialog (fl);
 }
 
 
-static void
-on_rename (GtkMenuItem *item, GnomeCmdFileList *fl)
+static void on_rename (GtkMenuItem *item, GnomeCmdFileList *fl)
 {
     gnome_cmd_file_list_show_rename_dialog (fl);
 }
 
 
-static void
-on_properties (GtkMenuItem *item, GnomeCmdFileList *fl)
+static void on_properties (GtkMenuItem *item, GnomeCmdFileList *fl)
 {
     gnome_cmd_file_list_show_properties_dialog (fl);
 }
 
 
-static void
-add_fav_app_menu_item (GnomeCmdFilePopmenu *menu,
-                       GnomeCmdApp *app,
-                       gint pos,
-                       GList *files)
+static void add_fav_app_menu_item (GnomeCmdFilePopmenu *menu, GnomeCmdApp *app, gint pos, GList *files)
 {
     OpenWithData *data = g_new0 (OpenWithData, 1);
 
@@ -240,16 +224,12 @@ add_fav_app_menu_item (GnomeCmdFilePopmenu *menu,
 
     GtkWidget *item = gtk_image_menu_item_new ();
 
-    GnomeCmdPixmap *pm = gnome_cmd_app_get_pixmap (app);
-    if (pm)
-    {
-        GtkWidget *pixmap = gtk_pixmap_new (pm->pixmap, pm->mask);
-        if (pixmap)
+    if (GnomeCmdPixmap *pm = gnome_cmd_app_get_pixmap (app))
+        if (GtkWidget *pixmap = gtk_pixmap_new (pm->pixmap, pm->mask))
         {
             gtk_widget_show (pixmap);
             gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (item), pixmap);
         }
-    }
 
     gtk_widget_show (item);
     gtk_menu_shell_insert (GTK_MENU_SHELL (menu), item, pos);
@@ -267,16 +247,14 @@ add_fav_app_menu_item (GnomeCmdFilePopmenu *menu,
 }
 
 
-static gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
+inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
 {
-    GnomeCmdFile *finfo;
-
     switch (gnome_cmd_app_get_target (app))
     {
         case APP_TARGET_ALL_DIRS:
             for (; files; files = files->next)
             {
-                finfo = (GnomeCmdFile *) files->data;
+                GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
                     return FALSE;
             }
@@ -285,7 +263,7 @@ static gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_FILES:
             for (; files; files = files->next)
             {
-                finfo = (GnomeCmdFile *) files->data;
+                GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
                     return FALSE;
             }
@@ -294,7 +272,7 @@ static gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_DIRS_AND_FILES:
             for (; files; files = files->next)
             {
-                finfo = (GnomeCmdFile *) files->data;
+                GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR
                     && finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
                     return FALSE;
@@ -307,7 +285,7 @@ static gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 gboolean ok = FALSE;
                 gint fn_flags = FNM_NOESCAPE | FNM_CASEFOLD;
 
-                finfo = (GnomeCmdFile *) files->data;
+                GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
                     return FALSE;
 
@@ -342,8 +320,7 @@ inline void add_plugin_menu_items (GnomeCmdFilePopmenu *menu, GList *items, gint
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdFilePopmenu *menu = GNOME_CMD_FILE_POPMENU (object);
 
@@ -357,16 +334,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdFilePopmenuClass *klass)
+static void class_init (GnomeCmdFilePopmenuClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -378,8 +353,7 @@ class_init (GnomeCmdFilePopmenuClass *klass)
 }
 
 
-static void
-init (GnomeCmdFilePopmenu *menu)
+static void init (GnomeCmdFilePopmenu *menu)
 {
     menu->priv = g_new0 (GnomeCmdFilePopmenuPrivate, 1);
 }
@@ -441,8 +415,7 @@ inline gchar *get_default_application_action_name(GList *files)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
+GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 {
     gint pos, match_count;
     GList *vfs_apps, *tmp;
@@ -623,8 +596,7 @@ gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 }
 
 
-GtkType
-gnome_cmd_file_popmenu_get_type         (void)
+GtkType gnome_cmd_file_popmenu_get_type (void)
 {
     static GtkType dlg_type = 0;
 

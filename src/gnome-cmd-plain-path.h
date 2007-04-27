@@ -47,17 +47,13 @@ struct _GnomeCmdPlainPathClass
 {
     GnomeCmdPathClass parent_class;
 
-    void (* update_text)  (GtkEditable    *editable,
-                           gint            start_pos,
-                           gint            end_pos);
+    void (* update_text) (GtkEditable *editable, gint start_pos, gint end_pos);
 };
 
 
-GtkType
-gnome_cmd_plain_path_get_type (void);
+GtkType gnome_cmd_plain_path_get_type (void);
 
-GnomeCmdPath *
-gnome_cmd_plain_path_new (const gchar *path);
+GnomeCmdPath *gnome_cmd_plain_path_new (const gchar *path);
 
 G_END_DECLS
 

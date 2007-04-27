@@ -33,8 +33,7 @@ struct _GnomeCmdPlainPathPrivate
 static GnomeCmdPathClass *parent_class = NULL;
 
 
-static const gchar *
-plain_path_get_path (GnomeCmdPath *path)
+inline const gchar *plain_path_get_path (GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_PLAIN_PATH (path), NULL);
 
@@ -119,8 +118,7 @@ destroy (GtkObject *object)
 }
 
 
-static void
-class_init (GnomeCmdPlainPathClass *klass)
+static void class_init (GnomeCmdPlainPathClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPathClass *path_class = GNOME_CMD_PATH_CLASS (klass);
@@ -136,10 +134,9 @@ class_init (GnomeCmdPlainPathClass *klass)
 }
 
 
-static void
-init (GnomeCmdPlainPath *path)
+static void init (GnomeCmdPlainPath *path)
 {
-    path->priv = g_new (GnomeCmdPlainPathPrivate, 1);
+    path->priv = g_new0 (GnomeCmdPlainPathPrivate, 1);
 }
 
 
@@ -148,8 +145,7 @@ init (GnomeCmdPlainPath *path)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_plain_path_get_type         (void)
+GtkType gnome_cmd_plain_path_get_type (void)
 {
     static GtkType type = 0;
 
@@ -173,8 +169,7 @@ gnome_cmd_plain_path_get_type         (void)
 }
 
 
-GnomeCmdPath *
-gnome_cmd_plain_path_new (const gchar *path)
+GnomeCmdPath *gnome_cmd_plain_path_new (const gchar *path)
 {
     GnomeCmdPlainPath *plain_path = (GnomeCmdPlainPath *) gtk_type_new (gnome_cmd_plain_path_get_type ());
     plain_path->priv->path = g_strdup (path);
