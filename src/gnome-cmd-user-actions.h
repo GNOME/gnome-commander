@@ -87,6 +87,8 @@ inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *
 extern GnomeCmdUserActions gcmd_user_actions;
 
 
+GNOME_CMD_USER_ACTION(no_action);
+
 /************** File Menu **************/
 GNOME_CMD_USER_ACTION(file_copy);
 GNOME_CMD_USER_ACTION(file_move);

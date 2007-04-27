@@ -220,6 +220,7 @@ void GnomeCmdUserActions::init()
     actions.add(mark_toggle, "mark.toggle");
     actions.add(mark_toggle_and_step, "mark.toggle_and_step");
     actions.add(mark_unselect_all, "mark.unselect_all");
+    actions.add(no_action, "no.action");
     actions.add(options_edit, "options.edit");
     actions.add(options_edit_mime_types, "options.edit_mime_types");
     actions.add(plugins_configure, "plugins.configure");
@@ -491,6 +492,12 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     (*pos->second.func) (NULL, (gpointer) (pos->second.user_data.empty() ? NULL : pos->second.user_data.c_str()));
 
     return TRUE;
+}
+
+
+/***************************************/
+void no_action (GtkMenuItem *menuitem, gpointer not_used)
+{
 }
 
 

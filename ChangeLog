@@ -1,3 +1,9 @@
+2007-04-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Added "no.action" to user actions
+
 2007-04-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/dirlist.cc:
