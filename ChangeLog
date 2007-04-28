@@ -1,3 +1,8 @@
+2007-04-28  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-plain-path.cc:
+	Fixed bug #360175 (crash while entering a dir with %)
+
 2007-04-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:
@@ -34,7 +39,7 @@
 	* src/gnome-cmd-python-plugin.cc:
 	* src/gnome-cmd-search-dialog.cc:
 	* src/gnome-cmd-user-actions.cc:
-	Replace all gnome_cmd_main_win_get_{active,inactive}_fs(...) with 
+	Replace all gnome_cmd_main_win_get_{active,inactive}_fs(...) with
 	equivalent gnome_cmd_main_win_get_fs (...,{ACTIVE,INACTIVE})
 
 2007-04-03  Piotr Eljasiak  <epiotr@use.pl>

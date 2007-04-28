@@ -41,72 +41,67 @@ inline const gchar *plain_path_get_path (GnomeCmdPath *path)
 }
 
 
-static const gchar *
-plain_path_get_display_path (GnomeCmdPath *path)
+inline const gchar *plain_path_get_display_path (GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_PLAIN_PATH (path), NULL);
 
     return GNOME_CMD_PLAIN_PATH (path)->priv->path;
 }
 
-static GnomeCmdPath *
-plain_path_get_parent (GnomeCmdPath *path)
-{
-    GnomeVFSURI *u1, *u2, *t;
-    GnomeCmdPath *parent;
-    gchar *s;
 
+inline GnomeCmdPath *plain_path_get_parent (GnomeCmdPath *path)
+{
     g_return_val_if_fail (GNOME_CMD_IS_PLAIN_PATH (path), NULL);
 
-    t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
-    u1 = gnome_vfs_uri_append_path (t, GNOME_CMD_PLAIN_PATH (path)->priv->path);
+    GnomeVFSURI *t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
+    GnomeVFSURI *u1 = gnome_vfs_uri_append_path (t, GNOME_CMD_PLAIN_PATH (path)->priv->path);
     gnome_vfs_uri_unref (t);
 
-    u2 = gnome_vfs_uri_get_parent (u1);
+    GnomeVFSURI *u2 = gnome_vfs_uri_get_parent (u1);
     gnome_vfs_uri_unref (u1);
-    if (!u2) return NULL;
 
-    s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_NONE);
-    parent = gnome_cmd_plain_path_new (gnome_vfs_get_local_path_from_uri (s));
+    if (!u2)  return NULL;
+
+    gchar *s = gnome_vfs_uri_to_string (u2, GNOME_VFS_URI_HIDE_NONE);
     gnome_vfs_uri_unref (u2);
+
+    GnomeCmdPath *parent_path = gnome_cmd_plain_path_new (gnome_vfs_get_local_path_from_uri (s));
     g_free (s);
 
-    return parent;
+    return parent_path;
 }
 
-static GnomeCmdPath *
-plain_path_get_child (GnomeCmdPath *path, const gchar *child)
-{
-    GnomeVFSURI *u1, *u2;
-    GnomeCmdPath *out;
-    gchar *path_str;
 
+inline GnomeCmdPath *plain_path_get_child (GnomeCmdPath *path, const gchar *child)
+{
     g_return_val_if_fail (GNOME_CMD_IS_PLAIN_PATH (path), NULL);
 
-    u1 = gnome_vfs_uri_new (GNOME_CMD_PLAIN_PATH (path)->priv->path);
-    if (!strchr (child, '/'))
-        u2 = gnome_vfs_uri_append_file_name (u1, child);
-    else
-        u2 = gnome_vfs_uri_append_path (u1, child);
-    gnome_vfs_uri_unref (u1);
-    if (!u2) return NULL;
+    GnomeVFSURI *t = gnome_vfs_uri_new (G_DIR_SEPARATOR_S);
+    GnomeVFSURI *u1 = gnome_vfs_uri_append_path (t, GNOME_CMD_PLAIN_PATH (path)->priv->path);
+    gnome_vfs_uri_unref (t);
 
-    path_str = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (u2), 0);
-    out = gnome_cmd_plain_path_new (path_str);
-    g_free (path_str);
+    GnomeVFSURI *u2 = strchr (child, '/')==NULL ?
+                      gnome_vfs_uri_append_file_name (u1, child) :
+                      gnome_vfs_uri_append_path (u1, child);
+    gnome_vfs_uri_unref (u1);
+
+    if (!u2)  return NULL;
+
+    gchar *path_str = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (u2), 0);
     gnome_vfs_uri_unref (u2);
 
-    return out;
-}
+    GnomeCmdPath *child_path = gnome_cmd_plain_path_new (path_str);
+    g_free (path_str);
 
+    return child_path;
+}
 
 
 /*******************************
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdPlainPath *path = GNOME_CMD_PLAIN_PATH (object);
 

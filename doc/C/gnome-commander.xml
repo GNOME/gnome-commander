@@ -4119,7 +4119,7 @@
 
             where parameters are:
 
-                    main_wnd_xid - XID of gcmd main toplevel window
+                    main_wnd_xid - XID of &app; main toplevel window
                     active_cwd - full path of current dir of active pane
                     active_cwd - full path of current dir of inactive pane
                     selected_files - list of selected file uris in active pane
@@ -5169,10 +5169,13 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>Fixed problem with opening dirs by intviewer</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem with editing dirs by gcmd</para>
+                            <para>Fixed problem with editing dirs by &app;</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem #351952 (crash while doing a content search)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #360175 (crash while entering a dir with %)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem #371948 and #388970 (file path not escaped)</para>
