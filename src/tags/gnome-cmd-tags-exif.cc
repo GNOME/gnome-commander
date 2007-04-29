@@ -69,7 +69,7 @@ void gcmd_tags_libexif_free_metadata(GnomeCmdFile *finfo)
 }
 
 
-const gchar *gcmd_tags_libexif_get_value(GnomeCmdFile *finfo, guint libtag)
+const gchar *gcmd_tags_libexif_get_value(GnomeCmdFile *finfo, const guint libtag)
 {
 #ifdef HAVE_EXIF
     ExifData *data;

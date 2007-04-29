@@ -582,7 +582,7 @@ void gcmd_tags_id3lib_free_metadata(GnomeCmdFile *finfo)
 // ID3FID_YEAR,              /**< Year */
 
 
-const gchar *gcmd_tags_id3lib_get_value(GnomeCmdFile *finfo, guint tag)
+const gchar *gcmd_tags_id3lib_get_value(GnomeCmdFile *finfo, const guint tag)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
 

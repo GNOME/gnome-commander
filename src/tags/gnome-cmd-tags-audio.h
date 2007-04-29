@@ -29,7 +29,7 @@ G_BEGIN_DECLS
 
 void gcmd_tags_audio_init();
 void gcmd_tags_audio_shutdown();
-const gchar *gcmd_tags_audio_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag);
+const gchar *gcmd_tags_audio_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag);
 const gchar *gcmd_tags_audio_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 
 G_END_DECLS

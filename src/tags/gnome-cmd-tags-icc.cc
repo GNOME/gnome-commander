@@ -66,7 +66,7 @@ void gcmd_tags_icclib_free_metadata(GnomeCmdFile *finfo)
 }
 
 
-const gchar *gcmd_tags_icclib_get_value(GnomeCmdFile *finfo, guint libclass, guint libtag)
+const gchar *gcmd_tags_icclib_get_value(GnomeCmdFile *finfo, const guint libclass, const guint libtag)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
 

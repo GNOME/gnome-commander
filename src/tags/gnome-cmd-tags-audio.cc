@@ -31,7 +31,7 @@ using namespace std;
 static char empty_string[] = "";
 
 
-const gchar *gcmd_tags_audio_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag)
+const gchar *gcmd_tags_audio_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
 {
     const gchar *ret_val = NULL;
 

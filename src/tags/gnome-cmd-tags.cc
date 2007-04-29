@@ -1720,13 +1720,13 @@ GnomeCmdTag *gcmd_tags_get_pointer_to_tag(const GnomeCmdTag tag)
 }
 
 
-const gchar *gcmd_tags_get_name(GnomeCmdTag tag)
+const gchar *gcmd_tags_get_name(const GnomeCmdTag tag)
 {
     return metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].name;
 }
 
 
-const gchar *gcmd_tags_get_class_name(GnomeCmdTag tag)
+const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
 {
     switch (metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].tag_class)
     {
@@ -1768,7 +1768,27 @@ const gchar *gcmd_tags_get_class_name(GnomeCmdTag tag)
 }
 
 
-const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag)
+const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTagClass tag_class, const GnomeCmdTag tag)
+{
+    g_return_val_if_fail (finfo != NULL, empty_string);
+
+    switch (tag_class)
+    {
+        case TAG_EXIF : gcmd_tags_libexif_get_value(finfo, metatags[tag].libtag);
+                        break;
+
+        case TAG_IPTC : gcmd_tags_libiptcdata_get_value(finfo, metatags[tag].libclass, metatags[tag].libtag);
+                        break;
+
+        default:
+            return gcmd_tags_get_value (finfo, tag);
+    }
+
+    return empty_string;
+}
+
+
+const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
 {
     const gchar *ret_val = empty_string;
 
@@ -1867,7 +1887,7 @@ const gchar *gcmd_tags_get_value_by_long_name(GnomeCmdFile *finfo, const gchar *
 }
 
 
-const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, GnomeCmdTagClass tag_class, const gchar *tag_name)
+const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const GnomeCmdTagClass tag_class, const gchar *tag_name)
 {
     GnomeCmdTag tag;
     const gchar *ret_val = empty_string;
@@ -1921,20 +1941,20 @@ const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, GnomeCmdTagClass t
 }
 
 
-const gchar *gcmd_tags_get_title(GnomeCmdTag tag)
+const gchar *gcmd_tags_get_title(const GnomeCmdTag tag)
 {
     return _(metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].title);
 }
 
 
-const gchar *gcmd_tags_get_description(GnomeCmdTag tag)
+const gchar *gcmd_tags_get_description(const GnomeCmdTag tag)
 {
     return _(metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].description);
 }
 
 // -----------------------------------------------------------------------------
 
-const gchar *gcmd_tags_image_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag)
+const gchar *gcmd_tags_image_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
 {
     const gchar *ret_val = NULL;
 

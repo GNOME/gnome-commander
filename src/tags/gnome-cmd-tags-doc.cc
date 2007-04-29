@@ -529,7 +529,7 @@ void gcmd_tags_libgsf_free_metadata(GnomeCmdFile *finfo)
 }
 
 
-const gchar *gcmd_tags_libgsf_get_value(GnomeCmdFile *finfo, guint tag)
+const gchar *gcmd_tags_libgsf_get_value(GnomeCmdFile *finfo, const guint tag)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
 

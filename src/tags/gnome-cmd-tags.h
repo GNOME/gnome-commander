@@ -459,18 +459,20 @@ typedef enum
     NUMBER_OF_TAGS
 } GnomeCmdTag;
 
+
 void gcmd_tags_init();
 void gcmd_tags_shutdown();
 GnomeCmdTag gcmd_tags_get_tag_by_long_name(const gchar *tag_name);
 GnomeCmdTag gcmd_tags_get_tag_by_name(const GnomeCmdTagClass tag_class, const gchar *tag_name);
 GnomeCmdTag *gcmd_tags_get_pointer_to_tag(const GnomeCmdTag tag);
-const gchar *gcmd_tags_get_name(GnomeCmdTag tag);
-const gchar *gcmd_tags_get_class_name(GnomeCmdTag tag);
-const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag);
+const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
+const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag);
+// const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTagClass tag_class, const GnomeCmdTag tag);
+const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_value_by_long_name(GnomeCmdFile *finfo, const gchar *tag_name);
-const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, GnomeCmdTagClass tag_class, const gchar *tag_name);
-const gchar *gcmd_tags_get_title(GnomeCmdTag tag);
-const gchar *gcmd_tags_get_description(GnomeCmdTag tag);
+const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const GnomeCmdTagClass tag_class, const gchar *tag_name);
+const gchar *gcmd_tags_get_title(const GnomeCmdTag tag);
+const gchar *gcmd_tags_get_description(const GnomeCmdTag tag);
 
 G_END_DECLS
 

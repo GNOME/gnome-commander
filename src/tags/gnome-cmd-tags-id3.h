@@ -31,7 +31,7 @@ void gcmd_tags_id3lib_init();
 void gcmd_tags_id3lib_shutdown();
 void gcmd_tags_id3lib_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_id3lib_free_metadata(GnomeCmdFile *finfo);
-const gchar *gcmd_tags_id3lib_get_value(GnomeCmdFile *finfo, guint tag);
+const gchar *gcmd_tags_id3lib_get_value(GnomeCmdFile *finfo, const guint tag);
 const gchar *gcmd_tags_id3lib_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 const gchar *gcmd_tags_id3lib_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 const gchar *gcmd_tags_id3lib_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
