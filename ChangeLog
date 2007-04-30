@@ -1,3 +1,8 @@
+2007-05-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/data.cc:
+	gdk_key_names.add(...) --> load_data (gdk_key_names, ...)
+
 2007-04-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/Makefile.am:
