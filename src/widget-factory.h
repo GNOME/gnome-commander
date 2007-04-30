@@ -21,10 +21,19 @@
 #define __WIDGET_FACTORY_H__
 
 #include "libgcmd/libgcmd-deps.h"
+#include "gnome-cmd-combo.h"
 
 G_BEGIN_DECLS
 
-GtkWidget *create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles);
+inline GtkWidget *create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)
+{
+    GtkWidget *combo = gnome_cmd_combo_new (num_cols, text_col, titles);
+    gtk_widget_ref (combo);
+    gtk_object_set_data_full (GTK_OBJECT (parent), "combo", combo, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_show (combo);
+
+    return combo;
+}
 
 G_END_DECLS
 

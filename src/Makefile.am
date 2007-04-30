@@ -80,7 +80,7 @@ gnome_commander_SOURCES = \
 	owner.h owner.cc \
 	plugin_manager.h plugin_manager.cc \
 	utils.h utils.cc \
-	widget-factory.h widget-factory.cc
+	widget-factory.h
 
 if HAVE_PYTHON
 gnome_commander_SOURCES += \

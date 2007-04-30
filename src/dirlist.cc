@@ -63,8 +63,7 @@ on_files_listed (GnomeVFSAsyncHandle *handle,
 }
 
 
-static gboolean
-update_list_progress (GnomeCmdDir *dir)
+static gboolean update_list_progress (GnomeCmdDir *dir)
 {
     DEBUG ('l', "Checking list progress...\n");
 

@@ -1,3 +1,10 @@
+2007-04-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/Makefile.am:
+	* src/widget-factory.cc:
+	* src/widget-factory.h:
+	Inline create_clist_combo() function, remove widget-factory.cc
+
 2007-04-28  koos  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-plain-path.cc:
