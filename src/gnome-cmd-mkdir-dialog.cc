@@ -84,8 +84,7 @@ on_cancel (GtkWidget *widget, GnomeCmdMkdirDialog *dialog)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdMkdirDialog *dialog = GNOME_CMD_MKDIR_DIALOG (object);
 
@@ -96,16 +95,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdMkdirDialogClass *klass)
+static void class_init (GnomeCmdMkdirDialogClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -116,8 +113,7 @@ class_init (GnomeCmdMkdirDialogClass *klass)
 }
 
 
-static void
-init (GnomeCmdMkdirDialog *dialog)
+static void init (GnomeCmdMkdirDialog *dialog)
 {
     dialog->priv = g_new (GnomeCmdMkdirDialogPrivate, 1);
 }
@@ -127,8 +123,7 @@ init (GnomeCmdMkdirDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
+GtkWidget *gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
 {
     const gchar *labels[] = {_("Directory name:"), NULL};
     GnomeCmdMkdirDialog *dialog = (GnomeCmdMkdirDialog *) gtk_type_new (gnome_cmd_mkdir_dialog_get_type ());
@@ -149,8 +144,7 @@ gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
 }
 
 
-GtkType
-gnome_cmd_mkdir_dialog_get_type         (void)
+GtkType gnome_cmd_mkdir_dialog_get_type (void)
 {
     static GtkType dlg_type = 0;
 

@@ -75,27 +75,18 @@ struct _GnomeCmdDirClass
 {
     GnomeCmdFileClass parent_class;
 
-    void (* file_created)       (GnomeCmdDir *dir,
-                                 GnomeCmdFile *file);
-    void (* file_deleted)       (GnomeCmdDir *dir,
-                                 GnomeCmdFile *file);
-    void (* file_changed)       (GnomeCmdDir *dir,
-                                 GnomeCmdFile *file);
-    void (* list_ok)            (GnomeCmdDir *dir,
-                                 GList *files);
-    void (* list_failed)        (GnomeCmdDir *dir,
-                                 GnomeVFSResult result);
+    void (* file_created)       (GnomeCmdDir *dir, GnomeCmdFile *file);
+    void (* file_deleted)       (GnomeCmdDir *dir, GnomeCmdFile *file);
+    void (* file_changed)       (GnomeCmdDir *dir, GnomeCmdFile *file);
+    void (* list_ok)            (GnomeCmdDir *dir, GList *files);
+    void (* list_failed)        (GnomeCmdDir *dir, GnomeVFSResult result);
 };
 
 GtkType gnome_cmd_dir_get_type (void);
 
-GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info,
-                                          GnomeCmdDir *parent);
-GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info,
-                                         GnomeCmdPath *path,
-                                         GnomeCmdCon *con);
-GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con,
-                                GnomeCmdPath *path);
+GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent);
+GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *path, GnomeCmdCon *con);
+GnomeCmdDir *gnome_cmd_dir_new (GnomeCmdCon *con, GnomeCmdPath *path);
 GnomeCmdDir *gnome_cmd_dir_get_parent (GnomeCmdDir *dir);
 GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
 GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir);
