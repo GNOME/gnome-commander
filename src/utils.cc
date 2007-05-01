@@ -26,7 +26,6 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-plain-path.h"
 #include "imageloader.h"
-#include "gnome-cmd-file.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-xfer.h"
 

@@ -18,9 +18,11 @@
 */
 
 #include <config.h>
+#include <libgnomevfs/gnome-vfs.h>
+#include <libgnomevfs/gnome-vfs-volume-monitor.h>
+#include <libgnomevfs/gnome-vfs-volume.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-con-device.h"
@@ -29,9 +31,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-bookmark-dialog.h"
-#include <libgnomevfs/gnome-vfs.h>
-#include <libgnomevfs/gnome-vfs-volume-monitor.h>
-#include <libgnomevfs/gnome-vfs-volume.h>
 #include "filter.h"
 #include "utils.h"
 

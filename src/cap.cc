@@ -22,7 +22,6 @@
 #include "cap.h"
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-file.h"
-#include "gnome-cmd-dir.h"
 #include "gnome-cmd-main-win.h"
 
 using namespace std;

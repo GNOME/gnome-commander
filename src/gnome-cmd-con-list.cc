@@ -19,7 +19,6 @@
 
 #include <config.h>
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-con.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-con-home.h"
 #include "gnome-cmd-con-smb.h"
