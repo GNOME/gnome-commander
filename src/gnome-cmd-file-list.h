@@ -131,15 +131,13 @@ void gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl);
 
 void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 
+GList *gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl);
 GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
-
 GList *gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl);
 
-GList *gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl);
-
-GnomeCmdFile *gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl);
-
 GnomeCmdFile *gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl);
+GnomeCmdFile *gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl);
+GnomeCmdFile *gnome_cmd_file_list_get_first_selected_file (GnomeCmdFileList *fl);
 
 void gnome_cmd_file_list_select_all (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_unselect_all (GnomeCmdFileList *fl);

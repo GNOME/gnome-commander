@@ -776,13 +776,13 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
 
     if (strcmp (f1->info->name, "..") == 0)
         ret = -1;
-        
+
     if (strcmp (f2->info->name, "..") == 0)
         ret = 1;
-        
+
     if (f1->info->type > f2->info->type)
         ret = -1;
-        
+
     if (f1->info->type < f2->info->type)
         ret = 1;
 
@@ -802,12 +802,12 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
-        
+
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
 
     gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
-    
+
     if (!ret)
     {
         ret = my_intcmp (f1->info->size, f2->info->size, raising);
@@ -825,7 +825,7 @@ static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
-    
+
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
 
@@ -847,7 +847,7 @@ static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
-        
+
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
 
@@ -869,7 +869,7 @@ static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
-        
+
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
 
@@ -891,7 +891,7 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
-        
+
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
 
@@ -1131,7 +1131,7 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
                 gnome_cmd_file_list_unselect_all (fl);
             return TRUE;
         }
-        else 
+        else
             if (event->button == 3)
                 gtk_timeout_remove (fl->priv->right_mb_timeout_id);
     }
@@ -1612,6 +1612,7 @@ void gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl)
 *   Statuses:
 *
 ******************************************************************************/
+
 GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
@@ -1642,6 +1643,7 @@ GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
 *   Statuses:
 *
 ******************************************************************************/
+
 GList *gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
@@ -1688,7 +1690,8 @@ GList *gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl)
 *   Statuses:
 *
 ******************************************************************************/
-GnomeCmdFile * gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
+
+GnomeCmdFile *gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
@@ -1697,6 +1700,31 @@ GnomeCmdFile * gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
     return !finfo || strcmp (finfo->info->name, "..") == 0 ? NULL : finfo;
 }
 
+
+/******************************************************************************
+*
+*   Function: gnome_cmd_file_list_get_first_selected_file
+*
+*   Purpose:  Returns the first selected file if any or the focused one otherwise.
+*            The returned file is not refed. The ".." file is NOT returned if focused
+*
+*   Params:
+*
+*   Returns:
+*
+*   Statuses:
+*
+******************************************************************************/
+
+GnomeCmdFile *gnome_cmd_file_list_get_first_selected_file (GnomeCmdFileList *fl)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
+
+    if (fl->priv->selected_files)
+        return (GnomeCmdFile *) fl->priv->selected_files->data;
+
+    return gnome_cmd_file_list_get_selected_file (fl);
+}
 
 
 /******************************************************************************
@@ -1713,6 +1741,7 @@ GnomeCmdFile * gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
 *   Statuses:
 *
 ******************************************************************************/
+
 GnomeCmdFile *gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);

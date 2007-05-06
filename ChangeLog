@@ -1,3 +1,10 @@
+2007-05-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-user-actions.cc:
+	Yet another fix for diff tool
+
 2007-05-01  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/data.cc:

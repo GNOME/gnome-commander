@@ -61,10 +61,11 @@ inline GnomeCmdFileList *get_fl (const FileSelectorID fsID)
 // The file returned from this function is not to be unrefed
 inline GnomeCmdFile *get_selected_file (const FileSelectorID fsID)
 {
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (get_fl (fsID));
+    GnomeCmdFile *finfo = gnome_cmd_file_list_get_first_selected_file (get_fl (fsID));
 
     if (!finfo)
         create_error_dialog (_("No file selected"));
+
     return finfo;
 }
 
