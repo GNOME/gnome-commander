@@ -664,7 +664,6 @@ create_error_dialog (const gchar *msg, ...)
 
     dialog = gtk_message_dialog_new (GTK_WINDOW (main_win_widget), GTK_DIALOG_MODAL,
                                      GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, string);
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
     gtk_signal_connect (GTK_OBJECT (dialog), "response", GTK_SIGNAL_FUNC (on_response), dialog);
 
@@ -686,7 +685,6 @@ create_warning_dialog (const gchar *msg, ...)
     dialog = gtk_message_dialog_new (
         GTK_WINDOW (main_win_widget), GTK_DIALOG_MODAL,
         GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, msg);
-    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
     gtk_signal_connect (GTK_OBJECT (dialog), "response",
                         GTK_SIGNAL_FUNC (on_response), dialog);

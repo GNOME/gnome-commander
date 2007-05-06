@@ -181,7 +181,7 @@ on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
             GTK_MESSAGE_INFO,
             GTK_BUTTONS_OK_CANCEL,
             _("What filename should the new archive have?"));
-        gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+
         gtk_window_set_title (GTK_WINDOW (dialog), _("Create Archive"));
 
         hbox = gtk_hbox_new (FALSE, 6);

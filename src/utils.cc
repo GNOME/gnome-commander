@@ -587,7 +587,6 @@ void mime_exec_single (GnomeCmdFile *finfo)
             dldata->finfo = finfo;
             dldata->dialog = dialog;
             dldata->args = args;
-            gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
             gtk_signal_connect (GTK_OBJECT (dialog), "response", GTK_SIGNAL_FUNC (on_tmp_download_response), dldata);
             gtk_widget_show (dialog);
