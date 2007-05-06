@@ -5,6 +5,11 @@
 	* src/gnome-cmd-user-actions.cc:
 	Yet another fix for diff tool
 
+	* plugins/python/Makefile.am:
+	* plugins/python/sha1sum/Makefile.am:
+	* plugins/python/sha1sum/sha1sum.py:
+	Addded SHA-1 plugin
+
 2007-05-01  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/data.cc:

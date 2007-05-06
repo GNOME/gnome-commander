@@ -5,7 +5,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.4">
   <!ENTITY manrevision "1.2.4">
-  <!ENTITY date "April 2007">
+  <!ENTITY date "May 2007">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -5160,7 +5160,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
     <tbody>
         <row valign="top">
             <entry><para>1.2.4</para></entry>
-            <entry><para>2007-04-??</para></entry>
+            <entry><para>2007-05-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -5195,10 +5195,13 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>Support for python plugins</para>
                         </listitem>
                         <listitem>
-                            <para>New python plugin:</para>
+                            <para>New python plugins:</para>
                             <itemizedlist>
                                 <listitem>
                                     <para><command>md5sum</command>   Create MD5 (128-bit) checksum</para>
+                                </listitem>
+                                <listitem>
+                                    <para><command>sha1sum</command>  Create SHA-1 (160-bit) checksum</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>

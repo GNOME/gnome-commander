@@ -399,6 +399,7 @@ plugins/cvs/Makefile
 plugins/fileroller/Makefile
 plugins/python/Makefile
 plugins/python/md5sum/Makefile
+plugins/python/sha1sum/Makefile
 plugins/test/Makefile
 po/Makefile.in
 src/Makefile
