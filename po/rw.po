@@ -1,4 +1,4 @@
-# translation of gnome-commander to Kinyarwanda.
+# translation of gnome-commander to Kinyarwanda
 # Copyright (C) 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-commander package.
 # Steve Murphy <murf@e-tools.com>, 2005

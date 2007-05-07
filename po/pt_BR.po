@@ -1,4 +1,4 @@
-# Brazilian Portuguese translation of gnome-commander.
+# Brazilian Portuguese translation of gnome-commander
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-commander package.
 # Robson Negreiros <kamusbr@bol.com.br>, 2004.

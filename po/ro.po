@@ -1,4 +1,4 @@
-# Romanian translation.
+# Romanian translation of gnome-commander
 # Copyright (C) 2006 THE gnome-commander's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
 # rem <(null)>, 2006.

@@ -1,4 +1,4 @@
-# Swedish translation of GNOME Commander
+# Swedish translation of gnome-commander
 # Copyright (C) 2002-2006 Free Software Foundation, Inc.
 # Daniel Nylander <po@danielnylander.se>, 2006.
 # Marcus Bjurman <marbj499@student.liu.se>, 2003.

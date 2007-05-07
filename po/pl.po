@@ -1,4 +1,4 @@
-# translation of pl.po to Polish
+# Polish translation of gnome-commander
 # Piotr Eljasiak <epiotr@use.pl>, 2002-2006.
 # Polish translation of GNOME Commander
 # Copyright (C) 2002, 2006 Free Software Foundation, Inc.

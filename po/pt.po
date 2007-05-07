@@ -1,4 +1,4 @@
-# gnome-commander's Portuguese translation.
+# Portuguese translation of gnome-commander
 # Copyright (C) 2003 gnome-commander
 # This file is distributed under the same license as the gnome-commander package.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2003.

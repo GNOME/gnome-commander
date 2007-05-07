@@ -1,6 +1,6 @@
 # gnome-commander.
 # Copyright (C) 2004 , Free Software Fundation, Inc
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the gnome-commander package.
 # Li Shaojie <storm-119@163.com>, 2004.
 #
 #: ../src/tags/gnome-cmd-tags.c:149 ../src/tags/gnome-cmd-tags.c:169

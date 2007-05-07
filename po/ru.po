@@ -1,4 +1,4 @@
-# translation of ru.po to Russian translation
+# Russian translation of gnome-commander
 # Copyright (C) YEAR Free Software Foundation, Inc
 # Victor Vislobokov <victor_v@permonline.ru>, 2002.
 # Pavlo Bohmat <bohm@ukr.net>, 2003
