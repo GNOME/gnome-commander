@@ -1,3 +1,7 @@
+2007-05-07  Allan Jäke <a.jaeke@web.de>
+
+	* de.po: Updated German translation.
+
 2007-04-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* POTFILES.in: Fixed invalid 'src/dirlist.cc.cc' entry
@@ -240,7 +244,7 @@
 2006-06-26  Daniel Nylander  <po@danielnylander.se>
 
         * sv.po: Updated Swedish translation.
-	
+
 2006-06-15  Hendrik Richter  <hendrikr@gnome.org>
 
 	* de.po: Updated German translation.
