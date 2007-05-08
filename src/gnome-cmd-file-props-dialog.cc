@@ -261,6 +261,12 @@ on_dialog_cancel (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 }
 
 
+static void on_dialog_help (GtkButton *button, GnomeCmdFilePropsDialogPrivate *data)
+{
+    gnome_cmd_help_display("gnome-commander.xml");
+}
+
+
 static void
 add_sep (GtkWidget *table, gint y)
 {
@@ -469,12 +475,9 @@ gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
         gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 1),
         gtk_label_new (_("Permissions")));
 
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL,
-        GTK_SIGNAL_FUNC (on_dialog_cancel), data);
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
-        GTK_SIGNAL_FUNC (on_dialog_ok), data);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_HELP, GTK_SIGNAL_FUNC (on_dialog_help), data);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_dialog_cancel), data);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_dialog_ok), data);
 
     return dialog;
 }
