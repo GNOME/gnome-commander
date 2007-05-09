@@ -248,7 +248,7 @@ static void on_dialog_cancel (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *da
 
 static void on_dialog_help (GtkButton *button, GnomeCmdFilePropsDialogPrivate *data)
 {
-    gnome_cmd_help_display("gnome-commander.xml");
+    gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-file-properties");
 }
 
 

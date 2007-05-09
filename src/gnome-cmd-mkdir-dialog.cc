@@ -115,7 +115,7 @@ static void class_init (GnomeCmdMkdirDialogClass *klass)
 
 static void init (GnomeCmdMkdirDialog *dialog)
 {
-    dialog->priv = g_new (GnomeCmdMkdirDialogPrivate, 1);
+    dialog->priv = g_new0 (GnomeCmdMkdirDialogPrivate, 1);
 }
 
 
@@ -136,7 +136,7 @@ GtkWidget *gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
         _("Make Directory"),
         labels,
         1,
-        (GnomeCmdStringDialogCallback)on_ok,
+        (GnomeCmdStringDialogCallback) on_ok,
         (GtkSignalFunc)on_cancel,
         dialog);
 

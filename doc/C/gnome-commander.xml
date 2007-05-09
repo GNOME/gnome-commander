@@ -105,7 +105,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.4;</revnumber>
-        <date>2007-04-??</date>
+        <date>2007-05-??</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -428,6 +428,65 @@
             </para>
         </listitem>
       </itemizedlist></para>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-select">
+        <title>Selecting Files and Folders</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-dnd">
+        <title>Drag-and-Drop</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-copy">
+        <title>Copying a File or Folder</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-move">
+        <title>Moving a File or Folder</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-rename">
+        <title>Renaming a File or Folder</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-delete">
+        <title>Deleting a File or Folder</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-create-folder">
+        <title>Creating a Folder</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-search">
+        <title>Searching For Files</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-symbolic-links">
+        <title>Creating a Symbolic Link to a File or Folder</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-file-properties">
+        <title>Viewing the Properties of a File or Folder</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-permissions">
+        <title>Changing Permissions</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-bookmarks">
+        <title>Using Bookmarks</title>
+    </sect2>
+    <!-- ================ XXX Subsection ======================= -->
+    <sect2 id="gnome-commander-hidden-files">
+        <title>Hidden Files</title>
+        <para>By default, &app; does not display certain system and backup files in folders. This prevents accidental modification or deletion of them, which  can impair the operation of your computer, and also reduces clutter in locations such as your Home Folder. &app; does not display:</para>
+        <itemizedlist>
+            <listitem><para>Hidden files, whose filename begins with a period (.),</para></listitem>
+            <listitem><para>Backup files, whose filename ends with a tilde (~)</para></listitem>
+            <listitem><para>Files that are listed in a particular folder's <filename>.hidden</filename> file.</para></listitem>
+        </itemizedlist>
+        <para>You may hide or show hidden files in a particular folder by selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</guimenuitem></menuchoice>.</para>
+    </sect2>
     <!-- ================ Advanced Rename Subsection ======================= -->
     <sect2 id="gnome-commander-advanced-rename">
         <title>Advanced file renaming</title>
