@@ -421,68 +421,300 @@
       perform the following tasks:
       <itemizedlist>
         <listitem>
+            <para><xref linkend="gnome-commander-select"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-dnd"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-copy"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-move"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-rename"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-delete"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-create-folder"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-search"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-symbolic-links"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-file-properties"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-permissions"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-bookmarks"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-hidden-files"/></para>
+        </listitem>
+        <listitem>
           <para><xref linkend="gnome-commander-advanced-rename"/></para>
         </listitem>
         <listitem>
-            <para><xref linkend="gnome-commander-internal-viewer"/>
-            </para>
+            <para><xref linkend="gnome-commander-internal-viewer"/></para>
         </listitem>
       </itemizedlist></para>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Selecting Files Subsection ======================= -->
     <sect2 id="gnome-commander-select">
         <title>Selecting Files and Folders</title>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Drag-and-Drop Subsection ======================= -->
     <sect2 id="gnome-commander-dnd">
         <title>Drag-and-Drop</title>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Copying Files Subsection ======================= -->
     <sect2 id="gnome-commander-copy">
         <title>Copying a File or Folder</title>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Moving Files Subsection ======================= -->
     <sect2 id="gnome-commander-move">
         <title>Moving a File or Folder</title>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Renaming Files Subsection ======================= -->
     <sect2 id="gnome-commander-rename">
         <title>Renaming a File or Folder</title>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Deleting Files Subsection ======================= -->
     <sect2 id="gnome-commander-delete">
         <title>Deleting a File or Folder</title>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Creating Folders Subsection ======================= -->
     <sect2 id="gnome-commander-create-folder">
         <title>Creating a Folder</title>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Searching Subsection ======================= -->
     <sect2 id="gnome-commander-search">
         <title>Searching For Files</title>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Symbolic Links Subsection ======================= -->
     <sect2 id="gnome-commander-symbolic-links">
         <title>Creating a Symbolic Link to a File or Folder</title>
+        <para>A symbolic link is a special type of file that points to another file or folder.
+        When you perform an action on a symbolic link, the action is performed
+        on the file or folder to which the symbolic link points.
+        However, when you delete a symbolic link, you delete the link file,
+        not the file to which the symbolic link points.</para>
+
+        <para>To create a symbolic link to a file or folder, select the file or folder
+        to which you want to create a link.
+        Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Create Symbolic Link</guimenuitem></menuchoice>.
+        A link to the file or folder is added to the current folder. </para>
+
+        <para>Alternatively, grab the item to which you want to create a link, then
+        press-and-hold <keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap></keycombo>.
+        Drag the item to the location where you want to place the link.</para>
+
+        <note>
+            <para>The permissions of a symbolic link are determined by the file
+            or folder to which a symbolic link points.</para>
+        </note>
+
+        <tip><para>For more on dragging items, see <xref linkend="gnome-commander-dnd"/>.</para></tip>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ File Properties Subsection ======================= -->
     <sect2 id="gnome-commander-file-properties">
         <title>Viewing the Properties of a File or Folder</title>
+      <para>To view the properties of a file or folder, perform the following steps:</para>
+      <orderedlist>
+        <listitem>
+          <para>Select the file or folder whose properties you want to view. </para>
+        </listitem>
+        <listitem>
+          <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties...</guimenuitem></menuchoice>. A properties dialog is displayed.</para>
+        </listitem>
+      </orderedlist>
+      <tip>
+      <para>On the Permissions tab (see Figure xxx), you can change the permissions and ownership of a file
+      (that is, if you have the right permissions yourself).
+      You can change the read, write, and execute settings for a file.
+      For more information on permissions, see Chapter xxx.</para>
+      </tip>
+
+      <para>The following table lists the properties that you can view or set for files and folders,
+      the exact information shown depends on the object type:</para>
+      <informaltable frame="topbot">
+        <tgroup cols="2" colsep="0" rowsep="0">
+          <colspec colwidth="27.27*"/>
+          <colspec colwidth="72.73*"/>
+          <thead>
+            <row rowsep="1">
+              <entry>
+                <para>Property</para>
+              </entry>
+              <entry>
+                <para>Description</para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry valign="top">
+                <para>Name</para>
+              </entry>
+              <entry valign="top">
+                <para>The name of the file or folder.</para>
+              </entry>
+            </row>
+            <row>
+              <entry valign="top">
+                <para>Type</para>
+              </entry>
+              <entry valign="top">
+                <para>The type of object, file or folder.</para>
+              </entry>
+            </row>
+,            <row>
+              <entry valign="top">
+                <para>MIME Type</para>
+              </entry>
+              <entry valign="top">
+                <para>The official naming of the type of file.</para>
+              </entry>
+            </row>
+            <row>
+              <entry valign="top">
+                <para>Modified</para>
+              </entry>
+              <entry valign="top">
+                <para>The date and time at which the object was last changed.</para>
+              </entry>
+            </row>
+            <row>
+              <entry valign="top">
+                <para>Accessed</para>
+              </entry>
+              <entry valign="top">
+                <para>The date and time at which the object was last viewed.</para>
+              </entry>
+            </row>
+            <row>
+              <entry valign="top">
+                <para>Size</para>
+              </entry>
+              <entry valign="top">
+                <para>The amount of data occupied by object, file or folder.</para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Permissions Subsection ======================= -->
     <sect2 id="gnome-commander-permissions">
         <title>Changing Permissions</title>
+
+    <para>To change the permissions of a file, perform the following steps:</para>
+    <orderedlist>
+        <listitem>
+            <para>Select the file that you want to change. </para>
+        </listitem>
+        <listitem>
+            <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties</guimenuitem></menuchoice>. The <link linkend="gnome-commander-properties">properties window</link> for the item is displayed.</para>
+        </listitem>
+        <listitem>
+            <para>Click on the <guilabel>Permissions</guilabel> tab.</para>
+        </listitem>
+        <listitem>
+            <para>To change the file's group, choose from the groups the user belongs to in the drop-down selector.</para>
+        </listitem>
+        <listitem>
+            <para>For each of the owner, the group, and all other users, choose from these permissions for the file:</para>
+        <variablelist>
+        <varlistentry><term>None</term>
+        <listitem>
+            <para>No access to the file is possible. (You can't set this for the owner.)</para>
+        </listitem>
+        </varlistentry>
+        <varlistentry><term>Read-only</term>
+        <listitem>
+            <para>The users can open a file to see its contents, but not make any changes.</para>
+        </listitem>
+        </varlistentry>
+        <varlistentry><term>Read and write</term>
+        <listitem>
+            <para>Normal access to a file is possible: it can be opened and saved.</para>
+        </listitem>
+        </varlistentry>
+        </variablelist>
+        </listitem>
+        <listitem>
+            <para>To allow a file to be run as a program, select <guilabel>Execute</guilabel></para>
+        </listitem>
+    </orderedlist>
+
+    <sect3 id="gnome-commander-permissions-folder">
+    <title>Changing Permissions for a Folder</title>
+
+    <para>To change the permissions of a folder, perform the following steps:</para>
+    <orderedlist>
+      <listitem>
+        <para>Select the folder that you want to change. </para>
+      </listitem>
+      <listitem>
+        <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties</guimenuitem></menuchoice>. The <link linkend="gnome-commander-properties">properties window</link> for the item is displayed.</para>
+      </listitem>
+      <listitem>
+        <para>Click on the <guilabel>Permissions</guilabel> tab.</para>
+      </listitem>
+      <listitem>
+        <para>To change the folder's group, choose from the groups the user belongs to in the drop-down selector.</para>
+      </listitem>
+      <listitem>
+        <para>For each of the owner, the group, and all other users, choose from these folder access permissions:</para>
+        <variablelist>
+          <varlistentry><term>None</term>
+            <listitem>
+              <para>No access to the folder is possible. (You can't set this for the owner.)</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry><term>List files only</term>
+            <listitem>
+              <para>The users can see the items in the folder, but not open any of them.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry><term>Access files</term>
+            <listitem>
+              <para>Items in the folder can be opened and modified, provided their own permissions allow it.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry><term>Create and delete files</term>
+            <listitem>
+              <para>The user can create new files and delete files in the folder, in addition to being able to access existing files.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </listitem>
+    </orderedlist>
+
+    <para>To set permissions for all the items contained in a folder, set the <guilabel>File Access</guilabel> and <guilabel>Execute</guilabel> properties and click on <guibutton>Apply permissions to enclosed files</guibutton>.</para>
+  </sect3>
+
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Bookmarks Subsection ======================= -->
     <sect2 id="gnome-commander-bookmarks">
         <title>Using Bookmarks</title>
     </sect2>
-    <!-- ================ XXX Subsection ======================= -->
+    <!-- ================ Hidden Files Subsection ======================= -->
     <sect2 id="gnome-commander-hidden-files">
         <title>Hidden Files</title>
-        <para>By default, &app; does not display certain system and backup files in folders. This prevents accidental modification or deletion of them, which  can impair the operation of your computer, and also reduces clutter in locations such as your Home Folder. &app; does not display:</para>
+        <para>By default, &app; does not display certain system and backup files in folders.
+        This prevents accidental modification or deletion of them, which can impair the operation of your computer,
+        and also reduces clutter in locations such as your Home Folder. &app; does not display:</para>
         <itemizedlist>
             <listitem><para>Hidden files, whose filename begins with a period (.),</para></listitem>
-            <listitem><para>Backup files, whose filename ends with a tilde (~)</para></listitem>
+            <listitem><para>Backup files, whose filename ends with a tilde (~) or with extension '.bak'</para></listitem>
             <listitem><para>Files that are listed in a particular folder's <filename>.hidden</filename> file.</para></listitem>
         </itemizedlist>
         <para>You may hide or show hidden files in a particular folder by selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</guimenuitem></menuchoice>.</para>
@@ -3003,7 +3235,7 @@
         <menuchoice>
           <guimenu>Settings</guimenu>
           <guimenuitem>Options...</guimenuitem>
-        </menuchoice>) or <keycap>SHIFT+F3</keycap> (internal viewer). The internal viewer
+        </menuchoice>) or <keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo> (internal viewer). The internal viewer
         uses MMAP whenever possible for the fastest file loading.</para>
 
         <sect3 id="gnome-commander-internal-viewer-modes">
@@ -3157,48 +3389,48 @@
         </thead>
         <tbody>
         <row valign="top">
-        <entry><para>Escape</para><para>CTRL+W</para></entry>
+        <entry><para>Escape</para><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo></entry>
         <entry><para>Closes the internal viewer window</para></entry>
         </row>
         <row valign="top">
-        <entry><para>W</para></entry>
+        <entry><keycombo><keycap>W</keycap></keycombo></entry>
         <entry><para>Toggles line wrapping (applicable only in text display modes)</para></entry>
         </row>
         <row valign="top">
         <entry><para>Input Modes:</para></entry>
         </row>
         <row valign="top">
-        <entry><para>A</para></entry>
+        <entry><keycombo><keycap>A</keycap></keycombo></entry>
         <entry><para>Sets ASCII input mode. When in ASCII mode, you can also set the required character encoding
         from the "View|Character Encoding" submenu</para></entry>
         </row>
         <row valign="top">
-        <entry><para>Q</para></entry>
+        <entry><keycombo><keycap>Q</keycap></keycombo></entry>
         <entry><para>Sets ASCII input mode, with codepage 437 encoding (suitable for binary and hex mode viewing)</para></entry>
         </row>
         <row valign="top">
-        <entry><para>U</para></entry>
+        <entry><keycombo><keycap>U</keycap></keycombo></entry>
         <entry><para>Sets UTF-8 input mode</para></entry>
         </row>
         <row valign="top">
         <entry><para>Display modes:</para></entry>
         </row>
         <row valign="top">
-        <entry><para>1</para></entry>
+        <entry><keycombo><keycap>1</keycap></keycombo></entry>
         <entry><para>Sets display mode to text, with fixed width font</para></entry>
         </row>
         <row valign="top">
-        <entry><para>2</para></entry>
+        <entry><keycombo><keycap>2</keycap></keycombo></entry>
         <entry><para>Sets display mode to binary. Switching to Binary display mode
         will automatically set ASCII input mode (UTF-8 is not supported with binary display)</para></entry>
         </row>
         <row valign="top">
-        <entry><para>3</para></entry>
+        <entry><keycombo><keycap>3</keycap></keycombo></entry>
         <entry><para>Sets display mode to hex dump. Switching to hex display mode
         will automatically set ASCII input mode (UTF-8 is not supported with hex dump display)</para></entry>
         </row>
         <row valign="top">
-        <entry><para>4</para></entry>
+        <entry><keycombo><keycap>4</keycap></keycombo></entry>
         <entry><para>Tries to load the file as an image. Loading is done using GDK,
         so every GDK-supported format should work.</para></entry>
         </row>
@@ -3206,33 +3438,33 @@
         <entry><para>Zooming:</para></entry>
         </row>
         <row valign="top">
-        <entry><para>CTRL++</para></entry>
+        <entry><keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo></entry>
         <entry><para>Zooms in or increment the font size</para></entry>
         </row>
         <row valign="top">
-        <entry><para>CTRL+-</para></entry>
+        <entry><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo></entry>
         <entry><para>Zooms out or decrement the font size</para></entry>
         </row>
         <row valign="top">
-        <entry><para>CTRL+0</para></entry>
+        <entry><keycombo><keycap>CTRL</keycap><keycap>0</keycap></keycombo></entry>
         <entry><para>Sets normal size</para></entry>
         </row>
         <row valign="top">
         <entry><para>Image manipulation:</para></entry>
         </row>
         <row valign="top">
-        <entry><para>CTRL+R</para></entry>
+        <entry><keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo></entry>
         <entry><para>Rotates the image 90&#x00b0; (applicable only in IMAGE display mode)</para></entry>
         </row>
         <row valign="top">
-        <entry><para>CTRL+SHIFT+R</para></entry>
+        <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>R</keycap></keycombo></entry>
         <entry><para>Rotates the image 270&#x00b0; (applicable only in IMAGE display mode)</para></entry>
         </row>
         <row valign="top">
         <entry><para>Image manipulation:</para></entry>
         </row>
         <row valign="top">
-        <entry><para>CTRL+S</para></entry>
+        <entry><keycombo><keycap>CTRL</keycap><keycap>S</keycap></keycombo></entry>
         <entry>
             <para>Saves the current window size, input mode, and other settings as the default.</para>
             <note><para>Starting display mode is determined by the file's content, and is not saved as a user setting.</para></note>
@@ -3506,106 +3738,17 @@
       </varlistentry>
     </variablelist>
       </sect3>
-      <sect3 id="gnome-commander-viewer-prefs-full-screen">
-    <title>Full Screen</title>
-    <para>The
-      <guilabel>Full Screen</guilabel> group contains the preferences that
-      you can set to view images in full screen mode.</para>
-    <variablelist>
-      <varlistentry>
-        <term>
-          <guilabel>Use scrollbars</guilabel></term>
-        <listitem>
-          <para>Use this drop-down list box to specify when to use
-        scrollbars to scroll through an image. Select one of the following
-        options:</para>
-          <itemizedlist>
-        <listitem>
-          <para>
-            <guilabel>Never</guilabel></para>
-          <para>This option never displays scrollbars. You can use the
-            arrow keys on the keyboard or the mouse to scroll
-            through the image. </para>
-        </listitem>
-        <listitem>
-          <para>
-            <guilabel>Only if image does not fit</guilabel></para>
-          <para>This option displays scrollbars when the image is
-            larger than the full screen. </para>
-        </listitem>
-          </itemizedlist>
-          <para>Default:
-        <guilabel>Never</guilabel>.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>Use 1:1 zoom factor</guilabel></term>
-        <listitem>
-          <para>Select this option to use the 1:1 zoom factor when you open
-        an image. The 1:1 zoom factor displays the image at
-        its actual size. </para>
-          <para>Default: selected.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>Use same zoom factor as image window</guilabel></term>
-
-        <listitem>
-          <para>Select this option to use the same zoom factor that the
-        application uses to display the image in an image
-          window. </para>
-          <para>Default: unselected.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>Fit all images to screen</guilabel></term>
-        <listitem>
-          <para>Select this option to resize images to fill the full screen
-        when you open the images in full screen mode. </para>
-          <para>Default: unselected.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>Fit standard-sized images to screen</guilabel></term>
-        <listitem>
-          <para>Select this option to automatically resize images
-        that are the same size as standard screens so that the
-        images fill the full screen when you open them in full
-        screen mode. If you select this option, &app; ignores
-        the settings for the previous three options when you
-        open an image that is the same size as a standard
-        screen.  Examples of standard screen sizes are 640 x
-        480 pixels, 1024 x 768 pixels, and so on. </para>
-          <para>Default: unselected.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>Put a bevel around the edge of the screen</guilabel>
-        </term>
-        <listitem>
-          <para>Select this option to display a 3D beveled border around
-        the full screen view of an image. </para>
-          <para>Default: unselected.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-      </sect3>
     </sect2>
   </sect1>
 
 <!-- ============= Keyboard shortcuts ===================== -->
 <!-- This section contains info about the keyboard mappings.-->
   <sect1 id="gnome-commander-keyboard">
-    <title>Keyboard mappings for &app;</title>
+    <title>Keyboard mappings</title>
         <note>
           <para>Some keyboard shortcuts may not work as expected under the Gnome
                 environment. The reason for that is that Gnome uses some global
-                shortcuts (i.e. <keycap>ALT+F7</keycap> moves the entire application window),
+                shortcuts (i.e. <keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo> moves the entire application window),
                 which suppresses assigned keyboard mapping of &app;. Use the GNOME
                 Keyboard Shortcuts preference tool to customize the default keyboard
                 shortcuts to your requirements.</para>
@@ -3623,52 +3766,52 @@
         </thead>
         <tbody>
         <row valign="top">
-            <entry><para>F1</para></entry>
+            <entry><para><keycombo><keycap>F1</keycap></keycombo></para></entry>
             <entry><para>Help</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>F2</para></entry>
+            <entry><para><keycombo><keycap>F2</keycap></keycombo></para></entry>
             <entry><para>Refresh files in the active file list</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>F3</para></entry>
+            <entry><para><keycombo><keycap>F3</keycap></keycombo></para></entry>
             <entry><para>View files</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>F4</para></entry>
+            <entry><para><keycombo><keycap>F4</keycap></keycombo></para></entry>
             <entry><para>Edit files</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>F5</para></entry>
+            <entry><para><keycombo><keycap>F5</keycap></keycombo></para></entry>
             <entry><para>Copy files</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>F6</para></entry>
+            <entry><para><keycombo><keycap>F6</keycap></keycombo></para></entry>
             <entry><para>Rename or move files</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>F7</para></entry>
+            <entry><para><keycombo><keycap>F7</keycap></keycombo></para></entry>
             <entry><para>Create directory</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>F8</para></entry>
+            <entry><para><keycombo><keycap>F8</keycap></keycombo></para></entry>
             <entry><para>Delete files</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>F9</para></entry>
+            <entry><para><keycombo><keycap>F9</keycap></keycombo></para></entry>
             <entry><para>Search</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>F10</para></entry>
+            <entry><para><keycombo><keycap>F10</keycap></keycombo></para></entry>
             <entry><para>Quit</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3693,17 +3836,17 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+F3</para></entry>
+            <entry><keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo></entry>
             <entry><para>View with external viewer</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+F7</para></entry>
+            <entry><keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo></entry>
             <entry><para>Search</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+F8</para></entry>
+            <entry><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></entry>
             <entry><para>Open the history list for the command line</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3713,27 +3856,27 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>SHIFT+F2</para></entry>
+            <entry><keycombo><keycap>SHIFT</keycap><keycap>F2</keycap></keycombo></entry>
             <entry><para>Compare directories</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>SHIFT+F3</para></entry>
+            <entry><keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo></entry>
             <entry><para>View with internal viewer</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>SHIFT+F4</para></entry>
+            <entry><keycombo><keycap>SHIFT</keycap><keycap>F4</keycap></keycombo></entry>
             <entry><para>Edit a new file</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>SHIFT+F5</para></entry>
+            <entry><keycombo><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></entry>
             <entry><para>Make a copy a file in the current directory.</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>SHIFT+F6</para></entry>
+            <entry><keycombo><keycap>SHIFT</keycap><keycap>F6</keycap></keycombo></entry>
             <entry><para>Rename a file</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3748,27 +3891,27 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+F3</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>F3</keycap></keycombo></entry>
             <entry><para>Sort by name</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+F4</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>F4</keycap></keycombo></entry>
             <entry><para>Sort by extension</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+F5</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>F5</keycap></keycombo></entry>
             <entry><para>Sort by date/time</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+F6</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>F6</keycap></keycombo></entry>
             <entry><para>Sort by size</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+F7</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>F7</keycap></keycombo></entry>
             <entry><para>Unsorted</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3788,7 +3931,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>=</para></entry>
+            <entry><keycombo><keycap>=</keycap></keycombo></entry>
             <entry><para>Select files using a pattern</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3813,12 +3956,12 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+=</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo></entry>
             <entry><para>Select all files</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+-</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo></entry>
             <entry><para>Unselect all files</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3838,7 +3981,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>BACKSPACE</para><para>LEFT</para><para>CTRL+PageUp</para></entry>
+            <entry><para>BACKSPACE</para><para><keycombo><keycap></keycap></keycombo></para><para>CTRL+PageUp</para></entry>
             <entry><para>Change to parent directory (cd ..)</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3863,7 +4006,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>RIGHT</para><para>CTRL+PageDown</para></entry>
+            <entry><para><keycombo><keycap></keycap></keycombo></para><para>CTRL+PageDown</para></entry>
             <entry><para>Change directory</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3888,12 +4031,12 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+\</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>\</keycap></keycombo></entry>
             <entry><para>Go to the root directory</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+`</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo></entry>
             <entry><para>Go to the home directory</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3950,17 +4093,17 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+C</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>C</keycap></keycombo></entry>
             <entry><para>Copy files to clipboard (not a global one yet)</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+X</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>X</keycap></keycombo></entry>
             <entry><para>Cut files to clipboard (not a global one yet)</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+V</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>V</keycap></keycombo></entry>
             <entry><para>Paste from clipboard to current dir (not a global one yet)</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3970,27 +4113,27 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+A</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></entry>
             <entry><para>Select all files</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+SHIFT+A</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo></entry>
             <entry><para>Unselect all files</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+D</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo></entry>
             <entry><para>Open favorite directories (bookmarks)</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+M</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo></entry>
             <entry><para>Multi-Rename-Tool</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+T</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></entry>
             <entry><para>Multi-Rename-Tool</para></entry>
             <entry><para>yes</para></entry>
         </row>
@@ -4000,22 +4143,22 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>TAB</para></entry>
+            <entry><para><keycombo><keycap></keycap></keycombo></para></entry>
             <entry><para>Switch between left and right file list</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+U</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>U</keycap></keycombo></entry>
             <entry><para>Switch between left and right file list</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+.</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo></entry>
             <entry><para>Copy the current working directory from the inactive file list to the active one</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+SHIFT+.</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></keycombo></entry>
             <entry><para>Copy the current working directory from the active file list to the inactive one</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4025,22 +4168,22 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+R</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo></entry>
             <entry><para>Refresh the active file list</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+O</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>O</keycap></keycombo></entry>
             <entry><para>Options dialog</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+SHIFT+H</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></keycombo></entry>
             <entry><para>Toggle hidden files on/off</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+SHIFT+=</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></entry>
             <entry><para>Set both panels equal</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4050,17 +4193,17 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+G</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>G</keycap></keycombo></entry>
             <entry><para>FTP Quick Connect</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+F</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo></entry>
             <entry><para>Connect to FTP server</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+SHIFT+F</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F</keycap></keycombo></entry>
             <entry><para>Disconnect from FTP server</para></entry>
             <entry><para>yes</para></entry>
         </row>
@@ -4070,7 +4213,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+5</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo></entry>
             <entry><para>Create MD5 (128-bit) checksum</para></entry>
             <entry><para>yes</para></entry>
         </row>
@@ -4090,32 +4233,32 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>Letter</para></entry>
+            <entry><para><keycombo><keycap></keycap></keycombo></para></entry>
             <entry><para>Redirect to command line, cursor jumps to command line</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ESC</para></entry>
+            <entry><para><keycombo><keycap></keycap></keycombo></para></entry>
             <entry><para>Clear the command line</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+K</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>K</keycap></keycombo></entry>
             <entry><para>Delete to the end of line</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+W</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>W</keycap></keycombo></entry>
             <entry><para>Delete the word to the left of the cursor</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+T</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></entry>
             <entry><para>Delete the word to the right of the cursor</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+P</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>P</keycap></keycombo></entry>
             <entry><para>The full path of the current directory is added to the command line</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4135,7 +4278,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+DOWN</para><para>ALT+F8</para></entry>
+            <entry><para>CTRL+DOWN</para><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></entry>
             <entry><para>A list with the latest command lines (history list) is opened. Use the UP and DOWN cursor keys to select an entry.
             By pressing the LEFT or RIGHT key, you can edit the command line. This automatically closes the list</para></entry>
             <entry><para></para></entry>
@@ -4149,6 +4292,23 @@
 <!-- This section contains info about the python plugins.-->
   <sect1 id="gnome-commander-python-plugins">
     <title>Python plugins</title>
+      <itemizedlist>
+        <listitem>
+            <para><xref linkend="gnome-commander-python-plugins-working-with"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-python-plugins-api"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-python-plugins-sample-plugin"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-python-plugins-resources"/></para>
+        </listitem>
+        <listitem>
+            <para><xref linkend="gnome-commander-python-plugins-md5sum"/></para>
+        </listitem>
+      </itemizedlist>
         <sect2 id="gnome-commander-python-plugins-working-with">
             <title>Working with plugins</title>
             <para>You can add extra features to &app; by enabling plugins.
@@ -4165,7 +4325,10 @@
             <itemizedlist>
                 <listitem>
                     <para><xref linkend="gnome-commander-python-plugins-md5sum"/>
-                    allows you to create  MD5 (128-bit) checksums of the selected files</para>
+                    allows to create MD5 (128-bit) checksums of the selected files</para>
+                </listitem>
+                <listitem>
+                    <para>sha1sum plugin allows to create SHA-1 (160-bit) checksums of the selected files</para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -4308,7 +4471,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
 <!-- ============= Tips and tricks ======================== -->
 <!-- This section contains info some very simple tips and tricks.-->
   <sect1 id="gnome-commander-tips-and-tricks">
-  <title>Tips and tricks for &app;</title>
+  <title>Tips and tricks</title>
   <para>Some very simple tips and tricks on using and getting the most out of &app;.</para>
 
   <variablelist>
@@ -4473,7 +4636,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
 <!-- ============= Configuration files ==================== -->
 <!-- This section contains info about the program configuration files.-->
   <sect1 id="gnome-commander-configuration-files">
-    <title>&app; configuration files</title>
+    <title>Configuration files</title>
     <para>This section gives an overview of the configuration files used by &app;:
     </para>
     <variablelist>
@@ -5295,13 +5458,13 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycap>CTRL+\</keycap>   Go to the root directory</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>\</keycap></keycombo>   Go to the root directory</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>CTRL+`</keycap>   Go to the home directory</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo>   Go to the home directory</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>CTRL+5</keycap>   Create MD5 (128-bit) checksum</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo>   Create MD5 (128-bit) checksum</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>
@@ -5366,7 +5529,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycap>CTRL+SHIFT+=</keycap>   Set both panels equal</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo>   Set both panels equal</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>
@@ -5438,7 +5601,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycap>CTRL+SHIFT+H</keycap>   Toggle hidden files on/off</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></keycombo>   Toggle hidden files on/off</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>
@@ -5519,16 +5682,16 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycap>SHIFT+F3</keycap>       Internal viewer</para>
+                                    <para><keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo>       Internal viewer</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>ALT+F3</keycap>         External viewer</para>
+                                    <para><keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo>         External viewer</para>
                                 </listitem>
                                 <listitem>
                                     <para><keycap>ALT+letters</keycap>    Quick search</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>CTRL+SHIFT+A</keycap>   Deselecting all files</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo>   Deselecting all files</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>
@@ -5599,16 +5762,16 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycap>SHIFT+M</keycap>        Multi-Rename-Tool</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo>        Multi-Rename-Tool</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>CTRL+SHIFT+.</keycap>   Copying the current working directory from the active file list to the inactive one</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></keycombo>   Copying the current working directory from the active file list to the inactive one</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>CTRL+=</keycap>         Select all files</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo>         Select all files</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>CTRL+-</keycap>         Unselect all files</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo>         Unselect all files</para>
                                 </listitem>
                                 <listitem>
                                     <para><keycap>=</keycap>              Select files using a pattern</para>
@@ -5674,7 +5837,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                     <para><keycap>SHIFT+F10</keycap>      Bring up the file context menu (the windows menu key also works)</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycap>CTRL+.</keycap>         Copy the current working directory from the inactive file list to the active one</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo>         Copy the current working directory from the inactive file list to the active one</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>
