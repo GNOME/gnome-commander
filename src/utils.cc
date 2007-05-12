@@ -533,7 +533,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
             if (gnome_cmd_file_mime_begins_with (finfo, "text/"))
             {
                 gchar *fname = get_utf8 (finfo->info->name);
-                gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display it's contents?"), fname);
+                gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display its contents?"), fname);
                 gint ret = run_simple_dialog (
                     GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
                     -1, _("Cancel"), _("Display"), _("Run"), NULL);

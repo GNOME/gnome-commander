@@ -464,7 +464,7 @@ init (GnomeCmdDirIndicator *indicator)
     //  indicator->priv->slashPixelPosition = NULL;
     //  indicator->priv->numPositions = 0;
 
-    // create the directory label and it's event box
+    // create the directory label and its event box
     indicator->priv->event_box = gtk_event_box_new ();
     gtk_widget_ref (indicator->priv->event_box);
     gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "motion_notify_event",
