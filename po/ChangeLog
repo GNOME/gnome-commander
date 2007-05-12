@@ -1,3 +1,11 @@
+2007-05-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* LINGUAS: Added missing oc.
+
+2007-05-12  Yannig Marchegay  <yannig@marchegay.org>
+
+	* oc.po: Added Occitan translation.
+
 2007-05-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* ar.po: Added missing "Plural-Forms"
