@@ -108,7 +108,7 @@ inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
     if (e1.keyval > e2.keyval)
         return false;
 
-    return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK));
+    return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK));
 }
 
 
@@ -119,6 +119,7 @@ inline string key2str(guint state, guint key_val)
     if (state & GDK_SHIFT_MASK)    key_name += "<shift>";
     if (state & GDK_CONTROL_MASK)  key_name += "<control>";
     if (state & GDK_MOD1_MASK)     key_name += "<alt>";
+    if (state & GDK_MOD4_MASK)     key_name += "<win>";
 
     if (g_ascii_isalnum (key_val))
         key_name += g_ascii_tolower (key_val);
@@ -152,6 +153,10 @@ inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
     if (strstr (s, "<shift>"))    state |= GDK_SHIFT_MASK;
     if (strstr (s, "<control>"))  state |= GDK_CONTROL_MASK;
     if (strstr (s, "<alt>"))      state |= GDK_MOD1_MASK;
+    if (strstr (s, "<win>"))      state |= GDK_MOD4_MASK;
+
+    if (strstr (s, "<mod1>"))      state |= GDK_MOD1_MASK;
+    if (strstr (s, "<mod4>"))      state |= GDK_MOD4_MASK;
 
     GdkEventKey event;
 
@@ -421,7 +426,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     GdkEventKey event;
 
     event.keyval = keyval;
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK);
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
 
     if (action.find(event)!=action.end())
         return FALSE;
@@ -445,7 +450,7 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK);
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
 
     map <GdkEventKey, UserAction>::iterator pos = action.find(event);
 
@@ -474,7 +479,7 @@ gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
-    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK);
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
 
     return action.find(event)!=action.end();
 }

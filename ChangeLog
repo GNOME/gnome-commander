@@ -1,3 +1,10 @@
+2007-05-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/useractions.cc:
+	Added <win> modifier for winkey
+	Added added aliases <mod1> and <mod4> 
+	for respectively <alt> and <win> modifiers
+
 2007-05-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.c:
