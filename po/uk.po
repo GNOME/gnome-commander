@@ -6071,7 +6071,7 @@ msgstr "Зробити виконуваним?"
 #: ../src/utils.c:615
 #, c-format
 msgid ""
-"\"%s\" is an executable text file. Do you want to run it, or display it's "
+"\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
 "\"%s\" є текстовим файлом з встановленим бітом виконання. Хочете його "

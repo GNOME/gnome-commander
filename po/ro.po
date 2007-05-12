@@ -6058,7 +6058,7 @@ msgstr "Transform in executabil?"
 #: ../src/utils.c:615
 #, c-format
 msgid ""
-"\"%s\" is an executable text file. Do you want to run it, or display it's "
+"\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
 "\"%s\" este un fisier text executabil. Vrei sa-l executi sau sa afisezi "

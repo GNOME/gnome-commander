@@ -6345,7 +6345,7 @@ msgstr "Desitgeu fer-lo executable?"
 #: ../src/utils.c:615
 #, c-format
 msgid ""
-"\"%s\" is an executable text file. Do you want to run it, or display it's "
+"\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
 "\"%s\" és un fitxer de text executable. Voleu executar-lo o visualitzar el "

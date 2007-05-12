@@ -5644,7 +5644,7 @@ msgstr "ལག་ལེན་འཐབ་བཏུབ་བཟོ་ནི་ཨ
 
 #: ../src/utils.cc:550
 #, c-format
-msgid "\"%s\" is an executable text file. Do you want to run it, or display it's contents?"
+msgid "\"%s\" is an executable text file. Do you want to run it, or display its contents?"
 msgstr "\"%s\" འདི་ལག་ལེན་འཐབ་བཏུབ་པའི་ཚིག་ཡིག་ཡིག་སྣོད་ཅིག་ཨིན། ཁྱོད་ཀྱིས་འདི་གཡོག་བཀོལ་ནི་ཡང་ན་འདིའི་ནང་དོན་བཀྲམ་སྟོན་འབད་ནི་ཨིན་ན?"
 
 #: ../src/utils.cc:552
