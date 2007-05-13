@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem with opening dirs by intviewer
  * Fixed problem with editing dirs by gcmd
  * Fixed problem #351952 (crash while doing a content search)
+ * Fixed problem #352253 (scrolling behaviour of the viewer)
  * Fixed problem #360175 (crash while entering a dir with %)
  * Fixed problem #371948 and #388970 (file path not escaped)
  * Fixed problem #412162 (build with --enable-python=no)

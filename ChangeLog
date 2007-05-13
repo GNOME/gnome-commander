@@ -1,8 +1,13 @@
+2007-05-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/libgviewer/text-render.c:
+	Fixed bug #352253 (scrolling behaviour of the viewer)
+
 2007-05-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/useractions.cc:
 	Added <win> modifier for winkey
-	Added added aliases <mod1> and <mod4> 
+	Added added aliases <mod1> and <mod4>
 	for respectively <alt> and <win> modifiers
 
 2007-05-08  Piotr Eljasiak  <epiotr@use.pl>

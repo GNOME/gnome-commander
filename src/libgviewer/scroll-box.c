@@ -126,12 +126,10 @@ static void scroll_box_init (ScrollBox *w)
 
 static void scroll_box_destroy (GtkObject *widget)
 {
-    ScrollBox *w;
-
     g_return_if_fail (widget!= NULL);
     g_return_if_fail (IS_SCROLL_BOX (widget));
 
-    w = SCROLL_BOX (widget);
+    ScrollBox *w = SCROLL_BOX (widget);
 
     if (w->priv)
     {
@@ -159,13 +157,11 @@ GtkRange *scroll_box_get_v_range(ScrollBox *obj)
 
 static gboolean scroll_box_button_press(GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-    ScrollBox *w;
-
     g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_SCROLL_BOX (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
-    w = SCROLL_BOX (widget);
+    ScrollBox *w = SCROLL_BOX (widget);
 
     return FALSE;
 }
@@ -193,7 +189,7 @@ void scroll_box_set_client (ScrollBox *obj, GtkWidget *client)
 }
 
 
-GtkWidget     *scroll_box_get_client (ScrollBox *obj)
+GtkWidget *scroll_box_get_client (ScrollBox *obj)
 {
     g_return_val_if_fail (obj!= NULL, NULL);
     g_return_val_if_fail (IS_SCROLL_BOX (obj), NULL);

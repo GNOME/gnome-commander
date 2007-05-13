@@ -5397,6 +5397,9 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                             <para>Fixed problem #351952 (crash while doing a content search)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #352253 (scrolling behaviour of the viewer)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #360175 (crash while entering a dir with %)</para>
                         </listitem>
                         <listitem>

@@ -630,11 +630,11 @@ static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event)
     switch(event->direction)
     {
         case GDK_SCROLL_UP:
-            w->priv->current_offset = gv_scroll_lines(w->priv->dp, w->priv->current_offset, -1);
+            w->priv->current_offset = gv_scroll_lines(w->priv->dp, w->priv->current_offset, -4);
             break;
 
         case GDK_SCROLL_DOWN:
-            w->priv->current_offset = gv_scroll_lines(w->priv->dp, w->priv->current_offset, 1);
+            w->priv->current_offset = gv_scroll_lines(w->priv->dp, w->priv->current_offset, 4);
             break;
 
         default:
@@ -1006,16 +1006,16 @@ static gboolean text_render_vscroll_change_value(GtkRange *range,
     if (!obj->priv->dp)
         return FALSE;
 
-    switch(scroll)
+    switch (scroll)
     {
         case GTK_SCROLL_STEP_BACKWARD:
             obj->priv->current_offset =
-                gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, -1);
+                gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, -4);
             break;
 
         case GTK_SCROLL_STEP_FORWARD:
             obj->priv->current_offset =
-                gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, 1);
+                gv_scroll_lines(obj->priv->dp, obj->priv->current_offset, 4);
             break;
 
         case GTK_SCROLL_PAGE_BACKWARD:
@@ -1033,12 +1033,12 @@ static gboolean text_render_vscroll_change_value(GtkRange *range,
         case GTK_SCROLL_JUMP:
         default:
             return FALSE;
-          }
+    }
 
-        text_render_position_changed(obj);
-        text_render_redraw(obj);
+    text_render_position_changed(obj);
+    text_render_redraw(obj);
 
-        return TRUE;
+    return TRUE;
 }
 
 
