@@ -1,3 +1,7 @@
+2007-05-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* pl.po: Updated Polish translation.
+
 2007-05-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* LINGUAS: Added missing oc.
@@ -18,15 +22,15 @@
 
 	* POTFILES.in: Fixed invalid 'src/dirlist.cc.cc' entry
 
-2007-04-21  Djihed Afifi <djihed@gmail.com> 
+2007-04-21  Djihed Afifi <djihed@gmail.com>
 
 	* ar.po: Updated Arabic Translation by Djihed Afifi.
 
-2007-04-14  Djihed Afifi <djihed@gmail.com> 
+2007-04-14  Djihed Afifi <djihed@gmail.com>
 
 	* ar.po: Updated Arabic Translation by Djihed Afifi.
 
-2007-04-09  Dusan Hokuv <dusan@mirc.cz>
+2007-04-09  Dušan Hokův <dusan@mirc.cz>
 
 	* cs.po: Updated Czech translation.
 
@@ -34,7 +38,7 @@
 
 	* pl.po: Updated Polish translation.
 
-2007-03-31  Dusan Hokuv <dusan@mirc.cz>
+2007-03-31  Dušan Hokův <dusan@mirc.cz>
 
 	* cs.po: Updated Czech translation.
 
@@ -46,7 +50,7 @@
 
 	* en_GB.po: Updated English (British) translation
 
-2007-03-12  Dusan Hokuv <dusan@mirc.cz>
+2007-03-12  Dušan Hokův <dusan@mirc.cz>
 
 	* cs.po: Updated Czech translation.
 
@@ -54,7 +58,7 @@
 
 	* en_GB.po: Updated English (British) translation
 
-2007-03-04  Dusan Hokuv <dusan@mirc.cz>
+2007-03-04  Dušan Hokův <dusan@mirc.cz>
 
 	* cs.po: Updated Czech translation.
 
@@ -220,7 +224,7 @@
 
 	* sv.po: Updated Swedish translation.
 
-2006-08-07  Dusan Hokuv <dusan@mirc.cz>
+2006-08-07  Dušan Hokův <dusan@mirc.cz>
 
 	* cs.po: Updated Czech translation.
 
@@ -238,7 +242,7 @@
 
 2006-07-16  Daniel Nylander  <po@danielnylander.se>
 
-        * sv.po: Updated Swedish translation.
+	* sv.po: Updated Swedish translation.
 
 2006-07-09  Nickolay V. Shmyrev  <nshmyrev@yandex.ru>
 
@@ -247,15 +251,15 @@
 
 2006-06-27  Daniel Nylander  <po@danielnylander.se>
 
-        * sv.po: Updated Swedish translation.
-	
+	* sv.po: Updated Swedish translation.
+
 2006-06-26  Gabor Kelemen  <kelemeng@gnome.hu>
 
 	* hu.po: Translation updated.
 
 2006-06-26  Daniel Nylander  <po@danielnylander.se>
 
-        * sv.po: Updated Swedish translation.
+	* sv.po: Updated Swedish translation.
 
 2006-06-15  Hendrik Richter  <hendrikr@gnome.org>
 
@@ -279,11 +283,11 @@
 
 2006-04-20  Sergey Dulko  <bccserg@gmail.com>
 
-        * ru.po: Updated Russian translation.
+	* ru.po: Updated Russian translation.
 
 2006-04-16  Daniel Nylander  <po@danielnylander.se>
 
-        * sv.po: Updated Swedish translation.
+	* sv.po: Updated Swedish translation.
 
 2006-04-13  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
@@ -393,7 +397,7 @@
 
 2005-04-01  Steve Murphy  <murf@e-tools.com>
 
-        * rw.po: Added Kinyarwanda translation.
+	* rw.po: Added Kinyarwanda translation.
 
 2005-03-22  Miloslav Trmac  <mitr@volny.cz>
 
@@ -707,4 +711,3 @@
 2003-06-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* Updated Russian translation (thanks to Pavlo Bohmat)
-
