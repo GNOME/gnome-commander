@@ -29,8 +29,7 @@ static GHashTable *entities = NULL;
 static gchar *current_wg_name;
 
 
-static void
-add_host_to_list (GnomeVFSFileInfo *info, GList **list)
+static void add_host_to_list (GnomeVFSFileInfo *info, GList **list)
 {
     SmbEntity *ent = g_new (SmbEntity, 1);
 
@@ -42,8 +41,7 @@ add_host_to_list (GnomeVFSFileInfo *info, GList **list)
 }
 
 
-static void
-add_wg_to_list (GnomeVFSFileInfo *info, GList **list)
+static void add_wg_to_list (GnomeVFSFileInfo *info, GList **list)
 {
     SmbEntity *ent = g_new (SmbEntity, 1);
 
@@ -55,18 +53,13 @@ add_wg_to_list (GnomeVFSFileInfo *info, GList **list)
 }
 
 
-static GnomeVFSResult
-blocking_list (const gchar *uri_str, GList **list)
+inline GnomeVFSResult blocking_list (const gchar *uri_str, GList **list)
 {
-    return gnome_vfs_directory_list_load (
-        list,
-        uri_str,
-        GNOME_VFS_FILE_INFO_DEFAULT);
+    return gnome_vfs_directory_list_load (list, uri_str, GNOME_VFS_FILE_INFO_DEFAULT);
 }
 
 
-static GList *
-get_hosts (const gchar *wg)
+inline GList *get_hosts (const gchar *wg)
 {
     GList *fileinfos;
 
@@ -77,14 +70,13 @@ get_hosts (const gchar *wg)
     GList *list = NULL;
 
     if (result == GNOME_VFS_OK)
-        g_list_foreach (fileinfos, (GFunc)add_host_to_list, &list);
+        g_list_foreach (fileinfos, (GFunc) add_host_to_list, &list);
 
     return list;
 }
 
 
-static GList *
-get_wgs ()
+inline GList *get_wgs ()
 {
     GList *fileinfos;
 
@@ -93,22 +85,20 @@ get_wgs ()
     GList *list = NULL;
 
     if (result == GNOME_VFS_OK)
-        g_list_foreach (fileinfos, (GFunc)add_wg_to_list, &list);
+        g_list_foreach (fileinfos, (GFunc) add_wg_to_list, &list);
 
     return list;
 }
 
 
-static void
-add_host_to_map (SmbEntity *ent)
+static void add_host_to_map (SmbEntity *ent)
 {
     DEBUG ('s', "Discovered host %s in workgroup %s\n", ent->name, ent->workgroup_name);
     g_hash_table_insert (entities, ent->name, ent);
 }
 
 
-static void
-add_wg_to_map (SmbEntity *ent)
+static void add_wg_to_map (SmbEntity *ent)
 {
     GList *hosts;
 
@@ -120,15 +110,13 @@ add_wg_to_map (SmbEntity *ent)
 }
 
 
-static gboolean
-str_ncase_equal (gchar *a, gchar *b)
+static gboolean str_ncase_equal (gchar *a, gchar *b)
 {
     return g_ascii_strcasecmp(a,b) == 0;
 }
 
 
-guint
-str_hash (gchar *key)
+guint str_hash (gchar *key)
 {
     gchar *s = g_ascii_strup (key, strlen (key));
     gint i = g_str_hash (s);
@@ -137,25 +125,20 @@ str_hash (gchar *key)
 }
 
 
-
-static void
-rebuild_map ()
+inline void rebuild_map ()
 {
-    GList *wgs;
-
     if (entities)
         g_hash_table_destroy (entities);
 
     entities = g_hash_table_new_full (
         (GHashFunc)str_hash, (GEqualFunc)str_ncase_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
 
-    wgs = get_wgs ();
+    GList *wgs = get_wgs ();
     g_list_foreach (wgs, (GFunc)add_wg_to_map, NULL);
 }
 
 
-SmbEntity *
-gnome_cmd_smb_net_get_entity (const gchar *name)
+SmbEntity *gnome_cmd_smb_net_get_entity (const gchar *name)
 {
     gboolean b = FALSE;
 
@@ -181,4 +164,3 @@ gnome_cmd_smb_net_get_entity (const gchar *name)
 
     return ent;
 }
-

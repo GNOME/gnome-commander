@@ -38,8 +38,7 @@ struct _GnomeCmdSmbPathPrivate
 static GnomeCmdPathClass *parent_class = NULL;
 
 
-static const gchar *
-smb_path_get_path (GnomeCmdPath *path)
+inline const gchar *smb_path_get_path (GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_SMB_PATH (path), NULL);
 
@@ -47,8 +46,7 @@ smb_path_get_path (GnomeCmdPath *path)
 }
 
 
-static const gchar *
-smb_path_get_display_path (GnomeCmdPath *path)
+inline const gchar *smb_path_get_display_path (GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_SMB_PATH (path), NULL);
 
@@ -56,8 +54,7 @@ smb_path_get_display_path (GnomeCmdPath *path)
 }
 
 
-static GnomeCmdPath *
-smb_path_get_parent (GnomeCmdPath *path)
+inline GnomeCmdPath *smb_path_get_parent (GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_SMB_PATH (path), NULL);
 
@@ -101,8 +98,7 @@ smb_path_get_parent (GnomeCmdPath *path)
 }
 
 
-static GnomeCmdPath *
-smb_path_get_child (GnomeCmdPath *path, const gchar *child)
+inline GnomeCmdPath *smb_path_get_child (GnomeCmdPath *path, const gchar *child)
 {
     g_return_val_if_fail (GNOME_CMD_IS_SMB_PATH (path), NULL);
     g_return_val_if_fail (child != NULL, NULL);
@@ -161,8 +157,7 @@ smb_path_get_child (GnomeCmdPath *path, const gchar *child)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdSmbPath *path = GNOME_CMD_SMB_PATH (object);
 
@@ -178,8 +173,7 @@ destroy (GtkObject *object)
 }
 
 
-static void
-class_init (GnomeCmdSmbPathClass *klass)
+static void class_init (GnomeCmdSmbPathClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPathClass *path_class = GNOME_CMD_PATH_CLASS (klass);
@@ -195,8 +189,7 @@ class_init (GnomeCmdSmbPathClass *klass)
 }
 
 
-static void
-init (GnomeCmdSmbPath *path)
+static void init (GnomeCmdSmbPath *path)
 {
     path->priv = g_new0 (GnomeCmdSmbPathPrivate, 1);
 }
@@ -206,8 +199,7 @@ init (GnomeCmdSmbPath *path)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_smb_path_get_type         (void)
+GtkType gnome_cmd_smb_path_get_type (void)
 {
     static GtkType type = 0;
 
@@ -231,10 +223,7 @@ gnome_cmd_smb_path_get_type         (void)
 }
 
 
-GnomeCmdPath *
-gnome_cmd_smb_path_new (const gchar *workgroup,
-                        const gchar *resource,
-                        const gchar *resource_path)
+GnomeCmdPath *gnome_cmd_smb_path_new (const gchar *workgroup, const gchar *resource, const gchar *resource_path)
 {
     GnomeCmdSmbPath *smb_path = (GnomeCmdSmbPath *) gtk_type_new (gnome_cmd_smb_path_get_type ());
 
@@ -266,8 +255,7 @@ gnome_cmd_smb_path_new (const gchar *workgroup,
 }
 
 
-GnomeCmdPath *
-gnome_cmd_smb_path_new_from_str (const gchar *path_str)
+GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str)
 {
     g_return_val_if_fail (path_str != NULL, NULL);
 

@@ -40,8 +40,7 @@ typedef struct
 
 
 
-SmbEntity *
-gnome_cmd_smb_net_get_entity (const gchar *name);
+SmbEntity *gnome_cmd_smb_net_get_entity (const gchar *name);
 
 G_END_DECLS
 

@@ -54,16 +54,10 @@ struct _GnomeCmdSmbPathClass
 };
 
 
-GtkType
-gnome_cmd_smb_path_get_type (void);
+GtkType gnome_cmd_smb_path_get_type (void);
 
-GnomeCmdPath *
-gnome_cmd_smb_path_new (const gchar *workgroup,
-                        const gchar *resource,
-                        const gchar *path);
-
-GnomeCmdPath *
-gnome_cmd_smb_path_new_from_str (const gchar *path_str);
+GnomeCmdPath *gnome_cmd_smb_path_new (const gchar *workgroup, const gchar *resource, const gchar *path);
+GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str);
 
 G_END_DECLS
 
