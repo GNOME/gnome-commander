@@ -25,7 +25,7 @@ New features:
  * More intuitive usage of diff tool
  * Directory synchronizing
  * Updated help docs
- * New or updated translations: ar, bg, cs, dz, en_GB, fr, oc, pl, sl, sv
+ * New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv
  * New key bindings:
       CTRL+\         Go to the root directory
       CTRL+`         Go to the home directory
