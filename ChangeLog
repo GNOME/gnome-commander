@@ -1,3 +1,8 @@
+2007-05-23  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	Added 'Licence' button to about dlg
+
 2007-05-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/libgviewer/text-render.c:

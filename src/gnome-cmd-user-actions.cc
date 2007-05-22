@@ -1160,15 +1160,36 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
     static const gchar comments[] = N_("A fast and powerful file manager for the GNOME desktop");
 
 
+    static const gchar *license[] = {
+        N_("GNOME Commander is free software; you can redistribute it and/or modify "
+           "it under the terms of the GNU General Public License as published by "
+           "the Free Software Foundation; either version 2 of the License, or "
+           "(at your option) any later version."),
+        N_("GNOME Commander is distributed in the hope that it will be useful, "
+           "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+           "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+           "GNU General Public License for more details."),
+        N_("You should have received a copy of the GNU General Public License "
+           "along with GNOME Commander; if not, write to the Free Software Foundation, Inc., "
+           "59 Temple Place, Suite 330, Boston, MA  02111-1307  USA")
+    };
+
+    gchar *license_trans = g_strjoin ("\n\n", _(license[0]), _(license[1]), _(license[2]), NULL);
+
     gtk_show_about_dialog (GTK_WINDOW (main_win),
-                   "authors", authors,
+                   "name", "GNOME Commander",
+                   "version", VERSION,
                    "comments", _(comments),
                    "copyright", copyright,
+                   "license", license_trans,
+                   "wrap-license", TRUE,
+                   "authors", authors,
                    "documenters", documenters,
-                   "translator-credits", _("translator-credits"),
-                   "version", VERSION,
-                   "website", "http://www.nongnu.org/gcmd",
-                   "name", "GNOME Commander",
                    "logo-icon-name", PACKAGE_NAME,
+                   "translator-credits", _("translator-credits"),
+                   "website", "http://www.nongnu.org/gcmd",
+                   "website-label", "GNOME Commander Website",
                    NULL);
+
+    g_free (license_trans);
 }
