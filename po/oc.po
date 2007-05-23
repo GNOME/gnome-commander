@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.1.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-03 23:12+0100\n"
-"PO-Revision-Date: 2007-05-12 09:14+0200\n"
+"PO-Revision-Date: 2007-05-17 16:07+0200\n"
 "Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -354,7 +354,7 @@ msgstr "Modèl"
 
 #: ../src/gnome-cmd-advrename-dialog.c:1159
 msgid "O_ptions..."
-msgstr ""
+msgstr "O_pcions..."
 
 #: ../src/gnome-cmd-advrename-dialog.c:1166
 msgid "Dir"
@@ -605,7 +605,7 @@ msgstr ""
 #: ../src/gnome-cmd-con-device.c:436
 #, c-format
 msgid "Mount: %s"
-msgstr ""
+msgstr "Montar : %s"
 
 #: ../src/gnome-cmd-con-device.c:437
 #, c-format
@@ -1019,7 +1019,7 @@ msgstr "Pòrt :"
 
 #: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "User:"
-msgstr ""
+msgstr "Utilizaire :"
 
 #: ../src/gnome-cmd-ftp-dialog.c:289 ../src/gnome-cmd-ftp-dialog.c:290
 msgid "Password:"
@@ -1211,7 +1211,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.c:701
 msgid "_Options..."
-msgstr ""
+msgstr "_Opcions..."
 
 #: ../src/gnome-cmd-main-menu.c:707
 msgid "Edit _Mime Types..."
@@ -5015,7 +5015,7 @@ msgstr "Annada"
 
 #: ../src/tags/gnome-cmd-tags.c:1196
 msgid "Year."
-msgstr ""
+msgstr "An."
 
 #: ../src/tags/gnome-cmd-tags.c:1201
 msgid "Name of an album the image belongs to."
