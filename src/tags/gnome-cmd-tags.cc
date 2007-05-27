@@ -150,7 +150,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_ARTIST
 #endif
                                                    },
-                                                   {"Exif.BatteryLevel", TAG_EXIF, TAG_EXIF_BATTERYLEVEL, N_("Battery Level"), N_("")
+                                                   {"Exif.BatteryLevel", TAG_EXIF, TAG_EXIF_BATTERYLEVEL, N_("Battery Level"), N_("Battery Level.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_BATTERY_LEVEL
 #endif
@@ -170,7 +170,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_CFA_PATTERN
 #endif
                                                    },
-                                                   {"Exif.CFARepeatPatternDim", TAG_EXIF, TAG_EXIF_CFAREPEATPATTERNDIM, N_("CFA Repeat Pattern Dim"), N_("")
+                                                   {"Exif.CFARepeatPatternDim", TAG_EXIF, TAG_EXIF_CFAREPEATPATTERNDIM, N_("CFA Repeat Pattern Dim"), N_("CFA Repeat Pattern Dim.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_CFA_REPEAT_PATTERN_DIM
 #endif
@@ -235,7 +235,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_DIGITAL_ZOOM_RATIO
 #endif
                                                    },
-                                                   {"Exif.DocumentName", TAG_EXIF, TAG_EXIF_DOCUMENTNAME, N_("Document Name"), N_("")
+                                                   {"Exif.DocumentName", TAG_EXIF, TAG_EXIF_DOCUMENTNAME, N_("Document Name"), N_("Document Name.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_DOCUMENT_NAME
 #endif
@@ -280,7 +280,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_FILE_SOURCE
 #endif
                                                    },
-                                                   {"Exif.FillOrder", TAG_EXIF, TAG_EXIF_FILLORDER, N_("Fill Order"), N_("")
+                                                   {"Exif.FillOrder", TAG_EXIF, TAG_EXIF_FILLORDER, N_("Fill Order"), N_("Fill Order.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_FILL_ORDER
 #endif
@@ -390,7 +390,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_IMAGE_LENGTH
 #endif
                                                    },
-                                                   {"Exif.ImageResources", TAG_EXIF, TAG_EXIF_IMAGERESOURCES, N_("Image Resources Block"), N_("")
+                                                   {"Exif.ImageResources", TAG_EXIF, TAG_EXIF_IMAGERESOURCES, N_("Image Resources Block"), N_("Image Resources Block.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_IMAGE_RESOURCES
 #endif
@@ -405,7 +405,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_IMAGE_WIDTH
 #endif
                                                    },
-                                                   {"Exif.InterColorProfile", TAG_EXIF, TAG_EXIF_INTERCOLORPROFILE, N_("Inter Color Profile"), N_("")
+                                                   {"Exif.InterColorProfile", TAG_EXIF, TAG_EXIF_INTERCOLORPROFILE, N_("Inter Color Profile"), N_("Inter Color Profile.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_INTER_COLOR_PROFILE
 #endif
@@ -420,12 +420,12 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_INTEROPERABILITY_INDEX
 #endif
                                                    },
-                                                   {"Exif.InteroperabilityVersion", TAG_EXIF, TAG_EXIF_INTEROPERABILITYVERSION, N_("Interoperability Version"), N_("")
+                                                   {"Exif.InteroperabilityVersion", TAG_EXIF, TAG_EXIF_INTEROPERABILITYVERSION, N_("Interoperability Version"), N_("Interoperability Version.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_INTEROPERABILITY_VERSION
 #endif
                                                    },
-                                                   {"Exif.IPTC_NAA", TAG_EXIF, TAG_EXIF_IPTCNAA, N_("IPTC/NAA"), N_("")
+                                                   {"Exif.IPTC_NAA", TAG_EXIF, TAG_EXIF_IPTCNAA, N_("IPTC/NAA"), N_("IPTC/NAA")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_IPTC_NAA
 #endif
@@ -445,7 +445,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_JPEG_INTERCHANGE_FORMAT_LENGTH
 #endif
                                                    },
-                                                   {"Exif.JPEGProc", TAG_EXIF, TAG_EXIF_JPEGPROC, N_("JPEG Proc"), N_("")
+                                                   {"Exif.JPEGProc", TAG_EXIF, TAG_EXIF_JPEGPROC, N_("JPEG Proc"), N_("JPEG Procedure")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_JPEG_PROC
 #endif
@@ -530,17 +530,17 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_REFERENCE_BLACK_WHITE
 #endif
                                                    },
-                                                   {"Exif.RelatedImageFileFormat", TAG_EXIF, TAG_EXIF_RELATEDIMAGEFILEFORMAT, N_("Related Image File Format"), N_("")
+                                                   {"Exif.RelatedImageFileFormat", TAG_EXIF, TAG_EXIF_RELATEDIMAGEFILEFORMAT, N_("Related Image File Format"), N_("Related Image File Format.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_RELATED_IMAGE_FILE_FORMAT
 #endif
                                                    },
-                                                   {"Exif.RelatedImageLength", TAG_EXIF, TAG_EXIF_RELATEDIMAGELENGTH, N_("Related Image Length"), N_("")
+                                                   {"Exif.RelatedImageLength", TAG_EXIF, TAG_EXIF_RELATEDIMAGELENGTH, N_("Related Image Length"), N_("Related Image Length.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_RELATED_IMAGE_LENGTH
 #endif
                                                    },
-                                                   {"Exif.RelatedImageWidth", TAG_EXIF, TAG_EXIF_RELATEDIMAGEWIDTH, N_("Related Image Width"), N_("")
+                                                   {"Exif.RelatedImageWidth", TAG_EXIF, TAG_EXIF_RELATEDIMAGEWIDTH, N_("Related Image Width"), N_("Related Image Width.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_RELATED_IMAGE_WIDTH
 #endif
@@ -660,7 +660,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_SUB_SEC_TIME_ORIGINAL
 #endif
                                                    },
-                                                   {"Exif.TIFF/EPStandardID", TAG_EXIF, TAG_EXIF_TIFFEPSTANDARDID, N_("TIFF/EP Standard ID"), N_("")
+                                                   {"Exif.TIFF/EPStandardID", TAG_EXIF, TAG_EXIF_TIFFEPSTANDARDID, N_("TIFF/EP Standard ID"), N_("TIFF/EP Standard ID.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_TIFF_EP_STANDARD_ID
 #endif
@@ -670,7 +670,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    , EXIF_TAG_TRANSFER_FUNCTION
 #endif
                                                    },
-                                                   {"Exif.TransferRange", TAG_EXIF, TAG_EXIF_TRANSFERRANGE, N_("Transfer Range"), N_("")
+                                                   {"Exif.TransferRange", TAG_EXIF, TAG_EXIF_TRANSFERRANGE, N_("Transfer Range"), N_("Transfer Range.")
 #ifdef HAVE_EXIF
                                                    , EXIF_TAG_TRANSFER_RANGE
 #endif
