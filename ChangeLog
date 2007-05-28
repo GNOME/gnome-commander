@@ -1,3 +1,8 @@
+2007-05-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/utils.h:
+	Added stringify() functions
+
 2007-05-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:

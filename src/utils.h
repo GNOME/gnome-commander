@@ -20,6 +20,7 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
+#include <string>
 #include <iostream>
 
 #include <stdio.h>
@@ -211,5 +212,23 @@ void gnome_cmd_error_message(const gchar *title, GError *error);
 void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id=NULL);
 
 G_END_DECLS
+
+inline std::string &stringify(std::string &s, gchar *val)
+{
+    if (!val)  s.erase();  else
+    {
+        s = val;
+        g_free(val);
+    }
+
+    return s;
+}
+
+inline std::string stringify(gchar *val)
+{
+    std::string s;
+
+    return val ? stringify(s,val) : s;
+}
 
 #endif // __UTILS_H__
