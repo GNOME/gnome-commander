@@ -3483,261 +3483,61 @@
     <title>Settings</title>
     <para>To configure &app;, choose
       <menuchoice>
-    <guimenu>Settings</guimenu>
-    <guimenuitem>Preferences</guimenuitem>
+        <guimenu>Settings</guimenu>
+        <guimenuitem>Options...</guimenuitem>
       </menuchoice>. The
-      <guilabel>Preferences</guilabel> dialog contains the following tabbed sections:
+      <guilabel>Options</guilabel> dialog contains the following tabbed sections:
     </para>
     <itemizedlist>
       <listitem>
-        <para>
-      <xref linkend="gnome-commander-prefs-general"/></para>
+        <para><xref linkend="gnome-commander-prefs-general"/></para>
       </listitem>
       <listitem>
-    <para>
-      <xref linkend="gnome-commander-prefs-format"/></para>
+        <para><xref linkend="gnome-commander-prefs-format"/></para>
+      </listitem>
+      <listitem>
+        <para><xref linkend="gnome-commander-prefs-layout"/></para>
+      </listitem>
+      <listitem>
+        <para><xref linkend="gnome-commander-prefs-confirmation"/></para>
+      </listitem>
+      <listitem>
+        <para><xref linkend="gnome-commander-prefs-filters"/></para>
+      </listitem>
+      <listitem>
+        <para><xref linkend="gnome-commander-prefs-programs"/></para>
+      </listitem>
+      <listitem>
+        <para><xref linkend="gnome-commander-prefs-devices"/></para>
       </listitem>
     </itemizedlist>
     <sect2 id="gnome-commander-prefs-general">
       <title>General</title>
-      <variablelist>
-    <varlistentry>
-      <term>
-        <guilabel>Interpolation type</guilabel></term>
-      <listitem>
-        <para>Use this drop-down list box to specify the
-          interpolation method that &app; uses when the
-          application resizes images. Select one of the following options:</para>
-        <itemizedlist>
-          <listitem>
-        <para>
-          <guilabel>Nearest neighbor</guilabel></para>
-        <para>This method of interpolation takes a location in the
-          original image and replicates the pixel that is nearest to this location. When
-          you zoom in on an image, the pixels are replicated. When you zoom out of an
-          image, the image loses some of its detail. </para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Bilinear</guilabel></para>
-        <para>This is a simple and fast method of interpolation. When
-          you zoom in on an image, &app; uses up to four
-          adjacent pixels to compute the colors of the new
-          pixels. When you zoom out of
-          an image, &app; averages regions of color in the
-          existing image to compute the colors of the pixels. </para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Hyperbolic</guilabel></para>
-        <para>This is a high-quality, slow method of interpolation. The
-          application performs interpolation on the image in
-          the manner described in
-          Digital Image Warping by George Wolberg.</para>
-          </listitem>
-        </itemizedlist>
-        <para>Default:
-          <guilabel>Nearest neighbor</guilabel>.</para>
-      </listitem>
-    </varlistentry>
-    <varlistentry>
-      <term>
-        <guilabel>Transparency type</guilabel></term>
-      <listitem>
-        <para>Use this drop-down list box to specify how
-          &app; displays transparent or partially opaque
-          backgrounds in images. Select one of the following options:</para>
-        <itemizedlist>
-          <listitem>
-        <para>
-          <guilabel>Dark checks</guilabel></para>
-        <para>This option displays black and dark gray checks.</para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Midtone checks</guilabel></para>
-        <para>This option displays dark gray and light gray
-          checks.</para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Light checks</guilabel></para>
-        <para>This option displays light gray and white checks.</para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Black only</guilabel></para>
-        <para>This option displays solid black.</para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Gray only</guilabel></para>
-        <para>This option displays solid gray.</para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>White only</guilabel></para>
-        <para>This option displays solid white.</para>
-          </listitem>
-        </itemizedlist>
-        <para>Default:
-          <guilabel>Dark checks</guilabel>.</para>
-      </listitem>
-    </varlistentry>
-    <varlistentry>
-      <term>
-        <guilabel>Check size</guilabel></term>
-      <listitem>
-        <para>Use this drop-down list box to specify the size of the checks
-          to use to display transparent or partially opaque
-          backgrounds in images. This
-          option is only relevant if you choose
-          <guilabel>Dark checks</guilabel>,
-          <guilabel>Midtone checks</guilabel>, or
-          <guilabel>Light checks</guilabel> from the
-          <guilabel>Transparency type</guilabel> drop-down list box.
-          Select one of the following options:</para>
-        <itemizedlist>
-          <listitem>
-        <para>
-          <guilabel>Small</guilabel></para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Medium</guilabel></para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Large</guilabel></para>
-          </listitem>
-        </itemizedlist>
-        <para>Default:
-          <guilabel>Small</guilabel>.</para>
-      </listitem>
-    </varlistentry>
-    <varlistentry>
-      <term>
-        <guilabel>Dither type</guilabel></term>
-      <listitem>
-        <para>Use this drop-down list box to specify the dithering method
-          to use to display images. Dithering is a technique that
-          is used to simulate
-          colors in the original image file but that your system
-          can not display. Select
-          one of the following options:</para>
-        <itemizedlist>
-          <listitem>
-        <para>
-          <guilabel>None</guilabel></para>
-        <para>This option does not use dithering. </para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Normal (pseudocolor)</guilabel></para>
-        <para>This option performs dithering on pseudocolor displays,
-          which use a limited palette of colors. </para>
-          </listitem>
-          <listitem>
-        <para>
-          <guilabel>Maximum (high color)</guilabel></para>
-        <para>This option performs dithering on pseudocolor and high
-          color displays. </para>
-          </listitem>
-        </itemizedlist>
-        <para>Default:
-          <guilabel>None</guilabel>.</para>
-      </listitem>
-    </varlistentry>
-    <varlistentry>
-      <term>
-        <guilabel>Two-pass scrolling</guilabel></term>
-      <listitem>
-        <para>Select this option to render an image in two passes
-          when you scroll the image quickly. The first pass
-          renders a low quality version of the image. The second
-          pass renders a full quality version of the image over
-          the low quality version. Two-pass scrolling enables you
-          to view at least a low quality version of the image at
-          all times regardless of how quickly you scroll the
-          image.
-        </para>
-        <para>Default: unselected.</para>
-      </listitem>
-    </varlistentry>
-      </variablelist>
+      <para></para>
     </sect2>
     <sect2 id="gnome-commander-prefs-format">
       <title>Format</title>
-      <para>You can set the following viewer preferences:
-    <itemizedlist>
-      <listitem>
-        <para>
-          <xref linkend="gnome-commander-viewer-prefs-image-window"/></para>
-      </listitem>
-      <listitem>
-        <para>
-          <xref linkend="gnome-commander-viewer-prefs-full-screen"/></para>
-      </listitem>
-    </itemizedlist></para>
-      <sect3 id="gnome-commander-viewer-prefs-image-window">
-    <title>Image Windows</title>
-    <para>The
-      <guilabel>Image Windows</guilabel> group contains the preferences
-      that you can set to view images in image windows.</para>
-    <variablelist>
-      <varlistentry>
-        <term>
-          <guilabel>Use scrollbars</guilabel></term>
-        <listitem>
-          <para>Use this drop-down list box to specify when to use
-        scrollbars to scroll through an image. Select one of
-        the following options:</para>
-          <itemizedlist>
-        <listitem>
-          <para>
-            <guilabel>Never</guilabel></para>
-          <para>This option never displays scrollbars. You can use the
-            arrow keys on the keyboard or the mouse to scroll
-            through the image. </para>
-        </listitem>
-        <listitem>
-          <para>
-            <guilabel>Only if image does not fit</guilabel></para>
-          <para>This option displays scrollbars when the image is
-            larger than the image window.</para>
-        </listitem>
-          </itemizedlist>
-          <para>Default:
-        <guilabel>Never</guilabel>.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>Pick window size and zoom factor
-        automatically</guilabel></term>
-        <listitem>
-          <para>Select this option to resize the image window to fit the
-        image or to resize the image to fit the image
-        window. If the image is small,
-        &app; resizes the image window to fit the image. If
-        the image is large, &app; resizes the image to fit
-        the image window. </para>
-          <para>Default: unselected.</para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          <guilabel>Open images in a new window</guilabel></term>
-        <listitem>
-          <para>Select this option to open a new
-        &app; window each time you open an image. If you do
-        not select this option, &app; replaces the existing
-        image with the new image when you open an image. </para>
-          <para>Default: unselected.</para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
-      </sect3>
+      <para></para>
+    </sect2>
+    <sect2 id="gnome-commander-prefs-layout">
+      <title>Layout</title>
+      <para></para>
+    </sect2>
+    <sect2 id="gnome-commander-prefs-confirmation">
+      <title>Confirmation</title>
+      <para></para>
+    </sect2>
+    <sect2 id="gnome-commander-prefs-filters">
+      <title>Filters</title>
+      <para></para>
+    </sect2>
+    <sect2 id="gnome-commander-prefs-programs">
+      <title>Programs</title>
+      <para></para>
+    </sect2>
+    <sect2 id="gnome-commander-prefs-devices">
+      <title>Devices</title>
+      <para></para>
     </sect2>
   </sect1>
 
@@ -3821,12 +3621,12 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+1</para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>1</keycap></keycombo></para></entry>
             <entry><para>Change left connection</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+2</para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>2</keycap></keycombo></para></entry>
             <entry><para>Change right connection</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3881,7 +3681,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>SHIFT+F10</para></entry>
+            <entry><para><keycombo><keycap>SHIFT</keycap><keycap>F10</keycap></keycombo></para></entry>
             <entry><para>Bring up the context menu for the selected files.</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3921,7 +3721,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+SHIFT+F5</para></entry>
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
             <entry><para>Create symbolic link</para></entry>
             <entry><para>yes</para></entry>
         </row>
@@ -3936,22 +3736,22 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>NUM +</para></entry>
+            <entry><keycombo><keycap>NUM +</keycap></keycombo></entry>
             <entry><para>Select files using a pattern</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>NUM -</para></entry>
+            <entry><keycombo><keycap>NUM -</keycap></keycombo></entry>
             <entry><para>Unselect files using a pattern</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>NUM *</para></entry>
+            <entry><keycombo><keycap>NUM *</keycap></keycombo></entry>
             <entry><para>Invert selection</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>NUM /</para></entry>
+            <entry><keycombo><keycap>NUM /</keycap></keycombo></entry>
             <entry><para>Restore selection</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3966,12 +3766,12 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+NUM +</para></entry>
+            <entry><keycombo><keycap>ALT</keycap><keycap>NUM +</keycap></keycombo></entry>
             <entry><para>Select all files with the same extension</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+NUM -</para></entry>
+            <entry><keycombo><keycap>ALT</keycap><keycap>NUM -</keycap></keycombo></entry>
             <entry><para>Unselect all files with the same extension</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3981,7 +3781,8 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>BACKSPACE</para><para><keycombo><keycap></keycap></keycombo></para><para>CTRL+PageUp</para></entry>
+            <entry><para><keycombo><keycap>BACKSPACE</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>PageUp</keycap></keycombo></para></entry>
             <entry><para>Change to parent directory (cd ..)</para></entry>
             <entry><para></para></entry>
         </row>
@@ -3991,12 +3792,12 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ENTER</para></entry>
+            <entry><para><keycombo><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>Change directory or execute command line if not empty</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>SHIFT+ENTER</para></entry>
+            <entry><para><keycombo><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>Execute command line in the defined terminal and leaves the terminal window open</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4006,7 +3807,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para><keycombo><keycap></keycap></keycombo></para><para>CTRL+PageDown</para></entry>
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>PageDown</keycap></keycombo></para></entry>
             <entry><para>Change directory</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4016,12 +3817,12 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+LEFT</para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>LEFT</keycap></keycombo></para></entry>
             <entry><para>Go back to the last visited directory</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+RIGHT</para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
             <entry><para>Go forward to the next visited directory</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4046,14 +3847,15 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>INSERT</para></entry>
+            <entry><para><keycombo><keycap>INSERT</keycap></keycombo></para></entry>
             <entry><para>Select file or directory</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>SPACE</para></entry>
-            <entry><para>Select file or directory (as INSERT). If SPACE is used on an unselected directory under the cursor,
-            the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR</para></entry>
+            <entry><para><keycombo><keycap>SPACE</keycap></keycombo></para></entry>
+            <entry><para>Select file or directory (as <keycombo><keycap>INSERT</keycap></keycombo>). 
+                         If <keycombo><keycap>SPACE</keycap></keycombo> is used on an unselected directory under the cursor,
+                         the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
@@ -4062,7 +3864,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+ENTER</para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>Show properties for the selected file</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4072,7 +3874,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+SHIFT+ENTER</para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo></para></entry>
             <entry><para>The contents of all directories in the current directory are counted. The sizes of the directories are then shown
             in the "full" view instead of the string DIR</para></entry>
             <entry><para></para></entry>
@@ -4083,7 +3885,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>DELETE</para></entry>
+            <entry><para><keycombo><keycap>DELETE</keycap></keycombo></para></entry>
             <entry><para>Delete files</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4143,7 +3945,7 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para><keycombo><keycap></keycap></keycombo></para></entry>
+            <entry><para><keycombo><keycap>TAB</keycap></keycombo></para></entry>
             <entry><para>Switch between left and right file list</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4223,7 +4025,8 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>ALT+Letter(s)</para><para>CTRL+ALT+Letter(s)</para></entry>
+            <entry><para><keycombo><keycap>ALT</keycap><keycap>Letter(s)</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>ALT</keycap><keycap>Letter(s)</keycap></keycombo></para></entry>
             <entry><para>Quick search for a file name (starting with specified letter) in the current directory</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4233,12 +4036,12 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para><keycombo><keycap></keycap></keycombo></para></entry>
+            <entry><para><keycombo><keycap>Letter</keycap></keycombo></para></entry>
             <entry><para>Redirect to command line, cursor jumps to command line</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para><keycombo><keycap></keycap></keycombo></para></entry>
+            <entry><para><keycombo><keycap>ESC</keycap></keycombo></para></entry>
             <entry><para>Clear the command line</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4263,12 +4066,12 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+ENTER</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>ENTER</keycap></keycombo></entry>
             <entry><para>The file name under the cursor in the source directory is added to the end of the command line</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+SHIFT+ENTER</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>ENTER</keycap></keycombo></entry>
             <entry><para>The file name under the cursor including its path is added to the end of the command line</para></entry>
             <entry><para></para></entry>
         </row>
@@ -4278,9 +4081,12 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><para>CTRL+DOWN</para><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></entry>
-            <entry><para>A list with the latest command lines (history list) is opened. Use the UP and DOWN cursor keys to select an entry.
-            By pressing the LEFT or RIGHT key, you can edit the command line. This automatically closes the list</para></entry>
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>DOWN</keycap></keycombo></para>
+                   <para><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></para></entry>
+            <entry><para>A list with the latest command lines (history list) is opened. Use the <keycombo><keycap>UP</keycap></keycombo> 
+            and <keycombo><keycap>DOWN</keycap></keycombo> cursor keys to select an entry.
+            By pressing the <keycombo><keycap>LEFT</keycap></keycombo> or <keycombo><keycap>RIGHT</keycap></keycombo> key, you can edit the command line. 
+            This automatically closes the list</para></entry>
             <entry><para></para></entry>
         </row>
         </tbody>
