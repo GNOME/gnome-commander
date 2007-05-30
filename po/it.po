@@ -1979,14 +1979,14 @@ msgstr "Cerca in: %s"
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
-msgstr[0] "Trovate %d occorrenze prima di essermi fermato"
+msgstr[0] "Trovata %d occorrenza prima di essermi fermato"
 msgstr[1] "Trovate %d occorrenze prima di essermi fermato"
 
 #: ../src/gnome-cmd-search-dialog.cc:413
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
-msgstr[0] "Trovate %d occorrenze"
+msgstr[0] "Trovata %d occorrenza"
 msgstr[1] "Trovate %d occorrenze"
 
 #: ../src/gnome-cmd-search-dialog.cc:725
@@ -3129,7 +3129,7 @@ msgid ""
 "one-chip color area sensor is used. It does not apply to all sensing methods."
 msgstr ""
 "Il modello geometrico di array di filtro colore (CFA) del sensore "
-"dell'immaginequando un sesore di area colore one-chip è usato. Non si "
+"immagine quando un sesore di area colore one-chip è usato. Non si "
 "applica a tutti i metodi di \"sensing\""
 
 #: ../src/tags/gnome-cmd-tags.cc:173
@@ -3173,7 +3173,7 @@ msgid ""
 "components other than Y, Cb, and Cr and to enable support of other sequences."
 msgstr ""
 "Informazioni specifiche dei dati compressi. I canali di ogni componente sono "
-"arrangiati in ordine dal primo componente al quarto. Per i dati non "
+"messi in ordine dal primo componente al quarto. Per i dati non "
 "compressi l'arrangiamento dei dati e' dato nel tag <Exif."
 "PhotometricInterpretation>. Tuttavia, dato che <Exif."
 "PhotometricInterpretation> può solo esprimere l'ordine  di Y, Cb e Cr, "
@@ -3255,7 +3255,7 @@ msgid ""
 msgstr ""
 "L'uso di un'elaborazione speciale dell'immagine, come un rendering "
 "equipaggiato  esternamente. Quando l'elaborazione speciale è eseguita, il "
-"reader si aspetta di disabilitare o minimizzare ogni elaborazione "
+"lettore si aspetta di disabilitare o minimizzare ogni elaborazione "
 "addizionale."
 
 #: ../src/tags/gnome-cmd-tags.cc:213
@@ -3318,7 +3318,7 @@ msgstr "Nome documento"
 
 #: ../src/tags/gnome-cmd-tags.cc:238
 msgid "Document Name."
-msgstr "Nome documento."
+msgstr "Nome Documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid "Exif IFD Pointer"
@@ -3444,7 +3444,7 @@ msgid ""
 "in Beam Candle Power Seconds (BCPS)."
 msgstr ""
 "Indica l'energia del flash al momento in cui l'immagine e' catturata, "
-"misurato come in Beam Candle Power Seconds (BCPS)."
+"come misurato in Beam Candle Power Seconds (BCPS)."
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "FlashPixVersion"
@@ -3626,9 +3626,9 @@ msgid ""
 "given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
 msgstr ""
 "Indica la longitudine. La longitudine è espressa come tre valori "
-"RAZIONALIdando i gradi, minuti e secondi, rispettivamente. Quando sono "
-"espressigradi, minuti e secondi , il formato è ggg/1,mm/1,ss/1. Quandosono "
-"usati gradi e minuti e, per esempio, frazioni di minuti sonodati fino a due "
+"RAZIONALI dando i gradi, minuti e secondi, rispettivamente. Quando sono "
+"espressi gradi, minuti e secondi , il formato è ggg/1,mm/1,ss/1. Quando sono "
+"usati gradi e minuti e, per esempio, frazioni di minuti sono dati fino a due "
 "cifre decimali, il formato è ggg/1,mmmm/100,0/1."
 
 #: ../src/tags/gnome-cmd-tags.cc:373
@@ -3688,7 +3688,7 @@ msgstr "Blocco Risorse Immagine"
 #: ../src/tags/gnome-cmd-tags.cc:393
 #, fuzzy
 msgid "Image Resources Block."
-msgstr "Blocco Risorse Immagine"
+msgstr "Blocco Risorse Immagine."
 
 #: ../src/tags/gnome-cmd-tags.cc:398
 msgid "Image Unique ID"
@@ -3739,7 +3739,7 @@ msgstr ""
 "IFD Interoperabilità è composto da tags che contengono l'informazione per "
 "assicurare l'Interoperabilità e puntato dal seguente tag locato in Exif IFD. "
 "La struttura di Interoperabilità dell' IFD Interoperabilità e' lo stesso "
-"dellastruttura IFD definita per il TIFF ma non contiene dati immagine "
+"della struttura IFD definita per il TIFF ma non contiene dati immagine "
 "caratteristicamente comparato con il normale IFD TIFF."
 
 #: ../src/tags/gnome-cmd-tags.cc:418
@@ -3752,7 +3752,7 @@ msgid ""
 "stating ExifR98 Rules. Four bytes used including the termination code (NULL)."
 msgstr ""
 "Intica l'identificazione della regola di Interoperabilità. Usa \"R98\" per "
-"constatare le Regole ExifR98. Quattro bytes usati includo il carattere di "
+"constatare le Regole ExifR98. Quattro bytes usati incluso il carattere di "
 "terminazione (NULL)."
 
 #: ../src/tags/gnome-cmd-tags.cc:423
@@ -3897,7 +3897,7 @@ msgid ""
 msgstr ""
 "Indica il modello geometrico della matrice del filtro colore (CFA) del "
 "sensore dell'immagine quando è usato un sensore dell'area colore one-chip. "
-"Non si applica a tutti i metodi di \"sensing\"."
+"Non si applica a tutti i metodi di rilevamento."
 
 #: ../src/tags/gnome-cmd-tags.cc:488
 msgid "New Subfile Type"
@@ -3956,7 +3956,7 @@ msgstr ""
 "Informazioni specifiche dei dati compressi. Quando un file compresso è "
 "memorizzato, la larghezza valida dell'immagine significativa deve essere "
 "memorizzata in questo tag, che vi siano o non vi siano dati di rivestimento "
-"o marcatori di riavvio. Questo tag non dovrebbe esistere in un file non "
+"o un marcatore di riavvio. Questo tag non dovrebbe esistere in un file non "
 "copresso."
 
 #: ../src/tags/gnome-cmd-tags.cc:513
@@ -3975,7 +3975,7 @@ msgstr ""
 "Informazioni specifiche dei dati compressi. Quando un file compresso è "
 "memorizzato, la larghezza valida dell'immagine significativa deve essere "
 "memorizzata in questo tag, che vi siano o non vi siano dati di rivestimento "
-"o marcatori di riavvio. Questo tag non dovrebbe esistere in un file non "
+"o un marcatore di riavvio. Questo tag non dovrebbe esistere in un file non "
 "copresso. Dato che i dati di rivestimento non sono necessari nella direzione "
 "verticale, il numero di linee memorizzato in questo tag di altezza immagine "
 "valida sarà di fatto lo stesso di quello memorizzato nel SOF."
@@ -4003,7 +4003,7 @@ msgid ""
 "The chromaticity of the three primary colors of the image. Normally this tag "
 "is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
 msgstr ""
-"Il cromatismo dei tre colori primari delll'immegine. Normalmente questo tag "
+"Il cromatismo dei tre colori primari dell'immegine. Normalmente questo tag "
 "non è necessario, da quando lo spazio dei colori è specificato nel tag <Exif."
 "ColorSpace>."
 
@@ -4021,7 +4021,7 @@ msgid ""
 msgstr ""
 "Il volore del punto di riferimento nero e il valore del punto di riferimento "
 "bianco. Nessun predefinito è dato in TIFF, ma i valori sotto qui sono dati "
-"come predefiniti.  Lo spazio colori è dichiarato nel tago di informazione "
+"come predefiniti.  Lo spazio colori è dichiarato nel tag di informazione "
 "spazio colori, con predefinito il valore che dà le caratteristiche di "
 "Interoperabilità ottimali dell'immagine in queste condizioni."
 
@@ -4074,15 +4074,15 @@ msgid ""
 "audio files, the relation of the audio file to image data must also be "
 "indicated on the audio file end."
 msgstr ""
-"gQuesto tag è usato per registrare il nome di un file audio associato ai "
+"Questo tag è usato per registrare il nome di un file audio associato ai "
 "dati immagine. La sola informazione relazionale qui memorizzata è il nome e "
-"l'estensione del file audio Exif (una stringa ASCII consistente  in 8 "
+"l'estensione del file audio Exif (una stringa ASCII composta di 8 "
 "caratteri + '.' + 3 caratteri). Il percorso non è memorizzato. Quando viene "
 "usato questo tag, i file audio devono essere registrati in conformità al "
 "formato audio Exif. Gli Scrittori devono inoltre permettere di memorizzare i "
-"dati come Audio dento APP2 come flusso dati dell'estensione FlashPix. I "
+"dati come Audio dentro APP2 come flusso dati dell'estensione FlashPix. I "
 "files Audio devono essere memorizzati in conformità al formato audio Exif. "
-"Se file files multipli sono mappati in un unico file, il formato superiore è "
+"Se files multipli sono mappati in un unico file, il formato superiore è "
 "usato per registrare solo un nome di file audio. Se ci sono file audio "
 "multipli, viene dato solo il primo file registrato. Quanto ci sono tre file "
 "audio Exif \"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", è "
@@ -4092,7 +4092,7 @@ msgstr ""
 "relazionali è lasciato all'implementazione lato riproduzione. Dato che "
 "quest'informazione è una stringa di caratteri ASCII, è terminata da NULL. "
 "Quando questo tag è usato per mappare file audio, la relazione del file "
-"audio ai dati immagin deve anche essere indicata alla fine del file audio. "
+"audio ai dati immagine deve anche essere indicata alla fine del file audio. "
 
 #: ../src/tags/gnome-cmd-tags.cc:553
 msgid "Resolution Unit"
@@ -4231,10 +4231,10 @@ msgid ""
 "values in the direction of image width, image height, and diagonal "
 "direction, as specified in ISO 12233."
 msgstr ""
-"Questo tag memorizza la tavola di frequenza spaziale della fotocamer o del "
+"Questo tag memorizza la tavola di frequenza spaziale della fotocamera o del "
 "dispositivo in ingresso e il valore SFR nella direnzione della larghezza "
 "dell'immagine, dell'altezza dell'immagine, e nella direzione diagonale, come "
-"specificat nell'ISO 12233."
+"specificato nell'ISO 12233."
 
 #: ../src/tags/gnome-cmd-tags.cc:608
 msgid "Spectral Sensitivity"
@@ -4242,8 +4242,7 @@ msgstr "Sensibilità Spettrale"
 
 #: ../src/tags/gnome-cmd-tags.cc:608
 msgid "Indicates the spectral sensitivity of each channel of the camera used."
-msgstr ""
-"Indica la sensibilità spettrale di ciascun canale usato dalla fotocamera."
+msgstr "Indica la sensibilità spettrale di ciascun canale usato dalla fotocamera."
 
 #: ../src/tags/gnome-cmd-tags.cc:613
 msgid "Strip Byte Count"
@@ -4267,7 +4266,7 @@ msgid ""
 "be selected so the number of strip bytes does not exceed 64 Kbytes. With "
 "JPEG compressed data this designation is not needed and is omitted."
 msgstr ""
-"Per ogni striscia, l'offset di quella striscia. Si raccomanda che questosia "
+"Per ogni striscia, l'offset di quella striscia. Si raccomanda che questo sia "
 "selezionato così che il numero di byte della striscia non ecceda 64Kbytes. "
 "Condati compressi JPEG questa designazione non è necessaria ed è omessa."
 
@@ -4321,9 +4320,9 @@ msgid ""
 "first value indicates the X column number and second indicates the Y row "
 "number."
 msgstr ""
-"Indica la locazione del soggetto principale nella scena. Il vaolre di questo "
+"Indica la locazione del soggetto principale nella scena. Il valore di questo "
 "tag rappresenta i pixel al centro del soggetto principale relativi "
-"all'angolo sinistro, precedente a processi di rotazione come per il tag "
+"al bordo sinistro, precedente a processi di rotazione come per il tag "
 "<Exif.Rotation>. Il primo valore indica il numero di colonna X e il secondo "
 "indica il numero Y di riga."
 
@@ -4414,18 +4413,18 @@ msgid ""
 "recommended that the ID code be ASCII and that the following user comment "
 "part be filled with blank characters [20.H]."
 msgstr ""
-"Un tago per utenti Exif per scrivere chaivi o commenti sull'immagine oltre a "
+"Un tag per utenti Exif per scrivere chaivi o commenti sull'immagine oltre a "
 "quelli in <Exif.ImageDescription>, e senza limitazioni di codice carattere "
 "del tag <Exif.ImageDescription>. Il codice carattere usato nel tag <Exif."
 "UserComment> è identificato in base a un codice ID in un area di 8-byte "
 "fissi allinizio dell'area dati del tag. La porzione inutilizzata di area è "
-"rivestitacon NULL (\"00.h\"). I codici ID sono assegnati sulla base del "
+"rivestita con NULL (\"00.h\"). I codici ID sono assegnati sulla base del "
 "significato della registrazione. Il vaolre di CountN è determinato in base "
 "agli 8 bytes nell'area di codice carattere  e il numero di bytes nella parte "
 "del commento utente. Dato che TYPE non è ASCII, la terminazione con NULL non "
-"è necessaria Il codice ID per l'area <Exif.UserComment> può essere un codice "
+"è necessaria. Il codice ID per l'area <Exif.UserComment> può essere un codice "
 "Definito come JIS o ASCII, o può essere Undefined (N.d.T. Non definito). Il "
-"nome Undefined è UndefinedText, è il codice id è riempito con 8 bytes tutti "
+"nome Undefined è UndefinedText, e il codice ID è riempito con 8 bytes tutti "
 "\"NULL\" (\"00.H\"). Un lettore Exif che legge il tag <Exif.UserComment> "
 "deve avere una funzione per determinare il codice ID. Questa funzione non è "
 "richiesta nei lettori Exif che non usano il tag <Exif.UserComment>. Quando "
@@ -4452,7 +4451,7 @@ msgid ""
 "The chromaticity of the white point of the image. Normally this tag is not "
 "necessary, since color space is specified in <Exif.ColorSpace> tag."
 msgstr ""
-"La cromaticità del punto di bianco dell'immagine. Normalmente questotag non "
+"La cromaticità del punto di bianco dell'immagine. Normalmente questo tag non "
 "è necessario, fintanto che lo spazio colore è specificato nel tag <Exif."
 "ColorSpace>."
 
@@ -4474,7 +4473,7 @@ msgid ""
 "direction. When the image resolution is unknown, 72 [dpi] is designated."
 msgstr ""
 "Il numero di pixel per <Exif.ResolutionUnit> nella direzione <Exif."
-"ImageWidth>. Quando la risoluzione immagine è sconosciuta, è designiato 72 "
+"ImageWidth>. Quando la risoluzione immagine è sconosciuta, è designato 72 "
 "[dpi]."
 
 #: ../src/tags/gnome-cmd-tags.cc:703
@@ -4492,7 +4491,7 @@ msgstr ""
 "La matrice dei coefficienti per trasformazioni da dati immagine RGB a YCbCr. "
 "Nessun predefinito è dato in TIFF; ma qui \"Color Space Guidelines\" è usato "
 "come predefinito. Lo spazio di colori è dichiarato nel tag informazione "
-"spazio colori, con il predefinito volare che dà caratteristiche di "
+"spazio colori, con il predefinito valore che dà caratteristiche di "
 "Interoperabilità ottimali per l'immagine in queste condizioni"
 
 #: ../src/tags/gnome-cmd-tags.cc:708
@@ -4522,7 +4521,7 @@ msgstr ""
 "predefinito TIFF. Nel caso di Y:Cb:Cr = 4:2:0, il predefinito TIFF "
 "(centered) è raccomandato. Se il lettore non ha la capacità di supportare "
 "entrambi i tipi di <Exif.YCbCrPositioning>, dovrebbe seguire il predefinito "
-"TIFF senza curarsi del valorein questo campo. E' preferibile che i lettori "
+"TIFF senza curarsi del valore in questo campo. E' preferibile che i lettori "
 "siano capaci di supportare entrambi i posizionamenti centrato e co-sited."
 
 #: ../src/tags/gnome-cmd-tags.cc:713
@@ -4534,7 +4533,7 @@ msgid ""
 "The sampling ratio of chrominance components in relation to the luminance "
 "component. In JPEG compressed data a JPEG marker is used instead of this tag."
 msgstr ""
-"La frequenza di campionamento delel componenti di crominanza in relazione "
+"La frequenza di campionamento dei componenti di crominanza in relazione "
 "alla componente luminanza. Nei dati compressi JPEG un marcatore JPEG è usato "
 "al posto di questo tag."
 
@@ -5001,11 +5000,11 @@ msgstr "Layer MPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:938
 msgid "MPEG Lookup"
-msgstr "MPEG Ricerca"
+msgstr "Ricerca MPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:938
 msgid "MPEG location lookup table."
-msgstr "MPEG tablla locazione ricerca"
+msgstr "tabella ricerca locazione MPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:943
 msgid "MPEG Version"
@@ -5706,8 +5705,8 @@ msgid ""
 "A full, publishable name of a country/geographical location referenced by "
 "the content of the object (multiple values allowed)."
 msgstr ""
-"Un completo nome, pubbIicabile del paese/locazione geografica referenziato "
-"attraversoil contenuto dell'oggetto (valori multipli permessi)."
+"Un nome completo, pubbIicabile del paese/locazione geografica referenziato "
+"attraverso il contenuto dell'oggetto (valori multipli permessi)."
 
 #: ../src/tags/gnome-cmd-tags.cc:1317
 msgid "Copyright Notice"
@@ -5874,7 +5873,7 @@ msgid ""
 "Identifies objects that recur often and predictably, enabling users to "
 "immediately find or recall such an object."
 msgstr ""
-"Identifica oggetti che ricorrono spesso e prevedibilmente, abilitanto gli "
+"Identifica oggetti che ricorrono spesso e prevedibilmente, abilitando gli "
 "utenti a trovare o richiamare immediatamente tali oggetti"
 
 #: ../src/tags/gnome-cmd-tags.cc:1407
@@ -5883,8 +5882,7 @@ msgstr "Testata"
 
 #: ../src/tags/gnome-cmd-tags.cc:1407
 msgid "A publishable entry providing a synopsis of the contents of the object."
-msgstr ""
-"Una voce pubblicabile che fornisce una sinopsi del contenuto dell'oggetto."
+msgstr "Una voce pubblicabile che fornisce una sintesi del contenuto dell'oggetto."
 
 #: ../src/tags/gnome-cmd-tags.cc:1412
 msgid "Image Orientation"
@@ -5924,7 +5922,7 @@ msgid ""
 "of ISO 639:1988."
 msgstr ""
 "La lingua nazionale maggiore dell'oggetto, secondo il codice di due "
-"letteredi ISO 639:1988.u"
+"lettere di ISO 639:1988"
 
 #: ../src/tags/gnome-cmd-tags.cc:1432
 msgid "Maximum Object Size"
@@ -6051,7 +6049,7 @@ msgstr "ID Prodotto"
 #: ../src/tags/gnome-cmd-tags.cc:1497
 msgid "Allows a provider to identify subsets of its overall service."
 msgstr ""
-"Permette al fornitore di identficare sottoinsiemi del suo servizio "
+"Permette al fornitore di identificare sottoinsiemi del suo servizio "
 "complessivo."
 
 #: ../src/tags/gnome-cmd-tags.cc:1502
@@ -6445,7 +6443,7 @@ msgid ""
 "Do you want to set it and then run the file?"
 msgstr ""
 "\"%s\" sembra essere un file binario eseguibile ma manca il bit di "
-"esecuzione. Vuoi settarlo ed poi eseguire il file?"
+"esecuzione. Vuoi settarlo e poi eseguire il file?"
 
 #: ../src/utils.cc:509
 msgid "Make Executable?"
@@ -6457,7 +6455,7 @@ msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
-"\"%s\" è un file di testo eseguibile. Vuoi eseguirlo o vederne ilcontenuto?"
+"\"%s\" è un file di testo eseguibile. Vuoi eseguirlo o vederne il contenuto?"
 
 #: ../src/utils.cc:538
 msgid "Run or Display"
@@ -6481,12 +6479,10 @@ msgid_plural ""
 "to a temporary location and then open them?"
 msgstr[0] ""
 "%s non sa come aprire il file remoto. Vuoi scaricare il file in una "
-"locazione temporanea e poi aprirlo?%s non sa come aprire i file remoti. Vuoi "
-"scaricare i files in unalocazione temporanea e poi aprirli?"
+"locazione temporanea e poi aprirlo?"
 msgstr[1] ""
 "%s non sa come aprire il file remoto. Vuoi scaricare il file in una "
-"locazione temporanea e poi aprirlo?%s non sa come aprire i file remoti. Vuoi "
-"scaricare i files in unalocazione temporanea e poi aprirli?"
+"locazione temporanea e poi aprirlo?"
 
 #: ../src/utils.cc:1028
 #, c-format
