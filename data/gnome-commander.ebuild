@@ -10,11 +10,11 @@ HOMEPAGE="http://www.nongnu.org/gcmd/"
 
 SRC_URI="http://ftp.gnome.org/pub/GNOME/sources/${PN}/1.2/${P}.tar.bz2";
 
-KEYWORDS="alpha amd64 ia64 ppc ppc64 sparc x86"
+KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 
 LICENSE="GPL-2"
 
-IUSE="doc exif iptc id3"
+IUSE="exif gsf iptc id3"
 SLOT="0"
 
 RDEPEND=">=x11-libs/gtk+-2.6.0
@@ -22,6 +22,7 @@ RDEPEND=">=x11-libs/gtk+-2.6.0
 	>=dev-libs/glib-2.0.0
 	>=gnome-base/libgnomeui-2.0
 	>=gnome-base/gconf-2.0
+	>=dev-lang/python-2.4
 	|| (
 		app-admin/gamin
 		app-admin/fam
@@ -29,6 +30,7 @@ RDEPEND=">=x11-libs/gtk+-2.6.0
 	exif? ( media-libs/libexif )
 	iptc? ( media-libs/libiptcdata )
 	id3?  ( media-libs/id3lib )"
+	gsf?  ( >=gnome-extra/libgsf-1.12.0 )
 
 DEPEND="${RDEPEND}
 	dev-util/intltool
