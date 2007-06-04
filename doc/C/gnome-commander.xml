@@ -1,11 +1,11 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Piotr Eljasiak">
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.4">
   <!ENTITY manrevision "1.2.4">
-  <!ENTITY date "May 2007">
+  <!ENTITY date "June 2007">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -105,7 +105,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.4;</revnumber>
-        <date>2007-05-??</date>
+        <date>2007-06-??</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -3853,7 +3853,7 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>SPACE</keycap></keycombo></para></entry>
-            <entry><para>Select file or directory (as <keycombo><keycap>INSERT</keycap></keycombo>). 
+            <entry><para>Select file or directory (as <keycombo><keycap>INSERT</keycap></keycombo>).
                          If <keycombo><keycap>SPACE</keycap></keycombo> is used on an unselected directory under the cursor,
                          the contents in this directory are counted and the size is shown in the "full" view instead of the string DIR</para></entry>
             <entry><para></para></entry>
@@ -4083,15 +4083,392 @@
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>DOWN</keycap></keycombo></para>
                    <para><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></para></entry>
-            <entry><para>A list with the latest command lines (history list) is opened. Use the <keycombo><keycap>UP</keycap></keycombo> 
+            <entry><para>A list with the latest command lines (history list) is opened. Use the <keycombo><keycap>UP</keycap></keycombo>
             and <keycombo><keycap>DOWN</keycap></keycombo> cursor keys to select an entry.
-            By pressing the <keycombo><keycap>LEFT</keycap></keycombo> or <keycombo><keycap>RIGHT</keycap></keycombo> key, you can edit the command line. 
+            By pressing the <keycombo><keycap>LEFT</keycap></keycombo> or <keycombo><keycap>RIGHT</keycap></keycombo> key, you can edit the command line.
             This automatically closes the list</para></entry>
             <entry><para></para></entry>
         </row>
         </tbody>
         </tgroup>
         </informaltable>
+  </sect1>
+
+<!-- ============= Keyboard shortcuts ===================== -->
+<!-- This section contains info about the user actions.-->
+  <sect1 id="gnome-commander-user-actions">
+    <title>User actions</title>
+    <para>User actions are a method to perform actions on files in the panel
+          or to access &app; functions. For example, <command>plugins.execute_python|sha1.sum</command>
+          will compute SHA1 checksums for selected files.</para>
+    <para>User actions are supported since version 1.2.4</para>
+    <sect2 id="gnome-commander-user-actions-managing">
+        <title>Managing user actions</title>
+        <para>Key bindings reside in [key-bindings] section in &app; config file
+              (<term><guilabel>~/.gnome2/gnome-commander</guilabel></term>).
+              Currently there is no GUI for key configuration.</para>
+        <para>Config file syntax:</para>
+        <para>
+            <command>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;win&gt;]key_name=action[|options]</command>
+        </para>
+        <para>eg.</para>
+        <programlisting>
+    &lt;ctrl&gt;m=file.advrename
+    &lt;ctrl&gt;t=file.advrename
+    &lt;shift&gt;&lt;ctrl&gt;f5=file.create_symlink
+    &lt;ctrl&gt;2=file.diff
+    &lt;win&gt;f=edit.search
+        </programlisting>
+        <tip>
+            <para>It's possible to assign one action to more than one key.</para>
+        </tip>
+        <para>The shortcuts are read at start-up only, so you have to reload application to see the changes.</para>
+        <para>Entries containing invalid key or user action are reported in console and then ignored by &app;.</para>
+    </sect2>
+    <sect2 id="gnome-commander-user-actions-list">
+        <title>List of user actions</title>
+        <informaltable frame="topbot">
+            <tgroup cols="3">
+                <colspec colname="col1"/>
+                <colspec colname="col2"/>
+                <colspec colname="col3"/>
+                <thead>
+                    <row valign="top">
+                        <entry colname="col1" colsep="0" valign="top"><para>User action</para></entry>
+                        <entry colname="col2" valign="top"><para>Description</para></entry>
+                        <entry colname="col3" valign="top"><para>Default key bindings</para></entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row valign="top">
+                        <entry><para>bookmarks.add_current</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>bookmarks.edit</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>bookmarks.goto</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>connections.close</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>connections.close_current</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>connections.ftp_connect</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>connections.ftp_quick_connect</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>G</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>edit.copy</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>edit.copy_filenames</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>edit.cut</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>edit.delete</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>edit.filter</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>F12</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>edit.paste</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>edit.quick_search</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>edit.search</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.advrename</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>M</keycap></keycombo></para>
+                               <para><keycombo><keycap>CTRL</keycap><keycap>T</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.chmod</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.chown</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.copy</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.create_symlink</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.diff</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.edit</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.exit</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.external_view</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.internal_view</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>SHIFT</keycap><keycap>F3</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.mkdir</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.move</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.properties</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.rename</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.synchronize_directories</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.view</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>help.about</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>help.help</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>help.keyboard</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>help.problem</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>help.web</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>mark.compare_directories</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>mark.select_all</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></para>
+                               <para><keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo></para>
+                               <para><keycombo><keycap>CTRL</keycap><keycap>NUM +</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>mark.toggle</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>mark.toggle_and_step</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>mark.unselect_all</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo></para>
+                               <para><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo></para>
+                               <para><keycombo><keycap>CTRL</keycap><keycap>NUM -</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>no.action</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>options.edit</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>O</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>options.edit_mime_types</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>plugins.configure</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>plugins.execute_python</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.back</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.equal_panes</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.first</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.forward</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.last</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.refresh</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.up</para></entry>
+                        <entry><para></para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </informaltable>
+        <tip>
+            <para>Action names are case insensitive.</para>
+        </tip>
+    </sect2>
+    <sect2 id="gnome-commander-user-actions-keys">
+        <title>List of key symbols</title>
+        <tip>
+            <para>Key names are case insensitive (&lt;ctrl&gt;a=&lt;ctrl&gt;A).</para>
+        </tip>
+        <itemizedlist>
+            <listitem>
+                <para>a..z, 0..9</para>
+            </listitem>
+            <listitem>
+                <para>ampersand, apostrophe, asciicircum, asciitilde, asterisk, at,
+                backslash, bar, braceleft, braceright, bracketleft,
+                bracketright, colon, comma, dollar, equal, exclam, greater,
+                less, minus, numbersign, parenleft, parenright, percent, period,
+                plus, question, quotedbl, quoteleft, quoteright, semicolon,
+                slash, space, underscore</para>
+            </listitem>
+            <listitem>
+                <para>f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14,
+                f15, f16, f17, f18, f19, f20, f21, f22, f23, f24, f25, f26, f27,
+                f28, f29, f30, f31, f32, f33, f34, f35</para>
+            </listitem>
+            <listitem>
+                <para>kp.0, kp.1, kp.2, kp.3, kp.4, kp.5, kp.6, kp.7, kp.8, kp.9,
+                kp.add, kp.begin, kp.decimal, kp.delete, kp.divide, kp.down,
+                kp.end, kp.enter, kp.equal, kp.f1, kp.f2, kp.f3, kp.f4, kp.home,
+                kp.insert, kp.left, kp.multiply, kp.next, kp.page.down,
+                kp.page.up, kp.prior, kp.right, kp.separator, kp.space,
+                kp.subtract, kp.tab, kp.up
+                ('kp' stands for keypad)</para>
+            </listitem>
+            <listitem>
+                <para>caps.lock, num.lock, scroll.lock, shift.lock</para>
+            </listitem>
+            <listitem>
+                <para>backspace, begin, break, cancel, clear, codeinput, delete, down,
+                eisu.shift, eisu.toggle, end, escape, execute, find,
+                first.virtual.screen, help, home, hyper.l, hyper.r, insert,
+                last.virtual.screen, left, linefeed, menu, meta.l, meta.r,
+                mode.switch, multiplecandidate, multi.key, next,
+                next.virtual.screen, page.down, page.up, pause,
+                previouscandidate, prev.virtual.screen, print, prior, redo,
+                return, right, script.switch, select, singlecandidate, super.l,
+                super.r, sys.req, tab, terminate.server, undo, up</para>
+            </listitem>
+        </itemizedlist>
+        <note>
+            <para>The list is based on GDK key symbols taken from
+            <ulink url="http://svn.gnome.org/viewcvs/gtk%2B/trunk/gdk/gdkkeysyms.h?view=markup" type="http">
+            gdkkeysyms.h</ulink>.</para>
+        </note>
+    </sect2>
   </sect1>
 
 <!-- ============= Plugins ================================ -->
@@ -5188,7 +5565,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
     <tbody>
         <row valign="top">
             <entry><para>1.2.4</para></entry>
-            <entry><para>2007-05-??</para></entry>
+            <entry><para>2007-06-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
