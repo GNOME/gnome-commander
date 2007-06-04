@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-28 19:31+0200\n"
+"POT-Creation-Date: 2007-06-04 07:50+0200\n"
 "PO-Revision-Date: 2007-01-31 23:59+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -2473,7 +2473,7 @@ msgstr "Albumets maxförstärkning"
 
 #: ../src/tags/gnome-cmd-tags.cc:68
 msgid "Peak gain adjustment of album."
-msgstr "Albumets högsta förstärkningsjustering"
+msgstr "Albumets högsta förstärkningsjustering."
 
 #: ../src/tags/gnome-cmd-tags.cc:69
 msgid "Album Track Count"
@@ -2481,7 +2481,7 @@ msgstr "Ljudspår i albumet"
 
 #: ../src/tags/gnome-cmd-tags.cc:69
 msgid "Total number of tracks on the album."
-msgstr "Totalt antal ljudspår i albumet"
+msgstr "Totalt antal ljudspår i albumet."
 
 #: ../src/tags/gnome-cmd-tags.cc:70 ../src/tags/gnome-cmd-tags.cc:739
 #: ../src/tags/gnome-cmd-tags.cc:1205
@@ -2490,7 +2490,7 @@ msgstr "Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:70 ../src/tags/gnome-cmd-tags.cc:739
 msgid "Name of the album."
-msgstr "Albumets namn"
+msgstr "Albumets namn."
 
 #: ../src/tags/gnome-cmd-tags.cc:71 ../src/tags/gnome-cmd-tags.cc:148
 msgid "Artist"
@@ -2498,15 +2498,15 @@ msgstr "Artist"
 
 #: ../src/tags/gnome-cmd-tags.cc:71
 msgid "Artist of the track."
-msgstr "Ljudspårets artist"
+msgstr "Ljudspårets artist."
 
 #: ../src/tags/gnome-cmd-tags.cc:72 ../src/tags/gnome-cmd-tags.cc:764
 msgid "Bitrate"
-msgstr "Bithastighet"
+msgstr "Bitfrekvens"
 
 #: ../src/tags/gnome-cmd-tags.cc:72 ../src/tags/gnome-cmd-tags.cc:764
 msgid "Bitrate in kbps."
-msgstr "Bithastighet i kbps"
+msgstr "Bitfrekvens i kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:73 ../src/tags/gnome-cmd-tags.cc:781
 msgid "Channels"
