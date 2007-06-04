@@ -29,6 +29,7 @@
     - other mc-like extensions ?
     - sending file as email attachment (configurable mail command)
 * Root (administrator) mode - for root privileges
+* Use gnome keyring manager for password storing
 * vfolders for selecting files from arbitrary URI
   (visible file selection can be merged internally to the vfolder at any point,
    and then the usual multiple file actions can be applied)
