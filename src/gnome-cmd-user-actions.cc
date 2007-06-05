@@ -203,6 +203,7 @@ void GnomeCmdUserActions::init()
     actions.add(file_chown, "file.chown");
     actions.add(file_copy, "file.copy");
     actions.add(file_create_symlink, "file.create_symlink");
+    actions.add(file_delete, "file.delete");
     actions.add(file_diff, "file.diff");
     actions.add(file_edit, "file.edit");
     actions.add(file_exit, "file.exit");

@@ -4237,6 +4237,11 @@
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>file.delete</para></entry>
+                        <entry><para>Delete files</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>file.diff</para></entry>
                         <entry><para>Compare files (diff)</para></entry>
                         <entry><para></para></entry>

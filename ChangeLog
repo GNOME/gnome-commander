@@ -1,3 +1,8 @@
+2007-06-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/useractions.cc:
+	Added "file.delete" action
+
 2007-06-05  Dirk Göttel <dgoettel@freenet.de>
 
 	* data/gnome-commander.ebuild:
