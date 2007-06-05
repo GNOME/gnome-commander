@@ -1,6 +1,6 @@
 2007-06-05  Piotr Eljasiak  <epiotr@use.pl>
 
-	* src/gnome-cmd-user-useractions.cc:
+	* src/gnome-cmd-user-actions.cc:
 	Added "file.delete" action
 
 	* src/gnome-cmd-user-actions.cc:
