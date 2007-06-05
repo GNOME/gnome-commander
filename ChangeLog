@@ -1,7 +1,10 @@
 2007-06-05  Piotr Eljasiak  <epiotr@use.pl>
 
-	* src/useractions.cc:
+	* src/gnome-cmd-user-useractions.cc:
 	Added "file.delete" action
+
+	* src/gnome-cmd-user-actions.cc:
+	Added shortcut CTRL+SHIFT+C as 'Copy selected file names to clipboard'
 
 2007-06-05  Dirk Göttel <dgoettel@freenet.de>
 

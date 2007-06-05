@@ -83,6 +83,8 @@ CTRL+C          Copy files to clipboard (not a global one yet)
 CTRL+X          Cut files to clipboard (not a global one yet)
 CTRL+V          Paste from clipboard to current dir (not a global one yet)
 
+CTRL+SHIFT+C    Copy selected file names to clipboard
+
 CTRL+D          Open favourite directories (bookmarks)
 CTRL+M          Multi-Rename-Tool
 CTRL+T          Multi-Rename-Tool

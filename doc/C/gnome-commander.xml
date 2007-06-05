@@ -3915,6 +3915,16 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></keycombo></entry>
+            <entry><para>Copy selected file names to clipboard</para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+            <entry><para></para></entry>
+        </row>
+        <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></entry>
             <entry><para>Select all files</para></entry>
             <entry><para>yes</para></entry>
@@ -4178,7 +4188,7 @@
                     <row valign="top">
                         <entry><para>edit.copy_filenames</para></entry>
                         <entry><para>Copy file names to clipboard</para></entry>
-                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>edit.cut</para></entry>
@@ -5651,6 +5661,9 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                 </listitem>
                                 <listitem>
                                     <para><keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo>   Create MD5 (128-bit) checksum</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>5</keycap></keycombo>   Copy selected file names to clipboard</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>

@@ -263,6 +263,9 @@ void GnomeCmdUserActions::init()
     if (!registered("connections.ftp_quick_connect"))
         register_action(GDK_CONTROL_MASK, GDK_G, "connections.ftp_quick_connect");
 
+    if (!registered("edit.copy_filenames"))
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_C, "edit.copy_filenames");
+
     if (!registered("edit.filter"))
         register_action(GDK_CONTROL_MASK, GDK_F12, "edit.filter");
 
