@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Piotr Eljasiak">
@@ -119,7 +119,7 @@
     </releaseinfo>
     <legalnotice>
       <title>Feedback</title>
-      <para>To report a bug or make a suggestion regarding the <application>&app;<application> application or
+      <para>To report a bug or make a suggestion regarding the &app; application or
       this manual, follow the directions in the <ulink url="ghelp:gnome-feedback"
       type="help">GNOME Feedback Page</ulink>.
       </para>
@@ -253,9 +253,9 @@
              <mediaobject>
                 <imageobject>
                   <imagedata fileref="figures/gnome-commander_window.png" format="PNG"/>
-                     </imageobject>
+                </imageobject>
                 <textobject><phrase>Shows &app; main window. Contains titlebar, menubar, toolbar, display area,
-                                     and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
+                                    and scrollbars. Menubar contains File, View, Settings, and Help menus.</phrase>
                 </textobject>
             </mediaobject>
           </screenshot>
@@ -285,7 +285,7 @@
     <term>Statusbar.</term>
     <listitem>
     <para>The statusbar displays information about current &app;
-    activity and contextual information about the menu items. </para>
+    activity and contextual information about the menu items.</para>
     </listitem>
     </varlistentry>
     </variablelist>
@@ -460,7 +460,7 @@
             <para><xref linkend="gnome-commander-hidden-files"/></para>
         </listitem>
         <listitem>
-          <para><xref linkend="gnome-commander-advanced-rename"/></para>
+            <para><xref linkend="gnome-commander-advanced-rename"/></para>
         </listitem>
         <listitem>
             <para><xref linkend="gnome-commander-internal-viewer"/></para>
@@ -615,7 +615,7 @@
     <sect2 id="gnome-commander-permissions">
         <title>Changing Permissions</title>
 
-    <para>To change the permissions of a file, perform the following steps:</para>
+    <para>To change the permissions of a file or a folder, perform the following steps:</para>
     <orderedlist>
         <listitem>
             <para>Select the file that you want to change. </para>
@@ -632,74 +632,24 @@
         <listitem>
             <para>For each of the owner, the group, and all other users, choose from these permissions for the file:</para>
         <variablelist>
-        <varlistentry><term>None</term>
+        <varlistentry><term>Read</term>
         <listitem>
-            <para>No access to the file is possible. (You can't set this for the owner.)</para>
+            <para>The users can read a file</para>
         </listitem>
         </varlistentry>
-        <varlistentry><term>Read-only</term>
+        <varlistentry><term>Write</term>
         <listitem>
-            <para>The users can open a file to see its contents, but not make any changes.</para>
+            <para>The users can save a file.</para>
         </listitem>
         </varlistentry>
-        <varlistentry><term>Read and write</term>
+        <varlistentry><term>Execute</term>
         <listitem>
-            <para>Normal access to a file is possible: it can be opened and saved.</para>
+            <para>The users can run a file as a program.</para>
         </listitem>
         </varlistentry>
         </variablelist>
         </listitem>
-        <listitem>
-            <para>To allow a file to be run as a program, select <guilabel>Execute</guilabel></para>
-        </listitem>
     </orderedlist>
-
-    <sect3 id="gnome-commander-permissions-folder">
-    <title>Changing Permissions for a Folder</title>
-
-    <para>To change the permissions of a folder, perform the following steps:</para>
-    <orderedlist>
-      <listitem>
-        <para>Select the folder that you want to change. </para>
-      </listitem>
-      <listitem>
-        <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties</guimenuitem></menuchoice>. The <link linkend="gnome-commander-properties">properties window</link> for the item is displayed.</para>
-      </listitem>
-      <listitem>
-        <para>Click on the <guilabel>Permissions</guilabel> tab.</para>
-      </listitem>
-      <listitem>
-        <para>To change the folder's group, choose from the groups the user belongs to in the drop-down selector.</para>
-      </listitem>
-      <listitem>
-        <para>For each of the owner, the group, and all other users, choose from these folder access permissions:</para>
-        <variablelist>
-          <varlistentry><term>None</term>
-            <listitem>
-              <para>No access to the folder is possible. (You can't set this for the owner.)</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry><term>List files only</term>
-            <listitem>
-              <para>The users can see the items in the folder, but not open any of them.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry><term>Access files</term>
-            <listitem>
-              <para>Items in the folder can be opened and modified, provided their own permissions allow it.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry><term>Create and delete files</term>
-            <listitem>
-              <para>The user can create new files and delete files in the folder, in addition to being able to access existing files.</para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </listitem>
-    </orderedlist>
-
-    <para>To set permissions for all the items contained in a folder, set the <guilabel>File Access</guilabel> and <guilabel>Execute</guilabel> properties and click on <guibutton>Apply permissions to enclosed files</guibutton>.</para>
-  </sect3>
 
     </sect2>
     <!-- ================ Bookmarks Subsection ======================= -->
@@ -3513,30 +3463,142 @@
     </itemizedlist>
     <sect2 id="gnome-commander-prefs-general">
       <title>General</title>
-      <para></para>
+
+        <!-- ==== Figure ==== -->
+          <figure id="options-general-fig">
+              <title>General options</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/gnome-commander_options_general.png" format="PNG"/>
+                    </imageobject>
+                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
+        <para></para>
     </sect2>
     <sect2 id="gnome-commander-prefs-format">
       <title>Format</title>
+
+        <!-- ==== Figure ==== -->
+          <figure id="options-format-fig">
+              <title>Format options</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/gnome-commander_options_format.png" format="PNG"/>
+                    </imageobject>
+                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
       <para></para>
     </sect2>
     <sect2 id="gnome-commander-prefs-layout">
       <title>Layout</title>
+
+        <!-- ==== Figure ==== -->
+          <figure id="options-layout-fig">
+              <title>Layout options</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/gnome-commander_options_layout.png" format="PNG"/>
+                    </imageobject>
+                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
       <para></para>
     </sect2>
     <sect2 id="gnome-commander-prefs-confirmation">
       <title>Confirmation</title>
+
+        <!-- ==== Figure ==== -->
+          <figure id="options-confirmation-fig">
+              <title>Confirmation options</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/gnome-commander_options_confirmation.png" format="PNG"/>
+                    </imageobject>
+                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
       <para></para>
     </sect2>
     <sect2 id="gnome-commander-prefs-filters">
       <title>Filters</title>
+
+        <!-- ==== Figure ==== -->
+          <figure id="options-filters-fig">
+              <title>Filters options</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/gnome-commander_options_filters.png" format="PNG"/>
+                    </imageobject>
+                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
       <para></para>
     </sect2>
     <sect2 id="gnome-commander-prefs-programs">
       <title>Programs</title>
+
+        <!-- ==== Figure ==== -->
+          <figure id="options-programs-fig">
+              <title>Programs options</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/gnome-commander_options_programs.png" format="PNG"/>
+                    </imageobject>
+                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
       <para></para>
     </sect2>
     <sect2 id="gnome-commander-prefs-devices">
       <title>Devices</title>
+
+        <!-- ==== Figure ==== -->
+          <figure id="options-devices-fig">
+              <title>Devices options</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/gnome-commander_options_devices.png" format="PNG"/>
+                    </imageobject>
+                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
       <para></para>
     </sect2>
   </sect1>
@@ -4108,13 +4170,13 @@
 <!-- This section contains info about the user actions.-->
   <sect1 id="gnome-commander-user-actions">
     <title>User actions</title>
-    <para>User actions are a method to perform actions on files in the panel
-          or to access &app; functions. For example, <command>plugins.execute_python|sha1.sum</command>
+    <para>User actions allow user assigning a key or set of keys to trigger predefined &app;
+          functions (actions). For example, <command>plugins.execute_python|sha1.sum</command>
           will compute SHA1 checksums for selected files.</para>
     <para>User actions are supported since version 1.2.4</para>
     <sect2 id="gnome-commander-user-actions-managing">
         <title>Managing user actions</title>
-        <para>Key bindings reside in [key-bindings] section in &app; config file
+        <para>Key bindings reside in [key-bindings] section of &app; config file
               (<term><guilabel>~/.gnome2/gnome-commander</guilabel></term>).
               Currently there is no GUI for key configuration management.</para>
         <para>Config file syntax:</para>
@@ -4133,7 +4195,7 @@
             <para>It's possible to assign one action to more than one key.</para>
         </tip>
         <para>The shortcuts are read at start-up only, so you have to reload application to see the changes.</para>
-        <para>Entries containing invalid key or user action are reported in console and then ignored by &app;.</para>
+        <para>Entries containing invalid key or user action are reported in console during start-up and then ignored by &app;.</para>
     </sect2>
     <sect2 id="gnome-commander-user-actions-list">
         <title>List of user actions</title>
@@ -4508,38 +4570,39 @@
             A plugin is a supplementary program that enhances the functionality of an application.
             Plugins add new items to the &app; menus for the new features they provide.</para>
 
-            <para>Several plugins come built-in with &app;, and you can install more.</para>
-
             <para>The &app; first looks for python plugins in ~/.gnome-commander/plugins/ directory,
             and then in $(libdir)/$(PACKAGE)/plugins directory if not found.</para>
 
-            <para>The following plugins come built-in with &app;:</para>
+            <para>Several plugins come built-in with &app;, and you can install more.</para>
 
             <itemizedlist>
                 <listitem>
-                    <para><xref linkend="gnome-commander-python-plugins-md5sum"/>
-                    allows to create MD5 (128-bit) checksums of the selected files</para>
+                    <para>md5sum plugin - MD5 (128-bit) checksums of the selected files</para>
                 </listitem>
                 <listitem>
-                    <para>sha1sum plugin allows to create SHA-1 (160-bit) checksums of the selected files</para>
+                    <para>sha1sum plugin - SHA-1 (160-bit) checksums of the selected files</para>
                 </listitem>
             </itemizedlist>
         </sect2>
+
         <sect2 id="gnome-commander-python-plugins-api">
             <title>Plugin API</title>
-            <para>
-            The entry (start) point for plugin is always main() function:
+            <para>The entry (start) point for plugin is always main() function:</para>
 
-                    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files)
+            <programlisting>
+    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files)
+            </programlisting>
 
-            where parameters are:
+            <para>where parameters are:</para>
 
-                    main_wnd_xid - XID of &app; main toplevel window
-                    active_cwd - full path of current dir of active pane
-                    active_cwd - full path of current dir of inactive pane
-                    selected_files - list of selected file uris in active pane
+            <programlisting>
+    main_wnd_xid - XID of &app; main toplevel window
+    active_cwd - full path of current dir of active pane
+    active_cwd - full path of current dir of inactive pane
+    selected_files - list of selected file uris in active pane
+            </programlisting>
 
-            Requirements:
+            <para>Requirements:
 
                 build
                     python-devel>=2.4
@@ -4550,7 +4613,7 @@
 
 
             and additionally for python GUI:
-                    pygtk
+                    pygtk</para>
                 <sect3 id="gnome-commander-python-plugins-api-gnomevfs-uri">
                     <title>gnomevfs.URI</title>
                     <para>
@@ -4603,7 +4666,6 @@
                     valid_fields	Fields which are actually valid in this structure.
                     </para>
                 </sect3>
-            </para>
         </sect2>
         <sect2 id="gnome-commander-python-plugins-sample-plugin">
             <title>Sample plugin</title>
@@ -4613,19 +4675,34 @@
         <sect2 id="gnome-commander-python-plugins-resources">
             <title>Python resources</title>
             <para>
-            * <ulink url="http://www.python.org/doc/" type="http">Python documentation</ulink>
-            * GnomeVFS
-            * Pygtk
-            * <ulink url="http://www.learningpython.com/2006/05/07/creating-a-gui-using-pygtk-and-glade/" type="http">Creating a GUI using PyGTK and Glade</ulink>
-            * <ulink url="http://sebsauvage.net/python/snyppets/" type="http">Python code snippets</ulink>
+                <itemizedlist>
+                    <listitem>
+                        <para><ulink url="http://www.python.org/doc/" type="http">Python documentation</ulink></para>
+                    </listitem>
+                    <listitem>
+                        <para>GnomeVFS</para>
+                    </listitem>
+                    <listitem>
+                        <para>Pygtk</para>
+                    </listitem>
+                    <listitem>
+                        <para><ulink url="http://www.learningpython.com/2006/05/07/creating-a-gui-using-pygtk-and-glade/" type="http">Creating a GUI using PyGTK and Glade</ulink></para>
+                    </listitem>
+                    <listitem>
+                        <para><ulink url="http://sebsauvage.net/python/snyppets/" type="http">Python code snippets</ulink></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
 
-Helpful information about URI is here:
+            <para>
 
-http://www.pygtk.org/pygnomevfs/class-gnomevfs-uri.html
+            Helpful information about URI is here:
 
-and on FileInfo:
+            http://www.pygtk.org/pygnomevfs/class-gnomevfs-uri.html
 
-http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
+            and on FileInfo:
+
+            http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
             </para>
         </sect2>
         <sect2 id="gnome-commander-python-plugins-md5sum">
@@ -5185,7 +5262,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                                   <para>"%s" is crucial here - it is expanded to original filename.</para>
                                                 </note>
                                     </para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para><xref linkend="gnome-commander-symbolic-links"/></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
@@ -5423,7 +5500,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                     <entry><para>height</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para><xref linkend="gnome-commander-advanced-rename"/></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
@@ -5532,10 +5609,10 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                 </row>
                                 <row valign="top">
                                     <entry><para>[key-bindings]</para></entry>
-                                    <entry><para><emphasis>key</emphasis></para></entry>
+                                    <entry><para>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;win&gt;]<emphasis>key_name</emphasis></para></entry>
                                     <entry><para>string</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para><command>action[|options]</command></para></entry>
+                                    <entry><para><xref linkend="gnome-commander-user-actions"/></para></entry>
                                 </row>
                             </tbody>
                         </tgroup>
@@ -5663,7 +5740,7 @@ http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
                                     <para><keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo>   Create MD5 (128-bit) checksum</para>
                                 </listitem>
                                 <listitem>
-                                    <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>5</keycap></keycombo>   Copy selected file names to clipboard</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></keycombo>   Copy selected file names to clipboard</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>
