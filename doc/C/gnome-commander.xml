@@ -664,7 +664,7 @@
         and also reduces clutter in locations such as your Home Folder. &app; does not display:</para>
         <itemizedlist>
             <listitem><para>Hidden files, whose filename begins with a period (.),</para></listitem>
-            <listitem><para>Backup files, whose filename ends with a tilde (~) or with extension '.bak'</para></listitem>
+            <listitem><para>Backup files, whose filename ends with a tilde (~) or with extension <filename>'.bak'</filename></para></listitem>
             <listitem><para>Files that are listed in a particular folder's <filename>.hidden</filename> file.</para></listitem>
         </itemizedlist>
         <para>You may hide or show hidden files in a particular folder by selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</guimenuitem></menuchoice>.</para>
@@ -3209,23 +3209,6 @@
               <para>Use this drop-down list box to specify when to use
             scrollbars to scroll through an image. Select one of
             the following options:</para>
-              <itemizedlist>
-            <listitem>
-              <para>
-                <guilabel>Never</guilabel></para>
-              <para>This option never displays scrollbars. You can use the
-                arrow keys on the keyboard or the mouse to scroll
-                through the image. </para>
-            </listitem>
-            <listitem>
-              <para>
-                <guilabel>Only if image does not fit</guilabel></para>
-              <para>This option displays scrollbars when the image is
-                larger than the image window.</para>
-            </listitem>
-              </itemizedlist>
-              <para>Default:
-            <guilabel>Never</guilabel>.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -3242,52 +3225,7 @@
               <para>Default: unselected.</para>
             </listitem>
           </varlistentry>
-          <varlistentry>
-            <term>
-              <guilabel>Open images in a new window</guilabel></term>
-            <listitem>
-              <para>Select this option to open a new
-            &app; window each time you open an image. If you do
-            not select this option, &app; replaces the existing
-            image with the new image when you open an image. </para>
-              <para>Default: unselected.</para>
-            </listitem>
-          </varlistentry>
         </variablelist>
-        </sect3>
-
-        <sect3 id="gnome-commander-internal-viewer-open-image">
-            <title>Open an Image</title>
-            <para>To open an image, choose
-            <menuchoice>
-                <guimenu>File</guimenu>
-                <guimenuitem>Open Image</guimenuitem>
-            </menuchoice>. The
-            <guilabel>Open Image</guilabel> dialog is displayed. Select the file
-            that you want to open, then click <guibutton>OK</guibutton>.
-            To open another image in a new window, choose
-            <menuchoice>
-                <guimenu>File</guimenu>
-                <guimenuitem>Create New Window</guimenuitem>
-            </menuchoice>. Choose
-            <menuchoice>
-                <guimenu>File</guimenu>
-                <guimenuitem>Open Image</guimenuitem>
-            </menuchoice>
-            to select the file that you want to open. You can also drag an image
-            from another application such as a file manager to the &app;
-            window. If the &app; window is empty, the application displays
-            the image in the window. If the window is not empty, the
-            application starts a new window to display the file. The
-            application displays the name of the image file and the size
-            of the image in pixels in the titlebar of the window. </para>
-            <para>
-            If you try to open an image file format that &app; does
-            not recognize, the application displays an error message.
-            </para>
-            <caution>
-                <para>This is a caution.</para>
-            </caution>
         </sect3>
 
         <sect3 id="gnome-commander-internal-viewer-scroll-image">
@@ -3307,22 +3245,6 @@
                 <para>Use the scrollbars on the window.</para>
                 </listitem>
             </itemizedlist>
-        </sect3>
-
-        <sect3 id="gnome-commander-internal-viewer-close-image">
-            <title>To Close an Image</title>
-            <para>To close an image, choose
-            <menuchoice>
-                <guimenu>File</guimenu>
-                <guimenuitem>Close This Window</guimenuitem>
-            </menuchoice>. If the window is the last
-            &app; window open, the application exits. </para>
-            <para>To quit &app; and close all of the
-            windows that you opened in the current session, choose
-            <menuchoice>
-                <guimenu>File</guimenu>
-                <guimenuitem>Exit</guimenuitem>
-            </menuchoice>. </para>
         </sect3>
 
         <sect3 id="gnome-commander-internal-viewer-keyboard">
@@ -3435,7 +3357,7 @@
       <menuchoice>
         <guimenu>Settings</guimenu>
         <guimenuitem>Options...</guimenuitem>
-      </menuchoice>. The
+      </menuchoice> The
       <guilabel>Options</guilabel> dialog contains the following tabbed sections:
     </para>
     <itemizedlist>
@@ -4547,7 +4469,7 @@
 <!-- This section contains info about the python plugins.-->
   <sect1 id="gnome-commander-python-plugins">
     <title>Python plugins</title>
-      <itemizedlist>
+        <itemizedlist>
         <listitem>
             <para><xref linkend="gnome-commander-python-plugins-working-with"/></para>
         </listitem>
@@ -4555,38 +4477,63 @@
             <para><xref linkend="gnome-commander-python-plugins-api"/></para>
         </listitem>
         <listitem>
-            <para><xref linkend="gnome-commander-python-plugins-sample-plugin"/></para>
+            <para><xref linkend="gnome-commander-python-plugins-md5sum"/></para>
         </listitem>
         <listitem>
             <para><xref linkend="gnome-commander-python-plugins-resources"/></para>
         </listitem>
-        <listitem>
-            <para><xref linkend="gnome-commander-python-plugins-md5sum"/></para>
-        </listitem>
       </itemizedlist>
-        <sect2 id="gnome-commander-python-plugins-working-with">
+        <para>Since version 1.2.4 &app; is capable of executing python plugins.
+        Python plugin is a normal python application containing predefined entry function.</para>
+
+        <para>&app; comes with built-in plugins:</para>
+        <itemizedlist>
+            <listitem>
+                <para><filename>md5sum</filename> - MD5 (128-bit) checksums of the selected files</para>
+            </listitem>
+            <listitem>
+                <para><filename>sha1sum</filename> - SHA-1 (160-bit) checksums of the selected files</para>
+            </listitem>
+        </itemizedlist>
+
+       <sect2 id="gnome-commander-python-plugins-working-with">
             <title>Working with plugins</title>
-            <para>You can add extra features to &app; by enabling plugins.
-            A plugin is a supplementary program that enhances the functionality of an application.
-            Plugins add new items to the &app; menus for the new features they provide.</para>
 
-            <para>The &app; first looks for python plugins in ~/.gnome-commander/plugins/ directory,
-            and then in $(libdir)/$(PACKAGE)/plugins directory if not found.</para>
+            <para>To start - simply place your plugin in <filename>~/.gnome-commander/plugins/</filename> directory.
+            If the plugin is meant to be accessed system widely, use alternate location: <filename>$(libdir)/$(PACKAGE)/plugins/</filename>.</para>
 
-            <para>Several plugins come built-in with &app;, and you can install more.</para>
+            <para>Plugins will be added as new entries to the &app; context menus.</para>
 
-            <itemizedlist>
-                <listitem>
-                    <para>md5sum plugin - MD5 (128-bit) checksums of the selected files</para>
-                </listitem>
-                <listitem>
-                    <para>sha1sum plugin - SHA-1 (160-bit) checksums of the selected files</para>
-                </listitem>
-            </itemizedlist>
+            <note>
+                <para>Keyboard shortcuts can be assigned to execute specific python plugins
+                     (eg. <keycombo><keycap>CTRL</keycap><keycap>5</keycap></keycombo> &#x2192; <filename>md5sum</filename>).</para>
+            </note>
+
+            <para>
+
+            <variablelist>
+                <title>Python plugins requirements</title>
+                <varlistentry>
+                    <term>build</term>
+                    <listitem>
+                        <para>python-devel &#x2a7e; 2.4</para>
+                    </listitem>
+                </varlistentry>
+                <varlistentry>
+                    <term>run</term>
+                    <listitem>
+                        <para>python &#x2a7e; 2.4</para>
+                        <para>gnome-python2-gnomevfs</para>
+                        <para>pygtk (for GUI)</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+
+            </para>
         </sect2>
 
         <sect2 id="gnome-commander-python-plugins-api">
-            <title>Plugin API</title>
+            <title>Plugins API</title>
             <para>The entry (start) point for plugin is always main() function:</para>
 
             <programlisting>
@@ -4595,118 +4542,34 @@
 
             <para>where parameters are:</para>
 
-            <programlisting>
-    main_wnd_xid - XID of &app; main toplevel window
-    active_cwd - full path of current dir of active pane
-    active_cwd - full path of current dir of inactive pane
-    selected_files - list of selected file uris in active pane
-            </programlisting>
-
-            <para>Requirements:
-
-                build
-                    python-devel>=2.4
-
-                run
-                    python>=2.4
-                    gnome-python2-gnomevfs
-
-
-            and additionally for python GUI:
-                    pygtk</para>
-                <sect3 id="gnome-commander-python-plugins-api-gnomevfs-uri">
-                    <title>gnomevfs.URI</title>
-                    <para>
-                    class gnomevfs.URI:
-                        gnomevfs.URI(text_uri)
-                        def append_file_name(file_name)
-                        def append_path(path)
-                        def append_string(path)
-                        def copy()
-                        def is_parent(item, recursive)
-                        def resolve_relative(relative_reference)
-
-                    Attributes
-                    dirname	Read/Write	The name of the directory in which the file pointed to by this URI is located.
-                    fragment_identifier	Read/Write
-                    host_name	Read	Server hostname (for remote schemes).
-                    host_port	Read	Server port (for remote schemes).
-                    is_local	Read/Write	Whether the URI is a local filesystem.
-                    parent	Read/Write	The parent URI.
-                    password	Read	Password (for schemes which require authorization).
-                    path	Read/Write	The full path name.
-                    scheme	Read/Write	The URI scheme (`gzip', `tar', `http', etc).
-                    short_name	Read/Write	The base name for the file referred to by this URI. This matches the XPG definition of a basename. This is useful when you want the name of the URI target, but don't care whether the URI points to a file or directory. If the URI points to the root of a domain, this is the host name.
-                    short_path_name	Read/Write	Same as short_name, but if the URI points to the root of a domain, this is equal to /
-                    toplevel	Read/Write	The toplevel URI
-                    user_name	Read	User name (for schemes which require authorization).
-                    </para>
-                </sect3>
-                <sect3 id="gnome-commander-python-plugins-api-gnomevfs-fileinfo">
-                    <title>gnomevfs.FileInfo</title>
-                    <para>
-                    Attributes
-                    atime	Access time.
-                    block_count	Size measured in 512-byte blocks
-                    ctime	Change time.
-                    device	Device type. This property is only valid if the file is local.
-                    flags	Flags for this file. See gnomevfs File Flags.
-                    gid	Group ID of the file
-                    inode	Inode number. This property is only valid if the file is local.
-                    io_block_size	Optimal buffer size for reading/writing the file.
-                    link_count	Number of links to this file.
-                    mime_type	MIME type as an ASCII string
-                    mtime	Modification time.
-                    name	Base name of the file (no path).
-                    permissions	File permissions.
-                    size	Size in bytes.
-                    symlink_name	If the file is a symlink (see `flags'), the name of the file this link points to.
-                    type	File type (i.e. regular, directory, block device...).
-                    uid	User ID of the file
-                    valid_fields	Fields which are actually valid in this structure.
-                    </para>
-                </sect3>
+            <informaltable frame="topbot">
+                <tgroup cols='2'>
+                    <colspec colname="col1"/>
+                    <colspec colname="col2"/>
+                    <tbody>
+                        <row valign="top">
+                            <entry><para>main_wnd_xid</para></entry>
+                            <entry><para>XID of &app; main toplevel window</para></entry>
+                        </row>
+                        <row valign="top">
+                            <entry><para>active_cwd</para></entry>
+                            <entry><para>full path of current dir of active pane</para></entry>
+                        </row>
+                        <row valign="top">
+                            <entry><para>inactive_cwd</para></entry>
+                            <entry><para>full path of current dir of inactive pane</para></entry>
+                        </row>
+                        <row valign="top">
+                            <entry><para>selected_files</para></entry>
+                            <entry><para>list of selected <ulink url="http://www.pygtk.org/pygnomevfs/class-gnomevfs-uri.html" type="http">file uris</ulink> in active pane</para></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </informaltable>
         </sect2>
-        <sect2 id="gnome-commander-python-plugins-sample-plugin">
-            <title>Sample plugin</title>
-            <para>
-            </para>
-        </sect2>
-        <sect2 id="gnome-commander-python-plugins-resources">
-            <title>Python resources</title>
-            <para>
-                <itemizedlist>
-                    <listitem>
-                        <para><ulink url="http://www.python.org/doc/" type="http">Python documentation</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para>GnomeVFS</para>
-                    </listitem>
-                    <listitem>
-                        <para>Pygtk</para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://www.learningpython.com/2006/05/07/creating-a-gui-using-pygtk-and-glade/" type="http">Creating a GUI using PyGTK and Glade</ulink></para>
-                    </listitem>
-                    <listitem>
-                        <para><ulink url="http://sebsauvage.net/python/snyppets/" type="http">Python code snippets</ulink></para>
-                    </listitem>
-                </itemizedlist>
-            </para>
 
-            <para>
-
-            Helpful information about URI is here:
-
-            http://www.pygtk.org/pygnomevfs/class-gnomevfs-uri.html
-
-            and on FileInfo:
-
-            http://www.pygtk.org/pygnomevfs/class-gnomevfs-fileinfo.html
-            </para>
-        </sect2>
         <sect2 id="gnome-commander-python-plugins-md5sum">
-            <title>md5sum plugin</title>
+            <title>Sample plugin: md5sum</title>
             <para>
             <programlisting>
     #!/usr/bin/env python
@@ -4728,6 +4591,7 @@
             f.close()
             md5sum = md5.new(file_content).hexdigest()
             print md5sum, fname
+
         return True
             </programlisting>
             </para>
@@ -4736,7 +4600,30 @@
               <ulink url="http://svn.gnome.org/viewcvs/gnome-commander/trunk/plugins/python/md5sum/md5sum.py?view=markup" type="http">SVN &app; repository.</ulink></para>
             </note>
         </sect2>
-  </sect1>
+
+        <sect2 id="gnome-commander-python-plugins-resources">
+            <title>Python resources</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para><ulink url="http://www.python.org/doc/" type="http">Python documentation</ulink></para>
+                    </listitem>
+                    <listitem>
+                        <para><ulink url="http://www.pygtk.org/pygnomevfs/" type="http">Python gnomevfs reference manual</ulink></para>
+                    </listitem>
+                    <listitem>
+                        <para><ulink url="http://www.pygtk.org/" type="http">PyGTK: GTK+ for Python</ulink></para>
+                    </listitem>
+                    <listitem>
+                        <para><ulink url="http://www.learningpython.com/2006/05/07/creating-a-gui-using-pygtk-and-glade/" type="http">Creating a GUI using PyGTK and Glade</ulink></para>
+                    </listitem>
+                    <listitem>
+                        <para><ulink url="http://sebsauvage.net/python/snyppets/" type="http">Python code snippets</ulink></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </sect2>
+ </sect1>
 
 <!-- ============= Tips and tricks ======================== -->
 <!-- This section contains info some very simple tips and tricks.-->
@@ -6484,7 +6371,7 @@
 
   <para><emphasis>Given enough eyeballs, all bugs are shallow.</emphasis></para>
 
-  <para>//Linus law.</para>
+  <para><foreignphrase>Linus law.</foreignphrase></para>
  </sect1>
 
 <!-- ============= About ================================== -->
