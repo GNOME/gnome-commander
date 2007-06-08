@@ -105,7 +105,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.4;</revnumber>
-        <date>2007-06-??</date>
+        <date>2007-06-09</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -621,7 +621,8 @@
             <para>Select the file that you want to change. </para>
         </listitem>
         <listitem>
-            <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties</guimenuitem></menuchoice>. The <link linkend="gnome-commander-properties">properties window</link> for the item is displayed.</para>
+            <para>Choose <menuchoice><guimenu>File</guimenu><guimenuitem>Properties</guimenuitem></menuchoice>.
+            The <link linkend="gnome-commander-file-properties">properties window</link> for the item is displayed.</para>
         </listitem>
         <listitem>
             <para>Click on the <guilabel>Permissions</guilabel> tab.</para>
@@ -5539,7 +5540,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.4</para></entry>
-            <entry><para>2007-06-??</para></entry>
+            <entry><para>2007-06-09</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
