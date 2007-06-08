@@ -14,7 +14,7 @@ KEYWORDS="~alpha ~amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86"
 
 LICENSE="GPL-2"
 
-IUSE="exif gsf iptc id3"
+IUSE="doc exif iptc id3 gsf"
 SLOT="0"
 
 RDEPEND=">=x11-libs/gtk+-2.6.0
@@ -36,17 +36,14 @@ DEPEND="${RDEPEND}
 	dev-util/intltool
 	dev-util/pkgconfig"
 
-src_compile() {
-	./configure \
-		--host=${CHOST} \
-		--prefix=/usr \
-		--infodir=/usr/share/info \
-		--mandir=/usr/share/man || die "./configure failed"
-	emake || die
-}
 
 DOCS="AUTHORS BUGS ChangeLog NEWS README TODO"
 
-src_install () {
-	emake DESTDIR=${D} install || die
+pkg_setup() {
+        G2CONF=" ${G2CONF}
+                $(use_with exif libexif)
+                $(use_with iptc libiptcdata)
+                $(use_with id3 id3lib)
+                $(use_with doc docs)
+                $(use_with gsf libgsf)"
 }
