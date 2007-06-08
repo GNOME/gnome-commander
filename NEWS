@@ -24,6 +24,7 @@ New features:
  * 'cd -' for changing to the previous working directory
  * More intuitive usage of diff tool
  * Directory synchronizing
+ * Creating directories 'mkdir -p' like
  * Updated help docs
  * New or updated translations: ar, bg, cs, dz, en_GB, fr, it, oc, pl, sl, sv
  * New key bindings:

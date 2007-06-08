@@ -5609,6 +5609,9 @@
                             <para>Directory synchronizing</para>
                         </listitem>
                         <listitem>
+                            <para>Creating directories 'mkdir -p' like</para>
+                        </listitem>
+                        <listitem>
                             <para>Updated help docs</para>
                         </listitem>
                         <listitem>

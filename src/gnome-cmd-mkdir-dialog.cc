@@ -37,44 +37,110 @@ struct _GnomeCmdMkdirDialogPrivate
 static GnomeCmdStringDialogClass *parent_class = NULL;
 
 
-static gboolean
-on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdMkdirDialog *dialog)
+inline GSList *make_uri_list (GnomeCmdDir *dir, string filename)
 {
-    const gchar *filename = values[0];
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
-    // dont create any directory if no name was passed or cancel was selected
-    if (filename == NULL || *filename == 0)
+    // make an absolute filename from one that is starting with a tilde
+    if (filename.compare(0, 2, "~/")==0)
+        if (gnome_cmd_dir_is_local (dir))
+            stringify (filename, gnome_vfs_expand_initial_tilde (filename.c_str()));
+        else
+            filename.erase(0,1);
+
+    // smb exception handling: test if we are in a samba share...
+    // if not - change filename so that we can get a proper error message
+    GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (dir);
+
+    if (strcmp (gnome_vfs_uri_get_scheme (dir_uri), "smb")==0 && g_path_is_absolute (filename.c_str()))
+    {
+        string mime_type = stringify (gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE)));
+
+        if (mime_type=="x-directory/normal" && !gnome_vfs_uri_has_parent (dir_uri))
+            filename.erase(0,1);
+    }
+    gnome_vfs_uri_unref (dir_uri);
+
+    GSList *uri_list = NULL;
+
+    if (g_path_is_absolute (filename.c_str()))
+        while (filename.compare("/")!=0)
+        {
+            uri_list = g_slist_prepend (uri_list, gnome_cmd_dir_get_absolute_path_uri (dir, filename));
+            stringify (filename, g_path_get_dirname (filename.c_str()));
+        }
+    else
+        while (filename.compare(".")!=0)        // support for mkdir -p
+        {
+            uri_list = g_slist_prepend (uri_list, gnome_cmd_dir_get_child_uri (dir, filename.c_str()));
+            stringify (filename, g_path_get_dirname (filename.c_str()));
+        }
+
+    return uri_list;
+}
+
+
+static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdMkdirDialog *dialog)
+{
+    // first create a list of uris...
+    // ... then try to make a dir for each uri from uri list
+    // focus created dir if it is in the active file selector
+
+    gchar *filename = const_cast<gchar *> (values[0]);
+
+    // don't create any directory if no name was passed or cancel was selected
+    if (!filename || *filename==0)
     {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("A directory name must be entered")));
         return FALSE;
     }
 
-    GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (dialog->priv->dir, filename);
+    GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (dialog->priv->dir);
+    gboolean new_dir_focused = FALSE;
+    gboolean mkdir_success = TRUE;
 
-    GnomeVFSResult result = gnome_vfs_make_directory_for_uri (uri,
-                                                              GNOME_VFS_PERM_USER_READ|GNOME_VFS_PERM_USER_WRITE|GNOME_VFS_PERM_USER_EXEC|
-                                                              GNOME_VFS_PERM_GROUP_READ|GNOME_VFS_PERM_GROUP_EXEC|
-                                                              GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
-    if (result == GNOME_VFS_OK)
+    // the list of uri's to be created
+    GSList *uri_list = make_uri_list (dialog->priv->dir, filename);
+
+    for (GSList *i = uri_list; i; i = g_slist_next (i))
     {
-        gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-        gnome_cmd_dir_file_created (dialog->priv->dir, uri_str);
-        g_free (uri_str);
+        GnomeVFSURI *mkdir_uri = (GnomeVFSURI *) i->data;
+        GnomeVFSResult result = gnome_vfs_make_directory_for_uri (mkdir_uri,
+                                                                  GNOME_VFS_PERM_USER_READ|GNOME_VFS_PERM_USER_WRITE|GNOME_VFS_PERM_USER_EXEC|
+                                                                  GNOME_VFS_PERM_GROUP_READ|GNOME_VFS_PERM_GROUP_EXEC|
+                                                                  GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
 
-        gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_fs (main_win, ACTIVE)->list, filename, TRUE);
-        gnome_cmd_dir_unref (dialog->priv->dir);
-        gnome_vfs_uri_unref (uri);
-        return TRUE;
+        // focus the created directory (if possible)
+        if (result==GNOME_VFS_OK)
+            if (gnome_vfs_uri_equal (gnome_vfs_uri_get_parent (mkdir_uri), dir_uri) == 1 && !new_dir_focused)
+            {
+                string focus_filename = stringify (gnome_vfs_uri_extract_short_name (mkdir_uri));
+                string mkdir_uri_str = stringify (gnome_vfs_uri_to_string (mkdir_uri, GNOME_VFS_URI_HIDE_NONE));
+
+                gnome_cmd_dir_file_created (dialog->priv->dir, mkdir_uri_str.c_str());
+                gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_fs (main_win, ACTIVE)->list, focus_filename.c_str(), TRUE);
+                new_dir_focused = TRUE;
+            }
+
+        mkdir_success &= result==GNOME_VFS_OK;
+
+        if (result!=GNOME_VFS_OK)
+            gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (gnome_vfs_result_to_string (result)));
     }
 
-    gnome_vfs_uri_unref (uri);
-    gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (gnome_vfs_result_to_string (result)));
-    return FALSE;
+    for (GSList *i = uri_list; i; i = g_slist_next (i))
+        gnome_vfs_uri_unref ((GnomeVFSURI *) i->data);
+
+    g_slist_free (uri_list);
+
+    gnome_vfs_uri_unref (dir_uri);
+    gnome_cmd_dir_unref (dialog->priv->dir);
+
+    return mkdir_success;
 }
 
 
-static void
-on_cancel (GtkWidget *widget, GnomeCmdMkdirDialog *dialog)
+static void on_cancel (GtkWidget *widget, GnomeCmdMkdirDialog *dialog)
 {
     gnome_cmd_dir_unref (dialog->priv->dir);
 }

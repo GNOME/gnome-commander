@@ -1,3 +1,10 @@
+2007-06-08  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-dir.cc:
+	* src/gnome-cmd-dir.h:
+	* src/gnome-cmd-mkdir-dialog.cc:
+	Make parent directories as needed ('mkdir -p' like)
+
 2007-06-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:

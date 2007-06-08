@@ -715,6 +715,44 @@ gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename)
 }
 
 
+GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string &filename)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
+
+    // include workgroups and shares for smb uris
+    GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (dir);
+
+    if (strcmp (gnome_vfs_uri_get_scheme (dir_uri), "smb") == 0)
+    {
+        gchar *mime_type = gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE));
+        while (strcmp (mime_type, "x-directory/normal") == 0)
+        {
+            g_free (mime_type);
+
+            GnomeVFSURI *tmp_dir_uri = gnome_vfs_uri_get_parent (dir_uri);
+            gnome_vfs_uri_unref (dir_uri);
+            dir_uri = gnome_vfs_uri_dup (tmp_dir_uri);
+            mime_type = gnome_vfs_get_mime_type (gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE));
+        }
+
+        g_free (mime_type);
+
+        gchar *server_and_share = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
+        stringify (filename, g_build_filename (server_and_share, filename.c_str(), NULL));
+        g_free (server_and_share);
+    }
+
+    gnome_vfs_uri_unref (dir_uri);
+
+    GnomeCmdPath *path = gnome_cmd_con_create_path (dir->priv->con, filename.c_str());
+    GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);
+
+    gtk_object_destroy (GTK_OBJECT (path));
+
+    return uri;
+}
+
+
 static gboolean
 file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
 {
