@@ -396,6 +396,17 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
 }
 
 
+inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
+{
+    GtkWidget *vbox = create_vbox (data->dialog, FALSE, 6);
+
+    GtkWidget *space_frame = create_space_frame (data->dialog, 6);
+    gtk_container_add (GTK_CONTAINER (space_frame), vbox);
+
+    return space_frame;
+}
+
+
 GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
@@ -425,9 +436,11 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
 
     gtk_container_add (GTK_CONTAINER (notebook), create_properties_tab (data));
     gtk_container_add (GTK_CONTAINER (notebook), create_permissions_tab (data));
+    gtk_container_add (GTK_CONTAINER (notebook), create_metadata_tab (data));
 
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 0), gtk_label_new (_("Properties")));
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 1), gtk_label_new (_("Permissions")));
+    gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 2), gtk_label_new (_("Metadata")));
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_HELP, GTK_SIGNAL_FUNC (on_dialog_help), data);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_dialog_cancel), data);
