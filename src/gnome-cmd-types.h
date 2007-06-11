@@ -46,7 +46,7 @@ typedef enum
 typedef enum
 {
     GNOME_CMD_PERM_DISP_MODE_TEXT,
-    GNOME_CMD_PERM_DISP_MODE_NUMBER,
+    GNOME_CMD_PERM_DISP_MODE_NUMBER
 } GnomeCmdPermDispMode;
 
 

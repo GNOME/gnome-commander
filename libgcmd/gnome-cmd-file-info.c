@@ -25,6 +25,9 @@ static GtkObjectClass *parent_class = NULL;
 
 struct _GnomeCmdFileInfoPrivate
 {
+#ifdef __sun
+    gchar dummy;  // Sun's forte compiler does not like empty structs
+#endif
 };
 
 

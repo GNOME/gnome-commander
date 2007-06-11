@@ -148,7 +148,7 @@ inline void write_ftp_servers (const gchar *fname)
                 gchar *pw    = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_pw (server));
                 GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (GNOME_CMD_CON (server));
 
-                fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp:", alias, hname, port, remote_dir, uname, pw?:"");
+                fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp:", alias, hname, port, remote_dir, uname, pw?pw:"");
 
                 g_free (alias);
                 g_free (hname);

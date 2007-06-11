@@ -56,8 +56,10 @@ inline Filter *new_fnmatch (const gchar *exp, gboolean case_sens)
     filter->fn_exp = g_strdup (exp);
     filter->fn_flags = FNM_NOESCAPE;
 
+#ifdef _GNU_SOURCE
     if (!case_sens)
         filter->fn_flags |= FNM_CASEFOLD;
+#endif
 
     return filter;
 }

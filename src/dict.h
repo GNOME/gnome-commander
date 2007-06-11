@@ -54,8 +54,8 @@ class DICT
 template <typename KEY, typename VAL>
 inline void DICT<KEY,VAL>::add(const KEY k, const VAL &v)
 {
-    std::pair<typename KEY_COLL::iterator,bool> k_pos = k_coll.insert(make_pair(k,(VAL *) NULL));
-    std::pair<typename VAL_COLL::iterator,bool> v_pos = v_coll.insert(make_pair(v,(KEY *) NULL));
+    std::pair<typename KEY_COLL::iterator,bool> k_pos = k_coll.insert(make_pair(k,(const VAL *) NULL));
+    std::pair<typename VAL_COLL::iterator,bool> v_pos = v_coll.insert(make_pair(v,(const KEY *) NULL));
 
     if (k_pos.second)
         k_pos.first->second = &v_pos.first->first;

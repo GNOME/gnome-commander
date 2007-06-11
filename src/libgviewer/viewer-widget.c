@@ -608,7 +608,7 @@ void gviewer_image_operation(GViewer *obj, IMAGEOPERATION op)
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (obj->priv->imgr);
 
-    return image_render_operation(obj->priv->imgr, op);
+    image_render_operation(obj->priv->imgr, op);
 }
 
 

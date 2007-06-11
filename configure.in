@@ -9,6 +9,8 @@ GNOME_DOC_INIT
 AM_MAINTAINER_MODE
 AM_CONFIG_HEADER(config.h)
 
+AC_GNU_SOURCE
+
 AC_PROG_CC
 AC_PROG_CPP
 AM_PROG_LEX
@@ -17,7 +19,6 @@ AC_PROG_INTLTOOL([0.31])
 
 dnl make sure we keep ACLOCAL_FLAGS around for maintainer builds to work
 AC_SUBST(ACLOCAL_AMFLAGS, "$ACLOCAL_FLAGS -I m4")
-
 
 dnl ===================
 dnl Gettext stuff
@@ -249,8 +250,8 @@ dnl =============================
 dnl Checks for library functions
 dnl =============================
 
+AC_FUNC_FNMATCH_GNU
 AC_FUNC_MMAP
-
 
 dnl ================================================================
 dnl Python

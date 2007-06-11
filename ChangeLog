@@ -1,8 +1,19 @@
+2007-06-12  Damien Carbery  <damien.carbery@sun.com>
+
+	* configure.in:
+	* libgcmd/gnome-cmd-file-info.c:
+	* src/dict.h:
+	* src/filter.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-types.h:
+	* src/libgviewer/viewer-widget.c:
+    Fixed build errors for Solaris
+
 2007-06-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.c:
 	Added 'Metadata' tab to file-props dlg
-    
+
 2007-06-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in: Bumped version to 1.2.5
