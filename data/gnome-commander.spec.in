@@ -14,6 +14,12 @@
 %define srcext .bz2
 %endif
 
+%define        python_ver            @PYTHON_REQ@
+%define        libexif_ver           @LIBEXIF_REQ@
+%define        libiptcdata_ver       @LIBIPTCDATA_REQ@
+%define        id3lib_ver            @ID3LIB_REQ@
+%define        libgsf_ver            @LIBGSF_REQ@
+
 Name:          @PACKAGE@
 Version:       @VERSION@
 Release:       %{rel}%{?dist}
@@ -23,8 +29,8 @@ Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
 
 Group:         Applications/File
 License:       GPL
-URL:           http://www.freesoftware.fsf.org/gcmd/
-Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/gnome-commander/1.2/@PACKAGE@-@VERSION@.tar%{srcext}
+URL:           http://www.nongnu.org/gcmd/
+Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{version}.tar%{srcext}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: desktop-file-utils
@@ -47,18 +53,22 @@ Requires:         meld
 Requires(post):   scrollkeeper
 Requires(postun): scrollkeeper
 
-BuildRequires:   python-devel >= @PYTHON_REQ@
-BuildRequires:   libexif-devel >= @LIBEXIF_REQ@
-#BuildRequires:  libiptcdata-devel >= @LIBIPTCDATA_REQ@
-BuildRequires:   id3lib-devel >= @ID3LIB_REQ@
-BuildRequires:   libgsf-devel >= @LIBGSF_REQ@
+BuildRequires:   python-devel >= %{python_ver}
+BuildRequires:   libexif-devel >= %{libexif_ver}
+#BuildRequires:  libiptcdata-devel >= %{libiptcdata_ver}
+BuildRequires:   id3lib-devel >= %{id3lib_ver}
+%if 0%{?fedora} >= 6
+BuildRequires:   libgsf-devel >= %{libgsf_ver}
+%endif
 
-Requires:        python >= @PYTHON_REQ@
+Requires:        python >= %{python_ver}
 Requires:        gnome-python2-gnomevfs
-Requires:        libexif >= @LIBEXIF_REQ@
-#Requires:       libiptcdata >= @LIBIPTCDATA_REQ@
-Requires:        id3lib >= @ID3LIB_REQ@
-Requires:        libgsf >= @LIBGSF_REQ@
+Requires:        libexif >= %{libexif_ver}
+#Requires:       libiptcdata >= %{libiptcdata_ver}
+Requires:        id3lib >= %{id3lib_ver}
+%if 0%{?fedora} >= 6
+Requires:        libgsf >= %{libgsf_ver}
+%endif
 
 %description
 GNOME Commander is a nice and fast file manager for the GNOME desktop.
@@ -87,7 +97,9 @@ ansluta till FTP-servrar och SMB-nätverk.
 %setup -q
 
 %build
-%configure --disable-scrollkeeper
+%configure \
+   --disable-scrollkeeper \
+   --enable-python
 %{__make} %{?_smp_mflags}
 
 %install
@@ -135,6 +147,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Mon Jun 11 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
+- minor tweaking with library versioning
+
 * Sun Feb 4 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.4-1
 - added libgsf dependencies
 

@@ -1,3 +1,8 @@
+2007-06-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* data/gnome-commander.spec.in:
+	Minor tweaking with library versioning
+
 2007-06-12  Damien Carbery  <damien.carbery@sun.com>
 
 	* configure.in:
