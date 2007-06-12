@@ -1,9 +1,11 @@
+## Process this file with automake to produce Makefile.in
+
 SUBDIRS = id3lib
 
 noinst_LIBRARIES = libgcmd-tags.a
 
 AM_CPPFLAGS = \
-	-Wall \
+	$(CC_WARNINGS) \
 	-I$(top_srcdir) \
 	-I.. \
 	$(GNOMEUI_CFLAGS) \

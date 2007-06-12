@@ -43,6 +43,9 @@ static PluginInfo plugin_nfo = {
 
 struct _TestPluginPrivate
 {
+#ifdef __sun
+    gchar dummy;  // Sun's forte compiler does not like empty structs
+#endif
 };
 
 static GnomeCmdPluginClass *parent_class = NULL;

@@ -3,7 +3,7 @@
 SUBDIRS = tags libgviewer
 
 AM_CPPFLAGS = \
-	-Wall \
+	$(CC_WARNINGS) \
 	-I$(top_srcdir) \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \

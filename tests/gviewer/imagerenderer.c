@@ -23,7 +23,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <err.h>
 
 #include <glib.h>
 #include <gtk/gtk.h>
@@ -61,7 +60,7 @@ void parse_command_line(int argc, char *argv[])
             best_fit = FALSE;
             scale_factor = atof(optarg);
             if (scale_factor<0.1 || scale_factor>3.0) {
-                warnx("Invalid scale factor \"%f\".\n", scale_factor);
+                g_warning("Invalid scale factor \"%f\".\n", scale_factor);
                 usage();
             }
             break;
@@ -73,7 +72,7 @@ void parse_command_line(int argc, char *argv[])
     }
 
     if (optind == argc) {
-        warnx("Need file name to work with...\n");
+        g_warning("Need file name to work with...\n");
         usage();
     }
     filename = g_strdup(argv[optind++]);

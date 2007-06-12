@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
-AM_CPPFLAGS = -Wall \
+
+AM_CPPFLAGS = \
+	$(CC_WARNINGS) \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(GNOMEUI_CFLAGS) \

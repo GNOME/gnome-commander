@@ -1283,7 +1283,11 @@ void patlist_free (GList *pattern_list)
 gboolean patlist_matches (GList *pattern_list, const gchar *s)
 {
     for (GList *tmp = pattern_list; tmp; tmp = tmp->next)
+#ifdef _GNU_SOURCE
         if (fnmatch ((gchar *) tmp->data, s, FNM_NOESCAPE|FNM_CASEFOLD) == 0)
+#else
+        if (fnmatch ((gchar *) tmp->data, s, FNM_NOESCAPE) == 0)   // omit FNM_CASEFOLD as it is a GNU extension.
+#endif
             return TRUE;
 
     return FALSE;

@@ -23,7 +23,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <err.h>
 
 #include <libgviewer/libgviewer.h>
 #include <libgviewer/gvtypes.h>
@@ -98,7 +97,7 @@ void parse_command_line(int argc, char *argv[])
             else if (g_ascii_strcasecmp(optarg,"FIXED")==0)
                 presentation = PRSNT_BIN_FIXED;
             else {
-                warnx("Invalid presentation mode \"%s\".\n", optarg);
+                g_warning("Invalid presentation mode \"%s\".\n", optarg);
                 usage();
             }
             break;
@@ -106,7 +105,7 @@ void parse_command_line(int argc, char *argv[])
         case 'w':
             wrap_limit = atoi(optarg);
             if (wrap_limit<=0) {
-                warnx("Invalid wrap limit \"%s\".\n", optarg);
+                g_warning("Invalid wrap limit \"%s\".\n", optarg);
                 usage();
             }
             break;
@@ -114,7 +113,7 @@ void parse_command_line(int argc, char *argv[])
         case 't':
             tab_size = atoi(optarg);
             if (tab_size <=0) {
-                warnx("Invalid tab size \"%s\".\n", optarg);
+                g_warning("Invalid tab size \"%s\".\n", optarg);
                 usage();
             }
             break;
@@ -122,7 +121,7 @@ void parse_command_line(int argc, char *argv[])
         case 'f':
             fixed_limit = atoi(optarg);
             if (fixed_limit<=0) {
-                warnx("Invalid fixed limit \"%s\".\n", optarg);
+                g_warning("Invalid fixed limit \"%s\".\n", optarg);
                 usage();
             }
             break;
@@ -130,7 +129,7 @@ void parse_command_line(int argc, char *argv[])
     }
 
     if (hexdump && (g_ascii_strcasecmp(encoding, "UTF8")==0)) {
-        warnx("Can't use HexDump mode with UTF8 encoding. (Hexdump requires each character to be one byte exactly)\n");
+        g_warning("Can't use HexDump mode with UTF8 encoding. (Hexdump requires each character to be one byte exactly)\n");
         exit(0);
     }
 
@@ -140,7 +139,7 @@ void parse_command_line(int argc, char *argv[])
     }
 
     if (optind == argc) {
-        warnx("Need file name to work with...\n");
+        g_warning("Need file name to work with...\n");
         usage();
     }
     filename = g_strdup(argv[optind++]);

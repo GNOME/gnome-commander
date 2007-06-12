@@ -23,7 +23,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <err.h>
 
 #include <glib.h>
 #include <gtk/gtk.h>
@@ -86,7 +85,7 @@ void parse_command_line(int argc, char *argv[])
                 dispmode = TR_DISP_MODE_HEXDUMP;
             else
             {
-                warnx("Invalid display mode \"%s\".\n", optarg);
+                g_warning("Invalid display mode \"%s\".\n", optarg);
                 usage();
             }
             break;
@@ -95,7 +94,7 @@ void parse_command_line(int argc, char *argv[])
             tab_size = atoi(optarg);
             if (tab_size <=0)
             {
-                warnx("Invalid tab size \"%s\".\n", optarg);
+                g_warning("Invalid tab size \"%s\".\n", optarg);
                 usage();
             }
             break;
@@ -103,7 +102,7 @@ void parse_command_line(int argc, char *argv[])
         case 'f':
             fixed_limit = atoi(optarg);
             if (fixed_limit<=0) {
-                warnx("Invalid fixed limit \"%s\".\n", optarg);
+                g_warning("Invalid fixed limit \"%s\".\n", optarg);
                 usage();
             }
             break;
@@ -116,7 +115,7 @@ void parse_command_line(int argc, char *argv[])
 
     if (optind == argc)
     {
-        warnx("Need file name to work with...\n");
+        g_warning("Need file name to work with...\n");
         usage();
     }
     filename = g_strdup(argv[optind++]);

@@ -283,7 +283,11 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
             for (; files; files = files->next)
             {
                 gboolean ok = FALSE;
+#ifdef _GNU_SOURCE
                 gint fn_flags = FNM_NOESCAPE | FNM_CASEFOLD;
+#else
+                gint fn_flags = FNM_NOESCAPE;
+#endif
 
                 GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
                 if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR)

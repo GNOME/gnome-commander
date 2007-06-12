@@ -2,12 +2,28 @@
 
 	* configure.in:
 	* libgcmd/gnome-cmd-file-info.c:
+	* libgcmd/Makefile.am:
+	* plugins/cvs/Makefile.am:
+	* plugins/fileroller/Makefile.am:
+	* plugins/test/Makefile.am:
+	* plugins/test/test-plugin.c:
 	* src/dict.h:
 	* src/filter.cc:
 	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-file-popmenu.cc:
 	* src/gnome-cmd-types.h:
-	* src/libgviewer/viewer-widget.c:
-    Fixed build errors for Solaris
+	* src/Makefile.am:
+	* src/utils.cc:
+	* src/libgviewer/Makefile.am:
+	* src/libgviewer/viewer-widget.c::
+	* src/tags/id3lib/Makefile.am:
+	* src/tags/Makefile.am:
+	* tests/gviewer/datapresentation.c:
+	* tests/gviewer/imagerenderer.c:
+	* tests/gviewer/Makefile.am:
+	* tests/gviewer/textrenderer.c:
+	* tests/gviewer/viewerwidget.c:
+	Fixed build errors for Solaris
 
 2007-06-10  Piotr Eljasiak  <epiotr@use.pl>
 
