@@ -5559,7 +5559,7 @@
                             <para>Fixed problem #446361 (build issues on Solaris)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem with creating dirs like ~/mydir</para>
+                            <para>Fixed problem when creating ~/dir</para>
                         </listitem>
                         <listitem>
                             <para>Build fixes</para>

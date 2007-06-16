@@ -4,7 +4,7 @@ gnome-commander 1.2.5
 
 Bug fixes:
  * Fixed problem #446361 (build issues on Solaris)
- * Fixed problem with creating dirs like ~/mydir
+ * Fixed problem when creating ~/dir
  * Build fixes
 
 New features:

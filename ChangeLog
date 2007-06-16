@@ -1,7 +1,7 @@
 2007-06-16  koos  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-mkdir-dialog.cc:
-	Fixed problem with creating dirs like ~/mydir
+	Fixed problem when creating ~/dir
 
 2007-06-16  Piotr Eljasiak  <epiotr@use.pl>
 
