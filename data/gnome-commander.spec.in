@@ -75,6 +75,11 @@ GNOME Commander is a nice and fast file manager for the GNOME desktop.
 In addition to performing the basic filemanager functions the program is also
 an FTP-client and it can browse SMB-networks.
 
+%description -l cs
+GNOME Commander je pěkný a rychlý správce souborů pro GNOME desktop.
+Kromě základních funkcí správy souborů je program také
+FTP klient a umí procházet SMB sítěmi.
+
 %description -l pl
 GNOME Commander to niewielki i wydajny menadżer plików umożliwiający
 wykonywanie za pomocą klawiatury wszystkich standardowych operacji na plikach.
@@ -147,6 +152,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Sat Jun 16 2007 Dušan Hokův  <dusan@mirc.cz> 1.2.5-1
+- added cs description
+
 * Mon Jun 11 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
 - minor tweaking with library versioning
 
@@ -186,7 +194,7 @@ scrollkeeper-update -q || :
 * Mon Jul 17 2006 Piotr Eljasiak <epiotr@use.pl>
 - added glib dependencies
 
-* Sun May 14 2006 Stephanos Manos <stefmanos@gmail.com>
+* Sun May 14 2006 Stephanos Manos <stefmanos AT gmail DOT com>
 - Fixed Scrollkeeper database update
         -disabled scrollkeeper update from make
         -added scrollkeeper-database-update in the %%post & %%postun section
