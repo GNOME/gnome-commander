@@ -463,7 +463,6 @@ typedef enum
 } GnomeCmdTag;
 
 
-
 class GnomeCmdFileMetadata_New
 {
   private:
@@ -505,8 +504,9 @@ inline const std::string &GnomeCmdFileMetadata_New::operator[] (const GnomeCmdTa
 {
     METADATA_COLL::const_iterator pos = metadata.find(tag);
 
-    return pos!=metadata.end() ? *pos->second : NODATA;
+    return pos!=metadata.end() ? pos->second : NODATA;
 }
+
 
 inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const std::string &s)
 {
