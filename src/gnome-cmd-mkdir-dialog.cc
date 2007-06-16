@@ -97,18 +97,19 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
 
     GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (dialog->priv->dir);
     gboolean new_dir_focused = FALSE;
-    gboolean mkdir_success = TRUE;
 
     // the list of uri's to be created
     GSList *uri_list = make_uri_list (dialog->priv->dir, filename);
 
+    GnomeVFSResult result = GNOME_VFS_OK;
+
     for (GSList *i = uri_list; i; i = g_slist_next (i))
     {
         GnomeVFSURI *mkdir_uri = (GnomeVFSURI *) i->data;
-        GnomeVFSResult result = gnome_vfs_make_directory_for_uri (mkdir_uri,
-                                                                  GNOME_VFS_PERM_USER_READ|GNOME_VFS_PERM_USER_WRITE|GNOME_VFS_PERM_USER_EXEC|
-                                                                  GNOME_VFS_PERM_GROUP_READ|GNOME_VFS_PERM_GROUP_EXEC|
-                                                                  GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
+        result = gnome_vfs_make_directory_for_uri (mkdir_uri,
+                                                   GNOME_VFS_PERM_USER_READ|GNOME_VFS_PERM_USER_WRITE|GNOME_VFS_PERM_USER_EXEC|
+                                                   GNOME_VFS_PERM_GROUP_READ|GNOME_VFS_PERM_GROUP_EXEC|
+                                                   GNOME_VFS_PERM_OTHER_READ|GNOME_VFS_PERM_OTHER_EXEC);
 
         // focus the created directory (if possible)
         if (result==GNOME_VFS_OK)
@@ -121,11 +122,6 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
                 gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_fs (main_win, ACTIVE)->list, focus_filename.c_str(), TRUE);
                 new_dir_focused = TRUE;
             }
-
-        mkdir_success &= result==GNOME_VFS_OK;
-
-        if (result!=GNOME_VFS_OK)
-            gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (gnome_vfs_result_to_string (result)));
     }
 
     for (GSList *i = uri_list; i; i = g_slist_next (i))
@@ -136,7 +132,10 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
     gnome_vfs_uri_unref (dir_uri);
     gnome_cmd_dir_unref (dialog->priv->dir);
 
-    return mkdir_success;
+    if (result!=GNOME_VFS_OK)
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (gnome_vfs_result_to_string (result)));
+
+    return result==GNOME_VFS_OK;
 }
 
 
