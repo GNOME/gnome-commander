@@ -22,6 +22,9 @@
 
 #include <config.h>
 
+#include <string>
+#include <map>
+
 #include "gnome-cmd-file.h"
 
 G_BEGIN_DECLS
@@ -458,6 +461,57 @@ typedef enum
     TAG_IPTC_WRITEREDITOR,                  // name of the person involved in the writing, editing or correcting the object or caption/abstract
     NUMBER_OF_TAGS
 } GnomeCmdTag;
+
+
+
+class GnomeCmdFileMetadata_New
+{
+  private:
+
+    typedef std::map<GnomeCmdTagClass,gboolean>  ACCESSED_COLL;
+    typedef std::map<GnomeCmdTag,std::string>    METADATA_COLL;
+
+    ACCESSED_COLL accessed;
+    METADATA_COLL metadata;
+
+    const std::string NODATA;
+
+  public:
+
+    gboolean is_accessed(const GnomeCmdTagClass tag_class) const;
+    gboolean is_accessed(const GnomeCmdTag tag) const;
+    void mark_as_accessed(const GnomeCmdTagClass tag_class)         {  accessed[tag_class] = TRUE;  }
+    void mark_as_accessed(const GnomeCmdTag tag);
+
+    void add(const GnomeCmdTag tag, const std::string &s);
+    void addf(const GnomeCmdTag tag, const gchar *fmt, ...);
+
+    const std::string &operator[] (const GnomeCmdTag tag);
+
+    METADATA_COLL::const_iterator begin()                           {  return metadata.begin();     }
+    METADATA_COLL::const_iterator end()                             {  return metadata.end();       }
+};
+
+
+inline gboolean GnomeCmdFileMetadata_New::is_accessed(const GnomeCmdTagClass tag_class) const
+{
+    ACCESSED_COLL::const_iterator elem = accessed.find(tag_class);
+
+    return elem==accessed.end() ? FALSE : elem->second;
+}
+
+
+inline const std::string &GnomeCmdFileMetadata_New::operator[] (const GnomeCmdTag tag)
+{
+    METADATA_COLL::const_iterator pos = metadata.find(tag);
+
+    return pos!=metadata.end() ? *pos->second : NODATA;
+}
+
+inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const std::string &s)
+{
+    metadata[tag] = s;
+}
 
 
 void gcmd_tags_init();

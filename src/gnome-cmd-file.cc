@@ -80,6 +80,8 @@ destroy (GtkObject *object)
 {
     GnomeCmdFile *file = GNOME_CMD_FILE (object);
 
+    delete file->metadata;
+
 #ifdef HAVE_EXIF
     gcmd_tags_libexif_free_metadata(file);
 #endif
@@ -148,6 +150,8 @@ init (GnomeCmdFile *file)
 
     file->priv->last_update.tv_sec = 0;
     file->priv->last_update.tv_usec = 0;
+
+    file->metadata = NULL;
 
 #ifdef HAVE_EXIF
     file->exif.metadata = NULL;

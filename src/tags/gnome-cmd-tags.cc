@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <stdarg.h>
+
+#include <vector>
 
 #ifdef HAVE_EXIF
 #include <libexif/exif-content.h>
@@ -1624,6 +1627,30 @@ static char int_buff[4096];
 static int tagcmp(const void *t1, const void *t2)
 {
     return strcasecmp(((GnomeCmdTagName *) t1)->name,((GnomeCmdTagName *) t2)->name);
+}
+
+
+void GnomeCmdFileMetadata_New::addf(const GnomeCmdTag tag, const gchar *fmt, ...)
+{
+    static vector<char> buff(16);
+
+    va_list args;
+
+    while (TRUE)
+    {
+        // Try to print in the allocated space
+        va_start (args, fmt);
+        int n = vsnprintf (&buff[0], buff.size(), fmt, args);
+        va_end (args);
+
+        // If that worked, return the string
+        if (n > -1 && n < buff.size())
+          break;
+
+        buff.resize(n > -1 ? n+1 : buff.size()*2);
+    }
+
+    metadata[tag] = &buff[0];
 }
 
 

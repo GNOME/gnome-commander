@@ -42,12 +42,15 @@ struct _GnomeCmdFileMetadata
     gpointer metadata;
 };
 
+struct GnomeCmdFileMetadata_New;
+
 struct _GnomeCmdFile
 {
     GnomeCmdFileInfo parent;
 
     GnomeVFSFileInfo *info;
     GnomeCmdFilePrivate *priv;
+    GnomeCmdFileMetadata_New *metadata;
 #ifdef HAVE_EXIF
     GnomeCmdFileMetadata exif;
 #endif

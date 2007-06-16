@@ -1,3 +1,12 @@
+2007-06-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Initial framework for new metatags implementation 
+	(replacing GHashTable with std::map<GnomeCmdTag,std::string>)
+
 2007-06-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* data/gnome-commander.spec.in:
