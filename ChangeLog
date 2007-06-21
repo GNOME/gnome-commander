@@ -1,3 +1,8 @@
+2007-06-22  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/utils.cc:
+	Fixed bug #447415 (gcmd can't launch executables)
+
 2007-06-16  koos  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-mkdir-dialog.cc:
@@ -9,7 +14,7 @@
 	* src/gnome-cmd-file.h:
 	* src/tags/gnome-cmd-tags.cc:
 	* src/tags/gnome-cmd-tags.h:
-	Initial framework for new metatags implementation 
+	Initial framework for new metatags implementation
 	(replacing GHashTable with std::map<GnomeCmdTag,std::string>)
 
 2007-06-12  Piotr Eljasiak  <epiotr@use.pl>

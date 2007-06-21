@@ -500,7 +500,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
 
     if (!gnome_cmd_file_is_executable (finfo))
     {
-        if (gnome_cmd_file_has_mime_type (finfo, "application/x-executable-binary"))
+        if (gnome_cmd_file_has_mime_type (finfo, "application/x-executable") || gnome_cmd_file_has_mime_type (finfo, "application/x-executable-binary"))
         {
             gchar *fname = get_utf8 (finfo->info->name);
             gchar *msg = g_strdup_printf (_("\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
@@ -524,7 +524,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
 
     if (gnome_cmd_file_is_executable (finfo))
     {
-        if (gnome_cmd_file_has_mime_type (finfo, "application/x-executable-binary"))
+        if (gnome_cmd_file_has_mime_type (finfo, "application/x-executable") || gnome_cmd_file_has_mime_type (finfo, "application/x-executable-binary") )
         {
             gnome_cmd_file_execute (finfo);
             return;
@@ -987,8 +987,8 @@ gboolean app_needs_terminal (GnomeCmdFile *finfo)
 {
     gboolean need_term = TRUE;
 
-    if (strcmp (finfo->info->mime_type, "application/x-executable-binary"))
-        return TRUE;
+    if (strcmp (finfo->info->mime_type, "application/x-executable") && strcmp (finfo->info->mime_type, "application/x-executable-binary"))
+        return need_term;
 
     GList *libs = app_get_linked_libs (finfo);
     if  (!libs) return FALSE;
@@ -1004,7 +1004,7 @@ gboolean app_needs_terminal (GnomeCmdFile *finfo)
         }
     }
 
-    g_list_foreach (libs, (GFunc)g_free, NULL);
+    g_list_foreach (libs, (GFunc) g_free, NULL);
     g_list_free (libs);
 
     return need_term;

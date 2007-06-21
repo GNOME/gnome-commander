@@ -17,7 +17,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-/*Code for OLE2 data processing comes from libextractor and is adjusted to GNOME Commander needs.
+/*
+    Code for OLE2 data processing comes from libextractor and is adjusted to GNOME Commander needs.
 
         src/plugins/ole2/ole2extractor.c - 2006-12-29
 
@@ -133,7 +134,7 @@ inline GnomeCmdTag *get_gcmd_tag(gchar *gsf_tag)
 
 #define __(a) dgettext("iso-639", a)
 
-static const gchar *lid2lang(guint lid)
+inline const gchar *lid2lang(guint lid)
 {
     switch (lid)
     {
@@ -304,8 +305,7 @@ static void process_metadata(gpointer key, gpointer value, gpointer user_data)
 }
 
 
-// inline
-static void process_opendoc_infile(GsfInfile *infile, GHashTable *metadata)
+inline void process_opendoc_infile(GsfInfile *infile, GHashTable *metadata)
 {
     GsfInput *meta_file = gsf_infile_child_by_name (infile, "meta.xml");
 
@@ -324,8 +324,7 @@ static void process_opendoc_infile(GsfInfile *infile, GHashTable *metadata)
 }
 
 
-// inline
-static void process_msole_summary(GsfInput *input, GHashTable *metadata)
+inline void process_msole_summary(GsfInput *input, GHashTable *metadata)
 {
     GsfDocMetaData *sections = gsf_doc_meta_data_new ();
     GError         *err = gsf_msole_metadata_read (input, sections);
@@ -380,8 +379,7 @@ static void process_msole_SO(GsfInput *input, GHashTable *metadata)
 }
 
 
-// inline
-static void process_msole_infile(GsfInfile *infile, GHashTable *metadata)
+inline void process_msole_infile(GsfInfile *infile, GHashTable *metadata)
 {
     // static gchar *names[] = {"\005SummaryInformation", "\005DocumentSummaryInformation", "SfxDocumentInfo", NULL};
 
