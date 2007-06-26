@@ -1,3 +1,8 @@
+2007-06-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/utils.cc:
+	Replacing obsoleted gnome_pixmap_*() with gdk_pixbuf_* ()
+
 2007-06-22  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:
@@ -718,7 +723,7 @@
 	* src/gnome-cmd-file-list.c:
 	* src/gnome-cmd-prepare-xfer-dialog.c:
 	* src/gnome-cmd-search-dialog.c:
-	Reaplacing obsoleted g_dirname() with g_path_get_dirname()
+	Replacing obsoleted g_dirname() with g_path_get_dirname()
 
 2006-10-08  Assaf Gordon  <agordon88@gmail.com>
 
