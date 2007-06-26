@@ -715,7 +715,7 @@ gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename)
 }
 
 
-GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string &filename)
+GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 

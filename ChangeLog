@@ -1,3 +1,9 @@
+2007-06-26  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-dir.cc:
+	* src/gnome-cmd-dir.h:
+	Fixed crash when creating absolute dir on SMB share
+
 2007-06-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:
