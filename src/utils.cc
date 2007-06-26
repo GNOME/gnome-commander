@@ -1043,7 +1043,7 @@ void remove_temp_download_dir (void)
 }
 
 
-static GtkWidget *scale_pixbuf (GdkPixbuf *pixbuf, GtkIconSize icon_size)
+inline GtkWidget *scale_pixbuf (GdkPixbuf *pixbuf, GtkIconSize icon_size)
 {
     int width, height;
 
