@@ -136,8 +136,7 @@ void run_command_indir (const gchar *in_command, const gchar *dir, gboolean term
 }
 
 
-const char **
-convert_varargs_to_name_array (va_list args)
+const char **convert_varargs_to_name_array (va_list args)
 {
     GPtrArray *resizeable_array;
     const char *name;
@@ -159,8 +158,7 @@ convert_varargs_to_name_array (va_list args)
 }
 
 
-static gboolean
-delete_event_callback (gpointer data, gpointer user_data)
+static gboolean delete_event_callback (gpointer data, gpointer user_data)
 {
     g_return_val_if_fail (GTK_IS_DIALOG (data), FALSE);
 
@@ -170,8 +168,7 @@ delete_event_callback (gpointer data, gpointer user_data)
 }
 
 
-static gboolean
-on_run_dialog_keypress (GtkWidget *dialog, GdkEventKey *event, gpointer data)
+static gboolean on_run_dialog_keypress (GtkWidget *dialog, GdkEventKey *event, gpointer data)
 {
     if (event->keyval == GDK_Escape)
     {
@@ -183,10 +180,9 @@ on_run_dialog_keypress (GtkWidget *dialog, GdkEventKey *event, gpointer data)
 }
 
 
-gint
-run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
-                   GtkMessageType msg_type,
-                   const char *text, const char *title, gint def_response, ...)
+gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
+                        GtkMessageType msg_type,
+                        const char *text, const char *title, gint def_response, ...)
 {
     va_list button_title_args;
     const char **button_titles;
@@ -449,8 +445,7 @@ static void do_mime_exec_single (gpointer *args)
 }
 
 
-static void
-on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
+static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 {
     if (id == GTK_RESPONSE_YES)
     {
@@ -715,8 +710,7 @@ void clear_event_key (GdkEventKey *event)
 /**
  * Transform a "\r\n" separated string into a GList with GnomeVFSURI's
  */
-GList *
-strings_to_uris (gchar *data)
+GList *strings_to_uris (gchar *data)
 {
     GList *uri_list = NULL;
     gchar **filenames = g_strsplit (data, "\r\n", STRINGS_TO_URIS_CHUNK);
@@ -820,8 +814,7 @@ GList *string_history_add (GList *in, const gchar *value, gint maxsize)
 }
 
 
-const gchar *
-create_nice_size_str (GnomeVFSFileSize size)
+const gchar *create_nice_size_str (GnomeVFSFileSize size)
 {
     static gchar str1[64];
     const gchar *s1 = size2string (size, GNOME_CMD_SIZE_DISP_MODE_GROUPED);
@@ -1050,11 +1043,10 @@ void remove_temp_download_dir (void)
 }
 
 
-GtkWidget *
-create_ui_pixmap (GtkWidget *window,
-                  GnomeUIPixmapType pixmap_type,
-                  gconstpointer pixmap_info,
-                  GtkIconSize size)
+GtkWidget *create_ui_pixmap (GtkWidget *window,
+                             GnomeUIPixmapType pixmap_type,
+                             gconstpointer pixmap_info,
+                             GtkIconSize size)
 {
     GtkWidget *pixmap = NULL;
     char *name;
@@ -1095,8 +1087,7 @@ create_ui_pixmap (GtkWidget *window,
 }
 
 
-static void
-transform (gchar *s, gchar from, gchar to)
+inline void transform (gchar *s, gchar from, gchar to)
 {
     gint len = strlen (s);
 
@@ -1178,8 +1169,7 @@ GList *file_list_to_info_list (GList *files)
 }
 
 
-gboolean
-create_dir_if_needed (const gchar *dpath)
+gboolean create_dir_if_needed (const gchar *dpath)
 {
     g_return_val_if_fail (dpath, FALSE);
 
@@ -1208,8 +1198,7 @@ create_dir_if_needed (const gchar *dpath)
 }
 
 
-void
-edit_mimetypes (const gchar *mime_type, gboolean blocking)
+void edit_mimetypes (const gchar *mime_type, gboolean blocking)
 {
     if (!mime_type)
         mime_type = "";

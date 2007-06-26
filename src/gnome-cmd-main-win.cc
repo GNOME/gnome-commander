@@ -103,8 +103,8 @@ static GnomeAppClass *parent_class = NULL;
 
 static guint main_win_signals[LAST_SIGNAL] = { 0 };
 static GtkTooltips *toolbar_tooltips = NULL;
-extern gchar *start_dir_left;   //main.c
-extern gchar *start_dir_right;  //main.c
+extern gchar *start_dir_left;   //main.cc
+extern gchar *start_dir_right;  //main.cc
 
 static void
 gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
@@ -964,11 +964,11 @@ GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *mw, FileSelect
     {
         case LEFT:
         case RIGHT:
-            return mw->priv->file_selector[fs] ? 
+            return mw->priv->file_selector[fs] ?
                    GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[fs]) : NULL;
-        
+
         case ACTIVE:
-            return mw->priv->file_selector[mw->priv->current_fs] ? 
+            return mw->priv->file_selector[mw->priv->current_fs] ?
                    GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[mw->priv->current_fs]) : NULL;
 
         case INACTIVE:
@@ -1151,7 +1151,7 @@ gnome_cmd_main_win_keypressed            (GnomeCmdMainWin *mw,
             switch (event->keyval)
             {
                 case GDK_Tab:
-                    // hack to avoid the deafult handling of the tab-key
+                    // hack to avoid the default handling of the tab-key
                     clear_event_key (event);
                     gnome_cmd_main_win_switch_fs (mw, gnome_cmd_main_win_get_fs (mw, INACTIVE));
                     return TRUE;
