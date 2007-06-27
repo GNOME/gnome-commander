@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-05-31 00:59+0200\n"
-"PO-Revision-Date: 2007-05-31 01:16+0100\n"
+"PO-Revision-Date: 2007-06-28 00:39+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1336,7 +1336,7 @@ msgstr "_Zaznaczanie"
 #: ../src/gnome-cmd-main-menu.cc:803
 #: ../src/libgviewer/viewer-window.c:1054
 msgid "_View"
-msgstr "_Podgląd"
+msgstr "W_idok"
 
 #: ../src/gnome-cmd-main-menu.cc:808
 #: ../src/libgviewer/viewer-window.c:1065
