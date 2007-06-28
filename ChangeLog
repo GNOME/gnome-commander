@@ -1,3 +1,10 @@
+2007-06-28  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-dir.cc:
+	* src/gnome-cmd-dir.h:
+	* src/gnome-cmd-file.cc:
+	Fixed runtime assertions
+
 2007-06-28  Kamil Madac
 
 	* src/gnome-cmd-xfer-progress-win.c:

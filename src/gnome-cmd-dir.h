@@ -113,11 +113,11 @@ gchar       *gnome_cmd_dir_get_uri_str (GnomeCmdDir *dir);
 GnomeVFSURI *gnome_cmd_dir_get_child_uri (GnomeCmdDir *dir, const gchar *filename);
 gchar       *gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename);
 
-GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, std::string filename);
+GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, std::string absolute_filename);
 
-void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *filename);
-void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *filename);
-void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *filename);
+void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str);
+void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str);
+void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo);
 gboolean gnome_cmd_dir_uses_fam (GnomeCmdDir *dir);
 

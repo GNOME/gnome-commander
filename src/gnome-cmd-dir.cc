@@ -715,7 +715,7 @@ gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *filename)
 }
 
 
-GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string filename)
+GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absolute_filename)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
 
@@ -738,13 +738,13 @@ GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string filen
         g_free (mime_type);
 
         gchar *server_and_share = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_TOPLEVEL_METHOD);
-        stringify (filename, g_build_filename (server_and_share, filename.c_str(), NULL));
+        stringify (absolute_filename, g_build_filename (server_and_share, absolute_filename.c_str(), NULL));
         g_free (server_and_share);
     }
 
     gnome_vfs_uri_unref (dir_uri);
 
-    GnomeCmdPath *path = gnome_cmd_con_create_path (dir->priv->con, filename.c_str());
+    GnomeCmdPath *path = gnome_cmd_con_create_path (dir->priv->con, absolute_filename.c_str());
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (dir->priv->con, path);
 
     gtk_object_destroy (GTK_OBJECT (path));

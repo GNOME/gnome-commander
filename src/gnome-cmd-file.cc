@@ -286,7 +286,9 @@ gnome_cmd_file_chmod (GnomeCmdFile *file, GnomeVFSFilePermissions perm)
     if (has_parent_dir (file))
     {
         GnomeCmdDir *dir = get_parent_dir (file);
-        gnome_cmd_dir_file_changed (dir, file->info->name);
+        gchar *uri_str = gnome_cmd_file_get_uri_str (file);
+        gnome_cmd_dir_file_changed (dir, uri_str);
+        g_free (uri_str);
     }
 
     return ret;
@@ -310,7 +312,9 @@ gnome_cmd_file_chown (GnomeCmdFile *file, uid_t uid, gid_t gid)
     if (has_parent_dir (file))
     {
         GnomeCmdDir *dir = get_parent_dir (file);
-        gnome_cmd_dir_file_changed (dir, file->info->name);
+        gchar *uri_str = gnome_cmd_file_get_uri_str (file);
+        gnome_cmd_dir_file_changed (dir, uri_str);
+        g_free (uri_str);
     }
 
     return ret;
