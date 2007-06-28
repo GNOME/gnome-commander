@@ -144,51 +144,44 @@ gnome_cmd_xfer_progress_win_get_type         (void)
 
         dlg_type = gtk_type_unique (gtk_window_get_type (), &dlg_info);
     }
+
     return dlg_type;
 }
 
 
-void
-gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
-                                                GnomeVFSFileSize bytes_copied,
-                                                GnomeVFSFileSize bytes_total)
+void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
+                                                     GnomeVFSFileSize bytes_copied,
+                                                     GnomeVFSFileSize bytes_total)
 {
     gchar text[128];
-    const gchar *total_str;
     gfloat prog = -1.0f;
-    gint prog_percent = -1;
 
     if (bytes_total > 0)
-    {
-        prog = (gdouble)bytes_copied / (gdouble)bytes_total;
-        prog_percent = (gint)(prog*100.0f);
-    }
+        prog = (gdouble) bytes_copied / (gdouble) bytes_total;
 
     gtk_progress_set_percentage (GTK_PROGRESS (win->totalprog), prog);
 
-    total_str = size2string(bytes_total, gnome_cmd_data_get_size_disp_mode());
+    gchar *bytes_total_str = g_strdup(size2string(bytes_total, gnome_cmd_data_get_size_disp_mode()));
+    const gchar *bytes_copied_str = size2string(bytes_copied, gnome_cmd_data_get_size_disp_mode());
 
-    g_snprintf (text, sizeof (text), _("%d%% of %s copied"),
-                prog_percent, total_str);
+    g_snprintf (text, sizeof (text), _("%s of %s copied"), bytes_copied_str, bytes_total_str);
 
     gtk_label_set_text (GTK_LABEL (win->fileprog_label), text);
 
-    g_snprintf (text, sizeof (text), _("%d%% copied"), prog_percent);
+    g_snprintf (text, sizeof (text), _("%.0f%% copied"), prog*100.0f);
     gtk_window_set_title (GTK_WINDOW (win), text);
+
+    g_free (bytes_total_str);
 }
 
 
-void
-gnome_cmd_xfer_progress_win_set_msg (GnomeCmdXferProgressWin *win,
-                                     const gchar *string)
+void gnome_cmd_xfer_progress_win_set_msg (GnomeCmdXferProgressWin *win, const gchar *string)
 {
     gtk_label_set_text (GTK_LABEL (win->msg_label), string);
 }
 
 
-void
-gnome_cmd_xfer_progress_win_set_action (GnomeCmdXferProgressWin *win,
-                                        const gchar *string)
+void gnome_cmd_xfer_progress_win_set_action (GnomeCmdXferProgressWin *win, const gchar *string)
 {
     gtk_window_set_title (GTK_WINDOW (win), string);
 }

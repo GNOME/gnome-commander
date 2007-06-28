@@ -1,3 +1,8 @@
+2007-06-28  Kamil Madac
+
+	* src/gnome-cmd-xfer-progress-win.c:
+	Show copied bytes instead of percentage during file transfer
+
 2007-06-26  koos  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-dir.cc:
