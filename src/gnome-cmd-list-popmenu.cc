@@ -69,8 +69,7 @@ on_paste (GtkMenuItem *item, GnomeCmdFileSelector *fs)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdListPopmenu *menu = GNOME_CMD_LIST_POPMENU (object);
 
@@ -81,16 +80,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdListPopmenuClass *klass)
+static void class_init (GnomeCmdListPopmenuClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -101,10 +98,9 @@ class_init (GnomeCmdListPopmenuClass *klass)
 }
 
 
-static void
-init (GnomeCmdListPopmenu *menu)
+static void init (GnomeCmdListPopmenu *menu)
 {
-    menu->priv = g_new (GnomeCmdListPopmenuPrivate, 1);
+    menu->priv = g_new0 (GnomeCmdListPopmenuPrivate, 1);
 }
 
 
@@ -112,8 +108,7 @@ init (GnomeCmdListPopmenu *menu)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
+GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), NULL);
 
@@ -135,13 +130,11 @@ gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
 
     // Set default callback data
 
-    int i;
-
-    for (i = 0; new_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
+    for (int i = 0; new_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
         if (new_uiinfo[i].type == GNOME_APP_UI_ITEM)
             new_uiinfo[i].user_data = fs;
 
-    for (i = 0; popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
+    for (int i = 0; popmenu_uiinfo[i].type != GNOME_APP_UI_ENDOFINFO; ++i)
         if (popmenu_uiinfo[i].type == GNOME_APP_UI_ITEM)
             popmenu_uiinfo[i].user_data = fs;
 
@@ -155,8 +148,7 @@ gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
 }
 
 
-GtkType
-gnome_cmd_list_popmenu_get_type         (void)
+GtkType gnome_cmd_list_popmenu_get_type (void)
 {
     static GtkType type = 0;
 

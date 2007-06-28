@@ -32,8 +32,8 @@ static GtkWindowClass *parent_class = NULL;
 /******************************
  * Callbacks
  ******************************/
-static void
-on_cancel (GtkButton *btn, GnomeCmdXferProgressWin *win)
+
+static void on_cancel (GtkButton *btn, GnomeCmdXferProgressWin *win)
 {
     win->cancel_pressed = TRUE;
     gnome_cmd_xfer_progress_win_set_action (win, _("stopping..."));
@@ -45,24 +45,21 @@ on_cancel (GtkButton *btn, GnomeCmdXferProgressWin *win)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdXferProgressWinClass *klass)
+static void class_init (GnomeCmdXferProgressWinClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -73,8 +70,7 @@ class_init (GnomeCmdXferProgressWinClass *klass)
 }
 
 
-static void
-init (GnomeCmdXferProgressWin *win)
+static void init (GnomeCmdXferProgressWin *win)
 {
     GtkWidget *vbox;
     GtkWidget *bbox;
@@ -114,8 +110,7 @@ init (GnomeCmdXferProgressWin *win)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_xfer_progress_win_new ()
+GtkWidget *gnome_cmd_xfer_progress_win_new ()
 {
     GnomeCmdXferProgressWin *win = (GnomeCmdXferProgressWin *) gtk_type_new (gnome_cmd_xfer_progress_win_get_type ());
 
@@ -123,8 +118,7 @@ gnome_cmd_xfer_progress_win_new ()
 }
 
 
-GtkType
-gnome_cmd_xfer_progress_win_get_type         (void)
+GtkType gnome_cmd_xfer_progress_win_get_type (void)
 {
     static GtkType dlg_type = 0;
 
