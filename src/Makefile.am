@@ -8,6 +8,7 @@ AM_CPPFLAGS = \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
 	$(PYTHON_CFLAGS) \
+	-DDATADIR=\""$(datadir)"\"\
 	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\"
 
 bin_PROGRAMS = gnome-commander gcmd-block

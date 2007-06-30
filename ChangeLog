@@ -1,3 +1,10 @@
+2007-06-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* src/Makefile.am:
+	* src/main.cc:
+	Set proper value to DATADIR
+
 2007-06-28  koos  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-dir.cc:

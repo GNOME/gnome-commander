@@ -109,7 +109,7 @@ main (int argc, char *argv[])
                                   // GNOME_PARAM_GOPTION_CONTEXT, option_context,
                                   GNOME_PARAM_POPT_TABLE, popt_options,
                                   GNOME_PARAM_HUMAN_READABLE_NAME, _("File Manager"),
-                                  GNOME_PARAM_APP_DATADIR, DATA_DIR,
+                                  GNOME_PARAM_APP_DATADIR, DATADIR,
                                   GNOME_PARAM_NONE);
 
     ls_colors_init ();
