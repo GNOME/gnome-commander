@@ -233,18 +233,15 @@ gchar *str_uri_basename (const gchar *uri)
     if (!uri)
         return NULL;
 
-    int i,
-        len = strlen (uri),
+    int len = strlen (uri),
         last_slash=0;
 
     if (len < 2)
         return NULL;
 
-    for (i=0; i<len; i++)
-    {
+    for (int i=0; i<len; i++)
         if (uri[i] == '/')
             last_slash = i;
-    }
 
     return gnome_vfs_unescape_string (&uri[last_slash+1], NULL);
 }
@@ -422,8 +419,7 @@ inline void no_mime_app_found_error (gchar *mime_type)
 {
     gchar *msg;
 
-    msg = g_strdup_printf (_("No default application found for the mime-type %s.\nOpen the \"File types and programs\" page in the Control Center to add one."),
-                           mime_type);
+    msg = g_strdup_printf (_("No default application found for the mime-type %s.\nOpen the \"File types and programs\" page in the Control Center to add one."), mime_type);
     create_error_dialog (msg);
     g_free (msg);
 }
@@ -481,12 +477,12 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 
 void mime_exec_single (GnomeCmdFile *finfo)
 {
+    g_return_if_fail (finfo != NULL);
+    g_return_if_fail (finfo->info != NULL);
+
     gpointer *args;
     GnomeVFSMimeApplication *vfs_app;
     GnomeCmdApp *app;
-
-    g_return_if_fail (finfo != NULL);
-    g_return_if_fail (finfo->info != NULL);
 
     if (!finfo->info->mime_type)
         return;
@@ -946,21 +942,20 @@ void set_cursor_default (void)
 
 GList *app_get_linked_libs (GnomeCmdFile *finfo)
 {
-    FILE *fd;
-    gchar *cmd, *s;
+    gchar *s;
     gchar tmp[256];
-    gchar *arg;
-    GList *libs = NULL;
 
     g_return_val_if_fail (GNOME_CMD_IS_FILE (finfo), NULL);
 
-    arg = g_shell_quote (gnome_cmd_file_get_real_path (finfo));
-    cmd = g_strdup_printf ("ldd %s", arg);
+    gchar *arg = g_shell_quote (gnome_cmd_file_get_real_path (finfo));
+    gchar *cmd = g_strdup_printf ("ldd %s", arg);
     g_free (arg);
-    fd = popen (cmd, "r");
+    FILE *fd = popen (cmd, "r");
     g_free (cmd);
 
     if (!fd) return NULL;
+
+    GList *libs = NULL;
 
     while ((s = fgets (tmp, sizeof(tmp), fd)))
     {
