@@ -21,6 +21,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-list-popmenu.h"
 #include "gnome-cmd-file-selector.h"
+#include "gnome-cmd-user-actions.h"
 #include "utils.h"
 #include "cap.h"
 
@@ -37,29 +38,25 @@ struct _GnomeCmdListPopmenuPrivate
 };
 
 
-static void
-on_new_directory (GtkMenuItem *item, GnomeCmdFileSelector *fs)
+static void on_new_directory (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 {
     gnome_cmd_file_selector_show_mkdir_dialog (fs);
 }
 
 
-static void
-on_new_textfile (GtkMenuItem *item, GnomeCmdFileSelector *fs)
+static void on_new_textfile (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 {
     gnome_cmd_file_selector_show_new_textfile_dialog (fs);
 }
 
 
-static void
-on_refresh (GtkMenuItem *item, GnomeCmdFileSelector *fs)
+static void on_refresh (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 {
     gnome_cmd_file_selector_reload (fs);
 }
 
 
-static void
-on_paste (GtkMenuItem *item, GnomeCmdFileSelector *fs)
+static void on_paste (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 {
     gnome_cmd_file_selector_cap_paste (fs);
 }
@@ -123,6 +120,7 @@ GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
     {
         GNOMEUIINFO_SUBTREE(N_("_New..."), new_uiinfo),
         GNOMEUIINFO_ITEM_STOCK(N_("_Paste"), NULL, on_paste, GNOME_STOCK_MENU_PASTE),
+        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_ITEM_STOCK(N_("_Refresh"), NULL, on_refresh, GNOME_STOCK_MENU_REFRESH),
         GNOMEUIINFO_END
     };

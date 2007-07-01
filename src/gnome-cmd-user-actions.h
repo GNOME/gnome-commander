@@ -31,7 +31,7 @@
 
 G_BEGIN_DECLS
 
-#define GNOME_CMD_USER_ACTION(f)   void f(GtkMenuItem *menuitem, gpointer user_data)
+#define GNOME_CMD_USER_ACTION(f)   void f(GtkMenuItem *menuitem=NULL, gpointer user_data=NULL)
 typedef void (*GnomeCmdUserActionFunc) (GtkMenuItem *menuitem, gpointer user_data);
 
 
@@ -131,6 +131,9 @@ GNOME_CMD_USER_ACTION(edit_search);
 GNOME_CMD_USER_ACTION(edit_quick_search);
 GNOME_CMD_USER_ACTION(edit_filter);
 GNOME_CMD_USER_ACTION(edit_copy_fnames);
+
+/************** Command Menu **************/
+GNOME_CMD_USER_ACTION(command_open_terminal);
 
 /************** View Menu **************/
 GNOME_CMD_USER_ACTION(view_conbuttons);

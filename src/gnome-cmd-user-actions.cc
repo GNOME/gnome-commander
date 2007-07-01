@@ -186,6 +186,7 @@ void GnomeCmdUserActions::init()
     actions.add(bookmarks_add_current, "bookmarks.add_current");
     actions.add(bookmarks_edit, "bookmarks.edit");
     actions.add(bookmarks_goto, "bookmarks.goto");
+    actions.add(command_open_terminal, "command.open_terminal");
     actions.add(connections_close_current, "connections.close");
     actions.add(connections_close_current, "connections.close_current");
     actions.add(connections_ftp_connect, "connections.ftp_connect");
@@ -821,6 +822,16 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer not_used)
     g_free (s);
     g_list_free (sfl);
     g_free (fnames);
+}
+
+
+/************** Command Menu **************/
+void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (get_fs (ACTIVE))));
+
+    gnome_execute_terminal_shell (dpath, NULL);
+    g_free (dpath);
 }
 
 

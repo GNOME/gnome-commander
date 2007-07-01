@@ -211,6 +211,11 @@ gboolean patlist_matches (GList *pattern_list, const gchar *s);
 void gnome_cmd_error_message(const gchar *title, GError *error);
 void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id=NULL);
 
+// Insert an item with an inline xpm icon and a user data pointer
+#define GNOMEUIINFO_ITEM_FILENAME(label, tooltip, callback, filename) \
+    { GNOME_APP_UI_ITEM, label, tooltip, (gpointer)callback, NULL, NULL, \
+        GNOME_APP_PIXMAP_FILENAME, filename, 0, (GdkModifierType) 0, NULL }
+
 G_END_DECLS
 
 inline std::string &stringify(std::string &s, gchar *val)

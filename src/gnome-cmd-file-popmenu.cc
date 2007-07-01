@@ -26,6 +26,7 @@
 #include "gnome-cmd-main-win.h"
 #include "plugin_manager.h"
 #include "gnome-cmd-python-plugin.h"
+#include "gnome-cmd-user-actions.h"
 #include "utils.h"
 #include "cap.h"
 
@@ -451,7 +452,9 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         GNOMEUIINFO_ITEM_STOCK(N_("Cu_t"), NULL, on_cut, GNOME_STOCK_MENU_CUT),
         GNOMEUIINFO_ITEM_STOCK(N_("_Copy"), NULL, on_copy, GNOME_STOCK_MENU_COPY),
         GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), NULL, on_delete, GNOME_STOCK_MENU_TRASH),
+        GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_NONE (N_("Rename"), NULL, on_rename),
+        GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(N_("_Properties..."), NULL, on_properties, GNOME_STOCK_MENU_PROP),
         GNOMEUIINFO_END

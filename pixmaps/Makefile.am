@@ -40,6 +40,7 @@ pixmaps_DATA = \
 	smb-computer.xpm \
 	smb-network.xpm \
 	toggle_horizontal.xpm \
-	toggle_vertical.xpm
+	toggle_vertical.xpm \
+	terminal.svg
 
 EXTRA_DIST = $(dti_DATA) $(pixmaps_DATA)

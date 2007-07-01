@@ -4156,6 +4156,11 @@
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>command.open_terminal</para></entry>
+                        <entry><para>Open terminal in the current directory</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>connections.close</para></entry>
                         <entry><para>Close connections</para></entry>
                         <entry><para></para></entry>
@@ -4202,7 +4207,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>edit.paste</para></entry>
-                        <entry><para>Paste from clipboard to current dir (not a global one yet)</para></entry>
+                        <entry><para>Paste from clipboard to current directory (not a global one yet)</para></entry>
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
@@ -5576,7 +5581,10 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>New or updated translations: dz, es</para>
+                            <para>Open terminal in the current directory</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: dz, es, pl</para>
                         </listitem>
                     </itemizedlist>
                 </para>

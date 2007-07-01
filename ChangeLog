@@ -1,3 +1,13 @@
+2007-07-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-popmenu.cc:
+	* src/gnome-cmd-list-popmenu.cc:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	* src/utils.h:
+	Added "Open Terminal" action to toolbar, RMB and user actions.
+
 2007-06-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:
@@ -26,7 +36,7 @@
 2007-06-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:
-	Replacing obsoleted gnome_pixmap_*() with gdk_pixbuf_* ()
+	Replacing obsoleted gnome_pixmap_*() with gdk_pixbuf_*()
 
 2007-06-22  Piotr Eljasiak  <epiotr@use.pl>
 
