@@ -31,7 +31,8 @@
 using namespace std;
 
 
-typedef struct {
+typedef struct
+{
     GtkWidget *dialog;
     GnomeCmdFile *finfo;
     GThread *thread;
@@ -70,7 +71,7 @@ static const gchar *get_size_disp_string (GnomeVFSFileSize size)
 static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
 {
     GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_DEFAULT;
-    GList *list = NULL, *tmp;
+    GList *list = NULL;
     gchar *uri_str;
 
     if (data->stop)
@@ -85,7 +86,7 @@ static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI 
     if (result != GNOME_VFS_OK) return;
     if (!list) return;
 
-    for (tmp = list; tmp; tmp = tmp->next)
+    for (GList *tmp = list; tmp; tmp = tmp->next)
     {
         GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
 
@@ -102,7 +103,7 @@ static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI 
         }
     }
 
-    for (tmp = list; tmp; tmp = tmp->next)
+    for (GList *tmp = list; tmp; tmp = tmp->next)
     {
         GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
         gnome_vfs_file_info_unref (info);
@@ -137,6 +138,7 @@ static gboolean join_thread_func (GnomeCmdFilePropsDialogPrivate *data)
 
     gnome_cmd_file_unref (data->finfo);
     g_free (data);
+
     return FALSE;
 }
 
@@ -448,4 +450,3 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
 
     return dialog;
 }
-

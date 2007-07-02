@@ -425,7 +425,7 @@ inline void process_msole_infile(GsfInfile *infile, GHashTable *metadata)
             if (src)
             {
                 process_msole_summary (src, metadata);
-                g_object_unref (G_OBJECT(src));
+                g_object_unref (G_OBJECT (src));
             }
 
             continue;
@@ -438,7 +438,7 @@ inline void process_msole_infile(GsfInfile *infile, GHashTable *metadata)
             if (src)
             {
                 process_msole_SO (src, metadata);
-                g_object_unref (G_OBJECT(src));
+                g_object_unref (G_OBJECT (src));
             }
 
             continue;
