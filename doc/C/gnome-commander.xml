@@ -3992,7 +3992,7 @@
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></entry>
             <entry><para>Set both panels equal</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -4393,7 +4393,7 @@
                     <row valign="top">
                         <entry><para>view.equal_panes</para></entry>
                         <entry><para>Set equal panes (50/50)</para></entry>
-                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>view.first</para></entry>
@@ -5585,6 +5585,13 @@
                         </listitem>
                         <listitem>
                             <para>New or updated translations: dz, es, pl</para>
+                        </listitem>
+                        <listitem>
+                            <para>New key bindings:</para>
+                            <itemizedlist>
+                                <listitem>
+                                </listitem>
+                            </itemizedlist>
                         </listitem>
                     </itemizedlist>
                 </para>

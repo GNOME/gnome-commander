@@ -990,11 +990,6 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
                 gnome_cmd_main_win_update_style (main_win);
                 gnome_cmd_data_save ();
                 return TRUE;
-
-            case GDK_equal:
-            case GDK_plus:
-                gnome_cmd_main_win_set_equal_panes (mw);
-                return TRUE;
         }
     }
     else if (state_is_ctrl (event->state))

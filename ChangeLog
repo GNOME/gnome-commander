@@ -1,3 +1,8 @@
+2007-07-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	Define CTRL+SHIFT+= binding as user definable (view.equal_panes)
+
 2007-07-01  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-popmenu.cc:
