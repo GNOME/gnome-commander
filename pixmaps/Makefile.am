@@ -31,7 +31,7 @@ pixmaps_DATA = \
 	overlay_symlink.xpm \
 	overlay_umount.xpm \
 	parent_dir.xpm \
-	python-plugin.svg \
+	python.svg \
 	root_dir.xpm \
 	rotate-180-16.xpm \
 	rotate-270-16.xpm \
