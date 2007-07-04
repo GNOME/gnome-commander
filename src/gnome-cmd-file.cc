@@ -98,10 +98,6 @@ destroy (GtkObject *object)
     gcmd_tags_id3lib_free_metadata(file);
 #endif
 
-#ifdef HAVE_GSF
-    gcmd_tags_libgsf_free_metadata(file);
-#endif
-
     if (file->info->name[0] != '.')
         DEBUG ('f', "file destroying 0x%p %s\n", file, file->info->name);
     gnome_vfs_file_info_unref (file->info);
@@ -151,7 +147,7 @@ init (GnomeCmdFile *file)
     file->priv->last_update.tv_sec = 0;
     file->priv->last_update.tv_usec = 0;
 
-    file->metadata = NULL;
+    file->metadata = new GnomeCmdFileMetadata_New;
 
 #ifdef HAVE_EXIF
     file->exif.metadata = NULL;
@@ -173,10 +169,6 @@ init (GnomeCmdFile *file)
     file->id3.accessed = FALSE;
 #endif
 
-#ifdef HAVE_GSF
-    file->gsf.metadata = NULL;
-    file->gsf.accessed = FALSE;
-#endif
 }
 
 

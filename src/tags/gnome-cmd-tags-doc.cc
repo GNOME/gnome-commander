@@ -35,6 +35,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-tags-doc.h"
 #include "utils.h"
+#include "dict.h"
 
 #ifdef HAVE_GSF
 #include <gsf/gsf-infile.h>
@@ -51,86 +52,8 @@
 using namespace std;
 
 
-static char empty_string[] = "";
-
-#ifndef HAVE_GSF
-static char no_support_for_libgsf_tags_string[] = N_("<OLE2 and ODF tags not supported>");
-#endif
-
-
 #ifdef HAVE_GSF
-typedef
-struct
-{
-    gchar *gsf;
-    GnomeCmdTag gcmd;
-} TAG;
-
-
-static TAG tag[] = {{empty_string, TAG_NONE},
-                    {GSF_META_NAME_BYTE_COUNT, TAG_DOC_BYTECOUNT},
-                    {GSF_META_NAME_CASE_SENSITIVE, TAG_DOC_CASESENSITIVE},
-                    {GSF_META_NAME_CATEGORY, TAG_DOC_CATEGORY},
-                    {GSF_META_NAME_CELL_COUNT, TAG_DOC_CELLCOUNT},
-                    {GSF_META_NAME_CHARACTER_COUNT, TAG_DOC_CHARACTERCOUNT},
-                    {GSF_META_NAME_CODEPAGE, TAG_DOC_CODEPAGE},
-                    {GSF_META_NAME_COMPANY, TAG_DOC_COMPANY},
-                    {GSF_META_NAME_CREATOR, TAG_DOC_CREATOR},
-                    {GSF_META_NAME_DATE_CREATED, TAG_DOC_DATECREATED},
-                    {GSF_META_NAME_DATE_MODIFIED, TAG_DOC_DATEMODIFIED},
-                    {GSF_META_NAME_DESCRIPTION, TAG_DOC_DESCRIPTION},
-                    {GSF_META_NAME_DICTIONARY, TAG_DOC_DICTIONARY},
-                    {GSF_META_NAME_EDITING_DURATION, TAG_DOC_EDITINGDURATION},
-                    {GSF_META_NAME_GENERATOR, TAG_DOC_GENERATOR},
-                    {GSF_META_NAME_HIDDEN_SLIDE_COUNT, TAG_DOC_HIDDENSLIDECOUNT},
-                    {GSF_META_NAME_IMAGE_COUNT, TAG_DOC_IMAGECOUNT},
-                    {GSF_META_NAME_INITIAL_CREATOR, TAG_DOC_INITIALCREATOR},
-                    {GSF_META_NAME_KEYWORD, TAG_DOC_KEYWORD},
-                    {GSF_META_NAME_KEYWORDS, TAG_DOC_KEYWORDS},
-                    {GSF_META_NAME_LANGUAGE, TAG_DOC_LANGUAGE},
-                    {GSF_META_NAME_LAST_PRINTED, TAG_DOC_LASTPRINTED},
-                    {GSF_META_NAME_LAST_SAVED_BY, TAG_DOC_LASTSAVEDBY},
-                    {GSF_META_NAME_LINE_COUNT, TAG_DOC_LINECOUNT},
-                    {GSF_META_NAME_LINKS_DIRTY, TAG_DOC_LINKSDIRTY},
-                    {GSF_META_NAME_LOCALE_SYSTEM_DEFAULT, TAG_DOC_LOCALESYSTEMDEFAULT},
-                    {GSF_META_NAME_MANAGER, TAG_DOC_MANAGER},
-                    {GSF_META_NAME_MM_CLIP_COUNT, TAG_DOC_MMCLIPCOUNT},
-                    {GSF_META_NAME_NOTE_COUNT, TAG_DOC_NOTECOUNT},
-                    {GSF_META_NAME_OBJECT_COUNT, TAG_DOC_OBJECTCOUNT},
-                    {GSF_META_NAME_PAGE_COUNT, TAG_DOC_PAGECOUNT},
-                    {GSF_META_NAME_PARAGRAPH_COUNT, TAG_DOC_PARAGRAPHCOUNT},
-                    {GSF_META_NAME_PRESENTATION_FORMAT, TAG_DOC_PRESENTATIONFORMAT},
-                    {GSF_META_NAME_PRINTED_BY, TAG_DOC_PRINTEDBY},
-                    {GSF_META_NAME_PRINT_DATE, TAG_DOC_PRINTDATE},
-                    {GSF_META_NAME_REVISION_COUNT, TAG_DOC_REVISIONCOUNT},
-                    {GSF_META_NAME_SCALE, TAG_DOC_SCALE},
-                    {GSF_META_NAME_SECURITY, TAG_DOC_SECURITY},
-                    {GSF_META_NAME_SLIDE_COUNT, TAG_DOC_SLIDECOUNT},
-                    {GSF_META_NAME_SPREADSHEET_COUNT, TAG_DOC_SPREADSHEETCOUNT},
-                    {GSF_META_NAME_SUBJECT, TAG_DOC_SUBJECT},
-                    {GSF_META_NAME_TABLE_COUNT, TAG_DOC_TABLECOUNT},
-                    {GSF_META_NAME_TEMPLATE, TAG_DOC_TEMPLATE},
-                    {GSF_META_NAME_TITLE, TAG_DOC_TITLE},
-                    {GSF_META_NAME_WORD_COUNT, TAG_DOC_WORDCOUNT}};
-
-
-static int gsf_tagcmp(const void *t1, const void *t2)
-{
-    return strcmp(((TAG *) t1)->gsf,((TAG *) t2)->gsf);
-}
-
-
-inline GnomeCmdTag *get_gcmd_tag(gchar *gsf_tag)
-{
-    TAG t;
-
-    t.gsf = gsf_tag;
-
-    TAG *elem = (TAG *) bsearch(&t,tag,sizeof(tag)/sizeof(TAG),sizeof(TAG),gsf_tagcmp);
-
-    return elem ? &(elem->gcmd) : &(tag[0].gcmd);
-}
-
+static DICT<GnomeCmdTag> gsf_tags(TAG_NONE);
 
 #define __(a) dgettext("iso-639", a)
 
@@ -265,27 +188,28 @@ static void process_metadata(gpointer key, gpointer value, gpointer user_data)
 {
     char *type = (char *) key;
     const GsfDocProp *prop = (const GsfDocProp *) value;
-    GHashTable *metadata = (GHashTable *) user_data;
+    GnomeCmdFileMetadata_New *metadata = (GnomeCmdFileMetadata_New *) user_data;
 
     if (!key || !value || !metadata)  return;
 
-    GnomeCmdTag *id = get_gcmd_tag(type);
+    GnomeCmdTag id = gsf_tags[type];
 
-    if (*id==TAG_NONE)  return;
+    if (id==TAG_NONE)  return;
 
-    const GValue *gval = gsf_doc_prop_get_val(prop);
+    const GValue *gval = gsf_doc_prop_get_val (prop);
 
-    char *contents = G_VALUE_TYPE(gval)==G_TYPE_STRING ? g_strdup(g_value_get_string(gval)) : g_strdup_value_contents(gval);
+    gchar *contents = G_VALUE_TYPE (gval)==G_TYPE_STRING ? g_strdup (g_value_get_string (gval)) : g_strdup_value_contents (gval);
 
-    if (contents && *contents)
+    if (contents)
     {
-        switch (*id)
+        switch (id)
         {
             case TAG_DOC_DATECREATED:
             case TAG_DOC_DATEMODIFIED:
             case TAG_DOC_LASTPRINTED:
             case TAG_DOC_PRINTDATE:
                 g_strcanon(contents, "0123456789:-", ' ');
+
                 break;
 
             // case TAG_DOC_EDITINGDURATION: ??
@@ -295,17 +219,17 @@ static void process_metadata(gpointer key, gpointer value, gpointer user_data)
                 break;
         }
 
-        g_strdelimit(contents, "\t\n\r", ' ');
+        g_strdelimit (contents, "\t\n\r", ' ');
         g_strstrip (contents);
-        DEBUG('t', "\t\t%s (%s) = %s\n", type, gcmd_tags_get_name(*id), contents);
-        g_hash_table_replace (metadata, id, contents);
+        DEBUG('t', "\t\t%s (%s) = %s\n", type, gcmd_tags_get_name(id), contents);
+        metadata->add(id,contents);
     }
 
-    // g_free(contents);   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    g_free (contents);
 }
 
 
-inline void process_opendoc_infile(GsfInfile *infile, GHashTable *metadata)
+inline void process_opendoc_infile(GsfInfile *infile, GnomeCmdFileMetadata_New *metadata)
 {
     GsfInput *meta_file = gsf_infile_child_by_name (infile, "meta.xml");
 
@@ -324,7 +248,7 @@ inline void process_opendoc_infile(GsfInfile *infile, GHashTable *metadata)
 }
 
 
-inline void process_msole_summary(GsfInput *input, GHashTable *metadata)
+inline void process_msole_summary(GsfInput *input, GnomeCmdFileMetadata_New *metadata)
 {
     GsfDocMetaData *sections = gsf_doc_meta_data_new ();
     GError         *err = gsf_msole_metadata_read (input, sections);
@@ -338,8 +262,7 @@ inline void process_msole_summary(GsfInput *input, GHashTable *metadata)
 }
 
 
-// inline
-static void process_msole_SO(GsfInput *input, GHashTable *metadata)
+inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata_New *metadata)
 {
     static gchar SfxDocumentInfo[] = "SfxDocumentInfo";
 
@@ -379,7 +302,7 @@ static void process_msole_SO(GsfInput *input, GHashTable *metadata)
 }
 
 
-inline void process_msole_infile(GsfInfile *infile, GHashTable *metadata)
+inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata_New *metadata)
 {
     // static gchar *names[] = {"\005SummaryInformation", "\005DocumentSummaryInformation", "SfxDocumentInfo", NULL};
 
@@ -451,13 +374,65 @@ inline void process_msole_infile(GsfInfile *infile, GHashTable *metadata)
 void gcmd_tags_libgsf_init()
 {
 #ifdef HAVE_GSF
-    qsort(tag,sizeof(tag)/sizeof(TAG),sizeof(TAG),gsf_tagcmp);
+    static struct
+    {
+        GnomeCmdTag tag;
+        gchar *name;
+    }
+    gsf_data[] = {
+                    {TAG_DOC_BYTECOUNT, GSF_META_NAME_BYTE_COUNT},
+                    {TAG_DOC_CASESENSITIVE, GSF_META_NAME_CASE_SENSITIVE},
+                    {TAG_DOC_CATEGORY, GSF_META_NAME_CATEGORY},
+                    {TAG_DOC_CELLCOUNT, GSF_META_NAME_CELL_COUNT},
+                    {TAG_DOC_CHARACTERCOUNT, GSF_META_NAME_CHARACTER_COUNT},
+                    {TAG_DOC_CODEPAGE, GSF_META_NAME_CODEPAGE},
+                    {TAG_DOC_COMPANY, GSF_META_NAME_COMPANY},
+                    {TAG_DOC_CREATOR, GSF_META_NAME_CREATOR},
+                    {TAG_DOC_DATECREATED, GSF_META_NAME_DATE_CREATED},
+                    {TAG_DOC_DATEMODIFIED, GSF_META_NAME_DATE_MODIFIED},
+                    {TAG_DOC_DESCRIPTION, GSF_META_NAME_DESCRIPTION},
+                    {TAG_DOC_DICTIONARY, GSF_META_NAME_DICTIONARY},
+                    {TAG_DOC_EDITINGDURATION, GSF_META_NAME_EDITING_DURATION},
+                    {TAG_DOC_GENERATOR, GSF_META_NAME_GENERATOR},
+                    {TAG_DOC_HIDDENSLIDECOUNT, GSF_META_NAME_HIDDEN_SLIDE_COUNT},
+                    {TAG_DOC_IMAGECOUNT, GSF_META_NAME_IMAGE_COUNT},
+                    {TAG_DOC_INITIALCREATOR, GSF_META_NAME_INITIAL_CREATOR},
+                    {TAG_DOC_KEYWORD, GSF_META_NAME_KEYWORD},
+                    {TAG_DOC_KEYWORDS, GSF_META_NAME_KEYWORDS},
+                    {TAG_DOC_LANGUAGE, GSF_META_NAME_LANGUAGE},
+                    {TAG_DOC_LASTPRINTED, GSF_META_NAME_LAST_PRINTED},
+                    {TAG_DOC_LASTSAVEDBY, GSF_META_NAME_LAST_SAVED_BY},
+                    {TAG_DOC_LINECOUNT, GSF_META_NAME_LINE_COUNT},
+                    {TAG_DOC_LINKSDIRTY, GSF_META_NAME_LINKS_DIRTY},
+                    {TAG_DOC_LOCALESYSTEMDEFAULT, GSF_META_NAME_LOCALE_SYSTEM_DEFAULT},
+                    {TAG_DOC_MANAGER, GSF_META_NAME_MANAGER},
+                    {TAG_DOC_MMCLIPCOUNT, GSF_META_NAME_MM_CLIP_COUNT},
+                    {TAG_DOC_NOTECOUNT, GSF_META_NAME_NOTE_COUNT},
+                    {TAG_DOC_OBJECTCOUNT, GSF_META_NAME_OBJECT_COUNT},
+                    {TAG_DOC_PAGECOUNT, GSF_META_NAME_PAGE_COUNT},
+                    {TAG_DOC_PARAGRAPHCOUNT, GSF_META_NAME_PARAGRAPH_COUNT},
+                    {TAG_DOC_PRESENTATIONFORMAT, GSF_META_NAME_PRESENTATION_FORMAT},
+                    {TAG_DOC_PRINTDATE, GSF_META_NAME_PRINT_DATE},
+                    {TAG_DOC_PRINTEDBY, GSF_META_NAME_PRINTED_BY},
+                    {TAG_DOC_REVISIONCOUNT, GSF_META_NAME_REVISION_COUNT},
+                    {TAG_DOC_SCALE, GSF_META_NAME_SCALE},
+                    {TAG_DOC_SECURITY, GSF_META_NAME_SECURITY},
+                    {TAG_DOC_SLIDECOUNT, GSF_META_NAME_SLIDE_COUNT},
+                    {TAG_DOC_SPREADSHEETCOUNT, GSF_META_NAME_SPREADSHEET_COUNT},
+                    {TAG_DOC_SUBJECT, GSF_META_NAME_SUBJECT},
+                    {TAG_DOC_TABLECOUNT, GSF_META_NAME_TABLE_COUNT},
+                    {TAG_DOC_TEMPLATE, GSF_META_NAME_TEMPLATE},
+                    {TAG_DOC_TITLE, GSF_META_NAME_TITLE},
+                    {TAG_DOC_WORDCOUNT, GSF_META_NAME_WORD_COUNT}
+                };
+
+    load_data (gsf_tags, gsf_data, ARRAY_ELEMENTS(gsf_data));
+
     gsf_init();
 #endif
 }
 
 
-// inline    // move --> gnome-cmd-tags-libs.h
 void gcmd_tags_libgsf_shutdown()
 {
 #ifdef HAVE_GSF
@@ -473,9 +448,9 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
     g_return_if_fail (finfo->info != NULL);
 
 #ifdef HAVE_GSF
-    if (finfo->gsf.accessed)  return;
+    if (finfo->metadata->is_accessed(TAG_DOC))  return;
 
-    finfo->gsf.accessed = TRUE;
+    finfo->metadata->mark_as_accessed(TAG_DOC);
 
     if (!gnome_cmd_file_is_local(finfo))  return;
 
@@ -499,10 +474,10 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
     GsfInfile *infile = NULL;
 
     if ((infile = gsf_infile_msole_new (input, NULL)))
-        process_msole_infile(infile, (GHashTable *) (finfo->gsf.metadata = g_hash_table_new_full (g_int_hash, g_int_equal, NULL, g_free)));
+        process_msole_infile(infile, finfo->metadata);
     else
         if ((infile = gsf_infile_zip_new (input, NULL)))
-            process_opendoc_infile(infile, (GHashTable *) (finfo->gsf.metadata = g_hash_table_new_full (g_int_hash, g_int_equal, NULL, g_free)));
+            process_opendoc_infile(infile, finfo->metadata);
 
     if (infile)
         g_object_unref (G_OBJECT (infile));
@@ -511,69 +486,5 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
         g_error_free (err);
 
     g_object_unref (G_OBJECT (input));
-#endif
-}
-
-
-void gcmd_tags_libgsf_free_metadata(GnomeCmdFile *finfo)
-{
-    g_return_if_fail (finfo != NULL);
-
-#ifdef HAVE_GSF
-    if (finfo->gsf.accessed)
-        g_hash_table_destroy((GHashTable *) finfo->gsf.metadata);
-    finfo->gsf.metadata = NULL;
-#endif
-}
-
-
-const gchar *gcmd_tags_libgsf_get_value(GnomeCmdFile *finfo, const guint tag)
-{
-    g_return_val_if_fail (finfo != NULL, NULL);
-
-#ifdef HAVE_GSF
-    gcmd_tags_libgsf_load_metadata(finfo);
-
-    const gchar *value = (const gchar *) g_hash_table_lookup((GHashTable *) finfo->gsf.metadata, &tag);
-
-    return value ? value : empty_string;
-#else
-    return no_support_for_libgsf_tags_string;
-#endif
-}
-
-
-const gchar *gcmd_tags_libgsf_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name)
-{
-    g_return_val_if_fail (finfo != NULL, NULL);
-
-#ifdef HAVE_GSF
-    return NULL;
-#else
-    return no_support_for_libgsf_tags_string;
-#endif
-}
-
-
-const gchar *gcmd_tags_libgsf_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name)
-{
-    g_return_val_if_fail (finfo != NULL, NULL);
-
-#ifdef HAVE_GSF
-    return empty_string;
-#else
-    return no_support_for_libgsf_tags_string;
-#endif
-}
-
-
-const gchar *gcmd_tags_libgsf_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name)
-{
-    g_return_val_if_fail (finfo != NULL, NULL);
-
-#ifdef HAVE_GSF
-    return empty_string;
-#else
-    return no_support_for_libgsf_tags_string;
 #endif
 }

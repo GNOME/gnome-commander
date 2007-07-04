@@ -49,6 +49,7 @@
 #include "gnome-cmd-tags-icc.h"
 #include "gnome-cmd-tags-id3.h"
 #include "gnome-cmd-tags-iptcdata.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -1623,6 +1624,10 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
 static char empty_string[] = "";
 static char int_buff[4096];
 
+#ifndef HAVE_GSF
+static char no_support_for_libgsf_tags_string[] = N_("<OLE2 and ODF tags not supported>");
+#endif
+
 
 static int tagcmp(const void *t1, const void *t2)
 {
@@ -1669,73 +1674,68 @@ void gcmd_tags_shutdown()
 const gchar *gcmd_tags_image_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag);
 
 
-GnomeCmdTag gcmd_tags_get_tag_by_long_name(const gchar *tag_name)
+GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagClass tag_class)
 {
     GnomeCmdTagName tag;
 
-    tag.name = tag_name;
+    if (tag_class==TAG_NONE_CLASS)
+    {
+        switch (tag_class)
+        {
+            case TAG_AUDIO:
+                tag.name = "Audio.";
+                break;
+
+            case TAG_CHM:
+                tag.name = "CHM.";
+                break;
+
+            case TAG_DOC:
+                tag.name = "Doc.";
+                break;
+
+            case TAG_EXIF:
+                tag.name = "Exif.";
+                break;
+
+            case TAG_FILE:
+                tag.name = "File.";
+                break;
+
+            case TAG_ICC:
+                tag.name = "ICC.";
+                break;
+
+            case TAG_ID3:
+                tag.name = "ID3.";
+                break;
+
+            case TAG_IMAGE:
+                tag.name = "Image.";
+                break;
+
+            case TAG_IPTC:
+                tag.name = "IPTC.";
+                break;
+
+            case TAG_RPM:
+                tag.name = "RPM.";
+                break;
+
+            default:
+                tag.name = empty_string;
+                break;
+        }
+
+        tag.name = g_strconcat(tag.name,tag_name,NULL);
+    }
+    else
+        tag.name = tag_name;
 
     GnomeCmdTagName *elem = (GnomeCmdTagName *) bsearch(&tag,metatags,NUMBER_OF_TAGS,sizeof(GnomeCmdTagName),tagcmp);
 
-    return elem ? elem->tag : TAG_NONE;
-}
-
-
-GnomeCmdTag gcmd_tags_get_tag_by_name(const GnomeCmdTagClass tag_class, const gchar *tag_name)
-{
-    GnomeCmdTagName *elem;
-    GnomeCmdTagName tag;
-
-    switch (tag_class)
-    {
-        case TAG_AUDIO:
-            tag.name = "Audio.";
-            break;
-
-        case TAG_CHM:
-            tag.name = "CHM.";
-            break;
-
-        case TAG_DOC:
-            tag.name = "Doc.";
-            break;
-
-        case TAG_EXIF:
-            tag.name = "Exif.";
-            break;
-
-        case TAG_FILE:
-            tag.name = "File.";
-            break;
-
-        case TAG_ICC:
-            tag.name = "ICC.";
-            break;
-
-        case TAG_ID3:
-            tag.name = "ID3.";
-            break;
-
-        case TAG_IMAGE:
-            tag.name = "Image.";
-            break;
-
-        case TAG_IPTC:
-            tag.name = "IPTC.";
-            break;
-
-        case TAG_RPM:
-            tag.name = "RPM.";
-            break;
-
-        default:
-            tag.name = empty_string;
-            break;
-    }
-
-    tag.name = g_strconcat(tag.name,tag_name,NULL);
-    elem = (GnomeCmdTagName *) bsearch(&tag,metatags,NUMBER_OF_TAGS,sizeof(GnomeCmdTagName),tagcmp);
-    g_free((gpointer) tag.name);
+    if (tag_class==TAG_NONE_CLASS)
+        g_free((gpointer) tag.name);
 
     return elem ? elem->tag : TAG_NONE;
 }
@@ -1834,7 +1834,13 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
 
         case TAG_CHM  : break;
 
-        case TAG_DOC  : ret_val = gcmd_tags_libgsf_get_value(finfo, tag);
+        case TAG_DOC  : if (!finfo->metadata)
+                            return ret_val;
+#ifndef HAVE_GSF
+                        return _(no_support_for_libgsf_tags_string);
+#endif
+                        gcmd_tags_libgsf_load_metadata(finfo);
+                        ret_val = finfo->metadata->operator [] (tag).c_str();
                         break;
 
         case TAG_FILE : break;
@@ -1857,114 +1863,6 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
     }
 
     return ret_val ? ret_val : empty_string;
-}
-
-
-const gchar *gcmd_tags_get_value_by_long_name(GnomeCmdFile *finfo, const gchar *tag_name)
-{
-    GnomeCmdTag tag;
-    const gchar *ret_val = empty_string;
-
-    g_return_val_if_fail (finfo != NULL, empty_string);
-
-    tag = gcmd_tags_get_tag_by_long_name(tag_name);
-
-    if (tag!=TAG_NONE)
-        return gcmd_tags_get_value(finfo, tag);
-
-    switch (metatags[tag].tag_class)
-    {
-        case TAG_AUDIO: break;
-
-        case TAG_ID3  : ret_val = gcmd_tags_id3lib_get_value_by_name(finfo, tag_name);
-                        break;
-
-        case TAG_CHM  : break;
-
-        case TAG_DOC  : break;
-
-        case TAG_FILE : break;
-
-        case TAG_IMAGE: ret_val = gcmd_tags_libiptcdata_get_value_by_name(finfo, tag_name);
-                        if (strcmp(ret_val,empty_string))
-                            break;
-                        ret_val = gcmd_tags_libexif_get_value_by_name(finfo, tag_name);
-                        if (strcmp(ret_val,empty_string))
-                            break;
-                        ret_val = gcmd_tags_icclib_get_value_by_name(finfo, tag_name);
-                        if (strcmp(ret_val,empty_string))
-                            break;
-                        break;
-
-        case TAG_EXIF : ret_val = gcmd_tags_libexif_get_value_by_name(finfo, tag_name);
-                        break;
-
-        case TAG_IPTC : ret_val = gcmd_tags_libiptcdata_get_value_by_name(finfo, tag_name);
-                        break;
-
-        case TAG_ICC  : ret_val = gcmd_tags_icclib_get_value_by_name(finfo, tag_name);
-                        break;
-
-        case TAG_RPM  : break;
-
-        default       : return empty_string;
-    }
-
-    return ret_val;
-}
-
-
-const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const GnomeCmdTagClass tag_class, const gchar *tag_name)
-{
-    GnomeCmdTag tag;
-    const gchar *ret_val = empty_string;
-
-    g_return_val_if_fail (finfo != NULL, empty_string);
-
-    tag = gcmd_tags_get_tag_by_name(tag_class, tag_name);
-
-    if (tag!=TAG_NONE)
-        return gcmd_tags_get_value(finfo, tag);
-
-    switch (tag_class)
-    {
-        case TAG_AUDIO: break;
-
-        case TAG_ID3  : ret_val = gcmd_tags_id3lib_get_value_by_name(finfo, tag_name);
-                        break;
-
-        case TAG_CHM  : break;
-
-        case TAG_DOC  : break;
-
-        case TAG_FILE : break;
-
-        case TAG_IMAGE: ret_val = gcmd_tags_libiptcdata_get_value_by_name(finfo, tag_name);
-                        if (strcmp(ret_val,empty_string))
-                            break;
-                        ret_val = gcmd_tags_libexif_get_value_by_name(finfo, tag_name);
-                        if (strcmp(ret_val,empty_string))
-                            break;
-                        ret_val = gcmd_tags_icclib_get_value_by_name(finfo, tag_name);
-                        if (strcmp(ret_val,empty_string))
-                            break;
-                        break;
-
-        case TAG_EXIF : ret_val = gcmd_tags_libexif_get_value_by_name(finfo, tag_name);
-                        break;
-
-        case TAG_IPTC : ret_val = gcmd_tags_libiptcdata_get_value_by_name(finfo, tag_name);
-                        break;
-
-        case TAG_ICC  : ret_val = gcmd_tags_icclib_get_value_by_name(finfo, tag_name);
-                        break;
-
-        case TAG_RPM  : break;
-
-        default       : return empty_string;
-    }
-
-    return ret_val;
 }
 
 

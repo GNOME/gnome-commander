@@ -90,7 +90,7 @@ const gchar *gcmd_tags_libexif_get_value(GnomeCmdFile *finfo, const guint libtag
 
     return g_strstrip(g_strdelimit(int_buff, "\t\n\r", ' '));
 #else
-    return no_support_for_libexif_tags_string;
+    return _(no_support_for_libexif_tags_string);
 #endif
 }
 
@@ -102,7 +102,7 @@ const gchar *gcmd_tags_libexif_get_value_by_name(GnomeCmdFile *finfo, const gcha
 #ifdef HAVE_EXIF
     return NULL;
 #else
-    return no_support_for_libexif_tags_string;
+    return _(no_support_for_libexif_tags_string);
 #endif
 }
 
@@ -114,7 +114,7 @@ const gchar *gcmd_tags_libexif_get_title_by_name(GnomeCmdFile *finfo, const gcha
 #ifdef HAVE_EXIF
     return empty_string;
 #else
-    return no_support_for_libexif_tags_string;
+    return _(no_support_for_libexif_tags_string);
 #endif
 }
 
@@ -126,6 +126,6 @@ const gchar *gcmd_tags_libexif_get_description_by_name(GnomeCmdFile *finfo, cons
 #ifdef HAVE_EXIF
     return empty_string;
 #else
-    return no_support_for_libexif_tags_string;
+    return _(no_support_for_libexif_tags_string);
 #endif
 }

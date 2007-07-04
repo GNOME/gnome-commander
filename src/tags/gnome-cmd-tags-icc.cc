@@ -73,7 +73,7 @@ const gchar *gcmd_tags_icclib_get_value(GnomeCmdFile *finfo, const guint libclas
 #ifdef HAVE_LCMS
     return empty_string;
 #else
-    return no_support_for_icclib_tags_string;
+    return _(no_support_for_icclib_tags_string);
 #endif
 }
 
@@ -85,7 +85,7 @@ const gchar *gcmd_tags_icclib_get_value_by_name(GnomeCmdFile *finfo, const gchar
 #ifdef HAVE_LCMS
     return empty_string;
 #else
-    return no_support_for_icclib_tags_string;
+    return _(no_support_for_icclib_tags_string);
 #endif
 }
 
@@ -97,7 +97,7 @@ const gchar *gcmd_tags_icclib_get_title_by_name(GnomeCmdFile *finfo, const gchar
 #ifdef HAVE_LCMS
     return empty_string;
 #else
-    return no_support_for_icclib_tags_string;
+    return _(no_support_for_icclib_tags_string);
 #endif
 }
 
@@ -109,6 +109,6 @@ const gchar *gcmd_tags_icclib_get_description_by_name(GnomeCmdFile *finfo, const
 #ifdef HAVE_LCMS
     return empty_string;
 #else
-    return no_support_for_icclib_tags_string;
+    return _(no_support_for_icclib_tags_string);
 #endif
 }

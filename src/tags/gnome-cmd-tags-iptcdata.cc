@@ -110,7 +110,7 @@ const gchar *gcmd_tags_libiptcdata_get_value(GnomeCmdFile *finfo, const guint li
 
     return int_buff;
 #else
-    return no_support_for_libiptcdata_tags_string;
+    return _(no_support_for_libiptcdata_tags_string);
 #endif
 }
 
@@ -133,7 +133,7 @@ const gchar *gcmd_tags_libiptcdata_get_value_by_name(GnomeCmdFile *finfo, const 
 
     return ds ? iptc_dataset_get_as_str(ds,int_buff,sizeof(int_buff)) : NULL;
 #else
-    return no_support_for_libiptcdata_tags_string;
+    return _(no_support_for_libiptcdata_tags_string);
 #endif
 }
 
@@ -152,7 +152,7 @@ const gchar *gcmd_tags_libiptcdata_get_title_by_name(GnomeCmdFile *finfo, const 
 
     return iptc_tag_get_title(record,tag);
 #else
-    return no_support_for_libiptcdata_tags_string;
+    return _(no_support_for_libiptcdata_tags_string);
 #endif
 }
 
@@ -171,6 +171,6 @@ const gchar *gcmd_tags_libiptcdata_get_description_by_name(GnomeCmdFile *finfo, 
 
     return iptc_tag_get_description(record,tag);
 #else
-    return no_support_for_libiptcdata_tags_string;
+    return _(no_support_for_libiptcdata_tags_string);
 #endif
 }

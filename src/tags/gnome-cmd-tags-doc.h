@@ -30,11 +30,6 @@ G_BEGIN_DECLS
 void gcmd_tags_libgsf_init();
 void gcmd_tags_libgsf_shutdown();
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_libgsf_free_metadata(GnomeCmdFile *finfo);
-const gchar *gcmd_tags_libgsf_get_value(GnomeCmdFile *finfo, const guint tag);
-const gchar *gcmd_tags_libgsf_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
-const gchar *gcmd_tags_libgsf_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
-const gchar *gcmd_tags_libgsf_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
 
 G_END_DECLS
 

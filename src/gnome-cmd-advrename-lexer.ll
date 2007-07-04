@@ -175,7 +175,7 @@ tag_name   {audio}|{doc}|{exif}|{id3}|{image}|{iptc}
 
                                   p->type = METATAG;
                                   p->tag.name = g_string_new(a[0]);
-                                  p->tag.tag = gcmd_tags_get_tag_by_long_name(a[0]);
+                                  p->tag.tag = gcmd_tags_get_tag_by_name(a[0]);
                                   p->tag.opt = NULL;
 
                                   for (i=n-2; i>0; --i)
@@ -430,8 +430,8 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
                     break;
 
       case METATAG: {
-                        const gchar *tag_value = p->tag.tag!=TAG_NONE ? gcmd_tags_get_value(finfo,p->tag.tag) :
-                                                                        gcmd_tags_get_value_by_long_name(finfo,p->tag.name->str);
+                        const gchar *tag_value = gcmd_tags_get_value(finfo,p->tag.tag);
+
                         if (tag_value)
                         {
                             mksubstr(strlen(tag_value),p,&from,&length);

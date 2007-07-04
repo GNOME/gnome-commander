@@ -593,7 +593,7 @@ const gchar *gcmd_tags_id3lib_get_value(GnomeCmdFile *finfo, const guint tag)
 
     return value ? value : empty_string;
 #else
-    return no_support_for_id3lib_tags_string;
+    return _(no_support_for_id3lib_tags_string);
 #endif
 }
 
@@ -605,7 +605,7 @@ const gchar *gcmd_tags_id3lib_get_value_by_name(GnomeCmdFile *finfo, const gchar
 #ifdef HAVE_ID3
     return NULL;
 #else
-    return no_support_for_id3lib_tags_string;
+    return _(no_support_for_id3lib_tags_string);
 #endif
 }
 
@@ -617,7 +617,7 @@ const gchar *gcmd_tags_id3lib_get_title_by_name(GnomeCmdFile *finfo, const gchar
 #ifdef HAVE_ID3
     return empty_string;
 #else
-    return no_support_for_id3lib_tags_string;
+    return _(no_support_for_id3lib_tags_string);
 #endif
 }
 
@@ -629,6 +629,6 @@ const gchar *gcmd_tags_id3lib_get_description_by_name(GnomeCmdFile *finfo, const
 #ifdef HAVE_ID3
     return empty_string;
 #else
-    return no_support_for_id3lib_tags_string;
+    return _(no_support_for_id3lib_tags_string);
 #endif
 }

@@ -1,3 +1,19 @@
+2007-07-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.ll:
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
+	* src/tags/gnome-cmd-tags-doc.cc:
+	* src/tags/gnome-cmd-tags-doc.h:
+	* src/tags/gnome-cmd-tags-exif.cc:
+	* src/tags/gnome-cmd-tags-icc.cc:
+	* src/tags/gnome-cmd-tags-id3.cc:
+	* src/tags/gnome-cmd-tags-iptcdata.cc:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Replaced GHashTable with GnomeCmdFileMetadata_New container
+	for ODF and OLE2 metatags
+
 2007-07-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:
