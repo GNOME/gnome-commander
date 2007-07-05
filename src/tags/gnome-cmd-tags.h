@@ -465,10 +465,13 @@ typedef enum
 
 class GnomeCmdFileMetadata_New
 {
+  public:
+
+    typedef std::map<GnomeCmdTag,std::string>    METADATA_COLL;
+
   private:
 
     typedef std::map<GnomeCmdTagClass,gboolean>  ACCESSED_COLL;
-    typedef std::map<GnomeCmdTag,std::string>    METADATA_COLL;
 
     ACCESSED_COLL accessed;
     METADATA_COLL metadata;
