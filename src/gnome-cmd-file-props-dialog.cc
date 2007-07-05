@@ -27,6 +27,7 @@
 #include "gnome-cmd-data.h"
 #include "utils.h"
 #include "imageloader.h"
+#include "tags/gnome-cmd-tags.h"
 
 using namespace std;
 
@@ -55,7 +56,7 @@ typedef struct
 } GnomeCmdFilePropsDialogPrivate;
 
 
-static const gchar *get_size_disp_string (GnomeVFSFileSize size)
+inline const gchar *get_size_disp_string (GnomeVFSFileSize size)
 {
     static gchar s[64];
     GnomeCmdSizeDispMode mode = gnome_cmd_data_get_size_disp_mode ();
@@ -176,9 +177,9 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
     data->size = 0;
     data->count_done = FALSE;
 
-    data->thread = g_thread_create ((PthreadFunc)calc_tree_size_func, data, TRUE, NULL);
+    data->thread = g_thread_create ((PthreadFunc) calc_tree_size_func, data, TRUE, NULL);
 
-    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)update_count_status, data);
+    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction) update_count_status, data);
 }
 
 

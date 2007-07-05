@@ -506,7 +506,7 @@ inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const std::stri
     if (value.empty())
         return;
 
-    metadata[tag] = value;
+    metadata[tag] = value; // TODO: trim white spaces
 }
 
 
@@ -515,7 +515,7 @@ inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const gchar *va
     if (!value || *value==0)
         return;
 
-    metadata[tag] = value;
+    metadata[tag] = value; // TODO: trim white spaces
 }
 
 

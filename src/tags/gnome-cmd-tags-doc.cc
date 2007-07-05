@@ -457,7 +457,7 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
     GError *err = NULL;
     const gchar *fname = gnome_cmd_file_get_real_path(finfo);
 
-    DEBUG('t', "Loading gsf metadata for '%s'\n", fname);
+    DEBUG('t', "Loading doc metadata for '%s'\n", fname);
 
     GsfInput *input = gsf_input_mmap_new (fname, NULL);
     if (!input)
