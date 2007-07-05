@@ -1093,7 +1093,7 @@ GtkWidget *create_ui_pixmap (GtkWidget *unused, GnomeUIPixmapType pixmap_type, g
             break;
 
         case GNOME_APP_PIXMAP_FILENAME:
-            name = gnome_program_locate_file (gnome_program_get (), GNOME_FILE_DOMAIN_PIXMAP,
+            name = gnome_program_locate_file (gnome_program_get (), GNOME_FILE_DOMAIN_APP_PIXMAP,
                                               static_cast<const gchar *>(pixmap_info), TRUE, NULL);
 
             if (!name)
