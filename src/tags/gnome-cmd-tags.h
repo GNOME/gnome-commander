@@ -533,6 +533,8 @@ inline const std::string &GnomeCmdFileMetadata_New::operator[] (const GnomeCmdTa
 void gcmd_tags_init();
 void gcmd_tags_shutdown();
 
+GnomeCmdFileMetadata_New *gcmd_tags_bulk_load(GnomeCmdFile *finfo);
+
 GnomeCmdTag *gcmd_tags_get_pointer_to_tag(const GnomeCmdTag tag);       // to be removed
 const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag);

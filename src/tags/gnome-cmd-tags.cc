@@ -1671,6 +1671,19 @@ void gcmd_tags_shutdown()
 }
 
 
+GnomeCmdFileMetadata_New *gcmd_tags_bulk_load(GnomeCmdFile *finfo);
+{
+    g_return_val_if_fail (finfo != NULL, NULL);
+
+    // gcmd_tags_file_load_metadata(finfo);
+    // gcmd_tags_exiv2_load_metadata(finfo);
+    // gcmd_tags_taglib_load_metadata(finfo);
+    gcmd_tags_libgsf_load_metadata(finfo);
+
+    return finfo->metadata;
+}
+
+
 const gchar *gcmd_tags_image_get_value(GnomeCmdFile *finfo, GnomeCmdTag tag);
 
 

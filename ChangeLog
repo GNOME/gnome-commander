@@ -1,3 +1,9 @@
+2007-07-06  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Added gcmd_tags_bulk_load()
+
 2007-07-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.ll:
