@@ -1765,6 +1765,12 @@ const gchar *gcmd_tags_get_name(const GnomeCmdTag tag)
 }
 
 
+const GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag)
+{
+    return metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].tag_class;
+}
+
+
 const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
 {
     switch (metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].tag_class)

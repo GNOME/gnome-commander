@@ -399,12 +399,149 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
 }
 
 
+enum
+{
+    COL_TAG,
+    COL_TYPE,
+    COL_NAME,
+    COL_VALUE,
+    COL_DESC,
+    NUM_COLS
+} ;
+
+
+static GtkTreeModel *create_and_fill_model (GnomeCmdFile *finfo)
+{
+    GtkTreeStore *treestore = gtk_tree_store_new (NUM_COLS,
+                                                  G_TYPE_UINT,
+                                                  G_TYPE_STRING,
+                                                  G_TYPE_STRING,
+                                                  G_TYPE_STRING,
+                                                  G_TYPE_STRING);
+
+    if (!gcmd_tags_bulk_load (finfo))
+        return GTK_TREE_MODEL (treestore);
+
+    GnomeCmdTagClass prev_tagclass = TAG_NONE_CLASS;
+
+    GtkTreeIter toplevel;
+
+    for (GnomeCmdFileMetadata_New::METADATA_COLL::const_iterator i=finfo->metadata->begin(); i!=finfo->metadata->end(); ++i)
+    {
+        const GnomeCmdTag t = i->first;
+        GnomeCmdTagClass curr_tagclass = gcmd_tags_get_class(t);
+
+        if (curr_tagclass==TAG_NONE_CLASS)
+            continue;
+
+        if (prev_tagclass!=curr_tagclass)
+        {
+            gtk_tree_store_append (treestore, &toplevel, NULL);
+            gtk_tree_store_set (treestore, &toplevel,
+                                COL_TAG, TAG_NONE,
+                                COL_TYPE, gcmd_tags_get_class_name(t),
+                                -1);
+        }
+
+        GtkTreeIter child;
+
+        gtk_tree_store_append (treestore, &child, &toplevel);
+        gtk_tree_store_set (treestore, &child,
+                            COL_TAG, t,
+                            COL_NAME, gcmd_tags_get_title(t),
+                            COL_VALUE, i->second.c_str(),
+                            COL_DESC, gcmd_tags_get_description (t),
+                            -1);
+
+        prev_tagclass = curr_tagclass;
+    }
+
+    return GTK_TREE_MODEL (treestore);
+}
+
+
+inline void create_new_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
+{
+    renderer = gtk_cell_renderer_text_new ();
+
+    GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
+                                                                       renderer,
+                                                                       "text", COL_ID,
+                                                                       NULL);
+
+    g_object_set (col,
+                  "clickable", TRUE,
+                  "resizable", TRUE,
+                  NULL);
+
+    // pack tree view column into tree view
+    gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
+}
+
+
+inline void create_new_column (GtkTreeView *view, gint COL_ID, const gchar *title=NULL)
+{
+    GtkCellRenderer *renderer = NULL;
+
+    create_new_column (view, renderer, COL_ID, title);
+}
+
+
+static GtkWidget *create_view_and_model (GnomeCmdFile *finfo)
+{
+    GtkWidget *view = gtk_tree_view_new ();
+
+    g_object_set (view,
+                  "rules-hint", TRUE,
+                  "enable-search", TRUE,
+                  "search-column", COL_VALUE,
+                  NULL);
+
+    GtkCellRenderer *renderer = NULL;
+
+    create_new_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
+
+    g_object_set (renderer,
+                  "weight-set", TRUE,
+                  "weight", PANGO_WEIGHT_BOLD,
+                  NULL);
+
+    create_new_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
+    create_new_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
+
+    create_new_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
+
+    g_object_set (renderer,
+                  "foreground-set", TRUE,
+                  "foreground", "DarkGray",
+                  "ellipsize-set", TRUE,
+                  "ellipsize", PANGO_ELLIPSIZE_END,
+                  NULL);
+
+    GtkTreeModel *model = create_and_fill_model (finfo);
+
+    gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
+
+    g_object_unref (model);          // destroy model automatically with view
+
+    gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)), GTK_SELECTION_NONE);
+
+    return view;
+}
+
+
 inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 {
-    GtkWidget *vbox = create_vbox (data->dialog, FALSE, 6);
+    GtkWidget *vbox = create_vbox (data->dialog, FALSE, 1);
 
-    GtkWidget *space_frame = create_space_frame (data->dialog, 6);
+    GtkWidget *space_frame = create_space_frame (data->dialog, 1);
     gtk_container_add (GTK_CONTAINER (space_frame), vbox);
+
+    GtkWidget *view = create_view_and_model (data->finfo);
+
+    gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (view), TRUE, TRUE, 0);
+
+    gtk_widget_show_all (vbox);
 
     return space_frame;
 }

@@ -537,6 +537,7 @@ GnomeCmdFileMetadata_New *gcmd_tags_bulk_load(GnomeCmdFile *finfo);
 
 GnomeCmdTag *gcmd_tags_get_pointer_to_tag(const GnomeCmdTag tag);       // to be removed
 const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
+const GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag);
 // const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTagClass tag_class, const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag);

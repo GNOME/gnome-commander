@@ -1,3 +1,10 @@
+2007-07-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Metadata tags in file properties dialog
+
 2007-07-06  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.cc:

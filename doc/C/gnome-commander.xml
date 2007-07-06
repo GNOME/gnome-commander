@@ -5584,6 +5584,9 @@
                             <para>Open terminal in the current directory</para>
                         </listitem>
                         <listitem>
+                            <para>Metadata tags in file properties dialog</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated translations: cs, dz, es, pl</para>
                         </listitem>
                         <listitem>
