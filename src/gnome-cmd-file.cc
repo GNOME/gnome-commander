@@ -28,11 +28,10 @@
 #include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-xfer.h"
-#include "tags/gnome-cmd-tags-libs.h"
+#include "tags/gnome-cmd-tags.h"
 #include "libgviewer/libgviewer.h"
 
 using namespace std;
-
 
 #define MAX_TYPE_LENGTH 2
 #define MAX_NAME_LENGTH 128
