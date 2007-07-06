@@ -1671,7 +1671,7 @@ void gcmd_tags_shutdown()
 }
 
 
-GnomeCmdFileMetadata_New *gcmd_tags_bulk_load(GnomeCmdFile *finfo);
+GnomeCmdFileMetadata_New *gcmd_tags_bulk_load(GnomeCmdFile *finfo)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
 
