@@ -19,7 +19,6 @@ AM_CPPFLAGS = \
 
 libgcmd_tags_a_SOURCES = \
 	gnome-cmd-tags.h gnome-cmd-tags.cc \
-	gnome-cmd-tags-libs.h \
 	gnome-cmd-tags-audio.h gnome-cmd-tags-audio.cc \
 	gnome-cmd-tags-doc.h gnome-cmd-tags-doc.cc \
 	gnome-cmd-tags-exif.h gnome-cmd-tags-exif.cc \

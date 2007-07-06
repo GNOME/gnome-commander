@@ -42,7 +42,6 @@
 #endif
 
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-tags-libs.h"
 #include "gnome-cmd-tags-audio.h"
 #include "gnome-cmd-tags-doc.h"
 #include "gnome-cmd-tags-exif.h"
