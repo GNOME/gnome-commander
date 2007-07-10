@@ -1251,12 +1251,11 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    {"Vorbis.Contact", TAG_VORBIS, TAG_VORBIS_NOMINALBITRATE, N_("Nominal bitrate"), N_("Nominal bitrate in kbps.")},
                                                    {"Vorbis.Organization", TAG_VORBIS, TAG_VORBIS_ORGANIZATION, N_("Organization"), N_("Organization producing the track.")},
                                                    {"Vorbis.Vendor", TAG_VORBIS, TAG_VORBIS_VENDOR, N_("Vendor"), N_("Vorbis vendor ID.")},
-                                                   {"Vorbis.Version", TAG_VORBIS, TAG_VORBIS_VERSION, N_("Vorbis Version"), N_("Vorbis version.")},
+                                                   {"Vorbis.Version", TAG_VORBIS, TAG_VORBIS_VERSION, N_("Vorbis Version"), N_("Vorbis version.")}
                                                   };
 
 
 static char empty_string[] = "";
-static char int_buff[4096];
 
 #ifndef HAVE_ID3
 static char no_support_for_taglib_tags_string[] = N_("<ID3, APE, FLAC and Vorbis tags not supported>");
