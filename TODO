@@ -57,7 +57,7 @@
 
 * The advrename dialog should have a feature to convert between upper/lowercase
 * Addressing components of a regexp in the replacement text (\0, \1, ..., \9)
-* Support for file meta tags (exif, iptc, *ml, pdf, ...)
+* Support for file meta tags (icc, *ml, pdf, ...)
 
 
 // Internal viewer
