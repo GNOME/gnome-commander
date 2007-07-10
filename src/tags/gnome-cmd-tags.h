@@ -485,9 +485,10 @@ class GnomeCmdFileMetadata_New
     void mark_as_accessed(const GnomeCmdTagClass tag_class)         {  accessed[tag_class] = TRUE;  }
     void mark_as_accessed(const GnomeCmdTag tag);
 
-    void add(const GnomeCmdTag tag, const std::string &value);
+    void add(const GnomeCmdTag tag, std::string value);
     void add(const GnomeCmdTag tag, const gchar *value);
     void addf(const GnomeCmdTag tag, const gchar *fmt, ...);
+    void join(const GnomeCmdTag tag, std::string value);
 
     const std::string &operator[] (const GnomeCmdTag tag);
 
@@ -504,21 +505,53 @@ inline gboolean GnomeCmdFileMetadata_New::is_accessed(const GnomeCmdTagClass tag
 }
 
 
-inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const std::string &value)
+inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, std::string value)
 {
     if (value.empty())
         return;
 
-    metadata[tag] = value; // TODO: trim white spaces
+    std::string::size_type end = value.find_last_of(" \t\n\r\0",0,5);
+
+    if (end!=std::string::npos)     // remove trailing whitespace from a string
+        value.erase(end);
+
+    if (value.empty())
+        return;
+
+    metadata[tag] = value;
 }
 
 
 inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const gchar *value)
 {
-    if (!value || *value==0)
+    if (value && *value)
+        add(tag, std::string(value));
+}
+
+
+inline void GnomeCmdFileMetadata_New::join(const GnomeCmdTag tag, std::string value)
+{
+    if (value.empty())
         return;
 
-    metadata[tag] = value; // TODO: trim white spaces
+    std::string::size_type end = value.find_last_of(" \t\n\r\0",0,5);
+
+    if (end!=std::string::npos)     // remove trailing whitespace from a string
+        value.erase(end);
+
+    if (value.empty())
+        return;
+
+    METADATA_COLL::const_iterator pos = metadata.find(tag);
+
+    if (pos!=metadata.end())
+    {
+        std::string &s = const_cast<std::string &> (pos->second);
+        s += ", ";
+        s += value;
+    }
+    else
+        metadata[tag] = value;
 }
 
 

@@ -1,4 +1,4 @@
-2007-07-07  Piotr Eljasiak  <epiotr@use.pl>
+2007-07-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.h:
 	Added `' to TRACE() macro
@@ -6,6 +6,9 @@
 	* src/gnome-cmd-file.cc:
 	* src/tags/gnome-cmd-tags-doc.cc:
 	Allocate metadata memory only when needed
+
+	* src/tags/gnome-cmd-tags.h:
+	Remove trailing whitespace from a tag
 
 2007-07-07  Piotr Eljasiak  <epiotr@use.pl>
 
