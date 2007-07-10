@@ -310,7 +310,9 @@ GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str)
                 out = gnome_cmd_smb_path_new (a, b, c);
             else
             {
-                b = c ? g_strdup_printf ("/%s%s", b, c) : g_strdup_printf ("/%s", b);
+                if (!b)
+                    b = "/";
+                b = c ? g_strdup_printf ("/%s%s", b, c) : g_strdup_printf ("%s", b);
                 g_free (c);
                 out = gnome_cmd_smb_path_new (ent->workgroup_name, a, b);
             }

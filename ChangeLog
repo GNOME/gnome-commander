@@ -1,3 +1,8 @@
+2007-07-11  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-smb-path.cc:
+	Fix for smb browsing crash
+
 2007-07-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.h:
