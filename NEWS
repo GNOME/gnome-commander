@@ -10,6 +10,7 @@ Bug fixes:
  * Build fixes
 
 New features:
+ * Support for APE, FLAC and Vorbis metags in advanced file rename templates
  * Open terminal in the current directory
  * Metadata tags in file properties dialog
  * New or updated translations: cs, dz, es, pl

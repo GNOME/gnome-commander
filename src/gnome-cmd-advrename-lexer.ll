@@ -89,18 +89,21 @@ uint       0*[1-9][0-9]*
 
 range      {int}|{int}?:{int}?|{int},{uint}
 
+ape         [aA][pP][eE]
 audio       [aA][uU][dD][iI][oO]
 chm         [cC][hH][mM]
 doc         [dD][oO][cC]
 exif        [eE][xX][iI][fF]
 file        [fF][iI][lL][eE]
+flac        [fF][lL][aA][cC]
 icc         [iI][cC][cC]
 id3         [iI][dD]3
 image       [iI][mM][aA][gG][eE]
 iptc        [iI][pP][tT][cC]
 rpm         [rR][pP][mM]
+vorbis      [vV][oO][rR][bB][iI][sS]
 
-tag_name   {audio}|{doc}|{exif}|{id3}|{image}|{iptc}
+tag_name   {ape}|{audio}|{doc}|{exif}|{flac}|{id3}|{image}|{iptc}|{vorbis}
 
 %%
 

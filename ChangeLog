@@ -10,6 +10,23 @@
 	* src/tags/gnome-cmd-tags.h:
 	Remove trailing whitespace from a tag
 
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	* doc/C/gnome-commander.xml:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-advrename-lexer.ll:
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-taglib.cc:
+	* src/tags/gnome-cmd-tags-taglib.h:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Replaced id3lib with taglib and use GnomeCmdFileMetadata_New container
+	for ID3, Vorbis, FLAC and APE metatags
+
 2007-07-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

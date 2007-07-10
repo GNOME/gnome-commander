@@ -37,9 +37,12 @@ typedef enum
     TAG_EXIF        = 1 << 7,
     TAG_IPTC        = 1 << 8,
     TAG_ICC         = 1 << 9,
-    TAG_ID3         = 1 << 10,
-    TAG_RPM         = 1 << 11,
-    TAG_AUDIO       = TAG_ID3+1,
+    TAG_APE         = 1 << 10,
+    TAG_FLAC        = 1 << 11,
+    TAG_ID3         = 1 << 12,
+    TAG_VORBIS      = 1 << 13,
+    TAG_RPM         = 1 << 14,
+    TAG_AUDIO       = TAG_APE | TAG_FLAC | TAG_ID3 | TAG_VORBIS,
     TAG_DOC         = TAG_CHM+1,
     TAG_IMAGE       = TAG_EXIF | TAG_IPTC | TAG_ICC
 } GnomeCmdTagClass;
@@ -59,25 +62,34 @@ typedef enum
     TAG_AUDIO_CODECVERSION,                 // codec version
     TAG_AUDIO_CODEC,                        // codec encoding description
     TAG_AUDIO_COMMENT,                      // comments on the track
+    TAG_AUDIO_COPYRIGHT,                    // copyright message
     TAG_AUDIO_COVERALBUMTHUMBNAILPATH,      // file path to thumbnail image of the cover album
     TAG_AUDIO_DISCNO,                       // specifies which disc the track is on
     TAG_AUDIO_DURATION,                     // duration of track in seconds
+    TAG_AUDIO_DURATIONMMSS,                 // duration of track in MM:SS
     TAG_AUDIO_GENRE,                        // type of music classification for the track as defined in ID3 spec
     TAG_AUDIO_ISNEW,                        // set to "1" if track is new to the user (default "0")
+    TAG_AUDIO_ISRC,                         // ISRC (international standard recording code)
     TAG_AUDIO_LASTPLAY,                     // when track was last played
     TAG_AUDIO_LYRICS,                       // lyrics of the track
     TAG_AUDIO_MBALBUMARTISTID,              // musicBrainz album artist ID in UUID format
     TAG_AUDIO_MBALBUMID,                    // musicBrainz album ID in UUID format
     TAG_AUDIO_MBARTISTID,                   // musicBrainz artist ID in UUID format
     TAG_AUDIO_MBTRACKID,                    // musicBrainz track ID in UUID format
+    TAG_AUDIO_MPEG_CHANNELMODE,             // MPEG channel mode
+    TAG_AUDIO_MPEG_COPYRIGHTED,             // "1" if the copyrighted bit is set
+    TAG_AUDIO_MPEG_LAYER,                   // MPEG layer
+    TAG_AUDIO_MPEG_ORIGINAL,                // "1" if the "original" bit is set
+    TAG_AUDIO_MPEG_VERSION,                 // MPEG version
     TAG_AUDIO_PERFORMER,                    // name of the performer/conductor of the music
     TAG_AUDIO_PLAYCOUNT,                    // number of times the track has been played
     TAG_AUDIO_RELEASEDATE,                  // date track was released
-    TAG_AUDIO_SAMPLERATE,                   // samplerate in Hz
+    TAG_AUDIO_SAMPLERATE,                   // sample rate in Hz
     TAG_AUDIO_TITLE,                        // title of the track
     TAG_AUDIO_TRACKGAIN,                    // gain adjustment of track
     TAG_AUDIO_TRACKNO,                      // position of track on the album
     TAG_AUDIO_TRACKPEAKGAIN,                // peak gain adjustment of track
+    TAG_AUDIO_YEAR,                         // year
     TAG_DOC_AUTHOR,                         // name of the author
     TAG_DOC_BYTECOUNT,                      // number of bytes in the document
     TAG_DOC_CASESENSITIVE,                  // case sensitive
@@ -257,18 +269,13 @@ typedef enum
     TAG_FILE_RANK,                          // editable file rank for grading favourites. Value should be in the range 1..10
     TAG_FILE_SIZE,                          // size of the file in bytes or if a directory no. of items it contains
     TAG_FILE_SMALLTHUMBNAILPATH,            // editable file uri for a small thumbnail of the file suitable for use in icon views
-    TAG_ID3_ALBUM,                          // album
     TAG_ID3_ALBUMSORTORDER,                 // album sort order
     TAG_ID3_AUDIOCRYPTO,                    // audio encryption
     TAG_ID3_AUDIOSEEKPOINT,                 // audio seek point index
     TAG_ID3_BAND,                           // band
-    TAG_ID3_BITRATE,                        // bitrate in kbps
     TAG_ID3_BPM,                            // BPM (beats per minute)
     TAG_ID3_BUFFERSIZE,                     // recommended buffer size
     TAG_ID3_CDID,                           // music CD identifier
-    TAG_ID3_CHANNELMODE,                    // channel mode
-    TAG_ID3_CHANNELS,                       // number of channels in the audio (2 = stereo)
-    TAG_ID3_COMMENT,                        // comments
     TAG_ID3_COMMERCIAL,                     // commercial frame
     TAG_ID3_COMPOSER,                       // composer
     TAG_ID3_CONDUCTOR,                      // conductor
@@ -277,8 +284,6 @@ typedef enum
     TAG_ID3_COPYRIGHT,                      // copyright message
     TAG_ID3_CRYPTOREG,                      // encryption method registration
     TAG_ID3_DATE,                           // date
-    TAG_ID3_DURATION,                       // duration of track in seconds
-    TAG_ID3_DURATIONMMSS,                   // duration of track in MM:SS
     TAG_ID3_EMPHASIS,                       // emphasis
     TAG_ID3_ENCODEDBY,                      // encoded by
     TAG_ID3_ENCODERSETTINGS,                // software
@@ -290,22 +295,17 @@ typedef enum
     TAG_ID3_FILETYPE,                       // file type
     TAG_ID3_FRAMES,                         // number of frames
     TAG_ID3_GENERALOBJECT,                  // general encapsulated object
-    TAG_ID3_GENRE,                          // type of music classification for the track as defined in ID3 spec
     TAG_ID3_GROUPINGREG,                    // group identification registration
     TAG_ID3_INITIALKEY,                     // initial key
     TAG_ID3_INVOLVEDPEOPLE,                 // involved people list
     TAG_ID3_INVOLVEDPEOPLE2,                // involved people list
-    TAG_ID3_ISRC,                           // ISRC (international standard recording code)
     TAG_ID3_LANGUAGE,                       // language(s)
-    TAG_ID3_LEADARTIST,                     // lead performer(s)
     TAG_ID3_LINKEDINFO,                     // linked information
     TAG_ID3_LYRICIST,                       // lyricist
     TAG_ID3_MEDIATYPE,                      // media type
     TAG_ID3_MIXARTIST,                      // interpreted, remixed, or otherwise modified by
     TAG_ID3_MOOD,                           // mood
-    TAG_ID3_MPEGLAYER,                      // MPEG layer
     TAG_ID3_MPEGLOOKUP,                     // MPEG location lookup table
-    TAG_ID3_MPEGVERSION,                    // MPEG version
     TAG_ID3_MUSICIANCREDITLIST,             // musician credits list
     TAG_ID3_NETRADIOOWNER,                  // internet radio station owner
     TAG_ID3_NETRADIOSTATION,                // internet radio station name
@@ -330,7 +330,6 @@ typedef enum
     TAG_ID3_RECORDINGTIME,                  // recording time
     TAG_ID3_RELEASETIME,                    // release time
     TAG_ID3_REVERB,                         // reverb
-    TAG_ID3_SAMPLERATE,                     // sample rate in Hz
     TAG_ID3_SETSUBTITLE,                    // set subtitle
     TAG_ID3_SIGNATURE,                      // signature frame
     TAG_ID3_SIZE,                           // size
@@ -341,9 +340,7 @@ typedef enum
     TAG_ID3_TAGGINGTIME,                    // tagging time
     TAG_ID3_TERMSOFUSE,                     // terms of use
     TAG_ID3_TIME,                           // time
-    TAG_ID3_TITLE,                          // title
     TAG_ID3_TITLESORTORDER,                 // title sort order
-    TAG_ID3_TRACKNUM,                       // track number
     TAG_ID3_UNIQUEFILEID,                   // unique file identifier
     TAG_ID3_UNSYNCEDLYRICS,                 // unsynchronized lyric
     TAG_ID3_USERTEXT,                       // user defined text information
@@ -358,7 +355,6 @@ typedef enum
     TAG_ID3_WWWPUBLISHER,                   // official publisher webpage
     TAG_ID3_WWWRADIOPAGE,                   // official internet radio station homepage
     TAG_ID3_WWWUSER,                        // user defined URL link
-    TAG_ID3_YEAR,                           // year
     TAG_IMAGE_ALBUM,                        // name of an album the image belongs to
     TAG_IMAGE_CAMERAMAKE,                   // make of camera used to take the image
     TAG_IMAGE_CAMERAMODEL,                  // model of camera used to take the image
@@ -459,6 +455,16 @@ typedef enum
     TAG_IPTC_UNO,                           // eternal, globally unique identification for the object, independent of provider and for any media form
     TAG_IPTC_URGENCY,                       // specifies the editorial urgency of content and not necessarily the envelope handling priority
     TAG_IPTC_WRITEREDITOR,                  // name of the person involved in the writing, editing or correcting the object or caption/abstract
+    TAG_VORBIS_CONTACT,                     // contact information for the creators or distributors of the track
+    TAG_VORBIS_DESCRIPTION,                 // a textual description of the data
+    TAG_VORBIS_LICENSE,                     // license information
+    TAG_VORBIS_LOCATION,                    // location where track was recorded
+    TAG_VORBIS_MAXBITRATE,                  // maximum bitrate in kbps
+    TAG_VORBIS_MINBITRATE,                  // minimum bitrate in kbps
+    TAG_VORBIS_NOMINALBITRATE,              // nominal bitrate in kbps
+    TAG_VORBIS_ORGANIZATION,                // organization producing the track
+    TAG_VORBIS_VENDOR,                      // Vorbis vendor ID
+    TAG_VORBIS_VERSION,                     // Vorbis version
     NUMBER_OF_TAGS
 } GnomeCmdTag;
 
@@ -568,11 +574,9 @@ void gcmd_tags_shutdown();
 
 GnomeCmdFileMetadata_New *gcmd_tags_bulk_load(GnomeCmdFile *finfo);
 
-GnomeCmdTag *gcmd_tags_get_pointer_to_tag(const GnomeCmdTag tag);       // to be removed
 const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
 const GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag);
-// const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTagClass tag_class, const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_title(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_description(const GnomeCmdTag tag);
@@ -594,8 +598,6 @@ inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const gchar
 
 void gcmd_tags_icclib_free_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_icclib_load_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_id3lib_free_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_id3lib_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_libexif_free_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_libexif_load_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_libiptcdata_free_metadata(GnomeCmdFile *finfo);

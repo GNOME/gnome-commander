@@ -37,16 +37,12 @@
 #include <lcms.h>
 #endif
 
-#ifdef HAVE_ID3
-#include <id3.h>
-#endif
-
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-tags-audio.h"
+#include "gnome-cmd-tags.h"
+#include "gnome-cmd-tags-taglib.h"
 #include "gnome-cmd-tags-doc.h"
 #include "gnome-cmd-tags-exif.h"
 #include "gnome-cmd-tags-icc.h"
-#include "gnome-cmd-tags-id3.h"
 #include "gnome-cmd-tags-iptcdata.h"
 #include "utils.h"
 
@@ -77,17 +73,25 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    {"Audio.CodecVersion", TAG_AUDIO, TAG_AUDIO_CODECVERSION, N_("Codec Version"), N_("Codec version.")},
                                                    {"Audio.Codec", TAG_AUDIO, TAG_AUDIO_CODEC, N_("Codec"), N_("Codec encoding description.")},
                                                    {"Audio.Comment", TAG_AUDIO, TAG_AUDIO_COMMENT, N_("Comment"), N_("Comments on the track.")},
+                                                   {"Audio.Copyright", TAG_AUDIO, TAG_AUDIO_COPYRIGHT, N_("Copyright"), N_("Copyright message.")},
                                                    {"Audio.CoverAlbumThumbnailPath", TAG_AUDIO, TAG_AUDIO_COVERALBUMTHUMBNAILPATH, N_("Cover album thumbnail path"), N_("File path to thumbnail image of the cover album.")},
                                                    {"Audio.DiscNo", TAG_AUDIO, TAG_AUDIO_DISCNO, N_("Disc Number"), N_("Specifies which disc the track is on.")},
                                                    {"Audio.Duration", TAG_AUDIO, TAG_AUDIO_DURATION, N_("Duration"), N_("Duration of track in seconds.")},
+                                                   {"Audio.Duration.MMSS", TAG_AUDIO, TAG_AUDIO_DURATIONMMSS, N_("Duration [MM:SS]"), N_("Duration of track as MM:SS.")},
                                                    {"Audio.Genre", TAG_AUDIO, TAG_AUDIO_GENRE, N_("Genre"), N_("Type of music classification for the track as defined in ID3 spec.")},
                                                    {"Audio.IsNew", TAG_AUDIO, TAG_AUDIO_ISNEW, N_("Is new"), N_("Set to \"1\" if track is new to the user (default \"0\").")},
+                                                   {"Audio.ISRC", TAG_AUDIO, TAG_AUDIO_ISRC, N_("ISRC"), N_("ISRC (international standard recording code).")},
                                                    {"Audio.LastPlay", TAG_AUDIO, TAG_AUDIO_LASTPLAY, N_("Last Play"), N_("When track was last played.")},
                                                    {"Audio.Lyrics", TAG_AUDIO, TAG_AUDIO_LYRICS, N_("Lyrics"), N_("Lyrics of the track.")},
                                                    {"Audio.MBAlbumArtistID", TAG_AUDIO, TAG_AUDIO_MBALBUMARTISTID, N_("MB album artist ID"), N_("MusicBrainz album artist ID in UUID format.")},
                                                    {"Audio.MBAlbumID", TAG_AUDIO, TAG_AUDIO_MBALBUMID, N_("MB Album ID"), N_("MusicBrainz album ID in UUID format.")},
                                                    {"Audio.MBArtistID", TAG_AUDIO, TAG_AUDIO_MBARTISTID, N_("MB Artist ID"), N_("MusicBrainz artist ID in UUID format.")},
                                                    {"Audio.MBTrackID", TAG_AUDIO, TAG_AUDIO_MBTRACKID, N_("MB Track ID"), N_("MusicBrainz track ID in UUID format.")},
+                                                   {"Audio.MPEG.ChannelMode", TAG_AUDIO, TAG_AUDIO_MPEG_CHANNELMODE, N_("Channel mode"), N_("MPEG channel mode.")},
+                                                   {"Audio.MPEG.Copyrighted", TAG_AUDIO, TAG_AUDIO_MPEG_COPYRIGHTED, N_("Copyrighted"), N_("\"1\" if the copyrighted bit is set.")},
+                                                   {"Audio.MPEG.Layer", TAG_AUDIO, TAG_AUDIO_MPEG_LAYER, N_("Layer"), N_("MPEG layer.")},
+                                                   {"Audio.MPEG.Original", TAG_AUDIO, TAG_AUDIO_MPEG_ORIGINAL, N_("Original audio"), N_("\"1\" if the \"original\" bit is set.")},
+                                                   {"Audio.MPEG.Version", TAG_AUDIO, TAG_AUDIO_MPEG_VERSION, N_("MPEG Version"), N_("MPEG version.")},
                                                    {"Audio.Performer", TAG_AUDIO, TAG_AUDIO_PERFORMER, N_("Performer"), N_("Name of the performer/conductor of the music.")},
                                                    {"Audio.PlayCount", TAG_AUDIO, TAG_AUDIO_PLAYCOUNT, N_("Play Count"), N_("Number of times the track has been played.")},
                                                    {"Audio.ReleaseDate", TAG_AUDIO, TAG_AUDIO_RELEASEDATE, N_("Release Date"), N_("Date track was released.")},
@@ -96,6 +100,7 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    {"Audio.TrackGain", TAG_AUDIO, TAG_AUDIO_TRACKGAIN, N_("Track Gain"), N_("Gain adjustment of the track.")},
                                                    {"Audio.TrackNo", TAG_AUDIO, TAG_AUDIO_TRACKNO, N_("Track Number"), N_("Position of track on the album.")},
                                                    {"Audio.TrackPeakGain", TAG_AUDIO, TAG_AUDIO_TRACKPEAKGAIN, N_("Track Peak Gain"), N_("Peak gain adjustment of track.")},
+                                                   {"Audio.Year", TAG_AUDIO, TAG_AUDIO_YEAR, N_("Year"), N_("Year.")},
                                                    {"Doc.Author", TAG_DOC, TAG_DOC_CREATOR, N_("Author"), N_("Name of the author.")},
                                                    {"Doc.ByteCount", TAG_DOC, TAG_DOC_BYTECOUNT, N_("Byte Count"), N_("Number of bytes in the document.")},
                                                    {"Doc.CaseSensitive", TAG_DOC, TAG_DOC_CASESENSITIVE, N_("Case Sensitive"), N_("Case sensitive.")},
@@ -739,472 +744,92 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    {"File.Rank", TAG_FILE, TAG_FILE_RANK, N_("Rank"), N_("Editable file rank for grading favourites. Value should be in the range 1..10.")},
                                                    {"File.Size", TAG_FILE, TAG_FILE_SIZE, N_("Size"), N_("Size of the file in bytes or if a directory number of items it contains.")},
                                                    {"File.SmallThumbnailPath", TAG_FILE, TAG_FILE_SMALLTHUMBNAILPATH, N_("Small Thumbnail Path"), N_("Editable file URI for a small thumbnail of the file suitable for use in icon views.")},
-                                                   {"ID3.Album", TAG_ID3, TAG_ID3_ALBUM, N_("Album"), N_("Name of the album.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ALBUM
-#endif
-                                                   },
-                                                   {"ID3.AlbumSortOrder", TAG_ID3, TAG_ID3_ALBUMSORTORDER, N_("Album Sort Order"), N_("String which should be used instead of the album name for sorting purposes.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ALBUMSORTORDER
-#endif
-                                                   },
-                                                   {"ID3.AudioCrypto", TAG_ID3, TAG_ID3_AUDIOCRYPTO, N_("Audio Encryption"), N_("Frame indicates if the audio stream is encrypted, and by whom.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_AUDIOCRYPTO
-#endif
-                                                   },
-                                                   {"ID3.AudioSeekPoint", TAG_ID3, TAG_ID3_AUDIOSEEKPOINT, N_("Audio Seek Point"), N_("Fractional offset within the audio data, providing a starting point from which to find an appropriate point to start decoding.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_AUDIOSEEKPOINT
-#endif
-                                                   },
-                                                   {"ID3.Band", TAG_ID3, TAG_ID3_BAND, N_("Band"), N_("Additional information about the performers in the recording.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_BAND
-#endif
-                                                   },
-                                                   {"ID3.Bitrate", TAG_ID3, TAG_ID3_BITRATE, N_("Bitrate"), N_("Bitrate in kbps.")},
-                                                   {"ID3.BPM", TAG_ID3, TAG_ID3_BPM, N_("BPM"), N_("BPM (beats per minute).")
-#ifdef HAVE_ID3
-                                                   , ID3FID_BPM
-#endif
-                                                   },
-                                                   {"ID3.BufferSize", TAG_ID3, TAG_ID3_BUFFERSIZE, N_("Buffer Size"), N_("Recommended buffer size.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_BUFFERSIZE
-#endif
-                                                   },
-                                                   {"ID3.CDID", TAG_ID3, TAG_ID3_CDID, N_("CD ID"), N_("Music CD identifier.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_CDID
-#endif
-                                                   },
-                                                   {"ID3.ChannelMode", TAG_ID3, TAG_ID3_CHANNELMODE, N_("Channel mode"), N_("Channel mode.")},
-                                                   {"ID3.Channels", TAG_ID3, TAG_ID3_CHANNELS, N_("Channels"), N_("Number of channels in the audio (2 = stereo).")},
-                                                   {"ID3.Comment", TAG_ID3, TAG_ID3_COMMENT, N_("Comment"), N_("Comments on the track.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_COMMENT
-#endif
-                                                   },
-                                                   {"ID3.Commercial", TAG_ID3, TAG_ID3_COMMERCIAL, N_("Commercial"), N_("Commercial frame.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_COMMERCIAL
-#endif
-                                                   },
-                                                   {"ID3.Composer", TAG_ID3, TAG_ID3_COMPOSER, N_("Composer"), N_("Composer.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_COMPOSER
-#endif
-                                                   },
-                                                   {"ID3.Conductor", TAG_ID3, TAG_ID3_CONDUCTOR, N_("Conductor"), N_("Conductor.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_CONDUCTOR
-#endif
-                                                   },
-                                                   {"ID3.ContentGroup", TAG_ID3, TAG_ID3_CONTENTGROUP, N_("Content Group"), N_("Content group description.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_CONTENTGROUP
-#endif
-                                                   },
-                                                   {"ID3.ContentType", TAG_ID3, TAG_ID3_CONTENTTYPE, N_("Content Type"), N_("Type of music classification for the track as defined in ID3 spec.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_CONTENTTYPE
-#endif
-                                                   },
-                                                   {"ID3.Copyright", TAG_ID3, TAG_ID3_COPYRIGHT, N_("Copyright"), N_("Copyright message.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_COPYRIGHT
-#endif
-                                                   },
-                                                   {"ID3.CryptoReg", TAG_ID3, TAG_ID3_CRYPTOREG, N_("Encryption Registration"), N_("Encryption method registration.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_CRYPTOREG
-#endif
-                                                   },
-                                                   {"ID3.Date", TAG_ID3, TAG_ID3_DATE, N_("Date"), N_("Date.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_DATE
-#endif
-                                                   },
-                                                   {"ID3.Duration", TAG_ID3, TAG_ID3_DURATION, N_("Duration"), N_("Duration of track in seconds.")},
-                                                   {"ID3.Duration.MMSS", TAG_ID3, TAG_ID3_DURATIONMMSS, N_("Duration [MM:SS]"), N_("Duration of track as MM:SS.")},
+                                                   {"ID3.AlbumSortOrder", TAG_ID3, TAG_ID3_ALBUMSORTORDER, N_("Album Sort Order"), N_("String which should be used instead of the album name for sorting purposes.")},
+                                                   {"ID3.AudioCrypto", TAG_ID3, TAG_ID3_AUDIOCRYPTO, N_("Audio Encryption"), N_("Frame indicates if the audio stream is encrypted, and by whom.")},
+                                                   {"ID3.AudioSeekPoint", TAG_ID3, TAG_ID3_AUDIOSEEKPOINT, N_("Audio Seek Point"), N_("Fractional offset within the audio data, providing a starting point from which to find an appropriate point to start decoding.")},
+                                                   {"ID3.Band", TAG_ID3, TAG_ID3_BAND, N_("Band"), N_("Additional information about the performers in the recording.")},
+                                                   {"ID3.BPM", TAG_ID3, TAG_ID3_BPM, N_("BPM"), N_("BPM (beats per minute).")},
+                                                   {"ID3.BufferSize", TAG_ID3, TAG_ID3_BUFFERSIZE, N_("Buffer Size"), N_("Recommended buffer size.")},
+                                                   {"ID3.CDID", TAG_ID3, TAG_ID3_CDID, N_("CD ID"), N_("Music CD identifier.")},
+                                                   {"ID3.Commercial", TAG_ID3, TAG_ID3_COMMERCIAL, N_("Commercial"), N_("Commercial frame.")},
+                                                   {"ID3.Composer", TAG_ID3, TAG_ID3_COMPOSER, N_("Composer"), N_("Composer.")},
+                                                   {"ID3.Conductor", TAG_ID3, TAG_ID3_CONDUCTOR, N_("Conductor"), N_("Conductor.")},
+                                                   {"ID3.ContentGroup", TAG_ID3, TAG_ID3_CONTENTGROUP, N_("Content Group"), N_("Content group description.")},
+                                                   {"ID3.ContentType", TAG_ID3, TAG_ID3_CONTENTTYPE, N_("Content Type"), N_("Type of music classification for the track as defined in ID3 spec.")},
+                                                   {"ID3.Copyright", TAG_ID3, TAG_ID3_COPYRIGHT, N_("Copyright"), N_("Copyright message.")},
+                                                   {"ID3.CryptoReg", TAG_ID3, TAG_ID3_CRYPTOREG, N_("Encryption Registration"), N_("Encryption method registration.")},
+                                                   {"ID3.Date", TAG_ID3, TAG_ID3_DATE, N_("Date"), N_("Date.")},
                                                    {"ID3.Emphasis", TAG_ID3, TAG_ID3_EMPHASIS, N_("Emphasis"), N_("Emphasis.")},
-                                                   {"ID3.EncodedBy", TAG_ID3, TAG_ID3_ENCODEDBY, N_("Encoded By"), N_("Person or organisation that encoded the audio file. This field may contain a copyright message, if the audio file also is copyrighted by the encoder.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ENCODEDBY
-#endif
-                                                   },
-                                                   {"ID3.EncoderSettings", TAG_ID3, TAG_ID3_ENCODERSETTINGS, N_("Encoder Settings"), N_("Software.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ENCODERSETTINGS
-#endif
-                                                   },
-                                                   {"ID3.EncodingTime", TAG_ID3, TAG_ID3_ENCODINGTIME, N_("Encoding Time"), N_("Encoding time.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ENCODINGTIME
-#endif
-                                                   },
-                                                   {"ID3.Equalization", TAG_ID3, TAG_ID3_EQUALIZATION, N_("Equalization"), N_("Equalization.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_EQUALIZATION
-#endif
-                                                   },
-                                                   {"ID3.Equalization2", TAG_ID3, TAG_ID3_EQUALIZATION2, N_("Equalization 2"), N_("Equalisation curve predifine within the audio file.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_EQUALIZATION2
-#endif
-                                                   },
-                                                   {"ID3.EventTiming", TAG_ID3, TAG_ID3_EVENTTIMING, N_("Event Timing"), N_("Event timing codes.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_EVENTTIMING
-#endif
-                                                   },
-                                                   {"ID3.FileOwner", TAG_ID3, TAG_ID3_FILEOWNER, N_("File Owner"), N_("File owner.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_FILEOWNER
-#endif
-                                                   },
-                                                   {"ID3.FileType", TAG_ID3, TAG_ID3_FILETYPE, N_("File Type"), N_("File type.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_FILETYPE
-#endif
-                                                   },
+                                                   {"ID3.EncodedBy", TAG_ID3, TAG_ID3_ENCODEDBY, N_("Encoded By"), N_("Person or organisation that encoded the audio file. This field may contain a copyright message, if the audio file also is copyrighted by the encoder.")},
+                                                   {"ID3.EncoderSettings", TAG_ID3, TAG_ID3_ENCODERSETTINGS, N_("Encoder Settings"), N_("Software.")},
+                                                   {"ID3.EncodingTime", TAG_ID3, TAG_ID3_ENCODINGTIME, N_("Encoding Time"), N_("Encoding time.")},
+                                                   {"ID3.Equalization", TAG_ID3, TAG_ID3_EQUALIZATION, N_("Equalization"), N_("Equalization.")},
+                                                   {"ID3.Equalization2", TAG_ID3, TAG_ID3_EQUALIZATION2, N_("Equalization 2"), N_("Equalisation curve predifine within the audio file.")},
+                                                   {"ID3.EventTiming", TAG_ID3, TAG_ID3_EVENTTIMING, N_("Event Timing"), N_("Event timing codes.")},
+                                                   {"ID3.FileOwner", TAG_ID3, TAG_ID3_FILEOWNER, N_("File Owner"), N_("File owner.")},
+                                                   {"ID3.FileType", TAG_ID3, TAG_ID3_FILETYPE, N_("File Type"), N_("File type.")},
                                                    {"ID3.Frames", TAG_ID3, TAG_ID3_FRAMES, N_("Frames"), N_("Number of frames.")},
-                                                   {"ID3.GeneralObject", TAG_ID3, TAG_ID3_GENERALOBJECT, N_("General Object"), N_("General encapsulated object.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_GENERALOBJECT
-#endif
-                                                   },
-                                                   {"ID3.Genre", TAG_ID3, TAG_ID3_GENRE, N_("Genre"), N_("Type of music classification for the track as defined in ID3 spec.")},
-                                                   {"ID3.GroupingReg", TAG_ID3, TAG_ID3_GROUPINGREG, N_("Grouping Registration"), N_("Group identification registration.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_GROUPINGREG
-#endif
-                                                   },
-                                                   {"ID3.InitialKey", TAG_ID3, TAG_ID3_INITIALKEY, N_("Initial Key"), N_("Initial key.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_INITIALKEY
-#endif
-                                                   },
-                                                   {"ID3.InvolvedPeople", TAG_ID3, TAG_ID3_INVOLVEDPEOPLE, N_("Involved People"), N_("Involved people list.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_INVOLVEDPEOPLE
-#endif
-                                                   },
-                                                   {"ID3.InvolvedPeople2", TAG_ID3, TAG_ID3_INVOLVEDPEOPLE2, N_("InvolvedPeople2"), N_("Involved people list.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_INVOLVEDPEOPLE2
-#endif
-                                                   },
-                                                   {"ID3.ISRC", TAG_ID3, TAG_ID3_ISRC, N_("ISRC"), N_("ISRC (international standard recording code).")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ISRC
-#endif
-                                                   },
-                                                   {"ID3.Language", TAG_ID3, TAG_ID3_LANGUAGE, N_("Language"), N_("Language.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_LANGUAGE
-#endif
-                                                   },
-                                                   {"ID3.LeadArtist", TAG_ID3, TAG_ID3_LEADARTIST, N_("Lead Artist"), N_("Lead performer(s).")
-#ifdef HAVE_ID3
-                                                   , ID3FID_LEADARTIST
-#endif
-                                                   },
-                                                   {"ID3.LinkedInfo", TAG_ID3, TAG_ID3_LINKEDINFO, N_("Linked Info"), N_("Linked information.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_LINKEDINFO
-#endif
-                                                   },
-                                                   {"ID3.Lyricist", TAG_ID3, TAG_ID3_LYRICIST, N_("Lyricist"), N_("Lyricist.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_LYRICIST
-#endif
-                                                   },
-                                                   {"ID3.MediaType", TAG_ID3, TAG_ID3_MEDIATYPE, N_("Media Type"), N_("Media type.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_MEDIATYPE
-#endif
-                                                   },
-                                                   {"ID3.MixArtist", TAG_ID3, TAG_ID3_MIXARTIST, N_("Mix Artist"), N_("Interpreted, remixed, or otherwise modified by.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_MIXARTIST
-#endif
-                                                   },
-                                                   {"ID3.Mood", TAG_ID3, TAG_ID3_MOOD, N_("Mood"), N_("Mood.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_MOOD
-#endif
-                                                   },
-                                                   {"ID3.MPEG.Layer", TAG_ID3, TAG_ID3_MPEGLAYER, N_("Layer"), N_("MPEG layer.")},
-                                                   {"ID3.MPEG.Lookup", TAG_ID3, TAG_ID3_MPEGLOOKUP, N_("MPEG Lookup"), N_("MPEG location lookup table.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_MPEGLOOKUP
-#endif
-                                                   },
-                                                   {"ID3.MPEG.Version", TAG_ID3, TAG_ID3_MPEGVERSION, N_("MPEG Version"), N_("MPEG version.")},
-                                                   {"ID3.MusicianCreditList", TAG_ID3, TAG_ID3_MUSICIANCREDITLIST, N_("Musician Credit List"), N_("Musician credits list.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_MUSICIANCREDITLIST
-#endif
-                                                   },
-                                                   {"ID3.NetRadioOwner", TAG_ID3, TAG_ID3_NETRADIOOWNER, N_("Net Radio Owner"), N_("Internet radio station owner.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_NETRADIOOWNER
-#endif
-                                                   },
-                                                   {"ID3.NetRadiostation", TAG_ID3, TAG_ID3_NETRADIOSTATION, N_("Net Radiostation"), N_("Internet radio station name.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_NETRADIOSTATION
-#endif
-                                                   },
-                                                   {"ID3.OriginalAlbum", TAG_ID3, TAG_ID3_ORIGALBUM, N_("Original Album"), N_("Original album.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ORIGALBUM
-#endif
-                                                   },
-                                                   {"ID3.OriginalArtist", TAG_ID3, TAG_ID3_ORIGARTIST, N_("Original Artist"), N_("Original artist.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ORIGARTIST
-#endif
-                                                   },
-                                                   {"ID3.OriginalFileName", TAG_ID3, TAG_ID3_ORIGFILENAME, N_("Original File Name"), N_("Original filename.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ORIGFILENAME
-#endif
-                                                   },
-                                                   {"ID3.OriginalLyricist", TAG_ID3, TAG_ID3_ORIGLYRICIST, N_("Original Lyricist"), N_("Original lyricist.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ORIGLYRICIST
-#endif
-                                                   },
-                                                   {"ID3.OriginalReleaseTime", TAG_ID3, TAG_ID3_ORIGRELEASETIME, N_("Original Release Time"), N_("Original release time.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ORIGRELEASETIME
-#endif
-                                                   },
-                                                   {"ID3.OriginalYear", TAG_ID3, TAG_ID3_ORIGYEAR, N_("Original Year"), N_("Original release year.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_ORIGYEAR
-#endif
-                                                   },
-                                                   {"ID3.Ownership", TAG_ID3, TAG_ID3_OWNERSHIP, N_("Ownership"), N_("Ownership frame.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_OWNERSHIP
-#endif
-                                                   },
-                                                   {"ID3.PartInSet", TAG_ID3, TAG_ID3_PARTINSET, N_("Part of a Set"), N_("Part of a set the audio came from.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_PARTINSET
-#endif
-                                                   },
-                                                   {"ID3.PerformerSortOrder", TAG_ID3, TAG_ID3_PERFORMERSORTORDER, N_("Performer Sort Order"), N_("Performer sort order.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_PERFORMERSORTORDER
-#endif
-                                                   },
-                                                   {"ID3.Picture", TAG_ID3, TAG_ID3_PICTURE, N_("Picture"), N_("Attached picture.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_PICTURE
-#endif
-                                                   },
-                                                   {"ID3.PlayCounter", TAG_ID3, TAG_ID3_PLAYCOUNTER, N_("Play Counter"), N_("Number of times a file has been played.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_PLAYCOUNTER
-#endif
-                                                   },
-                                                   {"ID3.PlaylistDelay", TAG_ID3, TAG_ID3_PLAYLISTDELAY, N_("Playlist Delay"), N_("Playlist delay.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_PLAYLISTDELAY
-#endif
-                                                   },
-                                                   {"ID3.Popularimeter", TAG_ID3, TAG_ID3_POPULARIMETER, N_("Popularimeter"), N_("Rating of the audio file.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_POPULARIMETER
-#endif
-                                                   },
-                                                   {"ID3.PositionSync", TAG_ID3, TAG_ID3_POSITIONSYNC, N_("Position Sync"), N_("Position synchronisation frame.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_POSITIONSYNC
-#endif
-                                                   },
-                                                   {"ID3.Private", TAG_ID3, TAG_ID3_PRIVATE, N_("Private"), N_("Private frame.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_PRIVATE
-#endif
-                                                   },
-                                                   {"ID3.ProducedNotice", TAG_ID3, TAG_ID3_PRODUCEDNOTICE, N_("Produced Notice"), N_("Produced notice.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_PRODUCEDNOTICE
-#endif
-                                                   },
-                                                   {"ID3.Publisher", TAG_ID3, TAG_ID3_PUBLISHER, N_("Publisher"), N_("Publisher.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_PUBLISHER
-#endif
-                                                   },
-                                                   {"ID3.RecordingDates", TAG_ID3, TAG_ID3_RECORDINGDATES, N_("Recording Dates"), N_("Recording dates.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_RECORDINGDATES
-#endif
-                                                   },
-                                                   {"ID3.RecordingTime", TAG_ID3, TAG_ID3_RECORDINGTIME, N_("Recording Time"), N_("Recording time.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_RECORDINGTIME
-#endif
-                                                   },
-                                                   {"ID3.ReleaseTime", TAG_ID3, TAG_ID3_RELEASETIME, N_("Release Time"), N_("Release time.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_RELEASETIME
-#endif
-                                                   },
-                                                   {"ID3.Reverb", TAG_ID3, TAG_ID3_REVERB, N_("Reverb"), N_("Reverb.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_REVERB
-#endif
-                                                   },
-                                                   {"ID3.SampleRate", TAG_ID3, TAG_ID3_SAMPLERATE, N_("Sample Rate"), N_("Sample rate in Hz.")},
-                                                   {"ID3.SetSubtitle", TAG_ID3, TAG_ID3_SETSUBTITLE, N_("Set Subtitle"), N_("Subtitle of the part of a set this track belongs to.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_SETSUBTITLE
-#endif
-                                                   },
-                                                   {"ID3.Signature", TAG_ID3, TAG_ID3_SIGNATURE, N_("Signature"), N_("Signature frame.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_SIGNATURE
-#endif
-                                                   },
-                                                   {"ID3.Size", TAG_ID3, TAG_ID3_SIZE, N_("Size"), N_("Size of the audio file in bytes, excluding the ID3 tag.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_SIZE
-#endif
-                                                   },
-                                                   {"ID3.SongLength", TAG_ID3, TAG_ID3_SONGLEN, N_("Song length"), N_("Length of the song in milliseconds.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_SONGLEN
-#endif
-                                                   },
-                                                   {"ID3.Subtitle", TAG_ID3, TAG_ID3_SUBTITLE, N_("Subtitle"), N_("Subtitle.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_SUBTITLE
-#endif
-                                                   },
-                                                   {"ID3.Syncedlyrics", TAG_ID3, TAG_ID3_SYNCEDLYRICS, N_("Syncedlyrics"), N_("Synchronized lyric.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_SYNCEDLYRICS
-#endif
-                                                   },
-                                                   {"ID3.SyncedTempo", TAG_ID3, TAG_ID3_SYNCEDTEMPO, N_("Synchronized Tempo"), N_("Synchronized tempo codes.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_SYNCEDTEMPO
-#endif
-                                                   },
-                                                   {"ID3.TaggingTime", TAG_ID3, TAG_ID3_TAGGINGTIME, N_("Tagging Time"), N_("Tagging time.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_TAGGINGTIME
-#endif
-                                                   },
-                                                   {"ID3.TermsOfUse", TAG_ID3, TAG_ID3_TERMSOFUSE, N_("Terms Of Use"), N_("Terms of use.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_TERMSOFUSE
-#endif
-                                                   },
-                                                   {"ID3.Time", TAG_ID3, TAG_ID3_TIME, N_("Time"), N_("Time.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_TIME
-#endif
-                                                   },
-                                                   {"ID3.Title", TAG_ID3, TAG_ID3_TITLE, N_("Title"), N_("Title of the track.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_TITLE
-#endif
-                                                   },
-                                                   {"ID3.Titlesortorder", TAG_ID3, TAG_ID3_TITLESORTORDER, N_("Titlesortorder"), N_("Title sort order.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_TITLESORTORDER
-#endif
-                                                   },
-                                                   {"ID3.TrackNo", TAG_ID3, TAG_ID3_TRACKNUM, N_("Track number"), N_("Position of track on the album.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_TRACKNUM
-#endif
-                                                   },
-                                                   {"ID3.UniqueFileID", TAG_ID3, TAG_ID3_UNIQUEFILEID, N_("Unique File ID"), N_("Unique file identifier.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_UNIQUEFILEID
-#endif
-                                                   },
-                                                   {"ID3.UnsyncedLyrics", TAG_ID3, TAG_ID3_UNSYNCEDLYRICS, N_("Unsynchronized Lyrics"), N_("Unsynchronized lyric.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_UNSYNCEDLYRICS
-#endif
-                                                   },
-                                                   {"ID3.UserText", TAG_ID3, TAG_ID3_USERTEXT, N_("User Text"), N_("User defined text information.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_USERTEXT
-#endif
-                                                   },
-                                                   {"ID3.VolumeAdj", TAG_ID3, TAG_ID3_VOLUMEADJ, N_("Volume Adjustment"), N_("Relative volume adjustment.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_VOLUMEADJ
-#endif
-                                                   },
-                                                   {"ID3.VolumeAdj2", TAG_ID3, TAG_ID3_VOLUMEADJ2, N_("Volume Adjustment 2"), N_("Relative volume adjustment.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_VOLUMEADJ2
-#endif
-                                                   },
-                                                   {"ID3.WWWArtist", TAG_ID3, TAG_ID3_WWWARTIST, N_("WWW Artist"), N_("Official artist.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_WWWARTIST
-#endif
-                                                   },
-                                                   {"ID3.WWWAudioFile", TAG_ID3, TAG_ID3_WWWAUDIOFILE, N_("WWW Audio File"), N_("Official audio file webpage.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_WWWAUDIOFILE
-#endif
-                                                   },
-                                                   {"ID3.WWWAudioSource", TAG_ID3, TAG_ID3_WWWAUDIOSOURCE, N_("WWW Audio Source"), N_("Official audio source webpage.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_WWWAUDIOSOURCE
-#endif
-                                                   },
-                                                   {"ID3.WWWCommercialInfo", TAG_ID3, TAG_ID3_WWWCOMMERCIALINFO, N_("WWW Commercial Info"), N_("URL pointing at a webpage containing commercial information.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_WWWCOMMERCIALINFO
-#endif
-                                                   },
-                                                   {"ID3.WWWCopyright", TAG_ID3, TAG_ID3_WWWCOPYRIGHT, N_("WWW Copyright"), N_("URL pointing at a webpage that holds copyright.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_WWWCOPYRIGHT
-#endif
-                                                   },
-                                                   {"ID3.WWWPayment", TAG_ID3, TAG_ID3_WWWPAYMENT, N_("WWW Payment"), N_("URL pointing at a webpage that will handle the process of paying for this file.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_WWWPAYMENT
-#endif
-                                                   },
-                                                   {"ID3.WWWPublisher", TAG_ID3, TAG_ID3_WWWPUBLISHER, N_("WWW Publisher"), N_("URL pointing at the official webpage for the publisher.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_WWWPUBLISHER
-#endif
-                                                   },
-                                                   {"ID3.WWWRadioPage", TAG_ID3, TAG_ID3_WWWRADIOPAGE, N_("WWW Radio Page"), N_("Official internet radio station homepage.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_WWWRADIOPAGE
-#endif
-                                                   },
-                                                   {"ID3.WWWUser", TAG_ID3, TAG_ID3_WWWUSER, N_("WWW User"), N_("User defined URL link.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_WWWUSER
-#endif
-                                                   },
-                                                   {"ID3.Year", TAG_ID3, TAG_ID3_YEAR, N_("Year"), N_("Year.")
-#ifdef HAVE_ID3
-                                                   , ID3FID_YEAR
-#endif
-                                                   },
+                                                   {"ID3.GeneralObject", TAG_ID3, TAG_ID3_GENERALOBJECT, N_("General Object"), N_("General encapsulated object.")},
+                                                   {"ID3.GroupingReg", TAG_ID3, TAG_ID3_GROUPINGREG, N_("Grouping Registration"), N_("Group identification registration.")},
+                                                   {"ID3.InitialKey", TAG_ID3, TAG_ID3_INITIALKEY, N_("Initial Key"), N_("Initial key.")},
+                                                   {"ID3.InvolvedPeople", TAG_ID3, TAG_ID3_INVOLVEDPEOPLE, N_("Involved People"), N_("Involved people list.")},
+                                                   {"ID3.InvolvedPeople2", TAG_ID3, TAG_ID3_INVOLVEDPEOPLE2, N_("InvolvedPeople2"), N_("Involved people list.")},
+                                                   {"ID3.Language", TAG_ID3, TAG_ID3_LANGUAGE, N_("Language"), N_("Language.")},
+                                                   {"ID3.LinkedInfo", TAG_ID3, TAG_ID3_LINKEDINFO, N_("Linked Info"), N_("Linked information.")},
+                                                   {"ID3.Lyricist", TAG_ID3, TAG_ID3_LYRICIST, N_("Lyricist"), N_("Lyricist.")},
+                                                   {"ID3.MediaType", TAG_ID3, TAG_ID3_MEDIATYPE, N_("Media Type"), N_("Media type.")},
+                                                   {"ID3.MixArtist", TAG_ID3, TAG_ID3_MIXARTIST, N_("Mix Artist"), N_("Interpreted, remixed, or otherwise modified by.")},
+                                                   {"ID3.Mood", TAG_ID3, TAG_ID3_MOOD, N_("Mood"), N_("Mood.")},
+                                                   {"ID3.MPEG.Lookup", TAG_ID3, TAG_ID3_MPEGLOOKUP, N_("MPEG Lookup"), N_("MPEG location lookup table.")},
+                                                   {"ID3.MusicianCreditList", TAG_ID3, TAG_ID3_MUSICIANCREDITLIST, N_("Musician Credit List"), N_("Musician credits list.")},
+                                                   {"ID3.NetRadioOwner", TAG_ID3, TAG_ID3_NETRADIOOWNER, N_("Net Radio Owner"), N_("Internet radio station owner.")},
+                                                   {"ID3.NetRadiostation", TAG_ID3, TAG_ID3_NETRADIOSTATION, N_("Net Radiostation"), N_("Internet radio station name.")},
+                                                   {"ID3.OriginalAlbum", TAG_ID3, TAG_ID3_ORIGALBUM, N_("Original Album"), N_("Original album.")},
+                                                   {"ID3.OriginalArtist", TAG_ID3, TAG_ID3_ORIGARTIST, N_("Original Artist"), N_("Original artist.")},
+                                                   {"ID3.OriginalFileName", TAG_ID3, TAG_ID3_ORIGFILENAME, N_("Original File Name"), N_("Original filename.")},
+                                                   {"ID3.OriginalLyricist", TAG_ID3, TAG_ID3_ORIGLYRICIST, N_("Original Lyricist"), N_("Original lyricist.")},
+                                                   {"ID3.OriginalReleaseTime", TAG_ID3, TAG_ID3_ORIGRELEASETIME, N_("Original Release Time"), N_("Original release time.")},
+                                                   {"ID3.OriginalYear", TAG_ID3, TAG_ID3_ORIGYEAR, N_("Original Year"), N_("Original release year.")},
+                                                   {"ID3.Ownership", TAG_ID3, TAG_ID3_OWNERSHIP, N_("Ownership"), N_("Ownership frame.")},
+                                                   {"ID3.PartInSet", TAG_ID3, TAG_ID3_PARTINSET, N_("Part of a Set"), N_("Part of a set the audio came from.")},
+                                                   {"ID3.PerformerSortOrder", TAG_ID3, TAG_ID3_PERFORMERSORTORDER, N_("Performer Sort Order"), N_("Performer sort order.")},
+                                                   {"ID3.Picture", TAG_ID3, TAG_ID3_PICTURE, N_("Picture"), N_("Attached picture.")},
+                                                   {"ID3.PlayCounter", TAG_ID3, TAG_ID3_PLAYCOUNTER, N_("Play Counter"), N_("Number of times a file has been played.")},
+                                                   {"ID3.PlaylistDelay", TAG_ID3, TAG_ID3_PLAYLISTDELAY, N_("Playlist Delay"), N_("Playlist delay.")},
+                                                   {"ID3.Popularimeter", TAG_ID3, TAG_ID3_POPULARIMETER, N_("Popularimeter"), N_("Rating of the audio file.")},
+                                                   {"ID3.PositionSync", TAG_ID3, TAG_ID3_POSITIONSYNC, N_("Position Sync"), N_("Position synchronisation frame.")},
+                                                   {"ID3.Private", TAG_ID3, TAG_ID3_PRIVATE, N_("Private"), N_("Private frame.")},
+                                                   {"ID3.ProducedNotice", TAG_ID3, TAG_ID3_PRODUCEDNOTICE, N_("Produced Notice"), N_("Produced notice.")},
+                                                   {"ID3.Publisher", TAG_ID3, TAG_ID3_PUBLISHER, N_("Publisher"), N_("Publisher.")},
+                                                   {"ID3.RecordingDates", TAG_ID3, TAG_ID3_RECORDINGDATES, N_("Recording Dates"), N_("Recording dates.")},
+                                                   {"ID3.RecordingTime", TAG_ID3, TAG_ID3_RECORDINGTIME, N_("Recording Time"), N_("Recording time.")},
+                                                   {"ID3.ReleaseTime", TAG_ID3, TAG_ID3_RELEASETIME, N_("Release Time"), N_("Release time.")},
+                                                   {"ID3.Reverb", TAG_ID3, TAG_ID3_REVERB, N_("Reverb"), N_("Reverb.")},
+                                                   {"ID3.SetSubtitle", TAG_ID3, TAG_ID3_SETSUBTITLE, N_("Set Subtitle"), N_("Subtitle of the part of a set this track belongs to.")},
+                                                   {"ID3.Signature", TAG_ID3, TAG_ID3_SIGNATURE, N_("Signature"), N_("Signature frame.")},
+                                                   {"ID3.Size", TAG_ID3, TAG_ID3_SIZE, N_("Size"), N_("Size of the audio file in bytes, excluding the ID3 tag.")},
+                                                   {"ID3.SongLength", TAG_ID3, TAG_ID3_SONGLEN, N_("Song length"), N_("Length of the song in milliseconds.")},
+                                                   {"ID3.Subtitle", TAG_ID3, TAG_ID3_SUBTITLE, N_("Subtitle"), N_("Subtitle.")},
+                                                   {"ID3.Syncedlyrics", TAG_ID3, TAG_ID3_SYNCEDLYRICS, N_("Syncedlyrics"), N_("Synchronized lyric.")},
+                                                   {"ID3.SyncedTempo", TAG_ID3, TAG_ID3_SYNCEDTEMPO, N_("Synchronized Tempo"), N_("Synchronized tempo codes.")},
+                                                   {"ID3.TaggingTime", TAG_ID3, TAG_ID3_TAGGINGTIME, N_("Tagging Time"), N_("Tagging time.")},
+                                                   {"ID3.TermsOfUse", TAG_ID3, TAG_ID3_TERMSOFUSE, N_("Terms Of Use"), N_("Terms of use.")},
+                                                   {"ID3.Time", TAG_ID3, TAG_ID3_TIME, N_("Time"), N_("Time.")},
+                                                   {"ID3.Titlesortorder", TAG_ID3, TAG_ID3_TITLESORTORDER, N_("Titlesortorder"), N_("Title sort order.")},
+                                                   {"ID3.UniqueFileID", TAG_ID3, TAG_ID3_UNIQUEFILEID, N_("Unique File ID"), N_("Unique file identifier.")},
+                                                   {"ID3.UnsyncedLyrics", TAG_ID3, TAG_ID3_UNSYNCEDLYRICS, N_("Unsynchronized Lyrics"), N_("Unsynchronized lyric.")},
+                                                   {"ID3.UserText", TAG_ID3, TAG_ID3_USERTEXT, N_("User Text"), N_("User defined text information.")},
+                                                   {"ID3.VolumeAdj", TAG_ID3, TAG_ID3_VOLUMEADJ, N_("Volume Adjustment"), N_("Relative volume adjustment.")},
+                                                   {"ID3.VolumeAdj2", TAG_ID3, TAG_ID3_VOLUMEADJ2, N_("Volume Adjustment 2"), N_("Relative volume adjustment.")},
+                                                   {"ID3.WWWArtist", TAG_ID3, TAG_ID3_WWWARTIST, N_("WWW Artist"), N_("Official artist.")},
+                                                   {"ID3.WWWAudioFile", TAG_ID3, TAG_ID3_WWWAUDIOFILE, N_("WWW Audio File"), N_("Official audio file webpage.")},
+                                                   {"ID3.WWWAudioSource", TAG_ID3, TAG_ID3_WWWAUDIOSOURCE, N_("WWW Audio Source"), N_("Official audio source webpage.")},
+                                                   {"ID3.WWWCommercialInfo", TAG_ID3, TAG_ID3_WWWCOMMERCIALINFO, N_("WWW Commercial Info"), N_("URL pointing at a webpage containing commercial information.")},
+                                                   {"ID3.WWWCopyright", TAG_ID3, TAG_ID3_WWWCOPYRIGHT, N_("WWW Copyright"), N_("URL pointing at a webpage that holds copyright.")},
+                                                   {"ID3.WWWPayment", TAG_ID3, TAG_ID3_WWWPAYMENT, N_("WWW Payment"), N_("URL pointing at a webpage that will handle the process of paying for this file.")},
+                                                   {"ID3.WWWPublisher", TAG_ID3, TAG_ID3_WWWPUBLISHER, N_("WWW Publisher"), N_("URL pointing at the official webpage for the publisher.")},
+                                                   {"ID3.WWWRadioPage", TAG_ID3, TAG_ID3_WWWRADIOPAGE, N_("WWW Radio Page"), N_("Official internet radio station homepage.")},
+                                                   {"ID3.WWWUser", TAG_ID3, TAG_ID3_WWWUSER, N_("WWW User"), N_("User defined URL link.")},
                                                    {"Image.Album", TAG_IMAGE, TAG_IMAGE_ALBUM, N_("Album"), N_("Name of an album the image belongs to.")},
                                                    {"Image.CameraMake", TAG_IMAGE, TAG_IMAGE_CAMERAMAKE, N_("Camera Make"), N_("Make of camera used to take the image.")},
                                                    {"Image.CameraModel", TAG_IMAGE, TAG_IMAGE_CAMERAMODEL, N_("Camera Model"), N_("Model of camera used to take the image.")},
@@ -1616,12 +1241,26 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
 #ifdef HAVE_IPTC
                                                    , IPTC_TAG_WRITER_EDITOR, IPTC_RECORD_APP_2
 #endif
-                                                   }
-                                                   };
+                                                   },
+                                                   {"Vorbis.Contact", TAG_VORBIS, TAG_VORBIS_CONTACT, N_("Contact"), N_("Contact information for the creators or distributors of the track.")},
+                                                   {"Vorbis.Description", TAG_VORBIS, TAG_VORBIS_DESCRIPTION, N_("Description"), N_("A textual description of the data.")},
+                                                   {"Vorbis.License", TAG_VORBIS, TAG_VORBIS_LICENSE, N_("License"), N_("License information.")},
+                                                   {"Vorbis.Location", TAG_VORBIS, TAG_VORBIS_LOCATION, N_("Location"), N_("Location where track was recorded.")},
+                                                   {"Vorbis.Contact", TAG_VORBIS, TAG_VORBIS_MAXBITRATE, N_("Maximum bitrate"), N_("Maximum bitrate in kbps.")},
+                                                   {"Vorbis.Contact", TAG_VORBIS, TAG_VORBIS_MINBITRATE, N_("Minimum bitrate"), N_("Minimum bitrate in kbps.")},
+                                                   {"Vorbis.Contact", TAG_VORBIS, TAG_VORBIS_NOMINALBITRATE, N_("Nominal bitrate"), N_("Nominal bitrate in kbps.")},
+                                                   {"Vorbis.Organization", TAG_VORBIS, TAG_VORBIS_ORGANIZATION, N_("Organization"), N_("Organization producing the track.")},
+                                                   {"Vorbis.Vendor", TAG_VORBIS, TAG_VORBIS_VENDOR, N_("Vendor"), N_("Vorbis vendor ID.")},
+                                                   {"Vorbis.Version", TAG_VORBIS, TAG_VORBIS_VERSION, N_("Vorbis Version"), N_("Vorbis version.")},
+                                                  };
 
 
 static char empty_string[] = "";
 static char int_buff[4096];
+
+#ifndef HAVE_ID3
+static char no_support_for_taglib_tags_string[] = N_("<ID3, APE, FLAC and Vorbis tags not supported>");
+#endif
 
 #ifndef HAVE_GSF
 static char no_support_for_libgsf_tags_string[] = N_("<OLE2 and ODF tags not supported>");
@@ -1660,12 +1299,14 @@ void GnomeCmdFileMetadata_New::addf(const GnomeCmdTag tag, const gchar *fmt, ...
 
 void gcmd_tags_init()
 {
+    gcmd_tags_taglib_init();
     gcmd_tags_libgsf_init();
 }
 
 
 void gcmd_tags_shutdown()
 {
+    gcmd_tags_taglib_shutdown();
     gcmd_tags_libgsf_shutdown();
 }
 
@@ -1676,7 +1317,7 @@ GnomeCmdFileMetadata_New *gcmd_tags_bulk_load(GnomeCmdFile *finfo)
 
     // gcmd_tags_file_load_metadata(finfo);
     // gcmd_tags_exiv2_load_metadata(finfo);
-    // gcmd_tags_taglib_load_metadata(finfo);
+    gcmd_tags_taglib_load_metadata(finfo);
     gcmd_tags_libgsf_load_metadata(finfo);
 
     return finfo->metadata;
@@ -1694,6 +1335,10 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagCl
     {
         switch (tag_class)
         {
+            case TAG_APE:
+                tag.name = "APE.";
+                break;
+
             case TAG_AUDIO:
                 tag.name = "Audio.";
                 break;
@@ -1712,6 +1357,10 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagCl
 
             case TAG_FILE:
                 tag.name = "File.";
+                break;
+
+            case TAG_FLAC:
+                tag.name = "FLAC";
                 break;
 
             case TAG_ICC:
@@ -1734,6 +1383,10 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagCl
                 tag.name = "RPM.";
                 break;
 
+            case TAG_VORBIS:
+                tag.name = "Vorbis.";
+                break;
+
             default:
                 tag.name = empty_string;
                 break;
@@ -1753,12 +1406,6 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagCl
 }
 
 
-GnomeCmdTag *gcmd_tags_get_pointer_to_tag(const GnomeCmdTag tag)
-{
-    return &(metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].tag);
-}
-
-
 const gchar *gcmd_tags_get_name(const GnomeCmdTag tag)
 {
     return metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].name;
@@ -1775,6 +1422,9 @@ const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
 {
     switch (metatags[ tag<NUMBER_OF_TAGS ? tag : TAG_NONE ].tag_class)
     {
+        case TAG_APE:
+            return "APE";
+
         case TAG_AUDIO:
             return _("Audio");
 
@@ -1789,6 +1439,9 @@ const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
 
         case TAG_FILE:
             return _("File");
+
+        case TAG_FLAC:
+            return "FLAC";
 
         case TAG_ICC:
             return "ICC";
@@ -1805,6 +1458,9 @@ const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
         case TAG_RPM:
             return "RPM";
 
+        case TAG_VORBIS:
+            return "Vorbis";
+
         default:
             break;
     }
@@ -1813,47 +1469,32 @@ const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
 }
 
 
-const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTagClass tag_class, const GnomeCmdTag tag)
-{
-    g_return_val_if_fail (finfo != NULL, empty_string);
-
-    switch (tag_class)
-    {
-        case TAG_EXIF : gcmd_tags_libexif_get_value(finfo, metatags[tag].libtag);
-                        break;
-
-        case TAG_IPTC : gcmd_tags_libiptcdata_get_value(finfo, metatags[tag].libclass, metatags[tag].libtag);
-                        break;
-
-        default:
-            return gcmd_tags_get_value (finfo, tag);
-    }
-
-    return empty_string;
-}
-
-
 const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
 {
-    const gchar *ret_val = empty_string;
-
     g_return_val_if_fail (finfo != NULL, empty_string);
+
+    const gchar *ret_val = empty_string;
 
     if (tag>=NUMBER_OF_TAGS)
         return ret_val;
 
     switch (metatags[tag].tag_class)
     {
-        case TAG_AUDIO: ret_val = gcmd_tags_audio_get_value(finfo, tag);
-                        break;
-
-        case TAG_ID3  : ret_val = gcmd_tags_id3lib_get_value(finfo, tag);
+        case TAG_AUDIO:
+        case TAG_APE  :
+        case TAG_FLAC :
+        case TAG_ID3  :
+        case TAG_VORBIS:
+#ifndef HAVE_ID3
+                        return _(no_support_for_taglib_tags_string);
+#endif
+                        gcmd_tags_taglib_load_metadata(finfo);
+                        ret_val = finfo->metadata->operator [] (tag).c_str();
                         break;
 
         case TAG_CHM  : break;
 
-        case TAG_DOC  : if (!finfo->metadata)
-                            return ret_val;
+        case TAG_DOC  :
 #ifndef HAVE_GSF
                         return _(no_support_for_libgsf_tags_string);
 #endif

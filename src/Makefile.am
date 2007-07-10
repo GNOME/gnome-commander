@@ -93,6 +93,7 @@ gnome_commander_LDADD = \
 	$(GNOMEVFS_LIBS) \
 	$(EXIF_LIBS) \
 	$(IPTCDATA_LIBS) \
+	$(TAGLIB_LIBS) \
 	$(LCMS_LIBS) \
 	$(CHM_LIBS) \
 	$(GSF_LIBS) \
@@ -100,7 +101,6 @@ gnome_commander_LDADD = \
 	$(PYTHON_EXTRA_LIBS) \
 	$(top_builddir)/libgcmd/libgcmd.la \
 	tags/libgcmd-tags.a \
-	tags/id3lib/libgcmd-id3lib.a \
 	libgviewer/libgviewer.a
 
 gnome_commander_LDFLAGS = \

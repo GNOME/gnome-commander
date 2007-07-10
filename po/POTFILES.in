@@ -69,6 +69,6 @@ src/tags/gnome-cmd-tags.cc
 src/tags/gnome-cmd-tags-doc.cc
 src/tags/gnome-cmd-tags-exif.cc
 src/tags/gnome-cmd-tags-icc.cc
-src/tags/gnome-cmd-tags-id3.cc
 src/tags/gnome-cmd-tags-iptcdata.cc
+src/tags/gnome-cmd-tags-taglib.cc
 src/utils.cc

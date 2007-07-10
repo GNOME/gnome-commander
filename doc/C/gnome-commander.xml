@@ -190,7 +190,7 @@
                 <para>Fast file viewer for text and images</para>
             </listitem>
             <listitem>
-                <para>Meta data support for Exif, IPTC, ID3, OLE2 and ODF tags</para>
+                <para>Meta data support for Exif, IPTC, ID3, Vorbis, FLAC, APE, OLE2 and ODF tags</para>
             </listitem>
             <listitem>
                 <para>Tools for advanced batch renaming of files, searching, quick file name searching in current dir,
@@ -5580,6 +5580,9 @@
                 <para>New features:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Support for APE, FLAC and Vorbis metags in advanced file rename templates</para>
+                        </listitem>
                         <listitem>
                             <para>Open terminal in the current directory</para>
                         </listitem>

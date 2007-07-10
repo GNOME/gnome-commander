@@ -51,7 +51,7 @@ GNOMEVFS_REQ=2.0.0
 PYTHON_REQ=2.4
 LIBEXIF_REQ=0.6.12
 LIBIPTCDATA_REQ=0.2.1
-ID3LIB_REQ=3.8.3
+TAGLIB_REQ=1.4
 LIBGSF_REQ=1.12.0
 
 AC_SUBST(GLIB_REQ)
@@ -61,7 +61,7 @@ AC_SUBST(GNOMEVFS_REQ)
 AC_SUBST(PYTHON_REQ)
 AC_SUBST(LIBEXIF_REQ)
 AC_SUBST(LIBIPTCDATA_REQ)
-AC_SUBST(ID3LIB_REQ)
+AC_SUBST(TAGLIB_REQ)
 AC_SUBST(LIBGSF_REQ)
 
 dnl Check for glib
@@ -225,14 +225,14 @@ fi
 AM_CONDITIONAL(ENABLE_LCMS, test x$have_lcms = xyes)
 
 
-dnl Check for id3lib support
-AC_ARG_WITH(id3lib, [  --without-id3lib      disable ID3 support])
-have_id3=no
-if test x$with_id3lib != xno; then
-    AC_SEARCH_LIBS(ID3Tag_Link, "id3" "id3 -lstdc++" "id3 -lz" "id3 -lz -lstdc++", have_id3=yes, AC_MSG_WARN(id3lib not found); have_id3=no)
+dnl Check for taglib support
+AC_ARG_WITH(taglib, [  --without-taglib      disable taglib (ID3, Vorbis, APE and FLAC) support])
+have_taglib=no
+if test x$with_taglib != xno; then
+    PKG_CHECK_MODULES(TAGLIB, taglib >= $TAGLIB_REQ, have_taglib=yes, have_taglib=no)
 fi
-if test "x$have_id3" = "xyes"; then
-   AC_DEFINE(HAVE_ID3, 1, [Define to 1 if you have id3lib support])
+if test "x$have_taglib" = "xyes"; then
+   AC_DEFINE(HAVE_ID3, 1, [Define to 1 if you have taglib (ID3, Vorbis, APE and FLAC) support])
 fi
 
 
@@ -244,7 +244,7 @@ AM_CONDITIONAL(HAVE_CHM, test "x$have_chm" = "xyes")
 
 
 dnl Check for libgsf support
-AC_ARG_WITH(libgsf, [  --without-libgsf      disable gsf support])
+AC_ARG_WITH(libgsf, [  --without-libgsf      disable OLE and ODF support])
 have_gsf=no
 if test x$with_libgsf != xno; then
     PKG_CHECK_MODULES(GSF, libgsf-1 >= $LIBGSF_REQ, have_gsf=yes, have_gsf=no)
@@ -401,7 +401,6 @@ plugins/test/Makefile
 po/Makefile.in
 src/Makefile
 src/tags/Makefile
-src/tags/id3lib/Makefile
 src/libgviewer/Makefile
 tests/Makefile
 tests/gviewer/Makefile
@@ -432,7 +431,10 @@ echo "Optional file metadata support:"
 echo ""
 echo "  Exif support   : ${have_exif}"
 echo "  IPTC support   : ${have_iptc}"
-echo "  ID3 support    : ${have_id3}"
+echo "  ID3 support    : ${have_taglib}"
+echo "  Vorbis support : ${have_taglib}"
+echo "  APE support    : ${have_taglib}"
+echo "  FLAC support   : ${have_taglib}"
 echo "  OLE2 support   : ${have_gsf}"
 echo "  ODF support    : ${have_gsf}"
 echo ""

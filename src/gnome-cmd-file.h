@@ -60,9 +60,6 @@ struct _GnomeCmdFile
 #ifdef HAVE_LCMS
     GnomeCmdFileMetadata icc;
 #endif
-#ifdef HAVE_ID3
-    GnomeCmdFileMetadata id3;
-#endif
 };
 
 struct _GnomeCmdFileClass
