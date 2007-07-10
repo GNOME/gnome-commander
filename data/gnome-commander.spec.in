@@ -152,7 +152,7 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
-* ??? Jul ?? 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
+* Tue Jul 10 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
 - replaced id3lib with taglib dependencies
 
 * Sat Jun 16 2007 Dušan Hokův  <dusan@mirc.cz> 1.2.5-1
