@@ -146,8 +146,6 @@ init (GnomeCmdFile *file)
     file->priv->last_update.tv_sec = 0;
     file->priv->last_update.tv_usec = 0;
 
-    file->metadata = new GnomeCmdFileMetadata_New;
-
 #ifdef HAVE_EXIF
     file->exif.metadata = NULL;
     file->exif.accessed = FALSE;

@@ -3,6 +3,10 @@
 	* src/utils.h:
 	Added `' to TRACE() macro
 
+	* src/gnome-cmd-file.cc:
+	* src/tags/gnome-cmd-tags-doc.cc:
+	Allocate metadata memory only when needed
+
 2007-07-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

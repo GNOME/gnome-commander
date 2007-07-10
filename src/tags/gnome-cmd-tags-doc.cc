@@ -441,14 +441,18 @@ void gcmd_tags_libgsf_shutdown()
 }
 
 
-// inline
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
 {
     g_return_if_fail (finfo != NULL);
     g_return_if_fail (finfo->info != NULL);
 
 #ifdef HAVE_GSF
-    if (finfo->metadata->is_accessed(TAG_DOC))  return;
+    if (finfo->metadata && finfo->metadata->is_accessed(TAG_DOC))  return;
+
+    if (!finfo->metadata)
+        finfo->metadata = new GnomeCmdFileMetadata_New;
+
+    if (!finfo->metadata)  return;
 
     finfo->metadata->mark_as_accessed(TAG_DOC);
 
