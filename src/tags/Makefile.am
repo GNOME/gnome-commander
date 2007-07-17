@@ -8,8 +8,7 @@ AM_CPPFLAGS = \
 	-I.. \
 	$(GNOMEUI_CFLAGS) \
 	$(GNOMEVFS_CFLAGS) \
-	$(EXIF_CFLAGS) \
-	$(IPTCDATA_CFLAGS) \
+	$(EXIV2_CFLAGS) \
 	$(TAGLIB_CFLAGS) \
 	$(LCMS_CFLAGS) \
 	$(CHM_CFLAGS) \
@@ -20,6 +19,5 @@ libgcmd_tags_a_SOURCES = \
 	gnome-cmd-tags.h gnome-cmd-tags.cc \
 	gnome-cmd-tags-taglib.h gnome-cmd-tags-taglib.cc \
 	gnome-cmd-tags-doc.h gnome-cmd-tags-doc.cc \
-	gnome-cmd-tags-exif.h gnome-cmd-tags-exif.cc \
-	gnome-cmd-tags-icc.h gnome-cmd-tags-icc.cc \
-	gnome-cmd-tags-iptcdata.h gnome-cmd-tags-iptcdata.cc
+	gnome-cmd-tags-exiv2.h gnome-cmd-tags-exiv2.cc \
+	gnome-cmd-tags-icc.h gnome-cmd-tags-icc.cc

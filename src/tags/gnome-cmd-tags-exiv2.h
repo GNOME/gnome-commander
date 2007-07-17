@@ -17,8 +17,8 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef __GNOME_CMD_TAGS_IPTCDATA_H__
-#define __GNOME_CMD_TAGS_IPTCDATA_H__
+#ifndef __GNOME_CMD_TAGS_EXIV2_H__
+#define __GNOME_CMD_TAGS_EXIV2_H__
 
 #include <config.h>
 
@@ -27,13 +27,10 @@
 
 G_BEGIN_DECLS
 
-void gcmd_tags_libiptcdata_load_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_libiptcdata_free_metadata(GnomeCmdFile *finfo);
-const gchar *gcmd_tags_libiptcdata_get_value(GnomeCmdFile *finfo, const guint libclass, const guint libtag);
-const gchar *gcmd_tags_libiptcdata_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
-const gchar *gcmd_tags_libiptcdata_get_title_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
-const gchar *gcmd_tags_libiptcdata_get_description_by_name(GnomeCmdFile *finfo, const gchar *tag_name);
+void gcmd_tags_exiv2_init();
+void gcmd_tags_exiv2_shutdown();
+void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo);
 
 G_END_DECLS
 
-#endif // __GNOME_CMD_TAGS_IPTCDATA_H__
+#endif // __GNOME_CMD_TAGS_EXIV2_H__

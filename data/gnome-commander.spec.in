@@ -15,8 +15,7 @@
 %endif
 
 %define        python_ver            @PYTHON_REQ@
-%define        libexif_ver           @LIBEXIF_REQ@
-%define        libiptcdata_ver       @LIBIPTCDATA_REQ@
+%define        exiv2_ver             @EXIV2_REQ@
 %define        taglib_ver            @TAGLIB_REQ@
 %define        libgsf_ver            @LIBGSF_REQ@
 
@@ -54,8 +53,7 @@ Requires(post):   scrollkeeper
 Requires(postun): scrollkeeper
 
 BuildRequires:   python-devel >= %{python_ver}
-BuildRequires:   libexif-devel >= %{libexif_ver}
-#BuildRequires:  libiptcdata-devel >= %{libiptcdata_ver}
+BuildRequires:   exiv2-devel >= %{exiv2_ver}
 Requires:        taglib-devel >= %{taglib_ver}
 %if 0%{?fedora} >= 6
 BuildRequires:   libgsf-devel >= %{libgsf_ver}
@@ -63,8 +61,7 @@ BuildRequires:   libgsf-devel >= %{libgsf_ver}
 
 Requires:        python >= %{python_ver}
 Requires:        gnome-python2-gnomevfs
-Requires:        libexif >= %{libexif_ver}
-#Requires:       libiptcdata >= %{libiptcdata_ver}
+Requires:        exiv2 >= %{exiv2_ver}
 Requires:        taglib >= %{taglib_ver}
 %if 0%{?fedora} >= 6
 Requires:        libgsf >= %{libgsf_ver}
@@ -152,6 +149,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* ??? Jul ?? 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
+ - replaced libexif and libiptcdata with exiv2 library
+
 * Tue Jul 10 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
 - replaced id3lib with taglib dependencies
 

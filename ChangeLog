@@ -1,3 +1,17 @@
+2007-07-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	* src/tags/gnome-cmd-tags-exiv2.h:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h
+	Replaced libexif and iptcdata with exiv2 and used GnomeCmdFileMetadata_New container
+	for Exif and IPTC metatags
+
 2007-07-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

@@ -91,8 +91,7 @@ endif
 gnome_commander_LDADD = \
 	$(GNOMEUI_LIBS) \
 	$(GNOMEVFS_LIBS) \
-	$(EXIF_LIBS) \
-	$(IPTCDATA_LIBS) \
+	$(EXIV2_LIBS) \
 	$(TAGLIB_LIBS) \
 	$(LCMS_LIBS) \
 	$(CHM_LIBS) \

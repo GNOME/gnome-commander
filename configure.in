@@ -49,8 +49,7 @@ GNOME_REQ=2.0.0
 GNOMEUI_REQ=2.0.0
 GNOMEVFS_REQ=2.0.0
 PYTHON_REQ=2.4
-LIBEXIF_REQ=0.6.12
-LIBIPTCDATA_REQ=0.2.1
+EXIV2_REQ=0.12
 TAGLIB_REQ=1.4
 LIBGSF_REQ=1.12.0
 
@@ -59,8 +58,7 @@ AC_SUBST(GTK_REQ)
 AC_SUBST(GNOMEUI_REQ)
 AC_SUBST(GNOMEVFS_REQ)
 AC_SUBST(PYTHON_REQ)
-AC_SUBST(LIBEXIF_REQ)
-AC_SUBST(LIBIPTCDATA_REQ)
+AC_SUBST(EXIV2_REQ)
 AC_SUBST(TAGLIB_REQ)
 AC_SUBST(LIBGSF_REQ)
 
@@ -191,30 +189,19 @@ else
 fi
 
 
-dnl Check for libexif support
-AC_ARG_WITH(libexif, [  --without-libexif      disable EXIF support])
-have_exif=no
-if test x$with_libexif != xno; then
-    PKG_CHECK_MODULES(EXIF, libexif >= $LIBEXIF_REQ, have_exif=yes, have_exif=no)
+dnl Check for exiv2 support
+AC_ARG_WITH(libexiv2, [  --without-exiv2         disable EXIF and IPTC support])
+have_exiv2=no
+if test x$with_exiv2 != xno; then
+    PKG_CHECK_MODULES(EXIV2, exiv2 >= $EXIV2_REQ, have_exiv2=yes, have_exiv2=no)
 fi
-if test "x$have_exif" = "xyes"; then
-   AC_DEFINE(HAVE_EXIF, 1, [Define to 1 if you have libexif support])
-fi
-
-
-dnl Check for libiptcdata support
-AC_ARG_WITH(libiptcdata, [  --without-libiptcdata      disable IPTC support])
-have_iptc=no
-if test x$with_libiptcdata != xno; then
-    PKG_CHECK_MODULES(IPTCDATA, libiptcdata >= $LIBIPTCDATA_REQ, have_iptc=yes, have_iptc=no)
-fi
-if test "x$have_iptc" = "xyes"; then
-   AC_DEFINE(HAVE_IPTC, 1, [Define to 1 if you have libiptcdata support])
+if test "x$have_exiv2" = "xyes"; then
+   AC_DEFINE(HAVE_EXIV2, 1, [Define to 1 if you have EXIF and IPTC support])
 fi
 
 
 dnl Check for liblcms support
-AC_ARG_WITH(cms, [  --without-cms              disable colour management support])
+AC_ARG_WITH(cms, [  --without-cms           disable colour management support])
 have_lcms=no
 if test x$with_cms != xno; then
     PKG_CHECK_MODULES(LCMS, lcms, have_lcms=yes, have_lcms=no)
@@ -429,8 +416,8 @@ echo ""
 echo ""
 echo "Optional file metadata support:"
 echo ""
-echo "  Exif support   : ${have_exif}"
-echo "  IPTC support   : ${have_iptc}"
+echo "  Exif support   : ${have_exiv2}"
+echo "  IPTC support   : ${have_exiv2}"
 echo "  ID3 support    : ${have_taglib}"
 echo "  Vorbis support : ${have_taglib}"
 echo "  APE support    : ${have_taglib}"

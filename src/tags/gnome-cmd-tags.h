@@ -501,10 +501,6 @@ inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const gchar
 
 void gcmd_tags_icclib_free_metadata(GnomeCmdFile *finfo);
 void gcmd_tags_icclib_load_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_libexif_free_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_libexif_load_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_libiptcdata_free_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_libiptcdata_load_metadata(GnomeCmdFile *finfo);
 
 G_END_DECLS
 
