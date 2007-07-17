@@ -1,3 +1,8 @@
+2007-07-17  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags.h:
+	Add generic template function GnomeCmdFileMetadata_New::add(GnomeCmdTag, const T &)
+
 2007-07-11  koos  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-smb-path.cc:
