@@ -195,11 +195,6 @@ inline void readTags(GnomeCmdFileMetadata_New &metadata, const TagLib::ID3v2::Ta
                 val = "(unimplemented)";
                 continue;
 
-            case TAG_ID3_USERTEXT:
-                val = (*i)->toString().to8Bit(true);
-                metadata.join(tag,val);
-                continue;
-
             default:
                 val = (*i)->toString().to8Bit(true);
                 break;

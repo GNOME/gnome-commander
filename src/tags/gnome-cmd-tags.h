@@ -24,9 +24,11 @@
 
 #include <string>
 #include <map>
+#include <set>
 #include <sstream>
 
 #include "gnome-cmd-file.h"
+#include "utils.h"
 
 G_BEGIN_DECLS
 
@@ -510,7 +512,7 @@ class GnomeCmdFileMetadata_New
 {
   public:
 
-    typedef std::map<GnomeCmdTag,std::string>    METADATA_COLL;
+    typedef std::map<GnomeCmdTag,std::set<std::string> >   METADATA_COLL;
 
   private:
 
@@ -533,7 +535,6 @@ class GnomeCmdFileMetadata_New
     template <typename T>
     void add(const GnomeCmdTag tag, const T &value);
     void addf(const GnomeCmdTag tag, const gchar *fmt, ...);
-    void join(const GnomeCmdTag tag, std::string value);
 
     const std::string &operator[] (const GnomeCmdTag tag);
 
@@ -563,7 +564,7 @@ inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, std::string val
     if (value.empty())
         return;
 
-    metadata[tag] = value;
+    metadata[tag].insert(value);
 }
 
 
@@ -584,37 +585,16 @@ inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const T &value)
 }
 
 
-inline void GnomeCmdFileMetadata_New::join(const GnomeCmdTag tag, std::string value)
-{
-    if (value.empty())
-        return;
-
-    std::string::size_type end = value.find_last_of(" \t\n\r\0",0,5);
-
-    if (end!=std::string::npos)     // remove trailing whitespace from a string
-        value.erase(end);
-
-    if (value.empty())
-        return;
-
-    METADATA_COLL::const_iterator pos = metadata.find(tag);
-
-    if (pos!=metadata.end())
-    {
-        std::string &s = const_cast<std::string &> (pos->second);
-        s += ", ";
-        s += value;
-    }
-    else
-        metadata[tag] = value;
-}
-
-
 inline const std::string &GnomeCmdFileMetadata_New::operator[] (const GnomeCmdTag tag)
 {
+    // TODO: support for multiple tags
+
     METADATA_COLL::const_iterator pos = metadata.find(tag);
 
-    return pos!=metadata.end() ? pos->second : NODATA;
+    if (pos==metadata.end())
+        return NODATA;
+
+    return *pos->second.begin();
 }
 
 

@@ -443,15 +443,18 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *finfo)
                                 -1);
         }
 
-        GtkTreeIter child;
+        for (set<std::string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
+        {
+            GtkTreeIter child;
 
-        gtk_tree_store_append (treestore, &child, &toplevel);
-        gtk_tree_store_set (treestore, &child,
-                            COL_TAG, t,
-                            COL_NAME, gcmd_tags_get_title(t),
-                            COL_VALUE, i->second.c_str(),
-                            COL_DESC, gcmd_tags_get_description (t),
-                            -1);
+            gtk_tree_store_append (treestore, &child, &toplevel);
+            gtk_tree_store_set (treestore, &child,
+                                COL_TAG, t,
+                                COL_NAME, gcmd_tags_get_title(t),
+                                COL_VALUE, j->c_str(),
+                                COL_DESC, gcmd_tags_get_description (t),
+                                -1);
+        }
 
         prev_tagclass = curr_tagclass;
     }

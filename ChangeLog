@@ -1,5 +1,12 @@
 2007-07-17  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/tags/gnome-cmd-tags-taglib.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Add support for multiple metadata tags
+
+2007-07-17  Piotr Eljasiak  <epiotr@use.pl>
+
 	* src/tags/gnome-cmd-tags.h:
 	Add generic template function GnomeCmdFileMetadata_New::add(GnomeCmdTag, const T &)
 
