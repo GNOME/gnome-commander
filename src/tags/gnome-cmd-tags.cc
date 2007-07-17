@@ -509,7 +509,7 @@ void GnomeCmdFileMetadata_New::addf(const GnomeCmdTag tag, const gchar *fmt, ...
         buff.resize(n > -1 ? n+1 : buff.size()*2);
     }
 
-    metadata[tag] = &buff[0];
+    add(tag,&buff[0]);
 }
 
 
