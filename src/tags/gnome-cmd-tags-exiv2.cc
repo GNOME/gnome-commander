@@ -59,26 +59,26 @@ inline void readTags(GnomeCmdFileMetadata_New *metadata, const T &data)
             case TAG_NONE:
                 break;
 
-            // case TAG_EXIF_APERTUREVALUE:
-            // case TAG_EXIF_COMPRESSEDBITSPERPIXEL:
-            // case TAG_EXIF_DIGITALZOOMRATIO:
-            // case TAG_EXIF_EXPOSUREBIASVALUE:
-            // case TAG_EXIF_FOCALPLANEXRESOLUTION:
-            // case TAG_EXIF_FOCALPLANEYRESOLUTION:
-            // case TAG_EXIF_MAXAPERTUREVALUE:
-            // case TAG_EXIF_SHUTTERSPEEDVALUE:
-            // case TAG_EXIF_XRESOLUTION:
-            // case TAG_EXIF_YRESOLUTION:
-                // metadata->addf(tag,"%.2f",i->value().toFloat());
-                // break;
+            case TAG_EXIF_APERTUREVALUE:
+            case TAG_EXIF_COMPRESSEDBITSPERPIXEL:
+            case TAG_EXIF_DIGITALZOOMRATIO:
+            case TAG_EXIF_EXPOSUREBIASVALUE:
+            case TAG_EXIF_FOCALPLANEXRESOLUTION:
+            case TAG_EXIF_FOCALPLANEYRESOLUTION:
+            case TAG_EXIF_MAXAPERTUREVALUE:
+            case TAG_EXIF_SHUTTERSPEEDVALUE:
+            case TAG_EXIF_XRESOLUTION:
+            case TAG_EXIF_YRESOLUTION:
+                metadata->addf(tag,"%.2f",i->value().toFloat());
+                break;
 
-            // case TAG_IMAGE_FNUMBER:
-                // metadata->addf(tag,"f/%.1f",i->value().toFloat());
-                // break;
+            case TAG_IMAGE_FNUMBER:
+                metadata->addf(tag,"f/%.1f",i->value().toFloat());
+                break;
 
-            // case TAG_IMAGE_FOCALLENGTH:
-                // metadata->addf(tag,"%.1f",i->value().toFloat());
-                // break;
+            case TAG_IMAGE_FOCALLENGTH:
+                metadata->addf(tag,"%.1f",i->value().toFloat());
+                break;
 
             case TAG_EXIF_EXIFVERSION:
             case TAG_EXIF_FLASHPIXVERSION:
@@ -92,8 +92,7 @@ inline void readTags(GnomeCmdFileMetadata_New *metadata, const T &data)
                 break;
 
             default:
-                metadata->add(tag,i->value());       // add interpreted value
-                // metadata->add(tag,i->toString());       // add interpreted value
+                metadata->add(tag,i->toString());       // add interpreted value
                 break;
         }
     }

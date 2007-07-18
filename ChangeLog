@@ -20,6 +20,9 @@
 	* src/tags/gnome-cmd-tags.h:
 	Remove trailing " \t\n\r\0" from a metatag
 
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	Interpret exiv2 tag values
+
 2007-07-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:
