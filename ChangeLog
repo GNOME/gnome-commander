@@ -12,6 +12,11 @@
 	Replaced libexif and iptcdata with exiv2 and used GnomeCmdFileMetadata_New container
 	for Exif and IPTC metatags
 
+
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
+	Remove last libexif & iptcdata remnants
+
 2007-07-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

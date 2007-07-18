@@ -51,12 +51,6 @@ struct _GnomeCmdFile
     GnomeVFSFileInfo *info;
     GnomeCmdFilePrivate *priv;
     GnomeCmdFileMetadata_New *metadata;
-#ifdef HAVE_EXIF
-    GnomeCmdFileMetadata exif;
-#endif
-#ifdef HAVE_IPTC
-    GnomeCmdFileMetadata iptc;
-#endif
 #ifdef HAVE_LCMS
     GnomeCmdFileMetadata icc;
 #endif

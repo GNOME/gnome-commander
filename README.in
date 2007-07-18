@@ -39,15 +39,13 @@ Ideas:
   welcome to start a discussion on the mailing lists.
 
 Cool hacks:
-  * Send an email with the patch to the developers mailing list. It is
-    preferred if you put the patch in the body of the mail rather then to send
-    it as an attachment. That way it will still be viewable in archives etc.
+  * Send an email with the patch to the developers mailing list. 
   * Please use the -u flag when generating the patch as it makes the patch
     more readable.
   * Write a good explanation of what the patch does.
 
 Translations:
-  * Since this program now is in the gnome svn tree, translations should be
+  * Since now this program is in the gnome svn tree, translations should be
     commited directly to the tree there.
 
 Graphics:
@@ -68,17 +66,14 @@ This is a list of required libraries:
   * gnome-vfs-2:
     Used for most of the file handling. If gnome-vfs is built to use fam
     gnome-commander makes use of that functionality by being able to update
-    its visible directories even when files are create/deleted or changed in
+    its visible directories even when files are create/deleted or changed by
     other programs.
 
-  * libexif:
-    Optional - for EXIF support.
+  * exiv2:
+    Optional - for Exif and IPTC support.
 
-  * libiptcdata
-    Optional - for IPTC support.
-
-  * libid3
-    Optional - for ID3 support.
+  * taglib
+    Optional - for ID3, Vorbis, FLAC and APE support.
 
   * libgsf
     Optional - for OLE and ODF support.
