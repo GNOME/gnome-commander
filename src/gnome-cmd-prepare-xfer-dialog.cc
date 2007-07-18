@@ -35,8 +35,7 @@ using namespace std;
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
-static void
-on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
+static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 {
     GnomeVFSResult res;
     GnomeVFSFileType type;
@@ -157,11 +156,9 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         }
         else
         {
-            /* Nothing exists, ask the user if a new directory might be suitable
-               in the path that he specified */
-            gchar *msg = g_strdup_printf (
-                _("The directory '%s' doesn't exist, do you want to create it?"),
-                g_basename (dest_path));
+            // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
+            gchar *msg = g_strdup_printf (_("The directory '%s' doesn't exist, do you want to create it?"),
+                                          g_basename (dest_path));
             GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (main_win),
                                                         (GtkDialogFlags) 0,
                                                         GTK_MESSAGE_QUESTION,
@@ -190,11 +187,9 @@ on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         goto bailout;
 
     if (g_list_length (dialog->src_files) == 1)
-        DEBUG ('x', "Im now going to xfer the file file '%s' to '%s'\n",
-                dest_fn, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
+        DEBUG ('x', "Im now going to xfer the file file '%s' to '%s'\n", dest_fn, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
     else
-        DEBUG ('x', "Im now going to xfer %d files to '%s'\n",
-                g_list_length (dialog->src_files), gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
+        DEBUG ('x', "Im now going to xfer %d files to '%s'\n", g_list_length (dialog->src_files), gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
 
 
     gnome_cmd_dir_ref (dest_dir);
@@ -212,8 +207,7 @@ bailout:
 }
 
 
-static void
-on_cancel (GtkButton *button, gpointer user_data)
+static void on_cancel (GtkButton *button, gpointer user_data)
 {
     GnomeCmdPrepareXferDialog *dialog = GNOME_CMD_PREPARE_XFER_DIALOG (user_data);
 
@@ -221,10 +215,7 @@ on_cancel (GtkButton *button, gpointer user_data)
 }
 
 
-static gboolean
-on_dest_dir_entry_keypressed (GtkEntry *entry,
-                              GdkEventKey *event,
-                              GnomeCmdPrepareXferDialog *dialog)
+static gboolean on_dest_dir_entry_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdPrepareXferDialog *dialog)
 {
     if (event->keyval == GDK_Return)
     {
@@ -240,8 +231,7 @@ on_dest_dir_entry_keypressed (GtkEntry *entry,
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdPrepareXferDialog *dialog = GNOME_CMD_PREPARE_XFER_DIALOG (object);
 
@@ -252,16 +242,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdPrepareXferDialogClass *klass)
+static void class_init (GnomeCmdPrepareXferDialogClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -273,8 +261,7 @@ class_init (GnomeCmdPrepareXferDialogClass *klass)
 }
 
 
-static void
-init (GnomeCmdPrepareXferDialog *dialog)
+static void init (GnomeCmdPrepareXferDialog *dialog)
 {
     GtkWidget *dest_dir_vbox;
     GtkWidget *dest_dir_fileentry;
@@ -309,15 +296,11 @@ init (GnomeCmdPrepareXferDialog *dialog)
 
 
     // buttons
-    dialog->cancel_button = gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, NULL, NULL);
-    dialog->ok_button = gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, NULL, NULL);
+    dialog->cancel_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, NULL, NULL);
+    dialog->ok_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, NULL, NULL);
 
-    gtk_signal_connect_after (GTK_OBJECT (dialog->cancel_button), "clicked",
-                              GTK_SIGNAL_FUNC (on_cancel), dialog);
-    gtk_signal_connect_after (GTK_OBJECT (dialog->ok_button), "clicked",
-                              GTK_SIGNAL_FUNC (on_ok), dialog);
+    gtk_signal_connect_after (GTK_OBJECT (dialog->cancel_button), "clicked", GTK_SIGNAL_FUNC (on_cancel), dialog);
+    gtk_signal_connect_after (GTK_OBJECT (dialog->ok_button), "clicked", GTK_SIGNAL_FUNC (on_ok), dialog);
 
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, -1);
 }
@@ -327,8 +310,7 @@ init (GnomeCmdPrepareXferDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_prepare_xfer_dialog_get_type         (void)
+GtkType gnome_cmd_prepare_xfer_dialog_get_type (void)
 {
     static GtkType dlg_type = 0;
 
@@ -352,8 +334,7 @@ gnome_cmd_prepare_xfer_dialog_get_type         (void)
 }
 
 
-static gboolean
-path_points_at_directory (GnomeCmdFileSelector *to, const gchar *dest_path)
+inline gboolean path_points_at_directory (GnomeCmdFileSelector *to, const gchar *dest_path)
 {
     GnomeVFSFileType type;
 
@@ -364,9 +345,7 @@ path_points_at_directory (GnomeCmdFileSelector *to, const gchar *dest_path)
 }
 
 
-GtkWidget *
-gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
-                                   GnomeCmdFileSelector *to)
+GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeCmdFileSelector *to)
 {
     gchar *dest_str;
     GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) gtk_type_new (gnome_cmd_prepare_xfer_dialog_get_type ());

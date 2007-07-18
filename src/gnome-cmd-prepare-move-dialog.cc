@@ -42,8 +42,7 @@ typedef struct
 } PrepareMoveData;
 
 
-static void
-on_ok (GtkButton *button, gpointer user_data)
+static void on_ok (GtkButton *button, gpointer user_data)
 {
     PrepareMoveData *data = (PrepareMoveData *) user_data;
     GnomeCmdPrepareXferDialog *dlg = data->dialog;
@@ -60,9 +59,7 @@ on_ok (GtkButton *button, gpointer user_data)
 }
 
 
-void
-gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
-                                    GnomeCmdFileSelector *to)
+void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFileSelector *to)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (from));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (to));
@@ -125,6 +122,7 @@ gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
 
+    g_return_if_fail (data->dialog->src_files != NULL);
     num_files = g_list_length (data->dialog->src_files);
     finfo = (GnomeCmdFile *) data->dialog->src_files->data;
 
@@ -143,7 +141,6 @@ gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from,
     g_free (text);
 
     g_free  (dest_dir_frame_msg);
-
 
 
     /*

@@ -44,8 +44,7 @@ typedef struct
 } PrepareCopyData;
 
 
-static void
-on_ok (GtkButton *button, gpointer user_data)
+static void on_ok (GtkButton *button, gpointer user_data)
 {
     PrepareCopyData *data = (PrepareCopyData *) user_data;
     GnomeCmdPrepareXferDialog *dlg = data->dialog;
@@ -65,9 +64,7 @@ on_ok (GtkButton *button, gpointer user_data)
 }
 
 
-void
-gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from,
-                                    GnomeCmdFileSelector *to)
+void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFileSelector *to)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (from));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (to));
