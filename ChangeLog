@@ -23,6 +23,16 @@
 	* src/tags/gnome-cmd-tags-exiv2.cc:
 	Interpret exiv2 tag values
 
+	* configure.in:
+	* po/POTFILES.in:
+	* src/gnome-cmd-file.cc:
+	* src/Makefile.am:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	* src/tags/Makefile.am:
+	* src/gnome-cmd-file.h:
+	Remove unused ICC code
+
 2007-07-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

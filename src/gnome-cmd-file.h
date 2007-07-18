@@ -51,9 +51,6 @@ struct _GnomeCmdFile
     GnomeVFSFileInfo *info;
     GnomeCmdFilePrivate *priv;
     GnomeCmdFileMetadata_New *metadata;
-#ifdef HAVE_LCMS
-    GnomeCmdFileMetadata icc;
-#endif
 };
 
 struct _GnomeCmdFileClass

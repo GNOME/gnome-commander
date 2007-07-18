@@ -81,10 +81,6 @@ destroy (GtkObject *object)
 
     delete file->metadata;
 
-#ifdef HAVE_ICC
-    gcmd_tags_icclib_free_metadata(file);
-#endif
-
     if (file->info->name[0] != '.')
         DEBUG ('f', "file destroying 0x%p %s\n", file, file->info->name);
     gnome_vfs_file_info_unref (file->info);
@@ -133,11 +129,6 @@ init (GnomeCmdFile *file)
 
     file->priv->last_update.tv_sec = 0;
     file->priv->last_update.tv_usec = 0;
-
-#ifdef HAVE_ICC
-    file->icc.metadata = NULL;
-    file->icc.accessed = FALSE;
-#endif
 
 }
 

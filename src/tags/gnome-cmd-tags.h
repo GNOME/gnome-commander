@@ -499,9 +499,6 @@ inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const gchar
     return gcmd_tags_get_value(finfo, gcmd_tags_get_tag_by_name(tag_name, tag_class));
 }
 
-void gcmd_tags_icclib_free_metadata(GnomeCmdFile *finfo);
-void gcmd_tags_icclib_load_metadata(GnomeCmdFile *finfo);
-
 G_END_DECLS
 
 class GnomeCmdFileMetadata_New

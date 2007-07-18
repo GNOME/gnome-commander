@@ -93,7 +93,6 @@ gnome_commander_LDADD = \
 	$(GNOMEVFS_LIBS) \
 	$(EXIV2_LIBS) \
 	$(TAGLIB_LIBS) \
-	$(LCMS_LIBS) \
 	$(CHM_LIBS) \
 	$(GSF_LIBS) \
 	$(PYTHON_LIBS) \

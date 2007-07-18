@@ -200,18 +200,6 @@ if test "x$have_exiv2" = "xyes"; then
 fi
 
 
-dnl Check for liblcms support
-AC_ARG_WITH(cms, [  --without-cms           disable colour management support])
-have_lcms=no
-if test x$with_cms != xno; then
-    PKG_CHECK_MODULES(LCMS, lcms, have_lcms=yes, have_lcms=no)
-fi
-if test "x$have_lcms" = "xyes"; then
-  AC_DEFINE(HAVE_LCMS,1,[Define to 1 if you have liblcms support])
-fi
-AM_CONDITIONAL(ENABLE_LCMS, test x$have_lcms = xyes)
-
-
 dnl Check for taglib support
 AC_ARG_WITH(taglib, [  --without-taglib      disable taglib (ID3, Vorbis, APE and FLAC) support])
 have_taglib=no

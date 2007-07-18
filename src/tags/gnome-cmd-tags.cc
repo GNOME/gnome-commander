@@ -24,17 +24,11 @@
 
 #include <vector>
 
-#ifdef HAVE_LCMS
-#include <icc34.h>
-#include <lcms.h>
-#endif
-
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-tags.h"
 #include "gnome-cmd-tags-exiv2.h"
 #include "gnome-cmd-tags-taglib.h"
 #include "gnome-cmd-tags-doc.h"
-#include "gnome-cmd-tags-icc.h"
 #include "utils.h"
 
 using namespace std;
