@@ -17,6 +17,9 @@
 	* src/gnome-cmd-file.h:
 	Remove last libexif & iptcdata remnants
 
+	* src/tags/gnome-cmd-tags.h:
+	Remove trailing " \t\n\r\0" from a metatag
+
 2007-07-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:
