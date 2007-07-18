@@ -34,15 +34,8 @@
 typedef struct _GnomeCmdFile        GnomeCmdFile;
 typedef struct _GnomeCmdFileClass   GnomeCmdFileClass;
 typedef struct _GnomeCmdFilePrivate GnomeCmdFilePrivate;
-typedef struct _GnomeCmdFileMetadata GnomeCmdFileMetadata;
 
-struct _GnomeCmdFileMetadata
-{
-    gboolean accessed;
-    gpointer metadata;
-};
-
-struct GnomeCmdFileMetadata_New;
+class GnomeCmdFileMetadata;
 
 struct _GnomeCmdFile
 {
@@ -50,7 +43,7 @@ struct _GnomeCmdFile
 
     GnomeVFSFileInfo *info;
     GnomeCmdFilePrivate *priv;
-    GnomeCmdFileMetadata_New *metadata;
+    GnomeCmdFileMetadata *metadata;
 };
 
 struct _GnomeCmdFileClass

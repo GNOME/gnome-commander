@@ -426,7 +426,7 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *finfo)
 
     GtkTreeIter toplevel;
 
-    for (GnomeCmdFileMetadata_New::METADATA_COLL::const_iterator i=finfo->metadata->begin(); i!=finfo->metadata->end(); ++i)
+    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=finfo->metadata->begin(); i!=finfo->metadata->end(); ++i)
     {
         const GnomeCmdTag t = i->first;
         GnomeCmdTagClass curr_tagclass = gcmd_tags_get_class(t);

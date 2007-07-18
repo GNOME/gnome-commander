@@ -51,7 +51,7 @@ static DICT<GnomeCmdTag> id3v2tags(TAG_NONE);
 static DICT<GnomeCmdTag> oggtags(TAG_NONE);
 
 
-inline bool getAudioProperties(GnomeCmdFileMetadata_New &metadata, const TagLib::AudioProperties *properties)
+inline bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::AudioProperties *properties)
 {
     if (!properties)
         return false;
@@ -161,7 +161,7 @@ inline bool getAudioProperties(GnomeCmdFileMetadata_New &metadata, const TagLib:
 }
 
 
-inline void readTags(GnomeCmdFileMetadata_New &metadata, const TagLib::ID3v2::Tag *id3v2Tag)
+inline void readTags(GnomeCmdFileMetadata &metadata, const TagLib::ID3v2::Tag *id3v2Tag)
 {
     if (!id3v2Tag)
         return;
@@ -206,7 +206,7 @@ inline void readTags(GnomeCmdFileMetadata_New &metadata, const TagLib::ID3v2::Ta
 }
 
 
-inline bool readTags(GnomeCmdFileMetadata_New &metadata, const TagLib::Ogg::XiphComment *oggTag)
+inline bool readTags(GnomeCmdFileMetadata &metadata, const TagLib::Ogg::XiphComment *oggTag)
 {
     metadata.add(TAG_VORBIS_VENDOR, oggTag->vendorID().to8Bit(true));
 
@@ -237,7 +237,7 @@ inline bool readTags(GnomeCmdFileMetadata_New &metadata, const TagLib::Ogg::Xiph
 }
 
 
-inline bool getTag(GnomeCmdFileMetadata_New &metadata, TagLib::File *file, const TagLib::Tag *tag)
+inline bool getTag(GnomeCmdFileMetadata &metadata, TagLib::File *file, const TagLib::Tag *tag)
 {
     if (!tag || tag->isEmpty())
         return false;
@@ -402,7 +402,7 @@ void gcmd_tags_taglib_load_metadata(GnomeCmdFile *finfo)
     if (finfo->metadata && finfo->metadata->is_accessed(TAG_AUDIO))  return;
 
     if (!finfo->metadata)
-        finfo->metadata = new GnomeCmdFileMetadata_New;
+        finfo->metadata = new GnomeCmdFileMetadata;
 
     if (!finfo->metadata)  return;
 

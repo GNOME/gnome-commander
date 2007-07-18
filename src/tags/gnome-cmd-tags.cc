@@ -483,7 +483,7 @@ static int tagcmp(const void *t1, const void *t2)
 }
 
 
-void GnomeCmdFileMetadata_New::addf(const GnomeCmdTag tag, const gchar *fmt, ...)
+void GnomeCmdFileMetadata::addf(const GnomeCmdTag tag, const gchar *fmt, ...)
 {
     static vector<char> buff(16);
 
@@ -523,7 +523,7 @@ void gcmd_tags_shutdown()
 }
 
 
-GnomeCmdFileMetadata_New *gcmd_tags_bulk_load(GnomeCmdFile *finfo)
+GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *finfo)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
 

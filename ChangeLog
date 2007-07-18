@@ -33,6 +33,15 @@
 	* src/gnome-cmd-file.h:
 	Remove unused ICC code
 
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags-doc.cc:
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	* src/tags/gnome-cmd-tags.h:
+	* src/tags/gnome-cmd-tags-taglib.cc:
+	Rename GnomeCmdFileMetadata_New -> GnomeCmdFileMetadata
+
 2007-07-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

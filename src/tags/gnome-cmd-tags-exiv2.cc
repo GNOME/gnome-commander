@@ -42,7 +42,7 @@ static DICT<GnomeCmdTag> exiv2_tags(TAG_NONE);
 
 
 template <typename T>
-inline void readTags(GnomeCmdFileMetadata_New *metadata, const T &data)
+inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
 {
     if (data.empty())  return;
 
@@ -374,7 +374,7 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
     if (finfo->metadata && finfo->metadata->is_accessed(TAG_IMAGE))  return;
 
     if (!finfo->metadata)
-        finfo->metadata = new GnomeCmdFileMetadata_New;
+        finfo->metadata = new GnomeCmdFileMetadata;
 
     if (!finfo->metadata)  return;
 

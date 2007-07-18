@@ -188,7 +188,7 @@ static void process_metadata(gpointer key, gpointer value, gpointer user_data)
 {
     char *type = (char *) key;
     const GsfDocProp *prop = (const GsfDocProp *) value;
-    GnomeCmdFileMetadata_New *metadata = (GnomeCmdFileMetadata_New *) user_data;
+    GnomeCmdFileMetadata *metadata = (GnomeCmdFileMetadata *) user_data;
 
     if (!key || !value || !metadata)  return;
 
@@ -229,7 +229,7 @@ static void process_metadata(gpointer key, gpointer value, gpointer user_data)
 }
 
 
-inline void process_opendoc_infile(GsfInfile *infile, GnomeCmdFileMetadata_New *metadata)
+inline void process_opendoc_infile(GsfInfile *infile, GnomeCmdFileMetadata *metadata)
 {
     GsfInput *meta_file = gsf_infile_child_by_name (infile, "meta.xml");
 
@@ -248,7 +248,7 @@ inline void process_opendoc_infile(GsfInfile *infile, GnomeCmdFileMetadata_New *
 }
 
 
-inline void process_msole_summary(GsfInput *input, GnomeCmdFileMetadata_New *metadata)
+inline void process_msole_summary(GsfInput *input, GnomeCmdFileMetadata *metadata)
 {
     GsfDocMetaData *sections = gsf_doc_meta_data_new ();
     GError         *err = gsf_msole_metadata_read (input, sections);
@@ -262,7 +262,7 @@ inline void process_msole_summary(GsfInput *input, GnomeCmdFileMetadata_New *met
 }
 
 
-inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata_New *metadata)
+inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata *metadata)
 {
     static gchar SfxDocumentInfo[] = "SfxDocumentInfo";
 
@@ -302,7 +302,7 @@ inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata_New *metadata
 }
 
 
-inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata_New *metadata)
+inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata *metadata)
 {
     // static gchar *names[] = {"\005SummaryInformation", "\005DocumentSummaryInformation", "SfxDocumentInfo", NULL};
 
@@ -450,7 +450,7 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
     if (finfo->metadata && finfo->metadata->is_accessed(TAG_DOC))  return;
 
     if (!finfo->metadata)
-        finfo->metadata = new GnomeCmdFileMetadata_New;
+        finfo->metadata = new GnomeCmdFileMetadata;
 
     if (!finfo->metadata)  return;
 

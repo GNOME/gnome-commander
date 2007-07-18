@@ -475,7 +475,7 @@ typedef enum
 void gcmd_tags_init();
 void gcmd_tags_shutdown();
 
-GnomeCmdFileMetadata_New *gcmd_tags_bulk_load(GnomeCmdFile *finfo);
+GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *finfo);
 
 const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
 const GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag);
@@ -501,7 +501,7 @@ inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const gchar
 
 G_END_DECLS
 
-class GnomeCmdFileMetadata_New
+class GnomeCmdFileMetadata
 {
   public:
 
@@ -536,7 +536,7 @@ class GnomeCmdFileMetadata_New
 };
 
 
-inline gboolean GnomeCmdFileMetadata_New::is_accessed(const GnomeCmdTagClass tag_class) const
+inline gboolean GnomeCmdFileMetadata::is_accessed(const GnomeCmdTagClass tag_class) const
 {
     ACCESSED_COLL::const_iterator elem = accessed.find(tag_class);
 
@@ -544,7 +544,7 @@ inline gboolean GnomeCmdFileMetadata_New::is_accessed(const GnomeCmdTagClass tag
 }
 
 
-inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, std::string value)
+inline void GnomeCmdFileMetadata::add(const GnomeCmdTag tag, std::string value)
 {
     if (value.empty())
         return;
@@ -560,7 +560,7 @@ inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, std::string val
 }
 
 
-inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const gchar *value)
+inline void GnomeCmdFileMetadata::add(const GnomeCmdTag tag, const gchar *value)
 {
     if (value && *value)
         add(tag, std::string(value));
@@ -568,7 +568,7 @@ inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const gchar *va
 
 
 template <typename T>
-inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const T &value)
+inline void GnomeCmdFileMetadata::add(const GnomeCmdTag tag, const T &value)
 {
    std::ostringstream os;
 
@@ -577,7 +577,7 @@ inline void GnomeCmdFileMetadata_New::add(const GnomeCmdTag tag, const T &value)
 }
 
 
-inline const std::string &GnomeCmdFileMetadata_New::operator[] (const GnomeCmdTag tag)
+inline const std::string &GnomeCmdFileMetadata::operator[] (const GnomeCmdTag tag)
 {
     // TODO: support for multiple tags
 
