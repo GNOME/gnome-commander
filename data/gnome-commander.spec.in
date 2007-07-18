@@ -149,7 +149,7 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
-* ??? Jul ?? 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
+* Wed Jul 18 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
  - replaced libexif and libiptcdata with exiv2 library
 
 * Tue Jul 10 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
