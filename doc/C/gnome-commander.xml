@@ -5587,6 +5587,9 @@
                             <para>Support for Exif makernotes metags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
+                            <para>Support for file metags in advanced file rename templates</para>
+                        </listitem>
+                        <listitem>
                             <para>Open terminal in the current directory</para>
                         </listitem>
                         <listitem>

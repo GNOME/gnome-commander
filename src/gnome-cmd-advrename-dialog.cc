@@ -180,6 +180,14 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                            {_("/Time/SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 25}};
 
     static GnomeCmdTag metatags[] = {
+                                     TAG_FILE_NAME, TAG_FILE_PATH,
+                                     TAG_FILE_LINK,
+                                     TAG_FILE_SIZE,
+                                     TAG_FILE_CREATED, TAG_FILE_MODIFIED, TAG_FILE_ACCESSED,
+                                     TAG_FILE_PERMISSIONS,
+                                     TAG_FILE_FORMAT,
+                                     TAG_FILE_PUBLISHER, TAG_FILE_DESCRIPTION, TAG_FILE_KEYWORDS, TAG_FILE_RANK,
+
                                      TAG_AUDIO_ALBUMARTIST, TAG_AUDIO_ALBUMGAIN, TAG_AUDIO_ALBUMPEAKGAIN,
                                      TAG_AUDIO_ALBUMTRACKCOUNT, TAG_AUDIO_ALBUM, TAG_AUDIO_ARTIST, TAG_AUDIO_BITRATE,
                                      TAG_AUDIO_CHANNELS, TAG_AUDIO_CODECVERSION, TAG_AUDIO_CODEC, TAG_AUDIO_COMMENT,
@@ -213,11 +221,6 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_DOC_SLIDECOUNT, TAG_DOC_SPREADSHEETCOUNT,
                                      TAG_DOC_TABLECOUNT, TAG_DOC_TEMPLATE,
                                      TAG_DOC_CASESENSITIVE, TAG_DOC_LINKSDIRTY,
-
-                                     // TAG_FILE_ACCESSED, TAG_FILE_CONTENT, TAG_FILE_DESCRIPTION, TAG_FILE_FORMAT,
-                                     // TAG_FILE_ICONPATH, TAG_FILE_KEYWORDS, TAG_FILE_LARGETHUMBNAILPATH, TAG_FILE_LINK,
-                                     // TAG_FILE_MODIFIED, TAG_FILE_NAME, TAG_FILE_PATH, TAG_FILE_PERMISSIONS,
-                                     // TAG_FILE_PUBLISHER, TAG_FILE_RANK, TAG_FILE_SIZE, TAG_FILE_SMALLTHUMBNAILPATH,
 
                                      TAG_IMAGE_ALBUM, TAG_IMAGE_CAMERAMAKE, TAG_IMAGE_CAMERAMODEL,
                                      TAG_IMAGE_COMMENTS, TAG_IMAGE_COPYRIGHT, TAG_IMAGE_CREATOR,

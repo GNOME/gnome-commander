@@ -247,7 +247,7 @@ gchar *str_uri_basename (const gchar *uri)
 }
 
 
-void type2string (GnomeVFSFileType type, gchar *buf, guint max)
+const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max)
 {
     char *s;
 
@@ -283,34 +283,36 @@ void type2string (GnomeVFSFileType type, gchar *buf, guint max)
     }
 
     g_snprintf (buf, max, "%s", s);
+
+    return buf;
 }
 
 
-void name2string (gchar *filename, gchar *buf, guint max)
+const gchar *name2string (gchar *filename, gchar *buf, guint max)
 {
     g_snprintf (buf, max, "%s", filename);
+
+    return buf;
 }
 
 
-void perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max)
+const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
     switch (gnome_cmd_data_get_perm_disp_mode ())
     {
         case GNOME_CMD_PERM_DISP_MODE_TEXT:
-            perm2textstring (p, buf, max);
-            break;
+            return perm2textstring (p, buf, max);
+
         case GNOME_CMD_PERM_DISP_MODE_NUMBER:
-            perm2numstring (p, buf, max);
-            break;
+            return perm2numstring (p, buf, max);
 
         default:
-            perm2textstring (p, buf, max);
-            break;
+            return perm2textstring (p, buf, max);
     }
 }
 
 
-void perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
+const gchar *perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
     g_snprintf (buf, max, "%s%s%s%s%s%s%s%s%s",
                 (p & GNOME_VFS_PERM_USER_READ) ? "r" : "-",
@@ -322,10 +324,12 @@ void perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
                 (p & GNOME_VFS_PERM_OTHER_READ) ? "r" : "-",
                 (p & GNOME_VFS_PERM_OTHER_WRITE) ? "w" : "-",
                 (p & GNOME_VFS_PERM_OTHER_EXEC) ? "x" : "-");
+
+    return buf;
 }
 
 
-void perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
+const gchar *perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
     gint i = 0;
 
@@ -340,6 +344,8 @@ void perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max)
     if (p & GNOME_VFS_PERM_OTHER_EXEC) i += 1;
 
     g_snprintf (buf, max, "%d", i);
+
+    return buf;
 }
 
 
@@ -411,6 +417,7 @@ const gchar *time2string (time_t t, const gchar *date_format)
 
     localtime_r (&t, &lt);
     strftime (buf, sizeof(buf), date_format, &lt);
+
     return buf;
 }
 

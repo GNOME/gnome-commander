@@ -106,11 +106,11 @@ inline char *int2string (gint i)
 
 gchar *str_uri_basename (const gchar *uri);
 
-void type2string (GnomeVFSFileType type, gchar *buf, guint max);
-void name2string (gchar *filename, gchar *buf, guint max);
-void perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max);
-void perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
-void perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
+const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max);
+const gchar *name2string (gchar *filename, gchar *buf, guint max);
+const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max);
+const gchar *perm2textstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
+const gchar *perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_mode);
 const gchar *time2string (time_t t, const gchar *date_format);
 

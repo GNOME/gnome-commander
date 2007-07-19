@@ -26,6 +26,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-tags.h"
+#include "gnome-cmd-tags-file.h"
 #include "gnome-cmd-tags-exiv2.h"
 #include "gnome-cmd-tags-taglib.h"
 #include "gnome-cmd-tags-doc.h"
@@ -249,11 +250,10 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    {"Exif.YResolution", TAG_EXIF, TAG_EXIF_YRESOLUTION, N_("y Resolution"), N_("The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> direction. The same value as <Exif.XResolution> is designated.")},
                                                    {"File.Accessed", TAG_FILE, TAG_FILE_ACCESSED, N_("Accessed"), N_("Last access datetime.")},
                                                    {"File.Content", TAG_FILE, TAG_FILE_CONTENT, N_("Content"), N_("File's contents filtered as plain text.")},
+                                                   {"File.Created", TAG_FILE, TAG_FILE_CREATED, N_("Created"), N_("Creation datetime.")},
                                                    {"File.Description", TAG_FILE, TAG_FILE_DESCRIPTION, N_("Description"), N_("Editable free text/notes.")},
                                                    {"File.Format", TAG_FILE, TAG_FILE_FORMAT, N_("Format"), N_("MIME type of the file or if a directory it should contain value \"Folder\"")},
-                                                   {"File.IconPath", TAG_FILE, TAG_FILE_ICONPATH, N_("Icon Path"), N_("Editable file URI for a custom icon for the file.")},
                                                    {"File.Keywords", TAG_FILE, TAG_FILE_KEYWORDS, N_("Keywords"), N_("Editable array of keywords.")},
-                                                   {"File.LargeThumbnailPath", TAG_FILE, TAG_FILE_LARGETHUMBNAILPATH, N_("Large Thumbnail Path"), N_("Editable file URI for a larger thumbnail of the file suitable for previews.")},
                                                    {"File.Link", TAG_FILE, TAG_FILE_LINK, N_("Link"), N_("URI of link target.")},
                                                    {"File.Modified", TAG_FILE, TAG_FILE_MODIFIED, N_("Modified"), N_("Last modified datetime.")},
                                                    {"File.Name", TAG_FILE, TAG_FILE_NAME, N_("Name"), N_("File name excluding path but including the file extension.")},
@@ -262,7 +262,6 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    {"File.Publisher", TAG_FILE, TAG_FILE_PUBLISHER, N_("Publisher"), N_("Editable DC type for the name of the publisher of the file (EG dc:publisher field in RSS feed).")},
                                                    {"File.Rank", TAG_FILE, TAG_FILE_RANK, N_("Rank"), N_("Editable file rank for grading favourites. Value should be in the range 1..10.")},
                                                    {"File.Size", TAG_FILE, TAG_FILE_SIZE, N_("Size"), N_("Size of the file in bytes or if a directory number of items it contains.")},
-                                                   {"File.SmallThumbnailPath", TAG_FILE, TAG_FILE_SMALLTHUMBNAILPATH, N_("Small Thumbnail Path"), N_("Editable file URI for a small thumbnail of the file suitable for use in icon views.")},
                                                    {"ID3.AlbumSortOrder", TAG_ID3, TAG_ID3_ALBUMSORTORDER, N_("Album Sort Order"), N_("String which should be used instead of the album name for sorting purposes.")},
                                                    {"ID3.AudioCrypto", TAG_ID3, TAG_ID3_AUDIOCRYPTO, N_("Audio Encryption"), N_("Frame indicates if the audio stream is encrypted, and by whom.")},
                                                    {"ID3.AudioSeekPoint", TAG_ID3, TAG_ID3_AUDIOSEEKPOINT, N_("Audio Seek Point"), N_("Fractional offset within the audio data, providing a starting point from which to find an appropriate point to start decoding.")},
@@ -527,7 +526,7 @@ GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *finfo)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
 
-    // gcmd_tags_file_load_metadata(finfo);
+    gcmd_tags_file_load_metadata(finfo);
     gcmd_tags_exiv2_load_metadata(finfo);
     gcmd_tags_taglib_load_metadata(finfo);
     gcmd_tags_libgsf_load_metadata(finfo);
@@ -711,7 +710,9 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
                         ret_val = finfo->metadata->operator [] (tag).c_str();
                         break;
 
-        case TAG_FILE : break;
+        case TAG_FILE : gcmd_tags_file_load_metadata(finfo);
+                        ret_val = finfo->metadata->operator [] (tag).c_str();
+                        break;
 
         case TAG_RPM  : break;
 

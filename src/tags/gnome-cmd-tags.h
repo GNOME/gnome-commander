@@ -258,11 +258,10 @@ typedef enum
     TAG_EXIF_YRESOLUTION,                   // image resolution in height direction
     TAG_FILE_ACCESSED,                      // last access datetime
     TAG_FILE_CONTENT,                       // file's contents filtered as plain text (IE as stored by the indexer)
+    TAG_FILE_CREATED,                       // creation datetime
     TAG_FILE_DESCRIPTION,                   // editable free text/notes
     TAG_FILE_FORMAT,                        // mime type of the file or if a directory it should contain value "Folder"
-    TAG_FILE_ICONPATH,                      // editable file uri for a custom icon for the file
     TAG_FILE_KEYWORDS,                      // editable array of keywords
-    TAG_FILE_LARGETHUMBNAILPATH,            // editable file uri for a larger thumbnail of the file suitable for previews
     TAG_FILE_LINK,                          // URI of link target
     TAG_FILE_MODIFIED,                      // last modified datetime
     TAG_FILE_NAME,                          // file name excluding path but including the file extension
@@ -271,7 +270,6 @@ typedef enum
     TAG_FILE_PUBLISHER,                     // editable DC type for the name of the publisher of the file (EG dc:publisher field in RSS feed)
     TAG_FILE_RANK,                          // editable file rank for grading favourites. Value should be in the range 1..10
     TAG_FILE_SIZE,                          // size of the file in bytes or if a directory no. of items it contains
-    TAG_FILE_SMALLTHUMBNAILPATH,            // editable file uri for a small thumbnail of the file suitable for use in icon views
     TAG_ID3_ALBUMSORTORDER,                 // album sort order
     TAG_ID3_AUDIOCRYPTO,                    // audio encryption
     TAG_ID3_AUDIOSEEKPOINT,                 // audio seek point index

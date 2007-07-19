@@ -3,6 +3,17 @@
 	* src/gnome-cmd-file-props-dialog.cc:
 	Added scrollbars to metatags file prop dlg
 
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-advrename-lexer.ll:
+	* src/utils.cc:
+	* src/utils.h:
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-file.cc:
+	* src/tags/gnome-cmd-tags-file.h:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Added support for File metatags
+
 2007-07-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:
@@ -16,7 +27,6 @@
 	* src/tags/gnome-cmd-tags.h
 	Replaced libexif and iptcdata with exiv2 and used GnomeCmdFileMetadata_New container
 	for Exif and IPTC metatags
-
 
 	* src/gnome-cmd-file.cc:
 	* src/gnome-cmd-file.h:

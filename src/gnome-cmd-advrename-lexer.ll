@@ -103,7 +103,7 @@ iptc        [iI][pP][tT][cC]
 rpm         [rR][pP][mM]
 vorbis      [vV][oO][rR][bB][iI][sS]
 
-tag_name   {ape}|{audio}|{doc}|{exif}|{flac}|{id3}|{image}|{iptc}|{vorbis}
+tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbis}
 
 %%
 
