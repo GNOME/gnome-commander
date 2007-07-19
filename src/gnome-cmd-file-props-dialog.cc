@@ -540,9 +540,15 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
     GtkWidget *space_frame = create_space_frame (data->dialog, 1);
     gtk_container_add (GTK_CONTAINER (space_frame), vbox);
 
+    GtkWidget *scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+    gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 10);
+
+    gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (scrolledwindow), TRUE, TRUE, 0);
+
     GtkWidget *view = create_view_and_model (data->finfo);
 
-    gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (view), TRUE, TRUE, 0);
+    gtk_container_add (GTK_CONTAINER (scrolledwindow), view);
 
     gtk_widget_show_all (vbox);
 
@@ -563,6 +569,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
 
     GtkWidget *dialog = gnome_cmd_dialog_new (_("File Properties"));
     gtk_signal_connect (GTK_OBJECT (dialog), "destroy", (GtkSignalFunc) on_dialog_destroy, data);
+    gtk_window_set_resizable(GTK_WINDOW(dialog), TRUE);
 
     data->dialog = GTK_WIDGET (dialog);
     data->finfo = finfo;
