@@ -6,6 +6,13 @@
 	* src/tags/gnome-cmd-tags.h:
 	Remove "File.Created" tag (info->ctime ISN'T creation time ;o)
 
+	* src/tags/gnome-cmd-tags-doc.cc:
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	* src/tags/gnome-cmd-tags-taglib.cc:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Copy metatags value for some File.tags
+
 2007-07-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

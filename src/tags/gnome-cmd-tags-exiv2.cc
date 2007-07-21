@@ -91,8 +91,25 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
                 }
                 break;
 
+            case TAG_IMAGE_DESCRIPTION:
+                metadata->add(TAG_FILE_DESCRIPTION,i->toString());      // add interpreted value
+                metadata->add(tag,i->toString());                       // add interpreted value
+                break;
+
+            case TAG_IMAGE_KEYWORDS:
+            case TAG_IPTC_KEYWORDS:
+                metadata->add(TAG_FILE_KEYWORDS,i->toString());         // add interpreted value
+                metadata->add(tag,i->toString());                       // add interpreted value
+                break;
+
+            case TAG_IMAGE_CREATOR:
+            case TAG_IPTC_BYLINE:
+                metadata->add(TAG_FILE_PUBLISHER,i->toString());         // add interpreted value
+                metadata->add(tag,i->toString());                       // add interpreted value
+                break;
+
             default:
-                metadata->add(tag,i->toString());       // add interpreted value
+                metadata->add(tag,i->toString());                       // add interpreted value
                 break;
         }
     }

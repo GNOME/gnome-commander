@@ -200,6 +200,20 @@ inline void readTags(GnomeCmdFileMetadata &metadata, const TagLib::ID3v2::Tag *i
                 break;
         }
 
+        switch (tag)
+        {
+            case TAG_ID3_PUBLISHER:
+                metadata.add(TAG_FILE_PUBLISHER,val);
+                break;
+
+            case TAG_ID3_POPULARIMETER:
+                metadata.add(TAG_FILE_RANK,val);
+                break;
+
+            default:
+                break;
+        }
+
         metadata.add(tag,val);
         DEBUG('t', "\t%s (%s) = %s\n", id.c_str(), gcmd_tags_get_name(tag), val.c_str());
     }

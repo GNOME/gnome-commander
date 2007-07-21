@@ -113,7 +113,6 @@ typedef enum
     TAG_DOC_HIDDENSLIDECOUNT,               // number of hidden slides in the presentation document
     TAG_DOC_IMAGECOUNT,                     // number of images in the document
     TAG_DOC_INITIALCREATOR,                 // specifies the name of the person who created the document initially
-    TAG_DOC_KEYWORD,                        // searchable, indexable keywords
     TAG_DOC_KEYWORDS,                       // searchable, indexable keywords
     TAG_DOC_LANGUAGE,                       // the locale language of the intellectual content of the resource
     TAG_DOC_LASTPRINTED,                    // the last time this document was printed

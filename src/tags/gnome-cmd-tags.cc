@@ -105,7 +105,6 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    {"Doc.HiddenSlideCount", TAG_DOC, TAG_DOC_HIDDENSLIDECOUNT, N_("Hidden Slide Count"), N_("Number of hidden slides in the presentation document.")},
                                                    {"Doc.ImageCount", TAG_DOC, TAG_DOC_IMAGECOUNT, N_("Image Count"), N_("Number of images in the document.")},
                                                    {"Doc.InitialCreator", TAG_DOC, TAG_DOC_INITIALCREATOR, N_("Initial Creator"), N_("Specifies the name of the person who created the document initially.")},
-                                                   {"Doc.Keyword", TAG_DOC, TAG_DOC_KEYWORDS, N_("Keywords"), N_("Searchable, indexable keywords.")},
                                                    {"Doc.Keywords", TAG_DOC, TAG_DOC_KEYWORDS, N_("Keywords"), N_("Searchable, indexable keywords.")},
                                                    {"Doc.Language", TAG_DOC, TAG_DOC_LANGUAGE, N_("Language"), N_("The locale language of the intellectual content of the resource.")},
                                                    {"Doc.LastPrinted", TAG_DOC, TAG_DOC_LASTPRINTED, N_("Last Printed"), N_("The last time this document was printed.")},

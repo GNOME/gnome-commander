@@ -209,11 +209,23 @@ static void process_metadata(gpointer key, gpointer value, gpointer user_data)
             case TAG_DOC_LASTPRINTED:
             case TAG_DOC_PRINTDATE:
                 g_strcanon(contents, "0123456789:-", ' ');
-
                 break;
 
             // case TAG_DOC_EDITINGDURATION: ??
                // break;
+
+            case TAG_DOC_DESCRIPTION:
+                metadata->add(TAG_FILE_DESCRIPTION,contents);
+                break;
+
+            case TAG_DOC_KEYWORDS:
+                metadata->add(TAG_FILE_KEYWORDS,contents);
+                break;
+
+            case TAG_DOC_AUTHOR:
+            case TAG_DOC_CREATOR:
+                metadata->add(TAG_FILE_PUBLISHER,contents);
+                break;
 
             default:
                 break;
@@ -397,7 +409,7 @@ void gcmd_tags_libgsf_init()
                     {TAG_DOC_HIDDENSLIDECOUNT, GSF_META_NAME_HIDDEN_SLIDE_COUNT},
                     {TAG_DOC_IMAGECOUNT, GSF_META_NAME_IMAGE_COUNT},
                     {TAG_DOC_INITIALCREATOR, GSF_META_NAME_INITIAL_CREATOR},
-                    {TAG_DOC_KEYWORD, GSF_META_NAME_KEYWORD},
+                    {TAG_DOC_KEYWORDS, GSF_META_NAME_KEYWORD},
                     {TAG_DOC_KEYWORDS, GSF_META_NAME_KEYWORDS},
                     {TAG_DOC_LANGUAGE, GSF_META_NAME_LANGUAGE},
                     {TAG_DOC_LASTPRINTED, GSF_META_NAME_LAST_PRINTED},
