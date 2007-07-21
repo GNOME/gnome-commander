@@ -13,6 +13,9 @@
 	* src/tags/gnome-cmd-tags.h:
 	Copy metatags value for some File.tags
 
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	Suppress Exif.Makernote, as it contains unrecognized binary data
+
 2007-07-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

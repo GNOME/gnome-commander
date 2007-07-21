@@ -59,6 +59,9 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
             case TAG_NONE:
                 break;
 
+            case TAG_EXIF_MAKERNOTE:            // suppress maker notes, as it contains binary data
+                break;
+
             case TAG_EXIF_APERTUREVALUE:
             case TAG_EXIF_COMPRESSEDBITSPERPIXEL:
             case TAG_EXIF_DIGITALZOOMRATIO:
