@@ -258,7 +258,6 @@ typedef enum
     TAG_EXIF_YRESOLUTION,                   // image resolution in height direction
     TAG_FILE_ACCESSED,                      // last access datetime
     TAG_FILE_CONTENT,                       // file's contents filtered as plain text (IE as stored by the indexer)
-    TAG_FILE_CREATED,                       // creation datetime
     TAG_FILE_DESCRIPTION,                   // editable free text/notes
     TAG_FILE_FORMAT,                        // mime type of the file or if a directory it should contain value "Folder"
     TAG_FILE_KEYWORDS,                      // editable array of keywords

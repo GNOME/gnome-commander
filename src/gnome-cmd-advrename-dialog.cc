@@ -183,7 +183,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_FILE_NAME, TAG_FILE_PATH,
                                      TAG_FILE_LINK,
                                      TAG_FILE_SIZE,
-                                     TAG_FILE_CREATED, TAG_FILE_MODIFIED, TAG_FILE_ACCESSED,
+                                     TAG_FILE_MODIFIED, TAG_FILE_ACCESSED,
                                      TAG_FILE_PERMISSIONS,
                                      TAG_FILE_FORMAT,
                                      TAG_FILE_PUBLISHER, TAG_FILE_DESCRIPTION, TAG_FILE_KEYWORDS, TAG_FILE_RANK,

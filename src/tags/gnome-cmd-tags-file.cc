@@ -70,8 +70,6 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *finfo)
 
     strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&finfo->info->atime));
     finfo->metadata->add(TAG_FILE_ACCESSED, buff);
-    strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&finfo->info->ctime));
-    finfo->metadata->add(TAG_FILE_CREATED, buff);
     strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&finfo->info->mtime));
     finfo->metadata->add(TAG_FILE_MODIFIED, buff);
 

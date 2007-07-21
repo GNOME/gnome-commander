@@ -250,7 +250,6 @@ static GnomeCmdTagName metatags[NUMBER_OF_TAGS] = {{"", TAG_NONE_CLASS, TAG_NONE
                                                    {"Exif.YResolution", TAG_EXIF, TAG_EXIF_YRESOLUTION, N_("y Resolution"), N_("The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> direction. The same value as <Exif.XResolution> is designated.")},
                                                    {"File.Accessed", TAG_FILE, TAG_FILE_ACCESSED, N_("Accessed"), N_("Last access datetime.")},
                                                    {"File.Content", TAG_FILE, TAG_FILE_CONTENT, N_("Content"), N_("File's contents filtered as plain text.")},
-                                                   {"File.Created", TAG_FILE, TAG_FILE_CREATED, N_("Created"), N_("Creation datetime.")},
                                                    {"File.Description", TAG_FILE, TAG_FILE_DESCRIPTION, N_("Description"), N_("Editable free text/notes.")},
                                                    {"File.Format", TAG_FILE, TAG_FILE_FORMAT, N_("Format"), N_("MIME type of the file or if a directory it should contain value \"Folder\"")},
                                                    {"File.Keywords", TAG_FILE, TAG_FILE_KEYWORDS, N_("Keywords"), N_("Editable array of keywords.")},

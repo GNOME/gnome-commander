@@ -1,3 +1,11 @@
+2007-07-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/tags/gnome-cmd-tags-file.cc:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Remove "File.Created" tag (info->ctime ISN'T creation time ;o)
+
 2007-07-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:
