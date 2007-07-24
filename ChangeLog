@@ -1,3 +1,8 @@
+2007-07-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags.cc:
+	Make image metatags working in advrename again
+
 2007-07-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

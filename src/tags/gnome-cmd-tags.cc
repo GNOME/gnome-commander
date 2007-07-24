@@ -686,6 +686,16 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
 
     switch (metatags[tag].tag_class)
     {
+        case TAG_IMAGE:
+        case TAG_EXIF :
+        case TAG_IPTC :
+#ifndef HAVE_GSF
+                        return _(no_support_for_exiv2_tags_string);
+#endif
+                        gcmd_tags_exiv2_load_metadata(finfo);
+                        ret_val = finfo->metadata->operator [] (tag).c_str();
+                        break;
+
         case TAG_AUDIO:
         case TAG_APE  :
         case TAG_FLAC :
