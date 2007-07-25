@@ -3,6 +3,9 @@
 	* src/tags/gnome-cmd-tags.cc:
 	Make image metatags working in advrename again
 
+	* src/tags/gnome-cmd-exiv2.cc:
+	Yet another fix for Exif.Makernote
+
 2007-07-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

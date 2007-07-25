@@ -59,7 +59,8 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
             case TAG_NONE:
                 break;
 
-            case TAG_EXIF_MAKERNOTE:            // suppress maker notes, as it contains binary data
+            case TAG_EXIF_MAKERNOTE:
+                metadata->addf(tag,_("unsupported tag (suppressed %u B of binary data)"), i->size());
                 break;
 
             case TAG_EXIF_APERTUREVALUE:
@@ -107,7 +108,7 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
 
             case TAG_IMAGE_CREATOR:
             case TAG_IPTC_BYLINE:
-                metadata->add(TAG_FILE_PUBLISHER,i->toString());         // add interpreted value
+                metadata->add(TAG_FILE_PUBLISHER,i->toString());        // add interpreted value
                 metadata->add(tag,i->toString());                       // add interpreted value
                 break;
 

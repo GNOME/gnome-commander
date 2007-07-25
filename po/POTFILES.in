@@ -66,5 +66,6 @@ src/owner.cc
 src/plugin_manager.cc
 src/tags/gnome-cmd-tags.cc
 src/tags/gnome-cmd-tags-doc.cc
+src/tags/gnome-cmd-tags-exiv2.cc
 src/tags/gnome-cmd-tags-taglib.cc
 src/utils.cc
