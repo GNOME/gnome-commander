@@ -1,3 +1,8 @@
+2007-07-29  Leonardo Ferreira Fontenelle  <leonardof@svn.gnome.org>
+
+	* pt_BR.po: Brazilian Portugues translation minor improvement to fix
+	bug #454165.
+
 2007-07-02  Dušan Hokův <dusan@mirc.cz>
 
 	* cs.po: Updated Czech translation.
