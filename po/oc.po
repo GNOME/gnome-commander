@@ -2233,11 +2233,11 @@ msgstr ""
 
 #: ../src/libgviewer/viewer-window.c:194 ../src/utils.cc:1319
 msgid "There was an error displaying help."
-msgstr "I a agut una error al moment de mostrar l'ajuda."
+msgstr "I a agut una error al moment de visualizar l'ajuda."
 
 #: ../src/libgviewer/viewer-window.c:807
 msgid "_Close"
-msgstr "_Barrar"
+msgstr "_Tampar"
 
 #: ../src/libgviewer/viewer-window.c:820
 msgid "_Binary"
