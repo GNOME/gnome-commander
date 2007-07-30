@@ -1,3 +1,8 @@
+2007-07-31  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	Use exiv2 interpreted values
+
 2007-07-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:
