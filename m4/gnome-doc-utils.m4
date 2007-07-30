@@ -1,17 +1,7 @@
-dnl GNOME_DOC_INIT([MINIMUM-VERSION])
-
-AC_DEFUN([GNOME_DOC_INIT],
+dnl Do not call GNOME_DOC_DEFINES directly.  It is split out from
+dnl GNOME_DOC_INIT to allow gnome-doc-utils to bootstrap off itself.
+AC_DEFUN([GNOME_DOC_DEFINES],
 [
-dnl Only apply the version check if we're not configuring ourselves!
-if test "x$PACKAGE" != "xgnome-doc-utils"; then
-  GDU_REQUIRED_VERSION=0.3.2
-  if test -n "$1"; then
-    GDU_REQUIRED_VERSION=$1
-  fi
-
-  PKG_CHECK_MODULES([GDU_MODULE_VERSION_CHECK],[gnome-doc-utils >= $GDU_REQUIRED_VERSION])
-fi
-
 AC_ARG_WITH([help-dir],
   AC_HELP_STRING([--with-help-dir=DIR], [path to help docs]),,
   [with_help_dir='${datadir}/gnome/help'])
@@ -34,6 +24,25 @@ AC_ARG_ENABLE([scrollkeeper],
 	[AC_HELP_STRING([--disable-scrollkeeper],
 			[do not make updates to the scrollkeeper database])],,
 	enable_scrollkeeper=yes)
-AM_CONDITIONAL(ENABLE_SK, test "x$enable_scrollkeeper" = "xyes")
+AM_CONDITIONAL([ENABLE_SK],[test "$gdu_cv_have_gdu" = "yes" -a "$enable_scrollkeeper" = "yes"])
 
+AM_CONDITIONAL([HAVE_GNOME_DOC_UTILS],[test "$gdu_cv_have_gdu" = "yes"])
+])
+
+# GNOME_DOC_INIT ([MINIMUM-VERSION],[ACTION-IF-FOUND],[ACTION-IF-NOT-FOUND])
+#
+AC_DEFUN([GNOME_DOC_INIT],
+[
+ifelse([$1],,[gdu_cv_version_required=0.3.2],[gdu_cv_version_required=$1])
+
+PKG_CHECK_EXISTS([gnome-doc-utils >= $gdu_cv_version_required],
+	[gdu_cv_have_gdu=yes],[gdu_cv_have_gdu=no])
+
+if test "$gdu_cv_have_gdu" = "yes"; then
+	ifelse([$2],,[:],[$2])
+else
+	ifelse([$3],,[AC_MSG_ERROR([gnome-doc-utils >= $gdu_cv_version_required not found])],[$3])
+fi
+
+GNOME_DOC_DEFINES
 ])

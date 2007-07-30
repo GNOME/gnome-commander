@@ -1,4 +1,4 @@
-#
+# 
 # No modifications of this Makefile should be necessary.
 #
 # This file contains the build instructions for installing OMF files.  It is
@@ -10,7 +10,7 @@
 #
 # If it is impossible to configure with --localstatedir=/var, then
 # modify the definition of scrollkeeper_localstate_dir so that
-# it points to the correct location. Note that you must still use
+# it points to the correct location. Note that you must still use 
 # $(localstatedir) in this or when people build RPMs it will update
 # the real database on their system instead of the one under RPM_BUILD_ROOT.
 #
@@ -22,7 +22,7 @@
 #	This file was derived from scrollkeeper_example2, a package
 #	illustrating how to install documentation and OMF files for use with
 #	ScrollKeeper 0.3.x and 0.4.x.  For more information, see:
-#		http://scrollkeeper.sourceforge.net/
+#		http://scrollkeeper.sourceforge.net/	
 # 	Version: 0.1.3 (last updated: March 20, 2002)
 #
 
