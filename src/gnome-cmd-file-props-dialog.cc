@@ -41,6 +41,8 @@ typedef struct
     gboolean count_done;
     gchar *msg;
 
+    GtkWidget *notebook;
+
     // Properties tab stuff
     gboolean stop;
     GnomeVFSFileSize size;
@@ -251,7 +253,21 @@ static void on_dialog_cancel (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *da
 
 static void on_dialog_help (GtkButton *button, GnomeCmdFilePropsDialogPrivate *data)
 {
-    gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-file-properties");
+    switch (gtk_notebook_get_current_page ((GtkNotebook *) data->notebook))
+    {
+        case 0:
+            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-file-properties");
+            break;
+        case 1:
+            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-permissions");
+            break;
+        case 2:
+            gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-advanced-rename-metadata-tags");
+            break;
+
+        default:
+            break;
+    }
 }
 
 
@@ -569,16 +585,18 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
 
     GtkWidget *dialog = gnome_cmd_dialog_new (_("File Properties"));
     gtk_signal_connect (GTK_OBJECT (dialog), "destroy", (GtkSignalFunc) on_dialog_destroy, data);
-    gtk_window_set_resizable(GTK_WINDOW(dialog), TRUE);
+    gtk_window_set_resizable(GTK_WINDOW (dialog), TRUE);
+
+    GtkWidget *notebook = gtk_notebook_new ();
 
     data->dialog = GTK_WIDGET (dialog);
     data->finfo = finfo;
     data->uri = gnome_cmd_file_get_uri (finfo);
     data->mutex = g_mutex_new ();
     data->msg = NULL;
+    data->notebook = notebook;
     gnome_cmd_file_ref (finfo);
 
-    GtkWidget *notebook = gtk_notebook_new ();
     gtk_widget_ref (notebook);
     gtk_object_set_data_full (GTK_OBJECT (dialog), "notebook", notebook, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (notebook);

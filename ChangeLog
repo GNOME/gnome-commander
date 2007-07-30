@@ -1,3 +1,8 @@
+2007-07-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-props-dialog.cc:
+	Make help button context (tab) aware
+
 2007-07-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.cc:
