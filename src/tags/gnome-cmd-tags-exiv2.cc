@@ -63,27 +63,6 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
                 metadata->addf(tag,_("unsupported tag (suppressed %u B of binary data)"), i->size());
                 break;
 
-            case TAG_EXIF_APERTUREVALUE:
-            case TAG_EXIF_COMPRESSEDBITSPERPIXEL:
-            case TAG_EXIF_DIGITALZOOMRATIO:
-            case TAG_EXIF_EXPOSUREBIASVALUE:
-            case TAG_EXIF_FOCALPLANEXRESOLUTION:
-            case TAG_EXIF_FOCALPLANEYRESOLUTION:
-            case TAG_EXIF_MAXAPERTUREVALUE:
-            case TAG_EXIF_SHUTTERSPEEDVALUE:
-            case TAG_EXIF_XRESOLUTION:
-            case TAG_EXIF_YRESOLUTION:
-                metadata->addf(tag,"%.2f",i->value().toFloat());
-                break;
-
-            case TAG_IMAGE_FNUMBER:
-                metadata->addf(tag,"f/%.1f",i->value().toFloat());
-                break;
-
-            case TAG_IMAGE_FOCALLENGTH:
-                metadata->addf(tag,"%.1f",i->value().toFloat());
-                break;
-
             case TAG_EXIF_EXIFVERSION:
             case TAG_EXIF_FLASHPIXVERSION:
             case TAG_EXIF_INTEROPERABILITYVERSION:
@@ -96,24 +75,24 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
                 break;
 
             case TAG_IMAGE_DESCRIPTION:
-                metadata->add(TAG_FILE_DESCRIPTION,i->toString());      // add interpreted value
-                metadata->add(tag,i->toString());                       // add interpreted value
+                metadata->add(TAG_FILE_DESCRIPTION,*i);      // add interpreted value
+                metadata->add(tag,*i);                       // add interpreted value
                 break;
 
             case TAG_IMAGE_KEYWORDS:
             case TAG_IPTC_KEYWORDS:
-                metadata->add(TAG_FILE_KEYWORDS,i->toString());         // add interpreted value
-                metadata->add(tag,i->toString());                       // add interpreted value
+                metadata->add(TAG_FILE_KEYWORDS,*i);         // add interpreted value
+                metadata->add(tag,*i);                       // add interpreted value
                 break;
 
             case TAG_IMAGE_CREATOR:
             case TAG_IPTC_BYLINE:
-                metadata->add(TAG_FILE_PUBLISHER,i->toString());        // add interpreted value
-                metadata->add(tag,i->toString());                       // add interpreted value
+                metadata->add(TAG_FILE_PUBLISHER,*i);        // add interpreted value
+                metadata->add(tag,*i);                       // add interpreted value
                 break;
 
             default:
-                metadata->add(tag,i->toString());                       // add interpreted value
+                metadata->add(tag,*i);                       // add interpreted value
                 break;
         }
     }
