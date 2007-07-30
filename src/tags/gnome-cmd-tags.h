@@ -514,6 +514,8 @@ class GnomeCmdFileMetadata
 
   public:
 
+    GnomeCmdFileMetadata() {}                                                   // to make g++ 3.4 happy
+
     gboolean is_accessed(const GnomeCmdTagClass tag_class) const;
     gboolean is_accessed(const GnomeCmdTag tag) const;
     void mark_as_accessed(const GnomeCmdTagClass tag_class)         {  accessed[tag_class] = TRUE;  }

@@ -3,6 +3,9 @@
 	* src/gnome-cmd-file-props-dialog.cc:
 	Make help button context (tab) aware
 
+	* src/tags/gnome-cmd-tags.h:
+	Fix for g++ 3.4 build
+
 2007-07-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.cc:
