@@ -236,4 +236,64 @@ inline std::string stringify(gchar *val)
     return val ? stringify(s,val) : s;
 }
 
+template <typename Iterator>
+inline std::ostream &join(std::ostream &os, Iterator beg, Iterator end, const std::string sep=" ")
+{
+    if (beg==end)  return os;
+
+    os << *beg++;
+
+    while (beg!=end)
+        os << sep << *beg++;
+
+    return os;
+}
+
+template <typename T, template <typename> class COLL>
+inline std::ostream &join(std::ostream &os, const COLL<T> &coll, const std::string sep=" ")
+{
+    return join(os,coll.begin(),coll.end(),sep);
+}
+
+template <typename Iterator>
+inline std::string &join(std::string &s, Iterator beg, Iterator end, const std::string sep=" ")
+{
+    s.clear();
+
+    if (beg==end)
+        return s;
+
+    s = *beg++;
+
+    while (beg!=end)
+    {
+        s += sep;
+        s += *beg++;
+    }
+
+    return s;
+}
+
+template <typename T, template <typename> class COLL>
+inline std::string &join(std::string &s, const COLL<T> &coll, const std::string sep=" ")
+{
+    return join(s,coll.begin(),coll.end(),sep);
+}
+
+template <typename Iterator>
+inline std::string join(Iterator beg, Iterator end, const std::string sep=" ")
+{
+    std::string s;
+
+    return join(s,beg,end,sep);
+}
+
+template <typename T, template <typename> class COLL>
+inline std::string join(const COLL<T> &coll, const std::string sep=" ")
+{
+    std::string s;
+
+    return join(s,coll.begin(),coll.end(),sep);
+}
+
 #endif // __UTILS_H__

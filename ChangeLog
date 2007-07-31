@@ -3,6 +3,9 @@
 	* src/tags/gnome-cmd-tags-exiv2.cc:
 	Use exiv2 interpreted values
 
+	* src/utils.h:
+	Added join(coll,sep) function family
+
 2007-07-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:
