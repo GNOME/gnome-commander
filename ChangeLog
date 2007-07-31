@@ -6,6 +6,9 @@
 	* src/utils.h:
 	Added join(coll,sep) function family
 
+	* src/tags/gnome-cmd-tags.h:
+	Added support for multiple tags in advrename
+
 2007-07-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:
