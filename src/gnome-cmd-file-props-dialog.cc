@@ -42,6 +42,7 @@ typedef struct
     gchar *msg;
 
     GtkWidget *notebook;
+    GtkWidget *copy_button;
 
     // Properties tab stuff
     gboolean stop;
@@ -251,6 +252,27 @@ static void on_dialog_cancel (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *da
 }
 
 
+static void on_copy_clipboard_help (GtkButton *button, GnomeCmdFilePropsDialogPrivate *data)
+{
+    g_return_if_fail (data != NULL);
+
+    string s;
+
+    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=data->finfo->metadata->begin(); i!=data->finfo->metadata->end(); ++i)
+        for (set<std::string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
+        {
+            s += gcmd_tags_get_name(i->first);
+            s += '\t';
+            s += gcmd_tags_get_title(i->first);
+            s += '\t';
+            s += *j;
+            s += '\n';
+        }
+
+    gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), s.data(), s.size());
+}
+
+
 static void on_dialog_help (GtkButton *button, GnomeCmdFilePropsDialogPrivate *data)
 {
     switch (gtk_notebook_get_current_page ((GtkNotebook *) data->notebook))
@@ -268,6 +290,12 @@ static void on_dialog_help (GtkButton *button, GnomeCmdFilePropsDialogPrivate *d
         default:
             break;
     }
+}
+
+
+static void on_notebook_page_change (GtkNotebook *notebook, GtkNotebookPage *page, guint page_num, GnomeCmdFilePropsDialogPrivate *data)
+{
+    gtk_widget_set_sensitive (data->copy_button, page_num==2);
 }
 
 
@@ -468,7 +496,7 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *finfo)
                                 COL_TAG, t,
                                 COL_NAME, gcmd_tags_get_title(t),
                                 COL_VALUE, j->c_str(),
-                                COL_DESC, gcmd_tags_get_description (t),
+                                COL_DESC, gcmd_tags_get_description(t),
                                 -1);
         }
 
@@ -610,9 +638,14 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 1), gtk_label_new (_("Permissions")));
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 2), gtk_label_new (_("Metadata")));
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_HELP, GTK_SIGNAL_FUNC (on_dialog_help), data);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_dialog_cancel), data);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_dialog_ok), data);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_dialog_help), data);
+    data->copy_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_COPY, GTK_SIGNAL_FUNC (on_copy_clipboard_help), data);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_dialog_cancel), data);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_dialog_ok), data);
+
+    gtk_widget_set_sensitive (data->copy_button, gtk_notebook_get_current_page (GTK_NOTEBOOK (notebook))==2);
+
+    g_signal_connect (GTK_OBJECT (notebook), "switch-page", GTK_SIGNAL_FUNC (on_notebook_page_change), data);
 
     return dialog;
 }
