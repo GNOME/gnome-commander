@@ -31,11 +31,12 @@ G_BEGIN_DECLS
 #define IS_IMAGE_RENDER(obj)       GTK_CHECK_TYPE (obj, image_render_get_type ())
 
 #define IMAGE_RENDER_DEFAULT_WIDTH    (100)
-#define IMAGE_RENDER_DEFAULT_HEIGHT    (200)
+#define IMAGE_RENDER_DEFAULT_HEIGHT   (200)
+
 typedef struct _ImageRender           ImageRender;
 typedef struct _ImageRenderPrivate    ImageRenderPrivate;
 typedef struct _ImageRenderClass      ImageRenderClass;
-typedef struct _ImageRenderStatus    ImageRenderStatus;
+typedef struct _ImageRenderStatus     ImageRenderStatus;
 
 struct _ImageRender
 {

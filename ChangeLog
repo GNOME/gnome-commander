@@ -6,6 +6,9 @@
 	* configure.in:
 	Changed required exiv2 version to 0.14 or more
 
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	Set Image.Width & Image.Height metatags if available
+
 2007-07-31  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags-exiv2.cc:

@@ -26,6 +26,8 @@
 #include "utils.h"
 #include "dict.h"
 
+#include <gdk-pixbuf/gdk-pixbuf.h>
+
 #ifdef HAVE_EXIV2
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
@@ -370,7 +372,6 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
     g_return_if_fail (finfo != NULL);
     g_return_if_fail (finfo->info != NULL);
 
-#ifdef HAVE_EXIV2
     if (finfo->metadata && finfo->metadata->is_accessed(TAG_IMAGE))  return;
 
     if (!finfo->metadata)
@@ -379,8 +380,10 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
     if (!finfo->metadata)  return;
 
     finfo->metadata->mark_as_accessed(TAG_IMAGE);
+#ifdef HAVE_EXIV2
     finfo->metadata->mark_as_accessed(TAG_EXIF);
     finfo->metadata->mark_as_accessed(TAG_IPTC);
+#endif
 
     if (!gnome_cmd_file_is_local(finfo))  return;
 
@@ -388,6 +391,7 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
 
     DEBUG('t', "Loading image metadata for '%s'\n", fname);
 
+#ifdef HAVE_EXIV2
     try
     {
         Image::AutoPtr image = ImageFactory::open(fname);
@@ -402,4 +406,13 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
     {
     }
 #endif
+
+    gint width, height;
+    GdkPixbufFormat *fmt = gdk_pixbuf_get_file_info (fname, &width, &height);
+
+    if (!fmt)
+        return;
+
+    finfo->metadata->addf (TAG_IMAGE_WIDTH, "%i", width);
+    finfo->metadata->addf (TAG_IMAGE_HEIGHT, "%i", height);
 }

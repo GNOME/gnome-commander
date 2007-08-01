@@ -336,8 +336,7 @@ static void image_render_notify_status_changed(ImageRender *w)
         stat.bits_per_sample = 0;
     }
 
-    gtk_signal_emit (
-        GTK_OBJECT(w), image_render_signals[IMAGE_STATUS_CHANGED], &stat);
+    gtk_signal_emit (GTK_OBJECT(w), image_render_signals[IMAGE_STATUS_CHANGED], &stat);
 }
 
 
@@ -349,15 +348,14 @@ static gboolean image_render_key_press(GtkWidget *widget, GdkEventKey *event)
 
 static void image_render_realize (GtkWidget *widget)
 {
-    ImageRender *obj;
-    GdkWindowAttr attributes;
-    gint attributes_mask;
-
     g_return_if_fail (widget != NULL);
     g_return_if_fail (IS_IMAGE_RENDER (widget));
 
+    GdkWindowAttr attributes;
+    gint attributes_mask;
+
     GTK_WIDGET_SET_FLAGS (widget, GTK_REALIZED);
-    obj = IMAGE_RENDER (widget);
+    ImageRender *obj = IMAGE_RENDER (widget);
 
     attributes.x = widget->allocation.x;
     attributes.y = widget->allocation.y;
