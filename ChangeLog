@@ -3,6 +3,9 @@
 	* src/gnome-cmd-file-props-dialog.cc:
 	Added button for copying metatags to clipboard
 
+	* configure.in:
+	Changed required exiv2 version to 0.14 or more
+
 2007-07-31  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags-exiv2.cc:
