@@ -157,7 +157,7 @@ GNOME_CMD_USER_ACTION(bookmarks_goto);
 
 /************** Options Menu **************/
 GNOME_CMD_USER_ACTION(options_edit);
-GNOME_CMD_USER_ACTION(options_edit_mime_types);
+// GNOME_CMD_USER_ACTION(options_edit_mime_types);
 
 /************** Connections Menu **************/
 GNOME_CMD_USER_ACTION(connections_ftp_connect);

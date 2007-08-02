@@ -4370,11 +4370,11 @@
                         <entry><para>Options dialog</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>O</keycap></keycombo></para></entry>
                     </row>
-                    <row valign="top">
+               <!-- <row valign="top">
                         <entry><para>options.edit_mime_types</para></entry>
                         <entry><para>Edit MIME types</para></entry>
                         <entry><para></para></entry>
-                    </row>
+                    </row> -->
                     <row valign="top">
                         <entry><para>plugins.configure</para></entry>
                         <entry><para>Configure plugins</para></entry>
