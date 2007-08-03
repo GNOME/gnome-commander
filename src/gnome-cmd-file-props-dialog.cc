@@ -314,7 +314,6 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     GtkWidget *hbox;
     GtkWidget *btn;
     gchar *fname;
-    GnomeVFSMimeApplication *vfs_app;
 
     GtkWidget *space_frame = create_space_frame (dialog, 6);
 
@@ -360,7 +359,8 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         label = create_bold_label (dialog, _("Opens with:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        vfs_app = gnome_vfs_mime_get_default_application (data->finfo->info->mime_type);
+        GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (data->finfo->info->mime_type);
+
         if (vfs_app)
         {
             data->app_label = label = create_label (dialog, vfs_app->name);
@@ -368,6 +368,7 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         }
         else
             label = create_label (dialog, _("No default application registered"));
+
         btn = create_button_with_data (dialog, _("_Change"), GTK_SIGNAL_FUNC (on_change_default_app), data);
         hbox = create_hbox (dialog, FALSE, 6);
         gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, TRUE, 0);

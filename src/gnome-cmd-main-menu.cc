@@ -712,12 +712,12 @@ init (GnomeCmdMainMenu *main_menu)
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PREFERENCES,
             NULL
         },
-        // {
-            // MENU_TYPE_ITEM, _("Edit _Mime Types..."), "", NULL,
-            // (gpointer) options_edit_mime_types, NULL,
-            // GNOME_APP_PIXMAP_NONE, 0,
-            // NULL
-        // },
+	{
+            MENU_TYPE_ITEM, _("Edit _MIME Types..."), "", NULL,
+            (gpointer) options_edit_mime_types, NULL,
+            GNOME_APP_PIXMAP_NONE, 0,
+            NULL
+        },
         MENUTYPE_END
     };
 

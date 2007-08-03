@@ -230,7 +230,7 @@ void GnomeCmdUserActions::init()
     actions.add(mark_unselect_all, "mark.unselect_all");
     actions.add(no_action, "no.action");
     actions.add(options_edit, "options.edit");
-    // actions.add(options_edit_mime_types, "options.edit_mime_types");         // temporarily disabled
+    actions.add(options_edit_mime_types, "options.edit_mime_types");
     actions.add(plugins_configure, "plugins.configure");
     actions.add(plugins_execute_python, "plugins.execute_python");
     actions.add(view_back, "view.back");
@@ -1025,10 +1025,10 @@ void options_edit (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-// void options_edit_mime_types (GtkMenuItem *menuitem, gpointer not_used)
-// {
-    // edit_mimetypes (NULL, FALSE);
-// }
+void options_edit_mime_types (GtkMenuItem *menuitem, gpointer not_used)
+{
+    edit_mimetypes (NULL, FALSE);
+}
 
 
 /************** Connections Menu **************/
