@@ -222,7 +222,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_DOC_TABLECOUNT, TAG_DOC_TEMPLATE,
                                      TAG_DOC_CASESENSITIVE, TAG_DOC_LINKSDIRTY,
 
-                                     TAG_IMAGE_ALBUM, TAG_IMAGE_CAMERAMAKE, TAG_IMAGE_CAMERAMODEL,
+                                     TAG_IMAGE_ALBUM, TAG_IMAGE_MAKE, TAG_IMAGE_MODEL,
                                      TAG_IMAGE_COMMENTS, TAG_IMAGE_COPYRIGHT, TAG_IMAGE_CREATOR,
                                      TAG_IMAGE_DATE, TAG_IMAGE_DESCRIPTION, TAG_IMAGE_EXPOSUREPROGRAM,
                                      TAG_IMAGE_EXPOSURETIME, TAG_IMAGE_FLASH, TAG_IMAGE_FNUMBER,

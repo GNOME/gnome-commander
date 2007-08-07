@@ -354,9 +354,11 @@ typedef enum
     TAG_ID3_WWWPUBLISHER,                   // official publisher webpage
     TAG_ID3_WWWRADIOPAGE,                   // official internet radio station homepage
     TAG_ID3_WWWUSER,                        // user defined URL link
+    TAG_IMAGE_WIDTH,                        // width in pixels
+    TAG_IMAGE_HEIGHT,                       // height in pixels
     TAG_IMAGE_ALBUM,                        // name of an album the image belongs to
-    TAG_IMAGE_CAMERAMAKE,                   // make of camera used to take the image
-    TAG_IMAGE_CAMERAMODEL,                  // model of camera used to take the image
+    TAG_IMAGE_MAKE,                         // make of camera used to take the image
+    TAG_IMAGE_MODEL,                        // model of camera used to take the image
     TAG_IMAGE_COMMENTS,                     // user definable free text
     TAG_IMAGE_COPYRIGHT,                    // embedded copyright message
     TAG_IMAGE_CREATOR,                      // name of the author
@@ -367,7 +369,6 @@ typedef enum
     TAG_IMAGE_FLASH,                        // set to 1 if flash was fired
     TAG_IMAGE_FNUMBER,                      // diameter of the aperture relative to the effective focal length of the lens.
     TAG_IMAGE_FOCALLENGTH,                  // focal length of lens in mm
-    TAG_IMAGE_HEIGHT,                       // height in pixels
     TAG_IMAGE_ISOSPEED,                     // ISO speed used to acquire the document contents. For example, 100, 200, 400, etc.
     TAG_IMAGE_KEYWORDS,                     // string of keywords
     TAG_IMAGE_METERINGMODE,                 // metering mode used to acquire the image (IE Unknown, Average, CenterWeightedAverage, Spot, MultiSpot, Pattern, Partial)
@@ -375,7 +376,6 @@ typedef enum
     TAG_IMAGE_SOFTWARE,                     // software used to produce/enhance the image
     TAG_IMAGE_TITLE,                        // title of image
     TAG_IMAGE_WHITEBALANCE,                 // white balance setting of the camera when the picture was taken (auto or manual)
-    TAG_IMAGE_WIDTH,                        // width in pixels
     TAG_IPTC_ACTIONADVISED,                 // type of action that this object provides to a previous object
     TAG_IPTC_ARMID,                         // Abstract Relationship Method (ARM)
     TAG_IPTC_ARMVERSION,                    // version of the Abstract Relationship Method (ARM)
