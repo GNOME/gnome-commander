@@ -463,8 +463,7 @@ typedef enum
     TAG_VORBIS_NOMINALBITRATE,              // nominal bitrate in kbps
     TAG_VORBIS_ORGANIZATION,                // organization producing the track
     TAG_VORBIS_VENDOR,                      // Vorbis vendor ID
-    TAG_VORBIS_VERSION,                     // Vorbis version
-    NUMBER_OF_TAGS
+    TAG_VORBIS_VERSION                      // Vorbis version
 } GnomeCmdTag;
 
 

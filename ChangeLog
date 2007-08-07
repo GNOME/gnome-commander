@@ -1,3 +1,9 @@
+2007-08-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Replaced metatags[] array with its DICT<GnomeCmdTag,TagName> counterpart
+
 2007-08-01  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:
