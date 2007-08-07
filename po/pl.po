@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-01 07:55+0200\n"
-"PO-Revision-Date: 2007-08-01 12:21+0100\n"
+"PO-Revision-Date: 2007-08-08 00:28+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3313,7 +3313,7 @@ msgstr "Informacje o prawach autorskich. Jest to standardowy znacznik używany d
 
 #: ../src/tags/gnome-cmd-tags.cc:147
 msgid "Custom Rendered"
-msgstr "Własny rendering"
+msgstr "Parametry użytkownika"
 
 #: ../src/tags/gnome-cmd-tags.cc:147
 msgid "The use of special processing on image data, such as rendering geared to output. When special processing is performed, the reader is expected to disable or minimize any further processing."
@@ -3468,11 +3468,11 @@ msgstr "Wersja formatu FlashPix obsługiwana przez plik FPXR."
 
 #: ../src/tags/gnome-cmd-tags.cc:166
 msgid "F Number"
-msgstr "Liczba F"
+msgstr "Wartość przysłony"
 
 #: ../src/tags/gnome-cmd-tags.cc:166
 msgid "The F number."
-msgstr "Liczba F."
+msgstr "Wartość przysłony."
 
 #: ../src/tags/gnome-cmd-tags.cc:167
 #: ../src/tags/gnome-cmd-tags.cc:361
@@ -3493,15 +3493,15 @@ msgstr "Znacznik określa odpowiednik ogniskowej w mm w odniesieniu do aparatu d
 
 #: ../src/tags/gnome-cmd-tags.cc:169
 msgid "Focal Plane Resolution Unit"
-msgstr "Jednostka rozdzielczości płaszczyzny ogniskowej"
+msgstr "Jednostka rozdzielczości ogniskowej"
 
 #: ../src/tags/gnome-cmd-tags.cc:169
 msgid "Indicates the unit for measuring <Exif.FocalPlaneXResolution> and <Exif.FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
-msgstr "Określenie jednostki miary <Exif.FocalPlaneXResolution> i <Exif.FocalPlaneYResolution>. Ta wartość jest taka sama jak dla <Exif.ResolutionUnit>."
+msgstr "Określenie jednostki miary <Exif.FocalPlaneXResolution> i <Exif.FocalPlaneYResolution>. Wartość ta jest taka sama jak dla <Exif.ResolutionUnit>."
 
 #: ../src/tags/gnome-cmd-tags.cc:170
 msgid "Focal Plane x-Resolution"
-msgstr "Rozdzielczość X płaszczyzny ogniskowej"
+msgstr "Rozdzielczość ogniskowej w płaszczyźnie X"
 
 #: ../src/tags/gnome-cmd-tags.cc:170
 msgid "Indicates the number of pixels in the image width (X) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
@@ -3509,7 +3509,7 @@ msgstr "Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit>
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Focal Plane y-Resolution"
-msgstr "Rozdzielczość Y płaszczyzny ogniskowej"
+msgstr "Rozdzielczość ogniskowej w płaszczyźnie Y"
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Indicates the number of pixels in the image height (V) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
@@ -3728,7 +3728,7 @@ msgstr "Producent urządzenia nagrywającego. Jest to producent DSC, skanera, di
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "Maker Note"
-msgstr "Uwaga producenta"
+msgstr "Informacje producenta"
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 msgid "A tag for manufacturers of Exif writers to record any desired information. The contents are up to the manufacturer."
@@ -3740,7 +3740,7 @@ msgstr "Największa wartość przysłony"
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid "The smallest F number of the lens. The unit is the APEX value. Ordinarily it is given in the range of 00.00 to 99.99, but it is not limited to this range."
-msgstr "Najmniejsza liczba F obiektywu. Jednostką jest wartość APEX. Zwykle jest podana w przedziale od -99.99 do 99.99, ale nie ma ograniczenia do tego zakresu."
+msgstr "Najmniejsza wartość przysłony obiektywu. Jednostką jest wartość APEX. Zwykle jest podana w przedziale od -99.99 do 99.99, ale nie ma ograniczenia do tego zakresu."
 
 #: ../src/tags/gnome-cmd-tags.cc:200
 #: ../src/tags/gnome-cmd-tags.cc:365
@@ -3909,7 +3909,7 @@ msgstr "Ten znacznik określa kierunek przetwarzania nasycenia wykonanego przez 
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 msgid "Scene Capture Type"
-msgstr "Rodzaj uchwycenia sceny"
+msgstr "Typ ujęcia"
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 msgid "This tag indicates the type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <Exif.SceneType> tag."
@@ -5009,7 +5009,7 @@ msgstr "Wartośc równa \"1\" gdy zdjęcie było robione z użyciem lampy błysk
 
 #: ../src/tags/gnome-cmd-tags.cc:360
 msgid "F number"
-msgstr "Liczba F"
+msgstr "Wartość przysłony"
 
 #: ../src/tags/gnome-cmd-tags.cc:360
 msgid "Diameter of the aperture relative to the effective focal length of the lens."
