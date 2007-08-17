@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.1.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-05-28 19:31+0200\n"
-"PO-Revision-Date: 2007-05-17 16:07+0200\n"
-"Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
+"PO-Revision-Date: 2007-08-07 14:21+0200\n"
+"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
@@ -40,7 +40,7 @@ msgstr "Opcions"
 
 #: ../plugins/cvs/cvs-plugin.c:315
 msgid "CVS options"
-msgstr ""
+msgstr "Opcions CVS"
 
 #: ../plugins/cvs/cvs-plugin.c:318
 msgid "Compression level"
@@ -675,9 +675,7 @@ msgstr ""
 #: ../src/gnome-cmd-delete-dialog.cc:111
 #, c-format
 msgid "Deleted %ld of %ld file"
-msgid_plural "Deleted %ld of %ld files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:155
 msgid "Deleting..."
@@ -719,9 +717,7 @@ msgstr ""
 #: ../src/gnome-cmd-delete-dialog.cc:317
 #, c-format
 msgid "Do you want to delete the selected file?"
-msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:325 ../src/gnome-cmd-main-win.cc:1276
 #: ../src/gnome-cmd-options-dialog.cc:656
@@ -802,7 +798,7 @@ msgstr ""
 #: ../src/gnome-cmd-file-popmenu.cc:394 ../src/gnome-cmd-file-popmenu.cc:403
 #: ../src/gnome-cmd-file-popmenu.cc:428
 msgid "_Open"
-msgstr "_Dubrir"
+msgstr "_Dobrir"
 
 #: ../src/gnome-cmd-file-popmenu.cc:407
 #, c-format
@@ -844,9 +840,7 @@ msgstr "Autre..."
 #: ../src/gnome-cmd-file-props-dialog.cc:65 ../src/utils.cc:828
 #, c-format
 msgid "%s byte"
-msgid_plural "%s bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-file-props-dialog.cc:190
 #: ../src/gnome-cmd-file-props-dialog.cc:323
@@ -914,16 +908,12 @@ msgstr "Permissions"
 #: ../src/gnome-cmd-file-selector.cc:192
 #, c-format
 msgid "%s of %s kB in %d of %d file"
-msgid_plural "%s of %s kB in %d of %d files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:196
 #, c-format
 msgid "%s, %d of %d dir selected"
-msgid_plural "%s, %d of %d dirs selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:699
 #, c-format
@@ -1080,7 +1070,7 @@ msgstr "Aliàs"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:531 ../src/gnome-cmd-list-popmenu.cc:129
 msgid "_New..."
-msgstr "_Nòu..."
+msgstr "_Novèl..."
 
 #: ../src/gnome-cmd-ftp-dialog.cc:545
 msgid "Anonymous password:"
@@ -1589,7 +1579,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:479
 msgid "Custom"
-msgstr "Personalizat"
+msgstr "Personalisat"
 
 #: ../src/gnome-cmd-options-dialog.cc:495
 msgid "File panes"
@@ -1910,9 +1900,7 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:152
 #, c-format
 msgid "copy %d file to"
-msgid_plural "copy %d files to"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-prepare-move-dialog.cc:85
 msgid "Move"
@@ -1926,9 +1914,7 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-move-dialog.cc:138
 #, c-format
 msgid "move %d file to"
-msgid_plural "move %d files to"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:120
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:163
@@ -1942,7 +1928,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:265
 msgid "Search"
-msgstr "Recèrcar"
+msgstr "Recercar"
 
 #: ../src/gnome-cmd-search-dialog.cc:184
 #, c-format
@@ -1962,16 +1948,12 @@ msgstr ""
 #: ../src/gnome-cmd-search-dialog.cc:406
 #, c-format
 msgid "Found %d match before I was stopped"
-msgid_plural "Found %d matches before I was stopped"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-search-dialog.cc:413
 #, c-format
 msgid "Found %d match"
-msgid_plural "Found %d matches"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-search-dialog.cc:725
 msgid "Search..."
@@ -2032,9 +2014,7 @@ msgstr "Pas de fichièr seleccionat"
 #: ../src/gnome-cmd-user-actions.cc:598
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
-msgid_plural "Create symbolic links of %i files in %s?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:603
 msgid "Create"
@@ -2187,7 +2167,7 @@ msgstr ""
 
 #: ../src/libgviewer/search-dlg.c:331
 msgid "Find"
-msgstr "Recèrcar"
+msgstr "Recercar"
 
 #. Search mode radio buttons
 #: ../src/libgviewer/search-dlg.c:361 ../src/libgviewer/viewer-window.c:816
@@ -6021,13 +6001,11 @@ msgstr "Executar"
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr[0] ""
+msgstr ""
 "%s ne sait pas ouvrir les fichiers distants. Voulez-vous télécharger les "
 "fichiers dans un emplacement temporaire et les ouvrir ?"
-msgstr[1] ""
 "%s ne sait pas ouvrir les fichiers distants. Voulez-vous télécharger les "
 "fichiers dans un emplacement temporaire et les ouvrir ?"
 
