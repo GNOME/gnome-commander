@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.1.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-05-28 19:31+0200\n"
-"PO-Revision-Date: 2007-08-07 14:21+0200\n"
+"PO-Revision-Date: 2007-08-19 19:40+0200\n"
 "Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -148,11 +148,11 @@ msgid ""
 msgstr ""
 
 #: ../src/dirlist.cc:72
-#, fuzzy, c-format
+#, c-format
 msgid "%d file listed"
 msgid_plural "%d files listed"
 msgstr[0] "Pas de fichièr seleccionat"
-msgstr[1] "Pas de fichièr seleccionat"
+msgstr[1] ""
 
 #: ../src/gnome-cmd-about-plugin.cc:182
 msgid "Credits"
@@ -1129,9 +1129,8 @@ msgid "_Diff"
 msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:491
-#, fuzzy
 msgid "S_ynchonize Directories"
-msgstr "Repertòris"
+msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:498
 msgid "_Quit"
@@ -1302,35 +1301,35 @@ msgstr "_Ajuda"
 
 #: ../src/gnome-cmd-main-win.cc:443
 msgid "F3 View"
-msgstr ""
+msgstr "F3 Visualizar"
 
 #: ../src/gnome-cmd-main-win.cc:445
 msgid "F4 Edit"
-msgstr ""
+msgstr "F4 Modificar"
 
 #: ../src/gnome-cmd-main-win.cc:447
 msgid "F5 Copy"
-msgstr ""
+msgstr "F5 Copiar"
 
 #: ../src/gnome-cmd-main-win.cc:449
 msgid "F6 Move"
-msgstr ""
+msgstr "F6 Desplaçar"
 
 #: ../src/gnome-cmd-main-win.cc:451
 msgid "F7 Mkdir"
-msgstr ""
+msgstr "F7 Mkdir"
 
 #: ../src/gnome-cmd-main-win.cc:453
 msgid "F8 Delete"
-msgstr ""
+msgstr "F8 Suprimir"
 
 #: ../src/gnome-cmd-main-win.cc:455
 msgid "F9 Search"
-msgstr ""
+msgstr "F9 Recercar"
 
 #: ../src/gnome-cmd-main-win.cc:457
 msgid "F10 Quit"
-msgstr ""
+msgstr "F10 Sortir"
 
 #: ../src/gnome-cmd-main-win.cc:1265
 msgid "Refresh"
@@ -1989,7 +1988,6 @@ msgid "Goto"
 msgstr ""
 
 #: ../src/gnome-cmd-smb-auth.cc:33
-#, fuzzy
 msgid "Enter password"
 msgstr "Picatz lo mot de pas"
 
@@ -3206,9 +3204,8 @@ msgid "Document Name"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:238
-#, fuzzy
 msgid "Document Name."
-msgstr "Documentat per"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid "Exif IFD Pointer"
@@ -4426,7 +4423,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:822
 msgid "Date."
-msgstr ""
+msgstr "Data."
 
 #: ../src/tags/gnome-cmd-tags.cc:828
 msgid "Duration [MM:SS]"
@@ -5997,17 +5994,13 @@ msgid "Run"
 msgstr "Executar"
 
 #: ../src/utils.cc:581 ../src/utils.cc:657
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
 msgstr ""
-"%s ne sait pas ouvrir les fichiers distants. Voulez-vous télécharger les "
-"fichiers dans un emplacement temporaire et les ouvrir ?"
-"%s ne sait pas ouvrir les fichiers distants. Voulez-vous télécharger les "
-"fichiers dans un emplacement temporaire et les ouvrir ?"
 
 #: ../src/utils.cc:1028
 #, c-format
