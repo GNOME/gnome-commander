@@ -697,7 +697,7 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
         case TAG_IMAGE:
         case TAG_EXIF :
         case TAG_IPTC :
-#ifndef HAVE_GSF
+#ifndef HAVE_EXIV2
                         return _(no_support_for_exiv2_tags_string);
 #endif
                         gcmd_tags_exiv2_load_metadata(finfo);
