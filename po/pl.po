@@ -3277,7 +3277,7 @@ msgstr "Znacznik informacji o przestrzeni kolorów jest zawsze zapisywany w celu
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Components Configuration"
-msgstr "Konfiguracja kornponentów"
+msgstr "Konfiguracja komponentów"
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences."
@@ -3512,7 +3512,7 @@ msgid "Focal Plane y-Resolution"
 msgstr "Rozdzielczość ogniskowej w płaszczyźnie Y"
 
 #: ../src/tags/gnome-cmd-tags.cc:171
-msgid "Indicates the number of pixels in the image height (V) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
+msgid "Indicates the number of pixels in the image height (Y) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr "Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla wysokości obrazu (Y) w płaszczyźnie ogniskowej aparatu."
 
 #: ../src/tags/gnome-cmd-tags.cc:172
