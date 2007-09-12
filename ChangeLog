@@ -1,3 +1,8 @@
+2007-09-0?  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	Fixed bug in GdkEventKey handling (improper use of g_ascii_is...(key_val))
+
 2007-08-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.cc:

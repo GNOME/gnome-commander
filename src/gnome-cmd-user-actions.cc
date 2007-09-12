@@ -112,6 +112,18 @@ inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
 }
 
 
+inline gboolean ascii_isalnum (guint key_val)
+{
+    return key_val<=G_MAXUINT8 && g_ascii_isalnum (key_val);
+}
+
+
+inline gboolean ascii_isalpha (guint key_val)
+{
+    return key_val<=G_MAXUINT8 && g_ascii_isalpha (key_val);
+}
+
+
 inline string key2str(guint state, guint key_val)
 {
     string key_name;
@@ -121,7 +133,7 @@ inline string key2str(guint state, guint key_val)
     if (state & GDK_MOD1_MASK)     key_name += "<alt>";
     if (state & GDK_MOD4_MASK)     key_name += "<win>";
 
-    if (g_ascii_isalnum (key_val))
+    if (ascii_isalnum (key_val))
         key_name += g_ascii_tolower (key_val);
     else
         key_name += gdk_key_names[key_val];
@@ -147,7 +159,7 @@ inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
     state = 0;
 
      if (key_val==GDK_VoidSymbol)
-        if (strlen(key)==1 && g_ascii_isalnum (*key))
+        if (strlen(key)==1 && ascii_isalnum (*key))
             key_val = *key;
 
     if (strstr (s, "<shift>"))    state |= GDK_SHIFT_MASK;
@@ -442,7 +454,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     if (action.find(event)!=action.end())
         return FALSE;
 
-    if (!g_ascii_isalpha (keyval))
+    if (!ascii_isalpha (keyval))
         action[event] = UserAction(func, user_data);
     else
     {
