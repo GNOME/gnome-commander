@@ -391,18 +391,20 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
 
                 for (gint i=0; i<ARRAY_ELEMENTS(metatags); ++i)
                 {
+                    GnomeCmdTag tag = metatags[i];
+                    const gchar *class_name = gcmd_tags_get_class_name(tag);
                     GtkItemFactoryEntry *p = items+i;
 
-                    if (metatags[i]==TAG_NONE)
+                    if (!class_name || *class_name==0)
                     {
                         p->path = g_strdup("/");
                         p->item_type = "<Separator>";
                     }
                     else
                     {
-                        p->path = g_strdup_printf ("/%s/%s", gcmd_tags_get_class_name(metatags[i]), gcmd_tags_get_title(metatags[i]));
+                        p->path = g_strdup_printf ("/%s/%s", gcmd_tags_get_class_name(tag), gcmd_tags_get_title(tag));
                         p->callback = (GtkItemFactoryCallback) insert_num_tag;
-                        p->callback_action = metatags[i];
+                        p->callback_action = tag;
                     }
                 }
 

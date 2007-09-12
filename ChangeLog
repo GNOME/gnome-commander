@@ -1,4 +1,10 @@
-2007-09-0?  Piotr Eljasiak  <epiotr@use.pl>
+2007-09-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/tags/gnome-cmd-tags.cc:
+	Fixed crash when building menu button for metatags
+
+2007-09-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:
 	Fixed bug in GdkEventKey handling (improper use of g_ascii_is...(key_val))
