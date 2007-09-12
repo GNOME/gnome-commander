@@ -363,7 +363,7 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
                 static gchar *prefixes[] = {"B","kB","MB","GB","TB","PB"};
                 gdouble dsize = (gdouble) size;
 
-                for (i=0; i<ARRAY_ELEMENTS(prefixes) && dsize>1024; i++)
+                for (i=0; i<G_N_ELEMENTS(prefixes) && dsize>1024; i++)
                     dsize /= 1024;
 
                 if (i)

@@ -1567,7 +1567,7 @@ void gnome_cmd_data_load (void)
                             {GDK_Up, "up"}
                            };
 
-    load_data (gdk_key_names, gdk_key_names_data, ARRAY_ELEMENTS(gdk_key_names_data));
+    load_data (gdk_key_names, gdk_key_names_data, G_N_ELEMENTS(gdk_key_names_data));
 }
 
 

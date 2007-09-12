@@ -120,7 +120,7 @@ static void insert_text_tag(gpointer data, guint n, GtkWidget *widget)
                                    "%M",
                                    "%S"};
 
-    g_return_if_fail(n < ARRAY_ELEMENTS(placeholder));
+    g_return_if_fail(n < G_N_ELEMENTS(placeholder));
 
     insert_tag((GnomeCmdAdvrenameDialog *) data, placeholder[n]);
 }
@@ -364,10 +364,10 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                     counter_items,
                                     date_items};
 
-    static guint items_size[] = {ARRAY_ELEMENTS(dir_items),
-                                 ARRAY_ELEMENTS(name_items),
-                                 ARRAY_ELEMENTS(counter_items),
-                                 ARRAY_ELEMENTS(date_items)};
+    static guint items_size[] = {G_N_ELEMENTS(dir_items),
+                                 G_N_ELEMENTS(name_items),
+                                 G_N_ELEMENTS(counter_items),
+                                 G_N_ELEMENTS(date_items)};
 
     switch (menu_type)
     {
@@ -385,11 +385,11 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
 
         case METATAG_MENU:
             {
-                GtkItemFactoryEntry *items = g_try_new0(GtkItemFactoryEntry, ARRAY_ELEMENTS(metatags));
+                GtkItemFactoryEntry *items = g_try_new0(GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
 
                 g_return_val_if_fail (items != NULL, NULL);
 
-                for (gint i=0; i<ARRAY_ELEMENTS(metatags); ++i)
+                for (gint i=0; i<G_N_ELEMENTS(metatags); ++i)
                 {
                     GnomeCmdTag tag = metatags[i];
                     const gchar *class_name = gcmd_tags_get_class_name(tag);
@@ -410,9 +410,9 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
 
                 GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
 
-                gtk_item_factory_create_items (ifac, ARRAY_ELEMENTS(metatags), items, dialog);
+                gtk_item_factory_create_items (ifac, G_N_ELEMENTS(metatags), items, dialog);
 
-                for (gint i=0; i<ARRAY_ELEMENTS(metatags); ++i)
+                for (gint i=0; i<G_N_ELEMENTS(metatags); ++i)
                     g_free(items[i].path);
 
                 g_free (items);

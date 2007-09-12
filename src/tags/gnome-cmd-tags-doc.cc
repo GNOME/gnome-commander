@@ -438,7 +438,7 @@ void gcmd_tags_libgsf_init()
                     {TAG_DOC_WORDCOUNT, GSF_META_NAME_WORD_COUNT}
                 };
 
-    load_data (gsf_tags, gsf_data, ARRAY_ELEMENTS(gsf_data));
+    load_data (gsf_tags, gsf_data, G_N_ELEMENTS(gsf_data));
 
     gsf_init();
 #endif

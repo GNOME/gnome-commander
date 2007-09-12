@@ -1,6 +1,19 @@
 2007-09-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-ftp-dialog.cc:
+	* src/utils.cc:
+	* src/utils.h:
+	* src/libgviewer/viewer-window.c:
+	* src/tags/gnome-cmd-tags-doc.cc:
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	* src/tags/gnome-cmd-tags.cc:
+	Replaced ARRAY_ELEMENTS with glib G_N_ELEMENTS macro
+
+2007-09-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
 	* src/tags/gnome-cmd-tags.cc:
 	Fixed crash when building menu button for metatags
 

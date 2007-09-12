@@ -516,7 +516,7 @@ void gcmd_tags_init()
                        {TAG_VORBIS_VERSION, {"Vorbis.Version", TAG_VORBIS, N_("Vorbis Version"), N_("Vorbis version.")}}
                       };
 
-    load_data (metatags, metatags_data, ARRAY_ELEMENTS(metatags_data));
+    load_data (metatags, metatags_data, G_N_ELEMENTS(metatags_data));
 
     gcmd_tags_exiv2_init();
     gcmd_tags_taglib_init();

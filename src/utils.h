@@ -34,8 +34,6 @@ G_BEGIN_DECLS
 
 #define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
-#define ARRAY_ELEMENTS(a)   (sizeof(a)/sizeof(a[0]))
-
 gboolean DEBUG_ENABLED (gchar flag);
 void DEBUG (gchar flag, const gchar *fmt, ...);
 void warn_print (const gchar *fmt, ...);

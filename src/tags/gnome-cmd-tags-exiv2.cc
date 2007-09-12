@@ -357,7 +357,7 @@ void gcmd_tags_exiv2_init()
                     {TAG_IPTC_URGENCY, "Iptc.Application2.Urgency"}
                    };
 
-    load_data (exiv2_tags, exiv2_data, ARRAY_ELEMENTS(exiv2_data));
+    load_data (exiv2_tags, exiv2_data, G_N_ELEMENTS(exiv2_data));
 #endif
 }
 

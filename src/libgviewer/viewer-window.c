@@ -45,7 +45,6 @@
 
 #undef HAVE_HELP_ABOUT
 
-#define ARRAY_ELEMENTS(a)   (sizeof(a)/sizeof(a[0]))
 #define D fprintf(stderr, "%s:%d - %s\n", __FILE__, __LINE__, __FUNCTION__);
 
 // EXTERNAL TOOLS DISABLED in coming stable release
@@ -55,7 +54,7 @@ static GtkWindowClass *parent_class = NULL;
 
 static double image_scale_factors[] = {0.25, 0.5, 0.75, 1, 1.25, 1.50, 2, 2.5, 3, 3.5, 4, 4.5, 5};
 
-const static int MAX_SCALE_FACTOR_INDEX = ARRAY_ELEMENTS(image_scale_factors);
+const static int MAX_SCALE_FACTOR_INDEX = G_N_ELEMENTS(image_scale_factors);
 
 #ifdef EXTERNAL_TOOLS
 typedef struct _GViewerWindowExternalTool GViewerWindowExternalTool;
