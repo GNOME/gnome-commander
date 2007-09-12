@@ -24,20 +24,16 @@
 using namespace std;
 
 
-GnomeCmdPixmap *
-gnome_cmd_pixmap_new_from_file (const gchar *filepath)
+GnomeCmdPixmap *gnome_cmd_pixmap_new_from_file (const gchar *filepath, int width, int height)
 {
     //FIXME: Handle GError here
-    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file (filepath, NULL);
-    if (pixbuf)
-        return gnome_cmd_pixmap_new_from_pixbuf (pixbuf);
+    GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file_at_size (filepath, width, height, NULL);
 
-    return NULL;
+    return pixbuf ? gnome_cmd_pixmap_new_from_pixbuf (pixbuf) : NULL;
 }
 
 
-GnomeCmdPixmap *
-gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf)
+GnomeCmdPixmap *gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf)
 {
     g_return_val_if_fail (pixbuf != NULL, NULL);
 
@@ -56,8 +52,7 @@ gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf)
 }
 
 
-void
-gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap)
+void gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap)
 {
     g_return_if_fail (pixmap != NULL);
     g_return_if_fail (pixmap->pixbuf != NULL);

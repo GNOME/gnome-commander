@@ -1,3 +1,12 @@
+2007-09-12  Mike Crash <mike@mikecrash.com>
+
+	* src/gnome-cmd-con-device.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-pixmap.cc:
+	* src/gnome-cmd-pixmap.h:
+	Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)
+
 2007-09-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

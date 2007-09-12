@@ -23,6 +23,7 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-volume.h>
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-data.h"
 #include "gnome-cmd-con-device.h"
 #include "gnome-cmd-plain-path.h"
 #include "imageloader.h"
@@ -489,21 +490,25 @@ gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *icon_pa
 
     if (!icon_path)
         dev->priv->icon_path = NULL;
-    else {
+    else
+    {
         dev->priv->icon_path = g_strdup (icon_path);
 
-        con->go_pixmap = gnome_cmd_pixmap_new_from_file (icon_path);
-        con->open_pixmap = gnome_cmd_pixmap_new_from_file (icon_path);
-        if (con->open_pixmap) {
+        guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
+
+        con->go_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
+        con->open_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
+        if (con->open_pixmap)
+        {
             GdkPixbuf *tmp = IMAGE_get_pixbuf(PIXMAP_OVERLAY_UMOUNT);
-            if (tmp) {
-                int w, h;
+            if (tmp)
+            {
                 GdkPixbuf *overlay = gdk_pixbuf_copy (con->open_pixmap->pixbuf);
 
-                w = gdk_pixbuf_get_width (tmp);
-                h = gdk_pixbuf_get_height (tmp);
-                if (w > 14) w=14;
-                if (h > 14) h=14;
+                int w = gdk_pixbuf_get_width (tmp);
+                int h = gdk_pixbuf_get_height (tmp);
+                if (w > 14)  w = 14;
+                if (h > 14)  h = 14;
 
                 gdk_pixbuf_copy_area (tmp, 0, 0, w, h, overlay, 0, 0);
                 con->close_pixmap = gnome_cmd_pixmap_new_from_pixbuf (overlay);

@@ -3,6 +3,7 @@ gnome-commander 1.2.5
 ---------------
 
 Bug fixes:
+ * Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)
  * Fixed problem #446361 (build issues on Solaris)
  * Fixed problem #447415 (inability to launch executables)
  * Fixed problem when creating ~/dir

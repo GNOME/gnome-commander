@@ -4967,14 +4967,21 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>icon_scale_quality</para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>icon_size</para></entry>
+                                    <entry><para>integer</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>icon_size</para></entry>
+                                    <entry><para>dev_icon_size</para></entry>
+                                    <entry><para>integer</para></entry>
+                                    <entry><para>Size of device icons. Defaults to 16.</para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>icon_scale_quality</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5560,6 +5567,9 @@
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)</para>
+                        </listitem>
                         <listitem>
                             <para>Fixed problem #446361 (build issues on Solaris)</para>
                         </listitem>

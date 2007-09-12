@@ -32,14 +32,11 @@ typedef struct
 } GnomeCmdPixmap;
 
 
-GnomeCmdPixmap *
-gnome_cmd_pixmap_new_from_file (const gchar *filename);
+GnomeCmdPixmap *gnome_cmd_pixmap_new_from_file (const gchar *filepath, int width=-1, int height=-1);
 
-GnomeCmdPixmap *
-gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf);
+GnomeCmdPixmap *gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf);
 
-void
-gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap);
+void gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap);
 
 G_END_DECLS
 

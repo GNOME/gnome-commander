@@ -269,6 +269,9 @@ gnome_cmd_data_get_icon_size           (void);
 void
 gnome_cmd_data_set_icon_size           (guint size);
 
+guint
+gnome_cmd_data_get_dev_icon_size       (void);
+
 GdkInterpType
 gnome_cmd_data_get_icon_scale_quality  (void);
 

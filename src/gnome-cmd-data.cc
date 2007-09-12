@@ -68,6 +68,7 @@ struct _GnomeCmdDataPrivate
     GnomeCmdRightMouseButtonMode right_mouse_button_mode;
     gboolean             show_toolbar;
     guint                icon_size;
+    guint                dev_icon_size;
     GdkInterpType        icon_scale_quality;
     gchar                *theme_icon_dir;
     gchar                *document_icon_dir;
@@ -1113,6 +1114,7 @@ void gnome_cmd_data_save (void)
     gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", data->priv->right_mouse_button_mode);
     gnome_cmd_data_set_bool   ("/options/show_toolbar", data->priv->show_toolbar);
     gnome_cmd_data_set_int    ("/options/icon_size", data->priv->icon_size);
+    gnome_cmd_data_set_int    ("/options/dev_icon_size", data->priv->dev_icon_size);
     gnome_cmd_data_set_int    ("/options/icon_scale_quality", data->priv->icon_scale_quality);
     gnome_cmd_data_set_string ("/options/theme_icon_dir", data->priv->theme_icon_dir);
     gnome_cmd_data_set_string ("/options/document_icon_dir", data->priv->document_icon_dir);
@@ -1325,6 +1327,7 @@ void gnome_cmd_data_load (void)
     data->priv->right_mouse_button_mode = (GnomeCmdRightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode",RIGHT_BUTTON_POPUPS_MENU);
     data->priv->show_toolbar = gnome_cmd_data_get_bool ("/options/show_toolbar", TRUE);
     data->priv->icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
+    data->priv->dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
     data->priv->icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
     data->priv->theme_icon_dir = gnome_cmd_data_get_string ("/options/theme_icon_dir", theme_icon_dir);
     g_free (theme_icon_dir);
@@ -1894,6 +1897,12 @@ guint gnome_cmd_data_get_icon_size (void)
 void gnome_cmd_data_set_icon_size (guint size)
 {
     data->priv->icon_size = size;
+}
+
+
+guint gnome_cmd_data_get_dev_icon_size (void)
+{
+    return data->priv->dev_icon_size;
 }
 
 
