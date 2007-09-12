@@ -35,34 +35,29 @@ static GnomeCmdConClass *parent_class = NULL;
 
 
 
-static void
-home_open (GnomeCmdCon *con)
+static void home_open (GnomeCmdCon *con)
 {
 }
 
 
-static gboolean
-home_close (GnomeCmdCon *con)
+static gboolean home_close (GnomeCmdCon *con)
 {
     return FALSE;
 }
 
 
-static void
-home_cancel_open (GnomeCmdCon *con)
+static void home_cancel_open (GnomeCmdCon *con)
 {
 }
 
 
-static gboolean
-home_open_is_needed (GnomeCmdCon *con)
+static gboolean home_open_is_needed (GnomeCmdCon *con)
 {
     return FALSE;
 }
 
 
-static GnomeVFSURI *
-home_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
+static GnomeVFSURI *home_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     GnomeVFSURI *u1 = gnome_vfs_uri_new ("file:");
     GnomeVFSURI *u2 = gnome_vfs_uri_append_path (u1, gnome_cmd_path_get_path (path));
@@ -72,8 +67,7 @@ home_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 }
 
 
-static GnomeCmdPath *
-home_create_path (GnomeCmdCon *con, const gchar *path_str)
+static GnomeCmdPath *home_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
     return gnome_cmd_plain_path_new (path_str);
 }
@@ -84,8 +78,7 @@ home_create_path (GnomeCmdCon *con, const gchar *path_str)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdConHome *con = GNOME_CMD_CON_HOME (object);
 
@@ -96,8 +89,7 @@ destroy (GtkObject *object)
 }
 
 
-static void
-class_init (GnomeCmdConHomeClass *klass)
+static void class_init (GnomeCmdConHomeClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
@@ -115,14 +107,11 @@ class_init (GnomeCmdConHomeClass *klass)
 }
 
 
-static void
-init (GnomeCmdConHome *home_con)
+static void init (GnomeCmdConHome *home_con)
 {
-    GnomeCmdDir *dir;
-    GnomeCmdPath *path;
     GnomeCmdCon *con = GNOME_CMD_CON (home_con);
 
-    home_con->priv = g_new (GnomeCmdConHomePrivate, 1);
+    home_con->priv = g_new0 (GnomeCmdConHomePrivate, 1);
 
     con->state = CON_STATE_OPEN;
     con->alias = g_strdup (_("Home"));
@@ -138,8 +127,8 @@ init (GnomeCmdConHome *home_con)
     con->open_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_HOME);
     con->close_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_HOME);
 
-    path = gnome_cmd_plain_path_new (g_get_home_dir ());
-    dir = gnome_cmd_dir_new (con, path);
+    GnomeCmdPath *path = gnome_cmd_plain_path_new (g_get_home_dir ());
+    GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
 
     gnome_cmd_con_set_default_dir (con, dir);
     gnome_cmd_con_set_cwd (con, dir);
@@ -151,8 +140,7 @@ init (GnomeCmdConHome *home_con)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_con_home_get_type         (void)
+GtkType gnome_cmd_con_home_get_type (void)
 {
     static GtkType type = 0;
 
@@ -176,8 +164,7 @@ gnome_cmd_con_home_get_type         (void)
 }
 
 
-GnomeCmdCon *
-gnome_cmd_con_home_new (void)
+GnomeCmdCon *gnome_cmd_con_home_new (void)
 {
     GnomeCmdConHome *con = (GnomeCmdConHome *) gtk_type_new (gnome_cmd_con_home_get_type ());
 

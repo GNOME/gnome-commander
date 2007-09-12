@@ -113,9 +113,8 @@ void IMAGE_init (void)
 
     mime_cache = g_hash_table_new (g_str_hash, g_str_equal);
 
-    /*
-     * Load misc icons
-     */
+     // Load misc icons
+
     for (i=1; i<NUM_PIXMAPS; i++)
     {
         gchar *path = g_build_path (G_DIR_SEPARATOR_S, PIXMAPS_DIR, pixmap_files[i], NULL);
@@ -125,17 +124,16 @@ void IMAGE_init (void)
         pixmaps[i] = gnome_cmd_pixmap_new_from_file (path);
         if (!pixmaps[i])
         {
-            gchar *path2;
+            gchar *path2 = g_build_path (G_DIR_SEPARATOR_S, "../pixmaps", pixmap_files[i], NULL);
 
             warn_print (_("Couldn't load installed file type pixmap, trying to load from source-dir\n"));
-            path2 = g_build_path (G_DIR_SEPARATOR_S, "../pixmaps", pixmap_files[i], NULL);
             warn_print (_("Trying to load %s instead\n"), path2);
 
             pixmaps[i] = gnome_cmd_pixmap_new_from_file (path2);
             if (!pixmaps[i])
                 warn_print (_("Can't find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory\n"), VERSION);
 
-                g_free (path2);
+            g_free (path2);
         }
         g_free (path);
     }
@@ -203,8 +201,7 @@ GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id)
  * Takes a mime-type as argument and returns the filename
  * of the image representing it.
  */
-static char *
-get_mime_icon_name (const gchar *mime_type)
+inline char *get_mime_icon_name (const gchar *mime_type)
 {
     gint i;
     gchar *icon_name;
@@ -228,8 +225,7 @@ get_mime_icon_name (const gchar *mime_type)
  * Returns the filename that an image representing the given filetype
  * should have.
  */
-static const gchar *
-get_type_icon_name (GnomeVFSFileType type)
+static const gchar *get_type_icon_name (GnomeVFSFileType type)
 {
     static gchar *names[] = {
         "i-directory.png",
@@ -257,6 +253,7 @@ get_type_icon_name (GnomeVFSFileType type)
             return names[5];
         case GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK:
             return names[6];
+
         default:
             return names[1];
     }
@@ -296,12 +293,9 @@ get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
  * mime-type in the given directory. This is a hack to avoid having 20 equal
  * icons for 20 different video formats etc. in an icon-theme directory.
  */
-static gchar *
-get_category_icon_path (const gchar *mime_type, const gchar *icon_dir)
+inline gchar *get_category_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
-    gint i;
-
-    for (i=0; i<NUM_CATEGORIES; i++)
+    for (gint i=0; i<NUM_CATEGORIES; i++)
         if (strncmp (mime_type, categories[i][0], strlen (categories[i][0])) == 0)
             return g_build_path (G_DIR_SEPARATOR_S, icon_dir, categories[i][1], NULL);
 

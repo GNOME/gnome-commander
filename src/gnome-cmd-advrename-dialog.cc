@@ -447,8 +447,7 @@ static GtkWidget *create_button_with_menu(GnomeCmdAdvrenameDialog *dialog, gchar
 }
 
 
-static void
-free_data (GnomeCmdAdvrenameDialog *dialog)
+static void free_data (GnomeCmdAdvrenameDialog *dialog)
 {
     gnome_cmd_file_list_free (dialog->priv->files);
 

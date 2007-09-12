@@ -414,7 +414,6 @@ gnome_cmd_con_device_new (const gchar *alias,
     gnome_cmd_con_device_set_vfs_volume(dev, NULL);
     gnome_cmd_con_device_set_alias (dev, alias);
 
-
     GNOME_CMD_CON (dev)->open_msg = g_strdup_printf (_("Mounting %s"), alias);
 
     return dev;
@@ -428,8 +427,7 @@ gnome_cmd_con_device_set_alias (GnomeCmdConDevice *dev, const gchar *alias)
     g_return_if_fail (dev->priv != NULL);
     g_return_if_fail (alias != NULL);
 
-    if (dev->priv->alias)
-        g_free (dev->priv->alias);
+    g_free (dev->priv->alias);
 
     dev->priv->alias = g_strdup (alias);
     GNOME_CMD_CON (dev)->alias = g_strdup (alias);
@@ -445,8 +443,7 @@ gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *device_
     g_return_if_fail (dev != NULL);
     g_return_if_fail (dev->priv != NULL);
 
-    if (dev->priv->device_fn)
-        g_free (dev->priv->device_fn);
+    g_free (dev->priv->device_fn);
 
     if (!device_fn)
         dev->priv->device_fn = NULL;
