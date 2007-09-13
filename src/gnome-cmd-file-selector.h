@@ -129,4 +129,17 @@ void gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c);
 
 G_END_DECLS
 
+inline FileSelectorID operator ! (FileSelectorID id)
+{
+    switch (id)
+    {
+        case LEFT:      return RIGHT;
+        case RIGHT:     return LEFT;
+        case INACTIVE:  return ACTIVE;
+        case ACTIVE:    return INACTIVE;
+
+        default:        return id;
+    }
+}
+
 #endif // __GNOME_CMD_FILE_SELECTOR_H__
