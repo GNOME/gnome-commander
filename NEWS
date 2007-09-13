@@ -16,6 +16,7 @@ New features:
  * Support for file metags in advanced file rename templates
  * Open terminal in the current directory
  * Metadata tags in file properties dialog
+ * Use default GNOME theme icons for home, SMB and FTP locations
  * New or updated translations: cs, dz, es, eu, oc, pl, pt_BR
  * New key bindings:
 

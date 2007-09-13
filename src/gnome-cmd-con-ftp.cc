@@ -19,6 +19,7 @@
 
 #include <config.h>
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-data.h"
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-plain-path.h"
 #include "imageloader.h"
@@ -214,6 +215,8 @@ class_init (GnomeCmdConFtpClass *klass)
 static void
 init (GnomeCmdConFtp *ftp_con)
 {
+    guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
+
     GnomeCmdCon *con = GNOME_CMD_CON (ftp_con);
 
     ftp_con->priv = g_new0 (GnomeCmdConFtpPrivate, 1);
@@ -224,9 +227,9 @@ init (GnomeCmdConFtp *ftp_con)
     con->can_show_free_space = FALSE;
     con->is_local = FALSE;
     con->is_closeable = TRUE;
-    con->go_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_SERVER_SMALL);
-    con->open_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_FTP_CONNECT);
-    con->close_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_FTP_DISCONNECT);
+    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-ftp", dev_icon_size);
+    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-ftp", dev_icon_size);
+    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-ftp", dev_icon_size);
 }
 
 

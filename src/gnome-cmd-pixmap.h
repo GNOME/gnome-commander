@@ -33,9 +33,8 @@ typedef struct
 
 
 GnomeCmdPixmap *gnome_cmd_pixmap_new_from_file (const gchar *filepath, int width=-1, int height=-1);
-
+GnomeCmdPixmap *gnome_cmd_pixmap_new_from_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags=(GtkIconLookupFlags) 0);
 GnomeCmdPixmap *gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf);
-
 void gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap);
 
 G_END_DECLS

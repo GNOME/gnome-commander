@@ -19,6 +19,7 @@
 
 #include <config.h>
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-data.h"
 #include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-smb-path.h"
 #include "imageloader.h"
@@ -207,6 +208,8 @@ class_init (GnomeCmdConSmbClass *klass)
 static void
 init (GnomeCmdConSmb *smb_con)
 {
+    guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
+
     GnomeCmdCon *con = GNOME_CMD_CON (smb_con);
 
     smb_con->priv = g_new (GnomeCmdConSmbPrivate, 1);
@@ -220,9 +223,9 @@ init (GnomeCmdConSmb *smb_con)
     con->is_local = FALSE;
     con->is_closeable = FALSE;
     con->go_text = g_strdup (_("Go to: Samba Network"));
-    con->go_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_SMB_NETWORK);
-    con->open_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_SMB_NETWORK);
-    con->close_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_SMB_NETWORK);
+    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-network", dev_icon_size);
+    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-network", dev_icon_size);
+    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-network", dev_icon_size);
 }
 
 

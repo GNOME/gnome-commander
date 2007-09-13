@@ -33,6 +33,22 @@ GnomeCmdPixmap *gnome_cmd_pixmap_new_from_file (const gchar *filepath, int width
 }
 
 
+GnomeCmdPixmap *gnome_cmd_pixmap_new_from_icon (const gchar *icon_name, gint size, GtkIconLookupFlags flags)
+{
+   GError *error = NULL;
+
+   GdkPixbuf *pixbuf = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (), icon_name, size, flags, &error);
+
+   if (pixbuf)
+       return gnome_cmd_pixmap_new_from_pixbuf (pixbuf);
+
+   g_warning ("Couldn't load icon: %s", error->message);
+   g_error_free (error);
+
+   return NULL;
+}
+
+
 GnomeCmdPixmap *gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf)
 {
     g_return_val_if_fail (pixbuf != NULL, NULL);

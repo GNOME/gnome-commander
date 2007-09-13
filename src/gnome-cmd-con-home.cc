@@ -19,6 +19,7 @@
 
 #include <config.h>
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-data.h"
 #include "gnome-cmd-con-home.h"
 #include "gnome-cmd-plain-path.h"
 #include "imageloader.h"
@@ -109,6 +110,8 @@ static void class_init (GnomeCmdConHomeClass *klass)
 
 static void init (GnomeCmdConHome *home_con)
 {
+    guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
+
     GnomeCmdCon *con = GNOME_CMD_CON (home_con);
 
     home_con->priv = g_new0 (GnomeCmdConHomePrivate, 1);
@@ -123,9 +126,9 @@ static void init (GnomeCmdConHome *home_con)
     con->is_local = TRUE;
     con->is_closeable = FALSE;
     con->go_text = g_strdup (_("Go to: Home"));
-    con->go_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_HOME);
-    con->open_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_HOME);
-    con->close_pixmap = IMAGE_get_gnome_cmd_pixmap (PIXMAP_HOME);
+    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
+    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
+    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-home", dev_icon_size);
 
     GnomeCmdPath *path = gnome_cmd_plain_path_new (g_get_home_dir ());
     GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
