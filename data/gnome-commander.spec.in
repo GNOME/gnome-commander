@@ -27,7 +27,7 @@ Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
 Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
 
 Group:         Applications/File
-License:       GPL
+License:       GPLv2+
 URL:           http://www.nongnu.org/gcmd/
 Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{version}.tar%{srcext}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -69,8 +69,8 @@ Requires:        libgsf >= %{libgsf_ver}
 
 %description
 GNOME Commander is a nice and fast file manager for the GNOME desktop.
-In addition to performing the basic filemanager functions the program is also
-an FTP-client and it can browse SMB-networks.
+In addition to performing the basic filemanager functions the program is
+also an FTP-client and it can browse SMB-networks.
 
 %description -l cs
 GNOME Commander je pěkný a rychlý správce souborů pro GNOME desktop.
@@ -149,6 +149,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Fri Aug  3 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.4-3.dist.1
+- License update
+
 * Wed Jul 18 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
  - replaced libexif and libiptcdata with exiv2 library
 
