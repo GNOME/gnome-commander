@@ -1,5 +1,13 @@
 2007-09-13  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-file-popmenu.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Send files via email or instant messenger (using nautilus-sendto)
+
+2007-09-13  Piotr Eljasiak  <epiotr@use.pl>
+
 	* src/gnome-cmd-con-ftp.cc:
 	* src/gnome-cmd-con-home.cc:
 	* src/gnome-cmd-con-smb.cc:

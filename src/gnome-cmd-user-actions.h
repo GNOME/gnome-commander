@@ -107,6 +107,7 @@ GNOME_CMD_USER_ACTION(file_rename);
 GNOME_CMD_USER_ACTION(file_create_symlink);
 GNOME_CMD_USER_ACTION(file_advrename);
 GNOME_CMD_USER_ACTION(file_run);
+GNOME_CMD_USER_ACTION(file_sendto);
 GNOME_CMD_USER_ACTION(file_umount);
 GNOME_CMD_USER_ACTION(file_exit);
 

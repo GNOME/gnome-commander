@@ -227,6 +227,7 @@ void GnomeCmdUserActions::init()
     actions.add(file_properties, "file.properties");
     actions.add(file_rename, "file.rename");
     // actions.add(file_run, "file.run");
+    actions.add(file_sendto, "file.sendto");
     actions.add(file_sync_dirs, "file.synchronize_directories");
     // actions.add(file_umount, "file.umount");
     actions.add(file_view, "file.view");
@@ -647,6 +648,34 @@ void file_rename (GtkMenuItem *menuitem, gpointer not_used)
 void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 {
     gnome_cmd_file_list_show_advrename_dialog (get_fl (ACTIVE));
+}
+
+
+void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
+{
+    string cmd = "nautilus-sendto";
+
+    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
+    sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
+
+    for (GList *i = sfl; i; i = i->next)
+    {
+        GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
+
+        if (!finfo)
+            continue;
+
+        cmd += ' ';
+        cmd += (char *) gnome_cmd_file_get_quoted_real_path (finfo);
+    }
+
+    g_list_free (sfl);
+
+    g_print (_("running `%s'\n"), cmd.c_str());
+
+    if (cmd != "nautilus-sendto")
+        run_command (cmd.c_str(), FALSE);
 }
 
 
