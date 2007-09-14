@@ -19,8 +19,6 @@
 #ifndef __GNOME_CMD_CMDLINE_H__
 #define __GNOME_CMD_CMDLINE_H__
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CMDLINE(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_cmdline_get_type (), GnomeCmdCmdline)
 #define GNOME_CMD_CMDLINE_CLASS(klass) \
@@ -92,7 +90,5 @@ gnome_cmd_cmdline_get_entry    (GnomeCmdCmdline *cmdline);
 gboolean
 gnome_cmd_cmdline_keypressed   (GnomeCmdCmdline *cmdline,
                                 GdkEventKey *event);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CMDLINE_H__

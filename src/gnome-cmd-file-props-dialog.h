@@ -22,11 +22,7 @@
 
 #include "gnome-cmd-file.h"
 
-G_BEGIN_DECLS
-
 GtkWidget*
 gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_FILE_PROPS_DIALOG_H__

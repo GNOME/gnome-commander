@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-path.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_SMB_PATH(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_smb_path_get_type (), GnomeCmdSmbPath)
 #define GNOME_CMD_SMB_PATH_CLASS(klass) \
@@ -58,7 +56,5 @@ GtkType gnome_cmd_smb_path_get_type (void);
 
 GnomeCmdPath *gnome_cmd_smb_path_new (const gchar *workgroup, const gchar *resource, const gchar *path);
 GnomeCmdPath *gnome_cmd_smb_path_new_from_str (const gchar *path_str);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_SMB_PATH_H__

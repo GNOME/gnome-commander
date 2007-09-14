@@ -20,8 +20,6 @@
 #ifndef __GNOME_CMD_CHOWN_DIALOG_H__
 #define __GNOME_CMD_CHOWN_DIALOG_H__
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CHOWN_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_chown_dialog_get_type (), GnomeCmdChownDialog)
 #define GNOME_CMD_CHOWN_DIALOG_CLASS(klass) \
@@ -54,7 +52,5 @@ gnome_cmd_chown_dialog_new (GList *files);
 
 GtkType
 gnome_cmd_chown_dialog_get_type (void);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CHOWN_DIALOG_H__

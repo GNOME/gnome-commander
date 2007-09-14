@@ -22,10 +22,6 @@
 
 #include <libgcmd/libgcmd.h>
 
-G_BEGIN_DECLS
-
 typedef void *(*PthreadFunc)(void *);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_INCLUDES_H__

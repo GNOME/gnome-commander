@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-file.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CHOWN_COMPONENT(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_chown_component_get_type (), GnomeCmdChownComponent)
 #define GNOME_CMD_CHOWN_COMPONENT_CLASS(klass) \
@@ -64,7 +62,5 @@ gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component);
 
 gid_t
 gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CHOWN_COMPONENT_H__

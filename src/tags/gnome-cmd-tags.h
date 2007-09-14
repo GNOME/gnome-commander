@@ -30,8 +30,6 @@
 #include "gnome-cmd-file.h"
 #include "utils.h"
 
-G_BEGIN_DECLS
-
 typedef enum
 {
     TAG_NONE_CLASS  = 0,
@@ -493,8 +491,6 @@ inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const gchar
 
     return gcmd_tags_get_value(finfo, gcmd_tags_get_tag_by_name(tag_name, tag_class));
 }
-
-G_END_DECLS
 
 class GnomeCmdFileMetadata
 {

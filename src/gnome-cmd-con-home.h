@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-con.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CON_HOME(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_con_home_get_type (), GnomeCmdConHome)
 #define GNOME_CMD_CON_HOME_CLASS(klass) \
@@ -53,7 +51,5 @@ struct _GnomeCmdConHomeClass
 GtkType gnome_cmd_con_home_get_type (void);
 
 GnomeCmdCon *gnome_cmd_con_home_new (void);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CON_HOME_H__

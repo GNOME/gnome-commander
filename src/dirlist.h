@@ -22,11 +22,7 @@
 
 #include "gnome-cmd-dir.h"
 
-G_BEGIN_DECLS
-
 void dirlist_list (GnomeCmdDir *dir, gboolean visprog);
 void dirlist_cancel (GnomeCmdDir *dir);
-
-G_END_DECLS
 
 #endif // __DIRLIST_H__

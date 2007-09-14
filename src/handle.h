@@ -20,8 +20,6 @@
 #ifndef __HANDLE_H__
 #define __HANDLE_H__
 
-G_BEGIN_DECLS
-
 typedef struct
 {
     gint ref_count;
@@ -68,7 +66,5 @@ inline gpointer handle_get_ref (Handle *h)
 
     return h->ref;
 }
-
-G_END_DECLS
 
 #endif // __HANDLE_H__

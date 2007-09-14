@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-pixmap.h"
 
-G_BEGIN_DECLS
-
 /**
  * If you add a pixmap id here be sure to add its filename in
  * the array in imageloader.c
@@ -78,7 +76,5 @@ gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
                                     GdkBitmap **mask);
 
 void IMAGE_clear_mime_cache (void);
-
-G_END_DECLS
 
 #endif // __IMAGELOADER_H__

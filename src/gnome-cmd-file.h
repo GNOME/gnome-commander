@@ -53,8 +53,6 @@ struct _GnomeCmdFileClass
 
 #include "gnome-cmd-dir.h"
 
-G_BEGIN_DECLS
-
 GtkType gnome_cmd_file_get_type (void);
 
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
@@ -129,7 +127,5 @@ gboolean gnome_cmd_file_needs_update (GnomeCmdFile *finfo);
 //misc tree size functions
 void gnome_cmd_file_invalidate_tree_size (GnomeCmdFile *finfo);
 gboolean gnome_cmd_file_has_tree_size (GnomeCmdFile *finfo);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_FILE_H__

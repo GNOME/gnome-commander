@@ -30,8 +30,6 @@
 #include "gnome-cmd-pixmap.h"
 #include "gnome-cmd-app.h"
 
-G_BEGIN_DECLS
-
 #define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
 gboolean DEBUG_ENABLED (gchar flag);
@@ -213,8 +211,6 @@ void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id=NULL);
 #define GNOMEUIINFO_ITEM_FILENAME(label, tooltip, callback, filename) \
     { GNOME_APP_UI_ITEM, label, tooltip, (gpointer)callback, NULL, NULL, \
         GNOME_APP_PIXMAP_FILENAME, filename, 0, (GdkModifierType) 0, NULL }
-
-G_END_DECLS
 
 inline std::string &stringify(std::string &s, gchar *val)
 {

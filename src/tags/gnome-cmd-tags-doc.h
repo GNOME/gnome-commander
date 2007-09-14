@@ -25,12 +25,8 @@
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-tags.h"
 
-G_BEGIN_DECLS
-
 void gcmd_tags_libgsf_init();
 void gcmd_tags_libgsf_shutdown();
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_TAGS_DOC_H__

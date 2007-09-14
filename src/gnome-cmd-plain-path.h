@@ -21,8 +21,6 @@
 
 #include "gnome-cmd-path.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_PLAIN_PATH(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_plain_path_get_type (), GnomeCmdPlainPath)
 #define GNOME_CMD_PLAIN_PATH_CLASS(klass) \
@@ -54,7 +52,5 @@ struct _GnomeCmdPlainPathClass
 GtkType gnome_cmd_plain_path_get_type (void);
 
 GnomeCmdPath *gnome_cmd_plain_path_new (const gchar *path);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_PLAIN_PATH_H__

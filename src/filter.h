@@ -22,8 +22,6 @@
 
 #include <regex.h>
 
-G_BEGIN_DECLS
-
 typedef enum
 {
     FILTER_TYPE_REGEX,
@@ -43,7 +41,5 @@ struct Filter
 Filter  *filter_new (const gchar *exp, gboolean case_sens);
 void filter_free (Filter *filter);
 gboolean filter_match (Filter *filter, gchar *text);
-
-G_END_DECLS
 
 #endif // __FILTER_H__

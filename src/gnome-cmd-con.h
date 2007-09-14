@@ -39,8 +39,6 @@ typedef struct _GnomeCmdConPrivate GnomeCmdConPrivate;
 #include "history.h"
 #include "gnome-cmd-types.h"
 
-G_BEGIN_DECLS
-
 typedef enum
 {
     CON_STATE_CLOSED,
@@ -236,7 +234,5 @@ gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
 
 GnomeCmdDir *
 gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CON_H__

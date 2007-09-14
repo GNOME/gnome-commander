@@ -20,8 +20,6 @@
 #ifndef __HISTORY_H__
 #define __HISTORY_H__
 
-G_BEGIN_DECLS
-
 typedef struct
 {
     GList *ents;
@@ -43,7 +41,5 @@ const gchar   *history_first (History *history);
 const gchar   *history_back (History *history);
 const gchar   *history_forward (History *history);
 const gchar   *history_last (History *history);
-
-G_END_DECLS
 
 #endif // __HISTORY_H__

@@ -38,8 +38,6 @@ typedef struct _GnomeCmdFileSelectorClass GnomeCmdFileSelectorClass;
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-dir.h"
 
-G_BEGIN_DECLS
-
 struct _GnomeCmdFileSelector
 {
     GtkVBox vbox;
@@ -126,8 +124,6 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 void gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs);
 
 void gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c);
-
-G_END_DECLS
 
 inline FileSelectorID operator ! (FileSelectorID id)
 {

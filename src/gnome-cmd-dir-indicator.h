@@ -24,8 +24,6 @@
 #include "gnome-cmd-con-device.h"
 #include "gnome-cmd-file-selector.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_DIR_INDICATOR(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_dir_indicator_get_type (), GnomeCmdDirIndicator)
 #define GNOME_CMD_DIR_INDICATOR_CLASS(klass) \
@@ -69,7 +67,5 @@ gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator);
 
 void
 gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_DIR_INDICATOR_H__

@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-file-list.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_FILE_POPMENU(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_file_popmenu_get_type (), GnomeCmdFilePopmenu)
 #define GNOME_CMD_FILE_POPMENU_CLASS(klass) \
@@ -54,7 +52,5 @@ struct _GnomeCmdFilePopmenuClass
 GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
 
 GtkType gnome_cmd_file_popmenu_get_type (void);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_FILE_POPMENU_H__

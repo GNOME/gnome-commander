@@ -42,8 +42,6 @@ typedef void (* DirListDoneFunc) (GnomeCmdDir *dir,
 #include "gnome-cmd-con.h"
 #include "handle.h"
 
-G_BEGIN_DECLS
-
 typedef enum
 {
     DIR_STATE_EMPTY,
@@ -125,7 +123,5 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir);
 void gnome_cmd_dir_cancel_monitoring (GnomeCmdDir *dir);
 gboolean gnome_cmd_dir_is_local (GnomeCmdDir *dir);
 void gnome_cmd_dir_set_content_changed (GnomeCmdDir *dir);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_DIR_H__

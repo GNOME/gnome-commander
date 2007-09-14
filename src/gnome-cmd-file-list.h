@@ -35,8 +35,6 @@ typedef struct _GnomeCmdFileListClass GnomeCmdFileListClass;
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-clist.h"
 
-G_BEGIN_DECLS
-
 typedef enum
 {
     FILE_LIST_COLUMN_ICON,
@@ -188,7 +186,5 @@ gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
 gboolean gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *event);
 
 void gnome_cmd_file_list_invalidate_tree_size (GnomeCmdFileList *fl);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_FILE_LIST_H__

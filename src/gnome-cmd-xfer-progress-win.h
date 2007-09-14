@@ -20,8 +20,6 @@
 #ifndef __GNOME_CMD_XFER_PROGRESS_WIN_H__
 #define __GNOME_CMD_XFER_PROGRESS_WIN_H__
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_XFER_PROGRESS_WIN(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_xfer_progress_win_get_type (), GnomeCmdXferProgressWin)
 #define GNOME_CMD_XFER_PROGRESS_WIN_CLASS(klass) \
@@ -71,7 +69,5 @@ gnome_cmd_xfer_progress_win_set_msg (GnomeCmdXferProgressWin *win,
 void
 gnome_cmd_xfer_progress_win_set_action (GnomeCmdXferProgressWin *win,
                                         const gchar *string);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_XFER_PROGRESS_WIN_H__

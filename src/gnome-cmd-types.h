@@ -24,8 +24,6 @@ typedef gchar *GnomeCmdDateFormat;
 
 #include "gnome-cmd-con.h"
 
-G_BEGIN_DECLS
-
 typedef enum
 {
     GNOME_CMD_LAYOUT_TEXT,
@@ -101,7 +99,5 @@ typedef struct
     gchar *path;
     GnomeCmdBookmarkGroup *group;
 } GnomeCmdBookmark;
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_TYPES_H__

@@ -29,8 +29,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_USER_ACTION(f)   void f(GtkMenuItem *menuitem=NULL, gpointer user_data=NULL)
 typedef void (*GnomeCmdUserActionFunc) (GtkMenuItem *menuitem, gpointer user_data);
 
@@ -177,7 +175,5 @@ GNOME_CMD_USER_ACTION(help_keyboard);
 GNOME_CMD_USER_ACTION(help_web);
 GNOME_CMD_USER_ACTION(help_problem);
 GNOME_CMD_USER_ACTION(help_about);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_USER_ACTIONS_H__

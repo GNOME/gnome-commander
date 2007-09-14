@@ -22,13 +22,9 @@
 
 #include "gnome-cmd-file.h"
 
-G_BEGIN_DECLS
-
 void gnome_cmd_advrename_reset_counter(unsigned start, unsigned precision, unsigned step);
 void gnome_cmd_advrename_parse_fname(const char *fname);
 char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, GnomeCmdFile *finfo);
 
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_ADVRENAME_LEXER_H__

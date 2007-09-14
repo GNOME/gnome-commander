@@ -24,8 +24,6 @@
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-con-device.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CON_LIST(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_con_list_get_type (), GnomeCmdConList)
 #define GNOME_CMD_CON_LIST_CLASS(klass) \
@@ -118,7 +116,5 @@ get_smb_con (void);
 
 GnomeCmdCon *
 get_home_con (void);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CON_LIST_H__

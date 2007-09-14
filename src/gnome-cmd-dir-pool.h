@@ -34,8 +34,6 @@ typedef struct _GnomeCmdDirPoolPrivate GnomeCmdDirPoolPrivate;
 
 #include "gnome-cmd-dir.h"
 
-G_BEGIN_DECLS
-
 struct _GnomeCmdDirPool
 {
     GtkObject parent;
@@ -66,7 +64,5 @@ gnome_cmd_dir_pool_remove (GnomeCmdDirPool *pool, GnomeCmdDir *dir);
 
 void
 gnome_cmd_dir_pool_show_state (GnomeCmdDirPool *pool);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_DIR_POOL_H__

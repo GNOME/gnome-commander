@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-file.h"
 
-G_BEGIN_DECLS
-
 typedef struct
 {
     GnomeVFSFileType type;
@@ -33,7 +31,5 @@ typedef struct
 
 void     ls_colors_init (void);
 LsColor *ls_colors_get (GnomeCmdFile *finfo);
-
-G_END_DECLS
 
 #endif // __LS_COLORS_H__

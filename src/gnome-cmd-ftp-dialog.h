@@ -19,8 +19,6 @@
 #ifndef __GNOME_CMD_FTP_DIALOG_H__
 #define __GNOME_CMD_FTP_DIALOG_H__
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_FTP_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_ftp_dialog_get_type (), GnomeCmdFtpDialog)
 #define GNOME_CMD_FTP_DIALOG_CLASS(klass) \
@@ -58,7 +56,5 @@ gnome_cmd_ftp_dialog_new                 (void);
 
 void
 show_ftp_quick_connect_dialog            (void);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_FTP_DIALOG_H__

@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-pixmap.h"
 
-G_BEGIN_DECLS
-
 typedef enum
 {
     APP_TARGET_ALL_FILES,
@@ -123,7 +121,5 @@ gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
 
 GnomeCmdPixmap *
 gnome_cmd_app_get_pixmap         (GnomeCmdApp *app);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_APP_H__

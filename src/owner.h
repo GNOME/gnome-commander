@@ -23,8 +23,6 @@
 #include <grp.h>
 #include <pwd.h>
 
-G_BEGIN_DECLS
-
 typedef struct
 {
     gboolean zombie;    /* The gid of this group doesnt match any group in the system. */
@@ -62,7 +60,5 @@ const gchar *OWNER_get_name_by_uid (uid_t uid);
 const gchar *OWNER_get_name_by_gid (gid_t gid);
 uid_t OWNER_get_uid_by_name (const gchar *name);
 gid_t OWNER_get_gid_by_name (const gchar *name);
-
-G_END_DECLS
 
 #endif // __OWNER_H__

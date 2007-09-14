@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-dir.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_MKDIR_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_mkdir_dialog_get_type (), GnomeCmdMkdirDialog)
 #define GNOME_CMD_MKDIR_DIALOG_CLASS(klass) \
@@ -56,7 +54,5 @@ gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir);
 
 GtkType
 gnome_cmd_mkdir_dialog_get_type (void);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_MKDIR_DIALOG_H__

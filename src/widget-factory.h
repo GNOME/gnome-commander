@@ -23,8 +23,6 @@
 #include "libgcmd/libgcmd-deps.h"
 #include "gnome-cmd-combo.h"
 
-G_BEGIN_DECLS
-
 inline GtkWidget *create_clist_combo (GtkWidget *parent, gint num_cols, gint text_col, gchar **titles)
 {
     GtkWidget *combo = gnome_cmd_combo_new (num_cols, text_col, titles);
@@ -34,7 +32,5 @@ inline GtkWidget *create_clist_combo (GtkWidget *parent, gint num_cols, gint tex
 
     return combo;
 }
-
-G_END_DECLS
 
 #endif // __WIDGET_FACTORY_H__

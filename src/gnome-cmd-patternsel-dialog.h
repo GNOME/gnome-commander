@@ -21,8 +21,6 @@
 
 #include "gnome-cmd-file-list.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_PATTERNSEL_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_patternsel_dialog_get_type (), GnomeCmdPatternselDialog)
 #define GNOME_CMD_PATTERNSEL_DIALOG_CLASS(klass) \
@@ -55,7 +53,5 @@ gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode);
 
 GtkType
 gnome_cmd_patternsel_dialog_get_type (void);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_PATTERNSEL_DIALOG_H__

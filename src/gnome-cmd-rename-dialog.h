@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-file.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_RENAME_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_rename_dialog_get_type (), GnomeCmdRenameDialog)
 #define GNOME_CMD_RENAME_DIALOG_CLASS(klass) \
@@ -56,7 +54,5 @@ gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gi
 
 GtkType
 gnome_cmd_rename_dialog_get_type (void);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_RENAME_DIALOG_H__

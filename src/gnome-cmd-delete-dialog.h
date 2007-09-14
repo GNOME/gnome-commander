@@ -19,11 +19,7 @@
 #ifndef __GNOME_CMD_PREPARE_DEL_DIALOG_H__
 #define __GNOME_CMD_PREPARE_DEL_DIALOG_H__
 
-G_BEGIN_DECLS
-
 void
 gnome_cmd_delete_dialog_show (GList *files);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_PREPARE_DEL_DIALOG_H__

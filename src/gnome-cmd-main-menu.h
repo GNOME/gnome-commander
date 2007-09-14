@@ -22,8 +22,6 @@
 #include "gnome-cmd-file.h"
 #include "plugin_manager.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_MAIN_MENU(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_main_menu_get_type (), GnomeCmdMainMenu)
 #define GNOME_CMD_MAIN_MENU_CLASS(klass) \
@@ -68,7 +66,5 @@ gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu);
 
 void
 gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *data);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_MAIN_MENU_H__

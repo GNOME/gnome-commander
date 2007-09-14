@@ -19,8 +19,6 @@
 #ifndef __GNOME_CMD_CLIST_H__
 #define __GNOME_CMD_CLIST_H__
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CLIST(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_clist_get_type (), GnomeCmdCList)
 #define GNOME_CMD_CLIST_CLASS(klass) \
@@ -74,7 +72,5 @@ gnome_cmd_clist_get_row             (GnomeCmdCList *clist, gint x, gint y);
 
 void
 gnome_cmd_clist_set_drag_row        (GnomeCmdCList *clist, gint row);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CLIST_H__

@@ -20,8 +20,6 @@
 #ifndef __GNOME_CMD_SMB_NET_H__
 #define __GNOME_CMD_SMB_NET_H__
 
-G_BEGIN_DECLS
-
 typedef enum
 {
     SMB_WORKGROUP,
@@ -41,7 +39,5 @@ typedef struct
 
 
 SmbEntity *gnome_cmd_smb_net_get_entity (const gchar *name);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_SMB_NET_H__

@@ -19,8 +19,6 @@
 #ifndef __GNOME_CMD_PATH_H__
 #define __GNOME_CMD_PATH_H__
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_PATH(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_path_get_type (), GnomeCmdPath)
 #define GNOME_CMD_PATH_CLASS(klass) \
@@ -65,7 +63,5 @@ gnome_cmd_path_get_parent (GnomeCmdPath *path);
 
 GnomeCmdPath *
 gnome_cmd_path_get_child (GnomeCmdPath *path, const gchar *child);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_PATH_H__

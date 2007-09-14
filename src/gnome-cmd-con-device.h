@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-con.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CON_DEVICE(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_con_device_get_type (), GnomeCmdConDevice)
 #define GNOME_CMD_CON_DEVICE_CLASS(klass) \
@@ -102,7 +100,5 @@ gnome_cmd_con_device_get_autovol     (GnomeCmdConDevice *dev);
 
 GnomeVFSVolume *
 gnome_cmd_con_device_get_vfs_volume    (GnomeCmdConDevice *dev);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CON_DEVICE_H__

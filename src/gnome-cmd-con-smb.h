@@ -21,8 +21,6 @@
 
 #include "gnome-cmd-con.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CON_SMB(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_con_smb_get_type (), GnomeCmdConSmb)
 #define GNOME_CMD_CON_SMB_CLASS(klass) \
@@ -54,7 +52,5 @@ gnome_cmd_con_smb_get_type (void);
 
 GnomeCmdCon *
 gnome_cmd_con_smb_new (void);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CON_SMB_H__

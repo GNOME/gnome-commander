@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-con.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CON_FTP(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_con_ftp_get_type (), GnomeCmdConFtp)
 #define GNOME_CMD_CON_FTP_CLASS(klass) \
@@ -102,7 +100,5 @@ gnome_cmd_con_ftp_get_pw              (GnomeCmdConFtp *fs);
 
 const gchar *
 gnome_cmd_con_ftp_get_remote_dir      (GnomeCmdConFtp *fs);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CON_FTP_H__

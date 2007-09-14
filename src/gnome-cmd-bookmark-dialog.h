@@ -21,8 +21,6 @@
 
 #include "gnome-cmd-types.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_BOOKMARK_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_bookmark_dialog_get_type (), GnomeCmdBookmarkDialog)
 #define GNOME_CMD_BOOKMARK_DIALOG_CLASS(klass) \
@@ -67,7 +65,5 @@ gnome_cmd_bookmark_add_current (void);
 
 void
 gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_BOOKMARK_DIALOG_H__

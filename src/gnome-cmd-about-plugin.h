@@ -31,8 +31,6 @@
 
 #include <gtk/gtkdialog.h>
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_TYPE_ABOUT_PLUGIN            (gnome_cmd_about_plugin_get_type ())
 #define GNOME_CMD_ABOUT_PLUGIN(object)         (G_TYPE_CHECK_INSTANCE_CAST ((object), GNOME_CMD_TYPE_ABOUT_PLUGIN, GnomeCmdAboutPlugin))
 #define GNOME_CMD_ABOUT_PLUGIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GNOME_TYPE_ABOUT, GnomeCmdAboutPluginClass))
@@ -58,7 +56,5 @@ struct _GnomeCmdAboutPluginClass {
 GType gnome_cmd_about_plugin_get_type (void) G_GNUC_CONST;
 
 GtkWidget *gnome_cmd_about_plugin_new (PluginInfo *info);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_ABOUT_PLUGIN_H__

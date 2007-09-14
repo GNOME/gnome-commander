@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-dir.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_SEARCH_DIALOG(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_search_dialog_get_type (), GnomeCmdSearchDialog)
 #define GNOME_CMD_SEARCH_DIALOG_CLASS(klass) \
@@ -57,7 +55,5 @@ gnome_cmd_search_dialog_get_type            (void);
 
 GtkWidget*
 gnome_cmd_search_dialog_new                 (GnomeCmdDir *default_dir);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_SEARCH_DIALOG_H__

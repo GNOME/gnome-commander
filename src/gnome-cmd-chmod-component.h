@@ -22,8 +22,6 @@
 
 #include "gnome-cmd-file.h"
 
-G_BEGIN_DECLS
-
 #define GNOME_CMD_CHMOD_COMPONENT(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_chmod_component_get_type (), GnomeCmdChmodComponent)
 #define GNOME_CMD_CHMOD_COMPONENT_CLASS(klass) \
@@ -65,7 +63,5 @@ gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *component);
 void
 gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component,
                                      GnomeVFSFilePermissions perms);
-
-G_END_DECLS
 
 #endif // __GNOME_CMD_CHMOD_COMPONENT_H__

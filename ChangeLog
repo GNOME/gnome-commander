@@ -1,3 +1,9 @@
+2007-09-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/*.h:
+	* src/tags/*.h:
+	Get rid of G_BEGIN_DECLS and G_END_DECLS
+
 2007-09-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-popmenu.cc:
