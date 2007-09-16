@@ -3960,14 +3960,24 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>LEFT</keycap></keycombo></para></entry>
+            <entry><para>Copy the current working directory from the active left file list to the right one</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
+            <entry><para>Copy the current working directory from the active right file list to the left one</para></entry>
+            <entry><para>yes</para></entry>
+        </row>
+        <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo></entry>
             <entry><para>Copy the current working directory from the inactive file list to the active one</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></keycombo></entry>
             <entry><para>Copy the current working directory from the active file list to the inactive one</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -4411,6 +4421,26 @@
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>view.in_active_pane</para></entry>
+                        <entry><para>Copy the current working directory from the inactive file list to the active one</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.in_inactive_pane</para></entry>
+                        <entry><para>Copy the current working directory from the active file list to the inactive one</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>.</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.in_left_pane</para></entry>
+                        <entry><para>Copy the current working directory from the active right file list to the left one</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>LEFT</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.in_right_pane</para></entry>
+                        <entry><para>Copy the current working directory from the active left file list to the rigth one</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>RIGHT</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>view.last</para></entry>
                         <entry><para>Go forward to the last visited directory</para></entry>
                         <entry><para></para></entry>
@@ -4435,7 +4465,7 @@
     <sect2 id="gnome-commander-user-actions-keys">
         <title>List of key symbols</title>
         <tip>
-            <para>Key names are case insensitive (&lt;ctrl&gt;a=&lt;ctrl&gt;A).</para>
+            <para>Key names are case insensitive (&lt;ctrl&gt; a&#x2261; &lt;CtRl&gt;A).</para>
         </tip>
         <itemizedlist>
             <listitem>
@@ -5623,6 +5653,7 @@
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
+                                    <para><keycap>CTRL+LEFT/RIGHT</keycap>   Copying the current working directory from the active file list to the inactive one</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>

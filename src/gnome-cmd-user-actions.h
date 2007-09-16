@@ -148,6 +148,10 @@ GNOME_CMD_USER_ACTION(view_forward);
 GNOME_CMD_USER_ACTION(view_last);
 GNOME_CMD_USER_ACTION(view_refresh);
 GNOME_CMD_USER_ACTION(view_equal_panes);
+GNOME_CMD_USER_ACTION(view_in_left_pane);
+GNOME_CMD_USER_ACTION(view_in_right_pane);
+GNOME_CMD_USER_ACTION(view_in_active_pane);
+GNOME_CMD_USER_ACTION(view_in_inactive_pane);
 
 /************** Bookmarks Menu **************/
 GNOME_CMD_USER_ACTION(bookmarks_add_current);

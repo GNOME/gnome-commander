@@ -33,6 +33,7 @@ typedef struct _GnomeCmdFileSelector GnomeCmdFileSelector;
 typedef struct _GnomeCmdFileSelectorPrivate GnomeCmdFileSelectorPrivate;
 typedef struct _GnomeCmdFileSelectorClass GnomeCmdFileSelectorClass;
 
+typedef struct _GnomeCmdMainWin GnomeCmdMainWin;
 
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-con.h"
@@ -81,6 +82,8 @@ GtkWidget* gnome_cmd_file_selector_new (void);
 
 GnomeCmdDir *gnome_cmd_file_selector_get_directory (GnomeCmdFileSelector *fs);
 void gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
+
+void gnome_cmd_file_selector_set_same_directory (GnomeCmdMainWin *mw, FileSelectorID fsID, FileSelectorID otherID);
 
 void gnome_cmd_file_selector_goto_directory (GnomeCmdFileSelector *fs, const gchar *dir);
 

@@ -91,9 +91,11 @@ CTRL+T          Multi-Rename-Tool
 
 TAB             Switch between left and right file list
 CTRL+U          Switch between left and right file list
-CTRL+.          Copy the current working directory from the inactive file-list
+CTRL+.          Copy the current working directory from the inactive file list
                 to the active one
-CTRL+SHIFT+.    Copy the current working directory from the active file-list
+CTRL+SHIFT+.    Copy the current working directory from the active file list
+                to the inactive one
+CTRL+LEFT/RIGHT Copy the current working directory from the active file list
                 to the inactive one
 
 CTRL+R          Refresh the active file list

@@ -1,3 +1,12 @@
+2007-09-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-file-selector.h:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Added CTRL+LEFT/RIGHT shortcuts to copy the cwd from the active filelist to
+	the inactive one
+
 2007-09-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/*.h:

@@ -87,15 +87,31 @@ static guint file_selector_signals[LAST_SIGNAL] = { 0 };
  * Utility functions
  *******************************/
 
-inline void set_same_directory (GnomeCmdFileSelector *fs, GnomeCmdFileSelector *other)
-{
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (other);
-    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (other);
 
-    if (fs->priv->con != con)
-        gnome_cmd_file_selector_set_connection (fs, con, dir);
+void gnome_cmd_file_selector_set_same_directory (GnomeCmdMainWin *mw, FileSelectorID fsID, FileSelectorID otherID)
+{
+    g_return_if_fail (mw!=NULL);
+    g_return_if_fail (mw->priv!=NULL);
+
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, fsID);
+    GnomeCmdFileSelector *other = gnome_cmd_main_win_get_fs (mw, !fsID);
+
+    gboolean fs_is_active = fs->priv->active;
+
+    if (fs_is_active)
+        gnome_cmd_file_selector_set_directory (fs, gnome_cmd_file_selector_get_directory (other));
     else
-        gnome_cmd_file_selector_set_directory (fs, dir);
+    {
+        GnomeCmdFile *file = gnome_cmd_file_list_get_selected_file (other->list);
+
+        if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+            gnome_cmd_file_selector_goto_directory (fs, gnome_cmd_file_get_real_path (file));
+        else
+            gnome_cmd_file_selector_set_directory (fs, gnome_cmd_file_selector_get_directory (other));
+    }
+
+    gnome_cmd_file_selector_set_active (other, !fs_is_active);
+    gnome_cmd_file_selector_set_active (fs, fs_is_active);
 }
 
 
@@ -1937,10 +1953,6 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
             case GDK_KP_Enter:
                 add_file_to_cmdline (fs, TRUE);
                 return TRUE;
-
-            case GDK_greater:
-                set_same_directory (gnome_cmd_main_win_get_fs (main_win, INACTIVE), fs);
-                return TRUE;
         }
     }
     else if (state_is_shift (event->state))
@@ -2012,10 +2024,6 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
             case GDK_Return:
             case GDK_KP_Enter:
                 add_file_to_cmdline (fs, FALSE);
-                return TRUE;
-
-            case GDK_period:
-                set_same_directory (fs, gnome_cmd_main_win_get_fs (main_win, INACTIVE));
                 return TRUE;
         }
     }

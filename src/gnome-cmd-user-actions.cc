@@ -250,6 +250,10 @@ void GnomeCmdUserActions::init()
     actions.add(view_equal_panes, "view.equal_panes");
     actions.add(view_first, "view.first");
     actions.add(view_forward, "view.forward");
+    actions.add(view_in_active_pane, "view.in_active_pane");
+    actions.add(view_in_inactive_pane, "view.in_inactive_pane");
+    actions.add(view_in_left_pane, "view.in_left_pane");
+    actions.add(view_in_right_pane, "view.in_right_pane");
     actions.add(view_last, "view.last");
     actions.add(view_refresh, "view.refresh");
     actions.add(view_up, "view.up");
@@ -328,6 +332,24 @@ void GnomeCmdUserActions::init()
     {
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_equal, "view.equal_panes");
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_plus, "view.equal_panes");
+    }
+
+    if (!registered("view.in_active_pane"))
+        register_action(GDK_CONTROL_MASK, GDK_period, "view.in_active_pane");
+
+    if (!registered("view.in_inactive_pane"))
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_greater, "view.in_inactive_pane");
+
+    if (!registered("view.in_left_pane"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_Left, "view.in_left_pane");
+        register_action(GDK_CONTROL_MASK, GDK_KP_Left, "view.in_left_pane");
+    }
+
+    if (!registered("view.in_right_pane"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_Right, "view.in_right_pane");
+        register_action(GDK_CONTROL_MASK, GDK_KP_Right, "view.in_right_pane");
     }
 
     if (!registered("view.refresh"))
@@ -1053,6 +1075,30 @@ void view_refresh (GtkMenuItem *menuitem, gpointer not_used)
 void view_equal_panes (GtkMenuItem *menuitem, gpointer not_used)
 {
     gnome_cmd_main_win_set_equal_panes ((GnomeCmdMainWin *) GTK_WIDGET (main_win));
+}
+
+
+void view_in_left_pane (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_file_selector_set_same_directory ((GnomeCmdMainWin *) GTK_WIDGET (main_win), LEFT, RIGHT);
+}
+
+
+void view_in_right_pane (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_file_selector_set_same_directory ((GnomeCmdMainWin *) GTK_WIDGET (main_win), RIGHT, LEFT);
+}
+
+
+void view_in_active_pane (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_file_selector_set_same_directory ((GnomeCmdMainWin *) GTK_WIDGET (main_win), ACTIVE, INACTIVE);
+}
+
+
+void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_file_selector_set_same_directory ((GnomeCmdMainWin *) GTK_WIDGET (main_win), INACTIVE, ACTIVE);
 }
 
 
