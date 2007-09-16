@@ -293,7 +293,7 @@ static gboolean file_is_wanted (GnomeCmdFileSelector *fs, GnomeVFSFileInfo *info
 }
 
 
-static GnomeCmdFile *create_parent_dir_file (GnomeCmdDir *dir)
+inline GnomeCmdFile *create_parent_dir_file (GnomeCmdDir *dir)
 {
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
 
@@ -307,8 +307,7 @@ static GnomeCmdFile *create_parent_dir_file (GnomeCmdDir *dir)
                                                    GNOME_VFS_FILE_INFO_FIELDS_SIZE |
                                                    GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE);
 
-    GnomeCmdFile *finfo = gnome_cmd_file_new (info, dir);
-    return finfo;
+    return gnome_cmd_file_new (info, dir);
 }
 
 
@@ -599,12 +598,7 @@ static void autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
 }
 
 
-static gboolean
-drag_motion (GtkWidget *widget,
-             GdkDragContext *context,
-             gint x, gint y,
-             guint time,
-             GnomeCmdFileSelector *fs)
+static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time, GnomeCmdFileSelector *fs)
 {
     gdk_drag_status (context, context->suggested_action, time);
 
@@ -791,7 +785,7 @@ inline gboolean file_is_in_list (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
 }
 
 
-static void add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
+inline void add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -1159,9 +1153,9 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
 {
     if (state_is_blank (event->state) || state_is_shift (event->state))
     {
-        if ((event->keyval >= GDK_A && event->keyval <= GDK_Z)
-            || (event->keyval >= GDK_a && event->keyval <= GDK_z)
-            || event->keyval == GDK_period)
+        if ((event->keyval >= GDK_A && event->keyval <= GDK_Z) ||
+            (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
+            event->keyval == GDK_period)
         {
             static gchar text[2];
 
