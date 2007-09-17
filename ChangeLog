@@ -1,3 +1,9 @@
+2007-09-17  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/utils.cc:
+	* src/utils.h:
+	Added split() function
+
 2007-09-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:

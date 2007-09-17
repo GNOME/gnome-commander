@@ -1347,3 +1347,35 @@ void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id)
     if (error != NULL)
         gnome_cmd_error_message(_("There was an error displaying help."), error);
 }
+
+
+int split(const string &s, vector<string> &coll, const char *sep)
+{
+  coll.clear();
+
+  if (s.empty())  return 0;
+
+  if (!sep)  sep = "";
+  int seplen = strlen(sep);
+
+  if (!seplen)
+  {
+    for (string::const_iterator i=s.begin(); i!=s.end(); ++i)
+      coll.push_back(string(1,*i));
+
+    return s.length();
+  }
+
+  int n = 1;
+  int start = 0;
+
+  for (int end; (end=s.find(sep,start))!=string::npos; ++n)
+  {
+    coll.push_back(string(s,start,end-start));
+    start = end + seplen;
+  }
+
+  coll.push_back(string(s,start));
+
+  return n;
+}

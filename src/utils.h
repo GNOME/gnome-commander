@@ -21,6 +21,7 @@
 #define __UTILS_H__
 
 #include <string>
+#include <vector>
 #include <iostream>
 
 #include <stdio.h>
@@ -229,6 +230,8 @@ inline std::string stringify(gchar *val)
 
     return val ? stringify(s,val) : s;
 }
+
+int split(const std::string &s, std::vector<std::string> &coll, const char *sep);
 
 template <typename Iterator>
 inline std::ostream &join(std::ostream &os, Iterator beg, Iterator end, const std::string sep=" ")
