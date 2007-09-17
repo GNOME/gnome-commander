@@ -1251,13 +1251,13 @@ on_app_moved (GtkCList *clist, gint arg1, gint arg2, GtkWidget *frame)
 }
 
 
-static void
-on_app_remove (GtkWidget *button, GtkWidget *frame)
+static void on_app_remove (GtkWidget *button, GtkWidget *frame)
 {
     GnomeCmdApp *app;
     GtkCList *clist = GTK_CLIST (lookup_widget (frame, "app_clist"));
 
-    if (clist->focus_row >= 0) {
+    if (clist->focus_row >= 0)
+    {
         app = (GnomeCmdApp *) gtk_clist_get_row_data (clist, clist->focus_row);
         gnome_cmd_data_remove_fav_app (app);
         gtk_clist_remove (clist, clist->focus_row);
@@ -1275,8 +1275,7 @@ on_app_move_up (GtkWidget *button, GtkWidget *frame)
 }
 
 
-static void
-on_app_move_down (GtkWidget *button, GtkWidget *frame)
+static void on_app_move_down (GtkWidget *button, GtkWidget *frame)
 {
     GtkCList *clist = GTK_CLIST (lookup_widget (frame, "app_clist"));
 
@@ -1285,8 +1284,7 @@ on_app_move_down (GtkWidget *button, GtkWidget *frame)
 }
 
 
-static GtkWidget*
-create_programs_tab (GtkWidget *parent)
+static GtkWidget *create_programs_tab (GtkWidget *parent)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *table;
     GtkWidget *entry, *button, *label, *clist, *bbox, *check;
@@ -1380,8 +1378,7 @@ create_programs_tab (GtkWidget *parent)
 }
 
 
-static void
-store_programs_options (GnomeCmdOptionsDialog *dialog)
+static void store_programs_options (GnomeCmdOptionsDialog *dialog)
 {
     GtkWidget *entry1 = lookup_widget (GTK_WIDGET (dialog), "viewer");
     GtkWidget *entry2 = lookup_widget (GTK_WIDGET (dialog), "editor");
@@ -1406,8 +1403,7 @@ store_programs_options (GnomeCmdOptionsDialog *dialog)
  *
  **********************************************************************/
 
-static void
-add_device_to_list (GtkCList *clist, GnomeCmdConDevice *dev)
+static void add_device_to_list (GtkCList *clist, GnomeCmdConDevice *dev)
 {
     gchar *text[2];
     gint row;
@@ -1450,16 +1446,13 @@ update_device_in_list (GtkCList *clist, GnomeCmdConDevice *dev,
 }
 
 
-static void
-on_device_dialog_cancel (GtkButton *button, GtkWidget *dialog)
+static void on_device_dialog_cancel (GtkButton *button, GtkWidget *dialog)
 {
     gtk_widget_destroy (dialog);
 }
 
 
-static void
-get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device,
-                          gchar **mountp, gchar **icon_path)
+static void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device, gchar **mountp, gchar **icon_path)
 {
     GtkWidget *alias_entry = lookup_widget (dialog, "alias_entry");
     GtkWidget *device_entry = lookup_widget (dialog, "device_entry");
@@ -1473,8 +1466,7 @@ get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **device,
 }
 
 
-static void
-on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
+static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
 {
     GnomeCmdConDevice *dev;
     gchar *alias, *device, *mountp, *icon_path;
@@ -1489,7 +1481,7 @@ on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (dev));
     gtk_widget_destroy (dialog);
 
-    gnome_cmd_con_list_add_device (gnome_cmd_data_get_con_list (), dev);
+    gnome_cmd_con_list_add_device (gnome_cmd_con_list_get (), dev);
 
     g_free (alias);
     g_free (device);
@@ -1614,9 +1606,9 @@ on_device_remove (GtkWidget *button, GtkWidget *frame)
     if (clist->focus_row >= 0)
     {
         GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_clist_get_row_data (clist, clist->focus_row));
-        gnome_cmd_con_list_remove_device (gnome_cmd_data_get_con_list (), dev);
+        gnome_cmd_con_list_remove_device (gnome_cmd_con_list_get (), dev);
         gtk_clist_remove (clist, clist->focus_row);
-        gnome_cmd_con_list_remove_device (gnome_cmd_data_get_con_list (), dev);
+        gnome_cmd_con_list_remove_device (gnome_cmd_con_list_get (), dev);
     }
 }
 
@@ -1639,8 +1631,7 @@ on_device_selected (GtkCList *clist, gint row, gint column,
 static void
 on_device_moved (GtkCList *clist, gint arg1, gint arg2, GtkWidget *frame)
 {
-    GList *list = gnome_cmd_con_list_get_all_dev (gnome_cmd_data_get_con_list ());
-    gpointer data;
+    GList *list = gnome_cmd_con_list_get_all_dev (gnome_cmd_con_list_get ());
 
     if (!list
         || MAX (arg1, arg2) >= g_list_length (list)
@@ -1648,12 +1639,12 @@ on_device_moved (GtkCList *clist, gint arg1, gint arg2, GtkWidget *frame)
         || arg1 == arg2)
         return;
 
-    data = g_list_nth_data (list, arg1);
+    gpointer data = g_list_nth_data (list, arg1);
     list = g_list_remove (list, data);
 
     list = g_list_insert (list, data, arg2);
 
-    gnome_cmd_con_list_set_all_dev (gnome_cmd_data_get_con_list (), list);
+    gnome_cmd_con_list_set_all_dev (gnome_cmd_con_list_get (), list);
 }
 
 
@@ -1740,7 +1731,7 @@ create_devices_tab (GtkWidget *parent)
 
 
     clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (parent), "device_clist");
-    for (devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_data_get_con_list ()); devices; devices = devices->next)
+    for (devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_con_list_get ()); devices; devices = devices->next)
         if (!gnome_cmd_con_device_get_autovol((GnomeCmdConDevice *) devices->data))
             add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));
 

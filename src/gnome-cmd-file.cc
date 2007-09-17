@@ -27,6 +27,7 @@
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-main-win.h"
+#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
 #include "tags/gnome-cmd-tags.h"
 #include "libgviewer/libgviewer.h"
@@ -740,7 +741,6 @@ gnome_cmd_file_view (GnomeCmdFile *finfo, gint internal_viewer)
     gchar *path_str;
     GnomeCmdPath *path;
     GnomeVFSURI *src_uri, *dest_uri;
-    GnomeCmdCon *con;
 
     // If the file is local there is no need to download it
     if (gnome_cmd_dir_is_local (get_parent_dir (finfo)))
@@ -757,8 +757,7 @@ gnome_cmd_file_view (GnomeCmdFile *finfo, gint internal_viewer)
 
     path = gnome_cmd_plain_path_new (path_str);
     src_uri = gnome_cmd_file_get_uri (finfo);
-    con = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
-    dest_uri = gnome_cmd_con_create_uri (con, path);
+    dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
 
     g_printerr ("Copying to: %s\n", path_str);
     gtk_object_destroy (GTK_OBJECT (path));

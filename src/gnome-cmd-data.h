@@ -25,7 +25,6 @@ typedef struct _GnomeCmdDataPrivate GnomeCmdDataPrivate;
 
 #include "gnome-cmd-app.h"
 #include "gnome-cmd-types.h"
-#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-file-list.h"
 #include "filter.h"
 #include "history.h"
@@ -79,397 +78,194 @@ typedef struct
 } FilterSettings;
 
 
+GnomeCmdData *gnome_cmd_data_new (void);
+void gnome_cmd_data_free (void);
 
-GnomeCmdData*
-gnome_cmd_data_new                       (void);
+void gnome_cmd_data_save (void);
+void gnome_cmd_data_load (void);
+void gnome_cmd_data_load_more (void);
 
-void
-gnome_cmd_data_free                      (void);
+gpointer gnome_cmd_data_get_con_list (void);
 
-void
-gnome_cmd_data_save                      (void);
+void gnome_cmd_data_add_fav_app (GnomeCmdApp *app);
+void gnome_cmd_data_remove_fav_app (GnomeCmdApp *app);
+GList *gnome_cmd_data_get_fav_apps (void);
+void gnome_cmd_data_set_fav_apps (GList *apps);
 
-void
-gnome_cmd_data_load                      (void);
+const gchar *gnome_cmd_data_get_ftp_anonymous_password (void);
+void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
 
-void
-gnome_cmd_data_load_more                 (void);
+GnomeCmdSizeDispMode gnome_cmd_data_get_size_disp_mode (void);
+void gnome_cmd_data_set_size_disp_mode (GnomeCmdSizeDispMode mode);
 
-GnomeCmdConList *
-gnome_cmd_data_get_con_list              (void);
+GnomeCmdPermDispMode gnome_cmd_data_get_perm_disp_mode (void);
+void gnome_cmd_data_set_perm_disp_mode (GnomeCmdPermDispMode mode);
 
-void
-gnome_cmd_data_add_fav_app                (GnomeCmdApp *app);
+GnomeCmdDateFormat gnome_cmd_data_get_date_format (void);
+void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format);
 
-void
-gnome_cmd_data_remove_fav_app             (GnomeCmdApp *app);
+GnomeCmdLayout gnome_cmd_data_get_layout (void);
+void gnome_cmd_data_set_layout (GnomeCmdLayout layout);
 
-GList*
-gnome_cmd_data_get_fav_apps               (void);
+GnomeCmdColorMode gnome_cmd_data_get_color_mode (void);
+void gnome_cmd_data_set_color_mode (GnomeCmdColorMode mode);
 
-void
-gnome_cmd_data_set_fav_apps               (GList *apps);
+GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme (void);
+GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme (void);
 
+gint gnome_cmd_data_get_list_row_height (void);
+void gnome_cmd_data_set_list_row_height (gint height);
 
-const gchar *
-gnome_cmd_data_get_ftp_anonymous_password (void);
+GnomeCmdExtDispMode gnome_cmd_data_get_ext_disp_mode (void);
+void gnome_cmd_data_set_ext_disp_mode (GnomeCmdExtDispMode mode);
 
-void
-gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
+FilterSettings *gnome_cmd_data_get_filter_settings (void);
+gboolean gnome_cmd_data_get_type_filter (GnomeVFSFileType type);
+void gnome_cmd_data_set_hidden_filter (gboolean hide);
+gboolean gnome_cmd_data_get_hidden_filter (void);
+gboolean gnome_cmd_data_get_backup_filter (void);
+gboolean gnome_cmd_data_get_other_filter (void);
 
-GnomeCmdSizeDispMode
-gnome_cmd_data_get_size_disp_mode        (void);
+void gnome_cmd_data_get_main_win_size (gint *width, gint *height);
+void gnome_cmd_data_set_main_win_size (gint width, gint height);
 
-void
-gnome_cmd_data_set_size_disp_mode        (GnomeCmdSizeDispMode mode);
+void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direction);
+void gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction);
 
-GnomeCmdPermDispMode
-gnome_cmd_data_get_perm_disp_mode        (void);
+const gchar *gnome_cmd_data_get_viewer (void);
+const gchar *gnome_cmd_data_get_editor (void);
+const gchar *gnome_cmd_data_get_differ (void);
 
-void
-gnome_cmd_data_set_perm_disp_mode        (GnomeCmdPermDispMode mode);
+void gnome_cmd_data_set_viewer (const gchar *command);
+void gnome_cmd_data_set_editor (const gchar *command);
+void gnome_cmd_data_set_differ (const gchar *command);
 
-GnomeCmdDateFormat
-gnome_cmd_data_get_date_format           (void);
+gboolean gnome_cmd_data_get_case_sens_sort (void);
+void gnome_cmd_data_set_case_sens_sort (gboolean value);
 
-void
-gnome_cmd_data_set_date_format           (GnomeCmdDateFormat format);
+gboolean gnome_cmd_data_get_confirm_delete (void);
+void gnome_cmd_data_set_confirm_delete (gboolean value);
 
-GnomeCmdLayout
-gnome_cmd_data_get_layout                (void);
+GnomeCmdConfirmOverwriteMode gnome_cmd_data_get_confirm_overwrite_copy(void);
+void gnome_cmd_data_set_confirm_overwrite_copy(GnomeCmdConfirmOverwriteMode value);
+GnomeCmdConfirmOverwriteMode gnome_cmd_data_get_confirm_overwrite_move(void);
+void gnome_cmd_data_set_confirm_overwrite_move(GnomeCmdConfirmOverwriteMode value);
 
-void
-gnome_cmd_data_set_layout                (GnomeCmdLayout layout);
+const gchar *gnome_cmd_data_get_list_font (void);
+void gnome_cmd_data_set_list_font (const gchar *list_font);
 
-GnomeCmdColorMode
-gnome_cmd_data_get_color_mode            (void);
+GnomeCmdRightMouseButtonMode gnome_cmd_data_get_right_mouse_button_mode (void);
+void gnome_cmd_data_set_right_mouse_button_mode (GnomeCmdRightMouseButtonMode mode);
 
-void
-gnome_cmd_data_set_color_mode            (GnomeCmdColorMode mode);
+const gchar *gnome_cmd_data_get_term (void);
+void gnome_cmd_data_set_term (const gchar *shell);
 
-GnomeCmdColorTheme*
-gnome_cmd_data_get_custom_color_theme    (void);
+gboolean gnome_cmd_data_get_show_toolbar (void);
+void gnome_cmd_data_set_show_toolbar (gboolean value);
 
-GnomeCmdColorTheme*
-gnome_cmd_data_get_current_color_theme   (void);
+guint gnome_cmd_data_get_icon_size (void);
+void gnome_cmd_data_set_icon_size (guint size);
 
-gint
-gnome_cmd_data_get_list_row_height       (void);
+guint gnome_cmd_data_get_dev_icon_size (void);
+GdkInterpType gnome_cmd_data_get_icon_scale_quality (void);
+void gnome_cmd_data_set_icon_scale_quality (GdkInterpType quality);
 
-void
-gnome_cmd_data_set_list_row_height       (gint height);
+const gchar *gnome_cmd_data_get_theme_icon_dir (void);
+void gnome_cmd_data_set_theme_icon_dir (const gchar *dir);
 
-void
-gnome_cmd_data_set_ext_disp_mode        (GnomeCmdExtDispMode mode);
+const gchar *gnome_cmd_data_get_document_icon_dir (void);
+void gnome_cmd_data_set_document_icon_dir (const gchar *dir);
 
-GnomeCmdExtDispMode
-gnome_cmd_data_get_ext_disp_mode        (void);
+gint gnome_cmd_data_get_fs_col_width (guint column);
+void gnome_cmd_data_set_fs_col_width (guint column, gint width);
 
-FilterSettings *
-gnome_cmd_data_get_filter_settings      (void);
+gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column);
+void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width);
 
-gboolean
-gnome_cmd_data_get_type_filter          (GnomeVFSFileType type);
+gint gnome_cmd_data_get_cmdline_history_length (void);
+void gnome_cmd_data_set_cmdline_history_length (gint length);
+GList *gnome_cmd_data_get_cmdline_history (void);
 
-void
-gnome_cmd_data_set_hidden_filter        (gboolean hide);
+GtkReliefStyle gnome_cmd_data_get_button_relief (void);
+void gnome_cmd_data_set_button_relief (GtkReliefStyle relief);
 
-gboolean
-gnome_cmd_data_get_hidden_filter        (void);
+FilterType gnome_cmd_data_get_filter_type (void);
+void gnome_cmd_data_set_filter_type (FilterType type);
 
-gboolean
-gnome_cmd_data_get_backup_filter        (void);
+gboolean gnome_cmd_data_get_device_only_icon (void);
+void gnome_cmd_data_set_device_only_icon (gboolean value);
 
-gboolean
-gnome_cmd_data_get_other_filter         (void);
+gint gnome_cmd_data_get_dir_cache_size (void);
+void gnome_cmd_data_set_dir_cache_size (gint size);
 
-void
-gnome_cmd_data_set_main_win_size        (gint width, gint height);
+gboolean gnome_cmd_data_get_use_ls_colors (void);
+void gnome_cmd_data_set_use_ls_colors (gboolean value);
 
-void
-gnome_cmd_data_get_main_win_size        (gint *width, gint *height);
+SearchDefaults *gnome_cmd_data_get_search_defaults (void);
 
-void
-gnome_cmd_data_get_sort_params          (GnomeCmdFileList *fl, gint *col, gboolean *direction);
+const gchar *gnome_cmd_data_get_quick_connect_host (void);
+void gnome_cmd_data_set_quick_connect_host (const gchar *value);
+const gchar *gnome_cmd_data_get_quick_connect_user (void);
+void gnome_cmd_data_set_quick_connect_user (const gchar *value);
+gint gnome_cmd_data_get_quick_connect_port (void);
+void gnome_cmd_data_set_quick_connect_port (gint value);
 
-void
-gnome_cmd_data_set_sort_params          (GnomeCmdFileList *fl, gint col, gboolean direction);
+GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks (void);
+GList *gnome_cmd_data_get_bookmark_groups (void);
 
-void
-gnome_cmd_data_set_viewer               (const gchar *command);
+gboolean gnome_cmd_data_get_honor_expect_uris (void);
+void gnome_cmd_data_set_honor_expect_uris (gboolean value);
 
-void
-gnome_cmd_data_set_editor               (const gchar *command);
+gboolean gnome_cmd_data_get_use_internal_viewer (void);
+void gnome_cmd_data_set_use_internal_viewer (gboolean value);
 
-void
-gnome_cmd_data_set_differ               (const gchar *command);
+gboolean gnome_cmd_data_get_alt_quick_search (void);
+void gnome_cmd_data_set_alt_quick_search (gboolean value);
 
-const gchar *
-gnome_cmd_data_get_viewer               (void);
+gboolean gnome_cmd_data_get_skip_mounting (void);
+void gnome_cmd_data_set_skip_mounting (gboolean value);
 
-const gchar *
-gnome_cmd_data_get_editor               (void);
+gboolean gnome_cmd_data_get_toolbar_visibility (void);
+void gnome_cmd_data_set_toolbar_visibility (gboolean value);
 
-const gchar *
-gnome_cmd_data_get_differ               (void);
+gboolean gnome_cmd_data_get_buttonbar_visibility (void);
+void gnome_cmd_data_set_buttonbar_visibility (gboolean value);
 
-gboolean
-gnome_cmd_data_get_case_sens_sort       (void);
+AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults (void);
 
-void
-gnome_cmd_data_set_case_sens_sort       (gboolean value);
+gboolean gnome_cmd_data_get_list_orientation (void);
+void gnome_cmd_data_set_list_orientation (gboolean vertical);
 
-gboolean
-gnome_cmd_data_get_confirm_delete       (void);
+gboolean gnome_cmd_data_get_conbuttons_visibility (void);
+void gnome_cmd_data_set_conbuttons_visibility (gboolean value);
 
-void
-gnome_cmd_data_set_confirm_delete       (gboolean value);
+gboolean gnome_cmd_data_get_cmdline_visibility (void);
+void gnome_cmd_data_set_cmdline_visibility (gboolean value);
 
-GnomeCmdConfirmOverwriteMode
-gnome_cmd_data_get_confirm_overwrite_copy(void);
+const gchar *gnome_cmd_data_get_start_dir (gboolean fs);
+void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir);
 
-void
-gnome_cmd_data_set_confirm_overwrite_copy(GnomeCmdConfirmOverwriteMode value);
+const gchar *gnome_cmd_data_get_last_pattern (void);
+void gnome_cmd_data_set_last_pattern (const gchar *value);
 
-GnomeCmdConfirmOverwriteMode
-gnome_cmd_data_get_confirm_overwrite_move(void);
+GList *gnome_cmd_data_get_auto_load_plugins ();
+void gnome_cmd_data_set_auto_load_plugins (GList *plugins);
 
-void
-gnome_cmd_data_set_confirm_overwrite_move(GnomeCmdConfirmOverwriteMode value);
+guint gnome_cmd_data_get_gui_update_rate (void);
 
-const gchar *
-gnome_cmd_data_get_list_font             (void);
+void gnome_cmd_data_get_main_win_pos (gint *x, gint *y);
+void gnome_cmd_data_set_main_win_pos (gint x, gint y);
 
-void
-gnome_cmd_data_set_list_font             (const gchar *list_font);
+const gchar *gnome_cmd_data_get_backup_pattern (void);
+void gnome_cmd_data_set_backup_pattern (const gchar *value);
 
-void
-gnome_cmd_data_set_right_mouse_button_mode (GnomeCmdRightMouseButtonMode mode);
+GList *gnome_cmd_data_get_backup_pattern_list (void);
 
-GnomeCmdRightMouseButtonMode
-gnome_cmd_data_get_right_mouse_button_mode (void);
+GdkWindowState gnome_cmd_data_get_main_win_state (void);
+void gnome_cmd_data_set_main_win_state (GdkWindowState state);
 
-void
-gnome_cmd_data_set_term                (const gchar *shell);
-
-const gchar *
-gnome_cmd_data_get_term                (void);
-
-void
-gnome_cmd_data_set_show_toolbar        (gboolean value);
-
-gboolean
-gnome_cmd_data_get_show_toolbar        (void);
-
-guint
-gnome_cmd_data_get_icon_size           (void);
-
-void
-gnome_cmd_data_set_icon_size           (guint size);
-
-guint
-gnome_cmd_data_get_dev_icon_size       (void);
-
-GdkInterpType
-gnome_cmd_data_get_icon_scale_quality  (void);
-
-void
-gnome_cmd_data_set_icon_scale_quality  (GdkInterpType quality);
-
-const gchar *
-gnome_cmd_data_get_theme_icon_dir      (void);
-
-void
-gnome_cmd_data_set_theme_icon_dir      (const gchar *dir);
-
-const gchar *
-gnome_cmd_data_get_document_icon_dir   (void);
-
-void
-gnome_cmd_data_set_document_icon_dir   (const gchar *dir);
-
-void
-gnome_cmd_data_set_fs_col_width        (guint column, gint width);
-
-gint
-gnome_cmd_data_get_fs_col_width        (guint column);
-
-void
-gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width);
-
-gint
-gnome_cmd_data_get_bookmark_dialog_col_width (guint column);
-
-gint
-gnome_cmd_data_get_cmdline_history_length (void);
-
-void
-gnome_cmd_data_set_cmdline_history_length (gint length);
-
-GList *
-gnome_cmd_data_get_cmdline_history     (void);
-
-void
-gnome_cmd_data_set_button_relief       (GtkReliefStyle relief);
-
-GtkReliefStyle
-gnome_cmd_data_get_button_relief       (void);
-
-void
-gnome_cmd_data_set_filter_type         (FilterType type);
-
-FilterType
-gnome_cmd_data_get_filter_type         (void);
-
-void
-gnome_cmd_data_set_device_only_icon    (gboolean value);
-
-gboolean
-gnome_cmd_data_get_device_only_icon    (void);
-
-void
-gnome_cmd_data_set_dir_cache_size      (gint size);
-
-gint
-gnome_cmd_data_get_dir_cache_size      (void);
-
-void
-gnome_cmd_data_set_use_ls_colors       (gboolean value);
-
-gboolean
-gnome_cmd_data_get_use_ls_colors       (void);
-
-SearchDefaults *
-gnome_cmd_data_get_search_defaults     (void);
-
-const gchar *
-gnome_cmd_data_get_quick_connect_host  (void);
-
-const gchar *
-gnome_cmd_data_get_quick_connect_user  (void);
-
-gint
-gnome_cmd_data_get_quick_connect_port  (void);
-
-void
-gnome_cmd_data_set_quick_connect_host  (const gchar *value);
-
-void
-gnome_cmd_data_set_quick_connect_user  (const gchar *value);
-
-void
-gnome_cmd_data_set_quick_connect_port  (gint value);
-
-GnomeCmdBookmarkGroup *
-gnome_cmd_data_get_local_bookmarks      (void);
-
-GList *
-gnome_cmd_data_get_bookmark_groups      (void);
-
-gboolean
-gnome_cmd_data_get_honor_expect_uris    (void);
-
-void
-gnome_cmd_data_set_honor_expect_uris    (gboolean value);
-
-gboolean
-gnome_cmd_data_get_use_internal_viewer    (void);
-
-void
-gnome_cmd_data_set_use_internal_viewer  (gboolean value);
-
-gboolean
-gnome_cmd_data_get_alt_quick_search    (void);
-
-void
-gnome_cmd_data_set_alt_quick_search  (gboolean value);
-
-gboolean
-gnome_cmd_data_get_skip_mounting        (void);
-
-void
-gnome_cmd_data_set_skip_mounting        (gboolean value);
-
-gboolean
-gnome_cmd_data_get_toolbar_visibility   (void);
-
-gboolean
-gnome_cmd_data_get_buttonbar_visibility (void);
-
-void
-gnome_cmd_data_set_toolbar_visibility   (gboolean value);
-
-void
-gnome_cmd_data_set_buttonbar_visibility (gboolean value);
-
-AdvrenameDefaults *
-gnome_cmd_data_get_advrename_defaults   (void);
-
-gboolean
-gnome_cmd_data_get_list_orientation (void);
-
-void
-gnome_cmd_data_set_list_orientation (gboolean vertical);
-
-gboolean
-gnome_cmd_data_get_conbuttons_visibility (void);
-
-void
-gnome_cmd_data_set_conbuttons_visibility (gboolean value);
-
-gboolean
-gnome_cmd_data_get_cmdline_visibility (void);
-
-void
-gnome_cmd_data_set_cmdline_visibility (gboolean value);
-
-void
-gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir);
-
-const gchar *
-gnome_cmd_data_get_start_dir (gboolean fs);
-
-void
-gnome_cmd_data_set_last_pattern (const gchar *value);
-
-const gchar *
-gnome_cmd_data_get_last_pattern (void);
-
-GList *
-gnome_cmd_data_get_auto_load_plugins ();
-
-void
-gnome_cmd_data_set_auto_load_plugins (GList *plugins);
-
-guint
-gnome_cmd_data_get_gui_update_rate (void);
-
-void
-gnome_cmd_data_set_main_win_pos (gint x, gint y);
-
-void
-gnome_cmd_data_get_main_win_pos (gint *x, gint *y);
-
-void
-gnome_cmd_data_set_backup_pattern (const gchar *value);
-
-const gchar *
-gnome_cmd_data_get_backup_pattern (void);
-
-GList *
-gnome_cmd_data_get_backup_pattern_list (void);
-
-GdkWindowState
-gnome_cmd_data_get_main_win_state (void);
-
-void
-gnome_cmd_data_set_main_win_state (GdkWindowState state);
-
-const gchar *
-gnome_cmd_data_get_symlink_prefix (void);
-
-void
-gnome_cmd_data_set_symlink_prefix (const gchar *value);
+const gchar *gnome_cmd_data_get_symlink_prefix (void);
+void gnome_cmd_data_set_symlink_prefix (const gchar *value);
 
 
 extern DICT<guint> gdk_key_names;

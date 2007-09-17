@@ -25,6 +25,7 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-con.h"
+#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-combo.h"
 #include "gnome-cmd-data.h"
@@ -935,7 +936,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
     if (!tooltips)
         tooltips = gtk_tooltips_new ();
 
-    for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_data_get_con_list ()); l; l=l->next)
+    for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l=l->next)
     {
         GtkWidget *btn, *label;
         GtkWidget *hbox;
@@ -1107,7 +1108,7 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
 static gboolean set_home_connection (GnomeCmdFileSelector *fs)
 {
     g_printerr ("Setting home connection\n");
-    gnome_cmd_file_selector_set_connection (fs, gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()), NULL);
+    gnome_cmd_file_selector_set_connection (fs, get_home_con (), NULL);
 
     return FALSE;
 }
@@ -1374,7 +1375,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_signal_connect (GTK_OBJECT (fs->root_btn), "clicked",
                         GTK_SIGNAL_FUNC (on_root_btn_clicked), fs);
 
-    gtk_signal_connect (GTK_OBJECT (gnome_cmd_data_get_con_list ()), "list-changed",
+    gtk_signal_connect (GTK_OBJECT (gnome_cmd_con_list_get ()), "list-changed",
                         GTK_SIGNAL_FUNC (on_con_list_list_changed), fs);
 
 
@@ -1768,7 +1769,7 @@ void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
     gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 20);
     gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 0, 20);
 
-    GnomeCmdConList *con_list = gnome_cmd_data_get_con_list ();
+    GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
 
     for (GList *l=gnome_cmd_con_list_get_all (con_list); l; l = l->next)
     {
@@ -1799,7 +1800,7 @@ void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
 
     // If the connection is no longer available use the home connection
     if (!found_my_con)
-        gnome_cmd_file_selector_set_connection (fs, gnome_cmd_con_list_get_home (con_list), NULL);
+        gnome_cmd_file_selector_set_connection (fs, get_home_con (), NULL);
     else
         gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), fs->priv->con);
 

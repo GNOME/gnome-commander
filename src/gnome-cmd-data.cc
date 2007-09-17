@@ -25,6 +25,7 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-con.h"
+#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-con-device.h"
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-cmdline.h"
@@ -1588,7 +1589,7 @@ void gnome_cmd_data_load_more (void)
 }
 
 
-GnomeCmdConList *gnome_cmd_data_get_con_list (void)
+gpointer gnome_cmd_data_get_con_list (void)
 {
     return data->priv->con_list;
 }

@@ -20,6 +20,7 @@
 #ifndef __GNOME_CMD_CON_LIST_H__
 #define __GNOME_CMD_CON_LIST_H__
 
+#include "gnome-cmd-data.h"
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-con-device.h"
@@ -56,65 +57,46 @@ struct _GnomeCmdConListClass
 };
 
 
-GtkType
-gnome_cmd_con_list_get_type (void);
+GtkType gnome_cmd_con_list_get_type (void);
 
-GnomeCmdConList *
-gnome_cmd_con_list_new (void);
+GnomeCmdConList *gnome_cmd_con_list_new (void);
 
+inline GnomeCmdConList *gnome_cmd_con_list_get (void)
+{
+    return (GnomeCmdConList *) gnome_cmd_data_get_con_list ();
+}
 
-void
-gnome_cmd_con_list_begin_update (GnomeCmdConList *list);
+void gnome_cmd_con_list_begin_update (GnomeCmdConList *list);
+void gnome_cmd_con_list_end_update (GnomeCmdConList *list);
 
-void
-gnome_cmd_con_list_end_update (GnomeCmdConList *list);
+void gnome_cmd_con_list_add_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
+void gnome_cmd_con_list_remove_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
 
-void
-gnome_cmd_con_list_add_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
+void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
+void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
 
-void
-gnome_cmd_con_list_remove_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
+void gnome_cmd_con_list_add_device (GnomeCmdConList *list, GnomeCmdConDevice *device_con);
+void gnome_cmd_con_list_remove_device (GnomeCmdConList *list, GnomeCmdConDevice *device_con);
 
-void
-gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
+GList *gnome_cmd_con_list_get_all (GnomeCmdConList *list);
+GList *gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *list);
+void gnome_cmd_con_list_set_all_ftp (GnomeCmdConList *list, GList *ftp_cons);
+GList *gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
 
-void
-gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *list, GnomeCmdConFtp *ftp_con);
+GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
+void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
 
-void
-gnome_cmd_con_list_add_device (GnomeCmdConList *list, GnomeCmdConDevice *device_con);
+GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list);
+GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
 
-void
-gnome_cmd_con_list_remove_device (GnomeCmdConList *list, GnomeCmdConDevice *device_con);
+inline GnomeCmdCon *get_home_con (void)
+{
+    return gnome_cmd_con_list_get_home (gnome_cmd_con_list_get ());
+}
 
-GList *
-gnome_cmd_con_list_get_all (GnomeCmdConList *list);
-
-GList *
-gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *list);
-
-void
-gnome_cmd_con_list_set_all_ftp (GnomeCmdConList *list, GList *ftp_cons);
-
-GList *
-gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
-
-GList *
-gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
-
-void
-gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
-
-GnomeCmdCon *
-gnome_cmd_con_list_get_home (GnomeCmdConList *list);
-
-GnomeCmdCon *
-gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
-
-GnomeCmdCon *
-get_smb_con (void);
-
-GnomeCmdCon *
-get_home_con (void);
+inline GnomeCmdCon *get_smb_con (void)
+{
+    return gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get ());
+}
 
 #endif // __GNOME_CMD_CON_LIST_H__

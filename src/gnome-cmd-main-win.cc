@@ -34,6 +34,7 @@
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-plain-path.h"
 #include "gnome-cmd-con.h"
+#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-bookmark-dialog.h"
 #include "utils.h"
 
@@ -691,7 +692,7 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
 
 static void destroy (GtkObject *object)
 {
-    GnomeCmdCon *con_home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
+    GnomeCmdCon *con_home = get_home_con ();
 
     if (main_win && main_win->priv && main_win->priv->key_snooper_id)
     {
@@ -836,10 +837,8 @@ static void init (GnomeCmdMainWin *mw)
     gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, LEFT));
     gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, RIGHT));
 
-    gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (mw, LEFT),
-                                            gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()), NULL);
-    gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (mw, RIGHT),
-                                            gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ()), NULL);
+    gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (mw, LEFT), get_home_con (), NULL);
+    gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (mw, RIGHT), get_home_con (), NULL);
 
     gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (mw, LEFT),
                                             start_dir_left ? start_dir_left : gnome_cmd_data_get_start_dir (LEFT));
@@ -1047,21 +1046,15 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
 
             case GDK_S:
             case GDK_s:
-                gnome_cmd_dir_pool_show_state (
-                    gnome_cmd_con_get_dir_pool (
-                        gnome_cmd_file_selector_get_connection (
-                            gnome_cmd_main_win_get_fs (mw, ACTIVE))));
+                gnome_cmd_dir_pool_show_state (gnome_cmd_con_get_dir_pool (gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (mw, ACTIVE))));
                 break;
 
             case GDK_f:
             case GDK_F:
             {
-                GnomeCmdConFtp *con = GNOME_CMD_CON_FTP (gnome_cmd_con_list_get_all_ftp (
-                    gnome_cmd_data_get_con_list ())->data);
+                GnomeCmdConFtp *con = GNOME_CMD_CON_FTP (gnome_cmd_con_list_get_all_ftp (gnome_cmd_con_list_get ())->data);
 
-                gnome_cmd_file_selector_set_connection (
-                    gnome_cmd_main_win_get_fs (main_win, ACTIVE),
-                    GNOME_CMD_CON (con), NULL);
+                gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (main_win, ACTIVE), GNOME_CMD_CON (con), NULL);
             }
             break;
         }

@@ -19,7 +19,6 @@
 
 #include <config.h>
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-con-home.h"
 #include "gnome-cmd-con-smb.h"
 #include "gnome-cmd-con-list.h"
@@ -59,16 +58,16 @@ enum
 static guint con_list_signals[LAST_SIGNAL] = { 0 };
 
 
-static void
-on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
+static void on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
     if (GNOME_CMD_IS_CON_FTP (con))
         gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[FTP_LIST_CHANGED]);
-    else if (GNOME_CMD_IS_CON_DEVICE (con))
-        gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[DEVICE_LIST_CHANGED]);
+    else
+        if (GNOME_CMD_IS_CON_DEVICE (con))
+            gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[DEVICE_LIST_CHANGED]);
 
     gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[LIST_CHANGED]);
 }
@@ -78,8 +77,7 @@ on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdConList *con_list = GNOME_CMD_CON_LIST (object);
 
@@ -90,47 +88,42 @@ destroy (GtkObject *object)
 }
 
 
-static void
-class_init (GnomeCmdConListClass *klass)
+static void class_init (GnomeCmdConListClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
-    con_list_signals[LIST_CHANGED] =
-        gtk_signal_new ("list_changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdConListClass, list_changed),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
-            0);
+    con_list_signals[LIST_CHANGED]          = gtk_signal_new ("list_changed",
+                                                              GTK_RUN_LAST,
+                                                              G_OBJECT_CLASS_TYPE (object_class),
+                                                              GTK_SIGNAL_OFFSET (GnomeCmdConListClass, list_changed),
+                                                              gtk_marshal_NONE__NONE,
+                                                              GTK_TYPE_NONE,
+                                                              0);
 
-    con_list_signals[FTP_LIST_CHANGED] =
-        gtk_signal_new ("ftp_list_changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdConListClass, ftp_list_changed),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
-            0);
+    con_list_signals[FTP_LIST_CHANGED]       = gtk_signal_new ("ftp_list_changed",
+                                                               GTK_RUN_LAST,
+                                                               G_OBJECT_CLASS_TYPE (object_class),
+                                                               GTK_SIGNAL_OFFSET (GnomeCmdConListClass, ftp_list_changed),
+                                                               gtk_marshal_NONE__NONE,
+                                                               GTK_TYPE_NONE,
+                                                               0);
 
-    con_list_signals[DEVICE_LIST_CHANGED] =
-        gtk_signal_new ("device_list_changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdConListClass, device_list_changed),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
-            0);
+    con_list_signals[DEVICE_LIST_CHANGED]    = gtk_signal_new ("device_list_changed",
+                                                               GTK_RUN_LAST,
+                                                               G_OBJECT_CLASS_TYPE (object_class),
+                                                               GTK_SIGNAL_OFFSET (GnomeCmdConListClass, device_list_changed),
+                                                               gtk_marshal_NONE__NONE,
+                                                               GTK_TYPE_NONE,
+                                                               0);
 
-    con_list_signals[QUICK_FTP_LIST_CHANGED] =
-        gtk_signal_new ("quick_ftp_list_changed",
-            GTK_RUN_LAST,
-            G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdConListClass, quick_ftp_list_changed),
-            gtk_marshal_NONE__NONE,
-            GTK_TYPE_NONE,
-            0);
+    con_list_signals[QUICK_FTP_LIST_CHANGED] = gtk_signal_new ("quick_ftp_list_changed",
+                                                               GTK_RUN_LAST,
+                                                               G_OBJECT_CLASS_TYPE (object_class),
+                                                               GTK_SIGNAL_OFFSET (GnomeCmdConListClass, quick_ftp_list_changed),
+                                                               gtk_marshal_NONE__NONE,
+                                                               GTK_TYPE_NONE,
+                                                               0);
 
     object_class->destroy = destroy;
 
@@ -141,8 +134,7 @@ class_init (GnomeCmdConListClass *klass)
 }
 
 
-static void
-init (GnomeCmdConList *con_list)
+static void init (GnomeCmdConList *con_list)
 {
     con_list->priv = g_new (GnomeCmdConListPrivate, 1);
 
@@ -164,8 +156,7 @@ init (GnomeCmdConList *con_list)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_con_list_get_type         (void)
+GtkType gnome_cmd_con_list_get_type (void)
 {
     static GtkType type = 0;
 
@@ -189,15 +180,13 @@ gnome_cmd_con_list_get_type         (void)
 }
 
 
-GnomeCmdConList*
-gnome_cmd_con_list_new (void)
+GnomeCmdConList *gnome_cmd_con_list_new (void)
 {
     return (GnomeCmdConList *) gtk_type_new (gnome_cmd_con_list_get_type ());
 }
 
 
-void
-gnome_cmd_con_list_begin_update (GnomeCmdConList *con_list)
+void gnome_cmd_con_list_begin_update (GnomeCmdConList *con_list)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
@@ -208,8 +197,7 @@ gnome_cmd_con_list_begin_update (GnomeCmdConList *con_list)
 }
 
 
-void
-gnome_cmd_con_list_end_update (GnomeCmdConList *con_list)
+void gnome_cmd_con_list_end_update (GnomeCmdConList *con_list)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
@@ -224,8 +212,7 @@ gnome_cmd_con_list_end_update (GnomeCmdConList *con_list)
 }
 
 
-void
-gnome_cmd_con_list_add_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+void gnome_cmd_con_list_add_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
     g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) == -1);
@@ -234,8 +221,8 @@ gnome_cmd_con_list_add_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, ftp_con);
     con_list->priv->ftp_cons = g_list_append (con_list->priv->ftp_cons, ftp_con);
 
-    gtk_signal_connect (GTK_OBJECT (ftp_con), "updated",
-                        GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    gtk_signal_connect (GTK_OBJECT (ftp_con), "updated", GTK_SIGNAL_FUNC (on_con_updated), con_list);
+
     if (!con_list->priv->update_lock)
     {
         gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[LIST_CHANGED]);
@@ -249,8 +236,7 @@ gnome_cmd_con_list_add_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
 }
 
 
-void
-gnome_cmd_con_list_remove_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+void gnome_cmd_con_list_remove_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
     g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) != -1);
@@ -259,8 +245,8 @@ gnome_cmd_con_list_remove_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_co
     con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, ftp_con);
     con_list->priv->ftp_cons = g_list_remove (con_list->priv->ftp_cons, ftp_con);
 
-    gtk_signal_disconnect_by_func (GTK_OBJECT (ftp_con),
-                                   GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    gtk_signal_disconnect_by_func (GTK_OBJECT (ftp_con), GTK_SIGNAL_FUNC (on_con_updated), con_list);
+
     if (!con_list->priv->update_lock)
     {
         gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[LIST_CHANGED]);
@@ -274,8 +260,7 @@ gnome_cmd_con_list_remove_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_co
 }
 
 
-void
-gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
     g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) == -1);
@@ -284,8 +269,8 @@ gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, ftp_con);
     con_list->priv->quick_ftp_cons = g_list_append (con_list->priv->quick_ftp_cons, ftp_con);
 
-    gtk_signal_connect (GTK_OBJECT (ftp_con), "updated",
-                        GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    gtk_signal_connect (GTK_OBJECT (ftp_con), "updated", GTK_SIGNAL_FUNC (on_con_updated), con_list);
+
     if (!con_list->priv->update_lock)
     {
         gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[LIST_CHANGED]);
@@ -299,8 +284,7 @@ gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp
 }
 
 
-void
-gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
+void gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
     g_return_if_fail (g_list_index (con_list->priv->all_cons, ftp_con) != -1);
@@ -309,22 +293,22 @@ gnome_cmd_con_list_remove_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *
     con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, ftp_con);
     con_list->priv->quick_ftp_cons = g_list_remove (con_list->priv->quick_ftp_cons, ftp_con);
 
-    gtk_signal_disconnect_by_func (GTK_OBJECT (ftp_con),
-                                   GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    gtk_signal_disconnect_by_func (GTK_OBJECT (ftp_con), GTK_SIGNAL_FUNC (on_con_updated), con_list);
+
     if (!con_list->priv->update_lock)
     {
         gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[LIST_CHANGED]);
         gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[QUICK_FTP_LIST_CHANGED]);
     }
-    else {
+    else
+    {
         con_list->priv->changed = TRUE;
         con_list->priv->quick_ftp_cons_changed = TRUE;
     }
 }
 
 
-void
-gnome_cmd_con_list_add_device (GnomeCmdConList *con_list, GnomeCmdConDevice *device_con)
+void gnome_cmd_con_list_add_device (GnomeCmdConList *con_list, GnomeCmdConDevice *device_con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
     g_return_if_fail (g_list_index (con_list->priv->all_cons, device_con) == -1);
@@ -333,6 +317,7 @@ gnome_cmd_con_list_add_device (GnomeCmdConList *con_list, GnomeCmdConDevice *dev
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, device_con);
     con_list->priv->device_cons = g_list_append (con_list->priv->device_cons, device_con);
     gtk_signal_connect (GTK_OBJECT (device_con), "updated", GTK_SIGNAL_FUNC (on_con_updated), con_list);
+
     if (!con_list->priv->update_lock)
     {
         gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[LIST_CHANGED]);
@@ -346,8 +331,7 @@ gnome_cmd_con_list_add_device (GnomeCmdConList *con_list, GnomeCmdConDevice *dev
 }
 
 
-void
-gnome_cmd_con_list_remove_device (GnomeCmdConList *con_list, GnomeCmdConDevice *device_con)
+void gnome_cmd_con_list_remove_device (GnomeCmdConList *con_list, GnomeCmdConDevice *device_con)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
     g_return_if_fail (g_list_index (con_list->priv->all_cons, device_con) != -1);
@@ -355,8 +339,8 @@ gnome_cmd_con_list_remove_device (GnomeCmdConList *con_list, GnomeCmdConDevice *
 
     con_list->priv->all_cons = g_list_remove (con_list->priv->all_cons, device_con);
     con_list->priv->device_cons = g_list_remove (con_list->priv->device_cons, device_con);
-    gtk_signal_disconnect_by_func (GTK_OBJECT (device_con),
-                                   GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    gtk_signal_disconnect_by_func (GTK_OBJECT (device_con), GTK_SIGNAL_FUNC (on_con_updated), con_list);
+
     if (!con_list->priv->update_lock)
     {
         gtk_signal_emit (GTK_OBJECT (con_list), con_list_signals[LIST_CHANGED]);
@@ -370,8 +354,7 @@ gnome_cmd_con_list_remove_device (GnomeCmdConList *con_list, GnomeCmdConDevice *
 }
 
 
-GList *
-gnome_cmd_con_list_get_all (GnomeCmdConList *con_list)
+GList *gnome_cmd_con_list_get_all (GnomeCmdConList *con_list)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
 
@@ -379,8 +362,7 @@ gnome_cmd_con_list_get_all (GnomeCmdConList *con_list)
 }
 
 
-GList *
-gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *con_list)
+GList *gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *con_list)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
 
@@ -388,8 +370,7 @@ gnome_cmd_con_list_get_all_ftp (GnomeCmdConList *con_list)
 }
 
 
-void
-gnome_cmd_con_list_set_all_ftp (GnomeCmdConList *con_list, GList *ftp_cons)
+void gnome_cmd_con_list_set_all_ftp (GnomeCmdConList *con_list, GList *ftp_cons)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
@@ -397,8 +378,7 @@ gnome_cmd_con_list_set_all_ftp (GnomeCmdConList *con_list, GList *ftp_cons)
 }
 
 
-GList *
-gnome_cmd_con_list_get_all_dev (GnomeCmdConList *con_list)
+GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *con_list)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
 
@@ -406,8 +386,7 @@ gnome_cmd_con_list_get_all_dev (GnomeCmdConList *con_list)
 }
 
 
-void
-gnome_cmd_con_list_set_all_dev (GnomeCmdConList *con_list, GList *dev_cons)
+void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *con_list, GList *dev_cons)
 {
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
@@ -415,8 +394,7 @@ gnome_cmd_con_list_set_all_dev (GnomeCmdConList *con_list, GList *dev_cons)
 }
 
 
-GnomeCmdCon *
-gnome_cmd_con_list_get_home (GnomeCmdConList *con_list)
+GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *con_list)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
 
@@ -424,24 +402,9 @@ gnome_cmd_con_list_get_home (GnomeCmdConList *con_list)
 }
 
 
-GnomeCmdCon *
-gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list)
+GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON_LIST (con_list), NULL);
 
     return con_list->priv->smb_con;
-}
-
-
-GnomeCmdCon *
-get_smb_con (void)
-{
-    return gnome_cmd_con_list_get_smb (gnome_cmd_data_get_con_list ());
-}
-
-
-GnomeCmdCon *
-get_home_con (void)
-{
-    return gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
 }

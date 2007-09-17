@@ -27,6 +27,7 @@
 #include "gnome-cmd-plain-path.h"
 #include "imageloader.h"
 #include "gnome-cmd-main-win.h"
+#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
 
 #ifndef _GNU_SOURCE
@@ -148,7 +149,8 @@ const char **convert_varargs_to_name_array (va_list args)
     {
         name = va_arg (args, const char *);
         g_ptr_array_add (resizeable_array, (gpointer) name);
-    } while (name != NULL);
+    }
+    while (name);
 
     plain_ole_array = (const char **) resizeable_array->pdata;
 
@@ -220,7 +222,8 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
     {
         gtk_widget_show (dialog);
         result = gtk_dialog_run (GTK_DIALOG (dialog));
-    } while (ignore_close_box && result == GTK_RESPONSE_DELETE_EVENT);
+    }
+    while (ignore_close_box && result == GTK_RESPONSE_DELETE_EVENT);
 
     gtk_widget_destroy(dialog);
 
@@ -460,7 +463,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 
         GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (dldata->finfo));
         GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
-        GnomeCmdCon *con = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
+        GnomeCmdCon *con = get_home_con ();
         GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (con, path);
         gtk_object_destroy (GTK_OBJECT (path));
 
@@ -659,7 +662,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
                     asked = TRUE;
                 }
 
-                if (retid == 1)
+                if (retid==1)
                 {
                     gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (finfo));
 
@@ -667,8 +670,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
                     GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (finfo));
                     GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
-                    GnomeCmdCon *con = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
-                    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (con, path);
+                    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
                     gtk_object_destroy (GTK_OBJECT (path));
 
                     src_uri_list = g_list_append (src_uri_list, src_uri);
@@ -686,15 +688,12 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
     args[1] = local_files;
 
     if (src_uri_list)
-    {
-        gnome_cmd_xfer_tmp_download_multiple (
-            src_uri_list,
-            dest_uri_list,
-            GNOME_VFS_XFER_FOLLOW_LINKS,
-            GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
-            GTK_SIGNAL_FUNC (do_mime_exec_multiple),
-            args);
-    }
+        gnome_cmd_xfer_tmp_download_multiple (src_uri_list,
+                                              dest_uri_list,
+                                              GNOME_VFS_XFER_FOLLOW_LINKS,
+                                              GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
+                                              GTK_SIGNAL_FUNC (do_mime_exec_multiple),
+                                              args);
     else
         do_mime_exec_multiple (args);
 }

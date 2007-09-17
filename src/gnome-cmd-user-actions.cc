@@ -23,6 +23,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-bookmark-dialog.h"
 #include "gnome-cmd-con.h"
+#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
@@ -1146,7 +1147,7 @@ void connections_close (GtkMenuItem *menuitem, gpointer con)
 
     GnomeCmdCon *c1 = gnome_cmd_file_selector_get_connection (active);
     GnomeCmdCon *c2 = gnome_cmd_file_selector_get_connection (inactive);
-    GnomeCmdCon *home = gnome_cmd_con_list_get_home (gnome_cmd_data_get_con_list ());
+    GnomeCmdCon *home = get_home_con ();
 
     if (con == c1)
         gnome_cmd_file_selector_set_connection (active, home, NULL);
