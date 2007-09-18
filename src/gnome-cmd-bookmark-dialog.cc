@@ -590,28 +590,28 @@ gnome_cmd_bookmark_add_current (void)
 }
 
 
-void
-gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
+void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 {
-    GnomeCmdCon *current_con;
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
-
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    current_con = gnome_cmd_file_selector_get_connection (fs);
+    GnomeCmdCon *current_con = gnome_cmd_file_selector_get_connection (fs);
     g_return_if_fail (bookmark->group->con != NULL);
 
     if (current_con == bookmark->group->con)
         gnome_cmd_file_selector_goto_directory (fs, bookmark->path);
-    else {
+    else
+    {
         GnomeCmdCon *con = bookmark->group->con;
 
-        if (con->state == CON_STATE_OPEN) {
+        if (con->state == CON_STATE_OPEN)
+        {
             GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bookmark->path));
             gnome_cmd_file_selector_set_connection (fs, con, dir);
 
         }
-        else {
+        else
+        {
             if (con->base_path)
                 gtk_object_unref (GTK_OBJECT (con->base_path));
 

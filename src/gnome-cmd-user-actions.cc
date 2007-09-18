@@ -19,6 +19,7 @@
 
 #include <config.h>
 #include <gtk/gtkclipboard.h>
+#include <algorithm>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-bookmark-dialog.h"
@@ -1207,6 +1208,49 @@ void bookmarks_edit (GtkMenuItem *menuitem, gpointer not_used)
 
 void bookmarks_goto (GtkMenuItem *menuitem, gpointer bookmark_name)
 {
+    if (!bookmark_name)
+        return;
+
+    vector<string> a;
+    guint n = split(static_cast<gchar*>(bookmark_name), a, "|");
+    string group = n<2 || a[0].empty() ? "local" : a[0];
+    string name = a[n<2 ? 0 : 1];
+
+    transform(group.begin(), group.end(), group.begin(), (int(*)(int))tolower);
+
+    if (group=="local")
+    {
+        for (GList *bookmarks = gnome_cmd_con_get_bookmarks (get_home_con ())->bookmarks; bookmarks; bookmarks = bookmarks->next)
+        {
+            GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
+
+            if (name == bookmark->name)
+            {
+                gnome_cmd_bookmark_goto (bookmark);
+                return;
+            }
+        }
+
+        g_warning ("[%s] Unknown bookmark name: '%s' - ignored", bookmark_name, name.c_str());
+    }
+    else
+        if (group=="smb" || group=="samba")
+        {
+            for (GList *bookmarks = gnome_cmd_con_get_bookmarks (get_smb_con ())->bookmarks; bookmarks; bookmarks = bookmarks->next)
+            {
+                GnomeCmdBookmark *bookmark = (GnomeCmdBookmark *) bookmarks->data;
+
+                if (name == bookmark->name)
+                {
+                    gnome_cmd_bookmark_goto (bookmark);
+                    return;
+                }
+            }
+
+            g_warning ("[%s] Unknown bookmark name: '%s' - ignored", bookmark_name, name.c_str());
+        }
+        else
+            g_warning ("[%s] Unsupported bookmark group: '%s' - ignored", bookmark_name, group.c_str());
 }
 
 
@@ -1244,13 +1288,13 @@ void plugins_execute_python (GtkMenuItem *menuitem, gpointer python_script)
 
 void help_help (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_help_display("gnome-commander.xml");
+    gnome_cmd_help_display ("gnome-commander.xml");
 }
 
 
 void help_keyboard (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_help_display("gnome-commander.xml","gnome-commander-keyboard");
+    gnome_cmd_help_display ("gnome-commander.xml","gnome-commander-keyboard");
 }
 
 
@@ -1258,8 +1302,8 @@ void help_web (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
-    if (!gnome_url_show("http://www.nongnu.org/gcmd/", &error))
-        gnome_cmd_error_message(_("There was an error opening home page."), error);
+    if (!gnome_url_show ("http://www.nongnu.org/gcmd/", &error))
+        gnome_cmd_error_message (_("There was an error opening home page."), error);
 }
 
 

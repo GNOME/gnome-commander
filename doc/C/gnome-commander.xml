@@ -4167,6 +4167,13 @@
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>D</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>bookmarks.goto<option>|bookmark_name</option></para></entry>
+                        <entry><para>Go to bookmarked location</para>
+                               <para>For SMB bookmarks use bookmarks.goto<option>|smb|bookmark_name</option> syntax.</para>
+                               <note><para>Nonexistent bookmark names are ignored.</para></note></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>command.open_terminal</para></entry>
                         <entry><para>Open terminal in the current directory</para></entry>
                         <entry><para></para></entry>
@@ -5647,13 +5654,16 @@
                             <para>Support for file metags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
-                            <para>Open terminal in the current directory</para>
-                        </listitem>
-                        <listitem>
                             <para>Metadata tags in file properties dialog</para>
                         </listitem>
                         <listitem>
-                            <para>Use default GNOME theme icons for home, SMB and FTP locations</para>
+                            <para>Open terminal in the current directory</para>
+                        </listitem>
+                        <listitem>
+                            <para>Default GNOME theme icons for home, SMB and FTP locations</para>
+                        </listitem>
+                        <listitem>
+                            <para>User defined shortcuts to bookmarks</para>
                         </listitem>
                         <listitem>
                             <para>Send files via email or instant messenger (using nautilus-sendto)</para>

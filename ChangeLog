@@ -5,6 +5,9 @@
 	* src/gnome-cmd-user-actions.h:
 	Added "view.home" and "view.root" actions
 
+	* src/gnome-cmd-user-actions.cc:
+	Added support for key shortcuts to defined bookmarks
+
 2007-09-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:
