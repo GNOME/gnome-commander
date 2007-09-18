@@ -251,12 +251,14 @@ void GnomeCmdUserActions::init()
     actions.add(view_equal_panes, "view.equal_panes");
     actions.add(view_first, "view.first");
     actions.add(view_forward, "view.forward");
+    actions.add(view_home, "view.home");
     actions.add(view_in_active_pane, "view.in_active_pane");
     actions.add(view_in_inactive_pane, "view.in_inactive_pane");
     actions.add(view_in_left_pane, "view.in_left_pane");
     actions.add(view_in_right_pane, "view.in_right_pane");
     actions.add(view_last, "view.last");
     actions.add(view_refresh, "view.refresh");
+    actions.add(view_root, "view.root");
     actions.add(view_up, "view.up");
 
     register_action(GDK_F3, "file.view");
@@ -352,6 +354,15 @@ void GnomeCmdUserActions::init()
         register_action(GDK_CONTROL_MASK, GDK_Right, "view.in_right_pane");
         register_action(GDK_CONTROL_MASK, GDK_KP_Right, "view.in_right_pane");
     }
+
+    if (!registered("view.home"))
+    {
+        register_action(GDK_CONTROL_MASK, GDK_quoteleft, "view.home");
+        register_action(GDK_CONTROL_MASK, GDK_asciitilde, "view.home");
+    }
+
+    if (!registered("view.root"))
+        register_action(GDK_CONTROL_MASK, GDK_backslash, "view.root");
 
     if (!registered("view.refresh"))
         register_action(GDK_CONTROL_MASK, GDK_R, "view.refresh");
@@ -1100,6 +1111,18 @@ void view_in_active_pane (GtkMenuItem *menuitem, gpointer not_used)
 void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
     gnome_cmd_file_selector_set_same_directory ((GnomeCmdMainWin *) GTK_WIDGET (main_win), INACTIVE, ACTIVE);
+}
+
+
+void view_home (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE), "~");
+}
+
+
+void view_root (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE), "/");
 }
 
 

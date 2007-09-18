@@ -3827,14 +3827,15 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>\</keycap></keycombo></entry>
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>\</keycap></keycombo></para></entry>
             <entry><para>Go to the root directory</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo></entry>
+            <entry><para><keycombo><keycap>CTRL</keycap><keycap>~</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo></para></entry>
             <entry><para>Go to the home directory</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><para></para></entry>
@@ -4421,6 +4422,12 @@
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>view.home</para></entry>
+                        <entry><para>Go to the home directory</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>~</keycap></keycombo></para>
+                               <para><keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>view.in_active_pane</para></entry>
                         <entry><para>Copy the current working directory from the inactive file list to the active one</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>.</keycap></keycombo></para></entry>
@@ -4449,6 +4456,11 @@
                         <entry><para>view.refresh</para></entry>
                         <entry><para>Refresh the active file list</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>R</keycap></keycombo></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>view.root</para></entry>
+                        <entry><para>Go to the root directory</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>\</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>view.up</para></entry>

@@ -1,3 +1,10 @@
+2007-09-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Added "view.home" and "view.root" actions
+
 2007-09-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:

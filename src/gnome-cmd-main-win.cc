@@ -1024,15 +1024,6 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
             case GDK_q:
                 gtk_widget_destroy (GTK_WIDGET (main_win));
                 return TRUE;
-
-           case GDK_backslash:
-               gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE), "/");
-               return TRUE;
-
-           case GDK_quoteleft:
-           case GDK_asciitilde:
-               gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE), "~");
-               return TRUE;
         }
     }
     else if (state_is_alt_shift (event->state))
