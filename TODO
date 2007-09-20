@@ -27,7 +27,6 @@
     - batch file processing
     - converting txt <-> pdf
     - other mc-like extensions ?
-    - sending file as email attachment (configurable mail command)
 * Root (administrator) mode - for root privileges
 * Use gnome keyring manager for password storing
 * vfolders for selecting files from arbitrary URI
@@ -41,7 +40,6 @@
 * Custom columns support
 * 'Directory Tree' with ALT+F10
 * Brief file listing (see mc)
-* File properties - presentation of all available metatags
 * 'Subdirectory View' - showing contents of a given dir and all its
   subdirs in one file list. It gives the possibility of mass operation
   like: copy/move/rename/delete for all subdirs files. _Very_ handy.
@@ -67,11 +65,6 @@
 * Preloading consecutive images
 
 
-// Keyboard shortcuts
-
-* Assigning shortcuts to individual bookmarks
-
-
 // Documentation
 
 * Help button for every dialog
@@ -79,7 +72,7 @@
 
 
 
-Discussed stuff (not assigned to a version yet)
+Discussed stuff
 -----------------------------------------------
 
 * Toolbar configuration - OO.org like
