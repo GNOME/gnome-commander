@@ -4011,18 +4011,18 @@
             <entry><para></para></entry>
         </row>
         <row valign="top">
-            <entry><keycombo><keycap>CTRL</keycap><keycap>G</keycap></keycombo></entry>
-            <entry><para>FTP Quick Connect</para></entry>
+            <entry><keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo></entry>
+            <entry><para>Open new remote connection</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo></entry>
-            <entry><para>Connect to FTP server</para></entry>
+            <entry><para>Connect to remote server</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F</keycap></keycombo></entry>
-            <entry><para>Disconnect from FTP server</para></entry>
+            <entry><para>Disconnect from remote server</para></entry>
             <entry><para>yes</para></entry>
         </row>
         <row valign="top">
@@ -4180,23 +4180,18 @@
                     </row>
                     <row valign="top">
                         <entry><para>connections.close</para></entry>
-                        <entry><para>Close connections</para></entry>
-                        <entry><para></para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>connections.close_current</para></entry>
-                        <entry><para>Disconnect from FTP server</para></entry>
+                        <entry><para>Disconnect from remote server</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>connections.ftp_connect</para></entry>
-                        <entry><para>Connect to FTP server</para></entry>
+                        <entry><para>connections.open</para></entry>
+                        <entry><para>Open remote connection</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>F</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>connections.ftp_quick_connect</para></entry>
-                        <entry><para>FTP Quick Connect</para></entry>
-                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>G</keycap></keycombo></para></entry>
+                        <entry><para>connections.new</para></entry>
+                        <entry><para>Open new remote connection</para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>edit.copy</para></entry>
@@ -5675,7 +5670,10 @@
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycap>CTRL+LEFT/RIGHT</keycap>   Copying the current working directory from the active file list to the inactive one</para>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>LEFT/RIGHT</keycap></keycombo>   Copying the current working directory from the active file list to the inactive one</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>N</keycap></keycombo>   Open new connection to remote server (replaces the old <keycombo><keycap>CTRL</keycap><keycap>G</keycap></keycombo>)</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>

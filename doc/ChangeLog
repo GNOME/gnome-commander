@@ -1,3 +1,9 @@
+2007-09-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/C/gnome-commander.xml:
+	Replaced old "connections.*" actions with "connections.open", "connections.close"
+	and "connections.new" ones
+
 2007-09-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* doc/C/gnome-commander.xml:

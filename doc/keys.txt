@@ -103,9 +103,9 @@ CTRL+O          Options dialog
 CTRL+SHIFT+H    Toggle hidden files on/off
 CTRL+SHIFT+=    Set both panels equal
 
-CTRL+G          FTP Quick Connect
-CTRL+F          Connect to FTP server
-CTRL+SHIFT+F    Disconnect from FTP server
+CTRL+N          Open new remote connection
+CTRL+F          Connect to remote server
+CTRL+SHIFT+F    Disconnect from remote server
 
 CTRL+5          Create MD5 checksum
 

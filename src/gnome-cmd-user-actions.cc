@@ -202,9 +202,8 @@ void GnomeCmdUserActions::init()
     actions.add(bookmarks_goto, "bookmarks.goto");
     actions.add(command_open_terminal, "command.open_terminal");
     actions.add(connections_close_current, "connections.close");
-    actions.add(connections_close_current, "connections.close_current");
-    actions.add(connections_ftp_connect, "connections.ftp_connect");
-    actions.add(connections_ftp_quick_connect, "connections.ftp_quick_connect");
+    actions.add(connections_ftp_quick_connect, "connections.new");
+    actions.add(connections_ftp_connect, "connections.open");
     actions.add(edit_cap_copy, "edit.copy");
     actions.add(edit_copy_fnames, "edit.copy_filenames");
     actions.add(edit_cap_cut, "edit.cut");
@@ -276,14 +275,14 @@ void GnomeCmdUserActions::init()
     if (!registered("bookmarks.edit"))
         register_action(GDK_CONTROL_MASK, GDK_D, "bookmarks.edit");
 
-    if (!registered("connections.close_current"))
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F, "connections.close_current");
+    if (!registered("connections.new"))
+        register_action(GDK_CONTROL_MASK, GDK_N, "connections.new");
 
-    if (!registered("connections.ftp_connect"))
-        register_action(GDK_CONTROL_MASK, GDK_F, "connections.ftp_connect");
+    if (!registered("connections.open"))
+        register_action(GDK_CONTROL_MASK, GDK_F, "connections.open");
 
-    if (!registered("connections.ftp_quick_connect"))
-        register_action(GDK_CONTROL_MASK, GDK_G, "connections.ftp_quick_connect");
+    if (!registered("connections.close"))
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F, "connections.close");
 
     if (!registered("edit.copy_filenames"))
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_C, "edit.copy_filenames");
@@ -501,6 +500,11 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     }
 
     return TRUE;
+}
+
+
+void GnomeCmdUserActions::unregister(const gchar *name)
+{
 }
 
 

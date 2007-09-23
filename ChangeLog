@@ -1,3 +1,9 @@
+2007-09-23  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	Replaced old "connections.*" actions with "connections.open", "connections.close"
+	and "connections.new" ones
+
 2007-09-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-win.cc:
