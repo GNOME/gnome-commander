@@ -107,132 +107,163 @@ struct _GnomeCmdConClass
 };
 
 
-GtkType
-gnome_cmd_con_get_type (void);
+GtkType gnome_cmd_con_get_type (void);
 
 
-void
-gnome_cmd_con_open (GnomeCmdCon *con);
+void gnome_cmd_con_open (GnomeCmdCon *con);
 
-gboolean
-gnome_cmd_con_is_open (GnomeCmdCon *con);
+inline gboolean gnome_cmd_con_is_open (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->state == CON_STATE_OPEN;
+}
 
-void
-gnome_cmd_con_cancel_open (GnomeCmdCon *con);
+void gnome_cmd_con_cancel_open (GnomeCmdCon *con);
 
-gboolean
-gnome_cmd_con_close (GnomeCmdCon *con);
+gboolean gnome_cmd_con_close (GnomeCmdCon *con);
 
-gboolean
-gnome_cmd_con_open_is_needed (GnomeCmdCon *con);
+inline gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
+    return klass->open_is_needed (con);
+}
 
-GnomeVFSURI *
-gnome_cmd_con_create_uri (GnomeCmdCon *con, GnomeCmdPath *path);
+GnomeVFSURI *gnome_cmd_con_create_uri (GnomeCmdCon *con, GnomeCmdPath *path);
 
-GnomeCmdPath *
-gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
+GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
-const gchar *
-gnome_cmd_con_get_open_msg (GnomeCmdCon *con);
+inline const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con)
+{
+    return con->open_msg;
+}
 
-const gchar *
-gnome_cmd_con_get_alias (GnomeCmdCon *con);
+inline const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->alias;
+}
 
-void
-gnome_cmd_con_set_cwd (GnomeCmdCon *con, GnomeCmdDir *dir);
+void gnome_cmd_con_set_cwd (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-GnomeCmdDir *
-gnome_cmd_con_get_cwd (GnomeCmdCon *con);
+GnomeCmdDir *gnome_cmd_con_get_cwd (GnomeCmdCon *con);
 
-GnomeCmdDir *
-gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
+GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
 
-void
-gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
+void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-GnomeCmdDir *
-gnome_cmd_con_get_root_dir (GnomeCmdCon *con);
+GnomeCmdDir *gnome_cmd_con_get_root_dir (GnomeCmdCon *con);
+void gnome_cmd_con_set_root_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-void
-gnome_cmd_con_set_root_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
+inline gboolean gnome_cmd_con_should_remember_dir (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->should_remember_dir;
+}
 
+inline gboolean gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->needs_open_visprog;
+}
 
-gboolean
-gnome_cmd_con_should_remember_dir (GnomeCmdCon *con);
+inline gboolean gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->needs_list_visprog;
+}
 
-gboolean
-gnome_cmd_con_needs_open_visprog (GnomeCmdCon *con);
+inline gboolean gnome_cmd_con_can_show_free_space (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->can_show_free_space;
+}
 
-gboolean
-gnome_cmd_con_needs_list_visprog (GnomeCmdCon *con);
+inline gboolean gnome_cmd_con_is_local (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->is_local;
+}
 
-gboolean
-gnome_cmd_con_can_show_free_space (GnomeCmdCon *con);
+inline gboolean gnome_cmd_con_is_closeable (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), FALSE);
+    return con->is_closeable;
+}
 
-gboolean
-gnome_cmd_con_is_local (GnomeCmdCon *con);
+History *gnome_cmd_con_get_dir_history (GnomeCmdCon *con);
 
-gboolean
-gnome_cmd_con_is_closeable (GnomeCmdCon *con);
+inline const gchar *gnome_cmd_con_get_go_text (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->go_text;
+}
 
-History *
-gnome_cmd_con_get_dir_history (GnomeCmdCon *con);
+inline const gchar *gnome_cmd_con_get_open_text (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->open_text;
+}
 
-const gchar *
-gnome_cmd_con_get_go_text (GnomeCmdCon *con);
+inline const gchar *gnome_cmd_con_get_close_text (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
 
-const gchar *
-gnome_cmd_con_get_open_text (GnomeCmdCon *con);
+    return con->close_text;
+}
 
-const gchar *
-gnome_cmd_con_get_close_text (GnomeCmdCon *con);
+inline const gchar *gnome_cmd_con_get_go_tooltip (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->go_tooltip;
+}
 
-const gchar *
-gnome_cmd_con_get_go_tooltip (GnomeCmdCon *con);
+inline const gchar *gnome_cmd_con_get_open_tooltip (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->open_tooltip;
+}
 
-const gchar *
-gnome_cmd_con_get_open_tooltip (GnomeCmdCon *con);
+inline const gchar *gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->close_tooltip;
+}
 
-const gchar *
-gnome_cmd_con_get_close_tooltip (GnomeCmdCon *con);
+inline GnomeCmdPixmap *gnome_cmd_con_get_go_pixmap (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->go_pixmap;
+}
 
-GnomeCmdPixmap *
-gnome_cmd_con_get_go_pixmap (GnomeCmdCon *con);
+inline GnomeCmdPixmap *gnome_cmd_con_get_open_pixmap (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->open_pixmap;
+}
 
-GnomeCmdPixmap *
-gnome_cmd_con_get_open_pixmap (GnomeCmdCon *con);
+inline GnomeCmdPixmap *gnome_cmd_con_get_close_pixmap (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->close_pixmap;
+}
 
-GnomeCmdPixmap *
-gnome_cmd_con_get_close_pixmap (GnomeCmdCon *con);
+GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
 
+void gnome_cmd_con_set_bookmarks (GnomeCmdCon *con, GnomeCmdBookmarkGroup *bookmarks);
 
-GnomeCmdBookmarkGroup *
-gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
+GnomeCmdDirPool *gnome_cmd_con_get_dir_pool (GnomeCmdCon *con);
 
-void
-gnome_cmd_con_set_bookmarks (GnomeCmdCon *con, GnomeCmdBookmarkGroup *bookmarks);
+void gnome_cmd_con_updated (GnomeCmdCon *con);
 
-GnomeCmdDirPool *
-gnome_cmd_con_get_dir_pool (GnomeCmdCon *con);
+GnomeVFSResult gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GnomeVFSFileType *type);
 
-void
-gnome_cmd_con_updated (GnomeCmdCon *con);
+GnomeVFSResult gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str);
 
-GnomeVFSResult
-gnome_cmd_con_get_path_target_type (GnomeCmdCon *con,
-                                    const gchar *path,
-                                    GnomeVFSFileType *type);
+void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-GnomeVFSResult
-gnome_cmd_con_mkdir (GnomeCmdCon *con, const gchar *path_str);
+void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
 
-void
-gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
-
-void
-gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
-
-GnomeCmdDir *
-gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
+GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
 
 #endif // __GNOME_CMD_CON_H__
