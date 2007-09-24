@@ -1035,11 +1035,6 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
                 plugin_manager_show ();
                 break;
 
-            case GDK_S:
-            case GDK_s:
-                gnome_cmd_dir_pool_show_state (gnome_cmd_con_get_dir_pool (gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (mw, ACTIVE))));
-                break;
-
             case GDK_f:
             case GDK_F:
             {
