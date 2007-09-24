@@ -202,8 +202,8 @@ void GnomeCmdUserActions::init()
     actions.add(bookmarks_goto, "bookmarks.goto");
     actions.add(command_open_terminal, "command.open_terminal");
     actions.add(connections_close_current, "connections.close");
-    actions.add(connections_ftp_quick_connect, "connections.new");
-    actions.add(connections_ftp_connect, "connections.open");
+    actions.add(connections_new, "connections.new");
+    actions.add(connections_open, "connections.open");
     actions.add(edit_cap_copy, "edit.copy");
     actions.add(edit_copy_fnames, "edit.copy_filenames");
     actions.add(edit_cap_cut, "edit.cut");
@@ -1148,7 +1148,7 @@ void options_edit_mime_types (GtkMenuItem *menuitem, gpointer not_used)
 
 
 /************** Connections Menu **************/
-void connections_ftp_connect (GtkMenuItem *menuitem, gpointer not_used)
+void connections_open (GtkMenuItem *menuitem, gpointer not_used)
 {
     GtkWidget *dialog = gnome_cmd_ftp_dialog_new ();
     gtk_widget_ref (dialog);
@@ -1156,7 +1156,7 @@ void connections_ftp_connect (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void connections_ftp_quick_connect (GtkMenuItem *menuitem, gpointer not_used)
+void connections_new (GtkMenuItem *menuitem, gpointer not_used)
 {
     show_ftp_quick_connect_dialog ();
 }

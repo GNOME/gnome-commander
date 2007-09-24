@@ -1,3 +1,11 @@
+2007-09-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Rename underlying functions to reflect changes to "connections.*"
+
 2007-09-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:

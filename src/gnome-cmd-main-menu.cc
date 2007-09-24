@@ -711,14 +711,14 @@ static void init (GnomeCmdMainMenu *main_menu)
     MenuData connections_menu_uiinfo[] =
     {
         {
-            MENU_TYPE_ITEM, _("FTP _Connect..."), "Ctrl+F", NULL,
-            (gpointer) connections_ftp_connect, NULL,
+            MENU_TYPE_ITEM, _("_Remote Server..."), "Ctrl+F", NULL,
+            (gpointer) connections_open, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
             NULL
         },
         {
-            MENU_TYPE_ITEM, _("FTP _Quick Connect..."), "Ctrl+G", NULL,
-            (gpointer) connections_ftp_quick_connect, NULL,
+            MENU_TYPE_ITEM, _("New Connection..."), "Ctrl+N", NULL,
+            (gpointer) connections_new, NULL,
             GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CONNECT,
             NULL
         },

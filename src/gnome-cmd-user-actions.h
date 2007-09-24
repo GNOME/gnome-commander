@@ -165,8 +165,8 @@ GNOME_CMD_USER_ACTION(options_edit);
 GNOME_CMD_USER_ACTION(options_edit_mime_types);
 
 /************** Connections Menu **************/
-GNOME_CMD_USER_ACTION(connections_ftp_connect);
-GNOME_CMD_USER_ACTION(connections_ftp_quick_connect);
+GNOME_CMD_USER_ACTION(connections_open);
+GNOME_CMD_USER_ACTION(connections_new);
 GNOME_CMD_USER_ACTION(connections_change);
 GNOME_CMD_USER_ACTION(connections_close);
 GNOME_CMD_USER_ACTION(connections_close_current);
