@@ -36,7 +36,7 @@ static GnomeCmdDialogClass *parent_class = NULL;
 
 struct _GnomeCmdFtpDialogPrivate
 {
-    GnomeCmdConFtp *selected_server;
+    GnomeCmdConFtp    *selected_server;
 
     GtkWidget         *server_list;
     GtkWidget         *anonymous_pw_entry;
@@ -48,7 +48,7 @@ struct _GnomeCmdFtpDialogPrivate
     The main ftp dialog
 ******************************************************/
 
-static GList *get_ftp_connections ()
+inline GList *get_ftp_connections ()
 {
     return gnome_cmd_con_list_get_all_ftp (gnome_cmd_con_list_get ());
 }
@@ -97,7 +97,7 @@ static gboolean do_connect_real (GnomeCmdConFtp *server)
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
     gnome_cmd_file_selector_set_connection (fs, con, NULL);
-//        gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, G_DIR_SEPARATOR_S)));
+    // gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, G_DIR_SEPARATOR_S)));
 
     return FALSE;
 }
@@ -205,9 +205,7 @@ static gchar *update_server_from_strings (GnomeCmdConFtp **server, const gchar *
         return g_strdup_printf (_("Invalid port number: %s"), port);
 
     if (!(*server))
-    {
         *server = gnome_cmd_con_ftp_new (alias?alias:"tmp", host, iport, user, pw, remote_dir);
-    }
     else
     {
         if (with_alias)
@@ -359,13 +357,9 @@ static void on_server_list_select_row (GtkCList *clist, gint row, gint column, G
         return;
 
     if (event->type == GDK_2BUTTON_PRESS)
-    {
         on_connect_btn_clicked (NULL, dialog);
-    }
     else
-    {
         dialog->priv->selected_server = GNOME_CMD_CON_FTP (gtk_clist_get_row_data (clist, row));
-    }
 }
 
 

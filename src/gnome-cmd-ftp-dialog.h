@@ -48,13 +48,10 @@ struct _GnomeCmdFtpDialogClass
 
 
 
-GtkType
-gnome_cmd_ftp_dialog_get_type            (void);
+GtkType gnome_cmd_ftp_dialog_get_type (void);
 
-GtkWidget*
-gnome_cmd_ftp_dialog_new                 (void);
+GtkWidget *gnome_cmd_ftp_dialog_new (void);
 
-void
-show_ftp_quick_connect_dialog            (void);
+void show_ftp_quick_connect_dialog (void);
 
 #endif // __GNOME_CMD_FTP_DIALOG_H__
