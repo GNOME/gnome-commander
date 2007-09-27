@@ -42,17 +42,14 @@ struct _GnomeCmdPatternselDialogPrivate
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
-static void
-on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
+static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 {
-    const gchar *s;
-    gboolean case_sens;
-    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
-
     g_return_if_fail (GNOME_CMD_IS_PATTERNSEL_DIALOG (dialog));
 
-    s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
-    case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
+    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+
+    const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
+    gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
     if (dialog->priv->mode)
         gnome_cmd_file_list_select_pattern (dialog->priv->fl, s, case_sens);
@@ -65,8 +62,7 @@ on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 }
 
 
-static void
-on_cancel (GtkButton *button, GnomeCmdPatternselDialog *dialog)
+static void on_cancel (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 {
     gtk_widget_hide (GTK_WIDGET (dialog));
 }
@@ -76,8 +72,7 @@ on_cancel (GtkButton *button, GnomeCmdPatternselDialog *dialog)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdPatternselDialog *dialog = GNOME_CMD_PATTERNSEL_DIALOG (object);
 
@@ -88,16 +83,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdPatternselDialogClass *klass)
+static void class_init (GnomeCmdPatternselDialogClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -108,10 +101,9 @@ class_init (GnomeCmdPatternselDialogClass *klass)
 }
 
 
-static void
-init (GnomeCmdPatternselDialog *dialog)
+static void init (GnomeCmdPatternselDialog *dialog)
 {
-    dialog->priv = g_new (GnomeCmdPatternselDialogPrivate, 1);
+    dialog->priv = g_new0 (GnomeCmdPatternselDialogPrivate, 1);
 }
 
 
@@ -119,8 +111,7 @@ init (GnomeCmdPatternselDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
+GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 {
     GtkWidget *hbox, *vbox, *label;
     SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
@@ -128,9 +119,7 @@ gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
     dialog->priv->mode = mode;
     dialog->priv->fl = fl;
 
-    gnome_cmd_dialog_setup (
-        GNOME_CMD_DIALOG (dialog),
-        mode ? _("Select Using Pattern") : _("Unselect Using Pattern"));
+    gnome_cmd_dialog_setup ( GNOME_CMD_DIALOG (dialog), mode ? _("Select Using Pattern") : _("Unselect Using Pattern"));
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
@@ -162,8 +151,7 @@ gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 }
 
 
-GtkType
-gnome_cmd_patternsel_dialog_get_type         (void)
+GtkType gnome_cmd_patternsel_dialog_get_type (void)
 {
     static GtkType dlg_type = 0;
 

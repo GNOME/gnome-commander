@@ -31,16 +31,14 @@ static GtkObjectClass *parent_class = NULL;
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
-static void
-class_init (GnomeCmdPathClass *klass)
+static void class_init (GnomeCmdPathClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
 
@@ -55,8 +53,7 @@ class_init (GnomeCmdPathClass *klass)
 }
 
 
-static void
-init (GnomeCmdPath *path)
+static void init (GnomeCmdPath *path)
 {
 }
 
@@ -66,8 +63,7 @@ init (GnomeCmdPath *path)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_path_get_type         (void)
+GtkType gnome_cmd_path_get_type (void)
 {
     static GtkType type = 0;
 
@@ -91,8 +87,7 @@ gnome_cmd_path_get_type         (void)
 }
 
 
-const gchar *
-gnome_cmd_path_get_path (GnomeCmdPath *path)
+const gchar *gnome_cmd_path_get_path (GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_PATH (path), NULL);
 
@@ -102,8 +97,7 @@ gnome_cmd_path_get_path (GnomeCmdPath *path)
 }
 
 
-const gchar *
-gnome_cmd_path_get_display_path (GnomeCmdPath *path)
+const gchar *gnome_cmd_path_get_display_path (GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_PATH (path), NULL);
 
@@ -113,8 +107,7 @@ gnome_cmd_path_get_display_path (GnomeCmdPath *path)
 }
 
 
-GnomeCmdPath *
-gnome_cmd_path_get_parent (GnomeCmdPath *path)
+GnomeCmdPath *gnome_cmd_path_get_parent (GnomeCmdPath *path)
 {
     g_return_val_if_fail (GNOME_CMD_IS_PATH (path), NULL);
 
@@ -124,8 +117,7 @@ gnome_cmd_path_get_parent (GnomeCmdPath *path)
 }
 
 
-GnomeCmdPath *
-gnome_cmd_path_get_child (GnomeCmdPath *path, const gchar *child)
+GnomeCmdPath *gnome_cmd_path_get_child (GnomeCmdPath *path, const gchar *child)
 {
     g_return_val_if_fail (GNOME_CMD_IS_PATH (path), NULL);
 

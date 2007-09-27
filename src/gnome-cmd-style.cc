@@ -108,5 +108,3 @@ void gnome_cmd_style_create (void)
     list_style = create_list_style ();
     sel_list_style = create_sel_list_style ();
 }
-
-

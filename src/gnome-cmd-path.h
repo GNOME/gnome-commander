@@ -41,7 +41,7 @@ struct _GnomeCmdPathClass
 {
     GtkObjectClass parent_class;
 
-    /* virtual functions */
+    // virtual functions
     const gchar *(* get_path)          (GnomeCmdPath *path);
     const gchar *(* get_display_path)  (GnomeCmdPath *path);
     GnomeCmdPath *(* get_parent)       (GnomeCmdPath *path);
@@ -49,19 +49,14 @@ struct _GnomeCmdPathClass
 };
 
 
-GtkType
-gnome_cmd_path_get_type (void);
+GtkType gnome_cmd_path_get_type (void);
 
-const gchar *
-gnome_cmd_path_get_path (GnomeCmdPath *path);
+const gchar *gnome_cmd_path_get_path (GnomeCmdPath *path);
 
-const gchar *
-gnome_cmd_path_get_display_path (GnomeCmdPath *path);
+const gchar *gnome_cmd_path_get_display_path (GnomeCmdPath *path);
 
-GnomeCmdPath *
-gnome_cmd_path_get_parent (GnomeCmdPath *path);
+GnomeCmdPath *gnome_cmd_path_get_parent (GnomeCmdPath *path);
 
-GnomeCmdPath *
-gnome_cmd_path_get_child (GnomeCmdPath *path, const gchar *child);
+GnomeCmdPath *gnome_cmd_path_get_child (GnomeCmdPath *path, const gchar *child);
 
 #endif // __GNOME_CMD_PATH_H__

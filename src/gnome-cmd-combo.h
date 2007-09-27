@@ -45,7 +45,8 @@ typedef struct _GnomeCmdCombo GnomeCmdCombo;
 typedef struct _GnomeCmdComboClass GnomeCmdComboClass;
 
 /* you should access only the entry and list fields directly */
-struct _GnomeCmdCombo {
+struct _GnomeCmdCombo 
+{
     GtkHBox hbox;
     GtkWidget *entry;
     GtkWidget *button;
@@ -71,59 +72,36 @@ struct _GnomeCmdCombo {
     gint text_col;
 };
 
-struct _GnomeCmdComboClass {
+struct _GnomeCmdComboClass 
+{
     GtkHBoxClass parent_class;
 
-    void (* item_selected)     (GnomeCmdCombo *combo,
-                                gpointer data);
+    void (* item_selected)     (GnomeCmdCombo *combo, gpointer data);
     void (* popwin_hidden)     (GnomeCmdCombo *combo);
 };
 
-guint
-gnome_cmd_combo_get_type              (void);
+guint gnome_cmd_combo_get_type (void);
 
-GtkWidget *
-gnome_cmd_combo_new                   (gint num_cols,
-                                       gint text_col,
-                                       gchar **col_titles);
+GtkWidget *gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles);
 
-void
-gnome_cmd_combo_clear                 (GnomeCmdCombo *combo);
+void gnome_cmd_combo_clear (GnomeCmdCombo *combo);
 
-gint
-gnome_cmd_combo_append                (GnomeCmdCombo *combo,
-                                       gchar         **text,
-                                       gpointer      data);
+gint gnome_cmd_combo_append (GnomeCmdCombo *combo, gchar **text, gpointer data);
 
-gint
-gnome_cmd_combo_insert                (GnomeCmdCombo *combo,
-                                       gchar         **text,
-                                       gpointer      data);
+gint gnome_cmd_combo_insert (GnomeCmdCombo *combo, gchar **text, gpointer data);
 
-void
-gnome_cmd_combo_set_pixmap            (GnomeCmdCombo *combo,
-                                       gint           row,
-                                       gint           col,
-                                       GnomeCmdPixmap *pixmap);
+void gnome_cmd_combo_set_pixmap (GnomeCmdCombo *combo, gint row, gint col, GnomeCmdPixmap *pixmap);
 
-void
-gnome_cmd_combo_popup_list            (GnomeCmdCombo *combo);
+void gnome_cmd_combo_popup_list  (GnomeCmdCombo *combo);
 
-void
-gnome_cmd_combo_select_text           (GnomeCmdCombo *combo,
-                                       const gchar *text);
+void gnome_cmd_combo_select_text (GnomeCmdCombo *combo, const gchar *text);
 
-void
-gnome_cmd_combo_select_data           (GnomeCmdCombo *combo,
-                                       gpointer data);
+void gnome_cmd_combo_select_data (GnomeCmdCombo *combo, gpointer data);
 
-void
-gnome_cmd_combo_update_style          (GnomeCmdCombo *combo);
+void gnome_cmd_combo_update_style (GnomeCmdCombo *combo);
 
-gpointer
-gnome_cmd_combo_get_selected_data     (GnomeCmdCombo *combo);
+gpointer gnome_cmd_combo_get_selected_data (GnomeCmdCombo *combo);
 
-const gchar*
-gnome_cmd_combo_get_selected_text     (GnomeCmdCombo *combo);
+const gchar *gnome_cmd_combo_get_selected_text (GnomeCmdCombo *combo);
 
 #endif // __GNOME_CMD_COMBO_H__

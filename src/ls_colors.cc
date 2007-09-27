@@ -50,7 +50,7 @@ static GdkColor white   = {0,0xffff,0xffff,0xffff};
 # Background color codes:
 # 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
 */
-static GdkColor *code2color (gint code)
+inline GdkColor *code2color (gint code)
 {
     switch (code)
     {
