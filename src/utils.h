@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 #include <stdio.h>
 
@@ -224,11 +225,30 @@ inline std::string &stringify(std::string &s, gchar *val)
     return s;
 }
 
+template <typename T>
+inline std::string &stringify(std::string &s, const T &val)
+{
+   std::ostringstream os;
+
+   os << val;
+   s = os.str();
+
+   return s;
+}
+
 inline std::string stringify(gchar *val)
 {
     std::string s;
 
     return val ? stringify(s,val) : s;
+}
+
+template <typename T>
+inline std::string stringify(const T &val)
+{
+    std::string s;
+
+    return stringify(s,val);
 }
 
 int split(const std::string &s, std::vector<std::string> &coll, const char *sep);
