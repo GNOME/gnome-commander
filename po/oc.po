@@ -156,9 +156,7 @@ msgstr[1] ""
 
 #: ../src/gnome-cmd-about-plugin.cc:182
 msgid "Credits"
-msgstr ""
-"La còla occitana de revirada d'Ubuntu <ubuntu-l10n-oci@lists.ubuntu.com>, "
-"2006"
+msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org)"
 
 #: ../src/gnome-cmd-about-plugin.cc:209
 msgid "Written by"
@@ -1828,7 +1826,7 @@ msgstr ""
 #: ../src/gnome-cmd-options-dialog.cc:1693
 #: ../src/gnome-cmd-options-dialog.cc:1886
 msgid "Devices"
-msgstr "Periferiques"
+msgstr "Periferics"
 
 #: ../src/gnome-cmd-options-dialog.cc:1733
 msgid "Show only the icons"
@@ -2603,7 +2601,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:92 ../src/tags/gnome-cmd-tags.cc:141
 #: ../src/tags/gnome-cmd-tags.cc:1115 ../src/tags/gnome-cmd-tags.cc:1224
 msgid "Title"
-msgstr "Titol"
+msgstr "Títol"
 
 #: ../src/tags/gnome-cmd-tags.cc:92 ../src/tags/gnome-cmd-tags.cc:1115
 msgid "Title of the track."
