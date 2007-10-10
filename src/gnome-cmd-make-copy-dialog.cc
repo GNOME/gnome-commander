@@ -124,7 +124,7 @@ class_init (GnomeCmdMakeCopyDialogClass *klass)
 static void
 init (GnomeCmdMakeCopyDialog *dialog)
 {
-    dialog->priv = g_new (GnomeCmdMakeCopyDialogPrivate, 1);
+    dialog->priv = g_new0 (GnomeCmdMakeCopyDialogPrivate, 1);
 }
 
 

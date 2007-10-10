@@ -44,7 +44,7 @@ struct _GnomeCmdAppPrivate
 GnomeCmdApp*
 gnome_cmd_app_new ()
 {
-    GnomeCmdApp *app = g_new (GnomeCmdApp, 1);
+    GnomeCmdApp *app = g_new0 (GnomeCmdApp, 1);
     app->priv = g_new0 (GnomeCmdAppPrivate, 1);
     app->priv->name = NULL;
     app->priv->cmd = NULL;

@@ -425,7 +425,7 @@ init (GnomeCmdBookmarkDialog *in_dialog)
     GtkWidget *dir_list;
     GtkAccelGroup *accel_group = gtk_accel_group_new ();
 
-    in_dialog->priv = g_new (GnomeCmdBookmarkDialogPrivate, 1);
+    in_dialog->priv = g_new0 (GnomeCmdBookmarkDialogPrivate, 1);
     in_dialog->priv->groups = NULL;
 
     dialog = GTK_WIDGET (in_dialog);

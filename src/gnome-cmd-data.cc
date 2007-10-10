@@ -132,7 +132,7 @@ inline void write_ftp_servers (const gchar *fname)
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE  *fd = fopen (path, "w");
 
-    if (fd != NULL)
+    if (fd)
     {
         chmod (path, S_IRUSR|S_IWUSR);
 
@@ -186,9 +186,9 @@ inline void write_devices (const gchar *fname)
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
 
-    if (fd != NULL)
+    if (fd)
     {
-        for (GList *tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp != NULL; tmp = tmp->next)
+        for (GList *tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp; tmp = tmp->next)
         {
             GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
             if (device && !gnome_cmd_con_device_get_autovol(device))
@@ -231,9 +231,9 @@ inline void write_fav_apps (const gchar *fname)
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
 
-    if (fd != NULL)
+    if (fd)
     {
-        for (GList *tmp = data->priv->fav_apps; tmp != NULL; tmp = tmp->next)
+        for (GList *tmp = data->priv->fav_apps; tmp; tmp = tmp->next)
         {
             GnomeCmdApp *app = (GnomeCmdApp *) tmp->data;
             if (app)
@@ -270,7 +270,7 @@ inline void write_fav_apps (const gchar *fname)
 
 inline gboolean load_ftp_servers (const gchar *fname)
 {
-    guint prev_ftp_cons_no = g_list_length(gnome_cmd_con_list_get_all_ftp(data->priv->con_list));
+    guint prev_ftp_cons_no = g_list_length (gnome_cmd_con_list_get_all_ftp (data->priv->con_list));
 
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE  *fd = fopen (path, "r");
@@ -393,14 +393,12 @@ inline gboolean load_ftp_servers (const gchar *fname)
 
 inline gboolean vfs_is_uri_local (const char *uri)
 {
-    GnomeVFSURI *pURI = NULL;
-    gboolean b;
+    GnomeVFSURI *pURI = gnome_vfs_uri_new(uri);
 
-    pURI = gnome_vfs_uri_new(uri);
-    if (pURI==NULL)
+    if (!pURI)
         return FALSE;
 
-    b = gnome_vfs_uri_is_local(pURI);
+    gboolean b = gnome_vfs_uri_is_local(pURI);
     gnome_vfs_uri_unref(pURI);
 
     /* make sure this is actually a local path
@@ -431,7 +429,7 @@ inline void remove_vfs_volume (GnomeVFSVolume *volume)
     path = gnome_vfs_volume_get_device_path (volume);
     localpath = gnome_vfs_get_local_path_from_uri(uri);
 
-    for (GList *tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp != NULL; tmp = tmp->next)
+    for (GList *tmp = gnome_cmd_con_list_get_all_dev (data->priv->con_list); tmp; tmp = tmp->next)
     {
         GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
         if (device && gnome_cmd_con_device_get_autovol(device))
@@ -459,7 +457,7 @@ inline gboolean device_mount_point_exists (GnomeCmdConList *list, const gchar *m
 {
     gboolean rc = FALSE;
 
-    for (GList *tmp = gnome_cmd_con_list_get_all_dev (list); tmp != NULL; tmp = tmp->next)
+    for (GList *tmp = gnome_cmd_con_list_get_all_dev (list); tmp; tmp = tmp->next)
     {
         GnomeCmdConDevice *device = GNOME_CMD_CON_DEVICE (tmp->data);
         if (device && !gnome_cmd_con_device_get_autovol(device))
@@ -691,7 +689,7 @@ inline void load_fav_apps (const gchar *fname)
     data->priv->fav_apps = NULL;
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "r");
-    if (fd != NULL)
+    if (fd)
     {
         int ret;
         gchar name[256], cmd[256], icon_path[256], pattern_string[256];
@@ -1217,12 +1215,12 @@ void gnome_cmd_data_load (void)
     data->priv->color_themes[GNOME_CMD_COLOR_MODERN].curs_bg = gdk_color_new (0,0,0x4444);
 
     data->priv->color_themes[GNOME_CMD_COLOR_FUSION].respect_theme = FALSE;
-    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].norm_fg = gdk_color_new (32896,65535,65535);
-    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].norm_bg = gdk_color_new (0,16448,32896);
-    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].sel_fg = gdk_color_new (65535,65535,0);
-    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].sel_bg = gdk_color_new (0,16448,32896);
-    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].curs_fg = gdk_color_new (0,0,32896);
-    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].curs_bg = gdk_color_new (0,32896,32896);
+    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].norm_fg = gdk_color_new (0x8080,0xffff,0xffff);
+    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].norm_bg = gdk_color_new (0,0x4040,0x8080);
+    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].sel_fg = gdk_color_new (0xffff,0xffff,0);
+    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].sel_bg = gdk_color_new (0,0x4040,0x8080);
+    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].curs_fg = gdk_color_new (0,0,0x8080);
+    data->priv->color_themes[GNOME_CMD_COLOR_FUSION].curs_bg = gdk_color_new (0,0x8080,0x8080);
 
     data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].respect_theme = FALSE;
     data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
@@ -1233,12 +1231,12 @@ void gnome_cmd_data_load (void)
     data->priv->color_themes[GNOME_CMD_COLOR_CLASSIC].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
     data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].respect_theme = FALSE;
-    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_fg = gdk_color_new (0,65535,65535);
-    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_bg = gdk_color_new (0,0,32896);
-    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_fg = gdk_color_new (65535,65535,0);
-    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_bg = gdk_color_new (32896,32896,32896);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_fg = gdk_color_new (0,0xffff,0xffff);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].norm_bg = gdk_color_new (0,0,0x8080);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_fg = gdk_color_new (0xffff,0xffff,0);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].sel_bg = gdk_color_new (0x8080,0x8080,0x8080);
     data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_fg = gdk_color_new (0,0,0);
-    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_bg = gdk_color_new (43690,43690,43690);
+    data->priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
     data->priv->color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     data->priv->color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;

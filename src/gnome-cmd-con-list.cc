@@ -37,6 +37,7 @@ struct _GnomeCmdConListPrivate
     GList *ftp_cons;
     GList *device_cons;
     GList *quick_ftp_cons;
+
     GnomeCmdCon *home_con;
     GnomeCmdCon *smb_con;
 
@@ -136,16 +137,16 @@ static void class_init (GnomeCmdConListClass *klass)
 
 static void init (GnomeCmdConList *con_list)
 {
-    con_list->priv = g_new (GnomeCmdConListPrivate, 1);
+    con_list->priv = g_new0 (GnomeCmdConListPrivate, 1);
 
     con_list->priv->update_lock = FALSE;
 
     con_list->priv->home_con = gnome_cmd_con_home_new ();
     con_list->priv->smb_con = gnome_cmd_con_smb_new ();
 
-    con_list->priv->ftp_cons = NULL;
-    con_list->priv->device_cons = NULL;
-    con_list->priv->quick_ftp_cons = NULL;
+    // con_list->priv->ftp_cons = NULL;
+    // con_list->priv->device_cons = NULL;
+    // con_list->priv->quick_ftp_cons = NULL;
     con_list->priv->all_cons = g_list_append (NULL, con_list->priv->home_con);
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, con_list->priv->smb_con);
 }

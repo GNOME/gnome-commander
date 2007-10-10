@@ -65,9 +65,8 @@ class_init (GnomeCmdFileCollectionClass *klass)
 static void
 init (GnomeCmdFileCollection *collection)
 {
-    collection->priv = g_new (GnomeCmdFileCollectionPrivate, 1);
-    collection->priv->map = g_hash_table_new_full (
-        g_str_hash, g_str_equal, g_free, (GDestroyNotify)gnome_cmd_file_unref);
+    collection->priv = g_new0 (GnomeCmdFileCollectionPrivate, 1);
+    collection->priv->map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)gnome_cmd_file_unref);
     collection->priv->list = NULL;
 }
 
