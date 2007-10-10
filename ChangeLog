@@ -1,7 +1,7 @@
 2007-10-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
-	Write URI to ~/.gnome-commander/connetcions files
+	Write URI to ~/.gnome-commander/connections files
 
 2007-10-02  Piotr Eljasiak  <epiotr@use.pl>
 
