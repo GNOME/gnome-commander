@@ -142,21 +142,34 @@ inline void write_ftp_servers (const gchar *fname)
 
             if (server)
             {
-                gchar *alias = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_alias (server));
+                string uri_str;
+                string alias;
+                string remote_dir;
+
+                stringify (alias, gnome_vfs_escape_string (gnome_cmd_con_ftp_get_alias (server)));
+                stringify (remote_dir, gnome_vfs_escape_string (gnome_cmd_con_ftp_get_remote_dir (server)));
+
                 gchar *hname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_host_name (server));
                 gushort port = gnome_cmd_con_ftp_get_host_port (server);
-                gchar *remote_dir = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_remote_dir (server));
                 gchar *uname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_user_name (server));
                 gchar *pw    = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_pw (server));
                 GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (GNOME_CMD_CON (server));
 
-                fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp:", alias, hname, port, remote_dir, uname, pw?pw:"");
+                fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp:", alias.c_str(), hname, port, remote_dir.c_str(), uname, pw?pw:"");
 
-                g_free (alias);
                 g_free (hname);
-                g_free (remote_dir);
                 g_free (uname);
                 g_free (pw);
+
+                GnomeCmdPath *path = gnome_cmd_con_create_path (GNOME_CMD_CON (server), remote_dir.c_str());
+                GnomeVFSURI *uri = gnome_cmd_con_create_uri (GNOME_CMD_CON (server), path);
+                stringify (uri_str, gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD));
+                // stringify (uri_str, gnome_vfs_format_uri_for_display (uri_str.c_str());
+                gtk_object_destroy (GTK_OBJECT (path));
+
+                fprintf (fd, "U: %s\t%s\n", alias.c_str(), uri_str.c_str());
+
+                gnome_vfs_uri_unref (uri);
 
                 for (GList *bookmarks = bookmark_group->bookmarks; bookmarks; bookmarks = bookmarks->next)
                 {
@@ -287,6 +300,9 @@ inline gboolean load_ftp_servers (const gchar *fname)
             {
                 case '\0':             // do not warn about empty lines
                 case '#' :             // do not warn about empty comments
+                    break;
+
+                case 'U':
                     break;
 
                 case 'S':
