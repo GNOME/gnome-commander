@@ -2438,8 +2438,11 @@ static GList *gnome_vfs_list_sort_merge (GList *l1, GList *l2, GnomeVFSListCompa
 
 GList *gnome_vfs_list_sort (GList *list, GnomeVFSListCompareFunc compare_func, gpointer data)
 {
-    if (!list || !list->next)
-        return list;
+    if (!list)
+        return NULL;
+
+     if (!list->next)
+         return list;
 
     GList *l1 = list;
     GList *l2 = list->next;
