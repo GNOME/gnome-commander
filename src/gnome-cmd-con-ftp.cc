@@ -358,7 +358,7 @@ gnome_cmd_con_ftp_set_pw              (GnomeCmdConFtp *con,
 
     g_free (con->priv->pw);
 
-    con->priv->pw = pw ? g_strdup (pw) : NULL;
+    con->priv->pw = g_strdup (pw);
 }
 
 

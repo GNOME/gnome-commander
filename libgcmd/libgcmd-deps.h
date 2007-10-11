@@ -20,6 +20,10 @@
 #ifndef __LIBGCMD_DEPS_H__
 #define __LIBGCMD_DEPS_H__
 
+#include <glib.h>
+
+G_BEGIN_DECLS
+
 #include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
@@ -28,8 +32,6 @@
 #include <libgnomeui/libgnomeui.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
-
-G_BEGIN_DECLS
 
 extern GtkWidget *main_win_widget;
 

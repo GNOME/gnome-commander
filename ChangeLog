@@ -1,3 +1,11 @@
+2007-10-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-ftp-dialog.cc:
+	* src/main.cc:
+	Use the GNOME authentication manager for user's security credentials
+
 2007-10-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

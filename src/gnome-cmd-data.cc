@@ -321,7 +321,7 @@ inline gboolean load_ftp_servers (const gchar *fname)
                             if (ret == 5)
                                 pw2 = gnome_vfs_unescape_string (pw, NULL);
 
-                            server = gnome_cmd_con_ftp_new (alias2, host2, (gshort)port, user2, pw2, "");
+                            server = gnome_cmd_con_ftp_new (alias2, host2, (gshort)port, user2, NULL, "");
 
                             gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
 
@@ -347,15 +347,13 @@ inline gboolean load_ftp_servers (const gchar *fname)
                             gchar *host2        = gnome_vfs_unescape_string (a[3], NULL);
                             gchar *remote_dir2  = gnome_vfs_unescape_string (a[5], NULL);
                             gchar *user2        = gnome_vfs_unescape_string (a[6], NULL);
-                            gchar *pw2          = gnome_vfs_unescape_string (a[7], NULL);
 
-                            GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (alias2, host2, (gshort)port2, user2, pw2, remote_dir2);
+                            GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (alias2, host2, (gshort)port2, user2, NULL, remote_dir2);
 
                             g_free (alias2);
                             g_free (host2);
                             g_free (remote_dir2);
                             g_free (user2);
-                            g_free (pw2);
 
                             gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
                         }

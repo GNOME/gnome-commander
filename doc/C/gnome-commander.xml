@@ -5649,6 +5649,9 @@
                             <para>Support for file metags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
+                            <para>Use the GNOME authentication manager for user's security credentials</para>
+                        </listitem>
+                        <listitem>
                             <para>Metadata tags in file properties dialog</para>
                         </listitem>
                         <listitem>

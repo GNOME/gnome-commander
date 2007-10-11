@@ -15,6 +15,7 @@ New features:
  * Support for Exif makernotes metags in advanced file rename templates
  * Support for file metags in advanced file rename templates
  * Metadata tags in file properties dialog
+ * Use the GNOME authentication manager for user's security credentials
  * Open terminal in the current directory
  * Default GNOME theme icons for home, SMB and FTP locations
  * User defined shortcuts to bookmarks
