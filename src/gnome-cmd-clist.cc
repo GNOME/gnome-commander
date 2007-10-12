@@ -70,8 +70,7 @@ inline gint COLUMN_FROM_XPIXEL (GtkCList * clist, gint x)
         {
             gint cx = clist->column[i].area.x + clist->hoffset;
 
-            if (x >= (cx - (COLUMN_INSET + CELL_SPACING)) &&
-                x <= (cx + clist->column[i].area.width + COLUMN_INSET))
+            if (x >= (cx - (COLUMN_INSET + CELL_SPACING)) &&  x <= (cx + clist->column[i].area.width + COLUMN_INSET))
                 return i;
         }
 
@@ -227,10 +226,7 @@ draw_cell_pixmap (GdkWindow    *window,
 }
 
 
-PangoLayout *
-my_gtk_clist_create_cell_layout (GtkCList       *clist,
-                                 GtkCListRow    *clist_row,
-                                 gint            column)
+inline PangoLayout *my_gtk_clist_create_cell_layout (GtkCList *clist, GtkCListRow *clist_row, gint column)
 {
     PangoLayout *layout;
     GtkStyle *style;
@@ -265,11 +261,7 @@ my_gtk_clist_create_cell_layout (GtkCList       *clist,
 }
 
 
-static void
-draw_row (GtkCList     *clist,
-          GdkRectangle *area,
-          gint          row,
-          GtkCListRow  *clist_row)
+static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow *clist_row)
 {
     g_return_if_fail (clist != NULL);
 
@@ -531,25 +523,19 @@ draw_row (GtkCList     *clist,
 /*******************************************
  * END OF TEST
  ****/
-static void
-on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist)
+static void on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist)
 {
     gtk_widget_draw(GTK_WIDGET(clist),NULL);
 }
 
-static void
-on_scroll_vertical                  (GtkCList        *clist,
-                                     GtkScrollType    scroll_type,
-                                     gfloat           position,
-                                     gpointer         data)
+
+static void on_scroll_vertical (GtkCList *clist, GtkScrollType scroll_type, gfloat position, gpointer data)
 {
     gtk_clist_select_row (clist, clist->focus_row, 0);
 }
 
 
-static void
-on_realize                          (GtkCList *clist,
-                                     gpointer data)
+static void on_realize (GtkCList *clist, gpointer data)
 {
     for (gint i=0; i<clist->columns; i++)
         if (clist->column[i].button)
@@ -566,24 +552,21 @@ on_realize                          (GtkCList *clist,
  *******************************/
 
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdCListClass *klass)
+static void class_init (GnomeCmdCListClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -599,8 +582,7 @@ class_init (GnomeCmdCListClass *klass)
 }
 
 
-static void
-init (GnomeCmdCList *clist)
+static void init (GnomeCmdCList *clist)
 {
     clist->drag_motion_row = -1;
 
@@ -615,8 +597,7 @@ init (GnomeCmdCList *clist)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_clist_get_type         (void)
+GtkType gnome_cmd_clist_get_type         (void)
 {
     static GtkType type = 0;
 
@@ -640,12 +621,6 @@ gnome_cmd_clist_get_type         (void)
 }
 
 
-GtkWidget *gnome_cmd_clist_new (gint columns)
-{
-    return gnome_cmd_clist_new_with_titles (columns, NULL);
-}
-
-
 GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 {
     GnomeCmdCList *clist = (GnomeCmdCList *) g_object_new (gnome_cmd_clist_get_type(), "n_columns", columns, NULL);
@@ -661,12 +636,6 @@ GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 }
 
 
-void gnome_cmd_clist_update_style (GnomeCmdCList *clist)
-{
-    gtk_widget_set_style (GTK_WIDGET (clist), list_style);
-}
-
-
 gint gnome_cmd_clist_get_voffset (GnomeCmdCList *clist)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CLIST (clist), 0);
@@ -675,7 +644,13 @@ gint gnome_cmd_clist_get_voffset (GnomeCmdCList *clist)
 }
 
 
-void gnome_cmd_clist_set_voffset         (GnomeCmdCList *clist, gint voffset)
+void gnome_cmd_clist_update_style (GnomeCmdCList *clist)
+{
+    gtk_widget_set_style (GTK_WIDGET (clist), list_style);
+}
+
+
+void gnome_cmd_clist_set_voffset (GnomeCmdCList *clist, gint voffset)
 {
     g_return_if_fail (GNOME_CMD_IS_CLIST (clist));
 

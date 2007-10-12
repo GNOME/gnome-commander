@@ -50,8 +50,6 @@ typedef enum
 } GnomeCmdFileListColumnID;
 
 
-#define ELEMENTS(x) (sizeof (x) / sizeof (x[0]))
-
 /* DnD target names */
 #define TARGET_MC_DESKTOP_ICON_TYPE     "application/x-mc-desktop-icon"
 #define TARGET_URI_LIST_TYPE            "text/uri-list"

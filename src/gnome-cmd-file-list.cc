@@ -620,7 +620,7 @@ inline void init_dnd (GnomeCmdFileList *fl)
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     gtk_drag_source_set (GTK_WIDGET (fl), GDK_BUTTON1_MASK,
-                         drag_types, ELEMENTS (drag_types),
+                         drag_types, G_N_ELEMENTS (drag_types),
                          (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
 
     gtk_signal_connect (GTK_OBJECT (fl), "drag_data_get", GTK_SIGNAL_FUNC (drag_data_get), fl);

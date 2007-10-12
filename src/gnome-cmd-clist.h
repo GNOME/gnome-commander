@@ -49,28 +49,21 @@ struct _GnomeCmdCListClass
 
 
 
-GtkType
-gnome_cmd_clist_get_type            (void);
+GtkType gnome_cmd_clist_get_type (void);
 
-GtkWidget*
-gnome_cmd_clist_new                 (gint columns);
+GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles);
 
-GtkWidget*
-gnome_cmd_clist_new_with_titles     (gint columns, gchar **titles);
+inline GtkWidget *gnome_cmd_clist_new (gint columns)
+{
+    return gnome_cmd_clist_new_with_titles (columns, NULL);
+}
 
-void
-gnome_cmd_clist_update_style        (GnomeCmdCList *clist);
+void gnome_cmd_clist_update_style        (GnomeCmdCList *clist);
 
-gint
-gnome_cmd_clist_get_voffset         (GnomeCmdCList *clist);
+gint gnome_cmd_clist_get_voffset (GnomeCmdCList *clist);
+void gnome_cmd_clist_set_voffset (GnomeCmdCList *clist, gint voffset);
 
-void
-gnome_cmd_clist_set_voffset         (GnomeCmdCList *clist, gint voffset);
-
-gint
-gnome_cmd_clist_get_row             (GnomeCmdCList *clist, gint x, gint y);
-
-void
-gnome_cmd_clist_set_drag_row        (GnomeCmdCList *clist, gint row);
+gint gnome_cmd_clist_get_row (GnomeCmdCList *clist, gint x, gint y);
+void gnome_cmd_clist_set_drag_row (GnomeCmdCList *clist, gint row);
 
 #endif // __GNOME_CMD_CLIST_H__

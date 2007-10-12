@@ -654,7 +654,7 @@ static void init_dnd (GnomeCmdFileSelector *fs)
     // Set up drag destination
     gtk_drag_dest_set (GTK_WIDGET (fs->list),
                        GTK_DEST_DEFAULT_DROP,
-                       drop_types, ELEMENTS (drop_types),
+                       drop_types, G_N_ELEMENTS (drop_types),
                        (GdkDragAction) (GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK));
 
     gtk_signal_connect (GTK_OBJECT (fs->list), "drag_motion", GTK_SIGNAL_FUNC (drag_motion), fs);
