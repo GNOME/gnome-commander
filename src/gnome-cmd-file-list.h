@@ -88,8 +88,6 @@ struct _GnomeCmdFileListClass
 
 enum {FILE_LIST_SORT_ASCENDING=FALSE, FILE_LIST_SORT_DESCENDING=TRUE};
 
-typedef gint (* GnomeVFSListCompareFunc) (gconstpointer a, gconstpointer b, gpointer data);
-
 
 typedef struct
 {
@@ -98,7 +96,7 @@ typedef struct
     guint default_width;
     GtkJustification justification;
     gboolean default_sort_direction;
-    GnomeVFSListCompareFunc sort_func;
+    GCompareDataFunc sort_func;
 } GnomeCmdFileListColumn;
 
 

@@ -49,39 +49,26 @@ struct _GnomeCmdFileCollectionClass
 };
 
 
-GtkType
-gnome_cmd_file_collection_get_type (void);
+GtkType gnome_cmd_file_collection_get_type (void);
 
-GnomeCmdFileCollection *
-gnome_cmd_file_collection_new (void);
+GnomeCmdFileCollection *gnome_cmd_file_collection_new (void);
 
-void
-gnome_cmd_file_collection_add (GnomeCmdFileCollection *collection,
-                               GnomeCmdFile *file);
+void gnome_cmd_file_collection_add (GnomeCmdFileCollection *collection, GnomeCmdFile *file);
 
-void
-gnome_cmd_file_collection_add_list (GnomeCmdFileCollection *collection,
-                                    GList *files);
+void gnome_cmd_file_collection_add_list (GnomeCmdFileCollection *collection, GList *files);
 
-void
-gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection,
-                                  GnomeCmdFile *file);
+void gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection, GnomeCmdFile *file);
 
-void
-gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection,
-                                         const gchar *uri_str);
+void gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection, const gchar *uri_str);
 
-GnomeCmdFile *
-gnome_cmd_file_collection_lookup (GnomeCmdFileCollection *collection,
-                                  const gchar *uri_str);
+GnomeCmdFile *gnome_cmd_file_collection_lookup (GnomeCmdFileCollection *collection, const gchar *uri_str);
 
-gint
-gnome_cmd_file_collection_get_size (GnomeCmdFileCollection *collection);
+gint gnome_cmd_file_collection_get_size (GnomeCmdFileCollection *collection);
 
-void
-gnome_cmd_file_collection_clear (GnomeCmdFileCollection *collection);
+void gnome_cmd_file_collection_clear (GnomeCmdFileCollection *collection);
 
-GList *
-gnome_cmd_file_collection_get_list (GnomeCmdFileCollection *collection);
+GList *gnome_cmd_file_collection_get_list (GnomeCmdFileCollection *collection);
+
+GList *gnome_cmd_file_collection_sort (GnomeCmdFileCollection *collection, GCompareDataFunc compare_func, gpointer user_data);
 
 #endif // __GNOME_CMD_FILE_COLLECTION_H__

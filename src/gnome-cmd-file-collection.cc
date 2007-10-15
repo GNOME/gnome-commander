@@ -161,9 +161,7 @@ gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection,
 }
 
 
-GnomeCmdFile *
-gnome_cmd_file_collection_lookup (GnomeCmdFileCollection *collection,
-                                  const gchar *uri_str)
+GnomeCmdFile *gnome_cmd_file_collection_lookup (GnomeCmdFileCollection *collection, const gchar *uri_str)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection), NULL);
     g_return_val_if_fail (uri_str != NULL, NULL);
@@ -172,8 +170,7 @@ gnome_cmd_file_collection_lookup (GnomeCmdFileCollection *collection,
 }
 
 
-gint
-gnome_cmd_file_collection_get_size (GnomeCmdFileCollection *collection)
+gint gnome_cmd_file_collection_get_size (GnomeCmdFileCollection *collection)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection), 0);
 
@@ -181,8 +178,7 @@ gnome_cmd_file_collection_get_size (GnomeCmdFileCollection *collection)
 }
 
 
-void
-gnome_cmd_file_collection_clear (GnomeCmdFileCollection *collection)
+void gnome_cmd_file_collection_clear (GnomeCmdFileCollection *collection)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection));
 
@@ -193,10 +189,19 @@ gnome_cmd_file_collection_clear (GnomeCmdFileCollection *collection)
 }
 
 
-GList *
-gnome_cmd_file_collection_get_list (GnomeCmdFileCollection *collection)
+GList *gnome_cmd_file_collection_get_list (GnomeCmdFileCollection *collection)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection), NULL);
+
+    return collection->priv->list;
+}
+
+
+GList *gnome_cmd_file_collection_sort (GnomeCmdFileCollection *collection, GCompareDataFunc compare_func, gpointer user_data)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection), NULL);
+
+    collection->priv->list = g_list_sort_with_data (collection->priv->list, compare_func, user_data);
 
     return collection->priv->list;
 }

@@ -75,10 +75,6 @@ static GnomeCmdCListClass *parent_class = NULL;
 
 static guint file_list_signals[LAST_SIGNAL] = { 0 };
 
-GList *gnome_vfs_list_sort (GList *list,
-                            GnomeVFSListCompareFunc compare_func,
-                            gpointer data);
-
 static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
@@ -91,14 +87,14 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 
 GnomeCmdFileListColumn file_list_column[FILE_LIST_NUM_COLUMNS] =
 {{FILE_LIST_COLUMN_ICON,"",16,GTK_JUSTIFY_CENTER,FILE_LIST_SORT_ASCENDING,NULL},
- {FILE_LIST_COLUMN_NAME,N_("name"),140,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc) sort_by_name},
- {FILE_LIST_COLUMN_EXT,N_("ext"),40,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc) sort_by_ext},
- {FILE_LIST_COLUMN_DIR,N_("dir"),240,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc) sort_by_dir},
- {FILE_LIST_COLUMN_SIZE,N_("size"),70,GTK_JUSTIFY_RIGHT,FILE_LIST_SORT_DESCENDING,(GnomeVFSListCompareFunc) sort_by_size},
- {FILE_LIST_COLUMN_DATE,N_("date"),150,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_DESCENDING,(GnomeVFSListCompareFunc) sort_by_date},
- {FILE_LIST_COLUMN_PERM,N_("perm"),70,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc) sort_by_perm},
- {FILE_LIST_COLUMN_OWNER,N_("uid"),50,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc) sort_by_owner},
- {FILE_LIST_COLUMN_GROUP,N_("gid"),50,GTK_JUSTIFY_LEFT,FILE_LIST_SORT_ASCENDING,(GnomeVFSListCompareFunc) sort_by_group}};
+ {FILE_LIST_COLUMN_NAME, N_("name"), 140, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_name},
+ {FILE_LIST_COLUMN_EXT, N_("ext"), 40, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_ext},
+ {FILE_LIST_COLUMN_DIR, N_("dir"), 240, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_dir},
+ {FILE_LIST_COLUMN_SIZE, N_("size"), 70, GTK_JUSTIFY_RIGHT, FILE_LIST_SORT_DESCENDING, (GCompareDataFunc) sort_by_size},
+ {FILE_LIST_COLUMN_DATE, N_("date"), 150, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_DESCENDING, (GCompareDataFunc) sort_by_date},
+ {FILE_LIST_COLUMN_PERM, N_("perm"), 70, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_perm},
+ {FILE_LIST_COLUMN_OWNER, N_("uid"), 50, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_owner},
+ {FILE_LIST_COLUMN_GROUP, N_("gid"), 50, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_group}};
 
 
 struct _GnomeCmdFileListPrivate
@@ -107,7 +103,7 @@ struct _GnomeCmdFileListPrivate
     GtkWidget *column_labels[FILE_LIST_NUM_COLUMNS];
     GtkWidget *popup_menu;
 
-    GnomeVFSListCompareFunc sort_func;
+    GCompareDataFunc sort_func;
     gint current_col;
     gboolean sort_raising[FILE_LIST_NUM_COLUMNS];
     GnomeCmdFileCollection *shown_files;
@@ -165,9 +161,9 @@ static void on_selpat_hide (GtkWidget *dialog, GnomeCmdFileList *fl)
 }
 
 
-static void show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
+inline void show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
 {
-    if (fl->priv->selpat_dialog) return;
+    if (fl->priv->selpat_dialog)  return;
 
     GtkWidget *dialog = gnome_cmd_patternsel_dialog_new (fl, mode);
 
@@ -1478,7 +1474,7 @@ void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolea
     list = g_list_copy (files);
 
     if (sort)
-        tmp = list = gnome_vfs_list_sort (list, (GnomeVFSListCompareFunc)fl->priv->sort_func, fl);
+        tmp = list = g_list_sort_with_data (list, (GCompareDataFunc) fl->priv->sort_func, fl);
     else
         tmp = list;
 
@@ -1955,41 +1951,27 @@ void gnome_cmd_file_list_compare_directories (void)
 
 void gnome_cmd_file_list_sort (GnomeCmdFileList *fl)
 {
-    GList *list;
-    GnomeCmdFile *selfile;
-    gint selrow;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    selfile = gnome_cmd_file_list_get_selected_file (fl);
+    GnomeCmdFile *selfile = gnome_cmd_file_list_get_selected_file (fl);
 
     gtk_clist_freeze (GTK_CLIST (fl));
     gtk_clist_clear (GTK_CLIST (fl));
 
     // Resort the files and readd them to the list
-    list = gnome_cmd_file_list_get_all_files (fl);
-    list = gnome_vfs_list_sort (list, fl->priv->sort_func, fl);
-    while (list != NULL)
-    {
-        GnomeCmdFile *finfo;
+    for (GList *list = gnome_cmd_file_collection_sort (fl->priv->shown_files, fl->priv->sort_func, fl); list; list = list->next)
+        add_file_to_clist (fl, GNOME_CMD_FILE (list->data), -1);
 
-        finfo = GNOME_CMD_FILE (list->data);
-        add_file_to_clist (fl, finfo, -1);
-        list = list->next;
-    }
-    g_list_free (list);
-
-    /* refocus the previously selected file if this
-       file-list has the focus */
+    // refocus the previously selected file if this file-list has the focus
     if (selfile && GTK_WIDGET_HAS_FOCUS (fl))
     {
-        selrow = get_row_from_file (fl, selfile);
+        gint selrow = get_row_from_file (fl, selfile);
         gnome_cmd_file_list_select_row (fl, selrow);
         gtk_clist_moveto (GTK_CLIST (fl), selrow, -1, 1, 0);
     }
 
     // reselect the previously selected files
-    for (list = fl->priv->selected_files; list != NULL; list = list->next)
+    for (GList *list = fl->priv->selected_files; list; list = list->next)
         select_file (fl, GNOME_CMD_FILE (list->data));
 
     gtk_clist_thaw (GTK_CLIST (fl));
@@ -2403,70 +2385,9 @@ gboolean gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *even
 }
 
 
-static GList *gnome_vfs_list_sort_merge (GList *l1, GList *l2, GnomeVFSListCompareFunc compare_func, gpointer data)
-{
-    GList list;
-    GList *l = &list;
-    GList  *lprev = NULL;
-
-    while (l1 && l2)
-    {
-        if (compare_func (l1->data, l2->data, data) < 0)
-        {
-            l->next = l1;
-            l = l->next;
-            l->prev = lprev;
-            lprev = l;
-            l1 = l1->next;
-        }
-        else
-        {
-            l->next = l2;
-            l = l->next;
-            l->prev = lprev;
-            lprev = l;
-            l2 = l2->next;
-        }
-    }
-
-    l->next = l1 ? l1 : l2;
-    l->next->prev = l;
-
-    return list.next;
-}
-
-
-GList *gnome_vfs_list_sort (GList *list, GnomeVFSListCompareFunc compare_func, gpointer data)
-{
-    if (!list)
-        return NULL;
-
-     if (!list->next)
-         return list;
-
-    GList *l1 = list;
-    GList *l2 = list->next;
-
-    while ((l2 = l2->next) != NULL)
-    {
-        if ((l2 = l2->next) == NULL)
-            break;
-        l1 = l1->next;
-    }
-
-    l2 = l1->next;
-    l1->next = NULL;
-
-    return gnome_vfs_list_sort_merge(gnome_vfs_list_sort (list, compare_func, data),
-                                     gnome_vfs_list_sort (l2, compare_func, data),
-                                     compare_func,
-                                     data);
-}
-
-
 GList *gnome_cmd_file_list_sort_selection (GList *list, GnomeCmdFileList *fl)
 {
-    return gnome_vfs_list_sort(list, (GnomeVFSListCompareFunc)fl->priv->sort_func, fl);
+    return g_list_sort_with_data (list, (GCompareDataFunc) fl->priv->sort_func, fl);
 }
 
 

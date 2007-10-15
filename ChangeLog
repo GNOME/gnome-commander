@@ -1,3 +1,12 @@
+2007-10-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-collection.cc:
+	* src/gnome-cmd-file-collection.h:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	Replaced gnome_vfs_list_sort() with its glib counterpart: g_list_sort_with_data().
+	That fixes bug #424159 (column sort problem)
+
 2007-10-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con-ftp.cc:

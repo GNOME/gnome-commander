@@ -5617,6 +5617,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #424159 (column sort problem)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)</para>
                         </listitem>
                         <listitem>
