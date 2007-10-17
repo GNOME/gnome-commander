@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-24 18:10+0100\n"
+"POT-Creation-Date: 2007-10-17 13:40+0200\n"
 "PO-Revision-Date: 2007-09-29 14:09+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
@@ -34,7 +34,7 @@ msgstr "No hay descripción de error disponible"
 
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
-#: ../src/gnome-cmd-ftp-dialog.cc:493 ../src/gnome-cmd-options-dialog.cc:1126
+#: ../src/gnome-cmd-ftp-dialog.cc:429 ../src/gnome-cmd-options-dialog.cc:1126
 #: ../src/gnome-cmd-options-dialog.cc:1827
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
@@ -394,7 +394,7 @@ msgstr "Reemplazar esto"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1192
 #: ../src/gnome-cmd-options-dialog.cc:99
-#: ../src/gnome-cmd-patternsel-dialog.cc:150
+#: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr "Sensible a capitalización"
 
@@ -405,13 +405,13 @@ msgid "_Add..."
 msgstr "_Añadir..."
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1207
-#: ../src/gnome-cmd-ftp-dialog.cc:484 ../src/gnome-cmd-options-dialog.cc:1353
+#: ../src/gnome-cmd-ftp-dialog.cc:420 ../src/gnome-cmd-options-dialog.cc:1353
 #: ../src/gnome-cmd-options-dialog.cc:1704
 msgid "_Edit..."
 msgstr "_Editar..."
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1211
-#: ../src/gnome-cmd-bookmark-dialog.cc:472 ../src/gnome-cmd-ftp-dialog.cc:487
+#: ../src/gnome-cmd-bookmark-dialog.cc:472 ../src/gnome-cmd-ftp-dialog.cc:423
 #: ../src/gnome-cmd-options-dialog.cc:1359
 #: ../src/gnome-cmd-options-dialog.cc:1710
 msgid "_Remove"
@@ -466,7 +466,7 @@ msgstr "Marcadores"
 msgid "Bookmark Groups"
 msgstr "Grupos de marcadores"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454 ../src/gnome-cmd-file-list.cc:94
+#: ../src/gnome-cmd-bookmark-dialog.cc:454 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "nombre"
 
@@ -682,8 +682,8 @@ msgstr "Buscando grupos de trabajo y equipos"
 msgid "Go to: Samba Network"
 msgstr "Ir a: Red Samba"
 
-#: ../src/gnome-cmd-data.cc:1136 ../src/gnome-cmd-data.cc:1359
-#: ../src/gnome-cmd-data.cc:1360 ../src/gnome-cmd-data.cc:2390
+#: ../src/gnome-cmd-data.cc:1148 ../src/gnome-cmd-data.cc:1371
+#: ../src/gnome-cmd-data.cc:1372 ../src/gnome-cmd-data.cc:2402
 #, c-format
 msgid "link to %s"
 msgstr "enlace a %s"
@@ -742,7 +742,7 @@ msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "¿Desea borrar el archivo seleccionado?"
 msgstr[1] "¿Desea borrar los %d archivos seleccionados?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:325 ../src/gnome-cmd-main-win.cc:1175
+#: ../src/gnome-cmd-delete-dialog.cc:325 ../src/gnome-cmd-main-win.cc:1170
 #: ../src/gnome-cmd-options-dialog.cc:656
 msgid "Delete"
 msgstr "Borrar"
@@ -769,35 +769,35 @@ msgstr "Administrar marcadores..."
 msgid "Waiting for file list"
 msgstr "Esperando la lista de archivos"
 
-#: ../src/gnome-cmd-file-list.cc:95
+#: ../src/gnome-cmd-file-list.cc:91
 msgid "ext"
 msgstr "ext"
 
-#: ../src/gnome-cmd-file-list.cc:96
+#: ../src/gnome-cmd-file-list.cc:92
 msgid "dir"
 msgstr "dir"
 
-#: ../src/gnome-cmd-file-list.cc:97
+#: ../src/gnome-cmd-file-list.cc:93
 msgid "size"
 msgstr "tamaño"
 
-#: ../src/gnome-cmd-file-list.cc:98
+#: ../src/gnome-cmd-file-list.cc:94
 msgid "date"
 msgstr "fecha"
 
-#: ../src/gnome-cmd-file-list.cc:99
+#: ../src/gnome-cmd-file-list.cc:95
 msgid "perm"
 msgstr "perm"
 
-#: ../src/gnome-cmd-file-list.cc:100
+#: ../src/gnome-cmd-file-list.cc:96
 msgid "uid"
 msgstr "uid"
 
-#: ../src/gnome-cmd-file-list.cc:101
+#: ../src/gnome-cmd-file-list.cc:97
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:2149 ../src/gnome-cmd-file-list.cc:2165
+#: ../src/gnome-cmd-file-list.cc:2131 ../src/gnome-cmd-file-list.cc:2147
 #, c-format
 msgid "Not an ordinary file: %s"
 msgstr "No es un archivo ordinario: %s"
@@ -852,7 +852,7 @@ msgstr "_Borrar"
 msgid "Rename"
 msgstr "Renombrar"
 
-#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-main-win.cc:1178
+#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-main-win.cc:1173
 msgid "Send files"
 msgstr "Enviar archivos"
 
@@ -1053,91 +1053,81 @@ msgstr "Dispositivo de bloques"
 msgid "Symbolic link"
 msgstr "Enlace simbólico"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:150
-#, c-format
-msgid "Enter password for %s@%s"
-msgstr "Introduzca su contraseña para %s@%s"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:155
-msgid "Enter Password"
-msgstr "Introduzca su contraseña"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:199
+#: ../src/gnome-cmd-ftp-dialog.cc:161
 msgid "No alias specified"
 msgstr "No se especificó un alias"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:202
+#: ../src/gnome-cmd-ftp-dialog.cc:164
 msgid "No host specified"
 msgstr "No se especificó el host"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:205
+#: ../src/gnome-cmd-ftp-dialog.cc:167
 #, c-format
 msgid "Invalid port number: %s"
 msgstr "Número de puerto inválido: %s"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:269 ../src/gnome-cmd-options-dialog.cc:1535
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-options-dialog.cc:1535
 msgid "Alias:"
 msgstr "Alias:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:269 ../src/gnome-cmd-ftp-dialog.cc:270
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "Host:"
 msgstr "Host:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:269 ../src/gnome-cmd-ftp-dialog.cc:270
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "Port:"
 msgstr "Puerto:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:269 ../src/gnome-cmd-ftp-dialog.cc:270
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "User:"
 msgstr "Usuario:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:269 ../src/gnome-cmd-ftp-dialog.cc:270
-msgid "Password:"
-msgstr "Contraseña:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:269 ../src/gnome-cmd-ftp-dialog.cc:270
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "Remote Dir:"
 msgstr "Dir remoto:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:295
-msgid "New FTP Connection"
+#: ../src/gnome-cmd-ftp-dialog.cc:239
+#, fuzzy
+msgid "New Remote Connection"
 msgstr "Conexión FTP nueva"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:316
-msgid "Edit FTP Connection"
+#: ../src/gnome-cmd-ftp-dialog.cc:258
+#, fuzzy
+msgid "Edit Remote Connection"
 msgstr "Editar conexión FTP"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:345
+#: ../src/gnome-cmd-ftp-dialog.cc:285
 msgid "No server selected"
 msgstr "No se seleccionó un servidor"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:452
-msgid "FTP Connect"
-msgstr "Conexión FTP"
+#: ../src/gnome-cmd-ftp-dialog.cc:388 ../src/gnome-cmd-main-win.cc:1176
+msgid "Remote Server"
+msgstr "Servidor remoto"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:457
+#: ../src/gnome-cmd-ftp-dialog.cc:393
 msgid "Connections"
 msgstr "Conexiones"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:477 ../src/gnome-cmd-options-dialog.cc:1694
+#: ../src/gnome-cmd-ftp-dialog.cc:413 ../src/gnome-cmd-options-dialog.cc:1694
 msgid "Alias"
 msgstr "Alias"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:482 ../src/gnome-cmd-list-popmenu.cc:121
+#: ../src/gnome-cmd-ftp-dialog.cc:418 ../src/gnome-cmd-list-popmenu.cc:121
 msgid "_New..."
 msgstr "_Nuevo..."
 
-#: ../src/gnome-cmd-ftp-dialog.cc:496
+#: ../src/gnome-cmd-ftp-dialog.cc:432
 msgid "Anonymous password:"
 msgstr "Contraseña anónima:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:504
+#: ../src/gnome-cmd-ftp-dialog.cc:440
 msgid "Connect"
 msgstr "Conectar"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:594
-msgid "FTP Quick Connect"
-msgstr "Conexión rápida FTP"
+#: ../src/gnome-cmd-ftp-dialog.cc:530
+#, fuzzy
+msgid "New Connection"
+msgstr "Nueva conexión..."
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1303,7 +1293,7 @@ msgstr "Nueva conexión..."
 msgid "_Contents"
 msgstr "_Contenido"
 
-#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.c:1030
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:995
 msgid "_Keyboard Shortcuts"
 msgstr "Atajos del _teclado"
 
@@ -1315,14 +1305,14 @@ msgstr "GNOME Commander en la _web"
 msgid "Report a _Problem"
 msgstr "Informar de un _problema"
 
-#: ../src/gnome-cmd-main-menu.cc:756 ../src/libgviewer/viewer-window.c:1037
+#: ../src/gnome-cmd-main-menu.cc:756 ../src/libgviewer/viewer-window.cc:1002
 #: ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "_Acerca de"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.c:1050
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:1015
 msgid "_File"
 msgstr "_Archivo"
 
@@ -1330,11 +1320,11 @@ msgstr "_Archivo"
 msgid "_Mark"
 msgstr "_Marcar"
 
-#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.c:1053
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:1018
 msgid "_View"
 msgstr "_Ver"
 
-#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.c:1064
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:1029
 msgid "_Settings"
 msgstr "_Opciones"
 
@@ -1350,7 +1340,7 @@ msgstr "_Marcadores"
 msgid "_Plugins"
 msgstr "Com_plementos"
 
-#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.c:1069
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:1034
 msgid "_Help"
 msgstr "Ay_uda"
 
@@ -1386,60 +1376,56 @@ msgstr "F9 Buscar"
 msgid "F10 Quit"
 msgstr "F10 Salir"
 
-#: ../src/gnome-cmd-main-win.cc:1164
+#: ../src/gnome-cmd-main-win.cc:1159
 msgid "Refresh"
 msgstr "Refrescar"
 
-#: ../src/gnome-cmd-main-win.cc:1165
+#: ../src/gnome-cmd-main-win.cc:1160
 msgid "Up one directory"
 msgstr "Subir un directorio"
 
-#: ../src/gnome-cmd-main-win.cc:1166
+#: ../src/gnome-cmd-main-win.cc:1161
 msgid "Goto the oldest"
 msgstr "Ir al más antiguo"
 
-#: ../src/gnome-cmd-main-win.cc:1167
+#: ../src/gnome-cmd-main-win.cc:1162
 msgid "Go back"
 msgstr "Ir atrás"
 
-#: ../src/gnome-cmd-main-win.cc:1168
+#: ../src/gnome-cmd-main-win.cc:1163
 msgid "Go forward"
 msgstr "Ir adelante"
 
-#: ../src/gnome-cmd-main-win.cc:1169
+#: ../src/gnome-cmd-main-win.cc:1164
 msgid "Goto the latest"
 msgstr "Ir al último"
 
-#: ../src/gnome-cmd-main-win.cc:1171
+#: ../src/gnome-cmd-main-win.cc:1166
 msgid "Copy file names (SHIFT for full paths)"
 msgstr "Copiar los nombres de archivo (MAYUS para rutas completas)"
 
-#: ../src/gnome-cmd-main-win.cc:1172
+#: ../src/gnome-cmd-main-win.cc:1167
 msgid "Cut"
 msgstr "Cortar"
 
-#: ../src/gnome-cmd-main-win.cc:1173
+#: ../src/gnome-cmd-main-win.cc:1168
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:87
 msgid "Copy"
 msgstr "Copiar"
 
-#: ../src/gnome-cmd-main-win.cc:1174
+#: ../src/gnome-cmd-main-win.cc:1169
 msgid "Paste"
 msgstr "Pegar"
 
-#: ../src/gnome-cmd-main-win.cc:1177
+#: ../src/gnome-cmd-main-win.cc:1172
 msgid "Edit (SHIFT for new document)"
 msgstr "Editar (MAYUS para nuevo documento)"
 
-#: ../src/gnome-cmd-main-win.cc:1179
+#: ../src/gnome-cmd-main-win.cc:1174
 msgid "Open terminal"
 msgstr "Abrir terminal"
 
-#: ../src/gnome-cmd-main-win.cc:1181
-msgid "Remote Server"
-msgstr "Servidor remoto"
-
-#: ../src/gnome-cmd-main-win.cc:1182
+#: ../src/gnome-cmd-main-win.cc:1177
 msgid "Drop connection"
 msgstr "Desconectar"
 
@@ -1832,7 +1818,8 @@ msgstr "Editar aplicación"
 
 #: ../src/gnome-cmd-options-dialog.cc:1300
 msgid "Always download remote files before opening in external programs"
-msgstr "Siempre descargar archivos remotos antes de abrirlos en programas externos"
+msgstr ""
+"Siempre descargar archivos remotos antes de abrirlos en programas externos"
 
 #: ../src/gnome-cmd-options-dialog.cc:1302
 msgid "MIME applications"
@@ -1923,15 +1910,15 @@ msgstr "Filtros"
 msgid "Programs"
 msgstr "Programas"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:133
+#: ../src/gnome-cmd-patternsel-dialog.cc:122
 msgid "Select Using Pattern"
 msgstr "Seleccionar usando patrones"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:133
+#: ../src/gnome-cmd-patternsel-dialog.cc:122
 msgid "Unselect Using Pattern"
 msgstr "Deseleccionar usando patrones"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:140
+#: ../src/gnome-cmd-patternsel-dialog.cc:129
 msgid "Pattern:"
 msgstr "Patrón:"
 
@@ -2057,24 +2044,6 @@ msgstr "Sensible a mayúsculas"
 msgid "Goto"
 msgstr "Ir a"
 
-#: ../src/gnome-cmd-smb-auth.cc:33
-msgid "Enter password"
-msgstr "Introduzca la contraseña"
-
-#: ../src/gnome-cmd-smb-auth.cc:34
-msgid ""
-"Problem: access not permitted\n"
-"\n"
-"please supply user credentials\n"
-"\n"
-"Remember: wrong credentials may lead to account locking"
-msgstr ""
-"Problema: acceso no permitido\n"
-"\n"
-"por favor introduzca las credenciales de usuario\n"
-"\n"
-"Recuerde: unas redenciales equivocadas pueden bloquear la cuenta"
-
 #: ../src/gnome-cmd-smb-path.cc:321
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
@@ -2120,7 +2089,8 @@ msgstr "Hubo un error al informar de un problema."
 
 #: ../src/gnome-cmd-user-actions.cc:1340
 msgid "A fast and powerful file manager for the GNOME desktop"
-msgstr "Un administrador de archivos rápido y eficiente para el escritorio GNOME"
+msgstr ""
+"Un administrador de archivos rápido y eficiente para el escritorio GNOME"
 
 #: ../src/gnome-cmd-user-actions.cc:1344
 msgid ""
@@ -2159,8 +2129,8 @@ msgstr ""
 #: ../src/gnome-cmd-user-actions.cc:1369
 msgid "translator-credits"
 msgstr ""
-"Jorge González <jorgegonz@svn.gnome.org>, 2007"
-"Edgardo Garcia Hoeffler <edybsd@yahoo.com.ar>\n"
+"Jorge González <jorgegonz@svn.gnome.org>, 2007Edgardo Garcia Hoeffler "
+"<edybsd@yahoo.com.ar>\n"
 "Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Lorenzo Nuñez Lorenz <lorenzo.nunez@gmail.com>, 2007\n"
 "QA: Jorge González <jorgegonz@svn.gnome.org>, 2007"
@@ -2243,7 +2213,8 @@ msgid "downloading to /tmp"
 msgstr "descargando a /tmp"
 
 #: ../src/imageloader.cc:129
-msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgid ""
+"Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "Imposible cargar la imagen del tipo de archivo instalado, tratando de "
 "cargarlos desde el directorio fuente\n"
@@ -2269,178 +2240,178 @@ msgstr ""
 "Imposible cargar la imagen, tratando de cargarlos desde el directorio "
 "fuente\n"
 
-#: ../src/libgviewer/search-dlg.c:331
+#: ../src/libgviewer/search-dlg.cc:314
 msgid "Find"
 msgstr "Buscar"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.c:361 ../src/libgviewer/viewer-window.c:815
-#: ../src/libgviewer/viewer-window.c:1056
+#: ../src/libgviewer/search-dlg.cc:344 ../src/libgviewer/viewer-window.cc:793
+#: ../src/libgviewer/viewer-window.cc:1021
 msgid "_Text"
 msgstr "_Texto"
 
-#: ../src/libgviewer/search-dlg.c:363
+#: ../src/libgviewer/search-dlg.cc:346
 msgid "_Hex"
 msgstr "_Hex"
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.c:372
+#: ../src/libgviewer/search-dlg.cc:355
 msgid "_Match case"
 msgstr "_Coincidir con capitalización"
 
-#: ../src/libgviewer/search-progress-dlg.c:78
+#: ../src/libgviewer/search-progress-dlg.cc:74
 msgid "Searching..."
 msgstr "Buscando..."
 
-#: ../src/libgviewer/search-progress-dlg.c:199
+#: ../src/libgviewer/search-progress-dlg.cc:186
 #, c-format
 msgid "Searching for \"%s\""
 msgstr "Buscando %s"
 
-#: ../src/libgviewer/viewer-widget.c:204
+#: ../src/libgviewer/viewer-widget.cc:201
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Posición: %lu de %lu\tColumas: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.c:208
+#: ../src/libgviewer/viewer-widget.cc:205
 msgid "Wrap"
 msgstr "Ajuste"
 
-#: ../src/libgviewer/viewer-widget.c:229
+#: ../src/libgviewer/viewer-widget.cc:224
 #, c-format
 msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
 msgstr "Tamaño de imagen: %dx%d\tBits/muestra: %d\tAmpliación: %s"
 
-#: ../src/libgviewer/viewer-widget.c:231
+#: ../src/libgviewer/viewer-widget.cc:226
 msgid "Fit-to-Window"
 msgstr "Ajustar a la ventana"
 
-#: ../src/libgviewer/viewer-window.c:193 ../src/utils.cc:1347
+#: ../src/libgviewer/viewer-window.cc:191 ../src/utils.cc:1347
 msgid "There was an error displaying help."
 msgstr "Hubo un error al mostrar la ayuda."
 
-#: ../src/libgviewer/viewer-window.c:806
+#: ../src/libgviewer/viewer-window.cc:783
 msgid "_Close"
 msgstr "_Cerrar"
 
-#: ../src/libgviewer/viewer-window.c:819
+#: ../src/libgviewer/viewer-window.cc:797
 msgid "_Binary"
 msgstr "_Binario"
 
-#: ../src/libgviewer/viewer-window.c:823
+#: ../src/libgviewer/viewer-window.cc:801
 msgid "_Hex dump"
 msgstr "Volcado _hex"
 
-#: ../src/libgviewer/viewer-window.c:827
-#: ../src/libgviewer/viewer-window.c:1061
+#: ../src/libgviewer/viewer-window.cc:805
+#: ../src/libgviewer/viewer-window.cc:1026
 msgid "_Image"
 msgstr "_Imagen"
 
-#: ../src/libgviewer/viewer-window.c:832
+#: ../src/libgviewer/viewer-window.cc:810
 msgid "_Zoom In"
 msgstr "_Ampliar"
 
-#: ../src/libgviewer/viewer-window.c:837
+#: ../src/libgviewer/viewer-window.cc:814
 msgid "Zoom _Out"
 msgstr "_Reducir"
 
-#: ../src/libgviewer/viewer-window.c:842
+#: ../src/libgviewer/viewer-window.cc:818
 msgid "_Normal Size"
 msgstr "Tamaño _normal"
 
-#: ../src/libgviewer/viewer-window.c:847
+#: ../src/libgviewer/viewer-window.cc:822
 msgid "Best _Fit"
 msgstr "Mejor _ajuste "
 
-#: ../src/libgviewer/viewer-window.c:861
+#: ../src/libgviewer/viewer-window.cc:835
 msgid "_Copy Text Selection"
 msgstr "_Copiar texto a la selección"
 
-#: ../src/libgviewer/viewer-window.c:866
+#: ../src/libgviewer/viewer-window.cc:839
 msgid "Find..."
 msgstr "Buscar..."
 
-#: ../src/libgviewer/viewer-window.c:871
+#: ../src/libgviewer/viewer-window.cc:843
 msgid "Find Next"
 msgstr "Buscar siguiente"
 
-#: ../src/libgviewer/viewer-window.c:876
+#: ../src/libgviewer/viewer-window.cc:847
 msgid "Find Previous"
 msgstr "Buscar anterior"
 
-#: ../src/libgviewer/viewer-window.c:883
+#: ../src/libgviewer/viewer-window.cc:853
 msgid "_No Parsing (original file)"
 msgstr "Sin _parseo (archivo original)"
 
-#: ../src/libgviewer/viewer-window.c:888
+#: ../src/libgviewer/viewer-window.cc:857
 msgid "_HTML Parser"
 msgstr "Parser _HTML"
 
-#: ../src/libgviewer/viewer-window.c:893
+#: ../src/libgviewer/viewer-window.cc:861
 msgid "_PS/PDF Parser"
 msgstr "Parser _PS/PDF"
 
-#: ../src/libgviewer/viewer-window.c:900
+#: ../src/libgviewer/viewer-window.cc:867
 msgid "_Wrap lines"
 msgstr "_Ajustar líneas"
 
-#: ../src/libgviewer/viewer-window.c:906
+#: ../src/libgviewer/viewer-window.cc:872
 msgid "_Encoding"
 msgstr "_Codificación"
 
-#: ../src/libgviewer/viewer-window.c:948
+#: ../src/libgviewer/viewer-window.cc:913
 msgid "_Show EXIF/IPTC Information"
 msgstr "_Mostrar información EXIF/IPTC"
 
-#: ../src/libgviewer/viewer-window.c:954
+#: ../src/libgviewer/viewer-window.cc:919
 msgid "_Rotate Clockwise"
 msgstr "_Rotar contrareloj"
 
-#: ../src/libgviewer/viewer-window.c:959
+#: ../src/libgviewer/viewer-window.cc:924
 msgid "Rotate Counter Clockwis_e"
 msgstr "Rotar contrareloj"
 
-#: ../src/libgviewer/viewer-window.c:964
+#: ../src/libgviewer/viewer-window.cc:929
 msgid "_Rotate 180°"
 msgstr "_Rotar 180º"
 
-#: ../src/libgviewer/viewer-window.c:969
+#: ../src/libgviewer/viewer-window.cc:934
 msgid "Flip _Vertical"
 msgstr "Voltear _vertical"
 
-#: ../src/libgviewer/viewer-window.c:974
+#: ../src/libgviewer/viewer-window.cc:939
 msgid "Flip _Horizontal"
 msgstr "Voltear _horizontal"
 
-#: ../src/libgviewer/viewer-window.c:984
+#: ../src/libgviewer/viewer-window.cc:949
 msgid "_Binary Mode"
 msgstr "Modo _binario"
 
-#: ../src/libgviewer/viewer-window.c:990
+#: ../src/libgviewer/viewer-window.cc:955
 msgid "_Decimal Offset in Hexdump"
 msgstr "Offset _decimal en volcado hex"
 
-#: ../src/libgviewer/viewer-window.c:996
+#: ../src/libgviewer/viewer-window.cc:961
 msgid "_Save Current Settings"
 msgstr "_Guardar configuración actual"
 
-#: ../src/libgviewer/viewer-window.c:1006
+#: ../src/libgviewer/viewer-window.cc:971
 msgid "_20 chars/line"
 msgstr "_20 caracteres/línea"
 
-#: ../src/libgviewer/viewer-window.c:1011
+#: ../src/libgviewer/viewer-window.cc:976
 msgid "_40 chars/line"
 msgstr "_40 caracteres/línea"
 
-#: ../src/libgviewer/viewer-window.c:1016
+#: ../src/libgviewer/viewer-window.cc:981
 msgid "_80 chars/line"
 msgstr "_80 caracteres/línea"
 
-#: ../src/libgviewer/viewer-window.c:1025
+#: ../src/libgviewer/viewer-window.cc:990
 msgid "Quick _Help"
 msgstr "Ay_uda rápida"
 
-#: ../src/libgviewer/viewer-window.c:1236
+#: ../src/libgviewer/viewer-window.cc:1210
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "No se encontró el patrón %s"
@@ -2457,7 +2428,7 @@ msgstr "Especifique el directorio de inicio para el panel izquierdo"
 msgid "Specify the start directory for the right pane"
 msgstr "Especifique el directorio de inicio para el panel derecho"
 
-#: ../src/main.cc:111
+#: ../src/main.cc:110
 msgid "File Manager"
 msgstr "Gestor de archivos"
 
@@ -2656,7 +2627,8 @@ msgstr "Es nuevo"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
-msgstr "Establecer a «1» si la pista es nueva para el usuario (predeterminado «0»)."
+msgstr ""
+"Establecer a «1» si la pista es nueva para el usuario (predeterminado «0»)."
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "ISRC"
@@ -3002,7 +2974,8 @@ msgstr "Directorio"
 
 #: ../src/tags/gnome-cmd-tags.cc:165
 msgid "Specifies the name of the person who created the document initially."
-msgstr "Espeficica el nombre de la persona que creó inicialmente este documento."
+msgstr ""
+"Espeficica el nombre de la persona que creó inicialmente este documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:166 ../src/tags/gnome-cmd-tags.cc:312
 #: ../src/tags/gnome-cmd-tags.cc:420 ../src/tags/gnome-cmd-tags.cc:468
@@ -3129,7 +3102,8 @@ msgstr "Fecha de impresión"
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Specifies the date and time when the document was last printed."
-msgstr "Especifica la fecha y hora en la que se imprimió el documento por última vez."
+msgstr ""
+"Especifica la fecha y hora en la que se imprimió el documento por última vez."
 
 #: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Printed By"
@@ -3590,7 +3564,8 @@ msgid "Flash"
 msgstr "Flash"
 
 #: ../src/tags/gnome-cmd-tags.cc:221
-msgid "This tag is recorded when an image is taken using a strobe light (flash)."
+msgid ""
+"This tag is recorded when an image is taken using a strobe light (flash)."
 msgstr ""
 "Esta etiqueta se graba cuando se toma una imagen con una luz estroboscópica "
 "(flash)."
@@ -3620,7 +3595,8 @@ msgid "F Number"
 msgstr "Número F"
 
 #: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:416
-msgid "Diameter of the aperture relative to the effective focal length of the lens."
+msgid ""
+"Diameter of the aperture relative to the effective focal length of the lens."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:225 ../src/tags/gnome-cmd-tags.cc:417
@@ -3685,7 +3661,8 @@ msgstr "Control de ganancia"
 
 #: ../src/tags/gnome-cmd-tags.cc:230
 msgid "This tag indicates the degree of overall image gain adjustment."
-msgstr "Esta etiqueta indica el grado de ajuste de ganancia sobre toda la imagen."
+msgstr ""
+"Esta etiqueta indica el grado de ajuste de ganancia sobre toda la imagen."
 
 #: ../src/tags/gnome-cmd-tags.cc:231
 msgid "Gamma"
@@ -4540,7 +4517,8 @@ msgid "Editable free text/notes."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:311
-msgid "MIME type of the file or if a directory it should contain value \"Folder\""
+msgid ""
+"MIME type of the file or if a directory it should contain value \"Folder\""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:312
@@ -4604,7 +4582,8 @@ msgid "Size"
 msgstr "Tamaño"
 
 #: ../src/tags/gnome-cmd-tags.cc:320
-msgid "Size of the file in bytes or if a directory number of items it contains."
+msgid ""
+"Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:321
@@ -4612,7 +4591,8 @@ msgid "Album Sort Order"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:321
-msgid "String which should be used instead of the album name for sorting purposes."
+msgid ""
+"String which should be used instead of the album name for sorting purposes."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:322
@@ -5454,7 +5434,8 @@ msgid "Audio Type"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:436
-msgid "The number of channels and type of audio (music, text, etc.) in the object."
+msgid ""
+"The number of channels and type of audio (music, text, etc.) in the object."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:437
@@ -5577,7 +5558,8 @@ msgid "Credit"
 msgstr "Créditos"
 
 #: ../src/tags/gnome-cmd-tags.cc:450
-msgid "Identifies the provider of the object, not necessarily the owner/creator."
+msgid ""
+"Identifies the provider of the object, not necessarily the owner/creator."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:451
@@ -5911,7 +5893,8 @@ msgid "Reference Number"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:489
-msgid "The Envelope Number of a prior envelope to which the current object refers."
+msgid ""
+"The Envelope Number of a prior envelope to which the current object refers."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:490
@@ -5925,11 +5908,13 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:491
-msgid "Designates the earliest date the provider intends the object to be used."
+msgid ""
+"Designates the earliest date the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:492
-msgid "Designates the earliest time the provider intends the object to be used."
+msgid ""
+"Designates the earliest time the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:493
@@ -6305,7 +6290,8 @@ msgstr "¿Hacer ejecutable?"
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
-msgstr "«%s» es un archivo ejecutable. ¿Quiera ejecutarlo o mostrar su contenido?"
+msgstr ""
+"«%s» es un archivo ejecutable. ¿Quiera ejecutarlo o mostrar su contenido?"
 
 #: ../src/utils.cc:539
 msgid "Run or Display"
@@ -6358,3 +6344,33 @@ msgstr "Falo al crear el directorio %s"
 msgid "Couldn't read from the directory %s: %s"
 msgstr "No se pudo leer del directorio %s: %s\n"
 
+#~ msgid "Enter password for %s@%s"
+#~ msgstr "Introduzca su contraseña para %s@%s"
+
+#~ msgid "Enter Password"
+#~ msgstr "Introduzca su contraseña"
+
+#~ msgid "Password:"
+#~ msgstr "Contraseña:"
+
+#~ msgid "FTP Connect"
+#~ msgstr "Conexión FTP"
+
+#~ msgid "FTP Quick Connect"
+#~ msgstr "Conexión rápida FTP"
+
+#~ msgid "Enter password"
+#~ msgstr "Introduzca la contraseña"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "Problema: acceso no permitido\n"
+#~ "\n"
+#~ "por favor introduzca las credenciales de usuario\n"
+#~ "\n"
+#~ "Recuerde: unas redenciales equivocadas pueden bloquear la cuenta"

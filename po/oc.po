@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.1.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-13 17:48+0200\n"
+"POT-Creation-Date: 2007-10-17 13:40+0200\n"
 "PO-Revision-Date: 2007-10-14 14:41+0200\n"
 "Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
@@ -31,7 +31,7 @@ msgstr ""
 
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
-#: ../src/gnome-cmd-ftp-dialog.cc:487 ../src/gnome-cmd-options-dialog.cc:1126
+#: ../src/gnome-cmd-ftp-dialog.cc:429 ../src/gnome-cmd-options-dialog.cc:1126
 #: ../src/gnome-cmd-options-dialog.cc:1827
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
@@ -397,13 +397,13 @@ msgid "_Add..."
 msgstr "_Apondre..."
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1207
-#: ../src/gnome-cmd-ftp-dialog.cc:478 ../src/gnome-cmd-options-dialog.cc:1353
+#: ../src/gnome-cmd-ftp-dialog.cc:420 ../src/gnome-cmd-options-dialog.cc:1353
 #: ../src/gnome-cmd-options-dialog.cc:1704
 msgid "_Edit..."
 msgstr "_Edicion..."
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1211
-#: ../src/gnome-cmd-bookmark-dialog.cc:472 ../src/gnome-cmd-ftp-dialog.cc:481
+#: ../src/gnome-cmd-bookmark-dialog.cc:472 ../src/gnome-cmd-ftp-dialog.cc:423
 #: ../src/gnome-cmd-options-dialog.cc:1359
 #: ../src/gnome-cmd-options-dialog.cc:1710
 msgid "_Remove"
@@ -458,7 +458,7 @@ msgstr "Favorits"
 msgid "Bookmark Groups"
 msgstr ""
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454 ../src/gnome-cmd-file-list.cc:94
+#: ../src/gnome-cmd-bookmark-dialog.cc:454 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "nom"
 
@@ -557,7 +557,6 @@ msgid "Apply Recursively"
 msgstr ""
 
 #: ../src/gnome-cmd-con-device.cc:110
-#, c-format
 msgid "Failed to execute the mount command"
 msgstr ""
 
@@ -665,8 +664,8 @@ msgstr ""
 msgid "Go to: Samba Network"
 msgstr ""
 
-#: ../src/gnome-cmd-data.cc:1136 ../src/gnome-cmd-data.cc:1359
-#: ../src/gnome-cmd-data.cc:1360 ../src/gnome-cmd-data.cc:2390
+#: ../src/gnome-cmd-data.cc:1148 ../src/gnome-cmd-data.cc:1371
+#: ../src/gnome-cmd-data.cc:1372 ../src/gnome-cmd-data.cc:2402
 #, c-format
 msgid "link to %s"
 msgstr ""
@@ -674,7 +673,9 @@ msgstr ""
 #: ../src/gnome-cmd-delete-dialog.cc:111
 #, c-format
 msgid "Deleted %ld of %ld file"
-msgstr ""
+msgid_plural "Deleted %ld of %ld files"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:155
 msgid "Deleting..."
@@ -716,7 +717,9 @@ msgstr ""
 #: ../src/gnome-cmd-delete-dialog.cc:317
 #, c-format
 msgid "Do you want to delete the selected file?"
-msgstr ""
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:325 ../src/gnome-cmd-main-win.cc:1170
 #: ../src/gnome-cmd-options-dialog.cc:656
@@ -745,35 +748,35 @@ msgstr ""
 msgid "Waiting for file list"
 msgstr ""
 
-#: ../src/gnome-cmd-file-list.cc:95
+#: ../src/gnome-cmd-file-list.cc:91
 msgid "ext"
 msgstr ""
 
-#: ../src/gnome-cmd-file-list.cc:96
+#: ../src/gnome-cmd-file-list.cc:92
 msgid "dir"
 msgstr "dir"
 
-#: ../src/gnome-cmd-file-list.cc:97
+#: ../src/gnome-cmd-file-list.cc:93
 msgid "size"
 msgstr "talha"
 
-#: ../src/gnome-cmd-file-list.cc:98
+#: ../src/gnome-cmd-file-list.cc:94
 msgid "date"
 msgstr "data"
 
-#: ../src/gnome-cmd-file-list.cc:99
+#: ../src/gnome-cmd-file-list.cc:95
 msgid "perm"
 msgstr ""
 
-#: ../src/gnome-cmd-file-list.cc:100
+#: ../src/gnome-cmd-file-list.cc:96
 msgid "uid"
 msgstr ""
 
-#: ../src/gnome-cmd-file-list.cc:101
+#: ../src/gnome-cmd-file-list.cc:97
 msgid "gid"
 msgstr ""
 
-#: ../src/gnome-cmd-file-list.cc:2149 ../src/gnome-cmd-file-list.cc:2165
+#: ../src/gnome-cmd-file-list.cc:2131 ../src/gnome-cmd-file-list.cc:2147
 #, c-format
 msgid "Not an ordinary file: %s"
 msgstr ""
@@ -847,7 +850,9 @@ msgstr "Autre..."
 #: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:823
 #, c-format
 msgid "%s byte"
-msgstr ""
+msgid_plural "%s bytes"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-file-props-dialog.cc:196
 #: ../src/gnome-cmd-file-props-dialog.cc:370
@@ -933,12 +938,16 @@ msgstr ""
 #: ../src/gnome-cmd-file-selector.cc:209
 #, c-format
 msgid "%s of %s kB in %d of %d file"
-msgstr ""
+msgid_plural "%s of %s kB in %d of %d files"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-file-selector.cc:213
 #, c-format
 msgid "%s, %d of %d dir selected"
-msgstr ""
+msgid_plural "%s, %d of %d dirs selected"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-file-selector.cc:710
 #, c-format
@@ -1023,92 +1032,81 @@ msgstr "Periferic blòc"
 msgid "Symbolic link"
 msgstr "Ligam simbolic"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:150
-#, c-format
-msgid "Enter password for %s@%s"
-msgstr ""
-
-#: ../src/gnome-cmd-ftp-dialog.cc:155
-msgid "Enter Password"
-msgstr "Picatz lo mot de pas"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:199
+#: ../src/gnome-cmd-ftp-dialog.cc:161
 msgid "No alias specified"
 msgstr ""
 
-#: ../src/gnome-cmd-ftp-dialog.cc:202
+#: ../src/gnome-cmd-ftp-dialog.cc:164
 msgid "No host specified"
 msgstr ""
 
-#: ../src/gnome-cmd-ftp-dialog.cc:205
+#: ../src/gnome-cmd-ftp-dialog.cc:167
 #, c-format
 msgid "Invalid port number: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-ftp-dialog.cc:267 ../src/gnome-cmd-options-dialog.cc:1535
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-options-dialog.cc:1535
 msgid "Alias:"
 msgstr "Aliàs :"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:267 ../src/gnome-cmd-ftp-dialog.cc:268
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "Host:"
 msgstr "Òste :"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:267 ../src/gnome-cmd-ftp-dialog.cc:268
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "Port:"
 msgstr "Pòrt :"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:267 ../src/gnome-cmd-ftp-dialog.cc:268
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "User:"
 msgstr "Utilizaire :"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:267 ../src/gnome-cmd-ftp-dialog.cc:268
-msgid "Password:"
-msgstr "Mot de pas :"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:267 ../src/gnome-cmd-ftp-dialog.cc:268
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "Remote Dir:"
 msgstr ""
 
-#: ../src/gnome-cmd-ftp-dialog.cc:293
-msgid "New FTP Connection"
-msgstr ""
+#: ../src/gnome-cmd-ftp-dialog.cc:239
+#, fuzzy
+msgid "New Remote Connection"
+msgstr "Conneccions"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:314
-msgid "Edit FTP Connection"
-msgstr ""
+#: ../src/gnome-cmd-ftp-dialog.cc:258
+#, fuzzy
+msgid "Edit Remote Connection"
+msgstr "Conneccions"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:343
-#, c-format
+#: ../src/gnome-cmd-ftp-dialog.cc:285
 msgid "No server selected"
 msgstr ""
 
-#: ../src/gnome-cmd-ftp-dialog.cc:446
-msgid "FTP Connect"
+#: ../src/gnome-cmd-ftp-dialog.cc:388 ../src/gnome-cmd-main-win.cc:1176
+msgid "Remote Server"
 msgstr ""
 
-#: ../src/gnome-cmd-ftp-dialog.cc:451
+#: ../src/gnome-cmd-ftp-dialog.cc:393
 msgid "Connections"
 msgstr "Conneccions"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:471 ../src/gnome-cmd-options-dialog.cc:1694
+#: ../src/gnome-cmd-ftp-dialog.cc:413 ../src/gnome-cmd-options-dialog.cc:1694
 msgid "Alias"
 msgstr "Aliàs"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:476 ../src/gnome-cmd-list-popmenu.cc:121
+#: ../src/gnome-cmd-ftp-dialog.cc:418 ../src/gnome-cmd-list-popmenu.cc:121
 msgid "_New..."
 msgstr "_Novèl..."
 
-#: ../src/gnome-cmd-ftp-dialog.cc:490
+#: ../src/gnome-cmd-ftp-dialog.cc:432
 msgid "Anonymous password:"
 msgstr ""
 
-#: ../src/gnome-cmd-ftp-dialog.cc:498
+#: ../src/gnome-cmd-ftp-dialog.cc:440
 msgid "Connect"
 msgstr "Connectar"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:588
-msgid "FTP Quick Connect"
-msgstr ""
+#: ../src/gnome-cmd-ftp-dialog.cc:530
+#, fuzzy
+msgid "New Connection"
+msgstr "Conneccions"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1274,7 +1272,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "_Somari"
 
-#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.c:1030
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:995
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
@@ -1286,14 +1284,14 @@ msgstr ""
 msgid "Report a _Problem"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.cc:756 ../src/libgviewer/viewer-window.c:1037
+#: ../src/gnome-cmd-main-menu.cc:756 ../src/libgviewer/viewer-window.cc:1002
 #: ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "_A prepaus"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.c:1050
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:1015
 msgid "_File"
 msgstr "_Fichièr"
 
@@ -1301,11 +1299,11 @@ msgstr "_Fichièr"
 msgid "_Mark"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.c:1053
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:1018
 msgid "_View"
 msgstr "_Mostrar"
 
-#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.c:1064
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:1029
 msgid "_Settings"
 msgstr "_Paramètres"
 
@@ -1321,7 +1319,7 @@ msgstr "_Favorits"
 msgid "_Plugins"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.c:1069
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:1034
 msgid "_Help"
 msgstr "_Ajuda"
 
@@ -1404,10 +1402,6 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-win.cc:1174
 msgid "Open terminal"
-msgstr ""
-
-#: ../src/gnome-cmd-main-win.cc:1176
-msgid "Remote Server"
 msgstr ""
 
 #: ../src/gnome-cmd-main-win.cc:1177
@@ -1931,7 +1925,9 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:149
 #, c-format
 msgid "copy %d file to"
-msgstr ""
+msgid_plural "copy %d files to"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-prepare-move-dialog.cc:82
 msgid "Move"
@@ -1945,7 +1941,9 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-move-dialog.cc:136
 #, c-format
 msgid "move %d file to"
-msgstr ""
+msgid_plural "move %d files to"
+msgstr[0] ""
+msgstr[1] ""
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:119
@@ -1980,12 +1978,16 @@ msgstr ""
 #: ../src/gnome-cmd-search-dialog.cc:406
 #, c-format
 msgid "Found %d match before I was stopped"
-msgstr ""
+msgid_plural "Found %d matches before I was stopped"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-search-dialog.cc:413
 #, c-format
 msgid "Found %d match"
-msgstr ""
+msgid_plural "Found %d matches"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-search-dialog.cc:725
 msgid "Search..."
@@ -2020,19 +2022,6 @@ msgstr ""
 msgid "Goto"
 msgstr ""
 
-#: ../src/gnome-cmd-smb-auth.cc:33
-msgid "Enter password"
-msgstr "Picatz lo mot de pas"
-
-#: ../src/gnome-cmd-smb-auth.cc:34
-msgid ""
-"Problem: access not permitted\n"
-"\n"
-"please supply user credentials\n"
-"\n"
-"Remember: wrong credentials may lead to account locking"
-msgstr ""
-
 #: ../src/gnome-cmd-smb-path.cc:321
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
@@ -2045,7 +2034,9 @@ msgstr "Pas de fichièr seleccionat"
 #: ../src/gnome-cmd-user-actions.cc:661
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
-msgstr ""
+msgid_plural "Create symbolic links of %i files in %s?"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-user-actions.cc:666
 msgid "Create"
@@ -2197,178 +2188,178 @@ msgstr ""
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
 
-#: ../src/libgviewer/search-dlg.c:331
+#: ../src/libgviewer/search-dlg.cc:314
 msgid "Find"
 msgstr "Recercar"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.c:361 ../src/libgviewer/viewer-window.c:815
-#: ../src/libgviewer/viewer-window.c:1056
+#: ../src/libgviewer/search-dlg.cc:344 ../src/libgviewer/viewer-window.cc:793
+#: ../src/libgviewer/viewer-window.cc:1021
 msgid "_Text"
 msgstr "_Tèxt"
 
-#: ../src/libgviewer/search-dlg.c:363
+#: ../src/libgviewer/search-dlg.cc:346
 msgid "_Hex"
 msgstr ""
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.c:372
+#: ../src/libgviewer/search-dlg.cc:355
 msgid "_Match case"
 msgstr ""
 
-#: ../src/libgviewer/search-progress-dlg.c:78
+#: ../src/libgviewer/search-progress-dlg.cc:74
 msgid "Searching..."
 msgstr ""
 
-#: ../src/libgviewer/search-progress-dlg.c:199
+#: ../src/libgviewer/search-progress-dlg.cc:186
 #, c-format
 msgid "Searching for \"%s\""
 msgstr ""
 
-#: ../src/libgviewer/viewer-widget.c:204
+#: ../src/libgviewer/viewer-widget.cc:201
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr ""
 
-#: ../src/libgviewer/viewer-widget.c:208
+#: ../src/libgviewer/viewer-widget.cc:205
 msgid "Wrap"
 msgstr "Envolopar"
 
-#: ../src/libgviewer/viewer-widget.c:229
+#: ../src/libgviewer/viewer-widget.cc:224
 #, c-format
 msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
 msgstr ""
 
-#: ../src/libgviewer/viewer-widget.c:231
+#: ../src/libgviewer/viewer-widget.cc:226
 msgid "Fit-to-Window"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:193 ../src/utils.cc:1347
+#: ../src/libgviewer/viewer-window.cc:191 ../src/utils.cc:1347
 msgid "There was an error displaying help."
 msgstr "I a agut una error al moment de visualizar l'ajuda."
 
-#: ../src/libgviewer/viewer-window.c:806
+#: ../src/libgviewer/viewer-window.cc:783
 msgid "_Close"
 msgstr "_Tampar"
 
-#: ../src/libgviewer/viewer-window.c:819
+#: ../src/libgviewer/viewer-window.cc:797
 msgid "_Binary"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:823
+#: ../src/libgviewer/viewer-window.cc:801
 msgid "_Hex dump"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:827
-#: ../src/libgviewer/viewer-window.c:1061
+#: ../src/libgviewer/viewer-window.cc:805
+#: ../src/libgviewer/viewer-window.cc:1026
 msgid "_Image"
 msgstr "_Imatge"
 
-#: ../src/libgviewer/viewer-window.c:832
+#: ../src/libgviewer/viewer-window.cc:810
 msgid "_Zoom In"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:837
+#: ../src/libgviewer/viewer-window.cc:814
 msgid "Zoom _Out"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:842
+#: ../src/libgviewer/viewer-window.cc:818
 msgid "_Normal Size"
 msgstr "Talha _normala"
 
-#: ../src/libgviewer/viewer-window.c:847
+#: ../src/libgviewer/viewer-window.cc:822
 msgid "Best _Fit"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:861
+#: ../src/libgviewer/viewer-window.cc:835
 msgid "_Copy Text Selection"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:866
+#: ../src/libgviewer/viewer-window.cc:839
 msgid "Find..."
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:871
+#: ../src/libgviewer/viewer-window.cc:843
 msgid "Find Next"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:876
+#: ../src/libgviewer/viewer-window.cc:847
 msgid "Find Previous"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:883
+#: ../src/libgviewer/viewer-window.cc:853
 msgid "_No Parsing (original file)"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:888
+#: ../src/libgviewer/viewer-window.cc:857
 msgid "_HTML Parser"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:893
+#: ../src/libgviewer/viewer-window.cc:861
 msgid "_PS/PDF Parser"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:900
+#: ../src/libgviewer/viewer-window.cc:867
 msgid "_Wrap lines"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:906
+#: ../src/libgviewer/viewer-window.cc:872
 msgid "_Encoding"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:948
+#: ../src/libgviewer/viewer-window.cc:913
 msgid "_Show EXIF/IPTC Information"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:954
+#: ../src/libgviewer/viewer-window.cc:919
 msgid "_Rotate Clockwise"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:959
+#: ../src/libgviewer/viewer-window.cc:924
 msgid "Rotate Counter Clockwis_e"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:964
+#: ../src/libgviewer/viewer-window.cc:929
 msgid "_Rotate 180°"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:969
+#: ../src/libgviewer/viewer-window.cc:934
 msgid "Flip _Vertical"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:974
+#: ../src/libgviewer/viewer-window.cc:939
 msgid "Flip _Horizontal"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:984
+#: ../src/libgviewer/viewer-window.cc:949
 msgid "_Binary Mode"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:990
+#: ../src/libgviewer/viewer-window.cc:955
 msgid "_Decimal Offset in Hexdump"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:996
+#: ../src/libgviewer/viewer-window.cc:961
 msgid "_Save Current Settings"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:1006
+#: ../src/libgviewer/viewer-window.cc:971
 msgid "_20 chars/line"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:1011
+#: ../src/libgviewer/viewer-window.cc:976
 msgid "_40 chars/line"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:1016
+#: ../src/libgviewer/viewer-window.cc:981
 msgid "_80 chars/line"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:1025
+#: ../src/libgviewer/viewer-window.cc:990
 msgid "Quick _Help"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.c:1236
+#: ../src/libgviewer/viewer-window.cc:1210
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr ""
@@ -6059,9 +6050,11 @@ msgstr "Executar"
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
+msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr ""
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/utils.cc:1022
 #, c-format
@@ -6084,6 +6077,15 @@ msgstr ""
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr ""
+
+#~ msgid "Enter Password"
+#~ msgstr "Picatz lo mot de pas"
+
+#~ msgid "Password:"
+#~ msgstr "Mot de pas :"
+
+#~ msgid "Enter password"
+#~ msgstr "Picatz lo mot de pas"
 
 #~ msgid "_Execute"
 #~ msgstr "E_xécuter"

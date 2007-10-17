@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-08 18:58+0200\n"
+"POT-Creation-Date: 2007-10-17 13:40+0200\n"
 "PO-Revision-Date: 2007-09-08 19:00+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -35,8 +35,8 @@ msgstr "Ez dago errore-azalpen erabilgarririk"
 
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
-#: ../src/gnome-cmd-ftp-dialog.cc:542 ../src/gnome-cmd-options-dialog.cc:1126
-#: ../src/gnome-cmd-options-dialog.cc:1836
+#: ../src/gnome-cmd-ftp-dialog.cc:429 ../src/gnome-cmd-options-dialog.cc:1126
+#: ../src/gnome-cmd-options-dialog.cc:1827
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
 msgid "Options"
@@ -295,195 +295,195 @@ msgstr "/Ordua/MM"
 msgid "/Time/SS"
 msgstr "/Ordua/SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:472
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
+#: ../src/gnome-cmd-advrename-dialog.cc:473
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
 msgid "Yes"
 msgstr "Bai"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:472
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
+#: ../src/gnome-cmd-advrename-dialog.cc:473
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
 msgid "No"
 msgstr "Ez"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:565
+#: ../src/gnome-cmd-advrename-dialog.cc:566
 msgid "Invalid source pattern"
 msgstr "Iturburu-eredu baliogabea"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:641
+#: ../src/gnome-cmd-advrename-dialog.cc:642
 msgid "Replace this:"
 msgstr "Ordeztu hau:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:641
-#: ../src/gnome-cmd-advrename-dialog.cc:1190
+#: ../src/gnome-cmd-advrename-dialog.cc:642
+#: ../src/gnome-cmd-advrename-dialog.cc:1191
 msgid "With this"
 msgstr "Honekin:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:653
+#: ../src/gnome-cmd-advrename-dialog.cc:654
 msgid "Case sensitive matching"
 msgstr "Bereizi maiuskulak eta minuskulak"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:785
+#: ../src/gnome-cmd-advrename-dialog.cc:786
 msgid "New Rule"
 msgstr "Arau berria"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:791
+#: ../src/gnome-cmd-advrename-dialog.cc:792
 msgid "Edit Rule"
 msgstr "Editatu araua"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1018
+#: ../src/gnome-cmd-advrename-dialog.cc:1019
 msgid "Counter start value:"
 msgstr "Kontagailuaren hasierako balioa:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1019
+#: ../src/gnome-cmd-advrename-dialog.cc:1020
 msgid "Counter increment:"
 msgstr "Kontagailuaren gehikuntza:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1020
+#: ../src/gnome-cmd-advrename-dialog.cc:1021
 msgid "Counter minimum digit count:"
 msgstr "Kontagailuaren gutxieneko digitu-kopurua:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1025
+#: ../src/gnome-cmd-advrename-dialog.cc:1026
 msgid "Template Options"
 msgstr "Txantiloi-aukerak"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1029
+#: ../src/gnome-cmd-advrename-dialog.cc:1030
 msgid "Auto-update when the template is entered"
 msgstr "Eguneratu automatikoki txantiloia sartutakoan"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1127
+#: ../src/gnome-cmd-advrename-dialog.cc:1128
 msgid "Advanced Rename Tool"
 msgstr "Izena aldatzeko tresna aurreratua"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1139 ../src/tags/gnome-cmd-tags.cc:188
+#: ../src/gnome-cmd-advrename-dialog.cc:1140 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "Txantiloia"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1160
+#: ../src/gnome-cmd-advrename-dialog.cc:1161
 msgid "O_ptions..."
 msgstr "_Aukerak..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1167
+#: ../src/gnome-cmd-advrename-dialog.cc:1168
 msgid "Dir"
 msgstr "Dir"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1170
+#: ../src/gnome-cmd-advrename-dialog.cc:1171
 #: ../src/gnome-cmd-file-props-dialog.cc:557 ../src/plugin_manager.cc:420
-#: ../src/tags/gnome-cmd-tags.cc:314
+#: ../src/tags/gnome-cmd-tags.cc:315
 msgid "Name"
 msgstr "Izena"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1173
+#: ../src/gnome-cmd-advrename-dialog.cc:1174
 msgid "Counter"
 msgstr "Kontagailua"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1176 ../src/tags/gnome-cmd-tags.cc:334
-#: ../src/tags/gnome-cmd-tags.cc:412
+#: ../src/gnome-cmd-advrename-dialog.cc:1177 ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Date"
 msgstr "Data"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1179
+#: ../src/gnome-cmd-advrename-dialog.cc:1180
 msgid "Metatag"
 msgstr "Meta-etiketak"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1184
+#: ../src/gnome-cmd-advrename-dialog.cc:1185
 msgid "Regex replacing"
 msgstr "Adierazpen erregular bidezko ordeztea"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1189
+#: ../src/gnome-cmd-advrename-dialog.cc:1190
 msgid "Replace this"
 msgstr "Ordeztu hau:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1191
+#: ../src/gnome-cmd-advrename-dialog.cc:1192
 #: ../src/gnome-cmd-options-dialog.cc:99
-#: ../src/gnome-cmd-patternsel-dialog.cc:150
+#: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr "Maiuskula/minuskula"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1203
-#: ../src/gnome-cmd-options-dialog.cc:1351
-#: ../src/gnome-cmd-options-dialog.cc:1709
+#: ../src/gnome-cmd-advrename-dialog.cc:1204
+#: ../src/gnome-cmd-options-dialog.cc:1349
+#: ../src/gnome-cmd-options-dialog.cc:1700
 msgid "_Add..."
 msgstr "_Gehitu..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1206
-#: ../src/gnome-cmd-ftp-dialog.cc:533 ../src/gnome-cmd-options-dialog.cc:1355
-#: ../src/gnome-cmd-options-dialog.cc:1713
+#: ../src/gnome-cmd-advrename-dialog.cc:1207
+#: ../src/gnome-cmd-ftp-dialog.cc:420 ../src/gnome-cmd-options-dialog.cc:1353
+#: ../src/gnome-cmd-options-dialog.cc:1704
 msgid "_Edit..."
 msgstr "_Editatu..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1210
-#: ../src/gnome-cmd-bookmark-dialog.cc:471 ../src/gnome-cmd-ftp-dialog.cc:536
-#: ../src/gnome-cmd-options-dialog.cc:1361
-#: ../src/gnome-cmd-options-dialog.cc:1719
+#: ../src/gnome-cmd-advrename-dialog.cc:1211
+#: ../src/gnome-cmd-bookmark-dialog.cc:472 ../src/gnome-cmd-ftp-dialog.cc:423
+#: ../src/gnome-cmd-options-dialog.cc:1359
+#: ../src/gnome-cmd-options-dialog.cc:1710
 msgid "_Remove"
 msgstr "_Kendu"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1214
+#: ../src/gnome-cmd-advrename-dialog.cc:1215
 msgid "Re_move All"
 msgstr "Ke_ndu guztiak"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1234
+#: ../src/gnome-cmd-advrename-dialog.cc:1235
 msgid "Result"
 msgstr "Emaitza"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1239
+#: ../src/gnome-cmd-advrename-dialog.cc:1240
 msgid "Current filenames"
 msgstr "Uneko fitxategi-izenak"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1240
+#: ../src/gnome-cmd-advrename-dialog.cc:1241
 msgid "New filenames"
 msgstr "Fitxategi-izen berriak"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1246
+#: ../src/gnome-cmd-advrename-dialog.cc:1247
 msgid "Rese_t"
 msgstr "_Berrezarri"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:71
+#: ../src/gnome-cmd-bookmark-dialog.cc:72
 msgid "Bookmark name:"
 msgstr "Laster-markaren izena:"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:72
+#: ../src/gnome-cmd-bookmark-dialog.cc:73
 msgid "Bookmark target:"
 msgstr "Laster-markaren helburua:"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:159
+#: ../src/gnome-cmd-bookmark-dialog.cc:160
 msgid "Bookmark name is missing"
 msgstr "Laster-markaren izena falta da"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:165
+#: ../src/gnome-cmd-bookmark-dialog.cc:166
 msgid "Bookmark target is missing"
 msgstr "Laster-markaren helburua falta da"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:185
+#: ../src/gnome-cmd-bookmark-dialog.cc:186
 msgid "Edit Bookmark"
 msgstr "Editatu laster-marka"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:434
-#: ../src/gnome-cmd-bookmark-dialog.cc:446
+#: ../src/gnome-cmd-bookmark-dialog.cc:435
+#: ../src/gnome-cmd-bookmark-dialog.cc:447
 msgid "Bookmarks"
 msgstr "Laster-markak"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:437
+#: ../src/gnome-cmd-bookmark-dialog.cc:438
 msgid "Bookmark Groups"
 msgstr "Laster-marken taldea"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:453 ../src/gnome-cmd-file-list.cc:94
+#: ../src/gnome-cmd-bookmark-dialog.cc:454 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "izena"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454
+#: ../src/gnome-cmd-bookmark-dialog.cc:455
 msgid "path"
 msgstr "bide-izena"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:461
+#: ../src/gnome-cmd-bookmark-dialog.cc:462
 msgid "_Goto"
 msgstr "_Joan"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:466 ../src/gnome-cmd-main-menu.cc:795
+#: ../src/gnome-cmd-bookmark-dialog.cc:467 ../src/gnome-cmd-main-menu.cc:782
 msgid "_Edit"
 msgstr "_Editatu"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:578
+#: ../src/gnome-cmd-bookmark-dialog.cc:579
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
@@ -491,7 +491,7 @@ msgstr ""
 "Direktorio baten laster-marka ezartzeko, direktorio horren bide-izen "
 "osoakbaliozko UTF-8 kodeketan egon behar du\n"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:585
+#: ../src/gnome-cmd-bookmark-dialog.cc:586
 msgid "New Bookmark"
 msgstr "Laster-marka berria"
 
@@ -571,24 +571,24 @@ msgstr "Chown"
 msgid "Apply Recursively"
 msgstr "Aplikatu errekurtsiboki"
 
-#: ../src/gnome-cmd-con-device.cc:109
+#: ../src/gnome-cmd-con-device.cc:110
 msgid "Failed to execute the mount command"
 msgstr "Huts egin du muntatzeko komandoa exekutatzean"
 
-#: ../src/gnome-cmd-con-device.cc:116
+#: ../src/gnome-cmd-con-device.cc:117
 msgid "Mount failed: Permission denied"
 msgstr "Muntatzeak huts egin du: baimena ukatu da"
 
-#: ../src/gnome-cmd-con-device.cc:119
+#: ../src/gnome-cmd-con-device.cc:120
 msgid "Mount failed: No medium found"
 msgstr "Muntatzeak huts egin du: ez da euskarririk aurkitu"
 
-#: ../src/gnome-cmd-con-device.cc:123
+#: ../src/gnome-cmd-con-device.cc:124
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
 msgstr "Muntatzeak huts egin du: %d egoerarekin irten da"
 
-#: ../src/gnome-cmd-con-device.cc:201
+#: ../src/gnome-cmd-con-device.cc:202
 msgid ""
 "Volume unmounting succeeded.\n"
 "It is safe to eject the media."
@@ -596,7 +596,7 @@ msgstr ""
 "Bolumena ongi desmuntatu da.\n"
 "Segurua da euskarria egoztea."
 
-#: ../src/gnome-cmd-con-device.cc:209
+#: ../src/gnome-cmd-con-device.cc:210
 #, c-format
 msgid ""
 "Volume unmounting failed:\n"
@@ -605,7 +605,7 @@ msgstr ""
 "Huts egin du bolumena desmuntatzean:\n"
 "%s %s"
 
-#: ../src/gnome-cmd-con-device.cc:210
+#: ../src/gnome-cmd-con-device.cc:211
 msgid "Unknown Error"
 msgstr "Errore ezezaguna"
 
@@ -614,77 +614,77 @@ msgstr "Errore ezezaguna"
 msgid "Mounting %s"
 msgstr "%s muntatzen"
 
-#: ../src/gnome-cmd-con-device.cc:436
+#: ../src/gnome-cmd-con-device.cc:435
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Joan hona: %s (%s)"
 
-#: ../src/gnome-cmd-con-device.cc:437
+#: ../src/gnome-cmd-con-device.cc:436
 #, c-format
 msgid "Mount: %s"
 msgstr "Muntatu: %s"
 
-#: ../src/gnome-cmd-con-device.cc:438
+#: ../src/gnome-cmd-con-device.cc:437
 #, c-format
 msgid "Unmount: %s"
 msgstr "Desmuntatu: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:280
+#: ../src/gnome-cmd-con-ftp.cc:283
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Konektatu %s(e)kin\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:298
+#: ../src/gnome-cmd-con-ftp.cc:301
 #, c-format
 msgid "Go to: %s"
 msgstr "Joan hona: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:299
+#: ../src/gnome-cmd-con-ftp.cc:302
 #, c-format
 msgid "Connect to: %s"
 msgstr "Konektatu: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:300
+#: ../src/gnome-cmd-con-ftp.cc:303
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Deskonektatu hemendik: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:316
+#: ../src/gnome-cmd-con-ftp.cc:319
 #, c-format
 msgid "Creates the FTP connection to %s"
 msgstr "%s(e)rako FTP konexioa sortzen du"
 
-#: ../src/gnome-cmd-con-ftp.cc:317
+#: ../src/gnome-cmd-con-ftp.cc:320
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "%s(e)rako FTP konexioa kentzen du"
 
-#: ../src/gnome-cmd-con-home.cc:128
+#: ../src/gnome-cmd-con-home.cc:120
 msgid "Home"
 msgstr "Etxea"
 
-#: ../src/gnome-cmd-con-home.cc:136
+#: ../src/gnome-cmd-con-home.cc:128
 msgid "Go to: Home"
 msgstr "Joan hona: Hasierako direktorioa"
 
-#: ../src/gnome-cmd-con-smb.cc:96
+#: ../src/gnome-cmd-con-smb.cc:97
 msgid "Failed to browse the network. Is the SMB module installed?"
 msgstr "Huts egin du sarea arakatzean. SMB modulua instalatuta dago?"
 
-#: ../src/gnome-cmd-con-smb.cc:214
+#: ../src/gnome-cmd-con-smb.cc:217
 msgid "SMB"
 msgstr "SMB"
 
-#: ../src/gnome-cmd-con-smb.cc:215
+#: ../src/gnome-cmd-con-smb.cc:218
 msgid "Searching for workgroups and hosts"
 msgstr "Lantaldeak eta ostalariak bilatzen"
 
-#: ../src/gnome-cmd-con-smb.cc:222
+#: ../src/gnome-cmd-con-smb.cc:225
 msgid "Go to: Samba Network"
 msgstr "Joan hona: Samba sarea"
 
-#: ../src/gnome-cmd-data.cc:1133 ../src/gnome-cmd-data.cc:1355
-#: ../src/gnome-cmd-data.cc:1356 ../src/gnome-cmd-data.cc:2380
+#: ../src/gnome-cmd-data.cc:1148 ../src/gnome-cmd-data.cc:1371
+#: ../src/gnome-cmd-data.cc:1372 ../src/gnome-cmd-data.cc:2402
 #, c-format
 msgid "link to %s"
 msgstr "Estekatu hona: %s"
@@ -721,12 +721,12 @@ msgid "Abort"
 msgstr "Abortatu"
 
 #: ../src/gnome-cmd-delete-dialog.cc:235
-#: ../src/gnome-cmd-file-selector.cc:2129 ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-xfer.cc:193
 msgid "Retry"
 msgstr "Saiatu berriro"
 
 #: ../src/gnome-cmd-delete-dialog.cc:235
-#: ../src/gnome-cmd-file-selector.cc:2129 ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-xfer.cc:174
 #: ../src/gnome-cmd-xfer.cc:193
 msgid "Skip"
 msgstr "Saltatu"
@@ -743,18 +743,18 @@ msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Hautatutako fitxategia ordeztu nahi duzu?"
 msgstr[1] "Hautatutako %d fitxategiak ordeztu nahi dituzu?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:325 ../src/gnome-cmd-main-win.cc:1190
+#: ../src/gnome-cmd-delete-dialog.cc:325 ../src/gnome-cmd-main-win.cc:1170
 #: ../src/gnome-cmd-options-dialog.cc:656
 msgid "Delete"
 msgstr "Ezabatu"
 
 #: ../src/gnome-cmd-delete-dialog.cc:326
-#: ../src/gnome-cmd-file-selector.cc:2129 ../src/gnome-cmd-user-actions.cc:614
-#: ../src/utils.cc:508 ../src/utils.cc:537
+#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-user-actions.cc:666
+#: ../src/utils.cc:511 ../src/utils.cc:540
 msgid "Cancel"
 msgstr "Utzi"
 
-#: ../src/gnome-cmd-delete-dialog.cc:326 ../src/utils.cc:508
+#: ../src/gnome-cmd-delete-dialog.cc:326 ../src/utils.cc:511
 msgid "OK"
 msgstr "Ados"
 
@@ -770,35 +770,35 @@ msgstr "Kudeatu laster-markak..."
 msgid "Waiting for file list"
 msgstr "Fitxategi-zerrendaren zain"
 
-#: ../src/gnome-cmd-file-list.cc:95
+#: ../src/gnome-cmd-file-list.cc:91
 msgid "ext"
 msgstr "luz"
 
-#: ../src/gnome-cmd-file-list.cc:96
+#: ../src/gnome-cmd-file-list.cc:92
 msgid "dir"
 msgstr "dir"
 
-#: ../src/gnome-cmd-file-list.cc:97
+#: ../src/gnome-cmd-file-list.cc:93
 msgid "size"
 msgstr "tamaina"
 
-#: ../src/gnome-cmd-file-list.cc:98
+#: ../src/gnome-cmd-file-list.cc:94
 msgid "date"
 msgstr "data"
 
-#: ../src/gnome-cmd-file-list.cc:99
+#: ../src/gnome-cmd-file-list.cc:95
 msgid "perm"
 msgstr "baim"
 
-#: ../src/gnome-cmd-file-list.cc:100
+#: ../src/gnome-cmd-file-list.cc:96
 msgid "uid"
 msgstr "uid"
 
-#: ../src/gnome-cmd-file-list.cc:101
+#: ../src/gnome-cmd-file-list.cc:97
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:2149 ../src/gnome-cmd-file-list.cc:2165
+#: ../src/gnome-cmd-file-list.cc:2131 ../src/gnome-cmd-file-list.cc:2147
 #, c-format
 msgid "Not an ordinary file: %s"
 msgstr "Ez da fitxategi arrunta: %s"
@@ -837,15 +837,15 @@ msgstr "Ireki honekin..."
 msgid "E_xecute"
 msgstr "E_xekutatu"
 
-#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-menu.cc:557
+#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-menu.cc:544
 msgid "Cu_t"
 msgstr "E_baki"
 
-#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-main-menu.cc:563
+#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-main-menu.cc:550
 msgid "_Copy"
 msgstr "K_opiatu"
 
-#: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:575
+#: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:562
 msgid "_Delete"
 msgstr "Ez_abatu"
 
@@ -853,19 +853,24 @@ msgstr "Ez_abatu"
 msgid "Rename"
 msgstr "Izena aldatu"
 
-#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-list-popmenu.cc:123
+#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-main-win.cc:1173
+#, fuzzy
+msgid "Send files"
+msgstr "Fitxategi batzuk"
+
+#: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-list-popmenu.cc:123
 msgid "Open _terminal here"
 msgstr "Ireki _terminala hemen"
 
-#: ../src/gnome-cmd-file-popmenu.cc:459 ../src/gnome-cmd-main-menu.cc:478
+#: ../src/gnome-cmd-file-popmenu.cc:460 ../src/gnome-cmd-main-menu.cc:465
 msgid "_Properties..."
 msgstr "_Propietateak..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:502
+#: ../src/gnome-cmd-file-popmenu.cc:503
 msgid "Other..."
 msgstr "Besterik..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:824
+#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:823
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -878,7 +883,7 @@ msgid "No default application registered"
 msgstr "Ez da aplikazio lehenetsirik erregistratu"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:323
-#: ../src/gnome-cmd-file-selector.cc:1908
+#: ../src/gnome-cmd-file-selector.cc:1919
 msgid "Filename:"
 msgstr "Fitxategi-izena:"
 
@@ -930,9 +935,9 @@ msgstr "Mota"
 msgid "Value"
 msgstr "Balioa"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:560 ../src/tags/gnome-cmd-tags.cc:158
-#: ../src/tags/gnome-cmd-tags.cc:309 ../src/tags/gnome-cmd-tags.cc:413
-#: ../src/tags/gnome-cmd-tags.cc:507
+#: ../src/gnome-cmd-file-props-dialog.cc:560 ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/tags/gnome-cmd-tags.cc:310 ../src/tags/gnome-cmd-tags.cc:412
+#: ../src/tags/gnome-cmd-tags.cc:508
 msgid "Description"
 msgstr "Azalpena"
 
@@ -945,7 +950,7 @@ msgstr "Fitxategiaren propietateak"
 msgid "Properties"
 msgstr "Propietateak"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:639 ../src/tags/gnome-cmd-tags.cc:316
+#: ../src/gnome-cmd-file-props-dialog.cc:639 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permissions"
 msgstr "Baimenak"
 
@@ -953,188 +958,179 @@ msgstr "Baimenak"
 msgid "Metadata"
 msgstr "Metadatuak"
 
-#: ../src/gnome-cmd-file-selector.cc:192
+#: ../src/gnome-cmd-file-selector.cc:209
 #, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
 msgstr[0] "%s / %s kB - %d / %d fitxategian"
 msgstr[1] "%s / %s kB - %d / %d fitxategietan"
 
-#: ../src/gnome-cmd-file-selector.cc:196
+#: ../src/gnome-cmd-file-selector.cc:213
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s / %d - %d direktorio hautatuan"
 msgstr[1] "%s / %d  - %d direktorio hautatuetan"
 
-#: ../src/gnome-cmd-file-selector.cc:699
+#: ../src/gnome-cmd-file-selector.cc:710
 #, c-format
 msgid "%s free"
 msgstr "%s libre"
 
-#: ../src/gnome-cmd-file-selector.cc:703
+#: ../src/gnome-cmd-file-selector.cc:714
 msgid "Unknown disk usage"
 msgstr "Diskoaren erabilpen ezezaguna"
 
-#: ../src/gnome-cmd-file-selector.cc:1112
+#: ../src/gnome-cmd-file-selector.cc:1123
 #, c-format
 msgid "List failed: %s\n"
 msgstr "Zerrendak huts egin du: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1671
+#: ../src/gnome-cmd-file-selector.cc:1682
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Huts egin du konexioa irekitzean: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1846
+#: ../src/gnome-cmd-file-selector.cc:1857
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
 msgstr "Ez da fitxategi-izenik sartu"
 
-#: ../src/gnome-cmd-file-selector.cc:1880
+#: ../src/gnome-cmd-file-selector.cc:1891
 msgid "No filename given"
 msgstr "Ez da fitxategi-izenik eman"
 
-#: ../src/gnome-cmd-file-selector.cc:1911
+#: ../src/gnome-cmd-file-selector.cc:1922
 msgid "New Text File"
 msgstr "Testu-fitxategi berria"
 
-#: ../src/gnome-cmd-file-selector.cc:2077
+#: ../src/gnome-cmd-file-selector.cc:2080
 msgid "Symlink name:"
 msgstr "Esteka sinbolikoaren izena:"
 
-#: ../src/gnome-cmd-file-selector.cc:2083
-#: ../src/gnome-cmd-file-selector.cc:2129 ../src/gnome-cmd-user-actions.cc:614
+#: ../src/gnome-cmd-file-selector.cc:2086
+#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-user-actions.cc:666
 msgid "Create Symbolic Link"
 msgstr "Sortu esteka sinbolikoa"
 
-#: ../src/gnome-cmd-file-selector.cc:2129
+#: ../src/gnome-cmd-file-selector.cc:2132
 #: ../src/gnome-cmd-options-dialog.cc:678
 #: ../src/gnome-cmd-options-dialog.cc:698
 msgid "Skip all"
 msgstr "Saltatu guztiak"
 
-#: ../src/gnome-cmd-file-selector.cc:2201
+#: ../src/gnome-cmd-file-selector.cc:2204
 msgid "Filter:"
 msgstr "Iragazkia:"
 
-#: ../src/gnome-cmd-file.cc:586
+#: ../src/gnome-cmd-file.cc:587
 msgid "Unknown file type"
 msgstr "Fitxategi-mota ezezaguna"
 
-#: ../src/gnome-cmd-file.cc:587
+#: ../src/gnome-cmd-file.cc:588
 msgid "Regular file"
 msgstr "Fitxategi erregularra"
 
-#: ../src/gnome-cmd-file.cc:588
+#: ../src/gnome-cmd-file.cc:589
 msgid "Directory"
 msgstr "Direktorioa"
 
-#: ../src/gnome-cmd-file.cc:589
+#: ../src/gnome-cmd-file.cc:590
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:590
+#: ../src/gnome-cmd-file.cc:591
 msgid "UNIX Socket"
 msgstr "UNIX socket-a"
 
-#: ../src/gnome-cmd-file.cc:591
+#: ../src/gnome-cmd-file.cc:592
 msgid "Character device"
 msgstr "Karaktere-gailua"
 
-#: ../src/gnome-cmd-file.cc:592
+#: ../src/gnome-cmd-file.cc:593
 msgid "Block device"
 msgstr "Blokeatu gailua"
 
-#: ../src/gnome-cmd-file.cc:593
+#: ../src/gnome-cmd-file.cc:594
 msgid "Symbolic link"
 msgstr "Esteka sinbolikoa"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:159
-#, c-format
-msgid "Enter password for %s@%s"
-msgstr "Idatzi %s@%s(r)en pasahitza"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:164
-msgid "Enter Password"
-msgstr "Idatzi pasahitza"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:213
+#: ../src/gnome-cmd-ftp-dialog.cc:161
 msgid "No alias specified"
 msgstr "Ez da aliasik zehaztu"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:216
+#: ../src/gnome-cmd-ftp-dialog.cc:164
 msgid "No host specified"
 msgstr "Ez da ostalaririk zehaztu"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:219
+#: ../src/gnome-cmd-ftp-dialog.cc:167
 #, c-format
 msgid "Invalid port number: %s"
 msgstr "Ataka-zenbaki baliogabea: %s"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:295 ../src/gnome-cmd-options-dialog.cc:1543
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-options-dialog.cc:1535
 msgid "Alias:"
 msgstr "Aliasa:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:295 ../src/gnome-cmd-ftp-dialog.cc:296
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "Host:"
 msgstr "Ostalaria:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:295 ../src/gnome-cmd-ftp-dialog.cc:296
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "Port:"
 msgstr "Ataka:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:295 ../src/gnome-cmd-ftp-dialog.cc:296
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "User:"
 msgstr "Erabiltzailea:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:295 ../src/gnome-cmd-ftp-dialog.cc:296
-msgid "Password:"
-msgstr "Pasahitza:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:295 ../src/gnome-cmd-ftp-dialog.cc:296
+#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
 msgid "Remote Dir:"
 msgstr "Urruneko dir.:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:324
-msgid "New FTP Connection"
+#: ../src/gnome-cmd-ftp-dialog.cc:239
+#, fuzzy
+msgid "New Remote Connection"
 msgstr "FTP konexio berria"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:348
-msgid "Edit FTP Connection"
+#: ../src/gnome-cmd-ftp-dialog.cc:258
+#, fuzzy
+msgid "Edit Remote Connection"
 msgstr "Editatu FTP konexioa"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:380
+#: ../src/gnome-cmd-ftp-dialog.cc:285
 msgid "No server selected"
 msgstr "Ez da zerbitzaririk hautatu"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:501 ../src/gnome-cmd-main-win.cc:1195
-msgid "FTP Connect"
-msgstr "FTP konexioa"
+#: ../src/gnome-cmd-ftp-dialog.cc:388 ../src/gnome-cmd-main-win.cc:1176
+#, fuzzy
+msgid "Remote Server"
+msgstr "Urruneko dir.:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:506
+#: ../src/gnome-cmd-ftp-dialog.cc:393
 msgid "Connections"
 msgstr "Konexioak"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:526 ../src/gnome-cmd-options-dialog.cc:1703
+#: ../src/gnome-cmd-ftp-dialog.cc:413 ../src/gnome-cmd-options-dialog.cc:1694
 msgid "Alias"
 msgstr "Aliasa"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:531 ../src/gnome-cmd-list-popmenu.cc:121
+#: ../src/gnome-cmd-ftp-dialog.cc:418 ../src/gnome-cmd-list-popmenu.cc:121
 msgid "_New..."
 msgstr "Berr_ia..."
 
-#: ../src/gnome-cmd-ftp-dialog.cc:545
+#: ../src/gnome-cmd-ftp-dialog.cc:432
 msgid "Anonymous password:"
 msgstr "Pasahitz anonimoa:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:554
+#: ../src/gnome-cmd-ftp-dialog.cc:440
 msgid "Connect"
 msgstr "Konektatu"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:651
-msgid "FTP Quick Connect"
-msgstr "FTP konexio azkarra"
+#: ../src/gnome-cmd-ftp-dialog.cc:530
+#, fuzzy
+msgid "New Connection"
+msgstr "FTP konexio berria"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1144,295 +1140,297 @@ msgstr "_Direktorioa"
 msgid "_Text File"
 msgstr "_Testu-fitxategia"
 
-#: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:569
+#: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:556
 msgid "_Paste"
 msgstr "_Itsatsi"
 
-#: ../src/gnome-cmd-list-popmenu.cc:124 ../src/gnome-cmd-main-menu.cc:624
+#: ../src/gnome-cmd-list-popmenu.cc:124 ../src/gnome-cmd-main-menu.cc:611
 msgid "_Refresh"
 msgstr "_Freskatu"
 
-#: ../src/gnome-cmd-main-menu.cc:384
+#: ../src/gnome-cmd-main-menu.cc:375
 msgid "Switch to Vertical Layout"
 msgstr "Aldatu diseinu bertikalera"
 
-#: ../src/gnome-cmd-main-menu.cc:390
+#: ../src/gnome-cmd-main-menu.cc:381
 msgid "Switch to Horizontal Layout"
 msgstr "Aldatu diseinu horizontalera"
 
-#: ../src/gnome-cmd-main-menu.cc:454
+#: ../src/gnome-cmd-main-menu.cc:441
 msgid "Change _Owner/Group"
 msgstr "Aldatu _Jabea/Taldea"
 
-#: ../src/gnome-cmd-main-menu.cc:460
+#: ../src/gnome-cmd-main-menu.cc:447
 msgid "Change Per_missions"
 msgstr "Aldatu bai_menak"
 
-#: ../src/gnome-cmd-main-menu.cc:466
+#: ../src/gnome-cmd-main-menu.cc:453
 msgid "Advanced _Rename Tool"
 msgstr "I_zena aldatzeko tresna aurreratua"
 
-#: ../src/gnome-cmd-main-menu.cc:472
+#: ../src/gnome-cmd-main-menu.cc:459
 msgid "Create _Symbolic Link"
 msgstr "Sortu _esteka sinbolikoa"
 
-#: ../src/gnome-cmd-main-menu.cc:485
+#: ../src/gnome-cmd-main-menu.cc:472
 msgid "_Diff"
 msgstr "_Diff"
 
-#: ../src/gnome-cmd-main-menu.cc:491
+#: ../src/gnome-cmd-main-menu.cc:478
 msgid "S_ynchonize Directories"
 msgstr "_Sinkronizatu direktorioak"
 
-#: ../src/gnome-cmd-main-menu.cc:498
+#: ../src/gnome-cmd-main-menu.cc:485
 msgid "_Quit"
 msgstr "Irte_n"
 
-#: ../src/gnome-cmd-main-menu.cc:509
+#: ../src/gnome-cmd-main-menu.cc:496
 msgid "_Select All"
 msgstr "_Hautatu dena"
 
-#: ../src/gnome-cmd-main-menu.cc:515
+#: ../src/gnome-cmd-main-menu.cc:502
 msgid "_Unselect All"
 msgstr "_Desautatu dena"
 
-#: ../src/gnome-cmd-main-menu.cc:521
+#: ../src/gnome-cmd-main-menu.cc:508
 msgid "Select with _Pattern"
 msgstr "Hautatu _ereduarekin"
 
-#: ../src/gnome-cmd-main-menu.cc:527
+#: ../src/gnome-cmd-main-menu.cc:514
 msgid "Unselect with P_attern"
 msgstr "Desautatu e_reduarekin"
 
-#: ../src/gnome-cmd-main-menu.cc:533
+#: ../src/gnome-cmd-main-menu.cc:520
 msgid "_Invert Selection"
 msgstr "_Alderantzikatu hautapena"
 
-#: ../src/gnome-cmd-main-menu.cc:539
+#: ../src/gnome-cmd-main-menu.cc:526
 msgid "_Restore Selection"
 msgstr "_Leheneratu hautapena"
 
-#: ../src/gnome-cmd-main-menu.cc:546
+#: ../src/gnome-cmd-main-menu.cc:533
 msgid "_Compare Directories"
 msgstr "_Konparatu direktorioak"
 
-#: ../src/gnome-cmd-main-menu.cc:582
+#: ../src/gnome-cmd-main-menu.cc:569
 msgid "Copy _File Names"
 msgstr "Kopiatu _fitxategi-izenak"
 
-#: ../src/gnome-cmd-main-menu.cc:589
+#: ../src/gnome-cmd-main-menu.cc:576
 msgid "_Search..."
 msgstr "_Bilatu..."
 
-#: ../src/gnome-cmd-main-menu.cc:595
+#: ../src/gnome-cmd-main-menu.cc:582
 msgid "_Quick Search..."
 msgstr "Bi_laketa azkarra..."
 
-#: ../src/gnome-cmd-main-menu.cc:601
+#: ../src/gnome-cmd-main-menu.cc:588
 msgid "_Enable Filter..."
 msgstr "_Gaitu iragazkia..."
 
-#: ../src/gnome-cmd-main-menu.cc:612
+#: ../src/gnome-cmd-main-menu.cc:599
 msgid "_Back"
 msgstr "At_zera"
 
-#: ../src/gnome-cmd-main-menu.cc:618
+#: ../src/gnome-cmd-main-menu.cc:605
 msgid "_Forward"
 msgstr "Au_rrera"
 
-#: ../src/gnome-cmd-main-menu.cc:631
+#: ../src/gnome-cmd-main-menu.cc:618
 msgid "Show Device Buttons"
 msgstr "Erakutsi gailuaren botoiak"
 
-#: ../src/gnome-cmd-main-menu.cc:637
+#: ../src/gnome-cmd-main-menu.cc:624
 msgid "Show Toolbar"
 msgstr "Erakutsi tresna-barra"
 
-#: ../src/gnome-cmd-main-menu.cc:643
+#: ../src/gnome-cmd-main-menu.cc:630
 msgid "Show Commandline"
 msgstr "Erakutsi komando-lerroa"
 
-#: ../src/gnome-cmd-main-menu.cc:649
+#: ../src/gnome-cmd-main-menu.cc:636
 msgid "Show Buttonbar"
 msgstr "Erakutsi botoi-barra"
 
-#: ../src/gnome-cmd-main-menu.cc:656
+#: ../src/gnome-cmd-main-menu.cc:643
 msgid "Show Hidden Files"
 msgstr "Erakutsi ezkutuko fitxategiak"
 
-#: ../src/gnome-cmd-main-menu.cc:662
+#: ../src/gnome-cmd-main-menu.cc:649
 msgid "Show Backup Files"
 msgstr "Erakutsi babeskopia-fitxategiak"
 
-#: ../src/gnome-cmd-main-menu.cc:669
+#: ../src/gnome-cmd-main-menu.cc:656
 msgid "_Equal Panel Size"
 msgstr "Panel _berdinaren tamaina"
 
-#: ../src/gnome-cmd-main-menu.cc:680
+#: ../src/gnome-cmd-main-menu.cc:667
 msgid "_Bookmark this Directory..."
 msgstr "_Ezarri laster-marka direktorio honi..."
 
-#: ../src/gnome-cmd-main-menu.cc:686
+#: ../src/gnome-cmd-main-menu.cc:673
 msgid "_Manage Bookmarks..."
 msgstr "_Kudeatu laster-markak..."
 
-#: ../src/gnome-cmd-main-menu.cc:698
+#: ../src/gnome-cmd-main-menu.cc:685
 msgid "_Configure Plugins..."
 msgstr "_Konfiguratu plugin-ak..."
 
-#: ../src/gnome-cmd-main-menu.cc:710
+#: ../src/gnome-cmd-main-menu.cc:697
 msgid "_Options..."
 msgstr "_Aukerak..."
 
-#: ../src/gnome-cmd-main-menu.cc:716
+#: ../src/gnome-cmd-main-menu.cc:703
 msgid "Edit _MIME Types..."
 msgstr "Editatu _MIME motak..."
 
-#: ../src/gnome-cmd-main-menu.cc:727
-msgid "FTP _Connect..."
-msgstr "FTP _konektatu..."
+#: ../src/gnome-cmd-main-menu.cc:714
+msgid "_Remote Server..."
+msgstr ""
 
-#: ../src/gnome-cmd-main-menu.cc:733
-msgid "FTP _Quick Connect..."
-msgstr "FTP konexio _azkarra..."
+#: ../src/gnome-cmd-main-menu.cc:720
+#, fuzzy
+msgid "New Connection..."
+msgstr "FTP konexio berria"
 
-#: ../src/gnome-cmd-main-menu.cc:744
+#: ../src/gnome-cmd-main-menu.cc:731
 msgid "_Contents"
 msgstr "_Edukia"
 
-#: ../src/gnome-cmd-main-menu.cc:750 ../src/libgviewer/viewer-window.c:1031
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:995
 msgid "_Keyboard Shortcuts"
 msgstr "_Laster-teklak"
 
-#: ../src/gnome-cmd-main-menu.cc:756
+#: ../src/gnome-cmd-main-menu.cc:743
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander, web gunean"
 
-#: ../src/gnome-cmd-main-menu.cc:762
+#: ../src/gnome-cmd-main-menu.cc:749
 msgid "Report a _Problem"
 msgstr "Bidali mezua _arazoaren berri emanez"
 
-#: ../src/gnome-cmd-main-menu.cc:769 ../src/libgviewer/viewer-window.c:1038
+#: ../src/gnome-cmd-main-menu.cc:756 ../src/libgviewer/viewer-window.cc:1002
 #: ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "Honi _buruz"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:791 ../src/libgviewer/viewer-window.c:1051
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:1015
 msgid "_File"
 msgstr "_Fitxategia"
 
-#: ../src/gnome-cmd-main-menu.cc:799
+#: ../src/gnome-cmd-main-menu.cc:786
 msgid "_Mark"
 msgstr "_Markatu"
 
-#: ../src/gnome-cmd-main-menu.cc:803 ../src/libgviewer/viewer-window.c:1054
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:1018
 msgid "_View"
 msgstr "_Ikusi"
 
-#: ../src/gnome-cmd-main-menu.cc:808 ../src/libgviewer/viewer-window.c:1065
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:1029
 msgid "_Settings"
 msgstr "_Ezarpenak"
 
-#: ../src/gnome-cmd-main-menu.cc:812
+#: ../src/gnome-cmd-main-menu.cc:799
 msgid "_Connections"
 msgstr "_Konexioak"
 
-#: ../src/gnome-cmd-main-menu.cc:816
+#: ../src/gnome-cmd-main-menu.cc:803
 msgid "_Bookmarks"
 msgstr "_Laster-markak"
 
-#: ../src/gnome-cmd-main-menu.cc:820
+#: ../src/gnome-cmd-main-menu.cc:807
 msgid "_Plugins"
 msgstr "_Plugin-ak"
 
-#: ../src/gnome-cmd-main-menu.cc:824 ../src/libgviewer/viewer-window.c:1070
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:1034
 msgid "_Help"
 msgstr "Lag_untza"
 
-#: ../src/gnome-cmd-main-win.cc:418
+#: ../src/gnome-cmd-main-win.cc:420
 msgid "F3 View"
 msgstr "F3 Ikusi"
 
-#: ../src/gnome-cmd-main-win.cc:420
+#: ../src/gnome-cmd-main-win.cc:422
 msgid "F4 Edit"
 msgstr "F4 Editatu"
 
-#: ../src/gnome-cmd-main-win.cc:422
+#: ../src/gnome-cmd-main-win.cc:424
 msgid "F5 Copy"
 msgstr "F5 Kopiatu"
 
-#: ../src/gnome-cmd-main-win.cc:424
+#: ../src/gnome-cmd-main-win.cc:426
 msgid "F6 Move"
 msgstr "F6 Eraman"
 
-#: ../src/gnome-cmd-main-win.cc:426
+#: ../src/gnome-cmd-main-win.cc:428
 msgid "F7 Mkdir"
 msgstr "F7 Mkdir"
 
-#: ../src/gnome-cmd-main-win.cc:428
+#: ../src/gnome-cmd-main-win.cc:430
 msgid "F8 Delete"
 msgstr "F8 Ezabatu"
 
-#: ../src/gnome-cmd-main-win.cc:430
+#: ../src/gnome-cmd-main-win.cc:432
 msgid "F9 Search"
 msgstr "F9 Bilatu"
 
-#: ../src/gnome-cmd-main-win.cc:432
+#: ../src/gnome-cmd-main-win.cc:434
 msgid "F10 Quit"
 msgstr "F10 Irten"
 
-#: ../src/gnome-cmd-main-win.cc:1179
+#: ../src/gnome-cmd-main-win.cc:1159
 msgid "Refresh"
 msgstr "Freskatu"
 
-#: ../src/gnome-cmd-main-win.cc:1180
+#: ../src/gnome-cmd-main-win.cc:1160
 msgid "Up one directory"
 msgstr "Igo direktorio bat"
 
-#: ../src/gnome-cmd-main-win.cc:1181
+#: ../src/gnome-cmd-main-win.cc:1161
 msgid "Goto the oldest"
 msgstr "Joan zaharrenera"
 
-#: ../src/gnome-cmd-main-win.cc:1182
+#: ../src/gnome-cmd-main-win.cc:1162
 msgid "Go back"
 msgstr "Joan atzera"
 
-#: ../src/gnome-cmd-main-win.cc:1183
+#: ../src/gnome-cmd-main-win.cc:1163
 msgid "Go forward"
 msgstr "Joan aurrera"
 
-#: ../src/gnome-cmd-main-win.cc:1184
+#: ../src/gnome-cmd-main-win.cc:1164
 msgid "Goto the latest"
 msgstr "Joan azkenera"
 
-#: ../src/gnome-cmd-main-win.cc:1186
+#: ../src/gnome-cmd-main-win.cc:1166
 msgid "Copy file names (SHIFT for full paths)"
 msgstr "Kopiatu fitxategi-izenak (MAIUS -> bide-izen osoa)"
 
-#: ../src/gnome-cmd-main-win.cc:1187
+#: ../src/gnome-cmd-main-win.cc:1167
 msgid "Cut"
 msgstr "Ebaki"
 
-#: ../src/gnome-cmd-main-win.cc:1188
+#: ../src/gnome-cmd-main-win.cc:1168
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:87
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: ../src/gnome-cmd-main-win.cc:1189
+#: ../src/gnome-cmd-main-win.cc:1169
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: ../src/gnome-cmd-main-win.cc:1192
+#: ../src/gnome-cmd-main-win.cc:1172
 msgid "Edit (SHIFT for new document)"
 msgstr "Editatu (MAIUS -> dokumentu berriak)"
 
-#: ../src/gnome-cmd-main-win.cc:1193
-msgid "Open Terminal"
+#: ../src/gnome-cmd-main-win.cc:1174
+#, fuzzy
+msgid "Open terminal"
 msgstr "Ireki terminala"
 
-#: ../src/gnome-cmd-main-win.cc:1196
+#: ../src/gnome-cmd-main-win.cc:1177
 msgid "Drop connection"
 msgstr "Deskonektatu"
 
@@ -1779,7 +1777,7 @@ msgid "Command:"
 msgstr "Komandoa:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1108
-#: ../src/gnome-cmd-options-dialog.cc:1549
+#: ../src/gnome-cmd-options-dialog.cc:1541
 msgid "Icon:"
 msgstr "Ikonoa:"
 
@@ -1823,108 +1821,109 @@ msgstr "Aplikazio berria"
 msgid "Edit Application"
 msgstr "Editatu aplikazioa"
 
-#: ../src/gnome-cmd-options-dialog.cc:1302
+#: ../src/gnome-cmd-options-dialog.cc:1300
 msgid "Always download remote files before opening in external programs"
-msgstr "Deskargatu beti urruneko fitxategiak kanpoko programetan ireki aurretik"
+msgstr ""
+"Deskargatu beti urruneko fitxategiak kanpoko programetan ireki aurretik"
 
-#: ../src/gnome-cmd-options-dialog.cc:1304
+#: ../src/gnome-cmd-options-dialog.cc:1302
 msgid "MIME applications"
 msgstr "MIME aplikazioak"
 
-#: ../src/gnome-cmd-options-dialog.cc:1308
+#: ../src/gnome-cmd-options-dialog.cc:1306
 msgid "Standard programs"
 msgstr "Programa estandarrak"
 
-#: ../src/gnome-cmd-options-dialog.cc:1311
+#: ../src/gnome-cmd-options-dialog.cc:1309
 msgid "Viewer:"
 msgstr "Ikustailea:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1313
+#: ../src/gnome-cmd-options-dialog.cc:1311
 msgid "Editor:"
 msgstr "Editorea:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1315
+#: ../src/gnome-cmd-options-dialog.cc:1313
 msgid "Differ:"
 msgstr "Diferentziatzailea:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1317
+#: ../src/gnome-cmd-options-dialog.cc:1315
 msgid "Terminal:"
 msgstr "Terminala:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1323
+#: ../src/gnome-cmd-options-dialog.cc:1321
 msgid "Use Internal Viewer"
 msgstr "Erabili barneko ikustailea"
 
-#: ../src/gnome-cmd-options-dialog.cc:1338
+#: ../src/gnome-cmd-options-dialog.cc:1336
 msgid "Other favorite apps"
 msgstr "Beste gogoko aplikazio batzuk"
 
-#: ../src/gnome-cmd-options-dialog.cc:1345
+#: ../src/gnome-cmd-options-dialog.cc:1343
 msgid "Label"
 msgstr "Etiketa"
 
-#: ../src/gnome-cmd-options-dialog.cc:1545
+#: ../src/gnome-cmd-options-dialog.cc:1537
 msgid "Device:"
 msgstr "Gailua:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1547
+#: ../src/gnome-cmd-options-dialog.cc:1539
 msgid "Mount point:"
 msgstr "Muntatze-puntua:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1591
+#: ../src/gnome-cmd-options-dialog.cc:1583
 msgid "New Device"
 msgstr "Gailu berria"
 
-#: ../src/gnome-cmd-options-dialog.cc:1604
+#: ../src/gnome-cmd-options-dialog.cc:1596
 msgid "Edit Device"
 msgstr "Editatu gailua"
 
-#: ../src/gnome-cmd-options-dialog.cc:1693
-#: ../src/gnome-cmd-options-dialog.cc:1886
+#: ../src/gnome-cmd-options-dialog.cc:1684
+#: ../src/gnome-cmd-options-dialog.cc:1877
 msgid "Devices"
 msgstr "Gailuak"
 
-#: ../src/gnome-cmd-options-dialog.cc:1733
+#: ../src/gnome-cmd-options-dialog.cc:1724
 msgid "Show only the icons"
 msgstr "Erakutsi ikonoak soilik"
 
-#: ../src/gnome-cmd-options-dialog.cc:1737
+#: ../src/gnome-cmd-options-dialog.cc:1728
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Saltatu muntatzea (erosoa 'super-mount'ekin)"
 
-#: ../src/gnome-cmd-options-dialog.cc:1856
+#: ../src/gnome-cmd-options-dialog.cc:1847
 msgid "General"
 msgstr "Orokorra"
 
-#: ../src/gnome-cmd-options-dialog.cc:1861 ../src/tags/gnome-cmd-tags.cc:310
+#: ../src/gnome-cmd-options-dialog.cc:1852 ../src/tags/gnome-cmd-tags.cc:311
 msgid "Format"
 msgstr "Formatua"
 
-#: ../src/gnome-cmd-options-dialog.cc:1866
+#: ../src/gnome-cmd-options-dialog.cc:1857
 msgid "Layout"
 msgstr "Diseinua"
 
-#: ../src/gnome-cmd-options-dialog.cc:1871
+#: ../src/gnome-cmd-options-dialog.cc:1862
 msgid "Confirmation"
 msgstr "Berrespena"
 
-#: ../src/gnome-cmd-options-dialog.cc:1876
+#: ../src/gnome-cmd-options-dialog.cc:1867
 msgid "Filters"
 msgstr "Iragazkiak"
 
-#: ../src/gnome-cmd-options-dialog.cc:1881
+#: ../src/gnome-cmd-options-dialog.cc:1872
 msgid "Programs"
 msgstr "Programak"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:133
+#: ../src/gnome-cmd-patternsel-dialog.cc:122
 msgid "Select Using Pattern"
 msgstr "Hautatu ereduekin"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:133
+#: ../src/gnome-cmd-patternsel-dialog.cc:122
 msgid "Unselect Using Pattern"
 msgstr "Desautatu ereduekin"
 
-#: ../src/gnome-cmd-patternsel-dialog.cc:140
+#: ../src/gnome-cmd-patternsel-dialog.cc:129
 msgid "Pattern:"
 msgstr "Eredua:"
 
@@ -2050,71 +2049,54 @@ msgstr "Maiuskula/minuskula"
 msgid "Goto"
 msgstr "Joan"
 
-#: ../src/gnome-cmd-smb-auth.cc:33
-msgid "Enter password"
-msgstr "Idatzi pasahitza"
-
-#: ../src/gnome-cmd-smb-auth.cc:34
-msgid ""
-"Problem: access not permitted\n"
-"\n"
-"please supply user credentials\n"
-"\n"
-"Remember: wrong credentials may lead to account locking"
-msgstr ""
-"Arazoa: sarbidea ez dago baimendua\n"
-"\n"
-"eman erabiltzailearen kredentzialak\n"
-"\n"
-"Gogoratu: okerreko kredentzialak kontua blokea dezake."
-
 #: ../src/gnome-cmd-smb-path.cc:321
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
 msgstr "Ezin da aurkitu %s izeneko ostalari edo lantalderik\n"
 
-#: ../src/gnome-cmd-user-actions.cc:67
+#: ../src/gnome-cmd-user-actions.cc:69
 msgid "No file selected"
 msgstr "Ez da fitxategirik hautatu"
 
-#: ../src/gnome-cmd-user-actions.cc:609
+#: ../src/gnome-cmd-user-actions.cc:661
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Sortu %i fitxategiaren esteka sinbolikoa %s(e)n?"
 msgstr[1] "Sortu %i fitxategien esteka sinbolikoak %s(e)n?"
 
-#: ../src/gnome-cmd-user-actions.cc:614
+#: ../src/gnome-cmd-user-actions.cc:666
 msgid "Create"
 msgstr "Sortu"
 
-#: ../src/gnome-cmd-user-actions.cc:651 ../src/gnome-cmd-user-actions.cc:668
-#: ../src/gnome-cmd-user-actions.cc:708
-msgid "Operation not supported on remote file systems"
-msgstr "Eragiketa ez dago onartuta urruneko fitxategi-sistemetan"
-
-#: ../src/gnome-cmd-user-actions.cc:683
-msgid "Too many selected files"
-msgstr "Hautatutako fitxategi gehiegi"
-
-#: ../src/gnome-cmd-user-actions.cc:693 ../src/gnome-cmd-user-actions.cc:730
+#: ../src/gnome-cmd-user-actions.cc:714 ../src/gnome-cmd-user-actions.cc:773
+#: ../src/gnome-cmd-user-actions.cc:810
 #, c-format
 msgid "running `%s'\n"
 msgstr "\"%s\"exekutatzen\n"
 
-#: ../src/gnome-cmd-user-actions.cc:1151
+#: ../src/gnome-cmd-user-actions.cc:731 ../src/gnome-cmd-user-actions.cc:748
+#: ../src/gnome-cmd-user-actions.cc:788
+msgid "Operation not supported on remote file systems"
+msgstr "Eragiketa ez dago onartuta urruneko fitxategi-sistemetan"
+
+#: ../src/gnome-cmd-user-actions.cc:763
+msgid "Too many selected files"
+msgstr "Hautatutako fitxategi gehiegi"
+
+#: ../src/gnome-cmd-user-actions.cc:1310
 msgid "There was an error opening home page."
 msgstr "Errorea gertatu da gune nagusia irekitzean."
 
-#: ../src/gnome-cmd-user-actions.cc:1160
+#: ../src/gnome-cmd-user-actions.cc:1319
 msgid "There was an error reporting problem."
 msgstr "Errorea gertatu da arazoari buruz berri ematean."
 
-#: ../src/gnome-cmd-user-actions.cc:1181
+#: ../src/gnome-cmd-user-actions.cc:1340
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "GNOME mahaigainerako fitxategi-kudeatzaile azkarra eta eraginkorra"
 
-#: ../src/gnome-cmd-user-actions.cc:1185
+#: ../src/gnome-cmd-user-actions.cc:1344
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2125,7 +2107,7 @@ msgstr ""
 "Foundation-ek argitaratutako GNU Lizentzia Publiko Orokorraren 2. bertsioan, "
 "edo (nahiago baduzu) beste berriago batean, jasotako baldintzak betez gero."
 
-#: ../src/gnome-cmd-user-actions.cc:1189
+#: ../src/gnome-cmd-user-actions.cc:1348
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2137,7 +2119,7 @@ msgstr ""
 "or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for "
 "more details."
 
-#: ../src/gnome-cmd-user-actions.cc:1193
+#: ../src/gnome-cmd-user-actions.cc:1352
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 59 "
@@ -2147,7 +2129,7 @@ msgstr ""
 "bat jasoko zenuen; hala ez bada, idatzi hona: Free SoftwareFoundation, Inc., "
 "59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1210
+#: ../src/gnome-cmd-user-actions.cc:1369
 msgid "translator-credits"
 msgstr "Inaki Larranaga <dooteo@euskalgnu.org>"
 
@@ -2228,18 +2210,19 @@ msgstr "prestatzen..."
 msgid "downloading to /tmp"
 msgstr "hona deskargatzen: /tmp"
 
-#: ../src/imageloader.cc:130
-msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
+#: ../src/imageloader.cc:129
+msgid ""
+"Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "Ezin izan da kargatu instalatutako fitxategiaren pix-mapa; iturburu-"
 "direktoriotik kargatzen saiatuko da\n"
 
-#: ../src/imageloader.cc:132 ../src/imageloader.cc:158
+#: ../src/imageloader.cc:130 ../src/imageloader.cc:156
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr "Horren ordez %s kargatzen saiatuko da\n"
 
-#: ../src/imageloader.cc:136 ../src/imageloader.cc:161
+#: ../src/imageloader.cc:134 ../src/imageloader.cc:159
 #, c-format
 msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
@@ -2249,184 +2232,184 @@ msgstr ""
 "gnome-commander aplikazioa 'gnome-commander-%s/src' direktoriotik "
 "exekutatzen ari dela\n"
 
-#: ../src/imageloader.cc:157
+#: ../src/imageloader.cc:155
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
 "Ezin izan da instalatutako pix-mapa kargatu; iturburu-direktoriotik "
 "kargatzen saiatuko da\n"
 
-#: ../src/libgviewer/search-dlg.c:331
+#: ../src/libgviewer/search-dlg.cc:314
 msgid "Find"
 msgstr "Bilatu"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.c:361 ../src/libgviewer/viewer-window.c:816
-#: ../src/libgviewer/viewer-window.c:1057
+#: ../src/libgviewer/search-dlg.cc:344 ../src/libgviewer/viewer-window.cc:793
+#: ../src/libgviewer/viewer-window.cc:1021
 msgid "_Text"
 msgstr "_Testua"
 
-#: ../src/libgviewer/search-dlg.c:363
+#: ../src/libgviewer/search-dlg.cc:346
 msgid "_Hex"
 msgstr "_Hamaseitarra"
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.c:372
+#: ../src/libgviewer/search-dlg.cc:355
 msgid "_Match case"
 msgstr "_Maiuskula/minuskula"
 
-#: ../src/libgviewer/search-progress-dlg.c:78
+#: ../src/libgviewer/search-progress-dlg.cc:74
 msgid "Searching..."
 msgstr "Bilatzen..."
 
-#: ../src/libgviewer/search-progress-dlg.c:199
+#: ../src/libgviewer/search-progress-dlg.cc:186
 #, c-format
 msgid "Searching for \"%s\""
 msgstr "\"%s\" bilatzen"
 
-#: ../src/libgviewer/viewer-widget.c:204
+#: ../src/libgviewer/viewer-widget.cc:201
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Posizioa: %lu / %lu\tZutabea: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.c:208
+#: ../src/libgviewer/viewer-widget.cc:205
 msgid "Wrap"
 msgstr "Itzulbiratu"
 
-#: ../src/libgviewer/viewer-widget.c:229
+#: ../src/libgviewer/viewer-widget.cc:224
 #, c-format
 msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
 msgstr "Irudi-tamaina: %dx%d\tBit/lagina: %d\tZooma: %s"
 
-#: ../src/libgviewer/viewer-widget.c:231
+#: ../src/libgviewer/viewer-widget.cc:226
 msgid "Fit-to-Window"
 msgstr "Doitu leihora"
 
-#: ../src/libgviewer/viewer-window.c:194 ../src/utils.cc:1348
+#: ../src/libgviewer/viewer-window.cc:191 ../src/utils.cc:1347
 msgid "There was an error displaying help."
 msgstr "Errorea gertatu da laguntza bistaratzean."
 
-#: ../src/libgviewer/viewer-window.c:807
+#: ../src/libgviewer/viewer-window.cc:783
 msgid "_Close"
 msgstr "It_xi"
 
-#: ../src/libgviewer/viewer-window.c:820
+#: ../src/libgviewer/viewer-window.cc:797
 msgid "_Binary"
 msgstr "_Bitarra"
 
-#: ../src/libgviewer/viewer-window.c:824
+#: ../src/libgviewer/viewer-window.cc:801
 msgid "_Hex dump"
 msgstr "_Hamaseitar iraulia"
 
-#: ../src/libgviewer/viewer-window.c:828
-#: ../src/libgviewer/viewer-window.c:1062
+#: ../src/libgviewer/viewer-window.cc:805
+#: ../src/libgviewer/viewer-window.cc:1026
 msgid "_Image"
 msgstr "_Irudia"
 
-#: ../src/libgviewer/viewer-window.c:833
+#: ../src/libgviewer/viewer-window.cc:810
 msgid "_Zoom In"
 msgstr "_Handiagotu"
 
-#: ../src/libgviewer/viewer-window.c:838
+#: ../src/libgviewer/viewer-window.cc:814
 msgid "Zoom _Out"
 msgstr "_Txikiagotu"
 
-#: ../src/libgviewer/viewer-window.c:843
+#: ../src/libgviewer/viewer-window.cc:818
 msgid "_Normal Size"
 msgstr "_Tamaina normala"
 
-#: ../src/libgviewer/viewer-window.c:848
+#: ../src/libgviewer/viewer-window.cc:822
 msgid "Best _Fit"
 msgstr "_Egokitze optimoa"
 
-#: ../src/libgviewer/viewer-window.c:862
+#: ../src/libgviewer/viewer-window.cc:835
 msgid "_Copy Text Selection"
 msgstr "_Kopiatu testua hautapenera"
 
-#: ../src/libgviewer/viewer-window.c:867
+#: ../src/libgviewer/viewer-window.cc:839
 msgid "Find..."
 msgstr "Bilatu..."
 
-#: ../src/libgviewer/viewer-window.c:872
+#: ../src/libgviewer/viewer-window.cc:843
 msgid "Find Next"
 msgstr "Bilatu hurrengoa"
 
-#: ../src/libgviewer/viewer-window.c:877
+#: ../src/libgviewer/viewer-window.cc:847
 msgid "Find Previous"
 msgstr "Bilatu aurrekoa"
 
-#: ../src/libgviewer/viewer-window.c:884
+#: ../src/libgviewer/viewer-window.cc:853
 msgid "_No Parsing (original file)"
 msgstr "_Analizatu gabe (jatorrizko fitxategia)"
 
-#: ../src/libgviewer/viewer-window.c:889
+#: ../src/libgviewer/viewer-window.cc:857
 msgid "_HTML Parser"
 msgstr "_HTML analitzatzailea"
 
-#: ../src/libgviewer/viewer-window.c:894
+#: ../src/libgviewer/viewer-window.cc:861
 msgid "_PS/PDF Parser"
 msgstr "_PS/PDF analizatzailea"
 
-#: ../src/libgviewer/viewer-window.c:901
+#: ../src/libgviewer/viewer-window.cc:867
 msgid "_Wrap lines"
 msgstr "_Itzulbiratu lerroak"
 
-#: ../src/libgviewer/viewer-window.c:907
+#: ../src/libgviewer/viewer-window.cc:872
 msgid "_Encoding"
 msgstr "_Kodeketa"
 
-#: ../src/libgviewer/viewer-window.c:949
+#: ../src/libgviewer/viewer-window.cc:913
 msgid "_Show EXIF/IPTC Information"
 msgstr "_Erakutsi EXIF/IPTC datuak"
 
-#: ../src/libgviewer/viewer-window.c:955
+#: ../src/libgviewer/viewer-window.cc:919
 msgid "_Rotate Clockwise"
 msgstr "_Biratu erlojuaren norantzan"
 
-#: ../src/libgviewer/viewer-window.c:960
+#: ../src/libgviewer/viewer-window.cc:924
 msgid "Rotate Counter Clockwis_e"
 msgstr "Biratu erlojuaren norantzaren _aurka"
 
-#: ../src/libgviewer/viewer-window.c:965
+#: ../src/libgviewer/viewer-window.cc:929
 msgid "_Rotate 180°"
 msgstr "_Biratu 180°"
 
-#: ../src/libgviewer/viewer-window.c:970
+#: ../src/libgviewer/viewer-window.cc:934
 msgid "Flip _Vertical"
 msgstr "Irauli _bertikalki"
 
-#: ../src/libgviewer/viewer-window.c:975
+#: ../src/libgviewer/viewer-window.cc:939
 msgid "Flip _Horizontal"
 msgstr "Irauli _horizontalki"
 
-#: ../src/libgviewer/viewer-window.c:985
+#: ../src/libgviewer/viewer-window.cc:949
 msgid "_Binary Mode"
 msgstr "_Bitar modua"
 
-#: ../src/libgviewer/viewer-window.c:991
+#: ../src/libgviewer/viewer-window.cc:955
 msgid "_Decimal Offset in Hexdump"
 msgstr "Desplazamendu dezimala hamaseitar iraulian"
 
-#: ../src/libgviewer/viewer-window.c:997
+#: ../src/libgviewer/viewer-window.cc:961
 msgid "_Save Current Settings"
 msgstr "_Gorde uneko ezarpenak"
 
-#: ../src/libgviewer/viewer-window.c:1007
+#: ../src/libgviewer/viewer-window.cc:971
 msgid "_20 chars/line"
 msgstr "_20 karak/lerroko"
 
-#: ../src/libgviewer/viewer-window.c:1012
+#: ../src/libgviewer/viewer-window.cc:976
 msgid "_40 chars/line"
 msgstr "_40 karak/lerroko"
 
-#: ../src/libgviewer/viewer-window.c:1017
+#: ../src/libgviewer/viewer-window.cc:981
 msgid "_80 chars/line"
 msgstr "_80 karak/lerroko"
 
-#: ../src/libgviewer/viewer-window.c:1026
+#: ../src/libgviewer/viewer-window.cc:990
 msgid "Quick _Help"
 msgstr "_Laguntza azkarra"
 
-#: ../src/libgviewer/viewer-window.c:1237
+#: ../src/libgviewer/viewer-window.cc:1210
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "\"%s\" eredua ez da aurkitu"
@@ -2443,7 +2426,7 @@ msgstr "Zehaztu ezkerreko panelaren hasierako direktorioa"
 msgid "Specify the start directory for the right pane"
 msgstr "Zehaztu eskuineko panelaren hasierako direktorioa"
 
-#: ../src/main.cc:111
+#: ../src/main.cc:110
 msgid "File Manager"
 msgstr "Fitxategi-kudeatzailea"
 
@@ -2472,7 +2455,7 @@ msgstr "Erabilgarri dauden plugin-ak"
 msgid "Version"
 msgstr "Bertsioa"
 
-#: ../src/plugin_manager.cc:422 ../src/tags/gnome-cmd-tags.cc:658
+#: ../src/plugin_manager.cc:422 ../src/tags/gnome-cmd-tags.cc:659
 msgid "File"
 msgstr "Fitxategia"
 
@@ -2496,47 +2479,47 @@ msgstr "<ID3, APE, FLAC eta Vorbis etiketak ez daude onartuta>"
 msgid "<OLE2 and ODF tags not supported>"
 msgstr "<OLE2 eta ODF etiketak ez daude onartuta>"
 
-#: ../src/tags/gnome-cmd-tags.cc:106
-msgid "Album Artist"
-msgstr "Albumaren artista"
-
-#: ../src/tags/gnome-cmd-tags.cc:106
-msgid "Artist of the album."
-msgstr "Albumaren artista."
-
-#: ../src/tags/gnome-cmd-tags.cc:107
-msgid "Album Gain"
-msgstr "Albumaren irabazia"
-
-#: ../src/tags/gnome-cmd-tags.cc:107
-msgid "Gain adjustment of the album."
-msgstr "Albumaren irabazia doitzea."
-
-#: ../src/tags/gnome-cmd-tags.cc:108
-msgid "Album Peak Gain"
-msgstr "Albumaren irabaziaren mugak"
-
-#: ../src/tags/gnome-cmd-tags.cc:108
-msgid "Peak gain adjustment of album."
-msgstr "Albumaren irabaziaren muga doitzea."
-
-#: ../src/tags/gnome-cmd-tags.cc:109
-msgid "Album Track Count"
-msgstr "Albumaren pista kopurua"
-
-#: ../src/tags/gnome-cmd-tags.cc:109
-msgid "Total number of tracks on the album."
-msgstr "Albumeko pista kopurua guztira."
-
-#: ../src/tags/gnome-cmd-tags.cc:110 ../src/tags/gnome-cmd-tags.cc:406
+#: ../src/tags/gnome-cmd-tags.cc:106 ../src/tags/gnome-cmd-tags.cc:407
 msgid "Album"
 msgstr "Albuma"
 
-#: ../src/tags/gnome-cmd-tags.cc:110
+#: ../src/tags/gnome-cmd-tags.cc:106
 msgid "Name of the album."
 msgstr "Albumaren izena."
 
-#: ../src/tags/gnome-cmd-tags.cc:111 ../src/tags/gnome-cmd-tags.cc:192
+#: ../src/tags/gnome-cmd-tags.cc:107
+msgid "Album Artist"
+msgstr "Albumaren artista"
+
+#: ../src/tags/gnome-cmd-tags.cc:107
+msgid "Artist of the album."
+msgstr "Albumaren artista."
+
+#: ../src/tags/gnome-cmd-tags.cc:108
+msgid "Album Gain"
+msgstr "Albumaren irabazia"
+
+#: ../src/tags/gnome-cmd-tags.cc:108
+msgid "Gain adjustment of the album."
+msgstr "Albumaren irabazia doitzea."
+
+#: ../src/tags/gnome-cmd-tags.cc:109
+msgid "Album Peak Gain"
+msgstr "Albumaren irabaziaren mugak"
+
+#: ../src/tags/gnome-cmd-tags.cc:109
+msgid "Peak gain adjustment of album."
+msgstr "Albumaren irabaziaren muga doitzea."
+
+#: ../src/tags/gnome-cmd-tags.cc:110
+msgid "Album Track Count"
+msgstr "Albumaren pista kopurua"
+
+#: ../src/tags/gnome-cmd-tags.cc:110
+msgid "Total number of tracks on the album."
+msgstr "Albumeko pista kopurua guztira."
+
+#: ../src/tags/gnome-cmd-tags.cc:111 ../src/tags/gnome-cmd-tags.cc:193
 msgid "Artist"
 msgstr "Artista"
 
@@ -2561,20 +2544,20 @@ msgid "Number of channels in the audio (2 = stereo)."
 msgstr "Audioaren kanal kopurua (2 = estereoa)."
 
 #: ../src/tags/gnome-cmd-tags.cc:114
-msgid "Codec Version"
-msgstr "Kodekaren bertsioa"
-
-#: ../src/tags/gnome-cmd-tags.cc:114
-msgid "Codec version."
-msgstr "Kodekaren bertsioa."
-
-#: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Codec"
 msgstr "Kodeka"
 
-#: ../src/tags/gnome-cmd-tags.cc:115
+#: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Codec encoding description."
 msgstr "Kodekaren kodeketaren azalpena."
+
+#: ../src/tags/gnome-cmd-tags.cc:115
+msgid "Codec Version"
+msgstr "Kodekaren bertsioa"
+
+#: ../src/tags/gnome-cmd-tags.cc:115
+msgid "Codec version."
+msgstr "Kodekaren bertsioa."
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Comment"
@@ -2584,12 +2567,12 @@ msgstr "Iruzkina"
 msgid "Comments on the track."
 msgstr "Pistako iruzkinak."
 
-#: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:203
-#: ../src/tags/gnome-cmd-tags.cc:332 ../src/tags/gnome-cmd-tags.cc:410
+#: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:204
+#: ../src/tags/gnome-cmd-tags.cc:333 ../src/tags/gnome-cmd-tags.cc:409
 msgid "Copyright"
 msgstr "Copyright-a"
 
-#: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:332
+#: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:333
 msgid "Copyright message."
 msgstr "Copyright-aren mezua."
 
@@ -2629,7 +2612,7 @@ msgstr "Pistaren iruapoena MM:SS gisa."
 msgid "Genre"
 msgstr "Generoa"
 
-#: ../src/tags/gnome-cmd-tags.cc:122 ../src/tags/gnome-cmd-tags.cc:331
+#: ../src/tags/gnome-cmd-tags.cc:122 ../src/tags/gnome-cmd-tags.cc:332
 msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr ""
 "Musika motaren sailkapena pistarentzako ID3en definitutako zehaztapenaren "
@@ -2757,7 +2740,7 @@ msgstr "Erreprodukzio kopurua"
 msgid "Number of times the track has been played."
 msgstr "Pista zenbat aldiz erreproduzitu den adierazten duen kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:138 ../src/tags/gnome-cmd-tags.cc:490
+#: ../src/tags/gnome-cmd-tags.cc:138 ../src/tags/gnome-cmd-tags.cc:491
 msgid "Release Date"
 msgstr "Kaleratze data"
 
@@ -2773,8 +2756,8 @@ msgstr "Lagin-maiztasuna"
 msgid "Sample rate in Hz."
 msgstr "Lagin-maiztasuna (Hz)."
 
-#: ../src/tags/gnome-cmd-tags.cc:140 ../src/tags/gnome-cmd-tags.cc:189
-#: ../src/tags/gnome-cmd-tags.cc:425
+#: ../src/tags/gnome-cmd-tags.cc:140 ../src/tags/gnome-cmd-tags.cc:190
+#: ../src/tags/gnome-cmd-tags.cc:426
 msgid "Title"
 msgstr "Titulua"
 
@@ -2814,11 +2797,12 @@ msgstr "Urtea"
 msgid "Year."
 msgstr "Urtea."
 
-#: ../src/tags/gnome-cmd-tags.cc:145
+#: ../src/tags/gnome-cmd-tags.cc:145 ../src/tags/gnome-cmd-tags.cc:154
 msgid "Author"
 msgstr "Egilea"
 
-#: ../src/tags/gnome-cmd-tags.cc:145 ../src/tags/gnome-cmd-tags.cc:411
+#: ../src/tags/gnome-cmd-tags.cc:145 ../src/tags/gnome-cmd-tags.cc:154
+#: ../src/tags/gnome-cmd-tags.cc:410
 msgid "Name of the author."
 msgstr "Egilearen izena."
 
@@ -2834,7 +2818,7 @@ msgstr "Dokumentuaren byte kopurua."
 msgid "Case sensitive."
 msgstr "Maiuskula/minuskula."
 
-#: ../src/tags/gnome-cmd-tags.cc:148 ../src/tags/gnome-cmd-tags.cc:439
+#: ../src/tags/gnome-cmd-tags.cc:148 ../src/tags/gnome-cmd-tags.cc:440
 msgid "Category"
 msgstr "Kategoria"
 
@@ -2866,11 +2850,11 @@ msgstr "Kode-orria"
 msgid "The MS codepage to encode strings for metadata."
 msgstr "MS-ren kode-orria metadatuen kateak kodetzeko."
 
-#: ../src/tags/gnome-cmd-tags.cc:152 ../src/tags/gnome-cmd-tags.cc:409
+#: ../src/tags/gnome-cmd-tags.cc:152 ../src/tags/gnome-cmd-tags.cc:408
 msgid "Comments"
 msgstr "Iruzkinak"
 
-#: ../src/tags/gnome-cmd-tags.cc:152 ../src/tags/gnome-cmd-tags.cc:409
+#: ../src/tags/gnome-cmd-tags.cc:152 ../src/tags/gnome-cmd-tags.cc:408
 msgid "User definable free text."
 msgstr "Erabiltzaileak definitu dezakeen testu librea."
 
@@ -2882,15 +2866,7 @@ msgstr "Enpresa"
 msgid "Organization that the <Doc.Creator> entity is associated with."
 msgstr "<Doc.Creator> entitatearekin elkartutako dagoen erakundea."
 
-#: ../src/tags/gnome-cmd-tags.cc:154
-msgid "Created"
-msgstr "Sortuta"
-
-#: ../src/tags/gnome-cmd-tags.cc:154
-msgid "Datetime document was originally created."
-msgstr "Dokumentua sortu zeneko data eta ordua."
-
-#: ../src/tags/gnome-cmd-tags.cc:155 ../src/tags/gnome-cmd-tags.cc:411
+#: ../src/tags/gnome-cmd-tags.cc:155 ../src/tags/gnome-cmd-tags.cc:410
 msgid "Creator"
 msgstr "Sortzailea"
 
@@ -2902,11 +2878,19 @@ msgstr ""
 "Baliabidearen edukia sortzeko ardura nagusia, normalean pertsona, erakunde "
 "edo zerbitzu bat."
 
-#: ../src/tags/gnome-cmd-tags.cc:156 ../src/tags/gnome-cmd-tags.cc:450
+#: ../src/tags/gnome-cmd-tags.cc:156
+msgid "Created"
+msgstr "Sortuta"
+
+#: ../src/tags/gnome-cmd-tags.cc:156
+msgid "Datetime document was originally created."
+msgstr "Dokumentua sortu zeneko data eta ordua."
+
+#: ../src/tags/gnome-cmd-tags.cc:157 ../src/tags/gnome-cmd-tags.cc:451
 msgid "Date Created"
 msgstr "Sorrera data"
 
-#: ../src/tags/gnome-cmd-tags.cc:156
+#: ../src/tags/gnome-cmd-tags.cc:157
 msgid ""
 "Date associated with an event in the life cycle of the resource (creation/"
 "publication date)."
@@ -2914,96 +2898,96 @@ msgstr ""
 "Baliabidearen bizitza zikloaren gertaera batekin (sorrera/argitaratze data) "
 "elkartutako data."
 
-#: ../src/tags/gnome-cmd-tags.cc:157
+#: ../src/tags/gnome-cmd-tags.cc:158
 msgid "Date Modified"
 msgstr "Aldatze data"
 
-#: ../src/tags/gnome-cmd-tags.cc:157
+#: ../src/tags/gnome-cmd-tags.cc:158
 msgid "The last time the document was saved."
 msgstr "Dokumentua gorde zen azken aldia."
 
-#: ../src/tags/gnome-cmd-tags.cc:158
+#: ../src/tags/gnome-cmd-tags.cc:159
 msgid "An acccount of the content of the resource."
 msgstr "Baliabidearen edukiaren kontu bat."
 
-#: ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/tags/gnome-cmd-tags.cc:160
 msgid "Dictionary"
 msgstr "Hiztegia"
 
-#: ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/tags/gnome-cmd-tags.cc:160
 msgid "Dictionary."
 msgstr "Hiztegia."
 
-#: ../src/tags/gnome-cmd-tags.cc:160
+#: ../src/tags/gnome-cmd-tags.cc:161
 msgid "Editing Duration"
 msgstr "Edizioaren iraupena"
 
-#: ../src/tags/gnome-cmd-tags.cc:160
+#: ../src/tags/gnome-cmd-tags.cc:161
 msgid "The total time taken until the last modification."
 msgstr "Igarotako guztirako denbora azken aldaketa arte."
 
-#: ../src/tags/gnome-cmd-tags.cc:161
+#: ../src/tags/gnome-cmd-tags.cc:162
 msgid "Generator"
 msgstr "Sorgailua"
 
-#: ../src/tags/gnome-cmd-tags.cc:161
+#: ../src/tags/gnome-cmd-tags.cc:162
 msgid "The application that generated this document."
 msgstr "Dokumentu hau sortu duen aplikazioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:162
+#: ../src/tags/gnome-cmd-tags.cc:163
 msgid "Hidden Slide Count"
 msgstr "Ezkutuko diapositiba kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:162
+#: ../src/tags/gnome-cmd-tags.cc:163
 msgid "Number of hidden slides in the presentation document."
 msgstr "Ezkutuko diapositiba kopurua aurkezpeneko dokumentuan."
 
-#: ../src/tags/gnome-cmd-tags.cc:163
+#: ../src/tags/gnome-cmd-tags.cc:164
 msgid "Image Count"
 msgstr "Irudi kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:163
+#: ../src/tags/gnome-cmd-tags.cc:164
 msgid "Number of images in the document."
 msgstr "Irudi kopurua dokumentuan."
 
-#: ../src/tags/gnome-cmd-tags.cc:164
+#: ../src/tags/gnome-cmd-tags.cc:165
 msgid "Initial Creator"
 msgstr "Hasierako sortzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:164
+#: ../src/tags/gnome-cmd-tags.cc:165
 msgid "Specifies the name of the person who created the document initially."
 msgstr "Dokumentua hasieran sortu zuen pertsonaren izena zehazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:165 ../src/tags/gnome-cmd-tags.cc:311
-#: ../src/tags/gnome-cmd-tags.cc:421 ../src/tags/gnome-cmd-tags.cc:467
+#: ../src/tags/gnome-cmd-tags.cc:166 ../src/tags/gnome-cmd-tags.cc:312
+#: ../src/tags/gnome-cmd-tags.cc:420 ../src/tags/gnome-cmd-tags.cc:468
 msgid "Keywords"
 msgstr "Gako-hitzak"
 
-#: ../src/tags/gnome-cmd-tags.cc:165
+#: ../src/tags/gnome-cmd-tags.cc:166
 msgid "Searchable, indexable keywords."
 msgstr "Bilagarria, gako-hitzen indizea."
 
-#: ../src/tags/gnome-cmd-tags.cc:166 ../src/tags/gnome-cmd-tags.cc:350
+#: ../src/tags/gnome-cmd-tags.cc:167 ../src/tags/gnome-cmd-tags.cc:351
 msgid "Language"
 msgstr "Hizkuntza"
 
-#: ../src/tags/gnome-cmd-tags.cc:166
+#: ../src/tags/gnome-cmd-tags.cc:167
 msgid "The locale language of the intellectual content of the resource."
 msgstr "Baliabidearen eduki intelektualaren lokaleko hizkuntza."
 
-#: ../src/tags/gnome-cmd-tags.cc:167
+#: ../src/tags/gnome-cmd-tags.cc:168
 msgid "Last Printed"
 msgstr "Azken inprimaketa"
 
-#: ../src/tags/gnome-cmd-tags.cc:167
+#: ../src/tags/gnome-cmd-tags.cc:168
 msgid "The last time this document was printed."
 msgstr "Dokumentu hau inprimatu zen azken aldia."
 
-#: ../src/tags/gnome-cmd-tags.cc:168
+#: ../src/tags/gnome-cmd-tags.cc:169
 msgid "Last Saved By"
 msgstr "Gorde zuen azkena"
 
-#: ../src/tags/gnome-cmd-tags.cc:168
+#: ../src/tags/gnome-cmd-tags.cc:169
 msgid ""
 "The entity that made the last change to the document, typically a person, "
 "organization, or service."
@@ -3011,37 +2995,29 @@ msgstr ""
 "Dokumentuan azken aldaketak egin zituen entitatea, normalean pertsona, "
 "erakunde edo erbitzu bat."
 
-#: ../src/tags/gnome-cmd-tags.cc:169
+#: ../src/tags/gnome-cmd-tags.cc:170
 msgid "Line Count"
 msgstr "Lerro kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:169
+#: ../src/tags/gnome-cmd-tags.cc:170
 msgid "Number of lines in the document."
 msgstr "Dokumentuko lerro kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:170
+#: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Links Dirty"
 msgstr "Esteka zikinak"
 
-#: ../src/tags/gnome-cmd-tags.cc:170
+#: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Links dirty."
 msgstr "Esteka zikinak."
 
-#: ../src/tags/gnome-cmd-tags.cc:171
+#: ../src/tags/gnome-cmd-tags.cc:172
 msgid "Locale System Default"
 msgstr "Sistemako hizkuntza lehenetsia"
 
-#: ../src/tags/gnome-cmd-tags.cc:171
+#: ../src/tags/gnome-cmd-tags.cc:172
 msgid "Identifier representing the default system locale."
 msgstr "Sistemako hizkuntza lehenetsia adierazten duen identifikatzailea."
-
-#: ../src/tags/gnome-cmd-tags.cc:172
-msgid "Multimedia Clip Count"
-msgstr "Multimediako bideo kopurua"
-
-#: ../src/tags/gnome-cmd-tags.cc:172
-msgid "Number of multimedia clips in the document."
-msgstr "Dokumentuko multimediako bideo kopurua."
 
 #: ../src/tags/gnome-cmd-tags.cc:173
 msgid "Manager"
@@ -3052,82 +3028,91 @@ msgid "Name of the manager of <Doc.Creator> entity."
 msgstr "<Doc.Creator> entitatearen zuzendariaren izena."
 
 #: ../src/tags/gnome-cmd-tags.cc:174
+msgid "Multimedia Clip Count"
+msgstr "Multimediako bideo kopurua"
+
+#: ../src/tags/gnome-cmd-tags.cc:174
+msgid "Number of multimedia clips in the document."
+msgstr "Dokumentuko multimediako bideo kopurua."
+
+#: ../src/tags/gnome-cmd-tags.cc:175
 msgid "Note Count"
 msgstr "Ohar kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:174
+#: ../src/tags/gnome-cmd-tags.cc:175
 msgid "Number of \"notes\" in the document."
 msgstr "Dokumentuko ohar kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:175
+#: ../src/tags/gnome-cmd-tags.cc:176
 msgid "Object Count"
 msgstr "Objektu kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:175
+#: ../src/tags/gnome-cmd-tags.cc:176
 msgid "Number of objects (OLE and other graphics) in the document."
 msgstr "Dokumentuko objektu (OLE eta bestelako grafikoak) kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:176
+#: ../src/tags/gnome-cmd-tags.cc:177
 msgid "Page Count"
 msgstr "Orrialde kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:176 ../src/tags/gnome-cmd-tags.cc:185
+#: ../src/tags/gnome-cmd-tags.cc:177 ../src/tags/gnome-cmd-tags.cc:186
 msgid "Number of pages in the document."
 msgstr "Dokumentuko orrialde kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:177
+#: ../src/tags/gnome-cmd-tags.cc:178
 msgid "Paragraph Count"
 msgstr "Paragrafo kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:177
+#: ../src/tags/gnome-cmd-tags.cc:178
 msgid "Number of paragraphs in the document."
 msgstr "Dokumentuko paragrafo kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:178
+#: ../src/tags/gnome-cmd-tags.cc:179
 msgid "Presentation Format"
 msgstr "Aurkezpenaren formatua"
 
-#: ../src/tags/gnome-cmd-tags.cc:178
-msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
-msgstr "Aurkezpen mota: \"Pantailako erakusketa\", \"Diapositiba-aurkezpena\", e.a."
-
 #: ../src/tags/gnome-cmd-tags.cc:179
+msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
+msgstr ""
+"Aurkezpen mota: \"Pantailako erakusketa\", \"Diapositiba-aurkezpena\", e.a."
+
+#: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Print Date"
 msgstr "Inprimatze-data"
 
-#: ../src/tags/gnome-cmd-tags.cc:179
+#: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Specifies the date and time when the document was last printed."
 msgstr "Dokumentua inprimitu zen azken aldiaren data eta ordua zehazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:180
+#: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Printed By"
 msgstr "Honek inprimitua:"
 
-#: ../src/tags/gnome-cmd-tags.cc:180
+#: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Specifies the name of the last person who printed the document."
 msgstr "Dokumentua inprimitu zuen azken pertsonaren izena zehazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:181
+#: ../src/tags/gnome-cmd-tags.cc:182
 msgid "Revision Count"
 msgstr "Berrikuspen kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:181
+#: ../src/tags/gnome-cmd-tags.cc:182
 msgid "Number of revision on the document."
 msgstr "Dokumentuaren berrikuspen kpourua."
 
-#: ../src/tags/gnome-cmd-tags.cc:182
+#: ../src/tags/gnome-cmd-tags.cc:183
 msgid "Scale"
 msgstr "Eskala"
 
-#: ../src/tags/gnome-cmd-tags.cc:182
+#: ../src/tags/gnome-cmd-tags.cc:183
 msgid "Scale."
 msgstr "Eskala."
 
-#: ../src/tags/gnome-cmd-tags.cc:183
+#: ../src/tags/gnome-cmd-tags.cc:184
 msgid "Security"
 msgstr "Segurtasuna"
 
-#: ../src/tags/gnome-cmd-tags.cc:183
+#: ../src/tags/gnome-cmd-tags.cc:184
 msgid ""
 "One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
 "enforced\" or \"Locked for annotations\"."
@@ -3135,59 +3120,59 @@ msgstr ""
 "Hauetariko bat: \"Babestutako pasahitza\", \"Irakurtzeko soilik gomendatua"
 "\", \"Derrigorrez irakurtzeko soilik\" edo \"Blokeatuta oharpenentzako\"."
 
-#: ../src/tags/gnome-cmd-tags.cc:184
+#: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Slide Count"
 msgstr "Diapositiba kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:184
+#: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Number of slides in the presentation document."
 msgstr "Aurkezpeneko dokumentuko diapositiba kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:185
+#: ../src/tags/gnome-cmd-tags.cc:186
 msgid "Spreadsheet Count"
 msgstr "Kalkulu-orri kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:186
+#: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Subject"
 msgstr "Gaia"
 
-#: ../src/tags/gnome-cmd-tags.cc:186
+#: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Document subject."
 msgstr "Dokumentuaren gaia."
 
-#: ../src/tags/gnome-cmd-tags.cc:187
+#: ../src/tags/gnome-cmd-tags.cc:188
 msgid "Table Count"
 msgstr "Taula kontua"
 
-#: ../src/tags/gnome-cmd-tags.cc:187
+#: ../src/tags/gnome-cmd-tags.cc:188
 msgid "Number of tables in the document."
 msgstr "Dokumentuko taula kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:188
+#: ../src/tags/gnome-cmd-tags.cc:189
 msgid "The template file that is been used to generate this document."
 msgstr "Dokumentu hau sortzeko erabili den txantiloi-fitxategia."
 
-#: ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/tags/gnome-cmd-tags.cc:190
 msgid "Title of the document."
 msgstr "Dokumentuaren titulua."
 
-#: ../src/tags/gnome-cmd-tags.cc:190
+#: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Word Count"
 msgstr "Hitz kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:190
+#: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Number of words in the document."
 msgstr "Dokumentuko hitz kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:191
+#: ../src/tags/gnome-cmd-tags.cc:192
 msgid "Aperture"
 msgstr "Irekiera"
 
-#: ../src/tags/gnome-cmd-tags.cc:191
+#: ../src/tags/gnome-cmd-tags.cc:192
 msgid "The lens aperture. The unit is the APEX value."
 msgstr "Lentearen irekiera. Unitatea APEX balioa da."
 
-#: ../src/tags/gnome-cmd-tags.cc:192
+#: ../src/tags/gnome-cmd-tags.cc:193
 msgid ""
 "Name of the camera owner, photographer or image creator. The detailed format "
 "is not specified, but it is recommended that the information be written for "
@@ -3199,19 +3184,19 @@ msgstr ""
 "aholkatzen da elkarreragingarritasuna errezteko. Eremua hutsik uzten denean "
 "ezezagun gisa erabiltzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:193
+#: ../src/tags/gnome-cmd-tags.cc:194
 msgid "Battery Level"
 msgstr "Bateriaren maila"
 
-#: ../src/tags/gnome-cmd-tags.cc:193
+#: ../src/tags/gnome-cmd-tags.cc:194
 msgid "Battery Level."
 msgstr "Bateriaren maila."
 
-#: ../src/tags/gnome-cmd-tags.cc:194
+#: ../src/tags/gnome-cmd-tags.cc:195
 msgid "Bits per Sample"
 msgstr "Bit-ak lagineko"
 
-#: ../src/tags/gnome-cmd-tags.cc:194
+#: ../src/tags/gnome-cmd-tags.cc:195
 msgid ""
 "The number of bits per image component. Each component of the image is 8 "
 "bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker "
@@ -3221,11 +3206,11 @@ msgstr ""
 "etiketa honen balioa 8 izango da. JPEG konpresioko datuetan JPEG "
 "markatzailea erabiltzen da etiketa hau erabili ordez."
 
-#: ../src/tags/gnome-cmd-tags.cc:195
+#: ../src/tags/gnome-cmd-tags.cc:196
 msgid "Brightness"
 msgstr "Distira"
 
-#: ../src/tags/gnome-cmd-tags.cc:195
+#: ../src/tags/gnome-cmd-tags.cc:196
 msgid ""
 "The value of brightness. The unit is the APEX value. Ordinarily it is given "
 "in the range of -99.99 to 99.99."
@@ -3233,11 +3218,11 @@ msgstr ""
 "Distiraren balioa. Unitatea APEX balioa da. Normalean -99.99 eta 99.99 "
 "balioen arteko barrutian ematen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:196 ../src/tags/gnome-cmd-tags.cc:259
+#: ../src/tags/gnome-cmd-tags.cc:197 ../src/tags/gnome-cmd-tags.cc:260
 msgid "CFA Pattern"
 msgstr "CFA eredua"
 
-#: ../src/tags/gnome-cmd-tags.cc:196
+#: ../src/tags/gnome-cmd-tags.cc:197
 msgid ""
 "The color filter array (CFA) geometric pattern of the image sensor when a "
 "one-chip color area sensor is used. It does not apply to all sensing methods."
@@ -3246,19 +3231,19 @@ msgstr ""
 "areako sentsorearen chip bakarra erabiltzen denean. Ez da sentsore-metodo "
 "guztietan aplikatzen."
 
-#: ../src/tags/gnome-cmd-tags.cc:197
+#: ../src/tags/gnome-cmd-tags.cc:198
 msgid "CFA Repeat Pattern Dim"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags.cc:197
+#: ../src/tags/gnome-cmd-tags.cc:198
 msgid "CFA Repeat Pattern Dim."
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags.cc:198
+#: ../src/tags/gnome-cmd-tags.cc:199
 msgid "Color Space"
 msgstr "Kolore-espazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:198
+#: ../src/tags/gnome-cmd-tags.cc:199
 msgid ""
 "The color space information tag is always recorded as the color space "
 "specifier. Normally sRGB (=1) is used to define the color space based on the "
@@ -3273,11 +3258,11 @@ msgstr ""
 "ezartzen da (=FFFF.H). Kalibratu gabe gordetzen diren irudiaren datuak sGBU "
 "gisa trata daitezke FlashPix formatura bihurtzean."
 
-#: ../src/tags/gnome-cmd-tags.cc:199
+#: ../src/tags/gnome-cmd-tags.cc:200
 msgid "Components Configuration"
 msgstr "Osagaien konfigurazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:199
+#: ../src/tags/gnome-cmd-tags.cc:200
 msgid ""
 "Information specific to compressed data. The channels of each component are "
 "arranged in order from the 1st component to the 4th. For uncompressed data "
@@ -3294,11 +3279,11 @@ msgstr ""
 "bestelako datuak erabiltyzen dituztenean sekuentzien jarraitasuna gaitzeko "
 "ematen da etiketa hau."
 
-#: ../src/tags/gnome-cmd-tags.cc:200
+#: ../src/tags/gnome-cmd-tags.cc:201
 msgid "Compressed Bits per Pixel"
 msgstr "Konprimitutako bit-ak pixeleko"
 
-#: ../src/tags/gnome-cmd-tags.cc:200
+#: ../src/tags/gnome-cmd-tags.cc:201
 msgid ""
 "Information specific to compressed data. The compression mode used for a "
 "compressed image is indicated in unit bits per pixel."
@@ -3306,11 +3291,11 @@ msgstr ""
 "Konprimitutako datuen informazio zehatza. Konprimitutako irudiaren konpresio-"
 "modua 'bit pixeleko' unitateetan adierazten da."
 
-#: ../src/tags/gnome-cmd-tags.cc:201
+#: ../src/tags/gnome-cmd-tags.cc:202
 msgid "Compression"
 msgstr "Konpresioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:201
+#: ../src/tags/gnome-cmd-tags.cc:202
 msgid ""
 "The compression scheme used for the image data. When a primary image is JPEG "
 "compressed, this designation is not necessary and is omitted. When "
@@ -3321,11 +3306,11 @@ msgstr ""
 "egiten da. Koadro txikiek konprimitutako JPEG erabiltzen dutenean etiketa "
 "hau 6 balioarekin ezartzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:202
+#: ../src/tags/gnome-cmd-tags.cc:203
 msgid "Contrast"
 msgstr "Kontrastea"
 
-#: ../src/tags/gnome-cmd-tags.cc:202
+#: ../src/tags/gnome-cmd-tags.cc:203
 msgid ""
 "The direction of contrast processing applied by the camera when the image "
 "was shot."
@@ -3333,7 +3318,7 @@ msgstr ""
 "Kamerak aplikatutako kontrastearen helbidearen prozesua irudia kapturatu "
 "zenean."
 
-#: ../src/tags/gnome-cmd-tags.cc:203
+#: ../src/tags/gnome-cmd-tags.cc:204
 msgid ""
 "Copyright information. The tag is used to indicate both the photographer and "
 "editor copyrights. It is the copyright notice of the person or organization "
@@ -3367,11 +3352,11 @@ msgstr ""
 "ematean berriz argazkilariaren zatian zuriune bat eta honen ondoren NULL "
 "kodea ematen da. Eremua hutsi uzten bada, ezezagun gisa tratatuko da."
 
-#: ../src/tags/gnome-cmd-tags.cc:204
+#: ../src/tags/gnome-cmd-tags.cc:205
 msgid "Custom Rendered"
 msgstr "Errendatze pertsonalizatua"
 
-#: ../src/tags/gnome-cmd-tags.cc:204
+#: ../src/tags/gnome-cmd-tags.cc:205
 msgid ""
 "The use of special processing on image data, such as rendering geared to "
 "output. When special processing is performed, the reader is expected to "
@@ -3381,27 +3366,27 @@ msgstr ""
 "bezala. Prozesatze berezia lantzean, irakurleak desgaitu edo minimizatu "
 "beharko ditu bestelako prozesuak."
 
-#: ../src/tags/gnome-cmd-tags.cc:205
+#: ../src/tags/gnome-cmd-tags.cc:206
 msgid "Date and Time"
 msgstr "Data eta ordua"
 
-#: ../src/tags/gnome-cmd-tags.cc:205
+#: ../src/tags/gnome-cmd-tags.cc:206
 msgid "The date and time of image creation."
 msgstr "Irudia sortu zeneko data eta ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:206
+#: ../src/tags/gnome-cmd-tags.cc:207
 msgid "Date and Time (digitized)"
 msgstr "Data eta Ordua (figitalizatua)"
 
-#: ../src/tags/gnome-cmd-tags.cc:206
+#: ../src/tags/gnome-cmd-tags.cc:207
 msgid "The date and time when the image was stored as digital data."
 msgstr "Irudia datu digital gisa gorde zeneko data eta ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:207
+#: ../src/tags/gnome-cmd-tags.cc:208
 msgid "Date and Time (original)"
 msgstr "Data eta ordua (jatorrizkoa)"
 
-#: ../src/tags/gnome-cmd-tags.cc:207
+#: ../src/tags/gnome-cmd-tags.cc:208
 msgid ""
 "The date and time when the original image data was generated. For a digital "
 "still camera the date and time the picture was taken are recorded."
@@ -3409,11 +3394,11 @@ msgstr ""
 "Jatorrizko irudia sortu zeneko data eta ordua. Kamera digitalek argazkia "
 "artzean gordetzen dute data eta ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:208
+#: ../src/tags/gnome-cmd-tags.cc:209
 msgid "Device Setting Description"
 msgstr "Gailuaren ezarpenen azalpena"
 
-#: ../src/tags/gnome-cmd-tags.cc:208
+#: ../src/tags/gnome-cmd-tags.cc:209
 msgid ""
 "Information on the picture-taking conditions of a particular camera model. "
 "The tag is used only to indicate the picture-taking conditions in the reader."
@@ -3422,11 +3407,11 @@ msgstr ""
 "Etiketa hau argazkia hartu zeneko baldintzen informazioa irakurgailuan "
 "erakusteko erabiltzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:209
+#: ../src/tags/gnome-cmd-tags.cc:210
 msgid "Digital Zoom Ratio"
 msgstr "Zoom digitalaren erlazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:209
+#: ../src/tags/gnome-cmd-tags.cc:210
 msgid ""
 "The digital zoom ratio when the image was shot. If the numerator of the "
 "recorded value is 0, this indicates that digital zoom was not used."
@@ -3434,19 +3419,19 @@ msgstr ""
 "Argazkia kapturatu zeneko zoom digitalaren erlazioa. Gordetak obalioaren "
 "zenbatzailea 0 bada, zoom digitala ez zela erabili adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:210
+#: ../src/tags/gnome-cmd-tags.cc:211
 msgid "Document Name"
 msgstr "Dokumentuaren izena"
 
-#: ../src/tags/gnome-cmd-tags.cc:210
+#: ../src/tags/gnome-cmd-tags.cc:211
 msgid "Document Name."
 msgstr "Dokumentuaren izena."
 
-#: ../src/tags/gnome-cmd-tags.cc:211
+#: ../src/tags/gnome-cmd-tags.cc:212
 msgid "Exif IFD Pointer"
 msgstr "Exif IFD erakuslea"
 
-#: ../src/tags/gnome-cmd-tags.cc:211
+#: ../src/tags/gnome-cmd-tags.cc:212
 msgid ""
 "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure "
 "as that of the IFD specified in TIFF."
@@ -3454,11 +3439,11 @@ msgstr ""
 "Exif IDF-ren erakuslea. Elkareragingarritasuna, Exif IFD-ek TIFF formatuan "
 "zehaztutako IFD eremuaren egitura berdina du."
 
-#: ../src/tags/gnome-cmd-tags.cc:212
+#: ../src/tags/gnome-cmd-tags.cc:213
 msgid "Exif Version"
 msgstr "Exif bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:212
+#: ../src/tags/gnome-cmd-tags.cc:213
 msgid ""
 "The version of Exif standard supported. Nonexistence of this field is taken "
 "to mean nonconformance to the standard."
@@ -3466,11 +3451,11 @@ msgstr ""
 "Exif estandarraren bertsioa onartuta. Eremu hau ez bada existitzen "
 "estandarrarekin bat ez datorrela adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:213
+#: ../src/tags/gnome-cmd-tags.cc:214
 msgid "Exposure Bias"
 msgstr "Isuriaren esposizioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:213
+#: ../src/tags/gnome-cmd-tags.cc:214
 msgid ""
 "The exposure bias. The units is the APEX value. Ordinarily it is given in "
 "the range of -99.99 to 99.99."
@@ -3478,11 +3463,11 @@ msgstr ""
 "Isuriaren esposizioa. Unitateak APEX balioetan ematen dira. Normalean -99.99 "
 "eta 99.99 arteko barrutian zehazten da."
 
-#: ../src/tags/gnome-cmd-tags.cc:214
+#: ../src/tags/gnome-cmd-tags.cc:215
 msgid "Exposure Index"
 msgstr "Esposizio-indizea"
 
-#: ../src/tags/gnome-cmd-tags.cc:214
+#: ../src/tags/gnome-cmd-tags.cc:215
 msgid ""
 "The exposure index selected on the camera or input device at the time the "
 "image is captured."
@@ -3490,11 +3475,11 @@ msgstr ""
 "Kameran edo sarrerako gailuan hautatutako esposizio-indizea irudia "
 "kapturatzean."
 
-#: ../src/tags/gnome-cmd-tags.cc:215
+#: ../src/tags/gnome-cmd-tags.cc:216
 msgid "Exposure Mode"
 msgstr "Esposizio-modua"
 
-#: ../src/tags/gnome-cmd-tags.cc:215
+#: ../src/tags/gnome-cmd-tags.cc:216
 msgid ""
 "This tag indicates the exposure mode set when the image was shot. In auto-"
 "bracketing mode, the camera shoots a series of frames of the same scene at "
@@ -3504,11 +3489,11 @@ msgstr ""
 "eszena berdinaren fotograma-serie bat kapturatzen du espozioaren ezarpen "
 "desberdinekin."
 
-#: ../src/tags/gnome-cmd-tags.cc:216 ../src/tags/gnome-cmd-tags.cc:414
+#: ../src/tags/gnome-cmd-tags.cc:217 ../src/tags/gnome-cmd-tags.cc:413
 msgid "Exposure Program"
 msgstr "Esposizio-programa"
 
-#: ../src/tags/gnome-cmd-tags.cc:216
+#: ../src/tags/gnome-cmd-tags.cc:217
 msgid ""
 "The class of the program used by the camera to set exposure when the picture "
 "is taken."
@@ -3516,19 +3501,19 @@ msgstr ""
 "Kamerak erabilitako programa klasea  esposizioa ezartzeko argazkia "
 "kapturatzean."
 
-#: ../src/tags/gnome-cmd-tags.cc:217 ../src/tags/gnome-cmd-tags.cc:415
+#: ../src/tags/gnome-cmd-tags.cc:218 ../src/tags/gnome-cmd-tags.cc:414
 msgid "Exposure Time"
 msgstr "Esposizio-denbora"
 
-#: ../src/tags/gnome-cmd-tags.cc:217
+#: ../src/tags/gnome-cmd-tags.cc:218
 msgid "Exposure time, given in seconds."
 msgstr "Esposizio-denbora, segundotan."
 
-#: ../src/tags/gnome-cmd-tags.cc:218
+#: ../src/tags/gnome-cmd-tags.cc:219
 msgid "File Source"
 msgstr "Fitxategiaren iturburua"
 
-#: ../src/tags/gnome-cmd-tags.cc:218
+#: ../src/tags/gnome-cmd-tags.cc:219
 msgid ""
 "Indicates the image source. If a DSC recorded the image, this tag value of "
 "this tag always be set to 3, indicating that the image was recorded on a DSC."
@@ -3536,29 +3521,30 @@ msgstr ""
 "Irudiaren iturburua adierazten du. DSC batek grabatu badu irudia, etiketa "
 "honen balioa beti 3 izango da, irudia DSC batean grabatu dela adieraziz."
 
-#: ../src/tags/gnome-cmd-tags.cc:219
+#: ../src/tags/gnome-cmd-tags.cc:220
 msgid "Fill Order"
 msgstr "Betetze-ordena"
 
-#: ../src/tags/gnome-cmd-tags.cc:219
+#: ../src/tags/gnome-cmd-tags.cc:220
 msgid "Fill Order."
 msgstr "Betetze-ordena."
 
-#: ../src/tags/gnome-cmd-tags.cc:220 ../src/tags/gnome-cmd-tags.cc:416
+#: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
 msgid "Flash"
 msgstr "Flasha"
 
-#: ../src/tags/gnome-cmd-tags.cc:220
-msgid "This tag is recorded when an image is taken using a strobe light (flash)."
+#: ../src/tags/gnome-cmd-tags.cc:221
+msgid ""
+"This tag is recorded when an image is taken using a strobe light (flash)."
 msgstr ""
 "Etiketa hau irudia argi estroboskopikoa (flasha) erabiliz kapturatzean "
 "gordetzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:221
+#: ../src/tags/gnome-cmd-tags.cc:222
 msgid "Flash Energy"
 msgstr "Flasha-ren energia"
 
-#: ../src/tags/gnome-cmd-tags.cc:221
+#: ../src/tags/gnome-cmd-tags.cc:222
 msgid ""
 "Indicates the strobe energy at the time the image is captured, as measured "
 "in Beam Candle Power Seconds (BCPS)."
@@ -3566,27 +3552,29 @@ msgstr ""
 "Argazkia kapturatu zeneko energia estroboskopikoa adierazten du, BCPS "
 "(kandela-indarra segundoko) unitateetan adierazita."
 
-#: ../src/tags/gnome-cmd-tags.cc:222
+#: ../src/tags/gnome-cmd-tags.cc:223
 msgid "FlashPixVersion"
 msgstr "FlashPixBertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:222
+#: ../src/tags/gnome-cmd-tags.cc:223
 msgid "The FlashPix format version supported by a FPXR file."
 msgstr "FPXR fitxategiak onartutako FlashPix formatuaren bertsioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:223 ../src/tags/gnome-cmd-tags.cc:417
+#: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:416
 msgid "F Number"
 msgstr "F zenbakia"
 
-#: ../src/tags/gnome-cmd-tags.cc:223 ../src/tags/gnome-cmd-tags.cc:417
-msgid "Diameter of the aperture relative to the effective focal length of the lens."
-msgstr "Irekieraren diametroa lenteen luzera fokal eraginkorrarekiko erlatiboa."
+#: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:416
+msgid ""
+"Diameter of the aperture relative to the effective focal length of the lens."
+msgstr ""
+"Irekieraren diametroa lenteen luzera fokal eraginkorrarekiko erlatiboa."
 
-#: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:418
+#: ../src/tags/gnome-cmd-tags.cc:225 ../src/tags/gnome-cmd-tags.cc:417
 msgid "Focal Length"
 msgstr "Fokuaren luzera"
 
-#: ../src/tags/gnome-cmd-tags.cc:224
+#: ../src/tags/gnome-cmd-tags.cc:225
 msgid ""
 "The actual focal length of the lens, in mm. Conversion is not made to the "
 "focal length of a 35 mm film camera."
@@ -3594,11 +3582,11 @@ msgstr ""
 "Lenteen fokuaren luzera, milimetrotan. Bihurketa ez da 35 mm-ko filma "
 "darabilten kameren fokuaren luzerentzako egiten."
 
-#: ../src/tags/gnome-cmd-tags.cc:225
+#: ../src/tags/gnome-cmd-tags.cc:226
 msgid "Focal Length In 35mm Film"
 msgstr "Fokuaren luzera 35mm filmean"
 
-#: ../src/tags/gnome-cmd-tags.cc:225
+#: ../src/tags/gnome-cmd-tags.cc:226
 msgid ""
 "This tag indicates the equivalent focal length assuming a 35mm film camera, "
 "in mm. A value of 0 means the focal length is unknown. Note that this tag "
@@ -3609,11 +3597,11 @@ msgstr ""
 "adierazten du. Jakin ezazu etiketa hau <Exif.FocalLength> etiketaren "
 "desberdina dela."
 
-#: ../src/tags/gnome-cmd-tags.cc:226
+#: ../src/tags/gnome-cmd-tags.cc:227
 msgid "Focal Plane Resolution Unit"
 msgstr "Foku planoaren bereizmen unitatea"
 
-#: ../src/tags/gnome-cmd-tags.cc:226
+#: ../src/tags/gnome-cmd-tags.cc:227
 msgid ""
 "Indicates the unit for measuring <Exif.FocalPlaneXResolution> and <Exif."
 "FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
@@ -3621,11 +3609,11 @@ msgstr ""
 "<Exif.FocalPlaneXResolution> eta <Exif.FocalPlaneYResolution> neurtzeko "
 "unitatea adierazten du. Balio hau <Exif.ResolutionUnit>-ren berdina da."
 
-#: ../src/tags/gnome-cmd-tags.cc:227
+#: ../src/tags/gnome-cmd-tags.cc:228
 msgid "Focal Plane x-Resolution"
 msgstr "Foku planoaren X-bereizmena"
 
-#: ../src/tags/gnome-cmd-tags.cc:227
+#: ../src/tags/gnome-cmd-tags.cc:228
 msgid ""
 "Indicates the number of pixels in the image width (X) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
@@ -3633,39 +3621,41 @@ msgstr ""
 "Irudiaren zabaleraren (x) pixel kopurua adierazten du <Exif."
 "FocalPlaneResolutionUnit>-eko kameraren foku planoan. "
 
-#: ../src/tags/gnome-cmd-tags.cc:228
+#: ../src/tags/gnome-cmd-tags.cc:229
 msgid "Focal Plane y-Resolution"
 msgstr "Foku planoaren Y-bereizmena"
 
-#: ../src/tags/gnome-cmd-tags.cc:228
+#: ../src/tags/gnome-cmd-tags.cc:229
+#, fuzzy
 msgid ""
-"Indicates the number of pixels in the image height (V) direction per <Exif."
+"Indicates the number of pixels in the image height (Y) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr ""
 "Irudiaren altueraren (y) pixel kopurua adierazten du <Exif."
 "FocalPlaneResolutionUnit>-eko kameraren foku planoan."
 
-#: ../src/tags/gnome-cmd-tags.cc:229
+#: ../src/tags/gnome-cmd-tags.cc:230
 msgid "Gain Control"
 msgstr "Irabaziaren kontrola"
 
-#: ../src/tags/gnome-cmd-tags.cc:229
-msgid "This tag indicates the degree of overall image gain adjustment."
-msgstr "Etiketa honek irudiaren guztirako irabaziaren doitze gradua adierazten du."
-
 #: ../src/tags/gnome-cmd-tags.cc:230
+msgid "This tag indicates the degree of overall image gain adjustment."
+msgstr ""
+"Etiketa honek irudiaren guztirako irabaziaren doitze gradua adierazten du."
+
+#: ../src/tags/gnome-cmd-tags.cc:231
 msgid "Gamma"
 msgstr "Gamma"
 
-#: ../src/tags/gnome-cmd-tags.cc:230
+#: ../src/tags/gnome-cmd-tags.cc:231
 msgid "Indicates the value of coefficient gamma."
 msgstr "Gamma koefizientearen balioa adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:231
+#: ../src/tags/gnome-cmd-tags.cc:232
 msgid "Altitude"
 msgstr "Altitudea"
 
-#: ../src/tags/gnome-cmd-tags.cc:231
+#: ../src/tags/gnome-cmd-tags.cc:232
 msgid ""
 "Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The "
 "reference unit is meters."
@@ -3673,11 +3663,11 @@ msgstr ""
 "<Exif.GPS.AltitudeRef>-eko erreferentzian oinarritutako altitudea adierazten "
 "du. Erreferentzia metrotan neurtzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:232
+#: ../src/tags/gnome-cmd-tags.cc:233
 msgid "Altitude Reference"
 msgstr "Altitudearen erreferentzia"
 
-#: ../src/tags/gnome-cmd-tags.cc:232
+#: ../src/tags/gnome-cmd-tags.cc:233
 msgid ""
 "Indicates the altitude used as the reference altitude. If the reference is "
 "sea level and the altitude is above sea level, 0 is given. If the altitude "
@@ -3691,11 +3681,11 @@ msgstr ""
 "balio absolutu gisa adierazten da <Exif.GPS.Altitude> etiketan. "
 "Erreferentziaren unitateak metrotan ematen dira."
 
-#: ../src/tags/gnome-cmd-tags.cc:233
+#: ../src/tags/gnome-cmd-tags.cc:234
 msgid "GPS Info IFDPointer"
 msgstr "GPS informazioaren IFD erakuslea"
 
-#: ../src/tags/gnome-cmd-tags.cc:233
+#: ../src/tags/gnome-cmd-tags.cc:234
 msgid ""
 "A pointer to the GPS Info IFD. The Interoperability structure of the GPS "
 "Info IFD, like that of Exif IFD, has no image data."
@@ -3703,11 +3693,11 @@ msgstr ""
 "GPS IFD informaziorako erakuslea. GPSren elkareragingarritasunaren "
 "egituraren IFD informazioak, Exif IFD bezalakoak, ez du irudien daturik."
 
-#: ../src/tags/gnome-cmd-tags.cc:234
+#: ../src/tags/gnome-cmd-tags.cc:235
 msgid "Latitude"
 msgstr "Latitudea"
 
-#: ../src/tags/gnome-cmd-tags.cc:234
+#: ../src/tags/gnome-cmd-tags.cc:235
 msgid ""
 "Indicates the latitude. The latitude is expressed as three RATIONAL values "
 "giving the degrees, minutes, and seconds, respectively. When degrees, "
@@ -3721,11 +3711,11 @@ msgstr ""
 "ss/1. Graduak eta minutuak erabiltzen direnean, minutuen frakzioa bi "
 "hamartarrekin ematen da: dd/1,mmmm/100,0/1."
 
-#: ../src/tags/gnome-cmd-tags.cc:235
+#: ../src/tags/gnome-cmd-tags.cc:236
 msgid "North or South Latitude"
 msgstr "Iparraren edo hegoaren latitudea"
 
-#: ../src/tags/gnome-cmd-tags.cc:235
+#: ../src/tags/gnome-cmd-tags.cc:236
 msgid ""
 "Indicates whether the latitude is north or south latitude. The ASCII value "
 "'N' indicates north latitude, and 'S' is south latitude."
@@ -3733,11 +3723,11 @@ msgstr ""
 "Latitudea iparrekoa edo hegokoa den adierazten du. 'N' ASCII balioak "
 "latitudea iparrekoa dela adierazten du, eta 'S' hegoko latitudea."
 
-#: ../src/tags/gnome-cmd-tags.cc:236
+#: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Longitude"
 msgstr "Longitudea"
 
-#: ../src/tags/gnome-cmd-tags.cc:236
+#: ../src/tags/gnome-cmd-tags.cc:237
 msgid ""
 "Indicates the longitude. The longitude is expressed as three RATIONAL values "
 "giving the degrees, minutes, and seconds, respectively. When degrees, "
@@ -3751,11 +3741,11 @@ msgstr ""
 "ddd/1,mm/1,ss/1. Graduak eta minutuak erabiltzen direnean, inutuen frakzioa "
 "bi hamartarrekin ematen da: ddd/1,mmmm/100,0/1."
 
-#: ../src/tags/gnome-cmd-tags.cc:237
+#: ../src/tags/gnome-cmd-tags.cc:238
 msgid "East or West Longitude"
 msgstr "Ekialdeko edo mendebaldeko longitudea"
 
-#: ../src/tags/gnome-cmd-tags.cc:237
+#: ../src/tags/gnome-cmd-tags.cc:238
 msgid ""
 "Indicates whether the longitude is east or west longitude. ASCII 'E' "
 "indicates east longitude, and 'W' is west longitude."
@@ -3763,11 +3753,11 @@ msgstr ""
 "Ekialdeko edo mendebaldeko longitudea adierazten du. 'E' ASCII karaktereak "
 "ekialdeko longitudea adierzten du, 'W' berriz mendebaldekoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:238
+#: ../src/tags/gnome-cmd-tags.cc:239
 msgid "GPS tag version"
 msgstr "GPS etiketaren bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:238
+#: ../src/tags/gnome-cmd-tags.cc:239
 msgid ""
 "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when "
 "<Exif.GPS.Info> tag is present."
@@ -3775,11 +3765,11 @@ msgstr ""
 "<Exif.GPS.InfoIFD>-ren bertsioa adierazten du. Etiketa hau derrigorrezkoa da "
 "<Exif.GPS.Info> etiketa dagoenean."
 
-#: ../src/tags/gnome-cmd-tags.cc:239
+#: ../src/tags/gnome-cmd-tags.cc:240
 msgid "Image Description"
 msgstr "Irudiaren azalpena"
 
-#: ../src/tags/gnome-cmd-tags.cc:239
+#: ../src/tags/gnome-cmd-tags.cc:240
 msgid ""
 "A character string giving the title of the image. Two-bytes character codes "
 "cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif."
@@ -3789,11 +3779,11 @@ msgstr ""
 "erabili. 2 byte-ko kodea beharrezkoa izanez gero, Exif-en etiketa pribatua "
 "erabili behar da: <Exif.UserComment>."
 
-#: ../src/tags/gnome-cmd-tags.cc:240
+#: ../src/tags/gnome-cmd-tags.cc:241
 msgid "Image Length"
 msgstr "Irudiaren luzera"
 
-#: ../src/tags/gnome-cmd-tags.cc:240
+#: ../src/tags/gnome-cmd-tags.cc:241
 msgid ""
 "The number of rows of image data. In JPEG compressed data a JPEG marker is "
 "used instead of this tag."
@@ -3801,19 +3791,19 @@ msgstr ""
 "Irudiaren datuen errenkada kopurua. Konprimitutako JPEG datuetan JPEG "
 "markatzailea erabiltzen da etiketa hau erabili ordez."
 
-#: ../src/tags/gnome-cmd-tags.cc:241
+#: ../src/tags/gnome-cmd-tags.cc:242
 msgid "Image Resources Block"
 msgstr "Irudiaren baliabide-blokea"
 
-#: ../src/tags/gnome-cmd-tags.cc:241
+#: ../src/tags/gnome-cmd-tags.cc:242
 msgid "Image Resources Block."
 msgstr "Irudiaren baliabide-blokea"
 
-#: ../src/tags/gnome-cmd-tags.cc:242
+#: ../src/tags/gnome-cmd-tags.cc:243
 msgid "Image Unique ID"
 msgstr "Irudiaren ID esklusiboa"
 
-#: ../src/tags/gnome-cmd-tags.cc:242
+#: ../src/tags/gnome-cmd-tags.cc:243
 msgid ""
 "This tag indicates an identifier assigned uniquely to each image. It is "
 "recorded as an ASCII string equivalent to hexadecimal notation and 128-bit "
@@ -3823,11 +3813,11 @@ msgstr ""
 "adierazten du. ASCII kate bezala gordetzen da notazio hamaseitarraren "
 "baliokide bezala, eta 128 bit-eko finkatutako luzerarekin."
 
-#: ../src/tags/gnome-cmd-tags.cc:243
+#: ../src/tags/gnome-cmd-tags.cc:244
 msgid "Image Width"
 msgstr "Irudiaren zabalera"
 
-#: ../src/tags/gnome-cmd-tags.cc:243
+#: ../src/tags/gnome-cmd-tags.cc:244
 msgid ""
 "The number of columns of image data, equal to the number of pixels per row. "
 "In JPEG compressed data a JPEG marker is used instead of this tag."
@@ -3836,19 +3826,19 @@ msgstr ""
 "Konprimitutako JPEG datuetan JPEG markatzailea erabiltzen da etiketa honen "
 "ordez."
 
-#: ../src/tags/gnome-cmd-tags.cc:244
+#: ../src/tags/gnome-cmd-tags.cc:245
 msgid "Inter Color Profile"
 msgstr "Kolorearen profila artekoa"
 
-#: ../src/tags/gnome-cmd-tags.cc:244
+#: ../src/tags/gnome-cmd-tags.cc:245
 msgid "Inter Color Profile."
 msgstr "Kolorearen profila artekoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:245
+#: ../src/tags/gnome-cmd-tags.cc:246
 msgid "Interoperability IFD Pointer"
 msgstr "Elkareragingarritasunaren IFD erakuslea"
 
-#: ../src/tags/gnome-cmd-tags.cc:245
+#: ../src/tags/gnome-cmd-tags.cc:246
 msgid ""
 "Interoperability IFD is composed of tags which stores the information to "
 "ensure the Interoperability and pointed by the following tag located in Exif "
@@ -3862,11 +3852,11 @@ msgstr ""
 "TIFF-en definitutako IFD egituraren antzekoa da, baina ez du irudiaren "
 "daturik."
 
-#: ../src/tags/gnome-cmd-tags.cc:246
+#: ../src/tags/gnome-cmd-tags.cc:247
 msgid "Interoperability Index"
 msgstr "Elkareragingarritasunaren indizea"
 
-#: ../src/tags/gnome-cmd-tags.cc:246
+#: ../src/tags/gnome-cmd-tags.cc:247
 msgid ""
 "Indicates the identification of the Interoperability rule. Use \"R98\" for "
 "stating ExifR98 Rules. Four bytes used including the termination code (NULL)."
@@ -3875,23 +3865,23 @@ msgstr ""
 "arauak adierazteko erabili \"R98\". Lau byte erabili kodearen amaiera (NULL) "
 "barne."
 
-#: ../src/tags/gnome-cmd-tags.cc:247
+#: ../src/tags/gnome-cmd-tags.cc:248
 msgid "Interoperability Version"
 msgstr "Elkareragingarritasunaren bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:247
+#: ../src/tags/gnome-cmd-tags.cc:248
 msgid "Interoperability Version."
 msgstr "Elkareragingarritasunaren bertsioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:248
+#: ../src/tags/gnome-cmd-tags.cc:249
 msgid "IPTC/NAA"
 msgstr "IPTC/NAA"
 
-#: ../src/tags/gnome-cmd-tags.cc:249
+#: ../src/tags/gnome-cmd-tags.cc:250
 msgid "ISO Speed Ratings"
 msgstr "ISO abiaduraren tasa"
 
-#: ../src/tags/gnome-cmd-tags.cc:249
+#: ../src/tags/gnome-cmd-tags.cc:250
 msgid ""
 "Indicates the ISO Speed and ISO Latitude of the camera or input device as "
 "specified in ISO 12232."
@@ -3899,11 +3889,11 @@ msgstr ""
 "Kameraren edo sarrerako gailuaren ISO abiadura eta ISO latitudea adierazten "
 "du ISO 12232 zehaztua bezala."
 
-#: ../src/tags/gnome-cmd-tags.cc:250
+#: ../src/tags/gnome-cmd-tags.cc:251
 msgid "JPEG Interchange Format"
 msgstr "JPEG trukatzeko formatua"
 
-#: ../src/tags/gnome-cmd-tags.cc:250
+#: ../src/tags/gnome-cmd-tags.cc:251
 msgid ""
 "The offset to the start byte (SOI) of JPEG compressed thumbnail data. This "
 "is not used for primary image JPEG data."
@@ -3911,11 +3901,11 @@ msgstr ""
 "Konprimitutako JPEG koadro txikiaren datuen hasierako byte-aren "
 "desplazamendua (SOI). Ez da JPEG irudi nagusiaren datuetan erabiltzen."
 
-#: ../src/tags/gnome-cmd-tags.cc:251
+#: ../src/tags/gnome-cmd-tags.cc:252
 msgid "JPEG Interchange Format Length"
 msgstr "JPEG trukatzeko formatuaren Luzera"
 
-#: ../src/tags/gnome-cmd-tags.cc:251
+#: ../src/tags/gnome-cmd-tags.cc:252
 msgid ""
 "The number of bytes of JPEG compressed thumbnail data. This is not used for "
 "primary image JPEG data. JPEG thumbnails are not divided but are recorded as "
@@ -3930,27 +3920,27 @@ msgstr ""
 "dira 64 KB baino tamaina handiagotan gorde (APP1-en gorde beharreko "
 "bestelako datu guztiak barne)."
 
-#: ../src/tags/gnome-cmd-tags.cc:252
+#: ../src/tags/gnome-cmd-tags.cc:253
 msgid "JPEG Proc"
 msgstr "JPEG proz"
 
-#: ../src/tags/gnome-cmd-tags.cc:252
+#: ../src/tags/gnome-cmd-tags.cc:253
 msgid "JPEG Procedure"
 msgstr "JPEG prozedura"
 
-#: ../src/tags/gnome-cmd-tags.cc:253
+#: ../src/tags/gnome-cmd-tags.cc:254
 msgid "Light Source"
 msgstr "Argiaren iturburua"
 
-#: ../src/tags/gnome-cmd-tags.cc:253
+#: ../src/tags/gnome-cmd-tags.cc:254
 msgid "The kind of light source."
 msgstr "Argiaren iturburu mota."
 
-#: ../src/tags/gnome-cmd-tags.cc:254
+#: ../src/tags/gnome-cmd-tags.cc:255
 msgid "Manufacturer"
 msgstr "Hornitzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:254
+#: ../src/tags/gnome-cmd-tags.cc:255
 msgid ""
 "The manufacturer of the recording equipment. This is the manufacturer of the "
 "DSC, scanner, video digitizer or other equipment that generated the image. "
@@ -3960,11 +3950,11 @@ msgstr ""
 "irudia sortzeko erabilitako bestelako gailuen hornitzailea da. Eremua hutsik "
 "uzten bada, ezezagun gisa tratatuko da."
 
-#: ../src/tags/gnome-cmd-tags.cc:255
+#: ../src/tags/gnome-cmd-tags.cc:256
 msgid "Maker Note"
 msgstr "Markagailuaren oharra"
 
-#: ../src/tags/gnome-cmd-tags.cc:255
+#: ../src/tags/gnome-cmd-tags.cc:256
 msgid ""
 "A tag for manufacturers of Exif writers to record any desired information. "
 "The contents are up to the manufacturer."
@@ -3972,11 +3962,11 @@ msgstr ""
 "Exif idazleen hornitzaileen etiketa nahi den informazioa gordetzeko. Edukia "
 "hornitzailearen arabera dago."
 
-#: ../src/tags/gnome-cmd-tags.cc:256
+#: ../src/tags/gnome-cmd-tags.cc:257
 msgid "Max Aperture Value"
 msgstr "Gehien. irekiera balioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:256
+#: ../src/tags/gnome-cmd-tags.cc:257
 msgid ""
 "The smallest F number of the lens. The unit is the APEX value. Ordinarily it "
 "is given in the range of 00.00 to 99.99, but it is not limited to this range."
@@ -3984,19 +3974,19 @@ msgstr ""
 "Lenteen gutxieneko F zenbakia. Unitatea APEX balioa da. Normalean 00.00 eta "
 "99.99 arteko barrutian ematen den arren, ez dago barruti honetara mugatuta."
 
-#: ../src/tags/gnome-cmd-tags.cc:257 ../src/tags/gnome-cmd-tags.cc:422
+#: ../src/tags/gnome-cmd-tags.cc:258 ../src/tags/gnome-cmd-tags.cc:422
 msgid "Metering Mode"
 msgstr "Neurtze modua"
 
-#: ../src/tags/gnome-cmd-tags.cc:257
+#: ../src/tags/gnome-cmd-tags.cc:258
 msgid "The metering mode."
 msgstr "Neurtzeko modua."
 
-#: ../src/tags/gnome-cmd-tags.cc:258 ../src/tags/gnome-cmd-tags.cc:408
+#: ../src/tags/gnome-cmd-tags.cc:259 ../src/tags/gnome-cmd-tags.cc:423
 msgid "Model"
 msgstr "Modeloa"
 
-#: ../src/tags/gnome-cmd-tags.cc:258
+#: ../src/tags/gnome-cmd-tags.cc:259
 msgid ""
 "The model name or model number of the equipment. This is the model name or "
 "number of the DSC, scanner, video digitizer or other equipment that "
@@ -4007,7 +3997,7 @@ msgstr ""
 "izena edo modelo zenbakia da. Eremua hutsik uzten bada, ezezagun gisa "
 "tratatuko da."
 
-#: ../src/tags/gnome-cmd-tags.cc:259
+#: ../src/tags/gnome-cmd-tags.cc:260
 msgid ""
 "Indicates the color filter array (CFA) geometric pattern of the image sensor "
 "when a one-chip color area sensor is used. It does not apply to all sensing "
@@ -4017,19 +4007,19 @@ msgstr ""
 "areako sentsorearen chip bakarra erabiltzen denean. Ez da sentsore-metodo "
 "guztietan aplikatzen."
 
-#: ../src/tags/gnome-cmd-tags.cc:260
+#: ../src/tags/gnome-cmd-tags.cc:261
 msgid "New Subfile Type"
 msgstr "Azpifitxategi mota berria"
 
-#: ../src/tags/gnome-cmd-tags.cc:260
+#: ../src/tags/gnome-cmd-tags.cc:261
 msgid "A general indication of the kind of data contained in this subfile."
 msgstr "Azpifitxategiak duen datu motaren adierazle orokorra."
 
-#: ../src/tags/gnome-cmd-tags.cc:261
+#: ../src/tags/gnome-cmd-tags.cc:262
 msgid "OECF"
 msgstr "OECF"
 
-#: ../src/tags/gnome-cmd-tags.cc:261
+#: ../src/tags/gnome-cmd-tags.cc:262
 msgid ""
 "Indicates the Opto-Electoric Conversion Function (OECF) specified in ISO "
 "14524. <Exif.OECF> is the relationship between the camera optical input and "
@@ -4039,19 +4029,19 @@ msgstr ""
 "\" (OECF) funtzionalitatea adierazten du. Kameraren sarrera optikoaren eta "
 "irudiaren balioaren arteko erlazioa da <Exif.OECF>."
 
-#: ../src/tags/gnome-cmd-tags.cc:262 ../src/tags/gnome-cmd-tags.cc:423
+#: ../src/tags/gnome-cmd-tags.cc:263 ../src/tags/gnome-cmd-tags.cc:424
 msgid "Orientation"
 msgstr "Orientazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:262
+#: ../src/tags/gnome-cmd-tags.cc:263
 msgid "The image orientation viewed in terms of rows and columns."
 msgstr "Irudiaren orientazioa errenkada eta zutabeen ikuspegitik."
 
-#: ../src/tags/gnome-cmd-tags.cc:263
+#: ../src/tags/gnome-cmd-tags.cc:264
 msgid "Photometric Interpretation"
 msgstr "Interpretazio fotometrikoa"
 
-#: ../src/tags/gnome-cmd-tags.cc:263
+#: ../src/tags/gnome-cmd-tags.cc:264
 msgid ""
 "The pixel composition. In JPEG compressed data a JPEG marker is used instead "
 "of this tag."
@@ -4059,11 +4049,11 @@ msgstr ""
 "Pixelaren osagaiak. Konprimitutako JPEG datuetan JPEG markatzailea "
 "erabiltzen da etiketa hau erabili ordez."
 
-#: ../src/tags/gnome-cmd-tags.cc:264
+#: ../src/tags/gnome-cmd-tags.cc:265
 msgid "Pixel X Dimension"
 msgstr "Pixel X dimentsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:264
+#: ../src/tags/gnome-cmd-tags.cc:265
 msgid ""
 "Information specific to compressed data. When a compressed file is recorded, "
 "the valid width of the meaningful image must be recorded in this tag, "
@@ -4076,11 +4066,11 @@ msgstr ""
 "dagoen edo ez. Etiketa hau ez luke konprimitu gabeko fitxategietan agertu "
 "behar."
 
-#: ../src/tags/gnome-cmd-tags.cc:265
+#: ../src/tags/gnome-cmd-tags.cc:266
 msgid "Pixel Y Dimension"
 msgstr "Pixel Y dimentsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:265
+#: ../src/tags/gnome-cmd-tags.cc:266
 msgid ""
 "Information specific to compressed data. When a compressed file is recorded, "
 "the valid height of the meaningful image must be recorded in this tag, "
@@ -4097,11 +4087,11 @@ msgstr ""
 "honen baliozko altueraren etiketan gordetako lerro kopurua SOF-en "
 "gordetakoaren berdina izaten da."
 
-#: ../src/tags/gnome-cmd-tags.cc:266
+#: ../src/tags/gnome-cmd-tags.cc:267
 msgid "Planar Configuration"
 msgstr "Planoko konfigurazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:266
+#: ../src/tags/gnome-cmd-tags.cc:267
 msgid ""
 "Indicates whether pixel components are recorded in a chunky or planar "
 "format. In JPEG compressed files a JPEG marker is used instead of this tag. "
@@ -4112,11 +4102,11 @@ msgstr ""
 "etiketa honen ordez. Eremua ez bada existitzen, TIFF-eko balio lehenetsia 1 "
 "(zatikatua) onartuko da."
 
-#: ../src/tags/gnome-cmd-tags.cc:267
+#: ../src/tags/gnome-cmd-tags.cc:268
 msgid "Primary Chromaticities"
 msgstr "Ñabardura nagusia"
 
-#: ../src/tags/gnome-cmd-tags.cc:267
+#: ../src/tags/gnome-cmd-tags.cc:268
 msgid ""
 "The chromaticity of the three primary colors of the image. Normally this tag "
 "is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
@@ -4124,11 +4114,11 @@ msgstr ""
 "Irudiaren hiru kolore nagusien ñabardura. Normalean etiketa hau ez da "
 "erabiltze, kolore-espazioa <Exif.ColorSpace> etiketan zehazten delako."
 
-#: ../src/tags/gnome-cmd-tags.cc:268
+#: ../src/tags/gnome-cmd-tags.cc:269
 msgid "Reference Black/White"
 msgstr "Beltz/Zuri erreferentzia"
 
-#: ../src/tags/gnome-cmd-tags.cc:268
+#: ../src/tags/gnome-cmd-tags.cc:269
 msgid ""
 "The reference black point value and reference white point value. No defaults "
 "are given in TIFF, but the values below are given as defaults here. The "
@@ -4142,35 +4132,35 @@ msgstr ""
 "irudiaren elkarreragingarritasun ezaugarri optimoei baldintza hauek ematen "
 "dizkien balioa da lehenetsia."
 
-#: ../src/tags/gnome-cmd-tags.cc:269
+#: ../src/tags/gnome-cmd-tags.cc:270
 msgid "Related Image File Format"
 msgstr "Irudi-fitxategi formatuarekiko"
 
-#: ../src/tags/gnome-cmd-tags.cc:269
+#: ../src/tags/gnome-cmd-tags.cc:270
 msgid "Related Image File Format."
 msgstr "Irudi-fitxategi formatuarekin zerikusia."
 
-#: ../src/tags/gnome-cmd-tags.cc:270
+#: ../src/tags/gnome-cmd-tags.cc:271
 msgid "Related Image Length"
 msgstr "Irudiaren luzerarekiko"
 
-#: ../src/tags/gnome-cmd-tags.cc:270
+#: ../src/tags/gnome-cmd-tags.cc:271
 msgid "Related Image Length."
 msgstr "Irudiaren luzerarekin zerikusia."
 
-#: ../src/tags/gnome-cmd-tags.cc:271
+#: ../src/tags/gnome-cmd-tags.cc:272
 msgid "Related Image Width"
 msgstr "Irudiaden zabalerarekiko"
 
-#: ../src/tags/gnome-cmd-tags.cc:271
+#: ../src/tags/gnome-cmd-tags.cc:272
 msgid "Related Image Width."
 msgstr "Irudiaren zabalerarekin zerikusia."
 
-#: ../src/tags/gnome-cmd-tags.cc:272
+#: ../src/tags/gnome-cmd-tags.cc:273
 msgid "Related Sound File"
 msgstr "Soinu-fitxategiarekin zerikusia."
 
-#: ../src/tags/gnome-cmd-tags.cc:272
+#: ../src/tags/gnome-cmd-tags.cc:273
 msgid ""
 "This tag is used to record the name of an audio file related to the image "
 "data. The only relational information recorded here is the Exif audio file "
@@ -4211,11 +4201,11 @@ msgstr ""
 "erabiltzen denean, irudien datuaketa audioko fitxategiaren erlazioa audioko "
 "fitxategiaren amaieran adierazi behar da."
 
-#: ../src/tags/gnome-cmd-tags.cc:273
+#: ../src/tags/gnome-cmd-tags.cc:274
 msgid "Resolution Unit"
 msgstr "Bereizmenaren unitatea"
 
-#: ../src/tags/gnome-cmd-tags.cc:273
+#: ../src/tags/gnome-cmd-tags.cc:274
 msgid ""
 "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same "
 "unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the "
@@ -4225,11 +4215,11 @@ msgstr ""
 "berdina erabiltzen da <Exif.XResolution> eta <Exif.YResolution>-rekin. "
 "Irudiaren bereizmena ezezaguna bada, 2 (hazbete) ezartzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:274
+#: ../src/tags/gnome-cmd-tags.cc:275
 msgid "Rows per Strip"
 msgstr "Errenkadak zatiko"
 
-#: ../src/tags/gnome-cmd-tags.cc:274
+#: ../src/tags/gnome-cmd-tags.cc:275
 msgid ""
 "The number of rows per strip. This is the number of rows in the image of one "
 "strip when an image is divided into strips. With JPEG compressed data this "
@@ -4239,11 +4229,11 @@ msgstr ""
 "bat bi zatitan zatitzen denean. Konprimitutako JPEG datuekin izendapen hau "
 "ez da beharrezkoa eta ez ikusi egiten zaio."
 
-#: ../src/tags/gnome-cmd-tags.cc:275
+#: ../src/tags/gnome-cmd-tags.cc:276
 msgid "Samples per Pixel"
 msgstr "Laginak pixeleko"
 
-#: ../src/tags/gnome-cmd-tags.cc:275
+#: ../src/tags/gnome-cmd-tags.cc:276
 msgid ""
 "The number of components per pixel. Since this standard applies to RGB and "
 "YCbCr images, the value set for this tag is 3. In JPEG compressed data a "
@@ -4253,11 +4243,11 @@ msgstr ""
 "zaienez, etiketa hau 3 balioarekin ezartzen da. Konprimitutako JPEG datuetan "
 "JPEG markatzailea erabiltzen da etiketa honen ordez."
 
-#: ../src/tags/gnome-cmd-tags.cc:276
+#: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Saturation"
 msgstr "Saturazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:276
+#: ../src/tags/gnome-cmd-tags.cc:277
 msgid ""
 "This tag indicates the direction of saturation processing applied by the "
 "camera when the image was shot."
@@ -4265,11 +4255,11 @@ msgstr ""
 "Etiketa honek irudia kapturatzean kamerak aplikatutako saturazioaren "
 "norabidearen prozesamendua adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:277
+#: ../src/tags/gnome-cmd-tags.cc:278
 msgid "Scene Capture Type"
 msgstr "Eszenaren kaptura mota"
 
-#: ../src/tags/gnome-cmd-tags.cc:277
+#: ../src/tags/gnome-cmd-tags.cc:278
 msgid ""
 "This tag indicates the type of scene that was shot. It can also be used to "
 "record the mode in which the image was shot. Note that this differs from "
@@ -4279,11 +4269,11 @@ msgstr ""
 "zeneko modua gordetzeko ere balio du. Kontutan izan <Exif.SceneType> "
 "etiketaren desberdina dela."
 
-#: ../src/tags/gnome-cmd-tags.cc:278
+#: ../src/tags/gnome-cmd-tags.cc:279
 msgid "Scene Type"
 msgstr "Eszena mota"
 
-#: ../src/tags/gnome-cmd-tags.cc:278
+#: ../src/tags/gnome-cmd-tags.cc:279
 msgid ""
 "Indicates the type of scene. If a DSC recorded the image, this tag value "
 "must always be set to 1, indicating that the image was directly photographed."
@@ -4291,19 +4281,19 @@ msgstr ""
 "Eszena mota adierazten du. DCS batek grabatu badu irudia, etaiketabeti 1 "
 "balioarekin ezarri behar da, argazkia zuzenean kapturatu dela adieraziz."
 
-#: ../src/tags/gnome-cmd-tags.cc:279
+#: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Sensing Method"
 msgstr "Sentsore-metodoa"
 
-#: ../src/tags/gnome-cmd-tags.cc:279
+#: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Indicates the image sensor type on the camera or input device."
 msgstr "Kameraren edo sarrerako gailuaren irudi-sentsore mota adieraten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:280
+#: ../src/tags/gnome-cmd-tags.cc:281
 msgid "Sharpness"
 msgstr "Zorroztasuna"
 
-#: ../src/tags/gnome-cmd-tags.cc:280
+#: ../src/tags/gnome-cmd-tags.cc:281
 msgid ""
 "This tag indicates the direction of sharpness processing applied by the "
 "camera when the image was shot."
@@ -4311,21 +4301,21 @@ msgstr ""
 "Etiketa honek  irudia kapturatzean kamerak aplikatutako "
 "zorroztasunarennorabidearen prozesamendua adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:281
+#: ../src/tags/gnome-cmd-tags.cc:282
 msgid "Shutter speed"
 msgstr "Obturadore-abiadura"
 
-#: ../src/tags/gnome-cmd-tags.cc:281
+#: ../src/tags/gnome-cmd-tags.cc:282
 msgid ""
 "Shutter speed. The unit is the APEX (Additive System of Photographic "
 "Exposure) setting."
 msgstr "Obturadore-abiadura. Unitatea APEX-etan ezartzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:282 ../src/tags/gnome-cmd-tags.cc:424
+#: ../src/tags/gnome-cmd-tags.cc:283 ../src/tags/gnome-cmd-tags.cc:425
 msgid "Software"
 msgstr "Softwarea"
 
-#: ../src/tags/gnome-cmd-tags.cc:282
+#: ../src/tags/gnome-cmd-tags.cc:283
 msgid ""
 "This tag records the name and version of the software or firmware of the "
 "camera or image input device used to generate the image. When the field is "
@@ -4335,11 +4325,11 @@ msgstr ""
 "firmwarearen izena eta bertsioa gordetzen du. Eremua hutsik uzten bada, "
 "ezezagun gisa tratatuko da."
 
-#: ../src/tags/gnome-cmd-tags.cc:283
+#: ../src/tags/gnome-cmd-tags.cc:284
 msgid "Spatial Frequency Response"
 msgstr "Maiztasun espazialaren erantzuna"
 
-#: ../src/tags/gnome-cmd-tags.cc:283
+#: ../src/tags/gnome-cmd-tags.cc:284
 msgid ""
 "This tag records the camera or input device spatial frequency table and SFR "
 "values in the direction of image width, image height, and diagonal "
@@ -4349,19 +4339,20 @@ msgstr ""
 "eta SFR balioak irudiaren zabalera, altuera eta diagonalaren norabidean "
 "gordetzen ditu, ISO 12233 estandarrak zehaztuta bezala."
 
-#: ../src/tags/gnome-cmd-tags.cc:284
+#: ../src/tags/gnome-cmd-tags.cc:285
 msgid "Spectral Sensitivity"
 msgstr "Sentikortasun espektrala"
 
-#: ../src/tags/gnome-cmd-tags.cc:284
-msgid "Indicates the spectral sensitivity of each channel of the camera used."
-msgstr "Kamerak erabilitako kanal bakoitzaren sentikortasun espektrala adierazten du."
-
 #: ../src/tags/gnome-cmd-tags.cc:285
+msgid "Indicates the spectral sensitivity of each channel of the camera used."
+msgstr ""
+"Kamerak erabilitako kanal bakoitzaren sentikortasun espektrala adierazten du."
+
+#: ../src/tags/gnome-cmd-tags.cc:286
 msgid "Strip Byte Count"
 msgstr "Zatiaren byte kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:285
+#: ../src/tags/gnome-cmd-tags.cc:286
 msgid ""
 "The total number of bytes in each strip. With JPEG compressed data this "
 "designation is not needed and is omitted."
@@ -4369,11 +4360,11 @@ msgstr ""
 "Zati bakoitzaren byte kopurua guztira. Konprimitutako JPEG datuekin "
 "izendapen hau ez da beharrezkoa eta ez ikusi egiten zaio."
 
-#: ../src/tags/gnome-cmd-tags.cc:286
+#: ../src/tags/gnome-cmd-tags.cc:287
 msgid "Strip Offsets"
 msgstr "Zatiaren desplazamenduak"
 
-#: ../src/tags/gnome-cmd-tags.cc:286
+#: ../src/tags/gnome-cmd-tags.cc:287
 msgid ""
 "For each strip, the byte offset of that strip. It is recommended that this "
 "be selected so the number of strip bytes does not exceed 64 Kbytes. With "
@@ -4383,45 +4374,47 @@ msgstr ""
 "zatiaren byte tamainak 64 KB baino handiagoa ez izateko. Konprimitutako JPEG "
 "datuekin izendapen hau ez da beharrezkoa eta ez ikusi egiten zaio."
 
-#: ../src/tags/gnome-cmd-tags.cc:287
+#: ../src/tags/gnome-cmd-tags.cc:288
 msgid "Sub IFD Offsets"
 msgstr "Azpi IFD desplazamendua"
 
-#: ../src/tags/gnome-cmd-tags.cc:287
-msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
-msgstr "Adobe Corporation-ek definitua TIFF zuhaitzak TIFF fitxategian gaitzeko."
-
 #: ../src/tags/gnome-cmd-tags.cc:288
+msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
+msgstr ""
+"Adobe Corporation-ek definitua TIFF zuhaitzak TIFF fitxategian gaitzeko."
+
+#: ../src/tags/gnome-cmd-tags.cc:289
 msgid "Subject Area"
 msgstr "Gaiaren area"
 
-#: ../src/tags/gnome-cmd-tags.cc:288
+#: ../src/tags/gnome-cmd-tags.cc:289
 msgid ""
 "This tag indicates the location and area of the main subject in the overall "
 "scene."
-msgstr "Etiketa honek eszenako gai nagusiaren area eta kokalekua adierazten du."
+msgstr ""
+"Etiketa honek eszenako gai nagusiaren area eta kokalekua adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:289
+#: ../src/tags/gnome-cmd-tags.cc:290
 msgid "Subject Distance"
 msgstr "Gaiaren distantzia"
 
-#: ../src/tags/gnome-cmd-tags.cc:289
+#: ../src/tags/gnome-cmd-tags.cc:290
 msgid "The distance to the subject, given in meters."
 msgstr "Gaiaren distantzia, metrotan ematen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:290
+#: ../src/tags/gnome-cmd-tags.cc:291
 msgid "Subject Distance Range"
 msgstr "Gaiarn distantziaren barrutia"
 
-#: ../src/tags/gnome-cmd-tags.cc:290
+#: ../src/tags/gnome-cmd-tags.cc:291
 msgid "This tag indicates the distance to the subject."
 msgstr "Etiketa honek gaiaren distantzia adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:291
+#: ../src/tags/gnome-cmd-tags.cc:292
 msgid "Subject Location"
 msgstr "Gaiaren kokalekua"
 
-#: ../src/tags/gnome-cmd-tags.cc:291
+#: ../src/tags/gnome-cmd-tags.cc:292
 msgid ""
 "Indicates the location of the main subject in the scene. The value of this "
 "tag represents the pixel at the center of the main subject relative to the "
@@ -4435,19 +4428,20 @@ msgstr ""
 "Aurreneko balioak X zutabe kpurua zehazten du, bigarren balioak berriz Y "
 "errenkada kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:292
+#: ../src/tags/gnome-cmd-tags.cc:293
 msgid "Subsec Time"
 msgstr "Azpiseg. denbora"
 
-#: ../src/tags/gnome-cmd-tags.cc:292
-msgid "A tag used to record fractions of seconds for the <Exif.DateTime> tag."
-msgstr "Erabiliko den etiketa segundoen frakzioa <Exif.DateTime> etiketan grabatzeko."
-
 #: ../src/tags/gnome-cmd-tags.cc:293
+msgid "A tag used to record fractions of seconds for the <Exif.DateTime> tag."
+msgstr ""
+"Erabiliko den etiketa segundoen frakzioa <Exif.DateTime> etiketan grabatzeko."
+
+#: ../src/tags/gnome-cmd-tags.cc:294
 msgid "Subsec Time Digitized"
 msgstr "Azpiseg. denbora digitalizatua"
 
-#: ../src/tags/gnome-cmd-tags.cc:293
+#: ../src/tags/gnome-cmd-tags.cc:294
 msgid ""
 "A tag used to record fractions of seconds for the <Exif.DateTimeDigitized> "
 "tag."
@@ -4455,11 +4449,11 @@ msgstr ""
 "Erabiliko den etiketa segundoen frakzioa <Exif.DateTimeDigitized> etiketan "
 "grabatzeko."
 
-#: ../src/tags/gnome-cmd-tags.cc:294
+#: ../src/tags/gnome-cmd-tags.cc:295
 msgid "Subsec Time Original"
 msgstr "Azpiseg. denbora jatorrizkoa"
 
-#: ../src/tags/gnome-cmd-tags.cc:294
+#: ../src/tags/gnome-cmd-tags.cc:295
 msgid ""
 "A tag used to record fractions of seconds for the <Exif.DateTimeOriginal> "
 "tag."
@@ -4467,19 +4461,19 @@ msgstr ""
 "Erabiliko den etiketa segundoen frakzioa <Exif.DateTimeOriginal> etiketan "
 "grabatzeko."
 
-#: ../src/tags/gnome-cmd-tags.cc:295
+#: ../src/tags/gnome-cmd-tags.cc:296
 msgid "TIFF/EP Standard ID"
 msgstr "TIFF/EP ID estandarra"
 
-#: ../src/tags/gnome-cmd-tags.cc:295
+#: ../src/tags/gnome-cmd-tags.cc:296
 msgid "TIFF/EP Standard ID."
 msgstr "TIFF/EP ID estandarra."
 
-#: ../src/tags/gnome-cmd-tags.cc:296
+#: ../src/tags/gnome-cmd-tags.cc:297
 msgid "Transfer Function"
 msgstr "Transferentzia funtzioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:296
+#: ../src/tags/gnome-cmd-tags.cc:297
 msgid ""
 "A transfer function for the image, described in tabular style. Normally this "
 "tag is not necessary, since color space is specified in <Exif.ColorSpace> "
@@ -4489,19 +4483,19 @@ msgstr ""
 "etiketa hau ez da beharrezkoa izaten, kolore-espazioa <Exif.ColorSpace> "
 "etiketan zehazten delako."
 
-#: ../src/tags/gnome-cmd-tags.cc:297
+#: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Transfer Range"
 msgstr "Transferentzia barrutia"
 
-#: ../src/tags/gnome-cmd-tags.cc:297
+#: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Transfer Range."
 msgstr "Transferentzia barrutia."
 
-#: ../src/tags/gnome-cmd-tags.cc:298
+#: ../src/tags/gnome-cmd-tags.cc:299
 msgid "User Comment"
 msgstr "Erabiltzailearen iruzkina"
 
-#: ../src/tags/gnome-cmd-tags.cc:298
+#: ../src/tags/gnome-cmd-tags.cc:299
 msgid ""
 "A tag for Exif users to write keywords or comments on the image besides "
 "those in <Exif.ImageDescription>, and without the character code limitations "
@@ -4541,19 +4535,19 @@ msgstr ""
 "ondorengo erabiltzilaren iruzkinen zatia zuriunea [20.H] karakterearekin "
 "betetzea."
 
-#: ../src/tags/gnome-cmd-tags.cc:299 ../src/tags/gnome-cmd-tags.cc:426
+#: ../src/tags/gnome-cmd-tags.cc:300 ../src/tags/gnome-cmd-tags.cc:427
 msgid "White Balance"
 msgstr "Zuri-balantzea"
 
-#: ../src/tags/gnome-cmd-tags.cc:299
+#: ../src/tags/gnome-cmd-tags.cc:300
 msgid "The white balance mode set when the image was shot."
 msgstr "Irudia kapturatu zenean ezarrita zegoen zuriaren balantzea."
 
-#: ../src/tags/gnome-cmd-tags.cc:300
+#: ../src/tags/gnome-cmd-tags.cc:301
 msgid "White Point"
 msgstr "Zuria puntua"
 
-#: ../src/tags/gnome-cmd-tags.cc:300
+#: ../src/tags/gnome-cmd-tags.cc:301
 msgid ""
 "The chromaticity of the white point of the image. Normally this tag is not "
 "necessary, since color space is specified in <Exif.ColorSpace> tag."
@@ -4561,19 +4555,19 @@ msgstr ""
 "Irudiaren zuria puntuaren ñabardura. Normalean etiketa hau ez da "
 "beharrezkoa, kolore-espazioa <Exif.ColorSpace> etiketan zehazten delako."
 
-#: ../src/tags/gnome-cmd-tags.cc:301
+#: ../src/tags/gnome-cmd-tags.cc:302
 msgid "XML Packet"
 msgstr "XML paketea"
 
-#: ../src/tags/gnome-cmd-tags.cc:301
+#: ../src/tags/gnome-cmd-tags.cc:302
 msgid "XMP Metadata."
 msgstr "XMP metadatuak."
 
-#: ../src/tags/gnome-cmd-tags.cc:302
+#: ../src/tags/gnome-cmd-tags.cc:303
 msgid "x Resolution"
 msgstr "x bereizmena"
 
-#: ../src/tags/gnome-cmd-tags.cc:302
+#: ../src/tags/gnome-cmd-tags.cc:303
 msgid ""
 "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> "
 "direction. When the image resolution is unknown, 72 [dpi] is designated."
@@ -4581,11 +4575,11 @@ msgstr ""
 "Pixel kopurua <Exif.ResolutionUnit> etiketako <Exif.ImageWidth> norabidean. "
 "Irudiaren bereizmena ezezagunea denean, 72 [dpi] izendatzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:303
+#: ../src/tags/gnome-cmd-tags.cc:304
 msgid "YCbCr Coefficients"
 msgstr "YCbCr koefizienteak"
 
-#: ../src/tags/gnome-cmd-tags.cc:303
+#: ../src/tags/gnome-cmd-tags.cc:304
 msgid ""
 "The matrix coefficients for transformation from RGB to YCbCr image data. No "
 "default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
@@ -4599,11 +4593,11 @@ msgstr ""
 "kolore-espazioa, irudiaren ezaugarrien elkareragingarritasun optimoaren "
 "baldintza ematen duen balioa da lehenetsia."
 
-#: ../src/tags/gnome-cmd-tags.cc:304
+#: ../src/tags/gnome-cmd-tags.cc:305
 msgid "YCbCr Positioning"
 msgstr "YCbCr posizionatzea"
 
-#: ../src/tags/gnome-cmd-tags.cc:304
+#: ../src/tags/gnome-cmd-tags.cc:305
 msgid ""
 "The position of chrominance components in relation to the luminance "
 "component. This field is designated only for JPEG compressed data or "
@@ -4629,11 +4623,11 @@ msgstr ""
 "Irakurleak bai zentratutako bai batera kokatutako posizioa onartzeko "
 "gaitasuna edukitzea izango litzateke hoberena."
 
-#: ../src/tags/gnome-cmd-tags.cc:305
+#: ../src/tags/gnome-cmd-tags.cc:306
 msgid "YCbCr Sub-Sampling"
 msgstr "YCbCr azpilaginak"
 
-#: ../src/tags/gnome-cmd-tags.cc:305
+#: ../src/tags/gnome-cmd-tags.cc:306
 msgid ""
 "The sampling ratio of chrominance components in relation to the luminance "
 "component. In JPEG compressed data a JPEG marker is used instead of this tag."
@@ -4642,11 +4636,11 @@ msgstr ""
 "Konprimitutako JPEG datuetan JPEG markatzailea erabiltzen da etiekta honen "
 "ordez."
 
-#: ../src/tags/gnome-cmd-tags.cc:306
+#: ../src/tags/gnome-cmd-tags.cc:307
 msgid "y Resolution"
 msgstr "y bereizmena"
 
-#: ../src/tags/gnome-cmd-tags.cc:306
+#: ../src/tags/gnome-cmd-tags.cc:307
 msgid ""
 "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> "
 "direction. The same value as <Exif.XResolution> is designated."
@@ -4654,71 +4648,73 @@ msgstr ""
 "Pixel kopurua <Exif.ResolutionUnit>-rekiko <Exif.ImageLength> norabidean, "
 "<Exif.XResolution> izendatzen den balio berdinarekin."
 
-#: ../src/tags/gnome-cmd-tags.cc:307
+#: ../src/tags/gnome-cmd-tags.cc:308
 msgid "Accessed"
 msgstr "Atzituta"
 
-#: ../src/tags/gnome-cmd-tags.cc:307
+#: ../src/tags/gnome-cmd-tags.cc:308
 msgid "Last access datetime."
 msgstr "Atzitu zen azken data eta ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:308
+#: ../src/tags/gnome-cmd-tags.cc:309
 msgid "Content"
 msgstr "Edukia"
 
-#: ../src/tags/gnome-cmd-tags.cc:308
+#: ../src/tags/gnome-cmd-tags.cc:309
 msgid "File's contents filtered as plain text."
 msgstr "Fitxategiaren edukia testu soil gisa iragazita."
 
-#: ../src/tags/gnome-cmd-tags.cc:309
+#: ../src/tags/gnome-cmd-tags.cc:310
 msgid "Editable free text/notes."
 msgstr "Testu/ohar libre editagarria."
 
-#: ../src/tags/gnome-cmd-tags.cc:310
-msgid "MIME type of the file or if a directory it should contain value \"Folder\""
-msgstr "Fitxategiaren MIME mota edo \"Folder\" (karpeta) balioa duen direktorioa."
-
 #: ../src/tags/gnome-cmd-tags.cc:311
+msgid ""
+"MIME type of the file or if a directory it should contain value \"Folder\""
+msgstr ""
+"Fitxategiaren MIME mota edo \"Folder\" (karpeta) balioa duen direktorioa."
+
+#: ../src/tags/gnome-cmd-tags.cc:312
 msgid "Editable array of keywords."
 msgstr "Gako-hitzen array editagarria."
 
-#: ../src/tags/gnome-cmd-tags.cc:312
+#: ../src/tags/gnome-cmd-tags.cc:313
 msgid "Link"
 msgstr "Esteka"
 
-#: ../src/tags/gnome-cmd-tags.cc:312
+#: ../src/tags/gnome-cmd-tags.cc:313
 msgid "URI of link target."
 msgstr "Helburuko estekaren URIa."
 
-#: ../src/tags/gnome-cmd-tags.cc:313
+#: ../src/tags/gnome-cmd-tags.cc:314
 msgid "Modified"
 msgstr "Aldatuta"
 
-#: ../src/tags/gnome-cmd-tags.cc:313
+#: ../src/tags/gnome-cmd-tags.cc:314
 msgid "Last modified datetime."
 msgstr "Azken aldaketa-data"
 
-#: ../src/tags/gnome-cmd-tags.cc:314
+#: ../src/tags/gnome-cmd-tags.cc:315
 msgid "File name excluding path but including the file extension."
 msgstr "Fitxategi-izena luzapenarekin baina bide-izenik gabe."
 
-#: ../src/tags/gnome-cmd-tags.cc:315
+#: ../src/tags/gnome-cmd-tags.cc:316
 msgid "Path"
 msgstr "Bide-izena"
 
-#: ../src/tags/gnome-cmd-tags.cc:315
+#: ../src/tags/gnome-cmd-tags.cc:316
 msgid "Full file path of file excluding the filename."
 msgstr "Bide-izen osoa baina fitxategi-izenik gabe."
 
-#: ../src/tags/gnome-cmd-tags.cc:316
+#: ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
 msgstr "Baimenen katea UNIX formatuan, adib.: \"-rw-r--r--\"."
 
-#: ../src/tags/gnome-cmd-tags.cc:317 ../src/tags/gnome-cmd-tags.cc:376
+#: ../src/tags/gnome-cmd-tags.cc:318 ../src/tags/gnome-cmd-tags.cc:377
 msgid "Publisher"
 msgstr "Argitaratzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/tags/gnome-cmd-tags.cc:318
 msgid ""
 "Editable DC type for the name of the publisher of the file (EG dc:publisher "
 "field in RSS feed)."
@@ -4726,11 +4722,11 @@ msgstr ""
 "Fitxategiaren argitaratzailearen izenaren DC mota editagarria (adib. dc:"
 "publisher eremua RSS iturrietan)."
 
-#: ../src/tags/gnome-cmd-tags.cc:318
+#: ../src/tags/gnome-cmd-tags.cc:319
 msgid "Rank"
 msgstr "Heina"
 
-#: ../src/tags/gnome-cmd-tags.cc:318
+#: ../src/tags/gnome-cmd-tags.cc:319
 msgid ""
 "Editable file rank for grading favourites. Value should be in the range "
 "1..10."
@@ -4738,39 +4734,41 @@ msgstr ""
 "Gogokoak sailkatzeko heinen fitxategi editagarria. Balioa 1 eta 10 arteko "
 "barrutian egin behar du."
 
-#: ../src/tags/gnome-cmd-tags.cc:319 ../src/tags/gnome-cmd-tags.cc:383
+#: ../src/tags/gnome-cmd-tags.cc:320 ../src/tags/gnome-cmd-tags.cc:384
 msgid "Size"
 msgstr "Tamaina"
 
-#: ../src/tags/gnome-cmd-tags.cc:319
-msgid "Size of the file in bytes or if a directory number of items it contains."
+#: ../src/tags/gnome-cmd-tags.cc:320
+msgid ""
+"Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
 "Fitxategiaren tamaina (byte untitatean), edo direktorioak duen edukiaren "
 "elementu kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:320
+#: ../src/tags/gnome-cmd-tags.cc:321
 msgid "Album Sort Order"
 msgstr "Albumaren ordena"
 
-#: ../src/tags/gnome-cmd-tags.cc:320
-msgid "String which should be used instead of the album name for sorting purposes."
+#: ../src/tags/gnome-cmd-tags.cc:321
+msgid ""
+"String which should be used instead of the album name for sorting purposes."
 msgstr "Ordenatzeko erabiliko den katea albumaren izena erabili ordez."
 
-#: ../src/tags/gnome-cmd-tags.cc:321
+#: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Audio Encryption"
 msgstr "Audioaren enkriptazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:321
+#: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Frame indicates if the audio stream is encrypted, and by whom."
 msgstr ""
 "Audioaren korrontea enkriptatuta dagoen (eta nork) edo ez adierazten duen "
 "markoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:322
+#: ../src/tags/gnome-cmd-tags.cc:323
 msgid "Audio Seek Point"
 msgstr "Audioaren bilaketa-puntua"
 
-#: ../src/tags/gnome-cmd-tags.cc:322
+#: ../src/tags/gnome-cmd-tags.cc:323
 msgid ""
 "Fractional offset within the audio data, providing a starting point from "
 "which to find an appropriate point to start decoding."
@@ -4778,99 +4776,99 @@ msgstr ""
 "Desplazamendu frakzionala audioko datuetan, haiserako puntua emanez kodetzen "
 "hasteko puntu egokia bilatzeko."
 
-#: ../src/tags/gnome-cmd-tags.cc:323
+#: ../src/tags/gnome-cmd-tags.cc:324
 msgid "Band"
 msgstr "Taldea"
 
-#: ../src/tags/gnome-cmd-tags.cc:323
+#: ../src/tags/gnome-cmd-tags.cc:324
 msgid "Additional information about the performers in the recording."
 msgstr "Informazio gehigarria grabazioan parte hartu dutenei buruz."
 
-#: ../src/tags/gnome-cmd-tags.cc:324
+#: ../src/tags/gnome-cmd-tags.cc:325
 msgid "BPM"
 msgstr "BPM"
 
-#: ../src/tags/gnome-cmd-tags.cc:324
+#: ../src/tags/gnome-cmd-tags.cc:325
 msgid "BPM (beats per minute)."
 msgstr "BPM (kolpeak minutuko)."
 
-#: ../src/tags/gnome-cmd-tags.cc:325
+#: ../src/tags/gnome-cmd-tags.cc:326
 msgid "Buffer Size"
 msgstr "Bufferraren tamaina"
 
-#: ../src/tags/gnome-cmd-tags.cc:325
+#: ../src/tags/gnome-cmd-tags.cc:326
 msgid "Recommended buffer size."
 msgstr "Gomendatutako buffer-tamaina."
 
-#: ../src/tags/gnome-cmd-tags.cc:326
+#: ../src/tags/gnome-cmd-tags.cc:327
 msgid "CD ID"
 msgstr "CD IDa"
 
-#: ../src/tags/gnome-cmd-tags.cc:326
+#: ../src/tags/gnome-cmd-tags.cc:327
 msgid "Music CD identifier."
 msgstr "Musikako CDaren identifikatzailea."
 
-#: ../src/tags/gnome-cmd-tags.cc:327
+#: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial"
 msgstr "Iragarkia"
 
-#: ../src/tags/gnome-cmd-tags.cc:327
+#: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial frame."
 msgstr "Iragarkia eskaintzen duen markoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:328
+#: ../src/tags/gnome-cmd-tags.cc:329
 msgid "Composer"
 msgstr "Konpositorea"
 
-#: ../src/tags/gnome-cmd-tags.cc:328
+#: ../src/tags/gnome-cmd-tags.cc:329
 msgid "Composer."
 msgstr "Konpositorea."
 
-#: ../src/tags/gnome-cmd-tags.cc:329
+#: ../src/tags/gnome-cmd-tags.cc:330
 msgid "Conductor"
 msgstr "Zuzendaria"
 
-#: ../src/tags/gnome-cmd-tags.cc:329
+#: ../src/tags/gnome-cmd-tags.cc:330
 msgid "Conductor."
 msgstr "Zuzendaria."
 
-#: ../src/tags/gnome-cmd-tags.cc:330
+#: ../src/tags/gnome-cmd-tags.cc:331
 msgid "Content Group"
 msgstr "Edukiaren taldea"
 
-#: ../src/tags/gnome-cmd-tags.cc:330
+#: ../src/tags/gnome-cmd-tags.cc:331
 msgid "Content group description."
 msgstr "Edukiaren taldearen azalpena."
 
-#: ../src/tags/gnome-cmd-tags.cc:331
+#: ../src/tags/gnome-cmd-tags.cc:332
 msgid "Content Type"
 msgstr "Eduki mota"
 
-#: ../src/tags/gnome-cmd-tags.cc:333
+#: ../src/tags/gnome-cmd-tags.cc:334
 msgid "Encryption Registration"
 msgstr "Enkriptazioa erregistratzea"
 
-#: ../src/tags/gnome-cmd-tags.cc:333
+#: ../src/tags/gnome-cmd-tags.cc:334
 msgid "Encryption method registration."
 msgstr "Enkriptazioa erregistratzeko metodoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:334
+#: ../src/tags/gnome-cmd-tags.cc:335
 msgid "Date."
 msgstr "Data."
 
-#: ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/tags/gnome-cmd-tags.cc:336
 msgid "Emphasis"
 msgstr "Enfasia"
 
-#: ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/tags/gnome-cmd-tags.cc:336
 msgid "Emphasis."
 msgstr "Enfasia."
 
-#: ../src/tags/gnome-cmd-tags.cc:336
+#: ../src/tags/gnome-cmd-tags.cc:337
 msgid "Encoded By"
 msgstr "Kodeketa: "
 
-#: ../src/tags/gnome-cmd-tags.cc:336
+#: ../src/tags/gnome-cmd-tags.cc:337
 msgid ""
 "Person or organisation that encoded the audio file. This field may contain a "
 "copyright message, if the audio file also is copyrighted by the encoder."
@@ -4878,569 +4876,557 @@ msgstr ""
 "Audioko fitxategia kodetu duen pertsona edo erakundea. Eremu honek copyright-"
 "aren mezua eduki dezake, audioko fitxategiaren copyright-a kodetzaileak badu."
 
-#: ../src/tags/gnome-cmd-tags.cc:337
+#: ../src/tags/gnome-cmd-tags.cc:338
 msgid "Encoder Settings"
 msgstr "Kodetzailearen ezarpenak"
 
-#: ../src/tags/gnome-cmd-tags.cc:337
+#: ../src/tags/gnome-cmd-tags.cc:338
 msgid "Software."
 msgstr "Softwarea."
 
-#: ../src/tags/gnome-cmd-tags.cc:338
+#: ../src/tags/gnome-cmd-tags.cc:339
 msgid "Encoding Time"
 msgstr "Kodeketa denbora"
 
-#: ../src/tags/gnome-cmd-tags.cc:338
+#: ../src/tags/gnome-cmd-tags.cc:339
 msgid "Encoding time."
 msgstr "Kodeketa ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:339
+#: ../src/tags/gnome-cmd-tags.cc:340
 msgid "Equalization"
 msgstr "Ekualizazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:339
+#: ../src/tags/gnome-cmd-tags.cc:340
 msgid "Equalization."
 msgstr "Ekualizazioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:340
+#: ../src/tags/gnome-cmd-tags.cc:341
 msgid "Equalization 2"
 msgstr "2. ekualizazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:340
+#: ../src/tags/gnome-cmd-tags.cc:341
 msgid "Equalisation curve predifine within the audio file."
 msgstr "Audioko fitxategian auredefinitutako ekualizazio-kurba."
 
-#: ../src/tags/gnome-cmd-tags.cc:341
+#: ../src/tags/gnome-cmd-tags.cc:342
 msgid "Event Timing"
 msgstr "Gertaera kronometrajea"
 
-#: ../src/tags/gnome-cmd-tags.cc:341
+#: ../src/tags/gnome-cmd-tags.cc:342
 msgid "Event timing codes."
 msgstr "Gertaeraren kronometrajearen kodeak."
 
-#: ../src/tags/gnome-cmd-tags.cc:342
+#: ../src/tags/gnome-cmd-tags.cc:343
 msgid "File Owner"
 msgstr "Fitxategiaren jabea"
 
-#: ../src/tags/gnome-cmd-tags.cc:342
+#: ../src/tags/gnome-cmd-tags.cc:343
 msgid "File owner."
 msgstr "Fitxategiaren jabea."
 
-#: ../src/tags/gnome-cmd-tags.cc:343
+#: ../src/tags/gnome-cmd-tags.cc:344
 msgid "File Type"
 msgstr "Fitxategi mota"
 
-#: ../src/tags/gnome-cmd-tags.cc:343
+#: ../src/tags/gnome-cmd-tags.cc:344
 msgid "File type."
 msgstr "Fitxategi mota."
 
-#: ../src/tags/gnome-cmd-tags.cc:344
+#: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Frames"
 msgstr "Markoak"
 
-#: ../src/tags/gnome-cmd-tags.cc:344
+#: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Number of frames."
 msgstr "Marko kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:345
+#: ../src/tags/gnome-cmd-tags.cc:346
 msgid "General Object"
 msgstr "Objektu orokorra"
 
-#: ../src/tags/gnome-cmd-tags.cc:345
+#: ../src/tags/gnome-cmd-tags.cc:346
 msgid "General encapsulated object."
 msgstr "Kapsulatutako objektu orokorra."
 
-#: ../src/tags/gnome-cmd-tags.cc:346
+#: ../src/tags/gnome-cmd-tags.cc:347
 msgid "Grouping Registration"
 msgstr "Erregistratzea elkartzea"
 
-#: ../src/tags/gnome-cmd-tags.cc:346
+#: ../src/tags/gnome-cmd-tags.cc:347
 msgid "Group identification registration."
 msgstr "Elkartu  erregistratzearen identifikazioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:347
+#: ../src/tags/gnome-cmd-tags.cc:348
 msgid "Initial Key"
 msgstr "Hasierako gakoa"
 
-#: ../src/tags/gnome-cmd-tags.cc:347
+#: ../src/tags/gnome-cmd-tags.cc:348
 msgid "Initial key."
 msgstr "Hasierako gakoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:348
+#: ../src/tags/gnome-cmd-tags.cc:349
 msgid "Involved People"
 msgstr "Partaideak"
 
-#: ../src/tags/gnome-cmd-tags.cc:348 ../src/tags/gnome-cmd-tags.cc:349
+#: ../src/tags/gnome-cmd-tags.cc:349 ../src/tags/gnome-cmd-tags.cc:350
 msgid "Involved people list."
 msgstr "Partaideen zerrenda."
 
-#: ../src/tags/gnome-cmd-tags.cc:349
+#: ../src/tags/gnome-cmd-tags.cc:350
 msgid "InvolvedPeople2"
 msgstr "2. partaideak"
 
-#: ../src/tags/gnome-cmd-tags.cc:350
+#: ../src/tags/gnome-cmd-tags.cc:351
 msgid "Language."
 msgstr "Hizkuntza."
 
-#: ../src/tags/gnome-cmd-tags.cc:351
+#: ../src/tags/gnome-cmd-tags.cc:352
 msgid "Linked Info"
 msgstr "Estekatutako informazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:351
+#: ../src/tags/gnome-cmd-tags.cc:352
 msgid "Linked information."
 msgstr "Estekatutako informazioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:352
+#: ../src/tags/gnome-cmd-tags.cc:353
 msgid "Lyricist"
 msgstr "Idazlea"
 
-#: ../src/tags/gnome-cmd-tags.cc:352
+#: ../src/tags/gnome-cmd-tags.cc:353
 msgid "Lyricist."
 msgstr "Idazlea."
 
-#: ../src/tags/gnome-cmd-tags.cc:353
+#: ../src/tags/gnome-cmd-tags.cc:354
 msgid "Media Type"
 msgstr "Multimedia mota"
 
-#: ../src/tags/gnome-cmd-tags.cc:353
+#: ../src/tags/gnome-cmd-tags.cc:354
 msgid "Media type."
 msgstr "Multimedia mota."
 
-#: ../src/tags/gnome-cmd-tags.cc:354
+#: ../src/tags/gnome-cmd-tags.cc:355
 msgid "Mix Artist"
 msgstr "Artista"
 
-#: ../src/tags/gnome-cmd-tags.cc:354
+#: ../src/tags/gnome-cmd-tags.cc:355
 msgid "Interpreted, remixed, or otherwise modified by."
 msgstr "Interpretatu, nahastu edo bestelako aldaketak egin dituena."
 
-#: ../src/tags/gnome-cmd-tags.cc:355
+#: ../src/tags/gnome-cmd-tags.cc:356
 msgid "Mood"
 msgstr "Umorea"
 
-#: ../src/tags/gnome-cmd-tags.cc:355
+#: ../src/tags/gnome-cmd-tags.cc:356
 msgid "Mood."
 msgstr "Umorea."
 
-#: ../src/tags/gnome-cmd-tags.cc:356
+#: ../src/tags/gnome-cmd-tags.cc:357
 msgid "MPEG Lookup"
 msgstr "MPEG bilaketa"
 
-#: ../src/tags/gnome-cmd-tags.cc:356
+#: ../src/tags/gnome-cmd-tags.cc:357
 msgid "MPEG location lookup table."
 msgstr "MPEG kokalekuaren bilaketa-taula"
 
-#: ../src/tags/gnome-cmd-tags.cc:357
+#: ../src/tags/gnome-cmd-tags.cc:358
 msgid "Musician Credit List"
 msgstr "Musikarien zerrenda"
 
-#: ../src/tags/gnome-cmd-tags.cc:357
+#: ../src/tags/gnome-cmd-tags.cc:358
 msgid "Musician credits list."
 msgstr "Musikarien zerrenda."
 
-#: ../src/tags/gnome-cmd-tags.cc:358
+#: ../src/tags/gnome-cmd-tags.cc:359
 msgid "Net Radio Owner"
 msgstr "Sareko irratiaren jabea"
 
-#: ../src/tags/gnome-cmd-tags.cc:358
+#: ../src/tags/gnome-cmd-tags.cc:359
 msgid "Internet radio station owner."
 msgstr "Interneteko irratiaren jabea."
 
-#: ../src/tags/gnome-cmd-tags.cc:359
+#: ../src/tags/gnome-cmd-tags.cc:360
 msgid "Net Radiostation"
 msgstr "Sareko irratia"
 
-#: ../src/tags/gnome-cmd-tags.cc:359
+#: ../src/tags/gnome-cmd-tags.cc:360
 msgid "Internet radio station name."
 msgstr "Interneteko irratiaren izena."
 
-#: ../src/tags/gnome-cmd-tags.cc:360
+#: ../src/tags/gnome-cmd-tags.cc:361
 msgid "Original Album"
 msgstr "Jatorrizko albuma"
 
-#: ../src/tags/gnome-cmd-tags.cc:360
+#: ../src/tags/gnome-cmd-tags.cc:361
 msgid "Original album."
 msgstr "Jatorrizko albuma."
 
-#: ../src/tags/gnome-cmd-tags.cc:361
+#: ../src/tags/gnome-cmd-tags.cc:362
 msgid "Original Artist"
 msgstr "Jatorrizko artista"
 
-#: ../src/tags/gnome-cmd-tags.cc:361
+#: ../src/tags/gnome-cmd-tags.cc:362
 msgid "Original artist."
 msgstr "Jatorrizko artista."
 
-#: ../src/tags/gnome-cmd-tags.cc:362
+#: ../src/tags/gnome-cmd-tags.cc:363
 msgid "Original File Name"
 msgstr "Jatorrizko fitxategi-izena"
 
-#: ../src/tags/gnome-cmd-tags.cc:362
+#: ../src/tags/gnome-cmd-tags.cc:363
 msgid "Original filename."
 msgstr "Jatorrizko fitxategi-izena."
 
-#: ../src/tags/gnome-cmd-tags.cc:363
+#: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Original Lyricist"
 msgstr "Jatorrizko idazlea"
 
-#: ../src/tags/gnome-cmd-tags.cc:363
+#: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Original lyricist."
 msgstr "Jatorrizko letraren idazlea."
 
-#: ../src/tags/gnome-cmd-tags.cc:364
+#: ../src/tags/gnome-cmd-tags.cc:365
 msgid "Original Release Time"
 msgstr "Jatorrizko kaleraketaren ordua"
 
-#: ../src/tags/gnome-cmd-tags.cc:364
+#: ../src/tags/gnome-cmd-tags.cc:365
 msgid "Original release time."
 msgstr "Jatorrizko kaleraketaren ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:365
+#: ../src/tags/gnome-cmd-tags.cc:366
 msgid "Original Year"
 msgstr "Jatorrizko urtea"
 
-#: ../src/tags/gnome-cmd-tags.cc:365
+#: ../src/tags/gnome-cmd-tags.cc:366
 msgid "Original release year."
 msgstr "Kaleratu zen jatorrizko urtea."
 
-#: ../src/tags/gnome-cmd-tags.cc:366
+#: ../src/tags/gnome-cmd-tags.cc:367
 msgid "Ownership"
 msgstr "Jabegoa"
 
-#: ../src/tags/gnome-cmd-tags.cc:366
+#: ../src/tags/gnome-cmd-tags.cc:367
 msgid "Ownership frame."
 msgstr "Markoaren jabegoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:367
+#: ../src/tags/gnome-cmd-tags.cc:368
 msgid "Part of a Set"
 msgstr "Multzoaren zatia"
 
-#: ../src/tags/gnome-cmd-tags.cc:367
+#: ../src/tags/gnome-cmd-tags.cc:368
 msgid "Part of a set the audio came from."
 msgstr "Audioa datorren multzoaren zati bat."
 
-#: ../src/tags/gnome-cmd-tags.cc:368
+#: ../src/tags/gnome-cmd-tags.cc:369
 msgid "Performer Sort Order"
 msgstr "Artisten ordena"
 
-#: ../src/tags/gnome-cmd-tags.cc:368
+#: ../src/tags/gnome-cmd-tags.cc:369
 msgid "Performer sort order."
 msgstr "Artisten ordena."
 
-#: ../src/tags/gnome-cmd-tags.cc:369
+#: ../src/tags/gnome-cmd-tags.cc:370
 msgid "Picture"
 msgstr "Argazkia"
 
-#: ../src/tags/gnome-cmd-tags.cc:369
+#: ../src/tags/gnome-cmd-tags.cc:370
 msgid "Attached picture."
 msgstr "Erantsiatko argazkia."
 
-#: ../src/tags/gnome-cmd-tags.cc:370
+#: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Play Counter"
 msgstr "Erreprodukzio kopurua"
 
-#: ../src/tags/gnome-cmd-tags.cc:370
+#: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Number of times a file has been played."
 msgstr "Fitxategia erreproduzitu den aldien kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:371
+#: ../src/tags/gnome-cmd-tags.cc:372
 msgid "Playlist Delay"
 msgstr "Erreprodukzio-zerrendaren atzerapena"
 
-#: ../src/tags/gnome-cmd-tags.cc:371
+#: ../src/tags/gnome-cmd-tags.cc:372
 msgid "Playlist delay."
 msgstr "Erreprodukzio-zerrendaren atzerapena."
 
-#: ../src/tags/gnome-cmd-tags.cc:372
+#: ../src/tags/gnome-cmd-tags.cc:373
 msgid "Popularimeter"
 msgstr "Balorazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:372
+#: ../src/tags/gnome-cmd-tags.cc:373
 msgid "Rating of the audio file."
 msgstr "Audioko fitxategien balorazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:373
+#: ../src/tags/gnome-cmd-tags.cc:374
 msgid "Position Sync"
 msgstr "Sinkr. posizioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:373
+#: ../src/tags/gnome-cmd-tags.cc:374
 msgid "Position synchronisation frame."
 msgstr "Sinkronizazio-markoaren posizioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:374
+#: ../src/tags/gnome-cmd-tags.cc:375
 msgid "Private"
 msgstr "Pribatua"
 
-#: ../src/tags/gnome-cmd-tags.cc:374
+#: ../src/tags/gnome-cmd-tags.cc:375
 msgid "Private frame."
 msgstr "Marko pribatua."
 
-#: ../src/tags/gnome-cmd-tags.cc:375
+#: ../src/tags/gnome-cmd-tags.cc:376
 msgid "Produced Notice"
 msgstr "Sortutako oharra"
 
-#: ../src/tags/gnome-cmd-tags.cc:375
+#: ../src/tags/gnome-cmd-tags.cc:376
 msgid "Produced notice."
 msgstr "Sortutako oharra."
 
-#: ../src/tags/gnome-cmd-tags.cc:376
+#: ../src/tags/gnome-cmd-tags.cc:377
 msgid "Publisher."
 msgstr "Argitaratzailea."
 
-#: ../src/tags/gnome-cmd-tags.cc:377
+#: ../src/tags/gnome-cmd-tags.cc:378
 msgid "Recording Dates"
 msgstr "Grabazioaren data"
 
-#: ../src/tags/gnome-cmd-tags.cc:377
+#: ../src/tags/gnome-cmd-tags.cc:378
 msgid "Recording dates."
 msgstr "Grabazioaren data."
 
-#: ../src/tags/gnome-cmd-tags.cc:378
+#: ../src/tags/gnome-cmd-tags.cc:379
 msgid "Recording Time"
 msgstr "Grabazioaren denbora"
 
-#: ../src/tags/gnome-cmd-tags.cc:378
+#: ../src/tags/gnome-cmd-tags.cc:379
 msgid "Recording time."
 msgstr "Grabazioaren denbora."
 
-#: ../src/tags/gnome-cmd-tags.cc:379 ../src/tags/gnome-cmd-tags.cc:491
+#: ../src/tags/gnome-cmd-tags.cc:380 ../src/tags/gnome-cmd-tags.cc:492
 msgid "Release Time"
 msgstr "Kaleraketaren ordua"
 
-#: ../src/tags/gnome-cmd-tags.cc:379
+#: ../src/tags/gnome-cmd-tags.cc:380
 msgid "Release time."
 msgstr "Kaleraketaren ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:380
+#: ../src/tags/gnome-cmd-tags.cc:381
 msgid "Reverb"
 msgstr "Ohiartzuna"
 
-#: ../src/tags/gnome-cmd-tags.cc:380
+#: ../src/tags/gnome-cmd-tags.cc:381
 msgid "Reverb."
 msgstr "Ohiartzuna."
 
-#: ../src/tags/gnome-cmd-tags.cc:381
+#: ../src/tags/gnome-cmd-tags.cc:382
 msgid "Set Subtitle"
 msgstr "Ezarri azpititulua"
 
-#: ../src/tags/gnome-cmd-tags.cc:381
+#: ../src/tags/gnome-cmd-tags.cc:382
 msgid "Subtitle of the part of a set this track belongs to."
 msgstr "Multzoaren zatiko pistaren  azpititulua."
 
-#: ../src/tags/gnome-cmd-tags.cc:382
+#: ../src/tags/gnome-cmd-tags.cc:383
 msgid "Signature"
 msgstr "Sinadura"
 
-#: ../src/tags/gnome-cmd-tags.cc:382
+#: ../src/tags/gnome-cmd-tags.cc:383
 msgid "Signature frame."
 msgstr "Sinaduraren markoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:383
+#: ../src/tags/gnome-cmd-tags.cc:384
 msgid "Size of the audio file in bytes, excluding the ID3 tag."
 msgstr "Audioko fitxategiaren tamaina, ID3 etiketa baztertuz."
 
-#: ../src/tags/gnome-cmd-tags.cc:384
+#: ../src/tags/gnome-cmd-tags.cc:385
 msgid "Song length"
 msgstr "Kantaren iraupena"
 
-#: ../src/tags/gnome-cmd-tags.cc:384
+#: ../src/tags/gnome-cmd-tags.cc:385
 msgid "Length of the song in milliseconds."
 msgstr "Kantaren iraupena milisegundotan."
 
-#: ../src/tags/gnome-cmd-tags.cc:385
+#: ../src/tags/gnome-cmd-tags.cc:386
 msgid "Subtitle"
 msgstr "Azpititulua"
 
-#: ../src/tags/gnome-cmd-tags.cc:385
+#: ../src/tags/gnome-cmd-tags.cc:386
 msgid "Subtitle."
 msgstr "Azpititulua."
 
-#: ../src/tags/gnome-cmd-tags.cc:386
+#: ../src/tags/gnome-cmd-tags.cc:387
 msgid "Syncedlyrics"
 msgstr "Hitz sinkr."
 
-#: ../src/tags/gnome-cmd-tags.cc:386
+#: ../src/tags/gnome-cmd-tags.cc:387
 msgid "Synchronized lyric."
 msgstr "Hitz sinkronizatuak."
 
-#: ../src/tags/gnome-cmd-tags.cc:387
+#: ../src/tags/gnome-cmd-tags.cc:388
 msgid "Synchronized Tempo"
 msgstr "Konpas sinkronizatua"
 
-#: ../src/tags/gnome-cmd-tags.cc:387
+#: ../src/tags/gnome-cmd-tags.cc:388
 msgid "Synchronized tempo codes."
 msgstr "Konpas sinkronizatuaren kodeak."
 
-#: ../src/tags/gnome-cmd-tags.cc:388
+#: ../src/tags/gnome-cmd-tags.cc:389
 msgid "Tagging Time"
 msgstr "Etiketaren ordua"
 
-#: ../src/tags/gnome-cmd-tags.cc:388
+#: ../src/tags/gnome-cmd-tags.cc:389
 msgid "Tagging time."
 msgstr "Etiketaren ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:389
+#: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Terms Of Use"
 msgstr "Erabiltzeko baldintzak"
 
-#: ../src/tags/gnome-cmd-tags.cc:389
+#: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Terms of use."
 msgstr "Erabiltzeko baldintzak."
 
-#: ../src/tags/gnome-cmd-tags.cc:390
+#: ../src/tags/gnome-cmd-tags.cc:391
 msgid "Time"
 msgstr "Ordua"
 
-#: ../src/tags/gnome-cmd-tags.cc:390
+#: ../src/tags/gnome-cmd-tags.cc:391
 msgid "Time."
 msgstr "Ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:391
+#: ../src/tags/gnome-cmd-tags.cc:392
 msgid "Titlesortorder"
 msgstr "Titulu ordena"
 
-#: ../src/tags/gnome-cmd-tags.cc:391
+#: ../src/tags/gnome-cmd-tags.cc:392
 msgid "Title sort order."
 msgstr "Tituluen ordena."
 
-#: ../src/tags/gnome-cmd-tags.cc:392
+#: ../src/tags/gnome-cmd-tags.cc:393
 msgid "Unique File ID"
 msgstr "Fitxategiaren ID esklusiboa"
 
-#: ../src/tags/gnome-cmd-tags.cc:392
+#: ../src/tags/gnome-cmd-tags.cc:393
 msgid "Unique file identifier."
 msgstr "Fitxategiaren identifikatzaile esklusiboa."
 
-#: ../src/tags/gnome-cmd-tags.cc:393
+#: ../src/tags/gnome-cmd-tags.cc:394
 msgid "Unsynchronized Lyrics"
 msgstr "Sinkronizatu gabeko hitzak"
 
-#: ../src/tags/gnome-cmd-tags.cc:393
+#: ../src/tags/gnome-cmd-tags.cc:394
 msgid "Unsynchronized lyric."
 msgstr "Sinkronizatu gabeko hitzak."
 
-#: ../src/tags/gnome-cmd-tags.cc:394
+#: ../src/tags/gnome-cmd-tags.cc:395
 msgid "User Text"
 msgstr "Erabiltzailearen testua"
 
-#: ../src/tags/gnome-cmd-tags.cc:394
+#: ../src/tags/gnome-cmd-tags.cc:395
 msgid "User defined text information."
 msgstr "Erabiltzailearen informazioaren testua."
 
-#: ../src/tags/gnome-cmd-tags.cc:395
+#: ../src/tags/gnome-cmd-tags.cc:396
 msgid "Volume Adjustment"
 msgstr "Bolumena doitzea"
 
-#: ../src/tags/gnome-cmd-tags.cc:395 ../src/tags/gnome-cmd-tags.cc:396
+#: ../src/tags/gnome-cmd-tags.cc:396 ../src/tags/gnome-cmd-tags.cc:397
 msgid "Relative volume adjustment."
 msgstr "Bolumena doitzeari buruzkoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:396
+#: ../src/tags/gnome-cmd-tags.cc:397
 msgid "Volume Adjustment 2"
 msgstr "2. bolumena doitzea"
 
-#: ../src/tags/gnome-cmd-tags.cc:397
+#: ../src/tags/gnome-cmd-tags.cc:398
 msgid "WWW Artist"
 msgstr "WWW artista"
 
-#: ../src/tags/gnome-cmd-tags.cc:397
+#: ../src/tags/gnome-cmd-tags.cc:398
 msgid "Official artist."
 msgstr "Artista ofiziala."
 
-#: ../src/tags/gnome-cmd-tags.cc:398
+#: ../src/tags/gnome-cmd-tags.cc:399
 msgid "WWW Audio File"
 msgstr "WWW audioko fitxategia"
 
-#: ../src/tags/gnome-cmd-tags.cc:398
+#: ../src/tags/gnome-cmd-tags.cc:399
 msgid "Official audio file webpage."
 msgstr "Audioko fitxategiaren web gune ofiziala."
 
-#: ../src/tags/gnome-cmd-tags.cc:399
+#: ../src/tags/gnome-cmd-tags.cc:400
 msgid "WWW Audio Source"
 msgstr "WWW audioaren iturburua"
 
-#: ../src/tags/gnome-cmd-tags.cc:399
+#: ../src/tags/gnome-cmd-tags.cc:400
 msgid "Official audio source webpage."
 msgstr "Audioaren iturburuaren web gune ofiziala."
 
-#: ../src/tags/gnome-cmd-tags.cc:400
+#: ../src/tags/gnome-cmd-tags.cc:401
 msgid "WWW Commercial Info"
 msgstr "WWW iragarkiaren informazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:400
+#: ../src/tags/gnome-cmd-tags.cc:401
 msgid "URL pointing at a webpage containing commercial information."
 msgstr "Iragarkiaren informazioa duen web gunearen URLa."
 
-#: ../src/tags/gnome-cmd-tags.cc:401
+#: ../src/tags/gnome-cmd-tags.cc:402
 msgid "WWW Copyright"
 msgstr "WWW Copyright-a"
 
-#: ../src/tags/gnome-cmd-tags.cc:401
+#: ../src/tags/gnome-cmd-tags.cc:402
 msgid "URL pointing at a webpage that holds copyright."
 msgstr "Copyright-a azaltzen duen web gunearen URLa."
 
-#: ../src/tags/gnome-cmd-tags.cc:402
+#: ../src/tags/gnome-cmd-tags.cc:403
 msgid "WWW Payment"
 msgstr "WWW ordainketa"
 
-#: ../src/tags/gnome-cmd-tags.cc:402
+#: ../src/tags/gnome-cmd-tags.cc:403
 msgid ""
 "URL pointing at a webpage that will handle the process of paying for this "
 "file."
 msgstr "Fitxategi honen ordainketa prozesua kudeatzen duen web gunearen URLa."
 
-#: ../src/tags/gnome-cmd-tags.cc:403
+#: ../src/tags/gnome-cmd-tags.cc:404
 msgid "WWW Publisher"
 msgstr "WWW argitaratzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:403
+#: ../src/tags/gnome-cmd-tags.cc:404
 msgid "URL pointing at the official webpage for the publisher."
 msgstr "Argitaratzailearen web gune ofizialaren URLa."
 
-#: ../src/tags/gnome-cmd-tags.cc:404
+#: ../src/tags/gnome-cmd-tags.cc:405
 msgid "WWW Radio Page"
 msgstr "WWW irratia"
 
-#: ../src/tags/gnome-cmd-tags.cc:404
+#: ../src/tags/gnome-cmd-tags.cc:405
 msgid "Official internet radio station homepage."
 msgstr "Interneteko irratiaren web gune ofiziala."
 
-#: ../src/tags/gnome-cmd-tags.cc:405
+#: ../src/tags/gnome-cmd-tags.cc:406
 msgid "WWW User"
 msgstr "WWW erabiltzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:405
+#: ../src/tags/gnome-cmd-tags.cc:406
 msgid "User defined URL link."
 msgstr "Erabiltzaileak definitutako URL esteka."
 
-#: ../src/tags/gnome-cmd-tags.cc:406
+#: ../src/tags/gnome-cmd-tags.cc:407
 msgid "Name of an album the image belongs to."
 msgstr "Irudia dagokion albumaren izena."
 
-#: ../src/tags/gnome-cmd-tags.cc:407
-msgid "Make"
-msgstr "Egin"
-
-#: ../src/tags/gnome-cmd-tags.cc:407
-msgid "Make of camera used to take the image."
-msgstr "Argazkia kapturatzeko erabili den kameraren marka."
-
-#: ../src/tags/gnome-cmd-tags.cc:408
-msgid "Model of camera used to take the image."
-msgstr "Argazkia kapturatzeko erabilitako kameraren modeloa."
-
-#: ../src/tags/gnome-cmd-tags.cc:410
+#: ../src/tags/gnome-cmd-tags.cc:409
 msgid "Embedded copyright message."
 msgstr "Kapsulatutako copyright-aren mezua."
 
-#: ../src/tags/gnome-cmd-tags.cc:412
+#: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Datetime image was originally created."
 msgstr "Jatorrizko irudiaren sorrera-data."
 
-#: ../src/tags/gnome-cmd-tags.cc:413
+#: ../src/tags/gnome-cmd-tags.cc:412
 msgid "Description of the image."
 msgstr "Irudiaren azalpena."
 
-#: ../src/tags/gnome-cmd-tags.cc:414
+#: ../src/tags/gnome-cmd-tags.cc:413
 msgid ""
 "The program used by the camera to set exposure when the picture is taken. EG "
 "Manual, Normal, Aperture priority etc."
@@ -5448,31 +5434,32 @@ msgstr ""
 "Kamerak erabilitako program esposizioa ezartzeko argazkia kapturatzean. "
 "Adib. eskuz, normala. irekieraren lehentssuna, e.a."
 
-#: ../src/tags/gnome-cmd-tags.cc:415
+#: ../src/tags/gnome-cmd-tags.cc:414
 msgid "Exposure time used to capture the photo in seconds."
-msgstr "Argazkia kapturatzean erabilitako esposizioaren denbora milisegundotan."
+msgstr ""
+"Argazkia kapturatzean erabilitako esposizioaren denbora milisegundotan."
 
-#: ../src/tags/gnome-cmd-tags.cc:416
+#: ../src/tags/gnome-cmd-tags.cc:415
 msgid "Set to \"1\" if flash was fired."
 msgstr "Ezarri \"1\" balioarekin flasha erabili bazen."
 
-#: ../src/tags/gnome-cmd-tags.cc:418
+#: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Focal length of lens in mm."
 msgstr "Lenteen fokuaren luzera milimetrotan (mm)."
 
-#: ../src/tags/gnome-cmd-tags.cc:419
+#: ../src/tags/gnome-cmd-tags.cc:418
 msgid "Height"
 msgstr "Altuera"
 
-#: ../src/tags/gnome-cmd-tags.cc:419
+#: ../src/tags/gnome-cmd-tags.cc:418
 msgid "Height in pixels."
 msgstr "Altuera pixeletan."
 
-#: ../src/tags/gnome-cmd-tags.cc:420
+#: ../src/tags/gnome-cmd-tags.cc:419
 msgid "ISO Speed"
 msgstr "ISO abiadura"
 
-#: ../src/tags/gnome-cmd-tags.cc:420
+#: ../src/tags/gnome-cmd-tags.cc:419
 msgid ""
 "ISO speed used to acquire the document contents. For example, 100, 200, 400, "
 "etc."
@@ -5480,9 +5467,17 @@ msgstr ""
 "Erabilitako ISO abiadura dokumentuaren edukia eskuratzeko. Adibidez, 100, "
 "200, 400, e.a."
 
-#: ../src/tags/gnome-cmd-tags.cc:421
+#: ../src/tags/gnome-cmd-tags.cc:420
 msgid "String of keywords."
 msgstr "Gako-hitzen katea."
+
+#: ../src/tags/gnome-cmd-tags.cc:421
+msgid "Make"
+msgstr "Egin"
+
+#: ../src/tags/gnome-cmd-tags.cc:421
+msgid "Make of camera used to take the image."
+msgstr "Argazkia kapturatzeko erabili den kameraren marka."
 
 #: ../src/tags/gnome-cmd-tags.cc:422
 msgid ""
@@ -5494,6 +5489,10 @@ msgstr ""
 "partziala"
 
 #: ../src/tags/gnome-cmd-tags.cc:423
+msgid "Model of camera used to take the image."
+msgstr "Argazkia kapturatzeko erabilitako kameraren modeloa."
+
+#: ../src/tags/gnome-cmd-tags.cc:424
 msgid ""
 "Represents the orientation of the image wrt camera (IE \"top,left\" or "
 "\"bottom,right\")."
@@ -5501,15 +5500,15 @@ msgstr ""
 "Kameraren wrt irudiaren orizentazioa adierazten du. Adib. \"goian, ezkerrean"
 "\" edo \"behean, eskuinean\"."
 
-#: ../src/tags/gnome-cmd-tags.cc:424
+#: ../src/tags/gnome-cmd-tags.cc:425
 msgid "Software used to produce/enhance the image."
 msgstr "Irudia ekoizteko/hobetzeko erabilitako softwarea."
 
-#: ../src/tags/gnome-cmd-tags.cc:425
+#: ../src/tags/gnome-cmd-tags.cc:426
 msgid "Title of image."
 msgstr "Irudiaren titulua."
 
-#: ../src/tags/gnome-cmd-tags.cc:426
+#: ../src/tags/gnome-cmd-tags.cc:427
 msgid ""
 "White balance setting of the camera when the picture was taken (auto or "
 "manual)."
@@ -5517,19 +5516,19 @@ msgstr ""
 "Kameraren zuri-balantzearen ezarpena argazkia kapturatzean (automatikoa edo "
 "eskuzkoa)."
 
-#: ../src/tags/gnome-cmd-tags.cc:427
+#: ../src/tags/gnome-cmd-tags.cc:428
 msgid "Width"
 msgstr "Zabalera"
 
-#: ../src/tags/gnome-cmd-tags.cc:427
+#: ../src/tags/gnome-cmd-tags.cc:428
 msgid "Width in pixels."
 msgstr "Zabalera pixeletan."
 
-#: ../src/tags/gnome-cmd-tags.cc:428
+#: ../src/tags/gnome-cmd-tags.cc:429
 msgid "Action Advised"
 msgstr "Ekintza jakinarazia"
 
-#: ../src/tags/gnome-cmd-tags.cc:428
+#: ../src/tags/gnome-cmd-tags.cc:429
 msgid ""
 "The type of action that this object provides to a previous object. '01' "
 "Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
@@ -5538,67 +5537,68 @@ msgstr ""
 "hiltzea, '02' objektua ordeztea, '03' objektua eranstea, '04' objektua "
 "erreferentziatzea."
 
-#: ../src/tags/gnome-cmd-tags.cc:429
+#: ../src/tags/gnome-cmd-tags.cc:430
 msgid "ARM Identifier"
 msgstr "ARM identifikatzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:429
+#: ../src/tags/gnome-cmd-tags.cc:430
 msgid "Identifies the Abstract Relationship Method (ARM)."
 msgstr "Erlazio Abstraktuaren Metodoa (ARM) identifikatzen du."
 
-#: ../src/tags/gnome-cmd-tags.cc:430
+#: ../src/tags/gnome-cmd-tags.cc:431
 msgid "ARM Version"
 msgstr "ARM bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:430
+#: ../src/tags/gnome-cmd-tags.cc:431
 msgid "Identifies the version of the Abstract Relationship Method (ARM)."
 msgstr "Erlazio Abstraktuaren Metodoaren (ARM) bertsioan identifikatzen du."
 
-#: ../src/tags/gnome-cmd-tags.cc:431
+#: ../src/tags/gnome-cmd-tags.cc:432
 msgid "Audio Duration"
 msgstr "Audioaren iraupena"
 
-#: ../src/tags/gnome-cmd-tags.cc:431
+#: ../src/tags/gnome-cmd-tags.cc:432
 msgid "The running time of the audio data in the form HHMMSS."
 msgstr "Audioaren datuen exekuzio denbora, OOMMSS formatuan."
 
-#: ../src/tags/gnome-cmd-tags.cc:432
+#: ../src/tags/gnome-cmd-tags.cc:433
 msgid "Audio Outcue"
 msgstr "Audioaren amaierako seinalea"
 
-#: ../src/tags/gnome-cmd-tags.cc:432
+#: ../src/tags/gnome-cmd-tags.cc:433
 msgid "The content at the end of the audio data."
 msgstr "Audioaren datuen amaierako edukia."
 
-#: ../src/tags/gnome-cmd-tags.cc:433
+#: ../src/tags/gnome-cmd-tags.cc:434
 msgid "Audio Sampling Rate"
 msgstr "Audioaren lagin-maiztasuna"
 
-#: ../src/tags/gnome-cmd-tags.cc:433
+#: ../src/tags/gnome-cmd-tags.cc:434
 msgid "The sampling rate in Hz of the audio data."
 msgstr "Audioaren datuen laginketaren maiztasuna (Hz)."
 
-#: ../src/tags/gnome-cmd-tags.cc:434
+#: ../src/tags/gnome-cmd-tags.cc:435
 msgid "Audio Sampling Resolution"
 msgstr "Audioaren lagin-bereizmena"
 
-#: ../src/tags/gnome-cmd-tags.cc:434
+#: ../src/tags/gnome-cmd-tags.cc:435
 msgid "The number of bits in each audio sample."
 msgstr "Audioaren lagin bakoitzaren bit kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:435
+#: ../src/tags/gnome-cmd-tags.cc:436
 msgid "Audio Type"
 msgstr "Audio mota"
 
-#: ../src/tags/gnome-cmd-tags.cc:435
-msgid "The number of channels and type of audio (music, text, etc.) in the object."
+#: ../src/tags/gnome-cmd-tags.cc:436
+msgid ""
+"The number of channels and type of audio (music, text, etc.) in the object."
 msgstr "Objektuaren audioaren mode (musika, testua, e.a.) eta kanal kopurua."
 
-#: ../src/tags/gnome-cmd-tags.cc:436
+#: ../src/tags/gnome-cmd-tags.cc:437
 msgid "By-line"
 msgstr "Legenda"
 
-#: ../src/tags/gnome-cmd-tags.cc:436
+#: ../src/tags/gnome-cmd-tags.cc:437
 msgid ""
 "Name of the creator of the object, e.g. writer, photographer or graphic "
 "artist (multiple values allowed)."
@@ -5606,33 +5606,34 @@ msgstr ""
 "Objektuaren sortzailearen izena, adib. idazlea, argazkilaria edo artista "
 "grafikoa (hainbat balio erabil daitezke)."
 
-#: ../src/tags/gnome-cmd-tags.cc:437
+#: ../src/tags/gnome-cmd-tags.cc:438
 msgid "By-line Title"
 msgstr "Tituluaren legenda"
 
-#: ../src/tags/gnome-cmd-tags.cc:437
+#: ../src/tags/gnome-cmd-tags.cc:438
 msgid "Title of the creator or creators of the object."
 msgstr "Objektuaren sortzaileen titulua."
 
-#: ../src/tags/gnome-cmd-tags.cc:438
+#: ../src/tags/gnome-cmd-tags.cc:439
 msgid "Caption, Abstract"
 msgstr "Epigrafea, laburpena"
 
-#: ../src/tags/gnome-cmd-tags.cc:438
+#: ../src/tags/gnome-cmd-tags.cc:439
 msgid "A textual description of the data"
 msgstr "Datuen azalpena testu eran"
 
-#: ../src/tags/gnome-cmd-tags.cc:439
+#: ../src/tags/gnome-cmd-tags.cc:440
 msgid ""
 "Identifies the subject of the object in the opinion of the provider "
 "(Deprecated)."
-msgstr "Objektuaren gaia identifikatzen du hornitzailearen iritzian (zaharkitua)."
+msgstr ""
+"Objektuaren gaia identifikatzen du hornitzailearen iritzian (zaharkitua)."
 
-#: ../src/tags/gnome-cmd-tags.cc:440
+#: ../src/tags/gnome-cmd-tags.cc:441
 msgid "Coded Character Set"
 msgstr "Kodetutako karaktere-multzoa"
 
-#: ../src/tags/gnome-cmd-tags.cc:440
+#: ../src/tags/gnome-cmd-tags.cc:441
 msgid ""
 "Control functions used for the announcement, invocation or designation of "
 "coded character sets."
@@ -5640,27 +5641,27 @@ msgstr ""
 "Kodetutako karaktere-multzoa jakinarazteko, deitzeko edo izendatzeko erabili "
 "diren kontrol-funtzioak."
 
-#: ../src/tags/gnome-cmd-tags.cc:441
+#: ../src/tags/gnome-cmd-tags.cc:442
 msgid "City"
 msgstr "Herria"
 
-#: ../src/tags/gnome-cmd-tags.cc:441
+#: ../src/tags/gnome-cmd-tags.cc:442
 msgid "City of object origin."
 msgstr "Jatorrizko objektuaren herria."
 
-#: ../src/tags/gnome-cmd-tags.cc:442
+#: ../src/tags/gnome-cmd-tags.cc:443
 msgid "Confirmed Data Size"
 msgstr "Berretsitako datuen tamaina"
 
-#: ../src/tags/gnome-cmd-tags.cc:442
+#: ../src/tags/gnome-cmd-tags.cc:443
 msgid "Total size of the object data."
 msgstr "Objektuaren datuen tamaina osoa."
 
-#: ../src/tags/gnome-cmd-tags.cc:443 ../src/tags/gnome-cmd-tags.cc:506
+#: ../src/tags/gnome-cmd-tags.cc:444 ../src/tags/gnome-cmd-tags.cc:507
 msgid "Contact"
 msgstr "Kontaktua"
 
-#: ../src/tags/gnome-cmd-tags.cc:443
+#: ../src/tags/gnome-cmd-tags.cc:444
 msgid ""
 "The person or organization which can provide further background information "
 "on the object (multiple values allowed)."
@@ -5668,11 +5669,11 @@ msgstr ""
 "Objektuaren informazio gehigarria eman dezakeen pertsona eo erakundea "
 "(hainbat balio izan ditzake)."
 
-#: ../src/tags/gnome-cmd-tags.cc:444
+#: ../src/tags/gnome-cmd-tags.cc:445
 msgid "Content Location Code"
 msgstr "Kokalekuaren edukiaren kodea"
 
-#: ../src/tags/gnome-cmd-tags.cc:444
+#: ../src/tags/gnome-cmd-tags.cc:445
 msgid ""
 "Indicates the code of a country/geographical location referenced by the "
 "content of the object (multiple values allowed)."
@@ -5680,11 +5681,11 @@ msgstr ""
 "Objektuaren edukiak erreferentziatzen duen herrialdearen/geografiaren "
 "kokalekuaren kodea adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:445
+#: ../src/tags/gnome-cmd-tags.cc:446
 msgid "Content Location Name"
 msgstr "Kokalekuaren edukiaren izena"
 
-#: ../src/tags/gnome-cmd-tags.cc:445
+#: ../src/tags/gnome-cmd-tags.cc:446
 msgid ""
 "A full, publishable name of a country/geographical location referenced by "
 "the content of the object (multiple values allowed)."
@@ -5692,41 +5693,42 @@ msgstr ""
 "Objektuaren edukiak erreferentziatzen duen herrialdearen/geografiaren "
 "kokalekuaren izen osoa adierazten du (hainbat balio eduki ditzake)."
 
-#: ../src/tags/gnome-cmd-tags.cc:446
+#: ../src/tags/gnome-cmd-tags.cc:447
 msgid "Copyright Notice"
 msgstr "Copyright-aren oharra"
 
-#: ../src/tags/gnome-cmd-tags.cc:446
+#: ../src/tags/gnome-cmd-tags.cc:447
 msgid "Any necessary copyright notice."
 msgstr "Beharrezkoak diren copyright-aren edozein ohar."
 
-#: ../src/tags/gnome-cmd-tags.cc:447
+#: ../src/tags/gnome-cmd-tags.cc:448
 msgid "Country Code"
 msgstr "Estatuaren kodea"
 
-#: ../src/tags/gnome-cmd-tags.cc:447
+#: ../src/tags/gnome-cmd-tags.cc:448
 msgid "The code of the country/primary location where the object was created."
 msgstr "Objektua sortu zen lekuaren estatuaren edo kokaleku nagusiaren kodea."
 
-#: ../src/tags/gnome-cmd-tags.cc:448
+#: ../src/tags/gnome-cmd-tags.cc:449
 msgid "Country Name"
 msgstr "Estatuaren izena"
 
-#: ../src/tags/gnome-cmd-tags.cc:448
+#: ../src/tags/gnome-cmd-tags.cc:449
 msgid "The name of the country/primary location where the object was created."
 msgstr "Objektua sortu zen lekuaren estatuaren edo kokaleku nagusiaren izena."
 
-#: ../src/tags/gnome-cmd-tags.cc:449
+#: ../src/tags/gnome-cmd-tags.cc:450
 msgid "Credit"
 msgstr "Kreditua"
 
-#: ../src/tags/gnome-cmd-tags.cc:449
-msgid "Identifies the provider of the object, not necessarily the owner/creator."
+#: ../src/tags/gnome-cmd-tags.cc:450
+msgid ""
+"Identifies the provider of the object, not necessarily the owner/creator."
 msgstr ""
 "Objektuaren hornitzailea identifikatzen du, ez derrigorrez jabea edo "
 "sortzailea."
 
-#: ../src/tags/gnome-cmd-tags.cc:450
+#: ../src/tags/gnome-cmd-tags.cc:451
 msgid ""
 "The date the intellectual content of the object was created rather than the "
 "date of the creation of the physical representation."
@@ -5734,43 +5736,43 @@ msgstr ""
 "Objektuaren eduki intelektualaren sorrera-data, adierazpen fisikoaren "
 "sorrera-dataren ordez."
 
-#: ../src/tags/gnome-cmd-tags.cc:451
+#: ../src/tags/gnome-cmd-tags.cc:452
 msgid "Date Sent"
 msgstr "Bidaltze-data"
 
-#: ../src/tags/gnome-cmd-tags.cc:451
+#: ../src/tags/gnome-cmd-tags.cc:452
 msgid "The day the service sent the material."
 msgstr "Zerbitzuak materiala bidali zueneko data."
 
-#: ../src/tags/gnome-cmd-tags.cc:452
+#: ../src/tags/gnome-cmd-tags.cc:453
 msgid "Destination"
 msgstr "Helburua"
 
-#: ../src/tags/gnome-cmd-tags.cc:452
+#: ../src/tags/gnome-cmd-tags.cc:453
 msgid "Routing information."
 msgstr "Bideraketaren informazioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:453
+#: ../src/tags/gnome-cmd-tags.cc:454
 msgid "Digital Creation Date"
 msgstr "Sorrera digitalaren data"
 
-#: ../src/tags/gnome-cmd-tags.cc:453
+#: ../src/tags/gnome-cmd-tags.cc:454
 msgid "The date the digital representation of the object was created."
 msgstr "Objektuaren adierazpen digitala sortu zeneko data."
 
-#: ../src/tags/gnome-cmd-tags.cc:454
+#: ../src/tags/gnome-cmd-tags.cc:455
 msgid "Digital Creation Time"
 msgstr "Sorrera digitalaren ordua"
 
-#: ../src/tags/gnome-cmd-tags.cc:454
+#: ../src/tags/gnome-cmd-tags.cc:455
 msgid "The time the digital representation of the object was created."
 msgstr "Objektuaren adierazpen digitala sortu zeneko ordua."
 
-#: ../src/tags/gnome-cmd-tags.cc:455
+#: ../src/tags/gnome-cmd-tags.cc:456
 msgid "Editorial Update"
 msgstr "Eguneraketa editoriala"
 
-#: ../src/tags/gnome-cmd-tags.cc:455
+#: ../src/tags/gnome-cmd-tags.cc:456
 msgid ""
 "Indicates the type of update this object provides to a previous object. The "
 "link to the previous object is made using the ARM. '01' indicates an "
@@ -5780,27 +5782,27 @@ msgstr ""
 "Aurreko objektura bideratzen duen esteka ARM erabiliz egin da. '01' "
 "hizkuntza gehigarria adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:456
+#: ../src/tags/gnome-cmd-tags.cc:457
 msgid "Edit Status"
 msgstr "Edizio egoera"
 
-#: ../src/tags/gnome-cmd-tags.cc:456
+#: ../src/tags/gnome-cmd-tags.cc:457
 msgid "Status of the object, according to the practice of the provider."
 msgstr "Objektuaren egoera, hornitzaileak indarrean jartzen duen arabera."
 
-#: ../src/tags/gnome-cmd-tags.cc:457
+#: ../src/tags/gnome-cmd-tags.cc:458
 msgid "Envelope Number"
 msgstr "Gainazalaren zenbakia"
 
-#: ../src/tags/gnome-cmd-tags.cc:457
+#: ../src/tags/gnome-cmd-tags.cc:458
 msgid "A number unique for the date in 1:70 and the service ID in 1:30."
 msgstr "Dataren 1:70ean eta zerbitzuaren IDaren 1:30ean zenbaki esklusiboa."
 
-#: ../src/tags/gnome-cmd-tags.cc:458
+#: ../src/tags/gnome-cmd-tags.cc:459
 msgid "Envelope Priority"
 msgstr "Gainazalaren lehentasuna"
 
-#: ../src/tags/gnome-cmd-tags.cc:458
+#: ../src/tags/gnome-cmd-tags.cc:459
 msgid ""
 "Specifies the envelope handling priority and not the editorial urgency. '1' "
 "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
@@ -5810,43 +5812,43 @@ msgstr ""
 "'1' premia handia, '5' normala eta '8' gutxieneko premia. '9' balioa "
 "erabiltzaileak definitzeko erabiltzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:459
+#: ../src/tags/gnome-cmd-tags.cc:460
 msgid "Expiration Date"
 msgstr "Iraungitze-data"
 
-#: ../src/tags/gnome-cmd-tags.cc:459
+#: ../src/tags/gnome-cmd-tags.cc:460
 msgid "Designates the latest date the provider intends the object to be used."
 msgstr "Hornitzaileak objektua erabil daitekeen azken data izendatzen du."
 
-#: ../src/tags/gnome-cmd-tags.cc:460
+#: ../src/tags/gnome-cmd-tags.cc:461
 msgid "Expiration Time"
 msgstr "Iraungitze-ordua"
 
-#: ../src/tags/gnome-cmd-tags.cc:460
+#: ../src/tags/gnome-cmd-tags.cc:461
 msgid "Designates the latest time the provider intends the object to be used."
 msgstr "Hornitzaileak objektua erabil daitekeen azken ordua izendatzen du."
 
-#: ../src/tags/gnome-cmd-tags.cc:461
+#: ../src/tags/gnome-cmd-tags.cc:462
 msgid "File Format"
 msgstr "Fitxategiaren formatua"
 
-#: ../src/tags/gnome-cmd-tags.cc:461
+#: ../src/tags/gnome-cmd-tags.cc:462
 msgid "File format of the data described by this metadata."
 msgstr "Metadatu honek azaltzen duen datuen fitxategi-formatua."
 
-#: ../src/tags/gnome-cmd-tags.cc:462
+#: ../src/tags/gnome-cmd-tags.cc:463
 msgid "File Version"
 msgstr "Fitxategiaren bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:462
+#: ../src/tags/gnome-cmd-tags.cc:463
 msgid "Version of the file format."
 msgstr "Fitxategi-formatuaren bertsioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:463
+#: ../src/tags/gnome-cmd-tags.cc:464
 msgid "Fixture Identifier"
 msgstr "Finkatze-identifikatzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:463
+#: ../src/tags/gnome-cmd-tags.cc:464
 msgid ""
 "Identifies objects that recur often and predictably, enabling users to "
 "immediately find or recall such an object."
@@ -5854,33 +5856,35 @@ msgstr ""
 "Askotan eta aurrez ikus daiteeken objektuak identifikatzen ditu,"
 "erabiltzaileak honelako objektu bat bilatzea edo deitzea gaituz."
 
-#: ../src/tags/gnome-cmd-tags.cc:464
+#: ../src/tags/gnome-cmd-tags.cc:465
 msgid "Headline"
 msgstr "Titulua"
 
-#: ../src/tags/gnome-cmd-tags.cc:464
-msgid "A publishable entry providing a synopsis of the contents of the object."
-msgstr "Argitara daitekeen sarrera, objektuaren edukiaren laburpena eskaintzen duena."
-
 #: ../src/tags/gnome-cmd-tags.cc:465
+msgid "A publishable entry providing a synopsis of the contents of the object."
+msgstr ""
+"Argitara daitekeen sarrera, objektuaren edukiaren laburpena eskaintzen duena."
+
+#: ../src/tags/gnome-cmd-tags.cc:466
 msgid "Image Orientation"
 msgstr "Irudiaren orientazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:465
+#: ../src/tags/gnome-cmd-tags.cc:466
 msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
-msgstr "Irudiaren arearen diseinua. 'P' bertikala, 'L' horizontala eta 'S' karratua."
+msgstr ""
+"Irudiaren arearen diseinua. 'P' bertikala, 'L' horizontala eta 'S' karratua."
 
-#: ../src/tags/gnome-cmd-tags.cc:466
+#: ../src/tags/gnome-cmd-tags.cc:467
 msgid "Image Type"
 msgstr "Irudi mota"
 
-#: ../src/tags/gnome-cmd-tags.cc:466
+#: ../src/tags/gnome-cmd-tags.cc:467
 msgid "Indicates the data format of the image object."
 msgstr "Irudi-objektuaren datuen formatua adierazten du."
 
-#: ../src/tags/gnome-cmd-tags.cc:467
+#: ../src/tags/gnome-cmd-tags.cc:468
 msgid ""
 "Used to indicate specific information retrieval words (multiple values "
 "allowed)."
@@ -5888,11 +5892,11 @@ msgstr ""
 "Informazio zehatzetik aterako diren hitzak adierazteko erabiltzen da "
 "(hainbat balio erabil daitezke)."
 
-#: ../src/tags/gnome-cmd-tags.cc:468
+#: ../src/tags/gnome-cmd-tags.cc:469
 msgid "Language Identifier"
 msgstr "Hizkuntzaren identifikatzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:468
+#: ../src/tags/gnome-cmd-tags.cc:469
 msgid ""
 "The major national language of the object, according to the 2-letter codes "
 "of ISO 639:1988."
@@ -5900,19 +5904,19 @@ msgstr ""
 "Objektuaren jatorrizko hizkuntza nagusia, ISO 639:1988 estandarreko 2 "
 "hizkidun kodeen arabera."
 
-#: ../src/tags/gnome-cmd-tags.cc:469
+#: ../src/tags/gnome-cmd-tags.cc:470
 msgid "Maximum Object Size"
 msgstr "Objektuaren gehienezko tamaina"
 
-#: ../src/tags/gnome-cmd-tags.cc:469
+#: ../src/tags/gnome-cmd-tags.cc:470
 msgid "The largest possible size of the object if the size is not known."
 msgstr "Objektuak eduki dezakeen tamaina handiena, tamaina ezezaguna bada."
 
-#: ../src/tags/gnome-cmd-tags.cc:470
+#: ../src/tags/gnome-cmd-tags.cc:471
 msgid "Max Subfile Size"
 msgstr "Gehienezko azpifitxategi-tamaina"
 
-#: ../src/tags/gnome-cmd-tags.cc:470
+#: ../src/tags/gnome-cmd-tags.cc:471
 msgid ""
 "The maximum size for a subfile dataset (8:10) containing a portion of the "
 "object data."
@@ -5920,19 +5924,19 @@ msgstr ""
 "Objektuaren datuen zatia duen azpifitxategiaren datamultzoaren (8:10) "
 "gehienezko tamaina."
 
-#: ../src/tags/gnome-cmd-tags.cc:471
+#: ../src/tags/gnome-cmd-tags.cc:472
 msgid "Model Version"
 msgstr "Modeloaren bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:471
+#: ../src/tags/gnome-cmd-tags.cc:472
 msgid "Version of IIM part 1."
 msgstr "IIMren bertsioa, 1. zatia."
 
-#: ../src/tags/gnome-cmd-tags.cc:472
+#: ../src/tags/gnome-cmd-tags.cc:473
 msgid "Object Attribute Reference"
 msgstr "Objektuaren atributuaren erreferentzia"
 
-#: ../src/tags/gnome-cmd-tags.cc:472
+#: ../src/tags/gnome-cmd-tags.cc:473
 msgid ""
 "Defines the nature of the object independent of the subject (multiple values "
 "allowed)."
@@ -5940,67 +5944,67 @@ msgstr ""
 "Gaiarekiko librea den objektuaren izaera definitzen du (hainbat balio erabil "
 "daitezke)."
 
-#: ../src/tags/gnome-cmd-tags.cc:473
+#: ../src/tags/gnome-cmd-tags.cc:474
 msgid "Object Cycle"
 msgstr "Objektuaren zikloa"
 
-#: ../src/tags/gnome-cmd-tags.cc:473
+#: ../src/tags/gnome-cmd-tags.cc:474
 msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
 msgstr "'a' goizean, 'p' arratsaldean, 'b' biak."
 
-#: ../src/tags/gnome-cmd-tags.cc:474
+#: ../src/tags/gnome-cmd-tags.cc:475
 msgid "Object Name"
 msgstr "Objektuaren izena"
 
-#: ../src/tags/gnome-cmd-tags.cc:474
+#: ../src/tags/gnome-cmd-tags.cc:475
 msgid "A shorthand reference for the object."
 msgstr "Objektuaren erreferentzia azkarra."
 
-#: ../src/tags/gnome-cmd-tags.cc:475
+#: ../src/tags/gnome-cmd-tags.cc:476
 msgid "Object Size Announced"
 msgstr "Objektuaren tamaina jakinarazia"
 
-#: ../src/tags/gnome-cmd-tags.cc:475
+#: ../src/tags/gnome-cmd-tags.cc:476
 msgid "The total size of the object data if it is known."
 msgstr "Objektuaren datuen osoko tamaina, ezaguna bada."
 
-#: ../src/tags/gnome-cmd-tags.cc:476
+#: ../src/tags/gnome-cmd-tags.cc:477
 msgid "Object Type Reference"
 msgstr "Objektu motaren erreferentzia"
 
-#: ../src/tags/gnome-cmd-tags.cc:476
+#: ../src/tags/gnome-cmd-tags.cc:477
 msgid "Distinguishes between different types of objects within the IIM."
 msgstr "IIM barneko objektu mota ezberdinen artean desberdintzen du."
 
-#: ../src/tags/gnome-cmd-tags.cc:477
+#: ../src/tags/gnome-cmd-tags.cc:478
 msgid "Originating Program"
 msgstr "Programa sortzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:477
+#: ../src/tags/gnome-cmd-tags.cc:478
 msgid "The type of program used to originate the object."
 msgstr "Objektua sortzeko erabilitako programa mota."
 
-#: ../src/tags/gnome-cmd-tags.cc:478
+#: ../src/tags/gnome-cmd-tags.cc:479
 msgid "Original Transmission Reference"
 msgstr "Jatorrizko transmisioaren erreferentzia"
 
-#: ../src/tags/gnome-cmd-tags.cc:478
+#: ../src/tags/gnome-cmd-tags.cc:479
 msgid "A code representing the location of original transmission."
 msgstr "Jatorrizko transmisioaren kokalekua adierazten duen kodea."
 
-#: ../src/tags/gnome-cmd-tags.cc:479
+#: ../src/tags/gnome-cmd-tags.cc:480
 msgid "Preview Data"
 msgstr "Aurrebistaren datuak"
 
-#: ../src/tags/gnome-cmd-tags.cc:479
+#: ../src/tags/gnome-cmd-tags.cc:480
 msgid "The object preview data"
 msgstr "Objektuaren aurrebistaren datuak"
 
-#: ../src/tags/gnome-cmd-tags.cc:480
+#: ../src/tags/gnome-cmd-tags.cc:481
 msgid "Preview File Format"
 msgstr "Fitxategi-formatuaren aurrebista"
 
-#: ../src/tags/gnome-cmd-tags.cc:480
+#: ../src/tags/gnome-cmd-tags.cc:481
 msgid ""
 "Binary value indicating the file format of the object preview data in "
 "dataset 2:202."
@@ -6008,43 +6012,44 @@ msgstr ""
 "Balio bitarra objektuaren aurrebistaren datuen fitxategi-formatua adierazten "
 "du 2:202 datu-multzoan."
 
-#: ../src/tags/gnome-cmd-tags.cc:481
+#: ../src/tags/gnome-cmd-tags.cc:482
 msgid "Preview File Format Version"
 msgstr "Fitxategi-formatuaren aurrebistaren bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:481
+#: ../src/tags/gnome-cmd-tags.cc:482
 msgid "The version of the preview file format specified in 2:200."
 msgstr "2:200 zehaztutako formatuko fitxategiaren aurrebistaren bertsioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:482
+#: ../src/tags/gnome-cmd-tags.cc:483
 msgid "Product ID"
 msgstr "Produktuaren IDa"
 
-#: ../src/tags/gnome-cmd-tags.cc:482
-msgid "Allows a provider to identify subsets of its overall service."
-msgstr "Zerbitzu osoaren azpimultzoa identifikatzea baimentzen dio hornitzaileari."
-
 #: ../src/tags/gnome-cmd-tags.cc:483
+msgid "Allows a provider to identify subsets of its overall service."
+msgstr ""
+"Zerbitzu osoaren azpimultzoa identifikatzea baimentzen dio hornitzaileari."
+
+#: ../src/tags/gnome-cmd-tags.cc:484
 msgid "Program Version"
 msgstr "Programaren bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:483
+#: ../src/tags/gnome-cmd-tags.cc:484
 msgid "The version of the originating program."
 msgstr "Jatorrizko programaren bertsioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:484 ../src/tags/gnome-cmd-tags.cc:496
+#: ../src/tags/gnome-cmd-tags.cc:485 ../src/tags/gnome-cmd-tags.cc:497
 msgid "Province, State"
 msgstr "Probintzia, estatua"
 
-#: ../src/tags/gnome-cmd-tags.cc:484 ../src/tags/gnome-cmd-tags.cc:496
+#: ../src/tags/gnome-cmd-tags.cc:485 ../src/tags/gnome-cmd-tags.cc:497
 msgid "The Province/State where the object originates."
 msgstr "Objektuak sortu ziren probintzia/estatua."
 
-#: ../src/tags/gnome-cmd-tags.cc:485
+#: ../src/tags/gnome-cmd-tags.cc:486
 msgid "Rasterized Caption"
 msgstr "Marraztutako epigrafea"
 
-#: ../src/tags/gnome-cmd-tags.cc:485
+#: ../src/tags/gnome-cmd-tags.cc:486
 msgid ""
 "Contains rasterized object description and is used where characters that "
 "have not been coded are required for the caption."
@@ -6052,37 +6057,38 @@ msgstr ""
 "Bilbatutako objektuen azalpena du, kodetu ez diren karaktereak epigrafean "
 "behar direnean erabiltzen da."
 
-#: ../src/tags/gnome-cmd-tags.cc:486
+#: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Record Version"
 msgstr "Grabazioaren bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:486
+#: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Identifies the version of the IIM, Part 2"
 msgstr "IIM, Part 2 bertsioaren identifikatzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:487
+#: ../src/tags/gnome-cmd-tags.cc:488
 msgid "Reference Date"
 msgstr "Erreferentziaren data"
 
-#: ../src/tags/gnome-cmd-tags.cc:487
+#: ../src/tags/gnome-cmd-tags.cc:488
 msgid "The date of a prior envelope to which the current object refers."
 msgstr "uneko objektuak erreferitzen duen aurreneko gainazalaren data."
 
-#: ../src/tags/gnome-cmd-tags.cc:488
+#: ../src/tags/gnome-cmd-tags.cc:489
 msgid "Reference Number"
 msgstr "Erreferentzia-zenbakia"
 
-#: ../src/tags/gnome-cmd-tags.cc:488
-msgid "The Envelope Number of a prior envelope to which the current object refers."
+#: ../src/tags/gnome-cmd-tags.cc:489
+msgid ""
+"The Envelope Number of a prior envelope to which the current object refers."
 msgstr ""
 "Uneko objektuari erreferitzen dion aurreneko gainazalaren 'Gainazal "
 "zenbakia' da."
 
-#: ../src/tags/gnome-cmd-tags.cc:489
+#: ../src/tags/gnome-cmd-tags.cc:490
 msgid "Reference Service"
 msgstr "Zerbitzu-erreferentzia"
 
-#: ../src/tags/gnome-cmd-tags.cc:489
+#: ../src/tags/gnome-cmd-tags.cc:490
 msgid ""
 "The Service Identifier of a prior envelope to which the current object "
 "refers."
@@ -6090,51 +6096,57 @@ msgstr ""
 "Uneko objektuari erreferitzen dion aurreneko gainazalaren zerbitzuaren "
 "identifikatzailea da."
 
-#: ../src/tags/gnome-cmd-tags.cc:490
-msgid "Designates the earliest date the provider intends the object to be used."
-msgstr "Hornitzaileak objektua erabil daitekeen datarik berriena izendatzen du."
-
 #: ../src/tags/gnome-cmd-tags.cc:491
-msgid "Designates the earliest time the provider intends the object to be used."
-msgstr "Hornitzaileak objektua erabil daitekeen ordurik berriena izendatzen du."
+msgid ""
+"Designates the earliest date the provider intends the object to be used."
+msgstr ""
+"Hornitzaileak objektua erabil daitekeen datarik berriena izendatzen du."
 
 #: ../src/tags/gnome-cmd-tags.cc:492
+msgid ""
+"Designates the earliest time the provider intends the object to be used."
+msgstr ""
+"Hornitzaileak objektua erabil daitekeen ordurik berriena izendatzen du."
+
+#: ../src/tags/gnome-cmd-tags.cc:493
 msgid "Service Identifier"
 msgstr "Zerbitzuaren identifikatzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:492
+#: ../src/tags/gnome-cmd-tags.cc:493
 msgid "Identifies the provider and product."
 msgstr "Hornitzailea eta produktua identifikatzen du."
 
-#: ../src/tags/gnome-cmd-tags.cc:493
+#: ../src/tags/gnome-cmd-tags.cc:494
 msgid "Size Mode"
 msgstr "Tamaina modua"
 
-#: ../src/tags/gnome-cmd-tags.cc:493
-msgid "Set to 0 if the size of the object is known and 1 if not known."
-msgstr "Ezarri '0' balioarekin objektuaren tamaina ezaguna bada, '1' ezezaguna bada."
-
 #: ../src/tags/gnome-cmd-tags.cc:494
+msgid "Set to 0 if the size of the object is known and 1 if not known."
+msgstr ""
+"Ezarri '0' balioarekin objektuaren tamaina ezaguna bada, '1' ezezaguna bada."
+
+#: ../src/tags/gnome-cmd-tags.cc:495
 msgid "Source"
 msgstr "Iturburua"
 
-#: ../src/tags/gnome-cmd-tags.cc:494
+#: ../src/tags/gnome-cmd-tags.cc:495
 msgid "The original owner of the intellectual content of the object."
 msgstr "Objektuaren eduki intelektualaren jatorrizko jabea."
 
-#: ../src/tags/gnome-cmd-tags.cc:495
+#: ../src/tags/gnome-cmd-tags.cc:496
 msgid "Special Instructions"
 msgstr "Instrukzio bereziak"
 
-#: ../src/tags/gnome-cmd-tags.cc:495
+#: ../src/tags/gnome-cmd-tags.cc:496
 msgid "Other editorial instructions concerning the use of the object."
-msgstr "Objektuaren erabilerarekin zerikusia duten beste instrukzio editorialak."
+msgstr ""
+"Objektuaren erabilerarekin zerikusia duten beste instrukzio editorialak."
 
-#: ../src/tags/gnome-cmd-tags.cc:497
+#: ../src/tags/gnome-cmd-tags.cc:498
 msgid "Subfile"
 msgstr "Azpifitxategia"
 
-#: ../src/tags/gnome-cmd-tags.cc:497
+#: ../src/tags/gnome-cmd-tags.cc:498
 msgid ""
 "The object data itself. Subfiles must be sequential so that the subfiles may "
 "be reassembled."
@@ -6142,11 +6154,11 @@ msgstr ""
 "Objektuaren datuak. Azpifitxategiak sekuentzialak izan behar dute, "
 "azpifitxategiak berriro elkartzeko."
 
-#: ../src/tags/gnome-cmd-tags.cc:498
+#: ../src/tags/gnome-cmd-tags.cc:499
 msgid "Subject Reference"
 msgstr "Gaiaren erreferentzia"
 
-#: ../src/tags/gnome-cmd-tags.cc:498
+#: ../src/tags/gnome-cmd-tags.cc:499
 msgid ""
 "A structured definition of the subject matter. It must contain an IPR, an 8 "
 "digit Subject Reference Number and an optional Subject Name, Subject Matter "
@@ -6157,27 +6169,27 @@ msgstr ""
 "izena' eta 'Gaiaren xehetasunaren izena' bakoitza puntu eta komaz (;) "
 "bereiztuta."
 
-#: ../src/tags/gnome-cmd-tags.cc:499
+#: ../src/tags/gnome-cmd-tags.cc:500
 msgid "Sub-location"
 msgstr "Azpi-kokalekua"
 
-#: ../src/tags/gnome-cmd-tags.cc:499
+#: ../src/tags/gnome-cmd-tags.cc:500
 msgid "The location within a city from which the object originates."
 msgstr "Objektua sortu zen herriko kokalekua."
 
-#: ../src/tags/gnome-cmd-tags.cc:500
+#: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Supplemental Category"
 msgstr "Kategoria gehigarriak"
 
-#: ../src/tags/gnome-cmd-tags.cc:500
+#: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Further refines the subject of the object (Deprecated)."
 msgstr "Objektuaren gaia gehiago fintzen du (zaharkitua)."
 
-#: ../src/tags/gnome-cmd-tags.cc:501
+#: ../src/tags/gnome-cmd-tags.cc:502
 msgid "Time Created"
 msgstr "Sorrera-ordua"
 
-#: ../src/tags/gnome-cmd-tags.cc:501
+#: ../src/tags/gnome-cmd-tags.cc:502
 msgid ""
 "The time the intellectual content of the object was created rather than the "
 "date of the creation of the physical representation (multiple values "
@@ -6186,19 +6198,19 @@ msgstr ""
 "Objektuaren eduki intelektualaren sorreraren ordua, adierazpen fisikoaren "
 "sorreraren data erabili ordez (hainbat balio erabil daitezke)."
 
-#: ../src/tags/gnome-cmd-tags.cc:502
+#: ../src/tags/gnome-cmd-tags.cc:503
 msgid "Time Sent"
 msgstr "Bidalitako denbora"
 
-#: ../src/tags/gnome-cmd-tags.cc:502
+#: ../src/tags/gnome-cmd-tags.cc:503
 msgid "The time the service sent the material."
 msgstr "Zerbitzuak materiala bidali zuen denbora."
 
-#: ../src/tags/gnome-cmd-tags.cc:503
+#: ../src/tags/gnome-cmd-tags.cc:504
 msgid "Unique Name of Object"
 msgstr "Objektuaren izen esklusiboa"
 
-#: ../src/tags/gnome-cmd-tags.cc:503
+#: ../src/tags/gnome-cmd-tags.cc:504
 msgid ""
 "An eternal, globally unique identification for the object, independent of "
 "provider and for any media form."
@@ -6206,11 +6218,11 @@ msgstr ""
 "Objektuaren betirako identifikatzaile global esklusiboa, hornitzailetik eta "
 "edozein euskarritik aske."
 
-#: ../src/tags/gnome-cmd-tags.cc:504
+#: ../src/tags/gnome-cmd-tags.cc:505
 msgid "Urgency"
 msgstr "Larritasuna"
 
-#: ../src/tags/gnome-cmd-tags.cc:504
+#: ../src/tags/gnome-cmd-tags.cc:505
 msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
 "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
@@ -6218,11 +6230,11 @@ msgstr ""
 "Edukiaren editorialaren premia zehazten du, baina ez gainazala kudeatzeko "
 "lehentasuna. '1' premia handikoa, '5' normala eta '8' gutxieneko premia."
 
-#: ../src/tags/gnome-cmd-tags.cc:505
+#: ../src/tags/gnome-cmd-tags.cc:506
 msgid "Writer/Editor"
 msgstr "Idazlea/Editorea"
 
-#: ../src/tags/gnome-cmd-tags.cc:505
+#: ../src/tags/gnome-cmd-tags.cc:506
 msgid ""
 "The name of the person involved in the writing, editing or correcting the "
 "object or caption/abstract (multiple values allowed)"
@@ -6230,87 +6242,87 @@ msgstr ""
 "Objektua edo epigrafea/laburpena idazten, editatzen edo zuzentzen lagundu "
 "zuen pertsonaren izena (hainbat balio eduki ditzake)"
 
-#: ../src/tags/gnome-cmd-tags.cc:506
+#: ../src/tags/gnome-cmd-tags.cc:507
 msgid "Contact information for the creators or distributors of the track."
 msgstr "Pistaren sortzeileen edo banatzaileen kontaktuaren informazioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:507
+#: ../src/tags/gnome-cmd-tags.cc:508
 msgid "A textual description of the data."
 msgstr "Datuen testuzko azalpena."
 
-#: ../src/tags/gnome-cmd-tags.cc:508
+#: ../src/tags/gnome-cmd-tags.cc:509
 msgid "License"
 msgstr "Lizentzia"
 
-#: ../src/tags/gnome-cmd-tags.cc:508
+#: ../src/tags/gnome-cmd-tags.cc:509
 msgid "License information."
 msgstr "Lizentziaren informazioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:509
+#: ../src/tags/gnome-cmd-tags.cc:510
 msgid "Location"
 msgstr "Kokalekua"
 
-#: ../src/tags/gnome-cmd-tags.cc:509
+#: ../src/tags/gnome-cmd-tags.cc:510
 msgid "Location where track was recorded."
 msgstr "Pista grabatu zen kokalekua."
 
-#: ../src/tags/gnome-cmd-tags.cc:510
+#: ../src/tags/gnome-cmd-tags.cc:511
 msgid "Maximum bitrate"
 msgstr "Gehienezko bit-tasa"
 
-#: ../src/tags/gnome-cmd-tags.cc:510
+#: ../src/tags/gnome-cmd-tags.cc:511
 msgid "Maximum bitrate in kbps."
 msgstr "Gehienezko bit-tasa (kb/s)."
 
-#: ../src/tags/gnome-cmd-tags.cc:511
+#: ../src/tags/gnome-cmd-tags.cc:512
 msgid "Minimum bitrate"
 msgstr "Gutxieneko bit-tasa"
 
-#: ../src/tags/gnome-cmd-tags.cc:511
+#: ../src/tags/gnome-cmd-tags.cc:512
 msgid "Minimum bitrate in kbps."
 msgstr "Gutxieneko bit-tasa (kb/s)."
 
-#: ../src/tags/gnome-cmd-tags.cc:512
+#: ../src/tags/gnome-cmd-tags.cc:513
 msgid "Nominal bitrate"
 msgstr "Bit-tasa nominala"
 
-#: ../src/tags/gnome-cmd-tags.cc:512
+#: ../src/tags/gnome-cmd-tags.cc:513
 msgid "Nominal bitrate in kbps."
 msgstr "Bit-tasa nominala (kb/s)."
 
-#: ../src/tags/gnome-cmd-tags.cc:513
+#: ../src/tags/gnome-cmd-tags.cc:514
 msgid "Organization"
 msgstr "Erakundea"
 
-#: ../src/tags/gnome-cmd-tags.cc:513
+#: ../src/tags/gnome-cmd-tags.cc:514
 msgid "Organization producing the track."
 msgstr "Pista jorratu duen erakundea."
 
-#: ../src/tags/gnome-cmd-tags.cc:514
+#: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Vendor"
 msgstr "Hornitzailea"
 
-#: ../src/tags/gnome-cmd-tags.cc:514
+#: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Vorbis vendor ID."
 msgstr "Vorbis hornitzailearen IDa."
 
-#: ../src/tags/gnome-cmd-tags.cc:515
+#: ../src/tags/gnome-cmd-tags.cc:516
 msgid "Vorbis Version"
 msgstr "Vorbis bertsioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:515
+#: ../src/tags/gnome-cmd-tags.cc:516
 msgid "Vorbis version."
 msgstr "Vorbis bertsioa."
 
-#: ../src/tags/gnome-cmd-tags.cc:646
+#: ../src/tags/gnome-cmd-tags.cc:647
 msgid "Audio"
 msgstr "Audioa"
 
-#: ../src/tags/gnome-cmd-tags.cc:652
+#: ../src/tags/gnome-cmd-tags.cc:653
 msgid "Doc"
 msgstr "Dok"
 
-#: ../src/tags/gnome-cmd-tags.cc:670
+#: ../src/tags/gnome-cmd-tags.cc:671
 msgid "Image"
 msgstr "Irudia"
 
@@ -6444,7 +6456,7 @@ msgstr "10-15ms"
 msgid "CCIT J17"
 msgstr "CCIT J17"
 
-#: ../src/utils.cc:429
+#: ../src/utils.cc:432
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -6454,7 +6466,7 @@ msgstr ""
 "Gehitzeko, ireki Kontrol Zentroko \"Fitxategi-motak eta programak\" "
 "orrialdea."
 
-#: ../src/utils.cc:504
+#: ../src/utils.cc:507
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -6463,11 +6475,11 @@ msgstr ""
 "Badirudi \"%s\" fitxategi exekutagarri bitarra dela, baina exekutagarriaren "
 "bita falta zaio. Ezarri nahi diozu, eta ondoren fitxategia exekutatu?"
 
-#: ../src/utils.cc:507
+#: ../src/utils.cc:510
 msgid "Make Executable?"
 msgstr "Exekutagarri bihurtu nahi duzu?"
 
-#: ../src/utils.cc:534
+#: ../src/utils.cc:537
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
@@ -6476,19 +6488,19 @@ msgstr ""
 "\"%s\" testu-fitxategi exekutagarria da. Exekutatu egin nahi duzu, ala "
 "edukia ikusi?"
 
-#: ../src/utils.cc:536
+#: ../src/utils.cc:539
 msgid "Run or Display"
 msgstr "Exekutatu edo bistaratu"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:540
 msgid "Display"
 msgstr "Bistaratu"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:540
 msgid "Run"
 msgstr "Exekutatu"
 
-#: ../src/utils.cc:579 ../src/utils.cc:655
+#: ../src/utils.cc:582 ../src/utils.cc:658
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -6503,7 +6515,7 @@ msgstr[1] ""
 "%s(e)k ez daki urruneko fitxategiak nola ireki. Fitxategiak aldi baterako "
 "direktorio batera deskargatu eta ondoren ireki nahi duzu?"
 
-#: ../src/utils.cc:1023
+#: ../src/utils.cc:1022
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -6512,18 +6524,54 @@ msgstr ""
 "Huts egin du direktorioa sortzean aldi baterako fitxategiak gordetzeko.\n"
 "Errorearen mezua: %s\n"
 
-#: ../src/utils.cc:1218
+#: ../src/utils.cc:1217
 #, c-format
 msgid "Creating directory %s... "
 msgstr "%s direktorioa sortzen... "
 
-#: ../src/utils.cc:1221
+#: ../src/utils.cc:1220
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Huts egin du %s fitxategia sortzean"
 
-#: ../src/utils.cc:1227
+#: ../src/utils.cc:1226
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr "Ezin izan da %s direktoriotik irakurri: %s"
 
+#~ msgid "Enter password for %s@%s"
+#~ msgstr "Idatzi %s@%s(r)en pasahitza"
+
+#~ msgid "Enter Password"
+#~ msgstr "Idatzi pasahitza"
+
+#~ msgid "Password:"
+#~ msgstr "Pasahitza:"
+
+#~ msgid "FTP Connect"
+#~ msgstr "FTP konexioa"
+
+#~ msgid "FTP Quick Connect"
+#~ msgstr "FTP konexio azkarra"
+
+#~ msgid "FTP _Connect..."
+#~ msgstr "FTP _konektatu..."
+
+#~ msgid "FTP _Quick Connect..."
+#~ msgstr "FTP konexio _azkarra..."
+
+#~ msgid "Enter password"
+#~ msgstr "Idatzi pasahitza"
+
+#~ msgid ""
+#~ "Problem: access not permitted\n"
+#~ "\n"
+#~ "please supply user credentials\n"
+#~ "\n"
+#~ "Remember: wrong credentials may lead to account locking"
+#~ msgstr ""
+#~ "Arazoa: sarbidea ez dago baimendua\n"
+#~ "\n"
+#~ "eman erabiltzailearen kredentzialak\n"
+#~ "\n"
+#~ "Gogoratu: okerreko kredentzialak kontua blokea dezake."
