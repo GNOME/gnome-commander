@@ -24,8 +24,6 @@
 #ifndef __GVIEWER_H__
 #define __GVIEWER_H__
 
-G_BEGIN_DECLS
-
 #define GVIEWER(obj)          GTK_CHECK_CAST (obj, gviewer_get_type (), GViewer)
 #define GVIEWER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_get_type (), GViewerClass)
 #define IS_GVIEWER(obj)       GTK_CHECK_TYPE (obj, gviewer_get_type ())
@@ -100,7 +98,5 @@ void        gviewer_image_operation(GViewer *obj, IMAGEOPERATION op);
 void        gviewer_copy_selection(GViewer *obj);
 
 TextRender  *gviewer_get_text_render(GViewer *obj);
-
-G_END_DECLS
 
 #endif /* __GVIEWER_H__ */

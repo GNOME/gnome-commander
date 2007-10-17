@@ -24,8 +24,6 @@
 #ifndef __TEXT_RENDER_H__
 #define __TEXT_RENDER_H__
 
-G_BEGIN_DECLS
-
 #define TEXT_RENDER(obj)          GTK_CHECK_CAST (obj, text_render_get_type (), TextRender)
 #define TEXT_RENDER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, text_render_get_type (), TextRenderClass)
 #define IS_TEXT_RENDER(obj)       GTK_CHECK_TYPE (obj, text_render_get_type ())
@@ -113,7 +111,5 @@ offset_type text_render_get_last_displayed_offset(TextRender *w);
 void        text_render_ensure_offset_visible(TextRender *w, offset_type offset);
 
 void        text_render_set_marker(TextRender *w, offset_type start, offset_type end);
-
-G_END_DECLS
 
 #endif /* __TEXT_RENDER_H__ */

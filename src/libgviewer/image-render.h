@@ -24,8 +24,6 @@
 #ifndef __IMAGE_RENDER_H__
 #define __IMAGE_RENDER_H__
 
-G_BEGIN_DECLS
-
 #define IMAGE_RENDER(obj)          GTK_CHECK_CAST (obj, image_render_get_type (), ImageRender)
 #define IMAGE_RENDER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, image_render_get_type (), ImageRenderClass)
 #define IS_IMAGE_RENDER(obj)       GTK_CHECK_TYPE (obj, image_render_get_type ())
@@ -85,7 +83,5 @@ void           image_render_set_scale_factor(ImageRender *obj, double scalefacto
 double         image_render_get_scale_factor(ImageRender *obj);
 
 void           image_render_operation(ImageRender *obk, IMAGEOPERATION op);
-
-G_END_DECLS
 
 #endif /* __IMAGE_RENDER_H__ */

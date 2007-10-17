@@ -97,6 +97,7 @@ void gv_init_input_modes(GVInputModesData *imd, get_byte_proc proc, void *get_by
     gv_set_input_mode(imd, "ASCII");
 }
 
+
 void gv_free_input_modes(GVInputModesData *imd)
 {
     g_return_if_fail(imd!=NULL);
@@ -109,6 +110,7 @@ void gv_free_input_modes(GVInputModesData *imd)
     */
 }
 
+
 const char*gv_get_input_mode(GVInputModesData *imd)
 {
     g_return_val_if_fail(imd!=NULL, "");
@@ -116,6 +118,7 @@ const char*gv_get_input_mode(GVInputModesData *imd)
 
     return imd->input_mode_name;
 }
+
 
 void gv_set_input_mode(GVInputModesData *imd, const gchar *input_mode)
 {
@@ -138,6 +141,7 @@ void gv_set_input_mode(GVInputModesData *imd, const gchar *input_mode)
     inputmode_ascii_activate(imd, input_mode);
 }
 
+
 char_type gv_input_mode_get_utf8_char(GVInputModesData *imd, offset_type offset)
 {
     g_return_val_if_fail(imd!=NULL, INVALID_CHAR);
@@ -145,6 +149,7 @@ char_type gv_input_mode_get_utf8_char(GVInputModesData *imd, offset_type offset)
 
     return imd->get_char(imd, offset);
 }
+
 
 offset_type gv_input_get_next_char_offset(GVInputModesData *imd, offset_type current_offset)
 {
@@ -154,6 +159,7 @@ offset_type gv_input_get_next_char_offset(GVInputModesData *imd, offset_type cur
     return imd->get_next_offset(imd, current_offset);
 }
 
+
 offset_type gv_input_get_previous_char_offset(GVInputModesData *imd, offset_type current_offset)
 {
     g_return_val_if_fail(imd!=NULL, 0);
@@ -162,6 +168,7 @@ offset_type gv_input_get_previous_char_offset(GVInputModesData *imd, offset_type
     return imd->get_prev_offset(imd, current_offset);
 }
 
+
 static int gv_input_mode_get_byte(GVInputModesData *imd, offset_type offset)
 {
     g_return_val_if_fail(imd->get_byte!=NULL, INVALID_CHAR);
@@ -169,10 +176,12 @@ static int gv_input_mode_get_byte(GVInputModesData *imd, offset_type offset)
     return imd->get_byte(imd->get_byte_user_data, offset);
 }
 
+
 int gv_input_mode_get_raw_byte(GVInputModesData *imd, offset_type offset)
 {
     return gv_input_mode_get_byte(imd, offset);
 }
+
 
 /*****************************************************************************
   Specific Input mode related function
@@ -252,6 +261,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
     imd->input_mode_name = g_strdup(encoding);
 }
 
+
 static char_type inputmode_ascii_get_char(GVInputModesData *imd, offset_type offset)
 {
     int value;
@@ -277,6 +287,7 @@ static char_type inputmode_ascii_get_char(GVInputModesData *imd, offset_type off
     return imd->ascii_charset_translation[value];
 }
 
+
 char_type gv_input_mode_byte_to_utf8(GVInputModesData *imd, unsigned char data)
 {
     g_return_val_if_fail(imd!=NULL, '.');
@@ -284,12 +295,14 @@ char_type gv_input_mode_byte_to_utf8(GVInputModesData *imd, unsigned char data)
     return imd->ascii_charset_translation[data];
 }
 
+
 void gv_input_mode_update_utf8_translation(GVInputModesData *imd, unsigned char index, char_type new_value)
 {
     g_return_if_fail(imd!=NULL);
 
     imd->ascii_charset_translation[index] = new_value;
 }
+
 
 static offset_type inputmode_ascii_get_previous_offset(GVInputModesData *imd, offset_type offset)
 {
@@ -311,6 +324,7 @@ static offset_type inputmode_ascii_get_previous_offset(GVInputModesData *imd, of
 
     return offset;
 }
+
 
 static offset_type inputmode_ascii_get_next_offset(GVInputModesData *imd, offset_type offset)
 {
@@ -346,18 +360,13 @@ static void inputmode_utf8_activate(GVInputModesData *imd)
 #define UTF8_HEADER_3BYTES(c) (((c)&0xF0)==0xE0)
 #define UTF8_HEADER_4BYTES(c) (((c)&0xF8)==0xF0)
 #define UTF8_TRAILER_CHAR(c) (((c)&0xC0)==0x80)
-static guint utf8_get_char_len(GVInputModesData *imd, offset_type offset)
+inline guint utf8_get_char_len(GVInputModesData *imd, offset_type offset)
 {
-    int value;
+    int value = gv_input_mode_get_byte(imd, offset);
+    
+    if (value<0 || value>255)  return 0;
 
-    value = gv_input_mode_get_byte(imd, offset);
-    if (value<0)
-        return 0;
-    if (value>255)
-        return 0;
-
-    if (UTF8_SINGLE_CHAR(value))
-        return 1;
+    if (UTF8_SINGLE_CHAR(value))  return 1;
 
     if (UTF8_HEADER_CHAR(value))
     {
@@ -373,44 +382,38 @@ static guint utf8_get_char_len(GVInputModesData *imd, offset_type offset)
     return 0;
 }
 
-static gboolean utf8_is_valid_char(GVInputModesData *imd, offset_type offset)
+
+inline gboolean utf8_is_valid_char(GVInputModesData *imd, offset_type offset)
 {
-    int len;
-    len = utf8_get_char_len(imd, offset);
+    int len = utf8_get_char_len(imd, offset);
+    
     if (len==0 || (gv_input_mode_get_byte(imd, offset+len)==INVALID_CHAR))
-    {
         return FALSE;
-    }
 
     if (len==1)
         return TRUE;
 
     if (!UTF8_TRAILER_CHAR(gv_input_mode_get_byte(imd, offset+1)))
-    {
         return FALSE;
-    }
 
     if (len==2)
         return TRUE;
 
     if (!UTF8_TRAILER_CHAR(gv_input_mode_get_byte(imd, offset+2)))
-    {
         return FALSE;
-    }
 
     if (len==3)
         return TRUE;
 
     if (!UTF8_TRAILER_CHAR(gv_input_mode_get_byte(imd, offset+3)))
-    {
         return FALSE;
-    }
 
     if (len==4)
         return TRUE;
 
     return FALSE;
 }
+
 
 static char_type inputmode_utf8_get_char(GVInputModesData *imd, offset_type offset)
 {
@@ -449,6 +452,7 @@ static char_type inputmode_utf8_get_char(GVInputModesData *imd, offset_type offs
     return -1;
 }
 
+
 static offset_type inputmode_utf8_get_previous_offset(GVInputModesData *imd, offset_type offset)
 {
     if (offset==0)
@@ -469,14 +473,13 @@ static offset_type inputmode_utf8_get_previous_offset(GVInputModesData *imd, off
     return offset-1;
 }
 
+
 static offset_type inputmode_utf8_get_next_offset(GVInputModesData *imd, offset_type offset)
 {
-    int len;
-
     if (!utf8_is_valid_char(imd, offset))
         return offset+1;
 
-    len = utf8_get_char_len(imd, offset);
+    int len = utf8_get_char_len(imd, offset);
     if (len==0)
          len=1;
 

@@ -12,21 +12,21 @@ AM_CPPFLAGS = \
 noinst_LIBRARIES = libgviewer.a
 
 libgviewer_a_SOURCES = \
-	bm_byte.c bm_byte.h \
-	bm_chartype.c bm_chartype.h \
-	cp437.c cp437.h \
-	datapresentation.c datapresentation.h \
-	fileops.c fileops.h \
+	bm_byte.cc bm_byte.h \
+	bm_chartype.cc bm_chartype.h \
+	cp437.cc cp437.h \
+	datapresentation.cc datapresentation.h \
+	fileops.cc fileops.h \
 	gvtypes.h \
-	image-render.c image-render.h \
-	inputmodes.c inputmodes.h \
-	libgviewer.c libgviewer.h \
-	scroll-box.c scroll-box.h \
-	search-dlg.c search-dlg.h \
-	search-progress-dlg.c \
+	image-render.cc image-render.h \
+	inputmodes.cc inputmodes.h \
+	libgviewer.cc libgviewer.h \
+	scroll-box.cc scroll-box.h \
+	search-dlg.cc search-dlg.h \
+	search-progress-dlg.cc \
 	search-progress-dlg.h \
-	searcher.c searcher.h \
-	text-render.c text-render.h \
-	viewer-utils.c viewer-utils.h \
-	viewer-widget.c viewer-widget.h \
-	viewer-window.c viewer-window.h
+	searcher.cc searcher.h \
+	text-render.cc text-render.h \
+	viewer-utils.cc viewer-utils.h \
+	viewer-widget.cc viewer-widget.h \
+	viewer-window.cc viewer-window.h

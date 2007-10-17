@@ -1,3 +1,37 @@
+2007-10-17  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/libgviewer/bm_byte.c:
+	* src/libgviewer/bm_byte.h:
+	* src/libgviewer/bm_chartype.c:
+	* src/libgviewer/bm_chartype.h:
+	* src/libgviewer/cp437.h:
+	* src/libgviewer/datapresentation.h:
+	* src/libgviewer/fileops.c:
+	* src/libgviewer/fileops.h:
+	* src/libgviewer/gvtypes.h:
+	* src/libgviewer/image-render.c:
+	* src/libgviewer/image-render.h:
+	* src/libgviewer/inputmodes.c:
+	* src/libgviewer/inputmodes.h:
+	* src/libgviewer/Makefile.am:
+	* src/libgviewer/scroll-box.c:
+	* src/libgviewer/scroll-box.h:
+	* src/libgviewer/search-dlg.c:
+	* src/libgviewer/search-dlg.h:
+	* src/libgviewer/searcher.c:
+	* src/libgviewer/searcher.h:
+	* src/libgviewer/search-progress-dlg.c:
+	* src/libgviewer/search-progress-dlg.h:
+	* src/libgviewer/text-render.c:
+	* src/libgviewer/text-render.h:
+	* src/libgviewer/viewer-utils.c:
+	* src/libgviewer/viewer-utils.h:
+	* src/libgviewer/viewer-widget.c:
+	* src/libgviewer/viewer-widget.h:
+	* src/libgviewer/viewer-window.c:
+	* src/libgviewer/viewer-window.h:
+	Internal viewer: migration to C++
+
 2007-10-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-collection.cc:

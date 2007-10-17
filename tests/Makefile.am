@@ -1,1 +1,1 @@
-SUBDIRS = gviewer
+SUBDIRS = 

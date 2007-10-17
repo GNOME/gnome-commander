@@ -24,8 +24,6 @@
 #ifndef __LIBGVIEWER_UTILS_H__
 #define __LIBGVIEWER_UTILS_H__
 
-G_BEGIN_DECLS
-
 #define GVIEWER_DEFAULT_PATH_PREFIX "/gnome-commander/internal_viewer/"
 
 gchar   *gviewer_get_string (const gchar *path, const gchar *def);
@@ -46,10 +44,11 @@ guint8 *mem_reverse(const guint8 *buffer, guint buflen);
 guint8 *text2hex(const gchar *text, /*out*/ guint *buflen);
 
 /*  if "ch" is lower case english letter (a-z), returns UPPER case letter, otherwise returns unmodified "ch" */
-char_type chartype_toupper(char_type ch);
+inline char_type chartype_toupper(char_type ch)
+{
+    return (ch>='a' && ch<='z') ? (char_type) (ch & ~0x20) : ch;
+}
 
 #define CHARTYPE_CASE(ch,casesens) ((casesens)?ch:chartype_toupper(ch))
-
-G_END_DECLS
 
 #endif

@@ -24,8 +24,6 @@
 #ifndef __LIBGVIEWER_INPUT_MODES_H__
 #define __LIBGVIEWER_INPUT_MODES_H__
 
-G_BEGIN_DECLS
-
 #define is_displayable(c) (((c) >= 0x20) && ((c) < 0x7f))
 
 typedef struct _GVInputModesData GVInputModesData;
@@ -124,7 +122,5 @@ offset_type gv_input_get_next_char_offset(GVInputModesData *imd, offset_type cur
 
 */
 offset_type gv_input_get_previous_char_offset(GVInputModesData *imd, offset_type current_offset);
-
-G_END_DECLS
 
 #endif // __LIBGVIEWER_INPUT_MODES_H__

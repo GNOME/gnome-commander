@@ -27,8 +27,6 @@
 #include <glib.h>
 #include <glib-object.h>
 
-G_BEGIN_DECLS
-
 typedef struct _GVIEWER_BMBYTE_DATA GViewerBMByteData;
 
 struct _GVIEWER_BMBYTE_DATA
@@ -49,7 +47,5 @@ struct _GVIEWER_BMBYTE_DATA
 GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length);
 
 void free_bm_byte_data(GViewerBMByteData *data);
-
-G_END_DECLS
 
 #endif /* __GLIBVIEWER_BM_BYTE_H__ */

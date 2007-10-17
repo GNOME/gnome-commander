@@ -46,11 +46,10 @@
 
 #define NEED_PANGO_ESCAPING(x) ((x)=='<' || (x)=='>' || (x)=='&')
 
-#define D fprintf(stderr, "%s:%d - %s\n", __FILE__, __LINE__, __FUNCTION__);
-
 static GtkWidgetClass *parent_class = NULL;
 
-enum {
+enum
+{
   TEXT_STATUS_CHANGED,
   LAST_SIGNAL
 };
@@ -192,9 +191,7 @@ GtkType text_render_get_type (void)
 
 GtkWidget* text_render_new (void)
 {
-    TextRender *w;
-
-    w = gtk_type_new (text_render_get_type ());
+    TextRender *w = (TextRender *) gtk_type_new (text_render_get_type ());
 
     return GTK_WIDGET (w);
 }
@@ -260,13 +257,10 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 
 static void text_render_class_init (TextRenderClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
+    GtkObjectClass *object_class = (GtkObjectClass *) klass;
+    GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
 
-    object_class = (GtkObjectClass *) klass;
-    widget_class = (GtkWidgetClass *) klass;
-
-    parent_class = gtk_type_class (gtk_widget_get_type ());
+    parent_class = (GtkWidgetClass *) gtk_type_class (gtk_widget_get_type ());
 
     object_class->destroy = text_render_destroy;
 
@@ -1681,7 +1675,7 @@ static void text_mode_copy_to_clipboard(TextRender *obj, offset_type start_offse
         text_render_utf8_print_char(obj, value);
     }
 
-    gtk_clipboard_set_text(clip, obj->priv->utf8buf, obj->priv->utf8buf_length);
+    gtk_clipboard_set_text(clip, (const gchar *) obj->priv->utf8buf, obj->priv->utf8buf_length);
 }
 
 
@@ -1709,7 +1703,7 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
         marker_start = temp;
     }
 
-    show_marker = (marker_start!=marker_end);
+    show_marker = marker_start!=marker_end;
 
     if (w->priv->wrapmode)
         column = 0;
@@ -1738,8 +1732,7 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
 
         if (value=='\t')
         {
-            int i;
-            for (i=0;i<w->priv->tab_size;i++)
+            for (int i=0; i<w->priv->tab_size; i++)
                 text_render_utf8_print_char(w, ' ');
             char_count += w->priv->tab_size;
             continue;
@@ -1771,6 +1764,9 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
 
 static int binary_mode_display_line(TextRender *w, int y, int column, offset_type start_of_line, offset_type end_of_line)
 {
+    g_return_val_if_fail(w!=NULL, -1);
+    g_return_val_if_fail(IS_TEXT_RENDER(w), -1);
+
     offset_type current;
     char_type value;
     int rc=0;
@@ -1778,9 +1774,6 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
     offset_type marker_end;
     gboolean show_marker;
     gboolean marker_shown = FALSE;
-
-    g_return_val_if_fail(w!=NULL, -1);
-    g_return_val_if_fail(IS_TEXT_RENDER(w), -1);
 
     marker_start = w->priv->marker_start;
     marker_end = w->priv->marker_end;
@@ -1835,13 +1828,13 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
 
 static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gboolean start_marker)
 {
+    g_return_val_if_fail(obj!=NULL, 0);
+    g_return_val_if_fail(obj->priv->dp!=NULL, 0);
+
     int line = 0;
     int column = 0;
     offset_type offset;
     offset_type next_line_offset;
-
-    g_return_val_if_fail(obj!=NULL, 0);
-    g_return_val_if_fail(obj->priv->dp!=NULL, 0);
 
     if (x<0)
         x = 0;
@@ -1890,7 +1883,7 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
         {
             if (column<10+16*3)
                 return offset;
-            column = (column-10-16*3);
+            column = column-10-16*3;
         }
     }
 
@@ -1906,10 +1899,6 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
 
 static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset, offset_type end_offset)
 {
-    GtkClipboard *clip = NULL;
-    offset_type current;
-    char_type value;
-
     g_return_if_fail(obj!=NULL);
     g_return_if_fail(start_offset!=end_offset);
     g_return_if_fail(obj->priv->dp!=NULL);
@@ -1921,22 +1910,20 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
         return;
     }
 
-    clip = gtk_clipboard_get_for_display(gdk_display_get_default(), GDK_SELECTION_CLIPBOARD);
+    GtkClipboard *clip = gtk_clipboard_get_for_display(gdk_display_get_default(), GDK_SELECTION_CLIPBOARD);
     g_return_if_fail(clip!=NULL);
 
     text_render_utf8_clear_buf(obj);
-    current = start_offset;
-    while (current < end_offset &&  obj->priv->utf8buf_length<MAX_CLIPBOARD_COPY_LENGTH)
+
+    for (offset_type current = start_offset; current < end_offset &&  obj->priv->utf8buf_length<MAX_CLIPBOARD_COPY_LENGTH; current++)
     {
-        value = gv_input_mode_get_raw_byte(obj->priv->im, current);
+        char_type value = gv_input_mode_get_raw_byte(obj->priv->im, current);
         if (value==INVALID_CHAR)
             break;
-        current++;
-
         text_render_utf8_printf(obj, "%02x ", (unsigned char)value);
     }
 
-    gtk_clipboard_set_text(clip, obj->priv->utf8buf, obj->priv->utf8buf_length);
+    gtk_clipboard_set_text(clip, (const gchar*) obj->priv->utf8buf, obj->priv->utf8buf_length);
 }
 
 

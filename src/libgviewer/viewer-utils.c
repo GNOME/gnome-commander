@@ -77,10 +77,9 @@ void gviewer_free_string_history (GList *strings)
 
 void gviewer_write_string_history (gchar *format, GList *strings)
 {
-    gint i;
     gchar key[128];
 
-    for (i=0; strings; strings = strings->next, ++i)
+    for (gint i=0; strings; strings = strings->next, ++i)
     {
         snprintf (key, sizeof (key), format, i);
         gnome_config_set_string(key, (gchar *) strings->data);
@@ -100,14 +99,12 @@ gboolean gviewer_find_string_history(GList *strings, const gchar *text)
 
 GList *gviewer_load_string_history (gchar *format, gint size)
 {
-    gint i;
-    gchar *key, *value;
     GList *list = NULL;
 
-    for (i = 0; i < size || size == -1; ++i)
+    for (gint i = 0; i < size || size == -1; ++i)
     {
-        key = g_strdup_printf (format, i);
-        value = gviewer_get_string(key, NULL);
+        gchar *key = g_strdup_printf (format, i);
+        gchar *value = gviewer_get_string(key, NULL);
         g_free (key);
         if (!value)
             break;
@@ -156,21 +153,20 @@ int unicode2utf8(unsigned int unicode, unsigned char*out)
 
 char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *array_length)
 {
-    glong length;
-    glong index;
-    guint32 unicode_char;
-    const gchar *pos;
-    char_type *result;
-
     g_return_val_if_fail(utf8text!=NULL, NULL);
     g_return_val_if_fail(array_length!=NULL, NULL);
 
     g_return_val_if_fail(g_utf8_validate(utf8text, -1, NULL), NULL);
 
-    length = g_utf8_strlen(utf8text, -1);
+    glong index;
+    guint32 unicode_char;
+    const gchar *pos;
+    char_type *result;
+
+    glong length = g_utf8_strlen(utf8text, -1);
     g_return_val_if_fail(length>0, NULL);
 
-    result = g_new0(char_type, length);
+    result = g_new0 (char_type, length);
     *array_length = length;
 
     pos = utf8text;
@@ -194,13 +190,13 @@ char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
 
 guint8 *mem_reverse(const guint8 *buffer, guint buflen)
 {
-    guint8 *result;
-    guint i, j;
-
     g_return_val_if_fail(buffer!=NULL, NULL);
     g_return_val_if_fail(buflen>0, NULL);
 
-    result = g_new0(guint8, buflen);
+    guint i, j;
+
+    guint8 *result = g_new0 (guint8, buflen);
+
     for (i=0, j=buflen-1;i<buflen;i++, j--)
         result[i] = buffer[j];
 
@@ -214,34 +210,33 @@ guint8 *text2hex(const gchar *text, /*out*/ guint *buflen)
     g_return_val_if_fail(buflen!=NULL, NULL);
 
     guint8 *result;
-    int idx, len;
+    int len;
     guint8 value;
     gboolean high_nib;
 
-    idx = 0;
+    int idx = 0;
     len = 0;
     while (text[idx])
-    {
         if (text[idx]==' ')
             idx++;
         else
-        if (g_ascii_isxdigit(text[idx]))
-        {
-            idx++;
-            len++;
-        } else
-            return NULL;
-    }
+            if (g_ascii_isxdigit(text[idx]))
+            {
+                idx++;
+                len++;
+            } 
+            else
+                return NULL;
 
     if (len % 2 != 0)
         return NULL;
 
-    result = g_new0(guint8, len);
+    result = g_new0 (guint8, len);
 
     len = 0;
     high_nib = TRUE;
     value = 0;
-    for (idx=0; text[idx]; ++idx)
+    for (gint idx=0; text[idx]; ++idx)
         if (g_ascii_isxdigit(text[idx]))
         {
             if (high_nib)
@@ -256,12 +251,4 @@ guint8 *text2hex(const gchar *text, /*out*/ guint *buflen)
         };
     *buflen = len;
     return result;
-}
-
-
-char_type chartype_toupper(char_type ch)
-{
-    if (ch>='a' && ch<='z')
-        return (char_type) (ch & ~0x20);
-    return ch;
 }

@@ -96,20 +96,20 @@ const char *unix_error_string (int error_num)
     gchar *strerror_currentlocale;
 
     strerror_currentlocale = g_locale_from_utf8(g_strerror (error_num), -1, NULL, NULL, NULL);
-    g_snprintf (buffer, sizeof (buffer), "%s (%d)",
-        strerror_currentlocale, error_num);
+    g_snprintf (buffer, sizeof (buffer), "%s (%d)", strerror_currentlocale, error_num);
     g_free(strerror_currentlocale);
+
     return buffer;
 }
 
 
 static int gv_file_internal_open(ViewerFileOps *ops, int fd)
 {
-    const gchar *error;
-    int cntlflags;
-
     g_return_val_if_fail(ops!=NULL, -1);
     g_return_val_if_fail(fd>2, -1);
+
+    const gchar *error;
+    int cntlflags;
 
     // Make sure we are working with a regular file
     if (fstat (fd, &ops->s) == -1)
@@ -168,14 +168,14 @@ int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
 
 int gv_file_open(ViewerFileOps *ops, const gchar* _file)
 {
-    int fd;
-
     g_free(ops->filename);
 
     g_return_val_if_fail(_file!=NULL, -1);
     g_return_val_if_fail(_file[0]!=0, -1);
 
     ops->filename = g_strdup(_file);
+
+    int fd;
 
     // Open the file
     if ((fd = open (_file, O_RDONLY | O_NONBLOCK)) == -1)
@@ -238,9 +238,9 @@ char *gv_file_load(ViewerFileOps *ops, int fd)
     }
 #ifdef HAVE_MMAP
     if ((size_t) ops->s.st_size == ops->s.st_size)
-        ops->data = mmap (0, ops->s.st_size, PROT_READ, MAP_FILE | MAP_SHARED, ops->file, 0);
+        ops->data = (unsigned char *) mmap (0, ops->s.st_size, PROT_READ, MAP_FILE | MAP_SHARED, ops->file, 0);
     else
-        ops->data = MAP_FAILED;
+        ops->data = (unsigned char *) MAP_FAILED;
 
     if (ops->data != MAP_FAILED)
     {
@@ -287,21 +287,19 @@ int gv_file_get_byte (ViewerFileOps *ops, offset_type byte_index)
 
     int page = byte_index / VIEW_PAGE_SIZE + 1;
     int offset = byte_index % VIEW_PAGE_SIZE;
-    int i, n;
 
     if (ops->growing_buffer)
     {
         if (page > ops->blocks)
         {
-            ops->block_ptr = g_realloc (ops->block_ptr,
-                         page * sizeof (char *));
-            for (i = ops->blocks; i < page; i++)
+            ops->block_ptr = (char **) g_realloc (ops->block_ptr, page*sizeof (char *));
+            for (int i = ops->blocks; i < page; i++)
             {
-                char *p = g_try_malloc (VIEW_PAGE_SIZE);
+                char *p = (char *) g_try_malloc (VIEW_PAGE_SIZE);
                 ops->block_ptr[i] = p;
                 if (!p)
                     return '\n';
-                n = read (ops->file, p, VIEW_PAGE_SIZE);
+                int n = read (ops->file, p, VIEW_PAGE_SIZE);
 /*
          * FIXME: Errors are ignored at this point
          * Also should report preliminary EOF
@@ -317,41 +315,29 @@ int gv_file_get_byte (ViewerFileOps *ops, offset_type byte_index)
             }
             ops->blocks = page;
         }
-        if (byte_index >= ops->bytes_read)
-            return -1;
-        else
-            return ops->block_ptr[page - 1][offset];
+
+        return byte_index >= ops->bytes_read ? -1 : ops->block_ptr[page - 1][offset];
     }
     else
-    {
-        if (byte_index >= ops->last_byte)
-            return -1;
-        else
-            return ops->data[byte_index];
-    }
+        return byte_index >= ops->last_byte ? -1 : ops->data[byte_index];
 }
 
 
 // based on MC's view.c "free_file"
 void gv_file_free(ViewerFileOps *ops)
 {
-    int i;
-
     g_return_if_fail (ops!=NULL);
-
 
 #ifdef HAVE_MMAP
     if (ops->mmapping)
-    {
         munmap (ops->data, ops->s.st_size);
-    }
 #endif                // HAVE_MMAP
     gv_file_close (ops);
 
     // Block_ptr may be zero if the file was a file with 0 bytes
     if (ops->growing_buffer && ops->block_ptr)
     {
-        for (i = 0; i < ops->blocks; i++)
+        for (int i = 0; i < ops->blocks; i++)
             g_free (ops->block_ptr[i]);
         g_free (ops->block_ptr);
     }

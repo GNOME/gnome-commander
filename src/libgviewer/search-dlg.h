@@ -24,8 +24,6 @@
 #ifndef __LIBGVIEWER_SEARCH_DLG_H__
 #define __LIBGVIEWER_SEARCH_DLG_H__
 
-G_BEGIN_DECLS
-
 #define GVIEWER_SEARCH_DLG(obj)   GTK_CHECK_CAST (obj, gviewer_search_dlg_get_type(), GViewerSearchDlg)
 #define GVIEWER_SEARCH_DLG_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_search_dlg_get_type(), GViewerSearchDlgClass)
 #define IS_GVIEWER_SEARCH_DLG(obj)       GTK_CHECK_TYPE (obj, gviewer_search_dlg_get_type())
@@ -66,7 +64,5 @@ guint8 *gviewer_search_dlg_get_search_hex_buffer(GViewerSearchDlg *sdlg, /*out*/
 gboolean gviewer_search_dlg_get_case_sensitive(GViewerSearchDlg *sdlg);
 
 void gviewer_show_search_dlg(GtkWindow *parent);
-
-G_END_DECLS
 
 #endif /* __LIBGVIEWER_SEARCH_DLG_H__ */

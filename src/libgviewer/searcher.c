@@ -32,7 +32,8 @@ static void g_viewer_searcher_class_init(GViewerSearcherClass *klass);
 static void g_viewer_searcher_init(GViewerSearcher *sp);
 static void g_viewer_searcher_finalize(GObject *object);
 
-enum SearchMode {
+enum SearchMode
+{
     TEXT,
     HEX
 };
@@ -65,9 +66,8 @@ struct _GViewerSearcherPrivate
 };
 
 typedef struct _GViewerSearcherSignal GViewerSearcherSignal;
-typedef enum _GViewerSearcherSignalType GViewerSearcherSignalType;
 
-enum _GViewerSearcherSignalType
+enum GViewerSearcherSignalType
 {
     // Place Signal Types Here
     SIGNAL_TYPE_EXAMPLE,
@@ -101,8 +101,7 @@ GType g_viewer_searcher_get_type()
             (GInstanceInitFunc)g_viewer_searcher_init,
         };
 
-        type = g_type_register_static(G_TYPE_OBJECT,
-            "GViewerSearcher", &our_info, 0);
+        type = g_type_register_static (G_TYPE_OBJECT, "GViewerSearcher", &our_info, (GTypeFlags) 0);
     }
 
     return type;
@@ -113,7 +112,7 @@ static void g_viewer_searcher_class_init(GViewerSearcherClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
-    parent_class = g_type_class_peek_parent(klass);
+    parent_class = (GObjectClass *) g_type_class_peek_parent(klass);
     object_class->finalize = g_viewer_searcher_finalize;
 
     /* Create signals here:
@@ -232,36 +231,31 @@ void g_viewer_searcher_setup_new_text_search(GViewerSearcher *srchr,
                              const gchar *text,
                              gboolean case_sensitive)
 {
-    gchar *rev_text;
+    g_return_if_fail (srchr!=NULL);
+    g_return_if_fail (srchr->priv!=NULL);
 
-    g_return_if_fail(srchr!=NULL);
-    g_return_if_fail(srchr->priv!=NULL);
+    g_return_if_fail (srchr->priv->search_thread==NULL);
 
-    g_return_if_fail(srchr->priv->search_thread==NULL);
+    g_return_if_fail (imd!=NULL);
+    g_return_if_fail (start_offset<=max_offset);
 
-    g_return_if_fail(imd!=NULL);
-    g_return_if_fail(start_offset<=max_offset);
-
-    g_return_if_fail(text!=NULL);
-    g_return_if_fail(strlen(text)>0);
+    g_return_if_fail (text!=NULL);
+    g_return_if_fail (strlen(text)>0);
 
     srchr->priv->progress_value = 0;
     srchr->priv->imd = imd;
     srchr->priv->start_offset = start_offset;
     srchr->priv->max_offset = max_offset;
 
-    if (srchr->priv->max_offset>1000)
-        srchr->priv->update_interval = srchr->priv->max_offset/1000;
-    else
-        srchr->priv->update_interval = 10;
+    srchr->priv->update_interval = srchr->priv->max_offset>1000 ? srchr->priv->max_offset/1000 : 10;
 
     srchr->priv->ct_data = create_bm_chartype_data(text, case_sensitive);
-    g_return_if_fail(srchr->priv->ct_data!=NULL);
+    g_return_if_fail (srchr->priv->ct_data!=NULL);
 
-    rev_text = g_utf8_strreverse(text, -1);
+    gchar *rev_text = g_utf8_strreverse(text, -1);
     srchr->priv->ct_reverse_data = create_bm_chartype_data(rev_text, case_sensitive);
     g_free(rev_text);
-    g_return_if_fail(srchr->priv->ct_reverse_data!=NULL);
+    g_return_if_fail (srchr->priv->ct_reverse_data!=NULL);
 
     srchr->priv->searchmode = TEXT;
 }
@@ -273,18 +267,16 @@ void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
                              offset_type max_offset,
                              const guint8 *buffer, guint buflen)
 {
-    guint8 *rev_buffer;
+    g_return_if_fail (srchr!=NULL);
+    g_return_if_fail (srchr->priv!=NULL);
 
-    g_return_if_fail(srchr!=NULL);
-    g_return_if_fail(srchr->priv!=NULL);
+    g_return_if_fail (srchr->priv->search_thread==NULL);
 
-    g_return_if_fail(srchr->priv->search_thread==NULL);
+    g_return_if_fail (imd!=NULL);
+    g_return_if_fail (start_offset<=max_offset);
 
-    g_return_if_fail(imd!=NULL);
-    g_return_if_fail(start_offset<=max_offset);
-
-    g_return_if_fail(buffer!=NULL);
-    g_return_if_fail(buflen>0);
+    g_return_if_fail (buffer!=NULL);
+    g_return_if_fail (buflen>0);
 
     srchr->priv->progress_value = 0;
     srchr->priv->imd = imd;
@@ -297,12 +289,12 @@ void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
         srchr->priv->update_interval = 10;
 
     srchr->priv->b_data = create_bm_byte_data(buffer, buflen);
-    g_return_if_fail(srchr->priv->b_data!=NULL);
+    g_return_if_fail (srchr->priv->b_data!=NULL);
 
-    rev_buffer = mem_reverse(buffer, buflen);
+    guint8 *rev_buffer = mem_reverse(buffer, buflen);
     srchr->priv->b_reverse_data = create_bm_byte_data(rev_buffer, buflen);
     g_free(rev_buffer);
-    g_return_if_fail(srchr->priv->b_reverse_data!=NULL);
+    g_return_if_fail (srchr->priv->b_reverse_data!=NULL);
 
     srchr->priv->searchmode = HEX;
 }
@@ -528,7 +520,7 @@ gboolean search_text_backward (GViewerSearcher *src)
             t = gv_input_get_next_char_offset(src->priv->imd, t);
             if (!bm_chartype_equal(data, i, value))
                 break;
-    }
+        }
 
         // Found a match
         if (i < 0)
@@ -563,25 +555,21 @@ gboolean search_text_backward (GViewerSearcher *src)
 
 gpointer search_func(gpointer user_data)
 {
-    gboolean found;
-    GViewerSearcher *src = NULL;
-
     g_return_val_if_fail(user_data!=NULL, NULL);
     g_return_val_if_fail(G_IS_VIEWERSEARCHER(user_data), NULL);
 
-    src = G_VIEWERSEARCHER(user_data);
+    GViewerSearcher *src = G_VIEWERSEARCHER(user_data);
+    
     g_return_val_if_fail(src->priv->imd!=NULL, NULL);
 
     update_progress_indicator(src, src->priv->start_offset);
 
+    gboolean found;
+    
     if (src->priv->searchmode==TEXT)
-    {
         found = (src->priv->search_forward) ? search_text_forward(src) : search_text_backward(src);
-    }
     else
-    {
         found = (src->priv->search_forward) ? search_hex_forward(src) : search_hex_backward(src);
-    }
 
     src->priv->search_reached_end = !found;
 
@@ -593,10 +581,10 @@ gpointer search_func(gpointer user_data)
 
 void g_viewer_searcher_join(GViewerSearcher *src)
 {
-    g_return_if_fail(src!=NULL);
-    g_return_if_fail(src->priv!=NULL);
+    g_return_if_fail (src!=NULL);
+    g_return_if_fail (src->priv!=NULL);
 
-    g_return_if_fail(src->priv->search_thread!=NULL);
+    g_return_if_fail (src->priv->search_thread!=NULL);
 
     g_thread_join(src->priv->search_thread);
     src->priv->search_thread = NULL;
@@ -605,10 +593,10 @@ void g_viewer_searcher_join(GViewerSearcher *src)
 
 void g_viewer_searcher_start_search(GViewerSearcher *src, gboolean forward)
 {
-    g_return_if_fail(src!=NULL);
-    g_return_if_fail(src->priv!=NULL);
+    g_return_if_fail (src!=NULL);
+    g_return_if_fail (src->priv!=NULL);
 
-    g_return_if_fail(src->priv->search_thread==NULL);
+    g_return_if_fail (src->priv->search_thread==NULL);
 
     // Reset indicators
     src->priv->abort_indicator = 0;
@@ -619,5 +607,5 @@ void g_viewer_searcher_start_search(GViewerSearcher *src, gboolean forward)
     src->priv->search_forward = forward;
 
     src->priv->search_thread = g_thread_create(search_func, (gpointer)src, TRUE, NULL);
-    g_return_if_fail(src->priv->search_thread!=NULL);
+    g_return_if_fail (src->priv->search_thread!=NULL);
 }

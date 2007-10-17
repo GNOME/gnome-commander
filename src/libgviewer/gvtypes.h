@@ -24,8 +24,6 @@
 #ifndef __LIBGVIEWER_TYPES_H__
 #define __LIBGVIEWER_TYPES_H__
 
-G_BEGIN_DECLS
-
 /* TODO: Change these for Big-Endian machines */
 
 #define is_displayable(c) (((c) >= 0x20) && ((c) < 0x7f))
@@ -49,7 +47,5 @@ typedef guint32  char_type;
 */
 typedef unsigned long offset_type;
 #define INVALID_OFFSET ((offset_type) -1)
-
-G_END_DECLS
 
 #endif // __LIBGVIEWER_TYPES_H__

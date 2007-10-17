@@ -27,8 +27,6 @@
 #include <glib.h>
 #include <glib-object.h>
 
-G_BEGIN_DECLS
-
 #define G_TYPE_VIEWERSEARCHER         (g_viewer_searcher_get_type ())
 #define G_VIEWERSEARCHER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), G_TYPE_VIEWERSEARCHER, GViewerSearcher))
 #define G_VIEWERSEARCHER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), G_TYPE_VIEWERSEARCHER, GViewerSearcherClass))
@@ -40,12 +38,14 @@ typedef struct _GViewerSearcher GViewerSearcher;
 typedef struct _GViewerSearcherPrivate GViewerSearcherPrivate;
 typedef struct _GViewerSearcherClass GViewerSearcherClass;
 
-struct _GViewerSearcher {
+struct _GViewerSearcher
+{
     GObject parent;
     GViewerSearcherPrivate *priv;
 };
 
-struct _GViewerSearcherClass {
+struct _GViewerSearcherClass
+{
     GObjectClass parent_class;
     /* Add Signal Functions Here */
 };
@@ -123,7 +123,5 @@ gint * g_viewer_searcher_get_abort_indicator(GViewerSearcher *src);
    (read glib's "atomic operations").
    */
 gint * g_viewer_searcher_get_complete_indicator(GViewerSearcher *src);
-
-G_END_DECLS
 
 #endif /* SEARCHER_H */

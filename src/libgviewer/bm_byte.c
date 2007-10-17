@@ -30,7 +30,7 @@
 #include "cp437.h"
 
 
-static void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
+inline void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
 {
    int i;
    for (i=0;i<256;i++)
@@ -42,9 +42,9 @@ static void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
 
 
 /************************************************
-  Helpfer function to compute the suffixes of each character for the good-suffixes array
+  Helper function to compute the suffices of each character for the good-suffices array
 ************************************************/
-static void suffixes(guint8 *pattern, int m, /* out */ int *suff)
+inline void suffices(guint8 *pattern, int m, /* out */ int *suff)
 {
    int f, g, i;
 
@@ -68,24 +68,21 @@ static void suffixes(guint8 *pattern, int m, /* out */ int *suff)
 }
 
 
-static void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good)
+inline void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good)
 {
-   int i, j;
-   int *suff;
+   int *suff = g_new0(int, m);
 
-   suff = g_new0(int, m);
+   suffices(pattern, m, suff);
 
-   suffixes(pattern, m, suff);
-
-   for (i = 0; i < m; ++i)
+   for (int i = 0; i < m; ++i)
       good[i] = m;
-   j = 0;
-   for (i = m - 1; i >= -1; --i)
+   int j = 0;
+   for (int i = m - 1; i >= -1; --i)
       if (i == -1 || suff[i] == i + 1)
          for (; j < m - 1 - i; ++j)
             if (good[j] == m)
                good[j] = m - 1 - i;
-   for (i = 0; i <= m - 2; ++i)
+   for (int i = 0; i <= m - 2; ++i)
       good[m - 1 - suff[i]] = m - 1 - i;
 
    g_free(suff);
@@ -94,21 +91,19 @@ static void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good)
 
 GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length)
 {
-    GViewerBMByteData *data;
-
     g_return_val_if_fail(pattern!=NULL, NULL);
     g_return_val_if_fail(length>0, NULL);
 
-    data = g_new0(GViewerBMByteData, 1);
+    GViewerBMByteData *data = g_new0 (GViewerBMByteData, 1);
 
     data->pattern_len = length;
     data->pattern = g_new(guint8, length);
     memcpy(data->pattern, pattern, length);
 
-    data->bad = g_new0(int, 256);
+    data->bad = g_new0 (int, 256);
     badchar_compute(data->pattern, data->pattern_len, data->bad);
 
-    data->good = g_new0(int, data->pattern_len);
+    data->good = g_new0 (int, data->pattern_len);
     goodsuff_compute(data->pattern, data->pattern_len, data->good);
 
     return data;

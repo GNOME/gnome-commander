@@ -33,8 +33,6 @@
 
 #include "image-render.h"
 
-#define D fprintf(stderr, "%s:%d - %s\n", __FILE__, __LINE__, __FUNCTION__);
-
 static GtkWidget *parent_class = NULL;
 
 enum {
@@ -133,9 +131,7 @@ GtkType image_render_get_type (void)
 
 GtkWidget* image_render_new (void)
 {
-    ImageRender *w;
-
-    w = gtk_type_new (image_render_get_type ());
+    ImageRender *w = (ImageRender *) gtk_type_new (image_render_get_type ());
 
     return GTK_WIDGET (w);
 }
@@ -207,7 +203,7 @@ static void image_render_class_init (ImageRenderClass *klass)
     object_class = GTK_OBJECT_CLASS(klass);
     widget_class = GTK_WIDGET_CLASS(klass);
 
-    parent_class = gtk_type_class (gtk_widget_get_type ());
+    parent_class = (GtkWidget *) gtk_type_class (gtk_widget_get_type ());
 
     object_class->destroy = image_render_destroy;
 
@@ -313,10 +309,10 @@ static void image_render_destroy (GtkObject *object)
 
 static void image_render_notify_status_changed(ImageRender *w)
 {
-    ImageRenderStatus stat;
-
     g_return_if_fail (w!= NULL);
     g_return_if_fail (IS_IMAGE_RENDER (w));
+
+    ImageRenderStatus stat;
 
     memset(&stat, 0, sizeof(stat));
 
@@ -404,8 +400,6 @@ static void image_render_size_request (GtkWidget *widget, GtkRequisition *requis
 
 static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
-    ImageRender *w;
-
     g_return_if_fail (widget != NULL);
     g_return_if_fail (IS_IMAGE_RENDER (widget));
     g_return_if_fail (allocation != NULL);
@@ -413,11 +407,9 @@ static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *alloca
     widget->allocation = *allocation;
     if (GTK_WIDGET_REALIZED (widget))
     {
-        gdk_window_move_resize (widget->window,
-                allocation->x, allocation->y,
-                allocation->width, allocation->height);
+        gdk_window_move_resize (widget->window, allocation->x, allocation->y, allocation->width, allocation->height);
 
-        w = IMAGE_RENDER (widget);
+        ImageRender *w = IMAGE_RENDER (widget);
 
         image_render_prepare_disp_pixbuf(w);
 
@@ -427,9 +419,6 @@ static void image_render_size_allocate (GtkWidget *widget, GtkAllocation *alloca
 
 static gboolean image_render_expose(GtkWidget *widget, GdkEventExpose *event)
 {
-    ImageRender *w;
-    gint xc, yc;
-
     g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
@@ -437,15 +426,14 @@ static gboolean image_render_expose(GtkWidget *widget, GdkEventExpose *event)
     if (event->count > 0)
         return FALSE;
 
-    w = IMAGE_RENDER (widget);
+    ImageRender *w = IMAGE_RENDER (widget);
 
-    gdk_window_clear_area (widget->window,
-                0, 0,
-                widget->allocation.width,
-                widget->allocation.height);
+    gdk_window_clear_area (widget->window, 0, 0, widget->allocation.width, widget->allocation.height);
 
     if (!w->priv->disp_pixbuf)
         return FALSE;
+
+    gint xc, yc;
 
     if (w->priv->best_fit ||
         (gdk_pixbuf_get_width(w->priv->disp_pixbuf) < widget->allocation.width &&
@@ -531,13 +519,11 @@ static gboolean image_render_expose(GtkWidget *widget, GdkEventExpose *event)
 
 static gboolean image_render_button_press(GtkWidget *widget, GdkEventButton *event)
 {
-    ImageRender *w;
-
     g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
-    w = IMAGE_RENDER (widget);
+    ImageRender *w = IMAGE_RENDER (widget);
 
     // TODO: Replace (1) with your on conditional for grabbing the mouse
     if (!w->priv->button && (1))
@@ -555,13 +541,11 @@ static gboolean image_render_button_press(GtkWidget *widget, GdkEventButton *eve
 
 static gboolean image_render_button_release(GtkWidget *widget, GdkEventButton *event)
 {
-    ImageRender *w;
-
     g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
-    w = IMAGE_RENDER (widget);
+    ImageRender *w = IMAGE_RENDER (widget);
 
     if (w->priv->button == event->button)
     {
@@ -576,20 +560,18 @@ static gboolean image_render_button_release(GtkWidget *widget, GdkEventButton *e
 
 static gboolean image_render_motion_notify(GtkWidget *widget, GdkEventMotion *event)
 {
-    ImageRender *w;
-    GdkModifierType mods;
-    gint x, y;
-
     g_return_val_if_fail (widget != NULL, FALSE);
     g_return_val_if_fail (IS_IMAGE_RENDER (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
-    w = IMAGE_RENDER (widget);
+    ImageRender *w = IMAGE_RENDER (widget);
 
     if (w->priv->button != 0)
     {
-        x = event->x;
-        y = event->y;
+        GdkModifierType mods;
+
+        gint x = event->x;
+        gint y = event->y;
 
         if (event->is_hint || (event->window != widget->window))
             gdk_window_get_pointer (widget->window, &x, &y, &mods);
@@ -603,18 +585,16 @@ static gboolean image_render_motion_notify(GtkWidget *widget, GdkEventMotion *ev
 
 static void image_render_h_adjustment_update (ImageRender *obj)
 {
-    gfloat new_value;
-
     g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_IMAGE_RENDER(obj));
 
-    new_value = obj->priv->h_adjustment->value;
+    gfloat new_value = obj->priv->h_adjustment->value;
 
     if (new_value < obj->priv->h_adjustment->lower)
-    new_value = obj->priv->h_adjustment->lower;
+        new_value = obj->priv->h_adjustment->lower;
 
     if (new_value > obj->priv->h_adjustment->upper)
-    new_value = obj->priv->h_adjustment->upper;
+        new_value = obj->priv->h_adjustment->upper;
 
     if (new_value != obj->priv->h_adjustment->value)
     {
@@ -631,12 +611,10 @@ static void image_render_h_adjustment_update (ImageRender *obj)
 
 static void image_render_h_adjustment_changed (GtkAdjustment *adjustment, gpointer data)
 {
-    ImageRender *obj;
-
     g_return_if_fail (adjustment != NULL);
     g_return_if_fail (data != NULL);
 
-    obj = IMAGE_RENDER (data);
+    ImageRender *obj = IMAGE_RENDER (data);
 
     if ((obj->priv->old_h_adj_value != adjustment->value) ||
         (obj->priv->old_h_adj_lower != adjustment->lower) ||
@@ -653,12 +631,10 @@ static void image_render_h_adjustment_changed (GtkAdjustment *adjustment, gpoint
 
 static void image_render_h_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data)
 {
-    ImageRender *obj;
-
     g_return_if_fail (adjustment != NULL);
     g_return_if_fail (data != NULL);
 
-    obj = IMAGE_RENDER (data);
+    ImageRender *obj = IMAGE_RENDER (data);
 
     if (obj->priv->old_h_adj_value != adjustment->value)
     {
@@ -670,18 +646,16 @@ static void image_render_h_adjustment_value_changed (GtkAdjustment *adjustment, 
 
 static void image_render_v_adjustment_update (ImageRender *obj)
 {
-    gfloat new_value;
-
     g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_IMAGE_RENDER(obj));
 
-    new_value = obj->priv->v_adjustment->value;
+    gfloat new_value = obj->priv->v_adjustment->value;
 
     if (new_value < obj->priv->v_adjustment->lower)
-    new_value = obj->priv->v_adjustment->lower;
+        new_value = obj->priv->v_adjustment->lower;
 
     if (new_value > obj->priv->v_adjustment->upper)
-    new_value = obj->priv->v_adjustment->upper;
+        new_value = obj->priv->v_adjustment->upper;
 
     if (new_value != obj->priv->v_adjustment->value)
     {
@@ -698,12 +672,10 @@ static void image_render_v_adjustment_update (ImageRender *obj)
 
 static void image_render_v_adjustment_changed (GtkAdjustment *adjustment, gpointer data)
 {
-    ImageRender *obj;
-
     g_return_if_fail (adjustment != NULL);
     g_return_if_fail (data != NULL);
 
-    obj = IMAGE_RENDER (data);
+    ImageRender *obj = IMAGE_RENDER (data);
 
     if ((obj->priv->old_v_adj_value != adjustment->value) ||
         (obj->priv->old_v_adj_lower != adjustment->lower) ||
@@ -759,7 +731,7 @@ static void image_render_free_pixbuf(ImageRender *obj)
 static gpointer image_render_pixbuf_loading_thread(gpointer data)
 {
     GError *err = NULL;
-    ImageRender *obj  = (ImageRender *) data;
+    ImageRender *obj = (ImageRender *) data;
 
     obj->priv->orig_pixbuf = gdk_pixbuf_new_from_file(obj->priv->filename, &err);
 
@@ -798,10 +770,6 @@ void image_render_wait_for_loader_thread(ImageRender *obj)
 
 void image_render_load_scaled_pixbuf(ImageRender *obj)
 {
-    GError *err = NULL;
-    int width;
-    int height;
-
     g_return_if_fail(obj!=NULL);
     g_return_if_fail(IS_IMAGE_RENDER(obj));
     g_return_if_fail(obj->priv->filename!=NULL);
@@ -809,8 +777,10 @@ void image_render_load_scaled_pixbuf(ImageRender *obj)
 
     g_return_if_fail(GTK_WIDGET_REALIZED(GTK_WIDGET(obj)));
 
-    width = GTK_WIDGET(obj)->allocation.width;
-    height = GTK_WIDGET(obj)->allocation.height;
+    int width = GTK_WIDGET(obj)->allocation.width;
+    int height = GTK_WIDGET(obj)->allocation.height;
+
+    GError *err = NULL;
 
     obj->priv->disp_pixbuf  = gdk_pixbuf_new_from_file_at_scale(obj->priv->filename, width, height, TRUE, &err);
 
@@ -1007,7 +977,7 @@ void image_render_set_scale_factor(ImageRender *obj, double scalefactor)
 }
 
 
-double  image_render_get_scale_factor(ImageRender *obj)
+double image_render_get_scale_factor(ImageRender *obj)
 {
     g_return_val_if_fail(obj!=NULL, 1);
     g_return_val_if_fail(IS_IMAGE_RENDER(obj), 1);
@@ -1025,7 +995,7 @@ void image_render_operation(ImageRender *obj, IMAGEOPERATION op)
 
     GdkPixbuf *temp = NULL;
 
-    switch(op)
+    switch (op)
     {
         case ROTATE_CLOCKWISE:
             temp = gdk_pixbuf_rotate_simple(obj->priv->orig_pixbuf, GDK_PIXBUF_ROTATE_CLOCKWISE);

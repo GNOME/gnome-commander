@@ -24,10 +24,6 @@
 #ifndef __CP437_H__
 #define __CP437_H__
 
-G_BEGIN_DECLS
-
 extern unsigned int ascii_cp437_to_unicode[256];
-
-G_END_DECLS
 
 #endif // __CP437_H__

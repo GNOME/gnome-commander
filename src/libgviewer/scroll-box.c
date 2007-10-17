@@ -72,7 +72,7 @@ GtkType scroll_box_get_type (void)
             0,
             (GInstanceInitFunc) scroll_box_init
         };
-        type = g_type_register_static(GTK_TYPE_TABLE, "scrollbox", &info, 0);
+        type = g_type_register_static (GTK_TYPE_TABLE, "scrollbox", &info, (GTypeFlags) 0);
     }
     return type;
 }
@@ -80,9 +80,7 @@ GtkType scroll_box_get_type (void)
 
 GtkWidget* scroll_box_new (void)
 {
-    ScrollBox *w;
-
-    w = gtk_type_new (scroll_box_get_type ());
+    ScrollBox *w = (ScrollBox *) gtk_type_new (scroll_box_get_type ());
 
     return GTK_WIDGET (w);
 }
@@ -93,7 +91,7 @@ static void scroll_box_class_init (ScrollBoxClass *klass)
     GtkObjectClass *object_class;
 
     object_class = GTK_OBJECT_CLASS (klass);
-    parent_class = gtk_type_class(gtk_table_get_type());
+    parent_class = (GtkTableClass *) gtk_type_class(gtk_table_get_type());
 
     object_class->destroy = scroll_box_destroy;
 }
@@ -171,6 +169,7 @@ void scroll_box_set_client (ScrollBox *obj, GtkWidget *client)
 {
     g_return_if_fail (obj != NULL);
     g_return_if_fail (IS_SCROLL_BOX (obj));
+    g_return_if_fail (client!=NULL);
 
     if (obj->priv->client)
     {
@@ -179,7 +178,6 @@ void scroll_box_set_client (ScrollBox *obj, GtkWidget *client)
         obj->priv->client=NULL;
     }
 
-    g_return_if_fail(client!=NULL);
     g_object_ref(G_OBJECT(client));
     gtk_widget_show(client);
     obj->priv->client = client;

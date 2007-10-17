@@ -24,8 +24,6 @@
 #ifndef __SCROLL_BOX_H__
 #define __SCROLL_BOX_H__
 
-G_BEGIN_DECLS
-
 #define SCROLL_BOX(obj)          GTK_CHECK_CAST (obj, scroll_box_get_type (), ScrollBox)
 #define SCROLL_BOX_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, scroll_box_get_type (), ScrollBoxClass)
 #define IS_SCROLL_BOX(obj)       GTK_CHECK_TYPE (obj, scroll_box_get_type ())
@@ -56,7 +54,5 @@ GtkAdjustment *scroll_box_get_v_adjustment (ScrollBox *obj);
 void           scroll_box_set_v_adjustment (ScrollBox *obj, GtkAdjustment *adjustment);
 
 GtkRange      *scroll_box_get_v_range(ScrollBox *obj);
-
-G_END_DECLS
 
 #endif /* __SCROLL_BOX_H__ */

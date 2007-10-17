@@ -27,8 +27,6 @@
 #include <glib.h>
 #include <glib-object.h>
 
-G_BEGIN_DECLS
-
 typedef struct _GVIEWER_BM_CHARTYPE_DATA GViewerBMChartypeData;
 
 struct _GVIEWER_BM_CHARTYPE_DATA
@@ -65,7 +63,5 @@ gboolean bm_chartype_equal(GViewerBMChartypeData *data, int pattern_index, char_
 int bm_chartype_get_advancement(GViewerBMChartypeData *data, int pattern_index,  char_type ch);
 
 int bm_chartype_get_good_match_advancement(GViewerBMChartypeData *data);
-
-G_END_DECLS
 
 #endif /* __GLIBVIEWER_BM_CHARTYPE_H__ */
