@@ -1,3 +1,8 @@
+2007-10-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags.h:
+	Fix for gcc-4.2 compiling problem
+
 2007-10-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/libgviewer/bm_byte.c:
