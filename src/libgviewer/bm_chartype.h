@@ -62,6 +62,9 @@ gboolean bm_chartype_equal(GViewerBMChartypeData *data, int pattern_index, char_
 /* returns MAX(good_table[pattern_index], bad_table[ch]) */
 int bm_chartype_get_advancement(GViewerBMChartypeData *data, int pattern_index,  char_type ch);
 
-int bm_chartype_get_good_match_advancement(GViewerBMChartypeData *data);
+inline int bm_chartype_get_good_match_advancement(GViewerBMChartypeData *data)
+{
+    return data->good[0];
+}
 
 #endif /* __GLIBVIEWER_BM_CHARTYPE_H__ */

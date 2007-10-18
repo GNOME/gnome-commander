@@ -35,8 +35,8 @@ struct _GVInputModesData
 {
     gchar *input_mode_name;
 
-    get_byte_proc     get_byte;
-    void         *get_byte_user_data;
+    get_byte_proc   get_byte;
+    void            *get_byte_user_data;
 
     /*
        Changing these function pointers is what constitues of an input mode chagne
@@ -264,9 +264,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
 
 static char_type inputmode_ascii_get_char(GVInputModesData *imd, offset_type offset)
 {
-    int value;
-
-    value = gv_input_mode_get_byte(imd, offset);
+    int value = gv_input_mode_get_byte(imd, offset);
 
     if (value<0)
         return INVALID_CHAR;
@@ -481,7 +479,7 @@ static offset_type inputmode_utf8_get_next_offset(GVInputModesData *imd, offset_
 
     int len = utf8_get_char_len(imd, offset);
     if (len==0)
-         len=1;
+        len=1;
 
     return offset+len;
 }

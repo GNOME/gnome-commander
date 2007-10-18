@@ -46,12 +46,12 @@ inline void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
 ************************************************/
 inline void suffices(guint8 *pattern, int m, /* out */ int *suff)
 {
-   int f, g, i;
+   int f, g;
 
    f = 0;
    suff[m - 1] = m;
    g = m - 1;
-   for (i = m - 2; i >= 0; --i)
+   for (int i = m - 2; i >= 0; --i)
    {
       if (i > g && suff[i + m - 1 - f] < i - g)
          suff[i] = suff[i + m - 1 - f];

@@ -20,7 +20,7 @@ libgviewer_a_SOURCES = \
 	gvtypes.h \
 	image-render.cc image-render.h \
 	inputmodes.cc inputmodes.h \
-	libgviewer.cc libgviewer.h \
+	libgviewer.h \
 	scroll-box.cc scroll-box.h \
 	search-dlg.cc search-dlg.h \
 	search-progress-dlg.cc \

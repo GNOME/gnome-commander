@@ -197,11 +197,8 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 
 static void image_render_class_init (ImageRenderClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS(klass);
-    widget_class = GTK_WIDGET_CLASS(klass);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS(klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
     parent_class = (GtkWidget *) gtk_type_class (gtk_widget_get_type ());
 
@@ -261,12 +258,10 @@ static void image_render_init (ImageRender *w)
 
 static void image_render_destroy (GtkObject *object)
 {
-    ImageRender *w;
-
     g_return_if_fail (object != NULL);
     g_return_if_fail (IS_IMAGE_RENDER (object));
 
-    w = IMAGE_RENDER (object);
+    ImageRender *w = IMAGE_RENDER (object);
 
     if (w->priv)
     {
@@ -510,9 +505,7 @@ static gboolean image_render_expose(GtkWidget *widget, GdkEventExpose *event)
     }
 
     if (g_atomic_int_get(&w->priv->orig_pixbuf_loaded)==0)
-    {
         image_render_start_background_pixbuf_loading(w);
-    }
     return FALSE;
 }
 

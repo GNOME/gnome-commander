@@ -90,7 +90,7 @@ ViewerFileOps *gv_fileops_new()
 /*
   TODO: Make this thread-safe!
 */
-const char *unix_error_string (int error_num)
+inline const char *unix_error_string (int error_num)
 {
     static char buffer [BUF_LARGE];
     gchar *strerror_currentlocale;

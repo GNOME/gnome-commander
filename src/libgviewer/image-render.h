@@ -54,7 +54,7 @@ struct _ImageRenderStatus
     gdouble  scale_factor;
     gint     image_width;
     gint     image_height;
-    gint      bits_per_sample;
+    gint     bits_per_sample;
 };
 
 typedef enum

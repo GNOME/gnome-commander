@@ -51,8 +51,8 @@ struct _GVDataPresentation
     PRESENTATION presentation_mode;
 
     align_offset_to_line_start_proc align_offset_to_line_start;
-    scroll_lines_proc        scroll_lines;
-    get_end_of_line_offset_proc    get_end_of_line_offset;
+    scroll_lines_proc               scroll_lines;
+    get_end_of_line_offset_proc     get_end_of_line_offset;
 };
 
 static offset_type nowrap_align_offset(GVDataPresentation *dp, offset_type offset);
@@ -103,23 +103,23 @@ void gv_set_data_presentation_mode(GVDataPresentation *dp, PRESENTATION present)
 
     switch (present)
     {
-    case PRSNT_NO_WRAP:
-        dp->align_offset_to_line_start    = nowrap_align_offset;
-        dp->scroll_lines        = nowrap_scroll_lines;
-        dp->get_end_of_line_offset    = nowrap_get_eol;
-        break;
+        case PRSNT_NO_WRAP:
+            dp->align_offset_to_line_start = nowrap_align_offset;
+            dp->scroll_lines = nowrap_scroll_lines;
+            dp->get_end_of_line_offset = nowrap_get_eol;
+            break;
 
-    case PRSNT_WRAP:
-        dp->align_offset_to_line_start    = wrap_align_offset;
-        dp->scroll_lines        = wrap_scroll_lines;
-        dp->get_end_of_line_offset    = wrap_get_eol;
-        break;
+        case PRSNT_WRAP:
+            dp->align_offset_to_line_start = wrap_align_offset;
+            dp->scroll_lines = wrap_scroll_lines;
+            dp->get_end_of_line_offset = wrap_get_eol;
+            break;
 
-    case PRSNT_BIN_FIXED:
-        dp->align_offset_to_line_start    = binfixed_align_offset;
-        dp->scroll_lines        = binfixed_scroll_lines;
-        dp->get_end_of_line_offset    = binfixed_get_eol;
-        break;
+        case PRSNT_BIN_FIXED:
+            dp->align_offset_to_line_start = binfixed_align_offset;
+            dp->scroll_lines = binfixed_scroll_lines;
+            dp->get_end_of_line_offset = binfixed_get_eol;
+            break;
     }
 }
 
@@ -185,10 +185,7 @@ offset_type gv_get_end_of_line_offset(GVDataPresentation *dp, offset_type start_
 */
 static offset_type find_previous_crlf(GVDataPresentation *dp, offset_type start)
 {
-    offset_type offset;
-    char_type value;
-
-    offset = start;
+    offset_type offset = start;
 
     while (TRUE)
     {
@@ -196,7 +193,7 @@ static offset_type find_previous_crlf(GVDataPresentation *dp, offset_type start)
             return 0;
 
         offset = gv_input_get_previous_char_offset(dp->imd, offset);
-        value = gv_input_mode_get_utf8_char(dp->imd, offset);
+        char_type value = gv_input_mode_get_utf8_char(dp->imd, offset);
 
         if (value==INVALID_CHAR)
             break;
@@ -267,14 +264,11 @@ static offset_type nowrap_scroll_lines(GVDataPresentation *dp, offset_type curre
 
 static offset_type nowrap_get_eol(GVDataPresentation *dp, offset_type start_of_line)
 {
-    offset_type offset;
-    char_type value;
-
-    offset = start_of_line;
+    offset_type offset = start_of_line;
 
     while (TRUE)
     {
-        value = gv_input_mode_get_utf8_char(dp->imd, offset);
+        char_type value = gv_input_mode_get_utf8_char(dp->imd, offset);
 
         if (value==INVALID_CHAR)
             break;
@@ -283,9 +277,7 @@ static offset_type nowrap_get_eol(GVDataPresentation *dp, offset_type start_of_l
 
         // break upon end of line
         if (value=='\n' || value=='\r')
-        {
             break;
-        }
     }
 
     return offset;
@@ -298,9 +290,7 @@ static offset_type nowrap_get_eol(GVDataPresentation *dp, offset_type start_of_l
 */
 static offset_type find_previous_wrapped_text_line(GVDataPresentation *dp, offset_type start)
 {
-    offset_type offset;
-
-    offset = start;
+    offset_type offset = start;
 
     /* step 1:
         find TWO previous CR/LF = start offset of previous text line
@@ -337,16 +327,11 @@ static offset_type find_previous_wrapped_text_line(GVDataPresentation *dp, offse
 
 static offset_type wrap_align_offset(GVDataPresentation *dp, offset_type offset)
 {
-    offset_type line_start, temp;
+    offset_type line_start = nowrap_align_offset(dp, offset);
 
-    line_start = nowrap_align_offset(dp, offset);
-    temp = line_start;
-
-    while (temp<=offset)
-    {
+    for (offset_type temp=line_start; temp<=offset; temp=wrap_scroll_lines(dp, temp, 1))
         line_start = temp;
-        temp = wrap_scroll_lines(dp, temp, 1);
-    }
+
     return line_start;
 }
 

@@ -36,12 +36,12 @@
 
 #include "libgviewer.h"
 
-#define DEFAULT_TAB_SIZE 8
-#define DEFAULT_WRAP_MODE TRUE
-#define DEFAULT_FIXED_LIMIT 80
-#define DEFAULT_ENCODING "ASCII"
-#define DEFAULT_BEST_FIT TRUE
-#define DEFAULT_SCALE_FACTOR 1.0
+#define DEFAULT_TAB_SIZE          8
+#define DEFAULT_WRAP_MODE      TRUE
+#define DEFAULT_FIXED_LIMIT      80
+#define DEFAULT_ENCODING    "ASCII"
+#define DEFAULT_BEST_FIT       TRUE
+#define DEFAULT_SCALE_FACTOR    1.0
 
 
 /* Class Private Data */
@@ -110,7 +110,7 @@ GtkType gviewer_get_type (void)
 }
 
 
-GtkWidget* gviewer_new (void)
+GtkWidget *gviewer_new (void)
 {
     GViewer *w = (GViewer *) gtk_type_new (gviewer_get_type ());
 

@@ -95,19 +95,19 @@ inline void suffices(char_type *pattern, int m, gboolean case_sens, int *suff)
 static void goodsuff_compute(char_type *pattern, int m, gboolean case_sens, /*out*/ int *good)
 {
    int *suff = g_new0(int, m);
-   int i, j;
+   int j;
 
    suffices(pattern, m, case_sens, suff);
 
-   for (i = 0; i < m; ++i)
+   for (int i = 0; i < m; ++i)
       good[i] = m;
    j = 0;
-   for (i = m - 1; i >= -1; --i)
+   for (int i = m - 1; i >= -1; --i)
       if (i == -1 || suff[i] == i + 1)
          for (; j < m - 1 - i; ++j)
             if (good[j] == m)
                good[j] = m - 1 - i;
-   for (i = 0; i <= m - 2; ++i)
+   for (int i = 0; i <= m - 2; ++i)
       good[m - 1 - suff[i]] = m - 1 - i;
 
    g_free(suff);
@@ -161,7 +161,7 @@ void free_bm_chartype_data(GViewerBMChartypeData*data)
 
 gboolean bm_chartype_equal(GViewerBMChartypeData *data, int pattern_index, char_type ch)
 {
-    return    CHARTYPE_CASE(data->pattern[pattern_index], data->case_sensitive)
+    return CHARTYPE_CASE(data->pattern[pattern_index], data->case_sensitive)
         ==
         CHARTYPE_CASE(ch, data->case_sensitive);
 }
@@ -172,10 +172,4 @@ int bm_chartype_get_advancement(GViewerBMChartypeData *data, int pattern_index, 
     int m = data->pattern_len;
 
     return MAX(data->good[pattern_index], bch_get_value(data, ch, m) - m + 1 + pattern_index);
-}
-
-
-int bm_chartype_get_good_match_advancement(GViewerBMChartypeData *data)
-{
-    return data->good[0];
 }
