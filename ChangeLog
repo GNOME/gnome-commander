@@ -1,3 +1,8 @@
+2007-10-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags.h:
+	Yet another fix for gcc-4.2
+
 2007-10-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.h:
