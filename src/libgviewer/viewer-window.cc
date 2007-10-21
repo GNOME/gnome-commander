@@ -43,8 +43,6 @@
 #define G_OBJ_IMAGE_OP_KEY       "imageop"
 #define G_OBJ_EXTERNAL_TOOL_KEY  "exttool"
 
-#undef HAVE_HELP_ABOUT
-
 // EXTERNAL TOOLS DISABLED in coming stable release
 #undef EXTERNAL_TOOLS
 
@@ -152,9 +150,6 @@ static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *obj);
 
 static void menu_help_quick_help(GtkMenuItem *item, GViewerWindow *obj);
 static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj);
-#ifdef HAVE_HELP_ABOUT
-static void menu_help_about(GtkMenuItem *item, GViewerWindow *obj);
-#endif
 
 static void set_zoom_in(GViewerWindow *obj);
 static void set_zoom_out(GViewerWindow *obj);
@@ -997,14 +992,6 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 NO_MENU_ITEM, NO_GSLIST},
-#ifdef HAVE_HELP_ABOUT
-        {MI_SEPERATOR},
-        {MI_NORMAL, _("_About"), NO_KEYVAL, NO_MODIFIER,
-                G_CALLBACK (menu_help_about),
-                GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ABOUT,
-                NO_GOBJ_KEY, NO_GOBJ_VAL,
-                NO_MENU_ITEM, NO_GSLIST},
-#endif
         {MI_NONE}
     };
 
@@ -1422,12 +1409,6 @@ static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj)
 {
     gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-internal-viewer-keyboard");
 }
-
-#ifdef HAVE_HELP_ABOUT
-static void menu_help_about(GtkMenuItem *item, GViewerWindow *obj)
-{
-}
-#endif
 
 #ifdef EXTERNAL_TOOLS
 inline void gviewer_window_add_external_tool(GViewerWindow *obj, const gchar *name, const gchar *command)
