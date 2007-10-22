@@ -80,10 +80,10 @@ GVInputModesData *gv_input_modes_new()
 */
 void gv_init_input_modes(GVInputModesData *imd, get_byte_proc proc, void *get_byte_user_data)
 {
-    g_return_if_fail(imd!=NULL);
+    g_return_if_fail (imd!=NULL);
     memset(imd, 0, sizeof(GVInputModesData));
 
-    g_return_if_fail(proc!=NULL);
+    g_return_if_fail (proc!=NULL);
     imd->get_byte = proc;
     imd->get_byte_user_data = get_byte_user_data;
 
@@ -100,7 +100,7 @@ void gv_init_input_modes(GVInputModesData *imd, get_byte_proc proc, void *get_by
 
 void gv_free_input_modes(GVInputModesData *imd)
 {
-    g_return_if_fail(imd!=NULL);
+    g_return_if_fail (imd!=NULL);
 
     g_free(imd->input_mode_name);
 
@@ -113,8 +113,8 @@ void gv_free_input_modes(GVInputModesData *imd)
 
 const char*gv_get_input_mode(GVInputModesData *imd)
 {
-    g_return_val_if_fail(imd!=NULL, "");
-    g_return_val_if_fail(imd->input_mode_name!=NULL, "");
+    g_return_val_if_fail (imd!=NULL, "");
+    g_return_val_if_fail (imd->input_mode_name!=NULL, "");
 
     return imd->input_mode_name;
 }
@@ -144,8 +144,8 @@ void gv_set_input_mode(GVInputModesData *imd, const gchar *input_mode)
 
 char_type gv_input_mode_get_utf8_char(GVInputModesData *imd, offset_type offset)
 {
-    g_return_val_if_fail(imd!=NULL, INVALID_CHAR);
-    g_return_val_if_fail(imd->get_char!=NULL, INVALID_CHAR);
+    g_return_val_if_fail (imd!=NULL, INVALID_CHAR);
+    g_return_val_if_fail (imd->get_char!=NULL, INVALID_CHAR);
 
     return imd->get_char(imd, offset);
 }
@@ -153,8 +153,8 @@ char_type gv_input_mode_get_utf8_char(GVInputModesData *imd, offset_type offset)
 
 offset_type gv_input_get_next_char_offset(GVInputModesData *imd, offset_type current_offset)
 {
-    g_return_val_if_fail(imd!=NULL, 0);
-    g_return_val_if_fail(imd->get_next_offset!=NULL, 0);
+    g_return_val_if_fail (imd!=NULL, 0);
+    g_return_val_if_fail (imd->get_next_offset!=NULL, 0);
 
     return imd->get_next_offset(imd, current_offset);
 }
@@ -162,8 +162,8 @@ offset_type gv_input_get_next_char_offset(GVInputModesData *imd, offset_type cur
 
 offset_type gv_input_get_previous_char_offset(GVInputModesData *imd, offset_type current_offset)
 {
-    g_return_val_if_fail(imd!=NULL, 0);
-    g_return_val_if_fail(imd->get_prev_offset!=NULL, 0);
+    g_return_val_if_fail (imd!=NULL, 0);
+    g_return_val_if_fail (imd->get_prev_offset!=NULL, 0);
 
     return imd->get_prev_offset(imd, current_offset);
 }
@@ -171,7 +171,7 @@ offset_type gv_input_get_previous_char_offset(GVInputModesData *imd, offset_type
 
 static int gv_input_mode_get_byte(GVInputModesData *imd, offset_type offset)
 {
-    g_return_val_if_fail(imd->get_byte!=NULL, INVALID_CHAR);
+    g_return_val_if_fail (imd->get_byte!=NULL, INVALID_CHAR);
 
     return imd->get_byte(imd->get_byte_user_data, offset);
 }
@@ -194,7 +194,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
     int i;
     GIConv icnv;        // GLib's IConvert interface/emulation
 
-    g_return_if_fail(imd!=NULL);
+    g_return_if_fail (imd!=NULL);
 
     // First thing, set ASCII input mode, which will be the default if anything fails
     memset(imd->ascii_charset_translation, 0, sizeof(imd->ascii_charset_translation));
@@ -288,7 +288,7 @@ static char_type inputmode_ascii_get_char(GVInputModesData *imd, offset_type off
 
 char_type gv_input_mode_byte_to_utf8(GVInputModesData *imd, unsigned char data)
 {
-    g_return_val_if_fail(imd!=NULL, '.');
+    g_return_val_if_fail (imd!=NULL, '.');
 
     return imd->ascii_charset_translation[data];
 }
@@ -296,7 +296,7 @@ char_type gv_input_mode_byte_to_utf8(GVInputModesData *imd, unsigned char data)
 
 void gv_input_mode_update_utf8_translation(GVInputModesData *imd, unsigned char index, char_type new_value)
 {
-    g_return_if_fail(imd!=NULL);
+    g_return_if_fail (imd!=NULL);
 
     imd->ascii_charset_translation[index] = new_value;
 }
@@ -343,7 +343,7 @@ static offset_type inputmode_ascii_get_next_offset(GVInputModesData *imd, offset
 
 static void inputmode_utf8_activate(GVInputModesData *imd)
 {
-    g_return_if_fail(imd!=NULL);
+    g_return_if_fail (imd!=NULL);
 
     imd->get_char = inputmode_utf8_get_char;
     imd->get_prev_offset = inputmode_utf8_get_previous_offset;

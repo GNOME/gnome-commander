@@ -700,8 +700,8 @@ static void image_render_v_adjustment_value_changed (GtkAdjustment *adjustment, 
 
 static void image_render_free_pixbuf(ImageRender *obj)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
 
     image_render_wait_for_loader_thread(obj);
 
@@ -737,8 +737,8 @@ static gpointer image_render_pixbuf_loading_thread(gpointer data)
 
 void image_render_wait_for_loader_thread(ImageRender *obj)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
 
     if (obj->priv->pixbuf_loading_thread !=NULL)
     {
@@ -763,12 +763,12 @@ void image_render_wait_for_loader_thread(ImageRender *obj)
 
 void image_render_load_scaled_pixbuf(ImageRender *obj)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
-    g_return_if_fail(obj->priv->filename!=NULL);
-    g_return_if_fail(obj->priv->scaled_pixbuf_loaded==FALSE);
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj->priv->filename!=NULL);
+    g_return_if_fail (obj->priv->scaled_pixbuf_loaded==FALSE);
 
-    g_return_if_fail(GTK_WIDGET_REALIZED(GTK_WIDGET(obj)));
+    g_return_if_fail (GTK_WIDGET_REALIZED(GTK_WIDGET(obj)));
 
     int width = GTK_WIDGET(obj)->allocation.width;
     int height = GTK_WIDGET(obj)->allocation.height;
@@ -792,9 +792,9 @@ void image_render_load_scaled_pixbuf(ImageRender *obj)
 
 void image_render_start_background_pixbuf_loading(ImageRender *obj)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
-    g_return_if_fail(obj->priv->filename!=NULL);
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj->priv->filename!=NULL);
 
     if (obj->priv->pixbuf_loading_thread!=NULL)
         return;
@@ -809,12 +809,12 @@ void image_render_start_background_pixbuf_loading(ImageRender *obj)
 
 void image_render_load_file(ImageRender *obj, const gchar *filename)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
 
     image_render_free_pixbuf(obj);
 
-    g_return_if_fail(obj->priv->filename==NULL);
+    g_return_if_fail (obj->priv->filename==NULL);
 
     obj->priv->filename = g_strdup(filename);
     obj->priv->scaled_pixbuf_loaded = FALSE;
@@ -826,8 +826,8 @@ void image_render_load_file(ImageRender *obj, const gchar *filename)
 
 static void image_render_prepare_disp_pixbuf(ImageRender *obj)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
 
     int width;
     int height;
@@ -895,8 +895,8 @@ static void image_render_prepare_disp_pixbuf(ImageRender *obj)
 
 static void image_render_update_adjustments(ImageRender *obj)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
 
     if (!obj->priv->disp_pixbuf)
         return;
@@ -942,8 +942,8 @@ static void image_render_update_adjustments(ImageRender *obj)
 
 void image_render_set_best_fit(ImageRender *obj, gboolean active)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
 
     obj->priv->best_fit = active;
     image_render_prepare_disp_pixbuf(obj);
@@ -953,16 +953,16 @@ void image_render_set_best_fit(ImageRender *obj, gboolean active)
 
 gboolean image_render_get_best_fit(ImageRender *obj)
 {
-    g_return_val_if_fail(obj!=NULL, FALSE);
-    g_return_val_if_fail(IS_IMAGE_RENDER(obj), FALSE);
+    g_return_val_if_fail (obj!=NULL, FALSE);
+    g_return_val_if_fail (IS_IMAGE_RENDER(obj), FALSE);
     return obj->priv->best_fit;
 }
 
 
 void image_render_set_scale_factor(ImageRender *obj, double scalefactor)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
 
     obj->priv->scale_factor = scalefactor;
     image_render_prepare_disp_pixbuf(obj);
@@ -972,8 +972,8 @@ void image_render_set_scale_factor(ImageRender *obj, double scalefactor)
 
 double image_render_get_scale_factor(ImageRender *obj)
 {
-    g_return_val_if_fail(obj!=NULL, 1);
-    g_return_val_if_fail(IS_IMAGE_RENDER(obj), 1);
+    g_return_val_if_fail (obj!=NULL, 1);
+    g_return_val_if_fail (IS_IMAGE_RENDER(obj), 1);
 
     return obj->priv->scale_factor;
 }
@@ -981,10 +981,10 @@ double image_render_get_scale_factor(ImageRender *obj)
 
 void image_render_operation(ImageRender *obj, IMAGEOPERATION op)
 {
-    g_return_if_fail(obj!=NULL);
-    g_return_if_fail(IS_IMAGE_RENDER(obj));
+    g_return_if_fail (obj!=NULL);
+    g_return_if_fail (IS_IMAGE_RENDER(obj));
 
-    g_return_if_fail(obj->priv->orig_pixbuf);
+    g_return_if_fail (obj->priv->orig_pixbuf);
 
     GdkPixbuf *temp = NULL;
 
@@ -1006,7 +1006,7 @@ void image_render_operation(ImageRender *obj, IMAGEOPERATION op)
             temp = gdk_pixbuf_flip(obj->priv->orig_pixbuf, TRUE);
             break;
         default:
-            g_return_if_fail(!"Unknown image operation");
+            g_return_if_fail (!"Unknown image operation");
     }
 
     g_object_unref(obj->priv->orig_pixbuf);

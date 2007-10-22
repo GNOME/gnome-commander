@@ -279,7 +279,7 @@ static VIEWERDISPLAYMODE guess_display_mode(const unsigned char *data, int len)
 
 void gviewer_auto_detect_display_mode(GViewer *obj)
 {
-    g_return_if_fail(obj!=NULL);
+    g_return_if_fail (obj!=NULL);
 
     const unsigned DETECTION_BUF_LEN = 100;
 

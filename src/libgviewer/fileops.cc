@@ -80,7 +80,7 @@ struct _ViewerFileOps
 ViewerFileOps *gv_fileops_new()
 {
     ViewerFileOps *fops = g_new0(ViewerFileOps, 1);
-    g_return_val_if_fail(fops!=NULL, NULL);
+    g_return_val_if_fail (fops!=NULL, NULL);
 
     fops->file = -1;
     return fops;
@@ -105,8 +105,8 @@ inline const char *unix_error_string (int error_num)
 
 static int gv_file_internal_open(ViewerFileOps *ops, int fd)
 {
-    g_return_val_if_fail(ops!=NULL, -1);
-    g_return_val_if_fail(fd>2, -1);
+    g_return_val_if_fail (ops!=NULL, -1);
+    g_return_val_if_fail (fd>2, -1);
 
     const gchar *error;
     int cntlflags;
@@ -153,7 +153,7 @@ int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
 {
     g_free(ops->filename);
 
-    g_return_val_if_fail(filedesc>2, -1);
+    g_return_val_if_fail (filedesc>2, -1);
 
     int fd = dup(filedesc);
     if (fd==-1)
@@ -170,8 +170,8 @@ int gv_file_open(ViewerFileOps *ops, const gchar* _file)
 {
     g_free(ops->filename);
 
-    g_return_val_if_fail(_file!=NULL, -1);
-    g_return_val_if_fail(_file[0]!=0, -1);
+    g_return_val_if_fail (_file!=NULL, -1);
+    g_return_val_if_fail (_file[0]!=0, -1);
 
     ops->filename = g_strdup(_file);
 
@@ -190,7 +190,7 @@ int gv_file_open(ViewerFileOps *ops, const gchar* _file)
 
 offset_type gv_file_get_max_offset(ViewerFileOps *ops)
 {
-    g_return_val_if_fail(ops!=NULL, 0);
+    g_return_val_if_fail (ops!=NULL, 0);
 
     return ops->s.st_size;
 }
@@ -198,7 +198,7 @@ offset_type gv_file_get_max_offset(ViewerFileOps *ops)
 
 void gv_file_close (ViewerFileOps *ops)
 {
-    g_return_if_fail(ops!=NULL);
+    g_return_if_fail (ops!=NULL);
 
     if (ops->file != -1)
     {
@@ -226,7 +226,7 @@ char * gv_file_init_growing_view (ViewerFileOps *ops, const char *filename)
 */
 char *gv_file_load(ViewerFileOps *ops, int fd)
 {
-    g_return_val_if_fail(ops!=NULL, "invalid ops paramter");
+    g_return_val_if_fail (ops!=NULL, "invalid ops paramter");
 
     ops->file = fd;
 
@@ -283,7 +283,7 @@ char *gv_file_load(ViewerFileOps *ops, int fd)
 */
 int gv_file_get_byte (ViewerFileOps *ops, offset_type byte_index)
 {
-    g_return_val_if_fail(ops!=NULL, -1);
+    g_return_val_if_fail (ops!=NULL, -1);
 
     int page = byte_index / VIEW_PAGE_SIZE + 1;
     int offset = byte_index % VIEW_PAGE_SIZE;

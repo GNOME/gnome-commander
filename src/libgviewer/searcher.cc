@@ -181,8 +181,8 @@ GViewerSearcher *g_viewer_searcher_new()
 
 gint * g_viewer_searcher_get_complete_indicator(GViewerSearcher *src)
 {
-    g_return_val_if_fail(src!=NULL, NULL);
-    g_return_val_if_fail(src->priv!=NULL, NULL);
+    g_return_val_if_fail (src!=NULL, NULL);
+    g_return_val_if_fail (src->priv!=NULL, NULL);
 
     return &src->priv->completed_indicator;
 }
@@ -190,8 +190,8 @@ gint * g_viewer_searcher_get_complete_indicator(GViewerSearcher *src)
 
 gint *g_viewer_searcher_get_abort_indicator(GViewerSearcher *src)
 {
-    g_return_val_if_fail(src!=NULL, NULL);
-    g_return_val_if_fail(src->priv!=NULL, NULL);
+    g_return_val_if_fail (src!=NULL, NULL);
+    g_return_val_if_fail (src->priv!=NULL, NULL);
 
     return &src->priv->abort_indicator;
 }
@@ -199,8 +199,8 @@ gint *g_viewer_searcher_get_abort_indicator(GViewerSearcher *src)
 
 gint *g_viewer_searcher_get_progress_indicator(GViewerSearcher *src)
 {
-    g_return_val_if_fail(src!=NULL, NULL);
-    g_return_val_if_fail(src->priv!=NULL, NULL);
+    g_return_val_if_fail (src!=NULL, NULL);
+    g_return_val_if_fail (src->priv!=NULL, NULL);
 
     return &src->priv->progress_value;
 }
@@ -208,8 +208,8 @@ gint *g_viewer_searcher_get_progress_indicator(GViewerSearcher *src)
 
 gboolean g_viewer_searcher_get_end_of_search(GViewerSearcher *src)
 {
-    g_return_val_if_fail(src!=NULL, TRUE);
-    g_return_val_if_fail(src->priv!=NULL, TRUE);
+    g_return_val_if_fail (src!=NULL, TRUE);
+    g_return_val_if_fail (src->priv!=NULL, TRUE);
 
     return src->priv->search_reached_end;
 }
@@ -217,8 +217,8 @@ gboolean g_viewer_searcher_get_end_of_search(GViewerSearcher *src)
 
 offset_type g_viewer_searcher_get_search_result(GViewerSearcher *src)
 {
-    g_return_val_if_fail(src!=NULL, 0);
-    g_return_val_if_fail(src->priv!=NULL, 0);
+    g_return_val_if_fail (src!=NULL, 0);
+    g_return_val_if_fail (src->priv!=NULL, 0);
 
     return src->priv->search_result;
 }
@@ -555,12 +555,12 @@ gboolean search_text_backward (GViewerSearcher *src)
 
 gpointer search_func(gpointer user_data)
 {
-    g_return_val_if_fail(user_data!=NULL, NULL);
-    g_return_val_if_fail(G_IS_VIEWERSEARCHER(user_data), NULL);
+    g_return_val_if_fail (user_data!=NULL, NULL);
+    g_return_val_if_fail (G_IS_VIEWERSEARCHER(user_data), NULL);
 
     GViewerSearcher *src = G_VIEWERSEARCHER(user_data);
     
-    g_return_val_if_fail(src->priv->imd!=NULL, NULL);
+    g_return_val_if_fail (src->priv->imd!=NULL, NULL);
 
     update_progress_indicator(src, src->priv->start_offset);
 

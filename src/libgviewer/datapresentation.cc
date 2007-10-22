@@ -79,8 +79,8 @@ GVDataPresentation *gv_data_presentation_new()
 
 void gv_init_data_presentation(GVDataPresentation *dp, GVInputModesData *imd, offset_type max_offset)
 {
-    g_return_if_fail(dp!=NULL);
-    g_return_if_fail(imd!=NULL);
+    g_return_if_fail (dp!=NULL);
+    g_return_if_fail (imd!=NULL);
 
     memset(dp, 0, sizeof(GVDataPresentation));
     dp->imd = imd;
@@ -98,7 +98,7 @@ void gv_free_data_presentation(GVDataPresentation *dp)
 
 void gv_set_data_presentation_mode(GVDataPresentation *dp, PRESENTATION present)
 {
-    g_return_if_fail(dp!=NULL);
+    g_return_if_fail (dp!=NULL);
     dp->presentation_mode = present;
 
     switch (present)
@@ -126,52 +126,52 @@ void gv_set_data_presentation_mode(GVDataPresentation *dp, PRESENTATION present)
 
 PRESENTATION gv_get_data_presentation_mode(GVDataPresentation *dp)
 {
-    g_return_val_if_fail(dp!=NULL, PRSNT_NO_WRAP);
+    g_return_val_if_fail (dp!=NULL, PRSNT_NO_WRAP);
     return dp->presentation_mode;
 }
 
 
 void gv_set_tab_size(GVDataPresentation *dp, guint tab_size)
 {
-    g_return_if_fail(dp!=NULL);
+    g_return_if_fail (dp!=NULL);
     dp->tab_size = tab_size;
 }
 
 
 void gv_set_fixed_count(GVDataPresentation *dp, guint chars_per_line)
 {
-    g_return_if_fail(dp!=NULL);
+    g_return_if_fail (dp!=NULL);
     dp->fixed_count = chars_per_line;
 }
 
 
 void gv_set_wrap_limit(GVDataPresentation *dp, guint chars_per_line)
 {
-    g_return_if_fail(dp!=NULL);
+    g_return_if_fail (dp!=NULL);
     dp->wrap_limit= chars_per_line;
 }
 
 
 offset_type gv_align_offset_to_line_start(GVDataPresentation *dp, offset_type offset)
 {
-    g_return_val_if_fail(dp!=NULL, 0);
-    g_return_val_if_fail(dp->align_offset_to_line_start!=NULL, 0);
+    g_return_val_if_fail (dp!=NULL, 0);
+    g_return_val_if_fail (dp->align_offset_to_line_start!=NULL, 0);
     return dp->align_offset_to_line_start(dp, offset);
 }
 
 
 offset_type gv_scroll_lines(GVDataPresentation *dp, offset_type current_offset, int delta)
 {
-    g_return_val_if_fail(dp!=NULL, 0);
-    g_return_val_if_fail(dp->scroll_lines!=NULL, 0);
+    g_return_val_if_fail (dp!=NULL, 0);
+    g_return_val_if_fail (dp->scroll_lines!=NULL, 0);
     return dp->scroll_lines(dp, current_offset, delta);
 }
 
 
 offset_type gv_get_end_of_line_offset(GVDataPresentation *dp, offset_type start_of_line)
 {
-    g_return_val_if_fail(dp!=NULL, 0);
-    g_return_val_if_fail(dp->get_end_of_line_offset!=NULL, 0);
+    g_return_val_if_fail (dp!=NULL, 0);
+    g_return_val_if_fail (dp->get_end_of_line_offset!=NULL, 0);
     return dp->get_end_of_line_offset(dp, start_of_line);
 }
 
@@ -412,7 +412,7 @@ static offset_type binfixed_align_offset(GVDataPresentation *dp, offset_type off
 {
     offset_type o;
 
-    g_return_val_if_fail(dp->fixed_count>0, offset);
+    g_return_val_if_fail (dp->fixed_count>0, offset);
 
     if (offset > dp->max_offset)
         offset = dp->max_offset;
@@ -424,7 +424,7 @@ static offset_type binfixed_align_offset(GVDataPresentation *dp, offset_type off
 
 static offset_type binfixed_scroll_lines(GVDataPresentation *dp, offset_type current_offset, int delta)
 {
-    g_return_val_if_fail(dp->fixed_count>0, current_offset);
+    g_return_val_if_fail (dp->fixed_count>0, current_offset);
 
     if (delta > 0)
     {
@@ -447,7 +447,7 @@ static offset_type binfixed_scroll_lines(GVDataPresentation *dp, offset_type cur
 
 static offset_type binfixed_get_eol(GVDataPresentation *dp, offset_type start_of_line)
 {
-    g_return_val_if_fail(dp->fixed_count>0, start_of_line);
+    g_return_val_if_fail (dp->fixed_count>0, start_of_line);
 
     if (start_of_line + dp->fixed_count > dp->max_offset)
         return dp->max_offset;

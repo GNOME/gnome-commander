@@ -87,7 +87,7 @@ void gviewer_write_string_history (gchar *format, GList *strings)
 }
 
 
-gboolean gviewer_find_string_history(GList *strings, const gchar *text)
+gboolean gviewer_find_string_history (GList *strings, const gchar *text)
 {
     for (; strings; strings = strings->next)
         if (strings->data!=NULL)
@@ -153,10 +153,10 @@ int unicode2utf8(unsigned int unicode, unsigned char*out)
 
 char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *array_length)
 {
-    g_return_val_if_fail(utf8text!=NULL, NULL);
-    g_return_val_if_fail(array_length!=NULL, NULL);
+    g_return_val_if_fail (utf8text!=NULL, NULL);
+    g_return_val_if_fail (array_length!=NULL, NULL);
 
-    g_return_val_if_fail(g_utf8_validate(utf8text, -1, NULL), NULL);
+    g_return_val_if_fail (g_utf8_validate(utf8text, -1, NULL), NULL);
 
     glong index;
     guint32 unicode_char;
@@ -164,7 +164,7 @@ char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
     char_type *result;
 
     glong length = g_utf8_strlen(utf8text, -1);
-    g_return_val_if_fail(length>0, NULL);
+    g_return_val_if_fail (length>0, NULL);
 
     result = g_new0 (char_type, length);
     *array_length = length;
@@ -190,8 +190,8 @@ char_type *convert_utf8_to_chartype_array(const gchar *utf8text, /*out*/ int *ar
 
 guint8 *mem_reverse(const guint8 *buffer, guint buflen)
 {
-    g_return_val_if_fail(buffer!=NULL, NULL);
-    g_return_val_if_fail(buflen>0, NULL);
+    g_return_val_if_fail (buffer!=NULL, NULL);
+    g_return_val_if_fail (buflen>0, NULL);
 
     guint i, j;
 
@@ -206,8 +206,8 @@ guint8 *mem_reverse(const guint8 *buffer, guint buflen)
 
 guint8 *text2hex(const gchar *text, /*out*/ guint *buflen)
 {
-    g_return_val_if_fail(text!=NULL, NULL);
-    g_return_val_if_fail(buflen!=NULL, NULL);
+    g_return_val_if_fail (text!=NULL, NULL);
+    g_return_val_if_fail (buflen!=NULL, NULL);
 
     guint8 *result;
     int len;

@@ -45,10 +45,10 @@ struct _GViewerSearchProgressDlgPrivate
 
 static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchProgressDlg *sdlg)
 {
-    g_return_if_fail(sdlg!=NULL);
-    g_return_if_fail(sdlg->priv!=NULL);
+    g_return_if_fail (sdlg!=NULL);
+    g_return_if_fail (sdlg->priv!=NULL);
 
-    g_return_if_fail(sdlg->priv->abort_indicator!=NULL);
+    g_return_if_fail (sdlg->priv->abort_indicator!=NULL);
 
     g_atomic_int_add(sdlg->priv->abort_indicator, 1);
 }
@@ -172,10 +172,10 @@ gboolean search_progress_dlg_timeout(gpointer data)
 void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_text,
                                       gint *abort, gint *complete, gint *progress)
 {
-    g_return_if_fail(abort!=NULL);
-    g_return_if_fail(complete!=NULL);
-    g_return_if_fail(progress!=NULL);
-    g_return_if_fail(searching_text!=NULL);
+    g_return_if_fail (abort!=NULL);
+    g_return_if_fail (complete!=NULL);
+    g_return_if_fail (progress!=NULL);
+    g_return_if_fail (searching_text!=NULL);
 
     gdouble dprogress;
     gchar text[20];

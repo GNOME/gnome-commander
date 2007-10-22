@@ -91,8 +91,8 @@ inline void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good)
 
 GViewerBMByteData *create_bm_byte_data(const guint8 *pattern, const gint length)
 {
-    g_return_val_if_fail(pattern!=NULL, NULL);
-    g_return_val_if_fail(length>0, NULL);
+    g_return_val_if_fail (pattern!=NULL, NULL);
+    g_return_val_if_fail (length>0, NULL);
 
     GViewerBMByteData *data = g_new0 (GViewerBMByteData, 1);
 

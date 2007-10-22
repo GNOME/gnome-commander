@@ -120,7 +120,7 @@ static void insert_text_tag(gpointer data, guint n, GtkWidget *widget)
                                    "%M",
                                    "%S"};
 
-    g_return_if_fail(n < G_N_ELEMENTS(placeholder));
+    g_return_if_fail (n < G_N_ELEMENTS(placeholder));
 
     insert_tag((GnomeCmdAdvrenameDialog *) data, placeholder[n]);
 }
