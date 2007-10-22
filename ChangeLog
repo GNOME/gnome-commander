@@ -1,3 +1,8 @@
+2007-10-22  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-clist.cc:
+	Fixed problem with sporadically lost cursor in file pane
+
 2007-10-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.h:

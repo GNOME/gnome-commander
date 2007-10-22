@@ -5635,6 +5635,9 @@
                             <para>Fixed crash when creating dir with absolute path on SMB share</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem with sporadically lost cursor in file pane</para>
+                        </listitem>
+                        <listitem>
                             <para>Build fixes</para>
                         </listitem>
                     </itemizedlist>

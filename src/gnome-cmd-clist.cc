@@ -587,6 +587,8 @@ static void init (GnomeCmdCList *clist)
     clist->drag_motion_row = -1;
 
     gtk_clist_set_selection_mode (GTK_CLIST (clist), GTK_SELECTION_SINGLE);
+    
+    GTK_CLIST (clist)->focus_row = 0;
 
     gtk_signal_connect_after (GTK_OBJECT (clist), "scroll_vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), NULL);
     gtk_signal_connect (GTK_OBJECT (clist), "realize", GTK_SIGNAL_FUNC (on_realize), NULL);

@@ -9,6 +9,7 @@ Bug fixes:
  * Fixed problem #447415 (inability to launch executables)
  * Fixed problem when creating ~/dir
  * Fixed crash when creating dir with absolute path on SMB share
+ * Fixed problem with sporadically lost cursor in file pane
  * Build fixes
 
 New features:
