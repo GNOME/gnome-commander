@@ -357,7 +357,6 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
     static gchar buf0[64];
     static gchar buf1[128];
 
-    gint i;
 
     switch (size_disp_mode)
     {
@@ -365,6 +364,7 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
             {
                 static gchar *prefixes[] = {"B","kB","MB","GB","TB","PB"};
                 gdouble dsize = (gdouble) size;
+                guint i;
 
                 for (i=0; i<G_N_ELEMENTS(prefixes) && dsize>1024; i++)
                     dsize /= 1024;
@@ -390,7 +390,7 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
 
                 *dest++ = *src++;
 
-                for (i=len; i>0; i--)
+                for (gint i=len; i>0; i--)
                 {
                     if (i>2 && i%3 == 2)
                         dest = g_stpcpy (dest, sep);
@@ -786,7 +786,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 }
 
 
-GList *string_history_add (GList *in, const gchar *value, gint maxsize)
+GList *string_history_add (GList *in, const gchar *value, guint maxsize)
 {
     GList *tmp = g_list_find_custom (in, (gchar *) value, (GCompareFunc)strcmp);
     GList *out;

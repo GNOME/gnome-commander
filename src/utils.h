@@ -171,7 +171,7 @@ inline void stop_kp (GtkObject *obj)
     gtk_signal_emit_stop_by_name (obj, "key-press-event");
 }
 
-GList *string_history_add (GList *in, const gchar *value, gint maxsize);
+GList *string_history_add (GList *in, const gchar *value, guint maxsize);
 
 GtkWidget *create_styled_button (const gchar *text);
 GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pixmap);

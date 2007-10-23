@@ -378,7 +378,7 @@ static offset_type wrap_get_eol(GVDataPresentation *dp, offset_type start_of_lin
        Translates to several displayable characters on the screen.
        We need to take that into account when calculating number of
        characters before wraping the line */
-    int char_count = 0;
+    guint char_count = 0;
 
     offset = start_of_line;
 

@@ -389,7 +389,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
 
                 g_return_val_if_fail (items != NULL, NULL);
 
-                for (gint i=0; i<G_N_ELEMENTS(metatags); ++i)
+                for (guint i=0; i<G_N_ELEMENTS(metatags); ++i)
                 {
                     GnomeCmdTag tag = metatags[i];
                     const gchar *class_name = gcmd_tags_get_class_name(tag);
@@ -412,7 +412,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
 
                 gtk_item_factory_create_items (ifac, G_N_ELEMENTS(metatags), items, dialog);
 
-                for (gint i=0; i<G_N_ELEMENTS(metatags); ++i)
+                for (guint i=0; i<G_N_ELEMENTS(metatags); ++i)
                     g_free(items[i].path);
 
                 g_free (items);
