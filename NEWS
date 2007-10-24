@@ -22,7 +22,7 @@ New features:
  * Default GNOME theme icons for home, SMB and FTP locations
  * User defined shortcuts to bookmarks
  * Send files via email or instant messenger (using nautilus-sendto)
- * New or updated translations: cs, dz, es, eu, oc, pl, pt_BR, sl
+ * New or updated translations: bg, cs, dz, es, eu, oc, pl, pt_BR, sl
  * New key bindings:
       CTRL+LEFT/RIGHT Copying the current working directory from the active
                       filelist to the inactive one

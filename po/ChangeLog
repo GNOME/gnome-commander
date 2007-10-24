@@ -1,18 +1,22 @@
+2007-10-24  sstanev <sstpr@narod.ru>
+
+	* bg.po: Updated Bulgarian translation.
+
 2007-10-21  Matej Urbančič  <mateju@svn.gnome.org>
 
 	* sl.po: Updated Slovenian translation.
 
 2007-09-29  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation
+	* es.po: Updated Spanish translation
 
 2007-09-08  Inaki Larranaga Murgoitio  <dooteo@zundan.com>
 
-        * eu.po: Fixed some typos in Basque translation.
+	* eu.po: Fixed some typos in Basque translation.
 
 2007-08-16  Inaki Larranaga Murgoitio  <dooteo@<zundan.com>
 
-        * eu.po: Updated Basque translation.
+	* eu.po: Updated Basque translation.
 
 2007-08-01  Piotr Eljasiak  <epiotr@use.pl>
 
@@ -143,7 +147,7 @@
 
 	* en_GB.po: Updated English (British) translation
 
-2007-02-09  sstanev <sstanev@narod.ru>
+2007-02-09  sstanev <sstpr@narod.ru>
 
 	* bg.po: Updated Bulgarian translation.
 
@@ -159,7 +163,7 @@
 
 	* sl.po: Updated Slovenian translation.
 
-2007-01-27  sstanev <sstanev@narod.ru>
+2007-01-27  sstanev <sstpr@narod.ru>
 
 	* bg.po: Updated Bulgarian translation.
 
@@ -167,7 +171,7 @@
 
 	* en_GB.po: Updated English (British) translation
 
-2007-01-14  sstanev <sstanev@narod.ru>
+2007-01-14  sstanev <sstpr@narod.ru>
 
 	* bg.po: Updated Bulgarian translation.
 
@@ -175,11 +179,11 @@
 
 	* dz.po: Added Dzongkha Translation.
 
-2006-12-22  sstanev <sstanev@narod.ru>
+2006-12-22  sstanev <sstpr@narod.ru>
 
 	* bg.po: Updated Bulgarian translation.
 
-2006-12-12  sstanev <sstanev@narod.ru>
+2006-12-12  sstanev <sstpr@narod.ru>
 
 	* bg.po: Added Bulgarian translation.
 	* LINGUAS: Added bg.
