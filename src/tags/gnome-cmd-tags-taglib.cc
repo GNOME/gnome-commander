@@ -297,7 +297,7 @@ void gcmd_tags_taglib_init()
     static struct
     {
         GnomeCmdTag tag;
-        gchar *name;
+        const gchar *name;
     }
     id3v2_data[] = {
                     {TAG_ID3_ALBUMSORTORDER,"TSOA"},  // Album sort order

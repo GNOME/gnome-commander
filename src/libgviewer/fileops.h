@@ -51,12 +51,12 @@ int gv_file_open_fd(ViewerFileOps *ops, int filedesc);
 /*
      returns: NULL on success
 */
-char *gv_file_load (ViewerFileOps *ops, int fd);
+const char *gv_file_load (ViewerFileOps *ops, int fd);
 
 /*
     return values: NULL for success, else points to error message
 */
-char *gv_file_init_growing_view (ViewerFileOps *ops, const char *filename);
+const char *gv_file_init_growing_view (ViewerFileOps *ops, const char *filename);
 
 /*
     returns: -1 on failure

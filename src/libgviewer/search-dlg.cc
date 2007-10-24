@@ -41,19 +41,19 @@ static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchD
 
 struct _GViewerSearchDlgPrivate
 {
-    GtkWidget *table;
-    GtkWidget *label;
-    GtkWidget *entry;
-    GtkWidget *text_mode, *hex_mode;
-    GtkWidget *case_sensitive_checkbox;
+    GtkWidget  *table;
+    GtkWidget  *label;
+    GtkWidget  *entry;
+    GtkWidget  *text_mode, *hex_mode;
+    GtkWidget  *case_sensitive_checkbox;
 
     SEARCHMODE searchmode;
-    gboolean  case_sensitive;
-    gchar     *last_entry_text;
+    gboolean   case_sensitive;
+    gchar      *last_entry_text;
 
     gchar      *search_text_string;
-    guint8    *search_hex_buffer;
-    guint     search_hex_buflen;
+    guint8     *search_hex_buffer;
+    guint      search_hex_buflen;
     GList      *text_pattern_history;
 #if HEX_HISTORY
     GList      *hex_pattern_history;
@@ -66,12 +66,10 @@ static void load_search_dlg_state(GViewerSearchDlg *sdlg)
     g_return_if_fail (sdlg!=NULL);
     g_return_if_fail (sdlg->priv!=NULL);
 
-    sdlg->priv->text_pattern_history = gviewer_load_string_history(
-            GVIEWER_DEFAULT_PATH_PREFIX "text_pattern%d", -1);
+    sdlg->priv->text_pattern_history = gviewer_load_string_history(GVIEWER_DEFAULT_PATH_PREFIX "text_pattern%d", -1);
 
 #if HEX_HISTORY
-    sdlg->priv->hex_pattern_history = gviewer_load_string_history(
-            GVIEWER_DEFAULT_PATH_PREFIX "hex_pattern%d", -1);
+    sdlg->priv->hex_pattern_history = gviewer_load_string_history(GVIEWER_DEFAULT_PATH_PREFIX "hex_pattern%d", -1);
 #endif
 
     sdlg->priv->last_entry_text = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "last_text", "");

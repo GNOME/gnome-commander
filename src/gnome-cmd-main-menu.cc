@@ -56,9 +56,9 @@ typedef enum
 typedef struct
 {
     MenuType type;          // Type of item
-    gchar *label;           // The text to use for this menu-item
-    gchar *shortcut;        // The shortcut for this menu-item
-    gchar *tooltip;         // The tooltip of this menu-item
+    const gchar *label;           // The text to use for this menu-item
+    const gchar *shortcut;        // The shortcut for this menu-item
+    const gchar *tooltip;         // The tooltip of this menu-item
     gpointer moreinfo;      // For an item, toggleitem, this is a pointer to the function to call when the item is activated.
     gpointer user_data;     // Data pointer to pass to callbacks
     GnomeUIPixmapType pixmap_type;    // Type of pixmap for the item

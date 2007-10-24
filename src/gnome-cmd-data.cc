@@ -748,7 +748,7 @@ inline void load_fav_apps (const gchar *fname)
 }
 
 
-inline void write_string_history (gchar *format, GList *strings)
+inline void write_string_history (const gchar *format, GList *strings)
 {
     gchar key[128];
 
@@ -891,7 +891,7 @@ inline void load_uint_array (const gchar *format, guint *array, gint length)
 }
 
 
-inline GList *load_string_history (gchar *format, gint size)
+inline GList *load_string_history (const gchar *format, gint size)
 {
     GList *list = NULL;
 
@@ -1413,7 +1413,7 @@ void gnome_cmd_data_load (void)
     static struct
     {
         guint code;
-        gchar *name;
+        const gchar *name;
     }
     gdk_key_names_data[] = {
                             {GDK_ampersand, "ampersand"},

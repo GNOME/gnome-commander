@@ -210,7 +210,7 @@ void gv_file_close (ViewerFileOps *ops)
 
 
 // return values: NULL for success, else points to error message
-char * gv_file_init_growing_view (ViewerFileOps *ops, const char *filename)
+const char *gv_file_init_growing_view (ViewerFileOps *ops, const char *filename)
 {
     ops->growing_buffer = 1;
 
@@ -224,7 +224,7 @@ char * gv_file_init_growing_view (ViewerFileOps *ops, const char *filename)
 /*
     returns  NULL on success
 */
-char *gv_file_load(ViewerFileOps *ops, int fd)
+const char *gv_file_load(ViewerFileOps *ops, int fd)
 {
     g_return_val_if_fail (ops!=NULL, "invalid ops paramter");
 

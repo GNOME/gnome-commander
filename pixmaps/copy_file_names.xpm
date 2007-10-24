@@ -1,5 +1,5 @@
 /* XPM */
-static char * copy_file_names_xpm[] = {
+static const char * copy_file_names_xpm[] = {
 "24 24 3 1",
 " 	c None",
 ".	c #000000",

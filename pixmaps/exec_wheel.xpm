@@ -1,5 +1,5 @@
 /* XPM */
-static char * exec_wheel_xpm[] = {
+static const char * exec_wheel_xpm[] = {
 "16 16 38 1",
 " 	c None",
 ".	c #000000",

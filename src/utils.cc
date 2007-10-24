@@ -252,7 +252,7 @@ gchar *str_uri_basename (const gchar *uri)
 
 const gchar *type2string (GnomeVFSFileType type, gchar *buf, guint max)
 {
-    char *s;
+    const char *s;
 
     switch (type)
     {
@@ -362,7 +362,7 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
     {
         case GNOME_CMD_SIZE_DISP_MODE_POWERED:
             {
-                static gchar *prefixes[] = {"B","kB","MB","GB","TB","PB"};
+                static const gchar *prefixes[] = {"B","kB","MB","GB","TB","PB"};
                 gdouble dsize = (gdouble) size;
                 guint i;
 

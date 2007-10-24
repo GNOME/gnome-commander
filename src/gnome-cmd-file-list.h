@@ -92,7 +92,7 @@ enum {FILE_LIST_SORT_ASCENDING=FALSE, FILE_LIST_SORT_DESCENDING=TRUE};
 typedef struct
 {
     guint id;
-    gchar *title;
+    const gchar *title;
     guint default_width;
     GtkJustification justification;
     gboolean default_sort_direction;

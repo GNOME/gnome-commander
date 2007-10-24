@@ -108,7 +108,7 @@ void gcmd_tags_exiv2_init()
     static struct
     {
         GnomeCmdTag tag;
-        gchar *name;
+        const gchar *name;
     }
     exiv2_data[] = {
                     {TAG_EXIF_APERTUREVALUE, "Exif.CanonSi.ApertureValue"},

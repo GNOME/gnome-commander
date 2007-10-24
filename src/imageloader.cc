@@ -39,7 +39,7 @@ typedef struct
 } CacheEntry;
 
 
-static gchar *file_type_pixmap_files[NUM_FILE_TYPE_PIXMAPS] = {
+static const gchar *file_type_pixmap_files[NUM_FILE_TYPE_PIXMAPS] = {
     "file-type-icons/file_type_regular.xpm",
     "file-type-icons/file_type_regular.xpm",
     "file-type-icons/file_type_dir.xpm",
@@ -51,7 +51,7 @@ static gchar *file_type_pixmap_files[NUM_FILE_TYPE_PIXMAPS] = {
 };
 
 
-static gchar *pixmap_files[NUM_PIXMAPS] = {
+static const gchar *pixmap_files[NUM_PIXMAPS] = {
     "",
     "gnome_cmd_arrow_up.xpm",
     "gnome_cmd_arrow_down.xpm",
@@ -80,7 +80,7 @@ static gchar *pixmap_files[NUM_PIXMAPS] = {
 
 
 #define NUM_CATEGORIES 6
-static gchar *categories[NUM_CATEGORIES][2] = {
+static const gchar *categories[NUM_CATEGORIES][2] = {
     {"text", "gnome-text-plain.png"},
     {"video", "gnome-video-plain.png"},
     {"image", "gnome-image-plain.png"},
@@ -227,7 +227,7 @@ inline char *get_mime_icon_name (const gchar *mime_type)
  */
 static const gchar *get_type_icon_name (GnomeVFSFileType type)
 {
-    static gchar *names[] = {
+    static const gchar *names[] = {
         "i-directory.png",
         "i-regular.png",
         "i-chardev.png",

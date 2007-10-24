@@ -580,10 +580,9 @@ gnome_cmd_file_get_type_string (GnomeCmdFile *finfo)
 }
 
 
-const gchar *
-gnome_cmd_file_get_type_desc (GnomeCmdFile *finfo)
+const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *finfo)
 {
-    static gchar *type_strings[] = {
+    static const gchar *type_strings[] = {
         N_("Unknown file type"),
         N_("Regular file"),
         N_("Directory"),
