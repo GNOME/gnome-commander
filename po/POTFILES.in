@@ -53,7 +53,6 @@ src/libgviewer/datapresentation.cc
 src/libgviewer/fileops.cc
 src/libgviewer/image-render.cc
 src/libgviewer/inputmodes.cc
-src/libgviewer/libgviewer.cc
 src/libgviewer/scroll-box.cc
 src/libgviewer/search-dlg.cc
 src/libgviewer/search-progress-dlg.cc
