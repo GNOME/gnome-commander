@@ -266,8 +266,14 @@ inline std::ostream &join(std::ostream &os, Iterator beg, Iterator end, const st
     return os;
 }
 
-template <typename T, template <typename> class COLL>
-inline std::ostream &join(std::ostream &os, const COLL<T> &coll, const std::string sep=" ")
+// template <typename T, typename Allocator, template <typename, typename> class COLL>
+// inline std::ostream &join(std::ostream &os, const COLL<T, Allocator> &coll, const std::string sep=" ")
+// {
+    // return join(os,coll.begin(),coll.end(),sep);
+// }
+
+template <typename T, typename Compare, typename Allocator, template <typename, typename, typename> class COLL>
+inline std::ostream &join(std::ostream &os, const COLL<T, Compare, Allocator> &coll, const std::string sep=" ")
 {
     return join(os,coll.begin(),coll.end(),sep);
 }
@@ -291,8 +297,14 @@ inline std::string &join(std::string &s, Iterator beg, Iterator end, const std::
     return s;
 }
 
-template <typename T, template <typename> class COLL>
-inline std::string &join(std::string &s, const COLL<T> &coll, const std::string sep=" ")
+// template <typename T, typename Allocator, template <typename, typename> class COLL>
+// inline std::string &join(std::string &s, const COLL<T, Allocator> &coll, const std::string sep=" ")
+// {
+    // return join(s,coll.begin(),coll.end(),sep);
+// }
+
+template <typename T, typename Compare, typename Allocator, template <typename, typename, typename> class COLL>
+inline std::string &join(std::string &s, const COLL<T, Compare, Allocator> &coll, const std::string sep=" ")
 {
     return join(s,coll.begin(),coll.end(),sep);
 }
@@ -305,8 +317,16 @@ inline std::string join(Iterator beg, Iterator end, const std::string sep=" ")
     return join(s,beg,end,sep);
 }
 
-template <typename T, template <typename> class COLL>
-inline std::string join(const COLL<T> &coll, const std::string sep=" ")
+// template <typename T, typename Allocator, template <typename, typename> class COLL>
+// inline std::string join(const COLL<T, Allocator> &coll, const std::string sep=" ")
+// {
+    // std::string s;
+
+    // return join(s,coll.begin(),coll.end(),sep);
+// }
+
+template <typename T, typename Compare, typename Allocator, template <typename, typename, typename> class COLL>
+inline std::string join(const COLL<T, Compare, Allocator> &coll, const std::string sep=" ")
 {
     std::string s;
 

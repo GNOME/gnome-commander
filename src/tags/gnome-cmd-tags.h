@@ -574,7 +574,7 @@ inline const std::string &GnomeCmdFileMetadata::operator[] (const GnomeCmdTag ta
 {
     METADATA_COLL::const_iterator pos = metadata.find(tag);
 
-    return pos==metadata.end() ? NODATA : join(pos->second, std::string(", "));
+    return pos==metadata.end() ? NODATA : join(pos->second, ", ");
 }
 
 
