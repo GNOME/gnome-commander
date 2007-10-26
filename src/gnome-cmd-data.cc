@@ -49,7 +49,6 @@ GnomeVFSVolumeMonitor *monitor = NULL;
 struct _GnomeCmdDataPrivate
 {
     GnomeCmdConList      *con_list;
-    gchar                *ftp_anonymous_password;
     GList                *fav_apps;
     GnomeCmdSizeDispMode size_disp_mode;
     GnomeCmdPermDispMode perm_disp_mode;
@@ -107,6 +106,9 @@ struct _GnomeCmdDataPrivate
     GList                *backup_pattern_list;
     GdkWindowState       main_win_state;
     gchar                *symlink_prefix;
+
+    gboolean             use_gnome_auth_manager;
+    gchar                *ftp_anonymous_password;
 
     gchar *viewer;
     gchar *editor;
@@ -1087,7 +1089,6 @@ void gnome_cmd_data_save (void)
         g_free (tmp);
     }
 
-    gnome_cmd_data_set_string ("/ftp/anonymous_password", data->priv->ftp_anonymous_password);
     gnome_cmd_data_set_int    ("/options/size_disp_mode", data->priv->size_disp_mode);
     gnome_cmd_data_set_int    ("/options/perm_disp_mode", data->priv->perm_disp_mode);
     gnome_cmd_data_set_string ("/options/date_disp_mode", data->priv->date_format);
@@ -1188,6 +1189,10 @@ void gnome_cmd_data_save (void)
 
     gnome_cmd_data_set_int ("/options/main_win_state",(gint) data->priv->main_win_state);
 
+    gnome_cmd_data_set_bool ("/network/use_gnome_auth_manager", data->priv->use_gnome_auth_manager);
+    gnome_cmd_data_set_string ("/network/ftp_anonymous_password", data->priv->ftp_anonymous_password);
+    gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/ftp");
+
     write_cmdline_history ();
     //write_dir_history ();
 
@@ -1259,8 +1264,6 @@ void gnome_cmd_data_load (void)
     data->priv->color_themes[GNOME_CMD_COLOR_NONE].sel_bg = NULL;
     data->priv->color_themes[GNOME_CMD_COLOR_NONE].curs_fg = NULL;
     data->priv->color_themes[GNOME_CMD_COLOR_NONE].curs_bg = NULL;
-
-    data->priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/ftp/anonymous_password", "you@provider.com");
 
     data->priv->size_disp_mode = (GnomeCmdSizeDispMode) gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED);
     data->priv->perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
@@ -1401,6 +1404,15 @@ void gnome_cmd_data_load (void)
     data->priv->quick_connect_user = gnome_cmd_data_get_string ("/quick-connect/user", "anonymous");
 
     data->priv->main_win_state = (GdkWindowState) gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
+
+    data->priv->use_gnome_auth_manager = gnome_cmd_data_get_bool ("/network/use_gnome_auth_manager", TRUE);
+    data->priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com");
+
+    if (strcmp (data->priv->ftp_anonymous_password, "you@provider.com")==0)   // if '/network/ftp_anonymous_password' entry undefined, try to read '/ftp/anonymous_password'
+    {
+        g_free (data->priv->ftp_anonymous_password);
+        data->priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/ftp/anonymous_password", "you@provider.com");
+    }
 
     load_cmdline_history ();
     //load_dir_history ();

@@ -6,6 +6,9 @@
 	* src/gnome-cmd-smb-auth.h:
 	Revert for removed gnome-cmd-smb-auth.* files
 
+	* src/gnome-cmd-data.cc:
+	Added new key ('/network/use_gnome_auth_manager') to cfg file
+
 2007-10-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.h:
