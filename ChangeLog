@@ -1,3 +1,11 @@
+2007-10-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-smb-auth.c:
+	* src/gnome-cmd-smb-auth.h:
+	Revert for removed gnome-cmd-smb-auth.* files
+
 2007-10-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.h:
