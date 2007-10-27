@@ -1,3 +1,8 @@
+2007-10-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/main.cc:
+	Call gnome_vfs_init() & gnome_authentication_manager_init() in proper order
+
 2007-10-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* po/POTFILES.in:
