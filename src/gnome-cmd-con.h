@@ -56,30 +56,43 @@ typedef enum
     CON_OPEN_NOT_STARTED
 } ConOpenResult;
 
+typedef enum        // Keep this order in sync with strings in gnome-cmd-con-dialog.cc
+{
+    CON_FTP,
+    CON_ANON_FTP,
+    CON_SSH,
+    CON_SMB,
+    CON_DAV,
+    CON_DAVS,
+    CON_URI,
+    CON_LOCAL      // CON_FILE ???
+} ConnectionMethodID;
+
 struct _GnomeCmdCon
 {
     GtkObject parent;
 
-    gchar            *alias;
-    gchar            *open_msg;
-    GnomeCmdPath     *base_path;
-    GnomeVFSFileInfo *base_info;
-    gboolean         should_remember_dir;
-    gboolean         needs_open_visprog;
-    gboolean         needs_list_visprog;
-    gboolean         can_show_free_space;
-    ConState         state;
-    gboolean         is_local;
-    gboolean         is_closeable;
-    gchar            *go_text;
-    gchar            *go_tooltip;
-    GnomeCmdPixmap   *go_pixmap;
-    gchar            *open_text;
-    gchar            *open_tooltip;
-    GnomeCmdPixmap   *open_pixmap;
-    gchar            *close_text;
-    gchar            *close_tooltip;
-    GnomeCmdPixmap   *close_pixmap;
+    gchar               *alias;
+    ConnectionMethodID  method;
+    gchar               *open_msg;
+    GnomeCmdPath        *base_path;
+    GnomeVFSFileInfo    *base_info;
+    gboolean            should_remember_dir;
+    gboolean            needs_open_visprog;
+    gboolean            needs_list_visprog;
+    gboolean            can_show_free_space;
+    ConState            state;
+    gboolean            is_local;
+    gboolean            is_closeable;
+    gchar               *go_text;
+    gchar               *go_tooltip;
+    GnomeCmdPixmap      *go_pixmap;
+    gchar               *open_text;
+    gchar               *open_tooltip;
+    GnomeCmdPixmap      *open_pixmap;
+    gchar               *close_text;
+    gchar               *close_tooltip;
+    GnomeCmdPixmap      *close_pixmap;
 
     ConOpenResult    open_result;
     GnomeVFSResult   open_failed_reason;

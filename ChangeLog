@@ -3,6 +3,14 @@
 	* src/main.cc:
 	Call gnome_vfs_init() & gnome_authentication_manager_init() in proper order
 
+	* src/gnome-cmd-con-device.cc:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-con-home.cc:
+	* src/gnome-cmd-con-smb.cc:
+	* src/gnome-cmd-con.cc:
+	* src/gnome-cmd-con.h:
+	Added ConnectionMethodID info to GnomeCmdCon
+
 2007-10-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* po/POTFILES.in:

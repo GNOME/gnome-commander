@@ -221,6 +221,7 @@ init (GnomeCmdConFtp *ftp_con)
 
     ftp_con->priv = g_new0 (GnomeCmdConFtpPrivate, 1);
 
+    con->method = CON_FTP;
     con->should_remember_dir = TRUE;
     con->needs_open_visprog = TRUE;
     con->needs_list_visprog = TRUE;

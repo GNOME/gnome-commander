@@ -158,9 +158,10 @@ static void class_init (GnomeCmdConClass *klass)
 
 static void init (GnomeCmdCon *con)
 {
+    con->alias = NULL;
+    con->method = CON_URI;
     con->base_path = NULL;
     con->base_info = NULL;
-    con->alias = NULL;
     con->open_msg = NULL;
     con->should_remember_dir = FALSE;
     con->needs_open_visprog = FALSE;

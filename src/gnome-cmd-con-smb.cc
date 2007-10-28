@@ -215,6 +215,7 @@ init (GnomeCmdConSmb *smb_con)
     smb_con->priv = g_new (GnomeCmdConSmbPrivate, 1);
 
     con->alias = g_strdup (_("SMB"));
+    con->method = CON_SMB;
     con->open_msg = g_strdup (_("Searching for workgroups and hosts"));
     con->should_remember_dir = TRUE;
     con->needs_open_visprog = TRUE;
