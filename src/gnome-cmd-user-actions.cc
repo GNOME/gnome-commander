@@ -130,10 +130,10 @@ inline string key2str(guint state, guint key_val)
 {
     string key_name;
 
-    if (state & GDK_SHIFT_MASK)    key_name += "<shift>";
-    if (state & GDK_CONTROL_MASK)  key_name += "<control>";
-    if (state & GDK_MOD1_MASK)     key_name += "<alt>";
-    if (state & GDK_MOD4_MASK)     key_name += "<win>";
+    if (state & GDK_SHIFT_MASK)    key_name += gdk_modifiers_names[GDK_SHIFT_MASK];
+    if (state & GDK_CONTROL_MASK)  key_name += gdk_modifiers_names[GDK_CONTROL_MASK];
+    if (state & GDK_MOD1_MASK)     key_name += gdk_modifiers_names[GDK_MOD1_MASK];
+    if (state & GDK_MOD4_MASK)     key_name += gdk_modifiers_names[GDK_MOD4_MASK];
 
     if (ascii_isalnum (key_val))
         key_name += g_ascii_tolower (key_val);
@@ -164,13 +164,19 @@ inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
         if (strlen(key)==1 && ascii_isalnum (*key))
             key_val = *key;
 
-    if (strstr (s, "<shift>"))    state |= GDK_SHIFT_MASK;
-    if (strstr (s, "<control>"))  state |= GDK_CONTROL_MASK;
-    if (strstr (s, "<alt>"))      state |= GDK_MOD1_MASK;
-    if (strstr (s, "<win>"))      state |= GDK_MOD4_MASK;
+    for (const gchar *beg=s; beg=strchr(beg, '<'); ++beg)
+    {
+        if (const gchar *end = strchr(beg, '>'))
+            if (guint modifier = gdk_modifiers_names[string(beg,end-beg+1)])
+            {
+                state |= modifier;
+                beg = end;
+                continue;
+            }
 
-    if (strstr (s, "<mod1>"))      state |= GDK_MOD1_MASK;
-    if (strstr (s, "<mod4>"))      state |= GDK_MOD4_MASK;
+        key_val = GDK_VoidSymbol;
+        break;
+    }
 
     GdkEventKey event;
 
@@ -445,9 +451,9 @@ void GnomeCmdUserActions::write(const gchar *section)
     for (gpointer i=gnome_config_init_iterator (section_path.c_str()); (i=gnome_config_iterator_next (i, &key, &action_name)); )
     {
         string curr_key = key;
-        string norm_key = key2str(str2key(key));    // <ALT><Ctrl>F3 -> <ctrl><alt>f3
+        string norm_key = key2str(str2key(key));        // <ALT><Ctrl>F3 -> <ctrl><alt>f3
 
-        if (curr_key!=norm_key)
+        if (!norm_key.empty() && curr_key!=norm_key)    // if (norm_key is valid && not 'canonical')
         {
             gnome_config_clean_key ((section_path+curr_key).c_str());
             gnome_config_set_string ((section_path+norm_key).c_str(), action_name);

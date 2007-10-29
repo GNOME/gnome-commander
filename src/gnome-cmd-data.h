@@ -269,5 +269,6 @@ void gnome_cmd_data_set_symlink_prefix (const gchar *value);
 
 
 extern DICT<guint> gdk_key_names;
+extern DICT<guint> gdk_modifiers_names;
 
 #endif // __GNOME_CMD_DATA_H__

@@ -118,7 +118,7 @@ struct _GnomeCmdDataPrivate
 
 
 DICT<guint> gdk_key_names(GDK_VoidSymbol);
-
+DICT<guint> gdk_modifiers_names;
 
 inline gint get_int (const gchar *path, int def)
 {
@@ -1596,6 +1596,22 @@ void gnome_cmd_data_load (void)
                            };
 
     load_data (gdk_key_names, gdk_key_names_data, G_N_ELEMENTS(gdk_key_names_data));
+
+    static struct
+    {
+        guint code;
+        const gchar *name;
+    }
+    gdk_mod_names_data[] = {
+                            {GDK_SHIFT_MASK, "<shift>"},
+                            {GDK_CONTROL_MASK, "<control>"},
+                            {GDK_MOD1_MASK, "<alt>"},
+                            {GDK_MOD4_MASK, "<win>"},
+                            {GDK_MOD1_MASK, "<mod1>"},
+                            {GDK_MOD4_MASK, "<mod4>"}
+                           };
+
+    load_data (gdk_modifiers_names, gdk_mod_names_data, G_N_ELEMENTS(gdk_mod_names_data));
 }
 
 

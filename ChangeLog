@@ -6,6 +6,11 @@
 	* src/libgviewer/viewer-window.cc:
 	Dropped duplicate code for help menus
 
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-user-actions.cc:
+	Fixed bug in detecting key modifiers (wrong handling of key bindings)
+
 2007-10-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/main.cc:
@@ -561,10 +566,9 @@
 
 2007-05-13  Piotr Eljasiak  <epiotr@use.pl>
 
-	* src/useractions.cc:
+	* src/gnome-cmd-user-actions.cc:
 	Added <win> modifier for winkey
-	Added added aliases <mod1> and <mod4>
-	for respectively <alt> and <win> modifiers
+	Added aliases <mod1> and <mod4> for respectively <alt> and <win> modifiers
 
 2007-05-08  Piotr Eljasiak  <epiotr@use.pl>
 
