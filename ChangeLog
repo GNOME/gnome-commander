@@ -1,3 +1,11 @@
+2007-10-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* src/utils.cc:
+	* src/utils.h:
+	* src/libgviewer/viewer-window.cc:
+	Dropped duplicate code for help menus
+
 2007-10-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/main.cc:

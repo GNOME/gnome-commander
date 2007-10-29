@@ -37,6 +37,10 @@
 #include "libgviewer.h"
 #include "search-dlg.h"
 
+#include "gnome-cmd-includes.h"
+#include "gnome-cmd-file.h"
+#include "utils.h"
+
 #define G_OBJ_CHARSET_KEY        "charset"
 #define G_OBJ_DISPMODE_KEY       "dispmode"
 #define G_OBJ_BYTES_PER_LINE_KEY "bytesperline"
@@ -155,36 +159,6 @@ static void set_zoom_in(GViewerWindow *obj);
 static void set_zoom_out(GViewerWindow *obj);
 static void set_zoom_normal(GViewerWindow *obj);
 static void set_zoom_best_fit(GViewerWindow *obj);
-
-
-static void gnome_cmd_error_message(const gchar *title, GError *error)
-{
-    GtkWidget *dialog = gtk_message_dialog_new (NULL,
-                                                GTK_DIALOG_DESTROY_WITH_PARENT,
-                                                GTK_MESSAGE_ERROR,
-                                                GTK_BUTTONS_CLOSE,
-                                                title);
-
-    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), error->message);
-
-    g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (gtk_widget_destroy), NULL);
-
-    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
-    gtk_widget_show (dialog);
-
-    g_error_free (error);
-}
-
-
-static void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id)
-{
-    GError *error = NULL;
-
-    gnome_help_display (file_name, link_id, &error);
-
-    if (error)
-        gnome_cmd_error_message (_("There was an error displaying help."), error);
-}
 
 
 /*****************************************
@@ -558,47 +532,6 @@ enum MENUITEMTYPE
     MI_SUBMENU
 } ;
 
-
-static GtkWidget *create_ui_pixmap (GtkWidget *window, GnomeUIPixmapType pixmap_type, gconstpointer pixmap_info, GtkIconSize size)
-{
-    GtkWidget *pixmap = NULL;
-    char *name;
-
-    switch (pixmap_type)
-    {
-        case GNOME_APP_PIXMAP_STOCK:
-            pixmap = gtk_image_new_from_stock ((const gchar *) pixmap_info, size);
-            break;
-
-        case GNOME_APP_PIXMAP_DATA:
-            if (pixmap_info)
-                pixmap = gnome_pixmap_new_from_xpm_d ((const char **) pixmap_info);
-
-            break;
-
-        case GNOME_APP_PIXMAP_NONE:
-            break;
-
-        case GNOME_APP_PIXMAP_FILENAME:
-            name = gnome_pixmap_file ((const gchar *) pixmap_info);
-
-            if (!name)
-                g_warning ("Could not find GNOME pixmap file %s", (const gchar *) pixmap_info);
-            else
-            {
-                pixmap = gnome_pixmap_new_from_file (name);
-                g_free (name);
-            }
-
-            break;
-
-        default:
-            g_assert_not_reached ();
-            g_warning("Invalid pixmap_type %d", (int) pixmap_type);
-    }
-
-    return pixmap;
-}
 
 typedef struct {
     MENUITEMTYPE menutype;

@@ -1337,17 +1337,6 @@ void gnome_cmd_error_message(const gchar *title, GError *error)
 }
 
 
-void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id)
-{
-    GError *error = NULL;
-
-    gnome_help_display (file_name, link_id, &error);
-
-    if (error != NULL)
-        gnome_cmd_error_message(_("There was an error displaying help."), error);
-}
-
-
 int split(const string &s, vector<string> &coll, const char *sep)
 {
   coll.clear();

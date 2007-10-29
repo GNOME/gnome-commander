@@ -378,7 +378,6 @@ src/Makefile
 src/tags/Makefile
 src/libgviewer/Makefile
 tests/Makefile
-tests/gviewer/Makefile
 README
 ])
 

@@ -207,7 +207,18 @@ void patlist_free (GList *pattern_list);
 gboolean patlist_matches (GList *pattern_list, const gchar *s);
 
 void gnome_cmd_error_message(const gchar *title, GError *error);
-void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id=NULL);
+
+inline void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id=NULL)
+{
+    GError *error = NULL;
+
+    gnome_help_display (file_name, link_id, &error);
+
+    if (error != NULL)
+        gnome_cmd_error_message(_("There was an error displaying help."), error);
+}
+
+
 
 // Insert an item with an inline xpm icon and a user data pointer
 #define GNOMEUIINFO_ITEM_FILENAME(label, tooltip, callback, filename) \
