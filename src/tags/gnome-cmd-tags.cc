@@ -136,7 +136,7 @@ void gcmd_tags_init()
                        {TAG_AUDIO_PERFORMER, {"Audio.Performer", TAG_AUDIO, N_("Performer"), N_("Name of the performer/conductor of the music.")}},
                        {TAG_AUDIO_PLAYCOUNT, {"Audio.PlayCount", TAG_AUDIO, N_("Play Count"), N_("Number of times the track has been played.")}},
                        {TAG_AUDIO_RELEASEDATE, {"Audio.ReleaseDate", TAG_AUDIO, N_("Release Date"), N_("Date track was released.")}},
-                       {TAG_AUDIO_SAMPLERATE, {"Audio.Samplerate", TAG_AUDIO, N_("Sample Rate"), N_("Sample rate in Hz.")}},
+                       {TAG_AUDIO_SAMPLERATE, {"Audio.SampleRate", TAG_AUDIO, N_("Sample Rate"), N_("Sample rate in Hz.")}},
                        {TAG_AUDIO_TITLE, {"Audio.Title", TAG_AUDIO, N_("Title"), N_("Title of the track.")}},
                        {TAG_AUDIO_TRACKGAIN, {"Audio.TrackGain", TAG_AUDIO, N_("Track Gain"), N_("Gain adjustment of the track.")}},
                        {TAG_AUDIO_TRACKNO, {"Audio.TrackNo", TAG_AUDIO, N_("Track Number"), N_("Position of track on the album.")}},
