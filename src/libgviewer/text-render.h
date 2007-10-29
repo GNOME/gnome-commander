@@ -77,6 +77,8 @@ void           text_render_attach_external_v_range(TextRender *obj, GtkRange *ra
 void           text_render_load_file(TextRender *w, const gchar *filename);
 void           text_render_load_filedesc(TextRender *w, int filedesc);
 
+void           text_render_notify_status_changed(TextRender *w);
+
 void           text_render_set_display_mode(TextRender *w, TEXTDISPLAYMODE mode);
 TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w);
 

@@ -23,6 +23,8 @@
 
 #include <config.h>
 
+#include <iostream>
+
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
@@ -32,6 +34,9 @@
 #include <gtk/gtkadjustment.h>
 
 #include "image-render.h"
+
+#define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
+
 
 static GtkWidget *parent_class = NULL;
 
@@ -94,7 +99,6 @@ static void image_render_v_adjustment_update (ImageRender *obj);
 static void image_render_v_adjustment_changed (GtkAdjustment *adjustment, gpointer data);
 static void image_render_v_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data);
 
-static void image_render_notify_status_changed(ImageRender *w);
 void image_render_start_background_pixbuf_loading(ImageRender *w);
 void image_render_load_scaled_pixbuf(ImageRender *obj);
 void image_render_wait_for_loader_thread(ImageRender *obj);
@@ -302,7 +306,7 @@ static void image_render_destroy (GtkObject *object)
 }
 
 
-static void image_render_notify_status_changed(ImageRender *w)
+void image_render_notify_status_changed(ImageRender *w)
 {
     g_return_if_fail (w!= NULL);
     g_return_if_fail (IS_IMAGE_RENDER (w));
@@ -322,9 +326,9 @@ static void image_render_notify_status_changed(ImageRender *w)
     }
     else
     {
-        stat.image_width = 0;
-        stat.image_height = 0;
-        stat.bits_per_sample = 0;
+        // stat.image_width = 0;
+        // stat.image_height = 0;
+        // stat.bits_per_sample = 0;
     }
 
     gtk_signal_emit (GTK_OBJECT(w), image_render_signals[IMAGE_STATUS_CHANGED], &stat);

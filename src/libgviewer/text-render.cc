@@ -142,8 +142,6 @@ static void text_render_v_adjustment_changed (GtkAdjustment *adjustment, gpointe
 static void text_render_v_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data);
 static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, gpointer data);
 
-static void text_render_notify_status_changed(TextRender *w);
-
 static void text_render_update_adjustments_limits(TextRender *w);
 static void text_render_free_data(TextRender *w);
 static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fontsize);
@@ -330,7 +328,7 @@ static void text_render_init (TextRender *w)
 }
 
 
-static void text_render_notify_status_changed(TextRender *w)
+void text_render_notify_status_changed(TextRender *w)
 {
     TextRenderStatus stat;
 

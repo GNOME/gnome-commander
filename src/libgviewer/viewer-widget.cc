@@ -23,6 +23,8 @@
 
 #include <config.h>
 
+#include <iostream>
+
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
@@ -35,6 +37,8 @@
 #include <libgnomevfs/gnome-vfs.h>
 
 #include "libgviewer.h"
+
+#define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
 
 #define DEFAULT_TAB_SIZE          8
 #define DEFAULT_WRAP_MODE      TRUE
@@ -139,7 +143,7 @@ static void gviewer_class_init (GViewerClass *klass)
 
 static void gviewer_init (GViewer *w)
 {
-    w->priv = g_new0(GViewerPrivate, 1);
+    w->priv = g_new0 (GViewerPrivate, 1);
 
     gtk_table_resize(GTK_TABLE(w), 1, 1);
     gtk_table_set_homogeneous(GTK_TABLE(w), FALSE);
@@ -188,14 +192,14 @@ static void gviewer_init (GViewer *w)
 }
 
 
-#define MAX_STATUS_LENGTH 100
+#define MAX_STATUS_LENGTH 128
 static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status, GViewer *viewer)
 {
-    gchar temp[MAX_STATUS_LENGTH];
-
     g_return_if_fail (viewer!= NULL);
     g_return_if_fail (IS_GVIEWER (viewer));
     g_return_if_fail (status!=NULL);
+
+    static gchar temp[MAX_STATUS_LENGTH];
 
     g_snprintf(temp, MAX_STATUS_LENGTH,
         _("Position: %lu of %lu\tColumn: %d\t%s"),
@@ -210,20 +214,31 @@ static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status
 
 static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *status, GViewer *viewer)
 {
-    gchar temp[MAX_STATUS_LENGTH];
-    gchar scale[10];
-
     g_return_if_fail (viewer!= NULL);
     g_return_if_fail (IS_GVIEWER (viewer));
     g_return_if_fail (status!=NULL);
 
-    if (!status->best_fit)
-        g_snprintf(scale, 10, "%d %%", (int)(status->scale_factor*100.0));
+    static gchar temp[MAX_STATUS_LENGTH];
 
-    g_snprintf(temp, MAX_STATUS_LENGTH,
-        _("Image size: %dx%d\tBits/sample: %d\tZoom: %s"),
-        status->image_width, status->image_height, status->bits_per_sample,
-        status->best_fit?_("Fit-to-Window"):scale);
+    *temp = 0;
+
+    if ((status->image_width > 0) && (status->image_height > 0))
+    {
+        gchar zoom[10];
+        char *size_string = ""; // size_string = gnome_vfs_format_file_size_for_display (bytes);
+
+        if (!status->best_fit)
+            g_snprintf(zoom, sizeof(zoom), "%i%%", (int)(status->scale_factor*100.0));
+
+        g_snprintf (temp, sizeof(temp),
+                    "%i x %i %s  %i %s  %s    %s",
+                    status->image_width, status->image_height,
+                    ngettext ("pixel", "pixels", status->image_height),
+                    status->bits_per_sample,
+                    ngettext ("bit/sample", "bits/sample", status->bits_per_sample),
+                    size_string,
+                    status->best_fit?_("(fit to window)"):zoom);
+    }
 
     gtk_signal_emit (GTK_OBJECT(viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
 }
@@ -311,8 +326,8 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
 
     if (mode==DISP_MODE_IMAGE && !obj->priv->img_initialized)
     {
-        /* do lazy-initialization of the image render, only when the user
-            first asks to display the file as image */
+        // do lazy-initialization of the image render, only when the user first asks to display the file as image
+
         obj->priv->img_initialized = TRUE;
         image_render_load_file(obj->priv->imgr, obj->priv->filename);
     }
@@ -329,14 +344,12 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
 
         case DISP_MODE_BINARY:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode(obj->priv->textr,
-                TR_DISP_MODE_BINARY);
+            text_render_set_display_mode(obj->priv->textr, TR_DISP_MODE_BINARY);
             break;
 
         case DISP_MODE_HEXDUMP:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode(obj->priv->textr,
-                TR_DISP_MODE_HEXDUMP);
+            text_render_set_display_mode(obj->priv->textr, TR_DISP_MODE_HEXDUMP);
             break;
 
         case DISP_MODE_IMAGE:
@@ -344,15 +357,32 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
             break;
     }
 
+    TRACE(mode==DISP_MODE_IMAGE);
+    TRACE(obj->priv->last_client);
+    TRACE(client);
+
     if (client != obj->priv->last_client)
     {
-        if (obj->priv->last_client!=NULL)
+        if (obj->priv->last_client)
             gtk_container_remove(GTK_CONTAINER(obj), obj->priv->last_client);
 
         gtk_widget_grab_focus(GTK_WIDGET(client));
         gtk_table_attach (GTK_TABLE (obj), client , 0, 1, 0, 1,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+
+        switch (mode)
+        {
+            case DISP_MODE_TEXT_FIXED:
+            case DISP_MODE_BINARY:
+            case DISP_MODE_HEXDUMP:
+                text_render_notify_status_changed(obj->priv->textr);
+                break;
+
+            case DISP_MODE_IMAGE:
+                image_render_notify_status_changed(obj->priv->imgr);
+                break;
+        }
 
         gtk_widget_show(client);
         obj->priv->last_client = client;

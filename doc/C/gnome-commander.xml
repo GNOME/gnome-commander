@@ -5639,6 +5639,9 @@
                             <para>Fixed problem when creating ~/dir</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem with updating of internal viewer status bar</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed crash when creating dir with absolute path on SMB share</para>
                         </listitem>
                         <listitem>

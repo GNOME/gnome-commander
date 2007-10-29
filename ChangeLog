@@ -1,3 +1,12 @@
+2007-10-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/libgviewer/image-render.cc:
+	* src/libgviewer/image-render.h:
+	* src/libgviewer/text-render.cc:
+	* src/libgviewer/text-render.h:
+	* src/libgviewer/viewer-widget.cc:
+	Fixed problem with updating of internal viewer status bar
+
 2007-10-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:
