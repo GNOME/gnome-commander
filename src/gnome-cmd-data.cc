@@ -1650,6 +1650,18 @@ void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
 }
 
 
+const gboolean gnome_cmd_data_get_use_gnome_auth_manager (void)
+{
+    return data->priv->use_gnome_auth_manager;
+}
+
+
+void gnome_cmd_data_set_use_gnome_auth_manager (gboolean use_gnome_auth_manager)
+{
+    data->priv->use_gnome_auth_manager = use_gnome_auth_manager;
+}
+
+
 void gnome_cmd_data_add_fav_app (GnomeCmdApp *app)
 {
     g_return_if_fail (app != NULL);

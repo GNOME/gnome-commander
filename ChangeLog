@@ -11,6 +11,13 @@
 	* src/gnome-cmd-user-actions.cc:
 	Fixed bug in detecting key modifiers (wrong handling of key bindings)
 
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/gnome-cmd-options-dialog.h:
+	* src/main.cc:
+	Allow disabling use of gnome-auth-manager
+
 2007-10-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/main.cc:

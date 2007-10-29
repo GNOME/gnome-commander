@@ -95,6 +95,9 @@ void gnome_cmd_data_set_fav_apps (GList *apps);
 const gchar *gnome_cmd_data_get_ftp_anonymous_password (void);
 void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
 
+const gboolean gnome_cmd_data_get_use_gnome_auth_manager (void);
+void gnome_cmd_data_set_use_gnome_auth_manager (gboolean use_gnome_auth_manager);
+
 GnomeCmdSizeDispMode gnome_cmd_data_get_size_disp_mode (void);
 void gnome_cmd_data_set_size_disp_mode (GnomeCmdSizeDispMode mode);
 

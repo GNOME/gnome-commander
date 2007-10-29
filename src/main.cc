@@ -27,6 +27,7 @@
 #include "owner.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-con.h"
+#include "gnome-cmd-smb-auth.h"
 #include "utils.h"
 #include "ls_colors.h"
 #include "imageloader.h"
@@ -114,7 +115,6 @@ int main (int argc, char *argv[])
     ls_colors_init ();
     gdk_rgb_init ();
     gnome_vfs_init ();
-    gnome_authentication_manager_init ();
 
     conf_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir(), ".gnome-commander", NULL);
     create_dir_if_needed (conf_dir);
@@ -122,6 +122,11 @@ int main (int argc, char *argv[])
     gnome_cmd_data_load ();
     IMAGE_init ();
     gnome_cmd_data_load_more ();
+
+    if (gnome_cmd_data_get_use_gnome_auth_manager ())
+        gnome_authentication_manager_init ();
+    else
+        gnome_cmd_smb_auth_init ();
 
     gnome_cmd_style_create ();
     OWNER_init ();
