@@ -99,4 +99,9 @@ inline GnomeCmdCon *get_smb_con (void)
     return gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get ());
 }
 
+inline GList *get_ftp_cons ()
+{
+    return gnome_cmd_con_list_get_all_ftp (gnome_cmd_con_list_get ());
+}
+
 #endif // __GNOME_CMD_CON_LIST_H__

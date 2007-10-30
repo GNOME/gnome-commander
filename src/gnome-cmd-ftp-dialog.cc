@@ -48,15 +48,9 @@ struct _GnomeCmdFtpDialogPrivate
     The main ftp dialog
 ******************************************************/
 
-inline GList *get_ftp_connections ()
-{
-    return gnome_cmd_con_list_get_all_ftp (gnome_cmd_con_list_get ());
-}
-
-
 static void load_ftp_connections (GnomeCmdFtpDialog *dialog)
 {
-    GList *tmp = get_ftp_connections ();
+    GList *tmp = get_ftp_cons ();
     GtkCList *server_list = GTK_CLIST (dialog->priv->server_list);
 
     gtk_clist_clear (server_list);
@@ -318,7 +312,7 @@ static void on_server_list_unselect_row (GtkCList *clist, gint row, gint column,
 
 static void on_server_list_row_move (GtkCList *clist, gint arg1, gint arg2, gpointer user_data)
 {
-    GList *servers = get_ftp_connections ();
+    GList *servers = get_ftp_cons ();
     gpointer s = g_list_nth_data (servers, arg1);
 
     g_return_if_fail (s != NULL);
