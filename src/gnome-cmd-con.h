@@ -73,7 +73,10 @@ struct _GnomeCmdCon
     GtkObject parent;
 
     gchar               *alias;
+    gchar               *uri;
     ConnectionMethodID  method;
+    gboolean            gnome_auth;
+
     gchar               *open_msg;
     GnomeCmdPath        *base_path;
     GnomeVFSFileInfo    *base_info;
@@ -142,12 +145,19 @@ inline gboolean gnome_cmd_con_open_is_needed (GnomeCmdCon *con)
     return klass->open_is_needed (con);
 }
 
+inline const gchar *gnome_cmd_con_get_uri (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return con->uri;
+}
+
 GnomeVFSURI *gnome_cmd_con_create_uri (GnomeCmdCon *con, GnomeCmdPath *path);
 
 GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
 
 inline const gchar *gnome_cmd_con_get_open_msg (GnomeCmdCon *con)
 {
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
     return con->open_msg;
 }
 

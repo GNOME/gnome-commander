@@ -73,9 +73,11 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdCon *con = GNOME_CMD_CON (object);
 
+    g_free (con->alias);
+    g_free (con->uri);
+
     if (con->base_path)
         gtk_object_unref (GTK_OBJECT (con->base_path));
-    g_free (con->alias);
     g_free (con->open_text);
     g_free (con->open_tooltip);
     if (con->open_pixmap)
@@ -159,7 +161,10 @@ static void class_init (GnomeCmdConClass *klass)
 static void init (GnomeCmdCon *con)
 {
     con->alias = NULL;
+    con->uri = NULL;
     con->method = CON_URI;
+    con->gnome_auth = FALSE;
+
     con->base_path = NULL;
     con->base_info = NULL;
     con->open_msg = NULL;
