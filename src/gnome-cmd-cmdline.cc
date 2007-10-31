@@ -42,20 +42,17 @@ struct _GnomeCmdCmdlinePrivate
 };
 
 
-static void
-update_history_combo (GnomeCmdCmdline *cmdline)
+inline void update_history_combo (GnomeCmdCmdline *cmdline)
 {
-    GList *tmp = cmdline->priv->history;
-
     gnome_cmd_combo_clear (GNOME_CMD_COMBO (cmdline->priv->combo));
 
-    for (; tmp; tmp = tmp->next)
-    {
-        gchar *command = (gchar *) tmp->data;
-        gchar *text[2];
+    gchar *text[2];
 
-        text[0] = command;
-        text[1] = NULL;
+    text[1] = NULL;
+
+    for (GList *tmp = cmdline->priv->history; tmp; tmp = tmp->next)
+    {
+        gchar *command = text[0] = (gchar *) tmp->data;
 
         gnome_cmd_combo_append (GNOME_CMD_COMBO (cmdline->priv->combo), text, command);
     }
@@ -64,8 +61,7 @@ update_history_combo (GnomeCmdCmdline *cmdline)
 }
 
 
-static void
-add_to_history (GnomeCmdCmdline *cmdline, const gchar *command)
+inline void add_to_history (GnomeCmdCmdline *cmdline, const gchar *command)
 {
     cmdline->priv->history = string_history_add (
         cmdline->priv->history,
@@ -127,21 +123,16 @@ on_key_pressed (GtkWidget *entry,
         case GDK_Left:
         case GDK_Right:
             return gnome_cmd_cmdline_keypressed (cmdline, event);
+
+        default:
+            break;
     }
 
-    if (gnome_cmd_cmdline_keypressed (cmdline, event))
-        return TRUE;
-    else if (gnome_cmd_main_win_keypressed (main_win, event))
-        return TRUE;
-
-    return FALSE;
+    return gnome_cmd_cmdline_keypressed (cmdline, event) || gnome_cmd_main_win_keypressed (main_win, event);
 }
 
 
-static void
-on_combo_item_selected (GnomeCmdCombo *combo,
-                        const gchar *command,
-                        GnomeCmdCmdline *cmdline)
+static void on_combo_item_selected (GnomeCmdCombo *combo, const gchar *command, GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
@@ -152,8 +143,7 @@ on_combo_item_selected (GnomeCmdCombo *combo,
 }
 
 
-static void
-on_combo_popwin_hidden (GnomeCmdCombo *combo, GnomeCmdCmdline *cmdline)
+static void on_combo_popwin_hidden (GnomeCmdCombo *combo, GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
@@ -162,34 +152,28 @@ on_combo_popwin_hidden (GnomeCmdCombo *combo, GnomeCmdCmdline *cmdline)
 }
 
 
-static void
-on_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdCmdline *cmdline)
+static void on_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdCmdline *cmdline)
 {
-    gchar *dpath;
-
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    dpath = gnome_cmd_dir_get_display_path (gnome_cmd_file_selector_get_directory (fs));
-
+    gchar *dpath = gnome_cmd_dir_get_display_path (gnome_cmd_file_selector_get_directory (fs));
     gnome_cmd_cmdline_set_dir (cmdline, dpath);
     g_free (dpath);
 }
 
 
-static void
-on_fs_changed_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, GnomeCmdCmdline *cmdline)
+static void on_fs_changed_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, GnomeCmdCmdline *cmdline)
 {
-    gchar *dpath;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (dir != NULL);
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    if (fs != gnome_cmd_main_win_get_fs (main_win, ACTIVE)) return;
+    if (fs != gnome_cmd_main_win_get_fs (main_win, ACTIVE))
+        return;
 
-    dpath = gnome_cmd_dir_get_display_path (dir);
+    gchar *dpath = gnome_cmd_dir_get_display_path (dir);
     gnome_cmd_cmdline_set_dir (cmdline, dpath);
     g_free (dpath);
 }
@@ -199,39 +183,30 @@ on_fs_changed_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, GnomeCmdCmdline *
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
-    gtk_signal_disconnect_by_func (
-        GTK_OBJECT (main_win), GTK_SIGNAL_FUNC (on_switch_fs), object);
-    gtk_signal_disconnect_by_func (
-        GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, LEFT)),
-        GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
-    gtk_signal_disconnect_by_func (
-        GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, RIGHT)),
-        GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
+    gtk_signal_disconnect_by_func (GTK_OBJECT (main_win), GTK_SIGNAL_FUNC (on_switch_fs), object);
+    gtk_signal_disconnect_by_func (GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, LEFT)),
+                                   GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
+    gtk_signal_disconnect_by_func (GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, RIGHT)),
+                                   GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdCmdlineClass *klass)
+static void class_init (GnomeCmdCmdlineClass *klass)
 {
-    GtkObjectClass *object_class;
-    GtkWidgetClass *widget_class;
-
-    object_class = GTK_OBJECT_CLASS (klass);
-    widget_class = GTK_WIDGET_CLASS (klass);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = (GtkHBoxClass *) gtk_type_class (gtk_hbox_get_type ());
     object_class->destroy = destroy;
@@ -239,12 +214,11 @@ class_init (GnomeCmdCmdlineClass *klass)
 }
 
 
-static void
-init (GnomeCmdCmdline *cmdline)
+static void init (GnomeCmdCmdline *cmdline)
 {
-    GtkWidget *label;
-
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
+
+    GtkWidget *label;
 
     cmdline->priv = g_new (GnomeCmdCmdlinePrivate, 1);
     cmdline->priv->history = NULL;
@@ -299,8 +273,7 @@ init (GnomeCmdCmdline *cmdline)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_cmdline_new ()
+GtkWidget *gnome_cmd_cmdline_new ()
 {
     GnomeCmdCmdline *cmdline = (GnomeCmdCmdline *) gtk_type_new (gnome_cmd_cmdline_get_type ());
 
@@ -311,8 +284,7 @@ gnome_cmd_cmdline_new ()
 }
 
 
-GtkType
-gnome_cmd_cmdline_get_type         (void)
+GtkType gnome_cmd_cmdline_get_type (void)
 {
     static GtkType dlg_type = 0;
 
@@ -336,61 +308,51 @@ gnome_cmd_cmdline_get_type         (void)
 }
 
 
-void
-gnome_cmd_cmdline_set_dir (GnomeCmdCmdline *cmdline, const gchar *cwd)
+void gnome_cmd_cmdline_set_dir (GnomeCmdCmdline *cmdline, const gchar *cwd)
 {
-    gchar *s;
-
     g_return_if_fail (cmdline != NULL);
     g_return_if_fail (cmdline->priv != NULL);
 
-    s = get_utf8 (cwd);
+    gchar *s = get_utf8 (cwd);
+
     gtk_label_set_text (GTK_LABEL (cmdline->priv->cwd), s);
     g_free (s);
 }
 
 
-void
-gnome_cmd_cmdline_append_text (GnomeCmdCmdline *cmdline, const gchar *text)
+void gnome_cmd_cmdline_append_text (GnomeCmdCmdline *cmdline, const gchar *text)
 {
-    const gchar *curtext;
-    gint curpos;
-    GtkEntry *entry;
-
     g_return_if_fail (cmdline != NULL);
     g_return_if_fail (cmdline->priv != NULL);
     g_return_if_fail (cmdline->priv->combo != NULL);
 
-    entry = GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry);
-    curtext = gtk_entry_get_text (entry);
+    GtkEntry *entry = GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry);
+    const gchar *curtext = gtk_entry_get_text (entry);
+
     if (curtext[strlen(curtext)-1] != ' ' && strlen(curtext) > 0)
         gtk_entry_append_text (entry, " ");
-    curpos = gtk_editable_get_position (GTK_EDITABLE (entry));
+
+    gint curpos = gtk_editable_get_position (GTK_EDITABLE (entry));
     gtk_entry_append_text (entry, text);
     gtk_editable_set_position (GTK_EDITABLE (entry), curpos + strlen (text));
 }
 
 
-void
-gnome_cmd_cmdline_insert_text (GnomeCmdCmdline *cmdline, const gchar *text)
+void gnome_cmd_cmdline_insert_text (GnomeCmdCmdline *cmdline, const gchar *text)
 {
-    gint curpos, tmp;
-    GtkEntry *entry;
-
     g_return_if_fail (cmdline != NULL);
     g_return_if_fail (cmdline->priv != NULL);
     g_return_if_fail (cmdline->priv->combo != NULL);
 
-    entry = GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry);
-    curpos = gtk_editable_get_position (GTK_EDITABLE (entry));
-    tmp = curpos;
+    GtkEntry *entry = GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry);
+    gint curpos = gtk_editable_get_position (GTK_EDITABLE (entry));
+    gint tmp = curpos;
     gtk_editable_insert_text (GTK_EDITABLE (entry), text, strlen (text), &tmp);
     gtk_editable_set_position (GTK_EDITABLE (entry), curpos + strlen (text));
 }
 
 
-void
-gnome_cmd_cmdline_set_text    (GnomeCmdCmdline *cmdline, const gchar *text)
+void gnome_cmd_cmdline_set_text (GnomeCmdCmdline *cmdline, const gchar *text)
 {
     g_return_if_fail (cmdline != NULL);
     g_return_if_fail (cmdline->priv != NULL);
@@ -400,27 +362,21 @@ gnome_cmd_cmdline_set_text    (GnomeCmdCmdline *cmdline, const gchar *text)
 }
 
 
-gboolean
-gnome_cmd_cmdline_is_empty    (GnomeCmdCmdline *cmdline)
+gboolean gnome_cmd_cmdline_is_empty (GnomeCmdCmdline *cmdline)
 {
     const gchar *text = gtk_entry_get_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
 
-    if (text == NULL || strcmp (text, ""))
-        return TRUE;
-
-    return FALSE;
+    return !text || !*text;
 }
 
 
-void
-gnome_cmd_cmdline_exec        (GnomeCmdCmdline *cmdline)
+void gnome_cmd_cmdline_exec (GnomeCmdCmdline *cmdline)
 {
     on_exec (cmdline, FALSE);
 }
 
 
-void
-gnome_cmd_cmdline_focus (GnomeCmdCmdline *cmdline)
+void gnome_cmd_cmdline_focus (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
     g_return_if_fail (cmdline->priv->combo != NULL);
@@ -430,8 +386,7 @@ gnome_cmd_cmdline_focus (GnomeCmdCmdline *cmdline)
 }
 
 
-void
-gnome_cmd_cmdline_update_style (GnomeCmdCmdline *cmdline)
+void gnome_cmd_cmdline_update_style (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
@@ -439,8 +394,7 @@ gnome_cmd_cmdline_update_style (GnomeCmdCmdline *cmdline)
 }
 
 
-void
-gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline)
+void gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
@@ -448,8 +402,7 @@ gnome_cmd_cmdline_show_history (GnomeCmdCmdline *cmdline)
 }
 
 
-GList *
-gnome_cmd_cmdline_get_history (GnomeCmdCmdline *cmdline)
+GList *gnome_cmd_cmdline_get_history (GnomeCmdCmdline *cmdline)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CMDLINE (cmdline), NULL);
 
@@ -457,8 +410,7 @@ gnome_cmd_cmdline_get_history (GnomeCmdCmdline *cmdline)
 }
 
 
-void
-gnome_cmd_cmdline_set_history  (GnomeCmdCmdline *cmdline, GList *history)
+void gnome_cmd_cmdline_set_history (GnomeCmdCmdline *cmdline, GList *history)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
@@ -471,8 +423,7 @@ gnome_cmd_cmdline_set_history  (GnomeCmdCmdline *cmdline, GList *history)
 }
 
 
-GtkWidget *
-gnome_cmd_cmdline_get_entry    (GnomeCmdCmdline *cmdline)
+GtkWidget *gnome_cmd_cmdline_get_entry (GnomeCmdCmdline *cmdline)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CMDLINE (cmdline), NULL);
 
@@ -480,14 +431,12 @@ gnome_cmd_cmdline_get_entry    (GnomeCmdCmdline *cmdline)
 }
 
 
-gboolean
-gnome_cmd_cmdline_keypressed   (GnomeCmdCmdline *cmdline,
-                                GdkEventKey *event)
+gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *event)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CMDLINE (cmdline), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
-    if (state_is_ctrl (event->state)) {
+    if (state_is_ctrl (event->state))
         switch (event->keyval)
         {
             case GDK_Down:
@@ -498,57 +447,53 @@ gnome_cmd_cmdline_keypressed   (GnomeCmdCmdline *cmdline,
                 event->string[0] = '\0';
                 return FALSE;
         }
-    }
-    else if (state_is_shift (event->state)) {
-        switch (event->keyval)
-        {
-            case GDK_Return:
-                on_exec (cmdline, TRUE);
-                event->keyval = GDK_Escape;
-                return TRUE;
-        }
-    }
-    else if (state_is_ctrl_shift (event->state)) {
-        switch (event->keyval)
-        {
-            case GDK_Return:
-                event->string[0] = '\0';
-                return FALSE;
-        }
-    }
-    else if (state_is_blank (event->state))
-    {
-        switch (event->keyval)
-        {
-            case GDK_Return:
-                on_exec (cmdline, FALSE);
-                event->keyval = GDK_Escape;
-                return TRUE;
-
-            case GDK_Escape:
-                gnome_cmd_cmdline_set_text (cmdline, "");
-                gnome_cmd_main_win_focus_file_lists (main_win);
-                return TRUE;
-
-            case GDK_Up:
-            case GDK_Down:
+    else
+        if (state_is_shift (event->state))
+            switch (event->keyval)
             {
-                gboolean ret;
-                GdkEventKey event2;
-                GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
-                GtkWidget *file_list = fs->list_widget;
-
-                gtk_widget_grab_focus (file_list);
-                gnome_cmd_file_selector_set_active (fs, TRUE);
-
-                memcpy (&event2, event, sizeof (GdkEventKey));
-                gtk_signal_emit_by_name (
-                    GTK_OBJECT (file_list), "key-press-event", &event2, &ret);
-                event->keyval = 0;
+                case GDK_Return:
+                    on_exec (cmdline, TRUE);
+                    event->keyval = GDK_Escape;
+                    return TRUE;
             }
-            break;
-        }
-    }
+        else
+        if (state_is_ctrl_shift (event->state))
+            switch (event->keyval)
+            {
+                case GDK_Return:
+                    event->string[0] = '\0';
+                    return FALSE;
+            }
+        else
+            if (state_is_blank (event->state))
+                switch (event->keyval)
+                {
+                    case GDK_Return:
+                        on_exec (cmdline, FALSE);
+                        event->keyval = GDK_Escape;
+                        return TRUE;
+
+                    case GDK_Escape:
+                        gnome_cmd_cmdline_set_text (cmdline, "");
+                        gnome_cmd_main_win_focus_file_lists (main_win);
+                        return TRUE;
+
+                    case GDK_Up:
+                    case GDK_Down:
+                        {
+                            gboolean ret;
+                            GdkEventKey event2 = *event;
+                            GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
+                            GtkWidget *file_list = fs->list_widget;
+
+                            gtk_widget_grab_focus (file_list);
+                            gnome_cmd_file_selector_set_active (fs, TRUE);
+
+                            gtk_signal_emit_by_name (GTK_OBJECT (file_list), "key-press-event", &event2, &ret);
+                            event->keyval = 0;
+                        }
+                        break;
+            }
 
     return FALSE;
 }
