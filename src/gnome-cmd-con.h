@@ -289,4 +289,12 @@ void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir);
 
 GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri);
 
+const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method);
+
+inline const gchar *gnome_cmd_con_get_icon_name (GnomeCmdCon *con)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
+    return gnome_cmd_con_get_icon_name (con->method);
+}
+
 #endif // __GNOME_CMD_CON_H__

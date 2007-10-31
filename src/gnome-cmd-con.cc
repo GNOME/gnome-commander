@@ -52,6 +52,15 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 static GtkObjectClass *parent_class = NULL;
 
+const gchar *icon_name[] = {"gnome-fs-ftp",            // CONN_FTP
+                            "gnome-fs-ftp",            // CONN_ANON_FTP
+                            "gnome-fs-ssh",            // CONN_SSH
+                            "gnome-fs-smb",            // CONN_SMB
+                            "gnome-fs-web",            // CONN_DAV
+                            "gnome-fs-web",            // CONN_DAVS
+                            "gnome-fs-network",        // CONN_URI
+                            "gnome-fs-directory"};     // CONN_LOCAL
+
 
 static void on_open_done (GnomeCmdCon *con)
 {
@@ -544,4 +553,10 @@ GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
 
     DEBUG ('k', "FAILED to find %s in the hash-table\n", uri_str);
     return NULL;
+}
+
+
+const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method)
+{
+    return icon_name[method];
 }

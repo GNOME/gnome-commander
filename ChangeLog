@@ -1,3 +1,9 @@
+2007-10-31  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con.cc:
+	* src/gnome-cmd-con.h:
+	Added gnome_cmd_con_get_icon_name ()
+
 2007-10-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/libgviewer/image-render.cc:
@@ -46,7 +52,7 @@
 	* src/Makefile.am:
 	* src/gnome-cmd-smb-auth.c:
 	* src/gnome-cmd-smb-auth.h:
-	Revert for removed gnome-cmd-smb-auth.* files
+	Revert removed gnome-cmd-smb-auth.* files
 
 	* src/gnome-cmd-data.cc:
 	Added new key ('/network/use_gnome_auth_manager') to cfg file
@@ -2290,7 +2296,7 @@
 	* src/gnome-cmd-data.h:
 	* src/gnome-cmd-data.c:
 	Removed the 'Save Position' menu item. Size and position are now saved
-	automaticly instead.
+	automatically instead.
 
 	* src/gnome-cmd-file-list.c:
 	* src/gnome-cmd-data.h:
@@ -2623,7 +2629,7 @@
 2003-11-18  Marcus Bjurman  <marbj499@student.liu.se>
 
 	* libgcmd/gnome-cmd-string-dialog.c:
-	Dont make all string-dialogs resizable.
+	Don't make all string-dialogs resizable.
 
 	* libgcmd/gnome-cmd-dialog.c (gnome_cmd_dialog_set_resizable):
 	* libgcmd/gnome-cmd-dialog.h:
@@ -2788,7 +2794,7 @@
 	* libgcmd/widget-factory.c:
 	* libgcmd/widget-factory.h:
 	Reworked the plugin system. This resulted in quite many files being
-	moved from the src directory to the libgcmd dito.
+	moved from the src directory to the libgcmd ditto.
 	And yes this is a quite big log-entry :)
 
 2003-11-15  Marcus Bjurman  <marbj499@student.liu.se>
