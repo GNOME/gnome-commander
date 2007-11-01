@@ -72,27 +72,35 @@ inline void add_to_history (GnomeCmdCmdline *cmdline, const gchar *command)
 }
 
 
-static void
-on_exec (GnomeCmdCmdline *cmdline, gboolean term)
+static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
 {
-    const gchar *text;
+    const gchar *cmdline_text;
 
-    text = gtk_entry_get_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
-    text = g_strstrip (g_strdup (text));
+    cmdline_text = gtk_entry_get_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
+    cmdline_text = g_strstrip (g_strdup (cmdline_text));
 
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
 
-    if (strlen (text) > 3 && strncmp (text, "cd ", 3) == 0)
+    if (g_str_has_prefix (cmdline_text, "cd "))   // if cmdline_text starts with "cd " then it MUST have at least 4 chars (as it's been previously g_strstrip'ed)
     {
-        const gchar *dir = g_strstrip (g_strdup (text + 3));
+        const gchar *dest_dir = g_strchug (const_cast<gchar *>(cmdline_text) + 3);
 
-        if (strcmp (dir, "-") ==0)
-            gnome_cmd_file_selector_back (fs);
+        if (strcmp (dest_dir, "-")==0)
+        {
+            GnomeVFSURI *test_uri = gnome_cmd_dir_get_child_uri (gnome_cmd_file_selector_get_directory (fs), "-");
+
+            if (gnome_vfs_uri_exists (test_uri))
+                gnome_cmd_file_selector_goto_directory (fs, dest_dir);
+            else
+                gnome_cmd_file_selector_back (fs);
+
+            gnome_vfs_uri_unref (test_uri);
+        }
         else
-            gnome_cmd_file_selector_goto_directory (fs, dir);
+            gnome_cmd_file_selector_goto_directory (fs, dest_dir);
     }
     else
-        if (strcmp (text, "cd") == 0)
+        if (strcmp (cmdline_text, "cd")==0)
             gnome_cmd_file_selector_goto_directory (fs, "~");
         else
             if (gnome_cmd_con_is_local (gnome_cmd_file_selector_get_connection (fs)))
@@ -100,21 +108,19 @@ on_exec (GnomeCmdCmdline *cmdline, gboolean term)
                 GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (fs);
                 gchar *fpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
 
-                run_command_indir (text, fpath, term);
+                run_command_indir (cmdline_text, fpath, term);
                 g_free (fpath);
             }
 
-    add_to_history (cmdline, text);
+    add_to_history (cmdline, cmdline_text);
     gnome_cmd_cmdline_set_text (cmdline, "");
 }
 
 
-static gboolean
-on_key_pressed (GtkWidget *entry,
-                GdkEventKey *event,
-                GnomeCmdCmdline *cmdline)
+static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdCmdline *cmdline)
 {
-    switch (event->keyval) {
+    switch (event->keyval)
+    {
         case GDK_BackSpace:
         case GDK_space:
         case GDK_Home:

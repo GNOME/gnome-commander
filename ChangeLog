@@ -1,3 +1,8 @@
+2007-11-01  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-cmdline.cc:
+	'cd -': go to dir '-' if present
+
 2007-10-31  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con.cc:
