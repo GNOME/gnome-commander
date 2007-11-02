@@ -230,7 +230,7 @@ static void on_new_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog
 {
     GtkWidget *dialog;
 
-    dialog = create_ftp_server_dialog (_("New Remote Connection"), (GnomeCmdStringDialogCallback)on_new_ftp_server_dialog_ok, ftp_dialog, TRUE);
+    dialog = create_ftp_server_dialog (_("New Remote Connection"), (GnomeCmdStringDialogCallback) on_new_ftp_server_dialog_ok, ftp_dialog, TRUE);
 
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 2, "21");
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 3, "anonymous");
@@ -521,7 +521,7 @@ void show_ftp_quick_connect_dialog (void)
     gchar *port;
     GtkWidget *dialog;
 
-    dialog = create_ftp_server_dialog (_("New Connection"), (GnomeCmdStringDialogCallback)on_quick_connect_ok, NULL, FALSE);
+    dialog = create_ftp_server_dialog (_("New Connection"), (GnomeCmdStringDialogCallback) on_quick_connect_ok, NULL, FALSE);
 
     port = g_strdup_printf ("%d", gnome_cmd_data_get_quick_connect_port ());
 

@@ -368,8 +368,7 @@ void gnome_cmd_cmdline_set_text (GnomeCmdCmdline *cmdline, const gchar *text)
 }
 
 
-gboolean
-gnome_cmd_cmdline_is_empty    (GnomeCmdCmdline *cmdline)
+gboolean gnome_cmd_cmdline_is_empty (GnomeCmdCmdline *cmdline)
 {
     const gchar *text = gtk_entry_get_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
 
@@ -380,15 +379,13 @@ gnome_cmd_cmdline_is_empty    (GnomeCmdCmdline *cmdline)
 }
 
 
-void
-gnome_cmd_cmdline_exec        (GnomeCmdCmdline *cmdline)
+void gnome_cmd_cmdline_exec (GnomeCmdCmdline *cmdline)
 {
     on_exec (cmdline, FALSE);
 }
 
 
-void
-gnome_cmd_cmdline_focus (GnomeCmdCmdline *cmdline)
+void gnome_cmd_cmdline_focus (GnomeCmdCmdline *cmdline)
 {
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
     g_return_if_fail (cmdline->priv->combo != NULL);
