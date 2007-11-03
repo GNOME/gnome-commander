@@ -281,6 +281,9 @@ gnome_cmd_con_ftp_new     (const gchar *alias,
     gnome_cmd_con_ftp_set_pw (con, pw);
     gnome_cmd_con_ftp_set_remote_dir (con, remote_dir);
 
+    if (strcmp (user_name, "anonymous")==0)
+        GNOME_CMD_CON (con)->method = CON_ANON_FTP;
+    GNOME_CMD_CON (con)->gnome_auth = GNOME_CMD_CON (con)->method!=CON_ANON_FTP;
     GNOME_CMD_CON (con)->open_msg = g_strdup_printf (_("Connecting to %s\n"), host_name);
 
     return con;

@@ -1,3 +1,10 @@
+2007-11-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-ftp-dialog.cc:
+	Deep surgery of the FTP dialog
+
 2007-11-01  koos  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-cmdline.cc:

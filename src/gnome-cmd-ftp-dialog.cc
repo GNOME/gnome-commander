@@ -36,9 +36,7 @@ static GnomeCmdDialogClass *parent_class = NULL;
 
 struct _GnomeCmdFtpDialogPrivate
 {
-    GnomeCmdConFtp    *selected_server;
-
-    GtkWidget         *server_list;
+    GtkWidget         *connection_list;
     GtkWidget         *anonymous_pw_entry;
 };
 
@@ -48,40 +46,64 @@ struct _GnomeCmdFtpDialogPrivate
     The main ftp dialog
 ******************************************************/
 
-static void load_ftp_connections (GnomeCmdFtpDialog *dialog)
+enum
 {
-    GList *tmp = get_ftp_cons ();
-    GtkCList *server_list = GTK_CLIST (dialog->priv->server_list);
+    COL_METHOD,
+    COL_LOCK,
+    COL_AUTH,
+    COL_NAME,
+    COL_CON,
+    COL_FTP_CON,        // later: to be removed
+    NUM_COLS
+} ;
 
-    gtk_clist_clear (server_list);
 
-    if (tmp)
-        dialog->priv->selected_server = GNOME_CMD_CON_FTP (tmp->data);
+inline gboolean model_is_empty (GtkTreeModel *tree_model)
+{
+    GtkTreeIter iter;
 
-    for (; tmp; tmp = tmp->next)
-    {
-        GnomeCmdConFtp *server = GNOME_CMD_CON_FTP (tmp->data);
-        if (server)
-        {
-            int row;
-            gchar *text[4];
+    return !gtk_tree_model_get_iter_first (tree_model, &iter);
+}
 
-            text[0] = NULL;
-            text[1] = (gchar *) gnome_cmd_con_ftp_get_alias (server);
-            text[2] = (gchar *) gnome_cmd_con_ftp_get_host_name (server);
-            text[3] = NULL;
-            row = gtk_clist_append (server_list, text);
-            if (!row)
-                gtk_clist_select_row (server_list, 0, 0);
 
-            gtk_clist_set_row_data (server_list, row, server);
-            gtk_clist_set_pixmap (GTK_CLIST (server_list), row, 0,
-                                  IMAGE_get_pixmap (PIXMAP_SERVER_SMALL),
-                                  IMAGE_get_mask (PIXMAP_SERVER_SMALL));
-        }
-        else
-            g_warning ("NULL entry in the ftp-server list");
-     }
+inline gboolean tree_is_empty (GtkTreeView *tree_view)
+{
+    return model_is_empty (gtk_tree_view_get_model (tree_view));
+}
+
+
+inline GnomeCmdConFtp *get_selected_server (GnomeCmdFtpDialog *dialog, GtkTreeIter *iter=NULL)
+{
+    GtkTreeView *tree_view = GTK_TREE_VIEW (dialog->priv->connection_list);
+    GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
+    GtkTreeIter priv_iter;
+
+    if (!iter)
+        iter = &priv_iter;
+
+    GnomeCmdConFtp *server = NULL;
+
+    if (!gtk_tree_selection_get_selected (gtk_tree_view_get_selection (tree_view), NULL, iter))
+        return server;
+
+    gtk_tree_model_get (model, iter, COL_FTP_CON, &server, -1);
+
+    return server;
+}
+
+
+inline void set_server (GtkListStore *store, GtkTreeIter *iter, GnomeCmdConFtp *server)
+{
+    GnomeCmdCon *con = GNOME_CMD_CON (server);
+
+    gtk_list_store_set (store, iter,
+                        COL_METHOD, gnome_cmd_con_get_icon_name (con->method),
+                        COL_LOCK, con->gnome_auth ? GTK_STOCK_DIALOG_AUTHENTICATION : NULL,
+                        COL_AUTH, con->gnome_auth,
+                        COL_NAME, gnome_cmd_con_get_alias (con),
+                        COL_CON, con,
+                        COL_FTP_CON, server,                // later: to be removed
+                        -1);
 }
 
 
@@ -97,13 +119,23 @@ static gboolean do_connect_real (GnomeCmdConFtp *server)
 }
 
 
-static void do_connect (GtkWidget *dialog, GnomeCmdConFtp *server, const gchar *password=NULL)
+inline void do_connect (GnomeCmdFtpDialog *ftp_dialog, GnomeCmdConFtp *server=NULL)
 {
-    if (!server) return;
+    if (!server)
+        server = get_selected_server (ftp_dialog);
 
-    gtk_widget_destroy (GTK_WIDGET (dialog));
+    g_return_if_fail (server != NULL);
 
-    gnome_cmd_con_ftp_set_pw (server, password);
+    const gchar *user = gnome_cmd_con_ftp_get_user_name (server);
+    const gchar *anon_pw = gtk_entry_get_text (GTK_ENTRY (ftp_dialog->priv->anonymous_pw_entry));
+
+    // store the anonymous ftp password as the user might have changed it
+    gnome_cmd_data_set_ftp_anonymous_password (anon_pw);
+
+    if (strcmp (user, "anonymous") == 0)
+        gnome_cmd_con_ftp_set_pw (server, anon_pw);
+
+    gtk_widget_destroy (GTK_WIDGET (ftp_dialog));
 
     g_timeout_add (1, (GtkFunction) do_connect_real, server);
 }
@@ -111,51 +143,39 @@ static void do_connect (GtkWidget *dialog, GnomeCmdConFtp *server, const gchar *
 
 static void on_connect_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog)
 {
-    GnomeCmdConFtp *server = ftp_dialog->priv->selected_server;
-
-    if (server)
-    {
-        const gchar *uname = gnome_cmd_con_ftp_get_user_name (server);
-        const gchar *anon_pw = gtk_entry_get_text (GTK_ENTRY (ftp_dialog->priv->anonymous_pw_entry));
-
-        // store the anonymous ftp password as the user might have changed it
-        gnome_cmd_data_set_ftp_anonymous_password (anon_pw);
-
-        if (strcmp (uname, "anonymous") != 0)
-            do_connect (GTK_WIDGET (ftp_dialog), ftp_dialog->priv->selected_server);
-        else
-            do_connect (GTK_WIDGET (ftp_dialog), ftp_dialog->priv->selected_server, anon_pw);
-    }
+    do_connect (ftp_dialog);
 }
 
 
-static void on_cancel_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *dialog)
+static void on_close_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *dialog)
 {
     gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 
-static gchar *update_server_from_strings (GnomeCmdConFtp *&server, const gchar **values, gboolean with_alias)
+static void on_help_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *dialog)
 {
-    gint i=0;
-    const gchar *alias = NULL;
-    const gchar *host;
-    const gchar *port;
-    const gchar *user;
-    const gchar *remote_dir;
-    gushort iport;
+    gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-remote-connections");
+}
 
-    if (with_alias) alias = values[i++];
-    host  = values[i++];
-    port  = values[i++];
-    user  = values[i++];
-    remote_dir = values[i++];
+
+inline gchar *create_or_fill_server (GnomeCmdConFtp *&server, const gchar **values, gboolean with_alias=TRUE)
+{
+    gint i = 0;
+
+    const gchar *alias       = with_alias ? values[i++] : NULL;
+    const gchar *host        = values[i++];
+    const gchar *port        = values[i++];
+    const gchar *user        = values[i++];
+    const gchar *remote_dir  = values[i++];
 
     if (with_alias && !alias)
         return g_strdup (_("No alias specified"));
 
     if (!host)
         return g_strdup (_("No host specified"));
+
+    gushort iport;
 
     if (!string2ushort (port, iport))
         return g_strdup_printf (_("Invalid port number: %s"), port);
@@ -172,14 +192,19 @@ static gchar *update_server_from_strings (GnomeCmdConFtp *&server, const gchar *
         gnome_cmd_con_ftp_set_remote_dir (server, remote_dir);
     }
 
+    GnomeCmdCon *con = GNOME_CMD_CON(server);
+
+    con->method = strcmp (user, "anonymous")==0 ? CON_ANON_FTP : CON_FTP;
+    con->gnome_auth = con->method!=CON_ANON_FTP;
+
     return NULL;
 }
 
 
-static gboolean on_new_ftp_server_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFtpDialog *ftp_dialog)
+static gboolean on_new_server_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFtpDialog *ftp_dialog)
 {
     GnomeCmdConFtp *server = NULL;
-    gchar *error_desc = update_server_from_strings (server, values, TRUE);
+    gchar *error_desc = create_or_fill_server (server, values);
 
     if (error_desc != NULL)
     {
@@ -188,23 +213,32 @@ static gboolean on_new_ftp_server_dialog_ok (GnomeCmdStringDialog *string_dialog
     }
     else
     {
+        GnomeCmdCon *con = GNOME_CMD_CON (server);
+        GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list)));
+        GtkTreeIter iter;
+
         gnome_cmd_con_list_add_ftp (gnome_cmd_con_list_get (), server);
-        load_ftp_connections (ftp_dialog);
+        gtk_list_store_append (store, &iter);
+        set_server (store, &iter, server);
     }
 
     return error_desc == NULL;
 }
 
 
-static gboolean on_edit_ftp_server_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFtpDialog *ftp_dialog)
+static gboolean on_edit_server_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFtpDialog *ftp_dialog)
 {
-    GnomeCmdConFtp *server = ftp_dialog->priv->selected_server;
-    gchar *error_desc = update_server_from_strings (server, values, TRUE);
+    GtkTreeIter iter;
+    GnomeCmdConFtp *server = get_selected_server (ftp_dialog, &iter);
+
+    g_return_val_if_fail (server != NULL, FALSE);
+
+    gchar *error_desc = create_or_fill_server (server, values);
 
     if (error_desc != NULL)
         gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
     else
-        load_ftp_connections (ftp_dialog);
+        set_server (GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list))), &iter, server);
 
     return error_desc == NULL;
 }
@@ -230,7 +264,7 @@ static void on_new_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog
 {
     GtkWidget *dialog;
 
-    dialog = create_ftp_server_dialog (_("New Remote Connection"), (GnomeCmdStringDialogCallback) on_new_ftp_server_dialog_ok, ftp_dialog, TRUE);
+    dialog = create_ftp_server_dialog (_("New Remote Connection"), (GnomeCmdStringDialogCallback) on_new_server_dialog_ok, ftp_dialog, TRUE);
 
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 2, "21");
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 3, "anonymous");
@@ -239,23 +273,18 @@ static void on_new_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog
 
 static void on_edit_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog)
 {
-    const gchar *alias;
-    const gchar *host;
-    gchar *port;
-    const gchar *remote_dir;
-    const gchar *user;
-    GtkWidget *dialog;
-    GnomeCmdConFtp *server = ftp_dialog->priv->selected_server;
+    GnomeCmdConFtp *server = get_selected_server (ftp_dialog);
 
     g_return_if_fail (server != NULL);
 
-    dialog = create_ftp_server_dialog (_("Edit Remote Connection"), (GnomeCmdStringDialogCallback)on_edit_ftp_server_dialog_ok, ftp_dialog, TRUE);
+    GtkWidget *dialog;
+    dialog = create_ftp_server_dialog (_("Edit Remote Connection"), (GnomeCmdStringDialogCallback) on_edit_server_dialog_ok, ftp_dialog, TRUE);
 
-    alias = gnome_cmd_con_ftp_get_alias (server);
-    host  = gnome_cmd_con_ftp_get_host_name (server);
-    port  = g_strdup_printf ("%d", gnome_cmd_con_ftp_get_host_port (server));
-    remote_dir = gnome_cmd_con_ftp_get_remote_dir (server);
-    user  = gnome_cmd_con_ftp_get_user_name (server);
+    const gchar *alias = gnome_cmd_con_ftp_get_alias (server);
+    const gchar *host  = gnome_cmd_con_ftp_get_host_name (server);
+    const gchar *port  = g_strdup_printf ("%d", gnome_cmd_con_ftp_get_host_port (server));
+    const gchar *remote_dir = gnome_cmd_con_ftp_get_remote_dir (server);
+    const gchar *user  = gnome_cmd_con_ftp_get_user_name (server);
 
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, alias);
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, host);
@@ -267,68 +296,240 @@ static void on_edit_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialo
 
 static void on_remove_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *dialog)
 {
-    GnomeCmdConFtp *server = dialog->priv->selected_server;
+    GtkTreeView *tree_view = GTK_TREE_VIEW (dialog->priv->connection_list);
+    GtkTreeIter iter;
 
-    if (server)
+    if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (tree_view), NULL, &iter))
     {
+        GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
+        GnomeCmdConFtp *server = NULL;
+
+        gtk_tree_model_get (model, &iter, COL_FTP_CON, &server, -1);
+        gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
         gnome_cmd_con_list_remove_ftp (gnome_cmd_con_list_get (), server);
-        load_ftp_connections (dialog);
-        dialog->priv->selected_server = NULL;
     }
     else
         g_printerr (_("No server selected"));
 }
 
 
-static void on_server_list_select_row (GtkCList *clist, gint row, gint column, GdkEvent *event, gpointer user_data)
+enum
 {
-    GnomeCmdFtpDialog *dialog = GNOME_CMD_FTP_DIALOG (user_data);
-    GtkWidget *remove_button = lookup_widget (GTK_WIDGET (dialog), "remove_button");
-    GtkWidget *edit_button = lookup_widget (GTK_WIDGET (dialog), "edit_button");
+    SORTID_AUTH,
+    SORTID_METHOD,
+    SORTID_NAME
+};
 
-    gtk_widget_set_sensitive (remove_button, TRUE);
-    gtk_widget_set_sensitive (edit_button, TRUE);
 
-    if (!event)
-        return;
+static void on_list_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path, GnomeCmdFtpDialog *dialog)
+{
+    if (model_is_empty (tree_model))
+    {
+        gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "remove_button"), FALSE);
+        gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "edit_button"), FALSE);
+    }
+}
 
-    if (event->type == GDK_2BUTTON_PRESS)
-        on_connect_btn_clicked (NULL, dialog);
+
+static void on_list_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, GnomeCmdFtpDialog *dialog)
+{
+    gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "remove_button"), TRUE);
+    gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "edit_button"), TRUE);
+}
+
+
+static void on_list_row_activated (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, GnomeCmdFtpDialog *dialog)
+{
+    do_connect (dialog);
+}
+
+
+static gint sort_by_name (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2, gpointer user_data)
+{
+    gchar *s1;
+    gchar *s2;
+
+    gtk_tree_model_get (model, i1, COL_NAME, &s1, -1);
+    gtk_tree_model_get (model, i2, COL_NAME, &s2, -1);
+
+    gint retval = 0;
+
+    if (!s1 && !s2)
+        return retval;
+
+    if (!s1)
+        retval = 1;
     else
-        dialog->priv->selected_server = GNOME_CMD_CON_FTP (gtk_clist_get_row_data (clist, row));
+        if (!s2)
+            retval = -1;
+        else
+        {
+            // compare s1 and s2 in UTF8 aware way, case insensitive
+
+            gchar *is1 = g_utf8_casefold (s1, -1);
+            gchar *is2 = g_utf8_casefold (s2, -1);
+
+            retval = g_utf8_collate (is1, is2);
+
+            g_free (is1);
+            g_free (is2);
+        }
+
+    g_free (s1);
+    g_free (s2);
+
+    return retval;
 }
 
 
-static void on_server_list_unselect_row (GtkCList *clist, gint row, gint column, GdkEvent *event, gpointer user_data)
+static gint sort_by_auth (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2, gpointer user_data)
 {
-    GnomeCmdFtpDialog *dialog = GNOME_CMD_FTP_DIALOG (user_data);
-    GtkWidget *remove_button = lookup_widget (GTK_WIDGET (dialog), "remove_button");
-    GtkWidget *edit_button = lookup_widget (GTK_WIDGET (dialog), "edit_button");
+    gboolean a1;
+    gboolean a2;
 
-    gtk_widget_set_sensitive (remove_button, FALSE);
-    gtk_widget_set_sensitive (edit_button, FALSE);
+    gtk_tree_model_get (model, i1, COL_AUTH, &a1, -1);
+    gtk_tree_model_get (model, i2, COL_AUTH, &a2, -1);
+
+    return a1 == a2 ? sort_by_name (model, i1, i2, user_data) :
+                      a1 ? -1 : 1;
 }
 
 
-static void on_server_list_row_move (GtkCList *clist, gint arg1, gint arg2, gpointer user_data)
+static gint sort_by_method (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2, gpointer user_data)
 {
-    GList *servers = get_ftp_cons ();
-    gpointer s = g_list_nth_data (servers, arg1);
+    GnomeCmdConFtp *c1;
+    GnomeCmdConFtp *c2;
 
-    g_return_if_fail (s != NULL);
+    gtk_tree_model_get (model, i1, COL_FTP_CON, &c1, -1);
+    gtk_tree_model_get (model, i2, COL_FTP_CON, &c2, -1);
 
-    servers = g_list_remove (servers, s);
-    servers = g_list_insert (servers, s, arg2);
+    if (GNOME_CMD_CON(c1)->method==GNOME_CMD_CON(c2)->method)
+        return sort_by_name (model, i1, i2, user_data);
 
-    gnome_cmd_con_list_set_all_ftp (gnome_cmd_con_list_get (), servers);
+    return int(GNOME_CMD_CON(c1)->method) - int(GNOME_CMD_CON(c2)->method);
 }
 
 
-static void on_server_list_scroll_vertical (GtkCList *clist, GtkScrollType scroll_type, gfloat position, GnomeCmdFtpDialog *dialog)
+inline GtkTreeModel *create_and_fill_model (GList *list)
 {
-    dialog->priv->selected_server = GNOME_CMD_CON_FTP (gtk_clist_get_row_data (clist, clist->focus_row));
+    GtkListStore *store = gtk_list_store_new (NUM_COLS,
+                                              G_TYPE_STRING,
+                                              G_TYPE_STRING,
+                                              G_TYPE_BOOLEAN,
+                                              G_TYPE_STRING,
+                                              G_TYPE_POINTER,
+                                              G_TYPE_POINTER);
 
-    gtk_clist_select_row (clist, clist->focus_row, 0);
+    for (GtkTreeIter iter; list; list=list->next)
+    {
+        GnomeCmdCon *con = GNOME_CMD_CON (list->data);
+
+        gtk_list_store_append (store, &iter);
+        set_server (store, &iter, GNOME_CMD_CON_FTP (list->data));
+    }
+
+    GtkTreeSortable *sortable = GTK_TREE_SORTABLE (store);
+
+    gtk_tree_sortable_set_sort_func (sortable, SORTID_AUTH, sort_by_auth, NULL, NULL);
+    gtk_tree_sortable_set_sort_func (sortable, SORTID_METHOD, sort_by_method, NULL, NULL);
+    gtk_tree_sortable_set_sort_func (sortable, SORTID_NAME, sort_by_name, NULL, NULL);
+
+    gtk_tree_sortable_set_sort_column_id (sortable, SORTID_NAME, GTK_SORT_ASCENDING);   // set initial sort order
+
+    return GTK_TREE_MODEL (store);
+}
+
+
+inline GtkTreeViewColumn *create_new_text_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
+{
+    renderer = gtk_cell_renderer_text_new ();
+
+    GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
+                                                                       renderer,
+                                                                       "text", COL_ID,
+                                                                       NULL);
+
+    g_object_set (col,
+                  "clickable", TRUE,
+                  NULL);
+
+    // pack tree view column into tree view
+    gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
+
+    return col;
+}
+
+
+inline GtkTreeViewColumn *create_new_pixbuf_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
+{
+    renderer = gtk_cell_renderer_pixbuf_new ();
+
+    GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
+                                                                       renderer,
+                                                                       "icon-name", COL_ID,
+                                                                       NULL);
+
+    g_object_set (col,
+                  "clickable", TRUE,
+                  NULL);
+
+    // pack tree view column into tree view
+    gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
+
+    return col;
+}
+
+
+inline GtkWidget *create_view_and_model (GList *list)
+{
+    GtkWidget *view = gtk_tree_view_new ();
+
+    g_object_set (view,
+                  "rules-hint", TRUE,
+                  "enable-search", TRUE,
+                  "search-column", COL_NAME,
+                  NULL);
+
+    GtkCellRenderer *renderer = NULL;
+    GtkTreeViewColumn *col = NULL;
+
+    // col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_AUTH);
+
+    col = create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_LOCK);
+    gtk_tree_view_column_set_sort_column_id (col, SORTID_AUTH);
+
+    col = create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+    gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
+
+    // col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+    // gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
+    // g_object_set (renderer,
+                  // "foreground-set", TRUE,
+                  // "foreground", "DarkGray",
+                  // NULL);
+
+    col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_NAME, _("Name"));
+    gtk_tree_view_column_set_sort_column_id (col, SORTID_NAME);
+    g_object_set (renderer,
+                  "ellipsize-set", TRUE,
+                  "ellipsize", PANGO_ELLIPSIZE_END,
+                  NULL);
+
+    GtkTreeModel *model = create_and_fill_model (list);
+
+    gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
+
+    g_object_unref (model);          // destroy model automatically with view
+
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+    gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
+
+    GtkTreeIter iter;
+
+    if (gtk_tree_model_get_iter_first (gtk_tree_view_get_model (GTK_TREE_VIEW (view)), &iter))      // select the first row here...
+        gtk_tree_selection_select_iter (selection, &iter);
+
+    return view;
 }
 
 
@@ -342,8 +543,8 @@ static void destroy (GtkObject *object)
 
     if (!dialog->priv)
         g_warning ("GnomeCmdFtpDialog: dialog->priv != NULL test failed");
-    else
-        g_free (dialog->priv);
+
+    g_free (dialog->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -379,7 +580,7 @@ static void init (GnomeCmdFtpDialog *ftp_dialog)
     ftp_dialog->priv = g_new0 (GnomeCmdFtpDialogPrivate, 1);
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
-    gtk_window_set_title (GTK_WINDOW (dialog), _("Remote Server"));
+    gtk_window_set_title (GTK_WINDOW (dialog), _("Remote Connections"));
 
     gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win));
 
@@ -390,60 +591,52 @@ static void init (GnomeCmdFtpDialog *ftp_dialog)
     sw = create_sw (dialog);
     gtk_box_pack_start (GTK_BOX (cat_box), sw, TRUE, TRUE, 0);
 
-    ftp_dialog->priv->server_list = gtk_clist_new (2);
-    gtk_widget_ref (ftp_dialog->priv->server_list);
-    gtk_object_set_data_full (GTK_OBJECT (dialog), "server_list", ftp_dialog->priv->server_list,
-                              (GtkDestroyNotify) gtk_widget_unref);
-    gtk_clist_set_row_height (GTK_CLIST (ftp_dialog->priv->server_list), 16);
-    gtk_widget_show (ftp_dialog->priv->server_list);
-    gtk_container_add (GTK_CONTAINER (sw), ftp_dialog->priv->server_list);
-    gtk_widget_set_size_request (ftp_dialog->priv->server_list, -1, 200);
-    gtk_clist_set_column_width (GTK_CLIST (ftp_dialog->priv->server_list), 0, 16);
-    gtk_clist_set_column_width (GTK_CLIST (ftp_dialog->priv->server_list), 1, 80);
-    gtk_clist_column_titles_show (GTK_CLIST (ftp_dialog->priv->server_list));
+    ftp_dialog->priv->connection_list = create_view_and_model (get_ftp_cons ());
+    gtk_widget_ref (ftp_dialog->priv->connection_list);
+    gtk_object_set_data_full (GTK_OBJECT (dialog), "connection_list", ftp_dialog->priv->connection_list, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_show (ftp_dialog->priv->connection_list);
+    gtk_container_add (GTK_CONTAINER (sw), ftp_dialog->priv->connection_list);
+    gtk_widget_set_size_request (ftp_dialog->priv->connection_list, -1, 240);
 
-    label = create_label (dialog, "");
-    gtk_clist_set_column_widget (GTK_CLIST (ftp_dialog->priv->server_list), 0, label);
-    label = create_label (dialog, _("Alias"));
-    gtk_clist_set_column_widget (GTK_CLIST (ftp_dialog->priv->server_list), 1, label);
+    // check if there are any items in the connection list
+    gboolean empty_view = tree_is_empty (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
 
     bbox = create_vbuttonbox (dialog);
     gtk_box_pack_start (GTK_BOX (cat_box), bbox, FALSE, FALSE, 0);
     button = create_button (dialog, _("_New..."), GTK_SIGNAL_FUNC (on_new_btn_clicked));
     gtk_container_add (GTK_CONTAINER (bbox), button);
     button = create_named_button (dialog, _("_Edit..."), "edit_button", GTK_SIGNAL_FUNC (on_edit_btn_clicked));
-    gtk_widget_set_sensitive (button, FALSE);
+    gtk_widget_set_sensitive (button, !empty_view);
     gtk_container_add (GTK_CONTAINER (bbox), button);
     button = create_named_button (dialog, _("_Remove"), "remove_button", GTK_SIGNAL_FUNC (on_remove_btn_clicked));
-    gtk_widget_set_sensitive (button, FALSE);
+    gtk_widget_set_sensitive (button, !empty_view);
     gtk_container_add (GTK_CONTAINER (bbox), button);
-
 
     table = create_table (dialog, 1, 2);
     cat = create_category (dialog, table, _("Options"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
 
-    label = create_label (dialog, _("Anonymous password:"));
+    label = create_label (dialog, _("Anonymous FTP password:"));
     table_add (table, label, 0, 0, (GtkAttachOptions) 0);
 
     ftp_dialog->priv->anonymous_pw_entry = create_entry (dialog, "anonymous_pw_entry", gnome_cmd_data_get_ftp_anonymous_password ());
     table_add (table, ftp_dialog->priv->anonymous_pw_entry, 1, 0, GTK_FILL);
 
+    button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help_btn_clicked), dialog);
+    button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close_btn_clicked), dialog);
+    button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CONNECT, GTK_SIGNAL_FUNC (on_connect_btn_clicked), dialog);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel_btn_clicked), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("Connect"), GTK_SIGNAL_FUNC (on_connect_btn_clicked), dialog);
+    gtk_widget_set_sensitive (button, !empty_view);
 
-    gtk_signal_connect (GTK_OBJECT (ftp_dialog->priv->server_list), "select_row",
-                        GTK_SIGNAL_FUNC (on_server_list_select_row), dialog);
-    gtk_signal_connect (GTK_OBJECT (ftp_dialog->priv->server_list), "unselect_row",
-                        GTK_SIGNAL_FUNC (on_server_list_unselect_row), dialog);
-    gtk_signal_connect (GTK_OBJECT (ftp_dialog->priv->server_list), "row_move",
-                        GTK_SIGNAL_FUNC (on_server_list_row_move), dialog);
-    gtk_signal_connect_after (GTK_OBJECT (ftp_dialog->priv->server_list),
-                              "scroll-vertical",
-                              GTK_SIGNAL_FUNC (on_server_list_scroll_vertical), dialog);
+    gtk_signal_connect (GTK_OBJECT (ftp_dialog->priv->connection_list), "row-activated", GTK_SIGNAL_FUNC (on_list_row_activated), dialog);
 
-    gtk_widget_grab_focus (ftp_dialog->priv->server_list);
+    GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
+
+    gtk_signal_connect (GTK_OBJECT (model), "row-inserted", G_CALLBACK (on_list_row_inserted), dialog);
+    gtk_signal_connect (GTK_OBJECT (gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list))),
+                        "row-deleted", GTK_SIGNAL_FUNC (on_list_row_deleted), dialog);
+
+    gtk_widget_grab_focus (ftp_dialog->priv->connection_list);
 }
 
 
@@ -479,9 +672,6 @@ GtkWidget *gnome_cmd_ftp_dialog_new (void)
 {
     GnomeCmdFtpDialog *dialog = (GnomeCmdFtpDialog *) gtk_type_new (gnome_cmd_ftp_dialog_get_type ());
 
-    dialog->priv->selected_server = NULL;
-    load_ftp_connections (dialog);
-
     return GTK_WIDGET (dialog);
 }
 
@@ -495,7 +685,7 @@ GtkWidget *gnome_cmd_ftp_dialog_new (void)
 static gboolean on_quick_connect_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, gpointer not_used)
 {
     GnomeCmdConFtp *server = NULL;
-    gchar *error_desc = update_server_from_strings (server, values, FALSE);
+    gchar *error_desc = create_or_fill_server (server, values, FALSE);
 
     if (error_desc != NULL)
         gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
@@ -508,7 +698,7 @@ static gboolean on_quick_connect_ok (GnomeCmdStringDialog *string_dialog, const 
         gnome_cmd_data_set_quick_connect_host (gnome_cmd_con_ftp_get_host_name (server));
         gnome_cmd_data_set_quick_connect_port (gnome_cmd_con_ftp_get_host_port (server));
         gnome_cmd_data_set_quick_connect_user (gnome_cmd_con_ftp_get_user_name (server));
-        do_connect (GTK_WIDGET (string_dialog), server);
+        // do_connect (GTK_WIDGET (string_dialog), server);
         g_free (tmp_alias);
     }
 
@@ -518,12 +708,11 @@ static gboolean on_quick_connect_ok (GnomeCmdStringDialog *string_dialog, const 
 
 void show_ftp_quick_connect_dialog (void)
 {
-    gchar *port;
     GtkWidget *dialog;
 
     dialog = create_ftp_server_dialog (_("New Connection"), (GnomeCmdStringDialogCallback) on_quick_connect_ok, NULL, FALSE);
 
-    port = g_strdup_printf ("%d", gnome_cmd_data_get_quick_connect_port ());
+    gchar *port = g_strdup_printf ("%d", gnome_cmd_data_get_quick_connect_port ());
 
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, gnome_cmd_data_get_quick_connect_host ());
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, port);
