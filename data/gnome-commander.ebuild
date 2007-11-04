@@ -29,8 +29,8 @@ RDEPEND=">=x11-libs/gtk+-2.6.0
 	)
 	exif? ( >=media-libs/libexif-0.6.12 )
 	iptc? ( >=media-libs/libiptcdata-0.2.1 )
-	id3?  ( >=media-libs/id3lib-3.8.3 )"
-	gsf?  ( >=gnome-extra/libgsf-1.12.0 )
+	id3?  ( >=media-libs/id3lib-3.8.3 )
+	gsf?  ( >=gnome-extra/libgsf-1.12.0 )"
 
 DEPEND="${RDEPEND}
 	dev-util/intltool
