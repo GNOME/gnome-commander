@@ -104,7 +104,7 @@ void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean valu
 void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs);
 
 GnomeCmdCon *gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs);
-void gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir);
+void gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
 
 inline gboolean gnome_cmd_file_selector_is_local (GnomeCmdFileSelector *fs)
 {

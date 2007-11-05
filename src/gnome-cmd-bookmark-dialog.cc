@@ -617,7 +617,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 
             con->base_path = gnome_cmd_con_create_path (con, bookmark->path);
             gtk_object_ref (GTK_OBJECT (con->base_path));
-            gnome_cmd_file_selector_set_connection (fs, con, NULL);
+            gnome_cmd_file_selector_set_connection (fs, con);
         }
     }
 }

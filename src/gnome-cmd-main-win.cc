@@ -837,8 +837,8 @@ static void init (GnomeCmdMainWin *mw)
     gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, LEFT));
     gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, RIGHT));
 
-    gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (mw, LEFT), get_home_con (), NULL);
-    gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (mw, RIGHT), get_home_con (), NULL);
+    gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (mw, LEFT), get_home_con ());
+    gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (mw, RIGHT), get_home_con ());
 
     gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (mw, LEFT),
                                             start_dir_left ? start_dir_left : gnome_cmd_data_get_start_dir (LEFT));
@@ -1040,7 +1040,7 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
             {
                 GnomeCmdConFtp *con = GNOME_CMD_CON_FTP (gnome_cmd_con_list_get_all_ftp (gnome_cmd_con_list_get ())->data);
 
-                gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (main_win, ACTIVE), GNOME_CMD_CON (con), NULL);
+                gnome_cmd_file_selector_set_connection (gnome_cmd_main_win_get_fs (main_win, ACTIVE), GNOME_CMD_CON (con));
             }
             break;
         }

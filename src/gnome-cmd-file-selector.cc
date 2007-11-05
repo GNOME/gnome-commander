@@ -240,7 +240,7 @@ inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
 }
 
 
-static void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir)
+inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir=NULL)
 {
     fs->priv->con = con;
     fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
@@ -893,7 +893,7 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     gnome_cmd_main_win_switch_fs (main_win, fs);
-    gnome_cmd_file_selector_set_connection (fs, con, NULL);
+    gnome_cmd_file_selector_set_connection (fs, con);
 }
 
 
@@ -915,7 +915,7 @@ static void on_con_btn_clicked (GtkButton *button, GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     gnome_cmd_main_win_switch_fs (main_win, fs);
-    gnome_cmd_file_selector_set_connection (fs, con, NULL);
+    gnome_cmd_file_selector_set_connection (fs, con);
 }
 
 
@@ -1107,7 +1107,7 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
 static gboolean set_home_connection (GnomeCmdFileSelector *fs)
 {
     g_printerr ("Setting home connection\n");
-    gnome_cmd_file_selector_set_connection (fs, get_home_con (), NULL);
+    gnome_cmd_file_selector_set_connection (fs, get_home_con ());
 
     return FALSE;
 }
@@ -1655,7 +1655,7 @@ static void on_con_open_done (GnomeCmdCon *con, GnomeCmdFileSelector *fs)
     DEBUG('m', "on_con_open_done\n");
     gtk_signal_disconnect_by_data (GTK_OBJECT (con), fs);
 
-    set_connection (fs, con, NULL);
+    set_connection (fs, con);
 
     gtk_widget_destroy (fs->priv->con_open_dialog);
     fs->priv->con_open_dialog = NULL;
@@ -1723,7 +1723,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileSelector *fs)
 }
 
 
-void gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir)
+void gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CON (con));
@@ -1747,7 +1747,7 @@ void gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs, GnomeCmdC
         gnome_cmd_con_open (con);
     }
     else
-        set_connection (fs, con, dir);
+        set_connection (fs, con, start_dir);
 }
 
 
@@ -1799,7 +1799,7 @@ void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
 
     // If the connection is no longer available use the home connection
     if (!found_my_con)
-        gnome_cmd_file_selector_set_connection (fs, get_home_con (), NULL);
+        gnome_cmd_file_selector_set_connection (fs, get_home_con ());
     else
         gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), fs->priv->con);
 

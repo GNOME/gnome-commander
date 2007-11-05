@@ -112,7 +112,7 @@ static gboolean do_connect_real (GnomeCmdConFtp *server)
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
-    gnome_cmd_file_selector_set_connection (fs, con, NULL);
+    gnome_cmd_file_selector_set_connection (fs, con);
     // gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, G_DIR_SEPARATOR_S)));
 
     return FALSE;
@@ -137,7 +137,7 @@ inline void do_connect (GnomeCmdFtpDialog *ftp_dialog, GnomeCmdConFtp *server=NU
 
     gtk_widget_destroy (GTK_WIDGET (ftp_dialog));
 
-    g_timeout_add (1, (GtkFunction) do_connect_real, server);
+    g_timeout_add (50, (GtkFunction) do_connect_real, server);
 }
 
 

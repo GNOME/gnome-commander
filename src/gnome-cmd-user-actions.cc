@@ -1170,7 +1170,7 @@ void connections_new (GtkMenuItem *menuitem, gpointer not_used)
 
 void connections_change (GtkMenuItem *menuitem, gpointer con)
 {
-    gnome_cmd_file_selector_set_connection (get_fs (ACTIVE), (GnomeCmdCon *) con, NULL);
+    gnome_cmd_file_selector_set_connection (get_fs (ACTIVE), (GnomeCmdCon *) con);
 }
 
 
@@ -1184,9 +1184,9 @@ void connections_close (GtkMenuItem *menuitem, gpointer con)
     GnomeCmdCon *home = get_home_con ();
 
     if (con == c1)
-        gnome_cmd_file_selector_set_connection (active, home, NULL);
+        gnome_cmd_file_selector_set_connection (active, home);
     if (con == c2)
-        gnome_cmd_file_selector_set_connection (inactive, home, NULL);
+        gnome_cmd_file_selector_set_connection (inactive, home);
 
     gnome_cmd_con_close ((GnomeCmdCon *) con);
 }
