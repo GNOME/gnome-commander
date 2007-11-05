@@ -129,7 +129,7 @@ inline gint get_int (const gchar *path, int def)
 }
 
 
-inline void write_ftp_servers (const gchar *fname)
+inline void save_ftp_servers (const gchar *fname)
 {
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE  *fd = fopen (path, "w");
@@ -141,6 +141,7 @@ inline void write_ftp_servers (const gchar *fname)
         for (GList *tmp = gnome_cmd_con_list_get_all_ftp (data->priv->con_list); tmp; tmp = tmp->next)
         {
             GnomeCmdConFtp *server = GNOME_CMD_CON_FTP (tmp->data);
+            GnomeCmdCon *con = GNOME_CMD_CON (server);
 
             if (server)
             {
@@ -151,27 +152,28 @@ inline void write_ftp_servers (const gchar *fname)
                 stringify (alias, gnome_vfs_escape_string (gnome_cmd_con_ftp_get_alias (server)));
                 stringify (remote_dir, gnome_vfs_escape_string (gnome_cmd_con_ftp_get_remote_dir (server)));
 
+                GnomeCmdPath *path = gnome_cmd_con_create_path (con, remote_dir.c_str());
+                GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
+                stringify (uri_str, gnome_vfs_uri_to_string (uri, con->gnome_auth ? GNOME_VFS_URI_HIDE_PASSWORD : GNOME_VFS_URI_HIDE_NONE));
+                // stringify (uri_str, gnome_vfs_format_uri_for_display (uri_str.c_str());
+                gtk_object_destroy (GTK_OBJECT (path));
+
+                fprintf (fd, "U: %s\t%d\t%s\n", alias.c_str(), con->gnome_auth, uri_str.c_str());
+
+                gnome_vfs_uri_unref (uri);
+
                 gchar *hname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_host_name (server));
-                gushort port = gnome_cmd_con_ftp_get_host_port (server);
+                guint  port = gnome_cmd_con_ftp_get_host_port (server);
                 gchar *uname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_user_name (server));
                 gchar *pw    = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_pw (server));
-                GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (GNOME_CMD_CON (server));
+
+                GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (con);
 
                 fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp:", alias.c_str(), hname, port, remote_dir.c_str(), uname, pw?pw:"");
 
                 g_free (hname);
                 g_free (uname);
                 g_free (pw);
-
-                GnomeCmdPath *path = gnome_cmd_con_create_path (GNOME_CMD_CON (server), remote_dir.c_str());
-                GnomeVFSURI *uri = gnome_cmd_con_create_uri (GNOME_CMD_CON (server), path);
-                stringify (uri_str, gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_PASSWORD));
-                // stringify (uri_str, gnome_vfs_format_uri_for_display (uri_str.c_str());
-                gtk_object_destroy (GTK_OBJECT (path));
-
-                fprintf (fd, "U: %s\t%s\n", alias.c_str(), uri_str.c_str());
-
-                gnome_vfs_uri_unref (uri);
 
                 for (GList *bookmarks = bookmark_group->bookmarks; bookmarks; bookmarks = bookmarks->next)
                 {
@@ -196,7 +198,7 @@ inline void write_ftp_servers (const gchar *fname)
 }
 
 
-inline void write_devices (const gchar *fname)
+inline void save_devices (const gchar *fname)
 {
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
@@ -241,7 +243,7 @@ inline void write_devices (const gchar *fname)
 }
 
 
-inline void write_fav_apps (const gchar *fname)
+inline void save_fav_apps (const gchar *fname)
 {
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE *fd = fopen (path, "w");
@@ -750,7 +752,7 @@ inline void load_fav_apps (const gchar *fname)
 }
 
 
-inline void write_string_history (const gchar *format, GList *strings)
+inline void gnome_cmd_data_set_string_history (const gchar *format, GList *strings)
 {
     gchar key[128];
 
@@ -762,7 +764,7 @@ inline void write_string_history (const gchar *format, GList *strings)
 }
 
 
-inline void write_uint_array (const gchar *format, guint *array, gint length)
+inline void gnome_cmd_data_set_uint_array (const gchar *format, guint *array, gint length)
 {
     for (gint i=0; i<length; i++)
     {
@@ -773,32 +775,32 @@ inline void write_uint_array (const gchar *format, guint *array, gint length)
 }
 
 
-inline void write_cmdline_history ()
+inline void save_cmdline_history ()
 {
     if (!data->priv->cmdline_visibility)
         return;
 
     data->priv->cmdline_history = gnome_cmd_cmdline_get_history (gnome_cmd_main_win_get_cmdline (main_win));
 
-    write_string_history ("/cmdline-history/line%d", data->priv->cmdline_history);
+    gnome_cmd_data_set_string_history ("/cmdline-history/line%d", data->priv->cmdline_history);
 }
 
 
-inline void write_search_defaults ()
+inline void save_search_defaults ()
 {
     gnome_cmd_data_set_int ("/search-history/width",data->priv->search_defaults->width);
     gnome_cmd_data_set_int ("/search-history/height",data->priv->search_defaults->height);
 
-    write_string_history ("/search-history/name_pattern%d",data->priv->search_defaults->name_patterns);
-    write_string_history ("/search-history/content_pattern%d",data->priv->search_defaults->content_patterns);
-    write_string_history ("/search-history/directory%d",data->priv->search_defaults->directories);
+    gnome_cmd_data_set_string_history ("/search-history/name_pattern%d",data->priv->search_defaults->name_patterns);
+    gnome_cmd_data_set_string_history ("/search-history/content_pattern%d",data->priv->search_defaults->content_patterns);
+    gnome_cmd_data_set_string_history ("/search-history/directory%d",data->priv->search_defaults->directories);
 
     gnome_cmd_data_set_bool ("/search-history/recursive",data->priv->search_defaults->recursive);
     gnome_cmd_data_set_bool ("/search-history/case_sens",data->priv->search_defaults->case_sens);
 }
 
 
-inline void write_rename_history ()
+inline void save_rename_history ()
 {
     GList *from=NULL;
     GList *to=NULL;
@@ -816,26 +818,26 @@ inline void write_rename_history ()
     gnome_cmd_data_set_int ("/advrename/width", data->priv->advrename_defaults->width);
     gnome_cmd_data_set_int ("/advrename/height", data->priv->advrename_defaults->height);
 
-    write_uint_array ("/advrename/pat_col_widths%d", advrename_dialog_default_pat_column_width, ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
-    write_uint_array ("/advrename/res_col_widths%d", advrename_dialog_default_res_column_width, ADVRENAME_DIALOG_RES_NUM_COLUMNS);
+    gnome_cmd_data_set_uint_array ("/advrename/pat_col_widths%d", advrename_dialog_default_pat_column_width, ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
+    gnome_cmd_data_set_uint_array ("/advrename/res_col_widths%d", advrename_dialog_default_res_column_width, ADVRENAME_DIALOG_RES_NUM_COLUMNS);
 
     gnome_cmd_data_set_int ("/advrename/sep_value", data->priv->advrename_defaults->sep_value);
 
     gnome_cmd_data_set_int ("/options/template-history-size", g_list_length (data->priv->advrename_defaults->templates->ents));
-    write_string_history ("/template-history/template%d", data->priv->advrename_defaults->templates->ents);
+    gnome_cmd_data_set_string_history ("/template-history/template%d", data->priv->advrename_defaults->templates->ents);
 
     gnome_cmd_data_set_int ("/options/counter_start", data->priv->advrename_defaults->counter_start);
     gnome_cmd_data_set_int ("/options/counter_precision", data->priv->advrename_defaults->counter_precision);
     gnome_cmd_data_set_int ("/options/counter_increment", data->priv->advrename_defaults->counter_increment);
 
     gnome_cmd_data_set_int ("/options/rename-history-size",g_list_length (data->priv->advrename_defaults->patterns));
-    write_string_history ("/rename-history-from/from%d", from);
-    write_string_history ("/rename-history-to/to%d", to);
-    write_string_history ("/rename-history-csens/csens%d", csens);
+    gnome_cmd_data_set_string_history ("/rename-history-from/from%d", from);
+    gnome_cmd_data_set_string_history ("/rename-history-to/to%d", to);
+    gnome_cmd_data_set_string_history ("/rename-history-csens/csens%d", csens);
 }
 
 
-inline void write_local_bookmarks ()
+inline void save_local_bookmarks ()
 {
     GnomeCmdCon *con = gnome_cmd_con_list_get_home (data->priv->con_list);
     GList *tmp, *bookmarks;
@@ -850,12 +852,12 @@ inline void write_local_bookmarks ()
     }
 
     gnome_cmd_data_set_int ("/local_bookmarks/count", g_list_length (bookmarks));
-    write_string_history ("/local_bookmarks/name%d", names);
-    write_string_history ("/local_bookmarks/path%d", paths);
+    gnome_cmd_data_set_string_history ("/local_bookmarks/name%d", names);
+    gnome_cmd_data_set_string_history ("/local_bookmarks/path%d", paths);
 }
 
 
-inline void write_smb_bookmarks ()
+inline void save_smb_bookmarks ()
 {
     GnomeCmdCon *con = gnome_cmd_con_list_get_smb (data->priv->con_list);
     GList *tmp, *bookmarks;
@@ -870,15 +872,15 @@ inline void write_smb_bookmarks ()
     }
 
     gnome_cmd_data_set_int ("/smb_bookmarks/count", g_list_length (bookmarks));
-    write_string_history ("/smb_bookmarks/name%d", names);
-    write_string_history ("/smb_bookmarks/path%d", paths);
+    gnome_cmd_data_set_string_history ("/smb_bookmarks/name%d", names);
+    gnome_cmd_data_set_string_history ("/smb_bookmarks/path%d", paths);
 }
 
 
-inline void write_auto_load_plugins ()
+inline void save_auto_load_plugins ()
 {
     gnome_cmd_data_set_int ("/plugins/count",g_list_length (data->priv->auto_load_plugins));
-    write_string_history ("/plugins/auto_load%d",data->priv->auto_load_plugins);
+    gnome_cmd_data_set_string_history ("/plugins/auto_load%d",data->priv->auto_load_plugins);
 }
 
 
@@ -1193,17 +1195,17 @@ void gnome_cmd_data_save (void)
     gnome_cmd_data_set_string ("/network/ftp_anonymous_password", data->priv->ftp_anonymous_password);
     gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/ftp");
 
-    write_cmdline_history ();
+    save_cmdline_history ();
     //write_dir_history ();
 
-    write_ftp_servers ("connections");
-    write_devices ("devices");
-    write_fav_apps ("fav-apps");
-    write_search_defaults ();
-    write_rename_history ();
-    write_local_bookmarks ();
-    write_smb_bookmarks ();
-    write_auto_load_plugins ();
+    save_ftp_servers ("connections");
+    save_devices ("devices");
+    save_fav_apps ("fav-apps");
+    save_search_defaults ();
+    save_rename_history ();
+    save_local_bookmarks ();
+    save_smb_bookmarks ();
+    save_auto_load_plugins ();
 
     gnome_config_sync ();
 }
