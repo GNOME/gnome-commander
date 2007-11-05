@@ -459,17 +459,17 @@ init (GnomeCmdBookmarkDialog *in_dialog)
     bbox = create_vbox (dialog, FALSE, 12);
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, FALSE, 0);
 
-    in_dialog->priv->goto_btn = create_named_button (dialog, _("_Goto"), "goto_button", GTK_SIGNAL_FUNC (on_dir_goto));
+    in_dialog->priv->goto_btn = create_named_stock_button (dialog, GTK_STOCK_JUMP_TO, "goto_button", GTK_SIGNAL_FUNC (on_dir_goto));
     GTK_WIDGET_SET_FLAGS (in_dialog->priv->goto_btn, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (bbox), in_dialog->priv->goto_btn, FALSE, TRUE, 0);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->goto_btn), FALSE);
 
-    in_dialog->priv->edit_btn = create_named_button (dialog, _("_Edit"), "edit_button", GTK_SIGNAL_FUNC (on_dir_edit));
+    in_dialog->priv->edit_btn = create_named_stock_button (dialog, GTK_STOCK_EDIT, "edit_button", GTK_SIGNAL_FUNC (on_dir_edit));
     GTK_WIDGET_SET_FLAGS (in_dialog->priv->edit_btn, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (bbox), in_dialog->priv->edit_btn, FALSE, TRUE, 0);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->edit_btn), FALSE);
 
-    in_dialog->priv->remove_btn = create_named_button (dialog, _("_Remove"), "remove_button", GTK_SIGNAL_FUNC (on_dir_remove));
+    in_dialog->priv->remove_btn = create_named_stock_button (dialog, GTK_STOCK_REMOVE, "remove_button", GTK_SIGNAL_FUNC (on_dir_remove));
     GTK_WIDGET_SET_FLAGS (in_dialog->priv->remove_btn, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (bbox), in_dialog->priv->remove_btn, FALSE, TRUE, 0);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->remove_btn), FALSE);

@@ -1399,17 +1399,17 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
     bbox = create_vbuttonbox (parent);
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
 
-    button = create_button (parent, _("_Add..."), GTK_SIGNAL_FUNC (on_app_add));
+    button = create_stock_button (parent, GTK_STOCK_ADD, GTK_SIGNAL_FUNC (on_app_add));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_button (parent, _("_Edit..."), GTK_SIGNAL_FUNC (on_app_edit));
+    button = create_stock_button (parent, GTK_STOCK_EDIT, GTK_SIGNAL_FUNC (on_app_edit));
     gtk_object_set_data (GTK_OBJECT (parent), "edit_app_button", button);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_button (parent, _("_Remove"), GTK_SIGNAL_FUNC (on_app_remove));
+    button = create_stock_button (parent, GTK_STOCK_REMOVE, GTK_SIGNAL_FUNC (on_app_remove));
     gtk_object_set_data (GTK_OBJECT (parent), "remove_app_button", button);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_widget_set_sensitive (button, FALSE);
@@ -1750,17 +1750,17 @@ create_devices_tab (GtkWidget *parent)
     bbox = create_vbuttonbox (parent);
     gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, TRUE, 0);
 
-    button = create_button (parent, _("_Add..."), GTK_SIGNAL_FUNC (on_device_add));
+    button = create_stock_button (parent, GTK_STOCK_ADD, GTK_SIGNAL_FUNC (on_device_add));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_button (parent, _("_Edit..."), GTK_SIGNAL_FUNC (on_device_edit));
+    button = create_stock_button (parent, GTK_STOCK_EDIT, GTK_SIGNAL_FUNC (on_device_edit));
     gtk_object_set_data (GTK_OBJECT (parent), "edit_device_button", button);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_button (parent, _("_Remove"), GTK_SIGNAL_FUNC (on_device_remove));
+    button = create_stock_button (parent, GTK_STOCK_REMOVE, GTK_SIGNAL_FUNC (on_device_remove));
     gtk_object_set_data (GTK_OBJECT (parent), "remove_device_button", button);
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_widget_set_sensitive (button, FALSE);

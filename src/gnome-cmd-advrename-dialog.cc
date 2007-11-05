@@ -1201,14 +1201,14 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
     table_add (table, bbox, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
-    in_dialog->priv->add_btn = create_button (dialog, _("_Add..."), GTK_SIGNAL_FUNC (on_rule_add));
+    in_dialog->priv->add_btn = create_stock_button (dialog, GTK_STOCK_ADD, GTK_SIGNAL_FUNC (on_rule_add));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->add_btn);
 
-    in_dialog->priv->edit_btn = create_button (dialog, _("_Edit..."), GTK_SIGNAL_FUNC (on_rule_edit));
+    in_dialog->priv->edit_btn = create_stock_button (dialog, GTK_STOCK_EDIT, GTK_SIGNAL_FUNC (on_rule_edit));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->edit_btn);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->edit_btn), FALSE);
 
-    in_dialog->priv->remove_btn = create_button (dialog, _("_Remove"), GTK_SIGNAL_FUNC (on_rule_remove));
+    in_dialog->priv->remove_btn = create_stock_button (dialog, GTK_STOCK_REMOVE, GTK_SIGNAL_FUNC (on_rule_remove));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->remove_btn);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->remove_btn), FALSE);
 

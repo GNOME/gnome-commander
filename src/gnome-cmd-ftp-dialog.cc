@@ -603,12 +603,12 @@ static void init (GnomeCmdFtpDialog *ftp_dialog)
 
     bbox = create_vbuttonbox (dialog);
     gtk_box_pack_start (GTK_BOX (cat_box), bbox, FALSE, FALSE, 0);
-    button = create_button (dialog, _("_New..."), GTK_SIGNAL_FUNC (on_new_btn_clicked));
+    button = create_stock_button (dialog, GTK_STOCK_ADD, GTK_SIGNAL_FUNC (on_new_btn_clicked));
     gtk_container_add (GTK_CONTAINER (bbox), button);
-    button = create_named_button (dialog, _("_Edit..."), "edit_button", GTK_SIGNAL_FUNC (on_edit_btn_clicked));
+    button = create_named_stock_button (dialog, GTK_STOCK_EDIT, "edit_button", GTK_SIGNAL_FUNC (on_edit_btn_clicked));
     gtk_widget_set_sensitive (button, !empty_view);
     gtk_container_add (GTK_CONTAINER (bbox), button);
-    button = create_named_button (dialog, _("_Remove"), "remove_button", GTK_SIGNAL_FUNC (on_remove_btn_clicked));
+    button = create_named_stock_button (dialog, GTK_STOCK_REMOVE, "remove_button", GTK_SIGNAL_FUNC (on_remove_btn_clicked));
     gtk_widget_set_sensitive (button, !empty_view);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 

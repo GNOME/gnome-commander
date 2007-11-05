@@ -1,3 +1,11 @@
+2007-11-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-bookmark-dialog.cc:
+	* src/gnome-cmd-ftp-dialog.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	Use stock buttons in dialogs
+
 2007-11-04  Matthias <neolitho@wh12.tu-dresden.de>
 
 	* data/gnome-commander.ebuild:
