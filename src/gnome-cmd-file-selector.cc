@@ -734,8 +734,8 @@ static void goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
     cur_dir = gnome_cmd_file_selector_get_directory (fs);
     g_return_if_fail (GNOME_CMD_IS_DIR (cur_dir));
 
-    if (strcmp (in_dir, "~") == 0)
-        dir = g_strdup (g_get_home_dir ());
+    if (g_str_has_prefix (in_dir, "~"))
+        dir = gnome_vfs_expand_initial_tilde (in_dir);
     else
         dir = unquote_if_needed (in_dir);
 
@@ -754,17 +754,16 @@ static void goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
     {
         // check if it's an absolute address or not
         if (dir[0] == '/')
-        {
             new_dir = gnome_cmd_dir_new (fs->priv->con, gnome_cmd_con_create_path (fs->priv->con, dir));
-        }
-        else if (strncmp (dir, "\\\\", 2) == 0)
-        {
-            GnomeCmdPath *path = gnome_cmd_con_create_path (get_smb_con (), dir);
-            if (path)
-                new_dir = gnome_cmd_dir_new (get_smb_con (), path);
-        }
         else
-            new_dir = gnome_cmd_dir_get_child (cur_dir, dir);
+            if (g_str_has_prefix (dir, "\\\\") )
+            {
+                GnomeCmdPath *path = gnome_cmd_con_create_path (get_smb_con (), dir);
+                if (path)
+                    new_dir = gnome_cmd_dir_new (get_smb_con (), path);
+            }
+            else
+                new_dir = gnome_cmd_dir_get_child (cur_dir, dir);
     }
 
     if (new_dir)

@@ -6,6 +6,11 @@
 	* src/gnome-cmd-options-dialog.cc:
 	Use stock buttons in dialogs
 
+2007-11-05  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-file-selector.cc:
+	Proper handling of 'cd ~/mydir'
+
 2007-11-04  Matthias <neolitho@wh12.tu-dresden.de>
 
 	* data/gnome-commander.ebuild:
