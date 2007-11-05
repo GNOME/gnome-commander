@@ -8,6 +8,9 @@
 	* src/gnome-cmd-user-actions.cc:
 	Set default dir to NULL for gnome_cmd_file_selector_set_connection ()
 
+	* src/gnome-cmd-ftp-dialog.cc:
+	Added tooltips to the connection list columns
+
 2007-11-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

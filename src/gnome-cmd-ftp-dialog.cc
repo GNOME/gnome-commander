@@ -493,13 +493,17 @@ inline GtkWidget *create_view_and_model (GList *list)
     GtkCellRenderer *renderer = NULL;
     GtkTreeViewColumn *col = NULL;
 
+    GtkTooltips *tips = gtk_tooltips_new ();
+
     // col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_AUTH);
 
     col = create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_LOCK);
     gtk_tree_view_column_set_sort_column_id (col, SORTID_AUTH);
+    gtk_tooltips_set_tip (tips, col->button, _("GNOME authentication manager usage"), NULL);
 
     col = create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
     gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
+    gtk_tooltips_set_tip (tips, col->button, _("Network protocol"), NULL);
 
     // col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
     // gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
@@ -514,6 +518,7 @@ inline GtkWidget *create_view_and_model (GList *list)
                   "ellipsize-set", TRUE,
                   "ellipsize", PANGO_ELLIPSIZE_END,
                   NULL);
+    gtk_tooltips_set_tip (tips, col->button, _("Connection name"), NULL);
 
     GtkTreeModel *model = create_and_fill_model (list);
 
