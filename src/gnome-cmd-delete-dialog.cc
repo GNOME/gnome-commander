@@ -29,57 +29,34 @@
 using namespace std;
 
 
-typedef struct
+struct DeleteData
 {
     GtkWidget *progbar;
     GtkWidget *proglabel;
     GtkWidget *progwin;
 
-    // Signals to the main thread that the work thread is waiting for an answer on what to do
-    gboolean problem;
-
-    // where the answer is delivered
-    gint problem_action;
-
-    // the filename of the file that can't be deleted
-    gchar *problem_file;
-
-    // the cause that the file cant be deleted
-    GnomeVFSResult vfs_status;
-
-    // the work thread
-    GThread *thread;
-
-    // the files that should be deleted
-    GList *files;
-
-    // tells the work thread to stop working
-    gboolean stop;
-
-    // tells the main thread that the work thread is done
-    gboolean delete_done;
-
-    // a message descriping the current status of the delete operation
-    gchar *msg;
-
-    // a float values between 0 and 1 representing the progress of the whole operation
-    gfloat progress;
-
-    // used to sync the main and worker thread
-    GMutex *mutex;
-} DeleteData;
+    gboolean problem;             // signals to the main thread that the work thread is waiting for an answer on what to do
+    gint problem_action;          // where the answer is delivered
+    gchar *problem_file;          // the filename of the file that can't be deleted
+    GnomeVFSResult vfs_status;    // the cause that the file cant be deleted
+    GThread *thread;              // the work thread
+    GList *files;                 // the files that should be deleted
+    gboolean stop;                // tells the work thread to stop working
+    gboolean delete_done;         // tells the main thread that the work thread is done
+    gchar *msg;                   // a message descriping the current status of the delete operation
+    gfloat progress;              // a float values between 0 and 1 representing the progress of the whole operation
+    GMutex *mutex;                // used to sync the main and worker thread
+};
 
 
-static void
-cleanup (DeleteData *data)
+inline void cleanup (DeleteData *data)
 {
     gnome_cmd_file_list_free (data->files);
     g_free (data);
 }
 
 
-static gint
-delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
+static gint delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
 {
     gint ret = 0;
 
@@ -128,24 +105,22 @@ delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData *data)
 }
 
 
-static void
-on_cancel (GtkButton *btn, DeleteData *data)
+static void on_cancel (GtkButton *btn, DeleteData *data)
 {
     data->stop = TRUE;
     gtk_widget_set_sensitive (GTK_WIDGET (data->progwin), FALSE);
 }
 
 
-static gboolean
-on_progwin_destroy (GtkWidget *win, DeleteData *data)
+static gboolean on_progwin_destroy (GtkWidget *win, DeleteData *data)
 {
     data->stop = TRUE;
+
     return FALSE;
 }
 
 
-static void
-create_delete_progress_win (DeleteData *data)
+inline void create_delete_progress_win (DeleteData *data)
 {
     GtkWidget *vbox;
     GtkWidget *bbox;
@@ -155,7 +130,7 @@ create_delete_progress_win (DeleteData *data)
     gtk_window_set_title (GTK_WINDOW (data->progwin), _("Deleting..."));
     gtk_window_set_policy (GTK_WINDOW (data->progwin), FALSE, FALSE, FALSE);
     gtk_widget_set_size_request (GTK_WIDGET (data->progwin), 300, -1);
-    gtk_signal_connect (GTK_OBJECT (data->progwin), "destroy-event", (GtkSignalFunc)on_progwin_destroy, data);
+    gtk_signal_connect (GTK_OBJECT (data->progwin), "destroy-event", (GtkSignalFunc) on_progwin_destroy, data);
 
     vbox = create_vbox (data->progwin, FALSE, 6);
     gtk_container_add (GTK_CONTAINER (data->progwin), vbox);
@@ -189,8 +164,8 @@ static void perform_delete_operation (DeleteData *data)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) g_list_nth_data (data->files, i);
 
-        if (g_strcasecmp(finfo->info->name, "..") == 0
-            || g_strcasecmp(finfo->info->name, ".") == 0) continue;
+        if (strcmp(finfo->info->name, "..") == 0 || strcmp(finfo->info->name, ".") == 0)
+            continue;
 
         GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
         if (!uri) continue;
@@ -199,7 +174,7 @@ static void perform_delete_operation (DeleteData *data)
         uri_list = g_list_append (uri_list, uri);
     }
 
-    if (uri_list != NULL)
+    if (uri_list)
     {
         GnomeVFSXferOptions xferOptions = GNOME_VFS_XFER_DEFAULT;
         GnomeVFSXferErrorMode xferErrorMode = GNOME_VFS_XFER_ERROR_MODE_QUERY;
@@ -218,15 +193,15 @@ static void perform_delete_operation (DeleteData *data)
 }
 
 
-static gboolean
-update_delete_status_widgets (DeleteData *data)
+static gboolean update_delete_status_widgets (DeleteData *data)
 {
     g_mutex_lock (data->mutex);
 
     gtk_label_set_text (GTK_LABEL (data->proglabel), data->msg);
     gtk_progress_set_percentage (GTK_PROGRESS (data->progbar), data->progress);
 
-    if (data->problem) {
+    if (data->problem)
+    {
         const gchar *error = gnome_vfs_result_to_string (data->vfs_status);
         gchar *msg = g_strdup_printf (_("Error while deleting \"%s\"\n\n%s"), data->problem_file, error);
 
@@ -260,16 +235,14 @@ update_delete_status_widgets (DeleteData *data)
 
         cleanup (data);
 
-        // Returning FALSE here stops the timeout callbacks
-        return FALSE;
+        return FALSE;  // Returning FALSE here stops the timeout callbacks
     }
 
     return TRUE;
 }
 
 
-static void
-do_delete (DeleteData *data)
+static void do_delete (DeleteData *data)
 {
     data->mutex = g_mutex_new ();
     data->delete_done = FALSE;
@@ -277,8 +250,8 @@ do_delete (DeleteData *data)
     data->problem_action = -1;
     create_delete_progress_win (data);
 
-    data->thread = g_thread_create ((GThreadFunc)perform_delete_operation, data, FALSE, NULL);
-    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)update_delete_status_widgets, data);
+    data->thread = g_thread_create ((GThreadFunc) perform_delete_operation, data, FALSE, NULL);
+    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction) update_delete_status_widgets, data);
 }
 
 
