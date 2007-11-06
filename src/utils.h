@@ -206,18 +206,42 @@ GList *patlist_new (const gchar *pattern_string);
 void patlist_free (GList *pattern_list);
 gboolean patlist_matches (GList *pattern_list, const gchar *s);
 
-void gnome_cmd_error_message(const gchar *title, GError *error);
 
-inline void gnome_cmd_help_display(const gchar *file_name, const gchar *link_id=NULL)
+inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text=NULL)
+{
+    GtkWidget *dlg = gtk_message_dialog_new (parent,
+                                             GTK_DIALOG_DESTROY_WITH_PARENT,
+                                             GTK_MESSAGE_ERROR,
+                                             GTK_BUTTONS_OK,
+                                             message.c_str());
+
+    if (secondary_text)
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dlg), secondary_text);
+
+    gtk_dialog_run (GTK_DIALOG (dlg));
+    gtk_widget_destroy (dlg);
+}
+
+
+void gnome_cmd_error_message (const gchar *title, GError *error);
+
+
+inline void gnome_cmd_help_display (const gchar *file_name, const gchar *link_id=NULL)
 {
     GError *error = NULL;
 
     gnome_help_display (file_name, link_id, &error);
 
     if (error != NULL)
-        gnome_cmd_error_message(_("There was an error displaying help."), error);
+        gnome_cmd_error_message (_("There was an error displaying help."), error);
 }
 
+
+inline void gnome_cmd_error_message (const gchar *title, GError *error)
+{
+    gnome_cmd_show_message (NULL, title, error->message);
+    g_error_free (error);
+}
 
 
 // Insert an item with an inline xpm icon and a user data pointer

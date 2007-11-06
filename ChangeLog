@@ -11,6 +11,11 @@
 	* src/gnome-cmd-ftp-dialog.cc:
 	Added tooltips to the connection list columns
 
+	* src/gnome-cmd-user-actions.cc:
+	* src/utils.cc:
+	* src/utils.h:
+	Added gnome_cmd_show_message() function
+
 2007-11-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
