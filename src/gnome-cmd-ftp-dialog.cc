@@ -498,12 +498,12 @@ inline GtkWidget *create_view_and_model (GList *list)
     // col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_AUTH);
 
     col = create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_LOCK);
-    gtk_tree_view_column_set_sort_column_id (col, SORTID_AUTH);
     gtk_tooltips_set_tip (tips, col->button, _("GNOME authentication manager usage"), NULL);
+    gtk_tree_view_column_set_sort_column_id (col, SORTID_AUTH);
 
     col = create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
-    gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
     gtk_tooltips_set_tip (tips, col->button, _("Network protocol"), NULL);
+    gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
 
     // col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
     // gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
@@ -513,12 +513,12 @@ inline GtkWidget *create_view_and_model (GList *list)
                   // NULL);
 
     col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_NAME, _("Name"));
+    gtk_tooltips_set_tip (tips, col->button, _("Connection name"), NULL);
     gtk_tree_view_column_set_sort_column_id (col, SORTID_NAME);
     g_object_set (renderer,
                   "ellipsize-set", TRUE,
                   "ellipsize", PANGO_ELLIPSIZE_END,
                   NULL);
-    gtk_tooltips_set_tip (tips, col->button, _("Connection name"), NULL);
 
     GtkTreeModel *model = create_and_fill_model (list);
 

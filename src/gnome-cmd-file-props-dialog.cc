@@ -508,7 +508,7 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *finfo)
 }
 
 
-inline void create_new_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
+inline GtkTreeViewColumn *create_new_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
 {
     renderer = gtk_cell_renderer_text_new ();
 
@@ -524,14 +524,16 @@ inline void create_new_column (GtkTreeView *view, GtkCellRenderer *&renderer, gi
 
     // pack tree view column into tree view
     gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
+
+    return col;
 }
 
 
-inline void create_new_column (GtkTreeView *view, gint COL_ID, const gchar *title=NULL)
+inline GtkTreeViewColumn *create_new_column (GtkTreeView *view, gint COL_ID, const gchar *title=NULL)
 {
     GtkCellRenderer *renderer = NULL;
 
-    create_new_column (view, renderer, COL_ID, title);
+    return create_new_column (view, renderer, COL_ID, title);
 }
 
 
@@ -546,18 +548,26 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *finfo)
                   NULL);
 
     GtkCellRenderer *renderer = NULL;
+    GtkTreeViewColumn *col = NULL;
 
-    create_new_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
+    GtkTooltips *tips = gtk_tooltips_new ();
+
+    col = create_new_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
+    gtk_tooltips_set_tip (tips, col->button, _("Metadata namespace"), NULL);
 
     g_object_set (renderer,
                   "weight-set", TRUE,
                   "weight", PANGO_WEIGHT_BOLD,
                   NULL);
 
-    create_new_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
-    create_new_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
+    col = create_new_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
+    gtk_tooltips_set_tip (tips, col->button, _("Tag name"), NULL);
 
-    create_new_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
+    col = create_new_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
+    gtk_tooltips_set_tip (tips, col->button, _("Tag value"), NULL);
+
+    col = create_new_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
+    gtk_tooltips_set_tip (tips, col->button, _("Metadata tag description"), NULL);
 
     g_object_set (renderer,
                   "foreground-set", TRUE,
