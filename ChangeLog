@@ -19,6 +19,9 @@
 	* src/gnome-cmd-file-props-dialog.cc:
 	Added tooltips to the metadata list columns
 
+	* src/gnome-cmd-delete-dialog.cc:
+	Fix for memory leak in delete confirm dlg
+
 2007-11-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

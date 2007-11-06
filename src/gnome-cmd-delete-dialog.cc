@@ -282,11 +282,44 @@ do_delete (DeleteData *data)
 }
 
 
-void
-gnome_cmd_delete_dialog_show (GList *files)
+void gnome_cmd_delete_dialog_show (GList *files)
 {
-    gint ret;
-    gchar *msg;
+    g_return_if_fail (files != NULL);
+
+    gint response = 1;
+
+    if (gnome_cmd_data_get_confirm_delete ())
+    {
+        gchar *msg = NULL;
+
+        gint n_files = g_list_length (files);
+
+        if (n_files == 1)
+        {
+            GnomeCmdFile *finfo = (GnomeCmdFile *) g_list_nth_data (files, 0);
+
+            if (strcmp (finfo->info->name, "..") == 0)
+                return;
+
+            gchar *fname = get_utf8 (finfo->info->name);
+            msg = g_strdup_printf (_("Do you want to delete \"%s\"?"), fname);
+            g_free (fname);
+        }
+        else
+            msg = g_strdup_printf (ngettext("Do you want to delete the selected file?",
+                                            "Do you want to delete the %d selected files?",
+                                            n_files),
+                                   n_files);
+
+        response = run_simple_dialog (GTK_WIDGET (main_win), FALSE,
+                                      GTK_MESSAGE_QUESTION, msg, _("Delete"),
+                                      1, _("Cancel"), _("OK"), NULL);
+
+        g_free (msg);
+    }
+
+    if (response != 1)
+        return;
 
     DeleteData *data = g_new0 (DeleteData, 1);
 
@@ -297,38 +330,5 @@ gnome_cmd_delete_dialog_show (GList *files)
     // data->mutex = NULL;
     // data->msg = NULL;
 
-    gint num_files = g_list_length (data->files);
-
-    if (num_files == 1)
-    {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) g_list_nth_data (data->files, 0);
-        if (g_strcasecmp(finfo->info->name, "..") == 0)
-        {
-            g_free (data);
-            return;
-        }
-
-        gchar *fname = get_utf8 (finfo->info->name);
-        msg = g_strdup_printf (_("Do you want to delete \"%s\"?"), fname);
-        g_free (fname);
-    }
-    else
-        msg = g_strdup_printf (
-            ngettext("Do you want to delete the selected file?",
-                     "Do you want to delete the %d selected files?",
-                     num_files),
-            num_files);
-
-    if (gnome_cmd_data_get_confirm_delete ())
-        ret = run_simple_dialog (
-            GTK_WIDGET (main_win), FALSE,
-            GTK_MESSAGE_QUESTION, msg, _("Delete"),
-            1, _("Cancel"), _("OK"), NULL);
-    else
-        ret = 1;
-
-    if (ret == 1)
-        do_delete (data);
-
-    g_free (msg);
+    do_delete (data);
 }
