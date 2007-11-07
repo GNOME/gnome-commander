@@ -211,7 +211,7 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 
     // Allow close.
     if (ignore_close_box)
-        gtk_signal_connect (GTK_OBJECT (dialog), "delete_event", GTK_SIGNAL_FUNC (delete_event_callback), NULL);
+        gtk_signal_connect (GTK_OBJECT (dialog), "delete-event", GTK_SIGNAL_FUNC (delete_event_callback), NULL);
     else
         gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event", GTK_SIGNAL_FUNC (on_run_dialog_keypress), dialog);
 

@@ -158,7 +158,7 @@ void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
     gtk_signal_connect (GTK_OBJECT (adjustment), "changed",
               (GtkSignalFunc) image_render_h_adjustment_changed ,
               (gpointer) obj);
-    gtk_signal_connect (GTK_OBJECT (adjustment), "value_changed",
+    gtk_signal_connect (GTK_OBJECT (adjustment), "value-changed",
               (GtkSignalFunc) image_render_h_adjustment_value_changed ,
               (gpointer) obj);
 
@@ -187,7 +187,7 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
     gtk_signal_connect (GTK_OBJECT (adjustment), "changed",
               (GtkSignalFunc) image_render_v_adjustment_changed ,
               (gpointer) obj);
-    gtk_signal_connect (GTK_OBJECT (adjustment), "value_changed",
+    gtk_signal_connect (GTK_OBJECT (adjustment), "value-changed",
               (GtkSignalFunc) image_render_v_adjustment_value_changed ,
               (gpointer) obj);
 
@@ -596,7 +596,7 @@ static void image_render_h_adjustment_update (ImageRender *obj)
     if (new_value != obj->priv->h_adjustment->value)
     {
         obj->priv->h_adjustment->value = new_value;
-        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->h_adjustment), "value_changed");
+        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->h_adjustment), "value-changed");
     }
 
     /* TODO: Update the widget in response to the adjusments' change
@@ -657,7 +657,7 @@ static void image_render_v_adjustment_update (ImageRender *obj)
     if (new_value != obj->priv->v_adjustment->value)
     {
         obj->priv->v_adjustment->value = new_value;
-        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->v_adjustment), "value_changed");
+        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->v_adjustment), "value-changed");
     }
 
     /* TODO: Update the widget in response to the adjusments' change

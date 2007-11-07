@@ -124,7 +124,8 @@ inline void do_connect (GnomeCmdFtpDialog *ftp_dialog, GnomeCmdConFtp *server=NU
     if (!server)
         server = get_selected_server (ftp_dialog);
 
-    g_return_if_fail (server != NULL);
+    if (!server)        // exit as there is no server selected
+        return;
 
     const gchar *user = gnome_cmd_con_ftp_get_user_name (server);
     const gchar *anon_pw = gtk_entry_get_text (GTK_ENTRY (ftp_dialog->priv->anonymous_pw_entry));
@@ -275,7 +276,8 @@ static void on_edit_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialo
 {
     GnomeCmdConFtp *server = get_selected_server (ftp_dialog);
 
-    g_return_if_fail (server != NULL);
+    if (!server)        // exit as there is no server selected
+        return;
 
     GtkWidget *dialog;
     dialog = create_ftp_server_dialog (_("Edit Remote Connection"), (GnomeCmdStringDialogCallback) on_edit_server_dialog_ok, ftp_dialog, TRUE);

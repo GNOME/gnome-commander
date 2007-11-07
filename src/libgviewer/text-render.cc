@@ -212,7 +212,7 @@ void text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment)
     gtk_signal_connect (GTK_OBJECT (adjustment), "changed",
               (GtkSignalFunc) text_render_h_adjustment_changed ,
               (gpointer) obj);
-    gtk_signal_connect (GTK_OBJECT (adjustment), "value_changed",
+    gtk_signal_connect (GTK_OBJECT (adjustment), "value-changed",
               (GtkSignalFunc) text_render_h_adjustment_value_changed ,
               (gpointer) obj);
 
@@ -241,7 +241,7 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
     gtk_signal_connect (GTK_OBJECT (adjustment), "changed",
               (GtkSignalFunc) text_render_v_adjustment_changed ,
               (gpointer) obj);
-    gtk_signal_connect (GTK_OBJECT (adjustment), "value_changed",
+    gtk_signal_connect (GTK_OBJECT (adjustment), "value-changed",
               (GtkSignalFunc) text_render_v_adjustment_value_changed ,
               (gpointer) obj);
 
@@ -765,7 +765,7 @@ static void text_render_h_adjustment_update (TextRender *obj)
     if (new_value != obj->priv->h_adjustment->value)
     {
         obj->priv->h_adjustment->value = new_value;
-        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->h_adjustment), "value_changed");
+        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->h_adjustment), "value-changed");
     }
 
     obj->priv->column = (int)new_value;
@@ -831,7 +831,7 @@ static void text_render_v_adjustment_update (TextRender *obj)
     if (new_value != obj->priv->v_adjustment->value)
     {
         obj->priv->v_adjustment->value = new_value;
-        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->v_adjustment), "value_changed");
+        gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->v_adjustment), "value-changed");
     }
 
     obj->priv->current_offset = (offset_type)new_value;
