@@ -38,6 +38,7 @@ struct _GnomeCmdFtpDialogPrivate
 {
     GtkWidget         *connection_list;
     GtkWidget         *anonymous_pw_entry;
+    GtkWidget         *connect_button;
 };
 
 
@@ -329,6 +330,7 @@ static void on_list_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path, Gn
     {
         gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "remove_button"), FALSE);
         gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "edit_button"), FALSE);
+        gtk_widget_set_sensitive (GTK_WIDGET (dialog->priv->connect_button), FALSE);
     }
 }
 
@@ -337,6 +339,7 @@ static void on_list_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, G
 {
     gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "remove_button"), TRUE);
     gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "edit_button"), TRUE);
+    gtk_widget_set_sensitive (GTK_WIDGET (dialog->priv->connect_button), TRUE);
 }
 
 
@@ -633,15 +636,15 @@ static void init (GnomeCmdFtpDialog *ftp_dialog)
     button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close_btn_clicked), dialog);
     button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CONNECT, GTK_SIGNAL_FUNC (on_connect_btn_clicked), dialog);
 
+    ftp_dialog->priv->connect_button = button;
     gtk_widget_set_sensitive (button, !empty_view);
 
     gtk_signal_connect (GTK_OBJECT (ftp_dialog->priv->connection_list), "row-activated", GTK_SIGNAL_FUNC (on_list_row_activated), dialog);
 
     GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
 
-    gtk_signal_connect (GTK_OBJECT (model), "row-inserted", G_CALLBACK (on_list_row_inserted), dialog);
-    gtk_signal_connect (GTK_OBJECT (gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list))),
-                        "row-deleted", GTK_SIGNAL_FUNC (on_list_row_deleted), dialog);
+    g_signal_connect (G_OBJECT (model), "row-inserted", G_CALLBACK (on_list_row_inserted), dialog);
+    g_signal_connect (G_OBJECT (model), "row-deleted", G_CALLBACK (on_list_row_deleted), dialog);
 
     gtk_widget_grab_focus (ftp_dialog->priv->connection_list);
 }

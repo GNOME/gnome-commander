@@ -1,3 +1,8 @@
+2007-11-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-ftp-dialog.cc:
+	Activate/deactivate buttons accordingly to the number of connections
+
 2007-11-06  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-bookmark-dialog.cc:
