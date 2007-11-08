@@ -48,57 +48,28 @@ struct _GnomeCmdConDeviceClass
 };
 
 
-GtkType
-gnome_cmd_con_device_get_type (void);
+GtkType gnome_cmd_con_device_get_type (void);
 
-GnomeCmdConDevice *
-gnome_cmd_con_device_new     (const gchar *alias,
-                              const gchar *device_fn,
-                              const gchar *mountp,
-                              const gchar *icon_path);
+GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, const gchar *icon_path);
 
-void
-gnome_cmd_con_device_free                (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_free (GnomeCmdConDevice *dev);
 
-void
-gnome_cmd_con_device_set_alias           (GnomeCmdConDevice *dev,
-                                          const gchar *alias);
+const gchar *gnome_cmd_con_device_get_alias (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_set_alias (GnomeCmdConDevice *dev, const gchar *alias);
 
-void
-gnome_cmd_con_device_set_device_fn       (GnomeCmdConDevice *dev,
-                                          const gchar *device_fn);
+const gchar *gnome_cmd_con_device_get_device_fn (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_set_device_fn (GnomeCmdConDevice *dev, const gchar *device_fn);
 
-void
-gnome_cmd_con_device_set_mountp          (GnomeCmdConDevice *dev,
-                                          const gchar *mountp);
+const gchar *gnome_cmd_con_device_get_mountp (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_set_mountp (GnomeCmdConDevice *dev, const gchar *mountp);
 
-void
-gnome_cmd_con_device_set_icon_path       (GnomeCmdConDevice *dev,
-                                          const gchar *icon_path);
+const gchar *gnome_cmd_con_device_get_icon_path (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *icon_path);
 
-void
-gnome_cmd_con_device_set_autovol         (GnomeCmdConDevice *dev,
-                                          const gboolean autovol);
-void
-gnome_cmd_con_device_set_vfs_volume    (GnomeCmdConDevice *dev,
-                                          GnomeVFSVolume *vfsvol);
+gboolean gnome_cmd_con_device_get_autovol (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev, const gboolean autovol);
 
-const gchar*
-gnome_cmd_con_device_get_alias           (GnomeCmdConDevice *dev);
-
-const gchar*
-gnome_cmd_con_device_get_device_fn       (GnomeCmdConDevice *dev);
-
-const gchar*
-gnome_cmd_con_device_get_mountp          (GnomeCmdConDevice *dev);
-
-const gchar*
-gnome_cmd_con_device_get_icon_path       (GnomeCmdConDevice *dev);
-
-gboolean
-gnome_cmd_con_device_get_autovol     (GnomeCmdConDevice *dev);
-
-GnomeVFSVolume *
-gnome_cmd_con_device_get_vfs_volume    (GnomeCmdConDevice *dev);
+GnomeVFSVolume *gnome_cmd_con_device_get_vfs_volume (GnomeCmdConDevice *dev);
+void gnome_cmd_con_device_set_vfs_volume (GnomeCmdConDevice *dev, GnomeVFSVolume *vfsvol);
 
 #endif // __GNOME_CMD_CON_DEVICE_H__

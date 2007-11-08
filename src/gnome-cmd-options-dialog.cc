@@ -151,7 +151,7 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
 
     gnome_cmd_data_set_case_sens_sort (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check)));
     gnome_cmd_data_set_dir_cache_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dir_cache_size)));
-    gnome_cmd_data_set_alt_quick_search(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(alt_quick_search)));
+    gnome_cmd_data_set_alt_quick_search (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search)));
 }
 
 
