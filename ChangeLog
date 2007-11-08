@@ -1,3 +1,8 @@
+2007-11-08  Mike Crash <mike@mikecrash.com>
+
+	* src/gnome-cmd-con-device.cc:
+	Fix for mounting of devices with spaces in the name (e.g. "/media/NIKON D40")
+
 2007-11-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-ftp-dialog.cc:

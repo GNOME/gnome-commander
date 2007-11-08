@@ -5648,6 +5648,9 @@
                             <para>Fixed problem with sporadically lost cursor in file pane</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem with mounting of devices with spaces in the name</para>
+                        </listitem>
+                        <listitem>
                             <para>Build fixes</para>
                         </listitem>
                     </itemizedlist>

@@ -48,32 +48,39 @@ struct _GnomeCmdConDevicePrivate
 static GnomeCmdConClass *parent_class = NULL;
 
 
-static gboolean
-is_mounted (GnomeCmdCon *con)
+inline gboolean is_mounted (GnomeCmdCon *con)
 {
-    gchar *s;
-    FILE *fd;
-    gchar tmp[256];
-    gboolean ret = FALSE;
-    GnomeCmdConDevice *dev_con;
-
     g_return_val_if_fail (GNOME_CMD_IS_CON_DEVICE (con), FALSE);
 
-    dev_con = GNOME_CMD_CON_DEVICE (con);
+    FILE *fd = fopen ("/etc/mtab", "r");
 
-    fd = fopen ("/etc/mtab", "r");
-    if (!fd) return FALSE;
+    if (!fd)
+        return FALSE;
 
-    while ((s = fgets (tmp, sizeof(tmp), fd)))
+    gchar tmp[512];
+    gboolean ret = FALSE;
+    GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
+
+    gchar *s;
+    while ((s=fgets (tmp, sizeof(tmp), fd))!=NULL)
     {
         char **v = g_strsplit (s, " ", 3);
-        if (v[1] && strcmp (v[1], dev_con->priv->mountp) == 0)
-            ret = TRUE;
+
+        if (v[1])
+        {
+            gchar *dir = g_strcompress (v[1]);
+            if (strcmp (dir, dev_con->priv->mountp) == 0)
+                ret = TRUE;
+            g_free (dir);
+        }
 
         g_strfreev (v);
 
-        if (ret) break;
+        if (ret)
+            break;
     }
+
+    fclose (fd);
 
     return ret;
 }
@@ -385,7 +392,7 @@ gnome_cmd_con_device_get_type         (void)
     {
         GtkTypeInfo info =
         {
-            "GnomeCmdConDevice",
+            (gchar *) "GnomeCmdConDevice",
             sizeof (GnomeCmdConDevice),
             sizeof (GnomeCmdConDeviceClass),
             (GtkClassInitFunc) class_init,

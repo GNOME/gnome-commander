@@ -11,6 +11,7 @@ Bug fixes:
  * Fixed problem with updating of internal viewer status bar
  * Fixed crash when creating dir with absolute path on SMB share
  * Fixed problem with sporadically lost cursor in file pane
+ * Fixed problem with mounting of devices with spaces in the name
  * Build fixes
 
 New features:
