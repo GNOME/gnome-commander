@@ -1,3 +1,8 @@
+2007-11-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags.h:
+	Added has_tag() function
+
 2007-11-08  Mike Crash <mike@mikecrash.com>
 
 	* src/gnome-cmd-con-device.cc:

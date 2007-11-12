@@ -522,6 +522,8 @@ class GnomeCmdFileMetadata
     void add(const GnomeCmdTag tag, const T &value);
     void addf(const GnomeCmdTag tag, const gchar *fmt, ...);
 
+    gboolean has_tag (const GnomeCmdTag tag);
+
     const std::string &operator[] (const GnomeCmdTag tag);
 
     METADATA_COLL::const_iterator begin()                           {  return metadata.begin();     }
@@ -567,6 +569,14 @@ inline void GnomeCmdFileMetadata::add(const GnomeCmdTag tag, const T &value)
 
    os << value;
    add(tag,os.str());
+}
+
+
+inline gboolean GnomeCmdFileMetadata::has_tag (const GnomeCmdTag tag)
+{
+    METADATA_COLL::const_iterator pos = metadata.find(tag);
+
+    return pos!=metadata.end();
 }
 
 
