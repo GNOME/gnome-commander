@@ -77,6 +77,7 @@ inline void readTags(GnomeCmdFileMetadata *metadata, const T &data)
                 break;
 
             case TAG_IMAGE_DESCRIPTION:
+            case TAG_IPTC_CAPTION:
                 metadata->add(TAG_FILE_DESCRIPTION,*i);      // add interpreted value
                 metadata->add(tag,*i);                       // add interpreted value
                 break;
@@ -252,7 +253,7 @@ void gcmd_tags_exiv2_init()
                     {TAG_IMAGE_COMMENTS, "Exif.Image.XPComment"},
                     {TAG_IMAGE_COMMENTS, "Exif.Photo.UserComment"},
                     {TAG_IMAGE_CREATOR, "Exif.Image.XPAuthor"},
-                    {TAG_IMAGE_DESCRIPTION, "Exif.Image.ImageDescription"},
+                    {TAG_EXIF_IMAGEDESCRIPTION, "Exif.Image.ImageDescription"},
                     {TAG_IMAGE_EXPOSUREPROGRAM, "Exif.CanonCs.ExposureProgram"},
                     {TAG_IMAGE_EXPOSUREPROGRAM, "Exif.Photo.ExposureProgram"},
                     {TAG_IMAGE_EXPOSURETIME, "Exif.MinoltaCs5D.ExposureTime"},

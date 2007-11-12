@@ -1,3 +1,9 @@
+2007-11-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	Add more metatags to the file property dlg
+
 2007-11-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.h:
