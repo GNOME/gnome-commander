@@ -305,6 +305,24 @@ inline void add_sep (GtkWidget *table, gint y)
 }
 
 
+inline void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag)
+{
+    if (!metadata.has_tag (tag))
+        return;
+
+    GtkWidget *label;
+
+    string title = gcmd_tags_get_title (tag);
+    title += ':';
+
+    label = create_bold_label (dialog, title.c_str());
+    table_add (table, label, 0, y, GTK_FILL);
+
+    label = create_label (dialog, metadata[tag].c_str());
+    table_add (table, label, 1, y++, GTK_FILL);
+}
+
+
 inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
 {
     gint y = 0;
@@ -406,6 +424,19 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         do_calc_tree_size (data);
 
     data->size_label = label;
+
+    gcmd_tags_bulk_load (data->finfo);
+
+    if (data->finfo->metadata)
+    {
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_FILE_DESCRIPTION);
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_FILE_PUBLISHER);
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_IMAGE_WIDTH);
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_IMAGE_HEIGHT);
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_ALBUMARTIST);
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_TITLE);
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_DURATIONMMSS);
+    }
 
     return space_frame;
 }
