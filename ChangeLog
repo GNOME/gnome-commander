@@ -4,6 +4,9 @@
 	* src/tags/gnome-cmd-tags-exiv2.cc:
 	Add more metatags to the file property dlg
 
+	* src/gnome-cmd-file-props-dialog.cc:
+	Present image sizes in the form: 'widht x height' in the file property dlg
+
 2007-11-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.h:
