@@ -7,6 +7,10 @@
 	* src/gnome-cmd-file-props-dialog.cc:
 	Present image sizes in the form: 'widht x height' in the file property dlg
 
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/utils.h:
+	Truncate oversized tags to 120 chars
+
 2007-11-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.h:

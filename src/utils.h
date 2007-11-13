@@ -249,6 +249,16 @@ inline void gnome_cmd_error_message (const gchar *title, GError *error)
     { GNOME_APP_UI_ITEM, label, tooltip, (gpointer)callback, NULL, NULL, \
         GNOME_APP_PIXMAP_FILENAME, filename, 0, (GdkModifierType) 0, NULL }
 
+
+inline std::string truncate(const std::string &s, guint n=100)
+{
+    if (s.size()<=n)
+        return  s;
+
+    return s.substr(0,n) + "...";
+}
+
+
 inline std::string &stringify(std::string &s, gchar *val)
 {
     if (!val)  s.erase();  else

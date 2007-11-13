@@ -318,7 +318,7 @@ inline void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileM
     label = create_bold_label (dialog, title.c_str());
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, metadata[tag].c_str());
+    label = create_label (dialog, truncate(metadata[tag],120).c_str());
     table_add (table, label, 1, y++, GTK_FILL);
 }
 
