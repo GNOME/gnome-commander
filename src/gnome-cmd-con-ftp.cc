@@ -33,10 +33,10 @@ struct _GnomeCmdConFtpPrivate
     gchar *alias;
     gchar *host_name;
     gushort host_port;
-    gboolean anonymous;
     gchar *remote_dir;
     gchar *user_name;
     gchar *pw;
+    gboolean anonymous;
 };
 
 
@@ -155,8 +155,10 @@ ftp_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
     GnomeVFSURI *u1 = gnome_vfs_uri_append_path (u0, gnome_cmd_path_get_path (path));
 
     gnome_vfs_uri_unref (u0);
+
     gnome_vfs_uri_set_host_name (u1, ftp_con->priv->host_name);
     gnome_vfs_uri_set_host_port (u1, ftp_con->priv->host_port);
+    // gnome_cmd_con_ftp_set_remote_dir (u1, ftp_con->priv->remote_dir);
     gnome_vfs_uri_set_user_name (u1, ftp_con->priv->user_name);
     gnome_vfs_uri_set_password (u1, ftp_con->priv->pw);
 
@@ -219,8 +221,6 @@ init (GnomeCmdConFtp *ftp_con)
 
     GnomeCmdCon *con = GNOME_CMD_CON (ftp_con);
 
-    ftp_con->priv = g_new0 (GnomeCmdConFtpPrivate, 1);
-
     con->method = CON_FTP;
     con->should_remember_dir = TRUE;
     con->needs_open_visprog = TRUE;
@@ -231,6 +231,16 @@ init (GnomeCmdConFtp *ftp_con)
     con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-ftp", dev_icon_size);
     con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-ftp", dev_icon_size);
     con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-ftp", dev_icon_size);
+
+    ftp_con->priv = g_new0 (GnomeCmdConFtpPrivate, 1);
+
+    // ftp_con->priv->alias = NULL;
+    // ftp_con->priv->host_name = NULL;
+    // ftp_con->priv->host_port = NULL;
+    // ftp_con->priv->remote_dir = NULL;
+    // ftp_con->priv->user_name = NULL;
+    // ftp_con->priv->pw = NULL;
+    // ftp_con->priv->anonymous = FALSE;
 }
 
 
@@ -281,9 +291,6 @@ gnome_cmd_con_ftp_new     (const gchar *alias,
     gnome_cmd_con_ftp_set_pw (con, pw);
     gnome_cmd_con_ftp_set_remote_dir (con, remote_dir);
 
-    if (strcmp (user_name, "anonymous")==0)
-        GNOME_CMD_CON (con)->method = CON_ANON_FTP;
-    GNOME_CMD_CON (con)->gnome_auth = GNOME_CMD_CON (con)->method!=CON_ANON_FTP;
     GNOME_CMD_CON (con)->open_msg = g_strdup_printf (_("Connecting to %s\n"), host_name);
 
     return con;
@@ -347,6 +354,7 @@ gnome_cmd_con_ftp_set_user_name       (GnomeCmdConFtp *con,
     g_free (con->priv->user_name);
 
     con->priv->user_name = g_strdup (user_name);
+    con->priv->anonymous = g_str_equal (user_name, "anonymous");
 }
 
 

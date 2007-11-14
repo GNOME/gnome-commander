@@ -158,22 +158,22 @@ inline void save_ftp_servers (const gchar *fname)
                 // stringify (uri_str, gnome_vfs_format_uri_for_display (uri_str.c_str());
                 gtk_object_destroy (GTK_OBJECT (path));
 
-                fprintf (fd, "U: %s\t%d\t%s\n", alias.c_str(), con->gnome_auth, uri_str.c_str());
+                fprintf (fd, "U:\t%s\t%d\t%s\n", alias.c_str(), con->gnome_auth, uri_str.c_str());
 
                 gnome_vfs_uri_unref (uri);
 
                 gchar *hname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_host_name (server));
-                guint  port = gnome_cmd_con_ftp_get_host_port (server);
+                guint  port  = gnome_cmd_con_ftp_get_host_port (server);
                 gchar *uname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_user_name (server));
                 gchar *pw    = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_pw (server));
-
-                GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (con);
 
                 fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp:", alias.c_str(), hname, port, remote_dir.c_str(), uname, pw?pw:"");
 
                 g_free (hname);
                 g_free (uname);
                 g_free (pw);
+
+                GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (con);
 
                 for (GList *bookmarks = bookmark_group->bookmarks; bookmarks; bookmarks = bookmarks->next)
                 {
@@ -337,10 +337,10 @@ inline gboolean load_ftp_servers (const gchar *fname)
                     }
                     break;
 
-                case 'C':
+                case 'C':               // format       C:
                     {
                         gchar **a = g_strsplit_set(line, " \t\n", 9);
-                        gint port2;
+                        guint port2;
 
                         if (g_strv_length(a)==9             &&
                             strcmp(a[0], "C:")==0           &&

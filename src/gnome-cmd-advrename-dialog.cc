@@ -79,7 +79,7 @@ guint advrename_dialog_default_res_column_width[ADVRENAME_DIALOG_RES_NUM_COLUMNS
 static void do_test (GnomeCmdAdvrenameDialog *dialog);
 
 
-inline void insert_tag(GnomeCmdAdvrenameDialog *dialog, const gchar *text)
+inline void insert_tag (GnomeCmdAdvrenameDialog *dialog, const gchar *text)
 {
     GtkEditable *editable = (GtkEditable *) dialog->priv->templ_entry;
     gint pos = gtk_editable_get_position(editable);
@@ -426,7 +426,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
 }
 
 
-static GtkWidget *create_button_with_menu(GnomeCmdAdvrenameDialog *dialog, gchar *label_text, int menu_type)
+static GtkWidget *create_button_with_menu (GnomeCmdAdvrenameDialog *dialog, gchar *label_text, int menu_type)
 {
     GtkWidget *arrow = gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_NONE);
     GtkWidget *label = gtk_label_new (label_text);
@@ -896,8 +896,7 @@ on_rule_moved (GtkCList *clist, gint arg1, gint arg2,
 }
 
 
-static void
-save_settings (GnomeCmdAdvrenameDialog *dialog)
+static void save_settings (GnomeCmdAdvrenameDialog *dialog)
 {
     const gchar *template_string = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
 
@@ -1237,8 +1236,8 @@ init (GnomeCmdAdvrenameDialog *in_dialog)
 
     sw = create_clist (dialog, "res_list", 2, 16, NULL, NULL);
     gtk_container_add (GTK_CONTAINER (vbox), sw);
-    create_clist_column (sw, 0, advrename_dialog_default_res_column_width[0], _("Current filenames"));
-    create_clist_column (sw, 1, advrename_dialog_default_res_column_width[1], _("New filenames"));
+    create_clist_column (sw, 0, advrename_dialog_default_res_column_width[0], _("Current file names"));
+    create_clist_column (sw, 1, advrename_dialog_default_res_column_width[1], _("New file names"));
     in_dialog->priv->res_list = lookup_widget (GTK_WIDGET (sw), "res_list");
 
 
