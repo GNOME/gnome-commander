@@ -1,17 +1,16 @@
-# Slovenian translation of gnome-commander
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-commander package.
 #
 # Špela Počkar <spela.pockar@gmail.com>, 2006.
-# Matej Urbančič <matej.urban@gmail.com>, 2006, 2007.
+# Matej Urbančič <mateju@svn.gnome.org>, 2006 - 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-17 13:40+0200\n"
-"PO-Revision-Date: 2007-10-21 09:38+0100\n"
-"Last-Translator: Matej Urbančič <matej.urban@gmail.com>\n"
+"PO-Revision-Date: 2007-11-14 14:29+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -149,13 +148,13 @@ msgid "This is an example plugin that is mostly useful as a simple example for a
 msgstr "To je preizkusni vstavek za prikaz delovanja"
 
 #: ../src/dirlist.cc:72
-#, fuzzy, c-format
+#, c-format
 msgid "%d file listed"
 msgid_plural "%d files listed"
-msgstr[0] "Ni izbrane datoteke"
-msgstr[1] "Ni izbrane datoteke"
-msgstr[2] "Ni izbrane datoteke"
-msgstr[3] "Ni izbrane datoteke"
+msgstr[0] "%d izpisanih datotek"
+msgstr[1] "%d izpisana datoteka"
+msgstr[2] "%d izpisani datoteki"
+msgstr[3] "%d izpisane datoteke"
 
 #: ../src/gnome-cmd-about-plugin.cc:182
 msgid "Credits"
@@ -212,7 +211,7 @@ msgstr "/Števec"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:160
 msgid "/Counter (precision)"
-msgstr "/Števec (natančen)"
+msgstr "/Števec (natančno)"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:162
 msgid "/Date/<locale>"
@@ -329,15 +328,15 @@ msgstr "Uredi pravilo"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1019
 msgid "Counter start value:"
-msgstr "Začetna vrednost števca"
+msgstr "Začetna vrednost števca:"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1020
 msgid "Counter increment:"
-msgstr "Povečevanje vrednosti"
+msgstr "Povečevanje vrednosti:"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1021
 msgid "Counter minimum digit count:"
-msgstr "Minimalna vrednost števca"
+msgstr "Minimalna vrednost števca:"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1026
 msgid "Template Options"
@@ -841,19 +840,17 @@ msgid "_Open"
 msgstr "_Odpri"
 
 #: ../src/gnome-cmd-file-popmenu.cc:412
-#, fuzzy, c-format
+#, c-format
 msgid "_Open with \"%s\""
 msgstr "_Odpri z \"%s\""
 
 #: ../src/gnome-cmd-file-popmenu.cc:434
-#, fuzzy
 msgid "Open With..."
-msgstr "Odpri z %s"
+msgstr "Odpri z ..."
 
 #: ../src/gnome-cmd-file-popmenu.cc:440
-#, fuzzy
 msgid "E_xecute"
-msgstr "_Izvršljiva"
+msgstr "_Izvedi"
 
 #: ../src/gnome-cmd-file-popmenu.cc:452
 #: ../src/gnome-cmd-main-menu.cc:544
@@ -876,15 +873,13 @@ msgstr "Preimenuj"
 
 #: ../src/gnome-cmd-file-popmenu.cc:457
 #: ../src/gnome-cmd-main-win.cc:1173
-#, fuzzy
 msgid "Send files"
-msgstr "izbran tip datotek"
+msgstr "Pošlji datoteke"
 
 #: ../src/gnome-cmd-file-popmenu.cc:458
 #: ../src/gnome-cmd-list-popmenu.cc:123
-#, fuzzy
 msgid "Open _terminal here"
-msgstr "Potrebuje terminal"
+msgstr "Odpri _terminal tukaj"
 
 #: ../src/gnome-cmd-file-popmenu.cc:460
 #: ../src/gnome-cmd-main-menu.cc:465
@@ -956,12 +951,10 @@ msgid "Access permissions"
 msgstr "Dovoljenja dostopa"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:550
-#, fuzzy
 msgid "Type"
 msgstr "Vrsta"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:558
-#, fuzzy
 msgid "Value"
 msgstr "Vrednost"
 
@@ -988,27 +981,26 @@ msgid "Permissions"
 msgstr "Dovoljenja"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:640
-#, fuzzy
 msgid "Metadata"
 msgstr "Metapodatki"
 
 #: ../src/gnome-cmd-file-selector.cc:209
-#, fuzzy, c-format
+#, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
-msgstr[0] "%s od %s KB v %d od %d izbrane datoteke"
-msgstr[1] "%s od %s KB v %d od %d izbranih datotek"
+msgstr[0] "%s od %s KB v %d od %d izbranih datotek"
+msgstr[1] "%s od %s KB v %d od %d izbrane datoteke"
 msgstr[2] "%s od %s KB v %d od %d izbranih datotek"
 msgstr[3] "%s od %s KB v %d od %d izbranih datotek"
 
 #: ../src/gnome-cmd-file-selector.cc:213
-#, fuzzy, c-format
+#, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
-msgstr[0] "%s od %s KB v %d od %d izbrane datoteke"
-msgstr[1] "%s od %s KB v %d od %d izbranih datotek"
-msgstr[2] "%s od %s KB v %d od %d izbranih datotek"
-msgstr[3] "%s od %s KB v %d od %d izbranih datotek"
+msgstr[0] "%s, %d od %d izbranih map"
+msgstr[1] "%s, %d od %d izbrane mape"
+msgstr[2] "%s, %d od %d izbranih map"
+msgstr[3] "%s, %d od %d izbranih map"
 
 #: ../src/gnome-cmd-file-selector.cc:710
 #, c-format
@@ -1064,7 +1056,7 @@ msgstr "Filter:"
 
 #: ../src/gnome-cmd-file.cc:587
 msgid "Unknown file type"
-msgstr "Neznan tip datoteke"
+msgstr "Neznana vrsta datoteke"
 
 #: ../src/gnome-cmd-file.cc:588
 msgid "Regular file"
@@ -1133,14 +1125,12 @@ msgid "Remote Dir:"
 msgstr "Oddaljena mapa:"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:239
-#, fuzzy
 msgid "New Remote Connection"
-msgstr "Nova FTP povezava"
+msgstr "Nova oddaljena povezava"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:258
-#, fuzzy
 msgid "Edit Remote Connection"
-msgstr "Uredi FTP povezavo"
+msgstr "Uredi oddaljeno povezavo"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:285
 msgid "No server selected"
@@ -1148,9 +1138,8 @@ msgstr "Ni izbranega strežnika"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:388
 #: ../src/gnome-cmd-main-win.cc:1176
-#, fuzzy
 msgid "Remote Server"
-msgstr "Oddaljena mapa:"
+msgstr "Oddaljeni strežnik:"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:393
 msgid "Connections"
@@ -1175,9 +1164,8 @@ msgid "Connect"
 msgstr "Poveži"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:530
-#, fuzzy
 msgid "New Connection"
-msgstr "Nova FTP povezava"
+msgstr "Nova povezava"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1226,9 +1214,8 @@ msgid "_Diff"
 msgstr "_Primerjava vsebine"
 
 #: ../src/gnome-cmd-main-menu.cc:478
-#, fuzzy
 msgid "S_ynchonize Directories"
-msgstr "_Primerjava map"
+msgstr "_Usklajevanje map"
 
 #: ../src/gnome-cmd-main-menu.cc:485
 msgid "_Quit"
@@ -1331,18 +1318,16 @@ msgid "_Options..."
 msgstr "_Možnosti ..."
 
 #: ../src/gnome-cmd-main-menu.cc:703
-#, fuzzy
 msgid "Edit _MIME Types..."
-msgstr "Uredi _mime tip ..."
+msgstr "Uredi _mime vrste ..."
 
 #: ../src/gnome-cmd-main-menu.cc:714
 msgid "_Remote Server..."
-msgstr ""
+msgstr "_Oddaljen strežnik ..."
 
 #: ../src/gnome-cmd-main-menu.cc:720
-#, fuzzy
 msgid "New Connection..."
-msgstr "Nova FTP povezava"
+msgstr "Nova povezava ..."
 
 #: ../src/gnome-cmd-main-menu.cc:731
 msgid "_Contents"
@@ -1483,9 +1468,8 @@ msgid "Edit (SHIFT for new document)"
 msgstr "Uredi (SHIFT za nov dokument)"
 
 #: ../src/gnome-cmd-main-win.cc:1174
-#, fuzzy
 msgid "Open terminal"
-msgstr "Odpri _terminal"
+msgstr "Odpri terminal"
 
 #: ../src/gnome-cmd-main-win.cc:1177
 msgid "Drop connection"
@@ -1860,7 +1844,7 @@ msgstr "vse mape in datoteke"
 
 #: ../src/gnome-cmd-options-dialog.cc:1165
 msgid "Some files"
-msgstr "izbran tip datotek"
+msgstr "nekatere datoteke"
 
 #: ../src/gnome-cmd-options-dialog.cc:1176
 msgid "File patterns"
@@ -2137,9 +2121,9 @@ msgstr "Ustvari"
 #: ../src/gnome-cmd-user-actions.cc:714
 #: ../src/gnome-cmd-user-actions.cc:773
 #: ../src/gnome-cmd-user-actions.cc:810
-#, fuzzy, c-format
+#, c-format
 msgid "running `%s'\n"
-msgstr "Teče"
+msgstr "zagnano `%s'\n"
 
 #: ../src/gnome-cmd-user-actions.cc:731
 #: ../src/gnome-cmd-user-actions.cc:748
@@ -2148,9 +2132,8 @@ msgid "Operation not supported on remote file systems"
 msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:763
-#, fuzzy
 msgid "Too many selected files"
-msgstr "Izbrana datoteka:"
+msgstr "Preveč izbranih datotek"
 
 #: ../src/gnome-cmd-user-actions.cc:1310
 msgid "There was an error opening home page."
@@ -2189,14 +2172,14 @@ msgid "Progress"
 msgstr "Napredek"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:161
-#, fuzzy, c-format
+#, c-format
 msgid "%s of %s copied"
-msgstr "%d%% od %s kopirano"
+msgstr "%s od %s kopirano"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:165
-#, fuzzy, c-format
+#, c-format
 msgid "%.0f%% copied"
-msgstr "%d%% kopirano"
+msgstr "%.0f%% kopirano"
 
 #: ../src/gnome-cmd-xfer.cc:170
 #, c-format
@@ -2509,19 +2492,16 @@ msgid "_Configure"
 msgstr "_Nastavi"
 
 #: ../src/tags/gnome-cmd-tags.cc:62
-#, fuzzy
 msgid "<Exif and IPTC tags not supported>"
-msgstr "<Exif oznake niso podprte>"
+msgstr "<Exif in IPTC oznake niso podprte>"
 
 #: ../src/tags/gnome-cmd-tags.cc:66
-#, fuzzy
 msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
-msgstr "<ID3 oznake niso podprte>"
+msgstr "<ID3, APE, FLAC in Vorbis oznake niso podprte>"
 
 #: ../src/tags/gnome-cmd-tags.cc:70
-#, fuzzy
 msgid "<OLE2 and ODF tags not supported>"
-msgstr "<ID3 oznake niso podprte>"
+msgstr "<OLE2 in ODF oznake niso podprte>"
 
 #: ../src/tags/gnome-cmd-tags.cc:106
 #: ../src/tags/gnome-cmd-tags.cc:407
@@ -2545,9 +2525,8 @@ msgid "Album Gain"
 msgstr "Ojačenje albuma"
 
 #: ../src/tags/gnome-cmd-tags.cc:108
-#, fuzzy
 msgid "Gain adjustment of the album."
-msgstr "Prilagoditev ojačenja za album."
+msgstr "Prilagoditev ojačanja za album."
 
 #: ../src/tags/gnome-cmd-tags.cc:109
 msgid "Album Peak Gain"
@@ -2559,7 +2538,7 @@ msgstr "Prilagoditev ojačenja vrhov albuma."
 
 #: ../src/tags/gnome-cmd-tags.cc:110
 msgid "Album Track Count"
-msgstr "Števec sledi albuma"
+msgstr "Štetje sledi albuma"
 
 #: ../src/tags/gnome-cmd-tags.cc:110
 msgid "Total number of tracks on the album."
@@ -2665,7 +2644,7 @@ msgstr "Žanr"
 #: ../src/tags/gnome-cmd-tags.cc:122
 #: ../src/tags/gnome-cmd-tags.cc:332
 msgid "Type of music classification for the track as defined in ID3 spec."
-msgstr "Tip glasbe sledi kot jo določa ID3 specifikacija."
+msgstr "Zvrst glasbe kot jo določa ID3 specifikacija sledi."
 
 #: ../src/tags/gnome-cmd-tags.cc:123
 msgid "Is new"
@@ -2736,14 +2715,12 @@ msgid "Channel mode"
 msgstr "Način kanalov"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-#, fuzzy
 msgid "MPEG channel mode."
-msgstr "Način kanalov."
+msgstr "MPEG kanalski način."
 
 #: ../src/tags/gnome-cmd-tags.cc:132
-#, fuzzy
 msgid "Copyrighted"
-msgstr "Avtorske pravice"
+msgstr "Avtorsko zaščiteno"
 
 #: ../src/tags/gnome-cmd-tags.cc:132
 msgid "\"1\" if the copyrighted bit is set."
@@ -2758,9 +2735,8 @@ msgid "MPEG layer."
 msgstr "MPEG layer."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
-#, fuzzy
 msgid "Original audio"
-msgstr "Izvirni album."
+msgstr "Izvirni zvok."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 msgid "\"1\" if the \"original\" bit is set."
@@ -2784,7 +2760,7 @@ msgstr "Ime izvajalca/dirigenta skladbe."
 
 #: ../src/tags/gnome-cmd-tags.cc:137
 msgid "Play Count"
-msgstr "Števec predvajanja"
+msgstr "Štetje predvajanja"
 
 #: ../src/tags/gnome-cmd-tags.cc:137
 msgid "Number of times the track has been played."
@@ -2861,19 +2837,16 @@ msgid "Name of the author."
 msgstr "Ime avtorja."
 
 #: ../src/tags/gnome-cmd-tags.cc:146
-#, fuzzy
 msgid "Byte Count"
-msgstr "Števec predvajanja"
+msgstr "Štetje bajtov"
 
 #: ../src/tags/gnome-cmd-tags.cc:146
-#, fuzzy
 msgid "Number of bytes in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število bajtov v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:147
-#, fuzzy
 msgid "Case sensitive."
-msgstr "Upoštevaj velikost črk"
+msgstr "Upoštevaj velikost črk."
 
 #: ../src/tags/gnome-cmd-tags.cc:148
 #: ../src/tags/gnome-cmd-tags.cc:440
@@ -2881,34 +2854,28 @@ msgid "Category"
 msgstr "Kategorija"
 
 #: ../src/tags/gnome-cmd-tags.cc:148
-#, fuzzy
 msgid "Category."
 msgstr "Kategorija"
 
 #: ../src/tags/gnome-cmd-tags.cc:149
-#, fuzzy
 msgid "Cell Count"
-msgstr "Števec predvajanja"
+msgstr "Štetje celic"
 
 #: ../src/tags/gnome-cmd-tags.cc:149
-#, fuzzy
 msgid "Number of cells in the spreadsheet document."
-msgstr "Število strani dokumenta."
+msgstr "Število celic v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:150
-#, fuzzy
 msgid "Character Count"
-msgstr "kodirani znakovni nabor"
+msgstr "Štetje znakov"
 
 #: ../src/tags/gnome-cmd-tags.cc:150
-#, fuzzy
 msgid "Number of characters in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število znakov v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:151
-#, fuzzy
 msgid "Codepage"
-msgstr "Kodek"
+msgstr "Kodni nabor"
 
 #: ../src/tags/gnome-cmd-tags.cc:151
 msgid "The MS codepage to encode strings for metadata."
@@ -2925,7 +2892,6 @@ msgid "User definable free text."
 msgstr "Uporabniško določeno prosto besedilo."
 
 #: ../src/tags/gnome-cmd-tags.cc:153
-#, fuzzy
 msgid "Company"
 msgstr "Podjetje"
 
@@ -2960,9 +2926,8 @@ msgid "Date associated with an event in the life cycle of the resource (creation
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:158
-#, fuzzy
 msgid "Date Modified"
-msgstr "Dan spremembe:"
+msgstr "Dan spremembe"
 
 #: ../src/tags/gnome-cmd-tags.cc:158
 msgid "The last time the document was saved."
@@ -2970,31 +2935,27 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 msgid "An acccount of the content of the resource."
-msgstr ""
+msgstr "Račun vsebine vira."
 
 #: ../src/tags/gnome-cmd-tags.cc:160
-#, fuzzy
 msgid "Dictionary"
 msgstr "Slovar"
 
 #: ../src/tags/gnome-cmd-tags.cc:160
-#, fuzzy
 msgid "Dictionary."
-msgstr "Slovar"
+msgstr "Slovar."
 
 #: ../src/tags/gnome-cmd-tags.cc:161
-#, fuzzy
 msgid "Editing Duration"
-msgstr "Trajanje zvoka"
+msgstr "Trajanje urejanja"
 
 #: ../src/tags/gnome-cmd-tags.cc:161
 msgid "The total time taken until the last modification."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:162
-#, fuzzy
 msgid "Generator"
-msgstr "Splošno"
+msgstr "Ustvarjalec"
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "The application that generated this document."
@@ -3002,27 +2963,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:163
 msgid "Hidden Slide Count"
-msgstr ""
+msgstr "Štetje skritih diapozitivov"
 
 #: ../src/tags/gnome-cmd-tags.cc:163
-#, fuzzy
 msgid "Number of hidden slides in the presentation document."
-msgstr "Število strani dokumenta."
+msgstr "Število skritih diapozitivov v predstavitvenem dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:164
-#, fuzzy
 msgid "Image Count"
-msgstr "Štetje strani"
+msgstr "Štetje slik"
 
 #: ../src/tags/gnome-cmd-tags.cc:164
-#, fuzzy
 msgid "Number of images in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število slik v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:165
-#, fuzzy
 msgid "Initial Creator"
-msgstr "Zagonska tipka"
+msgstr "Začetni ustvarjalec"
 
 #: ../src/tags/gnome-cmd-tags.cc:165
 msgid "Specifies the name of the person who created the document initially."
@@ -3050,30 +3007,27 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 msgid "Last Printed"
-msgstr ""
+msgstr "Zadnjič natisnjeno"
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 msgid "The last time this document was printed."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:169
-#, fuzzy
 msgid "Last Saved By"
-msgstr "Zadnjič predvajano"
+msgstr "Zadnjič shranil"
 
 #: ../src/tags/gnome-cmd-tags.cc:169
 msgid "The entity that made the last change to the document, typically a person, organization, or service."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:170
-#, fuzzy
 msgid "Line Count"
-msgstr "Štetje strani"
+msgstr "Štetje vrstic"
 
 #: ../src/tags/gnome-cmd-tags.cc:170
-#, fuzzy
 msgid "Number of lines in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število vrstic v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Links Dirty"
@@ -3092,9 +3046,8 @@ msgid "Identifier representing the default system locale."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:173
-#, fuzzy
 msgid "Manager"
-msgstr "Upravljalec"
+msgstr "Upravljavec"
 
 #: ../src/tags/gnome-cmd-tags.cc:173
 msgid "Name of the manager of <Doc.Creator> entity."
@@ -3102,27 +3055,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:174
 msgid "Multimedia Clip Count"
-msgstr ""
+msgstr "Štetje medijskih klipov"
 
 #: ../src/tags/gnome-cmd-tags.cc:174
-#, fuzzy
 msgid "Number of multimedia clips in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število medijskih klipov v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:175
-#, fuzzy
 msgid "Note Count"
-msgstr "Štetje strani"
+msgstr "Štetje opomb"
 
 #: ../src/tags/gnome-cmd-tags.cc:175
-#, fuzzy
 msgid "Number of \"notes\" in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število \"opomb \" v dokumenta."
 
 #: ../src/tags/gnome-cmd-tags.cc:176
-#, fuzzy
 msgid "Object Count"
-msgstr "Štetje strani"
+msgstr "Štetje predmetov"
 
 #: ../src/tags/gnome-cmd-tags.cc:176
 msgid "Number of objects (OLE and other graphics) in the document."
@@ -3134,57 +3083,48 @@ msgstr "Štetje strani"
 
 #: ../src/tags/gnome-cmd-tags.cc:177
 #: ../src/tags/gnome-cmd-tags.cc:186
-#, fuzzy
 msgid "Number of pages in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število strani v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:178
-#, fuzzy
 msgid "Paragraph Count"
-msgstr "Štetje strani"
+msgstr "Štetje odstavkov"
 
 #: ../src/tags/gnome-cmd-tags.cc:178
-#, fuzzy
 msgid "Number of paragraphs in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število odstavkov v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:179
-#, fuzzy
 msgid "Presentation Format"
-msgstr "Oblika predogleda datoteke"
+msgstr "Oblika predstavitve"
 
 #: ../src/tags/gnome-cmd-tags.cc:179
 msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:180
-#, fuzzy
 msgid "Print Date"
-msgstr "Osebno"
+msgstr "Datum tiskanja"
 
 #: ../src/tags/gnome-cmd-tags.cc:180
-#, fuzzy
 msgid "Specifies the date and time when the document was last printed."
-msgstr "Datum in čas shranjevanja slike v digitalni obliki."
+msgstr "Določa datum in čas, ko je bil dokument natisnjen."
 
 #: ../src/tags/gnome-cmd-tags.cc:181
-#, fuzzy
 msgid "Printed By"
-msgstr "Prevedla"
+msgstr "Tiskal"
 
 #: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Specifies the name of the last person who printed the document."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:182
-#, fuzzy
 msgid "Revision Count"
-msgstr "Revizija:"
+msgstr "Štetje revizij:"
 
 #: ../src/tags/gnome-cmd-tags.cc:182
-#, fuzzy
 msgid "Number of revision on the document."
-msgstr "Število strani dokumenta."
+msgstr "Število revizij dokumenta."
 
 #: ../src/tags/gnome-cmd-tags.cc:183
 msgid "Scale"
@@ -3203,18 +3143,16 @@ msgid "One of: \"Password protected\", \"Read-only recommended\", \"Read-only en
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:185
-#, fuzzy
 msgid "Slide Count"
-msgstr "Števec predvajanja"
+msgstr "Štetje diapozitivov"
 
 #: ../src/tags/gnome-cmd-tags.cc:185
-#, fuzzy
 msgid "Number of slides in the presentation document."
-msgstr "Število strani dokumenta."
+msgstr "Število diapozitivov v dokumentu predstavitve."
 
 #: ../src/tags/gnome-cmd-tags.cc:186
 msgid "Spreadsheet Count"
-msgstr ""
+msgstr "Štetje razpredelnic"
 
 #: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Subject"
@@ -3225,14 +3163,12 @@ msgid "Document subject."
 msgstr "Zadeva dokumenta"
 
 #: ../src/tags/gnome-cmd-tags.cc:188
-#, fuzzy
 msgid "Table Count"
-msgstr "Štetje strani"
+msgstr "Štetje razpredelnic"
 
 #: ../src/tags/gnome-cmd-tags.cc:188
-#, fuzzy
 msgid "Number of tables in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število razpredelnic v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:189
 msgid "The template file that is been used to generate this document."
@@ -3247,9 +3183,8 @@ msgid "Word Count"
 msgstr "Štetje besed"
 
 #: ../src/tags/gnome-cmd-tags.cc:191
-#, fuzzy
 msgid "Number of words in the document."
-msgstr "Število strani dokumenta."
+msgstr "Število besed v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:192
 msgid "Aperture"
@@ -3301,9 +3236,8 @@ msgid "CFA Repeat Pattern Dim"
 msgstr "CFA ponavljalni vzorec zameglitve"
 
 #: ../src/tags/gnome-cmd-tags.cc:198
-#, fuzzy
 msgid "CFA Repeat Pattern Dim."
-msgstr "CFA ponavljalni vzorec zameglitve"
+msgstr "CFA ponavljalni vzorec zameglitve."
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid "Color Space"
@@ -3552,9 +3486,8 @@ msgid "Focal Plane y-Resolution"
 msgstr "Ploskev žariščne ločljivosti Y"
 
 #: ../src/tags/gnome-cmd-tags.cc:229
-#, fuzzy
 msgid "Indicates the number of pixels in the image height (Y) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
-msgstr "Določa število točk višine slike (Y); Določilo <Exif.FocalPlaneResolutionUnit> na ploskovnem žarišču aparata."
+msgstr "Določa število točk višine slike (Y) za <Exif.FocalPlaneResolutionUnit> na ploskovnem žarišču aparata."
 
 #: ../src/tags/gnome-cmd-tags.cc:230
 msgid "Gain Control"
@@ -3741,9 +3674,8 @@ msgid "JPEG Proc"
 msgstr "JPEG Proc"
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-#, fuzzy
 msgid "JPEG Procedure"
-msgstr "JPEG Proc"
+msgstr "JPEG Procedura"
 
 #: ../src/tags/gnome-cmd-tags.cc:254
 msgid "Light Source"
@@ -3779,14 +3711,12 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:258
 #: ../src/tags/gnome-cmd-tags.cc:422
-#, fuzzy
 msgid "Metering Mode"
 msgstr "Način umerjanja"
 
 #: ../src/tags/gnome-cmd-tags.cc:258
-#, fuzzy
 msgid "The metering mode."
-msgstr "<b>Metrični način:</b>"
+msgstr "Način umerjanja."
 
 #: ../src/tags/gnome-cmd-tags.cc:259
 #: ../src/tags/gnome-cmd-tags.cc:423
@@ -3879,27 +3809,24 @@ msgid "Related Image File Format"
 msgstr "Sorodna slikovna oblika datoteke"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
-#, fuzzy
 msgid "Related Image File Format."
-msgstr "Sorodna slikovna oblika datoteke"
+msgstr "Sorodna oblika slikovne datoteke"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 msgid "Related Image Length"
 msgstr "Sorodna dolžina slike"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
-#, fuzzy
 msgid "Related Image Length."
-msgstr "Sorodna dolžina slike"
+msgstr "Sorodna dolžina slike."
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 msgid "Related Image Width"
 msgstr "Sorodna širina slike"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
-#, fuzzy
 msgid "Related Image Width."
-msgstr "Sorodna širina slike"
+msgstr "Sorodna širina slike."
 
 #: ../src/tags/gnome-cmd-tags.cc:273
 msgid "Related Sound File"
@@ -4104,12 +4031,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Transfer Range"
-msgstr ""
+msgstr "Območje prenosa"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-#, fuzzy
 msgid "Transfer Range."
-msgstr "Težave prenosa"
+msgstr "Območje prenosa"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
 msgid "User Comment"
@@ -4360,7 +4286,7 @@ msgstr "Opis skupine vsebine"
 
 #: ../src/tags/gnome-cmd-tags.cc:332
 msgid "Content Type"
-msgstr "Tip vsebine"
+msgstr "Vrsta vsebine"
 
 #: ../src/tags/gnome-cmd-tags.cc:334
 msgid "Encryption Registration"
@@ -4440,11 +4366,11 @@ msgstr "Lastnik datoteke."
 
 #: ../src/tags/gnome-cmd-tags.cc:344
 msgid "File Type"
-msgstr "Tip datoteke"
+msgstr "Vrsta datoteke"
 
 #: ../src/tags/gnome-cmd-tags.cc:344
 msgid "File type."
-msgstr "Tip datoteke."
+msgstr "Vrsta datoteke."
 
 #: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Frames"
@@ -4513,11 +4439,11 @@ msgstr "Pisec besedila."
 
 #: ../src/tags/gnome-cmd-tags.cc:354
 msgid "Media Type"
-msgstr "Tip medija"
+msgstr "Vrsta medija"
 
 #: ../src/tags/gnome-cmd-tags.cc:354
 msgid "Media type."
-msgstr "Tip medija."
+msgstr "Vrsta medija."
 
 #: ../src/tags/gnome-cmd-tags.cc:355
 msgid "Mix Artist"
@@ -4649,7 +4575,7 @@ msgstr "Pripeta slika."
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Play Counter"
-msgstr "Števec predvajanja"
+msgstr "Štetje predvajanja"
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Number of times a file has been played."
@@ -4851,7 +4777,7 @@ msgstr "Relativno prilagajanje glasnosti"
 
 #: ../src/tags/gnome-cmd-tags.cc:397
 msgid "Volume Adjustment 2"
-msgstr ""
+msgstr "Prilagajanje glasnosti 2"
 
 #: ../src/tags/gnome-cmd-tags.cc:398
 msgid "WWW Artist"
@@ -4978,9 +4904,8 @@ msgid "String of keywords."
 msgstr "Niz ključnih besed."
 
 #: ../src/tags/gnome-cmd-tags.cc:421
-#, fuzzy
 msgid "Make"
-msgstr "_Označi"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:421
 msgid "Make of camera used to take the image."
@@ -5020,7 +4945,7 @@ msgstr "Širina v točkah."
 
 #: ../src/tags/gnome-cmd-tags.cc:429
 msgid "Action Advised"
-msgstr ""
+msgstr "Predlagano dejanje"
 
 #: ../src/tags/gnome-cmd-tags.cc:429
 msgid "The type of action that this object provides to a previous object. '01' Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
@@ -5213,19 +5138,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:454
 msgid "Digital Creation Date"
-msgstr ""
+msgstr "Datum digitaliziranja"
 
 #: ../src/tags/gnome-cmd-tags.cc:454
 msgid "The date the digital representation of the object was created."
-msgstr ""
+msgstr "Datum, ko je bila digitalna predstavitev ustvarjena."
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "Digital Creation Time"
-msgstr ""
+msgstr "Čas digitaliziranja"
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "The time the digital representation of the object was created."
-msgstr ""
+msgstr "Čas, ko je bila digitalna predstavitev ustvarjena."
 
 #: ../src/tags/gnome-cmd-tags.cc:456
 msgid "Editorial Update"
@@ -5309,7 +5234,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid "Image Orientation"
-msgstr ""
+msgstr "Usmeritev slike"
 
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' for square."
@@ -5539,7 +5464,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:496
 msgid "Special Instructions"
-msgstr ""
+msgstr "Posebna navodila"
 
 #: ../src/tags/gnome-cmd-tags.cc:496
 msgid "Other editorial instructions concerning the use of the object."
@@ -5622,69 +5547,58 @@ msgid "Contact information for the creators or distributors of the track."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:508
-#, fuzzy
 msgid "A textual description of the data."
-msgstr "Opis slike."
+msgstr "Besedilni opis podatkov."
 
 #: ../src/tags/gnome-cmd-tags.cc:509
 msgid "License"
 msgstr "Licenca"
 
 #: ../src/tags/gnome-cmd-tags.cc:509
-#, fuzzy
 msgid "License information."
-msgstr "Povezane podrobnosti."
+msgstr "Podrobnosti licence."
 
 #: ../src/tags/gnome-cmd-tags.cc:510
-#, fuzzy
 msgid "Location"
-msgstr "Položaj"
+msgstr "Mesto"
 
 #: ../src/tags/gnome-cmd-tags.cc:510
-#, fuzzy
 msgid "Location where track was recorded."
-msgstr "Datum objave sledi."
+msgstr "Mesto snemanja posnetka."
 
 #: ../src/tags/gnome-cmd-tags.cc:511
-#, fuzzy
 msgid "Maximum bitrate"
-msgstr "Največja velikost predmeta"
+msgstr "Največja bitna hitrost"
 
 #: ../src/tags/gnome-cmd-tags.cc:511
-#, fuzzy
 msgid "Maximum bitrate in kbps."
-msgstr "Bitna stopnja v kbps"
+msgstr "Največja bitna hitrost v kbps"
 
 #: ../src/tags/gnome-cmd-tags.cc:512
 msgid "Minimum bitrate"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:512
-#, fuzzy
 msgid "Minimum bitrate in kbps."
-msgstr "Bitna stopnja v kbps"
+msgstr "Največja bitna hitrost v kbps"
 
 #: ../src/tags/gnome-cmd-tags.cc:513
 msgid "Nominal bitrate"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:513
-#, fuzzy
 msgid "Nominal bitrate in kbps."
-msgstr "Bitna stopnja v kbps"
+msgstr "Nominalna bitna hitrost kbps"
 
 #: ../src/tags/gnome-cmd-tags.cc:514
-#, fuzzy
 msgid "Organization"
 msgstr "Organizacija"
 
 #: ../src/tags/gnome-cmd-tags.cc:514
-#, fuzzy
 msgid "Organization producing the track."
-msgstr "Izvajalec zapisa"
+msgstr "Organizacija, ki je izdala zapis"
 
 #: ../src/tags/gnome-cmd-tags.cc:515
-#, fuzzy
 msgid "Vendor"
 msgstr "Izdajatelj"
 
@@ -5693,14 +5607,12 @@ msgid "Vorbis vendor ID."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:516
-#, fuzzy
 msgid "Vorbis Version"
-msgstr "Različica zapisa"
+msgstr "Različica Vorbis"
 
 #: ../src/tags/gnome-cmd-tags.cc:516
-#, fuzzy
 msgid "Vorbis version."
-msgstr "Različica kodeka"
+msgstr "Različica Vorbis."
 
 #: ../src/tags/gnome-cmd-tags.cc:647
 msgid "Audio"
@@ -5719,29 +5631,24 @@ msgid "No Proofing"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:73
-#, fuzzy
 msgid "Traditional Chinese"
-msgstr "_Tradicionalna kitajščina"
+msgstr "Tradicionalna kitajščina"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:75
-#, fuzzy
 msgid "Simplified Chinese"
-msgstr "_Poenostavljena kitajščina"
+msgstr "Poenostavljena kitajščina"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:83
-#, fuzzy
 msgid "Swiss German"
-msgstr "Švicarsko nemško"
+msgstr "Švicarska nemščina"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:87
-#, fuzzy
 msgid "U.S. English"
-msgstr "U.S. Angleška"
+msgstr "Ameriška angleščina"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:89
-#, fuzzy
 msgid "U.K. English"
-msgstr "U.S. Angleška"
+msgstr "Angleška angleščina"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:91
 msgid "Australian English"
@@ -5764,9 +5671,8 @@ msgid "Canadian French"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:105
-#, fuzzy
 msgid "Swiss French"
-msgstr "Švicarsko francosko"
+msgstr "Švicarska francoščina"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:115
 msgid "Swiss Italian"
@@ -5774,32 +5680,32 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:123
 msgid "Belgian Dutch"
-msgstr ""
+msgstr "Belgijska nizozemščina"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:125
 msgid "Norwegian Bokmal"
-msgstr ""
+msgstr "Norveški bokmal"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:135
 msgid "Rhaeto-Romanic"
-msgstr ""
+msgstr "Retoromanščina"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:141
 msgid "Croato-Serbian (Latin)"
-msgstr ""
+msgstr "Hrvaška-srbščina (latinica)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:143
 msgid "Serbo-Croatian (Cyrillic)"
-msgstr ""
+msgstr "Srbo-hrvaščina (cirilica)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:171
 msgid "Farsi"
-msgstr ""
+msgstr "Farščina"
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:65
 #, c-format
 msgid "unsupported tag (suppressed %u B of binary data)"
-msgstr ""
+msgstr "nepodprta oznaka (zavrtih %u B binarnih podatkov)"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:71
 msgid "Stereo"
@@ -5917,7 +5823,7 @@ msgstr "Napaka pri ustvarjanju mape %s"
 #: ../src/utils.cc:1226
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
-msgstr "Ne morem brati iz mape %s: %s"
+msgstr "Ni mogoče brati iz mape %s: %s"
 
 #~ msgid "Enter password for %s@%s"
 #~ msgstr "Vnesi geslo za  %s@%s"
