@@ -1,3 +1,8 @@
+2007-11-17  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	Fix for storing advrename templates
+
 2007-11-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

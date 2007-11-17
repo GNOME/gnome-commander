@@ -823,7 +823,7 @@ inline void save_rename_history ()
 
     gnome_cmd_data_set_int ("/advrename/sep_value", data->priv->advrename_defaults->sep_value);
 
-    gnome_cmd_data_set_int ("/options/template-history-size", g_list_length (data->priv->advrename_defaults->templates->ents));
+    gnome_cmd_data_set_int ("/template-history/size", g_list_length (data->priv->advrename_defaults->templates->ents));
     gnome_cmd_data_set_string_history ("/template-history/template%d", data->priv->advrename_defaults->templates->ents);
 
     gnome_cmd_data_set_int ("/options/counter_start", data->priv->advrename_defaults->counter_start);
@@ -941,7 +941,7 @@ inline void load_rename_history ()
     GList *tmp_from, *tmp_to, *tmp_csens;
     GList *templates;
 
-    data->priv->advrename_defaults = g_new (AdvrenameDefaults, 1);
+    data->priv->advrename_defaults = g_new0 (AdvrenameDefaults, 1);
 
     data->priv->advrename_defaults->auto_update = gnome_cmd_data_get_int ("/advrename/template-auto-update", TRUE);
     data->priv->advrename_defaults->width = gnome_cmd_data_get_int ("/advrename/width", 450);
@@ -956,7 +956,7 @@ inline void load_rename_history ()
 
     data->priv->advrename_defaults->sep_value = gnome_cmd_data_get_int ("/advrename/sep_value", 150);
 
-    size = gnome_cmd_data_get_int ("/advrename/template-history-size", 0);
+    size = gnome_cmd_data_get_int ("/template-history/size", 0);
     templates = load_string_history ("/template-history/template%d", size);
 
     data->priv->advrename_defaults->templates = history_new (10);

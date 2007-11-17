@@ -5268,13 +5268,6 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>template-history-size</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
                                     <entry><para>theme_icon_dir</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5569,6 +5562,13 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para>[template-history]</para></entry>
+                                    <entry><para>size</para></entry>
+                                    <entry><para>integer</para></entry>
+                                    <entry><para>Number of template<emphasis><subscript>n</subscript></emphasis> entries</para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
                                     <entry><para>template<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5678,6 +5678,9 @@
                         </listitem>
                         <listitem>
                             <para>Fixed problem with mounting of devices with spaces in the name</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with history of advrename templates</para>
                         </listitem>
                         <listitem>
                             <para>Build fixes</para>
