@@ -5,7 +5,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.5">
   <!ENTITY manrevision "1.2.5">
-  <!ENTITY date "???? 2007">
+  <!ENTITY date "December 2007">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -115,7 +115,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.5;</revnumber>
-        <date>2007-??-??</date>
+        <date>2007-12-??</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -184,6 +184,12 @@
                 <para>Folder bookmarks</para>
             </listitem>
             <listitem>
+                <para>User defined keyborad shortcuts</para>
+            </listitem>
+            <listitem>
+                <para>Python scripting</para>
+            </listitem>
+            <listitem>
                 <para>Plugin support</para>
             </listitem>
             <listitem>
@@ -203,7 +209,7 @@
                 <para>Colour profiles</para>
             </listitem>
             <listitem>
-                <para>Support for over 30 languages.</para>
+                <para>Support for over 35 languages</para>
             </listitem>
         </itemizedlist>
     <note>
@@ -3388,6 +3394,9 @@
         <para><xref linkend="gnome-commander-prefs-filters"/></para>
       </listitem>
       <listitem>
+        <para><xref linkend="gnome-commander-prefs-network"/></para>
+      </listitem>
+      <listitem>
         <para><xref linkend="gnome-commander-prefs-programs"/></para>
       </listitem>
       <listitem>
@@ -3405,7 +3414,7 @@
                     <imageobject>
                       <imagedata fileref="figures/gnome-commander_options_general.png" format="PNG"/>
                     </imageobject>
-                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    <textobject><phrase>Shows &app; general preferences dialog.</phrase>
                     </textobject>
                 </mediaobject>
               </screenshot>
@@ -3425,7 +3434,7 @@
                     <imageobject>
                       <imagedata fileref="figures/gnome-commander_options_format.png" format="PNG"/>
                     </imageobject>
-                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    <textobject><phrase>Shows &app; format preferences dialog.</phrase>
                     </textobject>
                 </mediaobject>
               </screenshot>
@@ -3445,7 +3454,7 @@
                     <imageobject>
                       <imagedata fileref="figures/gnome-commander_options_layout.png" format="PNG"/>
                     </imageobject>
-                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    <textobject><phrase>Shows &app; layout preferences dialog.</phrase>
                     </textobject>
                 </mediaobject>
               </screenshot>
@@ -3465,7 +3474,7 @@
                     <imageobject>
                       <imagedata fileref="figures/gnome-commander_options_confirmation.png" format="PNG"/>
                     </imageobject>
-                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    <textobject><phrase>Shows &app; confirmation preferences dialog.</phrase>
                     </textobject>
                 </mediaobject>
               </screenshot>
@@ -3485,7 +3494,27 @@
                     <imageobject>
                       <imagedata fileref="figures/gnome-commander_options_filters.png" format="PNG"/>
                     </imageobject>
-                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    <textobject><phrase>Shows &app; filters preferences dialog.</phrase>
+                    </textobject>
+                </mediaobject>
+              </screenshot>
+            </figure>
+        <!-- ==== End of Figure ==== -->
+
+      <para></para>
+    </sect2>
+    <sect2 id="gnome-commander-prefs-network">
+      <title>Programs</title>
+
+        <!-- ==== Figure ==== -->
+          <figure id="options-network-fig">
+              <title>Programs options</title>
+              <screenshot>
+                 <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="figures/gnome-commander_options_network.png" format="PNG"/>
+                    </imageobject>
+                    <textobject><phrase>Shows &app; network preferences dialog.</phrase>
                     </textobject>
                 </mediaobject>
               </screenshot>
@@ -3505,7 +3534,7 @@
                     <imageobject>
                       <imagedata fileref="figures/gnome-commander_options_programs.png" format="PNG"/>
                     </imageobject>
-                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    <textobject><phrase>Shows &app; programs preferences dialog.</phrase>
                     </textobject>
                 </mediaobject>
               </screenshot>
@@ -3525,7 +3554,7 @@
                     <imageobject>
                       <imagedata fileref="figures/gnome-commander_options_devices.png" format="PNG"/>
                     </imageobject>
-                    <textobject><phrase>Shows &app; options dialog.</phrase>
+                    <textobject><phrase>Shows &app; devices preferences dialog.</phrase>
                     </textobject>
                 </mediaobject>
               </screenshot>
@@ -5618,7 +5647,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.5</para></entry>
-            <entry><para>2007-??-??</para></entry>
+            <entry><para>2007-12-??</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -5684,6 +5713,9 @@
                         </listitem>
                         <listitem>
                             <para>Send files via email or instant messenger (using nautilus-sendto)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Updated help docs</para>
                         </listitem>
                         <listitem>
                             <para>New or updated translations: bg, cs, dz, es, eu, oc, pl, pt_BR, sl</para>
@@ -6554,7 +6586,7 @@
     <para> &app; was primarily written by the former maintainer - Marcus Bjurman,
     who where the one that initiated this project publicly in 2001 and developed it up to version 1.1.6 in January 2004.
     Currently &app; is being developed by Piotr Eljasiak (<email>epiotr@use.pl</email>) and Assaf Gordon (<email>agordon88@gmail.com</email>)
-    with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Micha (<email>codejodler@gmx.ch</email>).
+    with additional help of Magnus Stålnacke (<email>jemamo@telia.com</email>) and Michael (<email>codejodler@gmx.ch</email>).
 
     To find more information about &app;, please visit the
     <ulink url="http://www.nongnu.org/gcmd/" type="http">&app; homepage</ulink>.
