@@ -48,57 +48,26 @@ struct _GnomeCmdConFtpClass
 };
 
 
-GtkType
-gnome_cmd_con_ftp_get_type (void);
+GtkType gnome_cmd_con_ftp_get_type (void);
 
-GnomeCmdConFtp *
-gnome_cmd_con_ftp_new     (const gchar *alias,
-                           const gchar *host_name,
-                           gint host_port,
-                           const gchar *user_name,
-                           const gchar *pw,
-                           const gchar *remote_dir);
+GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host_name, gint host_port, const gchar *user_name, const gchar *pw, const gchar *remote_dir);
 
-void
-gnome_cmd_con_ftp_set_alias           (GnomeCmdConFtp *fs,
-                                       const gchar *alias);
+const gchar *gnome_cmd_con_ftp_get_alias (GnomeCmdConFtp *fs);
+void gnome_cmd_con_ftp_set_alias (GnomeCmdConFtp *fs, const gchar *alias);
 
-void
-gnome_cmd_con_ftp_set_host_name       (GnomeCmdConFtp *fs,
-                                       const gchar *host_name);
+const gchar *gnome_cmd_con_ftp_get_host_name (GnomeCmdConFtp *fs);
+void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *fs, const gchar *host_name);
 
-void
-gnome_cmd_con_ftp_set_host_port       (GnomeCmdConFtp *fs,
-                                       gint host_port);
+gushort gnome_cmd_con_ftp_get_host_port (GnomeCmdConFtp *fs);
+void gnome_cmd_con_ftp_set_host_port (GnomeCmdConFtp *fs, gushort host_port);
 
-void
-gnome_cmd_con_ftp_set_user_name       (GnomeCmdConFtp *fs,
-                                       const gchar *user_name);
+const gchar *gnome_cmd_con_ftp_get_remote_dir (GnomeCmdConFtp *fs);
+void gnome_cmd_con_ftp_set_remote_dir (GnomeCmdConFtp *fs, const gchar *pw);
 
-void
-gnome_cmd_con_ftp_set_pw              (GnomeCmdConFtp *fs,
-                                       const gchar *pw);
+const gchar *gnome_cmd_con_ftp_get_user_name (GnomeCmdConFtp *fs);
+void gnome_cmd_con_ftp_set_user_name (GnomeCmdConFtp *fs, const gchar *user_name);
 
-void
-gnome_cmd_con_ftp_set_remote_dir      (GnomeCmdConFtp *fs,
-                                       const gchar *pw);
-
-const gchar *
-gnome_cmd_con_ftp_get_alias           (GnomeCmdConFtp *fs);
-
-const gchar *
-gnome_cmd_con_ftp_get_host_name       (GnomeCmdConFtp *fs);
-
-gint
-gnome_cmd_con_ftp_get_host_port       (GnomeCmdConFtp *fs);
-
-const gchar *
-gnome_cmd_con_ftp_get_user_name       (GnomeCmdConFtp *fs);
-
-const gchar *
-gnome_cmd_con_ftp_get_pw              (GnomeCmdConFtp *fs);
-
-const gchar *
-gnome_cmd_con_ftp_get_remote_dir      (GnomeCmdConFtp *fs);
+void gnome_cmd_con_ftp_set_pw (GnomeCmdConFtp *fs, const gchar *pw);
+const gchar *gnome_cmd_con_ftp_get_pw (GnomeCmdConFtp *fs);
 
 #endif // __GNOME_CMD_CON_FTP_H__
