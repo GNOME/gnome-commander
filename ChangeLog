@@ -1,3 +1,11 @@
+2007-11-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con.h:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-con-list.cc:
+	* src/gnome-cmd-con-list.h:
+	Added gnome_cmd_con_list_find_alias() function
+
 2007-11-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

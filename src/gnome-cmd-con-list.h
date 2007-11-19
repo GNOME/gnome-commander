@@ -86,6 +86,13 @@ GList *gnome_cmd_con_list_get_all_quick_ftp (GnomeCmdConList *list);
 GList *gnome_cmd_con_list_get_all_dev (GnomeCmdConList *list);
 void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *list, GList *dev_cons);
 
+GnomeCmdCon *gnome_cmd_con_list_find_alias (GnomeCmdConList *list, const gchar *alias);
+
+inline gboolean gnome_cmd_con_list_has_alias (GnomeCmdConList *list, const gchar *alias)
+{
+    return gnome_cmd_con_list_find_alias (list, alias)!=NULL;
+}
+
 GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list);
 GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
 

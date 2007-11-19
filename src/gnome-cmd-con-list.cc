@@ -74,6 +74,12 @@ static void on_con_updated (GnomeCmdCon *con, GnomeCmdConList *con_list)
 }
 
 
+static gint compare_alias (const GnomeCmdCon *c1, const GnomeCmdCon *c2)
+{
+    return g_utf8_collate (c1->alias, c2->alias);
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
@@ -392,6 +398,20 @@ void gnome_cmd_con_list_set_all_dev (GnomeCmdConList *con_list, GList *dev_cons)
     g_return_if_fail (GNOME_CMD_IS_CON_LIST (con_list));
 
     con_list->priv->device_cons = dev_cons;
+}
+
+
+GnomeCmdCon *gnome_cmd_con_list_find_alias (GnomeCmdConList *list, const gchar *alias)
+{
+    g_return_val_if_fail (list!=NULL, NULL);
+    g_return_val_if_fail (alias!=NULL, NULL);
+
+    GnomeCmdCon c;          // used as reference element to be looked for, no allocation necessary
+    c.alias = (gchar *) alias;
+
+    GList *elem = g_list_find_custom (list->priv->all_cons, &c, (GCompareFunc) compare_alias);
+
+    return elem ? (GnomeCmdCon *) elem->data : NULL;
 }
 
 

@@ -72,7 +72,7 @@ struct _GnomeCmdCon
 {
     GtkObject parent;
 
-    gchar               *alias;
+    gchar               *alias;                 // coded as UTF-8
     gchar               *uri;
     ConnectionMethodID  method;
     gboolean            gnome_auth;

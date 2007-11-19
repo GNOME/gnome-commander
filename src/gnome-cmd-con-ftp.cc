@@ -365,9 +365,6 @@ gnome_cmd_con_ftp_set_pw              (GnomeCmdConFtp *con,
     g_return_if_fail (con != NULL);
     g_return_if_fail (con->priv != NULL);
 
-    if (pw == con->priv->pw)
-        return;
-
     g_free (con->priv->pw);
 
     con->priv->pw = g_strdup (pw);
@@ -380,7 +377,6 @@ gnome_cmd_con_ftp_set_remote_dir      (GnomeCmdConFtp *con,
 {
     g_return_if_fail (con != NULL);
     g_return_if_fail (con->priv != NULL);
-    g_return_if_fail (remote_dir != NULL);
 
     g_free (con->priv->remote_dir);
 
