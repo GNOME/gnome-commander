@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-29 23:32+0000\n"
-"PO-Revision-Date: 2007-10-30 10:03+0100\n"
+"PO-Revision-Date: 2007-11-20 00:41+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1113,14 +1113,13 @@ msgid "Remote Dir:"
 msgstr "Zdalny katalog:"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:239
-#, fuzzy
 msgid "New Remote Connection"
-msgstr "Nowe połączenie FTP"
+msgstr "Nowe zdalne połączenie"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:258
 #, fuzzy
 msgid "Edit Remote Connection"
-msgstr "Edycja"
+msgstr "%1 - Zdalne połączenie z pulpitem"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:285
 msgid "No server selected"
@@ -1801,8 +1800,9 @@ msgid "Authentication"
 msgstr "Uwierzytelnianie"
 
 #: ../src/gnome-cmd-options-dialog.cc:936
+#, fuzzy
 msgid "Use GNOME Keyring Manager for authentication"
-msgstr ""
+msgstr "Menedżer haseł przechowywanych w gnome-keyring"
 
 #: ../src/gnome-cmd-options-dialog.cc:944
 msgid "Anonymous FTP access"
@@ -2337,7 +2337,6 @@ msgstr[1] "Bity/próbkę"
 msgstr[2] "Bitów/próbkę"
 
 #: ../src/libgviewer/viewer-widget.cc:240
-#, fuzzy
 msgid "(fit to window)"
 msgstr "(dopasuj do okna)"
 
@@ -2570,9 +2569,8 @@ msgid "Peak gain adjustment of album."
 msgstr "użyj albumu uzyskanego/szczytowego"
 
 #: ../src/tags/gnome-cmd-tags.cc:110
-#, fuzzy
 msgid "Album Track Count"
-msgstr "Artysta na ścieżce, tytuł albumu"
+msgstr "Pozycja utworu w albumie"
 
 #: ../src/tags/gnome-cmd-tags.cc:110
 msgid "Total number of tracks on the album."
@@ -2754,9 +2752,8 @@ msgid "Channel mode"
 msgstr "Tryb kanałów"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-#, fuzzy
 msgid "MPEG channel mode."
-msgstr "Wybierz tryb kanałów."
+msgstr "Tryb kanałów MPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:132
 msgid "Copyrighted"
@@ -2776,9 +2773,8 @@ msgid "MPEG layer."
 msgstr "Warstwa MPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
-#, fuzzy
 msgid "Original audio"
-msgstr "Ścieżka audio"
+msgstr "Oryginalna ścieżka dżwiękowa"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 #, fuzzy
@@ -4696,7 +4692,6 @@ msgid "Play Counter"
 msgstr "Licznik odtwarzania"
 
 #: ../src/tags/gnome-cmd-tags.cc:371
-#, fuzzy
 msgid "Number of times a file has been played."
 msgstr "Liczba odtwarzań utworu."
 
@@ -5052,7 +5047,7 @@ msgstr "Słowa kluczowe"
 #: ../src/tags/gnome-cmd-tags.cc:421
 #, fuzzy
 msgid "Make"
-msgstr "_Zaznaczanie"
+msgstr "Utwórz"
 
 #: ../src/tags/gnome-cmd-tags.cc:421
 msgid "Make of camera used to take the image."
@@ -5786,14 +5781,12 @@ msgid "Vorbis vendor ID."
 msgstr "ID producenta: %02x%02x\n"
 
 #: ../src/tags/gnome-cmd-tags.cc:516
-#, fuzzy
 msgid "Vorbis Version"
-msgstr "Błąd wersji Vorbis"
+msgstr "Wersja Vorbis"
 
 #: ../src/tags/gnome-cmd-tags.cc:516
-#, fuzzy
 msgid "Vorbis version."
-msgstr "Błąd wersji Vorbis"
+msgstr "Wersja Vorbis."
 
 #: ../src/tags/gnome-cmd-tags.cc:647
 msgid "Audio"
