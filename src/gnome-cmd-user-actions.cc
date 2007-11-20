@@ -30,6 +30,7 @@
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-file.h"
+#include "gnome-cmd-con-dialog.h"
 #include "gnome-cmd-ftp-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-options-dialog.h"

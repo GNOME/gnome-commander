@@ -297,7 +297,7 @@ void gnome_cmd_con_ftp_set_alias (GnomeCmdConFtp *con, const gchar *alias)
     g_free (con->priv->alias);
 
     con->priv->alias = g_strdup (alias);
-    GNOME_CMD_CON (con)->alias = g_strdup (alias);
+    gnome_cmd_con_set_alias (GNOME_CMD_CON (con), alias);
     GNOME_CMD_CON (con)->go_text = g_strdup_printf (_("Go to: %s"), alias);
     GNOME_CMD_CON (con)->open_text = g_strdup_printf (_("Connect to: %s"), alias);
     GNOME_CMD_CON (con)->close_text = g_strdup_printf (_("Disconnect from: %s"), alias);

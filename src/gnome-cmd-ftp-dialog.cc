@@ -20,6 +20,7 @@
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-ftp-dialog.h"
+#include "gnome-cmd-con-dialog.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-data.h"
@@ -203,49 +204,6 @@ inline gchar *create_or_fill_server (GnomeCmdConFtp *&server, const gchar **valu
 }
 
 
-static gboolean on_new_server_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFtpDialog *ftp_dialog)
-{
-    GnomeCmdConFtp *server = NULL;
-    gchar *error_desc = create_or_fill_server (server, values);
-
-    if (error_desc != NULL)
-    {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
-        gtk_object_unref (GTK_OBJECT (server));
-    }
-    else
-    {
-        GnomeCmdCon *con = GNOME_CMD_CON (server);
-        GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list)));
-        GtkTreeIter iter;
-
-        gnome_cmd_con_list_add_ftp (gnome_cmd_con_list_get (), server);
-        gtk_list_store_append (store, &iter);
-        set_server (store, &iter, server);
-    }
-
-    return error_desc == NULL;
-}
-
-
-static gboolean on_edit_server_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFtpDialog *ftp_dialog)
-{
-    GtkTreeIter iter;
-    GnomeCmdConFtp *server = get_selected_server (ftp_dialog, &iter);
-
-    g_return_val_if_fail (server != NULL, FALSE);
-
-    gchar *error_desc = create_or_fill_server (server, values);
-
-    if (error_desc != NULL)
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
-    else
-        set_server (GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list))), &iter, server);
-
-    return error_desc == NULL;
-}
-
-
 inline GtkWidget *create_ftp_server_dialog (const gchar *title, GnomeCmdStringDialogCallback on_ok_func, GnomeCmdFtpDialog *ftp_dialog, gboolean with_alias)
 {
     const gchar *labels1[] = {_("Alias:"), _("Host:"), _("Port:"), _("User:"), _("Remote Dir:")};
@@ -264,36 +222,32 @@ inline GtkWidget *create_ftp_server_dialog (const gchar *title, GnomeCmdStringDi
 
 static void on_new_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog)
 {
-    GtkWidget *dialog;
+    GnomeCmdConFtp *server = gnome_cmd_connect_dialog_new ();
 
-    dialog = create_ftp_server_dialog (_("New Remote Connection"), (GnomeCmdStringDialogCallback) on_new_server_dialog_ok, ftp_dialog, TRUE);
+    if (!server)
+        return;
 
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 2, "21");
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 3, "anonymous");
+    GnomeCmdCon *con = GNOME_CMD_CON (server);
+    GtkListStore *store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list)));
+    GtkTreeIter iter;
+
+    gnome_cmd_con_list_add_ftp (gnome_cmd_con_list_get (), server);
+    gtk_list_store_append (store, &iter);
+    set_server (store, &iter, server);
 }
 
 
 static void on_edit_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog)
 {
-    GnomeCmdConFtp *server = get_selected_server (ftp_dialog);
+    GtkTreeIter iter;
+    GnomeCmdConFtp *server = get_selected_server (ftp_dialog, &iter);
 
     if (!server)        // exit as there is no server selected
         return;
 
-    GtkWidget *dialog;
-    dialog = create_ftp_server_dialog (_("Edit Remote Connection"), (GnomeCmdStringDialogCallback) on_edit_server_dialog_ok, ftp_dialog, TRUE);
+    GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
 
-    const gchar *alias = gnome_cmd_con_ftp_get_alias (server);
-    const gchar *host  = gnome_cmd_con_ftp_get_host_name (server);
-    const gchar *port  = g_strdup_printf ("%d", gnome_cmd_con_ftp_get_host_port (server));
-    const gchar *remote_dir = gnome_cmd_con_ftp_get_remote_dir (server);
-    const gchar *user  = gnome_cmd_con_ftp_get_user_name (server);
-
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, alias);
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, host);
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 2, port);
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 3, user);
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 4, remote_dir);
+    set_server (GTK_LIST_STORE (model), &iter, gnome_cmd_connect_dialog_edit (server));
 }
 
 

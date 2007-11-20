@@ -1,3 +1,15 @@
+2007-11-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-con.h:
+	* src/gnome-cmd-con-dialog.cc:
+	* src/gnome-cmd-con-dialog.h:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-ftp-dialog.cc:
+	* src/gnome-cmd-user-actions.cc:
+	Brand new dlg for connection details
+
 2007-11-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

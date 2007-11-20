@@ -32,6 +32,8 @@ typedef struct _GnomeCmdCon GnomeCmdCon;
 typedef struct _GnomeCmdConClass GnomeCmdConClass;
 typedef struct _GnomeCmdConPrivate GnomeCmdConPrivate;
 
+#include <string>
+
 #include "gnome-cmd-path.h"
 #include "gnome-cmd-pixmap.h"
 #include "gnome-cmd-dir.h"
@@ -151,6 +153,18 @@ inline const gchar *gnome_cmd_con_get_uri (GnomeCmdCon *con)
     return con->uri;
 }
 
+inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const gchar *uri=NULL)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_free (con->uri);
+    con->uri = g_strdup (uri);
+}
+
+inline void gnome_cmd_con_set_uri (GnomeCmdCon *con, const std::string &uri)
+{
+    gnome_cmd_con_set_uri (con, uri.empty() ? NULL : uri.c_str());
+}
+
 GnomeVFSURI *gnome_cmd_con_create_uri (GnomeCmdCon *con, GnomeCmdPath *path);
 
 GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str);
@@ -165,6 +179,13 @@ inline const gchar *gnome_cmd_con_get_alias (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
     return con->alias;
+}
+
+inline void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_free (con->alias);
+    con->alias = g_strdup(alias);
 }
 
 void gnome_cmd_con_set_cwd (GnomeCmdCon *con, GnomeCmdDir *dir);

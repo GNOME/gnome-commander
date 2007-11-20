@@ -31,6 +31,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-cmdline.h gnome-cmd-cmdline.cc \
 	gnome-cmd-combo.h gnome-cmd-combo.cc \
 	gnome-cmd-con-device.h gnome-cmd-con-device.cc \
+	gnome-cmd-con-dialog.h gnome-cmd-con-dialog.cc \
 	gnome-cmd-con-ftp.h gnome-cmd-con-ftp.cc \
 	gnome-cmd-con-home.h gnome-cmd-con-home.cc \
 	gnome-cmd-con-list.h gnome-cmd-con-list.cc \
