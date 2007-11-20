@@ -1,21 +1,24 @@
+# translation of oc.po to Occitan
 # Occitan translation of gnome-commander.
-# Copyright (C) 2002-2004 Free Software Foundation, Inc.
+# Copyright (C) 2002-2004, 2007 Free Software Foundation, Inc.
 # This file is distributed under the GNU General Public License Version 2.
 #
 # Yannig MARCHEGAY (yannig@marchegay.org) - 2006-2007
 #
+# Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander 1.1.7\n"
+"Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-17 13:40+0200\n"
-"PO-Revision-Date: 2007-10-14 14:41+0200\n"
-"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
-"Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
+"PO-Revision-Date: 2007-11-20 14:30+0100\n"
+"Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
+"Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
@@ -80,7 +83,7 @@ msgstr ""
 
 #: ../plugins/cvs/interface.c:440
 msgid "Revision:"
-msgstr ""
+msgstr "Revision :"
 
 #: ../plugins/cvs/interface.c:458
 msgid "Compare..."
@@ -88,7 +91,7 @@ msgstr ""
 
 #: ../plugins/cvs/interface.c:461
 msgid "Author:"
-msgstr "Autor :"
+msgstr "Ancora"
 
 #: ../plugins/cvs/interface.c:475
 msgid "Date:"
@@ -152,10 +155,11 @@ msgstr ""
 msgid "%d file listed"
 msgid_plural "%d files listed"
 msgstr[0] "Pas de fichièr seleccionat"
+msgstr[1] "Pas de fichièr seleccionat"
 
 #: ../src/gnome-cmd-about-plugin.cc:182
 msgid "Credits"
-msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org)"
+msgstr "Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>"
 
 #: ../src/gnome-cmd-about-plugin.cc:209
 msgid "Written by"
@@ -787,7 +791,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-popmenu.cc:152
 msgid "Application:"
-msgstr ""
+msgstr "Aplicacion :"
 
 #: ../src/gnome-cmd-file-popmenu.cc:155
 msgid "Open with other..."
@@ -805,7 +809,7 @@ msgstr "_Dobrir"
 #: ../src/gnome-cmd-file-popmenu.cc:412
 #, c-format
 msgid "_Open with \"%s\""
-msgstr ""
+msgstr "_Dobrir amb \"%s\""
 
 #: ../src/gnome-cmd-file-popmenu.cc:434
 msgid "Open With..."
@@ -862,7 +866,7 @@ msgstr ""
 #: ../src/gnome-cmd-file-props-dialog.cc:323
 #: ../src/gnome-cmd-file-selector.cc:1919
 msgid "Filename:"
-msgstr "Nom del fichièr :"
+msgstr "Nom de fichièr :"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:334
 msgid "Symlink target:"
@@ -890,7 +894,7 @@ msgstr "Modificat :"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:390
 msgid "Accessed:"
-msgstr ""
+msgstr "Darrièr accès :"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:400
 msgid "Size:"
@@ -906,7 +910,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-props-dialog.cc:550
 msgid "Type"
-msgstr ""
+msgstr "Tipe"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:558
 msgid "Value"
@@ -998,7 +1002,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:2204
 msgid "Filter:"
-msgstr ""
+msgstr "Filtre :"
 
 #: ../src/gnome-cmd-file.cc:587
 msgid "Unknown file type"
@@ -1101,7 +1105,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-ftp-dialog.cc:440
 msgid "Connect"
-msgstr "Connectar"
+msgstr "Se connectar"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:530
 #, fuzzy
@@ -1301,7 +1305,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:1018
 msgid "_View"
-msgstr "_Mostrar"
+msgstr "_Visualizacion"
 
 #: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:1029
 msgid "_Settings"
@@ -1520,7 +1524,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:261
 msgid "_Test"
-msgstr "_Tèst"
+msgstr "_Tèxt"
 
 #: ../src/gnome-cmd-options-dialog.cc:264
 msgid "Test result:"
@@ -1908,7 +1912,7 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
 #: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:174
 msgid "Skip All"
-msgstr ""
+msgstr "Tot ignorar"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:118
 msgid "Follow Links"
@@ -2094,9 +2098,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:1369
 msgid "translator-credits"
-msgstr ""
-"La còla occitana de revirada d'Ubuntu, 2006 - ubuntu-l10n-oci@lists.ubuntu."
-"com"
+msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org)"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:39
 msgid "stopping..."
@@ -2168,8 +2170,7 @@ msgid "downloading to /tmp"
 msgstr ""
 
 #: ../src/imageloader.cc:129
-msgid ""
-"Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 
 #: ../src/imageloader.cc:130 ../src/imageloader.cc:156
@@ -2281,11 +2282,11 @@ msgstr ""
 
 #: ../src/libgviewer/viewer-window.cc:843
 msgid "Find Next"
-msgstr ""
+msgstr "Recercar lo seguent"
 
 #: ../src/libgviewer/viewer-window.cc:847
 msgid "Find Previous"
-msgstr ""
+msgstr "Recercar lo precedent"
 
 #: ../src/libgviewer/viewer-window.cc:853
 msgid "_No Parsing (original file)"
@@ -2518,7 +2519,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:204
 #: ../src/tags/gnome-cmd-tags.cc:333 ../src/tags/gnome-cmd-tags.cc:409
 msgid "Copyright"
-msgstr "Copyright"
+msgstr "Copyright :"
 
 #: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:333
 msgid "Copyright message."
@@ -2812,7 +2813,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:155 ../src/tags/gnome-cmd-tags.cc:410
 msgid "Creator"
-msgstr ""
+msgstr "Creator"
 
 #: ../src/tags/gnome-cmd-tags.cc:155
 msgid ""
@@ -3397,8 +3398,7 @@ msgid "Flash"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:221
-msgid ""
-"This tag is recorded when an image is taken using a strobe light (flash)."
+msgid "This tag is recorded when an image is taken using a strobe light (flash)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:222
@@ -3424,8 +3424,7 @@ msgid "F Number"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:416
-msgid ""
-"Diameter of the aperture relative to the effective focal length of the lens."
+msgid "Diameter of the aperture relative to the effective focal length of the lens."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:225 ../src/tags/gnome-cmd-tags.cc:417
@@ -4309,8 +4308,7 @@ msgid "Editable free text/notes."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:311
-msgid ""
-"MIME type of the file or if a directory it should contain value \"Folder\""
+msgid "MIME type of the file or if a directory it should contain value \"Folder\""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:312
@@ -4374,8 +4372,7 @@ msgid "Size"
 msgstr "Talha"
 
 #: ../src/tags/gnome-cmd-tags.cc:320
-msgid ""
-"Size of the file in bytes or if a directory number of items it contains."
+msgid "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:321
@@ -4383,8 +4380,7 @@ msgid "Album Sort Order"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:321
-msgid ""
-"String which should be used instead of the album name for sorting purposes."
+msgid "String which should be used instead of the album name for sorting purposes."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:322
@@ -5202,8 +5198,7 @@ msgid "Audio Type"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:436
-msgid ""
-"The number of channels and type of audio (music, text, etc.) in the object."
+msgid "The number of channels and type of audio (music, text, etc.) in the object."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:437
@@ -5323,8 +5318,7 @@ msgid "Credit"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:450
-msgid ""
-"Identifies the provider of the object, not necessarily the owner/creator."
+msgid "Identifies the provider of the object, not necessarily the owner/creator."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:451
@@ -5652,8 +5646,7 @@ msgid "Reference Number"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:489
-msgid ""
-"The Envelope Number of a prior envelope to which the current object refers."
+msgid "The Envelope Number of a prior envelope to which the current object refers."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:490
@@ -5667,13 +5660,11 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:491
-msgid ""
-"Designates the earliest date the provider intends the object to be used."
+msgid "Designates the earliest date the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:492
-msgid ""
-"Designates the earliest time the provider intends the object to be used."
+msgid "Designates the earliest time the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:493
@@ -5804,7 +5795,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:509
 msgid "License"
-msgstr ""
+msgstr "Licéncia"
 
 #: ../src/tags/gnome-cmd-tags.cc:509
 msgid "License information."
@@ -5852,7 +5843,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Vendor"
-msgstr ""
+msgstr "Vendeire"
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Vorbis vendor ID."
@@ -5868,7 +5859,7 @@ msgstr "Version de Vorbis."
 
 #: ../src/tags/gnome-cmd-tags.cc:647
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:653
 msgid "Doc"
@@ -5904,7 +5895,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:91
 msgid "Australian English"
-msgstr ""
+msgstr "Anglés d'Austràlia"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:93
 msgid "Castilian Spanish"
@@ -6078,62 +6069,3 @@ msgstr ""
 msgid "Couldn't read from the directory %s: %s"
 msgstr ""
 
-#~ msgid "Enter Password"
-#~ msgstr "Picatz lo mot de pas"
-
-#~ msgid "Password:"
-#~ msgstr "Mot de pas :"
-
-#~ msgid "Enter password"
-#~ msgstr "Picatz lo mot de pas"
-
-#~ msgid "_Execute"
-#~ msgstr "E_xécuter"
-
-#~ msgid "_Cut"
-#~ msgstr "Co_uper"
-
-#  xgettext:
-#  * Replace this with your name when translating
-#~ msgid "No translation is currently in use."
-#~ msgstr ""
-#~ "Olivier Karquel <olivier.karquel@wanadoo.fr>\n"
-#~ "Raphaël Tournoy <lexpas@free.fr>\n"
-#~ "Christophe Merlet (RedFox) <redfox@redfoxcenter.org>"
-
-#~ msgid "Rename \"%s\" to"
-#~ msgstr "Renommer « %s » en"
-
-#~ msgid "Rename File"
-#~ msgstr "Renommer le fichier"
-
-#, fuzzy
-#~ msgid "About"
-#~ msgstr "À _propos"
-
-#~ msgid "Case sens"
-#~ msgstr "Sensible à la casse"
-
-#~ msgid "New FTP Server"
-#~ msgstr "Nouveau serveur FTP"
-
-#~ msgid "Edit FTP Server"
-#~ msgstr "Éditer le serveur FTP"
-
-#~ msgid "User _Manual..."
-#~ msgstr "_Manuel d'utilisation..."
-
-#~ msgid "_About..."
-#~ msgstr "À _propos..."
-
-#~ msgid "Back in history"
-#~ msgstr "Précédent dans l'historique"
-
-#~ msgid "Forward in history"
-#~ msgstr "Suivant dans l'historique"
-
-#~ msgid "Copy file names"
-#~ msgstr "Copier les noms de fichier"
-
-#~ msgid "Chmod"
-#~ msgstr "Chmod"
