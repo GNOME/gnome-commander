@@ -129,7 +129,7 @@ inline gint get_int (const gchar *path, int def)
 }
 
 
-inline void save_ftp_servers (const gchar *fname)
+inline void save_connections (const gchar *fname)
 {
     gchar *path = g_strdup_printf ("%s/.gnome-commander/%s", g_get_home_dir(), fname);
     FILE  *fd = fopen (path, "w");
@@ -145,33 +145,11 @@ inline void save_ftp_servers (const gchar *fname)
 
             if (server)
             {
-                string uri_str;
                 string alias;
-                string remote_dir;
 
                 stringify (alias, gnome_vfs_escape_string (gnome_cmd_con_ftp_get_alias (server)));
-                stringify (remote_dir, gnome_vfs_escape_string (gnome_cmd_con_ftp_get_remote_dir (server)));
 
-                GnomeCmdPath *path = gnome_cmd_con_create_path (con, remote_dir.c_str());
-                GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
-                stringify (uri_str, gnome_vfs_uri_to_string (uri, con->gnome_auth ? GNOME_VFS_URI_HIDE_PASSWORD : GNOME_VFS_URI_HIDE_NONE));
-                // stringify (uri_str, gnome_vfs_format_uri_for_display (uri_str.c_str());
-                gtk_object_destroy (GTK_OBJECT (path));
-
-                fprintf (fd, "U:\t%s\t%d\t%s\n", alias.c_str(), con->gnome_auth, uri_str.c_str());
-
-                gnome_vfs_uri_unref (uri);
-
-                gchar *hname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_host_name (server));
-                guint  port  = gnome_cmd_con_ftp_get_host_port (server);
-                gchar *uname = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_user_name (server));
-                gchar *pw    = gnome_vfs_escape_string (gnome_cmd_con_ftp_get_pw (server));
-
-                fprintf (fd, "C: %s %s %s %d %s %s %s\n", "ftp:", alias.c_str(), hname, port, remote_dir.c_str(), uname, pw?pw:"");
-
-                g_free (hname);
-                g_free (uname);
-                g_free (pw);
+                fprintf (fd, "U:\t%s\t%s\n", alias.c_str(), con->uri?con->uri:"");
 
                 GnomeCmdBookmarkGroup *bookmark_group = gnome_cmd_con_get_bookmarks (con);
 
@@ -285,7 +263,7 @@ inline void save_fav_apps (const gchar *fname)
 }
 
 
-inline gboolean load_ftp_servers (const gchar *fname)
+inline gboolean load_connections (const gchar *fname)
 {
     guint prev_ftp_cons_no = g_list_length (gnome_cmd_con_list_get_all_ftp (data->priv->con_list));
 
@@ -300,66 +278,187 @@ inline gboolean load_ftp_servers (const gchar *fname)
         {
             GnomeCmdConFtp *server = NULL;
 
+            gchar *s = strchr (line, '\n');             // g_utf8_strchr (line, -1, '\n') ???
+
+            if (s)
+                *s = 0;
+
             switch (line[0])
             {
-                case '\0':             // do not warn about empty lines
-                case '#' :             // do not warn about empty comments
+                case '\0':              // do not warn about empty lines
+                case '#' :              // do not warn about comments
                     break;
 
-                case 'U':
+                case 'U':               // format       U:<tab>alias<tab>uri
+                    {
+                        vector<string> a;
+
+                        split(line, a, "\t");
+
+                        if (a.size()!=3)
+                        {
+                            g_warning ("Invalid line in the '%s' file - skipping it...", path);
+                            g_warning ("\t... %s", line);
+                            break;
+                        }
+
+                        gchar *alias = gnome_vfs_unescape_string (a[1].c_str(), NULL);
+
+                        if (gnome_cmd_con_list_has_alias (data->priv->con_list, alias))
+                            g_warning ("%s: ignored duplicate entry: %s", path, alias);
+                        else
+                        {
+                            const gchar *text_uri = a[2].c_str();
+                            GnomeVFSURI *uri = gnome_vfs_uri_new (text_uri);
+
+                            if (!uri)
+                            {
+                                g_warning ("Invalid URI in the '%s' file", path);
+                                g_warning ("\t... %s", line);
+
+                                //  ????
+                            }
+                            else
+                            {
+                                const gchar *scheme = gnome_vfs_uri_get_scheme (uri);       // do not g_free
+                                const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
+                                const guint  port = gnome_vfs_uri_get_host_port (uri);
+                                const gchar *remote_dir = gnome_vfs_uri_get_path (uri);     // do not g_free
+                                const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free
+                                const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
+
+                                server = gnome_cmd_con_ftp_new (alias, host, port, user, password, remote_dir);
+
+                                GnomeCmdCon *con = GNOME_CMD_CON (server);
+
+                                // do not set con->alias as it is already done in gnome_cmd_con_ftp_new (alias, ...)
+                                con->uri = g_strdup (text_uri);
+                                con->method = gnome_vfs_uri_is_local (uri) ? CON_LOCAL :
+                                              g_str_equal (scheme, "ftp") ? (g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
+                                              g_str_equal (scheme, "sftp") ? CON_SSH :
+                                              g_str_equal (scheme, "dav") ? CON_DAV :
+                                              g_str_equal (scheme, "davs") ? CON_DAVS:
+                                              g_str_equal (scheme, "smb") ? CON_SMB :
+                                                                            CON_URI;
+
+                                con->gnome_auth = !password && con->method!=CON_ANON_FTP;
+
+                                gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
+
+                                gnome_vfs_uri_unref (uri);
+                            }
+                        }
+
+                        g_free (alias);
+                    }
                     break;
 
-                case 'S':
+                case 'S':               // format       S: alias host port user password
                     {
                         gchar alias[256], host[256], user[256], pw[256];
-                        gchar *alias2, *host2, *user2, *pw2=NULL;
-                        gint port;
+                        guint port2;
 
-                        gint ret = sscanf (line, "S: %256s %256s %d %256s %256s\n", alias, host, &port, user, pw);
+                        gint ret = sscanf (line, "S: %256s %256s %d %256s %256s\n", alias, host, &port2, user, pw);
 
                         if (ret == 4 || ret == 5)
                         {
-                            alias2 = gnome_vfs_unescape_string (alias, NULL);
-                            host2  = gnome_vfs_unescape_string (host, NULL);
-                            user2  = gnome_vfs_unescape_string (user, NULL);
-                            if (ret == 5)
-                                pw2 = gnome_vfs_unescape_string (pw, NULL);
+                            gchar *alias2 = gnome_vfs_unescape_string (alias, NULL);
 
-                            server = gnome_cmd_con_ftp_new (alias2, host2, (gshort)port, user2, NULL, "");
+                            if (gnome_cmd_con_list_has_alias (data->priv->con_list, alias2))
+                                g_warning ("%s: ignored duplicate entry: %s", path, alias2);
+                            else
+                            {
+                                gchar *host2  = gnome_vfs_unescape_string (host, NULL);
+                                gchar *user2  = gnome_vfs_unescape_string (user, NULL);
+                                gchar *pw2 = NULL;
 
-                            gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
+                                if (ret == 5)
+                                    pw2 = gnome_vfs_unescape_string (pw, NULL);
+
+                                server = gnome_cmd_con_ftp_new (alias2, host2, port2, user2, pw2, NULL);
+
+                                GnomeCmdCon *con = GNOME_CMD_CON (server);
+
+                                GnomeVFSURI *uri = gnome_vfs_uri_new ("ftp:");
+
+                                gnome_vfs_uri_set_host_name (uri, host2);
+                                gnome_vfs_uri_set_host_port (uri, port2);
+                                if (user2 && *user2)                                // do not set empty user
+                                    gnome_vfs_uri_set_user_name (uri, user2);
+                                if (pw2 && *pw2)                                    // do not set empty password
+                                    gnome_vfs_uri_set_password (uri, pw2);
+
+                                // do not set con->alias as it is already done in gnome_cmd_con_ftp_new (alias, ...)
+                                con->uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+                                con->method = g_str_equal (user2, "anonymous") ? CON_ANON_FTP : CON_FTP;
+                                con->gnome_auth = FALSE;
+
+                                gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
+
+                                g_free (host2);
+                                g_free (user2);
+                                g_free (pw2);
+                                gnome_vfs_uri_unref (uri);
+                            }
 
                             g_free (alias2);
-                            g_free (host2);
-                            g_free (user2);
-                            g_free (pw2);
                         }
                     }
                     break;
 
-                case 'C':               // format       C:
+                case 'C':               // format       C: method: alias host port remote-dir user password
                     {
                         gchar **a = g_strsplit_set(line, " \t\n", 9);
                         guint port2;
 
-                        if (g_strv_length(a)==9             &&
+                        if (g_strv_length(a)==8             &&
                             strcmp(a[0], "C:")==0           &&
                             strcmp(a[1], "ftp:")==0         &&
                             sscanf(a[4], "%ud", &port2)==1)
                         {
-                            gchar *alias2       = gnome_vfs_unescape_string (a[2], NULL);
-                            gchar *host2        = gnome_vfs_unescape_string (a[3], NULL);
-                            gchar *remote_dir2  = gnome_vfs_unescape_string (a[5], NULL);
-                            gchar *user2        = gnome_vfs_unescape_string (a[6], NULL);
+                            gchar *alias2 = gnome_vfs_unescape_string (a[2], NULL);
 
-                            GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (alias2, host2, (gshort)port2, user2, NULL, remote_dir2);
+                            if (gnome_cmd_con_list_has_alias (data->priv->con_list, alias2))
+                                g_warning ("%s: ignored duplicate entry: %s", path, alias2);
+                            else
+                            {
+                                gchar *scheme2      = a[1];
+                                gchar *host2        = gnome_vfs_unescape_string (a[3], NULL);
+                                gchar *remote_dir2  = gnome_vfs_unescape_string (a[5], NULL);
+                                gchar *user2        = gnome_vfs_unescape_string (a[6], NULL);
+                                gchar *password2    = gnome_vfs_unescape_string (a[7], NULL);
+
+                                GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (alias2, host2, port2, user2, password2, remote_dir2);
+
+                                GnomeCmdCon *con = GNOME_CMD_CON (server);
+
+                                GnomeVFSURI *uri0 = gnome_vfs_uri_new (scheme2);
+                                GnomeVFSURI *uri1 = gnome_vfs_uri_append_path (uri0, remote_dir2);
+
+                                gnome_vfs_uri_set_host_name (uri1, host2);
+                                gnome_vfs_uri_set_host_port (uri1, port2);
+                                if (user2 && *user2)                                // do not set empty user
+                                    gnome_vfs_uri_set_user_name (uri1, user2);
+                                if (password2 && *password2)                        // do not set empty password
+                                    gnome_vfs_uri_set_password (uri1, password2);
+
+                                // do not set con->alias as it is already done in gnome_cmd_con_ftp_new (alias, ...)
+                                con->uri = gnome_vfs_uri_to_string (uri1, GNOME_VFS_URI_HIDE_NONE);
+                                con->method = g_str_equal (user2, "anonymous") ? CON_ANON_FTP : CON_FTP;
+                                con->gnome_auth = FALSE;
+
+                                g_free (host2);
+                                g_free (remote_dir2);
+                                g_free (user2);
+                                g_free (password2);
+                                gnome_vfs_uri_unref (uri0);
+                                gnome_vfs_uri_unref (uri1);
+
+                                gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
+                            }
 
                             g_free (alias2);
-                            g_free (host2);
-                            g_free (remote_dir2);
-                            g_free (user2);
 
-                            gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
                         }
                         else
                         {
@@ -1198,7 +1297,7 @@ void gnome_cmd_data_save (void)
     save_cmdline_history ();
     //write_dir_history ();
 
-    save_ftp_servers ("connections");
+    save_connections ("connections");
     save_devices ("devices");
     save_fav_apps ("fav-apps");
     save_search_defaults ();
@@ -1622,7 +1721,7 @@ void gnome_cmd_data_load_more (void)
     data->priv->con_list = gnome_cmd_con_list_new ();
     gnome_cmd_con_list_begin_update (data->priv->con_list);
     load_devices ("devices");
-    load_ftp_servers ("connections") || load_ftp_servers ("ftp-servers");
+    load_connections ("connections") || load_connections ("ftp-servers");
     gnome_cmd_con_list_end_update (data->priv->con_list);
 
     load_fav_apps ("fav-apps");

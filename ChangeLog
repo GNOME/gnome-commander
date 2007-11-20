@@ -1,3 +1,8 @@
+2007-11-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	Store connections as URI in ~/.gnome-commander/connections
+
 2007-11-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con.h:
