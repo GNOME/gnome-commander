@@ -19,7 +19,7 @@
 
 #include <config.h>
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-ftp-dialog.h"
+#include "gnome-cmd-remote-dialog.h"
 #include "gnome-cmd-con-dialog.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-con-ftp.h"
@@ -35,7 +35,7 @@ using namespace std;
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
-struct _GnomeCmdFtpDialogPrivate
+struct _GnomeCmdRemoteDialogPrivate
 {
     GtkWidget         *connection_list;
     GtkWidget         *anonymous_pw_entry;
@@ -74,7 +74,7 @@ inline gboolean tree_is_empty (GtkTreeView *tree_view)
 }
 
 
-inline GnomeCmdConFtp *get_selected_server (GnomeCmdFtpDialog *dialog, GtkTreeIter *iter=NULL)
+inline GnomeCmdConFtp *get_selected_server (GnomeCmdRemoteDialog *dialog, GtkTreeIter *iter=NULL)
 {
     GtkTreeView *tree_view = GTK_TREE_VIEW (dialog->priv->connection_list);
     GtkTreeModel *model = gtk_tree_view_get_model (tree_view);
@@ -121,7 +121,7 @@ static gboolean do_connect_real (GnomeCmdConFtp *server)
 }
 
 
-inline void do_connect (GnomeCmdFtpDialog *ftp_dialog, GnomeCmdConFtp *server=NULL)
+inline void do_connect (GnomeCmdRemoteDialog *ftp_dialog, GnomeCmdConFtp *server=NULL)
 {
     if (!server)
         server = get_selected_server (ftp_dialog);
@@ -144,19 +144,19 @@ inline void do_connect (GnomeCmdFtpDialog *ftp_dialog, GnomeCmdConFtp *server=NU
 }
 
 
-static void on_connect_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog)
+static void on_connect_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dialog)
 {
     do_connect (ftp_dialog);
 }
 
 
-static void on_close_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *dialog)
+static void on_close_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dialog)
 {
     gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 
-static void on_help_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *dialog)
+static void on_help_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dialog)
 {
     gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-remote-connections");
 }
@@ -204,7 +204,7 @@ inline gchar *create_or_fill_server (GnomeCmdConFtp *&server, const gchar **valu
 }
 
 
-inline GtkWidget *create_ftp_server_dialog (const gchar *title, GnomeCmdStringDialogCallback on_ok_func, GnomeCmdFtpDialog *ftp_dialog, gboolean with_alias)
+inline GtkWidget *create_ftp_server_dialog (const gchar *title, GnomeCmdStringDialogCallback on_ok_func, GnomeCmdRemoteDialog *ftp_dialog, gboolean with_alias)
 {
     const gchar *labels1[] = {_("Alias:"), _("Host:"), _("Port:"), _("User:"), _("Remote Dir:")};
     const gchar *labels2[] = {_("Host:"), _("Port:"), _("User:"), _("Remote Dir:")};
@@ -220,7 +220,7 @@ inline GtkWidget *create_ftp_server_dialog (const gchar *title, GnomeCmdStringDi
 }
 
 
-static void on_new_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog)
+static void on_new_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dialog)
 {
     GnomeCmdConFtp *server = gnome_cmd_connect_dialog_new ();
 
@@ -237,7 +237,7 @@ static void on_new_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog
 }
 
 
-static void on_edit_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialog)
+static void on_edit_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dialog)
 {
     GtkTreeIter iter;
     GnomeCmdConFtp *server = get_selected_server (ftp_dialog, &iter);
@@ -251,7 +251,7 @@ static void on_edit_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *ftp_dialo
 }
 
 
-static void on_remove_btn_clicked (GtkButton *button, GnomeCmdFtpDialog *dialog)
+static void on_remove_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dialog)
 {
     GtkTreeView *tree_view = GTK_TREE_VIEW (dialog->priv->connection_list);
     GtkTreeIter iter;
@@ -278,7 +278,7 @@ enum
 };
 
 
-static void on_list_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path, GnomeCmdFtpDialog *dialog)
+static void on_list_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path, GnomeCmdRemoteDialog *dialog)
 {
     if (model_is_empty (tree_model))
     {
@@ -289,7 +289,7 @@ static void on_list_row_deleted (GtkTreeModel *tree_model, GtkTreePath *path, Gn
 }
 
 
-static void on_list_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, GnomeCmdFtpDialog *dialog)
+static void on_list_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, GtkTreeIter *iter, GnomeCmdRemoteDialog *dialog)
 {
     gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "remove_button"), TRUE);
     gtk_widget_set_sensitive (lookup_widget (GTK_WIDGET (dialog), "edit_button"), TRUE);
@@ -297,7 +297,7 @@ static void on_list_row_inserted (GtkTreeModel *tree_model, GtkTreePath *path, G
 }
 
 
-static void on_list_row_activated (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, GnomeCmdFtpDialog *dialog)
+static void on_list_row_activated (GtkTreeView *tree_view, GtkTreePath *path, GtkTreeViewColumn *column, GnomeCmdRemoteDialog *dialog)
 {
     do_connect (dialog);
 }
@@ -503,10 +503,10 @@ inline GtkWidget *create_view_and_model (GList *list)
 
 static void destroy (GtkObject *object)
 {
-    GnomeCmdFtpDialog *dialog = GNOME_CMD_FTP_DIALOG (object);
+    GnomeCmdRemoteDialog *dialog = GNOME_CMD_REMOTE_DIALOG (object);
 
     if (!dialog->priv)
-        g_warning ("GnomeCmdFtpDialog: dialog->priv != NULL test failed");
+        g_warning ("GnomeCmdRemoteDialog: dialog->priv != NULL test failed");
 
     g_free (dialog->priv);
 
@@ -522,7 +522,7 @@ static void map (GtkWidget *widget)
 }
 
 
-static void class_init (GnomeCmdFtpDialogClass *klass)
+static void class_init (GnomeCmdRemoteDialogClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -535,13 +535,13 @@ static void class_init (GnomeCmdFtpDialogClass *klass)
 }
 
 
-static void init (GnomeCmdFtpDialog *ftp_dialog)
+static void init (GnomeCmdRemoteDialog *ftp_dialog)
 {
     GtkWidget *cat_box, *table, *cat, *sw, *label, *button, *bbox;
 
     GtkWidget *dialog = GTK_WIDGET (ftp_dialog);
 
-    ftp_dialog->priv = g_new0 (GnomeCmdFtpDialogPrivate, 1);
+    ftp_dialog->priv = g_new0 (GnomeCmdRemoteDialogPrivate, 1);
 
     gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
     gtk_window_set_title (GTK_WINDOW (dialog), _("Remote Connections"));
@@ -608,7 +608,7 @@ static void init (GnomeCmdFtpDialog *ftp_dialog)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_ftp_dialog_get_type (void)
+GtkType gnome_cmd_remote_dialog_get_type (void)
 {
     static GtkType dlg_type = 0;
 
@@ -616,9 +616,9 @@ GtkType gnome_cmd_ftp_dialog_get_type (void)
     {
         GtkTypeInfo dlg_info =
         {
-            "GnomeCmdFtpDialog",
-            sizeof (GnomeCmdFtpDialog),
-            sizeof (GnomeCmdFtpDialogClass),
+            "GnomeCmdRemoteDialog",
+            sizeof (GnomeCmdRemoteDialog),
+            sizeof (GnomeCmdRemoteDialogClass),
             (GtkClassInitFunc) class_init,
             (GtkObjectInitFunc) init,
             /* reserved_1 */ NULL,
@@ -632,9 +632,9 @@ GtkType gnome_cmd_ftp_dialog_get_type (void)
 }
 
 
-GtkWidget *gnome_cmd_ftp_dialog_new (void)
+GtkWidget *gnome_cmd_remote_dialog_new (void)
 {
-    GnomeCmdFtpDialog *dialog = (GnomeCmdFtpDialog *) gtk_type_new (gnome_cmd_ftp_dialog_get_type ());
+    GnomeCmdRemoteDialog *dialog = (GnomeCmdRemoteDialog *) gtk_type_new (gnome_cmd_remote_dialog_get_type ());
 
     return GTK_WIDGET (dialog);
 }
@@ -670,7 +670,7 @@ static gboolean on_quick_connect_ok (GnomeCmdStringDialog *string_dialog, const 
 }
 
 
-void show_ftp_quick_connect_dialog (void)
+void show_quick_connect_dialog (void)
 {
     GtkWidget *dialog;
 

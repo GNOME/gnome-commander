@@ -48,7 +48,6 @@ gnome_commander_SOURCES = \
 	gnome-cmd-file-props-dialog.h gnome-cmd-file-props-dialog.cc \
 	gnome-cmd-file-selector.h gnome-cmd-file-selector.cc \
 	gnome-cmd-file.h gnome-cmd-file.cc \
-	gnome-cmd-ftp-dialog.h gnome-cmd-ftp-dialog.cc \
 	gnome-cmd-includes.h \
 	gnome-cmd-list-popmenu.h gnome-cmd-list-popmenu.cc \
 	gnome-cmd-main-menu.h gnome-cmd-main-menu.cc \
@@ -63,6 +62,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-prepare-copy-dialog.h gnome-cmd-prepare-copy-dialog.cc \
 	gnome-cmd-prepare-move-dialog.h gnome-cmd-prepare-move-dialog.cc \
 	gnome-cmd-prepare-xfer-dialog.h gnome-cmd-prepare-xfer-dialog.cc \
+	gnome-cmd-remote-dialog.h gnome-cmd-remote-dialog.cc \
 	gnome-cmd-quicksearch-popup.h gnome-cmd-quicksearch-popup.cc \
 	gnome-cmd-rename-dialog.h gnome-cmd-rename-dialog.cc \
 	gnome-cmd-search-dialog.h gnome-cmd-search-dialog.cc \

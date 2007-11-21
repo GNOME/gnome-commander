@@ -31,7 +31,7 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-con-dialog.h"
-#include "gnome-cmd-ftp-dialog.h"
+#include "gnome-cmd-remote-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-options-dialog.h"
 #include "gnome-cmd-prepare-copy-dialog.h"
@@ -1157,7 +1157,7 @@ void options_edit_mime_types (GtkMenuItem *menuitem, gpointer not_used)
 /************** Connections Menu **************/
 void connections_open (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GtkWidget *dialog = gnome_cmd_ftp_dialog_new ();
+    GtkWidget *dialog = gnome_cmd_remote_dialog_new ();
     gtk_widget_ref (dialog);
     gtk_widget_show (dialog);
 }
@@ -1165,7 +1165,7 @@ void connections_open (GtkMenuItem *menuitem, gpointer not_used)
 
 void connections_new (GtkMenuItem *menuitem, gpointer not_used)
 {
-    show_ftp_quick_connect_dialog ();
+    show_quick_connect_dialog ();
 }
 
 

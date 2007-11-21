@@ -13,6 +13,13 @@
 	* src/gnome-cmd-con-dialog.cc:
 	Use proper type for #define GNOME_CMD_TYPE_CONNECT_DIALOG
 
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-remote-dialog.cc:
+	* src/gnome-cmd-remote-dialog.h:
+	* src/gnome-cmd-user-actions.cc:
+	Rename GnomeCmdFtpDialog -> GnomeCmdRemoteDialog
+
 2007-11-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
