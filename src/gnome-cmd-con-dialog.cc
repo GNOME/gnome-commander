@@ -480,10 +480,10 @@ static void setup_for_type (GnomeCmdConnectDialog *dialog)
     show_entry (table, dialog->priv->folder_entry, _("_Remote dir:"), i);
 
     if (show_user)
-        show_entry (table, dialog->priv->user_entry, _("_User name"), i);
+        show_entry (table, dialog->priv->user_entry, _("_User name:"), i);
 
     if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check)) && type!=CON_ANON_FTP)
-        show_entry (table, dialog->priv->password_entry, _("_Password"), i);
+        show_entry (table, dialog->priv->password_entry, _("_Password:"), i);
 
     if (show_domain)
         show_entry (table, dialog->priv->domain_entry, _("_Domain name"), i);

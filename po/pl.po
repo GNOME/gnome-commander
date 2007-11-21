@@ -411,12 +411,12 @@ msgstr "Wynik"
 #: ../src/gnome-cmd-advrename-dialog.cc:1239
 #, fuzzy
 msgid "Current file names"
-msgstr "Kopiuj &Nazwy Plików"
+msgstr "Kopiuj _Nazwy Plików"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1240
 #, fuzzy
 msgid "New file names"
-msgstr "Kopiuj &Nazwy Plików"
+msgstr "Kopiuj _Nazwy Plików"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1246
 msgid "Rese_t"
@@ -1209,7 +1209,7 @@ msgstr "Protokół sieciowy"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:475
 msgid "Connection name"
-msgstr "&Nazwa połączenia"
+msgstr "Nazwa połączenia"
 
 #: ../src/gnome-cmd-ftp-dialog.cc:547
 msgid "Remote Connections"
@@ -4178,7 +4178,7 @@ msgstr "Standardowy ID TIFF/EP."
 
 #: ../src/tags/gnome-cmd-tags.cc:297
 msgid "Transfer Function"
-msgstr "Funkcja trnsferu"
+msgstr "Funkcja transferu"
 
 #: ../src/tags/gnome-cmd-tags.cc:297
 msgid "A transfer function for the image, described in tabular style. Normally this tag is not necessary, since color space is specified in <Exif.ColorSpace> tag."
@@ -4190,7 +4190,7 @@ msgstr "Zakres transferu"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Transfer Range."
-msgstr "Zakres transferu"
+msgstr "Zakres transferu."
 
 #: ../src/tags/gnome-cmd-tags.cc:299
 msgid "User Comment"
@@ -4971,9 +4971,8 @@ msgid "User Text"
 msgstr "Tekst użytkownika"
 
 #: ../src/tags/gnome-cmd-tags.cc:395
-#, fuzzy
 msgid "User defined text information."
-msgstr "Ignoruj informację &kontekstową"
+msgstr "Zdefiniowany przez użytkownika informacja tekstowa"
 
 #: ../src/tags/gnome-cmd-tags.cc:396
 msgid "Volume Adjustment"
@@ -5032,7 +5031,7 @@ msgstr "URL strony zawierającej informacje komercyjne."
 #: ../src/tags/gnome-cmd-tags.cc:402
 #, fuzzy
 msgid "WWW Copyright"
-msgstr "&Aktualizuj copyright"
+msgstr "Aktualizuj copyright"
 
 #: ../src/tags/gnome-cmd-tags.cc:402
 msgid "URL pointing at a webpage that holds copyright."
@@ -5072,7 +5071,7 @@ msgstr "Użytkownik WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:406
 msgid "User defined URL link."
-msgstr "Definiowany przez użytkownika adres URL."
+msgstr "Zdefiniowany przez użytkownika adres URL."
 
 #: ../src/tags/gnome-cmd-tags.cc:407
 #, fuzzy
@@ -5105,7 +5104,7 @@ msgstr "Wartośc równa \"1\" gdy zdjęcie było robione z użyciem lampy błysk
 
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Focal length of lens in mm."
-msgstr "Ogniskowa dla filmu 35mm"
+msgstr "Ogniskowa dla filmu 35mm."
 
 #: ../src/tags/gnome-cmd-tags.cc:418
 msgid "Height"
@@ -5125,7 +5124,7 @@ msgstr "Czułość ISO wykorzystana do przygotowania zdjęcia, np. 100, 200, 400
 
 #: ../src/tags/gnome-cmd-tags.cc:420
 msgid "String of keywords."
-msgstr "Słowa kluczowe"
+msgstr "Słowa kluczowe."
 
 #: ../src/tags/gnome-cmd-tags.cc:421
 #, fuzzy
@@ -5502,7 +5501,7 @@ msgstr "Maksymalny rozmiar obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:470
 msgid "The largest possible size of the object if the size is not known."
-msgstr ""
+msgstr "Maksymalny możliwy rozmiar obiektu, jeżeli rozmiar nie jest znany."
 
 #: ../src/tags/gnome-cmd-tags.cc:471
 #, fuzzy
@@ -5524,7 +5523,7 @@ msgstr "Wersja IIM (część pierwsza)"
 #: ../src/tags/gnome-cmd-tags.cc:473
 #, fuzzy
 msgid "Object Attribute Reference"
-msgstr "Funkcje odwołań do obiektów"
+msgstr "Odniesienie do atrybutów obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "Defines the nature of the object independent of the subject (multiple values allowed)."
@@ -5548,9 +5547,8 @@ msgid "A shorthand reference for the object."
 msgstr "Dowolna etykieta tekstowa obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:476
-#, fuzzy
 msgid "Object Size Announced"
-msgstr "Maksymalny rozmiar obiektu"
+msgstr "Zadeklarowany  rozmiar obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:476
 msgid "The total size of the object data if it is known."
@@ -5626,7 +5624,7 @@ msgstr "Wyświetlenie wersji programu"
 #: ../src/tags/gnome-cmd-tags.cc:485
 #: ../src/tags/gnome-cmd-tags.cc:497
 msgid "Province, State"
-msgstr "_Stan, Prowincja:"
+msgstr "Prowincja, stan"
 
 #: ../src/tags/gnome-cmd-tags.cc:485
 #: ../src/tags/gnome-cmd-tags.cc:497
@@ -5684,7 +5682,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:493
 msgid "Service Identifier"
-msgstr "Idebtyfikator usługi"
+msgstr "Identyfikator usługi"
 
 #: ../src/tags/gnome-cmd-tags.cc:493
 msgid "Identifies the provider and product."
