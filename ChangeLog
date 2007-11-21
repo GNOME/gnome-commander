@@ -10,6 +10,9 @@
 	* src/gnome-cmd-user-actions.cc:
 	Brand new dlg for connection details
 
+	* src/gnome-cmd-con-dialog.cc:
+	Use proper type for #define GNOME_CMD_TYPE_CONNECT_DIALOG
+
 2007-11-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
