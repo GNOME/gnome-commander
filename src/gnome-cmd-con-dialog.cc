@@ -486,7 +486,7 @@ static void setup_for_type (GnomeCmdConnectDialog *dialog)
         show_entry (table, dialog->priv->password_entry, _("_Password:"), i);
 
     if (show_domain)
-        show_entry (table, dialog->priv->domain_entry, _("_Domain name"), i);
+        show_entry (table, dialog->priv->domain_entry, _("_Domain name:"), i);
 }
 
 

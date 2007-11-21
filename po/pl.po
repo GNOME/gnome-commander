@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-21 00:23+0100\n"
+"POT-Creation-Date: 2007-11-21 19:02+0100\n"
 "PO-Revision-Date: 2007-11-21 00:29+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: KBabel 1.11.2\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
@@ -30,8 +31,7 @@ msgstr "Brak opisu błędu"
 
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
-#: ../src/gnome-cmd-ftp-dialog.cc:580
-#: ../src/gnome-cmd-options-dialog.cc:1179
+#: ../src/gnome-cmd-ftp-dialog.cc:580 ../src/gnome-cmd-options-dialog.cc:1179
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
@@ -136,12 +136,20 @@ msgid "Default type"
 msgstr "Typ domyślny"
 
 #: ../plugins/fileroller/file-roller-plugin.c:479
-msgid "A plugin that adds File Roller shortcuts for creating and extracting compressed archives."
-msgstr "Wtyczka, która dodaje skróty aplikacji File Roller dla pakowania i rozpakowania skompresowanych archiwów"
+msgid ""
+"A plugin that adds File Roller shortcuts for creating and extracting "
+"compressed archives."
+msgstr ""
+"Wtyczka, która dodaje skróty aplikacji File Roller dla pakowania i "
+"rozpakowania skompresowanych archiwów"
 
 #: ../plugins/test/test-plugin.c:238
-msgid "This is an example plugin that is mostly useful as a simple example for aspiring plugin hackers"
-msgstr "To jest przykładowa wtyczka, która jest najbardziej przydatna jako prosty przykład dla kandydatów na twórców wtyczek"
+msgid ""
+"This is an example plugin that is mostly useful as a simple example for "
+"aspiring plugin hackers"
+msgstr ""
+"To jest przykładowa wtyczka, która jest najbardziej przydatna jako prosty "
+"przykład dla kandydatów na twórców wtyczek"
 
 #: ../src/dirlist.cc:72
 #, c-format
@@ -285,14 +293,12 @@ msgid "/Time/SS"
 msgstr "/Czas/SS"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123
-#: ../src/utils.cc:661
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
 msgid "Yes"
 msgstr "Tak"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123
-#: ../src/utils.cc:661
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
 msgid "No"
 msgstr "Nie"
 
@@ -345,8 +351,7 @@ msgstr "Uaktualniaj podczas wprowadzania szablonu"
 msgid "Advanced Rename Tool"
 msgstr "Zaawansowana zmiana nazwy"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1139
-#: ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1139 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "Szablon"
 
@@ -366,8 +371,7 @@ msgstr "Katalog"
 #. NULL);
 #: ../src/gnome-cmd-advrename-dialog.cc:1170
 #: ../src/gnome-cmd-file-props-dialog.cc:613
-#: ../src/gnome-cmd-ftp-dialog.cc:474
-#: ../src/plugin_manager.cc:420
+#: ../src/gnome-cmd-ftp-dialog.cc:474 ../src/plugin_manager.cc:420
 #: ../src/tags/gnome-cmd-tags.cc:315
 msgid "Name"
 msgstr "Nazwa"
@@ -376,8 +380,7 @@ msgstr "Nazwa"
 msgid "Counter"
 msgstr "Licznik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1176
-#: ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/gnome-cmd-advrename-dialog.cc:1176 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Date"
 msgstr "Data"
@@ -409,14 +412,12 @@ msgid "Result"
 msgstr "Wynik"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1239
-#, fuzzy
 msgid "Current file names"
-msgstr "Kopiuj _Nazwy Plików"
+msgstr "Obecna nazwa pliku"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1240
-#, fuzzy
 msgid "New file names"
-msgstr "Kopiuj _Nazwy Plików"
+msgstr "Nowa nazwa pliku"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1246
 msgid "Rese_t"
@@ -451,8 +452,7 @@ msgstr "Zakładki"
 msgid "Bookmark Groups"
 msgstr "Grupy zakładek"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454
-#: ../src/gnome-cmd-file-list.cc:90
+#: ../src/gnome-cmd-bookmark-dialog.cc:454 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "nazwa"
 
@@ -461,7 +461,9 @@ msgid "path"
 msgstr "ścieżka"
 
 #: ../src/gnome-cmd-bookmark-dialog.cc:579
-msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding\n"
+msgid ""
+"To bookmark a directory the whole search path to the directory must be in "
+"valid UTF-8 encoding\n"
 msgstr ""
 
 #: ../src/gnome-cmd-bookmark-dialog.cc:586
@@ -502,8 +504,7 @@ msgstr "Tekstowo:"
 msgid "Number view:"
 msgstr "Ósemkowo:"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:43
-#: ../src/gnome-cmd-options-dialog.cc:1200
+#: ../src/gnome-cmd-chmod-dialog.cc:43 ../src/gnome-cmd-options-dialog.cc:1200
 msgid "All files"
 msgstr "Wszystkie pliki"
 
@@ -610,9 +611,9 @@ msgid "Please enter a name and try again."
 msgstr "Proszę podać nazwę i spróbować ponownie."
 
 #: ../src/gnome-cmd-con-dialog.cc:230
-#, fuzzy, c-format
+#, c-format
 msgid "\"%s\" is not a valid location"
-msgstr "\"%s\" nie jest poprawnym położeniem"
+msgstr "\"%s\" nie określa poprawnego położenia"
 
 #: ../src/gnome-cmd-con-dialog.cc:231
 msgid "Please check the spelling and try again."
@@ -624,7 +625,7 @@ msgstr "_Alias:"
 
 #: ../src/gnome-cmd-con-dialog.cc:407
 msgid "_Location (URI):"
-msgstr "Położenie (_URI):"
+msgstr "Położenie (U_RI):"
 
 #: ../src/gnome-cmd-con-dialog.cc:440
 msgid "_Server:"
@@ -635,9 +636,8 @@ msgid "Optional information"
 msgstr "Informacje dodatkowe"
 
 #: ../src/gnome-cmd-con-dialog.cc:475
-#, fuzzy
 msgid "S_hare:"
-msgstr "Ostrość"
+msgstr "_Zasób:"
 
 #: ../src/gnome-cmd-con-dialog.cc:478
 msgid "_Port:"
@@ -648,25 +648,24 @@ msgid "_Remote dir:"
 msgstr "Zdalny _katalog:"
 
 #: ../src/gnome-cmd-con-dialog.cc:483
-msgid "_User name"
-msgstr "_Użytkownik"
+msgid "_User name:"
+msgstr "_Użytkownik:"
 
 #: ../src/gnome-cmd-con-dialog.cc:486
-msgid "_Password"
-msgstr "_Hasło"
+msgid "_Password:"
+msgstr "_Hasło:"
 
 #: ../src/gnome-cmd-con-dialog.cc:489
-msgid "_Domain name"
+msgid "_Domain name:"
 msgstr "Nazwa _domeny:"
 
-#: ../src/gnome-cmd-con-dialog.cc:526
-#: ../src/gnome-cmd-main-win.cc:1176
+#: ../src/gnome-cmd-con-dialog.cc:526 ../src/gnome-cmd-main-win.cc:1176
 msgid "Remote Server"
 msgstr "Zdalny serwer"
 
 #: ../src/gnome-cmd-con-dialog.cc:541
 msgid "Service _type:"
-msgstr "Ro_dzaj usługi:"
+msgstr "_Typ usługi:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
 #: ../src/gnome-cmd-con-dialog.cc:553
@@ -678,9 +677,8 @@ msgid "Public FTP"
 msgstr "Publiczny FTP"
 
 #: ../src/gnome-cmd-con-dialog.cc:571
-#, fuzzy
 msgid "Use _GNOME Keyring Manager for authentication"
-msgstr "Menedżer haseł przechowywanych w gnome-keyring"
+msgstr "Użyj menedżera haseł _GNOME do uwierzytelniania"
 
 #: ../src/gnome-cmd-con-ftp.cc:276
 #, c-format
@@ -736,10 +734,8 @@ msgstr "Szukanie grup roboczych i hostów"
 msgid "Go to: Samba Network"
 msgstr "Idź do: Sieć Samby"
 
-#: ../src/gnome-cmd-data.cc:1250
-#: ../src/gnome-cmd-data.cc:1475
-#: ../src/gnome-cmd-data.cc:1476
-#: ../src/gnome-cmd-data.cc:2543
+#: ../src/gnome-cmd-data.cc:1250 ../src/gnome-cmd-data.cc:1475
+#: ../src/gnome-cmd-data.cc:1476 ../src/gnome-cmd-data.cc:2543
 #, c-format
 msgid "link to %s"
 msgstr "dowiązanie do %s"
@@ -771,21 +767,18 @@ msgstr ""
 msgid "Delete problem"
 msgstr "Problem usuwania"
 
-#: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-delete-dialog.cc:210 ../src/gnome-cmd-xfer.cc:174
 #: ../src/gnome-cmd-xfer.cc:193
 msgid "Abort"
 msgstr "Przerwij"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131
-#: ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:193
 msgid "Retry"
 msgstr "Ponów"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:174
 #: ../src/gnome-cmd-xfer.cc:193
 msgid "Skip"
 msgstr "Pomiń"
@@ -803,22 +796,18 @@ msgstr[0] "Czy chcesz usunąć %d zaznaczony plik ?"
 msgstr[1] "Czy chcesz usunąć %d zaznaczone pliki ?"
 msgstr[2] "Czy chcesz usunąć %d zaznaczonych plików ?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:288
-#: ../src/gnome-cmd-main-win.cc:1170
+#: ../src/gnome-cmd-delete-dialog.cc:288 ../src/gnome-cmd-main-win.cc:1170
 #: ../src/gnome-cmd-options-dialog.cc:653
 msgid "Delete"
 msgstr "Usuń"
 
 #: ../src/gnome-cmd-delete-dialog.cc:289
-#: ../src/gnome-cmd-file-selector.cc:2131
-#: ../src/gnome-cmd-user-actions.cc:673
-#: ../src/utils.cc:511
-#: ../src/utils.cc:540
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
+#: ../src/utils.cc:511 ../src/utils.cc:540
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: ../src/gnome-cmd-delete-dialog.cc:289
-#: ../src/utils.cc:511
+#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:511
 msgid "OK"
 msgstr "OK"
 
@@ -862,8 +851,7 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:2131
-#: ../src/gnome-cmd-file-list.cc:2147
+#: ../src/gnome-cmd-file-list.cc:2131 ../src/gnome-cmd-file-list.cc:2147
 #, c-format
 msgid "Not an ordinary file: %s"
 msgstr "To nie jest zwykły plik: %s"
@@ -884,8 +872,7 @@ msgstr "Otwórz z pomocą innej aplikacji..."
 msgid "Needs terminal"
 msgstr "Uruchom w terminalu"
 
-#: ../src/gnome-cmd-file-popmenu.cc:399
-#: ../src/gnome-cmd-file-popmenu.cc:408
+#: ../src/gnome-cmd-file-popmenu.cc:399 ../src/gnome-cmd-file-popmenu.cc:408
 #: ../src/gnome-cmd-file-popmenu.cc:433
 msgid "_Open"
 msgstr "_Otwórz"
@@ -903,18 +890,15 @@ msgstr "Otwórz z..."
 msgid "E_xecute"
 msgstr "Wykonaj"
 
-#: ../src/gnome-cmd-file-popmenu.cc:452
-#: ../src/gnome-cmd-main-menu.cc:544
+#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-menu.cc:544
 msgid "Cu_t"
 msgstr "_Wytnij"
 
-#: ../src/gnome-cmd-file-popmenu.cc:453
-#: ../src/gnome-cmd-main-menu.cc:550
+#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-main-menu.cc:550
 msgid "_Copy"
 msgstr "_Kopiuj"
 
-#: ../src/gnome-cmd-file-popmenu.cc:454
-#: ../src/gnome-cmd-main-menu.cc:562
+#: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:562
 msgid "_Delete"
 msgstr "_Usuń"
 
@@ -922,18 +906,15 @@ msgstr "_Usuń"
 msgid "Rename"
 msgstr "Zmień nazwę"
 
-#: ../src/gnome-cmd-file-popmenu.cc:457
-#: ../src/gnome-cmd-main-win.cc:1173
+#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-main-win.cc:1173
 msgid "Send files"
 msgstr "Wyślij pliki"
 
-#: ../src/gnome-cmd-file-popmenu.cc:458
-#: ../src/gnome-cmd-list-popmenu.cc:123
+#: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-list-popmenu.cc:123
 msgid "Open _terminal here"
 msgstr "Otwiera _terminal w tym miejscu"
 
-#: ../src/gnome-cmd-file-popmenu.cc:460
-#: ../src/gnome-cmd-main-menu.cc:465
+#: ../src/gnome-cmd-file-popmenu.cc:460 ../src/gnome-cmd-main-menu.cc:465
 msgid "_Properties..."
 msgstr "_Właściwości..."
 
@@ -941,8 +922,7 @@ msgstr "_Właściwości..."
 msgid "Other..."
 msgstr "Inni..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:70
-#: ../src/utils.cc:823
+#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:823
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -1021,22 +1001,18 @@ msgid "Value"
 msgstr "Wartość"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:617
-#, fuzzy
 msgid "Tag value"
-msgstr "Nieprawidłowa wartość dla znacznika %1"
+msgstr "Wartość znacznika"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:619
-#: ../src/tags/gnome-cmd-tags.cc:159
-#: ../src/tags/gnome-cmd-tags.cc:310
-#: ../src/tags/gnome-cmd-tags.cc:412
+#: ../src/gnome-cmd-file-props-dialog.cc:619 ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/tags/gnome-cmd-tags.cc:310 ../src/tags/gnome-cmd-tags.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:508
 msgid "Description"
 msgstr "Opis"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:620
-#, fuzzy
 msgid "Metadata tag description"
-msgstr "Brak opisu"
+msgstr "Opis znacznika"
 
 #. data->thread = 0;
 #: ../src/gnome-cmd-file-props-dialog.cc:675
@@ -1047,8 +1023,7 @@ msgstr "Właściwości pliku"
 msgid "Properties"
 msgstr "Właściwości"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:699
-#: ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/gnome-cmd-file-props-dialog.cc:699 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permissions"
 msgstr "Uprawnienia"
 
@@ -1109,8 +1084,7 @@ msgid "Symlink name:"
 msgstr "Nazwa linku symbolicznego:"
 
 #: ../src/gnome-cmd-file-selector.cc:2085
-#: ../src/gnome-cmd-file-selector.cc:2131
-#: ../src/gnome-cmd-user-actions.cc:673
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
 msgid "Create Symbolic Link"
 msgstr "Utwórz link symboliczny"
 
@@ -1169,28 +1143,23 @@ msgstr "Nie podano hosta"
 msgid "Invalid port number: %s"
 msgstr "Nieprawidłowy numer portu: %s"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:209
-#: ../src/gnome-cmd-options-dialog.cc:1588
+#: ../src/gnome-cmd-ftp-dialog.cc:209 ../src/gnome-cmd-options-dialog.cc:1588
 msgid "Alias:"
 msgstr "Alias:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:209
-#: ../src/gnome-cmd-ftp-dialog.cc:210
+#: ../src/gnome-cmd-ftp-dialog.cc:209 ../src/gnome-cmd-ftp-dialog.cc:210
 msgid "Host:"
 msgstr "Host:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:209
-#: ../src/gnome-cmd-ftp-dialog.cc:210
+#: ../src/gnome-cmd-ftp-dialog.cc:209 ../src/gnome-cmd-ftp-dialog.cc:210
 msgid "Port:"
 msgstr "Port:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:209
-#: ../src/gnome-cmd-ftp-dialog.cc:210
+#: ../src/gnome-cmd-ftp-dialog.cc:209 ../src/gnome-cmd-ftp-dialog.cc:210
 msgid "User:"
 msgstr "Użytkownik:"
 
-#: ../src/gnome-cmd-ftp-dialog.cc:209
-#: ../src/gnome-cmd-ftp-dialog.cc:210
+#: ../src/gnome-cmd-ftp-dialog.cc:209 ../src/gnome-cmd-ftp-dialog.cc:210
 msgid "Remote Dir:"
 msgstr "Zdalny katalog:"
 
@@ -1239,13 +1208,11 @@ msgstr "_Plik tekstowy"
 msgid "_New..."
 msgstr "_Nowy..."
 
-#: ../src/gnome-cmd-list-popmenu.cc:122
-#: ../src/gnome-cmd-main-menu.cc:556
+#: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:556
 msgid "_Paste"
 msgstr "Wk_lej"
 
-#: ../src/gnome-cmd-list-popmenu.cc:124
-#: ../src/gnome-cmd-main-menu.cc:611
+#: ../src/gnome-cmd-list-popmenu.cc:124 ../src/gnome-cmd-main-menu.cc:611
 msgid "_Refresh"
 msgstr "_Odśwież"
 
@@ -1397,8 +1364,7 @@ msgstr "Nowe połączenie..."
 msgid "_Contents"
 msgstr "_Zawartość"
 
-#: ../src/gnome-cmd-main-menu.cc:737
-#: ../src/libgviewer/viewer-window.cc:923
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:923
 msgid "_Keyboard Shortcuts"
 msgstr "_Skróty klawiszowe"
 
@@ -1410,15 +1376,13 @@ msgstr "Strona domowa GNOME Commander w sieci _WWW"
 msgid "Report a _Problem"
 msgstr "Zgłoś _problem"
 
-#: ../src/gnome-cmd-main-menu.cc:756
-#: ../src/plugin_manager.cc:436
+#: ../src/gnome-cmd-main-menu.cc:756 ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "_Informacje o"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778
-#: ../src/libgviewer/viewer-window.cc:935
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:935
 msgid "_File"
 msgstr "_Plik"
 
@@ -1430,13 +1394,11 @@ msgstr "_Edycja"
 msgid "_Mark"
 msgstr "_Zaznaczanie"
 
-#: ../src/gnome-cmd-main-menu.cc:790
-#: ../src/libgviewer/viewer-window.cc:938
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:938
 msgid "_View"
 msgstr "W_idok"
 
-#: ../src/gnome-cmd-main-menu.cc:795
-#: ../src/libgviewer/viewer-window.cc:949
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:949
 msgid "_Settings"
 msgstr "_Ustawienia"
 
@@ -1452,8 +1414,7 @@ msgstr "_Zakładki"
 msgid "_Plugins"
 msgstr "_Wtyczki"
 
-#: ../src/gnome-cmd-main-menu.cc:811
-#: ../src/libgviewer/viewer-window.cc:954
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:954
 msgid "_Help"
 msgstr "Pomo_c"
 
@@ -1663,8 +1624,11 @@ msgid "Test result:"
 msgstr "Wynik testu:"
 
 #: ../src/gnome-cmd-options-dialog.cc:272
-msgid "See the manual page for \"strftime\" for help on how to set the format string."
-msgstr "Zajrzyj do manuala dla \"strftime\" aby uzyskać pomoc odnośnie formatu."
+msgid ""
+"See the manual page for \"strftime\" for help on how to set the format "
+"string."
+msgstr ""
+"Zajrzyj do manuala dla \"strftime\" aby uzyskać pomoc odnośnie formatu."
 
 #: ../src/gnome-cmd-options-dialog.cc:391
 msgid "Edit Colors..."
@@ -1879,9 +1843,8 @@ msgid "Authentication"
 msgstr "Uwierzytelnianie"
 
 #: ../src/gnome-cmd-options-dialog.cc:936
-#, fuzzy
 msgid "Use GNOME Keyring Manager for authentication"
-msgstr "Menedżer haseł przechowywanych w gnome-keyring"
+msgstr "Użyj menedżera haseł GNOME do uwierzytelniania"
 
 #: ../src/gnome-cmd-options-dialog.cc:944
 msgid "Anonymous FTP access"
@@ -1946,7 +1909,8 @@ msgstr "Edycja"
 
 #: ../src/gnome-cmd-options-dialog.cc:1353
 msgid "Always download remote files before opening in external programs"
-msgstr "Zawsze pobierz zdalne pliki przed ich otwarciem przez program zewnętrzny"
+msgstr ""
+"Zawsze pobierz zdalne pliki przed ich otwarciem przez program zewnętrzny"
 
 #: ../src/gnome-cmd-options-dialog.cc:1355
 msgid "MIME applications"
@@ -2021,8 +1985,7 @@ msgstr "Pomiń montowanie (przydatne dla super-mount)"
 msgid "General"
 msgstr "Ogólne"
 
-#: ../src/gnome-cmd-options-dialog.cc:1906
-#: ../src/tags/gnome-cmd-tags.cc:311
+#: ../src/gnome-cmd-options-dialog.cc:1906 ../src/tags/gnome-cmd-tags.cc:311
 msgid "Format"
 msgstr "Format"
 
@@ -2064,8 +2027,7 @@ msgid "Query First"
 msgstr "Z potwierdzeniem"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:174
 msgid "Skip All"
 msgstr "Pomiń wszystkie"
 
@@ -2177,8 +2139,7 @@ msgid "Search Recursively"
 msgstr "Zastosuj do podkatalogów"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:785
-#: ../src/tags/gnome-cmd-tags.cc:147
+#: ../src/gnome-cmd-search-dialog.cc:785 ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
 msgstr "Rozróżnianie wielkości liter"
 
@@ -2225,15 +2186,13 @@ msgstr[2] "Utwórz %i linków symbolicznych w %s?"
 msgid "Create"
 msgstr "Utwórz"
 
-#: ../src/gnome-cmd-user-actions.cc:721
-#: ../src/gnome-cmd-user-actions.cc:780
+#: ../src/gnome-cmd-user-actions.cc:721 ../src/gnome-cmd-user-actions.cc:780
 #: ../src/gnome-cmd-user-actions.cc:817
 #, c-format
 msgid "running `%s'\n"
 msgstr "wykonuję `%s'\n"
 
-#: ../src/gnome-cmd-user-actions.cc:738
-#: ../src/gnome-cmd-user-actions.cc:755
+#: ../src/gnome-cmd-user-actions.cc:738 ../src/gnome-cmd-user-actions.cc:755
 #: ../src/gnome-cmd-user-actions.cc:795
 msgid "Operation not supported on remote file systems"
 msgstr "Operacja nieobsługiwana dla zdalnego systemu plików"
@@ -2255,16 +2214,38 @@ msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Szybki i efektywny menedżer plików dla GNOME"
 
 #: ../src/gnome-cmd-user-actions.cc:1351
-msgid "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
-msgstr "GNOME Commander jest wolnym oprogramowaniem; można go rozprowadzać dalej lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundację Wolnego Oprogramowania - według wersji 2 tej Licencji lub (według Twojego wyboru) którejś z późniejszych wersji. "
+msgid ""
+"GNOME Commander is free software; you can redistribute it and/or modify it "
+"under the terms of the GNU General Public License as published by the Free "
+"Software Foundation; either version 2 of the License, or (at your option) "
+"any later version."
+msgstr ""
+"GNOME Commander jest wolnym oprogramowaniem; można go rozprowadzać dalej lub "
+"modyfikować na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez "
+"Fundację Wolnego Oprogramowania - według wersji 2 tej Licencji lub (według "
+"Twojego wyboru) którejś z późniejszych wersji. "
 
 #: ../src/gnome-cmd-user-actions.cc:1355
-msgid "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
-msgstr "GNOME Commander jest rozpowszechniany z nadzieją, iż będzie on użyteczny - jednak BEZ JAKIEJKOLWIEK GWARANCJI, nawet domyślnej gwarancji PRZYDATNOŚCI HANDLOWEJ albo PRZYDATNOŚCI DO OKREŚLONYCH ZASTOSOWAŃ. W celu uzyskania bliższych informacji sięgnij do Powszechnej Licencji Publicznej GNU."
+msgid ""
+"GNOME Commander is distributed in the hope that it will be useful, but "
+"WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
+"or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for "
+"more details."
+msgstr ""
+"GNOME Commander jest rozpowszechniany z nadzieją, iż będzie on użyteczny - "
+"jednak BEZ JAKIEJKOLWIEK GWARANCJI, nawet domyślnej gwarancji PRZYDATNOŚCI "
+"HANDLOWEJ albo PRZYDATNOŚCI DO OKREŚLONYCH ZASTOSOWAŃ. W celu uzyskania "
+"bliższych informacji sięgnij do Powszechnej Licencji Publicznej GNU."
 
 #: ../src/gnome-cmd-user-actions.cc:1359
-msgid "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA"
-msgstr "Kopia licencji GNU GPL powinna zostać dostarczona wraz z tym programem. Jeśli jej brak, napisz na adres Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
+msgid ""
+"You should have received a copy of the GNU General Public License along with "
+"GNOME Commander; if not, write to the Free Software Foundation, Inc., 59 "
+"Temple Place, Suite 330, Boston, MA  02111-1307  USA"
+msgstr ""
+"Kopia licencji GNU GPL powinna zostać dostarczona wraz z tym programem. "
+"Jeśli jej brak, napisz na adres Free Software Foundation, Inc., 59 Temple "
+"Place - Suite 330, Boston, MA 02111-1307, USA."
 
 #: ../src/gnome-cmd-user-actions.cc:1376
 msgid "translator-credits"
@@ -2348,32 +2329,37 @@ msgid "downloading to /tmp"
 msgstr "pobieranie do /tmp"
 
 #: ../src/imageloader.cc:129
-msgid "Couldn't load installed file type pixmap, trying to load from source-dir\n"
-msgstr "Nie można załadować zainstalowanej piksmapy, próba załadowania z source-dir\n"
+msgid ""
+"Couldn't load installed file type pixmap, trying to load from source-dir\n"
+msgstr ""
+"Nie można załadować zainstalowanej piksmapy, próba załadowania z source-dir\n"
 
-#: ../src/imageloader.cc:130
-#: ../src/imageloader.cc:156
+#: ../src/imageloader.cc:130 ../src/imageloader.cc:156
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr "Próba załadowania %s\n"
 
-#: ../src/imageloader.cc:134
-#: ../src/imageloader.cc:159
+#: ../src/imageloader.cc:134 ../src/imageloader.cc:159
 #, c-format
-msgid "Can't find the pixmap anywhere. Make sure you have installed the program or is executing gnome-commander from the gnome-commander-%s/src directory\n"
-msgstr "Nie można nigdzie znaleźć piksmapy. Upewnij się, że masz zainstalowany program, i że gnome-commander jest uruchamiany z katalogu gnome-commander-%s/src\n"
+msgid ""
+"Can't find the pixmap anywhere. Make sure you have installed the program or "
+"is executing gnome-commander from the gnome-commander-%s/src directory\n"
+msgstr ""
+"Nie można nigdzie znaleźć piksmapy. Upewnij się, że masz zainstalowany "
+"program, i że gnome-commander jest uruchamiany z katalogu gnome-commander-%s/"
+"src\n"
 
 #: ../src/imageloader.cc:155
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
-msgstr "Nie można załadować zainstalowanej piksmapy, próba załadowania z source-dir\n"
+msgstr ""
+"Nie można załadować zainstalowanej piksmapy, próba załadowania z source-dir\n"
 
 #: ../src/libgviewer/search-dlg.cc:312
 msgid "Find"
 msgstr "Znajdź"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.cc:342
-#: ../src/libgviewer/viewer-window.cc:721
+#: ../src/libgviewer/search-dlg.cc:342 ../src/libgviewer/viewer-window.cc:721
 #: ../src/libgviewer/viewer-window.cc:941
 msgid "_Text"
 msgstr "_Tekst"
@@ -2549,18 +2535,15 @@ msgstr "Szybka pomoc"
 msgid "Pattern \"%s\" was not found"
 msgstr "Wzorzec \"%s\" nie został znaleziony"
 
-#: ../src/main.cc:61
-#: ../src/main.cc:70
+#: ../src/main.cc:61 ../src/main.cc:70
 msgid "Specify debug flags to use"
 msgstr "Określ flagi debugowania"
 
-#: ../src/main.cc:62
-#: ../src/main.cc:71
+#: ../src/main.cc:62 ../src/main.cc:71
 msgid "Specify the start directory for the left pane"
 msgstr "Podaj katalog startowy dla lewego panelu"
 
-#: ../src/main.cc:63
-#: ../src/main.cc:72
+#: ../src/main.cc:63 ../src/main.cc:72
 msgid "Specify the start directory for the right pane"
 msgstr "Podaj katalog startowy dla prawego panelu"
 
@@ -2570,8 +2553,12 @@ msgstr "Menadżer plików"
 
 #: ../src/owner.cc:102
 #, c-format
-msgid "When parsing the users and groups on this system it was found that the user %s is part of the group %s. This user can however not be found.\n"
-msgstr "Podczas analizy użytkowników i grup w systemie ustalono, że użytkownik %s należy do grupy %s. Użytownika tego jednak nie można znaleźć.\n"
+msgid ""
+"When parsing the users and groups on this system it was found that the user %"
+"s is part of the group %s. This user can however not be found.\n"
+msgstr ""
+"Podczas analizy użytkowników i grup w systemie ustalono, że użytkownik %s "
+"należy do grupy %s. Użytownika tego jednak nie można znaleźć.\n"
 
 #: ../src/plugin_manager.cc:347
 msgid "Disable"
@@ -2589,8 +2576,7 @@ msgstr "Dostępne wtyczki"
 msgid "Version"
 msgstr "Wersja"
 
-#: ../src/plugin_manager.cc:422
-#: ../src/tags/gnome-cmd-tags.cc:659
+#: ../src/plugin_manager.cc:422 ../src/tags/gnome-cmd-tags.cc:659
 msgid "File"
 msgstr "Plik"
 
@@ -2614,8 +2600,7 @@ msgstr "<Znaczniki ID3, APE, FLAC i Vorbis nie są obsługiwane>"
 msgid "<OLE2 and ODF tags not supported>"
 msgstr "<Znaczniki OLE2 i ODF nie są obsługiwane>"
 
-#: ../src/tags/gnome-cmd-tags.cc:106
-#: ../src/tags/gnome-cmd-tags.cc:407
+#: ../src/tags/gnome-cmd-tags.cc:106 ../src/tags/gnome-cmd-tags.cc:407
 msgid "Album"
 msgstr "Album"
 
@@ -2659,8 +2644,7 @@ msgstr "Pozycja utworu w albumie"
 msgid "Total number of tracks on the album."
 msgstr "Liczba utworów w albumie."
 
-#: ../src/tags/gnome-cmd-tags.cc:111
-#: ../src/tags/gnome-cmd-tags.cc:193
+#: ../src/tags/gnome-cmd-tags.cc:111 ../src/tags/gnome-cmd-tags.cc:193
 msgid "Artist"
 msgstr "Artysta"
 
@@ -2674,7 +2658,7 @@ msgstr "Przepływność"
 
 #: ../src/tags/gnome-cmd-tags.cc:112
 msgid "Bitrate in kbps."
-msgstr "Bitrate w kbps."
+msgstr "Przepływność w kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Channels"
@@ -2709,15 +2693,12 @@ msgstr "Komentarz"
 msgid "Comments on the track."
 msgstr "Komentarze na temat utworu."
 
-#: ../src/tags/gnome-cmd-tags.cc:117
-#: ../src/tags/gnome-cmd-tags.cc:204
-#: ../src/tags/gnome-cmd-tags.cc:333
-#: ../src/tags/gnome-cmd-tags.cc:409
+#: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:204
+#: ../src/tags/gnome-cmd-tags.cc:333 ../src/tags/gnome-cmd-tags.cc:409
 msgid "Copyright"
 msgstr "Prawa autorskie"
 
-#: ../src/tags/gnome-cmd-tags.cc:117
-#: ../src/tags/gnome-cmd-tags.cc:333
+#: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:333
 msgid "Copyright message."
 msgstr "Komunikat o prawach autorskich."
 
@@ -2757,8 +2738,7 @@ msgstr "Długość ścieżki w MM:SS."
 msgid "Genre"
 msgstr "Gatunek"
 
-#: ../src/tags/gnome-cmd-tags.cc:122
-#: ../src/tags/gnome-cmd-tags.cc:332
+#: ../src/tags/gnome-cmd-tags.cc:122 ../src/tags/gnome-cmd-tags.cc:332
 msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr ""
 
@@ -2797,7 +2777,9 @@ msgstr "Tekst piosenki."
 #: ../src/tags/gnome-cmd-tags.cc:127
 #, fuzzy
 msgid "MB album artist ID"
-msgstr "Album \"%s\", artysta: \"%s\", długość: \"%s\", rok: \"%s\", gatunek: \"%s\", ID: \"%s\""
+msgstr ""
+"Album \"%s\", artysta: \"%s\", długość: \"%s\", rok: \"%s\", gatunek: \"%s"
+"\", ID: \"%s\""
 
 #: ../src/tags/gnome-cmd-tags.cc:127
 msgid "MusicBrainz album artist ID in UUID format."
@@ -2888,8 +2870,7 @@ msgstr "Liczba odtworzeń"
 msgid "Number of times the track has been played."
 msgstr "Liczba odtwarzań utworu."
 
-#: ../src/tags/gnome-cmd-tags.cc:138
-#: ../src/tags/gnome-cmd-tags.cc:491
+#: ../src/tags/gnome-cmd-tags.cc:138 ../src/tags/gnome-cmd-tags.cc:491
 msgid "Release Date"
 msgstr "Data wydania"
 
@@ -2906,8 +2887,7 @@ msgstr "Częstotliwość próbkowania"
 msgid "Sample rate in Hz."
 msgstr "Częstotliwość próbkowania w kHz"
 
-#: ../src/tags/gnome-cmd-tags.cc:140
-#: ../src/tags/gnome-cmd-tags.cc:190
+#: ../src/tags/gnome-cmd-tags.cc:140 ../src/tags/gnome-cmd-tags.cc:190
 #: ../src/tags/gnome-cmd-tags.cc:426
 msgid "Title"
 msgstr "Tytuł"
@@ -2951,13 +2931,11 @@ msgstr "Rok"
 msgid "Year."
 msgstr "Rok."
 
-#: ../src/tags/gnome-cmd-tags.cc:145
-#: ../src/tags/gnome-cmd-tags.cc:154
+#: ../src/tags/gnome-cmd-tags.cc:145 ../src/tags/gnome-cmd-tags.cc:154
 msgid "Author"
 msgstr "Autor"
 
-#: ../src/tags/gnome-cmd-tags.cc:145
-#: ../src/tags/gnome-cmd-tags.cc:154
+#: ../src/tags/gnome-cmd-tags.cc:145 ../src/tags/gnome-cmd-tags.cc:154
 #: ../src/tags/gnome-cmd-tags.cc:410
 msgid "Name of the author."
 msgstr "Nazwisko autora"
@@ -2974,8 +2952,7 @@ msgstr "Liczba bajtów w dokumencie"
 msgid "Case sensitive."
 msgstr "Rozróżnianie wielkości liter."
 
-#: ../src/tags/gnome-cmd-tags.cc:148
-#: ../src/tags/gnome-cmd-tags.cc:440
+#: ../src/tags/gnome-cmd-tags.cc:148 ../src/tags/gnome-cmd-tags.cc:440
 msgid "Category"
 msgstr "Kategoria"
 
@@ -3007,13 +2984,11 @@ msgstr "Strona kodowa"
 msgid "The MS codepage to encode strings for metadata."
 msgstr "Strona kodowa MS stosowana w metadanych"
 
-#: ../src/tags/gnome-cmd-tags.cc:152
-#: ../src/tags/gnome-cmd-tags.cc:408
+#: ../src/tags/gnome-cmd-tags.cc:152 ../src/tags/gnome-cmd-tags.cc:408
 msgid "Comments"
 msgstr "Komentarze"
 
-#: ../src/tags/gnome-cmd-tags.cc:152
-#: ../src/tags/gnome-cmd-tags.cc:408
+#: ../src/tags/gnome-cmd-tags.cc:152 ../src/tags/gnome-cmd-tags.cc:408
 #, fuzzy
 msgid "User definable free text."
 msgstr "Text entered by user"
@@ -3026,13 +3001,14 @@ msgstr "Firma"
 msgid "Organization that the <Doc.Creator> entity is associated with."
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags.cc:155
-#: ../src/tags/gnome-cmd-tags.cc:410
+#: ../src/tags/gnome-cmd-tags.cc:155 ../src/tags/gnome-cmd-tags.cc:410
 msgid "Creator"
 msgstr "Twórca"
 
 #: ../src/tags/gnome-cmd-tags.cc:155
-msgid "An entity primarily responsible for making the content of the resource, typically a person, organization, or service."
+msgid ""
+"An entity primarily responsible for making the content of the resource, "
+"typically a person, organization, or service."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:156
@@ -3044,13 +3020,14 @@ msgstr "Utworzony"
 msgid "Datetime document was originally created."
 msgstr "Uwaga - dokument zmieniony"
 
-#: ../src/tags/gnome-cmd-tags.cc:157
-#: ../src/tags/gnome-cmd-tags.cc:451
+#: ../src/tags/gnome-cmd-tags.cc:157 ../src/tags/gnome-cmd-tags.cc:451
 msgid "Date Created"
 msgstr "Data utworzenia"
 
 #: ../src/tags/gnome-cmd-tags.cc:157
-msgid "Date associated with an event in the life cycle of the resource (creation/publication date)."
+msgid ""
+"Date associated with an event in the life cycle of the resource (creation/"
+"publication date)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:158
@@ -3117,10 +3094,8 @@ msgstr "Identyfikator twórcy"
 msgid "Specifies the name of the person who created the document initially."
 msgstr "Określa użytkownika, który ostatnio drukował dokument jako ostatni"
 
-#: ../src/tags/gnome-cmd-tags.cc:166
-#: ../src/tags/gnome-cmd-tags.cc:312
-#: ../src/tags/gnome-cmd-tags.cc:420
-#: ../src/tags/gnome-cmd-tags.cc:468
+#: ../src/tags/gnome-cmd-tags.cc:166 ../src/tags/gnome-cmd-tags.cc:312
+#: ../src/tags/gnome-cmd-tags.cc:420 ../src/tags/gnome-cmd-tags.cc:468
 msgid "Keywords"
 msgstr "Słowa kluczowe"
 
@@ -3128,8 +3103,7 @@ msgstr "Słowa kluczowe"
 msgid "Searchable, indexable keywords."
 msgstr "Lista słów kluczowych."
 
-#: ../src/tags/gnome-cmd-tags.cc:167
-#: ../src/tags/gnome-cmd-tags.cc:351
+#: ../src/tags/gnome-cmd-tags.cc:167 ../src/tags/gnome-cmd-tags.cc:351
 msgid "Language"
 msgstr "Język"
 
@@ -3151,7 +3125,9 @@ msgid "Last Saved By"
 msgstr "Ostatnio zapisane przez"
 
 #: ../src/tags/gnome-cmd-tags.cc:169
-msgid "The entity that made the last change to the document, typically a person, organization, or service."
+msgid ""
+"The entity that made the last change to the document, typically a person, "
+"organization, or service."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:170
@@ -3216,8 +3192,7 @@ msgstr "Liczba obiektów (OLE i innych) w dokumencie."
 msgid "Page Count"
 msgstr "Liczba stron"
 
-#: ../src/tags/gnome-cmd-tags.cc:177
-#: ../src/tags/gnome-cmd-tags.cc:186
+#: ../src/tags/gnome-cmd-tags.cc:177 ../src/tags/gnome-cmd-tags.cc:186
 msgid "Number of pages in the document."
 msgstr "Liczba stron w dokumencie."
 
@@ -3242,9 +3217,8 @@ msgid "Print Date"
 msgstr "Data wydruku"
 
 #: ../src/tags/gnome-cmd-tags.cc:180
-#, fuzzy
 msgid "Specifies the date and time when the document was last printed."
-msgstr "Data i czas zapisania obrazu jako danych cyfrowych. "
+msgstr "Określenie daty i czasu ostatniego wydruku dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Printed By"
@@ -3275,7 +3249,9 @@ msgid "Security"
 msgstr "Zabezpieczenie"
 
 #: ../src/tags/gnome-cmd-tags.cc:184
-msgid "One of: \"Password protected\", \"Read-only recommended\", \"Read-only enforced\" or \"Locked for annotations\"."
+msgid ""
+"One of: \"Password protected\", \"Read-only recommended\", \"Read-only "
+"enforced\" or \"Locked for annotations\"."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:185
@@ -3331,8 +3307,15 @@ msgid "The lens aperture. The unit is the APEX value."
 msgstr "Przysłona obiektywu. Jednostką jest wartość APEX."
 
 #: ../src/tags/gnome-cmd-tags.cc:193
-msgid "Name of the camera owner, photographer or image creator. The detailed format is not specified, but it is recommended that the information be written for ease of Interoperability. When the field is left blank, it is treated as unknown."
-msgstr "Nazwa właściciela aparatu, fotografa lub twórcy obrazu. Szczegółowy format nie jest określony, ale zaleca się naśladowanie dla ułatwienia współpracy. Jeśli pole jest puste, jest traktowane jako nieznane."
+msgid ""
+"Name of the camera owner, photographer or image creator. The detailed format "
+"is not specified, but it is recommended that the information be written for "
+"ease of Interoperability. When the field is left blank, it is treated as "
+"unknown."
+msgstr ""
+"Nazwa właściciela aparatu, fotografa lub twórcy obrazu. Szczegółowy format "
+"nie jest określony, ale zaleca się naśladowanie dla ułatwienia współpracy. "
+"Jeśli pole jest puste, jest traktowane jako nieznane."
 
 #: ../src/tags/gnome-cmd-tags.cc:194
 msgid "Battery Level"
@@ -3347,25 +3330,39 @@ msgid "Bits per Sample"
 msgstr "Bity na próbkę"
 
 #: ../src/tags/gnome-cmd-tags.cc:195
-msgid "The number of bits per image component. Each component of the image is 8 bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker is used instead of this tag."
-msgstr "Liczba bitów na składową obrazu. W tym standardzie każda składowa obrazu ma 8 bitów, więc wartość tego znacznika to 8.  W danych skompresowanych algorytmem JPEG zamiast tego znacznika używany jest znacznik JPEG."
+msgid ""
+"The number of bits per image component. Each component of the image is 8 "
+"bits, so the value for this tag is 8. In JPEG compressed data a JPEG marker "
+"is used instead of this tag."
+msgstr ""
+"Liczba bitów na składową obrazu. W tym standardzie każda składowa obrazu ma "
+"8 bitów, więc wartość tego znacznika to 8.  W danych skompresowanych "
+"algorytmem JPEG zamiast tego znacznika używany jest znacznik JPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:196
 msgid "Brightness"
 msgstr "Jasność"
 
 #: ../src/tags/gnome-cmd-tags.cc:196
-msgid "The value of brightness. The unit is the APEX value. Ordinarily it is given in the range of -99.99 to 99.99."
-msgstr "Wartość jasności. Jednostką jest wartość APEX. Zwykle jest podana w przedziale od -99.99 do 99.99."
+msgid ""
+"The value of brightness. The unit is the APEX value. Ordinarily it is given "
+"in the range of -99.99 to 99.99."
+msgstr ""
+"Wartość jasności. Jednostką jest wartość APEX. Zwykle jest podana w "
+"przedziale od -99.99 do 99.99."
 
-#: ../src/tags/gnome-cmd-tags.cc:197
-#: ../src/tags/gnome-cmd-tags.cc:260
+#: ../src/tags/gnome-cmd-tags.cc:197 ../src/tags/gnome-cmd-tags.cc:260
 msgid "CFA Pattern"
 msgstr "Wzór CFA"
 
 #: ../src/tags/gnome-cmd-tags.cc:197
-msgid "The color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods."
-msgstr "Oznaczenie wzoru geometrycznego CFA (color filter array - tablicy filtrów kolorów) czujnika obrazu w przypadku użycia jednoukładowego czujnika obszaru koloru. Nie odnosi się to do wszystkich metod próbkowania."
+msgid ""
+"The color filter array (CFA) geometric pattern of the image sensor when a "
+"one-chip color area sensor is used. It does not apply to all sensing methods."
+msgstr ""
+"Oznaczenie wzoru geometrycznego CFA (color filter array - tablicy filtrów "
+"kolorów) czujnika obrazu w przypadku użycia jednoukładowego czujnika obszaru "
+"koloru. Nie odnosi się to do wszystkich metod próbkowania."
 
 #: ../src/tags/gnome-cmd-tags.cc:198
 #, fuzzy
@@ -3382,52 +3379,126 @@ msgid "Color Space"
 msgstr "Przestrzeń kolorów"
 
 #: ../src/tags/gnome-cmd-tags.cc:199
-msgid "The color space information tag is always recorded as the color space specifier. Normally sRGB (=1) is used to define the color space based on the PC monitor conditions and environment. If a color space other than sRGB is used, Uncalibrated (=FFFF.H) is set. Image data recorded as Uncalibrated can be treated as sRGB when it is converted to FlashPix."
-msgstr "Znacznik informacji o przestrzeni kolorów jest zawsze zapisywany w celu określenia przestrzeni kolorów. Zwykle używane jest sRGB (=1) do określenia przestrzeni kolorów w oparciu o warunki i środowisko monitora PC. Jeśli użyta jest inna przestrzeń kolorów niż sRGB, ustawiona jest wartość \"nieskalibrowana\" (Uncalibrated, =FFFF.H). Dane obrazu zapisane jako nieskalibrowane mogą być traktowane jako sRGB przy konwersji do FlashPix. O sRGB p. załącznik E."
+msgid ""
+"The color space information tag is always recorded as the color space "
+"specifier. Normally sRGB (=1) is used to define the color space based on the "
+"PC monitor conditions and environment. If a color space other than sRGB is "
+"used, Uncalibrated (=FFFF.H) is set. Image data recorded as Uncalibrated can "
+"be treated as sRGB when it is converted to FlashPix."
+msgstr ""
+"Znacznik informacji o przestrzeni kolorów jest zawsze zapisywany w celu "
+"określenia przestrzeni kolorów. Zwykle używane jest sRGB (=1) do określenia "
+"przestrzeni kolorów w oparciu o warunki i środowisko monitora PC. Jeśli "
+"użyta jest inna przestrzeń kolorów niż sRGB, ustawiona jest wartość "
+"\"nieskalibrowana\" (Uncalibrated, =FFFF.H). Dane obrazu zapisane jako "
+"nieskalibrowane mogą być traktowane jako sRGB przy konwersji do FlashPix. O "
+"sRGB p. załącznik E."
 
 #: ../src/tags/gnome-cmd-tags.cc:200
 msgid "Components Configuration"
 msgstr "Konfiguracja komponentów"
 
 #: ../src/tags/gnome-cmd-tags.cc:200
-msgid "Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <Exif.PhotometricInterpretation> tag. However, since <Exif.PhotometricInterpretation> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences."
-msgstr "Informacje specyficzne dla skompresowanych danych. Kanały każdej składowej są układane w kolejności od 1. do 4. Dla danych nieskompresowanych ułożenie danych jest podane w znaczniku <PhotometricInterpretation>. Jednak ponieważ <Exif.PhotometricInterpretation> może wyrazić jedynie kolejność Y, Cb i Cr, ten znacznik został dodany dla przypadków, kiedy skompresowane dane używają składowych innych niż Y, Cb i Cr oraz aby umożliwić obsługę innych sekwencji."
+msgid ""
+"Information specific to compressed data. The channels of each component are "
+"arranged in order from the 1st component to the 4th. For uncompressed data "
+"the data arrangement is given in the <Exif.PhotometricInterpretation> tag. "
+"However, since <Exif.PhotometricInterpretation> can only express the order "
+"of Y, Cb and Cr, this tag is provided for cases when compressed data uses "
+"components other than Y, Cb, and Cr and to enable support of other sequences."
+msgstr ""
+"Informacje specyficzne dla skompresowanych danych. Kanały każdej składowej "
+"są układane w kolejności od 1. do 4. Dla danych nieskompresowanych ułożenie "
+"danych jest podane w znaczniku <PhotometricInterpretation>. Jednak ponieważ "
+"<Exif.PhotometricInterpretation> może wyrazić jedynie kolejność Y, Cb i Cr, "
+"ten znacznik został dodany dla przypadków, kiedy skompresowane dane używają "
+"składowych innych niż Y, Cb i Cr oraz aby umożliwić obsługę innych sekwencji."
 
 #: ../src/tags/gnome-cmd-tags.cc:201
 msgid "Compressed Bits per Pixel"
 msgstr "Skompresowane bity na piksel"
 
 #: ../src/tags/gnome-cmd-tags.cc:201
-msgid "Information specific to compressed data. The compression mode used for a compressed image is indicated in unit bits per pixel."
-msgstr "Informacja specyficzna dla skompresowanych danych. Rodzaj kompresji użyty dla skompresowanego obrazu jest określony w jednostkach bitów na piksel."
+msgid ""
+"Information specific to compressed data. The compression mode used for a "
+"compressed image is indicated in unit bits per pixel."
+msgstr ""
+"Informacja specyficzna dla skompresowanych danych. Rodzaj kompresji użyty "
+"dla skompresowanego obrazu jest określony w jednostkach bitów na piksel."
 
 #: ../src/tags/gnome-cmd-tags.cc:202
 msgid "Compression"
 msgstr "Kompresja danych"
 
 #: ../src/tags/gnome-cmd-tags.cc:202
-msgid "The compression scheme used for the image data. When a primary image is JPEG compressed, this designation is not necessary and is omitted. When thumbnails use JPEG compression, this tag value is set to 6."
-msgstr "Algorytm kompresji użyty dla danych obrazu. Jeśli główny obraz jest skompresowany algorytmem JPEG, to oznaczenie nie jest potrzebne i jest pomijane. Jeśli miniaturki używają kompresji JPEG, ten znacznik ma wartość 6."
+msgid ""
+"The compression scheme used for the image data. When a primary image is JPEG "
+"compressed, this designation is not necessary and is omitted. When "
+"thumbnails use JPEG compression, this tag value is set to 6."
+msgstr ""
+"Algorytm kompresji użyty dla danych obrazu. Jeśli główny obraz jest "
+"skompresowany algorytmem JPEG, to oznaczenie nie jest potrzebne i jest "
+"pomijane. Jeśli miniaturki używają kompresji JPEG, ten znacznik ma wartość 6."
 
 #: ../src/tags/gnome-cmd-tags.cc:203
 msgid "Contrast"
 msgstr "Kontrast"
 
 #: ../src/tags/gnome-cmd-tags.cc:203
-msgid "The direction of contrast processing applied by the camera when the image was shot."
-msgstr "Kierunek przetwarzania kontrastu wykonanego przez aparat przy robieniu zdjęcia."
+msgid ""
+"The direction of contrast processing applied by the camera when the image "
+"was shot."
+msgstr ""
+"Kierunek przetwarzania kontrastu wykonanego przez aparat przy robieniu "
+"zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:204
-msgid "Copyright information. The tag is used to indicate both the photographer and editor copyrights. It is the copyright notice of the person or organization claiming rights to the image. The Interoperability copyright statement including date and rights should be written in this field; e.g., \"Copyright, John Smith, 19xx. All rights reserved.\". The field records both the photographer and editor copyrights, with each recorded in a separate part of the statement. When there is a clear distinction between the photographer and editor copyrights, these are to be written in the order of photographer followed by editor copyright, separated by NULL (in this case, since the statement also ends with a NULL, there are two NULL codes) (see example 1). When only the photographer is given, it is terminated by one NULL code. When only the editor copyright is given, the photographer copyright part consists of one space followed by a terminating NULL code, then the editor copyright is given. When the field is left blank, it is treated as unknown."
-msgstr "Informacje o prawach autorskich. Jest to standardowy znacznik używany do określenia praw autorskich zarówno fotografa, jak i redaktora. Jest to informacja o osobie lub organizacji mającej prawa do obrazu. Standardowe oświadczenie o prawach autorskich wraz z datą i prawami powinno być zapisane w tym polu, np. \"Copyright, John Smith, 19xx. All rights reserved.\". W tym standardzie pola opisują prawa zarówno fotografa, jak i redaktora, z których każdy jest opisywany w oddzielnej części oświadczenia. Jeśli jest jasne rozróżnienie między prawami fotografa i redaktora, powinny być zapisane w kolejności najpierw fotograf, a następnie redaktor, oddzielone znakiem NULL (w tym przypadku, jeśli oświadczenie także kończy się znakiem NULL, powinny być dwa kody NULL; p. przykład 1). Jeśli podano tylko fotografa, jest on kończony kodem NULL (p. przykład 2). Jeśli podano tylko prawa redaktora, część przeznaczona dla fotografa składa się z jednej spacji i następującego po niej kodu NULL, a następnie podane są prawa redaktora (p. przykład 3). Jeśli pole jest puste, jest traktowane jako nieznane."
+msgid ""
+"Copyright information. The tag is used to indicate both the photographer and "
+"editor copyrights. It is the copyright notice of the person or organization "
+"claiming rights to the image. The Interoperability copyright statement "
+"including date and rights should be written in this field; e.g., "
+"\"Copyright, John Smith, 19xx. All rights reserved.\". The field records "
+"both the photographer and editor copyrights, with each recorded in a "
+"separate part of the statement. When there is a clear distinction between "
+"the photographer and editor copyrights, these are to be written in the order "
+"of photographer followed by editor copyright, separated by NULL (in this "
+"case, since the statement also ends with a NULL, there are two NULL codes) "
+"(see example 1). When only the photographer is given, it is terminated by "
+"one NULL code. When only the editor copyright is given, the photographer "
+"copyright part consists of one space followed by a terminating NULL code, "
+"then the editor copyright is given. When the field is left blank, it is "
+"treated as unknown."
+msgstr ""
+"Informacje o prawach autorskich. Jest to standardowy znacznik używany do "
+"określenia praw autorskich zarówno fotografa, jak i redaktora. Jest to "
+"informacja o osobie lub organizacji mającej prawa do obrazu. Standardowe "
+"oświadczenie o prawach autorskich wraz z datą i prawami powinno być zapisane "
+"w tym polu, np. \"Copyright, John Smith, 19xx. All rights reserved.\". W tym "
+"standardzie pola opisują prawa zarówno fotografa, jak i redaktora, z których "
+"każdy jest opisywany w oddzielnej części oświadczenia. Jeśli jest jasne "
+"rozróżnienie między prawami fotografa i redaktora, powinny być zapisane w "
+"kolejności najpierw fotograf, a następnie redaktor, oddzielone znakiem NULL "
+"(w tym przypadku, jeśli oświadczenie także kończy się znakiem NULL, powinny "
+"być dwa kody NULL; p. przykład 1). Jeśli podano tylko fotografa, jest on "
+"kończony kodem NULL (p. przykład 2). Jeśli podano tylko prawa redaktora, "
+"część przeznaczona dla fotografa składa się z jednej spacji i następującego "
+"po niej kodu NULL, a następnie podane są prawa redaktora (p. przykład 3). "
+"Jeśli pole jest puste, jest traktowane jako nieznane."
 
 #: ../src/tags/gnome-cmd-tags.cc:205
 msgid "Custom Rendered"
 msgstr "Parametry użytkownika"
 
 #: ../src/tags/gnome-cmd-tags.cc:205
-msgid "The use of special processing on image data, such as rendering geared to output. When special processing is performed, the reader is expected to disable or minimize any further processing."
-msgstr "Zastosowanie specjalnego przetwarzania danych obrazu, takiego jak rendering zastosowany na wyjściu. W takim przypadku, czytający powinien wyłączyć albo zminimalizować dalsze przetwarzanie."
+msgid ""
+"The use of special processing on image data, such as rendering geared to "
+"output. When special processing is performed, the reader is expected to "
+"disable or minimize any further processing."
+msgstr ""
+"Zastosowanie specjalnego przetwarzania danych obrazu, takiego jak rendering "
+"zastosowany na wyjściu. W takim przypadku, czytający powinien wyłączyć albo "
+"zminimalizować dalsze przetwarzanie."
 
 #: ../src/tags/gnome-cmd-tags.cc:206
 msgid "Date and Time"
@@ -3450,24 +3521,38 @@ msgid "Date and Time (original)"
 msgstr "Data i czas (oryginału)"
 
 #: ../src/tags/gnome-cmd-tags.cc:208
-msgid "The date and time when the original image data was generated. For a digital still camera the date and time the picture was taken are recorded."
-msgstr "Data i czas wygenerowania oryginalnych danych obrazu. Dla aparatu cyfrowego zapisywana jest data i czas zrobienia zdjęcia."
+msgid ""
+"The date and time when the original image data was generated. For a digital "
+"still camera the date and time the picture was taken are recorded."
+msgstr ""
+"Data i czas wygenerowania oryginalnych danych obrazu. Dla aparatu cyfrowego "
+"zapisywana jest data i czas zrobienia zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:209
 msgid "Device Setting Description"
 msgstr "Opis ustawień urządzenia"
 
 #: ../src/tags/gnome-cmd-tags.cc:209
-msgid "Information on the picture-taking conditions of a particular camera model. The tag is used only to indicate the picture-taking conditions in the reader."
-msgstr "Ten znacznik określa informacje o warunkach robienia zdjęcia dla konkretnego modelu aparatu. Jest on używany tylko do określenia warunków robienia zdjęcia przy odczycie."
+msgid ""
+"Information on the picture-taking conditions of a particular camera model. "
+"The tag is used only to indicate the picture-taking conditions in the reader."
+msgstr ""
+"Ten znacznik określa informacje o warunkach robienia zdjęcia dla konkretnego "
+"modelu aparatu. Jest on używany tylko do określenia warunków robienia "
+"zdjęcia przy odczycie."
 
 #: ../src/tags/gnome-cmd-tags.cc:210
 msgid "Digital Zoom Ratio"
 msgstr "Współczynnik powiększenia cyfrowego"
 
 #: ../src/tags/gnome-cmd-tags.cc:210
-msgid "The digital zoom ratio when the image was shot. If the numerator of the recorded value is 0, this indicates that digital zoom was not used."
-msgstr "Ten znacznik określa współczynnik powiększenia cyfrowego w czasie robienia zdjęcia. Jeśli licznik wartości znacznika jest równy 0, oznacza to, że nie użyto cyfrowego powiększenia."
+msgid ""
+"The digital zoom ratio when the image was shot. If the numerator of the "
+"recorded value is 0, this indicates that digital zoom was not used."
+msgstr ""
+"Ten znacznik określa współczynnik powiększenia cyfrowego w czasie robienia "
+"zdjęcia. Jeśli licznik wartości znacznika jest równy 0, oznacza to, że nie "
+"użyto cyfrowego powiększenia."
 
 #: ../src/tags/gnome-cmd-tags.cc:211
 msgid "Document Name"
@@ -3482,52 +3567,76 @@ msgid "Exif IFD Pointer"
 msgstr "Wskaźnik Exif IFD"
 
 #: ../src/tags/gnome-cmd-tags.cc:212
-msgid "A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure as that of the IFD specified in TIFF."
-msgstr "Wskaźnik do Exif IFD. Exif IFD ma tę samą strukturę jak IFD zdefiniowane w TIFF."
+msgid ""
+"A pointer to the Exif IFD. Interoperability, Exif IFD has the same structure "
+"as that of the IFD specified in TIFF."
+msgstr ""
+"Wskaźnik do Exif IFD. Exif IFD ma tę samą strukturę jak IFD zdefiniowane w "
+"TIFF."
 
 #: ../src/tags/gnome-cmd-tags.cc:213
 msgid "Exif Version"
 msgstr "Wersja Exif"
 
 #: ../src/tags/gnome-cmd-tags.cc:213
-msgid "The version of Exif standard supported. Nonexistence of this field is taken to mean nonconformance to the standard."
-msgstr "Obsługiwana wersja standardu Exif. Brak tego pola jest uznawany za niezgodność ze standardem."
+msgid ""
+"The version of Exif standard supported. Nonexistence of this field is taken "
+"to mean nonconformance to the standard."
+msgstr ""
+"Obsługiwana wersja standardu Exif. Brak tego pola jest uznawany za "
+"niezgodność ze standardem."
 
 #: ../src/tags/gnome-cmd-tags.cc:214
 msgid "Exposure Bias"
 msgstr "Odchylenie ekspozycji"
 
 #: ../src/tags/gnome-cmd-tags.cc:214
-msgid "The exposure bias. The units is the APEX value. Ordinarily it is given in the range of -99.99 to 99.99."
-msgstr "Odchylenie ekspozycji. Jednostką jest wartość APEX. Zwykle jest podana w przedziale od -99.99 do 99.99."
+msgid ""
+"The exposure bias. The units is the APEX value. Ordinarily it is given in "
+"the range of -99.99 to 99.99."
+msgstr ""
+"Odchylenie ekspozycji. Jednostką jest wartość APEX. Zwykle jest podana w "
+"przedziale od -99.99 do 99.99."
 
 #: ../src/tags/gnome-cmd-tags.cc:215
 msgid "Exposure Index"
 msgstr "Indeks ekspozycji"
 
 #: ../src/tags/gnome-cmd-tags.cc:215
-msgid "The exposure index selected on the camera or input device at the time the image is captured."
-msgstr "Określenie indeksu ekspozycji wybranego przez aparat lub urządzenie wejściowe w czasie robienia zdjęcia."
+msgid ""
+"The exposure index selected on the camera or input device at the time the "
+"image is captured."
+msgstr ""
+"Określenie indeksu ekspozycji wybranego przez aparat lub urządzenie "
+"wejściowe w czasie robienia zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:216
 msgid "Exposure Mode"
 msgstr "Tryb ekspozycji"
 
 #: ../src/tags/gnome-cmd-tags.cc:216
-msgid "This tag indicates the exposure mode set when the image was shot. In auto-bracketing mode, the camera shoots a series of frames of the same scene at different exposure settings."
-msgstr "Ten znacznik określa tryb ekspozycji ustawiony przy robieniu zdjęcia. W trybie auto bracket aparat pstryka serię klatek tej samej sceny z różnymi ustawieniami ekspozycji."
+msgid ""
+"This tag indicates the exposure mode set when the image was shot. In auto-"
+"bracketing mode, the camera shoots a series of frames of the same scene at "
+"different exposure settings."
+msgstr ""
+"Ten znacznik określa tryb ekspozycji ustawiony przy robieniu zdjęcia. W "
+"trybie auto bracket aparat pstryka serię klatek tej samej sceny z różnymi "
+"ustawieniami ekspozycji."
 
-#: ../src/tags/gnome-cmd-tags.cc:217
-#: ../src/tags/gnome-cmd-tags.cc:413
+#: ../src/tags/gnome-cmd-tags.cc:217 ../src/tags/gnome-cmd-tags.cc:413
 msgid "Exposure Program"
 msgstr "Program ekspozycji"
 
 #: ../src/tags/gnome-cmd-tags.cc:217
-msgid "The class of the program used by the camera to set exposure when the picture is taken."
-msgstr "Klasa programu użytego przez aparat do ustawienia ekspozycji przy robieniu zdjęcia."
+msgid ""
+"The class of the program used by the camera to set exposure when the picture "
+"is taken."
+msgstr ""
+"Klasa programu użytego przez aparat do ustawienia ekspozycji przy robieniu "
+"zdjęcia."
 
-#: ../src/tags/gnome-cmd-tags.cc:218
-#: ../src/tags/gnome-cmd-tags.cc:414
+#: ../src/tags/gnome-cmd-tags.cc:218 ../src/tags/gnome-cmd-tags.cc:414
 msgid "Exposure Time"
 msgstr "Czas ekspozycji"
 
@@ -3540,8 +3649,12 @@ msgid "File Source"
 msgstr "Źródło pliku"
 
 #: ../src/tags/gnome-cmd-tags.cc:219
-msgid "Indicates the image source. If a DSC recorded the image, this tag value of this tag always be set to 3, indicating that the image was recorded on a DSC."
-msgstr "Określenie źródła obrazu. Jeśli obraz był zapisany przez DSC, wartość tego znacznika zawsze wynosi 3, oznaczając, że obraz był zapisany przez DSC."
+msgid ""
+"Indicates the image source. If a DSC recorded the image, this tag value of "
+"this tag always be set to 3, indicating that the image was recorded on a DSC."
+msgstr ""
+"Określenie źródła obrazu. Jeśli obraz był zapisany przez DSC, wartość tego "
+"znacznika zawsze wynosi 3, oznaczając, że obraz był zapisany przez DSC."
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 msgid "Fill Order"
@@ -3551,22 +3664,28 @@ msgstr "Kolejność wypełniania"
 msgid "Fill Order."
 msgstr "Kolejność wypełniania."
 
-#: ../src/tags/gnome-cmd-tags.cc:221
-#: ../src/tags/gnome-cmd-tags.cc:415
+#: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
 msgid "Flash"
 msgstr "Flesz"
 
 #: ../src/tags/gnome-cmd-tags.cc:221
-msgid "This tag is recorded when an image is taken using a strobe light (flash)."
-msgstr "Ten znacznik jest zapisywany kiedy zdjęcie było robione z użyciem światła stroboskopowego (flesza)."
+msgid ""
+"This tag is recorded when an image is taken using a strobe light (flash)."
+msgstr ""
+"Ten znacznik jest zapisywany kiedy zdjęcie było robione z użyciem światła "
+"stroboskopowego (flesza)."
 
 #: ../src/tags/gnome-cmd-tags.cc:222
 msgid "Flash Energy"
 msgstr "Energia flesza"
 
 #: ../src/tags/gnome-cmd-tags.cc:222
-msgid "Indicates the strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds (BCPS)."
-msgstr "Określenie energii błysku w czasie robienia zdjęcia mierzonej w jednostkach BCPS (Beam Candle Power Seconds)."
+msgid ""
+"Indicates the strobe energy at the time the image is captured, as measured "
+"in Beam Candle Power Seconds (BCPS)."
+msgstr ""
+"Określenie energii błysku w czasie robienia zdjęcia mierzonej w jednostkach "
+"BCPS (Beam Candle Power Seconds)."
 
 #: ../src/tags/gnome-cmd-tags.cc:223
 msgid "FlashPixVersion"
@@ -3576,56 +3695,77 @@ msgstr "Wersja FlashPix"
 msgid "The FlashPix format version supported by a FPXR file."
 msgstr "Wersja formatu FlashPix obsługiwana przez plik FPXR."
 
-#: ../src/tags/gnome-cmd-tags.cc:224
-#: ../src/tags/gnome-cmd-tags.cc:416
+#: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:416
 msgid "F Number"
 msgstr "Wartość przysłony"
 
-#: ../src/tags/gnome-cmd-tags.cc:224
-#: ../src/tags/gnome-cmd-tags.cc:416
-msgid "Diameter of the aperture relative to the effective focal length of the lens."
+#: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:416
+msgid ""
+"Diameter of the aperture relative to the effective focal length of the lens."
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags.cc:225
-#: ../src/tags/gnome-cmd-tags.cc:417
+#: ../src/tags/gnome-cmd-tags.cc:225 ../src/tags/gnome-cmd-tags.cc:417
 msgid "Focal Length"
 msgstr "Ogniskowa"
 
 #: ../src/tags/gnome-cmd-tags.cc:225
-msgid "The actual focal length of the lens, in mm. Conversion is not made to the focal length of a 35 mm film camera."
-msgstr "Rzeczywista ogniskowa obiektywu w mm, bez przekształcenia do ogniskowej dla aparatu na film 35 mm."
+msgid ""
+"The actual focal length of the lens, in mm. Conversion is not made to the "
+"focal length of a 35 mm film camera."
+msgstr ""
+"Rzeczywista ogniskowa obiektywu w mm, bez przekształcenia do ogniskowej dla "
+"aparatu na film 35 mm."
 
 #: ../src/tags/gnome-cmd-tags.cc:226
 msgid "Focal Length In 35mm Film"
 msgstr "Ogniskowa dla filmu 35mm"
 
 #: ../src/tags/gnome-cmd-tags.cc:226
-msgid "This tag indicates the equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <Exif.FocalLength> tag."
-msgstr "Znacznik określa odpowiednik ogniskowej w mm w odniesieniu do aparatu dla filmów 35 mm. Wartość 0 oznacza nieznaną ogniskową. Znacznik różni się od znacznika <Exif.FocalLength>."
+msgid ""
+"This tag indicates the equivalent focal length assuming a 35mm film camera, "
+"in mm. A value of 0 means the focal length is unknown. Note that this tag "
+"differs from the <Exif.FocalLength> tag."
+msgstr ""
+"Znacznik określa odpowiednik ogniskowej w mm w odniesieniu do aparatu dla "
+"filmów 35 mm. Wartość 0 oznacza nieznaną ogniskową. Znacznik różni się od "
+"znacznika <Exif.FocalLength>."
 
 #: ../src/tags/gnome-cmd-tags.cc:227
 msgid "Focal Plane Resolution Unit"
 msgstr "Jednostka rozdzielczości ogniskowej"
 
 #: ../src/tags/gnome-cmd-tags.cc:227
-msgid "Indicates the unit for measuring <Exif.FocalPlaneXResolution> and <Exif.FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
-msgstr "Określenie jednostki miary <Exif.FocalPlaneXResolution> i <Exif.FocalPlaneYResolution>. Wartość ta jest taka sama jak dla <Exif.ResolutionUnit>."
+msgid ""
+"Indicates the unit for measuring <Exif.FocalPlaneXResolution> and <Exif."
+"FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
+msgstr ""
+"Określenie jednostki miary <Exif.FocalPlaneXResolution> i <Exif."
+"FocalPlaneYResolution>. Wartość ta jest taka sama jak dla <Exif."
+"ResolutionUnit>."
 
 #: ../src/tags/gnome-cmd-tags.cc:228
 msgid "Focal Plane x-Resolution"
 msgstr "Rozdzielczość ogniskowej w płaszczyźnie X"
 
 #: ../src/tags/gnome-cmd-tags.cc:228
-msgid "Indicates the number of pixels in the image width (X) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
-msgstr "Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla szerokości obrazu (X) w płaszczyźnie ogniskowej aparatu."
+msgid ""
+"Indicates the number of pixels in the image width (X) direction per <Exif."
+"FocalPlaneResolutionUnit> on the camera focal plane."
+msgstr ""
+"Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla "
+"szerokości obrazu (X) w płaszczyźnie ogniskowej aparatu."
 
 #: ../src/tags/gnome-cmd-tags.cc:229
 msgid "Focal Plane y-Resolution"
 msgstr "Rozdzielczość ogniskowej w płaszczyźnie Y"
 
 #: ../src/tags/gnome-cmd-tags.cc:229
-msgid "Indicates the number of pixels in the image height (Y) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
-msgstr "Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla wysokości obrazu (Y) w płaszczyźnie ogniskowej aparatu."
+msgid ""
+"Indicates the number of pixels in the image height (Y) direction per <Exif."
+"FocalPlaneResolutionUnit> on the camera focal plane."
+msgstr ""
+"Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla "
+"wysokości obrazu (Y) w płaszczyźnie ogniskowej aparatu."
 
 #: ../src/tags/gnome-cmd-tags.cc:230
 msgid "Gain Control"
@@ -3648,7 +3788,9 @@ msgid "Altitude"
 msgstr "Wysokość"
 
 #: ../src/tags/gnome-cmd-tags.cc:232
-msgid "Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The reference unit is meters."
+msgid ""
+"Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The "
+"reference unit is meters."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:233
@@ -3656,7 +3798,12 @@ msgid "Altitude Reference"
 msgstr "Wysokość odniesienia"
 
 #: ../src/tags/gnome-cmd-tags.cc:233
-msgid "Indicates the altitude used as the reference altitude. If the reference is sea level and the altitude is above sea level, 0 is given. If the altitude is below sea level, a value of 1 is given and the altitude is indicated as an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is meters."
+msgid ""
+"Indicates the altitude used as the reference altitude. If the reference is "
+"sea level and the altitude is above sea level, 0 is given. If the altitude "
+"is below sea level, a value of 1 is given and the altitude is indicated as "
+"an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is "
+"meters."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:234
@@ -3665,64 +3812,110 @@ msgid "GPS Info IFDPointer"
 msgstr "Strony GNU info"
 
 #: ../src/tags/gnome-cmd-tags.cc:234
-msgid "A pointer to the GPS Info IFD. The Interoperability structure of the GPS Info IFD, like that of Exif IFD, has no image data."
-msgstr "Wskaźnik do GPS Info IFD. Struktura GPS Info IFD, taka jak Exif IFD, nie zawiera danych obrazu."
+msgid ""
+"A pointer to the GPS Info IFD. The Interoperability structure of the GPS "
+"Info IFD, like that of Exif IFD, has no image data."
+msgstr ""
+"Wskaźnik do GPS Info IFD. Struktura GPS Info IFD, taka jak Exif IFD, nie "
+"zawiera danych obrazu."
 
 #: ../src/tags/gnome-cmd-tags.cc:235
 msgid "Latitude"
 msgstr "Szerokość geograficzna"
 
 #: ../src/tags/gnome-cmd-tags.cc:235
-msgid "Indicates the latitude. The latitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is dd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal places, the format is dd/1,mmmm/100,0/1."
-msgstr "Określenie długości geograficznej. Szerokość jest wyrażona jako trzy wartości RATIONAL (wymierne) podające odpowiednio stopnie, minuty i sekundy. Kiedy są wyrażone stopnie, minuty i sekundy, format to dd/1,mm/1,ss/1. Kiedy są wyrażone stopnie i minuty oraz np. ułamki minut są podane z dokładnością do dwóch miejsc po przecinku, format to dd/1,mmmm/100,0/1."
+msgid ""
+"Indicates the latitude. The latitude is expressed as three RATIONAL values "
+"giving the degrees, minutes, and seconds, respectively. When degrees, "
+"minutes and seconds are expressed, the format is dd/1,mm/1,ss/1. When "
+"degrees and minutes are used and, for example, fractions of minutes are "
+"given up to two decimal places, the format is dd/1,mmmm/100,0/1."
+msgstr ""
+"Określenie długości geograficznej. Szerokość jest wyrażona jako trzy "
+"wartości RATIONAL (wymierne) podające odpowiednio stopnie, minuty i sekundy. "
+"Kiedy są wyrażone stopnie, minuty i sekundy, format to dd/1,mm/1,ss/1. Kiedy "
+"są wyrażone stopnie i minuty oraz np. ułamki minut są podane z dokładnością "
+"do dwóch miejsc po przecinku, format to dd/1,mmmm/100,0/1."
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "North or South Latitude"
 msgstr "Północna lub południowa szerokość geograficzna."
 
 #: ../src/tags/gnome-cmd-tags.cc:236
-msgid "Indicates whether the latitude is north or south latitude. The ASCII value 'N' indicates north latitude, and 'S' is south latitude."
-msgstr "Oznaczenie, czy szerokość geograficzna jest północna, czy południowa. Wartość ASCII 'N' oznacza szerokość północną, a 'S' południową."
+msgid ""
+"Indicates whether the latitude is north or south latitude. The ASCII value "
+"'N' indicates north latitude, and 'S' is south latitude."
+msgstr ""
+"Oznaczenie, czy szerokość geograficzna jest północna, czy południowa. "
+"Wartość ASCII 'N' oznacza szerokość północną, a 'S' południową."
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Longitude"
 msgstr "Długość geograficzna"
 
 #: ../src/tags/gnome-cmd-tags.cc:237
-msgid "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
-msgstr "Określenie długości geograficznej. Szerokość jest wyrażona jako trzy wartości RATIONAL (wymierne) podające odpowiednio stopnie, minuty i sekundy. Kiedy są wyrażone stopnie, minuty i sekundy, format to dd/1,mm/1,ss/1. Kiedy są wyrażone stopnie i minuty oraz np. ułamki minut są podane z dokładnością do dwóch miejsc po przecinku, format to dd/1,mmmm/100,0/1."
+msgid ""
+"Indicates the longitude. The longitude is expressed as three RATIONAL values "
+"giving the degrees, minutes, and seconds, respectively. When degrees, "
+"minutes and seconds are expressed, the format is ddd/1,mm/1,ss/1. When "
+"degrees and minutes are used and, for example, fractions of minutes are "
+"given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
+msgstr ""
+"Określenie długości geograficznej. Szerokość jest wyrażona jako trzy "
+"wartości RATIONAL (wymierne) podające odpowiednio stopnie, minuty i sekundy. "
+"Kiedy są wyrażone stopnie, minuty i sekundy, format to dd/1,mm/1,ss/1. Kiedy "
+"są wyrażone stopnie i minuty oraz np. ułamki minut są podane z dokładnością "
+"do dwóch miejsc po przecinku, format to dd/1,mmmm/100,0/1."
 
 #: ../src/tags/gnome-cmd-tags.cc:238
 msgid "East or West Longitude"
 msgstr "Wschodnia lub zachodnia długość geograficzna"
 
 #: ../src/tags/gnome-cmd-tags.cc:238
-msgid "Indicates whether the longitude is east or west longitude. ASCII 'E' indicates east longitude, and 'W' is west longitude."
-msgstr "Określenie, czy długość geograficzna jest wschodnia, czy zachodnia. Wartość ASCII 'E' oznacza długość wschodnią, a 'W' zachodnią."
+msgid ""
+"Indicates whether the longitude is east or west longitude. ASCII 'E' "
+"indicates east longitude, and 'W' is west longitude."
+msgstr ""
+"Określenie, czy długość geograficzna jest wschodnia, czy zachodnia. Wartość "
+"ASCII 'E' oznacza długość wschodnią, a 'W' zachodnią."
 
 #: ../src/tags/gnome-cmd-tags.cc:239
 msgid "GPS tag version"
 msgstr "Wersja znacznika GPS"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-msgid "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when <Exif.GPS.Info> tag is present."
-msgstr "Oznaczenie wersji <Exif.GPS.InfoIFD>. Ten znacznik jest obowiązkowy, jeśli obecny jest znacznik <Exif.GPS.Info>."
+msgid ""
+"Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when "
+"<Exif.GPS.Info> tag is present."
+msgstr ""
+"Oznaczenie wersji <Exif.GPS.InfoIFD>. Ten znacznik jest obowiązkowy, jeśli "
+"obecny jest znacznik <Exif.GPS.Info>."
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid "Image Description"
 msgstr "Opis obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:240
-msgid "A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif.UserComment> is to be used."
-msgstr "Łańcuch znaków opisujący tytuł obrazu.  Kodów dwubajtowe znaków nie mogą byc stosowane. Jeżeli wymagane jest ich zastosowanie, należy użyć znacznika <Exif.UserComment>."
+msgid ""
+"A character string giving the title of the image. Two-bytes character codes "
+"cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif."
+"UserComment> is to be used."
+msgstr ""
+"Łańcuch znaków opisujący tytuł obrazu.  Kodów dwubajtowe znaków nie mogą byc "
+"stosowane. Jeżeli wymagane jest ich zastosowanie, należy użyć znacznika "
+"<Exif.UserComment>."
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid "Image Length"
 msgstr "Długość obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:241
-msgid "The number of rows of image data. In JPEG compressed data a JPEG marker is used instead of this tag."
-msgstr "Liczba wierszy danych obrazu. W danych skompresowanych algorytmem JPEG zamiast tego znacznika używany jest znacznik JPEG."
+msgid ""
+"The number of rows of image data. In JPEG compressed data a JPEG marker is "
+"used instead of this tag."
+msgstr ""
+"Liczba wierszy danych obrazu. W danych skompresowanych algorytmem JPEG "
+"zamiast tego znacznika używany jest znacznik JPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:242
 msgid "Image Resources Block"
@@ -3737,16 +3930,27 @@ msgid "Image Unique ID"
 msgstr "Unikalny identyfikator obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:243
-msgid "This tag indicates an identifier assigned uniquely to each image. It is recorded as an ASCII string equivalent to hexadecimal notation and 128-bit fixed length."
-msgstr "Ten znacznik określa unikalny identyfikator przypisany każdemu zdjęciu. Jest on zapisany jako łańcuch ASCII odpowiadający notacji szesnastkowej o stałej długości 128 bitów."
+msgid ""
+"This tag indicates an identifier assigned uniquely to each image. It is "
+"recorded as an ASCII string equivalent to hexadecimal notation and 128-bit "
+"fixed length."
+msgstr ""
+"Ten znacznik określa unikalny identyfikator przypisany każdemu zdjęciu. Jest "
+"on zapisany jako łańcuch ASCII odpowiadający notacji szesnastkowej o stałej "
+"długości 128 bitów."
 
 #: ../src/tags/gnome-cmd-tags.cc:244
 msgid "Image Width"
 msgstr "Szerokość obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:244
-msgid "The number of columns of image data, equal to the number of pixels per row. In JPEG compressed data a JPEG marker is used instead of this tag."
-msgstr "Liczba kolumn danych obrazu, różna liczbie pikseli w wierszu. W danych skompresowanych algorytmem JPEG zamiast tego znacznika używany jest znacznik JPEG."
+msgid ""
+"The number of columns of image data, equal to the number of pixels per row. "
+"In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr ""
+"Liczba kolumn danych obrazu, różna liczbie pikseli w wierszu. W danych "
+"skompresowanych algorytmem JPEG zamiast tego znacznika używany jest znacznik "
+"JPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:245
 msgid "Inter Color Profile"
@@ -3762,8 +3966,18 @@ msgid "Interoperability IFD Pointer"
 msgstr "Wskaźnik Exif IFD"
 
 #: ../src/tags/gnome-cmd-tags.cc:246
-msgid "Interoperability IFD is composed of tags which stores the information to ensure the Interoperability and pointed by the following tag located in Exif IFD. The Interoperability structure of Interoperability IFD is the same as TIFF defined IFD structure but does not contain the image data characteristically compared with normal TIFF IFD."
-msgstr "Interoperability IFD jest złożony ze znaczników przechowujących informacje zapewniające współpracę i wskazywane przez ten znacznik umieszczony w Exif IFD. Struktura Interoperability w Interoperability IFD jest taka sama jak struktra IFD zdefiniowana w TIFF, ale w porównaniu do normalnego TIFF IFD nie zawiera danych obrazu."
+msgid ""
+"Interoperability IFD is composed of tags which stores the information to "
+"ensure the Interoperability and pointed by the following tag located in Exif "
+"IFD. The Interoperability structure of Interoperability IFD is the same as "
+"TIFF defined IFD structure but does not contain the image data "
+"characteristically compared with normal TIFF IFD."
+msgstr ""
+"Interoperability IFD jest złożony ze znaczników przechowujących informacje "
+"zapewniające współpracę i wskazywane przez ten znacznik umieszczony w Exif "
+"IFD. Struktura Interoperability w Interoperability IFD jest taka sama jak "
+"struktra IFD zdefiniowana w TIFF, ale w porównaniu do normalnego TIFF IFD "
+"nie zawiera danych obrazu."
 
 #: ../src/tags/gnome-cmd-tags.cc:247
 #, fuzzy
@@ -3771,8 +3985,13 @@ msgid "Interoperability Index"
 msgstr "Indeks koloru:"
 
 #: ../src/tags/gnome-cmd-tags.cc:247
-msgid "Indicates the identification of the Interoperability rule. Use \"R98\" for stating ExifR98 Rules. Four bytes used including the termination code (NULL)."
-msgstr "Oznaczenie identyfikacji reguły współpracy. Należy użyć \"R98\" dla oznaczenia reguł ExifR98. Używane są cztery bajty wraz ze znacznikiem końca (NULL)."
+msgid ""
+"Indicates the identification of the Interoperability rule. Use \"R98\" for "
+"stating ExifR98 Rules. Four bytes used including the termination code (NULL)."
+msgstr ""
+"Oznaczenie identyfikacji reguły współpracy. Należy użyć \"R98\" dla "
+"oznaczenia reguł ExifR98. Używane są cztery bajty wraz ze znacznikiem końca "
+"(NULL)."
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 #, fuzzy
@@ -3793,16 +4012,24 @@ msgid "ISO Speed Ratings"
 msgstr "Oszacowania czułości ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:250
-msgid "Indicates the ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232."
-msgstr "Określenie czułości ISO i szerokości geograficznej ISO aparatu lub urządzenia wejściowego zgodne ze specyfikacją ISO 12232."
+msgid ""
+"Indicates the ISO Speed and ISO Latitude of the camera or input device as "
+"specified in ISO 12232."
+msgstr ""
+"Określenie czułości ISO i szerokości geograficznej ISO aparatu lub "
+"urządzenia wejściowego zgodne ze specyfikacją ISO 12232."
 
 #: ../src/tags/gnome-cmd-tags.cc:251
 msgid "JPEG Interchange Format"
 msgstr "Format JPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:251
-msgid "The offset to the start byte (SOI) of JPEG compressed thumbnail data. This is not used for primary image JPEG data."
-msgstr "Położenie początkowego bajtu (SOI) danych miniaturki skompresowanej JPEG. Nie jest używane dla danych JPEG głównego obrazu."
+msgid ""
+"The offset to the start byte (SOI) of JPEG compressed thumbnail data. This "
+"is not used for primary image JPEG data."
+msgstr ""
+"Położenie początkowego bajtu (SOI) danych miniaturki skompresowanej JPEG. "
+"Nie jest używane dla danych JPEG głównego obrazu."
 
 #: ../src/tags/gnome-cmd-tags.cc:252
 #, fuzzy
@@ -3810,8 +4037,18 @@ msgid "JPEG Interchange Format Length"
 msgstr "Długość formatu JPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:252
-msgid "The number of bytes of JPEG compressed thumbnail data. This is not used for primary image JPEG data. JPEG thumbnails are not divided but are recorded as a continuous JPEG bitstream from SOI to EOI. Appn and COM markers should not be recorded. Compressed thumbnails must be recorded in no more than 64 Kbytes, including all other data to be recorded in APP1."
-msgstr "Liczba bajtów danych miniaturki skompresowanej JPEG. Nie jest używana dla danych JPEG głównego obrazu. Miniaturki JPEG nie są dzielone, ale zapisywane jako ciągły strumień JPEG od SOI do EOI. Znaczniki Appn i COM nie powinny być używane. Skompresowane miniaturki muszą być zapisane w najwyżej 64kB, włącznie ze wszystkimi innymi danymi zapisanymi w APP1."
+msgid ""
+"The number of bytes of JPEG compressed thumbnail data. This is not used for "
+"primary image JPEG data. JPEG thumbnails are not divided but are recorded as "
+"a continuous JPEG bitstream from SOI to EOI. Appn and COM markers should not "
+"be recorded. Compressed thumbnails must be recorded in no more than 64 "
+"Kbytes, including all other data to be recorded in APP1."
+msgstr ""
+"Liczba bajtów danych miniaturki skompresowanej JPEG. Nie jest używana dla "
+"danych JPEG głównego obrazu. Miniaturki JPEG nie są dzielone, ale zapisywane "
+"jako ciągły strumień JPEG od SOI do EOI. Znaczniki Appn i COM nie powinny "
+"być używane. Skompresowane miniaturki muszą być zapisane w najwyżej 64kB, "
+"włącznie ze wszystkimi innymi danymi zapisanymi w APP1."
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid "JPEG Proc"
@@ -3835,27 +4072,41 @@ msgid "Manufacturer"
 msgstr "Producent"
 
 #: ../src/tags/gnome-cmd-tags.cc:255
-msgid "The manufacturer of the recording equipment. This is the manufacturer of the DSC, scanner, video digitizer or other equipment that generated the image. When the field is left blank, it is treated as unknown."
-msgstr "Producent urządzenia nagrywającego. Jest to producent DSC, skanera, digitalizera albo innego urządzenia, które wygenerowało obraz. Jeśli to pole jest puste, jest traktowane jako nieznane."
+msgid ""
+"The manufacturer of the recording equipment. This is the manufacturer of the "
+"DSC, scanner, video digitizer or other equipment that generated the image. "
+"When the field is left blank, it is treated as unknown."
+msgstr ""
+"Producent urządzenia nagrywającego. Jest to producent DSC, skanera, "
+"digitalizera albo innego urządzenia, które wygenerowało obraz. Jeśli to pole "
+"jest puste, jest traktowane jako nieznane."
 
 #: ../src/tags/gnome-cmd-tags.cc:256
 msgid "Maker Note"
 msgstr "Informacje producenta"
 
 #: ../src/tags/gnome-cmd-tags.cc:256
-msgid "A tag for manufacturers of Exif writers to record any desired information. The contents are up to the manufacturer."
-msgstr "Znacznik dla producentów urządzeń zapisujących Exif do zapisywania dowolnie \"\"wybranych informacji. Zawartość zależy od producenta."
+msgid ""
+"A tag for manufacturers of Exif writers to record any desired information. "
+"The contents are up to the manufacturer."
+msgstr ""
+"Znacznik dla producentów urządzeń zapisujących Exif do zapisywania dowolnie "
+"\"\"wybranych informacji. Zawartość zależy od producenta."
 
 #: ../src/tags/gnome-cmd-tags.cc:257
 msgid "Max Aperture Value"
 msgstr "Największa wartość przysłony"
 
 #: ../src/tags/gnome-cmd-tags.cc:257
-msgid "The smallest F number of the lens. The unit is the APEX value. Ordinarily it is given in the range of 00.00 to 99.99, but it is not limited to this range."
-msgstr "Najmniejsza wartość przysłony obiektywu. Jednostką jest wartość APEX. Zwykle jest podana w przedziale od -99.99 do 99.99, ale nie ma ograniczenia do tego zakresu."
+msgid ""
+"The smallest F number of the lens. The unit is the APEX value. Ordinarily it "
+"is given in the range of 00.00 to 99.99, but it is not limited to this range."
+msgstr ""
+"Najmniejsza wartość przysłony obiektywu. Jednostką jest wartość APEX. Zwykle "
+"jest podana w przedziale od -99.99 do 99.99, ale nie ma ograniczenia do tego "
+"zakresu."
 
-#: ../src/tags/gnome-cmd-tags.cc:258
-#: ../src/tags/gnome-cmd-tags.cc:422
+#: ../src/tags/gnome-cmd-tags.cc:258 ../src/tags/gnome-cmd-tags.cc:422
 msgid "Metering Mode"
 msgstr "Tryb pomiaru"
 
@@ -3863,18 +4114,29 @@ msgstr "Tryb pomiaru"
 msgid "The metering mode."
 msgstr "Tryb pomiaru."
 
-#: ../src/tags/gnome-cmd-tags.cc:259
-#: ../src/tags/gnome-cmd-tags.cc:423
+#: ../src/tags/gnome-cmd-tags.cc:259 ../src/tags/gnome-cmd-tags.cc:423
 msgid "Model"
 msgstr "Model"
 
 #: ../src/tags/gnome-cmd-tags.cc:259
-msgid "The model name or model number of the equipment. This is the model name or number of the DSC, scanner, video digitizer or other equipment that generated the image. When the field is left blank, it is treated as unknown."
-msgstr "Nazwa lub numer modelu urządzenia. Jest to nazwa modelu lub numer DSC, skanera, digitalizera albo innego urządzenia, które wygenerowało obraz. Jeśli to pole jest puste, jest traktowane jako nieznane."
+msgid ""
+"The model name or model number of the equipment. This is the model name or "
+"number of the DSC, scanner, video digitizer or other equipment that "
+"generated the image. When the field is left blank, it is treated as unknown."
+msgstr ""
+"Nazwa lub numer modelu urządzenia. Jest to nazwa modelu lub numer DSC, "
+"skanera, digitalizera albo innego urządzenia, które wygenerowało obraz. "
+"Jeśli to pole jest puste, jest traktowane jako nieznane."
 
 #: ../src/tags/gnome-cmd-tags.cc:260
-msgid "Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods."
-msgstr "Oznaczenie wzoru geometrycznego CFA (color filter array - tablicy filtrów kolorów) czujnika obrazu w przypadku użycia jednoukładowego czujnika obszaru koloru. Nie odnosi się to do wszystkich metod próbkowania."
+msgid ""
+"Indicates the color filter array (CFA) geometric pattern of the image sensor "
+"when a one-chip color area sensor is used. It does not apply to all sensing "
+"methods."
+msgstr ""
+"Oznaczenie wzoru geometrycznego CFA (color filter array - tablicy filtrów "
+"kolorów) czujnika obrazu w przypadku użycia jednoukładowego czujnika obszaru "
+"koloru. Nie odnosi się to do wszystkich metod próbkowania."
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid "New Subfile Type"
@@ -3889,11 +4151,16 @@ msgid "OECF"
 msgstr "OECF"
 
 #: ../src/tags/gnome-cmd-tags.cc:262
-msgid "Indicates the Opto-Electoric Conversion Function (OECF) specified in ISO 14524. <Exif.OECF> is the relationship between the camera optical input and the image values."
-msgstr "Określenie funkcji konwersji optoelektrycznej (OECF - Opto-Electric Conversion Function) opisanej w ISO 14524. <Exif.OECF> to powiązanie między wejściem optycznym aparatu a wartościami obrazu."
+msgid ""
+"Indicates the Opto-Electoric Conversion Function (OECF) specified in ISO "
+"14524. <Exif.OECF> is the relationship between the camera optical input and "
+"the image values."
+msgstr ""
+"Określenie funkcji konwersji optoelektrycznej (OECF - Opto-Electric "
+"Conversion Function) opisanej w ISO 14524. <Exif.OECF> to powiązanie między "
+"wejściem optycznym aparatu a wartościami obrazu."
 
-#: ../src/tags/gnome-cmd-tags.cc:263
-#: ../src/tags/gnome-cmd-tags.cc:424
+#: ../src/tags/gnome-cmd-tags.cc:263 ../src/tags/gnome-cmd-tags.cc:424
 msgid "Orientation"
 msgstr "Orientacja"
 
@@ -3906,8 +4173,12 @@ msgid "Photometric Interpretation"
 msgstr "Interpretacja fotometryczna"
 
 #: ../src/tags/gnome-cmd-tags.cc:264
-msgid "The pixel composition. In JPEG compressed data a JPEG marker is used instead of this tag."
-msgstr "Składowe pikseli. W danych skompresowanych algorytmem JPEG zamiast tego znacznika używany jest znacznik JPEG."
+msgid ""
+"The pixel composition. In JPEG compressed data a JPEG marker is used instead "
+"of this tag."
+msgstr ""
+"Składowe pikseli. W danych skompresowanych algorytmem JPEG zamiast tego "
+"znacznika używany jest znacznik JPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:265
 #, fuzzy
@@ -3915,8 +4186,17 @@ msgid "Pixel X Dimension"
 msgstr "Znacznik wymiaru"
 
 #: ../src/tags/gnome-cmd-tags.cc:265
-msgid "Information specific to compressed data. When a compressed file is recorded, the valid width of the meaningful image must be recorded in this tag, whether or not there is padding data or a restart marker. This tag should not exist in an uncompressed file."
-msgstr "Informacje specyficzne dla skompresowanych danych. Kiedy zapisywany jest skompresowany plik, w tym znaczniku musi być zapisana poprawna szerokość znaczącego obrazu, niezależnie od istnienia danych dopełniających czy znacznika restartu. Ten znacznik nie powinien istnieć w pliku nieskompresowanym."
+msgid ""
+"Information specific to compressed data. When a compressed file is recorded, "
+"the valid width of the meaningful image must be recorded in this tag, "
+"whether or not there is padding data or a restart marker. This tag should "
+"not exist in an uncompressed file."
+msgstr ""
+"Informacje specyficzne dla skompresowanych danych. Kiedy zapisywany jest "
+"skompresowany plik, w tym znaczniku musi być zapisana poprawna szerokość "
+"znaczącego obrazu, niezależnie od istnienia danych dopełniających czy "
+"znacznika restartu. Ten znacznik nie powinien istnieć w pliku "
+"nieskompresowanym."
 
 #: ../src/tags/gnome-cmd-tags.cc:266
 #, fuzzy
@@ -3924,32 +4204,67 @@ msgid "Pixel Y Dimension"
 msgstr "Znacznik wymiaru"
 
 #: ../src/tags/gnome-cmd-tags.cc:266
-msgid "Information specific to compressed data. When a compressed file is recorded, the valid height of the meaningful image must be recorded in this tag, whether or not there is padding data or a restart marker. This tag should not exist in an uncompressed file. Since data padding is unnecessary in the vertical direction, the number of lines recorded in this valid image height tag will in fact be the same as that recorded in the SOF."
-msgstr "Informacje specyficzne dla skompresowanych danych. Kiedy zapisywany jest skompresowany plik, w tym znaczniku musi być zapisana poprawna wysokość znaczącego obrazu, niezależnie od istnienia danych dopełniających czy znacznika restartu. Ten znacznik nie powinien istnieć w pliku nieskompresowanym. Ponieważ dopełnianie danych w kierunku pionowym nie jest potrzebne, liczba linii zapisana w tym polu będzie w praktyce równa tej zapisanej w SOF."
+msgid ""
+"Information specific to compressed data. When a compressed file is recorded, "
+"the valid height of the meaningful image must be recorded in this tag, "
+"whether or not there is padding data or a restart marker. This tag should "
+"not exist in an uncompressed file. Since data padding is unnecessary in the "
+"vertical direction, the number of lines recorded in this valid image height "
+"tag will in fact be the same as that recorded in the SOF."
+msgstr ""
+"Informacje specyficzne dla skompresowanych danych. Kiedy zapisywany jest "
+"skompresowany plik, w tym znaczniku musi być zapisana poprawna wysokość "
+"znaczącego obrazu, niezależnie od istnienia danych dopełniających czy "
+"znacznika restartu. Ten znacznik nie powinien istnieć w pliku "
+"nieskompresowanym. Ponieważ dopełnianie danych w kierunku pionowym nie jest "
+"potrzebne, liczba linii zapisana w tym polu będzie w praktyce równa tej "
+"zapisanej w SOF."
 
 #: ../src/tags/gnome-cmd-tags.cc:267
 msgid "Planar Configuration"
 msgstr "Konfiguracja powierzchni"
 
 #: ../src/tags/gnome-cmd-tags.cc:267
-msgid "Indicates whether pixel components are recorded in a chunky or planar format. In JPEG compressed files a JPEG marker is used instead of this tag. If this field does not exist, the TIFF default of 1 (chunky) is assumed."
-msgstr "Oznaczenie, czy składowe pikseli są zapisane w formacie blokowym czy płaskim. W plikach skompresowanych algorytmem JPEG zamiast tego znacznika używany jest znacznik JPEG. Jeśli to pole nie istnieje, domyślne dla TIFF jest 1 (blokowy)."
+msgid ""
+"Indicates whether pixel components are recorded in a chunky or planar "
+"format. In JPEG compressed files a JPEG marker is used instead of this tag. "
+"If this field does not exist, the TIFF default of 1 (chunky) is assumed."
+msgstr ""
+"Oznaczenie, czy składowe pikseli są zapisane w formacie blokowym czy "
+"płaskim. W plikach skompresowanych algorytmem JPEG zamiast tego znacznika "
+"używany jest znacznik JPEG. Jeśli to pole nie istnieje, domyślne dla TIFF "
+"jest 1 (blokowy)."
 
 #: ../src/tags/gnome-cmd-tags.cc:268
 msgid "Primary Chromaticities"
 msgstr "Barwy główne"
 
 #: ../src/tags/gnome-cmd-tags.cc:268
-msgid "The chromaticity of the three primary colors of the image. Normally this tag is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
-msgstr "Barwa trzech głównych kolorów obrazu. Zwykle ten znacznik nie jest potrzebny, ponieważ przestrzeń kolorów podana jest w znaczniku informacji o przestrzeni kolorów (<ColorSpace>)."
+msgid ""
+"The chromaticity of the three primary colors of the image. Normally this tag "
+"is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
+msgstr ""
+"Barwa trzech głównych kolorów obrazu. Zwykle ten znacznik nie jest "
+"potrzebny, ponieważ przestrzeń kolorów podana jest w znaczniku informacji o "
+"przestrzeni kolorów (<ColorSpace>)."
 
 #: ../src/tags/gnome-cmd-tags.cc:269
 msgid "Reference Black/White"
 msgstr "Czerń/biel odniesienia"
 
 #: ../src/tags/gnome-cmd-tags.cc:269
-msgid "The reference black point value and reference white point value. No defaults are given in TIFF, but the values below are given as defaults here. The color space is declared in a color space information tag, with the default being the value that gives the optimal image characteristics Interoperability these conditions."
-msgstr "Wartości czarnego i białego punktu odniesienia. W formacie TIFF nie ma wartości domyślnych, ale poniższe są podane tutaj jako domyślne. Przestrzeń kolorów jest określona w znaczniku informacji o przestrzeni kolorów, z wartością domyślną dającą optymalną charakterystykę obrazu w danych warunkach."
+msgid ""
+"The reference black point value and reference white point value. No defaults "
+"are given in TIFF, but the values below are given as defaults here. The "
+"color space is declared in a color space information tag, with the default "
+"being the value that gives the optimal image characteristics "
+"Interoperability these conditions."
+msgstr ""
+"Wartości czarnego i białego punktu odniesienia. W formacie TIFF nie ma "
+"wartości domyślnych, ale poniższe są podane tutaj jako domyślne. Przestrzeń "
+"kolorów jest określona w znaczniku informacji o przestrzeni kolorów, z "
+"wartością domyślną dającą optymalną charakterystykę obrazu w danych "
+"warunkach."
 
 #: ../src/tags/gnome-cmd-tags.cc:270
 msgid "Related Image File Format"
@@ -3985,56 +4300,127 @@ msgid "Related Sound File"
 msgstr "Powiązany plik dźwiękowy"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
-msgid "This tag is used to record the name of an audio file related to the image data. The only relational information recorded here is the Exif audio file name and extension (an ASCII string consisting of 8 characters + '.' + 3 characters). The path is not recorded. When using this tag, audio files must be recorded in conformance to the Exif audio format. Writers are also allowed to store the data such as Audio within APP2 as FlashPix extension stream data. Audio files must be recorded in conformance to the Exif audio format. If multiple files are mapped to one file, the above format is used to record just one audio file name. If there are multiple audio files, the first recorded file is given. When there are three Exif audio files \"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple relational information, a variety of playback possibilities can be supported. The method of using relational information is left to the implementation on the playback side. Since this information is an ASCII character string, it is terminated by NULL. When this tag is used to map audio files, the relation of the audio file to image data must also be indicated on the audio file end."
-msgstr "Ten znacznik używany do zapisywania nazwy pliku dźwiękowego związanego z danymi obrazu. Jedyną informacją relacyjną zapisywaną tutaj jest nazwa pliku dźwiękowego Exif i rozszerzenie (łańcuch ASCII składający się z 8 znaków + '.' + 3 znaków). Ścieżka nie jest zapisywana. Kiedy używany, pliki dźwiękowe muszą być zapisane zgodnie z formatem dźwięku Exif. Zapisujący mogą także zapisywać dane takie jak dźwięk wewnątrz danych strumieni rozszerzeń APP2 lub FlashPix. Pliki dźwiękowe muszą być zapisane zgodnie z formatem dźwięku Exif. Odwzorowanie między plikami obrazów Exif a plikami dźwiękowymi Exif może być realizowane na trzy sposoby. W przypadku odwzorowywania wielu plików na jeden plik, powyższy format służy do zapisywania tylko jednej nazwy pliku dźwiękowego. Jeśli jest wiele plików dźwiękowych, podawany jest pierwszy plik. Kiedy są trzy pliki dźwiękowe \"SND00001.WAV\", \"SND00002.WAV\" i \"SND00003.WAV\", dla każdego z nich podawana jest nazwa pliku obrazu Exif \"DSC00001.JPG\". Poprzez łączenie wielu informacji relacyjnych obsługiwane jest wiele możliwości odtwarzania. Sposób używania informacji relacyjnych jest pozostawiony implementacji po stronie odtwarzania. Ponieważ ta informacja jest łańcuchem ASCII, jest zakończona znakiem NULL. Kiedy ten znacznik jest używany do przypisywania plików dźwiękowych do plików obrazu, relacja pliku dźwiękowego do danych obrazu musi być określona także po stronie pliku dźwiękowego."
+msgid ""
+"This tag is used to record the name of an audio file related to the image "
+"data. The only relational information recorded here is the Exif audio file "
+"name and extension (an ASCII string consisting of 8 characters + '.' + 3 "
+"characters). The path is not recorded. When using this tag, audio files must "
+"be recorded in conformance to the Exif audio format. Writers are also "
+"allowed to store the data such as Audio within APP2 as FlashPix extension "
+"stream data. Audio files must be recorded in conformance to the Exif audio "
+"format. If multiple files are mapped to one file, the above format is used "
+"to record just one audio file name. If there are multiple audio files, the "
+"first recorded file is given. When there are three Exif audio files "
+"\"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file "
+"name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple "
+"relational information, a variety of playback possibilities can be "
+"supported. The method of using relational information is left to the "
+"implementation on the playback side. Since this information is an ASCII "
+"character string, it is terminated by NULL. When this tag is used to map "
+"audio files, the relation of the audio file to image data must also be "
+"indicated on the audio file end."
+msgstr ""
+"Ten znacznik używany do zapisywania nazwy pliku dźwiękowego związanego z "
+"danymi obrazu. Jedyną informacją relacyjną zapisywaną tutaj jest nazwa pliku "
+"dźwiękowego Exif i rozszerzenie (łańcuch ASCII składający się z 8 znaków + "
+"'.' + 3 znaków). Ścieżka nie jest zapisywana. Kiedy używany, pliki dźwiękowe "
+"muszą być zapisane zgodnie z formatem dźwięku Exif. Zapisujący mogą także "
+"zapisywać dane takie jak dźwięk wewnątrz danych strumieni rozszerzeń APP2 "
+"lub FlashPix. Pliki dźwiękowe muszą być zapisane zgodnie z formatem dźwięku "
+"Exif. Odwzorowanie między plikami obrazów Exif a plikami dźwiękowymi Exif "
+"może być realizowane na trzy sposoby. W przypadku odwzorowywania wielu "
+"plików na jeden plik, powyższy format służy do zapisywania tylko jednej "
+"nazwy pliku dźwiękowego. Jeśli jest wiele plików dźwiękowych, podawany jest "
+"pierwszy plik. Kiedy są trzy pliki dźwiękowe \"SND00001.WAV\", \"SND00002.WAV"
+"\" i \"SND00003.WAV\", dla każdego z nich podawana jest nazwa pliku obrazu "
+"Exif \"DSC00001.JPG\". Poprzez łączenie wielu informacji relacyjnych "
+"obsługiwane jest wiele możliwości odtwarzania. Sposób używania informacji "
+"relacyjnych jest pozostawiony implementacji po stronie odtwarzania. Ponieważ "
+"ta informacja jest łańcuchem ASCII, jest zakończona znakiem NULL. Kiedy ten "
+"znacznik jest używany do przypisywania plików dźwiękowych do plików obrazu, "
+"relacja pliku dźwiękowego do danych obrazu musi być określona także po "
+"stronie pliku dźwiękowego."
 
 #: ../src/tags/gnome-cmd-tags.cc:274
 msgid "Resolution Unit"
 msgstr "Jednostka rozdzielczości"
 
 #: ../src/tags/gnome-cmd-tags.cc:274
-msgid "The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the image resolution is unknown, 2 (inches) is designated."
-msgstr "Jednostka do wyrażania <Exif.XResolution> i <Exif.YResolution>. Dla obu wielkości używana jest ta sama jednostka. Jeśli rozdzielczość jest nieznana, przyjmowane jest 2 (cale)."
+msgid ""
+"The unit for measuring <Exif.XResolution> and <Exif.YResolution>. The same "
+"unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the "
+"image resolution is unknown, 2 (inches) is designated."
+msgstr ""
+"Jednostka do wyrażania <Exif.XResolution> i <Exif.YResolution>. Dla obu "
+"wielkości używana jest ta sama jednostka. Jeśli rozdzielczość jest nieznana, "
+"przyjmowane jest 2 (cale)."
 
 #: ../src/tags/gnome-cmd-tags.cc:275
 msgid "Rows per Strip"
 msgstr "Wierszy na pas"
 
 #: ../src/tags/gnome-cmd-tags.cc:275
-msgid "The number of rows per strip. This is the number of rows in the image of one strip when an image is divided into strips. With JPEG compressed data this designation is not needed and is omitted."
-msgstr "Liczba wierszy na pas. Jest to liczba wierszy w obrazie jednego pasa kiedy obraz jest podzielony na pasy. W danych skompresowanych algorytmem JPEG to oznaczenie nie jest potrzebne i jest pomijane."
+msgid ""
+"The number of rows per strip. This is the number of rows in the image of one "
+"strip when an image is divided into strips. With JPEG compressed data this "
+"designation is not needed and is omitted."
+msgstr ""
+"Liczba wierszy na pas. Jest to liczba wierszy w obrazie jednego pasa kiedy "
+"obraz jest podzielony na pasy. W danych skompresowanych algorytmem JPEG to "
+"oznaczenie nie jest potrzebne i jest pomijane."
 
 #: ../src/tags/gnome-cmd-tags.cc:276
 msgid "Samples per Pixel"
 msgstr "Próbek na piksel"
 
 #: ../src/tags/gnome-cmd-tags.cc:276
-msgid "The number of components per pixel. Since this standard applies to RGB and YCbCr images, the value set for this tag is 3. In JPEG compressed data a JPEG marker is used instead of this tag."
-msgstr "Liczba składowych na piksel. Ponieważ ten standard odnosi się do obrazów RGB i YCbCr, wartość tego znacznika wynosi 3. W danych skompresowanych algorytmem JPEG zamiast tego znacznika używany jest znacznik JPEG."
+msgid ""
+"The number of components per pixel. Since this standard applies to RGB and "
+"YCbCr images, the value set for this tag is 3. In JPEG compressed data a "
+"JPEG marker is used instead of this tag."
+msgstr ""
+"Liczba składowych na piksel. Ponieważ ten standard odnosi się do obrazów RGB "
+"i YCbCr, wartość tego znacznika wynosi 3. W danych skompresowanych "
+"algorytmem JPEG zamiast tego znacznika używany jest znacznik JPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Saturation"
 msgstr "Nasycenie"
 
 #: ../src/tags/gnome-cmd-tags.cc:277
-msgid "This tag indicates the direction of saturation processing applied by the camera when the image was shot."
-msgstr "Ten znacznik określa kierunek przetwarzania nasycenia wykonanego przez aparat przy robieniu zdjęcia."
+msgid ""
+"This tag indicates the direction of saturation processing applied by the "
+"camera when the image was shot."
+msgstr ""
+"Ten znacznik określa kierunek przetwarzania nasycenia wykonanego przez "
+"aparat przy robieniu zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:278
 msgid "Scene Capture Type"
 msgstr "Typ ujęcia"
 
 #: ../src/tags/gnome-cmd-tags.cc:278
-msgid "This tag indicates the type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <Exif.SceneType> tag."
-msgstr "Znacznik określa rodzaj sceny na zdjęciu. Może być także wykorzystany do zapisania trybu w którym było robione zdjęcie. Należy zaznaczyć, że ten znacznik różni się od znacznika <Exif.SceneType>."
+msgid ""
+"This tag indicates the type of scene that was shot. It can also be used to "
+"record the mode in which the image was shot. Note that this differs from "
+"<Exif.SceneType> tag."
+msgstr ""
+"Znacznik określa rodzaj sceny na zdjęciu. Może być także wykorzystany do "
+"zapisania trybu w którym było robione zdjęcie. Należy zaznaczyć, że ten "
+"znacznik różni się od znacznika <Exif.SceneType>."
 
 #: ../src/tags/gnome-cmd-tags.cc:279
 msgid "Scene Type"
 msgstr "Rodzaj sceny"
 
 #: ../src/tags/gnome-cmd-tags.cc:279
-msgid "Indicates the type of scene. If a DSC recorded the image, this tag value must always be set to 1, indicating that the image was directly photographed."
-msgstr "Określenie rodzaju sceny. Jeśli obraz był zapisany przez DSC, wartość tego znacznika zawsze musi być ustawiona na 1, oznaczając, że obraz był bezpośrednio sfotografowany."
+msgid ""
+"Indicates the type of scene. If a DSC recorded the image, this tag value "
+"must always be set to 1, indicating that the image was directly photographed."
+msgstr ""
+"Określenie rodzaju sceny. Jeśli obraz był zapisany przez DSC, wartość tego "
+"znacznika zawsze musi być ustawiona na 1, oznaczając, że obraz był "
+"bezpośrednio sfotografowany."
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Sensing Method"
@@ -4042,32 +4428,46 @@ msgstr "Rodzaj czujnika"
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Indicates the image sensor type on the camera or input device."
-msgstr "Określenie rodzaju czujnika obrazu w aparacie lub urządzeniu wejściowym."
+msgstr ""
+"Określenie rodzaju czujnika obrazu w aparacie lub urządzeniu wejściowym."
 
 #: ../src/tags/gnome-cmd-tags.cc:281
 msgid "Sharpness"
 msgstr "Ostrość"
 
 #: ../src/tags/gnome-cmd-tags.cc:281
-msgid "This tag indicates the direction of sharpness processing applied by the camera when the image was shot."
-msgstr "Ten znacznik określa kierunek przetwarzania ostrości wykonanego przez aparat przy robieniu zdjęcia."
+msgid ""
+"This tag indicates the direction of sharpness processing applied by the "
+"camera when the image was shot."
+msgstr ""
+"Ten znacznik określa kierunek przetwarzania ostrości wykonanego przez aparat "
+"przy robieniu zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:282
 msgid "Shutter speed"
 msgstr "Czas otwarcia migawki"
 
 #: ../src/tags/gnome-cmd-tags.cc:282
-msgid "Shutter speed. The unit is the APEX (Additive System of Photographic Exposure) setting."
-msgstr "Czas otwarcia migawki. Jednostką jest ustawienie APEX (Additive System of Photographic Exposure)."
+msgid ""
+"Shutter speed. The unit is the APEX (Additive System of Photographic "
+"Exposure) setting."
+msgstr ""
+"Czas otwarcia migawki. Jednostką jest ustawienie APEX (Additive System of "
+"Photographic Exposure)."
 
-#: ../src/tags/gnome-cmd-tags.cc:283
-#: ../src/tags/gnome-cmd-tags.cc:425
+#: ../src/tags/gnome-cmd-tags.cc:283 ../src/tags/gnome-cmd-tags.cc:425
 msgid "Software"
 msgstr "Oprogramowanie"
 
 #: ../src/tags/gnome-cmd-tags.cc:283
-msgid "This tag records the name and version of the software or firmware of the camera or image input device used to generate the image. When the field is left blank, it is treated as unknown."
-msgstr "Nazwę i wersja oprogramowania lub firmware kamery albo innego urządzenia użytego do wygenerowania obrazu. Jeśli pole jest puste, jest traktowane jako nieznane."
+msgid ""
+"This tag records the name and version of the software or firmware of the "
+"camera or image input device used to generate the image. When the field is "
+"left blank, it is treated as unknown."
+msgstr ""
+"Nazwę i wersja oprogramowania lub firmware kamery albo innego urządzenia "
+"użytego do wygenerowania obrazu. Jeśli pole jest puste, jest traktowane jako "
+"nieznane."
 
 #: ../src/tags/gnome-cmd-tags.cc:284
 #, fuzzy
@@ -4075,8 +4475,14 @@ msgid "Spatial Frequency Response"
 msgstr "Odpowiedź częstotliwości przestrzennej"
 
 #: ../src/tags/gnome-cmd-tags.cc:284
-msgid "This tag records the camera or input device spatial frequency table and SFR values in the direction of image width, image height, and diagonal direction, as specified in ISO 12233."
-msgstr "Ten znacznik zapisuje tabelę częstotliwości przestrzennych aparatu lub urządzenia wejściowego oraz wartości SFR w kierunku szerokości obrazu, wysokości obrazu i przekątnej zgodnie ze specyfikacją ISO 12233."
+msgid ""
+"This tag records the camera or input device spatial frequency table and SFR "
+"values in the direction of image width, image height, and diagonal "
+"direction, as specified in ISO 12233."
+msgstr ""
+"Ten znacznik zapisuje tabelę częstotliwości przestrzennych aparatu lub "
+"urządzenia wejściowego oraz wartości SFR w kierunku szerokości obrazu, "
+"wysokości obrazu i przekątnej zgodnie ze specyfikacją ISO 12233."
 
 #: ../src/tags/gnome-cmd-tags.cc:285
 msgid "Spectral Sensitivity"
@@ -4091,16 +4497,26 @@ msgid "Strip Byte Count"
 msgstr "Liczba bajtów na pas"
 
 #: ../src/tags/gnome-cmd-tags.cc:286
-msgid "The total number of bytes in each strip. With JPEG compressed data this designation is not needed and is omitted."
-msgstr "Całkowita liczba bajtów w każdym pasie. W danych skompresowanych algorytmem JPEG to oznaczenie nie jest potrzebne i jest pomijane."
+msgid ""
+"The total number of bytes in each strip. With JPEG compressed data this "
+"designation is not needed and is omitted."
+msgstr ""
+"Całkowita liczba bajtów w każdym pasie. W danych skompresowanych algorytmem "
+"JPEG to oznaczenie nie jest potrzebne i jest pomijane."
 
 #: ../src/tags/gnome-cmd-tags.cc:287
 msgid "Strip Offsets"
 msgstr "Przesunięcia pasów"
 
 #: ../src/tags/gnome-cmd-tags.cc:287
-msgid "For each strip, the byte offset of that strip. It is recommended that this be selected so the number of strip bytes does not exceed 64 Kbytes. With JPEG compressed data this designation is not needed and is omitted."
-msgstr "Przesunięcie pasa wyrażone w bajtach. Zaleca się takie dobranie tej wartości, by wartość tanie przekraczała 64kB. W danych skompresowanych algorytmem JPEG to oznaczenie nie jest potrzebne i jest pomijane."
+msgid ""
+"For each strip, the byte offset of that strip. It is recommended that this "
+"be selected so the number of strip bytes does not exceed 64 Kbytes. With "
+"JPEG compressed data this designation is not needed and is omitted."
+msgstr ""
+"Przesunięcie pasa wyrażone w bajtach. Zaleca się takie dobranie tej "
+"wartości, by wartość tanie przekraczała 64kB. W danych skompresowanych "
+"algorytmem JPEG to oznaczenie nie jest potrzebne i jest pomijane."
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 #, fuzzy
@@ -4109,15 +4525,20 @@ msgstr "Wyświetlanie kolumny z przesunięciem"
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
-msgstr "Zdefiniowane przez Adobe Corporation, aby pozwolić na drzewa TIFF w plikach TIFF."
+msgstr ""
+"Zdefiniowane przez Adobe Corporation, aby pozwolić na drzewa TIFF w plikach "
+"TIFF."
 
 #: ../src/tags/gnome-cmd-tags.cc:289
 msgid "Subject Area"
 msgstr "Obszar obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:289
-msgid "This tag indicates the location and area of the main subject in the overall scene."
-msgstr "Ten znacznik określa położenie i obszar głównego obiektu na całej scenie."
+msgid ""
+"This tag indicates the location and area of the main subject in the overall "
+"scene."
+msgstr ""
+"Ten znacznik określa położenie i obszar głównego obiektu na całej scenie."
 
 #: ../src/tags/gnome-cmd-tags.cc:290
 msgid "Subject Distance"
@@ -4140,8 +4561,17 @@ msgid "Subject Location"
 msgstr "Lokalizacja obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:292
-msgid "Indicates the location of the main subject in the scene. The value of this tag represents the pixel at the center of the main subject relative to the left edge, prior to rotation processing as per the <Exif.Rotation> tag. The first value indicates the X column number and second indicates the Y row number."
-msgstr "Położenie głównego obiektu na scenie. Wartość tego znacznika reprezentuje piksel w środku głównego obiektu względem lewej krawędzi, przed wykonaniem obrotu opisanego znacznikiem <Exif.Rotation>. Pierwsza wartość określa numer kolumny X, a druga - numer wiersza Y."
+msgid ""
+"Indicates the location of the main subject in the scene. The value of this "
+"tag represents the pixel at the center of the main subject relative to the "
+"left edge, prior to rotation processing as per the <Exif.Rotation> tag. The "
+"first value indicates the X column number and second indicates the Y row "
+"number."
+msgstr ""
+"Położenie głównego obiektu na scenie. Wartość tego znacznika reprezentuje "
+"piksel w środku głównego obiektu względem lewej krawędzi, przed wykonaniem "
+"obrotu opisanego znacznikiem <Exif.Rotation>. Pierwsza wartość określa numer "
+"kolumny X, a druga - numer wiersza Y."
 
 #: ../src/tags/gnome-cmd-tags.cc:293
 #, fuzzy
@@ -4150,23 +4580,32 @@ msgstr "Data i czas (obrazu cyfrowego)"
 
 #: ../src/tags/gnome-cmd-tags.cc:293
 msgid "A tag used to record fractions of seconds for the <Exif.DateTime> tag."
-msgstr "Znacznik używany do zapisywania ułamków sekund dla znacznika <Exif.DateTime>."
+msgstr ""
+"Znacznik używany do zapisywania ułamków sekund dla znacznika <Exif.DateTime>."
 
 #: ../src/tags/gnome-cmd-tags.cc:294
 msgid "Subsec Time Digitized"
 msgstr "Data i czas (obrazu cyfrowego)"
 
 #: ../src/tags/gnome-cmd-tags.cc:294
-msgid "A tag used to record fractions of seconds for the <Exif.DateTimeDigitized> tag."
-msgstr "Znacznik używany do zapisywania ułamków sekund dla znacznika <Exif.DateTimeDigitized>."
+msgid ""
+"A tag used to record fractions of seconds for the <Exif.DateTimeDigitized> "
+"tag."
+msgstr ""
+"Znacznik używany do zapisywania ułamków sekund dla znacznika <Exif."
+"DateTimeDigitized>."
 
 #: ../src/tags/gnome-cmd-tags.cc:295
 msgid "Subsec Time Original"
 msgstr "Data i czas (oryginału)"
 
 #: ../src/tags/gnome-cmd-tags.cc:295
-msgid "A tag used to record fractions of seconds for the <Exif.DateTimeOriginal> tag."
-msgstr "Znacznik używany do zapisywania ułamków sekund dla znacznika <Exif.DateTimeOriginal>."
+msgid ""
+"A tag used to record fractions of seconds for the <Exif.DateTimeOriginal> "
+"tag."
+msgstr ""
+"Znacznik używany do zapisywania ułamków sekund dla znacznika <Exif."
+"DateTimeOriginal>."
 
 #: ../src/tags/gnome-cmd-tags.cc:296
 msgid "TIFF/EP Standard ID"
@@ -4181,8 +4620,14 @@ msgid "Transfer Function"
 msgstr "Funkcja transferu"
 
 #: ../src/tags/gnome-cmd-tags.cc:297
-msgid "A transfer function for the image, described in tabular style. Normally this tag is not necessary, since color space is specified in <Exif.ColorSpace> tag."
-msgstr "Funkcja przejścia dla obrazu, opisana w postaci tabeli. Zwykle ten znacznik nie jest potrzebny, ponieważ przestrzeń kolorów podana jest w znaczniku informacji o przestrzeni kolorów (<ColorSpace>)."
+msgid ""
+"A transfer function for the image, described in tabular style. Normally this "
+"tag is not necessary, since color space is specified in <Exif.ColorSpace> "
+"tag."
+msgstr ""
+"Funkcja przejścia dla obrazu, opisana w postaci tabeli. Zwykle ten znacznik "
+"nie jest potrzebny, ponieważ przestrzeń kolorów podana jest w znaczniku "
+"informacji o przestrzeni kolorów (<ColorSpace>)."
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Transfer Range"
@@ -4197,11 +4642,45 @@ msgid "User Comment"
 msgstr "Komentarz użytkownika"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
-msgid "A tag for Exif users to write keywords or comments on the image besides those in <Exif.ImageDescription>, and without the character code limitations of the <Exif.ImageDescription> tag. The character code used in the <Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte area at the start of the tag data area. The unused portion of the area is padded with NULL (\"00.h\"). ID codes are assigned by means of registration. The value of CountN is determinated based on the 8 bytes in the character code area and the number of bytes in the user comment part. Since the TYPE is not ASCII, NULL termination is not necessary. The ID code for the <Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may be Undefined. The Undefined name is UndefinedText, and the ID code is filled with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the <Exif.UserComment> tag must have a function for determining the ID code. This function is not required in Exif readers that do not use the <Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is recommended that the ID code be ASCII and that the following user comment part be filled with blank characters [20.H]."
-msgstr "Znacznik dla użytkowników formatu Exif do zapisywania słów kluczowych lub komentarzy do obrazu poza tymi w <Exif.ImageDescription> i bez ograniczeń co do kodów znaków w znaczniku <Exif.ImageDescription>. Kody znaków używane w znaczniku <Exif.UserComment> są określane w oparciu o kod ID w stałym polu 8-bajtowym na początku obszaru danych znacznika. Nieużywana część tego obszaru jest wypełniania znakami NULL (\"00.h\"). Kody ID są przypisywane poprzez rejestrację. Wartość CountN jest określana w oparciu o 8 bajtów z obszaru kodowania znaków i liczby bajtów w części zawierającej komentarz użytkownika. Ponieważ typ pola nie jest ASCII, nie jest potrzebne kończenie łańcucha znakiem NULL. Kod ID dla obszaru <Exif.UserComment> może być zdefiniowanym kodem takim jak JIS lub ASCII, albo może być nieokreślony. Nazwa pola nieokreślonego (Undefined) to UndefinedText, a jego kod ID jest wypełniany 8 bajtami znaków NULL (\"00.H\"). Czytający Exif, który ma czytać znacznik <Exif.UserComment> musi mieć funkcję określania kodu ID. Funkcja ta nie jest wymagana dla czytających Exif nie używających znacznika <UserComment>. Kiedy znacznik <Exif.UserComment> jest pozostawiony nie używany, zaleca się żeby kod ID był ASCII, a następująca po nim część z komentarzem użytkownika była wypełniona pustymi znakami [20.h]. "
+msgid ""
+"A tag for Exif users to write keywords or comments on the image besides "
+"those in <Exif.ImageDescription>, and without the character code limitations "
+"of the <Exif.ImageDescription> tag. The character code used in the <Exif."
+"UserComment> tag is identified based on an ID code in a fixed 8-byte area at "
+"the start of the tag data area. The unused portion of the area is padded "
+"with NULL (\"00.h\"). ID codes are assigned by means of registration. The "
+"value of CountN is determinated based on the 8 bytes in the character code "
+"area and the number of bytes in the user comment part. Since the TYPE is not "
+"ASCII, NULL termination is not necessary. The ID code for the <Exif."
+"UserComment> area may be a Defined code such as JIS or ASCII, or may be "
+"Undefined. The Undefined name is UndefinedText, and the ID code is filled "
+"with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the <Exif."
+"UserComment> tag must have a function for determining the ID code. This "
+"function is not required in Exif readers that do not use the <Exif."
+"UserComment> tag. When a <Exif.UserComment> area is set aside, it is "
+"recommended that the ID code be ASCII and that the following user comment "
+"part be filled with blank characters [20.H]."
+msgstr ""
+"Znacznik dla użytkowników formatu Exif do zapisywania słów kluczowych lub "
+"komentarzy do obrazu poza tymi w <Exif.ImageDescription> i bez ograniczeń co "
+"do kodów znaków w znaczniku <Exif.ImageDescription>. Kody znaków używane w "
+"znaczniku <Exif.UserComment> są określane w oparciu o kod ID w stałym polu 8-"
+"bajtowym na początku obszaru danych znacznika. Nieużywana część tego obszaru "
+"jest wypełniania znakami NULL (\"00.h\"). Kody ID są przypisywane poprzez "
+"rejestrację. Wartość CountN jest określana w oparciu o 8 bajtów z obszaru "
+"kodowania znaków i liczby bajtów w części zawierającej komentarz "
+"użytkownika. Ponieważ typ pola nie jest ASCII, nie jest potrzebne kończenie "
+"łańcucha znakiem NULL. Kod ID dla obszaru <Exif.UserComment> może być "
+"zdefiniowanym kodem takim jak JIS lub ASCII, albo może być nieokreślony. "
+"Nazwa pola nieokreślonego (Undefined) to UndefinedText, a jego kod ID jest "
+"wypełniany 8 bajtami znaków NULL (\"00.H\"). Czytający Exif, który ma czytać "
+"znacznik <Exif.UserComment> musi mieć funkcję określania kodu ID. Funkcja ta "
+"nie jest wymagana dla czytających Exif nie używających znacznika "
+"<UserComment>. Kiedy znacznik <Exif.UserComment> jest pozostawiony nie "
+"używany, zaleca się żeby kod ID był ASCII, a następująca po nim część z "
+"komentarzem użytkownika była wypełniona pustymi znakami [20.h]. "
 
-#: ../src/tags/gnome-cmd-tags.cc:300
-#: ../src/tags/gnome-cmd-tags.cc:427
+#: ../src/tags/gnome-cmd-tags.cc:300 ../src/tags/gnome-cmd-tags.cc:427
 msgid "White Balance"
 msgstr "Balans bieli"
 
@@ -4214,8 +4693,12 @@ msgid "White Point"
 msgstr "Punkt bieli"
 
 #: ../src/tags/gnome-cmd-tags.cc:301
-msgid "The chromaticity of the white point of the image. Normally this tag is not necessary, since color space is specified in <Exif.ColorSpace> tag."
-msgstr "Barwa punktu bieli obrazu. Zwykle ten znacznik nie jest potrzebny, ponieważ przestrzeń kolorów podana jest w znaczniku <Exif.ColorSpace>."
+msgid ""
+"The chromaticity of the white point of the image. Normally this tag is not "
+"necessary, since color space is specified in <Exif.ColorSpace> tag."
+msgstr ""
+"Barwa punktu bieli obrazu. Zwykle ten znacznik nie jest potrzebny, ponieważ "
+"przestrzeń kolorów podana jest w znaczniku <Exif.ColorSpace>."
 
 #: ../src/tags/gnome-cmd-tags.cc:302
 msgid "XML Packet"
@@ -4230,40 +4713,84 @@ msgid "x Resolution"
 msgstr "Rozdzielczość X"
 
 #: ../src/tags/gnome-cmd-tags.cc:303
-msgid "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> direction. When the image resolution is unknown, 72 [dpi] is designated."
-msgstr "Liczba pikseli na jednostkę rozdzielczości (<Exif.ResolutionUnit>) szerokości obrazu. Kiedy rozdzielczość obrazu jest nieznana, przyjmuje się 72 [dpi]."
+msgid ""
+"The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> "
+"direction. When the image resolution is unknown, 72 [dpi] is designated."
+msgstr ""
+"Liczba pikseli na jednostkę rozdzielczości (<Exif.ResolutionUnit>) "
+"szerokości obrazu. Kiedy rozdzielczość obrazu jest nieznana, przyjmuje się "
+"72 [dpi]."
 
 #: ../src/tags/gnome-cmd-tags.cc:304
 msgid "YCbCr Coefficients"
 msgstr "Współczynniki YCbCr"
 
 #: ../src/tags/gnome-cmd-tags.cc:304
-msgid "The matrix coefficients for transformation from RGB to YCbCr image data. No default is given in TIFF; but here \"Color Space Guidelines\" is used as the default. The color space is declared in a color space information tag, with the default being the value that gives the optimal image characteristics Interoperability this condition."
-msgstr "Macierz współczynników przekształcenia danych obrazu z RGB do YCbCr. Dla TIFF nie ma wartości domyślnych, ale wartości podane w załączniku E \"Color Space Guidelines\" są używane jako domyślne. Przestrzeń kolorów jest określona w znaczniku informacji o przestrzeni kolorów z wartością domyślną będącą tą, która daje optymalną charakterystykę obrazu w danym przypadku."
+msgid ""
+"The matrix coefficients for transformation from RGB to YCbCr image data. No "
+"default is given in TIFF; but here \"Color Space Guidelines\" is used as the "
+"default. The color space is declared in a color space information tag, with "
+"the default being the value that gives the optimal image characteristics "
+"Interoperability this condition."
+msgstr ""
+"Macierz współczynników przekształcenia danych obrazu z RGB do YCbCr. Dla "
+"TIFF nie ma wartości domyślnych, ale wartości podane w załączniku E \"Color "
+"Space Guidelines\" są używane jako domyślne. Przestrzeń kolorów jest "
+"określona w znaczniku informacji o przestrzeni kolorów z wartością domyślną "
+"będącą tą, która daje optymalną charakterystykę obrazu w danym przypadku."
 
 #: ../src/tags/gnome-cmd-tags.cc:305
 msgid "YCbCr Positioning"
 msgstr "Rozmieszczenie YCbCr"
 
 #: ../src/tags/gnome-cmd-tags.cc:305
-msgid "The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning."
-msgstr "Rozmieszczenie składowych chrominancji w stosunku do składowej luminancji. To pole ma znaczenie tylko dla danych skompresowanych algorytmem JPEG lub nieskompresowanych danych YCbCr. Wartością domyślną dla TIFF jest 1 (wyśrodkowanie); niemniej dla Y:Cb:Cr = 4:2:2 zaleca się wartość 2 (położenie razem) w celu poprawienia jakości obrazów oglądanych w telewizorze. Kiedy to pole nie istnieje, zakłada się wartość domyślną dla TIFF. W przypadku Y:Cb:Cr = 4:2:0, zalecana jest wartość domyślna dla TIFF (wyśrodkowanie). W przypadku możliwości obsługi obu rodzajów rozmieszczenia, należy użyć domyślnej wartości TIFF niezależnie od wartości tego pola."
+msgid ""
+"The position of chrominance components in relation to the luminance "
+"component. This field is designated only for JPEG compressed data or "
+"uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr "
+"= 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order "
+"to improve the image quality when viewed on TV systems. When this field does "
+"not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr "
+"= 4:2:0, the TIFF default (centered) is recommended. If the reader does not "
+"have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it "
+"shall follow the TIFF default regardless of the value in this field. It is "
+"preferable that readers be able to support both centered and co-sited "
+"positioning."
+msgstr ""
+"Rozmieszczenie składowych chrominancji w stosunku do składowej luminancji. "
+"To pole ma znaczenie tylko dla danych skompresowanych algorytmem JPEG lub "
+"nieskompresowanych danych YCbCr. Wartością domyślną dla TIFF jest 1 "
+"(wyśrodkowanie); niemniej dla Y:Cb:Cr = 4:2:2 zaleca się wartość 2 "
+"(położenie razem) w celu poprawienia jakości obrazów oglądanych w "
+"telewizorze. Kiedy to pole nie istnieje, zakłada się wartość domyślną dla "
+"TIFF. W przypadku Y:Cb:Cr = 4:2:0, zalecana jest wartość domyślna dla TIFF "
+"(wyśrodkowanie). W przypadku możliwości obsługi obu rodzajów rozmieszczenia, "
+"należy użyć domyślnej wartości TIFF niezależnie od wartości tego pola."
 
 #: ../src/tags/gnome-cmd-tags.cc:306
 msgid "YCbCr Sub-Sampling"
 msgstr "Podpróbkowanie YCbCr"
 
 #: ../src/tags/gnome-cmd-tags.cc:306
-msgid "The sampling ratio of chrominance components in relation to the luminance component. In JPEG compressed data a JPEG marker is used instead of this tag."
-msgstr "Współczynnik próbkowania składowych chrominancji w stosunku do składowej luminancji. W danych skompresowanych algorytmem JPEG zamiast tego znacznika używany jest znacznik JPEG."
+msgid ""
+"The sampling ratio of chrominance components in relation to the luminance "
+"component. In JPEG compressed data a JPEG marker is used instead of this tag."
+msgstr ""
+"Współczynnik próbkowania składowych chrominancji w stosunku do składowej "
+"luminancji. W danych skompresowanych algorytmem JPEG zamiast tego znacznika "
+"używany jest znacznik JPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:307
 msgid "y Resolution"
 msgstr "Rozdzielczość Y"
 
 #: ../src/tags/gnome-cmd-tags.cc:307
-msgid "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> direction. The same value as <Exif.XResolution> is designated."
-msgstr "Liczba pikseli na jednostkę rozdzielczości (<Exif.ResolutionUnit>) długości obrazu. Zakładana jest taka sama wartość jak <Exif.XResolution>."
+msgid ""
+"The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> "
+"direction. The same value as <Exif.XResolution> is designated."
+msgstr ""
+"Liczba pikseli na jednostkę rozdzielczości (<Exif.ResolutionUnit>) długości "
+"obrazu. Zakładana jest taka sama wartość jak <Exif.XResolution>."
 
 #: ../src/tags/gnome-cmd-tags.cc:308
 msgid "Accessed"
@@ -4288,7 +4815,8 @@ msgid "Editable free text/notes."
 msgstr "<p align=\"right\">Redagowalny tekst:</p>"
 
 #: ../src/tags/gnome-cmd-tags.cc:311
-msgid "MIME type of the file or if a directory it should contain value \"Folder\""
+msgid ""
+"MIME type of the file or if a directory it should contain value \"Folder\""
 msgstr "Typ MIME pliku lub \"Folder\" w przypadku katalogów"
 
 #: ../src/tags/gnome-cmd-tags.cc:312
@@ -4328,13 +4856,14 @@ msgstr "Pełna ścieżka wyłączając nazwę pliku."
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
 msgstr "Prawa dostępu w formacie Unix, tj. \"-rw-r--r--\"."
 
-#: ../src/tags/gnome-cmd-tags.cc:318
-#: ../src/tags/gnome-cmd-tags.cc:377
+#: ../src/tags/gnome-cmd-tags.cc:318 ../src/tags/gnome-cmd-tags.cc:377
 msgid "Publisher"
 msgstr "Wydawca"
 
 #: ../src/tags/gnome-cmd-tags.cc:318
-msgid "Editable DC type for the name of the publisher of the file (EG dc:publisher field in RSS feed)."
+msgid ""
+"Editable DC type for the name of the publisher of the file (EG dc:publisher "
+"field in RSS feed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:319
@@ -4342,16 +4871,18 @@ msgid "Rank"
 msgstr "Ranking"
 
 #: ../src/tags/gnome-cmd-tags.cc:319
-msgid "Editable file rank for grading favourites. Value should be in the range 1..10."
+msgid ""
+"Editable file rank for grading favourites. Value should be in the range "
+"1..10."
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags.cc:320
-#: ../src/tags/gnome-cmd-tags.cc:384
+#: ../src/tags/gnome-cmd-tags.cc:320 ../src/tags/gnome-cmd-tags.cc:384
 msgid "Size"
 msgstr "Rozmiar"
 
 #: ../src/tags/gnome-cmd-tags.cc:320
-msgid "Size of the file in bytes or if a directory number of items it contains."
+msgid ""
+"Size of the file in bytes or if a directory number of items it contains."
 msgstr "Rozmiar pliku w bajtach lub liczba elementów zawartych w katalogu."
 
 #: ../src/tags/gnome-cmd-tags.cc:321
@@ -4360,7 +4891,8 @@ msgid "Album Sort Order"
 msgstr "Domyślna kolejność uporządkowywania"
 
 #: ../src/tags/gnome-cmd-tags.cc:321
-msgid "String which should be used instead of the album name for sorting purposes."
+msgid ""
+"String which should be used instead of the album name for sorting purposes."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:322
@@ -4378,7 +4910,9 @@ msgid "Audio Seek Point"
 msgstr "Ustaw punkt zaznaczenia"
 
 #: ../src/tags/gnome-cmd-tags.cc:323
-msgid "Fractional offset within the audio data, providing a starting point from which to find an appropriate point to start decoding."
+msgid ""
+"Fractional offset within the audio data, providing a starting point from "
+"which to find an appropriate point to start decoding."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:324
@@ -4480,7 +5014,9 @@ msgid "Encoded By"
 msgstr "Kodowanie przez"
 
 #: ../src/tags/gnome-cmd-tags.cc:337
-msgid "Person or organisation that encoded the audio file. This field may contain a copyright message, if the audio file also is copyrighted by the encoder."
+msgid ""
+"Person or organisation that encoded the audio file. This field may contain a "
+"copyright message, if the audio file also is copyrighted by the encoder."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:338
@@ -4581,8 +5117,7 @@ msgstr "klucz początkowy."
 msgid "Involved People"
 msgstr "Wy_magani ludzie"
 
-#: ../src/tags/gnome-cmd-tags.cc:349
-#: ../src/tags/gnome-cmd-tags.cc:350
+#: ../src/tags/gnome-cmd-tags.cc:349 ../src/tags/gnome-cmd-tags.cc:350
 #, fuzzy
 msgid "Involved people list."
 msgstr "Lista osób dokumentujących program"
@@ -4843,8 +5378,7 @@ msgstr "Czas nagrywania"
 msgid "Recording time."
 msgstr "Czas nagrywania."
 
-#: ../src/tags/gnome-cmd-tags.cc:380
-#: ../src/tags/gnome-cmd-tags.cc:492
+#: ../src/tags/gnome-cmd-tags.cc:380 ../src/tags/gnome-cmd-tags.cc:492
 msgid "Release Time"
 msgstr "Data wydania"
 
@@ -4978,8 +5512,7 @@ msgstr "Zdefiniowany przez użytkownika informacja tekstowa"
 msgid "Volume Adjustment"
 msgstr "Regulacja głośności"
 
-#: ../src/tags/gnome-cmd-tags.cc:396
-#: ../src/tags/gnome-cmd-tags.cc:397
+#: ../src/tags/gnome-cmd-tags.cc:396 ../src/tags/gnome-cmd-tags.cc:397
 msgid "Relative volume adjustment."
 msgstr "Względna regulacja głośności."
 
@@ -5043,7 +5576,9 @@ msgid "WWW Payment"
 msgstr "Okres płatności [T]"
 
 #: ../src/tags/gnome-cmd-tags.cc:403
-msgid "URL pointing at a webpage that will handle the process of paying for this file."
+msgid ""
+"URL pointing at a webpage that will handle the process of paying for this "
+"file."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:404
@@ -5091,7 +5626,9 @@ msgid "Description of the image."
 msgstr "Opis obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:413
-msgid "The program used by the camera to set exposure when the picture is taken. EG Manual, Normal, Aperture priority etc."
+msgid ""
+"The program used by the camera to set exposure when the picture is taken. EG "
+"Manual, Normal, Aperture priority etc."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:414
@@ -5100,7 +5637,8 @@ msgstr "Czas naświetlania w sekundach zastosowany do wykonania zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:415
 msgid "Set to \"1\" if flash was fired."
-msgstr "Wartośc równa \"1\" gdy zdjęcie było robione z użyciem lampy błyskowej. "
+msgstr ""
+"Wartośc równa \"1\" gdy zdjęcie było robione z użyciem lampy błyskowej. "
 
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Focal length of lens in mm."
@@ -5119,8 +5657,11 @@ msgid "ISO Speed"
 msgstr "Czułość ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:419
-msgid "ISO speed used to acquire the document contents. For example, 100, 200, 400, etc."
-msgstr "Czułość ISO wykorzystana do przygotowania zdjęcia, np. 100, 200, 400, itd."
+msgid ""
+"ISO speed used to acquire the document contents. For example, 100, 200, 400, "
+"etc."
+msgstr ""
+"Czułość ISO wykorzystana do przygotowania zdjęcia, np. 100, 200, 400, itd."
 
 #: ../src/tags/gnome-cmd-tags.cc:420
 msgid "String of keywords."
@@ -5136,7 +5677,9 @@ msgid "Make of camera used to take the image."
 msgstr "Producent aparatu wykorzystanego do zrobienia zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:422
-msgid "Metering mode used to acquire the image (IE Unknown, Average, CenterWeightedAverage, Spot, MultiSpot, Pattern, Partial)."
+msgid ""
+"Metering mode used to acquire the image (IE Unknown, Average, "
+"CenterWeightedAverage, Spot, MultiSpot, Pattern, Partial)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:423
@@ -5144,7 +5687,9 @@ msgid "Model of camera used to take the image."
 msgstr "Model aparatu wykorzystanego do zrobienia zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:424
-msgid "Represents the orientation of the image wrt camera (IE \"top,left\" or \"bottom,right\")."
+msgid ""
+"Represents the orientation of the image wrt camera (IE \"top,left\" or "
+"\"bottom,right\")."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:425
@@ -5156,7 +5701,9 @@ msgid "Title of image."
 msgstr "Tytułu obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:427
-msgid "White balance setting of the camera when the picture was taken (auto or manual)."
+msgid ""
+"White balance setting of the camera when the picture was taken (auto or "
+"manual)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:428
@@ -5172,7 +5719,9 @@ msgid "Action Advised"
 msgstr "Zalecana akacja"
 
 #: ../src/tags/gnome-cmd-tags.cc:429
-msgid "The type of action that this object provides to a previous object. '01' Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
+msgid ""
+"The type of action that this object provides to a previous object. '01' "
+"Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:430
@@ -5229,7 +5778,8 @@ msgid "Audio Type"
 msgstr "Rodzaj dźwięĸu"
 
 #: ../src/tags/gnome-cmd-tags.cc:436
-msgid "The number of channels and type of audio (music, text, etc.) in the object."
+msgid ""
+"The number of channels and type of audio (music, text, etc.) in the object."
 msgstr "Liczba kanałów i typ audio zawartego w obiekcie."
 
 #: ../src/tags/gnome-cmd-tags.cc:437
@@ -5238,7 +5788,9 @@ msgid "By-line"
 msgstr "Przeszukiwanie wiersz po wierszu"
 
 #: ../src/tags/gnome-cmd-tags.cc:437
-msgid "Name of the creator of the object, e.g. writer, photographer or graphic artist (multiple values allowed)."
+msgid ""
+"Name of the creator of the object, e.g. writer, photographer or graphic "
+"artist (multiple values allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:438
@@ -5258,7 +5810,9 @@ msgid "A textual description of the data"
 msgstr "Opis danych"
 
 #: ../src/tags/gnome-cmd-tags.cc:440
-msgid "Identifies the subject of the object in the opinion of the provider (Deprecated)."
+msgid ""
+"Identifies the subject of the object in the opinion of the provider "
+"(Deprecated)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:441
@@ -5266,7 +5820,9 @@ msgid "Coded Character Set"
 msgstr "Kodowanie"
 
 #: ../src/tags/gnome-cmd-tags.cc:441
-msgid "Control functions used for the announcement, invocation or designation of coded character sets."
+msgid ""
+"Control functions used for the announcement, invocation or designation of "
+"coded character sets."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:442
@@ -5286,13 +5842,14 @@ msgstr "Potwierdzony rozmiar danych"
 msgid "Total size of the object data."
 msgstr "Całkowity rozmiar danych obiektu."
 
-#: ../src/tags/gnome-cmd-tags.cc:444
-#: ../src/tags/gnome-cmd-tags.cc:507
+#: ../src/tags/gnome-cmd-tags.cc:444 ../src/tags/gnome-cmd-tags.cc:507
 msgid "Contact"
 msgstr "Kontakt"
 
 #: ../src/tags/gnome-cmd-tags.cc:444
-msgid "The person or organization which can provide further background information on the object (multiple values allowed)."
+msgid ""
+"The person or organization which can provide further background information "
+"on the object (multiple values allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:445
@@ -5301,7 +5858,9 @@ msgid "Content Location Code"
 msgstr "Code content type"
 
 #: ../src/tags/gnome-cmd-tags.cc:445
-msgid "Indicates the code of a country/geographical location referenced by the content of the object (multiple values allowed)."
+msgid ""
+"Indicates the code of a country/geographical location referenced by the "
+"content of the object (multiple values allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:446
@@ -5310,7 +5869,9 @@ msgid "Content Location Name"
 msgstr "Wyczyść pasek adresu<p>Usuwa zawartość paska adresu."
 
 #: ../src/tags/gnome-cmd-tags.cc:446
-msgid "A full, publishable name of a country/geographical location referenced by the content of the object (multiple values allowed)."
+msgid ""
+"A full, publishable name of a country/geographical location referenced by "
+"the content of the object (multiple values allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:447
@@ -5342,11 +5903,14 @@ msgid "Credit"
 msgstr "Lista zasług"
 
 #: ../src/tags/gnome-cmd-tags.cc:450
-msgid "Identifies the provider of the object, not necessarily the owner/creator."
+msgid ""
+"Identifies the provider of the object, not necessarily the owner/creator."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:451
-msgid "The date the intellectual content of the object was created rather than the date of the creation of the physical representation."
+msgid ""
+"The date the intellectual content of the object was created rather than the "
+"date of the creation of the physical representation."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:452
@@ -5389,7 +5953,10 @@ msgid "Editorial Update"
 msgstr "Aktualizacja spotkania"
 
 #: ../src/tags/gnome-cmd-tags.cc:456
-msgid "Indicates the type of update this object provides to a previous object. The link to the previous object is made using the ARM. '01' indicates an additional language."
+msgid ""
+"Indicates the type of update this object provides to a previous object. The "
+"link to the previous object is made using the ARM. '01' indicates an "
+"additional language."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:457
@@ -5416,7 +5983,10 @@ msgid "Envelope Priority"
 msgstr "Domyślny priorytet:"
 
 #: ../src/tags/gnome-cmd-tags.cc:459
-msgid "Specifies the envelope handling priority and not the editorial urgency. '1' for most urgent, '5' for normal, and '8' for least urgent. '9' is user-defined."
+msgid ""
+"Specifies the envelope handling priority and not the editorial urgency. '1' "
+"for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
+"defined."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:460
@@ -5456,7 +6026,9 @@ msgid "Fixture Identifier"
 msgstr "Identyfikator sprzętu"
 
 #: ../src/tags/gnome-cmd-tags.cc:464
-msgid "Identifies objects that recur often and predictably, enabling users to immediately find or recall such an object."
+msgid ""
+"Identifies objects that recur often and predictably, enabling users to "
+"immediately find or recall such an object."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:465
@@ -5472,7 +6044,9 @@ msgid "Image Orientation"
 msgstr "Orientacja strony"
 
 #: ../src/tags/gnome-cmd-tags.cc:466
-msgid "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' for square."
+msgid ""
+"The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
+"for square."
 msgstr "Układ zdjęcia: 'P' - pionowy, 'L' - poziomy, 'S' - kwadratowy"
 
 #: ../src/tags/gnome-cmd-tags.cc:467
@@ -5484,7 +6058,9 @@ msgid "Indicates the data format of the image object."
 msgstr "Oznacza format danych obiektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:468
-msgid "Used to indicate specific information retrieval words (multiple values allowed)."
+msgid ""
+"Used to indicate specific information retrieval words (multiple values "
+"allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:469
@@ -5492,7 +6068,9 @@ msgid "Language Identifier"
 msgstr "Identyfikator języka"
 
 #: ../src/tags/gnome-cmd-tags.cc:469
-msgid "The major national language of the object, according to the 2-letter codes of ISO 639:1988."
+msgid ""
+"The major national language of the object, according to the 2-letter codes "
+"of ISO 639:1988."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:470
@@ -5509,7 +6087,9 @@ msgid "Max Subfile Size"
 msgstr "Maksymalny rozmiar dysku:"
 
 #: ../src/tags/gnome-cmd-tags.cc:471
-msgid "The maximum size for a subfile dataset (8:10) containing a portion of the object data."
+msgid ""
+"The maximum size for a subfile dataset (8:10) containing a portion of the "
+"object data."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:472
@@ -5526,7 +6106,9 @@ msgid "Object Attribute Reference"
 msgstr "Odniesienie do atrybutów obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:473
-msgid "Defines the nature of the object independent of the subject (multiple values allowed)."
+msgid ""
+"Defines the nature of the object independent of the subject (multiple values "
+"allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:474
@@ -5593,7 +6175,9 @@ msgid "Preview File Format"
 msgstr "Format podglądu pliku"
 
 #: ../src/tags/gnome-cmd-tags.cc:481
-msgid "Binary value indicating the file format of the object preview data in dataset 2:202."
+msgid ""
+"Binary value indicating the file format of the object preview data in "
+"dataset 2:202."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:482
@@ -5619,15 +6203,13 @@ msgstr "Wersja programu"
 #: ../src/tags/gnome-cmd-tags.cc:484
 #, fuzzy
 msgid "The version of the originating program."
-msgstr "Wyświetlenie wersji programu"
+msgstr "Wersja programu"
 
-#: ../src/tags/gnome-cmd-tags.cc:485
-#: ../src/tags/gnome-cmd-tags.cc:497
+#: ../src/tags/gnome-cmd-tags.cc:485 ../src/tags/gnome-cmd-tags.cc:497
 msgid "Province, State"
 msgstr "Prowincja, stan"
 
-#: ../src/tags/gnome-cmd-tags.cc:485
-#: ../src/tags/gnome-cmd-tags.cc:497
+#: ../src/tags/gnome-cmd-tags.cc:485 ../src/tags/gnome-cmd-tags.cc:497
 msgid "The Province/State where the object originates."
 msgstr ""
 
@@ -5637,7 +6219,9 @@ msgid "Rasterized Caption"
 msgstr "Nagłówek tabeli:"
 
 #: ../src/tags/gnome-cmd-tags.cc:486
-msgid "Contains rasterized object description and is used where characters that have not been coded are required for the caption."
+msgid ""
+"Contains rasterized object description and is used where characters that "
+"have not been coded are required for the caption."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:487
@@ -5661,7 +6245,8 @@ msgid "Reference Number"
 msgstr "Numer odniesienia"
 
 #: ../src/tags/gnome-cmd-tags.cc:489
-msgid "The Envelope Number of a prior envelope to which the current object refers."
+msgid ""
+"The Envelope Number of a prior envelope to which the current object refers."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:490
@@ -5669,15 +6254,19 @@ msgid "Reference Service"
 msgstr "Odwołanie do usługi"
 
 #: ../src/tags/gnome-cmd-tags.cc:490
-msgid "The Service Identifier of a prior envelope to which the current object refers."
+msgid ""
+"The Service Identifier of a prior envelope to which the current object "
+"refers."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:491
-msgid "Designates the earliest date the provider intends the object to be used."
+msgid ""
+"Designates the earliest date the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:492
-msgid "Designates the earliest time the provider intends the object to be used."
+msgid ""
+"Designates the earliest time the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:493
@@ -5718,7 +6307,9 @@ msgid "Subfile"
 msgstr " Podplik"
 
 #: ../src/tags/gnome-cmd-tags.cc:498
-msgid "The object data itself. Subfiles must be sequential so that the subfiles may be reassembled."
+msgid ""
+"The object data itself. Subfiles must be sequential so that the subfiles may "
+"be reassembled."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:499
@@ -5726,7 +6317,10 @@ msgid "Subject Reference"
 msgstr "Obiekt odniesienia"
 
 #: ../src/tags/gnome-cmd-tags.cc:499
-msgid "A structured definition of the subject matter. It must contain an IPR, an 8 digit Subject Reference Number and an optional Subject Name, Subject Matter Name, and Subject Detail Name each separated by a colon (:)."
+msgid ""
+"A structured definition of the subject matter. It must contain an IPR, an 8 "
+"digit Subject Reference Number and an optional Subject Name, Subject Matter "
+"Name, and Subject Detail Name each separated by a colon (:)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:500
@@ -5751,7 +6345,10 @@ msgid "Time Created"
 msgstr "Utworzono nową ścieżkę"
 
 #: ../src/tags/gnome-cmd-tags.cc:502
-msgid "The time the intellectual content of the object was created rather than the date of the creation of the physical representation (multiple values allowed)."
+msgid ""
+"The time the intellectual content of the object was created rather than the "
+"date of the creation of the physical representation (multiple values "
+"allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:503
@@ -5764,10 +6361,12 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid "Unique Name of Object"
-msgstr "Unikalna nazwa dla operacji"
+msgstr "Unikalna nazwa obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:504
-msgid "An eternal, globally unique identification for the object, independent of provider and for any media form."
+msgid ""
+"An eternal, globally unique identification for the object, independent of "
+"provider and for any media form."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:505
@@ -5775,7 +6374,9 @@ msgid "Urgency"
 msgstr "Ważność"
 
 #: ../src/tags/gnome-cmd-tags.cc:505
-msgid "Specifies the editorial urgency of content and not necessarily the envelope handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
+msgid ""
+"Specifies the editorial urgency of content and not necessarily the envelope "
+"handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:506
@@ -5784,7 +6385,9 @@ msgid "Writer/Editor"
 msgstr "Edytor kont"
 
 #: ../src/tags/gnome-cmd-tags.cc:506
-msgid "The name of the person involved in the writing, editing or correcting the object or caption/abstract (multiple values allowed)"
+msgid ""
+"The name of the person involved in the writing, editing or correcting the "
+"object or caption/abstract (multiple values allowed)"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:507
@@ -5809,39 +6412,32 @@ msgid "Location"
 msgstr "Położenie"
 
 #: ../src/tags/gnome-cmd-tags.cc:510
-#, fuzzy
 msgid "Location where track was recorded."
-msgstr "Czas ostatniego dostępu do pliku."
+msgstr "Miejsce nagrania utworu."
 
 #: ../src/tags/gnome-cmd-tags.cc:511
-#, fuzzy
 msgid "Maximum bitrate"
-msgstr "Maksymalna szybkość transmisji:"
+msgstr "Maksymalna przepływność"
 
 #: ../src/tags/gnome-cmd-tags.cc:511
-#, fuzzy
 msgid "Maximum bitrate in kbps."
-msgstr "Maksymalna szerokość w znakach"
+msgstr "Maksymalna przepływność w kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:512
-#, fuzzy
 msgid "Minimum bitrate"
-msgstr "Minimalna szybkość transmisji:"
+msgstr "Minimalna przepływność"
 
 #: ../src/tags/gnome-cmd-tags.cc:512
-#, fuzzy
 msgid "Minimum bitrate in kbps."
-msgstr "minimalny odstęp czasowy w milisekundach"
+msgstr "Minimalna przepływność w kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:513
-#, fuzzy
 msgid "Nominal bitrate"
-msgstr "Nominalna szybkość transmisji"
+msgstr "Nominalna przepływność"
 
 #: ../src/tags/gnome-cmd-tags.cc:513
-#, fuzzy
 msgid "Nominal bitrate in kbps."
-msgstr "Bitrate w kbps."
+msgstr "Nominalna przepływność w kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:514
 msgid "Organization"
@@ -6022,7 +6618,9 @@ msgstr ""
 
 #: ../src/utils.cc:507
 #, c-format
-msgid "\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"
+msgid ""
+"\"%s\" seems to be a binary executable file but it lacks the executable bit. "
+"Do you want to set it and then run the file?"
 msgstr ""
 
 #: ../src/utils.cc:510
@@ -6032,8 +6630,12 @@ msgstr "Nazwa pliku &wykonywalnego programu make:"
 
 #: ../src/utils.cc:537
 #, c-format
-msgid "\"%s\" is an executable text file. Do you want to run it, or display its contents?"
-msgstr "\"%s\" jest wykonywalnym plikiem tekstowym. Czy chcesz go uruchomić, czy wyświetlić zawartość?"
+msgid ""
+"\"%s\" is an executable text file. Do you want to run it, or display its "
+"contents?"
+msgstr ""
+"\"%s\" jest wykonywalnym plikiem tekstowym. Czy chcesz go uruchomić, czy "
+"wyświetlić zawartość?"
 
 #: ../src/utils.cc:539
 msgid "Run or Display"
@@ -6047,11 +6649,14 @@ msgstr "Wyświetl"
 msgid "Run"
 msgstr "Uruchom"
 
-#: ../src/utils.cc:582
-#: ../src/utils.cc:658
+#: ../src/utils.cc:582 ../src/utils.cc:658
 #, c-format
-msgid "%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"
-msgid_plural "%s does not know how to open remote files. Do you want to download the files to a temporary location and then open them?"
+msgid ""
+"%s does not know how to open remote file. Do you want to download the file "
+"to a temporary location and then open it?"
+msgid_plural ""
+"%s does not know how to open remote files. Do you want to download the files "
+"to a temporary location and then open them?"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
@@ -6086,42 +6691,59 @@ msgstr "Wystąpił błąd podczas wyświetlania pomocy."
 
 #~ msgid "_Add..."
 #~ msgstr "_Dodaj..."
+
 #~ msgid "_Edit..."
 #~ msgstr "_Edycja..."
+
 #~ msgid "_Remove"
 #~ msgstr "_Usuń"
+
 #~ msgid "_Goto"
 #~ msgstr "_Idź do"
 
 #, fuzzy
 #~ msgid "Edit Remote Connection"
 #~ msgstr "%1 - Zdalne połączenie z pulpitem"
+
 #~ msgid "Connect"
 #~ msgstr "Połącz"
+
 #~ msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
 #~ msgstr "Rozmiar: %dx%d\tBits/sample: %d\tPowiększenie: %s"
+
 #~ msgid "Enter password for %s@%s"
 #~ msgstr "Wprowadź hasło dla %s@%s"
+
 #~ msgid "Enter Password"
 #~ msgstr "Wprowadź hasło"
+
 #~ msgid "FTP Connect"
 #~ msgstr "Połączenie FTP"
+
 #~ msgid "FTP Quick Connect"
 #~ msgstr "Szybie połączenie FTP"
+
 #~ msgid "FTP _Connect..."
 #~ msgstr "Połączenie _FTP"
+
 #~ msgid "FTP _Quick Connect..."
 #~ msgstr "_Szybkie połączenie FTP"
+
 #~ msgid "The F number."
 #~ msgstr "Wartość przysłony."
+
 #~ msgid "Camera Make"
 #~ msgstr "Producent aparatu"
+
 #~ msgid "Camera Model"
 #~ msgstr "Model aparatu"
+
 #~ msgid "F number"
 #~ msgstr "Wartość przysłony"
+
 #~ msgid "Icon Path"
 #~ msgstr "Ścieżka ikony"
+
 #~ msgid "Editable file URI for a custom icon for the file."
 #~ msgstr "Modyfikowalny adres URI do ikony użytkownika."
 
@@ -6132,40 +6754,55 @@ msgstr "Wystąpił błąd podczas wyświetlania pomocy."
 #, fuzzy
 #~ msgid "Small Thumbnail Path"
 #~ msgstr "Ścieżka do miniaturki okładki albumu"
+
 #~ msgid "Lead Artist"
 #~ msgstr "Wykonawca"
 
 #, fuzzy
 #~ msgid "Lead performer(s)."
 #~ msgstr "Prowadzący artysta/wykonawca/solista"
+
 #~ msgid "Track number"
 #~ msgstr "Numer ścieżki"
+
 #~ msgid "<ICC tags not supported>"
 #~ msgstr "<Znaczniki ICC nie są obsługiwane>"
+
 #~ msgid "<IPTC tags not supported>"
 #~ msgstr "<Znaczniki IPTC nie są obsługiwane>"
+
 #~ msgid "_Execute"
 #~ msgstr "_Uruchamianie"
+
 #~ msgid "_Cut"
 #~ msgstr "_Wytnij"
+
 #~ msgid "Total number of chars in document."
 #~ msgstr "Łączna liczba znaków w dokumencie"
+
 #~ msgid "Rename \"%s\" to"
 #~ msgstr "Zmień nazwę \"%s\" na"
+
 #~ msgid "Rename File"
 #~ msgstr "Zmień nazwę pliku"
+
 #~ msgid "About"
 #~ msgstr "_Informacje o"
+
 #~ msgid "Case sens"
 #~ msgstr "Wielkość liter"
+
 #~ msgid "New FTP Server"
 #~ msgstr "Nowy serwer FTP"
+
 #~ msgid "Edit FTP Server"
 #~ msgstr "Edycja"
+
 #~ msgid "Back in history"
 #~ msgstr "Wstecz"
+
 #~ msgid "Forward in history"
 #~ msgstr "Dalej"
+
 #~ msgid "Copy file names"
 #~ msgstr "Kopiuj nazwy plików"
-
