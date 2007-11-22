@@ -125,12 +125,9 @@ gnome_cmd_app_free                (GnomeCmdApp *app)
     g_return_if_fail (app != NULL);
     g_return_if_fail (app->priv != NULL);
 
-    if (app->priv->name)
-        g_free (app->priv->name);
-    if (app->priv->cmd)
-        g_free (app->priv->cmd);
-    if (app->priv->icon_path)
-        g_free (app->priv->icon_path);
+    g_free (app->priv->name);
+    g_free (app->priv->cmd);
+    g_free (app->priv->icon_path);
     if (app->priv->pixmap)
         gnome_cmd_pixmap_free (app->priv->pixmap);
 

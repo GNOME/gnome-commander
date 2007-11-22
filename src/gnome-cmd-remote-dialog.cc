@@ -140,7 +140,7 @@ inline void do_connect (GnomeCmdRemoteDialog *ftp_dialog, GnomeCmdConFtp *server
 
     gtk_widget_destroy (GTK_WIDGET (ftp_dialog));
 
-    g_timeout_add (50, (GtkFunction) do_connect_real, server);
+    g_timeout_add (1, (GtkFunction) do_connect_real, server);
 }
 
 

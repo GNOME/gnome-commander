@@ -52,14 +52,16 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 static GtkObjectClass *parent_class = NULL;
 
-const gchar *icon_name[] = {"gnome-fs-ftp",            // CONN_FTP
-                            "gnome-fs-ftp",            // CONN_ANON_FTP
-                            "gnome-fs-ssh",            // CONN_SSH
-                            "gnome-fs-smb",            // CONN_SMB
-                            "gnome-fs-web",            // CONN_DAV
-                            "gnome-fs-web",            // CONN_DAVS
-                            "gnome-fs-network",        // CONN_URI
-                            "gnome-fs-directory"};     // CONN_LOCAL
+
+// Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+const gchar *icon_name[] = {"gnome-fs-ssh",            // CON_SSH
+                            "gnome-fs-ftp",            // CON_FTP
+                            "gnome-fs-ftp",            // CON_ANON_FTP
+                            "gnome-fs-smb",            // CON_SMB
+                            "gnome-fs-web",            // CON_DAV
+                            "gnome-fs-web",            // CON_DAVS
+                            "gnome-fs-network",        // CON_URI
+                            "gnome-fs-directory"};     // CON_LOCAL
 
 
 static void on_open_done (GnomeCmdCon *con)

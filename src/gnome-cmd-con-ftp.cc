@@ -90,9 +90,6 @@ static gboolean start_get_file_info (GnomeCmdCon *con)
 
 static void ftp_open (GnomeCmdCon *con)
 {
-    //~ GnomeCmdDir *dir;
-    //~ GnomeCmdPath *path;
-
     DEBUG('m', "Opening FTP connection\n");
 
     if (!con->base_path)
@@ -104,13 +101,13 @@ static void ftp_open (GnomeCmdCon *con)
     con->state = CON_STATE_OPENING;
     con->open_result = CON_OPEN_IN_PROGRESS;
 
-    //~ path = gnome_cmd_plain_path_new (gnome_cmd_con_ftp_get_remote_dir (GNOME_CMD_CON_FTP (con)));
-    //~ dir = gnome_cmd_dir_new (con, path);
+    //~GnomeCmdPath * path = gnome_cmd_plain_path_new (gnome_cmd_con_ftp_get_remote_dir (GNOME_CMD_CON_FTP (con)));
+    //~ GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
 
     //~ gnome_cmd_con_set_default_dir (con, dir);
     //~ gnome_cmd_con_set_cwd (con, dir);
 
-    gtk_timeout_add (1, (GtkFunction)start_get_file_info, con);
+    gtk_timeout_add (1, (GtkFunction) start_get_file_info, con);
 }
 
 

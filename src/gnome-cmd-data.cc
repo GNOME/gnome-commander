@@ -1288,7 +1288,7 @@ void gnome_cmd_data_save (void)
     gnome_cmd_data_set_string ("/defaults/last_pattern", data->priv->last_pattern);
     gnome_cmd_data_set_string ("/defaults/backup_pattern", data->priv->backup_pattern);
 
-    gnome_cmd_data_set_int ("/options/main_win_state",(gint) data->priv->main_win_state);
+    gnome_cmd_data_set_int ("/options/main_win_state", (gint) data->priv->main_win_state);
 
     gnome_cmd_data_set_bool ("/network/use_gnome_auth_manager", data->priv->use_gnome_auth_manager);
     gnome_cmd_data_set_string ("/network/ftp_anonymous_password", data->priv->ftp_anonymous_password);
