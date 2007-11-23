@@ -162,64 +162,6 @@ static void on_help_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *dialog
 }
 
 
-inline gchar *create_or_fill_server (GnomeCmdConFtp *&server, const gchar **values, gboolean with_alias=TRUE)
-{
-    gint i = 0;
-
-    const gchar *alias       = with_alias ? values[i++] : NULL;
-    const gchar *host        = values[i++];
-    const gchar *port        = values[i++];
-    const gchar *user        = values[i++];
-    const gchar *remote_dir  = values[i++];
-
-    if (with_alias && !alias)
-        return g_strdup (_("No alias specified"));
-
-    if (!host)
-        return g_strdup (_("No host specified"));
-
-    gushort iport;
-
-    if (!string2ushort (port, iport))
-        return g_strdup_printf (_("Invalid port number: %s"), port);
-
-    if (!server)
-        server = gnome_cmd_con_ftp_new (alias?alias:"tmp", host, iport, user, NULL, remote_dir);
-    else
-    {
-        if (with_alias)
-            gnome_cmd_con_ftp_set_alias (server, alias);
-        gnome_cmd_con_ftp_set_host_name (server, host);
-        gnome_cmd_con_ftp_set_user_name (server, user);
-        gnome_cmd_con_ftp_set_host_port (server, iport);
-        gnome_cmd_con_ftp_set_remote_dir (server, remote_dir);
-    }
-
-    GnomeCmdCon *con = GNOME_CMD_CON(server);
-
-    con->method = strcmp (user, "anonymous")==0 ? CON_ANON_FTP : CON_FTP;
-    con->gnome_auth = con->method!=CON_ANON_FTP;
-
-    return NULL;
-}
-
-
-inline GtkWidget *create_ftp_server_dialog (const gchar *title, GnomeCmdStringDialogCallback on_ok_func, GnomeCmdRemoteDialog *ftp_dialog, gboolean with_alias)
-{
-    const gchar *labels1[] = {_("Alias:"), _("Host:"), _("Port:"), _("User:"), _("Remote Dir:")};
-    const gchar *labels2[] = {_("Host:"), _("Port:"), _("User:"), _("Remote Dir:")};
-
-    const gchar **labels = with_alias ? labels1 : labels2;
-    const guint labels_size = with_alias ? G_N_ELEMENTS(labels1) : G_N_ELEMENTS(labels2);
-
-    GtkWidget *dialog = gnome_cmd_string_dialog_new (title, labels, labels_size, on_ok_func, ftp_dialog);
-    gtk_widget_ref (dialog);
-    gtk_widget_show (dialog);
-
-    return dialog;
-}
-
-
 static void on_new_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_dialog)
 {
     GnomeCmdConFtp *server = gnome_cmd_connect_dialog_new ();
@@ -646,41 +588,41 @@ GtkWidget *gnome_cmd_remote_dialog_new (void)
  *
  ***********************************************/
 
-static gboolean on_quick_connect_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, gpointer not_used)
-{
-    GnomeCmdConFtp *server = NULL;
-    gchar *error_desc = create_or_fill_server (server, values, FALSE);
+// static gboolean on_quick_connect_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, gpointer not_used)
+// {
+    // GnomeCmdConFtp *server = NULL;
+    // gchar *error_desc = create_or_fill_server (server, values, FALSE);
 
-    if (error_desc != NULL)
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
-    else
-    {
-        gchar *tmp_alias = g_strdup_printf ("[Q]%s", gnome_cmd_con_ftp_get_host_name (server));
+    // if (error_desc != NULL)
+        // gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
+    // else
+    // {
+        // gchar *tmp_alias = g_strdup_printf ("[Q]%s", gnome_cmd_con_ftp_get_host_name (server));
 
-        gnome_cmd_con_ftp_set_alias (server, tmp_alias);
-        gnome_cmd_con_list_add_quick_ftp (gnome_cmd_con_list_get (), server);
-        gnome_cmd_data_set_quick_connect_host (gnome_cmd_con_ftp_get_host_name (server));
-        gnome_cmd_data_set_quick_connect_port (gnome_cmd_con_ftp_get_host_port (server));
-        gnome_cmd_data_set_quick_connect_user (gnome_cmd_con_ftp_get_user_name (server));
+        // gnome_cmd_con_ftp_set_alias (server, tmp_alias);
+        // gnome_cmd_con_list_add_quick_ftp (gnome_cmd_con_list_get (), server);
+        // gnome_cmd_data_set_quick_connect_host (gnome_cmd_con_ftp_get_host_name (server));
+        // gnome_cmd_data_set_quick_connect_port (gnome_cmd_con_ftp_get_host_port (server));
+        // gnome_cmd_data_set_quick_connect_user (gnome_cmd_con_ftp_get_user_name (server));
         // do_connect (GTK_WIDGET (string_dialog), server);
-        g_free (tmp_alias);
-    }
+        // g_free (tmp_alias);
+    // }
 
-    return error_desc == NULL;
-}
+    // return error_desc == NULL;
+// }
 
 
 void show_quick_connect_dialog (void)
 {
-    GtkWidget *dialog;
+    // GtkWidget *dialog;
 
-    dialog = create_ftp_server_dialog (_("New Connection"), (GnomeCmdStringDialogCallback) on_quick_connect_ok, NULL, FALSE);
+    // dialog = create_ftp_server_dialog (_("New Connection"), (GnomeCmdStringDialogCallback) on_quick_connect_ok, NULL, FALSE);
 
-    gchar *port = g_strdup_printf ("%d", gnome_cmd_data_get_quick_connect_port ());
+    // gchar *port = g_strdup_printf ("%d", gnome_cmd_data_get_quick_connect_port ());
 
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, gnome_cmd_data_get_quick_connect_host ());
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, port);
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 2, gnome_cmd_data_get_quick_connect_user ());
+    // gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, gnome_cmd_data_get_quick_connect_host ());
+    // gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, port);
+    // gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 2, gnome_cmd_data_get_quick_connect_user ());
 
-    g_free (port);
+    // g_free (port);
 }
