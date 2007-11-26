@@ -409,7 +409,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
         for (; src_uri_list; src_uri_list = src_uri_list->next)
         {
             src_uri = (GnomeVFSURI *) src_uri_list->data;
-            gchar *basename = gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name (src_uri), 0);
+            gchar *basename = gnome_vfs_uri_extract_short_name (src_uri);
 
             dest_uri = gnome_cmd_dir_get_child_uri (to_dir, basename);
             g_free (basename);

@@ -5666,6 +5666,9 @@
                             <para>Fixed crash when creating dir with absolute path on SMB share</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed crash when moving file with % in the name</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with sporadically lost cursor in file pane</para>
                         </listitem>
                         <listitem>

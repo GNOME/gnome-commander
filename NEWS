@@ -10,6 +10,7 @@ Bug fixes:
  * Fixed problem when creating ~/dir
  * Fixed problem with updating of internal viewer status bar
  * Fixed crash when creating dir with absolute path on SMB share
+ * Fixed crash when moving file with % in the name
  * Fixed problem with sporadically lost cursor in file pane
  * Fixed problem with mounting of devices with spaces in the name
  * Fixed problem with history of advrename templates

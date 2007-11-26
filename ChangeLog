@@ -1,3 +1,8 @@
+2007-11-26  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-xfer.cc:
+	Fix for crash when moving file with % in the name
+
 2007-11-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* po/POTFILES.in:
