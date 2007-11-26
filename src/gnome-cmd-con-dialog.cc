@@ -657,13 +657,13 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 }
 
 
-GnomeCmdConFtp *gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
+gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 {
-    g_return_val_if_fail (server != NULL, server);
+    g_return_val_if_fail (server != NULL, FALSE);
 
     GtkWidget *dialog = (GtkWidget *) gtk_type_new (gnome_cmd_connect_dialog_get_type ());
 
-    g_return_val_if_fail (dialog != NULL, server);
+    g_return_val_if_fail (dialog != NULL, FALSE);
 
     GnomeCmdConnectDialog *conndlg = GNOME_CMD_CONNECT_DIALOG (dialog);
 
@@ -741,5 +741,5 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 
     gtk_widget_destroy (dialog);
 
-    return server;
+    return response==GTK_RESPONSE_OK;
 }

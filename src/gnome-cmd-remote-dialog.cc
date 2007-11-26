@@ -187,9 +187,11 @@ static void on_edit_btn_clicked (GtkButton *button, GnomeCmdRemoteDialog *ftp_di
     if (!server)        // exit as there is no server selected
         return;
 
-    GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
-
-    set_server (GTK_LIST_STORE (model), &iter, gnome_cmd_connect_dialog_edit (server));
+    if (gnome_cmd_connect_dialog_edit (server))
+    {
+        GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
+        set_server (GTK_LIST_STORE (model), &iter, server);
+    }
 }
 
 

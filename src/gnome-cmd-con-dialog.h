@@ -28,6 +28,6 @@
 #include "gnome-cmd-con-ftp.h"
 
 GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias=TRUE);
-GnomeCmdConFtp *gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server);
+gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server);
 
 #endif // __GNOME_CMD_CON_DIALOG_H__
