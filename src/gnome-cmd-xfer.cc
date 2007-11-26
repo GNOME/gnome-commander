@@ -74,18 +74,15 @@ typedef struct
 } XferData;
 
 
-static void
-free_xfer_data (XferData *data)
+inline void free_xfer_data (XferData *data)
 {
-    GList *tmp_list;
-
     if (data->on_completed_func)
         data->on_completed_func (data->on_completed_data, NULL);
 
     g_list_free (data->src_uri_list);
 
     //  free the list with target uris
-    for (tmp_list = data->dest_uri_list; tmp_list; tmp_list = tmp_list->next)
+    for (GList *tmp_list = data->dest_uri_list; tmp_list; tmp_list = tmp_list->next)
     {
         GnomeVFSURI *uri = (GnomeVFSURI *) tmp_list->data;
         gnome_vfs_uri_unref (uri);
@@ -296,20 +293,15 @@ update_xfer_gui_func (XferData *data)
 }
 
 
-static gboolean
-uri_is_parent_to_dir_or_equal (GnomeVFSURI *uri, GnomeCmdDir *dir)
+inline gboolean uri_is_parent_to_dir_or_equal (GnomeVFSURI *uri, GnomeCmdDir *dir)
 {
-    GnomeVFSURI *dir_uri;
-    gboolean is_parent, is_equal;
-    char *uri_str, *dir_uri_str;
+    GnomeVFSURI *dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir));
 
-    dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir));
+    gboolean is_parent = gnome_vfs_uri_is_parent (uri, dir_uri, TRUE);
 
-    is_parent = gnome_vfs_uri_is_parent (uri, dir_uri, TRUE);
-
-    uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-    dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
-    is_equal = gnome_vfs_uris_match (uri_str, dir_uri_str);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
+    gboolean is_equal = gnome_vfs_uris_match (uri_str, dir_uri_str);
 
     g_free (uri_str);
     g_free (dir_uri_str);
@@ -319,13 +311,11 @@ uri_is_parent_to_dir_or_equal (GnomeVFSURI *uri, GnomeCmdDir *dir)
 }
 
 
-static gchar *
-remove_basename (gchar *in)
+inline gchar *remove_basename (gchar *in)
 {
-    gint i;
     gchar *out = g_strdup (in);
 
-    for (i=strlen(out)-1; i>0; i--)
+    for (gint i=strlen(out)-1; i>0; i--)
         if (out[i] == '/')
         {
             out[i] = '\0';
@@ -336,8 +326,7 @@ remove_basename (gchar *in)
 }
 
 
-static gboolean
-file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
+inline gboolean file_is_already_in_dir (GnomeVFSURI *uri, GnomeCmdDir *dir)
 {
     gchar *tmp = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     gchar *uri_str = remove_basename (tmp);
@@ -368,13 +357,8 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     g_return_if_fail (GNOME_CMD_IS_DIR (to_dir));
 
     GnomeVFSURI *src_uri, *dest_uri;
-    GnomeVFSResult result;
-    gint num_files;
-    XferData *data;
 
-    /*
-     * Sanity check
-     */
+    // Sanity check
     for (GList *tmp = src_uri_list; tmp; tmp = tmp->next)
     {
         src_uri = (GnomeVFSURI *) tmp->data;
@@ -391,12 +375,11 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
             }
     }
 
-    data = create_xfer_data (
-        xferOptions, src_uri_list, NULL,
-        to_dir, src_fl, src_files,
-        (GFunc)on_completed_func, on_completed_data);
+    XferData *data = create_xfer_data (xferOptions, src_uri_list, NULL,
+                                       to_dir, src_fl, src_files,
+                                       (GFunc) on_completed_func, on_completed_data);
 
-    num_files = g_list_length (src_uri_list);
+    gint num_files = g_list_length (src_uri_list);
 
     if (g_list_length (src_uri_list) == 1 && dest_fn != NULL)
     {
@@ -426,17 +409,17 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     gtk_widget_show (GTK_WIDGET (data->win));
 
     //  start the transfer
-    result = gnome_vfs_async_xfer (&data->handle,
-                                   data->src_uri_list,
-                                   data->dest_uri_list,
-                                   xferOptions,
-                                   GNOME_VFS_XFER_ERROR_MODE_QUERY,
-                                   xferOverwriteMode,
-                                   XFER_PRIORITY,
-                                   (GnomeVFSAsyncXferProgressCallback)async_xfer_callback,
-                                   data,
-                                   xfer_callback,
-                                   data);
+    GnomeVFSResult result = gnome_vfs_async_xfer (&data->handle,
+                                                  data->src_uri_list,
+                                                  data->dest_uri_list,
+                                                  xferOptions,
+                                                  GNOME_VFS_XFER_ERROR_MODE_QUERY,
+                                                  xferOverwriteMode,
+                                                  XFER_PRIORITY,
+                                                  (GnomeVFSAsyncXferProgressCallback) async_xfer_callback,
+                                                  data,
+                                                  xfer_callback,
+                                                  data);
 
     gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)update_xfer_gui_func, data);
 }
