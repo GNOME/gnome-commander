@@ -366,9 +366,8 @@ msgid "Template"
 msgstr "Sjabloon"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1161
-#, fuzzy
 msgid "O_ptions..."
-msgstr "Opties..."
+msgstr "O_pties..."
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1168
 #, fuzzy
