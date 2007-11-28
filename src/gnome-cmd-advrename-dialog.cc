@@ -449,7 +449,7 @@ static GtkWidget *create_button_with_menu (GnomeCmdAdvrenameDialog *dialog, gcha
 }
 
 
-static void free_data (GnomeCmdAdvrenameDialog *dialog)
+inline void free_data (GnomeCmdAdvrenameDialog *dialog)
 {
     gnome_cmd_file_list_free (dialog->priv->files);
 
@@ -557,10 +557,7 @@ inline void add_pattern_entry (GnomeCmdAdvrenameDialog *dialog, PatternEntry *en
 }
 
 
-inline gchar*
-update_entry (PatternEntry *entry,
-              GnomeCmdStringDialog *string_dialog,
-              const gchar **values)
+inline gchar *update_entry (PatternEntry *entry, GnomeCmdStringDialog *string_dialog, const gchar **values)
 {
     if (!values[0])
         return g_strdup (_("Invalid source pattern"));
@@ -577,10 +574,7 @@ update_entry (PatternEntry *entry,
 }
 
 
-static gboolean
-on_add_rule_dialog_ok (GnomeCmdStringDialog *string_dialog,
-                       const gchar **values,
-                       GnomeCmdAdvrenameDialog *dialog)
+static gboolean on_add_rule_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdAdvrenameDialog *dialog)
 {
     gchar *error_desc;
     PatternEntry *entry = g_new0 (PatternEntry, 1);
@@ -601,10 +595,7 @@ on_add_rule_dialog_ok (GnomeCmdStringDialog *string_dialog,
 }
 
 
-static gboolean
-on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog,
-                        const gchar **values,
-                        GnomeCmdAdvrenameDialog *dialog)
+static gboolean on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdAdvrenameDialog *dialog)
 {
     GtkWidget *pat_list = dialog->priv->pat_list;
     gint row = GTK_CLIST (pat_list)->focus_row;
@@ -633,11 +624,7 @@ on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog,
 }
 
 
-static GtkWidget*
-create_rule_dialog (GnomeCmdAdvrenameDialog *parent_dialog,
-                    const gchar *title,
-                    GnomeCmdStringDialogCallback on_ok_func,
-                    PatternEntry *entry)
+static GtkWidget *create_rule_dialog (GnomeCmdAdvrenameDialog *parent_dialog, const gchar *title, GnomeCmdStringDialogCallback on_ok_func, PatternEntry *entry)
 {
     const gchar *labels[] = {_("Replace this:"), _("With this")};
     GtkWidget *dialog;
@@ -645,9 +632,7 @@ create_rule_dialog (GnomeCmdAdvrenameDialog *parent_dialog,
 
     dialog = gnome_cmd_string_dialog_new (title, labels, 2, on_ok_func, parent_dialog);
     gtk_widget_ref (dialog);
-    gtk_object_set_data_full (GTK_OBJECT (parent_dialog),
-                              "rule-dialog", dialog,
-                              (GtkDestroyNotify)gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (parent_dialog), "rule-dialog", dialog, (GtkDestroyNotify)gtk_widget_unref);
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, entry?entry->from:"");
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, entry?entry->to:"");
 
@@ -661,8 +646,7 @@ create_rule_dialog (GnomeCmdAdvrenameDialog *parent_dialog,
 }
 
 
-static gchar *
-apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
+static gchar *apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
 {
     regex_t re_exp;
     regmatch_t re_match_info;
@@ -710,8 +694,7 @@ apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
 }
 
 
-static gchar *
-create_new_name (const gchar *name, GList *patterns)
+inline gchar *create_new_name (const gchar *name, GList *patterns)
 {
     gchar *tmp = NULL;
     gchar *new_name = g_strdup (name);
@@ -768,8 +751,7 @@ static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 }
 
 
-static void
-change_names (GnomeCmdAdvrenameDialog *dialog)
+static void change_names (GnomeCmdAdvrenameDialog *dialog)
 {
     for (GList *tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
@@ -818,18 +800,13 @@ static void on_rule_remove_all (GtkButton *button, GnomeCmdAdvrenameDialog *dial
 }
 
 
-static void
-on_pat_list_scroll_vertical (GtkCList *clist,
-                             GtkScrollType scroll_type,
-                             gfloat position,
-                             GnomeCmdAdvrenameDialog *dialog)
+static void on_pat_list_scroll_vertical (GtkCList *clist, GtkScrollType scroll_type, gfloat position, GnomeCmdAdvrenameDialog *dialog)
 {
     gtk_clist_select_row (clist, clist->focus_row, 0);
 }
 
 
-static void on_rule_selected (GtkCList *list, gint row, gint column,
-                              GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog)
+static void on_rule_selected (GtkCList *list, gint row, gint column, GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog)
 {
     gtk_widget_set_sensitive (dialog->priv->remove_btn, TRUE);
     gtk_widget_set_sensitive (dialog->priv->edit_btn, TRUE);
@@ -838,8 +815,7 @@ static void on_rule_selected (GtkCList *list, gint row, gint column,
 }
 
 
-static void on_rule_unselected (GtkCList *list, gint row, gint column,
-                                GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog)
+static void on_rule_unselected (GtkCList *list, gint row, gint column, GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog)
 {
     gtk_widget_set_sensitive (dialog->priv->remove_btn, FALSE);
     gtk_widget_set_sensitive (dialog->priv->edit_btn, FALSE);
@@ -875,9 +851,7 @@ static void on_rule_move_down (GtkButton *button, GnomeCmdAdvrenameDialog *dialo
 }
 
 
-static void
-on_rule_moved (GtkCList *clist, gint arg1, gint arg2,
-               GnomeCmdAdvrenameDialog *dialog)
+static void on_rule_moved (GtkCList *clist, gint arg1, gint arg2, GnomeCmdAdvrenameDialog *dialog)
 {
     GList *pats = dialog->priv->defaults->patterns;
 
@@ -896,7 +870,7 @@ on_rule_moved (GtkCList *clist, gint arg1, gint arg2,
 }
 
 
-static void save_settings (GnomeCmdAdvrenameDialog *dialog)
+inline void save_settings (GnomeCmdAdvrenameDialog *dialog)
 {
     const gchar *template_string = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
 
@@ -939,8 +913,7 @@ static void on_help (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 }
 
 
-static gboolean
-on_dialog_keypress (GnomeCmdAdvrenameDialog *dialog, GdkEventKey *event)
+static gboolean on_dialog_keypress (GnomeCmdAdvrenameDialog *dialog, GdkEventKey *event)
 {
     if (event->keyval == GDK_Escape)
     {
@@ -959,18 +932,14 @@ static void do_test (GnomeCmdAdvrenameDialog *dialog)
 }
 
 
-static void
-on_templ_entry_changed (GtkEntry *entry,
-                        GnomeCmdAdvrenameDialog *dialog)
+static void on_templ_entry_changed (GtkEntry *entry, GnomeCmdAdvrenameDialog *dialog)
 {
     if (dialog->priv->defaults->auto_update)
         do_test (dialog);
 }
 
 
-static gboolean
-on_templ_entry_keypress (GtkEntry *entry, GdkEventKey *event,
-                         GnomeCmdAdvrenameDialog *dialog)
+static gboolean on_templ_entry_keypress (GtkEntry *entry, GdkEventKey *event, GnomeCmdAdvrenameDialog *dialog)
 {
     if (event->keyval == GDK_Return)
     {
@@ -982,10 +951,7 @@ on_templ_entry_keypress (GtkEntry *entry, GdkEventKey *event,
 }
 
 
-static gboolean
-on_template_options_ok (GnomeCmdStringDialog *string_dialog,
-                        const gchar **values,
-                        GnomeCmdAdvrenameDialog *dialog)
+static gboolean on_template_options_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdAdvrenameDialog *dialog)
 {
     guint start, precision, inc;
 
@@ -1010,9 +976,7 @@ on_template_options_ok (GnomeCmdStringDialog *string_dialog,
 }
 
 
-static void
-on_template_options_clicked (GtkButton *button,
-                             GnomeCmdAdvrenameDialog *dialog)
+static void on_template_options_clicked (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
     const gchar *labels[] = {
         _("Counter start value:"),
@@ -1044,8 +1008,7 @@ on_template_options_clicked (GtkButton *button,
 }
 
 
-static void
-on_res_list_column_resize (GtkCList *clist, gint column, gint width, GnomeCmdAdvrenameDialog *dialog)
+static void on_res_list_column_resize (GtkCList *clist, gint column, gint width, GnomeCmdAdvrenameDialog *dialog)
 {
     advrename_dialog_default_res_column_width[column] = width;
 }
@@ -1058,10 +1021,7 @@ on_pat_list_column_resize (GtkCList *clist, gint column, gint width, GnomeCmdAdv
 }
 
 
-static void
-on_dialog_size_allocate (GtkWidget       *widget,
-                         GtkAllocation   *allocation,
-                         GnomeCmdAdvrenameDialog *dialog)
+static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdAdvrenameDialog *dialog)
 {
     dialog->priv->defaults->width  = allocation->width;
     dialog->priv->defaults->height = allocation->height;
@@ -1072,8 +1032,7 @@ on_dialog_size_allocate (GtkWidget       *widget,
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdAdvrenameDialog *dialog = GNOME_CMD_ADVRENAME_DIALOG (object);
 
@@ -1084,16 +1043,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdAdvrenameDialogClass *klass)
+static void class_init (GnomeCmdAdvrenameDialogClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -1104,8 +1061,7 @@ class_init (GnomeCmdAdvrenameDialogClass *klass)
 }
 
 
-static void
-init (GnomeCmdAdvrenameDialog *in_dialog)
+static void init (GnomeCmdAdvrenameDialog *in_dialog)
 {
     GtkWidget *vbox;
     GtkWidget *sw;
