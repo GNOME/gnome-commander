@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-13 22:46+0000\n"
-"PO-Revision-Date: 2007-11-14 19:44+0100\n"
+"POT-Creation-Date: 2007-11-23 23:02+0000\n"
+"PO-Revision-Date: 2007-11-28 19:04+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,10 +34,11 @@ msgstr "No hay descripción de error disponible"
 
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
-#: ../src/gnome-cmd-ftp-dialog.cc:626 ../src/gnome-cmd-options-dialog.cc:1179
+#: ../src/gnome-cmd-options-dialog.cc:1179
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
+#: ../src/gnome-cmd-remote-dialog.cc:522
 msgid "Options"
 msgstr "Opciones"
 
@@ -313,7 +314,7 @@ msgid "Replace this:"
 msgstr "Reemplazar esto:"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:642
-#: ../src/gnome-cmd-advrename-dialog.cc:1191
+#: ../src/gnome-cmd-advrename-dialog.cc:1190
 msgid "With this"
 msgstr "Por esto"
 
@@ -329,39 +330,39 @@ msgstr "Nueva regla"
 msgid "Edit Rule"
 msgstr "Editar regla"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1019
+#: ../src/gnome-cmd-advrename-dialog.cc:1018
 msgid "Counter start value:"
 msgstr "Valor de inicio del contador:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1020
+#: ../src/gnome-cmd-advrename-dialog.cc:1019
 msgid "Counter increment:"
 msgstr "Incremento del contador:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1021
+#: ../src/gnome-cmd-advrename-dialog.cc:1020
 msgid "Counter minimum digit count:"
 msgstr "Mínimo contador de dígitos:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1026
+#: ../src/gnome-cmd-advrename-dialog.cc:1025
 msgid "Template Options"
 msgstr "Opciones de plantillas"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1030
+#: ../src/gnome-cmd-advrename-dialog.cc:1029
 msgid "Auto-update when the template is entered"
 msgstr "Actualizar cuando la plantilla se introduzca"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1128
+#: ../src/gnome-cmd-advrename-dialog.cc:1127
 msgid "Advanced Rename Tool"
 msgstr "Herramienta de renombrado avanzado"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1140 ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1139 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "Plantilla"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1161
+#: ../src/gnome-cmd-advrename-dialog.cc:1160
 msgid "O_ptions..."
 msgstr "_Opciones..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1168
+#: ../src/gnome-cmd-advrename-dialog.cc:1167
 msgid "Dir"
 msgstr "Dir"
 
@@ -371,57 +372,57 @@ msgstr "Dir"
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: ../src/gnome-cmd-advrename-dialog.cc:1171
+#: ../src/gnome-cmd-advrename-dialog.cc:1170
 #: ../src/gnome-cmd-file-props-dialog.cc:613
-#: ../src/gnome-cmd-ftp-dialog.cc:520 ../src/plugin_manager.cc:420
+#: ../src/gnome-cmd-remote-dialog.cc:416 ../src/plugin_manager.cc:420
 #: ../src/tags/gnome-cmd-tags.cc:315
 msgid "Name"
 msgstr "Nombre"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1174
+#: ../src/gnome-cmd-advrename-dialog.cc:1173
 msgid "Counter"
 msgstr "Contador"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1177 ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/gnome-cmd-advrename-dialog.cc:1176 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Date"
 msgstr "Fecha"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1180
+#: ../src/gnome-cmd-advrename-dialog.cc:1179
 msgid "Metatag"
 msgstr "Metaetiqueta"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1185
+#: ../src/gnome-cmd-advrename-dialog.cc:1184
 msgid "Regex replacing"
 msgstr "Reemplazo por expreg"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1190
+#: ../src/gnome-cmd-advrename-dialog.cc:1189
 msgid "Replace this"
 msgstr "Reemplazar esto"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1192
+#: ../src/gnome-cmd-advrename-dialog.cc:1191
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr "Sensible a capitalización"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1215
+#: ../src/gnome-cmd-advrename-dialog.cc:1214
 msgid "Re_move All"
 msgstr "Eli_minar todo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1235
+#: ../src/gnome-cmd-advrename-dialog.cc:1234
 msgid "Result"
 msgstr "Resultado"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1240
-msgid "Current filenames"
+#: ../src/gnome-cmd-advrename-dialog.cc:1239
+msgid "Current file names"
 msgstr "Nombres de archivo actuales"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1241
-msgid "New filenames"
+#: ../src/gnome-cmd-advrename-dialog.cc:1240
+msgid "New file names"
 msgstr "Nuevos nombres de archivos"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1247
+#: ../src/gnome-cmd-advrename-dialog.cc:1246
 msgid "Rese_t"
 msgstr "Res_tablecer"
 
@@ -608,22 +609,100 @@ msgstr "Montar: %s"
 msgid "Unmount: %s"
 msgstr "Desmontar: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:287
+#: ../src/gnome-cmd-con-dialog.cc:210
+msgid "You must enter a name for the server"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:210
+msgid "Please enter a name and try again."
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:230
+#, c-format
+msgid "\"%s\" is not a valid location"
+msgstr "«%s» no es un lugar válido"
+
+#: ../src/gnome-cmd-con-dialog.cc:231
+msgid "Please check the spelling and try again."
+msgstr "Compruebe la ortografía y pruebe de nuevo."
+
+#: ../src/gnome-cmd-con-dialog.cc:403
+msgid "_Alias:"
+msgstr "_Alias:"
+
+#: ../src/gnome-cmd-con-dialog.cc:407
+msgid "_Location (URI):"
+msgstr "_Lugar (URI):"
+
+#: ../src/gnome-cmd-con-dialog.cc:440
+msgid "_Server:"
+msgstr "_Servidor:"
+
+#: ../src/gnome-cmd-con-dialog.cc:451
+msgid "Optional information"
+msgstr "Información opcional"
+
+#: ../src/gnome-cmd-con-dialog.cc:475
+msgid "S_hare:"
+msgstr "C_ompartir:"
+
+#: ../src/gnome-cmd-con-dialog.cc:478
+msgid "_Port:"
+msgstr "_Puerto:"
+
+#: ../src/gnome-cmd-con-dialog.cc:480
+msgid "_Remote dir:"
+msgstr "Directorio _remoto:"
+
+#: ../src/gnome-cmd-con-dialog.cc:483
+msgid "_User name:"
+msgstr "_Usuario:"
+
+#: ../src/gnome-cmd-con-dialog.cc:486
+msgid "_Password:"
+msgstr "_Contraseña:"
+
+#: ../src/gnome-cmd-con-dialog.cc:489
+msgid "_Domain name:"
+msgstr "Nombre del _dominio:"
+
+#: ../src/gnome-cmd-con-dialog.cc:526 ../src/gnome-cmd-main-win.cc:1176
+msgid "Remote Server"
+msgstr "Servidor remoto"
+
+#: ../src/gnome-cmd-con-dialog.cc:541
+msgid "Service _type:"
+msgstr ""
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../src/gnome-cmd-con-dialog.cc:553
+msgid "FTP (with login)"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:554
+msgid "Public FTP"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:571
+msgid "Use _GNOME Keyring Manager for authentication"
+msgstr "Usar el Gestor del depósito de claves de _GNOME para la autenticación"
+
+#: ../src/gnome-cmd-con-ftp.cc:273
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Conectando a %s\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:305
+#: ../src/gnome-cmd-con-ftp.cc:298
 #, c-format
 msgid "Go to: %s"
 msgstr "Ir a: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:306
+#: ../src/gnome-cmd-con-ftp.cc:299
 #, c-format
 msgid "Connect to: %s"
 msgstr "Conectar a: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:307
+#: ../src/gnome-cmd-con-ftp.cc:300
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Desconectar de: %s"
@@ -662,8 +741,8 @@ msgstr "Buscando grupos de trabajo y equipos"
 msgid "Go to: Samba Network"
 msgstr "Ir a: Red Samba"
 
-#: ../src/gnome-cmd-data.cc:1151 ../src/gnome-cmd-data.cc:1376
-#: ../src/gnome-cmd-data.cc:1377 ../src/gnome-cmd-data.cc:2444
+#: ../src/gnome-cmd-data.cc:1250 ../src/gnome-cmd-data.cc:1475
+#: ../src/gnome-cmd-data.cc:1476 ../src/gnome-cmd-data.cc:2543
 #, c-format
 msgid "link to %s"
 msgstr "enlace a %s"
@@ -728,7 +807,7 @@ msgid "Delete"
 msgstr "Borrar"
 
 #: ../src/gnome-cmd-delete-dialog.cc:289
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:672
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
 #: ../src/utils.cc:511 ../src/utils.cc:540
 msgid "Cancel"
 msgstr "Cancelar"
@@ -1007,7 +1086,7 @@ msgid "Symlink name:"
 msgstr "Nombre del enlace simbólico:"
 
 #: ../src/gnome-cmd-file-selector.cc:2085
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:672
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
 msgid "Create Symbolic Link"
 msgstr "Crear un enlace simbólico"
 
@@ -1052,79 +1131,6 @@ msgstr "Dispositivo de bloques"
 #: ../src/gnome-cmd-file.cc:593
 msgid "Symbolic link"
 msgstr "Enlace simbólico"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:175
-msgid "No alias specified"
-msgstr "No se especificó un alias"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:178
-msgid "No host specified"
-msgstr "No se especificó el host"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:183
-#, c-format
-msgid "Invalid port number: %s"
-msgstr "Número de puerto inválido: %s"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:251 ../src/gnome-cmd-options-dialog.cc:1588
-msgid "Alias:"
-msgstr "Alias:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:251 ../src/gnome-cmd-ftp-dialog.cc:252
-msgid "Host:"
-msgstr "Host:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:251 ../src/gnome-cmd-ftp-dialog.cc:252
-msgid "Port:"
-msgstr "Puerto:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:251 ../src/gnome-cmd-ftp-dialog.cc:252
-msgid "User:"
-msgstr "Usuario:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:251 ../src/gnome-cmd-ftp-dialog.cc:252
-msgid "Remote Dir:"
-msgstr "Dir remoto:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:269
-msgid "New Remote Connection"
-msgstr "Conexión remota nueva"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:284
-msgid "Edit Remote Connection"
-msgstr "Editar la conexión remota"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:315
-msgid "No server selected"
-msgstr "No se seleccionó un servidor"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:506
-msgid "GNOME authentication manager usage"
-msgstr ""
-
-#: ../src/gnome-cmd-ftp-dialog.cc:510
-msgid "Network protocol"
-msgstr "Protocolo de red"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:521
-msgid "Connection name"
-msgstr "Nombre de la conexión"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:593
-msgid "Remote Connections"
-msgstr "Conexiones remotas"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:598
-msgid "Connections"
-msgstr "Conexiones"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:629
-msgid "Anonymous FTP password:"
-msgstr "Contraseña para el FTP anónimo:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:723
-msgid "New Connection"
-msgstr "Nueva conexión"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1428,10 +1434,6 @@ msgstr "Editar (MAYUS para nuevo documento)"
 #: ../src/gnome-cmd-main-win.cc:1174
 msgid "Open terminal"
 msgstr "Abrir terminal"
-
-#: ../src/gnome-cmd-main-win.cc:1176
-msgid "Remote Server"
-msgstr "Servidor remoto"
 
 #: ../src/gnome-cmd-main-win.cc:1177
 msgid "Drop connection"
@@ -1880,6 +1882,10 @@ msgstr "Otras apl. favoritas"
 msgid "Label"
 msgstr "Etiqueta"
 
+#: ../src/gnome-cmd-options-dialog.cc:1588
+msgid "Alias:"
+msgstr "Alias:"
+
 #: ../src/gnome-cmd-options-dialog.cc:1590
 msgid "Device:"
 msgstr "Dispositivo:"
@@ -2013,65 +2019,93 @@ msgstr "No se pudo cargar el módulo python «gomevfs» («gnome.vfs»)\n"
 msgid "Search"
 msgstr "Buscar"
 
-#: ../src/gnome-cmd-search-dialog.cc:184
+#: ../src/gnome-cmd-remote-dialog.cc:211
+msgid "No server selected"
+msgstr "No se seleccionó un servidor"
+
+#: ../src/gnome-cmd-remote-dialog.cc:402
+msgid "GNOME authentication manager usage"
+msgstr ""
+
+#: ../src/gnome-cmd-remote-dialog.cc:406
+msgid "Network protocol"
+msgstr "Protocolo de red"
+
+#: ../src/gnome-cmd-remote-dialog.cc:417
+msgid "Connection name"
+msgstr "Nombre de la conexión"
+
+#: ../src/gnome-cmd-remote-dialog.cc:489
+msgid "Remote Connections"
+msgstr "Conexiones remotas"
+
+#: ../src/gnome-cmd-remote-dialog.cc:494
+msgid "Connections"
+msgstr "Conexiones"
+
+#: ../src/gnome-cmd-remote-dialog.cc:525
+msgid "Anonymous FTP password:"
+msgstr "Contraseña para el FTP anónimo:"
+
+#: ../src/gnome-cmd-search-dialog.cc:180
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Falló al abrir el archivo %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:193
+#: ../src/gnome-cmd-search-dialog.cc:189
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Fallo al leer del archivo %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:257
+#: ../src/gnome-cmd-search-dialog.cc:250
 #, c-format
 msgid "Searching in: %s"
 msgstr "Buscando en: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:406
+#: ../src/gnome-cmd-search-dialog.cc:399
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
 msgstr[0] "Se encontró %d coincidencia antes que fuese detenido"
 msgstr[1] "Se encontraron %d coincidencias antes que fuese detenido"
 
-#: ../src/gnome-cmd-search-dialog.cc:413
+#: ../src/gnome-cmd-search-dialog.cc:406
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "Se encontró %d coincidencia"
 msgstr[1] "Se encontraron %d coincidencias"
 
-#: ../src/gnome-cmd-search-dialog.cc:725
+#: ../src/gnome-cmd-search-dialog.cc:715
 msgid "Search..."
 msgstr "Buscar..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:738
+#: ../src/gnome-cmd-search-dialog.cc:728
 msgid "Search for: "
 msgstr "Buscar por:"
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:750
+#: ../src/gnome-cmd-search-dialog.cc:740
 msgid "Search in: "
 msgstr "Buscar en:"
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:764
+#: ../src/gnome-cmd-search-dialog.cc:754
 msgid "Find text: "
 msgstr "Buscar texto:"
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:778
+#: ../src/gnome-cmd-search-dialog.cc:768
 msgid "Search Recursively"
 msgstr "Buscar recursivamente"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:785 ../src/tags/gnome-cmd-tags.cc:147
+#: ../src/gnome-cmd-search-dialog.cc:775 ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
 msgstr "Sensible a mayúsculas"
 
-#: ../src/gnome-cmd-search-dialog.cc:796
+#: ../src/gnome-cmd-search-dialog.cc:786
 msgid "Goto"
 msgstr "Ir a"
 
@@ -2098,49 +2132,49 @@ msgstr ""
 msgid "Can't find a host or workgroup named %s\n"
 msgstr "No se puede encontrar un host o grupo de trabajo llamado %s\n"
 
-#: ../src/gnome-cmd-user-actions.cc:69
+#: ../src/gnome-cmd-user-actions.cc:70
 msgid "No file selected"
 msgstr "No se seleccionó ningún archivo"
 
-#: ../src/gnome-cmd-user-actions.cc:667
+#: ../src/gnome-cmd-user-actions.cc:668
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "¿Crear enlaces simbólicos del archivo %i en %s?"
 msgstr[1] "¿Crear enlaces simbólicos de los archivos %i en %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:672
+#: ../src/gnome-cmd-user-actions.cc:673
 msgid "Create"
 msgstr "Crear"
 
-#: ../src/gnome-cmd-user-actions.cc:720 ../src/gnome-cmd-user-actions.cc:779
-#: ../src/gnome-cmd-user-actions.cc:816
+#: ../src/gnome-cmd-user-actions.cc:721 ../src/gnome-cmd-user-actions.cc:780
+#: ../src/gnome-cmd-user-actions.cc:817
 #, c-format
 msgid "running `%s'\n"
 msgstr "ejecutando «%s»\n"
 
-#: ../src/gnome-cmd-user-actions.cc:737 ../src/gnome-cmd-user-actions.cc:754
-#: ../src/gnome-cmd-user-actions.cc:794
+#: ../src/gnome-cmd-user-actions.cc:738 ../src/gnome-cmd-user-actions.cc:755
+#: ../src/gnome-cmd-user-actions.cc:795
 msgid "Operation not supported on remote file systems"
 msgstr "No se soporta la operación en sistemas de archivos remotos"
 
-#: ../src/gnome-cmd-user-actions.cc:769
+#: ../src/gnome-cmd-user-actions.cc:770
 msgid "Too many selected files"
 msgstr "Demasiados archivos seleccionados"
 
-#: ../src/gnome-cmd-user-actions.cc:1316
+#: ../src/gnome-cmd-user-actions.cc:1317
 msgid "There was an error opening home page."
 msgstr "Hubo un error al abrir la página inicial."
 
-#: ../src/gnome-cmd-user-actions.cc:1325
+#: ../src/gnome-cmd-user-actions.cc:1326
 msgid "There was an error reporting problem."
 msgstr "Hubo un error al informar de un problema."
 
-#: ../src/gnome-cmd-user-actions.cc:1346
+#: ../src/gnome-cmd-user-actions.cc:1347
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Un administrador de archivos rápido y eficiente para el escritorio GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:1350
+#: ../src/gnome-cmd-user-actions.cc:1351
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2152,7 +2186,7 @@ msgstr ""
 "Software; Version 2 de la licencia, o (a su gusto) cualquier version "
 "posterior."
 
-#: ../src/gnome-cmd-user-actions.cc:1354
+#: ../src/gnome-cmd-user-actions.cc:1355
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2164,7 +2198,7 @@ msgstr ""
 "modificación para cualquier uso ver la Licencia Publica General GNU para mas "
 "detalles."
 
-#: ../src/gnome-cmd-user-actions.cc:1358
+#: ../src/gnome-cmd-user-actions.cc:1359
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 59 "
@@ -2174,7 +2208,7 @@ msgstr ""
 "de GNOME Commander, en caso contrario por favor escriba a la Fundacion de "
 "Software, Inc 59 Teple PLace, Suite 330, Boston, MA  02111-1307  USA"
 
-#: ../src/gnome-cmd-user-actions.cc:1375
+#: ../src/gnome-cmd-user-actions.cc:1376
 msgid "translator-credits"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007Edgardo Garcia Hoeffler "
@@ -2841,7 +2875,6 @@ msgid "Peak gain adjustment of track."
 msgstr "Pico de ajuste de la ganancia de la pista."
 
 #: ../src/tags/gnome-cmd-tags.cc:144
-#, fuzzy
 msgid "Year"
 msgstr "Año"
 
@@ -2859,53 +2892,44 @@ msgid "Name of the author."
 msgstr "Nombre del autor."
 
 #: ../src/tags/gnome-cmd-tags.cc:146
-#, fuzzy
 msgid "Byte Count"
-msgstr "Conteo de bytes"
+msgstr "Contar los bytes"
 
 #: ../src/tags/gnome-cmd-tags.cc:146
-#, fuzzy
 msgid "Number of bytes in the document."
-msgstr "Número de canales en el sonido (2 = estéreo)."
+msgstr "Número de bytes en el documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:147
-#, fuzzy
 msgid "Case sensitive."
-msgstr "Sensible a capitalización"
+msgstr "Sensible a capitalización."
 
 #: ../src/tags/gnome-cmd-tags.cc:148 ../src/tags/gnome-cmd-tags.cc:440
 msgid "Category"
 msgstr "Categoría"
 
 #: ../src/tags/gnome-cmd-tags.cc:148
-#, fuzzy
 msgid "Category."
-msgstr "Directorio"
+msgstr "Categoría."
 
 #: ../src/tags/gnome-cmd-tags.cc:149
-#, fuzzy
 msgid "Cell Count"
-msgstr "Contador de reproducción"
+msgstr "Contar las celdas"
 
 #: ../src/tags/gnome-cmd-tags.cc:149
-#, fuzzy
 msgid "Number of cells in the spreadsheet document."
-msgstr "Número de canales en el sonido (2 = estéreo)."
+msgstr "Número de celdas en la hoja de cálculo"
 
 #: ../src/tags/gnome-cmd-tags.cc:150
-#, fuzzy
 msgid "Character Count"
-msgstr "Dispositivo caracteres"
+msgstr "Contar los caracteres"
 
 #: ../src/tags/gnome-cmd-tags.cc:150
-#, fuzzy
 msgid "Number of characters in the document."
-msgstr "Número de canales en el sonido (2 = estéreo)."
+msgstr "Número de caracteres en el documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:151
-#, fuzzy
 msgid "Codepage"
-msgstr "Códec"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:151
 msgid "The MS codepage to encode strings for metadata."
@@ -2920,7 +2944,6 @@ msgid "User definable free text."
 msgstr "Texto definible por el usuario."
 
 #: ../src/tags/gnome-cmd-tags.cc:153
-#, fuzzy
 msgid "Company"
 msgstr "Empresa"
 
@@ -2929,7 +2952,6 @@ msgid "Organization that the <Doc.Creator> entity is associated with."
 msgstr "Organizacion en la que la entidad <Doc.Creator> esta asociada"
 
 #: ../src/tags/gnome-cmd-tags.cc:155 ../src/tags/gnome-cmd-tags.cc:410
-#, fuzzy
 msgid "Creator"
 msgstr "Creador"
 
@@ -2990,9 +3012,8 @@ msgid "The total time taken until the last modification."
 msgstr "El tiempo total transcurrido hasta la última modificación."
 
 #: ../src/tags/gnome-cmd-tags.cc:162
-#, fuzzy
 msgid "Generator"
-msgstr "General"
+msgstr "Generador"
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "The application that generated this document."
@@ -3007,19 +3028,16 @@ msgid "Number of hidden slides in the presentation document."
 msgstr "Número de diapositivas ocultas en este documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:164
-#, fuzzy
 msgid "Image Count"
-msgstr "Contador de reproducción"
+msgstr "Contar las imágenes"
 
 #: ../src/tags/gnome-cmd-tags.cc:164
-#, fuzzy
 msgid "Number of images in the document."
-msgstr "Número de canales en el sonido (2 = estéreo)."
+msgstr "Número de imágenes en el documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:165
-#, fuzzy
 msgid "Initial Creator"
-msgstr "Directorio"
+msgstr "Creador inicial"
 
 #: ../src/tags/gnome-cmd-tags.cc:165
 msgid "Specifies the name of the person who created the document initially."
@@ -3087,7 +3105,6 @@ msgid "Identifier representing the default system locale."
 msgstr "Identificador representando la configuración regional predeterminada."
 
 #: ../src/tags/gnome-cmd-tags.cc:173
-#, fuzzy
 msgid "Manager"
 msgstr "Jefe"
 
@@ -3124,9 +3141,8 @@ msgid "Page Count"
 msgstr "Contar páginas"
 
 #: ../src/tags/gnome-cmd-tags.cc:177 ../src/tags/gnome-cmd-tags.cc:186
-#, fuzzy
 msgid "Number of pages in the document."
-msgstr "Número de canales en el sonido (2 = estéreo)."
+msgstr "Número de páginas en el documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:178
 msgid "Paragraph Count"
@@ -3161,9 +3177,8 @@ msgid "Specifies the name of the last person who printed the document."
 msgstr "Especifica el nombre de la última persona que imprimió el documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:182
-#, fuzzy
 msgid "Revision Count"
-msgstr "Revisión:"
+msgstr "Contar las revisiones"
 
 #: ../src/tags/gnome-cmd-tags.cc:182
 msgid "Number of revision on the document."
@@ -3190,9 +3205,8 @@ msgstr ""
 "lectura forzado» o «Bloquedao para anotaciones»."
 
 #: ../src/tags/gnome-cmd-tags.cc:185
-#, fuzzy
 msgid "Slide Count"
-msgstr "Contador de reproducción"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Number of slides in the presentation document."
@@ -3211,14 +3225,12 @@ msgid "Document subject."
 msgstr "Documentado por"
 
 #: ../src/tags/gnome-cmd-tags.cc:188
-#, fuzzy
 msgid "Table Count"
-msgstr "Contador de reproducción"
+msgstr "Contar las tablas"
 
 #: ../src/tags/gnome-cmd-tags.cc:188
-#, fuzzy
 msgid "Number of tables in the document."
-msgstr "Número de canales en el sonido (2 = estéreo)."
+msgstr "Número de tablas en el documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:189
 msgid "The template file that is been used to generate this document."
@@ -3500,9 +3512,8 @@ msgid "Document Name"
 msgstr "Nombre del documento"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
-#, fuzzy
 msgid "Document Name."
-msgstr "Nombre del documento"
+msgstr "Nombre del documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
 msgid "Exif IFD Pointer"
@@ -4118,7 +4129,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:269
 msgid "Reference Black/White"
-msgstr ""
+msgstr "Referencia blanco/negro"
 
 #: ../src/tags/gnome-cmd-tags.cc:269
 msgid ""
@@ -4131,33 +4142,31 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:270
 msgid "Related Image File Format"
-msgstr ""
+msgstr "Formato de archivo de la imagen relacionada"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
 msgid "Related Image File Format."
-msgstr ""
+msgstr "Formato de archivo de la imagen relacionada."
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 msgid "Related Image Length"
-msgstr ""
+msgstr "Alto de la imagen relacionada"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 msgid "Related Image Length."
-msgstr ""
+msgstr "Alto de la imagen relacionada."
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 msgid "Related Image Width"
-msgstr ""
+msgstr "Ancho de la imagen relacionada"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
-#, fuzzy
 msgid "Related Image Width."
-msgstr "Ancho de la imagen"
+msgstr "Ancho de la imagen relacionada."
 
 #: ../src/tags/gnome-cmd-tags.cc:273
-#, fuzzy
 msgid "Related Sound File"
-msgstr "Renombrar archivo"
+msgstr "Archivo de sonido relacionado"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
 msgid ""
@@ -4423,13 +4432,12 @@ msgid "Transfer Range"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-#, fuzzy
 msgid "Transfer Range."
-msgstr "Problema de transferencia"
+msgstr "Rango de transferencia."
 
 #: ../src/tags/gnome-cmd-tags.cc:299
 msgid "User Comment"
-msgstr ""
+msgstr "Comentaro del usuario"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
 msgid ""
@@ -4655,63 +4663,60 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:324
-#, fuzzy
 msgid "Band"
 msgstr "Banda"
 
 #: ../src/tags/gnome-cmd-tags.cc:324
 msgid "Additional information about the performers in the recording."
-msgstr ""
+msgstr "Información adicional acerca de los artistas de la grabación."
 
 #: ../src/tags/gnome-cmd-tags.cc:325
 msgid "BPM"
-msgstr ""
+msgstr "GPM"
 
 #: ../src/tags/gnome-cmd-tags.cc:325
 msgid "BPM (beats per minute)."
-msgstr ""
+msgstr "GPM (golpes por minuto)."
 
 #: ../src/tags/gnome-cmd-tags.cc:326
 msgid "Buffer Size"
-msgstr ""
+msgstr "Tamaño del búfer"
 
 #: ../src/tags/gnome-cmd-tags.cc:326
 msgid "Recommended buffer size."
-msgstr ""
+msgstr "Tamaño de búfer recomendado."
 
 #: ../src/tags/gnome-cmd-tags.cc:327
 msgid "CD ID"
-msgstr ""
+msgstr "ID del CD"
 
 #: ../src/tags/gnome-cmd-tags.cc:327
 msgid "Music CD identifier."
-msgstr ""
+msgstr "Identificador musical del CD."
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial"
-msgstr ""
+msgstr "Comercial"
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial frame."
-msgstr ""
+msgstr "Cuadro comercial."
 
 #: ../src/tags/gnome-cmd-tags.cc:329
 msgid "Composer"
-msgstr ""
+msgstr "Compositor"
 
 #: ../src/tags/gnome-cmd-tags.cc:329
-#, fuzzy
 msgid "Composer."
-msgstr "Comparar..."
+msgstr "Compositor."
 
 #: ../src/tags/gnome-cmd-tags.cc:330
-#, fuzzy
 msgid "Conductor"
-msgstr "_Contenido"
+msgstr "Director"
 
 #: ../src/tags/gnome-cmd-tags.cc:330
 msgid "Conductor."
-msgstr ""
+msgstr "Director."
 
 #: ../src/tags/gnome-cmd-tags.cc:331
 msgid "Content Group"
@@ -4719,7 +4724,7 @@ msgstr "Grupo de contenido"
 
 #: ../src/tags/gnome-cmd-tags.cc:331
 msgid "Content group description."
-msgstr ""
+msgstr "Descripción del grupo de contenido."
 
 #: ../src/tags/gnome-cmd-tags.cc:332
 msgid "Content Type"
@@ -4727,11 +4732,11 @@ msgstr "Tipo de contenido"
 
 #: ../src/tags/gnome-cmd-tags.cc:334
 msgid "Encryption Registration"
-msgstr ""
+msgstr "Registro de cifrado"
 
 #: ../src/tags/gnome-cmd-tags.cc:334
 msgid "Encryption method registration."
-msgstr ""
+msgstr "Registro del método de cifrado."
 
 #: ../src/tags/gnome-cmd-tags.cc:335
 msgid "Date."
@@ -4743,11 +4748,11 @@ msgstr "Énfasis"
 
 #: ../src/tags/gnome-cmd-tags.cc:336
 msgid "Emphasis."
-msgstr ""
+msgstr "Émfasis."
 
 #: ../src/tags/gnome-cmd-tags.cc:337
 msgid "Encoded By"
-msgstr ""
+msgstr "Codificado por"
 
 #: ../src/tags/gnome-cmd-tags.cc:337
 msgid ""
@@ -4761,16 +4766,15 @@ msgstr "Configuración del codificador"
 
 #: ../src/tags/gnome-cmd-tags.cc:338
 msgid "Software."
-msgstr ""
+msgstr "Software."
 
 #: ../src/tags/gnome-cmd-tags.cc:339
 msgid "Encoding Time"
 msgstr "Hora de codificación"
 
 #: ../src/tags/gnome-cmd-tags.cc:339
-#, fuzzy
 msgid "Encoding time."
-msgstr "_Codificación"
+msgstr "Hora de codificación."
 
 #: ../src/tags/gnome-cmd-tags.cc:340
 #, fuzzy
@@ -4779,15 +4783,15 @@ msgstr "Aplicaciones MIME"
 
 #: ../src/tags/gnome-cmd-tags.cc:340
 msgid "Equalization."
-msgstr ""
+msgstr "Ecualización."
 
 #: ../src/tags/gnome-cmd-tags.cc:341
 msgid "Equalization 2"
-msgstr ""
+msgstr "Ecualización 2"
 
 #: ../src/tags/gnome-cmd-tags.cc:341
 msgid "Equalisation curve predifine within the audio file."
-msgstr ""
+msgstr "Curva de ecualización predefinida en el archivo de sonido."
 
 #: ../src/tags/gnome-cmd-tags.cc:342
 msgid "Event Timing"
@@ -4819,11 +4823,11 @@ msgstr "Iconos por tipo de archivo"
 
 #: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Frames"
-msgstr ""
+msgstr "Cuadros"
 
 #: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Number of frames."
-msgstr ""
+msgstr "Número de cuadros."
 
 #: ../src/tags/gnome-cmd-tags.cc:346
 msgid "General Object"
@@ -4831,7 +4835,7 @@ msgstr "Objeto general"
 
 #: ../src/tags/gnome-cmd-tags.cc:346
 msgid "General encapsulated object."
-msgstr ""
+msgstr "Objeto encapsulado general."
 
 #: ../src/tags/gnome-cmd-tags.cc:347
 #, fuzzy
@@ -4844,11 +4848,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:348
 msgid "Initial Key"
-msgstr ""
+msgstr "Clave inicial"
 
 #: ../src/tags/gnome-cmd-tags.cc:348
 msgid "Initial key."
-msgstr ""
+msgstr "Clave inicial."
 
 #: ../src/tags/gnome-cmd-tags.cc:349
 msgid "Involved People"
