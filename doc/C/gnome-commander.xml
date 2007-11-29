@@ -5657,6 +5657,9 @@
                             <para>Fixed problem #447415 (inability to launch executables)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #490431 (view files with name containing '%')</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem when creating ~/dir</para>
                         </listitem>
                         <listitem>

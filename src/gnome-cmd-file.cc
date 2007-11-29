@@ -690,29 +690,23 @@ gnome_cmd_file_show_properties (GnomeCmdFile *finfo)
 static void
 do_view_file (const gchar *path, gint internal_viewer)
 {
-    gchar *arg;
-    gchar *command;
-    GViewer *viewer;
-
     if (internal_viewer==-1)
         internal_viewer = gnome_cmd_data_get_use_internal_viewer ();
 
     switch (internal_viewer)
     {
         case TRUE : {
-                        arg = gnome_vfs_unescape_string (path, NULL);
-                        viewer = (GViewer *) gviewer_window_file_view(arg, NULL);
-                        gtk_widget_show(GTK_WIDGET(viewer));
+                        GViewer *viewer = (GViewer *) gviewer_window_file_view (path, NULL);
+                        gtk_widget_show (GTK_WIDGET(viewer));
                         gdk_window_set_icon (GTK_WIDGET(viewer)->window, NULL,
                                              IMAGE_get_pixmap (PIXMAP_INTERNAL_VIEWER),
                                              IMAGE_get_mask (PIXMAP_INTERNAL_VIEWER));
-                        g_free(arg);
                     }
                     break;
 
         case FALSE: {
-                        arg = g_shell_quote (path);
-                        command = g_strdup_printf (gnome_cmd_data_get_viewer (), arg);
+                        gchar *arg = g_shell_quote (path);
+                        gchar *command = g_strdup_printf (gnome_cmd_data_get_viewer (), arg);
                         run_command (command, FALSE);
                         g_free (arg);
                         g_free (command);

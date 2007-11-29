@@ -1,3 +1,8 @@
+2007-11-29  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-file.cc:
+	Fixed problem #490431 (view files with name containing '%')
+
 2007-11-26  koos  <kjniesink@yahoo.co.uk>
 
 	* src/gnome-cmd-xfer.cc:
