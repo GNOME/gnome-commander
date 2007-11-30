@@ -202,6 +202,23 @@ gboolean create_dir_if_needed (const gchar *dpath);
 void edit_mimetypes (const gchar *mime_type, gboolean blocking);
 void fix_uri (GnomeVFSURI *uri);
 
+inline gboolean uri_is_valid (const gchar *uri)
+{
+    GnomeVFSURI *vfs_uri = gnome_vfs_uri_new (uri);         //      gnome_vfs_uri_new() returns NULL for !uri
+
+    if (!vfs_uri)
+        return FALSE;
+
+    gnome_vfs_uri_unref (vfs_uri);
+
+    return TRUE;
+}
+
+inline gboolean uri_is_valid (const std::string &uri)
+{
+    return uri_is_valid (uri.c_str());
+}
+
 GList *patlist_new (const gchar *pattern_string);
 void patlist_free (GList *pattern_list);
 gboolean patlist_matches (GList *pattern_list, const gchar *s);
