@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-23 23:02+0000\n"
-"PO-Revision-Date: 2007-11-28 19:04+0100\n"
+"POT-Creation-Date: 2007-11-28 18:06+0000\n"
+"PO-Revision-Date: 2007-12-01 15:37+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "No hay descripción de error disponible"
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
-#: ../src/gnome-cmd-remote-dialog.cc:522
+#: ../src/gnome-cmd-remote-dialog.cc:524
 msgid "Options"
 msgstr "Opciones"
 
@@ -374,7 +374,7 @@ msgstr "Dir"
 #. NULL);
 #: ../src/gnome-cmd-advrename-dialog.cc:1170
 #: ../src/gnome-cmd-file-props-dialog.cc:613
-#: ../src/gnome-cmd-remote-dialog.cc:416 ../src/plugin_manager.cc:420
+#: ../src/gnome-cmd-remote-dialog.cc:418 ../src/plugin_manager.cc:420
 #: ../src/tags/gnome-cmd-tags.cc:315
 msgid "Name"
 msgstr "Nombre"
@@ -773,19 +773,19 @@ msgstr ""
 msgid "Delete problem"
 msgstr "Problema al borrar"
 
-#: ../src/gnome-cmd-delete-dialog.cc:210 ../src/gnome-cmd-xfer.cc:174
-#: ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:190
 msgid "Abort"
 msgstr "Abortar"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:190
 msgid "Retry"
 msgstr "Reintentar"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:174
-#: ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:190
 msgid "Skip"
 msgstr "Saltar"
 
@@ -1965,7 +1965,7 @@ msgid "Query First"
 msgstr "Consultar primero"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:171
 msgid "Skip All"
 msgstr "Saltar todos"
 
@@ -2019,31 +2019,31 @@ msgstr "No se pudo cargar el módulo python «gomevfs» («gnome.vfs»)\n"
 msgid "Search"
 msgstr "Buscar"
 
-#: ../src/gnome-cmd-remote-dialog.cc:211
+#: ../src/gnome-cmd-remote-dialog.cc:213
 msgid "No server selected"
 msgstr "No se seleccionó un servidor"
 
-#: ../src/gnome-cmd-remote-dialog.cc:402
+#: ../src/gnome-cmd-remote-dialog.cc:404
 msgid "GNOME authentication manager usage"
 msgstr ""
 
-#: ../src/gnome-cmd-remote-dialog.cc:406
+#: ../src/gnome-cmd-remote-dialog.cc:408
 msgid "Network protocol"
 msgstr "Protocolo de red"
 
-#: ../src/gnome-cmd-remote-dialog.cc:417
+#: ../src/gnome-cmd-remote-dialog.cc:419
 msgid "Connection name"
 msgstr "Nombre de la conexión"
 
-#: ../src/gnome-cmd-remote-dialog.cc:489
+#: ../src/gnome-cmd-remote-dialog.cc:491
 msgid "Remote Connections"
 msgstr "Conexiones remotas"
 
-#: ../src/gnome-cmd-remote-dialog.cc:494
+#: ../src/gnome-cmd-remote-dialog.cc:496
 msgid "Connections"
 msgstr "Conexiones"
 
-#: ../src/gnome-cmd-remote-dialog.cc:525
+#: ../src/gnome-cmd-remote-dialog.cc:527
 msgid "Anonymous FTP password:"
 msgstr "Contraseña para el FTP anónimo:"
 
@@ -2235,7 +2235,7 @@ msgstr "%s de %s copiados"
 msgid "%.0f%% copied"
 msgstr "%.0f%% copiado"
 
-#: ../src/gnome-cmd-xfer.cc:170
+#: ../src/gnome-cmd-xfer.cc:167
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -2246,15 +2246,15 @@ msgstr ""
 "\n"
 "¿Quiere sobreescribirlo?\n"
 
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-xfer.cc:171
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-xfer.cc:171
 msgid "Replace All"
 msgstr "Remplazar todos"
 
-#: ../src/gnome-cmd-xfer.cc:189
+#: ../src/gnome-cmd-xfer.cc:186
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -2265,20 +2265,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-xfer.cc:192
+#: ../src/gnome-cmd-xfer.cc:189
 msgid "Transfer problem"
 msgstr "Problema de transferencia"
 
-#: ../src/gnome-cmd-xfer.cc:232
+#: ../src/gnome-cmd-xfer.cc:229
 msgid "copying..."
 msgstr "copiando..."
 
-#: ../src/gnome-cmd-xfer.cc:240
+#: ../src/gnome-cmd-xfer.cc:237
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[archivo %ld de %ld] «%s»"
 
-#: ../src/gnome-cmd-xfer.cc:383
+#: ../src/gnome-cmd-xfer.cc:367
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
@@ -2286,11 +2286,11 @@ msgstr ""
 "Copiar un directorio dentro de sí mismo es una mala idea.\n"
 "La operación fue cancelada."
 
-#: ../src/gnome-cmd-xfer.cc:425
+#: ../src/gnome-cmd-xfer.cc:408
 msgid "preparing..."
 msgstr "preparando..."
 
-#: ../src/gnome-cmd-xfer.cc:510
+#: ../src/gnome-cmd-xfer.cc:493
 msgid "downloading to /tmp"
 msgstr "descargando a /tmp"
 
@@ -3320,9 +3320,8 @@ msgid "CFA Repeat Pattern Dim"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:198
-#, fuzzy
 msgid "CFA Repeat Pattern Dim."
-msgstr "Patrón CFA:"
+msgstr "Patrón repetitivo CFA"
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid "Color Space"
@@ -3693,23 +3692,27 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:228
 msgid "Focal Plane x-Resolution"
-msgstr ""
+msgstr "Resolución X del plano focal"
 
 #: ../src/tags/gnome-cmd-tags.cc:228
 msgid ""
 "Indicates the number of pixels in the image width (X) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr ""
+"Indica el número de píxeles en la dirección de la anchura de la imagen (X) por <Exif."
+"FocalPlaneResolutionUnit> en el plano focal de la cámara."
 
 #: ../src/tags/gnome-cmd-tags.cc:229
 msgid "Focal Plane y-Resolution"
-msgstr ""
+msgstr "Resolución Y del plano focal"
 
 #: ../src/tags/gnome-cmd-tags.cc:229
 msgid ""
 "Indicates the number of pixels in the image height (Y) direction per <Exif."
 "FocalPlaneResolutionUnit> on the camera focal plane."
 msgstr ""
+"Indica el número de píxeles en la dirección de la altura de la imagen (Y) por <Exif."
+"FocalPlaneResolutionUnit> en el plano focal de la cámara."
 
 #: ../src/tags/gnome-cmd-tags.cc:230
 msgid "Gain Control"
@@ -3857,7 +3860,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid "Image Length"
-msgstr ""
+msgstr "Longitud de la imagen"
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid ""
@@ -4777,9 +4780,8 @@ msgid "Encoding time."
 msgstr "Hora de codificación."
 
 #: ../src/tags/gnome-cmd-tags.cc:340
-#, fuzzy
 msgid "Equalization"
-msgstr "Aplicaciones MIME"
+msgstr "Ecualización"
 
 #: ../src/tags/gnome-cmd-tags.cc:340
 msgid "Equalization."
@@ -4802,24 +4804,20 @@ msgid "Event timing codes."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:343
-#, fuzzy
 msgid "File Owner"
-msgstr "Gestor de archivos"
+msgstr "Propietario del archivo"
 
 #: ../src/tags/gnome-cmd-tags.cc:343
-#, fuzzy
 msgid "File owner."
-msgstr "Gestor de archivos"
+msgstr "Propietario del archivo."
 
 #: ../src/tags/gnome-cmd-tags.cc:344
-#, fuzzy
 msgid "File Type"
 msgstr "Tipo de archivo"
 
 #: ../src/tags/gnome-cmd-tags.cc:344
-#, fuzzy
 msgid "File type."
-msgstr "Iconos por tipo de archivo"
+msgstr "Tipo de archivo."
 
 #: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Frames"
@@ -4838,9 +4836,8 @@ msgid "General encapsulated object."
 msgstr "Objeto encapsulado general."
 
 #: ../src/tags/gnome-cmd-tags.cc:347
-#, fuzzy
 msgid "Grouping Registration"
-msgstr "Opciones de ordenación"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:347
 msgid "Group identification registration."
@@ -4856,45 +4853,43 @@ msgstr "Clave inicial."
 
 #: ../src/tags/gnome-cmd-tags.cc:349
 msgid "Involved People"
-msgstr ""
+msgstr "Personas involucradas"
 
 #: ../src/tags/gnome-cmd-tags.cc:349 ../src/tags/gnome-cmd-tags.cc:350
 msgid "Involved people list."
-msgstr ""
+msgstr "Lista de personas involucradas."
 
 #: ../src/tags/gnome-cmd-tags.cc:350
 msgid "InvolvedPeople2"
-msgstr ""
+msgstr "PersonasInvolucradas2"
 
 #: ../src/tags/gnome-cmd-tags.cc:351
 msgid "Language."
-msgstr ""
+msgstr "Idioma."
 
 #: ../src/tags/gnome-cmd-tags.cc:352
 msgid "Linked Info"
-msgstr ""
+msgstr "Información enlazada"
 
 #: ../src/tags/gnome-cmd-tags.cc:352
-#, fuzzy
 msgid "Linked information."
-msgstr "Opciones de ordenación"
+msgstr "Información enlazada."
 
 #: ../src/tags/gnome-cmd-tags.cc:353
 msgid "Lyricist"
-msgstr ""
+msgstr "Letrista"
 
 #: ../src/tags/gnome-cmd-tags.cc:353
 msgid "Lyricist."
-msgstr ""
+msgstr "Letrista."
 
 #: ../src/tags/gnome-cmd-tags.cc:354
 msgid "Media Type"
-msgstr ""
+msgstr "Tipo de medio"
 
 #: ../src/tags/gnome-cmd-tags.cc:354
-#, fuzzy
 msgid "Media type."
-msgstr "Tipo predeterminado"
+msgstr "Tipo de medio."
 
 #: ../src/tags/gnome-cmd-tags.cc:355
 msgid "Mix Artist"
@@ -4962,54 +4957,51 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 msgid "Original File Name"
-msgstr ""
+msgstr "Nombre de archivo original"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
-#, fuzzy
 msgid "Original filename."
-msgstr "Con nombre"
+msgstr "Nombre de archivo original."
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Original Lyricist"
-msgstr ""
+msgstr "Letrista original"
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Original lyricist."
-msgstr ""
+msgstr "Letrista original."
 
 #: ../src/tags/gnome-cmd-tags.cc:365
-#, fuzzy
 msgid "Original Release Time"
-msgstr "Renombrar archivo"
+msgstr "Hora de lanzamiento original"
 
 #: ../src/tags/gnome-cmd-tags.cc:365
 msgid "Original release time."
-msgstr ""
+msgstr "Hora de lanzamiento original."
 
 #: ../src/tags/gnome-cmd-tags.cc:366
 msgid "Original Year"
-msgstr ""
+msgstr "Año original"
 
 #: ../src/tags/gnome-cmd-tags.cc:366
 msgid "Original release year."
-msgstr ""
+msgstr "Año de lanzamiento original."
 
 #: ../src/tags/gnome-cmd-tags.cc:367
-#, fuzzy
 msgid "Ownership"
-msgstr "Propietario:"
+msgstr "Propietario"
 
 #: ../src/tags/gnome-cmd-tags.cc:367
 msgid "Ownership frame."
-msgstr ""
+msgstr "Cuadro propietario."
 
 #: ../src/tags/gnome-cmd-tags.cc:368
 msgid "Part of a Set"
-msgstr ""
+msgstr "Parte de un conjunto"
 
 #: ../src/tags/gnome-cmd-tags.cc:368
 msgid "Part of a set the audio came from."
-msgstr ""
+msgstr "Parte de un conjunto del que proviene el sonido."
 
 #: ../src/tags/gnome-cmd-tags.cc:369
 msgid "Performer Sort Order"
@@ -5025,12 +5017,11 @@ msgstr "Imagen"
 
 #: ../src/tags/gnome-cmd-tags.cc:370
 msgid "Attached picture."
-msgstr ""
+msgstr "Imagen adjunta."
 
 #: ../src/tags/gnome-cmd-tags.cc:371
-#, fuzzy
 msgid "Play Counter"
-msgstr "Apariencia"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Number of times a file has been played."
@@ -5061,13 +5052,12 @@ msgid "Position synchronisation frame."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:375
-#, fuzzy
 msgid "Private"
 msgstr "Privado"
 
 #: ../src/tags/gnome-cmd-tags.cc:375
 msgid "Private frame."
-msgstr ""
+msgstr "Cuadro privado."
 
 #: ../src/tags/gnome-cmd-tags.cc:376
 msgid "Produced Notice"
@@ -5087,25 +5077,23 @@ msgstr "Fechas de grabación"
 
 #: ../src/tags/gnome-cmd-tags.cc:378
 msgid "Recording dates."
-msgstr ""
+msgstr "Fechas de grabación."
 
 #: ../src/tags/gnome-cmd-tags.cc:379
 msgid "Recording Time"
-msgstr ""
+msgstr "Hora de grabación"
 
 #: ../src/tags/gnome-cmd-tags.cc:379
 msgid "Recording time."
-msgstr ""
+msgstr "Hora de grabación."
 
 #: ../src/tags/gnome-cmd-tags.cc:380 ../src/tags/gnome-cmd-tags.cc:492
-#, fuzzy
 msgid "Release Time"
-msgstr "Renombrar archivo"
+msgstr "Hora de lanzamiento"
 
 #: ../src/tags/gnome-cmd-tags.cc:380
-#, fuzzy
 msgid "Release time."
-msgstr "Renombrar archivo"
+msgstr "Hora de lanzamiento."
 
 #: ../src/tags/gnome-cmd-tags.cc:381
 msgid "Reverb"
@@ -5113,15 +5101,15 @@ msgstr "Reverberación"
 
 #: ../src/tags/gnome-cmd-tags.cc:381
 msgid "Reverb."
-msgstr ""
+msgstr "Reverberación."
 
 #: ../src/tags/gnome-cmd-tags.cc:382
 msgid "Set Subtitle"
-msgstr ""
+msgstr "Establecer subtítulo"
 
 #: ../src/tags/gnome-cmd-tags.cc:382
 msgid "Subtitle of the part of a set this track belongs to."
-msgstr ""
+msgstr "Subtítulo de la parte del conjunto al que pertenece esta pista."
 
 #: ../src/tags/gnome-cmd-tags.cc:383
 msgid "Signature"
@@ -5129,7 +5117,7 @@ msgstr "Firma"
 
 #: ../src/tags/gnome-cmd-tags.cc:383
 msgid "Signature frame."
-msgstr ""
+msgstr "Cuadro de firma."
 
 #: ../src/tags/gnome-cmd-tags.cc:384
 msgid "Size of the audio file in bytes, excluding the ID3 tag."
@@ -5144,13 +5132,12 @@ msgid "Length of the song in milliseconds."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:386
-#, fuzzy
 msgid "Subtitle"
-msgstr "Archivo"
+msgstr "Subtítulo"
 
 #: ../src/tags/gnome-cmd-tags.cc:386
 msgid "Subtitle."
-msgstr ""
+msgstr "Subtítulo."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
 msgid "Syncedlyrics"
@@ -5185,13 +5172,12 @@ msgid "Terms of use."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:391
-#, fuzzy
 msgid "Time"
 msgstr "Hora"
 
 #: ../src/tags/gnome-cmd-tags.cc:391
 msgid "Time."
-msgstr ""
+msgstr "Hora."
 
 #: ../src/tags/gnome-cmd-tags.cc:392
 msgid "Titlesortorder"
@@ -5270,9 +5256,8 @@ msgid "URL pointing at a webpage containing commercial information."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:402
-#, fuzzy
 msgid "WWW Copyright"
-msgstr "Copiar"
+msgstr "Copyright WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:402
 msgid "URL pointing at a webpage that holds copyright."
@@ -5305,9 +5290,8 @@ msgid "Official internet radio station homepage."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:406
-#, fuzzy
 msgid "WWW User"
-msgstr "Usuario:"
+msgstr "Usuario WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:406
 msgid "User defined URL link."
@@ -5367,16 +5351,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:420
 msgid "String of keywords."
-msgstr ""
+msgstr "Cadena de palabras clave."
 
 #: ../src/tags/gnome-cmd-tags.cc:421
-#, fuzzy
 msgid "Make"
-msgstr "_Marcar"
+msgstr "Fabricante"
 
 #: ../src/tags/gnome-cmd-tags.cc:421
 msgid "Make of camera used to take the image."
-msgstr ""
+msgstr "Fabricante de la cámara que se usó para tomar la imagen."
 
 #: ../src/tags/gnome-cmd-tags.cc:422
 msgid ""
@@ -5435,9 +5418,8 @@ msgid "Identifies the Abstract Relationship Method (ARM)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:431
-#, fuzzy
 msgid "ARM Version"
-msgstr "Versión"
+msgstr "Versión ARM"
 
 #: ../src/tags/gnome-cmd-tags.cc:431
 msgid "Identifies the version of the Abstract Relationship Method (ARM)."
@@ -5516,9 +5498,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:441
-#, fuzzy
 msgid "Coded Character Set"
-msgstr "Dispositivo caracteres"
+msgstr "Juego de caracteres"
 
 #: ../src/tags/gnome-cmd-tags.cc:441
 msgid ""
@@ -5535,16 +5516,14 @@ msgid "City of object origin."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:443
-#, fuzzy
 msgid "Confirmed Data Size"
-msgstr "Confirmación"
+msgstr "Tamaño confirmado de los datos"
 
 #: ../src/tags/gnome-cmd-tags.cc:443
 msgid "Total size of the object data."
-msgstr ""
+msgstr "Tamaño total de los datos del objeto."
 
 #: ../src/tags/gnome-cmd-tags.cc:444 ../src/tags/gnome-cmd-tags.cc:507
-#, fuzzy
 msgid "Contact"
 msgstr "Contacto"
 
@@ -5613,26 +5592,24 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:452
-#, fuzzy
 msgid "Date Sent"
-msgstr "Sensible a mayúsculas"
+msgstr "Fecha de envío"
 
 #: ../src/tags/gnome-cmd-tags.cc:452
 msgid "The day the service sent the material."
-msgstr ""
+msgstr "El día en el que el servicio envió el material."
 
 #: ../src/tags/gnome-cmd-tags.cc:453
 msgid "Destination"
 msgstr "Destino"
 
 #: ../src/tags/gnome-cmd-tags.cc:453
-#, fuzzy
 msgid "Routing information."
-msgstr "Opciones de ordenación"
+msgstr "Información de enrutado."
 
 #: ../src/tags/gnome-cmd-tags.cc:454
 msgid "Digital Creation Date"
-msgstr ""
+msgstr "Fecha de creación digital"
 
 #: ../src/tags/gnome-cmd-tags.cc:454
 msgid "The date the digital representation of the object was created."
@@ -5640,7 +5617,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "Digital Creation Time"
-msgstr ""
+msgstr "Hora de creación digital"
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "The time the digital representation of the object was created."
@@ -5745,7 +5722,6 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:467
-#, fuzzy
 msgid "Image Type"
 msgstr "Tipo de imagen"
 
@@ -5788,9 +5764,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:472
-#, fuzzy
 msgid "Model Version"
-msgstr "Versión"
+msgstr "Versión del modelo"
 
 #: ../src/tags/gnome-cmd-tags.cc:472
 msgid "Version of IIM part 1."
@@ -5889,7 +5864,6 @@ msgid "Allows a provider to identify subsets of its overall service."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:484
-#, fuzzy
 msgid "Program Version"
 msgstr "Versión del programa"
 
@@ -5916,9 +5890,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:487
-#, fuzzy
 msgid "Record Version"
-msgstr "Versión"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Identifies the version of the IIM, Part 2"
@@ -5967,9 +5940,8 @@ msgid "Identifies the provider and product."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:494
-#, fuzzy
 msgid "Size Mode"
-msgstr "Modo de visualización del tamaño"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:494
 msgid "Set to 0 if the size of the object is known and 1 if not known."
@@ -6022,15 +5994,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Supplemental Category"
-msgstr ""
+msgstr "Categoría suplementaria"
 
 #: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Further refines the subject of the object (Deprecated)."
-msgstr ""
+msgstr "Refinamiento del asunto del objeto (obsoleto)."
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid "Time Created"
-msgstr ""
+msgstr "Hora de creación"
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid ""
@@ -6038,18 +6010,21 @@ msgid ""
 "date of the creation of the physical representation (multiple values "
 "allowed)."
 msgstr ""
+"La hora a la que el contenido intelectual del objeto se creó en lugar de "
+"la fecha de creación de la representación física (se admiten varios "
+"valores)."
 
 #: ../src/tags/gnome-cmd-tags.cc:503
 msgid "Time Sent"
-msgstr ""
+msgstr "Hora de envío"
 
 #: ../src/tags/gnome-cmd-tags.cc:503
 msgid "The time the service sent the material."
-msgstr ""
+msgstr "La hora a la que el servicio envió el material."
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid "Unique Name of Object"
-msgstr ""
+msgstr "Nombre único del objeto"
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid ""
@@ -6059,7 +6034,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:505
 msgid "Urgency"
-msgstr ""
+msgstr "Urgencia"
 
 #: ../src/tags/gnome-cmd-tags.cc:505
 msgid ""
@@ -6069,71 +6044,65 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:506
 msgid "Writer/Editor"
-msgstr ""
+msgstr "Escritor/editor"
 
 #: ../src/tags/gnome-cmd-tags.cc:506
 msgid ""
 "The name of the person involved in the writing, editing or correcting the "
 "object or caption/abstract (multiple values allowed)"
 msgstr ""
+"El nombre de la persona involucrada en la escritura, edición o corrección del "
+"objeto o resumen (se admiten varios valores)"
 
 #: ../src/tags/gnome-cmd-tags.cc:507
 msgid "Contact information for the creators or distributors of the track."
-msgstr ""
+msgstr "Información de contacto de los creadores o distribuidores de la pista."
 
 #: ../src/tags/gnome-cmd-tags.cc:508
 msgid "A textual description of the data."
-msgstr ""
+msgstr "Una descripción textual de los datos."
 
 #: ../src/tags/gnome-cmd-tags.cc:509
-#, fuzzy
 msgid "License"
 msgstr "Licencia"
 
 #: ../src/tags/gnome-cmd-tags.cc:509
-#, fuzzy
 msgid "License information."
-msgstr "Opciones de ordenación"
+msgstr "Información de la licencia."
 
 #: ../src/tags/gnome-cmd-tags.cc:510
-#, fuzzy
 msgid "Location"
 msgstr "Lugar"
 
 #: ../src/tags/gnome-cmd-tags.cc:510
-#, fuzzy
 msgid "Location where track was recorded."
-msgstr "Fecha en que la pista salió."
+msgstr "Lugar donde se grabó la pista."
 
 #: ../src/tags/gnome-cmd-tags.cc:511
 msgid "Maximum bitrate"
-msgstr ""
+msgstr "Máxima tasa de bits"
 
 #: ../src/tags/gnome-cmd-tags.cc:511
-#, fuzzy
 msgid "Maximum bitrate in kbps."
-msgstr "Tasa de bits en Kbps."
+msgstr "Máxima tasa de bits en Kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:512
 msgid "Minimum bitrate"
 msgstr "Mínima tasa de bits"
 
 #: ../src/tags/gnome-cmd-tags.cc:512
-#, fuzzy
 msgid "Minimum bitrate in kbps."
-msgstr "Tasa de bits en Kbps."
+msgstr "Mínima tasa de bits en Kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:513
 msgid "Nominal bitrate"
 msgstr "Tasa de bits nominal"
 
 #: ../src/tags/gnome-cmd-tags.cc:513
-#, fuzzy
 msgid "Nominal bitrate in kbps."
 msgstr "Tasa de bits en Kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:514
-#, fuzzy
 msgid "Organization"
 msgstr "Organización"
 
@@ -6243,12 +6212,12 @@ msgstr "Serbo-croata (cirílico)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:171
 msgid "Farsi"
-msgstr ""
+msgstr "Farsi"
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:65
 #, c-format
 msgid "unsupported tag (suppressed %u B of binary data)"
-msgstr ""
+msgstr "etiqueta no soportada (se suprimió %u B de los datos binarios)"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:71
 msgid "Stereo"
