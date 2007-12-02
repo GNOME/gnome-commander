@@ -20,15 +20,14 @@
 #include <config.h>
 #include <sys/types.h>
 #include <regex.h>
+#include <fnmatch.h>
+
 #include "gnome-cmd-includes.h"
 #include "filter.h"
-#include "gnome-cmd-data.h"
 
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 #endif
-
-#include <fnmatch.h>
 
 using namespace std;
 
@@ -65,10 +64,8 @@ inline Filter *new_fnmatch (const gchar *exp, gboolean case_sens)
 }
 
 
-Filter *filter_new (const gchar *exp, gboolean case_sens)
+Filter *filter_new (const gchar *exp, gboolean case_sens, FilterType type)
 {
-    FilterType type = gnome_cmd_data_get_filter_type ();
-
     switch (type)
     {
         case FILTER_TYPE_REGEX:

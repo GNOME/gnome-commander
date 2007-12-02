@@ -38,7 +38,7 @@ struct Filter
 };
 
 
-Filter  *filter_new (const gchar *exp, gboolean case_sens);
+Filter *filter_new (const gchar *exp, gboolean case_sens, FilterType type);
 void filter_free (Filter *filter);
 gboolean filter_match (Filter *filter, gchar *text);
 

@@ -404,7 +404,7 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
 
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    Filter *filter = filter_new (pattern, case_sens);
+    Filter *filter = filter_new (pattern, case_sens, gnome_cmd_data_get_filter_type ());
     g_return_if_fail (filter != NULL);
 
     for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)

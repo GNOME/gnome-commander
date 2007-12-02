@@ -520,7 +520,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     gtk_widget_set_sensitive (data->dialog->priv->stop_button, TRUE);
 
     // create an re for filename matching
-    data->name_filter = filter_new (data->name_pattern, data->case_sens);
+    data->name_filter = filter_new (data->name_pattern, data->case_sens, gnome_cmd_data_get_filter_type ());
 
 
     // if we're going to search through file content create an re for that too
