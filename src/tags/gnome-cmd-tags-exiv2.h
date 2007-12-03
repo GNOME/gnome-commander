@@ -20,8 +20,6 @@
 #ifndef __GNOME_CMD_TAGS_EXIV2_H__
 #define __GNOME_CMD_TAGS_EXIV2_H__
 
-#include <config.h>
-
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-tags.h"
 

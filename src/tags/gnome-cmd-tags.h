@@ -20,8 +20,6 @@
 #ifndef __GNOME_CMD_TAGS_H__
 #define __GNOME_CMD_TAGS_H__
 
-#include <config.h>
-
 #include <string>
 #include <map>
 #include <set>

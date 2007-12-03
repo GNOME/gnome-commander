@@ -33,8 +33,6 @@
 #define __GNOME_CMD_COMBO_H__
 
 #include "imageloader.h"
-#include "gnome-cmd-main-win.h"
-#include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-pixmap.h"
 
 #define GNOME_CMD_COMBO(obj)            GTK_CHECK_CAST (obj, gnome_cmd_combo_get_type (), GnomeCmdCombo)

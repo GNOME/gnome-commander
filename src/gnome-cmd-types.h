@@ -22,8 +22,6 @@
 typedef struct _GnomeCmdBookmarkGroup GnomeCmdBookmarkGroup;
 typedef gchar *GnomeCmdDateFormat;
 
-#include "gnome-cmd-con.h"
-
 typedef enum
 {
     GNOME_CMD_LAYOUT_TEXT,
@@ -83,6 +81,9 @@ typedef struct
     GdkColor *norm_fg, *norm_bg;
     GdkColor *curs_fg, *curs_bg;
 } GnomeCmdColorTheme;
+
+
+typedef struct _GnomeCmdCon GnomeCmdCon;
 
 
 struct _GnomeCmdBookmarkGroup

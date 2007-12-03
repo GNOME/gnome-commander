@@ -39,7 +39,7 @@ typedef void (* DirListDoneFunc) (GnomeCmdDir *dir,
 #include <string>
 
 #include "gnome-cmd-file.h"
-#include "gnome-cmd-con.h"
+#include "gnome-cmd-path.h"
 #include "handle.h"
 
 typedef enum
@@ -70,7 +70,6 @@ struct _GnomeCmdDir
     GnomeCmdDirPrivate *priv;
 };
 
-
 struct _GnomeCmdDirClass
 {
     GnomeCmdFileClass parent_class;
@@ -81,6 +80,8 @@ struct _GnomeCmdDirClass
     void (* list_ok)            (GnomeCmdDir *dir, GList *files);
     void (* list_failed)        (GnomeCmdDir *dir, GnomeVFSResult result);
 };
+
+typedef struct _GnomeCmdCon GnomeCmdCon;
 
 GtkType gnome_cmd_dir_get_type (void);
 

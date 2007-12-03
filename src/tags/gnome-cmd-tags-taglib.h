@@ -20,8 +20,6 @@
 #ifndef __GNOME_CMD_TAGS_TAGLIB_H__
 #define __GNOME_CMD_TAGS_TAGLIB_H__
 
-#include <config.h>
-
 #include "gnome-cmd-file.h"
 
 void gcmd_tags_taglib_init();

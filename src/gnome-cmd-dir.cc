@@ -20,6 +20,7 @@
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir.h"
+#include "gnome-cmd-file.h"
 #include "gnome-cmd-dir-pool.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-smb.h"

@@ -20,9 +20,6 @@
 #ifndef __GNOME_CMD_FILE_H__
 #define __GNOME_CMD_FILE_H__
 
-#include <config.h>
-
-
 #define GNOME_CMD_FILE(obj) \
     GTK_CHECK_CAST (obj, gnome_cmd_file_get_type (), GnomeCmdFile)
 #define GNOME_CMD_FILE_CLASS(klass) \
@@ -51,7 +48,9 @@ struct _GnomeCmdFileClass
     GnomeCmdFileInfoClass parent_class;
 };
 
-#include "gnome-cmd-dir.h"
+
+typedef struct _GnomeCmdDir         GnomeCmdDir;
+
 
 GtkType gnome_cmd_file_get_type (void);
 

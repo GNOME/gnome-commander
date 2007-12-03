@@ -19,7 +19,6 @@
 
 #include <config.h>
 #include <sys/types.h>
-#include <regex.h>
 #include <unistd.h>
 #include <errno.h>
 #include "gnome-cmd-includes.h"
@@ -29,7 +28,6 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-clist.h"
-#include "gnome-cmd-dir.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-combo.h"
 #include "widget-factory.h"
