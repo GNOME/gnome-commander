@@ -41,8 +41,7 @@ struct _GnomeCmdAppPrivate
 };
 
 
-GnomeCmdApp*
-gnome_cmd_app_new ()
+GnomeCmdApp *gnome_cmd_app_new ()
 {
     GnomeCmdApp *app = g_new0 (GnomeCmdApp, 1);
     app->priv = g_new0 (GnomeCmdAppPrivate, 1);
@@ -61,15 +60,14 @@ gnome_cmd_app_new ()
 }
 
 
-GnomeCmdApp*
-gnome_cmd_app_new_with_values     (const gchar *name,
-                                   const gchar *cmd,
-                                   const gchar *icon_path,
-                                   AppTarget target,
-                                   const gchar *pattern_string,
-                                   gboolean handles_uris,
-                                   gboolean handles_multiple,
-                                   gboolean requires_terminal)
+GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
+                                            const gchar *cmd,
+                                            const gchar *icon_path,
+                                            AppTarget target,
+                                            const gchar *pattern_string,
+                                            gboolean handles_uris,
+                                            gboolean handles_multiple,
+                                            gboolean requires_terminal)
 {
     GnomeCmdApp *app = gnome_cmd_app_new ();
 
@@ -87,40 +85,35 @@ gnome_cmd_app_new_with_values     (const gchar *name,
 }
 
 
-GnomeCmdApp*
-gnome_cmd_app_new_from_vfs_app   (GnomeVFSMimeApplication *vfs_app)
+GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app)
 {
     g_return_val_if_fail (vfs_app != NULL, NULL);
 
-    return gnome_cmd_app_new_with_values (
-        vfs_app->name,
-        vfs_app->command,
-        NULL,
-        APP_TARGET_ALL_FILES,
-        NULL,
-        vfs_app->expects_uris == GNOME_VFS_MIME_APPLICATION_ARGUMENT_TYPE_URIS,
-        vfs_app->can_open_multiple_files,
-        vfs_app->requires_terminal);
+    return gnome_cmd_app_new_with_values (vfs_app->name,
+                                          vfs_app->command,
+                                          NULL,
+                                          APP_TARGET_ALL_FILES,
+                                          NULL,
+                                          vfs_app->expects_uris == GNOME_VFS_MIME_APPLICATION_ARGUMENT_TYPE_URIS,
+                                          vfs_app->can_open_multiple_files,
+                                          vfs_app->requires_terminal);
 }
 
 
-GnomeCmdApp*
-gnome_cmd_app_dup                (GnomeCmdApp *app)
+GnomeCmdApp *gnome_cmd_app_dup (GnomeCmdApp *app)
 {
-    return gnome_cmd_app_new_with_values (
-        app->priv->name,
-        app->priv->cmd,
-        app->priv->icon_path,
-        app->priv->target,
-        app->priv->pattern_string,
-        app->priv->handles_uris,
-        app->priv->handles_multiple,
-        app->priv->requires_terminal);
+    return gnome_cmd_app_new_with_values (app->priv->name,
+                                          app->priv->cmd,
+                                          app->priv->icon_path,
+                                          app->priv->target,
+                                          app->priv->pattern_string,
+                                          app->priv->handles_uris,
+                                          app->priv->handles_multiple,
+                                          app->priv->requires_terminal);
 }
 
 
-void
-gnome_cmd_app_free                (GnomeCmdApp *app)
+void gnome_cmd_app_free (GnomeCmdApp *app) 
 {
     g_return_if_fail (app != NULL);
     g_return_if_fail (app->priv != NULL);
@@ -136,39 +129,32 @@ gnome_cmd_app_free                (GnomeCmdApp *app)
 }
 
 
-void
-gnome_cmd_app_set_name            (GnomeCmdApp *app,
-                                   const gchar *name)
+void gnome_cmd_app_set_name (GnomeCmdApp *app, const gchar *name)
 {
     g_return_if_fail (app != NULL);
     g_return_if_fail (app->priv != NULL);
     g_return_if_fail (name != NULL);
 
-    if (app->priv->name)
-        g_free (app->priv->name);
+    g_free (app->priv->name);
 
     app->priv->name = g_strdup (name);
 }
 
 
-void
-gnome_cmd_app_set_command         (GnomeCmdApp *app,
-                                   const gchar *cmd)
+void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd)
 {
     g_return_if_fail (app != NULL);
     g_return_if_fail (app->priv != NULL);
+    
     if (!cmd) return;
 
-    if (app->priv->cmd)
-        g_free (app->priv->cmd);
+    g_free (app->priv->cmd);
 
     app->priv->cmd = g_strdup (cmd);
 }
 
 
-void
-gnome_cmd_app_set_icon_path       (GnomeCmdApp *app,
-                                   const gchar *icon_path)
+void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 {
     GdkPixbuf *tmp;
 
@@ -176,8 +162,7 @@ gnome_cmd_app_set_icon_path       (GnomeCmdApp *app,
     g_return_if_fail (app->priv != NULL);
     if (!icon_path) return;
 
-    if (app->priv->icon_path)
-        g_free (app->priv->icon_path);
+    g_free (app->priv->icon_path);
     if (app->priv->pixmap)
         gnome_cmd_pixmap_free (app->priv->pixmap);
 
@@ -230,32 +215,25 @@ void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *pattern_st
 }
 
 
-void
-gnome_cmd_app_set_handles_uris   (GnomeCmdApp *app,
-                                  gboolean handles_uris)
+void gnome_cmd_app_set_handles_uris (GnomeCmdApp *app, gboolean handles_uris)
 {
     app->priv->handles_uris = handles_uris;
 }
 
 
-void
-gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app,
-                                    gboolean handles_multiple)
+void gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app, gboolean handles_multiple)
 {
     app->priv->handles_multiple = handles_multiple;
 }
 
 
-void
-gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app,
-                                     gboolean requires_terminal)
+void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_terminal)
 {
     app->priv->requires_terminal = requires_terminal;
 }
 
 
-const gchar *
-gnome_cmd_app_get_name            (GnomeCmdApp *app)
+const gchar *gnome_cmd_app_get_name (GnomeCmdApp *app)
 {
     g_return_val_if_fail (app != NULL, NULL);
     g_return_val_if_fail (app->priv != NULL, NULL);
@@ -264,8 +242,7 @@ gnome_cmd_app_get_name            (GnomeCmdApp *app)
 }
 
 
-const gchar *
-gnome_cmd_app_get_command       (GnomeCmdApp *app)
+const gchar *gnome_cmd_app_get_command (GnomeCmdApp *app)
 {
     g_return_val_if_fail (app != NULL, NULL);
     g_return_val_if_fail (app->priv != NULL, NULL);
@@ -274,8 +251,7 @@ gnome_cmd_app_get_command       (GnomeCmdApp *app)
 }
 
 
-const gchar *
-gnome_cmd_app_get_icon_path       (GnomeCmdApp *app)
+const gchar *gnome_cmd_app_get_icon_path (GnomeCmdApp *app)
 {
     g_return_val_if_fail (app != NULL, NULL);
     g_return_val_if_fail (app->priv != NULL, NULL);
@@ -284,52 +260,43 @@ gnome_cmd_app_get_icon_path       (GnomeCmdApp *app)
 }
 
 
-GnomeCmdPixmap *
-gnome_cmd_app_get_pixmap          (GnomeCmdApp *app)
+GnomeCmdPixmap *gnome_cmd_app_get_pixmap (GnomeCmdApp *app)
 {
     return app->priv->pixmap;
 }
 
 
-AppTarget
-gnome_cmd_app_get_target         (GnomeCmdApp *app)
+AppTarget gnome_cmd_app_get_target (GnomeCmdApp *app)
 {
     return app->priv->target;
 }
 
 
-const gchar*
-gnome_cmd_app_get_pattern_string (GnomeCmdApp *app)
+const gchar *gnome_cmd_app_get_pattern_string (GnomeCmdApp *app)
 {
     return app->priv->pattern_string;
 }
 
 
-GList *
-gnome_cmd_app_get_pattern_list   (GnomeCmdApp *app)
+GList *gnome_cmd_app_get_pattern_list (GnomeCmdApp *app)
 {
     return app->priv->pattern_list;
 }
 
 
-gboolean
-gnome_cmd_app_get_handles_uris   (GnomeCmdApp *app)
+gboolean gnome_cmd_app_get_handles_uris (GnomeCmdApp *app)
 {
     return app->priv->handles_uris;
 }
 
 
-gboolean
-gnome_cmd_app_get_handles_multiple (GnomeCmdApp *app)
+gboolean gnome_cmd_app_get_handles_multiple (GnomeCmdApp *app)
 {
     return app->priv->handles_multiple;
 }
 
 
-gboolean
-gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app)
+gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app)
 {
     return app->priv->requires_terminal;
 }
-
-

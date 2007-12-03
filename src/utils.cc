@@ -43,7 +43,6 @@ typedef struct
     GnomeCmdFile *finfo;
     GtkWidget *dialog;
     gpointer *args;
-
 } TmpDlData;
 
 #ifdef HAVE_LOCALE_H
@@ -139,11 +138,9 @@ void run_command_indir (const gchar *in_command, const gchar *dir, gboolean term
 
 const char **convert_varargs_to_name_array (va_list args)
 {
-    GPtrArray *resizeable_array;
     const char *name;
-    const char **plain_ole_array;
 
-    resizeable_array = g_ptr_array_new ();
+    GPtrArray *resizeable_array = g_ptr_array_new ();
 
     do
     {
@@ -152,7 +149,7 @@ const char **convert_varargs_to_name_array (va_list args)
     }
     while (name);
 
-    plain_ole_array = (const char **) resizeable_array->pdata;
+    const char **plain_ole_array = (const char **) resizeable_array->pdata;
 
     g_ptr_array_free (resizeable_array, FALSE);
 
@@ -746,11 +743,13 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
     gchar *dir_uri_str;
     GnomeVFSResult result;
 
-    if (!dir_uri) return -1;
+    if (!dir_uri)
+        return -1;
 
     dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
 
-    if (!dir_uri_str) return -1;
+    if (!dir_uri_str)
+        return -1;
 
     result = gnome_vfs_directory_list_load (&list, dir_uri_str, infoOpts);
 
@@ -948,10 +947,10 @@ void set_cursor_default (void)
 
 GList *app_get_linked_libs (GnomeCmdFile *finfo)
 {
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (finfo), NULL);
+
     gchar *s;
     gchar tmp[256];
-
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (finfo), NULL);
 
     gchar *arg = g_shell_quote (gnome_cmd_file_get_real_path (finfo));
     gchar *cmd = g_strdup_printf ("ldd %s", arg);
@@ -1127,7 +1126,8 @@ inline void transform (gchar *s, gchar from, gchar to)
     gint len = strlen (s);
 
     for (gint i=0; i<len; i++)
-        if (s[i] == from) s[i] = to;
+        if (s[i] == from)
+            s[i] = to;
 }
 
 

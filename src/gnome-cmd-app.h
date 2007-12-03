@@ -34,92 +34,54 @@ typedef enum
 typedef struct _GnomeCmdApp GnomeCmdApp;
 typedef struct _GnomeCmdAppPrivate GnomeCmdAppPrivate;
 
-struct _GnomeCmdApp {
+struct _GnomeCmdApp
+{
     GnomeCmdAppPrivate *priv;
 };
 
-GnomeCmdApp*
-gnome_cmd_app_new                (void);
+GnomeCmdApp *gnome_cmd_app_new (void);
 
-GnomeCmdApp*
-gnome_cmd_app_new_from_vfs_app   (GnomeVFSMimeApplication *vfs_app);
+GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app);
 
-GnomeCmdApp*
-gnome_cmd_app_new_with_values    (const gchar *name,
-                                  const gchar *cmd,
-                                  const gchar *icon_path,
-                                  AppTarget target,
-                                  const gchar *pattern_string,
-                                  gboolean handles_uris,
-                                  gboolean handles_multiple,
-                                  gboolean requires_terminal);
+GnomeCmdApp *gnome_cmd_app_new_with_values (const gchar *name,
+                                            const gchar *cmd,
+                                            const gchar *icon_path,
+                                            AppTarget target,
+                                            const gchar *pattern_string,
+                                            gboolean handles_uris,
+                                            gboolean handles_multiple,
+                                            gboolean requires_terminal);
 
-GnomeCmdApp*
-gnome_cmd_app_dup                (GnomeCmdApp *app);
+GnomeCmdApp *gnome_cmd_app_dup (GnomeCmdApp *app);
 
-void
-gnome_cmd_app_free               (GnomeCmdApp *app);
+void gnome_cmd_app_free (GnomeCmdApp *app);
 
-void
-gnome_cmd_app_set_name           (GnomeCmdApp *app,
-                                  const gchar *name);
+const gchar *gnome_cmd_app_get_name (GnomeCmdApp *app);
+void gnome_cmd_app_set_name (GnomeCmdApp *app, const gchar *name);
 
-void
-gnome_cmd_app_set_command        (GnomeCmdApp *app,
-                                  const gchar *cmd);
+const gchar *gnome_cmd_app_get_command (GnomeCmdApp *app);
+void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd);
 
-void
-gnome_cmd_app_set_icon_path      (GnomeCmdApp *app,
-                                  const gchar *icon_path);
+const gchar *gnome_cmd_app_get_icon_path (GnomeCmdApp *app);
+void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path);
 
-void
-gnome_cmd_app_set_target         (GnomeCmdApp *app,
-                                  AppTarget target);
+AppTarget gnome_cmd_app_get_target (GnomeCmdApp *app);
+void gnome_cmd_app_set_target (GnomeCmdApp *app, AppTarget target);
 
-void
-gnome_cmd_app_set_pattern_string (GnomeCmdApp *app,
-                                  const gchar *extensions);
+const gchar *gnome_cmd_app_get_pattern_string (GnomeCmdApp *app);
+void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *extensions);
 
-void
-gnome_cmd_app_set_handles_uris   (GnomeCmdApp *app,
-                                  gboolean handles_uris);
+GList *gnome_cmd_app_get_pattern_list (GnomeCmdApp *app);
 
-void
-gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app,
-                                    gboolean handles_multiple);
+gboolean gnome_cmd_app_get_handles_uris (GnomeCmdApp *app);
+void gnome_cmd_app_set_handles_uris (GnomeCmdApp *app, gboolean handles_uris);
 
-void
-gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app,
-                                     gboolean requires_terminal);
+gboolean gnome_cmd_app_get_handles_multiple (GnomeCmdApp *app);
+void gnome_cmd_app_set_handles_multiple (GnomeCmdApp *app, gboolean handles_multiple);
 
-const gchar*
-gnome_cmd_app_get_name           (GnomeCmdApp *app);
+gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
+void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_terminal);
 
-const gchar*
-gnome_cmd_app_get_command        (GnomeCmdApp *app);
-
-const gchar*
-gnome_cmd_app_get_icon_path      (GnomeCmdApp *app);
-
-AppTarget
-gnome_cmd_app_get_target         (GnomeCmdApp *app);
-
-const gchar*
-gnome_cmd_app_get_pattern_string (GnomeCmdApp *app);
-
-GList *
-gnome_cmd_app_get_pattern_list   (GnomeCmdApp *app);
-
-gboolean
-gnome_cmd_app_get_handles_uris   (GnomeCmdApp *app);
-
-gboolean
-gnome_cmd_app_get_handles_multiple (GnomeCmdApp *app);
-
-gboolean
-gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
-
-GnomeCmdPixmap *
-gnome_cmd_app_get_pixmap         (GnomeCmdApp *app);
+GnomeCmdPixmap *gnome_cmd_app_get_pixmap (GnomeCmdApp *app);
 
 #endif // __GNOME_CMD_APP_H__

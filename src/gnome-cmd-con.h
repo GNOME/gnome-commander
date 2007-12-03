@@ -63,6 +63,7 @@ typedef enum        // Keep this order in sync with strings in gnome-cmd-con-dia
     CON_FTP,
     CON_ANON_FTP,
     CON_SSH,
+    CON_SFTP = CON_SSH,
     CON_SMB,
     CON_DAV,
     CON_DAVS,
