@@ -1,3 +1,10 @@
+2007-12-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con.cc:
+	* src/gnome-cmd-con.h:
+	* src/gnome-cmd-con-dialog.cc:
+	Added gnome_cmd_con_make_uri() function and ..._*_uri() derivatives
+
 2007-11-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.h:

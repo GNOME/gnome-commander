@@ -35,11 +35,12 @@ typedef struct _GnomeCmdConPrivate GnomeCmdConPrivate;
 #include <string>
 
 #include "gnome-cmd-path.h"
-#include "gnome-cmd-pixmap.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-dir-pool.h"
+#include "gnome-cmd-pixmap.h"
+#include "gnome-cmd-data.h"
 #include "history.h"
-#include "gnome-cmd-types.h"
+#include "utils.h"
 
 typedef enum
 {
@@ -317,6 +318,97 @@ inline const gchar *gnome_cmd_con_get_icon_name (GnomeCmdCon *con)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
     return gnome_cmd_con_get_icon_name (con->method);
+}
+
+std::string &__gnome_cmd_con_make_uri (std::string &s, const gchar *method, gboolean use_auth, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password);
+
+inline std::string &gnome_cmd_con_make_custom_uri (std::string &s, const std::string &uri)
+{
+    stringify (s, gnome_vfs_make_uri_from_input (uri.c_str()));
+
+    if (!uri_is_valid (s))
+        s.erase();
+
+    return s;
+}
+
+inline std::string &gnome_cmd_con_make_ssh_uri (std::string &s, gboolean use_auth, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
+{
+    return __gnome_cmd_con_make_uri (s, "sftp://", use_auth, server, port, folder, user, password);
+}
+
+inline std::string &gnome_cmd_con_make_ftp_uri (std::string &s, gboolean use_auth, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
+{
+    if (user=="anonymous")
+    {
+        use_auth = FALSE;
+        password = gnome_cmd_data_get_ftp_anonymous_password ();
+    }
+
+    return __gnome_cmd_con_make_uri (s, "ftp://", use_auth, server, port, folder, user, password);
+}
+
+inline std::string &gnome_cmd_con_make_smb_uri (std::string &s, gboolean use_auth, std::string &server, std::string &share, std::string &folder, std::string &domain, std::string &user, std::string &password)
+{
+    share = '/' + share;
+
+    user = stringify (gnome_vfs_escape_string (user.c_str()));
+    password = stringify (gnome_vfs_escape_string (password.c_str()));
+
+    if (!password.empty() && !use_auth)
+    {
+        user += ':';
+        user += password;
+    }
+
+    if (!domain.empty())
+        user = domain + ';' + user;
+
+    const gchar *join = !folder.empty() && folder[0] != '/' ? "/" : "";
+
+    folder = share + join + folder;
+    folder = stringify (gnome_vfs_escape_path_string (folder.c_str()));
+
+    s = "smb://";
+
+    if (!user.empty())
+        s += user + '@';
+
+    s += server;
+    s += folder;
+
+    return s;
+}
+
+inline std::string &gnome_cmd_con_make_dav_uri (std::string &s, gboolean use_auth, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
+{
+    return __gnome_cmd_con_make_uri (s, "dav://", use_auth, server, port, folder, user, password);
+}
+
+inline std::string &gnome_cmd_con_make_davs_uri (std::string &s, gboolean use_auth, std::string &server, std::string &port, std::string &folder, std::string &user, std::string &password)
+{
+    return __gnome_cmd_con_make_uri (s, "davs://", use_auth, server, port, folder, user, password);
+}
+
+inline std::string &gnome_cmd_con_make_uri (std::string &s, ConnectionMethodID method, gboolean use_auth, std::string &uri, std::string &server, std::string &share, std::string &port, std::string &folder, std::string &domain, std::string &user, std::string &password)
+{
+    switch (method)
+    {
+        case CON_FTP:
+        case CON_ANON_FTP:  return gnome_cmd_con_make_ftp_uri (s, use_auth, server, port, folder, user, password);
+
+        case CON_SSH:       return gnome_cmd_con_make_ssh_uri (s, use_auth, server, port, folder, user, password);
+
+        case CON_SMB:       return gnome_cmd_con_make_smb_uri (s, use_auth, server, share, folder, domain, user, password);
+
+        case CON_DAV:       return gnome_cmd_con_make_dav_uri (s, use_auth, server, port, folder, user, password);
+
+        case CON_DAVS:      return gnome_cmd_con_make_davs_uri (s, use_auth, server, port, folder, user, password);
+
+        case CON_URI:       return gnome_cmd_con_make_custom_uri (s, uri);
+
+        default:            return s;
+    }
 }
 
 #endif // __GNOME_CMD_CON_H__

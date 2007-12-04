@@ -212,92 +212,20 @@ inline gboolean verify_uri (GnomeCmdConnectDialog *dialog)
         return FALSE;
     }
 
-    dialog->priv->use_auth = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check));
+    dialog->priv->use_auth = type!=CON_ANON_FTP && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->auth_check));
 
-    string method;
+    if (type==CON_ANON_FTP)
+        user = "anonymous";
 
-    switch (type)
+    gnome_cmd_con_make_uri (uri, (ConnectionMethodID) type, dialog->priv->use_auth, uri, server, share, port, folder, domain, user, password);
+
+    if (type==CON_URI && uri.empty())
     {
-        case CON_URI:
-            stringify (uri, gnome_vfs_make_uri_from_input (uri.c_str()));
-
-            {
-                GnomeVFSURI *vfs_uri = gnome_vfs_uri_new (uri.c_str());
-
-                if (!vfs_uri)
-                {
-                    gnome_cmd_show_message (GTK_WINDOW (dialog),
-                                            stringify(g_strdup_printf (_("\"%s\" is not a valid location"), uri.c_str())),
-                                            _("Please check the spelling and try again."));
-
-                    return FALSE;
-                }
-
-                gnome_vfs_uri_unref (vfs_uri);
-            }
-
-            if (dialog->priv->alias)
-                stringify (*dialog->priv->alias, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->alias_entry), 0, -1));
-
-            dialog->priv->uri_str = uri;
-
-            return TRUE;
-
-        case CON_SSH:
-            method = "sftp";
-            break;
-
-        case CON_ANON_FTP:
-            dialog->priv->use_auth = FALSE;
-            user = "anonymous";
-            password = gnome_cmd_data_get_ftp_anonymous_password ();
-        case CON_FTP:
-            method = "ftp";
-            break;
-
-        case CON_SMB:
-            method = "smb";
-            share = '/' + share;
-            break;
-
-        case CON_DAV:
-            method = "dav";
-            break;
-
-        case CON_DAVS:
-            method = "davs";
-            break;
+            gnome_cmd_show_message (GTK_WINDOW (dialog),
+                                    stringify(g_strdup_printf (_("\"%s\" is not a valid location"), uri.c_str())),
+                                    _("Please check the spelling and try again."));
+            return FALSE;
     }
-
-    if (!user.empty())
-        user = stringify (gnome_vfs_escape_string (user.c_str()));
-
-    if (!password.empty() && !dialog->priv->use_auth)
-    {
-        password = stringify (gnome_vfs_escape_string (password.c_str()));
-        user += ':';
-        user += password;
-    }
-
-    if (!domain.empty())
-        user = domain + ';' + user;
-
-    const gchar *join = !folder.empty() && folder[0] != '/' ? "/" : "";
-
-    folder = share + join + folder;
-    folder = stringify (gnome_vfs_escape_path_string (folder.c_str()));
-
-    uri = method + "://";
-
-    if (!user.empty())
-        uri += user + '@';
-
-    uri += server;
-
-    if (!port.empty())
-        uri += ':' + port;
-
-    uri += folder;
 
     if (dialog->priv->alias)
         stringify (*dialog->priv->alias, gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->alias_entry), 0, -1));

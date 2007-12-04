@@ -562,3 +562,32 @@ const gchar *gnome_cmd_con_get_icon_name (ConnectionMethodID method)
 {
     return icon_name[method];
 }
+
+
+string &__gnome_cmd_con_make_uri (string &s, const gchar *method, gboolean use_auth, string &server, string &port, string &folder, string &user, string &password)
+{
+    user = stringify (gnome_vfs_escape_string (user.c_str()));
+    password = stringify (gnome_vfs_escape_string (password.c_str()));
+
+    if (!password.empty() && !use_auth)
+    {
+        user += ':';
+        user += password;
+    }
+
+    folder = stringify (gnome_vfs_escape_path_string (folder.c_str()));
+
+    s = method;
+
+    if (!user.empty())
+        s += user + '@';
+
+    s += server;
+
+    if (!port.empty())
+        s += ':' + port;
+
+    s += folder;
+
+    return s;
+}
