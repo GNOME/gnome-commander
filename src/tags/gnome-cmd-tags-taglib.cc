@@ -229,8 +229,6 @@ inline bool readTags(GnomeCmdFileMetadata &metadata, const TagLib::Ogg::XiphComm
         string id(i->first.to8Bit(true));
         GnomeCmdTag tag = oggtags[id.c_str()];
 
-        TRACE(id);
-
         string val;
 
         switch (tag)

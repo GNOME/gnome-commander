@@ -34,8 +34,6 @@
 #include "gnome-cmd-combo.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-data.h"
-// #include "gnome-cmd-main-win.h"
-// #include "gnome-cmd-file-selector.h"
 
 using namespace std;
 

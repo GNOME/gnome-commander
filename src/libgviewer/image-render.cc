@@ -34,8 +34,7 @@
 #include <gtk/gtkadjustment.h>
 
 #include "image-render.h"
-
-#define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
+#include "utils.h"
 
 
 static GtkWidget *parent_class = NULL;

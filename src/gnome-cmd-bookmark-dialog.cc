@@ -21,6 +21,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <errno.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-bookmark-dialog.h"
 #include "gnome-cmd-main-win.h"

@@ -37,8 +37,7 @@
 #include <libgnomevfs/gnome-vfs.h>
 
 #include "libgviewer.h"
-
-#define TRACE(s)  std::cout << __FILE__ "(" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "\t" #s ": `" << (s) << "'" << std::endl
+#include "utils.h"
 
 #define DEFAULT_TAB_SIZE          8
 #define DEFAULT_WRAP_MODE      TRUE
@@ -356,10 +355,6 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
             client = obj->priv->iscrollbox;
             break;
     }
-
-    TRACE(mode==DISP_MODE_IMAGE);
-    TRACE(obj->priv->last_client);
-    TRACE(client);
 
     if (client != obj->priv->last_client)
     {
