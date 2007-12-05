@@ -37,6 +37,8 @@
 #include <libgnomevfs/gnome-vfs.h>
 
 #include "libgviewer.h"
+#include "gnome-cmd-includes.h"
+#include "gnome-cmd-file.h"
 #include "utils.h"
 
 #define DEFAULT_TAB_SIZE          8
