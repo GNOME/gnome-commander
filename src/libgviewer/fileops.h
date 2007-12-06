@@ -24,8 +24,6 @@
 #ifndef __LIBGVIEWER_FILEOPS_H__
 #define __LIBGVIEWER_FILEOPS_H__
 
-#include "fileops.h"
-
 /*
     File Handling functions (based on Midnight Commander's view.c)
 
