@@ -1,4 +1,11 @@
-2007-12-05  Piotr Eljasiak  <epiotr@use.pl>
+2007-12-06  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-con-ftp.h:
+	* src/gnome-cmd-remote-dialog.cc:
+	Removed excessive ftp code
+
+2007-12-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con.cc:
 	* src/gnome-cmd-con.h:

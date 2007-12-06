@@ -301,15 +301,6 @@ void gnome_cmd_con_ftp_set_alias (GnomeCmdConFtp *con, const gchar *alias)
 }
 
 
-const gchar *gnome_cmd_con_ftp_get_host_name (GnomeCmdConFtp *con)
-{
-    g_return_val_if_fail (con != NULL, NULL);
-    g_return_val_if_fail (con->priv != NULL, NULL);
-
-    return con->priv->host_name;
-}
-
-
 void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *con, const gchar *host_name)
 {
     g_return_if_fail (con != NULL);
@@ -325,30 +316,12 @@ void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *con, const gchar *host_nam
 }
 
 
-gushort gnome_cmd_con_ftp_get_host_port (GnomeCmdConFtp *con)
-{
-    g_return_val_if_fail (con != NULL, -1);
-    g_return_val_if_fail (con->priv != NULL, -1);
-
-    return con->priv->host_port;
-}
-
-
 void gnome_cmd_con_ftp_set_host_port (GnomeCmdConFtp *con, gushort host_port)
 {
     g_return_if_fail (con != NULL);
     g_return_if_fail (con->priv != NULL);
 
     con->priv->host_port = host_port;
-}
-
-
-const gchar *gnome_cmd_con_ftp_get_remote_dir (GnomeCmdConFtp *con)
-{
-    g_return_val_if_fail (con != NULL, NULL);
-    g_return_val_if_fail (con->priv != NULL, NULL);
-
-    return con->priv->remote_dir;
 }
 
 
@@ -363,15 +336,6 @@ void gnome_cmd_con_ftp_set_remote_dir (GnomeCmdConFtp *con, const gchar *remote_
 }
 
 
-const gchar *gnome_cmd_con_ftp_get_user_name (GnomeCmdConFtp *con)
-{
-    g_return_val_if_fail (con != NULL, NULL);
-    g_return_val_if_fail (con->priv != NULL, NULL);
-
-    return con->priv->user_name;
-}
-
-
 void gnome_cmd_con_ftp_set_user_name (GnomeCmdConFtp *con, const gchar *user_name)
 {
     g_return_if_fail (con != NULL);
@@ -381,15 +345,6 @@ void gnome_cmd_con_ftp_set_user_name (GnomeCmdConFtp *con, const gchar *user_nam
     g_free (con->priv->user_name);
 
     con->priv->user_name = g_strdup (user_name);
-}
-
-
-const gchar *gnome_cmd_con_ftp_get_pw (GnomeCmdConFtp *con)
-{
-    g_return_val_if_fail (con != NULL, NULL);
-    g_return_val_if_fail (con->priv != NULL, NULL);
-
-    return con->priv->pw;
 }
 
 
