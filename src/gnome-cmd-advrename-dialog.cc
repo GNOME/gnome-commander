@@ -626,7 +626,7 @@ static gboolean on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog, con
 
 static GtkWidget *create_rule_dialog (GnomeCmdAdvrenameDialog *parent_dialog, const gchar *title, GnomeCmdStringDialogCallback on_ok_func, PatternEntry *entry)
 {
-    const gchar *labels[] = {_("Replace this:"), _("With this")};
+    const gchar *labels[] = {_("Replace this:"), _("With this:")};
     GtkWidget *dialog;
     GtkWidget *case_check;
 
