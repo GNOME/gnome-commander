@@ -358,7 +358,7 @@ inline gboolean load_connections (const gchar *fname)
                         gchar alias[256], host[256], user[256], pw[256];
                         guint port2;
 
-                        gint ret = sscanf (line, "S: %256s %256s %d %256s %256s\n", alias, host, &port2, user, pw);
+                        gint ret = sscanf (line, "S: %256s %256s %ud %256s %256s\n", alias, host, &port2, user, pw);
 
                         if (ret == 4 || ret == 5)
                         {

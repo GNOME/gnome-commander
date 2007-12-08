@@ -259,20 +259,96 @@ GtkType gnome_cmd_con_ftp_get_type (void)
 }
 
 
-GnomeCmdConFtp * gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host_name, gint host_port, const gchar *user_name, const gchar *pw, const gchar *remote_dir)
+GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_uri)
 {
-    GnomeCmdConFtp *con = (GnomeCmdConFtp *) gtk_type_new (gnome_cmd_con_ftp_get_type ());
+    GnomeVFSURI *uri = gnome_vfs_uri_new (text_uri.c_str());
 
-    gnome_cmd_con_ftp_set_alias (con, alias);
-    gnome_cmd_con_ftp_set_host_name (con, host_name);
-    gnome_cmd_con_ftp_set_host_port (con, host_port);
-    gnome_cmd_con_ftp_set_user_name (con, user_name);
-    gnome_cmd_con_ftp_set_pw (con, pw);
-    gnome_cmd_con_ftp_set_remote_dir (con, remote_dir);
+    g_return_val_if_fail (uri != NULL, NULL);
 
-    GNOME_CMD_CON (con)->open_msg = g_strdup_printf (_("Connecting to %s\n"), host_name);
+    const gchar *scheme = gnome_vfs_uri_get_scheme (uri);       // do not g_free
+    const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
+    const guint  port = gnome_vfs_uri_get_host_port (uri);
+    const gchar *remote_dir = gnome_vfs_uri_get_path (uri);     // do not g_free
+    const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free
+    const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
 
-    return con;
+    GnomeCmdConFtp *server = (GnomeCmdConFtp *) gtk_type_new (gnome_cmd_con_ftp_get_type ());
+
+    g_return_val_if_fail (server != NULL, NULL);
+
+    GnomeCmdCon *con = GNOME_CMD_CON (server);
+
+    gnome_cmd_con_ftp_set_alias (server, alias);
+    gnome_cmd_con_set_uri (con, text_uri);
+
+    gnome_cmd_con_ftp_set_host_name (server, host);
+    gnome_cmd_con_ftp_set_host_port (server, port);
+    gnome_cmd_con_ftp_set_remote_dir (server, remote_dir);
+    gnome_cmd_con_ftp_set_user_name (server, user);
+    gnome_cmd_con_ftp_set_pw (server, password);
+
+    // do not set con->alias as it is already done in gnome_cmd_con_ftp_set_alias ()
+    con->method = gnome_vfs_uri_is_local (uri) ? CON_LOCAL :
+                  g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
+                  g_str_equal (scheme, "sftp") ? CON_SSH :
+                  g_str_equal (scheme, "dav")  ? CON_DAV :
+                  g_str_equal (scheme, "davs") ? CON_DAVS :
+                  g_str_equal (scheme, "smb")  ? CON_SMB :
+                                                 CON_URI;
+
+    con->gnome_auth = !password && con->method!=CON_ANON_FTP;          // ?????????
+
+    con->open_msg = g_strdup_printf (_("Connecting to %s\n"), host);
+
+    gnome_vfs_uri_unref (uri);
+
+    return server;
+}
+
+
+GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, guint port, const gchar *user, const gchar *password, const gchar *remote_dir)
+{
+    GnomeCmdConFtp *server = (GnomeCmdConFtp *) gtk_type_new (gnome_cmd_con_ftp_get_type ());
+
+    g_return_val_if_fail (server != NULL, NULL);
+
+    GnomeCmdCon *con = GNOME_CMD_CON (server);
+
+    string _uri;
+    string _host;
+    string _port;
+    string _remote_dir;
+    string _user;
+    string _password;
+
+    if (port)                               // convert 0 --> ""
+        stringify (_port, port);
+
+    con->method = user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP;
+
+    gnome_cmd_con_make_ftp_uri (_uri,
+                                con->gnome_auth,
+                                stringify (_host, host),
+                                _port,
+                                stringify (_remote_dir, remote_dir),
+                                stringify (_user, user),
+                                stringify (_password, password));
+
+    gnome_cmd_con_ftp_set_alias (server, alias);
+    gnome_cmd_con_set_uri (con, _uri);
+
+    gnome_cmd_con_ftp_set_host_name (server, host);
+    gnome_cmd_con_ftp_set_host_port (server, port);
+    gnome_cmd_con_ftp_set_remote_dir (server, remote_dir);
+    gnome_cmd_con_ftp_set_user_name (server, user);
+    gnome_cmd_con_ftp_set_pw (server, password);
+
+    // do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
+    con->gnome_auth = !password && con->method!=CON_ANON_FTP;          // ?????????
+
+    con->open_msg = g_strdup_printf (_("Connecting to %s\n"), host);
+
+    return server;
 }
 
 

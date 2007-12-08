@@ -558,25 +558,14 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
 
     if (response==GTK_RESPONSE_OK)
     {
-        GnomeVFSURI *uri = gnome_vfs_uri_new (conndlg->priv->uri_str.c_str());
+        const gchar *alias = conndlg->priv->alias && !conndlg->priv->alias->empty() ? conndlg->priv->alias->c_str() : NULL;
 
-        const gchar *alias = conndlg->priv->alias ? conndlg->priv->alias->c_str() : NULL;
-        const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free !!
-        const guint  port = gnome_vfs_uri_get_host_port (uri);
-        const gchar *remote_dir = gnome_vfs_uri_get_path (uri);     // do not g_free !!
-        const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free !!
-        const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free !!
-
-        server = gnome_cmd_con_ftp_new (alias, host, port, user, password, remote_dir);
+        server = gnome_cmd_con_ftp_new (alias, conndlg->priv->uri_str);
 
         GnomeCmdCon *con = GNOME_CMD_CON (server);
 
-        // do not set con->alias as it is already done in gnome_cmd_con_ftp_new (alias, ...)
-        gnome_cmd_con_set_uri (con, conndlg->priv->uri_str);
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (conndlg->priv->type_combo));
         con->gnome_auth = conndlg->priv->use_auth;
-
-        gnome_vfs_uri_unref (uri);
     }
 
     gtk_widget_destroy (dialog);
