@@ -492,10 +492,11 @@ static void init (GnomeCmdRemoteDialog *ftp_dialog)
     gtk_window_set_title (GTK_WINDOW (dialog), _("Remote Connections"));
 
     gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win));
+    gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
 
     cat_box = create_hbox (dialog, FALSE, 12);
     cat = create_category (dialog, cat_box, _("Connections"));
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
+    gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), cat);
 
     sw = create_sw (dialog);
     gtk_box_pack_start (GTK_BOX (cat_box), sw, TRUE, TRUE, 0);

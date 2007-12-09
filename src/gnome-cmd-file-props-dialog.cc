@@ -689,7 +689,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
     gtk_widget_ref (notebook);
     gtk_object_set_data_full (GTK_OBJECT (dialog), "notebook", notebook, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (notebook);
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), notebook);
+    gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), notebook);
 
     gtk_container_add (GTK_CONTAINER (notebook), create_properties_tab (data));
     gtk_container_add (GTK_CONTAINER (notebook), create_permissions_tab (data));

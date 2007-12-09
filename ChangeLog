@@ -1,3 +1,9 @@
+2007-12-10  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-remote-dialog.cc:
+	* src/gnome-cmd-file-props-dialog.cc:
+	Made dlg windws resize vertically
+
 2007-12-06  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con-ftp.cc:
