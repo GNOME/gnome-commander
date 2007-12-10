@@ -168,11 +168,9 @@ static gchar *load_file (GnomeCmdFile *finfo)
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
 
-    GnomeVFSHandle *handle;
-    GnomeVFSFileSize ret;
-
     gchar *buf = (gchar *) g_malloc (finfo->info->size+1);
     gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
+    GnomeVFSHandle *handle;
     GnomeVFSResult result = gnome_vfs_open (&handle, uri_str, GNOME_VFS_OPEN_READ);
 
     if (result != GNOME_VFS_OK)
@@ -183,6 +181,7 @@ static gchar *load_file (GnomeCmdFile *finfo)
         return NULL;
     }
 
+    GnomeVFSFileSize ret;
     result = gnome_vfs_read (handle, buf, finfo->info->size, &ret);
     if (result != GNOME_VFS_OK)
     {
@@ -526,7 +525,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     // if we're going to search through file content create an re for that too
     if (data->content_search)
     {
-        data->content_regex = g_new (regex_t, 1);
+        data->content_regex = g_new0 (regex_t, 1);
         regcomp (data->content_regex, data->content_pattern, 0);
     }
 
@@ -700,8 +699,8 @@ static void init (GnomeCmdSearchDialog *dialog)
     SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
 
 
-    dialog->priv = g_new (GnomeCmdSearchDialogPrivate, 1);
-    dialog->priv->data = g_new (SearchData, 1);
+    dialog->priv = g_new0 (GnomeCmdSearchDialogPrivate, 1);
+    dialog->priv->data = g_new0 (SearchData, 1);
     dialog->priv->data->match_dirs = NULL;
     dialog->priv->data->thread = NULL;
     dialog->priv->data->search_done = TRUE;
