@@ -274,7 +274,7 @@ inline void process_msole_summary(GsfInput *input, GnomeCmdFileMetadata *metadat
 
 inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata *metadata)
 {
-    static gchar SfxDocumentInfo[] = "SfxDocumentInfo";
+    static const gchar SfxDocumentInfo[] = "SfxDocumentInfo";
 
     off_t size = gsf_input_size (input);
 
@@ -284,7 +284,7 @@ inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata *metadata)
     gchar *buf = (gchar *) g_malloc0(size);
     gsf_input_read(input, size, (guint8 *) buf);
     if ((buf[0] != 0x0F) || (buf[1] != 0x0) ||
-      (strncmp(&buf[2], SfxDocumentInfo, strlen(SfxDocumentInfo))) ||
+      !g_str_has_prefix (&buf[2], SfxDocumentInfo) ||
       (buf[0x11] != 0x0B) ||
       (buf[0x13] != 0x00) || /*pw protected! */
       (buf[0x12] != 0x00))

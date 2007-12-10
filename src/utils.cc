@@ -990,7 +990,7 @@ gboolean app_needs_terminal (GnomeCmdFile *finfo)
     {
         gchar *lib = (gchar *) tmp->data;
         lib = g_strstrip (lib);
-        if (strncmp (lib, "libX11", 6) == 0)
+        if (g_str_has_prefix (lib, "libX11"))
         {
             need_term = FALSE;
             break;

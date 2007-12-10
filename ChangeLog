@@ -8,8 +8,12 @@
 	* src/libgviewer/viewer-window.cc:
 	* src/tags/gnome-cmd-tags-doc.cc:
 	* src/tags/gnome-cmd-tags-taglib.cc:
-	Fix for problem #502756 (translation)
+	Fix for problem #502756 (translations)
 
+	* src/imageloader.cc:
+	* src/utils.cc:
+	* src/tags/gnome-cmd-tags-doc.cc:
+	strncmp()==0 -> g_str_has_prefix()
 
 2007-12-10  koos  <kjniesink@yahoo.co.uk>
 

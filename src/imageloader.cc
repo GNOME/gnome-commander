@@ -296,7 +296,7 @@ get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
 inline gchar *get_category_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
     for (gint i=0; i<NUM_CATEGORIES; i++)
-        if (strncmp (mime_type, categories[i][0], strlen (categories[i][0])) == 0)
+        if (g_str_has_prefix (mime_type, categories[i][0]))
             return g_build_path (G_DIR_SEPARATOR_S, icon_dir, categories[i][1], NULL);
 
     return NULL;
