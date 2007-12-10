@@ -706,7 +706,6 @@
 	* configure.in: Bumped version to 1.2.5
 
 
-
 ##############################################################################
 #                                   1.2.4                                    #
 ##############################################################################
@@ -1142,7 +1141,6 @@
 	* configure.in: Bumped version to 1.2.4
 
 
-
 ##############################################################################
 #                                   1.2.3                                    #
 ##############################################################################
@@ -1153,7 +1151,6 @@
 
 	* src/gnome-cmd-mkdir-dialog.c:
 	Fixed bug #384752 (wrong permissions for new dirs)
-
 
 
 ##############################################################################
@@ -2280,6 +2277,7 @@
 
 	* configure.in: Added Norwegian to ALL_LINGUAS.
 
+
 ##############################################################################
 #                                   1.1.6                                    #
 ##############################################################################
@@ -2489,6 +2487,7 @@
 	* src/gnome-cmd-patternsel-dialog.c:
 	Added history to the select and unselect by pattern dialogs.
 
+
 ##############################################################################
 #                                   1.1.5                                    #
 ##############################################################################
@@ -2643,7 +2642,6 @@
 	* src/gnome-cmd-dir.c:
 	Renaming a directory and then entering it immediately now works.
 
-
 ##############################################################################
 #                                   1.1.4                                    #
 ##############################################################################
@@ -2700,8 +2698,7 @@
 	Fixed bug when selecting multiple files with shift+mouse button.
 
 	* src/gnome-cmd-file-selector.c (update_selected_files_label):
-	Fixed the problem with the selected-files-label not being updated at
-	startup.
+	Fixed the problem with the selected-files-label not being updated at startup.
 
 	* src/gnome-cmd-types.h:
 	* src/gnome-cmd-options-dialog.c (create_layout_tab):
@@ -2719,40 +2716,40 @@
 	Improved the alignment in the file-size column when using a non fixed
 	font.
 
-        * src/gnome-cmd-xfer.c:
+	* src/gnome-cmd-xfer.c:
         Fixed possible async errors when cancelling a xfer operation. Also
 	fixed the bug where choosing abort in the overwrite dialog caused the
         vfs-error dialog to appear.
 
-        * src/gnome-cmd-file.c:
-        * src/gnome-cmd-file.h:
-        * src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file.c:
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-file-list.c:
         Stopped superfluous updates of the file-list by remembering
         the last time a file was updated.
 
 2003-11-22  Marcus Bjurman  <marbj499@student.liu.se>
 
-        * src/gnome-cmd-bookmark-dialog.c:
-        * src/gnome-cmd-cmdline.c:
-        * src/gnome-cmd-combo.c:
-        * src/gnome-cmd-combo.h:
-        * src/gnome-cmd-data.c:
-        * src/gnome-cmd-data.h:
-        * src/gnome-cmd-file-list.c:
-        * src/gnome-cmd-file-selector.c:
-        * src/gnome-cmd-main-win.c:
-        * src/gnome-cmd-options-dialog.c:
-        * src/gnome-cmd-options-dialog.h:
-        * src/gnome-cmd-style.c:
-        * src/gnome-cmd-style.h:
-        * src/gnome-cmd-types.h:
-        * src/widget-factory.c:
-        * src/widget-factory.h:
+	* src/gnome-cmd-bookmark-dialog.c:
+	* src/gnome-cmd-cmdline.c:
+	* src/gnome-cmd-combo.c:
+	* src/gnome-cmd-combo.h:
+	* src/gnome-cmd-data.c:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-list.c:
+	* src/gnome-cmd-file-selector.c:
+	* src/gnome-cmd-main-win.c:
+	* src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-options-dialog.h:
+	* src/gnome-cmd-style.c:
+	* src/gnome-cmd-style.h:
+	* src/gnome-cmd-types.h:
+	* src/widget-factory.c:
+	* src/widget-factory.h:
         Improved the combo class and compensated for that in different classes
         that used it. Also stopped changing fonts in all places except the
         file panes.
 
-        * src/gnome-cmd-options-dialog.c:
+	* src/gnome-cmd-options-dialog.c:
         Removed the color tab and added that stuff to the layout tab.
 
 2003-11-21  Marcus Bjurman  <marbj499@student.liu.se>
@@ -2874,7 +2871,7 @@
 	* plugins/test/test-plugin.c:
 	Updated to the new plugin system.
 
-	* libgcmd/Makefile.am
+	* libgcmd/Makefile.am:
 	* libgcmd/gnome-cmd-plugin.c:
 	* libgcmd/gnome-cmd-plugin.h:
 	* libgcmd/gnome-cmd-state.h:
@@ -2975,7 +2972,6 @@
 
 	* src/gnome-cmd-cmdline.c (update_history_combo):
 	Select the top row after each update.
-
 
 ##############################################################################
 #                                   1.1.3                                    #
@@ -3270,7 +3266,6 @@
 	* src/gnome-cmd-con-ftp.c (get_file_info_func):
 	Fixed a bug where the password for a ftp-server was freed by mistake.
 
-
 ##############################################################################
 #                                   1.1.1                                    #
 ##############################################################################
@@ -3292,7 +3287,6 @@
 	* src/gnome-cmd-file-selector.c:
 	* src/gnome-cmd-xfer.c:
 	Fixed update problems when copying and moving files.
-
 
 2003-11-04  Marcus Bjurman <marbj499@student.liu.se>
 
