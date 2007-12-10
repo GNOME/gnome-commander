@@ -340,7 +340,7 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
 
     // Search mode radio buttons
     sdlg->priv->text_mode = gtk_radio_button_new_with_mnemonic(NULL, _("_Text"));
-    sdlg->priv->hex_mode = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON(sdlg->priv->text_mode), _("_Hex"));
+    sdlg->priv->hex_mode = gtk_radio_button_new_with_mnemonic_from_widget(GTK_RADIO_BUTTON(sdlg->priv->text_mode), _("_Hexadecimal"));
 
     g_signal_connect(sdlg->priv->text_mode, "toggled", G_CALLBACK(search_mode_text), sdlg);
     g_signal_connect(sdlg->priv->hex_mode, "toggled", G_CALLBACK(search_mode_hex), sdlg);

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.ne\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-17 13:40+0200\n"
+"POT-Creation-Date: 2007-12-10 19:32+0100\n"
 "PO-Revision-Date: 2006-08-25 17:19+0545\n"
 "Last-Translator: Mahesh subedi <submanesh@hotmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -38,10 +38,11 @@ msgstr "त्रुटि वर्णन उपलब्ध छैन"
 
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
-#: ../src/gnome-cmd-ftp-dialog.cc:429 ../src/gnome-cmd-options-dialog.cc:1126
-#: ../src/gnome-cmd-options-dialog.cc:1827
+#: ../src/gnome-cmd-options-dialog.cc:1179
+#: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
+#: ../src/gnome-cmd-remote-dialog.cc:526
 msgid "Options"
 msgstr "विकल्प"
 
@@ -304,199 +305,177 @@ msgid "/Time/SS"
 msgstr ""
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
 msgid "Yes"
 msgstr "हो"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
 msgid "No"
 msgstr "होइन"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:566
+#: ../src/gnome-cmd-advrename-dialog.cc:563
 msgid "Invalid source pattern"
 msgstr "अवैध स्रोत बाँन्की"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:642
+#. Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
+#: ../src/gnome-cmd-advrename-dialog.cc:630
 msgid "Replace this:"
 msgstr "यो बदल्नुहोस्:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:642
-#: ../src/gnome-cmd-advrename-dialog.cc:1191
-msgid "With this"
+#: ../src/gnome-cmd-advrename-dialog.cc:630
+#, fuzzy
+msgid "With this:"
 msgstr "यस सँग"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:654
+#: ../src/gnome-cmd-advrename-dialog.cc:640
 msgid "Case sensitive matching"
 msgstr "केस सम्वेदनशील मिल्दो"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:786
+#: ../src/gnome-cmd-advrename-dialog.cc:769
 msgid "New Rule"
 msgstr "नयाँ नियम"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:792
+#: ../src/gnome-cmd-advrename-dialog.cc:775
 msgid "Edit Rule"
 msgstr "सम्पादन नियम"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1019
+#: ../src/gnome-cmd-advrename-dialog.cc:983
 msgid "Counter start value:"
 msgstr "गणक सुरुको मान:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1020
+#: ../src/gnome-cmd-advrename-dialog.cc:984
 msgid "Counter increment:"
 msgstr "गणक बढोत्तरी:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1021
+#: ../src/gnome-cmd-advrename-dialog.cc:985
 msgid "Counter minimum digit count:"
 msgstr "गणक न्यूनतम अङ्क गणना:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1026
+#: ../src/gnome-cmd-advrename-dialog.cc:990
 msgid "Template Options"
 msgstr "टेम्प्लेट विकल्प"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1030
+#: ../src/gnome-cmd-advrename-dialog.cc:994
 msgid "Auto-update when the template is entered"
 msgstr "टेम्प्लेट प्रविष्ट गरेको बेलामा स्वत: अद्यावधिक"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1128
+#: ../src/gnome-cmd-advrename-dialog.cc:1084
 msgid "Advanced Rename Tool"
 msgstr "उन्नत पुन: नामकरण उपकरण"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1140 ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1096 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "टेम्प्लेट"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1161
+#: ../src/gnome-cmd-advrename-dialog.cc:1117
 #, fuzzy
 msgid "O_ptions..."
 msgstr "विकल्प..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1168
-#, fuzzy
-msgid "Dir"
+#: ../src/gnome-cmd-advrename-dialog.cc:1124 ../src/gnome-cmd-file.cc:588
+msgid "Directory"
 msgstr "डाइरेक्टरी"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1171
-#: ../src/gnome-cmd-file-props-dialog.cc:557 ../src/plugin_manager.cc:420
-#: ../src/tags/gnome-cmd-tags.cc:315
-msgid "Name"
-msgstr "नाम"
+#: ../src/gnome-cmd-advrename-dialog.cc:1127 ../src/plugin_manager.cc:422
+#: ../src/tags/gnome-cmd-tags.cc:659
+msgid "File"
+msgstr "फाइल"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1174
+#: ../src/gnome-cmd-advrename-dialog.cc:1130
 #, fuzzy
 msgid "Counter"
 msgstr "सामग्रि"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1177 ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/gnome-cmd-advrename-dialog.cc:1133 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
 #, fuzzy
 msgid "Date"
 msgstr "मिति:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1180
+#: ../src/gnome-cmd-advrename-dialog.cc:1136
 msgid "Metatag"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1185
+#: ../src/gnome-cmd-advrename-dialog.cc:1141
 msgid "Regex replacing"
 msgstr "रिजेक्स प्रस्तिस्थापन"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1190
+#: ../src/gnome-cmd-advrename-dialog.cc:1146
 msgid "Replace this"
 msgstr "यसलाई बदल्नुहोस्"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1192
+#: ../src/gnome-cmd-advrename-dialog.cc:1147
+msgid "With this"
+msgstr "यस सँग"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1148
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr "केस सम्बेदनशील"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1204
-#: ../src/gnome-cmd-options-dialog.cc:1349
-#: ../src/gnome-cmd-options-dialog.cc:1700
-msgid "_Add..."
-msgstr "थप्नुहोस्..."
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1207
-#: ../src/gnome-cmd-ftp-dialog.cc:420 ../src/gnome-cmd-options-dialog.cc:1353
-#: ../src/gnome-cmd-options-dialog.cc:1704
-msgid "_Edit..."
-msgstr "सम्पादन..."
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1211
-#: ../src/gnome-cmd-bookmark-dialog.cc:472 ../src/gnome-cmd-ftp-dialog.cc:423
-#: ../src/gnome-cmd-options-dialog.cc:1359
-#: ../src/gnome-cmd-options-dialog.cc:1710
-msgid "_Remove"
-msgstr "हटाउनुहोस्"
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1215
+#: ../src/gnome-cmd-advrename-dialog.cc:1171
 msgid "Re_move All"
 msgstr "सबै हटाउनुहोस्"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1235
+#: ../src/gnome-cmd-advrename-dialog.cc:1191
 msgid "Result"
 msgstr "परिणाम"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1240
-msgid "Current filenames"
+#: ../src/gnome-cmd-advrename-dialog.cc:1196
+#, fuzzy
+msgid "Current file names"
 msgstr "हालको फाइलनाम"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1241
-msgid "New filenames"
+#: ../src/gnome-cmd-advrename-dialog.cc:1197
+#, fuzzy
+msgid "New file names"
 msgstr "नयाँ फाइलनाम"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1247
+#: ../src/gnome-cmd-advrename-dialog.cc:1203
 #, fuzzy
 msgid "Rese_t"
 msgstr "रिसेट गर्नुहोस्"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:72
+#: ../src/gnome-cmd-bookmark-dialog.cc:71
 msgid "Bookmark name:"
 msgstr "पुस्तकचिनो नाम:"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:73
+#: ../src/gnome-cmd-bookmark-dialog.cc:72
 msgid "Bookmark target:"
 msgstr "पुस्तकचिनो लक्ष्य:"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:160
+#: ../src/gnome-cmd-bookmark-dialog.cc:159
 msgid "Bookmark name is missing"
 msgstr "पुस्तकचिनो नाम हराइरहेको छ"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:166
+#: ../src/gnome-cmd-bookmark-dialog.cc:165
 msgid "Bookmark target is missing"
 msgstr "पुस्तकचिनो लक्ष्य हराइरहेको छ"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:186
+#: ../src/gnome-cmd-bookmark-dialog.cc:185
 msgid "Edit Bookmark"
 msgstr "पुस्तकचिनो सम्पादन गर्नुहोस्"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:435
-#: ../src/gnome-cmd-bookmark-dialog.cc:447
+#: ../src/gnome-cmd-bookmark-dialog.cc:434
+#: ../src/gnome-cmd-bookmark-dialog.cc:446
 msgid "Bookmarks"
 msgstr "पुस्तकचिनो"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:438
+#: ../src/gnome-cmd-bookmark-dialog.cc:437
 msgid "Bookmark Groups"
 msgstr "पुस्तकचिनो समूह"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454 ../src/gnome-cmd-file-list.cc:90
+#: ../src/gnome-cmd-bookmark-dialog.cc:453 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "नाम"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:455
+#: ../src/gnome-cmd-bookmark-dialog.cc:454
 msgid "path"
 msgstr "बाटो"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:462
-msgid "_Goto"
-msgstr "जानुहोस्"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:467 ../src/gnome-cmd-main-menu.cc:782
-msgid "_Edit"
-msgstr "सम्पादन"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:579
+#: ../src/gnome-cmd-bookmark-dialog.cc:578
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
@@ -504,7 +483,7 @@ msgstr ""
 "डाइरेक्टरीलाई पुस्तकचिनो दिनका लागि डाइरेक्टरीको सबै खोजी गर्ने बाटो वैध UTF-८ सङ्केत "
 "गरेको हुनुपर्छ\n"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:586
+#: ../src/gnome-cmd-bookmark-dialog.cc:585
 msgid "New Bookmark"
 msgstr "नयाँ पुस्तकचिनो"
 
@@ -542,7 +521,7 @@ msgstr "पाठ दृश्य:"
 msgid "Number view:"
 msgstr "सङ्ख्या दृश्य:"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:43 ../src/gnome-cmd-options-dialog.cc:1147
+#: ../src/gnome-cmd-chmod-dialog.cc:43 ../src/gnome-cmd-options-dialog.cc:1200
 msgid "All files"
 msgstr "सबै फाइलहरू"
 
@@ -584,24 +563,24 @@ msgstr "Chown"
 msgid "Apply Recursively"
 msgstr "पुनरावृतिक लागू गर्नुहोस्।"
 
-#: ../src/gnome-cmd-con-device.cc:110
+#: ../src/gnome-cmd-con-device.cc:115
 msgid "Failed to execute the mount command"
 msgstr "माउन्ट आदेश कार्यान्वयन गर्न असफल"
 
-#: ../src/gnome-cmd-con-device.cc:117
+#: ../src/gnome-cmd-con-device.cc:123
 msgid "Mount failed: Permission denied"
 msgstr "माउन्ट असफल: अनुमति निषेध"
 
-#: ../src/gnome-cmd-con-device.cc:120
+#: ../src/gnome-cmd-con-device.cc:126
 msgid "Mount failed: No medium found"
 msgstr "माउन्ट असफल: कुनै माध्यम फेला परेन।"
 
-#: ../src/gnome-cmd-con-device.cc:124
+#: ../src/gnome-cmd-con-device.cc:130
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
 msgstr "माउनन्ट असफल: बाहिर निस्कने अवस्था %d सँगै माउन्ट निस्कियो।"
 
-#: ../src/gnome-cmd-con-device.cc:202
+#: ../src/gnome-cmd-con-device.cc:206
 msgid ""
 "Volume unmounting succeeded.\n"
 "It is safe to eject the media."
@@ -609,7 +588,7 @@ msgstr ""
 "भोल्युम अन-माउन्ट गर्न सफल।\n"
 "यो मिडिया निकाल्न सुरक्षित छ।"
 
-#: ../src/gnome-cmd-con-device.cc:210
+#: ../src/gnome-cmd-con-device.cc:214
 #, c-format
 msgid ""
 "Volume unmounting failed:\n"
@@ -618,56 +597,148 @@ msgstr ""
 "भोल्युम अन-माउन्ट गर्न असफल:\n"
 "%s %s"
 
-#: ../src/gnome-cmd-con-device.cc:211
+#: ../src/gnome-cmd-con-device.cc:215
 msgid "Unknown Error"
 msgstr "अज्ञात त्रुटि"
 
-#: ../src/gnome-cmd-con-device.cc:418
+#: ../src/gnome-cmd-con-device.cc:403
 #, c-format
 msgid "Mounting %s"
 msgstr "%s माउन्ट गर्दैछ"
 
-#: ../src/gnome-cmd-con-device.cc:435
+#: ../src/gnome-cmd-con-device.cc:419
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "जानुहोस्: %s (%s)"
 
-#: ../src/gnome-cmd-con-device.cc:436
+#: ../src/gnome-cmd-con-device.cc:420
 #, c-format
 msgid "Mount: %s"
 msgstr "माउन्ट गर्नुहोस्: %s"
 
-#: ../src/gnome-cmd-con-device.cc:437
+#: ../src/gnome-cmd-con-device.cc:421
 #, c-format
 msgid "Unmount: %s"
 msgstr "अनमाउन्ट गर्नुहोस्: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:283
+#: ../src/gnome-cmd-con-dialog.cc:210
+msgid "You must enter a name for the server"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:210
+msgid "Please enter a name and try again."
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:225
+#, c-format
+msgid "\"%s\" is not a valid location"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:226
+msgid "Please check the spelling and try again."
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:331
+#, fuzzy
+msgid "_Alias:"
+msgstr "उपनाम:"
+
+#: ../src/gnome-cmd-con-dialog.cc:335
+#, fuzzy
+msgid "_Location (URI):"
+msgstr "जडान"
+
+#: ../src/gnome-cmd-con-dialog.cc:368
+msgid "_Server:"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:379
+#, fuzzy
+msgid "Optional information"
+msgstr "विकल्प क्रमबद्ध गर्दैछ"
+
+#: ../src/gnome-cmd-con-dialog.cc:403
+#, fuzzy
+msgid "S_hare:"
+msgstr "अवस्था:"
+
+#: ../src/gnome-cmd-con-dialog.cc:406
+#, fuzzy
+msgid "_Port:"
+msgstr "पोर्ट:"
+
+#. Translators: 'Dir' in the sense of 'Directory'
+#: ../src/gnome-cmd-con-dialog.cc:409
+#, fuzzy
+msgid "_Remote dir:"
+msgstr "हटाउनुहोस्"
+
+#: ../src/gnome-cmd-con-dialog.cc:412
+#, fuzzy
+msgid "_User name:"
+msgstr "प्रयोगकर्ता:"
+
+#: ../src/gnome-cmd-con-dialog.cc:415
+#, fuzzy
+msgid "_Password:"
+msgstr "पासवर्ड:"
+
+#: ../src/gnome-cmd-con-dialog.cc:418
+#, fuzzy
+msgid "_Domain name:"
+msgstr "सिमलिङ्क नाम:"
+
+#: ../src/gnome-cmd-con-dialog.cc:455 ../src/gnome-cmd-main-win.cc:1176
+#, fuzzy
+msgid "Remote Server"
+msgstr "हटाउनुहोस्"
+
+#: ../src/gnome-cmd-con-dialog.cc:470
+msgid "Service _type:"
+msgstr ""
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../src/gnome-cmd-con-dialog.cc:482
+msgid "FTP (with login)"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:483
+msgid "Public FTP"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:500
+msgid "Use _GNOME Keyring Manager for authentication"
+msgstr ""
+
+#. ?????????
+#. do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
+#. ?????????
+#: ../src/gnome-cmd-con-ftp.cc:301 ../src/gnome-cmd-con-ftp.cc:349
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "%s मा जडान गर्दैछ\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:301
+#: ../src/gnome-cmd-con-ftp.cc:374
 #, c-format
 msgid "Go to: %s"
 msgstr "जानुहोस्: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:302
+#: ../src/gnome-cmd-con-ftp.cc:375
 #, c-format
 msgid "Connect to: %s"
 msgstr "यसमा जडान गर्नुहोस्: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:303
+#: ../src/gnome-cmd-con-ftp.cc:376
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "यसबाट जडान विच्छेद गर्नुहोस्: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:319
+#: ../src/gnome-cmd-con-ftp.cc:390
 #, fuzzy, c-format
 msgid "Creates the FTP connection to %s"
 msgstr "%s मा FTP जडान सिर्जना गर्नुहोस्।"
 
-#: ../src/gnome-cmd-con-ftp.cc:320
+#: ../src/gnome-cmd-con-ftp.cc:391
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "%s मा FTP जडान हटाउँछ"
@@ -676,7 +747,7 @@ msgstr "%s मा FTP जडान हटाउँछ"
 msgid "Home"
 msgstr "गृह"
 
-#: ../src/gnome-cmd-con-home.cc:128
+#: ../src/gnome-cmd-con-home.cc:129
 msgid "Go to: Home"
 msgstr "जानुहोस्: गृह"
 
@@ -688,32 +759,32 @@ msgstr "सञ्जाल खोज्न असफल। के SMB मोड�
 msgid "SMB"
 msgstr "SMB"
 
-#: ../src/gnome-cmd-con-smb.cc:218
+#: ../src/gnome-cmd-con-smb.cc:219
 msgid "Searching for workgroups and hosts"
 msgstr "कार्यसमूह र होस्टका लागि खोजी हुँदैछ।"
 
-#: ../src/gnome-cmd-con-smb.cc:225
+#: ../src/gnome-cmd-con-smb.cc:226
 msgid "Go to: Samba Network"
 msgstr "जानुहोस्: साम्बा सञ्जाल"
 
-#: ../src/gnome-cmd-data.cc:1148 ../src/gnome-cmd-data.cc:1371
-#: ../src/gnome-cmd-data.cc:1372 ../src/gnome-cmd-data.cc:2402
+#: ../src/gnome-cmd-data.cc:1250 ../src/gnome-cmd-data.cc:1475
+#: ../src/gnome-cmd-data.cc:1476 ../src/gnome-cmd-data.cc:2543
 #, fuzzy, c-format
 msgid "link to %s"
 msgstr "%s मा सिमलिङ्क"
 
-#: ../src/gnome-cmd-delete-dialog.cc:111
+#: ../src/gnome-cmd-delete-dialog.cc:88
 #, fuzzy, c-format
 msgid "Deleted %ld of %ld file"
 msgid_plural "Deleted %ld of %ld files"
 msgstr[0] "[फाइल %ld को %ld] \"%s\""
 msgstr[1] "[फाइल %ld को %ld] \"%s\""
 
-#: ../src/gnome-cmd-delete-dialog.cc:155
+#: ../src/gnome-cmd-delete-dialog.cc:130
 msgid "Deleting..."
 msgstr "मेट्दैछ..."
 
-#: ../src/gnome-cmd-delete-dialog.cc:231
+#: ../src/gnome-cmd-delete-dialog.cc:206
 #, fuzzy, c-format
 msgid ""
 "Error while deleting \"%s\"\n"
@@ -724,50 +795,50 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-delete-dialog.cc:234
+#: ../src/gnome-cmd-delete-dialog.cc:209
 msgid "Delete problem"
 msgstr "मेट्दा समस्या"
 
-#: ../src/gnome-cmd-delete-dialog.cc:235 ../src/gnome-cmd-xfer.cc:174
-#: ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:190
 msgid "Abort"
 msgstr "परित्याग गर्नुहोस्"
 
-#: ../src/gnome-cmd-delete-dialog.cc:235
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:190
 msgid "Retry"
 msgstr "फेरि प्रयास गर्नुहोस्"
 
-#: ../src/gnome-cmd-delete-dialog.cc:235
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-xfer.cc:174
-#: ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:190
 msgid "Skip"
 msgstr "फड्काउनुहोस्"
 
-#: ../src/gnome-cmd-delete-dialog.cc:312
+#: ../src/gnome-cmd-delete-dialog.cc:278
 #, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "के तपाईँ \"%s\" मेट्न चाहनुहुन्छ ?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:317
+#: ../src/gnome-cmd-delete-dialog.cc:282
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "के तपाईँ चयन गरिएको फाइल मेट्न चाहनुहुन्छ ?"
 msgstr[1] "के तपाईँ चयन गरिएको फाइलहरू मेट्न चाहनुहुन्छ ?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:325 ../src/gnome-cmd-main-win.cc:1170
-#: ../src/gnome-cmd-options-dialog.cc:656
+#: ../src/gnome-cmd-delete-dialog.cc:288 ../src/gnome-cmd-main-win.cc:1170
+#: ../src/gnome-cmd-options-dialog.cc:653
 msgid "Delete"
 msgstr "मेट्नुहोस्"
 
-#: ../src/gnome-cmd-delete-dialog.cc:326
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-user-actions.cc:666
-#: ../src/utils.cc:511 ../src/utils.cc:540
+#: ../src/gnome-cmd-delete-dialog.cc:289
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
+#: ../src/utils.cc:508 ../src/utils.cc:537
 msgid "Cancel"
 msgstr "रद्द गर्नुहोस्"
 
-#: ../src/gnome-cmd-delete-dialog.cc:326 ../src/utils.cc:511
+#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:508
 msgid "OK"
 msgstr "ठीक छ"
 
@@ -779,7 +850,7 @@ msgstr "हालको डाइरेक्टरी थप्नुहोस�
 msgid "Manage bookmarks..."
 msgstr "पुस्तकचिनो प्रबन्ध गर्नुहोस्..."
 
-#: ../src/gnome-cmd-dir.cc:574
+#: ../src/gnome-cmd-dir.cc:575
 msgid "Waiting for file list"
 msgstr "फाइल सूचीलाई प्रतीक्षा गर्दैछ"
 
@@ -886,7 +957,7 @@ msgstr "गुण..."
 msgid "Other..."
 msgstr "अन्य..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:823
+#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:822
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -894,85 +965,119 @@ msgstr[0] "%s बाइट"
 msgstr[1] "%s बाइट्स"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:196
-#: ../src/gnome-cmd-file-props-dialog.cc:370
+#: ../src/gnome-cmd-file-props-dialog.cc:407
 msgid "No default application registered"
 msgstr "पूर्वनिर्धारित अनुप्रयोग दर्ता गरिएको छैन।"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:323
-#: ../src/gnome-cmd-file-selector.cc:1919
+#: ../src/gnome-cmd-file-props-dialog.cc:333
+#, fuzzy
+msgid "Image:"
+msgstr "छवि"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:360
+#: ../src/gnome-cmd-file-selector.cc:1918
 msgid "Filename:"
 msgstr "फाइल नाम:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:334
+#: ../src/gnome-cmd-file-props-dialog.cc:371
 msgid "Symlink target:"
 msgstr "सिमलिङ्क लक्ष्य:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:343
+#: ../src/gnome-cmd-file-props-dialog.cc:380
 msgid "Type:"
 msgstr "प्रकार:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:350
+#: ../src/gnome-cmd-file-props-dialog.cc:387
 msgid "MIME Type:"
 msgstr "माइम प्रकार:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:359
+#: ../src/gnome-cmd-file-props-dialog.cc:396
 msgid "Opens with:"
 msgstr "यससँग खोल्छ:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:372
+#: ../src/gnome-cmd-file-props-dialog.cc:409
 msgid "_Change"
 msgstr "परिवर्तन गर्नुहोस्"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:384
+#: ../src/gnome-cmd-file-props-dialog.cc:421
 msgid "Modified:"
 msgstr "परिमार्जित:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:390
+#: ../src/gnome-cmd-file-props-dialog.cc:427
 msgid "Accessed:"
 msgstr "पहुँच:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:400
+#: ../src/gnome-cmd-file-props-dialog.cc:437
 msgid "Size:"
 msgstr "साइज:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:430
+#: ../src/gnome-cmd-file-props-dialog.cc:480
 msgid "Owner and group"
 msgstr "मालिक र समूह"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:440
+#: ../src/gnome-cmd-file-props-dialog.cc:490
 msgid "Access permissions"
 msgstr "पहुँच अनुमति"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:550
+#: ../src/gnome-cmd-file-props-dialog.cc:605
 #, fuzzy
 msgid "Type"
 msgstr "प्रकार:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:558
+#: ../src/gnome-cmd-file-props-dialog.cc:606
+msgid "Metadata namespace"
+msgstr ""
+
+#. col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+#. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
+#. g_object_set (renderer,
+#. "foreground-set", TRUE,
+#. "foreground", "DarkGray",
+#. NULL);
+#: ../src/gnome-cmd-file-props-dialog.cc:613
+#: ../src/gnome-cmd-remote-dialog.cc:419 ../src/plugin_manager.cc:420
+#: ../src/tags/gnome-cmd-tags.cc:315
+msgid "Name"
+msgstr "नाम"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:614
+#, fuzzy
+msgid "Tag name"
+msgstr "नाम"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:616
 msgid "Value"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:560 ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/gnome-cmd-file-props-dialog.cc:617
+msgid "Tag value"
+msgstr ""
+
+#: ../src/gnome-cmd-file-props-dialog.cc:619 ../src/tags/gnome-cmd-tags.cc:159
 #: ../src/tags/gnome-cmd-tags.cc:310 ../src/tags/gnome-cmd-tags.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:508
 #, fuzzy
 msgid "Description"
 msgstr "डाइरेक्टरी विकल्प"
 
+#: ../src/gnome-cmd-file-props-dialog.cc:620
+msgid "Metadata tag description"
+msgstr ""
+
 #. data->thread = 0;
-#: ../src/gnome-cmd-file-props-dialog.cc:615
+#: ../src/gnome-cmd-file-props-dialog.cc:675
 msgid "File Properties"
 msgstr "फाइल गुण"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:638
+#: ../src/gnome-cmd-file-props-dialog.cc:698
 msgid "Properties"
 msgstr "गुण"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:639 ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/gnome-cmd-file-props-dialog.cc:699 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permissions"
 msgstr "अनुमति"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:640
+#: ../src/gnome-cmd-file-props-dialog.cc:700
 msgid "Metadata"
 msgstr ""
 
@@ -999,157 +1104,75 @@ msgstr "%s स्वतन्त्र"
 msgid "Unknown disk usage"
 msgstr "अज्ञात डिस्क उपयोग"
 
-#: ../src/gnome-cmd-file-selector.cc:1123
+#: ../src/gnome-cmd-file-selector.cc:1122
 #, c-format
-msgid "List failed: %s\n"
+msgid "Listing failed: %s\n"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:1682
+#: ../src/gnome-cmd-file-selector.cc:1681
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "जडान खोल्न असफल: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1857
+#: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
 msgstr "फाइल नाम प्रविष्ट गरिएको छैन"
 
-#: ../src/gnome-cmd-file-selector.cc:1891
+#: ../src/gnome-cmd-file-selector.cc:1890
 msgid "No filename given"
 msgstr "फाइल नाम दिइएको छैन"
 
-#: ../src/gnome-cmd-file-selector.cc:1922
+#: ../src/gnome-cmd-file-selector.cc:1921
 msgid "New Text File"
 msgstr "नयाँ पाठ फाइल"
 
-#: ../src/gnome-cmd-file-selector.cc:2080
+#: ../src/gnome-cmd-file-selector.cc:2079
 msgid "Symlink name:"
 msgstr "सिमलिङ्क नाम:"
 
-#: ../src/gnome-cmd-file-selector.cc:2086
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-user-actions.cc:666
+#: ../src/gnome-cmd-file-selector.cc:2085
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
 msgid "Create Symbolic Link"
 msgstr "प्रतिकात्मक लिङ्क सिर्जना गर्नुहोस्"
 
-#: ../src/gnome-cmd-file-selector.cc:2132
-#: ../src/gnome-cmd-options-dialog.cc:678
-#: ../src/gnome-cmd-options-dialog.cc:698
+#: ../src/gnome-cmd-file-selector.cc:2131
+#: ../src/gnome-cmd-options-dialog.cc:675
+#: ../src/gnome-cmd-options-dialog.cc:695
 msgid "Skip all"
 msgstr "सबै फड्काउनुहोस्"
 
-#: ../src/gnome-cmd-file-selector.cc:2204
+#: ../src/gnome-cmd-file-selector.cc:2203
 msgid "Filter:"
 msgstr "फिल्टर:"
 
-#: ../src/gnome-cmd-file.cc:587
+#: ../src/gnome-cmd-file.cc:586
 msgid "Unknown file type"
 msgstr "अज्ञात फाइल प्रकार"
 
-#: ../src/gnome-cmd-file.cc:588
+#: ../src/gnome-cmd-file.cc:587
 msgid "Regular file"
 msgstr "नियमित फाइल"
 
 #: ../src/gnome-cmd-file.cc:589
-msgid "Directory"
-msgstr "डाइरेक्टरी"
-
-#: ../src/gnome-cmd-file.cc:590
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:591
+#: ../src/gnome-cmd-file.cc:590
 msgid "UNIX Socket"
 msgstr "युनिक्स सकेट"
 
-#: ../src/gnome-cmd-file.cc:592
+#: ../src/gnome-cmd-file.cc:591
 msgid "Character device"
 msgstr "क्यारेक्टर यन्त्र"
 
-#: ../src/gnome-cmd-file.cc:593
+#: ../src/gnome-cmd-file.cc:592
 msgid "Block device"
 msgstr "यन्त्र बन्द गर्नुहोस्"
 
-#: ../src/gnome-cmd-file.cc:594
+#: ../src/gnome-cmd-file.cc:593
 msgid "Symbolic link"
 msgstr "सांकेतिक लिङ्क"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:161
-msgid "No alias specified"
-msgstr "उपनाम निर्दिष्ट गरिएको छैन"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:164
-msgid "No host specified"
-msgstr "होस्ट निर्दिष्ट गरिएको छैन"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:167
-#, c-format
-msgid "Invalid port number: %s"
-msgstr "अवैध पोर्ट नम्बर: %s"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-options-dialog.cc:1535
-msgid "Alias:"
-msgstr "उपनाम:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "Host:"
-msgstr "होस्ट:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "Port:"
-msgstr "पोर्ट:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "User:"
-msgstr "प्रयोगकर्ता:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "Remote Dir:"
-msgstr ""
-
-#: ../src/gnome-cmd-ftp-dialog.cc:239
-#, fuzzy
-msgid "New Remote Connection"
-msgstr "FTP जडान"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:258
-#, fuzzy
-msgid "Edit Remote Connection"
-msgstr "FTP जडान"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:285
-msgid "No server selected"
-msgstr "सर्भर चयन गरिएको छैन"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:388 ../src/gnome-cmd-main-win.cc:1176
-#, fuzzy
-msgid "Remote Server"
-msgstr "हटाउनुहोस्"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:393
-#, fuzzy
-msgid "Connections"
-msgstr "जडान"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:413 ../src/gnome-cmd-options-dialog.cc:1694
-msgid "Alias"
-msgstr "उपनाम"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:418 ../src/gnome-cmd-list-popmenu.cc:121
-msgid "_New..."
-msgstr "नयाँ..."
-
-#: ../src/gnome-cmd-ftp-dialog.cc:432
-msgid "Anonymous password:"
-msgstr "बेनामी पासवर्ड:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:440
-msgid "Connect"
-msgstr "जडान गर्नुहोस्"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:530
-#, fuzzy
-msgid "New Connection"
-msgstr "FTP जडान"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1159,6 +1182,10 @@ msgstr "डाइरेक्टरी"
 #, fuzzy
 msgid "_Text File"
 msgstr "पाठ फाइल"
+
+#: ../src/gnome-cmd-list-popmenu.cc:121
+msgid "_New..."
+msgstr "नयाँ..."
 
 #: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:556
 msgid "_Paste"
@@ -1319,7 +1346,7 @@ msgstr "FTP जडान"
 msgid "_Contents"
 msgstr "सामग्रि"
 
-#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:995
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:923
 msgid "_Keyboard Shortcuts"
 msgstr "कुञ्जीपाटी सटकर्ट"
 
@@ -1333,26 +1360,29 @@ msgstr "जिनोम कमान्डर"
 msgid "Report a _Problem"
 msgstr "Xfer समस्या"
 
-#: ../src/gnome-cmd-main-menu.cc:756 ../src/libgviewer/viewer-window.cc:1002
-#: ../src/plugin_manager.cc:436
+#: ../src/gnome-cmd-main-menu.cc:756 ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "बारेमा"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:1015
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:935
 msgid "_File"
 msgstr "फाइल"
+
+#: ../src/gnome-cmd-main-menu.cc:782
+msgid "_Edit"
+msgstr "सम्पादन"
 
 #: ../src/gnome-cmd-main-menu.cc:786
 msgid "_Mark"
 msgstr "चिन्ह"
 
-#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:1018
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:938
 msgid "_View"
 msgstr "दृश्य"
 
-#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:1029
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:949
 msgid "_Settings"
 msgstr "सेटिङ"
 
@@ -1368,7 +1398,7 @@ msgstr "पुस्तकचिनो"
 msgid "_Plugins"
 msgstr "प्लगइन"
 
-#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:1034
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:954
 msgid "_Help"
 msgstr "मद्दत"
 
@@ -1528,413 +1558,444 @@ msgstr "डाइरेक्टरी विकल्प"
 msgid "Directory cache size"
 msgstr "डाइरेक्टरी क्यास साइज"
 
-#: ../src/gnome-cmd-options-dialog.cc:204
+#: ../src/gnome-cmd-options-dialog.cc:203
 msgid "Size display mode"
 msgstr "साइज प्रदर्शन मोड"
 
-#: ../src/gnome-cmd-options-dialog.cc:207
+#: ../src/gnome-cmd-options-dialog.cc:206
 msgid "Powered"
 msgstr "शक्ति"
 
-#: ../src/gnome-cmd-options-dialog.cc:212
+#: ../src/gnome-cmd-options-dialog.cc:211
 msgid "<locale>"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.cc:217
+#: ../src/gnome-cmd-options-dialog.cc:216
 msgid "Grouped"
 msgstr "समूहबद्ध गरिएको"
 
-#: ../src/gnome-cmd-options-dialog.cc:222
+#: ../src/gnome-cmd-options-dialog.cc:221
 msgid "Plain"
 msgstr "सादा"
 
-#: ../src/gnome-cmd-options-dialog.cc:232
+#: ../src/gnome-cmd-options-dialog.cc:231
 msgid "Permission display mode"
 msgstr "अनुमति प्रदर्शन मोड"
 
-#: ../src/gnome-cmd-options-dialog.cc:235
+#: ../src/gnome-cmd-options-dialog.cc:234
 msgid "Text (rw-r--r--)"
 msgstr "पाठ (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.cc:240
+#: ../src/gnome-cmd-options-dialog.cc:239
 msgid "Number (644)"
 msgstr "नम्बर (६४४)"
 
-#: ../src/gnome-cmd-options-dialog.cc:250
+#: ../src/gnome-cmd-options-dialog.cc:249
 msgid "Date format"
 msgstr "मिति ढाँचा"
 
-#: ../src/gnome-cmd-options-dialog.cc:253
+#: ../src/gnome-cmd-options-dialog.cc:252
 msgid "Format:"
 msgstr "ढाँचा:"
 
-#: ../src/gnome-cmd-options-dialog.cc:261
+#: ../src/gnome-cmd-options-dialog.cc:260
 msgid "_Test"
 msgstr "परीक्षण गर्नुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:264
+#: ../src/gnome-cmd-options-dialog.cc:263
 msgid "Test result:"
 msgstr "परीक्षण परिणाम:"
 
-#: ../src/gnome-cmd-options-dialog.cc:273
+#: ../src/gnome-cmd-options-dialog.cc:272
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
 msgstr ""
 "ढाँचा स्ट्रिङ कसरी सेट गर्ने भन्ने बारे मद्दतका लागि \"strftime\" म्यानुअल पृष्ठ हेर्नुहोस्।"
 
-#: ../src/gnome-cmd-options-dialog.cc:393
+#: ../src/gnome-cmd-options-dialog.cc:391
 msgid "Edit Colors..."
 msgstr "रङ सम्पादन गर्नुहोस्..."
 
-#: ../src/gnome-cmd-options-dialog.cc:400
+#: ../src/gnome-cmd-options-dialog.cc:398
 msgid "Colors"
 msgstr "रङ"
 
-#: ../src/gnome-cmd-options-dialog.cc:437
+#: ../src/gnome-cmd-options-dialog.cc:435
 msgid "Foreground"
 msgstr "अग्रभूमि"
 
-#: ../src/gnome-cmd-options-dialog.cc:439
+#: ../src/gnome-cmd-options-dialog.cc:437
 msgid "Background"
 msgstr "पृष्ठभूमि"
 
-#: ../src/gnome-cmd-options-dialog.cc:441
+#: ../src/gnome-cmd-options-dialog.cc:439
 msgid "Default:"
 msgstr "पूर्वनिर्धारित:"
 
-#: ../src/gnome-cmd-options-dialog.cc:443
+#: ../src/gnome-cmd-options-dialog.cc:441
 msgid "Selected file:"
 msgstr "चयन गरिएको फाइल:"
 
-#: ../src/gnome-cmd-options-dialog.cc:445
+#: ../src/gnome-cmd-options-dialog.cc:443
 msgid "Cursor:"
 msgstr "कर्सर:"
 
-#: ../src/gnome-cmd-options-dialog.cc:462
+#: ../src/gnome-cmd-options-dialog.cc:460
 msgid "With filename"
 msgstr "फाइल नाम सहित"
 
-#: ../src/gnome-cmd-options-dialog.cc:463
+#: ../src/gnome-cmd-options-dialog.cc:461
 msgid "In separate column"
 msgstr "छुट्टै स्तम्भमा"
 
-#: ../src/gnome-cmd-options-dialog.cc:464
+#: ../src/gnome-cmd-options-dialog.cc:462
 msgid "In both columns"
 msgstr "दुबै स्तम्भमा"
 
-#: ../src/gnome-cmd-options-dialog.cc:468
+#: ../src/gnome-cmd-options-dialog.cc:466
 msgid "No icons"
 msgstr "प्रतिमा छैन"
 
-#: ../src/gnome-cmd-options-dialog.cc:469
+#: ../src/gnome-cmd-options-dialog.cc:467
 msgid "File type icons"
 msgstr "फाइल प्रकार प्रतिमा"
 
-#: ../src/gnome-cmd-options-dialog.cc:470
+#: ../src/gnome-cmd-options-dialog.cc:468
 msgid "MIME icons"
 msgstr "माइम प्रतिमा"
 
-#: ../src/gnome-cmd-options-dialog.cc:474
+#: ../src/gnome-cmd-options-dialog.cc:472
 msgid "Respect theme colors"
 msgstr "विषयवस्तु रङ सम्मान गर्नुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:475
+#: ../src/gnome-cmd-options-dialog.cc:473
 msgid "Modern"
 msgstr "आधुनिक"
 
-#: ../src/gnome-cmd-options-dialog.cc:476
+#: ../src/gnome-cmd-options-dialog.cc:474
 msgid "Fusion"
 msgstr "फ्युजन"
 
-#: ../src/gnome-cmd-options-dialog.cc:477
+#: ../src/gnome-cmd-options-dialog.cc:475
 msgid "Classic"
 msgstr "पुरानो"
 
-#: ../src/gnome-cmd-options-dialog.cc:478
+#: ../src/gnome-cmd-options-dialog.cc:476
 #, fuzzy
 msgid "Deep blue"
 msgstr "मेट्दा समस्या"
 
-#: ../src/gnome-cmd-options-dialog.cc:479
+#: ../src/gnome-cmd-options-dialog.cc:477
 msgid "Custom"
 msgstr "अनुकूलन गर्नुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:495
+#: ../src/gnome-cmd-options-dialog.cc:493
 msgid "File panes"
 msgstr "फाइल फलक"
 
-#: ../src/gnome-cmd-options-dialog.cc:506
+#: ../src/gnome-cmd-options-dialog.cc:504
 msgid "Font:"
 msgstr "फन्ट:"
 
-#: ../src/gnome-cmd-options-dialog.cc:508
+#: ../src/gnome-cmd-options-dialog.cc:506
 msgid "Row height:"
 msgstr "पङ्क्ति उचाइ:"
 
 #. File extensions
-#: ../src/gnome-cmd-options-dialog.cc:512
+#: ../src/gnome-cmd-options-dialog.cc:510
 msgid "Display file extensions:"
 msgstr "फाइल विस्तार प्रदर्शन गर्नुहोस् :"
 
 #. Graphical mode
-#: ../src/gnome-cmd-options-dialog.cc:520
+#: ../src/gnome-cmd-options-dialog.cc:518
 msgid "Graphical mode:"
 msgstr "ग्राफिकल मोड:"
 
 #. Color scheme
-#: ../src/gnome-cmd-options-dialog.cc:529
+#: ../src/gnome-cmd-options-dialog.cc:527
 msgid "Color scheme:"
 msgstr "रङ स्कीमा:"
 
-#: ../src/gnome-cmd-options-dialog.cc:541
+#: ../src/gnome-cmd-options-dialog.cc:539
 msgid "Edit..."
 msgstr "सम्पादन गर्नुहोस्..."
 
 #. LS_COLORS
-#: ../src/gnome-cmd-options-dialog.cc:548
+#: ../src/gnome-cmd-options-dialog.cc:546
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "LS_COLORS परिवेश चल अनुसार फाइलमा रङ लगाउनुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:558
+#: ../src/gnome-cmd-options-dialog.cc:556
 msgid "MIME icon settings"
 msgstr "MIME प्रतिमा सेटिङ"
 
-#: ../src/gnome-cmd-options-dialog.cc:571
+#: ../src/gnome-cmd-options-dialog.cc:569
 msgid "Icon size:"
 msgstr "प्रतिमा साइज:"
 
-#: ../src/gnome-cmd-options-dialog.cc:573
+#: ../src/gnome-cmd-options-dialog.cc:571
 msgid "Scaling quality:"
 msgstr "गुणस्तर मापन:"
 
-#: ../src/gnome-cmd-options-dialog.cc:575
+#: ../src/gnome-cmd-options-dialog.cc:573
 msgid "Theme icon directory:"
 msgstr "विषयवस्तु प्रतिमा डाइरेक्टरी:"
 
-#: ../src/gnome-cmd-options-dialog.cc:577
+#: ../src/gnome-cmd-options-dialog.cc:575
 msgid "Document icon directory:"
 msgstr "कागजात प्रतिमा डाइरेक्टरी:"
 
-#: ../src/gnome-cmd-options-dialog.cc:659
+#: ../src/gnome-cmd-options-dialog.cc:656
 msgid "Confirm before delete"
 msgstr "मेट्नु अघि यकिन गर्नुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:667
+#: ../src/gnome-cmd-options-dialog.cc:664
 msgid "Copy overwrite"
 msgstr "अधिलेखन प्रतिलिपि बनाउनुहोस्"
 
 #.
 #. * Create prepare copy specific widgets
 #.
-#: ../src/gnome-cmd-options-dialog.cc:670
-#: ../src/gnome-cmd-options-dialog.cc:690
+#: ../src/gnome-cmd-options-dialog.cc:667
+#: ../src/gnome-cmd-options-dialog.cc:687
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:94
 #: ../src/gnome-cmd-prepare-move-dialog.cc:89
 msgid "Silently"
 msgstr "चुपचाप संग"
 
-#: ../src/gnome-cmd-options-dialog.cc:674
-#: ../src/gnome-cmd-options-dialog.cc:694
+#: ../src/gnome-cmd-options-dialog.cc:671
+#: ../src/gnome-cmd-options-dialog.cc:691
 msgid "Query first"
 msgstr "पहिलो क्वेरी"
 
-#: ../src/gnome-cmd-options-dialog.cc:687
+#: ../src/gnome-cmd-options-dialog.cc:684
 msgid "Move overwrite"
 msgstr "अधिलेखन सार्नुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:775
+#: ../src/gnome-cmd-options-dialog.cc:772
 msgid "Filetypes to hide"
 msgstr "लुकाउन फाइल प्रकार"
 
-#: ../src/gnome-cmd-options-dialog.cc:778
+#: ../src/gnome-cmd-options-dialog.cc:775
 msgid "Unknown"
 msgstr "अज्ञात"
 
-#: ../src/gnome-cmd-options-dialog.cc:783
+#: ../src/gnome-cmd-options-dialog.cc:780
 msgid "Regular files"
 msgstr "नियमित फाइल"
 
-#: ../src/gnome-cmd-options-dialog.cc:788
+#: ../src/gnome-cmd-options-dialog.cc:785
 msgid "Directories"
 msgstr "डाइरेक्टरी"
 
-#: ../src/gnome-cmd-options-dialog.cc:793
+#: ../src/gnome-cmd-options-dialog.cc:790
 msgid "Fifo files"
 msgstr "Fifo फाइल"
 
-#: ../src/gnome-cmd-options-dialog.cc:798
+#: ../src/gnome-cmd-options-dialog.cc:795
 msgid "Socket files"
 msgstr "सकेट फाइल"
 
-#: ../src/gnome-cmd-options-dialog.cc:803
+#: ../src/gnome-cmd-options-dialog.cc:800
 msgid "Character devices"
 msgstr "क्यारेक्टर यन्त्र"
 
-#: ../src/gnome-cmd-options-dialog.cc:808
+#: ../src/gnome-cmd-options-dialog.cc:805
 msgid "Block devices"
 msgstr "यन्त्र बन्द गर्नुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:816
+#: ../src/gnome-cmd-options-dialog.cc:813
 msgid "Also hide"
 msgstr "यो पनि लुकाउनुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:819
+#: ../src/gnome-cmd-options-dialog.cc:816
 msgid "Hidden files"
 msgstr "लुकाइएको फाइल"
 
-#: ../src/gnome-cmd-options-dialog.cc:824
-#: ../src/gnome-cmd-options-dialog.cc:837
+#: ../src/gnome-cmd-options-dialog.cc:821
+#: ../src/gnome-cmd-options-dialog.cc:834
 msgid "Backup files"
 msgstr "जगेडा फाइल"
 
-#: ../src/gnome-cmd-options-dialog.cc:829
+#: ../src/gnome-cmd-options-dialog.cc:826
 msgid "Symlinks"
 msgstr "सिमलिङ्क"
 
-#: ../src/gnome-cmd-options-dialog.cc:1104
+#: ../src/gnome-cmd-options-dialog.cc:933
+#, fuzzy
+msgid "Authentication"
+msgstr "अनुप्रयोग:"
+
+#: ../src/gnome-cmd-options-dialog.cc:936
+msgid "Use GNOME Keyring Manager for authentication"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:944
+#, fuzzy
+msgid "Anonymous FTP access"
+msgstr "बेनामी पासवर्ड:"
+
+#: ../src/gnome-cmd-options-dialog.cc:947
+msgid "Password:"
+msgstr "पासवर्ड:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1157
 msgid "Label:"
 msgstr "लेबुल:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1106
+#: ../src/gnome-cmd-options-dialog.cc:1159
 msgid "Command:"
 msgstr "आदेश:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1108
-#: ../src/gnome-cmd-options-dialog.cc:1541
+#: ../src/gnome-cmd-options-dialog.cc:1161
+#: ../src/gnome-cmd-options-dialog.cc:1594
 msgid "Icon:"
 msgstr "प्रतिमा:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1129
+#: ../src/gnome-cmd-options-dialog.cc:1182
 msgid "Can handle multiple files"
 msgstr "बहुविध फाइल ह्यान्डल गर्न सक्नुहुन्छ"
 
-#: ../src/gnome-cmd-options-dialog.cc:1133
+#: ../src/gnome-cmd-options-dialog.cc:1186
 msgid "Can handle URIs"
 msgstr "URIs ह्यान्डल गर्न सक्नुहुन्छ"
 
-#: ../src/gnome-cmd-options-dialog.cc:1137
+#: ../src/gnome-cmd-options-dialog.cc:1190
 msgid "Requires terminal"
 msgstr "टर्मिनल आवश्यक"
 
-#: ../src/gnome-cmd-options-dialog.cc:1144
+#: ../src/gnome-cmd-options-dialog.cc:1197
 msgid "Show for"
 msgstr "यसका लागि देखाउनुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:1153
+#: ../src/gnome-cmd-options-dialog.cc:1206
 msgid "All directories"
 msgstr "सबै डाइरेक्टरी"
 
-#: ../src/gnome-cmd-options-dialog.cc:1159
+#: ../src/gnome-cmd-options-dialog.cc:1212
 msgid "All directories and files"
 msgstr "सबै डाइरेक्टरी र फाइल"
 
-#: ../src/gnome-cmd-options-dialog.cc:1165
+#: ../src/gnome-cmd-options-dialog.cc:1218
 msgid "Some files"
 msgstr "केही फाइल"
 
-#: ../src/gnome-cmd-options-dialog.cc:1176
+#: ../src/gnome-cmd-options-dialog.cc:1229
 msgid "File patterns"
 msgstr "फाइल बाँन्की"
 
-#: ../src/gnome-cmd-options-dialog.cc:1201
+#: ../src/gnome-cmd-options-dialog.cc:1254
 msgid "New Application"
 msgstr "नयाँ अनुप्रयोग"
 
-#: ../src/gnome-cmd-options-dialog.cc:1212
+#: ../src/gnome-cmd-options-dialog.cc:1265
 msgid "Edit Application"
 msgstr "अनुप्रयोग सम्पादन गर्नुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:1300
+#: ../src/gnome-cmd-options-dialog.cc:1353
 msgid "Always download remote files before opening in external programs"
 msgstr "बाहिरि कार्यक्रममा खोल्नु अगाडि जहिले पनि टाढा फाइल डाउनलोड गर्नुहोस्।"
 
-#: ../src/gnome-cmd-options-dialog.cc:1302
+#: ../src/gnome-cmd-options-dialog.cc:1355
 msgid "MIME applications"
 msgstr "माइम अनुप्रयोग"
 
-#: ../src/gnome-cmd-options-dialog.cc:1306
+#: ../src/gnome-cmd-options-dialog.cc:1359
 msgid "Standard programs"
 msgstr "मानक कार्यक्रम"
 
-#: ../src/gnome-cmd-options-dialog.cc:1309
+#: ../src/gnome-cmd-options-dialog.cc:1362
 msgid "Viewer:"
 msgstr "दर्शक:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1311
+#: ../src/gnome-cmd-options-dialog.cc:1364
 msgid "Editor:"
 msgstr "सम्पादक:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1313
+#: ../src/gnome-cmd-options-dialog.cc:1366
 msgid "Differ:"
 msgstr "फरक:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1315
+#: ../src/gnome-cmd-options-dialog.cc:1368
 msgid "Terminal:"
 msgstr "टर्मिनल:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1321
+#: ../src/gnome-cmd-options-dialog.cc:1374
 msgid "Use Internal Viewer"
 msgstr "आन्तरिक दर्शक प्रयोग गर्नुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:1336
+#: ../src/gnome-cmd-options-dialog.cc:1389
 msgid "Other favorite apps"
 msgstr "अन्य मन परेको अनुप्रयोग"
 
-#: ../src/gnome-cmd-options-dialog.cc:1343
+#: ../src/gnome-cmd-options-dialog.cc:1396
 msgid "Label"
 msgstr "लेबुल"
 
-#: ../src/gnome-cmd-options-dialog.cc:1537
+#: ../src/gnome-cmd-options-dialog.cc:1588
+msgid "Alias:"
+msgstr "उपनाम:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1590
 msgid "Device:"
 msgstr "यन्त्र:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1539
+#: ../src/gnome-cmd-options-dialog.cc:1592
 msgid "Mount point:"
 msgstr "माउन्ट बिन्दु:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1583
+#: ../src/gnome-cmd-options-dialog.cc:1636
 msgid "New Device"
 msgstr "नयाँ यन्त्र"
 
-#: ../src/gnome-cmd-options-dialog.cc:1596
+#: ../src/gnome-cmd-options-dialog.cc:1649
 msgid "Edit Device"
 msgstr "यन्त्र सम्पादन गर्नुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:1684
-#: ../src/gnome-cmd-options-dialog.cc:1877
+#: ../src/gnome-cmd-options-dialog.cc:1737
+#: ../src/gnome-cmd-options-dialog.cc:1936
 msgid "Devices"
 msgstr "यन्त्र"
 
-#: ../src/gnome-cmd-options-dialog.cc:1724
+#: ../src/gnome-cmd-options-dialog.cc:1747
+msgid "Alias"
+msgstr "उपनाम"
+
+#: ../src/gnome-cmd-options-dialog.cc:1777
 msgid "Show only the icons"
 msgstr "प्रतिमा मात्र देखाउनुहोस्"
 
-#: ../src/gnome-cmd-options-dialog.cc:1728
+#: ../src/gnome-cmd-options-dialog.cc:1781
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "माउन्टिङ फड्काउनुहोस् (सुपर माउन्ट प्रयोग गर्दा उपयोगी)"
 
-#: ../src/gnome-cmd-options-dialog.cc:1847
+#: ../src/gnome-cmd-options-dialog.cc:1901
 msgid "General"
 msgstr "साधारण"
 
-#: ../src/gnome-cmd-options-dialog.cc:1852 ../src/tags/gnome-cmd-tags.cc:311
+#: ../src/gnome-cmd-options-dialog.cc:1906 ../src/tags/gnome-cmd-tags.cc:311
 msgid "Format"
 msgstr "ढाँचा"
 
-#: ../src/gnome-cmd-options-dialog.cc:1857
+#: ../src/gnome-cmd-options-dialog.cc:1911
 msgid "Layout"
 msgstr "सजावट"
 
-#: ../src/gnome-cmd-options-dialog.cc:1862
+#: ../src/gnome-cmd-options-dialog.cc:1916
 msgid "Confirmation"
 msgstr "यकिन"
 
-#: ../src/gnome-cmd-options-dialog.cc:1867
+#: ../src/gnome-cmd-options-dialog.cc:1921
 msgid "Filters"
 msgstr "फिल्टर"
 
-#: ../src/gnome-cmd-options-dialog.cc:1872
+#: ../src/gnome-cmd-options-dialog.cc:1926
+#, fuzzy
+msgid "Network"
+msgstr "नयाँ पुस्तकचिनो"
+
+#: ../src/gnome-cmd-options-dialog.cc:1931
 msgid "Programs"
 msgstr "कार्यक्रम"
 
@@ -1956,7 +2017,7 @@ msgid "Query First"
 msgstr "पहिलो क्वेरी"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:171
 msgid "Skip All"
 msgstr "सबै फड्काउनुहोस्"
 
@@ -2010,121 +2071,167 @@ msgstr ""
 msgid "Search"
 msgstr "खोजी गर्नुहोस्"
 
-#: ../src/gnome-cmd-search-dialog.cc:184
+#: ../src/gnome-cmd-remote-dialog.cc:214
+msgid "No server selected"
+msgstr "सर्भर चयन गरिएको छैन"
+
+#: ../src/gnome-cmd-remote-dialog.cc:405
+msgid "GNOME authentication manager usage"
+msgstr ""
+
+#: ../src/gnome-cmd-remote-dialog.cc:409
+msgid "Network protocol"
+msgstr ""
+
+#: ../src/gnome-cmd-remote-dialog.cc:420
+#, fuzzy
+msgid "Connection name"
+msgstr "जडान"
+
+#: ../src/gnome-cmd-remote-dialog.cc:492
+#, fuzzy
+msgid "Remote Connections"
+msgstr "FTP जडान"
+
+#: ../src/gnome-cmd-remote-dialog.cc:498
+#, fuzzy
+msgid "Connections"
+msgstr "जडान"
+
+#: ../src/gnome-cmd-remote-dialog.cc:529
+#, fuzzy
+msgid "Anonymous FTP password:"
+msgstr "बेनामी पासवर्ड:"
+
+#: ../src/gnome-cmd-search-dialog.cc:180
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "फाइल %s खोल्न असफल: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:193
+#: ../src/gnome-cmd-search-dialog.cc:189
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "फाइल %s पढ्न असफल: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:257
+#: ../src/gnome-cmd-search-dialog.cc:250
 #, c-format
 msgid "Searching in: %s"
 msgstr "यसमा खोजी गर्दैछ: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:406
+#: ../src/gnome-cmd-search-dialog.cc:399
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
 msgstr[0] "म रोकिनु अगि %d मिल्दो फेला पर्यो"
 msgstr[1] "म रोकिनु अगि %d मिल्दो फेला पर्यो"
 
-#: ../src/gnome-cmd-search-dialog.cc:413
+#: ../src/gnome-cmd-search-dialog.cc:406
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "%d मिल्दो फेला पर्यो"
 msgstr[1] "%d मिल्दो फेला पर्यो"
 
-#: ../src/gnome-cmd-search-dialog.cc:725
+#: ../src/gnome-cmd-search-dialog.cc:715
 msgid "Search..."
 msgstr "खोजी गर्नुहोस्..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:738
+#: ../src/gnome-cmd-search-dialog.cc:728
 msgid "Search for: "
 msgstr "यसका लागि खोजी गर्नुहोस्: "
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:750
+#: ../src/gnome-cmd-search-dialog.cc:740
 msgid "Search in: "
 msgstr "यसमा खोजी गर्नुहोस्: "
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:764
+#: ../src/gnome-cmd-search-dialog.cc:754
 msgid "Find text: "
 msgstr "पाठ फेला पार्नुहोस्: "
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:778
+#: ../src/gnome-cmd-search-dialog.cc:768
 msgid "Search Recursively"
 msgstr "पुनरावृतिक खोजी गर्नुहोस्"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:785 ../src/tags/gnome-cmd-tags.cc:147
+#: ../src/gnome-cmd-search-dialog.cc:775 ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
 msgstr "केस सम्वेदनशील"
 
-#: ../src/gnome-cmd-search-dialog.cc:796
+#: ../src/gnome-cmd-search-dialog.cc:786
 msgid "Goto"
 msgstr "जानुहोस्"
+
+#: ../src/gnome-cmd-smb-auth.cc:33
+#, fuzzy
+msgid "Enter password"
+msgstr "पासवर्ड प्रविष्ट गर्नुहोस्"
+
+#: ../src/gnome-cmd-smb-auth.cc:34
+msgid ""
+"Problem: access not permitted\n"
+"\n"
+"please supply user credentials\n"
+"\n"
+"Remember: wrong credentials may lead to account locking"
+msgstr ""
 
 #: ../src/gnome-cmd-smb-path.cc:321
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
 msgstr "%s नाम गरेको होस्ट वा कार्यसमूह फेला पार्न सकिँदैन\n"
 
-#: ../src/gnome-cmd-user-actions.cc:69
+#: ../src/gnome-cmd-user-actions.cc:70
 #, fuzzy
 msgid "No file selected"
 msgstr "सर्भर चयन गरिएको छैन"
 
-#: ../src/gnome-cmd-user-actions.cc:661
+#: ../src/gnome-cmd-user-actions.cc:668
 #, fuzzy, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "प्रतिकात्मक लिङ्क सिर्जना गर्नुहोस्"
 msgstr[1] "प्रतिकात्मक लिङ्क सिर्जना गर्नुहोस्"
 
-#: ../src/gnome-cmd-user-actions.cc:666
+#: ../src/gnome-cmd-user-actions.cc:673
 #, fuzzy
 msgid "Create"
 msgstr "डाइरेक्टरी"
 
-#: ../src/gnome-cmd-user-actions.cc:714 ../src/gnome-cmd-user-actions.cc:773
-#: ../src/gnome-cmd-user-actions.cc:810
+#: ../src/gnome-cmd-user-actions.cc:721 ../src/gnome-cmd-user-actions.cc:780
+#: ../src/gnome-cmd-user-actions.cc:817
 #, fuzzy, c-format
 msgid "running `%s'\n"
 msgstr "चलाउँदै \"%s\"\n"
 
-#: ../src/gnome-cmd-user-actions.cc:731 ../src/gnome-cmd-user-actions.cc:748
-#: ../src/gnome-cmd-user-actions.cc:788
+#: ../src/gnome-cmd-user-actions.cc:738 ../src/gnome-cmd-user-actions.cc:755
+#: ../src/gnome-cmd-user-actions.cc:795
 msgid "Operation not supported on remote file systems"
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:763
+#: ../src/gnome-cmd-user-actions.cc:770
 #, fuzzy
 msgid "Too many selected files"
 msgstr "चयन गरिएको फाइल:"
 
-#: ../src/gnome-cmd-user-actions.cc:1310
+#: ../src/gnome-cmd-user-actions.cc:1317
 #, fuzzy
 msgid "There was an error opening home page."
 msgstr "मद्दत प्रदर्शन गर्दा त्रुटि थियो।"
 
-#: ../src/gnome-cmd-user-actions.cc:1319
+#: ../src/gnome-cmd-user-actions.cc:1326
 #, fuzzy
 msgid "There was an error reporting problem."
 msgstr "मद्दत प्रदर्शन गर्दा त्रुटि थियो।"
 
-#: ../src/gnome-cmd-user-actions.cc:1340
+#: ../src/gnome-cmd-user-actions.cc:1347
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "GNOME डेस्कटपका लागि छिटो र शक्तिशाली फाइल प्रबन्धक"
 
-#: ../src/gnome-cmd-user-actions.cc:1344
+#: ../src/gnome-cmd-user-actions.cc:1351
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2132,7 +2239,7 @@ msgid ""
 "any later version."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1348
+#: ../src/gnome-cmd-user-actions.cc:1355
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2140,14 +2247,14 @@ msgid ""
 "more details."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1352
+#: ../src/gnome-cmd-user-actions.cc:1359
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"GNOME Commander; if not, write to the Free Software Foundation, Inc., 59 "
-"Temple Place, Suite 330, Boston, MA  02111-1307  USA"
+"GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1369
+#: ../src/gnome-cmd-user-actions.cc:1376
 msgid "translator-credits"
 msgstr "Pawan Chitrakar <pchitrakar@gmail.com>"
 
@@ -2169,7 +2276,7 @@ msgstr "%d%% को %s प्रतिलिपि गरियो"
 msgid "%.0f%% copied"
 msgstr "%d%% प्रतिलिपि गरियो"
 
-#: ../src/gnome-cmd-xfer.cc:170
+#: ../src/gnome-cmd-xfer.cc:167
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -2180,15 +2287,15 @@ msgstr ""
 "\n"
 "के तपाईँ त्यसमा अधिलेखन गर्न चाहनुहुन्छ ?\n"
 
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-xfer.cc:171
 msgid "Replace"
 msgstr "प्रतिस्थापन गर्नुहोस्"
 
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-xfer.cc:171
 msgid "Replace All"
 msgstr "सबै प्रतिस्थापन गर्नुहोस्"
 
-#: ../src/gnome-cmd-xfer.cc:189
+#: ../src/gnome-cmd-xfer.cc:186
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -2199,21 +2306,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-xfer.cc:192
+#: ../src/gnome-cmd-xfer.cc:189
 #, fuzzy
 msgid "Transfer problem"
 msgstr "Xfer समस्या"
 
-#: ../src/gnome-cmd-xfer.cc:232
+#: ../src/gnome-cmd-xfer.cc:229
 msgid "copying..."
 msgstr "प्रतिलिपि बनाउदैछ..."
 
-#: ../src/gnome-cmd-xfer.cc:240
+#: ../src/gnome-cmd-xfer.cc:237
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[फाइल %ld को %ld] \"%s\""
 
-#: ../src/gnome-cmd-xfer.cc:383
+#: ../src/gnome-cmd-xfer.cc:367
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
@@ -2221,11 +2328,11 @@ msgstr ""
 "डाइरेक्टरीलाई त्यसै भित्र प्रतिलिपि बनाउनु खराब विचार हो।\n"
 "सम्पूर्ण सञ्जालन रद्द गरियो।"
 
-#: ../src/gnome-cmd-xfer.cc:425
+#: ../src/gnome-cmd-xfer.cc:408
 msgid "preparing..."
 msgstr "तयार हुदैछ..."
 
-#: ../src/gnome-cmd-xfer.cc:510
+#: ../src/gnome-cmd-xfer.cc:493
 msgid "downloading to /tmp"
 msgstr "/tmp मा डाउनलोड हुँदैछ"
 
@@ -2254,23 +2361,22 @@ msgstr ""
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr "स्थापना गरिएको pixmap लोड हुन सकेन, स्रोत-डाइरेक्टरीबाट लोड गर्न प्रयास गर्दैछ\n"
 
-#: ../src/libgviewer/search-dlg.cc:314
+#: ../src/libgviewer/search-dlg.cc:312
 msgid "Find"
 msgstr ""
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.cc:344 ../src/libgviewer/viewer-window.cc:793
-#: ../src/libgviewer/viewer-window.cc:1021
+#: ../src/libgviewer/search-dlg.cc:342 ../src/libgviewer/viewer-window.cc:721
+#: ../src/libgviewer/viewer-window.cc:941
 msgid "_Text"
 msgstr "पाठ"
 
-#: ../src/libgviewer/search-dlg.cc:346
-#, fuzzy
-msgid "_Hex"
-msgstr "मद्दत"
+#: ../src/libgviewer/search-dlg.cc:343 ../src/libgviewer/viewer-window.cc:729
+msgid "_Hexadecimal"
+msgstr ""
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.cc:355
+#: ../src/libgviewer/search-dlg.cc:352
 msgid "_Match case"
 msgstr ""
 
@@ -2284,169 +2390,169 @@ msgstr "खोजी गर्नुहोस्..."
 msgid "Searching for \"%s\""
 msgstr "यसमा खोजी गर्दैछ: %s"
 
-#: ../src/libgviewer/viewer-widget.cc:201
+#: ../src/libgviewer/viewer-widget.cc:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "स्थान: %lu को %lu\tस्तम्भ: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.cc:205
+#: ../src/libgviewer/viewer-widget.cc:210
 msgid "Wrap"
 msgstr "बेर्नुहोस्"
 
-#: ../src/libgviewer/viewer-widget.cc:224
-#, c-format
-msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
-msgstr "छवि साइज: %dx%d\tबिट्स/नमूना: %d\tजुम: %s"
+#: ../src/libgviewer/viewer-widget.cc:237
+msgid "pixel"
+msgid_plural "pixels"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/libgviewer/viewer-widget.cc:226
-msgid "Fit-to-Window"
+#: ../src/libgviewer/viewer-widget.cc:239
+msgid "bit/sample"
+msgid_plural "bits/sample"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/libgviewer/viewer-widget.cc:241
+#, fuzzy
+msgid "(fit to window)"
 msgstr "सञ्झ्यालमा मिलाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:191 ../src/utils.cc:1347
-msgid "There was an error displaying help."
-msgstr "मद्दत प्रदर्शन गर्दा त्रुटि थियो।"
-
-#: ../src/libgviewer/viewer-window.cc:783
+#: ../src/libgviewer/viewer-window.cc:711
 msgid "_Close"
 msgstr "बन्द गर्नुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:797
+#: ../src/libgviewer/viewer-window.cc:725
 msgid "_Binary"
 msgstr "बाइनरी"
 
-#: ../src/libgviewer/viewer-window.cc:801
-msgid "_Hex dump"
-msgstr "हेक्स डम्प"
-
-#: ../src/libgviewer/viewer-window.cc:805
-#: ../src/libgviewer/viewer-window.cc:1026
+#: ../src/libgviewer/viewer-window.cc:733
+#: ../src/libgviewer/viewer-window.cc:946
 msgid "_Image"
 msgstr "छवि"
 
-#: ../src/libgviewer/viewer-window.cc:810
+#: ../src/libgviewer/viewer-window.cc:738
 msgid "_Zoom In"
 msgstr "जुम बढाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:814
+#: ../src/libgviewer/viewer-window.cc:742
 msgid "Zoom _Out"
 msgstr "जुम घटाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:818
+#: ../src/libgviewer/viewer-window.cc:746
 msgid "_Normal Size"
 msgstr "साधारण साइज"
 
-#: ../src/libgviewer/viewer-window.cc:822
+#: ../src/libgviewer/viewer-window.cc:750
 msgid "Best _Fit"
 msgstr "राम्रो मिलान"
 
-#: ../src/libgviewer/viewer-window.cc:835
+#: ../src/libgviewer/viewer-window.cc:763
 msgid "_Copy Text Selection"
 msgstr "पाठ चयन प्रतिलिपि बनाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:839
+#: ../src/libgviewer/viewer-window.cc:767
 msgid "Find..."
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:843
+#: ../src/libgviewer/viewer-window.cc:771
 #, fuzzy
 msgid "Find Next"
 msgstr "पाठ फेला पार्नुहोस्: "
 
-#: ../src/libgviewer/viewer-window.cc:847
+#: ../src/libgviewer/viewer-window.cc:775
 msgid "Find Previous"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:853
+#: ../src/libgviewer/viewer-window.cc:781
 msgid "_No Parsing (original file)"
 msgstr "पद वर्णन नगर्नुहोस् (मौलिक फाइल)"
 
-#: ../src/libgviewer/viewer-window.cc:857
+#: ../src/libgviewer/viewer-window.cc:785
 msgid "_HTML Parser"
 msgstr "HTML पद वर्णक"
 
-#: ../src/libgviewer/viewer-window.cc:861
+#: ../src/libgviewer/viewer-window.cc:789
 msgid "_PS/PDF Parser"
 msgstr "PS/PDF पद वर्णक"
 
-#: ../src/libgviewer/viewer-window.cc:867
+#: ../src/libgviewer/viewer-window.cc:795
 msgid "_Wrap lines"
 msgstr "लाइनहरू बेर्नुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:872
+#: ../src/libgviewer/viewer-window.cc:800
 msgid "_Encoding"
 msgstr "सङ्केतन"
 
-#: ../src/libgviewer/viewer-window.cc:913
+#: ../src/libgviewer/viewer-window.cc:841
 msgid "_Show EXIF/IPTC Information"
 msgstr "EXIF/IPTC सूचना देखाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:919
+#: ../src/libgviewer/viewer-window.cc:847
 msgid "_Rotate Clockwise"
 msgstr "घडिको दिशामा घुमाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:924
+#: ../src/libgviewer/viewer-window.cc:852
 msgid "Rotate Counter Clockwis_e"
 msgstr "घडिको विपरित दिशामा घुमाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:929
+#: ../src/libgviewer/viewer-window.cc:857
 msgid "_Rotate 180°"
 msgstr "180° मा घुमाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:934
+#: ../src/libgviewer/viewer-window.cc:862
 msgid "Flip _Vertical"
 msgstr "ठाडो गरी घुमाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:939
+#: ../src/libgviewer/viewer-window.cc:867
 msgid "Flip _Horizontal"
 msgstr "तेर्सो गरी घुमाउनुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:949
+#: ../src/libgviewer/viewer-window.cc:877
 msgid "_Binary Mode"
 msgstr "बाइनरि मोड"
 
-#: ../src/libgviewer/viewer-window.cc:955
+#: ../src/libgviewer/viewer-window.cc:883
 msgid "_Decimal Offset in Hexdump"
 msgstr "हेस्कडम्पमा दशमलव अफसेट"
 
-#: ../src/libgviewer/viewer-window.cc:961
+#: ../src/libgviewer/viewer-window.cc:889
 msgid "_Save Current Settings"
 msgstr "हालको सेटिङ बचत गर्नुहोस्"
 
-#: ../src/libgviewer/viewer-window.cc:971
+#: ../src/libgviewer/viewer-window.cc:899
 msgid "_20 chars/line"
 msgstr "२० क्यारेक्टर/लाइन"
 
-#: ../src/libgviewer/viewer-window.cc:976
+#: ../src/libgviewer/viewer-window.cc:904
 msgid "_40 chars/line"
 msgstr "४० क्यारेक्टर/लाइन"
 
-#: ../src/libgviewer/viewer-window.cc:981
+#: ../src/libgviewer/viewer-window.cc:909
 msgid "_80 chars/line"
 msgstr "८० क्यारेक्टर/लाइन"
 
-#: ../src/libgviewer/viewer-window.cc:990
+#: ../src/libgviewer/viewer-window.cc:918
 #, fuzzy
 msgid "Quick _Help"
 msgstr "शिघ्र मद्दत"
 
-#: ../src/libgviewer/viewer-window.cc:1210
+#: ../src/libgviewer/viewer-window.cc:1130
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr ""
 
-#: ../src/main.cc:60 ../src/main.cc:69
+#: ../src/main.cc:61 ../src/main.cc:70
 msgid "Specify debug flags to use"
 msgstr "त्रुटि सच्याउने ध्वजा प्रयोग गर्न निर्दिष्ट गर्नुहोस्"
 
-#: ../src/main.cc:61 ../src/main.cc:70
+#: ../src/main.cc:62 ../src/main.cc:71
 msgid "Specify the start directory for the left pane"
 msgstr "बायाँ फलकका लागि सुरुको डाइरेक्टरी निर्दिष्ट गर्नुहोस्।"
 
-#: ../src/main.cc:62 ../src/main.cc:71
+#: ../src/main.cc:63 ../src/main.cc:72
 msgid "Specify the start directory for the right pane"
 msgstr "दायाँ फलकका लागि सुरुको डाइरेक्टरी निर्दिष्ट गर्नुहोस्।"
 
-#: ../src/main.cc:110
+#: ../src/main.cc:111
 msgid "File Manager"
 msgstr "फाइल प्रबन्धक"
 
@@ -2474,10 +2580,6 @@ msgstr "उपलब्ध प्लगइन"
 #: ../src/plugin_manager.cc:421
 msgid "Version"
 msgstr "संस्करण"
-
-#: ../src/plugin_manager.cc:422 ../src/tags/gnome-cmd-tags.cc:659
-msgid "File"
-msgstr "फाइल"
 
 #: ../src/plugin_manager.cc:427
 msgid "_Enable"
@@ -6070,80 +6172,242 @@ msgstr ""
 msgid "Image"
 msgstr "छवि"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:65
+#: ../src/tags/gnome-cmd-tags-doc.cc:63
 msgid "No Proofing"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:73
+#: ../src/tags/gnome-cmd-tags-doc.cc:65
+msgid "Arabic"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:67
+msgid "Bulgarian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:69
+msgid "Catalan"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:71
 msgid "Traditional Chinese"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:75
+#: ../src/tags/gnome-cmd-tags-doc.cc:73
 msgid "Simplified Chinese"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:83
+#: ../src/tags/gnome-cmd-tags-doc.cc:75
+msgid "Chechen"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:77
+msgid "Danish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:79
+#, fuzzy
+msgid "German"
+msgstr "साधारण"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:81
 msgid "Swiss German"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:87
+#: ../src/tags/gnome-cmd-tags-doc.cc:83
+#, fuzzy
+msgid "Greek"
+msgstr "साधारण"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:85
 msgid "U.S. English"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:89
+#: ../src/tags/gnome-cmd-tags-doc.cc:87
 msgid "U.K. English"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:91
+#: ../src/tags/gnome-cmd-tags-doc.cc:89
 msgid "Australian English"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:93
+#: ../src/tags/gnome-cmd-tags-doc.cc:91
 msgid "Castilian Spanish"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:95
+#: ../src/tags/gnome-cmd-tags-doc.cc:93
 msgid "Mexican Spanish"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:101
+#: ../src/tags/gnome-cmd-tags-doc.cc:95
+msgid "Finnish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:97
+msgid "French"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:99
 msgid "Belgian French"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:103
+#: ../src/tags/gnome-cmd-tags-doc.cc:101
 msgid "Canadian French"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:105
+#: ../src/tags/gnome-cmd-tags-doc.cc:103
 msgid "Swiss French"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:115
+#: ../src/tags/gnome-cmd-tags-doc.cc:105
+msgid "Hebrew"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:107
+msgid "Hungarian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:109
+msgid "Icelandic"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:111
+msgid "Italian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:113
 msgid "Swiss Italian"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:123
+#: ../src/tags/gnome-cmd-tags-doc.cc:115
+msgid "Japanese"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:117
+msgid "Korean"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:119
+msgid "Dutch"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:121
 msgid "Belgian Dutch"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:125
+#: ../src/tags/gnome-cmd-tags-doc.cc:123
 msgid "Norwegian Bokmal"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:135
+#: ../src/tags/gnome-cmd-tags-doc.cc:125
+msgid "Norwegian Nynorsk"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:127
+msgid "Polish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:129
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:131
+#, fuzzy
+msgid "Portuguese"
+msgstr "गुण"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:133
 msgid "Rhaeto-Romanic"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:141
+#: ../src/tags/gnome-cmd-tags-doc.cc:135
+msgid "Romanian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:137
+#, fuzzy
+msgid "Russian"
+msgstr "फ्युजन"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:139
 msgid "Croato-Serbian (Latin)"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:143
+#: ../src/tags/gnome-cmd-tags-doc.cc:141
 msgid "Serbo-Croatian (Cyrillic)"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:171
+#: ../src/tags/gnome-cmd-tags-doc.cc:143
+msgid "Slovak"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:145
+#, fuzzy
+msgid "Albanian"
+msgstr "उपनाम"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:147
+msgid "Swedish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:149
+msgid "Thai"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:151
+msgid "Turkish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:153
+msgid "Urdu"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:155
+msgid "Bahasa"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:157
+msgid "Ukrainian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:159
+msgid "Byelorussian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:161
+msgid "Slovenian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:163
+msgid "Estonian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:165
+#, fuzzy
+msgid "Latvian"
+msgstr "जडान"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:167
+msgid "Lithuanian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:169
 msgid "Farsi"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:171
+msgid "Basque"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:173
+msgid "Macedonian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:175
+msgid "Afrikaans"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:177
+msgid "Malayalam"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:65
@@ -6198,11 +6462,7 @@ msgstr "होइन"
 msgid "10-15ms"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-taglib.cc:98
-msgid "CCIT J17"
-msgstr ""
-
-#: ../src/utils.cc:432
+#: ../src/utils.cc:429
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -6211,7 +6471,7 @@ msgstr ""
 "माइम-प्रकार %s का लागि कुनै पनि पूर्वनिर्धारित अनुप्रयोग फेला पारेन।\n"
 "यसमा कुनै एउटा थप्न नियन्त्रण केन्द्रमा \"फाइल प्रकार र कार्यक्रम\" पृष्ठ खोल्नुहोस्।"
 
-#: ../src/utils.cc:507
+#: ../src/utils.cc:504
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -6220,11 +6480,11 @@ msgstr ""
 "\"%s\" बाइनरी सम्पादन गर्न लायकको फाइल जस्तै देखा परेको छ, तर यसमा सम्पादनयोग्य "
 "बिटको कमी छ। के तपाईँ यसलाई सेट गरेपछि फाइल चलाउन चाहनुहुन्छ ?"
 
-#: ../src/utils.cc:510
+#: ../src/utils.cc:507
 msgid "Make Executable?"
 msgstr "कार्यान्वयनयोग्य बनाउनुहुन्छ ?"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:534
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
@@ -6233,19 +6493,19 @@ msgstr ""
 "\"%s\" कार्यान्वयनयोग्य पाठ फाइल हो। के तपाईँ यसलाई चलाउन चाहनुहुन्छ वा त्यसको सामग्री "
 "प्रर्दशन गर्न चाहनुहुन्छ ?"
 
-#: ../src/utils.cc:539
+#: ../src/utils.cc:536
 msgid "Run or Display"
 msgstr "चलाउनुहोस् वा प्रदर्शन गर्नुहोस्"
 
-#: ../src/utils.cc:540
+#: ../src/utils.cc:537
 msgid "Display"
 msgstr "प्रदर्शन गर्नुहोस्"
 
-#: ../src/utils.cc:540
+#: ../src/utils.cc:537
 msgid "Run"
 msgstr "चलाउनुहोस्"
 
-#: ../src/utils.cc:582 ../src/utils.cc:658
+#: ../src/utils.cc:579 ../src/utils.cc:655
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -6260,7 +6520,7 @@ msgstr[1] ""
 "%s लाई कसरि टाँढाको फाइलहरू खोल्ने थाहा छैन। के तपाईँ फाइलहरूलाई अस्थायी स्थानमा "
 "डाउनलोड गरेर त्यसलाई खोल्न चाहनुहुन्छ ?"
 
-#: ../src/utils.cc:1022
+#: ../src/utils.cc:1021
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -6284,14 +6544,64 @@ msgstr "डाइरेक्टरी %s सिर्जना गर्न अ
 msgid "Couldn't read from the directory %s: %s"
 msgstr "%s डाइरेक्टरीबाट पढ्न सकेन: %s\n"
 
+#: ../src/utils.h:253
+msgid "There was an error displaying help."
+msgstr "मद्दत प्रदर्शन गर्दा त्रुटि थियो।"
+
+#, fuzzy
+#~ msgid "Dir"
+#~ msgstr "डाइरेक्टरी"
+
+#~ msgid "_Add..."
+#~ msgstr "थप्नुहोस्..."
+
+#~ msgid "_Edit..."
+#~ msgstr "सम्पादन..."
+
+#~ msgid "_Remove"
+#~ msgstr "हटाउनुहोस्"
+
+#~ msgid "_Goto"
+#~ msgstr "जानुहोस्"
+
+#~ msgid "No alias specified"
+#~ msgstr "उपनाम निर्दिष्ट गरिएको छैन"
+
+#~ msgid "No host specified"
+#~ msgstr "होस्ट निर्दिष्ट गरिएको छैन"
+
+#~ msgid "Invalid port number: %s"
+#~ msgstr "अवैध पोर्ट नम्बर: %s"
+
+#~ msgid "Host:"
+#~ msgstr "होस्ट:"
+
+#, fuzzy
+#~ msgid "Edit Remote Connection"
+#~ msgstr "FTP जडान"
+
+#~ msgid "Connect"
+#~ msgstr "जडान गर्नुहोस्"
+
+#, fuzzy
+#~ msgid "New Connection"
+#~ msgstr "FTP जडान"
+
+#, fuzzy
+#~ msgid "_Hex"
+#~ msgstr "मद्दत"
+
+#~ msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
+#~ msgstr "छवि साइज: %dx%d\tबिट्स/नमूना: %d\tजुम: %s"
+
+#~ msgid "_Hex dump"
+#~ msgstr "हेक्स डम्प"
+
 #~ msgid "Enter password for %s@%s"
 #~ msgstr "%s@%s का लागि पासवर्ड प्रविष्ट गर्नुहोस्"
 
 #~ msgid "Enter Password"
 #~ msgstr "पासवर्ड प्रविष्ट गर्नुहोस्"
-
-#~ msgid "Password:"
-#~ msgstr "पासवर्ड:"
 
 #~ msgid "FTP Connect"
 #~ msgstr "FTP जडान"
@@ -6304,10 +6614,6 @@ msgstr "%s डाइरेक्टरीबाट पढ्न सकेन: %s
 
 #~ msgid "FTP _Quick Connect..."
 #~ msgstr "FTP शिघ्र जडान..."
-
-#, fuzzy
-#~ msgid "Enter password"
-#~ msgstr "पासवर्ड प्रविष्ट गर्नुहोस्"
 
 #~ msgid "_Execute"
 #~ msgstr "कार्यान्वयन गर्नुहोस्"

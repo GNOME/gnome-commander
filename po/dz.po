@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-17 13:40+0200\n"
+"POT-Creation-Date: 2007-12-10 19:32+0100\n"
 "PO-Revision-Date: 2007-06-21 11:55+0530\n"
 "Last-Translator: Dawa pemo <daws_403@hotmail.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -33,10 +33,11 @@ msgstr "འགྲེལ་བཤད་འཛོལ་བ་ཐོབ་ཚུག
 
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
-#: ../src/gnome-cmd-ftp-dialog.cc:429 ../src/gnome-cmd-options-dialog.cc:1126
-#: ../src/gnome-cmd-options-dialog.cc:1827
+#: ../src/gnome-cmd-options-dialog.cc:1179
+#: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
+#: ../src/gnome-cmd-remote-dialog.cc:526
 msgid "Options"
 msgstr "གདམ་ཁ་ཚུ།"
 
@@ -294,194 +295,173 @@ msgid "/Time/SS"
 msgstr "/དུས་ཚོད།/ཨེསི་ཨེསི།"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
 msgid "Yes"
 msgstr "ཨིན།"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
 msgid "No"
 msgstr "མེན།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:566
+#: ../src/gnome-cmd-advrename-dialog.cc:563
 msgid "Invalid source pattern"
 msgstr "ནུས་མེད་འབྱུང་ཁུངས་དཔེ་གཞི།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:642
+#. Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
+#: ../src/gnome-cmd-advrename-dialog.cc:630
 msgid "Replace this:"
 msgstr "འདི་ཚབ་བཙུགས།:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:642
-#: ../src/gnome-cmd-advrename-dialog.cc:1191
-msgid "With this"
+#: ../src/gnome-cmd-advrename-dialog.cc:630
+#, fuzzy
+msgid "With this:"
 msgstr "འདི་དང་གཅིག་ཁར།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:654
+#: ../src/gnome-cmd-advrename-dialog.cc:640
 msgid "Case sensitive matching"
 msgstr "ཡི་གུ་ཆེ་ཆུང་གི་ཉེན་ཁ་མཐུན་སྒྲིག"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:786
+#: ../src/gnome-cmd-advrename-dialog.cc:769
 msgid "New Rule"
 msgstr "ལམ་ལུགས་གསརཔ།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:792
+#: ../src/gnome-cmd-advrename-dialog.cc:775
 msgid "Edit Rule"
 msgstr "ལམ་ལུགས་ཞུན་དག་འབད།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1019
+#: ../src/gnome-cmd-advrename-dialog.cc:983
 msgid "Counter start value:"
 msgstr "འགོ་བཙུགས་གནས་གོང་གདོང་ལེན།:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1020
+#: ../src/gnome-cmd-advrename-dialog.cc:984
 msgid "Counter increment:"
 msgstr "ཡར་འཕར་གདོང་ལེན།:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1021
+#: ../src/gnome-cmd-advrename-dialog.cc:985
 msgid "Counter minimum digit count:"
 msgstr "ཨང་ཡིག་གྱངས་ཁ་རྐྱབས་ནི་ཉུང་མཐའ་གདོང་ལེན།:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1026
+#: ../src/gnome-cmd-advrename-dialog.cc:990
 msgid "Template Options"
 msgstr "ཊེམ་པེ་ལེཊི་གདམ་ཁ་ཚུ།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1030
+#: ../src/gnome-cmd-advrename-dialog.cc:994
 msgid "Auto-update when the template is entered"
 msgstr "ཊེམ་པེ་ལེཊི་འདི་བཙུགས་ཡོད་པའི་སྐབས་རང་བཞིན་དུས་མཐུན་བཟོ།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1128
+#: ../src/gnome-cmd-advrename-dialog.cc:1084
 msgid "Advanced Rename Tool"
 msgstr "ཡར་བསྐྱོད་འབད་ཡོད་མི་བསྐྱར་མིང་བཏགས་ནི་ལག་ཆས།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1140 ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1096 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "ཊེམ་པེ་ལེཊི།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1161
+#: ../src/gnome-cmd-advrename-dialog.cc:1117
 msgid "O_ptions..."
 msgstr "གདམ་ཁ་ཚུ།(_o)..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1168
-msgid "Dir"
+#: ../src/gnome-cmd-advrename-dialog.cc:1124 ../src/gnome-cmd-file.cc:588
+msgid "Directory"
 msgstr "སྣོད་ཐོ།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1171
-#: ../src/gnome-cmd-file-props-dialog.cc:557 ../src/plugin_manager.cc:420
-#: ../src/tags/gnome-cmd-tags.cc:315
-msgid "Name"
-msgstr "མིང་།"
+#: ../src/gnome-cmd-advrename-dialog.cc:1127 ../src/plugin_manager.cc:422
+#: ../src/tags/gnome-cmd-tags.cc:659
+msgid "File"
+msgstr "ཡིག་སྣོད།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1174
+#: ../src/gnome-cmd-advrename-dialog.cc:1130
 msgid "Counter"
 msgstr "གདོང་ལེན།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1177 ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/gnome-cmd-advrename-dialog.cc:1133 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Date"
 msgstr "ཚེས་གྲངས།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1180
+#: ../src/gnome-cmd-advrename-dialog.cc:1136
 msgid "Metatag"
 msgstr "མེ་ཊ་ངོ་རྟགས།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1185
+#: ../src/gnome-cmd-advrename-dialog.cc:1141
 msgid "Regex replacing"
 msgstr "རི་ཇེགསི་ཚབ་བཙུགས་དོ།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1190
+#: ../src/gnome-cmd-advrename-dialog.cc:1146
 msgid "Replace this"
 msgstr "འདི་ཚབ་བཙུགས།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1192
+#: ../src/gnome-cmd-advrename-dialog.cc:1147
+msgid "With this"
+msgstr "འདི་དང་གཅིག་ཁར།"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1148
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr "ཡི་གུ་ཆེ་ཆུང་ཉེན་ཁ།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1204
-#: ../src/gnome-cmd-options-dialog.cc:1349
-#: ../src/gnome-cmd-options-dialog.cc:1700
-msgid "_Add..."
-msgstr "ཁ་སྐོང་རྐྱབས།(_A)..."
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1207
-#: ../src/gnome-cmd-ftp-dialog.cc:420 ../src/gnome-cmd-options-dialog.cc:1353
-#: ../src/gnome-cmd-options-dialog.cc:1704
-msgid "_Edit..."
-msgstr "ཞུན་དག་འབད།(_E)..."
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1211
-#: ../src/gnome-cmd-bookmark-dialog.cc:472 ../src/gnome-cmd-ftp-dialog.cc:423
-#: ../src/gnome-cmd-options-dialog.cc:1359
-#: ../src/gnome-cmd-options-dialog.cc:1710
-msgid "_Remove"
-msgstr "རྩ་བསྐྲད་གཏང་།(_R)"
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1215
+#: ../src/gnome-cmd-advrename-dialog.cc:1171
 msgid "Re_move All"
 msgstr "ཆ་མཉམ་རྩ་བསྐྲད་གཏང་།(_m)"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1235
+#: ../src/gnome-cmd-advrename-dialog.cc:1191
 msgid "Result"
 msgstr "འགྲུབ་འབྲས།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1240
-msgid "Current filenames"
+#: ../src/gnome-cmd-advrename-dialog.cc:1196
+#, fuzzy
+msgid "Current file names"
 msgstr "ད་ལྟོའི་ཡིག་སྣོད་མིང་།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1241
-msgid "New filenames"
+#: ../src/gnome-cmd-advrename-dialog.cc:1197
+#, fuzzy
+msgid "New file names"
 msgstr "ཡིག་སྣོད་མིང་གསརཔ་ཚུ།"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1247
+#: ../src/gnome-cmd-advrename-dialog.cc:1203
 msgid "Rese_t"
 msgstr "སླར་སྒྲིག(_t)"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:72
+#: ../src/gnome-cmd-bookmark-dialog.cc:71
 msgid "Bookmark name:"
 msgstr "དེབ་རྟགས་མིང་།:"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:73
+#: ../src/gnome-cmd-bookmark-dialog.cc:72
 msgid "Bookmark target:"
 msgstr "དེབ་རྟགས་དམིགས་གཏད།:"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:160
+#: ../src/gnome-cmd-bookmark-dialog.cc:159
 msgid "Bookmark name is missing"
 msgstr "དེབ་རྟགས་མིང་འདི་བརླག་སྟོར་ཞུགས་ཡོདཔ།"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:166
+#: ../src/gnome-cmd-bookmark-dialog.cc:165
 msgid "Bookmark target is missing"
 msgstr "དེབ་རྟགས་དམིགས་གཏད་འདི་བརླག་སྟོཡ་ཞུགས་ཡོདཔ།"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:186
+#: ../src/gnome-cmd-bookmark-dialog.cc:185
 msgid "Edit Bookmark"
 msgstr "དེབ་རྟགས་ཞུན་དག་འབད།"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:435
-#: ../src/gnome-cmd-bookmark-dialog.cc:447
+#: ../src/gnome-cmd-bookmark-dialog.cc:434
+#: ../src/gnome-cmd-bookmark-dialog.cc:446
 msgid "Bookmarks"
 msgstr "དེབ་རྟགས་ཚུ།"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:438
+#: ../src/gnome-cmd-bookmark-dialog.cc:437
 msgid "Bookmark Groups"
 msgstr "དེབ་རྟགས་སྡེ་ཚན་ཚུ།"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454 ../src/gnome-cmd-file-list.cc:90
+#: ../src/gnome-cmd-bookmark-dialog.cc:453 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "མིང་།"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:455
+#: ../src/gnome-cmd-bookmark-dialog.cc:454
 msgid "path"
 msgstr "འགྲུལ་ལམ།"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:462
-msgid "_Goto"
-msgstr "ལུ་འགྱོ།(_G)"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:467 ../src/gnome-cmd-main-menu.cc:782
-msgid "_Edit"
-msgstr "ཞུན་དག་འབད།(_E)"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:579
+#: ../src/gnome-cmd-bookmark-dialog.cc:578
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
@@ -489,7 +469,7 @@ msgstr ""
 "སྣོད་ཐོ་འདི་ལུ་སྣོད་ཐོ་ཅིག་འཚོལ་ཞིབ་འགྲུལ་ལམ་ཧྲིལ་བུམ་འདི་དེབ་རྟགས་བཀལ་ནི་ལུ་ཡུ་ཊི་ཨེཕ་-༨ ཨིན་ཀོ་ཌིང་ནུས་"
 "ཅན་ནང་དགོཔ་ཨིན།\n"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:586
+#: ../src/gnome-cmd-bookmark-dialog.cc:585
 msgid "New Bookmark"
 msgstr "དེབ་རྟགས་གསརཔ།"
 
@@ -527,7 +507,7 @@ msgstr "ཚིག་ཡིག་མཐོང་སྣང་།:"
 msgid "Number view:"
 msgstr "ཨང་མཐོང་སྣང་།:"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:43 ../src/gnome-cmd-options-dialog.cc:1147
+#: ../src/gnome-cmd-chmod-dialog.cc:43 ../src/gnome-cmd-options-dialog.cc:1200
 msgid "All files"
 msgstr "ཡིག་སྣོད་ཚུ་ཆ་མཉམ།"
 
@@ -569,24 +549,24 @@ msgstr "ཅོའུན།"
 msgid "Apply Recursively"
 msgstr "ལོག་རིམ་འཇུག་སྤྱོད་འབད།"
 
-#: ../src/gnome-cmd-con-device.cc:110
+#: ../src/gnome-cmd-con-device.cc:115
 msgid "Failed to execute the mount command"
 msgstr "བརྩེགས་ཅན་བརད་བཀོད་འདི་ལག་ལེན་འཐབ་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ།"
 
-#: ../src/gnome-cmd-con-device.cc:117
+#: ../src/gnome-cmd-con-device.cc:123
 msgid "Mount failed: Permission denied"
 msgstr "བརྩེགས་ཅན་འཐུས་ཤོར་ཡོདཔ།: གནང་བ་ཉན་མ་བཏུབ།"
 
-#: ../src/gnome-cmd-con-device.cc:120
+#: ../src/gnome-cmd-con-device.cc:126
 msgid "Mount failed: No medium found"
 msgstr "བརྩེགས་ཅན་འཐུས་ཤོར་ཡོདཔ།: བརྡ་ལམ་འཚོལ་མ་ཐོབ་པར་ཡོདཔ།"
 
-#: ../src/gnome-cmd-con-device.cc:124
+#: ../src/gnome-cmd-con-device.cc:130
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
 msgstr "བརྩེགས་ཅན་འཐུས་ཤོར་ཡོདཔ།: བརྩེགས་ཅན་དང་གཅིག་ཁར་ཨི་ཨེགསི་ཨའི་གནས་ཚཐ་ཕྱིར་ཐོན་ཡོདཔ། %d"
 
-#: ../src/gnome-cmd-con-device.cc:202
+#: ../src/gnome-cmd-con-device.cc:206
 msgid ""
 "Volume unmounting succeeded.\n"
 "It is safe to eject the media."
@@ -594,7 +574,7 @@ msgstr ""
 "སྐད་ཤུགས་བརྩེགས་བཤོལ་འབད་ནི་མཐར་འཁྱོལ་ཡོདཔ་ཨིན།\n"
 "བརྡ་ལམ་འདི་ཕྱིར་བཏོན་ནི་ཉེན་མེད་ཨིན།"
 
-#: ../src/gnome-cmd-con-device.cc:210
+#: ../src/gnome-cmd-con-device.cc:214
 #, c-format
 msgid ""
 "Volume unmounting failed:\n"
@@ -603,56 +583,149 @@ msgstr ""
 "སྐད་ཤུགས་བརྩེགས་བཤོལ་འཐུས་ཤོར་ཡོདཔ།:\n"
 "%s %s"
 
-#: ../src/gnome-cmd-con-device.cc:211
+#: ../src/gnome-cmd-con-device.cc:215
 msgid "Unknown Error"
 msgstr "མ་ཤེས་པའི་འཛོལ་བ།"
 
-#: ../src/gnome-cmd-con-device.cc:418
+#: ../src/gnome-cmd-con-device.cc:403
 #, c-format
 msgid "Mounting %s"
 msgstr "སྦྱར་བརྩེགས་འབད་དོ། %s"
 
-#: ../src/gnome-cmd-con-device.cc:435
+#: ../src/gnome-cmd-con-device.cc:419
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "ལུ་འགྱོ།: %s (%s)"
 
-#: ../src/gnome-cmd-con-device.cc:436
+#: ../src/gnome-cmd-con-device.cc:420
 #, c-format
 msgid "Mount: %s"
 msgstr "སྦྱར་བརྩེགས།: %s"
 
-#: ../src/gnome-cmd-con-device.cc:437
+#: ../src/gnome-cmd-con-device.cc:421
 #, c-format
 msgid "Unmount: %s"
 msgstr "བརྩེགས་བཤོལ།: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:283
+#: ../src/gnome-cmd-con-dialog.cc:210
+msgid "You must enter a name for the server"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:210
+msgid "Please enter a name and try again."
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:225
+#, c-format
+msgid "\"%s\" is not a valid location"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:226
+msgid "Please check the spelling and try again."
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:331
+#, fuzzy
+msgid "_Alias:"
+msgstr "མིང་གཞན།:"
+
+#: ../src/gnome-cmd-con-dialog.cc:335
+#, fuzzy
+msgid "_Location (URI):"
+msgstr "གནས་ཁོངས-ཡན་ལག"
+
+#: ../src/gnome-cmd-con-dialog.cc:368
+msgid "_Server:"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:379
+#, fuzzy
+msgid "Optional information"
+msgstr "ལམ་འགྲུལ་བརྡ་དོན།"
+
+#: ../src/gnome-cmd-con-dialog.cc:403
+#, fuzzy
+msgid "S_hare:"
+msgstr "རྣོ་ཅན་གྱི་ཚད།"
+
+#: ../src/gnome-cmd-con-dialog.cc:406
+#, fuzzy
+msgid "_Port:"
+msgstr "འདྲེན་ལམ།:"
+
+#. Translators: 'Dir' in the sense of 'Directory'
+#: ../src/gnome-cmd-con-dialog.cc:409
+#, fuzzy
+msgid "_Remote dir:"
+msgstr "ཐག་རིང་གི་སྣོད་ཐོ།:"
+
+#: ../src/gnome-cmd-con-dialog.cc:412
+#, fuzzy
+msgid "_User name:"
+msgstr "ལག་ལེན་པ།:"
+
+#: ../src/gnome-cmd-con-dialog.cc:415
+#, fuzzy
+msgid "_Password:"
+msgstr "ཆོག་ཡིག:"
+
+#: ../src/gnome-cmd-con-dialog.cc:418
+#, fuzzy
+msgid "_Domain name:"
+msgstr "རིམ་ལུགས་འབྲུལ་མཐུད་མིང་།:"
+
+#: ../src/gnome-cmd-con-dialog.cc:455 ../src/gnome-cmd-main-win.cc:1176
+#, fuzzy
+msgid "Remote Server"
+msgstr "ཐག་རིང་གི་སྣོད་ཐོ།:"
+
+#: ../src/gnome-cmd-con-dialog.cc:470
+#, fuzzy
+msgid "Service _type:"
+msgstr "ཞབས་ཏོག་ངོས་འཛིན་པ།"
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../src/gnome-cmd-con-dialog.cc:482
+msgid "FTP (with login)"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:483
+msgid "Public FTP"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:500
+msgid "Use _GNOME Keyring Manager for authentication"
+msgstr ""
+
+#. ?????????
+#. do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
+#. ?????????
+#: ../src/gnome-cmd-con-ftp.cc:301 ../src/gnome-cmd-con-ftp.cc:349
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "ལུ་མཐུད་ལམ་མཐུད་དོ། %s\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:301
+#: ../src/gnome-cmd-con-ftp.cc:374
 #, c-format
 msgid "Go to: %s"
 msgstr "ལུ་འགྱོ།: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:302
+#: ../src/gnome-cmd-con-ftp.cc:375
 #, c-format
 msgid "Connect to: %s"
 msgstr "ལུ་མཐུད་ལམ་མཐུད།: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:303
+#: ../src/gnome-cmd-con-ftp.cc:376
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "ལས་མཐུད་ལམ་བཏོག་ནི།: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:319
+#: ../src/gnome-cmd-con-ftp.cc:390
 #, c-format
 msgid "Creates the FTP connection to %s"
 msgstr "ལུ་ཨེཕ་ཊི་པི་མཐུད་ལམ་འདི་གསར་བསྐྲུན་འབདཝ་ཨིན། %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:320
+#: ../src/gnome-cmd-con-ftp.cc:391
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "ལུ་ཨེཕ་ཊི་པི་མཐུད་ལམ་འདི་རྩ་བསྐྲད་གཏངམ་ཨིན། %s"
@@ -661,7 +734,7 @@ msgstr "ལུ་ཨེཕ་ཊི་པི་མཐུད་ལམ་འདི
 msgid "Home"
 msgstr "ཁྱིམ།"
 
-#: ../src/gnome-cmd-con-home.cc:128
+#: ../src/gnome-cmd-con-home.cc:129
 msgid "Go to: Home"
 msgstr "ལུ་འགྱོ: ཁྱིམ།"
 
@@ -674,32 +747,32 @@ msgstr ""
 msgid "SMB"
 msgstr "ཨེསི་ཨེམ་བི།"
 
-#: ../src/gnome-cmd-con-smb.cc:218
+#: ../src/gnome-cmd-con-smb.cc:219
 msgid "Searching for workgroups and hosts"
 msgstr "ལཱ་སྡེ་ཚུ་དང་ཧོསཊི་དོན་ལུ་འཚོལ་ཞིབ་འབད་དོ།"
 
-#: ../src/gnome-cmd-con-smb.cc:225
+#: ../src/gnome-cmd-con-smb.cc:226
 msgid "Go to: Samba Network"
 msgstr "སམ་བ་ཡོངས་འབྲེལ་: ལུ་འགྱོ།"
 
-#: ../src/gnome-cmd-data.cc:1148 ../src/gnome-cmd-data.cc:1371
-#: ../src/gnome-cmd-data.cc:1372 ../src/gnome-cmd-data.cc:2402
+#: ../src/gnome-cmd-data.cc:1250 ../src/gnome-cmd-data.cc:1475
+#: ../src/gnome-cmd-data.cc:1476 ../src/gnome-cmd-data.cc:2543
 #, c-format
 msgid "link to %s"
 msgstr "ལུ་འབྲེལ་མཐུད་འབད། %s"
 
-#: ../src/gnome-cmd-delete-dialog.cc:111
+#: ../src/gnome-cmd-delete-dialog.cc:88
 #, c-format
 msgid "Deleted %ld of %ld file"
 msgid_plural "Deleted %ld of %ld files"
 msgstr[0] "གི་ %ld ཡིག་སྣོད་ %ld བཏོན་གཏང་ཡོདཔ།"
 msgstr[1] "གི་ %ld ཡིག་སྣོད་ཚུ་ %ld བཏོན་གཏང་ཡོདཔ།"
 
-#: ../src/gnome-cmd-delete-dialog.cc:155
+#: ../src/gnome-cmd-delete-dialog.cc:130
 msgid "Deleting..."
 msgstr "བཏོན་གཏང་དོ།..."
 
-#: ../src/gnome-cmd-delete-dialog.cc:231
+#: ../src/gnome-cmd-delete-dialog.cc:206
 #, c-format
 msgid ""
 "Error while deleting \"%s\"\n"
@@ -710,50 +783,50 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-delete-dialog.cc:234
+#: ../src/gnome-cmd-delete-dialog.cc:209
 msgid "Delete problem"
 msgstr "དཀའ་ངལ་བཏོན་གཏང་།"
 
-#: ../src/gnome-cmd-delete-dialog.cc:235 ../src/gnome-cmd-xfer.cc:174
-#: ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:190
 msgid "Abort"
 msgstr "བར་བཤོལ་གཏང་།"
 
-#: ../src/gnome-cmd-delete-dialog.cc:235
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:190
 msgid "Retry"
 msgstr "སླར་བརྩོལ།"
 
-#: ../src/gnome-cmd-delete-dialog.cc:235
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-xfer.cc:174
-#: ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:190
 msgid "Skip"
 msgstr "གོམ་འགྱོ།"
 
-#: ../src/gnome-cmd-delete-dialog.cc:312
+#: ../src/gnome-cmd-delete-dialog.cc:278
 #, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "ཁྱོད་ཀྱིས་བཏོན་གཏང་ནི་ཨིན་ན \"%s\"?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:317
+#: ../src/gnome-cmd-delete-dialog.cc:282
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "ཁྱོད་ཀྱིས་སེལ་འཐུ་འབད་ཡོད་མི་ཡིག་སྣོད་འདི་བཏོན་གཏང་ནི་ཨིན་ན?"
 msgstr[1] "ཁྱོད་ཀྱིས་སེལ་འཐུ་འབད་ཡོད་མི་ཡིག་སྣོད་ཚུ་%d བཏོན་གཏང་ནི་ཨིན་ན?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:325 ../src/gnome-cmd-main-win.cc:1170
-#: ../src/gnome-cmd-options-dialog.cc:656
+#: ../src/gnome-cmd-delete-dialog.cc:288 ../src/gnome-cmd-main-win.cc:1170
+#: ../src/gnome-cmd-options-dialog.cc:653
 msgid "Delete"
 msgstr "བཏོན་གཏང་།"
 
-#: ../src/gnome-cmd-delete-dialog.cc:326
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-user-actions.cc:666
-#: ../src/utils.cc:511 ../src/utils.cc:540
+#: ../src/gnome-cmd-delete-dialog.cc:289
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
+#: ../src/utils.cc:508 ../src/utils.cc:537
 msgid "Cancel"
 msgstr "ཆ་མེད་གཏང་།"
 
-#: ../src/gnome-cmd-delete-dialog.cc:326 ../src/utils.cc:511
+#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:508
 msgid "OK"
 msgstr "བཏུབ།"
 
@@ -765,7 +838,7 @@ msgstr "ད་ལྟོའི་སྣོད་ཐོ་ཁ་སྐོང་ར
 msgid "Manage bookmarks..."
 msgstr "དེབ་རྟགས་ཚུ་འཛིན་སྐྱོང་འབད།..."
 
-#: ../src/gnome-cmd-dir.cc:574
+#: ../src/gnome-cmd-dir.cc:575
 msgid "Waiting for file list"
 msgstr "ཡིག་སྣོད་ཐོ་ཡིག་དོན་ལུ་བསྒུག་དོ།"
 
@@ -870,7 +943,7 @@ msgstr "རྒྱུ་དངོས་ཚུ།(_P)..."
 msgid "Other..."
 msgstr "གཞན།..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:823
+#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:822
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -878,85 +951,121 @@ msgstr[0] "%s བཱའིཊི།"
 msgstr[1] "%s བཱའིཊི་ཚུ།"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:196
-#: ../src/gnome-cmd-file-props-dialog.cc:370
+#: ../src/gnome-cmd-file-props-dialog.cc:407
 msgid "No default application registered"
 msgstr "སྔོན་སྒྲིག་གློག་རིམ་ཐོ་འགོ་འབད་ཡོད་མི་མེདཔ།"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:323
-#: ../src/gnome-cmd-file-selector.cc:1919
+#: ../src/gnome-cmd-file-props-dialog.cc:333
+#, fuzzy
+msgid "Image:"
+msgstr "གཟུགས་བརྙན།"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:360
+#: ../src/gnome-cmd-file-selector.cc:1918
 msgid "Filename:"
 msgstr "ཡིག་སྣོད་མིང་།:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:334
+#: ../src/gnome-cmd-file-props-dialog.cc:371
 msgid "Symlink target:"
 msgstr "རིམ་ལུགས་འབྲེལ་མཐུད་དམིགས་གཏད།:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:343
+#: ../src/gnome-cmd-file-props-dialog.cc:380
 msgid "Type:"
 msgstr "དབྱེ་བ།:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:350
+#: ../src/gnome-cmd-file-props-dialog.cc:387
 msgid "MIME Type:"
 msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ།:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:359
+#: ../src/gnome-cmd-file-props-dialog.cc:396
 msgid "Opens with:"
 msgstr "དང་གཅིག་ཁར་ཁ་ཕྱེཝ་ཨིན།:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:372
+#: ../src/gnome-cmd-file-props-dialog.cc:409
 msgid "_Change"
 msgstr "བསྒྱུར་བཅོས།(_C)"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:384
+#: ../src/gnome-cmd-file-props-dialog.cc:421
 msgid "Modified:"
 msgstr "ལེགས་བཅོས་འབད་ཡོདཔ།:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:390
+#: ../src/gnome-cmd-file-props-dialog.cc:427
 msgid "Accessed:"
 msgstr "འཛུལ་སྤྱོད་འབད་ཡོདཔ།:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:400
+#: ../src/gnome-cmd-file-props-dialog.cc:437
 msgid "Size:"
 msgstr "ཚད།:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:430
+#: ../src/gnome-cmd-file-props-dialog.cc:480
 msgid "Owner and group"
 msgstr "བདག་པོ་དང་སྡེ་ཚན།"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:440
+#: ../src/gnome-cmd-file-props-dialog.cc:490
 msgid "Access permissions"
 msgstr "གནང་བ་ཚུ་འཛུལ་སྤྱོད་འབད་ནི།"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:550
+#: ../src/gnome-cmd-file-props-dialog.cc:605
 #, fuzzy
 msgid "Type"
 msgstr "དབྱེ་བ།:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:558
+#: ../src/gnome-cmd-file-props-dialog.cc:606
+#, fuzzy
+msgid "Metadata namespace"
+msgstr "མེ་ཊ་གནད་སྡུད་"
+
+#. col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+#. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
+#. g_object_set (renderer,
+#. "foreground-set", TRUE,
+#. "foreground", "DarkGray",
+#. NULL);
+#: ../src/gnome-cmd-file-props-dialog.cc:613
+#: ../src/gnome-cmd-remote-dialog.cc:419 ../src/plugin_manager.cc:420
+#: ../src/tags/gnome-cmd-tags.cc:315
+msgid "Name"
+msgstr "མིང་།"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:614
+#, fuzzy
+msgid "Tag name"
+msgstr "མིང་།"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:616
 #, fuzzy
 msgid "Value"
 msgstr "ཆ་ཚད་"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:560 ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/gnome-cmd-file-props-dialog.cc:617
+msgid "Tag value"
+msgstr ""
+
+#: ../src/gnome-cmd-file-props-dialog.cc:619 ../src/tags/gnome-cmd-tags.cc:159
 #: ../src/tags/gnome-cmd-tags.cc:310 ../src/tags/gnome-cmd-tags.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:508
 msgid "Description"
 msgstr "འགྲེལ་བཤད།"
 
+#: ../src/gnome-cmd-file-props-dialog.cc:620
+#, fuzzy
+msgid "Metadata tag description"
+msgstr "ནང་དོན་སྡེ་ཚན་འགྲེལ་བཤད།"
+
 #. data->thread = 0;
-#: ../src/gnome-cmd-file-props-dialog.cc:615
+#: ../src/gnome-cmd-file-props-dialog.cc:675
 msgid "File Properties"
 msgstr "ཡིག་སྣོད་རྒྱུ་དངོས་ཚུ།"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:638
+#: ../src/gnome-cmd-file-props-dialog.cc:698
 msgid "Properties"
 msgstr "རྒྱུ་དངོས་ཚུ།"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:639 ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/gnome-cmd-file-props-dialog.cc:699 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permissions"
 msgstr "གནང་བ་ཚུ།"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:640
+#: ../src/gnome-cmd-file-props-dialog.cc:700
 msgid "Metadata"
 msgstr "མེ་ཊ་གནད་སྡུད་"
 
@@ -983,156 +1092,75 @@ msgstr "%s རང་དབང་།"
 msgid "Unknown disk usage"
 msgstr "མ་ཤེས་པའི་ཌེཀསི་བེད་སྤྱོད།"
 
-#: ../src/gnome-cmd-file-selector.cc:1123
+#: ../src/gnome-cmd-file-selector.cc:1122
 #, c-format
-msgid "List failed: %s\n"
+msgid "Listing failed: %s\n"
 msgstr "ཐོ་ཡིག་འཐུས་ཤོར་ཡོདཔ།: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1682
+#: ../src/gnome-cmd-file-selector.cc:1681
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "མཐུད་ལམ་མཐུད་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ།: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1857
+#: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
 msgstr "ཡིག་སྣོད་མིང་བཙུགས་མེདཔ།"
 
-#: ../src/gnome-cmd-file-selector.cc:1891
+#: ../src/gnome-cmd-file-selector.cc:1890
 msgid "No filename given"
 msgstr "ཡིག་སྣོད་མིང་གྲ་སྒྲིག་མེདཔ།"
 
-#: ../src/gnome-cmd-file-selector.cc:1922
+#: ../src/gnome-cmd-file-selector.cc:1921
 msgid "New Text File"
 msgstr "ཚིག་ཡིག་ཡིག་སྣོད་གསརཔ།"
 
-#: ../src/gnome-cmd-file-selector.cc:2080
+#: ../src/gnome-cmd-file-selector.cc:2079
 msgid "Symlink name:"
 msgstr "རིམ་ལུགས་འབྲུལ་མཐུད་མིང་།:"
 
-#: ../src/gnome-cmd-file-selector.cc:2086
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-user-actions.cc:666
+#: ../src/gnome-cmd-file-selector.cc:2085
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
 msgid "Create Symbolic Link"
 msgstr "བརྡ་མཚོན་པའི་འབྲེལ་ལམ་གསར་བསྐྲུན་འབད།"
 
-#: ../src/gnome-cmd-file-selector.cc:2132
-#: ../src/gnome-cmd-options-dialog.cc:678
-#: ../src/gnome-cmd-options-dialog.cc:698
+#: ../src/gnome-cmd-file-selector.cc:2131
+#: ../src/gnome-cmd-options-dialog.cc:675
+#: ../src/gnome-cmd-options-dialog.cc:695
 msgid "Skip all"
 msgstr "ཆ་མཉམ་གོམ་འགྱོ།"
 
-#: ../src/gnome-cmd-file-selector.cc:2204
+#: ../src/gnome-cmd-file-selector.cc:2203
 msgid "Filter:"
 msgstr "ཚགས་མ།:"
 
-#: ../src/gnome-cmd-file.cc:587
+#: ../src/gnome-cmd-file.cc:586
 msgid "Unknown file type"
 msgstr "མ་ཤེས་པའི་ཡིག་སྣོད་དབྱེ་བ།"
 
-#: ../src/gnome-cmd-file.cc:588
+#: ../src/gnome-cmd-file.cc:587
 msgid "Regular file"
 msgstr "དུས་རྒྱུན་ཡིག་སྣོད།"
 
 #: ../src/gnome-cmd-file.cc:589
-msgid "Directory"
-msgstr "སྣོད་ཐོ།"
-
-#: ../src/gnome-cmd-file.cc:590
 msgid "FIFO"
 msgstr "ཨེཕ་ཨའི་ཨེཕ་ཨོ།"
 
-#: ../src/gnome-cmd-file.cc:591
+#: ../src/gnome-cmd-file.cc:590
 msgid "UNIX Socket"
 msgstr "ཡུ་ཨེན་ཨའི་ཨེགསི་སོ་ཀེཊི།"
 
-#: ../src/gnome-cmd-file.cc:592
+#: ../src/gnome-cmd-file.cc:591
 msgid "Character device"
 msgstr "ཡིག་འབྲུ་ཐབས་འཕྲུལ།"
 
-#: ../src/gnome-cmd-file.cc:593
+#: ../src/gnome-cmd-file.cc:592
 msgid "Block device"
 msgstr "ཐབས་འཕྲུལ་འགག"
 
-#: ../src/gnome-cmd-file.cc:594
+#: ../src/gnome-cmd-file.cc:593
 msgid "Symbolic link"
 msgstr "བརྡ་མཚོན་པའི་འབྲེལ་མཐུད།"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:161
-msgid "No alias specified"
-msgstr "མིང་གཞན་གསལ་བཀོད་འབད་མེདཔ།"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:164
-msgid "No host specified"
-msgstr "ཧོསཊི་གསལ་བཀོད་འབད་མེདཔ།"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:167
-#, c-format
-msgid "Invalid port number: %s"
-msgstr "ནུས་མེད་འདྲེན་ལམ་ཨང་།: %s"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-options-dialog.cc:1535
-msgid "Alias:"
-msgstr "མིང་གཞན།:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "Host:"
-msgstr "ཧོསཊི།:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "Port:"
-msgstr "འདྲེན་ལམ།:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "User:"
-msgstr "ལག་ལེན་པ།:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "Remote Dir:"
-msgstr "ཐག་རིང་གི་སྣོད་ཐོ།:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:239
-#, fuzzy
-msgid "New Remote Connection"
-msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་གསརཔ།"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:258
-#, fuzzy
-msgid "Edit Remote Connection"
-msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་ཞུན་དག་འབད།"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:285
-msgid "No server selected"
-msgstr "སར་བར་སེལ་འཐུ་འབད་ཡོད་མི་མེདཔ།"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:388 ../src/gnome-cmd-main-win.cc:1176
-#, fuzzy
-msgid "Remote Server"
-msgstr "ཐག་རིང་གི་སྣོད་ཐོ།:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:393
-msgid "Connections"
-msgstr "མཐུད་ལམ་ཚུ།"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:413 ../src/gnome-cmd-options-dialog.cc:1694
-msgid "Alias"
-msgstr "མིང་གཞན།"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:418 ../src/gnome-cmd-list-popmenu.cc:121
-msgid "_New..."
-msgstr "གསརཔ།(_N)..."
-
-#: ../src/gnome-cmd-ftp-dialog.cc:432
-msgid "Anonymous password:"
-msgstr "མིང་མེད་ཆོག་ཡིག:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:440
-msgid "Connect"
-msgstr "མཐུད་ལམ་མཐུད།"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:530
-#, fuzzy
-msgid "New Connection"
-msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་གསརཔ།"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1141,6 +1169,10 @@ msgstr "སྣོད་ཐོ།(_D)"
 #: ../src/gnome-cmd-list-popmenu.cc:115
 msgid "_Text File"
 msgstr "ཚིག་ཡིག་ཡིག་སྣོད།(_T)"
+
+#: ../src/gnome-cmd-list-popmenu.cc:121
+msgid "_New..."
+msgstr "གསརཔ།(_N)..."
 
 #: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:556
 msgid "_Paste"
@@ -1300,7 +1332,7 @@ msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་གསརཔ།"
 msgid "_Contents"
 msgstr "ནང་དོན་ཚུ།(_C)"
 
-#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:995
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:923
 msgid "_Keyboard Shortcuts"
 msgstr "ལྡེ་སྒྲོམ་མགྱོགས་ཐབས་ཚུ།(_K)"
 
@@ -1312,26 +1344,29 @@ msgstr "ཝེབ་འདི་གུ་ཇི་ནོམ་གཙོ་དཔ
 msgid "Report a _Problem"
 msgstr "དཀའ་ངལ་ཅིག་སྙན་ཞུ།(_P)"
 
-#: ../src/gnome-cmd-main-menu.cc:756 ../src/libgviewer/viewer-window.cc:1002
-#: ../src/plugin_manager.cc:436
+#: ../src/gnome-cmd-main-menu.cc:756 ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "སྐོར་ལས།(_A)"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:1015
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:935
 msgid "_File"
 msgstr "ཡིག་སྣོད།(_F)"
+
+#: ../src/gnome-cmd-main-menu.cc:782
+msgid "_Edit"
+msgstr "ཞུན་དག་འབད།(_E)"
 
 #: ../src/gnome-cmd-main-menu.cc:786
 msgid "_Mark"
 msgstr "རྟགས།(_M)"
 
-#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:1018
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:938
 msgid "_View"
 msgstr "སྟོན།(_V)"
 
-#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:1029
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:949
 msgid "_Settings"
 msgstr "སྒྲིག་སྟངས་ཚུ།(_S)"
 
@@ -1347,7 +1382,7 @@ msgstr "དེབ་རྟགས་ཚུ།(_B)"
 msgid "_Plugins"
 msgstr "པ་ལག་ཨིནསི།(_P)"
 
-#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:1034
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:954
 msgid "_Help"
 msgstr "གྲོགས་རམ།(_H)"
 
@@ -1507,412 +1542,443 @@ msgstr "སྣོད་ཐོ་གདམ་ཁ་ཚུ།"
 msgid "Directory cache size"
 msgstr "སྣོད་ཐོ་འདྲ་མཛོད་ཚད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:204
+#: ../src/gnome-cmd-options-dialog.cc:203
 msgid "Size display mode"
 msgstr "ཚད་བཀྲམ་སྟོན་ཐབས་ལམ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:207
+#: ../src/gnome-cmd-options-dialog.cc:206
 msgid "Powered"
 msgstr "ནུས་ཤུགས་ཡོདཔ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:212
+#: ../src/gnome-cmd-options-dialog.cc:211
 msgid "<locale>"
 msgstr "<locale>"
 
-#: ../src/gnome-cmd-options-dialog.cc:217
+#: ../src/gnome-cmd-options-dialog.cc:216
 msgid "Grouped"
 msgstr "སྡེ་ཚན་བཟོ་ཡོདཔ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:222
+#: ../src/gnome-cmd-options-dialog.cc:221
 msgid "Plain"
 msgstr "ཉག་རྐྱང་།"
 
-#: ../src/gnome-cmd-options-dialog.cc:232
+#: ../src/gnome-cmd-options-dialog.cc:231
 msgid "Permission display mode"
 msgstr "གནང་བ་བཀྲམ་སྟོན་ཐབས་ལམ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:235
+#: ../src/gnome-cmd-options-dialog.cc:234
 msgid "Text (rw-r--r--)"
 msgstr "ཚིག་ཡིག་  (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.cc:240
+#: ../src/gnome-cmd-options-dialog.cc:239
 msgid "Number (644)"
 msgstr "ཨང་།(༦༤༤)"
 
-#: ../src/gnome-cmd-options-dialog.cc:250
+#: ../src/gnome-cmd-options-dialog.cc:249
 msgid "Date format"
 msgstr "ཚེས་གྲངས་རྩ་སྒྲིག"
 
-#: ../src/gnome-cmd-options-dialog.cc:253
+#: ../src/gnome-cmd-options-dialog.cc:252
 msgid "Format:"
 msgstr "རྩ་སྒྲིག:"
 
-#: ../src/gnome-cmd-options-dialog.cc:261
+#: ../src/gnome-cmd-options-dialog.cc:260
 msgid "_Test"
 msgstr "བརྟག་ཞིབ།(_T)"
 
-#: ../src/gnome-cmd-options-dialog.cc:264
+#: ../src/gnome-cmd-options-dialog.cc:263
 msgid "Test result:"
 msgstr "བརྟག་ཞིབ་འགྲུབ་འབྲས།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:273
+#: ../src/gnome-cmd-options-dialog.cc:272
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
 msgstr ""
 "རྩ་སྒྲིག་ཡིག་རྒྱུན་གུ་གཞི་སྒྲིག་འབད་ནི་ལུ་གྲོགས་རམ་དོན་ལུ་\"strftime\"དོན་ལུ་ལག་དེབ་ཤོག་ལེབ་འདི་བལྟ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:393
+#: ../src/gnome-cmd-options-dialog.cc:391
 msgid "Edit Colors..."
 msgstr "ཚོས་གཞི་ཚུ་ཞུན་དག་འབད།..."
 
-#: ../src/gnome-cmd-options-dialog.cc:400
+#: ../src/gnome-cmd-options-dialog.cc:398
 msgid "Colors"
 msgstr "ཚོས་གཞི་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:437
+#: ../src/gnome-cmd-options-dialog.cc:435
 msgid "Foreground"
 msgstr "གདོང་གཞི།"
 
-#: ../src/gnome-cmd-options-dialog.cc:439
+#: ../src/gnome-cmd-options-dialog.cc:437
 msgid "Background"
 msgstr "རྒྱབ་གཞི།"
 
-#: ../src/gnome-cmd-options-dialog.cc:441
+#: ../src/gnome-cmd-options-dialog.cc:439
 msgid "Default:"
 msgstr "སྔོན་སྒྲིག:"
 
-#: ../src/gnome-cmd-options-dialog.cc:443
+#: ../src/gnome-cmd-options-dialog.cc:441
 msgid "Selected file:"
 msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཡིག་སྣོད།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:445
+#: ../src/gnome-cmd-options-dialog.cc:443
 msgid "Cursor:"
 msgstr "འོད་རྟགས།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:462
+#: ../src/gnome-cmd-options-dialog.cc:460
 msgid "With filename"
 msgstr "ཡིག་སྣོད་མིང་དང་གཅིག་ཁར།"
 
-#: ../src/gnome-cmd-options-dialog.cc:463
+#: ../src/gnome-cmd-options-dialog.cc:461
 msgid "In separate column"
 msgstr "སོ་སོ་་ཀེར་ཐིག་ནང་།"
 
-#: ../src/gnome-cmd-options-dialog.cc:464
+#: ../src/gnome-cmd-options-dialog.cc:462
 msgid "In both columns"
 msgstr "ཀེར་ཐིག་གཉིས་ཆ་རང་ནང་།"
 
-#: ../src/gnome-cmd-options-dialog.cc:468
+#: ../src/gnome-cmd-options-dialog.cc:466
 msgid "No icons"
 msgstr "ངོས་དཔར་ཚུ་མེད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:469
+#: ../src/gnome-cmd-options-dialog.cc:467
 msgid "File type icons"
 msgstr "ཡིག་སྣོད་དབྱེ་བའི་ངོས་དཔར་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:470
+#: ../src/gnome-cmd-options-dialog.cc:468
 msgid "MIME icons"
 msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་ངོས་དཔར་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:474
+#: ../src/gnome-cmd-options-dialog.cc:472
 msgid "Respect theme colors"
 msgstr "བརྗོད་དོན་ཚོས་གཞི་ཚུ་བརྩི་བཀུར་འབད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:475
+#: ../src/gnome-cmd-options-dialog.cc:473
 msgid "Modern"
 msgstr "དེང་སང་།"
 
-#: ../src/gnome-cmd-options-dialog.cc:476
+#: ../src/gnome-cmd-options-dialog.cc:474
 msgid "Fusion"
 msgstr "གཅིག་སྡུད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:477
+#: ../src/gnome-cmd-options-dialog.cc:475
 msgid "Classic"
 msgstr "སྔོན་སྲོལ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:478
+#: ../src/gnome-cmd-options-dialog.cc:476
 msgid "Deep blue"
 msgstr "སྔོ་ནག"
 
-#: ../src/gnome-cmd-options-dialog.cc:479
+#: ../src/gnome-cmd-options-dialog.cc:477
 msgid "Custom"
 msgstr "སྲོལ་སྒྲིག"
 
-#: ../src/gnome-cmd-options-dialog.cc:495
+#: ../src/gnome-cmd-options-dialog.cc:493
 msgid "File panes"
 msgstr "ཡིག་སྣོད་པེན་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:506
+#: ../src/gnome-cmd-options-dialog.cc:504
 msgid "Font:"
 msgstr "ཡིག་གཟུགས།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:508
+#: ../src/gnome-cmd-options-dialog.cc:506
 msgid "Row height:"
 msgstr "གྱལ་མཐོ་ཚད།:"
 
 #. File extensions
-#: ../src/gnome-cmd-options-dialog.cc:512
+#: ../src/gnome-cmd-options-dialog.cc:510
 msgid "Display file extensions:"
 msgstr "ཡིག་སྣོད་རྒྱ་བསྐྱེད་ཚུ་བཀྲམ་བཏོན་འབད།:"
 
 #. Graphical mode
-#: ../src/gnome-cmd-options-dialog.cc:520
+#: ../src/gnome-cmd-options-dialog.cc:518
 msgid "Graphical mode:"
 msgstr "ཚད་རིས་ཀྱི་ཐབས་ལམ།:"
 
 #. Color scheme
-#: ../src/gnome-cmd-options-dialog.cc:529
+#: ../src/gnome-cmd-options-dialog.cc:527
 msgid "Color scheme:"
 msgstr "ཚོས་གཞི་འཆར་ལས།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:541
+#: ../src/gnome-cmd-options-dialog.cc:539
 msgid "Edit..."
 msgstr "ཞུན་དག་འབད།..."
 
 #. LS_COLORS
-#: ../src/gnome-cmd-options-dialog.cc:548
+#: ../src/gnome-cmd-options-dialog.cc:546
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "ཨེལ་ཨེསི་ཚོས་གཞི་མཐའ་འཁོར་འགྱུར་ཅན་འདི་ལུ་འཁྲིལ་ཏེ་ཡིག་སྣོད་ཚུའི་ཚོས་གཞི་བཟོ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:558
+#: ../src/gnome-cmd-options-dialog.cc:556
 msgid "MIME icon settings"
 msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་ངོས་དཔར་སྒྲིག་སྟངས་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:571
+#: ../src/gnome-cmd-options-dialog.cc:569
 msgid "Icon size:"
 msgstr "ངོས་དཔར་ཚད།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:573
+#: ../src/gnome-cmd-options-dialog.cc:571
 msgid "Scaling quality:"
 msgstr "ཚད་རྟགས་སྤུས་ཚད།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:575
+#: ../src/gnome-cmd-options-dialog.cc:573
 msgid "Theme icon directory:"
 msgstr "བརྗོད་དོན་ངོས་དཔར་སྣོད་ཐོ།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:577
+#: ../src/gnome-cmd-options-dialog.cc:575
 msgid "Document icon directory:"
 msgstr "ཡིག་ཆ་ངོས་དཔར་སྣོད་ཐོ།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:659
+#: ../src/gnome-cmd-options-dialog.cc:656
 msgid "Confirm before delete"
 msgstr "བཏོན་གཏང་ནིའི་ཧེ་མ་ངེས་དཔྱད་འབད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:667
+#: ../src/gnome-cmd-options-dialog.cc:664
 msgid "Copy overwrite"
 msgstr "ཚབ་སྲུང་འབད་ནི་འདྲ་བཤུས་འབད།"
 
 #.
 #. * Create prepare copy specific widgets
 #.
-#: ../src/gnome-cmd-options-dialog.cc:670
-#: ../src/gnome-cmd-options-dialog.cc:690
+#: ../src/gnome-cmd-options-dialog.cc:667
+#: ../src/gnome-cmd-options-dialog.cc:687
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:94
 #: ../src/gnome-cmd-prepare-move-dialog.cc:89
 msgid "Silently"
 msgstr "སྒྲ་མེད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:674
-#: ../src/gnome-cmd-options-dialog.cc:694
+#: ../src/gnome-cmd-options-dialog.cc:671
+#: ../src/gnome-cmd-options-dialog.cc:691
 msgid "Query first"
 msgstr "དང་པ་འདྲི་དཔྱད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:687
+#: ../src/gnome-cmd-options-dialog.cc:684
 msgid "Move overwrite"
 msgstr "འཚབ་སྲུང་འབད་ནི་སྤོ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:775
+#: ../src/gnome-cmd-options-dialog.cc:772
 msgid "Filetypes to hide"
 msgstr "ཡིག་སྣོད་དབྱེ་བ་ཚུ་གསང་ནི་ལུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:778
+#: ../src/gnome-cmd-options-dialog.cc:775
 msgid "Unknown"
 msgstr "མ་ཤེསཔ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:783
+#: ../src/gnome-cmd-options-dialog.cc:780
 msgid "Regular files"
 msgstr "དུས་རྒྱུན་ཡིག་སྣོད་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:788
+#: ../src/gnome-cmd-options-dialog.cc:785
 msgid "Directories"
 msgstr "སྣོད་ཐོ་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:793
+#: ../src/gnome-cmd-options-dialog.cc:790
 msgid "Fifo files"
 msgstr "ཕི་ཕོ་ཡིག་སྣོད་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:798
+#: ../src/gnome-cmd-options-dialog.cc:795
 msgid "Socket files"
 msgstr "སོ་ཀེཊི་ཡིག་སྣོད་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:803
+#: ../src/gnome-cmd-options-dialog.cc:800
 msgid "Character devices"
 msgstr "ཡིག་འབྲུ་ཐབས་འཕྲུལ་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:808
+#: ../src/gnome-cmd-options-dialog.cc:805
 msgid "Block devices"
 msgstr "ཐབས་འཕྲུལ་ཚུ་འགག"
 
-#: ../src/gnome-cmd-options-dialog.cc:816
+#: ../src/gnome-cmd-options-dialog.cc:813
 msgid "Also hide"
 msgstr "ཡང་གསང་།"
 
-#: ../src/gnome-cmd-options-dialog.cc:819
+#: ../src/gnome-cmd-options-dialog.cc:816
 msgid "Hidden files"
 msgstr "གསང་བའི་ཡིག་སྣོད་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:824
-#: ../src/gnome-cmd-options-dialog.cc:837
+#: ../src/gnome-cmd-options-dialog.cc:821
+#: ../src/gnome-cmd-options-dialog.cc:834
 msgid "Backup files"
 msgstr "རྒྱབ་ཐག་ཡིག་སྣོད་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:829
+#: ../src/gnome-cmd-options-dialog.cc:826
 msgid "Symlinks"
 msgstr "བརྡ་མཚོན་པའི་འབྲེལ་མཐུད་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1104
+#: ../src/gnome-cmd-options-dialog.cc:933
+#, fuzzy
+msgid "Authentication"
+msgstr "ཕྱོགས།"
+
+#: ../src/gnome-cmd-options-dialog.cc:936
+msgid "Use GNOME Keyring Manager for authentication"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:944
+#, fuzzy
+msgid "Anonymous FTP access"
+msgstr "མིང་མེད་ཆོག་ཡིག:"
+
+#: ../src/gnome-cmd-options-dialog.cc:947
+msgid "Password:"
+msgstr "ཆོག་ཡིག:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1157
 msgid "Label:"
 msgstr "ཁ་ཡིག:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1106
+#: ../src/gnome-cmd-options-dialog.cc:1159
 msgid "Command:"
 msgstr "བརྡ་བཀོད།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1108
-#: ../src/gnome-cmd-options-dialog.cc:1541
+#: ../src/gnome-cmd-options-dialog.cc:1161
+#: ../src/gnome-cmd-options-dialog.cc:1594
 msgid "Icon:"
 msgstr "ངོས་དཔར།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1129
+#: ../src/gnome-cmd-options-dialog.cc:1182
 msgid "Can handle multiple files"
 msgstr "སྣ་མང་ཡིག་སྣོད་ཚུ་ལེགས་སྐྱོང་འཐབ་ཚུགས།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1133
+#: ../src/gnome-cmd-options-dialog.cc:1186
 msgid "Can handle URIs"
 msgstr "ཡུ་ཨར་ཨེལ་ཚུ་ལེགས་སྐྱོང་འཐབ་ཚུགས།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1137
+#: ../src/gnome-cmd-options-dialog.cc:1190
 msgid "Requires terminal"
 msgstr "ཊར་མི་ནཱལ་དགོས་མཁོ་ཡོདཔ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1144
+#: ../src/gnome-cmd-options-dialog.cc:1197
 msgid "Show for"
 msgstr "དོན་ལུ་སྟོན།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1153
+#: ../src/gnome-cmd-options-dialog.cc:1206
 msgid "All directories"
 msgstr "སྣོད་ཐོ་ཆ་མཉམ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1159
+#: ../src/gnome-cmd-options-dialog.cc:1212
 msgid "All directories and files"
 msgstr "སྣོད་ཐོ་ཆ་མཉམ་དང་ཡིག་སྣོད་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1165
+#: ../src/gnome-cmd-options-dialog.cc:1218
 msgid "Some files"
 msgstr "ཡིག་སྣོད་ལ་ལོ་ཅིག"
 
-#: ../src/gnome-cmd-options-dialog.cc:1176
+#: ../src/gnome-cmd-options-dialog.cc:1229
 msgid "File patterns"
 msgstr "ཡིག་སྣོད་དཔེ་གཞི་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1201
+#: ../src/gnome-cmd-options-dialog.cc:1254
 msgid "New Application"
 msgstr "གློག་རིམ་གསརཔ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1212
+#: ../src/gnome-cmd-options-dialog.cc:1265
 msgid "Edit Application"
 msgstr "གློག་རིམ་ཞུན་དག་འབད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1300
+#: ../src/gnome-cmd-options-dialog.cc:1353
 msgid "Always download remote files before opening in external programs"
 msgstr "ཕྱིའི་ལས་རིམ་ཚུ་ནང་ཁ་ཕྱེ་བའི་ཧེ་མ་ཨ་རྟག་རང་ཐག་རིང་གི་ཡིག་སྣོད་ཚུ་ཕབ་ལེན་འབད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1302
+#: ../src/gnome-cmd-options-dialog.cc:1355
 msgid "MIME applications"
 msgstr "ཨེམ་ཨའི་ཨེམ་ཨི་གློག་རིམ་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1306
+#: ../src/gnome-cmd-options-dialog.cc:1359
 msgid "Standard programs"
 msgstr "ཚད་ལྡན་ལས་རིམ་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1309
+#: ../src/gnome-cmd-options-dialog.cc:1362
 msgid "Viewer:"
 msgstr "བལྟ་མི།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1311
+#: ../src/gnome-cmd-options-dialog.cc:1364
 msgid "Editor:"
 msgstr "ཞུན་དག་པ།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1313
+#: ../src/gnome-cmd-options-dialog.cc:1366
 msgid "Differ:"
 msgstr "སོ་སོ་འགྱུར་ནི།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1315
+#: ../src/gnome-cmd-options-dialog.cc:1368
 msgid "Terminal:"
 msgstr "ཊར་མི་ནཱལ།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1321
+#: ../src/gnome-cmd-options-dialog.cc:1374
 msgid "Use Internal Viewer"
 msgstr "བར་མཚམས་མཐོང་བྱེད་ལག་ལེན་འཐབ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1336
+#: ../src/gnome-cmd-options-dialog.cc:1389
 msgid "Other favorite apps"
 msgstr "གཞན་དགའ་མི་ཨེཔསི།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1343
+#: ../src/gnome-cmd-options-dialog.cc:1396
 msgid "Label"
 msgstr "ཁ་ཡིག"
 
-#: ../src/gnome-cmd-options-dialog.cc:1537
+#: ../src/gnome-cmd-options-dialog.cc:1588
+msgid "Alias:"
+msgstr "མིང་གཞན།:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1590
 msgid "Device:"
 msgstr "ཐབས་འཕྲུལ།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1539
+#: ../src/gnome-cmd-options-dialog.cc:1592
 msgid "Mount point:"
 msgstr "སྦྱར་བརྩེགས་འབད་ས།:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1583
+#: ../src/gnome-cmd-options-dialog.cc:1636
 msgid "New Device"
 msgstr "ཐབས་འཕྲུལ་གསརཔ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1596
+#: ../src/gnome-cmd-options-dialog.cc:1649
 msgid "Edit Device"
 msgstr "ཐབས་འཕྲུལ་ཞུན་དག་འབད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1684
-#: ../src/gnome-cmd-options-dialog.cc:1877
+#: ../src/gnome-cmd-options-dialog.cc:1737
+#: ../src/gnome-cmd-options-dialog.cc:1936
 msgid "Devices"
 msgstr "ཐབས་འཕྲུལ་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1724
+#: ../src/gnome-cmd-options-dialog.cc:1747
+msgid "Alias"
+msgstr "མིང་གཞན།"
+
+#: ../src/gnome-cmd-options-dialog.cc:1777
 msgid "Show only the icons"
 msgstr "ངོས་དཔར་ཚུ་རྐྱངམ་ཅིག་སྟོན།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1728
+#: ../src/gnome-cmd-options-dialog.cc:1781
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "སྦྱར་བརྩེགས་འབད་ནི་གོམ་འགྱོ(ཡང་དག་སྦྱར་བརྩེགས་ལག་ལེན་འཐབ་པའི་སྐབས་ཕན་ཐོགས་ཅན་ཨིན།)།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1847
+#: ../src/gnome-cmd-options-dialog.cc:1901
 msgid "General"
 msgstr "ཡོངས་ཁྱབ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1852 ../src/tags/gnome-cmd-tags.cc:311
+#: ../src/gnome-cmd-options-dialog.cc:1906 ../src/tags/gnome-cmd-tags.cc:311
 msgid "Format"
 msgstr "རྩ་སྒྲིག"
 
-#: ../src/gnome-cmd-options-dialog.cc:1857
+#: ../src/gnome-cmd-options-dialog.cc:1911
 msgid "Layout"
 msgstr "སྒྲིག་བཀོད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1862
+#: ../src/gnome-cmd-options-dialog.cc:1916
 msgid "Confirmation"
 msgstr "ངེས་དཔྱད།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1867
+#: ../src/gnome-cmd-options-dialog.cc:1921
 msgid "Filters"
 msgstr "ཚགས་མ་ཚུ།"
 
-#: ../src/gnome-cmd-options-dialog.cc:1872
+#: ../src/gnome-cmd-options-dialog.cc:1926
+#, fuzzy
+msgid "Network"
+msgstr "དེབ་རྟགས་གསརཔ།"
+
+#: ../src/gnome-cmd-options-dialog.cc:1931
 msgid "Programs"
 msgstr "ལས་རིམ་ཚུ།"
 
@@ -1934,7 +2000,7 @@ msgid "Query First"
 msgstr "དང་པ་འདྲི་དཔྱད།"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:171
 msgid "Skip All"
 msgstr "ཆ་མཉམ་གོམ་འགྱོ།"
 
@@ -1988,116 +2054,165 @@ msgstr "པའི་ཐཱོན་ཚད་གཞི་ 'gnomevfs' ('gnome.vfs'
 msgid "Search"
 msgstr "འཚོལ་ཞིབ་འབད་ནི།"
 
-#: ../src/gnome-cmd-search-dialog.cc:184
+#: ../src/gnome-cmd-remote-dialog.cc:214
+msgid "No server selected"
+msgstr "སར་བར་སེལ་འཐུ་འབད་ཡོད་མི་མེདཔ།"
+
+#: ../src/gnome-cmd-remote-dialog.cc:405
+msgid "GNOME authentication manager usage"
+msgstr ""
+
+#: ../src/gnome-cmd-remote-dialog.cc:409
+msgid "Network protocol"
+msgstr ""
+
+#: ../src/gnome-cmd-remote-dialog.cc:420
+#, fuzzy
+msgid "Connection name"
+msgstr "མཐུད་ལམ་ཚུ།"
+
+#: ../src/gnome-cmd-remote-dialog.cc:492
+#, fuzzy
+msgid "Remote Connections"
+msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་གསརཔ།"
+
+#: ../src/gnome-cmd-remote-dialog.cc:498
+msgid "Connections"
+msgstr "མཐུད་ལམ་ཚུ།"
+
+#: ../src/gnome-cmd-remote-dialog.cc:529
+#, fuzzy
+msgid "Anonymous FTP password:"
+msgstr "མིང་མེད་ཆོག་ཡིག:"
+
+#: ../src/gnome-cmd-search-dialog.cc:180
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ། %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:193
+#: ../src/gnome-cmd-search-dialog.cc:189
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "ཡིག་སྣོད་ལས་ལྷག་ནི་ལུ་འཐུས་ཤོར་ཡོདཔ། %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:257
+#: ../src/gnome-cmd-search-dialog.cc:250
 #, c-format
 msgid "Searching in: %s"
 msgstr "ནང་འཚོལ་ཞིབ་འབད་དོ།: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:406
+#: ../src/gnome-cmd-search-dialog.cc:399
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
 msgstr[0] "ང་བཀག་ཡོད་པའི་ཧེ་མ་མཐུན་སྒྲིག %d འཚོལ་ཐོབ་ཡོདཔ།"
 msgstr[1] "ང་བཀག་ཡོད་པའི་ཧེ་མ་མཐུན་སྒྲིག་ཚུ་ %d འཚོལ་ཐོབ་ཡོདཔ།"
 
-#: ../src/gnome-cmd-search-dialog.cc:413
+#: ../src/gnome-cmd-search-dialog.cc:406
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "མཐུན་སྒྲིག་ %d ཐོབ་ཡོདཔ།"
 msgstr[1] "མཐུན་སྒྲིག་ཚུ་ %d ཐོབ་ཡོདཔ།"
 
-#: ../src/gnome-cmd-search-dialog.cc:725
+#: ../src/gnome-cmd-search-dialog.cc:715
 msgid "Search..."
 msgstr "འཚོལ་ཞིབ་འབད།..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:738
+#: ../src/gnome-cmd-search-dialog.cc:728
 msgid "Search for: "
 msgstr "དོན་ལུ་འཚོལ་ཞིབ་འབད།: "
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:750
+#: ../src/gnome-cmd-search-dialog.cc:740
 msgid "Search in: "
 msgstr "ནང་འཚོལ་ཞིབ་འབད།: "
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:764
+#: ../src/gnome-cmd-search-dialog.cc:754
 msgid "Find text: "
 msgstr "ཚིག་ཡིག་འཚོལ།: "
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:778
+#: ../src/gnome-cmd-search-dialog.cc:768
 msgid "Search Recursively"
 msgstr "ལོག་རིམ་འཚོལ་ཞིབ་འབད།"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:785 ../src/tags/gnome-cmd-tags.cc:147
+#: ../src/gnome-cmd-search-dialog.cc:775 ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
 msgstr "ཡི་གུ་ཆེ་ཆུང་གི་ཉེན་ཁ།"
 
-#: ../src/gnome-cmd-search-dialog.cc:796
+#: ../src/gnome-cmd-search-dialog.cc:786
 msgid "Goto"
 msgstr "ལུ་འགྱོ།"
+
+#: ../src/gnome-cmd-smb-auth.cc:33
+msgid "Enter password"
+msgstr "ཆོག་ཡིག་ཐོ་བཀོད་འབད་"
+
+#: ../src/gnome-cmd-smb-auth.cc:34
+msgid ""
+"Problem: access not permitted\n"
+"\n"
+"please supply user credentials\n"
+"\n"
+"Remember: wrong credentials may lead to account locking"
+msgstr ""
+"དཀའ་ངལ: འཛུལ་སྤྱོད་མི་ཆོག་\n"
+"\n"
+"ལག་ལེན་པའི་ངོ་སྤྲོད་བཀྲམ་སྤེལ་འབད་གནང་\n"
+"\n"
+"སེམས་ཁར་བཞག: ངོ་སྤྲོད་འཛོལ་བ་དེ་གིས་རྩིས་ཐོའི་ལྡེ་མིག་ལུ་འགོ་ཁྲིད་འོང་"
 
 #: ../src/gnome-cmd-smb-path.cc:321
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
 msgstr "ཧོསཊི་ཡང་ན་ལཱ་སྡེ་མིང་བཏགས་ཡོད་མི་ཅིག་འཚོལ་མ་ཐོབ། %s\n"
 
-#: ../src/gnome-cmd-user-actions.cc:69
+#: ../src/gnome-cmd-user-actions.cc:70
 msgid "No file selected"
 msgstr "ཡིག་སྣོད་སེལ་འཐུ་མེདཔ།"
 
-#: ../src/gnome-cmd-user-actions.cc:661
+#: ../src/gnome-cmd-user-actions.cc:668
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "ནང་ཡིག་སྣོད་ཚུ་ %i གི་བརྡ་མཚོན་པའི་འབྲེལ་མཐུད་ཚུ་གསར་བསྐྲུན་འབད་ནི་ཨིན་ན %s?"
 msgstr[1] "ནང་ཡིག་སྣོད་ཚུ་ %i གི་བརྡ་མཚོན་པའི་འབྲེལ་མཐུད་ཚུ་གསར་བསྐྲུན་འབད་ནི་ཨིན་ན %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:666
+#: ../src/gnome-cmd-user-actions.cc:673
 msgid "Create"
 msgstr "གསར་བསྐྲུན་འབད་ནི།"
 
-#: ../src/gnome-cmd-user-actions.cc:714 ../src/gnome-cmd-user-actions.cc:773
-#: ../src/gnome-cmd-user-actions.cc:810
+#: ../src/gnome-cmd-user-actions.cc:721 ../src/gnome-cmd-user-actions.cc:780
+#: ../src/gnome-cmd-user-actions.cc:817
 #, c-format
 msgid "running `%s'\n"
 msgstr "གཡོག་བཀོལ་དོ་  `%s'\n"
 
-#: ../src/gnome-cmd-user-actions.cc:731 ../src/gnome-cmd-user-actions.cc:748
-#: ../src/gnome-cmd-user-actions.cc:788
+#: ../src/gnome-cmd-user-actions.cc:738 ../src/gnome-cmd-user-actions.cc:755
+#: ../src/gnome-cmd-user-actions.cc:795
 msgid "Operation not supported on remote file systems"
 msgstr "ཐག་རིང་ཡིག་སྣོད་རིམ་ལུགས་གུར་ བཀོལ་སྤྱོད་དེ་རྒྱབ་སྐྱོར་འབདེ་མེདཔ་"
 
-#: ../src/gnome-cmd-user-actions.cc:763
+#: ../src/gnome-cmd-user-actions.cc:770
 msgid "Too many selected files"
 msgstr "སེལ་འཐུ་འབད་ཡོད་པའི་ ཡིག་སྣོད་ལེ་ཤ་"
 
-#: ../src/gnome-cmd-user-actions.cc:1310
+#: ../src/gnome-cmd-user-actions.cc:1317
 msgid "There was an error opening home page."
 msgstr "ཁྱིམ་ཤོག་ལེབ་ཁ་ཕྱེ་བའི་འཛོལ་བ་འབྱུང་ཡོདཔ།"
 
-#: ../src/gnome-cmd-user-actions.cc:1319
+#: ../src/gnome-cmd-user-actions.cc:1326
 msgid "There was an error reporting problem."
 msgstr "དཀའ་ངལ་སྙན་ཞུ་འབད་བའི་འཛོལ་བ་འབྱུང་ཡོདཔ།"
 
-#: ../src/gnome-cmd-user-actions.cc:1340
+#: ../src/gnome-cmd-user-actions.cc:1347
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "ཇི་ནོམ་ཌེཀསི་ཊོཔ་འདི་གི་དོན་ལུ་མགྱོགས་དྲགས་དང་ཡིག་སྣོད་འཛིན་སྐྱོང་ནུས་ཤུགས་ཅན་ཅིག"
 
-#: ../src/gnome-cmd-user-actions.cc:1344
+#: ../src/gnome-cmd-user-actions.cc:1351
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2109,7 +2224,7 @@ msgstr ""
 "འོག་ལུ་ ལེགས་བཅོས་འབད་བཏུབ ; ཡང་ན་ ཆོག་ཐམ་གྱི་ ཐོན་རིམ་ ༢་པ་ ཡང་ན་  (ཁྱོད་རའི་གདམ་ཁའི་"
 "ཐོག་ ) ཤུལ་ལས་ཀྱི་ཐོན་རིམ་གང་རུང་ཅིག།"
 
-#: ../src/gnome-cmd-user-actions.cc:1348
+#: ../src/gnome-cmd-user-actions.cc:1355
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2121,17 +2236,18 @@ msgstr ""
 "སྒྲིག་གི་ བརྡ་སྟོན་འབད་ཡོད་པའི་ ཉེན་ལེན་ཡང་མེནཔ་ཨིན་། རྒྱས་བཤད་ཧེང་བཀལ་གྱི་དོན་ལུ་ ཇི་ཨེན་ཡུ་ ཡོངས་"
 "ཁྱབ་མི་མང་ཆོག་ཐམ་བལྟ།"
 
-#: ../src/gnome-cmd-user-actions.cc:1352
+#: ../src/gnome-cmd-user-actions.cc:1359
+#, fuzzy
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"GNOME Commander; if not, write to the Free Software Foundation, Inc., 59 "
-"Temple Place, Suite 330, Boston, MA  02111-1307  USA"
+"GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
 "ཁྱོད་ཀྱིས་ ཇི་ནོམ་གཙོ་དཔོན་དང་གཅིག་ཁར་ ཇི་ཨེན་ཡུ ཡོངས་ཁྱབ་མི་མང་ཆོག་ཐམ་གྱི་འདྲ་ཤུས་ཅིག་ཐོབ་ཡོད་དགོཔ་"
 "ཨིན་; དེ་མེན་པ་ཅིན་ ; Free Software Foundation, Inc., 59 Temple Place, Suite "
 "330, Boston, MA  02111-1307  USA ལུ་ ཡི་གུ་བྲིས་"
 
-#: ../src/gnome-cmd-user-actions.cc:1369
+#: ../src/gnome-cmd-user-actions.cc:1376
 msgid "translator-credits"
 msgstr "སྐད་བསྒྱུར་པའི་ངོ་བསྟོད་ཚུ།"
 
@@ -2153,7 +2269,7 @@ msgstr "%d%% གི་ %s འདྲ་བཤུས་འབད་ཡོདཔ།
 msgid "%.0f%% copied"
 msgstr "%d%% འདྲ་བཤུས་འབད་ཡོདཔ།"
 
-#: ../src/gnome-cmd-xfer.cc:170
+#: ../src/gnome-cmd-xfer.cc:167
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -2164,15 +2280,15 @@ msgstr ""
 "\n"
 "ཁྱོད་ཀྱིས་ཚབ་སྲུང་འབད་ནི་ཨིན་ན?\n"
 
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-xfer.cc:171
 msgid "Replace"
 msgstr "ཚབ་བཙུགས།"
 
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-xfer.cc:171
 msgid "Replace All"
 msgstr "ཆ་མཉམ་ཚབ་བཙུགས།"
 
-#: ../src/gnome-cmd-xfer.cc:189
+#: ../src/gnome-cmd-xfer.cc:186
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -2183,20 +2299,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-xfer.cc:192
+#: ../src/gnome-cmd-xfer.cc:189
 msgid "Transfer problem"
 msgstr "དཀའ་ངལ་གནས་སོར་་གཏང་།"
 
-#: ../src/gnome-cmd-xfer.cc:232
+#: ../src/gnome-cmd-xfer.cc:229
 msgid "copying..."
 msgstr "འདྲ་བཤུས་འབད་དོ།..."
 
-#: ../src/gnome-cmd-xfer.cc:240
+#: ../src/gnome-cmd-xfer.cc:237
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[གི་ %ld ཡིག་སྣོད %ld] \"%s\""
 
-#: ../src/gnome-cmd-xfer.cc:383
+#: ../src/gnome-cmd-xfer.cc:367
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
@@ -2204,11 +2320,11 @@ msgstr ""
 "སྣོད་ཐོ་ཅིག་འདིའི་ནང་ན་འགྲ་བཤུས་འབད་ནི་འདི་རང་གནས་སྐབས་བྱང་ཉེས་ཨིན།\n"
 "བཀོལ་སྤྱོད་ཧྲིལ་བུམ་ཆ་མེད་གཏང་ཡོདཔ།"
 
-#: ../src/gnome-cmd-xfer.cc:425
+#: ../src/gnome-cmd-xfer.cc:408
 msgid "preparing..."
 msgstr "གྲ་སྒྲིག་འབད་དོ།..."
 
-#: ../src/gnome-cmd-xfer.cc:510
+#: ../src/gnome-cmd-xfer.cc:493
 msgid "downloading to /tmp"
 msgstr " ཊི་ཨེམ་པི་/ལུ་ཕབ་ལེན་འབད་དོ།"
 
@@ -2239,22 +2355,22 @@ msgstr ""
 "པར་ཁྲ་གཞི་བཙུགས་འབད་ཡོད་མི་མངོན་གསལ་འབད་མ་ཚུགསཔ་ལས་ འབྱུང་ཁུངས་སྣོད་ཐོ་ལས་མངོན་གསལ་འབད་ནི་ལུ་"
 "འབད་རྩོལ་འབད་དོ།\n"
 
-#: ../src/libgviewer/search-dlg.cc:314
+#: ../src/libgviewer/search-dlg.cc:312
 msgid "Find"
 msgstr "འཚོལ།"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.cc:344 ../src/libgviewer/viewer-window.cc:793
-#: ../src/libgviewer/viewer-window.cc:1021
+#: ../src/libgviewer/search-dlg.cc:342 ../src/libgviewer/viewer-window.cc:721
+#: ../src/libgviewer/viewer-window.cc:941
 msgid "_Text"
 msgstr "ཚིག་ཡིག(_T)"
 
-#: ../src/libgviewer/search-dlg.cc:346
-msgid "_Hex"
-msgstr "ཧེགསི།(_H)"
+#: ../src/libgviewer/search-dlg.cc:343 ../src/libgviewer/viewer-window.cc:729
+msgid "_Hexadecimal"
+msgstr ""
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.cc:355
+#: ../src/libgviewer/search-dlg.cc:352
 msgid "_Match case"
 msgstr "ཡི་གུ་མཐུན་སྒྲིག་འབད།(_M)"
 
@@ -2267,167 +2383,168 @@ msgstr "འཚོལ་ཞིབ་འབད་དོ།..."
 msgid "Searching for \"%s\""
 msgstr "དོན་ལུ་འཚོལ་ཞིབ་འབད་དོ། \"%s\""
 
-#: ../src/libgviewer/viewer-widget.cc:201
+#: ../src/libgviewer/viewer-widget.cc:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "ཊི་ཀེར་ཐིག་: %lu གི་ %luགནས་ས།: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.cc:205
+#: ../src/libgviewer/viewer-widget.cc:210
 msgid "Wrap"
 msgstr "ལོག་མཚམས།"
 
-#: ../src/libgviewer/viewer-widget.cc:224
-#, c-format
-msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
-msgstr "ཊི་བིཊི་ཚུ་དཔེ་ཚད: %dx%d ཊི་རྒྱས་ཟུམ།: %dགཟུགས་བརྙན་ཚད: %s"
+#: ../src/libgviewer/viewer-widget.cc:237
+msgid "pixel"
+msgid_plural "pixels"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/libgviewer/viewer-widget.cc:226
-msgid "Fit-to-Window"
+#: ../src/libgviewer/viewer-widget.cc:239
+#, fuzzy
+msgid "bit/sample"
+msgid_plural "bits/sample"
+msgstr[0] "དཔེ་ཚད་རེ་རེ་བིཊིསི།"
+msgstr[1] "དཔེ་ཚད་རེ་རེ་བིཊིསི།"
+
+#: ../src/libgviewer/viewer-widget.cc:241
+#, fuzzy
+msgid "(fit to window)"
 msgstr "ཝིནཌོ་-ལུ-་ཚུད་སྒྲིག་འབད།"
 
-#: ../src/libgviewer/viewer-window.cc:191 ../src/utils.cc:1347
-msgid "There was an error displaying help."
-msgstr "གྲོགས་རམ་བཀྲམ་སྟོན་འབད་ནི་འཛོལ་བ་འབྱུང་ཡོདཔ།"
-
-#: ../src/libgviewer/viewer-window.cc:783
+#: ../src/libgviewer/viewer-window.cc:711
 msgid "_Close"
 msgstr "ཁ་བསྡམས།(_C)"
 
-#: ../src/libgviewer/viewer-window.cc:797
+#: ../src/libgviewer/viewer-window.cc:725
 msgid "_Binary"
 msgstr "ཟུང་ལྡན།(_B)"
 
-#: ../src/libgviewer/viewer-window.cc:801
-msgid "_Hex dump"
-msgstr "ཧེགསི་བཀོག་བཞག(_H)"
-
-#: ../src/libgviewer/viewer-window.cc:805
-#: ../src/libgviewer/viewer-window.cc:1026
+#: ../src/libgviewer/viewer-window.cc:733
+#: ../src/libgviewer/viewer-window.cc:946
 msgid "_Image"
 msgstr "གཟུགས་བརྙན།(_I)"
 
-#: ../src/libgviewer/viewer-window.cc:810
+#: ../src/libgviewer/viewer-window.cc:738
 msgid "_Zoom In"
 msgstr "ཕྱིར་རྒྱས་ཟུམ།(_Z)"
 
-#: ../src/libgviewer/viewer-window.cc:814
+#: ../src/libgviewer/viewer-window.cc:742
 msgid "Zoom _Out"
 msgstr "ནང་རྒྱས་ཟུམ།(_O)"
 
-#: ../src/libgviewer/viewer-window.cc:818
+#: ../src/libgviewer/viewer-window.cc:746
 msgid "_Normal Size"
 msgstr "སྤྱིར་བཏང་ཚད།(_N)"
 
-#: ../src/libgviewer/viewer-window.cc:822
+#: ../src/libgviewer/viewer-window.cc:750
 msgid "Best _Fit"
 msgstr "ལེགས་སྒྲིག(_F)"
 
-#: ../src/libgviewer/viewer-window.cc:835
+#: ../src/libgviewer/viewer-window.cc:763
 msgid "_Copy Text Selection"
 msgstr "ཚིག་ཡིག་སེལ་འཐུ་འདྲ་བཤུས་འབད།(_C)"
 
-#: ../src/libgviewer/viewer-window.cc:839
+#: ../src/libgviewer/viewer-window.cc:767
 msgid "Find..."
 msgstr "འཚོལ།..."
 
-#: ../src/libgviewer/viewer-window.cc:843
+#: ../src/libgviewer/viewer-window.cc:771
 msgid "Find Next"
 msgstr "ཤུལ་མམ་འཚོལ།"
 
-#: ../src/libgviewer/viewer-window.cc:847
+#: ../src/libgviewer/viewer-window.cc:775
 msgid "Find Previous"
 msgstr "ཧེ་མམ་གྱི་འཚོལ།"
 
-#: ../src/libgviewer/viewer-window.cc:853
+#: ../src/libgviewer/viewer-window.cc:781
 msgid "_No Parsing (original file)"
 msgstr "མིང་དཔྱད་འབད་ནི་མེད(ཡིག་སྣོད་ངོ་མ)།(_N)"
 
-#: ../src/libgviewer/viewer-window.cc:857
+#: ../src/libgviewer/viewer-window.cc:785
 msgid "_HTML Parser"
 msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་མིང་དཔྱདཔ།(_H)"
 
-#: ../src/libgviewer/viewer-window.cc:861
+#: ../src/libgviewer/viewer-window.cc:789
 msgid "_PS/PDF Parser"
 msgstr "པི་ཨེསི/པི་ཌི་ཨེཕ་མིང་དཔྱདཔ།(_P)"
 
-#: ../src/libgviewer/viewer-window.cc:867
+#: ../src/libgviewer/viewer-window.cc:795
 msgid "_Wrap lines"
 msgstr "གྱལ་ཚུ་ལོག་མཚམས་བཟོ་ནི།(_W)"
 
-#: ../src/libgviewer/viewer-window.cc:872
+#: ../src/libgviewer/viewer-window.cc:800
 msgid "_Encoding"
 msgstr "ཨིན་ཀོ་ཌིང་།(_E)"
 
-#: ../src/libgviewer/viewer-window.cc:913
+#: ../src/libgviewer/viewer-window.cc:841
 msgid "_Show EXIF/IPTC Information"
 msgstr "ཨི་ཨེགསི་ཨའི་ཨེཕ་/ཨའི་པི་ཊི་སི་བརྡ་དོན་སྟོན།(_S)"
 
-#: ../src/libgviewer/viewer-window.cc:919
+#: ../src/libgviewer/viewer-window.cc:847
 msgid "_Rotate Clockwise"
 msgstr "གཡས་སྐོར་བསྒྱིར།(_R)"
 
-#: ../src/libgviewer/viewer-window.cc:924
+#: ../src/libgviewer/viewer-window.cc:852
 msgid "Rotate Counter Clockwis_e"
 msgstr "གདོང་ལེན་གཡས་སྐོར་བསྒྱིར།(_e)"
 
-#: ../src/libgviewer/viewer-window.cc:929
+#: ../src/libgviewer/viewer-window.cc:857
 msgid "_Rotate 180°"
 msgstr " ༡༨༠°བསྒྱིར།(_R)"
 
-#: ../src/libgviewer/viewer-window.cc:934
+#: ../src/libgviewer/viewer-window.cc:862
 msgid "Flip _Vertical"
 msgstr "ཀེར་ཕྲང་མྱུར་ལྷོག(_V)"
 
-#: ../src/libgviewer/viewer-window.cc:939
+#: ../src/libgviewer/viewer-window.cc:867
 msgid "Flip _Horizontal"
 msgstr "ཐད་སྙོམས་མྱུར་ལྷོག(_H)"
 
-#: ../src/libgviewer/viewer-window.cc:949
+#: ../src/libgviewer/viewer-window.cc:877
 msgid "_Binary Mode"
 msgstr "ཐབས་ལམ་ཟུང་ལྡན།(_B)"
 
-#: ../src/libgviewer/viewer-window.cc:955
+#: ../src/libgviewer/viewer-window.cc:883
 msgid "_Decimal Offset in Hexdump"
 msgstr "ཧེགསི་བཀོག་བཞག་ནང་བཅུ་ཚག་པར་ལེན།(_D)"
 
-#: ../src/libgviewer/viewer-window.cc:961
+#: ../src/libgviewer/viewer-window.cc:889
 msgid "_Save Current Settings"
 msgstr "ད་ལྟོའི་སྒྲིག་སྟངས་ཚུ་སྲུང་བཞག་འབད།(_S)"
 
-#: ../src/libgviewer/viewer-window.cc:971
+#: ../src/libgviewer/viewer-window.cc:899
 msgid "_20 chars/line"
 msgstr "ཡིག་འབྲུ་/གྱལ་ ༢༠།(_2)"
 
-#: ../src/libgviewer/viewer-window.cc:976
+#: ../src/libgviewer/viewer-window.cc:904
 msgid "_40 chars/line"
 msgstr "ཡིག་འབྲུ་/གྱལ་༤༠།(_4)"
 
-#: ../src/libgviewer/viewer-window.cc:981
+#: ../src/libgviewer/viewer-window.cc:909
 msgid "_80 chars/line"
 msgstr "ཡིག་འབྲུ་/གྱལ་ ༨༠།(_8)"
 
-#: ../src/libgviewer/viewer-window.cc:990
+#: ../src/libgviewer/viewer-window.cc:918
 msgid "Quick _Help"
 msgstr "འཕྲལ་མགྱོགས་གྲོགས་རམ།(_H)"
 
-#: ../src/libgviewer/viewer-window.cc:1210
+#: ../src/libgviewer/viewer-window.cc:1130
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "དཔེ་གཞི་ \"%s\" དེ་འཚོལ་མ་ཐོབ་པར་ཡོདཔ།"
 
-#: ../src/main.cc:60 ../src/main.cc:69
+#: ../src/main.cc:61 ../src/main.cc:70
 msgid "Specify debug flags to use"
 msgstr "རྐྱེན་སེལ་ཟུར་རྟགས་ཚུ་ལག་ལེན་འཐབ་ནི་ལུ་གསལ་བཀོད་འབད།"
 
-#: ../src/main.cc:61 ../src/main.cc:70
+#: ../src/main.cc:62 ../src/main.cc:71
 msgid "Specify the start directory for the left pane"
 msgstr "གཡོན་པེན་འདི་གི་དོན་ལུ་འགོ་བཙུགས་སྣོད་ཐོ་འདི་གསལ་བཀོད་འབད།"
 
-#: ../src/main.cc:62 ../src/main.cc:71
+#: ../src/main.cc:63 ../src/main.cc:72
 msgid "Specify the start directory for the right pane"
 msgstr "གཡས་པེན་འདི་གི་དོན་ལུ་འགོ་བཙུགས་སྣོད་ཐོ་འདི་གསལ་བཀོད་འབད།"
 
-#: ../src/main.cc:110
+#: ../src/main.cc:111
 msgid "File Manager"
 msgstr "ཡིག་སྣོད་འཛིན་སྐྱོང་པ།"
 
@@ -2455,10 +2572,6 @@ msgstr "པ་ལག་ཨིན་ཚུ་ཐོབ་ཚུགསཔ།"
 #: ../src/plugin_manager.cc:421
 msgid "Version"
 msgstr "ཐོན་རིམ།"
-
-#: ../src/plugin_manager.cc:422 ../src/tags/gnome-cmd-tags.cc:659
-msgid "File"
-msgstr "ཡིག་སྣོད།"
 
 #: ../src/plugin_manager.cc:427
 msgid "_Enable"
@@ -6303,81 +6416,247 @@ msgstr "ཡིག་ཆ།"
 msgid "Image"
 msgstr "གཟུགས་བརྙན།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:65
+#: ../src/tags/gnome-cmd-tags-doc.cc:63
 msgid "No Proofing"
 msgstr "ཞུན་ལྷག་མེད་"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:73
+#: ../src/tags/gnome-cmd-tags-doc.cc:65
+msgid "Arabic"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:67
+msgid "Bulgarian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:69
+msgid "Catalan"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:71
 msgid "Traditional Chinese"
 msgstr "སྔོན་སྲོལ་རྒྱ་ནག"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:75
+#: ../src/tags/gnome-cmd-tags-doc.cc:73
 msgid "Simplified Chinese"
 msgstr "རྒྱ་ནག་གི།(འཇམ་བཟོས་) "
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:83
+#: ../src/tags/gnome-cmd-tags-doc.cc:75
+msgid "Chechen"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:77
+msgid "Danish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:79
+#, fuzzy
+msgid "German"
+msgstr "སུའིསི་ ཇཇར་མཱན།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:81
 msgid "Swiss German"
 msgstr "སུའིསི་ ཇཇར་མཱན།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:87
+#: ../src/tags/gnome-cmd-tags-doc.cc:83
+#, fuzzy
+msgid "Greek"
+msgstr "རིགས།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:85
 msgid "U.S. English"
 msgstr "ཡུ་ཨེསི་ ཨིང་ལིཤ་"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:89
+#: ../src/tags/gnome-cmd-tags-doc.cc:87
 msgid "U.K. English"
 msgstr "ཡུ་ཀེ་ ཨིང་ལིཤ།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:91
+#: ../src/tags/gnome-cmd-tags-doc.cc:89
 msgid "Australian English"
 msgstr "ཨཱསི་ཊ་ལི་ཡཱན་ཨིང་ལིཤ།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:93
+#: ../src/tags/gnome-cmd-tags-doc.cc:91
 msgid "Castilian Spanish"
 msgstr "ཀེསི་ཊི་ལིན་ སིཔེ་ནིཤི།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:95
+#: ../src/tags/gnome-cmd-tags-doc.cc:93
 msgid "Mexican Spanish"
 msgstr "མེག་སི་ཀེན་ སིཔེ་ནིཤི།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:101
+#: ../src/tags/gnome-cmd-tags-doc.cc:95
+msgid "Finnish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:97
+#, fuzzy
+msgid "French"
+msgstr "སུའིསི་ཕེརེནཆི།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:99
 msgid "Belgian French"
 msgstr "བེལ་ཇི་ཡཱན་ ཕེརེནཆི།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:103
+#: ../src/tags/gnome-cmd-tags-doc.cc:101
 msgid "Canadian French"
 msgstr "ཀེ་ན་ཌི་ཡཱན་ཕེརེནཆི།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:105
+#: ../src/tags/gnome-cmd-tags-doc.cc:103
 msgid "Swiss French"
 msgstr "སུའིསི་ཕེརེནཆི།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:115
+#: ../src/tags/gnome-cmd-tags-doc.cc:105
+msgid "Hebrew"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:107
+msgid "Hungarian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:109
+msgid "Icelandic"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:111
+#, fuzzy
+msgid "Italian"
+msgstr "སུའིསི་ཨི་ཊ་ལི་ཡཱན།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:113
 msgid "Swiss Italian"
 msgstr "སུའིསི་ཨི་ཊ་ལི་ཡཱན།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:123
+#: ../src/tags/gnome-cmd-tags-doc.cc:115
+msgid "Japanese"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:117
+msgid "Korean"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:119
+msgid "Dutch"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:121
 msgid "Belgian Dutch"
 msgstr "བེལ་ཇི་ཡཱན་ ཌཆ།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:125
+#: ../src/tags/gnome-cmd-tags-doc.cc:123
 msgid "Norwegian Bokmal"
 msgstr "ནོར་ཝེ་ཇི་ཡཱན་ བོག་མཱལ།"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:135
+#: ../src/tags/gnome-cmd-tags-doc.cc:125
+#, fuzzy
+msgid "Norwegian Nynorsk"
+msgstr "ནོར་ཝེ་ཇི་ཡཱན་ བོག་མཱལ།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:127
+#, fuzzy
+msgid "Polish"
+msgstr "དཔར་བསྐྲུན་པ།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:129
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:131
+#, fuzzy
+msgid "Portuguese"
+msgstr "རྒྱུ་དངོས་ཚུ།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:133
 msgid "Rhaeto-Romanic"
 msgstr "རེའི་ཊོ-རོ་མཱ་ནིཀ"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:141
+#: ../src/tags/gnome-cmd-tags-doc.cc:135
+msgid "Romanian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:137
+#, fuzzy
+msgid "Russian"
+msgstr "གཅིག་སྡུད།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:139
 msgid "Croato-Serbian (Latin)"
 msgstr "ཀོརའོ་ཊོ-སར་བི་ཡཱན། (ལེ་ཊིན)"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:143
+#: ../src/tags/gnome-cmd-tags-doc.cc:141
 msgid "Serbo-Croatian (Cyrillic)"
 msgstr "སར་བོ་-ཀོརའོ་ཤན (སི་རི་ལིཀ)"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:171
+#: ../src/tags/gnome-cmd-tags-doc.cc:143
+msgid "Slovak"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:145
+#, fuzzy
+msgid "Albanian"
+msgstr "གླུ་མཛོད་ཁེ་ཕན།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:147
+msgid "Swedish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:149
+msgid "Thai"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:151
+msgid "Turkish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:153
+msgid "Urdu"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:155
+msgid "Bahasa"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:157
+msgid "Ukrainian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:159
+msgid "Byelorussian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:161
+msgid "Slovenian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:163
+msgid "Estonian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:165
+#, fuzzy
+msgid "Latvian"
+msgstr "གནས་ཁོངས-ཡན་ལག"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:167
+msgid "Lithuanian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:169
 msgid "Farsi"
 msgstr "ཕར་སི།"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:171
+msgid "Basque"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:173
+msgid "Macedonian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:175
+msgid "Afrikaans"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:177
+msgid "Malayalam"
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:65
 #, c-format
@@ -6429,11 +6708,7 @@ msgstr "ཅི་མེད།"
 msgid "10-15ms"
 msgstr "མི་ལི་སྐར་ཆ་ ༡༠-༡༥།"
 
-#: ../src/tags/gnome-cmd-tags-taglib.cc:98
-msgid "CCIT J17"
-msgstr "སི་སི་ཨའི་ཊི་ཇེ་ ༡༧།"
-
-#: ../src/utils.cc:432
+#: ../src/utils.cc:429
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -6442,7 +6717,7 @@ msgstr ""
 "ཨེམ་ཨའི་ཨེམ་ཨི་དབྱེ་བ་འདི་གི་དོན་ལུ་སྔོན་སྒྲིག་གློག་རིམ་འཚོལ་ཐོབ་མེདཔ། %s.\n"
 "གཅིག་ཁ་སྐོང་རྐྱབས་ནི་ལུ་ཚད་འཛིན་དབུས་འདི་ནང་ \"File types and programs\" ཤོག་ལེབ་འདི་ཁ་ཕྱེ།"
 
-#: ../src/utils.cc:507
+#: ../src/utils.cc:504
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -6451,11 +6726,11 @@ msgstr ""
 "\"%s\" ཟུང་ལྡན་ལག་ལེན་འཐབ་བཏུབ་པའི་ཡིག་སྣོད་ཅིག་ཨིནམ་བཟུམ་ཅིག་ཨིན་རུང་འདི་ལུ་ལག་ལེན་འཐབ་བཏུབ་"
 "པའི་བིཊི་འདི་ལྡང་མིན་ཡོདཔ་ཨིན། ཁྱོད་ཀྱིས་འདི་གཞི་སྒྲིག་འབད་སྦེ་ཡིག་སྣོད་འདི་གཡོག་བཀོལ་ནི་ཨིན་ན།?"
 
-#: ../src/utils.cc:510
+#: ../src/utils.cc:507
 msgid "Make Executable?"
 msgstr "ལག་ལེན་འཐབ་བཏུབ་བཟོ་ནི་ཨིན་ན?"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:534
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
@@ -6464,19 +6739,19 @@ msgstr ""
 "\"%s\" འདི་ལག་ལེན་འཐབ་བཏུབ་པའི་ཚིག་ཡིག་ཡིག་སྣོད་ཅིག་ཨིན། ཁྱོད་ཀྱིས་འདི་གཡོག་བཀོལ་ནི་ཡང་ན་འདིའི་ནང་"
 "དོན་བཀྲམ་སྟོན་འབད་ནི་ཨིན་ན?"
 
-#: ../src/utils.cc:539
+#: ../src/utils.cc:536
 msgid "Run or Display"
 msgstr "གཡོག་བཀོལ་ཡང་ན་བཀྲམ་སྟོན་འབད།"
 
-#: ../src/utils.cc:540
+#: ../src/utils.cc:537
 msgid "Display"
 msgstr "བཀྲམ་སྟོན་འབད།"
 
-#: ../src/utils.cc:540
+#: ../src/utils.cc:537
 msgid "Run"
 msgstr "གཡོག་བཀོལ།"
 
-#: ../src/utils.cc:582 ../src/utils.cc:658
+#: ../src/utils.cc:579 ../src/utils.cc:655
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -6491,7 +6766,7 @@ msgstr[1] ""
 "%s གིས་ཐག་རིང་གི་ཡིག་སྣོད་ཚུ་ག་དེ་ཁ་ཕྱེ་ནི་ཨིན་ན་མི་ཤེས་པས། ཁྱོད་ཀྱིས་ཡིག་སྣོད་ཚུ་གནས་སྐབས་གནས་ཁོངས་"
 "ཅིག་ལུ་ཕབ་ལེན་འབད་སྦེ་དེ་ཚུ་ཁ་ཕྱེ་ནི་ཨིན་ན།?"
 
-#: ../src/utils.cc:1022
+#: ../src/utils.cc:1021
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -6515,14 +6790,65 @@ msgstr "སྣོད་ཐོ་གསར་བསྐྲུན་འབད་ན
 msgid "Couldn't read from the directory %s: %s"
 msgstr "སྣོད་ཐོ་འདི་ལས་ལྷག་མ་ཚུགས། %s: %s"
 
+#: ../src/utils.h:253
+msgid "There was an error displaying help."
+msgstr "གྲོགས་རམ་བཀྲམ་སྟོན་འབད་ནི་འཛོལ་བ་འབྱུང་ཡོདཔ།"
+
+#~ msgid "Dir"
+#~ msgstr "སྣོད་ཐོ།"
+
+#~ msgid "_Add..."
+#~ msgstr "ཁ་སྐོང་རྐྱབས།(_A)..."
+
+#~ msgid "_Edit..."
+#~ msgstr "ཞུན་དག་འབད།(_E)..."
+
+#~ msgid "_Remove"
+#~ msgstr "རྩ་བསྐྲད་གཏང་།(_R)"
+
+#~ msgid "_Goto"
+#~ msgstr "ལུ་འགྱོ།(_G)"
+
+#~ msgid "No alias specified"
+#~ msgstr "མིང་གཞན་གསལ་བཀོད་འབད་མེདཔ།"
+
+#~ msgid "No host specified"
+#~ msgstr "ཧོསཊི་གསལ་བཀོད་འབད་མེདཔ།"
+
+#~ msgid "Invalid port number: %s"
+#~ msgstr "ནུས་མེད་འདྲེན་ལམ་ཨང་།: %s"
+
+#~ msgid "Host:"
+#~ msgstr "ཧོསཊི།:"
+
+#, fuzzy
+#~ msgid "Edit Remote Connection"
+#~ msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་ཞུན་དག་འབད།"
+
+#~ msgid "Connect"
+#~ msgstr "མཐུད་ལམ་མཐུད།"
+
+#, fuzzy
+#~ msgid "New Connection"
+#~ msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་གསརཔ།"
+
+#~ msgid "_Hex"
+#~ msgstr "ཧེགསི།(_H)"
+
+#~ msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
+#~ msgstr "ཊི་བིཊི་ཚུ་དཔེ་ཚད: %dx%d ཊི་རྒྱས་ཟུམ།: %dགཟུགས་བརྙན་ཚད: %s"
+
+#~ msgid "_Hex dump"
+#~ msgstr "ཧེགསི་བཀོག་བཞག(_H)"
+
+#~ msgid "CCIT J17"
+#~ msgstr "སི་སི་ཨའི་ཊི་ཇེ་ ༡༧།"
+
 #~ msgid "Enter password for %s@%s"
 #~ msgstr "དོན་ལུ་ཆོག་ཡིག་བཙུགས། %s@%s"
 
 #~ msgid "Enter Password"
 #~ msgstr "ཆོག་ཡིག་བཙུགས།"
-
-#~ msgid "Password:"
-#~ msgstr "ཆོག་ཡིག:"
 
 #~ msgid "FTP Connect"
 #~ msgstr "ཨེཕ་ཊི་པི་མཐུད་ལམ་མཐུད།"
@@ -6535,22 +6861,6 @@ msgstr "སྣོད་ཐོ་འདི་ལས་ལྷག་མ་ཚུག
 
 #~ msgid "FTP _Quick Connect..."
 #~ msgstr "ཨེཕ་ཊི་པི་འཕྲལ་མགྱོགས་མཐུད་ལམ་མཐུད།(_Q)..."
-
-#~ msgid "Enter password"
-#~ msgstr "ཆོག་ཡིག་ཐོ་བཀོད་འབད་"
-
-#~ msgid ""
-#~ "Problem: access not permitted\n"
-#~ "\n"
-#~ "please supply user credentials\n"
-#~ "\n"
-#~ "Remember: wrong credentials may lead to account locking"
-#~ msgstr ""
-#~ "དཀའ་ངལ: འཛུལ་སྤྱོད་མི་ཆོག་\n"
-#~ "\n"
-#~ "ལག་ལེན་པའི་ངོ་སྤྲོད་བཀྲམ་སྤེལ་འབད་གནང་\n"
-#~ "\n"
-#~ "སེམས་ཁར་བཞག: ངོ་སྤྲོད་འཛོལ་བ་དེ་གིས་རྩིས་ཐོའི་ལྡེ་མིག་ལུ་འགོ་ཁྲིད་འོང་"
 
 #~ msgid "The F number."
 #~ msgstr "ཨེཕ་ཨང་འདི།"

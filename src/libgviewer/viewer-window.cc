@@ -726,7 +726,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 G_OBJ_DISPMODE_KEY, (gpointer *) GUINT_TO_POINTER (DISP_MODE_BINARY),
                 NO_MENU_ITEM, &view_mode_list},
-        {MI_RADIO, _("_Hex dump"), GDK_3, NO_MODIFIER, G_CALLBACK (menu_view_display_mode),
+        {MI_RADIO, _("_Hexadecimal"), GDK_3, NO_MODIFIER, G_CALLBACK (menu_view_display_mode),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 G_OBJ_DISPMODE_KEY, (gpointer *) GUINT_TO_POINTER (DISP_MODE_HEXDUMP),
                 NO_MENU_ITEM, &view_mode_list},

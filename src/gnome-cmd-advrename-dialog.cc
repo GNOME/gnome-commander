@@ -626,6 +626,7 @@ static gboolean on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog, con
 
 static GtkWidget *create_rule_dialog (GnomeCmdAdvrenameDialog *parent_dialog, const gchar *title, GnomeCmdStringDialogCallback on_ok_func, PatternEntry *entry)
 {
+    // Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
     const gchar *labels[] = {_("Replace this:"), _("With this:")};
     GtkWidget *dialog;
     GtkWidget *case_check;
@@ -1120,10 +1121,10 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
     table_add (table, bbox, 0, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_button_box_set_layout (GTK_BUTTON_BOX (bbox), GTK_BUTTONBOX_START);
 
-    btn = create_button_with_menu (in_dialog, _("Dir"), DIR_MENU);
+    btn = create_button_with_menu (in_dialog, _("Directory"), DIR_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
-    btn = create_button_with_menu (in_dialog, _("Name"), NAME_MENU);
+    btn = create_button_with_menu (in_dialog, _("File"), NAME_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
     btn = create_button_with_menu (in_dialog, _("Counter"),COUNTER_MENU);

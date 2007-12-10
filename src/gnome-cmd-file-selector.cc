@@ -1119,7 +1119,7 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCm
 
     if (result != GNOME_VFS_OK)
     {
-        gchar *msg = g_strdup_printf (_("List failed: %s\n"), gnome_vfs_result_to_string (result));
+        gchar *msg = g_strdup_printf (_("Listing failed: %s\n"), gnome_vfs_result_to_string (result));
         create_error_dialog (msg);
         g_free (msg);
     }

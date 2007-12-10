@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-17 13:40+0200\n"
+"POT-Creation-Date: 2007-12-10 19:32+0100\n"
 "PO-Revision-Date: 2006-08-23 21:14+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -30,10 +30,11 @@ msgstr "Không có mô tả lỗi sẵn sàng"
 
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
-#: ../src/gnome-cmd-ftp-dialog.cc:429 ../src/gnome-cmd-options-dialog.cc:1126
-#: ../src/gnome-cmd-options-dialog.cc:1827
+#: ../src/gnome-cmd-options-dialog.cc:1179
+#: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
+#: ../src/gnome-cmd-remote-dialog.cc:526
 msgid "Options"
 msgstr "Tùy chọn"
 
@@ -297,198 +298,176 @@ msgid "/Time/SS"
 msgstr ""
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
 msgid "Yes"
 msgstr "Có"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:661
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
 msgid "No"
 msgstr "Không"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:566
+#: ../src/gnome-cmd-advrename-dialog.cc:563
 msgid "Invalid source pattern"
 msgstr "Mẫu nguồn không hợp lệ"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:642
+#. Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
+#: ../src/gnome-cmd-advrename-dialog.cc:630
 msgid "Replace this:"
 msgstr "Thay thế :"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:642
-#: ../src/gnome-cmd-advrename-dialog.cc:1191
-msgid "With this"
+#: ../src/gnome-cmd-advrename-dialog.cc:630
+#, fuzzy
+msgid "With this:"
 msgstr "Bằng"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:654
+#: ../src/gnome-cmd-advrename-dialog.cc:640
 msgid "Case sensitive matching"
 msgstr "Phân biệt chữ hoa/thường"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:786
+#: ../src/gnome-cmd-advrename-dialog.cc:769
 msgid "New Rule"
 msgstr "Quy tắc mới"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:792
+#: ../src/gnome-cmd-advrename-dialog.cc:775
 msgid "Edit Rule"
 msgstr "Sửa đổi quy tắc"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1019
+#: ../src/gnome-cmd-advrename-dialog.cc:983
 msgid "Counter start value:"
 msgstr "Giá trị đếm đầu :"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1020
+#: ../src/gnome-cmd-advrename-dialog.cc:984
 msgid "Counter increment:"
 msgstr "Tăng đếm:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1021
+#: ../src/gnome-cmd-advrename-dialog.cc:985
 msgid "Counter minimum digit count:"
 msgstr "Đếm số tối thiểu :"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1026
+#: ../src/gnome-cmd-advrename-dialog.cc:990
 msgid "Template Options"
 msgstr "Tùy chọn biểu mẫu"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1030
+#: ../src/gnome-cmd-advrename-dialog.cc:994
 msgid "Auto-update when the template is entered"
 msgstr "Cập nhật tự động khi biểu mẫu được vào"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1128
+#: ../src/gnome-cmd-advrename-dialog.cc:1084
 msgid "Advanced Rename Tool"
 msgstr "Công cụ thay đổi tên cấp cao"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1140 ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1096 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "Biểu mẫu"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1161
+#: ../src/gnome-cmd-advrename-dialog.cc:1117
 #, fuzzy
 msgid "O_ptions..."
 msgstr "Tùy chọn..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1168
-#, fuzzy
-msgid "Dir"
-msgstr "tmục"
+#: ../src/gnome-cmd-advrename-dialog.cc:1124 ../src/gnome-cmd-file.cc:588
+msgid "Directory"
+msgstr "Thư mục"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1171
-#: ../src/gnome-cmd-file-props-dialog.cc:557 ../src/plugin_manager.cc:420
-#: ../src/tags/gnome-cmd-tags.cc:315
-msgid "Name"
-msgstr "Tên"
+#: ../src/gnome-cmd-advrename-dialog.cc:1127 ../src/plugin_manager.cc:422
+#: ../src/tags/gnome-cmd-tags.cc:659
+msgid "File"
+msgstr "Tập tin"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1174
+#: ../src/gnome-cmd-advrename-dialog.cc:1130
 #, fuzzy
 msgid "Counter"
 msgstr "Mục lụ_c"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1177 ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/gnome-cmd-advrename-dialog.cc:1133 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
 #, fuzzy
 msgid "Date"
 msgstr "Ngày:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1180
+#: ../src/gnome-cmd-advrename-dialog.cc:1136
 msgid "Metatag"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1185
+#: ../src/gnome-cmd-advrename-dialog.cc:1141
 msgid "Regex replacing"
 msgstr "Thay thế biểu thức chính quy"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1190
+#: ../src/gnome-cmd-advrename-dialog.cc:1146
 msgid "Replace this"
 msgstr "Thay thế"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1192
+#: ../src/gnome-cmd-advrename-dialog.cc:1147
+msgid "With this"
+msgstr "Bằng"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1148
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr "Phân biệt chữ hoa/thường"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1204
-#: ../src/gnome-cmd-options-dialog.cc:1349
-#: ../src/gnome-cmd-options-dialog.cc:1700
-msgid "_Add..."
-msgstr "Thê_m..."
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1207
-#: ../src/gnome-cmd-ftp-dialog.cc:420 ../src/gnome-cmd-options-dialog.cc:1353
-#: ../src/gnome-cmd-options-dialog.cc:1704
-msgid "_Edit..."
-msgstr "_Sửa..."
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1211
-#: ../src/gnome-cmd-bookmark-dialog.cc:472 ../src/gnome-cmd-ftp-dialog.cc:423
-#: ../src/gnome-cmd-options-dialog.cc:1359
-#: ../src/gnome-cmd-options-dialog.cc:1710
-msgid "_Remove"
-msgstr "_Gỡ bỏ"
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1215
+#: ../src/gnome-cmd-advrename-dialog.cc:1171
 msgid "Re_move All"
 msgstr "Gỡ _bỏ tất cả"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1235
+#: ../src/gnome-cmd-advrename-dialog.cc:1191
 msgid "Result"
 msgstr "Kết quả"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1240
-msgid "Current filenames"
+#: ../src/gnome-cmd-advrename-dialog.cc:1196
+#, fuzzy
+msgid "Current file names"
 msgstr "Tên tập tin hiện có"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1241
-msgid "New filenames"
+#: ../src/gnome-cmd-advrename-dialog.cc:1197
+#, fuzzy
+msgid "New file names"
 msgstr "Tên tập tin mới"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1247
+#: ../src/gnome-cmd-advrename-dialog.cc:1203
 msgid "Rese_t"
 msgstr "Đặ_t lại"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:72
+#: ../src/gnome-cmd-bookmark-dialog.cc:71
 msgid "Bookmark name:"
 msgstr "Tên Đánh dấu :"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:73
+#: ../src/gnome-cmd-bookmark-dialog.cc:72
 msgid "Bookmark target:"
 msgstr "Đích Đánh dấu :"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:160
+#: ../src/gnome-cmd-bookmark-dialog.cc:159
 msgid "Bookmark name is missing"
 msgstr "Thiếu tên Đánh dấu"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:166
+#: ../src/gnome-cmd-bookmark-dialog.cc:165
 msgid "Bookmark target is missing"
 msgstr "Thiếu đích Đánh dấu"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:186
+#: ../src/gnome-cmd-bookmark-dialog.cc:185
 msgid "Edit Bookmark"
 msgstr "Sửa Đánh Dấu"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:435
-#: ../src/gnome-cmd-bookmark-dialog.cc:447
+#: ../src/gnome-cmd-bookmark-dialog.cc:434
+#: ../src/gnome-cmd-bookmark-dialog.cc:446
 msgid "Bookmarks"
 msgstr "Đánh dấu"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:438
+#: ../src/gnome-cmd-bookmark-dialog.cc:437
 msgid "Bookmark Groups"
 msgstr "Nhóm Đánh dấu"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454 ../src/gnome-cmd-file-list.cc:90
+#: ../src/gnome-cmd-bookmark-dialog.cc:453 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "tên"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:455
+#: ../src/gnome-cmd-bookmark-dialog.cc:454
 msgid "path"
 msgstr "đường dẫn"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:462
-msgid "_Goto"
-msgstr "_Tới"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:467 ../src/gnome-cmd-main-menu.cc:782
-msgid "_Edit"
-msgstr "_Sửa"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:579
+#: ../src/gnome-cmd-bookmark-dialog.cc:578
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
@@ -496,7 +475,7 @@ msgstr ""
 "Để đánh dấu thư mục, toàn bộ đường dẫn tìm kiếm đến thư mục đó phải dùng ký "
 "tự UTF-8 hợp lệ.\n"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:586
+#: ../src/gnome-cmd-bookmark-dialog.cc:585
 msgid "New Bookmark"
 msgstr "Đánh Dấu Mới"
 
@@ -534,7 +513,7 @@ msgstr "Xem chữ :"
 msgid "Number view:"
 msgstr "Xem số :"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:43 ../src/gnome-cmd-options-dialog.cc:1147
+#: ../src/gnome-cmd-chmod-dialog.cc:43 ../src/gnome-cmd-options-dialog.cc:1200
 msgid "All files"
 msgstr "Mọi tập tin"
 
@@ -576,24 +555,24 @@ msgstr "Chown"
 msgid "Apply Recursively"
 msgstr "Áp dụng đệ quy"
 
-#: ../src/gnome-cmd-con-device.cc:110
+#: ../src/gnome-cmd-con-device.cc:115
 msgid "Failed to execute the mount command"
 msgstr "Việc thực hiện lệnh gắn kết bị lỗi."
 
-#: ../src/gnome-cmd-con-device.cc:117
+#: ../src/gnome-cmd-con-device.cc:123
 msgid "Mount failed: Permission denied"
 msgstr "Gắn kết bị lỗi: không đủ quyền"
 
-#: ../src/gnome-cmd-con-device.cc:120
+#: ../src/gnome-cmd-con-device.cc:126
 msgid "Mount failed: No medium found"
 msgstr "Gắn kết bị lỗi: không tìm thấy vật chứa"
 
-#: ../src/gnome-cmd-con-device.cc:124
+#: ../src/gnome-cmd-con-device.cc:130
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
 msgstr "Gắn kết bị lỗi: lệnh gắn kết đã thoạt với trang thái thoát là %d"
 
-#: ../src/gnome-cmd-con-device.cc:202
+#: ../src/gnome-cmd-con-device.cc:206
 msgid ""
 "Volume unmounting succeeded.\n"
 "It is safe to eject the media."
@@ -601,7 +580,7 @@ msgstr ""
 "Mới tháo gắn kết khối tin.\n"
 "Có thể đẩy ra an toàn vật chứa."
 
-#: ../src/gnome-cmd-con-device.cc:210
+#: ../src/gnome-cmd-con-device.cc:214
 #, c-format
 msgid ""
 "Volume unmounting failed:\n"
@@ -610,56 +589,148 @@ msgstr ""
 "Việc tháo gắn kết khối tin bị lỗi :\n"
 "%s %s"
 
-#: ../src/gnome-cmd-con-device.cc:211
+#: ../src/gnome-cmd-con-device.cc:215
 msgid "Unknown Error"
 msgstr "Lỗi không rõ"
 
-#: ../src/gnome-cmd-con-device.cc:418
+#: ../src/gnome-cmd-con-device.cc:403
 #, c-format
 msgid "Mounting %s"
 msgstr "Đang gắn kết %s..."
 
-#: ../src/gnome-cmd-con-device.cc:435
+#: ../src/gnome-cmd-con-device.cc:419
 #, c-format
 msgid "Go to: %s (%s)"
 msgstr "Tới : %s (%s)"
 
-#: ../src/gnome-cmd-con-device.cc:436
+#: ../src/gnome-cmd-con-device.cc:420
 #, c-format
 msgid "Mount: %s"
 msgstr "Gắn kết: %s"
 
-#: ../src/gnome-cmd-con-device.cc:437
+#: ../src/gnome-cmd-con-device.cc:421
 #, c-format
 msgid "Unmount: %s"
 msgstr "Tháo gắn kết: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:283
+#: ../src/gnome-cmd-con-dialog.cc:210
+msgid "You must enter a name for the server"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:210
+msgid "Please enter a name and try again."
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:225
+#, c-format
+msgid "\"%s\" is not a valid location"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:226
+msgid "Please check the spelling and try again."
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:331
+#, fuzzy
+msgid "_Alias:"
+msgstr "Bí danh:"
+
+#: ../src/gnome-cmd-con-dialog.cc:335
+#, fuzzy
+msgid "_Location (URI):"
+msgstr "Kết nối"
+
+#: ../src/gnome-cmd-con-dialog.cc:368
+msgid "_Server:"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:379
+#, fuzzy
+msgid "Optional information"
+msgstr "Tùy chọn sắp xếp"
+
+#: ../src/gnome-cmd-con-dialog.cc:403
+#, fuzzy
+msgid "S_hare:"
+msgstr "Tình trạng:"
+
+#: ../src/gnome-cmd-con-dialog.cc:406
+#, fuzzy
+msgid "_Port:"
+msgstr "Cổng:"
+
+#. Translators: 'Dir' in the sense of 'Directory'
+#: ../src/gnome-cmd-con-dialog.cc:409
+#, fuzzy
+msgid "_Remote dir:"
+msgstr "Thư mục ở xa:"
+
+#: ../src/gnome-cmd-con-dialog.cc:412
+#, fuzzy
+msgid "_User name:"
+msgstr "Người dùng:"
+
+#: ../src/gnome-cmd-con-dialog.cc:415
+#, fuzzy
+msgid "_Password:"
+msgstr "Mật khẩu :"
+
+#: ../src/gnome-cmd-con-dialog.cc:418
+#, fuzzy
+msgid "_Domain name:"
+msgstr "Tên liên kết mềm:"
+
+#: ../src/gnome-cmd-con-dialog.cc:455 ../src/gnome-cmd-main-win.cc:1176
+#, fuzzy
+msgid "Remote Server"
+msgstr "Thư mục ở xa:"
+
+#: ../src/gnome-cmd-con-dialog.cc:470
+msgid "Service _type:"
+msgstr ""
+
+#. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
+#: ../src/gnome-cmd-con-dialog.cc:482
+msgid "FTP (with login)"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:483
+msgid "Public FTP"
+msgstr ""
+
+#: ../src/gnome-cmd-con-dialog.cc:500
+msgid "Use _GNOME Keyring Manager for authentication"
+msgstr ""
+
+#. ?????????
+#. do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
+#. ?????????
+#: ../src/gnome-cmd-con-ftp.cc:301 ../src/gnome-cmd-con-ftp.cc:349
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Đang kết nối đến %s...\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:301
+#: ../src/gnome-cmd-con-ftp.cc:374
 #, c-format
 msgid "Go to: %s"
 msgstr "Tới : %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:302
+#: ../src/gnome-cmd-con-ftp.cc:375
 #, c-format
 msgid "Connect to: %s"
 msgstr "Kết nối đến: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:303
+#: ../src/gnome-cmd-con-ftp.cc:376
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Ngắt kết nối ra : %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:319
+#: ../src/gnome-cmd-con-ftp.cc:390
 #, c-format
 msgid "Creates the FTP connection to %s"
 msgstr "Tạo sự kết nối FTP đến %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:320
+#: ../src/gnome-cmd-con-ftp.cc:391
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "Gỡ bỏ sự kết nối FTP đến %s"
@@ -668,7 +739,7 @@ msgstr "Gỡ bỏ sự kết nối FTP đến %s"
 msgid "Home"
 msgstr "Về"
 
-#: ../src/gnome-cmd-con-home.cc:128
+#: ../src/gnome-cmd-con-home.cc:129
 msgid "Go to: Home"
 msgstr "Đi về"
 
@@ -680,31 +751,31 @@ msgstr "Việc duyệt mạng bị lỗi. Có cài đặt mô-đun SMB chưa?"
 msgid "SMB"
 msgstr "SMB"
 
-#: ../src/gnome-cmd-con-smb.cc:218
+#: ../src/gnome-cmd-con-smb.cc:219
 msgid "Searching for workgroups and hosts"
 msgstr "Đang tìm kiếm nhóm làm việc và máy..."
 
-#: ../src/gnome-cmd-con-smb.cc:225
+#: ../src/gnome-cmd-con-smb.cc:226
 msgid "Go to: Samba Network"
 msgstr "Tới : mạng Samba"
 
-#: ../src/gnome-cmd-data.cc:1148 ../src/gnome-cmd-data.cc:1371
-#: ../src/gnome-cmd-data.cc:1372 ../src/gnome-cmd-data.cc:2402
+#: ../src/gnome-cmd-data.cc:1250 ../src/gnome-cmd-data.cc:1475
+#: ../src/gnome-cmd-data.cc:1476 ../src/gnome-cmd-data.cc:2543
 #, fuzzy, c-format
 msgid "link to %s"
 msgstr "Liên kết mềm tới %s"
 
-#: ../src/gnome-cmd-delete-dialog.cc:111
+#: ../src/gnome-cmd-delete-dialog.cc:88
 #, fuzzy, c-format
 msgid "Deleted %ld of %ld file"
 msgid_plural "Deleted %ld of %ld files"
 msgstr[0] "[tập tin %ld trên %ld] « %s »"
 
-#: ../src/gnome-cmd-delete-dialog.cc:155
+#: ../src/gnome-cmd-delete-dialog.cc:130
 msgid "Deleting..."
 msgstr "Đang xoá bỏ..."
 
-#: ../src/gnome-cmd-delete-dialog.cc:231
+#: ../src/gnome-cmd-delete-dialog.cc:206
 #, fuzzy, c-format
 msgid ""
 "Error while deleting \"%s\"\n"
@@ -715,49 +786,49 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-delete-dialog.cc:234
+#: ../src/gnome-cmd-delete-dialog.cc:209
 msgid "Delete problem"
 msgstr "Vấn đề xoá bỏ"
 
-#: ../src/gnome-cmd-delete-dialog.cc:235 ../src/gnome-cmd-xfer.cc:174
-#: ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:190
 msgid "Abort"
 msgstr "Hủy bỏ"
 
-#: ../src/gnome-cmd-delete-dialog.cc:235
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:190
 msgid "Retry"
 msgstr "Thử lại"
 
-#: ../src/gnome-cmd-delete-dialog.cc:235
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-xfer.cc:174
-#: ../src/gnome-cmd-xfer.cc:193
+#: ../src/gnome-cmd-delete-dialog.cc:210
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:190
 msgid "Skip"
 msgstr "Bỏ qua"
 
-#: ../src/gnome-cmd-delete-dialog.cc:312
+#: ../src/gnome-cmd-delete-dialog.cc:278
 #, c-format
 msgid "Do you want to delete \"%s\"?"
 msgstr "Bạn có muốn xoá bỏ « %s » không?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:317
+#: ../src/gnome-cmd-delete-dialog.cc:282
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Bạn có muốn xoá bỏ %d tập tin đã chọn không?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:325 ../src/gnome-cmd-main-win.cc:1170
-#: ../src/gnome-cmd-options-dialog.cc:656
+#: ../src/gnome-cmd-delete-dialog.cc:288 ../src/gnome-cmd-main-win.cc:1170
+#: ../src/gnome-cmd-options-dialog.cc:653
 msgid "Delete"
 msgstr "Xoá bỏ"
 
-#: ../src/gnome-cmd-delete-dialog.cc:326
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-user-actions.cc:666
-#: ../src/utils.cc:511 ../src/utils.cc:540
+#: ../src/gnome-cmd-delete-dialog.cc:289
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
+#: ../src/utils.cc:508 ../src/utils.cc:537
 msgid "Cancel"
 msgstr "Thôi"
 
-#: ../src/gnome-cmd-delete-dialog.cc:326 ../src/utils.cc:511
+#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:508
 msgid "OK"
 msgstr "Được"
 
@@ -769,7 +840,7 @@ msgstr "Thêm thư mục hiện có"
 msgid "Manage bookmarks..."
 msgstr "Quản lý Đánh dấu..."
 
-#: ../src/gnome-cmd-dir.cc:574
+#: ../src/gnome-cmd-dir.cc:575
 msgid "Waiting for file list"
 msgstr "Đang đợi nhận danh sách tập tin..."
 
@@ -876,92 +947,126 @@ msgstr "Tài _sản..."
 msgid "Other..."
 msgstr "Khác..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:823
+#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:822
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
 msgstr[0] "%s byte"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:196
-#: ../src/gnome-cmd-file-props-dialog.cc:370
+#: ../src/gnome-cmd-file-props-dialog.cc:407
 msgid "No default application registered"
 msgstr "Chưa đăng ký ứng dụng mặc định"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:323
-#: ../src/gnome-cmd-file-selector.cc:1919
+#: ../src/gnome-cmd-file-props-dialog.cc:333
+#, fuzzy
+msgid "Image:"
+msgstr "Ả_nh"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:360
+#: ../src/gnome-cmd-file-selector.cc:1918
 msgid "Filename:"
 msgstr "Tên tập tin:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:334
+#: ../src/gnome-cmd-file-props-dialog.cc:371
 msgid "Symlink target:"
 msgstr "Đích liên kết mềm:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:343
+#: ../src/gnome-cmd-file-props-dialog.cc:380
 msgid "Type:"
 msgstr "Kiểu :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:350
+#: ../src/gnome-cmd-file-props-dialog.cc:387
 msgid "MIME Type:"
 msgstr "Kiểu MIME:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:359
+#: ../src/gnome-cmd-file-props-dialog.cc:396
 msgid "Opens with:"
 msgstr "Mở bằng:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:372
+#: ../src/gnome-cmd-file-props-dialog.cc:409
 msgid "_Change"
 msgstr "Đổ_i"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:384
+#: ../src/gnome-cmd-file-props-dialog.cc:421
 msgid "Modified:"
 msgstr "Sửa đổi:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:390
+#: ../src/gnome-cmd-file-props-dialog.cc:427
 msgid "Accessed:"
 msgstr "Truy cập:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:400
+#: ../src/gnome-cmd-file-props-dialog.cc:437
 msgid "Size:"
 msgstr "Cỡ :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:430
+#: ../src/gnome-cmd-file-props-dialog.cc:480
 msgid "Owner and group"
 msgstr "Chủ và nhóm"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:440
+#: ../src/gnome-cmd-file-props-dialog.cc:490
 msgid "Access permissions"
 msgstr "Quyền truy cập"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:550
+#: ../src/gnome-cmd-file-props-dialog.cc:605
 #, fuzzy
 msgid "Type"
 msgstr "Kiểu :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:558
+#: ../src/gnome-cmd-file-props-dialog.cc:606
+msgid "Metadata namespace"
+msgstr ""
+
+#. col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+#. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
+#. g_object_set (renderer,
+#. "foreground-set", TRUE,
+#. "foreground", "DarkGray",
+#. NULL);
+#: ../src/gnome-cmd-file-props-dialog.cc:613
+#: ../src/gnome-cmd-remote-dialog.cc:419 ../src/plugin_manager.cc:420
+#: ../src/tags/gnome-cmd-tags.cc:315
+msgid "Name"
+msgstr "Tên"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:614
+#, fuzzy
+msgid "Tag name"
+msgstr "tên"
+
+#: ../src/gnome-cmd-file-props-dialog.cc:616
 msgid "Value"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:560 ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/gnome-cmd-file-props-dialog.cc:617
+msgid "Tag value"
+msgstr ""
+
+#: ../src/gnome-cmd-file-props-dialog.cc:619 ../src/tags/gnome-cmd-tags.cc:159
 #: ../src/tags/gnome-cmd-tags.cc:310 ../src/tags/gnome-cmd-tags.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:508
 #, fuzzy
 msgid "Description"
 msgstr "Tùy chọn thư mục"
 
+#: ../src/gnome-cmd-file-props-dialog.cc:620
+msgid "Metadata tag description"
+msgstr ""
+
 #. data->thread = 0;
-#: ../src/gnome-cmd-file-props-dialog.cc:615
+#: ../src/gnome-cmd-file-props-dialog.cc:675
 msgid "File Properties"
 msgstr "Tài sản tập tin"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:638
+#: ../src/gnome-cmd-file-props-dialog.cc:698
 msgid "Properties"
 msgstr "Tài sản"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:639 ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/gnome-cmd-file-props-dialog.cc:699 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permissions"
 msgstr "Quyền hạn"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:640
+#: ../src/gnome-cmd-file-props-dialog.cc:700
 msgid "Metadata"
 msgstr ""
 
@@ -986,156 +1091,75 @@ msgstr "%s rảnh"
 msgid "Unknown disk usage"
 msgstr "Không biết cách chiếm sức chứa trên đĩa"
 
-#: ../src/gnome-cmd-file-selector.cc:1123
+#: ../src/gnome-cmd-file-selector.cc:1122
 #, c-format
-msgid "List failed: %s\n"
+msgid "Listing failed: %s\n"
 msgstr "Lỗi danh sách: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1682
+#: ../src/gnome-cmd-file-selector.cc:1681
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Lỗi mở kết nối: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1857
+#: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
 msgstr "Chưa nhập tên tập tin"
 
-#: ../src/gnome-cmd-file-selector.cc:1891
+#: ../src/gnome-cmd-file-selector.cc:1890
 msgid "No filename given"
 msgstr "Chưa đưa ra tên tập tin"
 
-#: ../src/gnome-cmd-file-selector.cc:1922
+#: ../src/gnome-cmd-file-selector.cc:1921
 msgid "New Text File"
 msgstr "Tập tin văn bản mới"
 
-#: ../src/gnome-cmd-file-selector.cc:2080
+#: ../src/gnome-cmd-file-selector.cc:2079
 msgid "Symlink name:"
 msgstr "Tên liên kết mềm:"
 
-#: ../src/gnome-cmd-file-selector.cc:2086
-#: ../src/gnome-cmd-file-selector.cc:2132 ../src/gnome-cmd-user-actions.cc:666
+#: ../src/gnome-cmd-file-selector.cc:2085
+#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
 msgid "Create Symbolic Link"
 msgstr "Tạo liên kết tượng trưng"
 
-#: ../src/gnome-cmd-file-selector.cc:2132
-#: ../src/gnome-cmd-options-dialog.cc:678
-#: ../src/gnome-cmd-options-dialog.cc:698
+#: ../src/gnome-cmd-file-selector.cc:2131
+#: ../src/gnome-cmd-options-dialog.cc:675
+#: ../src/gnome-cmd-options-dialog.cc:695
 msgid "Skip all"
 msgstr "Bỏ qua hết"
 
-#: ../src/gnome-cmd-file-selector.cc:2204
+#: ../src/gnome-cmd-file-selector.cc:2203
 msgid "Filter:"
 msgstr "Lọc:"
 
-#: ../src/gnome-cmd-file.cc:587
+#: ../src/gnome-cmd-file.cc:586
 msgid "Unknown file type"
 msgstr "Không biết kiểu tập tin"
 
-#: ../src/gnome-cmd-file.cc:588
+#: ../src/gnome-cmd-file.cc:587
 msgid "Regular file"
 msgstr "Tập tin chuẩn"
 
 #: ../src/gnome-cmd-file.cc:589
-msgid "Directory"
-msgstr "Thư mục"
-
-#: ../src/gnome-cmd-file.cc:590
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:591
+#: ../src/gnome-cmd-file.cc:590
 msgid "UNIX Socket"
 msgstr "Ổ cắm UNIX"
 
-#: ../src/gnome-cmd-file.cc:592
+#: ../src/gnome-cmd-file.cc:591
 msgid "Character device"
 msgstr "Thiết bị ký tự"
 
-#: ../src/gnome-cmd-file.cc:593
+#: ../src/gnome-cmd-file.cc:592
 msgid "Block device"
 msgstr "Thiết bị khối"
 
-#: ../src/gnome-cmd-file.cc:594
+#: ../src/gnome-cmd-file.cc:593
 msgid "Symbolic link"
 msgstr "Liên kết tượng trưng"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:161
-msgid "No alias specified"
-msgstr "Chưa ghi rõ bí danh"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:164
-msgid "No host specified"
-msgstr "Chưa ghi rõ máy"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:167
-#, c-format
-msgid "Invalid port number: %s"
-msgstr "Sổ hiệu cổng không hợp lệ: %s"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-options-dialog.cc:1535
-msgid "Alias:"
-msgstr "Bí danh:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "Host:"
-msgstr "Máy:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "Port:"
-msgstr "Cổng:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "User:"
-msgstr "Người dùng:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:221 ../src/gnome-cmd-ftp-dialog.cc:222
-msgid "Remote Dir:"
-msgstr "Thư mục ở xa:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:239
-#, fuzzy
-msgid "New Remote Connection"
-msgstr "Kết nối FTP mới"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:258
-#, fuzzy
-msgid "Edit Remote Connection"
-msgstr "Sửa kết nối FTP"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:285
-msgid "No server selected"
-msgstr "Chưa chọn máy phục vụ"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:388 ../src/gnome-cmd-main-win.cc:1176
-#, fuzzy
-msgid "Remote Server"
-msgstr "Thư mục ở xa:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:393
-msgid "Connections"
-msgstr "Kết nối"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:413 ../src/gnome-cmd-options-dialog.cc:1694
-msgid "Alias"
-msgstr "Bí danh"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:418 ../src/gnome-cmd-list-popmenu.cc:121
-msgid "_New..."
-msgstr "_Mới..."
-
-#: ../src/gnome-cmd-ftp-dialog.cc:432
-msgid "Anonymous password:"
-msgstr "Mật khẩu vô danh:"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:440
-msgid "Connect"
-msgstr "Kết nối"
-
-#: ../src/gnome-cmd-ftp-dialog.cc:530
-#, fuzzy
-msgid "New Connection"
-msgstr "Kết nối FTP mới"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1145,6 +1169,10 @@ msgstr "Thư _mục"
 #, fuzzy
 msgid "_Text File"
 msgstr "_Tập tin văn bản"
+
+#: ../src/gnome-cmd-list-popmenu.cc:121
+msgid "_New..."
+msgstr "_Mới..."
 
 #: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:556
 msgid "_Paste"
@@ -1305,7 +1333,7 @@ msgstr "Kết nối FTP mới"
 msgid "_Contents"
 msgstr "Mục lụ_c"
 
-#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:995
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:923
 msgid "_Keyboard Shortcuts"
 msgstr "_Phím tắt"
 
@@ -1317,26 +1345,29 @@ msgstr "GNOME Commander trên _Mạng"
 msgid "Report a _Problem"
 msgstr "Thông báo _lỗi"
 
-#: ../src/gnome-cmd-main-menu.cc:756 ../src/libgviewer/viewer-window.cc:1002
-#: ../src/plugin_manager.cc:436
+#: ../src/gnome-cmd-main-menu.cc:756 ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "_Giới thiệu"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:1015
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:935
 msgid "_File"
 msgstr "_Tập tin"
+
+#: ../src/gnome-cmd-main-menu.cc:782
+msgid "_Edit"
+msgstr "_Sửa"
 
 #: ../src/gnome-cmd-main-menu.cc:786
 msgid "_Mark"
 msgstr "_Nhãn"
 
-#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:1018
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:938
 msgid "_View"
 msgstr "_Xem"
 
-#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:1029
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:949
 msgid "_Settings"
 msgstr "Thiết _lập"
 
@@ -1352,7 +1383,7 @@ msgstr "Đánh _dấu"
 msgid "_Plugins"
 msgstr "_Bổ sung"
 
-#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:1034
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:954
 msgid "_Help"
 msgstr "Trợ _giúp"
 
@@ -1512,55 +1543,55 @@ msgstr "Tùy chọn thư mục"
 msgid "Directory cache size"
 msgstr "Cỡ bộ nhớ thư mục"
 
-#: ../src/gnome-cmd-options-dialog.cc:204
+#: ../src/gnome-cmd-options-dialog.cc:203
 msgid "Size display mode"
 msgstr "Chế độ hiện kích cỡ"
 
-#: ../src/gnome-cmd-options-dialog.cc:207
+#: ../src/gnome-cmd-options-dialog.cc:206
 msgid "Powered"
 msgstr "Lũy thừa"
 
-#: ../src/gnome-cmd-options-dialog.cc:212
+#: ../src/gnome-cmd-options-dialog.cc:211
 msgid "<locale>"
 msgstr ""
 
-#: ../src/gnome-cmd-options-dialog.cc:217
+#: ../src/gnome-cmd-options-dialog.cc:216
 msgid "Grouped"
 msgstr "Nhóm lại"
 
-#: ../src/gnome-cmd-options-dialog.cc:222
+#: ../src/gnome-cmd-options-dialog.cc:221
 msgid "Plain"
 msgstr "Chuẩn"
 
-#: ../src/gnome-cmd-options-dialog.cc:232
+#: ../src/gnome-cmd-options-dialog.cc:231
 msgid "Permission display mode"
 msgstr "Chế độ hiện quyền hạn"
 
-#: ../src/gnome-cmd-options-dialog.cc:235
+#: ../src/gnome-cmd-options-dialog.cc:234
 msgid "Text (rw-r--r--)"
 msgstr "Chữ (rw-r--r--)"
 
-#: ../src/gnome-cmd-options-dialog.cc:240
+#: ../src/gnome-cmd-options-dialog.cc:239
 msgid "Number (644)"
 msgstr "Số (644)"
 
-#: ../src/gnome-cmd-options-dialog.cc:250
+#: ../src/gnome-cmd-options-dialog.cc:249
 msgid "Date format"
 msgstr "Dạng ngày"
 
-#: ../src/gnome-cmd-options-dialog.cc:253
+#: ../src/gnome-cmd-options-dialog.cc:252
 msgid "Format:"
 msgstr "Dạng thức:"
 
-#: ../src/gnome-cmd-options-dialog.cc:261
+#: ../src/gnome-cmd-options-dialog.cc:260
 msgid "_Test"
 msgstr "_Thử ra"
 
-#: ../src/gnome-cmd-options-dialog.cc:264
+#: ../src/gnome-cmd-options-dialog.cc:263
 msgid "Test result:"
 msgstr "Kết quả thử :"
 
-#: ../src/gnome-cmd-options-dialog.cc:273
+#: ../src/gnome-cmd-options-dialog.cc:272
 msgid ""
 "See the manual page for \"strftime\" for help on how to set the format "
 "string."
@@ -1568,359 +1599,390 @@ msgstr ""
 "Xem trang hướng dẫn « man » về « strftime » (lệnh « man strftime ») để tìm "
 "trợ giúp về cách đặt chuỗi dạng thức ngày giờ."
 
-#: ../src/gnome-cmd-options-dialog.cc:393
+#: ../src/gnome-cmd-options-dialog.cc:391
 msgid "Edit Colors..."
 msgstr "Sửa màu sắc..."
 
-#: ../src/gnome-cmd-options-dialog.cc:400
+#: ../src/gnome-cmd-options-dialog.cc:398
 msgid "Colors"
 msgstr "Màu sắc"
 
-#: ../src/gnome-cmd-options-dialog.cc:437
+#: ../src/gnome-cmd-options-dialog.cc:435
 msgid "Foreground"
 msgstr "Cảnh gần"
 
-#: ../src/gnome-cmd-options-dialog.cc:439
+#: ../src/gnome-cmd-options-dialog.cc:437
 msgid "Background"
 msgstr "Nền"
 
-#: ../src/gnome-cmd-options-dialog.cc:441
+#: ../src/gnome-cmd-options-dialog.cc:439
 msgid "Default:"
 msgstr "Mặc định:"
 
-#: ../src/gnome-cmd-options-dialog.cc:443
+#: ../src/gnome-cmd-options-dialog.cc:441
 msgid "Selected file:"
 msgstr "Tập tin đã chọn:"
 
-#: ../src/gnome-cmd-options-dialog.cc:445
+#: ../src/gnome-cmd-options-dialog.cc:443
 msgid "Cursor:"
 msgstr "Con chạy:"
 
-#: ../src/gnome-cmd-options-dialog.cc:462
+#: ../src/gnome-cmd-options-dialog.cc:460
 msgid "With filename"
 msgstr "Bên tên tập tin"
 
-#: ../src/gnome-cmd-options-dialog.cc:463
+#: ../src/gnome-cmd-options-dialog.cc:461
 msgid "In separate column"
 msgstr "Trong cột riêng"
 
-#: ../src/gnome-cmd-options-dialog.cc:464
+#: ../src/gnome-cmd-options-dialog.cc:462
 msgid "In both columns"
 msgstr "Trong cả hai cột"
 
-#: ../src/gnome-cmd-options-dialog.cc:468
+#: ../src/gnome-cmd-options-dialog.cc:466
 msgid "No icons"
 msgstr "Không có biểu tượng"
 
-#: ../src/gnome-cmd-options-dialog.cc:469
+#: ../src/gnome-cmd-options-dialog.cc:467
 msgid "File type icons"
 msgstr "Biểu tượng kiểu tập tin"
 
-#: ../src/gnome-cmd-options-dialog.cc:470
+#: ../src/gnome-cmd-options-dialog.cc:468
 msgid "MIME icons"
 msgstr "Biểu tượng MIME"
 
-#: ../src/gnome-cmd-options-dialog.cc:474
+#: ../src/gnome-cmd-options-dialog.cc:472
 msgid "Respect theme colors"
 msgstr "Theo màu sắc thái"
 
-#: ../src/gnome-cmd-options-dialog.cc:475
+#: ../src/gnome-cmd-options-dialog.cc:473
 msgid "Modern"
 msgstr "HIện đại"
 
-#: ../src/gnome-cmd-options-dialog.cc:476
+#: ../src/gnome-cmd-options-dialog.cc:474
 msgid "Fusion"
 msgstr "Nóng chảy"
 
-#: ../src/gnome-cmd-options-dialog.cc:477
+#: ../src/gnome-cmd-options-dialog.cc:475
 msgid "Classic"
 msgstr "Cổ điển"
 
-#: ../src/gnome-cmd-options-dialog.cc:478
+#: ../src/gnome-cmd-options-dialog.cc:476
 #, fuzzy
 msgid "Deep blue"
 msgstr "Vấn đề xoá bỏ"
 
-#: ../src/gnome-cmd-options-dialog.cc:479
+#: ../src/gnome-cmd-options-dialog.cc:477
 msgid "Custom"
 msgstr "Tự chọn"
 
-#: ../src/gnome-cmd-options-dialog.cc:495
+#: ../src/gnome-cmd-options-dialog.cc:493
 msgid "File panes"
 msgstr "Ô tập tin"
 
-#: ../src/gnome-cmd-options-dialog.cc:506
+#: ../src/gnome-cmd-options-dialog.cc:504
 msgid "Font:"
 msgstr "Phông chữ :"
 
-#: ../src/gnome-cmd-options-dialog.cc:508
+#: ../src/gnome-cmd-options-dialog.cc:506
 msgid "Row height:"
 msgstr "Cao hàng:"
 
 #. File extensions
-#: ../src/gnome-cmd-options-dialog.cc:512
+#: ../src/gnome-cmd-options-dialog.cc:510
 msgid "Display file extensions:"
 msgstr "HIện phần mở rộng tập tin:"
 
 #. Graphical mode
-#: ../src/gnome-cmd-options-dialog.cc:520
+#: ../src/gnome-cmd-options-dialog.cc:518
 msgid "Graphical mode:"
 msgstr "Chế độ đồ họa :"
 
 #. Color scheme
-#: ../src/gnome-cmd-options-dialog.cc:529
+#: ../src/gnome-cmd-options-dialog.cc:527
 msgid "Color scheme:"
 msgstr "Lược đồ màu :"
 
-#: ../src/gnome-cmd-options-dialog.cc:541
+#: ../src/gnome-cmd-options-dialog.cc:539
 msgid "Edit..."
 msgstr "Hiệu chỉnh..."
 
 #. LS_COLORS
-#: ../src/gnome-cmd-options-dialog.cc:548
+#: ../src/gnome-cmd-options-dialog.cc:546
 msgid "Colorize files according to the LS_COLORS environment variable"
 msgstr "Tô màu tập tin theo biến môi trường LS_COLORS."
 
-#: ../src/gnome-cmd-options-dialog.cc:558
+#: ../src/gnome-cmd-options-dialog.cc:556
 msgid "MIME icon settings"
 msgstr "Thiết lập biểu tượng MIME"
 
-#: ../src/gnome-cmd-options-dialog.cc:571
+#: ../src/gnome-cmd-options-dialog.cc:569
 msgid "Icon size:"
 msgstr "Cỡ biểu tượng:"
 
-#: ../src/gnome-cmd-options-dialog.cc:573
+#: ../src/gnome-cmd-options-dialog.cc:571
 msgid "Scaling quality:"
 msgstr "Chất lượng co dãn:"
 
-#: ../src/gnome-cmd-options-dialog.cc:575
+#: ../src/gnome-cmd-options-dialog.cc:573
 msgid "Theme icon directory:"
 msgstr "Thư mục biểu tượng sắc thái :"
 
-#: ../src/gnome-cmd-options-dialog.cc:577
+#: ../src/gnome-cmd-options-dialog.cc:575
 msgid "Document icon directory:"
 msgstr "Thư mục biểu tượng tài liệu :"
 
-#: ../src/gnome-cmd-options-dialog.cc:659
+#: ../src/gnome-cmd-options-dialog.cc:656
 msgid "Confirm before delete"
 msgstr "Xác nhận trước khi xoá bỏ"
 
-#: ../src/gnome-cmd-options-dialog.cc:667
+#: ../src/gnome-cmd-options-dialog.cc:664
 msgid "Copy overwrite"
 msgstr "Chép ghi đè"
 
 #.
 #. * Create prepare copy specific widgets
 #.
-#: ../src/gnome-cmd-options-dialog.cc:670
-#: ../src/gnome-cmd-options-dialog.cc:690
+#: ../src/gnome-cmd-options-dialog.cc:667
+#: ../src/gnome-cmd-options-dialog.cc:687
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:94
 #: ../src/gnome-cmd-prepare-move-dialog.cc:89
 msgid "Silently"
 msgstr "Không nói gì"
 
-#: ../src/gnome-cmd-options-dialog.cc:674
-#: ../src/gnome-cmd-options-dialog.cc:694
+#: ../src/gnome-cmd-options-dialog.cc:671
+#: ../src/gnome-cmd-options-dialog.cc:691
 msgid "Query first"
 msgstr "Xin trước"
 
-#: ../src/gnome-cmd-options-dialog.cc:687
+#: ../src/gnome-cmd-options-dialog.cc:684
 msgid "Move overwrite"
 msgstr "Chuyển ghi đè"
 
-#: ../src/gnome-cmd-options-dialog.cc:775
+#: ../src/gnome-cmd-options-dialog.cc:772
 msgid "Filetypes to hide"
 msgstr "Kiểu tập tin cần ẩn"
 
-#: ../src/gnome-cmd-options-dialog.cc:778
+#: ../src/gnome-cmd-options-dialog.cc:775
 msgid "Unknown"
 msgstr "Không rõ"
 
-#: ../src/gnome-cmd-options-dialog.cc:783
+#: ../src/gnome-cmd-options-dialog.cc:780
 msgid "Regular files"
 msgstr "Tập tin chuẩn"
 
-#: ../src/gnome-cmd-options-dialog.cc:788
+#: ../src/gnome-cmd-options-dialog.cc:785
 msgid "Directories"
 msgstr "Thư mục"
 
-#: ../src/gnome-cmd-options-dialog.cc:793
+#: ../src/gnome-cmd-options-dialog.cc:790
 msgid "Fifo files"
 msgstr "Tập tin FIFO"
 
-#: ../src/gnome-cmd-options-dialog.cc:798
+#: ../src/gnome-cmd-options-dialog.cc:795
 msgid "Socket files"
 msgstr "Tập tin ổ cắm"
 
-#: ../src/gnome-cmd-options-dialog.cc:803
+#: ../src/gnome-cmd-options-dialog.cc:800
 msgid "Character devices"
 msgstr "Thiết bị ký tự"
 
-#: ../src/gnome-cmd-options-dialog.cc:808
+#: ../src/gnome-cmd-options-dialog.cc:805
 msgid "Block devices"
 msgstr "Thiết bị khối"
 
-#: ../src/gnome-cmd-options-dialog.cc:816
+#: ../src/gnome-cmd-options-dialog.cc:813
 msgid "Also hide"
 msgstr "Cũng ẩn"
 
-#: ../src/gnome-cmd-options-dialog.cc:819
+#: ../src/gnome-cmd-options-dialog.cc:816
 msgid "Hidden files"
 msgstr "Tập tin ẩn"
 
-#: ../src/gnome-cmd-options-dialog.cc:824
-#: ../src/gnome-cmd-options-dialog.cc:837
+#: ../src/gnome-cmd-options-dialog.cc:821
+#: ../src/gnome-cmd-options-dialog.cc:834
 msgid "Backup files"
 msgstr "Tập tin sao lưu"
 
-#: ../src/gnome-cmd-options-dialog.cc:829
+#: ../src/gnome-cmd-options-dialog.cc:826
 msgid "Symlinks"
 msgstr "Liên kết mềm"
 
-#: ../src/gnome-cmd-options-dialog.cc:1104
+#: ../src/gnome-cmd-options-dialog.cc:933
+#, fuzzy
+msgid "Authentication"
+msgstr "Ứng dụng:"
+
+#: ../src/gnome-cmd-options-dialog.cc:936
+msgid "Use GNOME Keyring Manager for authentication"
+msgstr ""
+
+#: ../src/gnome-cmd-options-dialog.cc:944
+#, fuzzy
+msgid "Anonymous FTP access"
+msgstr "Mật khẩu vô danh:"
+
+#: ../src/gnome-cmd-options-dialog.cc:947
+msgid "Password:"
+msgstr "Mật khẩu :"
+
+#: ../src/gnome-cmd-options-dialog.cc:1157
 msgid "Label:"
 msgstr "Nhãn:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1106
+#: ../src/gnome-cmd-options-dialog.cc:1159
 msgid "Command:"
 msgstr "Lệnh:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1108
-#: ../src/gnome-cmd-options-dialog.cc:1541
+#: ../src/gnome-cmd-options-dialog.cc:1161
+#: ../src/gnome-cmd-options-dialog.cc:1594
 msgid "Icon:"
 msgstr "Biểu tượng:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1129
+#: ../src/gnome-cmd-options-dialog.cc:1182
 msgid "Can handle multiple files"
 msgstr "Có thể xử lý nhiều tập tin"
 
-#: ../src/gnome-cmd-options-dialog.cc:1133
+#: ../src/gnome-cmd-options-dialog.cc:1186
 msgid "Can handle URIs"
 msgstr "Có thể xử lý URI"
 
-#: ../src/gnome-cmd-options-dialog.cc:1137
+#: ../src/gnome-cmd-options-dialog.cc:1190
 msgid "Requires terminal"
 msgstr "Cần thiết bị cuối"
 
-#: ../src/gnome-cmd-options-dialog.cc:1144
+#: ../src/gnome-cmd-options-dialog.cc:1197
 msgid "Show for"
 msgstr "Hiện cho"
 
-#: ../src/gnome-cmd-options-dialog.cc:1153
+#: ../src/gnome-cmd-options-dialog.cc:1206
 msgid "All directories"
 msgstr "Mọi thư mục"
 
-#: ../src/gnome-cmd-options-dialog.cc:1159
+#: ../src/gnome-cmd-options-dialog.cc:1212
 msgid "All directories and files"
 msgstr "Mọi thư mục và tập tin"
 
-#: ../src/gnome-cmd-options-dialog.cc:1165
+#: ../src/gnome-cmd-options-dialog.cc:1218
 msgid "Some files"
 msgstr "Một số tập tin"
 
-#: ../src/gnome-cmd-options-dialog.cc:1176
+#: ../src/gnome-cmd-options-dialog.cc:1229
 msgid "File patterns"
 msgstr "Mẫu tập tin"
 
-#: ../src/gnome-cmd-options-dialog.cc:1201
+#: ../src/gnome-cmd-options-dialog.cc:1254
 msgid "New Application"
 msgstr "Ứng dụng mới"
 
-#: ../src/gnome-cmd-options-dialog.cc:1212
+#: ../src/gnome-cmd-options-dialog.cc:1265
 msgid "Edit Application"
 msgstr "Sửa đổi ứng dụng"
 
-#: ../src/gnome-cmd-options-dialog.cc:1300
+#: ../src/gnome-cmd-options-dialog.cc:1353
 msgid "Always download remote files before opening in external programs"
 msgstr ""
 "Luôn luôn tải về tập tin từ xa trước khi mở trong chương trình bên ngoài"
 
-#: ../src/gnome-cmd-options-dialog.cc:1302
+#: ../src/gnome-cmd-options-dialog.cc:1355
 msgid "MIME applications"
 msgstr "Ứng dụng MIME"
 
-#: ../src/gnome-cmd-options-dialog.cc:1306
+#: ../src/gnome-cmd-options-dialog.cc:1359
 msgid "Standard programs"
 msgstr "Chương trình chuẩn"
 
-#: ../src/gnome-cmd-options-dialog.cc:1309
+#: ../src/gnome-cmd-options-dialog.cc:1362
 msgid "Viewer:"
 msgstr "Bộ xem:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1311
+#: ../src/gnome-cmd-options-dialog.cc:1364
 msgid "Editor:"
 msgstr "Bộ soạn thảo :"
 
-#: ../src/gnome-cmd-options-dialog.cc:1313
+#: ../src/gnome-cmd-options-dialog.cc:1366
 msgid "Differ:"
 msgstr "Bộ khác biệt:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1315
+#: ../src/gnome-cmd-options-dialog.cc:1368
 msgid "Terminal:"
 msgstr "Thiết bị cuối :"
 
-#: ../src/gnome-cmd-options-dialog.cc:1321
+#: ../src/gnome-cmd-options-dialog.cc:1374
 msgid "Use Internal Viewer"
 msgstr "Dùng bộ xem nội bộ"
 
-#: ../src/gnome-cmd-options-dialog.cc:1336
+#: ../src/gnome-cmd-options-dialog.cc:1389
 msgid "Other favorite apps"
 msgstr "Ứng dụng thường dụng khác"
 
-#: ../src/gnome-cmd-options-dialog.cc:1343
+#: ../src/gnome-cmd-options-dialog.cc:1396
 msgid "Label"
 msgstr "Nhãn"
 
-#: ../src/gnome-cmd-options-dialog.cc:1537
+#: ../src/gnome-cmd-options-dialog.cc:1588
+msgid "Alias:"
+msgstr "Bí danh:"
+
+#: ../src/gnome-cmd-options-dialog.cc:1590
 msgid "Device:"
 msgstr "Thiết bị :"
 
-#: ../src/gnome-cmd-options-dialog.cc:1539
+#: ../src/gnome-cmd-options-dialog.cc:1592
 msgid "Mount point:"
 msgstr "Điểm lắp:"
 
-#: ../src/gnome-cmd-options-dialog.cc:1583
+#: ../src/gnome-cmd-options-dialog.cc:1636
 msgid "New Device"
 msgstr "Thiết bị mới"
 
-#: ../src/gnome-cmd-options-dialog.cc:1596
+#: ../src/gnome-cmd-options-dialog.cc:1649
 msgid "Edit Device"
 msgstr "Sửa đổi thiết bị"
 
-#: ../src/gnome-cmd-options-dialog.cc:1684
-#: ../src/gnome-cmd-options-dialog.cc:1877
+#: ../src/gnome-cmd-options-dialog.cc:1737
+#: ../src/gnome-cmd-options-dialog.cc:1936
 msgid "Devices"
 msgstr "Thiết bị"
 
-#: ../src/gnome-cmd-options-dialog.cc:1724
+#: ../src/gnome-cmd-options-dialog.cc:1747
+msgid "Alias"
+msgstr "Bí danh"
+
+#: ../src/gnome-cmd-options-dialog.cc:1777
 msgid "Show only the icons"
 msgstr "Hiện chỉ biểu tượng"
 
-#: ../src/gnome-cmd-options-dialog.cc:1728
+#: ../src/gnome-cmd-options-dialog.cc:1781
 msgid "Skip mounting (useful when using super-mount)"
 msgstr "Bỏ qua việc gắn kết (có ích khi dùng super-mount)"
 
-#: ../src/gnome-cmd-options-dialog.cc:1847
+#: ../src/gnome-cmd-options-dialog.cc:1901
 msgid "General"
 msgstr "Chung"
 
-#: ../src/gnome-cmd-options-dialog.cc:1852 ../src/tags/gnome-cmd-tags.cc:311
+#: ../src/gnome-cmd-options-dialog.cc:1906 ../src/tags/gnome-cmd-tags.cc:311
 msgid "Format"
 msgstr "Dạng thức"
 
-#: ../src/gnome-cmd-options-dialog.cc:1857
+#: ../src/gnome-cmd-options-dialog.cc:1911
 msgid "Layout"
 msgstr "Bố trí"
 
-#: ../src/gnome-cmd-options-dialog.cc:1862
+#: ../src/gnome-cmd-options-dialog.cc:1916
 msgid "Confirmation"
 msgstr "Xác nhận"
 
-#: ../src/gnome-cmd-options-dialog.cc:1867
+#: ../src/gnome-cmd-options-dialog.cc:1921
 msgid "Filters"
 msgstr "Lọc"
 
-#: ../src/gnome-cmd-options-dialog.cc:1872
+#: ../src/gnome-cmd-options-dialog.cc:1926
+#, fuzzy
+msgid "Network"
+msgstr "Đánh Dấu Mới"
+
+#: ../src/gnome-cmd-options-dialog.cc:1931
 msgid "Programs"
 msgstr "Chương trình"
 
@@ -1942,7 +2004,7 @@ msgid "Query First"
 msgstr "Xin trước"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:171
 msgid "Skip All"
 msgstr "Bỏ qua hết"
 
@@ -1994,115 +2056,160 @@ msgstr ""
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: ../src/gnome-cmd-search-dialog.cc:184
+#: ../src/gnome-cmd-remote-dialog.cc:214
+msgid "No server selected"
+msgstr "Chưa chọn máy phục vụ"
+
+#: ../src/gnome-cmd-remote-dialog.cc:405
+msgid "GNOME authentication manager usage"
+msgstr ""
+
+#: ../src/gnome-cmd-remote-dialog.cc:409
+msgid "Network protocol"
+msgstr ""
+
+#: ../src/gnome-cmd-remote-dialog.cc:420
+#, fuzzy
+msgid "Connection name"
+msgstr "Kết nối"
+
+#: ../src/gnome-cmd-remote-dialog.cc:492
+#, fuzzy
+msgid "Remote Connections"
+msgstr "Kết nối FTP mới"
+
+#: ../src/gnome-cmd-remote-dialog.cc:498
+msgid "Connections"
+msgstr "Kết nối"
+
+#: ../src/gnome-cmd-remote-dialog.cc:529
+#, fuzzy
+msgid "Anonymous FTP password:"
+msgstr "Mật khẩu vô danh:"
+
+#: ../src/gnome-cmd-search-dialog.cc:180
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Lỗi mở tập tin %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:193
+#: ../src/gnome-cmd-search-dialog.cc:189
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Lỗi đọc từ tập tin %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:257
+#: ../src/gnome-cmd-search-dialog.cc:250
 #, c-format
 msgid "Searching in: %s"
 msgstr "Đang tìm kiếm qua: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:406
+#: ../src/gnome-cmd-search-dialog.cc:399
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
 msgstr[0] "Tìm thấy %d điều khớp trước khi bị ngừng"
 
-#: ../src/gnome-cmd-search-dialog.cc:413
+#: ../src/gnome-cmd-search-dialog.cc:406
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "Tìm thấy %d điều khớp"
 
-#: ../src/gnome-cmd-search-dialog.cc:725
+#: ../src/gnome-cmd-search-dialog.cc:715
 msgid "Search..."
 msgstr "Tìm kiếm..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:738
+#: ../src/gnome-cmd-search-dialog.cc:728
 msgid "Search for: "
 msgstr "Tìm kiếm: "
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:750
+#: ../src/gnome-cmd-search-dialog.cc:740
 msgid "Search in: "
 msgstr "Tìm kiếm qua: "
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:764
+#: ../src/gnome-cmd-search-dialog.cc:754
 msgid "Find text: "
 msgstr "Tìm chuỗi: "
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:778
+#: ../src/gnome-cmd-search-dialog.cc:768
 msgid "Search Recursively"
 msgstr "Tìm kiếm đệ quy"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:785 ../src/tags/gnome-cmd-tags.cc:147
+#: ../src/gnome-cmd-search-dialog.cc:775 ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
 msgstr "Phân biệt chữ hoa/thường"
 
-#: ../src/gnome-cmd-search-dialog.cc:796
+#: ../src/gnome-cmd-search-dialog.cc:786
 msgid "Goto"
 msgstr "Tới"
+
+#: ../src/gnome-cmd-smb-auth.cc:33
+#, fuzzy
+msgid "Enter password"
+msgstr "Nhập mật khẩu"
+
+#: ../src/gnome-cmd-smb-auth.cc:34
+msgid ""
+"Problem: access not permitted\n"
+"\n"
+"please supply user credentials\n"
+"\n"
+"Remember: wrong credentials may lead to account locking"
+msgstr ""
 
 #: ../src/gnome-cmd-smb-path.cc:321
 #, c-format
 msgid "Can't find a host or workgroup named %s\n"
 msgstr "Không tìm thấy máy hay nhóm làm việc có tên %s\n"
 
-#: ../src/gnome-cmd-user-actions.cc:69
+#: ../src/gnome-cmd-user-actions.cc:70
 msgid "No file selected"
 msgstr "Chưa chọn tập tin"
 
-#: ../src/gnome-cmd-user-actions.cc:661
+#: ../src/gnome-cmd-user-actions.cc:668
 #, fuzzy, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Tạo liên kết tượng trưng"
 
-#: ../src/gnome-cmd-user-actions.cc:666
+#: ../src/gnome-cmd-user-actions.cc:673
 #, fuzzy
 msgid "Create"
 msgstr "Thư mục"
 
-#: ../src/gnome-cmd-user-actions.cc:714 ../src/gnome-cmd-user-actions.cc:773
-#: ../src/gnome-cmd-user-actions.cc:810
+#: ../src/gnome-cmd-user-actions.cc:721 ../src/gnome-cmd-user-actions.cc:780
+#: ../src/gnome-cmd-user-actions.cc:817
 #, fuzzy, c-format
 msgid "running `%s'\n"
 msgstr "có chạy « %s »\n"
 
-#: ../src/gnome-cmd-user-actions.cc:731 ../src/gnome-cmd-user-actions.cc:748
-#: ../src/gnome-cmd-user-actions.cc:788
+#: ../src/gnome-cmd-user-actions.cc:738 ../src/gnome-cmd-user-actions.cc:755
+#: ../src/gnome-cmd-user-actions.cc:795
 msgid "Operation not supported on remote file systems"
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:763
+#: ../src/gnome-cmd-user-actions.cc:770
 #, fuzzy
 msgid "Too many selected files"
 msgstr "Tập tin đã chọn:"
 
-#: ../src/gnome-cmd-user-actions.cc:1310
+#: ../src/gnome-cmd-user-actions.cc:1317
 msgid "There was an error opening home page."
 msgstr "Gặp lỗi khi mở trang chủ."
 
-#: ../src/gnome-cmd-user-actions.cc:1319
+#: ../src/gnome-cmd-user-actions.cc:1326
 msgid "There was an error reporting problem."
 msgstr "Gặp lỗi khi thông báo lỗi."
 
-#: ../src/gnome-cmd-user-actions.cc:1340
+#: ../src/gnome-cmd-user-actions.cc:1347
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Bộ quản lý tập tin nhanh và mạnh cho môi trường Gnome"
 
-#: ../src/gnome-cmd-user-actions.cc:1344
+#: ../src/gnome-cmd-user-actions.cc:1351
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2110,7 +2217,7 @@ msgid ""
 "any later version."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1348
+#: ../src/gnome-cmd-user-actions.cc:1355
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2118,14 +2225,14 @@ msgid ""
 "more details."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1352
+#: ../src/gnome-cmd-user-actions.cc:1359
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"GNOME Commander; if not, write to the Free Software Foundation, Inc., 59 "
-"Temple Place, Suite 330, Boston, MA  02111-1307  USA"
+"GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1369
+#: ../src/gnome-cmd-user-actions.cc:1376
 msgid "translator-credits"
 msgstr "Clytie Siddall <clytie@riverland.net.au>"
 
@@ -2147,7 +2254,7 @@ msgstr "%d%% trên %s đã được sao chép"
 msgid "%.0f%% copied"
 msgstr "%d%% đã được sao chép"
 
-#: ../src/gnome-cmd-xfer.cc:170
+#: ../src/gnome-cmd-xfer.cc:167
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -2158,15 +2265,15 @@ msgstr ""
 "\n"
 "Bạn có muốn ghi đè lên nó không?\n"
 
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-xfer.cc:171
 msgid "Replace"
 msgstr "Thay thế"
 
-#: ../src/gnome-cmd-xfer.cc:174
+#: ../src/gnome-cmd-xfer.cc:171
 msgid "Replace All"
 msgstr "Thay thế hết"
 
-#: ../src/gnome-cmd-xfer.cc:189
+#: ../src/gnome-cmd-xfer.cc:186
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -2177,21 +2284,21 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-xfer.cc:192
+#: ../src/gnome-cmd-xfer.cc:189
 #, fuzzy
 msgid "Transfer problem"
 msgstr "Vấn đề truyền"
 
-#: ../src/gnome-cmd-xfer.cc:232
+#: ../src/gnome-cmd-xfer.cc:229
 msgid "copying..."
 msgstr "đang chép..."
 
-#: ../src/gnome-cmd-xfer.cc:240
+#: ../src/gnome-cmd-xfer.cc:237
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[tập tin %ld trên %ld] « %s »"
 
-#: ../src/gnome-cmd-xfer.cc:383
+#: ../src/gnome-cmd-xfer.cc:367
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
@@ -2199,11 +2306,11 @@ msgstr ""
 "Không cho phép sao chép thư mục vào chính nó\n"
 "nên toàn bộ thao tác bị thôi."
 
-#: ../src/gnome-cmd-xfer.cc:425
+#: ../src/gnome-cmd-xfer.cc:408
 msgid "preparing..."
 msgstr "đang chuẩn bị..."
 
-#: ../src/gnome-cmd-xfer.cc:510
+#: ../src/gnome-cmd-xfer.cc:493
 msgid "downloading to /tmp"
 msgstr "đang tải về vào </tmp>..."
 
@@ -2232,23 +2339,22 @@ msgstr ""
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr "Không thể tải sơ đồ điểm ảnh đã cài đặt nên cố tải từ thư mục nguồn\n"
 
-#: ../src/libgviewer/search-dlg.cc:314
+#: ../src/libgviewer/search-dlg.cc:312
 msgid "Find"
 msgstr ""
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.cc:344 ../src/libgviewer/viewer-window.cc:793
-#: ../src/libgviewer/viewer-window.cc:1021
+#: ../src/libgviewer/search-dlg.cc:342 ../src/libgviewer/viewer-window.cc:721
+#: ../src/libgviewer/viewer-window.cc:941
 msgid "_Text"
 msgstr "_Chữ"
 
-#: ../src/libgviewer/search-dlg.cc:346
-#, fuzzy
-msgid "_Hex"
-msgstr "Trợ _giúp"
+#: ../src/libgviewer/search-dlg.cc:343 ../src/libgviewer/viewer-window.cc:729
+msgid "_Hexadecimal"
+msgstr ""
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.cc:355
+#: ../src/libgviewer/search-dlg.cc:352
 msgid "_Match case"
 msgstr ""
 
@@ -2262,169 +2368,167 @@ msgstr "Tìm kiếm..."
 msgid "Searching for \"%s\""
 msgstr "Đang tìm kiếm qua: %s"
 
-#: ../src/libgviewer/viewer-widget.cc:201
+#: ../src/libgviewer/viewer-widget.cc:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Vị trí : %lu trên %lu\tCột: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.cc:205
+#: ../src/libgviewer/viewer-widget.cc:210
 msgid "Wrap"
 msgstr "Cuộn"
 
-#: ../src/libgviewer/viewer-widget.cc:224
-#, c-format
-msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
-msgstr "Cỡ ảnh: %dx%d\tBit/mẫu: %d\tPhóng: %s"
+#: ../src/libgviewer/viewer-widget.cc:237
+msgid "pixel"
+msgid_plural "pixels"
+msgstr[0] ""
 
-#: ../src/libgviewer/viewer-widget.cc:226
-msgid "Fit-to-Window"
+#: ../src/libgviewer/viewer-widget.cc:239
+msgid "bit/sample"
+msgid_plural "bits/sample"
+msgstr[0] ""
+
+#: ../src/libgviewer/viewer-widget.cc:241
+#, fuzzy
+msgid "(fit to window)"
 msgstr "Khít cửa sổ"
 
-#: ../src/libgviewer/viewer-window.cc:191 ../src/utils.cc:1347
-msgid "There was an error displaying help."
-msgstr "Gặp lỗi khi hiển thị trợ giúp."
-
-#: ../src/libgviewer/viewer-window.cc:783
+#: ../src/libgviewer/viewer-window.cc:711
 msgid "_Close"
 msgstr "Đón_g"
 
-#: ../src/libgviewer/viewer-window.cc:797
+#: ../src/libgviewer/viewer-window.cc:725
 msgid "_Binary"
 msgstr "_Nhị phân"
 
-#: ../src/libgviewer/viewer-window.cc:801
-msgid "_Hex dump"
-msgstr "Đổ thậ_p lục"
-
-#: ../src/libgviewer/viewer-window.cc:805
-#: ../src/libgviewer/viewer-window.cc:1026
+#: ../src/libgviewer/viewer-window.cc:733
+#: ../src/libgviewer/viewer-window.cc:946
 msgid "_Image"
 msgstr "Ả_nh"
 
-#: ../src/libgviewer/viewer-window.cc:810
+#: ../src/libgviewer/viewer-window.cc:738
 msgid "_Zoom In"
 msgstr "_Phóng to"
 
-#: ../src/libgviewer/viewer-window.cc:814
+#: ../src/libgviewer/viewer-window.cc:742
 msgid "Zoom _Out"
 msgstr "Thu _nhỏ"
 
-#: ../src/libgviewer/viewer-window.cc:818
+#: ../src/libgviewer/viewer-window.cc:746
 msgid "_Normal Size"
 msgstr "_Cỡ chuẩn"
 
-#: ../src/libgviewer/viewer-window.cc:822
+#: ../src/libgviewer/viewer-window.cc:750
 msgid "Best _Fit"
 msgstr "_Vừa khít nhất"
 
-#: ../src/libgviewer/viewer-window.cc:835
+#: ../src/libgviewer/viewer-window.cc:763
 msgid "_Copy Text Selection"
 msgstr "_Chép đoạn chọn"
 
-#: ../src/libgviewer/viewer-window.cc:839
+#: ../src/libgviewer/viewer-window.cc:767
 msgid "Find..."
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:843
+#: ../src/libgviewer/viewer-window.cc:771
 #, fuzzy
 msgid "Find Next"
 msgstr "Tìm chuỗi: "
 
-#: ../src/libgviewer/viewer-window.cc:847
+#: ../src/libgviewer/viewer-window.cc:775
 msgid "Find Previous"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:853
+#: ../src/libgviewer/viewer-window.cc:781
 msgid "_No Parsing (original file)"
 msgstr "Khô_ng phân tách (tập tin gốc)"
 
-#: ../src/libgviewer/viewer-window.cc:857
+#: ../src/libgviewer/viewer-window.cc:785
 msgid "_HTML Parser"
 msgstr "Bộ phân tách _HTML"
 
-#: ../src/libgviewer/viewer-window.cc:861
+#: ../src/libgviewer/viewer-window.cc:789
 msgid "_PS/PDF Parser"
 msgstr "Bộ phân tách _PS/PDF"
 
-#: ../src/libgviewer/viewer-window.cc:867
+#: ../src/libgviewer/viewer-window.cc:795
 msgid "_Wrap lines"
 msgstr "_Ngắt dòng"
 
-#: ../src/libgviewer/viewer-window.cc:872
+#: ../src/libgviewer/viewer-window.cc:800
 msgid "_Encoding"
 msgstr "_Bảng mã"
 
-#: ../src/libgviewer/viewer-window.cc:913
+#: ../src/libgviewer/viewer-window.cc:841
 msgid "_Show EXIF/IPTC Information"
 msgstr "Hiện thông tin _EXIF/IPTC"
 
-#: ../src/libgviewer/viewer-window.cc:919
+#: ../src/libgviewer/viewer-window.cc:847
 msgid "_Rotate Clockwise"
 msgstr "_Quay xuôi chiều"
 
-#: ../src/libgviewer/viewer-window.cc:924
+#: ../src/libgviewer/viewer-window.cc:852
 msgid "Rotate Counter Clockwis_e"
 msgstr "Quay n_gược chiều"
 
-#: ../src/libgviewer/viewer-window.cc:929
+#: ../src/libgviewer/viewer-window.cc:857
 msgid "_Rotate 180°"
 msgstr "_Quay 180º"
 
-#: ../src/libgviewer/viewer-window.cc:934
+#: ../src/libgviewer/viewer-window.cc:862
 msgid "Flip _Vertical"
 msgstr "Lật _dọc"
 
-#: ../src/libgviewer/viewer-window.cc:939
+#: ../src/libgviewer/viewer-window.cc:867
 msgid "Flip _Horizontal"
 msgstr "Lật _ngang"
 
-#: ../src/libgviewer/viewer-window.cc:949
+#: ../src/libgviewer/viewer-window.cc:877
 msgid "_Binary Mode"
 msgstr "Chế độ _nhị phân"
 
-#: ../src/libgviewer/viewer-window.cc:955
+#: ../src/libgviewer/viewer-window.cc:883
 msgid "_Decimal Offset in Hexdump"
 msgstr "Hiệu số thập _phân trong sự đổ thập lục"
 
-#: ../src/libgviewer/viewer-window.cc:961
+#: ../src/libgviewer/viewer-window.cc:889
 msgid "_Save Current Settings"
 msgstr "_Lưu thiết lập hiện thời"
 
-#: ../src/libgviewer/viewer-window.cc:971
+#: ../src/libgviewer/viewer-window.cc:899
 msgid "_20 chars/line"
 msgstr "_20 ký tự/dòng"
 
-#: ../src/libgviewer/viewer-window.cc:976
+#: ../src/libgviewer/viewer-window.cc:904
 msgid "_40 chars/line"
 msgstr "_40 ký tự/dòng"
 
-#: ../src/libgviewer/viewer-window.cc:981
+#: ../src/libgviewer/viewer-window.cc:909
 msgid "_80 chars/line"
 msgstr "_80 ký tự/dòng"
 
-#: ../src/libgviewer/viewer-window.cc:990
+#: ../src/libgviewer/viewer-window.cc:918
 #, fuzzy
 msgid "Quick _Help"
 msgstr "Trợ giúp nhanh"
 
-#: ../src/libgviewer/viewer-window.cc:1210
+#: ../src/libgviewer/viewer-window.cc:1130
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr ""
 
-#: ../src/main.cc:60 ../src/main.cc:69
+#: ../src/main.cc:61 ../src/main.cc:70
 msgid "Specify debug flags to use"
 msgstr "Xác định các cờ gỡ lỗi cần dùng"
 
-#: ../src/main.cc:61 ../src/main.cc:70
+#: ../src/main.cc:62 ../src/main.cc:71
 msgid "Specify the start directory for the left pane"
 msgstr "Xác định thư mục đầu cho ô bên trái"
 
-#: ../src/main.cc:62 ../src/main.cc:71
+#: ../src/main.cc:63 ../src/main.cc:72
 msgid "Specify the start directory for the right pane"
 msgstr "Xác định thư mục đầu cho ô bên phải"
 
-#: ../src/main.cc:110
+#: ../src/main.cc:111
 msgid "File Manager"
 msgstr "Bộ quản lý tập tin"
 
@@ -2452,10 +2556,6 @@ msgstr "Bổ sung có sẵn"
 #: ../src/plugin_manager.cc:421
 msgid "Version"
 msgstr "Phiên bản"
-
-#: ../src/plugin_manager.cc:422 ../src/tags/gnome-cmd-tags.cc:659
-msgid "File"
-msgstr "Tập tin"
 
 #: ../src/plugin_manager.cc:427
 msgid "_Enable"
@@ -6048,80 +6148,242 @@ msgstr ""
 msgid "Image"
 msgstr "Ả_nh"
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:65
+#: ../src/tags/gnome-cmd-tags-doc.cc:63
 msgid "No Proofing"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:73
+#: ../src/tags/gnome-cmd-tags-doc.cc:65
+msgid "Arabic"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:67
+msgid "Bulgarian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:69
+msgid "Catalan"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:71
 msgid "Traditional Chinese"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:75
+#: ../src/tags/gnome-cmd-tags-doc.cc:73
 msgid "Simplified Chinese"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:83
+#: ../src/tags/gnome-cmd-tags-doc.cc:75
+msgid "Chechen"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:77
+msgid "Danish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:79
+#, fuzzy
+msgid "German"
+msgstr "Chung"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:81
 msgid "Swiss German"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:87
+#: ../src/tags/gnome-cmd-tags-doc.cc:83
+#, fuzzy
+msgid "Greek"
+msgstr "Chung"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:85
 msgid "U.S. English"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:89
+#: ../src/tags/gnome-cmd-tags-doc.cc:87
 msgid "U.K. English"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:91
+#: ../src/tags/gnome-cmd-tags-doc.cc:89
 msgid "Australian English"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:93
+#: ../src/tags/gnome-cmd-tags-doc.cc:91
 msgid "Castilian Spanish"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:95
+#: ../src/tags/gnome-cmd-tags-doc.cc:93
 msgid "Mexican Spanish"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:101
+#: ../src/tags/gnome-cmd-tags-doc.cc:95
+msgid "Finnish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:97
+msgid "French"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:99
 msgid "Belgian French"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:103
+#: ../src/tags/gnome-cmd-tags-doc.cc:101
 msgid "Canadian French"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:105
+#: ../src/tags/gnome-cmd-tags-doc.cc:103
 msgid "Swiss French"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:115
+#: ../src/tags/gnome-cmd-tags-doc.cc:105
+msgid "Hebrew"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:107
+msgid "Hungarian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:109
+msgid "Icelandic"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:111
+msgid "Italian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:113
 msgid "Swiss Italian"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:123
+#: ../src/tags/gnome-cmd-tags-doc.cc:115
+msgid "Japanese"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:117
+msgid "Korean"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:119
+msgid "Dutch"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:121
 msgid "Belgian Dutch"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:125
+#: ../src/tags/gnome-cmd-tags-doc.cc:123
 msgid "Norwegian Bokmal"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:135
+#: ../src/tags/gnome-cmd-tags-doc.cc:125
+msgid "Norwegian Nynorsk"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:127
+msgid "Polish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:129
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:131
+#, fuzzy
+msgid "Portuguese"
+msgstr "Tài sản"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:133
 msgid "Rhaeto-Romanic"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:141
+#: ../src/tags/gnome-cmd-tags-doc.cc:135
+msgid "Romanian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:137
+#, fuzzy
+msgid "Russian"
+msgstr "Nóng chảy"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:139
 msgid "Croato-Serbian (Latin)"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:143
+#: ../src/tags/gnome-cmd-tags-doc.cc:141
 msgid "Serbo-Croatian (Cyrillic)"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:171
+#: ../src/tags/gnome-cmd-tags-doc.cc:143
+msgid "Slovak"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:145
+#, fuzzy
+msgid "Albanian"
+msgstr "Bí danh"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:147
+msgid "Swedish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:149
+msgid "Thai"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:151
+msgid "Turkish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:153
+msgid "Urdu"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:155
+msgid "Bahasa"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:157
+msgid "Ukrainian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:159
+msgid "Byelorussian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:161
+msgid "Slovenian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:163
+msgid "Estonian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:165
+#, fuzzy
+msgid "Latvian"
+msgstr "Kết nối"
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:167
+msgid "Lithuanian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:169
 msgid "Farsi"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:171
+msgid "Basque"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:173
+msgid "Macedonian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:175
+msgid "Afrikaans"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:177
+msgid "Malayalam"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:65
@@ -6175,11 +6437,7 @@ msgstr "Không"
 msgid "10-15ms"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-taglib.cc:98
-msgid "CCIT J17"
-msgstr ""
-
-#: ../src/utils.cc:432
+#: ../src/utils.cc:429
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -6189,7 +6447,7 @@ msgstr ""
 "Hãy mở trang « Kiểu tập tin và chương trình » trong Trung tâm Điều khiển để "
 "thêm nó."
 
-#: ../src/utils.cc:507
+#: ../src/utils.cc:504
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -6198,11 +6456,11 @@ msgstr ""
 "« %s » có vẻ là tập tin nhị phân có thể thực hiện, nhưng nó còn thiếu bit "
 "khả năng thực hiện. Bạn có muốn đặt bit này rồi chạy tập tin đó không?"
 
-#: ../src/utils.cc:510
+#: ../src/utils.cc:507
 msgid "Make Executable?"
 msgstr "Đặt khả năng thực hiện ?"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:534
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
@@ -6211,19 +6469,19 @@ msgstr ""
 "« %s » là một tập tin văn bản có thể thực hiện. Bạn có muốn chạy nó, hoặc "
 "hiển thị nội dung của nó?"
 
-#: ../src/utils.cc:539
+#: ../src/utils.cc:536
 msgid "Run or Display"
 msgstr "Chạy hay Hiển thị"
 
-#: ../src/utils.cc:540
+#: ../src/utils.cc:537
 msgid "Display"
 msgstr "Hiển thị"
 
-#: ../src/utils.cc:540
+#: ../src/utils.cc:537
 msgid "Run"
 msgstr "Chạy"
 
-#: ../src/utils.cc:582 ../src/utils.cc:658
+#: ../src/utils.cc:579 ../src/utils.cc:655
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -6235,7 +6493,7 @@ msgstr[0] ""
 "%s không có khả năng mở tập tin từ xa. Như thế thì bạn có muốn tải tập tin "
 "về một địa điểm tạm thời, rồi mở nó không?"
 
-#: ../src/utils.cc:1022
+#: ../src/utils.cc:1021
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -6259,14 +6517,64 @@ msgstr "Việc tạo thư mục %s bị lỗi"
 msgid "Couldn't read from the directory %s: %s"
 msgstr "Không thể đọc từ thư mục %s: %s\n"
 
+#: ../src/utils.h:253
+msgid "There was an error displaying help."
+msgstr "Gặp lỗi khi hiển thị trợ giúp."
+
+#, fuzzy
+#~ msgid "Dir"
+#~ msgstr "tmục"
+
+#~ msgid "_Add..."
+#~ msgstr "Thê_m..."
+
+#~ msgid "_Edit..."
+#~ msgstr "_Sửa..."
+
+#~ msgid "_Remove"
+#~ msgstr "_Gỡ bỏ"
+
+#~ msgid "_Goto"
+#~ msgstr "_Tới"
+
+#~ msgid "No alias specified"
+#~ msgstr "Chưa ghi rõ bí danh"
+
+#~ msgid "No host specified"
+#~ msgstr "Chưa ghi rõ máy"
+
+#~ msgid "Invalid port number: %s"
+#~ msgstr "Sổ hiệu cổng không hợp lệ: %s"
+
+#~ msgid "Host:"
+#~ msgstr "Máy:"
+
+#, fuzzy
+#~ msgid "Edit Remote Connection"
+#~ msgstr "Sửa kết nối FTP"
+
+#~ msgid "Connect"
+#~ msgstr "Kết nối"
+
+#, fuzzy
+#~ msgid "New Connection"
+#~ msgstr "Kết nối FTP mới"
+
+#, fuzzy
+#~ msgid "_Hex"
+#~ msgstr "Trợ _giúp"
+
+#~ msgid "Image size: %dx%d\tBits/sample: %d\tZoom: %s"
+#~ msgstr "Cỡ ảnh: %dx%d\tBit/mẫu: %d\tPhóng: %s"
+
+#~ msgid "_Hex dump"
+#~ msgstr "Đổ thậ_p lục"
+
 #~ msgid "Enter password for %s@%s"
 #~ msgstr "Hãy gõ mật khẩu cho %s@%s"
 
 #~ msgid "Enter Password"
 #~ msgstr "Nhập mật khẩu"
-
-#~ msgid "Password:"
-#~ msgstr "Mật khẩu :"
 
 #~ msgid "FTP Connect"
 #~ msgstr "Kết nối FTP"
@@ -6279,10 +6587,6 @@ msgstr "Không thể đọc từ thư mục %s: %s\n"
 
 #~ msgid "FTP _Quick Connect..."
 #~ msgstr "Kết nối _nhanh FTP..."
-
-#, fuzzy
-#~ msgid "Enter password"
-#~ msgstr "Nhập mật khẩu"
 
 #~ msgid "_Execute"
 #~ msgstr "Chạ_y"

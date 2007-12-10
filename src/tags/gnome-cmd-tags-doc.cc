@@ -55,34 +55,32 @@ using namespace std;
 #ifdef HAVE_GSF
 static DICT<GnomeCmdTag> gsf_tags(TAG_NONE);
 
-#define __(a) dgettext("iso-639", a)
-
-inline const gchar *lid2lang(guint lid)
+inline const gchar *lid2lang (guint lid)
 {
     switch (lid)
     {
         case 0x0400:
             return _("No Proofing");
         case 0x0401:
-            return __("Arabic");
+            return _("Arabic");
         case 0x0402:
-            return __("Bulgarian");
+            return _("Bulgarian");
         case 0x0403:
-            return __("Catalan");
+            return _("Catalan");
         case 0x0404:
             return _("Traditional Chinese");
         case 0x0804:
             return _("Simplified Chinese");
         case 0x0405:
-            return __("Chechen");
+            return _("Chechen");
         case 0x0406:
-            return __("Danish");
+            return _("Danish");
         case 0x0407:
-            return __("German");
+            return _("German");
         case 0x0807:
             return _("Swiss German");
         case 0x0408:
-            return __("Greek");
+            return _("Greek");
         case 0x0409:
             return _("U.S. English");
         case 0x0809:
@@ -94,9 +92,9 @@ inline const gchar *lid2lang(guint lid)
         case 0x080a:
             return _("Mexican Spanish");
         case 0x040b:
-            return __("Finnish");
+            return _("Finnish");
         case 0x040c:
-            return __("French");
+            return _("French");
         case 0x080c:
             return _("Belgian French");
         case 0x0c0c:
@@ -104,79 +102,79 @@ inline const gchar *lid2lang(guint lid)
         case 0x100c:
             return _("Swiss French");
         case 0x040d:
-            return __("Hebrew");
+            return _("Hebrew");
         case 0x040e:
-            return __("Hungarian");
+            return _("Hungarian");
         case 0x040f:
-            return __("Icelandic");
+            return _("Icelandic");
         case 0x0410:
-            return __("Italian");
+            return _("Italian");
         case 0x0810:
             return _("Swiss Italian");
         case 0x0411:
-            return __("Japanese");
+            return _("Japanese");
         case 0x0412:
-            return __("Korean");
+            return _("Korean");
         case 0x0413:
-            return __("Dutch");
+            return _("Dutch");
         case 0x0813:
             return _("Belgian Dutch");
         case 0x0414:
             return _("Norwegian Bokmal");
         case 0x0814:
-            return __("Norwegian Nynorsk");
+            return _("Norwegian Nynorsk");
         case 0x0415:
-            return __("Polish");
+            return _("Polish");
         case 0x0416:
-            return __("Brazilian Portuguese");
+            return _("Brazilian Portuguese");
         case 0x0816:
-            return __("Portuguese");
+            return _("Portuguese");
         case 0x0417:
             return _("Rhaeto-Romanic");
         case 0x0418:
-            return __("Romanian");
+            return _("Romanian");
         case 0x0419:
-            return __("Russian");
+            return _("Russian");
         case 0x041a:
             return _("Croato-Serbian (Latin)");
         case 0x081a:
             return _("Serbo-Croatian (Cyrillic)");
         case 0x041b:
-            return __("Slovak");
+            return _("Slovak");
         case 0x041c:
-            return __("Albanian");
+            return _("Albanian");
         case 0x041d:
-            return __("Swedish");
+            return _("Swedish");
         case 0x041e:
-            return __("Thai");
+            return _("Thai");
         case 0x041f:
-            return __("Turkish");
+            return _("Turkish");
         case 0x0420:
-            return __("Urdu");
+            return _("Urdu");
         case 0x0421:
-            return __("Bahasa");
+            return _("Bahasa");
         case 0x0422:
-            return __("Ukrainian");
+            return _("Ukrainian");
         case 0x0423:
-            return __("Byelorussian");
+            return _("Byelorussian");
         case 0x0424:
-            return __("Slovenian");
+            return _("Slovenian");
         case 0x0425:
-            return __("Estonian");
+            return _("Estonian");
         case 0x0426:
-            return __("Latvian");
+            return _("Latvian");
         case 0x0427:
-            return __("Lithuanian");
+            return _("Lithuanian");
         case 0x0429:
             return _("Farsi");
         case 0x042D:
-            return __("Basque");
+            return _("Basque");
         case 0x042F:
-            return __("Macedonian");
+            return _("Macedonian");
         case 0x0436:
-            return __("Afrikaans");
+            return _("Afrikaans");
         case 0x043E:
-            return __("Malayalam");
+            return _("Malayalam");
 
         default:
             return NULL;

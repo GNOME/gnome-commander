@@ -1358,7 +1358,7 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
            "GNU General Public License for more details."),
         N_("You should have received a copy of the GNU General Public License "
            "along with GNOME Commander; if not, write to the Free Software Foundation, Inc., "
-           "59 Temple Place, Suite 330, Boston, MA  02111-1307  USA")
+           "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.")
     };
 
     gchar *license_trans = g_strjoin ("\n\n", _(license[0]), _(license[1]), _(license[2]), NULL);

@@ -405,6 +405,7 @@ static void setup_for_type (GnomeCmdConnectDialog *dialog)
     if (show_port)
         show_entry (table, dialog->priv->port_entry, _("_Port:"), i);
 
+    /* Translators: 'Dir' in the sense of 'Directory' */
     show_entry (table, dialog->priv->folder_entry, _("_Remote dir:"), i);
 
     if (show_user)

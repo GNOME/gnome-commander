@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.2.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-07 07:09+0000\n"
+"POT-Creation-Date: 2007-12-10 19:32+0100\n"
 "PO-Revision-Date: 2007-12-08 15:59+0200\n"
 "Last-Translator: Antono Vasiljev <antono.vasiljev@gmail.com>\n"
 "Language-Team: Esperanto\n"
@@ -34,7 +34,7 @@ msgstr "Ne estas priskribo de eraro"
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
-#: ../src/gnome-cmd-remote-dialog.cc:525
+#: ../src/gnome-cmd-remote-dialog.cc:526
 msgid "Options"
 msgstr "Opcioj"
 
@@ -301,123 +301,116 @@ msgstr ""
 msgid "Invalid source pattern"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:629
+#. Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
+#: ../src/gnome-cmd-advrename-dialog.cc:630
 msgid "Replace this:"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:629
+#: ../src/gnome-cmd-advrename-dialog.cc:630
 msgid "With this:"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:639
+#: ../src/gnome-cmd-advrename-dialog.cc:640
 msgid "Case sensitive matching"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:768
+#: ../src/gnome-cmd-advrename-dialog.cc:769
 msgid "New Rule"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:774
+#: ../src/gnome-cmd-advrename-dialog.cc:775
 msgid "Edit Rule"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:982
+#: ../src/gnome-cmd-advrename-dialog.cc:983
 msgid "Counter start value:"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:983
+#: ../src/gnome-cmd-advrename-dialog.cc:984
 msgid "Counter increment:"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:984
+#: ../src/gnome-cmd-advrename-dialog.cc:985
 msgid "Counter minimum digit count:"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:989
+#: ../src/gnome-cmd-advrename-dialog.cc:990
 msgid "Template Options"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:993
+#: ../src/gnome-cmd-advrename-dialog.cc:994
 msgid "Auto-update when the template is entered"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1083
+#: ../src/gnome-cmd-advrename-dialog.cc:1084
 msgid "Advanced Rename Tool"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1095 ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1096 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1116
+#: ../src/gnome-cmd-advrename-dialog.cc:1117
 msgid "O_ptions..."
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1123
-msgid "Dir"
+#: ../src/gnome-cmd-advrename-dialog.cc:1124 ../src/gnome-cmd-file.cc:588
+msgid "Directory"
 msgstr ""
 
-#. col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
-#. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
-#. g_object_set (renderer,
-#. "foreground-set", TRUE,
-#. "foreground", "DarkGray",
-#. NULL);
-#: ../src/gnome-cmd-advrename-dialog.cc:1126
-#: ../src/gnome-cmd-file-props-dialog.cc:613
-#: ../src/gnome-cmd-remote-dialog.cc:419 ../src/plugin_manager.cc:420
-#: ../src/tags/gnome-cmd-tags.cc:315
-msgid "Name"
+#: ../src/gnome-cmd-advrename-dialog.cc:1127 ../src/plugin_manager.cc:422
+#: ../src/tags/gnome-cmd-tags.cc:659
+msgid "File"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1129
+#: ../src/gnome-cmd-advrename-dialog.cc:1130
 msgid "Counter"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1132 ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/gnome-cmd-advrename-dialog.cc:1133 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Date"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1135
+#: ../src/gnome-cmd-advrename-dialog.cc:1136
 msgid "Metatag"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1140
+#: ../src/gnome-cmd-advrename-dialog.cc:1141
 msgid "Regex replacing"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1145
+#: ../src/gnome-cmd-advrename-dialog.cc:1146
 msgid "Replace this"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1146
+#: ../src/gnome-cmd-advrename-dialog.cc:1147
 msgid "With this"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1147
+#: ../src/gnome-cmd-advrename-dialog.cc:1148
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1170
+#: ../src/gnome-cmd-advrename-dialog.cc:1171
 msgid "Re_move All"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1190
+#: ../src/gnome-cmd-advrename-dialog.cc:1191
 msgid "Result"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1195
+#: ../src/gnome-cmd-advrename-dialog.cc:1196
 msgid "Current file names"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1196
+#: ../src/gnome-cmd-advrename-dialog.cc:1197
 msgid "New file names"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1202
+#: ../src/gnome-cmd-advrename-dialog.cc:1203
 msgid "Rese_t"
 msgstr ""
 
@@ -635,69 +628,73 @@ msgstr ""
 msgid "_Port:"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:408
+#. Translators: 'Dir' in the sense of 'Directory'
+#: ../src/gnome-cmd-con-dialog.cc:409
 msgid "_Remote dir:"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:411
+#: ../src/gnome-cmd-con-dialog.cc:412
 msgid "_User name:"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:414
+#: ../src/gnome-cmd-con-dialog.cc:415
 msgid "_Password:"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:417
+#: ../src/gnome-cmd-con-dialog.cc:418
 msgid "_Domain name:"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:454 ../src/gnome-cmd-main-win.cc:1176
+#: ../src/gnome-cmd-con-dialog.cc:455 ../src/gnome-cmd-main-win.cc:1176
 msgid "Remote Server"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:469
+#: ../src/gnome-cmd-con-dialog.cc:470
 msgid "Service _type:"
 msgstr ""
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/gnome-cmd-con-dialog.cc:481
+#: ../src/gnome-cmd-con-dialog.cc:482
 msgid "FTP (with login)"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:482
+#: ../src/gnome-cmd-con-dialog.cc:483
 msgid "Public FTP"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:499
+#: ../src/gnome-cmd-con-dialog.cc:500
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:273
+#. ?????????
+#. do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
+#. ?????????
+#: ../src/gnome-cmd-con-ftp.cc:301 ../src/gnome-cmd-con-ftp.cc:349
 #, c-format
 msgid "Connecting to %s\n"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:298
+#: ../src/gnome-cmd-con-ftp.cc:374
 #, c-format
 msgid "Go to: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:299
+#: ../src/gnome-cmd-con-ftp.cc:375
 #, c-format
 msgid "Connect to: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:300
+#: ../src/gnome-cmd-con-ftp.cc:376
 #, c-format
 msgid "Disconnect from: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:314
+#: ../src/gnome-cmd-con-ftp.cc:390
 #, c-format
 msgid "Creates the FTP connection to %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:315
+#: ../src/gnome-cmd-con-ftp.cc:391
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr ""
@@ -978,6 +975,18 @@ msgstr ""
 msgid "Metadata namespace"
 msgstr ""
 
+#. col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+#. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
+#. g_object_set (renderer,
+#. "foreground-set", TRUE,
+#. "foreground", "DarkGray",
+#. NULL);
+#: ../src/gnome-cmd-file-props-dialog.cc:613
+#: ../src/gnome-cmd-remote-dialog.cc:419 ../src/plugin_manager.cc:420
+#: ../src/tags/gnome-cmd-tags.cc:315
+msgid "Name"
+msgstr ""
+
 #: ../src/gnome-cmd-file-props-dialog.cc:614
 msgid "Tag name"
 msgstr ""
@@ -1042,7 +1051,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:1122
 #, c-format
-msgid "List failed: %s\n"
+msgid "Listing failed: %s\n"
 msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:1681
@@ -1088,10 +1097,6 @@ msgstr ""
 
 #: ../src/gnome-cmd-file.cc:587
 msgid "Regular file"
-msgstr ""
-
-#: ../src/gnome-cmd-file.cc:588
-msgid "Directory"
 msgstr ""
 
 #: ../src/gnome-cmd-file.cc:589
@@ -2019,11 +2024,11 @@ msgstr ""
 msgid "Remote Connections"
 msgstr ""
 
-#: ../src/gnome-cmd-remote-dialog.cc:497
+#: ../src/gnome-cmd-remote-dialog.cc:498
 msgid "Connections"
 msgstr ""
 
-#: ../src/gnome-cmd-remote-dialog.cc:528
+#: ../src/gnome-cmd-remote-dialog.cc:529
 msgid "Anonymous FTP password:"
 msgstr ""
 
@@ -2168,8 +2173,8 @@ msgstr ""
 #: ../src/gnome-cmd-user-actions.cc:1359
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
-"GNOME Commander; if not, write to the Free Software Foundation, Inc., 59 "
-"Temple Place, Suite 330, Boston, MA  02111-1307  USA"
+"GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
+"Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:1376
@@ -2276,8 +2281,8 @@ msgstr ""
 msgid "_Text"
 msgstr ""
 
-#: ../src/libgviewer/search-dlg.cc:343
-msgid "_Hex"
+#: ../src/libgviewer/search-dlg.cc:343 ../src/libgviewer/viewer-window.cc:729
+msgid "_Hexadecimal"
 msgstr ""
 
 #. Case-Sensitive Checkbox
@@ -2325,10 +2330,6 @@ msgstr ""
 
 #: ../src/libgviewer/viewer-window.cc:725
 msgid "_Binary"
-msgstr ""
-
-#: ../src/libgviewer/viewer-window.cc:729
-msgid "_Hex dump"
 msgstr ""
 
 #: ../src/libgviewer/viewer-window.cc:733
@@ -2482,10 +2483,6 @@ msgstr ""
 
 #: ../src/plugin_manager.cc:421
 msgid "Version"
-msgstr ""
-
-#: ../src/plugin_manager.cc:422 ../src/tags/gnome-cmd-tags.cc:659
-msgid "File"
 msgstr ""
 
 #: ../src/plugin_manager.cc:427
@@ -5958,80 +5955,236 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:65
+#: ../src/tags/gnome-cmd-tags-doc.cc:63
 msgid "No Proofing"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:73
+#: ../src/tags/gnome-cmd-tags-doc.cc:65
+msgid "Arabic"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:67
+msgid "Bulgarian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:69
+msgid "Catalan"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:71
 msgid "Traditional Chinese"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:75
+#: ../src/tags/gnome-cmd-tags-doc.cc:73
 msgid "Simplified Chinese"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:83
+#: ../src/tags/gnome-cmd-tags-doc.cc:75
+msgid "Chechen"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:77
+msgid "Danish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:79
+msgid "German"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:81
 msgid "Swiss German"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:87
+#: ../src/tags/gnome-cmd-tags-doc.cc:83
+msgid "Greek"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:85
 msgid "U.S. English"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:89
+#: ../src/tags/gnome-cmd-tags-doc.cc:87
 msgid "U.K. English"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:91
+#: ../src/tags/gnome-cmd-tags-doc.cc:89
 msgid "Australian English"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:93
+#: ../src/tags/gnome-cmd-tags-doc.cc:91
 msgid "Castilian Spanish"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:95
+#: ../src/tags/gnome-cmd-tags-doc.cc:93
 msgid "Mexican Spanish"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:101
+#: ../src/tags/gnome-cmd-tags-doc.cc:95
+msgid "Finnish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:97
+msgid "French"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:99
 msgid "Belgian French"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:103
+#: ../src/tags/gnome-cmd-tags-doc.cc:101
 msgid "Canadian French"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:105
+#: ../src/tags/gnome-cmd-tags-doc.cc:103
 msgid "Swiss French"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:115
+#: ../src/tags/gnome-cmd-tags-doc.cc:105
+msgid "Hebrew"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:107
+msgid "Hungarian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:109
+msgid "Icelandic"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:111
+msgid "Italian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:113
 msgid "Swiss Italian"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:123
+#: ../src/tags/gnome-cmd-tags-doc.cc:115
+msgid "Japanese"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:117
+msgid "Korean"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:119
+msgid "Dutch"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:121
 msgid "Belgian Dutch"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:125
+#: ../src/tags/gnome-cmd-tags-doc.cc:123
 msgid "Norwegian Bokmal"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:135
+#: ../src/tags/gnome-cmd-tags-doc.cc:125
+msgid "Norwegian Nynorsk"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:127
+msgid "Polish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:129
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:131
+msgid "Portuguese"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:133
 msgid "Rhaeto-Romanic"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:141
+#: ../src/tags/gnome-cmd-tags-doc.cc:135
+msgid "Romanian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:137
+msgid "Russian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:139
 msgid "Croato-Serbian (Latin)"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:143
+#: ../src/tags/gnome-cmd-tags-doc.cc:141
 msgid "Serbo-Croatian (Cyrillic)"
 msgstr ""
 
-#: ../src/tags/gnome-cmd-tags-doc.cc:171
+#: ../src/tags/gnome-cmd-tags-doc.cc:143
+msgid "Slovak"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:145
+msgid "Albanian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:147
+msgid "Swedish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:149
+msgid "Thai"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:151
+msgid "Turkish"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:153
+msgid "Urdu"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:155
+msgid "Bahasa"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:157
+msgid "Ukrainian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:159
+msgid "Byelorussian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:161
+msgid "Slovenian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:163
+msgid "Estonian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:165
+msgid "Latvian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:167
+msgid "Lithuanian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:169
 msgid "Farsi"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:171
+msgid "Basque"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:173
+msgid "Macedonian"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:175
+msgid "Afrikaans"
+msgstr ""
+
+#: ../src/tags/gnome-cmd-tags-doc.cc:177
+msgid "Malayalam"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:65
@@ -6082,10 +6235,6 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:96
 msgid "10-15ms"
-msgstr ""
-
-#: ../src/tags/gnome-cmd-tags-taglib.cc:98
-msgid "CCIT J17"
 msgstr ""
 
 #: ../src/utils.cc:429

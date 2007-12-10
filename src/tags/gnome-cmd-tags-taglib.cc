@@ -95,7 +95,7 @@ inline bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::Aud
             N_("None"),
             N_("10-15ms"),
             N_("Reserved"),
-            N_("CCIT J17")
+            "CCIT J17"
         };
 
         metadata.add(TAG_AUDIO_MPEG_CHANNELMODE, _(channel_mode_names[mpegProperties->channelMode()]));
