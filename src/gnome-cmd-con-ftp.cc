@@ -352,15 +352,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, gu
 }
 
 
-const gchar *gnome_cmd_con_ftp_get_alias (GnomeCmdConFtp *con)
-{
-    g_return_val_if_fail (con != NULL, NULL);
-    g_return_val_if_fail (con->priv != NULL, NULL);
-
-    return con->priv->alias;
-}
-
-
 void gnome_cmd_con_ftp_set_alias (GnomeCmdConFtp *con, const gchar *alias)
 {
     g_return_if_fail (con != NULL);

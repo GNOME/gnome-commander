@@ -147,7 +147,7 @@ inline void save_connections (const gchar *fname)
             {
                 string alias;
 
-                stringify (alias, gnome_vfs_escape_string (gnome_cmd_con_ftp_get_alias (server)));
+                stringify (alias, gnome_vfs_escape_string (gnome_cmd_con_get_alias (con)));
 
                 fprintf (fd, "U:\t%s\t%s\n", alias.c_str(), con->uri?con->uri:"");
 
