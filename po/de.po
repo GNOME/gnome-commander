@@ -6239,8 +6239,8 @@ msgid "Urdu"
 msgstr "Urdu"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:155
-msgid "Bahasa"
-msgstr "Bahasa"
+msgid "Indonesian"
+msgstr "Indonesisch"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:157
 msgid "Ukrainian"

@@ -6000,8 +6000,8 @@ msgid "Urdu"
 msgstr "Urdu"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:155
-msgid "Bahasa"
-msgstr "Malajski (Bahasa Melayu)"
+msgid "Indonesian"
+msgstr "Indonezyjski"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:157
 msgid "Ukrainian"

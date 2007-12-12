@@ -6339,7 +6339,7 @@ msgid "Urdu"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:155
-msgid "Bahasa"
+msgid "Indonesian"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:157

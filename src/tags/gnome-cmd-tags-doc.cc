@@ -152,7 +152,7 @@ inline const gchar *lid2lang (guint lid)
         case 0x0420:
             return _("Urdu");
         case 0x0421:
-            return _("Bahasa");
+            return _("Indonesian");
         case 0x0422:
             return _("Ukrainian");
         case 0x0423:
