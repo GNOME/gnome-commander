@@ -11,22 +11,33 @@ Topics:
 2. Contributing
 3. Building
 4. Communication
-5. FAQ
-6. Known problems
+5. Problem reporting
 
 
 
 1. Introduction
 --------------------------------
-GNOME Commander is a nice and fast file manager for the GNOME desktop.
+
+GNOME Commander is a fast and powerful twin-panel file manager for the GNOME desktop.
 
 Read the sections "FAQ" and "Known problems" to see if there are some known
 problems with the version you are using. The TODO file might also contain
 some clues when running into problems.
 
-The ChangeLog contains a detailed description on what has changed. For normal
+The ChangeLog contains a detailed description on what has changed. For most
 users the NEWS file might be a better place to look since it contains
 change summaries between the different versions.
+
+GNOME Commander is released under the GNU General Public License (GPL) version 2, see
+the file 'COPYING' for more information.
+
+The official web site is:
+
+    http://www.GNOME Commander.org
+
+You can download the latest GNOME Commander tarball from the gnome ftp server:
+
+    http://ftp.gnome.org/pub/GNOME/sources/gnome-commander/
 
 
 
@@ -38,18 +49,15 @@ Ideas:
   should check the TODO file first before sending email. After that you're
   welcome to start a discussion on the mailing lists.
 
-Cool hacks:
-  * Send an email with the patch to the developers mailing list. 
-  * Please use the -u flag when generating the patch as it makes the patch
-    more readable.
-  * Write a good explanation of what the patch does.
-
 Translations:
   * Since now this program is in the gnome svn tree, translations should be
     commited directly to the tree there.
 
-Graphics:
-  * Help on the default low-res mime theme (pixmaps/mime-icons) is very welcome.
+Cool hacks:
+  * Send an email with the patch to the developers mailing list.
+  * Please use the -u flag when generating the patch as it makes the patch
+    more readable.
+  * Write a good explanation of what the patch does.
 
 Plugins:
   * If you have created a new plugin let us know about it on the mailing list.
@@ -58,29 +66,45 @@ Plugins:
 
 3. Building
 --------------------------------
-This is a list of required libraries:
 
-  * libgnomeui-2:
-    Used for the graphics of the program.
+GNOME Commander requires glib >= @GLIB_REQ@, GTK+ >= @GTK_REQ@ and gnome >= @GNOMEUI_REQ@ libraries.
 
-  * gnome-vfs-2:
+Additionally GNOME Commander may require:
+
+  * gnome-vfs >= @GNOMEVFS_REQ@
     Used for most of the file handling. If gnome-vfs is built to use fam
     gnome-commander makes use of that functionality by being able to update
     its visible directories even when files are create/deleted or changed by
     other programs.
 
-  * exiv2:
+  * python >= @PYTHON_REQ@
+    Optional - for python plugins support.
+
+  * exiv2 >= @EXIV2_REQ@
     Optional - for Exif and IPTC support.
 
-  * taglib
+  * taglib >= @TAGLIB_REQ@
     Optional - for ID3, Vorbis, FLAC and APE support.
 
-  * libgsf
+  * libgsf >= @LIBGSF_REQ@
     Optional - for OLE and ODF support.
+
+
+Simple install procedure:
+
+  % gzip -cd gnome-commander-@VERSION@.tar.gz | tar xvf - 	# unpack the sources
+  % cd gnome-commander-@VERSION@		# change to the toplevel directory
+  % ./configure							# run the `configure' script
+  % make								# build GNOME Commander
+  [ Become root if necessary ]
+  % make install						# install GNOME Commander
+
+See the file 'INSTALL' for more detailed information.
 
 
 4. Communication
 --------------------------------
+
 This project has two mailing lists, one for users and one for developers.
 Subscription to those mailing lists can be done at:
 
@@ -91,18 +115,34 @@ You can also find email addresses of the people who have created gnome-commander
 in the AUTHORS file.
 
 
-
-5. FAQ
+5. Problem reporting
 --------------------------------
 
-[Q1] When will GNOME Commander support browsing of compressed archives?
+Bugs should be reported to the GNOME bug tracking system
+(http://bugzilla.gnome.org, product gnome-commander). You will need to create an
+account for yourself.
 
-[A1] This will be done when GnomeVFS gets it working. All file operations are
-     done using this API so it would be very impractical to implement it using
-     some other library.
+You can also report bugs using the GNOME program bug-buddy.
 
+In the bug report please include:
 
+* Information about your system. For instance:
 
-6. Known problems
---------------------------------
+   - What operating system and version
+   - What version of X
+   - What version of the gtk+, glib and gnome libraries
+   - For Linux, what version of the C library
 
+  And anything else you think is relevant.
+
+* How to reproduce the bug.
+
+* If the bug was a crash, the exact text that was printed out when the
+  crash occurred.
+
+* Further information such as stack traces may be useful, but is not
+  necessary. If you do send a stack trace, and the error is an X error,
+  it will be more useful if the stack trace is produced running the test
+  program with the --sync command line option.
+
+See the file 'BUGS' for the list of known bugs.
