@@ -2672,7 +2672,7 @@ msgid "Copyright message."
 msgstr "Upphovsrättsligt meddelande."
 
 #: ../src/tags/gnome-cmd-tags.cc:118
-msgid "Cover album thumbnail path"
+msgid "Cover Album Thumbnail Path"
 msgstr "Sökväg till miniatyrbild av albumet"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
@@ -2713,7 +2713,7 @@ msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr "ID3 specificerad musik-klassifikation"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
-msgid "Is new"
+msgid "Is New"
 msgstr "Är ny"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
@@ -2777,7 +2777,7 @@ msgid "MusicBrainz track ID in UUID format."
 msgstr "MusicBrainz spår-id som UUID-format."
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-msgid "Channel mode"
+msgid "Channel Mode"
 msgstr "Kanalläge"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
@@ -2801,7 +2801,7 @@ msgid "MPEG layer."
 msgstr "MPEG lager."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
-msgid "Original audio"
+msgid "Original Audio"
 msgstr "Ursprungligt ljudspår"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
@@ -3273,7 +3273,7 @@ msgid "Battery Level"
 msgstr "Batterinivå"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
-msgid "Battery Level."
+msgid "Battery level."
 msgstr "Batterinivå."
 
 #: ../src/tags/gnome-cmd-tags.cc:195
@@ -3410,7 +3410,7 @@ msgid "Document Name"
 msgstr "Dokumentnamn"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
-msgid "Document Name."
+msgid "Document name."
 msgstr "Dokumentnamn."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
@@ -3484,7 +3484,7 @@ msgid "Fill Order"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:220
-msgid "Fill Order."
+msgid "Fill order."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:221
@@ -3505,8 +3505,8 @@ msgid "Indicates the strobe energy at the time the image is captured, as measure
 msgstr "Anger blixtens använda styrka när bilden togs, mätt i Beam Candle Power Seconds (BCPS)."
 
 #: ../src/tags/gnome-cmd-tags.cc:223
-msgid "FlashPixVersion"
-msgstr "FlashPixVersion"
+msgid "FlashPix Version"
+msgstr "FlashPix Version"
 
 #: ../src/tags/gnome-cmd-tags.cc:223
 msgid "The FlashPix format version supported by a FPXR file."
@@ -3637,7 +3637,7 @@ msgid "Indicates whether the longitude is east or west longitude. ASCII 'E' indi
 msgstr "Indikerar hurvida longitud är öst eller väst. ASCII värdet \"E\" indikerar öst, och värdet \"W\" indikerar väst-longitud."
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-msgid "GPS tag version"
+msgid "GPS Tag Version"
 msgstr "GPS tagg version"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
@@ -3713,7 +3713,7 @@ msgid "Interoperability Version"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:248
-msgid "Interoperability Version."
+msgid "Interoperability version."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:249
@@ -3884,7 +3884,7 @@ msgid "Related Image File Format"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:270
-msgid "Related Image File Format."
+msgid "Related image file format."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:271
@@ -3892,7 +3892,7 @@ msgid "Related Image Length"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:271
-msgid "Related Image Length."
+msgid "Related image length."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:272
@@ -3900,7 +3900,7 @@ msgid "Related Image Width"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:272
-msgid "Related Image Width."
+msgid "Related image width."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:273
@@ -3976,7 +3976,7 @@ msgid "This tag indicates the direction of sharpness processing applied by the c
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
-msgid "Shutter speed"
+msgid "Shutter Speed"
 msgstr "Slutartid"
 
 #: ../src/tags/gnome-cmd-tags.cc:282
@@ -4109,7 +4109,7 @@ msgid "Transfer Range"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-msgid "Transfer Range."
+msgid "Transfer range."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:299
@@ -4142,7 +4142,7 @@ msgid "XML Packet"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:302
-msgid "XMP Metadata."
+msgid "XMP metadata."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:303
@@ -4772,7 +4772,7 @@ msgid "Subtitle."
 msgstr "Undertitel."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
-msgid "Syncedlyrics"
+msgid "Synchronized Lyrics"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:387
@@ -4796,7 +4796,7 @@ msgid "Tagging time."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:390
-msgid "Terms Of Use"
+msgid "Terms of Use"
 msgstr "Användningsvillkor"
 
 #: ../src/tags/gnome-cmd-tags.cc:390

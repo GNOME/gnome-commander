@@ -2678,7 +2678,7 @@ msgid "Copyright message."
 msgstr "Copyright-Informationen."
 
 #: ../src/tags/gnome-cmd-tags.cc:118
-msgid "Cover album thumbnail path"
+msgid "Cover Album Thumbnail Path"
 msgstr "Album-Cover Thumbnail Pfad"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
@@ -2718,7 +2718,7 @@ msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr "Art der Musik, wie im ID3-Tag definiert"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
-msgid "Is new"
+msgid "Is New"
 msgstr "Ist neu"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
@@ -2783,7 +2783,7 @@ msgid "MusicBrainz track ID in UUID format."
 msgstr "MusicBrainz-ID des Titels im UUID-Format."
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-msgid "Channel mode"
+msgid "Channel Mode"
 msgstr "Kanalmodus"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
@@ -2808,7 +2808,7 @@ msgstr "MPEG Layer."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 #, fuzzy
-msgid "Original audio"
+msgid "Original Audio"
 msgstr "Original Texter"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
@@ -3286,7 +3286,7 @@ msgid "Battery Level"
 msgstr "Batteriestand"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
-msgid "Battery Level."
+msgid "Battery level."
 msgstr "Batteriestand."
 
 #: ../src/tags/gnome-cmd-tags.cc:195
@@ -3467,7 +3467,7 @@ msgid "Document Name"
 msgstr "Dokument-Titel"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
-msgid "Document Name."
+msgid "Document name."
 msgstr "Dokument-Titel."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
@@ -3555,7 +3555,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 #, fuzzy
-msgid "Fill Order."
+msgid "Fill order."
 msgstr "Dateieigentümer"
 
 #: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
@@ -3578,7 +3578,7 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:223
-msgid "FlashPixVersion"
+msgid "FlashPix Version"
 msgstr "FlashPix-Version"
 
 #: ../src/tags/gnome-cmd-tags.cc:223
@@ -3741,7 +3741,7 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-msgid "GPS tag version"
+msgid "GPS Tag Version"
 msgstr "GPS-Daten-Version"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
@@ -3836,7 +3836,7 @@ msgid "Interoperability Version"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:248
-msgid "Interoperability Version."
+msgid "Interoperability version."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:249
@@ -4053,7 +4053,7 @@ msgid "Related Image File Format"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:270
-msgid "Related Image File Format."
+msgid "Related image file format."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:271
@@ -4062,7 +4062,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 #, fuzzy
-msgid "Related Image Length."
+msgid "Related image length."
 msgstr "Vertikale Auflösung"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
@@ -4071,7 +4071,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 #, fuzzy
-msgid "Related Image Width."
+msgid "Related image width."
 msgstr "Horizontale Auflösung"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
@@ -4183,7 +4183,7 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
-msgid "Shutter speed"
+msgid "Shutter Speed"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
@@ -4343,7 +4343,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 #, fuzzy
-msgid "Transfer Range."
+msgid "Transfer range."
 msgstr "Problem beim Kopieren"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
@@ -4394,7 +4394,7 @@ msgid "XML Packet"
 msgstr "XML-Paket"
 
 #: ../src/tags/gnome-cmd-tags.cc:302
-msgid "XMP Metadata."
+msgid "XMP metadata."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:303
@@ -5051,7 +5051,7 @@ msgid "Subtitle."
 msgstr "Untertitel."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
-msgid "Syncedlyrics"
+msgid "Synchronized Lyrics"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:387
@@ -5075,7 +5075,7 @@ msgid "Tagging time."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:390
-msgid "Terms Of Use"
+msgid "Terms of Use"
 msgstr "Nutzungsbedingungen"
 
 #: ../src/tags/gnome-cmd-tags.cc:390

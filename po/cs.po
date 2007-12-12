@@ -2709,7 +2709,7 @@ msgid "Copyright message."
 msgstr "Řetězec copyrightu."
 
 #: ../src/tags/gnome-cmd-tags.cc:118
-msgid "Cover album thumbnail path"
+msgid "Cover Album Thumbnail Path"
 msgstr "Cesta k obrázku obalu alba"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
@@ -2749,7 +2749,7 @@ msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:123
-msgid "Is new"
+msgid "Is New"
 msgstr "Novinka"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
@@ -2813,7 +2813,7 @@ msgid "MusicBrainz track ID in UUID format."
 msgstr "MusicBrainz stopa ID v UUID formátu."
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-msgid "Channel mode"
+msgid "Channel Mode"
 msgstr "Mód kanálu"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
@@ -2840,7 +2840,7 @@ msgstr "MPEG vrstva."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 #, fuzzy
-msgid "Original audio"
+msgid "Original Audio"
 msgstr "Původní datum vydání"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
@@ -3309,7 +3309,7 @@ msgid "Battery Level"
 msgstr "Nabití baterie"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
-msgid "Battery Level."
+msgid "Battery level."
 msgstr "Nabití baterie."
 
 #: ../src/tags/gnome-cmd-tags.cc:195
@@ -3493,7 +3493,7 @@ msgid "Document Name"
 msgstr "Název dokumentu"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
-msgid "Document Name."
+msgid "Document name."
 msgstr "Název dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
@@ -3580,7 +3580,7 @@ msgid "Fill Order"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:220
-msgid "Fill Order."
+msgid "Fill order."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
@@ -3604,7 +3604,7 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:223
-msgid "FlashPixVersion"
+msgid "FlashPix Version"
 msgstr "FlashPixVerze"
 
 #: ../src/tags/gnome-cmd-tags.cc:223
@@ -3767,7 +3767,7 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-msgid "GPS tag version"
+msgid "GPS Tag Version"
 msgstr "Verze GPS značky"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
@@ -3862,7 +3862,7 @@ msgid "Interoperability Version"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:248
-msgid "Interoperability Version."
+msgid "Interoperability version."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:249
@@ -4080,7 +4080,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:270
 #, fuzzy
-msgid "Related Image File Format."
+msgid "Related image file format."
 msgstr "Formát náhledu souboru"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
@@ -4088,7 +4088,7 @@ msgid "Related Image Length"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:271
-msgid "Related Image Length."
+msgid "Related image length."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:272
@@ -4097,7 +4097,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 #, fuzzy
-msgid "Related Image Width."
+msgid "Related image width."
 msgstr "Šířka obrázku"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
@@ -4209,7 +4209,7 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
-msgid "Shutter speed"
+msgid "Shutter Speed"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
@@ -4370,7 +4370,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 #, fuzzy
-msgid "Transfer Range."
+msgid "Transfer range."
 msgstr "Problém přenosu"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
@@ -4421,8 +4421,8 @@ msgid "XML Packet"
 msgstr "XML Paket"
 
 #: ../src/tags/gnome-cmd-tags.cc:302
-msgid "XMP Metadata."
-msgstr "XMP Metadata."
+msgid "XMP metadata."
+msgstr "XMP metadata."
 
 #: ../src/tags/gnome-cmd-tags.cc:303
 msgid "x Resolution"
@@ -5083,7 +5083,7 @@ msgid "Subtitle."
 msgstr "Titulek."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
-msgid "Syncedlyrics"
+msgid "Synchronized Lyrics"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:387
@@ -5107,7 +5107,7 @@ msgid "Tagging time."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:390
-msgid "Terms Of Use"
+msgid "Terms of Use"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:390

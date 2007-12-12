@@ -2690,7 +2690,7 @@ msgid "Copyright message."
 msgstr "Copyright-aren mezua."
 
 #: ../src/tags/gnome-cmd-tags.cc:118
-msgid "Cover album thumbnail path"
+msgid "Cover Album Thumbnail Path"
 msgstr "Albumaren azalaren koadro txikiaren bide-izena"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
@@ -2732,7 +2732,7 @@ msgstr ""
 "arabera."
 
 #: ../src/tags/gnome-cmd-tags.cc:123
-msgid "Is new"
+msgid "Is New"
 msgstr "Berria da"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
@@ -2798,7 +2798,7 @@ msgid "MusicBrainz track ID in UUID format."
 msgstr "MusicBrainz guneko pistaren IDa UUID formatuan."
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-msgid "Channel mode"
+msgid "Channel Mode"
 msgstr "Kanal modua"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
@@ -2822,7 +2822,7 @@ msgid "MPEG layer."
 msgstr "MPEG geruza."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
-msgid "Original audio"
+msgid "Original Audio"
 msgstr "Jatorrizko audioa"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
@@ -3302,7 +3302,7 @@ msgid "Battery Level"
 msgstr "Bateriaren maila"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
-msgid "Battery Level."
+msgid "Battery level."
 msgstr "Bateriaren maila."
 
 #: ../src/tags/gnome-cmd-tags.cc:195
@@ -3537,7 +3537,7 @@ msgid "Document Name"
 msgstr "Dokumentuaren izena"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
-msgid "Document Name."
+msgid "Document name."
 msgstr "Dokumentuaren izena."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
@@ -3639,7 +3639,7 @@ msgid "Fill Order"
 msgstr "Betetze-ordena"
 
 #: ../src/tags/gnome-cmd-tags.cc:220
-msgid "Fill Order."
+msgid "Fill order."
 msgstr "Betetze-ordena."
 
 #: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
@@ -3666,7 +3666,7 @@ msgstr ""
 "(kandela-indarra segundoko) unitateetan adierazita."
 
 #: ../src/tags/gnome-cmd-tags.cc:223
-msgid "FlashPixVersion"
+msgid "FlashPix Version"
 msgstr "FlashPixBertsioa"
 
 #: ../src/tags/gnome-cmd-tags.cc:223
@@ -3867,7 +3867,7 @@ msgstr ""
 "ekialdeko longitudea adierzten du, 'W' berriz mendebaldekoa."
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-msgid "GPS tag version"
+msgid "GPS Tag Version"
 msgstr "GPS etiketaren bertsioa"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
@@ -3983,7 +3983,7 @@ msgid "Interoperability Version"
 msgstr "Elkareragingarritasunaren bertsioa"
 
 #: ../src/tags/gnome-cmd-tags.cc:248
-msgid "Interoperability Version."
+msgid "Interoperability version."
 msgstr "Elkareragingarritasunaren bertsioa."
 
 #: ../src/tags/gnome-cmd-tags.cc:249
@@ -4250,7 +4250,7 @@ msgid "Related Image File Format"
 msgstr "Irudi-fitxategi formatuarekiko"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
-msgid "Related Image File Format."
+msgid "Related image file format."
 msgstr "Irudi-fitxategi formatuarekin zerikusia."
 
 #: ../src/tags/gnome-cmd-tags.cc:271
@@ -4258,7 +4258,7 @@ msgid "Related Image Length"
 msgstr "Irudiaren luzerarekiko"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
-msgid "Related Image Length."
+msgid "Related image length."
 msgstr "Irudiaren luzerarekin zerikusia."
 
 #: ../src/tags/gnome-cmd-tags.cc:272
@@ -4266,7 +4266,7 @@ msgid "Related Image Width"
 msgstr "Irudiaden zabalerarekiko"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
-msgid "Related Image Width."
+msgid "Related image width."
 msgstr "Irudiaren zabalerarekin zerikusia."
 
 #: ../src/tags/gnome-cmd-tags.cc:273
@@ -4415,7 +4415,7 @@ msgstr ""
 "zorroztasunarennorabidearen prozesamendua adierazten du."
 
 #: ../src/tags/gnome-cmd-tags.cc:282
-msgid "Shutter speed"
+msgid "Shutter Speed"
 msgstr "Obturadore-abiadura"
 
 #: ../src/tags/gnome-cmd-tags.cc:282
@@ -4601,7 +4601,7 @@ msgid "Transfer Range"
 msgstr "Transferentzia barrutia"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-msgid "Transfer Range."
+msgid "Transfer range."
 msgstr "Transferentzia barrutia."
 
 #: ../src/tags/gnome-cmd-tags.cc:299
@@ -4673,7 +4673,7 @@ msgid "XML Packet"
 msgstr "XML paketea"
 
 #: ../src/tags/gnome-cmd-tags.cc:302
-msgid "XMP Metadata."
+msgid "XMP metadata."
 msgstr "XMP metadatuak."
 
 #: ../src/tags/gnome-cmd-tags.cc:303
@@ -5366,7 +5366,7 @@ msgid "Subtitle."
 msgstr "Azpititulua."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
-msgid "Syncedlyrics"
+msgid "Synchronized Lyrics"
 msgstr "Hitz sinkr."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
@@ -5390,7 +5390,7 @@ msgid "Tagging time."
 msgstr "Etiketaren ordua."
 
 #: ../src/tags/gnome-cmd-tags.cc:390
-msgid "Terms Of Use"
+msgid "Terms of Use"
 msgstr "Erabiltzeko baldintzak"
 
 #: ../src/tags/gnome-cmd-tags.cc:390

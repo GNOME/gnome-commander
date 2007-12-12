@@ -2693,7 +2693,7 @@ msgid "Copyright message."
 msgstr "འདྲ་བཤུས་དབང་ཆ་འཕྲིན་དོན།"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
-msgid "Cover album thumbnail path"
+msgid "Cover Album Thumbnail Path"
 msgstr "གླུ་མཛོད་མཐེ་གཟེར་འགྲུལ་ལམ་ཁེབས།"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
@@ -2733,7 +2733,7 @@ msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr "ཨའི་ཌི་༣ ཨེསི་པིསི་ནང་ངེས་འཛིན་འབད་ཡོད་མི་བཟུམ་གླུ་རིམ་འདི་གི་དོན་ལུ་སྙན་ཆ་དབྱེ་བཟོ་གི་དབྱེ་བ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
-msgid "Is new"
+msgid "Is New"
 msgstr "འདི་གསརཔ་ཨིན།"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
@@ -2797,7 +2797,7 @@ msgid "MusicBrainz track ID in UUID format."
 msgstr "ཡུ་ཡུ་ཨའི་ཌི་རྩ་སྒྲིག་ནང་མུས་སིཀསི་བེརེནཛི་གླུ་རིམ་གྱི་ཨའི་ཌི།"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-msgid "Channel mode"
+msgid "Channel Mode"
 msgstr "རྒྱུན་ལམ་ཐབས་ལམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
@@ -2824,7 +2824,7 @@ msgstr "ཨེམ་པི་ཨི་ཇི་བང་རིམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 #, fuzzy
-msgid "Original audio"
+msgid "Original Audio"
 msgstr "གླུ་མཛོད་ངོ་མ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
@@ -3300,7 +3300,7 @@ msgid "Battery Level"
 msgstr "འཕྲུལ་ལྟོ་གནས་རིམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
-msgid "Battery Level."
+msgid "Battery level."
 msgstr "འཕྲུལ་ལྟོ་ གནས་རིམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:195
@@ -3531,7 +3531,7 @@ msgid "Document Name"
 msgstr "ཡིག་ཆ་མིང་།"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
-msgid "Document Name."
+msgid "Document name."
 msgstr "ཡིག་ཆའི་མིང་།"
 
 #: ../src/tags/gnome-cmd-tags.cc:212
@@ -3633,7 +3633,7 @@ msgid "Fill Order"
 msgstr "བཀོད་རྒྱ་བཀང་།"
 
 #: ../src/tags/gnome-cmd-tags.cc:220
-msgid "Fill Order."
+msgid "Fill order."
 msgstr "ཡིག་སྣོད་ གོ་རིམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
@@ -3658,7 +3658,7 @@ msgstr ""
 "བཟུང་ཡོད་པའི་སྐབས་སི་ཊོབ་ནུས་ཤུགས་འདི་བརྡ་སྟོནམ་ཨིན། "
 
 #: ../src/tags/gnome-cmd-tags.cc:223
-msgid "FlashPixVersion"
+msgid "FlashPix Version"
 msgstr "རིབ་སྟོན་པར་ཐོན་ཡིམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:223
@@ -3855,7 +3855,7 @@ msgstr ""
 "ཐིག་བརྡ་སྟོནམ་ཨིནམ་དང་  'W'ནུབ་ཀྱིས་གཞུང་ཐིག་བརྡ་སྟོནམ་ཨིན།"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-msgid "GPS tag version"
+msgid "GPS Tag Version"
 msgstr "ཇི་པི་ཨེསི་ངོ་རྟགས་ཐོན་རིམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
@@ -3970,7 +3970,7 @@ msgid "Interoperability Version"
 msgstr "ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ཐོན་རིམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:248
-msgid "Interoperability Version."
+msgid "Interoperability version."
 msgstr "ཨིན་ཊར་ཨོ་པརེ་བི་ལི་ཊི་ ཐོན་རིམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:249
@@ -4231,7 +4231,7 @@ msgid "Related Image File Format"
 msgstr "འབྲེལ་བ་ཡོད་མི་གཟུགས་བརྙན་ཡིག་སྣོད་རྩ་སྒྲིག"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
-msgid "Related Image File Format."
+msgid "Related image file format."
 msgstr "འབྲེལ་བ་ཡོད་པའི་ གཟུགས་བརྙན་ ཡིག་སྣོད་རྩ་སྒྲིག།"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
@@ -4239,7 +4239,7 @@ msgid "Related Image Length"
 msgstr "འབྲེལ་བ་ཡོད་མི་གཟུགས་བརྙན་རིང་ཚད།"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
-msgid "Related Image Length."
+msgid "Related image length."
 msgstr "འབྲེལ་བ་ཡོད་པའི་ གཟུགས་བརྙན་གྱི་རིང་ཚད།"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
@@ -4247,7 +4247,7 @@ msgid "Related Image Width"
 msgstr "འབྲེལ་བ་ཡོད་མི་གཟུགས་བརྙན་རྒྱ་ཚད།"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
-msgid "Related Image Width."
+msgid "Related image width."
 msgstr "འབྲེལ་བ་ཅན་གྱི་ གཟུགས་བརྙན་གྱི་ རྒྱ་ཚད།"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
@@ -4394,7 +4394,7 @@ msgstr ""
 "རྒྱ་འདི་བརྡ་སྟོནམ་ཨིན། "
 
 #: ../src/tags/gnome-cmd-tags.cc:282
-msgid "Shutter speed"
+msgid "Shutter Speed"
 msgstr "འགེབས་བྱེད་མགྱོགས་ཚད།"
 
 #: ../src/tags/gnome-cmd-tags.cc:282
@@ -4583,7 +4583,7 @@ msgid "Transfer Range"
 msgstr "ཁྱབ་ཚད་གནས་སོར་གཏང་།"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-msgid "Transfer Range."
+msgid "Transfer range."
 msgstr "ཁྱབ་ཚད་ གནས་སོར་གཏང་།"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
@@ -4654,7 +4654,7 @@ msgid "XML Packet"
 msgstr "ཨེགསི་ཨེམ་ཨེལ་འཕྲིན་ཚན།"
 
 #: ../src/tags/gnome-cmd-tags.cc:302
-msgid "XMP Metadata."
+msgid "XMP metadata."
 msgstr "ཨེགསི་ཨེམ་པི་མི་ཊ་གནས་སྡུད།"
 
 #: ../src/tags/gnome-cmd-tags.cc:303
@@ -5341,7 +5341,7 @@ msgid "Subtitle."
 msgstr "མགོ་མིང་ཡན་ལག"
 
 #: ../src/tags/gnome-cmd-tags.cc:387
-msgid "Syncedlyrics"
+msgid "Synchronized Lyrics"
 msgstr "སིང་ཌི་གླུ་ཚིག་ཚུ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:387
@@ -5365,7 +5365,7 @@ msgid "Tagging time."
 msgstr "ངོ་རྟགས་བཏགས་ནི་དུས་ཚོད།"
 
 #: ../src/tags/gnome-cmd-tags.cc:390
-msgid "Terms Of Use"
+msgid "Terms of Use"
 msgstr "ལག་ལེན་འཐབ་ནི་གི་དོན་ཚིག"
 
 #: ../src/tags/gnome-cmd-tags.cc:390

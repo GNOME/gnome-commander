@@ -2691,7 +2691,7 @@ msgid "Copyright message."
 msgstr "Avtorsko sporočilo."
 
 #: ../src/tags/gnome-cmd-tags.cc:118
-msgid "Cover album thumbnail path"
+msgid "Cover Album Thumbnail Path"
 msgstr "Pod do sličic naslovnice albuma"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
@@ -2731,7 +2731,7 @@ msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr "Zvrst glasbe kot jo določa ID3 specifikacija sledi."
 
 #: ../src/tags/gnome-cmd-tags.cc:123
-msgid "Is new"
+msgid "Is New"
 msgstr "Je nov"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
@@ -2797,7 +2797,7 @@ msgid "MusicBrainz track ID in UUID format."
 msgstr "MusicBrainz ID sledi v UUID obliki."
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-msgid "Channel mode"
+msgid "Channel Mode"
 msgstr "Način kanalov"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
@@ -2821,7 +2821,7 @@ msgid "MPEG layer."
 msgstr "MPEG layer."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
-msgid "Original audio"
+msgid "Original Audio"
 msgstr "Izvirni zvok."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
@@ -3288,7 +3288,7 @@ msgid "Battery Level"
 msgstr "Polnost baterije"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
-msgid "Battery Level."
+msgid "Battery level."
 msgstr "Polnost baterije."
 
 #: ../src/tags/gnome-cmd-tags.cc:195
@@ -3471,7 +3471,7 @@ msgid "Document Name"
 msgstr "Ime dokumenta"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
-msgid "Document Name."
+msgid "Document name."
 msgstr "Ime dokumenta."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
@@ -3563,7 +3563,7 @@ msgid "Fill Order"
 msgstr "Vrstni red polnjenja"
 
 #: ../src/tags/gnome-cmd-tags.cc:220
-msgid "Fill Order."
+msgid "Fill order."
 msgstr "Vrstni red polnjenja."
 
 #: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
@@ -3586,7 +3586,7 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:223
-msgid "FlashPixVersion"
+msgid "FlashPix Version"
 msgstr "FlashPix različica"
 
 #: ../src/tags/gnome-cmd-tags.cc:223
@@ -3757,7 +3757,7 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-msgid "GPS tag version"
+msgid "GPS Tag Version"
 msgstr "GPS oznaka različice"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
@@ -3852,7 +3852,7 @@ msgid "Interoperability Version"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:248
-msgid "Interoperability Version."
+msgid "Interoperability version."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:249
@@ -4067,7 +4067,7 @@ msgid "Related Image File Format"
 msgstr "Sorodna slikovna oblika datoteke"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
-msgid "Related Image File Format."
+msgid "Related image file format."
 msgstr "Sorodna oblika slikovne datoteke"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
@@ -4075,7 +4075,7 @@ msgid "Related Image Length"
 msgstr "Sorodna dolžina slike"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
-msgid "Related Image Length."
+msgid "Related image length."
 msgstr "Sorodna dolžina slike."
 
 #: ../src/tags/gnome-cmd-tags.cc:272
@@ -4083,7 +4083,7 @@ msgid "Related Image Width"
 msgstr "Sorodna širina slike"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
-msgid "Related Image Width."
+msgid "Related image width."
 msgstr "Sorodna širina slike."
 
 #: ../src/tags/gnome-cmd-tags.cc:273
@@ -4198,7 +4198,7 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
-msgid "Shutter speed"
+msgid "Shutter Speed"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
@@ -4357,7 +4357,7 @@ msgid "Transfer Range"
 msgstr "Območje prenosa"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-msgid "Transfer Range."
+msgid "Transfer range."
 msgstr "Območje prenosa"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
@@ -4408,7 +4408,7 @@ msgid "XML Packet"
 msgstr "Paket XML"
 
 #: ../src/tags/gnome-cmd-tags.cc:302
-msgid "XMP Metadata."
+msgid "XMP metadata."
 msgstr "Metapodatki XML"
 
 #: ../src/tags/gnome-cmd-tags.cc:303
@@ -5065,7 +5065,7 @@ msgid "Subtitle."
 msgstr "Podnapis."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
-msgid "Syncedlyrics"
+msgid "Synchronized Lyrics"
 msgstr "Usklajeno besedilo"
 
 #: ../src/tags/gnome-cmd-tags.cc:387
@@ -5089,7 +5089,7 @@ msgid "Tagging time."
 msgstr "Ime oznake"
 
 #: ../src/tags/gnome-cmd-tags.cc:390
-msgid "Terms Of Use"
+msgid "Terms of Use"
 msgstr "Pogoji uporabe"
 
 #: ../src/tags/gnome-cmd-tags.cc:390

@@ -2678,8 +2678,8 @@ msgid "Copyright message."
 msgstr "Copyright message."
 
 #: ../src/tags/gnome-cmd-tags.cc:118
-msgid "Cover album thumbnail path"
-msgstr "Cover album thumbnail path"
+msgid "Cover Album Thumbnail Path"
+msgstr "Cover Album Thumbnail Path"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
 msgid "File path to thumbnail image of the cover album."
@@ -2718,8 +2718,8 @@ msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr "Type of music classification for the track as defined in ID3 spec."
 
 #: ../src/tags/gnome-cmd-tags.cc:123
-msgid "Is new"
-msgstr "Is new"
+msgid "Is New"
+msgstr "Is New"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
@@ -2782,8 +2782,8 @@ msgid "MusicBrainz track ID in UUID format."
 msgstr "MusicBrainz track ID in UUID format."
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-msgid "Channel mode"
-msgstr "Channel mode"
+msgid "Channel Mode"
+msgstr "Channel Mode"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
 #, fuzzy
@@ -2809,7 +2809,7 @@ msgstr "MPEG layer."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 #, fuzzy
-msgid "Original audio"
+msgid "Original Audio"
 msgstr "Original album."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
@@ -3289,7 +3289,7 @@ msgstr "Battery Level"
 
 #: ../src/tags/gnome-cmd-tags.cc:194
 #, fuzzy
-msgid "Battery Level."
+msgid "Battery level."
 msgstr "Battery Level"
 
 #: ../src/tags/gnome-cmd-tags.cc:195
@@ -3522,7 +3522,7 @@ msgstr "Document Name"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
 #, fuzzy
-msgid "Document Name."
+msgid "Document name."
 msgstr "Document Name"
 
 #: ../src/tags/gnome-cmd-tags.cc:212
@@ -3625,7 +3625,7 @@ msgstr "Fill Order"
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 #, fuzzy
-msgid "Fill Order."
+msgid "Fill order."
 msgstr "Fill Order"
 
 #: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
@@ -3651,8 +3651,8 @@ msgstr ""
 "in Beam Candle Power Seconds (BCPS)."
 
 #: ../src/tags/gnome-cmd-tags.cc:223
-msgid "FlashPixVersion"
-msgstr "FlashPixVersion"
+msgid "FlashPix Version"
+msgstr "FlashPix Version"
 
 #: ../src/tags/gnome-cmd-tags.cc:223
 msgid "The FlashPix format version supported by a FPXR file."
@@ -3850,8 +3850,8 @@ msgstr ""
 "indicates east longitude, and 'W' is west longitude."
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-msgid "GPS tag version"
-msgstr "GPS tag version"
+msgid "GPS Tag Version"
+msgstr "GPS Tag Version"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
 msgid ""
@@ -3967,7 +3967,7 @@ msgstr "Interoperability Version"
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 #, fuzzy
-msgid "Interoperability Version."
+msgid "Interoperability version."
 msgstr "Interoperability Version"
 
 #: ../src/tags/gnome-cmd-tags.cc:249
@@ -4232,7 +4232,7 @@ msgstr "Related Image File Format"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
 #, fuzzy
-msgid "Related Image File Format."
+msgid "Related image file format."
 msgstr "Related Image File Format"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
@@ -4241,7 +4241,7 @@ msgstr "Related Image Length"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 #, fuzzy
-msgid "Related Image Length."
+msgid "Related image length."
 msgstr "Related Image Length"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
@@ -4250,7 +4250,7 @@ msgstr "Related Image Width"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 #, fuzzy
-msgid "Related Image Width."
+msgid "Related image width."
 msgstr "Related Image Width"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
@@ -4398,8 +4398,8 @@ msgstr ""
 "camera when the image was shot."
 
 #: ../src/tags/gnome-cmd-tags.cc:282
-msgid "Shutter speed"
-msgstr "Shutter speed"
+msgid "Shutter Speed"
+msgstr "Shutter Speed"
 
 #: ../src/tags/gnome-cmd-tags.cc:282
 msgid ""
@@ -4586,7 +4586,7 @@ msgstr "Transfer Range"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 #, fuzzy
-msgid "Transfer Range."
+msgid "Transfer range."
 msgstr "Transfer Range"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
@@ -4656,8 +4656,8 @@ msgid "XML Packet"
 msgstr "XML Packet"
 
 #: ../src/tags/gnome-cmd-tags.cc:302
-msgid "XMP Metadata."
-msgstr "XMP Metadata."
+msgid "XMP metadata."
+msgstr "XMP metadata."
 
 #: ../src/tags/gnome-cmd-tags.cc:303
 msgid "x Resolution"
@@ -5346,8 +5346,8 @@ msgid "Subtitle."
 msgstr "Subtitle."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
-msgid "Syncedlyrics"
-msgstr "Syncedlyrics"
+msgid "Synchronized Lyrics"
+msgstr "Synchronized Lyrics"
 
 #: ../src/tags/gnome-cmd-tags.cc:387
 msgid "Synchronized lyric."
@@ -5370,8 +5370,8 @@ msgid "Tagging time."
 msgstr "Tagging time."
 
 #: ../src/tags/gnome-cmd-tags.cc:390
-msgid "Terms Of Use"
-msgstr "Terms Of Use"
+msgid "Terms of Use"
+msgstr "Terms of Use"
 
 #: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Terms of use."
