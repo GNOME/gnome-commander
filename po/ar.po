@@ -5713,7 +5713,7 @@ msgstr "الوقت"
 
 #: ../src/tags/gnome-cmd-tags.cc:392
 #, fuzzy
-msgid "Titlesortorder"
+msgid "Title Sort Order"
 msgstr "ترتيب الفرز"
 
 #: ../src/tags/gnome-cmd-tags.cc:392

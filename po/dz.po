@@ -5381,7 +5381,7 @@ msgid "Time."
 msgstr "དུས་ཚོད།"
 
 #: ../src/tags/gnome-cmd-tags.cc:392
-msgid "Titlesortorder"
+msgid "Title Sort Order"
 msgstr "མགོ་མིང་དབྱེ་སེལ་གོ་རིམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:392

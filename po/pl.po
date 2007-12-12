@@ -4890,8 +4890,8 @@ msgid "Time."
 msgstr "Czas."
 
 #: ../src/tags/gnome-cmd-tags.cc:392
-msgid "Titlesortorder"
-msgstr ""
+msgid "Title Sort Order"
+msgstr "Kolejność uporządkowywania tytułów"
 
 #: ../src/tags/gnome-cmd-tags.cc:392
 msgid "Title sort order."

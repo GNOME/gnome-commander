@@ -5386,8 +5386,8 @@ msgid "Time."
 msgstr "Time."
 
 #: ../src/tags/gnome-cmd-tags.cc:392
-msgid "Titlesortorder"
-msgstr "Titlesortorder"
+msgid "Title Sort Order"
+msgstr "Title Sort Order"
 
 #: ../src/tags/gnome-cmd-tags.cc:392
 msgid "Title sort order."

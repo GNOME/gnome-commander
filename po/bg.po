@@ -5133,7 +5133,7 @@ msgid "Time."
 msgstr "Време."
 
 #: ../src/tags/gnome-cmd-tags.cc:392
-msgid "Titlesortorder"
+msgid "Title Sort Order"
 msgstr "Ред на подреждане на заглавията"
 
 #: ../src/tags/gnome-cmd-tags.cc:392

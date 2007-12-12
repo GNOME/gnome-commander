@@ -5403,7 +5403,7 @@ msgid "Time."
 msgstr "Ora."
 
 #: ../src/tags/gnome-cmd-tags.cc:392
-msgid "Titlesortorder"
+msgid "Title Sort Order"
 msgstr "OrdinamentoTitolo"
 
 #: ../src/tags/gnome-cmd-tags.cc:392

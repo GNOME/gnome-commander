@@ -389,7 +389,7 @@ void gcmd_tags_init()
                        {TAG_ID3_TAGGINGTIME, {"ID3.TaggingTime", TAG_ID3, N_("Tagging Time"), N_("Tagging time.")}},
                        {TAG_ID3_TERMSOFUSE, {"ID3.TermsOfUse", TAG_ID3, N_("Terms Of Use"), N_("Terms of use.")}},
                        {TAG_ID3_TIME, {"ID3.Time", TAG_ID3, N_("Time"), N_("Time.")}},
-                       {TAG_ID3_TITLESORTORDER, {"ID3.Titlesortorder", TAG_ID3, N_("Titlesortorder"), N_("Title sort order.")}},
+                       {TAG_ID3_TITLESORTORDER, {"ID3.TitleSortOrder", TAG_ID3, N_("Title Sort Order"), N_("Title sort order.")}},
                        {TAG_ID3_UNIQUEFILEID, {"ID3.UniqueFileID", TAG_ID3, N_("Unique File ID"), N_("Unique file identifier.")}},
                        {TAG_ID3_UNSYNCEDLYRICS, {"ID3.UnsyncedLyrics", TAG_ID3, N_("Unsynchronized Lyrics"), N_("Unsynchronized lyric.")}},
                        {TAG_ID3_USERTEXT, {"ID3.UserText", TAG_ID3, N_("User Text"), N_("User defined text information.")}},

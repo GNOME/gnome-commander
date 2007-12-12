@@ -2314,8 +2314,8 @@
                         <entry><para>Time.</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>ID3.Titlesortorder</para></entry>
-                        <entry><para>Titlesortorder</para></entry>
+                        <entry><para>ID3.ID3.TitleSortOrder</para></entry>
+                        <entry><para>Title sort order</para></entry>
                         <entry><para>Title sort order.</para></entry>
                     </row>
                     <row valign="top">
