@@ -43,6 +43,11 @@
 
 #ifdef HAVE_MMAP
 #include <sys/mman.h>
+
+#ifndef MAP_FILE
+#define MAP_FILE 0
+#endif
+
 #endif
 
 #include "gvtypes.h"

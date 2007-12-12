@@ -1,3 +1,8 @@
+2007-12-12  Damien Carbery  <damien.carbery@sun.com>
+
+	* src/libgviewer/fileops.c:
+	Fix for problem #365227 (build for Solaris x86)
+
 2007-12-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
