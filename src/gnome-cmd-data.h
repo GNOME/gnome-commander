@@ -35,6 +35,8 @@ struct _GnomeCmdData
     GnomeCmdDataPrivate *priv;
 };
 
+typedef struct _GnomeCmdConFtp GnomeCmdConFtp;
+
 typedef enum
 {
     RIGHT_BUTTON_POPUPS_MENU,
@@ -206,12 +208,7 @@ void gnome_cmd_data_set_use_ls_colors (gboolean value);
 
 SearchDefaults *gnome_cmd_data_get_search_defaults (void);
 
-const gchar *gnome_cmd_data_get_quick_connect_host (void);
-void gnome_cmd_data_set_quick_connect_host (const gchar *value);
-const gchar *gnome_cmd_data_get_quick_connect_user (void);
-void gnome_cmd_data_set_quick_connect_user (const gchar *value);
-gint gnome_cmd_data_get_quick_connect_port (void);
-void gnome_cmd_data_set_quick_connect_port (gint value);
+GnomeCmdConFtp *gnome_cmd_data_get_quick_connect (void);
 
 GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks (void);
 GList *gnome_cmd_data_get_bookmark_groups (void);

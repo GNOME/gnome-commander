@@ -81,9 +81,6 @@ struct _GnomeCmdDataPrivate
     gboolean             device_only_icon;
     gint                 dir_cache_size;
     gboolean             use_ls_colors;
-    gchar                *quick_connect_host;
-    gchar                *quick_connect_user;
-    gint                 quick_connect_port;
     gboolean             honor_expect_uris;
     gboolean             use_internal_viewer;
     gboolean             alt_quick_search;
@@ -106,6 +103,8 @@ struct _GnomeCmdDataPrivate
     GList                *backup_pattern_list;
     GdkWindowState       main_win_state;
     gchar                *symlink_prefix;
+
+    GnomeCmdConFtp      *quick_connect;
 
     gboolean             use_gnome_auth_manager;
     gchar                *ftp_anonymous_password;
@@ -1156,7 +1155,14 @@ void gnome_cmd_data_free (void)
         if (data->priv)
         {
             // free the connections
-            gtk_object_unref (GTK_OBJECT (data->priv->con_list));
+            // gtk_object_unref (GTK_OBJECT (data->priv->con_list));
+
+            // close quick connect
+            if (data->priv->quick_connect)
+            {
+                gnome_cmd_con_close (GNOME_CMD_CON (data->priv->quick_connect));
+                // gtk_object_destroy (GTK_OBJECT (data->priv->quick_connect));
+            }
 
             // free the anonymous password string
             g_free (data->priv->ftp_anonymous_password);
@@ -1269,9 +1275,14 @@ void gnome_cmd_data_save (void)
     gnome_cmd_data_set_int    ("/options/dir_cache_size",data->priv->dir_cache_size);
     gnome_cmd_data_set_bool   ("/colors/use_ls_colors",data->priv->use_ls_colors);
 
-    gnome_cmd_data_set_string ("/quick-connect/host",data->priv->quick_connect_host);
-    gnome_cmd_data_set_int    ("/quick-connect/port",data->priv->quick_connect_port);
-    gnome_cmd_data_set_string ("/quick-connect/user",data->priv->quick_connect_user);
+    const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (data->priv->quick_connect));
+
+    if (quick_connect_uri)
+        gnome_cmd_data_set_string ("/quick-connect/uri", quick_connect_uri);
+
+    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/quick-connect/host");
+    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/quick-connect/port");
+    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/quick-connect/user");
 
     gnome_config_set_int ("/gnome-commander-size/main_win/width", data->priv->main_win_width);
     gnome_config_set_int ("/gnome-commander-size/main_win/height", data->priv->main_win_height);
@@ -1500,10 +1511,6 @@ void gnome_cmd_data_load (void)
     data->priv->backup_pattern = gnome_cmd_data_get_string ("/defaults/backup_pattern", "*~;*.bak");
     data->priv->backup_pattern_list = patlist_new (data->priv->backup_pattern);
 
-    data->priv->quick_connect_host = gnome_cmd_data_get_string ("/quick-connect/host", "ftp.gnome.org");
-    data->priv->quick_connect_port = gnome_cmd_data_get_int    ("/quick-connect/port", 21);
-    data->priv->quick_connect_user = gnome_cmd_data_get_string ("/quick-connect/user", "anonymous");
-
     data->priv->main_win_state = (GdkWindowState) gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
 
     data->priv->use_gnome_auth_manager = gnome_cmd_data_get_bool ("/network/use_gnome_auth_manager", TRUE);
@@ -1514,6 +1521,12 @@ void gnome_cmd_data_load (void)
         g_free (data->priv->ftp_anonymous_password);
         data->priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/ftp/anonymous_password", "you@provider.com");
     }
+
+    // "/quick-connect/uri" must be read AFTER retrieving anonymous password
+
+    gchar * quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
+    data->priv->quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
+    g_free (quick_connect_uri);
 
     load_cmdline_history ();
     //load_dir_history ();
@@ -2251,41 +2264,9 @@ SearchDefaults *gnome_cmd_data_get_search_defaults (void)
 }
 
 
-const gchar *gnome_cmd_data_get_quick_connect_host (void)
+GnomeCmdConFtp *gnome_cmd_data_get_quick_connect (void)
 {
-    return data->priv->quick_connect_host;
-}
-
-
-const gchar *gnome_cmd_data_get_quick_connect_user (void)
-{
-    return data->priv->quick_connect_user;
-}
-
-
-gint gnome_cmd_data_get_quick_connect_port (void)
-{
-    return data->priv->quick_connect_port;
-}
-
-
-void gnome_cmd_data_set_quick_connect_host (const gchar *value)
-{
-    g_free (data->priv->quick_connect_host);
-    data->priv->quick_connect_host = g_strdup (value);
-}
-
-
-void gnome_cmd_data_set_quick_connect_user (const gchar *value)
-{
-    g_free (data->priv->quick_connect_user);
-    data->priv->quick_connect_user = g_strdup (value);
-}
-
-
-void gnome_cmd_data_set_quick_connect_port (gint value)
-{
-    data->priv->quick_connect_port = value;
+    return data->priv->quick_connect;
 }
 
 

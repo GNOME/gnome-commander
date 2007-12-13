@@ -5407,23 +5407,9 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para>[quick-connect]</para></entry>
-                                    <entry><para>host</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>port</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>user</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>uri</para></entry>
+                                    <entry><para>string</para></entry>
+                                    <entry><para>URI for the last entered location.</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
