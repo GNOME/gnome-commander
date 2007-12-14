@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-10 19:02+0000\n"
-"PO-Revision-Date: 2007-12-11 15:51+0100\n"
+"POT-Creation-Date: 2007-12-13 11:07+0000\n"
+"PO-Revision-Date: 2007-12-14 13:39+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,8 +35,9 @@ msgstr "Brak opisu błędu"
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
 #: ../src/gnome-cmd-prepare-move-dialog.cc:120
 #: ../src/gnome-cmd-remote-dialog.cc:526
+#, fuzzy
 msgid "Options"
-msgstr "Opcje"
+msgstr "Zmienia identyfikator producenta"
 
 #: ../plugins/cvs/cvs-plugin.c:315
 msgid "CVS options"
@@ -685,27 +686,31 @@ msgstr "Użyj menedżera haseł _GNOME do uwierzytelniania"
 msgid "Connecting to %s\n"
 msgstr "Dołączanie do %s\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:374
+#: ../src/gnome-cmd-con-ftp.cc:366
+msgid "<New connection>"
+msgstr "<Nowe połączenie>"
+
+#: ../src/gnome-cmd-con-ftp.cc:368
 #, c-format
 msgid "Go to: %s"
 msgstr "Idź do: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:375
+#: ../src/gnome-cmd-con-ftp.cc:369
 #, c-format
 msgid "Connect to: %s"
 msgstr "Połącz z %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:376
+#: ../src/gnome-cmd-con-ftp.cc:370
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Rozłącz z: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:390
+#: ../src/gnome-cmd-con-ftp.cc:384
 #, c-format
 msgid "Creates the FTP connection to %s"
 msgstr "Utwórz połączenie FTP z %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:391
+#: ../src/gnome-cmd-con-ftp.cc:385
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "Usuń połączenie FTP z %s"
@@ -734,10 +739,10 @@ msgstr "Szukanie grup roboczych i hostów"
 msgid "Go to: Samba Network"
 msgstr "Idź do: Sieć Samby"
 
-#: ../src/gnome-cmd-data.cc:1250
-#: ../src/gnome-cmd-data.cc:1475
-#: ../src/gnome-cmd-data.cc:1476
-#: ../src/gnome-cmd-data.cc:2543
+#: ../src/gnome-cmd-data.cc:1256
+#: ../src/gnome-cmd-data.cc:1486
+#: ../src/gnome-cmd-data.cc:1487
+#: ../src/gnome-cmd-data.cc:2524
 #, c-format
 msgid "link to %s"
 msgstr "dowiązanie do %s"
@@ -2084,22 +2089,22 @@ msgstr "Połączenia"
 msgid "Anonymous FTP password:"
 msgstr "Hasło anonimowego FTP:"
 
-#: ../src/gnome-cmd-search-dialog.cc:180
+#: ../src/gnome-cmd-search-dialog.cc:178
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Nie można otworzyć pliku %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:189
+#: ../src/gnome-cmd-search-dialog.cc:188
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Nie można czytać z pliku %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:250
+#: ../src/gnome-cmd-search-dialog.cc:249
 #, c-format
 msgid "Searching in: %s"
 msgstr "Wyszukiwanie w: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:399
+#: ../src/gnome-cmd-search-dialog.cc:398
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
@@ -2107,7 +2112,7 @@ msgstr[0] "Znaleziono %d pasujący zanim zakończono"
 msgstr[1] "Znaleziono %d pasujące zanim zakończono"
 msgstr[2] "Znaleziono %d pasujących zanim zakończono"
 
-#: ../src/gnome-cmd-search-dialog.cc:406
+#: ../src/gnome-cmd-search-dialog.cc:405
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -2115,37 +2120,37 @@ msgstr[0] "Znaleziono %d pasujący"
 msgstr[1] "Znaleziono %d pasujące"
 msgstr[2] "Znaleziono %d pasujących"
 
-#: ../src/gnome-cmd-search-dialog.cc:715
+#: ../src/gnome-cmd-search-dialog.cc:714
 msgid "Search..."
 msgstr "Szukaj..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:728
+#: ../src/gnome-cmd-search-dialog.cc:727
 msgid "Search for: "
 msgstr "Znajdź plik: "
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:740
+#: ../src/gnome-cmd-search-dialog.cc:739
 msgid "Search in: "
 msgstr "Szukaj w: "
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:754
+#: ../src/gnome-cmd-search-dialog.cc:753
 msgid "Find text: "
 msgstr "Znajdź tekst: "
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:768
+#: ../src/gnome-cmd-search-dialog.cc:767
 msgid "Search Recursively"
 msgstr "Zastosuj do podkatalogów"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:775
+#: ../src/gnome-cmd-search-dialog.cc:774
 #: ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
 msgstr "Rozróżnianie wielkości liter"
 
-#: ../src/gnome-cmd-search-dialog.cc:786
+#: ../src/gnome-cmd-search-dialog.cc:785
 msgid "Goto"
 msgstr "Idź do"
 
@@ -2970,9 +2975,8 @@ msgstr "Komentarze"
 
 #: ../src/tags/gnome-cmd-tags.cc:152
 #: ../src/tags/gnome-cmd-tags.cc:408
-#, fuzzy
 msgid "User definable free text."
-msgstr "Tekst wprowadzony przez użytkownika"
+msgstr "Zdefiniowana przez użytkownika informacja tekstowa."
 
 #: ../src/tags/gnome-cmd-tags.cc:153
 msgid "Company"
@@ -3740,8 +3744,8 @@ msgid "Interoperability version."
 msgstr "Wersja programu"
 
 #: ../src/tags/gnome-cmd-tags.cc:249
-msgid "IPTC/NAA"
-msgstr "IPTC/NAA"
+msgid "An IPTC/NAA record."
+msgstr "Rekord IPTC/NAA."
 
 #: ../src/tags/gnome-cmd-tags.cc:250
 msgid "ISO Speed Ratings"
@@ -3769,12 +3773,12 @@ msgid "The number of bytes of JPEG compressed thumbnail data. This is not used f
 msgstr "Liczba bajtów danych miniaturki skompresowanej JPEG. Nie jest używana dla danych JPEG głównego obrazu. Miniaturki JPEG nie są dzielone, ale zapisywane jako ciągły strumień JPEG od SOI do EOI. Znaczniki Appn i COM nie powinny być używane. Skompresowane miniaturki muszą być zapisane w najwyżej 64kB, włącznie ze wszystkimi innymi danymi zapisanymi w APP1."
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "JPEG Proc"
-msgstr "Proces JPEG"
-
-#: ../src/tags/gnome-cmd-tags.cc:253
 msgid "JPEG Procedure"
 msgstr "Procedura JPEG"
+
+#: ../src/tags/gnome-cmd-tags.cc:253
+msgid "JPEG procedure."
+msgstr "Procedura JPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:254
 msgid "Light Source"
@@ -4851,9 +4855,8 @@ msgid "Synchronized Lyrics"
 msgstr "Zsynchrizowane słowa piosenki"
 
 #: ../src/tags/gnome-cmd-tags.cc:387
-#, fuzzy
 msgid "Synchronized lyric."
-msgstr "&Zdarzenia tekstu piosenki"
+msgstr "Zsynchronizowane słowa piosenki."
 
 #: ../src/tags/gnome-cmd-tags.cc:388
 #, fuzzy
@@ -6170,6 +6173,10 @@ msgstr "Nie można czytać z katalogu %s: %s"
 msgid "There was an error displaying help."
 msgstr "Wystąpił błąd podczas wyświetlania pomocy."
 
+#~ msgid "IPTC/NAA"
+#~ msgstr "IPTC/NAA"
+#~ msgid "JPEG Proc"
+#~ msgstr "Proces JPEG"
 #~ msgid "Dir"
 #~ msgstr "Katalog"
 #~ msgid "_Hex"
@@ -6192,8 +6199,6 @@ msgstr "Wystąpił błąd podczas wyświetlania pomocy."
 #~ msgstr "Użytkownik:"
 #~ msgid "Remote Dir:"
 #~ msgstr "Zdalny katalog:"
-#~ msgid "New Connection"
-#~ msgstr "Nowe połączenie"
 #~ msgid "_Add..."
 #~ msgstr "_Dodaj..."
 #~ msgid "_Edit..."
