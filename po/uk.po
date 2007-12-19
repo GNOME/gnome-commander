@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-10 19:32+0100\n"
+"POT-Creation-Date: 2007-12-19 18:10+0100\n"
 "PO-Revision-Date: 2004-02-24 13:21+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team:  <uk@li.org>\n"
@@ -712,27 +712,32 @@ msgstr ""
 msgid "Connecting to %s\n"
 msgstr "З'єднання з %s\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:374
+#: ../src/gnome-cmd-con-ftp.cc:366
+#, fuzzy
+msgid "<New connection>"
+msgstr "З'єднання FTP"
+
+#: ../src/gnome-cmd-con-ftp.cc:368
 #, c-format
 msgid "Go to: %s"
 msgstr "Перейти до: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:375
+#: ../src/gnome-cmd-con-ftp.cc:369
 #, c-format
 msgid "Connect to: %s"
 msgstr "З'єднання з: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:376
+#: ../src/gnome-cmd-con-ftp.cc:370
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Від'єднання від: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:390
+#: ../src/gnome-cmd-con-ftp.cc:384
 #, fuzzy, c-format
 msgid "Creates the FTP connection to %s"
 msgstr "Створює FTP з'єднання з %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:391
+#: ../src/gnome-cmd-con-ftp.cc:385
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "Видаляє з'єднання з %s"
@@ -761,8 +766,8 @@ msgstr "Пошук робочі групи і вузлів"
 msgid "Go to: Samba Network"
 msgstr "Перейти до: мережа Samba"
 
-#: ../src/gnome-cmd-data.cc:1250 ../src/gnome-cmd-data.cc:1475
-#: ../src/gnome-cmd-data.cc:1476 ../src/gnome-cmd-data.cc:2543
+#: ../src/gnome-cmd-data.cc:1256 ../src/gnome-cmd-data.cc:1486
+#: ../src/gnome-cmd-data.cc:1487 ../src/gnome-cmd-data.cc:2524
 #, fuzzy, c-format
 msgid "link to %s"
 msgstr "Символічні посилання"
@@ -2122,23 +2127,23 @@ msgstr "З'_єднання"
 msgid "Anonymous FTP password:"
 msgstr "Пароль анонімного ftp:"
 
-#: ../src/gnome-cmd-search-dialog.cc:180
+#: ../src/gnome-cmd-search-dialog.cc:178
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Не вдається відкрити файл %s: %s\n"
 
 # c-format
-#: ../src/gnome-cmd-search-dialog.cc:189
+#: ../src/gnome-cmd-search-dialog.cc:188
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Не вдається прочитати файл %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:250
+#: ../src/gnome-cmd-search-dialog.cc:249
 #, c-format
 msgid "Searching in: %s"
 msgstr "Пошук в: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:399
+#: ../src/gnome-cmd-search-dialog.cc:398
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
@@ -2146,7 +2151,7 @@ msgstr[0] "Знайдено %d відповіжність перед зупин�
 msgstr[1] "Знайдено %d відповіжності перед зупинкою"
 msgstr[2] "Знайдено %d відповіжностей перед зупинкою"
 
-#: ../src/gnome-cmd-search-dialog.cc:406
+#: ../src/gnome-cmd-search-dialog.cc:405
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -2154,36 +2159,36 @@ msgstr[0] "Знайдено %d відповіжність"
 msgstr[1] "Знайдено %d відповіжності"
 msgstr[2] "Знайдено %d збігів"
 
-#: ../src/gnome-cmd-search-dialog.cc:715
+#: ../src/gnome-cmd-search-dialog.cc:714
 msgid "Search..."
 msgstr "Пошук..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:728
+#: ../src/gnome-cmd-search-dialog.cc:727
 msgid "Search for: "
 msgstr "Знайти: "
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:740
+#: ../src/gnome-cmd-search-dialog.cc:739
 msgid "Search in: "
 msgstr "Шукати у: "
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:754
+#: ../src/gnome-cmd-search-dialog.cc:753
 msgid "Find text: "
 msgstr "Знайти текст: "
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:768
+#: ../src/gnome-cmd-search-dialog.cc:767
 msgid "Search Recursively"
 msgstr "Рекурсивний пошук"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:775 ../src/tags/gnome-cmd-tags.cc:147
+#: ../src/gnome-cmd-search-dialog.cc:774 ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
 msgstr "Враховувати регістр"
 
-#: ../src/gnome-cmd-search-dialog.cc:786
+#: ../src/gnome-cmd-search-dialog.cc:785
 msgid "Goto"
 msgstr "Пере_йти"
 
@@ -3933,7 +3938,7 @@ msgid "Interoperability version."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:249
-msgid "IPTC/NAA"
+msgid "An IPTC/NAA record."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:250
@@ -3970,11 +3975,11 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "JPEG Proc"
+msgid "JPEG Procedure"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "JPEG Procedure"
+msgid "JPEG procedure."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:254
@@ -6609,10 +6614,6 @@ msgstr ""
 
 #~ msgid "Connect"
 #~ msgstr "З'єднатись"
-
-#, fuzzy
-#~ msgid "New Connection"
-#~ msgstr "З'єднання FTP"
 
 #, fuzzy
 #~ msgid "_Hex"

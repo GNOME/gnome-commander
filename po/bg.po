@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GnomeCommander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-10 19:32+0100\n"
+"POT-Creation-Date: 2007-12-19 18:10+0100\n"
 "PO-Revision-Date: 2007-10-24 20:01+0200\n"
 "Last-Translator: sstpr@narod.ru <sstpr@narod.ru>\n"
 "Language-Team: ССТАНЕВ <sstpr@narod.ru>\n"
@@ -702,27 +702,32 @@ msgstr ""
 msgid "Connecting to %s\n"
 msgstr "Свързвам се с %s\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:374
+#: ../src/gnome-cmd-con-ftp.cc:366
+#, fuzzy
+msgid "<New connection>"
+msgstr "Ново свързване..."
+
+#: ../src/gnome-cmd-con-ftp.cc:368
 #, c-format
 msgid "Go to: %s"
 msgstr "Иди в:·%s"
 
-#: ../src/gnome-cmd-con-ftp.cc:375
+#: ../src/gnome-cmd-con-ftp.cc:369
 #, c-format
 msgid "Connect to: %s"
 msgstr "Свържи се с:·%s"
 
-#: ../src/gnome-cmd-con-ftp.cc:376
+#: ../src/gnome-cmd-con-ftp.cc:370
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Разделям се от: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:390
+#: ../src/gnome-cmd-con-ftp.cc:384
 #, c-format
 msgid "Creates the FTP connection to %s"
 msgstr "Създава FTP свръзване с %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:391
+#: ../src/gnome-cmd-con-ftp.cc:385
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "Премахва FTP свръзването към %s"
@@ -751,8 +756,8 @@ msgstr "Търся работни групи и компютри"
 msgid "Go to: Samba Network"
 msgstr "Иди в: Самба мрежата"
 
-#: ../src/gnome-cmd-data.cc:1250 ../src/gnome-cmd-data.cc:1475
-#: ../src/gnome-cmd-data.cc:1476 ../src/gnome-cmd-data.cc:2543
+#: ../src/gnome-cmd-data.cc:1256 ../src/gnome-cmd-data.cc:1486
+#: ../src/gnome-cmd-data.cc:1487 ../src/gnome-cmd-data.cc:2524
 #, c-format
 msgid "link to %s"
 msgstr "връзка към %s"
@@ -2075,65 +2080,65 @@ msgstr "Свръзки"
 msgid "Anonymous FTP password:"
 msgstr "Парола за безименен достъп"
 
-#: ../src/gnome-cmd-search-dialog.cc:180
+#: ../src/gnome-cmd-search-dialog.cc:178
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Неуспешно отваряне на файл %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:189
+#: ../src/gnome-cmd-search-dialog.cc:188
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Неуспешно четене от файл %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:250
+#: ../src/gnome-cmd-search-dialog.cc:249
 #, c-format
 msgid "Searching in: %s"
 msgstr "Търся в: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:399
+#: ../src/gnome-cmd-search-dialog.cc:398
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
 msgstr[0] "Намерих %d съвпадения, преди да бъда спрян"
 msgstr[1] "Намерих %d съвпадения, преди да бъда спрян"
 
-#: ../src/gnome-cmd-search-dialog.cc:406
+#: ../src/gnome-cmd-search-dialog.cc:405
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "Намерени %d съвпадения"
 msgstr[1] "Намерени %d съвпадения"
 
-#: ../src/gnome-cmd-search-dialog.cc:715
+#: ../src/gnome-cmd-search-dialog.cc:714
 msgid "Search..."
 msgstr "Търсене..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:728
+#: ../src/gnome-cmd-search-dialog.cc:727
 msgid "Search for: "
 msgstr "Търси:"
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:740
+#: ../src/gnome-cmd-search-dialog.cc:739
 msgid "Search in: "
 msgstr "Търси в:"
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:754
+#: ../src/gnome-cmd-search-dialog.cc:753
 msgid "Find text: "
 msgstr "Намери текст:"
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:768
+#: ../src/gnome-cmd-search-dialog.cc:767
 msgid "Search Recursively"
 msgstr "Търси и във вложените папки."
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:775 ../src/tags/gnome-cmd-tags.cc:147
+#: ../src/gnome-cmd-search-dialog.cc:774 ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
 msgstr "С отчитане на главността"
 
-#: ../src/gnome-cmd-search-dialog.cc:786
+#: ../src/gnome-cmd-search-dialog.cc:785
 msgid "Goto"
 msgstr "Иди в"
 
@@ -3868,7 +3873,7 @@ msgid "Interoperability version."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:249
-msgid "IPTC/NAA"
+msgid "An IPTC/NAA record."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:250
@@ -3907,11 +3912,11 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "JPEG Proc"
+msgid "JPEG Procedure"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "JPEG Procedure"
+msgid "JPEG procedure."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:254
@@ -6508,9 +6513,6 @@ msgstr "Появи се грешка при показване на помощт
 
 #~ msgid "Connect"
 #~ msgstr "Свързване"
-
-#~ msgid "New Connection"
-#~ msgstr "Ново свързване..."
 
 #~ msgid "_Hex"
 #~ msgstr "_Шестнадесетичен"

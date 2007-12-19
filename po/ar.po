@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Arabic\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-10 19:32+0100\n"
+"POT-Creation-Date: 2007-12-19 18:10+0100\n"
 "PO-Revision-Date: 2007-04-14 18:49+0100\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabeyes <doc@arabeyes.org>\n"
@@ -765,27 +765,32 @@ msgstr ""
 msgid "Connecting to %s\n"
 msgstr "يجري الإتصال بـ: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:374
+#: ../src/gnome-cmd-con-ftp.cc:366
+#, fuzzy
+msgid "<New connection>"
+msgstr "استخدم اتصال TCP"
+
+#: ../src/gnome-cmd-con-ftp.cc:368
 #, fuzzy, c-format
 msgid "Go to: %s"
 msgstr "اذهب إلى الصفحة %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:375
+#: ../src/gnome-cmd-con-ftp.cc:369
 #, fuzzy, c-format
 msgid "Connect to: %s"
 msgstr "يجري الإتصال بـ: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:376
+#: ../src/gnome-cmd-con-ftp.cc:370
 #, fuzzy, c-format
 msgid "Disconnect from: %s"
 msgstr "اقطع الاتّصال بـ %s..."
 
-#: ../src/gnome-cmd-con-ftp.cc:390
+#: ../src/gnome-cmd-con-ftp.cc:384
 #, fuzzy, c-format
 msgid "Creates the FTP connection to %s"
 msgstr "فقدت الاتّصال بـ %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:391
+#: ../src/gnome-cmd-con-ftp.cc:385
 #, fuzzy, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "فقدت الاتّصال بـ %s"
@@ -818,8 +823,8 @@ msgstr "يتم البحث عن المفاتيح على: %s"
 msgid "Go to: Samba Network"
 msgstr "ال_ولوج إلى الشبكة"
 
-#: ../src/gnome-cmd-data.cc:1250 ../src/gnome-cmd-data.cc:1475
-#: ../src/gnome-cmd-data.cc:1476 ../src/gnome-cmd-data.cc:2543
+#: ../src/gnome-cmd-data.cc:1256 ../src/gnome-cmd-data.cc:1486
+#: ../src/gnome-cmd-data.cc:1487 ../src/gnome-cmd-data.cc:2524
 #, fuzzy, c-format
 msgid "link to %s"
 msgstr "وصلة إلى %s "
@@ -2358,71 +2363,71 @@ msgstr "الإتّصالات"
 msgid "Anonymous FTP password:"
 msgstr "كلمة العبور للبروكسى "
 
-#: ../src/gnome-cmd-search-dialog.cc:180
+#: ../src/gnome-cmd-search-dialog.cc:178
 #, fuzzy, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "فشل فتح الملف '%s': %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:189
+#: ../src/gnome-cmd-search-dialog.cc:188
 #, fuzzy, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "فشلت القراءة من الملف '%s': %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:250
+#: ../src/gnome-cmd-search-dialog.cc:249
 #, fuzzy, c-format
 msgid "Searching in: %s"
 msgstr "البحث عن: {0}"
 
-#: ../src/gnome-cmd-search-dialog.cc:399
+#: ../src/gnome-cmd-search-dialog.cc:398
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/gnome-cmd-search-dialog.cc:406
+#: ../src/gnome-cmd-search-dialog.cc:405
 #, fuzzy, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "وجد %d دِسكلت"
 msgstr[1] "وجد %d دِسكلت"
 
-#: ../src/gnome-cmd-search-dialog.cc:715
+#: ../src/gnome-cmd-search-dialog.cc:714
 #, fuzzy
 msgid "Search..."
 msgstr "_بحث..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:728
+#: ../src/gnome-cmd-search-dialog.cc:727
 #, fuzzy
 msgid "Search for: "
 msgstr "ا_بحث عن:"
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:740
+#: ../src/gnome-cmd-search-dialog.cc:739
 #, fuzzy
 msgid "Search in: "
 msgstr "يجري البحث"
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:754
+#: ../src/gnome-cmd-search-dialog.cc:753
 #, fuzzy
 msgid "Find text: "
 msgstr "إبحث عن النص:"
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:768
+#: ../src/gnome-cmd-search-dialog.cc:767
 #, fuzzy
 msgid "Search Recursively"
 msgstr "نتائج البحث"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:775 ../src/tags/gnome-cmd-tags.cc:147
+#: ../src/gnome-cmd-search-dialog.cc:774 ../src/tags/gnome-cmd-tags.cc:147
 #, fuzzy
 msgid "Case Sensitive"
 msgstr "ح_ساس لحالة الأحرف"
 
-#: ../src/gnome-cmd-search-dialog.cc:786
+#: ../src/gnome-cmd-search-dialog.cc:785
 #, fuzzy
 msgid "Goto"
 msgstr "جروتون"
@@ -4298,9 +4303,8 @@ msgid "Interoperability version."
 msgstr "دليل InterOperability"
 
 #: ../src/tags/gnome-cmd-tags.cc:249
-#, fuzzy
-msgid "IPTC/NAA"
-msgstr "IPTC"
+msgid "An IPTC/NAA record."
+msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:250
 #, fuzzy
@@ -4339,11 +4343,11 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "JPEG Proc"
+msgid "JPEG Procedure"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "JPEG Procedure"
+msgid "JPEG procedure."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:254
@@ -7210,6 +7214,10 @@ msgid "There was an error displaying help."
 msgstr "حدث خطأ عند عرض المساعدة."
 
 #, fuzzy
+#~ msgid "IPTC/NAA"
+#~ msgstr "IPTC"
+
+#, fuzzy
 #~ msgid "Dir"
 #~ msgstr "dir"
 
@@ -7249,10 +7257,6 @@ msgstr "حدث خطأ عند عرض المساعدة."
 
 #~ msgid "Connect"
 #~ msgstr "اتصل"
-
-#, fuzzy
-#~ msgid "New Connection"
-#~ msgstr "استخدم اتصال TCP"
 
 #, fuzzy
 #~ msgid "_Hex"

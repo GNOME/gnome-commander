@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander 1.2.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-14 14:41+0100\n"
+"POT-Creation-Date: 2007-12-19 18:10+0100\n"
 "PO-Revision-Date: 2007-12-14 14:44+0100\n"
 "Last-Translator: Robert-André Mauchin <zebob.m@pengzone.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -551,7 +551,6 @@ msgid "Apply Recursively"
 msgstr "Appliquer récursivement"
 
 #: ../src/gnome-cmd-con-device.cc:115
-#, c-format
 msgid "Failed to execute the mount command"
 msgstr "L'exécution de la commande mount a échoué"
 
@@ -2043,7 +2042,6 @@ msgid "Search"
 msgstr "Rechercher"
 
 #: ../src/gnome-cmd-remote-dialog.cc:214
-#, c-format
 msgid "No server selected"
 msgstr "Aucun serveur sélectionné"
 

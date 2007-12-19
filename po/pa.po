@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-10 19:32+0100\n"
+"POT-Creation-Date: 2007-12-19 18:10+0100\n"
 "PO-Revision-Date: 2004-11-24 16:41+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
@@ -699,27 +699,32 @@ msgstr ""
 msgid "Connecting to %s\n"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:374
+#: ../src/gnome-cmd-con-ftp.cc:366
+#, fuzzy
+msgid "<New connection>"
+msgstr "FTP ਜੋੜੋ"
+
+#: ../src/gnome-cmd-con-ftp.cc:368
 #, c-format
 msgid "Go to: %s"
 msgstr "ਜਾਓ: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:375
+#: ../src/gnome-cmd-con-ftp.cc:369
 #, c-format
 msgid "Connect to: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:376
+#: ../src/gnome-cmd-con-ftp.cc:370
 #, c-format
 msgid "Disconnect from: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:390
+#: ../src/gnome-cmd-con-ftp.cc:384
 #, c-format
 msgid "Creates the FTP connection to %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:391
+#: ../src/gnome-cmd-con-ftp.cc:385
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr ""
@@ -748,8 +753,8 @@ msgstr ""
 msgid "Go to: Samba Network"
 msgstr ""
 
-#: ../src/gnome-cmd-data.cc:1250 ../src/gnome-cmd-data.cc:1475
-#: ../src/gnome-cmd-data.cc:1476 ../src/gnome-cmd-data.cc:2543
+#: ../src/gnome-cmd-data.cc:1256 ../src/gnome-cmd-data.cc:1486
+#: ../src/gnome-cmd-data.cc:1487 ../src/gnome-cmd-data.cc:2524
 #, fuzzy, c-format
 msgid "link to %s"
 msgstr "ਜਾਓ: %s"
@@ -2092,65 +2097,65 @@ msgstr "ਕੁਨੈਕਸ਼ਨ(_C)"
 msgid "Anonymous FTP password:"
 msgstr "ਅਗਿਆਤ ਗੁਪਤ-ਕੋਡ:"
 
-#: ../src/gnome-cmd-search-dialog.cc:180
+#: ../src/gnome-cmd-search-dialog.cc:178
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr ""
 
-#: ../src/gnome-cmd-search-dialog.cc:189
+#: ../src/gnome-cmd-search-dialog.cc:188
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr ""
 
-#: ../src/gnome-cmd-search-dialog.cc:250
+#: ../src/gnome-cmd-search-dialog.cc:249
 #, c-format
 msgid "Searching in: %s"
 msgstr "ਖੋਜ: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:399
+#: ../src/gnome-cmd-search-dialog.cc:398
 #, c-format
 msgid "Found %d match before I was stopped"
 msgid_plural "Found %d matches before I was stopped"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/gnome-cmd-search-dialog.cc:406
+#: ../src/gnome-cmd-search-dialog.cc:405
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/gnome-cmd-search-dialog.cc:715
+#: ../src/gnome-cmd-search-dialog.cc:714
 msgid "Search..."
 msgstr "ਖੋਜ..."
 
 #. Search for
-#: ../src/gnome-cmd-search-dialog.cc:728
+#: ../src/gnome-cmd-search-dialog.cc:727
 msgid "Search for: "
 msgstr "ਖੋਜ:"
 
 #. Search in
-#: ../src/gnome-cmd-search-dialog.cc:740
+#: ../src/gnome-cmd-search-dialog.cc:739
 msgid "Search in: "
 msgstr "ਖੋਜ:"
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:754
+#: ../src/gnome-cmd-search-dialog.cc:753
 msgid "Find text: "
 msgstr "ਪਾਠ ਖੋਜ:"
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:768
+#: ../src/gnome-cmd-search-dialog.cc:767
 msgid "Search Recursively"
 msgstr "ਲਗਾਤਾਰ ਖੋਜ"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:775 ../src/tags/gnome-cmd-tags.cc:147
+#: ../src/gnome-cmd-search-dialog.cc:774 ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
 msgstr "ਅੱਖਰ ਆਕਾਰ ਤੇ ਨਿਰਭਰ"
 
-#: ../src/gnome-cmd-search-dialog.cc:786
+#: ../src/gnome-cmd-search-dialog.cc:785
 msgid "Goto"
 msgstr "ਜਾਓ"
 
@@ -3879,7 +3884,7 @@ msgid "Interoperability version."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:249
-msgid "IPTC/NAA"
+msgid "An IPTC/NAA record."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:250
@@ -3916,11 +3921,11 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "JPEG Proc"
+msgid "JPEG Procedure"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "JPEG Procedure"
+msgid "JPEG procedure."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:254
@@ -6536,10 +6541,6 @@ msgstr ""
 
 #~ msgid "Connect"
 #~ msgstr "ਜੋੜੋ"
-
-#, fuzzy
-#~ msgid "New Connection"
-#~ msgstr "FTP ਜੋੜੋ"
 
 #, fuzzy
 #~ msgid "_Hex"
