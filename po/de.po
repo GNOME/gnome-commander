@@ -256,7 +256,7 @@ msgstr "/Datum/jjjj"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:170
 msgid "/Date/yy"
-msgstr "/Datum/jjy"
+msgstr "/Datum/jj"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:171
 msgid "/Date/mm"
