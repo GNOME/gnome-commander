@@ -42,8 +42,7 @@ static gint compare_plugins(const PythonPluginData *p1, const PythonPluginData *
 }
 
 
-static void
-scan_plugins_in_dir (const gchar *dpath)
+static void scan_plugins_in_dir (const gchar *dpath)
 {
     DIR *dir = opendir(dpath);
 
@@ -54,6 +53,13 @@ scan_plugins_in_dir (const gchar *dpath)
     }
 
     long dir_size = pathconf(".", _PC_PATH_MAX);
+
+   if (dir_size==-1)
+   {
+       g_warning ( "pathconf(\".\"): %s", strerror(errno) );
+      return;
+   }
+
     gchar *prev_dir = (gchar *) g_malloc (dir_size);
 
     if (!prev_dir)

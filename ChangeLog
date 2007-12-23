@@ -1,3 +1,8 @@
+2007-12-23  <rehsack@web.de>
+
+	* src/gnome-cmd-python-plugin.cc:
+	Fixed crash #468685
+
 2007-12-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* /src/gnome-cmd-data.cc:
