@@ -654,18 +654,18 @@ static gchar *apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
     gchar *out = NULL;
 
     if (!in || !entry) return NULL;
-
-    if (regcomp (&re_exp, entry->from, (entry->case_sens ? REG_EXTENDED : REG_EXTENDED|REG_ICASE) != 0))
+    
+    if (regcomp (&re_exp, entry->from, (entry->case_sens ? REG_EXTENDED : REG_EXTENDED|REG_ICASE)) != 0)
         entry->malformed_pattern = TRUE;
     else
     {
         if (regexec (&re_exp, in, 1, &re_match_info, eflags) == 0)
         {
             if (strcmp (entry->from, "$") == 0)
-                out = g_strconcat(in, entry->to, NULL);
+                out = g_strconcat (in, entry->to, NULL);
             else
                 if (strcmp (entry->from, "^") == 0)
-                    out = g_strconcat(entry->to, in, NULL);
+                    out = g_strconcat (entry->to, in, NULL);
                 else
                 {
                     gint match_size = re_match_info.rm_eo - re_match_info.rm_so;

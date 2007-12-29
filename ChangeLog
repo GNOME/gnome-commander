@@ -1,3 +1,8 @@
+2007-12-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	Fixed misplaced bracket in regex handling
+
 2007-12-23  <rehsack@web.de>
 
 	* src/gnome-cmd-python-plugin.cc:
