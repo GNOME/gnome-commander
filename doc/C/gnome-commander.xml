@@ -485,6 +485,143 @@
     <!-- ================ Selecting Files Subsection ======================= -->
     <sect2 id="gnome-commander-select">
         <title>Selecting Files and Folders</title>
+        <para>You can select files and folders in several ways in &app;. Typically this is achieved by clicking on the files using the mouse, as explained in <xref linkend="gcmd-TBL-10"/>.</para>
+      <table frame="topbot" id="gcmd-TBL-10">
+        <title>Selecting Items in the File Manager</title>
+        <tgroup cols="2" colsep="0" rowsep="0">
+          <colspec colname="colspec0" colwidth="36.36*"/>
+          <colspec colname="colspec2" colwidth="63.64*"/>
+          <thead>
+            <row rowsep="1">
+              <entry>
+                <para>Task</para>
+              </entry>
+              <entry colname="colspec2">
+                <para>Action</para>
+              </entry>
+              <entry colname="colspec3">
+                <para>Default key bindings</para>
+              </entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Select an item</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Click on the item.</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para><keycombo><keycap>SPACE</keycap></keycombo></para>
+                <para><keycombo><keycap>INSERT</keycap></keycombo></para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Select a group of contiguous items</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>In icon view, drag around the files that you want to select.</para>
+                <para>In list view, click on the first item in the group. Press-and-hold <keycap>SHIFT</keycap>, then click on the last item in the group.</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Select multiple items</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Press-and-hold <keycap>CTRL</keycap>. Click on the items that you want to select.</para>
+                <para>Alternatively, press-and-hold <keycap>CTRL</keycap>, then drag around the files that you want to select.</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Select all items in a folder</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select All</guimenuitem></menuchoice>.</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></para>
+                <para><keycombo><keycap>CTRL</keycap><keycap>+</keycap></keycombo></para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Unselect all items in a folder</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Unselect All</guimenuitem></menuchoice>.</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></keycombo></para>
+                <para><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo></para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Select all files with the same extension</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para><keycombo><keycap>ALT</keycap><keycap>NUM +</keycap></keycombo></para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Unselect all files with the same extension</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para><keycombo><keycap>ALT</keycap><keycap>NUM -</keycap></keycombo></para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Select files using a pattern</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select with Pattern</guimenuitem></menuchoice>.
+                &app; selects files matching a pattern based upon their filename using either wildcards or regular expressions.</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para><keycombo><keycap>NUM +</keycap></keycombo></para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Unselect files using a pattern</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Unselect with Pattern</guimenuitem></menuchoice>.
+                &app; unselects files matching a pattern based upon their filename using either wildcards or regular expressions.</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para><keycombo><keycap>NUM -</keycap></keycombo></para>
+              </entry>
+            </row>
+            <row>
+              <entry colname="colspec0" valign="top">
+                <para>Invert selection</para>
+              </entry>
+              <entry colname="colspec2" valign="top">
+                <para>Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Invert Selection</guimenuitem></menuchoice>.</para>
+              </entry>
+              <entry colname="colspec3" valign="top">
+                <para><keycombo><keycap>NUM *</keycap></keycombo></para>
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+        <para>To perform the default action on an item, double-click on the item.</para>
     </sect2>
     <!-- ================ Drag-and-Drop Subsection ======================= -->
     <sect2 id="gnome-commander-dnd">
