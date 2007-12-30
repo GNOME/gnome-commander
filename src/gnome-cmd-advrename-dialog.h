@@ -60,10 +60,8 @@ struct _GnomeCmdAdvrenameDialogClass
 extern guint advrename_dialog_default_pat_column_width[ADVRENAME_DIALOG_PAT_NUM_COLUMNS];
 extern guint advrename_dialog_default_res_column_width[ADVRENAME_DIALOG_RES_NUM_COLUMNS];
 
-GtkWidget*
-gnome_cmd_advrename_dialog_new (GList *files);
+GtkWidget *gnome_cmd_advrename_dialog_new (GList *files);
 
-GtkType
-gnome_cmd_advrename_dialog_get_type (void);
+GtkType gnome_cmd_advrename_dialog_get_type (void);
 
 #endif // __GNOME_CMD_ADVRENAME_DIALOG_H__

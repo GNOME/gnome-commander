@@ -45,7 +45,7 @@ typedef struct
 } RenameEntry;
 
 
-enum {DIR_MENU, NAME_MENU, COUNTER_MENU, DATE_MENU, METATAG_MENU, NUM_MENUS};
+enum {DIR_MENU, FILE_MENU, COUNTER_MENU, DATE_MENU, METATAG_MENU, NUM_MENUS};
 
 
 struct _GnomeCmdAdvrenameDialogPrivate
@@ -372,7 +372,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
     switch (menu_type)
     {
         case DIR_MENU:
-        case NAME_MENU:
+        case FILE_MENU:
         case COUNTER_MENU:
         case DATE_MENU:
             {
@@ -654,7 +654,7 @@ static gchar *apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
     gchar *out = NULL;
 
     if (!in || !entry) return NULL;
-    
+
     if (regcomp (&re_exp, entry->from, (entry->case_sens ? REG_EXTENDED : REG_EXTENDED|REG_ICASE)) != 0)
         entry->malformed_pattern = TRUE;
     else
@@ -715,14 +715,11 @@ inline gchar *create_new_name (const gchar *name, GList *patterns)
 }
 
 
-static void update_new_names (GnomeCmdAdvrenameDialog *dialog)
+inline void update_new_names (GnomeCmdAdvrenameDialog *dialog)
 {
     const gchar *templ_string = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
 
-    gnome_cmd_advrename_reset_counter (
-        dialog->priv->defaults->counter_start,
-        dialog->priv->defaults->counter_precision,
-        dialog->priv->defaults->counter_increment);
+    gnome_cmd_advrename_reset_counter (dialog->priv->defaults->counter_start, dialog->priv->defaults->counter_precision, dialog->priv->defaults->counter_increment);
     gnome_cmd_advrename_parse_fname (templ_string);
 
     for (GList *tmp = dialog->priv->entries; tmp; tmp = tmp->next)
@@ -752,7 +749,7 @@ static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 }
 
 
-static void change_names (GnomeCmdAdvrenameDialog *dialog)
+inline void change_names (GnomeCmdAdvrenameDialog *dialog)
 {
     for (GList *tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
@@ -1124,7 +1121,7 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
     btn = create_button_with_menu (in_dialog, _("Directory"), DIR_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
-    btn = create_button_with_menu (in_dialog, _("File"), NAME_MENU);
+    btn = create_button_with_menu (in_dialog, _("File"), FILE_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
     btn = create_button_with_menu (in_dialog, _("Counter"),COUNTER_MENU);
@@ -1255,7 +1252,7 @@ GtkWidget *gnome_cmd_advrename_dialog_new (GList *files)
 }
 
 
-GtkType gnome_cmd_advrename_dialog_get_type         (void)
+GtkType gnome_cmd_advrename_dialog_get_type (void)
 {
     static GtkType dlg_type = 0;
 
