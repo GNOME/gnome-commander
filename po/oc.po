@@ -1,24 +1,21 @@
-# translation of oc.po to Occitan
+# Translation of oc.po to Occitan
 # Occitan translation of gnome-commander.
 # Copyright (C) 2002-2004, 2007 Free Software Foundation, Inc.
 # This file is distributed under the GNU General Public License Version 2.
-#
-# Yannig MARCHEGAY (yannig@marchegay.org) - 2006-2007
 #
 # Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-19 18:10+0100\n"
-"PO-Revision-Date: 2007-11-20 14:30+0100\n"
+"POT-Creation-Date: 2007-12-27 13:30+0100\n"
+"PO-Revision-Date: 2007-12-27 15:40+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: KBabel 1.11.4\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
@@ -92,7 +89,7 @@ msgstr ""
 
 #: ../plugins/cvs/interface.c:461
 msgid "Author:"
-msgstr "Ancora"
+msgstr "Autor :"
 
 #: ../plugins/cvs/interface.c:475
 msgid "Date:"
@@ -155,12 +152,12 @@ msgstr ""
 #, c-format
 msgid "%d file listed"
 msgid_plural "%d files listed"
-msgstr[0] "Pas de fichièr seleccionat"
-msgstr[1] "Pas de fichièr seleccionat"
+msgstr[0] "%d fichièr dins la tièra"
+msgstr[1] "%d fichièrs dins la tièra"
 
 #: ../src/gnome-cmd-about-plugin.cc:182
 msgid "Credits"
-msgstr "Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>"
+msgstr "Mercejaments"
 
 #: ../src/gnome-cmd-about-plugin.cc:209
 msgid "Written by"
@@ -324,7 +321,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-advrename-dialog.cc:775
 msgid "Edit Rule"
-msgstr ""
+msgstr "Modificar la règla"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:983
 msgid "Counter start value:"
@@ -400,7 +397,7 @@ msgstr "Respectar la cassa"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1171
 msgid "Re_move All"
-msgstr ""
+msgstr "_Suprimir"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1191
 msgid "Result"
@@ -411,9 +408,8 @@ msgid "Current file names"
 msgstr ""
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1197
-#, fuzzy
 msgid "New file names"
-msgstr "Nom de fichièr :"
+msgstr "Noms de fichièr novèls"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1203
 msgid "Rese_t"
@@ -539,6 +535,7 @@ msgid "Apply Recursively"
 msgstr ""
 
 #: ../src/gnome-cmd-con-device.cc:115
+#, c-format
 msgid "Failed to execute the mount command"
 msgstr ""
 
@@ -610,48 +607,41 @@ msgid "Please check the spelling and try again."
 msgstr ""
 
 #: ../src/gnome-cmd-con-dialog.cc:331
-#, fuzzy
 msgid "_Alias:"
-msgstr "Aliàs :"
+msgstr "_Aliàs :"
 
 #: ../src/gnome-cmd-con-dialog.cc:335
-#, fuzzy
 msgid "_Location (URI):"
-msgstr "Emplaçament"
+msgstr "_Emplaçament (URI) :"
 
 #: ../src/gnome-cmd-con-dialog.cc:368
 msgid "_Server:"
-msgstr ""
+msgstr "_Servidor :"
 
 #: ../src/gnome-cmd-con-dialog.cc:379
-#, fuzzy
 msgid "Optional information"
 msgstr "Confirmacion"
 
 #: ../src/gnome-cmd-con-dialog.cc:403
-#, fuzzy
 msgid "S_hare:"
 msgstr "Estat :"
 
 #: ../src/gnome-cmd-con-dialog.cc:406
-#, fuzzy
 msgid "_Port:"
-msgstr "Pòrt :"
+msgstr "_Pòrt :"
 
 #. Translators: 'Dir' in the sense of 'Directory'
 #: ../src/gnome-cmd-con-dialog.cc:409
-#, fuzzy
 msgid "_Remote dir:"
-msgstr "_Suprimir"
+msgstr ""
 
 #: ../src/gnome-cmd-con-dialog.cc:412
-#, fuzzy
 msgid "_User name:"
-msgstr "Utilizaire :"
+msgstr "Nom d'_utilizaire :"
 
 #: ../src/gnome-cmd-con-dialog.cc:415
 msgid "_Password:"
-msgstr ""
+msgstr "Mot de _pas :"
 
 #: ../src/gnome-cmd-con-dialog.cc:418
 msgid "_Domain name:"
@@ -663,7 +653,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-con-dialog.cc:470
 msgid "Service _type:"
-msgstr ""
+msgstr "_Tipe de servici :"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
 #: ../src/gnome-cmd-con-dialog.cc:482
@@ -672,7 +662,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-con-dialog.cc:483
 msgid "Public FTP"
-msgstr ""
+msgstr "FTP public"
 
 #: ../src/gnome-cmd-con-dialog.cc:500
 msgid "Use _GNOME Keyring Manager for authentication"
@@ -687,9 +677,8 @@ msgid "Connecting to %s\n"
 msgstr ""
 
 #: ../src/gnome-cmd-con-ftp.cc:366
-#, fuzzy
 msgid "<New connection>"
-msgstr "Conneccions"
+msgstr "Connexions"
 
 #: ../src/gnome-cmd-con-ftp.cc:368
 #, c-format
@@ -749,9 +738,7 @@ msgstr ""
 #: ../src/gnome-cmd-delete-dialog.cc:88
 #, c-format
 msgid "Deleted %ld of %ld file"
-msgid_plural "Deleted %ld of %ld files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:130
 msgid "Deleting..."
@@ -793,9 +780,7 @@ msgstr ""
 #: ../src/gnome-cmd-delete-dialog.cc:282
 #, c-format
 msgid "Do you want to delete the selected file?"
-msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:288 ../src/gnome-cmd-main-win.cc:1170
 #: ../src/gnome-cmd-options-dialog.cc:653
@@ -926,9 +911,7 @@ msgstr "Autre..."
 #: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:822
 #, c-format
 msgid "%s byte"
-msgid_plural "%s bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-file-props-dialog.cc:196
 #: ../src/gnome-cmd-file-props-dialog.cc:407
@@ -936,9 +919,8 @@ msgid "No default application registered"
 msgstr ""
 
 #: ../src/gnome-cmd-file-props-dialog.cc:333
-#, fuzzy
 msgid "Image:"
-msgstr "Imatge"
+msgstr "Imatge :"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:360
 #: ../src/gnome-cmd-file-selector.cc:1918
@@ -1006,7 +988,6 @@ msgid "Name"
 msgstr "Nom"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:614
-#, fuzzy
 msgid "Tag name"
 msgstr "nom"
 
@@ -1048,16 +1029,12 @@ msgstr ""
 #: ../src/gnome-cmd-file-selector.cc:209
 #, c-format
 msgid "%s of %s kB in %d of %d file"
-msgid_plural "%s of %s kB in %d of %d files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:213
 #, c-format
 msgid "%s, %d of %d dir selected"
-msgid_plural "%s, %d of %d dirs selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:710
 #, c-format
@@ -1212,7 +1189,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:520
 msgid "_Invert Selection"
-msgstr ""
+msgstr "_Intervertir la seleccion"
 
 #: ../src/gnome-cmd-main-menu.cc:526
 msgid "_Restore Selection"
@@ -1304,7 +1281,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:731
 msgid "_Contents"
-msgstr "_Somari"
+msgstr "_Ensenhador"
 
 #: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:923
 msgid "_Keyboard Shortcuts"
@@ -1354,7 +1331,7 @@ msgstr "_Favorits"
 
 #: ../src/gnome-cmd-main-menu.cc:807
 msgid "_Plugins"
-msgstr ""
+msgstr "linhas"
 
 #: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:954
 msgid "_Help"
@@ -1780,7 +1757,6 @@ msgid "Symlinks"
 msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:933
-#, fuzzy
 msgid "Authentication"
 msgstr "Orientacion"
 
@@ -1794,7 +1770,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:947
 msgid "Password:"
-msgstr ""
+msgstr "Mot de pas :"
 
 #: ../src/gnome-cmd-options-dialog.cc:1157
 msgid "Label:"
@@ -1948,7 +1924,7 @@ msgstr "Filtres"
 
 #: ../src/gnome-cmd-options-dialog.cc:1926
 msgid "Network"
-msgstr ""
+msgstr "Ret"
 
 #: ../src/gnome-cmd-options-dialog.cc:1931
 msgid "Programs"
@@ -1991,9 +1967,7 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:149
 #, c-format
 msgid "copy %d file to"
-msgid_plural "copy %d files to"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-prepare-move-dialog.cc:82
 msgid "Move"
@@ -2007,9 +1981,7 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-move-dialog.cc:136
 #, c-format
 msgid "move %d file to"
-msgid_plural "move %d files to"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:119
@@ -2027,6 +1999,7 @@ msgid "Search"
 msgstr "Recercar"
 
 #: ../src/gnome-cmd-remote-dialog.cc:214
+#, c-format
 msgid "No server selected"
 msgstr ""
 
@@ -2039,18 +2012,16 @@ msgid "Network protocol"
 msgstr ""
 
 #: ../src/gnome-cmd-remote-dialog.cc:420
-#, fuzzy
 msgid "Connection name"
-msgstr "Conneccions"
+msgstr ""
 
 #: ../src/gnome-cmd-remote-dialog.cc:492
-#, fuzzy
 msgid "Remote Connections"
-msgstr "Conneccions"
+msgstr "Connexions distantas"
 
 #: ../src/gnome-cmd-remote-dialog.cc:498
 msgid "Connections"
-msgstr "Conneccions"
+msgstr "Connexions"
 
 #: ../src/gnome-cmd-remote-dialog.cc:529
 msgid "Anonymous FTP password:"
@@ -2074,16 +2045,12 @@ msgstr ""
 #: ../src/gnome-cmd-search-dialog.cc:398
 #, c-format
 msgid "Found %d match before I was stopped"
-msgid_plural "Found %d matches before I was stopped"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-search-dialog.cc:405
 #, c-format
 msgid "Found %d match"
-msgid_plural "Found %d matches"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-search-dialog.cc:714
 msgid "Search..."
@@ -2120,7 +2087,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-smb-auth.cc:33
 msgid "Enter password"
-msgstr ""
+msgstr "Picatz lo mot de pas"
 
 #: ../src/gnome-cmd-smb-auth.cc:34
 msgid ""
@@ -2143,9 +2110,7 @@ msgstr "Pas de fichièr seleccionat"
 #: ../src/gnome-cmd-user-actions.cc:668
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
-msgid_plural "Create symbolic links of %i files in %s?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:673
 msgid "Create"
@@ -2203,7 +2168,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:1376
 msgid "translator-credits"
-msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org)"
+msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:39
 msgid "stopping..."
@@ -2335,14 +2300,12 @@ msgstr "Envolopar"
 #: ../src/libgviewer/viewer-widget.cc:237
 msgid "pixel"
 msgid_plural "pixels"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "pixel"
+msgstr[1] "pixels"
 
 #: ../src/libgviewer/viewer-widget.cc:239
 msgid "bit/sample"
-msgid_plural "bits/sample"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/libgviewer/viewer-widget.cc:241
 msgid "(fit to window)"
@@ -2620,7 +2583,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:204
 #: ../src/tags/gnome-cmd-tags.cc:333 ../src/tags/gnome-cmd-tags.cc:409
 msgid "Copyright"
-msgstr "Copyright :"
+msgstr "Copyright"
 
 #: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:333
 msgid "Copyright message."
@@ -5986,15 +5949,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:65
 msgid "Arabic"
-msgstr ""
+msgstr "Arab"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:67
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bulgar"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:69
 msgid "Catalan"
-msgstr ""
+msgstr "Catalan"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:71
 msgid "Traditional Chinese"
@@ -6006,25 +5969,23 @@ msgstr "Chinés simplificat"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:75
 msgid "Chechen"
-msgstr ""
+msgstr "Chechen"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:77
 msgid "Danish"
-msgstr ""
+msgstr "Danés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:79
-#, fuzzy
 msgid "German"
-msgstr "General"
+msgstr "Aleman"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:81
 msgid "Swiss German"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:83
-#, fuzzy
 msgid "Greek"
-msgstr "Genre"
+msgstr "Grèc"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:85
 msgid "U.S. English"
@@ -6048,11 +6009,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:95
 msgid "Finnish"
-msgstr ""
+msgstr "Finés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:97
 msgid "French"
-msgstr ""
+msgstr "Francés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:99
 msgid "Belgian French"
@@ -6068,19 +6029,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:105
 msgid "Hebrew"
-msgstr ""
+msgstr "Ebrèu"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:107
 msgid "Hungarian"
-msgstr ""
+msgstr "Ongrés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:109
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:111
 msgid "Italian"
-msgstr ""
+msgstr "Italian"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:113
 msgid "Swiss Italian"
@@ -6088,15 +6049,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:115
 msgid "Japanese"
-msgstr ""
+msgstr "Japonés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:117
 msgid "Korean"
-msgstr ""
+msgstr "Corean"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:119
 msgid "Dutch"
-msgstr ""
+msgstr "Olandés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:121
 msgid "Belgian Dutch"
@@ -6108,21 +6069,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:125
 msgid "Norwegian Nynorsk"
-msgstr ""
+msgstr "Nòrvegian (Nynorsk)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:127
-#, fuzzy
 msgid "Polish"
-msgstr "Director"
+msgstr "Polonés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:129
 msgid "Brazilian Portuguese"
-msgstr ""
+msgstr "Portugués de Brasil"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:131
-#, fuzzy
 msgid "Portuguese"
-msgstr "Propietats"
+msgstr "Portugués"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:133
 msgid "Rhaeto-Romanic"
@@ -6130,12 +6089,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:135
 msgid "Romanian"
-msgstr ""
+msgstr "Romanian"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:137
-#, fuzzy
 msgid "Russian"
-msgstr "Fusion"
+msgstr "Rus"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:139
 msgid "Croato-Serbian (Latin)"
@@ -6147,57 +6105,55 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:143
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovac"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:145
-#, fuzzy
 msgid "Albanian"
-msgstr "Aliàs"
+msgstr "Albanés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:147
 msgid "Swedish"
-msgstr ""
+msgstr "Suedés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:149
 msgid "Thai"
-msgstr ""
+msgstr "Tailandés"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:151
 msgid "Turkish"
-msgstr ""
+msgstr "Turc"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:153
 msgid "Urdu"
-msgstr ""
+msgstr "Ordo"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:155
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonesian"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:157
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ucraïnian"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:159
 msgid "Byelorussian"
-msgstr ""
+msgstr "Bielorus"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:161
 msgid "Slovenian"
-msgstr ""
+msgstr "Eslovèn"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:163
 msgid "Estonian"
-msgstr ""
+msgstr "Estonian"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:165
-#, fuzzy
 msgid "Latvian"
-msgstr "Emplaçament"
+msgstr "Leton"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:167
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lituanian"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:169
 msgid "Farsi"
@@ -6205,19 +6161,19 @@ msgstr "Farsi"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:171
 msgid "Basque"
-msgstr ""
+msgstr "Basc"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:173
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonian"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:175
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:177
 msgid "Malayalam"
-msgstr ""
+msgstr "Malayalam"
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:65
 #, c-format
@@ -6300,7 +6256,7 @@ msgstr ""
 
 #: ../src/utils.cc:537
 msgid "Display"
-msgstr "Afichar"
+msgstr "Visualizar"
 
 #: ../src/utils.cc:537
 msgid "Run"
@@ -6311,11 +6267,9 @@ msgstr "Executar"
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/utils.cc:1021
 #, c-format
@@ -6341,20 +6295,5 @@ msgstr ""
 
 #: ../src/utils.h:253
 msgid "There was an error displaying help."
-msgstr "I a agut una error al moment de visualizar l'ajuda."
+msgstr "I a aguda una error al moment de visualizar l'ajuda."
 
-#~ msgid "_Add..."
-#~ msgstr "_Apondre..."
-
-#~ msgid "_Edit..."
-#~ msgstr "_Edicion..."
-
-#~ msgid "Host:"
-#~ msgstr "Òste :"
-
-#, fuzzy
-#~ msgid "Edit Remote Connection"
-#~ msgstr "Conneccions"
-
-#~ msgid "Connect"
-#~ msgstr "Se connectar"
