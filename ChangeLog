@@ -1,3 +1,8 @@
+2008-01-01  Djihed Afifi <djihedlists@googlemail.com>
+
+	* src/gnome-cmd-main-win.cc:
+	Made window title translatable
+
 2007-12-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
