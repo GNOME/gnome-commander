@@ -29,7 +29,7 @@ New features:
  * User defined shortcuts to bookmarks
  * Send files via email or instant messenger (using nautilus-sendto)
  * Updated help docs
- * New or updated translations: bg, cs, de, dz, eo, es, eu, fr, oc, pl, pt_BR, sl, sv
+ * New or updated translations: ar, bg, cs, de, dz, eo, es, eu, fr, oc, pl, pt_BR, sl, sv
  * New key bindings:
       CTRL+LEFT/RIGHT Copying the current working directory from the active
                       filelist to the inactive one
