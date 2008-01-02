@@ -5768,6 +5768,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #353889 (disappearing files after failed move (F6)))</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problems #365227 and #446361 (build issues on Solaris)</para>
                         </listitem>
                         <listitem>

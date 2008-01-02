@@ -3,6 +3,7 @@ gnome-commander 1.2.5
 ---------------
 
 Bug fixes:
+ * Fixed problem #353889 (disappearing files after failed move (F6))
  * Fixed problems #365227 and #446361 (build issues on Solaris)
  * Fixed problem #424159 (column sort problem)
  * Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)

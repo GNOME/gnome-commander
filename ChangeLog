@@ -1,3 +1,8 @@
+2007-01-02  koos  <kjniesink@yahoo.co.uk>
+
+	* src/gnome-cmd-xfer.cc:
+	Fix for problem #353889 (disappearing file after failed move (F6))
+
 2008-01-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.h:
