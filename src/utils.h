@@ -177,7 +177,13 @@ GtkWidget *create_styled_button (const gchar *text);
 GtkWidget *create_styled_pixmap_button (const gchar *text, GnomeCmdPixmap *pixmap);
 
 void set_cursor_busy_for_widget (GtkWidget *widget);
-inline void set_cursor_default_for_widget (GtkWidget *widget) {  gdk_window_set_cursor (widget->window, NULL);  }
+
+inline void set_cursor_default_for_widget (GtkWidget *widget)
+{
+    if (widget->window)
+        gdk_window_set_cursor (widget->window, NULL);
+}
+
 void set_cursor_busy (void);
 void set_cursor_default (void);
 

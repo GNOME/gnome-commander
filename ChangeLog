@@ -1,3 +1,8 @@
+2008-01-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/utils.h:
+	Fix for crash on gentoo
+
 2008-01-01  Djihed Afifi <djihedlists@googlemail.com>
 
 	* src/gnome-cmd-main-win.cc:
