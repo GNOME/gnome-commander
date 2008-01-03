@@ -364,7 +364,7 @@ To include an external Viewer window in your project (meaning a new top level
 window will be displayed with the desired file), simply link with the libgviewer
 library, add
 
-"#include <libgviewer/libgviewer.h>"
+"#include <intviewer/libgviewer.h>"
 
 to your file, and call "gviewer_window_file_view()" (don't forget "gtk_widget_show()").
 See "gnome-cmd-file.c" for an example with icon changing.

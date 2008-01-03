@@ -376,7 +376,7 @@ plugins/test/Makefile
 po/Makefile.in
 src/Makefile
 src/tags/Makefile
-src/libgviewer/Makefile
+src/intviewer/Makefile
 tests/Makefile
 README
 ])

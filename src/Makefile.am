@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = tags libgviewer
+SUBDIRS = tags intviewer
 
 AM_CPPFLAGS = \
 	$(CC_WARNINGS) \
@@ -100,7 +100,7 @@ gnome_commander_LDADD = \
 	$(PYTHON_EXTRA_LIBS) \
 	$(top_builddir)/libgcmd/libgcmd.la \
 	tags/libgcmd-tags.a \
-	libgviewer/libgviewer.a
+	intviewer/libgviewer.a
 
 gnome_commander_LDFLAGS = \
 	$(GNOMEUI_LIBS) \

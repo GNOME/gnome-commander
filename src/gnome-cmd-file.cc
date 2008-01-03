@@ -30,7 +30,7 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
 #include "tags/gnome-cmd-tags.h"
-#include "libgviewer/libgviewer.h"
+#include "intviewer/libgviewer.h"
 
 using namespace std;
 
