@@ -1,7 +1,7 @@
 # translation of gnome-commander.HEAD.ar.po to Arabic
 # Automatically generated, 2007.
 # Djihed Afifi <djihed@gmail.com>, 2007.
-# Anas Husseini <linux.anas@gmail.com>, 2007.
+# Anas Husseini <linux.anas@gmail.com>, 2007, 2008.
 # translation of gnome-commander.HEAD.ar.po to
 # Arabic translations for GNOME Commander package.
 # Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-01 10:21+0000\n"
-"PO-Revision-Date: 2007-12-26 13:11+0200\n"
+"POT-Creation-Date: 2008-01-03 08:13+0000\n"
+"PO-Revision-Date: 2008-01-03 08:08+0200\n"
 "Last-Translator: Anas Husseini <linux.anas@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "A two paned file manager"
 msgstr "مدير ملفات ذو لوحتين"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-main-win.cc:764
 msgid "GNOME Commander"
 msgstr "فارس جنوم"
 
@@ -117,11 +117,11 @@ msgstr "ما اسم الملف الذي سيحصل عليه الأرشيف ال�
 
 #: ../plugins/fileroller/file-roller-plugin.c:185
 msgid "Create Archive"
-msgstr "أنشيء محفوظة"
+msgstr "أنشئ أرشيفاً"
 
 #: ../plugins/fileroller/file-roller-plugin.c:288
 msgid "Create Archive..."
-msgstr "إنشيء محفوظة..."
+msgstr "أنشئ أرشيفاً..."
 
 #: ../plugins/fileroller/file-roller-plugin.c:301
 msgid "Extract in Current Directory"
@@ -175,11 +175,11 @@ msgstr "كُتب من قبل"
 
 #: ../src/gnome-cmd-about-plugin.cc:222
 msgid "Documented by"
-msgstr "وُثـّقق من قبل"
+msgstr "وُثـّق من قبل"
 
 #: ../src/gnome-cmd-about-plugin.cc:235
 msgid "Translated by"
-msgstr "تـُرجم بمن قبل"
+msgstr "تـُرجم من قبل"
 
 #: ../src/gnome-cmd-about-plugin.cc:289
 msgid "Plugin Webpage"
@@ -224,7 +224,7 @@ msgstr "/العدّاد (الدقة)"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:162
 msgid "/Date/<locale>"
-msgstr "/التاريخ/<محلي>"
+msgstr "/التاريخ/<إعدادات محلية>"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:163
 msgid "/Date/yyyy-mm-dd"
@@ -272,7 +272,7 @@ msgstr "/التاريخ/يوم(2)"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:174
 msgid "/Time/<locale>"
-msgstr "/الوقت/<محلي>"
+msgstr "/الوقت/<إعدادات محلية>"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:175
 msgid "/Time/HH.MM.SS"
@@ -355,7 +355,7 @@ msgstr "حدّث تلقائياً عند إدخال القالب"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1081
 msgid "Advanced Rename Tool"
-msgstr "أدة إعادة التسمية المتقدمة"
+msgstr "أداة إعادة التسمية المتقدمة"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1093 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
@@ -502,11 +502,11 @@ msgstr "الآخرون:"
 
 #: ../src/gnome-cmd-chmod-component.cc:159
 msgid "Text view:"
-msgstr "عرض النصوص:"
+msgstr "عرض نصوص:"
 
 #: ../src/gnome-cmd-chmod-component.cc:162
 msgid "Number view:"
-msgstr "عرض الأرقام:"
+msgstr "عرض أرقام:"
 
 #: ../src/gnome-cmd-chmod-dialog.cc:43 ../src/gnome-cmd-options-dialog.cc:1200
 msgid "All files"
@@ -644,7 +644,7 @@ msgstr "معلومات اختيارية"
 
 #: ../src/gnome-cmd-con-dialog.cc:403
 msgid "S_hare:"
-msgstr "الت_شارك:ة"
+msgstr "الت_شارك:"
 
 #: ../src/gnome-cmd-con-dialog.cc:406
 msgid "_Port:"
@@ -673,7 +673,7 @@ msgstr "الخادم البعيد"
 
 #: ../src/gnome-cmd-con-dialog.cc:470
 msgid "Service _type:"
-msgstr "ن_وع الخدمة:م"
+msgstr "ن_وع الخدمة:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
 #: ../src/gnome-cmd-con-dialog.cc:482
@@ -718,7 +718,7 @@ msgstr "اقطع الاتصال بـ: %s"
 #: ../src/gnome-cmd-con-ftp.cc:384
 #, c-format
 msgid "Creates the FTP connection to %s"
-msgstr "ينشئ اتصال FTPل بـ %s"
+msgstr "ينشئ اتصال FTP بـ %s"
 
 #: ../src/gnome-cmd-con-ftp.cc:385
 #, c-format
@@ -731,7 +731,7 @@ msgstr "المنزل"
 
 #: ../src/gnome-cmd-con-home.cc:129
 msgid "Go to: Home"
-msgstr "اذهب إلى: الموطن"
+msgstr "اذهب إلى: المنزل"
 
 #: ../src/gnome-cmd-con-smb.cc:97
 msgid "Failed to browse the network. Is the SMB module installed?"
@@ -786,7 +786,7 @@ msgstr "احذف المشكلة"
 #: ../src/gnome-cmd-delete-dialog.cc:210 ../src/gnome-cmd-xfer.cc:171
 #: ../src/gnome-cmd-xfer.cc:190
 msgid "Abort"
-msgstr "اجهض"
+msgstr "أجهض"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
 #: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:190
@@ -917,7 +917,7 @@ msgstr "ان_سخ"
 
 #: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:562
 msgid "_Delete"
-msgstr "_فسخ"
+msgstr "اح_ذف"
 
 #: ../src/gnome-cmd-file-popmenu.cc:456
 msgid "Rename"
@@ -996,7 +996,7 @@ msgstr "الحجم:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:480
 msgid "Owner and group"
-msgstr "المالك والمجموعةة"
+msgstr "المالك والمجموعة"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:490
 msgid "Access permissions"
@@ -1028,7 +1028,7 @@ msgstr "اسم الوسم"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:616
 msgid "Value"
-msgstr "القيمةم"
+msgstr "القيمة"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:617
 msgid "Tag value"
@@ -1042,7 +1042,7 @@ msgstr "الوصف"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:620
 msgid "Metadata tag description"
-msgstr "وصف وسم بيانات التعريف."
+msgstr "وصف وسم بيانات التعريف"
 
 #. data->thread = 0;
 #: ../src/gnome-cmd-file-props-dialog.cc:675
@@ -1076,8 +1076,8 @@ msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s, %d من أصل مجلد واحد مختار"
 msgstr[1] "%s, %d من أصل مجلدين مختارين"
-msgstr[2] "%s, %d من أصل %d مجلدات مختارةة"
-msgstr[3] "%s, %d من أصل %d مجلداً مختاراًقىً"
+msgstr[2] "%s, %d من أصل %d مجلدات مختارة"
+msgstr[3] "%s, %d من أصل %d مجلداً مختاراً"
 
 #: ../src/gnome-cmd-file-selector.cc:710
 #, c-format
@@ -1124,7 +1124,7 @@ msgstr "أنشئ وصلة رمزية"
 #: ../src/gnome-cmd-options-dialog.cc:675
 #: ../src/gnome-cmd-options-dialog.cc:695
 msgid "Skip all"
-msgstr "تجاوزي الكل"
+msgstr "تجاوز الكل"
 
 #: ../src/gnome-cmd-file-selector.cc:2203
 msgid "Filter:"
@@ -1172,7 +1172,7 @@ msgstr "_جديد..."
 
 #: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:556
 msgid "_Paste"
-msgstr "ال_صقّت"
+msgstr "أل_صق"
 
 #: ../src/gnome-cmd-list-popmenu.cc:124 ../src/gnome-cmd-main-menu.cc:611
 msgid "_Refresh"
@@ -1188,7 +1188,7 @@ msgstr "حوّل إلى مخطط أفقي"
 
 #: ../src/gnome-cmd-main-menu.cc:441
 msgid "Change _Owner/Group"
-msgstr "غيّ_ر المالك/المجموعةم"
+msgstr "غيّ_ر المالك/المجموعة"
 
 #: ../src/gnome-cmd-main-menu.cc:447
 msgid "Change Per_missions"
@@ -1220,7 +1220,7 @@ msgstr "ا_ختر الكل"
 
 #: ../src/gnome-cmd-main-menu.cc:502
 msgid "_Unselect All"
-msgstr "ال_غ اختيار الكلّ"
+msgstr "أل_غِ اختيار الكلّ"
 
 #: ../src/gnome-cmd-main-menu.cc:508
 msgid "Select with _Pattern"
@@ -1366,7 +1366,7 @@ msgstr "إع_دادات"
 
 #: ../src/gnome-cmd-main-menu.cc:799
 msgid "_Connections"
-msgstr "ات_ّصالات"
+msgstr "ات_صالات"
 
 #: ../src/gnome-cmd-main-menu.cc:803
 msgid "_Bookmarks"
@@ -1451,7 +1451,7 @@ msgstr "انسخ"
 
 #: ../src/gnome-cmd-main-win.cc:1169
 msgid "Paste"
-msgstr "الصق"
+msgstr "ألصِق"
 
 #: ../src/gnome-cmd-main-win.cc:1172
 msgid "Edit (SHIFT for new document)"
@@ -1485,7 +1485,7 @@ msgstr "اسم المجلد:"
 
 #: ../src/gnome-cmd-mkdir-dialog.cc:201
 msgid "Make Directory"
-msgstr "كون مجلد "
+msgstr "أنشئ مجلداً"
 
 #: ../src/gnome-cmd-options-dialog.cc:64
 msgid "Use right mouse button to"
@@ -1497,7 +1497,7 @@ msgstr "أظهر القائمة المنبثقة"
 
 #: ../src/gnome-cmd-options-dialog.cc:71
 msgid "Select files"
-msgstr "انتقِ الملفاتً"
+msgstr "انتقِ الملفات"
 
 #: ../src/gnome-cmd-options-dialog.cc:80
 msgid "Match filenames using"
@@ -1509,7 +1509,7 @@ msgstr "تركيبة القشرة"
 
 #: ../src/gnome-cmd-options-dialog.cc:87
 msgid "Regex syntax"
-msgstr "تركيبة التعبير الاعتياديطي"
+msgstr "تركيبة التعبير الاعتيادي"
 
 #: ../src/gnome-cmd-options-dialog.cc:96
 msgid "Sorting options"
@@ -2305,7 +2305,7 @@ msgstr "يجري النسخ..."
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[الملف %ld من أصل %ld] \"%s\""
 
-#: ../src/gnome-cmd-xfer.cc:367
+#: ../src/gnome-cmd-xfer.cc:387
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
@@ -2313,11 +2313,11 @@ msgstr ""
 "نسخ مجلد داخل نفسه فكرة سيئة.\n"
 "ألغِيَتْ العملية بكاملها."
 
-#: ../src/gnome-cmd-xfer.cc:408
+#: ../src/gnome-cmd-xfer.cc:428
 msgid "preparing..."
 msgstr "يجري التحضير..."
 
-#: ../src/gnome-cmd-xfer.cc:493
+#: ../src/gnome-cmd-xfer.cc:513
 msgid "downloading to /tmp"
 msgstr "جارٍ التنزيل إلى /tmp"
 
@@ -3665,6 +3665,9 @@ msgid ""
 "in mm. A value of 0 means the focal length is unknown. Note that this tag "
 "differs from the <Exif.FocalLength> tag."
 msgstr ""
+"هذا الوسم يحدد الطول البؤري المعادل بالميليمتر مفترضاً أنها كاميرا فيلم 35 "
+"ميليمتر. قيمة 0 تعني أن الطول البؤري مجهول. لاحظ أن هذا الوسم يختلف عن وسم "
+"<Exif.FocalLength>."
 
 #: ../src/tags/gnome-cmd-tags.cc:227
 msgid "Focal Plane Resolution Unit"
@@ -3800,32 +3803,38 @@ msgid ""
 "degrees and minutes are used and, for example, fractions of minutes are "
 "given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
 msgstr ""
+"يحدد خط الطول. قيمة خط الطول تظهر كثلاث قيم هي بالترتيب الدرجات فالدقائق "
+"فالثواني. عندما تـُستخدم الدرجات والدقائق والثواني، يكون التنسيق درجات/1,"
+"دقائق/1,ثواني/1. عند استخدام الدرجات والدقائق و، كمثال، أجزاء الدقيقة، تـُعطى "
+"الأخيرة مكانين للأرقام العشرية، ويكون التنسيق درجات/1,دقائق/100,0/1."
 
 #: ../src/tags/gnome-cmd-tags.cc:238
 msgid "East or West Longitude"
-msgstr ""
+msgstr "خط طول شرقاً أو غرباً"
 
 #: ../src/tags/gnome-cmd-tags.cc:238
 msgid ""
 "Indicates whether the longitude is east or west longitude. ASCII 'E' "
 "indicates east longitude, and 'W' is west longitude."
 msgstr ""
+"يحدد فيما إذا كان خط الطول في الشرق أو الغرب. قيمة ASCII 'E' تشير إلى خط عرض "
+"شرقي، بينما 'W' تشير إلى الغربي."
 
 #: ../src/tags/gnome-cmd-tags.cc:239
-#, fuzzy
 msgid "GPS Tag Version"
-msgstr "نسخة الحزمة"
+msgstr "إصدار وسم GPS"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
 msgid ""
 "Indicates the version of <Exif.GPS.InfoIFD>. This tag is mandatory when "
 "<Exif.GPS.Info> tag is present."
 msgstr ""
+"يحدد إصدار <Exif.GPS.InfoIFD>. هذا الوسم إجباري في وجود الوسم <Exif.GPS."
+"Info>."
 
 #: ../src/tags/gnome-cmd-tags.cc:240
-#, fuzzy
 msgid "Image Description"
-msgstr "وصف اللعبة"
+msgstr "وصف الصورة"
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid ""
@@ -3833,32 +3842,32 @@ msgid ""
 "cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif."
 "UserComment> is to be used."
 msgstr ""
+"نص أحرف يعطي عنوان الصورة. لا يمكن استخدام رموز أحرف البايتين. إن كان رمز "
+"البايتين ضرورياً، يجب أن يُستخدم وسم Exif الخاص <Exif.UserComment>."
 
 #: ../src/tags/gnome-cmd-tags.cc:241
-#, fuzzy
 msgid "Image Length"
-msgstr "ارتفاع الصورة"
+msgstr "طول الصورة"
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid ""
 "The number of rows of image data. In JPEG compressed data a JPEG marker is "
 "used instead of this tag."
 msgstr ""
+"عدد صفوف بيانات الصورة. في بيانات JPEG المضغوطة، يُستخدم واسم JPEG عوضاً عن "
+"هذا الوسم."
 
 #: ../src/tags/gnome-cmd-tags.cc:242
-#, fuzzy
 msgid "Image Resources Block"
-msgstr "مصدر الصورة"
+msgstr "كتلة موارد الصورة"
 
 #: ../src/tags/gnome-cmd-tags.cc:242
-#, fuzzy
 msgid "Image Resources Block."
-msgstr "مصدر الصورة"
+msgstr "كتلة موارد الصورة."
 
 #: ../src/tags/gnome-cmd-tags.cc:243
-#, fuzzy
 msgid "Image Unique ID"
-msgstr "الهويّة الفريدة للمُصدر"
+msgstr "المعرّف الفريد للصورة"
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid ""
@@ -3866,9 +3875,10 @@ msgid ""
 "recorded as an ASCII string equivalent to hexadecimal notation and 128-bit "
 "fixed length."
 msgstr ""
+"هذا الوسم يحدد معرفاً فريداً لكل صورة. يُسجّل المعرّف كنص ASCII معادل لترميزه "
+"الست عشري بطول ثابت قدره 128 بت."
 
 #: ../src/tags/gnome-cmd-tags.cc:244
-#, fuzzy
 msgid "Image Width"
 msgstr "عرض الصورة"
 
@@ -3877,21 +3887,20 @@ msgid ""
 "The number of columns of image data, equal to the number of pixels per row. "
 "In JPEG compressed data a JPEG marker is used instead of this tag."
 msgstr ""
+"عدد أعمدة بيانات الصورة، المساوي لعدد البكسلات في الصف. في بيانات JPEG "
+"المضغوطة، يُستخدم واسم JPEG عوضاً عن هذا الوسم."
 
 #: ../src/tags/gnome-cmd-tags.cc:245
-#, fuzzy
 msgid "Inter Color Profile"
-msgstr "إثبات الألوان"
+msgstr "ملف تعريف الألوان الداخلي"
 
 #: ../src/tags/gnome-cmd-tags.cc:245
-#, fuzzy
 msgid "Inter Color Profile."
-msgstr "إثبات الألوان"
+msgstr "ملف تعريف الألوان الداخلي."
 
 #: ../src/tags/gnome-cmd-tags.cc:246
-#, fuzzy
 msgid "Interoperability IFD Pointer"
-msgstr "دليل InterOperability"
+msgstr "مؤشر IFD لقابلية المعالجة المتبادلة"
 
 #: ../src/tags/gnome-cmd-tags.cc:246
 msgid ""
@@ -3901,58 +3910,62 @@ msgid ""
 "TIFF defined IFD structure but does not contain the image data "
 "characteristically compared with normal TIFF IFD."
 msgstr ""
+"IFD لقابلية المعالجة المتبادلة مؤلف من وسوم تخزن المعلومات لتحقيق قابلية "
+"المعالجة المتبادلة ومشار إليها من قبَل الوسم التالي الموجود في Exif IDF. بنية "
+"قابلية المعالجة المتبادلة لـ IFD قابلية المعالجة المتبادلة هي نفس بنية IFD "
+"المحدد لـ TIFF ولكنها لا تحتوي بيانات الصورة مقارنة بشكل خاص مع IFD العادي "
+"الخاص بـ TIFF."
 
 #: ../src/tags/gnome-cmd-tags.cc:247
-#, fuzzy
 msgid "Interoperability Index"
-msgstr "دليل InterOperability"
+msgstr "مؤشر قابلية المعالجة المتبادلة"
 
 #: ../src/tags/gnome-cmd-tags.cc:247
 msgid ""
 "Indicates the identification of the Interoperability rule. Use \"R98\" for "
 "stating ExifR98 Rules. Four bytes used including the termination code (NULL)."
 msgstr ""
+"يحدد تعريف قاعدة قابلية المعالجة المتبادلة. استخدم \"R98\" لإعلان قواعد "
+"ExifR98. أربع بايتات مستخدمة لتضمين رمز الإنهاء (NULL)."
 
 #: ../src/tags/gnome-cmd-tags.cc:248
-#, fuzzy
 msgid "Interoperability Version"
-msgstr "دليل InterOperability"
+msgstr "إصدار قابلية المعالجة المتبادلة"
 
 #: ../src/tags/gnome-cmd-tags.cc:248
-#, fuzzy
 msgid "Interoperability version."
-msgstr "دليل InterOperability"
+msgstr "إصدار قابلية المعالجة المتبادلة."
 
 #: ../src/tags/gnome-cmd-tags.cc:249
 msgid "An IPTC/NAA record."
-msgstr ""
+msgstr "سجل IPTC/NAA."
 
 #: ../src/tags/gnome-cmd-tags.cc:250
-#, fuzzy
 msgid "ISO Speed Ratings"
-msgstr "ترتيب ISO للسرعة"
+msgstr "معدلات سرعة ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:250
 msgid ""
 "Indicates the ISO Speed and ISO Latitude of the camera or input device as "
 "specified in ISO 12232."
 msgstr ""
+"يحدد سرعة ISO وخط عرض ISO للكاميرا أو جهاز الإدخال كما هو محدد في ISO 12232."
 
 #: ../src/tags/gnome-cmd-tags.cc:251
-#, fuzzy
 msgid "JPEG Interchange Format"
-msgstr "LDAP Data Interchange Format (.ldif)"
+msgstr "تنسيق التبادل الداخلي لـ JPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:251
 msgid ""
 "The offset to the start byte (SOI) of JPEG compressed thumbnail data. This "
 "is not used for primary image JPEG data."
 msgstr ""
+"إزاحة بايت البداية (SOI) لبيانات مصغرات JPEG المضغوطة. هذا لا يُستخدم لبيانات "
+"صور JPEG الأولية."
 
 #: ../src/tags/gnome-cmd-tags.cc:252
-#, fuzzy
 msgid "JPEG Interchange Format Length"
-msgstr "LDAP Data Interchange Format (.ldif)"
+msgstr "طول تنسيق التبادل الداخلي لـ JPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:252
 msgid ""
@@ -3962,6 +3975,11 @@ msgid ""
 "be recorded. Compressed thumbnails must be recorded in no more than 64 "
 "Kbytes, including all other data to be recorded in APP1."
 msgstr ""
+"عدد بايتات بيانات مصغرات JPEG المضغوطة. هذا غير مستخدم لبيانات صور JPEG "
+"الأولية. مصغرات JPEG لا تـُقسّم بل تـُسجّل كدفق بتات JPEG متصل من إزاحة بايت "
+"البداية إلى إزاحة بايت النهاية. واسمات Appn و COM لا ينبغي تسجيلها. المصغرات "
+"المضغوطة ينبغي تسجيلها في أقل من 64 كيلو بايت، شاملة كل البيانات الأخرى التي "
+"ستـُسجّل في APP1."
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid "JPEG Procedure"
@@ -4012,6 +4030,8 @@ msgid ""
 "The smallest F number of the lens. The unit is the APEX value. Ordinarily it "
 "is given in the range of 00.00 to 99.99, but it is not limited to this range."
 msgstr ""
+"أصغر رقم F من العدسات. الوحدة هي قيمة APEX. عادة تكون في المجال المتراوح بين "
+"00.00 و 99.99 ولكنها غير محدودة بهذا المجال."
 
 #: ../src/tags/gnome-cmd-tags.cc:258 ../src/tags/gnome-cmd-tags.cc:422
 msgid "Metering Mode"
@@ -4031,6 +4051,9 @@ msgid ""
 "number of the DSC, scanner, video digitizer or other equipment that "
 "generated the image. When the field is left blank, it is treated as unknown."
 msgstr ""
+"اسم أو رقم طراز الأجهزة. هذا هو اسم الطراز أو رقم ال DSC، أو الماسحة "
+"الضوئية، أو مرقـّم الفيديو أو أي جهاز آخر ولـّد الصورة. عند ترك الحقل فارغاً "
+"يُعامل كمجهول."
 
 #: ../src/tags/gnome-cmd-tags.cc:260
 msgid ""
@@ -4038,14 +4061,16 @@ msgid ""
 "when a one-chip color area sensor is used. It does not apply to all sensing "
 "methods."
 msgstr ""
+"يحدد النمط الهندسي لمصفوفة مرشح الألوان (CFA) لمستشعر الصور عند استخدام "
+"مستشعر مساحة ألوان ذي رقاقة واحدة. إنه لا ينطبق على كل طرق الاستشعار."
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid "New Subfile Type"
-msgstr "نوع ملف ضمني جديد"
+msgstr "نوع ملف جزئي جديد"
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid "A general indication of the kind of data contained in this subfile."
-msgstr "تحديد عام لنوع البيانات المحتواة في هذا الملف الضمني."
+msgstr "تحديد عام لنوع البيانات المحتواة في هذا الملف الجزئي."
 
 #: ../src/tags/gnome-cmd-tags.cc:262
 msgid "OECF"
@@ -4057,6 +4082,8 @@ msgid ""
 "14524. <Exif.OECF> is the relationship between the camera optical input and "
 "the image values."
 msgstr ""
+"يشير إلى دالة التحويل البصري-الكهربائي (OECF) المحددة في ISO 14524. <Exif."
+"OECF> هو العلاقة بين إدخال الكاميرا البصري وبين قيم الصورة."
 
 #: ../src/tags/gnome-cmd-tags.cc:263 ../src/tags/gnome-cmd-tags.cc:424
 msgid "Orientation"
@@ -4088,6 +4115,9 @@ msgid ""
 "whether or not there is padding data or a restart marker. This tag should "
 "not exist in an uncompressed file."
 msgstr ""
+"معلومات مختصة بالبيانات المضغوطة. عند تسجيل ملف مضغوط، يجب تسجيل العرض "
+"الصالح للصورة ذات المعنى في هذا الوسم، سواءً كان هناك بيانات توسيد أو واسم "
+"إعادة تشغيل أم لا. هذا الوسم ينبغي أن لا يتواجد في ملف غير مضغوط."
 
 #: ../src/tags/gnome-cmd-tags.cc:266
 msgid "Pixel Y Dimension"
@@ -4102,6 +4132,11 @@ msgid ""
 "vertical direction, the number of lines recorded in this valid image height "
 "tag will in fact be the same as that recorded in the SOF."
 msgstr ""
+"معلومات مختصة بالبيانات المضغوطة. عند تسجيل ملف مضغوط، يجب تسجيل الطول "
+"الصالح للصورة ذات المعنى في هذا الوسم، سواءً أكان هناك بيانات توسيد أو واسم "
+"إعادة تشغيل أم لا. هذا الوسم ينبغي أن لا يتواجد في ملف غير مضغوط. بما أن "
+"توسيد البيانات غير ضروري في الاتجاه العمودي، سيكون عدد الأسطر المسجّل في وسم "
+"ارتفاع الصورة الصالح هذا مطابقاً في الواقع لذلك المسجّل في SOF."
 
 #: ../src/tags/gnome-cmd-tags.cc:267
 msgid "Planar Configuration"
@@ -4113,6 +4148,9 @@ msgid ""
 "format. In JPEG compressed files a JPEG marker is used instead of this tag. "
 "If this field does not exist, the TIFF default of 1 (chunky) is assumed."
 msgstr ""
+"يحدد فيما إذا كانت مكونات البكسلات مسجلة في نسق قِطعي أو سطحي. في ملفات JPEG "
+"المضغوطة يُستخدم واسم JPEG عوضاً عن هذا الوسم. إن لم يكن هذا الحقل موجوداً، "
+"تـُفترض قيمة TIFF الافتراضية 1 (قِطعي)."
 
 #: ../src/tags/gnome-cmd-tags.cc:268
 msgid "Primary Chromaticities"
@@ -4123,6 +4161,8 @@ msgid ""
 "The chromaticity of the three primary colors of the image. Normally this tag "
 "is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
 msgstr ""
+"لونيات الألوان الثلاثة الأولية للصورة. عادةً لا يكون هذا الوسم ضرورياً، بما أن "
+"مساحة الألوان محددة في وسم <Exif.ColorSpace>."
 
 #: ../src/tags/gnome-cmd-tags.cc:269
 msgid "Reference Black/White"
@@ -4136,6 +4176,10 @@ msgid ""
 "being the value that gives the optimal image characteristics "
 "Interoperability these conditions."
 msgstr ""
+"قيمة النقطة البيضاء والسوداء المرجعيتان. لا قيم افتراضية معطاة في TIFF، ولكن "
+"القيم في الأسفل تـُعطى كافتراضيات هنا. مساحة الألوان معلن عنها في وسم معلومات "
+"مساحة الألوان، حيث يكون الافتراضي هو القيمة التي تعطي هذه الشروط لقابلية "
+"المعالجة المتبادلة لخصائص الصورة المثالية."
 
 #: ../src/tags/gnome-cmd-tags.cc:270
 msgid "Related Image File Format"
@@ -4197,6 +4241,9 @@ msgid ""
 "unit is used for both <Exif.XResolution> and <Exif.YResolution>. If the "
 "image resolution is unknown, 2 (inches) is designated."
 msgstr ""
+"وحدة قياس <Exif.XResolution> و <Exif.YResolution>. نفس الوحدة مستخدمة لـ "
+"<Exif.XResolution> و <Exif.YResolution>. إن كانت استبانة الصورة مجهولة، يُعيّن "
+"2 (بوصة)."
 
 #: ../src/tags/gnome-cmd-tags.cc:275
 msgid "Rows per Strip"
@@ -4208,6 +4255,8 @@ msgid ""
 "strip when an image is divided into strips. With JPEG compressed data this "
 "designation is not needed and is omitted."
 msgstr ""
+"عدد الصفوف في الشريط عندما تكون الصورة مقسمة إلى أشرطة. في بيانات JPEG "
+"المضغوطة لا يكون هذا التعيين مطلوباً ويُهمل."
 
 #: ../src/tags/gnome-cmd-tags.cc:276
 msgid "Samples per Pixel"
@@ -4219,6 +4268,9 @@ msgid ""
 "YCbCr images, the value set for this tag is 3. In JPEG compressed data a "
 "JPEG marker is used instead of this tag."
 msgstr ""
+"عدد المكونات في البكسل. بما أن المعايير القياسية تنطبق على صور RGB و YCbCr، "
+"تـُضبط قيمة هذا الوسم على 3. يُستخدم واسم JPEG عوضاً عن هذا الوسم في بيانات "
+"JPEG المضغوطة."
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Saturation"
@@ -4229,6 +4281,8 @@ msgid ""
 "This tag indicates the direction of saturation processing applied by the "
 "camera when the image was shot."
 msgstr ""
+"هذا الوسم يحدد اتجاه معالجة الإشباع المطبقة من قبَل الكاميرا عند التقاط "
+"الصورة."
 
 #: ../src/tags/gnome-cmd-tags.cc:278
 msgid "Scene Capture Type"
@@ -4240,6 +4294,8 @@ msgid ""
 "record the mode in which the image was shot. Note that this differs from "
 "<Exif.SceneType> tag."
 msgstr ""
+"هذا الوسم يحدد نوع المشهد المصوّر. يمكن استخدامه أيضاً لتسجيل نمط التقاط "
+"الصورة. لاحظ أن هذا يختلف عن وسم <Exif.SceneType>."
 
 #: ../src/tags/gnome-cmd-tags.cc:279
 msgid "Scene Type"
@@ -4250,6 +4306,8 @@ msgid ""
 "Indicates the type of scene. If a DSC recorded the image, this tag value "
 "must always be set to 1, indicating that the image was directly photographed."
 msgstr ""
+"يحدد نوع المشهد. إن كان مسجّل الصورة هو DSC، ستكون قيمة الوسم مضبوطة دائماً "
+"على 1، مشيرة إلى أن الصورة صُوّرت بشكل مباشر."
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Sensing Method"
@@ -4279,6 +4337,7 @@ msgid ""
 "Shutter speed. The unit is the APEX (Additive System of Photographic "
 "Exposure) setting."
 msgstr ""
+"سرعة المصراع. الوحدة هي إعداد APEX (النظام الإضافي للتعرض الفوتوغرافي)."
 
 #: ../src/tags/gnome-cmd-tags.cc:283 ../src/tags/gnome-cmd-tags.cc:425
 msgid "Software"
@@ -4290,6 +4349,8 @@ msgid ""
 "camera or image input device used to generate the image. When the field is "
 "left blank, it is treated as unknown."
 msgstr ""
+"هذا الوسم يسجّل اسم وإصدار البرنامج أو البرمجيات المضمنة للكاميرا او جهاز "
+"إدخال الصور المستخدم لتوليد الصورة. عند ترك الحقل فارغاً يُعامل كمجهول."
 
 #: ../src/tags/gnome-cmd-tags.cc:284
 msgid "Spatial Frequency Response"
@@ -4301,6 +4362,8 @@ msgid ""
 "values in the direction of image width, image height, and diagonal "
 "direction, as specified in ISO 12233."
 msgstr ""
+"هذا الوسم يسجّل جدول التردد المكاني للكاميرا أو جهاز الإدخال وقيم SFR في "
+"اتجاه عرض الصورة وارتفاع الصورة والاتجاه القطري، كما هو محدد في ISO 12233."
 
 #: ../src/tags/gnome-cmd-tags.cc:285
 msgid "Spectral Sensitivity"
@@ -4332,6 +4395,8 @@ msgid ""
 "be selected so the number of strip bytes does not exceed 64 Kbytes. With "
 "JPEG compressed data this designation is not needed and is omitted."
 msgstr ""
+"إزاحة البايت لكل شريط. يُستحسن أن يُنتقى هذا بحيث لا يتعدى عدد بايتات الشريط "
+"64 كيلو بايت. في بيانات JPEG المضغوطة لا يُحتاج هذا التعيين ويُهمل."
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid "Sub IFD Offsets"
@@ -4379,6 +4444,9 @@ msgid ""
 "first value indicates the X column number and second indicates the Y row "
 "number."
 msgstr ""
+"يحدد موقع الموضوع الرئيسي في المشهد. قيمة هذا الوسم تمثل البكسل في وسط "
+"الموضوع الرئيسي نسبة إلى الحافة اليسرى، قبل معالجة الدوران كما في وسم <Exif."
+"Rotation>. القيمة الأولى تحدد رقم عمود س والثانية رقم صف ص."
 
 #: ../src/tags/gnome-cmd-tags.cc:293
 msgid "Subsec Time"
@@ -4426,6 +4494,8 @@ msgid ""
 "tag is not necessary, since color space is specified in <Exif.ColorSpace> "
 "tag."
 msgstr ""
+"دالة نقل للصورة، موصوفة في أسلوب جدولي. عادة لا يكون هذا الوسم ضرورياً، بما "
+"أن مساحة الألوان محددة في وسم <Exif.ColorSpace>."
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Transfer Range"
@@ -4497,6 +4567,8 @@ msgid ""
 "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageWidth> "
 "direction. When the image resolution is unknown, 72 [dpi] is designated."
 msgstr ""
+"عدد البكسلات في كل <Exif.ResolutionUnit> في اتجاه <Exif.ImageWidth>. عندما "
+"تكون استبانة الصورة مجهولة، يُعيّن 72 [dpi]."
 
 #: ../src/tags/gnome-cmd-tags.cc:304
 msgid "YCbCr Coefficients"
@@ -4510,6 +4582,10 @@ msgid ""
 "the default being the value that gives the optimal image characteristics "
 "Interoperability this condition."
 msgstr ""
+"معاملات المصفوفة لتحويل بيانات الصورة من RGB إلى YCbCr. لا افتراضي يُعطى في "
+"TIFF، ولكن تـُستخدم \"إرشادات مساحة الألوان\" هنا كافتراضي. مساحة الألوان "
+"يُعلن عنها في وسم معلومات مساحة الالوان، ويكون الافتراضي هو القيمة التي تعطي "
+"هذا الشرط لقابلية المعالجة المتبادلة لخصائص الصورة المثالية."
 
 #: ../src/tags/gnome-cmd-tags.cc:305
 msgid "YCbCr Positioning"
@@ -4539,6 +4615,8 @@ msgid ""
 "The sampling ratio of chrominance components in relation to the luminance "
 "component. In JPEG compressed data a JPEG marker is used instead of this tag."
 msgstr ""
+"معدل اعتيان المكونات اللونية نسبة لمكوّن الإضاءة. يُستخدم واسم JPEG عوضاً عن "
+"هذا الوسم في بيانات JPEG المضغوطة."
 
 #: ../src/tags/gnome-cmd-tags.cc:307
 msgid "y Resolution"
@@ -4549,6 +4627,8 @@ msgid ""
 "The number of pixels per <Exif.ResolutionUnit> in the <Exif.ImageLength> "
 "direction. The same value as <Exif.XResolution> is designated."
 msgstr ""
+"عدد البكسلات في كل <Exif.ResolutionUnit> في اتجاه <Exif.ImageLength>. نفس "
+"القيمة عند تعيين <Exif.XResolution>."
 
 #: ../src/tags/gnome-cmd-tags.cc:308
 msgid "Accessed"
@@ -4669,6 +4749,8 @@ msgid ""
 "Fractional offset within the audio data, providing a starting point from "
 "which to find an appropriate point to start decoding."
 msgstr ""
+"الإزاحة الكسرية ضمن بيانات الصوت، مزودة نقطة بداية يمكن من خلالها إيجاد نقطة "
+"ملائمة لبدء فك الترميز."
 
 #: ../src/tags/gnome-cmd-tags.cc:324
 msgid "Band"
@@ -5429,7 +5511,7 @@ msgstr "معرّف ARM"
 
 #: ../src/tags/gnome-cmd-tags.cc:430
 msgid "Identifies the Abstract Relationship Method (ARM)."
-msgstr "يعرّف طريقة علاقة التجريد (ARM)."
+msgstr "يعرّف طريقة علاقة الملخصات (ARM)."
 
 #: ../src/tags/gnome-cmd-tags.cc:431
 msgid "ARM Version"
@@ -5437,7 +5519,7 @@ msgstr "إصدار ARM"
 
 #: ../src/tags/gnome-cmd-tags.cc:431
 msgid "Identifies the version of the Abstract Relationship Method (ARM)."
-msgstr "يعرّف إصدار طريقة علاقة التجريد (ARM)."
+msgstr "يعرّف إصدار طريقة علاقة الملخصات (ARM)."
 
 #: ../src/tags/gnome-cmd-tags.cc:432
 msgid "Audio Duration"
@@ -5501,111 +5583,105 @@ msgid "Title of the creator or creators of the object."
 msgstr "لقب منشئ أو منشئي الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:439
-#, fuzzy
 msgid "Caption, Abstract"
-msgstr "مساعد التفوي_ض"
+msgstr "عنوان، تلخيص"
 
 #: ../src/tags/gnome-cmd-tags.cc:439
-#, fuzzy
 msgid "A textual description of the data"
-msgstr "وصف للحالة بصورة مفهومة للبشر"
+msgstr "وصف نصي للبيانات"
 
 #: ../src/tags/gnome-cmd-tags.cc:440
-#, fuzzy
 msgid ""
 "Identifies the subject of the object in the opinion of the provider "
 "(Deprecated)."
-msgstr "يحدد الأسلوب المرئي للعمود بنسق النسبة المائوية (ملغاة)"
+msgstr "يعرّف موضوع الكائن من وجهة نظر المزوّد (مهجور)."
 
 #: ../src/tags/gnome-cmd-tags.cc:441
-#, fuzzy
 msgid "Coded Character Set"
-msgstr "رمز الكلمة"
+msgstr "مجموعة الأحرف المرمزة"
 
 #: ../src/tags/gnome-cmd-tags.cc:441
 msgid ""
 "Control functions used for the announcement, invocation or designation of "
 "coded character sets."
 msgstr ""
+"دالات التحكم المستخدمة للإعلان أو الاستشهاد أو ترشيح مجموعات الأحرف المرمزة."
 
 #: ../src/tags/gnome-cmd-tags.cc:442
-#, fuzzy
 msgid "City"
-msgstr "المدينة:"
+msgstr "المدينة"
 
 #: ../src/tags/gnome-cmd-tags.cc:442
-#, fuzzy
 msgid "City of object origin."
-msgstr "قائمة اجسام"
+msgstr "المدينة التي ينتمي إليها الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:443
-#, fuzzy
 msgid "Confirmed Data Size"
-msgstr "تأكيد حجم الصورة"
+msgstr "حجم البيانات المؤكد"
 
 #: ../src/tags/gnome-cmd-tags.cc:443
-#, fuzzy
 msgid "Total size of the object data."
-msgstr "موفّر الجسم"
+msgstr "الحجم الكلي لبيانات الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:444 ../src/tags/gnome-cmd-tags.cc:507
 msgid "Contact"
-msgstr "معرِفة"
+msgstr "تواصل"
 
 #: ../src/tags/gnome-cmd-tags.cc:444
 msgid ""
 "The person or organization which can provide further background information "
 "on the object (multiple values allowed)."
 msgstr ""
+"الشخص أو المنظمة التي يمكنها تزويد معلومات خلفية أبعد عن الكائن (يُسمح بأكثر "
+"من قيمة)."
 
 #: ../src/tags/gnome-cmd-tags.cc:445
-#, fuzzy
 msgid "Content Location Code"
-msgstr "حد منطقة المحتوى"
+msgstr "رمز موقع المحتوى"
 
 #: ../src/tags/gnome-cmd-tags.cc:445
 msgid ""
 "Indicates the code of a country/geographical location referenced by the "
 "content of the object (multiple values allowed)."
 msgstr ""
+"يحدد رمز الدولة/الموقع الجغرافي المشار إليه من قبَل محتوى الكائن (يُسمح بأكثر "
+"من قيمة)."
 
 #: ../src/tags/gnome-cmd-tags.cc:446
-#, fuzzy
 msgid "Content Location Name"
-msgstr "اسم ال_موضع:"
+msgstr "اسم موقع المحتوى"
 
 #: ../src/tags/gnome-cmd-tags.cc:446
 msgid ""
 "A full, publishable name of a country/geographical location referenced by "
 "the content of the object (multiple values allowed)."
 msgstr ""
+"الاسم الكامل الصالح للنشر لدولة/موقع جغرافي مشار إليه من قبَل محتوى الكائن "
+"(يُسمح بأكثر من قيمة)."
 
 #: ../src/tags/gnome-cmd-tags.cc:447
-#, fuzzy
 msgid "Copyright Notice"
-msgstr "حقوق النسخ"
+msgstr "ملحوظة حقوق النسخ"
 
 #: ../src/tags/gnome-cmd-tags.cc:447
 msgid "Any necessary copyright notice."
-msgstr ""
+msgstr "أي ملاحظات حقوق النسخ ضرورية."
 
 #: ../src/tags/gnome-cmd-tags.cc:448
-#, fuzzy
 msgid "Country Code"
-msgstr "رقم رمز الدولة"
+msgstr "رمز الدولة"
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "The code of the country/primary location where the object was created."
-msgstr ""
+msgstr "رمز الدولة/المكان الأولي الذي صُنع فيه الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:449
-#, fuzzy
 msgid "Country Name"
-msgstr "قص مسمى"
+msgstr "اسم الدولة"
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "The name of the country/primary location where the object was created."
-msgstr ""
+msgstr "اسم الدولة/المكان الأولي الذي صُنع فيه الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:450
 msgid "Credit"
@@ -5614,57 +5690,49 @@ msgstr "شكر وتقدير"
 #: ../src/tags/gnome-cmd-tags.cc:450
 msgid ""
 "Identifies the provider of the object, not necessarily the owner/creator."
-msgstr ""
+msgstr "يعرّف مزوّد الكائن، والذي قد لا يكون بالضرورة المالك/المنشئ."
 
 #: ../src/tags/gnome-cmd-tags.cc:451
 msgid ""
 "The date the intellectual content of the object was created rather than the "
 "date of the creation of the physical representation."
-msgstr ""
+msgstr "تاريخ إنشاء المحتوى الفكري للكائن وليس تاريخ إنشاء التقديم الفيزيائي."
 
 #: ../src/tags/gnome-cmd-tags.cc:452
-#, fuzzy
 msgid "Date Sent"
-msgstr "تاريخ الإرسال:"
+msgstr "تاريخ الإرسال"
 
 #: ../src/tags/gnome-cmd-tags.cc:452
-#, fuzzy
 msgid "The day the service sent the material."
-msgstr "سنة وشهر ويوم (CCYYMMDD) ارسال الخدمة للمواد"
+msgstr "اليوم الذي أرسلت الخدمة فيه المواد."
 
 #: ../src/tags/gnome-cmd-tags.cc:453
 msgid "Destination"
 msgstr "الوجهة"
 
 #: ../src/tags/gnome-cmd-tags.cc:453
-#, fuzzy
 msgid "Routing information."
-msgstr "معلومات جدول التّوجيه"
+msgstr "معلومات التوجيه."
 
 #: ../src/tags/gnome-cmd-tags.cc:454
-#, fuzzy
 msgid "Digital Creation Date"
-msgstr "تاريخ انتهاء الصلاحية"
+msgstr "تاريخ الإنشاء الرقمي"
 
 #: ../src/tags/gnome-cmd-tags.cc:454
-#, fuzzy
 msgid "The date the digital representation of the object was created."
-msgstr "تمثيل جدول هاش لنظام الألوان"
+msgstr "تاريخ إنشاء التقديم الرقمي للكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:455
-#, fuzzy
 msgid "Digital Creation Time"
-msgstr "وقت الإنشاء"
+msgstr "وقت الإنشاء الرقمي"
 
 #: ../src/tags/gnome-cmd-tags.cc:455
-#, fuzzy
 msgid "The time the digital representation of the object was created."
-msgstr "تمثيل جدول هاش لنظام الألوان"
+msgstr "وقت إنشاء التقديم الرقمي للكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:456
-#, fuzzy
 msgid "Editorial Update"
-msgstr "تحرير لوح الألوان"
+msgstr "التحديث التحريري"
 
 #: ../src/tags/gnome-cmd-tags.cc:456
 msgid ""
@@ -5672,28 +5740,26 @@ msgid ""
 "link to the previous object is made using the ARM. '01' indicates an "
 "additional language."
 msgstr ""
+"يحدد نوع التحديث الذي يزوده هذا الكائن إلى كائن سابق. الوصلة إلى الكائن "
+"السابق صُنعت باستخدام الـ ARM. '01' يشير إلى لغة إضافية."
 
 #: ../src/tags/gnome-cmd-tags.cc:457
-#, fuzzy
 msgid "Edit Status"
-msgstr "بالحالة"
+msgstr "حالة التحرير"
 
 #: ../src/tags/gnome-cmd-tags.cc:457
-#, fuzzy
 msgid "Status of the object, according to the practice of the provider."
-msgstr "حالة بيانات الكائن طبقا للمزود"
+msgstr "حالة الكائن، وفقاً لتجربة المزوّد."
 
 #: ../src/tags/gnome-cmd-tags.cc:458
-#, fuzzy
 msgid "Envelope Number"
-msgstr "مظروف رقم 10"
+msgstr "رقم المغلف"
 
 #: ../src/tags/gnome-cmd-tags.cc:458
 msgid "A number unique for the date in 1:70 and the service ID in 1:30."
-msgstr ""
+msgstr "رقم فريد للتاريخ في 1:70 ولمعرّف الخدمة في 1:30."
 
 #: ../src/tags/gnome-cmd-tags.cc:459
-#, fuzzy
 msgid "Envelope Priority"
 msgstr "غيّر الأولوية"
 
@@ -5703,6 +5769,8 @@ msgid ""
 "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
 "defined."
 msgstr ""
+"يحدد أولوية معاملة المغلفات وليس الاستعجالات التحريرية. '1' للأكثر استعجالاً، "
+"و '5' للعادي، و '8' للأقل استعجالاً. '9' متروك لتحديد المستخدم."
 
 #: ../src/tags/gnome-cmd-tags.cc:460
 msgid "Expiration Date"
@@ -5710,364 +5778,325 @@ msgstr "تاريخ انتهاء الصلاحية"
 
 #: ../src/tags/gnome-cmd-tags.cc:460
 msgid "Designates the latest date the provider intends the object to be used."
-msgstr ""
+msgstr "يعيّن آخر تاريخ ينوي المزوّد فيه إبقاء الكائن مستخدماً."
 
 #: ../src/tags/gnome-cmd-tags.cc:461
-#, fuzzy
 msgid "Expiration Time"
-msgstr "تاريخ انتهاء الصلاحية"
+msgstr "وقت انتهاء الصلاحية"
 
 #: ../src/tags/gnome-cmd-tags.cc:461
 msgid "Designates the latest time the provider intends the object to be used."
-msgstr ""
+msgstr "يعيّن آخر وقت ينوي المزوّد فيه إبقاء الكائن مستخدماً."
 
 #: ../src/tags/gnome-cmd-tags.cc:462
-#, fuzzy
 msgid "File Format"
-msgstr "هيئة الم_لف:"
+msgstr "تنسيق الملف"
 
 #: ../src/tags/gnome-cmd-tags.cc:462
 msgid "File format of the data described by this metadata."
-msgstr ""
+msgstr "تنسيق ملف البيانات الموصوفة ببيانات التعريف هذه."
 
 #: ../src/tags/gnome-cmd-tags.cc:463
-#, fuzzy
 msgid "File Version"
-msgstr "تصاريح الملف:"
+msgstr "إصدار الملف"
 
 #: ../src/tags/gnome-cmd-tags.cc:463
-#, fuzzy
 msgid "Version of the file format."
-msgstr "إصدارة تنسيق الإعدادات"
+msgstr "إصدار تنسيق الملف."
 
 #: ../src/tags/gnome-cmd-tags.cc:464
-#, fuzzy
 msgid "Fixture Identifier"
-msgstr "مميّز الألغورذم"
+msgstr "معرّف الإصلاح"
 
 #: ../src/tags/gnome-cmd-tags.cc:464
 msgid ""
 "Identifies objects that recur often and predictably, enabling users to "
 "immediately find or recall such an object."
 msgstr ""
+"يعرّف الكائنات التي تتكرر دائماً وبشكل متوقع، ممكناً المستخدمين من إيجاد أو "
+"استدعاء هكذا كائن بشكل فوري."
 
 #: ../src/tags/gnome-cmd-tags.cc:465
-#, fuzzy
 msgid "Headline"
-msgstr "ترويس"
+msgstr "عنوان بارز"
 
 #: ../src/tags/gnome-cmd-tags.cc:465
 msgid "A publishable entry providing a synopsis of the contents of the object."
-msgstr ""
+msgstr "مُدخلة قابلة للنشر تزود خلاصة لمحتويات الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:466
-#, fuzzy
 msgid "Image Orientation"
-msgstr "ات_جاه الصفحة:"
+msgstr "اتجاه الصورة"
 
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
 msgstr ""
+"مخطط مساحة الصورة: 'P' لصورة طولية، 'L' لصورة عرضية، و 'S' لصورة مربعة."
 
 #: ../src/tags/gnome-cmd-tags.cc:467
 msgid "Image Type"
 msgstr "نوع الصورة"
 
 #: ../src/tags/gnome-cmd-tags.cc:467
-#, fuzzy
 msgid "Indicates the data format of the image object."
-msgstr "يحدد ان هذا الجسم هو  منبثق لجسم آخر"
+msgstr "يحدد تنسيق البيانات في كائن الصورة."
 
 #: ../src/tags/gnome-cmd-tags.cc:468
 msgid ""
 "Used to indicate specific information retrieval words (multiple values "
 "allowed)."
-msgstr ""
+msgstr "يُستخدم ليشير إلى كلمات استخلاص معلومات معينة (يُسمح بأكثر من قيمة)."
 
 #: ../src/tags/gnome-cmd-tags.cc:469
-#, fuzzy
 msgid "Language Identifier"
-msgstr "تعيين اللغة"
+msgstr "معرّف اللغة"
 
 #: ../src/tags/gnome-cmd-tags.cc:469
 msgid ""
 "The major national language of the object, according to the 2-letter codes "
 "of ISO 639:1988."
-msgstr ""
+msgstr "اللغة القومية الرئيسية للكائن، وفقاً لرموز الحرفين في ISO 639:1988."
 
 #: ../src/tags/gnome-cmd-tags.cc:470
-#, fuzzy
 msgid "Maximum Object Size"
-msgstr "العدد الأقصى للملفّات الحديثة"
+msgstr "الحجم الأقصى للكائن"
 
 #: ../src/tags/gnome-cmd-tags.cc:470
 msgid "The largest possible size of the object if the size is not known."
-msgstr ""
+msgstr "الحجم الأقصى للكائن إن كان الحجم مجهولاً."
 
 #: ../src/tags/gnome-cmd-tags.cc:471
-#, fuzzy
 msgid "Max Subfile Size"
-msgstr "الحجم الأقصى"
+msgstr "الحجم الأقصى للملف الجزئي"
 
 #: ../src/tags/gnome-cmd-tags.cc:471
 msgid ""
 "The maximum size for a subfile dataset (8:10) containing a portion of the "
 "object data."
 msgstr ""
+"الحجم الأقصى لمجموعة بيانات ملف جزئي (8:10) يحتوي قسماً من بيانات الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:472
-#, fuzzy
 msgid "Model Version"
-msgstr "الإصدارة:"
+msgstr "نسخة الطراز"
 
 #: ../src/tags/gnome-cmd-tags.cc:472
-#, fuzzy
 msgid "Version of IIM part 1."
-msgstr "نسخة الحزمة"
+msgstr "نسخة IIM الجزء 1."
 
 #: ../src/tags/gnome-cmd-tags.cc:473
-#, fuzzy
 msgid "Object Attribute Reference"
-msgstr "مرجع صفات الكائن"
+msgstr "مرجع خصائص الكائن"
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid ""
 "Defines the nature of the object independent of the subject (multiple values "
 "allowed)."
-msgstr ""
+msgstr "يعرّف طبيعة الكائن المستقل عن الموضوع (يُسمح بأكثر من قيمة)."
 
 #: ../src/tags/gnome-cmd-tags.cc:474
-#, fuzzy
 msgid "Object Cycle"
-msgstr "اسم الكائن"
+msgstr "دورة الكائن"
 
 #: ../src/tags/gnome-cmd-tags.cc:474
 msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
-msgstr ""
+msgstr "حيث 'a' تعني الصباح، و 'p' المساء، و 'b' لكليهما."
 
 #: ../src/tags/gnome-cmd-tags.cc:475
-#, fuzzy
 msgid "Object Name"
 msgstr "اسم الكائن"
 
 #: ../src/tags/gnome-cmd-tags.cc:475
-#, fuzzy
 msgid "A shorthand reference for the object."
-msgstr "غيِّر تفضيلات هذا البرنامج"
+msgstr "مرجع مختزل للكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:476
-#, fuzzy
 msgid "Object Size Announced"
-msgstr "موقّع الجسم"
+msgstr "حجم الكائن المعلن"
 
 #: ../src/tags/gnome-cmd-tags.cc:476
-#, fuzzy
 msgid "The total size of the object data if it is known."
-msgstr "حجم نافذة الفيديو المحلية"
+msgstr "الحجم الكلي لبيانات الكائن في حال كان معروفاً."
 
 #: ../src/tags/gnome-cmd-tags.cc:477
-#, fuzzy
 msgid "Object Type Reference"
 msgstr "مرجع نوع الكائن"
 
 #: ../src/tags/gnome-cmd-tags.cc:477
 msgid "Distinguishes between different types of objects within the IIM."
-msgstr ""
+msgstr "يميز بين مختلف أنواع الكائنات باستخدام IIM."
 
 #: ../src/tags/gnome-cmd-tags.cc:478
-#, fuzzy
 msgid "Originating Program"
-msgstr "شغّل برنامج"
+msgstr "برنامج المنشأ"
 
 #: ../src/tags/gnome-cmd-tags.cc:478
-#, fuzzy
 msgid "The type of program used to originate the object."
-msgstr "البرنامج الافتراضى المستخدم لتحرير الملفات"
+msgstr "نوع البرنامج المستخدَم لإنشاء الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:479
 msgid "Original Transmission Reference"
-msgstr ""
+msgstr "مرجع الإرسال الأصلي."
 
 #: ../src/tags/gnome-cmd-tags.cc:479
 msgid "A code representing the location of original transmission."
-msgstr ""
+msgstr "رمز يمثل موقع الإرسال الأصلي."
 
 #: ../src/tags/gnome-cmd-tags.cc:480
-#, fuzzy
 msgid "Preview Data"
-msgstr "عرض المعاينة"
+msgstr "بيانات المعاينة"
 
 #: ../src/tags/gnome-cmd-tags.cc:480
-#, fuzzy
 msgid "The object preview data"
-msgstr "الجسم المرتبط"
+msgstr "بيانات معاينة الكائن"
 
 #: ../src/tags/gnome-cmd-tags.cc:481
-#, fuzzy
 msgid "Preview File Format"
-msgstr "قطعة التلميح"
+msgstr "تنسيق ملف المعاينة"
 
 #: ../src/tags/gnome-cmd-tags.cc:481
 msgid ""
 "Binary value indicating the file format of the object preview data in "
 "dataset 2:202."
 msgstr ""
+"قيمة ثنائية تحدد تنسيق ملف بيانات معاينة الكائن في مجموعة البيانات 2:202."
 
 #: ../src/tags/gnome-cmd-tags.cc:482
-#, fuzzy
 msgid "Preview File Format Version"
-msgstr "نسخة البرنامج"
+msgstr "إصدار تنسيق ملف المعاينة"
 
 #: ../src/tags/gnome-cmd-tags.cc:482
-#, fuzzy
 msgid "The version of the preview file format specified in 2:200."
-msgstr "صرب ملف القواعد الذي سيستعمل"
+msgstr "إصدار تنسيق ملف المعاينة المحدد في 2:200."
 
 #: ../src/tags/gnome-cmd-tags.cc:483
-#, fuzzy
 msgid "Product ID"
-msgstr "المنتَج"
+msgstr "معرّف المنتج"
 
 #: ../src/tags/gnome-cmd-tags.cc:483
 msgid "Allows a provider to identify subsets of its overall service."
-msgstr ""
+msgstr "يسمح للمزود بتعريف المجموعات الجزئية لكامل خدمته."
 
 #: ../src/tags/gnome-cmd-tags.cc:484
 msgid "Program Version"
-msgstr "نسخة البرنامج"
+msgstr "إصدار البرنامج"
 
 #: ../src/tags/gnome-cmd-tags.cc:484
-#, fuzzy
 msgid "The version of the originating program."
-msgstr "إصدارة تنسيق الإعدادات"
+msgstr "إصدار برنامج المنشأ."
 
 #: ../src/tags/gnome-cmd-tags.cc:485 ../src/tags/gnome-cmd-tags.cc:497
-#, fuzzy
 msgid "Province, State"
-msgstr "بروفنستاون"
+msgstr "الولاية، المحافظة"
 
 #: ../src/tags/gnome-cmd-tags.cc:485 ../src/tags/gnome-cmd-tags.cc:497
-#, fuzzy
 msgid "The Province/State where the object originates."
-msgstr "مكان في مدينة أو منطقة من حيث نشأ الجسم"
+msgstr "الولاية/المقاطعة التي ينتمي إليها الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:486
-#, fuzzy
 msgid "Rasterized Caption"
-msgstr "خصّص الأفعال"
+msgstr "عنوان تسامتي"
 
 #: ../src/tags/gnome-cmd-tags.cc:486
 msgid ""
 "Contains rasterized object description and is used where characters that "
 "have not been coded are required for the caption."
 msgstr ""
+"يحوي وصفاً تسامتياً للكائن ويُستخدم حين يحتاج العنوان أن يتضمن حروفاً غير مرمزة."
 
 #: ../src/tags/gnome-cmd-tags.cc:487
-#, fuzzy
 msgid "Record Version"
-msgstr "سجّل صوت"
+msgstr "إصدار التسجيل"
 
 #: ../src/tags/gnome-cmd-tags.cc:487
-#, fuzzy
 msgid "Identifies the version of the IIM, Part 2"
-msgstr "يحدد موقع الحاشية اليمنى."
+msgstr "يعرّف إصدار الـ IIM، الجزء 2"
 
 #: ../src/tags/gnome-cmd-tags.cc:488
-#, fuzzy
 msgid "Reference Date"
-msgstr "التسمية المرجع"
+msgstr "تاريخ المرجع"
 
 #: ../src/tags/gnome-cmd-tags.cc:488
 msgid "The date of a prior envelope to which the current object refers."
-msgstr ""
+msgstr "تاريخ مغلف أسبق من الذي يشير إليه الكائن الحالي."
 
 #: ../src/tags/gnome-cmd-tags.cc:489
-#, fuzzy
 msgid "Reference Number"
-msgstr "التسمية المرجع"
+msgstr "رقم المرجع"
 
 #: ../src/tags/gnome-cmd-tags.cc:489
-#, fuzzy
 msgid ""
 "The Envelope Number of a prior envelope to which the current object refers."
-msgstr "عدد الوصلات لـ AtkHypertext الحالي"
+msgstr "رقم مغلف أسبق من الذي يشير إليه الكائن الحالي."
 
 #: ../src/tags/gnome-cmd-tags.cc:490
-#, fuzzy
 msgid "Reference Service"
-msgstr "مرجع المرجع"
+msgstr "خدمة المرجع"
 
 #: ../src/tags/gnome-cmd-tags.cc:490
-#, fuzzy
 msgid ""
 "The Service Identifier of a prior envelope to which the current object "
 "refers."
-msgstr "محدد هويّة شريط المستوى الأعلى الحاوي لهذا الجسم."
+msgstr "معرّف خدمة أسبق من المغلف الذي يشير إليه الكائن الحالي."
 
 #: ../src/tags/gnome-cmd-tags.cc:491
 msgid ""
 "Designates the earliest date the provider intends the object to be used."
-msgstr ""
+msgstr "يعيّن أقرب تاريخ ينوي فيه المزود جعل الكائن قابلاً للاستخدام."
 
 #: ../src/tags/gnome-cmd-tags.cc:492
 msgid ""
 "Designates the earliest time the provider intends the object to be used."
-msgstr ""
+msgstr "يعيّن أقرب وقت ينوي فيه المزود جعل الكائن قابلاً للاستخدام."
 
 #: ../src/tags/gnome-cmd-tags.cc:493
-#, fuzzy
 msgid "Service Identifier"
-msgstr "مميّز الألغورذم"
+msgstr "معرّف الخدمة"
 
 #: ../src/tags/gnome-cmd-tags.cc:493
-#, fuzzy
 msgid "Identifies the provider and product."
-msgstr "يحدد المزود والمنتَج"
+msgstr "يعرّف المزوّد والمنتج."
 
 #: ../src/tags/gnome-cmd-tags.cc:494
-#, fuzzy
 msgid "Size Mode"
-msgstr "وضعية _ العرض"
+msgstr "نمط الحجم"
 
 #: ../src/tags/gnome-cmd-tags.cc:494
 msgid "Set to 0 if the size of the object is known and 1 if not known."
-msgstr ""
+msgstr "يُضبط على 0 إن كان حجم الكائن معروفاً، أو على 1 إن كان مجهولاً."
 
 #: ../src/tags/gnome-cmd-tags.cc:495
 msgid "Source"
 msgstr "المصدر"
 
 #: ../src/tags/gnome-cmd-tags.cc:495
-#, fuzzy
 msgid "The original owner of the intellectual content of the object."
-msgstr "اسم عميل السياق"
+msgstr "المالك الأصلي للمحتوى الفكري في الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:496
-#, fuzzy
 msgid "Special Instructions"
-msgstr "توجيه ممنوع"
+msgstr "تعليمات خاصة"
 
 #: ../src/tags/gnome-cmd-tags.cc:496
 msgid "Other editorial instructions concerning the use of the object."
-msgstr ""
+msgstr "تعليمات تحريرية أخرى تتعلق باستخدام الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:498
-#, fuzzy
 msgid "Subfile"
-msgstr "ملف"
+msgstr "ملف جزئي"
 
 #: ../src/tags/gnome-cmd-tags.cc:498
 msgid ""
 "The object data itself. Subfiles must be sequential so that the subfiles may "
 "be reassembled."
 msgstr ""
+"بيانات الكائن نفسها. الملفات الجزئية يجب أن تكون تسلسلية ليمكن إعادة تجميعها."
 
 #: ../src/tags/gnome-cmd-tags.cc:499
-#, fuzzy
 msgid "Subject Reference"
-msgstr "مرجع نوع الكائن"
+msgstr "مرجع الموضوع"
 
 #: ../src/tags/gnome-cmd-tags.cc:499
 msgid ""
@@ -6075,31 +6104,29 @@ msgid ""
 "digit Subject Reference Number and an optional Subject Name, Subject Matter "
 "Name, and Subject Detail Name each separated by a colon (:)."
 msgstr ""
+"تعريف منظم لمادة الموضوع. يجب أن يحتوي IPR، و رقم مرجع موضوع متألف من 8 "
+"خانات، واسم موضوع اختيارياً، واسم مادة الموضوع، واسم تفاصيل الموضوع، والكل "
+"مفصول عن الآخرين بنقطتين (:)."
 
 #: ../src/tags/gnome-cmd-tags.cc:500
-#, fuzzy
 msgid "Sub-location"
-msgstr "احفظ الموضع"
+msgstr "الموقع الجزئي"
 
 #: ../src/tags/gnome-cmd-tags.cc:500
-#, fuzzy
 msgid "The location within a city from which the object originates."
-msgstr "مكان في مدينة أو منطقة من حيث نشأ الجسم"
+msgstr "الموقع ضمن مدينة في المكان الذي ينتمي إليه الكائن."
 
 #: ../src/tags/gnome-cmd-tags.cc:501
-#, fuzzy
 msgid "Supplemental Category"
-msgstr "اختر فئة:"
+msgstr "فئة إضافية"
 
 #: ../src/tags/gnome-cmd-tags.cc:501
-#, fuzzy
 msgid "Further refines the subject of the object (Deprecated)."
-msgstr "يحدد الأسلوب المرئي للعمود بنسق النسبة المائوية (ملغاة)"
+msgstr "تنقي موضوع الكائن (مهجور)."
 
 #: ../src/tags/gnome-cmd-tags.cc:502
-#, fuzzy
 msgid "Time Created"
-msgstr "انتهت المهلة"
+msgstr "وقت الإنشاء"
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid ""
@@ -6107,452 +6134,403 @@ msgid ""
 "date of the creation of the physical representation (multiple values "
 "allowed)."
 msgstr ""
+"وقت إنشاء المحتوى الفكري للكائن وليس وقت إنشاء التقديم الفيزيائي (يُسمح بأكثر "
+"من قيمة)."
 
 #: ../src/tags/gnome-cmd-tags.cc:503
-#, fuzzy
 msgid "Time Sent"
-msgstr "الوقت 1"
+msgstr "وقت الإرسال"
 
 #: ../src/tags/gnome-cmd-tags.cc:503
-#, fuzzy
 msgid "The time the service sent the material."
-msgstr "سنة وشهر ويوم (CCYYMMDD) ارسال الخدمة للمواد"
+msgstr "وقت إرسال الخدمة للمواد."
 
 #: ../src/tags/gnome-cmd-tags.cc:504
-#, fuzzy
 msgid "Unique Name of Object"
-msgstr "اسم متفرّد للعملية."
+msgstr "اسم فريد للكائن"
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid ""
 "An eternal, globally unique identification for the object, independent of "
 "provider and for any media form."
-msgstr ""
+msgstr "معرّف أبدي فريد عالمياً للكائن، مستقل عن المزوّد وصالح لأي شكل وسائط."
 
 #: ../src/tags/gnome-cmd-tags.cc:505
-#, fuzzy
 msgid "Urgency"
-msgstr "أورجانش"
+msgstr "العجالة"
 
 #: ../src/tags/gnome-cmd-tags.cc:505
 msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
 "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
 msgstr ""
+"تحدد العجالة التحريرية للمحتوى وليس بالضرورة أولوية التعامل مع المغلف. '1' "
+"للعاجل جداً، '5' للعادي، و '8' للأقل عجالة."
 
 #: ../src/tags/gnome-cmd-tags.cc:506
-#, fuzzy
 msgid "Writer/Editor"
-msgstr "محرر التاريخ"
+msgstr "الكاتب/المحرر"
 
 #: ../src/tags/gnome-cmd-tags.cc:506
-#, fuzzy
 msgid ""
 "The name of the person involved in the writing, editing or correcting the "
 "object or caption/abstract (multiple values allowed)"
 msgstr ""
-"الشخص الذي يقوم بكتابة، تحرير أو تصحيح بيانات الجسم أو العنوان و الملخص"
+"الشخص المضطلع بكتابة، تحرير أو تصحيح الكائن أو العنوان/الملخص (يُسمح بأكثر من "
+"قيمة)"
 
 #: ../src/tags/gnome-cmd-tags.cc:507
-#, fuzzy
 msgid "Contact information for the creators or distributors of the track."
-msgstr "لقب المؤلف أو المنشيء"
+msgstr "معلومات التواصل الخاصة بمنشئي أو موزعي المقطوعة."
 
 #: ../src/tags/gnome-cmd-tags.cc:508
-#, fuzzy
 msgid "A textual description of the data."
-msgstr "وصف للحالة بصورة مفهومة للبشر"
+msgstr "وصف نصي للبيانات."
 
 #: ../src/tags/gnome-cmd-tags.cc:509
-#, fuzzy
 msgid "License"
-msgstr "السطور:"
+msgstr "الرخصة"
 
 #: ../src/tags/gnome-cmd-tags.cc:509
-#, fuzzy
 msgid "License information."
-msgstr "معلومات تسجيل الدخول"
+msgstr "معلومات الرخصة"
 
 #: ../src/tags/gnome-cmd-tags.cc:510
-#, fuzzy
 msgid "Location"
-msgstr "احفظ الموضع"
+msgstr "الموقع"
 
 #: ../src/tags/gnome-cmd-tags.cc:510
-#, fuzzy
 msgid "Location where track was recorded."
-msgstr "إصدارة الحزمة"
+msgstr "مكان تسجيل المقطوعة."
 
 #: ../src/tags/gnome-cmd-tags.cc:511
-#, fuzzy
 msgid "Maximum bitrate"
-msgstr "العدد الأقصى للملفّات الحديثة"
+msgstr "معدل البتات الأقصى"
 
 #: ../src/tags/gnome-cmd-tags.cc:511
 msgid "Maximum bitrate in kbps."
-msgstr ""
+msgstr "معدل البتات الأقصى بالكيلو بت في الثانية."
 
 #: ../src/tags/gnome-cmd-tags.cc:512
 msgid "Minimum bitrate"
-msgstr ""
+msgstr "معدل البتات الأدنى"
 
 #: ../src/tags/gnome-cmd-tags.cc:512
 msgid "Minimum bitrate in kbps."
-msgstr ""
+msgstr "معدل البتات الأدنى بالكيلو بت في الثانية."
 
 #: ../src/tags/gnome-cmd-tags.cc:513
 msgid "Nominal bitrate"
-msgstr ""
+msgstr "معدل البتات الاسمي"
 
 #: ../src/tags/gnome-cmd-tags.cc:513
 msgid "Nominal bitrate in kbps."
-msgstr ""
+msgstr "معدل البتات الاسمي بالكيلو بت في الثانية."
 
 #: ../src/tags/gnome-cmd-tags.cc:514
-#, fuzzy
 msgid "Organization"
-msgstr "الإتجاه:"
+msgstr "المنظمة"
 
 #: ../src/tags/gnome-cmd-tags.cc:514
-#, fuzzy
 msgid "Organization producing the track."
-msgstr "نسخة الحزمة"
+msgstr "المنظمة المنتجة للمقطوعة."
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Vendor"
-msgstr ""
+msgstr "البائع"
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Vorbis vendor ID."
-msgstr ""
+msgstr "معرّف بائع Vorbis."
 
 #: ../src/tags/gnome-cmd-tags.cc:516
-#, fuzzy
 msgid "Vorbis Version"
-msgstr "سجّل صوت"
+msgstr "إصدار Vorbis"
 
 #: ../src/tags/gnome-cmd-tags.cc:516
-#, fuzzy
 msgid "Vorbis version."
-msgstr "محادثات"
+msgstr "إصدار Vorbis."
 
 #: ../src/tags/gnome-cmd-tags.cc:647
-#, fuzzy
 msgid "Audio"
 msgstr "صوت"
 
 #: ../src/tags/gnome-cmd-tags.cc:653
-#, fuzzy
 msgid "Doc"
-msgstr "إرساء"
+msgstr "مستند"
 
 #: ../src/tags/gnome-cmd-tags.cc:671
-#, fuzzy
 msgid "Image"
-msgstr "صور"
+msgstr "صورة"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:63
-#, fuzzy
 msgid "No Proofing"
-msgstr "بدون تجميع"
+msgstr "لا مقاومة"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:65
 msgid "Arabic"
-msgstr ""
+msgstr "عربي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:67
 msgid "Bulgarian"
-msgstr ""
+msgstr "يلغاري"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:69
 msgid "Catalan"
-msgstr ""
+msgstr "كاتالوني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:71
-#, fuzzy
 msgid "Traditional Chinese"
-msgstr "تقليدي"
+msgstr "صيني تقليدي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:73
-#, fuzzy
 msgid "Simplified Chinese"
-msgstr "مبسّط"
+msgstr "صيني مبسّط"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:75
 msgid "Chechen"
-msgstr ""
+msgstr "شيشاني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:77
 msgid "Danish"
-msgstr ""
+msgstr "دانماركي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:79
-#, fuzzy
 msgid "German"
-msgstr "خريطة مفاتيح سويسرية"
+msgstr "ألماني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:81
-#, fuzzy
 msgid "Swiss German"
-msgstr "خريطة مفاتيح سويسرية"
+msgstr "ألماني سويسري"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:83
-#, fuzzy
 msgid "Greek"
-msgstr "ال_جنس"
+msgstr "يوناني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:85
-#, fuzzy
 msgid "U.S. English"
-msgstr "الإنجليزية القديمة"
+msgstr "إنجليزي أميركي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:87
-#, fuzzy
 msgid "U.K. English"
-msgstr "الإنجليزية القديمة"
+msgstr "إنجليزي بريطاني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:89
 msgid "Australian English"
-msgstr "الإنجليزية الإسترالية"
+msgstr "إنجليزي أسترالي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:91
-#, fuzzy
 msgid "Castilian Spanish"
-msgstr "الإنجليزية الإسترالية"
+msgstr "إسباني كاستيلياني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:93
-#, fuzzy
 msgid "Mexican Spanish"
-msgstr "انكليزي أميركي"
+msgstr "إسباني مكسيكي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:95
 msgid "Finnish"
-msgstr ""
+msgstr "فنلندي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:97
-#, fuzzy
 msgid "French"
 msgstr "فرنسي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:99
-#, fuzzy
 msgid "Belgian French"
-msgstr "بلجيكية"
+msgstr "فرنسي بلجيكي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:101
-#, fuzzy
 msgid "Canadian French"
-msgstr "الإنجليزية الكندية"
+msgstr "فرنسي كندي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:103
-#, fuzzy
 msgid "Swiss French"
-msgstr "فرنسي"
+msgstr "فرنسي سويسري"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:105
 msgid "Hebrew"
-msgstr ""
+msgstr "عبري"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:107
 msgid "Hungarian"
-msgstr ""
+msgstr "هنغاري"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:109
 msgid "Icelandic"
-msgstr ""
+msgstr "أيسلندي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:111
-#, fuzzy
 msgid "Italian"
-msgstr "فيساليا"
+msgstr "إيطالي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:113
-#, fuzzy
 msgid "Swiss Italian"
-msgstr "فيساليا"
+msgstr "إيطالي سويسري"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:115
 msgid "Japanese"
-msgstr ""
+msgstr "ياباني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:117
 msgid "Korean"
-msgstr ""
+msgstr "كوري"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:119
 msgid "Dutch"
-msgstr ""
+msgstr "هولندي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:121
-#, fuzzy
 msgid "Belgian Dutch"
-msgstr "بلجيكية"
+msgstr "هولندي بلجيكي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:123
 msgid "Norwegian Bokmal"
 msgstr "نرويجي بوكمال"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:125
-#, fuzzy
 msgid "Norwegian Nynorsk"
-msgstr "نرويجي بوكمال"
+msgstr "نرويجي نينورسك"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:127
-#, fuzzy
 msgid "Polish"
-msgstr "بولندية"
+msgstr "بولندي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:129
 msgid "Brazilian Portuguese"
-msgstr ""
+msgstr "برتغالي برازيلي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:131
-#, fuzzy
 msgid "Portuguese"
-msgstr "خصائص"
+msgstr "برتغالي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:133
 msgid "Rhaeto-Romanic"
-msgstr ""
+msgstr "روماني رايتو"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:135
 msgid "Romanian"
-msgstr ""
+msgstr "روماني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:137
-#, fuzzy
 msgid "Russian"
-msgstr "فيوجن"
+msgstr "روسي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:139
-#, fuzzy
 msgid "Croato-Serbian (Latin)"
-msgstr "صربي (لاتيني)"
+msgstr "كرواتي-صربي (لاتيني)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:141
-#, fuzzy
 msgid "Serbo-Croatian (Cyrillic)"
-msgstr "سريالية بلغارية"
+msgstr "صربي-كرواتي (سيريلي)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:143
 msgid "Slovak"
-msgstr ""
+msgstr "سلوفاكي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:145
-#, fuzzy
 msgid "Albanian"
-msgstr "سطر الألبوم"
+msgstr "ألباني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:147
 msgid "Swedish"
-msgstr ""
+msgstr "سويدي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:149
 msgid "Thai"
-msgstr ""
+msgstr "تايلندي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:151
 msgid "Turkish"
-msgstr ""
+msgstr "تركي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:153
 msgid "Urdu"
-msgstr ""
+msgstr "أوردي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:155
 msgid "Indonesian"
-msgstr ""
+msgstr "إندونيسي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:157
 msgid "Ukrainian"
-msgstr ""
+msgstr "أوكراني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:159
 msgid "Byelorussian"
-msgstr ""
+msgstr "بيلاروسي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:161
 msgid "Slovenian"
-msgstr ""
+msgstr "سلوفاني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:163
 msgid "Estonian"
-msgstr ""
+msgstr "إستوني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:165
-#, fuzzy
 msgid "Latvian"
-msgstr "احفظ الموضع"
+msgstr "لاتفياني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:167
 msgid "Lithuanian"
-msgstr ""
+msgstr "ليثواني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:169
-#, fuzzy
 msgid "Farsi"
-msgstr "فيغاري"
+msgstr "فارسي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:171
 msgid "Basque"
-msgstr ""
+msgstr "باسكي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:173
 msgid "Macedonian"
-msgstr ""
+msgstr "مقدوني"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:175
 msgid "Afrikaans"
-msgstr ""
+msgstr "جنوب أفريقي"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:177
 msgid "Malayalam"
-msgstr ""
+msgstr "مالايي"
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:65
 #, c-format
 msgid "unsupported tag (suppressed %u B of binary data)"
-msgstr ""
+msgstr "وسم غير مدعوم (جرى قمع %u B من البيانات الثنائية)"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:71
-#, fuzzy
 msgid "Stereo"
-msgstr "ستيرٍٍِِيو"
+msgstr "ستيريو"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:72
-#, fuzzy
 msgid "Joint stereo"
-msgstr "طراز الوصلة:"
+msgstr "ستيريو وصل"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:73
-#, fuzzy
 msgid "Dual channel"
-msgstr "حذف القناة"
+msgstr "قناة مزدوجة"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:74
-#, fuzzy
 msgid "Single channel"
-msgstr "وزن القناة"
+msgstr "قناة مفردة"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:79
-#, fuzzy
 msgid "Undefined"
 msgstr "غير محدّد"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:80
-#, fuzzy
 msgid "Layer I"
-msgstr "الطبقات"
+msgstr "الطبقة I"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:81
-#, fuzzy
 msgid "Layer II"
-msgstr "الطبقات"
+msgstr "الطبقة II"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:82
-#, fuzzy
 msgid "Layer III"
-msgstr "الطبقات"
+msgstr "الطبقة III"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:90
 #: ../src/tags/gnome-cmd-tags-taglib.cc:97
@@ -6560,13 +6538,12 @@ msgid "Reserved"
 msgstr "محجوز"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:95
-#, fuzzy
 msgid "None"
-msgstr "_لا شيء"
+msgstr "لا شيء"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:96
 msgid "10-15ms"
-msgstr ""
+msgstr "10-15 ميلي ثانية"
 
 #: ../src/utils.cc:429
 #, c-format
@@ -6574,6 +6551,8 @@ msgid ""
 "No default application found for the mime-type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
+"لا يوجد تطبيق افتراضي لنوع mime %s.\n"
+"افتح صفحة \"أنواع الملفات والبرامج\" في مركز التحكم لإضافة واحدة."
 
 #: ../src/utils.cc:504
 #, c-format
@@ -6581,27 +6560,27 @@ msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
+"\"%s\" يبدو كملف تنفيذي ثنائي ولكن ينقصه بت القابلية للتنفيذ. هل تريد ضبط "
+"البت ومن ثمّ تشغيل الملف؟"
 
 #: ../src/utils.cc:507
-#, fuzzy
 msgid "Make Executable?"
-msgstr "تنفيذي:"
+msgstr "اجعله تنفيذياً؟"
 
 #: ../src/utils.cc:534
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
-msgstr "هل تريد تشغيل \"%s\" أم عرض محتوياته؟"
+msgstr "\"%s\" ملف تنفيذي نصي. هل تريد تشغيله أم عرض محتوياته؟"
 
 #: ../src/utils.cc:536
-#, fuzzy
 msgid "Run or Display"
-msgstr "العرض"
+msgstr "شغـّل أو اعرض"
 
 #: ../src/utils.cc:537
 msgid "Display"
-msgstr "العرض"
+msgstr "اعرض"
 
 #: ../src/utils.cc:537
 msgid "Run"
@@ -6616,30 +6595,41 @@ msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
 msgstr[0] ""
+"%s لا يعرف كيفية فتح الملف البعيد. هل تريد تحميل الملف إلى مكان مؤقت ثم فتحه؟"
 msgstr[1] ""
+"%s لا يعرف كيفية فتح الملفين البعيدين. هل تريد تحميل الملفين إلى مكان مؤقت "
+"ثم فتحهما؟"
+msgstr[2] ""
+"%s لا يعرف كيفية فتح الملفات البعيدة. هل تريد تحميل الملفات إلى مكان مؤقت ثم "
+"فتحها؟"
+msgstr[3] ""
+"%s لا يعرف كيفية فتح الملفات البعيدة. هل تريد تحميل الملفات إلى مكان مؤقت ثم "
+"فتحها؟"
 
 #: ../src/utils.cc:1021
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
 "Error message: %s\n"
-msgstr "فشل فتح الدليل الحاوي على الصور الترويسية: %s"
+msgstr ""
+"فشل إنشاء مجلد لتخزين الملفات المؤقتة داخله.\n"
+"رسالة خطأ: %s\n"
 
 #: ../src/utils.cc:1217
-#, fuzzy, c-format
+#, c-format
 msgid "Creating directory %s... "
-msgstr "إنشاء المجلد '%s'..."
+msgstr "يجري إنشاء المجلد %s..."
 
 #: ../src/utils.cc:1220
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to create the directory %s"
-msgstr "فشل إنشاء المسجل: %s"
+msgstr "فشل إنشاء المجلد %s"
 
 #: ../src/utils.cc:1226
-#, fuzzy, c-format
+#, c-format
 msgid "Couldn't read from the directory %s: %s"
-msgstr "لا يمكن انشاء الدليل  `%s': %s"
+msgstr "تعذرت القراءة من المجلد %s: %s"
 
-#: ../src/utils.h:253
+#: ../src/utils.h:259
 msgid "There was an error displaying help."
 msgstr "حدث خطأ عند عرض المساعدة."
