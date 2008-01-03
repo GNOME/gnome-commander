@@ -1,8 +1,12 @@
-2008-01-3  Djihed Afifi <djihed@gmail.com> 
+2008-01-03  Cosmin Humeniuc <cosmin@mandrivausers.ro>
+
+	* ro.po: Updated Romanian translation.
+
+2008-01-03  Djihed Afifi <djihed@gmail.com> 
 
 	* ar.po: Updated Arabic Translation by Anas Husseini.
 
-2008-01-1  Djihed Afifi <djihed@gmail.com> 
+2008-01-01  Djihed Afifi <djihed@gmail.com> 
 
 	* ar.po: Updated Arabic Translation by Anas Husseini.
 
@@ -19,7 +23,7 @@
 
 2007-12-19  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation by Daniel Mustieles.
+	* es.po: Updated Spanish translation by Daniel Mustieles.
 
 2007-12-14  Stéphane Raimbault  <stephane.raimbault@gmail.com>
 
