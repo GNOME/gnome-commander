@@ -49,22 +49,16 @@ struct _GnomeCmdMainMenuClass
 };
 
 
-GtkWidget*
-gnome_cmd_main_menu_new (void);
+GtkWidget * gnome_cmd_main_menu_new (void);
 
-GtkType
-gnome_cmd_main_menu_get_type (void);
+GtkType gnome_cmd_main_menu_get_type (void);
 
-void
-gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu);
+void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu);
 
-void
-gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu);
+void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu);
 
-void
-gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu);
+void gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu);
 
-void
-gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *data);
+void gnome_cmd_main_menu_add_plugin_menu (GnomeCmdMainMenu *main_menu, PluginData *data);
 
 #endif // __GNOME_CMD_MAIN_MENU_H__

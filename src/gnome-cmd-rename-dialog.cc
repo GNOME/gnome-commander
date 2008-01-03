@@ -39,10 +39,7 @@ struct _GnomeCmdRenameDialogPrivate
 static GtkWindowClass *parent_class = NULL;
 
 
-static gboolean
-on_dialog_keypressed (GtkWidget *widget,
-                      GdkEventKey *event,
-                      gpointer user_data)
+static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
 {
     GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG(widget);
 
@@ -71,9 +68,7 @@ on_dialog_keypressed (GtkWidget *widget,
 }
 
 
-static gboolean
-on_focus_out (GtkWidget *widget,
-                      GdkEventKey *event)
+static gboolean on_focus_out (GtkWidget *widget, GdkEventKey *event)
 {
     gnome_cmd_file_unref (GNOME_CMD_RENAME_DIALOG(widget)->priv->finfo);
     gtk_widget_destroy (widget);
@@ -84,8 +79,7 @@ on_focus_out (GtkWidget *widget,
 /*******************************
  * Gtk class implementation
  *******************************/
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG (object);
 
@@ -96,16 +90,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdRenameDialogClass *klass)
+static void class_init (GnomeCmdRenameDialogClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -116,10 +108,9 @@ class_init (GnomeCmdRenameDialogClass *klass)
 }
 
 
-static void
-init (GnomeCmdRenameDialog *dialog)
+static void init (GnomeCmdRenameDialog *dialog)
 {
-    dialog->priv = g_new (GnomeCmdRenameDialogPrivate, 1);
+    dialog->priv = g_new0 (GnomeCmdRenameDialogPrivate, 1);
     gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event", GTK_SIGNAL_FUNC (on_dialog_keypressed), NULL);
     gtk_signal_connect (GTK_OBJECT (dialog), "focus-out-event", GTK_SIGNAL_FUNC (on_focus_out), NULL);
 }
@@ -129,8 +120,7 @@ init (GnomeCmdRenameDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gint height)
+GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gint height)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
 
@@ -161,8 +151,7 @@ gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gi
 }
 
 
-GtkType
-gnome_cmd_rename_dialog_get_type         (void)
+GtkType gnome_cmd_rename_dialog_get_type (void)
 {
     static GtkType dlg_type = 0;
 
@@ -185,4 +174,3 @@ gnome_cmd_rename_dialog_get_type         (void)
 
     return dlg_type;
 }
-
