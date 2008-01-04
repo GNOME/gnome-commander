@@ -496,7 +496,7 @@ inline gint get_row_from_rename_entry (GnomeCmdAdvrenameDialog *dialog, RenameEn
 inline void add_rename_entry (GnomeCmdAdvrenameDialog *dialog, GnomeCmdFile *finfo)
 {
     gint row;
-    gchar *text[3],
+    gchar *text[4],
           *fname = get_utf8 (finfo->info->name);
     RenameEntry *entry = rename_entry_new ();
 
@@ -505,6 +505,7 @@ inline void add_rename_entry (GnomeCmdAdvrenameDialog *dialog, GnomeCmdFile *fin
     text[0] = fname;
     text[1] = NULL;
     text[2] = NULL;
+    text[3] = NULL;
 
     row = gtk_clist_append (GTK_CLIST (dialog->priv->res_list), text);
     gtk_clist_set_row_data (GTK_CLIST (dialog->priv->res_list), row, entry);
@@ -544,7 +545,7 @@ inline void update_remove_all_button (GnomeCmdAdvrenameDialog *dialog)
 inline void add_pattern_entry (GnomeCmdAdvrenameDialog *dialog, PatternEntry *entry)
 {
     gint row;
-    gchar *text[3];
+    gchar *text[4];
 
     if (!entry) return;
 
@@ -576,10 +577,10 @@ inline gchar *update_entry (PatternEntry *entry, GnomeCmdStringDialog *string_di
 
 static gboolean on_add_rule_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdAdvrenameDialog *dialog)
 {
-    gchar *error_desc;
     PatternEntry *entry = g_new0 (PatternEntry, 1);
 
-    error_desc = update_entry (entry, string_dialog, values);
+    gchar *error_desc = update_entry (entry, string_dialog, values);
+
     if (error_desc != NULL)
     {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
@@ -600,16 +601,17 @@ static gboolean on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog, con
     GtkWidget *pat_list = dialog->priv->pat_list;
     gint row = GTK_CLIST (pat_list)->focus_row;
     PatternEntry *entry = (PatternEntry *) g_list_nth_data (dialog->priv->defaults->patterns, row);
-    gchar *text[3], *error_desc;
 
     g_return_val_if_fail (entry != NULL, TRUE);
 
-    error_desc = update_entry (entry, string_dialog, values);
+    gchar *error_desc = update_entry (entry, string_dialog, values);
     if (error_desc != NULL)
     {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
         return FALSE;
     }
+
+    gchar *text[4];
 
     format_entry (entry, text);
     //gtk_clist_set_foreground(GTK_CLIST (pat_list), row, entry->malformed_pattern ? &red : &black);
@@ -628,16 +630,14 @@ static GtkWidget *create_rule_dialog (GnomeCmdAdvrenameDialog *parent_dialog, co
 {
     // Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
     const gchar *labels[] = {_("Replace this:"), _("With this:")};
-    GtkWidget *dialog;
-    GtkWidget *case_check;
 
-    dialog = gnome_cmd_string_dialog_new (title, labels, 2, on_ok_func, parent_dialog);
+    GtkWidget *dialog = gnome_cmd_string_dialog_new (title, labels, 2, on_ok_func, parent_dialog);
     gtk_widget_ref (dialog);
-    gtk_object_set_data_full (GTK_OBJECT (parent_dialog), "rule-dialog", dialog, (GtkDestroyNotify)gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (parent_dialog), "rule-dialog", dialog, (GtkDestroyNotify) gtk_widget_unref);
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, entry?entry->from:"");
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, entry?entry->to:"");
 
-    case_check = create_check (dialog, _("Case sensitive matching"), "case_check");
+    GtkWidget *case_check = create_check (dialog, _("Case sensitive matching"), "case_check");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (case_check), entry?entry->case_sens:FALSE);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), case_check);
 
@@ -763,13 +763,13 @@ inline void change_names (GnomeCmdAdvrenameDialog *dialog)
 
 static void on_rule_add (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
-    create_rule_dialog (dialog, _("New Rule"), (GnomeCmdStringDialogCallback)on_add_rule_dialog_ok, NULL);
+    create_rule_dialog (dialog, _("New Rule"), (GnomeCmdStringDialogCallback) on_add_rule_dialog_ok, NULL);
 }
 
 
 static void on_rule_edit (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
-    create_rule_dialog (dialog, _("Edit Rule"), (GnomeCmdStringDialogCallback)on_edit_rule_dialog_ok, dialog->priv->sel_entry);
+    create_rule_dialog (dialog, _("Edit Rule"), (GnomeCmdStringDialogCallback) on_edit_rule_dialog_ok, dialog->priv->sel_entry);
 }
 
 
