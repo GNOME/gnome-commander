@@ -1,7 +1,8 @@
 2008-01-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
-	Fixed the size of text array (text[3] -> text[4])
+	Fixed the size of text array (text[3] -> text[4]).
+	That fixes crashes #346286, #424447, #447882, #467058.
 
 2008-01-03  Piotr Eljasiak  <epiotr@use.pl>
 
