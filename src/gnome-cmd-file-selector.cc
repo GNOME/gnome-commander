@@ -1461,14 +1461,7 @@ void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs)
         return;
 
     // create a command with an empty argument to the editor
-    gchar *cmd = g_strdup (gnome_cmd_data_get_editor ());
-    gint l = strlen(cmd);
-    for (gint i=0; i<l; i++)
-        if (cmd[i] == ' ')
-        {
-            cmd[i] = '\0';
-            break;
-        }
+    gchar *cmd = g_strdup_printf (gnome_cmd_data_get_editor (), "");
 
     gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->priv->cwd));
     run_command_indir (cmd, dpath, FALSE);

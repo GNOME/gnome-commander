@@ -1,3 +1,8 @@
+2008-01-06  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.cc:
+	Fix for starting the new document
+
 2008-01-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
