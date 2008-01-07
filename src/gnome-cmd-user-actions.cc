@@ -227,6 +227,7 @@ void GnomeCmdUserActions::init()
     actions.add(file_delete, "file.delete");
     actions.add(file_diff, "file.diff");
     actions.add(file_edit, "file.edit");
+    actions.add(file_edit_new_doc, "file.edit_new_doc");
     actions.add(file_exit, "file.exit");
     actions.add(file_external_view, "file.external_view");
     actions.add(file_internal_view, "file.internal_view");
@@ -269,7 +270,7 @@ void GnomeCmdUserActions::init()
     actions.add(view_up, "view.up");
 
     register_action(GDK_F3, "file.view");
-    register_action(GDK_F4, "file.mkdir");
+    register_action(GDK_F4, "file.edit");
     register_action(GDK_F5, "file.copy");
     register_action(GDK_F6, "file.rename");
     register_action(GDK_F7, "file.mkdir");
@@ -308,6 +309,9 @@ void GnomeCmdUserActions::init()
 
     if (!registered("file.create_symlink"))
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F5, "file.create_symlink");
+
+    if (!registered("file.edit_new_doc"))
+        register_action(GDK_SHIFT_MASK, GDK_F4, "file.edit_new_doc");
 
     if (!registered("file.external_view"))
         register_action(GDK_MOD1_MASK, GDK_F3, "file.external_view");
@@ -636,6 +640,12 @@ void file_edit (GtkMenuItem *menuitem, gpointer not_used)
         gnome_cmd_file_selector_start_editor (get_fs (ACTIVE));
     else
         gnome_cmd_file_list_edit (get_fl (ACTIVE));
+}
+
+
+void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_file_selector_start_editor (get_fs (ACTIVE));
 }
 
 

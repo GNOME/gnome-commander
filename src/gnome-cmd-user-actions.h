@@ -95,6 +95,7 @@ GNOME_CMD_USER_ACTION(file_view);
 GNOME_CMD_USER_ACTION(file_internal_view);
 GNOME_CMD_USER_ACTION(file_external_view);
 GNOME_CMD_USER_ACTION(file_edit);
+GNOME_CMD_USER_ACTION(file_edit_new_doc);
 GNOME_CMD_USER_ACTION(file_chmod);
 GNOME_CMD_USER_ACTION(file_chown);
 GNOME_CMD_USER_ACTION(file_mkdir);

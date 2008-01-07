@@ -1952,10 +1952,6 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
     {
         switch (event->keyval)
         {
-            case GDK_F4:
-                gnome_cmd_file_selector_start_editor (fs);
-                return TRUE;
-
             case GDK_F5:
                 gnome_cmd_file_list_show_make_copy_dialog (fs);
                 return TRUE;

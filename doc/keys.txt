@@ -4,7 +4,7 @@ Keyboard mapping for GNOME Commander v1.2
 F1              Help
 F2              Refresh files in the active file list
 F3              View files
-F4              Edit files
+F4              Edit file
 F5              Copy files
 F6              Rename or move files
 F7              Create directory

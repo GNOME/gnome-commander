@@ -3735,7 +3735,7 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>F4</keycap></keycombo></para></entry>
-            <entry><para>Edit files</para></entry>
+            <entry><para>Edit file</para></entry>
             <entry><para></para></entry>
         </row>
         <row valign="top">
@@ -3821,7 +3821,7 @@
         <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F4</keycap></keycombo></entry>
             <entry><para>Edit a new file</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></entry>
@@ -4429,8 +4429,13 @@
                     </row>
                     <row valign="top">
                         <entry><para>file.edit</para></entry>
-                        <entry><para>Edit files</para></entry>
+                        <entry><para>Edit file</para></entry>
                         <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.edit_new_doc</para></entry>
+                        <entry><para>Edit a new file</para></entry>
+                        <entry><para><keycombo><keycap>SHIFT</keycap><keycap>F4</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>file.exit</para></entry>
