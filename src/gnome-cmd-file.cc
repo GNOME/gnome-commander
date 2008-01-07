@@ -391,22 +391,16 @@ gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *finfo)
 
 const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *file)
 {
-    gint i, len;
-
     g_return_val_if_fail (file != NULL, NULL);
     g_return_val_if_fail (file->info != NULL, NULL);
 
     if (file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         return NULL;
 
-    len = strlen (file->info->name);
-    for (i=len; i>0; i--)
-    {
-        if (file->info->name[i] == '.')
-            return &file->info->name[i+1];
-    }
+    const char *s = strrchr (file->info->name, '.');        // does NOT work on UTF-8 strings, should be (MUCH SLOWER):
+    // const char *s = g_utf8_strrchr (file->info->name, -1, '.');
 
-    return NULL;
+    return s ? s+1 : NULL;
 }
 
 
