@@ -126,6 +126,8 @@ inline _GnomeCmdConnectDialogPrivate::_GnomeCmdConnectDialogPrivate()
     user_entry = gtk_entry_new ();
     password_entry = gtk_entry_new ();
 
+    gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
+
     // We need an extra ref so we can remove them from the table
     g_object_ref (alias_entry);
     g_object_ref (uri_entry);

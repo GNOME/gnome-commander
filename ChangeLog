@@ -11,6 +11,9 @@
 	* src/tags/gnome-cmd-tags-file.cc:
 	Set File.Path tag properly
 
+	* src/gnome-cmd-con-dialog.cc:
+	Set password entry hidden
+
 2008-01-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:
