@@ -4,6 +4,10 @@
 	* src/gnome-cmd-file.h:
 	Added gnome_cmd_file_get_dirname() 
 
+	* src/tags/gnome-cmd-tags-doc.cc:
+	* src/tags/gnome-cmd-tags-exiv2.cc:
+	Fix for memory leak in tag handling
+
 2008-01-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:

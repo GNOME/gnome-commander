@@ -469,7 +469,7 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
     if (!gnome_cmd_file_is_local(finfo))  return;
 
     GError *err = NULL;
-    const gchar *fname = gnome_cmd_file_get_real_path(finfo);
+    gchar *fname = gnome_cmd_file_get_real_path(finfo);
 
     DEBUG('t', "Loading doc metadata for '%s'\n", fname);
 
@@ -482,8 +482,11 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
         g_return_if_fail (err != NULL);
         g_warning ("'%s' error: %s", fname, err->message);
         g_error_free (err);
+        g_free (fname);
         return;
     }
+
+    g_free (fname);
 
     GsfInfile *infile = NULL;
 
