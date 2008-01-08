@@ -53,14 +53,14 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *finfo)
 
     // if (!gnome_cmd_file_is_local(finfo))  return;
 
-    const gchar *fname = gnome_cmd_file_get_real_path(finfo);
+    gchar *dpath = gnome_cmd_file_get_dirname(finfo);
 
     static char buff[32];
 
-    // DEBUG('t', "Loading file metadata for '%s'\n", fname);
-
     finfo->metadata->add(TAG_FILE_NAME, finfo->info->name);
-    finfo->metadata->add(TAG_FILE_PATH, fname);              // g_utf8_strrchr (fname, -1, G_DIR_SEPARATOR);
+    finfo->metadata->add(TAG_FILE_PATH, dpath);
+
+    g_free(dpath);
 
     gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
     finfo->metadata->add(TAG_FILE_LINK, uri_str);

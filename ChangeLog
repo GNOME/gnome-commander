@@ -8,6 +8,9 @@
 	* src/tags/gnome-cmd-tags-exiv2.cc:
 	Fix for memory leak in tag handling
 
+	* src/tags/gnome-cmd-tags-file.cc:
+	Set File.Path tag properly
+
 2008-01-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:
