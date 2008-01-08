@@ -77,6 +77,7 @@ gchar *gnome_cmd_file_get_quoted_name (GnomeCmdFile *file);
 gchar *gnome_cmd_file_get_path (GnomeCmdFile *finfo);
 gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *finfo);
 gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *finfo);
+gchar *gnome_cmd_file_get_dirname (GnomeCmdFile *finfo);
 GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *finfo);
 gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *finfo);
 
