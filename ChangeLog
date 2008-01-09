@@ -3,6 +3,23 @@
 	* src/gnome-cmd-data.cc:
 	Set default value for "/network/use_gnome_auth_manager" to FALSE
 
+	* pixmaps/Makefile.am:
+	* pixmaps/desktop.xpm:
+	* pixmaps/exec.xpm:
+	* pixmaps/ftp_connect.xpm:
+	* pixmaps/ftp_disconnect.xpm:
+	* pixmaps/ftp.xpm:
+	* pixmaps/home.xpm:
+	* pixmaps/key.xpm:
+	* pixmaps/lock.xpm:
+	* pixmaps/mkdir.xpm:
+	* pixmaps/server.xpm:
+	* pixmaps/smb-computer.xpm:
+	* pixmaps/smb-network.xpm:
+	* src/imageloader.cc:
+	* src/imageloader.h:
+	Removed unused pixmaps
+
 2008-01-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:

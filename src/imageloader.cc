@@ -56,25 +56,18 @@ static const gchar *pixmap_files[NUM_PIXMAPS] = {
     "gnome_cmd_arrow_up.xpm",
     "gnome_cmd_arrow_down.xpm",
     "gnome_cmd_arrow_blank.xpm",
-    "server.xpm",
+
     "gnome-commander.xpm",
-    "exec.xpm",
     "exec_wheel.xpm",
-    "mkdir.xpm",
-    "lock.xpm",
-    "home.xpm",
-    "desktop.xpm",
-    "smb-network.xpm",
-    "smb-computer.xpm",
     "menu_bookmark.xpm",
+
     "overlay_symlink.xpm",
     "overlay_umount.xpm",
     "parent_dir.xpm",
     "root_dir.xpm",
-    "ftp_connect.xpm",
-    "ftp_disconnect.xpm",
     "toggle_vertical.xpm",
     "toggle_horizontal.xpm",
+
     "internal-viewer.xpm"
 };
 
