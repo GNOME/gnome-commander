@@ -20,6 +20,9 @@
 	* src/imageloader.h:
 	Removed unused pixmaps
 
+	* src/gnome-cmd-user-actions.cc:
+	Made "view.home" working on non-home connections too
+
 2008-01-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:

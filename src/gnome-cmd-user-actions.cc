@@ -1138,13 +1138,14 @@ void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_home (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE), "~");
+    gnome_cmd_file_selector_set_connection (get_fs (ACTIVE), get_home_con ());
+    gnome_cmd_file_selector_goto_directory (get_fs (ACTIVE), "~");
 }
 
 
 void view_root (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE), "/");
+    gnome_cmd_file_selector_goto_directory (get_fs (ACTIVE), "/");
 }
 
 
