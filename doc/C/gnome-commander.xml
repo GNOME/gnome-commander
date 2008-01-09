@@ -5076,8 +5076,8 @@
                                 <row valign="top">
                                     <entry><para>[network]</para></entry>
                                     <entry><para>use_gnome_auth_manager</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>boolean</para></entry>
+                                    <entry><para>Usage of GNOME authentication manager for password handling. Defaults to FALSE.</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">

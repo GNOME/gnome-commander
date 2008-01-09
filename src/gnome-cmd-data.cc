@@ -1513,7 +1513,7 @@ void gnome_cmd_data_load (void)
 
     data->priv->main_win_state = (GdkWindowState) gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
 
-    data->priv->use_gnome_auth_manager = gnome_cmd_data_get_bool ("/network/use_gnome_auth_manager", TRUE);
+    data->priv->use_gnome_auth_manager = gnome_cmd_data_get_bool ("/network/use_gnome_auth_manager", FALSE);
     data->priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com");
 
     if (strcmp (data->priv->ftp_anonymous_password, "you@provider.com")==0)   // if '/network/ftp_anonymous_password' entry undefined, try to read '/ftp/anonymous_password'

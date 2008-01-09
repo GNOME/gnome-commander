@@ -1,3 +1,8 @@
+2008-01-09  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	Set default value for "/network/use_gnome_auth_manager" to FALSE
+
 2008-01-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:
