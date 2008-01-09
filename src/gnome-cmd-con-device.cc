@@ -440,10 +440,10 @@ void gnome_cmd_con_device_set_mountp (GnomeCmdConDevice *dev, const gchar *mount
 {
     g_return_if_fail (dev != NULL);
     g_return_if_fail (dev->priv != NULL);
+
     if (!mountp) return;
 
-    if (dev->priv->mountp)
-        g_free (dev->priv->mountp);
+    g_free (dev->priv->mountp);
 
     dev->priv->mountp = g_strdup (mountp);
 }
@@ -451,15 +451,13 @@ void gnome_cmd_con_device_set_mountp (GnomeCmdConDevice *dev, const gchar *mount
 
 void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *icon_path)
 {
-    GnomeCmdCon *con;
-
     g_return_if_fail (dev != NULL);
     g_return_if_fail (dev->priv != NULL);
 
-    if (dev->priv->icon_path)
-        g_free (dev->priv->icon_path);
+    g_free (dev->priv->icon_path);
 
-    con = GNOME_CMD_CON (dev);
+    GnomeCmdCon *con = GNOME_CMD_CON (dev);
+
     if (con->go_pixmap)
         gnome_cmd_pixmap_free (con->go_pixmap);
     if (con->open_pixmap)
@@ -500,7 +498,7 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
 }
 
 
-void gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev,    const gboolean autovol)
+void gnome_cmd_con_device_set_autovol (GnomeCmdConDevice *dev, const gboolean autovol)
 {
     g_return_if_fail (dev != NULL);
     g_return_if_fail (dev->priv != NULL);

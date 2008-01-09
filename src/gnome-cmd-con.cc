@@ -459,10 +459,8 @@ void gnome_cmd_con_updated (GnomeCmdCon *con)
 }
 
 
-/**
- * Get the type of the file at the specified path. If the operation
- * succeeds GNOME_VFS_OK is returned and type is set
- */
+// Get the type of the file at the specified path.
+// If the operation succeeds GNOME_VFS_OK is returned and type is set
 GnomeVFSResult gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path_str, GnomeVFSFileType *type)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), GNOME_VFS_ERROR_BAD_PARAMETERS);
@@ -516,8 +514,7 @@ void gnome_cmd_con_add_to_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
     gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
 
     if (!con->priv->all_dirs_map)
-        con->priv->all_dirs_map = g_hash_table_new_full (
-            g_str_hash, g_str_equal, g_free, NULL);
+        con->priv->all_dirs_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
     DEBUG ('k', "ADDING 0x%p %s to the cache\n", dir, uri_str);
     g_hash_table_insert (con->priv->all_dirs_map, uri_str, dir);
@@ -548,13 +545,11 @@ GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
         dir = (GnomeCmdDir *) g_hash_table_lookup (con->priv->all_dirs_map, uri_str);
 
     if (dir)
-    {
         DEBUG ('k', "FOUND 0x%p %s in the hash-table, reusing it!\n", dir, uri_str);
-        return dir;
-    }
+    else
+        DEBUG ('k', "FAILED to find %s in the hash-table\n", uri_str);
 
-    DEBUG ('k', "FAILED to find %s in the hash-table\n", uri_str);
-    return NULL;
+    return dir;
 }
 
 

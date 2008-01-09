@@ -2,7 +2,7 @@
 
 	* src/gnome-cmd-file.cc:
 	* src/gnome-cmd-file.h:
-	Added gnome_cmd_file_get_dirname() 
+	Added gnome_cmd_file_get_dirname()
 
 	* src/tags/gnome-cmd-tags-doc.cc:
 	* src/tags/gnome-cmd-tags-exiv2.cc:

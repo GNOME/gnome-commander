@@ -5776,7 +5776,7 @@
                             <para>Fixed problem #353889 (disappearing files after failed move (F6)))</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problems #346286, #424447, #447882, #467058 (crash when regex in renaming tool)</para>
+                            <para>Fixed problems #346286, #424447, #447882, #467058 (crash when using regex in renaming tool)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problems #365227 and #446361 (build issues on Solaris)</para>

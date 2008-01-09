@@ -165,7 +165,7 @@ inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
         if (strlen(key)==1 && ascii_isalnum (*key))
             key_val = *key;
 
-    for (const gchar *beg=s; beg=strchr(beg, '<'); ++beg)
+    for (const gchar *beg=s; (beg=strchr(beg, '<')); ++beg)
     {
         if (const gchar *end = strchr(beg, '>'))
             if (guint modifier = gdk_modifiers_names[string(beg,end-beg+1)])
