@@ -739,15 +739,18 @@ void gnome_cmd_file_edit (GnomeCmdFile *finfo)
 {
     g_return_if_fail (finfo != NULL);
 
-    gchar *fpath = gnome_cmd_file_get_real_path (finfo);
-    gchar *arg = g_shell_quote (fpath);
-    gchar *command = g_strdup_printf (gnome_cmd_data_get_editor (), arg);
+    if (!gnome_cmd_file_is_local (finfo))
+        return;
 
-    run_command (command, FALSE);
+    gchar *fpath = gnome_cmd_file_get_quoted_real_path (finfo);
+    gchar *dpath = gnome_cmd_file_get_dirname (finfo);
+    gchar *command = g_strdup_printf (gnome_cmd_data_get_editor (), fpath);
+
+    run_command_indir (command, dpath, FALSE);
 
     g_free (command);
+    g_free (dpath);
     g_free (fpath);
-    g_free (arg);
 }
 
 

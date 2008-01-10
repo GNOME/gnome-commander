@@ -4,6 +4,9 @@
 	* src/gnome-cmd-con-ftp.cc:
 	Add missing "umount" cross to close-connection toolbar button
 
+	* src/gnome-cmd-file.cc:
+	Run editor application in file's directory
+
 2008-01-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
