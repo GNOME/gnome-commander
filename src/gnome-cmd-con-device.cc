@@ -477,11 +477,10 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
 
         con->go_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
         con->open_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
-        con->close_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
 
-        if (con->close_pixmap)
+        if (con->open_pixmap)
         {
-            GdkPixbuf *overlay = gdk_pixbuf_copy (con->close_pixmap->pixbuf);
+            GdkPixbuf *overlay = gdk_pixbuf_copy (con->open_pixmap->pixbuf);
 
             if (overlay)
             {
@@ -493,7 +492,7 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
                                           MIN (gdk_pixbuf_get_width (umount), dev_icon_size),
                                           MIN (gdk_pixbuf_get_height (umount), dev_icon_size),
                                           overlay, 0, 0);
-                    // FIXME: free con->close_pixmap here
+
                     con->close_pixmap = gnome_cmd_pixmap_new_from_pixbuf (overlay);
                 }
 

@@ -10,6 +10,9 @@
 	* src/gnome-cmd-data.cc:
 	Yet another fix for storing advrename data (regex patterns)
 
+	* src/gnome-cmd-con-device.cc:
+	Fix for memory leak
+
 2008-01-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
