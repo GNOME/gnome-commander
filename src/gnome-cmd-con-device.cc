@@ -463,35 +463,41 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
     if (con->open_pixmap)
         gnome_cmd_pixmap_free (con->open_pixmap);
     if (con->close_pixmap)
-    {
         gnome_cmd_pixmap_free (con->close_pixmap);
-        con->close_pixmap = NULL;
-    }
 
-    if (!icon_path)
-        dev->priv->icon_path = NULL;
-    else
+    con->go_pixmap = NULL;
+    con->open_pixmap = NULL;
+    con->close_pixmap = NULL;
+
+    dev->priv->icon_path = g_strdup (icon_path);
+
+    if (icon_path)
     {
-        dev->priv->icon_path = g_strdup (icon_path);
-
         guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
 
         con->go_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
         con->open_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
-        if (con->open_pixmap)
+        con->close_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
+
+        if (con->close_pixmap)
         {
-            GdkPixbuf *tmp = IMAGE_get_pixbuf(PIXMAP_OVERLAY_UMOUNT);
-            if (tmp)
+            GdkPixbuf *overlay = gdk_pixbuf_copy (con->close_pixmap->pixbuf);
+
+            if (overlay)
             {
-                GdkPixbuf *overlay = gdk_pixbuf_copy (con->open_pixmap->pixbuf);
+                GdkPixbuf *umount = IMAGE_get_pixbuf (PIXMAP_OVERLAY_UMOUNT);
 
-                int w = gdk_pixbuf_get_width (tmp);
-                int h = gdk_pixbuf_get_height (tmp);
-                if (w > 14)  w = 14;
-                if (h > 14)  h = 14;
+                if (umount)
+                {
+                    gdk_pixbuf_copy_area (umount, 0, 0,
+                                          MIN (gdk_pixbuf_get_width (umount), dev_icon_size),
+                                          MIN (gdk_pixbuf_get_height (umount), dev_icon_size),
+                                          overlay, 0, 0);
+                    // FIXME: free con->close_pixmap here
+                    con->close_pixmap = gnome_cmd_pixmap_new_from_pixbuf (overlay);
+                }
 
-                gdk_pixbuf_copy_area (tmp, 0, 0, w, h, overlay, 0, 0);
-                con->close_pixmap = gnome_cmd_pixmap_new_from_pixbuf (overlay);
+                g_object_unref (overlay);
             }
         }
     }

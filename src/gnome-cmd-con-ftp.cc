@@ -204,6 +204,9 @@ static void class_init (GnomeCmdConFtpClass *klass)
 static void init (GnomeCmdConFtp *ftp_con)
 {
     guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
+    gint icon_size;
+
+    g_assert (gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_size, NULL));
 
     GnomeCmdCon *con = GNOME_CMD_CON (ftp_con);
 
@@ -214,9 +217,31 @@ static void init (GnomeCmdConFtp *ftp_con)
     con->can_show_free_space = FALSE;
     con->is_local = FALSE;
     con->is_closeable = TRUE;
-    con->go_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-ftp", dev_icon_size);
-    con->open_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-ftp", dev_icon_size);
-    con->close_pixmap = gnome_cmd_pixmap_new_from_icon ("gnome-fs-ftp", dev_icon_size);
+    con->go_pixmap = gnome_cmd_pixmap_new_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
+    con->open_pixmap = gnome_cmd_pixmap_new_from_icon (gnome_cmd_con_get_icon_name (con), dev_icon_size);
+    con->close_pixmap = gnome_cmd_pixmap_new_from_icon (gnome_cmd_con_get_icon_name (con), icon_size);
+
+    if (con->close_pixmap)
+    {
+        GdkPixbuf *overlay = gdk_pixbuf_copy (con->close_pixmap->pixbuf);
+
+        if (overlay)
+        {
+            GdkPixbuf *umount = IMAGE_get_pixbuf (PIXMAP_OVERLAY_UMOUNT);
+
+            if (umount)
+            {
+                gdk_pixbuf_copy_area (umount, 0, 0,
+                                      MIN (gdk_pixbuf_get_width (umount), icon_size),
+                                      MIN (gdk_pixbuf_get_height (umount), icon_size),
+                                      overlay, 0, 0);
+                // FIXME: free con->close_pixmap here
+                con->close_pixmap = gnome_cmd_pixmap_new_from_pixbuf (overlay);
+            }
+
+            g_object_unref (overlay);
+        }
+    }
 
     ftp_con->priv = g_new0 (GnomeCmdConFtpPrivate, 1);
 
