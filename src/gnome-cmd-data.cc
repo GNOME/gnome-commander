@@ -912,7 +912,7 @@ inline void save_rename_history ()
         csens = g_list_append (csens, (gpointer) (entry->case_sens ? "T" : "F"));
     }
 
-    gnome_cmd_data_set_int ("/options/template-auto-update", data->priv->advrename_defaults->auto_update);
+    gnome_cmd_data_set_int ("/advrename/template_auto_update", data->priv->advrename_defaults->auto_update);
     gnome_cmd_data_set_int ("/advrename/width", data->priv->advrename_defaults->width);
     gnome_cmd_data_set_int ("/advrename/height", data->priv->advrename_defaults->height);
 
@@ -924,14 +924,25 @@ inline void save_rename_history ()
     gnome_cmd_data_set_int ("/template-history/size", g_list_length (data->priv->advrename_defaults->templates->ents));
     gnome_cmd_data_set_string_history ("/template-history/template%d", data->priv->advrename_defaults->templates->ents);
 
-    gnome_cmd_data_set_int ("/options/counter_start", data->priv->advrename_defaults->counter_start);
-    gnome_cmd_data_set_int ("/options/counter_precision", data->priv->advrename_defaults->counter_precision);
-    gnome_cmd_data_set_int ("/options/counter_increment", data->priv->advrename_defaults->counter_increment);
+    gnome_cmd_data_set_int ("/advrename/counter_start", data->priv->advrename_defaults->counter_start);
+    gnome_cmd_data_set_int ("/advrename/counter_precision", data->priv->advrename_defaults->counter_precision);
+    gnome_cmd_data_set_int ("/advrename/counter_increment", data->priv->advrename_defaults->counter_increment);
 
-    gnome_cmd_data_set_int ("/options/rename-history-size",g_list_length (data->priv->advrename_defaults->patterns));
-    gnome_cmd_data_set_string_history ("/rename-history-from/from%d", from);
-    gnome_cmd_data_set_string_history ("/rename-history-to/to%d", to);
-    gnome_cmd_data_set_string_history ("/rename-history-csens/csens%d", csens);
+    gnome_cmd_data_set_int ("/rename-history/size",g_list_length (data->priv->advrename_defaults->patterns));
+    gnome_cmd_data_set_string_history ("/rename-history/from%d", from);
+    gnome_cmd_data_set_string_history ("/rename-history/to%d", to);
+    gnome_cmd_data_set_string_history ("/rename-history/csens%d", csens);
+
+    // removing config data used by gcmd < 1.2.5
+
+    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/template-auto-update");
+    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/counter_start");
+    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/counter_precision");
+    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/counter_increment");
+    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/rename-history-size");
+    gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/rename-history-from");
+    gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/rename-history-to");
+    gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/rename-history-csens");
 }
 
 
@@ -1041,7 +1052,7 @@ inline void load_rename_history ()
 
     data->priv->advrename_defaults = g_new0 (AdvrenameDefaults, 1);
 
-    data->priv->advrename_defaults->auto_update = gnome_cmd_data_get_int ("/advrename/template-auto-update", TRUE);
+    data->priv->advrename_defaults->auto_update = gnome_cmd_data_get_int ("/advrename/template_auto_update", TRUE);
     data->priv->advrename_defaults->width = gnome_cmd_data_get_int ("/advrename/width", 450);
     data->priv->advrename_defaults->height = gnome_cmd_data_get_int ("/advrename/height", 400);
 
@@ -1066,11 +1077,11 @@ inline void load_rename_history ()
     data->priv->advrename_defaults->counter_increment = gnome_cmd_data_get_int ("/advrename/counter_increment", 1);
 
     data->priv->advrename_defaults->patterns = NULL;
-    size = gnome_cmd_data_get_int ("/advrename/rename-history-size", 0);
+    size = gnome_cmd_data_get_int ("/rename-history/size", 0);
 
-    tmp_from = from = load_string_history ("/rename-history-from/from%d", size);
-    tmp_to = to = load_string_history ("/rename-history-to/to%d", size);
-    tmp_csens = csens = load_string_history ("/rename-history-csens/csens%d", size);
+    tmp_from = from = load_string_history ("/rename-history/from%d", size);
+    tmp_to = to = load_string_history ("/rename-history/to%d", size);
+    tmp_csens = csens = load_string_history ("/rename-history/csens%d", size);
 
     while (tmp_from && size > 0)
     {

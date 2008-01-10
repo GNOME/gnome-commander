@@ -5124,27 +5124,6 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>counter_increment</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>counter_precision</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>counter_start</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
                                     <entry><para>date_disp_mode</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5396,13 +5375,6 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>template-auto-update</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
                                     <entry><para>theme_icon_dir</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5640,6 +5612,34 @@
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>template_auto_update</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>counter_start</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>counter_precision</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>counter_increment</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
                                     <entry><para>[local_bookmarks]</para></entry>
                                     <entry><para>count</para></entry>
                                     <entry><para></para></entry>
@@ -5696,21 +5696,28 @@
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
-                                    <entry><para>[rename-history-from]</para></entry>
+                                    <entry><para>[rename-history]</para></entry>
+                                    <entry><para>size</para></entry>
+                                    <entry><para>integer</para></entry>
+                                    <entry><para>Number of from/to/csens<emphasis><subscript>n</subscript></emphasis> entries</para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
                                     <entry><para>from<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
-                                    <entry><para>[rename-history-to]</para></entry>
+                                    <entry><para></para></entry>
                                     <entry><para>to<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
-                                    <entry><para>[rename-history-csens]</para></entry>
+                                    <entry><para></para></entry>
                                     <entry><para>csens<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
