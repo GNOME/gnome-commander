@@ -292,71 +292,71 @@ void gnome_cmd_advrename_parse_fname(const char *fname)
 }
 
 
-static void mksubstr(int src_len, const CHUNK *p, int *pos, int *len)
+inline void mksubstr (int src_len, const CHUNK *p, int &pos, int &len)
 {
-  *pos = p->tag.beg<0 ? p->tag.beg+src_len : p->tag.beg;
-  *pos = MAX(*pos, 0);
+  pos = p->tag.beg<0 ? p->tag.beg+src_len : p->tag.beg;
+  pos = MAX(pos, 0);
 
-  if (*pos>=src_len)
+  if (pos>=src_len)
   {
-    *pos = *len = 0;
+    pos = len = 0;
     return;
   }
 
-  *len = p->tag.end>0 ? p->tag.end-*pos : src_len+p->tag.end-*pos;
-  *len = CLAMP(*len, 0, src_len-*pos);
+  len = p->tag.end>0 ? p->tag.end-pos : src_len+p->tag.end-pos;
+  len = CLAMP (len, 0, src_len-pos);
 }
 
 
-static void find_parent_dir(const char *path, int *offset, int *len)
+inline void find_parent_dir (const char *path, int &offset, int &len)
 {
-  char *slash = g_utf8_strrchr(path, -1, G_DIR_SEPARATOR);
+  char *slash = g_utf8_strrchr (path, -1, G_DIR_SEPARATOR);
   char *s = slash;
 
-  *offset = *len = 0;
+  offset = len = 0;
 
   if (!slash)  return;
 
   while (s!=path)
     if (*--s==G_DIR_SEPARATOR)
     {
-      *offset = ++s - path;
-      *len = slash - s;
+      offset = ++s - path;
+      len = slash - s;
 
       return;
     }
 
-  *len = slash-path;
+  len = slash-path;
 }
 
 
-static void find_grandparent_dir(const char *path, int *offset, int *len)
+inline void find_grandparent_dir (const char *path, int &offset, int &len)
 {
-  char *slash = g_utf8_strrchr(path, -1, G_DIR_SEPARATOR);
+  char *slash = g_utf8_strrchr (path, -1, G_DIR_SEPARATOR);
   char *s;
 
-  *offset = *len = 0;
+  offset = len = 0;
 
   if (slash==path || !slash)  return;
 
-  s = slash = g_utf8_strrchr(path, slash-path-1, G_DIR_SEPARATOR);
+  s = slash = g_utf8_strrchr (path, slash-path-1, G_DIR_SEPARATOR);
 
   if (!slash)  return;
 
   while (s!=path)
     if (*--s==G_DIR_SEPARATOR)
     {
-      *offset = ++s - path;
-      *len = slash - s;
+      offset = ++s - path;
+      len = slash - s;
 
       return;
     }
 
-  *len = slash-path;
+  len = slash-path;
 }
 
 
-char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, GnomeCmdFile *finfo)
+char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, GnomeCmdFile *finfo)
 {
   char *fname = get_utf8(finfo->info->name);
   char *s = g_utf8_strrchr (fname, -1, '.');
@@ -387,8 +387,8 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
     ext_len = g_utf8_strlen(s+1, -1);
   }
 
-  find_parent_dir(gnome_cmd_file_get_path(finfo),&parent_dir_offset,&parent_dir_len);
-  find_grandparent_dir(gnome_cmd_file_get_path(finfo),&grandparent_dir_offset,&grandparent_dir_len);
+  find_parent_dir (gnome_cmd_file_get_path(finfo), parent_dir_offset, parent_dir_len);
+  find_grandparent_dir (gnome_cmd_file_get_path(finfo), grandparent_dir_offset, grandparent_dir_len);
 
   for (; gl; gl=gl->next)
   {
@@ -401,27 +401,27 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
                     break;
 
       case NAME  :
-                    mksubstr(name_len,p,&from,&length);
+                    mksubstr(name_len,p,from,length);
                     fmt = g_string_append_len(fmt,fname+from,length);
                     break;
 
       case EXTENSION:
-                    mksubstr(ext_len,p,&from,&length);
+                    mksubstr(ext_len,p,from,length);
                     fmt = g_string_append_len(fmt,fname+ext_offset+from,length);
                     break;
 
       case FULL_NAME:
-                    mksubstr(full_name_len,p,&from,&length);
+                    mksubstr(full_name_len,p,from,length);
                     fmt = g_string_append_len(fmt,fname+from,length);
                     break;
 
       case PARENT_DIR:
-                    mksubstr(parent_dir_len,p,&from,&length);
+                    mksubstr(parent_dir_len,p,from,length);
                     fmt = g_string_append_len(fmt,gnome_cmd_file_get_path(finfo)+parent_dir_offset+from,length);
                     break;
 
       case GRANDPARENT_DIR:
-                    mksubstr(grandparent_dir_len,p,&from,&length);
+                    mksubstr(grandparent_dir_len,p,from,length);
                     fmt = g_string_append_len(fmt,gnome_cmd_file_get_path(finfo)+grandparent_dir_offset+from,length);
                     break;
 
@@ -437,7 +437,7 @@ char *gnome_cmd_advrename_gen_fname(char *new_fname, size_t new_fname_size, Gnom
 
                         if (tag_value)
                         {
-                            mksubstr(strlen(tag_value),p,&from,&length);
+                            mksubstr(strlen(tag_value),p,from,length);
                             fmt = g_string_append_len(fmt,tag_value+from,length);
                         }
                     }

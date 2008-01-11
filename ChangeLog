@@ -1,3 +1,8 @@
+2008-01-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.ll:
+	C++ optimisation
+
 2008-01-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con-device.cc:
