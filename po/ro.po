@@ -8,18 +8,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-02 11:40+0200\n"
-"PO-Revision-Date: 2008-01-02 11:40+0200\n"
+"POT-Creation-Date: 2008-01-13 11:57+0200\n"
+"PO-Revision-Date: 2008-01-13 11:57+0200\n"
 "Last-Translator: Cosmin Humeniuc <cosmin@mandrivausers.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Romanian\n"
+"X-Poedit-Country: ROMANIA\n"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
-msgstr "Manager de fisiere dublu-panou"
+msgstr "Manager de fişiere dublu-panou"
 
 #: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-main-win.cc:764
 msgid "GNOME Commander"
@@ -27,21 +29,21 @@ msgstr "GNOME Commander"
 
 #: ../libgcmd/gnome-cmd-string-dialog.c:130
 msgid "No error description available"
-msgstr "Descrierea erorii nu este disponibila"
+msgstr "Descrierea erorii nu este disponibilă"
 
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
 #: ../src/gnome-cmd-options-dialog.cc:1179
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
-#: ../src/gnome-cmd-prepare-move-dialog.cc:120
+#: ../src/gnome-cmd-prepare-move-dialog.cc:118
 #: ../src/gnome-cmd-remote-dialog.cc:526
 msgid "Options"
-msgstr "Optiuni"
+msgstr "Opţiuni"
 
 #: ../plugins/cvs/cvs-plugin.c:315
 msgid "CVS options"
-msgstr "Optiuni CVS"
+msgstr "Opţiuni CVS"
 
 #: ../plugins/cvs/cvs-plugin.c:318
 msgid "Compression level"
@@ -57,7 +59,7 @@ msgstr "Plug-in care eventual va deveni un simplu client CVS"
 
 #: ../plugins/cvs/interface.c:159
 msgid "Compare with"
-msgstr "Compara cu"
+msgstr "Compară cu"
 
 #: ../plugins/cvs/interface.c:162
 msgid "HEAD"
@@ -65,11 +67,11 @@ msgstr "HEAD"
 
 #: ../plugins/cvs/interface.c:166
 msgid "The previous revision"
-msgstr "Revizia precedenta"
+msgstr "Revizia precedentă"
 
 #: ../plugins/cvs/interface.c:172
 msgid "Other revision"
-msgstr "Revizie alternativa"
+msgstr "Revizie alternativă"
 
 #: ../plugins/cvs/interface.c:259
 msgid "CVS Diff"
@@ -85,7 +87,7 @@ msgstr "Revizie:"
 
 #: ../plugins/cvs/interface.c:458
 msgid "Compare..."
-msgstr "Compara..."
+msgstr "Compară..."
 
 #: ../plugins/cvs/interface.c:461
 msgid "Author:"
@@ -97,7 +99,7 @@ msgstr "Data:"
 
 #: ../plugins/cvs/interface.c:489
 msgid "State:"
-msgstr "Stat:"
+msgstr "Stare:"
 
 #: ../plugins/cvs/interface.c:503
 msgid "Lines:"
@@ -109,32 +111,32 @@ msgstr "Mesaj:"
 
 #: ../plugins/fileroller/file-roller-plugin.c:183
 msgid "What filename should the new archive have?"
-msgstr "Ce nume de fisier ar trebui sa aiba noua arhiva?"
+msgstr "Ce nume de fişier ar trebui să aibă noua arhivă?"
 
 #: ../plugins/fileroller/file-roller-plugin.c:185
 msgid "Create Archive"
-msgstr "Creeaza arhiva"
+msgstr "Creează arhivă"
 
 #: ../plugins/fileroller/file-roller-plugin.c:288
 msgid "Create Archive..."
-msgstr "Creaza Arhiva..."
+msgstr "Creează arhivă..."
 
 #: ../plugins/fileroller/file-roller-plugin.c:301
 msgid "Extract in Current Directory"
-msgstr "Extrage in directorul curent"
+msgstr "Extrage în directorul curent"
 
 #: ../plugins/fileroller/file-roller-plugin.c:307
 #, c-format
 msgid "Extract to '%s'"
-msgstr "Extrage in '%s'"
+msgstr "Extrage în '%s'"
 
 #: ../plugins/fileroller/file-roller-plugin.c:360
 msgid "File-roller options"
-msgstr "Optiuni Fille-roller"
+msgstr "Opţiuni Fille-roller"
 
 #: ../plugins/fileroller/file-roller-plugin.c:363
 msgid "Default type"
-msgstr "Tip principal"
+msgstr "Tip implicit"
 
 #: ../plugins/fileroller/file-roller-plugin.c:479
 msgid ""
@@ -153,11 +155,11 @@ msgstr ""
 "module."
 
 #: ../src/dirlist.cc:72
-#, fuzzy, c-format
+#, c-format
 msgid "%d file listed"
 msgid_plural "%d files listed"
-msgstr[0] "Nu a fost selectat nici un server"
-msgstr[1] "Nu a fost selectat nici un server"
+msgstr[0] "%d fişier listat"
+msgstr[1] "%d fişiere listate"
 
 #: ../src/gnome-cmd-about-plugin.cc:182
 msgid "Credits"
@@ -177,7 +179,7 @@ msgstr "Tradus de"
 
 #: ../src/gnome-cmd-about-plugin.cc:289
 msgid "Plugin Webpage"
-msgstr "Website plug-in-uri"
+msgstr "Pagină web de plug-in-uri"
 
 #: ../src/gnome-cmd-about-plugin.cc:301
 msgid "C_redits"
@@ -209,18 +211,16 @@ msgid "/File extension"
 msgstr "/Extensie fişier"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:159
-#, fuzzy
 msgid "/Counter"
-msgstr "Conecteaza"
+msgstr "/Contor"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:160
-#, fuzzy
 msgid "/Counter (precision)"
-msgstr "Revizie alternativa"
+msgstr "/Contor (precizie)"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:162
 msgid "/Date/<locale>"
-msgstr ""
+msgstr "/Data/<locală>"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:163
 msgid "/Date/yyyy-mm-dd"
@@ -268,7 +268,7 @@ msgstr "/Data/zz"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:174
 msgid "/Time/<locale>"
-msgstr ""
+msgstr "/Ora/<locală>"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:175
 msgid "/Time/HH.MM.SS"
@@ -304,19 +304,18 @@ msgstr "Da"
 msgid "No"
 msgstr "Nu"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:563
+#: ../src/gnome-cmd-advrename-dialog.cc:564
 msgid "Invalid source pattern"
-msgstr "Sursa tipar invalida"
+msgstr "Sursă şablon invalidă"
 
 #. Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
-#: ../src/gnome-cmd-advrename-dialog.cc:630
+#: ../src/gnome-cmd-advrename-dialog.cc:632
 msgid "Replace this:"
-msgstr "Inlocuieste:"
+msgstr "Înlocuieşte asta:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:630
-#, fuzzy
+#: ../src/gnome-cmd-advrename-dialog.cc:632
 msgid "With this:"
-msgstr "Cu"
+msgstr "Cu asta:"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:640
 msgid "Case sensitive matching"
@@ -324,11 +323,11 @@ msgstr "Potrivire caz senzitiv"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:766
 msgid "New Rule"
-msgstr "Regula noua"
+msgstr "Regulă nouă"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:772
 msgid "Edit Rule"
-msgstr "Modifica regula"
+msgstr "Editează regula"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:980
 msgid "Counter start value:"
@@ -340,11 +339,11 @@ msgstr "Incrementare contor:"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:982
 msgid "Counter minimum digit count:"
-msgstr "Numar minim contorizare"
+msgstr "Număr minim de cifre contor:"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:987
 msgid "Template Options"
-msgstr "Optiuni tema"
+msgstr "Opţiuni şablon"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:991
 msgid "Auto-update when the template is entered"
@@ -356,24 +355,24 @@ msgstr "Utilitar redenumire avansata"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1093 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
-msgstr "Tema"
+msgstr "Şablon"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1114
 msgid "O_ptions..."
 msgstr "O_pţiuni..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1121 ../src/gnome-cmd-file.cc:563
+#: ../src/gnome-cmd-advrename-dialog.cc:1121 ../src/gnome-cmd-file.cc:568
 msgid "Directory"
 msgstr "Director"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1124 ../src/plugin_manager.cc:422
 #: ../src/tags/gnome-cmd-tags.cc:659
 msgid "File"
-msgstr "Fisier"
+msgstr "Fişier"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1127
 msgid "Counter"
-msgstr ""
+msgstr "Contor"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1130 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
@@ -390,40 +389,37 @@ msgstr "Inlocuire regex"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1143
 msgid "Replace this"
-msgstr "Inlocuieste"
+msgstr "Înlocuieşte asta"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1144
 msgid "With this"
-msgstr "Cu"
+msgstr "Cu asta"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1145
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
-msgstr "Caz senzitiv"
+msgstr "Majuscule semnificative"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1168
 msgid "Re_move All"
-msgstr "Re_locare Tot"
+msgstr "Şte_rge tot"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1188
 msgid "Result"
 msgstr "Rezultat"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1193
-#, fuzzy
 msgid "Current file names"
-msgstr "Nume fisiere curente"
+msgstr "Nume curente de fişiere"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1194
-#, fuzzy
 msgid "New file names"
-msgstr "Nume fisiere noi"
+msgstr "Nume noi de fişiere"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1200
-#, fuzzy
 msgid "Rese_t"
-msgstr "Anuleaza"
+msgstr "Rese_tează"
 
 #: ../src/gnome-cmd-bookmark-dialog.cc:71
 msgid "Bookmark name:"
@@ -467,8 +463,8 @@ msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
 msgstr ""
-"Pentru a aduga un director la favorite intreaga cale spre acel director "
-"trebuie sa fie in codare UTF-8 valida\n"
+"Pentru a adăuga un director la favorite întreaga cale spre acel director "
+"trebuie să fie în codare UTF-8 validă\n"
 
 #: ../src/gnome-cmd-bookmark-dialog.cc:585
 msgid "New Bookmark"
@@ -476,7 +472,7 @@ msgstr "O noua favorita"
 
 #: ../src/gnome-cmd-chmod-component.cc:124
 msgid "Read"
-msgstr "Citeste"
+msgstr "Citeşte"
 
 #: ../src/gnome-cmd-chmod-component.cc:124
 msgid "Write"
@@ -484,7 +480,7 @@ msgstr "Scrie"
 
 #: ../src/gnome-cmd-chmod-component.cc:124
 msgid "Execute"
-msgstr "Executa"
+msgstr "Execută"
 
 #: ../src/gnome-cmd-chmod-component.cc:125
 #: ../src/gnome-cmd-chown-component.cc:88
@@ -527,11 +523,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-chmod-dialog.cc:210
 msgid "Access Permissions"
-msgstr "Acces permisii"
+msgstr "Permisiuni de acces"
 
 #: ../src/gnome-cmd-chmod-dialog.cc:228
 msgid "Apply Recursively for"
-msgstr "Aplica recursiv pentru"
+msgstr "Aplică recursiv pentru"
 
 #: ../src/gnome-cmd-chown-dialog.cc:55
 #, c-format
@@ -548,24 +544,25 @@ msgstr "Chown"
 
 #: ../src/gnome-cmd-chown-dialog.cc:190
 msgid "Apply Recursively"
-msgstr "Aplica recursiv"
+msgstr "Aplică recursiv"
 
 #: ../src/gnome-cmd-con-device.cc:115
+#, c-format
 msgid "Failed to execute the mount command"
 msgstr "Executare fara succes a comenzii mount"
 
 #: ../src/gnome-cmd-con-device.cc:123
 msgid "Mount failed: Permission denied"
-msgstr "Mount esuat: Permisiune refuzata"
+msgstr "Montare eşuată: Permisiune refuzată"
 
 #: ../src/gnome-cmd-con-device.cc:126
 msgid "Mount failed: No medium found"
-msgstr "Mount esuat: Nu s-a gasit nici un mediu"
+msgstr "Montare eşuată: Nu s-a găsit niciun mediu"
 
 #: ../src/gnome-cmd-con-device.cc:130
 #, c-format
 msgid "Mount failed: mount exited with existatus %d"
-msgstr "Mount esuat: mount terminat cu stare %d"
+msgstr "Montare eşuată: mount terminat cu stare %d"
 
 #: ../src/gnome-cmd-con-device.cc:206
 msgid ""
@@ -591,7 +588,7 @@ msgstr "Eroare necunoscută"
 #: ../src/gnome-cmd-con-device.cc:403
 #, c-format
 msgid "Mounting %s"
-msgstr "Mounting %s"
+msgstr "Montez %s"
 
 #: ../src/gnome-cmd-con-device.cc:419
 #, c-format
@@ -608,121 +605,118 @@ msgstr "Mount: %s"
 msgid "Unmount: %s"
 msgstr "Unmount: %s"
 
-#: ../src/gnome-cmd-con-dialog.cc:210
+#: ../src/gnome-cmd-con-dialog.cc:212
 msgid "You must enter a name for the server"
 msgstr "Trebuie să introduceţi un nume pentru server"
 
-#: ../src/gnome-cmd-con-dialog.cc:210
+#: ../src/gnome-cmd-con-dialog.cc:212
 msgid "Please enter a name and try again."
 msgstr "Vă rog introduceţi un nume şi încercaţi din nou."
 
-#: ../src/gnome-cmd-con-dialog.cc:225
+#: ../src/gnome-cmd-con-dialog.cc:227
 #, c-format
 msgid "\"%s\" is not a valid location"
 msgstr "\"%s\" nu este o locaţie validă"
 
-#: ../src/gnome-cmd-con-dialog.cc:226
+#: ../src/gnome-cmd-con-dialog.cc:228
 msgid "Please check the spelling and try again."
-msgstr ""
+msgstr "Vă rog verificaţi ortografia şi încercaţi din nou."
 
-#: ../src/gnome-cmd-con-dialog.cc:331
+#: ../src/gnome-cmd-con-dialog.cc:333
 msgid "_Alias:"
 msgstr "_Alias:"
 
-#: ../src/gnome-cmd-con-dialog.cc:335
+#: ../src/gnome-cmd-con-dialog.cc:337
 msgid "_Location (URI):"
 msgstr "_Locaţie (URI):"
 
-#: ../src/gnome-cmd-con-dialog.cc:368
+#: ../src/gnome-cmd-con-dialog.cc:370
 msgid "_Server:"
 msgstr "_Server:"
 
-#: ../src/gnome-cmd-con-dialog.cc:379
+#: ../src/gnome-cmd-con-dialog.cc:381
 msgid "Optional information"
 msgstr "Informaţii opţionale"
 
-#: ../src/gnome-cmd-con-dialog.cc:403
-#, fuzzy
+#: ../src/gnome-cmd-con-dialog.cc:405
 msgid "S_hare:"
-msgstr "Stat:"
+msgstr "Parta_jare:"
 
-#: ../src/gnome-cmd-con-dialog.cc:406
+#: ../src/gnome-cmd-con-dialog.cc:408
 msgid "_Port:"
 msgstr "_Port:"
 
 #. Translators: 'Dir' in the sense of 'Directory'
-#: ../src/gnome-cmd-con-dialog.cc:409
-#, fuzzy
+#: ../src/gnome-cmd-con-dialog.cc:411
 msgid "_Remote dir:"
-msgstr "_Sterge"
+msgstr "Di_rector la distanţă:"
 
-#: ../src/gnome-cmd-con-dialog.cc:412
+#: ../src/gnome-cmd-con-dialog.cc:414
 msgid "_User name:"
 msgstr "_Utilizator:"
 
-#: ../src/gnome-cmd-con-dialog.cc:415
+#: ../src/gnome-cmd-con-dialog.cc:417
 msgid "_Password:"
 msgstr "_Parolă:"
 
-#: ../src/gnome-cmd-con-dialog.cc:418
+#: ../src/gnome-cmd-con-dialog.cc:420
 msgid "_Domain name:"
 msgstr "Nume _domeniu:"
 
-#: ../src/gnome-cmd-con-dialog.cc:455 ../src/gnome-cmd-main-win.cc:1176
-#, fuzzy
+#: ../src/gnome-cmd-con-dialog.cc:457 ../src/gnome-cmd-main-win.cc:1176
 msgid "Remote Server"
-msgstr "_Sterge"
+msgstr "Server la distanţă"
 
-#: ../src/gnome-cmd-con-dialog.cc:470
+#: ../src/gnome-cmd-con-dialog.cc:472
 msgid "Service _type:"
-msgstr ""
+msgstr "_Tip serviciu:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/gnome-cmd-con-dialog.cc:482
+#: ../src/gnome-cmd-con-dialog.cc:484
 msgid "FTP (with login)"
-msgstr ""
+msgstr "FTP (cu autentificare)"
 
-#: ../src/gnome-cmd-con-dialog.cc:483
+#: ../src/gnome-cmd-con-dialog.cc:485
 msgid "Public FTP"
 msgstr "FTP public"
 
-#: ../src/gnome-cmd-con-dialog.cc:500
+#: ../src/gnome-cmd-con-dialog.cc:502
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr ""
 
 #. ?????????
 #. do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
 #. ?????????
-#: ../src/gnome-cmd-con-ftp.cc:301 ../src/gnome-cmd-con-ftp.cc:349
+#: ../src/gnome-cmd-con-ftp.cc:326 ../src/gnome-cmd-con-ftp.cc:374
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Conectare la %s\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:366
+#: ../src/gnome-cmd-con-ftp.cc:391
 msgid "<New connection>"
 msgstr "<Conexiune nouă>"
 
-#: ../src/gnome-cmd-con-ftp.cc:368
+#: ../src/gnome-cmd-con-ftp.cc:393
 #, c-format
 msgid "Go to: %s"
 msgstr "Directie la: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:369
+#: ../src/gnome-cmd-con-ftp.cc:394
 #, c-format
 msgid "Connect to: %s"
 msgstr "Conectare la: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:370
+#: ../src/gnome-cmd-con-ftp.cc:395
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Deconectare de la: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:384
-#, fuzzy, c-format
+#: ../src/gnome-cmd-con-ftp.cc:409
+#, c-format
 msgid "Creates the FTP connection to %s"
-msgstr "Creaza o conexiune FTP la %s"
+msgstr "Creează conexiunea FTP la %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:385
+#: ../src/gnome-cmd-con-ftp.cc:410
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "Indeparteaza conexiunea FTP la %s"
@@ -751,11 +745,11 @@ msgstr "Cautare workgrup-uri si gazde"
 msgid "Go to: Samba Network"
 msgstr "Directie: Samba Network"
 
-#: ../src/gnome-cmd-data.cc:1256 ../src/gnome-cmd-data.cc:1486
-#: ../src/gnome-cmd-data.cc:1487 ../src/gnome-cmd-data.cc:2524
-#, fuzzy, c-format
+#: ../src/gnome-cmd-data.cc:1267 ../src/gnome-cmd-data.cc:1497
+#: ../src/gnome-cmd-data.cc:1498 ../src/gnome-cmd-data.cc:2535
+#, c-format
 msgid "link to %s"
-msgstr "Legatura Symlink la %s"
+msgstr "legătură către %s"
 
 #: ../src/gnome-cmd-delete-dialog.cc:88
 #, c-format
@@ -789,12 +783,12 @@ msgid "Abort"
 msgstr "Anuleaza"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-file-selector.cc:2120 ../src/gnome-cmd-xfer.cc:190
 msgid "Retry"
 msgstr "Insista"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-file-selector.cc:2120 ../src/gnome-cmd-xfer.cc:171
 #: ../src/gnome-cmd-xfer.cc:190
 msgid "Skip"
 msgstr "Ignora"
@@ -817,7 +811,7 @@ msgid "Delete"
 msgstr "Sterge"
 
 #: ../src/gnome-cmd-delete-dialog.cc:289
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
+#: ../src/gnome-cmd-file-selector.cc:2120 ../src/gnome-cmd-user-actions.cc:683
 #: ../src/utils.cc:508 ../src/utils.cc:537
 msgid "Cancel"
 msgstr "Anuleaza"
@@ -941,8 +935,8 @@ msgstr "Altul..."
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
-msgstr[0] "%s byte"
-msgstr[1] "%s bytes"
+msgstr[0] "%s octet"
+msgstr[1] "%s octeţi"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:196
 #: ../src/gnome-cmd-file-props-dialog.cc:407
@@ -954,13 +948,13 @@ msgid "Image:"
 msgstr "Imagine:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:360
-#: ../src/gnome-cmd-file-selector.cc:1918
+#: ../src/gnome-cmd-file-selector.cc:1911
 msgid "Filename:"
 msgstr "Nume fisier:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:371
 msgid "Symlink target:"
-msgstr "Destinatie legatura Symlink:"
+msgstr "Destinaţie legătură simbolică:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:380
 msgid "Type:"
@@ -1004,7 +998,7 @@ msgstr "Tip"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:606
 msgid "Metadata namespace"
-msgstr ""
+msgstr "Spaţiu de nume metadate"
 
 #. col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
 #. gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
@@ -1019,9 +1013,8 @@ msgid "Name"
 msgstr "Nume"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:614
-#, fuzzy
 msgid "Tag name"
-msgstr "nume"
+msgstr "Nume etichetă"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:616
 msgid "Value"
@@ -1029,7 +1022,7 @@ msgstr "Valoare"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:617
 msgid "Tag value"
-msgstr ""
+msgstr "Valoare etichetă"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:619 ../src/tags/gnome-cmd-tags.cc:159
 #: ../src/tags/gnome-cmd-tags.cc:310 ../src/tags/gnome-cmd-tags.cc:412
@@ -1039,7 +1032,7 @@ msgstr "Descriere"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:620
 msgid "Metadata tag description"
-msgstr ""
+msgstr "Descrierea etichetei metadatelor"
 
 #. data->thread = 0;
 #: ../src/gnome-cmd-file-props-dialog.cc:675
@@ -1056,7 +1049,7 @@ msgstr "Permisii"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:700
 msgid "Metadata"
-msgstr ""
+msgstr "Metadate"
 
 #: ../src/gnome-cmd-file-selector.cc:209
 #, c-format
@@ -1084,72 +1077,72 @@ msgstr "Grad necunoscut de utilizare a discului"
 #: ../src/gnome-cmd-file-selector.cc:1122
 #, c-format
 msgid "Listing failed: %s\n"
-msgstr ""
+msgstr "Listarea a eşuat: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1681
+#: ../src/gnome-cmd-file-selector.cc:1674
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Deschiderea conexiunii esuata: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1856
+#: ../src/gnome-cmd-file-selector.cc:1849
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
-msgstr "Nu a fost introdus nici un nume de fisier"
+msgstr "Nu a fost introdus niciun nume de fişier"
 
-#: ../src/gnome-cmd-file-selector.cc:1890
+#: ../src/gnome-cmd-file-selector.cc:1883
 msgid "No filename given"
-msgstr "Nici a fost dat nici un nume de fisier"
+msgstr "Nici a fost dat niciun nume de fişier"
 
-#: ../src/gnome-cmd-file-selector.cc:1921
+#: ../src/gnome-cmd-file-selector.cc:1914
 msgid "New Text File"
 msgstr "Fisier text nou"
 
-#: ../src/gnome-cmd-file-selector.cc:2079
+#: ../src/gnome-cmd-file-selector.cc:2068
 msgid "Symlink name:"
-msgstr "Nume legatura Symlink:"
+msgstr "Nume legatura simbolică:"
 
-#: ../src/gnome-cmd-file-selector.cc:2085
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
+#: ../src/gnome-cmd-file-selector.cc:2074
+#: ../src/gnome-cmd-file-selector.cc:2120 ../src/gnome-cmd-user-actions.cc:683
 msgid "Create Symbolic Link"
-msgstr "Creaza legatura"
+msgstr "Creează legătură simbolică"
 
-#: ../src/gnome-cmd-file-selector.cc:2131
+#: ../src/gnome-cmd-file-selector.cc:2120
 #: ../src/gnome-cmd-options-dialog.cc:675
 #: ../src/gnome-cmd-options-dialog.cc:695
 msgid "Skip all"
 msgstr "Omite tot"
 
-#: ../src/gnome-cmd-file-selector.cc:2203
+#: ../src/gnome-cmd-file-selector.cc:2192
 msgid "Filter:"
 msgstr "Filtru:"
 
-#: ../src/gnome-cmd-file.cc:561
+#: ../src/gnome-cmd-file.cc:566
 msgid "Unknown file type"
 msgstr "Tip fisier necunoscut"
 
-#: ../src/gnome-cmd-file.cc:562
+#: ../src/gnome-cmd-file.cc:567
 msgid "Regular file"
 msgstr "Fisier normal"
 
-#: ../src/gnome-cmd-file.cc:564
+#: ../src/gnome-cmd-file.cc:569
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:565
+#: ../src/gnome-cmd-file.cc:570
 msgid "UNIX Socket"
 msgstr "Socket UNIX"
 
-#: ../src/gnome-cmd-file.cc:566
+#: ../src/gnome-cmd-file.cc:571
 msgid "Character device"
 msgstr "Modul caractere"
 
-#: ../src/gnome-cmd-file.cc:567
+#: ../src/gnome-cmd-file.cc:572
 msgid "Block device"
 msgstr "Modul Bloc"
 
-#: ../src/gnome-cmd-file.cc:568
+#: ../src/gnome-cmd-file.cc:573
 msgid "Symbolic link"
-msgstr "Legatura simbolica"
+msgstr "Legatură simbolică"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1165,11 +1158,11 @@ msgstr "_Nou..."
 
 #: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:556
 msgid "_Paste"
-msgstr "_Adauga"
+msgstr "_Lipeşte"
 
 #: ../src/gnome-cmd-list-popmenu.cc:124 ../src/gnome-cmd-main-menu.cc:611
 msgid "_Refresh"
-msgstr "_Reincarca"
+msgstr "_Reîncarcă"
 
 #: ../src/gnome-cmd-main-menu.cc:375
 msgid "Switch to Vertical Layout"
@@ -1193,11 +1186,11 @@ msgstr "Utilitar _redenumire automata"
 
 #: ../src/gnome-cmd-main-menu.cc:459
 msgid "Create _Symbolic Link"
-msgstr "Creaza _legatura simbolica"
+msgstr "Creează legătură _simbolică"
 
 #: ../src/gnome-cmd-main-menu.cc:472
 msgid "_Diff"
-msgstr "_Dif"
+msgstr "_Diferenţă"
 
 #: ../src/gnome-cmd-main-menu.cc:478
 msgid "S_ynchonize Directories"
@@ -1205,7 +1198,7 @@ msgstr "S_incronizează directoarele"
 
 #: ../src/gnome-cmd-main-menu.cc:485
 msgid "_Quit"
-msgstr "_Abandon"
+msgstr "_Ieşire"
 
 #: ../src/gnome-cmd-main-menu.cc:496
 msgid "_Select All"
@@ -1237,11 +1230,11 @@ msgstr "_Compară directoarele"
 
 #: ../src/gnome-cmd-main-menu.cc:569
 msgid "Copy _File Names"
-msgstr "Copiaza nume _fisier"
+msgstr "Copiază numele _fişierelor"
 
 #: ../src/gnome-cmd-main-menu.cc:576
 msgid "_Search..."
-msgstr "_Cautare..."
+msgstr "_Caută..."
 
 #: ../src/gnome-cmd-main-menu.cc:582
 msgid "_Quick Search..."
@@ -1261,19 +1254,19 @@ msgstr "I_nainte"
 
 #: ../src/gnome-cmd-main-menu.cc:618
 msgid "Show Device Buttons"
-msgstr "Arata Butoane"
+msgstr "Arată butoane dispozitive"
 
 #: ../src/gnome-cmd-main-menu.cc:624
 msgid "Show Toolbar"
-msgstr "Arata Tablou Utilitati"
+msgstr "Arată bara de unelte"
 
 #: ../src/gnome-cmd-main-menu.cc:630
 msgid "Show Commandline"
-msgstr "Arata Consola"
+msgstr "Arată linia de comandă"
 
 #: ../src/gnome-cmd-main-menu.cc:636
 msgid "Show Buttonbar"
-msgstr "Arata bara de butoane"
+msgstr "Arată bara de butoane"
 
 #: ../src/gnome-cmd-main-menu.cc:643
 msgid "Show Hidden Files"
@@ -1285,7 +1278,7 @@ msgstr "Arata fisierele-copii de siguranta"
 
 #: ../src/gnome-cmd-main-menu.cc:656
 msgid "_Equal Panel Size"
-msgstr ""
+msgstr "Panouri _egale"
 
 #: ../src/gnome-cmd-main-menu.cc:667
 msgid "_Bookmark this Directory..."
@@ -1309,7 +1302,7 @@ msgstr "Editează tipurile _MIME..."
 
 #: ../src/gnome-cmd-main-menu.cc:714
 msgid "_Remote Server..."
-msgstr ""
+msgstr "Se_rver la distanţă..."
 
 #: ../src/gnome-cmd-main-menu.cc:720
 msgid "New Connection..."
@@ -1319,9 +1312,9 @@ msgstr "Conexiune nouă..."
 msgid "_Contents"
 msgstr "_Conţinut"
 
-#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:923
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/intviewer/viewer-window.cc:923
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "S_curtături de taste"
 
 #: ../src/gnome-cmd-main-menu.cc:743
 msgid "GNOME Commander on the _Web"
@@ -1337,25 +1330,25 @@ msgstr "_Despre"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:935
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/intviewer/viewer-window.cc:935
 msgid "_File"
-msgstr "_Fisier"
+msgstr "_Fişier"
 
 #: ../src/gnome-cmd-main-menu.cc:782
 msgid "_Edit"
-msgstr "_Modifica"
+msgstr "_Editează"
 
 #: ../src/gnome-cmd-main-menu.cc:786
 msgid "_Mark"
 msgstr "_Marcare"
 
-#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:938
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/intviewer/viewer-window.cc:938
 msgid "_View"
 msgstr "_Vizualizare"
 
-#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:949
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/intviewer/viewer-window.cc:949
 msgid "_Settings"
-msgstr "_Setari"
+msgstr "_Setări"
 
 #: ../src/gnome-cmd-main-menu.cc:799
 msgid "_Connections"
@@ -1363,31 +1356,31 @@ msgstr "_Conexiuni"
 
 #: ../src/gnome-cmd-main-menu.cc:803
 msgid "_Bookmarks"
-msgstr "_Favorite"
+msgstr "Fav_orite"
 
 #: ../src/gnome-cmd-main-menu.cc:807
 msgid "_Plugins"
 msgstr "_Plugin-uri"
 
-#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:954
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/intviewer/viewer-window.cc:954
 msgid "_Help"
 msgstr "_Ajutor"
 
 #: ../src/gnome-cmd-main-win.cc:420
 msgid "F3 View"
-msgstr "F3 Vizualizare"
+msgstr "F3 Vezi"
 
 #: ../src/gnome-cmd-main-win.cc:422
 msgid "F4 Edit"
-msgstr "F4 Modificare"
+msgstr "F4 Modifică"
 
 #: ../src/gnome-cmd-main-win.cc:424
 msgid "F5 Copy"
-msgstr "F5 Copiaza"
+msgstr "F5 Copiază"
 
 #: ../src/gnome-cmd-main-win.cc:426
 msgid "F6 Move"
-msgstr "F6 Muta"
+msgstr "F6 Mută"
 
 #: ../src/gnome-cmd-main-win.cc:428
 msgid "F7 Mkdir"
@@ -1395,41 +1388,39 @@ msgstr "F7 Mkdir"
 
 #: ../src/gnome-cmd-main-win.cc:430
 msgid "F8 Delete"
-msgstr "F8 Sterge"
+msgstr "F8 Şterge"
 
 #: ../src/gnome-cmd-main-win.cc:432
 msgid "F9 Search"
-msgstr "F9 Cauta"
+msgstr "F9 Caută"
 
 #: ../src/gnome-cmd-main-win.cc:434
 msgid "F10 Quit"
-msgstr "F10 Abandon"
+msgstr "F10 Ieşi"
 
 #: ../src/gnome-cmd-main-win.cc:1159
 msgid "Refresh"
-msgstr "Reincarca"
+msgstr "Reîncarcă"
 
 #: ../src/gnome-cmd-main-win.cc:1160
-#, fuzzy
 msgid "Up one directory"
-msgstr "Directorul cu teme pictograme"
+msgstr "Mai sus un director"
 
 #: ../src/gnome-cmd-main-win.cc:1161
 msgid "Goto the oldest"
-msgstr ""
+msgstr "Du-te la cel mai vechi"
 
 #: ../src/gnome-cmd-main-win.cc:1162
 msgid "Go back"
-msgstr ""
+msgstr "Du-te înapoi"
 
 #: ../src/gnome-cmd-main-win.cc:1163
-#, fuzzy
 msgid "Go forward"
-msgstr "I_nainte"
+msgstr "Du-te înainte"
 
 #: ../src/gnome-cmd-main-win.cc:1164
 msgid "Goto the latest"
-msgstr ""
+msgstr "_Du-te la cel mai nou"
 
 #: ../src/gnome-cmd-main-win.cc:1166
 msgid "Copy file names (SHIFT for full paths)"
@@ -1442,20 +1433,19 @@ msgstr "Taie"
 #: ../src/gnome-cmd-main-win.cc:1168
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:87
 msgid "Copy"
-msgstr "Copiaza"
+msgstr "Copiază"
 
 #: ../src/gnome-cmd-main-win.cc:1169
 msgid "Paste"
-msgstr "Adauga"
+msgstr "Lipeşte"
 
 #: ../src/gnome-cmd-main-win.cc:1172
 msgid "Edit (SHIFT for new document)"
 msgstr "Editează (SHIFT pentru document nou)"
 
 #: ../src/gnome-cmd-main-win.cc:1174
-#, fuzzy
 msgid "Open terminal"
-msgstr "Necesita terminal"
+msgstr "Deschide terminal"
 
 #: ../src/gnome-cmd-main-win.cc:1177
 msgid "Drop connection"
@@ -1509,12 +1499,11 @@ msgstr "Sintaxa Regex"
 
 #: ../src/gnome-cmd-options-dialog.cc:96
 msgid "Sorting options"
-msgstr "Sortare optiuni"
+msgstr "Opţiuni sortare"
 
 #: ../src/gnome-cmd-options-dialog.cc:107
-#, fuzzy
 msgid "Quick search using"
-msgstr "Cautare _rapida..."
+msgstr "Căutare rapidă folosind"
 
 #: ../src/gnome-cmd-options-dialog.cc:110
 msgid "CTRL+ALT+letters"
@@ -1526,11 +1515,11 @@ msgstr "ALT+litere (acces meniu cu F10)"
 
 #: ../src/gnome-cmd-options-dialog.cc:121
 msgid "Directory options"
-msgstr "Optiuni director"
+msgstr "Opţiuni director"
 
 #: ../src/gnome-cmd-options-dialog.cc:124
 msgid "Directory cache size"
-msgstr "Marime cache director"
+msgstr "Mărime cache director"
 
 #: ../src/gnome-cmd-options-dialog.cc:203
 msgid "Size display mode"
@@ -1542,7 +1531,7 @@ msgstr "Sustinut"
 
 #: ../src/gnome-cmd-options-dialog.cc:211
 msgid "<locale>"
-msgstr ""
+msgstr "<locală>"
 
 #: ../src/gnome-cmd-options-dialog.cc:216
 msgid "Grouped"
@@ -1561,9 +1550,8 @@ msgid "Text (rw-r--r--)"
 msgstr "Text (rw-r--r--)"
 
 #: ../src/gnome-cmd-options-dialog.cc:239
-#, fuzzy
 msgid "Number (644)"
-msgstr "Numar (311)"
+msgstr "Număr (644)"
 
 #: ../src/gnome-cmd-options-dialog.cc:249
 msgid "Date format"
@@ -1649,18 +1637,16 @@ msgid "Modern"
 msgstr "Modern"
 
 #: ../src/gnome-cmd-options-dialog.cc:474
-#, fuzzy
 msgid "Fusion"
-msgstr "Versiune"
+msgstr "Fuziune"
 
 #: ../src/gnome-cmd-options-dialog.cc:475
 msgid "Classic"
 msgstr "Clasic"
 
 #: ../src/gnome-cmd-options-dialog.cc:476
-#, fuzzy
 msgid "Deep blue"
-msgstr "Eroare stergere"
+msgstr "Albastru închis"
 
 #: ../src/gnome-cmd-options-dialog.cc:477
 msgid "Custom"
@@ -1712,7 +1698,7 @@ msgstr "Marime pictograma:"
 
 #: ../src/gnome-cmd-options-dialog.cc:571
 msgid "Scaling quality:"
-msgstr "Calitate marire"
+msgstr "Calitate scalare:"
 
 #: ../src/gnome-cmd-options-dialog.cc:573
 msgid "Theme icon directory:"
@@ -1733,10 +1719,11 @@ msgstr "Suprascriere la copiere"
 #.
 #. * Create prepare copy specific widgets
 #.
+#. Create prepare copy specific widgets
 #: ../src/gnome-cmd-options-dialog.cc:667
 #: ../src/gnome-cmd-options-dialog.cc:687
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:94
-#: ../src/gnome-cmd-prepare-move-dialog.cc:89
+#: ../src/gnome-cmd-prepare-move-dialog.cc:88
 msgid "Silently"
 msgstr "Silentios"
 
@@ -1747,7 +1734,7 @@ msgstr "Întreabă mai întâi"
 
 #: ../src/gnome-cmd-options-dialog.cc:684
 msgid "Move overwrite"
-msgstr ""
+msgstr "Suprascriere la mutare"
 
 #: ../src/gnome-cmd-options-dialog.cc:772
 msgid "Filetypes to hide"
@@ -1841,7 +1828,7 @@ msgstr "Necesita terminal"
 
 #: ../src/gnome-cmd-options-dialog.cc:1197
 msgid "Show for"
-msgstr "Arata pentru"
+msgstr "Arată pentru"
 
 #: ../src/gnome-cmd-options-dialog.cc:1206
 msgid "All directories"
@@ -1861,16 +1848,17 @@ msgstr "Tipar fisier"
 
 #: ../src/gnome-cmd-options-dialog.cc:1254
 msgid "New Application"
-msgstr "Aplicatie noua"
+msgstr "Aplicaţie nouă"
 
 #: ../src/gnome-cmd-options-dialog.cc:1265
 msgid "Edit Application"
-msgstr "Modifica aplicatia"
+msgstr "Editează aplicaţia"
 
 #: ../src/gnome-cmd-options-dialog.cc:1353
 msgid "Always download remote files before opening in external programs"
 msgstr ""
-"Intotdeauna incarca fisierele inainte de a le deschide in programe externe"
+"Descarcă întotdeauna fişierele aflate la distanţă înainte de a le deschide "
+"în programe externe"
 
 #: ../src/gnome-cmd-options-dialog.cc:1355
 msgid "MIME applications"
@@ -1898,15 +1886,15 @@ msgstr "Terminal:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1374
 msgid "Use Internal Viewer"
-msgstr ""
+msgstr "Foloseşte vizualizatorul intern"
 
 #: ../src/gnome-cmd-options-dialog.cc:1389
 msgid "Other favorite apps"
-msgstr "Alte aplicatii favorite"
+msgstr "Alte aplicaţii favorite"
 
 #: ../src/gnome-cmd-options-dialog.cc:1396
 msgid "Label"
-msgstr "Eticheta"
+msgstr "Etichetă"
 
 #: ../src/gnome-cmd-options-dialog.cc:1588
 msgid "Alias:"
@@ -1918,7 +1906,7 @@ msgstr "Modul:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1592
 msgid "Mount point:"
-msgstr "Punct mount:"
+msgstr "Punct de montare:"
 
 #: ../src/gnome-cmd-options-dialog.cc:1636
 msgid "New Device"
@@ -1986,12 +1974,12 @@ msgid "Pattern:"
 msgstr "Tipar:"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:101
-#: ../src/gnome-cmd-prepare-move-dialog.cc:96
+#: ../src/gnome-cmd-prepare-move-dialog.cc:95
 msgid "Query First"
 msgstr "Prima data chestioneaza"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-prepare-move-dialog.cc:102 ../src/gnome-cmd-xfer.cc:171
 msgid "Skip All"
 msgstr "Renunta tot"
 
@@ -2002,8 +1990,9 @@ msgstr "Urmeaza legaturile"
 #.
 #. * Customize prepare xfer widgets
 #.
+#. Customize prepare xfer widgets
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:128
-#: ../src/gnome-cmd-prepare-move-dialog.cc:115
+#: ../src/gnome-cmd-prepare-move-dialog.cc:113
 msgid "Overwrite Files"
 msgstr "Scrie peste"
 
@@ -2014,28 +2003,28 @@ msgid_plural "copy %d files to"
 msgstr[0] "copiaza %d fisierul la"
 msgstr[1] "copy %d files to"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:82
+#: ../src/gnome-cmd-prepare-move-dialog.cc:83
 msgid "Move"
-msgstr "Muta"
+msgstr "Mută"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:132
+#: ../src/gnome-cmd-prepare-move-dialog.cc:130
 #, c-format
 msgid "Move \"%s\" to"
-msgstr "Muta \"%s\" la"
+msgstr "Mută \"%s\" la"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:136
+#: ../src/gnome-cmd-prepare-move-dialog.cc:134
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
-msgstr[0] "muta fisierul %d la"
-msgstr[1] "muta fisierele %d la"
+msgstr[0] "mută %d fişier la"
+msgstr[1] "mută %d fişiere la"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:119
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:160
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
-msgstr "Directorul '%s' nu exista, vrei sa-l creezi?"
+msgstr "Directorul '%s' nu există, doriţi să îl creaţi?"
 
 #: ../src/gnome-cmd-python-plugin.cc:212
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
@@ -2043,7 +2032,7 @@ msgstr "Nu pot încărca modulul python 'gnomevfs' ('gnome.vfs')\n"
 
 #: ../src/gnome-cmd-quicksearch-popup.cc:265
 msgid "Search"
-msgstr "Cauta"
+msgstr "Caută"
 
 #: ../src/gnome-cmd-remote-dialog.cc:214
 #, c-format
@@ -2052,7 +2041,7 @@ msgstr "Nu a fost selectat nici un server"
 
 #: ../src/gnome-cmd-remote-dialog.cc:405
 msgid "GNOME authentication manager usage"
-msgstr ""
+msgstr "Folosirea managerului de autentificare GNOME"
 
 #: ../src/gnome-cmd-remote-dialog.cc:409
 msgid "Network protocol"
@@ -2130,11 +2119,11 @@ msgstr "Cautare recursiva"
 #. Case check
 #: ../src/gnome-cmd-search-dialog.cc:774 ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case Sensitive"
-msgstr "Caz senzitiv"
+msgstr "Majuscule semnificative"
 
 #: ../src/gnome-cmd-search-dialog.cc:785
 msgid "Goto"
-msgstr "Destinatie"
+msgstr "Mergi la"
 
 #: ../src/gnome-cmd-smb-auth.cc:33
 msgid "Enter password"
@@ -2148,6 +2137,11 @@ msgid ""
 "\n"
 "Remember: wrong credentials may lead to account locking"
 msgstr ""
+"Problemă: accesul nu este permis\n"
+"\n"
+"vă rog furnizaţi informaţii de legitimare\n"
+"\n"
+"Reţineţi: informaţii de legitimare greşite pot duce la blocarea contului"
 
 #: ../src/gnome-cmd-smb-path.cc:321
 #, c-format
@@ -2158,47 +2152,47 @@ msgstr "Gazda sau workgroup-ul %s nu au fost gasite\n"
 msgid "No file selected"
 msgstr "Niciun fişier selectat"
 
-#: ../src/gnome-cmd-user-actions.cc:668
+#: ../src/gnome-cmd-user-actions.cc:678
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
-msgstr[0] "Creez legături simbolice pentru %i fişier î\tn %s?"
+msgstr[0] "Creez legături simbolice pentru %i fişier în %s?"
 msgstr[1] "Creez legături simbolice pentru %i fişiere în %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:673
+#: ../src/gnome-cmd-user-actions.cc:683
 msgid "Create"
 msgstr "Creează"
 
-#: ../src/gnome-cmd-user-actions.cc:721 ../src/gnome-cmd-user-actions.cc:780
-#: ../src/gnome-cmd-user-actions.cc:817
+#: ../src/gnome-cmd-user-actions.cc:731 ../src/gnome-cmd-user-actions.cc:790
+#: ../src/gnome-cmd-user-actions.cc:827
 #, c-format
 msgid "running `%s'\n"
 msgstr "rulez `%s'\n"
 
-#: ../src/gnome-cmd-user-actions.cc:738 ../src/gnome-cmd-user-actions.cc:755
-#: ../src/gnome-cmd-user-actions.cc:795
+#: ../src/gnome-cmd-user-actions.cc:748 ../src/gnome-cmd-user-actions.cc:765
+#: ../src/gnome-cmd-user-actions.cc:805
 msgid "Operation not supported on remote file systems"
 msgstr "Operaţia nu este suportată pe sisteme de fişiere la distanţă"
 
-#: ../src/gnome-cmd-user-actions.cc:770
+#: ../src/gnome-cmd-user-actions.cc:780
 msgid "Too many selected files"
 msgstr "Prea multe fişiere selectate"
 
-#: ../src/gnome-cmd-user-actions.cc:1317
+#: ../src/gnome-cmd-user-actions.cc:1328
 msgid "There was an error opening home page."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1326
+#: ../src/gnome-cmd-user-actions.cc:1337
 msgid "There was an error reporting problem."
-msgstr ""
+msgstr "A intervenit o eroare la raportarea problemei."
 
-#: ../src/gnome-cmd-user-actions.cc:1347
+#: ../src/gnome-cmd-user-actions.cc:1358
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr ""
 "Un puternic si rapid manager de fisiere cu dublu panou pentru desktop-ul "
 "GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:1351
+#: ../src/gnome-cmd-user-actions.cc:1362
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2210,7 +2204,7 @@ msgstr ""
 "publicată de Free Software Foundation; fie versiunea 2 a Licenţei, fie (la "
 "latitudinea dumneavoastră) orice versiune ulterioară."
 
-#: ../src/gnome-cmd-user-actions.cc:1355
+#: ../src/gnome-cmd-user-actions.cc:1366
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2221,7 +2215,7 @@ msgstr ""
 "GARANŢIE, fără garanţie implicită de vandabilitate şi conformitate unui "
 "anumit scop. Citiţi Licenţa Publică Generală GNU pentru detalii."
 
-#: ../src/gnome-cmd-user-actions.cc:1359
+#: ../src/gnome-cmd-user-actions.cc:1370
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -2231,7 +2225,7 @@ msgstr ""
 "GNOME Commander; dacă nu, scrieţi Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1376
+#: ../src/gnome-cmd-user-actions.cc:1387
 msgid "translator-credits"
 msgstr "Remus Boara <rem@eclipsedesign.net>"
 
@@ -2296,7 +2290,7 @@ msgstr "copiaza..."
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[fisier %ld de la %ld] \"%s\""
 
-#: ../src/gnome-cmd-xfer.cc:367
+#: ../src/gnome-cmd-xfer.cc:387
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
@@ -2304,27 +2298,27 @@ msgstr ""
 "Copierea unui director în el însuşi nu este o idee prea bună. Operaţiunea a "
 "fost anulată."
 
-#: ../src/gnome-cmd-xfer.cc:408
+#: ../src/gnome-cmd-xfer.cc:428
 msgid "preparing..."
 msgstr "pregatire..."
 
-#: ../src/gnome-cmd-xfer.cc:493
+#: ../src/gnome-cmd-xfer.cc:513
 msgid "downloading to /tmp"
 msgstr "incarcare in /tmp"
 
-#: ../src/imageloader.cc:129
+#: ../src/imageloader.cc:122
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "Nu am putut incarca fisierul instalat de tip pixma, incerc sa incarc din "
 "directorul sursa\n"
 
-#: ../src/imageloader.cc:130 ../src/imageloader.cc:156
+#: ../src/imageloader.cc:123 ../src/imageloader.cc:149
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr "Incerc sa incarc %s inloc\n"
 
-#: ../src/imageloader.cc:134 ../src/imageloader.cc:159
+#: ../src/imageloader.cc:127 ../src/imageloader.cc:152
 #, c-format
 msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
@@ -2333,185 +2327,182 @@ msgstr ""
 "Nu găsesc pixmap-ul niciunde. Asigură-te că programul este instalat sau "
 "execută gnome-commander din directorul gnome-commander-%s/src\n"
 
-#: ../src/imageloader.cc:155
+#: ../src/imageloader.cc:148
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
 "Nu am putut incarca pixmap-urile instalate, incerc sa incarc din directorul "
 "sursa\n"
 
-#: ../src/libgviewer/search-dlg.cc:312
+#: ../src/intviewer/search-dlg.cc:312
 msgid "Find"
 msgstr "Găseşte"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.cc:342 ../src/libgviewer/viewer-window.cc:721
-#: ../src/libgviewer/viewer-window.cc:941
+#: ../src/intviewer/search-dlg.cc:342 ../src/intviewer/viewer-window.cc:721
+#: ../src/intviewer/viewer-window.cc:941
 msgid "_Text"
 msgstr "_Text"
 
-#: ../src/libgviewer/search-dlg.cc:343 ../src/libgviewer/viewer-window.cc:729
+#: ../src/intviewer/search-dlg.cc:343 ../src/intviewer/viewer-window.cc:729
 msgid "_Hexadecimal"
 msgstr "_Hexazecimal"
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.cc:352
+#: ../src/intviewer/search-dlg.cc:352
 msgid "_Match case"
-msgstr ""
+msgstr "_Majuscule semnificative"
 
-#: ../src/libgviewer/search-progress-dlg.cc:74
+#: ../src/intviewer/search-progress-dlg.cc:74
 msgid "Searching..."
 msgstr "Caut..."
 
-#: ../src/libgviewer/search-progress-dlg.cc:186
+#: ../src/intviewer/search-progress-dlg.cc:186
 #, c-format
 msgid "Searching for \"%s\""
 msgstr "Caut după \"%s\""
 
-#: ../src/libgviewer/viewer-widget.cc:206
+#: ../src/intviewer/viewer-widget.cc:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Poziţie: %lu din %lu\tColoana: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.cc:210
+#: ../src/intviewer/viewer-widget.cc:210
 msgid "Wrap"
-msgstr ""
+msgstr "Încadrare"
 
-#: ../src/libgviewer/viewer-widget.cc:237
+#: ../src/intviewer/viewer-widget.cc:237
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "pixel"
 msgstr[1] "pixeli"
 
-#: ../src/libgviewer/viewer-widget.cc:239
+#: ../src/intviewer/viewer-widget.cc:239
 msgid "bit/sample"
 msgid_plural "bits/sample"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "bit/eşantion"
+msgstr[1] "biţi/eşantion"
 
-#: ../src/libgviewer/viewer-widget.cc:241
+#: ../src/intviewer/viewer-widget.cc:241
 msgid "(fit to window)"
-msgstr ""
+msgstr "(adaptează la fereastră)"
 
-#: ../src/libgviewer/viewer-window.cc:711
+#: ../src/intviewer/viewer-window.cc:711
 msgid "_Close"
 msgstr "În_chide"
 
-#: ../src/libgviewer/viewer-window.cc:725
+#: ../src/intviewer/viewer-window.cc:725
 msgid "_Binary"
 msgstr "_Binar"
 
-#: ../src/libgviewer/viewer-window.cc:733
-#: ../src/libgviewer/viewer-window.cc:946
+#: ../src/intviewer/viewer-window.cc:733 ../src/intviewer/viewer-window.cc:946
 msgid "_Image"
 msgstr "_Imagine"
 
-#: ../src/libgviewer/viewer-window.cc:738
+#: ../src/intviewer/viewer-window.cc:738
 msgid "_Zoom In"
 msgstr "Mă_reşte"
 
-#: ../src/libgviewer/viewer-window.cc:742
+#: ../src/intviewer/viewer-window.cc:742
 msgid "Zoom _Out"
 msgstr "Mi_cşorează"
 
-#: ../src/libgviewer/viewer-window.cc:746
+#: ../src/intviewer/viewer-window.cc:746
 msgid "_Normal Size"
 msgstr "Mărime _normală"
 
-#: ../src/libgviewer/viewer-window.cc:750
+#: ../src/intviewer/viewer-window.cc:750
 msgid "Best _Fit"
 msgstr "Încadrat per_fect"
 
-#: ../src/libgviewer/viewer-window.cc:763
-#, fuzzy
+#: ../src/intviewer/viewer-window.cc:763
 msgid "_Copy Text Selection"
-msgstr "_Selectie inversa"
+msgstr "_Copiază textul selectat"
 
-#: ../src/libgviewer/viewer-window.cc:767
+#: ../src/intviewer/viewer-window.cc:767
 msgid "Find..."
 msgstr "Găseşte..."
 
-#: ../src/libgviewer/viewer-window.cc:771
-#, fuzzy
+#: ../src/intviewer/viewer-window.cc:771
 msgid "Find Next"
-msgstr "Gaseste text: "
+msgstr "Găseşte următorul"
 
-#: ../src/libgviewer/viewer-window.cc:775
+#: ../src/intviewer/viewer-window.cc:775
 msgid "Find Previous"
-msgstr ""
+msgstr "Găseşte anteriorul"
 
-#: ../src/libgviewer/viewer-window.cc:781
+#: ../src/intviewer/viewer-window.cc:781
 msgid "_No Parsing (original file)"
-msgstr ""
+msgstr "_Fără analizare (fişier original)"
 
-#: ../src/libgviewer/viewer-window.cc:785
+#: ../src/intviewer/viewer-window.cc:785
 msgid "_HTML Parser"
-msgstr ""
+msgstr "Analizor _HTML"
 
-#: ../src/libgviewer/viewer-window.cc:789
+#: ../src/intviewer/viewer-window.cc:789
 msgid "_PS/PDF Parser"
-msgstr ""
+msgstr "Analizor _PS/PDF"
 
-#: ../src/libgviewer/viewer-window.cc:795
+#: ../src/intviewer/viewer-window.cc:795
 msgid "_Wrap lines"
-msgstr ""
+msgstr "_Desparte pe linii"
 
-#: ../src/libgviewer/viewer-window.cc:800
+#: ../src/intviewer/viewer-window.cc:800
 msgid "_Encoding"
 msgstr "Codar_e"
 
-#: ../src/libgviewer/viewer-window.cc:841
+#: ../src/intviewer/viewer-window.cc:841
 msgid "_Show EXIF/IPTC Information"
 msgstr "_Arată informaţii EXIF/IPTC"
 
-#: ../src/libgviewer/viewer-window.cc:847
+#: ../src/intviewer/viewer-window.cc:847
 msgid "_Rotate Clockwise"
 msgstr "_Roteşte în sens orar"
 
-#: ../src/libgviewer/viewer-window.cc:852
+#: ../src/intviewer/viewer-window.cc:852
 msgid "Rotate Counter Clockwis_e"
 msgstr "Rot_eşte în sens antiorar"
 
-#: ../src/libgviewer/viewer-window.cc:857
+#: ../src/intviewer/viewer-window.cc:857
 msgid "_Rotate 180°"
 msgstr "_Roteşte 180°"
 
-#: ../src/libgviewer/viewer-window.cc:862
+#: ../src/intviewer/viewer-window.cc:862
 msgid "Flip _Vertical"
 msgstr "Răstoarnă _vertical"
 
-#: ../src/libgviewer/viewer-window.cc:867
+#: ../src/intviewer/viewer-window.cc:867
 msgid "Flip _Horizontal"
 msgstr "Răstoarnă ori_zontal"
 
-#: ../src/libgviewer/viewer-window.cc:877
+#: ../src/intviewer/viewer-window.cc:877
 msgid "_Binary Mode"
 msgstr "Mod _binar"
 
-#: ../src/libgviewer/viewer-window.cc:883
+#: ../src/intviewer/viewer-window.cc:883
 msgid "_Decimal Offset in Hexdump"
 msgstr "_Deplasament zecimal în Hexdump"
 
-#: ../src/libgviewer/viewer-window.cc:889
+#: ../src/intviewer/viewer-window.cc:889
 msgid "_Save Current Settings"
-msgstr ""
+msgstr "_Salvează setările curente"
 
-#: ../src/libgviewer/viewer-window.cc:899
+#: ../src/intviewer/viewer-window.cc:899
 msgid "_20 chars/line"
 msgstr "_20 de caractere/linie"
 
-#: ../src/libgviewer/viewer-window.cc:904
+#: ../src/intviewer/viewer-window.cc:904
 msgid "_40 chars/line"
 msgstr "_40 de caractere/linie"
 
-#: ../src/libgviewer/viewer-window.cc:909
+#: ../src/intviewer/viewer-window.cc:909
 msgid "_80 chars/line"
 msgstr "_80 de caractere/linie"
 
-#: ../src/libgviewer/viewer-window.cc:918
+#: ../src/intviewer/viewer-window.cc:918
 msgid "Quick _Help"
 msgstr "_Ajutor Rapid"
 
-#: ../src/libgviewer/viewer-window.cc:1130
+#: ../src/intviewer/viewer-window.cc:1130
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "Şablonul \"%s\" nu a fost găsit"
@@ -2529,9 +2520,8 @@ msgid "Specify the start directory for the right pane"
 msgstr "Specifica directorul start pentru panoul drept"
 
 #: ../src/main.cc:111
-#, fuzzy
 msgid "File Manager"
-msgstr "Panouri fisier"
+msgstr "Manager de fişiere"
 
 #: ../src/owner.cc:102
 #, c-format
@@ -2589,23 +2579,26 @@ msgstr "Numele albumului."
 
 #: ../src/tags/gnome-cmd-tags.cc:107
 msgid "Album Artist"
-msgstr ""
+msgstr "Artist album"
 
 #: ../src/tags/gnome-cmd-tags.cc:107
 msgid "Artist of the album."
 msgstr "Artistul albumului."
 
 #: ../src/tags/gnome-cmd-tags.cc:108
+#, fuzzy
 msgid "Album Gain"
-msgstr ""
+msgstr "Album necunoscut"
 
 #: ../src/tags/gnome-cmd-tags.cc:108
+#, fuzzy
 msgid "Gain adjustment of the album."
-msgstr ""
+msgstr "Artist album, Titlu Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:109
+#, fuzzy
 msgid "Album Peak Gain"
-msgstr ""
+msgstr "Artist album, Titlu Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:109
 msgid "Peak gain adjustment of album."
@@ -2613,11 +2606,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:110
 msgid "Album Track Count"
-msgstr ""
+msgstr "Număr de piese pe album"
 
 #: ../src/tags/gnome-cmd-tags.cc:110
 msgid "Total number of tracks on the album."
-msgstr ""
+msgstr "Numărul total de piese de pe album."
 
 #: ../src/tags/gnome-cmd-tags.cc:111 ../src/tags/gnome-cmd-tags.cc:193
 msgid "Artist"
@@ -2625,16 +2618,15 @@ msgstr "Artist"
 
 #: ../src/tags/gnome-cmd-tags.cc:111
 msgid "Artist of the track."
-msgstr ""
+msgstr "Artistul piesei"
 
 #: ../src/tags/gnome-cmd-tags.cc:112
-#, fuzzy
 msgid "Bitrate"
-msgstr "Stat:"
+msgstr "Rată de biţi"
 
 #: ../src/tags/gnome-cmd-tags.cc:112
 msgid "Bitrate in kbps."
-msgstr ""
+msgstr "Rată de biţi în kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Channels"
@@ -2642,7 +2634,7 @@ msgstr "Canale"
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Number of channels in the audio (2 = stereo)."
-msgstr ""
+msgstr "Număr de canale în audio (2 = stereo)."
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Codec"
@@ -2650,7 +2642,7 @@ msgstr "Codec"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Codec encoding description."
-msgstr ""
+msgstr "Descrierea codecului."
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Codec Version"
@@ -2658,7 +2650,7 @@ msgstr "Versiune codec"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Codec version."
-msgstr ""
+msgstr "Versiune codec."
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Comment"
@@ -2666,26 +2658,24 @@ msgstr "Comentariu"
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Comments on the track."
-msgstr ""
+msgstr "Comentarii asupra piesei."
 
 #: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:204
 #: ../src/tags/gnome-cmd-tags.cc:333 ../src/tags/gnome-cmd-tags.cc:409
-#, fuzzy
 msgid "Copyright"
-msgstr "Copiaza"
+msgstr "Drepturi de autor"
 
 #: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:333
-#, fuzzy
 msgid "Copyright message."
-msgstr "Copiaza"
+msgstr "Mesaj privind drepturile de autor."
 
 #: ../src/tags/gnome-cmd-tags.cc:118
 msgid "Cover Album Thumbnail Path"
-msgstr ""
+msgstr "Calea miniaturii copertei de album"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
 msgid "File path to thumbnail image of the cover album."
-msgstr ""
+msgstr "Calea către fişierul cu miniatura copertei de album."
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 msgid "Disc Number"
@@ -2693,7 +2683,7 @@ msgstr "Numărul discului"
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 msgid "Specifies which disc the track is on."
-msgstr ""
+msgstr "Specifică pe care disc se află piesa."
 
 #: ../src/tags/gnome-cmd-tags.cc:120
 msgid "Duration"
@@ -2701,7 +2691,7 @@ msgstr "Durată"
 
 #: ../src/tags/gnome-cmd-tags.cc:120
 msgid "Duration of track in seconds."
-msgstr ""
+msgstr "Durata piesei în secunde:"
 
 #: ../src/tags/gnome-cmd-tags.cc:121
 msgid "Duration [MM:SS]"
@@ -2709,7 +2699,7 @@ msgstr "Durată [MM:SS]"
 
 #: ../src/tags/gnome-cmd-tags.cc:121
 msgid "Duration of track as MM:SS."
-msgstr ""
+msgstr "Durata piesei în MM:SS."
 
 #: ../src/tags/gnome-cmd-tags.cc:122
 msgid "Genre"
@@ -2718,14 +2708,16 @@ msgstr "Gen"
 #: ../src/tags/gnome-cmd-tags.cc:122 ../src/tags/gnome-cmd-tags.cc:332
 msgid "Type of music classification for the track as defined in ID3 spec."
 msgstr ""
+"Genul muzical pentru piesă, aşa cum este definit de specificaţiile ID3."
 
 #: ../src/tags/gnome-cmd-tags.cc:123
 msgid "Is New"
-msgstr ""
+msgstr "Este nou"
 
 #: ../src/tags/gnome-cmd-tags.cc:123
 msgid "Set to \"1\" if track is new to the user (default \"0\")."
 msgstr ""
+"Definit ca \"1\" dacă piesa este nouă pentru utilizator (implicit \"0\")."
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "ISRC"
@@ -2737,11 +2729,11 @@ msgstr "ISRC (international standard recording code)."
 
 #: ../src/tags/gnome-cmd-tags.cc:125
 msgid "Last Play"
-msgstr ""
+msgstr "Ultima redare"
 
 #: ../src/tags/gnome-cmd-tags.cc:125
 msgid "When track was last played."
-msgstr ""
+msgstr "Când a fost redată piesa ultima oară."
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Lyrics"
@@ -2749,75 +2741,73 @@ msgstr "Versuri"
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Lyrics of the track."
-msgstr ""
+msgstr "Versurile piesei."
 
 #: ../src/tags/gnome-cmd-tags.cc:127
 msgid "MB album artist ID"
-msgstr ""
+msgstr "Identificator artist album MB"
 
 #: ../src/tags/gnome-cmd-tags.cc:127
 msgid "MusicBrainz album artist ID in UUID format."
-msgstr ""
+msgstr "Identificatorul MusicBrainz al artistului albumului în format UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:128
 msgid "MB Album ID"
-msgstr ""
+msgstr "Identificator album MB"
 
 #: ../src/tags/gnome-cmd-tags.cc:128
 msgid "MusicBrainz album ID in UUID format."
-msgstr ""
+msgstr "Identificatorul MusicBrainz al albumului în format UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:129
 msgid "MB Artist ID"
-msgstr ""
+msgstr "Identificator artist MB"
 
 #: ../src/tags/gnome-cmd-tags.cc:129
 msgid "MusicBrainz artist ID in UUID format."
-msgstr ""
+msgstr "Identificatorul MusicBrainz al artistului în format UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:130
 msgid "MB Track ID"
-msgstr ""
+msgstr "Identificator piesă MB"
 
 #: ../src/tags/gnome-cmd-tags.cc:130
 msgid "MusicBrainz track ID in UUID format."
-msgstr ""
+msgstr "Identificatorul MusicBrainz al piesei în format UUID."
 
 #: ../src/tags/gnome-cmd-tags.cc:131
 #, fuzzy
 msgid "Channel Mode"
-msgstr "Anuleaza"
+msgstr "Mod control"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
 #, fuzzy
 msgid "MPEG channel mode."
-msgstr "Anuleaza"
+msgstr "%s (%s@%s) a schimat modul canalului '%s' in %s"
 
 #: ../src/tags/gnome-cmd-tags.cc:132
-#, fuzzy
 msgid "Copyrighted"
-msgstr "Copiaza"
+msgstr "Protejat de drepturi de autor"
 
 #: ../src/tags/gnome-cmd-tags.cc:132
 msgid "\"1\" if the copyrighted bit is set."
-msgstr ""
+msgstr "\"1\" dacă bitul de copyright este definit."
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "Layer"
-msgstr ""
+msgstr "Strat"
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "MPEG layer."
-msgstr ""
+msgstr "Strat MPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:134
-#, fuzzy
 msgid "Original Audio"
-msgstr "redenumeste fisier"
+msgstr "Audio original"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 msgid "\"1\" if the \"original\" bit is set."
-msgstr ""
+msgstr "\"1\" dacă bitul \"original\" este definit."
 
 #: ../src/tags/gnome-cmd-tags.cc:135
 msgid "MPEG Version"
@@ -2829,37 +2819,35 @@ msgstr "Versiune MPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:136
 msgid "Performer"
-msgstr ""
+msgstr "Interpret"
 
 #: ../src/tags/gnome-cmd-tags.cc:136
 msgid "Name of the performer/conductor of the music."
-msgstr ""
+msgstr "Numele interpretului/dirijorului piesei muzicale."
 
 #: ../src/tags/gnome-cmd-tags.cc:137
-#, fuzzy
 msgid "Play Count"
-msgstr "Interfata"
+msgstr "Număr redări"
 
 #: ../src/tags/gnome-cmd-tags.cc:137
 msgid "Number of times the track has been played."
-msgstr ""
+msgstr "Numărul de ori de care a fost redată piesa."
 
 #: ../src/tags/gnome-cmd-tags.cc:138 ../src/tags/gnome-cmd-tags.cc:491
 msgid "Release Date"
-msgstr ""
+msgstr "Data lansării"
 
 #: ../src/tags/gnome-cmd-tags.cc:138
 msgid "Date track was released."
-msgstr ""
+msgstr "Data la care a fost lansată piesa."
 
 #: ../src/tags/gnome-cmd-tags.cc:139
-#, fuzzy
 msgid "Sample Rate"
-msgstr "Tema"
+msgstr "Rata de eşantionare"
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "Sample rate in Hz."
-msgstr ""
+msgstr "Rata de eşantionare în Hz."
 
 #: ../src/tags/gnome-cmd-tags.cc:140 ../src/tags/gnome-cmd-tags.cc:190
 #: ../src/tags/gnome-cmd-tags.cc:426
@@ -2868,27 +2856,30 @@ msgstr "Titlu"
 
 #: ../src/tags/gnome-cmd-tags.cc:140
 msgid "Title of the track."
-msgstr ""
+msgstr "Titlul piesei."
 
 #: ../src/tags/gnome-cmd-tags.cc:141
+#, fuzzy
 msgid "Track Gain"
-msgstr ""
+msgstr "Melodia precedentă"
 
 #: ../src/tags/gnome-cmd-tags.cc:141
+#, fuzzy
 msgid "Gain adjustment of the track."
-msgstr ""
+msgstr "Urmăreşte statusul mesajului..."
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Track Number"
-msgstr ""
+msgstr "Numărul piesei"
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Position of track on the album."
-msgstr ""
+msgstr "Poziţia piesei în album."
 
 #: ../src/tags/gnome-cmd-tags.cc:143
+#, fuzzy
 msgid "Track Peak Gain"
-msgstr ""
+msgstr "Urmăreşte statusul mesajului..."
 
 #: ../src/tags/gnome-cmd-tags.cc:143
 msgid "Peak gain adjustment of track."
@@ -2920,9 +2911,8 @@ msgid "Number of bytes in the document."
 msgstr "Număr de octeţi în document."
 
 #: ../src/tags/gnome-cmd-tags.cc:147
-#, fuzzy
 msgid "Case sensitive."
-msgstr "Caz senzitiv"
+msgstr "Majuscule semnificative."
 
 #: ../src/tags/gnome-cmd-tags.cc:148 ../src/tags/gnome-cmd-tags.cc:440
 msgid "Category"
@@ -2938,7 +2928,7 @@ msgstr "Număr de celule"
 
 #: ../src/tags/gnome-cmd-tags.cc:149
 msgid "Number of cells in the spreadsheet document."
-msgstr ""
+msgstr "Numărul de celule din documentul cu foi de calcul."
 
 #: ../src/tags/gnome-cmd-tags.cc:150
 msgid "Character Count"
@@ -2962,8 +2952,9 @@ msgid "Comments"
 msgstr "Comentarii"
 
 #: ../src/tags/gnome-cmd-tags.cc:152 ../src/tags/gnome-cmd-tags.cc:408
+#, fuzzy
 msgid "User definable free text."
-msgstr ""
+msgstr "Text introdus de utilizator"
 
 #: ../src/tags/gnome-cmd-tags.cc:153
 msgid "Company"
@@ -2971,7 +2962,7 @@ msgstr "Companie"
 
 #: ../src/tags/gnome-cmd-tags.cc:153
 msgid "Organization that the <Doc.Creator> entity is associated with."
-msgstr ""
+msgstr "Organizaţia cu care este asociată entitatea <Doc.Creator>."
 
 #: ../src/tags/gnome-cmd-tags.cc:155 ../src/tags/gnome-cmd-tags.cc:410
 msgid "Creator"
@@ -3012,8 +3003,9 @@ msgid "The last time the document was saved."
 msgstr "Ultima oară când a fost salvat documentul."
 
 #: ../src/tags/gnome-cmd-tags.cc:159
+#, fuzzy
 msgid "An acccount of the content of the resource."
-msgstr ""
+msgstr "Resursa este blocată"
 
 #: ../src/tags/gnome-cmd-tags.cc:160
 msgid "Dictionary"
@@ -3029,7 +3021,7 @@ msgstr "Durata de editare"
 
 #: ../src/tags/gnome-cmd-tags.cc:161
 msgid "The total time taken until the last modification."
-msgstr ""
+msgstr "Timpul total până la ultima modificare."
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "Generator"
@@ -3040,8 +3032,9 @@ msgid "The application that generated this document."
 msgstr "Aplicaţia care a generat acest document."
 
 #: ../src/tags/gnome-cmd-tags.cc:163
+#, fuzzy
 msgid "Hidden Slide Count"
-msgstr ""
+msgstr "Numărare linii goale"
 
 #: ../src/tags/gnome-cmd-tags.cc:163
 msgid "Number of hidden slides in the presentation document."
@@ -3110,15 +3103,16 @@ msgstr "Număr de linii în document."
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Links Dirty"
-msgstr ""
+msgstr "Legături modificate"
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Links dirty."
-msgstr ""
+msgstr "Legături modificate."
 
 #: ../src/tags/gnome-cmd-tags.cc:172
+#, fuzzy
 msgid "Locale System Default"
-msgstr ""
+msgstr "_Ignoră setările implicite"
 
 #: ../src/tags/gnome-cmd-tags.cc:172
 msgid "Identifier representing the default system locale."
@@ -3130,15 +3124,15 @@ msgstr "Manager"
 
 #: ../src/tags/gnome-cmd-tags.cc:173
 msgid "Name of the manager of <Doc.Creator> entity."
-msgstr ""
+msgstr "Numele managerului entităţii <Doc.Creator>."
 
 #: ../src/tags/gnome-cmd-tags.cc:174
 msgid "Multimedia Clip Count"
-msgstr ""
+msgstr "Număr de clipuri multimedia"
 
 #: ../src/tags/gnome-cmd-tags.cc:174
 msgid "Number of multimedia clips in the document."
-msgstr ""
+msgstr "Numărul de clipuri multimedia din document."
 
 #: ../src/tags/gnome-cmd-tags.cc:175
 msgid "Note Count"
@@ -3202,15 +3196,15 @@ msgstr "Număr de revizii"
 
 #: ../src/tags/gnome-cmd-tags.cc:182
 msgid "Number of revision on the document."
-msgstr ""
+msgstr "Numărul reviziei documentului."
 
 #: ../src/tags/gnome-cmd-tags.cc:183
 msgid "Scale"
-msgstr ""
+msgstr "Scara"
 
 #: ../src/tags/gnome-cmd-tags.cc:183
 msgid "Scale."
-msgstr ""
+msgstr "Scara."
 
 #: ../src/tags/gnome-cmd-tags.cc:184
 msgid "Security"
@@ -3223,17 +3217,16 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:185
-#, fuzzy
 msgid "Slide Count"
-msgstr "Interfata"
+msgstr "Număr diapozitive"
 
 #: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Number of slides in the presentation document."
-msgstr ""
+msgstr "Numărul de diapozitive din documentul prezentare."
 
 #: ../src/tags/gnome-cmd-tags.cc:186
 msgid "Spreadsheet Count"
-msgstr ""
+msgstr "Număr foi de calcul"
 
 #: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Subject"
@@ -3269,7 +3262,7 @@ msgstr "Numărul de cuvinte din document."
 
 #: ../src/tags/gnome-cmd-tags.cc:192
 msgid "Aperture"
-msgstr ""
+msgstr "Apertură"
 
 #: ../src/tags/gnome-cmd-tags.cc:192
 msgid "The lens aperture. The unit is the APEX value."
@@ -3297,7 +3290,7 @@ msgstr "Nivelul bateriei."
 
 #: ../src/tags/gnome-cmd-tags.cc:195
 msgid "Bits per Sample"
-msgstr ""
+msgstr "Biţi per eşantion"
 
 #: ../src/tags/gnome-cmd-tags.cc:195
 msgid ""
@@ -3319,7 +3312,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:197 ../src/tags/gnome-cmd-tags.cc:260
 #, fuzzy
 msgid "CFA Pattern"
-msgstr "Tipar:"
+msgstr "Model cu bărci"
 
 #: ../src/tags/gnome-cmd-tags.cc:197
 msgid ""
@@ -3339,7 +3332,7 @@ msgstr "Tipar:"
 #: ../src/tags/gnome-cmd-tags.cc:199
 #, fuzzy
 msgid "Color Space"
-msgstr "Schema de culori:"
+msgstr "Adâncime de culoare JPEG nesuportată (%s)"
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid ""
@@ -3351,8 +3344,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:200
+#, fuzzy
 msgid "Components Configuration"
-msgstr ""
+msgstr "Druidul de configurare"
 
 #: ../src/tags/gnome-cmd-tags.cc:200
 msgid ""
@@ -3376,9 +3370,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:202
-#, fuzzy
 msgid "Compression"
-msgstr "Nivel compresie"
+msgstr "Compresie"
 
 #: ../src/tags/gnome-cmd-tags.cc:202
 msgid ""
@@ -3417,8 +3410,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:205
+#, fuzzy
 msgid "Custom Rendered"
-msgstr ""
+msgstr "_Mesaj personalizat"
 
 #: ../src/tags/gnome-cmd-tags.cc:205
 msgid ""
@@ -3457,8 +3451,9 @@ msgstr ""
 "fotografia."
 
 #: ../src/tags/gnome-cmd-tags.cc:209
+#, fuzzy
 msgid "Device Setting Description"
-msgstr ""
+msgstr "Eroare la setarea dispozitivului"
 
 #: ../src/tags/gnome-cmd-tags.cc:209
 msgid ""
@@ -3467,8 +3462,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:210
+#, fuzzy
 msgid "Digital Zoom Ratio"
-msgstr ""
+msgstr "Arată factorul de scară"
 
 #: ../src/tags/gnome-cmd-tags.cc:210
 msgid ""
@@ -3485,8 +3481,9 @@ msgid "Document name."
 msgstr "Nume document."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
+#, fuzzy
 msgid "Exif IFD Pointer"
-msgstr ""
+msgstr "Cursor implicit - Activ"
 
 #: ../src/tags/gnome-cmd-tags.cc:212
 msgid ""
@@ -3505,8 +3502,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:214
+#, fuzzy
 msgid "Exposure Bias"
-msgstr ""
+msgstr "Programul de expunere"
 
 #: ../src/tags/gnome-cmd-tags.cc:214
 msgid ""
@@ -3515,8 +3513,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:215
+#, fuzzy
 msgid "Exposure Index"
-msgstr ""
+msgstr "Index final"
 
 #: ../src/tags/gnome-cmd-tags.cc:215
 msgid ""
@@ -3525,8 +3524,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:216
+#, fuzzy
 msgid "Exposure Mode"
-msgstr ""
+msgstr "Mod de expunere"
 
 #: ../src/tags/gnome-cmd-tags.cc:216
 msgid ""
@@ -3536,8 +3536,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:217 ../src/tags/gnome-cmd-tags.cc:413
+#, fuzzy
 msgid "Exposure Program"
-msgstr ""
+msgstr "Programul de expunere"
 
 #: ../src/tags/gnome-cmd-tags.cc:217
 msgid ""
@@ -3547,16 +3548,16 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:218 ../src/tags/gnome-cmd-tags.cc:414
 msgid "Exposure Time"
-msgstr ""
+msgstr "Timp de expunere"
 
 #: ../src/tags/gnome-cmd-tags.cc:218
 msgid "Exposure time, given in seconds."
-msgstr ""
+msgstr "Timpul de expunere, dat în secunde."
 
 #: ../src/tags/gnome-cmd-tags.cc:219
 #, fuzzy
 msgid "File Source"
-msgstr "Proprietati fisier"
+msgstr "Fişier sursă:"
 
 #: ../src/tags/gnome-cmd-tags.cc:219
 msgid ""
@@ -3565,17 +3566,18 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:220
+#, fuzzy
 msgid "Fill Order"
-msgstr ""
+msgstr "Ordine sosire"
 
 #: ../src/tags/gnome-cmd-tags.cc:220
 #, fuzzy
 msgid "Fill order."
-msgstr "Panouri fisier"
+msgstr "Ordine sosire"
 
 #: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
 msgid "Flash"
-msgstr ""
+msgstr "Bliț"
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid ""
@@ -3584,7 +3586,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:222
 msgid "Flash Energy"
-msgstr ""
+msgstr "Energia bliţului"
 
 #: ../src/tags/gnome-cmd-tags.cc:222
 msgid ""
@@ -3602,7 +3604,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:416
 msgid "F Number"
-msgstr ""
+msgstr "Număr F"
 
 #: ../src/tags/gnome-cmd-tags.cc:224 ../src/tags/gnome-cmd-tags.cc:416
 msgid ""
@@ -3611,7 +3613,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:225 ../src/tags/gnome-cmd-tags.cc:417
 msgid "Focal Length"
-msgstr ""
+msgstr "Distanţa focală"
 
 #: ../src/tags/gnome-cmd-tags.cc:225
 msgid ""
@@ -3641,8 +3643,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:228
+#, fuzzy
 msgid "Focal Plane x-Resolution"
-msgstr ""
+msgstr "Eroare citire rezoluţie: %s\n"
 
 #: ../src/tags/gnome-cmd-tags.cc:228
 msgid ""
@@ -3651,8 +3654,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:229
+#, fuzzy
 msgid "Focal Plane y-Resolution"
-msgstr ""
+msgstr "Eroare citire rezoluţie: %s\n"
 
 #: ../src/tags/gnome-cmd-tags.cc:229
 msgid ""
@@ -3661,8 +3665,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:230
+#, fuzzy
 msgid "Gain Control"
-msgstr ""
+msgstr "<b>Stil control:</b>"
 
 #: ../src/tags/gnome-cmd-tags.cc:230
 msgid "This tag indicates the degree of overall image gain adjustment."
@@ -3670,7 +3675,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:231
 msgid "Gamma"
-msgstr ""
+msgstr "Gamma"
 
 #: ../src/tags/gnome-cmd-tags.cc:231
 msgid "Indicates the value of coefficient gamma."
@@ -3678,17 +3683,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:232
 msgid "Altitude"
-msgstr ""
+msgstr "Altitudine"
 
 #: ../src/tags/gnome-cmd-tags.cc:232
 msgid ""
 "Indicates the altitude based on the reference in <Exif.GPS.AltitudeRef>. The "
 "reference unit is meters."
 msgstr ""
+"Indică altitudinea bazată pe referinţa din <Exif.GPS.AltitudeRef>. Unitatea "
+"de referinţă este metrul."
 
 #: ../src/tags/gnome-cmd-tags.cc:233
 msgid "Altitude Reference"
-msgstr ""
+msgstr "Referinţă altitudine"
 
 #: ../src/tags/gnome-cmd-tags.cc:233
 msgid ""
@@ -3698,10 +3705,15 @@ msgid ""
 "an absolute value in the <Exif.GPS.Altitude> tag. The reference unit is "
 "meters."
 msgstr ""
+"Indică altitudinea folosită ca altitudine de referinţă. Dacă referinţa este "
+"nivelul mării şi altitudinea este deasupra nivelului mării, se dă 0. Dacă "
+"altitudinea este sub nivelul mării, este dată valoarea 1 şi altitudinea este "
+"indicată ca o valoare absolută în eticheta <Exif.GPS.Altitude>. Unitatea de "
+"referinţă este metrul."
 
 #: ../src/tags/gnome-cmd-tags.cc:234
 msgid "GPS Info IFDPointer"
-msgstr ""
+msgstr "Info IFDPointer GPS"
 
 #: ../src/tags/gnome-cmd-tags.cc:234
 msgid ""
@@ -3770,8 +3782,9 @@ msgstr ""
 "indică longitudine, iar 'W' este longitudine vestică."
 
 #: ../src/tags/gnome-cmd-tags.cc:239
+#, fuzzy
 msgid "GPS Tag Version"
-msgstr ""
+msgstr "Dia versiunea %s, compilată %s %s\n"
 
 #: ../src/tags/gnome-cmd-tags.cc:239
 msgid ""
@@ -3792,7 +3805,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid "Image Length"
-msgstr ""
+msgstr "Lungime imagine"
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid ""
@@ -3801,16 +3814,18 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:242
+#, fuzzy
 msgid "Image Resources Block"
-msgstr ""
+msgstr "Refuză imaginile de la %s"
 
 #: ../src/tags/gnome-cmd-tags.cc:242
+#, fuzzy
 msgid "Image Resources Block."
-msgstr ""
+msgstr "Refuză imaginile de la %s"
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid "Image Unique ID"
-msgstr ""
+msgstr "Identificator unic al imaginii"
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid ""
@@ -3830,16 +3845,18 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:245
+#, fuzzy
 msgid "Inter Color Profile"
-msgstr ""
+msgstr "Profilul Mozilla „%s”"
 
 #: ../src/tags/gnome-cmd-tags.cc:245
+#, fuzzy
 msgid "Inter Color Profile."
-msgstr ""
+msgstr "Profilul Mozilla „%s”"
 
 #: ../src/tags/gnome-cmd-tags.cc:246
 msgid "Interoperability IFD Pointer"
-msgstr ""
+msgstr "IFD Pointer interoperabilitate"
 
 #: ../src/tags/gnome-cmd-tags.cc:246
 msgid ""
@@ -3852,7 +3869,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:247
 msgid "Interoperability Index"
-msgstr ""
+msgstr "Index interoperabilitate"
 
 #: ../src/tags/gnome-cmd-tags.cc:247
 msgid ""
@@ -3862,19 +3879,21 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 msgid "Interoperability Version"
-msgstr ""
+msgstr "Versiune interoperabilitate"
 
 #: ../src/tags/gnome-cmd-tags.cc:248
 msgid "Interoperability version."
-msgstr ""
+msgstr "Versiune interoperabilitate."
 
 #: ../src/tags/gnome-cmd-tags.cc:249
+#, fuzzy
 msgid "An IPTC/NAA record."
-msgstr ""
+msgstr "Înregistrează eşantioane sonore"
 
 #: ../src/tags/gnome-cmd-tags.cc:250
+#, fuzzy
 msgid "ISO Speed Ratings"
-msgstr ""
+msgstr "Evaluarea vitezei ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:250
 msgid ""
@@ -3883,8 +3902,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:251
+#, fuzzy
 msgid "JPEG Interchange Format"
-msgstr ""
+msgstr "Formatul de imagine JPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:251
 msgid ""
@@ -3893,8 +3913,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:252
+#, fuzzy
 msgid "JPEG Interchange Format Length"
-msgstr ""
+msgstr "Data Interchange Format (*.dif)"
 
 #: ../src/tags/gnome-cmd-tags.cc:252
 msgid ""
@@ -3907,11 +3928,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid "JPEG Procedure"
-msgstr ""
+msgstr "Procedură JPEG"
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid "JPEG procedure."
-msgstr ""
+msgstr "Procedură JPEG."
 
 #: ../src/tags/gnome-cmd-tags.cc:254
 msgid "Light Source"
@@ -3934,7 +3955,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:256
 msgid "Maker Note"
-msgstr ""
+msgstr "Notă fabricant"
 
 #: ../src/tags/gnome-cmd-tags.cc:256
 msgid ""
@@ -3944,26 +3965,27 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:257
 msgid "Max Aperture Value"
-msgstr ""
+msgstr "Valoare maximă apertură"
 
 #: ../src/tags/gnome-cmd-tags.cc:257
 msgid ""
 "The smallest F number of the lens. The unit is the APEX value. Ordinarily it "
 "is given in the range of 00.00 to 99.99, but it is not limited to this range."
 msgstr ""
+"Cel mai mic număr F al obiectivului. Unitatea este valoarea APEX. În mod "
+"uzual este dat între 00.00 şi 99.99, dar nu este limitat la acest interval."
 
 #: ../src/tags/gnome-cmd-tags.cc:258 ../src/tags/gnome-cmd-tags.cc:422
 msgid "Metering Mode"
-msgstr ""
+msgstr "Mod de măsură"
 
 #: ../src/tags/gnome-cmd-tags.cc:258
 msgid "The metering mode."
-msgstr ""
+msgstr "Modul de măsură."
 
 #: ../src/tags/gnome-cmd-tags.cc:259 ../src/tags/gnome-cmd-tags.cc:423
-#, fuzzy
 msgid "Model"
-msgstr "Modern"
+msgstr "Model"
 
 #: ../src/tags/gnome-cmd-tags.cc:259
 msgid ""
@@ -3980,9 +4002,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:261
-#, fuzzy
 msgid "New Subfile Type"
-msgstr "Nume fisiere noi"
+msgstr "Tip nou de subfişier"
 
 #: ../src/tags/gnome-cmd-tags.cc:261
 msgid "A general indication of the kind of data contained in this subfile."
@@ -3990,7 +4011,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:262
 msgid "OECF"
-msgstr ""
+msgstr "OECF"
 
 #: ../src/tags/gnome-cmd-tags.cc:262
 msgid ""
@@ -3998,18 +4019,21 @@ msgid ""
 "14524. <Exif.OECF> is the relationship between the camera optical input and "
 "the image values."
 msgstr ""
+"Indică Funcţia de Conversie Opto-Electronică (OECF) specificată în ISO "
+"14524. <Exif.OECF> este relaţia dintre intrarea optică a aparatului de "
+"fotografiat şi valorile imaginii."
 
 #: ../src/tags/gnome-cmd-tags.cc:263 ../src/tags/gnome-cmd-tags.cc:424
 msgid "Orientation"
-msgstr ""
+msgstr "Orientare"
 
 #: ../src/tags/gnome-cmd-tags.cc:263
 msgid "The image orientation viewed in terms of rows and columns."
-msgstr ""
+msgstr "Orientarea imaginii văzută în termeni de rânduri şi coloane."
 
 #: ../src/tags/gnome-cmd-tags.cc:264
 msgid "Photometric Interpretation"
-msgstr ""
+msgstr "Interpretare fotometrică"
 
 #: ../src/tags/gnome-cmd-tags.cc:264
 msgid ""
@@ -4018,8 +4042,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:265
+#, fuzzy
 msgid "Pixel X Dimension"
-msgstr ""
+msgstr "Origine dimensiune"
 
 #: ../src/tags/gnome-cmd-tags.cc:265
 msgid ""
@@ -4030,8 +4055,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:266
+#, fuzzy
 msgid "Pixel Y Dimension"
-msgstr ""
+msgstr "Origine dimensiune"
 
 #: ../src/tags/gnome-cmd-tags.cc:266
 msgid ""
@@ -4044,8 +4070,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:267
+#, fuzzy
 msgid "Planar Configuration"
-msgstr ""
+msgstr "Druidul de configurare"
 
 #: ../src/tags/gnome-cmd-tags.cc:267
 msgid ""
@@ -4055,8 +4082,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:268
+#, fuzzy
 msgid "Primary Chromaticities"
-msgstr ""
+msgstr "Telefon principal"
 
 #: ../src/tags/gnome-cmd-tags.cc:268
 msgid ""
@@ -4065,8 +4093,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:269
+#, fuzzy
 msgid "Reference Black/White"
-msgstr ""
+msgstr "Negru pe alb"
 
 #: ../src/tags/gnome-cmd-tags.cc:269
 msgid ""
@@ -4078,34 +4107,39 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:270
+#, fuzzy
 msgid "Related Image File Format"
-msgstr ""
+msgstr "Format fişier imagine nerecunoscut"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
+#, fuzzy
 msgid "Related image file format."
-msgstr ""
+msgstr "Format fişier imagine nerecunoscut"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
+#, fuzzy
 msgid "Related Image Length"
-msgstr ""
+msgstr "Lungime cale prea mare"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
+#, fuzzy
 msgid "Related image length."
-msgstr ""
+msgstr "Lungime cale prea mare"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
+#, fuzzy
 msgid "Related Image Width"
-msgstr ""
+msgstr "Imaginea are lăţimea zero"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 #, fuzzy
 msgid "Related image width."
-msgstr "Compara cu"
+msgstr "Imaginea are lăţimea zero"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
 #, fuzzy
 msgid "Related Sound File"
-msgstr "redenumeste fisier"
+msgstr "Navigarea după fişiere de sunet GOK"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
 msgid ""
@@ -4130,8 +4164,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:274
+#, fuzzy
 msgid "Resolution Unit"
-msgstr ""
+msgstr "Unitate organizaţională:"
 
 #: ../src/tags/gnome-cmd-tags.cc:274
 msgid ""
@@ -4141,8 +4176,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:275
+#, fuzzy
 msgid "Rows per Strip"
-msgstr ""
+msgstr "_Elimină caracterele speciale"
 
 #: ../src/tags/gnome-cmd-tags.cc:275
 msgid ""
@@ -4153,7 +4189,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:276
 msgid "Samples per Pixel"
-msgstr ""
+msgstr "Eşantioane per pixel"
 
 #: ../src/tags/gnome-cmd-tags.cc:276
 msgid ""
@@ -4163,8 +4199,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:277
+#, fuzzy
 msgid "Saturation"
-msgstr ""
+msgstr "Nuanţa-Saturare"
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid ""
@@ -4173,8 +4210,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:278
+#, fuzzy
 msgid "Scene Capture Type"
-msgstr ""
+msgstr "_Tip server mail:"
 
 #: ../src/tags/gnome-cmd-tags.cc:278
 msgid ""
@@ -4184,8 +4222,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:279
+#, fuzzy
 msgid "Scene Type"
-msgstr ""
+msgstr "Tip acces: %s\n"
 
 #: ../src/tags/gnome-cmd-tags.cc:279
 msgid ""
@@ -4194,8 +4233,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:280
+#, fuzzy
 msgid "Sensing Method"
-msgstr ""
+msgstr "Metoda de _logare:"
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Indicates the image sensor type on the camera or input device."
@@ -4212,8 +4252,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:282
+#, fuzzy
 msgid "Shutter Speed"
-msgstr ""
+msgstr "Unitate de viteză"
 
 #: ../src/tags/gnome-cmd-tags.cc:282
 msgid ""
@@ -4233,8 +4274,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:284
+#, fuzzy
 msgid "Spatial Frequency Response"
-msgstr ""
+msgstr "Eroare la răspunsul de întâmpinare"
 
 #: ../src/tags/gnome-cmd-tags.cc:284
 msgid ""
@@ -4244,16 +4286,18 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:285
+#, fuzzy
 msgid "Spectral Sensitivity"
-msgstr ""
+msgstr "Raport senzitivitate"
 
 #: ../src/tags/gnome-cmd-tags.cc:285
 msgid "Indicates the spectral sensitivity of each channel of the camera used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:286
+#, fuzzy
 msgid "Strip Byte Count"
-msgstr ""
+msgstr "Numărare linii goale"
 
 #: ../src/tags/gnome-cmd-tags.cc:286
 msgid ""
@@ -4262,8 +4306,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:287
+#, fuzzy
 msgid "Strip Offsets"
-msgstr ""
+msgstr "_Elimină caracterele speciale"
 
 #: ../src/tags/gnome-cmd-tags.cc:287
 msgid ""
@@ -4273,16 +4318,18 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:288
+#, fuzzy
 msgid "Sub IFD Offsets"
-msgstr ""
+msgstr "Subpi_xel (LCD-uri)"
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:289
+#, fuzzy
 msgid "Subject Area"
-msgstr ""
+msgstr "arie desenare"
 
 #: ../src/tags/gnome-cmd-tags.cc:289
 msgid ""
@@ -4291,24 +4338,27 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:290
+#, fuzzy
 msgid "Subject Distance"
-msgstr ""
+msgstr "Distanţă curbă"
 
 #: ../src/tags/gnome-cmd-tags.cc:290
 msgid "The distance to the subject, given in meters."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:291
+#, fuzzy
 msgid "Subject Distance Range"
-msgstr ""
+msgstr "Interval de porturi TCP"
 
 #: ../src/tags/gnome-cmd-tags.cc:291
 msgid "This tag indicates the distance to the subject."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:292
+#, fuzzy
 msgid "Subject Location"
-msgstr ""
+msgstr "Deschide locaţia %s"
 
 #: ../src/tags/gnome-cmd-tags.cc:292
 msgid ""
@@ -4320,16 +4370,18 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:293
+#, fuzzy
 msgid "Subsec Time"
-msgstr ""
+msgstr "Timp stop:"
 
 #: ../src/tags/gnome-cmd-tags.cc:293
 msgid "A tag used to record fractions of seconds for the <Exif.DateTime> tag."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:294
+#, fuzzy
 msgid "Subsec Time Digitized"
-msgstr ""
+msgstr "Data şi ora (digitizat)"
 
 #: ../src/tags/gnome-cmd-tags.cc:294
 msgid ""
@@ -4338,8 +4390,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:295
+#, fuzzy
 msgid "Subsec Time Original"
-msgstr ""
+msgstr "Data şi ora (original)"
 
 #: ../src/tags/gnome-cmd-tags.cc:295
 msgid ""
@@ -4356,8 +4409,9 @@ msgid "TIFF/EP Standard ID."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:297
+#, fuzzy
 msgid "Transfer Function"
-msgstr ""
+msgstr "Funcţie Wish"
 
 #: ../src/tags/gnome-cmd-tags.cc:297
 msgid ""
@@ -4367,8 +4421,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:298
+#, fuzzy
 msgid "Transfer Range"
-msgstr ""
+msgstr "Interval de transfer."
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Transfer range."
@@ -4376,7 +4431,7 @@ msgstr "Interval de transfer."
 
 #: ../src/tags/gnome-cmd-tags.cc:299
 msgid "User Comment"
-msgstr ""
+msgstr "Comentariu utilizator"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
 msgid ""
@@ -4400,16 +4455,18 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:300 ../src/tags/gnome-cmd-tags.cc:427
+#, fuzzy
 msgid "White Balance"
-msgstr ""
+msgstr "_Resetează balanţa"
 
 #: ../src/tags/gnome-cmd-tags.cc:300
 msgid "The white balance mode set when the image was shot."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:301
+#, fuzzy
 msgid "White Point"
-msgstr ""
+msgstr "Pol nord"
 
 #: ../src/tags/gnome-cmd-tags.cc:301
 msgid ""
@@ -4418,16 +4475,19 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:302
+#, fuzzy
 msgid "XML Packet"
-msgstr ""
+msgstr "%lu pachet"
 
 #: ../src/tags/gnome-cmd-tags.cc:302
+#, fuzzy
 msgid "XMP metadata."
-msgstr ""
+msgstr "Eroare la încărcarea metadata: {0}"
 
 #: ../src/tags/gnome-cmd-tags.cc:303
+#, fuzzy
 msgid "x Resolution"
-msgstr ""
+msgstr "Rezoluţie:"
 
 #: ../src/tags/gnome-cmd-tags.cc:303
 msgid ""
@@ -4468,8 +4528,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:306
+#, fuzzy
 msgid "YCbCr Sub-Sampling"
-msgstr ""
+msgstr "Triez antetele pentru \"%s\""
 
 #: ../src/tags/gnome-cmd-tags.cc:306
 msgid ""
@@ -4478,8 +4539,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:307
+#, fuzzy
 msgid "y Resolution"
-msgstr ""
+msgstr "Rezoluţie:"
 
 #: ../src/tags/gnome-cmd-tags.cc:307
 msgid ""
@@ -4504,8 +4566,9 @@ msgid "File's contents filtered as plain text."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:310
+#, fuzzy
 msgid "Editable free text/notes."
-msgstr ""
+msgstr "Este editabil acest element de text cu atribute?"
 
 #: ../src/tags/gnome-cmd-tags.cc:311
 msgid ""
@@ -4525,7 +4588,7 @@ msgstr "Legătură"
 #: ../src/tags/gnome-cmd-tags.cc:313
 #, fuzzy
 msgid "URI of link target."
-msgstr "Destinatie legatura Symlink:"
+msgstr "Lim_ba ţintă"
 
 #: ../src/tags/gnome-cmd-tags.cc:314
 msgid "Modified"
@@ -4545,11 +4608,11 @@ msgstr "Cale"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
 msgid "Full file path of file excluding the filename."
-msgstr ""
+msgstr "Calea completă a fişierului, excluzând numele de fişier."
 
 #: ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
-msgstr ""
+msgstr "Şir de permisii în format unix. De exemplu \"-rw-r--r--\"."
 
 #: ../src/tags/gnome-cmd-tags.cc:318 ../src/tags/gnome-cmd-tags.cc:377
 msgid "Publisher"
@@ -4563,13 +4626,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:319
 msgid "Rank"
-msgstr ""
+msgstr "Rang"
 
 #: ../src/tags/gnome-cmd-tags.cc:319
 msgid ""
 "Editable file rank for grading favourites. Value should be in the range "
 "1..10."
 msgstr ""
+"Rang de fişier editabil pentru gradarea favoritelor. Valoarea trebuie să fie "
+"în intervalul 1..10."
 
 #: ../src/tags/gnome-cmd-tags.cc:320 ../src/tags/gnome-cmd-tags.cc:384
 msgid "Size"
@@ -4579,27 +4644,33 @@ msgstr "Mărime"
 msgid ""
 "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
+"Dimensiunea fişierului în octeţi, sau dacă este director - numărul de "
+"elemente pe care le conţine."
 
 #: ../src/tags/gnome-cmd-tags.cc:321
+#, fuzzy
 msgid "Album Sort Order"
-msgstr ""
+msgstr "Ordinea implicită de sortare"
 
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid ""
 "String which should be used instead of the album name for sorting purposes."
 msgstr ""
+"Şir de caractere care ar trebui folosit în loc de numele albumului în scopul "
+"sortării."
 
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Audio Encryption"
-msgstr ""
+msgstr "Criptare audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Frame indicates if the audio stream is encrypted, and by whom."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:323
+#, fuzzy
 msgid "Audio Seek Point"
-msgstr ""
+msgstr "Eroare parsare punct."
 
 #: ../src/tags/gnome-cmd-tags.cc:323
 msgid ""
@@ -4608,8 +4679,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:324
+#, fuzzy
 msgid "Band"
-msgstr ""
+msgstr "Big Band"
 
 #: ../src/tags/gnome-cmd-tags.cc:324
 msgid "Additional information about the performers in the recording."
@@ -4625,81 +4697,85 @@ msgstr "BPM (bătăi pe minut)."
 
 #: ../src/tags/gnome-cmd-tags.cc:326
 msgid "Buffer Size"
-msgstr ""
+msgstr "Mărime tampon"
 
 #: ../src/tags/gnome-cmd-tags.cc:326
 msgid "Recommended buffer size."
-msgstr ""
+msgstr "Mărime recomandată tampon."
 
 #: ../src/tags/gnome-cmd-tags.cc:327
 msgid "CD ID"
-msgstr ""
+msgstr "Identificator CD"
 
 #: ../src/tags/gnome-cmd-tags.cc:327
 msgid "Music CD identifier."
-msgstr ""
+msgstr "Identificator CD audio."
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial"
-msgstr ""
+msgstr "Comercial"
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial frame."
-msgstr ""
+msgstr "Cadru comercial."
 
 #: ../src/tags/gnome-cmd-tags.cc:329
 msgid "Composer"
-msgstr ""
+msgstr "Compozitor"
 
 #: ../src/tags/gnome-cmd-tags.cc:329
 msgid "Composer."
 msgstr "Compozitor."
 
 #: ../src/tags/gnome-cmd-tags.cc:330
-#, fuzzy
 msgid "Conductor"
-msgstr "Conecteaza"
+msgstr "Dirijor"
 
 #: ../src/tags/gnome-cmd-tags.cc:330
 msgid "Conductor."
-msgstr ""
+msgstr "Dirijor."
 
 #: ../src/tags/gnome-cmd-tags.cc:331
 #, fuzzy
 msgid "Content Group"
-msgstr "Conecteaza"
+msgstr "_Grupează după..."
 
 #: ../src/tags/gnome-cmd-tags.cc:331
+#, fuzzy
 msgid "Content group description."
-msgstr ""
+msgstr "Sugestie / descrierea erorii:"
 
 #: ../src/tags/gnome-cmd-tags.cc:332
 msgid "Content Type"
 msgstr "Tip Conţinut"
 
 #: ../src/tags/gnome-cmd-tags.cc:334
+#, fuzzy
 msgid "Encryption Registration"
-msgstr ""
+msgstr "Expirarea timpului de inregistrare"
 
 #: ../src/tags/gnome-cmd-tags.cc:334
+#, fuzzy
 msgid "Encryption method registration."
-msgstr ""
+msgstr "numele methodei de acces"
 
 #: ../src/tags/gnome-cmd-tags.cc:335
 msgid "Date."
 msgstr "Data."
 
 #: ../src/tags/gnome-cmd-tags.cc:336
+#, fuzzy
 msgid "Emphasis"
-msgstr ""
+msgstr "Accentuare"
 
 #: ../src/tags/gnome-cmd-tags.cc:336
+#, fuzzy
 msgid "Emphasis."
-msgstr ""
+msgstr "Accentuare"
 
 #: ../src/tags/gnome-cmd-tags.cc:337
 msgid "Encoded By"
-msgstr ""
+msgstr "Codat de"
 
 #: ../src/tags/gnome-cmd-tags.cc:337
 msgid ""
@@ -4710,19 +4786,19 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:338
 #, fuzzy
 msgid "Encoder Settings"
-msgstr "Setari MIME pictograme"
+msgstr "Setări personale"
 
 #: ../src/tags/gnome-cmd-tags.cc:338
 msgid "Software."
-msgstr ""
+msgstr "Software."
 
 #: ../src/tags/gnome-cmd-tags.cc:339
 msgid "Encoding Time"
-msgstr ""
+msgstr "Timp de codare"
 
 #: ../src/tags/gnome-cmd-tags.cc:339
 msgid "Encoding time."
-msgstr ""
+msgstr "Timp de codare."
 
 #: ../src/tags/gnome-cmd-tags.cc:340
 #, fuzzy
@@ -4742,12 +4818,14 @@ msgid "Equalisation curve predifine within the audio file."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:342
+#, fuzzy
 msgid "Event Timing"
-msgstr ""
+msgstr "Specificare eveniment:"
 
 #: ../src/tags/gnome-cmd-tags.cc:342
+#, fuzzy
 msgid "Event timing codes."
-msgstr ""
+msgstr "eveniment afişare calendar"
 
 #: ../src/tags/gnome-cmd-tags.cc:343
 msgid "File Owner"
@@ -4767,62 +4845,67 @@ msgstr "Tip fişier."
 
 #: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Frames"
-msgstr ""
+msgstr "Cadre"
 
 #: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Number of frames."
-msgstr ""
+msgstr "Număr de cadre."
+
+#: ../src/tags/gnome-cmd-tags.cc:346
+msgid "General Object"
+msgstr "Obiect general"
 
 #: ../src/tags/gnome-cmd-tags.cc:346
 #, fuzzy
-msgid "General Object"
-msgstr "General"
-
-#: ../src/tags/gnome-cmd-tags.cc:346
 msgid "General encapsulated object."
-msgstr ""
+msgstr "Tip obiect necunoscut %d\n"
 
 #: ../src/tags/gnome-cmd-tags.cc:347
 #, fuzzy
 msgid "Grouping Registration"
-msgstr "Sortare optiuni"
+msgstr "Expirarea timpului de inregistrare"
 
 #: ../src/tags/gnome-cmd-tags.cc:347
+#, fuzzy
 msgid "Group identification registration."
-msgstr ""
+msgstr "Răspunde către gr_up..."
 
 #: ../src/tags/gnome-cmd-tags.cc:348
 msgid "Initial Key"
-msgstr ""
+msgstr "Cheie iniţială"
 
 #: ../src/tags/gnome-cmd-tags.cc:348
 msgid "Initial key."
-msgstr ""
+msgstr "Cheie iniţială."
 
 #: ../src/tags/gnome-cmd-tags.cc:349
+#, fuzzy
 msgid "Involved People"
-msgstr ""
+msgstr "Pe_rsoanele necesare"
 
 #: ../src/tags/gnome-cmd-tags.cc:349 ../src/tags/gnome-cmd-tags.cc:350
+#, fuzzy
 msgid "Involved people list."
-msgstr ""
+msgstr "Lista persoanelor care au documentat programul"
 
 #: ../src/tags/gnome-cmd-tags.cc:350
 msgid "InvolvedPeople2"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:351
+#, fuzzy
 msgid "Language."
-msgstr ""
+msgstr "_Codare"
 
 #: ../src/tags/gnome-cmd-tags.cc:352
+#, fuzzy
 msgid "Linked Info"
-msgstr ""
+msgstr "Sortează informaţii"
 
 #: ../src/tags/gnome-cmd-tags.cc:352
 #, fuzzy
 msgid "Linked information."
-msgstr "Sortare optiuni"
+msgstr "Informaţii despre dispozitiv"
 
 #: ../src/tags/gnome-cmd-tags.cc:353
 msgid "Lyricist"
@@ -4833,21 +4916,23 @@ msgid "Lyricist."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:354
+#, fuzzy
 msgid "Media Type"
-msgstr ""
+msgstr "Mediu defect"
 
 #: ../src/tags/gnome-cmd-tags.cc:354
 #, fuzzy
 msgid "Media type."
-msgstr "Tip principal"
+msgstr "Mediu defect"
 
 #: ../src/tags/gnome-cmd-tags.cc:355
+#, fuzzy
 msgid "Mix Artist"
-msgstr ""
+msgstr "Artist necunoscut"
 
 #: ../src/tags/gnome-cmd-tags.cc:355
 msgid "Interpreted, remixed, or otherwise modified by."
-msgstr ""
+msgstr "Interpretat, remixat, sau altfel modificat de."
 
 #: ../src/tags/gnome-cmd-tags.cc:356
 #, fuzzy
@@ -4859,85 +4944,89 @@ msgid "Mood."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:357
+#, fuzzy
 msgid "MPEG Lookup"
-msgstr ""
+msgstr "ns&lookup"
 
 #: ../src/tags/gnome-cmd-tags.cc:357
 msgid "MPEG location lookup table."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:358
+#, fuzzy
 msgid "Musician Credit List"
-msgstr ""
+msgstr "listă taburi pagină"
 
 #: ../src/tags/gnome-cmd-tags.cc:358
+#, fuzzy
 msgid "Musician credits list."
-msgstr ""
+msgstr "Afişează lista contribuabililor, apoi ieşire."
 
 #: ../src/tags/gnome-cmd-tags.cc:359
 msgid "Net Radio Owner"
-msgstr ""
+msgstr "Proprietar radio reţea"
 
 #: ../src/tags/gnome-cmd-tags.cc:359
 msgid "Internet radio station owner."
-msgstr ""
+msgstr "Proprietarul staţie radio Internet."
 
 #: ../src/tags/gnome-cmd-tags.cc:360
 msgid "Net Radiostation"
-msgstr ""
+msgstr "Staţie radio reţea"
 
 #: ../src/tags/gnome-cmd-tags.cc:360
 msgid "Internet radio station name."
-msgstr ""
+msgstr "Nume staţie radio Internet."
 
 #: ../src/tags/gnome-cmd-tags.cc:361
 msgid "Original Album"
-msgstr ""
+msgstr "Album original"
 
 #: ../src/tags/gnome-cmd-tags.cc:361
 msgid "Original album."
-msgstr ""
+msgstr "Album original."
 
 #: ../src/tags/gnome-cmd-tags.cc:362
 msgid "Original Artist"
-msgstr ""
+msgstr "Artist original"
 
 #: ../src/tags/gnome-cmd-tags.cc:362
 msgid "Original artist."
-msgstr ""
+msgstr "Artist original."
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 msgid "Original File Name"
-msgstr ""
+msgstr "Nume de fişier original"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 msgid "Original filename."
 msgstr "Numele de fişier original."
 
 #: ../src/tags/gnome-cmd-tags.cc:364
+#, fuzzy
 msgid "Original Lyricist"
-msgstr ""
+msgstr "Contact original:"
 
 #: ../src/tags/gnome-cmd-tags.cc:364
+#, fuzzy
 msgid "Original lyricist."
-msgstr ""
+msgstr "Contact original:"
 
 #: ../src/tags/gnome-cmd-tags.cc:365
-#, fuzzy
 msgid "Original Release Time"
-msgstr "redenumeste fisier"
+msgstr "Data lansării originale"
 
 #: ../src/tags/gnome-cmd-tags.cc:365
 msgid "Original release time."
-msgstr ""
+msgstr "Data lansării originale."
 
 #: ../src/tags/gnome-cmd-tags.cc:366
 msgid "Original Year"
-msgstr ""
+msgstr "An original"
 
 #: ../src/tags/gnome-cmd-tags.cc:366
 msgid "Original release year."
-msgstr ""
+msgstr "Anul lansării originale."
 
 #: ../src/tags/gnome-cmd-tags.cc:367
 #, fuzzy
@@ -4945,24 +5034,28 @@ msgid "Ownership"
 msgstr "Proprietar:"
 
 #: ../src/tags/gnome-cmd-tags.cc:367
+#, fuzzy
 msgid "Ownership frame."
-msgstr ""
+msgstr "cadru desktop"
 
 #: ../src/tags/gnome-cmd-tags.cc:368
+#, fuzzy
 msgid "Part of a Set"
-msgstr ""
+msgstr "Setează starea"
 
 #: ../src/tags/gnome-cmd-tags.cc:368
 msgid "Part of a set the audio came from."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:369
+#, fuzzy
 msgid "Performer Sort Order"
-msgstr ""
+msgstr "Ordinea implicită de sortare"
 
 #: ../src/tags/gnome-cmd-tags.cc:369
+#, fuzzy
 msgid "Performer sort order."
-msgstr ""
+msgstr "Ordinea implicită de sortare"
 
 #: ../src/tags/gnome-cmd-tags.cc:370
 msgid "Picture"
@@ -4973,54 +5066,61 @@ msgid "Attached picture."
 msgstr "Poză ataşată."
 
 #: ../src/tags/gnome-cmd-tags.cc:371
-#, fuzzy
 msgid "Play Counter"
-msgstr "Interfata"
+msgstr "Contor redare"
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Number of times a file has been played."
-msgstr ""
+msgstr "Număr de ori de care a fost redat un fişier."
 
 #: ../src/tags/gnome-cmd-tags.cc:372
+#, fuzzy
 msgid "Playlist Delay"
-msgstr ""
+msgstr "Întârziere iniţială:"
 
 #: ../src/tags/gnome-cmd-tags.cc:372
+#, fuzzy
 msgid "Playlist delay."
-msgstr ""
+msgstr "Întârziere iniţială:"
 
 #: ../src/tags/gnome-cmd-tags.cc:373
 msgid "Popularimeter"
-msgstr ""
+msgstr "Popularimetru"
 
 #: ../src/tags/gnome-cmd-tags.cc:373
+#, fuzzy
 msgid "Rating of the audio file."
-msgstr ""
+msgstr "Eroare la citirea fişierului %s: %s"
 
 #: ../src/tags/gnome-cmd-tags.cc:374
+#, fuzzy
 msgid "Position Sync"
-msgstr ""
+msgstr "Sincronizează cu:"
 
 #: ../src/tags/gnome-cmd-tags.cc:374
+#, fuzzy
 msgid "Position synchronisation frame."
-msgstr ""
+msgstr "Poziţie necunoscută „%s” pentru componenta cadrului"
 
 #: ../src/tags/gnome-cmd-tags.cc:375
 #, fuzzy
 msgid "Private"
-msgstr "Scrie"
+msgstr "_Personal"
 
 #: ../src/tags/gnome-cmd-tags.cc:375
+#, fuzzy
 msgid "Private frame."
-msgstr ""
+msgstr "cadru desktop"
 
 #: ../src/tags/gnome-cmd-tags.cc:376
+#, fuzzy
 msgid "Produced Notice"
-msgstr ""
+msgstr "Avertisment de securitate"
 
 #: ../src/tags/gnome-cmd-tags.cc:376
+#, fuzzy
 msgid "Produced notice."
-msgstr ""
+msgstr "Avertisment de securitate"
 
 #: ../src/tags/gnome-cmd-tags.cc:377
 msgid "Publisher."
@@ -5029,29 +5129,28 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:378
 #, fuzzy
 msgid "Recording Dates"
-msgstr "Versiune"
+msgstr "Nivel înregistrare"
 
 #: ../src/tags/gnome-cmd-tags.cc:378
+#, fuzzy
 msgid "Recording dates."
-msgstr ""
+msgstr "Nivel înregistrare"
 
 #: ../src/tags/gnome-cmd-tags.cc:379
 msgid "Recording Time"
-msgstr ""
+msgstr "Durata înregistrării"
 
 #: ../src/tags/gnome-cmd-tags.cc:379
 msgid "Recording time."
-msgstr ""
+msgstr "Durata înregistrării."
 
 #: ../src/tags/gnome-cmd-tags.cc:380 ../src/tags/gnome-cmd-tags.cc:492
-#, fuzzy
 msgid "Release Time"
-msgstr "redenumeste fisier"
+msgstr "Data lansării"
 
 #: ../src/tags/gnome-cmd-tags.cc:380
-#, fuzzy
 msgid "Release time."
-msgstr "redenumeste fisier"
+msgstr "Data lansării."
 
 #: ../src/tags/gnome-cmd-tags.cc:381
 #, fuzzy
@@ -5063,8 +5162,9 @@ msgid "Reverb."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:382
+#, fuzzy
 msgid "Set Subtitle"
-msgstr ""
+msgstr "Font subtitrare"
 
 #: ../src/tags/gnome-cmd-tags.cc:382
 msgid "Subtitle of the part of a set this track belongs to."
@@ -5072,15 +5172,16 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:383
 msgid "Signature"
-msgstr ""
+msgstr "Semnătură"
 
 #: ../src/tags/gnome-cmd-tags.cc:383
+#, fuzzy
 msgid "Signature frame."
-msgstr ""
+msgstr "cadru desktop"
 
 #: ../src/tags/gnome-cmd-tags.cc:384
 msgid "Size of the audio file in bytes, excluding the ID3 tag."
-msgstr ""
+msgstr "Dimensiunea fişierului audio în octeţi, excluzând eticheta ID3."
 
 #: ../src/tags/gnome-cmd-tags.cc:385
 msgid "Song length"
@@ -5093,15 +5194,16 @@ msgstr "Lungimea melodiei în milisecunde."
 #: ../src/tags/gnome-cmd-tags.cc:386
 #, fuzzy
 msgid "Subtitle"
-msgstr "Subtitrare"
+msgstr "Font subtitrare"
 
 #: ../src/tags/gnome-cmd-tags.cc:386
+#, fuzzy
 msgid "Subtitle."
-msgstr ""
+msgstr "Font subtitrare"
 
 #: ../src/tags/gnome-cmd-tags.cc:387
 msgid "Synchronized Lyrics"
-msgstr ""
+msgstr "Versuri sincronizate"
 
 #: ../src/tags/gnome-cmd-tags.cc:387
 msgid "Synchronized lyric."
@@ -5112,52 +5214,60 @@ msgid "Synchronized Tempo"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:388
+#, fuzzy
 msgid "Synchronized tempo codes."
-msgstr ""
+msgstr "Răsfoieşte codurile de echipe disponibile"
 
 #: ../src/tags/gnome-cmd-tags.cc:389
+#, fuzzy
 msgid "Tagging Time"
-msgstr ""
+msgstr "Timp stop:"
 
 #: ../src/tags/gnome-cmd-tags.cc:389
+#, fuzzy
 msgid "Tagging time."
-msgstr ""
+msgstr "Timp stop:"
 
 #: ../src/tags/gnome-cmd-tags.cc:390
+#, fuzzy
 msgid "Terms of Use"
-msgstr ""
+msgstr "Alegeţi un fişier de sunet..."
 
 #: ../src/tags/gnome-cmd-tags.cc:390
+#, fuzzy
 msgid "Terms of use."
-msgstr ""
+msgstr "Alegeţi un fişier de sunet..."
 
 #: ../src/tags/gnome-cmd-tags.cc:391
 msgid "Time"
 msgstr "Ora"
 
 #: ../src/tags/gnome-cmd-tags.cc:391
+#, fuzzy
 msgid "Time."
-msgstr ""
+msgstr "Timp: %s %s"
 
 #: ../src/tags/gnome-cmd-tags.cc:392
+#, fuzzy
 msgid "Title Sort Order"
-msgstr ""
+msgstr "Ordinea implicită de sortare"
 
 #: ../src/tags/gnome-cmd-tags.cc:392
+#, fuzzy
 msgid "Title sort order."
-msgstr ""
+msgstr "Ordinea implicită de sortare"
 
 #: ../src/tags/gnome-cmd-tags.cc:393
 msgid "Unique File ID"
-msgstr ""
+msgstr "Identificator unic de fişier"
 
 #: ../src/tags/gnome-cmd-tags.cc:393
 msgid "Unique file identifier."
-msgstr ""
+msgstr "Identificator unic al fişierului."
 
 #: ../src/tags/gnome-cmd-tags.cc:394
 msgid "Unsynchronized Lyrics"
-msgstr ""
+msgstr "Versuri nesincronizate"
 
 #: ../src/tags/gnome-cmd-tags.cc:394
 msgid "Unsynchronized lyric."
@@ -5165,23 +5275,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:395
 msgid "User Text"
-msgstr ""
+msgstr "Text utilizator"
 
 #: ../src/tags/gnome-cmd-tags.cc:395
 msgid "User defined text information."
-msgstr ""
+msgstr "Informaţie text definită de utilizator."
 
 #: ../src/tags/gnome-cmd-tags.cc:396
 msgid "Volume Adjustment"
-msgstr ""
+msgstr "Control volum"
 
 #: ../src/tags/gnome-cmd-tags.cc:396 ../src/tags/gnome-cmd-tags.cc:397
 msgid "Relative volume adjustment."
-msgstr ""
+msgstr "Control volum relativ."
 
 #: ../src/tags/gnome-cmd-tags.cc:397
 msgid "Volume Adjustment 2"
-msgstr ""
+msgstr "Control volum 2"
 
 #: ../src/tags/gnome-cmd-tags.cc:398
 msgid "WWW Artist"
@@ -5193,7 +5303,7 @@ msgstr "Artist oficial."
 
 #: ../src/tags/gnome-cmd-tags.cc:399
 msgid "WWW Audio File"
-msgstr ""
+msgstr "Fişier audio WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:399
 msgid "Official audio file webpage."
@@ -5201,7 +5311,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:400
 msgid "WWW Audio Source"
-msgstr ""
+msgstr "Sursă audio WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:400
 msgid "Official audio source webpage."
@@ -5209,14 +5319,13 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:401
 msgid "WWW Commercial Info"
-msgstr ""
+msgstr "Informaţii comerciale WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:401
 msgid "URL pointing at a webpage containing commercial information."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:402
-#, fuzzy
 msgid "WWW Copyright"
 msgstr "Copyright WWW"
 
@@ -5226,7 +5335,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:403
 msgid "WWW Payment"
-msgstr ""
+msgstr "Plată WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:403
 msgid ""
@@ -5236,7 +5345,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:404
 msgid "WWW Publisher"
-msgstr ""
+msgstr "Editor WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:404
 msgid "URL pointing at the official webpage for the publisher."
@@ -5244,31 +5353,34 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:405
 msgid "WWW Radio Page"
-msgstr ""
+msgstr "Pagină radio WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:405
+#, fuzzy
 msgid "Official internet radio station homepage."
-msgstr ""
+msgstr "Creează o nouă staţie Radio Internet"
 
 #: ../src/tags/gnome-cmd-tags.cc:406
 msgid "WWW User"
 msgstr "Utilizator WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:406
+#, fuzzy
 msgid "User defined URL link."
-msgstr ""
+msgstr "Adaugă o tastă definită de utilizator"
 
 #: ../src/tags/gnome-cmd-tags.cc:407
 msgid "Name of an album the image belongs to."
-msgstr ""
+msgstr "Numele unui album căruia îi aparţine imaginea."
 
 #: ../src/tags/gnome-cmd-tags.cc:409
+#, fuzzy
 msgid "Embedded copyright message."
-msgstr ""
+msgstr "Nu pot crea mesajul"
 
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Datetime image was originally created."
-msgstr ""
+msgstr "Data şi ora când a fost creată imaginea."
 
 #: ../src/tags/gnome-cmd-tags.cc:412
 msgid "Description of the image."
@@ -5282,7 +5394,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:414
 msgid "Exposure time used to capture the photo in seconds."
-msgstr ""
+msgstr "Timpul de expunere folosit pentru a face fotografia, în secunde."
 
 #: ../src/tags/gnome-cmd-tags.cc:415
 msgid "Set to \"1\" if flash was fired."
@@ -5290,7 +5402,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Focal length of lens in mm."
-msgstr ""
+msgstr "Distanţa focală a obiectivului în mm."
 
 #: ../src/tags/gnome-cmd-tags.cc:418
 msgid "Height"
@@ -5301,8 +5413,9 @@ msgid "Height in pixels."
 msgstr "Înălţime în pixeli."
 
 #: ../src/tags/gnome-cmd-tags.cc:419
+#, fuzzy
 msgid "ISO Speed"
-msgstr ""
+msgstr "Evaluarea vitezei ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:419
 msgid ""
@@ -5312,16 +5425,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:420
 msgid "String of keywords."
-msgstr ""
+msgstr "Şir de cuvinte cheie."
 
 #: ../src/tags/gnome-cmd-tags.cc:421
-#, fuzzy
 msgid "Make"
-msgstr "_Marcare"
+msgstr "Marcă"
 
 #: ../src/tags/gnome-cmd-tags.cc:421
 msgid "Make of camera used to take the image."
-msgstr ""
+msgstr "Marca aparatului foto folosit pentru a face poza."
 
 #: ../src/tags/gnome-cmd-tags.cc:422
 msgid ""
@@ -5331,7 +5443,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:423
 msgid "Model of camera used to take the image."
-msgstr ""
+msgstr "Modelul aparatului foto folosit pentru a face poza."
 
 #: ../src/tags/gnome-cmd-tags.cc:424
 msgid ""
@@ -5341,7 +5453,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:425
 msgid "Software used to produce/enhance the image."
-msgstr ""
+msgstr "Software folosit pentru producerea/prelucrarea imaginii."
 
 #: ../src/tags/gnome-cmd-tags.cc:426
 msgid "Title of image."
@@ -5362,8 +5474,9 @@ msgid "Width in pixels."
 msgstr "Lăţime în pixeli."
 
 #: ../src/tags/gnome-cmd-tags.cc:429
+#, fuzzy
 msgid "Action Advised"
-msgstr ""
+msgstr "Acţiune/Declanşator"
 
 #: ../src/tags/gnome-cmd-tags.cc:429
 msgid ""
@@ -5372,8 +5485,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:430
+#, fuzzy
 msgid "ARM Identifier"
-msgstr ""
+msgstr "Identificator obiect (%s)"
 
 #: ../src/tags/gnome-cmd-tags.cc:430
 msgid "Identifies the Abstract Relationship Method (ARM)."
@@ -5389,48 +5503,50 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:432
 msgid "Audio Duration"
-msgstr ""
+msgstr "Durată audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:432
 msgid "The running time of the audio data in the form HHMMSS."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:433
+#, fuzzy
 msgid "Audio Outcue"
-msgstr ""
+msgstr "Modul audio:"
 
 #: ../src/tags/gnome-cmd-tags.cc:433
 msgid "The content at the end of the audio data."
-msgstr ""
+msgstr "Conţinutul de la sfârşitul datelor audio."
 
 #: ../src/tags/gnome-cmd-tags.cc:434
 msgid "Audio Sampling Rate"
-msgstr ""
+msgstr "Rata de eşantionare audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:434
 msgid "The sampling rate in Hz of the audio data."
-msgstr ""
+msgstr "Rata de eşantionare în Hz a datelor audio."
 
 #: ../src/tags/gnome-cmd-tags.cc:435
 msgid "Audio Sampling Resolution"
-msgstr ""
+msgstr "Rezoluţia de eşantionare audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:435
 msgid "The number of bits in each audio sample."
-msgstr ""
+msgstr "Numărul de biţi în fiecare eşantion audio."
 
 #: ../src/tags/gnome-cmd-tags.cc:436
 msgid "Audio Type"
-msgstr ""
+msgstr "Tip audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:436
 msgid ""
 "The number of channels and type of audio (music, text, etc.) in the object."
-msgstr ""
+msgstr "Numărul de canale şi tipul de audio (muzică, text etc.) din obiect."
 
 #: ../src/tags/gnome-cmd-tags.cc:437
+#, fuzzy
 msgid "By-line"
-msgstr ""
+msgstr "Caută linie după linie"
 
 #: ../src/tags/gnome-cmd-tags.cc:437
 msgid ""
@@ -5439,20 +5555,22 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:438
+#, fuzzy
 msgid "By-line Title"
-msgstr ""
+msgstr "Caută linie după linie"
 
 #: ../src/tags/gnome-cmd-tags.cc:438
 msgid "Title of the creator or creators of the object."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:439
+#, fuzzy
 msgid "Caption, Abstract"
-msgstr ""
+msgstr "Antet, rezumat"
 
 #: ../src/tags/gnome-cmd-tags.cc:439
 msgid "A textual description of the data"
-msgstr ""
+msgstr "O descriere textuală a datelor"
 
 #: ../src/tags/gnome-cmd-tags.cc:440
 msgid ""
@@ -5463,7 +5581,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:441
 #, fuzzy
 msgid "Coded Character Set"
-msgstr "Modul caractere"
+msgstr "Set de caractere necunoscut: %s"
 
 #: ../src/tags/gnome-cmd-tags.cc:441
 msgid ""
@@ -5473,19 +5591,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:442
 msgid "City"
-msgstr ""
+msgstr "Oraş"
 
 #: ../src/tags/gnome-cmd-tags.cc:442
 msgid "City of object origin."
-msgstr ""
+msgstr "Oraşul de origine al obiectului."
 
 #: ../src/tags/gnome-cmd-tags.cc:443
 msgid "Confirmed Data Size"
-msgstr ""
+msgstr "Dimensiunea confirmată a datelor"
 
 #: ../src/tags/gnome-cmd-tags.cc:443
 msgid "Total size of the object data."
-msgstr ""
+msgstr "Dimensiunea totală a datelor obiectului."
 
 #: ../src/tags/gnome-cmd-tags.cc:444 ../src/tags/gnome-cmd-tags.cc:507
 msgid "Contact"
@@ -5496,50 +5614,58 @@ msgid ""
 "The person or organization which can provide further background information "
 "on the object (multiple values allowed)."
 msgstr ""
+"Persoana sau organizaţia care poate furniza mai multe informaţii despre "
+"obiect (mai multe valori permise)."
 
 #: ../src/tags/gnome-cmd-tags.cc:445
+#, fuzzy
 msgid "Content Location Code"
-msgstr ""
+msgstr "Cod tip conţinut"
 
 #: ../src/tags/gnome-cmd-tags.cc:445
 msgid ""
 "Indicates the code of a country/geographical location referenced by the "
 "content of the object (multiple values allowed)."
 msgstr ""
+"Arată codul unei ţări/locaţii geografice referenţiate de conţinutul "
+"obiectului (mai multe valori permise)."
 
 #: ../src/tags/gnome-cmd-tags.cc:446
+#, fuzzy
 msgid "Content Location Name"
-msgstr ""
+msgstr "Nume _real:"
 
 #: ../src/tags/gnome-cmd-tags.cc:446
 msgid ""
 "A full, publishable name of a country/geographical location referenced by "
 "the content of the object (multiple values allowed)."
 msgstr ""
+"Un nume complet, publicabil al unei ţări/locaţii geografice referenţiate de "
+"conţinutul obiectului (mai multe valori permise)."
 
 #: ../src/tags/gnome-cmd-tags.cc:447
 msgid "Copyright Notice"
-msgstr ""
+msgstr "Informare privind drepturile de autor"
 
 #: ../src/tags/gnome-cmd-tags.cc:447
 msgid "Any necessary copyright notice."
-msgstr ""
+msgstr "Orice menţiune necesară privind drepturile de autor."
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "Country Code"
-msgstr ""
+msgstr "Cod ţară"
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "The code of the country/primary location where the object was created."
-msgstr ""
+msgstr "Codul ţării/locaţiei principale unde a fost creat obiectul."
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "Country Name"
-msgstr ""
+msgstr "Nume ţară"
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "The name of the country/primary location where the object was created."
-msgstr ""
+msgstr "Numele ţării/locaţiei principale unde a fost creat obiectul."
 
 #: ../src/tags/gnome-cmd-tags.cc:450
 msgid "Credit"
@@ -5548,13 +5674,15 @@ msgstr "Credit"
 #: ../src/tags/gnome-cmd-tags.cc:450
 msgid ""
 "Identifies the provider of the object, not necessarily the owner/creator."
-msgstr ""
+msgstr "Indică furnizorul obiectului, nu neapărat posesorul/creatorul."
 
 #: ../src/tags/gnome-cmd-tags.cc:451
 msgid ""
 "The date the intellectual content of the object was created rather than the "
 "date of the creation of the physical representation."
 msgstr ""
+"Data când a fost creat conţinutul intelectual al obiectului, mai degrabă "
+"decât data creării reprezentării fizice."
 
 #: ../src/tags/gnome-cmd-tags.cc:452
 msgid "Date Sent"
@@ -5562,36 +5690,36 @@ msgstr "Data Trimiterii"
 
 #: ../src/tags/gnome-cmd-tags.cc:452
 msgid "The day the service sent the material."
-msgstr ""
+msgstr "Ziua în care serviciul a trimis materialul."
 
 #: ../src/tags/gnome-cmd-tags.cc:453
 msgid "Destination"
-msgstr ""
+msgstr "Destinaţie"
 
 #: ../src/tags/gnome-cmd-tags.cc:453
 #, fuzzy
 msgid "Routing information."
-msgstr "Informaţii rutare."
+msgstr "Informaţii de rutare"
 
 #: ../src/tags/gnome-cmd-tags.cc:454
 msgid "Digital Creation Date"
-msgstr ""
+msgstr "Data creării digitale"
 
 #: ../src/tags/gnome-cmd-tags.cc:454
 msgid "The date the digital representation of the object was created."
-msgstr ""
+msgstr "Data la care a fost creată reprezentarea digitală a obiectului."
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "Digital Creation Time"
-msgstr ""
+msgstr "Ora creării digitale"
 
 #: ../src/tags/gnome-cmd-tags.cc:455
 msgid "The time the digital representation of the object was created."
-msgstr ""
+msgstr "Ora la care a fost creată reprezentarea digitală a obiectului."
 
 #: ../src/tags/gnome-cmd-tags.cc:456
 msgid "Editorial Update"
-msgstr ""
+msgstr "Actualizate editorială"
 
 #: ../src/tags/gnome-cmd-tags.cc:456
 msgid ""
@@ -5601,8 +5729,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:457
+#, fuzzy
 msgid "Edit Status"
-msgstr ""
+msgstr "Mesaje de status"
 
 #: ../src/tags/gnome-cmd-tags.cc:457
 msgid "Status of the object, according to the practice of the provider."
@@ -5610,7 +5739,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:458
 msgid "Envelope Number"
-msgstr ""
+msgstr "Numărul plicului"
 
 #: ../src/tags/gnome-cmd-tags.cc:458
 msgid "A number unique for the date in 1:70 and the service ID in 1:30."
@@ -5618,7 +5747,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:459
 msgid "Envelope Priority"
-msgstr ""
+msgstr "Prioritatea plicului"
 
 #: ../src/tags/gnome-cmd-tags.cc:459
 msgid ""
@@ -5626,22 +5755,29 @@ msgid ""
 "for most urgent, '5' for normal, and '8' for least urgent. '9' is user-"
 "defined."
 msgstr ""
+"Specifică prioritatea plicului şi nu urgenţa editorială. '1' pentru cel mai "
+"urgent, '5' pentru normal, şi '8' pentru cel mai puţin urgent. '9' este "
+"definit de utilizator."
 
 #: ../src/tags/gnome-cmd-tags.cc:460
 msgid "Expiration Date"
-msgstr ""
+msgstr "Data expirării"
 
 #: ../src/tags/gnome-cmd-tags.cc:460
 msgid "Designates the latest date the provider intends the object to be used."
 msgstr ""
+"Indică data cea mai târzie la care furnizorul intenţionează ca obiectul să "
+"fie folosit."
 
 #: ../src/tags/gnome-cmd-tags.cc:461
 msgid "Expiration Time"
-msgstr ""
+msgstr "Ora expirării"
 
 #: ../src/tags/gnome-cmd-tags.cc:461
 msgid "Designates the latest time the provider intends the object to be used."
 msgstr ""
+"Indică ora cea mai târzie la care furnizorul intenţionează ca obiectul să "
+"fie folosit."
 
 #: ../src/tags/gnome-cmd-tags.cc:462
 msgid "File Format"
@@ -5649,7 +5785,7 @@ msgstr "Format Fişier"
 
 #: ../src/tags/gnome-cmd-tags.cc:462
 msgid "File format of the data described by this metadata."
-msgstr ""
+msgstr "Formatul de fişier al datelor descrise de aceste metadate."
 
 #: ../src/tags/gnome-cmd-tags.cc:463
 msgid "File Version"
@@ -5657,11 +5793,12 @@ msgstr "Versiune fişier"
 
 #: ../src/tags/gnome-cmd-tags.cc:463
 msgid "Version of the file format."
-msgstr ""
+msgstr "Versiunea formatului de fişier."
 
 #: ../src/tags/gnome-cmd-tags.cc:464
+#, fuzzy
 msgid "Fixture Identifier"
-msgstr ""
+msgstr "Identificator obiect (%s)"
 
 #: ../src/tags/gnome-cmd-tags.cc:464
 msgid ""
@@ -5679,21 +5816,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid "Image Orientation"
-msgstr ""
+msgstr "Orientarea imaginii"
 
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid ""
 "The layout of the image area: 'P' for portrait, 'L' for landscape, and 'S' "
 "for square."
 msgstr ""
+"Orientarea imaginii: 'P' pentru portret, 'L' pentru peisaj, şi 'S' pentru "
+"pătrat."
 
 #: ../src/tags/gnome-cmd-tags.cc:467
 msgid "Image Type"
-msgstr ""
+msgstr "Tipul imaginii"
 
 #: ../src/tags/gnome-cmd-tags.cc:467
 msgid "Indicates the data format of the image object."
-msgstr ""
+msgstr "Indică formatul de date al obiectului imagine."
 
 #: ../src/tags/gnome-cmd-tags.cc:468
 msgid ""
@@ -5702,8 +5841,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:469
+#, fuzzy
 msgid "Language Identifier"
-msgstr ""
+msgstr "Identificator obiect (%s)"
 
 #: ../src/tags/gnome-cmd-tags.cc:469
 msgid ""
@@ -5713,15 +5853,18 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:470
 msgid "Maximum Object Size"
-msgstr ""
+msgstr "Dimensiunea maximă a obiectului"
 
 #: ../src/tags/gnome-cmd-tags.cc:470
 msgid "The largest possible size of the object if the size is not known."
 msgstr ""
+"Cea mai mare dimensiune posibilă a obiectului dacă dimensiunea nu este "
+"cunoscută."
 
 #: ../src/tags/gnome-cmd-tags.cc:471
+#, fuzzy
 msgid "Max Subfile Size"
-msgstr ""
+msgstr "Mărime maximă a ferestrei de log:"
 
 #: ../src/tags/gnome-cmd-tags.cc:471
 msgid ""
@@ -5734,46 +5877,51 @@ msgid "Model Version"
 msgstr "Versiune model"
 
 #: ../src/tags/gnome-cmd-tags.cc:472
+#, fuzzy
 msgid "Version of IIM part 1."
-msgstr ""
+msgstr "Salvează anexă MIME %s"
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid "Object Attribute Reference"
-msgstr ""
+msgstr "Referinţă atribute obiect"
 
 #: ../src/tags/gnome-cmd-tags.cc:473
 msgid ""
 "Defines the nature of the object independent of the subject (multiple values "
 "allowed)."
 msgstr ""
+"Defineşte natura obiectului independent de subiect (mai multe valori "
+"permise)."
 
 #: ../src/tags/gnome-cmd-tags.cc:474
 msgid "Object Cycle"
-msgstr ""
+msgstr "Ciclul obiectului"
 
 #: ../src/tags/gnome-cmd-tags.cc:474
 msgid "Where 'a' is morning, 'p' is evening, 'b' is both."
-msgstr ""
+msgstr "Unde 'a' este dimineaţa, 'p' este seara, 'b' este ambele."
 
 #: ../src/tags/gnome-cmd-tags.cc:475
 msgid "Object Name"
-msgstr ""
+msgstr "Numele obiectului"
 
 #: ../src/tags/gnome-cmd-tags.cc:475
 msgid "A shorthand reference for the object."
-msgstr ""
+msgstr "O referinţă de scurtătură pentru obiect."
 
 #: ../src/tags/gnome-cmd-tags.cc:476
+#, fuzzy
 msgid "Object Size Announced"
-msgstr ""
+msgstr "După mărime mesaje"
 
 #: ../src/tags/gnome-cmd-tags.cc:476
 msgid "The total size of the object data if it is known."
-msgstr ""
+msgstr "Dimensiunea totală a datelor obiectului, dacă este cunoscută."
 
 #: ../src/tags/gnome-cmd-tags.cc:477
+#, fuzzy
 msgid "Object Type Reference"
-msgstr ""
+msgstr "Referinţă date obiect"
 
 #: ../src/tags/gnome-cmd-tags.cc:477
 msgid "Distinguishes between different types of objects within the IIM."
@@ -5781,31 +5929,35 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:478
 msgid "Originating Program"
-msgstr ""
+msgstr "Program de origine"
 
 #: ../src/tags/gnome-cmd-tags.cc:478
 msgid "The type of program used to originate the object."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:479
+#, fuzzy
 msgid "Original Transmission Reference"
-msgstr ""
+msgstr "Anexez prin referire?"
 
 #: ../src/tags/gnome-cmd-tags.cc:479
 msgid "A code representing the location of original transmission."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:480
+#, fuzzy
 msgid "Preview Data"
-msgstr ""
+msgstr "Previzualizare date de tipărit"
 
 #: ../src/tags/gnome-cmd-tags.cc:480
+#, fuzzy
 msgid "The object preview data"
-msgstr ""
+msgstr "Previzualizare date de tipărit"
 
 #: ../src/tags/gnome-cmd-tags.cc:481
+#, fuzzy
 msgid "Preview File Format"
-msgstr ""
+msgstr "Format fişier XFig"
 
 #: ../src/tags/gnome-cmd-tags.cc:481
 msgid ""
@@ -5814,8 +5966,9 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:482
+#, fuzzy
 msgid "Preview File Format Version"
-msgstr ""
+msgstr "Fişier: versiune/tip %s nesusţinut.\n"
 
 #: ../src/tags/gnome-cmd-tags.cc:482
 msgid "The version of the preview file format specified in 2:200."
@@ -5823,7 +5976,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:483
 msgid "Product ID"
-msgstr ""
+msgstr "Identificator produs"
 
 #: ../src/tags/gnome-cmd-tags.cc:483
 msgid "Allows a provider to identify subsets of its overall service."
@@ -5835,19 +5988,19 @@ msgstr "Versiune program"
 
 #: ../src/tags/gnome-cmd-tags.cc:484
 msgid "The version of the originating program."
-msgstr ""
+msgstr "Versiunea programului de origine."
 
 #: ../src/tags/gnome-cmd-tags.cc:485 ../src/tags/gnome-cmd-tags.cc:497
 msgid "Province, State"
-msgstr ""
+msgstr "Provincie, stat"
 
 #: ../src/tags/gnome-cmd-tags.cc:485 ../src/tags/gnome-cmd-tags.cc:497
 msgid "The Province/State where the object originates."
-msgstr ""
+msgstr "Provincia/statul de origine al obiectului."
 
 #: ../src/tags/gnome-cmd-tags.cc:486
 msgid "Rasterized Caption"
-msgstr ""
+msgstr "Comentariu rasterizat"
 
 #: ../src/tags/gnome-cmd-tags.cc:486
 msgid ""
@@ -5865,7 +6018,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:488
 msgid "Reference Date"
-msgstr ""
+msgstr "Dată de referinţă"
 
 #: ../src/tags/gnome-cmd-tags.cc:488
 msgid "The date of a prior envelope to which the current object refers."
@@ -5873,7 +6026,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:489
 msgid "Reference Number"
-msgstr ""
+msgstr "Număr de referinţă"
 
 #: ../src/tags/gnome-cmd-tags.cc:489
 msgid ""
@@ -5882,7 +6035,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:490
 msgid "Reference Service"
-msgstr ""
+msgstr "Serviciu de referinţă"
 
 #: ../src/tags/gnome-cmd-tags.cc:490
 msgid ""
@@ -5894,58 +6047,66 @@ msgstr ""
 msgid ""
 "Designates the earliest date the provider intends the object to be used."
 msgstr ""
+"Indică data cea mai timpurie la care furnizorul intenţionează ca obiectul să "
+"fie folosit."
 
 #: ../src/tags/gnome-cmd-tags.cc:492
 msgid ""
 "Designates the earliest time the provider intends the object to be used."
 msgstr ""
+"Indică ora cea mai timpurie la care furnizorul intenţionează ca obiectul să "
+"fie folosit."
 
 #: ../src/tags/gnome-cmd-tags.cc:493
 msgid "Service Identifier"
-msgstr ""
+msgstr "Identificator serviciu"
 
 #: ../src/tags/gnome-cmd-tags.cc:493
 msgid "Identifies the provider and product."
-msgstr ""
+msgstr "Identifică furnizorul şi produsul."
 
 #: ../src/tags/gnome-cmd-tags.cc:494
-#, fuzzy
 msgid "Size Mode"
-msgstr "Mod afisare marime"
+msgstr "Mod mărime"
 
 #: ../src/tags/gnome-cmd-tags.cc:494
 msgid "Set to 0 if the size of the object is known and 1 if not known."
 msgstr ""
+"Definit ca 0 dacă dimensiunea obiectului este cunoscută şi 1 dacă este "
+"necunoscută."
 
 #: ../src/tags/gnome-cmd-tags.cc:495
 msgid "Source"
-msgstr ""
+msgstr "Sursă"
 
 #: ../src/tags/gnome-cmd-tags.cc:495
 msgid "The original owner of the intellectual content of the object."
-msgstr ""
+msgstr "Deţinătorul original al conţinutului intelectual al obiectului."
 
 #: ../src/tags/gnome-cmd-tags.cc:496
 msgid "Special Instructions"
-msgstr ""
+msgstr "Instrucţiuni speciale"
 
 #: ../src/tags/gnome-cmd-tags.cc:496
 msgid "Other editorial instructions concerning the use of the object."
-msgstr ""
+msgstr "Alte instrucţiuni editoriale privind utilizarea obiectului."
 
 #: ../src/tags/gnome-cmd-tags.cc:498
 msgid "Subfile"
-msgstr ""
+msgstr "Subfişier"
 
 #: ../src/tags/gnome-cmd-tags.cc:498
 msgid ""
 "The object data itself. Subfiles must be sequential so that the subfiles may "
 "be reassembled."
 msgstr ""
+"Datele obiectului. Subfişierele trebuie să fie secvenţiale astfel încât să "
+"poată fi reasamblate."
 
 #: ../src/tags/gnome-cmd-tags.cc:499
+#, fuzzy
 msgid "Subject Reference"
-msgstr ""
+msgstr "Referinţă ra_pidă"
 
 #: ../src/tags/gnome-cmd-tags.cc:499
 msgid ""
@@ -5956,7 +6117,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:500
 msgid "Sub-location"
-msgstr ""
+msgstr "Sub-locaţie"
 
 #: ../src/tags/gnome-cmd-tags.cc:500
 msgid "The location within a city from which the object originates."
@@ -5964,7 +6125,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Supplemental Category"
-msgstr ""
+msgstr "Categorie suplimentară"
 
 #: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Further refines the subject of the object (Deprecated)."
@@ -5972,7 +6133,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid "Time Created"
-msgstr ""
+msgstr "Ora creării"
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid ""
@@ -5980,18 +6141,20 @@ msgid ""
 "date of the creation of the physical representation (multiple values "
 "allowed)."
 msgstr ""
+"Ora la care a fost creat conţinutul intelectual al obiectului, mai degrabă "
+"decât data creării reprezentării fizice (mai multe valori permise)."
 
 #: ../src/tags/gnome-cmd-tags.cc:503
 msgid "Time Sent"
-msgstr ""
+msgstr "Ora trimiterii"
 
 #: ../src/tags/gnome-cmd-tags.cc:503
 msgid "The time the service sent the material."
-msgstr ""
+msgstr "Ora la care serviciul a trimis materialul."
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid "Unique Name of Object"
-msgstr ""
+msgstr "Nume unic al obiectului"
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid ""
@@ -6001,17 +6164,20 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:505
 msgid "Urgency"
-msgstr ""
+msgstr "Urgenţă"
 
 #: ../src/tags/gnome-cmd-tags.cc:505
 msgid ""
 "Specifies the editorial urgency of content and not necessarily the envelope "
 "handling priority. '1' is most urgent, '5' normal, and '8' least urgent."
 msgstr ""
+"Specifică urgenţa editorială a conţinutului şi nu neapărat prioritatea "
+"plicului. '1' este cel mai urgent, '5' normal, şi '8' cel mai puţin urgent."
 
 #: ../src/tags/gnome-cmd-tags.cc:506
+#, fuzzy
 msgid "Writer/Editor"
-msgstr ""
+msgstr "Pornire editor"
 
 #: ../src/tags/gnome-cmd-tags.cc:506
 msgid ""
@@ -6021,11 +6187,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:507
 msgid "Contact information for the creators or distributors of the track."
-msgstr ""
+msgstr "Informaţii de contact pentru creatorii sau distribuitorii piesei."
 
 #: ../src/tags/gnome-cmd-tags.cc:508
 msgid "A textual description of the data."
-msgstr ""
+msgstr "O descriere textuală a datelor."
 
 #: ../src/tags/gnome-cmd-tags.cc:509
 msgid "License"
@@ -6041,31 +6207,31 @@ msgstr "Locaţie"
 
 #: ../src/tags/gnome-cmd-tags.cc:510
 msgid "Location where track was recorded."
-msgstr ""
+msgstr "Locaţia unde a fost înregistrată piesa."
 
 #: ../src/tags/gnome-cmd-tags.cc:511
 msgid "Maximum bitrate"
-msgstr ""
+msgstr "Rată de biţi maximă"
 
 #: ../src/tags/gnome-cmd-tags.cc:511
 msgid "Maximum bitrate in kbps."
-msgstr ""
+msgstr "Rata de biţi maximă în kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:512
 msgid "Minimum bitrate"
-msgstr ""
+msgstr "Rata de biţi minimă"
 
 #: ../src/tags/gnome-cmd-tags.cc:512
 msgid "Minimum bitrate in kbps."
-msgstr ""
+msgstr "Rata de biţi minimă în kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:513
 msgid "Nominal bitrate"
-msgstr ""
+msgstr "Rata de biţi nominală"
 
 #: ../src/tags/gnome-cmd-tags.cc:513
 msgid "Nominal bitrate in kbps."
-msgstr ""
+msgstr "Rata de biţi nominală în kbps."
 
 #: ../src/tags/gnome-cmd-tags.cc:514
 msgid "Organization"
@@ -6073,7 +6239,7 @@ msgstr "Organizaţie"
 
 #: ../src/tags/gnome-cmd-tags.cc:514
 msgid "Organization producing the track."
-msgstr ""
+msgstr "Organizaţia producătoare a piesei."
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Vendor"
@@ -6081,7 +6247,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Vorbis vendor ID."
-msgstr ""
+msgstr "Identificatorul fabricantului Vorbis."
 
 #: ../src/tags/gnome-cmd-tags.cc:516
 msgid "Vorbis Version"
@@ -6093,11 +6259,11 @@ msgstr "Versiune Vorbis."
 
 #: ../src/tags/gnome-cmd-tags.cc:647
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:653
 msgid "Doc"
-msgstr ""
+msgstr "Doc"
 
 #: ../src/tags/gnome-cmd-tags.cc:671
 msgid "Image"
@@ -6105,7 +6271,7 @@ msgstr "Imagine"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:63
 msgid "No Proofing"
-msgstr ""
+msgstr "Fără verificare"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:65
 msgid "Arabic"
@@ -6133,7 +6299,7 @@ msgstr "Cecenă"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:77
 msgid "Danish"
-msgstr ""
+msgstr "Daneză"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:79
 msgid "German"
@@ -6169,7 +6335,7 @@ msgstr "Spaniolă mexicană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:95
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandeză"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:97
 msgid "French"
@@ -6189,7 +6355,7 @@ msgstr "Franceză elveţiană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:105
 msgid "Hebrew"
-msgstr ""
+msgstr "Ebraică"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:107
 msgid "Hungarian"
@@ -6221,15 +6387,15 @@ msgstr "Olandeză"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:121
 msgid "Belgian Dutch"
-msgstr ""
+msgstr "Olandeză belgiană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:123
 msgid "Norwegian Bokmal"
-msgstr ""
+msgstr "Norvegiană (Bokmål)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:125
 msgid "Norwegian Nynorsk"
-msgstr ""
+msgstr "Norvegiană (Nynorsk)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:127
 msgid "Polish"
@@ -6245,7 +6411,7 @@ msgstr "Portugheză"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:133
 msgid "Rhaeto-Romanic"
-msgstr ""
+msgstr "Reto-romană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:135
 msgid "Romanian"
@@ -6257,11 +6423,11 @@ msgstr "Rusă"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:139
 msgid "Croato-Serbian (Latin)"
-msgstr ""
+msgstr "Croato-sârbă (Latin)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:141
 msgid "Serbo-Croatian (Cyrillic)"
-msgstr ""
+msgstr "Sârbo-croată (Chirilic)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:143
 msgid "Slovak"
@@ -6273,11 +6439,11 @@ msgstr "Albaneză"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:147
 msgid "Swedish"
-msgstr ""
+msgstr "Suedeză"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:149
 msgid "Thai"
-msgstr ""
+msgstr "Thai"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:151
 msgid "Turkish"
@@ -6285,27 +6451,27 @@ msgstr "Turcă"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:153
 msgid "Urdu"
-msgstr ""
+msgstr "Urdu"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:155
 msgid "Indonesian"
-msgstr ""
+msgstr "Indoneziană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:157
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ucrainiană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:159
 msgid "Byelorussian"
-msgstr ""
+msgstr "Bielorusă"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:161
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovenă"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:163
 msgid "Estonian"
-msgstr ""
+msgstr "Estoniană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:165
 msgid "Latvian"
@@ -6313,27 +6479,27 @@ msgstr "Letonă"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:167
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lituaniană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:169
 msgid "Farsi"
-msgstr ""
+msgstr "Persană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:171
 msgid "Basque"
-msgstr ""
+msgstr "Bască"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:173
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedoneană"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:175
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:177
 msgid "Malayalam"
-msgstr ""
+msgstr "Malayalam"
 
 #: ../src/tags/gnome-cmd-tags-exiv2.cc:65
 #, c-format
@@ -6350,11 +6516,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:73
 msgid "Dual channel"
-msgstr ""
+msgstr "Dublu canal"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:74
 msgid "Single channel"
-msgstr ""
+msgstr "Canal unic"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:79
 msgid "Undefined"
@@ -6468,7 +6634,7 @@ msgstr "Esuare creare director %s"
 msgid "Couldn't read from the directory %s: %s"
 msgstr "Nu pot citi din directorul %s: %s"
 
-#: ../src/utils.h:253
+#: ../src/utils.h:259
 msgid "There was an error displaying help."
 msgstr "A fost o eroare la afişarea ajutorului."
 
