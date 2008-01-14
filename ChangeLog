@@ -1,3 +1,8 @@
+2008-01-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.ll:
+	More C++ in advrename
+
 2008-01-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.ll:

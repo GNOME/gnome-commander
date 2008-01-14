@@ -29,11 +29,17 @@
 #include <string.h>
 #include <time.h>
 
+#include <string>
+#include <vector>
+
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-advrename-lexer.h"
 #include "tags/gnome-cmd-tags.h"
 #include "utils.h"
+
+using namespace std;
 
 
 #define   ECHO  {                                                                     \
@@ -41,7 +47,7 @@
                                                                                       \
                   p->type = TEXT;                                                     \
                   p->s = g_string_new(yytext);                                        \
-                  fname_template = g_list_append(fname_template, (gpointer) p);       \
+                  fname_template.push_back(p);                                        \
                 }
 
 
@@ -59,9 +65,9 @@ typedef struct
     {
       int beg;          // default: 0
       int end;          // default: 0
-      GString *name;    // default: NULL
+      char *name;       // default: NULL
       GnomeCmdTag tag;  // default: TAG_NONE
-      GList   *opt;     // default: NULL
+      GList *opt;       // default: NULL
     } tag;
     struct
     {
@@ -74,7 +80,7 @@ typedef struct
 } CHUNK;
 
 
-static GList *fname_template = NULL;
+static vector<CHUNK *> fname_template;
 
 
 static unsigned long default_counter_start = 1;
@@ -149,7 +155,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   p->tag.name = NULL;
                                   p->tag.opt = NULL;
 
-                                  fname_template = g_list_append(fname_template, (gpointer) p);
+                                  fname_template.push_back(p);
                                 }
 
 \$[c]\({uint}\)                 {
@@ -162,9 +168,9 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   p->type = COUNTER;
                                   p->counter.n = p->counter.start = default_counter_start;
                                   p->counter.step = default_counter_step;
-                                  p->counter.prec = precision<MAX_PRECISION ? precision : MAX_PRECISION;
+                                  p->counter.prec = MIN (precision,MAX_PRECISION);
 
-                                  fname_template = g_list_append(fname_template, (gpointer) p);
+                                  fname_template.push_back(p);
                                 }
 
 \$T\({tag_name}(\.[a-zA-Z][a-zA-Z0-9]+)+(,[^,)]+)*\)   {
@@ -177,7 +183,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   int i;
 
                                   p->type = METATAG;
-                                  p->tag.name = g_string_new(a[0]);
+                                  p->tag.name = g_strdup (a[0]);
                                   p->tag.tag = gcmd_tags_get_tag_by_name(a[0]);
                                   p->tag.opt = NULL;
 
@@ -186,7 +192,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
 
                                   g_strfreev(a);
 
-                                  fname_template = g_list_append(fname_template, (gpointer) p);
+                                  fname_template.push_back(p);
                                 }
 
 \$[cegnNp]\([^\)]*\)?           ECHO;                                      // don't substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
@@ -208,7 +214,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   p->tag.name = NULL;
                                   p->tag.opt = NULL;
 
-                                  fname_template = g_list_append(fname_template, (gpointer) p);
+                                  fname_template.push_back(p);
                                 }
 
 \$[c]                           {
@@ -219,7 +225,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   p->counter.step = default_counter_step;
                                   p->counter.prec = default_counter_prec;
 
-                                  fname_template = g_list_append(fname_template, (gpointer) p);
+                                  fname_template.push_back(p);
                                 }
 
 \$\$                            {
@@ -228,7 +234,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   p->type = TEXT;
                                   p->s = g_string_new("$");
 
-                                  fname_template = g_list_append(fname_template, (gpointer) p);
+                                  fname_template.push_back(p);
                                 }
 
 %[Dnt]                          {
@@ -237,7 +243,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   p->type = TEXT;
                                   p->s = g_string_new("%%");
 
-                                  fname_template = g_list_append(fname_template, (gpointer) p);
+                                  fname_template.push_back(p);
                                 }
 %%
 
@@ -246,13 +252,9 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
 
 void gnome_cmd_advrename_reset_counter(unsigned start, unsigned precision, unsigned step)
 {
-  for (GList *gl = fname_template; gl; gl=gl->next)
-  {
-    CHUNK *p = (CHUNK *) gl->data;
-
-    if (p->type==COUNTER)
-      p->counter.n = p->counter.start;
-  }
+  for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
+    if ((*i)->type==COUNTER)
+      (*i)->counter.n = (*i)->counter.start;
 
   default_counter_start = start;
   default_counter_step = step;
@@ -263,28 +265,22 @@ void gnome_cmd_advrename_reset_counter(unsigned start, unsigned precision, unsig
 
 void gnome_cmd_advrename_parse_fname(const char *fname)
 {
-  if (fname_template)               // delete fname_template if any
-  {
-    for (GList *gl = fname_template; gl; gl=gl->next)
+  for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
+    switch ((*i)->type)
     {
-      CHUNK *p = (CHUNK *) gl->data;
+      case TEXT:
+          g_string_free((*i)->s,TRUE);
+          g_free(*i);
+          break;
 
-      switch (p->type)
-      {
-        case TEXT:
-            g_string_free(p->s,TRUE);
-            g_free(p);
-            break;
-
-        case METATAG:
-            break;
-      }
+      case METATAG:
+          // FIXME: free memory here for all (*i) members
+          g_free((*i)->tag.name);
+          g_free(*i);
+          break;
     }
 
-    g_list_free(fname_template);
-  }
-
-  fname_template = NULL;
+  fname_template.clear();
 
   yy_scan_string(fname);
   yylex();
@@ -358,13 +354,14 @@ inline void find_grandparent_dir (const char *path, int &offset, int &len)
 
 char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, GnomeCmdFile *finfo)
 {
-  char *fname = get_utf8(finfo->info->name);
+  char *fname = get_utf8 (finfo->info->name);
   char *s = g_utf8_strrchr (fname, -1, '.');
 
-  GString *fmt = g_string_sized_new(256);
-  GList   *gl  = fname_template;
+  string fmt;
 
-  int full_name_len = g_utf8_strlen(fname, -1);
+  fmt.reserve(256);
+
+  int full_name_len = g_utf8_strlen (fname, -1);
 
   int name_len = full_name_len;
   int ext_len = 0;
@@ -372,8 +369,6 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
 
   int parent_dir_len, parent_dir_offset;
   int grandparent_dir_len, grandparent_dir_offset;
-
-  char custom_counter_fmt[8];
 
   int from = 0;
   int length = 0;
@@ -390,67 +385,70 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
   find_parent_dir (gnome_cmd_file_get_path(finfo), parent_dir_offset, parent_dir_len);
   find_grandparent_dir (gnome_cmd_file_get_path(finfo), grandparent_dir_offset, grandparent_dir_len);
 
-  for (; gl; gl=gl->next)
-  {
-    CHUNK *p = (CHUNK *) gl->data;
-
-    switch (p->type)
+  for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
+    switch ((*i)->type)
     {
       case TEXT  :
-                    fmt = g_string_append(fmt,p->s->str);
+                    fmt += (*i)->s->str;
                     break;
 
       case NAME  :
-                    mksubstr(name_len,p,from,length);
-                    fmt = g_string_append_len(fmt,fname+from,length);
+                    mksubstr(name_len,*i,from,length);
+                    fmt.append(fname+from,length);
                     break;
 
       case EXTENSION:
-                    mksubstr(ext_len,p,from,length);
-                    fmt = g_string_append_len(fmt,fname+ext_offset+from,length);
+                    mksubstr(ext_len,*i,from,length);
+                    fmt.append(fname+ext_offset+from,length);
                     break;
 
       case FULL_NAME:
-                    mksubstr(full_name_len,p,from,length);
-                    fmt = g_string_append_len(fmt,fname+from,length);
+                    mksubstr(full_name_len,*i,from,length);
+                    fmt.append(fname+from,length);
                     break;
 
       case PARENT_DIR:
-                    mksubstr(parent_dir_len,p,from,length);
-                    fmt = g_string_append_len(fmt,gnome_cmd_file_get_path(finfo)+parent_dir_offset+from,length);
+                    mksubstr(parent_dir_len,*i,from,length);
+                    fmt.append(gnome_cmd_file_get_path(finfo)+parent_dir_offset+from,length);
                     break;
 
       case GRANDPARENT_DIR:
-                    mksubstr(grandparent_dir_len,p,from,length);
-                    fmt = g_string_append_len(fmt,gnome_cmd_file_get_path(finfo)+grandparent_dir_offset+from,length);
+                    mksubstr(grandparent_dir_len,*i,from,length);
+                    fmt.append(gnome_cmd_file_get_path(finfo)+grandparent_dir_offset+from,length);
                     break;
 
       case COUNTER:
-                    if (p->counter.prec!=-1)
-                      sprintf(custom_counter_fmt,"%%0%ilu",p->counter.prec);
-                    g_string_append_printf(fmt,(p->counter.prec==-1 ? counter_fmt : custom_counter_fmt),p->counter.n);
-                    p->counter.n += p->counter.step;
+                    {
+                      static char custom_counter_fmt[8];
+                      static char counter_value[MAX_PRECISION+1];
+
+                      if ((*i)->counter.prec!=-1)
+                        sprintf(custom_counter_fmt,"%%0%ilu",(*i)->counter.prec);
+
+                      snprintf (counter_value, MAX_PRECISION, ((*i)->counter.prec==-1 ? counter_fmt : custom_counter_fmt), (*i)->counter.n);
+                      fmt += counter_value;
+
+                      (*i)->counter.n += (*i)->counter.step;
+                    }
                     break;
 
       case METATAG: {
-                        const gchar *tag_value = gcmd_tags_get_value(finfo,p->tag.tag);
+                        const gchar *tag_value = gcmd_tags_get_value(finfo,(*i)->tag.tag);
 
                         if (tag_value)
                         {
-                            mksubstr(strlen(tag_value),p,from,length);
-                            fmt = g_string_append_len(fmt,tag_value+from,length);
+                            mksubstr(strlen(tag_value),*i,from,length);
+                            fmt.append(tag_value+from,length);
                         }
                     }
                     break;
 
       default :     break;
     }
-  }
 
-  strftime(new_fname,new_fname_size,fmt->str,localtime(&finfo->info->mtime));
+  strftime(new_fname,new_fname_size,fmt.c_str(),localtime(&finfo->info->mtime));
 
   g_free(fname);
-  g_string_free(fmt,TRUE);
 
   return new_fname;
 }
