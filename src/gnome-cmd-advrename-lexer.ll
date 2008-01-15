@@ -446,7 +446,7 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
       default :     break;
     }
 
-  strftime(new_fname,new_fname_size,fmt.c_str(),localtime(&finfo->info->mtime));
+  strftime(new_fname, new_fname_size, fmt.c_str(), localtime(&finfo->info->mtime));
 
   g_free(fname);
 

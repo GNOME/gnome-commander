@@ -490,6 +490,7 @@ inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const gchar
     return gcmd_tags_get_value(finfo, gcmd_tags_get_tag_by_name(tag_name, tag_class));
 }
 
+
 class GnomeCmdFileMetadata
 {
   public:
@@ -509,16 +510,16 @@ class GnomeCmdFileMetadata
 
     GnomeCmdFileMetadata() {}                                                   // to make g++ 3.4 happy
 
-    gboolean is_accessed(const GnomeCmdTagClass tag_class) const;
-    gboolean is_accessed(const GnomeCmdTag tag) const;
-    void mark_as_accessed(const GnomeCmdTagClass tag_class)         {  accessed[tag_class] = TRUE;  }
-    void mark_as_accessed(const GnomeCmdTag tag);
+    gboolean is_accessed (const GnomeCmdTagClass tag_class) const;
+    gboolean is_accessed (const GnomeCmdTag tag) const;
+    void mark_as_accessed (const GnomeCmdTagClass tag_class)        {  accessed[tag_class] = TRUE;  }
+    void mark_as_accessed (const GnomeCmdTag tag);
 
-    void add(const GnomeCmdTag tag, std::string value);
-    void add(const GnomeCmdTag tag, const gchar *value);
+    void add (const GnomeCmdTag tag, std::string value);
+    void add (const GnomeCmdTag tag, const gchar *value);
     template <typename T>
-    void add(const GnomeCmdTag tag, const T &value);
-    void addf(const GnomeCmdTag tag, const gchar *fmt, ...);
+    void add (const GnomeCmdTag tag, const T &value);
+    void addf (const GnomeCmdTag tag, const gchar *fmt, ...);
 
     gboolean has_tag (const GnomeCmdTag tag);
 
@@ -529,7 +530,7 @@ class GnomeCmdFileMetadata
 };
 
 
-inline gboolean GnomeCmdFileMetadata::is_accessed(const GnomeCmdTagClass tag_class) const
+inline gboolean GnomeCmdFileMetadata::is_accessed (const GnomeCmdTagClass tag_class) const
 {
     ACCESSED_COLL::const_iterator elem = accessed.find(tag_class);
 
@@ -537,7 +538,7 @@ inline gboolean GnomeCmdFileMetadata::is_accessed(const GnomeCmdTagClass tag_cla
 }
 
 
-inline void GnomeCmdFileMetadata::add(const GnomeCmdTag tag, std::string value)
+inline void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, std::string value)
 {
     if (value.empty())
         return;
@@ -553,7 +554,7 @@ inline void GnomeCmdFileMetadata::add(const GnomeCmdTag tag, std::string value)
 }
 
 
-inline void GnomeCmdFileMetadata::add(const GnomeCmdTag tag, const gchar *value)
+inline void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, const gchar *value)
 {
     if (value && *value)
         add(tag, std::string(value));
@@ -561,7 +562,7 @@ inline void GnomeCmdFileMetadata::add(const GnomeCmdTag tag, const gchar *value)
 
 
 template <typename T>
-inline void GnomeCmdFileMetadata::add(const GnomeCmdTag tag, const T &value)
+inline void GnomeCmdFileMetadata::add (const GnomeCmdTag tag, const T &value)
 {
    std::ostringstream os;
 
