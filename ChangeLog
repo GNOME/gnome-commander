@@ -1,3 +1,8 @@
+2008-01-17  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/libgviewer/image-render.cc:
+	Yet another fix for problem with updating of internal viewer status bar
+
 2008-01-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.ll:

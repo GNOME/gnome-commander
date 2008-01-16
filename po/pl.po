@@ -2383,9 +2383,9 @@ msgstr[2] "pikseli"
 #: ../src/libgviewer/viewer-widget.cc:239
 msgid "bit/sample"
 msgid_plural "bits/sample"
-msgstr[0] "Bit/próbkę"
-msgstr[1] "Bity/próbkę"
-msgstr[2] "Bitów/próbkę"
+msgstr[0] "bit/próbkę"
+msgstr[1] "bity/próbkę"
+msgstr[2] "bitów/próbkę"
 
 #: ../src/libgviewer/viewer-widget.cc:241
 msgid "(fit to window)"
