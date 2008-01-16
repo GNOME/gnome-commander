@@ -43,7 +43,7 @@ using namespace std;
 
 
 #define   ECHO  {                                                                     \
-                  CHUNK *p = g_new0(CHUNK,1);                                         \
+                  CHUNK *p = g_new0 (CHUNK,1);                                         \
                                                                                       \
                   p->type = TEXT;                                                     \
                   p->s = g_string_new(yytext);                                        \
@@ -122,7 +122,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
 \$[egnNp]\({range}\)            {
                                   gchar **a = g_strsplit_set(yytext+3,":,()",0);
 
-                                  CHUNK *p = g_new0(CHUNK,1);
+                                  CHUNK *p = g_new0 (CHUNK,1);
 
                                   switch (yytext[1])
                                   {
@@ -159,7 +159,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                 }
 
 \$[c]\({uint}\)                 {
-                                  CHUNK *p = g_new0(CHUNK,1);
+                                  CHUNK *p = g_new0 (CHUNK,1);
 
                                   int precision = default_counter_prec;
 
@@ -168,7 +168,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   p->type = COUNTER;
                                   p->counter.n = p->counter.start = default_counter_start;
                                   p->counter.step = default_counter_step;
-                                  p->counter.prec = MIN (precision,MAX_PRECISION);
+                                  p->counter.prec = min (precision, MAX_PRECISION);
 
                                   fname_template.push_back(p);
                                 }
@@ -178,7 +178,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   gchar **a = g_strsplit_set(yytext+3,",()",0);
                                   guint n = g_strv_length(a);                     // glib >= 2.6
 
-                                  CHUNK *p = g_new0(CHUNK,1);
+                                  CHUNK *p = g_new0 (CHUNK,1);
 
                                   int i;
 
@@ -198,7 +198,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
 \$[cegnNp]\([^\)]*\)?           ECHO;                                      // don't substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
 
 \$[egnNp]                       {
-                                  CHUNK *p = g_new0(CHUNK,1);
+                                  CHUNK *p = g_new0 (CHUNK,1);
 
                                   switch (yytext[1])
                                   {
@@ -218,7 +218,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                 }
 
 \$[c]                           {
-                                  CHUNK *p = g_new0(CHUNK,1);
+                                  CHUNK *p = g_new0 (CHUNK,1);
 
                                   p->type = COUNTER;
                                   p->counter.n = p->counter.start = default_counter_start;
@@ -229,7 +229,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                 }
 
 \$\$                            {
-                                  CHUNK *p = g_new0(CHUNK,1);
+                                  CHUNK *p = g_new0 (CHUNK,1);
 
                                   p->type = TEXT;
                                   p->s = g_string_new("$");
@@ -238,7 +238,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                 }
 
 %[Dnt]                          {
-                                  CHUNK *p = g_new0(CHUNK,1);
+                                  CHUNK *p = g_new0 (CHUNK,1);
 
                                   p->type = TEXT;
                                   p->s = g_string_new("%%");
@@ -288,10 +288,16 @@ void gnome_cmd_advrename_parse_fname(const char *fname)
 }
 
 
-inline void mksubstr (int src_len, const CHUNK *p, int &pos, int &len)
+// gboolean is_substr (const CHUNK *p)
+// {
+  // return p->tag.beg!=0 || p->tag.end!=0;
+// }
+
+
+inline void mk_substr (int src_len, const CHUNK *p, int &pos, int &len)
 {
   pos = p->tag.beg<0 ? p->tag.beg+src_len : p->tag.beg;
-  pos = MAX(pos, 0);
+  pos = max(pos, 0);
 
   if (pos>=src_len)
   {
@@ -304,86 +310,87 @@ inline void mksubstr (int src_len, const CHUNK *p, int &pos, int &len)
 }
 
 
-inline void find_parent_dir (const char *path, int &offset, int &len)
+inline void append_utf8_chunk (string &s, const CHUNK *p, const char *path, int path_len)
 {
-  char *slash = g_utf8_strrchr (path, -1, G_DIR_SEPARATOR);
-  char *s = slash;
+  // if (!is_substr (p))
+  // {
+    // s += path_offset ? g_utf8_offset_to_pointer (path, path_offset) : path;
+    // return;
+  // }
 
-  offset = len = 0;
+  int from, length;
 
-  if (!slash)  return;
+  mk_substr (path_len, p, from, length);
 
-  while (s!=path)
-    if (*--s==G_DIR_SEPARATOR)
-    {
-      offset = ++s - path;
-      len = slash - s;
+  if (!length)
+    return;
 
-      return;
-    }
+  const char *beg = g_utf8_offset_to_pointer (path, from);
+  const char *end = g_utf8_offset_to_pointer (beg, length);
 
-  len = slash-path;
+  s.append(path, beg-path, end-beg);
 }
 
 
-inline void find_grandparent_dir (const char *path, int &offset, int &len)
+inline void find_dirs (const gchar *path, const gchar *&parent_dir, const gchar *&grandparent_dir, int &parent_dir_len, int &grandparent_dir_len)
 {
-  char *slash = g_utf8_strrchr (path, -1, G_DIR_SEPARATOR);
-  char *s;
+    const gchar *dir0 = "";
 
-  offset = len = 0;
+    grandparent_dir = parent_dir = dir0;
 
-  if (slash==path || !slash)  return;
+    int offset = 0;
 
-  s = slash = g_utf8_strrchr (path, slash-path-1, G_DIR_SEPARATOR);
+    int offset0 = 0;
+    int offset1 = 0;
+    int offset2 = 0;
 
-  if (!slash)  return;
-
-  while (s!=path)
-    if (*--s==G_DIR_SEPARATOR)
+    for (const gchar *s = path; *s;)
     {
-      offset = ++s - path;
-      len = slash - s;
+        gboolean sep = *s==G_DIR_SEPARATOR;
 
-      return;
+        s = g_utf8_next_char (s);
+        ++offset;
+
+        if (!sep)
+            continue;
+
+        grandparent_dir = parent_dir;
+        parent_dir = dir0;
+        dir0 = s;
+
+        offset2 = offset1;
+        offset1 = offset0;
+        offset0 = offset;
     }
 
-  len = slash-path;
+    parent_dir_len = max(offset0-offset1-1,0);
+    grandparent_dir_len = max(offset1-offset2-1,0);
 }
 
 
 char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, GnomeCmdFile *finfo)
 {
-  char *fname = get_utf8 (finfo->info->name);
-  char *s = g_utf8_strrchr (fname, -1, '.');
-
   string fmt;
-
   fmt.reserve(256);
 
-  int full_name_len = g_utf8_strlen (fname, -1);
+  char *fname = get_utf8 (finfo->info->name);
+  char *ext = g_utf8_strrchr (fname, -1, '.');
 
+  int full_name_len = g_utf8_strlen (fname, -1);
   int name_len = full_name_len;
   int ext_len = 0;
-  int ext_offset = 0;
 
-  int parent_dir_len, parent_dir_offset;
-  int grandparent_dir_len, grandparent_dir_offset;
-
-  int from = 0;
-  int length = 0;
-
-  *new_fname = '\0';
-
-  if (s)
+  if (!ext)  ext = "";  else
   {
-    name_len = s-fname;
-    ext_offset = name_len+1;
-    ext_len = g_utf8_strlen(s+1, -1);
+    ++ext;
+    ext_len = g_utf8_strlen(ext, -1);
+    name_len = full_name_len - ext_len - 1;
   }
 
-  find_parent_dir (gnome_cmd_file_get_path(finfo), parent_dir_offset, parent_dir_len);
-  find_grandparent_dir (gnome_cmd_file_get_path(finfo), grandparent_dir_offset, grandparent_dir_len);
+  const char *parent_dir, *grandparent_dir;
+  int parent_dir_len, grandparent_dir_len;
+
+  find_dirs(gnome_cmd_file_get_path(finfo), parent_dir, grandparent_dir, parent_dir_len, grandparent_dir_len);
 
   for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
     switch ((*i)->type)
@@ -393,28 +400,23 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
                     break;
 
       case NAME  :
-                    mksubstr(name_len,*i,from,length);
-                    fmt.append(fname+from,length);
+                    append_utf8_chunk (fmt, *i, fname, name_len);
                     break;
 
       case EXTENSION:
-                    mksubstr(ext_len,*i,from,length);
-                    fmt.append(fname+ext_offset+from,length);
+                    append_utf8_chunk (fmt, *i, ext, ext_len);
                     break;
 
       case FULL_NAME:
-                    mksubstr(full_name_len,*i,from,length);
-                    fmt.append(fname+from,length);
+                    append_utf8_chunk (fmt, *i, fname, full_name_len);
                     break;
 
       case PARENT_DIR:
-                    mksubstr(parent_dir_len,*i,from,length);
-                    fmt.append(gnome_cmd_file_get_path(finfo)+parent_dir_offset+from,length);
+                    append_utf8_chunk (fmt, *i, parent_dir, parent_dir_len);
                     break;
 
       case GRANDPARENT_DIR:
-                    mksubstr(grandparent_dir_len,*i,from,length);
-                    fmt.append(gnome_cmd_file_get_path(finfo)+grandparent_dir_offset+from,length);
+                    append_utf8_chunk (fmt, *i, grandparent_dir, grandparent_dir_len);
                     break;
 
       case COUNTER:
@@ -432,15 +434,14 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
                     }
                     break;
 
-      case METATAG: {
-                        const gchar *tag_value = gcmd_tags_get_value(finfo,(*i)->tag.tag);
+      case METATAG: // currently ranges are NOT supported for $T() tokens !!!
 
-                        if (tag_value)
-                        {
-                            mksubstr(strlen(tag_value),*i,from,length);
-                            fmt.append(tag_value+from,length);
-                        }
-                    }
+                    // const gchar *tag_value = gcmd_tags_get_value (finfo,(*i)->tag.tag);
+
+                    // if (tag_value)
+                      // append_utf8_chunk (fmt, *i, tag_value, g_utf8_strlen (tag_value, -1));
+
+                    fmt += gcmd_tags_get_value (finfo,(*i)->tag.tag);
                     break;
 
       default :     break;

@@ -5805,6 +5805,9 @@
                             <para>Fixed problem #490431 (view files with name containing '%')</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem when creating ~/dir</para>
                         </listitem>
                         <listitem>
