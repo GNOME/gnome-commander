@@ -1226,7 +1226,7 @@ static void init (GnomeCmdFileList *fl)
     gint i;
     gboolean b;
 
-    fl->priv = g_new (GnomeCmdFileListPrivate, 1);
+    fl->priv = g_new0 (GnomeCmdFileListPrivate, 1);
     fl->priv->shown_files = gnome_cmd_file_collection_new ();
     fl->priv->selected_files = NULL;
     fl->priv->shift_down = FALSE;

@@ -6,6 +6,9 @@
 	* src/gnome-cmd-advrename-dialog.cc:
 	Set template combo history as case sensitive
 
+	* src/gnome-cmd-file-list.cc:
+	Yet another fix for cursor going astray
+
 2008-01-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.ll:
