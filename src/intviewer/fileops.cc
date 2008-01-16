@@ -161,6 +161,7 @@ int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
     g_return_val_if_fail (filedesc>2, -1);
 
     int fd = dup(filedesc);
+
     if (fd==-1)
     {
         g_warning("file_open_fd failed, 'dup' returned -1");

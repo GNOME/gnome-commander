@@ -115,16 +115,13 @@ void free_bm_byte_data(GViewerBMByteData *data)
     if (data==NULL)
         return;
 
-    if (data->good!=NULL)
-        g_free(data->good);
+    g_free(data->good);
     data->good=NULL;
 
-    if (data->bad!=NULL)
-        g_free(data->bad);
+    g_free(data->bad);
     data->bad = NULL;
 
-    if (data->pattern!=NULL)
-        g_free(data->pattern);
+    g_free(data->pattern);
     data->pattern = NULL;
 
     data->pattern_len = 0;

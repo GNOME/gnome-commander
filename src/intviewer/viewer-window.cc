@@ -190,8 +190,7 @@ void gviewer_window_load_file (GViewerWindow *obj, const gchar *filename)
     g_return_if_fail (obj);
     g_return_if_fail (filename);
 
-    if (obj->priv->filename)
-        g_free(obj->priv->filename);
+    g_free(obj->priv->filename);
 
     obj->priv->filename = g_strdup (filename);
 
@@ -339,16 +338,12 @@ static void gviewer_window_status_line_changed(GViewer *obj, const gchar *status
     GViewerWindow *w = GVIEWER_WINDOW (wnd);
 
     if (w->priv->status_bar_msg)
-    {
         gtk_statusbar_pop(GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id);
-        w->priv->status_bar_msg = FALSE;
-    }
 
     if (status_line)
-    {
         gtk_statusbar_push(GTK_STATUSBAR(w->priv->statusbar), w->priv->statusbar_ctx_id, status_line);
-        w->priv->status_bar_msg = TRUE;
-    }
+
+    w->priv->status_bar_msg = status_line!=NULL;
 }
 
 
@@ -363,7 +358,7 @@ void gviewer_window_set_settings(GViewerWindow *obj, /*in*/ GViewerWindowSetting
     gviewer_set_tab_size(obj->priv->viewer, settings->tab_size);
 
     gviewer_set_fixed_limit(obj->priv->viewer, settings->binary_bytes_per_line);
-    switch(settings->binary_bytes_per_line)
+    switch (settings->binary_bytes_per_line)
     {
         case 20:
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(obj->priv->fixed_limit_menu_items[0]), TRUE);
@@ -447,8 +442,7 @@ static void gviewer_window_destroy (GtkObject *widget)
         g_hash_table_destroy(w->priv->external_tools);
 #endif
 
-        if (w->priv->filename)
-            g_free(w->priv->filename);
+        g_free(w->priv->filename);
         w->priv->filename = NULL;
 
         if (w->priv->exit_data_fd!=-1)
@@ -566,7 +560,7 @@ static GtkWidget *create_menu_item (MENUITEMTYPE type,
 {
     GtkWidget *menuitem;
 
-    switch(type)
+    switch (type)
     {
         case MI_CHECK:
             menuitem = gtk_check_menu_item_new_with_mnemonic (_(name));
@@ -645,7 +639,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
     {
         GtkWidget *item = NULL;
 
-        switch(menudata->menutype)
+        switch (menudata->menutype)
         {
             case MI_NONE:
                 break;
@@ -1164,11 +1158,8 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
         g_object_unref(obj->priv->srchr);
         obj->priv->srchr = NULL;
 
-        if (obj->priv->search_pattern!=NULL)
-        {
-            g_free(obj->priv->search_pattern);
-            obj->priv->search_pattern = NULL;
-        }
+        g_free(obj->priv->search_pattern);
+        obj->priv->search_pattern = NULL;
     }
 
     // Get the search information from the search dialog

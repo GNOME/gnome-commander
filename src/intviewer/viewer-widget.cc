@@ -223,7 +223,7 @@ static void gviewer_image_status_update(ImageRender *obj, ImageRenderStatus *sta
 
     *temp = 0;
 
-    if ((status->image_width > 0) && (status->image_height > 0))
+    if (status->image_width > 0 && status->image_height > 0)
     {
         gchar zoom[10];
         char *size_string = ""; // size_string = gnome_vfs_format_file_size_for_display (bytes);
