@@ -1094,6 +1094,7 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
 
     in_dialog->priv->templ_combo = create_combo (dialog);
+    gtk_combo_set_case_sensitive (GTK_COMBO (in_dialog->priv->templ_combo), TRUE);
     in_dialog->priv->templ_entry = GTK_COMBO (in_dialog->priv->templ_combo)->entry;
     gtk_signal_connect (GTK_OBJECT (in_dialog->priv->templ_entry),
                         "key-press-event", GTK_SIGNAL_FUNC (on_templ_entry_keypress),

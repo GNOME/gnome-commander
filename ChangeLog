@@ -3,6 +3,9 @@
 	* src/gnome-cmd-advrename-lexer.ll:
 	Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)
 
+	* src/gnome-cmd-advrename-dialog.cc:
+	Set template combo history as case sensitive
+
 2008-01-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.ll:
