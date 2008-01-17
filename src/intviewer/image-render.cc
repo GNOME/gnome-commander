@@ -735,8 +735,6 @@ static gpointer image_render_pixbuf_loading_thread(gpointer data)
 
     g_atomic_int_inc(&obj->priv->orig_pixbuf_loaded);
 
-    image_render_notify_status_changed (obj);
-
     g_object_unref(G_OBJECT(obj));
 
     return NULL;
