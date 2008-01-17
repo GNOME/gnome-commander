@@ -3,6 +3,9 @@
 	* src/libgviewer/image-render.cc:
 	Yet another fix for problem with updating of internal viewer status bar
 
+	* src/gnome-cmd-file-props-dialog.cc:
+	Added "kbps" to Audio.Bitrate tag presented in file properties dlg
+
 2008-01-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.ll:

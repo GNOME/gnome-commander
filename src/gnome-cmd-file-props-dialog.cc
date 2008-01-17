@@ -305,7 +305,7 @@ inline void add_sep (GtkWidget *table, gint y)
 }
 
 
-inline void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag)
+inline void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileMetadata &metadata, GnomeCmdTag tag, const gchar *appended_text=NULL)
 {
     if (!metadata.has_tag (tag))
         return;
@@ -318,7 +318,12 @@ inline void add_tag (GtkWidget *dialog, GtkWidget *table, gint &y, GnomeCmdFileM
     label = create_bold_label (dialog, title.c_str());
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, truncate(metadata[tag],120).c_str());
+    string value = truncate (metadata[tag],120);
+
+    if (appended_text)
+        value += appended_text;
+
+    label = create_label (dialog, value.c_str());
     table_add (table, label, 1, y++, GTK_FILL);
 }
 
@@ -453,7 +458,7 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         add_width_height_tag (dialog, table, y, *data->finfo->metadata);
         add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_ALBUMARTIST);
         add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_TITLE);
-        add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_BITRATE);
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_BITRATE, " kbps");
         add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_DURATIONMMSS);
     }
 
