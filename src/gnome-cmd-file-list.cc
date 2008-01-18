@@ -204,8 +204,8 @@ inline void focus_file_at_row (GnomeCmdFileList *fl, gint row)
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     GTK_CLIST (fl)->focus_row = row;
-    fl->priv->cur_file = row;
     gtk_clist_select_row (GTK_CLIST (fl), row, 0);
+    fl->priv->cur_file = GTK_CLIST (fl)->focus_row;
 }
 
 

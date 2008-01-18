@@ -1,3 +1,8 @@
+2008-01-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	Point to the focused file properly
+
 2008-01-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/libgviewer/image-render.cc:
