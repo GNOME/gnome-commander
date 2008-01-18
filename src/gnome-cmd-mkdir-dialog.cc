@@ -202,7 +202,7 @@ GtkWidget *gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
         labels,
         1,
         (GnomeCmdStringDialogCallback) on_ok,
-        (GtkSignalFunc)on_cancel,
+        (GtkSignalFunc) on_cancel,
         dialog);
 
     return GTK_WIDGET (dialog);

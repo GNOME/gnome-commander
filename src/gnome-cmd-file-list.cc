@@ -206,7 +206,6 @@ inline void focus_file_at_row (GnomeCmdFileList *fl, gint row)
     GTK_CLIST (fl)->focus_row = row;
     fl->priv->cur_file = row;
     gtk_clist_select_row (GTK_CLIST (fl), row, 0);
-
 }
 
 
@@ -401,7 +400,6 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 
 inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens, gboolean mode)
 {
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     Filter *filter = filter_new (pattern, case_sens, gnome_cmd_data_get_filter_type ());
@@ -1228,13 +1226,13 @@ static void init (GnomeCmdFileList *fl)
 
     fl->priv = g_new0 (GnomeCmdFileListPrivate, 1);
     fl->priv->shown_files = gnome_cmd_file_collection_new ();
-    fl->priv->selected_files = NULL;
-    fl->priv->shift_down = FALSE;
-    fl->priv->selpat_dialog = NULL;
-    fl->priv->right_mb_down_file = NULL;
-    fl->priv->right_mb_timeout_id = 0;
-    fl->priv->quicksearch_popup = NULL;
-    fl->priv->focus_later = NULL;
+    // fl->priv->selected_files = NULL;
+    // fl->priv->shift_down = FALSE;
+    // fl->priv->selpat_dialog = NULL;
+    // fl->priv->right_mb_down_file = NULL;
+    // fl->priv->right_mb_timeout_id = 0;
+    // fl->priv->quicksearch_popup = NULL;
+    // fl->priv->focus_later = NULL;
 
     for (i=0; i<FILE_LIST_NUM_COLUMNS; i++)
         fl->priv->sort_raising[i] = FALSE;
@@ -1552,13 +1550,15 @@ void gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     g_return_if_fail (finfo != NULL);
 
     gint row = get_row_from_file (fl, finfo);
+
     if (row >= 0)
     {
         gtk_clist_remove (GTK_CLIST (fl), row);
+
         fl->priv->selected_files = g_list_remove (fl->priv->selected_files, finfo);
         gnome_cmd_file_collection_remove (fl->priv->shown_files, finfo);
 
-        focus_file_at_row (fl, MIN(row, GTK_CLIST(fl)->focus_row));
+        focus_file_at_row (fl, MIN (row, GTK_CLIST(fl)->focus_row));
     }
 }
 
@@ -1799,10 +1799,7 @@ void gnome_cmd_file_list_toggle_and_step (GnomeCmdFileList *fl)
 }
 
 
-void
-gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl,
-                                const gchar *focus_file,
-                                gboolean scroll_to_file)
+void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
@@ -1829,8 +1826,7 @@ gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl,
 
     /* The file was not found, remember the filename in case the file gets
        added to the list in the future (after a FAM event etc). */
-    if (fl->priv->focus_later)
-        g_free (fl->priv->focus_later);
+    g_free (fl->priv->focus_later);
     fl->priv->focus_later = g_strdup (focus_file);
 }
 
@@ -1994,14 +1990,14 @@ void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *finfo;
-    gint x, y, w, h;
-
-    finfo = gnome_cmd_file_list_get_selected_file (fl);
+    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (fl);
 
     if (GNOME_CMD_IS_FILE (finfo))
     {
-        get_focus_row_coordinates(fl, &x, &y, &w, &h);
+        gint x, y, w, h;
+
+        get_focus_row_coordinates (fl, &x, &y, &w, &h);
+
         GtkWidget *dialog = gnome_cmd_rename_dialog_new (finfo, x, y, w, h);
 
         gtk_widget_ref (dialog);
