@@ -110,6 +110,7 @@ GtkType gnome_cmd_file_list_get_type (void);
 GtkWidget *gnome_cmd_file_list_new (void);
 
 void gnome_cmd_file_list_show_column (GnomeCmdFileList *fl, GnomeCmdFileListColumnID col, gboolean value);
+GnomeCmdFileListColumnID gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
 
 void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl);
 

@@ -271,6 +271,8 @@ GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *finfo, const gchar *new_name
     g_return_val_if_fail (finfo, GNOME_VFS_ERROR_CORRUPTED_DATA);
     g_return_val_if_fail (finfo->info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
+    gchar *old_uri_str = gnome_cmd_file_get_uri_str (finfo);
+
     GnomeVFSFileInfo *new_info = gnome_vfs_file_info_dup (finfo->info);
     g_return_val_if_fail (new_info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
@@ -284,7 +286,7 @@ GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *finfo, const gchar *new_name
     if (result == GNOME_VFS_OK && has_parent_dir (finfo))
     {
         gnome_cmd_file_update_info (finfo, new_info);
-        gnome_cmd_dir_file_renamed (get_parent_dir (finfo), finfo);
+        gnome_cmd_dir_file_renamed (get_parent_dir (finfo), finfo, old_uri_str);
         if (GNOME_CMD_IS_DIR (finfo))
             gnome_cmd_dir_update_path (GNOME_CMD_DIR (finfo));
     }

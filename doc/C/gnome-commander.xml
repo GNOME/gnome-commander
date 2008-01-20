@@ -5781,7 +5781,10 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem #353889 (disappearing files after failed move (F6)))</para>
+                            <para>Fixed problem #345314 (cursor not staying on file while renaming)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #353889 (disappearing files after failed move (F6))</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problems #346286, #424447, #447882, #467058 (crash when using regex in renaming tool)</para>

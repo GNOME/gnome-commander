@@ -77,6 +77,7 @@ struct _GnomeCmdDirClass
     void (* file_created)       (GnomeCmdDir *dir, GnomeCmdFile *file);
     void (* file_deleted)       (GnomeCmdDir *dir, GnomeCmdFile *file);
     void (* file_changed)       (GnomeCmdDir *dir, GnomeCmdFile *file);
+    void (* file_renamed)       (GnomeCmdDir *dir, GnomeCmdFile *file);
     void (* list_ok)            (GnomeCmdDir *dir, GList *files);
     void (* list_failed)        (GnomeCmdDir *dir, GnomeVFSResult result);
 };
@@ -117,7 +118,7 @@ GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, std::string 
 void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str);
-void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo);
+void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo, const gchar *old_uri_str);
 gboolean gnome_cmd_dir_uses_fam (GnomeCmdDir *dir);
 
 void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir);

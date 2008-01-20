@@ -54,7 +54,8 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
         case GDK_KP_Enter:
             {
                 const gchar *new_fname = gtk_entry_get_text (dialog->priv->textbox);
-                GnomeVFSResult ret = gnome_cmd_file_rename (dialog->priv->finfo, new_fname);
+                GnomeVFSResult result = gnome_cmd_file_rename (dialog->priv->finfo, new_fname);
+                gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_fs (main_win, ACTIVE)->list, new_fname, TRUE);
 
                 gnome_cmd_file_unref (dialog->priv->finfo);
                 gtk_widget_destroy (widget);

@@ -1,3 +1,8 @@
+2008-01-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	Fixed problem #345314 (cursor not staying on file while renaming)
+
 2008-01-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

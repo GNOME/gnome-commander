@@ -1305,6 +1305,14 @@ void gnome_cmd_file_list_show_column (GnomeCmdFileList *fl, GnomeCmdFileListColu
 }
 
 
+GnomeCmdFileListColumnID gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FILE_LIST_COLUMN_ICON);
+
+    return (GnomeCmdFileListColumnID) fl->priv->current_col;
+}
+
+
 void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl)
 {
     gtk_clist_set_row_height (GTK_CLIST (fl), gnome_cmd_data_get_list_row_height ());

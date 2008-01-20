@@ -45,6 +45,7 @@ enum
     FILE_CREATED,
     FILE_DELETED,
     FILE_CHANGED,
+    FILE_RENAMED,
     LIST_OK,
     LIST_FAILED,
     LAST_SIGNAL
@@ -143,7 +144,7 @@ static void class_init (GnomeCmdDirClass *klass)
     parent_class = (GnomeCmdFileClass *) gtk_type_class (gnome_cmd_file_get_type ());
 
     dir_signals[FILE_CREATED] =
-        gtk_signal_new ("file_created",
+        gtk_signal_new ("file-created",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdDirClass, file_created),
@@ -152,7 +153,7 @@ static void class_init (GnomeCmdDirClass *klass)
             1, GTK_TYPE_POINTER);
 
     dir_signals[FILE_DELETED] =
-        gtk_signal_new ("file_deleted",
+        gtk_signal_new ("file-deleted",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdDirClass, file_deleted),
@@ -161,7 +162,7 @@ static void class_init (GnomeCmdDirClass *klass)
             1, GTK_TYPE_POINTER);
 
     dir_signals[FILE_CHANGED] =
-        gtk_signal_new ("file_changed",
+        gtk_signal_new ("file-changed",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdDirClass, file_changed),
@@ -169,8 +170,17 @@ static void class_init (GnomeCmdDirClass *klass)
             GTK_TYPE_NONE,
             1, GTK_TYPE_POINTER);
 
+    dir_signals[FILE_RENAMED] =
+        gtk_signal_new ("file-renamed",
+            GTK_RUN_LAST,
+            G_OBJECT_CLASS_TYPE (object_class),
+            GTK_SIGNAL_OFFSET (GnomeCmdDirClass, file_renamed),
+            gtk_marshal_NONE__POINTER,
+            GTK_TYPE_NONE,
+            1, GTK_TYPE_POINTER);
+
     dir_signals[LIST_OK] =
-        gtk_signal_new ("list_ok",
+        gtk_signal_new ("list-ok",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdDirClass, list_ok),
@@ -179,7 +189,7 @@ static void class_init (GnomeCmdDirClass *klass)
             1, GTK_TYPE_POINTER);
 
     dir_signals[LIST_FAILED] =
-        gtk_signal_new ("list_failed",
+        gtk_signal_new ("list-failed",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdDirClass, list_failed),
@@ -191,6 +201,7 @@ static void class_init (GnomeCmdDirClass *klass)
     klass->file_created = NULL;
     klass->file_deleted = NULL;
     klass->file_changed = NULL;
+    klass->file_renamed = NULL;
     klass->list_ok = NULL;
     klass->list_failed = NULL;
 }
@@ -801,12 +812,15 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 }
 
 
-void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo)
+void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo, const gchar *old_uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    g_return_if_fail (old_uri_str!=NULL);
 
-    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CHANGED], finfo);
+    gnome_cmd_file_collection_remove_by_uri (dir->priv->file_collection, old_uri_str);
+    gnome_cmd_file_collection_add (dir->priv->file_collection, finfo);
+    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_RENAMED], finfo);
 }
 
 

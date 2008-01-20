@@ -887,6 +887,24 @@ static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmd
 }
 
 
+static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
+{
+    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+
+    if (file_is_in_list (fs, finfo))
+    {
+        gnome_cmd_file_list_update_file (GNOME_CMD_FILE_LIST (fs->list), finfo);
+
+        GnomeCmdFileListColumnID sort_col = gnome_cmd_file_list_get_sort_column (GNOME_CMD_FILE_LIST (fs->list));
+
+        if (sort_col==FILE_LIST_COLUMN_NAME || sort_col==FILE_LIST_COLUMN_EXT)
+            gnome_cmd_file_list_sort (GNOME_CMD_FILE_LIST (fs->list));
+    }
+}
+
+
 static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -1059,11 +1077,14 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
                                            GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
             gtk_signal_disconnect_by_func (GTK_OBJECT (fs->priv->connected_dir),
                                            GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
+            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->priv->connected_dir),
+                                           GTK_SIGNAL_FUNC (on_dir_file_renamed), fs);
         }
 
         gtk_signal_connect (GTK_OBJECT (dir), "file-created", GTK_SIGNAL_FUNC (on_dir_file_created), fs);
         gtk_signal_connect (GTK_OBJECT (dir), "file-deleted", GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
         gtk_signal_connect (GTK_OBJECT (dir), "file-changed", GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
+        gtk_signal_connect (GTK_OBJECT (dir), "file-renamed", GTK_SIGNAL_FUNC (on_dir_file_renamed), fs);
         fs->priv->connected_dir = dir;
     }
 
