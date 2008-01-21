@@ -1,6 +1,9 @@
 2008-01-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-dir.cc:
+	Fixed problem #510567 (failed assert when deleting dir)
+
+	* src/gnome-cmd-dir.cc:
 	* src/gnome-cmd-dir.h:
 	* src/gnome-cmd-file.cc:
 	* src/gnome-cmd-file-list.cc:

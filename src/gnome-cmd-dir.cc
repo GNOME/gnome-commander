@@ -780,7 +780,8 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
 
     GnomeCmdFile *finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
 
-    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    if (!GNOME_CMD_IS_FILE (finfo))
+        return;
 
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], finfo);
 

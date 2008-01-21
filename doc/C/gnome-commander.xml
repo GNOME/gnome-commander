@@ -5811,6 +5811,9 @@
                             <para>Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #510567 (failed assert when deleting dir)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem when creating ~/dir</para>
                         </listitem>
                         <listitem>

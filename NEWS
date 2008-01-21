@@ -13,6 +13,7 @@ Bug fixes:
  * Fixed problem #468685 (crash in python module)
  * Fixed problem #490431 (view files with name containing '%')
  * Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)
+ * Fixed problem #510567 (failed assert when deleting dir)
  * Fixed problem when creating ~/dir
  * Fixed problem with updating of internal viewer status bar
  * Fixed crash when creating dir with absolute path on SMB share
