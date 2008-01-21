@@ -21,6 +21,8 @@
 #include <libgnomevfs/gnome-vfs-mime-monitor.h>
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir.h"
+#include "gnome-cmd-file-selector.h"
+#include "gnome-cmd-main-win.h"
 #include "gnome-cmd-file-props-dialog.h"
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-chmod-component.h"
@@ -212,7 +214,12 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
     const gchar *filename = gtk_entry_get_text (GTK_ENTRY (data->filename_entry));
 
     if (strcmp (filename, gnome_cmd_file_get_name (data->finfo)) != 0)
+    {
         result = gnome_cmd_file_rename (data->finfo, filename);
+
+        if (result==GNOME_VFS_OK)
+            gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_fs (main_win, ACTIVE)->list, filename, TRUE);
+    }
 
     if (result == GNOME_VFS_OK)
     {
@@ -238,7 +245,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     if (result != GNOME_VFS_OK)
     {
-        create_error_dialog (gnome_vfs_result_to_string (result));
+        gnome_cmd_show_message (NULL, filename, gnome_vfs_result_to_string (result));
         return;
     }
 
@@ -252,7 +259,7 @@ static void on_dialog_cancel (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *da
 }
 
 
-static void on_copy_clipboard_help (GtkButton *button, GnomeCmdFilePropsDialogPrivate *data)
+static void on_copy_clipboard (GtkButton *button, GnomeCmdFilePropsDialogPrivate *data)
 {
     g_return_if_fail (data != NULL);
 
@@ -705,7 +712,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
     gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook), 2), gtk_label_new (_("Metadata")));
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_dialog_help), data);
-    data->copy_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_COPY, GTK_SIGNAL_FUNC (on_copy_clipboard_help), data);
+    data->copy_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_COPY, GTK_SIGNAL_FUNC (on_copy_clipboard), data);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_dialog_cancel), data);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_dialog_ok), data);
 

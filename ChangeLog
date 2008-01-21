@@ -1,6 +1,13 @@
 2008-01-21  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-dir.cc:
+	* src/gnome-cmd-dir.h:
+	* src/gnome-cmd-file.cc:
 	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-rename-dialog.cc:
 	Fixed problem #345314 (cursor not staying on file while renaming)
 
 2008-01-19  Piotr Eljasiak  <epiotr@use.pl>
