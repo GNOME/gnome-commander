@@ -114,10 +114,7 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
 }
 
 
-static gboolean
-on_open_with_other_ok (GnomeCmdStringDialog *string_dialog,
-                       const gchar **values,
-                       GList *files)
+static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GList *files)
 {
     GtkWidget *term_check = lookup_widget (GTK_WIDGET (string_dialog), "term_check");
 
@@ -127,21 +124,19 @@ on_open_with_other_ok (GnomeCmdStringDialog *string_dialog,
         return FALSE;
     }
 
-    gchar *cmd = g_strdup_printf ("%s ", values[0]);
+    string cmd = values[0];
 
     for (; files; files = files->next)
     {
-        gchar *path = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (files->data));
-        gchar *tmp = cmd;
-        gchar *arg = g_shell_quote (path);
-        cmd = g_strdup_printf ("%s %s", tmp, arg);
-        g_free (arg);
-        g_free (path);
-        g_free (tmp);
+        cmd += ' ';
+        cmd += stringify (gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (files->data)));
     }
 
-    run_command (cmd, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
-    g_free (cmd);
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
+    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (fs);
+    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
+    run_command_indir (cmd.c_str(), dpath, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
+    g_free (dpath);
 
     return TRUE;
 }
