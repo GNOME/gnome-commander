@@ -308,7 +308,7 @@ inline std::string stringify(gchar *val)
 {
     std::string s;
 
-    return val ? stringify(s,val) : s;
+    return val ? stringify(s, val) : s;
 }
 
 template <typename T>

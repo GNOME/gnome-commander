@@ -109,7 +109,7 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
         }
     }
 
-    g_hash_table_foreach (hash, (GHFunc)htcb_exec_with_app, NULL);
+    g_hash_table_foreach (hash, (GHFunc) htcb_exec_with_app, NULL);
     g_hash_table_destroy (hash);
 }
 
@@ -153,7 +153,7 @@ static void on_open_with_other (GtkMenuItem *menu_item, GList *files)
     GtkWidget *dialog;
 
     dialog = gnome_cmd_string_dialog_new (_("Open with other..."), labels, 1,
-                                          (GnomeCmdStringDialogCallback)on_open_with_other_ok, files);
+                                          (GnomeCmdStringDialogCallback) on_open_with_other_ok, files);
 
     g_return_if_fail (GNOME_CMD_IS_STRING_DIALOG (dialog));
 
