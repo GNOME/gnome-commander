@@ -1020,7 +1020,7 @@
                         <entry colname="col3" valign="top"><para>Description</para></entry>
                     </row>
                 </thead>
-                <body>
+                <tbody>
                     <row valign="top">
                         <entry><para>Audio.Album</para></entry>
                         <entry><para>Album</para></entry>
@@ -2452,7 +2452,7 @@
                         <entry><para>Time.</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>ID3.ID3.TitleSortOrder</para></entry>
+                        <entry><para>ID3.TitleSortOrder</para></entry>
                         <entry><para>Title sort order</para></entry>
                         <entry><para>Title sort order.</para></entry>
                     </row>
@@ -2464,7 +2464,7 @@
                     <row valign="top">
                         <entry><para>ID3.UnsyncedLyrics</para></entry>
                         <entry><para>Unsynchronized Lyrics</para></entry>
-                        <entry><para>Unsynchronized lyric.</para></entry>
+                        <entry><para>Unsynchronized lyrics.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>ID3.UserText</para></entry>
@@ -3076,7 +3076,7 @@
                         <entry><para>Vorbis Version</para></entry>
                         <entry><para>Vorbis version.</para></entry>
                     </row>
-                </body>
+                </tbody>
             </tgroup>
         </informaltable>
 
