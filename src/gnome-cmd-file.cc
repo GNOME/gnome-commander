@@ -370,6 +370,18 @@ gchar *gnome_cmd_file_get_dirname (GnomeCmdFile *finfo)
 }
 
 
+gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *finfo)
+{
+    GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
+    gchar *path = gnome_vfs_uri_extract_dirname (uri);
+    gnome_vfs_uri_unref (uri);
+    gchar *unescaped_path = gnome_vfs_unescape_string (path, NULL);
+    g_free (path);
+
+    return unescaped_path;
+}
+
+
 GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *finfo)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE (finfo), NULL);
@@ -745,7 +757,7 @@ void gnome_cmd_file_edit (GnomeCmdFile *finfo)
         return;
 
     gchar *fpath = gnome_cmd_file_get_quoted_real_path (finfo);
-    gchar *dpath = gnome_cmd_file_get_dirname (finfo);
+    gchar *dpath = gnome_cmd_file_get_unescaped_dirname (finfo);
     gchar *command = g_strdup_printf (gnome_cmd_data_get_editor (), fpath);
 
     run_command_indir (command, dpath, FALSE);
