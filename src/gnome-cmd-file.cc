@@ -159,8 +159,7 @@ GtkType gnome_cmd_file_get_type (void)
 }
 
 
-GnomeCmdFile *
-gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
+GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 {
     GnomeCmdFile *finfo = (GnomeCmdFile *) gtk_type_new (gnome_cmd_file_get_type ());
 
@@ -309,11 +308,11 @@ gchar *gnome_cmd_file_get_path (GnomeCmdFile *finfo)
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
 
-    gchar *path_str;
-    GnomeCmdPath *path;
-
     if (strcmp (finfo->info->name, G_DIR_SEPARATOR_S) == 0)
         return g_strdup (G_DIR_SEPARATOR_S);
+
+    GnomeCmdPath *path;
+    gchar *path_str;
 
     if (!has_parent_dir (finfo))
     {
@@ -346,14 +345,10 @@ gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *finfo)
 
 gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *finfo)
 {
-    gchar *ret = NULL;
     gchar *path = gnome_cmd_file_get_real_path (finfo);
+    gchar *ret = path ? quote_if_needed (path) : NULL;
 
-    if (path)
-    {
-        ret = quote_if_needed (path);
-        g_free (path);
-    }
+    g_free (path);
 
     return ret;
 }
@@ -950,7 +945,7 @@ void gnome_cmd_file_list_unref (GList *files)
 
 inline gulong tv2ms (const GTimeVal &t)
 {
-    return t.tv_sec * 1000 + t.tv_usec/1000;
+    return t.tv_sec*1000 + t.tv_usec/1000;
 }
 
 

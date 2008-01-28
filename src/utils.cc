@@ -459,7 +459,7 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 
         if (!path_str) return;
 
-        dldata->args[1] = (gpointer)path_str;
+        dldata->args[1] = (gpointer) path_str;
 
         GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (dldata->finfo));
         GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
@@ -505,17 +505,16 @@ void mime_exec_single (GnomeCmdFile *finfo)
         {
             gchar *fname = get_utf8 (finfo->info->name);
             gchar *msg = g_strdup_printf (_("\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
-            gint ret = run_simple_dialog (
-                GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg,
-                _("Make Executable?"),
-                -1, _("Cancel"), _("OK"), NULL);
+            gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg,
+                                          _("Make Executable?"),
+                                          -1, _("Cancel"), _("OK"), NULL);
             g_free (fname);
             g_free (msg);
 
             if (ret != 1)  return;  else
             {
-                GnomeVFSResult res = gnome_cmd_file_chmod (finfo, (GnomeVFSFilePermissions) (finfo->info->permissions|GNOME_VFS_PERM_USER_EXEC));
-                if (res != GNOME_VFS_OK)
+                GnomeVFSResult result = gnome_cmd_file_chmod (finfo, (GnomeVFSFilePermissions) (finfo->info->permissions|GNOME_VFS_PERM_USER_EXEC));
+                if (result != GNOME_VFS_OK)
                     return;
             }
         }
@@ -535,9 +534,8 @@ void mime_exec_single (GnomeCmdFile *finfo)
             {
                 gchar *fname = get_utf8 (finfo->info->name);
                 gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display its contents?"), fname);
-                gint ret = run_simple_dialog (
-                    GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
-                    -1, _("Cancel"), _("Display"), _("Run"), NULL);
+                gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
+                                              -1, _("Cancel"), _("Display"), _("Run"), NULL);
                 g_free (fname);
                 g_free (msg);
 
@@ -564,27 +562,25 @@ void mime_exec_single (GnomeCmdFile *finfo)
 
     if (gnome_cmd_file_is_local (finfo))
     {
-        args[0] = (gpointer)app;
-        args[1] = (gpointer)g_strdup (gnome_cmd_file_get_real_path (finfo));
+        args[0] = (gpointer) app;
+        args[1] = (gpointer) g_strdup (gnome_cmd_file_get_real_path (finfo));
         do_mime_exec_single (args);
     }
     else
     {
-        if (gnome_cmd_app_get_handles_uris (app)
-            && gnome_cmd_data_get_honor_expect_uris())
+        if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data_get_honor_expect_uris())
         {
-            args[0] = (gpointer)app;
-            args[1] = (gpointer)g_strdup (gnome_cmd_file_get_uri_str (finfo));
+            args[0] = (gpointer) app;
+            args[1] = (gpointer) g_strdup (gnome_cmd_file_get_uri_str (finfo));
             do_mime_exec_single (args);
         }
         else
         {
             gchar *msg = g_strdup_printf (_("%s does not know how to open remote file. Do you want to download the file to a temporary location and then open it?"), gnome_cmd_app_get_name (app));
-            GtkWidget *dialog = gtk_message_dialog_new (
-                GTK_WINDOW (main_win), GTK_DIALOG_MODAL,
-                GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, msg);
+            GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (main_win), GTK_DIALOG_MODAL,
+                                                        GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, msg);
             TmpDlData *dldata = g_new0 (TmpDlData, 1);
-            args[0] = (gpointer)app;
+            args[0] = (gpointer) app;
             dldata->finfo = finfo;
             dldata->dialog = dialog;
             dldata->args = args;
