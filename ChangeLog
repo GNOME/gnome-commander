@@ -1,3 +1,8 @@
+2008-01-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/utils.cc:
+	Simplify code for string handling
+
 2008-01-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:

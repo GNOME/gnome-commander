@@ -434,14 +434,17 @@ inline void no_mime_app_found_error (gchar *mime_type)
 
 static void do_mime_exec_single (gpointer *args)
 {
+    g_return_if_fail (args != NULL);
+
     GnomeCmdApp *app = (GnomeCmdApp *) args[0];
     gchar *path = (gchar *) args[1];
-    gchar *arg = g_shell_quote (path);
-    gchar *cmd = g_strdup_printf ("%s %s", gnome_cmd_app_get_command (app), arg);
 
-    g_free (arg);
-    run_command (cmd, gnome_cmd_app_get_requires_terminal (app));
-    g_free (cmd);
+    string cmd = gnome_cmd_app_get_command (app);
+    cmd += ' ';
+    cmd += stringify (g_shell_quote (path));
+
+    run_command (cmd.c_str(), gnome_cmd_app_get_requires_terminal (app));
+
     g_free (path);
     gnome_cmd_app_free (app);
     g_free (args);
@@ -601,23 +604,18 @@ static void do_mime_exec_multiple (gpointer *args)
 
     if (files)
     {
-        gchar *cmd = g_strdup_printf ("%s ", gnome_cmd_app_get_command (app));
+        string cmd = gnome_cmd_app_get_command (app);
 
         for (; files; files = files->next)
         {
-            gchar *path = (gchar *) files->data;
-            gchar *tmp = cmd;
-            gchar *arg = g_shell_quote (path);
-            cmd = g_strdup_printf ("%s %s", tmp, arg);
-            g_free (arg);
-            g_free (path);
-            g_free (tmp);
+            cmd += ' ';
+            cmd += stringify (g_shell_quote ((gchar *) files->data));
         }
 
-        run_command (cmd, gnome_cmd_app_get_requires_terminal (app));
-        g_free (cmd);
+        run_command (cmd.c_str(), gnome_cmd_app_get_requires_terminal (app));
         g_list_free (files);
     }
+
     gnome_cmd_app_free (app);
     g_free (args);
 }
