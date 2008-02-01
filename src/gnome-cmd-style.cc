@@ -30,7 +30,7 @@ GtkStyle *list_style = NULL;
 GtkStyle *sel_list_style = NULL;
 
 
-static GtkStyle *create_list_style ()
+inline GtkStyle *create_list_style ()
 {
     GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
     const gchar *font_name = gnome_cmd_data_get_list_font ();
@@ -64,7 +64,7 @@ static GtkStyle *create_list_style ()
 }
 
 
-static GtkStyle *create_sel_list_style ()
+inline GtkStyle *create_sel_list_style ()
 {
     GtkStyle *style;
     GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();

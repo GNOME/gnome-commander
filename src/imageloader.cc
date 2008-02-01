@@ -418,7 +418,7 @@ static gboolean get_mime_icon_in_dir (const gchar *icon_dir,
         g_free (icon_path2);
         g_free (icon_path3);
 
-        entry = g_new (CacheEntry, 1);
+        entry = g_new0 (CacheEntry, 1);
         entry->dead_end = (pm == NULL || bm == NULL);
         entry->pixmap = pm;
         entry->mask = bm;

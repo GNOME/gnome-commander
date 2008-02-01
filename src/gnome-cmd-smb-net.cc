@@ -43,11 +43,11 @@ static void add_host_to_list (GnomeVFSFileInfo *info, GList **list)
 
 static void add_wg_to_list (GnomeVFSFileInfo *info, GList **list)
 {
-    SmbEntity *ent = g_new (SmbEntity, 1);
+    SmbEntity *ent = g_new0 (SmbEntity, 1);
 
     ent->name = info->name;
     ent->type = SMB_WORKGROUP;
-    ent->workgroup_name = NULL;
+    // ent->workgroup_name = NULL;
 
     *list = g_list_append (*list, ent);
 }

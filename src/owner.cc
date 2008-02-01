@@ -45,7 +45,7 @@ static user_t *create_user (struct passwd *pw, gboolean zombie)
 {
     if (pw)
     {
-        user_t *user = g_new(user_t,1);
+        user_t *user = g_new0 (user_t,1);
 
         g_assert (pw->pw_name);
         g_assert (pw->pw_passwd);
@@ -79,7 +79,7 @@ static group_t *create_group (struct group *gr, gboolean zombie)
         g_assert (gr->gr_name);
         g_assert (gr->gr_passwd);
 
-        group = g_new(group_t,1);
+        group = g_new0 (group_t,1);
 
         group->zombie =  zombie;
         group->name =    g_strdup (gr->gr_name);

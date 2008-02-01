@@ -212,7 +212,7 @@ init (GnomeCmdConSmb *smb_con)
 
     GnomeCmdCon *con = GNOME_CMD_CON (smb_con);
 
-    smb_con->priv = g_new (GnomeCmdConSmbPrivate, 1);
+    smb_con->priv = g_new0 (GnomeCmdConSmbPrivate, 1);
 
     con->alias = g_strdup (_("SMB"));
     con->method = CON_SMB;

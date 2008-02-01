@@ -205,10 +205,10 @@ static void init (GnomeCmdCon *con)
     con->priv->default_dir = NULL;
     con->priv->dir_history = history_new (20);
     con->priv->dir_pool = gnome_cmd_dir_pool_new ();
-    con->priv->bookmarks = g_new (GnomeCmdBookmarkGroup, 1);
-    con->priv->bookmarks->bookmarks = NULL;
+    con->priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
     con->priv->bookmarks->con = con;
-    con->priv->bookmarks->data = NULL;
+    // con->priv->bookmarks->bookmarks = NULL;
+    // con->priv->bookmarks->data = NULL;
     con->priv->all_dirs = NULL;
     con->priv->all_dirs_map = NULL;
 }

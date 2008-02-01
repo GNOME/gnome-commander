@@ -388,7 +388,7 @@ inline gchar *string_double_underscores (const gchar *string)
 }
 
 
-inline gchar *get_default_application_action_name(GList *files)
+inline gchar *get_default_application_action_name (GList *files)
 {
     if (g_list_length(files)>1)
         return g_strdup(_("_Open"));

@@ -552,7 +552,7 @@ gnome_cmd_bookmark_dialog_new (void)
 static gboolean
 on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, gpointer data)
 {
-    GnomeCmdBookmark *bookmark = g_new (GnomeCmdBookmark, 1);
+    GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
     GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (main_win, ACTIVE));
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 

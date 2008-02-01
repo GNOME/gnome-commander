@@ -226,8 +226,8 @@ static void init (GnomeCmdCmdline *cmdline)
 
     GtkWidget *label;
 
-    cmdline->priv = g_new (GnomeCmdCmdlinePrivate, 1);
-    cmdline->priv->history = NULL;
+    cmdline->priv = g_new0 (GnomeCmdCmdlinePrivate, 1);
+    // cmdline->priv->history = NULL;
 
     cmdline->priv->cwd = gtk_label_new ("cwd");
     gtk_widget_ref (cmdline->priv->cwd);

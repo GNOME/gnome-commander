@@ -1030,7 +1030,7 @@ inline void load_cmdline_history ()
 
 inline void load_search_defaults ()
 {
-    data->priv->search_defaults = g_new (SearchDefaults, 1);
+    data->priv->search_defaults = g_new0 (SearchDefaults, 1);
 
     data->priv->search_defaults->width = gnome_cmd_data_get_int ("/search-history/width", 450);
     data->priv->search_defaults->height = gnome_cmd_data_get_int ("/search-history/height", 400);
