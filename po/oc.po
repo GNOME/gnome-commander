@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-27 13:30+0100\n"
+"POT-Creation-Date: 2008-02-02 21:53+0100\n"
 "PO-Revision-Date: 2007-12-27 15:40+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "A two paned file manager"
 msgstr ""
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-main-win.cc:764
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
@@ -34,7 +34,7 @@ msgstr ""
 #: ../src/gnome-cmd-options-dialog.cc:1179
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
-#: ../src/gnome-cmd-prepare-move-dialog.cc:120
+#: ../src/gnome-cmd-prepare-move-dialog.cc:118
 #: ../src/gnome-cmd-remote-dialog.cc:526
 msgid "Options"
 msgstr "Opcions"
@@ -289,25 +289,25 @@ msgid "/Time/SS"
 msgstr ""
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:652
 msgid "Yes"
 msgstr "Òc"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:652
 msgid "No"
 msgstr "Non"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:563
+#: ../src/gnome-cmd-advrename-dialog.cc:564
 msgid "Invalid source pattern"
 msgstr ""
 
 #. Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
-#: ../src/gnome-cmd-advrename-dialog.cc:630
+#: ../src/gnome-cmd-advrename-dialog.cc:632
 msgid "Replace this:"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:630
+#: ../src/gnome-cmd-advrename-dialog.cc:632
 msgid "With this:"
 msgstr ""
 
@@ -315,103 +315,103 @@ msgstr ""
 msgid "Case sensitive matching"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:769
+#: ../src/gnome-cmd-advrename-dialog.cc:766
 msgid "New Rule"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:775
+#: ../src/gnome-cmd-advrename-dialog.cc:772
 msgid "Edit Rule"
 msgstr "Modificar la règla"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:983
+#: ../src/gnome-cmd-advrename-dialog.cc:980
 msgid "Counter start value:"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:984
+#: ../src/gnome-cmd-advrename-dialog.cc:981
 msgid "Counter increment:"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:985
+#: ../src/gnome-cmd-advrename-dialog.cc:982
 msgid "Counter minimum digit count:"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:990
+#: ../src/gnome-cmd-advrename-dialog.cc:987
 msgid "Template Options"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:994
+#: ../src/gnome-cmd-advrename-dialog.cc:991
 msgid "Auto-update when the template is entered"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1084
+#: ../src/gnome-cmd-advrename-dialog.cc:1081
 msgid "Advanced Rename Tool"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1096 ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1093 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "Modèl"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1117
+#: ../src/gnome-cmd-advrename-dialog.cc:1115
 msgid "O_ptions..."
 msgstr "O_pcions..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1124 ../src/gnome-cmd-file.cc:588
+#: ../src/gnome-cmd-advrename-dialog.cc:1122 ../src/gnome-cmd-file.cc:577
 msgid "Directory"
 msgstr "Repertòri"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1127 ../src/plugin_manager.cc:422
+#: ../src/gnome-cmd-advrename-dialog.cc:1125 ../src/plugin_manager.cc:422
 #: ../src/tags/gnome-cmd-tags.cc:659
 msgid "File"
 msgstr "Fichièr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1130
+#: ../src/gnome-cmd-advrename-dialog.cc:1128
 msgid "Counter"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1133 ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/gnome-cmd-advrename-dialog.cc:1131 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Date"
 msgstr "Data"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1136
+#: ../src/gnome-cmd-advrename-dialog.cc:1134
 msgid "Metatag"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1141
+#: ../src/gnome-cmd-advrename-dialog.cc:1139
 msgid "Regex replacing"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1146
+#: ../src/gnome-cmd-advrename-dialog.cc:1144
 msgid "Replace this"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1147
+#: ../src/gnome-cmd-advrename-dialog.cc:1145
 msgid "With this"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1148
+#: ../src/gnome-cmd-advrename-dialog.cc:1146
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr "Respectar la cassa"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1171
+#: ../src/gnome-cmd-advrename-dialog.cc:1169
 msgid "Re_move All"
 msgstr "_Suprimir"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1191
+#: ../src/gnome-cmd-advrename-dialog.cc:1189
 msgid "Result"
 msgstr "Resulta"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1196
+#: ../src/gnome-cmd-advrename-dialog.cc:1194
 msgid "Current file names"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1197
+#: ../src/gnome-cmd-advrename-dialog.cc:1195
 msgid "New file names"
 msgstr "Noms de fichièr novèls"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1203
+#: ../src/gnome-cmd-advrename-dialog.cc:1201
 msgid "Rese_t"
 msgstr ""
 
@@ -589,118 +589,118 @@ msgstr "Montar : %s"
 msgid "Unmount: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:210
+#: ../src/gnome-cmd-con-dialog.cc:212
 msgid "You must enter a name for the server"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:210
+#: ../src/gnome-cmd-con-dialog.cc:212
 msgid "Please enter a name and try again."
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:225
+#: ../src/gnome-cmd-con-dialog.cc:227
 #, c-format
 msgid "\"%s\" is not a valid location"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:226
+#: ../src/gnome-cmd-con-dialog.cc:228
 msgid "Please check the spelling and try again."
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:331
+#: ../src/gnome-cmd-con-dialog.cc:333
 msgid "_Alias:"
 msgstr "_Aliàs :"
 
-#: ../src/gnome-cmd-con-dialog.cc:335
+#: ../src/gnome-cmd-con-dialog.cc:337
 msgid "_Location (URI):"
 msgstr "_Emplaçament (URI) :"
 
-#: ../src/gnome-cmd-con-dialog.cc:368
+#: ../src/gnome-cmd-con-dialog.cc:370
 msgid "_Server:"
 msgstr "_Servidor :"
 
-#: ../src/gnome-cmd-con-dialog.cc:379
+#: ../src/gnome-cmd-con-dialog.cc:381
 msgid "Optional information"
 msgstr "Confirmacion"
 
-#: ../src/gnome-cmd-con-dialog.cc:403
+#: ../src/gnome-cmd-con-dialog.cc:405
 msgid "S_hare:"
 msgstr "Estat :"
 
-#: ../src/gnome-cmd-con-dialog.cc:406
+#: ../src/gnome-cmd-con-dialog.cc:408
 msgid "_Port:"
 msgstr "_Pòrt :"
 
 #. Translators: 'Dir' in the sense of 'Directory'
-#: ../src/gnome-cmd-con-dialog.cc:409
+#: ../src/gnome-cmd-con-dialog.cc:411
 msgid "_Remote dir:"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:412
+#: ../src/gnome-cmd-con-dialog.cc:414
 msgid "_User name:"
 msgstr "Nom d'_utilizaire :"
 
-#: ../src/gnome-cmd-con-dialog.cc:415
+#: ../src/gnome-cmd-con-dialog.cc:417
 msgid "_Password:"
 msgstr "Mot de _pas :"
 
-#: ../src/gnome-cmd-con-dialog.cc:418
+#: ../src/gnome-cmd-con-dialog.cc:420
 msgid "_Domain name:"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:455 ../src/gnome-cmd-main-win.cc:1176
+#: ../src/gnome-cmd-con-dialog.cc:457 ../src/gnome-cmd-main-win.cc:1176
 msgid "Remote Server"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:470
+#: ../src/gnome-cmd-con-dialog.cc:472
 msgid "Service _type:"
 msgstr "_Tipe de servici :"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/gnome-cmd-con-dialog.cc:482
+#: ../src/gnome-cmd-con-dialog.cc:484
 msgid "FTP (with login)"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:483
+#: ../src/gnome-cmd-con-dialog.cc:485
 msgid "Public FTP"
 msgstr "FTP public"
 
-#: ../src/gnome-cmd-con-dialog.cc:500
+#: ../src/gnome-cmd-con-dialog.cc:502
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr ""
 
 #. ?????????
 #. do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
 #. ?????????
-#: ../src/gnome-cmd-con-ftp.cc:301 ../src/gnome-cmd-con-ftp.cc:349
+#: ../src/gnome-cmd-con-ftp.cc:326 ../src/gnome-cmd-con-ftp.cc:374
 #, c-format
 msgid "Connecting to %s\n"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:366
+#: ../src/gnome-cmd-con-ftp.cc:391
 msgid "<New connection>"
 msgstr "Connexions"
 
-#: ../src/gnome-cmd-con-ftp.cc:368
+#: ../src/gnome-cmd-con-ftp.cc:393
 #, c-format
 msgid "Go to: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:369
+#: ../src/gnome-cmd-con-ftp.cc:394
 #, c-format
 msgid "Connect to: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:370
+#: ../src/gnome-cmd-con-ftp.cc:395
 #, c-format
 msgid "Disconnect from: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:384
+#: ../src/gnome-cmd-con-ftp.cc:409
 #, c-format
 msgid "Creates the FTP connection to %s"
 msgstr ""
 
-#: ../src/gnome-cmd-con-ftp.cc:385
+#: ../src/gnome-cmd-con-ftp.cc:410
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr ""
@@ -729,8 +729,8 @@ msgstr ""
 msgid "Go to: Samba Network"
 msgstr ""
 
-#: ../src/gnome-cmd-data.cc:1256 ../src/gnome-cmd-data.cc:1486
-#: ../src/gnome-cmd-data.cc:1487 ../src/gnome-cmd-data.cc:2524
+#: ../src/gnome-cmd-data.cc:1267 ../src/gnome-cmd-data.cc:1497
+#: ../src/gnome-cmd-data.cc:1498 ../src/gnome-cmd-data.cc:2535
 #, c-format
 msgid "link to %s"
 msgstr ""
@@ -738,7 +738,9 @@ msgstr ""
 #: ../src/gnome-cmd-delete-dialog.cc:88
 #, c-format
 msgid "Deleted %ld of %ld file"
-msgstr ""
+msgid_plural "Deleted %ld of %ld files"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:130
 msgid "Deleting..."
@@ -762,12 +764,12 @@ msgid "Abort"
 msgstr "Abandonar"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-xfer.cc:190
 msgid "Retry"
 msgstr "Tornar ensajar"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-xfer.cc:171
 #: ../src/gnome-cmd-xfer.cc:190
 msgid "Skip"
 msgstr "Sautar"
@@ -780,7 +782,9 @@ msgstr ""
 #: ../src/gnome-cmd-delete-dialog.cc:282
 #, c-format
 msgid "Do you want to delete the selected file?"
-msgstr ""
+msgid_plural "Do you want to delete the %d selected files?"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:288 ../src/gnome-cmd-main-win.cc:1170
 #: ../src/gnome-cmd-options-dialog.cc:653
@@ -788,24 +792,24 @@ msgid "Delete"
 msgstr "Suprimir"
 
 #: ../src/gnome-cmd-delete-dialog.cc:289
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
-#: ../src/utils.cc:508 ../src/utils.cc:537
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:683
+#: ../src/utils.cc:510 ../src/utils.cc:538
 msgid "Cancel"
 msgstr "Anullar"
 
-#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:508
+#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:510
 msgid "OK"
 msgstr "Validar"
 
-#: ../src/gnome-cmd-dir-indicator.cc:441
+#: ../src/gnome-cmd-dir-indicator.cc:403
 msgid "Add current dir"
 msgstr ""
 
-#: ../src/gnome-cmd-dir-indicator.cc:442
+#: ../src/gnome-cmd-dir-indicator.cc:404
 msgid "Manage bookmarks..."
 msgstr ""
 
-#: ../src/gnome-cmd-dir.cc:575
+#: ../src/gnome-cmd-dir.cc:559
 msgid "Waiting for file list"
 msgstr ""
 
@@ -837,141 +841,143 @@ msgstr ""
 msgid "gid"
 msgstr ""
 
-#: ../src/gnome-cmd-file-list.cc:2131 ../src/gnome-cmd-file-list.cc:2147
+#: ../src/gnome-cmd-file-list.cc:2135 ../src/gnome-cmd-file-list.cc:2151
 #, c-format
 msgid "Not an ordinary file: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:126
+#: ../src/gnome-cmd-file-popmenu.cc:123
 msgid "Invalid command"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:152
+#: ../src/gnome-cmd-file-popmenu.cc:147
 msgid "Application:"
 msgstr "Aplicacion :"
 
-#: ../src/gnome-cmd-file-popmenu.cc:155
+#: ../src/gnome-cmd-file-popmenu.cc:150
 msgid "Open with other..."
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:160
+#: ../src/gnome-cmd-file-popmenu.cc:155
 msgid "Needs terminal"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:399 ../src/gnome-cmd-file-popmenu.cc:408
-#: ../src/gnome-cmd-file-popmenu.cc:433
+#: ../src/gnome-cmd-file-popmenu.cc:394 ../src/gnome-cmd-file-popmenu.cc:403
+#: ../src/gnome-cmd-file-popmenu.cc:428
 msgid "_Open"
 msgstr "_Dobrir"
 
-#: ../src/gnome-cmd-file-popmenu.cc:412
+#: ../src/gnome-cmd-file-popmenu.cc:407
 #, c-format
 msgid "_Open with \"%s\""
 msgstr "_Dobrir amb \"%s\""
 
-#: ../src/gnome-cmd-file-popmenu.cc:434
+#: ../src/gnome-cmd-file-popmenu.cc:429
 msgid "Open With..."
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:440
+#: ../src/gnome-cmd-file-popmenu.cc:435
 msgid "E_xecute"
 msgstr "E_xecutar"
 
-#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-menu.cc:544
+#: ../src/gnome-cmd-file-popmenu.cc:447 ../src/gnome-cmd-main-menu.cc:544
 msgid "Cu_t"
 msgstr "_Copar"
 
-#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-main-menu.cc:550
+#: ../src/gnome-cmd-file-popmenu.cc:448 ../src/gnome-cmd-main-menu.cc:550
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:562
+#: ../src/gnome-cmd-file-popmenu.cc:449 ../src/gnome-cmd-main-menu.cc:562
 msgid "_Delete"
 msgstr "_Suprimir"
 
-#: ../src/gnome-cmd-file-popmenu.cc:456
+#: ../src/gnome-cmd-file-popmenu.cc:451
 msgid "Rename"
 msgstr "Renommar"
 
-#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-main-win.cc:1173
+#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-win.cc:1173
 msgid "Send files"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-list-popmenu.cc:123
+#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-list-popmenu.cc:123
 msgid "Open _terminal here"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:460 ../src/gnome-cmd-main-menu.cc:465
+#: ../src/gnome-cmd-file-popmenu.cc:455 ../src/gnome-cmd-main-menu.cc:465
 msgid "_Properties..."
 msgstr "_Propietats..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:503
+#: ../src/gnome-cmd-file-popmenu.cc:498
 msgid "Other..."
 msgstr "Autre..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:822
+#: ../src/gnome-cmd-file-props-dialog.cc:72 ../src/utils.cc:816
 #, c-format
 msgid "%s byte"
-msgstr ""
+msgid_plural "%s bytes"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:196
-#: ../src/gnome-cmd-file-props-dialog.cc:407
+#: ../src/gnome-cmd-file-props-dialog.cc:198
+#: ../src/gnome-cmd-file-props-dialog.cc:419
 msgid "No default application registered"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:333
+#: ../src/gnome-cmd-file-props-dialog.cc:345
 msgid "Image:"
 msgstr "Imatge :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:360
-#: ../src/gnome-cmd-file-selector.cc:1918
+#: ../src/gnome-cmd-file-props-dialog.cc:372
+#: ../src/gnome-cmd-file-selector.cc:1934
 msgid "Filename:"
 msgstr "Nom de fichièr :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:371
+#: ../src/gnome-cmd-file-props-dialog.cc:383
 msgid "Symlink target:"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:380
+#: ../src/gnome-cmd-file-props-dialog.cc:392
 msgid "Type:"
 msgstr "Tipe :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:387
+#: ../src/gnome-cmd-file-props-dialog.cc:399
 msgid "MIME Type:"
 msgstr "Tipe MIME :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:396
+#: ../src/gnome-cmd-file-props-dialog.cc:408
 msgid "Opens with:"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:409
+#: ../src/gnome-cmd-file-props-dialog.cc:421
 msgid "_Change"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:421
+#: ../src/gnome-cmd-file-props-dialog.cc:433
 msgid "Modified:"
 msgstr "Modificat :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:427
+#: ../src/gnome-cmd-file-props-dialog.cc:439
 msgid "Accessed:"
 msgstr "Darrièr accès :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:437
+#: ../src/gnome-cmd-file-props-dialog.cc:449
 msgid "Size:"
 msgstr "Talha :"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:480
+#: ../src/gnome-cmd-file-props-dialog.cc:492
 msgid "Owner and group"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:490
+#: ../src/gnome-cmd-file-props-dialog.cc:502
 msgid "Access permissions"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:605
+#: ../src/gnome-cmd-file-props-dialog.cc:617
 msgid "Type"
 msgstr "Tipe"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:606
+#: ../src/gnome-cmd-file-props-dialog.cc:618
 msgid "Metadata namespace"
 msgstr ""
 
@@ -981,60 +987,64 @@ msgstr ""
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: ../src/gnome-cmd-file-props-dialog.cc:613
+#: ../src/gnome-cmd-file-props-dialog.cc:625
 #: ../src/gnome-cmd-remote-dialog.cc:419 ../src/plugin_manager.cc:420
 #: ../src/tags/gnome-cmd-tags.cc:315
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:614
+#: ../src/gnome-cmd-file-props-dialog.cc:626
 msgid "Tag name"
 msgstr "nom"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:616
+#: ../src/gnome-cmd-file-props-dialog.cc:628
 msgid "Value"
 msgstr "Valor"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:617
+#: ../src/gnome-cmd-file-props-dialog.cc:629
 msgid "Tag value"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:619 ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/gnome-cmd-file-props-dialog.cc:631 ../src/tags/gnome-cmd-tags.cc:159
 #: ../src/tags/gnome-cmd-tags.cc:310 ../src/tags/gnome-cmd-tags.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:508
 msgid "Description"
 msgstr "Descripcion"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:620
+#: ../src/gnome-cmd-file-props-dialog.cc:632
 msgid "Metadata tag description"
 msgstr ""
 
 #. data->thread = 0;
-#: ../src/gnome-cmd-file-props-dialog.cc:675
+#: ../src/gnome-cmd-file-props-dialog.cc:687
 msgid "File Properties"
 msgstr ""
 
-#: ../src/gnome-cmd-file-props-dialog.cc:698
+#: ../src/gnome-cmd-file-props-dialog.cc:710
 msgid "Properties"
 msgstr "Propietats"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:699 ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/gnome-cmd-file-props-dialog.cc:711 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permissions"
 msgstr "Permissions"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:700
+#: ../src/gnome-cmd-file-props-dialog.cc:712
 msgid "Metadata"
 msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:209
 #, c-format
 msgid "%s of %s kB in %d of %d file"
-msgstr ""
+msgid_plural "%s of %s kB in %d of %d files"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-file-selector.cc:213
 #, c-format
 msgid "%s, %d of %d dir selected"
-msgstr ""
+msgid_plural "%s, %d of %d dirs selected"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-file-selector.cc:710
 #, c-format
@@ -1045,73 +1055,73 @@ msgstr ""
 msgid "Unknown disk usage"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:1122
+#: ../src/gnome-cmd-file-selector.cc:1143
 #, c-format
 msgid "Listing failed: %s\n"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:1681
+#: ../src/gnome-cmd-file-selector.cc:1697
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:1856
+#: ../src/gnome-cmd-file-selector.cc:1872
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:1890
+#: ../src/gnome-cmd-file-selector.cc:1906
 msgid "No filename given"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:1921
+#: ../src/gnome-cmd-file-selector.cc:1937
 msgid "New Text File"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:2079
+#: ../src/gnome-cmd-file-selector.cc:2091
 msgid "Symlink name:"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:2085
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
+#: ../src/gnome-cmd-file-selector.cc:2097
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:683
 msgid "Create Symbolic Link"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:2131
+#: ../src/gnome-cmd-file-selector.cc:2143
 #: ../src/gnome-cmd-options-dialog.cc:675
 #: ../src/gnome-cmd-options-dialog.cc:695
 msgid "Skip all"
 msgstr ""
 
-#: ../src/gnome-cmd-file-selector.cc:2203
+#: ../src/gnome-cmd-file-selector.cc:2215
 msgid "Filter:"
 msgstr "Filtre :"
 
-#: ../src/gnome-cmd-file.cc:586
+#: ../src/gnome-cmd-file.cc:575
 msgid "Unknown file type"
 msgstr ""
 
-#: ../src/gnome-cmd-file.cc:587
+#: ../src/gnome-cmd-file.cc:576
 msgid "Regular file"
 msgstr ""
 
-#: ../src/gnome-cmd-file.cc:589
+#: ../src/gnome-cmd-file.cc:578
 msgid "FIFO"
 msgstr ""
 
-#: ../src/gnome-cmd-file.cc:590
+#: ../src/gnome-cmd-file.cc:579
 msgid "UNIX Socket"
 msgstr ""
 
-#: ../src/gnome-cmd-file.cc:591
+#: ../src/gnome-cmd-file.cc:580
 msgid "Character device"
 msgstr "Periferic de caractèrs"
 
-#: ../src/gnome-cmd-file.cc:592
+#: ../src/gnome-cmd-file.cc:581
 msgid "Block device"
 msgstr "Periferic blòc"
 
-#: ../src/gnome-cmd-file.cc:593
+#: ../src/gnome-cmd-file.cc:582
 msgid "Symbolic link"
 msgstr "Ligam simbolic"
 
@@ -1283,7 +1293,7 @@ msgstr ""
 msgid "_Contents"
 msgstr "_Ensenhador"
 
-#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:923
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/intviewer/viewer-window.cc:917
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
@@ -1301,7 +1311,7 @@ msgstr "_A prepaus"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:935
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/intviewer/viewer-window.cc:929
 msgid "_File"
 msgstr "_Fichièr"
 
@@ -1313,11 +1323,11 @@ msgstr "_Edicion"
 msgid "_Mark"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:938
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/intviewer/viewer-window.cc:932
 msgid "_View"
 msgstr "_Visualizacion"
 
-#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:949
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/intviewer/viewer-window.cc:943
 msgid "_Settings"
 msgstr "_Paramètres"
 
@@ -1333,7 +1343,7 @@ msgstr "_Favorits"
 msgid "_Plugins"
 msgstr "linhas"
 
-#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:954
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/intviewer/viewer-window.cc:948
 msgid "_Help"
 msgstr "_Ajuda"
 
@@ -1691,10 +1701,11 @@ msgstr ""
 #.
 #. * Create prepare copy specific widgets
 #.
+#. Create prepare copy specific widgets
 #: ../src/gnome-cmd-options-dialog.cc:667
 #: ../src/gnome-cmd-options-dialog.cc:687
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:94
-#: ../src/gnome-cmd-prepare-move-dialog.cc:89
+#: ../src/gnome-cmd-prepare-move-dialog.cc:88
 msgid "Silently"
 msgstr ""
 
@@ -1943,12 +1954,12 @@ msgid "Pattern:"
 msgstr ""
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:101
-#: ../src/gnome-cmd-prepare-move-dialog.cc:96
+#: ../src/gnome-cmd-prepare-move-dialog.cc:95
 msgid "Query First"
 msgstr ""
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-prepare-move-dialog.cc:102 ../src/gnome-cmd-xfer.cc:171
 msgid "Skip All"
 msgstr "Tot ignorar"
 
@@ -1959,29 +1970,34 @@ msgstr ""
 #.
 #. * Customize prepare xfer widgets
 #.
+#. Customize prepare xfer widgets
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:128
-#: ../src/gnome-cmd-prepare-move-dialog.cc:115
+#: ../src/gnome-cmd-prepare-move-dialog.cc:113
 msgid "Overwrite Files"
 msgstr ""
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:149
 #, c-format
 msgid "copy %d file to"
-msgstr ""
+msgid_plural "copy %d files to"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:82
+#: ../src/gnome-cmd-prepare-move-dialog.cc:83
 msgid "Move"
 msgstr "Desplaçar"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:132
+#: ../src/gnome-cmd-prepare-move-dialog.cc:130
 #, c-format
 msgid "Move \"%s\" to"
 msgstr ""
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:136
+#: ../src/gnome-cmd-prepare-move-dialog.cc:134
 #, c-format
 msgid "move %d file to"
-msgstr ""
+msgid_plural "move %d files to"
+msgstr[0] ""
+msgstr[1] ""
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:119
@@ -1990,7 +2006,7 @@ msgstr ""
 msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr ""
 
-#: ../src/gnome-cmd-python-plugin.cc:206
+#: ../src/gnome-cmd-python-plugin.cc:212
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
 msgstr ""
 
@@ -2045,12 +2061,16 @@ msgstr ""
 #: ../src/gnome-cmd-search-dialog.cc:398
 #, c-format
 msgid "Found %d match before I was stopped"
-msgstr ""
+msgid_plural "Found %d matches before I was stopped"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-search-dialog.cc:405
 #, c-format
 msgid "Found %d match"
-msgstr ""
+msgid_plural "Found %d matches"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-search-dialog.cc:714
 msgid "Search..."
@@ -2107,43 +2127,45 @@ msgstr ""
 msgid "No file selected"
 msgstr "Pas de fichièr seleccionat"
 
-#: ../src/gnome-cmd-user-actions.cc:668
+#: ../src/gnome-cmd-user-actions.cc:678
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
-msgstr ""
+msgid_plural "Create symbolic links of %i files in %s?"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/gnome-cmd-user-actions.cc:673
+#: ../src/gnome-cmd-user-actions.cc:683
 msgid "Create"
 msgstr "Crear"
 
-#: ../src/gnome-cmd-user-actions.cc:721 ../src/gnome-cmd-user-actions.cc:780
-#: ../src/gnome-cmd-user-actions.cc:817
+#: ../src/gnome-cmd-user-actions.cc:731 ../src/gnome-cmd-user-actions.cc:790
+#: ../src/gnome-cmd-user-actions.cc:827
 #, c-format
 msgid "running `%s'\n"
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:738 ../src/gnome-cmd-user-actions.cc:755
-#: ../src/gnome-cmd-user-actions.cc:795
+#: ../src/gnome-cmd-user-actions.cc:748 ../src/gnome-cmd-user-actions.cc:765
+#: ../src/gnome-cmd-user-actions.cc:805
 msgid "Operation not supported on remote file systems"
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:770
+#: ../src/gnome-cmd-user-actions.cc:780
 msgid "Too many selected files"
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1317
+#: ../src/gnome-cmd-user-actions.cc:1328
 msgid "There was an error opening home page."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1326
+#: ../src/gnome-cmd-user-actions.cc:1337
 msgid "There was an error reporting problem."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1347
+#: ../src/gnome-cmd-user-actions.cc:1358
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1351
+#: ../src/gnome-cmd-user-actions.cc:1362
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2151,7 +2173,7 @@ msgid ""
 "any later version."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1355
+#: ../src/gnome-cmd-user-actions.cc:1366
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2159,14 +2181,14 @@ msgid ""
 "more details."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1359
+#: ../src/gnome-cmd-user-actions.cc:1370
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1376
+#: ../src/gnome-cmd-user-actions.cc:1387
 msgid "translator-credits"
 msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>"
 
@@ -2225,210 +2247,211 @@ msgstr ""
 msgid "[file %ld of %ld] \"%s\""
 msgstr ""
 
-#: ../src/gnome-cmd-xfer.cc:367
+#: ../src/gnome-cmd-xfer.cc:387
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
 msgstr ""
 
-#: ../src/gnome-cmd-xfer.cc:408
+#: ../src/gnome-cmd-xfer.cc:428
 msgid "preparing..."
 msgstr ""
 
-#: ../src/gnome-cmd-xfer.cc:493
+#: ../src/gnome-cmd-xfer.cc:513
 msgid "downloading to /tmp"
 msgstr ""
 
-#: ../src/imageloader.cc:129
+#: ../src/imageloader.cc:122
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 
-#: ../src/imageloader.cc:130 ../src/imageloader.cc:156
+#: ../src/imageloader.cc:123 ../src/imageloader.cc:149
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr ""
 
-#: ../src/imageloader.cc:134 ../src/imageloader.cc:159
+#: ../src/imageloader.cc:127 ../src/imageloader.cc:152
 #, c-format
 msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
 "is executing gnome-commander from the gnome-commander-%s/src directory\n"
 msgstr ""
 
-#: ../src/imageloader.cc:155
+#: ../src/imageloader.cc:148
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
 
-#: ../src/libgviewer/search-dlg.cc:312
+#: ../src/intviewer/search-dlg.cc:312
 msgid "Find"
 msgstr "Recercar"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.cc:342 ../src/libgviewer/viewer-window.cc:721
-#: ../src/libgviewer/viewer-window.cc:941
+#: ../src/intviewer/search-dlg.cc:342 ../src/intviewer/viewer-window.cc:715
+#: ../src/intviewer/viewer-window.cc:935
 msgid "_Text"
 msgstr "_Tèxt"
 
-#: ../src/libgviewer/search-dlg.cc:343 ../src/libgviewer/viewer-window.cc:729
+#: ../src/intviewer/search-dlg.cc:343 ../src/intviewer/viewer-window.cc:723
 msgid "_Hexadecimal"
 msgstr ""
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.cc:352
+#: ../src/intviewer/search-dlg.cc:352
 msgid "_Match case"
 msgstr ""
 
-#: ../src/libgviewer/search-progress-dlg.cc:74
+#: ../src/intviewer/search-progress-dlg.cc:74
 msgid "Searching..."
 msgstr ""
 
-#: ../src/libgviewer/search-progress-dlg.cc:186
+#: ../src/intviewer/search-progress-dlg.cc:186
 #, c-format
 msgid "Searching for \"%s\""
 msgstr ""
 
-#: ../src/libgviewer/viewer-widget.cc:206
+#: ../src/intviewer/viewer-widget.cc:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr ""
 
-#: ../src/libgviewer/viewer-widget.cc:210
+#: ../src/intviewer/viewer-widget.cc:210
 msgid "Wrap"
 msgstr "Envolopar"
 
-#: ../src/libgviewer/viewer-widget.cc:237
+#: ../src/intviewer/viewer-widget.cc:237
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "pixel"
 msgstr[1] "pixels"
 
-#: ../src/libgviewer/viewer-widget.cc:239
+#: ../src/intviewer/viewer-widget.cc:239
 msgid "bit/sample"
-msgstr ""
+msgid_plural "bits/sample"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/libgviewer/viewer-widget.cc:241
+#: ../src/intviewer/viewer-widget.cc:241
 msgid "(fit to window)"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:711
+#: ../src/intviewer/viewer-window.cc:705
 msgid "_Close"
 msgstr "_Tampar"
 
-#: ../src/libgviewer/viewer-window.cc:725
+#: ../src/intviewer/viewer-window.cc:719
 msgid "_Binary"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:733
-#: ../src/libgviewer/viewer-window.cc:946
+#: ../src/intviewer/viewer-window.cc:727 ../src/intviewer/viewer-window.cc:940
 msgid "_Image"
 msgstr "_Imatge"
 
-#: ../src/libgviewer/viewer-window.cc:738
+#: ../src/intviewer/viewer-window.cc:732
 msgid "_Zoom In"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:742
+#: ../src/intviewer/viewer-window.cc:736
 msgid "Zoom _Out"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:746
+#: ../src/intviewer/viewer-window.cc:740
 msgid "_Normal Size"
 msgstr "Talha _normala"
 
-#: ../src/libgviewer/viewer-window.cc:750
+#: ../src/intviewer/viewer-window.cc:744
 msgid "Best _Fit"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:763
+#: ../src/intviewer/viewer-window.cc:757
 msgid "_Copy Text Selection"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:767
+#: ../src/intviewer/viewer-window.cc:761
 msgid "Find..."
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:771
+#: ../src/intviewer/viewer-window.cc:765
 msgid "Find Next"
 msgstr "Recercar lo seguent"
 
-#: ../src/libgviewer/viewer-window.cc:775
+#: ../src/intviewer/viewer-window.cc:769
 msgid "Find Previous"
 msgstr "Recercar lo precedent"
 
-#: ../src/libgviewer/viewer-window.cc:781
+#: ../src/intviewer/viewer-window.cc:775
 msgid "_No Parsing (original file)"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:785
+#: ../src/intviewer/viewer-window.cc:779
 msgid "_HTML Parser"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:789
+#: ../src/intviewer/viewer-window.cc:783
 msgid "_PS/PDF Parser"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:795
+#: ../src/intviewer/viewer-window.cc:789
 msgid "_Wrap lines"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:800
+#: ../src/intviewer/viewer-window.cc:794
 msgid "_Encoding"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:841
+#: ../src/intviewer/viewer-window.cc:835
 msgid "_Show EXIF/IPTC Information"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:847
+#: ../src/intviewer/viewer-window.cc:841
 msgid "_Rotate Clockwise"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:852
+#: ../src/intviewer/viewer-window.cc:846
 msgid "Rotate Counter Clockwis_e"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:857
+#: ../src/intviewer/viewer-window.cc:851
 msgid "_Rotate 180°"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:862
+#: ../src/intviewer/viewer-window.cc:856
 msgid "Flip _Vertical"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:867
+#: ../src/intviewer/viewer-window.cc:861
 msgid "Flip _Horizontal"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:877
+#: ../src/intviewer/viewer-window.cc:871
 msgid "_Binary Mode"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:883
+#: ../src/intviewer/viewer-window.cc:877
 msgid "_Decimal Offset in Hexdump"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:889
+#: ../src/intviewer/viewer-window.cc:883
 msgid "_Save Current Settings"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:899
+#: ../src/intviewer/viewer-window.cc:893
 msgid "_20 chars/line"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:904
+#: ../src/intviewer/viewer-window.cc:898
 msgid "_40 chars/line"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:909
+#: ../src/intviewer/viewer-window.cc:903
 msgid "_80 chars/line"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:918
+#: ../src/intviewer/viewer-window.cc:912
 msgid "Quick _Help"
 msgstr ""
 
-#: ../src/libgviewer/viewer-window.cc:1130
+#: ../src/intviewer/viewer-window.cc:1124
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr ""
@@ -6232,68 +6255,69 @@ msgid ""
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
 
-#: ../src/utils.cc:504
+#: ../src/utils.cc:507
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
 
-#: ../src/utils.cc:507
+#: ../src/utils.cc:509
 msgid "Make Executable?"
 msgstr ""
 
-#: ../src/utils.cc:534
+#: ../src/utils.cc:536
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
 
-#: ../src/utils.cc:536
+#: ../src/utils.cc:537
 msgid "Run or Display"
 msgstr ""
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:538
 msgid "Display"
 msgstr "Visualizar"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:538
 msgid "Run"
 msgstr "Executar"
 
-#: ../src/utils.cc:579 ../src/utils.cc:655
+#: ../src/utils.cc:579 ../src/utils.cc:649
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
+msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr ""
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/utils.cc:1021
+#: ../src/utils.cc:1015
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
 "Error message: %s\n"
 msgstr ""
 
-#: ../src/utils.cc:1217
+#: ../src/utils.cc:1211
 #, c-format
 msgid "Creating directory %s... "
 msgstr ""
 
-#: ../src/utils.cc:1220
+#: ../src/utils.cc:1214
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr ""
 
-#: ../src/utils.cc:1226
+#: ../src/utils.cc:1220
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr ""
 
-#: ../src/utils.h:253
+#: ../src/utils.h:259
 msgid "There was an error displaying help."
 msgstr "I a aguda una error al moment de visualizar l'ajuda."
-
