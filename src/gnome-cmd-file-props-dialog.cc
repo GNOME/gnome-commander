@@ -408,12 +408,17 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
         label = create_bold_label (dialog, _("Opens with:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (data->finfo->info->mime_type);
-
-        if (vfs_app)
+        if (data->finfo->info->mime_type)
         {
-            data->app_label = label = create_label (dialog, vfs_app->name);
-            gnome_vfs_mime_application_free (vfs_app);
+            GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (data->finfo->info->mime_type);
+
+            if (vfs_app)
+            {
+                data->app_label = label = create_label (dialog, vfs_app->name);
+                gnome_vfs_mime_application_free (vfs_app);
+            }
+            else
+                label = create_label (dialog, _("No default application registered"));
         }
         else
             label = create_label (dialog, _("No default application registered"));

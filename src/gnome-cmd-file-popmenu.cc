@@ -92,24 +92,33 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
     for (; files; files = files->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
-        GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (finfo->info->mime_type);
-        if (vfs_app)
-        {
-            OpenWithData *data = (OpenWithData *) g_hash_table_lookup (hash, vfs_app->id);
-            if (!data)
-            {
-                data = g_new0 (OpenWithData, 1);
-                data->app = gnome_cmd_app_new_from_vfs_app (vfs_app);
-                data->files = NULL;
-                g_hash_table_insert (hash, vfs_app->id, data);
-            }
 
-            gnome_vfs_mime_application_free (vfs_app);
-            data->files = g_list_append (data->files, finfo);
+        if (!finfo->info->mime_type)
+            gnome_cmd_show_message (NULL, finfo->info->name, "Couldn't retrieve mime type of the file.");
+        else
+        {
+            GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (finfo->info->mime_type);
+
+            if (vfs_app)
+            {
+                OpenWithData *data = (OpenWithData *) g_hash_table_lookup (hash, vfs_app->id);
+
+                if (!data)
+                {
+                    data = g_new0 (OpenWithData, 1);
+                    data->app = gnome_cmd_app_new_from_vfs_app (vfs_app);
+                    data->files = NULL;
+                    g_hash_table_insert (hash, vfs_app->id, data);
+                }
+
+                gnome_vfs_mime_application_free (vfs_app);
+                data->files = g_list_append (data->files, finfo);
+            }
         }
     }
 
     g_hash_table_foreach (hash, (GHFunc) htcb_exec_with_app, NULL);
+
     g_hash_table_destroy (hash);
 }
 

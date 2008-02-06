@@ -1,3 +1,10 @@
+2008-02-06  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file-popmenu.cc:
+	* src/gnome-cmd-file-props-dialog.cc:
+	Fix for crash when handling mime for some exotic permissions
+
 2008-01-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:

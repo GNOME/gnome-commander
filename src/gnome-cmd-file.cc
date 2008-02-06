@@ -634,7 +634,7 @@ const gchar *gnome_cmd_file_get_mime_type_desc (GnomeCmdFile *finfo)
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
 
-    return gnome_vfs_mime_get_description (finfo->info->mime_type);
+    return finfo->info->mime_type ? gnome_vfs_mime_get_description (finfo->info->mime_type) : NULL;
 }
 
 
