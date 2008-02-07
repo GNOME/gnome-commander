@@ -468,7 +468,7 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
                 // This is a hack to make samba workgroups etc
                 // look like normal directories
                 info->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
-                // Determining smb mime type: workgroup or server
+                // Determining smb MIME type: workgroup or server
                 gchar *uri_str = gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir));
 
                 info->mime_type = strcmp (uri_str, "smb:///") == 0 ? g_strdup ("x-directory/smb-workgroup") :

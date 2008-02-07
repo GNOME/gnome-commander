@@ -113,7 +113,7 @@ GnomeCmdApp *gnome_cmd_app_dup (GnomeCmdApp *app)
 }
 
 
-void gnome_cmd_app_free (GnomeCmdApp *app) 
+void gnome_cmd_app_free (GnomeCmdApp *app)
 {
     g_return_if_fail (app != NULL);
     g_return_if_fail (app->priv != NULL);
@@ -145,7 +145,7 @@ void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd)
 {
     g_return_if_fail (app != NULL);
     g_return_if_fail (app->priv != NULL);
-    
+
     if (!cmd) return;
 
     g_free (app->priv->cmd);
@@ -156,20 +156,22 @@ void gnome_cmd_app_set_command (GnomeCmdApp *app, const gchar *cmd)
 
 void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 {
-    GdkPixbuf *tmp;
-
     g_return_if_fail (app != NULL);
     g_return_if_fail (app->priv != NULL);
+
     if (!icon_path) return;
 
     g_free (app->priv->icon_path);
+
     if (app->priv->pixmap)
         gnome_cmd_pixmap_free (app->priv->pixmap);
 
     app->priv->icon_path = g_strdup (icon_path);
 
     //FIXME: Check GError here
-    if ((tmp = gdk_pixbuf_new_from_file (icon_path, NULL)) != NULL)
+    GdkPixbuf *tmp = gdk_pixbuf_new_from_file (icon_path, NULL);
+
+    if (tmp)
     {
         GdkPixbuf *pixbuf = gdk_pixbuf_scale_simple (tmp, 16, 16, GDK_INTERP_HYPER);
 

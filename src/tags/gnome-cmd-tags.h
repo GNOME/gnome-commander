@@ -254,7 +254,7 @@ typedef enum
     TAG_FILE_ACCESSED,                      // last access datetime
     TAG_FILE_CONTENT,                       // file's contents filtered as plain text (IE as stored by the indexer)
     TAG_FILE_DESCRIPTION,                   // editable free text/notes
-    TAG_FILE_FORMAT,                        // mime type of the file or if a directory it should contain value "Folder"
+    TAG_FILE_FORMAT,                        // MIME type of the file or if a directory it should contain value "Folder"
     TAG_FILE_KEYWORDS,                      // editable array of keywords
     TAG_FILE_LINK,                          // URI of link target
     TAG_FILE_MODIFIED,                      // last modified datetime
