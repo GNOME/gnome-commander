@@ -149,6 +149,12 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Fri Oct  5 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.4-4
+- Drop yelp dependency
+
+* Wed Aug 22 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.4-3.dist.2
+- Mass rebuild (buildID or binutils issue)
+
 * Fri Aug  3 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.4-3.dist.1
 - License update
 
@@ -200,7 +206,7 @@ scrollkeeper-update -q || :
 * Mon Jul 17 2006 Piotr Eljasiak <epiotr@use.pl>
 - added glib dependencies
 
-* Sun May 14 2006 Stephanos Manos <stefmanos AT gmail DOT com>
+* Sun May 14 2006 Stephanos Manos <stefmanos@gmail.com>
 - Fixed Scrollkeeper database update
         -disabled scrollkeeper update from make
         -added scrollkeeper-database-update in the %%post & %%postun section
