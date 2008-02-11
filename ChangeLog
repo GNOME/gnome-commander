@@ -1,3 +1,10 @@
+2008-02-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-app.h:
+	* src/gnome-cmd-file-popmenu.cc:
+	* src/gnome-cmd-file-props-dialog.cc:
+	Simplify error handling for MIME retrieving
+
 2008-02-06  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:

@@ -20,6 +20,7 @@
 #ifndef __GNOME_CMD_APP_H__
 #define __GNOME_CMD_APP_H__
 
+#include "gnome-cmd-file.h"
 #include "gnome-cmd-pixmap.h"
 
 typedef enum
@@ -83,5 +84,10 @@ gboolean gnome_cmd_app_get_requires_terminal (GnomeCmdApp *app);
 void gnome_cmd_app_set_requires_terminal (GnomeCmdApp *app, gboolean requires_terminal);
 
 GnomeCmdPixmap *gnome_cmd_app_get_pixmap (GnomeCmdApp *app);
+
+inline GnomeVFSMimeApplication *gnome_cmd_app_get_default_application (GnomeCmdFile *finfo)
+{
+    return finfo && finfo->info->mime_type ? gnome_vfs_mime_get_default_application (finfo->info->mime_type) : NULL;
+}
 
 #endif // __GNOME_CMD_APP_H__
