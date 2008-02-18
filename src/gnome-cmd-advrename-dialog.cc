@@ -1012,8 +1012,7 @@ static void on_res_list_column_resize (GtkCList *clist, gint column, gint width,
 }
 
 
-static void
-on_pat_list_column_resize (GtkCList *clist, gint column, gint width, GnomeCmdAdvrenameDialog *dialog)
+static void on_pat_list_column_resize (GtkCList *clist, gint column, gint width, GnomeCmdAdvrenameDialog *dialog)
 {
     advrename_dialog_default_pat_column_width[column] = width;
 }

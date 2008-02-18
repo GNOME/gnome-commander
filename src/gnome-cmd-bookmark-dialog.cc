@@ -302,15 +302,13 @@ static void on_dir_unselected (GtkCList *list, gint row, gint column, GdkEventBu
 }
 
 
-static void
-on_scroll_vertical (GtkCList *clist, GtkScrollType scroll_type, gfloat position, gpointer data)
+static void on_scroll_vertical (GtkCList *clist, GtkScrollType scroll_type, gfloat position, gpointer data)
 {
     gtk_clist_select_row (clist, clist->focus_row, 0);
 }
 
 
-static void
-add_groups (GnomeCmdBookmarkDialog *dialog)
+static void add_groups (GnomeCmdBookmarkDialog *dialog)
 {
     gchar *text[3];
 
@@ -329,8 +327,7 @@ add_groups (GnomeCmdBookmarkDialog *dialog)
 }
 
 
-static void
-add_bookmarks (GnomeCmdBookmarkDialog *dialog)
+static void add_bookmarks (GnomeCmdBookmarkDialog *dialog)
 {
     GnomeCmdCon *current_con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (main_win, ACTIVE));
     GnomeCmdBookmarkGroup *group, *current_group = NULL;
@@ -358,8 +355,7 @@ add_bookmarks (GnomeCmdBookmarkDialog *dialog)
 }
 
 
-static void
-on_group_combo_item_selected (GnomeCmdCombo *group_combo, GnomeCmdBookmarkGroup *group, GnomeCmdBookmarkDialog *dialog)
+static void on_group_combo_item_selected (GnomeCmdCombo *group_combo, GnomeCmdBookmarkGroup *group, GnomeCmdBookmarkDialog *dialog)
 {
     g_return_if_fail (group != NULL);
 
