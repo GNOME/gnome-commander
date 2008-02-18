@@ -119,18 +119,17 @@ void run_command_indir (const gchar *in_command, const gchar *dir, gboolean term
 
     if (term)
     {
-        gchar *tmp, *arg;
+        gchar *arg = g_shell_quote (in_command);
 
-        tmp = g_strdup_printf ("%s; %s/bin/gcmd-block", in_command, PREFIX);
-        arg = g_shell_quote (tmp);
         command = g_strdup_printf (gnome_cmd_data_get_term (), arg);
+
         g_free (arg);
-        g_free (tmp);
     }
     else
         command = g_strdup (in_command);
 
-    DEBUG ('g', "running: %s\n", command);
+    DEBUG ('g', "running%s: %s\n", (term?" in terminal":""), command);
+
     gnome_execute_shell (dir, command);
     g_free (command);
 }

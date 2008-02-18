@@ -3,6 +3,11 @@
 	* src/gnome-cmd-bookmark-dialog.cc:
 	Allow resizing of bookmark dlg
 
+	* src/Makefile.am:
+	* src/gnome-cmd-data.cc:
+	* src/utils.cc:
+	Fix for problem #448942 (SHIFT+ENTER: running a command in a separate terminal)
+
 2008-02-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-app.h:

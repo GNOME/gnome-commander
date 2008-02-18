@@ -5487,7 +5487,7 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>term</para></entry>
+                                    <entry><para>terminal</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5800,6 +5800,9 @@
                         </listitem>
                         <listitem>
                             <para>Fixed problem #447415 (inability to launch executables)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem #468685 (crash in python module)</para>

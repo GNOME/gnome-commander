@@ -11,7 +11,7 @@ AM_CPPFLAGS = \
 	-DDATADIR=\""$(datadir)"\"\
 	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\"
 
-bin_PROGRAMS = gnome-commander gcmd-block
+bin_PROGRAMS = gnome-commander
 
 gnome_commander_SOURCES = \
 	cap.cc cap.h \
@@ -105,5 +105,3 @@ gnome_commander_LDADD = \
 gnome_commander_LDFLAGS = \
 	$(GNOMEUI_LIBS) \
 	$(GNOMEVFS_LIBS)
-
-gcmd_block_SOURCES = block.cc

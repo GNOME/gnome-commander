@@ -1280,7 +1280,7 @@ void gnome_cmd_data_save (void)
     gnome_cmd_data_set_string ("/programs/viewer",data->priv->viewer);
     gnome_cmd_data_set_string ("/programs/editor",data->priv->editor);
     gnome_cmd_data_set_string ("/programs/differ",data->priv->differ);
-    gnome_cmd_data_set_string ("/programs/term",data->priv->term);
+    gnome_cmd_data_set_string ("/programs/terminal",data->priv->term);
 
     gnome_cmd_data_set_bool   ("/devices/only_icon",data->priv->device_only_icon);
     gnome_cmd_data_set_int    ("/options/dir_cache_size",data->priv->dir_cache_size);
@@ -1509,7 +1509,7 @@ void gnome_cmd_data_load (void)
     data->priv->viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
     data->priv->editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
     data->priv->differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
-    data->priv->term   = gnome_cmd_data_get_string ("/programs/term", "gnome-terminal -e %s");
+    data->priv->term   = gnome_cmd_data_get_string ("/programs/terminal", "xterm -hold -e %s");
 
     data->priv->device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
     data->priv->dir_cache_size = gnome_cmd_data_get_int ("/options/dir_cache_size", 10);
