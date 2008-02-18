@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-19 18:10+0100\n"
-"PO-Revision-Date: 2008-01-07 15:47+0100\n"
+"PO-Revision-Date: 2008-02-18 12:20+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2650,7 +2650,7 @@ msgstr "Kodek"
 #: ../src/tags/gnome-cmd-tags.cc:114
 #, fuzzy
 msgid "Codec encoding description."
-msgstr "Opis danych"
+msgstr "Szukanie po opisie"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Codec Version"
@@ -3226,7 +3226,7 @@ msgstr "Zabezpieczenie"
 
 #: ../src/tags/gnome-cmd-tags.cc:184
 msgid "One of: \"Password protected\", \"Read-only recommended\", \"Read-only enforced\" or \"Locked for annotations\"."
-msgstr ""
+msgstr "Jedno z: \"Zabezpieczony hasłem\", \"Zalecany tryb tylko do odczytu\", \"Wymuszony tryb tylko do odczytu\" lub \"Zablokowany dla adnotacji\"."
 
 #: ../src/tags/gnome-cmd-tags.cc:185
 msgid "Slide Count"
@@ -3905,9 +3905,8 @@ msgid "Related Image File Format"
 msgstr "Powiązany format pliku"
 
 #: ../src/tags/gnome-cmd-tags.cc:270
-#, fuzzy
 msgid "Related image file format."
-msgstr "Powiązany format pliku"
+msgstr "Powiązany format pliku."
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 #, fuzzy
@@ -4982,9 +4981,8 @@ msgid "URL pointing at a webpage that will handle the process of paying for this
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:404
-#, fuzzy
 msgid "WWW Publisher"
-msgstr "Serwer WWW"
+msgstr "Strona WWW wydawcy"
 
 #: ../src/tags/gnome-cmd-tags.cc:404
 msgid "URL pointing at the official webpage for the publisher."
@@ -5017,8 +5015,9 @@ msgid "Embedded copyright message."
 msgstr "Osadzona informacja o prawach autorskich."
 
 #: ../src/tags/gnome-cmd-tags.cc:411
+#, fuzzy
 msgid "Datetime image was originally created."
-msgstr ""
+msgstr "Czas utworzenia dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:412
 msgid "Description of the image."
@@ -5666,9 +5665,8 @@ msgid "Sub-location"
 msgstr "Sublokalizacja"
 
 #: ../src/tags/gnome-cmd-tags.cc:500
-#, fuzzy
 msgid "The location within a city from which the object originates."
-msgstr "Położenie w mieście lub obszarze skąd pochodzi obiekt"
+msgstr "Położenie w mieście lub danym obszarze, skąd pochodzi obiekt."
 
 #: ../src/tags/gnome-cmd-tags.cc:501
 msgid "Supplemental Category"
