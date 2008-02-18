@@ -1,3 +1,8 @@
+2008-02-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-bookmark-dialog.cc:
+	Allow resizing of bookmark dlg
+
 2008-02-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-app.h:
