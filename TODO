@@ -11,7 +11,7 @@
 * Splitting/merging files
 * Write configuration and bookmark changes immediately to file
 * Optional deleting to .Thrash
-* Support for file meta tags (exif, iptc, icc, mp3, vorbis, *ml, pdf, video, ...) 
+* Support for file meta tags (exif, iptc, icc, mp3, vorbis, *ml, pdf, video, ...)
     - custom columns
 * Unmounting a device via device button
 * advrename & FAM: do not re-sort file list for every single renamed file
@@ -20,6 +20,8 @@
 * Support for SSH+FTP and WebDAV
 * Editing remote files
 * Optional file deselection after completed action (copy, rename, ...)
+* User defined shortcuts to arbitrary programs
+  (with optional advrename parameters substitution)
 * More plugins:
     - creating tarballs from selected files
     - compressing/decompressing (gz & bz2)
