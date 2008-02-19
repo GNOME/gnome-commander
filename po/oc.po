@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-02 21:53+0100\n"
+"POT-Creation-Date: 2008-02-19 20:22+0100\n"
 "PO-Revision-Date: 2007-12-27 15:40+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -289,12 +289,12 @@ msgid "/Time/SS"
 msgstr ""
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:652
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:651
 msgid "Yes"
 msgstr "Òc"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:652
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:651
 msgid "No"
 msgstr "Non"
 
@@ -343,75 +343,75 @@ msgstr ""
 msgid "Auto-update when the template is entered"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1081
+#: ../src/gnome-cmd-advrename-dialog.cc:1080
 msgid "Advanced Rename Tool"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1093 ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1092 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "Modèl"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1115
+#: ../src/gnome-cmd-advrename-dialog.cc:1114
 msgid "O_ptions..."
 msgstr "O_pcions..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1122 ../src/gnome-cmd-file.cc:577
+#: ../src/gnome-cmd-advrename-dialog.cc:1121 ../src/gnome-cmd-file.cc:577
 msgid "Directory"
 msgstr "Repertòri"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1125 ../src/plugin_manager.cc:422
+#: ../src/gnome-cmd-advrename-dialog.cc:1124 ../src/plugin_manager.cc:422
 #: ../src/tags/gnome-cmd-tags.cc:659
 msgid "File"
 msgstr "Fichièr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1128
+#: ../src/gnome-cmd-advrename-dialog.cc:1127
 msgid "Counter"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1131 ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/gnome-cmd-advrename-dialog.cc:1130 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
 msgid "Date"
 msgstr "Data"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1134
+#: ../src/gnome-cmd-advrename-dialog.cc:1133
 msgid "Metatag"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1139
+#: ../src/gnome-cmd-advrename-dialog.cc:1138
 msgid "Regex replacing"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1144
+#: ../src/gnome-cmd-advrename-dialog.cc:1143
 msgid "Replace this"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1145
+#: ../src/gnome-cmd-advrename-dialog.cc:1144
 msgid "With this"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1146
+#: ../src/gnome-cmd-advrename-dialog.cc:1145
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr "Respectar la cassa"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1169
+#: ../src/gnome-cmd-advrename-dialog.cc:1168
 msgid "Re_move All"
 msgstr "_Suprimir"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1189
+#: ../src/gnome-cmd-advrename-dialog.cc:1188
 msgid "Result"
 msgstr "Resulta"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1194
+#: ../src/gnome-cmd-advrename-dialog.cc:1193
 msgid "Current file names"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1195
+#: ../src/gnome-cmd-advrename-dialog.cc:1194
 msgid "New file names"
 msgstr "Noms de fichièr novèls"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1201
+#: ../src/gnome-cmd-advrename-dialog.cc:1200
 msgid "Rese_t"
 msgstr ""
 
@@ -435,30 +435,30 @@ msgstr ""
 msgid "Edit Bookmark"
 msgstr ""
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:434
-#: ../src/gnome-cmd-bookmark-dialog.cc:446
+#: ../src/gnome-cmd-bookmark-dialog.cc:439
+#: ../src/gnome-cmd-bookmark-dialog.cc:457
 msgid "Bookmarks"
 msgstr "Favorits"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:437
+#: ../src/gnome-cmd-bookmark-dialog.cc:448
 msgid "Bookmark Groups"
 msgstr ""
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:453 ../src/gnome-cmd-file-list.cc:90
+#: ../src/gnome-cmd-bookmark-dialog.cc:464 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "nom"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454
+#: ../src/gnome-cmd-bookmark-dialog.cc:465
 msgid "path"
 msgstr ""
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:578
+#: ../src/gnome-cmd-bookmark-dialog.cc:589
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
 msgstr ""
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:585
+#: ../src/gnome-cmd-bookmark-dialog.cc:596
 msgid "New Bookmark"
 msgstr ""
 
@@ -793,11 +793,11 @@ msgstr "Suprimir"
 
 #: ../src/gnome-cmd-delete-dialog.cc:289
 #: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:683
-#: ../src/utils.cc:510 ../src/utils.cc:538
+#: ../src/utils.cc:509 ../src/utils.cc:537
 msgid "Cancel"
 msgstr "Anullar"
 
-#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:510
+#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:509
 msgid "OK"
 msgstr "Validar"
 
@@ -846,73 +846,73 @@ msgstr ""
 msgid "Not an ordinary file: %s"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:123
+#: ../src/gnome-cmd-file-popmenu.cc:128
 msgid "Invalid command"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:147
+#: ../src/gnome-cmd-file-popmenu.cc:152
 msgid "Application:"
 msgstr "Aplicacion :"
 
-#: ../src/gnome-cmd-file-popmenu.cc:150
+#: ../src/gnome-cmd-file-popmenu.cc:155
 msgid "Open with other..."
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:155
+#: ../src/gnome-cmd-file-popmenu.cc:160
 msgid "Needs terminal"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:394 ../src/gnome-cmd-file-popmenu.cc:403
-#: ../src/gnome-cmd-file-popmenu.cc:428
+#: ../src/gnome-cmd-file-popmenu.cc:399 ../src/gnome-cmd-file-popmenu.cc:408
+#: ../src/gnome-cmd-file-popmenu.cc:433
 msgid "_Open"
 msgstr "_Dobrir"
 
-#: ../src/gnome-cmd-file-popmenu.cc:407
+#: ../src/gnome-cmd-file-popmenu.cc:412
 #, c-format
 msgid "_Open with \"%s\""
 msgstr "_Dobrir amb \"%s\""
 
-#: ../src/gnome-cmd-file-popmenu.cc:429
+#: ../src/gnome-cmd-file-popmenu.cc:434
 msgid "Open With..."
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:435
+#: ../src/gnome-cmd-file-popmenu.cc:440
 msgid "E_xecute"
 msgstr "E_xecutar"
 
-#: ../src/gnome-cmd-file-popmenu.cc:447 ../src/gnome-cmd-main-menu.cc:544
+#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-menu.cc:544
 msgid "Cu_t"
 msgstr "_Copar"
 
-#: ../src/gnome-cmd-file-popmenu.cc:448 ../src/gnome-cmd-main-menu.cc:550
+#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-main-menu.cc:550
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: ../src/gnome-cmd-file-popmenu.cc:449 ../src/gnome-cmd-main-menu.cc:562
+#: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:562
 msgid "_Delete"
 msgstr "_Suprimir"
 
-#: ../src/gnome-cmd-file-popmenu.cc:451
+#: ../src/gnome-cmd-file-popmenu.cc:456
 msgid "Rename"
 msgstr "Renommar"
 
-#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-win.cc:1173
+#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-main-win.cc:1173
 msgid "Send files"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-list-popmenu.cc:123
+#: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-list-popmenu.cc:123
 msgid "Open _terminal here"
 msgstr ""
 
-#: ../src/gnome-cmd-file-popmenu.cc:455 ../src/gnome-cmd-main-menu.cc:465
+#: ../src/gnome-cmd-file-popmenu.cc:460 ../src/gnome-cmd-main-menu.cc:465
 msgid "_Properties..."
 msgstr "_Propietats..."
 
-#: ../src/gnome-cmd-file-popmenu.cc:498
+#: ../src/gnome-cmd-file-popmenu.cc:503
 msgid "Other..."
 msgstr "Autre..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:72 ../src/utils.cc:816
+#: ../src/gnome-cmd-file-props-dialog.cc:72 ../src/utils.cc:815
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -6248,44 +6248,44 @@ msgstr "Pas cap"
 msgid "10-15ms"
 msgstr ""
 
-#: ../src/utils.cc:429
+#: ../src/utils.cc:428
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
 
-#: ../src/utils.cc:507
+#: ../src/utils.cc:506
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
 "Do you want to set it and then run the file?"
 msgstr ""
 
-#: ../src/utils.cc:509
+#: ../src/utils.cc:508
 msgid "Make Executable?"
 msgstr ""
 
-#: ../src/utils.cc:536
+#: ../src/utils.cc:535
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr ""
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:536
 msgid "Run or Display"
 msgstr ""
 
-#: ../src/utils.cc:538
+#: ../src/utils.cc:537
 msgid "Display"
 msgstr "Visualizar"
 
-#: ../src/utils.cc:538
+#: ../src/utils.cc:537
 msgid "Run"
 msgstr "Executar"
 
-#: ../src/utils.cc:579 ../src/utils.cc:649
+#: ../src/utils.cc:578 ../src/utils.cc:648
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -6296,24 +6296,24 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/utils.cc:1015
+#: ../src/utils.cc:1014
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
 "Error message: %s\n"
 msgstr ""
 
-#: ../src/utils.cc:1211
+#: ../src/utils.cc:1210
 #, c-format
 msgid "Creating directory %s... "
 msgstr ""
 
-#: ../src/utils.cc:1214
+#: ../src/utils.cc:1213
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr ""
 
-#: ../src/utils.cc:1220
+#: ../src/utils.cc:1219
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr ""
