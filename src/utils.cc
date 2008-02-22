@@ -437,14 +437,16 @@ static void do_mime_exec_single (gpointer *args)
 
     GnomeCmdApp *app = (GnomeCmdApp *) args[0];
     gchar *path = (gchar *) args[1];
+    gchar *dpath = (gchar *) args[2];
 
     string cmd = gnome_cmd_app_get_command (app);
     cmd += ' ';
     cmd += stringify (g_shell_quote (path));
 
-    run_command (cmd.c_str(), gnome_cmd_app_get_requires_terminal (app));
+    run_command_indir (cmd.c_str(), dpath, gnome_cmd_app_get_requires_terminal (app));
 
     g_free (path);
+    g_free (dpath);
     gnome_cmd_app_free (app);
     g_free (args);
 }
@@ -557,12 +559,13 @@ void mime_exec_single (GnomeCmdFile *finfo)
     app = gnome_cmd_app_new_from_vfs_app (vfs_app);
     gnome_vfs_mime_application_free (vfs_app);
 
-    args = g_new0 (gpointer, 2);
+    args = g_new0 (gpointer, 3);
 
     if (gnome_cmd_file_is_local (finfo))
     {
         args[0] = (gpointer) app;
         args[1] = (gpointer) g_strdup (gnome_cmd_file_get_real_path (finfo));
+        args[2] = (gpointer) g_path_get_dirname ((gchar *) args[1]);            // set exec dir for local files
         do_mime_exec_single (args);
     }
     else
@@ -571,6 +574,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
         {
             args[0] = (gpointer) app;
             args[1] = (gpointer) g_strdup (gnome_cmd_file_get_uri_str (finfo));
+            // args[2] is NULL here (don't set exec dir for remote files)
             do_mime_exec_single (args);
         }
         else
@@ -580,6 +584,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
                                                         GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, msg);
             TmpDlData *dldata = g_new0 (TmpDlData, 1);
             args[0] = (gpointer) app;
+            // args[2] is NULL here (don't set exec dir for temporarily downloaded files)
             dldata->finfo = finfo;
             dldata->dialog = dialog;
             dldata->args = args;

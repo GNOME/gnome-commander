@@ -59,7 +59,18 @@ struct _GnomeCmdFilePopmenuPrivate
 
 inline void exec_with_app (GList *files, GnomeCmdApp *app)
 {
-    mime_exec_multiple (files, app);
+    guint selected_files = g_list_length (files);
+
+    if (selected_files==1)
+    {
+        GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
+        mime_exec_single (finfo);
+        gnome_cmd_app_free (app);
+
+        g_list_free (files);
+    }
+    else
+        mime_exec_multiple (files, app);
 }
 
 

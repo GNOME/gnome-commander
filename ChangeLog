@@ -1,3 +1,9 @@
+2008-02-22  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-popmenu.cc:
+	* src/utils.cc:
+	Set proper exec dir for started MIME applications
+
 2008-02-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-bookmark-dialog.cc:
