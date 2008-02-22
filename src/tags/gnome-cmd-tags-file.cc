@@ -62,7 +62,7 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *finfo)
 
     g_free(dpath);
 
-    gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
+    gchar *uri_str = gnome_cmd_file_get_uri_str (finfo, GNOME_VFS_URI_HIDE_PASSWORD);
     finfo->metadata->add(TAG_FILE_LINK, uri_str);
     g_free(uri_str);
 

@@ -80,7 +80,7 @@ gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *finfo);
 gchar *gnome_cmd_file_get_dirname (GnomeCmdFile *finfo);
 gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *finfo);
 GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *finfo);
-gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *finfo);
+gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *finfo, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
 
 const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *finfo);
 const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *finfo);

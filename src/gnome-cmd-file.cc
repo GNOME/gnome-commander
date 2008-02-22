@@ -397,12 +397,12 @@ GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *finfo)
 }
 
 
-gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *finfo)
+gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *finfo, GnomeVFSURIHideOptions hide_options)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE (finfo), NULL);
 
     GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
-    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, hide_options);
     gnome_vfs_uri_unref (uri);
 
     return uri_str;

@@ -1,3 +1,10 @@
+2008-02-23  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
+	* src/tags/gnome-cmd-tags-file.cc:
+	Do not show password in File.Link tag
+
 2008-02-22  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-popmenu.cc:
