@@ -21,7 +21,16 @@
 * Editing remote files
 * Optional file deselection after completed action (copy, rename, ...)
 * User defined shortcuts to arbitrary programs
-  (with optional advrename parameters substitution)
+  with the following parameters substitution:
+    %f  file name (or list for multiple selections)
+    %F  escaped filename (or list for multiple selections)
+    %p  full file system path (or list for multiple selections)
+    %P  escaped full file system path (or list for multiple selections)
+    %u  fully qualified URI for the file (or list for multiple selections)
+    %d  full path to the directory containg file
+    %D  escaped full path to the directory containg file
+    %s  synonym for %P (for compatibility with previous versions of gcmd)
+    %%  percent sign
 * More plugins:
     - creating tarballs from selected files
     - compressing/decompressing (gz & bz2)
