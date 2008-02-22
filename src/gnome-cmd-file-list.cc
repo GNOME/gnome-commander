@@ -504,7 +504,6 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
 
     if (listlen > 1)
     {
-        char *data, *copy;
         int total_len = 0;
         GList *tmp = sel_files;
         GList *uri_str_list = NULL;
@@ -535,6 +534,9 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
 
         // allocate memory
         total_len++;
+
+        char *data, *copy;
+
         data = copy = (gchar *) g_malloc (total_len+1);
 
         // put the uri_str_list in the allocated memory
@@ -662,8 +664,8 @@ static gboolean on_right_mb_timeout (GnomeCmdFileList *fl)
 
     if (fl->priv->right_mb_down_file == focus_file)
     {
+        select_file (fl, focus_file);
         show_file_popup (fl, NULL);
-        toggle_file (fl, focus_file);
         return FALSE;
     }
 
@@ -1060,7 +1062,7 @@ on_file_clicked (GnomeCmdFileList *fl,
 
                     fl->priv->right_mb_down_file = finfo;
                     fl->priv->right_mb_timeout_id =
-                        gtk_timeout_add (POPUP_TIMEOUT, (GtkFunction)on_right_mb_timeout, fl);
+                        gtk_timeout_add (POPUP_TIMEOUT, (GtkFunction) on_right_mb_timeout, fl);
                 }
                 else
                     show_file_popup (fl, event);

@@ -4,6 +4,9 @@
 	* src/utils.cc:
 	Set proper exec dir for started MIME applications
 
+	* src/gnome-cmd-file-list.cc:
+	Fix for RMB selection
+
 2008-02-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-bookmark-dialog.cc:
