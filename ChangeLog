@@ -5,6 +5,9 @@
 	* src/tags/gnome-cmd-tags-file.cc:
 	Do not show password in File.Link tag
 
+	* src/gnome-cmd-file-popmenu.cc:
+	Revert the bug introduced in rev. #1575
+
 2008-02-22  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-popmenu.cc:
