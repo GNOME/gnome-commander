@@ -1143,7 +1143,7 @@ msgstr "_Pegar"
 
 #: ../src/gnome-cmd-list-popmenu.cc:124 ../src/gnome-cmd-main-menu.cc:611
 msgid "_Refresh"
-msgstr "_Actualisar"
+msgstr "_Actualizar"
 
 #: ../src/gnome-cmd-main-menu.cc:375
 msgid "Switch to Vertical Layout"
@@ -2517,7 +2517,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:106 ../src/tags/gnome-cmd-tags.cc:407
 msgid "Album"
-msgstr "Albom"
+msgstr "Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:106
 msgid "Name of the album."
