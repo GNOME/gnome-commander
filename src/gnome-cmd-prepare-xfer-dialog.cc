@@ -37,8 +37,6 @@ static GnomeCmdDialogClass *parent_class = NULL;
 
 static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 {
-    GnomeVFSResult res;
-    GnomeVFSFileType type;
     GnomeCmdDir *dest_dir;
     gchar *dest_fn = NULL;
     gchar *dest_path;
@@ -69,7 +67,8 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     }
 
     // Check if something exists at the given path and find out what it is
-    res = gnome_cmd_con_get_path_target_type (con, dest_path, &type);
+    GnomeVFSFileType type;
+    GnomeVFSResult   res = gnome_cmd_con_get_path_target_type (con, dest_path, &type);
 
     if (res != GNOME_VFS_OK && res != GNOME_VFS_ERROR_NOT_FOUND)
         goto bailout;
@@ -81,8 +80,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         {
             // There exists a directory, copy into it using the original filename
-            dest_dir = gnome_cmd_dir_new (
-                con, gnome_cmd_con_create_path (con, dest_path));
+            dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
             dest_fn = g_strdup (gnome_cmd_file_get_name (finfo));
         }
         else
@@ -115,15 +113,13 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             else
             {
                 // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-                gchar *msg = g_strdup_printf (
-                    _("The directory '%s' doesn't exist, do you want to create it?"),
-                    g_basename (parent_dir));
-                gint choise = run_simple_dialog (
-                    GTK_WIDGET (dialog), TRUE, GTK_MESSAGE_QUESTION, msg, "",
-                    -1, _("No"), _("Yes"), NULL);
+                gchar *msg = g_strdup_printf (_("The directory '%s' doesn't exist, do you want to create it?"),
+                                              g_basename (parent_dir));
+                gint choice = run_simple_dialog (GTK_WIDGET (dialog), TRUE, GTK_MESSAGE_QUESTION, msg, "",
+                                                 -1, _("No"), _("Yes"), NULL);
                 g_free (msg);
 
-                if (choise == 1)
+                if (choice == 1)
                 {
                     GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, parent_dir);
                     if (mkdir_result != GNOME_VFS_OK)
@@ -135,8 +131,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                 else
                     goto bailout;
 
-                dest_dir = gnome_cmd_dir_new (
-                    con, gnome_cmd_con_create_path (con, parent_dir));
+                dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, parent_dir));
                 g_free (parent_dir);
                 dest_fn = g_strdup (g_basename (dest_path));
             }
@@ -164,10 +159,10 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                                                         GTK_MESSAGE_QUESTION,
                                                         GTK_BUTTONS_OK_CANCEL,
                                                         msg);
-            gint choise = gtk_dialog_run (GTK_DIALOG (dialog));
+            gint choice = gtk_dialog_run (GTK_DIALOG (dialog));
             g_free (msg);
 
-            if (choise == GTK_RESPONSE_OK)
+            if (choice == GTK_RESPONSE_OK)
             {
                 GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, dest_path);
                 if (mkdir_result != GNOME_VFS_OK)

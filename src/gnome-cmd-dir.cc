@@ -258,24 +258,19 @@ GtkType gnome_cmd_dir_get_type (void)
 
 GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent)
 {
-    GnomeCmdDir *dir;
-    GnomeCmdCon *con;
-    GnomeCmdPath *path;
-    GnomeVFSURI *uri;
-    gchar *uri_str;
-
     g_return_val_if_fail (info != NULL, NULL);
     g_return_val_if_fail (GNOME_CMD_IS_DIR (parent), NULL);
 
-    con = gnome_cmd_dir_get_connection (parent);
-    path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), info->name);
+    GnomeCmdCon *con = gnome_cmd_dir_get_connection (parent);
+    GnomeCmdPath *path = gnome_cmd_path_get_child (gnome_cmd_dir_get_path (parent), info->name);
 
-    uri = gnome_cmd_con_create_uri (con, path);
-    uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
+    GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
+    gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
 
-    dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uri_str);
+    GnomeCmdDir *dir = gnome_cmd_con_cache_lookup (gnome_cmd_dir_get_connection (parent), uri_str);
     g_free (uri_str);
     gnome_vfs_uri_unref (uri);
+
     if (dir)
     {
         gtk_object_destroy (GTK_OBJECT (path));
