@@ -1,3 +1,8 @@
+2008-02-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/utils.cc:
+	Yet another fix for setting exec dir for started MIME applications
+
 2008-02-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:

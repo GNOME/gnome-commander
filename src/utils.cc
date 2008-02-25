@@ -21,6 +21,9 @@
 #include <locale.h>
 #include <errno.h>
 #include <dirent.h>
+
+#include <set>
+
 #include "gnome-cmd-includes.h"
 #include "utils.h"
 #include "gnome-cmd-data.h"
@@ -606,13 +609,24 @@ static void do_mime_exec_multiple (gpointer *args)
     {
         string cmd = gnome_cmd_app_get_command (app);
 
+        set<string> dirs;
+
         for (; files; files = files->next)
         {
             cmd += ' ';
             cmd += stringify (g_shell_quote ((gchar *) files->data));
+
+            gchar *dpath = g_path_get_dirname ((gchar *) files->data);
+
+            if (dpath)
+                dirs.insert (stringify (dpath));
         }
 
-        run_command (cmd.c_str(), gnome_cmd_app_get_requires_terminal (app));
+        if (dirs.size()==1)
+            run_command_indir (cmd.c_str(), dirs.begin()->c_str(), gnome_cmd_app_get_requires_terminal (app));
+        else
+            run_command (cmd.c_str(), gnome_cmd_app_get_requires_terminal (app));
+
         g_list_free (files);
     }
 
