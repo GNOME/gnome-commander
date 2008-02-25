@@ -59,8 +59,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         dest_path = user_path;
     else
     {
-        gchar *tmp = gnome_cmd_file_get_path (GNOME_CMD_FILE (
-            gnome_cmd_file_selector_get_directory (dialog->src_fs)));
+        gchar *tmp = gnome_cmd_file_get_path (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (dialog->src_fs)));
         dest_path = g_build_path (G_DIR_SEPARATOR_S, tmp, user_path, NULL);
         g_free (user_path);
         g_free (tmp);
@@ -68,7 +67,9 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
     // Check if something exists at the given path and find out what it is
     GnomeVFSFileType type;
-    GnomeVFSResult   res = gnome_cmd_con_get_path_target_type (con, dest_path, &type);
+    GnomeVFSResult   res;
+
+    res = gnome_cmd_con_get_path_target_type (con, dest_path, &type);
 
     if (res != GNOME_VFS_OK && res != GNOME_VFS_ERROR_NOT_FOUND)
         goto bailout;
