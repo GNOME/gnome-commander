@@ -534,6 +534,16 @@ void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, GnomeCmdDir *dir)
 }
 
 
+void gnome_cmd_con_remove_from_cache (GnomeCmdCon *con, const gchar *uri_str)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_return_if_fail (uri_str != NULL);
+
+    DEBUG ('k', "REMOVING %s from the cache\n", uri_str);
+    g_hash_table_remove (con->priv->all_dirs_map, uri_str);
+}
+
+
 GnomeCmdDir *gnome_cmd_con_cache_lookup (GnomeCmdCon *con, const gchar *uri_str)
 {
     g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);

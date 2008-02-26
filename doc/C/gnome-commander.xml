@@ -5805,6 +5805,9 @@
                             <para>Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #449137 (renamed directories not accessed by name)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #468685 (crash in python module)</para>
                         </listitem>
                         <listitem>

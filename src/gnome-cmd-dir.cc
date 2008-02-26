@@ -814,6 +814,9 @@ void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo, const gc
     g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
     g_return_if_fail (old_uri_str!=NULL);
 
+    if (GNOME_CMD_IS_DIR (finfo))
+        gnome_cmd_con_remove_from_cache (dir->priv->con, old_uri_str);
+
     gnome_cmd_file_collection_remove_by_uri (dir->priv->file_collection, old_uri_str);
     gnome_cmd_file_collection_add (dir->priv->file_collection, finfo);
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_RENAMED], finfo);

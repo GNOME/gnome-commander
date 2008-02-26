@@ -1,3 +1,10 @@
+2008-02-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con.cc:
+	* src/gnome-cmd-con.h:
+	* src/gnome-cmd-dir.cc:
+	Fixed problem #449137 (renamed directories not accessed by name)
+
 2008-02-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:

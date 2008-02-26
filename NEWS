@@ -11,6 +11,7 @@ Bug fixes:
  * Fixed problem #434545 (Debian bug #421480: HUGE icons for device icons)
  * Fixed problem #447415 (inability to launch executables)
  * Fixed problem #448942 (SHIFT+ENTER: running a command in a separate terminal)
+ * Fixed problem #449137 (renamed directories not accessed by name)
  * Fixed problem #468685 (crash in python module)
  * Fixed problem #490431 (view files with name containing '%')
  * Fixed problem #508565 (improper utf-8 handling in advanced file rename tool)
