@@ -1,6 +1,6 @@
 # translation of gnome-commander.HEAD.ar.po to Arabic
 # Automatically generated, 2007.
-# Djihed Afifi <djihed@gmail.com>, 2007.
+# Djihed Afifi <djihed@gmail.com>, 2007, 2008.
 # Anas Husseini <linux.anas@gmail.com>, 2007, 2008.
 # translation of gnome-commander.HEAD.ar.po to
 # Arabic translations for GNOME Commander package.
@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-03 08:13+0000\n"
+"POT-Creation-Date: 2008-02-26 16:32+0000\n"
 "PO-Revision-Date: 2008-01-03 08:08+0200\n"
 "Last-Translator: Anas Husseini <linux.anas@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -38,7 +38,7 @@ msgstr "ليس هناك وصف متاح للخطأ"
 #: ../src/gnome-cmd-options-dialog.cc:1179
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
-#: ../src/gnome-cmd-prepare-move-dialog.cc:120
+#: ../src/gnome-cmd-prepare-move-dialog.cc:118
 #: ../src/gnome-cmd-remote-dialog.cc:526
 msgid "Options"
 msgstr "خيارات"
@@ -299,25 +299,25 @@ msgid "/Time/SS"
 msgstr "/الوقت/ثانية(2)"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:120 ../src/utils.cc:670
 msgid "Yes"
 msgstr "نعم"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:120 ../src/utils.cc:670
 msgid "No"
 msgstr "لا"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:563
+#: ../src/gnome-cmd-advrename-dialog.cc:564
 msgid "Invalid source pattern"
 msgstr "نمط المصدر غير صالح"
 
 #. Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
-#: ../src/gnome-cmd-advrename-dialog.cc:630
+#: ../src/gnome-cmd-advrename-dialog.cc:632
 msgid "Replace this:"
 msgstr "أبدل بهذا:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:630
+#: ../src/gnome-cmd-advrename-dialog.cc:632
 msgid "With this:"
 msgstr "هذا:"
 
@@ -353,11 +353,11 @@ msgstr "خيارات القوالب"
 msgid "Auto-update when the template is entered"
 msgstr "حدّث تلقائياً عند إدخال القالب"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1081
+#: ../src/gnome-cmd-advrename-dialog.cc:1080
 msgid "Advanced Rename Tool"
 msgstr "أداة إعادة التسمية المتقدمة"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1093 ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1092 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "قالب"
 
@@ -365,7 +365,7 @@ msgstr "قالب"
 msgid "O_ptions..."
 msgstr "_خيارات..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1121 ../src/gnome-cmd-file.cc:563
+#: ../src/gnome-cmd-advrename-dialog.cc:1121 ../src/gnome-cmd-file.cc:577
 msgid "Directory"
 msgstr "دليل"
 
@@ -445,24 +445,24 @@ msgstr "هدف العلامة المرجعية مفقود"
 msgid "Edit Bookmark"
 msgstr "حرّر العلامة المرجعية"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:434
-#: ../src/gnome-cmd-bookmark-dialog.cc:446
+#: ../src/gnome-cmd-bookmark-dialog.cc:439
+#: ../src/gnome-cmd-bookmark-dialog.cc:457
 msgid "Bookmarks"
 msgstr "العلامات المرجعية"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:437
+#: ../src/gnome-cmd-bookmark-dialog.cc:448
 msgid "Bookmark Groups"
 msgstr "مجموعات العلامات المرجعية"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:453 ../src/gnome-cmd-file-list.cc:90
+#: ../src/gnome-cmd-bookmark-dialog.cc:464 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "اسم"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454
+#: ../src/gnome-cmd-bookmark-dialog.cc:465
 msgid "path"
 msgstr "مسار"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:578
+#: ../src/gnome-cmd-bookmark-dialog.cc:589
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
@@ -470,7 +470,7 @@ msgstr ""
 "لوضع علامة مرجعية على مجلد، يجب أن يكون مسار البحث الكامل الموصل إلى المجلد "
 "في صيغة ترميز UTF-8 صالحة\n"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:585
+#: ../src/gnome-cmd-bookmark-dialog.cc:596
 msgid "New Bookmark"
 msgstr "علامة مرجعية جديدة"
 
@@ -609,118 +609,118 @@ msgstr "ضمّ: %s"
 msgid "Unmount: %s"
 msgstr "إلغاء ضمّ: %s"
 
-#: ../src/gnome-cmd-con-dialog.cc:210
+#: ../src/gnome-cmd-con-dialog.cc:212
 msgid "You must enter a name for the server"
 msgstr "عليك أن تدخل اسم الخادم"
 
-#: ../src/gnome-cmd-con-dialog.cc:210
+#: ../src/gnome-cmd-con-dialog.cc:212
 msgid "Please enter a name and try again."
 msgstr "رجاءً أدخل اسماً وحاول ثانية."
 
-#: ../src/gnome-cmd-con-dialog.cc:225
+#: ../src/gnome-cmd-con-dialog.cc:227
 #, c-format
 msgid "\"%s\" is not a valid location"
 msgstr "\"%s\" ليس موقعاً صالحاً"
 
-#: ../src/gnome-cmd-con-dialog.cc:226
+#: ../src/gnome-cmd-con-dialog.cc:228
 msgid "Please check the spelling and try again."
 msgstr "رجاءً تحقق من التدقيق الإملائي وحاول ثانية."
 
-#: ../src/gnome-cmd-con-dialog.cc:331
+#: ../src/gnome-cmd-con-dialog.cc:333
 msgid "_Alias:"
 msgstr "ا_سم مستعار:"
 
-#: ../src/gnome-cmd-con-dialog.cc:335
+#: ../src/gnome-cmd-con-dialog.cc:337
 msgid "_Location (URI):"
 msgstr "ال_موقع (URI):"
 
-#: ../src/gnome-cmd-con-dialog.cc:368
+#: ../src/gnome-cmd-con-dialog.cc:370
 msgid "_Server:"
 msgstr "ال_خادم:"
 
-#: ../src/gnome-cmd-con-dialog.cc:379
+#: ../src/gnome-cmd-con-dialog.cc:381
 msgid "Optional information"
 msgstr "معلومات اختيارية"
 
-#: ../src/gnome-cmd-con-dialog.cc:403
+#: ../src/gnome-cmd-con-dialog.cc:405
 msgid "S_hare:"
 msgstr "الت_شارك:"
 
-#: ../src/gnome-cmd-con-dialog.cc:406
+#: ../src/gnome-cmd-con-dialog.cc:408
 msgid "_Port:"
 msgstr "المنفذ:"
 
 #. Translators: 'Dir' in the sense of 'Directory'
-#: ../src/gnome-cmd-con-dialog.cc:409
+#: ../src/gnome-cmd-con-dialog.cc:411
 msgid "_Remote dir:"
 msgstr "الم_جلد البعيد:"
 
-#: ../src/gnome-cmd-con-dialog.cc:412
+#: ../src/gnome-cmd-con-dialog.cc:414
 msgid "_User name:"
 msgstr "اسم المستخ_دم:"
 
-#: ../src/gnome-cmd-con-dialog.cc:415
+#: ../src/gnome-cmd-con-dialog.cc:417
 msgid "_Password:"
 msgstr "_كلمة السر:"
 
-#: ../src/gnome-cmd-con-dialog.cc:418
+#: ../src/gnome-cmd-con-dialog.cc:420
 msgid "_Domain name:"
 msgstr "اسم الميدا_ن:"
 
-#: ../src/gnome-cmd-con-dialog.cc:455 ../src/gnome-cmd-main-win.cc:1176
+#: ../src/gnome-cmd-con-dialog.cc:457 ../src/gnome-cmd-main-win.cc:1176
 msgid "Remote Server"
 msgstr "الخادم البعيد"
 
-#: ../src/gnome-cmd-con-dialog.cc:470
+#: ../src/gnome-cmd-con-dialog.cc:472
 msgid "Service _type:"
 msgstr "ن_وع الخدمة:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/gnome-cmd-con-dialog.cc:482
+#: ../src/gnome-cmd-con-dialog.cc:484
 msgid "FTP (with login)"
 msgstr "FTP (مع تسجيل دخول)"
 
-#: ../src/gnome-cmd-con-dialog.cc:483
+#: ../src/gnome-cmd-con-dialog.cc:485
 msgid "Public FTP"
 msgstr "FTP عام"
 
-#: ../src/gnome-cmd-con-dialog.cc:500
+#: ../src/gnome-cmd-con-dialog.cc:502
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr "استخدم مدير حلقة مفاتيح _جنوم للمصادقة"
 
 #. ?????????
 #. do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
 #. ?????????
-#: ../src/gnome-cmd-con-ftp.cc:301 ../src/gnome-cmd-con-ftp.cc:349
+#: ../src/gnome-cmd-con-ftp.cc:326 ../src/gnome-cmd-con-ftp.cc:374
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "يجري الاتصال بـ %s\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:366
+#: ../src/gnome-cmd-con-ftp.cc:391
 msgid "<New connection>"
 msgstr "<اتصال جديد>"
 
-#: ../src/gnome-cmd-con-ftp.cc:368
+#: ../src/gnome-cmd-con-ftp.cc:393
 #, c-format
 msgid "Go to: %s"
 msgstr "اذهب إلى: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:369
+#: ../src/gnome-cmd-con-ftp.cc:394
 #, c-format
 msgid "Connect to: %s"
 msgstr "اتصل بـ: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:370
+#: ../src/gnome-cmd-con-ftp.cc:395
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "اقطع الاتصال بـ: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:384
+#: ../src/gnome-cmd-con-ftp.cc:409
 #, c-format
 msgid "Creates the FTP connection to %s"
 msgstr "ينشئ اتصال FTP بـ %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:385
+#: ../src/gnome-cmd-con-ftp.cc:410
 #, c-format
 msgid "Removes the FTP connection to %s"
 msgstr "يزيل اتصال FTP  بـ %s"
@@ -749,8 +749,8 @@ msgstr "جارٍ البحث عن مجموعات العمل والمضيفات"
 msgid "Go to: Samba Network"
 msgstr "اذهب إلى: شبكة سامبا"
 
-#: ../src/gnome-cmd-data.cc:1256 ../src/gnome-cmd-data.cc:1486
-#: ../src/gnome-cmd-data.cc:1487 ../src/gnome-cmd-data.cc:2524
+#: ../src/gnome-cmd-data.cc:1267 ../src/gnome-cmd-data.cc:1497
+#: ../src/gnome-cmd-data.cc:1498 ../src/gnome-cmd-data.cc:2535
 #, c-format
 msgid "link to %s"
 msgstr "وصلة إلى %s "
@@ -789,12 +789,12 @@ msgid "Abort"
 msgstr "أجهض"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-xfer.cc:190
 msgid "Retry"
 msgstr "أعِد المحاولة"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-xfer.cc:171
 #: ../src/gnome-cmd-xfer.cc:190
 msgid "Skip"
 msgstr "تجاوز"
@@ -819,24 +819,24 @@ msgid "Delete"
 msgstr "حذف"
 
 #: ../src/gnome-cmd-delete-dialog.cc:289
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
-#: ../src/utils.cc:508 ../src/utils.cc:537
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:683
+#: ../src/utils.cc:514 ../src/utils.cc:542
 msgid "Cancel"
 msgstr "إلغاء"
 
-#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:508
+#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:514
 msgid "OK"
 msgstr "موافق"
 
-#: ../src/gnome-cmd-dir-indicator.cc:441
+#: ../src/gnome-cmd-dir-indicator.cc:403
 msgid "Add current dir"
 msgstr "أضف المجلد الحالي"
 
-#: ../src/gnome-cmd-dir-indicator.cc:442
+#: ../src/gnome-cmd-dir-indicator.cc:404
 msgid "Manage bookmarks..."
 msgstr "إدارة العلامات المرجعية..."
 
-#: ../src/gnome-cmd-dir.cc:575
+#: ../src/gnome-cmd-dir.cc:554
 msgid "Waiting for file list"
 msgstr "انتظر سرد الملفات"
 
@@ -868,12 +868,12 @@ msgstr "رقم المستخدم"
 msgid "gid"
 msgstr "رقم المجموعة"
 
-#: ../src/gnome-cmd-file-list.cc:2131 ../src/gnome-cmd-file-list.cc:2147
+#: ../src/gnome-cmd-file-list.cc:2137 ../src/gnome-cmd-file-list.cc:2153
 #, c-format
 msgid "Not an ordinary file: %s"
 msgstr "ليس ملفاً عادياً: %s"
 
-#: ../src/gnome-cmd-file-popmenu.cc:126
+#: ../src/gnome-cmd-file-popmenu.cc:128
 msgid "Invalid command"
 msgstr "أمر غير صالح"
 
@@ -939,7 +939,7 @@ msgstr "_خصائص..."
 msgid "Other..."
 msgstr "أخرى..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:822
+#: ../src/gnome-cmd-file-props-dialog.cc:72 ../src/utils.cc:834
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
@@ -948,65 +948,65 @@ msgstr[1] "%s بايتان اثنان"
 msgstr[2] "%s بايتات"
 msgstr[3] "%s ًبايتا"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:196
-#: ../src/gnome-cmd-file-props-dialog.cc:407
+#: ../src/gnome-cmd-file-props-dialog.cc:198
+#: ../src/gnome-cmd-file-props-dialog.cc:419
 msgid "No default application registered"
 msgstr "لا تطبيق افتراضي مسجّل"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:333
+#: ../src/gnome-cmd-file-props-dialog.cc:345
 msgid "Image:"
 msgstr "الصورة:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:360
-#: ../src/gnome-cmd-file-selector.cc:1918
+#: ../src/gnome-cmd-file-props-dialog.cc:372
+#: ../src/gnome-cmd-file-selector.cc:1934
 msgid "Filename:"
 msgstr "اسم الملف:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:371
+#: ../src/gnome-cmd-file-props-dialog.cc:383
 msgid "Symlink target:"
 msgstr "هدف الوصلة الرمزية:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:380
+#: ../src/gnome-cmd-file-props-dialog.cc:392
 msgid "Type:"
 msgstr "النوع:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:387
+#: ../src/gnome-cmd-file-props-dialog.cc:399
 msgid "MIME Type:"
 msgstr "نوع MIME:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:396
+#: ../src/gnome-cmd-file-props-dialog.cc:408
 msgid "Opens with:"
 msgstr "يُفتح بـ:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:409
+#: ../src/gnome-cmd-file-props-dialog.cc:421
 msgid "_Change"
 msgstr "غيّ_ر"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:421
+#: ../src/gnome-cmd-file-props-dialog.cc:433
 msgid "Modified:"
 msgstr "عُدّل:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:427
+#: ../src/gnome-cmd-file-props-dialog.cc:439
 msgid "Accessed:"
 msgstr "نُفِذ إليه:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:437
+#: ../src/gnome-cmd-file-props-dialog.cc:449
 msgid "Size:"
 msgstr "الحجم:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:480
+#: ../src/gnome-cmd-file-props-dialog.cc:492
 msgid "Owner and group"
 msgstr "المالك والمجموعة"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:490
+#: ../src/gnome-cmd-file-props-dialog.cc:502
 msgid "Access permissions"
 msgstr "أذونات الوصول"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:605
+#: ../src/gnome-cmd-file-props-dialog.cc:617
 msgid "Type"
 msgstr "النوع"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:606
+#: ../src/gnome-cmd-file-props-dialog.cc:618
 msgid "Metadata namespace"
 msgstr "مساحة اسم بيانات التعريف"
 
@@ -1016,48 +1016,48 @@ msgstr "مساحة اسم بيانات التعريف"
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: ../src/gnome-cmd-file-props-dialog.cc:613
+#: ../src/gnome-cmd-file-props-dialog.cc:625
 #: ../src/gnome-cmd-remote-dialog.cc:419 ../src/plugin_manager.cc:420
 #: ../src/tags/gnome-cmd-tags.cc:315
 msgid "Name"
 msgstr "الاسم"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:614
+#: ../src/gnome-cmd-file-props-dialog.cc:626
 msgid "Tag name"
 msgstr "اسم الوسم"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:616
+#: ../src/gnome-cmd-file-props-dialog.cc:628
 msgid "Value"
 msgstr "القيمة"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:617
+#: ../src/gnome-cmd-file-props-dialog.cc:629
 msgid "Tag value"
 msgstr "قيمة الوسم"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:619 ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/gnome-cmd-file-props-dialog.cc:631 ../src/tags/gnome-cmd-tags.cc:159
 #: ../src/tags/gnome-cmd-tags.cc:310 ../src/tags/gnome-cmd-tags.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:508
 msgid "Description"
 msgstr "الوصف"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:620
+#: ../src/gnome-cmd-file-props-dialog.cc:632
 msgid "Metadata tag description"
 msgstr "وصف وسم بيانات التعريف"
 
 #. data->thread = 0;
-#: ../src/gnome-cmd-file-props-dialog.cc:675
+#: ../src/gnome-cmd-file-props-dialog.cc:687
 msgid "File Properties"
 msgstr "خصائص الملف"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:698
+#: ../src/gnome-cmd-file-props-dialog.cc:710
 msgid "Properties"
 msgstr "خصائص"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:699 ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/gnome-cmd-file-props-dialog.cc:711 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permissions"
 msgstr "الأذونات"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:700
+#: ../src/gnome-cmd-file-props-dialog.cc:712
 msgid "Metadata"
 msgstr "بيانات التعريف"
 
@@ -1088,73 +1088,73 @@ msgstr "%s خالي"
 msgid "Unknown disk usage"
 msgstr "استخدام القرص غير معروف"
 
-#: ../src/gnome-cmd-file-selector.cc:1122
+#: ../src/gnome-cmd-file-selector.cc:1143
 #, c-format
 msgid "Listing failed: %s\n"
 msgstr " فشل السرد: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1681
+#: ../src/gnome-cmd-file-selector.cc:1697
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "فشل فتح الاتصال: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1856
+#: ../src/gnome-cmd-file-selector.cc:1872
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
 msgstr "لم يُدخل أي اسم ملف"
 
-#: ../src/gnome-cmd-file-selector.cc:1890
+#: ../src/gnome-cmd-file-selector.cc:1906
 msgid "No filename given"
 msgstr "لم يُقدَّم أي اسم ملف"
 
-#: ../src/gnome-cmd-file-selector.cc:1921
+#: ../src/gnome-cmd-file-selector.cc:1937
 msgid "New Text File"
 msgstr "ملف نصي جديد"
 
-#: ../src/gnome-cmd-file-selector.cc:2079
+#: ../src/gnome-cmd-file-selector.cc:2091
 msgid "Symlink name:"
 msgstr "اسم الوصلة الرمزية:"
 
-#: ../src/gnome-cmd-file-selector.cc:2085
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
+#: ../src/gnome-cmd-file-selector.cc:2097
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:683
 msgid "Create Symbolic Link"
 msgstr "أنشئ وصلة رمزية"
 
-#: ../src/gnome-cmd-file-selector.cc:2131
+#: ../src/gnome-cmd-file-selector.cc:2143
 #: ../src/gnome-cmd-options-dialog.cc:675
 #: ../src/gnome-cmd-options-dialog.cc:695
 msgid "Skip all"
 msgstr "تجاوز الكل"
 
-#: ../src/gnome-cmd-file-selector.cc:2203
+#: ../src/gnome-cmd-file-selector.cc:2215
 msgid "Filter:"
 msgstr "مرشِّح:"
 
-#: ../src/gnome-cmd-file.cc:561
+#: ../src/gnome-cmd-file.cc:575
 msgid "Unknown file type"
 msgstr "نوع ملف غير معروف"
 
-#: ../src/gnome-cmd-file.cc:562
+#: ../src/gnome-cmd-file.cc:576
 msgid "Regular file"
 msgstr "ملف عادي"
 
-#: ../src/gnome-cmd-file.cc:564
+#: ../src/gnome-cmd-file.cc:578
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:565
+#: ../src/gnome-cmd-file.cc:579
 msgid "UNIX Socket"
 msgstr "مقبس يونكس"
 
-#: ../src/gnome-cmd-file.cc:566
+#: ../src/gnome-cmd-file.cc:580
 msgid "Character device"
 msgstr "جهاز أحرف"
 
-#: ../src/gnome-cmd-file.cc:567
+#: ../src/gnome-cmd-file.cc:581
 msgid "Block device"
 msgstr "جهاز كتلات"
 
-#: ../src/gnome-cmd-file.cc:568
+#: ../src/gnome-cmd-file.cc:582
 msgid "Symbolic link"
 msgstr "وصلة رمزية"
 
@@ -1326,7 +1326,7 @@ msgstr "اتصال جديد..."
 msgid "_Contents"
 msgstr "المحتويا_ت"
 
-#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:923
+#: ../src/gnome-cmd-main-menu.cc:737 ../src/intviewer/viewer-window.cc:917
 msgid "_Keyboard Shortcuts"
 msgstr "اختصارات لوحة المفاتي_ح"
 
@@ -1344,7 +1344,7 @@ msgstr "_حول"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:935
+#: ../src/gnome-cmd-main-menu.cc:778 ../src/intviewer/viewer-window.cc:929
 msgid "_File"
 msgstr "_ملف"
 
@@ -1356,11 +1356,11 @@ msgstr "_تحرير"
 msgid "_Mark"
 msgstr "_تأشير"
 
-#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:938
+#: ../src/gnome-cmd-main-menu.cc:790 ../src/intviewer/viewer-window.cc:932
 msgid "_View"
 msgstr "_عرض"
 
-#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:949
+#: ../src/gnome-cmd-main-menu.cc:795 ../src/intviewer/viewer-window.cc:943
 msgid "_Settings"
 msgstr "إع_دادات"
 
@@ -1376,7 +1376,7 @@ msgstr "ع_لامات مرجعية"
 msgid "_Plugins"
 msgstr "ملح_قات"
 
-#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:954
+#: ../src/gnome-cmd-main-menu.cc:811 ../src/intviewer/viewer-window.cc:948
 msgid "_Help"
 msgstr "مساعد_ة"
 
@@ -1732,10 +1732,11 @@ msgstr "نسخ مع الكتابة فوق القديم"
 #.
 #. * Create prepare copy specific widgets
 #.
+#. Create prepare copy specific widgets
 #: ../src/gnome-cmd-options-dialog.cc:667
 #: ../src/gnome-cmd-options-dialog.cc:687
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:94
-#: ../src/gnome-cmd-prepare-move-dialog.cc:89
+#: ../src/gnome-cmd-prepare-move-dialog.cc:88
 msgid "Silently"
 msgstr "بشكل صامت"
 
@@ -1984,12 +1985,12 @@ msgid "Pattern:"
 msgstr "النمط:"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:101
-#: ../src/gnome-cmd-prepare-move-dialog.cc:96
+#: ../src/gnome-cmd-prepare-move-dialog.cc:95
 msgid "Query First"
 msgstr "استعلم أولاً"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-prepare-move-dialog.cc:102 ../src/gnome-cmd-xfer.cc:171
 msgid "Skip All"
 msgstr "تجاوز الكل"
 
@@ -2000,8 +2001,9 @@ msgstr "تتبع الروابط"
 #.
 #. * Customize prepare xfer widgets
 #.
+#. Customize prepare xfer widgets
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:128
-#: ../src/gnome-cmd-prepare-move-dialog.cc:115
+#: ../src/gnome-cmd-prepare-move-dialog.cc:113
 msgid "Overwrite Files"
 msgstr "الكتابة فوق الملفات؟"
 
@@ -2014,16 +2016,16 @@ msgstr[1] "نسخ ملفين إلى"
 msgstr[2] "نسخ %d ملفات إلى"
 msgstr[3] "نسخ %d ملفاً إلى"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:82
+#: ../src/gnome-cmd-prepare-move-dialog.cc:83
 msgid "Move"
 msgstr "انقل"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:132
+#: ../src/gnome-cmd-prepare-move-dialog.cc:130
 #, c-format
 msgid "Move \"%s\" to"
 msgstr "انقل \"%s\" إلى"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:136
+#: ../src/gnome-cmd-prepare-move-dialog.cc:134
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
@@ -2033,8 +2035,8 @@ msgstr[2] "نقل %d ملفات إلى"
 msgstr[3] "نقل %d ملفاً إلى"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:119
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:160
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:117
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:156
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr "المجلّد '%s' غير موجود، هل تريد إنشاءه؟"
@@ -2169,7 +2171,7 @@ msgstr "لا يمكن إيجاد مضيف أو مجموعة عمل اسمها %s
 msgid "No file selected"
 msgstr "لم يُحدَّد أي ملف"
 
-#: ../src/gnome-cmd-user-actions.cc:668
+#: ../src/gnome-cmd-user-actions.cc:678
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
@@ -2178,38 +2180,38 @@ msgstr[1] "إنشاء وصلات رمزية لملفين %i في %s؟"
 msgstr[2] "إنشاء وصلات رمزية لـ %i ملفات في %s؟"
 msgstr[3] "إنشاء وصلات رمزية لـ %i ملفاً في %s؟"
 
-#: ../src/gnome-cmd-user-actions.cc:673
+#: ../src/gnome-cmd-user-actions.cc:683
 msgid "Create"
 msgstr "أنشئ"
 
-#: ../src/gnome-cmd-user-actions.cc:721 ../src/gnome-cmd-user-actions.cc:780
-#: ../src/gnome-cmd-user-actions.cc:817
+#: ../src/gnome-cmd-user-actions.cc:731 ../src/gnome-cmd-user-actions.cc:790
+#: ../src/gnome-cmd-user-actions.cc:827
 #, c-format
 msgid "running `%s'\n"
 msgstr "تشغيل `%s'\n"
 
-#: ../src/gnome-cmd-user-actions.cc:738 ../src/gnome-cmd-user-actions.cc:755
-#: ../src/gnome-cmd-user-actions.cc:795
+#: ../src/gnome-cmd-user-actions.cc:748 ../src/gnome-cmd-user-actions.cc:765
+#: ../src/gnome-cmd-user-actions.cc:805
 msgid "Operation not supported on remote file systems"
 msgstr "العملية غير مدعومة على أنظمة الملفات البعيدة"
 
-#: ../src/gnome-cmd-user-actions.cc:770
+#: ../src/gnome-cmd-user-actions.cc:780
 msgid "Too many selected files"
 msgstr "الملفات المنتقاة كثيرة جداً"
 
-#: ../src/gnome-cmd-user-actions.cc:1317
+#: ../src/gnome-cmd-user-actions.cc:1328
 msgid "There was an error opening home page."
 msgstr "حدث خطأ أثناء فتح صفحة البداية."
 
-#: ../src/gnome-cmd-user-actions.cc:1326
+#: ../src/gnome-cmd-user-actions.cc:1337
 msgid "There was an error reporting problem."
 msgstr "هناك مشكلة حدثت أثناء الإبلاغ عن خطأ."
 
-#: ../src/gnome-cmd-user-actions.cc:1347
+#: ../src/gnome-cmd-user-actions.cc:1358
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "مدير ملفات قوي وسريع لسطح مكتب جنوم"
 
-#: ../src/gnome-cmd-user-actions.cc:1351
+#: ../src/gnome-cmd-user-actions.cc:1362
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2220,7 +2222,7 @@ msgstr ""
 "العامة GPL المنشورة من قبل مؤسسة البرامج الحرة، إما الإصدار الثاني من الرخصة "
 "أو أي إصدار لاحق (حسب اختيارك)."
 
-#: ../src/gnome-cmd-user-actions.cc:1355
+#: ../src/gnome-cmd-user-actions.cc:1366
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2230,7 +2232,7 @@ msgstr ""
 "فارس جنوم يُوزع على أمل أن يكون مفيداً، ولكن من دون أي ضمانات، وبدون حتى كفالة "
 "بيع ضمنية أو ملاءمة لغرض معين. راجع رخصة جنو العامة GPL لمزيد من التفاصيل."
 
-#: ../src/gnome-cmd-user-actions.cc:1359
+#: ../src/gnome-cmd-user-actions.cc:1370
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -2240,9 +2242,10 @@ msgstr ""
 "اكتب إلى Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, "
 "Boston, MA 02110-1301, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1376
+#: ../src/gnome-cmd-user-actions.cc:1387
 msgid "translator-credits"
-msgstr "المترجمون"
+msgstr "Anas Husseini <linux.anas@gmail.com>\n"
+"Djihed Afifi <djihed@gmail.com>"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:39
 msgid "stopping..."
@@ -2321,18 +2324,18 @@ msgstr "يجري التحضير..."
 msgid "downloading to /tmp"
 msgstr "جارٍ التنزيل إلى /tmp"
 
-#: ../src/imageloader.cc:129
+#: ../src/imageloader.cc:112
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "تعذر تحميل نوع الملفات المثبت pixmap، تجري محاولة التحميل من مجلد المصدر\n"
 
-#: ../src/imageloader.cc:130 ../src/imageloader.cc:156
+#: ../src/imageloader.cc:113 ../src/imageloader.cc:139
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr "تجري محاولة تحميل %s عوضاً عنه\n"
 
-#: ../src/imageloader.cc:134 ../src/imageloader.cc:159
+#: ../src/imageloader.cc:117 ../src/imageloader.cc:142
 #, c-format
 msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
@@ -2341,48 +2344,48 @@ msgstr ""
 "تعذر إيجاد pixmap في أي مكان. تأكد أنك ثبّتّ البرنامج أو أنك تشغل فارس جنوم من "
 "مجلد gnome-commander-%s/src\n"
 
-#: ../src/imageloader.cc:155
+#: ../src/imageloader.cc:138
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr "تعذر تحميل pixmap المثبّت، تجري محاولة التحميل من مجلد المصدر\n"
 
-#: ../src/libgviewer/search-dlg.cc:312
+#: ../src/intviewer/search-dlg.cc:312
 msgid "Find"
 msgstr "ابحث"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.cc:342 ../src/libgviewer/viewer-window.cc:721
-#: ../src/libgviewer/viewer-window.cc:941
+#: ../src/intviewer/search-dlg.cc:342 ../src/intviewer/viewer-window.cc:715
+#: ../src/intviewer/viewer-window.cc:935
 msgid "_Text"
 msgstr "_نص"
 
-#: ../src/libgviewer/search-dlg.cc:343 ../src/libgviewer/viewer-window.cc:729
+#: ../src/intviewer/search-dlg.cc:343 ../src/intviewer/viewer-window.cc:723
 msgid "_Hexadecimal"
 msgstr "ست ع_شري"
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.cc:352
+#: ../src/intviewer/search-dlg.cc:352
 msgid "_Match case"
 msgstr "_طابِق الحالة"
 
-#: ../src/libgviewer/search-progress-dlg.cc:74
+#: ../src/intviewer/search-progress-dlg.cc:74
 msgid "Searching..."
 msgstr "يجري البحث..."
 
-#: ../src/libgviewer/search-progress-dlg.cc:186
+#: ../src/intviewer/search-progress-dlg.cc:186
 #, c-format
 msgid "Searching for \"%s\""
 msgstr "يجري البحث عن \"%s\""
 
-#: ../src/libgviewer/viewer-widget.cc:206
+#: ../src/intviewer/viewer-widget.cc:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "الموقع: %lu من %lu\tالعمود: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.cc:210
+#: ../src/intviewer/viewer-widget.cc:210
 msgid "Wrap"
 msgstr "التفاف"
 
-#: ../src/libgviewer/viewer-widget.cc:237
+#: ../src/intviewer/viewer-widget.cc:237
 msgid "pixel"
 msgid_plural "pixels"
 msgstr[0] "بكسل واحد"
@@ -2390,7 +2393,7 @@ msgstr[1] "بكسلان"
 msgstr[2] "بكسلات"
 msgstr[3] "بكسلاً"
 
-#: ../src/libgviewer/viewer-widget.cc:239
+#: ../src/intviewer/viewer-widget.cc:239
 msgid "bit/sample"
 msgid_plural "bits/sample"
 msgstr[0] "بت واحد/عينة"
@@ -2398,128 +2401,127 @@ msgstr[1] "بتان/عينة"
 msgstr[2] "بتات/عينة"
 msgstr[3] "بتاً/عينة"
 
-#: ../src/libgviewer/viewer-widget.cc:241
+#: ../src/intviewer/viewer-widget.cc:241
 msgid "(fit to window)"
 msgstr "(ملاءمة إلى النافذة)"
 
-#: ../src/libgviewer/viewer-window.cc:711
+#: ../src/intviewer/viewer-window.cc:705
 msgid "_Close"
 msgstr "أ_غلق"
 
-#: ../src/libgviewer/viewer-window.cc:725
+#: ../src/intviewer/viewer-window.cc:719
 msgid "_Binary"
 msgstr "ثنا_ئي"
 
-#: ../src/libgviewer/viewer-window.cc:733
-#: ../src/libgviewer/viewer-window.cc:946
+#: ../src/intviewer/viewer-window.cc:727 ../src/intviewer/viewer-window.cc:940
 msgid "_Image"
 msgstr "صور_ة"
 
-#: ../src/libgviewer/viewer-window.cc:738
+#: ../src/intviewer/viewer-window.cc:732
 msgid "_Zoom In"
 msgstr "ت_كبير"
 
-#: ../src/libgviewer/viewer-window.cc:742
+#: ../src/intviewer/viewer-window.cc:736
 msgid "Zoom _Out"
 msgstr "ت_صغير"
 
-#: ../src/libgviewer/viewer-window.cc:746
+#: ../src/intviewer/viewer-window.cc:740
 msgid "_Normal Size"
 msgstr "ح_جم عادي"
 
-#: ../src/libgviewer/viewer-window.cc:750
+#: ../src/intviewer/viewer-window.cc:744
 msgid "Best _Fit"
 msgstr "أفضل ملا_ءمة"
 
-#: ../src/libgviewer/viewer-window.cc:763
+#: ../src/intviewer/viewer-window.cc:757
 msgid "_Copy Text Selection"
 msgstr "انسخ الن_ص المنتقى"
 
-#: ../src/libgviewer/viewer-window.cc:767
+#: ../src/intviewer/viewer-window.cc:761
 msgid "Find..."
 msgstr "ابحث..."
 
-#: ../src/libgviewer/viewer-window.cc:771
+#: ../src/intviewer/viewer-window.cc:765
 msgid "Find Next"
 msgstr "إيجاد التالي"
 
-#: ../src/libgviewer/viewer-window.cc:775
+#: ../src/intviewer/viewer-window.cc:769
 msgid "Find Previous"
 msgstr "إيجاد السابق"
 
-#: ../src/libgviewer/viewer-window.cc:781
+#: ../src/intviewer/viewer-window.cc:775
 msgid "_No Parsing (original file)"
 msgstr "_بدون تحليل (الملف الأصلي)"
 
-#: ../src/libgviewer/viewer-window.cc:785
+#: ../src/intviewer/viewer-window.cc:779
 msgid "_HTML Parser"
 msgstr "محلل _HTML"
 
-#: ../src/libgviewer/viewer-window.cc:789
+#: ../src/intviewer/viewer-window.cc:783
 msgid "_PS/PDF Parser"
 msgstr "محلل _PS/PDF"
 
-#: ../src/libgviewer/viewer-window.cc:795
+#: ../src/intviewer/viewer-window.cc:789
 msgid "_Wrap lines"
 msgstr "التفاف الأسطر"
 
-#: ../src/libgviewer/viewer-window.cc:800
+#: ../src/intviewer/viewer-window.cc:794
 msgid "_Encoding"
 msgstr "ال_ترميز"
 
-#: ../src/libgviewer/viewer-window.cc:841
+#: ../src/intviewer/viewer-window.cc:835
 msgid "_Show EXIF/IPTC Information"
 msgstr "اعرض معلومات _EXIF/IPTC"
 
-#: ../src/libgviewer/viewer-window.cc:847
+#: ../src/intviewer/viewer-window.cc:841
 msgid "_Rotate Clockwise"
 msgstr "ا_ستدر باتجاه عقارب الساعة"
 
-#: ../src/libgviewer/viewer-window.cc:852
+#: ../src/intviewer/viewer-window.cc:846
 msgid "Rotate Counter Clockwis_e"
 msgstr "استدر _عكس عقارب الساعة"
 
-#: ../src/libgviewer/viewer-window.cc:857
+#: ../src/intviewer/viewer-window.cc:851
 msgid "_Rotate 180°"
 msgstr "است_در 180°"
 
-#: ../src/libgviewer/viewer-window.cc:862
+#: ../src/intviewer/viewer-window.cc:856
 msgid "Flip _Vertical"
 msgstr "اقلب رأس_ياً"
 
-#: ../src/libgviewer/viewer-window.cc:867
+#: ../src/intviewer/viewer-window.cc:861
 msgid "Flip _Horizontal"
 msgstr "اقلب أ_فقياً"
 
-#: ../src/libgviewer/viewer-window.cc:877
+#: ../src/intviewer/viewer-window.cc:871
 msgid "_Binary Mode"
 msgstr "النمط ال_ثنائي"
 
-#: ../src/libgviewer/viewer-window.cc:883
+#: ../src/intviewer/viewer-window.cc:877
 msgid "_Decimal Offset in Hexdump"
 msgstr "الإ_زاحة العشرية في Hexdump"
 
-#: ../src/libgviewer/viewer-window.cc:889
+#: ../src/intviewer/viewer-window.cc:883
 msgid "_Save Current Settings"
 msgstr "احف_ظ الإعدادات الحالية"
 
-#: ../src/libgviewer/viewer-window.cc:899
+#: ../src/intviewer/viewer-window.cc:893
 msgid "_20 chars/line"
 msgstr "_20 حرفاً بالسطر"
 
-#: ../src/libgviewer/viewer-window.cc:904
+#: ../src/intviewer/viewer-window.cc:898
 msgid "_40 chars/line"
 msgstr "_40 حرفاً بالسطر"
 
-#: ../src/libgviewer/viewer-window.cc:909
+#: ../src/intviewer/viewer-window.cc:903
 msgid "_80 chars/line"
 msgstr "_80 حرفاً بالسطر"
 
-#: ../src/libgviewer/viewer-window.cc:918
+#: ../src/intviewer/viewer-window.cc:912
 msgid "Quick _Help"
 msgstr "مسا_عدة سريعة"
 
-#: ../src/libgviewer/viewer-window.cc:1130
+#: ../src/intviewer/viewer-window.cc:1124
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "لم يُعثر على النّمط \"%s\""
@@ -6545,7 +6547,7 @@ msgstr "لا شيء"
 msgid "10-15ms"
 msgstr "10-15 ميلي ثانية"
 
-#: ../src/utils.cc:429
+#: ../src/utils.cc:431
 #, c-format
 msgid ""
 "No default application found for the mime-type %s.\n"
@@ -6554,7 +6556,7 @@ msgstr ""
 "لا يوجد تطبيق افتراضي لنوع mime %s.\n"
 "افتح صفحة \"أنواع الملفات والبرامج\" في مركز التحكم لإضافة واحدة."
 
-#: ../src/utils.cc:504
+#: ../src/utils.cc:511
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -6563,30 +6565,30 @@ msgstr ""
 "\"%s\" يبدو كملف تنفيذي ثنائي ولكن ينقصه بت القابلية للتنفيذ. هل تريد ضبط "
 "البت ومن ثمّ تشغيل الملف؟"
 
-#: ../src/utils.cc:507
+#: ../src/utils.cc:513
 msgid "Make Executable?"
 msgstr "اجعله تنفيذياً؟"
 
-#: ../src/utils.cc:534
+#: ../src/utils.cc:540
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
 "contents?"
 msgstr "\"%s\" ملف تنفيذي نصي. هل تريد تشغيله أم عرض محتوياته؟"
 
-#: ../src/utils.cc:536
+#: ../src/utils.cc:541
 msgid "Run or Display"
 msgstr "شغـّل أو اعرض"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:542
 msgid "Display"
 msgstr "اعرض"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:542
 msgid "Run"
 msgstr "شغّل"
 
-#: ../src/utils.cc:579 ../src/utils.cc:655
+#: ../src/utils.cc:585 ../src/utils.cc:667
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
@@ -6606,7 +6608,7 @@ msgstr[3] ""
 "%s لا يعرف كيفية فتح الملفات البعيدة. هل تريد تحميل الملفات إلى مكان مؤقت ثم "
 "فتحها؟"
 
-#: ../src/utils.cc:1021
+#: ../src/utils.cc:1033
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -6615,17 +6617,17 @@ msgstr ""
 "فشل إنشاء مجلد لتخزين الملفات المؤقتة داخله.\n"
 "رسالة خطأ: %s\n"
 
-#: ../src/utils.cc:1217
+#: ../src/utils.cc:1229
 #, c-format
 msgid "Creating directory %s... "
 msgstr "يجري إنشاء المجلد %s..."
 
-#: ../src/utils.cc:1220
+#: ../src/utils.cc:1232
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "فشل إنشاء المجلد %s"
 
-#: ../src/utils.cc:1226
+#: ../src/utils.cc:1238
 #, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr "تعذرت القراءة من المجلد %s: %s"
