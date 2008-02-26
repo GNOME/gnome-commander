@@ -37,8 +37,7 @@ static GtkObjectClass *parent_class = NULL;
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *obj)
+static void destroy (GtkObject *obj)
 {
     GnomeCmdFileCollection *collection = GNOME_CMD_FILE_COLLECTION (obj);
 
@@ -51,8 +50,7 @@ destroy (GtkObject *obj)
 }
 
 
-static void
-class_init (GnomeCmdFileCollectionClass *klass)
+static void class_init (GnomeCmdFileCollectionClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
 
@@ -62,8 +60,7 @@ class_init (GnomeCmdFileCollectionClass *klass)
 }
 
 
-static void
-init (GnomeCmdFileCollection *collection)
+static void init (GnomeCmdFileCollection *collection)
 {
     collection->priv = g_new0 (GnomeCmdFileCollectionPrivate, 1);
     collection->priv->map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)gnome_cmd_file_unref);
@@ -76,8 +73,7 @@ init (GnomeCmdFileCollection *collection)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_file_collection_get_type         (void)
+GtkType gnome_cmd_file_collection_get_type (void)
 {
     static GtkType type = 0;
 
@@ -101,16 +97,13 @@ gnome_cmd_file_collection_get_type         (void)
 }
 
 
-GnomeCmdFileCollection *
-gnome_cmd_file_collection_new (void)
+GnomeCmdFileCollection *gnome_cmd_file_collection_new (void)
 {
     return (GnomeCmdFileCollection *) gtk_type_new (gnome_cmd_file_collection_get_type ());
 }
 
 
-void
-gnome_cmd_file_collection_add (GnomeCmdFileCollection *collection,
-                               GnomeCmdFile *file)
+void gnome_cmd_file_collection_add (GnomeCmdFileCollection *collection, GnomeCmdFile *file)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection));
     g_return_if_fail (GNOME_CMD_IS_FILE (file));
@@ -123,18 +116,14 @@ gnome_cmd_file_collection_add (GnomeCmdFileCollection *collection,
 }
 
 
-void
-gnome_cmd_file_collection_add_list (GnomeCmdFileCollection *collection,
-                                    GList *files)
+void gnome_cmd_file_collection_add_list (GnomeCmdFileCollection *collection, GList *files)
 {
     for (; files; files = files->next)
         gnome_cmd_file_collection_add (collection, GNOME_CMD_FILE (files->data));
 }
 
 
-void
-gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection,
-                                  GnomeCmdFile *file)
+void gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection, GnomeCmdFile *file)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection));
     g_return_if_fail (GNOME_CMD_IS_FILE (file));
@@ -147,9 +136,7 @@ gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection,
 }
 
 
-void
-gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection,
-                                         const gchar *uri_str)
+void gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection, const gchar *uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_COLLECTION (collection));
     g_return_if_fail (uri_str != NULL);

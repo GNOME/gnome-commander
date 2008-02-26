@@ -66,19 +66,3 @@ GnomeCmdPixmap *gnome_cmd_pixmap_new_from_pixbuf (GdkPixbuf *pixbuf)
 
     return pixmap;
 }
-
-
-void gnome_cmd_pixmap_free (GnomeCmdPixmap *pixmap)
-{
-    g_return_if_fail (pixmap != NULL);
-    g_return_if_fail (pixmap->pixbuf != NULL);
-    g_return_if_fail (pixmap->pixmap != NULL);
-    g_return_if_fail (pixmap->mask != NULL);
-
-    gdk_pixbuf_unref (pixmap->pixbuf);
-    gdk_pixmap_unref (pixmap->pixmap);
-    gdk_bitmap_unref (pixmap->mask);
-
-    g_free (pixmap);
-}
-

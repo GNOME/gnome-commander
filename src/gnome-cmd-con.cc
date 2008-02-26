@@ -91,12 +91,10 @@ static void destroy (GtkObject *object)
         gtk_object_unref (GTK_OBJECT (con->base_path));
     g_free (con->open_text);
     g_free (con->open_tooltip);
-    if (con->open_pixmap)
-        gnome_cmd_pixmap_free (con->open_pixmap);
+    gnome_cmd_pixmap_free (con->open_pixmap);
     g_free (con->close_text);
     g_free (con->close_tooltip);
-    if (con->close_pixmap)
-        gnome_cmd_pixmap_free (con->close_pixmap);
+    gnome_cmd_pixmap_free (con->close_pixmap);
 
     if (con->priv->cwd)
         gnome_cmd_dir_unref (con->priv->cwd);

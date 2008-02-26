@@ -1,11 +1,11 @@
 # Esperanto translations for gnome-commander package.
 # Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Antono Vasiljev <antono.vasiljev@gmail.com>, 2007.
 #
+# Antono Vasiljev <antono.vasiljev@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.5\n"
+"Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-19 18:10+0100\n"
 "PO-Revision-Date: 2007-12-08 15:59+0200\n"

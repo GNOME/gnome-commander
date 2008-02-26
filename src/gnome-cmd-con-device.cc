@@ -458,12 +458,9 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
 
     GnomeCmdCon *con = GNOME_CMD_CON (dev);
 
-    if (con->go_pixmap)
-        gnome_cmd_pixmap_free (con->go_pixmap);
-    if (con->open_pixmap)
-        gnome_cmd_pixmap_free (con->open_pixmap);
-    if (con->close_pixmap)
-        gnome_cmd_pixmap_free (con->close_pixmap);
+    gnome_cmd_pixmap_free (con->go_pixmap);
+    gnome_cmd_pixmap_free (con->open_pixmap);
+    gnome_cmd_pixmap_free (con->close_pixmap);
 
     con->go_pixmap = NULL;
     con->open_pixmap = NULL;

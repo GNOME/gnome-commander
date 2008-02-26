@@ -121,8 +121,7 @@ void gnome_cmd_app_free (GnomeCmdApp *app)
     g_free (app->priv->name);
     g_free (app->priv->cmd);
     g_free (app->priv->icon_path);
-    if (app->priv->pixmap)
-        gnome_cmd_pixmap_free (app->priv->pixmap);
+    gnome_cmd_pixmap_free (app->priv->pixmap);
 
     g_free (app->priv);
     g_free (app);
@@ -163,8 +162,7 @@ void gnome_cmd_app_set_icon_path (GnomeCmdApp *app, const gchar *icon_path)
 
     g_free (app->priv->icon_path);
 
-    if (app->priv->pixmap)
-        gnome_cmd_pixmap_free (app->priv->pixmap);
+    gnome_cmd_pixmap_free (app->priv->pixmap);
 
     app->priv->icon_path = g_strdup (icon_path);
 

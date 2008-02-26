@@ -51,36 +51,31 @@ static const gchar *file_type_pixmap_files[NUM_FILE_TYPE_PIXMAPS] = {
 };
 
 
-static const gchar *pixmap_files[NUM_PIXMAPS] = {
-    "",
-    "gnome_cmd_arrow_up.xpm",
-    "gnome_cmd_arrow_down.xpm",
-    "gnome_cmd_arrow_blank.xpm",
+static const gchar *pixmap_files[NUM_PIXMAPS] = {"",
+                                                 "gnome_cmd_arrow_up.xpm",
+                                                 "gnome_cmd_arrow_down.xpm",
+                                                 "gnome_cmd_arrow_blank.xpm",
 
-    "gnome-commander.xpm",
-    "exec_wheel.xpm",
-    "menu_bookmark.xpm",
+                                                 "gnome-commander.xpm",
+                                                 "exec_wheel.xpm",
+                                                 "menu_bookmark.xpm",
 
-    "overlay_symlink.xpm",
-    "overlay_umount.xpm",
-    "parent_dir.xpm",
-    "root_dir.xpm",
-    "toggle_vertical.xpm",
-    "toggle_horizontal.xpm",
+                                                 "overlay_symlink.xpm",
+                                                 "overlay_umount.xpm",
+                                                 "parent_dir.xpm",
+                                                 "root_dir.xpm",
+                                                 "toggle_vertical.xpm",
+                                                 "toggle_horizontal.xpm",
 
-    "internal-viewer.xpm"
-};
+                                                 "internal-viewer.xpm"};
 
 
-#define NUM_CATEGORIES 6
-static const gchar *categories[NUM_CATEGORIES][2] = {
-    {"text", "gnome-text-plain.png"},
-    {"video", "gnome-video-plain.png"},
-    {"image", "gnome-image-plain.png"},
-    {"audio", "gnome-audio-plain.png"},
-    {"pack", "gnome-pack-plain.png"},
-    {"font", "gnome-font-plain.png"}
-};
+static const gchar *categories[][2] = {{"text", "gnome-text-plain.png"},
+                                       {"video", "gnome-video-plain.png"},
+                                       {"image", "gnome-image-plain.png"},
+                                       {"audio", "gnome-audio-plain.png"},
+                                       {"pack", "gnome-pack-plain.png"},
+                                       {"font", "gnome-font-plain.png"}};
 
 static GnomeCmdPixmap *pixmaps[NUM_PIXMAPS];
 static CacheEntry file_type_pixmaps[NUM_FILE_TYPE_PIXMAPS];
@@ -89,12 +84,7 @@ static GHashTable *mime_cache = NULL;
 static GdkPixbuf *symlink_pixbuf = NULL;
 
 
-static gboolean
-load_icon (const gchar *icon_path,
-           GdkPixmap **pm,
-           GdkBitmap **bm,
-           GdkPixmap **lpm,
-           GdkBitmap **lbm);
+static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **bm, GdkPixmap **lpm, GdkBitmap **lbm);
 
 
 /*
@@ -288,7 +278,7 @@ get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
  */
 inline gchar *get_category_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
-    for (gint i=0; i<NUM_CATEGORIES; i++)
+    for (gint i=0; i<G_N_ELEMENTS(categories); i++)
         if (g_str_has_prefix (mime_type, categories[i][0]))
             return g_build_path (G_DIR_SEPARATOR_S, icon_dir, categories[i][1], NULL);
 
@@ -299,12 +289,7 @@ inline gchar *get_category_icon_path (const gchar *mime_type, const gchar *icon_
 /**
  * Tries to load an image from the specified path
  */
-static gboolean
-load_icon (const gchar *icon_path,
-           GdkPixmap **pm,
-           GdkBitmap **bm,
-           GdkPixmap **lpm,
-           GdkBitmap **lbm)
+static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **bm, GdkPixmap **lpm, GdkBitmap **lbm)
 {
     GdkPixbuf *pixbuf;
     GdkPixbuf *lnk_pixbuf;
@@ -513,11 +498,9 @@ void IMAGE_clear_mime_cache (void)
 
 void IMAGE_free (void)
 {
-    int i;
-
-    for (i=0; i<NUM_PIXMAPS; i++)
+    for (int i=0; i<NUM_PIXMAPS; i++)
     {
-        if (pixmaps[i]) gnome_cmd_pixmap_free (pixmaps[i]);
+        gnome_cmd_pixmap_free (pixmaps[i]);
         pixmaps[i] = NULL;
     }
 }
