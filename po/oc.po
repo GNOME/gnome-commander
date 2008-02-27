@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-19 20:22+0100\n"
-"PO-Revision-Date: 2007-12-27 15:40+0100\n"
+"PO-Revision-Date: 2008-02-26 22:01+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
@@ -57,7 +57,7 @@ msgstr ""
 
 #: ../plugins/cvs/interface.c:159
 msgid "Compare with"
-msgstr ""
+msgstr "Comparar amb"
 
 #: ../plugins/cvs/interface.c:162
 msgid "HEAD"
@@ -85,7 +85,7 @@ msgstr "Revision :"
 
 #: ../plugins/cvs/interface.c:458
 msgid "Compare..."
-msgstr ""
+msgstr "Comparar..."
 
 #: ../plugins/cvs/interface.c:461
 msgid "Author:"
@@ -317,7 +317,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-advrename-dialog.cc:766
 msgid "New Rule"
-msgstr ""
+msgstr "Règla novèla"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:772
 msgid "Edit Rule"
@@ -490,7 +490,7 @@ msgstr "Autres :"
 
 #: ../src/gnome-cmd-chmod-component.cc:159
 msgid "Text view:"
-msgstr ""
+msgstr "Visualizacion de tèxt :"
 
 #: ../src/gnome-cmd-chmod-component.cc:162
 msgid "Number view:"
@@ -502,7 +502,7 @@ msgstr "Totes los fichièrs"
 
 #: ../src/gnome-cmd-chmod-dialog.cc:44
 msgid "Directories only"
-msgstr ""
+msgstr "Pas que los repertòris"
 
 #: ../src/gnome-cmd-chmod-dialog.cc:76
 #, c-format
@@ -528,7 +528,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-chown-dialog.cc:177
 msgid "Chown"
-msgstr ""
+msgstr "Chown"
 
 #: ../src/gnome-cmd-chown-dialog.cc:190
 msgid "Apply Recursively"
@@ -577,7 +577,7 @@ msgstr ""
 #: ../src/gnome-cmd-con-device.cc:419
 #, c-format
 msgid "Go to: %s (%s)"
-msgstr ""
+msgstr "Anar a : %s (%s)"
 
 #: ../src/gnome-cmd-con-device.cc:420
 #, c-format
@@ -587,7 +587,7 @@ msgstr "Montar : %s"
 #: ../src/gnome-cmd-con-device.cc:421
 #, c-format
 msgid "Unmount: %s"
-msgstr ""
+msgstr "Desmontar : %s"
 
 #: ../src/gnome-cmd-con-dialog.cc:212
 msgid "You must enter a name for the server"
@@ -645,7 +645,7 @@ msgstr "Mot de _pas :"
 
 #: ../src/gnome-cmd-con-dialog.cc:420
 msgid "_Domain name:"
-msgstr ""
+msgstr "Nom de _domeni :"
 
 #: ../src/gnome-cmd-con-dialog.cc:457 ../src/gnome-cmd-main-win.cc:1176
 msgid "Remote Server"
@@ -683,7 +683,7 @@ msgstr "Connexions"
 #: ../src/gnome-cmd-con-ftp.cc:393
 #, c-format
 msgid "Go to: %s"
-msgstr ""
+msgstr "Anar : %s"
 
 #: ../src/gnome-cmd-con-ftp.cc:394
 #, c-format
@@ -719,7 +719,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-con-smb.cc:217
 msgid "SMB"
-msgstr ""
+msgstr "SMB"
 
 #: ../src/gnome-cmd-con-smb.cc:219
 msgid "Searching for workgroups and hosts"
@@ -738,9 +738,7 @@ msgstr ""
 #: ../src/gnome-cmd-delete-dialog.cc:88
 #, c-format
 msgid "Deleted %ld of %ld file"
-msgid_plural "Deleted %ld of %ld files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:130
 msgid "Deleting..."
@@ -777,14 +775,12 @@ msgstr "Sautar"
 #: ../src/gnome-cmd-delete-dialog.cc:278
 #, c-format
 msgid "Do you want to delete \"%s\"?"
-msgstr ""
+msgstr "Volètz suprimir \"%s\" ?"
 
 #: ../src/gnome-cmd-delete-dialog.cc:282
 #, c-format
 msgid "Do you want to delete the selected file?"
-msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:288 ../src/gnome-cmd-main-win.cc:1170
 #: ../src/gnome-cmd-options-dialog.cc:653
@@ -856,7 +852,7 @@ msgstr "Aplicacion :"
 
 #: ../src/gnome-cmd-file-popmenu.cc:155
 msgid "Open with other..."
-msgstr ""
+msgstr "Dobrir amb un autre..."
 
 #: ../src/gnome-cmd-file-popmenu.cc:160
 msgid "Needs terminal"
@@ -874,7 +870,7 @@ msgstr "_Dobrir amb \"%s\""
 
 #: ../src/gnome-cmd-file-popmenu.cc:434
 msgid "Open With..."
-msgstr ""
+msgstr "Dobrir amb..."
 
 #: ../src/gnome-cmd-file-popmenu.cc:440
 msgid "E_xecute"
@@ -915,9 +911,7 @@ msgstr "Autre..."
 #: ../src/gnome-cmd-file-props-dialog.cc:72 ../src/utils.cc:815
 #, c-format
 msgid "%s byte"
-msgid_plural "%s bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-file-props-dialog.cc:198
 #: ../src/gnome-cmd-file-props-dialog.cc:419
@@ -947,7 +941,7 @@ msgstr "Tipe MIME :"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:408
 msgid "Opens with:"
-msgstr ""
+msgstr "Se dobrís amb :"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:421
 msgid "_Change"
@@ -1035,16 +1029,12 @@ msgstr ""
 #: ../src/gnome-cmd-file-selector.cc:209
 #, c-format
 msgid "%s of %s kB in %d of %d file"
-msgid_plural "%s of %s kB in %d of %d files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:213
 #, c-format
 msgid "%s, %d of %d dir selected"
-msgid_plural "%s, %d of %d dirs selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:710
 #, c-format
@@ -1127,11 +1117,11 @@ msgstr "Ligam simbolic"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
-msgstr ""
+msgstr "_Repertòri"
 
 #: ../src/gnome-cmd-list-popmenu.cc:115
 msgid "_Text File"
-msgstr ""
+msgstr "Fichièr _tèxt"
 
 #: ../src/gnome-cmd-list-popmenu.cc:121
 msgid "_New..."
@@ -1333,7 +1323,7 @@ msgstr "_Paramètres"
 
 #: ../src/gnome-cmd-main-menu.cc:799
 msgid "_Connections"
-msgstr ""
+msgstr "_Connexions"
 
 #: ../src/gnome-cmd-main-menu.cc:803
 msgid "_Bookmarks"
@@ -1496,7 +1486,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:121
 msgid "Directory options"
-msgstr ""
+msgstr "Opcions del repertòri"
 
 #: ../src/gnome-cmd-options-dialog.cc:124
 msgid "Directory cache size"
@@ -1528,7 +1518,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:234
 msgid "Text (rw-r--r--)"
-msgstr ""
+msgstr "Tèxt (rw-r--r--)"
 
 #: ../src/gnome-cmd-options-dialog.cc:239
 msgid "Number (644)"
@@ -1578,7 +1568,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:441
 msgid "Selected file:"
-msgstr ""
+msgstr "Fichièr seleccionat :"
 
 #: ../src/gnome-cmd-options-dialog.cc:443
 msgid "Cursor:"
@@ -1594,11 +1584,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:462
 msgid "In both columns"
-msgstr ""
+msgstr "Dins las doas colomnas"
 
 #: ../src/gnome-cmd-options-dialog.cc:466
 msgid "No icons"
-msgstr ""
+msgstr "Pas d'icôna"
 
 #: ../src/gnome-cmd-options-dialog.cc:467
 msgid "File type icons"
@@ -1614,7 +1604,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:473
 msgid "Modern"
-msgstr ""
+msgstr "Modèrn"
 
 #: ../src/gnome-cmd-options-dialog.cc:474
 msgid "Fusion"
@@ -1814,15 +1804,15 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:1206
 msgid "All directories"
-msgstr ""
+msgstr "Totes los repertòris"
 
 #: ../src/gnome-cmd-options-dialog.cc:1212
 msgid "All directories and files"
-msgstr ""
+msgstr "Totes los repertòris e fichièrs"
 
 #: ../src/gnome-cmd-options-dialog.cc:1218
 msgid "Some files"
-msgstr ""
+msgstr "De fichièrs"
 
 #: ../src/gnome-cmd-options-dialog.cc:1229
 msgid "File patterns"
@@ -1862,7 +1852,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:1368
 msgid "Terminal:"
-msgstr ""
+msgstr "Terminal :"
 
 #: ../src/gnome-cmd-options-dialog.cc:1374
 msgid "Use Internal Viewer"
@@ -1979,9 +1969,7 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:149
 #, c-format
 msgid "copy %d file to"
-msgid_plural "copy %d files to"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-prepare-move-dialog.cc:83
 msgid "Move"
@@ -1995,9 +1983,7 @@ msgstr ""
 #: ../src/gnome-cmd-prepare-move-dialog.cc:134
 #, c-format
 msgid "move %d file to"
-msgid_plural "move %d files to"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:119
@@ -2061,16 +2047,12 @@ msgstr ""
 #: ../src/gnome-cmd-search-dialog.cc:398
 #, c-format
 msgid "Found %d match before I was stopped"
-msgid_plural "Found %d matches before I was stopped"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-search-dialog.cc:405
 #, c-format
 msgid "Found %d match"
-msgid_plural "Found %d matches"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-search-dialog.cc:714
 msgid "Search..."
@@ -2089,7 +2071,7 @@ msgstr ""
 #. Find text
 #: ../src/gnome-cmd-search-dialog.cc:753
 msgid "Find text: "
-msgstr ""
+msgstr "Recercar de tèxt : "
 
 #. Recurse check
 #: ../src/gnome-cmd-search-dialog.cc:767
@@ -2130,9 +2112,7 @@ msgstr "Pas de fichièr seleccionat"
 #: ../src/gnome-cmd-user-actions.cc:678
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
-msgid_plural "Create symbolic links of %i files in %s?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:683
 msgid "Create"
@@ -2245,7 +2225,7 @@ msgstr ""
 #: ../src/gnome-cmd-xfer.cc:237
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
-msgstr ""
+msgstr "[fichièr %ld sus %ld] \"%s\""
 
 #: ../src/gnome-cmd-xfer.cc:387
 msgid ""
@@ -2303,7 +2283,7 @@ msgstr ""
 
 #: ../src/intviewer/search-progress-dlg.cc:74
 msgid "Searching..."
-msgstr ""
+msgstr "Recèrca..."
 
 #: ../src/intviewer/search-progress-dlg.cc:186
 #, c-format
@@ -2327,9 +2307,7 @@ msgstr[1] "pixels"
 
 #: ../src/intviewer/viewer-widget.cc:239
 msgid "bit/sample"
-msgid_plural "bits/sample"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/intviewer/viewer-widget.cc:241
 msgid "(fit to window)"
@@ -2341,7 +2319,7 @@ msgstr "_Tampar"
 
 #: ../src/intviewer/viewer-window.cc:719
 msgid "_Binary"
-msgstr ""
+msgstr "_Binari"
 
 #: ../src/intviewer/viewer-window.cc:727 ../src/intviewer/viewer-window.cc:940
 msgid "_Image"
@@ -2369,7 +2347,7 @@ msgstr ""
 
 #: ../src/intviewer/viewer-window.cc:761
 msgid "Find..."
-msgstr ""
+msgstr "Recercar..."
 
 #: ../src/intviewer/viewer-window.cc:765
 msgid "Find Next"
@@ -2425,7 +2403,7 @@ msgstr ""
 
 #: ../src/intviewer/viewer-window.cc:871
 msgid "_Binary Mode"
-msgstr ""
+msgstr "Mòde _binari"
 
 #: ../src/intviewer/viewer-window.cc:877
 msgid "_Decimal Offset in Hexdump"
@@ -2437,15 +2415,15 @@ msgstr ""
 
 #: ../src/intviewer/viewer-window.cc:893
 msgid "_20 chars/line"
-msgstr ""
+msgstr "_20 caractèrs/linha"
 
 #: ../src/intviewer/viewer-window.cc:898
 msgid "_40 chars/line"
-msgstr ""
+msgstr "_40 caractèrs/linha"
 
 #: ../src/intviewer/viewer-window.cc:903
 msgid "_80 chars/line"
-msgstr ""
+msgstr "_80 caractèrs/linha"
 
 #: ../src/intviewer/viewer-window.cc:912
 msgid "Quick _Help"
@@ -2521,15 +2499,15 @@ msgstr "Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:106
 msgid "Name of the album."
-msgstr ""
+msgstr "Nom de l'album."
 
 #: ../src/tags/gnome-cmd-tags.cc:107
 msgid "Album Artist"
-msgstr ""
+msgstr "Artista de l'albom"
 
 #: ../src/tags/gnome-cmd-tags.cc:107
 msgid "Artist of the album."
-msgstr ""
+msgstr "Artista de l'album."
 
 #: ../src/tags/gnome-cmd-tags.cc:108
 msgid "Album Gain"
@@ -2573,7 +2551,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Channels"
-msgstr ""
+msgstr "Canals"
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Number of channels in the audio (2 = stereo)."
@@ -2622,7 +2600,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 msgid "Disc Number"
-msgstr ""
+msgstr "Numerò de disc"
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 msgid "Specifies which disc the track is on."
@@ -2678,7 +2656,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Lyrics"
-msgstr ""
+msgstr "Paraulas"
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Lyrics of the track."
@@ -2807,7 +2785,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Track Number"
-msgstr ""
+msgstr "Numerò de pista"
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Position of track on the album."
@@ -2836,7 +2814,7 @@ msgstr "Autor"
 #: ../src/tags/gnome-cmd-tags.cc:145 ../src/tags/gnome-cmd-tags.cc:154
 #: ../src/tags/gnome-cmd-tags.cc:410
 msgid "Name of the author."
-msgstr ""
+msgstr "Nom de l'autor."
 
 #: ../src/tags/gnome-cmd-tags.cc:146
 msgid "Byte Count"
@@ -2918,7 +2896,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:157 ../src/tags/gnome-cmd-tags.cc:451
 msgid "Date Created"
-msgstr ""
+msgstr "Data de creacion"
 
 #: ../src/tags/gnome-cmd-tags.cc:157
 msgid ""
@@ -2944,7 +2922,7 @@ msgstr "Diccionari"
 
 #: ../src/tags/gnome-cmd-tags.cc:160
 msgid "Dictionary."
-msgstr ""
+msgstr "Diccionari."
 
 #: ../src/tags/gnome-cmd-tags.cc:161
 msgid "Editing Duration"
@@ -3047,7 +3025,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:173
 msgid "Manager"
-msgstr ""
+msgstr "Gestionari"
 
 #: ../src/tags/gnome-cmd-tags.cc:173
 msgid "Name of the manager of <Doc.Creator> entity."
@@ -3387,11 +3365,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:211
 msgid "Document Name"
-msgstr ""
+msgstr "Nom de document"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
 msgid "Document name."
-msgstr ""
+msgstr "Nom de document."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
 msgid "Exif IFD Pointer"
@@ -3674,7 +3652,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid "Image Description"
-msgstr ""
+msgstr "Descripcion d'imatge"
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid ""
@@ -3685,7 +3663,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid "Image Length"
-msgstr ""
+msgstr "Longor d'imatge"
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid ""
@@ -4527,7 +4505,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial"
-msgstr ""
+msgstr "Comercial"
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial frame."
@@ -4693,7 +4671,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:351
 msgid "Language."
-msgstr ""
+msgstr "Lenga."
 
 #: ../src/tags/gnome-cmd-tags.cc:352
 msgid "Linked Info"
@@ -4769,19 +4747,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:361
 msgid "Original Album"
-msgstr ""
+msgstr "Album original"
 
 #: ../src/tags/gnome-cmd-tags.cc:361
 msgid "Original album."
-msgstr ""
+msgstr "Album original."
 
 #: ../src/tags/gnome-cmd-tags.cc:362
 msgid "Original Artist"
-msgstr ""
+msgstr "Artista original"
 
 #: ../src/tags/gnome-cmd-tags.cc:362
 msgid "Original artist."
-msgstr ""
+msgstr "Artista original."
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 msgid "Original File Name"
@@ -5053,7 +5031,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:398
 msgid "WWW Artist"
-msgstr ""
+msgstr "Artista WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:398
 msgid "Official artist."
@@ -5211,7 +5189,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:426
 msgid "Title of image."
-msgstr ""
+msgstr "Títol d'imatge."
 
 #: ../src/tags/gnome-cmd-tags.cc:427
 msgid ""
@@ -5392,7 +5370,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "Country Code"
-msgstr ""
+msgstr "Còdi de païs"
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "The code of the country/primary location where the object was created."
@@ -5400,7 +5378,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "Country Name"
-msgstr ""
+msgstr "Nom de païs"
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "The name of the country/primary location where the object was created."
@@ -5543,7 +5521,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid "Image Orientation"
-msgstr ""
+msgstr "Orientacion d'imatge"
 
 #: ../src/tags/gnome-cmd-tags.cc:466
 msgid ""
@@ -6012,11 +5990,11 @@ msgstr "Grèc"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:85
 msgid "U.S. English"
-msgstr ""
+msgstr "Anglés american"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:87
 msgid "U.K. English"
-msgstr ""
+msgstr "Anglés britanic"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:89
 msgid "Australian English"
@@ -6205,7 +6183,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:71
 msgid "Stereo"
-msgstr "Estereu"
+msgstr "Esterèo"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:72
 msgid "Joint stereo"
@@ -6221,7 +6199,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:79
 msgid "Undefined"
-msgstr ""
+msgstr "Indefinit"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:80
 msgid "Layer I"
@@ -6246,7 +6224,7 @@ msgstr "Pas cap"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:96
 msgid "10-15ms"
-msgstr ""
+msgstr "10-15 ms"
 
 #: ../src/utils.cc:428
 #, c-format
@@ -6290,11 +6268,9 @@ msgstr "Executar"
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../src/utils.cc:1014
 #, c-format
@@ -6321,3 +6297,4 @@ msgstr ""
 #: ../src/utils.h:259
 msgid "There was an error displaying help."
 msgstr "I a aguda una error al moment de visualizar l'ajuda."
+
