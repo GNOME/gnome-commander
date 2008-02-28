@@ -1,3 +1,10 @@
+2008-02-28  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/utils.cc:
+	Resurrected gcmd-block (used only when set "/programs/use_gcmd_block" key to TRUE)
+
 2008-02-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con.cc:

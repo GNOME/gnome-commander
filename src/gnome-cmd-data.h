@@ -165,6 +165,8 @@ void gnome_cmd_data_set_right_mouse_button_mode (GnomeCmdRightMouseButtonMode mo
 const gchar *gnome_cmd_data_get_term (void);
 void gnome_cmd_data_set_term (const gchar *shell);
 
+gboolean gnome_cmd_data_get_use_gcmd_block (void);
+
 gboolean gnome_cmd_data_get_show_toolbar (void);
 void gnome_cmd_data_set_show_toolbar (gboolean value);
 

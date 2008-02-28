@@ -113,6 +113,8 @@ struct _GnomeCmdDataPrivate
     gchar *editor;
     gchar *differ;
     gchar *term;
+
+    gboolean             use_gcmd_block;                    // defaults to FALSE
 };
 
 
@@ -1282,6 +1284,8 @@ void gnome_cmd_data_save (void)
     gnome_cmd_data_set_string ("/programs/differ",data->priv->differ);
     gnome_cmd_data_set_string ("/programs/terminal",data->priv->term);
 
+    gnome_cmd_data_set_bool   ("/programs/use_gcmd_block",data->priv->use_gcmd_block);
+
     gnome_cmd_data_set_bool   ("/devices/only_icon",data->priv->device_only_icon);
     gnome_cmd_data_set_int    ("/options/dir_cache_size",data->priv->dir_cache_size);
     gnome_cmd_data_set_bool   ("/colors/use_ls_colors",data->priv->use_ls_colors);
@@ -1510,6 +1514,8 @@ void gnome_cmd_data_load (void)
     data->priv->editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
     data->priv->differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
     data->priv->term   = gnome_cmd_data_get_string ("/programs/terminal", "xterm -hold -e %s");
+
+    data->priv->use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
     data->priv->device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
     data->priv->dir_cache_size = gnome_cmd_data_get_int ("/options/dir_cache_size", 10);
@@ -1977,6 +1983,12 @@ const gchar *gnome_cmd_data_get_differ (void)
 const gchar *gnome_cmd_data_get_term (void)
 {
     return data->priv->term;
+}
+
+
+gboolean gnome_cmd_data_get_use_gcmd_block (void)
+{
+    return data->priv->use_gcmd_block;
 }
 
 
