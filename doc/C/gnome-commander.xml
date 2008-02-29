@@ -3,9 +3,9 @@
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY author "Piotr Eljasiak">
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.2.5">
-  <!ENTITY manrevision "1.2.5">
-  <!ENTITY date "February 2008">
+  <!ENTITY appversion "1.2.6">
+  <!ENTITY manrevision "1.2.6">
+  <!ENTITY date "??? 2008">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -117,6 +117,16 @@
       <revision>
         <revnumber>GNOME Commander Manual V1.2.5;</revnumber>
         <date>2008-02-29</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
+        <revnumber>GNOME Commander Manual V1.2.6;</revnumber>
+        <date>2008-??-??</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -5773,6 +5783,42 @@
         </row>
     </thead>
     <tbody>
+        <row valign="top">
+            <entry><para>1.2.6</para></entry>
+            <entry><para>2008-??-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #... (...)</para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+                <para>New features:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>...</para>
+                        </listitem>
+                        <listitem>
+                            <para>Updated help docs</para>
+                        </listitem>
+                        <listitem>
+                            <para>New or updated translations: ...</para>
+                        </listitem>
+                        <listitem>
+                            <para>New key bindings:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para><keycombo><keycap>...</keycap><keycap>...</keycap></keycombo>   ...</para>
+                                </listitem>
+                            </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
         <row valign="top">
             <entry><para>1.2.5</para></entry>
             <entry><para>2008-02-29</para></entry>
