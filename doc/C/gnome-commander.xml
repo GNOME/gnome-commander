@@ -116,7 +116,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.5;</revnumber>
-        <date>2008-02-??</date>
+        <date>2008-02-29</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -185,7 +185,7 @@
                 <para>Folder bookmarks</para>
             </listitem>
             <listitem>
-                <para>User defined keyborad shortcuts</para>
+                <para>User defined keyboard shortcuts</para>
             </listitem>
             <listitem>
                 <para>Python scripting</para>
@@ -5775,7 +5775,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.5</para></entry>
-            <entry><para>2008-02-??</para></entry>
+            <entry><para>2008-02-29</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
