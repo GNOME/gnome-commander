@@ -437,7 +437,7 @@ inline void no_mime_app_found_error (gchar *mime_type)
 {
     gchar *msg;
 
-    msg = g_strdup_printf (_("No default application found for the mime-type %s.\nOpen the \"File types and programs\" page in the Control Center to add one."), mime_type);
+    msg = g_strdup_printf (_("No default application found for the MIME type %s.\nOpen the \"File types and programs\" page in the Control Center to add one."), mime_type);
     create_error_dialog (msg);
     g_free (msg);
 }

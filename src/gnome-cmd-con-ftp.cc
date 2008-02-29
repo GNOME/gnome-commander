@@ -406,8 +406,8 @@ void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *con, const gchar *host_nam
 
     con->priv->host_name = g_strdup (host_name);
 
-    GNOME_CMD_CON (con)->open_tooltip = g_strdup_printf (_("Creates the FTP connection to %s"), host_name);
-    GNOME_CMD_CON (con)->close_tooltip = g_strdup_printf (_("Removes the FTP connection to %s"), host_name);
+    GNOME_CMD_CON (con)->open_tooltip = g_strdup_printf (_("Opens the FTP connection to %s"), host_name);
+    GNOME_CMD_CON (con)->close_tooltip = g_strdup_printf (_("Closes the FTP connection to %s"), host_name);
 }
 
 
