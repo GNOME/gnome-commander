@@ -110,7 +110,7 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
             data->files = g_list_append (data->files, finfo);
         }
         else
-            gnome_cmd_show_message (NULL, finfo->info->name, "_(Couldn't retrieve MIME type of the file."));
+            gnome_cmd_show_message (NULL, finfo->info->name, _("Couldn't retrieve MIME type of the file."));
     }
 
     g_hash_table_foreach (hash, (GHFunc) htcb_exec_with_app, NULL);
