@@ -104,7 +104,7 @@ struct _GnomeCmdDataPrivate
     GdkWindowState       main_win_state;
     gchar                *symlink_prefix;
 
-    GnomeCmdConFtp      *quick_connect;
+    GnomeCmdConFtp       *quick_connect;
 
     gboolean             use_gnome_auth_manager;
     gchar                *ftp_anonymous_password;

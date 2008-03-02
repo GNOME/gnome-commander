@@ -210,7 +210,6 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
             return NULL;
     }
 
-
     gtk_widget_show (item);
 
     if (spec->type == MENU_TYPE_ITEM)
@@ -229,20 +228,18 @@ static GtkWidget *create_menu_item (GnomeCmdMainMenu *main_menu, GtkMenu *parent
 
 static GtkWidget *create_menu (GnomeCmdMainMenu *main_menu, MenuData *spec, MenuData *childs)
 {
-    gint i=0;
-    GtkWidget *submenu, *menu_item;
+    GtkWidget *submenu = gtk_menu_new ();
+    GtkWidget *menu_item = create_menu_item (main_menu, NULL, spec);
 
-    submenu = gtk_menu_new ();
-    menu_item = create_menu_item (main_menu, NULL, spec);
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (menu_item), submenu);
 
     gtk_widget_ref (menu_item);
     gtk_widget_show (menu_item);
 
-    while (childs[i].type != MENU_TYPE_END) {
+    for (gint i=0; childs[i].type != MENU_TYPE_END; ++i)
+    {
         GtkWidget *child = create_menu_item (main_menu, GTK_MENU (submenu), &childs[i]);
         gtk_menu_shell_append (GTK_MENU_SHELL (submenu), child);
-        i++;
     }
 
     return menu_item;
@@ -259,10 +256,10 @@ add_menu_item (GnomeCmdMainMenu *main_menu,
                GtkSignalFunc callback,
                gpointer user_data)
 {
+    g_return_val_if_fail (GTK_IS_MENU_SHELL (menu), NULL);
+
     GtkWidget *item, *label;
     GtkWidget *pixmap_widget = NULL;
-
-    g_return_val_if_fail (GTK_IS_MENU_SHELL (menu), NULL);
 
     item = gtk_image_menu_item_new ();
 

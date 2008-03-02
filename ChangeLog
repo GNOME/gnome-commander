@@ -246,9 +246,9 @@
 
 2007-12-13  Piotr Eljasiak  <epiotr@use.pl>
 
-	* /src/gnome-cmd-data.cc:
-	* /src/gnome-cmd-data.h:
-	* /src/gnome-cmd-remote-dialog.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-remote-dialog.cc:
 	quick-connect working again
 
 2007-12-12  Damien Carbery  <damien.carbery@sun.com>

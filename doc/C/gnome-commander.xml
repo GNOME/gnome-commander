@@ -5895,13 +5895,13 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Support for APE, FLAC and Vorbis metags in advanced file rename templates</para>
+                            <para>Support for APE, FLAC and Vorbis metatags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
-                            <para>Support for Exif makernotes metags in advanced file rename templates</para>
+                            <para>Support for Exif makernotes metatags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
-                            <para>Support for file metags in advanced file rename templates</para>
+                            <para>Support for file metatags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
                             <para>Use the GNOME authentication manager for user's security credentials</para>
@@ -6088,7 +6088,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Support for ID3 metags in advanced file rename templates</para>
+                            <para>Support for ID3 metatags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
                             <para>Updated help docs</para>
@@ -6145,7 +6145,7 @@
                             <para>New python-like indices for advanced file rename templates</para>
                         </listitem>
                         <listitem>
-                            <para>Support for Exif and IPTC metags in advanced file rename templates</para>
+                            <para>Support for Exif and IPTC metatags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
                             <para>Fast access to advrename template placeholders</para>

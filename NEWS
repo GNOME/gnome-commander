@@ -40,9 +40,9 @@ Bug fixes:
  * Build fixes
 
 New features:
- * Support for APE, FLAC and Vorbis metags in advanced file rename templates
- * Support for Exif makernotes metags in advanced file rename templates
- * Support for file metags in advanced file rename templates
+ * Support for APE, FLAC and Vorbis metatags in advanced file rename templates
+ * Support for Exif makernotes metatags in advanced file rename templates
+ * Support for file metatags in advanced file rename templates
  * Metadata tags in file properties dialog
  * Use the GNOME authentication manager for user's security credentials
  * Open terminal in the current directory
@@ -114,7 +114,7 @@ Bug fixes:
  * Fixed problem #377706 (selecting files with SHIFT+PGDN)
 
 New features:
- * Support for ID3 metags in advanced file rename templates
+ * Support for ID3 metatags in advanced file rename templates
  * Updated help docs
  * New or updated translations: ar, en_GB, es, fi, it, pl, sv
  * New key bindings:
@@ -136,7 +136,7 @@ Bug fixes:
 New features:
  * Support for archives (gz,bz2,zip,lha,rar,jar,7-zip,zoo,deb,rpm) via FileRoller plugin
  * New python-like indices for advanced file rename templates
- * Support for Exif and IPTC metags in advanced file rename templates
+ * Support for Exif and IPTC metatags in advanced file rename templates
  * Fast access to advrename template placeholders
  * In-place rename (SHIFT+F6)
  * Revamped application menus
