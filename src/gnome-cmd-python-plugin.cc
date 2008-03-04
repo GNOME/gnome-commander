@@ -171,7 +171,7 @@ GList *gnome_cmd_python_plugin_get_list()
 }
 
 
-inline gchar *get_dir_as_str(GnomeCmdMainWin *mw, FileSelectorID id)
+inline gchar *get_dir_as_str (GnomeCmdMainWin *mw, FileSelectorID id)
 {
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, id);
 
@@ -183,7 +183,7 @@ inline gchar *get_dir_as_str(GnomeCmdMainWin *mw, FileSelectorID id)
     if (!dir_uri)
         return NULL;
 
-    gchar *dir = gnome_vfs_unescape_string(gnome_vfs_uri_get_path (dir_uri), NULL);
+    gchar *dir = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (dir_uri), NULL);
 
     gnome_vfs_uri_unref (dir_uri);
 
