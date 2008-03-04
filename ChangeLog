@@ -1,5 +1,11 @@
 2008-03-04  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Added "Start GNOME Commander as root" action to menu and user actions
+
 	* src/gnome-cmd-advrename-lexer.ll:
 	* src/gnome-cmd-advrename-dialog.cc:
 	Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers

@@ -208,6 +208,7 @@ void GnomeCmdUserActions::init()
     actions.add(bookmarks_edit, "bookmarks.edit");
     actions.add(bookmarks_goto, "bookmarks.goto");
     actions.add(command_open_terminal, "command.open_terminal");
+    actions.add(command_root_mode, "command.root_mode");
     actions.add(connections_close_current, "connections.close");
     actions.add(connections_new, "connections.new");
     actions.add(connections_open, "connections.open");
@@ -935,6 +936,37 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 
     gnome_execute_terminal_shell (dpath, NULL);
     g_free (dpath);
+}
+
+
+void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
+{
+    char *su;
+
+    su = g_find_program_in_path ("gksudo");
+    if  (!su)
+        su = g_find_program_in_path ("gksu");
+    if  (!su)
+        su = g_find_program_in_path ("kdesu");
+
+    if  (!su)
+    {
+        gnome_cmd_show_message (NULL, _("gksu or kdesu is not found."));
+        return ;
+    }
+
+    char *argv[3];
+
+    argv[0] = su;
+    argv[1] = g_get_prgname ();
+    argv[2] = NULL;
+
+    GError *error = NULL;
+
+    if (!g_spawn_async (NULL, argv, NULL, GSpawnFlags (G_SPAWN_STDOUT_TO_DEV_NULL | G_SPAWN_STDERR_TO_DEV_NULL), NULL, NULL, NULL, &error))
+        gnome_cmd_error_message (_("Unable to start GNOME Commander in root mode."), error);
+
+    g_free (su);
 }
 
 

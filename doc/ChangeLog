@@ -1,6 +1,9 @@
 2008-03-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* doc/C/gnome-commander.xml:
+	Added "Start GNOME Commander as root" action to menu and user actions
+
+	* doc/C/gnome-commander.xml:
 	Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers
 
 2007-09-20  Piotr Eljasiak  <epiotr@use.pl>

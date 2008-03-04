@@ -479,6 +479,13 @@ static void init (GnomeCmdMainMenu *main_menu)
         },
         MENUTYPE_SEPARATOR,
         {
+            MENU_TYPE_ITEM, _("Start _GNOME Commander as Root"), "", NULL,
+            (gpointer) command_root_mode, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_DIALOG_AUTHENTICATION,
+            NULL
+        },
+        MENUTYPE_SEPARATOR,
+        {
             MENU_TYPE_ITEM, _("_Quit"), "Ctrl+Q", NULL,
             (gpointer) file_exit, NULL,
             GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_QUIT,

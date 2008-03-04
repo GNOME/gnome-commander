@@ -761,7 +761,8 @@ static void init (GnomeCmdMainWin *mw)
     mw->priv->file_selector[LEFT] = NULL;
     mw->priv->file_selector[RIGHT] = NULL;
 
-    gnome_app_construct (GNOME_APP (main_win), "gnome-commander", _("GNOME Commander"));
+    gnome_app_construct (GNOME_APP (main_win), "gnome-commander", geteuid() ? _("GNOME Commander") :
+                                                                              _("GNOME Commander - ROOT PRIVILEGES"));
     gtk_object_set_data (GTK_OBJECT (main_win), "main_win", main_win);
     restore_size_and_pos (mw);
     gtk_window_set_policy (GTK_WINDOW (main_win), TRUE, TRUE, FALSE);

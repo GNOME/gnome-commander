@@ -4364,6 +4364,15 @@
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>command.root_mode</para></entry>
+                        <entry><para>Start &app; in root mode at the same location</para></entry>
+                                <warning>
+                                    <para>Be careful while running &app; with root privileges
+                                          as you may damage your system.</para>
+                                </warning>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>connections.close</para></entry>
                         <entry><para>Disconnect from remote server</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>F</keycap></keycombo></para></entry>
@@ -5814,6 +5823,9 @@
                 <para>New features:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Root Mode for starting GNOME Commander with administrator privileges</para>
+                        </listitem>
                         <listitem>
                             <para>Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers</para>
                         </listitem>
