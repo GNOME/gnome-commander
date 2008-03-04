@@ -100,6 +100,8 @@ static void insert_text_tag(gpointer data, guint n, GtkWidget *widget)
                                          "$e",
                                          "$c",
                                          "$c(2)",
+                                         "$x(8)",
+                                         "$X(8)",
                                          "%x",
                                          "%Y-%m-%d",
                                          "%y-%m-%d",
@@ -157,27 +159,29 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                            {_("/File extension"), NULL, (GtkItemFactoryCallback) insert_text_tag, 4}};
 
     GtkItemFactoryEntry counter_items[] = {{_("/Counter"), NULL, (GtkItemFactoryCallback) insert_text_tag, 5},
-                                           {_("/Counter (precision)"), NULL, (GtkItemFactoryCallback) insert_text_tag, 6}};
+                                           {_("/Counter (precision)"), NULL, (GtkItemFactoryCallback) insert_text_tag, 6},
+                                           {_("/Hexadecimal random number (precision)"), NULL, (GtkItemFactoryCallback) insert_text_tag, 7},
+                                           {_("/Hexadecimal random number (precision)"), NULL, (GtkItemFactoryCallback) insert_text_tag, 8}};
 
-    GtkItemFactoryEntry date_items[] =    {{_("/Date/<locale>"), NULL, (GtkItemFactoryCallback) insert_text_tag, 7},
-                                           {_("/Date/yyyy-mm-dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 8},
-                                           {_("/Date/yy-mm-dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 9},
-                                           {_("/Date/yy.mm.dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 10},
-                                           {_("/Date/yymmdd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 11},
-                                           {_("/Date/dd.mm.yy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 12},
-                                           {_("/Date/mm-dd-yy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 13},
-                                           {_("/Date/yyyy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 14},
-                                           {_("/Date/yy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 15},
-                                           {_("/Date/mm"), NULL, (GtkItemFactoryCallback) insert_text_tag, 16},
-                                           {_("/Date/mmm"), NULL, (GtkItemFactoryCallback) insert_text_tag, 17},
-                                           {_("/Date/dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 18},
-                                           {_("/Time/<locale>"), NULL, (GtkItemFactoryCallback) insert_text_tag, 19},
-                                           {_("/Time/HH.MM.SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 20},
-                                           {_("/Time/HH-MM-SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 21},
-                                           {_("/Time/HHMMSS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 22},
-                                           {_("/Time/HH"), NULL, (GtkItemFactoryCallback) insert_text_tag, 23},
-                                           {_("/Time/MM"), NULL, (GtkItemFactoryCallback) insert_text_tag, 24},
-                                           {_("/Time/SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 25}};
+    GtkItemFactoryEntry date_items[] =    {{_("/Date/<locale>"), NULL, (GtkItemFactoryCallback) insert_text_tag, 9},
+                                           {_("/Date/yyyy-mm-dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 10},
+                                           {_("/Date/yy-mm-dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 11},
+                                           {_("/Date/yy.mm.dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 12},
+                                           {_("/Date/yymmdd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 13},
+                                           {_("/Date/dd.mm.yy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 14},
+                                           {_("/Date/mm-dd-yy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 15},
+                                           {_("/Date/yyyy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 16},
+                                           {_("/Date/yy"), NULL, (GtkItemFactoryCallback) insert_text_tag, 17},
+                                           {_("/Date/mm"), NULL, (GtkItemFactoryCallback) insert_text_tag, 18},
+                                           {_("/Date/mmm"), NULL, (GtkItemFactoryCallback) insert_text_tag, 19},
+                                           {_("/Date/dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 20},
+                                           {_("/Time/<locale>"), NULL, (GtkItemFactoryCallback) insert_text_tag, 21},
+                                           {_("/Time/HH.MM.SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 22},
+                                           {_("/Time/HH-MM-SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 23},
+                                           {_("/Time/HHMMSS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 24},
+                                           {_("/Time/HH"), NULL, (GtkItemFactoryCallback) insert_text_tag, 25},
+                                           {_("/Time/MM"), NULL, (GtkItemFactoryCallback) insert_text_tag, 26},
+                                           {_("/Time/SS"), NULL, (GtkItemFactoryCallback) insert_text_tag, 27}};
 
     static GnomeCmdTag metatags[] = {
                                      TAG_FILE_NAME, TAG_FILE_PATH,

@@ -51,9 +51,10 @@ using namespace std;
                 }
 
 
-#define   MAX_PRECISION   16
+#define   MAX_PRECISION           16
+#define   MAX_XRANDOM_PRECISION    8u
 
-enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,PARENT_DIR,GRANDPARENT_DIR,METATAG};
+enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,XRANDOM,XXRANDOM,PARENT_DIR,GRANDPARENT_DIR,METATAG};
 
 typedef struct
 {
@@ -76,6 +77,10 @@ typedef struct
       int step;         // default: default_counter_step  (1)
       int prec;         // default: default_counter_prec (-1)
     } counter;
+    struct
+    {
+      guint x_prec;     // default: MAX_XRANDOM_PRECISION  (8)
+    } random;
   };
 } CHUNK;
 
@@ -173,6 +178,23 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   fname_template.push_back(p);
                                 }
 
+\$[xX]\({uint}\)                {
+                                  CHUNK *p = g_new0 (CHUNK,1);
+
+                                  guint precision = MAX_XRANDOM_PRECISION;
+
+                                  sscanf(yytext+3,"%u",&precision);
+
+                                  switch (yytext[1])
+                                  {
+                                    case 'x' : p->type = XRANDOM;       break;
+                                    case 'X' : p->type = XXRANDOM;      break;
+                                  }
+                                  p->random.x_prec = min (precision, MAX_XRANDOM_PRECISION);
+
+                                  fname_template.push_back(p);
+                                }
+
 \$T\({tag_name}(\.[a-zA-Z][a-zA-Z0-9]+)+(,[^,)]+)*\)   {
 
                                   gchar **a = g_strsplit_set(yytext+3,",()",0);
@@ -195,7 +217,7 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   fname_template.push_back(p);
                                 }
 
-\$[cegnNp]\([^\)]*\)?           ECHO;                                      // don't substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
+\$[cxXegnNp]\([^\)]*\)?         ECHO;                                      // don't substitute broken $x tokens like $x(-1), $x(abc) or $x(abc
 
 \$[egnNp]                       {
                                   CHUNK *p = g_new0 (CHUNK,1);
@@ -224,6 +246,19 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbi
                                   p->counter.n = p->counter.start = default_counter_start;
                                   p->counter.step = default_counter_step;
                                   p->counter.prec = default_counter_prec;
+
+                                  fname_template.push_back(p);
+                                }
+
+\$[xX]                          {
+                                  CHUNK *p = g_new0 (CHUNK,1);
+
+                                  switch (yytext[1])
+                                  {
+                                    case 'x' : p->type = XRANDOM;       break;
+                                    case 'X' : p->type = XXRANDOM;      break;
+                                  }
+                                  p->random.x_prec = MAX_XRANDOM_PRECISION;
 
                                   fname_template.push_back(p);
                                 }
@@ -431,6 +466,19 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
                       fmt += counter_value;
 
                       (*i)->counter.n += (*i)->counter.step;
+                    }
+                    break;
+
+      case XRANDOM:
+      case XXRANDOM:
+                    {
+                      static char custom_counter_fmt[8];
+                      static char random_value[MAX_XRANDOM_PRECISION+1];
+
+                      sprintf (custom_counter_fmt, "%%0%u%c", (*i)->random.x_prec, (*i)->type==XRANDOM ? 'x' : 'X');
+                      snprintf (random_value, MAX_XRANDOM_PRECISION+1, custom_counter_fmt, (*i)->random.x_prec<MAX_XRANDOM_PRECISION ? g_random_int_range (0,1 << 4*(*i)->random.x_prec)
+                                                                                                                                     : g_random_int ());
+                      fmt += random_value;
                     }
                     break;
 

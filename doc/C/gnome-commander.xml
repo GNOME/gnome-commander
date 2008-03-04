@@ -982,6 +982,22 @@
                         <entry><para>File counter with specified digit number (precision)</para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>$x</para></entry>
+                        <entry><para>Hexadecimal random number (8 lowercase digits)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$x(precision)</para></entry>
+                        <entry><para>Hexadecimal random number with specified lowercase digit number (precision)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$x</para></entry>
+                        <entry><para>Hexadecimal random number (8 uppercase digits)</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>$x(precision)</para></entry>
+                        <entry><para>Hexadecimal random number with specified uppercase digit number (precision)</para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>$T(metatag)</para></entry>
                         <entry><para>Metadata tag</para></entry>
                     </row>
@@ -5799,7 +5815,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers</para>
                         </listitem>
                         <listitem>
                             <para>Updated help docs</para>

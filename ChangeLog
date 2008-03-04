@@ -1,3 +1,9 @@
+2008-03-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-lexer.ll:
+	* src/gnome-cmd-advrename-dialog.cc:
+	Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers
+
 2008-02-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in: Bumped version to 1.2.6

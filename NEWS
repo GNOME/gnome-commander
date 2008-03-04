@@ -6,6 +6,7 @@ Bug fixes:
 * Fixed problem #... (...)
 
 New features:
+ * Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers
  * Updated help docs
  * New or updated translations: eu
  * New key bindings:
