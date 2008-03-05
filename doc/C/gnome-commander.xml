@@ -4365,11 +4365,9 @@
                     </row>
                     <row valign="top">
                         <entry><para>command.root_mode</para></entry>
-                        <entry><para>Start &app; in root mode at the same location</para></entry>
-                                <warning>
-                                    <para>Be careful while running &app; with root privileges
-                                          as you may damage your system.</para>
-                                </warning>
+                        <entry><para>Start &app; in root mode at the same location</para>
+                               <warning><para>Be careful while running &app; with root privileges
+                                              as you may damage your system.</para></warning></entry>
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
