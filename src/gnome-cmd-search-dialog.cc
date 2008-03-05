@@ -779,16 +779,16 @@ static void init (GnomeCmdSearchDialog *dialog)
 
 
     dialog->priv->close_button = gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_PIXMAP_CLOSE,
+        GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
         GTK_SIGNAL_FUNC (on_close), dialog);
     dialog->priv->goto_button = gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dialog), _("Goto"),
         GTK_SIGNAL_FUNC (on_goto), dialog);
     dialog->priv->stop_button = gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_PIXMAP_STOP,
+        GNOME_CMD_DIALOG (dialog), GTK_STOCK_STOP,
         GTK_SIGNAL_FUNC (on_stop), dialog);
     dialog->priv->search_button = gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_PIXMAP_SEARCH,
+        GNOME_CMD_DIALOG (dialog), GTK_STOCK_FIND,
         GTK_SIGNAL_FUNC (on_search), dialog);
 
     gtk_widget_set_sensitive (dialog->priv->stop_button, FALSE);

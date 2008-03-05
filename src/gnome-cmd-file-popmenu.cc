@@ -449,15 +449,15 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     static GnomeUIInfo other_uiinfo[] =
     {
-        GNOMEUIINFO_ITEM_STOCK(N_("Cu_t"), NULL, on_cut, GNOME_STOCK_MENU_CUT),
-        GNOMEUIINFO_ITEM_STOCK(N_("_Copy"), NULL, on_copy, GNOME_STOCK_MENU_COPY),
-        GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), NULL, on_delete, GNOME_STOCK_MENU_TRASH),
+        GNOMEUIINFO_ITEM_STOCK(N_("Cu_t"), NULL, on_cut, GTK_STOCK_CUT),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Copy"), NULL, on_copy, GTK_STOCK_COPY),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Delete"), NULL, on_delete, GNOME_STOCK_TRASH),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_NONE (N_("Rename"), NULL, on_rename),
         GNOMEUIINFO_ITEM_STOCK(_("Send files"), NULL, file_sendto, GNOME_STOCK_MAIL_SND),
         GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
         GNOMEUIINFO_SEPARATOR,
-        GNOMEUIINFO_ITEM_STOCK(N_("_Properties..."), NULL, on_properties, GNOME_STOCK_MENU_PROP),
+        GNOMEUIINFO_ITEM_STOCK(N_("_Properties..."), NULL, on_properties, GTK_STOCK_PROPERTIES),
         GNOMEUIINFO_END
     };
 

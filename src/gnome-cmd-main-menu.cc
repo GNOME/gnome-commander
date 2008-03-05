@@ -486,7 +486,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_Quit"), "Ctrl+Q", NULL,
             (gpointer) file_exit, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_QUIT,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_QUIT,
             NULL
         },
         MENUTYPE_END
@@ -545,25 +545,25 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("Cu_t"), "Ctrl+X", NULL,
             (gpointer) edit_cap_cut, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CUT,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CUT,
             NULL
         },
         {
             MENU_TYPE_ITEM, _("_Copy"), "Ctrl+C", NULL,
             (gpointer) edit_cap_copy, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_COPY,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_COPY,
             NULL
         },
         {
             MENU_TYPE_ITEM, _("_Paste"), "Ctrl+V", NULL,
             (gpointer) edit_cap_paste, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_PASTE,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_PASTE,
             NULL
         },
         {
             MENU_TYPE_ITEM, _("_Delete"), "Delete", NULL,
             (gpointer) file_delete, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_TRASH,
+            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_TRASH,
             NULL
         },
         MENUTYPE_SEPARATOR,
@@ -577,7 +577,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_Search..."), "Alt+F7", NULL,
             (gpointer) edit_search, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
             NULL
         },
         {
@@ -600,19 +600,19 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_Back"), "Alt+Left", NULL,
             (gpointer) view_back, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_BACK,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_BACK,
             NULL
         },
         {
             MENU_TYPE_ITEM, _("_Forward"), "Alt+Right", NULL,
             (gpointer) view_forward, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_FORWARD,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_GO_FORWARD,
             NULL
         },
         {
             MENU_TYPE_ITEM, _("_Refresh"), "Ctrl+R", NULL,
             (gpointer) view_refresh, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_REFRESH,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_REFRESH,
             NULL
         },
         MENUTYPE_SEPARATOR,
@@ -757,7 +757,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_About"), "", NULL,
             (gpointer) help_about, NULL,
-            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_ABOUT,
+            GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_ABOUT,
             NULL
         },
         MENUTYPE_END

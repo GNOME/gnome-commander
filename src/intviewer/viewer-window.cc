@@ -703,7 +703,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
 
     MENU_ITEM_DATA file_menu_items[] = {
         {MI_NORMAL, _("_Close"), GDK_Escape, NO_MODIFIER, G_CALLBACK (menu_file_close),
-                GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_CLOSE,
+                GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 NO_MENU_ITEM, NO_GSLIST},
         {MI_NONE}
@@ -755,11 +755,11 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
 #endif
     MENU_ITEM_DATA text_menu_items[] = {
         {MI_NORMAL, _("_Copy Text Selection"), GDK_C, GDK_CONTROL_MASK, G_CALLBACK (menu_edit_copy),
-                GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_COPY,
+                GNOME_APP_PIXMAP_STOCK, GTK_STOCK_COPY,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 NO_MENU_ITEM, NO_GSLIST},
         {MI_NORMAL, _("Find..."), GDK_F, GDK_CONTROL_MASK, G_CALLBACK (menu_edit_find),
-                GNOME_APP_PIXMAP_STOCK, GNOME_STOCK_MENU_SEARCH,
+                GNOME_APP_PIXMAP_STOCK, GTK_STOCK_FIND,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 NO_MENU_ITEM, NO_GSLIST},
         {MI_NORMAL, _("Find Next"), GDK_F3, NO_MODIFIER, G_CALLBACK (menu_edit_find_next),
