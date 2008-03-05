@@ -56,9 +56,9 @@ typedef enum
 typedef struct
 {
     MenuType type;          // Type of item
-    const gchar *label;           // The text to use for this menu-item
-    const gchar *shortcut;        // The shortcut for this menu-item
-    const gchar *tooltip;         // The tooltip of this menu-item
+    const gchar *label;     // The text to use for this menu-item
+    const gchar *shortcut;  // The shortcut for this menu-item
+    const gchar *tooltip;   // The tooltip of this menu-item
     gpointer moreinfo;      // For an item, toggleitem, this is a pointer to the function to call when the item is activated.
     gpointer user_data;     // Data pointer to pass to callbacks
     GnomeUIPixmapType pixmap_type;    // Type of pixmap for the item
@@ -74,8 +74,7 @@ typedef struct
                                      * pointer to the filename string.
                                      */
 
-    GtkWidget *widget;        /* Filled in by gnome_app_create*, you can use this
-                               to tweak the widgets once they have been created */
+    GtkWidget *widget;      // Filled in by gnome_app_create*, you can use this to tweak the widgets once they have been created
 } MenuData;
 
 #define MENUTYPE_END { \
@@ -384,12 +383,11 @@ static void update_view_menu (GnomeCmdMainMenu *main_menu)
     g_list_free (main_menu->priv->view_menuitems);
     main_menu->priv->view_menuitems = NULL;
 
-    item = add_menu_item (
-        main_menu,
-        GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->view_menu)->submenu),
-        label, NULL,
-        pm, bm,
-        GTK_SIGNAL_FUNC (on_switch_orientation), main_menu);
+    item = add_menu_item (main_menu,
+                          GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->view_menu)->submenu),
+                          label, NULL,
+                          pm, bm,
+                          GTK_SIGNAL_FUNC (on_switch_orientation), main_menu);
 
     g_free (label);
 
