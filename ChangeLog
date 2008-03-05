@@ -7,6 +7,9 @@
 	* src/gnome-commander/src/intviewer/viewer-window.cc:
 	Replaced deprecated icon names with newer ones
 
+	* src/gnome-cmd-search-dialog.cc:
+	Added 'help' button to search dlg
+
 2008-03-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.cc:

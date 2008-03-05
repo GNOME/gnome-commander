@@ -37,65 +37,38 @@ static GnomeCmdDialogClass *parent_class = NULL;
 
 #define PBAR_MAX 50
 
-typedef struct
+struct ProtectedData
 {
     GList *files;
     gchar *msg;
     GMutex *mutex;
+};
 
-} ProtectedData;
-
-typedef struct
+struct SearchData
 {
-    // the pattern that filenames should match to end up in the file-list
-    const gchar *name_pattern;
-
-    // the pattern that the content of a file should match to end up in the file-list.
-    const gchar *content_pattern;
-
-    // the current dir of the search routine.
-    const gchar *dir;
+    const gchar *name_pattern;              // the pattern that filenames should match to end up in the file-list
+    const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file-list.
+    const gchar *dir;                       // the current dir of the search routine.
 
     Filter *name_filter;
     regex_t *content_regex;
-
-    // should we do content search?
-    gboolean content_search;
-
-    // the number of matching files
-    gint matches;
-
-    // the context id of the statusbar
-    gint context_id;
-
+    gboolean content_search;                // should we do content search?
+    gint matches;                           // the number of matching files
+    gint context_id;                        // the context id of the statusbar
     GnomeCmdSearchDialog *dialog;
-
-    // stopps the search routine if set to TRUE. This is done by the stop_button
-    gboolean stopped;
-
-    // set when the search dialog is destroyed, also stopps the search of course
-    gboolean dialog_destroyed;
-
-    // should we recurse or just search in the selected directory?
-    gboolean recurse;
-
+    gboolean recurse;                       // should we recurse or just search in the selected directory?
     gboolean case_sens;
-
-    // The directories which we found matching files in
-    GList *match_dirs;
-
-    // The directory to start searching from
-    GnomeCmdDir *start_dir;
-
+    GList *match_dirs;                      // The directories which we found matching files in
+    GnomeCmdDir *start_dir;                 // The directory to start searching from
     GThread *thread;
-
     ProtectedData pdata;
-
-    gboolean search_done;
-
     gint update_gui_timeout_id;
 
-} SearchData;
+    gboolean search_done;
+    gboolean stopped;                       // stops the search routine if set to TRUE. This is done by the stop_button
+    gboolean dialog_destroyed;              // set when the search dialog is destroyed, also stopps the search of course
+};
+
 
 struct _GnomeCmdSearchDialogPrivate
 {
@@ -112,10 +85,13 @@ struct _GnomeCmdSearchDialogPrivate
     GtkWidget *find_text_check;
     GtkWidget *result_list;
     GtkWidget *statusbar;
-    GtkWidget *goto_button;
+
+    GtkWidget *help_button;
     GtkWidget *close_button;
+    GtkWidget *goto_button;
     GtkWidget *stop_button;
     GtkWidget *search_button;
+
     GtkWidget *recurse_check;
     GtkWidget *case_check;
     GtkWidget *pbar;
@@ -394,10 +370,9 @@ static gboolean update_search_status_widgets (SearchData *data)
             gchar *msg;
             if (data->stopped)
                 msg = g_strdup_printf (
-                    ngettext(
-                        "Found %d match before I was stopped",
-                        "Found %d matches before I was stopped",
-                        data->matches),
+                    ngettext("Found %d match - search aborted",
+                             "Found %d matches - search aborted",
+                              data->matches),
                     data->matches);
             else
                 msg = g_strdup_printf (
@@ -557,6 +532,16 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 
     gtk_widget_set_sensitive (dialog->priv->search_button, FALSE);
     gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
+}
+
+
+/**
+ * The user has clicked on the help button
+ *
+ */
+static void on_help (GtkButton *button, GnomeCmdSearchDialog *dialog)
+{
+    gnome_cmd_help_display("gnome-commander.xml", "gnome-commander-search");
 }
 
 
@@ -777,19 +762,11 @@ static void init (GnomeCmdSearchDialog *dialog)
                       (GtkAttachOptions) (0), 0, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check), defaults->case_sens);
 
-
-    dialog->priv->close_button = gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
-        GTK_SIGNAL_FUNC (on_close), dialog);
-    dialog->priv->goto_button = gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), _("Goto"),
-        GTK_SIGNAL_FUNC (on_goto), dialog);
-    dialog->priv->stop_button = gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GTK_STOCK_STOP,
-        GTK_SIGNAL_FUNC (on_stop), dialog);
-    dialog->priv->search_button = gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GTK_STOCK_FIND,
-        GTK_SIGNAL_FUNC (on_search), dialog);
+    dialog->priv->help_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
+    dialog->priv->close_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close), dialog);
+    dialog->priv->goto_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("Goto"), GTK_SIGNAL_FUNC (on_goto), dialog);
+    dialog->priv->stop_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_STOP, GTK_SIGNAL_FUNC (on_stop), dialog);
+    dialog->priv->search_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_FIND, GTK_SIGNAL_FUNC (on_search), dialog);
 
     gtk_widget_set_sensitive (dialog->priv->stop_button, FALSE);
     gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);
