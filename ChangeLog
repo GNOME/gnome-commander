@@ -1,3 +1,10 @@
+2008-03-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Moved static DICT<GnomeCmdUserActionFunc> to GnomeCmdUserActions class
+	Added descriptions for user action
+
 2008-03-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-commander/src/gnome-cmd-file-popmenu.cc:

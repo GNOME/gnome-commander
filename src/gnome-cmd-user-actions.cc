@@ -41,7 +41,6 @@
 #include "gnome-cmd-user-actions.h"
 #include "plugin_manager.h"
 #include "cap.h"
-#include "dict.h"
 #include "utils.h"
 
 using namespace std;
@@ -100,9 +99,6 @@ inline gboolean append_real_path (string &s, GnomeCmdFile *finfo)
 GnomeCmdUserActions gcmd_user_actions;
 
 
-static DICT<GnomeCmdUserActionFunc> actions(NULL);
-
-
 inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
 {
     if (e1.keyval < e2.keyval)
@@ -115,160 +111,95 @@ inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
 }
 
 
-inline gboolean ascii_isalnum (guint key_val)
+DICT<GnomeCmdUserActionFunc> GnomeCmdUserActions::action_func;
+DICT<GnomeCmdUserActionFunc> GnomeCmdUserActions::action_name;
+
+
+#define     NN_(x)      (x)
+
+
+static struct
 {
-    return key_val<=G_MAXUINT8 && g_ascii_isalnum (key_val);
+    GnomeCmdUserActionFunc func;
+    const gchar *name;
+    const gchar *description;
 }
-
-
-inline gboolean ascii_isalpha (guint key_val)
-{
-    return key_val<=G_MAXUINT8 && g_ascii_isalpha (key_val);
-}
-
-
-inline string key2str(guint state, guint key_val)
-{
-    string key_name;
-
-    if (state & GDK_SHIFT_MASK)    key_name += gdk_modifiers_names[GDK_SHIFT_MASK];
-    if (state & GDK_CONTROL_MASK)  key_name += gdk_modifiers_names[GDK_CONTROL_MASK];
-    if (state & GDK_MOD1_MASK)     key_name += gdk_modifiers_names[GDK_MOD1_MASK];
-    if (state & GDK_MOD4_MASK)     key_name += gdk_modifiers_names[GDK_MOD4_MASK];
-
-    if (ascii_isalnum (key_val))
-        key_name += g_ascii_tolower (key_val);
-    else
-        key_name += gdk_key_names[key_val];
-
-    return key_name;
-}
-
-
-inline string key2str(const GdkEventKey &event)
-{
-    return key2str(event.state, event.keyval);
-}
-
-
-inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
-{
-    g_strdown (s);
-
-    gchar *key = strrchr(s, '>');       // find last '>'
-    key = key ? key+1 : s;
-
-    key_val = gdk_key_names[key];
-    state = 0;
-
-     if (key_val==GDK_VoidSymbol)
-        if (strlen(key)==1 && ascii_isalnum (*key))
-            key_val = *key;
-
-    for (const gchar *beg=s; (beg=strchr(beg, '<')); ++beg)
-    {
-        if (const gchar *end = strchr(beg, '>'))
-            if (guint modifier = gdk_modifiers_names[string(beg,end-beg+1)])
-            {
-                state |= modifier;
-                beg = end;
-                continue;
-            }
-
-        key_val = GDK_VoidSymbol;
-        break;
-    }
-
-    GdkEventKey event;
-
-    event.keyval = key_val;
-    event.state = state;
-
-    return event;
-}
-
-
-inline GdkEventKey str2key(gchar *s, GdkEventKey &event)
-{
-    return str2key(s, event.state, event.keyval);
-}
-
-
-inline GdkEventKey str2key(gchar *s)
-{
-    GdkEventKey event;
-
-    return str2key(s, event);
-}
+user_actions_data[] = {
+                       {bookmarks_add_current, "bookmarks.add_current", NN_("Bookmark current directory")},
+                       {bookmarks_edit, "bookmarks.edit", NN_("Manage bookmarks")},
+                       {bookmarks_goto, "bookmarks.goto", NN_("Go to bookmarked location")},
+                       {command_open_terminal, "command.open_terminal", NN_("Open terminal")},
+                       {command_root_mode, "command.root_mode", NN_("Start GNOME Commander as root")},
+                       {connections_close_current, "connections.close", NN_("Close connection")},
+                       {connections_new, "connections.new", NN_("New connection")},
+                       {connections_open, "connections.open", NN_("Open connection")},
+                       {edit_cap_copy, "edit.copy", NN_("Copy")},
+                       {edit_copy_fnames, "edit.copy_filenames", NN_("Copy file names")},
+                       {edit_cap_cut, "edit.cut", NN_("Cut")},
+                       {file_delete, "edit.delete", NN_("Delete")},
+                       {edit_filter, "edit.filter", NN_("Show user defined files")},
+                       {edit_cap_paste, "edit.paste", NN_("Paste")},
+                       {edit_quick_search, "edit.quick_search", NN_("Quick search")},
+                       {edit_search, "edit.search", NN_("Search")},
+                       {file_advrename, "file.advrename", NN_("Advanced rename tool")},
+                       {file_chmod, "file.chmod", NN_("Change permissions")},
+                       {file_chown, "file.chown", NN_("Change owner/group")},
+                       {file_copy, "file.copy", NN_("Copy files")},
+                       {file_create_symlink, "file.create_symlink", NN_("Create symbolic link")},
+                       {file_delete, "file.delete", NN_("Delete files")},
+                       {file_diff, "file.diff", NN_("Compare files (diff)")},
+                       {file_edit, "file.edit", NN_("Edit file")},
+                       {file_edit_new_doc, "file.edit_new_doc", NN_("Edit a new file")},
+                       {file_exit, "file.exit", NN_("Quit")},
+                       {file_external_view, "file.external_view", NN_("View with external viewer")},
+                       {file_internal_view, "file.internal_view", NN_("View with internal viewer")},
+                       {file_mkdir, "file.mkdir", NN_("Create directory")},
+                       {file_move, "file.move", NN_("Move files")},
+                       {file_properties, "file.properties", NN_("Properties")},
+                       {file_rename, "file.rename", NN_("Rename files")},
+                       // {file_run, "file.run"},
+                       {file_sendto, "file.sendto", NN_("Send files")},
+                       {file_sync_dirs, "file.synchronize_directories", NN_("Synchonize directories")},
+                       // {file_umount, "file.umount"},
+                       {file_view, "file.view", NN_("View file")},
+                       {help_about, "help.about", NN_("About GNOME Commander")},
+                       {help_help, "help.help", NN_("Help contents")},
+                       {help_keyboard, "help.keyboard", NN_("Keyboard shortcuts")},
+                       {help_problem, "help.problem", NN_("Report a problem")},
+                       {help_web, "help.web", NN_("GNOME Commander on the web")},
+                       {mark_compare_directories, "mark.compare_directories", NN_("Compare directories")},
+                       {mark_select_all, "mark.select_all", NN_("Select all")},
+                       {mark_toggle, "mark.toggle", NN_("Toggle selection")},
+                       {mark_toggle_and_step, "mark.toggle_and_step", NN_("Toggle selection and move cursor downward")},
+                       {mark_unselect_all, "mark.unselect_all", NN_("Unselect all")},
+                       {no_action, "no.action", NN_("Do nothing")},
+                       {options_edit, "options.edit", NN_("Options")},
+                       {options_edit_mime_types, "options.edit_mime_types", NN_("MIME types")},
+                       {plugins_configure, "plugins.configure", NN_("Configure plugins")},
+                       {plugins_execute_python, "plugins.execute_python", NN_("Execute python plugin")},
+                       {view_back, "view.back", NN_("Go back one directory")},
+                       {view_equal_panes, "view.equal_panes", NN_("Equal panel size")},
+                       {view_first, "view.first", NN_("Go back to the first directory")},
+                       {view_forward, "view.forward", NN_("Go forward one directory")},
+                       {view_home, "view.home", NN_("Home directory")},
+                       {view_in_active_pane, "view.in_active_pane", NN_("")},
+                       {view_in_inactive_pane, "view.in_inactive_pane", NN_("")},
+                       {view_in_left_pane, "view.in_left_pane", NN_("")},
+                       {view_in_right_pane, "view.in_right_pane", NN_("")},
+                       {view_last, "view.last", NN_("")},
+                       {view_refresh, "view.refresh", NN_("Refresh")},
+                       {view_root, "view.root", NN_("Root directory")},
+                       {view_up, "view.up", NN_("Up one directory")},
+                      };
 
 
 void GnomeCmdUserActions::init()
 {
-    actions.add(bookmarks_add_current, "bookmarks.add_current");
-    actions.add(bookmarks_edit, "bookmarks.edit");
-    actions.add(bookmarks_goto, "bookmarks.goto");
-    actions.add(command_open_terminal, "command.open_terminal");
-    actions.add(command_root_mode, "command.root_mode");
-    actions.add(connections_close_current, "connections.close");
-    actions.add(connections_new, "connections.new");
-    actions.add(connections_open, "connections.open");
-    actions.add(edit_cap_copy, "edit.copy");
-    actions.add(edit_copy_fnames, "edit.copy_filenames");
-    actions.add(edit_cap_cut, "edit.cut");
-    actions.add(file_delete, "edit.delete");
-    actions.add(edit_filter, "edit.filter");
-    actions.add(edit_cap_paste, "edit.paste");
-    actions.add(edit_quick_search, "edit.quick_search");
-    actions.add(edit_search, "edit.search");
-    actions.add(file_advrename, "file.advrename");
-    actions.add(file_chmod, "file.chmod");
-    actions.add(file_chown, "file.chown");
-    actions.add(file_copy, "file.copy");
-    actions.add(file_create_symlink, "file.create_symlink");
-    actions.add(file_delete, "file.delete");
-    actions.add(file_diff, "file.diff");
-    actions.add(file_edit, "file.edit");
-    actions.add(file_edit_new_doc, "file.edit_new_doc");
-    actions.add(file_exit, "file.exit");
-    actions.add(file_external_view, "file.external_view");
-    actions.add(file_internal_view, "file.internal_view");
-    actions.add(file_mkdir, "file.mkdir");
-    actions.add(file_move, "file.move");
-    actions.add(file_properties, "file.properties");
-    actions.add(file_rename, "file.rename");
-    // actions.add(file_run, "file.run");
-    actions.add(file_sendto, "file.sendto");
-    actions.add(file_sync_dirs, "file.synchronize_directories");
-    // actions.add(file_umount, "file.umount");
-    actions.add(file_view, "file.view");
-    actions.add(help_about, "help.about");
-    actions.add(help_help, "help.help");
-    actions.add(help_keyboard, "help.keyboard");
-    actions.add(help_problem, "help.problem");
-    actions.add(help_web, "help.web");
-    actions.add(mark_compare_directories, "mark.compare_directories");
-    actions.add(mark_select_all, "mark.select_all");
-    actions.add(mark_toggle, "mark.toggle");
-    actions.add(mark_toggle_and_step, "mark.toggle_and_step");
-    actions.add(mark_unselect_all, "mark.unselect_all");
-    actions.add(no_action, "no.action");
-    actions.add(options_edit, "options.edit");
-    actions.add(options_edit_mime_types, "options.edit_mime_types");
-    actions.add(plugins_configure, "plugins.configure");
-    actions.add(plugins_execute_python, "plugins.execute_python");
-    actions.add(view_back, "view.back");
-    actions.add(view_equal_panes, "view.equal_panes");
-    actions.add(view_first, "view.first");
-    actions.add(view_forward, "view.forward");
-    actions.add(view_home, "view.home");
-    actions.add(view_in_active_pane, "view.in_active_pane");
-    actions.add(view_in_inactive_pane, "view.in_inactive_pane");
-    actions.add(view_in_left_pane, "view.in_left_pane");
-    actions.add(view_in_right_pane, "view.in_right_pane");
-    actions.add(view_last, "view.last");
-    actions.add(view_refresh, "view.refresh");
-    actions.add(view_root, "view.root");
-    actions.add(view_up, "view.up");
+    for (guint i=0; i<G_N_ELEMENTS(user_actions_data); ++i)
+    {
+        action_func.add(user_actions_data[i].func, user_actions_data[i].name);
+        action_name.add(user_actions_data[i].func, _(user_actions_data[i].description));
+    }
 
     register_action(GDK_F3, "file.view");
     register_action(GDK_F4, "file.edit");
@@ -424,7 +355,7 @@ void GnomeCmdUserActions::load(const gchar *section)
         g_strstrip (action_name);
         g_strdown (action_name);
 
-        if (actions[action_name])
+        if (action_func[action_name])
         {
             guint keyval;
             guint state;
@@ -473,7 +404,7 @@ void GnomeCmdUserActions::write(const gchar *section)
     {
         string path = section_path + key2str(i->first);
 
-        string action_name = actions[i->second.func];
+        string action_name = action_func[i->second.func];
 
         if (!i->second.user_data.empty())
         {
@@ -488,7 +419,7 @@ void GnomeCmdUserActions::write(const gchar *section)
 
 gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const gchar *name, const char *user_data)
 {
-    GnomeCmdUserActionFunc func = actions[name];
+    GnomeCmdUserActionFunc func = action_func[name];
 
     if (!func)
         return FALSE;
@@ -536,7 +467,7 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
 
 gboolean GnomeCmdUserActions::registered(const gchar *name)
 {
-    GnomeCmdUserActionFunc func = actions[name];
+    GnomeCmdUserActionFunc func = action_func[name];
 
     if (!func)
         return FALSE;
@@ -568,7 +499,7 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
         return FALSE;
 
     DEBUG('a', "Key event:  %s (%#x)\n", key2str(*event).c_str(), event->keyval);
-    DEBUG('a', "Handling key event by %s()\n", actions[pos->second.func].c_str());
+    DEBUG('a', "Handling key event by %s()\n", action_func[pos->second.func].c_str());
 
     (*pos->second.func) (NULL, (gpointer) (pos->second.user_data.empty() ? NULL : pos->second.user_data.c_str()));
 
