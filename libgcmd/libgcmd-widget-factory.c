@@ -390,7 +390,7 @@ create_icon_entry (GtkWidget *parent, gchar *name, const gchar *icon_path)
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (icon_entry);
     if (icon_path)
-        gnome_icon_entry_set_icon (GNOME_ICON_ENTRY (icon_entry), icon_path);
+        gnome_icon_entry_set_filename (GNOME_ICON_ENTRY (icon_entry), icon_path);
     return icon_entry;
 }
 
