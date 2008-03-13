@@ -581,7 +581,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 {
     g_return_val_if_fail (server != NULL, FALSE);
 
-    GtkWidget *dialog = (GtkWidget *) gtk_type_new (gnome_cmd_connect_dialog_get_type ());
+    GtkWidget *dialog = gtk_widget_new (GNOME_CMD_TYPE_CONNECT_DIALOG, NULL);
 
     g_return_val_if_fail (dialog != NULL, FALSE);
 
