@@ -53,7 +53,10 @@ class GnomeCmdUserActions
     static DICT<GnomeCmdUserActionFunc> action_func;
     static DICT<GnomeCmdUserActionFunc> action_name;
 
-    std::map <GdkEventKey, UserAction> action;
+    typedef std::map<GdkEventKey, UserAction> ACTIONS_COLL;
+
+    ACTIONS_COLL action;
+
 
   public:
 
@@ -83,6 +86,21 @@ class GnomeCmdUserActions
     GdkEventKey str2key(gchar *s, guint &state, guint &key_val);
     GdkEventKey str2key(gchar *s, GdkEventKey &event)                       {  return str2key(s, event.state, event.keyval);             }
     GdkEventKey str2key(gchar *s);
+
+  public:
+
+    struct const_iterator: ACTIONS_COLL::iterator
+    {
+        const_iterator (const ACTIONS_COLL::iterator &i): ACTIONS_COLL::iterator(i)   {}
+
+        const ACTIONS_COLL::key_type &operator * () const                   {  return (ACTIONS_COLL::iterator::operator * ()).first;  }
+    };
+
+    const_iterator begin()                                                  {  return action.begin();                           }
+    const_iterator end()                                                    {  return action.end();                             }
+
+    const gchar *description(const_iterator &i)                             {  return _(action_name[i->second.func].c_str());   }
+    const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();              }
 };
 
 

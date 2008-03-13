@@ -400,7 +400,7 @@ void GnomeCmdUserActions::write(const gchar *section)
         g_free (action_name);
     }
 
-    for (map<GdkEventKey, UserAction>::const_iterator i=action.begin(); i!=action.end(); ++i)
+    for (ACTIONS_COLL::const_iterator i=action.begin(); i!=action.end(); ++i)
     {
         string path = section_path + key2str(i->first);
 
@@ -472,7 +472,7 @@ gboolean GnomeCmdUserActions::registered(const gchar *name)
     if (!func)
         return FALSE;
 
-    for (map<GdkEventKey, UserAction>::const_iterator i=action.begin(); i!=action.end(); ++i)
+    for (ACTIONS_COLL::const_iterator i=action.begin(); i!=action.end(); ++i)
         if (i->second.func==func)
             return TRUE;
 

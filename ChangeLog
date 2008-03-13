@@ -1,3 +1,9 @@
+2008-03-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Added GnomeCmdUserActions iterators for accessing registered GdkEventKey
+
 2008-03-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* libgcmd/libgcmd-widget-factory.c:
