@@ -1,3 +1,9 @@
+2008-03-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-hintbox.cc:
+	* src/gnome-cmd-hintbox.h:
+	hintbox: new widget showing a label showing decorated with a GTK_STOCK_DIALOG_INFO icon
+
 2008-03-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:
@@ -2178,24 +2184,24 @@
 
 	* configue.in:
 	* src/libgviewer/fileops.c:
-        Used HAVE_MMAP from autoconf check
+	Used HAVE_MMAP from autoconf check
 
 2006-03-05  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/libgviewer:
-        Reworked internal viewer plus new features:
-        external tools and EXIF/IPTC tags viewer
+	Reworked internal viewer plus new features:
+	external tools and EXIF/IPTC tags viewer
 
 2006-03-04  Assaf Gordon  <agordon88@gmail.com>
 
 	* src/gnome-cmd-options-dialog.c:
-        Fix typo.
+	Fix typo.
 
 	* doc/internal_viewer_hacking.txt:
-        Added new file
+	Added new file
 
 	* tests/gviewer/*:
-        Added tests for libgviewer
+	Added tests for libgviewer
 
 2006-02-28  Piotr Eljasiak  <epiotr@use.pl>
 
@@ -2207,7 +2213,7 @@
 2006-02-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/imageloader.{c,h}:
-        Added desktop pixmap.
+	Added desktop pixmap.
 
 	* pixmaps/:
 	* pixmaps/device-icons:

@@ -48,6 +48,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-file-props-dialog.h gnome-cmd-file-props-dialog.cc \
 	gnome-cmd-file-selector.h gnome-cmd-file-selector.cc \
 	gnome-cmd-file.h gnome-cmd-file.cc \
+	gnome-cmd-hintbox.h gnome-cmd-hintbox.cc \
 	gnome-cmd-includes.h \
 	gnome-cmd-list-popmenu.h gnome-cmd-list-popmenu.cc \
 	gnome-cmd-main-menu.h gnome-cmd-main-menu.cc \
