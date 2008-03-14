@@ -1,5 +1,9 @@
 2008-03-14  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-user-actions.h:
+	Added ascii_islower() and ascii_isupper()
+	Added GnomeCmdUserActions::clear()
+
 	* src/gnome-cmd-hintbox.cc:
 	* src/gnome-cmd-hintbox.h:
 	hintbox: new widget showing a label showing decorated with a GTK_STOCK_DIALOG_INFO icon

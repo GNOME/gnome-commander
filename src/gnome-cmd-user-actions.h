@@ -66,6 +66,8 @@ class GnomeCmdUserActions
     void load(const gchar *section);
     void write(const gchar *section);
 
+    void clear ()                                                           {   action.clear();               }
+
     gboolean register_action(guint state, guint keyval, const gchar *name, const char *user_data=NULL);
     gboolean register_action(guint keyval, const gchar *name, const char *user_data=NULL);
     void unregister(const gchar *name);
@@ -79,12 +81,10 @@ class GnomeCmdUserActions
 
   private:
 
-    gboolean ascii_isalnum (guint key_val)                                  {  return key_val<=G_MAXUINT8 && g_ascii_isalnum (key_val);  }
-    gboolean ascii_isalpha (guint key_val)                                  {  return key_val<=G_MAXUINT8 && g_ascii_isalpha (key_val);  }
     std::string key2str(guint state, guint key_val);
-    std::string key2str(const GdkEventKey &event)                           {  return key2str(event.state, event.keyval);                }
+    std::string key2str(const GdkEventKey &event)                           {  return key2str(event.state, event.keyval);     }
     GdkEventKey str2key(gchar *s, guint &state, guint &key_val);
-    GdkEventKey str2key(gchar *s, GdkEventKey &event)                       {  return str2key(s, event.state, event.keyval);             }
+    GdkEventKey str2key(gchar *s, GdkEventKey &event)                       {  return str2key(s, event.state, event.keyval);  }
     GdkEventKey str2key(gchar *s);
 
   public:
@@ -173,6 +173,26 @@ inline GdkEventKey GnomeCmdUserActions::str2key(gchar *s)
     GdkEventKey event;
 
     return str2key(s, event);
+}
+
+inline gboolean ascii_isalnum (guint key_val)
+{
+    return key_val<=G_MAXUINT8 && g_ascii_isalnum (key_val);
+}
+
+inline gboolean ascii_isalpha (guint key_val)
+{
+    return key_val<=G_MAXUINT8 && g_ascii_isalpha (key_val);
+}
+
+inline gboolean ascii_islower (const GdkEventKey &event)
+{
+    return key_val<=G_MAXUINT8 && g_ascii_islower (event.key_val);
+}
+
+inline gboolean ascii_isupper (const GdkEventKey &event)
+{
+    return key_val<=G_MAXUINT8 && g_ascii_isupper (event.key_val);
 }
 
 
