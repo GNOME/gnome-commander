@@ -1334,8 +1334,8 @@ msgid "_Options..."
 msgstr "_Opcje..."
 
 #: ../src/gnome-cmd-main-menu.cc:705
-msgid "Edit _MIME Types..."
-msgstr "Edycja typów _MIME..."
+msgid "_MIME Types..."
+msgstr "Typy _MIME..."
 
 #: ../src/gnome-cmd-main-menu.cc:716
 msgid "_Remote Server..."
