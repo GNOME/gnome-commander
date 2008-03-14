@@ -36,6 +36,27 @@
 typedef void (*GnomeCmdUserActionFunc) (GtkMenuItem *menuitem, gpointer user_data);
 
 
+inline gboolean ascii_isalnum (guint key_val)
+{
+    return key_val<=G_MAXUINT8 && g_ascii_isalnum (key_val);
+}
+
+inline gboolean ascii_isalpha (guint key_val)
+{
+    return key_val<=G_MAXUINT8 && g_ascii_isalpha (key_val);
+}
+
+inline gboolean ascii_islower (const GdkEventKey &event)
+{
+    return event.keyval<=G_MAXUINT8 && g_ascii_islower (event.keyval);
+}
+
+inline gboolean ascii_isupper (const GdkEventKey &event)
+{
+    return event.keyval<=G_MAXUINT8 && g_ascii_isupper (event.keyval);
+}
+
+
 class GnomeCmdUserActions
 {
   private:
@@ -173,26 +194,6 @@ inline GdkEventKey GnomeCmdUserActions::str2key(gchar *s)
     GdkEventKey event;
 
     return str2key(s, event);
-}
-
-inline gboolean ascii_isalnum (guint key_val)
-{
-    return key_val<=G_MAXUINT8 && g_ascii_isalnum (key_val);
-}
-
-inline gboolean ascii_isalpha (guint key_val)
-{
-    return key_val<=G_MAXUINT8 && g_ascii_isalpha (key_val);
-}
-
-inline gboolean ascii_islower (const GdkEventKey &event)
-{
-    return key_val<=G_MAXUINT8 && g_ascii_islower (event.key_val);
-}
-
-inline gboolean ascii_isupper (const GdkEventKey &event)
-{
-    return key_val<=G_MAXUINT8 && g_ascii_isupper (event.key_val);
 }
 
 
