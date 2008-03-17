@@ -130,6 +130,12 @@ typedef struct
 } FileFormatData;
 
 
+inline char *gnome_cmd_get_collation_fname (GnomeCmdFile *f)
+{
+    return f->collate_key ? f->collate_key : f->info->name;
+}
+
+
 inline int get_num_files (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), -1);
@@ -711,8 +717,6 @@ inline gint my_intcmp (gint i1, gint i2, gboolean raising)
 
 static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
 
@@ -725,15 +729,14 @@ static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     if (f1->info->type < f2->info->type)
         return 1;
 
-    return my_strcmp (f1->info->name, f2->info->name, raising);
+    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
+
+    return my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), raising);
 }
 
 
-static gint
-sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
+static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
 
@@ -746,8 +749,10 @@ sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
     if (f1->info->type < f2->info->type)
         return 1;
 
+    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
+
     if (!gnome_cmd_file_get_extension(f1) && !gnome_cmd_file_get_extension (f2))
-        return my_strcmp (f1->info->name, f2->info->name, fl->priv->sort_raising[1]);
+        return my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), fl->priv->sort_raising[1]);
 
     if (!gnome_cmd_file_get_extension (f1))
         return raising?1:-1;
@@ -756,51 +761,53 @@ sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 
     gint ret = my_strcmp (gnome_cmd_file_get_extension (f1), gnome_cmd_file_get_extension (f2), raising);
 
-    return ret ? ret : my_strcmp (f1->info->name, f2->info->name, fl->priv->sort_raising[1]);
+    return ret ? ret : my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), fl->priv->sort_raising[1]);
 }
 
 
 static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    gint ret = 0;
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-
-    gchar *t1 = gnome_cmd_file_get_path (f1);
-    gchar *t2 = gnome_cmd_file_get_path (f2);
-    gchar *d1 = g_path_get_dirname (t1);
-    gchar *d2 = g_path_get_dirname (t2);
-
-    if (strcmp (f1->info->name, "..") == 0)
-        ret = -1;
-
-    if (strcmp (f2->info->name, "..") == 0)
-        ret = 1;
-
-    if (f1->info->type > f2->info->type)
-        ret = -1;
-
-    if (f1->info->type < f2->info->type)
-        ret = 1;
-
-    g_free (t1);
-    g_free (t2);
-    g_free (d1);
-    g_free (d2);
-
-    return ret ? ret : my_strcmp (d1, d2, raising);
-}
-
-
-static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
-{
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
 
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
+
+    if (f1->info->type > f2->info->type)
+        return -1;
+
+    if (f1->info->type < f2->info->type)
+        return 1;
+
+    // gchar *t1 = gnome_cmd_file_get_path (f1);
+    // gchar *t2 = gnome_cmd_file_get_path (f2);
+    // gchar *d1 = g_path_get_dirname (t1);
+    // gchar *d2 = g_path_get_dirname (t2);
+
+    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
+    // gint ret = my_strcmp (d1, d2, raising);
+
+    // g_free (t1);
+    // g_free (t2);
+    // g_free (d1);
+    // g_free (d2);
+
+    // return ret;
+
+    return my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), raising);
+}
+
+
+static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
+{
+    if (strcmp (f1->info->name, "..") == 0)
+        return -1;
+
+    if (strcmp (f2->info->name, "..") == 0)
+        return 1;
+
+    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
+    gboolean file_raising = fl->priv->sort_raising[1];
 
     gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
 
@@ -808,7 +815,7 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     {
         ret = my_intcmp (f1->info->size, f2->info->size, raising);
         if (!ret)
-            ret = my_strcmp (f1->info->name, f2->info->name, file_raising);
+            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
     }
     return ret;
 }
@@ -816,21 +823,21 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
 static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
 
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
 
+    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
+    gboolean file_raising = fl->priv->sort_raising[1];
+
     gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
     if (!ret)
     {
         ret = my_intcmp (f1->info->permissions, f2->info->permissions, raising);
         if (!ret)
-            ret = my_strcmp (f1->info->name, f2->info->name, file_raising);
+            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
     }
     return ret;
 }
@@ -838,21 +845,21 @@ static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
 static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
 
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
 
+    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
+    gboolean file_raising = fl->priv->sort_raising[1];
+
     gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
     if (!ret)
     {
         ret = my_intcmp (f1->info->mtime, f2->info->mtime, raising);
         if (!ret)
-            ret = my_strcmp (f1->info->name, f2->info->name, file_raising);
+            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
     }
     return ret;
 }
@@ -860,21 +867,21 @@ static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
 static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
 
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
 
+    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
+    gboolean file_raising = fl->priv->sort_raising[1];
+
     gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
     if (!ret)
     {
         ret = my_intcmp (f1->info->uid, f2->info->uid, raising);
         if (!ret)
-            ret = my_strcmp (f1->info->name, f2->info->name, file_raising);
+            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
     }
     return ret;
 }
@@ -882,21 +889,21 @@ static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 
 static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl)
 {
-    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
-    gboolean file_raising = fl->priv->sort_raising[1];
-
     if (strcmp (f1->info->name, "..") == 0)
         return -1;
 
     if (strcmp (f2->info->name, "..") == 0)
         return 1;
 
+    gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
+    gboolean file_raising = fl->priv->sort_raising[1];
+
     gint ret = my_intcmp (f1->info->type, f2->info->type, TRUE);
     if (!ret)
     {
         ret = my_intcmp (f1->info->gid, f2->info->gid, raising);
         if (!ret)
-            ret = my_strcmp (f1->info->name, f2->info->name, file_raising);
+            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
     }
     return ret;
 }

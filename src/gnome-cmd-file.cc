@@ -83,6 +83,8 @@ static void destroy (GtkObject *object)
 
     if (file->info->name[0] != '.')
         DEBUG ('f', "file destroying 0x%p %s\n", file, file->info->name);
+
+    g_free (file->collate_key);
     gnome_vfs_file_info_unref (file->info);
     if (file->priv->dir_handle)
         handle_unref (file->priv->dir_handle);
@@ -113,6 +115,7 @@ static void class_init (GnomeCmdFileClass *klass)
 static void init (GnomeCmdFile *file)
 {
     file->info = NULL;
+    file->collate_key = NULL;
 
     file->priv = g_new0 (GnomeCmdFilePrivate, 1);
     file->priv->dir_handle = NULL;
@@ -175,6 +178,7 @@ void gnome_cmd_file_setup (GnomeCmdFile *finfo, GnomeVFSFileInfo *info, GnomeCmd
 
     finfo->info = info;
     GNOME_CMD_FILE_INFO (finfo)->info = info;
+    finfo->collate_key = g_utf8_collate_key_for_filename (info->name, -1);
 
     if (dir)
     {
@@ -783,9 +787,11 @@ void gnome_cmd_file_update_info (GnomeCmdFile *finfo, GnomeVFSFileInfo *info)
     g_return_if_fail (finfo != NULL);
     g_return_if_fail (info != NULL);
 
+    g_free (finfo->collate_key);
     gnome_vfs_file_info_unref (finfo->info);
     gnome_vfs_file_info_ref (info);
     finfo->info = info;
+    finfo->collate_key = g_utf8_collate_key_for_filename (info->name, -1);
 }
 
 
