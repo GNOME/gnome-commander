@@ -56,6 +56,76 @@ inline gboolean ascii_isupper (const GdkEventKey &event)
     return event.keyval<=G_MAXUINT8 && g_ascii_isupper (event.keyval);
 }
 
+inline std::string key2str(guint state, guint key_val)
+{
+    std::string key_name;
+
+    if (state & GDK_SHIFT_MASK)    key_name += gdk_modifiers_names[GDK_SHIFT_MASK];
+    if (state & GDK_CONTROL_MASK)  key_name += gdk_modifiers_names[GDK_CONTROL_MASK];
+    if (state & GDK_MOD1_MASK)     key_name += gdk_modifiers_names[GDK_MOD1_MASK];
+    if (state & GDK_MOD4_MASK)     key_name += gdk_modifiers_names[GDK_MOD4_MASK];
+
+    if (ascii_isalnum (key_val))
+        key_name += g_ascii_tolower (key_val);
+    else
+        key_name += gdk_key_names[key_val];
+
+    return key_name;
+}
+
+inline std::string key2str(const GdkEventKey &event)
+{
+    return key2str(event.state, event.keyval);
+}
+
+inline GdkEventKey str2key(gchar *s, guint &state, guint &key_val)
+{
+    g_strdown (s);
+
+    gchar *key = strrchr(s, '>');       // find last '>'
+    key = key ? key+1 : s;
+
+    key_val = gdk_key_names[key];
+    state = 0;
+
+     if (key_val==GDK_VoidSymbol)
+        if (strlen(key)==1 && ascii_isalnum (*key))
+            key_val = *key;
+
+    for (const gchar *beg=s; (beg=strchr(beg, '<')); ++beg)
+    {
+        if (const gchar *end = strchr(beg, '>'))
+            if (guint modifier = gdk_modifiers_names[std::string(beg,end-beg+1)])
+            {
+                state |= modifier;
+                beg = end;
+                continue;
+            }
+
+        key_val = GDK_VoidSymbol;
+        break;
+    }
+
+    GdkEventKey event;
+
+    event.keyval = key_val;
+    event.state = state;
+
+    return event;
+}
+
+inline GdkEventKey str2key(gchar *s, GdkEventKey &event)
+{
+    return str2key(s, event.state, event.keyval);
+}
+
+inline GdkEventKey str2key(gchar *s)
+{
+    GdkEventKey event;
+
+    return str2key(s, event);
+}
+
 
 class GnomeCmdUserActions
 {
@@ -100,16 +170,6 @@ class GnomeCmdUserActions
 
     gboolean handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, GdkEventKey *event);
 
-  private:
-
-    std::string key2str(guint state, guint key_val);
-    std::string key2str(const GdkEventKey &event)                           {  return key2str(event.state, event.keyval);     }
-    GdkEventKey str2key(gchar *s, guint &state, guint &key_val);
-    GdkEventKey str2key(gchar *s, GdkEventKey &event)                       {  return str2key(s, event.state, event.keyval);  }
-    GdkEventKey str2key(gchar *s);
-
-  public:
-
     struct const_iterator: ACTIONS_COLL::iterator
     {
         const_iterator (const ACTIONS_COLL::iterator &i): ACTIONS_COLL::iterator(i)   {}
@@ -134,66 +194,6 @@ inline GnomeCmdUserActions::UserAction::UserAction(GnomeCmdUserActionFunc _func,
 inline gboolean GnomeCmdUserActions::register_action(guint keyval, const gchar *name, const char *user_data)
 {
     return register_action(0, keyval, name, user_data);
-}
-
-inline std::string GnomeCmdUserActions::key2str(guint state, guint key_val)
-{
-    std::string key_name;
-
-    if (state & GDK_SHIFT_MASK)    key_name += gdk_modifiers_names[GDK_SHIFT_MASK];
-    if (state & GDK_CONTROL_MASK)  key_name += gdk_modifiers_names[GDK_CONTROL_MASK];
-    if (state & GDK_MOD1_MASK)     key_name += gdk_modifiers_names[GDK_MOD1_MASK];
-    if (state & GDK_MOD4_MASK)     key_name += gdk_modifiers_names[GDK_MOD4_MASK];
-
-    if (ascii_isalnum (key_val))
-        key_name += g_ascii_tolower (key_val);
-    else
-        key_name += gdk_key_names[key_val];
-
-    return key_name;
-}
-
-inline GdkEventKey GnomeCmdUserActions::str2key(gchar *s, guint &state, guint &key_val)
-{
-    g_strdown (s);
-
-    gchar *key = strrchr(s, '>');       // find last '>'
-    key = key ? key+1 : s;
-
-    key_val = gdk_key_names[key];
-    state = 0;
-
-     if (key_val==GDK_VoidSymbol)
-        if (strlen(key)==1 && ascii_isalnum (*key))
-            key_val = *key;
-
-    for (const gchar *beg=s; (beg=strchr(beg, '<')); ++beg)
-    {
-        if (const gchar *end = strchr(beg, '>'))
-            if (guint modifier = gdk_modifiers_names[std::string(beg,end-beg+1)])
-            {
-                state |= modifier;
-                beg = end;
-                continue;
-            }
-
-        key_val = GDK_VoidSymbol;
-        break;
-    }
-
-    GdkEventKey event;
-
-    event.keyval = key_val;
-    event.state = state;
-
-    return event;
-}
-
-inline GdkEventKey GnomeCmdUserActions::str2key(gchar *s)
-{
-    GdkEventKey event;
-
-    return str2key(s, event);
 }
 
 

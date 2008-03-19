@@ -1,3 +1,8 @@
+2008-03-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.h:
+	Move key2str() and str2key() out of GnomeCmdUserActions class
+
 2008-03-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:
