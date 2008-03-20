@@ -1,3 +1,12 @@
+2008-03-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-key-shortcuts-dialog.cc:
+	* src/gnome-cmd-key-shortcuts-dialog.h:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Added GUI for keyboard shortcuts management
+
 2008-03-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.h:

@@ -1321,6 +1321,10 @@ msgstr "_Równaj wielkość paneli."
 msgid "_Bookmark this Directory..."
 msgstr "_Dodaj zakładkę..."
 
+#: ../src/gnome-cmd-main-menu.cc:670
+msgid "_Keyboard Shortcuts..."
+msgstr "_Skróty klawiszowe..."
+
 #: ../src/gnome-cmd-main-menu.cc:675
 msgid "_Manage Bookmarks..."
 msgstr "_Zarządzanie zakładkami..."

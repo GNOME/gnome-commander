@@ -29,6 +29,7 @@ src/gnome-cmd-file-popmenu.cc
 src/gnome-cmd-file-props-dialog.cc
 src/gnome-cmd-file-selector.cc
 src/gnome-cmd-file.cc
+src/gnome-cmd-key-shortcuts-dialog.cc
 src/gnome-cmd-list-popmenu.cc
 src/gnome-cmd-main-menu.cc
 src/gnome-cmd-main-win.cc

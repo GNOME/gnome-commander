@@ -180,6 +180,8 @@ class GnomeCmdUserActions
     const_iterator begin()                                                  {  return action.begin();                           }
     const_iterator end()                                                    {  return action.end();                             }
 
+    const gchar *key(const_iterator &i)                                     {  return key2str(*i).c_str();                      }       // FIXME: temporarily, to be removed
+    const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();      }       // FIXME: temporarily, to be removed
     const gchar *description(const_iterator &i)                             {  return _(action_name[i->second.func].c_str());   }
     const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();              }
 };
@@ -280,6 +282,7 @@ GNOME_CMD_USER_ACTION(bookmarks_goto);
 /************** Options Menu **************/
 GNOME_CMD_USER_ACTION(options_edit);
 GNOME_CMD_USER_ACTION(options_edit_mime_types);
+GNOME_CMD_USER_ACTION(options_edit_shortcuts);
 
 /************** Connections Menu **************/
 GNOME_CMD_USER_ACTION(connections_open);

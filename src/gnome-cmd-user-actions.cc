@@ -38,6 +38,7 @@
 #include "gnome-cmd-prepare-move-dialog.h"
 #include "gnome-cmd-python-plugin.h"
 #include "gnome-cmd-search-dialog.h"
+#include "gnome-cmd-key-shortcuts-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "plugin_manager.h"
 #include "cap.h"
@@ -175,6 +176,7 @@ user_actions_data[] = {
                        {no_action, "no.action", NN_("Do nothing")},
                        {options_edit, "options.edit", NN_("Options")},
                        {options_edit_mime_types, "options.edit_mime_types", NN_("MIME types")},
+                       {options_edit_shortcuts, "options.shortcuts", NN_("Keyboard shortcuts")},
                        {plugins_configure, "plugins.configure", NN_("Configure plugins")},
                        {plugins_execute_python, "plugins.execute_python", NN_("Execute python plugin")},
                        {view_back, "view.back", NN_("Go back one directory")},
@@ -1119,6 +1121,12 @@ void options_edit (GtkMenuItem *menuitem, gpointer not_used)
     gtk_widget_ref (dialog);
     gtk_window_set_transient_for (GTK_WINDOW (dialog), GTK_WINDOW (main_win));
     gtk_widget_show (dialog);
+}
+
+
+void options_edit_shortcuts (GtkMenuItem *menuitem, gpointer not_used)
+{
+    gnome_cmd_key_shortcuts_dialog_new (gcmd_user_actions);
 }
 
 

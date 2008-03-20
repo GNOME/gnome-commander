@@ -4306,8 +4306,7 @@
     <sect2 id="gnome-commander-user-actions-managing">
         <title>Managing user actions</title>
         <para>Key bindings reside in [key-bindings] section of &app; config file
-              (<term><guilabel>~/.gnome2/gnome-commander</guilabel></term>).
-              Currently there is no GUI for key configuration management.</para>
+              (<term><guilabel>~/.gnome2/gnome-commander</guilabel></term>).</para>
         <para>Config file syntax:</para>
         <para>
             <command>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;win&gt;]key_name=action[|options]</command>
@@ -4587,7 +4586,12 @@
                     </row>
                     <row valign="top">
                         <entry><para>options.edit_mime_types</para></entry>
-                        <entry><para>Edit MIME types</para></entry>
+                        <entry><para>Configure MIME types</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>options.shortcuts</para></entry>
+                        <entry><para>Configure keyboard shortcuts</para></entry>
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
@@ -5826,6 +5830,9 @@
                     <itemizedlist>
                         <listitem>
                             <para>Root Mode for starting GNOME Commander with administrator privileges</para>
+                        </listitem>
+                        <listitem>
+                            <para>GUI for keyboard shortcuts management</para>
                         </listitem>
                         <listitem>
                             <para>Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers</para>

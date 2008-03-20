@@ -50,6 +50,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-file.h gnome-cmd-file.cc \
 	gnome-cmd-hintbox.h gnome-cmd-hintbox.cc \
 	gnome-cmd-includes.h \
+	gnome-cmd-key-shortcuts-dialog.h gnome-cmd-key-shortcuts-dialog.cc \
 	gnome-cmd-list-popmenu.h gnome-cmd-list-popmenu.cc \
 	gnome-cmd-main-menu.h gnome-cmd-main-menu.cc \
 	gnome-cmd-main-win.h gnome-cmd-main-win.cc \
