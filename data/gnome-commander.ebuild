@@ -1,8 +1,8 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License, v2 or later
 # $Header:
 
-inherit gnome2
+inherit gnome2 flag-o-matic
 
 
 DESCRIPTION="A full featured, dual-pane file manager for Gnome2"
@@ -56,4 +56,5 @@ pkg_setup() {
                 $(use_with gsf  libgsf)
                 $(use_with id3  taglib)
                 $(use_enable python python)"
+		filter-ldflags -Wl,--as-needed
 }
