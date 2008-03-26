@@ -5838,6 +5838,9 @@
                             <para>Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers</para>
                         </listitem>
                         <listitem>
+                            <para>Revamped search dialog</para>
+                        </listitem>
+                        <listitem>
                             <para>Updated help docs</para>
                         </listitem>
                         <listitem>

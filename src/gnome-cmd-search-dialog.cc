@@ -36,7 +36,10 @@ using namespace std;
 
 static GnomeCmdDialogClass *parent_class = NULL;
 
-#define PBAR_MAX 50
+#define PBAR_MAX   50
+
+#define SEARCH_JUMP_SIZE     4096U
+#define SEARCH_BUFFER_SIZE  (SEARCH_JUMP_SIZE * 10U)
 
 struct ProtectedData
 {
@@ -67,9 +70,18 @@ struct SearchData
 
     gboolean search_done;
     gboolean stopped;                       // stops the search routine if set to TRUE. This is done by the stop_button
-    gboolean dialog_destroyed;              // set when the search dialog is destroyed, also stopps the search of course
+    gboolean dialog_destroyed;              // set when the search dialog is destroyed, also stops the search of course
+
+    gchar  *search_mem;                     // memory to search in the content of a file
 };
 
+struct SearchFileData
+{
+    gchar          *uri_str;
+    GnomeVFSHandle *handle;
+    gint            offset;
+    guint           len;
+};
 
 struct _GnomeCmdSearchDialogPrivate
 {
@@ -78,11 +90,9 @@ struct _GnomeCmdSearchDialogPrivate
     GnomeCmdCon *con;
 
     GtkWidget *pattern_combo;
-    GtkWidget *pattern_entry;
     GtkWidget *dir_browser;
     GtkWidget *dir_entry;
     GtkWidget *find_text_combo;
-    GtkWidget *find_text_entry;
     GtkWidget *find_text_check;
     GtkWidget *result_list;
     GtkWidget *statusbar;
@@ -97,22 +107,6 @@ struct _GnomeCmdSearchDialogPrivate
     GtkWidget *case_check;
     GtkWidget *pbar;
 };
-
-
-static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog);
-
-
-static gboolean on_pattern_entry_keypressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdSearchDialog *dialog)
-{
-    if (state_is_blank (event->state) && event->keyval == GDK_Return)
-    {
-        on_search (NULL, dialog);
-        event->keyval = GDK_Escape;
-        return TRUE;
-    }
-
-    return FALSE;
-}
 
 
 static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEventButton *button, GnomeCmdSearchDialog *dialog)
@@ -134,76 +128,123 @@ static void set_statusmsg (SearchData *data, gchar *msg)
                         data->context_id, msg);
 }
 
+/**
+ *
+ */
+inline void search_file_data_free (SearchFileData  *searchfile_data)
+{
+  if (searchfile_data->handle != NULL)
+    gnome_vfs_close (searchfile_data->handle);
+
+  g_free (searchfile_data->uri_str);
+  g_free (searchfile_data);
+}
 
 /**
- * Loads a file and returns the content.
- * FIXME: Recode this so not the whole file has
- *        to be loaded in memory.
+ * Loads a file in chunks and returns the content.
  */
-static gchar *load_file (GnomeCmdFile *finfo)
+static SearchFileData *read_search_file (SearchData      *data,
+                                         SearchFileData  *searchfile_data,
+                                         GnomeCmdFile    *finfo)
 {
     g_return_val_if_fail (finfo != NULL, NULL);
     g_return_val_if_fail (finfo->info != NULL, NULL);
 
-    gchar *buf = (gchar *) g_malloc (finfo->info->size+1);
-    gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
-    GnomeVFSHandle *handle;
-    GnomeVFSResult result = gnome_vfs_open (&handle, uri_str, GNOME_VFS_OPEN_READ);
+    GnomeVFSResult  result;
 
-    if (result != GNOME_VFS_OK)
+    if (searchfile_data == NULL)
     {
-        warn_print (_("Failed to open file %s: %s\n"), uri_str, gnome_vfs_result_to_string (result));
-        g_free (uri_str);
-        g_free (buf);
+        searchfile_data          = g_new0 (SearchFileData, 1);
+        searchfile_data->uri_str = gnome_cmd_file_get_uri_str (finfo);
+        result                   = gnome_vfs_open (&searchfile_data->handle, searchfile_data->uri_str, GNOME_VFS_OPEN_READ);
+
+        if (result != GNOME_VFS_OK)
+        {
+           warn_print (_("Failed to open file %s: %s\n"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+           search_file_data_free (searchfile_data);
+           return NULL;
+        }
+    }
+
+    // If the stop button was pressed let's abort here
+    if (data->stopped)
+    {
+        search_file_data_free (searchfile_data);
         return NULL;
+    }
+
+    if (searchfile_data->len != NULL)
+    {
+      if ((searchfile_data->offset + searchfile_data->len) >= finfo->info->size)
+      {   // end, all has been read
+          search_file_data_free (searchfile_data);
+          return NULL;
+      }
+      else
+      {   // jump a big step backward to give the regex a chance
+          searchfile_data->offset += searchfile_data->len - SEARCH_JUMP_SIZE;
+          if (finfo->info->size < (searchfile_data->offset + (SEARCH_BUFFER_SIZE - 1)))
+              searchfile_data->len = finfo->info->size - searchfile_data->offset;
+          else
+              searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
+      }
+    }
+    else
+    {   // first time call of this function
+        if (finfo->info->size < (SEARCH_BUFFER_SIZE - 1))
+            searchfile_data->len = finfo->info->size;
+        else
+            searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
     }
 
     GnomeVFSFileSize ret;
-    result = gnome_vfs_read (handle, buf, finfo->info->size, &ret);
+    result = gnome_vfs_seek (searchfile_data->handle, GNOME_VFS_SEEK_START, searchfile_data->offset);
     if (result != GNOME_VFS_OK)
     {
-        warn_print (_("Failed to read from file %s: %s\n"),
-                    uri_str, gnome_vfs_result_to_string (result));
-        g_free (uri_str);
-        g_free (buf);
-        gnome_vfs_close (handle);
+        warn_print (_("Failed to seek in file %s: %s\n"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+        search_file_data_free (searchfile_data);
         return NULL;
     }
+    result = gnome_vfs_read (searchfile_data->handle, data->search_mem, searchfile_data->len, &ret);
+    if (result != GNOME_VFS_OK)
+    {
+        warn_print (_("Failed to read from file %s: %s\n"), searchfile_data->uri_str, gnome_vfs_result_to_string (result));
+        search_file_data_free (searchfile_data);
+        return NULL;
+    }
+    data->search_mem[searchfile_data->len] = '\0';
 
-    buf[ret] = '\0';
-
-    g_free (uri_str);
-    gnome_vfs_close (handle);
-
-    return buf;
+    return searchfile_data;
 }
 
 
 /**
- * Determinates if the name of a file matches an regexp
+ * Determines if the content of a file matches an regexp
+ *
+ */
+inline gboolean content_matches (GnomeCmdFile *finfo, SearchData *data)
+{
+    gint   ret = REG_NOMATCH;
+
+    if (finfo->info->size > 0)
+    {
+        regmatch_t       match;
+        SearchFileData  *search_file = NULL;
+
+        while ((search_file = read_search_file (data, search_file, finfo)) != NULL)
+            ret = regexec (data->content_regex, data->search_mem, 1, &match, 0);
+    }
+
+    return ret != REG_NOMATCH;
+}
+
+/**
+ * Determines if the name of a file matches an regexp
  *
  */
 inline gboolean name_matches (gchar *name, SearchData *data)
 {
     return filter_match (data->name_filter, name);
-}
-
-
-/**
- * Determinates if the content of a file matches an regexp
- *
- */
-inline gboolean content_matches (GnomeCmdFile *finfo, SearchData *data)
-{
-    static regmatch_t match;
-    gint ret = REG_NOMATCH;
-    gchar *buf = load_file (finfo);
-    if (buf)
-    {
-        ret = regexec (data->content_regex, buf, 1, &match, 0);
-        g_free (buf);
-    }
-    return ret == 0;
 }
 
 
@@ -389,6 +430,9 @@ static gboolean update_search_status_widgets (SearchData *data)
             gtk_widget_set_sensitive (data->dialog->priv->search_button, TRUE);
             gtk_widget_set_sensitive (data->dialog->priv->stop_button, FALSE);
 
+            // set focus to result list
+            gtk_widget_grab_focus (data->dialog->priv->result_list);
+
             gtk_widget_hide (data->dialog->priv->pbar);
         }
 
@@ -410,6 +454,11 @@ static gboolean join_thread_func (SearchData *data)
 {
     if (data->thread)
         g_thread_join (data->thread);
+
+    if (data->pdata.mutex != NULL)
+      g_mutex_free (data->pdata.mutex);
+
+    g_free (data->search_mem);
 
     g_free (data);
 
@@ -468,8 +517,8 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     }
 
     data->dialog = dialog;
-    data->name_pattern = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
-    data->content_pattern = gtk_entry_get_text (GTK_ENTRY (dialog->priv->find_text_entry));
+    data->name_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->pattern_combo));
+    data->content_pattern = gtk_combo_box_get_active_text (GTK_COMBO_BOX (dialog->priv->find_text_combo));
     data->dir = gtk_entry_get_text (GTK_ENTRY (dialog->priv->dir_entry));
     data->context_id = gtk_statusbar_get_context_id (GTK_STATUSBAR (data->dialog->priv->statusbar), "info");
     data->content_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->find_text_check));
@@ -497,14 +546,15 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     // create an re for filename matching
     data->name_filter = filter_new (data->name_pattern, data->case_sens, gnome_cmd_data_get_filter_type ());
 
-
     // if we're going to search through file content create an re for that too
     if (data->content_search)
     {
         data->content_regex = g_new0 (regex_t, 1);
-        regcomp (data->content_regex, data->content_pattern, 0);
+        regcomp (data->content_regex, data->content_pattern, data->case_sens ? 0 : REG_ICASE);
     }
 
+    if (dialog->priv->data->search_mem == NULL)
+        dialog->priv->data->search_mem = (gchar *) g_malloc(SEARCH_BUFFER_SIZE);
 
     // start the search
     path = gnome_cmd_con_create_path (dialog->priv->con, data->dir);
@@ -512,7 +562,10 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     gnome_cmd_dir_ref (data->start_dir);
 
     data->search_done = FALSE;
-    data->pdata.mutex = g_mutex_new ();
+
+    if (data->pdata.mutex == NULL)
+      data->pdata.mutex = g_mutex_new ();
+
     data->thread = g_thread_create ((GThreadFunc)perform_search_operation, data, TRUE, NULL);
 
     gtk_widget_show (data->dialog->priv->pbar);
@@ -613,13 +666,19 @@ static gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, 
     return FALSE;
 }
 
-
-static gboolean on_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDialog *dialog)
+/*
+ *
+ */
+static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event, gpointer dialog)
 {
-    if (gnome_cmd_file_list_keypressed (fl, event) || handle_list_keypress (fl, event, dialog))
-        stop_kp (GTK_OBJECT (fl));
+    if (gnome_cmd_file_list_keypressed (GNOME_CMD_FILE_LIST (result_list), event) ||
+        handle_list_keypress (GNOME_CMD_FILE_LIST (result_list), event, GNOME_CMD_SEARCH_DIALOG (dialog)))
+    {
+        stop_kp (GTK_OBJECT (result_list));
+        return TRUE;
+    }
 
-    return TRUE;
+    return FALSE;
 }
 
 
@@ -632,7 +691,7 @@ static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDial
     if (gtk_toggle_button_get_active (togglebutton))
     {
         gtk_widget_set_sensitive (dialog->priv->find_text_combo, TRUE);
-        gtk_widget_grab_focus (dialog->priv->find_text_entry);
+        gtk_widget_grab_focus (dialog->priv->find_text_combo);
     }
     else
         gtk_widget_set_sensitive (dialog->priv->find_text_combo, FALSE);
@@ -646,8 +705,12 @@ static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDial
 static void destroy (GtkObject *object)
 {
     GnomeCmdSearchDialog *dialog = GNOME_CMD_SEARCH_DIALOG (object);
-    if (dialog->priv)
+
+    if (dialog->priv != NULL)
+    {
         g_free (dialog->priv);
+        dialog->priv = NULL;
+    }
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -673,6 +736,64 @@ static void class_init (GnomeCmdSearchDialogClass *klass)
     widget_class->map = ::map;
 }
 
+/*
+ * create a label with keyboard shortcut and a widget to activate
+ * if shortcut is pressed.
+ */
+inline GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, GtkWidget *for_widget)
+{
+    GtkWidget *label;
+
+    label = gtk_label_new_with_mnemonic (text);
+    if (for_widget != NULL)
+      gtk_label_set_mnemonic_widget (GTK_LABEL (label), for_widget);
+
+    gtk_widget_ref (label);
+    gtk_object_set_data_full (GTK_OBJECT (parent), "label", label,
+                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_show (label);
+    gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
+
+    return label;
+}
+
+/*
+ * create a check_box_button with keyboard shortcut
+ */
+inline GtkWidget *create_check_with_mnemonic (GtkWidget *parent, gchar *text, gchar *name)
+{
+    GtkWidget *btn = gtk_check_button_new_with_mnemonic (text);
+
+    gtk_widget_ref (btn);
+    gtk_object_set_data_full (GTK_OBJECT (parent), name, btn, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_show (btn);
+
+    return btn;
+}
+
+/*
+ * create a gtk_combo_box_entry_new_text.
+ * gtk_combo is deprecated.
+ */
+inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
+{
+    GtkWidget *combo = gtk_combo_box_entry_new_text ();
+    gtk_widget_ref (combo);
+    gtk_object_set_data_full (GTK_OBJECT (parent), "combo", combo,
+                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_show (combo);
+    return combo;
+}
+
+/*
+ * callback function for 'g_list_foreach' to add default value
+ * to dropdownbox
+ */
+static void combo_box_insert_text (gpointer  data, gpointer  user_data)
+{
+  gtk_combo_box_append_text (GTK_COMBO_BOX (user_data), (gchar *) data);
+}
+
 
 static void init (GnomeCmdSearchDialog *dialog)
 {
@@ -687,13 +808,6 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     dialog->priv = g_new0 (GnomeCmdSearchDialogPrivate, 1);
     dialog->priv->data = g_new0 (SearchData, 1);
-    dialog->priv->data->match_dirs = NULL;
-    dialog->priv->data->thread = NULL;
-    dialog->priv->data->search_done = TRUE;
-
-    dialog->priv->data->pdata.files = NULL;
-    dialog->priv->data->pdata.msg = NULL;
-    dialog->priv->data->pdata.mutex = NULL;
 
     window = GTK_WIDGET (dialog);
     gtk_object_set_data (GTK_OBJECT (window), "window", window);
@@ -710,22 +824,22 @@ static void init (GnomeCmdSearchDialog *dialog)
     gtk_box_pack_start (GTK_BOX (vbox1), table, FALSE, TRUE, 0);
 
     // Search for
-    label = create_label (window, _("Search for: "));
+    dialog->priv->pattern_combo = create_combo_box_entry (window);
+    label = create_label_with_mnemonic (window, _("Search _for: "), dialog->priv->pattern_combo);
     table_add (table, label, 0, 0, GTK_FILL);
 
-    dialog->priv->pattern_combo = create_combo (window);
     table_add (table, dialog->priv->pattern_combo, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     if (defaults->name_patterns)
-        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo), defaults->name_patterns);
+      g_list_foreach (defaults->name_patterns, combo_box_insert_text, dialog->priv->pattern_combo);
 
-    dialog->priv->pattern_entry = GTK_COMBO (dialog->priv->pattern_combo)->entry;
-    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->pattern_entry));
+    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->pattern_combo), 0);
+    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo))));
 
     // Search in
-    label = create_label (window, _("Search in: "));
+    dialog->priv->dir_browser = create_file_entry (window, "dir_browser", "");
+    label = create_label_with_mnemonic (window, _("Search _in: "), dialog->priv->dir_browser);
     table_add (table, label, 0, 1, GTK_FILL);
 
-    dialog->priv->dir_browser = create_file_entry (window, "dir_browser", "");
     table_add (table, dialog->priv->dir_browser, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     if (defaults->directories)
         gtk_combo_set_popdown_strings (
@@ -736,28 +850,28 @@ static void init (GnomeCmdSearchDialog *dialog)
         gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser));
 
     // Find text
-    dialog->priv->find_text_check = create_check (window, _("Find text: "), "find_text");
+    dialog->priv->find_text_check = create_check_with_mnemonic (window, _("Find _text: "), "find_text");
     table_add (table, dialog->priv->find_text_check, 0, 2, GTK_FILL);
 
-    dialog->priv->find_text_combo = create_combo (window);
+    dialog->priv->find_text_combo = create_combo_box_entry (window);
     table_add (table, dialog->priv->find_text_combo, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_widget_set_sensitive (dialog->priv->find_text_combo, FALSE);
     if (defaults->content_patterns)
-        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->find_text_combo), defaults->content_patterns);
+      g_list_foreach (defaults->content_patterns, combo_box_insert_text, dialog->priv->find_text_combo);
 
-    dialog->priv->find_text_entry = GTK_COMBO (dialog->priv->find_text_combo)->entry;
-    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->find_text_entry));
+    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->find_text_combo), 0);
+    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->find_text_combo))));
 
 
     // Recurse check
-    dialog->priv->recurse_check = create_check (window, _("Search Recursively"), "recurse_check");
+    dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
     gtk_table_attach (GTK_TABLE (table), dialog->priv->recurse_check, 0, 2, 3, 4,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults->recursive);
 
     // Case check
-    dialog->priv->case_check = create_check (window, _("Case Sensitive"), "case_check");
+    dialog->priv->case_check = create_check_with_mnemonic (window, _("_Case sensitive"), "case_check");
     gtk_table_attach (GTK_TABLE (table), dialog->priv->case_check, 0, 2, 4, 5,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
@@ -808,17 +922,16 @@ static void init (GnomeCmdSearchDialog *dialog)
     dialog->priv->pbar = pbar;
 
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "destroy", GTK_SIGNAL_FUNC (on_dialog_destroy), NULL);
-    gtk_signal_connect (GTK_OBJECT (dialog), "size-allocate", GTK_SIGNAL_FUNC (on_dialog_size_allocate), NULL);
-    gtk_signal_connect (GTK_OBJECT (dialog->priv->result_list), "key-press-event", GTK_SIGNAL_FUNC (on_list_keypressed), dialog);
-    gtk_signal_connect (GTK_OBJECT (dialog->priv->result_list), "file-clicked", GTK_SIGNAL_FUNC (on_list_file_clicked), dialog);
+    g_signal_connect (G_OBJECT (dialog), "destroy", G_CALLBACK (on_dialog_destroy), NULL);
+    g_signal_connect (G_OBJECT (dialog), "size-allocate", G_CALLBACK (on_dialog_size_allocate), NULL);
+    g_signal_connect (G_OBJECT (dialog->priv->result_list), "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
+    g_signal_connect (G_OBJECT (dialog->priv->result_list), "file-clicked", G_CALLBACK (on_list_file_clicked), dialog);
 
-    gtk_signal_connect (GTK_OBJECT (dialog->priv->pattern_entry),
-                        "key-press-event",
-                        GTK_SIGNAL_FUNC (on_pattern_entry_keypressed), dialog);
     gtk_signal_connect (GTK_OBJECT (dialog->priv->find_text_check), "toggled", GTK_SIGNAL_FUNC (find_text_toggled), dialog);
 
-    gtk_widget_grab_focus (dialog->priv->pattern_entry);
+    gtk_window_set_keep_above (GTK_WINDOW (dialog), FALSE);
+
+    gtk_widget_grab_focus (dialog->priv->pattern_combo);
     gnome_cmd_file_list_update_style (GNOME_CMD_FILE_LIST (dialog->priv->result_list));
 }
 

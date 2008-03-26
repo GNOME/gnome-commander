@@ -1,3 +1,8 @@
+2008-03-26  Thomas Kordelle <thomas@kordelle.de>
+
+	* src/gnome-cmd-search-dialog.cc:
+	Bugfixes + added accelerators to the search dlg
+
 2008-03-21  Leonardo Valeri Manera <l.valerimanera@gmail.com>
 
 	* data/gnome-commander.ebuild:
