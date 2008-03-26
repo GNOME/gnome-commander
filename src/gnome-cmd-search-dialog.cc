@@ -20,6 +20,7 @@
 #include <config.h>
 #include <sys/types.h>
 #include <regex.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-search-dialog.h"
 #include "gnome-cmd-dir.h"
@@ -54,12 +55,12 @@ struct SearchData
     regex_t *content_regex;
     gboolean content_search;                // should we do content search?
     gint matches;                           // the number of matching files
-    gint context_id;                        // the context id of the statusbar
+    gint context_id;                        // the context id of the status bar
     GnomeCmdSearchDialog *dialog;
     gboolean recurse;                       // should we recurse or just search in the selected directory?
     gboolean case_sens;
-    GList *match_dirs;                      // The directories which we found matching files in
-    GnomeCmdDir *start_dir;                 // The directory to start searching from
+    GList *match_dirs;                      // the directories which we found matching files in
+    GnomeCmdDir *start_dir;                 // the directory to start searching from
     GThread *thread;
     ProtectedData pdata;
     gint update_gui_timeout_id;
@@ -229,7 +230,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
     }
 
 
-    // If the stopbutton was pressed let's abort here
+    // If the stop button was pressed let's abort here
     if (data->stopped)
         return;
 
@@ -248,7 +249,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
-        // If the stopbutton was pressed let's abort here
+        // If the stop button was pressed let's abort here
         if (data->stopped)
             return;
 
@@ -269,7 +270,7 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
                     gnome_cmd_dir_unref (new_dir);
                 }
 
-                // If the stopbutton was pressed let's abort here
+                // If the stop button was pressed let's abort here
                 if (data->stopped)
                     return;
             }
@@ -355,10 +356,10 @@ static gboolean update_search_status_widgets (SearchData *data)
         data->pdata.files = NULL;
     }
 
-    // Update statusbar with the latest message
+    // Update status bar with the latest message
     set_statusmsg (data, data->pdata.msg);
 
-    // Update the progressbar
+    // Update the progress bar
     progress_bar_update (data->dialog->priv->pbar, PBAR_MAX);
 
     g_mutex_unlock (data->pdata.mutex);
@@ -541,7 +542,7 @@ static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
  */
 static void on_help (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
-    gnome_cmd_help_display("gnome-commander.xml", "gnome-commander-search");
+    gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-search");
 }
 
 
@@ -764,7 +765,7 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     dialog->priv->help_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
     dialog->priv->close_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close), dialog);
-    dialog->priv->goto_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("Goto"), GTK_SIGNAL_FUNC (on_goto), dialog);
+    dialog->priv->goto_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Goto"), GTK_SIGNAL_FUNC (on_goto), dialog);
     dialog->priv->stop_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_STOP, GTK_SIGNAL_FUNC (on_stop), dialog);
     dialog->priv->search_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_FIND, GTK_SIGNAL_FUNC (on_search), dialog);
 

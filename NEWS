@@ -3,7 +3,7 @@ gnome-commander 1.2.6
 ---------------
 
 Bug fixes:
- * Fixed problem #... (...)
+ * Fixed problem #392959 (dynamically changing user to root)
  * Fixed problem with sorting of UTF-8 encoded file names
 
 New features:

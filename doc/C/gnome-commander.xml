@@ -5818,7 +5818,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem #... (...)</para>
+                            <para>Fixed problem #392959 (dynamically changing user to root)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem with sorting of UTF-8 encoded file names</para>
