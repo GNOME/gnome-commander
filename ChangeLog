@@ -1,4 +1,4 @@
-2008-03-26  Thomas Kordelle <thomas@kordelle.de>
+2008-03-26  Thomas Kordelle
 
 	* src/gnome-cmd-search-dialog.cc:
 	Bugfixes + added accelerators to the search dlg
