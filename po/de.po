@@ -2107,32 +2107,32 @@ msgstr "Suchen …"
 
 #. Search for
 #: ../src/gnome-cmd-search-dialog.cc:727
-msgid "Search for: "
-msgstr "Suche nach: "
+msgid "Search _for: "
+msgstr "Suche _nach: "
 
 #. Search in
 #: ../src/gnome-cmd-search-dialog.cc:739
-msgid "Search in: "
-msgstr "Suche in: "
+msgid "Search _in: "
+msgstr "Suche _in: "
 
 #. Find text
 #: ../src/gnome-cmd-search-dialog.cc:753
-msgid "Find text: "
-msgstr "Text finden: "
+msgid "Find _text: "
+msgstr "_Text finden: "
 
 #. Recurse check
 #: ../src/gnome-cmd-search-dialog.cc:767
-msgid "Search Recursively"
-msgstr "Rekursive Suche"
+msgid "Search _recursively"
+msgstr "_Rekursive suche"
 
 #. Case check
 #: ../src/gnome-cmd-search-dialog.cc:774 ../src/tags/gnome-cmd-tags.cc:147
-msgid "Case Sensitive"
-msgstr "Groß-/Kleinschreibung beachten"
+msgid "_Case sensitive"
+msgstr "Groß-/_Kleinschreibung beachten"
 
 #: ../src/gnome-cmd-search-dialog.cc:785
-msgid "Goto"
-msgstr "Gehe zu"
+msgid "_Goto"
+msgstr "_Gehe zu"
 
 #: ../src/gnome-cmd-smb-auth.cc:33
 msgid "Enter password"
