@@ -1,3 +1,8 @@
+2008-03-31  Thomas Kordelle
+
+	* libgcmd/gnome-cmd-dialog.c:
+	Fix for memory leak
+
 2008-03-26  Thomas Kordelle
 
 	* src/gnome-cmd-search-dialog.cc:

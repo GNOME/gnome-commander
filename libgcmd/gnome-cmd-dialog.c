@@ -37,7 +37,7 @@ static gboolean on_dialog_keypressed (GtkWidget *dialog, GdkEventKey *event, gpo
 {
     if (event->keyval == GDK_Escape)
     {
-        gtk_widget_hide (dialog);
+        gtk_widget_destroy (dialog);
         return TRUE;
     }
 
