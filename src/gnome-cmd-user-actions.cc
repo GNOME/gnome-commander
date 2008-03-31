@@ -509,6 +509,28 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
 }
 
 
+GtkTreeModel *gnome_cmd_user_actions_create_model ()
+{
+    GtkListStore *model = gtk_list_store_new (3, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
+    GtkTreeIter iter;
+
+    // sort store according to description column (respecting user's locale)
+
+    for (guint i=0; i<G_N_ELEMENTS(user_actions_data); ++i)
+    {
+        gtk_list_store_append (model, &iter);
+
+        gtk_list_store_set (model, &iter,
+                                   0, user_actions_data[i].func,
+                                   1, user_actions_data[i].name,
+                                   2, _(user_actions_data[i].description),
+                                   -1);
+    }
+
+    return GTK_TREE_MODEL (model);
+}
+
+
 /***************************************/
 void no_action (GtkMenuItem *menuitem, gpointer not_used)
 {

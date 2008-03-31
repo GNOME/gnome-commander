@@ -1,3 +1,9 @@
+2008-03-31  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Added gnome_cmd_user_actions_create_model() function
+
 2008-03-31  Thomas Kordelle
 
 	* libgcmd/gnome-cmd-dialog.c:
