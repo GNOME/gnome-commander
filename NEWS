@@ -5,6 +5,7 @@ gnome-commander 1.2.6
 Bug fixes:
  * Fixed problem #392959 (dynamically changing user to root)
  * Fixed problem with sorting of UTF-8 encoded file names
+ * Fixed problem with copying files to symlinked directories
 
 New features:
  * Root Mode for starting GNOME Commander with administrator privileges

@@ -467,7 +467,8 @@ GnomeVFSResult gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar
     GnomeCmdPath *path = gnome_cmd_con_create_path (con, path_str);
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, path);
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_DEFAULT;
+    GnomeVFSFileInfoOptions infoOpts = info->type!=GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK ? GNOME_VFS_FILE_INFO_DEFAULT
+                                                                                     : (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_DEFAULT | GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
 
     if (res == GNOME_VFS_OK)

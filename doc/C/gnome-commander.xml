@@ -5823,6 +5823,9 @@
                         <listitem>
                             <para>Fixed problem with sorting of UTF-8 encoded file names</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem with copying files to symlinked directories</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

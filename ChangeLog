@@ -3,6 +3,9 @@
 	* libgcmd/gnome-cmd-dialog.c:
 	Fix for memory leak
 
+	* src/gnome-cmd-con.cc:
+	Fixed problem with copying files to symlinked directories
+
 2008-03-26  Thomas Kordelle
 
 	* src/gnome-cmd-search-dialog.cc:
