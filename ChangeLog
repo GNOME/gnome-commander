@@ -6,6 +6,9 @@
 	* src/gnome-cmd-con.cc:
 	Fixed problem with copying files to symlinked directories
 
+	* src/gnome-cmd-quicksearch-popup.cc:
+	Allow Fx functions when in quicksearch mode editing
+
 2008-03-26  Thomas Kordelle
 
 	* src/gnome-cmd-search-dialog.cc:
