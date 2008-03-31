@@ -223,6 +223,8 @@ inline GtkTreeViewColumn *create_new_text_column (GtkTreeView *view, GtkCellRend
                   "resizable", TRUE,
                   NULL);
 
+    g_object_set_data (G_OBJECT (renderer), "column", GINT_TO_POINTER (COL_ID));
+
     // pack tree view column into tree view
     gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
 
@@ -262,21 +264,27 @@ inline GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRen
 }
 
 
-inline GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
+inline GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeModel *model, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
 {
     renderer = gtk_cell_renderer_combo_new ();
+
+    g_object_set (renderer,
+                  "model", model,
+                  "text-column", 2,
+                  "has-entry", FALSE,
+                  "editable", TRUE,
+                  NULL);
 
     GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
                                                                        renderer,
                                                                        "text", COL_ID,
-                                                                       "has-entry", TRUE,
-                                                                       // "model", ...,
-                                                                       // "text-column", ...,
                                                                        NULL);
     g_object_set (col,
                   "clickable", TRUE,
                   "resizable", TRUE,
                   NULL);
+
+    g_object_set_data (G_OBJECT (renderer), "column", GINT_TO_POINTER (COL_ID));
 
     // pack tree view column into tree view
     gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
@@ -321,8 +329,8 @@ inline GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
 
     GtkTooltips *tips = gtk_tooltips_new ();
 
-    col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_SHORTCUT, "test: [key-bindings]"); // FIXME: temporarily, to be removed
-    gtk_tooltips_set_tip (tips, col->button, "Keyboard shortcuts as specified in ~/.gnome2/gnome-commander", NULL);          // FIXME: temporarily, to be removed
+    col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_SHORTCUT, "test: [key-bindings]");               // FIXME: temporarily, to be removed
+    gtk_tooltips_set_tip (tips, col->button, "Keyboard shortcuts as specified in ~/.gnome2/gnome-commander", NULL);    // FIXME: temporarily, to be removed
 
     g_object_set (renderer,
                   "foreground-set", TRUE,
@@ -336,13 +344,14 @@ inline GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
     g_signal_connect (renderer, "accel-edited", G_CALLBACK (accel_edited_callback), view);
     // g_signal_connect (renderer, "accel-cleared", G_CALLBACK (gimp_action_view_accel_cleared), view);
 
-    col = create_new_combo_column (GTK_TREE_VIEW (view), renderer, COL_ACTION, _("Action"));
+    GtkTreeModel *combo_model = gnome_cmd_user_actions_create_model ();
+
+    col = create_new_combo_column (GTK_TREE_VIEW (view), combo_model, renderer, COL_ACTION, _("Action"));
     gtk_tooltips_set_tip (tips, col->button, _("User action"), NULL);
     gtk_tree_view_column_set_sort_column_id (col, SORTID_ACTION);
+    g_signal_connect (renderer, "edited", (GCallback) cell_edited_callback, view);
 
-    g_object_set (renderer,
-                  "editable", TRUE,
-                  NULL);
+    g_object_unref (combo_model);          // destroy model automatically with view
 
     col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_OPTION, _("Options"));
     gtk_tooltips_set_tip (tips, col->button, _("Optional data"), NULL);
@@ -575,9 +584,11 @@ static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string,
     GtkTreePath *path = gtk_tree_path_new_from_string (path_string);
     GtkTreeIter iter;
 
+    gint col = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (cell), "column"));
+
     if (gtk_tree_model_get_iter (model, &iter, path))
         gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                            COL_OPTION, new_text,
+                            col, new_text,
                             -1);
 }
 
