@@ -65,23 +65,15 @@ static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
     g_return_if_fail (in_finfo != NULL);
     g_return_if_fail (in_finfo->info != NULL);
 
-    if (!(recursive && mode == CHMOD_DIRS_ONLY
-          && in_finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY))
+    if (!(recursive && mode == CHMOD_DIRS_ONLY && in_finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY))
     {
         GnomeVFSResult ret = gnome_cmd_file_chmod (in_finfo, perm);
 
         if (ret != GNOME_VFS_OK)
-        {
-            gchar *fpath = gnome_cmd_file_get_real_path (in_finfo);
-            gchar *msg = g_strdup_printf (_("Could not chmod %s\n%s"), fpath, gnome_vfs_result_to_string (ret));
-            create_error_dialog (msg);
-            g_free (msg);
-            g_free (fpath);
-        }
-        else if (!recursive)
-        {
-            return;
-        }
+            gnome_cmd_show_message (NULL, gnome_cmd_file_get_name (in_finfo), gnome_vfs_result_to_string (ret));
+        else
+            if (!recursive)
+                return;
     }
 
     if (in_finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
@@ -108,7 +100,7 @@ static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
 }
 
 
-static void do_chmod_files (GnomeCmdChmodDialog *dialog)
+inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
 {
     for (GList *tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
@@ -124,11 +116,9 @@ static void do_chmod_files (GnomeCmdChmodDialog *dialog)
 }
 
 
-static void show_perms (GnomeCmdChmodDialog *dialog)
+inline void show_perms (GnomeCmdChmodDialog *dialog)
 {
-    gnome_cmd_chmod_component_set_perms (
-        GNOME_CMD_CHMOD_COMPONENT (dialog->priv->chmod_component),
-        dialog->priv->perms);
+    gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (dialog->priv->chmod_component), dialog->priv->perms);
 }
 
 
@@ -164,8 +154,7 @@ static void on_perms_changed (GnomeCmdChmodComponent *component, GnomeCmdChmodDi
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdChmodDialog *dialog = GNOME_CMD_CHMOD_DIALOG (object);
 
@@ -176,16 +165,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdChmodDialogClass *klass)
+static void class_init (GnomeCmdChmodDialogClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -196,8 +183,7 @@ class_init (GnomeCmdChmodDialogClass *klass)
 }
 
 
-static void
-init (GnomeCmdChmodDialog *dialog)
+static void init (GnomeCmdChmodDialog *dialog)
 {
     GtkWidget *chmod_dialog = GTK_WIDGET (dialog);
     GtkWidget *vbox;
@@ -249,8 +235,7 @@ init (GnomeCmdChmodDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_chmod_dialog_new (GList *files)
+GtkWidget *gnome_cmd_chmod_dialog_new (GList *files)
 {
     g_return_val_if_fail (files != NULL, NULL);
 
@@ -275,8 +260,7 @@ gnome_cmd_chmod_dialog_new (GList *files)
 }
 
 
-GtkType
-gnome_cmd_chmod_dialog_get_type         (void)
+GtkType gnome_cmd_chmod_dialog_get_type (void)
 {
     static GtkType dlg_type = 0;
 

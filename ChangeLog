@@ -4,10 +4,10 @@
 	* src/gnome-cmd-user-actions.h:
 	Added gnome_cmd_user_actions_create_model() function
 
-	* src/eggaccelerators.h:
 	* src/eggaccelerators.cc:
-	* src/eggcellrendererkeys.h:
+	* src/eggaccelerators.h:
 	* src/eggcellrendererkeys.cc:
+	* src/eggcellrendererkeys.h:
 	Added libegg cell renderer and accelerators
 
 2008-03-31  Thomas Kordelle

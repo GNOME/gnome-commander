@@ -46,8 +46,7 @@ static GtkVBoxClass *parent_class = NULL;
 static guint chmod_component_signals[LAST_SIGNAL] = { 0 };
 
 
-static void
-on_perms_changed (GnomeCmdChmodComponent *comp)
+static void on_perms_changed (GnomeCmdChmodComponent *comp)
 {
     static gchar text_view[10];
     static gchar number_view[4];
@@ -61,8 +60,7 @@ on_perms_changed (GnomeCmdChmodComponent *comp)
 }
 
 
-static void
-on_check_toggled (GtkToggleButton *togglebutton, GnomeCmdChmodComponent *component)
+static void on_check_toggled (GtkToggleButton *togglebutton, GnomeCmdChmodComponent *component)
 {
     gtk_signal_emit (GTK_OBJECT (component), chmod_component_signals[PERMS_CHANGED]);
 }
@@ -72,8 +70,7 @@ on_check_toggled (GtkToggleButton *togglebutton, GnomeCmdChmodComponent *compone
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdChmodComponent *comp = GNOME_CMD_CHMOD_COMPONENT (object);
 
@@ -84,16 +81,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdChmodComponentClass *klass)
+static void class_init (GnomeCmdChmodComponentClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -115,8 +110,7 @@ class_init (GnomeCmdChmodComponentClass *klass)
 }
 
 
-static void
-init (GnomeCmdChmodComponent *comp)
+static void init (GnomeCmdChmodComponent *comp)
 {
     GtkWidget *label;
     GtkWidget *hsep;
@@ -140,8 +134,7 @@ init (GnomeCmdChmodComponent *comp)
 
         for (gint x=0; x<3; x++)
         {
-            comp->priv->check_boxes[y][x] =
-                create_check (GTK_WIDGET (comp), check_text[x], "check");
+            comp->priv->check_boxes[y][x] = create_check (GTK_WIDGET (comp), check_text[x], "check");
             gtk_signal_connect (GTK_OBJECT (comp->priv->check_boxes[y][x]), "toggled",
                                 GTK_SIGNAL_FUNC (on_check_toggled), comp);
             table_add (GTK_WIDGET (table), comp->priv->check_boxes[y][x], x+1, y, GTK_FILL);
@@ -174,8 +167,7 @@ init (GnomeCmdChmodComponent *comp)
  * Public functions
  ***********************************/
 
-GtkWidget*
-gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms)
+GtkWidget *gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms)
 {
     GnomeCmdChmodComponent *comp = (GnomeCmdChmodComponent *) gtk_type_new (gnome_cmd_chmod_component_get_type ());
 
@@ -185,8 +177,7 @@ gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms)
 }
 
 
-GtkType
-gnome_cmd_chmod_component_get_type (void)
+GtkType gnome_cmd_chmod_component_get_type (void)
 {
     static GtkType type = 0;
 

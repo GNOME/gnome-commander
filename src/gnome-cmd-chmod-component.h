@@ -51,17 +51,11 @@ struct _GnomeCmdChmodComponentClass
 };
 
 
-GtkWidget*
-gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms);
+GtkWidget *gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms);
 
-GtkType
-gnome_cmd_chmod_component_get_type (void);
+GtkType gnome_cmd_chmod_component_get_type (void);
 
-GnomeVFSFilePermissions
-gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *component);
-
-void
-gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component,
-                                     GnomeVFSFilePermissions perms);
+GnomeVFSFilePermissions gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *component);
+void gnome_cmd_chmod_component_set_perms (GnomeCmdChmodComponent *component, GnomeVFSFilePermissions perms);
 
 #endif // __GNOME_CMD_CHMOD_COMPONENT_H__
