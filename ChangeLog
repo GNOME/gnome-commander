@@ -1,3 +1,10 @@
+2008-04-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/eggaccelerators.cc:
+	* src/eggcellrendererkeys.cc:
+	* src/gnome-cmd-key-shortcuts-dialog.cc:
+	Use libegg cell renderer and accelerators
+
 2008-03-31  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:

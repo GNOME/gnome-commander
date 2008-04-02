@@ -363,21 +363,21 @@ gboolean egg_accelerator_parse_virtual (const gchar *accelerator, guint *acceler
  */
 gchar *egg_virtual_accelerator_name (guint accelerator_key, EggVirtualModifierType accelerator_mods)
 {
-    static const gchar text_release[] = "<Release>";
-    static const gchar text_shift[] = "<Shift>";
-    static const gchar text_control[] = "<Control>";
-    static const gchar text_mod1[] = "<Alt>";
-    static const gchar text_mod2[] = "<Mod2>";
-    static const gchar text_mod3[] = "<Mod3>";
-    static const gchar text_mod4[] = "<Mod4>";
-    static const gchar text_mod5[] = "<Mod5>";
-    static const gchar text_meta[] = "<Meta>";
-    static const gchar text_super[] = "<Super>";
-    static const gchar text_hyper[] = "<Hyper>";
+    static const gchar text_release[] = "Release+";
+    static const gchar text_shift[] = "Shift+";
+    static const gchar text_control[] = "Ctrl+";
+    static const gchar text_mod1[] = "Alt+";
+    static const gchar text_mod2[] = "Mod2+";
+    static const gchar text_mod3[] = "Mod3+";
+    static const gchar text_mod4[] = "Mod4+";
+    static const gchar text_mod5[] = "Mod5+";
+    static const gchar text_meta[] = "Meta+";
+    static const gchar text_super[] = "Super+";
+    static const gchar text_hyper[] = "Hyper+";
 
     (guint &) accelerator_mods &= EGG_VIRTUAL_MODIFIER_MASK;
 
-    gchar *keyval_name = gdk_keyval_name (gdk_keyval_to_lower (accelerator_key));
+    gchar *keyval_name = gdk_keyval_name (gdk_keyval_to_upper (accelerator_key));
     if (!keyval_name)
         keyval_name = "";
 

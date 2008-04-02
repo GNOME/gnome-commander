@@ -21,6 +21,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-key-shortcuts-dialog.h"
+#include "eggcellrendererkeys.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-hintbox.h"
 #include "dict.h"
@@ -242,15 +243,15 @@ inline GtkTreeViewColumn *create_new_text_column (GtkTreeView *view, gint COL_ID
 
 inline GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title=NULL)
 {
-    renderer = gtk_cell_renderer_accel_new ();
-    renderer->mode = GTK_CELL_RENDERER_MODE_EDITABLE;
-    GTK_CELL_RENDERER_TEXT (renderer)->editable = TRUE;
+    renderer = (GtkCellRenderer *) g_object_new (EGG_TYPE_CELL_RENDERER_KEYS,
+                                                 "editable", TRUE,
+                                                 "accel-mode", EGG_CELL_RENDERER_KEYS_MODE_GTK,
+                                                 NULL);
 
     GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
                                                                        renderer,
                                                                        "accel-key", COL_KEYS_ID,
                                                                        "accel-mods", COL_MODS_ID,
-                                                                       // "accel-mode", GTK_CELL_RENDERER_ACCEL_MODE_OTHER,
                                                                        NULL);
     g_object_set (col,
                   "clickable", TRUE,
@@ -342,7 +343,11 @@ inline GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
     gtk_tree_view_column_set_sort_column_id (col, SORTID_ACCEL);
 
     g_signal_connect (renderer, "accel-edited", G_CALLBACK (accel_edited_callback), view);
-    // g_signal_connect (renderer, "accel-cleared", G_CALLBACK (gimp_action_view_accel_cleared), view);
+
+    g_object_set (renderer,
+                  "ellipsize-set", TRUE,
+                  "ellipsize", PANGO_ELLIPSIZE_END,
+                  NULL);
 
     GtkTreeModel *combo_model = gnome_cmd_user_actions_create_model ();
 

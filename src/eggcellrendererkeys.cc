@@ -94,13 +94,13 @@ GType egg_cell_renderer_keys_get_type (void)
     {
         static const GTypeInfo cell_keys_info =
         {
-            sizeof (EggCellRendererKeysClass),
+            sizeof(EggCellRendererKeysClass),
             NULL,                /* base_init */
             NULL,                /* base_finalize */
-            (GClassInitFunc)egg_cell_renderer_keys_class_init,
+            (GClassInitFunc) egg_cell_renderer_keys_class_init,
             NULL,                /* class_finalize */
             NULL,                /* class_data */
-            sizeof (EggCellRendererKeys),
+            sizeof(EggCellRendererKeys),
             0,              /* n_preallocs */
             (GInstanceInitFunc) egg_cell_renderer_keys_init
         };
@@ -176,11 +176,9 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
 
     object_class->finalize = egg_cell_renderer_keys_finalize;
 
-    // FIXME if this gets moved to a real library, rename the properties to match whatever the GTK convention is
-
     g_object_class_install_property (object_class,
                                      PROP_ACCEL_KEY,
-                                     g_param_spec_uint ("accel_key",
+                                     g_param_spec_uint ("accel-key",
                                                        _("Accelerator key"),
                                                        _("Accelerator key"),
                                                         0,
@@ -190,7 +188,7 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
 
     g_object_class_install_property (object_class,
                                      PROP_ACCEL_MASK,
-                                     g_param_spec_flags ("accel_mask",
+                                     g_param_spec_flags ("accel-mods",
                                                          _("Accelerator modifiers"),
                                                          _("Accelerator modifiers"),
                                                          GDK_TYPE_MODIFIER_TYPE,
@@ -200,7 +198,7 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
     /* FIXME: Register the enum when moving to GTK+ */
     g_object_class_install_property (object_class,
                                      PROP_ACCEL_MODE,
-                                     g_param_spec_int ("accel_mode",
+                                     g_param_spec_int ("accel-mode",
                                                        _("Accelerator Mode"),
                                                        _("The type of accelerator."),
                                                        0,
@@ -208,7 +206,7 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
                                                        0,
                                                         GParamFlags(G_PARAM_READABLE | G_PARAM_WRITABLE)));
 
-    g_signal_new ("keys_edited",
+    g_signal_new ("accel-edited",
                   EGG_TYPE_CELL_RENDERER_KEYS,
                   G_SIGNAL_RUN_LAST,
                   G_STRUCT_OFFSET (EggCellRendererKeysClass, keys_edited),
@@ -325,7 +323,7 @@ void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
     GtkRequisition requisition;
 
     if (keys->sizing_label == NULL)
-        keys->sizing_label = gtk_label_new (_("Type a new accelerator, or press Backspace to clear"));
+        keys->sizing_label = gtk_label_new (_("Type a new accelerator"));
 
     gtk_widget_size_request (keys->sizing_label, &requisition);
     (* GTK_CELL_RENDERER_CLASS (parent_class)->get_size) (cell, widget, cell_area, x_offset, y_offset, width, height);
@@ -417,7 +415,7 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, void *
     keys->grab_widget = NULL;
 
     if (edited)
-        g_signal_emit_by_name (G_OBJECT (keys), "keys_edited", path, accel_keyval, accel_mods, event->hardware_keycode);
+        g_signal_emit_by_name (G_OBJECT (keys), "accel-edited", path, accel_keyval, accel_mods, event->hardware_keycode);
 
     g_free (path);
 
@@ -529,7 +527,7 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
     gtk_widget_modify_fg (label, GTK_STATE_NORMAL, &widget->style->fg[GTK_STATE_SELECTED]);
 
     if (keys->accel_key != 0)
-        gtk_label_set_text (GTK_LABEL (label), _("Type a new accelerator, or press Backspace to clear"));
+        gtk_label_set_text (GTK_LABEL (label), _("Type a new accelerator"));
     else
         gtk_label_set_text (GTK_LABEL (label), _("Type a new accelerator"));
 
@@ -558,7 +556,7 @@ void egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint ke
     if (keyval != keys->accel_key)
     {
         keys->accel_key = keyval;
-        g_object_notify (G_OBJECT (keys), "accel_key");
+        g_object_notify (G_OBJECT (keys), "accel-key");
         changed = TRUE;
     }
 
@@ -566,7 +564,7 @@ void egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint ke
     {
         keys->accel_mask = mask;
 
-        g_object_notify (G_OBJECT (keys), "accel_mask");
+        g_object_notify (G_OBJECT (keys), "accel-mods");
         changed = TRUE;
     }
 
