@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-05 22:06+0000\n"
-"PO-Revision-Date: 2008-03-07 09:58+0100\n"
+"POT-Creation-Date: 2008-03-31 22:42+0100\n"
+"PO-Revision-Date: 2008-04-01 10:00+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,8 +33,10 @@ msgstr "GNOME Commander"
 msgid "No error description available"
 msgstr "No hay descripción de error disponible"
 
+#. destroy model automatically with view
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:361
 #: ../src/gnome-cmd-options-dialog.cc:1179
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
@@ -162,6 +164,31 @@ msgid "%d file listed"
 msgid_plural "%d files listed"
 msgstr[0] "%d archivo listado"
 msgstr[1] "%d archivos listados"
+
+#: ../src/eggcellrendererkeys.cc:182 ../src/eggcellrendererkeys.cc:183
+msgid "Accelerator key"
+msgstr "Tecla del acelerador"
+
+#: ../src/eggcellrendererkeys.cc:192 ../src/eggcellrendererkeys.cc:193
+msgid "Accelerator modifiers"
+msgstr "Modificadores del acelerador"
+
+#: ../src/eggcellrendererkeys.cc:202
+msgid "Accelerator Mode"
+msgstr "Modo del acelerador"
+
+#: ../src/eggcellrendererkeys.cc:203
+msgid "The type of accelerator."
+msgstr "El tipo del acelerador."
+
+#: ../src/eggcellrendererkeys.cc:237
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: ../src/eggcellrendererkeys.cc:326 ../src/eggcellrendererkeys.cc:530
+#: ../src/eggcellrendererkeys.cc:532
+msgid "Type a new accelerator"
+msgstr "Escriba un nuevo acelerador"
 
 #: ../src/gnome-cmd-about-plugin.cc:182
 msgid "Credits"
@@ -367,7 +394,7 @@ msgstr "Plantilla"
 msgid "O_ptions..."
 msgstr "_Opciones..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1123 ../src/gnome-cmd-file.cc:577
+#: ../src/gnome-cmd-advrename-dialog.cc:1123 ../src/gnome-cmd-file.cc:581
 msgid "Directory"
 msgstr "Directorio"
 
@@ -476,37 +503,37 @@ msgstr ""
 msgid "New Bookmark"
 msgstr "Marcador nuevo"
 
-#: ../src/gnome-cmd-chmod-component.cc:124
+#: ../src/gnome-cmd-chmod-component.cc:118
 msgid "Read"
 msgstr "Lectura"
 
-#: ../src/gnome-cmd-chmod-component.cc:124
+#: ../src/gnome-cmd-chmod-component.cc:118
 msgid "Write"
 msgstr "Escritura"
 
-#: ../src/gnome-cmd-chmod-component.cc:124
+#: ../src/gnome-cmd-chmod-component.cc:118
 msgid "Execute"
 msgstr "Ejecución"
 
-#: ../src/gnome-cmd-chmod-component.cc:125
+#: ../src/gnome-cmd-chmod-component.cc:119
 #: ../src/gnome-cmd-chown-component.cc:88
 msgid "Owner:"
 msgstr "Propietario:"
 
-#: ../src/gnome-cmd-chmod-component.cc:125
+#: ../src/gnome-cmd-chmod-component.cc:119
 #: ../src/gnome-cmd-chown-component.cc:91
 msgid "Group:"
 msgstr "Grupo:"
 
-#: ../src/gnome-cmd-chmod-component.cc:125
+#: ../src/gnome-cmd-chmod-component.cc:119
 msgid "Others:"
 msgstr "Otros:"
 
-#: ../src/gnome-cmd-chmod-component.cc:159
+#: ../src/gnome-cmd-chmod-component.cc:152
 msgid "Text view:"
 msgstr "Vista de texto:"
 
-#: ../src/gnome-cmd-chmod-component.cc:162
+#: ../src/gnome-cmd-chmod-component.cc:155
 msgid "Number view:"
 msgstr "Vista número:"
 
@@ -518,20 +545,11 @@ msgstr "Todos los archivos"
 msgid "Directories only"
 msgstr "Sólo directorios"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:76
-#, c-format
-msgid ""
-"Could not chmod %s\n"
-"%s"
-msgstr ""
-"Imposible cambiar permisos %s\n"
-"%s"
-
-#: ../src/gnome-cmd-chmod-dialog.cc:210
+#: ../src/gnome-cmd-chmod-dialog.cc:196
 msgid "Access Permissions"
 msgstr "Permisos de acceso"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:228
+#: ../src/gnome-cmd-chmod-dialog.cc:214
 msgid "Apply Recursively for"
 msgstr "Aplicar recursivamente a"
 
@@ -817,7 +835,7 @@ msgid "Delete"
 msgstr "Borrar"
 
 #: ../src/gnome-cmd-delete-dialog.cc:289
-#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:684
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:639
 #: ../src/utils.cc:523 ../src/utils.cc:551
 msgid "Cancel"
 msgstr "Cancelar"
@@ -866,7 +884,7 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:2137 ../src/gnome-cmd-file-list.cc:2153
+#: ../src/gnome-cmd-file-list.cc:2144 ../src/gnome-cmd-file-list.cc:2160
 #, c-format
 msgid "Not an ordinary file: %s"
 msgstr "No es un archivo ordinario: %s"
@@ -1112,7 +1130,7 @@ msgid "Symlink name:"
 msgstr "Nombre del enlace simbólico:"
 
 #: ../src/gnome-cmd-file-selector.cc:2097
-#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:684
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:639
 msgid "Create Symbolic Link"
 msgstr "Crear un enlace simbólico"
 
@@ -1126,33 +1144,91 @@ msgstr "Saltar todos"
 msgid "Filter:"
 msgstr "Filtro:"
 
-#: ../src/gnome-cmd-file.cc:575
+#: ../src/gnome-cmd-file.cc:579
 msgid "Unknown file type"
 msgstr "Tipo de archivo desconocido"
 
-#: ../src/gnome-cmd-file.cc:576
+#: ../src/gnome-cmd-file.cc:580
 msgid "Regular file"
 msgstr "Archivo regular"
 
-#: ../src/gnome-cmd-file.cc:578
+#: ../src/gnome-cmd-file.cc:582
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:579
+#: ../src/gnome-cmd-file.cc:583
 msgid "UNIX Socket"
 msgstr "Socket UNIX"
 
-#: ../src/gnome-cmd-file.cc:580
+#: ../src/gnome-cmd-file.cc:584
 msgid "Character device"
 msgstr "Dispositivo caracteres"
 
-#: ../src/gnome-cmd-file.cc:581
+#: ../src/gnome-cmd-file.cc:585
 msgid "Block device"
 msgstr "Dispositivo de bloques"
 
-#: ../src/gnome-cmd-file.cc:582
+#: ../src/gnome-cmd-file.cc:586
 msgid "Symbolic link"
 msgstr "Enlace simbólico"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:139
+msgid "Keyboard Shortcuts"
+msgstr "Atajos de teclado"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:165
+msgid ""
+"To edit a shortcut key, click on the corresponding row and type a new "
+"accelerator, or press escape to cancel."
+msgstr ""
+"Para editar un atajo de teclado, pulse en la fila correspondiente y teclee un "
+"nuevo acelerador, o pulse escape para cancelar."
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:341
+msgid "Shortcut Key"
+msgstr "Tecla de atajo"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:342
+msgid "Keyboard shortcut for selected action"
+msgstr "Atajos del teclado para la acción seleccionada"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:354
+msgid "Action"
+msgstr "Acción"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:355
+msgid "User action"
+msgstr "Acción del usuario"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:362
+msgid "Optional data"
+msgstr "Datos opcionales"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:490
+#, c-format
+msgid "Shortcut \"%s\" is already taken by \"%s\"."
+msgstr "El atajo «%s» ya está asignado a «%s»."
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:493
+msgid "_Reassign shortcut"
+msgstr "_Reasignar tecla atajo"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:496
+msgid "Conflicting Shortcuts"
+msgstr "Atajos en conflicto"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:497
+#, c-format
+msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+msgstr "Reasignar el atajo provocará que se elimine de «%s»."
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:553
+msgid "Invalid shortcut."
+msgstr "Atajo de teclado no válido."
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:622
+msgid "Do nothing"
+msgstr "No hacer nada"
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1311,72 +1387,76 @@ msgid "_Options..."
 msgstr "_Opciones..."
 
 #: ../src/gnome-cmd-main-menu.cc:705
-msgid "Edit _MIME Types..."
-msgstr "Editar tipos _mime..."
+msgid "_Keyboard Shortcuts..."
+msgstr "Atajos de _teclado..."
 
-#: ../src/gnome-cmd-main-menu.cc:716
+#: ../src/gnome-cmd-main-menu.cc:711
+msgid "_MIME Types..."
+msgstr "Tipos _MIME..."
+
+#: ../src/gnome-cmd-main-menu.cc:722
 msgid "_Remote Server..."
 msgstr "_Quitar servidor..."
 
-#: ../src/gnome-cmd-main-menu.cc:722
+#: ../src/gnome-cmd-main-menu.cc:728
 msgid "New Connection..."
 msgstr "Nueva conexión..."
 
-#: ../src/gnome-cmd-main-menu.cc:733
+#: ../src/gnome-cmd-main-menu.cc:739
 msgid "_Contents"
 msgstr "_Contenido"
 
-#: ../src/gnome-cmd-main-menu.cc:739 ../src/intviewer/viewer-window.cc:917
+#: ../src/gnome-cmd-main-menu.cc:745 ../src/intviewer/viewer-window.cc:917
 msgid "_Keyboard Shortcuts"
 msgstr "Atajos del _teclado"
 
-#: ../src/gnome-cmd-main-menu.cc:745
+#: ../src/gnome-cmd-main-menu.cc:751
 msgid "GNOME Commander on the _Web"
 msgstr "GNOME Commander en la _web"
 
-#: ../src/gnome-cmd-main-menu.cc:751
+#: ../src/gnome-cmd-main-menu.cc:757
 msgid "Report a _Problem"
 msgstr "Informar de un _problema"
 
-#: ../src/gnome-cmd-main-menu.cc:758 ../src/plugin_manager.cc:436
+#: ../src/gnome-cmd-main-menu.cc:764 ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "_Acerca de"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:780 ../src/intviewer/viewer-window.cc:929
+#: ../src/gnome-cmd-main-menu.cc:786 ../src/intviewer/viewer-window.cc:929
 msgid "_File"
 msgstr "_Archivo"
 
-#: ../src/gnome-cmd-main-menu.cc:784
+#: ../src/gnome-cmd-main-menu.cc:790
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../src/gnome-cmd-main-menu.cc:788
+#: ../src/gnome-cmd-main-menu.cc:794
 msgid "_Mark"
 msgstr "_Marcar"
 
-#: ../src/gnome-cmd-main-menu.cc:792 ../src/intviewer/viewer-window.cc:932
+#: ../src/gnome-cmd-main-menu.cc:798 ../src/intviewer/viewer-window.cc:932
 msgid "_View"
 msgstr "_Ver"
 
-#: ../src/gnome-cmd-main-menu.cc:797 ../src/intviewer/viewer-window.cc:943
+#: ../src/gnome-cmd-main-menu.cc:803 ../src/intviewer/viewer-window.cc:943
 msgid "_Settings"
 msgstr "_Opciones"
 
-#: ../src/gnome-cmd-main-menu.cc:801
+#: ../src/gnome-cmd-main-menu.cc:807
 msgid "_Connections"
 msgstr "_Conexiones"
 
-#: ../src/gnome-cmd-main-menu.cc:805
+#: ../src/gnome-cmd-main-menu.cc:811
 msgid "_Bookmarks"
 msgstr "_Marcadores"
 
-#: ../src/gnome-cmd-main-menu.cc:809
+#: ../src/gnome-cmd-main-menu.cc:815
 msgid "_Plugins"
 msgstr "Com_plementos"
 
-#: ../src/gnome-cmd-main-menu.cc:813 ../src/intviewer/viewer-window.cc:948
+#: ../src/gnome-cmd-main-menu.cc:819 ../src/intviewer/viewer-window.cc:948
 msgid "_Help"
 msgstr "Ay_uda"
 
@@ -2048,7 +2128,7 @@ msgstr "El directorio «%s» no existe, ¿quiere crearlo?"
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
 msgstr "No se pudo cargar el módulo python «gomevfs» («gnome.vfs»)\n"
 
-#: ../src/gnome-cmd-quicksearch-popup.cc:265
+#: ../src/gnome-cmd-quicksearch-popup.cc:279
 msgid "Search"
 msgstr "Buscar"
 
@@ -2081,67 +2161,70 @@ msgstr "Conexiones"
 msgid "Anonymous FTP password:"
 msgstr "Contraseña para el FTP anónimo:"
 
-#: ../src/gnome-cmd-search-dialog.cc:154
+#: ../src/gnome-cmd-search-dialog.cc:163
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Falló al abrir el archivo %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:164
+#: ../src/gnome-cmd-search-dialog.cc:204
+#, c-format
+msgid "Failed to seek in file %s: %s\n"
+msgstr "Falló al buscar en el archivo %s: %s\n"
+
+#: ../src/gnome-cmd-search-dialog.cc:211
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Fallo al leer del archivo %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:225
+#: ../src/gnome-cmd-search-dialog.cc:267
 #, c-format
 msgid "Searching in: %s"
 msgstr "Buscando en: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:373
+#: ../src/gnome-cmd-search-dialog.cc:415
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
 msgstr[0] "Se encontró %d coincidencia - búsqueda abortada"
 msgstr[1] "Se encontraron %d coincidencias - búsqueda abortada"
 
-#: ../src/gnome-cmd-search-dialog.cc:380
+#: ../src/gnome-cmd-search-dialog.cc:422
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "Se encontró %d coincidencia"
 msgstr[1] "Se encontraron %d coincidencias"
 
-#: ../src/gnome-cmd-search-dialog.cc:699
+#: ../src/gnome-cmd-search-dialog.cc:814
 msgid "Search..."
 msgstr "Buscar..."
 
-#. Search for
-#: ../src/gnome-cmd-search-dialog.cc:712
-msgid "Search for: "
-msgstr "Buscar por:"
+#: ../src/gnome-cmd-search-dialog.cc:828
+msgid "Search _for: "
+msgstr "Buscar _por:"
 
-#. Search in
-#: ../src/gnome-cmd-search-dialog.cc:724
-msgid "Search in: "
-msgstr "Buscar en:"
+#: ../src/gnome-cmd-search-dialog.cc:840
+msgid "Search _in: "
+msgstr "Buscar _en:"
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:738
-msgid "Find text: "
-msgstr "Buscar texto:"
+#: ../src/gnome-cmd-search-dialog.cc:853
+msgid "Find _text: "
+msgstr "Buscar _texto:"
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:752
-msgid "Search Recursively"
-msgstr "Buscar recursivamente"
+#: ../src/gnome-cmd-search-dialog.cc:867
+msgid "Search _recursively"
+msgstr "Buscar _recursivamente"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:759 ../src/tags/gnome-cmd-tags.cc:147
-msgid "Case Sensitive"
-msgstr "Sensible a mayúsculas"
+#: ../src/gnome-cmd-search-dialog.cc:874
+msgid "_Case sensitive"
+msgstr "Sensible a _capitalización"
 
-#: ../src/gnome-cmd-search-dialog.cc:767
-msgid "Goto"
-msgstr "Ir a"
+#: ../src/gnome-cmd-search-dialog.cc:882
+msgid "_Goto"
+msgstr "_Ir a"
 
 #: ../src/gnome-cmd-smb-auth.cc:33
 msgid "Enter password"
@@ -2170,54 +2253,54 @@ msgstr "No se puede encontrar un host o grupo de trabajo llamado %s\n"
 msgid "No file selected"
 msgstr "No se seleccionó ningún archivo"
 
-#: ../src/gnome-cmd-user-actions.cc:679
+#: ../src/gnome-cmd-user-actions.cc:634
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "¿Crear enlaces simbólicos del archivo %i en %s?"
 msgstr[1] "¿Crear enlaces simbólicos de los archivos %i en %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:684
+#: ../src/gnome-cmd-user-actions.cc:639
 msgid "Create"
 msgstr "Crear"
 
-#: ../src/gnome-cmd-user-actions.cc:732 ../src/gnome-cmd-user-actions.cc:791
-#: ../src/gnome-cmd-user-actions.cc:828
+#: ../src/gnome-cmd-user-actions.cc:687 ../src/gnome-cmd-user-actions.cc:746
+#: ../src/gnome-cmd-user-actions.cc:783
 #, c-format
 msgid "running `%s'\n"
 msgstr "ejecutando «%s»\n"
 
-#: ../src/gnome-cmd-user-actions.cc:749 ../src/gnome-cmd-user-actions.cc:766
-#: ../src/gnome-cmd-user-actions.cc:806
+#: ../src/gnome-cmd-user-actions.cc:704 ../src/gnome-cmd-user-actions.cc:721
+#: ../src/gnome-cmd-user-actions.cc:761
 msgid "Operation not supported on remote file systems"
 msgstr "No se soporta la operación en sistemas de archivos remotos"
 
-#: ../src/gnome-cmd-user-actions.cc:781
+#: ../src/gnome-cmd-user-actions.cc:736
 msgid "Too many selected files"
 msgstr "Demasiados archivos seleccionados"
 
-#: ../src/gnome-cmd-user-actions.cc:954
+#: ../src/gnome-cmd-user-actions.cc:909
 msgid "gksu or kdesu is not found."
 msgstr "No se encontró gksu o kdesu."
 
-#: ../src/gnome-cmd-user-actions.cc:967
+#: ../src/gnome-cmd-user-actions.cc:922
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "No se ha podido iniciar GNOME Commande en modo root."
 
-#: ../src/gnome-cmd-user-actions.cc:1360
+#: ../src/gnome-cmd-user-actions.cc:1321
 msgid "There was an error opening home page."
 msgstr "Hubo un error al abrir la página inicial."
 
-#: ../src/gnome-cmd-user-actions.cc:1369
+#: ../src/gnome-cmd-user-actions.cc:1330
 msgid "There was an error reporting problem."
 msgstr "Hubo un error al informar de un problema."
 
-#: ../src/gnome-cmd-user-actions.cc:1390
+#: ../src/gnome-cmd-user-actions.cc:1351
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr ""
 "Un administrador de archivos rápido y eficiente para el escritorio GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:1394
+#: ../src/gnome-cmd-user-actions.cc:1355
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2229,7 +2312,7 @@ msgstr ""
 "Software; Version 2 de la licencia, o (a su gusto) cualquier version "
 "posterior."
 
-#: ../src/gnome-cmd-user-actions.cc:1398
+#: ../src/gnome-cmd-user-actions.cc:1359
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2241,7 +2324,7 @@ msgstr ""
 "modificación para cualquier uso ver la Licencia Publica General GNU para mas "
 "detalles."
 
-#: ../src/gnome-cmd-user-actions.cc:1402
+#: ../src/gnome-cmd-user-actions.cc:1363
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -2252,7 +2335,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
 "USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1419
+#: ../src/gnome-cmd-user-actions.cc:1380
 msgid "translator-credits"
 msgstr ""
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2007\n"
@@ -2935,6 +3018,10 @@ msgstr "Contar los bytes"
 #: ../src/tags/gnome-cmd-tags.cc:146
 msgid "Number of bytes in the document."
 msgstr "Número de bytes en el documento."
+
+#: ../src/tags/gnome-cmd-tags.cc:147
+msgid "Case Sensitive"
+msgstr "Sensible a mayúsculas"
 
 #: ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case sensitive."
