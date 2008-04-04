@@ -243,10 +243,12 @@ inline GtkTreeViewColumn *create_new_text_column (GtkTreeView *view, gint COL_ID
 
 inline GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title=NULL)
 {
-    renderer = (GtkCellRenderer *) g_object_new (EGG_TYPE_CELL_RENDERER_KEYS,
-                                                 "editable", TRUE,
-                                                 "accel-mode", EGG_CELL_RENDERER_KEYS_MODE_GTK,
-                                                 NULL);
+    renderer = egg_cell_renderer_keys_new ();
+
+    g_object_set (renderer,
+                  "editable", TRUE,
+                  "accel-mode", GTK_CELL_RENDERER_ACCEL_MODE_GTK,
+                  NULL);
 
     GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
                                                                        renderer,
@@ -343,11 +345,6 @@ inline GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
     gtk_tree_view_column_set_sort_column_id (col, SORTID_ACCEL);
 
     g_signal_connect (renderer, "accel-edited", G_CALLBACK (accel_edited_callback), view);
-
-    g_object_set (renderer,
-                  "ellipsize-set", TRUE,
-                  "ellipsize", PANGO_ELLIPSIZE_END,
-                  NULL);
 
     GtkTreeModel *combo_model = gnome_cmd_user_actions_create_model ();
 

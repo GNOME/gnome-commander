@@ -77,11 +77,11 @@ static void egg_cell_renderer_keys_get_size     (GtkCellRenderer *cell,
 enum
 {
     PROP_0,
-
     PROP_ACCEL_KEY,
     PROP_ACCEL_MASK,
     PROP_ACCEL_MODE
 };
+
 
 static GtkCellRendererTextClass *parent_class = NULL;
 
@@ -193,9 +193,8 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
                                                          _("Accelerator modifiers"),
                                                          GDK_TYPE_MODIFIER_TYPE,
                                                          0,
-                                                        GParamFlags(G_PARAM_READABLE | G_PARAM_WRITABLE)));
+                                                         GParamFlags(G_PARAM_READABLE | G_PARAM_WRITABLE)));
 
-    /* FIXME: Register the enum when moving to GTK+ */
     g_object_class_install_property (object_class,
                                      PROP_ACCEL_MODE,
                                      g_param_spec_int ("accel-mode",
@@ -204,7 +203,7 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
                                                        0,
                                                        2,
                                                        0,
-                                                        GParamFlags(G_PARAM_READABLE | G_PARAM_WRITABLE)));
+                                                       GParamFlags(G_PARAM_READABLE | G_PARAM_WRITABLE)));
 
     g_signal_new ("accel-edited",
                   EGG_TYPE_CELL_RENDERER_KEYS,
@@ -260,6 +259,7 @@ static void egg_cell_renderer_keys_get_property  (GObject *object, guint param_i
 
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
+            break;
     }
 }
 
@@ -323,12 +323,12 @@ void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
     GtkRequisition requisition;
 
     if (keys->sizing_label == NULL)
-        keys->sizing_label = gtk_label_new (_("Type a new accelerator"));
+        keys->sizing_label = gtk_label_new (_("New accelerator..."));
 
     gtk_widget_size_request (keys->sizing_label, &requisition);
-    (* GTK_CELL_RENDERER_CLASS (parent_class)->get_size) (cell, widget, cell_area, x_offset, y_offset, width, height);
+    GTK_CELL_RENDERER_CLASS (parent_class)->get_size (cell, widget, cell_area, x_offset, y_offset, width, height);
 
-    /* FIXME: need to take the cell_area et al. into account */
+    // FIXME: need to take the cell_area et al. into account
     if (width)
         *width = MAX (*width, requisition.width);
     if (height)
@@ -436,7 +436,7 @@ static void ungrab_stuff (GtkWidget *widget, gpointer data)
 
 static void pointless_eventbox_start_editing (GtkCellEditable *cell_editable, GdkEvent *event)
 {
-    /* do nothing, because we are pointless */
+    // do nothing, because we are pointless
 }
 
 
@@ -454,13 +454,13 @@ static GType pointless_eventbox_subclass_get_type (void)
     {
       static const GTypeInfo eventbox_info =
       {
-        sizeof (GtkEventBoxClass),
+        sizeof(GtkEventBoxClass),
         NULL,               /* base_init */
         NULL,               /* base_finalize */
         NULL,
         NULL,               /* class_finalize */
         NULL,               /* class_data */
-        sizeof (GtkEventBox),
+        sizeof(GtkEventBox),
         0,                  /* n_preallocs */
         (GInstanceInitFunc) NULL,
       };
@@ -513,7 +513,7 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
 
     keys->grab_widget = widget;
 
-    g_signal_connect (G_OBJECT (widget), "key_press_event", G_CALLBACK (grab_key_callback), keys);
+    g_signal_connect (G_OBJECT (widget), "key-press-event", G_CALLBACK (grab_key_callback), keys);
 
     eventbox = (GtkWidget *) g_object_new (pointless_eventbox_subclass_get_type (), NULL);
     keys->edit_widget = eventbox;
@@ -572,7 +572,7 @@ void egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint ke
 
     if (changed)
     {
-        /* sync string to the key values */
+        // sync string to the key values
         GtkCellRendererText *celltext = GTK_CELL_RENDERER_TEXT (keys);
         char *text = convert_keysym_state_to_string (keys->accel_key, keys->accel_mask);
         g_object_set (keys, "text", text, NULL);
