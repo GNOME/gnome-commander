@@ -40,7 +40,6 @@
 #include <gdk/gdkx.h>
 #include <gdk/gdkkeysyms.h>
 #include "eggcellrendererkeys.h"
-#include "eggaccelerators.h"
 #include "gnome-cmd-includes.h"
 
 #define EGG_CELL_RENDERER_TEXT_PATH "egg-cell-renderer-text"

@@ -40,7 +40,6 @@
 #define __EGG_CELL_RENDERER_KEYS_H__
 
 #include <gtk/gtkcellrenderertext.h>
-#include "eggaccelerators.h"
 
 #define EGG_TYPE_CELL_RENDERER_KEYS             (egg_cell_renderer_keys_get_type ())
 #define EGG_CELL_RENDERER_KEYS(obj)             (GTK_CHECK_CAST ((obj), EGG_TYPE_CELL_RENDERER_KEYS, EggCellRendererKeys))
