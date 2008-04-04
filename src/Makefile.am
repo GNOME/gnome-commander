@@ -17,7 +17,6 @@ gnome_commander_SOURCES = \
 	cap.cc cap.h \
 	dict.h \
 	dirlist.h dirlist.cc \
-	eggaccelerators.h eggaccelerators.cc \
 	eggcellrendererkeys.h eggcellrendererkeys.cc \
 	filter.h filter.cc \
 	gnome-cmd-about-plugin.h gnome-cmd-about-plugin.cc \

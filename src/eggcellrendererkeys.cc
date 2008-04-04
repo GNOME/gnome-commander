@@ -114,11 +114,9 @@ GType egg_cell_renderer_keys_get_type (void)
 
 static void egg_cell_renderer_keys_init (EggCellRendererKeys *cell_keys)
 {
-    cell_keys->accel_mode = EGG_CELL_RENDERER_KEYS_MODE_GTK;
+    cell_keys->accel_mode = GTK_CELL_RENDERER_ACCEL_MODE_GTK;
 }
 
-/* FIXME setup stuff to generate this */
-/* VOID:STRING,UINT,FLAGS,UINT */
 static void
 marshal_VOID__STRING_UINT_FLAGS_UINT (GClosure     *closure,
                                       GValue       *return_value,
@@ -231,9 +229,106 @@ static void egg_cell_renderer_keys_finalize (GObject *object)
 }
 
 
-static gchar *convert_keysym_state_to_string (guint keysym, EggVirtualModifierType mask)
+inline gchar *convert_keysym_state_to_string (guint accel_key, GdkModifierType accel_mods)
 {
-    return keysym == 0 ? g_strdup (_("Disabled")) : egg_virtual_accelerator_name (keysym, mask);
+    if (accel_key == 0)
+        return g_strdup (_("Disabled"));
+
+    static const gchar text_shift[] = "Shift+";
+    static const gchar text_control[] = "Ctrl+";
+    static const gchar text_mod1[] = "Alt+";
+    static const gchar text_mod2[] = "Mod2+";
+    static const gchar text_mod3[] = "Mod3+";
+    static const gchar text_mod4[] = "Mod4+";
+    static const gchar text_mod5[] = "Mod5+";
+    static const gchar text_meta[] = "Meta+";
+    static const gchar text_super[] = "Super+";
+    static const gchar text_hyper[] = "Hyper+";
+
+    gchar *keyval_name = gdk_keyval_name (gdk_keyval_to_upper (accel_key));
+    if (!keyval_name)
+        keyval_name = "";
+
+    guint l = strlen (keyval_name);
+
+    if (accel_mods & GDK_SHIFT_MASK)
+        l += sizeof(text_shift)-1;
+    if (accel_mods & GDK_CONTROL_MASK)
+        l += sizeof(text_control)-1;
+    if (accel_mods & GDK_MOD1_MASK)
+        l += sizeof(text_mod1)-1;
+    if (accel_mods & GDK_MOD2_MASK)
+        l += sizeof(text_mod2)-1;
+    if (accel_mods & GDK_MOD3_MASK)
+        l += sizeof(text_mod3)-1;
+    if (accel_mods & GDK_MOD4_MASK)
+        l += sizeof(text_mod4)-1;
+    if (accel_mods & GDK_MOD5_MASK)
+        l += sizeof(text_mod5)-1;
+    if (accel_mods & GDK_META_MASK)
+        l += sizeof(text_meta)-1;
+    if (accel_mods & GDK_HYPER_MASK)
+        l += sizeof(text_hyper)-1;
+    if (accel_mods & GDK_SUPER_MASK)
+        l += sizeof(text_super)-1;
+
+    gchar *accelerator = g_new (gchar, l+1);
+    gchar *s = accelerator;
+
+    if (accel_mods & GDK_SHIFT_MASK)
+    {
+      strcpy (s, text_shift);
+      s += sizeof(text_shift)-1;
+    }
+    if (accel_mods & GDK_CONTROL_MASK)
+    {
+      strcpy (s, text_control);
+      s +=  sizeof(text_control)-1;
+    }
+    if (accel_mods & GDK_MOD1_MASK)
+    {
+      strcpy (s, text_mod1);
+      s +=  sizeof(text_mod1)-1;
+    }
+    if (accel_mods & GDK_MOD2_MASK)
+    {
+      strcpy (s, text_mod2);
+      s +=  sizeof(text_mod2)-1;
+    }
+    if (accel_mods & GDK_MOD3_MASK)
+    {
+      strcpy (s, text_mod3);
+      s +=  sizeof(text_mod3)-1;
+    }
+    if (accel_mods & GDK_MOD4_MASK)
+    {
+      strcpy (s, text_mod4);
+      s +=  sizeof(text_mod4)-1;
+    }
+    if (accel_mods & GDK_MOD5_MASK)
+    {
+      strcpy (s, text_mod5);
+      s +=  sizeof(text_mod5)-1;
+    }
+    if (accel_mods & GDK_META_MASK)
+    {
+      strcpy (s, text_meta);
+      s +=  sizeof(text_meta)-1;
+    }
+    if (accel_mods & GDK_HYPER_MASK)
+    {
+      strcpy (s, text_hyper);
+      s +=  sizeof(text_hyper)-1;
+    }
+    if (accel_mods & GDK_SUPER_MASK)
+    {
+      strcpy (s, text_super);
+      s +=  sizeof(text_super)-1;
+    }
+
+    strcpy (s, keyval_name);
+
+    return accelerator;
 }
 
 
@@ -277,15 +372,16 @@ static void egg_cell_renderer_keys_set_property (GObject *object, guint param_id
             break;
 
         case PROP_ACCEL_MASK:
-            egg_cell_renderer_keys_set_accelerator (keys, keys->accel_key, (EggVirtualModifierType) g_value_get_flags (value));
+            egg_cell_renderer_keys_set_accelerator (keys, keys->accel_key, (GdkModifierType) g_value_get_flags (value));
             break;
 
         case PROP_ACCEL_MODE:
-            egg_cell_renderer_keys_set_accel_mode (keys, (EggCellRendererKeysMode) g_value_get_int (value));
+            egg_cell_renderer_keys_set_accel_mode (keys, (GtkCellRendererAccelMode) g_value_get_int (value));
             break;
 
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, param_id, pspec);
+            break;
     }
 }
 
@@ -336,15 +432,9 @@ void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
 }
 
 
-// FIXME: Currently we don't differentiate between a 'bogus' key (like tab in GTK mode) and a removed key.
 static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, void *data)
 {
-    char *path;
-    guint upper;
-    GdkModifierType ignored_modifiers;
-
     EggCellRendererKeys *keys = EGG_CELL_RENDERER_KEYS (data);
-    guint accel_mods = 0;
 
     if (is_modifier (event->hardware_keycode))
         return TRUE;
@@ -352,62 +442,64 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, void *
     gboolean edited = FALSE;
     guint consumed_modifiers = 0;
 
-    gdk_keymap_translate_keyboard_state (gdk_keymap_get_default (),
+    GdkDisplay *display = gtk_widget_get_display (widget);
+
+    gdk_keymap_translate_keyboard_state (gdk_keymap_get_for_display (display),
                                          event->hardware_keycode,
                                          (GdkModifierType) event->state,
                                          event->group,
                                          NULL, NULL, NULL, (GdkModifierType *) &consumed_modifiers);
 
-    upper = event->keyval;
-    guint accel_keyval = gdk_keyval_to_lower (upper);
-    if (accel_keyval == GDK_ISO_Left_Tab)
-        accel_keyval = GDK_Tab;
+    guint accel_key = gdk_keyval_to_lower (event->keyval);
+    guint accel_mods = 0;
+
+    if (accel_key == GDK_ISO_Left_Tab)
+        accel_key = GDK_Tab;
 
 
+    accel_mods = event->state & gtk_accelerator_get_default_mod_mask ();
+
+    // filter consumed modifiers
+    if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
+        accel_mods &= ~consumed_modifiers;
 
     // Put shift back if it changed the case of the key, not otherwise.
-    if (upper != accel_keyval && (consumed_modifiers & GDK_SHIFT_MASK))
-        consumed_modifiers &= ~(GDK_SHIFT_MASK);
+    if (accel_key != event->keyval)
+        accel_mods |= GDK_SHIFT_MASK;
 
-    egg_keymap_resolve_virtual_modifiers (gdk_keymap_get_default (),
-                                          EggVirtualModifierType (EGG_VIRTUAL_NUM_LOCK_MASK | EGG_VIRTUAL_SCROLL_LOCK_MASK),
-                                          &ignored_modifiers);
-
-  /* filter consumed/ignored modifiers */
-
-    if (keys->accel_mode == EGG_CELL_RENDERER_KEYS_MODE_GTK)
-        accel_mods = event->state & ~(consumed_modifiers | ignored_modifiers);
-    else if (keys->accel_mode == EGG_CELL_RENDERER_KEYS_MODE_X)
-        accel_mods = event->state & ~(ignored_modifiers);
-    else
-        g_assert_not_reached ();
-
-    if (accel_mods == 0 && accel_keyval == GDK_Escape)
-        goto out; /* cancel */
-
-    /* clear the accelerator on Backspace */
-    if (keys->edit_key!=0 && accel_mods==0 && accel_keyval==GDK_BackSpace)
-        accel_keyval = 0;
-
-    if (keys->accel_mode == EGG_CELL_RENDERER_KEYS_MODE_GTK)
+    if (accel_mods == 0)
     {
-        if (!gtk_accelerator_valid (accel_keyval, (GdkModifierType) accel_mods))
+        switch (event->keyval)
         {
-            accel_keyval = 0;
-            accel_mods = 0;
-        }
+            case GDK_Escape:
+                accel_key = 0;
+                accel_mods = 0;
 
-        /* Remove modifiers like super and hyper, as GTK+ ignores them. */
-        accel_mods &= GDK_MODIFIER_MASK;
+                goto out; // cancel
+
+            default:
+                break;
+        }
+    }
+
+    if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
+    {
+        if (accel_key != GDK_Tab && !gtk_accelerator_valid (accel_key, (GdkModifierType) accel_mods))
+        {
+            // gtk_widget_error_bell (widget);     // FIXME: since 2.12, uncomment when dependency is met
+
+            return TRUE;
+        }
     }
 
     edited = TRUE;
 
- out:
-    path = g_strdup ((gchar *) g_object_get_data (G_OBJECT (keys->edit_widget), EGG_CELL_RENDERER_TEXT_PATH));
 
-    gdk_keyboard_ungrab (event->time);
-    gdk_pointer_ungrab (event->time);
+  out:
+    gdk_display_keyboard_ungrab (display, event->time);
+    gdk_display_pointer_ungrab (display, event->time);
+
+    char *path = g_strdup ((gchar *) g_object_get_data (G_OBJECT (keys->edit_widget), EGG_CELL_RENDERER_TEXT_PATH));
 
     gtk_cell_editable_editing_done (GTK_CELL_EDITABLE (keys->edit_widget));
     gtk_cell_editable_remove_widget (GTK_CELL_EDITABLE (keys->edit_widget));
@@ -415,7 +507,7 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, void *
     keys->grab_widget = NULL;
 
     if (edited)
-        g_signal_emit_by_name (G_OBJECT (keys), "accel-edited", path, accel_keyval, accel_mods, event->hardware_keycode);
+        g_signal_emit_by_name (G_OBJECT (keys), "accel-edited", path, accel_key, accel_mods, event->hardware_keycode);
 
     g_free (path);
 
@@ -425,10 +517,12 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, void *
 
 static void ungrab_stuff (GtkWidget *widget, gpointer data)
 {
-    EggCellRendererKeys *keys = EGG_CELL_RENDERER_KEYS (data);
+    GdkDisplay *display = gtk_widget_get_display (widget);
 
-    gdk_keyboard_ungrab (GDK_CURRENT_TIME);
-    gdk_pointer_ungrab (GDK_CURRENT_TIME);
+    gdk_display_keyboard_ungrab (display, GDK_CURRENT_TIME);
+    gdk_display_pointer_ungrab (display, GDK_CURRENT_TIME);
+
+    EggCellRendererKeys *keys = EGG_CELL_RENDERER_KEYS (data);
 
     g_signal_handlers_disconnect_by_func (G_OBJECT (keys->grab_widget), (gpointer) G_CALLBACK (grab_key_callback), data);
 }
@@ -526,10 +620,7 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
 
     gtk_widget_modify_fg (label, GTK_STATE_NORMAL, &widget->style->fg[GTK_STATE_SELECTED]);
 
-    if (keys->accel_key != 0)
-        gtk_label_set_text (GTK_LABEL (label), _("Type a new accelerator"));
-    else
-        gtk_label_set_text (GTK_LABEL (label), _("Type a new accelerator"));
+    gtk_label_set_text (GTK_LABEL (label), _("New accelerator..."));
 
     gtk_container_add (GTK_CONTAINER (eventbox), label);
 
@@ -545,7 +636,7 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
 }
 
 
-void egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint keyval, EggVirtualModifierType mask)
+void egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint keyval, GdkModifierType mask)
 {
     g_return_if_fail (EGG_IS_CELL_RENDERER_KEYS (keys));
 
@@ -563,7 +654,6 @@ void egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint ke
     if (mask != keys->accel_mask)
     {
         keys->accel_mask = mask;
-
         g_object_notify (G_OBJECT (keys), "accel-mods");
         changed = TRUE;
     }
@@ -582,7 +672,7 @@ void egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint ke
 }
 
 
-void egg_cell_renderer_keys_get_accelerator (EggCellRendererKeys *keys, guint *keyval, EggVirtualModifierType *mask)
+void egg_cell_renderer_keys_get_accelerator (EggCellRendererKeys *keys, guint *keyval, GdkModifierType *mask)
 {
     g_return_if_fail (EGG_IS_CELL_RENDERER_KEYS (keys));
 
@@ -594,10 +684,10 @@ void egg_cell_renderer_keys_get_accelerator (EggCellRendererKeys *keys, guint *k
 }
 
 
-void egg_cell_renderer_keys_set_accel_mode (EggCellRendererKeys *keys, EggCellRendererKeysMode accel_mode)
+void egg_cell_renderer_keys_set_accel_mode (EggCellRendererKeys *keys, GtkCellRendererAccelMode accel_mode)
 {
     g_return_if_fail (EGG_IS_CELL_RENDERER_KEYS (keys));
 
     keys->accel_mode = accel_mode;
-    g_object_notify (G_OBJECT (keys), "accel_mode");
+    g_object_notify (G_OBJECT (keys), "accel-mode");
 }

@@ -53,23 +53,16 @@ typedef struct _EggCellRendererKeys      EggCellRendererKeys;
 typedef struct _EggCellRendererKeysClass EggCellRendererKeysClass;
 
 
-typedef enum
-{
-    EGG_CELL_RENDERER_KEYS_MODE_GTK,
-    EGG_CELL_RENDERER_KEYS_MODE_X,
-} EggCellRendererKeysMode;
-
-
 struct _EggCellRendererKeys
 {
     GtkCellRendererText parent;
     guint accel_key;
-    EggVirtualModifierType accel_mask;
+    GdkModifierType accel_mask;
     GtkWidget *edit_widget;
     GtkWidget *grab_widget;
     guint edit_key;
     GtkWidget *sizing_label;
-    EggCellRendererKeysMode accel_mode;
+    GtkCellRendererAccelMode accel_mode;
 };
 
 struct _EggCellRendererKeysClass
@@ -79,15 +72,15 @@ struct _EggCellRendererKeysClass
   void (* keys_edited) (EggCellRendererKeys    *keys,
                         const char             *path_string,
                         guint                   keyval,
-                        EggVirtualModifierType  mask,
+                        GdkModifierType         mask,
                         guint                   hardware_keycode);
 };
 
 GType egg_cell_renderer_keys_get_type (void);
 GtkCellRenderer *egg_cell_renderer_keys_new (void);
 
-void  egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint keyval, EggVirtualModifierType mask);
-void  egg_cell_renderer_keys_get_accelerator (EggCellRendererKeys *keys, guint *keyval, EggVirtualModifierType *mask);
-void  egg_cell_renderer_keys_set_accel_mode (EggCellRendererKeys *keys, EggCellRendererKeysMode accel_mode);
+void  egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint keyval, GdkModifierType mask);
+void  egg_cell_renderer_keys_get_accelerator (EggCellRendererKeys *keys, guint *keyval, GdkModifierType *mask);
+void  egg_cell_renderer_keys_set_accel_mode (EggCellRendererKeys *keys, GtkCellRendererAccelMode accel_mode);
 
 #endif // __GTK_CELL_RENDERER_KEYS_H__
