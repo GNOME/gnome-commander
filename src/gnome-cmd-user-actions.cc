@@ -108,7 +108,11 @@ inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
     if (e1.keyval > e2.keyval)
         return false;
 
+#ifdef HAVE_GTK_2_10
+    return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK));
+#else
     return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK));
+#endif
 }
 
 
@@ -429,8 +433,11 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     GdkEventKey event;
 
     event.keyval = keyval;
+#ifdef HAVE_GTK_2_10
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
+#else
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
-
+#endif
     if (action.find(event)!=action.end())
         return FALSE;
 
@@ -458,8 +465,11 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
+#ifdef HAVE_GTK_2_10
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
+#else
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
-
+#endif
     map <GdkEventKey, UserAction>::iterator pos = action.find(event);
 
     if (pos!=action.end())
@@ -487,7 +497,11 @@ gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
+#ifdef HAVE_GTK_2_10
+    event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
+#else
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
+#endif
 
     return action.find(event)!=action.end();
 }

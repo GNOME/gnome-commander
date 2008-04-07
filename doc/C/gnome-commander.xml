@@ -4309,7 +4309,7 @@
               (<term><guilabel>~/.gnome2/gnome-commander</guilabel></term>).</para>
         <para>Config file syntax:</para>
         <para>
-            <command>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;win&gt;]key_name=action[|options]</command>
+            <command>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;super&gt;][&lt;hyper&gt;][&lt;meta&gt;]key_name=action[|options]</command>
         </para>
         <para>eg.</para>
         <programlisting>
@@ -4317,13 +4317,16 @@
     &lt;ctrl&gt;t=file.advrename
     &lt;shift&gt;&lt;ctrl&gt;f5=file.create_symlink
     &lt;ctrl&gt;2=file.diff
-    &lt;win&gt;f=edit.search
+    &lt;super&gt;f=edit.search
         </programlisting>
         <tip>
             <para>It's possible to assign one action to more than one key.</para>
         </tip>
         <para>The shortcuts are read at start-up only, so you have to reload application to see the changes.</para>
         <para>Entries containing invalid key or user action are reported in console during start-up and then ignored by &app;.</para>
+        <note>
+            <para>&lt;hyper&gt; and &lt;meta&gt; modifiers are supported since GTK+ 2.10.</para>
+        </note>
     </sect2>
     <sect2 id="gnome-commander-user-actions-list">
         <title>List of user actions</title>
@@ -5842,6 +5845,9 @@
                         </listitem>
                         <listitem>
                             <para>Revamped search dialog</para>
+                        </listitem>
+                        <listitem>
+                            <para>Support for &lt;super&gt;, &lt;hyper&gt; and &lt;meta&gt; modifiers (since GTK+ 2.10)</para>
                         </listitem>
                         <listitem>
                             <para>Updated help docs</para>

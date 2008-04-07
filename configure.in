@@ -118,6 +118,10 @@ if pkg-config --exists gtk+-2.0 ; then
     else
         AC_MSG_ERROR("only ${GTK_VERSION} found")
     fi
+
+    if pkg-config --exists gtk+-2.0 '>=' 2.10.0 ; then
+        AC_DEFINE(HAVE_GTK_2_10, 1, [Define to 1 if you have GTK+ >= 2.10])
+    fi
 else
     AC_MSG_ERROR(no)
 fi

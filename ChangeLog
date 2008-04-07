@@ -1,3 +1,12 @@
+2008-04-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* src/eggcellrendererkeys.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Support for <super>, <hyper> and <meta> modifiers (since GTK+ 2.10)
+
 2008-04-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/eggaccelerators.cc:

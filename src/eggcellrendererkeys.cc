@@ -264,12 +264,14 @@ inline gchar *convert_keysym_state_to_string (guint accel_key, GdkModifierType a
         l += sizeof(text_mod4)-1;
     if (accel_mods & GDK_MOD5_MASK)
         l += sizeof(text_mod5)-1;
+#ifdef HAVE_GTK_2_10
     if (accel_mods & GDK_META_MASK)
         l += sizeof(text_meta)-1;
     if (accel_mods & GDK_HYPER_MASK)
         l += sizeof(text_hyper)-1;
     if (accel_mods & GDK_SUPER_MASK)
         l += sizeof(text_super)-1;
+#endif
 
     gchar *accelerator = g_new (gchar, l+1);
     gchar *s = accelerator;
@@ -309,6 +311,7 @@ inline gchar *convert_keysym_state_to_string (guint accel_key, GdkModifierType a
       strcpy (s, text_mod5);
       s +=  sizeof(text_mod5)-1;
     }
+#ifdef HAVE_GTK_2_10
     if (accel_mods & GDK_META_MASK)
     {
       strcpy (s, text_meta);
@@ -324,6 +327,7 @@ inline gchar *convert_keysym_state_to_string (guint accel_key, GdkModifierType a
       strcpy (s, text_super);
       s +=  sizeof(text_super)-1;
     }
+#endif
 
     strcpy (s, keyval_name);
 
@@ -456,13 +460,17 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, void *
         accel_key = GDK_Tab;
 
 
+#ifdef HAVE_GTK_2_10
     accel_mods = event->state & gtk_accelerator_get_default_mod_mask ();
+#else
+    accel_mods = event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
+#endif
 
     // filter consumed modifiers
     if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
         accel_mods &= ~consumed_modifiers;
 
-    // Put shift back if it changed the case of the key, not otherwise.
+    // put shift back if it changed the case of the key, not otherwise.
     if (accel_key != event->keyval)
         accel_mods |= GDK_SHIFT_MASK;
 
