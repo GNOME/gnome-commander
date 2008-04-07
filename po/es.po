@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-31 22:42+0100\n"
-"PO-Revision-Date: 2008-04-01 10:00+0200\n"
+"POT-Creation-Date: 2008-04-04 20:33+0100\n"
+"PO-Revision-Date: 2008-04-07 10:20+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "No hay descripción de error disponible"
 #. destroy model automatically with view
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:361
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:358
 #: ../src/gnome-cmd-options-dialog.cc:1179
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
@@ -165,30 +165,29 @@ msgid_plural "%d files listed"
 msgstr[0] "%d archivo listado"
 msgstr[1] "%d archivos listados"
 
-#: ../src/eggcellrendererkeys.cc:182 ../src/eggcellrendererkeys.cc:183
+#: ../src/eggcellrendererkeys.cc:180 ../src/eggcellrendererkeys.cc:181
 msgid "Accelerator key"
 msgstr "Tecla del acelerador"
 
-#: ../src/eggcellrendererkeys.cc:192 ../src/eggcellrendererkeys.cc:193
+#: ../src/eggcellrendererkeys.cc:190 ../src/eggcellrendererkeys.cc:191
 msgid "Accelerator modifiers"
 msgstr "Modificadores del acelerador"
 
-#: ../src/eggcellrendererkeys.cc:202
+#: ../src/eggcellrendererkeys.cc:199
 msgid "Accelerator Mode"
 msgstr "Modo del acelerador"
 
-#: ../src/eggcellrendererkeys.cc:203
+#: ../src/eggcellrendererkeys.cc:200
 msgid "The type of accelerator."
 msgstr "El tipo del acelerador."
 
-#: ../src/eggcellrendererkeys.cc:237
+#: ../src/eggcellrendererkeys.cc:235
 msgid "Disabled"
 msgstr "Deshabilitado"
 
-#: ../src/eggcellrendererkeys.cc:326 ../src/eggcellrendererkeys.cc:530
-#: ../src/eggcellrendererkeys.cc:532
-msgid "Type a new accelerator"
-msgstr "Escriba un nuevo acelerador"
+#: ../src/eggcellrendererkeys.cc:422 ../src/eggcellrendererkeys.cc:623
+msgid "New accelerator..."
+msgstr "Acelerador nuevo..."
 
 #: ../src/gnome-cmd-about-plugin.cc:182
 msgid "Credits"
@@ -1181,52 +1180,52 @@ msgid ""
 "To edit a shortcut key, click on the corresponding row and type a new "
 "accelerator, or press escape to cancel."
 msgstr ""
-"Para editar un atajo de teclado, pulse en la fila correspondiente y teclee un "
-"nuevo acelerador, o pulse escape para cancelar."
+"Para editar un atajo de teclado, pulse en la fila correspondiente y teclee "
+"un nuevo acelerador, o pulse escape para cancelar."
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:341
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:343
 msgid "Shortcut Key"
 msgstr "Tecla de atajo"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:342
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:344
 msgid "Keyboard shortcut for selected action"
 msgstr "Atajos del teclado para la acción seleccionada"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:354
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:351
 msgid "Action"
 msgstr "Acción"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:355
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:352
 msgid "User action"
 msgstr "Acción del usuario"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:362
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:359
 msgid "Optional data"
 msgstr "Datos opcionales"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:490
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:487
 #, c-format
 msgid "Shortcut \"%s\" is already taken by \"%s\"."
 msgstr "El atajo «%s» ya está asignado a «%s»."
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:493
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:490
 msgid "_Reassign shortcut"
 msgstr "_Reasignar tecla atajo"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:496
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:493
 msgid "Conflicting Shortcuts"
 msgstr "Atajos en conflicto"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:497
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:494
 #, c-format
 msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
 msgstr "Reasignar el atajo provocará que se elimine de «%s»."
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:553
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:550
 msgid "Invalid shortcut."
 msgstr "Atajo de teclado no válido."
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:622
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:619
 msgid "Do nothing"
 msgstr "No hacer nada"
 
