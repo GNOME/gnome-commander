@@ -238,11 +238,17 @@ inline gchar *convert_keysym_state_to_string (guint accel_key, GdkModifierType a
     static const gchar text_mod1[] = "Alt+";
     static const gchar text_mod2[] = "Mod2+";
     static const gchar text_mod3[] = "Mod3+";
+#ifdef HAVE_GTK_2_10
     static const gchar text_mod4[] = "Mod4+";
+#else
+    static const gchar text_mod4[] = "Super+";
+#endif
     static const gchar text_mod5[] = "Mod5+";
+#ifdef HAVE_GTK_2_10
     static const gchar text_meta[] = "Meta+";
     static const gchar text_super[] = "Super+";
     static const gchar text_hyper[] = "Hyper+";
+#endif
 
     gchar *keyval_name = gdk_keyval_name (gdk_keyval_to_upper (accel_key));
     if (!keyval_name)
