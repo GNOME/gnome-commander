@@ -5859,7 +5859,7 @@
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycombo><keycap>...</keycap><keycap>...</keycap></keycombo>   ...</para>
+                                    <para><keycombo><keycap>SUPER</keycap><keycap>F</keycap></keycombo>   Search files</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>

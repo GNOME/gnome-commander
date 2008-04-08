@@ -1,4 +1,4 @@
-Keyboard mapping for GNOME Commander v1.2
+Default keyboard mapping for GNOME Commander v1.2
 -----------------------------------------
 
 F1              Help
@@ -76,6 +76,8 @@ ALT+RIGHT       Go forward to the next visited directory
 
 CTRL+\          Go to the root directory
 CTRL+`          Go to the home directory
+
+SUPER+F         Search files
 
 DELETE          Delete files
 

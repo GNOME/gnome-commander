@@ -1,3 +1,8 @@
+2008-04-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	Added new key binding: SUPER+F for file search
+
 2008-04-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:
