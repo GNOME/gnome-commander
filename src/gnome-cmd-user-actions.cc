@@ -123,80 +123,82 @@ DICT<GnomeCmdUserActionFunc> GnomeCmdUserActions::action_name;
 #define     NN_(x)      (x)
 
 
-static struct
+struct UserActionData
 {
     GnomeCmdUserActionFunc func;
     const gchar *name;
     const gchar *description;
-}
-user_actions_data[] = {
-                       {bookmarks_add_current, "bookmarks.add_current", NN_("Bookmark current directory")},
-                       {bookmarks_edit, "bookmarks.edit", NN_("Manage bookmarks")},
-                       {bookmarks_goto, "bookmarks.goto", NN_("Go to bookmarked location")},
-                       {command_open_terminal, "command.open_terminal", NN_("Open terminal")},
-                       {command_root_mode, "command.root_mode", NN_("Start GNOME Commander as root")},
-                       {connections_close_current, "connections.close", NN_("Close connection")},
-                       {connections_new, "connections.new", NN_("New connection")},
-                       {connections_open, "connections.open", NN_("Open connection")},
-                       {edit_cap_copy, "edit.copy", NN_("Copy")},
-                       {edit_copy_fnames, "edit.copy_filenames", NN_("Copy file names")},
-                       {edit_cap_cut, "edit.cut", NN_("Cut")},
-                       {file_delete, "edit.delete", NN_("Delete")},
-                       {edit_filter, "edit.filter", NN_("Show user defined files")},
-                       {edit_cap_paste, "edit.paste", NN_("Paste")},
-                       {edit_quick_search, "edit.quick_search", NN_("Quick search")},
-                       {edit_search, "edit.search", NN_("Search")},
-                       {file_advrename, "file.advrename", NN_("Advanced rename tool")},
-                       {file_chmod, "file.chmod", NN_("Change permissions")},
-                       {file_chown, "file.chown", NN_("Change owner/group")},
-                       {file_copy, "file.copy", NN_("Copy files")},
-                       {file_create_symlink, "file.create_symlink", NN_("Create symbolic link")},
-                       {file_delete, "file.delete", NN_("Delete files")},
-                       {file_diff, "file.diff", NN_("Compare files (diff)")},
-                       {file_edit, "file.edit", NN_("Edit file")},
-                       {file_edit_new_doc, "file.edit_new_doc", NN_("Edit a new file")},
-                       {file_exit, "file.exit", NN_("Quit")},
-                       {file_external_view, "file.external_view", NN_("View with external viewer")},
-                       {file_internal_view, "file.internal_view", NN_("View with internal viewer")},
-                       {file_mkdir, "file.mkdir", NN_("Create directory")},
-                       {file_move, "file.move", NN_("Move files")},
-                       {file_properties, "file.properties", NN_("Properties")},
-                       {file_rename, "file.rename", NN_("Rename files")},
-                       // {file_run, "file.run"},
-                       {file_sendto, "file.sendto", NN_("Send files")},
-                       {file_sync_dirs, "file.synchronize_directories", NN_("Synchonize directories")},
-                       // {file_umount, "file.umount"},
-                       {file_view, "file.view", NN_("View file")},
-                       {help_about, "help.about", NN_("About GNOME Commander")},
-                       {help_help, "help.help", NN_("Help contents")},
-                       {help_keyboard, "help.keyboard", NN_("Keyboard shortcuts")},
-                       {help_problem, "help.problem", NN_("Report a problem")},
-                       {help_web, "help.web", NN_("GNOME Commander on the web")},
-                       {mark_compare_directories, "mark.compare_directories", NN_("Compare directories")},
-                       {mark_select_all, "mark.select_all", NN_("Select all")},
-                       {mark_toggle, "mark.toggle", NN_("Toggle selection")},
-                       {mark_toggle_and_step, "mark.toggle_and_step", NN_("Toggle selection and move cursor downward")},
-                       {mark_unselect_all, "mark.unselect_all", NN_("Unselect all")},
-                       {no_action, "no.action", NN_("Do nothing")},
-                       {options_edit, "options.edit", NN_("Options")},
-                       {options_edit_mime_types, "options.edit_mime_types", NN_("MIME types")},
-                       {options_edit_shortcuts, "options.shortcuts", NN_("Keyboard shortcuts")},
-                       {plugins_configure, "plugins.configure", NN_("Configure plugins")},
-                       {plugins_execute_python, "plugins.execute_python", NN_("Execute python plugin")},
-                       {view_back, "view.back", NN_("Go back one directory")},
-                       {view_equal_panes, "view.equal_panes", NN_("Equal panel size")},
-                       {view_first, "view.first", NN_("Go back to the first directory")},
-                       {view_forward, "view.forward", NN_("Go forward one directory")},
-                       {view_home, "view.home", NN_("Home directory")},
-                       {view_in_active_pane, "view.in_active_pane", NN_("view.in_active_pane")},
-                       {view_in_inactive_pane, "view.in_inactive_pane", NN_("view.in_inactive_pane")},
-                       {view_in_left_pane, "view.in_left_pane", NN_("view.in_left_pane")},
-                       {view_in_right_pane, "view.in_right_pane", NN_("view.in_right_pane")},
-                       {view_last, "view.last", NN_("view.last")},
-                       {view_refresh, "view.refresh", NN_("Refresh")},
-                       {view_root, "view.root", NN_("Root directory")},
-                       {view_up, "view.up", NN_("Up one directory")},
-                      };
+};
+
+
+static UserActionData user_actions_data[] = {
+                                             {bookmarks_add_current, "bookmarks.add_current", NN_("Bookmark current directory")},
+                                             {bookmarks_edit, "bookmarks.edit", NN_("Manage bookmarks")},
+                                             {bookmarks_goto, "bookmarks.goto", NN_("Go to bookmarked location")},
+                                             {command_open_terminal, "command.open_terminal", NN_("Open terminal")},
+                                             {command_root_mode, "command.root_mode", NN_("Start GNOME Commander as root")},
+                                             {connections_close_current, "connections.close", NN_("Close connection")},
+                                             {connections_new, "connections.new", NN_("New connection")},
+                                             {connections_open, "connections.open", NN_("Open connection")},
+                                             {edit_cap_copy, "edit.copy", NN_("Copy")},
+                                             {edit_copy_fnames, "edit.copy_filenames", NN_("Copy file names")},
+                                             {edit_cap_cut, "edit.cut", NN_("Cut")},
+                                             {file_delete, "edit.delete", NN_("Delete")},
+                                             {edit_filter, "edit.filter", NN_("Show user defined files")},
+                                             {edit_cap_paste, "edit.paste", NN_("Paste")},
+                                             {edit_quick_search, "edit.quick_search", NN_("Quick search")},
+                                             {edit_search, "edit.search", NN_("Search")},
+                                             {file_advrename, "file.advrename", NN_("Advanced rename tool")},
+                                             {file_chmod, "file.chmod", NN_("Change permissions")},
+                                             {file_chown, "file.chown", NN_("Change owner/group")},
+                                             {file_copy, "file.copy", NN_("Copy files")},
+                                             {file_create_symlink, "file.create_symlink", NN_("Create symbolic link")},
+                                             {file_delete, "file.delete", NN_("Delete files")},
+                                             {file_diff, "file.diff", NN_("Compare files (diff)")},
+                                             {file_edit, "file.edit", NN_("Edit file")},
+                                             {file_edit_new_doc, "file.edit_new_doc", NN_("Edit a new file")},
+                                             {file_exit, "file.exit", NN_("Quit")},
+                                             {file_external_view, "file.external_view", NN_("View with external viewer")},
+                                             {file_internal_view, "file.internal_view", NN_("View with internal viewer")},
+                                             {file_mkdir, "file.mkdir", NN_("Create directory")},
+                                             {file_move, "file.move", NN_("Move files")},
+                                             {file_properties, "file.properties", NN_("Properties")},
+                                             {file_rename, "file.rename", NN_("Rename files")},
+                                             // {file_run, "file.run"},
+                                             {file_sendto, "file.sendto", NN_("Send files")},
+                                             {file_sync_dirs, "file.synchronize_directories", NN_("Synchonize directories")},
+                                             // {file_umount, "file.umount"},
+                                             {file_view, "file.view", NN_("View file")},
+                                             {help_about, "help.about", NN_("About GNOME Commander")},
+                                             {help_help, "help.help", NN_("Help contents")},
+                                             {help_keyboard, "help.keyboard", NN_("Keyboard shortcuts")},
+                                             {help_problem, "help.problem", NN_("Report a problem")},
+                                             {help_web, "help.web", NN_("GNOME Commander on the web")},
+                                             {mark_compare_directories, "mark.compare_directories", NN_("Compare directories")},
+                                             {mark_select_all, "mark.select_all", NN_("Select all")},
+                                             {mark_toggle, "mark.toggle", NN_("Toggle selection")},
+                                             {mark_toggle_and_step, "mark.toggle_and_step", NN_("Toggle selection and move cursor downward")},
+                                             {mark_unselect_all, "mark.unselect_all", NN_("Unselect all")},
+                                             {no_action, "no.action", NN_("Do nothing")},
+                                             {options_edit, "options.edit", NN_("Options")},
+                                             {options_edit_mime_types, "options.edit_mime_types", NN_("MIME types")},
+                                             {options_edit_shortcuts, "options.shortcuts", NN_("Keyboard shortcuts")},
+                                             {plugins_configure, "plugins.configure", NN_("Configure plugins")},
+                                             {plugins_execute_python, "plugins.execute_python", NN_("Execute python plugin")},
+                                             {view_back, "view.back", NN_("Go back one directory")},
+                                             {view_equal_panes, "view.equal_panes", NN_("Equal panel size")},
+                                             {view_first, "view.first", NN_("Go back to the first directory")},
+                                             {view_forward, "view.forward", NN_("Go forward one directory")},
+                                             {view_home, "view.home", NN_("Home directory")},
+                                             {view_in_active_pane, "view.in_active_pane", NN_("view.in_active_pane")},
+                                             {view_in_inactive_pane, "view.in_inactive_pane", NN_("view.in_inactive_pane")},
+                                             {view_in_left_pane, "view.in_left_pane", NN_("view.in_left_pane")},
+                                             {view_in_right_pane, "view.in_right_pane", NN_("view.in_right_pane")},
+                                             {view_last, "view.last", NN_("view.last")},
+                                             {view_refresh, "view.refresh", NN_("Refresh")},
+                                             {view_root, "view.root", NN_("Root directory")},
+                                             {view_up, "view.up", NN_("Up one directory")},
+                                            };
 
 
 void GnomeCmdUserActions::init()
@@ -533,23 +535,54 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
 }
 
 
+static int sort_by_description (const void *data1, const void *data2)
+{
+    const gchar *s1 = ((UserActionData *) data1)->description;
+    const gchar *s2 = ((UserActionData *) data2)->description;
+
+    if (!s1 && !s2)
+        return 0;
+
+    if (!s1)
+        return 1;
+
+    if (!s2)
+        return -1;
+
+    // compare s1 and s2 in UTF8 aware way, case insensitive
+    gchar *is1 = g_utf8_casefold (_(s1), -1);
+    gchar *is2 = g_utf8_casefold (_(s2), -1);
+
+    gint retval = g_utf8_collate (is1, is2);
+
+    g_free (is1);
+    g_free (is2);
+
+    return retval;
+}
+
+
 GtkTreeModel *gnome_cmd_user_actions_create_model ()
 {
+    UserActionData *data = (UserActionData *) g_memdup (user_actions_data, sizeof(user_actions_data));
+
+    qsort (data, G_N_ELEMENTS(user_actions_data), sizeof(UserActionData), sort_by_description);
+
     GtkListStore *model = gtk_list_store_new (3, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
     GtkTreeIter iter;
-
-    // sort store according to description column (respecting user's locale)
 
     for (guint i=0; i<G_N_ELEMENTS(user_actions_data); ++i)
     {
         gtk_list_store_append (model, &iter);
 
         gtk_list_store_set (model, &iter,
-                                   0, user_actions_data[i].func,
-                                   1, user_actions_data[i].name,
-                                   2, _(user_actions_data[i].description),
+                                   0, data[i].func,
+                                   1, data[i].name,
+                                   2, _(data[i].description),
                                    -1);
     }
+
+    g_free (data);
 
     return GTK_TREE_MODEL (model);
 }
