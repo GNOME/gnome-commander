@@ -183,13 +183,13 @@ class GnomeCmdUserActions
         const ACTIONS_COLL::key_type &operator * () const                   {  return (ACTIONS_COLL::iterator::operator * ()).first;  }
     };
 
-    const_iterator begin()                                                  {  return action.begin();                           }
-    const_iterator end()                                                    {  return action.end();                             }
+    const_iterator begin()                                                  {  return action.begin();                                 }
+    const_iterator end()                                                    {  return action.end();                                   }
 
-    const gchar *key(const_iterator &i)                                     {  return key2str(*i).c_str();                      }       // FIXME: temporarily, to be removed
-    const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();      }       // FIXME: temporarily, to be removed
-    const gchar *description(const_iterator &i)                             {  return _(action_name[i->second.func].c_str());   }
-    const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();              }
+    const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();            }
+    const gchar *name(const std::string description)                        {  return action_func[action_name[description]].c_str();  }
+    const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();            }
+    const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                    }
 };
 
 

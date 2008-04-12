@@ -298,11 +298,10 @@ inline GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeMod
 
 enum
 {
-    COL_SHORTCUT,       // FIXME: temporarily, to be removed
     COL_ACCEL_KEY,
     COL_ACCEL_MASK,
     COL_ACTION,
-    COL_ACCEL_CLOSURE,
+    COL_NAME,
     COL_OPTION,
     NUM_COLUMNS
 } ;
@@ -310,7 +309,6 @@ enum
 
 enum
 {
-    SORTID_SHORTCUT,    // FIXME: temporarily, to be removed
     SORTID_ACCEL,
     SORTID_ACTION,
     SORTID_OPTION
@@ -331,14 +329,6 @@ inline GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
     GtkTreeViewColumn *col = NULL;
 
     GtkTooltips *tips = gtk_tooltips_new ();
-
-    col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_SHORTCUT, "test: [key-bindings]");               // FIXME: temporarily, to be removed
-    gtk_tooltips_set_tip (tips, col->button, "Keyboard shortcuts as specified in ~/.gnome2/gnome-commander", NULL);    // FIXME: temporarily, to be removed
-
-    g_object_set (renderer,
-                  "foreground-set", TRUE,
-                  "foreground", "DarkGray",
-                  NULL);
 
     col = create_new_accel_column (GTK_TREE_VIEW (view), renderer, COL_ACCEL_KEY, COL_ACCEL_MASK, _("Shortcut Key"));
     gtk_tooltips_set_tip (tips, col->button, _("Keyboard shortcut for selected action"), NULL);
@@ -442,11 +432,10 @@ static gint sort_by_accel (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2
 inline GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions)
 {
     GtkListStore *store = gtk_list_store_new (NUM_COLUMNS,
-                                              G_TYPE_STRING,            //  COL_SHORTCUT               // FIXME: temporarily, to be removed
                                               G_TYPE_UINT,              //  COL_ACCEL_KEY
                                               GDK_TYPE_MODIFIER_TYPE,   //  COL_ACCEL_MASK
                                               G_TYPE_STRING,            //  COL_ACTION
-                                              G_TYPE_CLOSURE,           //  COL_ACCEL_CLOSURE
+                                              G_TYPE_STRING,            //  COL_NAME
                                               G_TYPE_STRING);           //  COL_OPTION
 
     GtkTreeIter iter;
@@ -456,10 +445,10 @@ inline GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions)
          {
              gtk_list_store_append (store, &iter);
              gtk_list_store_set (store, &iter,
-                                 COL_SHORTCUT, user_actions.key(i),     // FIXME: temporarily, to be removed
                                  COL_ACCEL_KEY, i->first.keyval,
                                  COL_ACCEL_MASK, i->first.state,
                                  COL_ACTION, user_actions.description(i),
+                                 COL_NAME, user_actions.name(i),
                                  COL_OPTION, user_actions.options(i),
                                  -1);
          }
@@ -589,9 +578,17 @@ static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string,
     gint col = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (cell), "column"));
 
     if (gtk_tree_model_get_iter (model, &iter, path))
-        gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                            col, new_text,
-                            -1);
+        if (col==COL_ACTION && GnomeCmdKeyShortcutsDialog::user_actions)
+            gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                                col, new_text,
+                                COL_NAME, GnomeCmdKeyShortcutsDialog::user_actions->name(new_text),
+                                -1);
+        else
+            gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+                                col, new_text,
+                                -1);
+
+    gtk_tree_path_free (path);
 }
 
 
@@ -621,7 +618,7 @@ static void add_clicked_callback (GtkButton *button, GtkWidget *view)
 
     GtkTreePath *path = gtk_tree_model_get_path (model, &iter);
     gtk_widget_grab_focus (view);
-    gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, gtk_tree_view_get_column (GTK_TREE_VIEW (view),1), TRUE);    // FIXME: temporarily, change col idx 1 -> 0
+    gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, gtk_tree_view_get_column (GTK_TREE_VIEW (view),0), TRUE);
     gtk_tree_path_free(path);
     // start editing accelerator
 }
