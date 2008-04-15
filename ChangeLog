@@ -1,3 +1,10 @@
+2008-04-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/eggcellrendererkeys.cc:
+	* src/eggcellrendererkeys.h:
+	* src/gnome-cmd-user-actions.cc:
+	Do not use gtk_accelerator_get_label() for representing accelerators
+
 2008-04-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:

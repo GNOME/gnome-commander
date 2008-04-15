@@ -467,7 +467,7 @@ inline GtkTreeModel *create_and_fill_model (GnomeCmdUserActions &user_actions)
 
 inline gboolean conflict_confirm (GtkWidget *view, const gchar *action, guint accel_key, GdkModifierType accel_mask)
 {
-    gchar *accel_string = gtk_accelerator_get_label (accel_key, accel_mask);
+    gchar *accel_string = egg_accelerator_get_label (accel_key, accel_mask);
 
     GtkWidget *dlg = gtk_message_dialog_new (GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (view))),
                                              (GtkDialogFlags) (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),

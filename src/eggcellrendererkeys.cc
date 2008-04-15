@@ -228,7 +228,7 @@ static void egg_cell_renderer_keys_finalize (GObject *object)
 }
 
 
-inline gchar *convert_keysym_state_to_string (guint accel_key, GdkModifierType accel_mods)
+gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods)
 {
     if (accel_key == 0)
         return g_strdup (_("Disabled"));
@@ -677,7 +677,7 @@ void egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint ke
     {
         // sync string to the key values
         GtkCellRendererText *celltext = GTK_CELL_RENDERER_TEXT (keys);
-        char *text = convert_keysym_state_to_string (keys->accel_key, keys->accel_mask);
+        char *text = egg_accelerator_get_label (keys->accel_key, keys->accel_mask);
         g_object_set (keys, "text", text, NULL);
         g_free (text);
     }
