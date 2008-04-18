@@ -1577,6 +1577,7 @@ void gnome_cmd_data_load (void)
                             {GDK_equal, "equal"},
                             {GDK_exclam, "exclam"},
                             {GDK_greater, "greater"},
+                            {GDK_grave, "grave"},
                             {GDK_less, "less"},
                             {GDK_minus, "minus"},
                             {GDK_numbersign, "numbersign"},
