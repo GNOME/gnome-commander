@@ -3,6 +3,10 @@
 	* src/gnome-cmd-data.cc:
 	Added support for GDK_grave key
 
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-user-actions.cc:
+	Define CTRL+Q binding as user definable (file.exit)
+
 2008-04-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/eggcellrendererkeys.cc:

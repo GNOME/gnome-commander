@@ -1020,11 +1020,6 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
                     clear_event_key (event);
                 }
                 return TRUE;
-
-            case GDK_Q:
-            case GDK_q:
-                gtk_widget_destroy (GTK_WIDGET (main_win));
-                return TRUE;
         }
     }
     else if (state_is_alt_shift (event->state))

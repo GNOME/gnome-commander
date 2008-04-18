@@ -216,7 +216,7 @@ void GnomeCmdUserActions::init()
     register_action(GDK_F7, "file.mkdir");
     register_action(GDK_F8, "file.delete");
     // register_action(GDK_F9, "edit.search");     //  do not register F9 here, as edit.search action wouldn't be checked for registration later
-    register_action(GDK_F10, "file.exit");
+    // register_action(GDK_F10, "file.exit");      //  do not register F10 here, as file.exit action wouldn't be checked for registration later
 
     load("key-bindings");
 
@@ -260,6 +260,9 @@ void GnomeCmdUserActions::init()
     if (!registered("file.edit_new_doc"))
         register_action(GDK_SHIFT_MASK, GDK_F4, "file.edit_new_doc");
 
+    if (!registered("file.exit"))
+        register_action(GDK_CONTROL_MASK, GDK_Q, "file.exit");
+
     if (!registered("file.external_view"))
         register_action(GDK_MOD1_MASK, GDK_F3, "file.external_view");
 
@@ -287,6 +290,7 @@ void GnomeCmdUserActions::init()
     {
         register_action(GDK_CONTROL_MASK, GDK_5, "plugins.execute_python", "md5sum");
         register_action(GDK_CONTROL_MASK, GDK_KP_5, "plugins.execute_python", "md5sum");
+        register_action(GDK_CONTROL_MASK, GDK_KP_Begin, "plugins.execute_python", "md5sum");
     }
 
     if (!registered("view.equal_panes"))
@@ -327,6 +331,9 @@ void GnomeCmdUserActions::init()
 
     unregister(GDK_F9);                                 // unregister F9 if defined in [key-bindings]
     register_action(GDK_F9, "edit.search");             // and overwrite it with edit.search action
+
+    unregister(GDK_F10);                                // unregister F10 if defined in [key-bindings]
+    register_action(GDK_F10, "file.exit");              // and overwrite it with file.exit action
  }
 
 

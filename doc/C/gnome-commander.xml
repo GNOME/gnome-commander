@@ -4476,7 +4476,7 @@
                     <row valign="top">
                         <entry><para>file.exit</para></entry>
                         <entry><para>Exit &app;</para></entry>
-                        <entry><para></para></entry>
+                        <entry><para><keycombo><keycap>CTRL</keycap><keycap>Q</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>file.external_view</para></entry>
@@ -4535,7 +4535,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>help.keyboard</para></entry>
-                        <entry><para>Help on keayboard shortcuts</para></entry>
+                        <entry><para>Help on keyboard shortcuts</para></entry>
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
