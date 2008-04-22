@@ -3823,7 +3823,7 @@
         <row valign="top">
             <entry><keycombo><keycap>ALT</keycap><keycap>F7</keycap></keycombo></entry>
             <entry><para>Search</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></entry>
@@ -3913,22 +3913,22 @@
         <row valign="top">
             <entry><keycombo><keycap>=</keycap></keycombo></entry>
             <entry><para>Select files using a pattern</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>NUM +</keycap></keycombo></entry>
             <entry><para>Select files using a pattern</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>NUM -</keycap></keycombo></entry>
             <entry><para>Unselect files using a pattern</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>NUM *</keycap></keycombo></entry>
             <entry><para>Invert selection</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>NUM /</keycap></keycombo></entry>
@@ -3938,12 +3938,12 @@
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>=</keycap></keycombo></entry>
             <entry><para>Select all files</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>CTRL</keycap><keycap>-</keycap></keycombo></entry>
             <entry><para>Unselect all files</para></entry>
-            <entry><para></para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>ALT</keycap><keycap>NUM +</keycap></keycombo></entry>
