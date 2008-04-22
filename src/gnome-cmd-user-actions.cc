@@ -320,7 +320,7 @@ void GnomeCmdUserActions::init()
     if (!registered("view.home"))
     {
         register_action(GDK_CONTROL_MASK, GDK_quoteleft, "view.home");
-        register_action(GDK_CONTROL_MASK, GDK_asciitilde, "view.home");
+        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_asciitilde, "view.home");
     }
 
     if (!registered("view.root"))

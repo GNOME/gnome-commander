@@ -9,6 +9,10 @@
 	* src/gnome-cmd-key-shortcuts-dialog.cc:
 	Properly handle CAPSLOCK and Super keys in shortcuts dialog
 
+	* src/gnome-cmd-user-actions.cc:
+	Replaced previous default binding (CTRL+~) for view.home with SHIFT+CTRL+~
+	(<shift><control>asciitilde), as for the previous one didn't work at all.
+
 2008-04-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
