@@ -42,10 +42,6 @@ typedef struct _GnomeCmdKeyShortcutsDialogClass GnomeCmdKeyShortcutsDialogClass;
 
 struct GnomeCmdKeyShortcutsDialogPrivate
 {
-    GnomeCmdUserActions actions;            // local copy of user actions
-
-  public:
-
     GnomeCmdKeyShortcutsDialogPrivate();
 };
 
@@ -68,8 +64,6 @@ struct _GnomeCmdKeyShortcutsDialogClass
 
 inline GnomeCmdKeyShortcutsDialogPrivate::GnomeCmdKeyShortcutsDialogPrivate()
 {
-    if (_GnomeCmdKeyShortcutsDialog::user_actions)
-        actions = *_GnomeCmdKeyShortcutsDialog::user_actions;
 }
 
 
@@ -89,13 +83,71 @@ static void gnome_cmd_key_shortcuts_dialog_finalize (GObject *object)
 }
 
 
-static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_id, gpointer data)
+enum
+{
+    COL_ACCEL_KEY,
+    COL_ACCEL_MASK,
+    COL_ACTION,
+    COL_NAME,
+    COL_OPTION,
+    NUM_COLUMNS
+} ;
+
+
+static void response_callback (GnomeCmdKeyShortcutsDialog *dialog, int response_id, GtkWidget *view)
 {
     switch (response_id)
     {
         case GTK_RESPONSE_OK:
             if (dialog->user_actions)
-                *dialog->user_actions = dialog->priv->actions;
+            {
+                dialog->user_actions->clear();
+
+                GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+                GtkTreeIter i;
+
+                // copy model -> dialog->user_actions
+
+                for (gboolean valid_iter=gtk_tree_model_get_iter_first (model, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (model, &i))
+                {
+                    guint accel_key  = 0;
+                    guint accel_mask = 0;
+                    gchar *name = NULL;
+                    gchar *options = NULL;
+
+                    gtk_tree_model_get (model, &i,
+                                        COL_ACCEL_KEY, &accel_key,
+                                        COL_ACCEL_MASK, &accel_mask,
+                                        COL_NAME, &name,
+                                        COL_OPTION, &options,
+                                        -1);
+
+                    if (accel_key)
+                        dialog->user_actions->register_action(accel_mask, accel_key, name, g_strstrip (options));
+
+                    g_free (name);
+                    g_free (options);
+                }
+
+                dialog->user_actions->unregister(GDK_F3);
+                dialog->user_actions->unregister(GDK_F4);
+                dialog->user_actions->unregister(GDK_F5);
+                dialog->user_actions->unregister(GDK_F6);
+                dialog->user_actions->unregister(GDK_F7);
+                dialog->user_actions->unregister(GDK_F8);
+                dialog->user_actions->unregister(GDK_F9);
+                dialog->user_actions->unregister(GDK_F10);
+
+                dialog->user_actions->register_action(GDK_F3, "file.view");
+                dialog->user_actions->register_action(GDK_F4, "file.edit");
+                dialog->user_actions->register_action(GDK_F5, "file.copy");
+                dialog->user_actions->register_action(GDK_F6, "file.rename");
+                dialog->user_actions->register_action(GDK_F7, "file.mkdir");
+                dialog->user_actions->register_action(GDK_F8, "file.delete");
+                dialog->user_actions->register_action(GDK_F9, "edit.search");
+                dialog->user_actions->register_action(GDK_F10, "file.exit");
+            }
+
             break;
 
         case GTK_RESPONSE_NONE:
@@ -191,7 +243,7 @@ static void gnome_cmd_key_shortcuts_dialog_init (GnomeCmdKeyShortcutsDialog *dia
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 
-    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), dialog);
+    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), view);
 
     gtk_widget_grab_focus (view);
 }
@@ -294,17 +346,6 @@ inline GtkTreeViewColumn *create_new_combo_column (GtkTreeView *view, GtkTreeMod
 
     return col;
 }
-
-
-enum
-{
-    COL_ACCEL_KEY,
-    COL_ACCEL_MASK,
-    COL_ACTION,
-    COL_NAME,
-    COL_OPTION,
-    NUM_COLUMNS
-} ;
 
 
 enum

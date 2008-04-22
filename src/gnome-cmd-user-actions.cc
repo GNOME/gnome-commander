@@ -403,31 +403,16 @@ void GnomeCmdUserActions::load(const gchar *section)
 
 void GnomeCmdUserActions::write(const gchar *section)
 {
-    string section_path = G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S;
+    string section_path  = G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S;
            section_path += section;
-           section_path += G_DIR_SEPARATOR;
 
-    char *key = NULL;
-    char *action_name = NULL;
-
-    for (gpointer i=gnome_config_init_iterator (section_path.c_str()); (i=gnome_config_iterator_next (i, &key, &action_name)); )
-    {
-        string curr_key = key;
-        string norm_key = key2str(str2key(key));        // <ALT><Ctrl>F3 -> <ctrl><alt>f3
-
-        if (!norm_key.empty() && curr_key!=norm_key)    // if (norm_key is valid && not 'canonical')
-        {
-            gnome_config_clean_key ((section_path+curr_key).c_str());
-            gnome_config_set_string ((section_path+norm_key).c_str(), action_name);
-        }
-
-        g_free (key);
-        g_free (action_name);
-    }
+    gnome_config_clean_section (section_path.c_str());
 
     for (ACTIONS_COLL::const_iterator i=action.begin(); i!=action.end(); ++i)
     {
-        string path = section_path + key2str(i->first);
+        string path  = section_path;
+               path += G_DIR_SEPARATOR;
+               path += key2str(i->first);
 
         string action_name = action_func[i->second.func];
 

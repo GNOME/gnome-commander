@@ -1,5 +1,9 @@
 2008-04-22  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-key-shortcuts-dialog.cc:
+	* src/gnome-cmd-user-actions.cc:
+	Write modified shortcuts to config file
+
 	* src/eggcellrendererkeys.cc:
 	* src/eggcellrendererkeys.h:
 	* src/gnome-cmd-key-shortcuts-dialog.cc:
