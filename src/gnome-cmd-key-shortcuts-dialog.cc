@@ -247,7 +247,7 @@ inline GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRen
 
     g_object_set (renderer,
                   "editable", TRUE,
-                  "accel-mode", GTK_CELL_RENDERER_ACCEL_MODE_GTK,
+                  "accel-mode", GTK_CELL_RENDERER_ACCEL_MODE_OTHER,
                   NULL);
 
     GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,

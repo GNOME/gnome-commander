@@ -78,6 +78,14 @@ struct _EggCellRendererKeysClass
 GType egg_cell_renderer_keys_get_type (void);
 GtkCellRenderer *egg_cell_renderer_keys_new (void);
 
+#ifndef HAVE_GTK_2_10
+typedef enum
+{
+  GTK_CELL_RENDERER_ACCEL_MODE_GTK,
+  GTK_CELL_RENDERER_ACCEL_MODE_OTHER
+} GtkCellRendererAccelMode;
+#endif
+
 void  egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint keyval, GdkModifierType mask);
 void  egg_cell_renderer_keys_get_accelerator (EggCellRendererKeys *keys, guint *keyval, GdkModifierType *mask);
 void  egg_cell_renderer_keys_set_accel_mode (EggCellRendererKeys *keys, GtkCellRendererAccelMode accel_mode);

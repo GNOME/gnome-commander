@@ -1,3 +1,10 @@
+2008-04-22  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/eggcellrendererkeys.cc:
+	* src/eggcellrendererkeys.h:
+	* src/gnome-cmd-key-shortcuts-dialog.cc:
+	Properly handle CAPSLOCK and Super keys in shortcuts dialog
+
 2008-04-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

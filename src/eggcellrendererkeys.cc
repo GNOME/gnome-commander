@@ -41,6 +41,7 @@
 #include <gdk/gdkkeysyms.h>
 #include "eggcellrendererkeys.h"
 #include "gnome-cmd-includes.h"
+#include "utils.h"
 
 #define EGG_CELL_RENDERER_TEXT_PATH "egg-cell-renderer-text"
 
@@ -441,23 +442,38 @@ void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
 }
 
 
-static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, void *data)
+static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCellRendererKeys *keys)
 {
-    EggCellRendererKeys *keys = EGG_CELL_RENDERER_KEYS (data);
-
+#ifdef HAVE_GTK_2_10
+    if (event->is_modifier)
+        return TRUE;
+#else
     if (is_modifier (event->hardware_keycode))
         return TRUE;
+#endif
+
+    switch (event->keyval)
+    {
+        case GDK_Super_L:
+        case GDK_Super_R:
+        // case GDK_Meta_L:
+        // case GDK_Meta_R:
+        // case GDK_Hyper_L:
+        // case GDK_Hyper_R:
+            return TRUE;
+    }
+
+    GdkDisplay *display = gtk_widget_get_display (widget);
 
     gboolean edited = FALSE;
     guint consumed_modifiers = 0;
 
-    GdkDisplay *display = gtk_widget_get_display (widget);
-
-    gdk_keymap_translate_keyboard_state (gdk_keymap_get_for_display (display),
-                                         event->hardware_keycode,
-                                         (GdkModifierType) event->state,
-                                         event->group,
-                                         NULL, NULL, NULL, (GdkModifierType *) &consumed_modifiers);
+    if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
+        gdk_keymap_translate_keyboard_state (gdk_keymap_get_for_display (display),
+                                             event->hardware_keycode,
+                                             (GdkModifierType) event->state,
+                                             event->group,
+                                             NULL, NULL, NULL, (GdkModifierType *) &consumed_modifiers);
 
     guint accel_key = gdk_keyval_to_lower (event->keyval);
     guint accel_mods = 0;
@@ -477,8 +493,9 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, void *
         accel_mods &= ~consumed_modifiers;
 
     // put shift back if it changed the case of the key, not otherwise.
-    if (accel_key != event->keyval)
-        accel_mods |= GDK_SHIFT_MASK;
+    if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
+        if (accel_key != event->keyval)
+            accel_mods |= GDK_SHIFT_MASK;
 
     if (accel_mods == 0)
     {
