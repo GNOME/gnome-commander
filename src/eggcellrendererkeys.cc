@@ -481,7 +481,6 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
     if (accel_key == GDK_ISO_Left_Tab)
         accel_key = GDK_Tab;
 
-
 #ifdef HAVE_GTK_2_10
     accel_mods = event->state & gtk_accelerator_get_default_mod_mask ();
 #else
@@ -498,7 +497,6 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
             accel_mods |= GDK_SHIFT_MASK;
 
     if (accel_mods == 0)
-    {
         switch (event->keyval)
         {
             case GDK_Escape:
@@ -510,17 +508,14 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
             default:
                 break;
         }
-    }
 
     if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
-    {
         if (accel_key != GDK_Tab && !gtk_accelerator_valid (accel_key, (GdkModifierType) accel_mods))
         {
             // gtk_widget_error_bell (widget);     // FIXME: since 2.12, uncomment when dependency is met
 
             return TRUE;
         }
-    }
 
     edited = TRUE;
 
@@ -545,16 +540,14 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
 }
 
 
-static void ungrab_stuff (GtkWidget *widget, gpointer data)
+static void ungrab_stuff (GtkWidget *widget, EggCellRendererKeys *keys)
 {
     GdkDisplay *display = gtk_widget_get_display (widget);
 
     gdk_display_keyboard_ungrab (display, GDK_CURRENT_TIME);
     gdk_display_pointer_ungrab (display, GDK_CURRENT_TIME);
 
-    EggCellRendererKeys *keys = EGG_CELL_RENDERER_KEYS (data);
-
-    g_signal_handlers_disconnect_by_func (G_OBJECT (keys->grab_widget), (gpointer) G_CALLBACK (grab_key_callback), data);
+    g_signal_handlers_disconnect_by_func (G_OBJECT (keys->grab_widget), (gpointer) G_CALLBACK (grab_key_callback), keys);
 }
 
 

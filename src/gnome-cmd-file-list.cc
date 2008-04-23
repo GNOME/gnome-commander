@@ -372,7 +372,6 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GList *sel;
     const gchar *ext1, *ext2;
 
     GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (fl);
@@ -380,7 +379,7 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
     ext1 = gnome_cmd_file_get_extension (f);
     if (!ext1) return;
 
-    sel = g_list_copy (gnome_cmd_file_list_get_selected_files (fl));
+    GList *sel = g_list_copy (gnome_cmd_file_list_get_selected_files (fl));
 
     for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
     {
@@ -580,13 +579,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
 }
 
 
-static void
-drag_data_get (GtkWidget        *widget,
-               GdkDragContext   *context,
-               GtkSelectionData *selection_data,
-               guint            info,
-               guint32          time,
-               GnomeCmdFileList *fl)
+static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint32 time, GnomeCmdFileList *fl)
 {
     int len;
     GList *files;
@@ -931,11 +924,7 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 }
 
 
-static void
-on_scroll_vertical                  (GtkCList        *clist,
-                                     GtkScrollType    scroll_type,
-                                     gfloat           position,
-                                     GnomeCmdFileList *fl)
+static void on_scroll_vertical (GtkCList *clist, GtkScrollType scroll_type, gfloat position, GnomeCmdFileList *fl)
 {
     g_return_if_fail (GTK_IS_CLIST (clist));
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
@@ -1023,10 +1012,7 @@ static gboolean mime_exec_file (GnomeCmdFile *finfo)
 }
 
 
-static void
-on_file_clicked (GnomeCmdFileList *fl,
-                 GnomeCmdFile *finfo, GdkEventButton *event,
-                 gpointer data)
+static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEventButton *event, gpointer data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (finfo != NULL);
@@ -1090,10 +1076,7 @@ on_file_clicked (GnomeCmdFileList *fl,
 }
 
 
-static void
-on_motion_notify                     (GtkCList *clist,
-                                      GdkEventMotion *event,
-                                      GnomeCmdFileList *fl)
+static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFileList *fl)
 {
     g_return_if_fail (event != NULL);
 
