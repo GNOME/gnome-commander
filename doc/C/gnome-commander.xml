@@ -5824,6 +5824,9 @@
                             <para>Fixed problem #392959 (dynamically changing user to root)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #499764 (multiple selection problem)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with sorting of UTF-8 encoded file names</para>
                         </listitem>
                         <listitem>

@@ -1,3 +1,8 @@
+2008-04-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	Fixed problem #499764 (multiple selection problem)
+
 2008-04-22  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-key-shortcuts-dialog.cc:

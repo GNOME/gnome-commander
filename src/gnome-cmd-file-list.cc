@@ -234,6 +234,9 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     if (row == -1)
         return;
 
+    if (g_list_index (fl->priv->selected_files, finfo) != -1)
+        return;
+
     if (!gnome_cmd_data_get_use_ls_colors ())
         gtk_clist_set_row_style (GTK_CLIST (fl), row, sel_list_style);
     else
@@ -245,9 +248,6 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
             gtk_clist_set_background (GTK_CLIST (fl), row, colors->sel_bg);
         }
     }
-
-    if (g_list_index (fl->priv->selected_files, finfo) != -1)
-        return;
 
     gnome_cmd_file_ref (finfo);
     fl->priv->selected_files = g_list_append (fl->priv->selected_files, finfo);
@@ -1032,50 +1032,61 @@ on_file_clicked (GnomeCmdFileList *fl,
     g_return_if_fail (finfo != NULL);
     g_return_if_fail (event != NULL);
 
-    gint row = get_row_from_file (fl, finfo);
-
     if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
     {
         mime_exec_file (finfo);
     }
-    else if (event->type == GDK_BUTTON_PRESS && (event->button == 1 || event->button == 3))
-    {
-        gnome_cmd_file_list_select_row (fl, row);
-        gtk_widget_grab_focus (GTK_WIDGET (fl));
+    else
+        if (event->type == GDK_BUTTON_PRESS && (event->button == 1 || event->button == 3))
+        {
+            gint prev_row = fl->priv->cur_file;
+            gint row = get_row_from_file (fl, finfo);
 
-        if (event->button == 1)
-        {
-            if (event->state & GDK_SHIFT_MASK)
-                select_file_range (fl, fl->priv->shift_down_row, row);
-            else if (event->state & GDK_CONTROL_MASK)
-                toggle_file_at_row (fl, row);
-        }
-        else if (event->button == 3)
-        {
-            if (strcmp (finfo->info->name, "..") != 0)
+            gnome_cmd_file_list_select_row (fl, row);
+            gtk_widget_grab_focus (GTK_WIDGET (fl));
+
+            if (event->button == 1)
             {
-                if (gnome_cmd_data_get_right_mouse_button_mode() == RIGHT_BUTTON_SELECTS)
-                {
-                    if (g_list_index (fl->priv->selected_files, finfo) == -1)
-                    {
-                        select_file (fl, finfo);
-                        fl->priv->right_mouse_sel_state = 1;
-                    }
-                    else
-                    {
-                        unselect_file (fl, finfo);
-                        fl->priv->right_mouse_sel_state = 0;
-                    }
-
-                    fl->priv->right_mb_down_file = finfo;
-                    fl->priv->right_mb_timeout_id =
-                        gtk_timeout_add (POPUP_TIMEOUT, (GtkFunction) on_right_mb_timeout, fl);
-                }
+                if (event->state & GDK_SHIFT_MASK)
+                    select_file_range (fl, fl->priv->shift_down_row, row);
                 else
-                    show_file_popup (fl, event);
+                    if (event->state & GDK_CONTROL_MASK)
+                    {
+                        if (!fl->priv->selected_files)
+                        {
+                            if (prev_row!=row)
+                                select_file (fl, get_file_at_row (fl, prev_row));
+                            select_file_at_row (fl, row);
+                        }
+                        else
+                            toggle_file_at_row (fl, row);
+                    }
             }
+            else
+                if (event->button == 3)
+                    if (strcmp (finfo->info->name, "..") != 0)
+                    {
+                        if (gnome_cmd_data_get_right_mouse_button_mode() == RIGHT_BUTTON_SELECTS)
+                        {
+                            if (g_list_index (fl->priv->selected_files, finfo) == -1)
+                            {
+                                select_file (fl, finfo);
+                                fl->priv->right_mouse_sel_state = 1;
+                            }
+                            else
+                            {
+                                unselect_file (fl, finfo);
+                                fl->priv->right_mouse_sel_state = 0;
+                            }
+
+                            fl->priv->right_mb_down_file = finfo;
+                            fl->priv->right_mb_timeout_id =
+                                gtk_timeout_add (POPUP_TIMEOUT, (GtkFunction) on_right_mb_timeout, fl);
+                        }
+                        else
+                            show_file_popup (fl, event);
+                    }
         }
-    }
 }
 
 
