@@ -109,7 +109,13 @@ GtkType gnome_cmd_file_list_get_type (void);
 
 GtkWidget *gnome_cmd_file_list_new (void);
 
-void gnome_cmd_file_list_show_column (GnomeCmdFileList *fl, GnomeCmdFileListColumnID col, gboolean value);
+inline void gnome_cmd_file_list_show_column (GnomeCmdFileList *fl, GnomeCmdFileListColumnID col, gboolean value)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    gtk_clist_set_column_visibility (GTK_CLIST (fl), col, value);
+}
+
 GnomeCmdFileListColumnID gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
 
 void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl);
@@ -121,7 +127,13 @@ void gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 
 void gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 void gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *uri_str);
-void gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files);
+
+inline void gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files)
+{
+    for (; files; files = files->next)
+        gnome_cmd_file_list_remove_file (fl, (GnomeCmdFile *) files->data);
+}
+
 void gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl);
 
 void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo);

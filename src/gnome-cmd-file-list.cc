@@ -1300,14 +1300,6 @@ GtkWidget *gnome_cmd_file_list_new ()
 }
 
 
-void gnome_cmd_file_list_show_column (GnomeCmdFileList *fl, GnomeCmdFileListColumnID col, gboolean value)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    gtk_clist_set_column_visibility (GTK_CLIST (fl), col, value);
-}
-
-
 GnomeCmdFileListColumnID gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FILE_LIST_COLUMN_ICON);
@@ -1583,13 +1575,6 @@ void gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *
     g_return_if_fail (GNOME_CMD_IS_FILE (file));
 
     gnome_cmd_file_list_remove_file (fl, file);
-}
-
-
-void gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files)
-{
-    for (; files; files = files->next)
-        gnome_cmd_file_list_remove_file (fl, (GnomeCmdFile *) files->data);
 }
 
 
