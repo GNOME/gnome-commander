@@ -1,3 +1,8 @@
+2008-04-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-menu.cc:
+	Added icon to 'Help|Keyboard Shortcuts' menu entry
+
 2008-04-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

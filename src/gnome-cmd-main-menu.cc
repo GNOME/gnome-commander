@@ -744,7 +744,7 @@ static void init (GnomeCmdMainMenu *main_menu)
         {
             MENU_TYPE_ITEM, _("_Keyboard Shortcuts"), "", NULL,
             (gpointer) help_keyboard, NULL,
-            GNOME_APP_PIXMAP_NONE, 0,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_ITALIC,
             NULL
         },
         {
