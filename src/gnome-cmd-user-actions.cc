@@ -294,10 +294,7 @@ void GnomeCmdUserActions::init()
     }
 
     if (!registered("view.equal_panes"))
-    {
-        register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_equal, "view.equal_panes");
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_plus, "view.equal_panes");
-    }
 
     if (!registered("view.in_active_pane"))
         register_action(GDK_CONTROL_MASK, GDK_period, "view.in_active_pane");
