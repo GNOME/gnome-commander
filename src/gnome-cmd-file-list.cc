@@ -75,6 +75,18 @@ static GnomeCmdCListClass *parent_class = NULL;
 
 static guint file_list_signals[LAST_SIGNAL] = { 0 };
 
+
+typedef struct
+{
+    guint id;
+    const gchar *title;
+    guint default_width;
+    GtkJustification justification;
+    gboolean default_sort_direction;
+    GCompareDataFunc sort_func;
+} GnomeCmdFileListColumn;
+
+
 static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
 static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *fl);
@@ -1297,6 +1309,12 @@ GtkWidget *gnome_cmd_file_list_new ()
     create_column_titles (fl);
 
     return GTK_WIDGET (fl);
+}
+
+
+guint gnome_cmd_file_list_get_column_default_width (GnomeCmdFileListColumnID col)
+{
+    return file_list_column[col].default_width;
 }
 
 

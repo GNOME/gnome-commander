@@ -1,3 +1,10 @@
+2008-04-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	Added gnome_cmd_file_list_get_column_default_width() function
+
 2008-04-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.cc:

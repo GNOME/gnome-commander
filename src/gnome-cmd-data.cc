@@ -1444,7 +1444,7 @@ void gnome_cmd_data_load (void)
     for (gint i=0; i<FILE_LIST_NUM_COLUMNS; i++)
     {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
-        data->priv->fs_col_width[i] = get_int (tmp, file_list_column[i].default_width);
+        data->priv->fs_col_width[i] = get_int (tmp, gnome_cmd_file_list_get_column_default_width ((GnomeCmdFileListColumnID) i));
         g_free (tmp);
     }
 

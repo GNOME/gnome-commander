@@ -89,18 +89,6 @@ struct _GnomeCmdFileListClass
 enum {FILE_LIST_SORT_ASCENDING=FALSE, FILE_LIST_SORT_DESCENDING=TRUE};
 
 
-typedef struct
-{
-    guint id;
-    const gchar *title;
-    guint default_width;
-    GtkJustification justification;
-    gboolean default_sort_direction;
-    GCompareDataFunc sort_func;
-} GnomeCmdFileListColumn;
-
-
-extern GnomeCmdFileListColumn file_list_column[];
 extern GtkTargetEntry drag_types[];
 extern GtkTargetEntry drop_types[];
 
@@ -117,6 +105,7 @@ inline void gnome_cmd_file_list_show_column (GnomeCmdFileList *fl, GnomeCmdFileL
 }
 
 GnomeCmdFileListColumnID gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
+guint gnome_cmd_file_list_get_column_default_width (GnomeCmdFileListColumnID col);
 
 void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl);
 
