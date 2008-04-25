@@ -625,7 +625,7 @@ GtkType gnome_cmd_clist_get_type         (void)
 
 GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles)
 {
-    GnomeCmdCList *clist = (GnomeCmdCList *) g_object_new (gnome_cmd_clist_get_type(), "n_columns", columns, NULL);
+    GnomeCmdCList *clist = (GnomeCmdCList *) g_object_new (gnome_cmd_clist_get_type(), "n-columns", columns, NULL);
 
     for (gint i=0; i<columns; i++)
         gtk_clist_set_column_auto_resize (GTK_CLIST (clist), i, TRUE);

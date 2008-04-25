@@ -3,7 +3,7 @@
 	* src/gnome-cmd-main-menu.cc:
 	Added icon to 'Help|Keyboard Shortcuts' menu entry
 
-2008-04-24  Piotr Eljasiak  <epiotr@use.pl>
+2008-04-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:
 	Fixed problem #499764 (multiple selection problem)

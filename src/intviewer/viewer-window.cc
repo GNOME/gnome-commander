@@ -1591,12 +1591,12 @@ static void set_zoom_out(GViewerWindow *obj)
 }
 
 
-static void set_zoom_normal(GViewerWindow *obj)
+static void set_zoom_normal (GViewerWindow *obj)
 {
     g_return_if_fail (obj);
     g_return_if_fail (obj->priv->viewer);
 
-    switch (gviewer_get_display_mode(obj->priv->viewer))
+    switch (gviewer_get_display_mode (obj->priv->viewer))
     {
         case DISP_MODE_TEXT_FIXED:
         case DISP_MODE_BINARY:
@@ -1605,7 +1605,7 @@ static void set_zoom_normal(GViewerWindow *obj)
            break;
 
         case DISP_MODE_IMAGE:
-           gviewer_set_best_fit(obj->priv->viewer, FALSE);
+           gviewer_set_best_fit (obj->priv->viewer, FALSE);
            gviewer_set_scale_factor(obj->priv->viewer, 1);
            break;
 
@@ -1615,7 +1615,7 @@ static void set_zoom_normal(GViewerWindow *obj)
 }
 
 
-static void set_zoom_best_fit(GViewerWindow *obj)
+static void set_zoom_best_fit (GViewerWindow *obj)
 {
     g_return_if_fail (obj);
     g_return_if_fail (obj->priv->viewer);

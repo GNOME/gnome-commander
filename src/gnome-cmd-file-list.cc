@@ -641,7 +641,7 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     gtk_widget_ref (menu);
     gtk_object_set_data_full (GTK_OBJECT (fl), "file_popup_menu", menu, (GtkDestroyNotify)gtk_widget_unref);
 
-    gnome_popup_menu_do_popup (menu, (GtkMenuPositionFunc)popup_position_function, fl, event, fl, NULL);
+    gnome_popup_menu_do_popup (menu, (GtkMenuPositionFunc) popup_position_function, fl, event, fl, NULL);
 }
 
 
@@ -1292,7 +1292,7 @@ GtkType gnome_cmd_file_list_get_type (void)
 
 GtkWidget *gnome_cmd_file_list_new ()
 {
-    GnomeCmdFileList *fl = (GnomeCmdFileList *) g_object_new (gnome_cmd_file_list_get_type(), "n_columns", FILE_LIST_NUM_COLUMNS, NULL);
+    GnomeCmdFileList *fl = (GnomeCmdFileList *) g_object_new (gnome_cmd_file_list_get_type(), "n-columns", FILE_LIST_NUM_COLUMNS, NULL);
 
     create_column_titles (fl);
 
@@ -1328,7 +1328,7 @@ inline gchar *strip_extension (const gchar *fname)
 
 inline void format_file_for_display (GnomeCmdFile *finfo, FileFormatData &data, gboolean tree_size)
 {
-    // If the user wants a character insted of icon for filetype set it now
+    // If the user wants a character instead of icon for filetype set it now
     if (gnome_cmd_data_get_layout () == GNOME_CMD_LAYOUT_TEXT)
         data.text[FILE_LIST_COLUMN_ICON] = (gchar *) gnome_cmd_file_get_type_string (finfo);
     else
@@ -1885,7 +1885,7 @@ void gnome_cmd_file_list_restore_selection (GnomeCmdFileList *fl)
 }
 
 
-static gint compare_filename(GnomeCmdFile *f1, GnomeCmdFile *f2)
+static gint compare_filename (GnomeCmdFile *f1, GnomeCmdFile *f2)
 {
     return strcmp(f1->info->name, f2->info->name);
 }
@@ -1907,7 +1907,7 @@ void gnome_cmd_file_list_compare_directories (void)
     {
         GnomeCmdFile *f1 = (GnomeCmdFile *) i->data;
         GnomeCmdFile *f2;
-        GList *gl2 = g_list_find_custom (fl2->priv->selected_files, f1, (GCompareFunc)compare_filename);
+        GList *gl2 = g_list_find_custom (fl2->priv->selected_files, f1, (GCompareFunc) compare_filename);
 
         if (!gl2)
         {

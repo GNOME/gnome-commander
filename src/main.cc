@@ -116,7 +116,7 @@ int main (int argc, char *argv[])
     gdk_rgb_init ();
     gnome_vfs_init ();
 
-    conf_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir(), ".gnome-commander", NULL);
+    conf_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome-commander", NULL);
     create_dir_if_needed (conf_dir);
     g_free (conf_dir);
     gnome_cmd_data_load ();

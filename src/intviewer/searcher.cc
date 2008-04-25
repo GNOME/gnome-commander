@@ -110,7 +110,7 @@ GType g_viewer_searcher_get_type()
 
 static void g_viewer_searcher_class_init(GViewerSearcherClass *klass)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     parent_class = (GObjectClass *) g_type_class_peek_parent(klass);
     object_class->finalize = g_viewer_searcher_finalize;
@@ -137,8 +137,7 @@ static void g_viewer_searcher_init(GViewerSearcher *obj)
 
 static void g_viewer_searcher_finalize(GObject *object)
 {
-    GViewerSearcher *cobj;
-    cobj = G_VIEWERSEARCHER(object);
+    GViewerSearcher *cobj = G_VIEWERSEARCHER (object);
 
     // Free private members, etc.
     if (cobj->priv)
@@ -167,13 +166,13 @@ static void g_viewer_searcher_finalize(GObject *object)
         cobj->priv = NULL;
     }
 
-    G_OBJECT_CLASS(parent_class)->finalize(object);
+    G_OBJECT_CLASS (parent_class)->finalize(object);
 }
 
 
 GViewerSearcher *g_viewer_searcher_new()
 {
-    GViewerSearcher *obj = G_VIEWERSEARCHER(g_object_new(G_TYPE_VIEWERSEARCHER, NULL));
+    GViewerSearcher *obj = G_VIEWERSEARCHER (g_object_new (G_TYPE_VIEWERSEARCHER, NULL));
 
     return obj;
 }
@@ -601,7 +600,7 @@ void g_viewer_searcher_start_search(GViewerSearcher *src, gboolean forward)
     // Reset indicators
     src->priv->abort_indicator = 0;
     src->priv->completed_indicator = 0;
-    // src->priv->progress_value is NOT reset here, only on "setup_new_search"
+    // src->priv->progress_value is NOT reset here, only in "setup_new_search"
     src->priv->search_reached_end = FALSE;
 
     src->priv->search_forward = forward;
