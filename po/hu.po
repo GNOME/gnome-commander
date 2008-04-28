@@ -1,42 +1,44 @@
 # Hungarian translation of gnome-commander.
 # Copyright (C) 2003, 2004, 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gnome-commander package.
-# Gabor Sari <sari.gabor@gmail.com>, 2003.
-# Gabor Kelemen <kelemeng@gnome.hu>, 2004, 2006.
-# Laszlo Dvornik <dvornik@gnome.hu>, 2006.
+# Gábor Sári <sari.gabor@gmail.com>, 2003.
+# Gábor Kelemen <kelemeng@gnome.hu>, 2004, 2006.
+# László Dvornik <dvornik@gnome.hu>, 2006.
+# Csimbi <csimbi@gmail.com>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-19 18:10+0100\n"
-"PO-Revision-Date: 2006-06-25 11:21+0200\n"
-"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
+"POT-Creation-Date: 2008-04-04 20:33+0100\n"
+"PO-Revision-Date: 2008-04-29 00:05+0300\n"
+"Last-Translator: Gábor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:   nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms:   nplurals=2; plural=(n != 1);"
 
 #: ../data/gnome-commander.desktop.in.in.h:1
 msgid "A two paned file manager"
 msgstr "Egy kétpaneles fájlkezelő"
 
-#: ../data/gnome-commander.desktop.in.in.h:2
+#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-main-win.cc:764
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
 #: ../libgcmd/gnome-cmd-string-dialog.c:130
 msgid "No error description available"
-msgstr "Nem érhető el hibaleírás"
+msgstr "Nem érhető el a hibaleírás"
 
+#. destroy model automatically with view
 #: ../plugins/cvs/cvs-plugin.c:301
 #: ../plugins/fileroller/file-roller-plugin.c:346
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:358
 #: ../src/gnome-cmd-options-dialog.cc:1179
 #: ../src/gnome-cmd-options-dialog.cc:1880
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:133
-#: ../src/gnome-cmd-prepare-move-dialog.cc:120
+#: ../src/gnome-cmd-prepare-move-dialog.cc:118
 #: ../src/gnome-cmd-remote-dialog.cc:526
 msgid "Options"
 msgstr "Beállítások"
@@ -161,6 +163,30 @@ msgid_plural "%d files listed"
 msgstr[0] "Nincs kiválasztott kiszolgáló"
 msgstr[1] "Nincs kiválasztott kiszolgáló"
 
+#: ../src/eggcellrendererkeys.cc:180 ../src/eggcellrendererkeys.cc:181
+msgid "Accelerator key"
+msgstr ""
+
+#: ../src/eggcellrendererkeys.cc:190 ../src/eggcellrendererkeys.cc:191
+msgid "Accelerator modifiers"
+msgstr ""
+
+#: ../src/eggcellrendererkeys.cc:199
+msgid "Accelerator Mode"
+msgstr ""
+
+#: ../src/eggcellrendererkeys.cc:200
+msgid "The type of accelerator."
+msgstr ""
+
+#: ../src/eggcellrendererkeys.cc:235
+msgid "Disabled"
+msgstr "Letiltva"
+
+#: ../src/eggcellrendererkeys.cc:422 ../src/eggcellrendererkeys.cc:623
+msgid "New accelerator..."
+msgstr ""
+
 #: ../src/gnome-cmd-about-plugin.cc:182
 msgid "Credits"
 msgstr "Köszönet"
@@ -190,248 +216,238 @@ msgstr "_Köszönet"
 msgid "About %s"
 msgstr "%s névjegye"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:152
+#: ../src/gnome-cmd-advrename-dialog.cc:153
 msgid "/Grandparent"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:153
+#: ../src/gnome-cmd-advrename-dialog.cc:154
 msgid "/Parent"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:155
-#, fuzzy
-msgid "/File name"
-msgstr "Fájlnév:"
-
 #: ../src/gnome-cmd-advrename-dialog.cc:156
+msgid "/File name"
+msgstr "/Fájlnév"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:157
 msgid "/File name without extension"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:157
-#, fuzzy
+#: ../src/gnome-cmd-advrename-dialog.cc:158
 msgid "/File extension"
-msgstr "Verzió"
-
-#: ../src/gnome-cmd-advrename-dialog.cc:159
-#, fuzzy
-msgid "/Counter"
-msgstr "_Tartalom"
+msgstr "Fájl kiterjesztés:"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:160
-#, fuzzy
+msgid "/Counter"
+msgstr "/Számláló"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:161
 msgid "/Counter (precision)"
-msgstr "Más revízió"
+msgstr "/Számláló (precíziós)"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:162
+msgid "/Hexadecimal random number (precision)"
+msgstr "/Hexadecimális véletlen szám (precíziós)"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:164
 msgid "/Date/<locale>"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:163
-msgid "/Date/yyyy-mm-dd"
-msgstr ""
-
-#: ../src/gnome-cmd-advrename-dialog.cc:164
-msgid "/Date/yy-mm-dd"
-msgstr ""
-
 #: ../src/gnome-cmd-advrename-dialog.cc:165
-msgid "/Date/yy.mm.dd"
-msgstr ""
+msgid "/Date/yyyy-mm-dd"
+msgstr "/Dátum/éééé-hh-nn"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:166
-msgid "/Date/yymmdd"
-msgstr ""
+msgid "/Date/yy-mm-dd"
+msgstr "/Dátum/éé-hh-nn"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:167
-msgid "/Date/dd.mm.yy"
-msgstr ""
+msgid "/Date/yy.mm.dd"
+msgstr "/Dátum/éé.hh.nn"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:168
-msgid "/Date/mm-dd-yy"
-msgstr ""
+msgid "/Date/yymmdd"
+msgstr "/Dátum/ééhhnn"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:169
-msgid "/Date/yyyy"
-msgstr ""
+msgid "/Date/dd.mm.yy"
+msgstr "/Dátum/nn.hh.éé"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:170
-#, fuzzy
-msgid "/Date/yy"
-msgstr "Dátum:"
+msgid "/Date/mm-dd-yy"
+msgstr "/Dátum/hh-nn-éé"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:171
-#, fuzzy
-msgid "/Date/mm"
-msgstr "Dátum:"
+msgid "/Date/yyyy"
+msgstr "/Dátum/éééé"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:172
-#, fuzzy
-msgid "/Date/mmm"
-msgstr "Dátum:"
+msgid "/Date/yy"
+msgstr "/Dátum/éé:"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:173
-#, fuzzy
-msgid "/Date/dd"
-msgstr "Dátum:"
+msgid "/Date/mm"
+msgstr "/Dátum/hh"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:174
+msgid "/Date/mmm"
+msgstr "/Dátum/hhh"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:175
+msgid "/Date/dd"
+msgstr "/Dátum/nn"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:176
 msgid "/Time/<locale>"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:175
-msgid "/Time/HH.MM.SS"
-msgstr ""
-
-#: ../src/gnome-cmd-advrename-dialog.cc:176
-msgid "/Time/HH-MM-SS"
-msgstr ""
-
 #: ../src/gnome-cmd-advrename-dialog.cc:177
-msgid "/Time/HHMMSS"
-msgstr ""
+msgid "/Time/HH.MM.SS"
+msgstr "/Idő/ÓÓ.PP.MM"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:178
-msgid "/Time/HH"
-msgstr ""
+msgid "/Time/HH-MM-SS"
+msgstr "/Idő/ÓÓ-PP-MM"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:179
-msgid "/Time/MM"
-msgstr ""
+msgid "/Time/HHMMSS"
+msgstr "/Idő/ÓÓPPMM"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:180
-msgid "/Time/SS"
-msgstr ""
+msgid "/Time/HH"
+msgstr "/Idő/ÓÓ"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
+#: ../src/gnome-cmd-advrename-dialog.cc:181
+msgid "/Time/MM"
+msgstr "/Idő/PP"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:182
+msgid "/Time/SS"
+msgstr "/Idő/MM"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:475
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:120 ../src/utils.cc:679
 msgid "Yes"
 msgstr "Igen"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:473
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:123 ../src/utils.cc:658
+#: ../src/gnome-cmd-advrename-dialog.cc:475
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:120 ../src/utils.cc:679
 msgid "No"
 msgstr "Nem"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:563
+#: ../src/gnome-cmd-advrename-dialog.cc:566
 msgid "Invalid source pattern"
 msgstr "Hibás forrásminta"
 
 #. Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
-#: ../src/gnome-cmd-advrename-dialog.cc:630
+#: ../src/gnome-cmd-advrename-dialog.cc:634
 msgid "Replace this:"
 msgstr "Cserélje ezt:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:630
-#, fuzzy
+#: ../src/gnome-cmd-advrename-dialog.cc:634
 msgid "With this:"
-msgstr "Erre"
+msgstr "Ezzel:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:640
+#: ../src/gnome-cmd-advrename-dialog.cc:642
 msgid "Case sensitive matching"
 msgstr "Kis/nagybetű különbözik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:769
+#: ../src/gnome-cmd-advrename-dialog.cc:768
 msgid "New Rule"
 msgstr "Új szabály"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:775
+#: ../src/gnome-cmd-advrename-dialog.cc:774
 msgid "Edit Rule"
 msgstr "Szabály szerkesztése"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:983
+#: ../src/gnome-cmd-advrename-dialog.cc:982
 msgid "Counter start value:"
 msgstr "Számláló kezdő értéke:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:984
+#: ../src/gnome-cmd-advrename-dialog.cc:983
 msgid "Counter increment:"
 msgstr "Számláló lépésköze:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:985
+#: ../src/gnome-cmd-advrename-dialog.cc:984
 msgid "Counter minimum digit count:"
 msgstr "A számlálókarakterek szélessége:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:990
+#: ../src/gnome-cmd-advrename-dialog.cc:989
 msgid "Template Options"
 msgstr "Minta beállítások"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:994
+#: ../src/gnome-cmd-advrename-dialog.cc:993
 msgid "Auto-update when the template is entered"
 msgstr "Automatikus frissítés, ha a minta adott"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1084
+#: ../src/gnome-cmd-advrename-dialog.cc:1082
 msgid "Advanced Rename Tool"
 msgstr "Haladó átnevezés"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1096 ../src/tags/gnome-cmd-tags.cc:189
+#: ../src/gnome-cmd-advrename-dialog.cc:1094 ../src/tags/gnome-cmd-tags.cc:189
 msgid "Template"
 msgstr "Minta"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1117
-#, fuzzy
+#: ../src/gnome-cmd-advrename-dialog.cc:1116
 msgid "O_ptions..."
-msgstr "Beállítások..."
+msgstr "Beállításo_k..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1124 ../src/gnome-cmd-file.cc:588
+#: ../src/gnome-cmd-advrename-dialog.cc:1123 ../src/gnome-cmd-file.cc:581
 msgid "Directory"
 msgstr "Könyvtár"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1127 ../src/plugin_manager.cc:422
+#: ../src/gnome-cmd-advrename-dialog.cc:1126 ../src/plugin_manager.cc:422
 #: ../src/tags/gnome-cmd-tags.cc:659
 msgid "File"
 msgstr "Fájl"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1130
-#, fuzzy
+#: ../src/gnome-cmd-advrename-dialog.cc:1129
 msgid "Counter"
-msgstr "_Tartalom"
+msgstr "Számláló"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1133 ../src/tags/gnome-cmd-tags.cc:335
+#: ../src/gnome-cmd-advrename-dialog.cc:1132 ../src/tags/gnome-cmd-tags.cc:335
 #: ../src/tags/gnome-cmd-tags.cc:411
-#, fuzzy
 msgid "Date"
-msgstr "Dátum:"
+msgstr "Dátum"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1136
+#: ../src/gnome-cmd-advrename-dialog.cc:1135
 msgid "Metatag"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1141
+#: ../src/gnome-cmd-advrename-dialog.cc:1140
 msgid "Regex replacing"
 msgstr "Regex csere"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1146
+#: ../src/gnome-cmd-advrename-dialog.cc:1145
 msgid "Replace this"
 msgstr "Cserélje ezt"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1147
+#: ../src/gnome-cmd-advrename-dialog.cc:1146
 msgid "With this"
 msgstr "Erre"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1148
+#: ../src/gnome-cmd-advrename-dialog.cc:1147
 #: ../src/gnome-cmd-options-dialog.cc:99
 #: ../src/gnome-cmd-patternsel-dialog.cc:139
 msgid "Case sensitive"
 msgstr "Kis/nagybetű különbözik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1171
+#: ../src/gnome-cmd-advrename-dialog.cc:1170
 msgid "Re_move All"
 msgstr "Ö_sszes eltávolítása"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1191
+#: ../src/gnome-cmd-advrename-dialog.cc:1190
 msgid "Result"
 msgstr "Eredmény"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1196
-#, fuzzy
+#: ../src/gnome-cmd-advrename-dialog.cc:1195
 msgid "Current file names"
-msgstr "Aktuális fájlnév"
+msgstr "Aktuális fájl nevek"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1197
-#, fuzzy
+#: ../src/gnome-cmd-advrename-dialog.cc:1196
 msgid "New file names"
-msgstr "Új fájlnév"
+msgstr "Új fájlnevek"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1203
+#: ../src/gnome-cmd-advrename-dialog.cc:1202
 #, fuzzy
 msgid "Rese_t"
 msgstr "Alapállapot"
@@ -456,24 +472,24 @@ msgstr "A könyvjelző hivatkozása nem létezik"
 msgid "Edit Bookmark"
 msgstr "Könyvjelző szerkesztése"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:434
-#: ../src/gnome-cmd-bookmark-dialog.cc:446
+#: ../src/gnome-cmd-bookmark-dialog.cc:439
+#: ../src/gnome-cmd-bookmark-dialog.cc:457
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:437
+#: ../src/gnome-cmd-bookmark-dialog.cc:448
 msgid "Bookmark Groups"
 msgstr "Könyvjelző csoport"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:453 ../src/gnome-cmd-file-list.cc:90
+#: ../src/gnome-cmd-bookmark-dialog.cc:464 ../src/gnome-cmd-file-list.cc:90
 msgid "name"
 msgstr "Név"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:454
+#: ../src/gnome-cmd-bookmark-dialog.cc:465
 msgid "path"
 msgstr "Hivatkozás"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:578
+#: ../src/gnome-cmd-bookmark-dialog.cc:589
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
 "valid UTF-8 encoding\n"
@@ -481,41 +497,41 @@ msgstr ""
 "Egy könyvtár felvételéhez a könyvjelzők közé a könyvtár teljes elérési "
 "útjának érvényes UTF-8 kódolásúnak kell lennie\n"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:585
+#: ../src/gnome-cmd-bookmark-dialog.cc:596
 msgid "New Bookmark"
 msgstr "Új könyvjelző"
 
-#: ../src/gnome-cmd-chmod-component.cc:124
+#: ../src/gnome-cmd-chmod-component.cc:118
 msgid "Read"
 msgstr "Olvasás"
 
-#: ../src/gnome-cmd-chmod-component.cc:124
+#: ../src/gnome-cmd-chmod-component.cc:118
 msgid "Write"
 msgstr "Írás"
 
-#: ../src/gnome-cmd-chmod-component.cc:124
+#: ../src/gnome-cmd-chmod-component.cc:118
 msgid "Execute"
 msgstr "Végrehajtás"
 
-#: ../src/gnome-cmd-chmod-component.cc:125
+#: ../src/gnome-cmd-chmod-component.cc:119
 #: ../src/gnome-cmd-chown-component.cc:88
 msgid "Owner:"
 msgstr "Tulajdonos:"
 
-#: ../src/gnome-cmd-chmod-component.cc:125
+#: ../src/gnome-cmd-chmod-component.cc:119
 #: ../src/gnome-cmd-chown-component.cc:91
 msgid "Group:"
 msgstr "Csoport:"
 
-#: ../src/gnome-cmd-chmod-component.cc:125
+#: ../src/gnome-cmd-chmod-component.cc:119
 msgid "Others:"
 msgstr "Többiek:"
 
-#: ../src/gnome-cmd-chmod-component.cc:159
+#: ../src/gnome-cmd-chmod-component.cc:152
 msgid "Text view:"
 msgstr "Szöveges nézet:"
 
-#: ../src/gnome-cmd-chmod-component.cc:162
+#: ../src/gnome-cmd-chmod-component.cc:155
 msgid "Number view:"
 msgstr "Numerikus nézet:"
 
@@ -527,20 +543,11 @@ msgstr "Minden fájl"
 msgid "Directories only"
 msgstr "Csak a könyvtárakra"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:76
-#, c-format
-msgid ""
-"Could not chmod %s\n"
-"%s"
-msgstr ""
-"A chmod sikertelen: %s\n"
-"%s"
-
-#: ../src/gnome-cmd-chmod-dialog.cc:210
+#: ../src/gnome-cmd-chmod-dialog.cc:196
 msgid "Access Permissions"
 msgstr "Hozzáférési jogosultságok"
 
-#: ../src/gnome-cmd-chmod-dialog.cc:228
+#: ../src/gnome-cmd-chmod-dialog.cc:214
 msgid "Apply Recursively for"
 msgstr "Rekurzív alkalmazás"
 
@@ -562,6 +569,7 @@ msgid "Apply Recursively"
 msgstr "Alkalmazás rekurzívan"
 
 #: ../src/gnome-cmd-con-device.cc:115
+#, c-format
 msgid "Failed to execute the mount command"
 msgstr "Hiba a mount parancs végrehajtása közben"
 
@@ -619,132 +627,127 @@ msgstr "Csatolás: %s"
 msgid "Unmount: %s"
 msgstr "Leválasztás: %s"
 
-#: ../src/gnome-cmd-con-dialog.cc:210
+#: ../src/gnome-cmd-con-dialog.cc:212
 msgid "You must enter a name for the server"
-msgstr ""
+msgstr "A kiszolgáló nevét meg kell adni"
 
-#: ../src/gnome-cmd-con-dialog.cc:210
+#: ../src/gnome-cmd-con-dialog.cc:212
 msgid "Please enter a name and try again."
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:225
+#: ../src/gnome-cmd-con-dialog.cc:227
 #, c-format
 msgid "\"%s\" is not a valid location"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:226
+#: ../src/gnome-cmd-con-dialog.cc:228
 msgid "Please check the spelling and try again."
-msgstr ""
+msgstr "Ellenőrizze a helyesírást és próbálja újra."
 
-#: ../src/gnome-cmd-con-dialog.cc:331
+#: ../src/gnome-cmd-con-dialog.cc:333
 #, fuzzy
 msgid "_Alias:"
 msgstr "Álnév:"
 
-#: ../src/gnome-cmd-con-dialog.cc:335
+#: ../src/gnome-cmd-con-dialog.cc:337
 #, fuzzy
 msgid "_Location (URI):"
 msgstr "Kap_csolatok"
 
-#: ../src/gnome-cmd-con-dialog.cc:368
+#: ../src/gnome-cmd-con-dialog.cc:370
 msgid "_Server:"
 msgstr ""
 
-#: ../src/gnome-cmd-con-dialog.cc:379
-#, fuzzy
+#: ../src/gnome-cmd-con-dialog.cc:381
 msgid "Optional information"
-msgstr "Rendezési beállítások"
+msgstr "Opcionális Információ"
 
-#: ../src/gnome-cmd-con-dialog.cc:403
-#, fuzzy
+#: ../src/gnome-cmd-con-dialog.cc:405
 msgid "S_hare:"
-msgstr "Állapot:"
+msgstr "Megosztás:"
 
-#: ../src/gnome-cmd-con-dialog.cc:406
-#, fuzzy
+#: ../src/gnome-cmd-con-dialog.cc:408
 msgid "_Port:"
-msgstr "Port:"
+msgstr "_Port:"
 
 #. Translators: 'Dir' in the sense of 'Directory'
-#: ../src/gnome-cmd-con-dialog.cc:409
+#: ../src/gnome-cmd-con-dialog.cc:411
 #, fuzzy
 msgid "_Remote dir:"
 msgstr "El_távolítás"
 
-#: ../src/gnome-cmd-con-dialog.cc:412
+#: ../src/gnome-cmd-con-dialog.cc:414
 #, fuzzy
 msgid "_User name:"
 msgstr "Felhasználó:"
 
-#: ../src/gnome-cmd-con-dialog.cc:415
+#: ../src/gnome-cmd-con-dialog.cc:417
 #, fuzzy
 msgid "_Password:"
 msgstr "Jelszó:"
 
-#: ../src/gnome-cmd-con-dialog.cc:418
+#: ../src/gnome-cmd-con-dialog.cc:420
 #, fuzzy
 msgid "_Domain name:"
 msgstr "Szimbolikus hivatkozás neve:"
 
-#: ../src/gnome-cmd-con-dialog.cc:455 ../src/gnome-cmd-main-win.cc:1176
-#, fuzzy
+#: ../src/gnome-cmd-con-dialog.cc:457 ../src/gnome-cmd-main-win.cc:1177
 msgid "Remote Server"
-msgstr "El_távolítás"
+msgstr "Távoli Kiszolgáló"
 
-#: ../src/gnome-cmd-con-dialog.cc:470
+#: ../src/gnome-cmd-con-dialog.cc:472
 msgid "Service _type:"
 msgstr ""
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
-#: ../src/gnome-cmd-con-dialog.cc:482
+#: ../src/gnome-cmd-con-dialog.cc:484
 msgid "FTP (with login)"
-msgstr ""
+msgstr "FTP (bejelentkezéssel)"
 
-#: ../src/gnome-cmd-con-dialog.cc:483
+#: ../src/gnome-cmd-con-dialog.cc:485
 msgid "Public FTP"
-msgstr ""
+msgstr "Nyilvános FTP"
 
-#: ../src/gnome-cmd-con-dialog.cc:500
+#: ../src/gnome-cmd-con-dialog.cc:502
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr ""
 
 #. ?????????
 #. do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
 #. ?????????
-#: ../src/gnome-cmd-con-ftp.cc:301 ../src/gnome-cmd-con-ftp.cc:349
+#: ../src/gnome-cmd-con-ftp.cc:326 ../src/gnome-cmd-con-ftp.cc:374
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Kapcsolódás a(z) %s gépre\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:366
-#, fuzzy
+#: ../src/gnome-cmd-con-ftp.cc:391
 msgid "<New connection>"
-msgstr "FTP kapcsolódás"
+msgstr "<Új kapcsolat>"
 
-#: ../src/gnome-cmd-con-ftp.cc:368
+#: ../src/gnome-cmd-con-ftp.cc:393
 #, c-format
 msgid "Go to: %s"
 msgstr "Ugrás: %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:369
+#: ../src/gnome-cmd-con-ftp.cc:394
 #, c-format
 msgid "Connect to: %s"
 msgstr "Kapcsolódás a(z) %s gépre"
 
-#: ../src/gnome-cmd-con-ftp.cc:370
+#: ../src/gnome-cmd-con-ftp.cc:395
 #, c-format
 msgid "Disconnect from: %s"
 msgstr "Lekapcsolódás a(z) %s gépről"
 
-#: ../src/gnome-cmd-con-ftp.cc:384
-#, fuzzy, c-format
-msgid "Creates the FTP connection to %s"
-msgstr "FTP kapcsolat létrehozása %s"
-
-#: ../src/gnome-cmd-con-ftp.cc:385
+#: ../src/gnome-cmd-con-ftp.cc:409
 #, c-format
-msgid "Removes the FTP connection to %s"
-msgstr "Az FTP kapcsolat eltávolítása %s"
+msgid "Opens the FTP connection to %s"
+msgstr "FTP kapcsolat nyitása %s-hez"
+
+#: ../src/gnome-cmd-con-ftp.cc:410
+#, c-format
+msgid "Closes the FTP connection to %s"
+msgstr "FTP kapcsolat zárasa %s-hez"
 
 #: ../src/gnome-cmd-con-home.cc:120
 msgid "Home"
@@ -770,8 +773,8 @@ msgstr "Munkacsoportok és munkaállomások keresése"
 msgid "Go to: Samba Network"
 msgstr "Ugrás a Samba Hálózatba"
 
-#: ../src/gnome-cmd-data.cc:1256 ../src/gnome-cmd-data.cc:1486
-#: ../src/gnome-cmd-data.cc:1487 ../src/gnome-cmd-data.cc:2524
+#: ../src/gnome-cmd-data.cc:1269 ../src/gnome-cmd-data.cc:1501
+#: ../src/gnome-cmd-data.cc:1502 ../src/gnome-cmd-data.cc:2547
 #, fuzzy, c-format
 msgid "link to %s"
 msgstr "Szimbolikus hivatkozás erre: %s"
@@ -808,12 +811,12 @@ msgid "Abort"
 msgstr "Megszakítás"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-xfer.cc:190
 msgid "Retry"
 msgstr "Ismét"
 
 #: ../src/gnome-cmd-delete-dialog.cc:210
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-xfer.cc:171
 #: ../src/gnome-cmd-xfer.cc:190
 msgid "Skip"
 msgstr "Következő"
@@ -830,30 +833,30 @@ msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "Valóban törölni akarja a kijelölt fájlt?"
 msgstr[1] "Valóban törölni akarja a kijelölt %d fájlt?"
 
-#: ../src/gnome-cmd-delete-dialog.cc:288 ../src/gnome-cmd-main-win.cc:1170
+#: ../src/gnome-cmd-delete-dialog.cc:288 ../src/gnome-cmd-main-win.cc:1171
 #: ../src/gnome-cmd-options-dialog.cc:653
 msgid "Delete"
 msgstr "Törlés"
 
 #: ../src/gnome-cmd-delete-dialog.cc:289
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
-#: ../src/utils.cc:508 ../src/utils.cc:537
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:639
+#: ../src/utils.cc:523 ../src/utils.cc:551
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:508
+#: ../src/gnome-cmd-delete-dialog.cc:289 ../src/utils.cc:523
 msgid "OK"
 msgstr "OK"
 
-#: ../src/gnome-cmd-dir-indicator.cc:441
+#: ../src/gnome-cmd-dir-indicator.cc:403
 msgid "Add current dir"
 msgstr "Jelenlegi könyvtár hozzáadása"
 
-#: ../src/gnome-cmd-dir-indicator.cc:442
+#: ../src/gnome-cmd-dir-indicator.cc:404
 msgid "Manage bookmarks..."
 msgstr "Könyvjelzők kezelése..."
 
-#: ../src/gnome-cmd-dir.cc:575
+#: ../src/gnome-cmd-dir.cc:554
 msgid "Waiting for file list"
 msgstr "Várakozás a fájllistára"
 
@@ -885,12 +888,16 @@ msgstr "UID"
 msgid "gid"
 msgstr "GID"
 
-#: ../src/gnome-cmd-file-list.cc:2131 ../src/gnome-cmd-file-list.cc:2147
+#: ../src/gnome-cmd-file-list.cc:2144 ../src/gnome-cmd-file-list.cc:2160
 #, fuzzy, c-format
 msgid "Not an ordinary file: %s"
 msgstr "Nincs _feldolgozás (eredeti fájl)"
 
-#: ../src/gnome-cmd-file-popmenu.cc:126
+#: ../src/gnome-cmd-file-popmenu.cc:113
+msgid "Couldn't retrieve MIME type of the file."
+msgstr ""
+
+#: ../src/gnome-cmd-file-popmenu.cc:128
 msgid "Invalid command"
 msgstr "Érvénytelen parancs"
 
@@ -912,29 +919,28 @@ msgid "_Open"
 msgstr "Me_gnyitás"
 
 #: ../src/gnome-cmd-file-popmenu.cc:412
-#, fuzzy, c-format
+#, c-format
 msgid "_Open with \"%s\""
-msgstr "Megnyitás ezzel:"
+msgstr "Megnyitás \"%s\"-el"
 
 #: ../src/gnome-cmd-file-popmenu.cc:434
-#, fuzzy
 msgid "Open With..."
-msgstr "Meg_nyitás mással..."
+msgstr "Megnyitás mással..."
 
 #: ../src/gnome-cmd-file-popmenu.cc:440
 #, fuzzy
 msgid "E_xecute"
 msgstr "Végrehajtás"
 
-#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-menu.cc:544
+#: ../src/gnome-cmd-file-popmenu.cc:452 ../src/gnome-cmd-main-menu.cc:546
 msgid "Cu_t"
 msgstr "_Kivágás"
 
-#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-main-menu.cc:550
+#: ../src/gnome-cmd-file-popmenu.cc:453 ../src/gnome-cmd-main-menu.cc:552
 msgid "_Copy"
 msgstr "_Másolás"
 
-#: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:562
+#: ../src/gnome-cmd-file-popmenu.cc:454 ../src/gnome-cmd-main-menu.cc:564
 msgid "_Delete"
 msgstr "_Törlés"
 
@@ -942,17 +948,15 @@ msgstr "_Törlés"
 msgid "Rename"
 msgstr "Átnevezés"
 
-#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-main-win.cc:1173
-#, fuzzy
+#: ../src/gnome-cmd-file-popmenu.cc:457 ../src/gnome-cmd-main-win.cc:1174
 msgid "Send files"
-msgstr "Néhány fájl esetében"
+msgstr "Fájlok küldése"
 
 #: ../src/gnome-cmd-file-popmenu.cc:458 ../src/gnome-cmd-list-popmenu.cc:123
-#, fuzzy
 msgid "Open _terminal here"
-msgstr "Terminál szükséges"
+msgstr "_Terminál nyitása innen"
 
-#: ../src/gnome-cmd-file-popmenu.cc:460 ../src/gnome-cmd-main-menu.cc:465
+#: ../src/gnome-cmd-file-popmenu.cc:460 ../src/gnome-cmd-main-menu.cc:460
 msgid "_Properties..."
 msgstr "_Tulajdonságok..."
 
@@ -960,74 +964,72 @@ msgstr "_Tulajdonságok..."
 msgid "Other..."
 msgstr "Egyéb..."
 
-#: ../src/gnome-cmd-file-props-dialog.cc:70 ../src/utils.cc:822
+#: ../src/gnome-cmd-file-props-dialog.cc:72 ../src/utils.cc:843
 #, c-format
 msgid "%s byte"
 msgid_plural "%s bytes"
 msgstr[0] "%s bájt"
 msgstr[1] "%s bájt"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:196
-#: ../src/gnome-cmd-file-props-dialog.cc:407
+#: ../src/gnome-cmd-file-props-dialog.cc:198
+#: ../src/gnome-cmd-file-props-dialog.cc:419
 msgid "No default application registered"
 msgstr "Nincs alapértelmezett alkalmazás hozzárendelve"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:333
-#, fuzzy
+#: ../src/gnome-cmd-file-props-dialog.cc:345
 msgid "Image:"
-msgstr "_Kép"
+msgstr "Kép:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:360
-#: ../src/gnome-cmd-file-selector.cc:1918
+#: ../src/gnome-cmd-file-props-dialog.cc:372
+#: ../src/gnome-cmd-file-selector.cc:1934
 msgid "Filename:"
 msgstr "Fájlnév:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:371
+#: ../src/gnome-cmd-file-props-dialog.cc:383
 msgid "Symlink target:"
 msgstr "Szimbolikus hivatkozás címe:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:380
+#: ../src/gnome-cmd-file-props-dialog.cc:392
 msgid "Type:"
 msgstr "Típus:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:387
+#: ../src/gnome-cmd-file-props-dialog.cc:399
 msgid "MIME Type:"
 msgstr "MIME-típus:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:396
+#: ../src/gnome-cmd-file-props-dialog.cc:408
 msgid "Opens with:"
 msgstr "Megnyitás ezzel:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:409
+#: ../src/gnome-cmd-file-props-dialog.cc:421
 msgid "_Change"
 msgstr "_Módosítás"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:421
+#: ../src/gnome-cmd-file-props-dialog.cc:433
 msgid "Modified:"
 msgstr "Utoljára módosítva:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:427
+#: ../src/gnome-cmd-file-props-dialog.cc:439
 msgid "Accessed:"
 msgstr "Utolsó hozzáférés:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:437
+#: ../src/gnome-cmd-file-props-dialog.cc:449
 msgid "Size:"
 msgstr "Méret:"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:480
+#: ../src/gnome-cmd-file-props-dialog.cc:492
 msgid "Owner and group"
 msgstr "Tulajdonos és csoport"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:490
+#: ../src/gnome-cmd-file-props-dialog.cc:502
 msgid "Access permissions"
 msgstr "Hozzáférési jogok"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:605
-#, fuzzy
+#: ../src/gnome-cmd-file-props-dialog.cc:617
 msgid "Type"
-msgstr "Típus:"
+msgstr "Típus"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:606
+#: ../src/gnome-cmd-file-props-dialog.cc:618
 msgid "Metadata namespace"
 msgstr ""
 
@@ -1037,65 +1039,63 @@ msgstr ""
 #. "foreground-set", TRUE,
 #. "foreground", "DarkGray",
 #. NULL);
-#: ../src/gnome-cmd-file-props-dialog.cc:613
+#: ../src/gnome-cmd-file-props-dialog.cc:625
 #: ../src/gnome-cmd-remote-dialog.cc:419 ../src/plugin_manager.cc:420
 #: ../src/tags/gnome-cmd-tags.cc:315
 msgid "Name"
 msgstr "Név"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:614
-#, fuzzy
+#: ../src/gnome-cmd-file-props-dialog.cc:626
 msgid "Tag name"
-msgstr "Név"
+msgstr "Címke név"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:616
+#: ../src/gnome-cmd-file-props-dialog.cc:628
 msgid "Value"
-msgstr ""
+msgstr "Érték"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:617
+#: ../src/gnome-cmd-file-props-dialog.cc:629
 msgid "Tag value"
-msgstr ""
+msgstr "Címke értéke"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:619 ../src/tags/gnome-cmd-tags.cc:159
+#: ../src/gnome-cmd-file-props-dialog.cc:631 ../src/tags/gnome-cmd-tags.cc:159
 #: ../src/tags/gnome-cmd-tags.cc:310 ../src/tags/gnome-cmd-tags.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:508
-#, fuzzy
 msgid "Description"
-msgstr "Könyvtár beállítások"
+msgstr "Leírás"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:620
+#: ../src/gnome-cmd-file-props-dialog.cc:632
 msgid "Metadata tag description"
 msgstr ""
 
 #. data->thread = 0;
-#: ../src/gnome-cmd-file-props-dialog.cc:675
+#: ../src/gnome-cmd-file-props-dialog.cc:687
 msgid "File Properties"
 msgstr "Fájl tulajdonságai"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:698
+#: ../src/gnome-cmd-file-props-dialog.cc:710
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:699 ../src/tags/gnome-cmd-tags.cc:317
+#: ../src/gnome-cmd-file-props-dialog.cc:711 ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permissions"
 msgstr "Jogok"
 
-#: ../src/gnome-cmd-file-props-dialog.cc:700
+#: ../src/gnome-cmd-file-props-dialog.cc:712
 msgid "Metadata"
 msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:209
-#, fuzzy, c-format
+#, c-format
 msgid "%s of %s kB in %d of %d file"
 msgid_plural "%s of %s kB in %d of %d files"
-msgstr[0] "%s/%s kB %d/%d fájl kijelölve"
+msgstr[0] "%s a %s kBból és %d a %d fájlból"
 msgstr[1] "%s/%s kB %d/%d fájl kijelölve"
 
 #: ../src/gnome-cmd-file-selector.cc:213
-#, fuzzy, c-format
+#, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
-msgstr[0] "%s/%s kB %d/%d fájl kijelölve"
+msgstr[0] "%s, %d a %d könyvtárból kijelölve"
 msgstr[1] "%s/%s kB %d/%d fájl kijelölve"
 
 #: ../src/gnome-cmd-file-selector.cc:710
@@ -1107,75 +1107,133 @@ msgstr "%s szabad"
 msgid "Unknown disk usage"
 msgstr "Ismeretlen lemezhasználat"
 
-#: ../src/gnome-cmd-file-selector.cc:1122
+#: ../src/gnome-cmd-file-selector.cc:1143
 #, c-format
 msgid "Listing failed: %s\n"
 msgstr "A listázás meghiúsult: %s\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1681
+#: ../src/gnome-cmd-file-selector.cc:1697
 #, c-format
 msgid "Failed to open connection: %s\n"
 msgstr "Hiba a(z) %s kapcsolat létrehozása közben\n"
 
-#: ../src/gnome-cmd-file-selector.cc:1856
+#: ../src/gnome-cmd-file-selector.cc:1872
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 msgid "No filename entered"
 msgstr "Nem adott meg fájlnevet"
 
-#: ../src/gnome-cmd-file-selector.cc:1890
+#: ../src/gnome-cmd-file-selector.cc:1906
 msgid "No filename given"
 msgstr "Nem adott meg fájlnevet"
 
-#: ../src/gnome-cmd-file-selector.cc:1921
+#: ../src/gnome-cmd-file-selector.cc:1937
 msgid "New Text File"
 msgstr "Új szöveges fájl"
 
-#: ../src/gnome-cmd-file-selector.cc:2079
+#: ../src/gnome-cmd-file-selector.cc:2091
 msgid "Symlink name:"
 msgstr "Szimbolikus hivatkozás neve:"
 
-#: ../src/gnome-cmd-file-selector.cc:2085
-#: ../src/gnome-cmd-file-selector.cc:2131 ../src/gnome-cmd-user-actions.cc:673
+#: ../src/gnome-cmd-file-selector.cc:2097
+#: ../src/gnome-cmd-file-selector.cc:2143 ../src/gnome-cmd-user-actions.cc:639
 msgid "Create Symbolic Link"
 msgstr "Szimbolikus hivatkozás létrehozása"
 
-#: ../src/gnome-cmd-file-selector.cc:2131
+#: ../src/gnome-cmd-file-selector.cc:2143
 #: ../src/gnome-cmd-options-dialog.cc:675
 #: ../src/gnome-cmd-options-dialog.cc:695
 msgid "Skip all"
 msgstr "Összes kihagyása"
 
-#: ../src/gnome-cmd-file-selector.cc:2203
+#: ../src/gnome-cmd-file-selector.cc:2215
 msgid "Filter:"
 msgstr "Szűrő:"
 
-#: ../src/gnome-cmd-file.cc:586
+#: ../src/gnome-cmd-file.cc:579
 msgid "Unknown file type"
 msgstr "Ismeretlen fájltípus"
 
-#: ../src/gnome-cmd-file.cc:587
+#: ../src/gnome-cmd-file.cc:580
 msgid "Regular file"
 msgstr "Reguláris fájl"
 
-#: ../src/gnome-cmd-file.cc:589
+#: ../src/gnome-cmd-file.cc:582
 msgid "FIFO"
 msgstr "FIFO"
 
-#: ../src/gnome-cmd-file.cc:590
+#: ../src/gnome-cmd-file.cc:583
 msgid "UNIX Socket"
 msgstr "UNIX foglalat"
 
-#: ../src/gnome-cmd-file.cc:591
+#: ../src/gnome-cmd-file.cc:584
 msgid "Character device"
 msgstr "Karakteres eszköz"
 
-#: ../src/gnome-cmd-file.cc:592
+#: ../src/gnome-cmd-file.cc:585
 msgid "Block device"
 msgstr "Blokkos eszköz"
 
-#: ../src/gnome-cmd-file.cc:593
+#: ../src/gnome-cmd-file.cc:586
 msgid "Symbolic link"
 msgstr "Szimbolikus hivatkozás"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:139
+msgid "Keyboard Shortcuts"
+msgstr "Gyorsbillentyűk"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:165
+msgid ""
+"To edit a shortcut key, click on the corresponding row and type a new "
+"accelerator, or press escape to cancel."
+msgstr "A gyorbillentyű módosításához klikkeljen a megfelelő soron és üssön be egy új kombinációt. vagy nyomja meg az escape gombot ha mégsem akarja változtatni."
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:343
+msgid "Shortcut Key"
+msgstr "Gyorsbillentyű Gomb"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:344
+#, fuzzy
+msgid "Keyboard shortcut for selected action"
+msgstr "_Gyorsbillentyűk"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:351
+#, fuzzy
+msgid "Action"
+msgstr "Kap_csolatok"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:352
+msgid "User action"
+msgstr ""
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:359
+msgid "Optional data"
+msgstr "Opcionális adat"
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:487
+#, c-format
+msgid "Shortcut \"%s\" is already taken by \"%s\"."
+msgstr ""
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:490
+msgid "_Reassign shortcut"
+msgstr ""
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:493
+msgid "Conflicting Shortcuts"
+msgstr ""
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:494
+#, c-format
+msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
+msgstr ""
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:550
+msgid "Invalid shortcut."
+msgstr "Hibás gyorsbillentyű."
+
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:619
+msgid "Do nothing"
+msgstr ""
 
 #: ../src/gnome-cmd-list-popmenu.cc:114
 msgid "_Directory"
@@ -1190,218 +1248,222 @@ msgstr "_Szöveges fájl"
 msgid "_New..."
 msgstr "Ú_j..."
 
-#: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:556
+#: ../src/gnome-cmd-list-popmenu.cc:122 ../src/gnome-cmd-main-menu.cc:558
 msgid "_Paste"
 msgstr "_Beillesztés"
 
-#: ../src/gnome-cmd-list-popmenu.cc:124 ../src/gnome-cmd-main-menu.cc:611
+#: ../src/gnome-cmd-list-popmenu.cc:124 ../src/gnome-cmd-main-menu.cc:613
 msgid "_Refresh"
 msgstr "F_rissítés"
 
-#: ../src/gnome-cmd-main-menu.cc:375
+#: ../src/gnome-cmd-main-menu.cc:371
 msgid "Switch to Vertical Layout"
 msgstr "Függőlegesen felosztott nézet"
 
-#: ../src/gnome-cmd-main-menu.cc:381
+#: ../src/gnome-cmd-main-menu.cc:377
 msgid "Switch to Horizontal Layout"
 msgstr "Vízszintesen felosztott nézet"
 
-#: ../src/gnome-cmd-main-menu.cc:441
+#: ../src/gnome-cmd-main-menu.cc:436
 msgid "Change _Owner/Group"
 msgstr "Tulajd_onos/Csoport módosítása"
 
-#: ../src/gnome-cmd-main-menu.cc:447
+#: ../src/gnome-cmd-main-menu.cc:442
 msgid "Change Per_missions"
 msgstr "Jogok _módosítása"
 
-#: ../src/gnome-cmd-main-menu.cc:453
+#: ../src/gnome-cmd-main-menu.cc:448
 msgid "Advanced _Rename Tool"
 msgstr "_Haladó átnevezés"
 
-#: ../src/gnome-cmd-main-menu.cc:459
+#: ../src/gnome-cmd-main-menu.cc:454
 msgid "Create _Symbolic Link"
 msgstr "_Szimbolikus hivatkozás készítése"
 
-#: ../src/gnome-cmd-main-menu.cc:472
+#: ../src/gnome-cmd-main-menu.cc:467
 msgid "_Diff"
 msgstr "Eltérés (_diff)"
 
-#: ../src/gnome-cmd-main-menu.cc:478
+#: ../src/gnome-cmd-main-menu.cc:473
 #, fuzzy
 msgid "S_ynchonize Directories"
 msgstr "Könyvtárak össze_hasonlítása"
 
-#: ../src/gnome-cmd-main-menu.cc:485
+#: ../src/gnome-cmd-main-menu.cc:480
+msgid "Start _GNOME Commander as Root"
+msgstr "_GNOME Commander indítása root-ként"
+
+#: ../src/gnome-cmd-main-menu.cc:487
 msgid "_Quit"
 msgstr "_Kilépés"
 
-#: ../src/gnome-cmd-main-menu.cc:496
+#: ../src/gnome-cmd-main-menu.cc:498
 msgid "_Select All"
 msgstr "Összes _kijelölése"
 
-#: ../src/gnome-cmd-main-menu.cc:502
+#: ../src/gnome-cmd-main-menu.cc:504
 msgid "_Unselect All"
 msgstr "Kijelölések _megszüntetése"
 
-#: ../src/gnome-cmd-main-menu.cc:508
+#: ../src/gnome-cmd-main-menu.cc:510
 msgid "Select with _Pattern"
 msgstr "Kijelölés minta ala_pján"
 
-#: ../src/gnome-cmd-main-menu.cc:514
+#: ../src/gnome-cmd-main-menu.cc:516
 msgid "Unselect with P_attern"
 msgstr "Kijelölések megszüntetése mint_a alapján"
 
-#: ../src/gnome-cmd-main-menu.cc:520
+#: ../src/gnome-cmd-main-menu.cc:522
 msgid "_Invert Selection"
 msgstr "K_ijelölés megfordítása"
 
-#: ../src/gnome-cmd-main-menu.cc:526
+#: ../src/gnome-cmd-main-menu.cc:528
 msgid "_Restore Selection"
 msgstr "Kijelölés visszaállí_tása"
 
-#: ../src/gnome-cmd-main-menu.cc:533
+#: ../src/gnome-cmd-main-menu.cc:535
 msgid "_Compare Directories"
 msgstr "Könyvtárak össze_hasonlítása"
 
-#: ../src/gnome-cmd-main-menu.cc:569
+#: ../src/gnome-cmd-main-menu.cc:571
 msgid "Copy _File Names"
 msgstr "Fájl_nevek másolása"
 
-#: ../src/gnome-cmd-main-menu.cc:576
+#: ../src/gnome-cmd-main-menu.cc:578
 msgid "_Search..."
 msgstr "Kere_sés..."
 
-#: ../src/gnome-cmd-main-menu.cc:582
+#: ../src/gnome-cmd-main-menu.cc:584
 msgid "_Quick Search..."
 msgstr "_Gyors keresés..."
 
-#: ../src/gnome-cmd-main-menu.cc:588
+#: ../src/gnome-cmd-main-menu.cc:590
 msgid "_Enable Filter..."
 msgstr "Szűrők _engedélyezése..."
 
-#: ../src/gnome-cmd-main-menu.cc:599
+#: ../src/gnome-cmd-main-menu.cc:601
 msgid "_Back"
 msgstr "_Vissza"
 
-#: ../src/gnome-cmd-main-menu.cc:605
+#: ../src/gnome-cmd-main-menu.cc:607
 msgid "_Forward"
 msgstr "_Előre"
 
-#: ../src/gnome-cmd-main-menu.cc:618
+#: ../src/gnome-cmd-main-menu.cc:620
 msgid "Show Device Buttons"
 msgstr "Eszközgombok megjelenítése"
 
-#: ../src/gnome-cmd-main-menu.cc:624
+#: ../src/gnome-cmd-main-menu.cc:626
 msgid "Show Toolbar"
 msgstr "Eszköztár megjelenítése"
 
-#: ../src/gnome-cmd-main-menu.cc:630
+#: ../src/gnome-cmd-main-menu.cc:632
 msgid "Show Commandline"
 msgstr "Parancssor megjelenítése"
 
-#: ../src/gnome-cmd-main-menu.cc:636
+#: ../src/gnome-cmd-main-menu.cc:638
 msgid "Show Buttonbar"
 msgstr "Gombsor megjelenítése"
 
-#: ../src/gnome-cmd-main-menu.cc:643
+#: ../src/gnome-cmd-main-menu.cc:645
 msgid "Show Hidden Files"
 msgstr "Rejtett fájlok megjelenítése"
 
-#: ../src/gnome-cmd-main-menu.cc:649
+#: ../src/gnome-cmd-main-menu.cc:651
 msgid "Show Backup Files"
 msgstr "Másolatfájlok megjelenítése"
 
-#: ../src/gnome-cmd-main-menu.cc:656
+#: ../src/gnome-cmd-main-menu.cc:658
 msgid "_Equal Panel Size"
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.cc:667
+#: ../src/gnome-cmd-main-menu.cc:669
 msgid "_Bookmark this Directory..."
 msgstr "_Könyvjelző erre a könyvtárra..."
 
-#: ../src/gnome-cmd-main-menu.cc:673
+#: ../src/gnome-cmd-main-menu.cc:675
 msgid "_Manage Bookmarks..."
 msgstr "Könyvjel_zők kezelése..."
 
-#: ../src/gnome-cmd-main-menu.cc:685
+#: ../src/gnome-cmd-main-menu.cc:687
 msgid "_Configure Plugins..."
 msgstr "_Bővítmények beállítása..."
 
-#: ../src/gnome-cmd-main-menu.cc:697
+#: ../src/gnome-cmd-main-menu.cc:699
 msgid "_Options..."
 msgstr "Beállítás_ok..."
 
-#: ../src/gnome-cmd-main-menu.cc:703
-#, fuzzy
-msgid "Edit _MIME Types..."
-msgstr "_MIME-típusok szerkesztése..."
+#: ../src/gnome-cmd-main-menu.cc:705
+msgid "_Keyboard Shortcuts..."
+msgstr "Gyorsbillentyű_k..."
 
-#: ../src/gnome-cmd-main-menu.cc:714
+#: ../src/gnome-cmd-main-menu.cc:711
+msgid "_MIME Types..."
+msgstr "_MIME-típusok..."
+
+#: ../src/gnome-cmd-main-menu.cc:722
 msgid "_Remote Server..."
 msgstr ""
 
-#: ../src/gnome-cmd-main-menu.cc:720
-#, fuzzy
+#: ../src/gnome-cmd-main-menu.cc:728
 msgid "New Connection..."
-msgstr "FTP kapcsolódás"
+msgstr "Új Kapcsolat..."
 
-#: ../src/gnome-cmd-main-menu.cc:731
+#: ../src/gnome-cmd-main-menu.cc:739
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: ../src/gnome-cmd-main-menu.cc:737 ../src/libgviewer/viewer-window.cc:923
+#: ../src/gnome-cmd-main-menu.cc:745 ../src/intviewer/viewer-window.cc:917
 msgid "_Keyboard Shortcuts"
 msgstr "_Gyorsbillentyűk"
 
-#: ../src/gnome-cmd-main-menu.cc:743
-#, fuzzy
+#: ../src/gnome-cmd-main-menu.cc:751
 msgid "GNOME Commander on the _Web"
-msgstr "GNOME Commander"
+msgstr "GNOME Commander a világhálón"
 
-#: ../src/gnome-cmd-main-menu.cc:749
-#, fuzzy
+#: ../src/gnome-cmd-main-menu.cc:757
 msgid "Report a _Problem"
-msgstr "Xfer probléma"
+msgstr "_Probléma Jelentése"
 
-#: ../src/gnome-cmd-main-menu.cc:756 ../src/plugin_manager.cc:436
+#: ../src/gnome-cmd-main-menu.cc:764 ../src/plugin_manager.cc:436
 msgid "_About"
 msgstr "_Névjegy"
 
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
-#: ../src/gnome-cmd-main-menu.cc:778 ../src/libgviewer/viewer-window.cc:935
+#: ../src/gnome-cmd-main-menu.cc:786 ../src/intviewer/viewer-window.cc:929
 msgid "_File"
 msgstr "_Fájl"
 
-#: ../src/gnome-cmd-main-menu.cc:782
+#: ../src/gnome-cmd-main-menu.cc:790
 msgid "_Edit"
 msgstr "Sz_erkesztés"
 
-#: ../src/gnome-cmd-main-menu.cc:786
+#: ../src/gnome-cmd-main-menu.cc:794
 msgid "_Mark"
 msgstr "_Kijelölés"
 
-#: ../src/gnome-cmd-main-menu.cc:790 ../src/libgviewer/viewer-window.cc:938
+#: ../src/gnome-cmd-main-menu.cc:798 ../src/intviewer/viewer-window.cc:932
 msgid "_View"
 msgstr "_Nézet"
 
-#: ../src/gnome-cmd-main-menu.cc:795 ../src/libgviewer/viewer-window.cc:949
+#: ../src/gnome-cmd-main-menu.cc:803 ../src/intviewer/viewer-window.cc:943
 msgid "_Settings"
 msgstr "_Beállítások"
 
-#: ../src/gnome-cmd-main-menu.cc:799
+#: ../src/gnome-cmd-main-menu.cc:807
 msgid "_Connections"
 msgstr "Kap_csolatok"
 
-#: ../src/gnome-cmd-main-menu.cc:803
+#: ../src/gnome-cmd-main-menu.cc:811
 msgid "_Bookmarks"
 msgstr "_Könyvjelzők"
 
-#: ../src/gnome-cmd-main-menu.cc:807
+#: ../src/gnome-cmd-main-menu.cc:815
 msgid "_Plugins"
 msgstr "_Bővítmények"
 
-#: ../src/gnome-cmd-main-menu.cc:811 ../src/libgviewer/viewer-window.cc:954
+#: ../src/gnome-cmd-main-menu.cc:819 ../src/intviewer/viewer-window.cc:948
 msgid "_Help"
 msgstr "_Súgó"
 
@@ -1437,57 +1499,60 @@ msgstr "F9 Keres"
 msgid "F10 Quit"
 msgstr "F10 Kilép"
 
-#: ../src/gnome-cmd-main-win.cc:1159
+#: ../src/gnome-cmd-main-win.cc:765
+msgid "GNOME Commander - ROOT PRIVILEGES"
+msgstr "GNOME Commander - ROOT JOGSULTSÁGOK"
+
+#: ../src/gnome-cmd-main-win.cc:1160
 msgid "Refresh"
 msgstr "Frissítés"
 
-#: ../src/gnome-cmd-main-win.cc:1160
+#: ../src/gnome-cmd-main-win.cc:1161
 msgid "Up one directory"
 msgstr "Fel egy könyvtárral"
 
-#: ../src/gnome-cmd-main-win.cc:1161
+#: ../src/gnome-cmd-main-win.cc:1162
 msgid "Goto the oldest"
 msgstr "Ugrás a legrégibbre"
 
-#: ../src/gnome-cmd-main-win.cc:1162
+#: ../src/gnome-cmd-main-win.cc:1163
 msgid "Go back"
 msgstr "Vissza"
 
-#: ../src/gnome-cmd-main-win.cc:1163
+#: ../src/gnome-cmd-main-win.cc:1164
 msgid "Go forward"
 msgstr "Előre"
 
-#: ../src/gnome-cmd-main-win.cc:1164
+#: ../src/gnome-cmd-main-win.cc:1165
 msgid "Goto the latest"
 msgstr "Ugrás a legutóbbira"
 
-#: ../src/gnome-cmd-main-win.cc:1166
+#: ../src/gnome-cmd-main-win.cc:1167
 msgid "Copy file names (SHIFT for full paths)"
 msgstr "Fájlnevek másolása (a SHIFT lenyomásával teljes útvonalak)"
 
-#: ../src/gnome-cmd-main-win.cc:1167
+#: ../src/gnome-cmd-main-win.cc:1168
 msgid "Cut"
 msgstr "Kivágás"
 
-#: ../src/gnome-cmd-main-win.cc:1168
+#: ../src/gnome-cmd-main-win.cc:1169
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:87
 msgid "Copy"
 msgstr "Másolás"
 
-#: ../src/gnome-cmd-main-win.cc:1169
+#: ../src/gnome-cmd-main-win.cc:1170
 msgid "Paste"
 msgstr "Beillesztés"
 
-#: ../src/gnome-cmd-main-win.cc:1172
+#: ../src/gnome-cmd-main-win.cc:1173
 msgid "Edit (SHIFT for new document)"
 msgstr "Szerkesztés (a SHIFT lenyomásával új dokumentum)"
 
-#: ../src/gnome-cmd-main-win.cc:1174
-#, fuzzy
+#: ../src/gnome-cmd-main-win.cc:1175
 msgid "Open terminal"
-msgstr "Terminál szükséges"
+msgstr "Terminál nyitása"
 
-#: ../src/gnome-cmd-main-win.cc:1177
+#: ../src/gnome-cmd-main-win.cc:1178
 msgid "Drop connection"
 msgstr "Kapcsolat eldobása"
 
@@ -1686,9 +1751,8 @@ msgid "Classic"
 msgstr "Klasszikus"
 
 #: ../src/gnome-cmd-options-dialog.cc:476
-#, fuzzy
 msgid "Deep blue"
-msgstr "Hiba törlés közben"
+msgstr "Mély kék"
 
 #: ../src/gnome-cmd-options-dialog.cc:477
 msgid "Custom"
@@ -1761,10 +1825,11 @@ msgstr "Másoláskor felülírás"
 #.
 #. * Create prepare copy specific widgets
 #.
+#. Create prepare copy specific widgets
 #: ../src/gnome-cmd-options-dialog.cc:667
 #: ../src/gnome-cmd-options-dialog.cc:687
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:94
-#: ../src/gnome-cmd-prepare-move-dialog.cc:89
+#: ../src/gnome-cmd-prepare-move-dialog.cc:88
 msgid "Silently"
 msgstr "Szó nélkül"
 
@@ -1836,9 +1901,8 @@ msgid "Use GNOME Keyring Manager for authentication"
 msgstr ""
 
 #: ../src/gnome-cmd-options-dialog.cc:944
-#, fuzzy
 msgid "Anonymous FTP access"
-msgstr "Anonymous jelszó:"
+msgstr "Anonymous FTP hozzáférés"
 
 #: ../src/gnome-cmd-options-dialog.cc:947
 msgid "Password:"
@@ -1996,9 +2060,8 @@ msgid "Filters"
 msgstr "Szűrők"
 
 #: ../src/gnome-cmd-options-dialog.cc:1926
-#, fuzzy
 msgid "Network"
-msgstr "Új könyvjelző"
+msgstr "Hálózat"
 
 #: ../src/gnome-cmd-options-dialog.cc:1931
 msgid "Programs"
@@ -2017,12 +2080,12 @@ msgid "Pattern:"
 msgstr "Minta:"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:101
-#: ../src/gnome-cmd-prepare-move-dialog.cc:96
+#: ../src/gnome-cmd-prepare-move-dialog.cc:95
 msgid "Query First"
 msgstr "Kérdezzen rá"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:103 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-prepare-move-dialog.cc:102 ../src/gnome-cmd-xfer.cc:171
 msgid "Skip All"
 msgstr "Mindet lépje át"
 
@@ -2033,8 +2096,9 @@ msgstr "Linkek követése"
 #.
 #. * Customize prepare xfer widgets
 #.
+#. Customize prepare xfer widgets
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:128
-#: ../src/gnome-cmd-prepare-move-dialog.cc:115
+#: ../src/gnome-cmd-prepare-move-dialog.cc:113
 msgid "Overwrite Files"
 msgstr "Fájlok felülírási módja"
 
@@ -2045,16 +2109,16 @@ msgid_plural "copy %d files to"
 msgstr[0] "%d fájl másolása "
 msgstr[1] "%d fájl másolása "
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:82
+#: ../src/gnome-cmd-prepare-move-dialog.cc:83
 msgid "Move"
 msgstr "Áthelyezés"
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:132
+#: ../src/gnome-cmd-prepare-move-dialog.cc:130
 #, c-format
 msgid "Move \"%s\" to"
 msgstr "\"%s\" áthelyezése "
 
-#: ../src/gnome-cmd-prepare-move-dialog.cc:136
+#: ../src/gnome-cmd-prepare-move-dialog.cc:134
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
@@ -2062,21 +2126,22 @@ msgstr[0] "%d fájl áthelyezése "
 msgstr[1] "%d fájl áthelyezése "
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:119
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:160
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:117
+#: ../src/gnome-cmd-prepare-xfer-dialog.cc:156
 #, c-format
 msgid "The directory '%s' doesn't exist, do you want to create it?"
 msgstr "A(z) \"%s\" könyvtár nem létezik. Létrehozza?"
 
-#: ../src/gnome-cmd-python-plugin.cc:206
+#: ../src/gnome-cmd-python-plugin.cc:212
 msgid "Can't load python module 'gnomevfs' ('gnome.vfs')\n"
 msgstr ""
 
-#: ../src/gnome-cmd-quicksearch-popup.cc:265
+#: ../src/gnome-cmd-quicksearch-popup.cc:279
 msgid "Search"
 msgstr "Keresés"
 
 #: ../src/gnome-cmd-remote-dialog.cc:214
+#, c-format
 msgid "No server selected"
 msgstr "Nincs kiválasztott kiszolgáló"
 
@@ -2086,12 +2151,11 @@ msgstr ""
 
 #: ../src/gnome-cmd-remote-dialog.cc:409
 msgid "Network protocol"
-msgstr ""
+msgstr "Hálózati protokoll"
 
 #: ../src/gnome-cmd-remote-dialog.cc:420
-#, fuzzy
 msgid "Connection name"
-msgstr "Kap_csolatok"
+msgstr "Kapcsolat neve"
 
 #: ../src/gnome-cmd-remote-dialog.cc:492
 #, fuzzy
@@ -2099,81 +2163,85 @@ msgid "Remote Connections"
 msgstr "FTP kapcsolódás"
 
 #: ../src/gnome-cmd-remote-dialog.cc:498
-#, fuzzy
 msgid "Connections"
-msgstr "Kap_csolatok"
+msgstr "Kapcsolatok"
 
 #: ../src/gnome-cmd-remote-dialog.cc:529
-#, fuzzy
 msgid "Anonymous FTP password:"
-msgstr "Anonymous jelszó:"
+msgstr "Anonymous FTP jelszó:"
 
-#: ../src/gnome-cmd-search-dialog.cc:178
+#: ../src/gnome-cmd-search-dialog.cc:163
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Hiba a(z) %s fájl megnyitása közben. %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:188
+#: ../src/gnome-cmd-search-dialog.cc:204
+#, fuzzy, c-format
+msgid "Failed to seek in file %s: %s\n"
+msgstr "Hiba a(z) %s fájl keresése közben: %s\n"
+
+#: ../src/gnome-cmd-search-dialog.cc:211
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Hiba a(z) %s fájl olvasása közben. %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:249
+#: ../src/gnome-cmd-search-dialog.cc:267
 #, c-format
 msgid "Searching in: %s"
 msgstr "Keresés ebben: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:398
-#, c-format
-msgid "Found %d match before I was stopped"
-msgid_plural "Found %d matches before I was stopped"
+#: ../src/gnome-cmd-search-dialog.cc:415
+#, fuzzy, c-format
+msgid "Found %d match - search aborted"
+msgid_plural "Found %d matches - search aborted"
 msgstr[0] "%d egyezést találtam, mielőtt a keresés leállt"
 msgstr[1] "%d egyezést találtam, mielőtt a keresés leállt"
 
-#: ../src/gnome-cmd-search-dialog.cc:405
+#: ../src/gnome-cmd-search-dialog.cc:422
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
 msgstr[0] "%d egyezést találtam"
 msgstr[1] "%d egyezést találtam"
 
-#: ../src/gnome-cmd-search-dialog.cc:714
+#: ../src/gnome-cmd-search-dialog.cc:814
 msgid "Search..."
 msgstr "Keresés..."
 
-#. Search for
-#: ../src/gnome-cmd-search-dialog.cc:727
-msgid "Search for: "
+#: ../src/gnome-cmd-search-dialog.cc:828
+#, fuzzy
+msgid "Search _for: "
 msgstr "Keresés: "
 
-#. Search in
-#: ../src/gnome-cmd-search-dialog.cc:739
-msgid "Search in: "
+#: ../src/gnome-cmd-search-dialog.cc:840
+#, fuzzy
+msgid "Search _in: "
 msgstr "Keresés ebben: "
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:753
-msgid "Find text: "
+#: ../src/gnome-cmd-search-dialog.cc:853
+#, fuzzy
+msgid "Find _text: "
 msgstr "Szöveg keresése: "
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:767
-msgid "Search Recursively"
+#: ../src/gnome-cmd-search-dialog.cc:867
+#, fuzzy
+msgid "Search _recursively"
 msgstr "Rekurzív keresés"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:774 ../src/tags/gnome-cmd-tags.cc:147
-msgid "Case Sensitive"
-msgstr "Kis/nagybetű különböző"
+#: ../src/gnome-cmd-search-dialog.cc:874
+msgid "_Case sensitive"
+msgstr "Kis/nagybetű érzékeny"
 
-#: ../src/gnome-cmd-search-dialog.cc:785
-msgid "Goto"
-msgstr "Ugrás"
+#: ../src/gnome-cmd-search-dialog.cc:882
+msgid "_Goto"
+msgstr "U_grás"
 
 #: ../src/gnome-cmd-smb-auth.cc:33
-#, fuzzy
 msgid "Enter password"
-msgstr "Jelszó"
+msgstr "Írja be a jelszót"
 
 #: ../src/gnome-cmd-smb-auth.cc:34
 msgid ""
@@ -2182,7 +2250,11 @@ msgid ""
 "please supply user credentials\n"
 "\n"
 "Remember: wrong credentials may lead to account locking"
-msgstr ""
+msgstr "Probléma: hozzáférés nem engedélyezett\n"
+"\n"
+"adja meg a felhasználó adatait\n"
+"\n"
+"Emlékeztetőül: rossz adatok megadása fiók zárolásához vezethet"
 
 #: ../src/gnome-cmd-smb-path.cc:321
 #, c-format
@@ -2194,49 +2266,53 @@ msgstr "Nem találom a(z) %s nevű kiszolgálót vagy munkacsoportot\n"
 msgid "No file selected"
 msgstr "Nincs kiválasztott kiszolgáló"
 
-#: ../src/gnome-cmd-user-actions.cc:668
+#: ../src/gnome-cmd-user-actions.cc:634
 #, fuzzy, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
 msgstr[0] "Szimbolikus hivatkozás létrehozása"
 msgstr[1] "Szimbolikus hivatkozás létrehozása"
 
-#: ../src/gnome-cmd-user-actions.cc:673
-#, fuzzy
+#: ../src/gnome-cmd-user-actions.cc:639
 msgid "Create"
-msgstr "Könyvtár"
+msgstr "Létrehoz"
 
-#: ../src/gnome-cmd-user-actions.cc:721 ../src/gnome-cmd-user-actions.cc:780
-#: ../src/gnome-cmd-user-actions.cc:817
-#, fuzzy, c-format
+#: ../src/gnome-cmd-user-actions.cc:687 ../src/gnome-cmd-user-actions.cc:746
+#: ../src/gnome-cmd-user-actions.cc:783
+#, c-format
 msgid "running `%s'\n"
-msgstr "\"%s\" futtatása\n"
+msgstr "`%s' futtatása\n"
 
-#: ../src/gnome-cmd-user-actions.cc:738 ../src/gnome-cmd-user-actions.cc:755
-#: ../src/gnome-cmd-user-actions.cc:795
+#: ../src/gnome-cmd-user-actions.cc:704 ../src/gnome-cmd-user-actions.cc:721
+#: ../src/gnome-cmd-user-actions.cc:761
 msgid "Operation not supported on remote file systems"
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:770
-#, fuzzy
+#: ../src/gnome-cmd-user-actions.cc:736
 msgid "Too many selected files"
-msgstr "Kiválasztott fájl:"
+msgstr "Túl sok fájl van kijelölve"
 
-#: ../src/gnome-cmd-user-actions.cc:1317
-#, fuzzy
+#: ../src/gnome-cmd-user-actions.cc:909
+msgid "gksu or kdesu is not found."
+msgstr ""
+
+#: ../src/gnome-cmd-user-actions.cc:922
+msgid "Unable to start GNOME Commander in root mode."
+msgstr ""
+
+#: ../src/gnome-cmd-user-actions.cc:1321
 msgid "There was an error opening home page."
-msgstr "Hiba történt a súgó megjelenítése közben."
+msgstr "Hiba történt a honlap megnyitása közben."
 
-#: ../src/gnome-cmd-user-actions.cc:1326
-#, fuzzy
+#: ../src/gnome-cmd-user-actions.cc:1330
 msgid "There was an error reporting problem."
-msgstr "Hiba történt a súgó megjelenítése közben."
+msgstr "Hiba történt a probléma jelentése közben."
 
-#: ../src/gnome-cmd-user-actions.cc:1347
+#: ../src/gnome-cmd-user-actions.cc:1351
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Egy gyors és erőteljes fájlkezelő a GNOME asztalhoz"
 
-#: ../src/gnome-cmd-user-actions.cc:1351
+#: ../src/gnome-cmd-user-actions.cc:1355
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2244,7 +2320,7 @@ msgid ""
 "any later version."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1355
+#: ../src/gnome-cmd-user-actions.cc:1359
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2252,18 +2328,21 @@ msgid ""
 "more details."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1359
+#: ../src/gnome-cmd-user-actions.cc:1363
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
 "Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
 
-#: ../src/gnome-cmd-user-actions.cc:1376
+#: ../src/gnome-cmd-user-actions.cc:1380
 msgid "translator-credits"
 msgstr ""
-"Andras Timar <timar@gnome.hu>\n"
-"Gabor Kelemen <kelemeng@gnome.hu>"
+"András Tímár <timar@gnome.hu>\n"
+"Gábor Sári <sari.gabor@gmail.com>\n"
+"Gábor Kelemen <kelemeng@gnome.hu>\n"
+"László Dvornik <dvornik@gnome.hu>\n"
+"Csimbi <csimbi@gmail.com>"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:39
 msgid "stopping..."
@@ -2274,14 +2353,14 @@ msgid "Progress"
 msgstr "Folyamat"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:161
-#, fuzzy, c-format
+#, c-format
 msgid "%s of %s copied"
-msgstr "%d%% %s másolás folyik"
+msgstr "%s a %s-ból másolva"
 
 #: ../src/gnome-cmd-xfer-progress-win.cc:165
-#, fuzzy, c-format
+#, c-format
 msgid "%.0f%% copied"
-msgstr "Másolási állapot: %d%%"
+msgstr "%.0f%% másolva"
 
 #: ../src/gnome-cmd-xfer.cc:167
 #, c-format
@@ -2314,9 +2393,8 @@ msgstr ""
 "%s"
 
 #: ../src/gnome-cmd-xfer.cc:189
-#, fuzzy
 msgid "Transfer problem"
-msgstr "Xfer probléma"
+msgstr "Átviteli probléma"
 
 #: ../src/gnome-cmd-xfer.cc:229
 msgid "copying..."
@@ -2327,7 +2405,7 @@ msgstr "másolás..."
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[%ld. fájl összesen %ld] \"%s\""
 
-#: ../src/gnome-cmd-xfer.cc:367
+#: ../src/gnome-cmd-xfer.cc:387
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
@@ -2335,27 +2413,27 @@ msgstr ""
 "Egy könyvtár önmagába másolása értelmetlen.\n"
 "Az egész művelet megszakítva."
 
-#: ../src/gnome-cmd-xfer.cc:408
+#: ../src/gnome-cmd-xfer.cc:428
 msgid "preparing..."
 msgstr "előkészítés..."
 
-#: ../src/gnome-cmd-xfer.cc:493
+#: ../src/gnome-cmd-xfer.cc:513
 msgid "downloading to /tmp"
 msgstr "letöltés a /tmp könyvtárba"
 
-#: ../src/imageloader.cc:129
+#: ../src/imageloader.cc:112
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
 msgstr ""
 "Nem lehet betölteni a telepített fájltípus-képet, megpróbálom a "
 "forráskönyvtárból betölteni\n"
 
-#: ../src/imageloader.cc:130 ../src/imageloader.cc:156
+#: ../src/imageloader.cc:113 ../src/imageloader.cc:139
 #, c-format
 msgid "Trying to load %s instead\n"
 msgstr "Megpróbálom betölteni %s-t helyette\n"
 
-#: ../src/imageloader.cc:134 ../src/imageloader.cc:159
+#: ../src/imageloader.cc:117 ../src/imageloader.cc:142
 #, fuzzy, c-format
 msgid ""
 "Can't find the pixmap anywhere. Make sure you have installed the program or "
@@ -2364,187 +2442,182 @@ msgstr ""
 "Sehol sem találom a képet. Győződjön meg, hogy a program telepítve van vagy "
 "a gnome-commander a gnome-commander-x.y.z/src könyvtárból lett indítva\n"
 
-#: ../src/imageloader.cc:155
+#: ../src/imageloader.cc:138
 msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
 "Nem lehet betölteni a telepített képet, megpróbálom a forráskönyvtárból "
 "betölteni\n"
 
-#: ../src/libgviewer/search-dlg.cc:312
+#: ../src/intviewer/search-dlg.cc:312
 msgid "Find"
-msgstr ""
+msgstr "Keress"
 
 #. Search mode radio buttons
-#: ../src/libgviewer/search-dlg.cc:342 ../src/libgviewer/viewer-window.cc:721
-#: ../src/libgviewer/viewer-window.cc:941
+#: ../src/intviewer/search-dlg.cc:342 ../src/intviewer/viewer-window.cc:715
+#: ../src/intviewer/viewer-window.cc:935
 msgid "_Text"
 msgstr "_Szöveg"
 
-#: ../src/libgviewer/search-dlg.cc:343 ../src/libgviewer/viewer-window.cc:729
+#: ../src/intviewer/search-dlg.cc:343 ../src/intviewer/viewer-window.cc:723
 msgid "_Hexadecimal"
-msgstr ""
+msgstr "_Hexadecimális"
 
 #. Case-Sensitive Checkbox
-#: ../src/libgviewer/search-dlg.cc:352
+#: ../src/intviewer/search-dlg.cc:352
 msgid "_Match case"
 msgstr ""
 
-#: ../src/libgviewer/search-progress-dlg.cc:74
+#: ../src/intviewer/search-progress-dlg.cc:74
 #, fuzzy
 msgid "Searching..."
 msgstr "Keresés..."
 
-#: ../src/libgviewer/search-progress-dlg.cc:186
+#: ../src/intviewer/search-progress-dlg.cc:186
 #, fuzzy, c-format
 msgid "Searching for \"%s\""
 msgstr "Keresés ebben: %s"
 
-#: ../src/libgviewer/viewer-widget.cc:206
+#: ../src/intviewer/viewer-widget.cc:206
 #, c-format
 msgid "Position: %lu of %lu\tColumn: %d\t%s"
 msgstr "Elhelyezkedés: %lu/%lu\tOszlop: %d\t%s"
 
-#: ../src/libgviewer/viewer-widget.cc:210
+#: ../src/intviewer/viewer-widget.cc:210
 msgid "Wrap"
 msgstr "Körbe"
 
-#: ../src/libgviewer/viewer-widget.cc:237
+#: ../src/intviewer/viewer-widget.cc:237
 msgid "pixel"
 msgid_plural "pixels"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "képpont"
 
-#: ../src/libgviewer/viewer-widget.cc:239
+#: ../src/intviewer/viewer-widget.cc:239
 msgid "bit/sample"
-msgid_plural "bits/sample"
-msgstr[0] ""
-msgstr[1] ""
+msgstr "bit/minta"
 
-#: ../src/libgviewer/viewer-widget.cc:241
+#: ../src/intviewer/viewer-widget.cc:241
 #, fuzzy
 msgid "(fit to window)"
 msgstr "Ablakhoz igazítás"
 
-#: ../src/libgviewer/viewer-window.cc:711
+#: ../src/intviewer/viewer-window.cc:705
 msgid "_Close"
 msgstr "_Bezárás"
 
-#: ../src/libgviewer/viewer-window.cc:725
+#: ../src/intviewer/viewer-window.cc:719
 msgid "_Binary"
 msgstr "_Bináris"
 
-#: ../src/libgviewer/viewer-window.cc:733
-#: ../src/libgviewer/viewer-window.cc:946
+#: ../src/intviewer/viewer-window.cc:727 ../src/intviewer/viewer-window.cc:940
 msgid "_Image"
 msgstr "_Kép"
 
-#: ../src/libgviewer/viewer-window.cc:738
+#: ../src/intviewer/viewer-window.cc:732
 msgid "_Zoom In"
 msgstr "_Nagyítás"
 
-#: ../src/libgviewer/viewer-window.cc:742
+#: ../src/intviewer/viewer-window.cc:736
 msgid "Zoom _Out"
 msgstr "_Kicsinyítés"
 
-#: ../src/libgviewer/viewer-window.cc:746
+#: ../src/intviewer/viewer-window.cc:740
 msgid "_Normal Size"
 msgstr "_Normál méret"
 
-#: ../src/libgviewer/viewer-window.cc:750
+#: ../src/intviewer/viewer-window.cc:744
 msgid "Best _Fit"
 msgstr "Legjobb _illeszkedés"
 
-#: ../src/libgviewer/viewer-window.cc:763
+#: ../src/intviewer/viewer-window.cc:757
 msgid "_Copy Text Selection"
 msgstr "Szövegk_ijelölés másolása"
 
-#: ../src/libgviewer/viewer-window.cc:767
+#: ../src/intviewer/viewer-window.cc:761
 msgid "Find..."
-msgstr ""
+msgstr "Keresés..."
 
-#: ../src/libgviewer/viewer-window.cc:771
-#, fuzzy
+#: ../src/intviewer/viewer-window.cc:765
 msgid "Find Next"
-msgstr "Szöveg keresése: "
+msgstr "Következő Keresése"
 
-#: ../src/libgviewer/viewer-window.cc:775
+#: ../src/intviewer/viewer-window.cc:769
 msgid "Find Previous"
-msgstr ""
+msgstr "Előző Keresése"
 
-#: ../src/libgviewer/viewer-window.cc:781
+#: ../src/intviewer/viewer-window.cc:775
 msgid "_No Parsing (original file)"
 msgstr "Nincs _feldolgozás (eredeti fájl)"
 
-#: ../src/libgviewer/viewer-window.cc:785
+#: ../src/intviewer/viewer-window.cc:779
 msgid "_HTML Parser"
 msgstr "_HTML feldolgozó"
 
-#: ../src/libgviewer/viewer-window.cc:789
+#: ../src/intviewer/viewer-window.cc:783
 msgid "_PS/PDF Parser"
 msgstr "_PS/PDF feldolgozó"
 
-#: ../src/libgviewer/viewer-window.cc:795
+#: ../src/intviewer/viewer-window.cc:789
 msgid "_Wrap lines"
 msgstr "Sorok tör_delése"
 
-#: ../src/libgviewer/viewer-window.cc:800
+#: ../src/intviewer/viewer-window.cc:794
 msgid "_Encoding"
 msgstr "_Kódolás"
 
-#: ../src/libgviewer/viewer-window.cc:841
+#: ../src/intviewer/viewer-window.cc:835
 msgid "_Show EXIF/IPTC Information"
 msgstr "_EXIF/IPTC információk megjelenítése"
 
-#: ../src/libgviewer/viewer-window.cc:847
+#: ../src/intviewer/viewer-window.cc:841
 msgid "_Rotate Clockwise"
 msgstr "Forgatás az ó_ramutató irányába"
 
-#: ../src/libgviewer/viewer-window.cc:852
+#: ../src/intviewer/viewer-window.cc:846
 msgid "Rotate Counter Clockwis_e"
 msgstr "Forgatás az óramutatóval _ellentétesen"
 
-#: ../src/libgviewer/viewer-window.cc:857
+#: ../src/intviewer/viewer-window.cc:851
 msgid "_Rotate 180°"
 msgstr "_Forgatás 180°-kal"
 
-#: ../src/libgviewer/viewer-window.cc:862
+#: ../src/intviewer/viewer-window.cc:856
 msgid "Flip _Vertical"
 msgstr "_Függőleges tükrözés"
 
-#: ../src/libgviewer/viewer-window.cc:867
+#: ../src/intviewer/viewer-window.cc:861
 msgid "Flip _Horizontal"
 msgstr "_Vízszintes tükrözés"
 
-#: ../src/libgviewer/viewer-window.cc:877
+#: ../src/intviewer/viewer-window.cc:871
 msgid "_Binary Mode"
 msgstr "_Bináris mód"
 
-#: ../src/libgviewer/viewer-window.cc:883
+#: ../src/intviewer/viewer-window.cc:877
 msgid "_Decimal Offset in Hexdump"
 msgstr "_Decimális eltolás hexa kiíratásban"
 
-#: ../src/libgviewer/viewer-window.cc:889
+#: ../src/intviewer/viewer-window.cc:883
 msgid "_Save Current Settings"
 msgstr "_Jelenlegi beállítások mentése"
 
-#: ../src/libgviewer/viewer-window.cc:899
+#: ../src/intviewer/viewer-window.cc:893
 msgid "_20 chars/line"
 msgstr "_20 karakter/sor"
 
-#: ../src/libgviewer/viewer-window.cc:904
+#: ../src/intviewer/viewer-window.cc:898
 msgid "_40 chars/line"
 msgstr "_40 karakter/sor"
 
-#: ../src/libgviewer/viewer-window.cc:909
+#: ../src/intviewer/viewer-window.cc:903
 msgid "_80 chars/line"
 msgstr "_80 karakter/sor"
 
-#: ../src/libgviewer/viewer-window.cc:918
+#: ../src/intviewer/viewer-window.cc:912
 #, fuzzy
 msgid "Quick _Help"
 msgstr "Gyors súgó"
 
-#: ../src/libgviewer/viewer-window.cc:1130
+#: ../src/intviewer/viewer-window.cc:1124
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr ""
@@ -2600,31 +2673,31 @@ msgstr "_Beállítás"
 
 #: ../src/tags/gnome-cmd-tags.cc:62
 msgid "<Exif and IPTC tags not supported>"
-msgstr ""
+msgstr "<Az Exif és IPTC címkék nem támogatottak>"
 
 #: ../src/tags/gnome-cmd-tags.cc:66
 msgid "<ID3, APE, FLAC and Vorbis tags not supported>"
-msgstr ""
+msgstr "<Az ID3, APE, FLAC és Vorbis címkék nem támogatottak>"
 
 #: ../src/tags/gnome-cmd-tags.cc:70
 msgid "<OLE2 and ODF tags not supported>"
-msgstr ""
+msgstr "<Az OLE2 és ODF címkék nem támogatottak>"
 
 #: ../src/tags/gnome-cmd-tags.cc:106 ../src/tags/gnome-cmd-tags.cc:407
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: ../src/tags/gnome-cmd-tags.cc:106
 msgid "Name of the album."
-msgstr ""
+msgstr "Az album neve."
 
 #: ../src/tags/gnome-cmd-tags.cc:107
 msgid "Album Artist"
-msgstr ""
+msgstr "Album Művész"
 
 #: ../src/tags/gnome-cmd-tags.cc:107
 msgid "Artist of the album."
-msgstr ""
+msgstr "Az album művésze."
 
 #: ../src/tags/gnome-cmd-tags.cc:108
 msgid "Album Gain"
@@ -2644,60 +2717,55 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:110
 msgid "Album Track Count"
-msgstr ""
+msgstr "Album Sávszám"
 
 #: ../src/tags/gnome-cmd-tags.cc:110
 msgid "Total number of tracks on the album."
-msgstr ""
+msgstr "A sávok száma az albumon."
 
 #: ../src/tags/gnome-cmd-tags.cc:111 ../src/tags/gnome-cmd-tags.cc:193
 msgid "Artist"
-msgstr ""
+msgstr "Művész"
 
 #: ../src/tags/gnome-cmd-tags.cc:111
 msgid "Artist of the track."
-msgstr ""
+msgstr "A sáv művésze."
 
 #: ../src/tags/gnome-cmd-tags.cc:112
-#, fuzzy
 msgid "Bitrate"
-msgstr "Állapot:"
+msgstr "Bitráta"
 
 #: ../src/tags/gnome-cmd-tags.cc:112
 msgid "Bitrate in kbps."
-msgstr ""
+msgstr "Bitráta kbps-ban."
 
 #: ../src/tags/gnome-cmd-tags.cc:113
-#, fuzzy
 msgid "Channels"
-msgstr "Mégsem"
+msgstr "Csatornák"
 
 #: ../src/tags/gnome-cmd-tags.cc:113
 msgid "Number of channels in the audio (2 = stereo)."
-msgstr ""
+msgstr "A csatornák száma (2 = sztereó)"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
-#, fuzzy
 msgid "Codec"
-msgstr "Kapcsolódás"
+msgstr "Kodek"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Codec encoding description."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:115
-#, fuzzy
 msgid "Codec Version"
-msgstr "Verzió"
+msgstr "Kodek Verziója"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Codec version."
-msgstr ""
+msgstr "Kodek Verzió."
 
 #: ../src/tags/gnome-cmd-tags.cc:116
-#, fuzzy
 msgid "Comment"
-msgstr "Parancs:"
+msgstr "Kommentár"
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Comments on the track."
@@ -2705,9 +2773,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:204
 #: ../src/tags/gnome-cmd-tags.cc:333 ../src/tags/gnome-cmd-tags.cc:409
-#, fuzzy
 msgid "Copyright"
-msgstr "Másolás"
+msgstr "Másolási jog"
 
 #: ../src/tags/gnome-cmd-tags.cc:117 ../src/tags/gnome-cmd-tags.cc:333
 #, fuzzy
@@ -2724,7 +2791,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 msgid "Disc Number"
-msgstr ""
+msgstr "Lemez Szám"
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 msgid "Specifies which disc the track is on."
@@ -2732,7 +2799,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:120
 msgid "Duration"
-msgstr ""
+msgstr "időtartam"
 
 #: ../src/tags/gnome-cmd-tags.cc:120
 msgid "Duration of track in seconds."
@@ -2740,7 +2807,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:121
 msgid "Duration [MM:SS]"
-msgstr ""
+msgstr "Időtartam [PP:MM]"
 
 #: ../src/tags/gnome-cmd-tags.cc:121
 msgid "Duration of track as MM:SS."
@@ -2765,7 +2832,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../src/tags/gnome-cmd-tags.cc:124
 msgid "ISRC (international standard recording code)."
@@ -2781,11 +2848,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Lyrics"
-msgstr ""
+msgstr "Szöveg"
 
 #: ../src/tags/gnome-cmd-tags.cc:126
 msgid "Lyrics of the track."
-msgstr ""
+msgstr "A sáv szövege."
 
 #: ../src/tags/gnome-cmd-tags.cc:127
 msgid "MB album artist ID"
@@ -2820,19 +2887,16 @@ msgid "MusicBrainz track ID in UUID format."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-#, fuzzy
 msgid "Channel Mode"
-msgstr "Mégsem"
+msgstr "Csatorna Módja"
 
 #: ../src/tags/gnome-cmd-tags.cc:131
-#, fuzzy
 msgid "MPEG channel mode."
-msgstr "Mégsem"
+msgstr "MPEG csatorna módja."
 
 #: ../src/tags/gnome-cmd-tags.cc:132
-#, fuzzy
 msgid "Copyrighted"
-msgstr "Másolás"
+msgstr "Másolási jogvédelem alatt áll"
 
 #: ../src/tags/gnome-cmd-tags.cc:132
 msgid "\"1\" if the copyrighted bit is set."
@@ -2840,74 +2904,68 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "Layer"
-msgstr ""
+msgstr "Réteg"
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "MPEG layer."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:134
-#, fuzzy
 msgid "Original Audio"
-msgstr "Átnevezés"
+msgstr "Eredeti Hang"
 
 #: ../src/tags/gnome-cmd-tags.cc:134
 msgid "\"1\" if the \"original\" bit is set."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:135
-#, fuzzy
 msgid "MPEG Version"
-msgstr "Verzió"
+msgstr "MPEG Verziója"
 
 #: ../src/tags/gnome-cmd-tags.cc:135
-#, fuzzy
 msgid "MPEG version."
-msgstr "Verzió"
+msgstr "MPEG verziója."
 
 #: ../src/tags/gnome-cmd-tags.cc:136
 msgid "Performer"
-msgstr ""
+msgstr "Előadó"
 
 #: ../src/tags/gnome-cmd-tags.cc:136
 msgid "Name of the performer/conductor of the music."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:137
-#, fuzzy
 msgid "Play Count"
-msgstr "Megjelenés"
+msgstr "Lejátszások Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:137
 msgid "Number of times the track has been played."
-msgstr ""
+msgstr "A sáv lejátszásainak száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:138 ../src/tags/gnome-cmd-tags.cc:491
 msgid "Release Date"
-msgstr ""
+msgstr "Kiadás Dátuma"
 
 #: ../src/tags/gnome-cmd-tags.cc:138
 msgid "Date track was released."
-msgstr ""
+msgstr "A sáv kiadásának dátuma."
 
 #: ../src/tags/gnome-cmd-tags.cc:139
-#, fuzzy
 msgid "Sample Rate"
-msgstr "Minta"
+msgstr "Mintavételezési Ráta"
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "Sample rate in Hz."
-msgstr ""
+msgstr "Mintavételezési ráta Hz-ben."
 
 #: ../src/tags/gnome-cmd-tags.cc:140 ../src/tags/gnome-cmd-tags.cc:190
 #: ../src/tags/gnome-cmd-tags.cc:426
-#, fuzzy
 msgid "Title"
-msgstr "Fájl"
+msgstr "Cím"
 
 #: ../src/tags/gnome-cmd-tags.cc:140
 msgid "Title of the track."
-msgstr ""
+msgstr "A sáv címe."
 
 #: ../src/tags/gnome-cmd-tags.cc:141
 msgid "Track Gain"
@@ -2919,11 +2977,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Track Number"
-msgstr ""
+msgstr "Sáv Szám"
 
 #: ../src/tags/gnome-cmd-tags.cc:142
 msgid "Position of track on the album."
-msgstr ""
+msgstr "A sáv pozíciója az albumon."
 
 #: ../src/tags/gnome-cmd-tags.cc:143
 msgid "Track Peak Gain"
@@ -2935,11 +2993,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:144
 msgid "Year"
-msgstr ""
+msgstr "Év"
 
 #: ../src/tags/gnome-cmd-tags.cc:144
 msgid "Year."
-msgstr ""
+msgstr "Év."
 
 #: ../src/tags/gnome-cmd-tags.cc:145 ../src/tags/gnome-cmd-tags.cc:154
 #, fuzzy
@@ -2949,80 +3007,75 @@ msgstr "Szerző:"
 #: ../src/tags/gnome-cmd-tags.cc:145 ../src/tags/gnome-cmd-tags.cc:154
 #: ../src/tags/gnome-cmd-tags.cc:410
 msgid "Name of the author."
-msgstr ""
+msgstr "A szerző neve."
 
 #: ../src/tags/gnome-cmd-tags.cc:146
-#, fuzzy
 msgid "Byte Count"
-msgstr "Megjelenés"
+msgstr "Bájt Szám"
 
 #: ../src/tags/gnome-cmd-tags.cc:146
 msgid "Number of bytes in the document."
-msgstr ""
+msgstr "A dokumentumban lévő bájtok száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:147
-#, fuzzy
+msgid "Case Sensitive"
+msgstr "Kis/nagybetű különböző"
+
+#: ../src/tags/gnome-cmd-tags.cc:147
 msgid "Case sensitive."
-msgstr "Kis/nagybetű különbözik"
+msgstr "Kis/nagybetű érzékeny."
 
 #: ../src/tags/gnome-cmd-tags.cc:148 ../src/tags/gnome-cmd-tags.cc:440
 msgid "Category"
-msgstr ""
+msgstr "Kategória"
 
 #: ../src/tags/gnome-cmd-tags.cc:148
-#, fuzzy
 msgid "Category."
-msgstr "Könyvtár"
+msgstr "Kategória."
 
 #: ../src/tags/gnome-cmd-tags.cc:149
-#, fuzzy
 msgid "Cell Count"
-msgstr "Megjelenés"
+msgstr "Cellák Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:149
 msgid "Number of cells in the spreadsheet document."
-msgstr ""
+msgstr "A táblázatban lévő cellák száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:150
-#, fuzzy
 msgid "Character Count"
-msgstr "Karakteres eszköz"
+msgstr "Karakter Szám"
 
 #: ../src/tags/gnome-cmd-tags.cc:150
 msgid "Number of characters in the document."
-msgstr ""
+msgstr "A dokumentumban lévő karakterek száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:151
-#, fuzzy
 msgid "Codepage"
-msgstr "Kapcsolódás"
+msgstr "Kódlap"
 
 #: ../src/tags/gnome-cmd-tags.cc:151
 msgid "The MS codepage to encode strings for metadata."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:152 ../src/tags/gnome-cmd-tags.cc:408
-#, fuzzy
 msgid "Comments"
-msgstr "_Tartalom"
+msgstr "Kommentárok"
 
 #: ../src/tags/gnome-cmd-tags.cc:152 ../src/tags/gnome-cmd-tags.cc:408
 msgid "User definable free text."
-msgstr ""
+msgstr "Felhasználó által megadható szöveg."
 
 #: ../src/tags/gnome-cmd-tags.cc:153
-#, fuzzy
 msgid "Company"
-msgstr "Másolás"
+msgstr "Társaság"
 
 #: ../src/tags/gnome-cmd-tags.cc:153
 msgid "Organization that the <Doc.Creator> entity is associated with."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:155 ../src/tags/gnome-cmd-tags.cc:410
-#, fuzzy
 msgid "Creator"
-msgstr "Könyvtár"
+msgstr "Létrehozó"
 
 #: ../src/tags/gnome-cmd-tags.cc:155
 msgid ""
@@ -3032,16 +3085,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:156
 msgid "Created"
-msgstr ""
+msgstr "Létrahozva"
 
 #: ../src/tags/gnome-cmd-tags.cc:156
 msgid "Datetime document was originally created."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:157 ../src/tags/gnome-cmd-tags.cc:451
-#, fuzzy
 msgid "Date Created"
-msgstr "A dátum formátuma"
+msgstr "Létrehozás Dátuma"
 
 #: ../src/tags/gnome-cmd-tags.cc:157
 msgid ""
@@ -3050,9 +3102,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:158
-#, fuzzy
 msgid "Date Modified"
-msgstr "Utoljára módosítva:"
+msgstr "Módosítás Dátuma"
 
 #: ../src/tags/gnome-cmd-tags.cc:158
 msgid "The last time the document was saved."
@@ -3063,19 +3114,16 @@ msgid "An acccount of the content of the resource."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:160
-#, fuzzy
 msgid "Dictionary"
-msgstr "Könyvtár"
+msgstr "Szótár"
 
 #: ../src/tags/gnome-cmd-tags.cc:160
-#, fuzzy
 msgid "Dictionary."
-msgstr "Könyvtár"
+msgstr "Szótár"
 
 #: ../src/tags/gnome-cmd-tags.cc:161
-#, fuzzy
 msgid "Editing Duration"
-msgstr "Program szerkesztése"
+msgstr "Szerkesztése Időtartama"
 
 #: ../src/tags/gnome-cmd-tags.cc:161
 msgid "The total time taken until the last modification."
@@ -3088,7 +3136,7 @@ msgstr "Általános"
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "The application that generated this document."
-msgstr ""
+msgstr "Az alkamazás amely generálta ezt a dokumentumot."
 
 #: ../src/tags/gnome-cmd-tags.cc:163
 msgid "Hidden Slide Count"
@@ -3096,16 +3144,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:163
 msgid "Number of hidden slides in the presentation document."
-msgstr ""
+msgstr "A  "
 
 #: ../src/tags/gnome-cmd-tags.cc:164
-#, fuzzy
 msgid "Image Count"
-msgstr "Megjelenés"
+msgstr "Képek Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:164
 msgid "Number of images in the document."
-msgstr ""
+msgstr "A dokumentumban lévő képek száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:165
 #, fuzzy
@@ -3114,20 +3161,20 @@ msgstr "Könyvtár"
 
 #: ../src/tags/gnome-cmd-tags.cc:165
 msgid "Specifies the name of the person who created the document initially."
-msgstr ""
+msgstr "Annak a személynek a neve aki kezdetben létrehozta a dokumentumot."
 
 #: ../src/tags/gnome-cmd-tags.cc:166 ../src/tags/gnome-cmd-tags.cc:312
 #: ../src/tags/gnome-cmd-tags.cc:420 ../src/tags/gnome-cmd-tags.cc:468
 msgid "Keywords"
-msgstr ""
+msgstr "Kulcsszavak"
 
 #: ../src/tags/gnome-cmd-tags.cc:166
 msgid "Searchable, indexable keywords."
-msgstr ""
+msgstr "Kereshető, indexelhető kulcsszavak."
 
 #: ../src/tags/gnome-cmd-tags.cc:167 ../src/tags/gnome-cmd-tags.cc:351
 msgid "Language"
-msgstr ""
+msgstr "Nyelv"
 
 #: ../src/tags/gnome-cmd-tags.cc:167
 msgid "The locale language of the intellectual content of the resource."
@@ -3135,7 +3182,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 msgid "Last Printed"
-msgstr ""
+msgstr "Utoljára Nyomtatva"
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 msgid "The last time this document was printed."
@@ -3143,7 +3190,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:169
 msgid "Last Saved By"
-msgstr ""
+msgstr "Utoljára Mentette"
 
 #: ../src/tags/gnome-cmd-tags.cc:169
 msgid ""
@@ -3153,11 +3200,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:170
 msgid "Line Count"
-msgstr ""
+msgstr "Sorok Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:170
 msgid "Number of lines in the document."
-msgstr ""
+msgstr "A dokumentumban lévő sorok száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Links Dirty"
@@ -3176,9 +3223,8 @@ msgid "Identifier representing the default system locale."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:173
-#, fuzzy
 msgid "Manager"
-msgstr "Fájlkezelő"
+msgstr "Kezelő"
 
 #: ../src/tags/gnome-cmd-tags.cc:173
 msgid "Name of the manager of <Doc.Creator> entity."
@@ -3186,11 +3232,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:174
 msgid "Multimedia Clip Count"
-msgstr ""
+msgstr "Multimédia Klippek Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:174
 msgid "Number of multimedia clips in the document."
-msgstr ""
+msgstr "A dokumentumban lévő multimédia klippek száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:175
 msgid "Note Count"
@@ -3210,20 +3256,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:177
 msgid "Page Count"
-msgstr ""
+msgstr "Oldalak Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:177 ../src/tags/gnome-cmd-tags.cc:186
 msgid "Number of pages in the document."
-msgstr ""
+msgstr "A dokumentumban lévő oldalak száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:178
-#, fuzzy
 msgid "Paragraph Count"
-msgstr "Megjelenés"
+msgstr "Bekezdések Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:178
 msgid "Number of paragraphs in the document."
-msgstr ""
+msgstr "A dokumentumban lévő bekezdések száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:179
 msgid "Presentation Format"
@@ -3234,43 +3279,40 @@ msgid "Type of presentation, like \"On-screen Show\", \"SlideView\", etc."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:180
-#, fuzzy
 msgid "Print Date"
-msgstr "Írás"
+msgstr "Nyomtatás Dátuma"
 
 #: ../src/tags/gnome-cmd-tags.cc:180
 msgid "Specifies the date and time when the document was last printed."
-msgstr ""
+msgstr "Az utolsó nyomtatás dátuma és ideje."
 
 #: ../src/tags/gnome-cmd-tags.cc:181
-#, fuzzy
 msgid "Printed By"
-msgstr "Fordította"
+msgstr "Nyomtatta"
 
 #: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Specifies the name of the last person who printed the document."
-msgstr ""
+msgstr "A dokumentumot utoljára nyomtató személy neve."
 
 #: ../src/tags/gnome-cmd-tags.cc:182
-#, fuzzy
 msgid "Revision Count"
-msgstr "Revízió:"
+msgstr "Revíziók Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:182
 msgid "Number of revision on the document."
-msgstr ""
+msgstr "A dokumentum revízió száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:183
 msgid "Scale"
-msgstr ""
+msgstr "Skála"
 
 #: ../src/tags/gnome-cmd-tags.cc:183
 msgid "Scale."
-msgstr ""
+msgstr "Skála."
 
 #: ../src/tags/gnome-cmd-tags.cc:184
 msgid "Security"
-msgstr ""
+msgstr "Biztonság"
 
 #: ../src/tags/gnome-cmd-tags.cc:184
 msgid ""
@@ -3289,25 +3331,23 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:186
 msgid "Spreadsheet Count"
-msgstr ""
+msgstr "Táblázatok Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:187
 msgid "Subject"
-msgstr ""
+msgstr "Tárgy"
 
 #: ../src/tags/gnome-cmd-tags.cc:187
-#, fuzzy
 msgid "Document subject."
-msgstr "Dokumentáció"
+msgstr "Dokumentáció témája."
 
 #: ../src/tags/gnome-cmd-tags.cc:188
-#, fuzzy
 msgid "Table Count"
-msgstr "Megjelenés"
+msgstr "Táblázatok Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:188
 msgid "Number of tables in the document."
-msgstr ""
+msgstr "A dokumentumban lévő táblázatok száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:189
 msgid "The template file that is been used to generate this document."
@@ -3315,15 +3355,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:190
 msgid "Title of the document."
-msgstr ""
+msgstr "A dokumentum címe."
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Word Count"
-msgstr ""
+msgstr "Szavak Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:191
 msgid "Number of words in the document."
-msgstr ""
+msgstr "A dokumentumban lévő szavak száma."
 
 #: ../src/tags/gnome-cmd-tags.cc:192
 msgid "Aperture"
@@ -3339,7 +3379,7 @@ msgid ""
 "is not specified, but it is recommended that the information be written for "
 "ease of Interoperability. When the field is left blank, it is treated as "
 "unknown."
-msgstr ""
+msgstr "A kamera tulajdonosának, a fényképésznek vagy a kép megalkotójának a neve. Részletes formátum nincs előírva, de egy, az együttműködési képesség fokozására alkalmas formátum javasolt. Ha a mező üres, ismeretlenként lesz kezelve."
 
 #: ../src/tags/gnome-cmd-tags.cc:194
 msgid "Battery Level"
@@ -3351,7 +3391,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:195
 msgid "Bits per Sample"
-msgstr ""
+msgstr "Bitek száma Mintánként"
 
 #: ../src/tags/gnome-cmd-tags.cc:195
 msgid ""
@@ -3362,7 +3402,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:196
 msgid "Brightness"
-msgstr ""
+msgstr "Világosság"
 
 #: ../src/tags/gnome-cmd-tags.cc:196
 msgid ""
@@ -3371,9 +3411,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:197 ../src/tags/gnome-cmd-tags.cc:260
-#, fuzzy
 msgid "CFA Pattern"
-msgstr "Minta:"
+msgstr "CFA Minta:"
 
 #: ../src/tags/gnome-cmd-tags.cc:197
 msgid ""
@@ -3405,9 +3444,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:200
-#, fuzzy
 msgid "Components Configuration"
-msgstr "Megerősítés"
+msgstr "Komponensek Konfigurációja"
 
 #: ../src/tags/gnome-cmd-tags.cc:200
 msgid ""
@@ -3431,9 +3469,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:202
-#, fuzzy
 msgid "Compression"
-msgstr "Tömörítési szint"
+msgstr "Tömörítés"
 
 #: ../src/tags/gnome-cmd-tags.cc:202
 msgid ""
@@ -3444,7 +3481,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:203
 msgid "Contrast"
-msgstr ""
+msgstr "Kontraszt"
 
 #: ../src/tags/gnome-cmd-tags.cc:203
 msgid ""
@@ -3484,15 +3521,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:206
 msgid "Date and Time"
-msgstr ""
+msgstr "Dátum és Idő"
 
 #: ../src/tags/gnome-cmd-tags.cc:206
 msgid "The date and time of image creation."
-msgstr ""
+msgstr "A kép megalkotásának dátuma és ideje."
 
 #: ../src/tags/gnome-cmd-tags.cc:207
 msgid "Date and Time (digitized)"
-msgstr ""
+msgstr "Dátum és Idő (szám alakban)"
 
 #: ../src/tags/gnome-cmd-tags.cc:207
 msgid "The date and time when the image was stored as digital data."
@@ -3500,7 +3537,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:208
 msgid "Date and Time (original)"
-msgstr ""
+msgstr "Dátum és Idő (eredeti)"
 
 #: ../src/tags/gnome-cmd-tags.cc:208
 msgid ""
@@ -3520,7 +3557,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:210
 msgid "Digital Zoom Ratio"
-msgstr ""
+msgstr "Digitális Nagyítási Arány"
 
 #: ../src/tags/gnome-cmd-tags.cc:210
 msgid ""
@@ -3529,18 +3566,16 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:211
-#, fuzzy
 msgid "Document Name"
-msgstr "Dokumentáció"
+msgstr "Dokumentáció Neve"
 
 #: ../src/tags/gnome-cmd-tags.cc:211
-#, fuzzy
 msgid "Document name."
-msgstr "Dokumentáció"
+msgstr "Dokumentáció neve."
 
 #: ../src/tags/gnome-cmd-tags.cc:212
 msgid "Exif IFD Pointer"
-msgstr ""
+msgstr "Exif IFD Mutató"
 
 #: ../src/tags/gnome-cmd-tags.cc:212
 msgid ""
@@ -3549,9 +3584,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:213
-#, fuzzy
 msgid "Exif Version"
-msgstr "Verzió"
+msgstr "Exif Verzió"
 
 #: ../src/tags/gnome-cmd-tags.cc:213
 msgid ""
@@ -3609,9 +3643,8 @@ msgid "Exposure time, given in seconds."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:219
-#, fuzzy
 msgid "File Source"
-msgstr "Fájl tulajdonságai"
+msgstr "Fájl Forrása"
 
 #: ../src/tags/gnome-cmd-tags.cc:219
 msgid ""
@@ -3630,16 +3663,16 @@ msgstr "Fájlkezelő"
 
 #: ../src/tags/gnome-cmd-tags.cc:221 ../src/tags/gnome-cmd-tags.cc:415
 msgid "Flash"
-msgstr ""
+msgstr "Vaku"
 
 #: ../src/tags/gnome-cmd-tags.cc:221
 msgid ""
 "This tag is recorded when an image is taken using a strobe light (flash)."
-msgstr ""
+msgstr "Ez a címke akkor kerül rögzítésre, ha a képet villanó fény (vaku) felhasználásával készítették."
 
 #: ../src/tags/gnome-cmd-tags.cc:222
 msgid "Flash Energy"
-msgstr ""
+msgstr "Vaku Energia"
 
 #: ../src/tags/gnome-cmd-tags.cc:222
 msgid ""
@@ -3734,7 +3767,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:232
 msgid "Altitude"
-msgstr ""
+msgstr "Magasság"
 
 #: ../src/tags/gnome-cmd-tags.cc:232
 msgid ""
@@ -3780,7 +3813,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "North or South Latitude"
-msgstr ""
+msgstr "Északi vagy Déli Szélesség"
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid ""
@@ -3790,7 +3823,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Longitude"
-msgstr ""
+msgstr "Hosszúság"
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid ""
@@ -3862,9 +3895,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:244
-#, fuzzy
 msgid "Image Width"
-msgstr "Összehasonlítás ezzel"
+msgstr "Kép Szélessége"
 
 #: ../src/tags/gnome-cmd-tags.cc:244
 msgid ""
@@ -3958,15 +3990,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:254
 msgid "Light Source"
-msgstr ""
+msgstr "Fény Forrás"
 
 #: ../src/tags/gnome-cmd-tags.cc:254
 msgid "The kind of light source."
-msgstr ""
+msgstr "A fényforrás fajtája."
 
 #: ../src/tags/gnome-cmd-tags.cc:255
 msgid "Manufacturer"
-msgstr ""
+msgstr "Gyártó"
 
 #: ../src/tags/gnome-cmd-tags.cc:255
 msgid ""
@@ -4004,9 +4036,8 @@ msgid "The metering mode."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:259 ../src/tags/gnome-cmd-tags.cc:423
-#, fuzzy
 msgid "Model"
-msgstr "Modern"
+msgstr "Modell"
 
 #: ../src/tags/gnome-cmd-tags.cc:259
 msgid ""
@@ -4062,7 +4093,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:265
 msgid "Pixel X Dimension"
-msgstr ""
+msgstr "Képpont X Dimenzió"
 
 #: ../src/tags/gnome-cmd-tags.cc:265
 msgid ""
@@ -4074,7 +4105,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:266
 msgid "Pixel Y Dimension"
-msgstr ""
+msgstr "Képpont Y Dimenzió"
 
 #: ../src/tags/gnome-cmd-tags.cc:266
 msgid ""
@@ -4197,7 +4228,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:276
 msgid "Samples per Pixel"
-msgstr ""
+msgstr "Minta Képpontonként"
 
 #: ../src/tags/gnome-cmd-tags.cc:276
 msgid ""
@@ -4208,7 +4239,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid "Saturation"
-msgstr ""
+msgstr "Szaturáció"
 
 #: ../src/tags/gnome-cmd-tags.cc:277
 msgid ""
@@ -4247,7 +4278,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:281
 msgid "Sharpness"
-msgstr ""
+msgstr "Élesség"
 
 #: ../src/tags/gnome-cmd-tags.cc:281
 msgid ""
@@ -4267,7 +4298,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:283 ../src/tags/gnome-cmd-tags.cc:425
 msgid "Software"
-msgstr ""
+msgstr "Szoftver"
 
 #: ../src/tags/gnome-cmd-tags.cc:283
 msgid ""
@@ -4415,9 +4446,8 @@ msgid "Transfer Range"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-#, fuzzy
 msgid "Transfer range."
-msgstr "Xfer probléma"
+msgstr "Átviteli tartomány."
 
 #: ../src/tags/gnome-cmd-tags.cc:299
 msgid "User Comment"
@@ -4472,7 +4502,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:303
 msgid "x Resolution"
-msgstr ""
+msgstr "x Felbontás"
 
 #: ../src/tags/gnome-cmd-tags.cc:303
 msgid ""
@@ -4524,7 +4554,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:307
 msgid "y Resolution"
-msgstr ""
+msgstr "y·Felbontás"
 
 #: ../src/tags/gnome-cmd-tags.cc:307
 msgid ""
@@ -4542,9 +4572,8 @@ msgid "Last access datetime."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:309
-#, fuzzy
 msgid "Content"
-msgstr "_Tartalom"
+msgstr "Tartalom"
 
 #: ../src/tags/gnome-cmd-tags.cc:309
 msgid "File's contents filtered as plain text."
@@ -4565,7 +4594,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:313
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: ../src/tags/gnome-cmd-tags.cc:313
 #, fuzzy
@@ -4586,13 +4615,12 @@ msgid "File name excluding path but including the file extension."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-#, fuzzy
 msgid "Path"
-msgstr "Hivatkozás"
+msgstr "Útvonal"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
 msgid "Full file path of file excluding the filename."
-msgstr ""
+msgstr "A fájl teljes elérési útvonala fájlnév nélkül."
 
 #: ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
@@ -4600,7 +4628,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:318 ../src/tags/gnome-cmd-tags.cc:377
 msgid "Publisher"
-msgstr ""
+msgstr "Kiadó"
 
 #: ../src/tags/gnome-cmd-tags.cc:318
 msgid ""
@@ -4619,9 +4647,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:320 ../src/tags/gnome-cmd-tags.cc:384
-#, fuzzy
 msgid "Size"
-msgstr "Méret:"
+msgstr "Méret"
 
 #: ../src/tags/gnome-cmd-tags.cc:320
 msgid ""
@@ -4673,7 +4700,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:326
 msgid "Buffer Size"
-msgstr ""
+msgstr "Puffer Méret"
 
 #: ../src/tags/gnome-cmd-tags.cc:326
 msgid "Recommended buffer size."
@@ -4689,7 +4716,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial"
-msgstr ""
+msgstr "Kereskedelmi"
 
 #: ../src/tags/gnome-cmd-tags.cc:328
 msgid "Commercial frame."
@@ -4697,35 +4724,31 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:329
 msgid "Composer"
-msgstr ""
+msgstr "Zeneszerző"
 
 #: ../src/tags/gnome-cmd-tags.cc:329
-#, fuzzy
 msgid "Composer."
-msgstr "Összehasonlítás..."
+msgstr "Zeneszerző."
 
 #: ../src/tags/gnome-cmd-tags.cc:330
-#, fuzzy
 msgid "Conductor"
-msgstr "_Tartalom"
+msgstr "Vezénylő"
 
 #: ../src/tags/gnome-cmd-tags.cc:330
 msgid "Conductor."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:331
-#, fuzzy
 msgid "Content Group"
-msgstr "_Tartalom"
+msgstr "Tartalom Csoport"
 
 #: ../src/tags/gnome-cmd-tags.cc:331
 msgid "Content group description."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:332
-#, fuzzy
 msgid "Content Type"
-msgstr "_Tartalom"
+msgstr "Tartalom Típusa"
 
 #: ../src/tags/gnome-cmd-tags.cc:334
 msgid "Encryption Registration"
@@ -4736,9 +4759,8 @@ msgid "Encryption method registration."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:335
-#, fuzzy
 msgid "Date."
-msgstr "Dátum:"
+msgstr "Dátum."
 
 #: ../src/tags/gnome-cmd-tags.cc:336
 msgid "Emphasis"
@@ -4765,7 +4787,7 @@ msgstr "MIME ikon beállítások"
 
 #: ../src/tags/gnome-cmd-tags.cc:338
 msgid "Software."
-msgstr ""
+msgstr "Szoftver."
 
 #: ../src/tags/gnome-cmd-tags.cc:339
 #, fuzzy
@@ -4778,9 +4800,8 @@ msgid "Encoding time."
 msgstr "_Kódolás"
 
 #: ../src/tags/gnome-cmd-tags.cc:340
-#, fuzzy
 msgid "Equalization"
-msgstr "MIME hozzárendelések"
+msgstr "Kiegyenlítés"
 
 #: ../src/tags/gnome-cmd-tags.cc:340
 msgid "Equalization."
@@ -4796,31 +4817,27 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:342
 msgid "Event Timing"
-msgstr ""
+msgstr "Esemény Időzítés"
 
 #: ../src/tags/gnome-cmd-tags.cc:342
 msgid "Event timing codes."
-msgstr ""
+msgstr "Esemény időzítési kódok."
 
 #: ../src/tags/gnome-cmd-tags.cc:343
-#, fuzzy
 msgid "File Owner"
-msgstr "Fájlkezelő"
+msgstr "Fájl Tulajdonos"
 
 #: ../src/tags/gnome-cmd-tags.cc:343
-#, fuzzy
 msgid "File owner."
-msgstr "Fájlkezelő"
+msgstr "Fájltulajdonos."
 
 #: ../src/tags/gnome-cmd-tags.cc:344
-#, fuzzy
 msgid "File Type"
-msgstr "Fájl minták"
+msgstr "Fájl Típusa"
 
 #: ../src/tags/gnome-cmd-tags.cc:344
-#, fuzzy
 msgid "File type."
-msgstr "Fájltípus ikonok"
+msgstr "Fájl típusa."
 
 #: ../src/tags/gnome-cmd-tags.cc:345
 msgid "Frames"
@@ -4870,16 +4887,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:351
 msgid "Language."
-msgstr ""
+msgstr "Nyelv."
 
 #: ../src/tags/gnome-cmd-tags.cc:352
 msgid "Linked Info"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:352
-#, fuzzy
 msgid "Linked information."
-msgstr "Rendezési beállítások"
+msgstr "Linkelt információ."
 
 #: ../src/tags/gnome-cmd-tags.cc:353
 msgid "Lyricist"
@@ -4894,9 +4910,8 @@ msgid "Media Type"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:354
-#, fuzzy
 msgid "Media type."
-msgstr "Alapértelmezett típus"
+msgstr "Média típusa."
 
 #: ../src/tags/gnome-cmd-tags.cc:355
 msgid "Mix Artist"
@@ -4907,13 +4922,12 @@ msgid "Interpreted, remixed, or otherwise modified by."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:356
-#, fuzzy
 msgid "Mood"
-msgstr "Modern"
+msgstr "Hangulat"
 
 #: ../src/tags/gnome-cmd-tags.cc:356
 msgid "Mood."
-msgstr ""
+msgstr "Hangulat."
 
 #: ../src/tags/gnome-cmd-tags.cc:357
 msgid "MPEG Lookup"
@@ -4968,9 +4982,8 @@ msgid "Original File Name"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:363
-#, fuzzy
 msgid "Original filename."
-msgstr "A fájlnév mellett"
+msgstr "Eredeti fájlnév."
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Original Lyricist"
@@ -4981,9 +4994,8 @@ msgid "Original lyricist."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:365
-#, fuzzy
 msgid "Original Release Time"
-msgstr "Átnevezés"
+msgstr "Eredeti Kiadás Ideje"
 
 #: ../src/tags/gnome-cmd-tags.cc:365
 msgid "Original release time."
@@ -4998,9 +5010,8 @@ msgid "Original release year."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:367
-#, fuzzy
 msgid "Ownership"
-msgstr "Tulajdonos:"
+msgstr "Tulajdonjog"
 
 #: ../src/tags/gnome-cmd-tags.cc:367
 msgid "Ownership frame."
@@ -5024,16 +5035,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:370
 msgid "Picture"
-msgstr ""
+msgstr "Kép"
 
 #: ../src/tags/gnome-cmd-tags.cc:370
 msgid "Attached picture."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:371
-#, fuzzy
 msgid "Play Counter"
-msgstr "Megjelenés"
+msgstr "Lejátszások Száma"
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 msgid "Number of times a file has been played."
@@ -5064,9 +5074,8 @@ msgid "Position synchronisation frame."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:375
-#, fuzzy
 msgid "Private"
-msgstr "Írás"
+msgstr "Privát"
 
 #: ../src/tags/gnome-cmd-tags.cc:375
 msgid "Private frame."
@@ -5082,7 +5091,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:377
 msgid "Publisher."
-msgstr ""
+msgstr "Kiadó."
 
 #: ../src/tags/gnome-cmd-tags.cc:378
 #, fuzzy
@@ -5102,14 +5111,12 @@ msgid "Recording time."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:380 ../src/tags/gnome-cmd-tags.cc:492
-#, fuzzy
 msgid "Release Time"
-msgstr "Átnevezés"
+msgstr "Kiadás Ideje"
 
 #: ../src/tags/gnome-cmd-tags.cc:380
-#, fuzzy
 msgid "Release time."
-msgstr "Átnevezés"
+msgstr "Kiadás Ideje."
 
 #: ../src/tags/gnome-cmd-tags.cc:381
 #, fuzzy
@@ -5142,20 +5149,19 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:385
 msgid "Song length"
-msgstr ""
+msgstr "Dal hossza"
 
 #: ../src/tags/gnome-cmd-tags.cc:385
 msgid "Length of the song in milliseconds."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:386
-#, fuzzy
 msgid "Subtitle"
-msgstr "Fájl"
+msgstr "Felirat"
 
 #: ../src/tags/gnome-cmd-tags.cc:386
 msgid "Subtitle."
-msgstr ""
+msgstr "Felirat."
 
 #: ../src/tags/gnome-cmd-tags.cc:387
 msgid "Synchronized Lyrics"
@@ -5190,13 +5196,12 @@ msgid "Terms of use."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:391
-#, fuzzy
 msgid "Time"
-msgstr "Fájl"
+msgstr "Idő"
 
 #: ../src/tags/gnome-cmd-tags.cc:391
 msgid "Time."
-msgstr ""
+msgstr "Idő."
 
 #: ../src/tags/gnome-cmd-tags.cc:392
 msgid "Title Sort Order"
@@ -5224,7 +5229,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:395
 msgid "User Text"
-msgstr ""
+msgstr "Felhasználói Szöveg"
 
 #: ../src/tags/gnome-cmd-tags.cc:395
 msgid "User defined text information."
@@ -5320,7 +5325,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:407
 msgid "Name of an album the image belongs to."
-msgstr ""
+msgstr "A képhez tartozó album neve."
 
 #: ../src/tags/gnome-cmd-tags.cc:409
 msgid "Embedded copyright message."
@@ -5354,11 +5359,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:418
 msgid "Height"
-msgstr ""
+msgstr "Magasság"
 
 #: ../src/tags/gnome-cmd-tags.cc:418
 msgid "Height in pixels."
-msgstr ""
+msgstr "Magasság képpontban."
 
 #: ../src/tags/gnome-cmd-tags.cc:419
 msgid "ISO Speed"
@@ -5381,7 +5386,7 @@ msgstr "_Kijelölés"
 
 #: ../src/tags/gnome-cmd-tags.cc:421
 msgid "Make of camera used to take the image."
-msgstr ""
+msgstr "A képet rögzítő kamera márkája."
 
 #: ../src/tags/gnome-cmd-tags.cc:422
 msgid ""
@@ -5415,11 +5420,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:428
 msgid "Width"
-msgstr ""
+msgstr "Szélesség"
 
 #: ../src/tags/gnome-cmd-tags.cc:428
 msgid "Width in pixels."
-msgstr ""
+msgstr "Szélesség képpontban."
 
 #: ../src/tags/gnome-cmd-tags.cc:429
 msgid "Action Advised"
@@ -5440,9 +5445,8 @@ msgid "Identifies the Abstract Relationship Method (ARM)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:431
-#, fuzzy
 msgid "ARM Version"
-msgstr "Verzió"
+msgstr "ARM Verzió"
 
 #: ../src/tags/gnome-cmd-tags.cc:431
 msgid "Identifies the version of the Abstract Relationship Method (ARM)."
@@ -5534,7 +5538,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:442
 msgid "City"
-msgstr ""
+msgstr "Város"
 
 #: ../src/tags/gnome-cmd-tags.cc:442
 msgid "City of object origin."
@@ -5550,9 +5554,8 @@ msgid "Total size of the object data."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:444 ../src/tags/gnome-cmd-tags.cc:507
-#, fuzzy
 msgid "Contact"
-msgstr "Kapcsolódás"
+msgstr "Kapcsolat"
 
 #: ../src/tags/gnome-cmd-tags.cc:444
 msgid ""
@@ -5590,7 +5593,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "Country Code"
-msgstr ""
+msgstr "Ország Kód"
 
 #: ../src/tags/gnome-cmd-tags.cc:448
 msgid "The code of the country/primary location where the object was created."
@@ -5598,16 +5601,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "Country Name"
-msgstr ""
+msgstr "Ország Név"
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "The name of the country/primary location where the object was created."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:450
-#, fuzzy
 msgid "Credit"
-msgstr "Köszönet"
+msgstr "Hitel"
 
 #: ../src/tags/gnome-cmd-tags.cc:450
 msgid ""
@@ -5621,9 +5623,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:452
-#, fuzzy
 msgid "Date Sent"
-msgstr "Kis/nagybetű különböző"
+msgstr "Küldés Dátuma"
 
 #: ../src/tags/gnome-cmd-tags.cc:452
 msgid "The day the service sent the material."
@@ -5631,7 +5632,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:453
 msgid "Destination"
-msgstr ""
+msgstr "Cél"
 
 #: ../src/tags/gnome-cmd-tags.cc:453
 #, fuzzy
@@ -5709,18 +5710,16 @@ msgid "Designates the latest time the provider intends the object to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:462
-#, fuzzy
 msgid "File Format"
-msgstr "Formátum"
+msgstr "Fájl Formátum"
 
 #: ../src/tags/gnome-cmd-tags.cc:462
 msgid "File format of the data described by this metadata."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:463
-#, fuzzy
 msgid "File Version"
-msgstr "Verzió"
+msgstr "Fájl Verziója"
 
 #: ../src/tags/gnome-cmd-tags.cc:463
 msgid "Version of the file format."
@@ -5755,9 +5754,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:467
-#, fuzzy
 msgid "Image Type"
-msgstr "_Kép"
+msgstr "Kép Típusa"
 
 #: ../src/tags/gnome-cmd-tags.cc:467
 msgid "Indicates the data format of the image object."
@@ -5771,7 +5769,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:469
 msgid "Language Identifier"
-msgstr ""
+msgstr "Nyelv Azonosító"
 
 #: ../src/tags/gnome-cmd-tags.cc:469
 msgid ""
@@ -5798,9 +5796,8 @@ msgid ""
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:472
-#, fuzzy
 msgid "Model Version"
-msgstr "Verzió"
+msgstr "Modell Verziója"
 
 #: ../src/tags/gnome-cmd-tags.cc:472
 msgid "Version of IIM part 1."
@@ -5899,9 +5896,8 @@ msgid "Allows a provider to identify subsets of its overall service."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:484
-#, fuzzy
 msgid "Program Version"
-msgstr "Programok"
+msgstr "Program Verziója"
 
 #: ../src/tags/gnome-cmd-tags.cc:484
 msgid "The version of the originating program."
@@ -5980,9 +5976,8 @@ msgid "Identifies the provider and product."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:494
-#, fuzzy
 msgid "Size Mode"
-msgstr "A méretek megjelenítési módja"
+msgstr "Méret Módja"
 
 #: ../src/tags/gnome-cmd-tags.cc:494
 msgid "Set to 0 if the size of the object is known and 1 if not known."
@@ -5990,7 +5985,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:495
 msgid "Source"
-msgstr ""
+msgstr "Forrás"
 
 #: ../src/tags/gnome-cmd-tags.cc:495
 msgid "The original owner of the intellectual content of the object."
@@ -6043,7 +6038,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid "Time Created"
-msgstr ""
+msgstr "Létrehozás Ideje"
 
 #: ../src/tags/gnome-cmd-tags.cc:502
 msgid ""
@@ -6054,7 +6049,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:503
 msgid "Time Sent"
-msgstr ""
+msgstr "Küldés Ideje"
 
 #: ../src/tags/gnome-cmd-tags.cc:503
 msgid "The time the service sent the material."
@@ -6099,14 +6094,12 @@ msgid "A textual description of the data."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:509
-#, fuzzy
 msgid "License"
-msgstr "Sorok:"
+msgstr "Engedély"
 
 #: ../src/tags/gnome-cmd-tags.cc:509
-#, fuzzy
 msgid "License information."
-msgstr "Rendezési beállítások"
+msgstr "Engedély információ."
 
 #: ../src/tags/gnome-cmd-tags.cc:510
 #, fuzzy
@@ -6142,9 +6135,8 @@ msgid "Nominal bitrate in kbps."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:514
-#, fuzzy
 msgid "Organization"
-msgstr "MIME hozzárendelések"
+msgstr "Szervezet"
 
 #: ../src/tags/gnome-cmd-tags.cc:514
 msgid "Organization producing the track."
@@ -6159,14 +6151,12 @@ msgid "Vorbis vendor ID."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:516
-#, fuzzy
 msgid "Vorbis Version"
-msgstr "Verzió"
+msgstr "Vorbis Verziója"
 
 #: ../src/tags/gnome-cmd-tags.cc:516
-#, fuzzy
 msgid "Vorbis version."
-msgstr "Verzió"
+msgstr "Vorbis Verziója."
 
 #: ../src/tags/gnome-cmd-tags.cc:647
 msgid "Audio"
@@ -6177,9 +6167,8 @@ msgid "Doc"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:671
-#, fuzzy
 msgid "Image"
-msgstr "_Kép"
+msgstr "Kép"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:63
 msgid "No Proofing"
@@ -6187,121 +6176,120 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:65
 msgid "Arabic"
-msgstr ""
+msgstr "Arab"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:67
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bulgár"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:69
 msgid "Catalan"
-msgstr ""
+msgstr "Katalán"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:71
 msgid "Traditional Chinese"
-msgstr ""
+msgstr "Hagyományos Kínai"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:73
 msgid "Simplified Chinese"
-msgstr ""
+msgstr "Egyszerűsített Kínai"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:75
 msgid "Chechen"
-msgstr ""
+msgstr "Csecsen"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:77
 msgid "Danish"
-msgstr ""
+msgstr "Dán"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:79
-#, fuzzy
 msgid "German"
-msgstr "Általános"
+msgstr "Német"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:81
 msgid "Swiss German"
-msgstr ""
+msgstr "Svájci·Német"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:83
-#, fuzzy
 msgid "Greek"
-msgstr "Általános"
+msgstr "Görög"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:85
 msgid "U.S. English"
-msgstr ""
+msgstr "Amerikai Angol"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:87
+#, fuzzy
 msgid "U.K. English"
-msgstr ""
+msgstr "Királyi Angol"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:89
 msgid "Australian English"
-msgstr ""
+msgstr "Ausztrál Angol"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:91
 msgid "Castilian Spanish"
-msgstr ""
+msgstr "Kasztíliai Spanyol"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:93
 msgid "Mexican Spanish"
-msgstr ""
+msgstr "Mexikói Spanyol"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:95
 msgid "Finnish"
-msgstr ""
+msgstr "Finn"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:97
 msgid "French"
-msgstr ""
+msgstr "Francia"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:99
 msgid "Belgian French"
-msgstr ""
+msgstr "Belga Francia"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:101
 msgid "Canadian French"
-msgstr ""
+msgstr "Kanadai Francia"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:103
 msgid "Swiss French"
-msgstr ""
+msgstr "Svájci Francia"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:105
 msgid "Hebrew"
-msgstr ""
+msgstr "Héber"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:107
 msgid "Hungarian"
-msgstr ""
+msgstr "Magyar"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:109
 msgid "Icelandic"
-msgstr ""
+msgstr "Izlandi"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:111
 msgid "Italian"
-msgstr ""
+msgstr "Olasz"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:113
 msgid "Swiss Italian"
-msgstr ""
+msgstr "Svájci·Olasz"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:115
 msgid "Japanese"
-msgstr ""
+msgstr "Japán"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:117
 msgid "Korean"
-msgstr ""
+msgstr "Koreai"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:119
 msgid "Dutch"
-msgstr ""
+msgstr "Holland"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:121
 msgid "Belgian Dutch"
-msgstr ""
+msgstr "Belga Dán"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:123
 msgid "Norwegian Bokmal"
@@ -6313,16 +6301,15 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:127
 msgid "Polish"
-msgstr ""
+msgstr "Lengyel"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:129
 msgid "Brazilian Portuguese"
-msgstr ""
+msgstr "Brazil Portugál"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:131
-#, fuzzy
 msgid "Portuguese"
-msgstr "Tulajdonságok"
+msgstr "Portugál"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:133
 msgid "Rhaeto-Romanic"
@@ -6330,12 +6317,11 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:135
 msgid "Romanian"
-msgstr ""
+msgstr "Román"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:137
-#, fuzzy
 msgid "Russian"
-msgstr "Fúzió"
+msgstr "Orosz"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:139
 msgid "Croato-Serbian (Latin)"
@@ -6343,61 +6329,59 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:141
 msgid "Serbo-Croatian (Cyrillic)"
-msgstr ""
+msgstr "Szerb-Horvát (cirill)"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:143
 msgid "Slovak"
-msgstr ""
+msgstr "Szlovák"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:145
-#, fuzzy
 msgid "Albanian"
-msgstr "Álnév"
+msgstr "Albán"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:147
 msgid "Swedish"
-msgstr ""
+msgstr "Svéd"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:149
 msgid "Thai"
-msgstr ""
+msgstr "Thaiföldi"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:151
 msgid "Turkish"
-msgstr ""
+msgstr "Török"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:153
 msgid "Urdu"
-msgstr ""
+msgstr "Urdu"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:155
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonéziai"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:157
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrán"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:159
 msgid "Byelorussian"
-msgstr ""
+msgstr "Belorusz"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:161
 msgid "Slovenian"
-msgstr ""
+msgstr "Szlovén"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:163
 msgid "Estonian"
-msgstr ""
+msgstr "Esztóniai"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:165
-#, fuzzy
 msgid "Latvian"
-msgstr "Kap_csolatok"
+msgstr "Lett"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:167
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litván"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:169
 msgid "Farsi"
@@ -6405,15 +6389,16 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:171
 msgid "Basque"
-msgstr ""
+msgstr "Baszk"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:173
 msgid "Macedonian"
-msgstr ""
+msgstr "Makedón"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:175
+#, fuzzy
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikai"
 
 #: ../src/tags/gnome-cmd-tags-doc.cc:177
 msgid "Malayalam"
@@ -6425,9 +6410,8 @@ msgid "unsupported tag (suppressed %u B of binary data)"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:71
-#, fuzzy
 msgid "Stereo"
-msgstr "Kiszolgálók"
+msgstr "Sztereó"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:72
 msgid "Joint stereo"
@@ -6463,25 +6447,24 @@ msgid "Reserved"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:95
-#, fuzzy
 msgid "None"
-msgstr "Nem"
+msgstr "Egyik sem"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:96
 msgid "10-15ms"
 msgstr ""
 
-#: ../src/utils.cc:429
+#: ../src/utils.cc:440
 #, c-format
 msgid ""
-"No default application found for the mime-type %s.\n"
+"No default application found for the MIME type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
 "A(z) %s MIME-típushoz nincs program hozzárendelve.\n"
 "Nyissa meg a \"Fájltípusok és programok\" oldalt a Vezérlőközpontban és "
 "rendeljen hozzá egyet."
 
-#: ../src/utils.cc:504
+#: ../src/utils.cc:520
 #, c-format
 msgid ""
 "\"%s\" seems to be a binary executable file but it lacks the executable bit. "
@@ -6490,11 +6473,11 @@ msgstr ""
 "\"%s\" bináris végrehajtható fájlnak tűnik, de hiányzik róla a végrehajtható "
 "bit. Be szeretné ezt állítani és futtatni a fájlt?"
 
-#: ../src/utils.cc:507
+#: ../src/utils.cc:522
 msgid "Make Executable?"
 msgstr "Legyen végrehajtható?"
 
-#: ../src/utils.cc:534
+#: ../src/utils.cc:549
 #, c-format
 msgid ""
 "\"%s\" is an executable text file. Do you want to run it, or display its "
@@ -6503,34 +6486,32 @@ msgstr ""
 "A(z) \"%s\" egy futtatható szöveges fájl. Valóban futtassam. vagy megtekinti "
 "a tartalmát?"
 
-#: ../src/utils.cc:536
+#: ../src/utils.cc:550
 msgid "Run or Display"
 msgstr "Futtatás vagy megjelenítés"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:551
 msgid "Display"
 msgstr "Megjelenítés"
 
-#: ../src/utils.cc:537
+#: ../src/utils.cc:551
 msgid "Run"
 msgstr "Futtatás"
 
-#: ../src/utils.cc:579 ../src/utils.cc:655
+#: ../src/utils.cc:594 ../src/utils.cc:676
 #, c-format
 msgid ""
 "%s does not know how to open remote file. Do you want to download the file "
 "to a temporary location and then open it?"
-msgid_plural ""
 "%s does not know how to open remote files. Do you want to download the files "
 "to a temporary location and then open them?"
-msgstr[0] ""
+msgstr ""
 "A(z) %s nem képes távoli fájlok megnyitására. Le kívánja tölteni a fájlt egy "
 "ideiglenes helyre, és ezután megnyitni?"
-msgstr[1] ""
 "A(z) %s nem képes távoli fájlok megnyitására. Le kívánja tölteni a fájlt egy "
 "ideiglenes helyre, és ezután megnyitni?"
 
-#: ../src/utils.cc:1021
+#: ../src/utils.cc:1042
 #, c-format
 msgid ""
 "Failed to create a directory in which to store temporary files.\n"
@@ -6539,24 +6520,37 @@ msgstr ""
 "Nem sikerült könyvtárat létrehozni az átmeneti fájlok tárolásához.\n"
 "Hibaüzenet: %s\n"
 
-#: ../src/utils.cc:1217
+#: ../src/utils.cc:1238
 #, c-format
 msgid "Creating directory %s... "
 msgstr "Könyvtár létrehozása %s... "
 
-#: ../src/utils.cc:1220
+#: ../src/utils.cc:1241
 #, c-format
 msgid "Failed to create the directory %s"
 msgstr "Hiba a(z) %s könyvtár létrehozása közben"
 
-#: ../src/utils.cc:1226
+#: ../src/utils.cc:1247
 #, fuzzy, c-format
 msgid "Couldn't read from the directory %s: %s"
 msgstr "Nem olvasható a(z) %s könyvtár: %s\n"
 
-#: ../src/utils.h:253
+#: ../src/utils.h:259
 msgid "There was an error displaying help."
 msgstr "Hiba történt a súgó megjelenítése közben."
+
+#~ msgid ""
+#~ "Could not chmod %s\n"
+#~ "%s"
+#~ msgstr ""
+#~ "A chmod sikertelen: %s\n"
+#~ "%s"
+
+#~ msgid "Removes the FTP connection to %s"
+#~ msgstr "Az FTP kapcsolat eltávolítása %s"
+
+#~ msgid "Goto"
+#~ msgstr "Ugrás"
 
 #, fuzzy
 #~ msgid "Dir"
@@ -6570,9 +6564,6 @@ msgstr "Hiba történt a súgó megjelenítése közben."
 
 #~ msgid "_Remove"
 #~ msgstr "El_távolítás"
-
-#~ msgid "_Goto"
-#~ msgstr "U_grás"
 
 #~ msgid "No alias specified"
 #~ msgstr "Nincs álnév megadva"
@@ -6629,6 +6620,7 @@ msgstr "Hiba történt a súgó megjelenítése közben."
 
 #~ msgid "No translation is currently in use."
 #~ msgstr ""
+#~ "Csimbi <csimbi@gmail.com>\n"
 #~ "Dvornik László <dvornik@gnome.hu>\n"
 #~ "Kelemen Gábor <kelemeng@gnome.hu>\n"
 #~ "Sári Gábor <sari.gabor@gmail.com>"
