@@ -1,3 +1,8 @@
+2008-04-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	Fixed problem #499761 (search window cleared when column sorted)
+
 2008-04-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

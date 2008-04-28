@@ -1237,9 +1237,6 @@ static void class_init (GnomeCmdFileListClass *klass)
 
 static void init (GnomeCmdFileList *fl)
 {
-    gint i;
-    gboolean b;
-
     fl->priv = g_new0 (GnomeCmdFileListPrivate, 1);
     fl->priv->shown_files = gnome_cmd_file_collection_new ();
     // fl->priv->selected_files = NULL;
@@ -1250,17 +1247,20 @@ static void init (GnomeCmdFileList *fl)
     // fl->priv->quicksearch_popup = NULL;
     // fl->priv->focus_later = NULL;
 
-    for (i=0; i<FILE_LIST_NUM_COLUMNS; i++)
-        fl->priv->sort_raising[i] = FALSE;
+    // for (gint i=0; i<FILE_LIST_NUM_COLUMNS; i++)
+        // fl->priv->sort_raising[i] = FALSE;
 
-    gnome_cmd_data_get_sort_params (fl, &i, &b);
-    fl->priv->current_col = i;
-    fl->priv->sort_raising[i] = b;
-    fl->priv->sort_func = file_list_column[i].sort_func;
+    gint col = FILE_LIST_COLUMN_NAME;       // defaults,
+    gboolean b = FILE_LIST_SORT_ASCENDING;  // used when not set by gnome_cmd_data_get_sort_params()
+
+    gnome_cmd_data_get_sort_params (fl, &col, &b);
+    fl->priv->current_col = col;
+    fl->priv->sort_raising[col] = b;
+    fl->priv->sort_func = file_list_column[col].sort_func;
 
     init_dnd (fl);
 
-    for (i=0; i<FILE_LIST_NUM_COLUMNS; i++)
+    for (gint i=0; i<FILE_LIST_NUM_COLUMNS; i++)
         gtk_clist_set_column_resizeable (GTK_CLIST (fl), i, TRUE);
 
     gtk_signal_connect_after (GTK_OBJECT (fl), "scroll_vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), fl);
