@@ -153,7 +153,7 @@ static void on_dialog_destroy (GtkDialog *dialog, GnomeCmdFilePropsDialogPrivate
 {
     data->stop = TRUE;
 
-    gtk_timeout_add (1, (GtkFunction)join_thread_func, data);
+    g_timeout_add (1, (GSourceFunc) join_thread_func, data);
 }
 
 
@@ -184,7 +184,7 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 
     data->thread = g_thread_create ((PthreadFunc) calc_tree_size_func, data, TRUE, NULL);
 
-    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction) update_count_status, data);
+    g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) update_count_status, data);
 }
 
 

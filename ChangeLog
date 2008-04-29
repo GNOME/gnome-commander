@@ -3,6 +3,17 @@
 	* src/gnome-cmd-file-list.cc:
 	Fixed problem #499761 (search window cleared when column sorted)
 
+	* src/dirlist.cc:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-con.cc:
+	* src/gnome-cmd-delete-dialog.cc:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	* src/gnome-cmd-xfer.cc:
+	Replacing obsoleted gtk_timeout_add() with g_timeout_add()
+
 2008-04-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

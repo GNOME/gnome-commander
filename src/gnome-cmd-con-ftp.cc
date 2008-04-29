@@ -107,7 +107,7 @@ static void ftp_open (GnomeCmdCon *con)
     //~ gnome_cmd_con_set_default_dir (con, dir);
     //~ gnome_cmd_con_set_cwd (con, dir);
 
-    gtk_timeout_add (1, (GtkFunction) start_get_file_info, con);
+    g_timeout_add (1, (GSourceFunc) start_get_file_info, con);
 }
 
 

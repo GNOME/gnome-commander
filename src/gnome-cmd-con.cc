@@ -279,7 +279,7 @@ void gnome_cmd_con_open (GnomeCmdCon *con)
     if (con->state != CON_STATE_OPEN)
         klass->open (con);
 
-    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)check_con_open_progress, con);
+    g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) check_con_open_progress, con);
 }
 
 

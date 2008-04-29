@@ -464,7 +464,7 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
         // Stop and wait for search thread to exit
         data->stopped = TRUE;
         data->dialog_destroyed = TRUE;
-        gtk_timeout_add (1, (GtkFunction) join_thread_func, data);
+        g_timeout_add (1, (GSourceFunc) join_thread_func, data);
 
         // Unref all directories which contained matching files from last search
         if (data->pdata.mutex != NULL)
@@ -555,9 +555,9 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
 
     gtk_widget_show (data->dialog->priv->pbar);
-    data->update_gui_timeout_id = gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (),
-                                                   (GtkFunction)update_search_status_widgets,
-                                                   dialog->priv->data);
+    data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data_get_gui_update_rate (),
+                                                 (GSourceFunc) update_search_status_widgets,
+                                                 dialog->priv->data);
     return FALSE;
 }
 
@@ -568,7 +568,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
  */
 static void on_search (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
-    gtk_timeout_add (1, (GtkFunction)start_search, dialog);
+    g_timeout_add (1, (GSourceFunc) start_search, dialog);
 
     gtk_widget_set_sensitive (dialog->priv->search_button, FALSE);
     gtk_widget_set_sensitive (dialog->priv->goto_button, FALSE);

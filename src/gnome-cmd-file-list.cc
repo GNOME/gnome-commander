@@ -1078,7 +1078,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEvent
 
                             fl->priv->right_mb_down_file = finfo;
                             fl->priv->right_mb_timeout_id =
-                                gtk_timeout_add (POPUP_TIMEOUT, (GtkFunction) on_right_mb_timeout, fl);
+                                g_timeout_add (POPUP_TIMEOUT, (GSourceFunc) on_right_mb_timeout, fl);
                         }
                         else
                             show_file_popup (fl, event);

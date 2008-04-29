@@ -251,7 +251,7 @@ static void do_delete (DeleteData *data)
     create_delete_progress_win (data);
 
     data->thread = g_thread_create ((GThreadFunc) perform_delete_operation, data, FALSE, NULL);
-    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction) update_delete_status_widgets, data);
+    g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) update_delete_status_widgets, data);
 }
 
 

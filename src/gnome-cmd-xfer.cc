@@ -441,7 +441,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
                                                   xfer_callback,
                                                   data);
 
-    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GtkFunction)update_xfer_gui_func, data);
+    g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) update_xfer_gui_func, data);
 }
 
 
@@ -527,7 +527,7 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
                                    xfer_callback,
                                    data);
 
-    gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (),
-                     (GtkFunction)update_xfer_gui_func,
-                     data);
+    g_timeout_add (gnome_cmd_data_get_gui_update_rate (),
+                   (GSourceFunc) update_xfer_gui_func,
+                   data);
 }
