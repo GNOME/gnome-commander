@@ -82,16 +82,16 @@ static void do_test (GnomeCmdAdvrenameDialog *dialog);
 inline void insert_tag (GnomeCmdAdvrenameDialog *dialog, const gchar *text)
 {
     GtkEditable *editable = (GtkEditable *) dialog->priv->templ_entry;
-    gint pos = gtk_editable_get_position(editable);
+    gint pos = gtk_editable_get_position (editable);
 
     gtk_editable_insert_text (editable, text, strlen(text), &pos);
-    gtk_editable_set_position(editable, pos);
-    gtk_widget_grab_focus((GtkWidget *) editable);
-    gtk_editable_select_region(editable,pos,pos);
+    gtk_editable_set_position (editable, pos);
+    gtk_widget_grab_focus ((GtkWidget *) editable);
+    gtk_editable_select_region (editable,pos,pos);
 }
 
 
-static void insert_text_tag(gpointer data, guint n, GtkWidget *widget)
+static void insert_text_tag (gpointer data, guint n, GtkWidget *widget)
 {
     static const gchar *placeholder[] = {"$g",
                                          "$p",
@@ -123,14 +123,14 @@ static void insert_text_tag(gpointer data, guint n, GtkWidget *widget)
 
     g_return_if_fail (n < G_N_ELEMENTS(placeholder));
 
-    insert_tag((GnomeCmdAdvrenameDialog *) data, placeholder[n]);
+    insert_tag ((GnomeCmdAdvrenameDialog *) data, placeholder[n]);
 }
 
 
 static void insert_num_tag(gpointer data, guint tag, GtkWidget *widget)
 {
     gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name((GnomeCmdTag) tag));
-    insert_tag((GnomeCmdAdvrenameDialog *) data, s);
+    insert_tag ((GnomeCmdAdvrenameDialog *) data, s);
     g_free(s);
 }
 
@@ -141,10 +141,10 @@ static void on_menu_button_clicked(GtkButton *widget, gpointer data)
     GdkEventButton *event = (GdkEventButton *) gtk_get_current_event();
 
     if (event == NULL)
-        gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, 1, gtk_get_current_event_time());
+        gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, 1, gtk_get_current_event_time());
     else
         if (event->button == 1)
-            gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+            gtk_menu_popup (GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 }
 
 
@@ -434,11 +434,11 @@ static GtkWidget *create_button_with_menu (GnomeCmdAdvrenameDialog *dialog, gcha
     GtkWidget *label = gtk_label_new (label_text);
     GtkWidget *hbox = gtk_hbox_new (FALSE, 3);
 
-    gtk_box_pack_start(GTK_BOX(hbox), label, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(hbox), arrow, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX (hbox), label, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX (hbox), arrow, FALSE, FALSE, 0);
 
-    GtkWidget *button = gtk_button_new();
-    gtk_container_add (GTK_CONTAINER(button), hbox);
+    GtkWidget *button = gtk_button_new ();
+    gtk_container_add (GTK_CONTAINER (button), hbox);
 
     dialog->priv->menu[menu_type] = create_placeholder_menu (dialog, menu_type);
 
@@ -554,7 +554,7 @@ inline void add_pattern_entry (GnomeCmdAdvrenameDialog *dialog, PatternEntry *en
     format_entry (entry, text);
 
     row = gtk_clist_append (GTK_CLIST (dialog->priv->pat_list), text);
-    //gtk_clist_set_foreground(GTK_CLIST (dialog->priv->pat_list), row, entry->malformed_pattern ? &red : &black);
+    //gtk_clist_set_foreground (GTK_CLIST (dialog->priv->pat_list), row, entry->malformed_pattern ? &red : &black);
     gtk_clist_set_row_data (GTK_CLIST (dialog->priv->pat_list), row, entry);
     update_move_buttons (dialog, GTK_CLIST (dialog->priv->pat_list)->focus_row);
 }
@@ -616,7 +616,7 @@ static gboolean on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog, con
     gchar *text[4];
 
     format_entry (entry, text);
-    //gtk_clist_set_foreground(GTK_CLIST (pat_list), row, entry->malformed_pattern ? &red : &black);
+    //gtk_clist_set_foreground (GTK_CLIST (pat_list), row, entry->malformed_pattern ? &red : &black);
     gtk_clist_set_text (GTK_CLIST (pat_list), row, 0, text[0]);
     gtk_clist_set_text (GTK_CLIST (pat_list), row, 1, text[1]);
     gtk_clist_set_text (GTK_CLIST (pat_list), row, 2, text[2]);
@@ -909,7 +909,7 @@ static void on_reset (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 
 static void on_help (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
-    gnome_cmd_help_display("gnome-commander.xml", "gnome-commander-advanced-rename");
+    gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-advanced-rename");
 }
 
 

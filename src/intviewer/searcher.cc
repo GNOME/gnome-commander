@@ -87,7 +87,7 @@ GType g_viewer_searcher_get_type()
 {
     static GType type = 0;
 
-    if(type == 0)
+    if (type == 0)
     {
         static const GTypeInfo our_info = {
             sizeof (GViewerSearcherClass),

@@ -51,8 +51,8 @@ struct ProtectedData
 struct SearchData
 {
     const gchar *name_pattern;              // the pattern that filenames should match to end up in the file-list
-    const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file-list.
-    const gchar *dir;                       // the current dir of the search routine.
+    const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file-list
+    const gchar *dir;                       // the current dir of the search routine
 
     Filter *name_filter;
     regex_t *content_regex;
@@ -120,12 +120,10 @@ static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, Gdk
  * Puts a string in the statusbar.
  *
  */
-static void set_statusmsg (SearchData *data, gchar *msg)
+inline void set_statusmsg (SearchData *data, gchar *msg)
 {
-    if (!msg) return;
-
-    gtk_statusbar_push (GTK_STATUSBAR (data->dialog->priv->statusbar),
-                        data->context_id, msg);
+    if (msg)
+        gtk_statusbar_push (GTK_STATUSBAR (data->dialog->priv->statusbar), data->context_id, msg);
 }
 
 /**
@@ -133,11 +131,11 @@ static void set_statusmsg (SearchData *data, gchar *msg)
  */
 inline void search_file_data_free (SearchFileData  *searchfile_data)
 {
-  if (searchfile_data->handle != NULL)
-    gnome_vfs_close (searchfile_data->handle);
+    if (searchfile_data->handle != NULL)
+        gnome_vfs_close (searchfile_data->handle);
 
-  g_free (searchfile_data->uri_str);
-  g_free (searchfile_data);
+    g_free (searchfile_data->uri_str);
+    g_free (searchfile_data);
 }
 
 /**
@@ -254,15 +252,15 @@ inline gboolean name_matches (gchar *name, SearchData *data)
  */
 static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
 {
-    GList *tmp, *files;
-    gchar *path;
+    if (!dir)
+        return;
 
     // update the search status data
     if (!data->dialog_destroyed)
     {
         g_mutex_lock (data->pdata.mutex);
 
-        path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
+        gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
         g_free (data->pdata.msg);
         data->pdata.msg = g_strdup_printf (_("Searching in: %s"), path);
         g_free (path);
@@ -275,32 +273,28 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
     if (data->stopped)
         return;
 
-    if (!dir)
-        return;
+    GList *files;
 
     gnome_cmd_dir_list_files (dir, FALSE);
     gnome_cmd_dir_get_files (dir, &files);
-    tmp = files;
 
-    if (!tmp)
-        return;
 
     // Let's iterate through all files
-    while (tmp)
+    for (GList *tmp=files; tmp; tmp=tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
-
         // If the stop button was pressed let's abort here
         if (data->stopped)
             return;
+
+        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
         // If the current file is a directory lets continue our recursion
         if (GNOME_CMD_IS_DIR (finfo) && data->recurse)
         {
             // we don't want to go backwards or follow symlinks
-            if (strcmp (finfo->info->name, ".") != 0
-                && strcmp (finfo->info->name, "..") != 0
-                && !GNOME_VFS_FILE_INFO_SYMLINK(finfo->info))
+            if (strcmp (finfo->info->name, ".") != 0 &&
+                strcmp (finfo->info->name, "..") != 0 &&
+                !GNOME_VFS_FILE_INFO_SYMLINK (finfo->info))
             {
                 GnomeCmdDir *new_dir = GNOME_CMD_DIR (finfo);
 
@@ -310,43 +304,35 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
                     search_dir_r (new_dir, data);
                     gnome_cmd_dir_unref (new_dir);
                 }
-
-                // If the stop button was pressed let's abort here
-                if (data->stopped)
-                    return;
             }
         }
         // if the file is a regular one it might match the search criteria
-        else if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
-        {
-            // if the name doesn't match lets go to the next file
-            if (!name_matches (finfo->info->name, data))
-                goto next;
-
-            // if the user wants to we should do some content matching here
-            if (data->content_search)
+        else
+            if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
             {
-                if (!content_matches (finfo, data))
-                    goto next;
+                // if the name doesn't match lets go to the next file
+                if (!name_matches (finfo->info->name, data))
+                    continue;
+
+                // if the user wants to we should do some content matching here
+                if (data->content_search && !content_matches (finfo, data))
+                    continue;
+
+                // the file matched the search criteria, lets add it to the list
+                g_mutex_lock (data->pdata.mutex);
+                data->pdata.files = g_list_append (data->pdata.files, finfo);
+                g_mutex_unlock (data->pdata.mutex);
+
+                // also ref each directory that has a matching file
+                if (g_list_index (data->match_dirs, dir) == -1)
+                {
+                    gnome_cmd_dir_ref (dir);
+                    data->match_dirs = g_list_append (data->match_dirs, dir);
+                }
+
+                // count the match
+                data->matches++;
             }
-
-            // the file matched the search criteria, lets add it to the list
-            g_mutex_lock (data->pdata.mutex);
-            data->pdata.files = g_list_append (data->pdata.files, finfo);
-            g_mutex_unlock (data->pdata.mutex);
-
-            // also ref each directory that has a matching file
-            if (g_list_index (data->match_dirs, dir) == -1)
-            {
-                gnome_cmd_dir_ref (dir);
-                data->match_dirs = g_list_append (data->match_dirs, dir);
-            }
-
-            // count the match
-            data->matches++;
-        }
-      next:
-        tmp = tmp->next;
     }
 }
 
@@ -506,9 +492,7 @@ static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocatio
 
 static gboolean start_search (GnomeCmdSearchDialog *dialog)
 {
-    GnomeCmdPath *path;
     SearchData *data = dialog->priv->data;
-    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
 
     if (data->thread)
     {
@@ -531,6 +515,8 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
     // Save default settings
+    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+
     defaults->case_sens = data->case_sens;
     defaults->recursive = data->recurse;
     defaults->name_patterns = string_history_add (defaults->name_patterns, data->name_pattern, PATTERN_HISTORY_SIZE);
@@ -554,10 +540,10 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     }
 
     if (dialog->priv->data->search_mem == NULL)
-        dialog->priv->data->search_mem = (gchar *) g_malloc(SEARCH_BUFFER_SIZE);
+        dialog->priv->data->search_mem = (gchar *) g_malloc (SEARCH_BUFFER_SIZE);
 
     // start the search
-    path = gnome_cmd_con_create_path (dialog->priv->con, data->dir);
+    GnomeCmdPath *path = gnome_cmd_con_create_path (dialog->priv->con, data->dir);
     data->start_dir = gnome_cmd_dir_new (dialog->priv->con, path);
     gnome_cmd_dir_ref (data->start_dir);
 
@@ -566,7 +552,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     if (data->pdata.mutex == NULL)
       data->pdata.mutex = g_mutex_new ();
 
-    data->thread = g_thread_create ((GThreadFunc)perform_search_operation, data, TRUE, NULL);
+    data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
 
     gtk_widget_show (data->dialog->priv->pbar);
     data->update_gui_timeout_id = gtk_timeout_add (gnome_cmd_data_get_gui_update_rate (),
@@ -706,11 +692,8 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdSearchDialog *dialog = GNOME_CMD_SEARCH_DIALOG (object);
 
-    if (dialog->priv != NULL)
-    {
-        g_free (dialog->priv);
-        dialog->priv = NULL;
-    }
+    g_free (dialog->priv);
+    dialog->priv = NULL;
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -742,15 +725,13 @@ static void class_init (GnomeCmdSearchDialogClass *klass)
  */
 inline GtkWidget *create_label_with_mnemonic (GtkWidget *parent, const gchar *text, GtkWidget *for_widget)
 {
-    GtkWidget *label;
+    GtkWidget *label = gtk_label_new_with_mnemonic (text);
 
-    label = gtk_label_new_with_mnemonic (text);
     if (for_widget != NULL)
       gtk_label_set_mnemonic_widget (GTK_LABEL (label), for_widget);
 
     gtk_widget_ref (label);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "label", label,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (parent), "label", label, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (label);
     gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 
@@ -779,8 +760,7 @@ inline GtkWidget *create_combo_box_entry (GtkWidget *parent)
 {
     GtkWidget *combo = gtk_combo_box_entry_new_text ();
     gtk_widget_ref (combo);
-    gtk_object_set_data_full (GTK_OBJECT (parent), "combo", combo,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (parent), "combo", combo, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (combo);
     return combo;
 }

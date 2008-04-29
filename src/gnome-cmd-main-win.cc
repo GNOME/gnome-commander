@@ -123,8 +123,8 @@ static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFile
 
 gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdMainWin *mw)
 {
-    g_return_val_if_fail(mw!=NULL, FALSE);
-    g_return_val_if_fail(mw->priv!=NULL,FALSE);
+    g_return_val_if_fail (mw!=NULL, FALSE);
+    g_return_val_if_fail (mw->priv!=NULL,FALSE);
 
     if (event->type!=GDK_KEY_PRESS)
         return FALSE;
@@ -144,13 +144,13 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdM
     if (fs==NULL || fs->list==NULL)
         return FALSE;
 
-    if (!GTK_WIDGET_HAS_FOCUS(GTK_WIDGET(fs->list)))
+    if (!GTK_WIDGET_HAS_FOCUS (GTK_WIDGET (fs->list)))
         return FALSE;
 
-    if (gnome_cmd_file_list_quicksearch_shown(fs->list))
+    if (gnome_cmd_file_list_quicksearch_shown (fs->list))
         return FALSE;
 
-    gnome_cmd_file_list_show_quicksearch(fs->list, event->keyval);
+    gnome_cmd_file_list_show_quicksearch (fs->list, event->keyval);
 
     return TRUE;
 }
@@ -528,7 +528,7 @@ static void on_fs_list_resize_column (GtkCList *clist, gint column, gint width, 
 
 static void on_size_allocate (GtkWidget *widget, GtkAllocation *allocation, gpointer user_data)
 {
-    switch(gnome_cmd_data_get_main_win_state())
+    switch (gnome_cmd_data_get_main_win_state())
     {
         case GDK_WINDOW_STATE_FULLSCREEN:
         case GDK_WINDOW_STATE_ICONIFIED:

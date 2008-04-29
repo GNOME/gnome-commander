@@ -428,7 +428,7 @@ static gboolean text_render_key_pressed(GtkWidget *widget, GdkEventKey *event, g
     if (!obj->priv->dp)
         return FALSE;
 
-    switch(event->keyval)
+    switch (event->keyval)
     {
     case GDK_Up:
         obj->priv->current_offset =
@@ -619,7 +619,7 @@ static gboolean text_render_scroll(GtkWidget *widget, GdkEventScroll *event)
         return FALSE;
 
     // Mouse scroll wheel
-    switch(event->direction)
+    switch (event->direction)
     {
         case GDK_SCROLL_UP:
             w->priv->current_offset = gv_scroll_lines(w->priv->dp, w->priv->current_offset, -4);
