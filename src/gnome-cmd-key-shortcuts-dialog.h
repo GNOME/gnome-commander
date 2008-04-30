@@ -21,6 +21,6 @@
 
 #include "gnome-cmd-user-actions.h"
 
-void gnome_cmd_key_shortcuts_dialog_new (GnomeCmdUserActions &user_actions);
+gboolean gnome_cmd_key_shortcuts_dialog_new (GnomeCmdUserActions &user_actions);
 
 #endif // __GNOME_CMD_KEY_SHORTCUTS_DIALOG_H__

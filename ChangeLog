@@ -1,3 +1,9 @@
+2008-04-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-key-shortcuts-dialog.cc:
+	* src/gnome-cmd-key-shortcuts-dialog.h:
+	gnome_cmd_key_shortcuts_dialog_new() returns response==GTK_RESPONSE_OK now
+
 2008-04-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:
