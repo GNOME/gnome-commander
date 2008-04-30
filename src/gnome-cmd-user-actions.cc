@@ -1219,13 +1219,13 @@ void connections_new (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
-void connections_change (GtkMenuItem *menuitem, gpointer con)
+void connections_change (GtkMenuItem *menuitem, gpointer con)           // this function is NOT exposed to user as UserAction
 {
     gnome_cmd_file_selector_set_connection (get_fs (ACTIVE), (GnomeCmdCon *) con);
 }
 
 
-void connections_close (GtkMenuItem *menuitem, gpointer con)
+void connections_close (GtkMenuItem *menuitem, gpointer con)            // this function is NOT exposed to user as UserAction
 {
     GnomeCmdFileSelector *active = get_fs (ACTIVE);
     GnomeCmdFileSelector *inactive = get_fs (INACTIVE);

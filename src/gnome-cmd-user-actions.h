@@ -296,8 +296,8 @@ GNOME_CMD_USER_ACTION(options_edit_shortcuts);
 /************** Connections Menu **************/
 GNOME_CMD_USER_ACTION(connections_open);
 GNOME_CMD_USER_ACTION(connections_new);
-GNOME_CMD_USER_ACTION(connections_change);
-GNOME_CMD_USER_ACTION(connections_close);
+GNOME_CMD_USER_ACTION(connections_change);          // this function is NOT exposed to user as UserAction
+GNOME_CMD_USER_ACTION(connections_close);           // this function is NOT exposed to user as UserAction
 GNOME_CMD_USER_ACTION(connections_close_current);
 
 /************** Plugins Menu ***********/
