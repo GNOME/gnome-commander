@@ -349,61 +349,61 @@ static GtkWidget *create_slide_popup ()
 
 static void on_help_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    help_help (NULL, mw);
+    help_help (NULL);
 }
 
 
 static void on_rename_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    file_rename (NULL, mw);
+    file_rename (NULL);
 }
 
 
 static void on_view_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    file_view (NULL, mw);
+    file_view (NULL);
 }
 
 
 static void on_edit_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    file_edit (NULL, mw);
+    file_edit (NULL);
 }
 
 
 static void on_copy_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    file_copy (NULL, mw);
+    file_copy (NULL);
 }
 
 
 static void on_move_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    file_move (NULL, mw);
+    file_move (NULL);
 }
 
 
 static void on_mkdir_clicked(GtkButton *button, GnomeCmdMainWin *mw)
 {
-    file_mkdir (NULL, mw);
+    file_mkdir (NULL);
 }
 
 
 static void on_delete_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    file_delete (NULL, mw);
+    file_delete (NULL);
 }
 
 
 static void on_search_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    edit_search (NULL, mw);
+    edit_search (NULL);
 }
 
 
 static void on_quit_clicked (GtkButton *button, GnomeCmdMainWin *mw)
 {
-    file_exit (NULL, mw);
+    file_exit (NULL);
 }
 
 
