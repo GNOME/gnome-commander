@@ -16,7 +16,7 @@ New features:
  * Revamped search dialog
  * Support for <super>, <hyper> and <meta> modifiers (since GTK+ 2.10)
  * Updated help docs
- * New or updated translations: en_GB, es, eu, fi, fr, hu, oc, pl
+ * New or updated translations: en_GB, es, eu, fi, fr, hu, oc, pl, sl
  * New key bindings:
       SUPER+F        Search files
 
