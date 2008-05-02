@@ -508,7 +508,7 @@ gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
 }
 
 
-gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, GdkEventKey *event)
+gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileList *fl, GdkEventKey *event)
 {
     map <GdkEventKey, UserAction>::const_iterator pos = action.find(*event);
 

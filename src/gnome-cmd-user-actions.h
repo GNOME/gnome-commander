@@ -174,7 +174,7 @@ class GnomeCmdUserActions
     gboolean registered(guint state, guint keyval);
     gboolean registered(guint keyval)                                       {  return registered(0, keyval);  }
 
-    gboolean handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCmdFileList *fl, GdkEventKey *event);
+    gboolean handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFileList *fl, GdkEventKey *event);
 
     struct const_iterator: ACTIONS_COLL::iterator
     {
