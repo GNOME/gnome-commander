@@ -208,8 +208,7 @@ async_xfer_callback (GnomeVFSAsyncHandle *handle,
 }
 
 
-static gboolean
-update_xfer_gui_func (XferData *data)
+static gboolean update_xfer_gui_func (XferData *data)
 {
     if (data->win && data->win->cancel_pressed)
     {

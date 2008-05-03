@@ -1,3 +1,9 @@
+2008-05-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-xfer.cc:
+	* src/gnome-cmd-xfer-progress-win.c:
+	Center progress window
+
 2008-05-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:
