@@ -4554,6 +4554,11 @@
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>mark.invert</para></entry>
+                        <entry><para>Invert selection</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>mark.select_all</para></entry>
                         <entry><para>Select all files</para></entry>
                         <entry><para><keycombo><keycap>CTRL</keycap><keycap>A</keycap></keycombo></para>

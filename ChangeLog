@@ -3,6 +3,9 @@
 	* src/gnome-cmd-delete-dialog.cc
 	Center delete progress window
 
+	* src/gnome-cmd-user-actions.cc:
+	Added "mark.invert" to user actions
+
 2008-05-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-xfer.cc:

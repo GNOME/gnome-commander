@@ -175,6 +175,7 @@ static UserActionData user_actions_data[] = {
                                              {help_problem, "help.problem", NN_("Report a problem")},
                                              {help_web, "help.web", NN_("GNOME Commander on the web")},
                                              {mark_compare_directories, "mark.compare_directories", NN_("Compare directories")},
+                                             {mark_invert_selection, "mark.invert", NN_("Invert selection")},
                                              {mark_select_all, "mark.select_all", NN_("Select all")},
                                              {mark_toggle, "mark.toggle", NN_("Toggle selection")},
                                              {mark_toggle_and_step, "mark.toggle_and_step", NN_("Toggle selection and move cursor downward")},
