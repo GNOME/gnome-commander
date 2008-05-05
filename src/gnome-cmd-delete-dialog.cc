@@ -243,7 +243,7 @@ static gboolean update_delete_status_widgets (DeleteData *data)
 }
 
 
-static void do_delete (DeleteData *data)
+inline void do_delete (DeleteData *data)
 {
     data->mutex = g_mutex_new ();
     data->delete_done = FALSE;
