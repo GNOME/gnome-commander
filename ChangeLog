@@ -1,8 +1,13 @@
+2008-05-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-delete-dialog.cc
+	Center delete progress window
+
 2008-05-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-xfer.cc:
-	* src/gnome-cmd-xfer-progress-win.c:
-	Center progress window
+	* src/gnome-cmd-xfer-progress-win.cc:
+	Center transfer progress window
 
 2008-05-03  Piotr Eljasiak  <epiotr@use.pl>
 
