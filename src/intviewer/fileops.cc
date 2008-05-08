@@ -179,7 +179,7 @@ int gv_file_open(ViewerFileOps *ops, const gchar* _file)
     g_return_val_if_fail (_file!=NULL, -1);
     g_return_val_if_fail (_file[0]!=0, -1);
 
-    ops->filename = g_strdup(_file);
+    ops->filename = g_strdup (_file);
 
     int fd;
 

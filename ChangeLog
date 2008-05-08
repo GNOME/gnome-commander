@@ -199,11 +199,11 @@
 
 2008-03-05  Piotr Eljasiak  <epiotr@use.pl>
 
-	* src/gnome-commander/src/gnome-cmd-file-popmenu.cc:
-	* src/gnome-commander/src/gnome-cmd-list-popmenu.cc:
-	* src/gnome-commander/src/gnome-cmd-main-menu.cc:
-	* src/gnome-commander/src/gnome-cmd-search-dialog.cc:
-	* src/gnome-commander/src/intviewer/viewer-window.cc:
+	* src/gnome-cmd-file-popmenu.cc:
+	* src/gnome-cmd-list-popmenu.cc:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	* src/intviewer/viewer-window.cc:
 	Replaced deprecated icon names with newer ones
 
 	* src/gnome-cmd-search-dialog.cc:

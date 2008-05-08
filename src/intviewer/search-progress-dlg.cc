@@ -71,11 +71,11 @@ static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
     GtkDialog *dlg = GTK_DIALOG(sdlg);
     sdlg->priv->progress = 0;
 
-    gtk_window_set_title(GTK_WINDOW(dlg), _("Searching..."));
-    gtk_window_set_modal(GTK_WINDOW(dlg), TRUE);
+    gtk_window_set_title(GTK_WINDOW (dlg), _("Searching..."));
+    gtk_window_set_modal(GTK_WINDOW (dlg), TRUE);
     gtk_dialog_add_button(dlg, GTK_STOCK_STOP, 12);
 
-    g_signal_connect_swapped(GTK_WIDGET(dlg), "response", G_CALLBACK(search_progress_dlg_action_response), sdlg);
+    g_signal_connect_swapped(GTK_WIDGET (dlg), "response", G_CALLBACK (search_progress_dlg_action_response), sdlg);
 
     // Text Label
     sdlg->priv->label = gtk_label_new("");
@@ -91,7 +91,7 @@ static void search_progress_dlg_init (GViewerSearchProgressDlg *sdlg)
 
     gtk_widget_show_all(dlg->vbox);
 
-    gtk_widget_show(GTK_WIDGET(dlg));
+    gtk_widget_show (GTK_WIDGET (dlg));
 }
 
 
@@ -190,7 +190,7 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
     dlg->priv->progress_value = progress;
     dlg->priv->completed_indicator = complete;
 
-    gint timeout_source_id = g_timeout_add(300, search_progress_dlg_timeout, (gpointer)dlg);
+    gint timeout_source_id = g_timeout_add (300, search_progress_dlg_timeout, (gpointer) dlg);
 
     dprogress = g_atomic_int_get(dlg->priv->progress_value);
     g_snprintf(text, sizeof(text), "%3.1f%%", dprogress/10.0);
@@ -205,5 +205,5 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
 
     g_free(str);
 
-    gtk_widget_destroy(GTK_WIDGET(dlg));
+    gtk_widget_destroy (GTK_WIDGET (dlg));
 }

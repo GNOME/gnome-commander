@@ -163,33 +163,33 @@ static void gviewer_init (GViewer *w)
     text_render_set_v_adjustment(w->priv->textr, scroll_box_get_v_adjustment(SCROLL_BOX(w->priv->tscrollbox)));
     text_render_set_h_adjustment(w->priv->textr, scroll_box_get_h_adjustment(SCROLL_BOX(w->priv->tscrollbox)));
     text_render_attach_external_v_range(w->priv->textr, scroll_box_get_v_range(SCROLL_BOX(w->priv->tscrollbox)));
-    scroll_box_set_client(SCROLL_BOX(w->priv->tscrollbox), GTK_WIDGET(w->priv->textr));
-    gtk_widget_show(GTK_WIDGET(w->priv->textr));
+    scroll_box_set_client (SCROLL_BOX(w->priv->tscrollbox), GTK_WIDGET (w->priv->textr));
+    gtk_widget_show (GTK_WIDGET (w->priv->textr));
     gtk_widget_show(w->priv->tscrollbox);
-    g_object_ref(G_OBJECT(w->priv->tscrollbox));
+    g_object_ref (G_OBJECT (w->priv->tscrollbox));
 
     w->priv->imgr  = (ImageRender *) image_render_new();
     gviewer_set_best_fit(w, DEFAULT_BEST_FIT);
     gviewer_set_scale_factor(w, DEFAULT_SCALE_FACTOR);
     w->priv->iscrollbox = scroll_box_new();
-    image_render_set_v_adjustment(w->priv->imgr, scroll_box_get_v_adjustment(SCROLL_BOX(w->priv->iscrollbox)));
-    image_render_set_h_adjustment(w->priv->imgr, scroll_box_get_h_adjustment(SCROLL_BOX(w->priv->iscrollbox)));
-    image_render_set_best_fit(w->priv->imgr, TRUE);
-    image_render_set_scale_factor(w->priv->imgr, 1);
-    scroll_box_set_client(SCROLL_BOX(w->priv->iscrollbox), GTK_WIDGET(w->priv->imgr));
-    gtk_widget_show(GTK_WIDGET(w->priv->imgr));
-    gtk_widget_show(w->priv->iscrollbox);
-    g_object_ref(G_OBJECT(w->priv->iscrollbox));
+    image_render_set_v_adjustment (w->priv->imgr, scroll_box_get_v_adjustment (SCROLL_BOX (w->priv->iscrollbox)));
+    image_render_set_h_adjustment (w->priv->imgr, scroll_box_get_h_adjustment (SCROLL_BOX (w->priv->iscrollbox)));
+    image_render_set_best_fit (w->priv->imgr, TRUE);
+    image_render_set_scale_factor (w->priv->imgr, 1);
+    scroll_box_set_client (SCROLL_BOX(w->priv->iscrollbox), GTK_WIDGET (w->priv->imgr));
+    gtk_widget_show (GTK_WIDGET (w->priv->imgr));
+    gtk_widget_show (w->priv->iscrollbox);
+    g_object_ref (G_OBJECT (w->priv->iscrollbox));
 
     w->priv->last_client = w->priv->tscrollbox;
-    gtk_table_attach (GTK_TABLE(w), GTK_WIDGET(w->priv->tscrollbox), 0, 1, 0, 1,
-        (GtkAttachOptions)(GTK_FILL|GTK_EXPAND),
-        (GtkAttachOptions)(GTK_FILL|GTK_EXPAND), 0, 0);
+    gtk_table_attach (GTK_TABLE(w), GTK_WIDGET (w->priv->tscrollbox), 0, 1, 0, 1,
+                      (GtkAttachOptions)(GTK_FILL|GTK_EXPAND),
+                      (GtkAttachOptions)(GTK_FILL|GTK_EXPAND), 0, 0);
 
-    g_signal_connect(G_OBJECT(w), "destroy-event", G_CALLBACK(gviewer_destroy), (gpointer)w);
+    g_signal_connect (G_OBJECT (w), "destroy-event", G_CALLBACK (gviewer_destroy), (gpointer) w);
 
-    g_signal_connect(G_OBJECT(w->priv->textr), "text_status_changed", G_CALLBACK(gviewer_text_status_update), (gpointer)w);
-    g_signal_connect(G_OBJECT(w->priv->imgr), "image_status_changed", G_CALLBACK(gviewer_image_status_update), (gpointer)w);
+    g_signal_connect (G_OBJECT (w->priv->textr), "text_status_changed", G_CALLBACK (gviewer_text_status_update), (gpointer) w);
+    g_signal_connect (G_OBJECT (w->priv->imgr), "image_status_changed", G_CALLBACK (gviewer_image_status_update), (gpointer) w);
 }
 
 
@@ -202,12 +202,12 @@ static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status
 
     static gchar temp[MAX_STATUS_LENGTH];
 
-    g_snprintf(temp, MAX_STATUS_LENGTH,
-        _("Position: %lu of %lu\tColumn: %d\t%s"),
-        (unsigned long)status->current_offset,
-        (unsigned long)status->size,
-        status->column,
-        status->wrap_mode?_("Wrap"):"");
+    g_snprintf(temp, sizeof (temp),
+               _("Position: %lu of %lu\tColumn: %d\t%s"),
+               (unsigned long)status->current_offset,
+               (unsigned long)status->size,
+               status->column,
+               status->wrap_mode?_("Wrap"):"");
 
     gtk_signal_emit (GTK_OBJECT(viewer), gviewer_signals[STATUS_LINE_CHANGED], temp);
 }
@@ -254,8 +254,8 @@ static void gviewer_destroy (GtkObject *widget)
 
     if (w->priv)
     {
-        g_object_unref(G_OBJECT(w->priv->iscrollbox));
-        g_object_unref(G_OBJECT(w->priv->tscrollbox));
+        g_object_unref(G_OBJECT (w->priv->iscrollbox));
+        g_object_unref(G_OBJECT (w->priv->tscrollbox));
 
         g_free(w->priv);
         w->priv = NULL;
@@ -363,7 +363,7 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
         if (obj->priv->last_client)
             gtk_container_remove(GTK_CONTAINER(obj), obj->priv->last_client);
 
-        gtk_widget_grab_focus(GTK_WIDGET(client));
+        gtk_widget_grab_focus(GTK_WIDGET (client));
         gtk_table_attach (GTK_TABLE (obj), client , 0, 1, 0, 1,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
@@ -422,7 +422,7 @@ void gviewer_load_file(GViewer *obj, const gchar*filename)
     g_free(obj->priv->filename);
     obj->priv->filename = NULL;
 
-    obj->priv->filename = g_strdup(filename);
+    obj->priv->filename = g_strdup (filename);
 
     text_render_load_file(obj->priv->textr, obj->priv->filename);
 

@@ -312,19 +312,19 @@ static void text_render_init (TextRender *w)
 
     w->priv->current_offset = 0;
 
-    w->priv->encoding = g_strdup("ASCII");
+    w->priv->encoding = g_strdup ("ASCII");
     w->priv->utf8alloc = 0;
 
     w->priv->tab_size = 8;
     w->priv->font_size = 14;
 
-    w->priv->fixed_font_name = g_strdup("Monospace");
+    w->priv->fixed_font_name = g_strdup ("Monospace");
 
-    g_signal_connect(G_OBJECT(w), "key_press_event", G_CALLBACK(text_render_key_pressed), NULL);
+    g_signal_connect(G_OBJECT (w), "key_press_event", G_CALLBACK (text_render_key_pressed), NULL);
 
-    w->priv->layout = gtk_widget_create_pango_layout(GTK_WIDGET(w), NULL);
+    w->priv->layout = gtk_widget_create_pango_layout(GTK_WIDGET (w), NULL);
 
-    GTK_WIDGET_SET_FLAGS(GTK_WIDGET(w), GTK_CAN_FOCUS);
+    GTK_WIDGET_SET_FLAGS(GTK_WIDGET (w), GTK_CAN_FOCUS);
 }
 
 
@@ -390,7 +390,7 @@ static void text_render_destroy (GtkObject *object)
 
 static void text_render_position_changed(TextRender *w)
 {
-    if (!GTK_WIDGET_REALIZED(GTK_WIDGET(w)))
+    if (!GTK_WIDGET_REALIZED(GTK_WIDGET (w)))
         return;
 
     text_render_notify_status_changed(w);
@@ -412,10 +412,10 @@ static void text_render_position_changed(TextRender *w)
 
 static void text_render_redraw(TextRender *w)
 {
-    if (!GTK_WIDGET_REALIZED(GTK_WIDGET(w)))
+    if (!GTK_WIDGET_REALIZED(GTK_WIDGET (w)))
         return;
 
-    gdk_window_invalidate_rect(GTK_WIDGET(w)->window, NULL, FALSE);
+    gdk_window_invalidate_rect(GTK_WIDGET (w)->window, NULL, FALSE);
 }
 
 
@@ -516,7 +516,7 @@ static void text_render_realize (GtkWidget *widget)
 
     gtk_style_set_background (widget->style, widget->window, GTK_STATE_ACTIVE);
 
-    obj->priv->gc = gdk_gc_new(GTK_WIDGET(obj)->window);
+    obj->priv->gc = gdk_gc_new(GTK_WIDGET (obj)->window);
     gdk_gc_set_exposures(obj->priv->gc, TRUE);
 
     text_render_setup_font(obj, obj->priv->fixed_font_name, obj->priv->font_size);
@@ -1040,8 +1040,8 @@ void text_render_attach_external_v_range(TextRender *obj, GtkRange *range)
     g_return_if_fail (IS_TEXT_RENDER(obj));
     g_return_if_fail (range!=NULL);
 
-    g_signal_connect (G_OBJECT(range), "change-value",
-            G_CALLBACK(text_render_vscroll_change_value), (gpointer)obj);
+    g_signal_connect (G_OBJECT (range), "change-value",
+            G_CALLBACK (text_render_vscroll_change_value), (gpointer)obj);
 }
 
 
@@ -1113,7 +1113,7 @@ static guint text_render_filter_undisplayable_chars(TextRender *obj)
     if (!obj->priv->im)
         return 0;
 
-    PangoLayout *layout = gtk_widget_create_pango_layout (GTK_WIDGET(obj), "");
+    PangoLayout *layout = gtk_widget_create_pango_layout (GTK_WIDGET (obj), "");
     pango_layout_set_font_description (layout, obj->priv->font_desc);
 
     for (i=0; i<256; i++)
@@ -1158,9 +1158,9 @@ static void text_render_setup_font(TextRender*w, const gchar *fontname, gint fon
     w->priv->disp_font_metrics = load_font (fontlabel);
     w->priv->font_desc = pango_font_description_from_string (fontlabel);
 
-    gtk_widget_modify_font (GTK_WIDGET(w), w->priv->font_desc);
+    gtk_widget_modify_font (GTK_WIDGET (w), w->priv->font_desc);
 
-    w->priv->char_width = get_max_char_width(GTK_WIDGET(w),
+    w->priv->char_width = get_max_char_width(GTK_WIDGET (w),
             w->priv->font_desc,
             w->priv->disp_font_metrics);
 
@@ -1488,7 +1488,7 @@ void text_render_set_encoding(TextRender *w, const char *encoding)
         }
 
     g_free(w->priv->encoding);
-    w->priv->encoding = g_strdup(encoding);
+    w->priv->encoding = g_strdup (encoding);
     gv_set_input_mode(w->priv->im, encoding);
     text_render_filter_undisplayable_chars(w);
     text_render_redraw(w);
@@ -1754,7 +1754,7 @@ static int text_mode_display_line(TextRender *w, int y, int column, offset_type 
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout(GTK_WIDGET(w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
+    gdk_draw_layout(GTK_WIDGET (w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
 
     return 0;
 }
@@ -1818,7 +1818,7 @@ static int binary_mode_display_line(TextRender *w, int y, int column, offset_typ
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout(GTK_WIDGET(w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
+    gdk_draw_layout(GTK_WIDGET (w)->window, w->priv->gc, -(w->priv->char_width*column), y, w->priv->layout);
 
     return 0;
 }
@@ -2005,7 +2005,7 @@ static int hex_mode_display_line(TextRender *w, int y, int column, offset_type s
         marker_closer(w, marker_shown);
 
     pango_layout_set_markup (w->priv->layout, (gchar *) w->priv->utf8buf, w->priv->utf8buf_length);
-    gdk_draw_layout(GTK_WIDGET(w)->window, w->priv->gc, 0, y, w->priv->layout);
+    gdk_draw_layout(GTK_WIDGET (w)->window, w->priv->gc, 0, y, w->priv->layout);
 
     return 0;
 }

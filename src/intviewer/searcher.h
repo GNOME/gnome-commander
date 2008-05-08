@@ -99,7 +99,7 @@ offset_type g_viewer_searcher_get_search_result(GViewerSearcher *src);
    To read the value, use "g_atomic_int_get"
    (read glib's "atomic operations").
    */
-gint * g_viewer_searcher_get_progress_indicator(GViewerSearcher *src);
+gint *g_viewer_searcher_get_progress_indicator (GViewerSearcher *src);
 
 /* Abort Indicator.
    While the search thread is active, set this value to non-zero
