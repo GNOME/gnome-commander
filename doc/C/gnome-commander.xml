@@ -4361,6 +4361,11 @@
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>command.open_folder</para></entry>
+                        <entry><para>Open the current location in Nautilus file manager</para></entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>command.open_terminal</para></entry>
                         <entry><para>Open terminal in the current directory</para></entry>
                         <entry><para></para></entry>
@@ -5850,6 +5855,9 @@
                         </listitem>
                         <listitem>
                             <para>GUI for keyboard shortcuts management</para>
+                        </listitem>
+                        <listitem>
+                            <para>Open the current location in Nautilus file manager</para>
                         </listitem>
                         <listitem>
                             <para>Multi-Rename-Tool - new $x and $X placeholders for random hexadecimal numbers</para>

@@ -260,6 +260,8 @@ GNOME_CMD_USER_ACTION(edit_copy_fnames);
 
 /************** Command Menu **************/
 GNOME_CMD_USER_ACTION(command_open_terminal);
+GNOME_CMD_USER_ACTION(command_open_nautilus);
+GNOME_CMD_USER_ACTION(command_open_nautilus_in_cwd);
 GNOME_CMD_USER_ACTION(command_root_mode);
 
 /************** View Menu **************/

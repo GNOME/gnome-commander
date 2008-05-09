@@ -120,7 +120,10 @@ GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
     {
         GNOMEUIINFO_SUBTREE(N_("_New..."), new_uiinfo),
         GNOMEUIINFO_ITEM_STOCK(N_("_Paste"), NULL, on_paste, GTK_STOCK_PASTE),
+        GNOMEUIINFO_SEPARATOR,
+        GNOMEUIINFO_ITEM_FILENAME (N_("Open this _folder"), NULL, command_open_nautilus_in_cwd, PACKAGE_NAME G_DIR_SEPARATOR_S "nautilus.svg"),
         GNOMEUIINFO_ITEM_FILENAME (N_("Open _terminal here"), NULL, command_open_terminal, PACKAGE_NAME G_DIR_SEPARATOR_S "terminal.svg"),
+        GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM_STOCK(N_("_Refresh"), NULL, on_refresh, GTK_STOCK_REFRESH),
         GNOMEUIINFO_END
     };

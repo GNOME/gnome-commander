@@ -135,6 +135,7 @@ static UserActionData user_actions_data[] = {
                                              {bookmarks_add_current, "bookmarks.add_current", NN_("Bookmark current directory")},
                                              {bookmarks_edit, "bookmarks.edit", NN_("Manage bookmarks")},
                                              {bookmarks_goto, "bookmarks.goto", NN_("Go to bookmarked location")},
+                                             {command_open_nautilus, "command.open_folder", NN_("Open folder")},
                                              {command_open_terminal, "command.open_terminal", NN_("Open terminal")},
                                              {command_root_mode, "command.root_mode", NN_("Start GNOME Commander as root")},
                                              {connections_close_current, "connections.close", NN_("Close connection")},
@@ -938,6 +939,42 @@ void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 
     gnome_execute_terminal_shell (dpath, NULL);
     g_free (dpath);
+}
+
+
+inline void open_uri_in_nautilus (gchar *uri)
+{
+    if (!uri)
+        return;
+
+    char *argv[5];
+
+    argv[0] = "nautilus";
+    argv[1] = "--no-desktop";
+    argv[2] = "--no-default-window";
+    argv[3] = uri;
+    argv[4] = NULL;
+
+    GError *error = NULL;
+
+    if (!g_spawn_async (NULL, argv, NULL, GSpawnFlags (G_SPAWN_SEARCH_PATH | G_SPAWN_STDOUT_TO_DEV_NULL), NULL, NULL, NULL, &error))
+        gnome_cmd_error_message (_("Unable to start Nautilus."), error);
+
+    g_free (uri);
+}
+
+
+void command_open_nautilus (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (get_fl (ACTIVE));
+
+    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_IS_DIR (f) ? f : GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (get_fs (ACTIVE)))));
+}
+
+
+void command_open_nautilus_in_cwd (GtkMenuItem *menuitem, gpointer not_used)
+{
+    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (get_fs (ACTIVE)))));
 }
 
 
