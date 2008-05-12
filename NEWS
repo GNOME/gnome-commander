@@ -241,17 +241,15 @@ New features:
  * Changed to using bold text instead of underlined in the dir-indicator when
    focused by the mouse cursor.
  * Made the cwd label selectable (the one left of the cmdline).
- * Added "CTRL+." shortcut to copy the cwd from the inactive file-list to
-   the active one.
- * Added the shortcut "shift+f10" to bring up the file context menu (the
-   windows menu key also works)
  * Removed the 'Save Position' menu item. Size and position are now saved
-   automaticly instead.
+   automatically instead.
  * Sorting column and direction is now remembered.
  * Added button to the directory indicator to popup the directory history.
- * F2 now opens the rename dialog instead of refreshing the active file
-   list.
  * Added history to the select and unselect by pattern dialogs.
+ * New key bindings:
+      F2            Open the rename dialog (replaces old refreshing the active file list)
+      CTRL+.        Copy the cwd from the inactive file-list to the active one
+      SHIFT+F10     Bring up the file context menu (the windows menu key also works)
 
 
 ===================================
@@ -284,8 +282,7 @@ Bug fixes:
  * Fixed "File not found"-bug when browsing to the parent dir when the
    parent dir contained spaces.
  * Fixed possible async error when cancelling a xfer operation.
- * Reworked the layout tab and removed the colors tab in the options
-   dialog.
+ * Reworked the layout tab and removed the colors tab in the options dialog.
  * Improved plugin-system.
 
 
@@ -319,7 +316,7 @@ gnome-commander 1.1.2
 
 Bug fixes:
  * Handles non-utf8 filenames much better.
- * Removed unsafe uri-creation.
+ * Removed unsafe uri creation.
 
 New features:
  * There are now three ways to show with file-extensions.
@@ -330,8 +327,7 @@ gnome-commander 1.1.1
 ---------------
 
 Bug fixes:
- * Stopped showing the file extension in both the name column and the ext
-   column.
+ * Stopped showing the file extension in both the name column and the ext column.
  * Fixed crashes that happened when browsing directories.
  * Fixed update problems when copying and moving files.
  * The connection combo boxes should now show the correct connection as
@@ -347,12 +343,9 @@ New features:
 gnome-commander 1.1.0
 ---------------
 
-Bug fixes:
-  <none>
-
 New features:
-  SMB browsing
-  Plugins
-  Major rewrite of alot of code
+ * SMB browsing
+ * Plugins
+ * Major rewrite of alot of code
 
 
