@@ -34,6 +34,16 @@
 using namespace std;
 
 
+#if 0
+static char *msgs[] = {N_("Search _recursively:"),
+                       N_("_Unlimited depth"),
+                       N_("Current _directory only"),
+                       N_("_Limited depth"),
+//                       N_("Search local directories only"),
+                       N_("Files _not containing text")};
+#endif
+
+
 static GnomeCmdDialogClass *parent_class = NULL;
 
 #define PBAR_MAX   50
