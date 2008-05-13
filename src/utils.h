@@ -287,7 +287,7 @@ inline std::string &stringify(std::string &s, gchar *val)
     if (!val)  s.erase();  else
     {
         s = val;
-        g_free(val);
+        g_free (val);
     }
 
     return s;

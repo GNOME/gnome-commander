@@ -87,7 +87,7 @@ inline void insert_tag (GnomeCmdAdvrenameDialog *dialog, const gchar *text)
     gtk_editable_insert_text (editable, text, strlen(text), &pos);
     gtk_editable_set_position (editable, pos);
     gtk_widget_grab_focus ((GtkWidget *) editable);
-    gtk_editable_select_region (editable,pos,pos);
+    gtk_editable_select_region (editable, pos, pos);
 }
 
 
@@ -131,7 +131,7 @@ static void insert_num_tag(gpointer data, guint tag, GtkWidget *widget)
 {
     gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name((GnomeCmdTag) tag));
     insert_tag ((GnomeCmdAdvrenameDialog *) data, s);
-    g_free(s);
+    g_free (s);
 }
 
 
@@ -415,7 +415,7 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                 gtk_item_factory_create_items (ifac, G_N_ELEMENTS(metatags), items, dialog);
 
                 for (guint i=0; i<G_N_ELEMENTS(metatags); ++i)
-                    g_free(items[i].path);
+                    g_free (items[i].path);
 
                 g_free (items);
 

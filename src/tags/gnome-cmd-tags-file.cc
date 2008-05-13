@@ -60,11 +60,11 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *finfo)
     finfo->metadata->add(TAG_FILE_NAME, finfo->info->name);
     finfo->metadata->add(TAG_FILE_PATH, dpath);
 
-    g_free(dpath);
+    g_free (dpath);
 
     gchar *uri_str = gnome_cmd_file_get_uri_str (finfo, GNOME_VFS_URI_HIDE_PASSWORD);
     finfo->metadata->add(TAG_FILE_LINK, uri_str);
-    g_free(uri_str);
+    g_free (uri_str);
 
     finfo->metadata->add(TAG_FILE_SIZE, finfo->info->size);
 

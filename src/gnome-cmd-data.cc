@@ -540,7 +540,7 @@ inline void remove_vfs_volume (GnomeVFSVolume *volume)
     uri = gnome_vfs_volume_get_activation_uri (volume);
     if (!vfs_is_uri_local(uri))
     {
-        g_free(uri);
+        g_free (uri);
         return;
     }
 
@@ -606,7 +606,7 @@ inline void add_vfs_volume (GnomeVFSVolume *volume)
 
     if (!vfs_is_uri_local(uri))
     {
-        g_free(uri);
+        g_free (uri);
         return;
     }
 
@@ -664,7 +664,7 @@ inline void add_vfs_drive (GnomeVFSDrive *drive)
 
     if (!vfs_is_uri_local(uri))
     {
-        g_free(uri);
+        g_free (uri);
         return;
     }
 
@@ -1501,7 +1501,7 @@ void gnome_cmd_data_load (void)
     data->priv->symlink_prefix = gnome_cmd_data_get_string ("/options/symlink_prefix", _("link to %s"));
     if (!*data->priv->symlink_prefix || strcmp(data->priv->symlink_prefix, _("link to %s"))==0)
     {
-        g_free(data->priv->symlink_prefix);
+        g_free (data->priv->symlink_prefix);
         data->priv->symlink_prefix = NULL;
     }
 

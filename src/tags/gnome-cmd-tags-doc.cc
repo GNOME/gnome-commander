@@ -308,7 +308,7 @@ inline void process_msole_SO(GsfInput *input, GnomeCmdFileMetadata *metadata)
 
     // fixme: do timestamps, mime-type, user-defined info's
 
-    g_free(buf);
+    g_free (buf);
 }
 
 

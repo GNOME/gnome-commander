@@ -61,7 +61,7 @@ struct _GViewerSearchDlgPrivate
 };
 
 
-static void load_search_dlg_state(GViewerSearchDlg *sdlg)
+static void load_search_dlg_state (GViewerSearchDlg *sdlg)
 {
     g_return_if_fail (sdlg!=NULL);
     g_return_if_fail (sdlg->priv!=NULL);
@@ -195,7 +195,7 @@ static void search_mode_text (GtkToggleButton *btn, GViewerSearchDlg *sdlg)
     if (!gtk_toggle_button_get_active(btn))
         return;
 
-    set_text_mode(sdlg);
+    set_text_mode (sdlg);
 }
 
 
@@ -251,7 +251,7 @@ static void search_dlg_action_response (GtkDialog *dlg, gint arg1, GViewerSearch
 #if HEX_HISTORY
         // Add a new text pattern to the history list
         if (!gviewer_find_string_history(sdlg->priv->hex_pattern_history, pattern))
-            sdlg->priv->hex_pattern_history = g_list_prepend(sdlg->priv->hex_pattern_history, pattern);
+            sdlg->priv->hex_pattern_history = g_list_prepend (sdlg->priv->hex_pattern_history, pattern);
 #endif
 
     }
@@ -287,7 +287,7 @@ void entry_changed (GtkEntry *entry, gpointer  user_data)
         guint8 *buf = text2hex(gtk_entry_get_text(entry), &len);
 
         enable = (buf!=NULL) && (len>0);
-        g_free(buf);
+        g_free (buf);
     }
     else
     {
@@ -336,7 +336,7 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
     g_signal_connect (entry, "changed", G_CALLBACK (entry_changed), sdlg);
     gtk_table_attach(table, sdlg->priv->entry, 1, 3, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
-    set_text_history(sdlg);
+    set_text_history (sdlg);
 
     // Search mode radio buttons
     sdlg->priv->text_mode = gtk_radio_button_new_with_mnemonic(NULL, _("_Text"));
@@ -386,7 +386,7 @@ static void search_dlg_destroy (GtkObject *object)
     {
         save_search_dlg_state (w);
 
-        g_free(w->priv->search_text_string);
+        g_free (w->priv->search_text_string);
         w->priv->search_text_string = NULL;
 
         if (w->priv->text_pattern_history!=NULL)
@@ -399,10 +399,10 @@ static void search_dlg_destroy (GtkObject *object)
         w->priv->hex_pattern_history=NULL;
 #endif
 
-        g_free(w->priv->last_entry_text);
+        g_free (w->priv->last_entry_text);
         w->priv->last_entry_text = NULL;
 
-        g_free(w->priv);
+        g_free (w->priv);
         w->priv = NULL;
     }
 

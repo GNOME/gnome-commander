@@ -102,7 +102,7 @@ void gv_free_input_modes(GVInputModesData *imd)
 {
     g_return_if_fail (imd!=NULL);
 
-    g_free(imd->input_mode_name);
+    g_free (imd->input_mode_name);
 
     /*
         Input mode implementors:
@@ -203,7 +203,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
     imd->get_char = inputmode_ascii_get_char;
     imd->get_next_offset = inputmode_ascii_get_next_offset;
     imd->get_prev_offset = inputmode_ascii_get_previous_offset;
-    g_free(imd->input_mode_name);
+    g_free (imd->input_mode_name);
     imd->input_mode_name = g_strdup ("ASCII");
 
     if (g_ascii_strcasecmp(encoding, "ASCII")==0)
@@ -220,7 +220,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
             unsigned int unicode = ascii_cp437_to_unicode[i];
             unicode2utf8(unicode, (unsigned char*)&imd->ascii_charset_translation[i]);
         }
-        g_free(imd->input_mode_name);
+        g_free (imd->input_mode_name);
         imd->input_mode_name = g_strdup ("CP437");
         return;
     }
@@ -257,7 +257,7 @@ static void inputmode_ascii_activate(GVInputModesData *imd, const gchar *encodin
             imd->ascii_charset_translation[i] = outbuf[0] + (outbuf[1]<<8) + (outbuf[2]<<16) + (outbuf[3]<<24);
     }
     g_iconv_close(icnv);
-    g_free(imd->input_mode_name);
+    g_free (imd->input_mode_name);
     imd->input_mode_name = g_strdup (encoding);
 }
 
@@ -348,7 +348,7 @@ static void inputmode_utf8_activate(GVInputModesData *imd)
     imd->get_char = inputmode_utf8_get_char;
     imd->get_prev_offset = inputmode_utf8_get_previous_offset;
     imd->get_next_offset = inputmode_utf8_get_next_offset;
-    g_free(imd->input_mode_name);
+    g_free (imd->input_mode_name);
     imd->input_mode_name = g_strdup ("UTF8");
 }
 

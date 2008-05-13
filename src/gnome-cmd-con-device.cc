@@ -240,7 +240,7 @@ static gboolean dev_close (GnomeCmdCon *con)
             gchar *name;
             name = gnome_vfs_volume_get_display_name (dev_con->priv->vfsvol);
             DEBUG ('m', "umounting VFS volume \"%s\"\n", name);
-            g_free(name);
+            g_free (name);
 
             gnome_vfs_volume_unmount(dev_con->priv->vfsvol,dev_vfs_umount_callback,NULL);
         }

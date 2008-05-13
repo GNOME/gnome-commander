@@ -74,7 +74,7 @@ static gint delete_progress_callback (GnomeVFSXferProgressInfo *info, DeleteData
         g_mutex_lock (data->mutex);
         ret = data->problem_action;
         data->problem_action = -1;
-        g_free(data->problem_file);
+        g_free (data->problem_file);
         data->problem_file = NULL;
         data->vfs_status = GNOME_VFS_OK;
     }

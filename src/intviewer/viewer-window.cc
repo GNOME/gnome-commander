@@ -190,7 +190,7 @@ void gviewer_window_load_file (GViewerWindow *obj, const gchar *filename)
     g_return_if_fail (obj);
     g_return_if_fail (filename);
 
-    g_free(obj->priv->filename);
+    g_free (obj->priv->filename);
 
     obj->priv->filename = g_strdup (filename);
 
@@ -260,12 +260,12 @@ static void gviewer_window_destroy_external_tool(GViewerWindowExternalTool *tool
     if (!tool)
         return;
 
-    g_free(tool->name);
-    g_free(tool->command);
+    g_free (tool->name);
+    g_free (tool->command);
     if (tool->attached_fd!=-1)
         close(tool->attached_fd);
 
-    g_free(tool);
+    g_free (tool);
 }
 #endif
 
@@ -442,14 +442,14 @@ static void gviewer_window_destroy (GtkObject *widget)
         g_hash_table_destroy(w->priv->external_tools);
 #endif
 
-        g_free(w->priv->filename);
+        g_free (w->priv->filename);
         w->priv->filename = NULL;
 
         if (w->priv->exit_data_fd!=-1)
             close(w->priv->exit_data_fd);
         w->priv->exit_data_fd = -1;
 
-        g_free(w->priv);
+        g_free (w->priv);
         w->priv = NULL;
     }
 
@@ -1155,7 +1155,7 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
         g_object_unref(obj->priv->srchr);
         obj->priv->srchr = NULL;
 
-        g_free(obj->priv->search_pattern);
+        g_free (obj->priv->search_pattern);
         obj->priv->search_pattern = NULL;
     }
 
@@ -1192,7 +1192,7 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
             gv_file_get_max_offset (text_render_get_file_ops(gviewer_get_text_render(obj->priv->viewer))),
             buffer, buflen);
 
-        g_free(buffer);
+        g_free (buffer);
     }
 
     gtk_widget_destroy(w);
@@ -1270,15 +1270,15 @@ void gviewer_window_load_settings(/* out */ GViewerWindowSettings *settings)
 
     gchar *temp = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "charset", "ASCII");
     strncpy(settings->charset, temp, sizeof(settings->charset));
-    g_free(temp);
+    g_free (temp);
 
     temp = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "fixed_font_name", "Monospace");
     strncpy(settings->fixed_font_name, temp, sizeof(settings->fixed_font_name));
-    g_free(temp);
+    g_free (temp);
 
     temp = gviewer_get_string(GVIEWER_DEFAULT_PATH_PREFIX "variable_font_name", "Sans");
     strncpy(settings->variable_font_name, temp, sizeof(settings->variable_font_name));
-    g_free(temp);
+    g_free (temp);
 
     settings->hex_decimal_offset = gviewer_get_bool(GVIEWER_DEFAULT_PATH_PREFIX "hex_offset_display", TRUE);
     settings->wrap_mode = gviewer_get_bool(GVIEWER_DEFAULT_PATH_PREFIX "wrap_mode", TRUE);
@@ -1388,8 +1388,8 @@ inline int gviewer_window_run_external_tool(GViewerWindow *obj, GViewerWindowExt
     }
 
 error:
-    g_free(cmd_with_filename);
-    g_free(cmd_with_redir);
+    g_free (cmd_with_filename);
+    g_free (cmd_with_redir);
 
     return fd;
 }
@@ -1422,14 +1422,14 @@ inline int gviewer_window_run_exif (GViewerWindow *obj)
     if (system(cmd_with_redir)==-1)
         g_warning("IPTC execution (%s) failed", cmd_with_redir);
 
-    g_free(cmd_with_redir);
+    g_free (cmd_with_redir);
 
     cmd_with_redir = g_strdup_printf("exif '%s' >&%d", obj->priv->filename, fd);
 
     if (system(cmd_with_redir)==-1)
         g_warning("EXIF execution (%s) failed", cmd_with_redir);
 
-    g_free(cmd_with_redir);
+    g_free (cmd_with_redir);
 
     return fd;
 }

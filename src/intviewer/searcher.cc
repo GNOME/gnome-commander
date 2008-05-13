@@ -162,7 +162,7 @@ static void g_viewer_searcher_finalize(GObject *object)
             free_bm_byte_data(cobj->priv->b_reverse_data);
             cobj->priv->b_reverse_data = NULL;
         }
-        g_free(cobj->priv);
+        g_free (cobj->priv);
         cobj->priv = NULL;
     }
 
@@ -253,7 +253,7 @@ void g_viewer_searcher_setup_new_text_search(GViewerSearcher *srchr,
 
     gchar *rev_text = g_utf8_strreverse(text, -1);
     srchr->priv->ct_reverse_data = create_bm_chartype_data(rev_text, case_sensitive);
-    g_free(rev_text);
+    g_free (rev_text);
     g_return_if_fail (srchr->priv->ct_reverse_data!=NULL);
 
     srchr->priv->searchmode = TEXT;
@@ -292,7 +292,7 @@ void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
 
     guint8 *rev_buffer = mem_reverse(buffer, buflen);
     srchr->priv->b_reverse_data = create_bm_byte_data(rev_buffer, buflen);
-    g_free(rev_buffer);
+    g_free (rev_buffer);
     g_return_if_fail (srchr->priv->b_reverse_data!=NULL);
 
     srchr->priv->searchmode = HEX;

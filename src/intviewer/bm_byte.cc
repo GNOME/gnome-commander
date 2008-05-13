@@ -85,7 +85,7 @@ inline void goodsuff_compute(guint8 *pattern, int m, /*out*/ int *good)
    for (int i = 0; i <= m - 2; ++i)
       good[m - 1 - suff[i]] = m - 1 - i;
 
-   g_free(suff);
+   g_free (suff);
 }
 
 
@@ -115,16 +115,16 @@ void free_bm_byte_data(GViewerBMByteData *data)
     if (data==NULL)
         return;
 
-    g_free(data->good);
+    g_free (data->good);
     data->good=NULL;
 
-    g_free(data->bad);
+    g_free (data->bad);
     data->bad = NULL;
 
-    g_free(data->pattern);
+    g_free (data->pattern);
     data->pattern = NULL;
 
     data->pattern_len = 0;
 
-    g_free(data);
+    g_free (data);
 }

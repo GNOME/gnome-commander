@@ -68,7 +68,7 @@ void gviewer_free_string_history (GList *strings)
     for (temp = strings; temp; temp = temp->next)
         if (temp->data!=NULL)
         {
-            g_free(temp->data);
+            g_free (temp->data);
             temp->data = NULL;
         }
     g_list_free(strings);
@@ -101,10 +101,10 @@ GList *gviewer_load_string_history (gchar *format, gint size)
 {
     GList *list = NULL;
 
-    for (gint i = 0; i < size || size == -1; ++i)
+    for (gint i=0; i < size || size == -1; ++i)
     {
         gchar *key = g_strdup_printf (format, i);
-        gchar *value = gviewer_get_string(key, NULL);
+        gchar *value = gviewer_get_string (key, NULL);
         g_free (key);
         if (!value)
             break;
@@ -115,7 +115,7 @@ GList *gviewer_load_string_history (gchar *format, gint size)
 }
 
 
-int unicode2utf8 (unsigned int unicode, unsigned char*out)
+int unicode2utf8 (unsigned int unicode, unsigned char *out)
 {
     int bytes_needed = 0;
     if (unicode<0x80)

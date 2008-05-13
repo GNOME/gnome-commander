@@ -102,7 +102,7 @@ inline const char *unix_error_string (int error_num)
 
     strerror_currentlocale = g_locale_from_utf8(g_strerror (error_num), -1, NULL, NULL, NULL);
     g_snprintf (buffer, sizeof (buffer), "%s (%d)", strerror_currentlocale, error_num);
-    g_free(strerror_currentlocale);
+    g_free (strerror_currentlocale);
 
     return buffer;
 }
@@ -156,7 +156,7 @@ static int gv_file_internal_open(ViewerFileOps *ops, int fd)
 
 int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
 {
-    g_free(ops->filename);
+    g_free (ops->filename);
 
     g_return_val_if_fail (filedesc>2, -1);
 
@@ -174,7 +174,7 @@ int gv_file_open_fd(ViewerFileOps *ops, int filedesc)
 
 int gv_file_open(ViewerFileOps *ops, const gchar* _file)
 {
-    g_free(ops->filename);
+    g_free (ops->filename);
 
     g_return_val_if_fail (_file!=NULL, -1);
     g_return_val_if_fail (_file[0]!=0, -1);

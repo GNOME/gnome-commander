@@ -296,7 +296,7 @@ static void image_render_destroy (GtkObject *object)
                 gtk_object_unref (GTK_OBJECT(w->priv->h_adjustment));
             w->priv->h_adjustment = NULL;
 
-            g_free(w->priv);
+            g_free (w->priv);
             w->priv = NULL;
         }
     }
@@ -712,7 +712,7 @@ static void image_render_free_pixbuf (ImageRender *obj)
         g_object_unref (G_OBJECT (obj->priv->disp_pixbuf));
     obj->priv->disp_pixbuf = NULL;
 
-    g_free(obj->priv->filename);
+    g_free (obj->priv->filename);
     obj->priv->filename = NULL;
 }
 

@@ -102,7 +102,7 @@ static void search_progress_dlg_destroy (GtkObject *object)
 
     GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG(object);
 
-    g_free(w->priv);
+    g_free (w->priv);
     w->priv = NULL;
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
@@ -203,7 +203,7 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
     if (src)
         g_source_destroy(src);
 
-    g_free(str);
+    g_free (str);
 
     gtk_widget_destroy (GTK_WIDGET (dlg));
 }

@@ -257,7 +257,7 @@ static void gviewer_destroy (GtkObject *widget)
         g_object_unref(G_OBJECT (w->priv->iscrollbox));
         g_object_unref(G_OBJECT (w->priv->tscrollbox));
 
-        g_free(w->priv);
+        g_free (w->priv);
         w->priv = NULL;
     }
 
@@ -402,7 +402,7 @@ void gviewer_load_filedesc(GViewer *obj, int fd)
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (fd>2);
 
-    g_free(obj->priv->filename);
+    g_free (obj->priv->filename);
     obj->priv->filename = NULL;
 
     text_render_load_filedesc(obj->priv->textr, fd);
@@ -419,7 +419,7 @@ void gviewer_load_file(GViewer *obj, const gchar*filename)
     g_return_if_fail (IS_GVIEWER (obj));
     g_return_if_fail (filename);
 
-    g_free(obj->priv->filename);
+    g_free (obj->priv->filename);
     obj->priv->filename = NULL;
 
     obj->priv->filename = g_strdup (filename);
