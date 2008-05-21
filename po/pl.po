@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-12 15:15+0000\n"
-"PO-Revision-Date: 2008-05-13 11:04+0100\n"
+"POT-Creation-Date: 2008-05-13 21:51+0000\n"
+"PO-Revision-Date: 2008-05-21 10:31+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1226,11 +1226,8 @@ msgid "Action"
 msgstr "Operacja"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:385
-#, fuzzy
 msgid "User action"
-msgstr ""
-"Użytkownik anulował operację\n"
-"%1"
+msgstr "Operacja użytkownika"
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:392
 msgid "Optional data"
@@ -2213,19 +2210,16 @@ msgid "Search _recursively:"
 msgstr "Zastosuj do _podkatalogów:"
 
 #: ../src/gnome-cmd-search-dialog.cc:39
-#, fuzzy
 msgid "_Unlimited depth"
-msgstr "Głębokość morza"
+msgstr "Bez ograniczeń"
 
 #: ../src/gnome-cmd-search-dialog.cc:40
-#, fuzzy
 msgid "Current _directory only"
-msgstr "Tylko bieżąca warstwa"
+msgstr "Tylko bieżący _katalog"
 
 #: ../src/gnome-cmd-search-dialog.cc:41
-#, fuzzy
 msgid "_Limited depth"
-msgstr "Głębokość morza"
+msgstr "Do _poziomu"
 
 #. N_("Search local directories only"),
 #: ../src/gnome-cmd-search-dialog.cc:43
@@ -2273,14 +2267,12 @@ msgid "Search..."
 msgstr "Szukaj..."
 
 #: ../src/gnome-cmd-search-dialog.cc:818
-#, fuzzy
 msgid "Search _for: "
-msgstr "Znajdź:"
+msgstr "Znajdź _plik: "
 
 #: ../src/gnome-cmd-search-dialog.cc:830
-#, fuzzy
 msgid "Search _in: "
-msgstr "Wyszukiwanie w:"
+msgstr "Szukaj _w:"
 
 #. Find text
 #: ../src/gnome-cmd-search-dialog.cc:843
@@ -2329,9 +2321,8 @@ msgid "No file selected"
 msgstr "Nie wybrano pliku"
 
 #: ../src/gnome-cmd-user-actions.cc:132
-#, fuzzy
 msgid "Bookmark current directory"
-msgstr "Katalog bieżącego dokumentu"
+msgstr "Dodaj zakładkę do bieżącego katalogu"
 
 #: ../src/gnome-cmd-user-actions.cc:133
 msgid "Manage bookmarks"
@@ -2367,9 +2358,8 @@ msgid "Copy file names"
 msgstr "Kopiuj nazwy plików"
 
 #: ../src/gnome-cmd-user-actions.cc:145
-#, fuzzy
 msgid "Show user defined files"
-msgstr "Pliki należą do użytkownika:"
+msgstr "Pokaż pliki zdefiniowane przez użytkownika"
 
 #: ../src/gnome-cmd-user-actions.cc:147
 msgid "Quick search"
@@ -2484,7 +2474,7 @@ msgstr "Odwróć zaznaczenie"
 
 #: ../src/gnome-cmd-user-actions.cc:179
 msgid "Toggle selection and move cursor downward"
-msgstr ""
+msgstr "Odwróć zaznaczenie i przesuń kursorw dół"
 
 #: ../src/gnome-cmd-user-actions.cc:180
 msgid "Unselect all"
@@ -2507,9 +2497,8 @@ msgid "Execute python plugin"
 msgstr "Uruchom wtyczkę Pythona"
 
 #: ../src/gnome-cmd-user-actions.cc:187
-#, fuzzy
 msgid "Back one directory"
-msgstr "Katalog wyżej"
+msgstr "Katalog wstecz"
 
 #: ../src/gnome-cmd-user-actions.cc:188
 msgid "Equal panel size"
@@ -2520,33 +2509,28 @@ msgid "Back to the first directory"
 msgstr "Podgląd pliku"
 
 #: ../src/gnome-cmd-user-actions.cc:190
-#, fuzzy
 msgid "Forward one directory"
-msgstr "Katalog wyżej"
+msgstr "Katalog w przód"
 
 #: ../src/gnome-cmd-user-actions.cc:191
 msgid "Home directory"
 msgstr "Katalog domowy"
 
 #: ../src/gnome-cmd-user-actions.cc:192
-#, fuzzy
 msgid "Open directory in the active window"
-msgstr "Pokaż obrazek w aktywnym oknie"
+msgstr "Otwórz katalog w aktywnym oknie"
 
 #: ../src/gnome-cmd-user-actions.cc:193
-#, fuzzy
 msgid "Open directory in the inactive window"
-msgstr "Otwiera odnośnik w oknie"
+msgstr "Otwórz katalog w nieaktywnym oknie"
 
 #: ../src/gnome-cmd-user-actions.cc:194
-#, fuzzy
 msgid "Open directory in the left window"
-msgstr "Otwiera odnośnik w oknie"
+msgstr "Otwórz katalog w lewymoknie"
 
 #: ../src/gnome-cmd-user-actions.cc:195
-#, fuzzy
 msgid "Open directory in the right window"
-msgstr "Otwiera odnośnik w oknie"
+msgstr "Otwórz katalog w prawym oknie"
 
 #: ../src/gnome-cmd-user-actions.cc:196
 #, fuzzy
@@ -4302,14 +4286,12 @@ msgid "Related image file format."
 msgstr "Powiązany format pliku."
 
 #: ../src/tags/gnome-cmd-tags.cc:271
-#, fuzzy
 msgid "Related Image Length"
-msgstr "Powiązana szerokość obrazu"
+msgstr "Powiązana długość obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
-#, fuzzy
 msgid "Related image length."
-msgstr "Powiązana szerokość obrazu"
+msgstr "Powiązana długość obrazu."
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 msgid "Related Image Width"
@@ -5490,7 +5472,7 @@ msgstr "Szerokość w pikselach."
 
 #: ../src/tags/gnome-cmd-tags.cc:429
 msgid "Action Advised"
-msgstr "Zalecana akacja"
+msgstr "Zalecana akcja"
 
 #: ../src/tags/gnome-cmd-tags.cc:429
 msgid "The type of action that this object provides to a previous object. '01' Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
@@ -6472,13 +6454,13 @@ msgid "10-15ms"
 msgstr "10-15ms"
 
 #: ../src/utils.cc:440
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No default application found for the MIME type %s.\n"
 "Open the \"File types and programs\" page in the Control Center to add one."
 msgstr ""
 "Nie znaleziono domyślnej aplikacji dla typu MIME %s.\n"
-"By ją dodać otwórz stronę \"File types and programs\" w Centrum Sterowania "
+"By ją dodać otwórz stronę \"File types and programs\" w Centrum Sterowania."
 
 #: ../src/utils.cc:520
 #, c-format
