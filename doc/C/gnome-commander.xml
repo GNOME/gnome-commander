@@ -5834,6 +5834,9 @@
                             <para>Fixed problem #392959 (dynamically changing user to root)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #496150 (scrolling with mouse wheel)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #499761 (search window cleared when column sorted)</para>
                         </listitem>
                         <listitem>

@@ -1,3 +1,8 @@
+2008-05-21  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/libgviewer/text-render.cc:
+	Fixed bug #496150 (scrolling with mouse wheel)
+
 2008-05-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-search-dialog.cc:
