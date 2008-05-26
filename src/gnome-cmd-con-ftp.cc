@@ -45,7 +45,6 @@ static GnomeCmdConClass *parent_class = NULL;
 
 static void get_file_info_func (GnomeCmdCon *con)
 {
-    GnomeVFSResult res;
     GnomeVFSURI *uri = gnome_cmd_con_create_uri (con, con->base_path);
 
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
@@ -53,7 +52,7 @@ static void get_file_info_func (GnomeCmdCon *con)
     DEBUG('m', "FTP: Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
     con->base_info = gnome_vfs_file_info_new ();
 
-    res = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
+    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
 
     gnome_vfs_uri_unref (uri);
 
@@ -82,7 +81,7 @@ static void get_file_info_func (GnomeCmdCon *con)
 
 static gboolean start_get_file_info (GnomeCmdCon *con)
 {
-    g_thread_create ((GThreadFunc)get_file_info_func, con, FALSE, NULL);
+    g_thread_create ((GThreadFunc) get_file_info_func, con, FALSE, NULL);
 
     return FALSE;
 }
@@ -101,11 +100,11 @@ static void ftp_open (GnomeCmdCon *con)
     con->state = CON_STATE_OPENING;
     con->open_result = CON_OPEN_IN_PROGRESS;
 
-    //~GnomeCmdPath * path = gnome_cmd_plain_path_new (gnome_cmd_con_ftp_get_remote_dir (GNOME_CMD_CON_FTP (con)));
-    //~ GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
+    // GnomeCmdPath * path = gnome_cmd_plain_path_new (gnome_cmd_con_ftp_get_remote_dir (GNOME_CMD_CON_FTP (con)));
+    // GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
 
-    //~ gnome_cmd_con_set_default_dir (con, dir);
-    //~ gnome_cmd_con_set_cwd (con, dir);
+    // gnome_cmd_con_set_default_dir (con, dir);
+    // gnome_cmd_con_set_cwd (con, dir);
 
     g_timeout_add (1, (GSourceFunc) start_get_file_info, con);
 }
