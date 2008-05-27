@@ -591,7 +591,8 @@ string &__gnome_cmd_con_make_uri (string &s, const gchar *method, gboolean use_a
     if (!port.empty())
         s += ':' + port;
 
-    s += folder;
+    if (!folder.empty())
+        s += '/' + folder;
 
     return s;
 }
