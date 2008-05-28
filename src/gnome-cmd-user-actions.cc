@@ -585,8 +585,6 @@ void no_action (GtkMenuItem *menuitem, gpointer not_used)
 /************** File Menu **************/
 void file_copy (GtkMenuItem *menuitem, gpointer not_used)
 {
-    if (!main_win)  return;
-
     GnomeCmdFileSelector *src_fs = get_fs (ACTIVE);
     GnomeCmdFileSelector *dest_fs = get_fs (INACTIVE);
 
@@ -597,8 +595,6 @@ void file_copy (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_move (GtkMenuItem *menuitem, gpointer not_used)
 {
-    if (!main_win)  return;
-
     GnomeCmdFileSelector *src_fs = get_fs (ACTIVE);
     GnomeCmdFileSelector *dest_fs = get_fs (INACTIVE);
 

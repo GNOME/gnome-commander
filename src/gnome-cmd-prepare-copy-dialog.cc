@@ -117,7 +117,7 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
     data->follow_links = gtk_check_button_new_with_label (_("Follow Links"));
     gtk_widget_ref (data->follow_links);
-    gtk_object_set_data_full (GTK_OBJECT (data->dialog), "follow_links", data->follow_links, (GtkDestroyNotify)gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (data->dialog), "follow_links", data->follow_links, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (data->follow_links);
     gtk_box_pack_start (GTK_BOX (data->dialog->right_vbox), data->follow_links, FALSE, FALSE, 0);
 
@@ -136,6 +136,7 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     g_free (text);
 
     g_return_if_fail (data->dialog->src_files != NULL);
+
     num_files = g_list_length (data->dialog->src_files);
     finfo = (GnomeCmdFile *) data->dialog->src_files->data;
 
@@ -153,7 +154,7 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gtk_label_set_markup (GTK_LABEL (label), text);
     g_free (text);
 
-    g_free  (dest_dir_frame_msg);
+    g_free (dest_dir_frame_msg);
 
 
     /*
