@@ -3394,7 +3394,7 @@ msgstr "Czas ostatniego zapisu dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 #, fuzzy
-msgid "An acccount of the content of the resource."
+msgid "An account of the content of the resource."
 msgstr "Zasób aktualnie niedostępny."
 
 #: ../src/tags/gnome-cmd-tags.cc:160

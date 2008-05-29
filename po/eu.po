@@ -3021,7 +3021,7 @@ msgid "The last time the document was saved."
 msgstr "Dokumentua gorde zen azken aldia."
 
 #: ../src/tags/gnome-cmd-tags.cc:159
-msgid "An acccount of the content of the resource."
+msgid "An account of the content of the resource."
 msgstr "Baliabidearen edukiaren kontu bat."
 
 #: ../src/tags/gnome-cmd-tags.cc:160

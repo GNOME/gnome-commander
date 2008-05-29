@@ -3098,8 +3098,8 @@ msgid "The last time the document was saved."
 msgstr "Data e ora in cui è stato salvato il documento."
 
 #: ../src/tags/gnome-cmd-tags.cc:159
-msgid "An acccount of the content of the resource."
-msgstr "Un acccount del contenuto della risorsa."
+msgid "An account of the content of the resource."
+msgstr "Un account del contenuto della risorsa."
 
 #: ../src/tags/gnome-cmd-tags.cc:160
 msgid "Dictionary"

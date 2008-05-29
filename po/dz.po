@@ -3027,7 +3027,7 @@ msgid "The last time the document was saved."
 msgstr "ཡིག་ཆ་འདི་མཇུག་ལུ་སྲུང་ཡོད་པའི་མཇུག་གི་དུས་ཚོད།"
 
 #: ../src/tags/gnome-cmd-tags.cc:159
-msgid "An acccount of the content of the resource."
+msgid "An account of the content of the resource."
 msgstr "བྱུང་ཁུངས་ཀྱི་ནང་དོན་གྱི་རྩིས་ཐོ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:160

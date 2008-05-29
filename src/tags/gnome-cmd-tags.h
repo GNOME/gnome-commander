@@ -102,7 +102,7 @@ typedef enum
     TAG_DOC_CREATOR,                        // an entity primarily responsible for making the content of the resource, typically a person, organization, or service
     TAG_DOC_DATECREATED,                    // date associated with an event in the life cycle of the resource (creation/publication date)
     TAG_DOC_DATEMODIFIED,                   // the last time the document was saved
-    TAG_DOC_DESCRIPTION,                    // an acccount of the content of the resource
+    TAG_DOC_DESCRIPTION,                    // an account of the content of the resource
     TAG_DOC_DICTIONARY,                     // dictionary
     TAG_DOC_EDITINGDURATION,                // the total time taken until the last modification
     TAG_DOC_GENERATOR,                      // the application that generated this document

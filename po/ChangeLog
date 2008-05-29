@@ -1,3 +1,7 @@
+2008-05-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* *.po: s/acccount/account/g
+
 2008-05-28  Andre Klapper  <a9016009@gmx.de>
 
 	* de.po: Updated German translation.

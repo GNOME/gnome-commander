@@ -156,7 +156,7 @@ void gcmd_tags_init()
                        {TAG_DOC_DATECREATED, {"Doc.Created", TAG_DOC, N_("Created"), N_("Datetime document was originally created.")}},
                        {TAG_DOC_DATECREATED, {"Doc.DateCreated", TAG_DOC, N_("Date Created"), N_("Date associated with an event in the life cycle of the resource (creation/publication date).")}},
                        {TAG_DOC_DATEMODIFIED, {"Doc.DateModified", TAG_DOC, N_("Date Modified"), N_("The last time the document was saved.")}},
-                       {TAG_DOC_DESCRIPTION, {"Doc.Description", TAG_DOC, N_("Description"), N_("An acccount of the content of the resource.")}},
+                       {TAG_DOC_DESCRIPTION, {"Doc.Description", TAG_DOC, N_("Description"), N_("An account of the content of the resource.")}},
                        {TAG_DOC_DICTIONARY, {"Doc.Dictionary", TAG_DOC, N_("Dictionary"), N_("Dictionary.")}},
                        {TAG_DOC_EDITINGDURATION, {"Doc.EditingDuration", TAG_DOC, N_("Editing Duration"), N_("The total time taken until the last modification.")}},
                        {TAG_DOC_GENERATOR, {"Doc.Generator", TAG_DOC, N_("Generator"), N_("The application that generated this document.")}},

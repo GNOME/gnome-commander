@@ -3009,7 +3009,7 @@ msgid "The last time the document was saved."
 msgstr "تاريخ آخر مرة حُفظ فيها المستند."
 
 #: ../src/tags/gnome-cmd-tags.cc:159
-msgid "An acccount of the content of the resource."
+msgid "An account of the content of the resource."
 msgstr "غير قادر على تعيين مالك الجهاز."
 
 #: ../src/tags/gnome-cmd-tags.cc:160

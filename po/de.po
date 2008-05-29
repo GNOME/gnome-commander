@@ -3375,7 +3375,7 @@ msgid "The last time the document was saved."
 msgstr "Dokument zuletzt gespeichert."
 
 #: ../src/tags/gnome-cmd-tags.cc:159
-msgid "An acccount of the content of the resource."
+msgid "An account of the content of the resource."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:160

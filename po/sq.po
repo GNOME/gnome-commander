@@ -3385,7 +3385,7 @@ msgstr "Hera e fundit kur është zbrazur koshi"
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 #, fuzzy
-msgid "An acccount of the content of the resource."
+msgid "An account of the content of the resource."
 msgstr "Rezerva është e bllokuar"
 
 #: ../src/tags/gnome-cmd-tags.cc:160

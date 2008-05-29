@@ -3917,7 +3917,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 #, fuzzy
-msgid "An acccount of the content of the resource."
+msgid "An account of the content of the resource."
 msgstr "GenericName=X-rimedoj, t.e. stiloj de fenestroj ktp."
 
 #: ../src/tags/gnome-cmd-tags.cc:160

@@ -203,11 +203,13 @@ create_format_tab (GtkWidget *parent)
     cat = create_category (parent, cat_box, _("Size display mode"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
+    // Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
     radio = create_radio (parent, NULL, _("Powered"), "size_powered_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data_get_size_disp_mode () == GNOME_CMD_SIZE_DISP_MODE_POWERED)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
+    // Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
     radio = create_radio (parent, get_radio_group (radio), _("<locale>"), "size_locale_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data_get_size_disp_mode () == GNOME_CMD_SIZE_DISP_MODE_LOCALE)

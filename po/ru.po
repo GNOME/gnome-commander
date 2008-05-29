@@ -3145,7 +3145,7 @@ msgstr "Каталог, в который последний раз был со�
 
 #: ../src/tags/gnome-cmd-tags.cc:159
 #, fuzzy
-msgid "An acccount of the content of the resource."
+msgid "An account of the content of the resource."
 msgstr "GenericРедактор ресурсов X "
 
 #: ../src/tags/gnome-cmd-tags.cc:160
