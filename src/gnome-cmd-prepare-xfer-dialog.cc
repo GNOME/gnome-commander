@@ -85,44 +85,89 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             dest_fn = g_strdup (gnome_cmd_file_get_name (finfo));
         }
         else
-        if (res == GNOME_VFS_OK)
-        {
-            // There exists something else, asume that the user wants to overwrite it for now
-            gchar *tmp = g_path_get_dirname (dest_path);
-            dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, tmp));
-            g_free (tmp);
-            dest_fn = g_strdup (g_basename (dest_path));
-        }
-        else
-        {
-            // Nothing existed, check if the parent dir exists
-            gchar *parent_dir = g_path_get_dirname (dest_path);
-            res = gnome_cmd_con_get_path_target_type (con, parent_dir, &type);
-            if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+            if (res == GNOME_VFS_OK)
             {
-                // yup, xfer to it
-                dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, parent_dir));
-                g_free (parent_dir);
+                // There exists something else, asume that the user wants to overwrite it for now
+                gchar *tmp = g_path_get_dirname (dest_path);
+                dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, tmp));
+                g_free (tmp);
                 dest_fn = g_strdup (g_basename (dest_path));
             }
-            else if (res == GNOME_VFS_OK)
+            else
             {
-                // the parent dir was a file, abort!
-                g_free (parent_dir);
+                // Nothing existed, check if the parent dir exists
+                gchar *parent_dir = g_path_get_dirname (dest_path);
+                res = gnome_cmd_con_get_path_target_type (con, parent_dir, &type);
+                if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+                {
+                    // yup, xfer to it
+                    dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, parent_dir));
+                    g_free (parent_dir);
+                    dest_fn = g_strdup (g_basename (dest_path));
+                }
+                else
+                    if (res == GNOME_VFS_OK)
+                    {
+                        // the parent dir was a file, abort!
+                        g_free (parent_dir);
+                        goto bailout;
+                    }
+                    else
+                    {
+                        // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
+                        gchar *msg = g_strdup_printf (_("The directory '%s' doesn't exist, do you want to create it?"),
+                                                      g_basename (parent_dir));
+                        gint choice = run_simple_dialog (GTK_WIDGET (dialog), TRUE, GTK_MESSAGE_QUESTION, msg, "",
+                                                         -1, _("No"), _("Yes"), NULL);
+                        g_free (msg);
+
+                        if (choice == 1)
+                        {
+                            GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, parent_dir);
+                            if (mkdir_result != GNOME_VFS_OK)
+                            {
+                                create_error_dialog (gnome_vfs_result_to_string (mkdir_result));
+                                goto bailout;
+                            }
+                        }
+                        else
+                            goto bailout;
+
+                        dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, parent_dir));
+                        g_free (parent_dir);
+                        dest_fn = g_strdup (g_basename (dest_path));
+                    }
+            }
+    }
+    else
+    {
+        if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        {
+            // There exists a directory, copy to it
+            dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
+        }
+        else 
+            if (res == GNOME_VFS_OK)
+            {
+                // There exists something which is not a directory, abort!
                 goto bailout;
             }
             else
             {
                 // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
                 gchar *msg = g_strdup_printf (_("The directory '%s' doesn't exist, do you want to create it?"),
-                                              g_basename (parent_dir));
-                gint choice = run_simple_dialog (GTK_WIDGET (dialog), TRUE, GTK_MESSAGE_QUESTION, msg, "",
-                                                 -1, _("No"), _("Yes"), NULL);
+                                              g_basename (dest_path));
+                GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (main_win),
+                                                            (GtkDialogFlags) 0,
+                                                            GTK_MESSAGE_QUESTION,
+                                                            GTK_BUTTONS_OK_CANCEL,
+                                                            msg);
+                gint choice = gtk_dialog_run (GTK_DIALOG (dialog));
                 g_free (msg);
 
-                if (choice == 1)
+                if (choice == GTK_RESPONSE_OK)
                 {
-                    GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, parent_dir);
+                    GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, dest_path);
                     if (mkdir_result != GNOME_VFS_OK)
                     {
                         create_error_dialog (gnome_vfs_result_to_string (mkdir_result));
@@ -132,51 +177,8 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                 else
                     goto bailout;
 
-                dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, parent_dir));
-                g_free (parent_dir);
-                dest_fn = g_strdup (g_basename (dest_path));
+                dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
             }
-        }
-    }
-    else
-    {
-        if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-        {
-            // There exists a directory, copy to it
-            dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
-        }
-        else if (res == GNOME_VFS_OK)
-        {
-            // There exists something which is not a directory, abort!
-            goto bailout;
-        }
-        else
-        {
-            // Nothing exists, ask the user if a new directory might be suitable in the path that he specified
-            gchar *msg = g_strdup_printf (_("The directory '%s' doesn't exist, do you want to create it?"),
-                                          g_basename (dest_path));
-            GtkWidget *dialog = gtk_message_dialog_new (GTK_WINDOW (main_win),
-                                                        (GtkDialogFlags) 0,
-                                                        GTK_MESSAGE_QUESTION,
-                                                        GTK_BUTTONS_OK_CANCEL,
-                                                        msg);
-            gint choice = gtk_dialog_run (GTK_DIALOG (dialog));
-            g_free (msg);
-
-            if (choice == GTK_RESPONSE_OK)
-            {
-                GnomeVFSResult mkdir_result = gnome_cmd_con_mkdir (con, dest_path);
-                if (mkdir_result != GNOME_VFS_OK)
-                {
-                    create_error_dialog (gnome_vfs_result_to_string (mkdir_result));
-                    goto bailout;
-                }
-            }
-            else
-                goto bailout;
-
-            dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
-        }
     }
 
     if (!GNOME_CMD_IS_DIR (dest_dir))
