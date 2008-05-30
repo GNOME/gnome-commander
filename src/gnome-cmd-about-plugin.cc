@@ -423,7 +423,7 @@ static void gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
 inline void gnome_cmd_about_plugin_set_comments (GnomeCmdAboutPlugin *about, const gchar *comments)
 {
     g_free (about->priv->comments);
-    about->priv->comments = comments ? g_strdup (comments) : NULL;
+    about->priv->comments = g_strdup (comments);
 
     gtk_label_set_text (GTK_LABEL (about->priv->comments_label), about->priv->comments);
 }
@@ -451,19 +451,17 @@ inline void gnome_cmd_about_plugin_set_webpage (GnomeCmdAboutPlugin *about, cons
 
 static void gnome_cmd_about_plugin_set_copyright (GnomeCmdAboutPlugin *about, const gchar *copyright)
 {
-    char *copyright_string, *tmp;
+    char *copyright_string = NULL;
 
     g_free (about->priv->copyright);
-    about->priv->copyright = copyright ? g_strdup (copyright) : NULL;
+    about->priv->copyright = g_strdup (copyright);
 
     if (about->priv->copyright)
     {
-        tmp = g_markup_escape_text (about->priv->copyright, -1);
+        char *tmp = g_markup_escape_text (about->priv->copyright, -1);
         copyright_string = g_strdup_printf ("<span size=\"small\">%s</span>", tmp);
         g_free (tmp);
     }
-    else
-        copyright_string = NULL;
 
     gtk_label_set_markup (GTK_LABEL (about->priv->copyright_label), copyright_string);
 
@@ -474,7 +472,7 @@ static void gnome_cmd_about_plugin_set_copyright (GnomeCmdAboutPlugin *about, co
 static void gnome_cmd_about_plugin_set_version (GnomeCmdAboutPlugin *about, const gchar *version)
 {
     g_free (about->priv->version);
-    about->priv->version = version ? g_strdup (version) : NULL;
+    about->priv->version = g_strdup (version);
 
     gchar *name_string;
     gchar *tmp_name = g_markup_escape_text (about->priv->name, -1);

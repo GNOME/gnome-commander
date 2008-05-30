@@ -35,8 +35,7 @@ static GList *_files = NULL;
 static GnomeCmdFileList *_fl = NULL;
 
 
-static void
-on_xfer_done (GList *files, gpointer data)
+static void on_xfer_done (GList *files, gpointer data)
 {
     if (files != NULL)
         gnome_cmd_file_list_free (files);

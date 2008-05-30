@@ -51,19 +51,12 @@ struct _GnomeCmdBookmarkDialogClass
 extern guint bookmark_dialog_default_column_width[BOOKMARK_DIALOG_NUM_COLUMNS];
 
 
-GtkWidget*
-gnome_cmd_bookmark_dialog_new (void);
+GtkWidget *gnome_cmd_bookmark_dialog_new (void);
 
-GtkType
-gnome_cmd_bookmark_dialog_get_type (void);
+GtkType gnome_cmd_bookmark_dialog_get_type (void);
 
-void
-gnome_cmd_bookmark_add_current (void);
+void gnome_cmd_bookmark_add_current (void);
 
-void
-gnome_cmd_bookmark_add_current (void);
-
-void
-gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark);
+void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark);
 
 #endif // __GNOME_CMD_BOOKMARK_DIALOG_H__

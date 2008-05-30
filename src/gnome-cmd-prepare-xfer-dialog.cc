@@ -146,7 +146,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             // There exists a directory, copy to it
             dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
         }
-        else 
+        else
             if (res == GNOME_VFS_OK)
             {
                 // There exists something which is not a directory, abort!

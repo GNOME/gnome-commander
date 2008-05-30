@@ -24,12 +24,13 @@ using namespace std;
 
 int main (int argc, char **argv)
 {
-    FILE *fd = fdopen (0, "r");
-
     printf ("--------------------------------------------------------------\n");
     printf ("The program has now finished, press Enter to close this window\n");
 
+    FILE *fd = fdopen (0, "r");
+
     getc(fd);
     fclose(fd);
+
     return 0;
 }

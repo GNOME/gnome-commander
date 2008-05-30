@@ -191,7 +191,7 @@
 	* src/gnome-cmd-file.cc:
 	* src/gnome-cmd-file.h:
 	* src/gnome-cmd-file-list.cc:
-	Fix sorting for sorting of UTF-8 encoded file names
+	Fix for sorting of UTF-8 encoded file names
 
 2008-03-14  Piotr Eljasiak  <epiotr@use.pl>
 
@@ -201,7 +201,7 @@
 
 	* src/gnome-cmd-hintbox.cc:
 	* src/gnome-cmd-hintbox.h:
-	hintbox: new widget showing a label showing decorated with a GTK_STOCK_DIALOG_INFO icon
+	hintbox: new widget showing a label decorated with a GTK_STOCK_DIALOG_INFO icon
 
 2008-03-13  Piotr Eljasiak  <epiotr@use.pl>
 
