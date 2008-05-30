@@ -9,6 +9,7 @@ Bug fixes:
  * Fixed problem #499764 (multiple selection problem)
  * Fixed problem with sorting of UTF-8 encoded file names
  * Fixed problem with copying files to symlinked directories
+ * Fixed problem with full file path  while copying/moving to mounted devices
 
 New features:
  * Root Mode for starting GNOME Commander with administrator privileges

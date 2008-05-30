@@ -5886,6 +5886,9 @@
                         <listitem>
                             <para>Fixed problem with copying files to symlinked directories</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem with full file path handling while copying/moving to mounted devices</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

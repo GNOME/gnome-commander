@@ -22,7 +22,7 @@
 #include "gnome-cmd-prepare-xfer-dialog.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-xfer.h"
-#include "gnome-cmd-con.h"
+#include "gnome-cmd-con-list.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-file-selector.h"
@@ -35,28 +35,49 @@ using namespace std;
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
+inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, const gchar *user_path)
+{
+    dev = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (main_win, fsID));
+
+    return GNOME_CMD_IS_CON_DEVICE (dev) &&
+           g_str_has_prefix (user_path, gnome_cmd_con_device_get_mountp (GNOME_CMD_CON_DEVICE (dev)));
+}
+
+
 static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 {
-    GnomeCmdDir *dest_dir;
-    gchar *dest_fn = NULL;
-    gchar *dest_path;
-
     GnomeCmdCon *con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
     gchar *user_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->dest_dir_entry)));
+    gint user_path_len = strlen (user_path);
+
+    gchar *dest_path = user_path;
+    gchar *dest_fn = NULL;
+    GnomeCmdDir *dest_dir;
 
     // Make whatever the user entered into a valid path if possible
-    gint user_path_len = strlen (user_path);
+
     if (!user_path || user_path_len <= 0)
-    {
-        dest_path = user_path;
         goto bailout;
-    }
 
     if (user_path_len > 2 && user_path[user_path_len-1] == '/')
         user_path[user_path_len-1] = '\0';
 
     if (user_path[0] == '/')
-        dest_path = user_path;
+    {
+        if (gnome_cmd_file_is_local (GNOME_CMD_FILE (dialog->default_dest_dir)))   // hack to avoiding 'root' dir for mounted devices
+        {
+            GnomeCmdCon *dev;
+
+            // if LEFT or RIGHT device (connection) points to user_path than adjust user_path and set con to the found device
+            if (con_device_has_path (INACTIVE, dev, user_path) || con_device_has_path (ACTIVE, dev, user_path))
+            {
+                dest_path = g_strdup (user_path + strlen (gnome_cmd_con_device_get_mountp (GNOME_CMD_CON_DEVICE (dev))));
+                con = dev;
+            }
+            else    // otherwise connection not present in any pane, use home connection instead
+                con = get_home_con ();
+        }
+    }
     else
     {
         gchar *tmp = gnome_cmd_file_get_path (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (dialog->src_fs)));
@@ -357,7 +378,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) dialog->src_files->data;
 
-        gchar *t = gnome_cmd_file_get_path (GNOME_CMD_FILE (dialog->default_dest_dir));
+        gchar *t = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dialog->default_dest_dir));
         gchar *path = get_utf8 (t);
         gchar *fname = get_utf8 (finfo->info->name);
         g_free (t);
@@ -374,7 +395,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     }
     else
     {
-        gchar *t = gnome_cmd_file_get_path (GNOME_CMD_FILE (dialog->default_dest_dir));
+        gchar *t = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dialog->default_dest_dir));
         dest_str = get_utf8 (t);
         g_free (t);
     }
