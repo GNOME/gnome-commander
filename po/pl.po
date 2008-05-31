@@ -2470,11 +2470,11 @@ msgstr "Zaznacz wszystko"
 
 #: ../src/gnome-cmd-user-actions.cc:178
 msgid "Toggle selection"
-msgstr "Odwróć zaznaczenie"
+msgstr "Odwróć zaznaczenie pliku"
 
 #: ../src/gnome-cmd-user-actions.cc:179
 msgid "Toggle selection and move cursor downward"
-msgstr "Odwróć zaznaczenie i przesuń kursorw dół"
+msgstr "Odwróć zaznaczenie pliku i przesuń kursor w dół"
 
 #: ../src/gnome-cmd-user-actions.cc:180
 msgid "Unselect all"
@@ -2505,8 +2505,9 @@ msgid "Equal panel size"
 msgstr "Równaj wielkość paneli."
 
 #: ../src/gnome-cmd-user-actions.cc:189
+#, fuzzy
 msgid "Back to the first directory"
-msgstr "Podgląd pliku"
+msgstr ""
 
 #: ../src/gnome-cmd-user-actions.cc:190
 msgid "Forward one directory"
@@ -2526,7 +2527,7 @@ msgstr "Otwórz katalog w nieaktywnym oknie"
 
 #: ../src/gnome-cmd-user-actions.cc:194
 msgid "Open directory in the left window"
-msgstr "Otwórz katalog w lewymoknie"
+msgstr "Otwórz katalog w lewym oknie"
 
 #: ../src/gnome-cmd-user-actions.cc:195
 msgid "Open directory in the right window"
