@@ -21,6 +21,7 @@
 #define __GNOME_CMD_INCLUDES_H__
 
 #include <libgcmd/libgcmd.h>
+#include <gtk/gtkmarshal.h>
 
 typedef void *(*PthreadFunc)(void *);
 

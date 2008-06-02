@@ -32,6 +32,7 @@
 
 #include <gtk/gtk.h>
 #include <gtk/gtkadjustment.h>
+#include <gtk/gtkmarshal.h>
 
 #include "image-render.h"
 #include "gnome-cmd-includes.h"

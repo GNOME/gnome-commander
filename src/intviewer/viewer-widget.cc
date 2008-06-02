@@ -32,6 +32,7 @@
 
 #include <gtk/gtk.h>
 #include <gtk/gtktable.h>
+#include <gtk/gtkmarshal.h>
 
 #include <libgnome/libgnome.h>
 #include <libgnomevfs/gnome-vfs.h>
