@@ -158,8 +158,8 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                            {_("/File extension"), NULL, (GtkItemFactoryCallback) insert_text_tag, 4}};
 
     GtkItemFactoryEntry counter_items[] = {{_("/Counter"), NULL, (GtkItemFactoryCallback) insert_text_tag, 5},
-                                           {_("/Counter (precision)"), NULL, (GtkItemFactoryCallback) insert_text_tag, 6},
-                                           {_("/Hexadecimal random number (precision)"), NULL, (GtkItemFactoryCallback) insert_text_tag, 7}};
+                                           {_("/Counter (width)"), NULL, (GtkItemFactoryCallback) insert_text_tag, 6},
+                                           {_("/Hexadecimal random number (width)"), NULL, (GtkItemFactoryCallback) insert_text_tag, 7}};
 
     GtkItemFactoryEntry date_items[] =    {{_("/Date/<locale>"), NULL, (GtkItemFactoryCallback) insert_text_tag, 8},
                                            {_("/Date/yyyy-mm-dd"), NULL, (GtkItemFactoryCallback) insert_text_tag, 9},

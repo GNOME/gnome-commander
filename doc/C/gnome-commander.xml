@@ -947,7 +947,7 @@
                   <guibutton>Options</guibutton>
               </term>
               <listitem>
-                  <para>Additional settings for file name processing (start value, step and precision for counters).</para>
+                  <para>Additional settings for file name processing (start value, step and width for counters).</para>
               </listitem>
           </varlistentry>
           <varlistentry>
@@ -1026,24 +1026,24 @@
                         <entry><para>File counter</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>$c(precision)</para></entry>
-                        <entry><para>File counter with specified digit number (precision)</para></entry>
+                        <entry><para>$c(width)</para></entry>
+                        <entry><para>File counter with specified digit number (width)</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>$x</para></entry>
                         <entry><para>Hexadecimal random number (8 lowercase digits)</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>$x(precision)</para></entry>
-                        <entry><para>Hexadecimal random number with specified lowercase digit number (precision)</para></entry>
+                        <entry><para>$x(width)</para></entry>
+                        <entry><para>Hexadecimal random number with specified lowercase digit number (width)</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>$x</para></entry>
                         <entry><para>Hexadecimal random number (8 uppercase digits)</para></entry>
                     </row>
                     <row valign="top">
-                        <entry><para>$x(precision)</para></entry>
-                        <entry><para>Hexadecimal random number with specified uppercase digit number (precision)</para></entry>
+                        <entry><para>$x(width)</para></entry>
+                        <entry><para>Hexadecimal random number with specified uppercase digit number (width)</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>$T(metatag)</para></entry>

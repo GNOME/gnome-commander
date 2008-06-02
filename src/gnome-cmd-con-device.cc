@@ -203,7 +203,7 @@ static void dev_vfs_umount_callback (gboolean succeeded, char *error, char *deta
                             GTK_DIALOG_MODAL,
                             GTK_MESSAGE_INFO,
                             GTK_BUTTONS_OK,
-                            _("Volume unmounting succeeded.\nIt is safe to eject the media."));
+                            _("Device is now safe to remove"));
     }
     else
     {
@@ -211,8 +211,8 @@ static void dev_vfs_umount_callback (gboolean succeeded, char *error, char *deta
                             GTK_DIALOG_MODAL,
                             GTK_MESSAGE_ERROR,
                             GTK_BUTTONS_OK,
-                            _("Volume unmounting failed:\n%s %s"),
-                            error ? error : _("Unknown Error"),
+                            _("Cannot unmount the volume:\n%s %s"),
+                            error ? error : _("Unknown error"),
                             detailed_error ? detailed_error: "");
     }
     gtk_dialog_run (GTK_DIALOG (msgbox));

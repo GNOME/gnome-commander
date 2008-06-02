@@ -236,11 +236,11 @@ msgid "/Counter"
 msgstr "/Licznik"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:161
-msgid "/Counter (precision)"
+msgid "/Counter (width)"
 msgstr "/Licznik (liczba cyfr)"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:162
-msgid "/Hexadecimal random number (precision)"
+msgid "/Hexadecimal random number (width)"
 msgstr "Losowa liczba szestnastkowa (liczba cyfr)"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:164
@@ -586,21 +586,20 @@ msgstr "Montowanie nie powiodło się: mount został zakończony z kodem stanu %
 
 #: ../src/gnome-cmd-con-device.cc:206
 msgid ""
-"Volume unmounting succeeded.\n"
-"It is safe to eject the media."
-msgstr ""
+"Device is now safe to remove"
+msgstr "Teraz można bezpiecznie usunąć urządzenie"
 
 #: ../src/gnome-cmd-con-device.cc:214
 #, c-format
 msgid ""
-"Volume unmounting failed:\n"
+"Cannot unmount the volume:\n"
 "%s %s"
 msgstr ""
-"Odmontowanie woluminu nie powiodło się:\n"
+"Nie można odmontować woluminu:\n"
 "%s %s"
 
 #: ../src/gnome-cmd-con-device.cc:215
-msgid "Unknown Error"
+msgid "Unknown error"
 msgstr "Nieznany błąd"
 
 #: ../src/gnome-cmd-con-device.cc:403
