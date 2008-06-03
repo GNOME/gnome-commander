@@ -30,7 +30,6 @@ using namespace std;
 
 struct _GnomeCmdConFtpPrivate
 {
-    gchar *alias;
     gchar *host_name;
     gushort host_port;
     gchar *remote_dir;
@@ -169,7 +168,6 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdConFtp *con = GNOME_CMD_CON_FTP (object);
 
-    g_free (con->priv->alias);
     g_free (con->priv->host_name);
     g_free (con->priv->user_name);
     g_free (con->priv->pw);
@@ -244,7 +242,6 @@ static void init (GnomeCmdConFtp *ftp_con)
 
     ftp_con->priv = g_new0 (GnomeCmdConFtpPrivate, 1);
 
-    // ftp_con->priv->alias = NULL;
     // ftp_con->priv->host_name = NULL;
     // ftp_con->priv->host_port = NULL;
     // ftp_con->priv->remote_dir = NULL;
@@ -302,7 +299,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
-    gnome_cmd_con_ftp_set_alias (server, alias);
+    gnome_cmd_con_set_alias (con, alias);
     gnome_cmd_con_set_uri (con, text_uri);
 
     gnome_cmd_con_ftp_set_host_name (server, host);
@@ -311,7 +308,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
     gnome_cmd_con_ftp_set_user_name (server, user);
     gnome_cmd_con_ftp_set_pw (server, password);
 
-    // do not set con->alias as it is already done in gnome_cmd_con_ftp_set_alias ()
     con->method = gnome_vfs_uri_is_local (uri) ? CON_LOCAL :
                   g_str_equal (scheme, "ftp")  ? (user && g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
                   g_str_equal (scheme, "sftp") ? CON_SSH :
@@ -358,7 +354,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, gu
                                 stringify (_user, user),
                                 stringify (_password, password));
 
-    gnome_cmd_con_ftp_set_alias (server, alias);
+    gnome_cmd_con_set_alias (con, alias);
     gnome_cmd_con_set_uri (con, _uri);
 
     gnome_cmd_con_ftp_set_host_name (server, host);
@@ -367,31 +363,11 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, gu
     gnome_cmd_con_ftp_set_user_name (server, user);
     gnome_cmd_con_ftp_set_pw (server, password);
 
-    // do not set con->alias as it is done in gnome_cmd_con_ftp_set_alias ()
     con->gnome_auth = !password && con->method!=CON_ANON_FTP;          // ?????????
 
     con->open_msg = g_strdup_printf (_("Connecting to %s\n"), host);
 
     return server;
-}
-
-
-void gnome_cmd_con_ftp_set_alias (GnomeCmdConFtp *con, const gchar *alias)
-{
-    g_return_if_fail (con != NULL);
-    g_return_if_fail (con->priv != NULL);
-
-    g_free (con->priv->alias);
-
-    con->priv->alias = g_strdup (alias);
-    gnome_cmd_con_set_alias (GNOME_CMD_CON (con), alias);
-
-    if (!alias)
-        alias = _("<New connection>");
-
-    GNOME_CMD_CON (con)->go_text = g_strdup_printf (_("Go to: %s"), alias);
-    GNOME_CMD_CON (con)->open_text = g_strdup_printf (_("Connect to: %s"), alias);
-    GNOME_CMD_CON (con)->close_text = g_strdup_printf (_("Disconnect from: %s"), alias);
 }
 
 

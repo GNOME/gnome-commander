@@ -644,17 +644,16 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
         const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free !!
         const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free !!
 
-        gnome_cmd_con_ftp_set_alias (server, alias);
+        gnome_cmd_con_set_alias (con, alias);
+        gnome_cmd_con_set_uri (con, conndlg->priv->uri_str);
+        con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (conndlg->priv->type_combo));
+        con->gnome_auth = conndlg->priv->use_auth;
+
         gnome_cmd_con_ftp_set_host_name (server, host);
         gnome_cmd_con_ftp_set_host_port (server, port);
         gnome_cmd_con_ftp_set_remote_dir (server, remote_dir);
         gnome_cmd_con_ftp_set_user_name (server, user);
         gnome_cmd_con_ftp_set_pw (server, password);
-
-        // do not set con->alias as it is already done in gnome_cmd_con_ftp_set_alias (alias, ...)
-        gnome_cmd_con_set_uri (con, conndlg->priv->uri_str);
-        con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (conndlg->priv->type_combo));
-        con->gnome_auth = conndlg->priv->use_auth;
 
         gnome_vfs_uri_unref (uri);
     }

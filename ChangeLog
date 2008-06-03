@@ -1,3 +1,11 @@
+2008-06-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con-dialog.cc:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-con-ftp.h:
+	* src/gnome-cmd-con.h:
+	Removed superfluous alias from GnomeCmdConFtp object
+
 2008-06-02  Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp>
 
 	* src/gnome-cmd-includes.h:

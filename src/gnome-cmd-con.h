@@ -187,7 +187,14 @@ inline void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL)
 {
     g_return_if_fail (GNOME_CMD_IS_CON (con));
     g_free (con->alias);
-    con->alias = g_strdup(alias);
+    con->alias = g_strdup (alias);
+
+    if (!alias)
+        alias = _("<New connection>");
+
+    con->go_text = g_strdup_printf (_("Go to: %s"), alias);
+    con->open_text = g_strdup_printf (_("Connect to: %s"), alias);
+    con->close_text = g_strdup_printf (_("Disconnect from: %s"), alias);
 }
 
 void gnome_cmd_con_set_cwd (GnomeCmdCon *con, GnomeCmdDir *dir);
