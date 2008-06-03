@@ -6,6 +6,9 @@
 	* src/gnome-cmd-con.h:
 	Removed superfluous alias from GnomeCmdConFtp object
 
+	* src/gnome-cmd-data.cc:
+	Simplify code for connections loading from cfg
+
 2008-06-02  Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp>
 
 	* src/gnome-cmd-includes.h:

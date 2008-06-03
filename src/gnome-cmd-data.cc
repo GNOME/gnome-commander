@@ -310,9 +310,10 @@ inline gboolean load_connections (const gchar *fname)
                         else
                         {
                             const gchar *text_uri = a[2].c_str();
-                            GnomeVFSURI *uri = gnome_vfs_uri_new (text_uri);
 
-                            if (!uri)
+                            server = gnome_cmd_con_ftp_new (alias, text_uri);
+
+                            if (!server)
                             {
                                 g_warning ("Invalid URI in the '%s' file", path);
                                 g_warning ("\t... %s", line);
@@ -320,34 +321,7 @@ inline gboolean load_connections (const gchar *fname)
                                 //  ????
                             }
                             else
-                            {
-                                const gchar *scheme = gnome_vfs_uri_get_scheme (uri);       // do not g_free
-                                const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
-                                const guint  port = gnome_vfs_uri_get_host_port (uri);
-                                const gchar *remote_dir = gnome_vfs_uri_get_path (uri);     // do not g_free
-                                const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free
-                                const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
-
-                                server = gnome_cmd_con_ftp_new (alias, host, port, user, password, remote_dir);
-
-                                GnomeCmdCon *con = GNOME_CMD_CON (server);
-
-                                // do not set con->alias as it is already done in gnome_cmd_con_ftp_new (alias, ...)
-                                con->uri = g_strdup (text_uri);
-                                con->method = gnome_vfs_uri_is_local (uri) ? CON_LOCAL :
-                                              g_str_equal (scheme, "ftp") ? (g_str_equal (user, "anonymous") ? CON_ANON_FTP : CON_FTP) :
-                                              g_str_equal (scheme, "sftp") ? CON_SSH :
-                                              g_str_equal (scheme, "dav") ? CON_DAV :
-                                              g_str_equal (scheme, "davs") ? CON_DAVS:
-                                              g_str_equal (scheme, "smb") ? CON_SMB :
-                                                                            CON_URI;
-
-                                con->gnome_auth = !password && con->method!=CON_ANON_FTP;
-
                                 gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
-
-                                gnome_vfs_uri_unref (uri);
-                            }
                         }
 
                         g_free (alias);
@@ -377,21 +351,10 @@ inline gboolean load_connections (const gchar *fname)
                                     pw2 = gnome_vfs_unescape_string (pw, NULL);
 
                                 server = gnome_cmd_con_ftp_new (alias2, host2, port2, user2, pw2, NULL);
+                                // server = gnome_cmd_con_ftp_new (alias2, gnome_cmd_con_make_ftp_uri (host2, port2, NULL, user2, pw2));
 
                                 GnomeCmdCon *con = GNOME_CMD_CON (server);
 
-                                GnomeVFSURI *uri = gnome_vfs_uri_new ("ftp:");
-
-                                gnome_vfs_uri_set_host_name (uri, host2);
-                                gnome_vfs_uri_set_host_port (uri, port2);
-                                if (user2 && *user2)                                // do not set empty user
-                                    gnome_vfs_uri_set_user_name (uri, user2);
-                                if (pw2 && *pw2)                                    // do not set empty password
-                                    gnome_vfs_uri_set_password (uri, pw2);
-
-                                // do not set con->alias as it is already done in gnome_cmd_con_ftp_new (alias, ...)
-                                con->uri = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-                                con->method = g_str_equal (user2, "anonymous") ? CON_ANON_FTP : CON_FTP;
                                 con->gnome_auth = FALSE;
 
                                 gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
@@ -399,7 +362,6 @@ inline gboolean load_connections (const gchar *fname)
                                 g_free (host2);
                                 g_free (user2);
                                 g_free (pw2);
-                                gnome_vfs_uri_unref (uri);
                             }
 
                             g_free (alias2);
@@ -429,31 +391,17 @@ inline gboolean load_connections (const gchar *fname)
                                 gchar *user2        = gnome_vfs_unescape_string (a[6], NULL);
                                 gchar *password2    = gnome_vfs_unescape_string (a[7], NULL);
 
-                                GnomeCmdConFtp *server = gnome_cmd_con_ftp_new (alias2, host2, port2, user2, password2, remote_dir2);
+                                server = gnome_cmd_con_ftp_new (alias2, host2, port2, user2, password2, remote_dir2);
+                                // server = gnome_cmd_con_ftp_new (alias2, gnome_cmd_con_make_ftp_uri (host2, port2, remote_dir2, user2, password2));
 
                                 GnomeCmdCon *con = GNOME_CMD_CON (server);
 
-                                GnomeVFSURI *uri0 = gnome_vfs_uri_new (scheme2);
-                                GnomeVFSURI *uri1 = gnome_vfs_uri_append_path (uri0, remote_dir2);
-
-                                gnome_vfs_uri_set_host_name (uri1, host2);
-                                gnome_vfs_uri_set_host_port (uri1, port2);
-                                if (user2 && *user2)                                // do not set empty user
-                                    gnome_vfs_uri_set_user_name (uri1, user2);
-                                if (password2 && *password2)                        // do not set empty password
-                                    gnome_vfs_uri_set_password (uri1, password2);
-
-                                // do not set con->alias as it is already done in gnome_cmd_con_ftp_new (alias, ...)
-                                con->uri = gnome_vfs_uri_to_string (uri1, GNOME_VFS_URI_HIDE_NONE);
-                                con->method = g_str_equal (user2, "anonymous") ? CON_ANON_FTP : CON_FTP;
                                 con->gnome_auth = FALSE;
 
                                 g_free (host2);
                                 g_free (remote_dir2);
                                 g_free (user2);
                                 g_free (password2);
-                                gnome_vfs_uri_unref (uri0);
-                                gnome_vfs_uri_unref (uri1);
 
                                 gnome_cmd_con_list_add_ftp (data->priv->con_list, server);
                             }
