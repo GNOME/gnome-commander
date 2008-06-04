@@ -787,14 +787,14 @@ static void combo_box_insert_text (gpointer  data, gpointer  user_data)
 
 static void init (GnomeCmdSearchDialog *dialog)
 {
+    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+
     GtkWidget *window;
     GtkWidget *vbox1;
     GtkWidget *table;
     GtkWidget *label;
     GtkWidget *sw;
     GtkWidget *pbar;
-    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
-
 
     dialog->priv = g_new0 (GnomeCmdSearchDialogPrivate, 1);
     dialog->priv->data = g_new0 (SearchData, 1);
@@ -820,7 +820,7 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     table_add (table, dialog->priv->pattern_combo, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     if (defaults->name_patterns)
-      g_list_foreach (defaults->name_patterns, combo_box_insert_text, dialog->priv->pattern_combo);
+        g_list_foreach (defaults->name_patterns, combo_box_insert_text, dialog->priv->pattern_combo);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->pattern_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo))));
@@ -836,33 +836,31 @@ static void init (GnomeCmdSearchDialog *dialog)
             GTK_COMBO (gnome_file_entry_gnome_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser))),
             defaults->directories);
 
-    dialog->priv->dir_entry =
-        gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser));
-
-    // Find text
-    dialog->priv->find_text_check = create_check_with_mnemonic (window, _("Find _text: "), "find_text");
-    table_add (table, dialog->priv->find_text_check, 0, 2, GTK_FILL);
-
-    dialog->priv->find_text_combo = create_combo_box_entry (window);
-    table_add (table, dialog->priv->find_text_combo, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    gtk_widget_set_sensitive (dialog->priv->find_text_combo, FALSE);
-    if (defaults->content_patterns)
-      g_list_foreach (defaults->content_patterns, combo_box_insert_text, dialog->priv->find_text_combo);
-
-    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->find_text_combo), 0);
-    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->find_text_combo))));
-
+    dialog->priv->dir_entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser));
 
     // Recurse check
     dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
-    gtk_table_attach (GTK_TABLE (table), dialog->priv->recurse_check, 0, 2, 3, 4,
+    gtk_table_attach (GTK_TABLE (table), dialog->priv->recurse_check, 1, 2, 2, 3,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults->recursive);
 
+    // Find text
+    dialog->priv->find_text_check = create_check_with_mnemonic (window, _("Find _text: "), "find_text");
+    table_add (table, dialog->priv->find_text_check, 0, 3, GTK_FILL);
+
+    dialog->priv->find_text_combo = create_combo_box_entry (window);
+    table_add (table, dialog->priv->find_text_combo, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
+    gtk_widget_set_sensitive (dialog->priv->find_text_combo, FALSE);
+    if (defaults->content_patterns)
+        g_list_foreach (defaults->content_patterns, combo_box_insert_text, dialog->priv->find_text_combo);
+
+    gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->find_text_combo), 0);
+    gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->find_text_combo))));
+
     // Case check
-    dialog->priv->case_check = create_check_with_mnemonic (window, _("_Case sensitive"), "case_check");
-    gtk_table_attach (GTK_TABLE (table), dialog->priv->case_check, 0, 2, 4, 5,
+    dialog->priv->case_check = create_check_with_mnemonic (window, _("Case sensiti_ve"), "case_check");
+    gtk_table_attach (GTK_TABLE (table), dialog->priv->case_check, 1, 2, 4, 5,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check), defaults->case_sens);

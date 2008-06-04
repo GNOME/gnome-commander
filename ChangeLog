@@ -1,3 +1,8 @@
+2008-06-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-search-dialog.cc:
+	Revamped 'Search...' dlg
+
 2008-06-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con-dialog.cc:
