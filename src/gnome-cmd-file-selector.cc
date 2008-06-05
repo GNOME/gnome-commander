@@ -1831,6 +1831,11 @@ GnomeCmdCon *gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs)
 }
 
 
+gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID)
+{
+    return gnome_cmd_file_selector_is_local (gnome_cmd_main_win_get_fs (main_win, fsID));
+}
+
 void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
