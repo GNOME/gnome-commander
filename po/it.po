@@ -1278,7 +1278,7 @@ msgid "_Diff"
 msgstr "Con_fronta"
 
 #: ../src/gnome-cmd-main-menu.cc:473
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "Confron_ta Cartelle"
 
 #: ../src/gnome-cmd-main-menu.cc:480

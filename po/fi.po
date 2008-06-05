@@ -1193,7 +1193,7 @@ msgstr "_Diff"
 
 #: ../src/gnome-cmd-main-menu.cc:473
 #, fuzzy
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "_Vertaa kansioita"
 
 #: ../src/gnome-cmd-main-menu.cc:480

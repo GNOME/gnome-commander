@@ -1,3 +1,7 @@
+2008-06-05  Maciej Piechotka  <uzytkownik2@gmail.com>
+
+	* *.po: "S_ynchonize Directories" -> "S_ynchronize Directories" (problem #536705)
+
 2008-06-05  Andre Klapper  <a9016009@gmx.de>
 
 	* de.po: Updated German translation.

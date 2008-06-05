@@ -1216,7 +1216,7 @@ msgid "_Diff"
 msgstr "ཁྱད་པར།(_D)"
 
 #: ../src/gnome-cmd-main-menu.cc:478
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "སྣོད་ཐོ་ཚུ་ མཉམ་འབྱུང་འབད་ (_Y)"
 
 #: ../src/gnome-cmd-main-menu.cc:485

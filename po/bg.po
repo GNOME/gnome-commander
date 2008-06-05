@@ -1208,7 +1208,7 @@ msgid "_Diff"
 msgstr "_Разлики"
 
 #: ../src/gnome-cmd-main-menu.cc:478
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "_Съгласуване на папките"
 
 #: ../src/gnome-cmd-main-menu.cc:485

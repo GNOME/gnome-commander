@@ -1310,7 +1310,7 @@ msgid "_Diff"
 msgstr "_Diff"
 
 #: ../src/gnome-cmd-main-menu.cc:473
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "Synchronizacja katalogów"
 
 #: ../src/gnome-cmd-main-menu.cc:480

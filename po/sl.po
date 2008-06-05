@@ -1312,7 +1312,7 @@ msgid "_Diff"
 msgstr "_Primerjava vsebine"
 
 #: ../src/gnome-cmd-main-menu.cc:473
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "_Usklajevanje map"
 
 #: ../src/gnome-cmd-main-menu.cc:480

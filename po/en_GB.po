@@ -1199,8 +1199,8 @@ msgid "_Diff"
 msgstr "_Diff"
 
 #: ../src/gnome-cmd-main-menu.cc:473
-msgid "S_ynchonize Directories"
-msgstr "S_ynchonise Directories"
+msgid "S_ynchronize Directories"
+msgstr "S_ynchronise Directories"
 
 #: ../src/gnome-cmd-main-menu.cc:480
 msgid "Start _GNOME Commander as Root"

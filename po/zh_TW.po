@@ -1209,7 +1209,7 @@ msgstr ""
 
 #: ../src/gnome-cmd-main-menu.cc:478
 #, fuzzy
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "目錄"
 
 #: ../src/gnome-cmd-main-menu.cc:485

@@ -1286,7 +1286,7 @@ msgstr "Eltérés (_diff)"
 
 #: ../src/gnome-cmd-main-menu.cc:473
 #, fuzzy
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "Könyvtárak össze_hasonlítása"
 
 #: ../src/gnome-cmd-main-menu.cc:480

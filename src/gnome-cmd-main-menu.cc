@@ -470,7 +470,7 @@ static void init (GnomeCmdMainMenu *main_menu)
             NULL
         },
         {
-            MENU_TYPE_ITEM, _("S_ynchonize Directories"), "", NULL,
+            MENU_TYPE_ITEM, _("S_ynchronize Directories"), "", NULL,
             (gpointer) file_sync_dirs, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL

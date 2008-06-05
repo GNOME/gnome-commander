@@ -1211,7 +1211,7 @@ msgstr "差异(_D)"
 
 #: ../src/gnome-cmd-main-menu.cc:478
 #, fuzzy
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "比较目录(_C)"
 
 #: ../src/gnome-cmd-main-menu.cc:485

@@ -1244,7 +1244,7 @@ msgstr "_Razlike"
 # bug: directries -> directories
 #: ../src/gnome-cmd-main-menu.cc:478
 #, fuzzy
-msgid "S_ynchonize Directories"
+msgid "S_ynchronize Directories"
 msgstr "Poredi _direktorijume"
 
 #: ../src/gnome-cmd-main-menu.cc:485
