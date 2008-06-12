@@ -4409,6 +4409,45 @@
                         <entry><para></para></entry>
                     </row>
                     <row valign="top">
+                        <entry><para>command.execute<option>|user_command</option></para></entry>
+                        <entry><para>Execute user defined command. &app; replaces found placeholders with:</para>
+                               <para></para>
+                                    <itemizedlist>
+                                        <listitem>
+                                            <para><guilabel>%f</guilabel> file name (or list for multiple selections)</para>
+                                        </listitem>
+                                        <listitem>
+                                            <para><guilabel>%F</guilabel> quoted filename (or list for multiple selections)</para>
+                                        </listitem>
+                                        <listitem>
+                                            <para><guilabel>%p</guilabel> full file system path (or list for multiple selections)</para>
+                                        </listitem>
+                                        <listitem>
+                                            <para><guilabel>%P</guilabel> quoted full file system path (or list for multiple selections)</para>
+                                        </listitem>
+                                        <listitem>
+                                            <para><guilabel>%u</guilabel> fully qualified URI for the file (or list for multiple selections)</para>
+                                        </listitem>
+                                        <listitem>
+                                            <para><guilabel>%d</guilabel> full path to the directory containg file</para>
+                                        </listitem>
+                                        <listitem>
+                                            <para><guilabel>%D</guilabel> quoted full path to the directory containing file</para>
+                                        </listitem>
+                                        <listitem>
+                                            <para><guilabel>%s</guilabel> synonym for <guilabel>%P</guilabel> (for compatibility with previous versions of &app;)</para>
+                                        </listitem>
+                                        <listitem>
+                                            <para><guilabel>%%</guilabel> percent sign</para>
+                                        </listitem>
+                                    </itemizedlist>
+                                    <note>
+                                        <para>Unknown placeholders are copied verbatim without any substitution.</para>
+                                    </note>
+                        </entry>
+                        <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
                         <entry><para>command.open_folder</para></entry>
                         <entry><para>Open the current location in Nautilus file manager</para></entry>
                         <entry><para></para></entry>
@@ -5890,7 +5929,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>...</para>
+                            <para>User defined shortcuts to arbitrary programs</para>
                         </listitem>
                         <listitem>
                             <para>Updated help docs</para>

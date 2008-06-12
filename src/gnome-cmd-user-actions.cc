@@ -132,6 +132,7 @@ static UserActionData user_actions_data[] = {
                                              {bookmarks_add_current, "bookmarks.add_current", N_("Bookmark current directory")},
                                              {bookmarks_edit, "bookmarks.edit", N_("Manage bookmarks")},
                                              {bookmarks_goto, "bookmarks.goto", N_("Go to bookmarked location")},
+                                             {command_execute, "command.execute", N_("Execute command")},
                                              {command_open_nautilus, "command.open_folder", N_("Open folder")},
                                              {command_open_terminal, "command.open_terminal", N_("Open terminal")},
                                              {command_root_mode, "command.root_mode", N_("Start GNOME Commander as root")},
@@ -926,6 +927,116 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer not_used)
 
 
 /************** Command Menu **************/
+template <typename F>
+inline void get_file_list (string &s, GList *sfl, F f)
+{
+    vector<string> a;
+
+    for (GList *i = sfl; i; i = i->next)
+        a.push_back ((*f) (GNOME_CMD_FILE (i->data)));
+
+    join (s, a.begin(), a.end());
+}
+
+
+void command_execute (GtkMenuItem *menuitem, gpointer command)
+{
+    g_return_if_fail (command != NULL);
+
+    DEBUG ('g', "invoking: %s\n", command);
+
+    string cmd;
+    string filename = "[f]";
+    string quoted_filename = "[F]";
+    string file_path = "[p]";
+    string quoted_file_path = "[P]";
+    string dir_path = "[d]";
+    string quoted_dir_path = "[D]";
+    string uri = "[U]";
+
+    GnomeCmdFileList *fl = get_fl (ACTIVE);
+    GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
+    sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
+
+    get_file_list (filename, sfl, gnome_cmd_file_get_name);
+    get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
+    get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
+    get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
+    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str);
+
+    g_list_free (sfl);
+
+    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (get_fs (ACTIVE));
+
+    stringify (dir_path, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir)));
+    stringify (quoted_dir_path, gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (dir)));
+
+    gboolean percent = FALSE;
+
+    cmd.reserve(2000);
+
+    for (const char *s=(const char *) command; *s; ++s)
+    {
+        if (!percent)
+        {
+            percent = *s=='%';
+
+            if (!percent)
+                cmd += *s;
+
+            continue;
+        }
+
+        switch (*s)
+        {
+            case 'f':           // %f  file name (or list for multiple selections)
+                cmd += filename;
+                break;
+
+            case 'F':           // %F  quoted filename (or list for multiple selections)
+                cmd += quoted_filename;
+                break;
+
+            case 'p':           // %p  full file system path (or list for multiple selections)
+                cmd += file_path;
+                break;
+
+            case 'P':           // %P  quoted full file system path (or list for multiple selections)
+            case 's':           // %s  synonym for %P (for compatibility with previous versions of gcmd)
+                cmd += quoted_file_path;
+                break;
+
+            case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
+                cmd += uri;
+                break;
+
+            case 'd':           // %d  full path to the directory containing file
+                cmd += dir_path;
+                break;
+
+            case 'D':           // %D  quoted full path to the directory containg file
+                cmd += quoted_dir_path;
+                break;
+
+            default:
+                cmd += '%';
+            case '%':           // %%  percent sign
+                cmd += *s;
+                break;
+        }
+
+        percent = FALSE;
+    }
+
+    if (percent)
+        cmd += '%';
+
+    DEBUG ('g', "running: %s\n", cmd.c_str());
+
+    gnome_execute_shell (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, cmd.c_str());
+}
+
+
 void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 {
     gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (get_fs (ACTIVE))));

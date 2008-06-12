@@ -1,7 +1,14 @@
+2008-06-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Added support for user defined shortcuts to arbitrary programs,
+	available as "command.execute" user action
+
 2008-06-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data:
-	Add GNOME Commander ftp site to remote servers fot first-time users
+	Add GNOME Commander ftp site to remote servers for the first-time users
 
 2008-06-05  Piotr Eljasiak  <epiotr@use.pl>
 
