@@ -939,6 +939,18 @@ inline void get_file_list (string &s, GList *sfl, F f)
 }
 
 
+template <typename F, typename T>
+inline void get_file_list (string &s, GList *sfl, F f, T t)
+{
+    vector<string> a;
+
+    for (GList *i = sfl; i; i = i->next)
+        a.push_back ((*f) (GNOME_CMD_FILE (i->data), t));
+
+    join (s, a.begin(), a.end());
+}
+
+
 void command_execute (GtkMenuItem *menuitem, gpointer command)
 {
     g_return_if_fail (command != NULL);
@@ -962,7 +974,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
     get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
     get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
-    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str);
+    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_NONE);
 
     g_list_free (sfl);
 
