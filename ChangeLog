@@ -1,3 +1,8 @@
+2008-06-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions:
+	Simplified code for "file.sendto" user action
+
 2008-06-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:

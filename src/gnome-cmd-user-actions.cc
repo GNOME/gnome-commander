@@ -707,29 +707,7 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_sendto (GtkMenuItem *menuitem, gpointer not_used)
 {
-    string cmd = "nautilus-sendto";
-
-    GnomeCmdFileList *fl = get_fl (ACTIVE);
-    GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
-    sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
-
-    for (GList *i = sfl; i; i = i->next)
-    {
-        GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
-
-        if (!finfo)
-            continue;
-
-        cmd += ' ';
-        cmd += (char *) gnome_cmd_file_get_quoted_real_path (finfo);
-    }
-
-    g_list_free (sfl);
-
-    g_print (_("running `%s'\n"), cmd.c_str());
-
-    if (cmd != "nautilus-sendto")
-        run_command (cmd.c_str(), FALSE);
+    command_execute (menuitem, (gpointer) "nautilus-sendto %s");
 }
 
 
