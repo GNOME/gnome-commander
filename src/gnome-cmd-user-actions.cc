@@ -577,6 +577,30 @@ GtkTreeModel *gnome_cmd_user_actions_create_model ()
 }
 
 
+template <typename F>
+inline void get_file_list (string &s, GList *sfl, F f)
+{
+    vector<string> a;
+
+    for (GList *i = sfl; i; i = i->next)
+        a.push_back ((*f) (GNOME_CMD_FILE (i->data)));
+
+    join (s, a.begin(), a.end());
+}
+
+
+template <typename F, typename T>
+inline void get_file_list (string &s, GList *sfl, F f, T t)
+{
+    vector<string> a;
+
+    for (GList *i = sfl; i; i = i->next)
+        a.push_back ((*f) (GNOME_CMD_FILE (i->data), t));
+
+    join (s, a.begin(), a.end());
+}
+
+
 /***************************************/
 void no_action (GtkMenuItem *menuitem, gpointer not_used)
 {
@@ -870,65 +894,34 @@ void edit_filter (GtkMenuItem *menuitem, gpointer not_used)
 
 void edit_copy_fnames (GtkMenuItem *menuitem, gpointer not_used)
 {
-    static gchar sep[] = " ";
-
     GdkModifierType mask;
 
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
     GnomeCmdFileList *fl = get_fl (ACTIVE);
     GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
-    gchar **fnames = g_new (char *, g_list_length (sfl) + 1);
-    gchar **f = fnames;
-
     sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
 
-    for (GList *i = sfl; i; i = i->next)
-    {
-        GnomeCmdFile *finfo = GNOME_CMD_FILE (i->data);
+    string fnames;
 
-        if (finfo)
-          *f++ = (mask & GDK_SHIFT_MASK) ? (char *) gnome_cmd_file_get_real_path (finfo) :
-                                           (char *) gnome_cmd_file_get_name (finfo);
-    }
+    fnames.reserve(2000);
 
-    *f = NULL;
+    if (state_is_blank (mask))
+        get_file_list (fnames, sfl, gnome_cmd_file_get_name);
+    else
+        if (state_is_shift (mask))
+            get_file_list (fnames, sfl, gnome_cmd_file_get_real_path);
+        else
+            if (state_is_alt (mask))
+                get_file_list (fnames, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_PASSWORD);
 
-    gchar *s = g_strjoinv(sep,fnames);
+    gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), fnames.c_str(), -1);
 
-    gtk_clipboard_set_text (gtk_clipboard_get (GDK_SELECTION_CLIPBOARD), s, -1);
-
-    g_free (s);
     g_list_free (sfl);
-    g_free (fnames);
 }
 
 
 /************** Command Menu **************/
-template <typename F>
-inline void get_file_list (string &s, GList *sfl, F f)
-{
-    vector<string> a;
-
-    for (GList *i = sfl; i; i = i->next)
-        a.push_back ((*f) (GNOME_CMD_FILE (i->data)));
-
-    join (s, a.begin(), a.end());
-}
-
-
-template <typename F, typename T>
-inline void get_file_list (string &s, GList *sfl, F f, T t)
-{
-    vector<string> a;
-
-    for (GList *i = sfl; i; i = i->next)
-        a.push_back ((*f) (GNOME_CMD_FILE (i->data), t));
-
-    join (s, a.begin(), a.end());
-}
-
-
 void command_execute (GtkMenuItem *menuitem, gpointer command)
 {
     g_return_if_fail (command != NULL);

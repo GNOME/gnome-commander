@@ -5932,6 +5932,9 @@
                             <para>User defined shortcuts to arbitrary programs</para>
                         </listitem>
                         <listitem>
+                            <para>Copying selected URIs to clipboard with <keycombo><keycap>ALT</keycap><keycap>click</keycap></keycombo> on toolbar button</para>
+                        </listitem>
+                        <listitem>
                             <para>Updated help docs</para>
                         </listitem>
                         <listitem>

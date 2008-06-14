@@ -8,6 +8,7 @@ Bug fixes:
 
 New features:
  * User defined shortcuts to arbitrary programs
+ * Copying selected URIs to clipboard with ALT+click on toolbar button
  * Updated help docs
  * New or updated translations: cs, de, es, pl
  * New key bindings:

@@ -3,6 +3,9 @@
 	* src/gnome-cmd-user-actions:
 	Simplified code for "file.sendto" user action
 
+	* src/gnome-cmd-user-actions.cc:
+	Added copying selected URIs to clipboard with ALT+click on toolbar button
+
 2008-06-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc:
