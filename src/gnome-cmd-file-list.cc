@@ -2075,7 +2075,7 @@ void gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl)
 
     if (files)
     {
-        GtkWidget *dialog = gnome_cmd_advrename_dialog_new (files);
+        GtkWidget *dialog = gnome_cmd_advrename_dialog_new (gnome_cmd_file_list_sort_selection (files, fl));
 
         gtk_widget_ref (dialog);
         gtk_widget_show (dialog);

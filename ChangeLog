@@ -1,6 +1,11 @@
+2008-06-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	Use current column sorting in advrename
+
 2008-06-15  Piotr Eljasiak  <epiotr@use.pl>
 
-	* src/gnome-cmd-user-actions:
+	* src/gnome-cmd-user-actions.cc:
 	Simplified code for "file.sendto" user action
 
 	* src/gnome-cmd-user-actions.cc:
@@ -1902,7 +1907,6 @@
 	* src/tags/gnome-cmd-tags.c:
 	Fixed inprecise ID3.Duration title
 
-
 2006-10-30  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.c:
@@ -2372,7 +2376,7 @@
 	* src/gnome-cmd-file-list.h:
 	* src/gnome-cmd-main-win.c:
 	* src/gnome-cmd-options-dialog.c:
-	Quick search by ALT+Letter(s)
+	Quick search by ALT+letter(s)
 
 2006-03-23  Assaf Gordon  <agordon88@gmail.com>
 
@@ -2603,7 +2607,7 @@
 
 	* src/gnome-cmd-internal-viewer.c:
 	* src/utils.c:
-        i18n
+	i18n
 
 2006-02-08  Assaf Gordon  <agordon88@gmail.com>
 
