@@ -247,8 +247,6 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     if (row == -1)
         return;
 
-    if (g_list_index (fl->priv->selected_files, finfo) != -1)
-        return;
 
     if (!gnome_cmd_data_get_use_ls_colors ())
         gtk_clist_set_row_style (GTK_CLIST (fl), row, sel_list_style);
@@ -261,6 +259,9 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
             gtk_clist_set_background (GTK_CLIST (fl), row, colors->sel_bg);
         }
     }
+
+    if (g_list_index (fl->priv->selected_files, finfo) != -1)
+        return;
 
     gnome_cmd_file_ref (finfo);
     fl->priv->selected_files = g_list_append (fl->priv->selected_files, finfo);
