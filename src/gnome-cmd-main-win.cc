@@ -1154,10 +1154,10 @@ void gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
     {
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Refresh"), view_refresh, GTK_STOCK_REFRESH),
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Up one directory"), view_up, GTK_STOCK_GO_UP),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Goto the oldest"), view_first, GTK_STOCK_GOTO_FIRST),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Go to the oldest"), view_first, GTK_STOCK_GOTO_FIRST),
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Go back"), view_back, GTK_STOCK_GO_BACK),
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Go forward"), view_forward, GTK_STOCK_GO_FORWARD),
-        GNOMEUIINFO_ITEM_STOCK(NULL, _("Goto the latest"), view_last, GTK_STOCK_GOTO_LAST),
+        GNOMEUIINFO_ITEM_STOCK(NULL, _("Go to the latest"), view_last, GTK_STOCK_GOTO_LAST),
         GNOMEUIINFO_SEPARATOR,
         GNOMEUIINFO_ITEM(NULL, _("Copy file names (SHIFT for full paths, ALT for URIs)"), edit_copy_fnames, copy_file_names_xpm),
         GNOMEUIINFO_ITEM_STOCK(NULL, _("Cut"), edit_cap_cut, GTK_STOCK_CUT),

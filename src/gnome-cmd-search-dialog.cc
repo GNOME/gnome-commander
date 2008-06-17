@@ -622,7 +622,7 @@ static void on_stop (GtkButton *button, GnomeCmdSearchDialog *dialog)
 
 
 /**
- * The user has clicked on the goto button
+ * The user has clicked on the go to button
  *
  */
 static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
@@ -867,7 +867,7 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     dialog->priv->help_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
     dialog->priv->close_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close), dialog);
-    dialog->priv->goto_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Goto"), GTK_SIGNAL_FUNC (on_goto), dialog);
+    dialog->priv->goto_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("_Go to"), GTK_SIGNAL_FUNC (on_goto), dialog);
     dialog->priv->stop_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_STOP, GTK_SIGNAL_FUNC (on_stop), dialog);
     dialog->priv->search_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_FIND, GTK_SIGNAL_FUNC (on_search), dialog);
 
