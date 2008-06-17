@@ -7,6 +7,9 @@
 	* src/gnome-cmd-con.h:
 	Remote connection GUI: support for SSH+WebDAV in remote connection dlg
 
+	* src/gnome-cmd-con-dialog.cc:
+	Set default method to CON_SSH for new connections
+
 2008-06-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

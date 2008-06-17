@@ -548,8 +548,7 @@ GnomeCmdConFtp *gnome_cmd_connect_dialog_new (gboolean has_alias)
     else
         gtk_widget_set_sensitive (conndlg->priv->alias_entry, FALSE);
 
-    ConnectionMethodID method = CON_FTP;        // later: CON_SSH
-    gtk_combo_box_set_active (GTK_COMBO_BOX (conndlg->priv->type_combo), method);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (conndlg->priv->type_combo), CON_SSH);
 
     conndlg->priv->use_auth = gnome_cmd_data_get_use_gnome_auth_manager ();
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (conndlg->priv->auth_check), conndlg->priv->use_auth);
