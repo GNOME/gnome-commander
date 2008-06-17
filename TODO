@@ -17,7 +17,6 @@
 * advrename & FAM: do not re-sort file list for every single renamed file
 * Bookmark icons for ordinary folders in the device toolbar
 * User defined categories for grouping bookmarks
-* Support for SSH+FTP and WebDAV
 * Editing remote files
 * Optional file deselection after completed action (copy, rename, ...)
 * More plugins:

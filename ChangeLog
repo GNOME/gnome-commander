@@ -3,6 +3,10 @@
 	* src/gnome-cmd-file-list.cc:
 	Fix for problem when re-sorting (keep selection visible)
 
+	* src/gnome-cmd-con-dialog.cc:
+	* src/gnome-cmd-con.h:
+	Remote connection GUI: support for SSH+WebDAV in remote connection dlg
+
 2008-06-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

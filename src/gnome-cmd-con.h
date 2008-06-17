@@ -59,12 +59,12 @@ typedef enum
     CON_OPEN_NOT_STARTED
 } ConOpenResult;
 
-typedef enum        // Keep this order in sync with strings in gnome-cmd-con-dialog.cc
+typedef enum        // Keep this order in sync with strings in gnome-cmd-con-dialog.cc and gnome-cmd-con.cc
 {
-    CON_FTP,
-    CON_ANON_FTP,
     CON_SSH,
     CON_SFTP = CON_SSH,
+    CON_FTP,
+    CON_ANON_FTP,
     CON_SMB,
     CON_DAV,
     CON_DAVS,
