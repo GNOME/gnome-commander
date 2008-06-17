@@ -206,9 +206,9 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         goto bailout;
 
     if (g_list_length (dialog->src_files) == 1)
-        DEBUG ('x', "Im now going to xfer the file file '%s' to '%s'\n", dest_fn, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
+        DEBUG ('x', "Starting xfer the file '%s' to '%s'\n", dest_fn, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
     else
-        DEBUG ('x', "Im now going to xfer %d files to '%s'\n", g_list_length (dialog->src_files), gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
+        DEBUG ('x', "Starting xfer %d files to '%s'\n", g_list_length (dialog->src_files), gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dest_dir)));
 
 
     gnome_cmd_dir_ref (dest_dir);
