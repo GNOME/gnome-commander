@@ -16,6 +16,7 @@ src/gnome-cmd-chmod-component.cc
 src/gnome-cmd-chmod-dialog.cc
 src/gnome-cmd-chown-component.cc
 src/gnome-cmd-chown-dialog.cc
+src/gnome-cmd-con.h
 src/gnome-cmd-con-device.cc
 src/gnome-cmd-con-dialog.cc
 src/gnome-cmd-con-ftp.cc
