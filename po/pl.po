@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-12 21:54+0000\n"
-"PO-Revision-Date: 2008-06-14 20:59+0100\n"
+"POT-Creation-Date: 2008-06-18 05:25+0000\n"
+"PO-Revision-Date: 2008-06-18 09:22+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -567,6 +567,25 @@ msgstr "Chown"
 msgid "Apply Recursively"
 msgstr "Zastosuj do podkatalogów"
 
+#: ../src/gnome-cmd-con.h:193
+msgid "<New connection>"
+msgstr "<Nowe połączenie>"
+
+#: ../src/gnome-cmd-con.h:195
+#, c-format
+msgid "Go to: %s"
+msgstr "Idź do: %s"
+
+#: ../src/gnome-cmd-con.h:196
+#, c-format
+msgid "Connect to: %s"
+msgstr "Połącz z %s"
+
+#: ../src/gnome-cmd-con.h:197
+#, c-format
+msgid "Disconnect from: %s"
+msgstr "Rozłącz z: %s"
+
 #: ../src/gnome-cmd-con-device.cc:115
 #, c-format
 msgid "Failed to execute the mount command"
@@ -691,14 +710,34 @@ msgstr "_Typ usługi:"
 
 #. Keep this in sync with enum ConnectionMethodID in gnome-cmd-con.h
 #: ../src/gnome-cmd-con-dialog.cc:484
+msgid "SSH"
+msgstr "SSH"
+
+#: ../src/gnome-cmd-con-dialog.cc:485
 msgid "FTP (with login)"
 msgstr "FTP (z logowaniem)"
 
-#: ../src/gnome-cmd-con-dialog.cc:485
+#: ../src/gnome-cmd-con-dialog.cc:486
 msgid "Public FTP"
 msgstr "Publiczny FTP"
 
-#: ../src/gnome-cmd-con-dialog.cc:502
+#: ../src/gnome-cmd-con-dialog.cc:487
+msgid "Windows share"
+msgstr "Zasób Windows"
+
+#: ../src/gnome-cmd-con-dialog.cc:488
+msgid "WebDAV (HTTP)"
+msgstr "WebDAV (HTTP)"
+
+#: ../src/gnome-cmd-con-dialog.cc:489
+msgid "Secure WebDAV (HTTPS)"
+msgstr "Bezpieczne WebDAV (HTTPS)"
+
+#: ../src/gnome-cmd-con-dialog.cc:490
+msgid "Custom location"
+msgstr "Własne położenie"
+
+#: ../src/gnome-cmd-con-dialog.cc:501
 msgid "Use _GNOME Keyring Manager for authentication"
 msgstr "Użyj menedżera haseł _GNOME do uwierzytelniania"
 
@@ -819,7 +858,7 @@ msgstr "Usuń"
 
 #: ../src/gnome-cmd-delete-dialog.cc:290
 #: ../src/gnome-cmd-file-selector.cc:2148
-#: ../src/gnome-cmd-user-actions.cc:681
+#: ../src/gnome-cmd-user-actions.cc:705
 #: ../src/utils.cc:523
 #: ../src/utils.cc:551
 msgid "Cancel"
@@ -870,8 +909,8 @@ msgstr "uid"
 msgid "gid"
 msgstr "gid"
 
-#: ../src/gnome-cmd-file-list.cc:2140
-#: ../src/gnome-cmd-file-list.cc:2156
+#: ../src/gnome-cmd-file-list.cc:2141
+#: ../src/gnome-cmd-file-list.cc:2157
 #, c-format
 msgid "Not an ordinary file: %s"
 msgstr "To nie jest zwykły plik: %s"
@@ -1141,7 +1180,7 @@ msgstr "Nazwa linku symbolicznego:"
 
 #: ../src/gnome-cmd-file-selector.cc:2102
 #: ../src/gnome-cmd-file-selector.cc:2148
-#: ../src/gnome-cmd-user-actions.cc:681
+#: ../src/gnome-cmd-user-actions.cc:705
 msgid "Create Symbolic Link"
 msgstr "Utwórz link symboliczny"
 
@@ -1523,8 +1562,9 @@ msgid "Up one directory"
 msgstr "Katalog wyżej"
 
 #: ../src/gnome-cmd-main-win.cc:1157
-msgid "Goto the oldest"
-msgstr "Idzź do pierwszego"
+#, fuzzy
+msgid "Go to the oldest"
+msgstr "Przejdź do rodzica"
 
 #: ../src/gnome-cmd-main-win.cc:1158
 msgid "Go back"
@@ -1535,12 +1575,13 @@ msgid "Go forward"
 msgstr "Dalej"
 
 #: ../src/gnome-cmd-main-win.cc:1160
-msgid "Goto the latest"
-msgstr "Idź do ostatniego"
+#, fuzzy
+msgid "Go to the latest"
+msgstr "Przejdź do rodzica"
 
 #: ../src/gnome-cmd-main-win.cc:1162
-msgid "Copy file names (SHIFT for full paths)"
-msgstr "Kopiuj nazwy plików (z SHIFT całe ścieżki)"
+msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
+msgstr "Kopiuj nazwy plików (SHIFT - całe ścieżki, ALT - URI)"
 
 #: ../src/gnome-cmd-main-win.cc:1163
 #: ../src/gnome-cmd-user-actions.cc:144
@@ -2201,32 +2242,40 @@ msgstr "Tylko bieżący _katalog"
 msgid "_Limited depth"
 msgstr "Do _poziomu"
 
-#. N_("Search local directories only"),
+#: ../src/gnome-cmd-search-dialog.cc:42
+msgid "She_ll syntax"
+msgstr "Składnia powłoki"
+
 #: ../src/gnome-cmd-search-dialog.cc:43
+msgid "Rege_x syntax"
+msgstr "Składnia wyrażeń regularnych"
+
+#. N_("Search local directories only"),
+#: ../src/gnome-cmd-search-dialog.cc:45
 msgid "Files _not containing text"
 msgstr "Aby edytować klawisz skrótu, kliknij na odpowiedni rząd i wprowadź nowy akcelerator lub anuluj naciskając Escape."
 
-#: ../src/gnome-cmd-search-dialog.cc:171
+#: ../src/gnome-cmd-search-dialog.cc:173
 #, c-format
 msgid "Failed to open file %s: %s\n"
 msgstr "Nie można otworzyć pliku %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:212
+#: ../src/gnome-cmd-search-dialog.cc:214
 #, c-format
 msgid "Failed to seek in file %s: %s\n"
 msgstr "Nie można zmienić pozycji w pliku %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:219
+#: ../src/gnome-cmd-search-dialog.cc:221
 #, c-format
 msgid "Failed to read from file %s: %s\n"
 msgstr "Nie można czytać z pliku %s: %s\n"
 
-#: ../src/gnome-cmd-search-dialog.cc:275
+#: ../src/gnome-cmd-search-dialog.cc:277
 #, c-format
 msgid "Searching in: %s"
 msgstr "Wyszukiwanie w: %s"
 
-#: ../src/gnome-cmd-search-dialog.cc:411
+#: ../src/gnome-cmd-search-dialog.cc:413
 #, c-format
 msgid "Found %d match - search aborted"
 msgid_plural "Found %d matches - search aborted"
@@ -2234,7 +2283,7 @@ msgstr[0] "Znaleziono %d pasujący - przerwano wyszukiwanie"
 msgstr[1] "Znaleziono %d pasujące - przerwano wyszukiwanie"
 msgstr[2] "Znaleziono %d pasujących - przerwano wyszukiwanie"
 
-#: ../src/gnome-cmd-search-dialog.cc:418
+#: ../src/gnome-cmd-search-dialog.cc:420
 #, c-format
 msgid "Found %d match"
 msgid_plural "Found %d matches"
@@ -2242,36 +2291,36 @@ msgstr[0] "Znaleziono %d pasujący"
 msgstr[1] "Znaleziono %d pasujące"
 msgstr[2] "Znaleziono %d pasujących"
 
-#: ../src/gnome-cmd-search-dialog.cc:804
+#: ../src/gnome-cmd-search-dialog.cc:806
 msgid "Search..."
 msgstr "Szukaj..."
 
-#: ../src/gnome-cmd-search-dialog.cc:818
+#: ../src/gnome-cmd-search-dialog.cc:820
 msgid "Search _for: "
 msgstr "Znajdź _plik: "
 
-#: ../src/gnome-cmd-search-dialog.cc:830
+#: ../src/gnome-cmd-search-dialog.cc:832
 msgid "Search _in: "
 msgstr "Szukaj _w:"
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:842
+#: ../src/gnome-cmd-search-dialog.cc:844
 msgid "Search _recursively"
 msgstr "Zastosuj do _podkatalogów"
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:849
+#: ../src/gnome-cmd-search-dialog.cc:851
 msgid "Find _text: "
 msgstr "Znajdź _tekst: "
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:862
+#: ../src/gnome-cmd-search-dialog.cc:864
 msgid "Case sensiti_ve"
 msgstr "_Rozróżnianie wielkości liter"
 
-#: ../src/gnome-cmd-search-dialog.cc:870
-msgid "_Goto"
-msgstr "_Idź do"
+#: ../src/gnome-cmd-search-dialog.cc:872
+msgid "_Go to"
+msgstr "_Przejdź do"
 
 #: ../src/gnome-cmd-smb-auth.cc:33
 msgid "Enter password"
@@ -2488,8 +2537,9 @@ msgid "Equal panel size"
 msgstr "Równaj wielkość paneli"
 
 #: ../src/gnome-cmd-user-actions.cc:190
+#, fuzzy
 msgid "Back to the first directory"
-msgstr ""
+msgstr "Podgląd pliku"
 
 #: ../src/gnome-cmd-user-actions.cc:191
 msgid "Forward one directory"
@@ -2524,7 +2574,7 @@ msgstr "Przenieś folder do ostatniego katalogu"
 msgid "Root directory"
 msgstr "Katalog główny"
 
-#: ../src/gnome-cmd-user-actions.cc:676
+#: ../src/gnome-cmd-user-actions.cc:700
 #, c-format
 msgid "Create symbolic links of %i file in %s?"
 msgid_plural "Create symbolic links of %i files in %s?"
@@ -2532,64 +2582,63 @@ msgstr[0] "Utwórz %i link symboliczny w %s?"
 msgstr[1] "Utwórz %i linki symboliczne w %s?"
 msgstr[2] "Utwórz %i linków symbolicznych w %s?"
 
-#: ../src/gnome-cmd-user-actions.cc:681
+#: ../src/gnome-cmd-user-actions.cc:705
 msgid "Create"
 msgstr "Utwórz"
 
-#: ../src/gnome-cmd-user-actions.cc:729
-#: ../src/gnome-cmd-user-actions.cc:788
-#: ../src/gnome-cmd-user-actions.cc:825
+#: ../src/gnome-cmd-user-actions.cc:748
+#: ../src/gnome-cmd-user-actions.cc:765
+#: ../src/gnome-cmd-user-actions.cc:805
+msgid "Operation not supported on remote file systems"
+msgstr "Operacja nieobsługiwana dla zdalnego systemu plików"
+
+#: ../src/gnome-cmd-user-actions.cc:780
+msgid "Too many selected files"
+msgstr "Za dużo zaznaczonych plików"
+
+#: ../src/gnome-cmd-user-actions.cc:790
+#: ../src/gnome-cmd-user-actions.cc:827
 #, c-format
 msgid "running `%s'\n"
 msgstr "wykonuję `%s'\n"
 
-#: ../src/gnome-cmd-user-actions.cc:746
-#: ../src/gnome-cmd-user-actions.cc:763
-#: ../src/gnome-cmd-user-actions.cc:803
-msgid "Operation not supported on remote file systems"
-msgstr "Operacja nieobsługiwana dla zdalnego systemu plików"
-
-#: ../src/gnome-cmd-user-actions.cc:778
-msgid "Too many selected files"
-msgstr "Za dużo zaznaczonych plików"
-
-#: ../src/gnome-cmd-user-actions.cc:1065
+#: ../src/gnome-cmd-user-actions.cc:1048
 msgid "Unable to start Nautilus."
 msgstr "Nie można uruchomić Nautliusa."
 
-#: ../src/gnome-cmd-user-actions.cc:1097
+#: ../src/gnome-cmd-user-actions.cc:1080
 msgid "gksu or kdesu is not found."
 msgstr "Nie znaleziono gksu lub kdesu."
 
-#: ../src/gnome-cmd-user-actions.cc:1110
+#: ../src/gnome-cmd-user-actions.cc:1093
 msgid "Unable to start GNOME Commander in root mode."
 msgstr "Nie można uruchomić GNOME Commander'a w trybie administratora."
 
-#: ../src/gnome-cmd-user-actions.cc:1509
+#: ../src/gnome-cmd-user-actions.cc:1492
 msgid "There was an error opening home page."
 msgstr "Wystąpił błąd przy próbie otwarcia strony domowej."
 
-#: ../src/gnome-cmd-user-actions.cc:1518
+#: ../src/gnome-cmd-user-actions.cc:1501
 msgid "There was an error reporting problem."
 msgstr "Wystąpił błąd przy próbie zgłoszenia problemu."
 
-#: ../src/gnome-cmd-user-actions.cc:1539
+#: ../src/gnome-cmd-user-actions.cc:1522
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr "Szybki i efektywny menedżer plików dla GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:1543
+#: ../src/gnome-cmd-user-actions.cc:1526
 msgid "GNOME Commander is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version."
 msgstr "GNOME Commander jest wolnym oprogramowaniem; można go rozprowadzać dalej lub modyfikować na warunkach Powszechnej Licencji Publicznej GNU, wydanej przez Fundację Wolnego Oprogramowania - według wersji 2 tej Licencji lub (według Twojego wyboru) którejś z późniejszych wersji. "
 
-#: ../src/gnome-cmd-user-actions.cc:1547
+#: ../src/gnome-cmd-user-actions.cc:1530
 msgid "GNOME Commander is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details."
 msgstr "GNOME Commander jest rozpowszechniany z nadzieją, iż będzie on użyteczny - jednak BEZ JAKIEJKOLWIEK GWARANCJI, nawet domyślnej gwarancji PRZYDATNOŚCI HANDLOWEJ albo PRZYDATNOŚCI DO OKREŚLONYCH ZASTOSOWAŃ. W celu uzyskania bliższych informacji sięgnij do Powszechnej Licencji Publicznej GNU."
 
-#: ../src/gnome-cmd-user-actions.cc:1551
+#: ../src/gnome-cmd-user-actions.cc:1534
 msgid "You should have received a copy of the GNU General Public License along with GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr "Kopia licencji GNU GPL powinna zostać dostarczona wraz z tym programem. Jeśli jej brak, napisz na adres Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1568
+#: ../src/gnome-cmd-user-actions.cc:1551
 msgid "translator-credits"
 msgstr "Piotr Eljasiak <epiotr@use.pl>"
 
@@ -3075,7 +3124,7 @@ msgstr "Gatunek"
 #: ../src/tags/gnome-cmd-tags.cc:122
 #: ../src/tags/gnome-cmd-tags.cc:332
 msgid "Type of music classification for the track as defined in ID3 spec."
-msgstr ""
+msgstr "Typ muzyki utworu zgodnie ze specyfikacją ID3."
 
 #: ../src/tags/gnome-cmd-tags.cc:123
 msgid "Is New"
@@ -3378,7 +3427,7 @@ msgstr "Czas ostatniego zapisu dokumentu."
 #: ../src/tags/gnome-cmd-tags.cc:159
 #, fuzzy
 msgid "An account of the content of the resource."
-msgstr "Zasób aktualnie niedostępny."
+msgstr "Konto do półautomatycznej obsługi zasobów"
 
 #: ../src/tags/gnome-cmd-tags.cc:160
 msgid "Dictionary"
@@ -4665,9 +4714,8 @@ msgid "String which should be used instead of the album name for sorting purpose
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:322
-#, fuzzy
 msgid "Audio Encryption"
-msgstr "szyfrowanie nie powiodło się"
+msgstr "Szyfrowanie dźwięku"
 
 #: ../src/tags/gnome-cmd-tags.cc:322
 msgid "Frame indicates if the audio stream is encrypted, and by whom."
@@ -6508,14 +6556,6 @@ msgstr "Nie można czytać z katalogu %s: %s"
 msgid "There was an error displaying help."
 msgstr "Wystąpił błąd podczas wyświetlania pomocy."
 
-#~ msgid "<New connection>"
-#~ msgstr "<Nowe połączenie>"
-#~ msgid "Go to: %s"
-#~ msgstr "Idź do: %s"
-#~ msgid "Connect to: %s"
-#~ msgstr "Połącz z %s"
-#~ msgid "Disconnect from: %s"
-#~ msgstr "Rozłącz z: %s"
 #~ msgid "_Case sensitive"
 #~ msgstr "Rozróżnianie _wielkości liter"
 #~ msgid ""
