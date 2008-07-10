@@ -336,7 +336,7 @@ void gv_file_free(ViewerFileOps *ops)
 
 #ifdef HAVE_MMAP
     if (ops->mmapping)
-        munmap (ops->data, ops->s.st_size);
+        munmap ((char *) ops->data, ops->s.st_size);
 #endif                // HAVE_MMAP
     gv_file_close (ops);
 

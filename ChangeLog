@@ -1,3 +1,8 @@
+2008-07-10  Padraig O'Briain  <Padraig.Obriain@Sun.COM>
+
+	* src/libgviewer/fileops.cc:
+	Fix for problem #539753 (build error on Solaris)
+
 2008-07-10  Mamoru Tasaka  <mtasaka@ioa.s.u-tokyo.ac.jp>
 
 	* configure.in: Added 'ja' to ALL_LINGUAS

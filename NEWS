@@ -3,7 +3,7 @@ gnome-commander 1.2.7
 ---------------
 
 Bug fixes:
- * Fixed problem #... (...)
+ * Fixed problems #539753 (build error on Solaris)
  * Fixed problem with file sorting in advanced file rename tool
  * Build fixes
 
