@@ -230,7 +230,7 @@
                 <para>Colour profiles</para>
             </listitem>
             <listitem>
-                <para>Support for over 35 languages</para>
+                <para>Support for 40 languages</para>
             </listitem>
         </itemizedlist>
     <note>
@@ -5944,7 +5944,7 @@
                             <para>Updated help docs</para>
                         </listitem>
                         <listitem>
-                            <para>New or updated translations: cs, de, es, fr, it, oc, pl</para>
+                            <para>New or updated translations: cs, de, es, fr, it, ja, oc, pl</para>
                         </listitem>
                         <listitem>
                             <para>New key bindings:</para>
