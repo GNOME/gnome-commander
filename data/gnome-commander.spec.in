@@ -32,6 +32,11 @@ URL:           http://www.nongnu.org/gcmd/
 Source0:       ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{version}.tar%{srcext}
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
+BuildRequires: automake
+BuildRequires: flex
+BuildRequires: intltool
+BuildRequires: libtool
+BuildRequires: gnome-common
 BuildRequires: desktop-file-utils
 BuildRequires: scrollkeeper
 BuildRequires: gettext >= 0.10.36
@@ -39,7 +44,6 @@ BuildRequires: glib2-devel >= @GLIB_REQ@
 BuildRequires: gtk2-devel >= @GTK_REQ@
 BuildRequires: gnome-vfs2-devel >= @GNOMEVFS_REQ@
 BuildRequires: libgnomeui-devel >= @GNOMEUI_REQ@
-BuildRequires: intltool
 BuildRequires: gnome-doc-utils >= 0.3.2
 BuildRequires: perl(XML::Parser)
 
@@ -84,7 +88,7 @@ Dostępne są również dodatkowe funkcje jak np. obsługa FTP, czy też obsług
 sieci SMB.
 
 %description -l ru
-Быстро работающий файловый менеджер для Gnome. Может выполнять большинство
+Быстро работающий файловый менеджер для GNOME. Может выполнять большинство
 типовых операций с файлами, умеет обнаруживать изменения, внесенные в файлы
 другими программами, и автоматически обновлять отображаемый список файлов.
 Поддерживает описания файловых структур в формате DND и кодировки MIME.
@@ -149,6 +153,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Fri Jul 11 2008 Piotr Eljasiak <epiotr@use.pl>
+ - added build deps
+
 * Fri Oct  5 2007 Mamoru Tasaka <mtasaka@ioa.s.u-tokyo.ac.jp> - 1.2.4-4
 - Drop yelp dependency
 
@@ -164,7 +171,7 @@ scrollkeeper-update -q || :
 * Tue Jul 10 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
 - replaced id3lib with taglib dependencies
 
-* Sat Jun 16 2007 Dušan Hokův  <dusan@mirc.cz> 1.2.5-1
+* Sat Jun 16 2007 Dušan Hokův <dusan@mirc.cz> 1.2.5-1
 - added cs description
 
 * Mon Jun 11 2007 Piotr Eljasiak <epiotr@use.pl> 1.2.5-1
