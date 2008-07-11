@@ -60,9 +60,9 @@ typedef struct
     gboolean first_time;
     gchar *cur_file_name;
 
-    GnomeVFSFileSize bytes_total;
     GnomeVFSFileSize file_size;
     GnomeVFSFileSize bytes_copied;
+    GnomeVFSFileSize bytes_total;
     GnomeVFSFileSize total_bytes_copied;
 
     GFunc on_completed_func;
@@ -125,17 +125,13 @@ create_xfer_data (GnomeVFSXferOptions xferOptions, GList *src_uri_list, GList *d
 }
 
 
-static gint
-xfer_callback (GnomeVFSXferProgressInfo *info, gpointer user_data)
+static gint xfer_callback (GnomeVFSXferProgressInfo *info, gpointer user_data)
 {
     return 1;
 }
 
 
-static gint
-async_xfer_callback (GnomeVFSAsyncHandle *handle,
-                     GnomeVFSXferProgressInfo *info,
-                     XferData *data)
+static gint async_xfer_callback (GnomeVFSAsyncHandle *handle, GnomeVFSXferProgressInfo *info, XferData *data)
 {
     data->cur_phase = info->phase;
     data->cur_file = info->file_index;
@@ -400,7 +396,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
 
     gint num_files = g_list_length (src_uri_list);
 
-    if (g_list_length (src_uri_list) == 1 && dest_fn != NULL)
+    if (num_files == 1 && dest_fn != NULL)
     {
         dest_uri = gnome_cmd_dir_get_child_uri (to_dir, dest_fn);
 
@@ -521,12 +517,10 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
                                    GNOME_VFS_XFER_ERROR_MODE_ABORT,
                                    xferOverwriteMode,
                                    XFER_PRIORITY,
-                                   (GnomeVFSAsyncXferProgressCallback)async_xfer_callback,
+                                   (GnomeVFSAsyncXferProgressCallback) async_xfer_callback,
                                    data,
                                    xfer_callback,
                                    data);
 
-    g_timeout_add (gnome_cmd_data_get_gui_update_rate (),
-                   (GSourceFunc) update_xfer_gui_func,
-                   data);
+    g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) update_xfer_gui_func, data);
 }
