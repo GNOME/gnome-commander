@@ -874,7 +874,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 &binary_mode_settings_submenu, NO_GSLIST},
 
-        {MI_CHECK, _("_Decimal Offset in Hexdump"), GDK_d, GDK_CONTROL_MASK,
+        {MI_CHECK, _("_Hexadecimal Offset"), GDK_d, GDK_CONTROL_MASK,
                 G_CALLBACK (menu_settings_hex_decimal_offset),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,

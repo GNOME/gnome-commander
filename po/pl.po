@@ -2887,11 +2887,11 @@ msgstr "Obróć poziomo"
 
 #: ../src/intviewer/viewer-window.cc:871
 msgid "_Binary Mode"
-msgstr "Tryb binarny"
+msgstr "Tryb _binarny"
 
 #: ../src/intviewer/viewer-window.cc:877
-msgid "_Decimal Offset in Hexdump"
-msgstr "Pokaż pozycję _dziesiątkowo"
+msgid "_Hexadecimal Offset"
+msgstr "Pokaż pozycję _szestnastkowo"
 
 #: ../src/intviewer/viewer-window.cc:883
 msgid "_Save Current Settings"

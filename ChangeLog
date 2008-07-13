@@ -1,3 +1,8 @@
+2008-07-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/libgviewer/viewer-window.cc:
+	Fix for intviewer menu entry 
+
 2008-07-10  Padraig O'Briain  <Padraig.Obriain@Sun.COM>
 
 	* src/intviewer/fileops.cc:
