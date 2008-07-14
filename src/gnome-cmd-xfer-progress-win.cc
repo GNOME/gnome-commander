@@ -77,7 +77,6 @@ static void init (GnomeCmdXferProgressWin *win)
     GtkWidget *button;
     GtkWidget *w = GTK_WIDGET (win);
 
-
     win->cancel_pressed = FALSE;
 
     gtk_window_set_title (GTK_WINDOW (win), _("Progress"));
@@ -98,6 +97,9 @@ static void init (GnomeCmdXferProgressWin *win)
     win->totalprog = create_progress_bar (w);
     gtk_container_add (GTK_CONTAINER (vbox), win->totalprog);
 
+    win->fileprog = create_progress_bar (w);
+    gtk_container_add (GTK_CONTAINER (vbox), win->fileprog);
+
     bbox = create_hbuttonbox (w);
     gtk_container_add (GTK_CONTAINER (vbox), bbox);
 
@@ -111,9 +113,16 @@ static void init (GnomeCmdXferProgressWin *win)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_xfer_progress_win_new ()
+GtkWidget *gnome_cmd_xfer_progress_win_new (guint no_of_files)
 {
     GnomeCmdXferProgressWin *win = (GnomeCmdXferProgressWin *) gtk_type_new (gnome_cmd_xfer_progress_win_get_type ());
+
+    if (no_of_files<2)
+    {
+        GtkWidget *vbox = gtk_bin_get_child (GTK_BIN (win));
+        gtk_container_remove (GTK_CONTAINER (vbox), win->fileprog);
+        win->fileprog = NULL;
+    }
 
     return GTK_WIDGET (win);
 }
@@ -145,25 +154,30 @@ GtkType gnome_cmd_xfer_progress_win_get_type (void)
 
 
 void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
+                                                     GnomeVFSFileSize file_bytes_copied,
+                                                     GnomeVFSFileSize file_size,
                                                      GnomeVFSFileSize bytes_copied,
                                                      GnomeVFSFileSize bytes_total)
 {
+    gfloat total_prog = bytes_total>0 ? (gdouble) bytes_copied/(gdouble) bytes_total : -1.0f;
+    gtk_progress_set_percentage (GTK_PROGRESS (win->totalprog), total_prog);
+
+    if (win->fileprog)
+    {
+        gfloat file_prog = file_size>0 ? (gdouble) file_bytes_copied/(gdouble) file_size : -1.0f;
+        gtk_progress_set_percentage (GTK_PROGRESS (win->fileprog), file_prog);
+    }
+
+    gchar *bytes_total_str = g_strdup (size2string (bytes_total, gnome_cmd_data_get_size_disp_mode()));
+    const gchar *bytes_copied_str = size2string (bytes_copied, gnome_cmd_data_get_size_disp_mode());
+
     gchar text[128];
-    gfloat prog = -1.0f;
-
-    if (bytes_total > 0)
-        prog = (gdouble) bytes_copied / (gdouble) bytes_total;
-
-    gtk_progress_set_percentage (GTK_PROGRESS (win->totalprog), prog);
-
-    gchar *bytes_total_str = g_strdup(size2string(bytes_total, gnome_cmd_data_get_size_disp_mode()));
-    const gchar *bytes_copied_str = size2string(bytes_copied, gnome_cmd_data_get_size_disp_mode());
 
     g_snprintf (text, sizeof (text), _("%s of %s copied"), bytes_copied_str, bytes_total_str);
 
     gtk_label_set_text (GTK_LABEL (win->fileprog_label), text);
 
-    g_snprintf (text, sizeof (text), _("%.0f%% copied"), prog*100.0f);
+    g_snprintf (text, sizeof (text), _("%.0f%% copied"), total_prog*100.0f);
     gtk_window_set_title (GTK_WINDOW (win), text);
 
     g_free (bytes_total_str);

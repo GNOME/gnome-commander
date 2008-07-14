@@ -248,7 +248,7 @@ static gboolean update_xfer_gui_func (XferData *data)
             if ((total_diff > (gfloat)0.01 && total_prog >= 0.0 && total_prog <= 1.0) || data->first_time)
             {
                 data->first_time = FALSE;
-                gnome_cmd_xfer_progress_win_set_total_progress (data->win, data->total_bytes_copied, data->bytes_total);
+                gnome_cmd_xfer_progress_win_set_total_progress (data->win, data->bytes_copied, data->file_size, data->total_bytes_copied, data->bytes_total);
                 while (gtk_events_pending ())
                     gtk_main_iteration_do (FALSE);
             }
@@ -418,7 +418,7 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
 
     g_free (dest_fn);
 
-    data->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new ());
+    data->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (num_files));
     gtk_widget_ref (GTK_WIDGET (data->win));
     gtk_window_set_title (GTK_WINDOW (data->win), _("preparing..."));
     gtk_widget_show (GTK_WIDGET (data->win));
@@ -502,9 +502,9 @@ gnome_cmd_xfer_tmp_download_multiple (GList *src_uri_list,
 
     data = create_xfer_data (xferOptions, src_uri_list, dest_uri_list,
                              NULL, NULL, NULL,
-                             (GFunc)on_completed_func, on_completed_data);
+                             (GFunc) on_completed_func, on_completed_data);
 
-    data->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new ());
+    data->win = GNOME_CMD_XFER_PROGRESS_WIN (gnome_cmd_xfer_progress_win_new (g_list_length (src_uri_list)));
     gtk_window_set_title (GTK_WINDOW (data->win), _("downloading to /tmp"));
     gtk_widget_show (GTK_WIDGET (data->win));
 

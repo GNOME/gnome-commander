@@ -38,6 +38,7 @@ struct _GnomeCmdXferProgressWin
     GtkWindow parent;
 
     GtkWidget *totalprog;
+    GtkWidget *fileprog;
     GtkWidget *msg_label;
     GtkWidget *fileprog_label;
 
@@ -51,23 +52,18 @@ struct _GnomeCmdXferProgressWinClass
 };
 
 
-GtkWidget*
-gnome_cmd_xfer_progress_win_new (void);
+GtkWidget *gnome_cmd_xfer_progress_win_new (guint no_of_files=0);
 
-GtkType
-gnome_cmd_xfer_progress_win_get_type (void);
+GtkType gnome_cmd_xfer_progress_win_get_type (void);
 
-void
-gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
-                                                GnomeVFSFileSize bytes_copied,
-                                                GnomeVFSFileSize bytes_total);
+void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
+                                                     GnomeVFSFileSize file_bytes_copied,
+                                                     GnomeVFSFileSize file_size,
+                                                     GnomeVFSFileSize bytes_copied,
+                                                     GnomeVFSFileSize bytes_total);
 
-void
-gnome_cmd_xfer_progress_win_set_msg (GnomeCmdXferProgressWin *win,
-                                     const gchar *string);
+void gnome_cmd_xfer_progress_win_set_msg (GnomeCmdXferProgressWin *win, const gchar *string);
 
-void
-gnome_cmd_xfer_progress_win_set_action (GnomeCmdXferProgressWin *win,
-                                        const gchar *string);
+void gnome_cmd_xfer_progress_win_set_action (GnomeCmdXferProgressWin *win, const gchar *string);
 
 #endif // __GNOME_CMD_XFER_PROGRESS_WIN_H__
