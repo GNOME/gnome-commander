@@ -187,7 +187,7 @@
                 <para>Gnome MIME types</para>
             </listitem>
             <listitem>
-                <para>Remote connections using GnomeVFS: FTP/SFTP and SAMBA</para>
+                <para>Remote connections using GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS (Samba)</para>
             </listitem>
             <listitem>
                 <para>Right click mouse menu</para>
@@ -5931,6 +5931,9 @@
                 <para>New features:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)</para>
+                        </listitem>
                         <listitem>
                             <para>User defined shortcuts to arbitrary programs</para>
                         </listitem>

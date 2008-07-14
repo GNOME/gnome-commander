@@ -48,7 +48,7 @@ static void get_file_info_func (GnomeCmdCon *con)
 
     GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS | GNOME_VFS_FILE_INFO_GET_MIME_TYPE | GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 
-    DEBUG('m', "FTP: Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
+    DEBUG('m', "Connecting to %s\n", gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE));
     con->base_info = gnome_vfs_file_info_new ();
 
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, con->base_info, infoOpts);
@@ -88,7 +88,7 @@ static gboolean start_get_file_info (GnomeCmdCon *con)
 
 static void ftp_open (GnomeCmdCon *con)
 {
-    DEBUG('m', "Opening FTP connection\n");
+    DEBUG('m', "Opening remote connection\n");
 
     if (!con->base_path)
     {
@@ -98,12 +98,6 @@ static void ftp_open (GnomeCmdCon *con)
 
     con->state = CON_STATE_OPENING;
     con->open_result = CON_OPEN_IN_PROGRESS;
-
-    // GnomeCmdPath * path = gnome_cmd_plain_path_new (gnome_cmd_con_ftp_get_remote_dir (GNOME_CMD_CON_FTP (con)));
-    // GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
-
-    // gnome_cmd_con_set_default_dir (con, dir);
-    // gnome_cmd_con_set_cwd (con, dir);
 
     g_timeout_add (1, (GSourceFunc) start_get_file_info, con);
 }
@@ -137,18 +131,12 @@ static gboolean ftp_open_is_needed (GnomeCmdCon *con)
 
 static GnomeVFSURI *ftp_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
-    GnomeCmdConFtp *ftp_con = GNOME_CMD_CON_FTP (con);
+    g_return_val_if_fail (con->uri != NULL, NULL);
 
-    GnomeVFSURI *u0 = gnome_vfs_uri_new ("ftp:");
+    GnomeVFSURI *u0 = gnome_vfs_uri_new (con->uri);
     GnomeVFSURI *u1 = gnome_vfs_uri_append_path (u0, gnome_cmd_path_get_path (path));
 
     gnome_vfs_uri_unref (u0);
-
-    gnome_vfs_uri_set_host_name (u1, ftp_con->priv->host_name);
-    gnome_vfs_uri_set_host_port (u1, ftp_con->priv->host_port);
-    // gnome_cmd_con_ftp_set_remote_dir (u1, ftp_con->priv->remote_dir);
-    gnome_vfs_uri_set_user_name (u1, ftp_con->priv->user_name);
-    gnome_vfs_uri_set_password (u1, ftp_con->priv->pw);
 
     return u1;
 }
@@ -381,8 +369,8 @@ void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *con, const gchar *host_nam
 
     con->priv->host_name = g_strdup (host_name);
 
-    GNOME_CMD_CON (con)->open_tooltip = g_strdup_printf (_("Opens the FTP connection to %s"), host_name);
-    GNOME_CMD_CON (con)->close_tooltip = g_strdup_printf (_("Closes the FTP connection to %s"), host_name);
+    GNOME_CMD_CON (con)->open_tooltip = g_strdup_printf (_("Opens remote connection to %s"), host_name);
+    GNOME_CMD_CON (con)->close_tooltip = g_strdup_printf (_("Closes remote connection to %s"), host_name);
 }
 
 

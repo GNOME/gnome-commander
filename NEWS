@@ -8,6 +8,7 @@ Bug fixes:
  * Build fixes
 
 New features:
+ * Support for all GnomeVFS network protocols (including SSH+FTP and WebDAV)
  * User defined shortcuts to arbitrary programs
  * Copying selected URIs to clipboard with ALT+click on toolbar button
  * Revamped search dialog

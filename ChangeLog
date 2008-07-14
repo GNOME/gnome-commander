@@ -1,3 +1,8 @@
+2008-07-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con-ftp:
+	Use specified uri for connection (instead of previous building from 'ftp:', host, port, dir, user, pswd)
+
 2008-07-14  Dušan Hokův  <dusan@mirc.cz>
 
 	* src/gnome-cmd-xfer.cc:
