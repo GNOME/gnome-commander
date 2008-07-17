@@ -55,8 +55,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, gu
 
 void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *fs, const gchar *host_name);
 
-void gnome_cmd_con_ftp_set_remote_dir (GnomeCmdConFtp *fs, const gchar *pw);
-
 void gnome_cmd_con_ftp_set_pw (GnomeCmdConFtp *fs, const gchar *pw);
 
 #endif // __GNOME_CMD_CON_FTP_H__

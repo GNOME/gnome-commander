@@ -22,6 +22,11 @@
 	* src/gnome-cmd-con-ftp.cc:
 	Removed superfluous code for host_name handling
 
+	* src/gnome-cmd-con-dialog.cc:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-con-ftp.h:
+	Removed superfluous code for remote_dir handling
+
 2008-07-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con-ftp:
