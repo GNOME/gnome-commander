@@ -30,7 +30,6 @@ using namespace std;
 
 struct _GnomeCmdConFtpPrivate
 {
-    gchar *host_name;
     gchar *remote_dir;
     gchar *pw;
 };
@@ -153,7 +152,6 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdConFtp *con = GNOME_CMD_CON_FTP (object);
 
-    g_free (con->priv->host_name);
     g_free (con->priv->pw);
     g_free (con->priv->remote_dir);
 
@@ -226,7 +224,6 @@ static void init (GnomeCmdConFtp *ftp_con)
 
     ftp_con->priv = g_new0 (GnomeCmdConFtpPrivate, 1);
 
-    // ftp_con->priv->host_name = NULL;
     // ftp_con->priv->remote_dir = NULL;
     // ftp_con->priv->pw = NULL;
 }
@@ -350,10 +347,6 @@ void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *con, const gchar *host_nam
     g_return_if_fail (con != NULL);
     g_return_if_fail (con->priv != NULL);
     g_return_if_fail (host_name != NULL);
-
-    g_free (con->priv->host_name);
-
-    con->priv->host_name = g_strdup (host_name);
 
     GNOME_CMD_CON (con)->open_tooltip = g_strdup_printf (_("Opens remote connection to %s"), host_name);
     GNOME_CMD_CON (con)->close_tooltip = g_strdup_printf (_("Closes remote connection to %s"), host_name);
