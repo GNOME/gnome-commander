@@ -35,7 +35,6 @@ struct _GnomeCmdConFtpPrivate
     gchar *remote_dir;
     gchar *user_name;
     gchar *pw;
-    gboolean anonymous;
 };
 
 
@@ -235,7 +234,6 @@ static void init (GnomeCmdConFtp *ftp_con)
     // ftp_con->priv->remote_dir = NULL;
     // ftp_con->priv->user_name = NULL;
     // ftp_con->priv->pw = NULL;
-    // ftp_con->priv->anonymous = FALSE;
 }
 
 

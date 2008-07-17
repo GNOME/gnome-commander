@@ -6,6 +6,9 @@
 	* src/gnome-cmd-remote-dialog.cc:
 	Fixed problem #541404 (update of host names)
 
+	* src/gnome-cmd-con-ftp.cc:
+	Removed superfluous code for anonymous user handling
+
 2008-07-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con-ftp:
