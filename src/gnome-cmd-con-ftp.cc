@@ -289,6 +289,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
 
     gnome_cmd_con_set_alias (con, alias);
     gnome_cmd_con_set_uri (con, text_uri);
+    gnome_cmd_con_set_host_name (con, host);
 
     gnome_cmd_con_ftp_set_host_name (server, host);
     gnome_cmd_con_ftp_set_host_port (server, port);
@@ -305,8 +306,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
                                                  CON_URI;
 
     con->gnome_auth = !password && con->method!=CON_ANON_FTP;          // ?????????
-
-    con->open_msg = g_strdup_printf (_("Connecting to %s\n"), host);
 
     gnome_vfs_uri_unref (uri);
 
@@ -344,6 +343,7 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, gu
 
     gnome_cmd_con_set_alias (con, alias);
     gnome_cmd_con_set_uri (con, _uri);
+    gnome_cmd_con_set_host_name (con, _host);
 
     gnome_cmd_con_ftp_set_host_name (server, host);
     gnome_cmd_con_ftp_set_host_port (server, port);
@@ -352,8 +352,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, gu
     gnome_cmd_con_ftp_set_pw (server, password);
 
     con->gnome_auth = !password && con->method!=CON_ANON_FTP;          // ?????????
-
-    con->open_msg = g_strdup_printf (_("Connecting to %s\n"), host);
 
     return server;
 }

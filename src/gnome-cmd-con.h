@@ -197,6 +197,18 @@ inline void gnome_cmd_con_set_alias (GnomeCmdCon *con, const gchar *alias=NULL)
     con->close_text = g_strdup_printf (_("Disconnect from: %s"), alias);
 }
 
+inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const gchar *host)
+{
+    g_return_if_fail (GNOME_CMD_IS_CON (con));
+    g_free (con->open_msg);
+    con->open_msg = g_strdup_printf (_("Connecting to %s\n"), host ? host : "<?>");
+}
+
+inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const std::string &host)
+{
+    gnome_cmd_con_set_host_name (con, host.empty() ? NULL : host.c_str());
+}
+
 void gnome_cmd_con_set_cwd (GnomeCmdCon *con, GnomeCmdDir *dir);
 
 GnomeCmdDir *gnome_cmd_con_get_cwd (GnomeCmdCon *con);

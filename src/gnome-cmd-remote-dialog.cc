@@ -301,16 +301,16 @@ static gint sort_by_auth (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2,
 
 static gint sort_by_method (GtkTreeModel *model, GtkTreeIter *i1, GtkTreeIter *i2, gpointer user_data)
 {
-    GnomeCmdConFtp *c1;
-    GnomeCmdConFtp *c2;
+    GnomeCmdCon *c1;
+    GnomeCmdCon *c2;
 
-    gtk_tree_model_get (model, i1, COL_FTP_CON, &c1, -1);
-    gtk_tree_model_get (model, i2, COL_FTP_CON, &c2, -1);
+    gtk_tree_model_get (model, i1, COL_CON, &c1, -1);
+    gtk_tree_model_get (model, i2, COL_CON, &c2, -1);
 
-    if (GNOME_CMD_CON(c1)->method==GNOME_CMD_CON(c2)->method)
+    if (c1->method==c2->method)
         return sort_by_name (model, i1, i2, user_data);
 
-    return int(GNOME_CMD_CON(c1)->method) - int(GNOME_CMD_CON(c2)->method);
+    return int(c1->method) - int(c2->method);
 }
 
 

@@ -5918,7 +5918,10 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem 539753 (build error on Solaris)</para>
+                            <para>Fixed problem #539753 (build error on Solaris)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #541404 (update of host names)</para>
                         </listitem>
                         <listitem>
                             <para>Fixed problem with file sorting in advanced file rename tool</para>

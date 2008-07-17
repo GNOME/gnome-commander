@@ -644,6 +644,7 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 
         gnome_cmd_con_set_alias (con, alias);
         gnome_cmd_con_set_uri (con, conndlg->priv->uri_str);
+        gnome_cmd_con_set_host_name (con, host);
         con->method = (ConnectionMethodID) gtk_combo_box_get_active (GTK_COMBO_BOX (conndlg->priv->type_combo));
         con->gnome_auth = conndlg->priv->use_auth;
 
