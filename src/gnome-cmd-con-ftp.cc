@@ -31,7 +31,6 @@ using namespace std;
 struct _GnomeCmdConFtpPrivate
 {
     gchar *host_name;
-    gushort host_port;
     gchar *remote_dir;
     gchar *user_name;
     gchar *pw;
@@ -230,7 +229,6 @@ static void init (GnomeCmdConFtp *ftp_con)
     ftp_con->priv = g_new0 (GnomeCmdConFtpPrivate, 1);
 
     // ftp_con->priv->host_name = NULL;
-    // ftp_con->priv->host_port = NULL;
     // ftp_con->priv->remote_dir = NULL;
     // ftp_con->priv->user_name = NULL;
     // ftp_con->priv->pw = NULL;
@@ -274,7 +272,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
 
     const gchar *scheme = gnome_vfs_uri_get_scheme (uri);       // do not g_free
     const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free
-    const guint  port = gnome_vfs_uri_get_host_port (uri);
     const gchar *remote_dir = gnome_vfs_uri_get_path (uri);     // do not g_free
     const gchar *user = gnome_vfs_uri_get_user_name (uri);      // do not g_free
     const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free
@@ -290,7 +287,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
     gnome_cmd_con_set_host_name (con, host);
 
     gnome_cmd_con_ftp_set_host_name (server, host);
-    gnome_cmd_con_ftp_set_host_port (server, port);
     gnome_cmd_con_ftp_set_remote_dir (server, remote_dir);
     gnome_cmd_con_ftp_set_user_name (server, user);
     gnome_cmd_con_ftp_set_pw (server, password);
@@ -344,7 +340,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, gu
     gnome_cmd_con_set_host_name (con, _host);
 
     gnome_cmd_con_ftp_set_host_name (server, host);
-    gnome_cmd_con_ftp_set_host_port (server, port);
     gnome_cmd_con_ftp_set_remote_dir (server, remote_dir);
     gnome_cmd_con_ftp_set_user_name (server, user);
     gnome_cmd_con_ftp_set_pw (server, password);
@@ -367,15 +362,6 @@ void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *con, const gchar *host_nam
 
     GNOME_CMD_CON (con)->open_tooltip = g_strdup_printf (_("Opens remote connection to %s"), host_name);
     GNOME_CMD_CON (con)->close_tooltip = g_strdup_printf (_("Closes remote connection to %s"), host_name);
-}
-
-
-void gnome_cmd_con_ftp_set_host_port (GnomeCmdConFtp *con, gushort host_port)
-{
-    g_return_if_fail (con != NULL);
-    g_return_if_fail (con->priv != NULL);
-
-    con->priv->host_port = host_port;
 }
 
 
