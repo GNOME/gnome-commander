@@ -32,7 +32,6 @@ struct _GnomeCmdConFtpPrivate
 {
     gchar *host_name;
     gchar *remote_dir;
-    gchar *user_name;
     gchar *pw;
 };
 
@@ -155,7 +154,6 @@ static void destroy (GtkObject *object)
     GnomeCmdConFtp *con = GNOME_CMD_CON_FTP (object);
 
     g_free (con->priv->host_name);
-    g_free (con->priv->user_name);
     g_free (con->priv->pw);
     g_free (con->priv->remote_dir);
 
@@ -230,7 +228,6 @@ static void init (GnomeCmdConFtp *ftp_con)
 
     // ftp_con->priv->host_name = NULL;
     // ftp_con->priv->remote_dir = NULL;
-    // ftp_con->priv->user_name = NULL;
     // ftp_con->priv->pw = NULL;
 }
 
@@ -288,7 +285,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const string &text_ur
 
     gnome_cmd_con_ftp_set_host_name (server, host);
     gnome_cmd_con_ftp_set_remote_dir (server, remote_dir);
-    gnome_cmd_con_ftp_set_user_name (server, user);
     gnome_cmd_con_ftp_set_pw (server, password);
 
     con->method = gnome_vfs_uri_is_local (uri) ? CON_LOCAL :
@@ -341,7 +337,6 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, gu
 
     gnome_cmd_con_ftp_set_host_name (server, host);
     gnome_cmd_con_ftp_set_remote_dir (server, remote_dir);
-    gnome_cmd_con_ftp_set_user_name (server, user);
     gnome_cmd_con_ftp_set_pw (server, password);
 
     con->gnome_auth = !password && con->method!=CON_ANON_FTP;          // ?????????
@@ -373,18 +368,6 @@ void gnome_cmd_con_ftp_set_remote_dir (GnomeCmdConFtp *con, const gchar *remote_
     g_free (con->priv->remote_dir);
 
     con->priv->remote_dir = g_strdup (remote_dir);
-}
-
-
-void gnome_cmd_con_ftp_set_user_name (GnomeCmdConFtp *con, const gchar *user_name)
-{
-    g_return_if_fail (con != NULL);
-    g_return_if_fail (con->priv != NULL);
-    g_return_if_fail (user_name != NULL);
-
-    g_free (con->priv->user_name);
-
-    con->priv->user_name = g_strdup (user_name);
 }
 
 
