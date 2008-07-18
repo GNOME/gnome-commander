@@ -47,7 +47,7 @@ inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, con
 static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 {
     GnomeCmdCon *con = gnome_cmd_dir_get_connection (dialog->default_dest_dir);
-    gchar *user_path = g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->dest_dir_entry)));
+    gchar *user_path = g_strstrip (g_strdup (gtk_entry_get_text (GTK_ENTRY (dialog->dest_dir_entry))));
     gint user_path_len = strlen (user_path);
 
     gchar *dest_path = user_path;
@@ -56,7 +56,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
     // Make whatever the user entered into a valid path if possible
 
-    if (!user_path || user_path_len <= 0)
+    if (!user_path)
         goto bailout;
 
     if (user_path_len > 2 && user_path[user_path_len-1] == '/')
@@ -80,10 +80,18 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     }
     else
     {
-        gchar *tmp = gnome_cmd_file_get_path (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (dialog->src_fs)));
-        dest_path = g_build_path (G_DIR_SEPARATOR_S, tmp, user_path, NULL);
+        if (!gnome_cmd_dir_is_local (dialog->default_dest_dir))
+        {
+            const gchar *t = gnome_cmd_path_get_path (gnome_cmd_dir_get_path (dialog->default_dest_dir));
+            dest_path = g_build_path (G_DIR_SEPARATOR_S, t, user_path, NULL);
+        }
+        else
+        {
+            gchar *t = gnome_cmd_file_get_path (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (dialog->src_fs)));
+            dest_path = g_build_path (G_DIR_SEPARATOR_S, t, user_path, NULL);
+            g_free (t);
+        }
         g_free (user_path);
-        g_free (tmp);
     }
 
     // Check if something exists at the given path and find out what it is
@@ -109,14 +117,14 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
             if (res == GNOME_VFS_OK)
             {
                 // There exists something else, asume that the user wants to overwrite it for now
-                gchar *tmp = g_path_get_dirname (dest_path);
-                dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, tmp));
-                g_free (tmp);
+                gchar *t = g_path_get_dirname (dest_path);
+                dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, t));
+                g_free (t);
                 dest_fn = g_strdup (g_basename (dest_path));
             }
             else
             {
-                // Nothing existed, check if the parent dir exists
+                // Nothing found, check if the parent dir exists
                 gchar *parent_dir = g_path_get_dirname (dest_path);
                 res = gnome_cmd_con_get_path_target_type (con, parent_dir, &type);
                 if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
@@ -184,6 +192,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
                                                             GTK_BUTTONS_OK_CANCEL,
                                                             msg);
                 gint choice = gtk_dialog_run (GTK_DIALOG (dialog));
+                gtk_widget_destroy (dialog);
                 g_free (msg);
 
                 if (choice == GTK_RESPONSE_OK)
@@ -366,7 +375,10 @@ inline gboolean path_points_at_directory (GnomeCmdFileSelector *to, const gchar 
 
 GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeCmdFileSelector *to)
 {
-    gchar *dest_str;
+    g_return_val_if_fail (from!=NULL, NULL);
+    g_return_val_if_fail (to!=NULL, NULL);
+
+    gchar *dest_str = NULL;
     GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) gtk_type_new (gnome_cmd_prepare_xfer_dialog_get_type ());
 
     dialog->src_files = gnome_cmd_file_list_get_selected_files (from->list);
@@ -374,34 +386,48 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     dialog->default_dest_dir = gnome_cmd_file_selector_get_directory (to);
     dialog->src_fs = from;
 
-    if (g_list_length (dialog->src_files) == 1)
+    guint num_files = g_list_length (dialog->src_files);
+
+    if (!gnome_cmd_file_selector_is_local (to))
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) dialog->src_files->data;
-
-        gchar *t = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dialog->default_dest_dir));
-        gchar *path = get_utf8 (t);
-        gchar *fname = get_utf8 (finfo->info->name);
-        g_free (t);
-
-        dest_str = g_build_path (G_DIR_SEPARATOR_S, path, fname, NULL);
-        if (path_points_at_directory (to, dest_str))
+        if (num_files == 1)
         {
-            g_free (dest_str);
-            dest_str = g_strdup (path);
+            GnomeCmdFile *finfo = (GnomeCmdFile *) dialog->src_files->data;
+            dest_str = get_utf8 (finfo->info->name);
         }
-
-        g_free (path);
-        g_free (fname);
     }
     else
-    {
-        gchar *t = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dialog->default_dest_dir));
-        dest_str = get_utf8 (t);
-        g_free (t);
-    }
+        if (num_files == 1)
+        {
+            GnomeCmdFile *finfo = (GnomeCmdFile *) dialog->src_files->data;
 
-    gtk_entry_set_text (GTK_ENTRY (dialog->dest_dir_entry), dest_str);
-    g_free (dest_str);
+            gchar *t = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dialog->default_dest_dir));
+            gchar *path = get_utf8 (t);
+            gchar *fname = get_utf8 (finfo->info->name);
+            g_free (t);
+
+            dest_str = g_build_path (G_DIR_SEPARATOR_S, path, fname, NULL);
+            if (path_points_at_directory (to, dest_str))
+            {
+                g_free (dest_str);
+                dest_str = g_strdup (path);
+            }
+
+            g_free (path);
+            g_free (fname);
+        }
+        else
+        {
+            gchar *t = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dialog->default_dest_dir));
+            dest_str = get_utf8 (t);
+            g_free (t);
+        }
+
+    if (dest_str)
+    {
+        gtk_entry_set_text (GTK_ENTRY (dialog->dest_dir_entry), dest_str);
+        g_free (dest_str);
+    }
 
     gtk_widget_grab_focus (GTK_WIDGET (dialog->dest_dir_entry));
 
