@@ -129,15 +129,11 @@ inline void do_connect (GnomeCmdRemoteDialog *ftp_dialog, GnomeCmdConFtp *server
     if (!server)        // exit as there is no server selected
         return;
 
-    const gchar *anon_pw = gtk_entry_get_text (GTK_ENTRY (ftp_dialog->priv->anonymous_pw_entry));
-
     // store the anonymous ftp password as the user might have changed it
+    const gchar *anon_pw = gtk_entry_get_text (GTK_ENTRY (ftp_dialog->priv->anonymous_pw_entry));
     gnome_cmd_data_set_ftp_anonymous_password (anon_pw);
 
     GnomeCmdCon *con = GNOME_CMD_CON (server);
-
-    if (con->method==CON_ANON_FTP)
-        gnome_cmd_con_ftp_set_pw (server, anon_pw);
 
     gtk_widget_destroy (GTK_WIDGET (ftp_dialog));
 

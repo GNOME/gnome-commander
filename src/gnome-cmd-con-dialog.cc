@@ -637,7 +637,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
 
         const gchar *alias = conndlg->priv->alias ? conndlg->priv->alias->c_str() : NULL;
         const gchar *host = gnome_vfs_uri_get_host_name (uri);      // do not g_free !!
-        const gchar *password = gnome_vfs_uri_get_password (uri);   // do not g_free !!
 
         gnome_cmd_con_set_alias (con, alias);
         gnome_cmd_con_set_uri (con, conndlg->priv->uri_str);
@@ -646,7 +645,6 @@ gboolean gnome_cmd_connect_dialog_edit (GnomeCmdConFtp *server)
         con->gnome_auth = conndlg->priv->use_auth;
 
         gnome_cmd_con_ftp_set_host_name (server, host);
-        gnome_cmd_con_ftp_set_pw (server, password);
 
         gnome_vfs_uri_unref (uri);
     }

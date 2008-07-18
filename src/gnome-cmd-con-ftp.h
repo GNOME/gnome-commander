@@ -32,14 +32,11 @@
 
 typedef struct _GnomeCmdConFtp GnomeCmdConFtp;
 typedef struct _GnomeCmdConFtpClass GnomeCmdConFtpClass;
-typedef struct _GnomeCmdConFtpPrivate GnomeCmdConFtpPrivate;
 
 
 struct _GnomeCmdConFtp
 {
     GnomeCmdCon parent;
-
-    GnomeCmdConFtpPrivate *priv;
 };
 
 struct _GnomeCmdConFtpClass
@@ -54,7 +51,5 @@ GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const std::string &ur
 GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, guint port, const gchar *user, const gchar *password, const gchar *remote_dir);
 
 void gnome_cmd_con_ftp_set_host_name (GnomeCmdConFtp *fs, const gchar *host_name);
-
-void gnome_cmd_con_ftp_set_pw (GnomeCmdConFtp *fs, const gchar *pw);
 
 #endif // __GNOME_CMD_CON_FTP_H__

@@ -1,3 +1,11 @@
+2008-07-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con-dialog.cc:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-con-ftp.h:
+	* src/gnome-cmd-remote-dialog.cc:
+	Removed superfluous code for GnomeCmdConFtp
+
 2008-07-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con.h:
