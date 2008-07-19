@@ -1,3 +1,8 @@
+2008-07-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con.cc:
+	Fix for bug introduced in rev. #1669
+
 2008-07-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-prepare-xfer-dialog.cc:
