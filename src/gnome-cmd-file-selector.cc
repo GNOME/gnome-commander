@@ -89,33 +89,6 @@ static guint file_selector_signals[LAST_SIGNAL] = { 0 };
  *******************************/
 
 
-void gnome_cmd_file_selector_set_same_directory (GnomeCmdMainWin *mw, FileSelectorID fsID, FileSelectorID otherID)
-{
-    g_return_if_fail (mw!=NULL);
-    g_return_if_fail (mw->priv!=NULL);
-
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, fsID);
-    GnomeCmdFileSelector *other = gnome_cmd_main_win_get_fs (mw, !fsID);
-
-    gboolean fs_is_active = fs->priv->active;
-
-    if (fs_is_active)
-        gnome_cmd_file_selector_set_directory (fs, gnome_cmd_file_selector_get_directory (other));
-    else
-    {
-        GnomeCmdFile *file = gnome_cmd_file_list_get_selected_file (other->list);
-
-        if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-            gnome_cmd_file_selector_goto_directory (fs, gnome_cmd_file_get_real_path (file));
-        else
-            gnome_cmd_file_selector_set_directory (fs, gnome_cmd_file_selector_get_directory (other));
-    }
-
-    gnome_cmd_file_selector_set_active (other, !fs_is_active);
-    gnome_cmd_file_selector_set_active (fs, fs_is_active);
-}
-
-
 inline void show_list_popup (GnomeCmdFileSelector *fs)
 {
     // create the popup menu
@@ -242,20 +215,25 @@ inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
 
 inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir=NULL)
 {
-    fs->priv->con = con;
-    fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
+    gboolean con_change_needed = fs->priv->con==con;
 
-    if (fs->priv->lwd)
+    if (!con_change_needed)
     {
-        gnome_cmd_dir_cancel_monitoring (fs->priv->lwd);
-        gnome_cmd_dir_unref (fs->priv->lwd);
-        fs->priv->lwd = NULL;
-    }
-    if (fs->priv->cwd)
-    {
-        gnome_cmd_dir_cancel_monitoring (fs->priv->cwd);
-        gnome_cmd_dir_unref (fs->priv->cwd);
-        fs->priv->cwd = NULL;
+        fs->priv->con = con;
+        fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
+
+        if (fs->priv->lwd)
+        {
+            gnome_cmd_dir_cancel_monitoring (fs->priv->lwd);
+            gnome_cmd_dir_unref (fs->priv->lwd);
+            fs->priv->lwd = NULL;
+        }
+        if (fs->priv->cwd)
+        {
+            gnome_cmd_dir_cancel_monitoring (fs->priv->cwd);
+            gnome_cmd_dir_unref (fs->priv->cwd);
+            fs->priv->cwd = NULL;
+        }
     }
 
     if (!dir)
@@ -264,7 +242,8 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
 
     gnome_cmd_file_selector_set_directory (fs, dir);
 
-    gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), con);
+    if (!con_change_needed)
+        gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), con);
 }
 
 
@@ -1764,6 +1743,31 @@ void gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs, GnomeCmdC
     }
     else
         set_connection (fs, con, start_dir);
+}
+
+
+void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, FileSelectorID fsID)
+{
+    g_return_if_fail (mw!=NULL);
+
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, fsID);
+    GnomeCmdFileSelector *other = gnome_cmd_main_win_get_fs (mw, !fsID);
+
+    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (other);
+    gboolean fs_is_active = fs->priv->active;
+
+    if (!fs_is_active)
+    {
+        GnomeCmdFile *file = gnome_cmd_file_list_get_selected_file (other->list);
+
+        if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+            dir = gnome_cmd_dir_new_from_info (file->info, dir);
+    }
+
+    set_connection (fs, other->priv->con, dir);
+
+    gnome_cmd_file_selector_set_active (other, !fs_is_active);
+    gnome_cmd_file_selector_set_active (fs, fs_is_active);
 }
 
 

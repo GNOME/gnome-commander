@@ -83,7 +83,7 @@ GtkWidget* gnome_cmd_file_selector_new (void);
 GnomeCmdDir *gnome_cmd_file_selector_get_directory (GnomeCmdFileSelector *fs);
 void gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
 
-void gnome_cmd_file_selector_set_same_directory (GnomeCmdMainWin *mw, FileSelectorID fsID, FileSelectorID otherID);
+void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, FileSelectorID fsID);
 
 void gnome_cmd_file_selector_goto_directory (GnomeCmdFileSelector *fs, const gchar *dir);
 

@@ -1272,25 +1272,25 @@ void view_equal_panes (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_in_left_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_set_same_directory ((GnomeCmdMainWin *) GTK_WIDGET (main_win), LEFT, RIGHT);
+    gnome_cmd_file_selector_set_directory_to_opposite ((GnomeCmdMainWin *) GTK_WIDGET (main_win), LEFT);
 }
 
 
 void view_in_right_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_set_same_directory ((GnomeCmdMainWin *) GTK_WIDGET (main_win), RIGHT, LEFT);
+    gnome_cmd_file_selector_set_directory_to_opposite ((GnomeCmdMainWin *) GTK_WIDGET (main_win), RIGHT);
 }
 
 
 void view_in_active_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_set_same_directory ((GnomeCmdMainWin *) GTK_WIDGET (main_win), ACTIVE, INACTIVE);
+    gnome_cmd_file_selector_set_directory_to_opposite ((GnomeCmdMainWin *) GTK_WIDGET (main_win), ACTIVE);
 }
 
 
 void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_set_same_directory ((GnomeCmdMainWin *) GTK_WIDGET (main_win), INACTIVE, ACTIVE);
+    gnome_cmd_file_selector_set_directory_to_opposite ((GnomeCmdMainWin *) GTK_WIDGET (main_win), INACTIVE);
 }
 
 
