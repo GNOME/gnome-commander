@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-18 05:25+0000\n"
-"PO-Revision-Date: 2008-06-18 09:22+0100\n"
+"POT-Creation-Date: 2008-07-14 21:40+0000\n"
+"PO-Revision-Date: 2008-07-22 15:02+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -742,21 +742,21 @@ msgid "Use _GNOME Keyring Manager for authentication"
 msgstr "Użyj menedżera haseł _GNOME do uwierzytelniania"
 
 #. ?????????
-#: ../src/gnome-cmd-con-ftp.cc:321
-#: ../src/gnome-cmd-con-ftp.cc:368
+#: ../src/gnome-cmd-con-ftp.cc:309
+#: ../src/gnome-cmd-con-ftp.cc:356
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Dołączanie do %s\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:384
+#: ../src/gnome-cmd-con-ftp.cc:372
 #, c-format
-msgid "Opens the FTP connection to %s"
-msgstr "Nawiąż połączenie FTP z %s"
+msgid "Opens remote connection to %s"
+msgstr "Połącz z %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:385
+#: ../src/gnome-cmd-con-ftp.cc:373
 #, c-format
-msgid "Closes the FTP connection to %s"
-msgstr "Zamknij połączenie FTP z %s"
+msgid "Closes remote connection to %s"
+msgstr "Zamknij połączenie z %s"
 
 #: ../src/gnome-cmd-con-home.cc:120
 msgid "Home"
@@ -818,21 +818,21 @@ msgid "Delete problem"
 msgstr "Problem usuwania"
 
 #: ../src/gnome-cmd-delete-dialog.cc:211
-#: ../src/gnome-cmd-xfer.cc:171
-#: ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-xfer.cc:167
+#: ../src/gnome-cmd-xfer.cc:186
 msgid "Abort"
 msgstr "Przerwij"
 
 #: ../src/gnome-cmd-delete-dialog.cc:211
 #: ../src/gnome-cmd-file-selector.cc:2148
-#: ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-xfer.cc:186
 msgid "Retry"
 msgstr "Ponów"
 
 #: ../src/gnome-cmd-delete-dialog.cc:211
 #: ../src/gnome-cmd-file-selector.cc:2148
-#: ../src/gnome-cmd-xfer.cc:171
-#: ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-xfer.cc:167
+#: ../src/gnome-cmd-xfer.cc:186
 msgid "Skip"
 msgstr "Pomiń"
 
@@ -1393,19 +1393,19 @@ msgstr "_Dalej"
 
 #: ../src/gnome-cmd-main-menu.cc:620
 msgid "Show Device Buttons"
-msgstr "Pokaż przyciski _urządzeń"
+msgstr "Pokaż przyciski urządzeń"
 
 #: ../src/gnome-cmd-main-menu.cc:626
 msgid "Show Toolbar"
-msgstr "Pokaż pasek _narzędzi"
+msgstr "Pokaż pasek narzędzi"
 
 #: ../src/gnome-cmd-main-menu.cc:632
 msgid "Show Commandline"
-msgstr "Pokaż linię _poleceń"
+msgstr "Pokaż linię poleceń"
 
 #: ../src/gnome-cmd-main-menu.cc:638
 msgid "Show Buttonbar"
-msgstr "Pokaż przyciski klawiszy _funkcyjnych"
+msgstr "Pokaż przyciski klawiszy funkcyjnych"
 
 #: ../src/gnome-cmd-main-menu.cc:645
 msgid "Show Hidden Files"
@@ -2139,7 +2139,7 @@ msgstr "Z potwierdzeniem"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
 #: ../src/gnome-cmd-prepare-move-dialog.cc:102
-#: ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:167
 msgid "Skip All"
 msgstr "Pomiń wszystkie"
 
@@ -2243,10 +2243,12 @@ msgid "_Limited depth"
 msgstr "Do _poziomu"
 
 #: ../src/gnome-cmd-search-dialog.cc:42
+#: ../src/gnome-cmd-search-dialog.cc:871
 msgid "She_ll syntax"
 msgstr "Składnia powłoki"
 
 #: ../src/gnome-cmd-search-dialog.cc:43
+#: ../src/gnome-cmd-search-dialog.cc:875
 msgid "Rege_x syntax"
 msgstr "Składnia wyrażeń regularnych"
 
@@ -2291,34 +2293,34 @@ msgstr[0] "Znaleziono %d pasujący"
 msgstr[1] "Znaleziono %d pasujące"
 msgstr[2] "Znaleziono %d pasujących"
 
-#: ../src/gnome-cmd-search-dialog.cc:806
+#: ../src/gnome-cmd-search-dialog.cc:823
 msgid "Search..."
 msgstr "Szukaj..."
 
-#: ../src/gnome-cmd-search-dialog.cc:820
+#: ../src/gnome-cmd-search-dialog.cc:837
 msgid "Search _for: "
 msgstr "Znajdź _plik: "
 
-#: ../src/gnome-cmd-search-dialog.cc:832
+#: ../src/gnome-cmd-search-dialog.cc:849
 msgid "Search _in: "
 msgstr "Szukaj _w:"
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:844
+#: ../src/gnome-cmd-search-dialog.cc:864
 msgid "Search _recursively"
 msgstr "Zastosuj do _podkatalogów"
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:851
+#: ../src/gnome-cmd-search-dialog.cc:884
 msgid "Find _text: "
 msgstr "Znajdź _tekst: "
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:864
+#: ../src/gnome-cmd-search-dialog.cc:897
 msgid "Case sensiti_ve"
 msgstr "_Rozróżnianie wielkości liter"
 
-#: ../src/gnome-cmd-search-dialog.cc:872
+#: ../src/gnome-cmd-search-dialog.cc:905
 msgid "_Go to"
 msgstr "_Przejdź do"
 
@@ -2438,14 +2440,12 @@ msgid "Quit"
 msgstr "Zakończ"
 
 #: ../src/gnome-cmd-user-actions.cc:160
-#, fuzzy
 msgid "View with external viewer"
-msgstr "Zredaguj w zewnętrznym edytorze"
+msgstr "Wyświetl w zewnętrznej przeglądarce"
 
 #: ../src/gnome-cmd-user-actions.cc:161
-#, fuzzy
 msgid "View with internal viewer"
-msgstr "Rozpocznij z widokiem drzewa plików"
+msgstr "Wyświetl w wewnętrznej przeglądarce"
 
 #: ../src/gnome-cmd-user-actions.cc:162
 msgid "Create directory"
@@ -2646,21 +2646,21 @@ msgstr "Piotr Eljasiak <epiotr@use.pl>"
 msgid "stopping..."
 msgstr "zatrzymywanie..."
 
-#: ../src/gnome-cmd-xfer-progress-win.cc:83
+#: ../src/gnome-cmd-xfer-progress-win.cc:82
 msgid "Progress"
 msgstr "Postęp"
 
-#: ../src/gnome-cmd-xfer-progress-win.cc:162
+#: ../src/gnome-cmd-xfer-progress-win.cc:176
 #, c-format
 msgid "%s of %s copied"
 msgstr "skopiowano %s z %s"
 
-#: ../src/gnome-cmd-xfer-progress-win.cc:166
+#: ../src/gnome-cmd-xfer-progress-win.cc:180
 #, c-format
 msgid "%.0f%% copied"
 msgstr "skopiowano %.0f%%"
 
-#: ../src/gnome-cmd-xfer.cc:167
+#: ../src/gnome-cmd-xfer.cc:163
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -2671,15 +2671,15 @@ msgstr ""
 "\n"
 "Czy chcesz go nadpisać?\n"
 
-#: ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:167
 msgid "Replace"
 msgstr "Zamień"
 
-#: ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:167
 msgid "Replace All"
 msgstr "Zamień wszystko"
 
-#: ../src/gnome-cmd-xfer.cc:186
+#: ../src/gnome-cmd-xfer.cc:182
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -2690,20 +2690,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-xfer.cc:189
+#: ../src/gnome-cmd-xfer.cc:185
 msgid "Transfer problem"
 msgstr "Problem transferu plików"
 
-#: ../src/gnome-cmd-xfer.cc:228
+#: ../src/gnome-cmd-xfer.cc:224
 msgid "copying..."
 msgstr "kopiowanie..."
 
-#: ../src/gnome-cmd-xfer.cc:236
+#: ../src/gnome-cmd-xfer.cc:232
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[plik %ld z %ld] \"%s\""
 
-#: ../src/gnome-cmd-xfer.cc:386
+#: ../src/gnome-cmd-xfer.cc:382
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
@@ -2711,11 +2711,11 @@ msgstr ""
 "Kopiowanie katalogu do samego siebie nie jest dobrym pomysłem\n"
 "Operacja została porzucona."
 
-#: ../src/gnome-cmd-xfer.cc:427
+#: ../src/gnome-cmd-xfer.cc:423
 msgid "preparing..."
 msgstr "przygotowywanie..."
 
-#: ../src/gnome-cmd-xfer.cc:512
+#: ../src/gnome-cmd-xfer.cc:508
 msgid "downloading to /tmp"
 msgstr "pobieranie do /tmp"
 
@@ -3727,14 +3727,12 @@ msgid "The color filter array (CFA) geometric pattern of the image sensor when a
 msgstr "Oznaczenie wzoru geometrycznego CFA (color filter array - tablicy filtrów kolorów) czujnika obrazu w przypadku użycia jednoukładowego czujnika obszaru koloru. Nie odnosi się to do wszystkich metod próbkowania."
 
 #: ../src/tags/gnome-cmd-tags.cc:198
-#, fuzzy
 msgid "CFA Repeat Pattern Dim"
-msgstr "Kafelkowe powielanie obrazku, według wzoru"
+msgstr "Rozmiary wzoru geometrycznego CFA (color filter array - tablicy filtrów kolorów)"
 
 #: ../src/tags/gnome-cmd-tags.cc:198
-#, fuzzy
 msgid "CFA Repeat Pattern Dim."
-msgstr "Kafelkowe powielanie obrazku, według wzoru"
+msgstr "Rozmiary wzoru geometrycznego CFA (color filter array - tablicy filtrów kolorów)."
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid "Color Space"
@@ -4796,7 +4794,7 @@ msgstr "Grupa operacji"
 #: ../src/tags/gnome-cmd-tags.cc:331
 #, fuzzy
 msgid "Content group description."
-msgstr "Szukanie po opisie"
+msgstr "Opis (zawartość stała)"
 
 #: ../src/tags/gnome-cmd-tags.cc:332
 msgid "Content Type"
@@ -4808,9 +4806,8 @@ msgid "Encryption Registration"
 msgstr "Ograniczenie czasowe rejestracji"
 
 #: ../src/tags/gnome-cmd-tags.cc:334
-#, fuzzy
 msgid "Encryption method registration."
-msgstr "Rejestracja użytkownika"
+msgstr "Rejestracja metody szyfrowania."
 
 #: ../src/tags/gnome-cmd-tags.cc:335
 msgid "Date."
@@ -4872,7 +4869,7 @@ msgstr "<b>Tryb koordynacji czasu:</b>"
 #: ../src/tags/gnome-cmd-tags.cc:342
 #, fuzzy
 msgid "Event timing codes."
-msgstr "O włos"
+msgstr "Kody formatu liczb"
 
 #: ../src/tags/gnome-cmd-tags.cc:343
 msgid "File Owner"
@@ -5030,14 +5027,12 @@ msgid "Original album."
 msgstr "<b>Okładka albumu:</b>"
 
 #: ../src/tags/gnome-cmd-tags.cc:362
-#, fuzzy
 msgid "Original Artist"
-msgstr "Nieznany wykonawca"
+msgstr "Pierwotny wykonawca"
 
 #: ../src/tags/gnome-cmd-tags.cc:362
-#, fuzzy
 msgid "Original artist."
-msgstr "Nieznany wykonawca"
+msgstr "Pierwotny wykonawca."
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 msgid "Original File Name"
@@ -5253,7 +5248,7 @@ msgstr "Wybierz tempo"
 #: ../src/tags/gnome-cmd-tags.cc:388
 #, fuzzy
 msgid "Synchronized tempo codes."
-msgstr "Dzisiaj już synchronizowano"
+msgstr "Kody formatu liczb"
 
 #: ../src/tags/gnome-cmd-tags.cc:389
 msgid "Tagging Time"
@@ -5336,7 +5331,7 @@ msgstr "Nieznany wykonawca"
 #: ../src/tags/gnome-cmd-tags.cc:399
 #, fuzzy
 msgid "WWW Audio File"
-msgstr "Kodowanie dźwięku..."
+msgstr "Analizowanie pliku dźwiękowego"
 
 #: ../src/tags/gnome-cmd-tags.cc:399
 #, fuzzy
@@ -5372,9 +5367,8 @@ msgid "URL pointing at a webpage that holds copyright."
 msgstr "URL strony zawierającej informacje o prawach autorskich."
 
 #: ../src/tags/gnome-cmd-tags.cc:403
-#, fuzzy
 msgid "WWW Payment"
-msgstr "Wymagana jest opłata"
+msgstr "Płatność poprzez WWW"
 
 #: ../src/tags/gnome-cmd-tags.cc:403
 msgid "URL pointing at a webpage that will handle the process of paying for this file."
@@ -5462,7 +5456,7 @@ msgstr "Słowa kluczowe."
 #: ../src/tags/gnome-cmd-tags.cc:421
 #, fuzzy
 msgid "Make"
-msgstr "make"
+msgstr "Zrob"
 
 #: ../src/tags/gnome-cmd-tags.cc:421
 msgid "Make of camera used to take the image."
@@ -5537,9 +5531,8 @@ msgid "Audio Outcue"
 msgstr "Komunikat słowny"
 
 #: ../src/tags/gnome-cmd-tags.cc:433
-#, fuzzy
 msgid "The content at the end of the audio data."
-msgstr "Nie znaleziono palety na końcu danych PCX"
+msgstr "Informacja na końcu danych audio"
 
 #: ../src/tags/gnome-cmd-tags.cc:434
 msgid "Audio Sampling Rate"
@@ -5566,9 +5559,8 @@ msgid "The number of channels and type of audio (music, text, etc.) in the objec
 msgstr "Liczba kanałów i typ audio zawartego w obiekcie."
 
 #: ../src/tags/gnome-cmd-tags.cc:437
-#, fuzzy
 msgid "By-line"
-msgstr "Tytuł"
+msgstr "Autor"
 
 #: ../src/tags/gnome-cmd-tags.cc:437
 msgid "Name of the creator of the object, e.g. writer, photographer or graphic artist (multiple values allowed)."
@@ -5640,7 +5632,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:446
 #, fuzzy
 msgid "Content Location Name"
-msgstr "<b>nazwa</b>: %1<br><b>album</b>: %2<br><b>położenie</b>: %3<br>%4%5"
+msgstr "Nazwa i lokalizacja pliku"
 
 #: ../src/tags/gnome-cmd-tags.cc:446
 msgid "A full, publishable name of a country/geographical location referenced by the content of the object (multiple values allowed)."
@@ -5734,9 +5726,8 @@ msgid "Status of the object, according to the practice of the provider."
 msgstr "Status obiektu zgodnie z informacjami producenta."
 
 #: ../src/tags/gnome-cmd-tags.cc:458
-#, fuzzy
 msgid "Envelope Number"
-msgstr "Niepowtarzalna liczba określająca opakowanie"
+msgstr "Unikalny identyfikator"
 
 #: ../src/tags/gnome-cmd-tags.cc:458
 msgid "A number unique for the date in 1:70 and the service ID in 1:30."
@@ -6089,8 +6080,9 @@ msgid "Time Sent"
 msgstr "Czas wysłania"
 
 #: ../src/tags/gnome-cmd-tags.cc:503
+#, fuzzy
 msgid "The time the service sent the material."
-msgstr ""
+msgstr "Usługa NIST Modem Time"
 
 #: ../src/tags/gnome-cmd-tags.cc:504
 msgid "Unique Name of Object"
