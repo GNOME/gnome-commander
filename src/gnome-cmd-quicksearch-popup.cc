@@ -42,15 +42,15 @@ struct _GnomeCmdQuicksearchPopupPrivate
 
 inline void focus_file (GnomeCmdQuicksearchPopup *popup, GnomeCmdFile *finfo)
 {
-    gint row = gnome_cmd_file_list_get_row_from_file (popup->priv->fl, finfo);
+    if (strcmp (finfo->info->name, "..") == 0)
+        return;
+
     popup->priv->last_focused_file = finfo;
-    if (row > 0)
-    {
-        gtk_clist_moveto (GTK_CLIST (popup->priv->fl), row, 0, 1, 0);
-        gtk_clist_freeze (GTK_CLIST (popup->priv->fl));
-        GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row = row;
-        gtk_clist_thaw (GTK_CLIST (popup->priv->fl));
-    }
+    gint row = gnome_cmd_file_list_get_row_from_file (popup->priv->fl, finfo);
+    gtk_clist_moveto (GTK_CLIST (popup->priv->fl), row, 0, 1, 0);
+    gtk_clist_freeze (GTK_CLIST (popup->priv->fl));
+    GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row = row;
+    gtk_clist_thaw (GTK_CLIST (popup->priv->fl));
 }
 
 

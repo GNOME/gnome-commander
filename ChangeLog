@@ -1,3 +1,8 @@
+2008-07-23  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-quicksearch-popup.cc:
+	Fixed problem #538806 (quick search in root dir)
+
 2008-07-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:
