@@ -3,6 +3,7 @@ gnome-commander 1.2.7
 ---------------
 
 Bug fixes:
+ * Fixed problem #532615 (file operations on wrong file)
  * Fixed problem #538806 (quick search in root dir)
  * Fixed problem #539753 (build error on Solaris)
  * Fixed problem #541404 (update of host names)

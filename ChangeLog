@@ -1,3 +1,10 @@
+2008-07-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-search-dialog.cc:
+	Fixed problem #532615 (file operations on wrong file)
+
 2008-07-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-quicksearch-popup.cc:

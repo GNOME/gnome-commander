@@ -1441,27 +1441,23 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint i
 
 /******************************************************************************
 *
-*   Function: gnome_cmd_file_list_add_file
+*   Function: gnome_cmd_file_list_append_file
 *
 *   Purpose:  Add a file to the list
 *
 *   Params:   @fl: The FileList to add the file to
 *             @finfo: The file to add
-*             @in_row: The row to add the file at. Set to -1 to append the file at the end.
 *
 *   Returns:
 *
 *   Statuses:
 *
 ******************************************************************************/
-void gnome_cmd_file_list_add_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint row)
+void gnome_cmd_file_list_append_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 {
-    /* Add the file to the list
-     *
-     */
     gnome_cmd_file_collection_add (fl->priv->shown_files, finfo);
 
-    add_file_to_clist (fl, finfo, row);
+    add_file_to_clist (fl, finfo, -1);
 }
 
 
@@ -1499,7 +1495,7 @@ void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolea
 
     gtk_clist_freeze (GTK_CLIST (fl));
     for (; tmp; tmp = tmp->next)
-        gnome_cmd_file_list_add_file (fl, GNOME_CMD_FILE (tmp->data), -1);
+        gnome_cmd_file_list_append_file (fl, GNOME_CMD_FILE (tmp->data));
     gtk_clist_thaw (GTK_CLIST (fl));
 
     if (list)
@@ -1516,13 +1512,18 @@ void gnome_cmd_file_list_insert_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
         GnomeCmdFile *finfo2 = get_file_at_row (fl, i);
         if (fl->priv->sort_func (finfo2, finfo, fl) == 1)
         {
-            gnome_cmd_file_list_add_file (fl, finfo, i);
+            gnome_cmd_file_collection_add (fl->priv->shown_files, finfo);
+            add_file_to_clist (fl, finfo, i);
+
+            if (i<=fl->priv->cur_file)
+                fl->priv->cur_file++;
+
             return;
         }
     }
 
     // Insert the file at the end of the list
-    gnome_cmd_file_list_add_file (fl, finfo, -1);
+    gnome_cmd_file_list_append_file (fl, finfo);
 }
 
 

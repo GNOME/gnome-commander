@@ -109,7 +109,7 @@ guint gnome_cmd_file_list_get_column_default_width (GnomeCmdFileListColumnID col
 
 void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl);
 
-void gnome_cmd_file_list_add_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row);
+void gnome_cmd_file_list_append_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sort);
 void gnome_cmd_file_list_insert_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 void gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);

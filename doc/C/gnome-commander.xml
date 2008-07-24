@@ -5918,6 +5918,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #532615 (file operations on wrong file)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #538806 (quick search in root dir)</para>
                         </listitem>
                         <listitem>
