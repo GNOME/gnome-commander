@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-18 05:25+0000\n"
-"PO-Revision-Date: 2008-06-07 13:03+0200\n"
+"POT-Creation-Date: 2008-07-14 21:40+0000\n"
+"PO-Revision-Date: 2008-07-25 11:17+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -745,20 +745,20 @@ msgid "Use _GNOME Keyring Manager for authentication"
 msgstr "Usar el Gestor del depósito de claves de _GNOME para la autenticación"
 
 #. ?????????
-#: ../src/gnome-cmd-con-ftp.cc:321 ../src/gnome-cmd-con-ftp.cc:368
+#: ../src/gnome-cmd-con-ftp.cc:309 ../src/gnome-cmd-con-ftp.cc:356
 #, c-format
 msgid "Connecting to %s\n"
 msgstr "Conectando a %s\n"
 
-#: ../src/gnome-cmd-con-ftp.cc:384
+#: ../src/gnome-cmd-con-ftp.cc:372
 #, c-format
-msgid "Opens the FTP connection to %s"
-msgstr "Crea la conexión FTP a %s"
+msgid "Opens remote connection to %s"
+msgstr "Abre la conexión remota con %s"
 
-#: ../src/gnome-cmd-con-ftp.cc:385
+#: ../src/gnome-cmd-con-ftp.cc:373
 #, c-format
-msgid "Closes the FTP connection to %s"
-msgstr "Cierra la conexión FTP con %s"
+msgid "Closes remote connection to %s"
+msgstr "Cierra la conexión remota con %s"
 
 #: ../src/gnome-cmd-con-home.cc:120
 msgid "Home"
@@ -816,19 +816,19 @@ msgstr ""
 msgid "Delete problem"
 msgstr "Problema al borrar"
 
-#: ../src/gnome-cmd-delete-dialog.cc:211 ../src/gnome-cmd-xfer.cc:171
-#: ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-delete-dialog.cc:211 ../src/gnome-cmd-xfer.cc:167
+#: ../src/gnome-cmd-xfer.cc:186
 msgid "Abort"
 msgstr "Abortar"
 
 #: ../src/gnome-cmd-delete-dialog.cc:211
-#: ../src/gnome-cmd-file-selector.cc:2148 ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-file-selector.cc:2148 ../src/gnome-cmd-xfer.cc:186
 msgid "Retry"
 msgstr "Reintentar"
 
 #: ../src/gnome-cmd-delete-dialog.cc:211
-#: ../src/gnome-cmd-file-selector.cc:2148 ../src/gnome-cmd-xfer.cc:171
-#: ../src/gnome-cmd-xfer.cc:190
+#: ../src/gnome-cmd-file-selector.cc:2148 ../src/gnome-cmd-xfer.cc:167
+#: ../src/gnome-cmd-xfer.cc:186
 msgid "Skip"
 msgstr "Saltar"
 
@@ -1545,7 +1545,8 @@ msgstr "Ir al último"
 
 #: ../src/gnome-cmd-main-win.cc:1162
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
-msgstr "Copiar los nombres de archivo (MAYÚS para rutas completas, ALT para URI)"
+msgstr ""
+"Copiar los nombres de archivo (MAYÚS para rutas completas, ALT para URI)"
 
 #: ../src/gnome-cmd-main-win.cc:1163 ../src/gnome-cmd-user-actions.cc:144
 msgid "Cut"
@@ -2103,7 +2104,7 @@ msgid "Query First"
 msgstr "Consultar primero"
 
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:108
-#: ../src/gnome-cmd-prepare-move-dialog.cc:102 ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-prepare-move-dialog.cc:102 ../src/gnome-cmd-xfer.cc:167
 msgid "Skip All"
 msgstr "Saltar todos"
 
@@ -2204,11 +2205,11 @@ msgstr "Sólo el _directorio actual"
 msgid "_Limited depth"
 msgstr "Profundidad _limitada"
 
-#: ../src/gnome-cmd-search-dialog.cc:42
+#: ../src/gnome-cmd-search-dialog.cc:42 ../src/gnome-cmd-search-dialog.cc:871
 msgid "She_ll syntax"
 msgstr "Sin_taxis de Shell"
 
-#: ../src/gnome-cmd-search-dialog.cc:43
+#: ../src/gnome-cmd-search-dialog.cc:43 ../src/gnome-cmd-search-dialog.cc:875
 msgid "Rege_x syntax"
 msgstr "Sintaxis e_xpreg"
 
@@ -2251,34 +2252,34 @@ msgid_plural "Found %d matches"
 msgstr[0] "Se encontró %d coincidencia"
 msgstr[1] "Se encontraron %d coincidencias"
 
-#: ../src/gnome-cmd-search-dialog.cc:806
+#: ../src/gnome-cmd-search-dialog.cc:823
 msgid "Search..."
 msgstr "Buscar..."
 
-#: ../src/gnome-cmd-search-dialog.cc:820
+#: ../src/gnome-cmd-search-dialog.cc:837
 msgid "Search _for: "
 msgstr "Buscar _por:"
 
-#: ../src/gnome-cmd-search-dialog.cc:832
+#: ../src/gnome-cmd-search-dialog.cc:849
 msgid "Search _in: "
 msgstr "Buscar _en:"
 
 #. Recurse check
-#: ../src/gnome-cmd-search-dialog.cc:844
+#: ../src/gnome-cmd-search-dialog.cc:864
 msgid "Search _recursively"
 msgstr "Buscar _recursivamente"
 
 #. Find text
-#: ../src/gnome-cmd-search-dialog.cc:851
+#: ../src/gnome-cmd-search-dialog.cc:884
 msgid "Find _text: "
 msgstr "Buscar _texto:"
 
 #. Case check
-#: ../src/gnome-cmd-search-dialog.cc:864
+#: ../src/gnome-cmd-search-dialog.cc:897
 msgid "Case sensiti_ve"
 msgstr "Sensible a _capitalización"
 
-#: ../src/gnome-cmd-search-dialog.cc:872
+#: ../src/gnome-cmd-search-dialog.cc:905
 msgid "_Go to"
 msgstr "_Ir a"
 
@@ -2629,21 +2630,21 @@ msgstr ""
 msgid "stopping..."
 msgstr "deteniendo..."
 
-#: ../src/gnome-cmd-xfer-progress-win.cc:83
+#: ../src/gnome-cmd-xfer-progress-win.cc:82
 msgid "Progress"
 msgstr "Progreso"
 
-#: ../src/gnome-cmd-xfer-progress-win.cc:162
+#: ../src/gnome-cmd-xfer-progress-win.cc:176
 #, c-format
 msgid "%s of %s copied"
 msgstr "%s de %s copiados"
 
-#: ../src/gnome-cmd-xfer-progress-win.cc:166
+#: ../src/gnome-cmd-xfer-progress-win.cc:180
 #, c-format
 msgid "%.0f%% copied"
 msgstr "%.0f%% copiado"
 
-#: ../src/gnome-cmd-xfer.cc:167
+#: ../src/gnome-cmd-xfer.cc:163
 #, c-format
 msgid ""
 "The file \"%s\" already exists.\n"
@@ -2654,15 +2655,15 @@ msgstr ""
 "\n"
 "¿Quiere sobreescribirlo?\n"
 
-#: ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:167
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../src/gnome-cmd-xfer.cc:171
+#: ../src/gnome-cmd-xfer.cc:167
 msgid "Replace All"
 msgstr "Remplazar todos"
 
-#: ../src/gnome-cmd-xfer.cc:186
+#: ../src/gnome-cmd-xfer.cc:182
 #, c-format
 msgid ""
 "Error while copying to %s\n"
@@ -2673,20 +2674,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../src/gnome-cmd-xfer.cc:189
+#: ../src/gnome-cmd-xfer.cc:185
 msgid "Transfer problem"
 msgstr "Problema de transferencia"
 
-#: ../src/gnome-cmd-xfer.cc:228
+#: ../src/gnome-cmd-xfer.cc:224
 msgid "copying..."
 msgstr "copiando..."
 
-#: ../src/gnome-cmd-xfer.cc:236
+#: ../src/gnome-cmd-xfer.cc:232
 #, c-format
 msgid "[file %ld of %ld] \"%s\""
 msgstr "[archivo %ld de %ld] «%s»"
 
-#: ../src/gnome-cmd-xfer.cc:386
+#: ../src/gnome-cmd-xfer.cc:382
 msgid ""
 "Copying a directory into itself is a bad idea.\n"
 "The whole operation was cancelled."
@@ -2694,11 +2695,11 @@ msgstr ""
 "Copiar un directorio dentro de sí mismo es una mala idea.\n"
 "La operación fue cancelada."
 
-#: ../src/gnome-cmd-xfer.cc:427
+#: ../src/gnome-cmd-xfer.cc:423
 msgid "preparing..."
 msgstr "preparando..."
 
-#: ../src/gnome-cmd-xfer.cc:512
+#: ../src/gnome-cmd-xfer.cc:508
 msgid "downloading to /tmp"
 msgstr "descargando a /tmp"
 
@@ -2875,8 +2876,8 @@ msgid "_Binary Mode"
 msgstr "Modo _binario"
 
 #: ../src/intviewer/viewer-window.cc:877
-msgid "_Decimal Offset in Hexdump"
-msgstr "Offset _decimal en volcado hex"
+msgid "_Hexadecimal Offset"
+msgstr "Desplazamiento _hexadecimal"
 
 #: ../src/intviewer/viewer-window.cc:883
 msgid "_Save Current Settings"
@@ -7211,6 +7212,9 @@ msgstr "No se pudo leer del directorio %s: %s"
 #: ../src/utils.h:259
 msgid "There was an error displaying help."
 msgstr "Hubo un error al mostrar la ayuda."
+
+#~ msgid "_Decimal Offset in Hexdump"
+#~ msgstr "Offset _decimal en volcado hex"
 
 #~ msgid "/Counter (precision)"
 #~ msgstr "/Contador (precisión)"
