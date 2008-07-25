@@ -1,3 +1,8 @@
+2008-07-25  Marius Siegas  <inkredibl@gmail.com>
+
+	* src/gnome-cmd-xfer.cc:
+	Fix for "(null)" filename in message dlg
+
 2008-07-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:
