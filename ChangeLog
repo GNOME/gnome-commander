@@ -10,6 +10,9 @@
 	* src/gnome-cmd-search-dialog.cc:
 	Fixed problem #532615 (file operations on wrong file)
 
+	* src/gnome-cmd-main-win.cc:
+	Fixed problem #522430 (quick search for files starting with uppercase)
+
 2008-07-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-quicksearch-popup.cc:

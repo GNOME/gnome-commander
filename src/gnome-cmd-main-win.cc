@@ -134,10 +134,10 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdM
             (event->keyval == GDK_period)))
         return FALSE;
 
-    if (!gnome_cmd_data_get_alt_quick_search())
+    if (!gnome_cmd_data_get_alt_quick_search ())
         return FALSE;
 
-    if (!state_is_alt(event->state))
+    if (!state_is_alt (event->state) && !state_is_alt_shift (event->state))
         return FALSE;
 
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, ACTIVE);

@@ -5918,6 +5918,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #522430 (quick search for files starting with uppercase)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #532615 (file operations on wrong file)</para>
                         </listitem>
                         <listitem>
