@@ -25,10 +25,6 @@
 #include "gnome-cmd-includes.h"
 #include "filter.h"
 
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
-
 using namespace std;
 
 
@@ -55,7 +51,7 @@ inline Filter *new_fnmatch (const gchar *exp, gboolean case_sens)
     filter->fn_exp = g_strdup (exp);
     filter->fn_flags = FNM_NOESCAPE;
 
-#ifdef _GNU_SOURCE
+#ifdef FNM_CASEFOLD
     if (!case_sens)
         filter->fn_flags |= FNM_CASEFOLD;
 #endif

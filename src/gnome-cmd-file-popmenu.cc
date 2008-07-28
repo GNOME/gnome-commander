@@ -30,9 +30,6 @@
 #include "utils.h"
 #include "cap.h"
 
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
 #include <fnmatch.h>
 
 using namespace std;
@@ -284,7 +281,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
             for (; files; files = files->next)
             {
                 gboolean ok = FALSE;
-#ifdef _GNU_SOURCE
+#ifdef FNM_CASEFOLD
                 gint fn_flags = FNM_NOESCAPE | FNM_CASEFOLD;
 #else
                 gint fn_flags = FNM_NOESCAPE;

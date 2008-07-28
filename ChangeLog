@@ -1,3 +1,10 @@
+2008-07-28  Padraig O'Briain  <Padraig.Obriain@Sun.COM>
+
+	* src/filter.cc:
+	* src/gnome-cmd-file-popmenu.cc:
+	* src/utils.cc:
+	Correctly handle FNM_CASEFOLD when building on non-Gnu systems
+
 2008-07-25  Marius Siegas  <inkredibl@gmail.com>
 
 	* src/gnome-cmd-xfer.cc:

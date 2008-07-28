@@ -33,9 +33,6 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
 
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
 #include <fnmatch.h>
 
 using namespace std;
@@ -1328,7 +1325,7 @@ void patlist_free (GList *pattern_list)
 gboolean patlist_matches (GList *pattern_list, const gchar *s)
 {
     for (GList *tmp = pattern_list; tmp; tmp = tmp->next)
-#ifdef _GNU_SOURCE
+#ifdef FNM_CASEFOLD
         if (fnmatch ((gchar *) tmp->data, s, FNM_NOESCAPE|FNM_CASEFOLD) == 0)
 #else
         if (fnmatch ((gchar *) tmp->data, s, FNM_NOESCAPE) == 0)   // omit FNM_CASEFOLD as it is a GNU extension.
