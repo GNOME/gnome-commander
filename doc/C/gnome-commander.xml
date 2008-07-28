@@ -5,7 +5,7 @@
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "1.2.7">
   <!ENTITY manrevision "1.2.7">
-  <!ENTITY date "??? 2008">
+  <!ENTITY date "July 2008">
   <!ENTITY app "<application>GNOME Commander</application>">
   <!-- Information about the entities
        The legal.xml file contains legal information, there is no need to edit the file.
@@ -136,7 +136,7 @@
       </revision>
       <revision>
         <revnumber>GNOME Commander Manual V1.2.7;</revnumber>
-        <date>2008-??-??</date>
+        <date>2008-07-28</date>
         <revdescription>
             <para role="author">Piotr Eljasiak
                 <email>epiotr@cvs.gnome.org</email>
@@ -5912,7 +5912,7 @@
     <tbody>
         <row valign="top">
             <entry><para>1.2.7</para></entry>
-            <entry><para>2008-??-??</para></entry>
+            <entry><para>2008-07-28</para></entry>
             <entry>
                 <para>Bug fixes:</para>
                 <para>
@@ -5963,14 +5963,6 @@
                         </listitem>
                         <listitem>
                             <para>New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR</para>
-                        </listitem>
-                        <listitem>
-                            <para>New key bindings:</para>
-                            <itemizedlist>
-                                <listitem>
-                                    <para><keycombo><keycap>...</keycap><keycap>...</keycap></keycombo>   ...</para>
-                                </listitem>
-                            </itemizedlist>
                         </listitem>
                     </itemizedlist>
                 </para>
