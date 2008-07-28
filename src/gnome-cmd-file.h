@@ -58,6 +58,8 @@ GtkType gnome_cmd_file_get_type (void);
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *finfo, GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 
+void gnome_cmd_file_invalidate_metadata (GnomeCmdFile *finfo);
+
 void gnome_cmd_file_ref (GnomeCmdFile *finfo);
 void gnome_cmd_file_unref (GnomeCmdFile *finfo);
 

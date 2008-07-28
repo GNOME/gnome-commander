@@ -172,6 +172,15 @@ GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 }
 
 
+void gnome_cmd_file_invalidate_metadata (GnomeCmdFile *finfo)
+{
+    g_return_if_fail (finfo != NULL);
+
+    delete finfo->metadata;
+    finfo->metadata = NULL;
+}
+
+
 void gnome_cmd_file_setup (GnomeCmdFile *finfo, GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 {
     g_return_if_fail (finfo != NULL);

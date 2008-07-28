@@ -860,6 +860,7 @@ static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmd
 
     if (file_is_in_list (fs, finfo))
     {
+        gnome_cmd_file_invalidate_metadata (finfo);
         gnome_cmd_file_list_update_file (GNOME_CMD_FILE_LIST (fs->list), finfo);
         update_selected_files_label (fs);
     }
@@ -874,6 +875,7 @@ static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmd
 
     if (file_is_in_list (fs, finfo))
     {
+        // gnome_cmd_file_invalidate_metadata (finfo, TAG_FILE);
         gnome_cmd_file_list_update_file (GNOME_CMD_FILE_LIST (fs->list), finfo);
 
         GnomeCmdFileListColumnID sort_col = gnome_cmd_file_list_get_sort_column (GNOME_CMD_FILE_LIST (fs->list));
