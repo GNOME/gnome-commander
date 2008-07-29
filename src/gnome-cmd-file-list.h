@@ -86,9 +86,6 @@ struct _GnomeCmdFileListClass
 };
 
 
-enum {FILE_LIST_SORT_ASCENDING=FALSE, FILE_LIST_SORT_DESCENDING=TRUE};
-
-
 extern GtkTargetEntry drag_types[];
 extern GtkTargetEntry drop_types[];
 

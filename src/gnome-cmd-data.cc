@@ -1460,9 +1460,9 @@ void gnome_cmd_data_load (void)
     }
 
     data->priv->sort_column[LEFT] = gnome_cmd_data_get_int ("/options/sort_column_left", FILE_LIST_COLUMN_NAME);
-    data->priv->sort_direction[LEFT] = gnome_cmd_data_get_bool ("/options/sort_direction_left", FILE_LIST_SORT_ASCENDING);
+    data->priv->sort_direction[LEFT] = gnome_cmd_data_get_bool ("/options/sort_direction_left", GTK_SORT_ASCENDING);
     data->priv->sort_column[RIGHT] = gnome_cmd_data_get_int ("/options/sort_column_right", FILE_LIST_COLUMN_NAME);
-    data->priv->sort_direction[RIGHT] = gnome_cmd_data_get_bool ("/options/sort_direction_right", FILE_LIST_SORT_ASCENDING);
+    data->priv->sort_direction[RIGHT] = gnome_cmd_data_get_bool ("/options/sort_direction_right", GTK_SORT_ASCENDING);
 
     data->priv->viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
     data->priv->editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");

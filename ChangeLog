@@ -1,3 +1,10 @@
+2008-07-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	FILE_LIST_SORT_ASCENDING -> GTK_SORT_ASCENDING, FILE_LIST_SORT_DESCENDING -> GTK_SORT_DESCENDING
+
 2008-07-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in: Bumped version to 1.2.8
@@ -10,8 +17,8 @@
 2008-07-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:
-	* src/src/gnome-cmd-file.cc:
-	* src/src/gnome-cmd-file.h:
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
 	Invalidate metadata for modified files
 
 2008-07-28  Padraig O'Briain  <Padraig.Obriain@Sun.COM>

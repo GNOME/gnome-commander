@@ -82,7 +82,7 @@ typedef struct
     const gchar *title;
     guint default_width;
     GtkJustification justification;
-    gboolean default_sort_direction;
+    GtkSortType default_sort_direction;
     GCompareDataFunc sort_func;
 } GnomeCmdFileListColumn;
 
@@ -98,15 +98,15 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
 
 
 GnomeCmdFileListColumn file_list_column[FILE_LIST_NUM_COLUMNS] =
-{{FILE_LIST_COLUMN_ICON,"",16,GTK_JUSTIFY_CENTER,FILE_LIST_SORT_ASCENDING, NULL},
- {FILE_LIST_COLUMN_NAME, N_("name"), 140, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_name},
- {FILE_LIST_COLUMN_EXT, N_("ext"), 40, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_ext},
- {FILE_LIST_COLUMN_DIR, N_("dir"), 240, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_dir},
- {FILE_LIST_COLUMN_SIZE, N_("size"), 70, GTK_JUSTIFY_RIGHT, FILE_LIST_SORT_DESCENDING, (GCompareDataFunc) sort_by_size},
- {FILE_LIST_COLUMN_DATE, N_("date"), 150, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_DESCENDING, (GCompareDataFunc) sort_by_date},
- {FILE_LIST_COLUMN_PERM, N_("perm"), 70, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_perm},
- {FILE_LIST_COLUMN_OWNER, N_("uid"), 50, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_owner},
- {FILE_LIST_COLUMN_GROUP, N_("gid"), 50, GTK_JUSTIFY_LEFT, FILE_LIST_SORT_ASCENDING, (GCompareDataFunc) sort_by_group}};
+{{FILE_LIST_COLUMN_ICON,"",16,GTK_JUSTIFY_CENTER,GTK_SORT_ASCENDING, NULL},
+ {FILE_LIST_COLUMN_NAME, N_("name"), 140, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_name},
+ {FILE_LIST_COLUMN_EXT, N_("ext"), 40, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_ext},
+ {FILE_LIST_COLUMN_DIR, N_("dir"), 240, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_dir},
+ {FILE_LIST_COLUMN_SIZE, N_("size"), 70, GTK_JUSTIFY_RIGHT, GTK_SORT_DESCENDING, (GCompareDataFunc) sort_by_size},
+ {FILE_LIST_COLUMN_DATE, N_("date"), 150, GTK_JUSTIFY_LEFT, GTK_SORT_DESCENDING, (GCompareDataFunc) sort_by_date},
+ {FILE_LIST_COLUMN_PERM, N_("perm"), 70, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_perm},
+ {FILE_LIST_COLUMN_OWNER, N_("uid"), 50, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_owner},
+ {FILE_LIST_COLUMN_GROUP, N_("gid"), 50, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_group}};
 
 
 struct _GnomeCmdFileListPrivate
@@ -1250,7 +1250,7 @@ static void init (GnomeCmdFileList *fl)
         // fl->priv->sort_raising[i] = FALSE;
 
     gint col = FILE_LIST_COLUMN_NAME;       // defaults,
-    gboolean b = FILE_LIST_SORT_ASCENDING;  // used when not set by gnome_cmd_data_get_sort_params()
+    gboolean b = GTK_SORT_ASCENDING;        // used when not set by gnome_cmd_data_get_sort_params()
 
     gnome_cmd_data_get_sort_params (fl, &col, &b);
     fl->priv->current_col = col;
