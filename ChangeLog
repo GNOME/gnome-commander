@@ -1,3 +1,10 @@
+2008-08-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-dir.cc:
+	* src/gnome-cmd-dir-pool.cc:
+	* src/gnome-cmd-dir-pool.h:
+	Convert GnomeCmdDirPool into fully fledged C++ class
+
 2008-07-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

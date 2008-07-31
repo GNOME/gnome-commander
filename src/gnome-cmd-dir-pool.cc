@@ -28,30 +28,32 @@
 using namespace std;
 
 
-struct _GnomeCmdDirPoolPrivate
+struct GnomeCmdDirPool::GnomeCmdDirPoolPrivate
 {
+    static void print_dir (GnomeCmdDir *dir, gpointer data);
+
     GList *queue;
     GHashTable *map;
+
+    void check_cache_maxsize ();
 };
 
 
 static GtkObjectClass *parent_class = NULL;
 
 
-inline void check_cache_maxsize (GnomeCmdDirPool *pool)
+inline void GnomeCmdDirPool::GnomeCmdDirPoolPrivate::check_cache_maxsize ()
 {
     // remove the last dir if maxsize is exceeded
-    while (g_list_length (pool->priv->queue) > gnome_cmd_data_get_dir_cache_size ())
+    while (g_list_length (queue) > gnome_cmd_data_get_dir_cache_size ())
     {
-        GnomeCmdDir *dir = (GnomeCmdDir *) g_list_last (pool->priv->queue)->data;
-        g_hash_table_remove (pool->priv->map, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
-        pool->priv->queue = g_list_remove (pool->priv->queue, dir);
+        GnomeCmdDir *dir = (GnomeCmdDir *) g_list_last (queue)->data;
+        g_hash_table_remove (map, gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
+        queue = g_list_remove (queue, dir);
         DEBUG ('k', "removing %s 0x%x from the pool\n", gnome_cmd_dir_get_path (dir), dir);
         gnome_cmd_dir_unref (dir);
 
-        DEBUG('p', "queue size: %d  map size: %d\n",
-              g_list_length (pool->priv->queue),
-              g_hash_table_size (pool->priv->map));
+        DEBUG('p', "queue size: %d  map size: %d\n", g_list_length (queue), g_hash_table_size (map));
     }
 }
 
@@ -85,7 +87,7 @@ static void class_init (GnomeCmdDirPoolClass *klass)
 
 static void init (GnomeCmdDirPool *pool)
 {
-    pool->priv = g_new0 (GnomeCmdDirPoolPrivate, 1);
+    pool->priv = g_new0 (GnomeCmdDirPool::GnomeCmdDirPoolPrivate, 1);
 
     pool->priv->map = g_hash_table_new (g_str_hash, g_str_equal);
     // pool->priv->queue = NULL;
@@ -120,44 +122,35 @@ GtkType gnome_cmd_dir_pool_get_type (void)
 }
 
 
-GnomeCmdDirPool *gnome_cmd_dir_pool_new (void)
+GnomeCmdDir *GnomeCmdDirPool::get (const gchar *path)
 {
-    return (GnomeCmdDirPool *) gtk_type_new (gnome_cmd_dir_pool_get_type ());
-}
-
-
-GnomeCmdDir *gnome_cmd_dir_pool_get (GnomeCmdDirPool *pool, const gchar *path)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_DIR_POOL (pool), NULL);
-
-    GnomeCmdDir *dir = (GnomeCmdDir *) g_hash_table_lookup (pool->priv->map, path);
+    GnomeCmdDir *dir = (GnomeCmdDir *) g_hash_table_lookup (priv->map, path);
 
     if (dir)
     {
         // move it first in the queue
-        pool->priv->queue = g_list_remove (pool->priv->queue, dir);
-        pool->priv->queue = g_list_prepend (pool->priv->queue, dir);
+        priv->queue = g_list_remove (priv->queue, dir);
+        priv->queue = g_list_prepend (priv->queue, dir);
     }
 
     return dir;
 }
 
 
-void gnome_cmd_dir_pool_add (GnomeCmdDirPool *pool, GnomeCmdDir *dir)
+void GnomeCmdDirPool::add (GnomeCmdDir *dir)
 {
-    g_return_if_fail (GNOME_CMD_IS_DIR_POOL (pool));
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     DEBUG ('k', "adding %s 0x%x to the pool\n", gnome_cmd_dir_get_path (dir), dir);
     gnome_cmd_dir_ref (dir);
-    pool->priv->queue = g_list_prepend (pool->priv->queue, dir);
-    g_hash_table_insert (pool->priv->map, (gpointer)gnome_cmd_dir_get_path (dir), dir);
+    priv->queue = g_list_prepend (priv->queue, dir);
+    g_hash_table_insert (priv->map, (gpointer) gnome_cmd_dir_get_path (dir), dir);
 
-    check_cache_maxsize (pool);
+    priv->check_cache_maxsize ();
 }
 
 
-void gnome_cmd_dir_pool_remove (GnomeCmdDirPool *pool, GnomeCmdDir *dir)
+void GnomeCmdDirPool::remove (GnomeCmdDir *dir)
 {
 }
 
@@ -165,15 +158,14 @@ void gnome_cmd_dir_pool_remove (GnomeCmdDirPool *pool, GnomeCmdDir *dir)
 extern GList *all_dirs;
 
 
-static void print_dir (GnomeCmdDir *dir, gpointer data)
+void GnomeCmdDirPool::GnomeCmdDirPoolPrivate::print_dir (GnomeCmdDir *dir, gpointer data)
 {
     g_printerr ("%s\n", gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (dir)));
 }
 
 
-void gnome_cmd_dir_pool_show_state (GnomeCmdDirPool *pool)
+void GnomeCmdDirPool::show_state ()
 {
     g_printerr ("\n\n------------= All currently existing directories =-------------\n");
-    g_list_foreach (all_dirs, (GFunc) print_dir, NULL);
+    g_list_foreach (all_dirs, (GFunc) priv->print_dir, NULL);
 }
-

@@ -20,49 +20,40 @@
 #ifndef __GNOME_CMD_DIR_POOL_H__
 #define __GNOME_CMD_DIR_POOL_H__
 
-#define GNOME_CMD_DIR_POOL(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_dir_pool_get_type (), GnomeCmdDirPool)
-#define GNOME_CMD_DIR_POOL_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_dir_pool_get_type (), GnomeCmdDirPoolClass)
-#define GNOME_CMD_IS_DIR_POOL(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_dir_pool_get_type ())
+#define GNOME_CMD_DIR_POOL(obj)          GTK_CHECK_CAST (obj, gnome_cmd_dir_pool_get_type (), GnomeCmdDirPool)
+#define GNOME_CMD_DIR_POOL_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gnome_cmd_dir_pool_get_type (), GnomeCmdDirPoolClass)
+#define GNOME_CMD_IS_DIR_POOL(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_dir_pool_get_type ())
 
-
-typedef struct _GnomeCmdDirPool GnomeCmdDirPool;
-typedef struct _GnomeCmdDirPoolClass GnomeCmdDirPoolClass;
-typedef struct _GnomeCmdDirPoolPrivate GnomeCmdDirPoolPrivate;
 
 #include "gnome-cmd-dir.h"
 
-struct _GnomeCmdDirPool
-{
-    GtkObject parent;
 
-    GnomeCmdDirPoolPrivate *priv;
-};
-
-struct _GnomeCmdDirPoolClass
+struct GnomeCmdDirPoolClass
 {
     GtkObjectClass parent_class;
 };
 
 
-GtkType
-gnome_cmd_dir_pool_get_type (void);
+struct GnomeCmdDirPool
+{
+    GtkObject parent;
 
-GnomeCmdDirPool *
-gnome_cmd_dir_pool_new (void);
+    struct GnomeCmdDirPoolPrivate;
 
-GnomeCmdDir *
-gnome_cmd_dir_pool_get (GnomeCmdDirPool *pool, const gchar *path);
+    GnomeCmdDirPoolPrivate *priv;
 
-void
-gnome_cmd_dir_pool_add (GnomeCmdDirPool *pool, GnomeCmdDir *dir);
+    void add (GnomeCmdDir *dir);
+    void remove (GnomeCmdDir *dir);
+    GnomeCmdDir *get (const gchar *path);
+    void show_state ();
+};
 
-void
-gnome_cmd_dir_pool_remove (GnomeCmdDirPool *pool, GnomeCmdDir *dir);
 
-void
-gnome_cmd_dir_pool_show_state (GnomeCmdDirPool *pool);
+GtkType gnome_cmd_dir_pool_get_type (void);
+
+inline GnomeCmdDirPool *gnome_cmd_dir_pool_new (void)
+{
+    return (GnomeCmdDirPool *) gtk_type_new (gnome_cmd_dir_pool_get_type ());
+}
 
 #endif // __GNOME_CMD_DIR_POOL_H__
