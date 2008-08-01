@@ -57,8 +57,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
 
-    /* Right mouse button settings
-     */
+    // Right mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Use right mouse button to"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
@@ -73,8 +72,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
-    /* FilterType settings
-     */
+    // FilterType settings
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Match filenames using"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
@@ -89,8 +87,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
-    /* Sort options
-     */
+    // Sort options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Sorting options"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
@@ -100,8 +97,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_case_sens_sort ());
 
 
-    /* Quick search options
-     */
+    // Quick search options
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Quick search using"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
@@ -114,8 +110,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data_get_alt_quick_search ());
 
 
-    /* Directory options
-     */
+    // Directory options
     table = create_table (parent, 2, 2);
     cat = create_category (parent, table, _("Directory options"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
@@ -162,10 +157,8 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
 
 static void on_date_format_update (GtkButton *button, GtkWidget *options_dialog)
 {
-    GtkWidget *format_entry, *test_label;
-
-    format_entry = lookup_widget (options_dialog, "date_format_entry");
-    test_label = lookup_widget (options_dialog, "date_format_test_label");
+    GtkWidget *format_entry = lookup_widget (options_dialog, "date_format_entry");
+    GtkWidget *test_label = lookup_widget (options_dialog, "date_format_test_label");
 
     const char *format = gtk_entry_get_text (GTK_ENTRY (format_entry));
 
@@ -189,9 +182,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
 
-    /* Size display mode
-     *
-     */
+    // Size display mode
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Size display mode"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
@@ -219,9 +210,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
-    /* Permission display mode
-     *
-     */
+    // Permission display mode
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Permission display mode"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
@@ -237,9 +226,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
-    /* Date options
-     *
-     */
+    // Date options
     table = create_table (parent, 2, 3);
     cat = create_category (parent, table, _("Date format"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
@@ -373,9 +360,7 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     GtkWidget *table, *label, *cpicker;
     GnomeCmdColorTheme *colors = gnome_cmd_data_get_custom_color_theme ();
 
-    /* The color pickers
-     *
-     */
+    // The color pickers
     cat_box = create_vbox (dlg, FALSE, 12);
     cat = create_category (dlg, cat_box, _("Colors"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dlg), cat);
@@ -466,9 +451,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
 
-    /* File panes
-     *
-     */
+    // File panes
     table = create_table (parent, 5, 2);
     gtk_table_set_homogeneous (GTK_TABLE (table), FALSE);
     cat = create_category (parent, table, _("File panes"));
@@ -529,10 +512,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     gtk_table_attach (GTK_TABLE (table), check, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 
 
-
-    /*
-     * MIME icon settings
-     */
+     // MIME icon settings
     table = create_table (parent, 4, 2);
     cat = create_category (parent, table, _("MIME icon settings"));
     gtk_object_set_data (GTK_OBJECT (parent), "mime_icon_settings_frame", cat);
@@ -567,8 +547,6 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 
 inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
 {
-    const gchar *list_font;
-
     GtkWidget *iconsize_spin       = lookup_widget (GTK_WIDGET (dialog), "iconsize_spin");
     GtkWidget *iconquality_scale   = lookup_widget (GTK_WIDGET (dialog), "iconquality_scale");
     GtkWidget *theme_icondir_entry = lookup_widget (GTK_WIDGET (dialog), "theme_icondir_entry");
@@ -591,7 +569,7 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
 
     gnome_cmd_data_set_use_ls_colors (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls)));
 
-    list_font = gnome_font_picker_get_font_name (GNOME_FONT_PICKER (list_font_picker));
+    const gchar *list_font = gnome_font_picker_get_font_name (GNOME_FONT_PICKER (list_font_picker));
     if (strcmp (list_font, "default") != 0)
         gnome_cmd_data_set_list_font (list_font);
 
@@ -1057,7 +1035,6 @@ static void on_add_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
 
 static void on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
 {
-    GnomeCmdApp *app;
     gint target;
     gboolean handles_uris, handles_multiple, requires_terminal;
     gchar *name, *cmd, *icon_path, *pattern_string;
@@ -1070,7 +1047,7 @@ static void on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
                            &handles_uris, &handles_multiple, &requires_terminal);
     if (!name || strlen (name) < 1) return;
 
-    app = (GnomeCmdApp *) gtk_object_get_data (GTK_OBJECT (options_dialog), "selected_app");
+    GnomeCmdApp *app = (GnomeCmdApp *) gtk_object_get_data (GTK_OBJECT (options_dialog), "selected_app");
     if (!app) return;
 
     gnome_cmd_app_set_name (app, name);
@@ -1096,10 +1073,9 @@ static void on_edit_app_dialog_ok (GtkButton *button, GtkWidget *dialog)
 static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkSignalFunc on_cancel, GtkWidget *options_dialog)
 {
     GtkWidget *vbox, *hbox, *table, *entry, *label, *cat, *radio, *check;
-    GtkWidget *dialog;
     const gchar *s = NULL;
 
-    dialog = gnome_cmd_dialog_new (NULL);
+    GtkWidget *dialog = gnome_cmd_dialog_new (NULL);
     gtk_widget_ref (dialog);
     gtk_object_set_data (GTK_OBJECT (dialog), "options_dialog", options_dialog);
 
@@ -1287,7 +1263,6 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *table;
     GtkWidget *entry, *button, *label, *clist, *bbox, *check;
-    GList *apps;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
@@ -1370,7 +1345,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
     clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (parent), "app_clist");
-    for (apps = gnome_cmd_data_get_fav_apps (); apps; apps = apps->next)
+    for (GList *apps = gnome_cmd_data_get_fav_apps (); apps; apps = apps->next)
         add_app_to_list (GTK_CLIST (clist), (GnomeCmdApp *) apps->data);
 
     return frame;
@@ -1462,7 +1437,6 @@ inline void get_device_dialog_values (GtkWidget *dialog, gchar **alias, gchar **
 
 static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
 {
-    GnomeCmdConDevice *dev;
     gchar *alias, *device, *mountp, *icon_path;
 
     GtkWidget *options_dialog = lookup_widget (dialog, "options_dialog");
@@ -1471,7 +1445,7 @@ static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     get_device_dialog_values (dialog, &alias, &device, &mountp, &icon_path);
     if (!alias || strlen (alias) < 1) return;
 
-    dev = gnome_cmd_con_device_new (alias, device, mountp, icon_path);
+    GnomeCmdConDevice *dev = gnome_cmd_con_device_new (alias, device, mountp, icon_path);
     add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (dev));
     gtk_widget_destroy (dialog);
 
@@ -1486,7 +1460,6 @@ static void on_add_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
 
 static void on_edit_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
 {
-    GnomeCmdConDevice *dev;
     gchar *alias, *device, *mountp, *icon_path;
 
     GtkWidget *options_dialog = lookup_widget (dialog, "options_dialog");
@@ -1495,7 +1468,7 @@ static void on_edit_device_dialog_ok (GtkButton *button, GtkWidget *dialog)
     get_device_dialog_values (dialog, &alias, &device, &mountp, &icon_path);
     if (!alias || strlen (alias) < 1) return;
 
-    dev = GNOME_CMD_CON_DEVICE (gtk_object_get_data (GTK_OBJECT (options_dialog), "selected_device"));
+    GnomeCmdConDevice *dev = GNOME_CMD_CON_DEVICE (gtk_object_get_data (GTK_OBJECT (options_dialog), "selected_device"));
     if (!dev) return;
 
     update_device_in_list (GTK_CLIST (clist), dev, alias, device, mountp, icon_path);
@@ -1651,7 +1624,6 @@ static GtkWidget *create_devices_tab (GtkWidget *parent)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *button, *clist, *bbox, *check;
-    GList *devices;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
@@ -1711,7 +1683,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent)
 
 
     clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (parent), "device_clist");
-    for (devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_con_list_get ()); devices; devices = devices->next)
+    for (GList *devices = gnome_cmd_con_list_get_all_dev (gnome_cmd_con_list_get ()); devices; devices = devices->next)
         if (!gnome_cmd_con_device_get_autovol((GnomeCmdConDevice *) devices->data))
             add_device_to_list (GTK_CLIST (clist), GNOME_CMD_CON_DEVICE (devices->data));
 
@@ -1858,9 +1830,8 @@ static void init (GnomeCmdOptionsDialog *dialog)
         gtk_label_new (_("Devices")));
 
 
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CLOSE,
-        GTK_SIGNAL_FUNC (on_options_dialog_close), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CLOSE,
+                                 GTK_SIGNAL_FUNC (on_options_dialog_close), dialog);
 }
 
 

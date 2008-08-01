@@ -158,7 +158,7 @@ static void set_text_history (GViewerSearchDlg *sdlg)
 
 static void set_text_mode (GViewerSearchDlg *sdlg)
 {
-    gtk_widget_grab_focus(sdlg->priv->entry);
+    gtk_widget_grab_focus (sdlg->priv->entry);
     sdlg->priv->searchmode = SEARCH_MODE_TEXT;
     gtk_widget_set_sensitive(sdlg->priv->case_sensitive_checkbox, TRUE);
 
@@ -175,7 +175,7 @@ static void set_hex_mode (GViewerSearchDlg *sdlg)
             gtk_combo_box_prepend_text (GTK_COMBO_BOX (sdlg->priv->entry), (gchar *) strings->data);
 #endif
 
-    gtk_widget_grab_focus(sdlg->priv->entry);
+    gtk_widget_grab_focus (sdlg->priv->entry);
 
     sdlg->priv->searchmode = SEARCH_MODE_HEX;
 
@@ -353,7 +353,7 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
     gtk_table_attach(table, sdlg->priv->case_sensitive_checkbox, 2, 3, 1, 2, GtkAttachOptions(GTK_EXPAND|GTK_FILL), GTK_FILL, 0, 0);
 
     gtk_widget_show_all(sdlg->priv->table);
-    gtk_widget_show(GTK_WIDGET (dlg));
+    gtk_widget_show (GTK_WIDGET (dlg));
 
     // Restore the previously saved state (loaded with "load_search_dlg_state")
     if (sdlg->priv->searchmode==SEARCH_MODE_HEX)

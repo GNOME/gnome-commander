@@ -305,23 +305,19 @@ static offset_type find_previous_wrapped_text_line(GVDataPresentation *dp, offse
 
     while (TRUE)
     {
-        offset_type next_line_offset;
+        offset_type next_line_offset = wrap_get_eol (dp, offset);
 
-        next_line_offset = wrap_get_eol(dp, offset);
+        // this is the line we want: When the next line's offset is the current
+        // offset ('start' parameter), 'offset' will point to the previous
+        // displayable line
 
-        /*
-            this is the line we want:
-            When the next line's offset is the current offset ('start' parameter),
-            'offset' will point to the previous displayable line
-        */
         if (next_line_offset>=start)
             return offset;
 
         offset = next_line_offset;
     }
 
-    // should never get here
-    return 0;
+    return 0;  // should never get here
 }
 
 

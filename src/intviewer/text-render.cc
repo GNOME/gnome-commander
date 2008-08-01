@@ -921,7 +921,7 @@ static void text_render_internal_load(TextRender *w)
     gv_set_fixed_count(w->priv->dp, w->priv->fixed_limit);
     gv_set_tab_size(w->priv->dp, w->priv->tab_size);
 
-    text_render_set_display_mode(w, TR_DISP_MODE_TEXT);
+    text_render_set_display_mode (w, TR_DISP_MODE_TEXT);
 
     text_render_update_adjustments_limits(w);
 }
@@ -1244,7 +1244,7 @@ static int text_render_utf8_print_char(TextRender *w, char_type value)
 }
 
 
-void  text_render_set_display_mode(TextRender *w, TEXTDISPLAYMODE mode)
+void  text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode)
 {
     g_return_if_fail (w!=NULL);
     g_return_if_fail (IS_TEXT_RENDER(w));

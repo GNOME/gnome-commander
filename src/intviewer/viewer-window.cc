@@ -302,11 +302,11 @@ static void gviewer_window_init (GViewerWindow *w)
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->menubar, FALSE, FALSE, 0);
 
     w->priv->viewer = (GViewer *) gviewer_new();
-    g_object_ref(G_OBJECT (w->priv->viewer));
-    gtk_widget_show(GTK_WIDGET (w->priv->viewer));
+    g_object_ref (G_OBJECT (w->priv->viewer));
+    gtk_widget_show (GTK_WIDGET (w->priv->viewer));
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET (w->priv->viewer), TRUE, TRUE, 0);
     w->priv->exif_viewer = (GViewer *) gviewer_new();
-    g_object_ref(G_OBJECT (w->priv->exif_viewer));
+    g_object_ref (G_OBJECT (w->priv->exif_viewer));
 
     g_signal_connect(G_OBJECT (w->priv->viewer), "status_line_changed", G_CALLBACK (gviewer_window_status_line_changed), (gpointer) w);
 
@@ -317,7 +317,7 @@ static void gviewer_window_init (GViewerWindow *w)
 
     w->priv->statusbar_ctx_id  = gtk_statusbar_get_context_id(GTK_STATUSBAR(w->priv->statusbar), "info");
 
-    gtk_widget_grab_focus(GTK_WIDGET (w->priv->viewer));
+    gtk_widget_grab_focus (GTK_WIDGET (w->priv->viewer));
 
     gtk_container_add(GTK_CONTAINER (w), w->priv->vbox);
 
@@ -435,8 +435,8 @@ static void gviewer_window_destroy (GtkObject *widget)
 
     if (w->priv)
     {
-        g_object_unref(G_OBJECT (w->priv->viewer));
-        g_object_unref(G_OBJECT (w->priv->exif_viewer));
+        g_object_unref (G_OBJECT (w->priv->viewer));
+        g_object_unref (G_OBJECT (w->priv->exif_viewer));
 
 #ifdef EXTERNAL_TOOLS
         g_hash_table_destroy(w->priv->external_tools);
@@ -1019,7 +1019,7 @@ static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
         gviewer_window_hide_exif_viewer(obj);
 
     gviewer_set_display_mode(obj->priv->viewer, dispmode);
-    gtk_widget_grab_focus(GTK_WIDGET (obj->priv->viewer));
+    gtk_widget_grab_focus (GTK_WIDGET (obj->priv->viewer));
 
     gtk_widget_draw(GTK_WIDGET (obj->priv->viewer), NULL);
 }
@@ -1152,7 +1152,7 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
     // If a previous search is active, delete it
     if (obj->priv->srchr!=NULL)
     {
-        g_object_unref(obj->priv->srchr);
+        g_object_unref (obj->priv->srchr);
         obj->priv->srchr = NULL;
 
         g_free (obj->priv->search_pattern);
@@ -1486,7 +1486,7 @@ static void gviewer_window_show_exif_viewer(GViewerWindow *obj)
 
     g_return_if_fail (obj->priv->exit_data_fd!=-1);
     gviewer_load_filedesc(obj->priv->exif_viewer, obj->priv->exit_data_fd);
-    gtk_widget_show(GTK_WIDGET (obj->priv->exif_viewer));
+    gtk_widget_show (GTK_WIDGET (obj->priv->exif_viewer));
 
     obj->priv->exif_active = TRUE;
     gtk_box_pack_start (GTK_BOX (obj->priv->vbox), GTK_WIDGET (obj->priv->exif_viewer), TRUE, TRUE, 0);
@@ -1506,8 +1506,8 @@ static void gviewer_window_hide_exif_viewer(GViewerWindow *obj)
         return;
 
     obj->priv->exif_active = FALSE;
-    gtk_container_remove(GTK_CONTAINER (obj->priv->vbox), GTK_WIDGET (obj->priv->exif_viewer));
-    gtk_widget_grab_focus(GTK_WIDGET (obj->priv->viewer));
+    gtk_container_remove (GTK_CONTAINER (obj->priv->vbox), GTK_WIDGET (obj->priv->exif_viewer));
+    gtk_widget_grab_focus (GTK_WIDGET (obj->priv->viewer));
 
     obj->priv->active_viewer = obj->priv->viewer;
 }

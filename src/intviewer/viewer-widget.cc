@@ -53,17 +53,17 @@
 /* Class Private Data */
 struct _GViewerPrivate
 {
-    GtkWidget           *tscrollbox;
-    TextRender          *textr;
+    GtkWidget         *tscrollbox;
+    TextRender        *textr;
 
-    GtkWidget           *iscrollbox;
-    ImageRender         *imgr;
-    gboolean            img_initialized;
+    GtkWidget         *iscrollbox;
+    ImageRender       *imgr;
+    gboolean          img_initialized;
 
-    GtkWidget           *last_client;
+    GtkWidget         *last_client;
 
-    gchar               *filename;
-    VIEWERDISPLAYMODE   dispmode;
+    gchar             *filename;
+    VIEWERDISPLAYMODE dispmode;
 
 };
 
@@ -166,7 +166,7 @@ static void gviewer_init (GViewer *w)
     text_render_attach_external_v_range(w->priv->textr, scroll_box_get_v_range(SCROLL_BOX(w->priv->tscrollbox)));
     scroll_box_set_client (SCROLL_BOX(w->priv->tscrollbox), GTK_WIDGET (w->priv->textr));
     gtk_widget_show (GTK_WIDGET (w->priv->textr));
-    gtk_widget_show(w->priv->tscrollbox);
+    gtk_widget_show (w->priv->tscrollbox);
     g_object_ref (G_OBJECT (w->priv->tscrollbox));
 
     w->priv->imgr  = (ImageRender *) image_render_new();
@@ -255,8 +255,8 @@ static void gviewer_destroy (GtkObject *widget)
 
     if (w->priv)
     {
-        g_object_unref(G_OBJECT (w->priv->iscrollbox));
-        g_object_unref(G_OBJECT (w->priv->tscrollbox));
+        g_object_unref (G_OBJECT (w->priv->iscrollbox));
+        g_object_unref (G_OBJECT (w->priv->tscrollbox));
 
         g_free (w->priv);
         w->priv = NULL;
@@ -304,7 +304,7 @@ void gviewer_auto_detect_display_mode(GViewer *obj)
 
     obj->priv->dispmode = DISP_MODE_TEXT_FIXED;
 
-    if (obj->priv->textr==NULL)
+    if (!obj->priv->textr)
         return;
 
     ViewerFileOps *fops = text_render_get_file_ops(obj->priv->textr);
@@ -341,17 +341,17 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
     {
         case DISP_MODE_TEXT_FIXED:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode(obj->priv->textr, TR_DISP_MODE_TEXT);
+            text_render_set_display_mode (obj->priv->textr, TR_DISP_MODE_TEXT);
             break;
 
         case DISP_MODE_BINARY:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode(obj->priv->textr, TR_DISP_MODE_BINARY);
+            text_render_set_display_mode (obj->priv->textr, TR_DISP_MODE_BINARY);
             break;
 
         case DISP_MODE_HEXDUMP:
             client = obj->priv->tscrollbox;
-            text_render_set_display_mode(obj->priv->textr, TR_DISP_MODE_HEXDUMP);
+            text_render_set_display_mode (obj->priv->textr, TR_DISP_MODE_HEXDUMP);
             break;
 
         case DISP_MODE_IMAGE:
@@ -362,9 +362,9 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
     if (client != obj->priv->last_client)
     {
         if (obj->priv->last_client)
-            gtk_container_remove(GTK_CONTAINER(obj), obj->priv->last_client);
+            gtk_container_remove (GTK_CONTAINER(obj), obj->priv->last_client);
 
-        gtk_widget_grab_focus(GTK_WIDGET (client));
+        gtk_widget_grab_focus (GTK_WIDGET (client));
         gtk_table_attach (GTK_TABLE (obj), client , 0, 1, 0, 1,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
@@ -382,7 +382,7 @@ void gviewer_set_display_mode(GViewer *obj, VIEWERDISPLAYMODE mode)
                 break;
         }
 
-        gtk_widget_show(client);
+        gtk_widget_show (client);
         obj->priv->last_client = client;
     }
 }

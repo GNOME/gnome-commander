@@ -43,8 +43,7 @@ static GdkPixmap *blank_pixmap = NULL;
 static GdkBitmap *blank_mask = NULL;
 
 
-static void
-load_plugin (PluginData *data)
+static void load_plugin (PluginData *data)
 {
     GModule *module = g_module_open (data->fpath, G_MODULE_BIND_LAZY);
     PluginInfoFunc info_func;
@@ -109,8 +108,7 @@ load_plugin (PluginData *data)
 }
 
 
-static void
-activate_plugin (PluginData *data)
+static void activate_plugin (PluginData *data)
 {
     if (data->active)
         return;
@@ -130,8 +128,7 @@ activate_plugin (PluginData *data)
 }
 
 
-static void
-inactivate_plugin (PluginData *data)
+static void inactivate_plugin (PluginData *data)
 {
     if (!data->active)
         return;
@@ -142,8 +139,7 @@ inactivate_plugin (PluginData *data)
 }
 
 
-static void
-scan_plugins_in_dir (const gchar *dpath)
+static void scan_plugins_in_dir (const gchar *dpath)
 {
     DIR *dir = opendir (dpath);
     char prev_dir[256];
@@ -264,15 +260,13 @@ GList *plugin_manager_get_all (void)
 }
 
 
-PluginData *
-get_selected_plugin (GtkCList *list)
+PluginData *get_selected_plugin (GtkCList *list)
 {
     return (PluginData *) gtk_clist_get_row_data (list, list->focus_row);
 }
 
 
-static void
-update_plugin_list (GtkCList *list, GtkWidget *dialog)
+static void update_plugin_list (GtkCList *list, GtkWidget *dialog)
 {
     gint old_focus = list->focus_row;
     gint row = 0;
@@ -299,7 +293,6 @@ update_plugin_list (GtkCList *list, GtkWidget *dialog)
         else
             gtk_clist_set_pixmap (list, row, 0, blank_pixmap, blank_mask);
 
-
         gtk_clist_set_row_data (list, row, data);
 
         row++;
@@ -309,8 +302,7 @@ update_plugin_list (GtkCList *list, GtkWidget *dialog)
 }
 
 
-static void
-do_toggle (GtkWidget *dialog)
+inline void do_toggle (GtkWidget *dialog)
 {
     GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
     PluginData *data = get_selected_plugin (list);
@@ -364,15 +356,13 @@ on_plugin_unselected (GtkCList *list, gint row, gint column,
 }
 
 
-static void
-on_toggle (GtkButton *button, GtkWidget *dialog)
+static void on_toggle (GtkButton *button, GtkWidget *dialog)
 {
     do_toggle (dialog);
 }
 
 
-static void
-on_configure (GtkButton *button, GtkWidget *dialog)
+static void on_configure (GtkButton *button, GtkWidget *dialog)
 {
     GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
     PluginData *data = get_selected_plugin (list);
@@ -384,8 +374,7 @@ on_configure (GtkButton *button, GtkWidget *dialog)
 }
 
 
-static void
-on_about (GtkButton *button, GtkWidget *dialog)
+static void on_about (GtkButton *button, GtkWidget *dialog)
 {
     GtkCList *list = GTK_CLIST (lookup_widget (dialog, "avail_list"));
     PluginData *data = get_selected_plugin (list);
@@ -399,8 +388,7 @@ on_about (GtkButton *button, GtkWidget *dialog)
 }
 
 
-static void
-on_close (GtkButton *button, GtkWidget *dialog)
+static void on_close (GtkButton *button, GtkWidget *dialog)
 {
     gtk_widget_destroy (dialog);
 }

@@ -22,7 +22,7 @@
 
 #include <gmodule.h>
 
-typedef struct
+struct PluginData
 {
     gboolean active;
     gboolean loaded;
@@ -33,7 +33,7 @@ typedef struct
     PluginInfo *info;
     GtkWidget *menu;
     GModule *module;
-} PluginData;
+};
 
 
 void plugin_manager_init (void);

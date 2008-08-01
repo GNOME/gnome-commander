@@ -79,7 +79,7 @@ void           text_render_load_filedesc(TextRender *w, int filedesc);
 
 void           text_render_notify_status_changed(TextRender *w);
 
-void           text_render_set_display_mode(TextRender *w, TEXTDISPLAYMODE mode);
+void           text_render_set_display_mode (TextRender *w, TEXTDISPLAYMODE mode);
 TEXTDISPLAYMODE text_render_get_display_mode(TextRender *w);
 
 ViewerFileOps      *text_render_get_file_ops(TextRender *w);

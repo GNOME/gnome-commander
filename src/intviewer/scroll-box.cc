@@ -132,7 +132,7 @@ static void scroll_box_destroy (GtkObject *widget)
     if (w->priv)
     {
         if (w->priv->client)
-            g_object_unref(G_OBJECT (w->priv->client));
+            g_object_unref (G_OBJECT (w->priv->client));
         w->priv->client=NULL;
 
         g_free(w->priv);
@@ -174,12 +174,12 @@ void scroll_box_set_client (ScrollBox *obj, GtkWidget *client)
     if (obj->priv->client)
     {
         if (obj->priv->client)
-            g_object_unref(G_OBJECT (obj->priv->client));
+            g_object_unref (G_OBJECT (obj->priv->client));
         obj->priv->client=NULL;
     }
 
-    g_object_ref(G_OBJECT (client));
-    gtk_widget_show(client);
+    g_object_ref (G_OBJECT (client));
+    gtk_widget_show (client);
     obj->priv->client = client;
     gtk_table_attach (GTK_TABLE (obj), client , 0, 1, 0, 1,
                     (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
@@ -219,7 +219,7 @@ GtkAdjustment *scroll_box_get_h_adjustment (ScrollBox *obj)
     g_return_val_if_fail (obj != NULL, NULL);
     g_return_val_if_fail (IS_SCROLL_BOX(obj), NULL);
 
-    return gtk_range_get_adjustment(GTK_RANGE(obj->priv->hscroll));
+    return gtk_range_get_adjustment (GTK_RANGE(obj->priv->hscroll));
 }
 
 
@@ -228,5 +228,5 @@ GtkAdjustment *scroll_box_get_v_adjustment (ScrollBox *obj)
     g_return_val_if_fail (obj != NULL, NULL);
     g_return_val_if_fail (IS_SCROLL_BOX(obj), NULL);
 
-    return gtk_range_get_adjustment(GTK_RANGE(obj->priv->vscroll));
+    return gtk_range_get_adjustment (GTK_RANGE(obj->priv->vscroll));
 }

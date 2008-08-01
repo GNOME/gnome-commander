@@ -63,9 +63,7 @@ gboolean gviewer_get_bool (const gchar *path, gboolean def)
 
 void gviewer_free_string_history (GList *strings)
 {
-    GList *temp;
-
-    for (temp = strings; temp; temp = temp->next)
+    for (GList *temp = strings; temp; temp = temp->next)
         if (temp->data!=NULL)
         {
             g_free (temp->data);

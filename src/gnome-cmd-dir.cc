@@ -445,7 +445,6 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
 
         if (info && info->name)
         {
-            GnomeCmdFile *finfo;
             GnomeCmdCon *con = gnome_cmd_dir_get_connection (dir);
 
             if (strcmp (info->name, ".") == 0 || strcmp (info->name, "..") == 0)
@@ -470,11 +469,11 @@ static GList *create_file_list (GnomeCmdDir *dir, GList *info_list)
                                                                      g_strdup ("x-directory/smb-server");
             }
 
-            finfo = info->type == GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir)) :
-                                                                  gnome_cmd_file_new (info, dir);
+            GnomeCmdFile *f = info->type == GNOME_VFS_FILE_TYPE_DIRECTORY ? GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir)) :
+                                                                            gnome_cmd_file_new (info, dir);
 
-            gnome_cmd_file_ref (finfo);
-            file_list = g_list_append (file_list, finfo);
+            gnome_cmd_file_ref (f);
+            file_list = g_list_append (file_list, f);
         }
     }
 

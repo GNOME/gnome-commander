@@ -177,12 +177,9 @@ static void perform_delete_operation (DeleteData *data)
 
     if (uri_list)
     {
-        GnomeVFSXferOptions xferOptions = GNOME_VFS_XFER_DEFAULT;
-        GnomeVFSXferErrorMode xferErrorMode = GNOME_VFS_XFER_ERROR_MODE_QUERY;
-
         GnomeVFSResult result = gnome_vfs_xfer_delete_list (uri_list,
-                                                            xferErrorMode,
-                                                            xferOptions,
+                                                            GNOME_VFS_XFER_ERROR_MODE_QUERY,
+                                                            GNOME_VFS_XFER_DEFAULT,
                                                             (GnomeVFSXferProgressCallback) delete_progress_callback,
                                                             data);
 

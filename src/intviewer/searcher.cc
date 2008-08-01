@@ -224,11 +224,11 @@ offset_type g_viewer_searcher_get_search_result(GViewerSearcher *src)
 
 
 void g_viewer_searcher_setup_new_text_search(GViewerSearcher *srchr,
-                             GVInputModesData *imd,
-                             offset_type start_offset,
-                             offset_type max_offset,
-                             const gchar *text,
-                             gboolean case_sensitive)
+                                             GVInputModesData *imd,
+                                             offset_type start_offset,
+                                             offset_type max_offset,
+                                             const gchar *text,
+                                             gboolean case_sensitive)
 {
     g_return_if_fail (srchr!=NULL);
     g_return_if_fail (srchr->priv!=NULL);
@@ -261,10 +261,10 @@ void g_viewer_searcher_setup_new_text_search(GViewerSearcher *srchr,
 
 
 void g_viewer_searcher_setup_new_hex_search(GViewerSearcher *srchr,
-                             GVInputModesData *imd,
-                             offset_type start_offset,
-                             offset_type max_offset,
-                             const guint8 *buffer, guint buflen)
+                                            GVInputModesData *imd,
+                                            offset_type start_offset,
+                                            offset_type max_offset,
+                                            const guint8 *buffer, guint buflen)
 {
     g_return_if_fail (srchr!=NULL);
     g_return_if_fail (srchr->priv!=NULL);
@@ -305,14 +305,14 @@ void update_progress_indicator (GViewerSearcher *src, offset_type pos)
 
     /*This is very bad... (besides being not atomic at all)
        TODO: replace with a gmutex */
-    gint oldval = g_atomic_int_get(&src->priv->progress_value);
-    g_atomic_int_compare_and_exchange(&src->priv->progress_value, oldval, (gint)d);
+    gint oldval = g_atomic_int_get (&src->priv->progress_value);
+    g_atomic_int_compare_and_exchange (&src->priv->progress_value, oldval, (gint)d);
 }
 
 
 gboolean check_abort_request (GViewerSearcher *src)
 {
-    return g_atomic_int_get(&src->priv->abort_indicator)!=0;
+    return g_atomic_int_get (&src->priv->abort_indicator)!=0;
 }
 
 
@@ -321,16 +321,13 @@ gboolean search_hex_forward (GViewerSearcher *src)
     offset_type m, n, j;
     int i;
     gboolean found = FALSE;
-    int update_counter;
     guint8 value;
-    GViewerBMByteData *data;
-
-    data = src->priv->b_data;
+    GViewerBMByteData *data = src->priv->b_data;
 
     m = data->pattern_len;
     n = src->priv->max_offset;
     j = src->priv->start_offset;
-    update_counter = src->priv->update_interval;
+    int update_counter = src->priv->update_interval;
 
     while (j <= n - m)
     {
@@ -428,16 +425,13 @@ gboolean search_text_forward (GViewerSearcher *src)
     offset_type m, n, j, t, delta;
     int i;
     gboolean found = FALSE;
-    int update_counter;
     char_type value;
-    GViewerBMChartypeData *data;
-
-    data = src->priv->ct_data;
+    GViewerBMChartypeData *data = src->priv->ct_data;
 
     m = data->pattern_len;
     n = src->priv->max_offset;
     j = src->priv->start_offset;
-    update_counter = src->priv->update_interval;
+    int update_counter = src->priv->update_interval;
 
     while (j <= n - m)
     {
@@ -552,7 +546,7 @@ gboolean search_text_backward (GViewerSearcher *src)
 }
 
 
-gpointer search_func(gpointer user_data)
+gpointer search_func (gpointer user_data)
 {
     g_return_val_if_fail (user_data!=NULL, NULL);
     g_return_val_if_fail (G_IS_VIEWERSEARCHER(user_data), NULL);

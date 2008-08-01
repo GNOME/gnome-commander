@@ -153,13 +153,13 @@ gboolean search_progress_dlg_timeout(gpointer data)
 
     GViewerSearchProgressDlg *w = GVIEWER_SEARCH_PROGRESS_DLG(data);
 
-    progress = g_atomic_int_get(w->priv->progress_value);
+    progress = g_atomic_int_get (w->priv->progress_value);
 
     g_snprintf(text, sizeof(text), "%3.1f%%", progress/10.0);
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(w->priv->progressbar), text);
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(w->priv->progressbar), progress/1000.0);
 
-    if (g_atomic_int_get(w->priv->completed_indicator)!=0)
+    if (g_atomic_int_get (w->priv->completed_indicator)!=0)
     {
         gtk_dialog_response(GTK_DIALOG(w), GTK_RESPONSE_CANCEL);
         return FALSE;
@@ -192,7 +192,7 @@ void gviewer_show_search_progress_dlg(GtkWindow *parent, const gchar *searching_
 
     gint timeout_source_id = g_timeout_add (300, search_progress_dlg_timeout, (gpointer) dlg);
 
-    dprogress = g_atomic_int_get(dlg->priv->progress_value);
+    dprogress = g_atomic_int_get (dlg->priv->progress_value);
     g_snprintf(text, sizeof(text), "%3.1f%%", dprogress/10.0);
     gtk_progress_bar_set_text(GTK_PROGRESS_BAR(dlg->priv->progressbar), text);
     gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(dlg->priv->progressbar), dprogress/1000.0);

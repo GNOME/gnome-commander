@@ -827,12 +827,9 @@ static void init (GnomeCmdMainWin *mw)
                         "button_press_event", GTK_SIGNAL_FUNC (on_left_fs_select), mw);
     gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->list),
                         "button_press_event", GTK_SIGNAL_FUNC (on_right_fs_select), mw);
-    gtk_signal_connect (GTK_OBJECT (mw), "size-allocate",
-                        GTK_SIGNAL_FUNC (on_size_allocate), mw);
-    gtk_signal_connect (GTK_OBJECT (mw), "delete-event",
-                        GTK_SIGNAL_FUNC (on_delete_event), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->paned),
-                        "button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
+    gtk_signal_connect (GTK_OBJECT (mw), "size-allocate", GTK_SIGNAL_FUNC (on_size_allocate), mw);
+    gtk_signal_connect (GTK_OBJECT (mw), "delete-event", GTK_SIGNAL_FUNC (on_delete_event), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->paned), "button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
     g_signal_connect (mw, "window-state-event", GTK_SIGNAL_FUNC (on_window_state_event), NULL);
 
     gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, LEFT));
