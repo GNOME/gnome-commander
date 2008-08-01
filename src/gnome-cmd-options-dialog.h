@@ -19,56 +19,44 @@
 #ifndef __GNOME_CMD_OPTIONS_DIALOG_H__
 #define __GNOME_CMD_OPTIONS_DIALOG_H__
 
-#define GNOME_CMD_OPTIONS_DIALOG(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialog)
-#define GNOME_CMD_OPTIONS_DIALOG_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialogClass)
-#define GNOME_CMD_IS_OPTIONS_DIALOG(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_options_dialog_get_type ())
+#define GNOME_CMD_OPTIONS_DIALOG(obj)           GTK_CHECK_CAST (obj, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialog)
+#define GNOME_CMD_OPTIONS_DIALOG_CLASS(klass)   GTK_CHECK_CLASS_CAST (klass, gnome_cmd_options_dialog_get_type (), GnomeCmdOptionsDialogClass)
+#define GNOME_CMD_IS_OPTIONS_DIALOG(obj)        GTK_CHECK_TYPE (obj, gnome_cmd_options_dialog_get_type ())
 
 
-typedef struct _GnomeCmdOptionsDialog GnomeCmdOptionsDialog;
-typedef struct _GnomeCmdOptionsDialogPrivate GnomeCmdOptionsDialogPrivate;
-typedef struct _GnomeCmdOptionsDialogClass GnomeCmdOptionsDialogClass;
-
-
-typedef enum
-{
-    GNOME_CMD_OPTIONS_DIALOG_TAB_GENERAL,
-    GNOME_CMD_OPTIONS_DIALOG_TAB_FORMAT,
-    GNOME_CMD_OPTIONS_DIALOG_TAB_LAYOUT,
-    GNOME_CMD_OPTIONS_DIALOG_TAB_CONFIRMATION,
-    GNOME_CMD_OPTIONS_DIALOG_TAB_FILTERS,
-    GNOME_CMD_OPTIONS_DIALOG_TAB_NETWORK,
-    GNOME_CMD_OPTIONS_DIALOG_TAB_PROGRAMS,
-    GNOME_CMD_OPTIONS_DIALOG_TAB_DEVICES
-} GnomeCmdOptionsDialogTab;
-
-
-struct _GnomeCmdOptionsDialog
-{
-    GnomeCmdDialog parent;
-
-    GtkWidget *notebook;
-
-    GnomeCmdOptionsDialogPrivate *priv;
-};
-
-
-struct _GnomeCmdOptionsDialogClass
+struct GnomeCmdOptionsDialogClass
 {
     GnomeCmdDialogClass parent_class;
 };
 
 
-GtkType
-gnome_cmd_options_dialog_get_type            (void);
+struct GnomeCmdOptionsDialog
+{
+    GnomeCmdDialog parent;
 
-GtkWidget*
-gnome_cmd_options_dialog_new                 (void);
+    struct Private;
 
-void
-gnome_cmd_options_dialog_set_tab             (GnomeCmdOptionsDialog *dialog,
-                                              GnomeCmdOptionsDialogTab tab);
+    Private *priv;
+
+    enum Tab
+    {
+        TAB_GENERAL,
+        TAB_FORMAT,
+        TAB_LAYOUT,
+        TAB_CONFIRMATION,
+        TAB_FILTERS,
+        TAB_NETWORK,
+        TAB_PROGRAMS,
+        TAB_DEVICES
+    } ;
+
+    GtkWidget *notebook;
+
+    void set_tab (Tab tab)      {  gtk_notebook_set_page (GTK_NOTEBOOK (notebook), tab);  }
+};
+
+
+GtkType gnome_cmd_options_dialog_get_type (void);
+GtkWidget *gnome_cmd_options_dialog_new (void);
 
 #endif // __GNOME_CMD_OPTIONS_DIALOG_H__

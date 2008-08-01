@@ -34,7 +34,7 @@ using namespace std;
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
-struct _GnomeCmdOptionsDialogPrivate
+struct GnomeCmdOptionsDialog::Private
 {
 };
 
@@ -1764,10 +1764,9 @@ static void class_init (GnomeCmdOptionsDialogClass *klass)
 
 static void init (GnomeCmdOptionsDialog *dialog)
 {
-    GtkWidget *options_dialog;
+    GtkWidget *options_dialog = GTK_WIDGET (dialog);
 
-    dialog->priv = g_new (GnomeCmdOptionsDialogPrivate, 1);
-    options_dialog = GTK_WIDGET (dialog);
+    dialog->priv = g_new0 (GnomeCmdOptionsDialog::Private, 1);
 
     gtk_object_set_data (GTK_OBJECT (options_dialog), "options_dialog", options_dialog);
     gtk_window_set_position (GTK_WINDOW (options_dialog), GTK_WIN_POS_CENTER);
@@ -1791,42 +1790,42 @@ static void init (GnomeCmdOptionsDialog *dialog)
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_GENERAL),
+        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_GENERAL),
         gtk_label_new (_("General")));
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_FORMAT),
+        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_FORMAT),
         gtk_label_new (_("Format")));
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_LAYOUT),
+        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_LAYOUT),
         gtk_label_new (_("Layout")));
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_CONFIRMATION),
+        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_CONFIRMATION),
         gtk_label_new (_("Confirmation")));
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_FILTERS),
+        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_FILTERS),
         gtk_label_new (_("Filters")));
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_NETWORK),
+        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_NETWORK),
         gtk_label_new (_("Network")));
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_PROGRAMS),
+        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_PROGRAMS),
         gtk_label_new (_("Programs")));
 
     gtk_notebook_set_tab_label (
         GTK_NOTEBOOK (dialog->notebook),
-        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GNOME_CMD_OPTIONS_DIALOG_TAB_DEVICES),
+        gtk_notebook_get_nth_page (GTK_NOTEBOOK (dialog->notebook), GnomeCmdOptionsDialog::TAB_DEVICES),
         gtk_label_new (_("Devices")));
 
 
@@ -1868,10 +1867,4 @@ GtkType gnome_cmd_options_dialog_get_type (void)
 GtkWidget *gnome_cmd_options_dialog_new (void)
 {
     return (GtkWidget *) gtk_type_new (gnome_cmd_options_dialog_get_type ());
-}
-
-
-void gnome_cmd_options_dialog_set_tab (GnomeCmdOptionsDialog *dialog, GnomeCmdOptionsDialogTab tab)
-{
-    gtk_notebook_set_page (GTK_NOTEBOOK (dialog->notebook), tab);
 }

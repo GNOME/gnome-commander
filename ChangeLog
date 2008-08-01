@@ -12,6 +12,10 @@
 	* src/gnome-cmd-dir-pool.h:
 	Removal of GnomeCmdDirPool class, as it is not completed and functional
 
+	* src/gnome-cmd-options-dialog.cc:
+	* src/gnome-cmd-options-dialog.h:
+	Convert GnomeCmdOptionsDialog struct to C++ class
+
 2008-07-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
