@@ -118,8 +118,6 @@ static void destroy (GtkObject *object)
     if (dir->priv->path)
         gtk_object_unref (GTK_OBJECT (dir->priv->path));
 
-    gnome_cmd_con_get_dir_pool (dir->priv->con)->remove (dir);
-
     dir->priv->handle->ref = NULL;
     handle_unref (dir->priv->handle);
 

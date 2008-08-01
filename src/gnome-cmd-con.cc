@@ -34,7 +34,6 @@ struct _GnomeCmdConPrivate
     GnomeCmdDir    *default_dir;   // the start dir of this connection
     History        *dir_history;
     GnomeCmdBookmarkGroup *bookmarks;
-    GnomeCmdDirPool *dir_pool;
     GList          *all_dirs;
     GHashTable     *all_dirs_map;
 };
@@ -202,7 +201,6 @@ static void init (GnomeCmdCon *con)
     con->priv->cwd = NULL;
     con->priv->default_dir = NULL;
     con->priv->dir_history = history_new (20);
-    con->priv->dir_pool = gnome_cmd_dir_pool_new ();
     con->priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
     con->priv->bookmarks->con = con;
     // con->priv->bookmarks->bookmarks = NULL;
@@ -438,14 +436,6 @@ void gnome_cmd_con_set_bookmarks (GnomeCmdCon *con, GnomeCmdBookmarkGroup *bookm
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
     con->priv->bookmarks = bookmarks;
-}
-
-
-GnomeCmdDirPool *gnome_cmd_con_get_dir_pool (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-
-    return con->priv->dir_pool;
 }
 
 

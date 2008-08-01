@@ -41,7 +41,6 @@ gnome_commander_SOURCES = \
 	gnome-cmd-data.h gnome-cmd-data.cc \
 	gnome-cmd-delete-dialog.h gnome-cmd-delete-dialog.cc \
 	gnome-cmd-dir-indicator.h gnome-cmd-dir-indicator.cc \
-	gnome-cmd-dir-pool.h gnome-cmd-dir-pool.cc \
 	gnome-cmd-dir.h gnome-cmd-dir.cc \
 	gnome-cmd-file-collection.h gnome-cmd-file-collection.cc \
 	gnome-cmd-file-list.h gnome-cmd-file-list.cc \

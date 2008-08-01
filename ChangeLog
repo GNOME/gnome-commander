@@ -5,6 +5,13 @@
 	* src/gnome-cmd-dir-pool.h:
 	Convert GnomeCmdDirPool into fully fledged C++ class
 
+	* src/Makefile.am:
+	* src/gnome-cmd-con.cc:
+	* src/gnome-cmd-con.h:
+	* src/gnome-cmd-dir-pool.cc:
+	* src/gnome-cmd-dir-pool.h:
+	Removal of GnomeCmdDirPool class, as it is not completed and functional
+
 2008-07-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

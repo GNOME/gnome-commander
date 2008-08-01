@@ -317,8 +317,6 @@ GnomeCmdBookmarkGroup *gnome_cmd_con_get_bookmarks (GnomeCmdCon *con);
 
 void gnome_cmd_con_set_bookmarks (GnomeCmdCon *con, GnomeCmdBookmarkGroup *bookmarks);
 
-GnomeCmdDirPool *gnome_cmd_con_get_dir_pool (GnomeCmdCon *con);
-
 void gnome_cmd_con_updated (GnomeCmdCon *con);
 
 GnomeVFSResult gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar *path, GnomeVFSFileType *type);
