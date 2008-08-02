@@ -1,3 +1,9 @@
+2008-08-02  Andre Klapper  <a9016009@gmx.de>
+
+	* de/de.po:
+	* Makefile.am:
+	Committed initial german translation by Mario Blättermann.
+
 2008-05-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* doc/C/gnome-commander.xml:
