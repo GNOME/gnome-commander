@@ -101,6 +101,9 @@ static void destroy (GtkObject *object)
         gnome_cmd_dir_unref (con->priv->default_dir);
     if (con->priv->root_dir)
         gnome_cmd_dir_unref (con->priv->root_dir);
+
+    delete con->priv->dir_history;
+
     g_free (con->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
@@ -200,7 +203,7 @@ static void init (GnomeCmdCon *con)
     con->priv = g_new0 (GnomeCmdConPrivate, 1);
     con->priv->cwd = NULL;
     con->priv->default_dir = NULL;
-    con->priv->dir_history = history_new (20);
+    con->priv->dir_history = new History(20);
     con->priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
     con->priv->bookmarks->con = con;
     // con->priv->bookmarks->bookmarks = NULL;

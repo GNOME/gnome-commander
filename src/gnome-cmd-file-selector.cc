@@ -1072,10 +1072,10 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
     con = gnome_cmd_file_selector_get_connection (fs);
     gnome_cmd_con_set_cwd (con, dir);
 
-    if (fs->priv->dir_history && !fs->priv->dir_history->lock)
+    if (fs->priv->dir_history && !fs->priv->dir_history->is_locked)
     {
         gchar *fpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
-        history_add (fs->priv->dir_history, fpath);
+        fs->priv->dir_history->add(fpath);
         g_free (fpath);
         update_dir_combo (fs);
     }
@@ -1477,14 +1477,12 @@ void gnome_cmd_file_selector_first (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (!fs->priv->dir_history) return;
+    if (!fs->priv->dir_history || !fs->priv->dir_history->can_back())
+        return;
 
-    if (history_can_back (fs->priv->dir_history))
-    {
-        fs->priv->dir_history->lock = TRUE;
-        goto_directory (fs, history_first (fs->priv->dir_history));
-        fs->priv->dir_history->lock = FALSE;
-    }
+    fs->priv->dir_history->lock();
+    goto_directory (fs, fs->priv->dir_history->first());
+    fs->priv->dir_history->unlock();
 }
 
 
@@ -1492,13 +1490,12 @@ void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (!fs->priv->dir_history) return;
+    if (!fs->priv->dir_history || !fs->priv->dir_history->can_back())
+        return;
 
-    if (history_can_back (fs->priv->dir_history)) {
-        fs->priv->dir_history->lock = TRUE;
-        goto_directory (fs, history_back (fs->priv->dir_history));
-        fs->priv->dir_history->lock = FALSE;
-    }
+    fs->priv->dir_history->lock();
+    goto_directory (fs, fs->priv->dir_history->back());
+    fs->priv->dir_history->unlock();
 }
 
 
@@ -1506,14 +1503,12 @@ void gnome_cmd_file_selector_forward (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (!fs->priv->dir_history) return;
+    if (!fs->priv->dir_history || !fs->priv->dir_history->can_forward())
+        return;
 
-    if (history_can_forward (fs->priv->dir_history))
-    {
-        fs->priv->dir_history->lock = TRUE;
-        goto_directory (fs, history_forward (fs->priv->dir_history));
-        fs->priv->dir_history->lock = FALSE;
-    }
+    fs->priv->dir_history->lock();
+    goto_directory (fs, fs->priv->dir_history->forward());
+    fs->priv->dir_history->unlock();
 }
 
 
@@ -1521,14 +1516,12 @@ void gnome_cmd_file_selector_last (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (!fs->priv->dir_history) return;
+    if (!fs->priv->dir_history || !fs->priv->dir_history->can_forward())
+        return;
 
-    if (history_can_forward (fs->priv->dir_history))
-    {
-        fs->priv->dir_history->lock = TRUE;
-        goto_directory (fs, history_last (fs->priv->dir_history));
-        fs->priv->dir_history->lock = FALSE;
-    }
+    fs->priv->dir_history->lock();
+    goto_directory (fs, fs->priv->dir_history->last());
+    fs->priv->dir_history->unlock();
 }
 
 
@@ -1538,7 +1531,7 @@ gboolean gnome_cmd_file_selector_can_back (GnomeCmdFileSelector *fs)
 
     if (!fs->priv->dir_history) return FALSE;
 
-    return history_can_back (fs->priv->dir_history);
+    return fs->priv->dir_history->can_back();
 }
 
 
@@ -1548,7 +1541,7 @@ gboolean gnome_cmd_file_selector_can_forward (GnomeCmdFileSelector *fs)
 
     if (!fs->priv->dir_history) return FALSE;
 
-    return history_can_forward (fs->priv->dir_history);
+    return fs->priv->dir_history->can_forward();
 }
 
 

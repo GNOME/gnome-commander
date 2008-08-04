@@ -25,43 +25,24 @@
 using namespace std;
 
 
-History *history_new (gint max)
+History::~History()
 {
-    History *history = g_new0 (History, 1);
-
-    // history->ents = NULL;
-    // history->pos = NULL;
-    history->max = max;
-    // history->lock = FALSE;
-
-    return history;
-}
-
-
-void history_free (History *history)
-{
-    g_return_if_fail (history != NULL);
-
-    if (history->ents)
+    if (ents)
     {
-        g_list_foreach (history->ents, (GFunc)g_free, NULL);
-        g_list_free (history->ents);
+        g_list_foreach (ents, (GFunc) g_free, NULL);
+        g_list_free (ents);
     }
-
-    g_free (history);
 }
 
 
-void history_add (History *history, const gchar *text)
+void History::add(const gchar *text)
 {
-    g_return_if_fail (history != NULL);
-
-    if (history->lock)
+    if (is_locked)
         return;
 
-    /* If we are in the middle of the history list, lets kill all items that are in front of us */
-    GList *l = history->ents;
-    while (l && l != history->pos)
+    // If we are in the middle of the history list, lets kill all items that are in front of us
+    GList *l = ents;
+    while (l && l != pos)
     {
         g_free (l->data);
         GList *n = g_list_remove_link (l, l);
@@ -69,72 +50,50 @@ void history_add (History *history, const gchar *text)
         l = n;
     }
 
-    history->ents = string_history_add (l, text, history->max);
-    history->pos = history->ents;
+    ents = string_history_add (l, text, max);
+    pos = ents;
 }
 
 
-gboolean history_can_back (History *history)
+const gchar *History::first()
 {
-    g_return_val_if_fail (history != NULL, FALSE);
-    g_return_val_if_fail (history->pos != NULL, FALSE);
+    g_return_val_if_fail (pos != NULL, NULL);
 
-    return history->pos->next != NULL;
+    if (pos->next)
+        pos = g_list_last(pos);
+
+    return (const gchar *) pos->data;
 }
 
 
-gboolean history_can_forward (History *history)
+const gchar *History::back()
 {
-    g_return_val_if_fail (history != NULL, FALSE);
-    g_return_val_if_fail (history->pos != NULL, FALSE);
+    g_return_val_if_fail (pos != NULL, NULL);
 
-    return history->pos->prev != NULL;
+    if (pos->next)
+        pos = pos->next;
+
+    return (const gchar *) pos->data;
 }
 
 
-const gchar *history_first (History *history)
+const gchar *History::forward()
 {
-    g_return_val_if_fail (history != NULL, NULL);
-    g_return_val_if_fail (history->pos != NULL, NULL);
+    g_return_val_if_fail (pos != NULL, NULL);
 
-    if (history->pos->next)
-        history->pos = g_list_last(history->pos);
+    if (pos->prev)
+        pos = pos->prev;
 
-    return (const gchar*) history->pos->data;
+    return (const gchar *) pos->data;
 }
 
 
-const gchar *history_back (History *history)
+const gchar *History::last()
 {
-    g_return_val_if_fail (history != NULL, NULL);
-    g_return_val_if_fail (history->pos != NULL, NULL);
+    g_return_val_if_fail (pos != NULL, NULL);
 
-    if (history->pos->next)
-        history->pos = history->pos->next;
+    if (pos->prev)
+        pos = g_list_first(pos);
 
-    return (const gchar*) history->pos->data;
-}
-
-
-const gchar *history_forward (History *history)
-{
-    g_return_val_if_fail (history != NULL, NULL);
-    g_return_val_if_fail (history->pos != NULL, NULL);
-
-    if (history->pos->prev)
-        history->pos = history->pos->prev;
-
-    return (const gchar*) history->pos->data;
-}
-
-
-const gchar *history_last (History *history)
-{
-    g_return_val_if_fail (history != NULL, NULL);
-    g_return_val_if_fail (history->pos != NULL, NULL);
-
-    if (history->pos->prev)
-        history->pos = g_list_first(history->pos);
-
-    return (const gchar*) history->pos->data;
+    return (const gchar *) pos->data;
 }

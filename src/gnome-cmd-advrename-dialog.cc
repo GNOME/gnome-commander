@@ -874,7 +874,7 @@ inline void save_settings (GnomeCmdAdvrenameDialog *dialog)
 {
     const gchar *template_string = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
 
-    history_add (dialog->priv->defaults->templates, g_strdup (template_string));
+    dialog->priv->defaults->templates->add(g_strdup (template_string));
 }
 
 

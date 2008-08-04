@@ -1004,7 +1004,6 @@ inline void load_rename_history ()
     gint size;
     GList *from=NULL, *to=NULL, *csens=NULL;
     GList *tmp_from, *tmp_to, *tmp_csens;
-    GList *templates;
 
     data->priv->advrename_defaults = g_new0 (AdvrenameDefaults, 1);
 
@@ -1022,9 +1021,9 @@ inline void load_rename_history ()
     data->priv->advrename_defaults->sep_value = gnome_cmd_data_get_int ("/advrename/sep_value", 150);
 
     size = gnome_cmd_data_get_int ("/template-history/size", 0);
-    templates = load_string_history ("/template-history/template%d", size);
+    GList *templates = load_string_history ("/template-history/template%d", size);
 
-    data->priv->advrename_defaults->templates = history_new (10);
+    data->priv->advrename_defaults->templates = new History(10);
     data->priv->advrename_defaults->templates->ents = templates;
     data->priv->advrename_defaults->templates->pos = templates;
 
@@ -1145,6 +1144,8 @@ void gnome_cmd_data_free (void)
             g_free (data->priv->editor);
             g_free (data->priv->differ);
             g_free (data->priv->term);
+
+            delete data->priv->advrename_defaults->templates;
 
             g_free (data->priv);
         }

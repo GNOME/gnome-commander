@@ -20,26 +20,28 @@
 #ifndef __HISTORY_H__
 #define __HISTORY_H__
 
-typedef struct
+struct History
 {
     GList *ents;
     GList *pos;
     gint max;
-    gboolean lock;
-} History;
+    gboolean is_locked;
 
+    History(gint max): ents(NULL), pos(NULL), is_locked(FALSE)  {  this->max = max;  }
+    ~History();
 
-History *history_new (gint max);
-void     history_free (History *history);
+    void add(const gchar *text);
 
-void     history_add (History *history, const gchar *text);
+    gboolean can_back()                                 {  return pos && pos->next;  }
+    gboolean can_forward()                              {  return pos && pos->prev;  }
 
-gboolean history_can_back (History *history);
-gboolean history_can_forward (History *history);
+    const gchar *first();
+    const gchar *back();
+    const gchar *forward();
+    const gchar *last();
 
-const gchar   *history_first (History *history);
-const gchar   *history_back (History *history);
-const gchar   *history_forward (History *history);
-const gchar   *history_last (History *history);
+    void lock()                                         {  is_locked = TRUE;         }
+    void unlock()                                       {  is_locked = FALSE;        }
+};
 
 #endif // __HISTORY_H__
