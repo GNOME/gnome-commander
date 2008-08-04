@@ -1,3 +1,8 @@
+2008-08-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-rename-dialog.cc:
+	SHIFT+F6: select file name without ext
+
 2008-08-01  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-dir.cc:

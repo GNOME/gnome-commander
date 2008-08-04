@@ -136,23 +136,35 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gin
     dialog->priv->finfo = finfo;
     gnome_cmd_file_ref (finfo);
 
+    gtk_window_set_has_frame (GTK_WINDOW (dialog), 0);
+    gtk_window_set_decorated (GTK_WINDOW (dialog), 0);
+    gtk_widget_set_uposition (GTK_WIDGET (dialog), x, y);
+    gtk_window_set_skip_taskbar_hint (GTK_WINDOW (dialog), TRUE);
+
+    gtk_widget_set_size_request (GTK_WIDGET (dialog), width+1, height+1);
+    dialog->priv->textbox = GTK_ENTRY (gtk_entry_new ());
+    gtk_widget_set_size_request (GTK_WIDGET (dialog->priv->textbox), width, height);
+    gtk_container_add (GTK_CONTAINER (dialog), GTK_WIDGET (dialog->priv->textbox));
+    gtk_widget_set_style (GTK_WIDGET (dialog->priv->textbox), list_style);
+
     gchar *fname = get_utf8 (gnome_cmd_file_get_name (finfo));
+    gint end_selection = -1;
 
-    gtk_window_set_has_frame (GTK_WINDOW(dialog), 0);
-    gtk_window_set_decorated (GTK_WINDOW(dialog), 0);
-    gtk_widget_set_uposition (GTK_WIDGET(dialog), x, y);
-    gtk_window_set_skip_taskbar_hint (GTK_WINDOW(dialog), TRUE);
+    gtk_entry_set_text (dialog->priv->textbox, fname);
 
-    gtk_widget_set_size_request (GTK_WIDGET(dialog), width + 1, height + 1);
-    dialog->priv->textbox = GTK_ENTRY(gtk_entry_new());
-    gtk_widget_set_size_request (GTK_WIDGET(dialog->priv->textbox), width, height);
-    gtk_container_add (GTK_CONTAINER(dialog), GTK_WIDGET(dialog->priv->textbox));
-    gtk_widget_set_style (GTK_WIDGET(dialog->priv->textbox), list_style);
+    if (!GNOME_CMD_IS_DIR (finfo))
+    {
+        gchar *ext = g_utf8_strrchr (fname, -1, '.');
 
-    gtk_entry_set_text(dialog->priv->textbox, fname);
-    gtk_entry_select_region (dialog->priv->textbox, 0, -1);
+        if (ext && ext[1])      // if fname doesn't end with '.'
+            end_selection = (gint) g_utf8_pointer_to_offset (fname, ext);
+    }
 
-    gtk_widget_show(GTK_WIDGET(dialog->priv->textbox));
+    gtk_widget_grab_focus (GTK_WIDGET (dialog->priv->textbox));
+    gtk_entry_select_region (dialog->priv->textbox, 0, end_selection);
+    gtk_widget_show (GTK_WIDGET (dialog->priv->textbox));
+
+    g_free (fname);
 
     return GTK_WIDGET (dialog);
 }
