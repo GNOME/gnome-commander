@@ -3,7 +3,7 @@ gnome-commander 1.2.8
 ---------------
 
 Bug fixes:
-* Fixed problem #... (...)
+ * Fixed problem #536446 (file name not focused for in-place renaming)
 
 New features:
  * New or updated docs: de, en

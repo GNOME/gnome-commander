@@ -5928,7 +5928,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem #... (...)</para>
+                            <para>Fixed problem #536446 (file name not focused for in-place renaming)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
