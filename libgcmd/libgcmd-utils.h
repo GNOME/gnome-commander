@@ -22,17 +22,13 @@
 
 G_BEGIN_DECLS
 
-gchar *
-get_utf8 (const gchar *unknown);
+gchar *get_utf8 (const gchar *unknown);
 
-gchar *
-get_bold_text (const gchar *in);
+gchar *get_bold_text (const gchar *in);
 
-gchar *
-get_mono_text (const gchar *in);
+gchar *get_mono_text (const gchar *in);
 
-gchar *
-get_bold_mono_text (const gchar *in);
+gchar *get_bold_mono_text (const gchar *in);
 
 G_END_DECLS
 
