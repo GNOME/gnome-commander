@@ -62,7 +62,6 @@ struct _GnomeCmdFileSelectorPrivate
 
     gboolean active;
     gboolean realized;
-    gboolean selection_lock;
     gboolean sel_first_file;
     GnomeCmdCon *con;
     GnomeCmdDir *cwd, *lwd; // current & last working dir
@@ -1258,7 +1257,6 @@ static void init (GnomeCmdFileSelector *fs)
     fs->priv->lwd = NULL;
     fs->priv->connected_dir = NULL;
     fs->priv->old_btns = NULL;
-    fs->priv->selection_lock = FALSE;
     fs->priv->sel_first_file = TRUE;
     fs->priv->dir_history = NULL;
     fs->priv->active = FALSE;
@@ -1773,8 +1771,6 @@ void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
     if (!fs->priv->realized)
         return;
 
-    fs->priv->selection_lock = TRUE;
-
     gboolean found_my_con = FALSE;
 
     gnome_cmd_combo_clear (GNOME_CMD_COMBO (fs->con_combo));
@@ -1809,8 +1805,6 @@ void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
             gnome_cmd_combo_set_pixmap (GNOME_CMD_COMBO (fs->con_combo), row, 0, pixmap);
         }
     }
-
-    fs->priv->selection_lock = FALSE;
 
     // If the connection is no longer available use the home connection
     if (!found_my_con)
