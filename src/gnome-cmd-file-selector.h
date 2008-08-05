@@ -77,8 +77,7 @@ typedef enum
 
 
 GtkType gnome_cmd_file_selector_get_type (void);
-
-GtkWidget* gnome_cmd_file_selector_new (void);
+GtkWidget *gnome_cmd_file_selector_new (void);
 
 GnomeCmdDir *gnome_cmd_file_selector_get_directory (GnomeCmdFileSelector *fs);
 void gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
@@ -123,7 +122,7 @@ void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);
 
 gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventKey *event);
 
-void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo);
+void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *f);
 void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files);
 
 void gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs);

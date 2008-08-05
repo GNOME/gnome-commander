@@ -103,8 +103,8 @@ inline void show_selected_dir_tree_size (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (fs->list);
-    gnome_cmd_file_list_show_dir_size (fs->list, finfo);
+    GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (fs->list);
+    gnome_cmd_file_list_show_dir_size (fs->list, f);
 }
 
 
@@ -130,22 +130,22 @@ inline void update_selected_files_label (GnomeCmdFileSelector *fs)
 
     for (GList *tmp = all_files; tmp; tmp = tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
 
-        switch (finfo->info->type)
+        switch (f->info->type)
         {
             case GNOME_VFS_FILE_TYPE_DIRECTORY:
-                if (strcmp(finfo->info->name, "..") != 0)
+                if (strcmp(f->info->name, "..") != 0)
                 {
                     num_dirs++;
-                    if (gnome_cmd_file_has_tree_size (finfo))
-                        total_bytes += gnome_cmd_file_get_tree_size (finfo);
+                    if (gnome_cmd_file_has_tree_size (f))
+                        total_bytes += gnome_cmd_file_get_tree_size (f);
                 }
                 break;
 
             case GNOME_VFS_FILE_TYPE_REGULAR:
                 num_files++;
-                total_bytes += finfo->info->size;
+                total_bytes += f->info->size;
                 break;
 
             default:
@@ -156,19 +156,19 @@ inline void update_selected_files_label (GnomeCmdFileSelector *fs)
     GList *sel_files = gnome_cmd_file_list_get_marked_files (fs->list);
     for (GList *tmp = sel_files; tmp; tmp = tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
 
-        switch (finfo->info->type)
+        switch (f->info->type)
         {
             case GNOME_VFS_FILE_TYPE_DIRECTORY:
                 num_sel_dirs++;
-                if (gnome_cmd_file_has_tree_size (finfo))
-                    sel_bytes += gnome_cmd_file_get_tree_size (finfo);
+                if (gnome_cmd_file_has_tree_size (f))
+                    sel_bytes += gnome_cmd_file_get_tree_size (f);
                 break;
 
             case GNOME_VFS_FILE_TYPE_REGULAR:
                 num_sel_files++;
-                sel_bytes += finfo->info->size;
+                sel_bytes += f->info->size;
                 break;
 
             default:
@@ -247,7 +247,7 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
 }
 
 
-static gboolean file_is_wanted (GnomeCmdFileSelector *fs, GnomeVFSFileInfo *info)
+static gboolean file_is_wanted (GnomeVFSFileInfo *info)
 {
     if (info->type == GNOME_VFS_FILE_TYPE_UNKNOWN
         && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_UNKNOWN))
@@ -323,10 +323,10 @@ static void update_files (GnomeCmdFileSelector *fs)
     // sort out the files to show
     for (gnome_cmd_dir_get_files (dir, &list); list; list = list->next)
     {
-        GnomeCmdFile *finfo = GNOME_CMD_FILE (list->data);
+        GnomeCmdFile *f = GNOME_CMD_FILE (list->data);
 
-        if (file_is_wanted (fs, finfo->info))
-            list2 = g_list_append (list2, finfo);
+        if (file_is_wanted (f->info))
+            list2 = g_list_append (list2, f);
     }
 
     // Create a parent dir file (..) if appropriate
@@ -366,11 +366,11 @@ void gnome_cmd_file_list_show_make_copy_dialog (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (GNOME_CMD_FILE_LIST (fs->list));
+    GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (GNOME_CMD_FILE_LIST (fs->list));
 
-    if (GNOME_CMD_IS_FILE (finfo))
+    if (GNOME_CMD_IS_FILE (f))
     {
-        GtkWidget *dialog = gnome_cmd_make_copy_dialog_new (finfo, fs->priv->cwd);
+        GtkWidget *dialog = gnome_cmd_make_copy_dialog_new (f, fs->priv->cwd);
 
         gtk_widget_ref (dialog);
         gtk_widget_show (dialog);
@@ -407,11 +407,10 @@ drag_data_received (GtkWidget          *widget,
                     GnomeCmdFileSelector *fs)
 {
     GtkCList *clist = GTK_CLIST (fs->list);
-    GnomeCmdFile *finfo;
+    GnomeCmdFile *f;
     GnomeCmdDir *to, *cwd;
     GList *uri_list = NULL;
     gchar *to_fn = NULL;
-    int row;
     GnomeVFSXferOptions xferOptions;
 
     // Find out what operation to perform
@@ -438,7 +437,8 @@ drag_data_received (GtkWidget          *widget,
     // Find the row that the file was dropped on
     y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
     if (y < 0) return;
-    row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->list), x, y);
+
+    int row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->list), x, y);
 
     // Transform the drag data to a list with uris
     uri_list = strings_to_uris ((gchar *) selection_data->data);
@@ -449,18 +449,18 @@ drag_data_received (GtkWidget          *widget,
         to_fn = gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name (uri), 0);
     }
 
-    finfo = gnome_cmd_file_list_get_file_at_row (fs->list, row);
+    f = gnome_cmd_file_list_get_file_at_row (fs->list, row);
     cwd = gnome_cmd_file_selector_get_directory (fs);
 
-    if (finfo && finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
         /* The drop was over a directory in the list, which means that the
          * xfer should be done to that directory instead of the current one in the list
          */
-        if (strcmp (finfo->info->name, "..") == 0)
+        if (strcmp (f->info->name, "..") == 0)
             to = gnome_cmd_dir_get_parent (cwd);
         else
-            to = gnome_cmd_dir_get_child (cwd, finfo->info->name);
+            to = gnome_cmd_dir_get_child (cwd, f->info->name);
     }
     else
         to = cwd;
@@ -606,9 +606,9 @@ static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x,
 
     if (row > -1)
     {
-        GnomeCmdFile *finfo = gnome_cmd_file_list_get_file_at_row (fs->list, row);
+        GnomeCmdFile *f = gnome_cmd_file_list_get_file_at_row (fs->list, row);
 
-        if (finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+        if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
             row = -1;
 
         gnome_cmd_clist_set_drag_row (GNOME_CMD_CLIST (clist), row);
@@ -620,15 +620,15 @@ static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x,
 }
 
 
-static void init_dnd (GnomeCmdFileSelector *fs)
+inline void init_dnd (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     // Set up drag source
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_begin", GTK_SIGNAL_FUNC (drag_begin), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_end", GTK_SIGNAL_FUNC (drag_end), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_leave", GTK_SIGNAL_FUNC (drag_leave), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_data_delete", GTK_SIGNAL_FUNC (drag_data_delete), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag-begin", GTK_SIGNAL_FUNC (drag_begin), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag-end", GTK_SIGNAL_FUNC (drag_end), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag-leave", GTK_SIGNAL_FUNC (drag_leave), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag-data-delete", GTK_SIGNAL_FUNC (drag_data_delete), fs);
 
     // Set up drag destination
     gtk_drag_dest_set (GTK_WIDGET (fs->list),
@@ -636,9 +636,9 @@ static void init_dnd (GnomeCmdFileSelector *fs)
                        drop_types, G_N_ELEMENTS (drop_types),
                        (GdkDragAction) (GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK));
 
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_motion", GTK_SIGNAL_FUNC (drag_motion), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_leave", GTK_SIGNAL_FUNC (drag_leave), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->list), "drag_data_received", GTK_SIGNAL_FUNC (drag_data_received), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag-motion", GTK_SIGNAL_FUNC (drag_motion), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag-leave", GTK_SIGNAL_FUNC (drag_leave), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->list), "drag-data-received", GTK_SIGNAL_FUNC (drag_data_received), fs);
 }
 
 
@@ -756,27 +756,27 @@ static void goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
 }
 
 
-static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
+static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-    g_return_if_fail (finfo!=NULL);
-    g_return_if_fail (finfo->info!=NULL);
+    g_return_if_fail (f!=NULL);
+    g_return_if_fail (f->info!=NULL);
 
-    if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
         gnome_cmd_file_list_invalidate_tree_size (fs->list);
 
-        if (strcmp (finfo->info->name, "..") == 0)
+        if (strcmp (f->info->name, "..") == 0)
             goto_directory (fs, "..");
         else
-            gnome_cmd_file_selector_set_directory (fs, GNOME_CMD_DIR (finfo));
+            gnome_cmd_file_selector_set_directory (fs, GNOME_CMD_DIR (f));
     }
 }
 
 
-inline gboolean file_is_in_list (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
+inline gboolean file_is_in_list (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 {
-    return g_list_index (gnome_cmd_file_list_get_all_files (fs->list), finfo) != -1;
+    return g_list_index (gnome_cmd_file_list_get_all_files (fs->list), f) != -1;
 }
 
 
@@ -784,12 +784,12 @@ inline void add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (fs->list);
+    GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (fs->list);
 
-    if (finfo && gnome_cmd_data_get_cmdline_visibility ())
+    if (f && gnome_cmd_data_get_cmdline_visibility ())
     {
-        gchar *text = fullpath ? gnome_cmd_file_get_quoted_real_path (finfo) :
-                                 gnome_cmd_file_get_quoted_name (finfo);
+        gchar *text = fullpath ? gnome_cmd_file_get_quoted_real_path (f) :
+                                 gnome_cmd_file_get_quoted_name (f);
 
         gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), text);
         gnome_cmd_cmdline_focus (gnome_cmd_main_win_get_cmdline (main_win));
@@ -824,59 +824,59 @@ static void on_con_list_list_changed (GnomeCmdConList *con_list, GnomeCmdFileSel
 }
 
 
-static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
+static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (!file_is_wanted (fs, finfo->info))
+    if (!file_is_wanted (f->info))
         return;
 
-    gnome_cmd_file_list_insert_file (fs->list, finfo);
+    gnome_cmd_file_list_insert_file (fs->list, f);
     update_selected_files_label (fs);
 }
 
 
-static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
+static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (fs->priv->cwd == dir && file_is_in_list (fs, finfo))
+    if (fs->priv->cwd == dir && file_is_in_list (fs, f))
     {
-        gnome_cmd_file_list_remove_file (fs->list, finfo);
+        gnome_cmd_file_list_remove_file (fs->list, f);
         update_selected_files_label (fs);
     }
 }
 
 
-static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
+static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (file_is_in_list (fs, finfo))
+    if (file_is_in_list (fs, f))
     {
-        gnome_cmd_file_invalidate_metadata (finfo);
-        gnome_cmd_file_list_update_file (GNOME_CMD_FILE_LIST (fs->list), finfo);
+        gnome_cmd_file_invalidate_metadata (f);
+        gnome_cmd_file_list_update_file (GNOME_CMD_FILE_LIST (fs->list), f);
         update_selected_files_label (fs);
     }
 }
 
 
-static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo, GnomeCmdFileSelector *fs)
+static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (file_is_in_list (fs, finfo))
+    if (file_is_in_list (fs, f))
     {
-        // gnome_cmd_file_invalidate_metadata (finfo, TAG_FILE);
-        gnome_cmd_file_list_update_file (GNOME_CMD_FILE_LIST (fs->list), finfo);
+        // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);
+        gnome_cmd_file_list_update_file (GNOME_CMD_FILE_LIST (fs->list), f);
 
         GnomeCmdFileListColumnID sort_col = gnome_cmd_file_list_get_sort_column (GNOME_CMD_FILE_LIST (fs->list));
 
@@ -998,11 +998,11 @@ static void on_realize (GnomeCmdFileSelector *fs, gpointer user_data)
 }
 
 
-static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEventButton *event, GnomeCmdFileSelector *fs)
+static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_2BUTTON_PRESS)
         if (event->button == 1)
-            do_file_specific_action (fs, finfo);
+            do_file_specific_action (fs, f);
 }
 
 
@@ -1963,7 +1963,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
     g_return_val_if_fail (event != NULL, FALSE);
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), FALSE);
 
-    GnomeCmdFile *finfo;
+    GnomeCmdFile *f;
 
     if (state_is_ctrl_shift (event->state))
     {
@@ -2032,9 +2032,9 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
                 return TRUE;
 
             case GDK_Page_Down:
-                finfo = gnome_cmd_file_list_get_selected_file (fs->list);
-                if (finfo && finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-                    do_file_specific_action (fs, finfo);
+                f = gnome_cmd_file_list_get_selected_file (fs->list);
+                if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+                    do_file_specific_action (fs, f);
                 return TRUE;
 
             case GDK_Return:
@@ -2064,9 +2064,9 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
 
             case GDK_Right:
             case GDK_KP_Right:
-                finfo = gnome_cmd_file_list_get_selected_file (fs->list);
-                if (finfo && finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-                    do_file_specific_action (fs, finfo);
+                f = gnome_cmd_file_list_get_selected_file (fs->list);
+                if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+                    do_file_specific_action (fs, f);
                 stop_kp (GTK_OBJECT (fs->list));
                 return TRUE;
 
@@ -2090,11 +2090,11 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
 }
 
 
-void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *finfo)
+void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 {
     const gchar *labels[] = {_("Symlink name:")};
 
-    gchar *fname = get_utf8 (gnome_cmd_file_get_name (finfo));
+    gchar *fname = get_utf8 (gnome_cmd_file_get_name (f));
     gchar *text = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
     g_free (fname);
 
@@ -2106,7 +2106,7 @@ void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdF
 
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, text);
     g_free (text);
-    fs->priv->sym_file = finfo;
+    fs->priv->sym_file = f;
     gtk_widget_show (dialog);
 }
 
@@ -2119,8 +2119,8 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 
     for (; files; files=files->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
-        gchar *fname = get_utf8 (gnome_cmd_file_get_name (finfo));
+        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+        gchar *fname = get_utf8 (gnome_cmd_file_get_name (f));
         gchar *symlink_name = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
 
         GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->priv->cwd, symlink_name);
@@ -2132,7 +2132,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 
         do
         {
-            result = gnome_vfs_create_symbolic_link (uri, gnome_cmd_file_get_uri_str (finfo));
+            result = gnome_vfs_create_symbolic_link (uri, gnome_cmd_file_get_uri_str (f));
 
             if (result == GNOME_VFS_OK)
             {
