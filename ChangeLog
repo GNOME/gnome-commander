@@ -3,6 +3,15 @@
 	* src/gnome-cmd-file-selector.cc:
 	Kill obsoleted code
 
+	* src/filter.cc:
+	* src/filter.h:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	Convert Filter struct into C++ class
+
 2008-08-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-rename-dialog.cc:

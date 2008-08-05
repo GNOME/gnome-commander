@@ -421,8 +421,7 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    Filter *filter = filter_new (pattern, case_sens, gnome_cmd_data_get_filter_type ());
-    g_return_if_fail (filter != NULL);
+    Filter filter(pattern, case_sens, gnome_cmd_data_get_filter_type ());
 
     for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
     {
@@ -430,7 +429,7 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
 
         if (finfo && finfo->info)
         {
-            if (filter_match (filter, finfo->info->name))
+            if (filter.match(finfo->info->name))
             {
                 if (mode)
                     select_file (fl, finfo);
@@ -439,8 +438,6 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
             }
         }
     }
-
-    filter_free (filter);
 }
 
 

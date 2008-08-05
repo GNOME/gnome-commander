@@ -28,96 +28,55 @@
 using namespace std;
 
 
-inline Filter *new_regex (const gchar *exp, gboolean case_sens)
+Filter::Filter(const gchar *exp, gboolean case_sens, Type type): re_exp(NULL), fn_exp(NULL), fn_flags(0)
 {
-    Filter *filter = g_new0 (Filter, 1);
+    this->type = type;
 
-    filter->type = FILTER_TYPE_REGEX;
-    filter->re_exp = g_new (regex_t, 1);
-
-    int flags = case_sens ? REG_ICASE : 0;
-
-    regcomp (filter->re_exp, exp, flags);
-
-    return filter;
-}
-
-
-inline Filter *new_fnmatch (const gchar *exp, gboolean case_sens)
-{
-    Filter *filter = g_new0 (Filter, 1);
-
-    filter->type = FILTER_TYPE_FNMATCH;
-    filter->fn_exp = g_strdup (exp);
-    filter->fn_flags = FNM_NOESCAPE;
-
-#ifdef FNM_CASEFOLD
-    if (!case_sens)
-        filter->fn_flags |= FNM_CASEFOLD;
-#endif
-
-    return filter;
-}
-
-
-Filter *filter_new (const gchar *exp, gboolean case_sens, FilterType type)
-{
     switch (type)
     {
-        case FILTER_TYPE_REGEX:
-            return new_regex (exp, case_sens);
+        case TYPE_REGEX:
+            re_exp = g_new (regex_t, 1);
+            regcomp (re_exp, exp, case_sens ? REG_ICASE : 0);
+            break;
 
-        case FILTER_TYPE_FNMATCH:
-            return new_fnmatch (exp, case_sens);
+        case TYPE_FNMATCH:
+            fn_exp = g_strdup (exp);
+            fn_flags = FNM_NOESCAPE;
+#ifdef FNM_CASEFOLD
+            if (!case_sens)
+                fn_flags |= FNM_CASEFOLD;
+#endif
+            break;
 
         default:
-            g_printerr ("Unknown FilterType (%d) in filter_new\n", type);
+            g_printerr ("Unknown Filter::Type (%d) in constructor\n", type);
     }
-
-    return NULL;
 }
 
 
-void filter_free (Filter *filter)
+Filter::~Filter()
 {
-    g_return_if_fail (filter != NULL);
+    if (type==TYPE_REGEX)
+        regfree (re_exp);
 
-    switch (filter->type)
-    {
-        case FILTER_TYPE_REGEX:
-            regfree (filter->re_exp);
-            g_free (filter->re_exp);
-            break;
-
-        case FILTER_TYPE_FNMATCH:
-            g_free (filter->fn_exp);
-            break;
-
-        default:
-            g_printerr ("Unknown FilterType (%d) in filter_free\n", filter->type);
-    }
-
-    g_free (filter);
+    g_free (re_exp);
+    g_free (fn_exp);
 }
 
 
-gboolean filter_match (Filter *filter, gchar *text)
+gboolean Filter::match(const gchar *text)
 {
     static regmatch_t match;
 
-    g_return_val_if_fail (filter != NULL, FALSE);
-
-    switch (filter->type)
+    switch (type)
     {
-        case FILTER_TYPE_REGEX:
-            return regexec (filter->re_exp, text, 1, &match, 0) == 0;
+        case TYPE_REGEX:
+            return regexec (re_exp, text, 1, &match, 0) == 0;
 
-        case FILTER_TYPE_FNMATCH:
-            return fnmatch (filter->fn_exp, text, filter->fn_flags) == 0;
+        case TYPE_FNMATCH:
+            return fnmatch (fn_exp, text, fn_flags) == 0;
 
         default:
-            g_printerr ("Unknown FilterType (%d) in filter_match\n", filter->type);
+            return FALSE;
     }
-
-    return FALSE;
 }

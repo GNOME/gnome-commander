@@ -77,7 +77,7 @@ struct _GnomeCmdDataPrivate
     gint                 cmdline_history_length;
     GList                *cmdline_history;
     GtkReliefStyle       btn_relief;
-    FilterType           filter_type;
+    Filter::Type         filter_type;
     gboolean             device_only_icon;
     gint                 dir_cache_size;
     gboolean             use_ls_colors;
@@ -1433,7 +1433,7 @@ void gnome_cmd_data_load (void)
     g_free (document_icon_dir);
     data->priv->cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
     data->priv->btn_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
-    data->priv->filter_type = (FilterType) gnome_cmd_data_get_int ("/options/filter_type", FILTER_TYPE_FNMATCH);
+    data->priv->filter_type = (Filter::Type) gnome_cmd_data_get_int ("/options/filter_type", Filter::TYPE_FNMATCH);
     data->priv->list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
     data->priv->conbuttons_visibility = gnome_cmd_data_get_bool ("/options/conbuttons_visibility", TRUE);
     data->priv->cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
@@ -2161,13 +2161,13 @@ GtkReliefStyle gnome_cmd_data_get_button_relief (void)
 }
 
 
-void gnome_cmd_data_set_filter_type (FilterType type)
+void gnome_cmd_data_set_filter_type (Filter::Type type)
 {
     data->priv->filter_type = type;
 }
 
 
-FilterType gnome_cmd_data_get_filter_type (void)
+Filter::Type gnome_cmd_data_get_filter_type (void)
 {
     return data->priv->filter_type;
 }

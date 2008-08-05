@@ -196,8 +196,8 @@ GList *gnome_cmd_data_get_cmdline_history (void);
 GtkReliefStyle gnome_cmd_data_get_button_relief (void);
 void gnome_cmd_data_set_button_relief (GtkReliefStyle relief);
 
-FilterType gnome_cmd_data_get_filter_type (void);
-void gnome_cmd_data_set_filter_type (FilterType type);
+Filter::Type gnome_cmd_data_get_filter_type (void);
+void gnome_cmd_data_set_filter_type (Filter::Type type);
 
 gboolean gnome_cmd_data_get_device_only_icon (void);
 void gnome_cmd_data_set_device_only_icon (gboolean value);

@@ -254,7 +254,7 @@ inline gboolean content_matches (GnomeCmdFile *finfo, SearchData *data)
  */
 inline gboolean name_matches (gchar *name, SearchData *data)
 {
-    return filter_match (data->name_filter, name);
+    return data->name_filter->match(name);
 }
 
 
@@ -362,7 +362,7 @@ static gpointer perform_search_operation (SearchData *data)
     search_dir_r (data->start_dir, data);
 
     // free regexps
-    filter_free (data->name_filter);
+    delete data->name_filter;
     data->name_filter = NULL;
 
     if (data->content_search)
@@ -544,9 +544,9 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     // create an re for filename matching
     GtkWidget *regex_radio = lookup_widget (GTK_WIDGET (dialog), "regex_radio");
 
-    data->name_filter = filter_new (data->name_pattern, data->case_sens,
-                                    gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (regex_radio)) ? FILTER_TYPE_REGEX
-                                                                                                   : FILTER_TYPE_FNMATCH);
+    data->name_filter = new Filter(data->name_pattern, data->case_sens,
+                                    gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (regex_radio)) ? Filter::TYPE_REGEX
+                                                                                                   : Filter::TYPE_FNMATCH);
 
     // if we're going to search through file content create an re for that too
     if (data->content_search)
@@ -870,11 +870,11 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     radio = create_radio_with_mnemonic (window, NULL, _("She_ll syntax"), "shell_radio");
     gtk_container_add (GTK_CONTAINER (hbox), radio);
-    if (gnome_cmd_data_get_filter_type () == FILTER_TYPE_FNMATCH)
+    if (gnome_cmd_data_get_filter_type () == Filter::TYPE_FNMATCH)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio_with_mnemonic (window, get_radio_group (radio), _("Rege_x syntax"), "regex_radio");
     gtk_container_add (GTK_CONTAINER (hbox), radio);
-    if (gnome_cmd_data_get_filter_type () == FILTER_TYPE_REGEX)
+    if (gnome_cmd_data_get_filter_type () == Filter::TYPE_REGEX)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     table_add (table, hbox, 1, 2, GTK_FILL);

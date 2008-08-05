@@ -22,24 +22,24 @@
 
 #include <regex.h>
 
-typedef enum
-{
-    FILTER_TYPE_REGEX,
-    FILTER_TYPE_FNMATCH
-} FilterType;
-
 
 struct Filter
 {
-    FilterType type;    // common stuff
+    enum Type
+    {
+        TYPE_REGEX,
+        TYPE_FNMATCH
+    };
+
+    Type type;          // common stuff
     regex_t *re_exp;    // regex filtering stuff
     char *fn_exp;       // fnmatch filtering stuff
     int fn_flags;       // fnmatch filtering stuff
+
+    Filter(const gchar *exp, gboolean case_sens,Type type);
+    ~Filter();
+
+    gboolean match(const gchar *text);
 };
-
-
-Filter *filter_new (const gchar *exp, gboolean case_sens, FilterType type);
-void filter_free (Filter *filter);
-gboolean filter_match (Filter *filter, gchar *text);
 
 #endif // __FILTER_H__
