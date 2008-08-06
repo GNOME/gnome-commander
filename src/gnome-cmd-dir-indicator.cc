@@ -91,9 +91,8 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
         const gchar *labelText = gtk_label_get_text (GTK_LABEL (indicator->priv->label));
         gchar *chTo = g_strdup(labelText);
         gint x = (gint) event->x;
-        gint i;
 
-        for (i = 0; i < indicator->priv->numPositions; i++)
+        for (gint i = 0; i < indicator->priv->numPositions; i++)
             if (x < indicator->priv->slashPixelPosition[i])
             {
                 strncpy (chTo, labelText, indicator->priv->slashCharPosition[i]);
