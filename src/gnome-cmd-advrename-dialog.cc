@@ -273,6 +273,12 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_ID3_WWWCOPYRIGHT, TAG_ID3_WWWPAYMENT, TAG_ID3_WWWPUBLISHER,
                                      TAG_ID3_WWWRADIOPAGE, TAG_ID3_WWWUSER,
 
+                                     TAG_VORBIS_CONTACT, TAG_VORBIS_DESCRIPTION,
+                                     TAG_VORBIS_LICENSE, TAG_VORBIS_LOCATION,
+                                     TAG_VORBIS_MAXBITRATE, TAG_VORBIS_MINBITRATE,
+                                     TAG_VORBIS_NOMINALBITRATE, TAG_VORBIS_ORGANIZATION,
+                                     TAG_VORBIS_VENDOR, TAG_VORBIS_VERSION,
+
                                      TAG_EXIF_COPYRIGHT, TAG_EXIF_DATETIME,
                                      TAG_EXIF_EXPOSUREBIASVALUE, TAG_EXIF_EXPOSUREMODE, TAG_EXIF_EXPOSUREPROGRAM,
                                      TAG_EXIF_FLASH, TAG_EXIF_FLASHENERGY,
@@ -354,11 +360,18 @@ static GtkWidget *create_placeholder_menu(GnomeCmdAdvrenameDialog *dialog, int m
                                      TAG_IPTC_SUPPLCATEGORY, TAG_IPTC_TIMECREATED, TAG_IPTC_TIMESENT, TAG_IPTC_UNO,
                                      TAG_IPTC_URGENCY, TAG_IPTC_WRITEREDITOR,
 
-                                     TAG_VORBIS_CONTACT, TAG_VORBIS_DESCRIPTION,
-                                     TAG_VORBIS_LICENSE, TAG_VORBIS_LOCATION,
-                                     TAG_VORBIS_MAXBITRATE, TAG_VORBIS_MINBITRATE,
-                                     TAG_VORBIS_NOMINALBITRATE, TAG_VORBIS_ORGANIZATION,
-                                     TAG_VORBIS_VENDOR, TAG_VORBIS_VERSION
+                                     TAG_PDF_PAGESIZE, TAG_PDF_PAGEWIDTH, TAG_PDF_PAGEHEIGHT,
+                                     TAG_PDF_VERSION, TAG_PDF_PRODUCER,
+                                     TAG_PDF_EMBEDDEDFILES,
+                                     TAG_PDF_OPTIMIZED,
+                                     TAG_PDF_PRINTING,
+                                     TAG_PDF_HIRESPRINTING,
+                                     TAG_PDF_COPYING,
+                                     TAG_PDF_MODIFYING,
+                                     TAG_PDF_DOCASSEMBLY,
+                                     TAG_PDF_COMMENTING,
+                                     TAG_PDF_FORMFILLING,
+                                     TAG_PDF_ACCESSIBILITYSUPPORT
                                     };
 
     GtkItemFactoryEntry *items[] = {dir_items,

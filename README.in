@@ -89,6 +89,9 @@ Additionally GNOME Commander may require:
   * libgsf >= @LIBGSF_REQ@
     Optional - for OLE and ODF support.
 
+  * poppler >= @POPPLER_REQ@
+    Optional - for PDF support.
+
 
 Simple install procedure:
 

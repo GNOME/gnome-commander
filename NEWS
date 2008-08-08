@@ -6,6 +6,7 @@ Bug fixes:
  * Fixed problem #536446 (file name not focused for in-place renaming)
 
 New features:
+ * Support for PDF metatags in advanced file rename templates
  * New or updated docs: de, en
  * New or updated translations: ar
  * New key bindings:

@@ -40,9 +40,10 @@ typedef enum
     TAG_FLAC        = 1 << 11,
     TAG_ID3         = 1 << 12,
     TAG_VORBIS      = 1 << 13,
-    TAG_RPM         = 1 << 14,
+    TAG_PDF         = 1 << 14,
+    TAG_RPM         = 1 << 15,
     TAG_AUDIO       = TAG_APE | TAG_FLAC | TAG_ID3 | TAG_VORBIS,
-    TAG_DOC         = TAG_CHM+1,
+    TAG_DOC         = TAG_CHM | TAG_PDF,
     TAG_IMAGE       = TAG_EXIF | TAG_IPTC | TAG_ICC
 } GnomeCmdTagClass;
 
@@ -450,6 +451,21 @@ typedef enum
     TAG_IPTC_UNO,                           // eternal, globally unique identification for the object, independent of provider and for any media form
     TAG_IPTC_URGENCY,                       // specifies the editorial urgency of content and not necessarily the envelope handling priority
     TAG_IPTC_WRITEREDITOR,                  // name of the person involved in the writing, editing or correcting the object or caption/abstract
+    TAG_PDF_PAGESIZE,                       // page size format
+    TAG_PDF_PAGEWIDTH,                      // page width in mm
+    TAG_PDF_PAGEHEIGHT,                     // page height in mm
+    TAG_PDF_VERSION,                        // the PDF version of the document
+    TAG_PDF_PRODUCER,                       // the application that converted the document to PDF
+    TAG_PDF_EMBEDDEDFILES,                  // number of embedded files in the document
+    TAG_PDF_OPTIMIZED,                      // set to "1" if optimized for network access
+    TAG_PDF_PRINTING,                       // set to "1" if printing is allowed
+    TAG_PDF_HIRESPRINTING,                  // set to "1" if high resolution printing is allowed
+    TAG_PDF_COPYING,                        // set to "1" if copying the contents is allowed
+    TAG_PDF_MODIFYING,                      // set to "1" if modifying the contents is allowed
+    TAG_PDF_DOCASSEMBLY,                    // set to "1" if inserting, rotating, or deleting pages and creating navigation elements is allowed
+    TAG_PDF_COMMENTING,                     // set to "1" if adding or modifying text annotations is allowed
+    TAG_PDF_FORMFILLING,                    // set to "1" if filling of form fields is allowed
+    TAG_PDF_ACCESSIBILITYSUPPORT,           // set to "1" if accessibility support (eg. screen readers) is enabled
     TAG_VORBIS_CONTACT,                     // contact information for the creators or distributors of the track
     TAG_VORBIS_DESCRIPTION,                 // a textual description of the data
     TAG_VORBIS_LICENSE,                     // license information

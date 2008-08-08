@@ -30,6 +30,7 @@
 #include "gnome-cmd-tags-exiv2.h"
 #include "gnome-cmd-tags-taglib.h"
 #include "gnome-cmd-tags-doc.h"
+#include "gnome-cmd-tags-poppler.h"
 #include "utils.h"
 #include "dict.h"
 
@@ -68,6 +69,10 @@ static char no_support_for_taglib_tags_string[] = N_("<ID3, APE, FLAC and Vorbis
 
 #ifndef HAVE_GSF
 static char no_support_for_libgsf_tags_string[] = N_("<OLE2 and ODF tags not supported>");
+#endif
+
+#ifndef HAVE_PDF
+static char no_support_for_poppler_tags_string[] = N_("<PDF tags not supported>");
 #endif
 
 
@@ -504,6 +509,21 @@ void gcmd_tags_init()
                        {TAG_IPTC_UNO, {"IPTC.UNO", TAG_IPTC, N_("Unique Name of Object"), N_("An eternal, globally unique identification for the object, independent of provider and for any media form.")}},
                        {TAG_IPTC_URGENCY, {"IPTC.Urgency", TAG_IPTC, N_("Urgency"), N_("Specifies the editorial urgency of content and not necessarily the envelope handling priority. '1' is most urgent, '5' normal, and '8' least urgent.")}},
                        {TAG_IPTC_WRITEREDITOR, {"IPTC.WriterEditor", TAG_IPTC, N_("Writer/Editor"), N_("The name of the person involved in the writing, editing or correcting the object or caption/abstract (multiple values allowed)")}},
+                       {TAG_PDF_PAGESIZE, {"PDF.PageSize", TAG_PDF, N_("Page Size"), N_("Page size format.")}},
+                       {TAG_PDF_PAGEWIDTH, {"PDF.PageWidth", TAG_PDF, N_("Page Width"), N_("Page width in mm.")}},
+                       {TAG_PDF_PAGEHEIGHT, {"PDF.PageHeight", TAG_PDF, N_("Page Height"), N_("Page height in mm.")}},
+                       {TAG_PDF_VERSION, {"PDF.Version", TAG_PDF, N_("PDF Version"), N_("The PDF version of the document.")}},
+                       {TAG_PDF_PRODUCER, {"PDF.Producer", TAG_PDF, N_("Producer"), N_("The application that converted the document to PDF.")}},
+                       {TAG_PDF_EMBEDDEDFILES, {"PDF.EmbeddedFiles", TAG_PDF, N_("Embedded Files"), N_("Number of embedded files in the document.")}},
+                       {TAG_PDF_OPTIMIZED, {"PDF.Optimized", TAG_PDF, N_("Fast Web View"), N_("Set to \"1\" if optimized for network access.")}},
+                       {TAG_PDF_PRINTING, {"PDF.Printing", TAG_PDF, N_("Printing"), N_("Set to \"1\" if printing is allowed.")}},
+                       {TAG_PDF_HIRESPRINTING, {"PDF.HiResPrinting", TAG_PDF, N_("Printing in High Resolution"), N_("Set to \"1\" if high resolution printing is allowed.")}},
+                       {TAG_PDF_COPYING, {"PDF.Copying", TAG_PDF, N_("Copying"), N_("Set to \"1\" if copying the contents is allowed.")}},
+                       {TAG_PDF_MODIFYING, {"PDF.Modifying", TAG_PDF, N_("Modifying"), N_("Set to \"1\" if modifying the contents is allowed.")}},
+                       {TAG_PDF_DOCASSEMBLY, {"PDF.DocAssembly", TAG_PDF, N_("Document Assembly"), N_("Set to \"1\" if inserting, rotating, or deleting pages and creating navigation elements is allowed.")}},
+                       {TAG_PDF_COMMENTING, {"PDF.Commenting", TAG_PDF, N_("Commenting"), N_("Set to \"1\" if adding or modifying text annotations is allowed.")}},
+                       {TAG_PDF_FORMFILLING, {"PDF.FormFilling", TAG_PDF, N_("Form Filling"), N_("Set to \"1\" if filling of form fields is allowed.")}},
+                       {TAG_PDF_ACCESSIBILITYSUPPORT, {"PDF.AccessibilitySupport", TAG_PDF, N_("Accessibility Support"), N_("Set to \"1\" if accessibility support (eg. screen readers) is enabled.")}},
                        {TAG_VORBIS_CONTACT, {"Vorbis.Contact", TAG_VORBIS, N_("Contact"), N_("Contact information for the creators or distributors of the track.")}},
                        {TAG_VORBIS_DESCRIPTION, {"Vorbis.Description", TAG_VORBIS, N_("Description"), N_("A textual description of the data.")}},
                        {TAG_VORBIS_LICENSE, {"Vorbis.License", TAG_VORBIS, N_("License"), N_("License information.")}},
@@ -521,6 +541,7 @@ void gcmd_tags_init()
     gcmd_tags_exiv2_init();
     gcmd_tags_taglib_init();
     gcmd_tags_libgsf_init();
+    gcmd_tags_poppler_init();
 }
 
 
@@ -529,6 +550,7 @@ void gcmd_tags_shutdown()
     gcmd_tags_exiv2_shutdown();
     gcmd_tags_taglib_shutdown();
     gcmd_tags_libgsf_shutdown();
+    gcmd_tags_poppler_shutdown();
 }
 
 
@@ -540,6 +562,7 @@ GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *finfo)
     gcmd_tags_exiv2_load_metadata(finfo);
     gcmd_tags_taglib_load_metadata(finfo);
     gcmd_tags_libgsf_load_metadata(finfo);
+    gcmd_tags_poppler_load_metadata(finfo);
 
     return finfo->metadata;
 }
@@ -595,6 +618,10 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagCl
 
             case TAG_IPTC:
                 t.name = "IPTC.";
+                break;
+
+            case TAG_PDF:
+                t.name = "PDF.";
                 break;
 
             case TAG_RPM:
@@ -673,6 +700,9 @@ const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
         case TAG_IPTC:
             return "IPTC";
 
+        case TAG_PDF:
+            return "PDF";
+
         case TAG_RPM:
             return "RPM";
 
@@ -724,6 +754,11 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
                         return _(no_support_for_libgsf_tags_string);
 #endif
                         gcmd_tags_libgsf_load_metadata(finfo);
+        case TAG_PDF  :
+#ifndef HAVE_PDF
+                        return _(no_support_for_poppler_tags_string);
+#endif
+                        gcmd_tags_poppler_load_metadata(finfo);
                         ret_val = finfo->metadata->operator [] (tag).c_str();
                         break;
 

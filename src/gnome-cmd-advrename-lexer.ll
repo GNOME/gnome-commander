@@ -111,10 +111,11 @@ icc         [iI][cC][cC]
 id3         [iI][dD]3
 image       [iI][mM][aA][gG][eE]
 iptc        [iI][pP][tT][cC]
+pdf         [pP][dD][fF]
 rpm         [rR][pP][mM]
 vorbis      [vV][oO][rR][bB][iI][sS]
 
-tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{vorbis}
+tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|{vorbis}
 
 %%
 

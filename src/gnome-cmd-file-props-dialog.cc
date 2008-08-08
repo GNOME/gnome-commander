@@ -462,6 +462,8 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     {
         add_tag (dialog, table, y, *data->finfo->metadata, TAG_FILE_DESCRIPTION);
         add_tag (dialog, table, y, *data->finfo->metadata, TAG_FILE_PUBLISHER);
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_DOC_TITLE);
+        add_tag (dialog, table, y, *data->finfo->metadata, TAG_DOC_PAGECOUNT);
         add_width_height_tag (dialog, table, y, *data->finfo->metadata);
         add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_ALBUMARTIST);
         add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_TITLE);

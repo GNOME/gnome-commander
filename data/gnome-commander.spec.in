@@ -18,6 +18,7 @@
 %define        exiv2_ver             @EXIV2_REQ@
 %define        taglib_ver            @TAGLIB_REQ@
 %define        libgsf_ver            @LIBGSF_REQ@
+%define        poppler_ver           @POPPLER_REQ@
 
 Name:          @PACKAGE@
 Version:       @VERSION@
@@ -58,10 +59,11 @@ Requires(postun): scrollkeeper
 
 BuildRequires:   python-devel >= %{python_ver}
 BuildRequires:   exiv2-devel >= %{exiv2_ver}
-Requires:        taglib-devel >= %{taglib_ver}
+BuildRequires:   taglib-devel >= %{taglib_ver}
 %if 0%{?fedora} >= 6
 BuildRequires:   libgsf-devel >= %{libgsf_ver}
 %endif
+BuildRequires:   poppler-devel >= %{poppler_ver}
 
 Requires:        python >= %{python_ver}
 Requires:        gnome-python2-gnomevfs
@@ -70,10 +72,11 @@ Requires:        taglib >= %{taglib_ver}
 %if 0%{?fedora} >= 6
 Requires:        libgsf >= %{libgsf_ver}
 %endif
+Requires:        poppler >= %{poppler_ver}
 
 %description
 GNOME Commander is a nice and fast file manager for the GNOME desktop.
-In addition to performing the basic filemanager functions the program is
+In addition to performing the basic file manager functions the program is
 also an FTP-client and it can browse SMB-networks.
 
 %description -l cs
@@ -153,6 +156,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Thu 7 Aug 2008 Piotr Eljasiak <epiotr@use.pl>
+- added poppler dependencies
+
 * Fri Jul 11 2008 Piotr Eljasiak <epiotr@use.pl>
  - added build deps
 

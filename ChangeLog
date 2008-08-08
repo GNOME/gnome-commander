@@ -1,3 +1,19 @@
+2008-08-09  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* data/gnome-commander.spec.in:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-advrename-lexer.ll:
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/tags/Makefile.am:
+	* src/tags/gnome-cmd-tags-poppler.cc:
+	* src/tags/gnome-cmd-tags-poppler.h:
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	Added support for PDF metatags
+
 2008-08-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:

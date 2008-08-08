@@ -98,6 +98,7 @@ gnome_commander_LDADD = \
 	$(TAGLIB_LIBS) \
 	$(CHM_LIBS) \
 	$(GSF_LIBS) \
+	$(POPPLER_LIBS) \
 	$(PYTHON_LIBS) \
 	$(PYTHON_EXTRA_LIBS) \
 	$(top_builddir)/libgcmd/libgcmd.la \
