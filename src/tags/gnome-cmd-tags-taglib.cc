@@ -400,11 +400,6 @@ void gcmd_tags_taglib_init()
 }
 
 
-void gcmd_tags_taglib_shutdown()
-{
-}
-
-
 void gcmd_tags_taglib_load_metadata(GnomeCmdFile *finfo)
 {
     g_return_if_fail (finfo != NULL);

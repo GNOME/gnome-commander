@@ -27,16 +27,6 @@
 using namespace std;
 
 
-void gcmd_tags_file_init()
-{
-}
-
-
-void gcmd_tags_file_shutdown()
-{
-}
-
-
 void gcmd_tags_file_load_metadata(GnomeCmdFile *finfo)
 {
     g_return_if_fail (finfo != NULL);
@@ -76,5 +66,4 @@ void gcmd_tags_file_load_metadata(GnomeCmdFile *finfo)
     finfo->metadata->add(TAG_FILE_PERMISSIONS, perm2textstring(finfo->info->permissions,buff,sizeof(buff)));
 
     finfo->metadata->add(TAG_FILE_FORMAT, finfo->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY ? "Folder" : finfo->info->mime_type);
-
 }

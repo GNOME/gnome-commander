@@ -23,7 +23,8 @@
 #include "gnome-cmd-file.h"
 
 void gcmd_tags_taglib_init();
-void gcmd_tags_taglib_shutdown();
+inline void gcmd_tags_taglib_shutdown()     {}
+
 void gcmd_tags_taglib_load_metadata(GnomeCmdFile *finfo);
 
 #endif // __GNOME_CMD_TAGS_TAGLIB_H__

@@ -363,11 +363,6 @@ void gcmd_tags_exiv2_init()
 }
 
 
-void gcmd_tags_exiv2_shutdown()
-{
-}
-
-
 void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
 {
     g_return_if_fail (finfo != NULL);
@@ -388,7 +383,7 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
 
     if (!gnome_cmd_file_is_local(finfo))  return;
 
-    gchar *fname = gnome_cmd_file_get_real_path(finfo);
+    gchar *fname = gnome_cmd_file_get_real_path (finfo);
 
     DEBUG('t', "Loading image metadata for '%s'\n", fname);
 

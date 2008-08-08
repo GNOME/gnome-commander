@@ -1259,9 +1259,9 @@ void gnome_cmd_main_win_update_connections (GnomeCmdMainWin *mw)
 
 void gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw)
 {
-    gint pos = 2;
-
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
+
+    gint pos = 2;
 
     gtk_widget_ref (mw->priv->file_selector[LEFT]);
     gtk_widget_ref (mw->priv->file_selector[RIGHT]);

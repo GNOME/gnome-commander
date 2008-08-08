@@ -25,6 +25,7 @@
 
 void gcmd_tags_libgsf_init();
 void gcmd_tags_libgsf_shutdown();
+
 void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo);
 
 #endif // __GNOME_CMD_TAGS_DOC_H__
