@@ -14,6 +14,9 @@
 	* src/tags/gnome-cmd-tags.h:
 	Added support for PDF metatags
 
+	* src/tags/gnome-cmd-tags-poppler.cc:
+	Do not search metatags for non-pdf documents
+
 2008-08-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:

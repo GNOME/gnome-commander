@@ -301,9 +301,11 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *finfo)
     if (!finfo->metadata)  return;
 
     finfo->metadata->mark_as_accessed(TAG_PDF);
-    finfo->metadata->mark_as_accessed(TAG_DOC);
 
     if (!gnome_cmd_file_is_local (finfo))  return;
+
+    // skip non pdf files, as pdf metatags extraction is very expensive...
+    if (!strstr (finfo->info->mime_type, "pdf"))  return;
 
     gchar *fname = gnome_cmd_file_get_real_path (finfo);
 
@@ -315,6 +317,8 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *finfo)
 
     if (!doc.isOk())
         return;
+
+    finfo->metadata->mark_as_accessed(TAG_DOC);
 
     finfo->metadata->addf(TAG_PDF_VERSION, "%.1f", doc.getPDFVersion());
     finfo->metadata->addf(TAG_DOC_PAGECOUNT, "%i", doc.getNumPages());
@@ -331,7 +335,7 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *finfo)
     finfo->metadata->addf(TAG_PDF_ACCESSIBILITYSUPPORT, "%u", doc.okToAccessibility());
     finfo->metadata->addf(TAG_PDF_DOCASSEMBLY, "%u", doc.okToAssemble());
 
-    if (doc.getPDFVersion()>0)
+    if (doc.getNumPages()>0)
     {
         double width = doc.getPageCropWidth(1)/72.0f*25.4f;
         double height = doc.getPageCropHeight(1)/72.0f*25.4f;
