@@ -156,7 +156,7 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
-* Thu 7 Aug 2008 Piotr Eljasiak <epiotr@use.pl>
+* Thu Aug 7 2008 Piotr Eljasiak <epiotr@use.pl>
 - added poppler dependencies
 
 * Fri Jul 11 2008 Piotr Eljasiak <epiotr@use.pl>
