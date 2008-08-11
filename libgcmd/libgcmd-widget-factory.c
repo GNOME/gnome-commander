@@ -396,18 +396,6 @@ create_icon_entry (GtkWidget *parent, gchar *name, const gchar *icon_path)
 
 
 GtkWidget *
-create_font_picker (GtkWidget *parent, gchar *name)
-{
-    GtkWidget *w = gnome_font_picker_new ();
-    gtk_widget_ref (w);
-    gtk_object_set_data_full (GTK_OBJECT (parent), name, w,
-                              (GtkDestroyNotify) gtk_widget_unref);
-    gtk_widget_show (w);
-    return w;
-}
-
-
-GtkWidget *
 create_scale (GtkWidget *parent, gchar *name, gint value, gint min, gint max)
 {
     GtkWidget *scale = gtk_hscale_new (

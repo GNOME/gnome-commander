@@ -1,3 +1,10 @@
+2008-08-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* libgcmd/libgcmd-widget-factory.c:
+	* libgcmd/libgcmd-widget-factory.h:
+	* src/gnome-cmd-options-dialog.cc:
+	Replaced obsoleted code for GnomeFontPicker with GtkFontButton
+
 2008-08-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* configure.in:

@@ -39,6 +39,19 @@ struct GnomeCmdOptionsDialog::Private
 };
 
 
+
+inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
+{
+    GtkWidget *w = gtk_font_button_new ();
+    gtk_widget_ref (w);
+    gtk_object_set_data_full (GTK_OBJECT (parent), name, w, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_show (w);
+
+    return w;
+}
+
+
+
 /***********************************************************************
  *
  *  The General tab
@@ -459,9 +472,9 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 
     fpicker = create_font_picker (parent, "list_font_picker");
     table_add (table, fpicker, 1, 0, GTK_FILL);
-    gnome_font_picker_set_font_name (GNOME_FONT_PICKER (fpicker), gnome_cmd_data_get_list_font ());
-    gnome_font_picker_set_preview_text (GNOME_FONT_PICKER (fpicker),
-                                        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
+    gtk_font_button_set_font_name (GTK_FONT_BUTTON (fpicker), gnome_cmd_data_get_list_font ());
+    gtk_font_button_set_use_font (GTK_FONT_BUTTON (fpicker), TRUE);
+
     spin = create_spin (parent, "row_height_spin", 8, 64, gnome_cmd_data_get_list_row_height());
     table_add (table, spin, 1, 1, GTK_FILL);
 
@@ -569,9 +582,8 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
 
     gnome_cmd_data_set_use_ls_colors (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls)));
 
-    const gchar *list_font = gnome_font_picker_get_font_name (GNOME_FONT_PICKER (list_font_picker));
-    if (strcmp (list_font, "default") != 0)
-        gnome_cmd_data_set_list_font (list_font);
+    const gchar *list_font = gtk_font_button_get_font_name (GTK_FONT_BUTTON (list_font_picker));
+    gnome_cmd_data_set_list_font (list_font);
 
     gnome_cmd_data_set_theme_icon_dir (gtk_entry_get_text (GTK_ENTRY (theme_icondir_entry)));
     gnome_cmd_data_set_document_icon_dir (gtk_entry_get_text (GTK_ENTRY (doc_icondir_entry)));

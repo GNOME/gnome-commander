@@ -110,9 +110,6 @@ GtkWidget *
 create_icon_entry (GtkWidget *parent, gchar *name, const gchar *icon_path);
 
 GtkWidget *
-create_font_picker (GtkWidget *parent, gchar *name);
-
-GtkWidget *
 create_scale (GtkWidget *parent, gchar *name, gint value, gint min, gint max);
 
 GtkWidget *
