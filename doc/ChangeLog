@@ -1,8 +1,13 @@
+2008-08-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/de/legal.xml:
+	Added missing German file
+
 2008-08-02  Andre Klapper  <a9016009@gmx.de>
 
 	* de/de.po:
 	* Makefile.am:
-	Committed initial german translation by Mario Blättermann.
+	Committed initial German translation by Mario Blättermann.
 
 2008-05-26  Piotr Eljasiak  <epiotr@use.pl>
 
