@@ -3,6 +3,13 @@
 	* src/filter.cc:
 	Fix for mismatched case-sesitive/insensitive file selection (regex mode)
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	* src/gnome-cmd-xfer.cc:
+	Convert GnomeCmdFileList struct into C++ class, part 1
+
 2008-08-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* libgcmd/libgcmd-widget-factory.c:

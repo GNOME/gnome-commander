@@ -21,21 +21,14 @@
 #define __GNOME_CMD_FILE_LIST_H__
 
 
-#define GNOME_CMD_FILE_LIST(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_file_list_get_type (), GnomeCmdFileList)
-#define GNOME_CMD_FILE_LIST_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_list_get_type (), GnomeCmdFileListClass)
-#define GNOME_CMD_IS_FILE_LIST(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_file_list_get_type ())
-
-typedef struct _GnomeCmdFileList GnomeCmdFileList;
-typedef struct _GnomeCmdFileListPrivate GnomeCmdFileListPrivate;
-typedef struct _GnomeCmdFileListClass GnomeCmdFileListClass;
+#define GNOME_CMD_FILE_LIST(obj)          GTK_CHECK_CAST (obj, gnome_cmd_file_list_get_type (), GnomeCmdFileList)
+#define GNOME_CMD_FILE_LIST_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_list_get_type (), GnomeCmdFileListClass)
+#define GNOME_CMD_IS_FILE_LIST(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_file_list_get_type ())
 
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-clist.h"
 
-typedef enum
+enum GnomeCmdFileListColumnID
 {
     FILE_LIST_COLUMN_ICON,
     FILE_LIST_COLUMN_NAME,
@@ -47,7 +40,7 @@ typedef enum
     FILE_LIST_COLUMN_OWNER,
     FILE_LIST_COLUMN_GROUP,
     FILE_LIST_NUM_COLUMNS
-} GnomeCmdFileListColumnID;
+};
 
 
 /* DnD target names */
@@ -57,25 +50,34 @@ typedef enum
 #define TARGET_URL_TYPE                 "_NETSCAPE_URL"
 
 /* Standard DnD types */
-typedef enum
+enum TargetType
 {
         TARGET_MC_DESKTOP_ICON,
         TARGET_URI_LIST,
         TARGET_TEXT_PLAIN,
         TARGET_URL,
         TARGET_NTARGETS
-} TargetType;
-
-
-struct _GnomeCmdFileList
-{
-    GnomeCmdCList parent;
-
-    GnomeCmdFileListPrivate *priv;
 };
 
 
-struct _GnomeCmdFileListClass
+struct GnomeCmdFileList
+{
+    GnomeCmdCList parent;
+
+    struct Private;
+
+    Private *priv;
+
+    void show_column (GnomeCmdFileListColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (GTK_CLIST (this), col, value); }
+
+    void append_file (GnomeCmdFile *f);
+    void remove_file (GnomeCmdFile *f);
+    void remove_file (const gchar *uri_str);
+
+};
+
+
+struct GnomeCmdFileListClass
 {
     GnomeCmdCListClass parent_class;
 
@@ -91,33 +93,21 @@ extern GtkTargetEntry drop_types[];
 
 
 GtkType gnome_cmd_file_list_get_type (void);
-
 GtkWidget *gnome_cmd_file_list_new (void);
-
-inline void gnome_cmd_file_list_show_column (GnomeCmdFileList *fl, GnomeCmdFileListColumnID col, gboolean value)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    gtk_clist_set_column_visibility (GTK_CLIST (fl), col, value);
-}
 
 GnomeCmdFileListColumnID gnome_cmd_file_list_get_sort_column (GnomeCmdFileList *fl);
 guint gnome_cmd_file_list_get_column_default_width (GnomeCmdFileListColumnID col);
 
 void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl);
 
-void gnome_cmd_file_list_append_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
-void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sort);
 void gnome_cmd_file_list_insert_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
+void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sort);
 void gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
-
-void gnome_cmd_file_list_remove_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
-void gnome_cmd_file_list_remove_file_by_uri (GnomeCmdFileList *fl, const gchar *uri_str);
 
 inline void gnome_cmd_file_list_remove_files (GnomeCmdFileList *fl, GList *files)
 {
     for (; files; files = files->next)
-        gnome_cmd_file_list_remove_file (fl, (GnomeCmdFile *) files->data);
+        fl->remove_file((GnomeCmdFile *) files->data);
 }
 
 void gnome_cmd_file_list_remove_all_files (GnomeCmdFileList *fl);

@@ -279,7 +279,7 @@ static gboolean update_xfer_gui_func (XferData *data)
                 {
                     GnomeVFSURI *src_uri = gnome_cmd_file_get_uri ((GnomeCmdFile *) data->src_files->data);
                     if (!gnome_vfs_uri_exists (src_uri))
-                        gnome_cmd_file_list_remove_file (data->src_fl, (GnomeCmdFile *) data->src_files->data);
+                        data->src_fl->remove_file((GnomeCmdFile *) data->src_files->data);
                     g_free (src_uri);
                 }
             }

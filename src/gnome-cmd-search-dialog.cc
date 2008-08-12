@@ -387,8 +387,8 @@ static gboolean update_search_status_widgets (SearchData *data)
 
     // Add all files found since last update to the list
     for (GList *files = data->pdata.files; files; files = files->next)
-        gnome_cmd_file_list_append_file (GNOME_CMD_FILE_LIST (data->dialog->priv->result_list),
-                                      GNOME_CMD_FILE (files->data));
+        GNOME_CMD_FILE_LIST (data->dialog->priv->result_list)->append_file(GNOME_CMD_FILE (files->data));
+
     if (data->pdata.files)
     {
         g_list_free (data->pdata.files);

@@ -845,7 +845,7 @@ static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
     if (fs->priv->cwd == dir && file_is_in_list (fs, f))
     {
-        gnome_cmd_file_list_remove_file (fs->list, f);
+        fs->list->remove_file(f);
         update_selected_files_label (fs);
     }
 }
@@ -1280,7 +1280,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_object_set_data_full (GTK_OBJECT (fs), "list_widget", fs->list_widget,
                               (GtkDestroyNotify) gtk_widget_unref);
     fs->list = GNOME_CMD_FILE_LIST (fs->list_widget);
-    gnome_cmd_file_list_show_column (fs->list, FILE_LIST_COLUMN_DIR, FALSE);
+    fs->list->show_column(FILE_LIST_COLUMN_DIR, FALSE);
 
     // create the connection combo
     fs->con_combo = gnome_cmd_combo_new (2, 1, NULL);
