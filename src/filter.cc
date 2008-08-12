@@ -36,7 +36,7 @@ Filter::Filter(const gchar *exp, gboolean case_sens, Type type): re_exp(NULL), f
     {
         case TYPE_REGEX:
             re_exp = g_new (regex_t, 1);
-            regcomp (re_exp, exp, case_sens ? REG_ICASE : 0);
+            regcomp (re_exp, exp, case_sens ? 0 : REG_ICASE);
             break;
 
         case TYPE_FNMATCH:

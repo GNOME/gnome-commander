@@ -1,3 +1,8 @@
+2008-08-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/filter.cc:
+	Fix for mismatched case-sesitive/insensitive file selection (regex mode)
+
 2008-08-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* libgcmd/libgcmd-widget-factory.c:
