@@ -53,20 +53,15 @@ struct _GnomeCmdPluginClass
 };
 
 
-GtkType
-gnome_cmd_plugin_get_type (void);
+GtkType gnome_cmd_plugin_get_type (void);
 
-GtkWidget *
-gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+GtkWidget *gnome_cmd_plugin_create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state);
 
-GList *
-gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+GList *gnome_cmd_plugin_create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state);
 
-void
-gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state);
+void gnome_cmd_plugin_update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state);
 
-void
-gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin);
+void gnome_cmd_plugin_configure (GnomeCmdPlugin *plugin);
 
 G_END_DECLS
 

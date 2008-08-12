@@ -22,17 +22,14 @@
 
 G_BEGIN_DECLS
 
-#define GNOME_CMD_FILE_INFO(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_file_info_get_type (), GnomeCmdFileInfo)
-#define GNOME_CMD_FILE_INFO_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_info_get_type (), GnomeCmdFileInfoClass)
-#define GNOME_CMD_IS_FILE_INFO(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_file_info_get_type ())
+#define GNOME_CMD_FILE_INFO(obj)          GTK_CHECK_CAST (obj, gnome_cmd_file_info_get_type (), GnomeCmdFileInfo)
+#define GNOME_CMD_FILE_INFO_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_info_get_type (), GnomeCmdFileInfoClass)
+#define GNOME_CMD_IS_FILE_INFO(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_file_info_get_type ())
 
 
-typedef struct _GnomeCmdFileInfo GnomeCmdFileInfo;
-typedef struct _GnomeCmdFileInfoClass GnomeCmdFileInfoClass;
-typedef struct _GnomeCmdFileInfoPrivate    GnomeCmdFileInfoPrivate;
+typedef struct _GnomeCmdFileInfo        GnomeCmdFileInfo;
+typedef struct _GnomeCmdFileInfoClass   GnomeCmdFileInfoClass;
+typedef struct _GnomeCmdFileInfoPrivate GnomeCmdFileInfoPrivate;
 
 struct _GnomeCmdFileInfo
 {
@@ -50,13 +47,9 @@ struct _GnomeCmdFileInfoClass
 };
 
 
-GtkType
-gnome_cmd_file_info_get_type (void);
+GtkType gnome_cmd_file_info_get_type (void);
 
-void
-gnome_cmd_file_info_setup (GnomeCmdFileInfo *finfo,
-                           GnomeVFSURI *uri,
-                           GnomeVFSFileInfo *info);
+void gnome_cmd_file_info_setup (GnomeCmdFileInfo *finfo, GnomeVFSURI *uri, GnomeVFSFileInfo *info);
 
 G_END_DECLS
 

@@ -590,8 +590,7 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
     gnome_cmd_data_set_icon_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin)));
 
     {
-        GtkAdjustment *adj;
-        adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
+        GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
         gnome_cmd_data_set_icon_scale_quality ((GdkInterpType) adj->value);
     }
 

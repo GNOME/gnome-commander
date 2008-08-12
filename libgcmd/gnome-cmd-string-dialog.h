@@ -91,32 +91,23 @@ gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog,
                                GnomeCmdStringDialogCallback ok_cb,
                                gpointer user_data);
 
-GtkType
-gnome_cmd_string_dialog_get_type (void);
+GtkType gnome_cmd_string_dialog_get_type (void);
 
-void
-gnome_cmd_string_dialog_set_hidden (GnomeCmdStringDialog *dialog, gint row, gboolean hidden);
+void gnome_cmd_string_dialog_set_hidden (GnomeCmdStringDialog *dialog, gint row, gboolean hidden);
 
-void
-gnome_cmd_string_dialog_set_title (GnomeCmdStringDialog *dialog, const gchar *title);
+void gnome_cmd_string_dialog_set_title (GnomeCmdStringDialog *dialog, const gchar *title);
 
-void
-gnome_cmd_string_dialog_set_label (GnomeCmdStringDialog *dialog, gint row, const gchar *label);
+void gnome_cmd_string_dialog_set_label (GnomeCmdStringDialog *dialog, gint row, const gchar *label);
 
-void
-gnome_cmd_string_dialog_set_userdata (GnomeCmdStringDialog *dialog, gpointer user_data);
+void gnome_cmd_string_dialog_set_userdata (GnomeCmdStringDialog *dialog, gpointer user_data);
 
-void
-gnome_cmd_string_dialog_set_ok_cb (GnomeCmdStringDialog *dialog, GnomeCmdStringDialogCallback ok_cb);
+void gnome_cmd_string_dialog_set_ok_cb (GnomeCmdStringDialog *dialog, GnomeCmdStringDialogCallback ok_cb);
 
-void
-gnome_cmd_string_dialog_set_cancel_cb (GnomeCmdStringDialog *dialog, GtkSignalFunc cancel_cb);
+void gnome_cmd_string_dialog_set_cancel_cb (GnomeCmdStringDialog *dialog, GtkSignalFunc cancel_cb);
 
-void
-gnome_cmd_string_dialog_set_value (GnomeCmdStringDialog *dialog, gint row, const gchar *value);
+void gnome_cmd_string_dialog_set_value (GnomeCmdStringDialog *dialog, gint row, const gchar *value);
 
-void
-gnome_cmd_string_dialog_set_error_desc (GnomeCmdStringDialog *dialog, gchar *msg);
+void gnome_cmd_string_dialog_set_error_desc (GnomeCmdStringDialog *dialog, gchar *msg);
 
 
 G_END_DECLS

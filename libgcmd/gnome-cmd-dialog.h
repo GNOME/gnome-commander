@@ -52,43 +52,25 @@ struct _GnomeCmdDialogClass
 };
 
 
-GtkWidget*
-gnome_cmd_dialog_new (const gchar *title);
+GtkWidget *gnome_cmd_dialog_new (const gchar *title);
 
-void
-gnome_cmd_dialog_setup (GnomeCmdDialog *dialog, const gchar *title);
+void gnome_cmd_dialog_setup (GnomeCmdDialog *dialog, const gchar *title);
 
-GtkType
-gnome_cmd_dialog_get_type (void);
+GtkType gnome_cmd_dialog_get_type (void);
 
-GtkWidget *
-gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog,
-                             const gchar *stock_id,
-                             GtkSignalFunc on_click,
-                             gpointer data);
+GtkWidget *gnome_cmd_dialog_add_button (GnomeCmdDialog *dialog, const gchar *stock_id, GtkSignalFunc on_click, gpointer data);
 
-void
-gnome_cmd_dialog_add_category (GnomeCmdDialog *dialog,
-                               GtkWidget *category);
+void gnome_cmd_dialog_add_category (GnomeCmdDialog *dialog, GtkWidget *category);
 
-void
-gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog,
-                                         GtkWidget *category);
+void gnome_cmd_dialog_add_expanding_category (GnomeCmdDialog *dialog, GtkWidget *category);
 
-void
-gnome_cmd_dialog_editable_enters (GnomeCmdDialog *dialog,
-                                  GtkEditable *editable);
+void gnome_cmd_dialog_editable_enters (GnomeCmdDialog *dialog, GtkEditable *editable);
 
-void
-gnome_cmd_dialog_set_transient_for (GnomeCmdDialog *dialog,
-                                    GtkWindow *win);
+void gnome_cmd_dialog_set_transient_for (GnomeCmdDialog *dialog, GtkWindow *win);
 
-void
-gnome_cmd_dialog_set_modal (GnomeCmdDialog *dialog);
+void gnome_cmd_dialog_set_modal (GnomeCmdDialog *dialog);
 
-void
-gnome_cmd_dialog_set_resizable (GnomeCmdDialog *dialog,
-                                gboolean value);
+void gnome_cmd_dialog_set_resizable (GnomeCmdDialog *dialog, gboolean value);
 
 G_END_DECLS
 
