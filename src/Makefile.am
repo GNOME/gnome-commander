@@ -72,6 +72,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-smb-net.h gnome-cmd-smb-net.cc \
 	gnome-cmd-smb-path.h gnome-cmd-smb-path.cc \
 	gnome-cmd-style.h gnome-cmd-style.cc \
+	gnome-cmd-notebook.h gnome-cmd-notebook.cc \
 	gnome-cmd-types.h \
 	gnome-cmd-user-actions.h gnome-cmd-user-actions.cc \
 	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.cc \

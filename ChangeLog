@@ -5,6 +5,11 @@
 	* src/gnome-cmd-user-actions.cc:
 	Define SHIFT+F2 binding as user definable (mark.compare_directories)
 
+	* src/Makefile.am:
+	* src/gnome-cmd-notebook.cc:
+	* src/gnome-cmd-notebook.h:
+	Initial framework for tabs support
+
 2008-08-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/filter.cc:
