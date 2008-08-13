@@ -1,3 +1,10 @@
+2008-08-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-user-actions.cc:
+	Define SHIFT+F2 binding as user definable (mark.compare_directories)
+
 2008-08-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/filter.cc:

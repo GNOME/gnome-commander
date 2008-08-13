@@ -269,6 +269,9 @@ void GnomeCmdUserActions::init()
     if (!registered("file.internal_view"))
         register_action(GDK_SHIFT_MASK, GDK_F3, "file.internal_view");
 
+    if (!registered("mark.compare_directories"))
+        register_action(GDK_SHIFT_MASK, GDK_F2, "mark.compare_directories");
+
     if (!registered("mark.select_all"))
     {
         register_action(GDK_CONTROL_MASK, GDK_A, "mark.select_all");
@@ -1159,7 +1162,7 @@ void mark_restore_selection (GtkMenuItem *menuitem, gpointer not_used)
 
 void mark_compare_directories (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_compare_directories ();
+    gnome_cmd_file_list_compare_directories (get_fl (ACTIVE), get_fl (INACTIVE));
 }
 
 

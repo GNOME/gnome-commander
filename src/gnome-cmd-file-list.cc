@@ -1900,13 +1900,8 @@ static gint compare_filename (GnomeCmdFile *f1, GnomeCmdFile *f2)
 }
 
 
-void gnome_cmd_file_list_compare_directories (void)
+void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2)
 {
-    GnomeCmdFileSelector *fs1 = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
-    GnomeCmdFileList     *fl1 = fs1 ? fs1->list : NULL;
-    GnomeCmdFileSelector *fs2 = gnome_cmd_main_win_get_fs (main_win, INACTIVE);
-    GnomeCmdFileList     *fl2 = fs2 ? fs2->list : NULL;
-
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl1) || GNOME_CMD_IS_FILE_LIST (fl2));
 
     gnome_cmd_file_list_unselect_all (fl1);
@@ -2221,10 +2216,6 @@ gboolean gnome_cmd_file_list_keypressed (GnomeCmdFileList *fl, GdkEventKey *even
     {
         switch (event->keyval)
         {
-            case GDK_F2:
-                gnome_cmd_file_list_compare_directories ();
-                return TRUE;
-
             case GDK_F6:
                 gnome_cmd_file_list_show_rename_dialog (fl);
                 return TRUE;

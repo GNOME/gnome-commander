@@ -139,7 +139,7 @@ void gnome_cmd_file_list_select_all_with_same_extension (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_unselect_all_with_same_extension (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_restore_selection (GnomeCmdFileList *fl);
 
-void gnome_cmd_file_list_compare_directories (void);
+void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
 
 void gnome_cmd_file_list_sort (GnomeCmdFileList *fl);
 
