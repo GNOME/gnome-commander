@@ -141,16 +141,16 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdM
         return FALSE;
 
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, ACTIVE);
-    if (fs==NULL || fs->list==NULL)
+    if (fs==NULL || fs->file_list()==NULL)
         return FALSE;
 
-    if (!GTK_WIDGET_HAS_FOCUS (GTK_WIDGET (fs->list)))
+    if (!GTK_WIDGET_HAS_FOCUS (GTK_WIDGET (fs->file_list())))
         return FALSE;
 
-    if (gnome_cmd_file_list_quicksearch_shown (fs->list))
+    if (gnome_cmd_file_list_quicksearch_shown (fs->file_list()))
         return FALSE;
 
-    gnome_cmd_file_list_show_quicksearch (fs->list, event->keyval);
+    gnome_cmd_file_list_show_quicksearch (fs->file_list(), event->keyval);
 
     return TRUE;
 }
@@ -816,15 +816,15 @@ static void init (GnomeCmdMainWin *mw)
     gtk_signal_connect (GTK_OBJECT (mw->priv->file_selector[LEFT]), "changed-dir", GTK_SIGNAL_FUNC (on_fs_dir_change), mw);
     gtk_signal_connect (GTK_OBJECT (mw->priv->file_selector[RIGHT]), "changed-dir", GTK_SIGNAL_FUNC (on_fs_dir_change), mw);
 
-    gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->list),
+    gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->file_list()),
                         "resize_column", GTK_SIGNAL_FUNC (on_fs_list_resize_column),
-                        GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->list);
-    gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->list),
+                        GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->file_list());
+    gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->file_list()),
                         "resize_column", GTK_SIGNAL_FUNC (on_fs_list_resize_column),
-                        GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->list);
-    gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->list),
+                        GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->file_list());
+    gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->file_list()),
                         "button_press_event", GTK_SIGNAL_FUNC (on_left_fs_select), mw);
-    gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->list),
+    gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->file_list()),
                         "button_press_event", GTK_SIGNAL_FUNC (on_right_fs_select), mw);
     gtk_signal_connect (GTK_OBJECT (mw), "size-allocate", GTK_SIGNAL_FUNC (on_size_allocate), mw);
     gtk_signal_connect (GTK_OBJECT (mw), "delete-event", GTK_SIGNAL_FUNC (on_delete_event), mw);
@@ -1312,10 +1312,10 @@ GnomeCmdState *gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw)
     GnomeCmdState *state = &mw->priv->state;
     state->active_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir1));
     state->inactive_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir2));
-    state->active_dir_files = gnome_cmd_file_list_get_all_files (fs1->list);
-    state->inactive_dir_files = gnome_cmd_file_list_get_all_files (fs2->list);
-    state->active_dir_selected_files = gnome_cmd_file_list_get_selected_files (fs1->list);
-    state->inactive_dir_selected_files = gnome_cmd_file_list_get_selected_files (fs2->list);
+    state->active_dir_files = gnome_cmd_file_list_get_all_files (fs1->file_list());
+    state->inactive_dir_files = gnome_cmd_file_list_get_all_files (fs2->file_list());
+    state->active_dir_selected_files = gnome_cmd_file_list_get_selected_files (fs1->file_list());
+    state->inactive_dir_selected_files = gnome_cmd_file_list_get_selected_files (fs2->file_list());
 
     return state;
 }

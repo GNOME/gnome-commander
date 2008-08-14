@@ -295,7 +295,7 @@ static void get_popup_pos (GtkMenu *menu, gint *x, gint *y, gboolean push_in, Gn
 {
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 
-    GtkWidget *w = GTK_WIDGET (indicator->priv->fs->list);
+    GtkWidget *w = GTK_WIDGET (indicator->priv->fs->file_list());
 
     gdk_window_get_origin (w->window, x, y);
 }

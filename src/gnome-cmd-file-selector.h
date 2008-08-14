@@ -52,14 +52,21 @@ struct GnomeCmdFileSelector
     GtkWidget *scrolledwindow;
     GtkWidget *info_label;
     GtkWidget *list_widget;
-    GnomeCmdFileList *list;
     GtkWidget *con_combo;
     GtkWidget *vol_label;
+
+  private:
+
+    GnomeCmdFileList *list;
+
+  public:
 
     class Private;
 
     Private *priv;
 
+    GnomeCmdFileList *&file_list()          {  return list;  }
+    
     GnomeCmdDir *get_directory();
     void set_directory(GnomeCmdDir *dir);
 
@@ -78,7 +85,7 @@ struct GnomeCmdFileSelector
     GnomeCmdCon *get_connection();
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
 
-    gboolean is_local()                  {  return gnome_cmd_con_is_local (get_connection ());  }
+    gboolean is_local()                     {  return gnome_cmd_con_is_local (get_connection ());  }
 };
 
 

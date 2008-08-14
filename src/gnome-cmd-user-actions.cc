@@ -57,7 +57,7 @@ inline GnomeCmdFileList *get_fl (const FileSelectorID fsID)
 {
     GnomeCmdFileSelector *fs = get_fs (fsID);
 
-    return fs ? fs->list : NULL;
+    return fs ? fs->file_list() : NULL;
 }
 
 

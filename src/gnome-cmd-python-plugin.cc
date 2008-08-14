@@ -246,7 +246,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     GnomeCmdFileList     *active_fl;
 
     active_fs = gnome_cmd_main_win_get_fs (mw, ACTIVE);
-    active_fl = active_fs ? active_fs->list : NULL;
+    active_fl = active_fs ? active_fs->file_list() : NULL;
 
     if (!GNOME_CMD_IS_FILE_LIST (active_fl))
         goto out_D;

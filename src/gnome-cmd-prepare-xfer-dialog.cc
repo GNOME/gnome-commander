@@ -223,7 +223,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
     gnome_cmd_dir_ref (dest_dir);
     gnome_cmd_xfer_start (dialog->src_files,
                           dest_dir,
-                          dialog->src_fs->list,
+                          dialog->src_fs->file_list(),
                           dest_fn,
                           dialog->xferOptions,
                           dialog->xferOverwriteMode,
@@ -380,7 +380,7 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     gchar *dest_str = NULL;
     GnomeCmdPrepareXferDialog *dialog = (GnomeCmdPrepareXferDialog *) gtk_type_new (gnome_cmd_prepare_xfer_dialog_get_type ());
 
-    dialog->src_files = gnome_cmd_file_list_get_selected_files (from->list);
+    dialog->src_files = gnome_cmd_file_list_get_selected_files (from->file_list());
     gnome_cmd_file_list_ref (dialog->src_files);
     dialog->default_dest_dir = to->get_directory();
     dialog->src_fs = from;
