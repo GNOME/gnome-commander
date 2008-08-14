@@ -16,6 +16,10 @@
 	* src/gnome-cmd-user-actions.cc:
 	Convert GnomeCmdFileSelector struct into C++ class, part 2
 
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-file-selector.h:
+	GnomeCmdFileSelector: added operators for conversion to GtkWidget * and GtkBox *
+
 2008-08-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-bookmark-dialog.cc:

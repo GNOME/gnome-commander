@@ -65,7 +65,10 @@ struct GnomeCmdFileSelector
 
     Private *priv;
 
-    GnomeCmdFileList *&file_list()          {  return list;  }
+    operator GtkWidget * ()             {  return GTK_WIDGET (this);  }
+    operator GtkBox * ()                {  return GTK_BOX (this);     }
+
+    GnomeCmdFileList *&file_list()      {  return list;  }
     
     GnomeCmdDir *get_directory();
     void set_directory(GnomeCmdDir *dir);

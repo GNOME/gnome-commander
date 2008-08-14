@@ -1076,8 +1076,8 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
 
     if (fs->priv->realized)
     {
-        gtk_widget_set_sensitive (GTK_WIDGET (fs), TRUE);
-        set_cursor_default_for_widget (GTK_WIDGET (fs));
+        gtk_widget_set_sensitive (*fs, TRUE);
+        set_cursor_default_for_widget (*fs);
         gtk_widget_grab_focus (GTK_WIDGET (fs->file_list()));
     }
 
@@ -1164,7 +1164,7 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCm
     fs->priv->connected_dir = NULL;
     gnome_cmd_dir_unref (fs->priv->cwd);
     set_cursor_default_for_widget (GTK_WIDGET (fs));
-    gtk_widget_set_sensitive (GTK_WIDGET (fs), TRUE);
+    gtk_widget_set_sensitive (*fs, TRUE);
 
     if (fs->priv->lwd && fs->priv->con == gnome_cmd_dir_get_connection (fs->priv->lwd))
     {
@@ -1292,7 +1292,7 @@ static void init (GnomeCmdFileSelector *fs)
     gnome_cmd_file_selector_update_conbuttons_visibility (fs);
 
     // create the box used for packing the con_combo and information
-    fs->con_hbox = create_hbox (GTK_WIDGET (fs), FALSE, 2);
+    fs->con_hbox = create_hbox (*fs, FALSE, 2);
 
     // create the list
     fs->list_widget = gnome_cmd_file_list_new ();
@@ -1357,7 +1357,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_box_pack_start (GTK_BOX (vbox), fs->dir_indicator, FALSE, FALSE, 0);
     gtk_container_add (GTK_CONTAINER (fs->scrolledwindow), fs->list_widget);
     gtk_box_pack_start (GTK_BOX (vbox), fs->scrolledwindow, TRUE, TRUE, 0);
-    padding = create_hbox (GTK_WIDGET (fs), FALSE, 6);
+    padding = create_hbox (*fs, FALSE, 6);
     gtk_box_pack_start (GTK_BOX (vbox), padding, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (padding), fs->info_label, FALSE, TRUE, 6);
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->con_combo, FALSE, FALSE, 0);
@@ -1446,7 +1446,7 @@ GtkWidget *gnome_cmd_file_selector_new (void)
 {
     GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) gtk_type_new (gnome_cmd_file_selector_get_type ());
 
-    return GTK_WIDGET (fs);
+    return *fs;
 }
 
 
@@ -2162,7 +2162,7 @@ void gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector 
     {
         if (!fs->con_btns_hbox)
         {
-            fs->con_btns_hbox = create_hbox (GTK_WIDGET (fs), FALSE, 2);
+            fs->con_btns_hbox = create_hbox (*fs, FALSE, 2);
             gtk_box_pack_start (GTK_BOX (fs), fs->con_btns_hbox, FALSE, FALSE, 0);
             gtk_box_reorder_child (GTK_BOX (fs), fs->con_btns_hbox, 0);
             gtk_widget_show (fs->con_btns_hbox);
@@ -2198,16 +2198,14 @@ void gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GtkWidget *close_btn, *entry, *label, *parent;
-
-    parent = GTK_WIDGET (fs);
+    GtkWidget *parent = *fs;
 
     if (fs->priv->filter_box) return;
 
     fs->priv->filter_box = create_hbox (parent, FALSE, 0);
-    label = create_label (parent, _("Filter:"));
-    entry = create_entry (parent, "entry", "");
-    close_btn = create_button_with_data (GTK_WIDGET (main_win), "x", GTK_SIGNAL_FUNC (on_filter_box_close), fs);
+    GtkWidget *label = create_label (parent, _("Filter:"));
+    GtkWidget *entry = create_entry (parent, "entry", "");
+    GtkWidget *close_btn = create_button_with_data (GTK_WIDGET (main_win), "x", GTK_SIGNAL_FUNC (on_filter_box_close), fs);
 
     gtk_signal_connect (GTK_OBJECT (entry), "key-press-event", GTK_SIGNAL_FUNC (on_filter_box_keypressed), fs);
     gtk_box_pack_start (GTK_BOX (fs->priv->filter_box), label, FALSE, TRUE, 0);
