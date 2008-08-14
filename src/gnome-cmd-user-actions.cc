@@ -891,7 +891,7 @@ void edit_quick_search (GtkMenuItem *menuitem, gpointer not_used)
 
 void edit_filter (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_show_filter (get_fs (ACTIVE), 0);
+    gnome_cmd_file_selector_show_filter (get_fs (ACTIVE));
 }
 
 

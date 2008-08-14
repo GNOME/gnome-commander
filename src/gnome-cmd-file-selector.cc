@@ -2199,7 +2199,7 @@ gboolean on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmd
 }
 
 
-void gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs, gchar c)
+void gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 

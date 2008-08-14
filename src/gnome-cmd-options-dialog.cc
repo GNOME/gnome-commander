@@ -473,7 +473,6 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     fpicker = create_font_picker (parent, "list_font_picker");
     table_add (table, fpicker, 1, 0, GTK_FILL);
     gtk_font_button_set_font_name (GTK_FONT_BUTTON (fpicker), gnome_cmd_data_get_list_font ());
-    gtk_font_button_set_use_font (GTK_FONT_BUTTON (fpicker), TRUE);
 
     spin = create_spin (parent, "row_height_spin", 8, 64, gnome_cmd_data_get_list_row_height());
     table_add (table, spin, 1, 1, GTK_FILL);

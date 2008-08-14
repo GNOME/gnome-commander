@@ -52,11 +52,11 @@ enum GnomeCmdFileListColumnID
 /* Standard DnD types */
 enum TargetType
 {
-        TARGET_MC_DESKTOP_ICON,
-        TARGET_URI_LIST,
-        TARGET_TEXT_PLAIN,
-        TARGET_URL,
-        TARGET_NTARGETS
+    TARGET_MC_DESKTOP_ICON,
+    TARGET_URI_LIST,
+    TARGET_TEXT_PLAIN,
+    TARGET_URL,
+    TARGET_NTARGETS
 };
 
 
