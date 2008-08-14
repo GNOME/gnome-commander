@@ -326,7 +326,7 @@ static void add_groups (GnomeCmdBookmarkDialog *dialog)
 
 static void add_bookmarks (GnomeCmdBookmarkDialog *dialog)
 {
-    GnomeCmdCon *current_con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (main_win, ACTIVE));
+    GnomeCmdCon *current_con = gnome_cmd_main_win_get_fs (main_win, ACTIVE)->get_connection();
 
     g_return_if_fail (current_con != NULL);
 
@@ -555,7 +555,7 @@ GtkWidget *gnome_cmd_bookmark_dialog_new (void)
 static gboolean on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, gpointer data)
 {
     GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (main_win, ACTIVE));
+    GnomeCmdCon *con = gnome_cmd_main_win_get_fs (main_win, ACTIVE)->get_connection();
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
     bookmark->name = g_strdup (values[0]);
@@ -572,7 +572,7 @@ static gboolean on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const g
 
 void gnome_cmd_bookmark_add_current (void)
 {
-    GnomeCmdDir *cwd = gnome_cmd_file_selector_get_directory (gnome_cmd_main_win_get_fs (main_win, ACTIVE));
+    GnomeCmdDir *cwd = gnome_cmd_main_win_get_fs (main_win, ACTIVE)->get_directory();
     gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (cwd));
 
     if (!g_utf8_validate (path, -1, NULL))
@@ -598,7 +598,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GnomeCmdCon *current_con = gnome_cmd_file_selector_get_connection (fs);
+    GnomeCmdCon *current_con = fs->get_connection();
 
     if (current_con == bookmark->group->con)
         gnome_cmd_file_selector_goto_directory (fs, bookmark->path);
@@ -609,7 +609,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
         if (con->state == CON_STATE_OPEN)
         {
             GnomeCmdDir *dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, bookmark->path));
-            gnome_cmd_file_selector_set_connection (fs, con, dir);
+            fs->set_connection(con, dir);
 
         }
         else
@@ -619,7 +619,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 
             con->base_path = gnome_cmd_con_create_path (con, bookmark->path);
             gtk_object_ref (GTK_OBJECT (con->base_path));
-            gnome_cmd_file_selector_set_connection (fs, con);
+            fs->set_connection(con);
         }
     }
 }

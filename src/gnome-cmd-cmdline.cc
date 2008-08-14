@@ -63,10 +63,7 @@ inline void update_history_combo (GnomeCmdCmdline *cmdline)
 
 inline void add_to_history (GnomeCmdCmdline *cmdline, const gchar *command)
 {
-    cmdline->priv->history = string_history_add (
-        cmdline->priv->history,
-        command,
-        gnome_cmd_data_get_cmdline_history_length());
+    cmdline->priv->history = string_history_add (cmdline->priv->history, command, gnome_cmd_data_get_cmdline_history_length());
 
     update_history_combo (cmdline);
 }
@@ -87,12 +84,12 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
 
         if (strcmp (dest_dir, "-")==0)
         {
-            GnomeVFSURI *test_uri = gnome_cmd_dir_get_child_uri (gnome_cmd_file_selector_get_directory (fs), "-");
+            GnomeVFSURI *test_uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), "-");
 
             if (gnome_vfs_uri_exists (test_uri))
                 gnome_cmd_file_selector_goto_directory (fs, dest_dir);
             else
-                gnome_cmd_file_selector_back (fs);
+                fs->back();
 
             gnome_vfs_uri_unref (test_uri);
         }
@@ -103,10 +100,9 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
         if (strcmp (cmdline_text, "cd")==0)
             gnome_cmd_file_selector_goto_directory (fs, "~");
         else
-            if (gnome_cmd_con_is_local (gnome_cmd_file_selector_get_connection (fs)))
+            if (fs->is_local())
             {
-                GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (fs);
-                gchar *fpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
+                gchar *fpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->get_directory()));
 
                 run_command_indir (cmdline_text, fpath, term);
                 g_free (fpath);
@@ -164,7 +160,7 @@ static void on_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs, GnomeCm
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    gchar *dpath = gnome_cmd_dir_get_display_path (gnome_cmd_file_selector_get_directory (fs));
+    gchar *dpath = gnome_cmd_dir_get_display_path (fs->get_directory());
     gnome_cmd_cmdline_set_dir (cmdline, dpath);
     g_free (dpath);
 }
@@ -496,7 +492,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
                             GtkWidget *file_list = fs->list_widget;
 
                             gtk_widget_grab_focus (file_list);
-                            gnome_cmd_file_selector_set_active (fs, TRUE);
+                            fs->set_active(TRUE);
 
                             gtk_signal_emit_by_name (GTK_OBJECT (file_list), "key-press-event", &event2, &ret);
                             event->keyval = 0;

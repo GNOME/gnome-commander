@@ -178,7 +178,7 @@ inline gchar *get_dir_as_str (GnomeCmdMainWin *mw, FileSelectorID id)
     if (!fs)
         return NULL;
 
-    GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (fs));
+    GnomeVFSURI *dir_uri = gnome_cmd_dir_get_uri (fs->get_directory());
 
     if (!dir_uri)
         return NULL;

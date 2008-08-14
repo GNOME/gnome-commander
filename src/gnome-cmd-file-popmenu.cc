@@ -135,7 +135,7 @@ static gboolean on_open_with_other_ok (GnomeCmdStringDialog *string_dialog, cons
     }
 
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
-    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (fs);
+    GnomeCmdDir *dir = fs->get_directory();
     gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
     run_command_indir (cmd.c_str(), dpath, gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (term_check)));
     g_free (dpath);

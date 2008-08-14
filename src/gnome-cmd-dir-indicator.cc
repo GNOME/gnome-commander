@@ -330,7 +330,7 @@ static void popup_dir_history (GnomeCmdDirIndicator *indicator)
         GTK_OBJECT (indicator->priv->dir_history_popup), "hide",
         GTK_SIGNAL_FUNC (on_dir_history_popup_hide), indicator);
 
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
+    GnomeCmdCon *con = indicator->priv->fs->get_connection();
     History *history = gnome_cmd_con_get_dir_history (con);
 
     for (GList *l=history->ents; l; l=l->next)
@@ -356,14 +356,14 @@ static void popup_dir_history (GnomeCmdDirIndicator *indicator)
 
 static void on_bookmarks_add_current (GtkMenuItem *item, GnomeCmdDirIndicator *indicator)
 {
-    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (indicator->priv->fs);
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
+    GnomeCmdFile *f = GNOME_CMD_FILE (indicator->priv->fs->get_directory());
+    GnomeCmdCon *con = indicator->priv->fs->get_connection();
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
     GnomeCmdBookmark *bm = g_new0 (GnomeCmdBookmark, 1);
 
-    bm->name = g_strdup (gnome_cmd_file_get_name (GNOME_CMD_FILE (dir)));
-    bm->path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
+    bm->name = g_strdup (gnome_cmd_file_get_name (f));
+    bm->path = gnome_cmd_file_get_path (f);
     bm->group = group;
 
     group->bookmarks = g_list_append (group->bookmarks, bm);
@@ -385,7 +385,7 @@ inline void popup_bookmarks (GnomeCmdDirIndicator *indicator)
     gtk_object_set_data_full (GTK_OBJECT (indicator), "bookmark_popup", indicator->priv->bookmark_popup, (GtkDestroyNotify) gtk_widget_unref);
     gtk_signal_connect (GTK_OBJECT (indicator->priv->bookmark_popup), "hide", GTK_SIGNAL_FUNC (on_bookmark_popup_hide), indicator);
 
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (indicator->priv->fs);
+    GnomeCmdCon *con = indicator->priv->fs->get_connection();
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
 
     for (GList *l = group->bookmarks; l; l = l->next)

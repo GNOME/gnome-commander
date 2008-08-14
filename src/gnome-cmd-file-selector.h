@@ -20,18 +20,9 @@
 #ifndef __GNOME_CMD_FILE_SELECTOR_H__
 #define __GNOME_CMD_FILE_SELECTOR_H__
 
-#define GNOME_CMD_FILE_SELECTOR(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelector)
-#define GNOME_CMD_FILE_SELECTOR_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelectorClass)
-#define GNOME_CMD_IS_FILE_SELECTOR(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_file_selector_get_type ())
-
-#define DIR_HISTORY_SIZE 20
-
-typedef struct _GnomeCmdFileSelector GnomeCmdFileSelector;
-typedef struct _GnomeCmdFileSelectorPrivate GnomeCmdFileSelectorPrivate;
-typedef struct _GnomeCmdFileSelectorClass GnomeCmdFileSelectorClass;
+#define GNOME_CMD_FILE_SELECTOR(obj)          GTK_CHECK_CAST (obj, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelector)
+#define GNOME_CMD_FILE_SELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelectorClass)
+#define GNOME_CMD_IS_FILE_SELECTOR(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_file_selector_get_type ())
 
 typedef struct _GnomeCmdMainWin GnomeCmdMainWin;
 
@@ -39,7 +30,17 @@ typedef struct _GnomeCmdMainWin GnomeCmdMainWin;
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-dir.h"
 
-struct _GnomeCmdFileSelector
+
+typedef enum
+{
+    LEFT,
+    RIGHT,
+    ACTIVE,
+    INACTIVE
+} FileSelectorID;
+
+
+struct GnomeCmdFileSelector
 {
     GtkVBox vbox;
 
@@ -55,11 +56,33 @@ struct _GnomeCmdFileSelector
     GtkWidget *con_combo;
     GtkWidget *vol_label;
 
-    GnomeCmdFileSelectorPrivate *priv;
+    class Private;
+
+    Private *priv;
+
+    GnomeCmdDir *get_directory();
+    void set_directory(GnomeCmdDir *dir);
+
+    void reload();
+
+    void first();
+    void back();
+    void forward();
+    void last();
+
+    gboolean can_back();
+    gboolean can_forward();
+
+    void set_active(gboolean value);
+
+    GnomeCmdCon *get_connection();
+    void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
+
+    gboolean is_local()                  {  return gnome_cmd_con_is_local (get_connection ());  }
 };
 
 
-struct _GnomeCmdFileSelectorClass
+struct GnomeCmdFileSelectorClass
 {
     GtkVBoxClass parent_class;
 
@@ -67,48 +90,16 @@ struct _GnomeCmdFileSelectorClass
 };
 
 
-typedef enum
-{
-    LEFT,
-    RIGHT,
-    ACTIVE,
-    INACTIVE
-} FileSelectorID;
-
-
 GtkType gnome_cmd_file_selector_get_type (void);
 GtkWidget *gnome_cmd_file_selector_new (void);
-
-GnomeCmdDir *gnome_cmd_file_selector_get_directory (GnomeCmdFileSelector *fs);
-void gnome_cmd_file_selector_set_directory (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
 
 void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, FileSelectorID fsID);
 
 void gnome_cmd_file_selector_goto_directory (GnomeCmdFileSelector *fs, const gchar *dir);
 
-void gnome_cmd_file_selector_reload (GnomeCmdFileSelector *fs);
-
 void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs);
 
-void gnome_cmd_file_selector_first (GnomeCmdFileSelector *fs);
-void gnome_cmd_file_selector_back (GnomeCmdFileSelector *fs);
-void gnome_cmd_file_selector_forward (GnomeCmdFileSelector *fs);
-void gnome_cmd_file_selector_last (GnomeCmdFileSelector *fs);
-
-gboolean gnome_cmd_file_selector_can_back (GnomeCmdFileSelector *fs);
-gboolean gnome_cmd_file_selector_can_forward (GnomeCmdFileSelector *fs);
-
-void gnome_cmd_file_selector_set_active (GnomeCmdFileSelector *fs, gboolean value);
-
 void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs);
-
-GnomeCmdCon *gnome_cmd_file_selector_get_connection (GnomeCmdFileSelector *fs);
-void gnome_cmd_file_selector_set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
-
-inline gboolean gnome_cmd_file_selector_is_local (GnomeCmdFileSelector *fs)
-{
-    return gnome_cmd_con_is_local (gnome_cmd_file_selector_get_connection (fs));
-}
 
 gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID);
 

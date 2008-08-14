@@ -1,3 +1,20 @@
+2008-08-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-bookmark-dialog.cc:
+	* src/gnome-cmd-cmdline.cc:
+	* src/gnome-cmd-dir-indicator.cc:
+	* src/gnome-cmd-file-popmenu.cc:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-file-selector.h:
+	* src/gnome-cmd-list-popmenu.cc:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-prepare-xfer-dialog.cc:
+	* src/gnome-cmd-python-plugin.cc:
+	* src/gnome-cmd-remote-dialog.cc:
+	* src/gnome-cmd-user-actions.cc:
+	Convert GnomeCmdFileSelector struct into C++ class, part 1
+
 2008-08-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

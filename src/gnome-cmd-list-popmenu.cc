@@ -52,7 +52,7 @@ static void on_new_textfile (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 
 static void on_refresh (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 {
-    gnome_cmd_file_selector_reload (fs);
+    fs->reload();
 }
 
 

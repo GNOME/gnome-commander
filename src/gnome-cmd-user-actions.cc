@@ -703,7 +703,7 @@ void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
         gchar *msg = g_strdup_printf (ngettext("Create symbolic links of %i file in %s?",
                                                "Create symbolic links of %i files in %s?",
                                                selected_files),
-                                      selected_files, gnome_cmd_dir_get_display_path (gnome_cmd_file_selector_get_directory(inactive_fs)));
+                                      selected_files, gnome_cmd_dir_get_display_path (inactive_fs->get_directory()));
 
         gint choice = run_simple_dialog (GTK_WIDGET (main_win), TRUE, GTK_MESSAGE_QUESTION, msg, _("Create Symbolic Link"), 1, _("Cancel"), _("Create"), NULL);
 
@@ -746,7 +746,7 @@ void file_properties (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 {
-    if (!gnome_cmd_file_selector_is_local (get_fs (ACTIVE)))
+    if (!get_fs (ACTIVE)->is_local())
     {
         create_error_dialog (_("Operation not supported on remote file systems"));
         return;
@@ -764,7 +764,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
             return;
 
         case 1:
-            if (!gnome_cmd_file_selector_is_local (get_fs (INACTIVE)))
+            if (!get_fs (INACTIVE)->is_local())
                 create_error_dialog (_("Operation not supported on remote file systems"));
             else
                 if (!append_real_path (s, get_selected_file (ACTIVE)) || !append_real_path (s, get_selected_file (INACTIVE)))
@@ -803,14 +803,14 @@ void file_sync_dirs (GtkMenuItem *menuitem, gpointer not_used)
     GnomeCmdFileSelector *active_fs = get_fs (ACTIVE);
     GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
 
-    if (!gnome_cmd_file_selector_is_local (active_fs) || !gnome_cmd_file_selector_is_local (inactive_fs))
+    if (!active_fs->is_local() || !inactive_fs->is_local())
     {
         create_error_dialog (_("Operation not supported on remote file systems"));
         return;
     }
 
-    GnomeVFSURI *active_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (active_fs));
-    GnomeVFSURI *inactive_dir_uri = gnome_cmd_dir_get_uri (gnome_cmd_file_selector_get_directory (inactive_fs));
+    GnomeVFSURI *active_dir_uri = gnome_cmd_dir_get_uri (active_fs->get_directory());
+    GnomeVFSURI *inactive_dir_uri = gnome_cmd_dir_get_uri (inactive_fs->get_directory());
     gchar *active_dir = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (active_dir_uri), NULL);
     gchar *inactive_dir = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (inactive_dir_uri), NULL);
 
@@ -877,7 +877,7 @@ void edit_cap_paste (GtkMenuItem *menuitem, gpointer not_used)
 void edit_search (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdFileSelector *fs = get_fs (ACTIVE);
-    GtkWidget *dialog = gnome_cmd_search_dialog_new (gnome_cmd_file_selector_get_directory (fs));
+    GtkWidget *dialog = gnome_cmd_search_dialog_new (fs->get_directory());
     gtk_widget_ref (dialog);
     gtk_widget_show (dialog);
 }
@@ -952,7 +952,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     g_list_free (sfl);
 
-    GnomeCmdDir *dir = gnome_cmd_file_selector_get_directory (get_fs (ACTIVE));
+    GnomeCmdDir *dir = get_fs (ACTIVE)->get_directory();
 
     stringify (dir_path, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir)));
     stringify (quoted_dir_path, gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (dir)));
@@ -1025,7 +1025,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
 void command_open_terminal (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (get_fs (ACTIVE))));
+    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory()));
 
     gnome_execute_terminal_shell (dpath, NULL);
     g_free (dpath);
@@ -1058,13 +1058,13 @@ void command_open_nautilus (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (get_fl (ACTIVE));
 
-    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_IS_DIR (f) ? f : GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (get_fs (ACTIVE)))));
+    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_IS_DIR (f) ? f : GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())));
 }
 
 
 void command_open_nautilus_in_cwd (GtkMenuItem *menuitem, gpointer not_used)
 {
-    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (get_fs (ACTIVE)))));
+    open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())));
 }
 
 
@@ -1215,8 +1215,8 @@ void view_hidden_files (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data_get_filter_settings()->hidden = !checkitem->active;
-    gnome_cmd_file_selector_reload (get_fs (ACTIVE));
-    gnome_cmd_file_selector_reload (get_fs (INACTIVE));
+    get_fs (ACTIVE)->reload();
+    get_fs (INACTIVE)->reload();
 }
 
 
@@ -1226,8 +1226,8 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data_get_filter_settings()->backup = !checkitem->active;
-    gnome_cmd_file_selector_reload (get_fs (ACTIVE));
-    gnome_cmd_file_selector_reload (get_fs (INACTIVE));
+    get_fs (ACTIVE)->reload();
+    get_fs (INACTIVE)->reload();
 }
 
 
@@ -1239,31 +1239,31 @@ void view_up (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_first (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_first (get_fs (ACTIVE));
+    get_fs (ACTIVE)->first();
 }
 
 
 void view_back (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_back (get_fs (ACTIVE));
+    get_fs (ACTIVE)->back();
 }
 
 
 void view_forward (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_forward (get_fs (ACTIVE));
+    get_fs (ACTIVE)->forward();
 }
 
 
 void view_last (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_last (get_fs (ACTIVE));
+    get_fs (ACTIVE)->last();
 }
 
 
 void view_refresh (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_reload (get_fs (ACTIVE));
+    get_fs (ACTIVE)->reload();
 }
 
 
@@ -1299,7 +1299,7 @@ void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_home (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_set_connection (get_fs (ACTIVE), get_home_con ());
+    get_fs (ACTIVE)->set_connection(get_home_con ());
     gnome_cmd_file_selector_goto_directory (get_fs (ACTIVE), "~");
 }
 
@@ -1349,7 +1349,7 @@ void connections_new (GtkMenuItem *menuitem, gpointer not_used)
 
 void connections_change (GtkMenuItem *menuitem, gpointer con)           // this function is NOT exposed to user as UserAction
 {
-    gnome_cmd_file_selector_set_connection (get_fs (ACTIVE), (GnomeCmdCon *) con);
+    get_fs (ACTIVE)->set_connection((GnomeCmdCon *) con);
 }
 
 
@@ -1358,14 +1358,12 @@ void connections_close (GtkMenuItem *menuitem, gpointer con)            // this 
     GnomeCmdFileSelector *active = get_fs (ACTIVE);
     GnomeCmdFileSelector *inactive = get_fs (INACTIVE);
 
-    GnomeCmdCon *c1 = gnome_cmd_file_selector_get_connection (active);
-    GnomeCmdCon *c2 = gnome_cmd_file_selector_get_connection (inactive);
     GnomeCmdCon *home = get_home_con ();
 
-    if (con == c1)
-        gnome_cmd_file_selector_set_connection (active, home);
-    if (con == c2)
-        gnome_cmd_file_selector_set_connection (inactive, home);
+    if (con == active->get_connection())
+        active->set_connection(home);
+    if (con == inactive->get_connection())
+        inactive->set_connection(home);
 
     gnome_cmd_con_close ((GnomeCmdCon *) con);
 }
@@ -1373,7 +1371,7 @@ void connections_close (GtkMenuItem *menuitem, gpointer con)            // this 
 
 void connections_close_current (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (get_fs (ACTIVE));
+    GnomeCmdCon *con = get_fs (ACTIVE)->get_connection();
 
     connections_close (menuitem, con);
 }

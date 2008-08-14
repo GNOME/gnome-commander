@@ -114,7 +114,7 @@ static gboolean do_connect_real (GnomeCmdConFtp *server)
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
     GnomeCmdCon *con = GNOME_CMD_CON (server);
 
-    gnome_cmd_file_selector_set_connection (fs, con);
+    fs->set_connection(con);
     // gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, G_DIR_SEPARATOR_S)));
 
     return FALSE;

@@ -989,8 +989,8 @@ void gnome_cmd_main_menu_update_sens (GnomeCmdMainMenu *main_menu)
 
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
 
-    gtk_widget_set_sensitive (main_menu->priv->menu_view_back, gnome_cmd_file_selector_can_back (fs));
-    gtk_widget_set_sensitive (main_menu->priv->menu_view_forward, gnome_cmd_file_selector_can_forward (fs));
+    gtk_widget_set_sensitive (main_menu->priv->menu_view_back, fs->can_back());
+    gtk_widget_set_sensitive (main_menu->priv->menu_view_forward, fs->can_forward());
 }
 
 

@@ -37,7 +37,7 @@ static GnomeCmdDialogClass *parent_class = NULL;
 
 inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, const gchar *user_path)
 {
-    dev = gnome_cmd_file_selector_get_connection (gnome_cmd_main_win_get_fs (main_win, fsID));
+    dev = gnome_cmd_main_win_get_fs (main_win, fsID)->get_connection();
 
     return GNOME_CMD_IS_CON_DEVICE (dev) &&
            g_str_has_prefix (user_path, gnome_cmd_con_device_get_mountp (GNOME_CMD_CON_DEVICE (dev)));
@@ -87,7 +87,7 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
         }
         else
         {
-            gchar *t = gnome_cmd_file_get_path (GNOME_CMD_FILE (gnome_cmd_file_selector_get_directory (dialog->src_fs)));
+            gchar *t = gnome_cmd_file_get_path (GNOME_CMD_FILE (dialog->src_fs->get_directory()));
             dest_path = g_build_path (G_DIR_SEPARATOR_S, t, user_path, NULL);
             g_free (t);
         }
@@ -366,8 +366,7 @@ inline gboolean path_points_at_directory (GnomeCmdFileSelector *to, const gchar 
 {
     GnomeVFSFileType type;
 
-    GnomeCmdCon *con = gnome_cmd_file_selector_get_connection (to);
-    GnomeVFSResult res = gnome_cmd_con_get_path_target_type (con, dest_path, &type);
+    GnomeVFSResult res = gnome_cmd_con_get_path_target_type (to->get_connection(), dest_path, &type);
 
     return res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY;
 }
@@ -383,12 +382,12 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
 
     dialog->src_files = gnome_cmd_file_list_get_selected_files (from->list);
     gnome_cmd_file_list_ref (dialog->src_files);
-    dialog->default_dest_dir = gnome_cmd_file_selector_get_directory (to);
+    dialog->default_dest_dir = to->get_directory();
     dialog->src_fs = from;
 
     guint num_files = g_list_length (dialog->src_files);
 
-    if (!gnome_cmd_file_selector_is_local (to))
+    if (!to->is_local())
     {
         if (num_files == 1)
         {
