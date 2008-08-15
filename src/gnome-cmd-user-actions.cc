@@ -773,7 +773,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
         case 2:
         case 3:
-            sel_files = gnome_cmd_file_list_sort_selection (sel_files, active_fl);
+            sel_files = active_fl->sort_selection(sel_files);
 
             for (GList *i = sel_files; i; i = i->next)
                 append_real_path (s, GNOME_CMD_FILE (i->data));
@@ -903,7 +903,7 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer not_used)
 
     GnomeCmdFileList *fl = get_fl (ACTIVE);
     GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
-    sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
+    sfl = fl->sort_selection(sfl);
 
     string fnames;
 
@@ -942,7 +942,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     GnomeCmdFileList *fl = get_fl (ACTIVE);
     GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
-    sfl = gnome_cmd_file_list_sort_selection (sfl, fl);
+    sfl = fl->sort_selection(sfl);
 
     get_file_list (filename, sfl, gnome_cmd_file_get_name);
     get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
@@ -1114,13 +1114,13 @@ void mark_toggle_and_step (GtkMenuItem *menuitem, gpointer not_used)
 
 void mark_select_all (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_select_all (get_fl (ACTIVE));
+    get_fl (ACTIVE)->select_all();
 }
 
 
 void mark_unselect_all (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_unselect_all (get_fl (ACTIVE));
+    get_fl (ACTIVE)->unselect_all();
 }
 
 

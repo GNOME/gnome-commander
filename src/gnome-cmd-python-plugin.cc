@@ -255,7 +255,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     GList *f;
 
     selected_files = gnome_cmd_file_list_get_selected_files (active_fl);
-    f = selected_files = gnome_cmd_file_list_sort_selection (selected_files, active_fl);
+    f = selected_files = active_fl->sort_selection(selected_files);
 
     gint n;
 

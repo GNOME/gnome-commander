@@ -72,7 +72,7 @@ struct _GnomeCmdDataPrivate
     GdkInterpType        icon_scale_quality;
     gchar                *theme_icon_dir;
     gchar                *document_icon_dir;
-    guint                fs_col_width[FILE_LIST_NUM_COLUMNS];
+    guint                fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                bookmark_dialog_col_width[BOOKMARK_DIALOG_NUM_COLUMNS];
     gint                 cmdline_history_length;
     GList                *cmdline_history;
@@ -1257,7 +1257,7 @@ void gnome_cmd_data_save (void)
     gnome_config_set_int ("/gnome-commander-size/main_win/width", data->priv->main_win_width);
     gnome_config_set_int ("/gnome-commander-size/main_win/height", data->priv->main_win_height);
 
-    for (gint i=0; i<FILE_LIST_NUM_COLUMNS; i++)
+    for (gint i=0; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
         gnome_config_set_int (tmp, data->priv->fs_col_width[i]);
@@ -1396,10 +1396,10 @@ void gnome_cmd_data_load (void)
     data->priv->main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
     data->priv->main_win_height = get_int ("/gnome-commander-size/main_win/height", 400);
 
-    for (gint i=0; i<FILE_LIST_NUM_COLUMNS; i++)
+    for (gint i=0; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
-        data->priv->fs_col_width[i] = get_int (tmp, gnome_cmd_file_list_get_column_default_width ((GnomeCmdFileListColumnID) i));
+        data->priv->fs_col_width[i] = get_int (tmp, GnomeCmdFileList::get_column_default_width((GnomeCmdFileList::ColumnID) i));
         g_free (tmp);
     }
 
@@ -1460,9 +1460,9 @@ void gnome_cmd_data_load (void)
         data->priv->symlink_prefix = NULL;
     }
 
-    data->priv->sort_column[LEFT] = gnome_cmd_data_get_int ("/options/sort_column_left", FILE_LIST_COLUMN_NAME);
+    data->priv->sort_column[LEFT] = gnome_cmd_data_get_int ("/options/sort_column_left", GnomeCmdFileList::COLUMN_NAME);
     data->priv->sort_direction[LEFT] = gnome_cmd_data_get_bool ("/options/sort_direction_left", GTK_SORT_ASCENDING);
-    data->priv->sort_column[RIGHT] = gnome_cmd_data_get_int ("/options/sort_column_right", FILE_LIST_COLUMN_NAME);
+    data->priv->sort_column[RIGHT] = gnome_cmd_data_get_int ("/options/sort_column_right", GnomeCmdFileList::COLUMN_NAME);
     data->priv->sort_direction[RIGHT] = gnome_cmd_data_get_bool ("/options/sort_direction_right", GTK_SORT_ASCENDING);
 
     data->priv->viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
@@ -2103,7 +2103,7 @@ void gnome_cmd_data_set_document_icon_dir (const gchar *dir)
 
 void gnome_cmd_data_set_fs_col_width (guint column, gint width)
 {
-    if (column > FILE_LIST_NUM_COLUMNS)
+    if (column > GnomeCmdFileList::NUM_COLUMNS)
         return;
 
     data->priv->fs_col_width[column] = width;
@@ -2112,7 +2112,7 @@ void gnome_cmd_data_set_fs_col_width (guint column, gint width)
 
 gint gnome_cmd_data_get_fs_col_width (guint column)
 {
-    if (column > FILE_LIST_NUM_COLUMNS)
+    if (column > GnomeCmdFileList::NUM_COLUMNS)
         return 0;
 
     return data->priv->fs_col_width[column];

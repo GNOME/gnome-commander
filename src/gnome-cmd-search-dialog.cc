@@ -536,7 +536,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     if (data->content_search)
         defaults->content_patterns = string_history_add (defaults->content_patterns, data->content_pattern, PATTERN_HISTORY_SIZE);
 
-    gnome_cmd_file_list_remove_all_files (GNOME_CMD_FILE_LIST (dialog->priv->result_list));
+    GNOME_CMD_FILE_LIST (dialog->priv->result_list)->remove_all_files();
 
     gtk_widget_set_sensitive (data->dialog->priv->search_button, FALSE);
     gtk_widget_set_sensitive (data->dialog->priv->stop_button, TRUE);
@@ -673,7 +673,7 @@ static gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, 
  */
 static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event, gpointer dialog)
 {
-    if (gnome_cmd_file_list_keypressed (GNOME_CMD_FILE_LIST (result_list), event) ||
+    if (GNOME_CMD_FILE_LIST (result_list)->key_pressed(event) ||
         handle_list_keypress (GNOME_CMD_FILE_LIST (result_list), event, GNOME_CMD_SEARCH_DIALOG (dialog)))
     {
         stop_kp (GTK_OBJECT (result_list));

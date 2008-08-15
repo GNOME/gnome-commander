@@ -237,7 +237,7 @@ inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    gnome_cmd_file_list_invalidate_tree_size (fs->file_list());
+    fs->file_list()->invalidate_tree_size();
 
     for (GList *files = gnome_cmd_file_list_get_all_files (fs->file_list()); files; files = files->next)
         gnome_cmd_file_list_show_dir_size (fs->file_list(), (GnomeCmdFile *) files->data);
@@ -546,7 +546,7 @@ static void drag_data_delete (GtkWidget *widget, GdkDragContext *drag_context, G
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     GList *files = gnome_cmd_file_list_get_selected_files (fs->file_list());
-    gnome_cmd_file_list_remove_files (fs->file_list(), files);
+    fs->file_list()->remove_files(files);
     g_list_free (files);
 }
 
@@ -797,7 +797,7 @@ static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 
     if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
-        gnome_cmd_file_list_invalidate_tree_size (fs->file_list());
+        fs->file_list()->invalidate_tree_size();
 
         if (strcmp (f->info->name, "..") == 0)
             fs->goto_directory("..");
@@ -866,7 +866,7 @@ static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     if (!file_is_wanted (f->info))
         return;
 
-    gnome_cmd_file_list_insert_file (fs->file_list(), f);
+    fs->file_list()->insert_file(f);
     update_selected_files_label (fs);
 }
 
@@ -911,10 +911,10 @@ static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
         // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);
         gnome_cmd_file_list_update_file (fs->file_list(), f);
 
-        GnomeCmdFileListColumnID sort_col = gnome_cmd_file_list_get_sort_column (fs->file_list());
+        GnomeCmdFileList::ColumnID sort_col = GNOME_CMD_FILE_LIST (fs->file_list())->get_sort_column();
 
-        if (sort_col==FILE_LIST_COLUMN_NAME || sort_col==FILE_LIST_COLUMN_EXT)
-            gnome_cmd_file_list_sort (fs->file_list());
+        if (sort_col==GnomeCmdFileList::COLUMN_NAME || sort_col==GnomeCmdFileList::COLUMN_EXT)
+            fs->file_list()->sort();
     }
 }
 
@@ -1186,7 +1186,7 @@ static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeC
 {
     gboolean ret = FALSE;
 
-    if (gnome_cmd_file_list_keypressed (fs->file_list(), event))
+    if (fs->file_list()->key_pressed(event))
         ret = TRUE;
     else if (gnome_cmd_file_selector_keypressed (fs, event))
         ret = TRUE;
@@ -1301,7 +1301,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_object_set_data_full (GTK_OBJECT (fs), "list_widget", fs->list_widget,
                               (GtkDestroyNotify) gtk_widget_unref);
     fs->file_list() = GNOME_CMD_FILE_LIST (fs->list_widget);            // FIXME: file_list() = ...
-    fs->file_list()->show_column(FILE_LIST_COLUMN_DIR, FALSE);
+    fs->file_list()->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
     // create the connection combo
     fs->con_combo = gnome_cmd_combo_new (2, 1, NULL);
@@ -1459,7 +1459,7 @@ GnomeCmdDir *GnomeCmdFileSelector::get_directory()
 
 void GnomeCmdFileSelector::reload()
 {
-    gnome_cmd_file_list_unselect_all (list);
+    file_list()->unselect_all();
 
     GnomeCmdDir *dir = get_directory();
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
