@@ -601,7 +601,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
     GnomeCmdCon *current_con = fs->get_connection();
 
     if (current_con == bookmark->group->con)
-        gnome_cmd_file_selector_goto_directory (fs, bookmark->path);
+        fs->goto_directory(bookmark->path);
     else
     {
         GnomeCmdCon *con = bookmark->group->con;

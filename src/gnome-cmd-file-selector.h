@@ -72,6 +72,7 @@ struct GnomeCmdFileSelector
     
     GnomeCmdDir *get_directory();
     void set_directory(GnomeCmdDir *dir);
+    void goto_directory(const gchar *dir);
 
     void reload();
 
@@ -104,8 +105,6 @@ GtkType gnome_cmd_file_selector_get_type (void);
 GtkWidget *gnome_cmd_file_selector_new (void);
 
 void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, FileSelectorID fsID);
-
-void gnome_cmd_file_selector_goto_directory (GnomeCmdFileSelector *fs, const gchar *dir);
 
 void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs);
 

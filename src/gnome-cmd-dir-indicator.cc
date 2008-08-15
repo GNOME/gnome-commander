@@ -98,7 +98,7 @@ static gboolean on_dir_indicator_clicked (GnomeCmdDirIndicator *indicator, GdkEv
                 strncpy (chTo, labelText, indicator->priv->slashCharPosition[i]);
                 chTo[indicator->priv->slashCharPosition[i]] = 0x0;
                 gnome_cmd_main_win_switch_fs (main_win, fs);
-                gnome_cmd_file_selector_goto_directory (fs, chTo);
+                fs->goto_directory(chTo);
                 g_free (chTo);
                 return TRUE;
             }
@@ -274,7 +274,7 @@ static void on_dir_history_item_selected (GtkMenuItem *item, const gchar *path)
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 
     gnome_cmd_main_win_switch_fs (main_win, indicator->priv->fs);
-    gnome_cmd_file_selector_goto_directory (indicator->priv->fs, path);
+    indicator->priv->fs->goto_directory(path);
 }
 
 
@@ -287,7 +287,7 @@ static void on_bookmark_item_selected (GtkMenuItem *item, GnomeCmdBookmark *bm)
     g_return_if_fail (GNOME_CMD_IS_DIR_INDICATOR (indicator));
 
     gnome_cmd_main_win_switch_fs (main_win, indicator->priv->fs);
-    gnome_cmd_file_selector_goto_directory (indicator->priv->fs, bm->path);
+    indicator->priv->fs->goto_directory(bm->path);
 }
 
 

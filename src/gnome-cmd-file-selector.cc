@@ -593,7 +593,7 @@ static void autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
     if (y < 0) return;
 
     GtkCList *clist = GTK_CLIST (fs->file_list());
-    guint offset = (0-clist->voffset);
+    // guint offset = (0-clist->voffset);
     gint w, h;
 
     gint smin = h/8;
@@ -734,17 +734,17 @@ static void update_vol_label (GnomeCmdFileSelector *fs)
 }
 
 
-static void goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
+void GnomeCmdFileSelector::goto_directory(const gchar *in_dir)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (in_dir != NULL);
 
-    GnomeCmdDir *cur_dir, *new_dir = NULL;
+    GnomeCmdDir *cur_dir = get_directory();
+
+    g_return_if_fail (GNOME_CMD_IS_DIR (cur_dir));
+
+    GnomeCmdDir *new_dir = NULL;
     const gchar *focus_dir = NULL;
     gchar *dir;
-
-    cur_dir = fs->get_directory();
-    g_return_if_fail (GNOME_CMD_IS_DIR (cur_dir));
 
     if (g_str_has_prefix (in_dir, "~"))
         dir = gnome_vfs_expand_initial_tilde (in_dir);
@@ -766,7 +766,7 @@ static void goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
     {
         // check if it's an absolute address or not
         if (dir[0] == '/')
-            new_dir = gnome_cmd_dir_new (fs->priv->con, gnome_cmd_con_create_path (fs->priv->con, dir));
+            new_dir = gnome_cmd_dir_new (priv->con, gnome_cmd_con_create_path (priv->con, dir));
         else
             if (g_str_has_prefix (dir, "\\\\") )
             {
@@ -779,11 +779,11 @@ static void goto_directory (GnomeCmdFileSelector *fs, const gchar *in_dir)
     }
 
     if (new_dir)
-        fs->set_directory(new_dir);
+        set_directory(new_dir);
 
     // focus the current dir when going back to the parent dir
     if (focus_dir)
-        gnome_cmd_file_list_focus_file (fs->file_list(), focus_dir, FALSE);
+        gnome_cmd_file_list_focus_file (file_list(), focus_dir, FALSE);
 
     g_free (dir);
 }
@@ -800,9 +800,9 @@ static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
         gnome_cmd_file_list_invalidate_tree_size (fs->file_list());
 
         if (strcmp (f->info->name, "..") == 0)
-            goto_directory (fs, "..");
+            fs->goto_directory("..");
         else
-            fs->set_directory (GNOME_CMD_DIR (f));
+            fs->set_directory(GNOME_CMD_DIR (f));
     }
 }
 
@@ -1045,8 +1045,9 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GdkEventButton *event, G
     {
         if (event->button == 1 || event->button == 3)
             gnome_cmd_main_win_switch_fs (main_win, fs);
-        else if (event->button == 2)
-            goto_directory (fs, "..");
+        else
+            if (event->button == 2)
+                fs->goto_directory("..");
     }
 }
 
@@ -1231,7 +1232,7 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
 static void on_root_btn_clicked (GtkButton *button, GnomeCmdFileSelector *fs)
 {
     gnome_cmd_main_win_switch_fs (main_win, fs);
-    goto_directory (fs, G_DIR_SEPARATOR_S);
+    fs->goto_directory(G_DIR_SEPARATOR_S);
 }
 
 
@@ -1493,7 +1494,7 @@ void GnomeCmdFileSelector::first()
         return;
 
     priv->dir_history->lock();
-    goto_directory (this, priv->dir_history->first());
+    goto_directory(priv->dir_history->first());
     priv->dir_history->unlock();
 }
 
@@ -1504,7 +1505,7 @@ void GnomeCmdFileSelector::back()
         return;
 
     priv->dir_history->lock();
-    goto_directory (this, priv->dir_history->back());
+    goto_directory(priv->dir_history->back());
     priv->dir_history->unlock();
 }
 
@@ -1515,7 +1516,7 @@ void GnomeCmdFileSelector::forward()
         return;
 
     priv->dir_history->lock();
-    goto_directory (this, priv->dir_history->forward());
+    goto_directory(priv->dir_history->forward());
     priv->dir_history->unlock();
 }
 
@@ -1526,7 +1527,7 @@ void GnomeCmdFileSelector::last()
         return;
 
     priv->dir_history->lock();
-    goto_directory (this, priv->dir_history->last());
+    goto_directory(priv->dir_history->last());
     priv->dir_history->unlock();
 }
 
@@ -1577,12 +1578,6 @@ void GnomeCmdFileSelector::set_directory(GnomeCmdDir *dir)
 
     gnome_cmd_dir_list_files (dir, gnome_cmd_con_needs_list_visprog (priv->con));
     gnome_cmd_dir_start_monitoring (dir);
-}
-
-
-void gnome_cmd_file_selector_goto_directory (GnomeCmdFileSelector *fs, const gchar *dir)
-{
-    goto_directory (fs, dir);
 }
 
 
@@ -2017,7 +2012,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
                 return TRUE;
 
             case GDK_Page_Up:
-                goto_directory (fs, "..");
+                fs->goto_directory("..");
                 return TRUE;
 
             case GDK_Page_Down:
@@ -2048,7 +2043,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
             case GDK_Left:
             case GDK_KP_Left:
             case GDK_BackSpace:
-                goto_directory (fs, "..");
+                fs->goto_directory("..");
                 return TRUE;
 
             case GDK_Right:

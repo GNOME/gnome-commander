@@ -87,18 +87,18 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
             GnomeVFSURI *test_uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), "-");
 
             if (gnome_vfs_uri_exists (test_uri))
-                gnome_cmd_file_selector_goto_directory (fs, dest_dir);
+                fs->goto_directory(dest_dir);
             else
                 fs->back();
 
             gnome_vfs_uri_unref (test_uri);
         }
         else
-            gnome_cmd_file_selector_goto_directory (fs, dest_dir);
+            fs->goto_directory(dest_dir);
     }
     else
         if (strcmp (cmdline_text, "cd")==0)
-            gnome_cmd_file_selector_goto_directory (fs, "~");
+            fs->goto_directory("~");
         else
             if (fs->is_local())
             {

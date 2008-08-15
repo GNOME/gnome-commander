@@ -1233,7 +1233,7 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_up (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_goto_directory (get_fs (ACTIVE), "..");
+    get_fs (ACTIVE)->goto_directory("..");
 }
 
 
@@ -1300,13 +1300,13 @@ void view_in_inactive_pane (GtkMenuItem *menuitem, gpointer not_used)
 void view_home (GtkMenuItem *menuitem, gpointer not_used)
 {
     get_fs (ACTIVE)->set_connection(get_home_con ());
-    gnome_cmd_file_selector_goto_directory (get_fs (ACTIVE), "~");
+    get_fs (ACTIVE)->goto_directory("~");
 }
 
 
 void view_root (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_goto_directory (get_fs (ACTIVE), "/");
+    get_fs (ACTIVE)->goto_directory("/");
 }
 
 

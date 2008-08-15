@@ -837,10 +837,8 @@ static void init (GnomeCmdMainWin *mw)
     gnome_cmd_main_win_get_fs (mw, LEFT)->set_connection(get_home_con ());
     gnome_cmd_main_win_get_fs (mw, RIGHT)->set_connection(get_home_con ());
 
-    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (mw, LEFT),
-                                            start_dir_left ? start_dir_left : gnome_cmd_data_get_start_dir (LEFT));
-    gnome_cmd_file_selector_goto_directory (gnome_cmd_main_win_get_fs (mw, RIGHT),
-                                            start_dir_right ? start_dir_right : gnome_cmd_data_get_start_dir (RIGHT));
+    gnome_cmd_main_win_get_fs (mw, LEFT)->goto_directory(start_dir_left ? start_dir_left : gnome_cmd_data_get_start_dir (LEFT));
+    gnome_cmd_main_win_get_fs (mw, RIGHT)->goto_directory(start_dir_right ? start_dir_right : gnome_cmd_data_get_start_dir (RIGHT));
 
     gtk_window_add_accel_group (GTK_WINDOW (main_win), mw->priv->accel_group);
     gnome_cmd_main_win_focus_file_lists (main_win);
