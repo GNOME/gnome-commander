@@ -1,3 +1,9 @@
+2008-08-19  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
+
+	* es/es.po
+	* Makefile.am: Added initial Spanish translation by Daniel
+	  Mustieles.
+
 2008-08-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* doc/de/legal.xml:
