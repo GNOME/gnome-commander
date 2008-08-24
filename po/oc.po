@@ -2427,7 +2427,7 @@ msgstr "Renommar de fichièrs"
 
 #: ../src/gnome-cmd-user-actions.cc:168
 #
-msgid "Synchonize directories"
+msgid "Synchronize directories"
 msgstr "Sincronizar de repertòris"
 
 #. {file_umount, "file.umount"},

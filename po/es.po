@@ -2418,7 +2418,7 @@ msgid "Rename files"
 msgstr "Renombrar archivos"
 
 #: ../src/gnome-cmd-user-actions.cc:168
-msgid "Synchonize directories"
+msgid "Synchronize directories"
 msgstr "Sincronizar directorios"
 
 #. {file_umount, "file.umount"},

@@ -2817,7 +2817,7 @@ msgstr "Ĉiuj Dosieroj (*.*)"
 
 #: ../src/gnome-cmd-user-actions.cc:167
 #, fuzzy
-msgid "Synchonize directories"
+msgid "Synchronize directories"
 msgstr "Kreu dosierujojn"
 
 #. {file_umount, "file.umount"},

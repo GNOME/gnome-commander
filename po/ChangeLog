@@ -1,3 +1,7 @@
+2008-08-25  Christian Kirbach  <Christian.Kirbach@googlemail.com>
+
+	* *.po: "Synchonize Directories" -> "Synchronize Directories" (problem #548013)
+
 2008-08-19  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es.po: Updated Spanish translation by Daniel Mustieles

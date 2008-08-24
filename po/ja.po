@@ -2409,7 +2409,7 @@ msgid "Rename files"
 msgstr "ファイル名を変更"
 
 #: ../src/gnome-cmd-user-actions.cc:168
-msgid "Synchonize directories"
+msgid "Synchronize directories"
 msgstr "ディレクトリを同期する"
 
 #. {file_umount, "file.umount"},

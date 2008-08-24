@@ -2386,7 +2386,7 @@ msgid "Rename files"
 msgstr "Přejmenovat soubory"
 
 #: ../src/gnome-cmd-user-actions.cc:167
-msgid "Synchonize directories"
+msgid "Synchronize directories"
 msgstr "Synchronizovat adresáře"
 
 #. {file_umount, "file.umount"},

@@ -165,7 +165,7 @@ static UserActionData user_actions_data[] = {
                                              {file_rename, "file.rename", N_("Rename files")},
                                              // {file_run, "file.run"},
                                              {file_sendto, "file.sendto", N_("Send files")},
-                                             {file_sync_dirs, "file.synchronize_directories", N_("Synchonize directories")},
+                                             {file_sync_dirs, "file.synchronize_directories", N_("Synchronize directories")},
                                              // {file_umount, "file.umount"},
                                              {file_view, "file.view", N_("View file")},
                                              {help_about, "help.about", N_("About GNOME Commander")},

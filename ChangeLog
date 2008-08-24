@@ -1,3 +1,8 @@
+2008-08-25  Christian Kirbach  <Christian.Kirbach@googlemail.com>
+
+	* src/gnome-cmd-user-actions.cc:
+	"Synchonize Directories" -> "Synchronize Directories" (problem #548013)
+
 2008-08-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
