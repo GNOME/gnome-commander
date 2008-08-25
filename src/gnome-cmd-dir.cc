@@ -112,7 +112,7 @@ static void destroy (GtkObject *object)
 
     gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
 
-    gtk_object_destroy (GTK_OBJECT (dir->priv->file_collection));
+    gtk_object_destroy (*dir->priv->file_collection);
 
     if (dir->priv->path)
         gtk_object_unref (GTK_OBJECT (dir->priv->path));
@@ -484,11 +484,11 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
     {
         DEBUG('l', "File listing succeded\n");
 
-        if (gnome_cmd_file_collection_get_size (dir->priv->file_collection))
-            gnome_cmd_file_collection_clear (dir->priv->file_collection);
+        if (!dir->priv->file_collection->empty())
+            dir->priv->file_collection->clear();
 
         dir->priv->files = create_file_list (dir, infolist);
-        gnome_cmd_file_collection_add_list (dir->priv->file_collection, dir->priv->files);
+        dir->priv->file_collection->add(dir->priv->files);
         dir->state = DIR_STATE_LISTED;
         g_list_free (infolist);
 
@@ -726,7 +726,7 @@ static gboolean file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
     g_return_val_if_fail (uri_str != NULL, TRUE);
 
-    GnomeCmdFile *finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
+    GnomeCmdFile *finfo = dir->priv->file_collection->find(uri_str);
 
     return finfo != NULL;
 }
@@ -755,8 +755,8 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
     else
         finfo = gnome_cmd_file_new (info, dir);
 
-    gnome_cmd_file_collection_add (dir->priv->file_collection, finfo);
-    dir->priv->files = gnome_cmd_file_collection_get_list (dir->priv->file_collection);
+    dir->priv->file_collection->add(finfo);
+    dir->priv->files = dir->priv->file_collection->get_list();
 
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CREATED], finfo);
 }
@@ -769,15 +769,15 @@ void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (uri_str != NULL);
 
-    GnomeCmdFile *finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
+    GnomeCmdFile *finfo = dir->priv->file_collection->find(uri_str);
 
     if (!GNOME_CMD_IS_FILE (finfo))
         return;
 
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], finfo);
 
-    gnome_cmd_file_collection_remove_by_uri (dir->priv->file_collection, uri_str);
-    dir->priv->files = gnome_cmd_file_collection_get_list (dir->priv->file_collection);
+    dir->priv->file_collection->remove(uri_str);
+    dir->priv->files = dir->priv->file_collection->get_list();
 }
 
 
@@ -790,7 +790,7 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
     g_return_if_fail (uri_str != NULL);
 
     GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
-    GnomeCmdFile *finfo = gnome_cmd_file_collection_lookup (dir->priv->file_collection, uri_str);
+    GnomeCmdFile *finfo = dir->priv->file_collection->find(uri_str);
 
     g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
 
@@ -813,8 +813,8 @@ void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo, const gc
     if (GNOME_CMD_IS_DIR (finfo))
         gnome_cmd_con_remove_from_cache (dir->priv->con, old_uri_str);
 
-    gnome_cmd_file_collection_remove_by_uri (dir->priv->file_collection, old_uri_str);
-    gnome_cmd_file_collection_add (dir->priv->file_collection, finfo);
+    dir->priv->file_collection->remove(old_uri_str);
+    dir->priv->file_collection->add(finfo);
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_RENAMED], finfo);
 }
 

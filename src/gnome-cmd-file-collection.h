@@ -20,55 +20,54 @@
 #ifndef __GNOME_CMD_FILE_COLLECTION_H__
 #define __GNOME_CMD_FILE_COLLECTION_H__
 
+
 #include "gnome-cmd-file.h"
 
-#define GNOME_CMD_FILE_COLLECTION(obj) \
-    GTK_CHECK_CAST (obj, gnome_cmd_file_collection_get_type (), GnomeCmdFileCollection)
-#define GNOME_CMD_FILE_COLLECTION_CLASS(klass) \
-    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_collection_get_type (), GnomeCmdFileCollectionClass)
-#define GNOME_CMD_IS_FILE_COLLECTION(obj) \
-    GTK_CHECK_TYPE (obj, gnome_cmd_file_collection_get_type ())
-#define GNOME_CMD_FILE_COLLECTION_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_FILE_COLLECTION, GnomeCmdFileCollectionClass))
+#define GNOME_CMD_TYPE_FILE_COLLECTION      (gnome_cmd_file_collection_get_type ())
+#define GNOME_CMD_FILE_COLLECTION(obj)      GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_FILE_COLLECTION, GnomeCmdFileCollection)
+#define GNOME_CMD_IS_FILE_COLLECTION(obj)   GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_FILE_COLLECTION)
 
 
-typedef struct _GnomeCmdFileCollection GnomeCmdFileCollection;
-typedef struct _GnomeCmdFileCollectionClass GnomeCmdFileCollectionClass;
-typedef struct _GnomeCmdFileCollectionPrivate GnomeCmdFileCollectionPrivate;
+GtkType gnome_cmd_file_collection_get_type ();
 
 
-struct _GnomeCmdFileCollection
+struct GnomeCmdFileCollection
 {
     GtkObject parent;
 
-    GnomeCmdFileCollectionPrivate *priv;
+    class Private;
+
+    Private *priv;
+
+    operator GtkObject * ()             {  return GTK_OBJECT (this);    }
+
+    GList *get_list();
+
+    guint size()        {  return g_list_length (get_list());  }
+    gboolean empty()    {  return get_list()==NULL;            }
+    void clear();
+
+    void add(GnomeCmdFile *file);
+    void add(GList *files);
+    void remove(GnomeCmdFile *file);
+    void remove(const gchar *uri_str);
+
+    GnomeCmdFile *find(const gchar *uri_str);
+
+    GList *sort(GCompareDataFunc compare_func, gpointer user_data);
 };
 
-struct _GnomeCmdFileCollectionClass
+
+inline void GnomeCmdFileCollection::add(GList *files)
 {
-    GtkObjectClass parent_class;
-};
+    for (; files; files = files->next)
+        add(GNOME_CMD_FILE (files->data));
+}
 
 
-GtkType gnome_cmd_file_collection_get_type (void);
-
-GnomeCmdFileCollection *gnome_cmd_file_collection_new (void);
-
-void gnome_cmd_file_collection_add (GnomeCmdFileCollection *collection, GnomeCmdFile *file);
-
-void gnome_cmd_file_collection_add_list (GnomeCmdFileCollection *collection, GList *files);
-
-void gnome_cmd_file_collection_remove (GnomeCmdFileCollection *collection, GnomeCmdFile *file);
-
-void gnome_cmd_file_collection_remove_by_uri (GnomeCmdFileCollection *collection, const gchar *uri_str);
-
-GnomeCmdFile *gnome_cmd_file_collection_lookup (GnomeCmdFileCollection *collection, const gchar *uri_str);
-
-gint gnome_cmd_file_collection_get_size (GnomeCmdFileCollection *collection);
-
-void gnome_cmd_file_collection_clear (GnomeCmdFileCollection *collection);
-
-GList *gnome_cmd_file_collection_get_list (GnomeCmdFileCollection *collection);
-
-GList *gnome_cmd_file_collection_sort (GnomeCmdFileCollection *collection, GCompareDataFunc compare_func, gpointer user_data);
+inline GnomeCmdFileCollection *gnome_cmd_file_collection_new ()
+{
+    return (GnomeCmdFileCollection *) gtk_type_new (GNOME_CMD_TYPE_FILE_COLLECTION);
+}
 
 #endif // __GNOME_CMD_FILE_COLLECTION_H__
