@@ -843,7 +843,7 @@ static void init (GnomeCmdMainWin *mw)
     gtk_window_add_accel_group (GTK_WINDOW (main_win), mw->priv->accel_group);
     gnome_cmd_main_win_focus_file_lists (main_win);
 
-    mw->priv->key_snooper_id = gtk_key_snooper_install((GtkKeySnoopFunc) gnome_cmd_key_snooper,(gpointer) mw);
+    mw->priv->key_snooper_id = gtk_key_snooper_install ((GtkKeySnoopFunc) gnome_cmd_key_snooper, (gpointer) mw);
 }
 
 
