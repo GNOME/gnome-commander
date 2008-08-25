@@ -23,28 +23,19 @@
 
 #include "gnome-cmd-file.h"
 
-#define GNOME_CMD_TYPE_FILE_COLLECTION      (gnome_cmd_file_collection_get_type ())
-#define GNOME_CMD_FILE_COLLECTION(obj)      GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_FILE_COLLECTION, GnomeCmdFileCollection)
-#define GNOME_CMD_IS_FILE_COLLECTION(obj)   GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_FILE_COLLECTION)
 
-
-GtkType gnome_cmd_file_collection_get_type ();
-
-
-struct GnomeCmdFileCollection
+class GnomeCmdFileCollection
 {
-    GtkObject parent;
+    GHashTable *map;
+    GList *list;
 
-    class Private;
+  public:
 
-    Private *priv;
+    GnomeCmdFileCollection();
+    ~GnomeCmdFileCollection();
 
-    operator GtkObject * ()             {  return GTK_OBJECT (this);    }
-
-    GList *get_list();
-
-    guint size()        {  return g_list_length (get_list());  }
-    gboolean empty()    {  return get_list()==NULL;            }
+    guint size()        {  return g_list_length (list);  }
+    gboolean empty()    {  return list==NULL;            }
     void clear();
 
     void add(GnomeCmdFile *file);
@@ -52,22 +43,32 @@ struct GnomeCmdFileCollection
     void remove(GnomeCmdFile *file);
     void remove(const gchar *uri_str);
 
+    GList *get_list()   {  return list;  }
+
     GnomeCmdFile *find(const gchar *uri_str);
 
     GList *sort(GCompareDataFunc compare_func, gpointer user_data);
 };
 
 
+inline GnomeCmdFileCollection::GnomeCmdFileCollection()
+{
+    map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) gnome_cmd_file_unref);
+    list = NULL;
+}
+
+
+inline GnomeCmdFileCollection::~GnomeCmdFileCollection()
+{
+    g_hash_table_destroy (map);
+    g_list_free (list);
+}
+
+
 inline void GnomeCmdFileCollection::add(GList *files)
 {
     for (; files; files = files->next)
         add(GNOME_CMD_FILE (files->data));
-}
-
-
-inline GnomeCmdFileCollection *gnome_cmd_file_collection_new ()
-{
-    return (GnomeCmdFileCollection *) gtk_type_new (GNOME_CMD_TYPE_FILE_COLLECTION);
 }
 
 #endif // __GNOME_CMD_FILE_COLLECTION_H__

@@ -1220,7 +1220,7 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (object);
 
-    gtk_object_destroy (*fl->priv->shown_files);
+    delete fl->priv->shown_files;
     gnome_cmd_file_list_free (fl->priv->selected_files);
 
     g_free (fl->priv);
@@ -1291,7 +1291,7 @@ static void class_init (GnomeCmdFileListClass *klass)
 static void init (GnomeCmdFileList *fl)
 {
     fl->priv = g_new0 (GnomeCmdFileList::Private, 1);
-    fl->priv->shown_files = gnome_cmd_file_collection_new ();
+    fl->priv->shown_files = new GnomeCmdFileCollection;
     // fl->priv->selected_files = NULL;
     // fl->priv->shift_down = FALSE;
     // fl->priv->selpat_dialog = NULL;

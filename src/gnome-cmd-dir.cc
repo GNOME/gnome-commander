@@ -112,7 +112,7 @@ static void destroy (GtkObject *object)
 
     gnome_cmd_con_remove_from_cache (dir->priv->con, dir);
 
-    gtk_object_destroy (*dir->priv->file_collection);
+    delete dir->priv->file_collection;
 
     if (dir->priv->path)
         gtk_object_unref (GTK_OBJECT (dir->priv->path));
@@ -221,7 +221,7 @@ static void init (GnomeCmdDir *dir)
     dir->priv->monitor_handle = NULL;
     dir->priv->monitor_users = 0;
     dir->priv->files = NULL;
-    dir->priv->file_collection = gnome_cmd_file_collection_new ();
+    dir->priv->file_collection = new GnomeCmdFileCollection;
 }
 
 

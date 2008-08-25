@@ -6,6 +6,12 @@
 	* src/gnome-cmd-file-list.cc:
 	Convert GnomeCmdFileCollection struct into C++ class
 
+	* src/gnome-cmd-dir.cc:
+	* src/gnome-cmd-file-collection.cc:
+	* src/gnome-cmd-file-collection.h:
+	* src/gnome-cmd-file-list.cc:
+	DeGTK+ization of GnomeCmdFileCollection
+
 2008-08-25  Takao Fujiwara  <Takao.Fujiwara@Sun.COM>
 
 	* src/gnome-cmd-quicksearch-popup.cc:
