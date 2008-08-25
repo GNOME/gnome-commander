@@ -51,8 +51,6 @@ inline GnomeCmdNotebook::Private::~Private()
 }
 
 
-// #define GNOME_CMD_NOTEBOOK_CLASS(klass)  (G_TYPE_CHECK_CLASS_CAST((klass), GNOME_CMD_TYPE_NOTEBOOK, GnomeCmdNotebookClass))
-
 G_DEFINE_TYPE (GnomeCmdNotebook, gnome_cmd_notebook, GTK_TYPE_NOTEBOOK)
 
 
@@ -75,9 +73,9 @@ static void gnome_cmd_notebook_finalize (GObject *object)
 
 static void gnome_cmd_notebook_class_init (GnomeCmdNotebookClass *klass)
 {
-    gnome_cmd_notebook_parent_class = (GObjectClass*) g_type_class_peek_parent (klass);
+    gnome_cmd_notebook_parent_class = (GObjectClass *) g_type_class_peek_parent (klass);
 
-    GObjectClass *object_class = (GObjectClass*) klass;
+    GObjectClass *object_class = (GObjectClass *) klass;
 
     object_class->finalize = gnome_cmd_notebook_finalize;
 }

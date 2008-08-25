@@ -379,7 +379,7 @@ static void update_view_menu (GnomeCmdMainMenu *main_menu)
         bm = IMAGE_get_mask (PIXMAP_SWITCH_H);
     }
 
-    g_list_foreach (main_menu->priv->view_menuitems, (GFunc)gtk_object_destroy, NULL);
+    g_list_foreach (main_menu->priv->view_menuitems, (GFunc) gtk_object_destroy, NULL);
     g_list_free (main_menu->priv->view_menuitems);
     main_menu->priv->view_menuitems = NULL;
 
@@ -914,7 +914,7 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
     GList *dev_cons = gnome_cmd_con_list_get_all_dev (con_list);
 
     // Remove all old items
-    g_list_foreach (main_menu->priv->connections_menuitems, (GFunc)gtk_widget_destroy, NULL);
+    g_list_foreach (main_menu->priv->connections_menuitems, (GFunc) gtk_widget_destroy, NULL);
     g_list_free (main_menu->priv->connections_menuitems);
     main_menu->priv->connections_menuitems = NULL;
 
@@ -961,12 +961,12 @@ void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu)
     g_return_if_fail (GNOME_CMD_IS_MAIN_MENU (main_menu));
 
     // Remove all old bookmark menu items
-    g_list_foreach (main_menu->priv->bookmark_menuitems, (GFunc)gtk_widget_destroy, NULL);
+    g_list_foreach (main_menu->priv->bookmark_menuitems, (GFunc) gtk_widget_destroy, NULL);
     g_list_free (main_menu->priv->bookmark_menuitems);
     main_menu->priv->bookmark_menuitems = NULL;
 
     // Remove all old group menu items
-    g_list_foreach (main_menu->priv->group_menuitems, (GFunc)gtk_widget_destroy, NULL);
+    g_list_foreach (main_menu->priv->group_menuitems, (GFunc) gtk_widget_destroy, NULL);
     g_list_free (main_menu->priv->group_menuitems);
     main_menu->priv->group_menuitems = NULL;
 

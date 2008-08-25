@@ -175,15 +175,15 @@ void scroll_box_set_client (ScrollBox *obj, GtkWidget *client)
     {
         if (obj->priv->client)
             g_object_unref (G_OBJECT (obj->priv->client));
-        obj->priv->client=NULL;
+        obj->priv->client = NULL;
     }
 
     g_object_ref (G_OBJECT (client));
     gtk_widget_show (client);
     obj->priv->client = client;
     gtk_table_attach (GTK_TABLE (obj), client , 0, 1, 0, 1,
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
-                    (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
+                      (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
+                      (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), 0, 0);
 }
 
 

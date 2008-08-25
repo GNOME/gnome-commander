@@ -157,7 +157,7 @@ static void on_open_with_other (GtkMenuItem *menu_item, GList *files)
     GtkWidget *term_check = create_check (dialog, _("Needs terminal"), "term_check");
 
     gtk_widget_ref (dialog);
-    gtk_object_set_data_full (GTK_OBJECT (menu_item), "new_textfile_dialog", dialog, (GtkDestroyNotify)gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (menu_item), "new_textfile_dialog", dialog, (GtkDestroyNotify) gtk_widget_unref);
 
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), term_check);
 
@@ -326,7 +326,7 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdFilePopmenu *menu = GNOME_CMD_FILE_POPMENU (object);
 
-    g_list_foreach (menu->priv->data_list, (GFunc)g_free, NULL);
+    g_list_foreach (menu->priv->data_list, (GFunc) g_free, NULL);
     g_list_free (menu->priv->data_list);
 
     g_free (menu->priv);

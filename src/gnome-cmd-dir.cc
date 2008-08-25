@@ -841,7 +841,7 @@ void gnome_cmd_dir_start_monitoring (GnomeCmdDir *dir)
             &dir->priv->monitor_handle,
             uri_str,
             GNOME_VFS_MONITOR_DIRECTORY,
-            (GnomeVFSMonitorCallback)monitor_callback,
+            (GnomeVFSMonitorCallback) monitor_callback,
             dir);
 
         if (result == GNOME_VFS_OK)

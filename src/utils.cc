@@ -805,7 +805,7 @@ GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 
 GList *string_history_add (GList *in, const gchar *value, guint maxsize)
 {
-    GList *tmp = g_list_find_custom (in, (gchar *) value, (GCompareFunc)strcmp);
+    GList *tmp = g_list_find_custom (in, (gchar *) value, (GCompareFunc) strcmp);
     GList *out;
 
     // if the same value has been given before move it first in the list
@@ -1317,7 +1317,7 @@ void patlist_free (GList *pattern_list)
 {
     g_return_if_fail (pattern_list != NULL);
 
-    g_list_foreach (pattern_list, (GFunc)g_free, NULL);
+    g_list_foreach (pattern_list, (GFunc) g_free, NULL);
     g_list_free (pattern_list);
 }
 

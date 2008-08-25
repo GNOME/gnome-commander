@@ -260,7 +260,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
 
     label = create_label (parent, "");
     gtk_object_set_data_full (GTK_OBJECT (parent), "date_format_test_label",
-                              label, (GtkDestroyNotify)gtk_widget_unref);
+                              label, (GtkDestroyNotify) gtk_widget_unref);
     gtk_signal_connect (GTK_OBJECT (label), "realize",GTK_SIGNAL_FUNC (on_date_format_update), parent);
     table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
@@ -311,7 +311,7 @@ static void on_layout_mode_changed (GtkOptionMenu *optmenu, GtkWidget *dialog)
     g_return_if_fail (GTK_IS_OPTION_MENU (optmenu));
 
     GtkWidget *icon_frame = lookup_widget (GTK_WIDGET (dialog), "mime_icon_settings_frame");
-    GnomeCmdLayout mode = (GnomeCmdLayout)gtk_option_menu_get_history (GTK_OPTION_MENU (optmenu));
+    GnomeCmdLayout mode = (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (optmenu));
 
     if (icon_frame)
         gtk_widget_set_sensitive (icon_frame, mode == GNOME_CMD_LAYOUT_MIME_ICONS);
@@ -323,7 +323,7 @@ static void on_color_mode_changed (GtkOptionMenu *optmenu, GtkWidget *dialog)
     g_return_if_fail (GTK_IS_OPTION_MENU (optmenu));
 
     GtkWidget *btn = lookup_widget (GTK_WIDGET (dialog), "color_btn");
-    GnomeCmdColorMode mode = (GnomeCmdColorMode)gtk_option_menu_get_history (GTK_OPTION_MENU (optmenu));
+    GnomeCmdColorMode mode = (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (optmenu));
 
     if (btn)
         gtk_widget_set_sensitive (btn, mode == GNOME_CMD_COLOR_CUSTOM);
@@ -413,15 +413,15 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
         colors->curs_bg->red, colors->curs_bg->green, colors->curs_bg->blue, 0);
 
     label = create_label (dlg, _("Foreground"));
-    table_add (table, label, 1, 0, (GtkAttachOptions)GTK_FILL);
+    table_add (table, label, 1, 0, (GtkAttachOptions) GTK_FILL);
     label = create_label (dlg, _("Background"));
-    table_add (table, label, 2, 0, (GtkAttachOptions)GTK_FILL);
+    table_add (table, label, 2, 0, (GtkAttachOptions) GTK_FILL);
     label = create_label (dlg, _("Default:"));
-    table_add (table, label, 0, 1, (GtkAttachOptions)GTK_FILL);
+    table_add (table, label, 0, 1, (GtkAttachOptions) GTK_FILL);
     label = create_label (dlg, _("Selected file:"));
-    table_add (table, label, 0, 2, (GtkAttachOptions)GTK_FILL);
+    table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
     label = create_label (dlg, _("Cursor:"));
-    table_add (table, label, 0, 3, (GtkAttachOptions)GTK_FILL);
+    table_add (table, label, 0, 3, (GtkAttachOptions) GTK_FILL);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GNOME_STOCK_BUTTON_CLOSE,
                                  GTK_SIGNAL_FUNC (on_edit_colors_close), dlg);
@@ -531,27 +531,27 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
     spin = create_spin (parent, "iconsize_spin", 8, 64, gnome_cmd_data_get_icon_size());
-    table_add (table, spin, 1, 0, (GtkAttachOptions)GTK_FILL);
+    table_add (table, spin, 1, 0, (GtkAttachOptions) GTK_FILL);
     scale = create_scale (parent, "iconquality_scale", gnome_cmd_data_get_icon_scale_quality (), 0, 3);
-    table_add (table, scale, 1, 1, (GtkAttachOptions)GTK_FILL);
+    table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
     entry = create_file_entry (parent, "theme_icondir_entry", gnome_cmd_data_get_theme_icon_dir());
     table_add (table, entry, 1, 2, (GtkAttachOptions)0);
     entry = create_file_entry (parent, "doc_icondir_entry", gnome_cmd_data_get_document_icon_dir());
     table_add (table, entry, 1, 3, (GtkAttachOptions)0);
 
     label = create_label (parent, _("Icon size:"));
-    table_add (table, label, 0, 0, (GtkAttachOptions)GTK_FILL);
+    table_add (table, label, 0, 0, (GtkAttachOptions) GTK_FILL);
     label = create_label (parent, _("Scaling quality:"));
-    table_add (table, label, 0, 1, (GtkAttachOptions)GTK_FILL);
+    table_add (table, label, 0, 1, (GtkAttachOptions) GTK_FILL);
     label = create_label (parent, _("Theme icon directory:"));
-    table_add (table, label, 0, 2, (GtkAttachOptions)GTK_FILL);
+    table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
     label = create_label (parent, _("Document icon directory:"));
-    table_add (table, label, 0, 3, (GtkAttachOptions)GTK_FILL);
+    table_add (table, label, 0, 3, (GtkAttachOptions) GTK_FILL);
 
 
-    gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint)gnome_cmd_data_get_ext_disp_mode ());
-    gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint)gnome_cmd_data_get_layout ());
-    gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint)gnome_cmd_data_get_color_mode ());
+    gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) gnome_cmd_data_get_ext_disp_mode ());
+    gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) gnome_cmd_data_get_layout ());
+    gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) gnome_cmd_data_get_color_mode ());
 
     return frame;
 }
@@ -573,11 +573,11 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *list_font_picker = lookup_widget (GTK_WIDGET (dialog), "list_font_picker");
 
     gnome_cmd_data_set_ext_disp_mode (
-        (GnomeCmdExtDispMode)gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu)));
+        (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu)));
     gnome_cmd_data_set_layout (
-        (GnomeCmdLayout)gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu)));
+        (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu)));
     gnome_cmd_data_set_color_mode (
-        (GnomeCmdColorMode)gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu)));
+        (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu)));
 
     gnome_cmd_data_set_use_ls_colors (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls)));
 

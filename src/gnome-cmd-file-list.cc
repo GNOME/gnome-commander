@@ -216,14 +216,6 @@ inline char *gnome_cmd_get_collation_fname (GnomeCmdFile *f)
 }
 
 
-inline int get_num_files (GnomeCmdFileList *fl)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), -1);
-
-    return g_list_length (gnome_cmd_file_list_get_all_files (fl));
-}
-
-
 inline GnomeCmdFile *get_file_at_row (GnomeCmdFileList *fl, gint row)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
@@ -491,12 +483,11 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
 
     Filter filter(pattern, case_sens, gnome_cmd_data_get_filter_type ());
 
-    for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
+    for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp=tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
         if (finfo && finfo->info)
-        {
             if (filter.match(finfo->info->name))
             {
                 if (mode)
@@ -504,7 +495,6 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
                 else
                     unselect_file (fl, finfo);
             }
-        }
     }
 }
 
@@ -633,7 +623,7 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
             tmp = tmp->next;
         }
 
-        g_list_foreach (uri_str_list, (GFunc)g_free, NULL);
+        g_list_foreach (uri_str_list, (GFunc) g_free, NULL);
         g_list_free (uri_str_list);
 
         data [total_len] = '\0';
@@ -676,7 +666,7 @@ static void drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelect
             files = gnome_vfs_uri_list_parse (data);
             if (files)
                 gtk_selection_data_set (selection_data, selection_data->target, 8, (const guchar *) files->data, strlen ((const char *) files->data));
-            g_list_foreach (files, (GFunc)g_free, NULL);
+            g_list_foreach (files, (GFunc) g_free, NULL);
             break;
 
         default:
@@ -716,7 +706,7 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     if (!menu) return;
 
     gtk_widget_ref (menu);
-    gtk_object_set_data_full (GTK_OBJECT (fl), "file_popup_menu", menu, (GtkDestroyNotify)gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (fl), "file_popup_menu", menu, (GtkDestroyNotify) gtk_widget_unref);
 
     gnome_popup_menu_do_popup (menu, (GtkMenuPositionFunc) popup_position_function, fl, event, fl, NULL);
 }
@@ -1342,7 +1332,7 @@ static void init (GnomeCmdFileList *fl)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_file_list_get_type (void)
+GtkType gnome_cmd_file_list_get_type ()
 {
     static GtkType type = 0;
 
@@ -2198,7 +2188,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
         if ((event->keyval >= GDK_a && event->keyval <= GDK_z)
             || (event->keyval >= GDK_A && event->keyval <= GDK_Z)
             || event->keyval == GDK_period)
-            gnome_cmd_file_list_show_quicksearch (this, (gchar)event->keyval);
+            gnome_cmd_file_list_show_quicksearch (this, (gchar) event->keyval);
     }
     else if (state_is_shift (event->state))
     {

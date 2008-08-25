@@ -333,7 +333,7 @@ static GtkWidget *create_slide_popup ()
 
     GtkWidget *menu = gtk_menu_new ();
     gtk_widget_ref (menu);
-    gtk_object_set_data_full (GTK_OBJECT (main_win), "slide-popup", menu, (GtkDestroyNotify)gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (main_win), "slide-popup", menu, (GtkDestroyNotify) gtk_widget_unref);
 
     // Fill the menu
 
@@ -518,7 +518,7 @@ static void on_fs_list_resize_column (GtkCList *clist, gint column, gint width, 
     if (!column_resize_lock)
     {
         column_resize_lock = TRUE;
-        gnome_cmd_data_set_fs_col_width ((guint)column, width);
+        gnome_cmd_data_set_fs_col_width ((guint) column, width);
         gtk_clist_set_column_width (other_clist, column, width);
         column_resize_lock = FALSE;
     }
@@ -843,7 +843,7 @@ static void init (GnomeCmdMainWin *mw)
     gtk_window_add_accel_group (GTK_WINDOW (main_win), mw->priv->accel_group);
     gnome_cmd_main_win_focus_file_lists (main_win);
 
-    mw->priv->key_snooper_id = gtk_key_snooper_install((GtkKeySnoopFunc)gnome_cmd_key_snooper,(gpointer)mw);
+    mw->priv->key_snooper_id = gtk_key_snooper_install((GtkKeySnoopFunc) gnome_cmd_key_snooper,(gpointer) mw);
 }
 
 

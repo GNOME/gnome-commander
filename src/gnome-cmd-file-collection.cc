@@ -63,7 +63,7 @@ static void class_init (GnomeCmdFileCollectionClass *klass)
 static void init (GnomeCmdFileCollection *collection)
 {
     collection->priv = g_new0 (GnomeCmdFileCollectionPrivate, 1);
-    collection->priv->map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)gnome_cmd_file_unref);
+    collection->priv->map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) gnome_cmd_file_unref);
     collection->priv->list = NULL;
 }
 
@@ -172,7 +172,7 @@ void gnome_cmd_file_collection_clear (GnomeCmdFileCollection *collection)
     g_list_free (collection->priv->list);
     collection->priv->list = NULL;
     g_hash_table_destroy (collection->priv->map);
-    collection->priv->map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify)gnome_cmd_file_unref);
+    collection->priv->map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, (GDestroyNotify) gnome_cmd_file_unref);
 }
 
 

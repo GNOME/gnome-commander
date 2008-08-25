@@ -202,7 +202,7 @@ void gnome_cmd_app_set_pattern_string (GnomeCmdApp *app, const gchar *pattern_st
     app->priv->pattern_string = g_strdup (pattern_string);
 
     // Free old list with patterns
-    g_list_foreach (app->priv->pattern_list, (GFunc)g_free, NULL);
+    g_list_foreach (app->priv->pattern_list, (GFunc) g_free, NULL);
     g_list_free (app->priv->pattern_list);
     app->priv->pattern_list = NULL;
 

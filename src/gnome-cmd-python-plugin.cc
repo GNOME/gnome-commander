@@ -150,7 +150,7 @@ void python_plugin_manager_shutdown ()
 {
     for (GList *l=py_plugins; l; l=l->next)
     {
-        PythonPluginData *data = (PythonPluginData *)l->data;
+        PythonPluginData *data = (PythonPluginData *) l->data;
         g_free (data->name);
         g_free (data->path);
         // do not free data->fname, as it points to a part of data->path

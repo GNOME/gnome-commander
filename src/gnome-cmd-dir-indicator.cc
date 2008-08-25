@@ -343,7 +343,7 @@ static void popup_dir_history (GnomeCmdDirIndicator *indicator)
                        path);
     }
 
-    gnome_popup_menu_do_popup (indicator->priv->dir_history_popup, (GtkMenuPositionFunc)get_popup_pos, indicator, NULL, NULL, NULL);
+    gnome_popup_menu_do_popup (indicator->priv->dir_history_popup, (GtkMenuPositionFunc) get_popup_pos, indicator, NULL, NULL, NULL);
 
     gint w = -1;
 
@@ -402,7 +402,7 @@ inline void popup_bookmarks (GnomeCmdDirIndicator *indicator)
     add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Add current dir"), GTK_SIGNAL_FUNC (on_bookmarks_add_current), indicator);
     add_menu_item (indicator, GTK_MENU_SHELL (indicator->priv->bookmark_popup), _("Manage bookmarks..."), GTK_SIGNAL_FUNC (on_bookmarks_manage), indicator);
 
-    gnome_popup_menu_do_popup (indicator->priv->bookmark_popup, (GtkMenuPositionFunc)get_popup_pos, indicator, NULL, NULL, NULL);
+    gnome_popup_menu_do_popup (indicator->priv->bookmark_popup, (GtkMenuPositionFunc) get_popup_pos, indicator, NULL, NULL, NULL);
 
     gint w = -1;
 

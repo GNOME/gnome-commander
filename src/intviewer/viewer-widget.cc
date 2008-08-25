@@ -205,8 +205,8 @@ static void gviewer_text_status_update(TextRender *obj, TextRenderStatus *status
 
     g_snprintf(temp, sizeof (temp),
                _("Position: %lu of %lu\tColumn: %d\t%s"),
-               (unsigned long)status->current_offset,
-               (unsigned long)status->size,
+               (unsigned long) status->current_offset,
+               (unsigned long) status->size,
                status->column,
                status->wrap_mode?_("Wrap"):"");
 

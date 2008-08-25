@@ -681,7 +681,7 @@ static gboolean text_render_button_press(GtkWidget *widget, GdkEventButton *even
     {
         gtk_grab_add (widget);
         w->priv->button = event->button;
-        w->priv->marker_start  = w->priv->pixel_to_offset(w, (int)event->x, (int)event->y, TRUE);
+        w->priv->marker_start  = w->priv->pixel_to_offset(w, (int) event->x, (int) event->y, TRUE);
     }
 
     return FALSE;
@@ -770,7 +770,7 @@ static void text_render_h_adjustment_update (TextRender *obj)
         gtk_signal_emit_by_name (GTK_OBJECT (obj->priv->h_adjustment), "value-changed");
     }
 
-    obj->priv->column = (int)new_value;
+    obj->priv->column = (int) new_value;
 
     text_render_redraw(obj);
 }
@@ -828,7 +828,7 @@ static void text_render_v_adjustment_update (TextRender *obj)
         return;
 
     if (obj->priv->dp)
-        new_value = gv_align_offset_to_line_start(obj->priv->dp, (offset_type)new_value);
+        new_value = gv_align_offset_to_line_start(obj->priv->dp, (offset_type) new_value);
 
     if (new_value != obj->priv->v_adjustment->value)
     {
@@ -1095,7 +1095,7 @@ static guint get_max_char_width(GtkWidget *widget, PangoFontDescription *font_de
         // Check if the char is displayable. Caused trouble to pango
         if (is_displayable((guchar)i))
         {
-            sprintf (str, "%c", (gchar)i);
+            sprintf (str, "%c", (gchar) i);
             pango_layout_set_text(layout, str, -1);
             pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
         }
@@ -1920,10 +1920,10 @@ static void hex_mode_copy_to_clipboard(TextRender *obj, offset_type start_offset
         char_type value = gv_input_mode_get_raw_byte(obj->priv->im, current);
         if (value==INVALID_CHAR)
             break;
-        text_render_utf8_printf(obj, "%02x ", (unsigned char)value);
+        text_render_utf8_printf(obj, "%02x ", (unsigned char) value);
     }
 
-    gtk_clipboard_set_text(clip, (const gchar*) obj->priv->utf8buf, obj->priv->utf8buf_length);
+    gtk_clipboard_set_text(clip, (const gchar *) obj->priv->utf8buf, obj->priv->utf8buf_length);
 }
 
 

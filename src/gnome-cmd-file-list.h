@@ -111,8 +111,8 @@ extern GtkTargetEntry drag_types[];
 extern GtkTargetEntry drop_types[];
 
 
-GtkType gnome_cmd_file_list_get_type (void);
-GtkWidget *gnome_cmd_file_list_new (void);
+GtkType gnome_cmd_file_list_get_type ();
+GtkWidget *gnome_cmd_file_list_new ();
 
 inline void GnomeCmdFileList::remove_files (GList *files)
 {

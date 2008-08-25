@@ -285,8 +285,8 @@ static void gviewer_window_init (GViewerWindow *w)
 
 #ifdef EXTERNAL_TOOLS
     w->priv->external_tools = g_hash_table_new_full(g_str_hash, g_str_equal,
-                    (GDestroyNotify)gviewer_window_destroy_key,
-                    (GDestroyNotify)gviewer_window_destroy_external_tool);
+                    (GDestroyNotify) gviewer_window_destroy_key,
+                    (GDestroyNotify) gviewer_window_destroy_external_tool);
 #endif
 
     GtkWindow *win = GTK_WINDOW (w);

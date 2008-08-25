@@ -48,7 +48,7 @@ on_files_listed (GnomeVFSAsyncHandle *handle,
 
     if (entries_read > 0 && list != NULL)
     {
-        g_list_foreach (list, (GFunc)gnome_vfs_file_info_ref, NULL);
+        g_list_foreach (list, (GFunc) gnome_vfs_file_info_ref, NULL);
         dir->infolist = g_list_concat (dir->infolist, g_list_copy (list));
         dir->list_counter += entries_read;
         DEBUG ('l', "files listed: %d\n", dir->list_counter);
@@ -101,7 +101,7 @@ inline void visprog_list (GnomeCmdDir *dir)
                                         infoOpts,
                                         FILES_PER_NOTIFICATION,
                                         LIST_PRIORITY,
-                                        (GnomeVFSAsyncDirectoryLoadCallback)on_files_listed,
+                                        (GnomeVFSAsyncDirectoryLoadCallback) on_files_listed,
                                         dir);
 
     g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) update_list_progress, dir);

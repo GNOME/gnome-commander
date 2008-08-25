@@ -114,7 +114,7 @@ smb_open (GnomeCmdCon *con)
         uri_list,
         infoOpts,
         0,
-        (GnomeVFSAsyncGetFileInfoCallback)get_file_info_callback,
+        (GnomeVFSAsyncGetFileInfoCallback) get_file_info_callback,
         con);
 }
 

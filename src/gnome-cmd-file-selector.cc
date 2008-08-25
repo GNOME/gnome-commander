@@ -425,7 +425,7 @@ static void unref_uri_list (GList *list)
 {
     g_return_if_fail (list != NULL);
 
-    g_list_foreach (list, (GFunc)gnome_vfs_uri_unref, NULL);
+    g_list_foreach (list, (GFunc) gnome_vfs_uri_unref, NULL);
 }
 
 
@@ -981,7 +981,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         btn = create_styled_button (NULL);
         gtk_object_set_data (GTK_OBJECT (btn), "con", con);
-        gtk_signal_connect (GTK_OBJECT (btn), "clicked", (GtkSignalFunc)on_con_btn_clicked, fs);
+        gtk_signal_connect (GTK_OBJECT (btn), "clicked", (GtkSignalFunc) on_con_btn_clicked, fs);
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
         GTK_WIDGET_UNSET_FLAGS (btn, GTK_CAN_FOCUS);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
@@ -1177,7 +1177,7 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCm
         fs->priv->lwd = NULL;
     }
     else
-        g_timeout_add (1, (GtkFunction)set_home_connection, fs);
+        g_timeout_add (1, (GtkFunction) set_home_connection, fs);
 }
 
 
@@ -1213,7 +1213,7 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
             static gchar text[2];
 
             if (!gnome_cmd_data_get_cmdline_visibility ())
-                gnome_cmd_file_list_show_quicksearch (fs->file_list(), (gchar)event->keyval);
+                gnome_cmd_file_list_show_quicksearch (fs->file_list(), (gchar) event->keyval);
             else
             {
                 text[0] = event->keyval;
@@ -1923,7 +1923,7 @@ void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
     GtkWidget *dialog;
 
     dialog = gnome_cmd_string_dialog_new (_("New Text File"), labels, 1,
-                                          (GnomeCmdStringDialogCallback)on_new_textfile_ok, fs);
+                                          (GnomeCmdStringDialogCallback) on_new_textfile_ok, fs);
     g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
 
     gtk_widget_ref (dialog);
@@ -2085,7 +2085,7 @@ void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdF
     GtkWidget *dialog = gnome_cmd_string_dialog_new (_("Create Symbolic Link"),
                                                      labels,
                                                      1,
-                                                     (GnomeCmdStringDialogCallback)on_create_symlink_ok,
+                                                     (GnomeCmdStringDialogCallback) on_create_symlink_ok,
                                                      fs);
 
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, text);

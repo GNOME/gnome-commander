@@ -354,7 +354,7 @@ static gpointer perform_search_operation (SearchData *data)
     // Unref all directories which contained matching files from last search
     if (data->match_dirs)
     {
-        g_list_foreach (data->match_dirs, (GFunc)gnome_cmd_dir_unref, NULL);
+        g_list_foreach (data->match_dirs, (GFunc) gnome_cmd_dir_unref, NULL);
         g_list_free (data->match_dirs);
         data->match_dirs = NULL;
     }

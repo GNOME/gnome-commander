@@ -998,9 +998,8 @@ static void on_template_options_clicked (GtkButton *button, GnomeCmdAdvrenameDia
     };
     gchar *s;
 
-    GtkWidget *dlg = gnome_cmd_string_dialog_new (
-        _("Template Options"), labels, 3,
-        (GnomeCmdStringDialogCallback)on_template_options_ok, dialog);
+    GtkWidget *dlg = gnome_cmd_string_dialog_new (_("Template Options"), labels, 3,
+                                                  (GnomeCmdStringDialogCallback) on_template_options_ok, dialog);
     gtk_widget_ref (dlg);
 
     GtkWidget *check = create_check (GTK_WIDGET (dlg), _("Auto-update when the template is entered"), "auto-update-check");

@@ -269,7 +269,7 @@ inline void gnome_cmd_error_message (const gchar *title, GError *error)
 
 // Insert an item with an inline xpm icon and a user data pointer
 #define GNOMEUIINFO_ITEM_FILENAME(label, tooltip, callback, filename) \
-    { GNOME_APP_UI_ITEM, label, tooltip, (gpointer)callback, NULL, NULL, \
+    { GNOME_APP_UI_ITEM, label, tooltip, (gpointer) callback, NULL, NULL, \
         GNOME_APP_PIXMAP_FILENAME, filename, 0, (GdkModifierType) 0, NULL }
 
 

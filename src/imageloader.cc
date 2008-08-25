@@ -492,7 +492,7 @@ void IMAGE_clear_mime_cache (void)
 {
     g_return_if_fail (mime_cache != NULL);
 
-    g_hash_table_foreach_remove (mime_cache, (GHRFunc)remove_entry, NULL);
+    g_hash_table_foreach_remove (mime_cache, (GHRFunc) remove_entry, NULL);
 }
 
 

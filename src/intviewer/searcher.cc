@@ -93,12 +93,12 @@ GType g_viewer_searcher_get_type()
             sizeof (GViewerSearcherClass),
             NULL,
             NULL,
-            (GClassInitFunc)g_viewer_searcher_class_init,
+            (GClassInitFunc) g_viewer_searcher_class_init,
             NULL,
             NULL,
             sizeof (GViewerSearcher),
             0,
-            (GInstanceInitFunc)g_viewer_searcher_init,
+            (GInstanceInitFunc) g_viewer_searcher_init,
         };
 
         type = g_type_register_static (G_TYPE_OBJECT, "GViewerSearcher", &our_info, (GTypeFlags) 0);

@@ -106,7 +106,7 @@ static void add_wg_to_map (SmbEntity *ent)
     g_hash_table_insert (entities, ent->name, ent);
     current_wg_name = ent->name;
     hosts = get_hosts (ent->name);
-    g_list_foreach (hosts, (GFunc)add_host_to_map, NULL);
+    g_list_foreach (hosts, (GFunc) add_host_to_map, NULL);
 }
 
 
@@ -131,10 +131,10 @@ inline void rebuild_map ()
         g_hash_table_destroy (entities);
 
     entities = g_hash_table_new_full (
-        (GHashFunc)str_hash, (GEqualFunc)str_ncase_equal, (GDestroyNotify)g_free, (GDestroyNotify)g_free);
+        (GHashFunc) str_hash, (GEqualFunc) str_ncase_equal, (GDestroyNotify) g_free, (GDestroyNotify) g_free);
 
     GList *wgs = get_wgs ();
-    g_list_foreach (wgs, (GFunc)add_wg_to_map, NULL);
+    g_list_foreach (wgs, (GFunc) add_wg_to_map, NULL);
 }
 
 

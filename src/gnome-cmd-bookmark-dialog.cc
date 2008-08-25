@@ -72,7 +72,7 @@ show_bookmark_dialog (const gchar *name, const gchar *path,
         _("Bookmark target:"),
     };
 
-    GtkWidget *dlg = gnome_cmd_string_dialog_new (title, labels, 2, (GnomeCmdStringDialogCallback)on_ok, dialog);
+    GtkWidget *dlg = gnome_cmd_string_dialog_new (title, labels, 2, (GnomeCmdStringDialogCallback) on_ok, dialog);
 
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dlg), 0, name);
     gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dlg), 1, path);
@@ -180,7 +180,7 @@ static void on_dir_edit (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
     show_bookmark_dialog (dialog->priv->sel_bookmark->name,
                           dialog->priv->sel_bookmark->path,
                           _("Edit Bookmark"),
-                          (GnomeCmdStringDialogCallback)on_edit_ok,
+                          (GnomeCmdStringDialogCallback) on_edit_ok,
                           dialog);
 }
 
@@ -585,7 +585,7 @@ void gnome_cmd_bookmark_add_current (void)
     show_bookmark_dialog (g_basename (path),
                           path,
                           _("New Bookmark"),
-                          (GnomeCmdStringDialogCallback)on_new_bookmark_ok,
+                          (GnomeCmdStringDialogCallback) on_new_bookmark_ok,
                           NULL);
     g_free (path);
 }
