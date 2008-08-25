@@ -337,9 +337,8 @@ static void gnome_cmd_about_plugin_response (GtkDialog *dialog, gint response)
 
 static void gnome_cmd_about_plugin_class_init (GnomeCmdAboutPluginClass *klass)
 {
-    GObjectClass *object_class = (GObjectClass *)klass;
-    GtkWidgetClass *widget_class = (GtkWidgetClass *)klass;
-    GtkDialogClass *dialog_class = (GtkDialogClass *)klass;
+    GObjectClass *object_class = (GObjectClass *) klass;
+    GtkDialogClass *dialog_class = (GtkDialogClass *) klass;
 
     object_class->set_property = gnome_cmd_about_plugin_set_property;
     object_class->get_property = gnome_cmd_about_plugin_get_property;

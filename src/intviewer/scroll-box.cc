@@ -159,7 +159,7 @@ static gboolean scroll_box_button_press(GtkWidget *widget, GdkEventButton *event
     g_return_val_if_fail (IS_SCROLL_BOX (widget), FALSE);
     g_return_val_if_fail (event != NULL, FALSE);
 
-    ScrollBox *w = SCROLL_BOX (widget);
+    // ScrollBox *w = SCROLL_BOX (widget);
 
     return FALSE;
 }

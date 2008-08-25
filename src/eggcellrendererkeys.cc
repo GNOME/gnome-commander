@@ -686,7 +686,7 @@ void egg_cell_renderer_keys_set_accelerator (EggCellRendererKeys *keys, guint ke
     if (changed)
     {
         // sync string to the key values
-        GtkCellRendererText *celltext = GTK_CELL_RENDERER_TEXT (keys);
+        // GtkCellRendererText *celltext = GTK_CELL_RENDERER_TEXT (keys);
         char *text = egg_accelerator_get_label (keys->accel_key, keys->accel_mask);
         g_object_set (keys, "text", text, NULL);
         g_free (text);

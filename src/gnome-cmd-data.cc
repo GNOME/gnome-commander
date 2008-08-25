@@ -385,7 +385,7 @@ inline gboolean load_connections (const gchar *fname)
                                 g_warning ("%s: ignored duplicate entry: %s", path, alias2);
                             else
                             {
-                                gchar *scheme2      = a[1];
+                                // gchar *scheme2      = a[1];
                                 gchar *host2        = gnome_vfs_unescape_string (a[3], NULL);
                                 gchar *remote_dir2  = gnome_vfs_unescape_string (a[5], NULL);
                                 gchar *user2        = gnome_vfs_unescape_string (a[6], NULL);

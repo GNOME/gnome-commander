@@ -183,7 +183,7 @@ static SearchFileData *read_search_file (SearchData      *data,
         return NULL;
     }
 
-    if (searchfile_data->len != NULL)
+    if (searchfile_data->len)
     {
       if ((searchfile_data->offset + searchfile_data->len) >= finfo->info->size)
       {   // end, all has been read

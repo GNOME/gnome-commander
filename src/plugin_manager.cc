@@ -142,7 +142,8 @@ static void inactivate_plugin (PluginData *data)
 static void scan_plugins_in_dir (const gchar *dpath)
 {
     DIR *dir = opendir (dpath);
-    char prev_dir[256];
+    char buff[256];
+    char *prev_dir;
     struct dirent *ent;
 
     if (dir == NULL)
@@ -153,7 +154,7 @@ static void scan_plugins_in_dir (const gchar *dpath)
         return;
     }
 
-    getcwd (prev_dir, sizeof(prev_dir));
+    prev_dir = getcwd (buff, sizeof(buff));
     chdir (dpath);
 
     while ((ent = readdir (dir)) != NULL)
