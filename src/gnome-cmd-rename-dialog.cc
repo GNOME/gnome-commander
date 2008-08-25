@@ -43,6 +43,10 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
 {
     GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG(widget);
 
+    if (dialog->priv->textbox->editable && event->type == GDK_KEY_PRESS) 
+        if (gtk_im_context_filter_keypress (dialog->priv->textbox->im_context, event))
+            return TRUE;
+
     switch (event->keyval)
     {
         case GDK_Escape:

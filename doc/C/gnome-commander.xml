@@ -5930,6 +5930,9 @@
                         <listitem>
                             <para>Fixed problem #536446 (file name not focused for in-place renaming)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem #548961 (support for input method when rename or quicksearch)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

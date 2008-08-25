@@ -126,6 +126,10 @@ static void on_text_changed (GtkEntry *entry, GnomeCmdQuicksearchPopup *popup)
 
 static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQuicksearchPopup *popup)
 {
+    if (GTK_ENTRY (entry)->editable && event->type == GDK_KEY_PRESS)
+        if (gtk_im_context_filter_keypress (GTK_ENTRY (entry)->im_context, event))
+            return TRUE;
+
     // While in quicksearch, treat "ALT/CTRL + key" as a simple "key"
     event->state &= ~(GDK_CONTROL_MASK | GDK_MOD1_MASK);
 

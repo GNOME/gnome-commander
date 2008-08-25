@@ -1,3 +1,9 @@
+2008-08-25  Takao Fujiwara  <Takao.Fujiwara@Sun.COM>
+
+	* src/gnome-cmd-quicksearch-popup.cc:
+	* src/gnome-cmd-rename-dialog.cc:
+	Fixed problem #548961 (support for input method when rename or quicksearch)
+
 2008-08-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc: Revert bug introduced in rev. #1968
