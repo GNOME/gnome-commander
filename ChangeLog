@@ -1,3 +1,7 @@
+2008-08-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc: Revert bug introduced in rev. #1968
+
 2008-08-25  Christian Kirbach  <Christian.Kirbach@googlemail.com>
 
 	* src/gnome-cmd-user-actions.cc:

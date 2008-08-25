@@ -199,7 +199,6 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (f);
     text[GnomeCmdFileList::COLUMN_OWNER] = (gchar *) gnome_cmd_file_get_owner (f);
     text[GnomeCmdFileList::COLUMN_GROUP] = (gchar *) gnome_cmd_file_get_group (f);
-    text[GnomeCmdFileList::NUM_COLUMNS]  = NULL;
 }
 
 
