@@ -114,8 +114,6 @@ gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID);
 
 void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs);
 
-void gnome_cmd_file_selector_show_mkdir_dialog (GnomeCmdFileSelector *fs);
-
 void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs);
 
 void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);

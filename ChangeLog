@@ -1,3 +1,11 @@
+2008-08-27  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-file-selector.h:
+	* src/gnome-cmd-list-popmenu.cc:
+	* src/gnome-cmd-user-actions.cc:
+	Move gnome_cmd_file_selector_show_mkdir_dialog() to gnome-cmd-user-actions.cc
+
 2008-08-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-dir.cc:

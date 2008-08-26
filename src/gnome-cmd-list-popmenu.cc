@@ -40,7 +40,7 @@ struct _GnomeCmdListPopmenuPrivate
 
 static void on_new_directory (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 {
-    gnome_cmd_file_selector_show_mkdir_dialog (fs);
+    file_mkdir (item);
 }
 
 

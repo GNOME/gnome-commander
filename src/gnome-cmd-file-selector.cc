@@ -1834,19 +1834,6 @@ void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
 }
 
 
-void gnome_cmd_file_selector_show_mkdir_dialog (GnomeCmdFileSelector *fs)
-{
-    GnomeCmdDir *dir = fs->get_directory();
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-
-    GtkWidget *dialog = gnome_cmd_mkdir_dialog_new (dir);
-    g_return_if_fail (GNOME_CMD_IS_DIALOG (dialog));
-
-    gtk_widget_ref (dialog);
-    gtk_widget_show (dialog);
-}
-
-
 static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdFileSelector *fs)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
