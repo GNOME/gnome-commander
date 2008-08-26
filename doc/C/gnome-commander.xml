@@ -4439,7 +4439,7 @@
                                             <para><guilabel>%u</guilabel> fully qualified URI for the file (or list for multiple selections)</para>
                                         </listitem>
                                         <listitem>
-                                            <para><guilabel>%d</guilabel> full path to the directory containg file</para>
+                                            <para><guilabel>%d</guilabel> full path to the directory containing file</para>
                                         </listitem>
                                         <listitem>
                                             <para><guilabel>%D</guilabel> quoted full path to the directory containing file</para>
@@ -5931,10 +5931,10 @@
                             <para>Fixed problem #536446 (file name not focused for in-place renaming)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #548961 (support for input method when rename or quicksearch)</para>
+                            <para>Fixed problem #548948 (crash when home directory contains non-UTF8 characters)</para>
                         </listitem>
                         <listitem>
-                            <para>Fixed problem #548948 (crash when home directory contains non-UTF8 characters)</para>
+                            <para>Fixed problem #548961 (support for input method when rename or quicksearch)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
