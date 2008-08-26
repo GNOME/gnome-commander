@@ -1,3 +1,8 @@
+2008-08-27  Takao Fujiwara  <Takao.Fujiwara@Sun.COM>
+
+	* src/gnome-cmd-file.cc:
+	Fixed problem #548948 (crash when home directory contains non-UTF8 characters)
+
 2008-08-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:

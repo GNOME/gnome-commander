@@ -5933,6 +5933,9 @@
                         <listitem>
                             <para>Fixed problem #548961 (support for input method when rename or quicksearch)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem #548948 (crash when home directory contains non-UTF8 characters)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>

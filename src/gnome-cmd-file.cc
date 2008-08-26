@@ -187,7 +187,10 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
 
     f->info = info;
     GNOME_CMD_FILE_INFO (f)->info = info;
-    f->collate_key = g_utf8_collate_key_for_filename (info->name, -1);
+
+    gchar *utf8_name = get_utf8 (info->name);
+    f->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
+    g_free (utf8_name);
 
     if (dir)
     {
@@ -800,7 +803,10 @@ void gnome_cmd_file_update_info (GnomeCmdFile *f, GnomeVFSFileInfo *info)
     gnome_vfs_file_info_unref (f->info);
     gnome_vfs_file_info_ref (info);
     f->info = info;
-    f->collate_key = g_utf8_collate_key_for_filename (info->name, -1);
+
+    gchar *utf8_name = get_utf8 (info->name);
+    f->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
+    g_free (utf8_name);
 }
 
 
