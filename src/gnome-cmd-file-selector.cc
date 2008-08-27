@@ -374,7 +374,7 @@ static void update_files (GnomeCmdFileSelector *fs)
     if (fs->priv->realized)
         update_selected_files_label (fs);
     if (fs->priv->active)
-        gnome_cmd_file_list_select_row (fs->file_list(), 0);
+        fs->file_list()->select_row(0);
 
     if (list2)
         g_list_free (list2);
@@ -1588,7 +1588,7 @@ void GnomeCmdFileSelector::set_active(gboolean value)
     if (value)
     {
         gtk_widget_grab_focus (list_widget);
-        gnome_cmd_file_list_select_row (list, GTK_CLIST (list)->focus_row);
+        list->select_row(GTK_CLIST (list)->focus_row);
     }
     else
         gtk_clist_unselect_all (GTK_CLIST (list));
@@ -2020,7 +2020,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
         {
             case GDK_space:
                 set_cursor_busy ();
-                gnome_cmd_file_list_toggle (fs->file_list());
+                fs->file_list()->toggle();
                 show_selected_dir_tree_size (fs);
                 stop_kp (GTK_OBJECT (fs->file_list()));
                 update_selected_files_label (fs);

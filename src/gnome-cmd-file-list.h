@@ -54,6 +54,10 @@ struct GnomeCmdFileList
 
     Private *priv;
 
+    operator GtkObject * ()             {  return GTK_OBJECT (this);       }
+    operator GtkCList * ()              {  return GTK_CLIST (this);        }
+    operator GnomeCmdCList * ()         {  return GNOME_CMD_CLIST (this);  }
+
     enum ColumnID
     {
         COLUMN_ICON,
@@ -69,7 +73,9 @@ struct GnomeCmdFileList
     };
 
     int size();
-    bool empty()                {  return size()==0;  }
+    bool empty();
+    // int size()                          {  return g_list_length (all_files());  }
+    // bool empty()                        {  return all_files()==NULL;            }    // FIXME should be: size()==0
     void clear();
 
     void append_file(GnomeCmdFile *f);
@@ -77,10 +83,15 @@ struct GnomeCmdFileList
     void remove_file(GnomeCmdFile *f);
     void remove_file(const gchar *uri_str);
     void remove_files(GList *files);
-    void remove_all_files()     {  clear();  }
+    void remove_all_files()             {  clear();  }
 
     void select_all();
     void unselect_all();
+
+    void select_row(gint row);
+
+    void toggle();
+    void toggle_and_step();
 
     void sort();
     GList *sort_selection(GList *list);
@@ -131,21 +142,21 @@ GList *gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl);
 GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl);
 GList *gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl);
 
+GnomeCmdFile *gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl);
+GnomeCmdFile *gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl);
+GnomeCmdFile *gnome_cmd_file_list_get_first_selected_file (GnomeCmdFileList *fl);
+
+void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
+
 inline int GnomeCmdFileList::size()
 {
     return g_list_length (gnome_cmd_file_list_get_all_files (this));
 }
 
-GnomeCmdFile *gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl);
-GnomeCmdFile *gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl);
-GnomeCmdFile *gnome_cmd_file_list_get_first_selected_file (GnomeCmdFileList *fl);
-
-void gnome_cmd_file_list_toggle (GnomeCmdFileList *fl);
-void gnome_cmd_file_list_toggle_and_step (GnomeCmdFileList *fl);
-
-void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
-
-void gnome_cmd_file_list_select_row (GnomeCmdFileList *fl, gint row);
+inline bool GnomeCmdFileList::empty()
+{
+    return gnome_cmd_file_list_get_all_files (this)==NULL;
+}
 
 void gnome_cmd_file_list_select_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens);
 void gnome_cmd_file_list_unselect_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens);
@@ -157,7 +168,6 @@ void gnome_cmd_file_list_restore_selection (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
 
 GnomeCmdFile *gnome_cmd_file_list_get_file_at_row (GnomeCmdFileList *fl, gint row);
-
 gint gnome_cmd_file_list_get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 
 void gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl);

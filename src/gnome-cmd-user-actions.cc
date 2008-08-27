@@ -1110,13 +1110,13 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
 /************** Mark Menu **************/
 void mark_toggle (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_toggle (get_fl (ACTIVE));
+    get_fl (ACTIVE)->toggle();
 }
 
 
 void mark_toggle_and_step (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_toggle_and_step (get_fl (ACTIVE));
+    get_fl (ACTIVE)->toggle_and_step();
 }
 
 

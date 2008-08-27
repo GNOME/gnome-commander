@@ -220,7 +220,7 @@ inline GnomeCmdFile *get_file_at_row (GnomeCmdFileList *fl, gint row)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
 
-    return (GnomeCmdFile *) gtk_clist_get_row_data (GTK_CLIST (fl), row);
+    return (GnomeCmdFile *) gtk_clist_get_row_data (*fl, row);
 }
 
 
@@ -229,7 +229,7 @@ inline gint get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), -1);
     g_return_val_if_fail (finfo != NULL, -1);
 
-    return gtk_clist_find_row_from_data (GTK_CLIST (fl), finfo);
+    return gtk_clist_find_row_from_data (*fl, finfo);
 }
 
 
@@ -283,7 +283,7 @@ inline void focus_file_at_row (GnomeCmdFileList *fl, gint row)
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     GTK_CLIST (fl)->focus_row = row;
-    gtk_clist_select_row (GTK_CLIST (fl), row, 0);
+    gtk_clist_select_row (*fl, row, 0);
     fl->priv->cur_file = GTK_CLIST (fl)->focus_row;
 }
 
@@ -309,14 +309,14 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 
 
     if (!gnome_cmd_data_get_use_ls_colors ())
-        gtk_clist_set_row_style (GTK_CLIST (fl), row, sel_list_style);
+        gtk_clist_set_row_style (*fl, row, sel_list_style);
     else
     {
         GnomeCmdColorTheme *colors = gnome_cmd_data_get_current_color_theme ();
         if (!colors->respect_theme)
         {
-            gtk_clist_set_foreground (GTK_CLIST (fl), row, colors->sel_fg);
-            gtk_clist_set_background (GTK_CLIST (fl), row, colors->sel_bg);
+            gtk_clist_set_foreground (*fl, row, colors->sel_fg);
+            gtk_clist_set_background (*fl, row, colors->sel_bg);
         }
     }
 
@@ -326,7 +326,7 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     gnome_cmd_file_ref (finfo);
     fl->priv->selected_files = g_list_append (fl->priv->selected_files, finfo);
 
-    gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[SELECTION_CHANGED]);
+    gtk_signal_emit (*fl, file_list_signals[SELECTION_CHANGED]);
 }
 
 
@@ -346,23 +346,19 @@ static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     fl->priv->selected_files = g_list_remove (fl->priv->selected_files, finfo);
 
     if (!gnome_cmd_data_get_use_ls_colors ())
-        gtk_clist_set_row_style (GTK_CLIST (fl), row, list_style);
+        gtk_clist_set_row_style (*fl, row, list_style);
     else
-    {
-        LsColor *col = ls_colors_get (finfo);
-        GnomeCmdColorTheme *colors = gnome_cmd_data_get_current_color_theme ();
-        GdkColor *fg, *bg;
-        if (col)
+        if (LsColor *col = ls_colors_get (finfo))
         {
-            fg = col->fg;
-            bg = col->bg;
-            if (!fg)  fg = colors->norm_fg;
-            if (!bg)  bg = colors->norm_bg;
-            if (bg)  gtk_clist_set_background (GTK_CLIST (fl), row, bg);
-            if (fg)  gtk_clist_set_foreground (GTK_CLIST (fl), row, fg);
+            GnomeCmdColorTheme *colors = gnome_cmd_data_get_current_color_theme ();
+            GdkColor *fg = col->fg ? col->fg : colors->norm_fg;
+            GdkColor *bg = col->bg ? col->bg : colors->norm_bg;
+
+            if (bg)  gtk_clist_set_background (*fl, row, bg);
+            if (fg)  gtk_clist_set_foreground (*fl, row, fg);
         }
-    }
-    gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[SELECTION_CHANGED]);
+
+    gtk_signal_emit (*fl, file_list_signals[SELECTION_CHANGED]);
 }
 
 
@@ -501,7 +497,7 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
 
 static void create_column_titles (GnomeCmdFileList *fl)
 {
-    gtk_clist_column_title_passive (GTK_CLIST (fl), GnomeCmdFileList::COLUMN_ICON);
+    gtk_clist_column_title_passive (*fl, GnomeCmdFileList::COLUMN_ICON);
 
     for (gint i=GnomeCmdFileList::COLUMN_NAME; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
@@ -512,33 +508,33 @@ static void create_column_titles (GnomeCmdFileList *fl)
 
         hbox = gtk_hbox_new (FALSE, 1);
         gtk_widget_ref (hbox);
-        gtk_object_set_data_full (GTK_OBJECT (fl), "column-hbox", hbox, (GtkDestroyNotify) gtk_widget_unref);
+        gtk_object_set_data_full (*fl, "column-hbox", hbox, (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (hbox);
 
         fl->priv->column_labels[i] = gtk_label_new (_(file_list_column[i].title));
         gtk_widget_ref (fl->priv->column_labels[i]);
-        gtk_object_set_data_full (GTK_OBJECT (fl), "column-label", fl->priv->column_labels[i],
+        gtk_object_set_data_full (*fl, "column-label", fl->priv->column_labels[i],
                                   (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (fl->priv->column_labels[i]);
         gtk_box_pack_start (GTK_BOX (hbox), fl->priv->column_labels[i], TRUE, TRUE, 0);
 
         pixmap = gtk_pixmap_new (pm, bm);
         gtk_widget_ref (pixmap);
-        gtk_object_set_data_full (GTK_OBJECT (fl), "column-pixmap", pixmap, (GtkDestroyNotify) gtk_widget_unref);
+        gtk_object_set_data_full (*fl, "column-pixmap", pixmap, (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (pixmap);
         gtk_box_pack_start (GTK_BOX (hbox), pixmap, FALSE, FALSE, 0);
 
         fl->priv->column_pixmaps[i] = pixmap;
-        gtk_clist_set_column_widget (GTK_CLIST (fl), i, hbox);
+        gtk_clist_set_column_widget (*fl, i, hbox);
     }
 
     for (gint i=GnomeCmdFileList::COLUMN_ICON; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
-        gtk_clist_set_column_width (GTK_CLIST (fl), i, gnome_cmd_data_get_fs_col_width (i));
-        gtk_clist_set_column_justification (GTK_CLIST (fl), i, file_list_column[i].justification);
+        gtk_clist_set_column_width (*fl, i, gnome_cmd_data_get_fs_col_width (i));
+        gtk_clist_set_column_justification (*fl, i, file_list_column[i].justification);
     }
 
-    gtk_clist_column_titles_show (GTK_CLIST (fl));
+    gtk_clist_column_titles_show (*fl);
 }
 
 
@@ -685,7 +681,7 @@ inline void init_dnd (GnomeCmdFileList *fl)
                          drag_types, G_N_ELEMENTS (drag_types),
                          (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
 
-    gtk_signal_connect (GTK_OBJECT (fl), "drag_data_get", GTK_SIGNAL_FUNC (drag_data_get), fl);
+    gtk_signal_connect (*fl, "drag_data_get", GTK_SIGNAL_FUNC (drag_data_get), fl);
 }
 
 
@@ -706,7 +702,7 @@ static void show_file_popup (GnomeCmdFileList *fl, GdkEventButton *event)
     if (!menu) return;
 
     gtk_widget_ref (menu);
-    gtk_object_set_data_full (GTK_OBJECT (fl), "file_popup_menu", menu, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (*fl, "file_popup_menu", menu, (GtkDestroyNotify) gtk_widget_unref);
 
     gnome_popup_menu_do_popup (menu, (GtkMenuPositionFunc) popup_position_function, fl, event, fl, NULL);
 }
@@ -1046,18 +1042,18 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
     if (GTK_CLIST (fl)->clist_window != event->window)
         return FALSE;
 
-    gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[LIST_CLICKED], event);
+    gtk_signal_emit (*fl, file_list_signals[LIST_CLICKED], event);
 
-    gint row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fl), event->x, event->y);
+    gint row = gnome_cmd_clist_get_row (*fl, event->x, event->y);
     if (row < 0)
     {
-        gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[EMPTY_SPACE_CLICKED], event);
+        gtk_signal_emit (*fl, file_list_signals[EMPTY_SPACE_CLICKED], event);
         return FALSE;
     }
 
     GnomeCmdFile *finfo = get_file_at_row (fl, row);
 
-    gtk_signal_emit (GTK_OBJECT (fl), file_list_signals[FILE_CLICKED], finfo, event);
+    gtk_signal_emit (*fl, file_list_signals[FILE_CLICKED], finfo, event);
 
     gtk_signal_emit_stop_by_name (GTK_OBJECT (clist), "button-press-event");
 
@@ -1095,7 +1091,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEvent
             gint prev_row = fl->priv->cur_file;
             gint row = get_row_from_file (fl, finfo);
 
-            gnome_cmd_file_list_select_row (fl, row);
+            fl->select_row(row);
             gtk_widget_grab_focus (GTK_WIDGET (fl));
 
             if (event->button == 1)
@@ -1155,14 +1151,14 @@ static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFi
         y = event->y;
         y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
 
-        row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fl), event->x, y);
+        row = gnome_cmd_clist_get_row (*fl, event->x, y);
 
         if (row != -1)
         {
             GnomeCmdFile *finfo = gnome_cmd_file_list_get_file_at_row (fl, row+1);
             if (finfo)
             {
-                gnome_cmd_file_list_select_row (fl, row+1);
+                fl->select_row(row+1);
                 if (fl->priv->right_mouse_sel_state)
                     select_file (fl, finfo);
                 else
@@ -1182,7 +1178,7 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
     if (GTK_CLIST (fl)->clist_window != event->window)
         return FALSE;
 
-    gint row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fl), event->x, event->y);
+    gint row = gnome_cmd_clist_get_row (*fl, event->x, event->y);
     if (row < 0)
         return FALSE;
 
@@ -1314,17 +1310,17 @@ static void init (GnomeCmdFileList *fl)
     init_dnd (fl);
 
     for (gint i=0; i<GnomeCmdFileList::NUM_COLUMNS; i++)
-        gtk_clist_set_column_resizeable (GTK_CLIST (fl), i, TRUE);
+        gtk_clist_set_column_resizeable (*fl, i, TRUE);
 
-    gtk_signal_connect_after (GTK_OBJECT (fl), "scroll-vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), fl);
-    gtk_signal_connect (GTK_OBJECT (fl), "click-column", GTK_SIGNAL_FUNC (on_column_clicked), fl);
+    gtk_signal_connect_after (*fl, "scroll-vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), fl);
+    gtk_signal_connect (*fl, "click-column", GTK_SIGNAL_FUNC (on_column_clicked), fl);
 
-    gtk_signal_connect (GTK_OBJECT (fl), "button-press-event", GTK_SIGNAL_FUNC (on_button_press), fl);
-    gtk_signal_connect (GTK_OBJECT (fl), "button-release-event", GTK_SIGNAL_FUNC (on_button_release), fl);
-    gtk_signal_connect (GTK_OBJECT (fl), "motion-notify-event", GTK_SIGNAL_FUNC (on_motion_notify), fl);
+    gtk_signal_connect (*fl, "button-press-event", GTK_SIGNAL_FUNC (on_button_press), fl);
+    gtk_signal_connect (*fl, "button-release-event", GTK_SIGNAL_FUNC (on_button_release), fl);
+    gtk_signal_connect (*fl, "motion-notify-event", GTK_SIGNAL_FUNC (on_motion_notify), fl);
 
     gtk_signal_connect_after (GTK_OBJECT (fl), "realize", GTK_SIGNAL_FUNC (on_realize), fl);
-    gtk_signal_connect (GTK_OBJECT (fl), "file-clicked", GTK_SIGNAL_FUNC (on_file_clicked), fl);
+    gtk_signal_connect (*fl, "file-clicked", GTK_SIGNAL_FUNC (on_file_clicked), fl);
 }
 
 
@@ -1380,9 +1376,9 @@ GnomeCmdFileList::ColumnID GnomeCmdFileList::get_sort_column()
 
 void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl)
 {
-    gtk_clist_set_row_height (GTK_CLIST (fl), gnome_cmd_data_get_list_row_height ());
+    gtk_clist_set_row_height (*fl, gnome_cmd_data_get_list_row_height ());
 
-    gnome_cmd_clist_update_style (GNOME_CMD_CLIST (fl));
+    gnome_cmd_clist_update_style (*fl);
 }
 
 
@@ -1478,10 +1474,10 @@ void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolea
     else
         tmp = list;
 
-    gtk_clist_freeze (GTK_CLIST (fl));
+    gtk_clist_freeze (*fl);
     for (; tmp; tmp = tmp->next)
         fl->append_file(GNOME_CMD_FILE (tmp->data));
-    gtk_clist_thaw (GTK_CLIST (fl));
+    gtk_clist_thaw (*fl);
 
     if (list)
         g_list_free (list);
@@ -1524,7 +1520,7 @@ void gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     FileFormatData data(finfo, FALSE);
 
     for (gint i=1; i<GnomeCmdFileList::NUM_COLUMNS; i++)
-        gtk_clist_set_text (GTK_CLIST (fl), row, i, data.text[i]);
+        gtk_clist_set_text (*fl, row, i, data.text[i]);
 }
 
 
@@ -1540,7 +1536,7 @@ void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finf
     FileFormatData data(finfo,TRUE);
 
     for (gint i=1; i<GnomeCmdFileList::NUM_COLUMNS; i++)
-        gtk_clist_set_text (GTK_CLIST (fl), row, i, data.text[i]);
+        gtk_clist_set_text (*fl, row, i, data.text[i]);
 }
 
 
@@ -1759,28 +1755,24 @@ void GnomeCmdFileList::unselect_all()
 }
 
 
-void gnome_cmd_file_list_toggle (GnomeCmdFileList *fl)
+void GnomeCmdFileList::toggle()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+    GnomeCmdFile *f = get_file_at_row (this, priv->cur_file);
 
-    GnomeCmdFile *finfo = get_file_at_row (fl, fl->priv->cur_file);
-
-    if (finfo)
-        toggle_file (fl, finfo);
+    if (f)
+        toggle_file (this, f);
 }
 
 
-void gnome_cmd_file_list_toggle_and_step (GnomeCmdFileList *fl)
+void GnomeCmdFileList::toggle_and_step()
 {
 
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+    GnomeCmdFile *f = get_file_at_row (this, priv->cur_file);
 
-    GnomeCmdFile *finfo = get_file_at_row (fl, fl->priv->cur_file);
-
-    if (finfo)
-        toggle_file (fl, finfo);
-    if (fl->priv->cur_file < fl->size()-1)
-        focus_file_at_row (fl, fl->priv->cur_file+1);
+    if (f)
+        toggle_file (this, f);
+    if (priv->cur_file < size()-1)
+        focus_file_at_row (this, priv->cur_file+1);
 }
 
 
@@ -1804,7 +1796,7 @@ void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_fi
             fl->priv->cur_file = row;
             focus_file_at_row (fl, row);
             if (scroll_to_file)
-                gtk_clist_moveto (GTK_CLIST (fl), row, 0, 0, 0);
+                gtk_clist_moveto (*fl, row, 0, 0, 0);
             return;
         }
     }
@@ -1816,9 +1808,9 @@ void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_fi
 }
 
 
-void gnome_cmd_file_list_select_row (GnomeCmdFileList *fl, gint row)
+void GnomeCmdFileList::select_row(gint row)
 {
-    focus_file_at_row (fl, row == -1 ? fl->priv->cur_file : row);
+    focus_file_at_row (this, row==-1 ? priv->cur_file : row);
 }
 
 
@@ -1940,7 +1932,7 @@ void GnomeCmdFileList::sort ()
     if (selfile && GTK_WIDGET_HAS_FOCUS (this))
     {
         gint selrow = get_row_from_file (this, selfile);
-        gnome_cmd_file_list_select_row (this, selrow);
+        select_row(selrow);
         gtk_clist_moveto (GTK_CLIST (this), selrow, -1, 1, 0);
     }
 
@@ -2140,7 +2132,7 @@ void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
     if (fl->priv->quicksearch_popup)
         return;
 
-    gtk_clist_unselect_all (GTK_CLIST (fl));
+    gtk_clist_unselect_all (*fl);
 
     fl->priv->quicksearch_popup = gnome_cmd_quicksearch_popup_new (fl);
     text[0] = c;
@@ -2303,7 +2295,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
 
             case GDK_Insert:
             case GDK_KP_Insert:
-                gnome_cmd_file_list_toggle (this);
+                toggle();
                 gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
                 return TRUE;
 

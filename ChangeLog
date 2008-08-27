@@ -1,3 +1,12 @@
+2008-08-27  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-quicksearch-popup.cc:
+	* src/gnome-cmd-user-actions.cc:
+	Convert GnomeCmdFileList struct into C++ class, part 3
+
 2008-08-27  Takao Fujiwara  <Takao.Fujiwara@Sun.COM>
 
 	* src/gnome-cmd-file.cc:
