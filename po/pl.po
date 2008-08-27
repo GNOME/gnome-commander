@@ -873,7 +873,7 @@ msgstr "Dodaj bieżący katalog"
 
 #: ../src/gnome-cmd-dir-indicator.cc:403
 msgid "Manage bookmarks..."
-msgstr "_Zarządzanie zakładkami..."
+msgstr "Zarządzanie zakładkami..."
 
 #: ../src/gnome-cmd-dir.cc:550
 msgid "Waiting for file list"
