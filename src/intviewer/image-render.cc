@@ -223,7 +223,7 @@ static void image_render_class_init (ImageRenderClass *klass)
     widget_class->realize = image_render_realize;
 
     image_render_signals[IMAGE_STATUS_CHANGED] =
-        gtk_signal_new ("image_status_changed",
+        gtk_signal_new ("image-status-changed",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (ImageRenderClass, image_status_changed),

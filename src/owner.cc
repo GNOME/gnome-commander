@@ -45,7 +45,7 @@ static user_t *create_user (struct passwd *pw, gboolean zombie)
 {
     if (pw)
     {
-        user_t *user = g_new0 (user_t,1);
+        user_t *user = g_new0 (user_t, 1);
 
         g_assert (pw->pw_name);
         g_assert (pw->pw_passwd);
@@ -79,7 +79,7 @@ static group_t *create_group (struct group *gr, gboolean zombie)
         g_assert (gr->gr_name);
         g_assert (gr->gr_passwd);
 
-        group = g_new0 (group_t,1);
+        group = g_new0 (group_t, 1);
 
         group->zombie =  zombie;
         group->name =    g_strdup (gr->gr_name);
@@ -211,13 +211,13 @@ user_t *OWNER_get_user_by_uid (uid_t uid)
     struct passwd pw;
 
     pw.pw_uid = uid;
-    pw.pw_name = g_strdup_printf ("%d",uid);
+    pw.pw_name = g_strdup_printf ("%d", uid);
     pw.pw_gecos = "";
     pw.pw_dir = "";
     pw.pw_shell = "";
     pw.pw_passwd = "";
 
-    user = create_user (&pw,TRUE);
+    user = create_user (&pw, TRUE);
     if (user)
         all_users = g_list_append (all_users, user);
 
@@ -257,11 +257,11 @@ group_t *OWNER_get_group_by_gid (gid_t gid)
     struct group gr;
 
     gr.gr_gid = gid;
-    gr.gr_name = g_strdup_printf ("%d",gid);
+    gr.gr_name = g_strdup_printf ("%d", gid);
     gr.gr_passwd = "";
     gr.gr_mem = NULL;
 
-    group_t *group = create_group (&gr,TRUE);
+    group_t *group = create_group (&gr, TRUE);
     if (group)
         all_groups = g_list_append (all_groups, group);
 

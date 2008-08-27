@@ -341,7 +341,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
                                     intersect_rectangle.height);
         }
 
-        if (!gdk_rectangle_intersect (area, &row_rectangle,&intersect_rectangle))
+        if (!gdk_rectangle_intersect (area, &row_rectangle, &intersect_rectangle))
             return;
 
     }
@@ -525,7 +525,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
  ****/
 static void on_hadj_value_changed (GtkAdjustment *adjustment, GnomeCmdCList *clist)
 {
-    gtk_widget_draw(GTK_WIDGET(clist),NULL);
+    gtk_widget_draw(GTK_WIDGET(clist), NULL);
 }
 
 
@@ -590,7 +590,7 @@ static void init (GnomeCmdCList *clist)
     
     GTK_CLIST (clist)->focus_row = 0;
 
-    gtk_signal_connect_after (GTK_OBJECT (clist), "scroll_vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), NULL);
+    gtk_signal_connect_after (GTK_OBJECT (clist), "scroll-vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), NULL);
     gtk_signal_connect (GTK_OBJECT (clist), "realize", GTK_SIGNAL_FUNC (on_realize), NULL);
 }
 

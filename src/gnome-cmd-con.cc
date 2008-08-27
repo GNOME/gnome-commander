@@ -137,7 +137,7 @@ static void class_init (GnomeCmdConClass *klass)
             0);
 
     signals[OPEN_DONE] =
-        gtk_signal_new ("open_done",
+        gtk_signal_new ("open-done",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdConClass, open_done),
@@ -146,7 +146,7 @@ static void class_init (GnomeCmdConClass *klass)
             0);
 
     signals[OPEN_FAILED] =
-        gtk_signal_new ("open_failed",
+        gtk_signal_new ("open-failed",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdConClass, open_failed),

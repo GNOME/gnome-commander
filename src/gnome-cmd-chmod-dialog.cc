@@ -226,7 +226,7 @@ static void init (GnomeCmdChmodDialog *dialog)
 
     gtk_signal_connect (GTK_OBJECT (dialog->priv->recurse_check), "toggled",
                         GTK_SIGNAL_FUNC (on_toggle_recurse), chmod_dialog);
-    gtk_signal_connect (GTK_OBJECT (dialog->priv->chmod_component), "perms_changed",
+    gtk_signal_connect (GTK_OBJECT (dialog->priv->chmod_component), "perms-changed",
                         GTK_SIGNAL_FUNC (on_perms_changed), chmod_dialog);
 }
 

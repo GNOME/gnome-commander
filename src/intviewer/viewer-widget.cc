@@ -133,7 +133,7 @@ static void gviewer_class_init (GViewerClass *klass)
     object_class->destroy = gviewer_destroy;
 
     gviewer_signals[STATUS_LINE_CHANGED] =
-        gtk_signal_new ("status_line_changed",
+        gtk_signal_new ("status-line-changed",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GViewerClass, status_line_changed),
@@ -189,8 +189,8 @@ static void gviewer_init (GViewer *w)
 
     g_signal_connect (G_OBJECT (w), "destroy-event", G_CALLBACK (gviewer_destroy), (gpointer) w);
 
-    g_signal_connect (G_OBJECT (w->priv->textr), "text_status_changed", G_CALLBACK (gviewer_text_status_update), (gpointer) w);
-    g_signal_connect (G_OBJECT (w->priv->imgr), "image_status_changed", G_CALLBACK (gviewer_image_status_update), (gpointer) w);
+    g_signal_connect (G_OBJECT (w->priv->textr), "text-status-changed", G_CALLBACK (gviewer_text_status_update), (gpointer) w);
+    g_signal_connect (G_OBJECT (w->priv->imgr), "image-status-changed", G_CALLBACK (gviewer_image_status_update), (gpointer) w);
 }
 
 

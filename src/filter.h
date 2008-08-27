@@ -36,7 +36,7 @@ struct Filter
     char *fn_exp;       // fnmatch filtering stuff
     int fn_flags;       // fnmatch filtering stuff
 
-    Filter(const gchar *exp, gboolean case_sens,Type type);
+    Filter(const gchar *exp, gboolean case_sens, Type type);
     ~Filter();
 
     gboolean match(const gchar *text);

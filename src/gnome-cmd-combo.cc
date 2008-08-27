@@ -321,7 +321,7 @@ static void class_init (GnomeCmdComboClass *klass)
     GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
 
     combo_signals[ITEM_SELECTED] =
-        gtk_signal_new ("item_selected",
+        gtk_signal_new ("item-selected",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdComboClass, item_selected),
@@ -330,7 +330,7 @@ static void class_init (GnomeCmdComboClass *klass)
             1, GTK_TYPE_POINTER);
 
     combo_signals[POPWIN_HIDDEN] =
-        gtk_signal_new ("popwin_hidden",
+        gtk_signal_new ("popwin-hidden",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdComboClass, popwin_hidden),
@@ -400,7 +400,7 @@ static void init (GnomeCmdCombo *combo)
 
     event_box = gtk_event_box_new ();
     gtk_widget_ref (event_box);
-    gtk_object_set_data_full (GTK_OBJECT (combo),"event_box", event_box, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (combo), "event_box", event_box, (GtkDestroyNotify) gtk_widget_unref);
     gtk_container_add (GTK_CONTAINER (combo->popwin), event_box);
     gtk_widget_show (event_box);
     gtk_widget_realize (event_box);
@@ -418,7 +418,7 @@ static void init (GnomeCmdCombo *combo)
 
     combo->popup = gtk_scrolled_window_new (NULL, NULL);
     gtk_widget_ref (combo->popup);
-    gtk_object_set_data_full (GTK_OBJECT (combo),"combo->popup", combo->popup, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (combo), "combo->popup", combo->popup, (GtkDestroyNotify) gtk_widget_unref);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (combo->popup), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     GTK_WIDGET_UNSET_FLAGS (GTK_SCROLLED_WINDOW (combo->popup)->hscrollbar, GTK_CAN_FOCUS);
     GTK_WIDGET_UNSET_FLAGS (GTK_SCROLLED_WINDOW (combo->popup)->vscrollbar, GTK_CAN_FOCUS);

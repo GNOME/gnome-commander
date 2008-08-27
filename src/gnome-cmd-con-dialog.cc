@@ -435,7 +435,7 @@ static void port_insert_text (GtkEditable *editable, const gchar *new_text, gint
     if (new_text_length != 1 || !g_ascii_isdigit (new_text[0]))
     {
         gdk_display_beep (gtk_widget_get_display (GTK_WIDGET (editable)));
-        g_signal_stop_emission_by_name (editable, "insert_text");
+        g_signal_stop_emission_by_name (editable, "insert-text");
     }
 }
 
@@ -519,7 +519,7 @@ static void gnome_cmd_connect_dialog_init (GnomeCmdConnectDialog *dialog)
     gtk_widget_show (table);
     gtk_container_add (GTK_CONTAINER (align), table);
 
-    g_signal_connect (dialog->priv->port_entry, "insert_text", G_CALLBACK (port_insert_text), NULL);
+    g_signal_connect (dialog->priv->port_entry, "insert-text", G_CALLBACK (port_insert_text), NULL);
 
     setup_for_type (dialog);
 

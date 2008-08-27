@@ -1266,7 +1266,7 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
     parent_class = (GtkVBoxClass *) gtk_type_class (gtk_vbox_get_type ());
 
     file_selector_signals[CHANGED_DIR] =
-        gtk_signal_new ("changed_dir",
+        gtk_signal_new ("changed-dir",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdFileSelectorClass, changed_dir),
@@ -1384,7 +1384,7 @@ static void init (GnomeCmdFileSelector *fs)
                         GTK_SIGNAL_FUNC (on_list_list_clicked), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "empty-space-clicked",
                         GTK_SIGNAL_FUNC (on_list_empty_space_clicked), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "selection_changed",
+    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "selection-changed",
                         GTK_SIGNAL_FUNC (on_list_selection_changed), fs);
 
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event",

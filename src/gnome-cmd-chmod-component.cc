@@ -100,7 +100,7 @@ static void class_init (GnomeCmdChmodComponentClass *klass)
     klass->perms_changed = on_perms_changed;
 
     chmod_component_signals[PERMS_CHANGED] =
-        gtk_signal_new ("perms_changed",
+        gtk_signal_new ("perms-changed",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdChmodComponentClass, perms_changed),

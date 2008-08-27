@@ -292,7 +292,7 @@ static void gviewer_window_init (GViewerWindow *w)
     GtkWindow *win = GTK_WINDOW (w);
     gtk_window_set_title(win, "GViewer");
 
-    g_signal_connect(G_OBJECT (w), "key_press_event", G_CALLBACK (gviewer_window_key_pressed), NULL);
+    g_signal_connect(G_OBJECT (w), "key-press-event", G_CALLBACK (gviewer_window_key_pressed), NULL);
 
     w->priv->vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_show (w->priv->vbox);
@@ -308,7 +308,7 @@ static void gviewer_window_init (GViewerWindow *w)
     w->priv->exif_viewer = (GViewer *) gviewer_new();
     g_object_ref (G_OBJECT (w->priv->exif_viewer));
 
-    g_signal_connect(G_OBJECT (w->priv->viewer), "status_line_changed", G_CALLBACK (gviewer_window_status_line_changed), (gpointer) w);
+    g_signal_connect(G_OBJECT (w->priv->viewer), "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), (gpointer) w);
 
 
     w->priv->statusbar = gtk_statusbar_new ();

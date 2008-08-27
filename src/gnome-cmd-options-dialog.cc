@@ -261,7 +261,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     label = create_label (parent, "");
     gtk_object_set_data_full (GTK_OBJECT (parent), "date_format_test_label",
                               label, (GtkDestroyNotify) gtk_widget_unref);
-    gtk_signal_connect (GTK_OBJECT (label), "realize",GTK_SIGNAL_FUNC (on_date_format_update), parent);
+    gtk_signal_connect (GTK_OBJECT (label), "realize", GTK_SIGNAL_FUNC (on_date_format_update), parent);
     table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     label = create_label (parent, _("See the manual page for \"strftime\" for help on how to set the format string."));
@@ -520,7 +520,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 
     // LS_COLORS
     check = create_check (parent, _("Colorize files according to the LS_COLORS environment variable"), "use_ls_colors");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check),gnome_cmd_data_get_use_ls_colors());
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_use_ls_colors());
     gtk_table_attach (GTK_TABLE (table), check, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 
 
@@ -1530,7 +1530,7 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
 
     if (dev) s = gnome_cmd_con_device_get_icon_path (dev);
     entry = create_icon_entry (dialog, "device_iconentry", s);
-    icon_dir = g_build_path (G_DIR_SEPARATOR_S,PIXMAPS_DIR, "device-icons", NULL);
+    icon_dir = g_build_path (G_DIR_SEPARATOR_S, PIXMAPS_DIR, "device-icons", NULL);
     gnome_icon_entry_set_pixmap_subdir (GNOME_ICON_ENTRY (entry), icon_dir);
     g_free (icon_dir);
     table_add (table, entry, 1, 3, GTK_FILL);

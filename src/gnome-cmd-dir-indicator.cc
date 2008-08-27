@@ -429,9 +429,9 @@ static void init (GnomeCmdDirIndicator *indicator)
     // create the directory label and its event box
     indicator->priv->event_box = gtk_event_box_new ();
     gtk_widget_ref (indicator->priv->event_box);
-    gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "motion_notify_event",
+    gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "motion-notify-event",
                                GTK_SIGNAL_FUNC (on_dir_indicator_motion), indicator);
-    gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "leave_notify_event",
+    gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "leave-notify-event",
                                GTK_SIGNAL_FUNC (on_dir_indicator_leave), indicator);
     gtk_widget_set_events (indicator->priv->event_box, GDK_POINTER_MOTION_MASK);
 
@@ -508,7 +508,7 @@ GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
     GnomeCmdDirIndicator *dir_indicator = (GnomeCmdDirIndicator *) gtk_type_new (gnome_cmd_dir_indicator_get_type ());
 
-    gtk_signal_connect (GTK_OBJECT (dir_indicator), "button_press_event", G_CALLBACK (on_dir_indicator_clicked), fs);
+    gtk_signal_connect (GTK_OBJECT (dir_indicator), "button-press-event", G_CALLBACK (on_dir_indicator_clicked), fs);
 
     dir_indicator->priv->fs = fs;
 
@@ -532,7 +532,7 @@ void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *pa
     if (!path)
         return;
 
-    gboolean isUNC = g_str_has_prefix(path,"\\\\");
+    gboolean isUNC = g_str_has_prefix (path, "\\\\");
 
     if (!isUNC && *path!=G_DIR_SEPARATOR)
         return;

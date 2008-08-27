@@ -716,7 +716,7 @@ static void do_view_file (const gchar *path, gint internal_viewer)
 
 static void on_file_downloaded_for_view (gchar *path)
 {
-    do_view_file (path,-1);
+    do_view_file (path, -1);
 
     g_free (path);
 }

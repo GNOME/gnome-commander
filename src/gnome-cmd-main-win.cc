@@ -726,7 +726,7 @@ static void class_init (GnomeCmdMainWinClass *klass)
     parent_class = (GnomeAppClass *) gtk_type_class (gnome_app_get_type ());
 
     main_win_signals[SWITCH_FS] =
-        gtk_signal_new ("switch_fs",
+        gtk_signal_new ("switch-fs",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (GnomeCmdMainWinClass, switch_fs),
@@ -817,18 +817,18 @@ static void init (GnomeCmdMainWin *mw)
     gtk_signal_connect (GTK_OBJECT (mw->priv->file_selector[RIGHT]), "changed-dir", GTK_SIGNAL_FUNC (on_fs_dir_change), mw);
 
     gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->file_list()),
-                        "resize_column", GTK_SIGNAL_FUNC (on_fs_list_resize_column),
+                        "resize-column", GTK_SIGNAL_FUNC (on_fs_list_resize_column),
                         GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->file_list());
     gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->file_list()),
-                        "resize_column", GTK_SIGNAL_FUNC (on_fs_list_resize_column),
+                        "resize-column", GTK_SIGNAL_FUNC (on_fs_list_resize_column),
                         GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->file_list());
     gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[LEFT])->file_list()),
-                        "button_press_event", GTK_SIGNAL_FUNC (on_left_fs_select), mw);
+                        "button-press-event", GTK_SIGNAL_FUNC (on_left_fs_select), mw);
     gtk_signal_connect (GTK_OBJECT (GNOME_CMD_FILE_SELECTOR (mw->priv->file_selector[RIGHT])->file_list()),
-                        "button_press_event", GTK_SIGNAL_FUNC (on_right_fs_select), mw);
+                        "button-press-event", GTK_SIGNAL_FUNC (on_right_fs_select), mw);
     gtk_signal_connect (GTK_OBJECT (mw), "size-allocate", GTK_SIGNAL_FUNC (on_size_allocate), mw);
     gtk_signal_connect (GTK_OBJECT (mw), "delete-event", GTK_SIGNAL_FUNC (on_delete_event), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->paned), "button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->paned), "button-press-event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
     g_signal_connect (mw, "window-state-event", GTK_SIGNAL_FUNC (on_window_state_event), NULL);
 
     gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, LEFT));
@@ -1285,7 +1285,7 @@ void gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw)
     gtk_widget_unref (mw->priv->file_selector[LEFT]);
     gtk_widget_unref (mw->priv->file_selector[RIGHT]);
 
-    gtk_signal_connect (GTK_OBJECT (mw->priv->paned), "button_press_event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
+    gtk_signal_connect (GTK_OBJECT (mw->priv->paned), "button-press-event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
     slide_set_50_50 (NULL, NULL);
 }
 

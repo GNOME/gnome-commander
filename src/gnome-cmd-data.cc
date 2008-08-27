@@ -509,7 +509,7 @@ inline void remove_vfs_volume (GnomeVFSVolume *volume)
             gchar *device_fn = (gchar *) gnome_cmd_con_device_get_device_fn (device);
             const gchar *mountp = gnome_cmd_con_device_get_mountp (device);
 
-            if ((strcmp(device_fn, path)==0) && (strcmp(mountp,localpath)==0))
+            if ((strcmp(device_fn, path)==0) && (strcmp(mountp, localpath)==0))
             {
                 DEBUG('m',"Remove Volume:\ndevice_fn = %s\tmountp = %s\n",
                 device_fn,mountp);
@@ -594,7 +594,7 @@ inline void add_vfs_volume (GnomeVFSVolume *volume)
         GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, path?path:NULL, localpath, iconpath);
         gnome_cmd_con_device_set_autovol (ConDev, TRUE);
         gnome_cmd_con_device_set_vfs_volume (ConDev, volume);
-        gnome_cmd_con_list_add_device (data->priv->con_list,ConDev);
+        gnome_cmd_con_list_add_device (data->priv->con_list, ConDev);
     }
     else
         DEBUG('m', "Device for mountpoint(%s) already exists. AutoVolume not added\n", localpath);
@@ -631,11 +631,11 @@ inline void add_vfs_drive (GnomeVFSDrive *drive)
 
     DEBUG('m',"name = %s\tpath = %s\turi = %s\tlocal = %s\n",name,path,uri,localpath);
 
-    GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name,path,localpath, icon);
+    GnomeCmdConDevice *ConDev = gnome_cmd_con_device_new (name, path, localpath, icon);
 
     gnome_cmd_con_device_set_autovol (ConDev, TRUE);
 
-    gnome_cmd_con_list_add_device (data->priv->con_list,ConDev);
+    gnome_cmd_con_list_add_device (data->priv->con_list, ConDev);
 
     g_free (path);
     g_free (uri);
@@ -674,11 +674,11 @@ inline void set_vfs_volume_monitor ()
 {
     monitor = gnome_vfs_get_volume_monitor ();
 
-    g_signal_connect (monitor, "volume_mounted", G_CALLBACK (volume_mounted), NULL);
-    g_signal_connect (monitor, "volume_unmounted", G_CALLBACK (volume_unmounted), NULL);
+    g_signal_connect (monitor, "volume-mounted", G_CALLBACK (volume_mounted), NULL);
+    g_signal_connect (monitor, "volume-unmounted", G_CALLBACK (volume_unmounted), NULL);
 #if 0
-    g_signal_connect (monitor, "drive_connected", G_CALLBACK (drive_connected), NULL);
-    g_signal_connect (monitor, "drive_disconnected", G_CALLBACK (drive_disconnected), NULL);
+    g_signal_connect (monitor, "drive-connected", G_CALLBACK (drive_connected), NULL);
+    g_signal_connect (monitor, "drive-disconnected", G_CALLBACK (drive_disconnected), NULL);
 #endif
 }
 
@@ -842,15 +842,15 @@ inline void save_cmdline_history ()
 
 inline void save_search_defaults ()
 {
-    gnome_cmd_data_set_int ("/search-history/width",data->priv->search_defaults->width);
-    gnome_cmd_data_set_int ("/search-history/height",data->priv->search_defaults->height);
+    gnome_cmd_data_set_int ("/search-history/width", data->priv->search_defaults->width);
+    gnome_cmd_data_set_int ("/search-history/height", data->priv->search_defaults->height);
 
-    gnome_cmd_data_set_string_history ("/search-history/name_pattern%d",data->priv->search_defaults->name_patterns);
-    gnome_cmd_data_set_string_history ("/search-history/content_pattern%d",data->priv->search_defaults->content_patterns);
-    gnome_cmd_data_set_string_history ("/search-history/directory%d",data->priv->search_defaults->directories);
+    gnome_cmd_data_set_string_history ("/search-history/name_pattern%d", data->priv->search_defaults->name_patterns);
+    gnome_cmd_data_set_string_history ("/search-history/content_pattern%d", data->priv->search_defaults->content_patterns);
+    gnome_cmd_data_set_string_history ("/search-history/directory%d", data->priv->search_defaults->directories);
 
-    gnome_cmd_data_set_bool ("/search-history/recursive",data->priv->search_defaults->recursive);
-    gnome_cmd_data_set_bool ("/search-history/case_sens",data->priv->search_defaults->case_sens);
+    gnome_cmd_data_set_bool ("/search-history/recursive", data->priv->search_defaults->recursive);
+    gnome_cmd_data_set_bool ("/search-history/case_sens", data->priv->search_defaults->case_sens);
 }
 
 
@@ -884,7 +884,7 @@ inline void save_rename_history ()
     gnome_cmd_data_set_int ("/advrename/counter_precision", data->priv->advrename_defaults->counter_precision);
     gnome_cmd_data_set_int ("/advrename/counter_increment", data->priv->advrename_defaults->counter_increment);
 
-    gnome_cmd_data_set_int ("/rename-history/size",g_list_length (data->priv->advrename_defaults->patterns));
+    gnome_cmd_data_set_int ("/rename-history/size", g_list_length (data->priv->advrename_defaults->patterns));
     gnome_cmd_data_set_string_history ("/rename-history/from%d", from);
     gnome_cmd_data_set_string_history ("/rename-history/to%d", to);
     gnome_cmd_data_set_string_history ("/rename-history/csens%d", csens);
@@ -944,8 +944,8 @@ inline void save_smb_bookmarks ()
 
 inline void save_auto_load_plugins ()
 {
-    gnome_cmd_data_set_int ("/plugins/count",g_list_length (data->priv->auto_load_plugins));
-    gnome_cmd_data_set_string_history ("/plugins/auto_load%d",data->priv->auto_load_plugins);
+    gnome_cmd_data_set_int ("/plugins/count", g_list_length (data->priv->auto_load_plugins));
+    gnome_cmd_data_set_string_history ("/plugins/auto_load%d", data->priv->auto_load_plugins);
 }
 
 
@@ -1221,7 +1221,7 @@ void gnome_cmd_data_save (void)
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", data->priv->toolbar_visibility);
     gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", data->priv->buttonbar_visibility);
 
-    if (data->priv->symlink_prefix && *data->priv->symlink_prefix && strcmp(data->priv->symlink_prefix,_("link to %s"))!=0)
+    if (data->priv->symlink_prefix && *data->priv->symlink_prefix && strcmp(data->priv->symlink_prefix, _("link to %s"))!=0)
         gnome_cmd_data_set_string ("/options/symlink_prefix", data->priv->symlink_prefix);
     else
         gnome_cmd_data_set_string ("/options/symlink_prefix", "");
@@ -1234,16 +1234,16 @@ void gnome_cmd_data_save (void)
     gnome_cmd_data_set_int    ("/options/sort_column_right", data->priv->sort_column[RIGHT]);
     gnome_cmd_data_set_bool   ("/options/sort_direction_right", data->priv->sort_direction[RIGHT]);
 
-    gnome_cmd_data_set_string ("/programs/viewer",data->priv->viewer);
-    gnome_cmd_data_set_string ("/programs/editor",data->priv->editor);
-    gnome_cmd_data_set_string ("/programs/differ",data->priv->differ);
-    gnome_cmd_data_set_string ("/programs/terminal",data->priv->term);
+    gnome_cmd_data_set_string ("/programs/viewer", data->priv->viewer);
+    gnome_cmd_data_set_string ("/programs/editor", data->priv->editor);
+    gnome_cmd_data_set_string ("/programs/differ", data->priv->differ);
+    gnome_cmd_data_set_string ("/programs/terminal", data->priv->term);
 
-    gnome_cmd_data_set_bool   ("/programs/use_gcmd_block",data->priv->use_gcmd_block);
+    gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", data->priv->use_gcmd_block);
 
-    gnome_cmd_data_set_bool   ("/devices/only_icon",data->priv->device_only_icon);
-    gnome_cmd_data_set_int    ("/options/dir_cache_size",data->priv->dir_cache_size);
-    gnome_cmd_data_set_bool   ("/colors/use_ls_colors",data->priv->use_ls_colors);
+    gnome_cmd_data_set_bool   ("/devices/only_icon", data->priv->device_only_icon);
+    gnome_cmd_data_set_int    ("/options/dir_cache_size", data->priv->dir_cache_size);
+    gnome_cmd_data_set_bool   ("/colors/use_ls_colors", data->priv->use_ls_colors);
 
     const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (data->priv->quick_connect));
 
@@ -1422,7 +1422,7 @@ void gnome_cmd_data_load (void)
     data->priv->list_font = gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1");
 
     data->priv->ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
-    data->priv->right_mouse_button_mode = (GnomeCmdRightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode",RIGHT_BUTTON_POPUPS_MENU);
+    data->priv->right_mouse_button_mode = (GnomeCmdRightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
     data->priv->show_toolbar = gnome_cmd_data_get_bool ("/options/show_toolbar", TRUE);
     data->priv->icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
     data->priv->dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);

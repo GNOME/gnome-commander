@@ -169,7 +169,7 @@ static gboolean delete_event_callback (gpointer data, gpointer user_data)
 {
     g_return_val_if_fail (GTK_IS_DIALOG (data), FALSE);
 
-    gtk_signal_emit_stop_by_name (GTK_OBJECT (data), "delete_event");
+    gtk_signal_emit_stop_by_name (GTK_OBJECT (data), "delete-event");
 
     return TRUE;
 }

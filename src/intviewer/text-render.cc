@@ -276,7 +276,7 @@ static void text_render_class_init (TextRenderClass *klass)
     widget_class->realize = text_render_realize;
 
     text_render_signals[TEXT_STATUS_CHANGED] =
-        gtk_signal_new ("text_status_changed",
+        gtk_signal_new ("text-status-changed",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
             GTK_SIGNAL_OFFSET (TextRenderClass, text_status_changed),
@@ -321,7 +321,7 @@ static void text_render_init (TextRender *w)
 
     w->priv->fixed_font_name = g_strdup ("Monospace");
 
-    g_signal_connect(G_OBJECT (w), "key_press_event", G_CALLBACK (text_render_key_pressed), NULL);
+    g_signal_connect(G_OBJECT (w), "key-press-event", G_CALLBACK (text_render_key_pressed), NULL);
 
     w->priv->layout = gtk_widget_create_pango_layout(GTK_WIDGET (w), NULL);
 

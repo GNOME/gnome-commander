@@ -169,7 +169,6 @@ void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFil
 
 GnomeCmdFile *gnome_cmd_file_list_get_file_at_row (GnomeCmdFileList *fl, gint row);
 gint gnome_cmd_file_list_get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
-
 void gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_chown_dialog (GnomeCmdFileList *fl);

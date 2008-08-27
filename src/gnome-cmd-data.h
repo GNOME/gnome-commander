@@ -52,7 +52,7 @@ typedef struct
     GList *directories;
     gboolean recursive;
     gboolean case_sens;
-    gint width,height;
+    gint width, height;
 } SearchDefaults;
 
 typedef struct
@@ -63,7 +63,7 @@ typedef struct
     guint counter_precision;
     guint counter_increment;
     gboolean auto_update;
-    gint width,height;
+    gint width, height;
     gint pat_col_widths;
     gint res_col_widths;
     gint sep_value;

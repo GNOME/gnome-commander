@@ -501,7 +501,7 @@ static void create_column_titles (GnomeCmdFileList *fl)
 
     for (gint i=GnomeCmdFileList::COLUMN_NAME; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
-        GtkWidget *hbox,*pixmap;
+        GtkWidget *hbox, *pixmap;
 
         GdkPixmap *pm = IMAGE_get_pixmap (PIXMAP_FLIST_ARROW_BLANK);
         GdkBitmap *bm = IMAGE_get_mask (PIXMAP_FLIST_ARROW_BLANK);
@@ -681,7 +681,7 @@ inline void init_dnd (GnomeCmdFileList *fl)
                          drag_types, G_N_ELEMENTS (drag_types),
                          (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
 
-    gtk_signal_connect (*fl, "drag_data_get", GTK_SIGNAL_FUNC (drag_data_get), fl);
+    gtk_signal_connect (*fl, "drag-data-get", GTK_SIGNAL_FUNC (drag_data_get), fl);
 }
 
 
@@ -1241,7 +1241,7 @@ static void class_init (GnomeCmdFileListClass *klass)
     parent_class = (GnomeCmdCListClass *) gtk_type_class (gnome_cmd_clist_get_type ());
 
     file_list_signals[FILE_CLICKED] =
-        gtk_signal_new ("file_clicked",
+        gtk_signal_new ("file-clicked",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
                         GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, file_clicked),
@@ -1250,7 +1250,7 @@ static void class_init (GnomeCmdFileListClass *klass)
                         2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
 
     file_list_signals[LIST_CLICKED] =
-        gtk_signal_new ("list_clicked",
+        gtk_signal_new ("list-clicked",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
                         GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, list_clicked),
@@ -1260,7 +1260,7 @@ static void class_init (GnomeCmdFileListClass *klass)
                         GTK_TYPE_POINTER);
 
     file_list_signals[EMPTY_SPACE_CLICKED] =
-        gtk_signal_new ("empty_space_clicked",
+        gtk_signal_new ("empty-space-clicked",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
                         GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, empty_space_clicked),
@@ -1269,7 +1269,7 @@ static void class_init (GnomeCmdFileListClass *klass)
                         1, GTK_TYPE_POINTER);
 
     file_list_signals[SELECTION_CHANGED] =
-        gtk_signal_new ("selection_changed",
+        gtk_signal_new ("selection-changed",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
                         GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, selection_changed),
@@ -2118,9 +2118,9 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
 
 gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl)
 {
-    g_return_val_if_fail (fl!=NULL,FALSE);
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl),FALSE);
-    g_return_val_if_fail (fl->priv!=NULL,FALSE);
+    g_return_val_if_fail (fl!=NULL, FALSE);
+    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), FALSE);
+    g_return_val_if_fail (fl->priv!=NULL, FALSE);
 
     return fl->priv->quicksearch_popup!=NULL;
 }

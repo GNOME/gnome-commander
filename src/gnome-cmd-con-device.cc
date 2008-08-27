@@ -193,9 +193,9 @@ static void dev_vfs_umount_callback (gboolean succeeded, char *error, char *deta
 {
     GtkWidget *msgbox;
 
-    DEBUG('m',"VFS Umount Callback: %s %s %s\n", succeeded ? "Succeeded" : "Failed",
-              error ? error : "",
-              detailed_error ? detailed_error : "");
+    DEBUG('m', "VFS Umount Callback: %s %s %s\n", succeeded ? "Succeeded" : "Failed",
+               error ? error : "",
+               detailed_error ? detailed_error : "");
 
     if (succeeded)
     {
@@ -242,7 +242,7 @@ static gboolean dev_close (GnomeCmdCon *con)
             DEBUG ('m', "umounting VFS volume \"%s\"\n", name);
             g_free (name);
 
-            gnome_vfs_volume_unmount(dev_con->priv->vfsvol,dev_vfs_umount_callback,NULL);
+            gnome_vfs_volume_unmount(dev_con->priv->vfsvol, dev_vfs_umount_callback, NULL);
         }
     }
     else
@@ -416,7 +416,7 @@ void gnome_cmd_con_device_set_alias (GnomeCmdConDevice *dev, const gchar *alias)
 
     dev->priv->alias = g_strdup (alias);
     GNOME_CMD_CON (dev)->alias = g_strdup (alias);
-    GNOME_CMD_CON (dev)->go_text = g_strdup_printf (_("Go to: %s (%s)"), alias,dev->priv->mountp);
+    GNOME_CMD_CON (dev)->go_text = g_strdup_printf (_("Go to: %s (%s)"), alias, dev->priv->mountp);
     GNOME_CMD_CON (dev)->open_text = g_strdup_printf (_("Mount: %s"), alias);
     GNOME_CMD_CON (dev)->close_text = g_strdup_printf (_("Unmount: %s"), alias);
 }

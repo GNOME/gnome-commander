@@ -43,7 +43,7 @@ using namespace std;
 
 
 #define   ECHO  {                                                                     \
-                  CHUNK *p = g_new0 (CHUNK,1);                                         \
+                  CHUNK *p = g_new0 (CHUNK, 1);                                       \
                                                                                       \
                   p->type = TEXT;                                                     \
                   p->s = g_string_new(yytext);                                        \

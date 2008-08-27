@@ -100,7 +100,7 @@ static void class_init (GnomeCmdConListClass *klass)
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     parent_class = (GtkObjectClass *) gtk_type_class (gtk_object_get_type ());
 
-    con_list_signals[LIST_CHANGED]          = gtk_signal_new ("list_changed",
+    con_list_signals[LIST_CHANGED]          = gtk_signal_new ("list-changed",
                                                               GTK_RUN_LAST,
                                                               G_OBJECT_CLASS_TYPE (object_class),
                                                               GTK_SIGNAL_OFFSET (GnomeCmdConListClass, list_changed),
@@ -108,7 +108,7 @@ static void class_init (GnomeCmdConListClass *klass)
                                                               GTK_TYPE_NONE,
                                                               0);
 
-    con_list_signals[FTP_LIST_CHANGED]       = gtk_signal_new ("ftp_list_changed",
+    con_list_signals[FTP_LIST_CHANGED]       = gtk_signal_new ("ftp-list-changed",
                                                                GTK_RUN_LAST,
                                                                G_OBJECT_CLASS_TYPE (object_class),
                                                                GTK_SIGNAL_OFFSET (GnomeCmdConListClass, ftp_list_changed),
@@ -116,7 +116,7 @@ static void class_init (GnomeCmdConListClass *klass)
                                                                GTK_TYPE_NONE,
                                                                0);
 
-    con_list_signals[DEVICE_LIST_CHANGED]    = gtk_signal_new ("device_list_changed",
+    con_list_signals[DEVICE_LIST_CHANGED]    = gtk_signal_new ("device-list-changed",
                                                                GTK_RUN_LAST,
                                                                G_OBJECT_CLASS_TYPE (object_class),
                                                                GTK_SIGNAL_OFFSET (GnomeCmdConListClass, device_list_changed),
@@ -124,7 +124,7 @@ static void class_init (GnomeCmdConListClass *klass)
                                                                GTK_TYPE_NONE,
                                                                0);
 
-    con_list_signals[QUICK_FTP_LIST_CHANGED] = gtk_signal_new ("quick_ftp_list_changed",
+    con_list_signals[QUICK_FTP_LIST_CHANGED] = gtk_signal_new ("quick-ftp-list-changed",
                                                                GTK_RUN_LAST,
                                                                G_OBJECT_CLASS_TYPE (object_class),
                                                                GTK_SIGNAL_OFFSET (GnomeCmdConListClass, quick_ftp_list_changed),
