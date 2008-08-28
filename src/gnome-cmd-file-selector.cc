@@ -1306,28 +1306,22 @@ static void init (GnomeCmdFileSelector *fs)
     // create the connection combo
     fs->con_combo = gnome_cmd_combo_new (2, 1, NULL);
     gtk_widget_ref (fs->con_combo);
-    gtk_object_set_data_full (GTK_OBJECT (fs),
-                              "con_combo", fs->con_combo,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (fs), "con_combo", fs->con_combo, (GtkDestroyNotify) gtk_widget_unref);
     gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 20);
     gtk_entry_set_editable (GTK_ENTRY (GNOME_CMD_COMBO (fs->con_combo)->entry), FALSE);
     gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 0, 20);
     gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 1, 60);
     GTK_WIDGET_UNSET_FLAGS (GNOME_CMD_COMBO (fs->con_combo)->button, GTK_CAN_FOCUS);
 
-    // Create the free space on volume label
+    // create the free space on volume label
     fs->vol_label = gtk_label_new ("");
     gtk_widget_ref (fs->vol_label);
-    gtk_object_set_data_full (GTK_OBJECT (fs), "vol_label", fs->vol_label,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (fs), "vol_label", fs->vol_label, (GtkDestroyNotify) gtk_widget_unref);
     gtk_misc_set_alignment (GTK_MISC (fs->vol_label), 1, 0.5);
 
     // create the root button
-    fs->root_btn = create_styled_pixmap_button (
-        NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_ROOT_DIR));
-    gtk_object_set_data_full (GTK_OBJECT (fs),
-                              "root_btn", fs->root_btn,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    fs->root_btn = create_styled_pixmap_button (NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_ROOT_DIR));
+    gtk_object_set_data_full (GTK_OBJECT (fs), "root_btn", fs->root_btn, (GtkDestroyNotify) gtk_widget_unref);
     GTK_WIDGET_UNSET_FLAGS (fs->root_btn, GTK_CAN_FOCUS);
 
     // create the directory indicator
@@ -1365,39 +1359,26 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->vol_label, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->root_btn, FALSE, FALSE, 0);
 
-
     // initialize dnd
     init_dnd (fs);
 
     // connect signals
-    gtk_signal_connect (GTK_OBJECT (fs), "realize",
-                        GTK_SIGNAL_FUNC (on_realize), fs);
+    gtk_signal_connect (GTK_OBJECT (fs), "realize", GTK_SIGNAL_FUNC (on_realize), fs);
 
-    gtk_signal_connect (GTK_OBJECT (fs->con_combo), "item-selected",
-                        GTK_SIGNAL_FUNC (on_con_combo_item_selected), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->con_combo), "popwin-hidden",
-                        GTK_SIGNAL_FUNC (on_combo_popwin_hidden), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->con_combo), "item-selected", GTK_SIGNAL_FUNC (on_con_combo_item_selected), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->con_combo), "popwin-hidden", GTK_SIGNAL_FUNC (on_combo_popwin_hidden), fs);
 
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "file-clicked",
-                        GTK_SIGNAL_FUNC (on_list_file_clicked), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "list-clicked",
-                        GTK_SIGNAL_FUNC (on_list_list_clicked), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "empty-space-clicked",
-                        GTK_SIGNAL_FUNC (on_list_empty_space_clicked), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "selection-changed",
-                        GTK_SIGNAL_FUNC (on_list_selection_changed), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "file-clicked", GTK_SIGNAL_FUNC (on_list_file_clicked), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "list-clicked", GTK_SIGNAL_FUNC (on_list_list_clicked), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "empty-space-clicked", GTK_SIGNAL_FUNC (on_list_empty_space_clicked), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "selection-changed", GTK_SIGNAL_FUNC (on_list_selection_changed), fs);
 
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event",
-                        GTK_SIGNAL_FUNC (on_list_key_pressed), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event",
-                        GTK_SIGNAL_FUNC (on_list_key_pressed_private), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_pressed), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_pressed_private), fs);
 
-    gtk_signal_connect (GTK_OBJECT (fs->root_btn), "clicked",
-                        GTK_SIGNAL_FUNC (on_root_btn_clicked), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->root_btn), "clicked", GTK_SIGNAL_FUNC (on_root_btn_clicked), fs);
 
-    gtk_signal_connect (GTK_OBJECT (gnome_cmd_con_list_get ()), "list-changed",
-                        GTK_SIGNAL_FUNC (on_con_list_list_changed), fs);
-
+    gtk_signal_connect (GTK_OBJECT (gnome_cmd_con_list_get ()), "list-changed", GTK_SIGNAL_FUNC (on_con_list_list_changed), fs);
 
     // show the widgets
     gtk_widget_show (GTK_WIDGET (vbox));

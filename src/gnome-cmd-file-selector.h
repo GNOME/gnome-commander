@@ -69,7 +69,7 @@ struct GnomeCmdFileSelector
     operator GtkBox * ()                {  return GTK_BOX (this);     }
 
     GnomeCmdFileList *&file_list()      {  return list;  }
-    
+
     GnomeCmdDir *get_directory();
     void set_directory(GnomeCmdDir *dir);
     void goto_directory(const gchar *dir);
