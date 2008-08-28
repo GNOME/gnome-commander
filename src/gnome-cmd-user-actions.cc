@@ -899,7 +899,7 @@ void edit_quick_search (GtkMenuItem *menuitem, gpointer not_used)
 
 void edit_filter (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_selector_show_filter (get_fs (ACTIVE));
+    get_fs (ACTIVE)->show_filter();
 }
 
 
@@ -1182,8 +1182,8 @@ void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data_set_conbuttons_visibility (checkitem->active);
-    gnome_cmd_file_selector_update_conbuttons_visibility (get_fs (ACTIVE));
-    gnome_cmd_file_selector_update_conbuttons_visibility (get_fs (INACTIVE));
+    get_fs (ACTIVE)->update_conbuttons_visibility();
+    get_fs (INACTIVE)->update_conbuttons_visibility();
 }
 
 

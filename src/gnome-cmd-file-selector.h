@@ -90,14 +90,13 @@ struct GnomeCmdFileSelector
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
 
     gboolean is_local()                     {  return gnome_cmd_con_is_local (get_connection ());  }
-};
 
+    void show_filter();
+    void update_style();
+    void update_connections();
+    void update_conbuttons_visibility();
 
-struct GnomeCmdFileSelectorClass
-{
-    GtkVBoxClass parent_class;
-
-    void (* changed_dir) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
+    gboolean key_pressed(GdkEventKey *event);
 };
 
 
@@ -108,24 +107,14 @@ void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, Fil
 
 void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs);
 
-void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs);
-
 gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID);
-
-void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs);
 
 void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs);
 
 void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs);
 
-gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventKey *event);
-
 void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *f);
 void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *files);
-
-void gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs);
-
-void gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs);
 
 inline FileSelectorID operator ! (FileSelectorID id)
 {

@@ -831,8 +831,8 @@ static void init (GnomeCmdMainWin *mw)
     gtk_signal_connect (GTK_OBJECT (mw->priv->paned), "button-press-event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
     g_signal_connect (mw, "window-state-event", GTK_SIGNAL_FUNC (on_window_state_event), NULL);
 
-    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, LEFT));
-    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, RIGHT));
+    gnome_cmd_main_win_get_fs (mw, LEFT)->update_connections();
+    gnome_cmd_main_win_get_fs (mw, RIGHT)->update_connections();
 
     gnome_cmd_main_win_get_fs (mw, LEFT)->set_connection(get_home_con ());
     gnome_cmd_main_win_get_fs (mw, RIGHT)->set_connection(get_home_con ());
@@ -912,8 +912,8 @@ void gnome_cmd_main_win_update_style (GnomeCmdMainWin *mw)
 
     IMAGE_clear_mime_cache ();
 
-    gnome_cmd_file_selector_update_style (gnome_cmd_main_win_get_fs (mw, LEFT));
-    gnome_cmd_file_selector_update_style (gnome_cmd_main_win_get_fs (mw, RIGHT));
+    gnome_cmd_main_win_get_fs (mw, LEFT)->update_style();
+    gnome_cmd_main_win_get_fs (mw, RIGHT)->update_style();
 
     if (gnome_cmd_data_get_cmdline_visibility ())
         gnome_cmd_cmdline_update_style (GNOME_CMD_CMDLINE (mw->priv->cmdline));
@@ -1086,7 +1086,7 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
                     return TRUE;
             }
 
-    if (gnome_cmd_file_selector_keypressed (gnome_cmd_main_win_get_fs (mw, ACTIVE), event))
+    if (gnome_cmd_main_win_get_fs (mw, ACTIVE)->key_pressed(event))
         return TRUE;
 
     return FALSE;
@@ -1248,8 +1248,8 @@ void gnome_cmd_main_win_update_connections (GnomeCmdMainWin *mw)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
-    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, LEFT));
-    gnome_cmd_file_selector_update_connections (gnome_cmd_main_win_get_fs (mw, RIGHT));
+    gnome_cmd_main_win_get_fs (mw, LEFT)->update_connections();
+    gnome_cmd_main_win_get_fs (mw, RIGHT)->update_connections();
     gnome_cmd_main_menu_update_connections (GNOME_CMD_MAIN_MENU (mw->priv->menubar));
 }
 

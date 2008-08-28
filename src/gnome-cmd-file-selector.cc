@@ -46,6 +46,14 @@
 using namespace std;
 
 
+struct GnomeCmdFileSelectorClass
+{
+    GtkVBoxClass parent_class;
+
+    void (* changed_dir) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
+};
+
+
 #define FS_PBAR_MAX 50
 
 
@@ -60,11 +68,14 @@ class GnomeCmdFileSelector::Private
 {
   public:
 
+    GList *old_btns;
     GtkWidget *filter_box;
 
     History *dir_history;
     gboolean active;
     gboolean realized;
+
+    GnomeCmdFile *sym_file;
 
     Private();
     ~Private();
@@ -73,10 +84,9 @@ class GnomeCmdFileSelector::Private
 
     gboolean sel_first_file;
     GnomeCmdCon *con;
-    GnomeCmdDir *cwd, *lwd; // current & last working dir
+    GnomeCmdDir *cwd, *lwd;         // current & last working dir
     GnomeCmdDir *connected_dir;
-    GList *old_btns;
-    GnomeCmdFile *sym_file;
+
     GtkWidget *con_open_dialog;
     GtkWidget *con_open_dialog_label;
     GtkWidget *con_open_dialog_pbar;
@@ -853,7 +863,7 @@ inline void add_cwd_to_cmdline (GnomeCmdFileSelector *fs)
 
 static void on_con_list_list_changed (GnomeCmdConList *con_list, GnomeCmdFileSelector *fs)
 {
-    gnome_cmd_file_selector_update_connections (fs);
+    fs->update_connections();
 }
 
 
@@ -1027,7 +1037,7 @@ static void on_realize (GnomeCmdFileSelector *fs, gpointer user_data)
     fs->priv->realized = TRUE;
 
     create_con_buttons (fs);
-    gnome_cmd_file_selector_update_connections (fs);
+    fs->update_connections();
 }
 
 
@@ -1188,7 +1198,7 @@ static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeC
 
     if (fs->file_list()->key_pressed(event))
         ret = TRUE;
-    else if (gnome_cmd_file_selector_keypressed (fs, event))
+    else if (fs->key_pressed(event))
         ret = TRUE;
     else if (gnome_cmd_main_win_keypressed (main_win, event))
         ret = TRUE;
@@ -1282,15 +1292,14 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
 
 static void init (GnomeCmdFileSelector *fs)
 {
-    GtkVBox *vbox;
     GtkWidget *padding;
 
     fs->priv = new GnomeCmdFileSelector::Private;
 
-    vbox = GTK_VBOX (fs);
+    GtkVBox *vbox = GTK_VBOX (fs);
 
     // create the box used for packing the dir_combo and buttons
-    gnome_cmd_file_selector_update_conbuttons_visibility (fs);
+    fs->update_conbuttons_visibility();
 
     // create the box used for packing the con_combo and information
     fs->con_hbox = create_hbox (*fs, FALSE, 2);
@@ -1391,7 +1400,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_widget_show (fs->list_widget);
     gtk_widget_show (fs->info_label);
 
-    gnome_cmd_file_selector_update_style (fs);
+    fs->update_style();
 }
 
 
@@ -1543,7 +1552,7 @@ void GnomeCmdFileSelector::set_directory(GnomeCmdDir *dir)
         priv->lwd = priv->cwd;
         gtk_signal_disconnect_by_data (GTK_OBJECT (priv->lwd), this);
         priv->connected_dir = NULL;
-        priv->lwd->voffset = gnome_cmd_clist_get_voffset (GNOME_CMD_CLIST (list));
+        priv->lwd->voffset = gnome_cmd_clist_get_voffset (GNOME_CMD_CLIST (file_list()));
     }
 
     priv->cwd = dir;
@@ -1709,24 +1718,20 @@ void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, Fil
 }
 
 
-void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
+void GnomeCmdFileSelector::update_connections()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    if (!fs->priv->realized)
+    if (!priv->realized)
         return;
 
     gboolean found_my_con = FALSE;
 
-    gnome_cmd_combo_clear (GNOME_CMD_COMBO (fs->con_combo));
-    GNOME_CMD_COMBO (fs->con_combo)->highest_pixmap = 20;
-    GNOME_CMD_COMBO (fs->con_combo)->widest_pixmap = 20;
-    gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 20);
-    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 0, 20);
+    gnome_cmd_combo_clear (GNOME_CMD_COMBO (con_combo));
+    GNOME_CMD_COMBO (con_combo)->highest_pixmap = 20;
+    GNOME_CMD_COMBO (con_combo)->widest_pixmap = 20;
+    gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (con_combo)->list), 20);
+    gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (con_combo)->list), 0, 20);
 
-    GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
-
-    for (GList *l=gnome_cmd_con_list_get_all (con_list); l; l = l->next)
+    for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l = l->next)
     {
         gchar *text[3];
         GnomeCmdCon *con = (GnomeCmdCon *) l->data;
@@ -1734,7 +1739,7 @@ void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con)
             && !GNOME_CMD_IS_CON_SMB (con))  continue;
 
-        if (con == fs->priv->con)
+        if (con == priv->con)
             found_my_con = TRUE;
 
         text[0] = NULL;
@@ -1745,19 +1750,19 @@ void gnome_cmd_file_selector_update_connections (GnomeCmdFileSelector *fs)
 
         if (pixmap)
         {
-            gint row = gnome_cmd_combo_append (GNOME_CMD_COMBO (fs->con_combo), text, con);
+            gint row = gnome_cmd_combo_append (GNOME_CMD_COMBO (con_combo), text, con);
 
-            gnome_cmd_combo_set_pixmap (GNOME_CMD_COMBO (fs->con_combo), row, 0, pixmap);
+            gnome_cmd_combo_set_pixmap (GNOME_CMD_COMBO (con_combo), row, 0, pixmap);
         }
     }
 
     // If the connection is no longer available use the home connection
     if (!found_my_con)
-        fs->set_connection(get_home_con ());
+        set_connection(get_home_con ());
     else
-        gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), fs->priv->con);
+        gnome_cmd_combo_select_data (GNOME_CMD_COMBO (con_combo), priv->con);
 
-    create_con_buttons (fs);
+    create_con_buttons (this);
 }
 
 
@@ -1800,18 +1805,16 @@ gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID)
 }
 
 
-void gnome_cmd_file_selector_update_style (GnomeCmdFileSelector *fs)
+void GnomeCmdFileSelector::update_style()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    gnome_cmd_combo_update_style (GNOME_CMD_COMBO (con_combo));
+    gnome_cmd_file_list_update_style (file_list());
 
-    gnome_cmd_combo_update_style (GNOME_CMD_COMBO (fs->con_combo));
-    gnome_cmd_file_list_update_style (fs->file_list());
+    if (priv->realized)
+        update_files (this);
 
-    if (fs->priv->realized)
-        update_files (fs);
-
-    create_con_buttons (fs);
-    gnome_cmd_file_selector_update_connections (fs);
+    create_con_buttons (this);
+    update_connections();
 }
 
 
@@ -1910,10 +1913,9 @@ void gnome_cmd_file_selector_cap_paste (GnomeCmdFileSelector *fs)
 }
 
 
-gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventKey *event)
+gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 {
     g_return_val_if_fail (event != NULL, FALSE);
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), FALSE);
 
     GnomeCmdFile *f;
 
@@ -1923,7 +1925,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
         {
             case GDK_Return:
             case GDK_KP_Enter:
-                add_file_to_cmdline (fs, TRUE);
+                add_file_to_cmdline (this, TRUE);
                 return TRUE;
         }
     }
@@ -1932,7 +1934,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
         switch (event->keyval)
         {
             case GDK_F5:
-                gnome_cmd_file_list_show_make_copy_dialog (fs);
+                gnome_cmd_file_list_show_make_copy_dialog (this);
                 return TRUE;
         }
     }
@@ -1941,17 +1943,17 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
         switch (event->keyval)
         {
             case GDK_Down:
-                gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (fs->dir_indicator));
+                gnome_cmd_dir_indicator_show_history (GNOME_CMD_DIR_INDICATOR (dir_indicator));
                 return TRUE;
 
             case GDK_Left:
-                fs->back();
-                stop_kp (GTK_OBJECT (fs->file_list()));
+                back();
+                stop_kp (GTK_OBJECT (file_list()));
                 return TRUE;
 
             case GDK_Right:
-                fs->forward();
-                stop_kp (GTK_OBJECT (fs->file_list()));
+                forward();
+                stop_kp (GTK_OBJECT (file_list()));
                 return TRUE;
         }
     }
@@ -1961,7 +1963,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
         {
             case GDK_Return:
             case GDK_KP_Enter:
-                show_dir_tree_sizes (fs);
+                show_dir_tree_sizes (this);
                 return TRUE;
         }
     }
@@ -1971,27 +1973,27 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
         {
             case GDK_V:
             case GDK_v:
-                gnome_cmd_file_selector_cap_paste (fs);
+                gnome_cmd_file_selector_cap_paste (this);
                 return TRUE;
 
             case GDK_P:
             case GDK_p:
-                add_cwd_to_cmdline (fs);
+                add_cwd_to_cmdline (this);
                 return TRUE;
 
             case GDK_Page_Up:
-                fs->goto_directory("..");
+                goto_directory("..");
                 return TRUE;
 
             case GDK_Page_Down:
-                f = gnome_cmd_file_list_get_selected_file (fs->file_list());
+                f = gnome_cmd_file_list_get_selected_file (file_list());
                 if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-                    do_file_specific_action (fs, f);
+                    do_file_specific_action (this, f);
                 return TRUE;
 
             case GDK_Return:
             case GDK_KP_Enter:
-                add_file_to_cmdline (fs, FALSE);
+                add_file_to_cmdline (this, FALSE);
                 return TRUE;
         }
     }
@@ -2001,25 +2003,25 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
         {
             case GDK_space:
                 set_cursor_busy ();
-                fs->file_list()->toggle();
-                show_selected_dir_tree_size (fs);
-                stop_kp (GTK_OBJECT (fs->file_list()));
-                update_selected_files_label (fs);
+                file_list()->toggle();
+                show_selected_dir_tree_size (this);
+                stop_kp (GTK_OBJECT (file_list()));
+                update_selected_files_label (this);
                 set_cursor_default ();
                 return TRUE;
 
             case GDK_Left:
             case GDK_KP_Left:
             case GDK_BackSpace:
-                fs->goto_directory("..");
+                goto_directory("..");
                 return TRUE;
 
             case GDK_Right:
             case GDK_KP_Right:
-                f = gnome_cmd_file_list_get_selected_file (fs->file_list());
+                f = gnome_cmd_file_list_get_selected_file (file_list());
                 if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-                    do_file_specific_action (fs, f);
-                stop_kp (GTK_OBJECT (fs->file_list()));
+                    do_file_specific_action (this, f);
+                stop_kp (GTK_OBJECT (file_list()));
                 return TRUE;
 
             case GDK_Return:
@@ -2028,7 +2030,7 @@ gboolean gnome_cmd_file_selector_keypressed (GnomeCmdFileSelector *fs, GdkEventK
                     && gnome_cmd_cmdline_is_empty (gnome_cmd_main_win_get_cmdline (main_win)))
                     gnome_cmd_cmdline_exec (gnome_cmd_main_win_get_cmdline (main_win));
                 else
-                    do_file_specific_action (fs, gnome_cmd_file_list_get_focused_file (fs->file_list()));
+                    do_file_specific_action (this, gnome_cmd_file_list_get_focused_file (file_list()));
                 return TRUE;
 
             case GDK_Escape:
@@ -2109,27 +2111,25 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 }
 
 
-void gnome_cmd_file_selector_update_conbuttons_visibility (GnomeCmdFileSelector *fs)
+void GnomeCmdFileSelector::update_conbuttons_visibility()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
     if (!gnome_cmd_data_get_conbuttons_visibility ())
     {
-        if (fs->con_btns_hbox)
+        if (con_btns_hbox)
         {
-            gtk_object_destroy (GTK_OBJECT (fs->con_btns_hbox));
-            fs->con_btns_hbox = NULL;
+            gtk_object_destroy (GTK_OBJECT (con_btns_hbox));
+            con_btns_hbox = NULL;
         }
     }
     else
     {
-        if (!fs->con_btns_hbox)
+        if (!con_btns_hbox)
         {
-            fs->con_btns_hbox = create_hbox (*fs, FALSE, 2);
-            gtk_box_pack_start (GTK_BOX (fs), fs->con_btns_hbox, FALSE, FALSE, 0);
-            gtk_box_reorder_child (GTK_BOX (fs), fs->con_btns_hbox, 0);
-            gtk_widget_show (fs->con_btns_hbox);
-            create_con_buttons (fs);
+            con_btns_hbox = create_hbox (*this, FALSE, 2);
+            gtk_box_pack_start (GTK_BOX (this), con_btns_hbox, FALSE, FALSE, 0);
+            gtk_box_reorder_child (GTK_BOX (this), con_btns_hbox, 0);
+            gtk_widget_show (con_btns_hbox);
+            create_con_buttons (this);
         }
     }
 }
@@ -2157,25 +2157,21 @@ gboolean on_filter_box_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmd
 }
 
 
-void gnome_cmd_file_selector_show_filter (GnomeCmdFileSelector *fs)
+void GnomeCmdFileSelector::show_filter()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+    if (priv->filter_box) return;
 
-    GtkWidget *parent = *fs;
+    priv->filter_box = create_hbox (*this, FALSE, 0);
+    GtkWidget *label = create_label (*this, _("Filter:"));
+    GtkWidget *entry = create_entry (*this, "entry", "");
+    GtkWidget *close_btn = create_button_with_data (GTK_WIDGET (main_win), "x", GTK_SIGNAL_FUNC (on_filter_box_close), this);
 
-    if (fs->priv->filter_box) return;
+    gtk_signal_connect (GTK_OBJECT (entry), "key-press-event", GTK_SIGNAL_FUNC (on_filter_box_keypressed), this);
+    gtk_box_pack_start (GTK_BOX (priv->filter_box), label, FALSE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (priv->filter_box), entry, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (priv->filter_box), close_btn, FALSE, TRUE, 0);
 
-    fs->priv->filter_box = create_hbox (parent, FALSE, 0);
-    GtkWidget *label = create_label (parent, _("Filter:"));
-    GtkWidget *entry = create_entry (parent, "entry", "");
-    GtkWidget *close_btn = create_button_with_data (GTK_WIDGET (main_win), "x", GTK_SIGNAL_FUNC (on_filter_box_close), fs);
-
-    gtk_signal_connect (GTK_OBJECT (entry), "key-press-event", GTK_SIGNAL_FUNC (on_filter_box_keypressed), fs);
-    gtk_box_pack_start (GTK_BOX (fs->priv->filter_box), label, FALSE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (fs->priv->filter_box), entry, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (fs->priv->filter_box), close_btn, FALSE, TRUE, 0);
-
-    gtk_box_pack_start (GTK_BOX (fs), fs->priv->filter_box, FALSE, TRUE, 0);
+    gtk_box_pack_start (*this, priv->filter_box, FALSE, TRUE, 0);
 
     gtk_widget_grab_focus (entry);
 }
