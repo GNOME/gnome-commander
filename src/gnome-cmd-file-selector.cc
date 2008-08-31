@@ -1316,6 +1316,7 @@ static void init (GnomeCmdFileSelector *fs)
     fs->con_combo = gnome_cmd_combo_new (2, 1, NULL);
     gtk_widget_ref (fs->con_combo);
     gtk_object_set_data_full (GTK_OBJECT (fs), "con_combo", fs->con_combo, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_set_size_request (fs->con_combo, 150, -1);
     gtk_clist_set_row_height (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 20);
     gtk_entry_set_editable (GTK_ENTRY (GNOME_CMD_COMBO (fs->con_combo)->entry), FALSE);
     gtk_clist_set_column_width (GTK_CLIST (GNOME_CMD_COMBO (fs->con_combo)->list), 0, 20);

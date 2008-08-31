@@ -1,3 +1,8 @@
+2008-09-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.cc:
+	Widen up connection combo
+
 2008-08-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:
