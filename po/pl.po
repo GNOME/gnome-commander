@@ -6227,7 +6227,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:526
 msgid "Accessibility Support"
-msgstr "Obsługą ułatwień dostępu"
+msgstr "Obsługa ułatwień dostępu"
 
 #: ../src/tags/gnome-cmd-tags.cc:526
 msgid "Set to \"1\" if accessibility support (eg. screen readers) is enabled."
