@@ -857,24 +857,23 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     dialog->priv->dir_entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser));
 
-
     hbox = create_hbox (window, FALSE, 0);
 
+    
     // Recurse check
     dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults->recursive);
+    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
 
     // Filename matching
-    gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, TRUE, 0);
-
-    radio = create_radio_with_mnemonic (window, NULL, _("She_ll syntax"), "shell_radio");
-    gtk_container_add (GTK_CONTAINER (hbox), radio);
-    if (gnome_cmd_data_get_filter_type () == Filter::TYPE_FNMATCH)
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio_with_mnemonic (window, get_radio_group (radio), _("Rege_x syntax"), "regex_radio");
-    gtk_container_add (GTK_CONTAINER (hbox), radio);
+    radio = create_radio_with_mnemonic (window, NULL, _("Rege_x syntax"), "regex_radio");
+    gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
     if (gnome_cmd_data_get_filter_type () == Filter::TYPE_REGEX)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio_with_mnemonic (window, get_radio_group (radio), _("She_ll syntax"), "shell_radio");
+    gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
+    if (gnome_cmd_data_get_filter_type () == Filter::TYPE_FNMATCH)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     table_add (table, hbox, 1, 2, GTK_FILL);
