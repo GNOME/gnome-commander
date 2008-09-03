@@ -100,19 +100,25 @@ class GnomeCmdFileSelector::Private
 
 inline GnomeCmdFileSelector::Private::Private()
 {
+    old_btns = NULL;
+    filter_box = NULL;
     active = FALSE;
     realized = FALSE;
     sel_first_file = TRUE;
     cwd = NULL;
     lwd = NULL;
     connected_dir = NULL;
-    old_btns = NULL;
     dir_history = NULL;
     sym_file = NULL;
     con = NULL;
     con_open_dialog = NULL;
     con_open_dialog_label = NULL;
+    con_open_dialog_pbar = NULL;
     con_opening = NULL;
+
+    autoscroll_dir = FALSE;
+    autoscroll_timeout = 0;
+    autoscroll_y = 0;
 }
 
 
