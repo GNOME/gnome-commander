@@ -3,18 +3,18 @@
 	* src/gnome-cmd-file-list.cc:
 	Fix for memory leak
 
-	*src/gnome-cmd-file-list.cc:
-	*src/gnome-cmd-file-list.h:
-	*src/gnome-cmd-file-popmenu.cc:
-	*src/gnome-cmd-file-selector.cc:
-	*src/gnome-cmd-main-win.cc:
-	*src/gnome-cmd-prepare-copy-dialog.cc:
-	*src/gnome-cmd-prepare-move-dialog.cc:
-	*src/gnome-cmd-prepare-xfer-dialog.cc:
-	*src/gnome-cmd-python-plugin.cc:
-	*src/gnome-cmd-quicksearch-popup.cc:
-	*src/gnome-cmd-search-dialog.cc:
-	*src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-popmenu.cc:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-prepare-copy-dialog.cc:
+	* src/gnome-cmd-prepare-move-dialog.cc:
+	* src/gnome-cmd-prepare-xfer-dialog.cc:
+	* src/gnome-cmd-python-plugin.cc:
+	* src/gnome-cmd-quicksearch-popup.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	* src/gnome-cmd-user-actions.cc:
 	GnomeCmdFileList: more C++ rework
 
 2008-09-03  Piotr Eljasiak  <epiotr@use.pl>
