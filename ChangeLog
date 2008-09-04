@@ -1,3 +1,8 @@
+2008-09-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	Fix for memory leak
+
 2008-09-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:

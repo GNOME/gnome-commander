@@ -442,14 +442,11 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    const gchar *ext1, *ext2;
-
     GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (fl);
     if (!f) return;
-    ext1 = gnome_cmd_file_get_extension (f);
+    
+    const gchar *ext1 = gnome_cmd_file_get_extension (f);
     if (!ext1) return;
-
-    GList *sel = g_list_copy (gnome_cmd_file_list_get_selected_files (fl));
 
     for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
     {
@@ -457,7 +454,7 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 
         if (finfo && finfo->info)
         {
-            ext2 = gnome_cmd_file_get_extension (finfo);
+            const gchar *ext2 = gnome_cmd_file_get_extension (finfo);
 
             if (ext2 && strcmp (ext1, ext2) == 0)
             {
@@ -468,8 +465,6 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
             }
         }
     }
-
-    g_list_free (sel);
 }
 
 
