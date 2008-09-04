@@ -573,11 +573,10 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
     if (listlen > 1)
     {
         int total_len = 0;
-        GList *tmp = sel_files;
         GList *uri_str_list = NULL;
 
         // create a list with the uri's of the selected files and calculate the total_length needed
-        while (tmp)
+        for (GList *tmp=sel_files; tmp; tmp=tmp->next)
         {
             GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
             const gchar *fn = NULL;
@@ -596,8 +595,6 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
             uri_str = g_strdup_printf ("%s\r\n", fn);
             uri_str_list = g_list_append (uri_str_list, uri_str);
             total_len += strlen (uri_str);
-
-            tmp = tmp->next;
         }
 
         // allocate memory
@@ -608,15 +605,12 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         data = copy = (gchar *) g_malloc (total_len+1);
 
         // put the uri_str_list in the allocated memory
-        tmp = uri_str_list;
-        while (tmp)
+        for (GList *tmp=uri_str_list; tmp; tmp=tmp->next)
         {
             gchar *uri_str = (gchar *) tmp->data;
 
             strcpy (copy, uri_str);
             copy += strlen (uri_str);
-
-            tmp = tmp->next;
         }
 
         g_list_foreach (uri_str_list, (GFunc) g_free, NULL);
@@ -1450,7 +1444,7 @@ void GnomeCmdFileList::append_file (GnomeCmdFile *f)
 *
 *   Params:   @fl: The FileList to show the files in
 *             @list: A list of files to show
-*             @sort: Wether to sort the files or not
+*             @sort: Whether to sort the files or not
 *
 *   Returns:
 *

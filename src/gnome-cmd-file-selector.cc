@@ -2174,7 +2174,7 @@ void GnomeCmdFileSelector::show_filter()
     GtkWidget *close_btn = create_button_with_data (GTK_WIDGET (main_win), "x", GTK_SIGNAL_FUNC (on_filter_box_close), this);
 
     gtk_signal_connect (GTK_OBJECT (entry), "key-press-event", GTK_SIGNAL_FUNC (on_filter_box_keypressed), this);
-    gtk_box_pack_start (GTK_BOX (priv->filter_box), label, FALSE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (priv->filter_box), label, FALSE, TRUE, 6);
     gtk_box_pack_start (GTK_BOX (priv->filter_box), entry, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (priv->filter_box), close_btn, FALSE, TRUE, 0);
 
