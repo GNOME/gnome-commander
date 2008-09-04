@@ -633,7 +633,7 @@ static void on_stop (GtkButton *button, GnomeCmdSearchDialog *dialog)
  */
 static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (GNOME_CMD_FILE_LIST (dialog->priv->result_list));
+    GnomeCmdFile *finfo = GNOME_CMD_FILE_LIST (dialog->priv->result_list)->get_selected_file();
 
     if (!finfo)
         return;

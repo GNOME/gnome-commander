@@ -71,7 +71,7 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gchar *dest_dir_frame_msg, *text;
     GtkWidget *label;
 
-    GList *tmp = gnome_cmd_file_list_get_selected_files (from->file_list());
+    GList *tmp = from->file_list()->get_selected_files();
 
     if (!tmp)
     {

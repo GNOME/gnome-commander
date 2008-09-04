@@ -65,7 +65,7 @@ inline GnomeCmdFileList *get_fl (const FileSelectorID fsID)
 // The file returned from this function is not to be unrefed
 inline GnomeCmdFile *get_selected_file (const FileSelectorID fsID)
 {
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_first_selected_file (get_fl (fsID));
+    GnomeCmdFile *finfo = get_fl (fsID)->get_first_selected_file();
 
     if (!finfo)
         create_error_dialog (_("No file selected"));
@@ -703,7 +703,7 @@ void file_mkdir (GtkMenuItem *menuitem, gpointer not_used)
 void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
 {
     GnomeCmdFileSelector *inactive_fs = get_fs (INACTIVE);
-    GList *f = gnome_cmd_file_list_get_selected_files (get_fl (ACTIVE));
+    GList *f = get_fl (ACTIVE)->get_selected_files ();
     guint selected_files = g_list_length (f);
 
     if (selected_files > 1)
@@ -722,7 +722,7 @@ void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
     }
    else
    {
-        GnomeCmdFile *finfo = gnome_cmd_file_list_get_focused_file (get_fl (ACTIVE));
+        GnomeCmdFile *finfo = get_fl (ACTIVE)->get_focused_file();
         gnome_cmd_file_selector_create_symlink (inactive_fs, finfo);
    }
 }
@@ -762,7 +762,7 @@ void file_diff (GtkMenuItem *menuitem, gpointer not_used)
 
     GnomeCmdFileList *active_fl = get_fl (ACTIVE);
 
-    GList *sel_files = gnome_cmd_file_list_get_selected_files (active_fl);
+    GList *sel_files = active_fl->get_selected_files();
 
     string s;
 
@@ -910,7 +910,7 @@ void edit_copy_fnames (GtkMenuItem *menuitem, gpointer not_used)
     gdk_window_get_pointer (NULL, NULL, NULL, &mask);
 
     GnomeCmdFileList *fl = get_fl (ACTIVE);
-    GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
+    GList *sfl = fl->get_selected_files();
     sfl = fl->sort_selection(sfl);
 
     string fnames;
@@ -949,7 +949,7 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     string uri = "[U]";
 
     GnomeCmdFileList *fl = get_fl (ACTIVE);
-    GList *sfl = gnome_cmd_file_list_get_selected_files (fl);
+    GList *sfl = fl->get_selected_files();
     sfl = fl->sort_selection(sfl);
 
     get_file_list (filename, sfl, gnome_cmd_file_get_name);
@@ -1064,7 +1064,7 @@ inline void open_uri_in_nautilus (gchar *uri)
 
 void command_open_nautilus (GtkMenuItem *menuitem, gpointer not_used)
 {
-    GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (get_fl (ACTIVE));
+    GnomeCmdFile *f = get_fl (ACTIVE)->get_selected_file();
 
     open_uri_in_nautilus (gnome_cmd_file_get_uri_str (GNOME_CMD_IS_DIR (f) ? f : GNOME_CMD_FILE (get_fs (ACTIVE)->get_directory())));
 }

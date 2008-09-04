@@ -71,7 +71,7 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
         popup->priv->matches = NULL;
     }
 
-    for (GList *files = gnome_cmd_file_list_get_all_files (popup->priv->fl); files; files = files->next)
+    for (GList *files = popup->priv->fl->get_all_files(); files; files = files->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
         gint res;

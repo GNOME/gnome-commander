@@ -75,7 +75,7 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gint num_files;
     gchar *dest_dir_frame_msg, *text;
     GtkWidget *label;
-    GList *tmp = gnome_cmd_file_list_get_selected_files (from->file_list());
+    GList *tmp = from->file_list()->get_selected_files();
 
     if (!tmp)
     {

@@ -118,8 +118,8 @@ class GnomeCmdFileList::Private
     GtkWidget *popup_menu;
 
     gint cur_file;
-    GList *selected_files;                         // contains GnomeCmdFile pointers
     GnomeCmdFileCollection *shown_files;
+    GList *selected_files;                         // contains GnomeCmdFile pointers
 
     GCompareDataFunc sort_func;
     gint current_col;
@@ -128,12 +128,56 @@ class GnomeCmdFileList::Private
     gboolean shift_down;
     gint shift_down_row;
     GnomeCmdFile *right_mb_down_file;
-    gboolean right_mouse_sel_state;
+    gboolean right_mb_sel_state;
     guint right_mb_timeout_id;
     GtkWidget *selpat_dialog;
     GtkWidget *quicksearch_popup;
     gchar *focus_later;
+
+    Private(GnomeCmdFileList *fl);
+    ~Private();
 };
+
+
+GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
+{
+    shown_files = new GnomeCmdFileCollection;
+    selected_files = NULL;
+
+    memset(column_pixmaps, NULL, sizeof(column_pixmaps));
+    memset(column_labels, NULL, sizeof(column_labels));
+
+    popup_menu = NULL;
+    quicksearch_popup = NULL;
+    selpat_dialog = NULL;
+
+    focus_later = NULL;
+    shift_down = FALSE;
+    shift_down_row = 0;
+    right_mb_sel_state = FALSE;
+    right_mb_down_file = NULL;
+    right_mb_timeout_id = 0;
+
+    memset(sort_raising, FALSE, sizeof(sort_raising));
+
+    gint col = COLUMN_NAME;             // defaults,
+    gboolean b = GTK_SORT_ASCENDING;    // used when not set by gnome_cmd_data_get_sort_params()
+
+    gnome_cmd_data_get_sort_params (fl, &col, &b);
+    current_col = col;
+    sort_raising[col] = b;
+    sort_func = file_list_column[col].sort_func;
+
+    for (gint i=0; i<NUM_COLUMNS; i++)
+        gtk_clist_set_column_resizeable (*fl, i, TRUE);
+}
+
+
+GnomeCmdFileList::Private::~Private()
+{
+    delete shown_files;
+    gnome_cmd_file_list_free (selected_files);
+}
 
 
 inline gchar *strip_extension (const gchar *fname)
@@ -442,13 +486,13 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *f = gnome_cmd_file_list_get_selected_file (fl);
+    GnomeCmdFile *f = fl->get_selected_file();
     if (!f) return;
-    
+
     const gchar *ext1 = gnome_cmd_file_get_extension (f);
     if (!ext1) return;
 
-    for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
+    for (GList *tmp=fl->get_all_files(); tmp; tmp=tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
@@ -474,7 +518,7 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
 
     Filter filter(pattern, case_sens, gnome_cmd_data_get_filter_type ());
 
-    for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp=tmp->next)
+    for (GList *tmp=fl->get_all_files(); tmp; tmp=tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
@@ -562,7 +606,7 @@ static void update_column_sort_arrows (GnomeCmdFileList *fl)
 
 static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
 {
-    GList *sel_files = gnome_cmd_file_list_get_selected_files (fl);
+    GList *sel_files = fl->get_selected_files();
     int listlen = g_list_length (sel_files);
 
     if (listlen > 1)
@@ -711,7 +755,7 @@ inline void show_file_popup_with_warp (GnomeCmdFileList *fl)
 
 static gboolean on_right_mb_timeout (GnomeCmdFileList *fl)
 {
-    GnomeCmdFile *focus_file = gnome_cmd_file_list_get_focused_file (fl);
+    GnomeCmdFile *focus_file = fl->get_focused_file();
 
     if (fl->priv->right_mb_down_file == focus_file)
     {
@@ -1109,12 +1153,12 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEvent
                             if (g_list_index (fl->priv->selected_files, finfo) == -1)
                             {
                                 select_file (fl, finfo);
-                                fl->priv->right_mouse_sel_state = 1;
+                                fl->priv->right_mb_sel_state = 1;
                             }
                             else
                             {
                                 unselect_file (fl, finfo);
-                                fl->priv->right_mouse_sel_state = 0;
+                                fl->priv->right_mb_sel_state = 0;
                             }
 
                             fl->priv->right_mb_down_file = finfo;
@@ -1148,7 +1192,7 @@ static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFi
             if (finfo)
             {
                 fl->select_row(row+1);
-                if (fl->priv->right_mouse_sel_state)
+                if (fl->priv->right_mb_sel_state)
                     select_file (fl, finfo);
                 else
                     unselect_file (fl, finfo);
@@ -1205,10 +1249,7 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (object);
 
-    delete fl->priv->shown_files;
-    gnome_cmd_file_list_free (fl->priv->selected_files);
-
-    g_free (fl->priv);
+    delete fl->priv;
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -1275,31 +1316,9 @@ static void class_init (GnomeCmdFileListClass *klass)
 
 static void init (GnomeCmdFileList *fl)
 {
-    fl->priv = g_new0 (GnomeCmdFileList::Private, 1);
-    fl->priv->shown_files = new GnomeCmdFileCollection;
-    // fl->priv->selected_files = NULL;
-    // fl->priv->shift_down = FALSE;
-    // fl->priv->selpat_dialog = NULL;
-    // fl->priv->right_mb_down_file = NULL;
-    // fl->priv->right_mb_timeout_id = 0;
-    // fl->priv->quicksearch_popup = NULL;
-    // fl->priv->focus_later = NULL;
-
-    // for (gint i=0; i<GnomeCmdFileList::NUM_COLUMNS; i++)
-        // fl->priv->sort_raising[i] = FALSE;
-
-    gint col = GnomeCmdFileList::COLUMN_NAME;       // defaults,
-    gboolean b = GTK_SORT_ASCENDING;        // used when not set by gnome_cmd_data_get_sort_params()
-
-    gnome_cmd_data_get_sort_params (fl, &col, &b);
-    fl->priv->current_col = col;
-    fl->priv->sort_raising[col] = b;
-    fl->priv->sort_func = file_list_column[col].sort_func;
+    fl->priv = new GnomeCmdFileList::Private(fl);
 
     init_dnd (fl);
-
-    for (gint i=0; i<GnomeCmdFileList::NUM_COLUMNS; i++)
-        gtk_clist_set_column_resizeable (*fl, i, TRUE);
 
     gtk_signal_connect_after (*fl, "scroll-vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), fl);
     gtk_signal_connect (*fl, "click-column", GTK_SIGNAL_FUNC (on_column_clicked), fl);
@@ -1567,156 +1586,38 @@ void GnomeCmdFileList::clear()
 }
 
 
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_get_selected_files
-*
-*   Purpose: Returns a list with all selected files. The list returned is
-*            a copy and should be freed when no longer needed. The files
-*            in the list is however not refed before returning.
-*
-*   Params:
-*
-*   Returns:
-*
-*   Statuses:
-*
-******************************************************************************/
-
-GList *gnome_cmd_file_list_get_selected_files (GnomeCmdFileList *fl)
+GList *GnomeCmdFileList::get_selected_files()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
+    if (priv->selected_files)
+        return g_list_copy (priv->selected_files);
 
-    if (fl->priv->selected_files)
-        return g_list_copy (fl->priv->selected_files);
-
-    GnomeCmdFile *file = gnome_cmd_file_list_get_selected_file (fl);
+    GnomeCmdFile *file = get_selected_file();
 
     return file ? g_list_append (NULL, file) : NULL;
 }
 
 
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_get_marked_files
-*
-*   Purpose: Returns a list with all marked files. The list returned is
-*            a copy and should be freed when no longer needed. The files
-*            in the list is however not refed before returning.
-*            A marked file is a file that has been selected with ins etc.
-*            The file that is currently focused is not marked.
-*
-*   Params:
-*
-*   Returns:
-*
-*   Statuses:
-*
-******************************************************************************/
-
-GList *gnome_cmd_file_list_get_marked_files (GnomeCmdFileList *fl)
+GList *GnomeCmdFileList::get_marked_files()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
-
-    return fl->priv->selected_files ? g_list_copy (fl->priv->selected_files) : NULL;
+    return priv->selected_files ? g_list_copy (priv->selected_files) : NULL;
 }
 
 
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_get_all_files
-*
-*   Purpose: Returns a list with all files shown in the file-list. The list
-*            is the same as that in the file-list it self so make a copy and ref the files
-*            if needed.
-*
-*   Params:
-*
-*   Returns:
-*
-*   Statuses:
-*
-******************************************************************************/
-
-GList *gnome_cmd_file_list_get_all_files (GnomeCmdFileList *fl)
+GList *GnomeCmdFileList::get_all_files()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
-
-    return fl->priv->shown_files->get_list();
+    return priv->shown_files->get_list();
 }
 
 
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_get_selected_file
-*
-*   Purpose: Returns the currently focused file if any. The returned file is not
-*            refed. The ".." file is NOT returned if focused
-*
-*   Params:
-*
-*   Returns:
-*
-*   Statuses:
-*
-******************************************************************************/
-
-GnomeCmdFile *gnome_cmd_file_list_get_selected_file (GnomeCmdFileList *fl)
+GnomeCmdFile *GnomeCmdFileList::get_first_selected_file()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
-
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_focused_file (fl);
-
-    return !finfo || strcmp (finfo->info->name, "..") == 0 ? NULL : finfo;
+    return priv->selected_files ? (GnomeCmdFile *) priv->selected_files->data : get_selected_file();
 }
 
 
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_get_first_selected_file
-*
-*   Purpose:  Returns the first selected file if any or the focused one otherwise.
-*            The returned file is not refed. The ".." file is NOT returned if focused
-*
-*   Params:
-*
-*   Returns:
-*
-*   Statuses:
-*
-******************************************************************************/
-
-GnomeCmdFile *gnome_cmd_file_list_get_first_selected_file (GnomeCmdFileList *fl)
+GnomeCmdFile *GnomeCmdFileList::get_focused_file()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
-
-    if (fl->priv->selected_files)
-        return (GnomeCmdFile *) fl->priv->selected_files->data;
-
-    return gnome_cmd_file_list_get_selected_file (fl);
-}
-
-
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_get_focused_file
-*
-*   Purpose: Returns the currently focused file if any. The returned file is not
-*            refed. The ".." file is returned if focused
-*
-*   Params:
-*
-*   Returns:
-*
-*   Statuses:
-*
-******************************************************************************/
-
-GnomeCmdFile *gnome_cmd_file_list_get_focused_file (GnomeCmdFileList *fl)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
-
-    return fl->priv->cur_file < 0 ? NULL : get_file_at_row (fl, fl->priv->cur_file);
+    return priv->cur_file < 0 ? NULL : get_file_at_row (this, priv->cur_file);
 }
 
 
@@ -1725,7 +1626,7 @@ void GnomeCmdFileList::select_all()
     gnome_cmd_file_list_free (priv->selected_files);
     priv->selected_files = NULL;
 
-    for (GList *tmp = gnome_cmd_file_list_get_all_files (this); tmp; tmp = tmp->next)
+    for (GList *tmp = get_all_files(); tmp; tmp = tmp->next)
         select_file (this, (GnomeCmdFile *) tmp->data);
 }
 
@@ -1769,7 +1670,7 @@ void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_fi
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    for (GList *tmp = gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
+    for (GList *tmp = fl->get_all_files(); tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
@@ -1821,7 +1722,7 @@ void gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl)
 
     GList *sel = g_list_copy (fl->priv->selected_files);
 
-    for (GList *tmp=gnome_cmd_file_list_get_all_files (fl); tmp; tmp = tmp->next)
+    for (GList *tmp=fl->get_all_files(); tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
@@ -1868,7 +1769,7 @@ void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFil
     fl1->unselect_all();
     fl2->select_all();
 
-    for (GList *i=gnome_cmd_file_list_get_all_files (fl1); i; i=i->next)
+    for (GList *i=fl1->get_all_files(); i; i=i->next)
     {
         GnomeCmdFile *f1 = (GnomeCmdFile *) i->data;
         GnomeCmdFile *f2;
@@ -1906,9 +1807,9 @@ void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFil
 }
 
 
-void GnomeCmdFileList::sort ()
+void GnomeCmdFileList::sort()
 {
-    GnomeCmdFile *selfile = gnome_cmd_file_list_get_selected_file (this);
+    GnomeCmdFile *selfile = get_selected_file();
 
     gtk_clist_freeze (GTK_CLIST (this));
     gtk_clist_clear (GTK_CLIST (this));
@@ -1949,7 +1850,7 @@ void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (fl);
+    GnomeCmdFile *finfo = fl->get_selected_file();
 
     if (GNOME_CMD_IS_FILE (finfo))
     {
@@ -1969,7 +1870,7 @@ void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GList *files = gnome_cmd_file_list_get_selected_files (fl);
+    GList *files = fl->get_selected_files();
 
     if (files)
     {
@@ -1983,7 +1884,7 @@ void gnome_cmd_file_list_show_chown_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GList *files = gnome_cmd_file_list_get_selected_files (fl);
+    GList *files = fl->get_selected_files();
 
     if (files)
     {
@@ -2000,7 +1901,7 @@ void gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GList *files = gnome_cmd_file_list_get_selected_files (fl);
+    GList *files = fl->get_selected_files();
 
     if (files)
     {
@@ -2017,7 +1918,7 @@ void gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GList *files = gnome_cmd_file_list_get_selected_files (fl);
+    GList *files = fl->get_selected_files();
 
     if (files)
     {
@@ -2033,7 +1934,7 @@ void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (fl);
+    GnomeCmdFile *finfo = fl->get_selected_file();
 
     if (finfo)
         gnome_cmd_file_show_properties (finfo);
@@ -2050,7 +1951,7 @@ void gnome_cmd_file_list_cap_cut (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GList *files = gnome_cmd_file_list_get_selected_files (fl);
+    GList *files = fl->get_selected_files();
 
     if (files)
     {
@@ -2064,7 +1965,7 @@ void gnome_cmd_file_list_cap_copy (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GList *files = gnome_cmd_file_list_get_selected_files (fl);
+    GList *files = fl->get_selected_files();
 
     if (files)
     {
@@ -2078,7 +1979,7 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (fl);
+    GnomeCmdFile *finfo = fl->get_selected_file();
 
     if (!finfo)  return;
 
@@ -2094,7 +1995,7 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *finfo = gnome_cmd_file_list_get_selected_file (fl);
+    GnomeCmdFile *finfo = fl->get_selected_file();
 
     if (!finfo)  return;
 
@@ -2261,7 +2162,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
         {
             case GDK_Return:
             case GDK_KP_Enter:
-                return mime_exec_file (gnome_cmd_file_list_get_focused_file (this));
+                return mime_exec_file (get_focused_file());
 
             case GDK_KP_Add:
             case GDK_plus:
@@ -2343,7 +2244,7 @@ GList *GnomeCmdFileList::sort_selection(GList *list)
 
 void GnomeCmdFileList::invalidate_tree_size()
 {
-    GList *all_files = gnome_cmd_file_list_get_all_files (this);
+    GList *all_files = get_all_files();
 
     for (GList *tmp = all_files; tmp; tmp = tmp->next)
     {

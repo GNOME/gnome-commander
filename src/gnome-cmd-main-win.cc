@@ -1310,10 +1310,10 @@ GnomeCmdState *gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw)
     GnomeCmdState *state = &mw->priv->state;
     state->active_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir1));
     state->inactive_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir2));
-    state->active_dir_files = gnome_cmd_file_list_get_all_files (fs1->file_list());
-    state->inactive_dir_files = gnome_cmd_file_list_get_all_files (fs2->file_list());
-    state->active_dir_selected_files = gnome_cmd_file_list_get_selected_files (fs1->file_list());
-    state->inactive_dir_selected_files = gnome_cmd_file_list_get_selected_files (fs2->file_list());
+    state->active_dir_files = fs1->file_list()->get_all_files();
+    state->inactive_dir_files = fs2->file_list()->get_all_files();
+    state->active_dir_selected_files = fs1->file_list()->get_selected_files();
+    state->inactive_dir_selected_files = fs2->file_list()->get_selected_files();
 
     return state;
 }
