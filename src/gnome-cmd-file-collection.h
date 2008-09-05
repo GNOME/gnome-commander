@@ -40,8 +40,8 @@ class GnomeCmdFileCollection
 
     void add(GnomeCmdFile *file);
     void add(GList *files);
-    void remove(GnomeCmdFile *file);
-    void remove(const gchar *uri_str);
+    gboolean remove(GnomeCmdFile *file);
+    gboolean remove(const gchar *uri_str);
 
     GList *get_list()   {  return list;  }
 

@@ -36,26 +36,31 @@ void GnomeCmdFileCollection::add(GnomeCmdFile *file)
 }
 
 
-void GnomeCmdFileCollection::remove(GnomeCmdFile *file)
+gboolean GnomeCmdFileCollection::remove(GnomeCmdFile *file)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE (file));
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (file), FALSE);
 
     list = g_list_remove (list, file);
 
     gchar *uri_str = gnome_cmd_file_get_uri_str (file);
-    g_hash_table_remove (map, uri_str);
+    gboolean retval = g_hash_table_remove (map, uri_str);
     g_free (uri_str);
+
+    return retval;
 }
 
 
-void GnomeCmdFileCollection::remove(const gchar *uri_str)
+gboolean GnomeCmdFileCollection::remove(const gchar *uri_str)
 {
-    g_return_if_fail (uri_str != NULL);
+    g_return_val_if_fail (uri_str != NULL, FALSE);
 
     GnomeCmdFile *file = find(uri_str);
 
+    if (!file)
+        return FALSE;
+
     list = g_list_remove (list, file);
-    g_hash_table_remove (map, uri_str);
+    return g_hash_table_remove (map, uri_str);
 }
 
 
