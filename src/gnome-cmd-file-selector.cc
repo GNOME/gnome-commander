@@ -161,7 +161,7 @@ inline void update_selected_files_label (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    GList *all_files = fs->file_list()->get_all_files();
+    GList *all_files = fs->file_list()->get_visible_files();
 
     if (!all_files)
         return;
@@ -255,7 +255,7 @@ inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
 
     fs->file_list()->invalidate_tree_size();
 
-    for (GList *files = fs->file_list()->get_all_files(); files; files = files->next)
+    for (GList *files = fs->file_list()->get_visible_files(); files; files = files->next)
         gnome_cmd_file_list_show_dir_size (fs->file_list(), (GnomeCmdFile *) files->data);
 
     update_selected_files_label (fs);
@@ -825,7 +825,7 @@ static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 
 inline gboolean file_is_in_list (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 {
-    return g_list_index (fs->file_list()->get_all_files(), f) != -1;
+    return g_list_index (fs->file_list()->get_visible_files(), f) != -1;
 }
 
 

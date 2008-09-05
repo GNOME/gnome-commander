@@ -11,6 +11,13 @@
 	* src/gnome-cmd-file-collection.h:
 	GnomeCmdFileCollection::remove(): return TRUE if success, FALSE otherwise
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-quicksearch-popup.cc:
+	GnomeCmdFileCollection: get_all_files() -> get_visible_files()
+
 2008-09-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

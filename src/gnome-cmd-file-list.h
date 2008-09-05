@@ -74,8 +74,8 @@ struct GnomeCmdFileList
 
     int size();
     bool empty();
-    // int size()                          {  return g_list_length (all_files());  }
-    // bool empty()                        {  return all_files()==NULL;            }    // FIXME should be: size()==0
+    // int size()                          {  return g_list_length (get_visible_files());  }
+    // bool empty()                        {  return get_visible_files()==NULL;            }    // FIXME should be: size()==0
     void clear();
 
     void append_file(GnomeCmdFile *f);
@@ -96,7 +96,7 @@ struct GnomeCmdFileList
     void sort();
     GList *sort_selection(GList *list);
 
-    GList *get_all_files();                     // Returns a list with all files shown in the file-list. The list is the same as that in the file-list it self so make a copy and ref the files if needed
+    GList *get_visible_files();                 // Returns a list with all files shown in the file list. The list is the same as that in the file-list it self so make a copy and ref the files if needed
     GList *get_selected_files();                // Returns a list with all selected files. The list returned is a copy and should be freed when no longer needed. The files in the list is however not refed before returning
     GList *get_marked_files();                  // Returns a list with all marked files. The list returned is a copy and should be freed when no longer needed. The files in the list is however not refed before returning
                                                 // A marked file is a file that has been selected with ins etc. The file that is currently focused is not marked
@@ -136,12 +136,12 @@ GtkWidget *gnome_cmd_file_list_new ();
 
 inline int GnomeCmdFileList::size()
 {
-    return g_list_length (get_all_files());
+    return g_list_length (get_visible_files());
 }
 
 inline bool GnomeCmdFileList::empty()
 {
-    return get_all_files()==NULL;
+    return get_visible_files()==NULL;
 }
 
 inline void GnomeCmdFileList::remove_files (GList *files)
