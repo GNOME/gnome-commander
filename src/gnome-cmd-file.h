@@ -119,7 +119,7 @@ void gnome_cmd_file_show_cap_cut (GnomeCmdFile *f);
 void gnome_cmd_file_show_cap_copy (GnomeCmdFile *f);
 void gnome_cmd_file_show_cap_paste (GnomeCmdFile *f);
 
-//FIXME: These names suck when we have a class called GnomeCmdFileList...
+// FIXME: These names suck when we have a class called GnomeCmdFileList...
 GList *gnome_cmd_file_list_copy (GList *files);
 void gnome_cmd_file_list_free (GList *files);
 void gnome_cmd_file_list_ref (GList *files);

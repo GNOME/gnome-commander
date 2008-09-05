@@ -167,9 +167,6 @@ void gnome_cmd_data_set_term (const gchar *shell);
 
 gboolean gnome_cmd_data_get_use_gcmd_block (void);
 
-gboolean gnome_cmd_data_get_show_toolbar (void);
-void gnome_cmd_data_set_show_toolbar (gboolean value);
-
 guint gnome_cmd_data_get_icon_size (void);
 void gnome_cmd_data_set_icon_size (guint size);
 

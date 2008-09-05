@@ -58,8 +58,8 @@ using namespace std;
 enum
 {
     FILE_CLICKED,        // A file in the list was clicked
-    LIST_CLICKED,        // The file-list widget was clicked
-    EMPTY_SPACE_CLICKED, // The file-list was clicked but not on a file
+    LIST_CLICKED,        // The file list widget was clicked
+    EMPTY_SPACE_CLICKED, // The file list was clicked but not on a file
     SELECTION_CHANGED,   // At least on file was selected/unselected
     LAST_SIGNAL
 };
@@ -1810,7 +1810,7 @@ void GnomeCmdFileList::sort()
     for (GList *list = priv->visible_files.sort(priv->sort_func, this); list; list = list->next)
         add_file_to_clist (this, GNOME_CMD_FILE (list->data), -1);
 
-    // refocus the previously selected file if this file-list has the focus
+    // refocus the previously selected file if this file list has the focus
     if (selfile && GTK_WIDGET_HAS_FOCUS (this))
     {
         gint selrow = get_row_from_file (this, selfile);

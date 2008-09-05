@@ -249,7 +249,7 @@ Bug fixes:
  * Fixed update after renaming without FAM
 
 New features:
- * New GNOME commander logo
+ * New GNOME Commander logo
  * Added internal F3 viewer
  * Copying selected filename(s) to clipboard
  * Inserting selected file full path to the cmdline when pressing CTRL+SHIFT+ENTER

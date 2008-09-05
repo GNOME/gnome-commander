@@ -909,7 +909,7 @@ static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
     if (file_is_in_list (fs, f))
     {
-        gnome_cmd_file_invalidate_metadata (f);
+        gnome_cmd_file_invalidate_metadata (f);                 // FIXME: should be hadled in GnomeCmdDir, not here
         gnome_cmd_file_list_update_file (fs->file_list(), f);
         update_selected_files_label (fs);
     }
@@ -924,7 +924,7 @@ static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
     if (file_is_in_list (fs, f))
     {
-        // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);
+        // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);    // FIXME: should be hadled in GnomeCmdDir, not here
         gnome_cmd_file_list_update_file (fs->file_list(), f);
 
         GnomeCmdFileList::ColumnID sort_col = GNOME_CMD_FILE_LIST (fs->file_list())->get_sort_column();

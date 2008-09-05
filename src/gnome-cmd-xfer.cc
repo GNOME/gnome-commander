@@ -259,7 +259,7 @@ static gboolean update_xfer_gui_func (XferData *data)
 
     if (data->done)
     {
-        // Remove files from the source file-list when a move operation has finished
+        // Remove files from the source file list when a move operation has finished
         if (data->xferOptions & GNOME_VFS_XFER_REMOVESOURCE)
             if (data->src_fl && data->src_files)
             {
@@ -268,9 +268,9 @@ static gboolean update_xfer_gui_func (XferData *data)
                     previous function used here:
                     gnome_cmd_file_list_remove_files (data->src_fl, data->src_files);
 
-                    After 'async_xfer_callback' has been called the file-list, 'src_files' has
+                    After 'async_xfer_callback' has been called the file list, 'src_files' has
                     not been altered and source files that have moved might be write protected.
-                    So we need to check if files that are to be removed from the file-list
+                    So we need to check if files that are to be removed from the file list
                     still exist.
 
                 *************************************************************************/

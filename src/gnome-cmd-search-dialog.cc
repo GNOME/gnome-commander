@@ -62,8 +62,8 @@ struct ProtectedData
 
 struct SearchData
 {
-    const gchar *name_pattern;              // the pattern that filenames should match to end up in the file-list
-    const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file-list
+    const gchar *name_pattern;              // the pattern that file names should match to end up in the file list
+    const gchar *content_pattern;           // the pattern that the content of a file should match to end up in the file list
     const gchar *dir;                       // the current dir of the search routine
 
     Filter *name_filter;

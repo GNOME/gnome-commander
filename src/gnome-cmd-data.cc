@@ -66,7 +66,6 @@ struct _GnomeCmdDataPrivate
     gint                 list_row_height;
     gchar                *list_font;
     GnomeCmdRightMouseButtonMode right_mouse_button_mode;
-    gboolean             show_toolbar;
     guint                icon_size;
     guint                dev_icon_size;
     GdkInterpType        icon_scale_quality;
@@ -1201,7 +1200,6 @@ void gnome_cmd_data_save (void)
 
     gnome_cmd_data_set_int    ("/options/ext_disp_mode", data->priv->ext_disp_mode);
     gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", data->priv->right_mouse_button_mode);
-    gnome_cmd_data_set_bool   ("/options/show_toolbar", data->priv->show_toolbar);
     gnome_cmd_data_set_int    ("/options/icon_size", data->priv->icon_size);
     gnome_cmd_data_set_int    ("/options/dev_icon_size", data->priv->dev_icon_size);
     gnome_cmd_data_set_int    ("/options/icon_scale_quality", data->priv->icon_scale_quality);
@@ -1423,7 +1421,6 @@ void gnome_cmd_data_load (void)
 
     data->priv->ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
     data->priv->right_mouse_button_mode = (GnomeCmdRightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
-    data->priv->show_toolbar = gnome_cmd_data_get_bool ("/options/show_toolbar", TRUE);
     data->priv->icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
     data->priv->dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
     data->priv->icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
@@ -2026,19 +2023,6 @@ void gnome_cmd_data_set_right_mouse_button_mode (GnomeCmdRightMouseButtonMode mo
 GnomeCmdRightMouseButtonMode gnome_cmd_data_get_right_mouse_button_mode (void)
 {
     return data->priv->right_mouse_button_mode;
-}
-
-
-void gnome_cmd_data_set_show_toolbar (gboolean value)
-{
-    data->priv->show_toolbar = value;
-}
-
-
-gboolean
-gnome_cmd_data_get_show_toolbar (void)
-{
-    return data->priv->show_toolbar;
 }
 
 
