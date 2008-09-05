@@ -252,12 +252,6 @@ inline FileFormatData::~FileFormatData()
 }
 
 
-inline char *gnome_cmd_get_collation_fname (GnomeCmdFile *f)
-{
-    return f->collate_key ? f->collate_key : f->info->name;
-}
-
-
 inline GnomeCmdFile *get_file_at_row (GnomeCmdFileList *fl, gint row)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
@@ -818,7 +812,7 @@ static gint sort_by_name (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
 
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
 
-    return my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), raising);
+    return my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), raising);
 }
 
 
@@ -839,7 +833,7 @@ static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
     gboolean raising = fl->priv->sort_raising[fl->priv->current_col];
 
     if (!gnome_cmd_file_get_extension (f1) && !gnome_cmd_file_get_extension (f2))
-        return my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), fl->priv->sort_raising[1]);
+        return my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), fl->priv->sort_raising[1]);
 
     if (!gnome_cmd_file_get_extension (f1))
         return raising?1:-1;
@@ -848,7 +842,7 @@ static gint sort_by_ext (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
 
     gint ret = my_strcmp (gnome_cmd_file_get_extension (f1), gnome_cmd_file_get_extension (f2), raising);
 
-    return ret ? ret : my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), fl->priv->sort_raising[1]);
+    return ret ? ret : my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), fl->priv->sort_raising[1]);
 }
 
 
@@ -881,7 +875,7 @@ static gint sort_by_dir (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *f
 
     // return ret;
 
-    return my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), raising);
+    return my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), raising);
 }
 
 
@@ -902,7 +896,7 @@ static gint sort_by_size (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     {
         ret = my_intcmp (f1->info->size, f2->info->size, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
     }
     return ret;
 }
@@ -924,7 +918,7 @@ static gint sort_by_perm (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     {
         ret = my_intcmp (f1->info->permissions, f2->info->permissions, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
     }
     return ret;
 }
@@ -946,7 +940,7 @@ static gint sort_by_date (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList *
     {
         ret = my_intcmp (f1->info->mtime, f2->info->mtime, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
     }
     return ret;
 }
@@ -968,7 +962,7 @@ static gint sort_by_owner (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
     {
         ret = my_intcmp (f1->info->uid, f2->info->uid, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
     }
     return ret;
 }
@@ -990,7 +984,7 @@ static gint sort_by_group (GnomeCmdFile *f1, GnomeCmdFile *f2, GnomeCmdFileList 
     {
         ret = my_intcmp (f1->info->gid, f2->info->gid, raising);
         if (!ret)
-            ret = my_strcmp (gnome_cmd_get_collation_fname (f1), gnome_cmd_get_collation_fname (f2), file_raising);
+            ret = my_strcmp (gnome_cmd_file_get_collation_fname (f1), gnome_cmd_file_get_collation_fname (f2), file_raising);
     }
     return ret;
 }

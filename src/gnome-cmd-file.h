@@ -85,6 +85,11 @@ gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *f);
 GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
 
+inline char *gnome_cmd_file_get_collation_fname (GnomeCmdFile *f)
+{
+    return f->collate_key ? f->collate_key : f->info->name;
+}
+
 const gchar *gnome_cmd_file_get_extension (GnomeCmdFile *f);
 const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *f);
 const gchar *gnome_cmd_file_get_group (GnomeCmdFile *f);

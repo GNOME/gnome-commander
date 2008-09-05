@@ -1,5 +1,11 @@
 2008-09-05  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-file.h:
+	* src/gnome-cmd-file-list.cc:
+	Move gnome_cmd_get_collation_fname() to gnome-cmd-file.h
+
+2008-09-05  Piotr Eljasiak  <epiotr@use.pl>
+
 	* src/gnome-cmd-file-list.cc:
 	GnomeCmdFileList: do not allocate dynamically shown_files
 
