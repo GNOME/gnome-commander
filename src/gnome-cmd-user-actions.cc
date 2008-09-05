@@ -1187,6 +1187,17 @@ void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
 }
 
 
+void view_concombo (GtkMenuItem *menuitem, gpointer not_used)
+{
+    if (!GTK_WIDGET_REALIZED (main_win)) return;
+
+    GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
+    gnome_cmd_data_set_concombo_visibility (checkitem->active);
+    get_fs (ACTIVE)->update_concombo_visibility();
+    get_fs (INACTIVE)->update_concombo_visibility();
+}
+
+
 void view_toolbar (GtkMenuItem *menuitem, gpointer not_used)
 {
     if (!GTK_WIDGET_REALIZED (main_win)) return;

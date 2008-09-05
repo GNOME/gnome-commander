@@ -238,6 +238,9 @@ void gnome_cmd_data_set_list_orientation (gboolean vertical);
 gboolean gnome_cmd_data_get_conbuttons_visibility (void);
 void gnome_cmd_data_set_conbuttons_visibility (gboolean value);
 
+gboolean gnome_cmd_data_get_concombo_visibility (void);
+void gnome_cmd_data_set_concombo_visibility (gboolean value);
+
 gboolean gnome_cmd_data_get_cmdline_visibility (void);
 void gnome_cmd_data_set_cmdline_visibility (gboolean value);
 

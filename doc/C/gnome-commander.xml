@@ -5258,15 +5258,22 @@
                                 <row valign="top">
                                     <entry><para></para></entry>
                                     <entry><para>cmdline_visibility</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>boolean</para></entry>
+                                    <entry><para>Show commandline.</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
                                     <entry><para>conbuttons_visibility</para></entry>
+                                    <entry><para>boolean</para></entry>
+                                    <entry><para>Show connection/device buttons.</para></entry>
                                     <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
                                     <entry><para></para></entry>
+                                    <entry><para>con_list_visibility</para></entry>
+                                    <entry><para>boolean</para></entry>
+                                    <entry><para>Show connection/device list.</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">

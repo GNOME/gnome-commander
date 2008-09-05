@@ -18,6 +18,15 @@
 	* src/gnome-cmd-quicksearch-popup.cc:
 	GnomeCmdFileCollection: get_all_files() -> get_visible_files()
 
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-file-selector.h:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Visibility of connection/device list is configurable now
+
 2008-09-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

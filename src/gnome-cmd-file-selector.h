@@ -95,6 +95,7 @@ struct GnomeCmdFileSelector
     void update_style();
     void update_connections();
     void update_conbuttons_visibility();
+    void update_concombo_visibility();
 
     gboolean key_pressed(GdkEventKey *event);
 };

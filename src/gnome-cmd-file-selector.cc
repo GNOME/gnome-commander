@@ -1398,12 +1398,12 @@ static void init (GnomeCmdFileSelector *fs)
 
     // show the widgets
     gtk_widget_show (GTK_WIDGET (vbox));
-    gtk_widget_show (fs->con_hbox);
-    gtk_widget_show (fs->dir_indicator);
-    gtk_widget_show (fs->root_btn);
-    gtk_widget_show (fs->scrolledwindow);
-    gtk_widget_show (fs->vol_label);
+    fs->update_concombo_visibility();
     gtk_widget_show (fs->con_combo);
+    gtk_widget_show (fs->root_btn);
+    gtk_widget_show (fs->vol_label);
+    gtk_widget_show (fs->dir_indicator);
+    gtk_widget_show (fs->scrolledwindow);
     gtk_widget_show (fs->list_widget);
     gtk_widget_show (fs->info_label);
 
@@ -2139,6 +2139,15 @@ void GnomeCmdFileSelector::update_conbuttons_visibility()
             create_con_buttons (this);
         }
     }
+}
+
+
+void GnomeCmdFileSelector::update_concombo_visibility()
+{
+    if (gnome_cmd_data_get_concombo_visibility ())
+        gtk_widget_show (con_hbox);
+    else
+        gtk_widget_hide (con_hbox);
 }
 
 

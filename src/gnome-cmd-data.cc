@@ -90,6 +90,7 @@ struct _GnomeCmdDataPrivate
     AdvrenameDefaults    *advrename_defaults;
     gboolean             list_orientation;
     gboolean             conbuttons_visibility;
+    gboolean             concombo_visibility;
     gboolean             cmdline_visibility;
     gchar                *start_dirs[2];
     gchar                *last_pattern;
@@ -1210,6 +1211,7 @@ void gnome_cmd_data_save (void)
     gnome_cmd_data_set_int    ("/options/filter_type", data->priv->filter_type);
     gnome_cmd_data_set_bool   ("/options/list_orientation", data->priv->list_orientation);
     gnome_cmd_data_set_bool   ("/options/conbuttons_visibility", data->priv->conbuttons_visibility);
+    gnome_cmd_data_set_bool   ("/options/con_list_visibility", data->priv->concombo_visibility);
     gnome_cmd_data_set_bool   ("/options/cmdline_visibility", data->priv->cmdline_visibility);
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", data->priv->honor_expect_uris);
@@ -1433,6 +1435,7 @@ void gnome_cmd_data_load (void)
     data->priv->filter_type = (Filter::Type) gnome_cmd_data_get_int ("/options/filter_type", Filter::TYPE_FNMATCH);
     data->priv->list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
     data->priv->conbuttons_visibility = gnome_cmd_data_get_bool ("/options/conbuttons_visibility", TRUE);
+    data->priv->concombo_visibility = gnome_cmd_data_get_bool ("/options/con_list_visibility", TRUE);
     data->priv->cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
     data->priv->gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
     data->priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
@@ -2346,6 +2349,18 @@ gboolean gnome_cmd_data_get_conbuttons_visibility (void)
 void gnome_cmd_data_set_conbuttons_visibility (gboolean value)
 {
     data->priv->conbuttons_visibility = value;
+}
+
+
+gboolean gnome_cmd_data_get_concombo_visibility (void)
+{
+    return data->priv->concombo_visibility;
+}
+
+
+void gnome_cmd_data_set_concombo_visibility (gboolean value)
+{
+    data->priv->concombo_visibility = value;
 }
 
 
