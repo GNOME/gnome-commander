@@ -24,7 +24,6 @@ pixmaps_DATA = \
 	overlay_umount.xpm \
 	parent_dir.xpm \
 	python.svg \
-	root_dir.xpm \
 	rotate-180-16.xpm \
 	rotate-270-16.xpm \
 	rotate-90-16.xpm \

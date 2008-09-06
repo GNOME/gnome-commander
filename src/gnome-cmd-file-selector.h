@@ -47,7 +47,6 @@ struct GnomeCmdFileSelector
     GtkWidget *con_btns_hbox;
     GtkWidget *con_hbox;
     GtkWidget *dir_indicator;
-    GtkWidget *root_btn;
     GtkWidget *dir_label;
     GtkWidget *scrolledwindow;
     GtkWidget *info_label;

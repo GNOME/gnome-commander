@@ -1335,11 +1335,6 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_object_set_data_full (GTK_OBJECT (fs), "vol_label", fs->vol_label, (GtkDestroyNotify) gtk_widget_unref);
     gtk_misc_set_alignment (GTK_MISC (fs->vol_label), 1, 0.5);
 
-    // create the root button
-    fs->root_btn = create_styled_pixmap_button (NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_ROOT_DIR));
-    gtk_object_set_data_full (GTK_OBJECT (fs), "root_btn", fs->root_btn, (GtkDestroyNotify) gtk_widget_unref);
-    GTK_WIDGET_UNSET_FLAGS (fs->root_btn, GTK_CAN_FOCUS);
-
     // create the directory indicator
     fs->dir_indicator = gnome_cmd_dir_indicator_new (fs);
     gtk_widget_ref (fs->dir_indicator);
@@ -1372,8 +1367,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_box_pack_start (GTK_BOX (vbox), padding, FALSE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (padding), fs->info_label, FALSE, TRUE, 6);
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->con_combo, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->vol_label, TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->root_btn, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->vol_label, TRUE, TRUE, 6);
 
     // initialize dnd
     init_dnd (fs);
@@ -1392,15 +1386,12 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_pressed), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_pressed_private), fs);
 
-    gtk_signal_connect (GTK_OBJECT (fs->root_btn), "clicked", GTK_SIGNAL_FUNC (on_root_btn_clicked), fs);
-
     gtk_signal_connect (GTK_OBJECT (gnome_cmd_con_list_get ()), "list-changed", GTK_SIGNAL_FUNC (on_con_list_list_changed), fs);
 
     // show the widgets
     gtk_widget_show (GTK_WIDGET (vbox));
     fs->update_concombo_visibility();
     gtk_widget_show (fs->con_combo);
-    gtk_widget_show (fs->root_btn);
     gtk_widget_show (fs->vol_label);
     gtk_widget_show (fs->dir_indicator);
     gtk_widget_show (fs->scrolledwindow);

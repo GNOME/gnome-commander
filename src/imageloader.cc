@@ -63,7 +63,6 @@ static const gchar *pixmap_files[NUM_PIXMAPS] = {"",
                                                  "overlay_symlink.xpm",
                                                  "overlay_umount.xpm",
                                                  "parent_dir.xpm",
-                                                 "root_dir.xpm",
                                                  "toggle_vertical.xpm",
                                                  "toggle_horizontal.xpm",
 
