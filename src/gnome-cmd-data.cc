@@ -1992,7 +1992,7 @@ GnomeCmdRightMouseButtonMode gnome_cmd_data_get_right_mouse_button_mode ()
 }
 
 
-guint gnome_cmd_data_get_icon_size (void)
+guint gnome_cmd_data_get_icon_size ()
 {
     return gnome_cmd_data.priv->icon_size;
 }
@@ -2315,7 +2315,7 @@ void gnome_cmd_data_set_conbuttons_visibility (gboolean value)
 }
 
 
-gboolean gnome_cmd_data_get_concombo_visibility (void)
+gboolean gnome_cmd_data_get_concombo_visibility ()
 {
     return gnome_cmd_data.priv->concombo_visibility;
 }
