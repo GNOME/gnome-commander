@@ -112,7 +112,7 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gtk_widget_show (data->skip);
     gtk_box_pack_start (GTK_BOX (data->dialog->left_vbox), data->skip, FALSE, FALSE, 0);
 
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data_get_confirm_overwrite_copy ())), TRUE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (g_slist_nth_data (group, gnome_cmd_data.confirm_copy_overwrite)), TRUE);
 
 
     data->follow_links = gtk_check_button_new_with_label (_("Follow Links"));
