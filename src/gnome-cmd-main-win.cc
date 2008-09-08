@@ -266,42 +266,48 @@ static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
 static void slide_set_100_0 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            GTK_WIDGET (main_win)->allocation.width);
+                            gnome_cmd_data_get_list_orientation () ? GTK_WIDGET (main_win)->allocation.height :
+                                                                     GTK_WIDGET (main_win)->allocation.width);
 }
 
 
 static void slide_set_80_20 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            (int)(GTK_WIDGET (main_win)->allocation.width*0.8f));
+                            gnome_cmd_data_get_list_orientation () ? (int)(GTK_WIDGET (main_win)->allocation.height*0.8f) :
+                                                                     (int)(GTK_WIDGET (main_win)->allocation.width*0.8f));
 }
 
 
 static void slide_set_60_40 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            (int)(GTK_WIDGET (main_win)->allocation.width*0.6f));
+                            gnome_cmd_data_get_list_orientation () ? (int)(GTK_WIDGET (main_win)->allocation.height*0.6f) :
+                                                                     (int)(GTK_WIDGET (main_win)->allocation.width*0.6f));
 }
 
 
 static void slide_set_50_50 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            (int)(GTK_WIDGET (main_win)->allocation.width*0.5f));
+                            gnome_cmd_data_get_list_orientation () ? (int)(GTK_WIDGET (main_win)->allocation.height*0.5f) :
+                                                                     (int)(GTK_WIDGET (main_win)->allocation.width*0.5f));
 }
 
 
 static void slide_set_40_60 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            (int)(GTK_WIDGET (main_win)->allocation.width*0.4f));
+                            gnome_cmd_data_get_list_orientation () ? (int)(GTK_WIDGET (main_win)->allocation.height*0.4f) :
+                                                                     (int)(GTK_WIDGET (main_win)->allocation.width*0.4f));
 }
 
 
 static void slide_set_20_80 (GtkMenu *menu, gpointer user_data)
 {
     gtk_paned_set_position (GTK_PANED (main_win->priv->paned),
-                            (int)(GTK_WIDGET (main_win)->allocation.width*0.2f));
+                            gnome_cmd_data_get_list_orientation () ? (int)(GTK_WIDGET (main_win)->allocation.height*0.2f) :
+                                                                     (int)(GTK_WIDGET (main_win)->allocation.width*0.2f));
 }
 
 
@@ -450,13 +456,14 @@ static void create_buttonbar (GnomeCmdMainWin *mw)
 
 static gboolean on_slide_button_press (GtkWidget *widget, GdkEventButton *event, GnomeCmdMainWin *mw)
 {
-    if (event->type == GDK_BUTTON_PRESS && event->button == 3) {
+    if (event->type == GDK_BUTTON_PRESS && event->button == 3)
+    {
         GtkPaned *paned = GTK_PANED (mw->priv->paned);
 
         // Check that the handle was clicked and not one of the children
-        if (paned->handle == event->window) {
-            gtk_menu_popup (GTK_MENU(create_slide_popup ()), NULL, NULL, NULL, NULL,
-                            event->button, event->time);
+        if (paned->handle == event->window)
+        {
+            gtk_menu_popup (GTK_MENU(create_slide_popup ()), NULL, NULL, NULL, NULL, event->button, event->time);
             return TRUE;
         }
     }
@@ -466,21 +473,18 @@ static gboolean on_slide_button_press (GtkWidget *widget, GdkEventButton *event,
 
 static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 {
-    gint w;
-
-    gdk_window_get_geometry (widget->window, NULL, NULL, &w, NULL, NULL);
-    gtk_paned_set_position (GTK_PANED (mw->priv->paned), w/2 - 5);
+    gnome_cmd_main_win_set_equal_panes (mw);
 
     gnome_cmd_main_win_get_fs (mw, LEFT)->set_active(TRUE);
     gnome_cmd_main_win_get_fs (mw, RIGHT)->set_active(FALSE);
-/*
-    if (gnome_cmd_data.cmdline_visibility)
-    {
-        gchar *dpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (gnome_cmd_main_win_get_fs (mw, LEFT)->get_directory()));
-        gnome_cmd_cmdline_set_dir (GNOME_CMD_CMDLINE (mw->priv->cmdline), dpath);
-        g_free (dpath);
-    }
-*/
+
+    // if (gnome_cmd_data.cmdline_visibility)
+    // {
+        // gchar *dpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (gnome_cmd_main_win_get_fs (mw, LEFT)->get_directory()));
+        // gnome_cmd_cmdline_set_dir (GNOME_CMD_CMDLINE (mw->priv->cmdline), dpath);
+        // g_free (dpath);
+    // }
+
     gdk_window_set_icon (GTK_WIDGET (main_win)->window, NULL,
                          IMAGE_get_pixmap (PIXMAP_LOGO),
                          IMAGE_get_mask (PIXMAP_LOGO));

@@ -5943,6 +5943,9 @@
                         <listitem>
                             <para>Fixed problem #548961 (support for input method when rename or quicksearch)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem with setting equal pane size in horizontal mode</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
