@@ -13,6 +13,9 @@
 	* /gnome-cmd-user-actions.cc:
 	GnomeCmdData: more C++ rework
 
+	* src/imageloader.h:
+	Removal of root-dir icon - removed forgotten enum
+
 2008-09-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
