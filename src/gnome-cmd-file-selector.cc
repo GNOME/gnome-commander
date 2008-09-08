@@ -2104,8 +2104,6 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 
         gnome_vfs_uri_unref (uri);
     }
-
-
 }
 
 

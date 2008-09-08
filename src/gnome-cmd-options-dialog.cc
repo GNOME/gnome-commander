@@ -789,7 +789,6 @@ static GtkWidget *create_filter_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
     entry = create_entry (parent, "backup_pattern_entry", gnome_cmd_data_get_backup_pattern ());
-    gtk_entry_set_text (GTK_ENTRY (entry), gnome_cmd_data_get_backup_pattern ());
     gtk_box_pack_start (GTK_BOX (cat_box), entry, TRUE, FALSE, 0);
     gtk_widget_set_sensitive (entry, gnome_cmd_data_get_backup_filter ());
 

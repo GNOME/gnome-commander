@@ -859,7 +859,7 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     hbox = create_hbox (window, FALSE, 0);
 
-    
+
     // Recurse check
     dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults->recursive);
