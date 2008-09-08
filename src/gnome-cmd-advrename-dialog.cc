@@ -53,7 +53,7 @@ struct _GnomeCmdAdvrenameDialogPrivate
     GList *files;
     GList *entries;
     PatternEntry *sel_entry;
-    AdvrenameDefaults *defaults;
+    GnomeCmdData::AdvrenameDefaults *defaults;
 
     GtkWidget *pat_list;
     GtkWidget *res_list;

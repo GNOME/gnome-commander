@@ -835,7 +835,7 @@ inline void add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
 
     GnomeCmdFile *f = fs->file_list()->get_selected_file();
 
-    if (f && gnome_cmd_data_get_cmdline_visibility ())
+    if (f && gnome_cmd_data.cmdline_visibility)
     {
         gchar *text = fullpath ? gnome_cmd_file_get_quoted_real_path (f) :
                                  gnome_cmd_file_get_quoted_name (f);
@@ -851,7 +851,7 @@ inline void add_cwd_to_cmdline (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (gnome_cmd_data_get_cmdline_visibility ())
+    if (gnome_cmd_data.cmdline_visibility)
     {
         gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->priv->cwd));
         gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), dpath);
@@ -971,7 +971,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 {
     static GtkTooltips *tooltips = NULL;
 
-    if (!gnome_cmd_data_get_conbuttons_visibility ())
+    if (!gnome_cmd_data.conbuttons_visibility)
         return;
 
     for (GList *l = fs->priv->old_btns; l; l=l->next)
@@ -1228,7 +1228,7 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
         {
             static gchar text[2];
 
-            if (!gnome_cmd_data_get_cmdline_visibility ())
+            if (!gnome_cmd_data.cmdline_visibility)
                 gnome_cmd_file_list_show_quicksearch (fs->file_list(), (gchar) event->keyval);
             else
             {
@@ -2024,7 +2024,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 
             case GDK_Return:
             case GDK_KP_Enter:
-                if (gnome_cmd_data_get_cmdline_visibility ()
+                if (gnome_cmd_data.cmdline_visibility
                     && gnome_cmd_cmdline_is_empty (gnome_cmd_main_win_get_cmdline (main_win)))
                     gnome_cmd_cmdline_exec (gnome_cmd_main_win_get_cmdline (main_win));
                 else
@@ -2032,7 +2032,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_Escape:
-                if (gnome_cmd_data_get_cmdline_visibility ())
+                if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_set_text (gnome_cmd_main_win_get_cmdline (main_win), "");
                 return TRUE;
         }
@@ -2111,7 +2111,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
 
 void GnomeCmdFileSelector::update_conbuttons_visibility()
 {
-    if (!gnome_cmd_data_get_conbuttons_visibility ())
+    if (!gnome_cmd_data.conbuttons_visibility)
     {
         if (con_btns_hbox)
         {
@@ -2135,7 +2135,7 @@ void GnomeCmdFileSelector::update_conbuttons_visibility()
 
 void GnomeCmdFileSelector::update_concombo_visibility()
 {
-    if (gnome_cmd_data_get_concombo_visibility ())
+    if (gnome_cmd_data.concombo_visibility)
         gtk_widget_show (con_hbox);
     else
         gtk_widget_hide (con_hbox);

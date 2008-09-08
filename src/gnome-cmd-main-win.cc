@@ -134,7 +134,7 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdM
             (event->keyval == GDK_period)))
         return FALSE;
 
-    if (!gnome_cmd_data_get_alt_quick_search ())
+    if (!gnome_cmd_data.alt_quick_search)
         return FALSE;
 
     if (!state_is_alt (event->state) && !state_is_alt_shift (event->state))
@@ -474,7 +474,7 @@ static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
     gnome_cmd_main_win_get_fs (mw, LEFT)->set_active(TRUE);
     gnome_cmd_main_win_get_fs (mw, RIGHT)->set_active(FALSE);
 /*
-    if (gnome_cmd_data_get_cmdline_visibility ())
+    if (gnome_cmd_data.cmdline_visibility)
     {
         gchar *dpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (gnome_cmd_main_win_get_fs (mw, LEFT)->get_directory()));
         gnome_cmd_cmdline_set_dir (GNOME_CMD_CMDLINE (mw->priv->cmdline), dpath);
@@ -547,7 +547,7 @@ inline void update_browse_buttons (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
 
     if (fs == gnome_cmd_main_win_get_fs (mw, ACTIVE))
     {
-        if (gnome_cmd_data_get_toolbar_visibility ())
+        if (gnome_cmd_data.toolbar_visibility)
         {
             gtk_widget_set_sensitive (mw->priv->tb_first_btn, fs->can_back());
             gtk_widget_set_sensitive (mw->priv->tb_back_btn, fs->can_back());
@@ -572,7 +572,7 @@ static void update_drop_con_button (GnomeCmdMainWin *mw, GnomeCmdFileSelector *f
     if (!con)
         return;
 
-    if (!gnome_cmd_data_get_toolbar_visibility ()
+    if (!gnome_cmd_data.toolbar_visibility
         || (gnome_cmd_data_get_skip_mounting () && GNOME_CMD_IS_CON_DEVICE (con)))
         return;
 
@@ -915,14 +915,14 @@ void gnome_cmd_main_win_update_style (GnomeCmdMainWin *mw)
     gnome_cmd_main_win_get_fs (mw, LEFT)->update_style();
     gnome_cmd_main_win_get_fs (mw, RIGHT)->update_style();
 
-    if (gnome_cmd_data_get_cmdline_visibility ())
+    if (gnome_cmd_data.cmdline_visibility)
         gnome_cmd_cmdline_update_style (GNOME_CMD_CMDLINE (mw->priv->cmdline));
 }
 
 
 void gnome_cmd_main_win_focus_cmdline (GnomeCmdMainWin *mw)
 {
-    if (gnome_cmd_data_get_cmdline_visibility ())
+    if (gnome_cmd_data.cmdline_visibility)
     {
         gnome_cmd_cmdline_focus (GNOME_CMD_CMDLINE (mw->priv->cmdline));
         mw->priv->focused_widget = mw->priv->cmdline;
@@ -969,7 +969,7 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
                 return TRUE;
 
             case GDK_F8:
-                if (gnome_cmd_data_get_cmdline_visibility ())
+                if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));
                 return TRUE;
         }
@@ -992,7 +992,7 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
         switch (event->keyval)
         {
             case GDK_Down:
-                if (gnome_cmd_data_get_cmdline_visibility ())
+                if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));
                 return TRUE;
 
@@ -1168,7 +1168,7 @@ void gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw)
         GNOMEUIINFO_END
     };
 
-    if (gnome_cmd_data_get_toolbar_visibility ())
+    if (gnome_cmd_data.toolbar_visibility)
     {
         create_toolbar (mw, toolbar_uiinfo);
         gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->toolbar, FALSE, TRUE, 0);
@@ -1194,7 +1194,7 @@ void gnome_cmd_main_win_update_buttonbar_visibility (GnomeCmdMainWin *mw)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
-    if (gnome_cmd_data_get_buttonbar_visibility ())
+    if (gnome_cmd_data.buttonbar_visibility)
     {
         create_buttonbar (mw);
         gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->buttonbar_sep, FALSE, TRUE, 0);
@@ -1216,7 +1216,7 @@ void gnome_cmd_main_win_update_cmdline_visibility (GnomeCmdMainWin *mw)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
 
-    if (gnome_cmd_data_get_cmdline_visibility ())
+    if (gnome_cmd_data.cmdline_visibility)
     {
         gint pos = 3;
         mw->priv->cmdline_sep = create_separator (FALSE);
@@ -1225,7 +1225,7 @@ void gnome_cmd_main_win_update_cmdline_visibility (GnomeCmdMainWin *mw)
         gtk_object_set_data_full (GTK_OBJECT (main_win), "cmdline", mw->priv->cmdline,
                                   (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (mw->priv->cmdline);
-        if (gnome_cmd_data_get_toolbar_visibility ())
+        if (gnome_cmd_data.toolbar_visibility)
             pos += 2;
         gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->cmdline_sep, FALSE, TRUE, 0);
         gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->cmdline, FALSE, TRUE, 1);
@@ -1276,7 +1276,7 @@ void gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw)
     gtk_paned_pack1 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[LEFT], TRUE, TRUE);
     gtk_paned_pack2 (GTK_PANED (mw->priv->paned), mw->priv->file_selector[RIGHT], TRUE, TRUE);
 
-    if (gnome_cmd_data_get_toolbar_visibility ())
+    if (gnome_cmd_data.toolbar_visibility)
         pos += 2;
 
     gtk_box_pack_start (GTK_BOX (mw->priv->vbox), mw->priv->paned, TRUE, TRUE, 0);

@@ -496,7 +496,7 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
 
 static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdSearchDialog *dialog)
 {
-    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
     defaults->width  = allocation->width;
     defaults->height = allocation->height;
 }
@@ -527,7 +527,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
     // Save default settings
-    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
 
     defaults->case_sens = data->case_sens;
     defaults->recursive = data->recurse;
@@ -804,7 +804,7 @@ static void combo_box_insert_text (gpointer  data, gpointer  user_data)
 
 static void init (GnomeCmdSearchDialog *dialog)
 {
-    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
 
     GtkWidget *window;
     GtkWidget *vbox;

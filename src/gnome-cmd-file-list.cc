@@ -1140,7 +1140,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEvent
                 if (event->button == 3)
                     if (strcmp (finfo->info->name, "..") != 0)
                     {
-                        if (gnome_cmd_data_get_right_mouse_button_mode () == RIGHT_BUTTON_SELECTS)
+                        if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
                         {
                             if (g_list_index (fl->priv->selected_files, finfo) == -1)
                             {

@@ -29,6 +29,46 @@
 
 struct GnomeCmdData
 {
+    enum RightMouseButtonMode
+    {
+        RIGHT_BUTTON_POPUPS_MENU,
+        RIGHT_BUTTON_SELECTS
+    };
+
+    struct SearchDefaults
+    {
+        GList *name_patterns;
+        GList *content_patterns;
+        GList *directories;
+        gboolean recursive;
+        gboolean case_sens;
+        gint width, height;
+    };
+
+    struct AdvrenameDefaults
+    {
+        GList *patterns;
+        History *templates;
+        guint counter_start;
+        guint counter_precision;
+        guint counter_increment;
+        gboolean auto_update;
+        gint width, height;
+        gint pat_col_widths;
+        gint res_col_widths;
+        gint sep_value;
+    };
+
+    struct FilterSettings
+    {
+        gboolean file_types[8];
+
+        gboolean hidden;
+        gboolean backup;
+        gboolean other;
+        gchar *other_value;
+    };
+
     struct Private;
 
     Private *priv;
@@ -36,57 +76,24 @@ struct GnomeCmdData
     gboolean                     confirm_delete;
     GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
+    RightMouseButtonMode         right_mouse_button_mode;
+    GnomeCmdColorMode            color_mode;
+    gboolean                     alt_quick_search;
+
+    gboolean                     toolbar_visibility;
+    gboolean                     conbuttons_visibility;
+    gboolean                     concombo_visibility;
+    gboolean                     cmdline_visibility;
+    gboolean                     buttonbar_visibility;
 
     GnomeCmdData();
+
+    void free();                // FIXME: free() -> ~GnomeCmdData()
 };
 
 typedef struct _GnomeCmdConFtp GnomeCmdConFtp;
 
-enum GnomeCmdRightMouseButtonMode
-{
-    RIGHT_BUTTON_POPUPS_MENU,
-    RIGHT_BUTTON_SELECTS
-};
-
 #define PATTERN_HISTORY_SIZE 10
-
-struct SearchDefaults
-{
-    GList *name_patterns;
-    GList *content_patterns;
-    GList *directories;
-    gboolean recursive;
-    gboolean case_sens;
-    gint width, height;
-};
-
-struct AdvrenameDefaults
-{
-    GList *patterns;
-    History *templates;
-    guint counter_start;
-    guint counter_precision;
-    guint counter_increment;
-    gboolean auto_update;
-    gint width, height;
-    gint pat_col_widths;
-    gint res_col_widths;
-    gint sep_value;
-};
-
-struct FilterSettings
-{
-    gboolean file_types[8];
-
-    gboolean hidden;
-    gboolean backup;
-    gboolean other;
-    gchar *other_value;
-};
-
-
-GnomeCmdData *gnome_cmd_data_new ();
-void gnome_cmd_data_free ();
 
 void gnome_cmd_data_save ();
 void gnome_cmd_data_load ();
@@ -117,9 +124,6 @@ void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format);
 GnomeCmdLayout gnome_cmd_data_get_layout ();
 void gnome_cmd_data_set_layout (GnomeCmdLayout layout);
 
-GnomeCmdColorMode gnome_cmd_data_get_color_mode ();
-void gnome_cmd_data_set_color_mode (GnomeCmdColorMode mode);
-
 GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ();
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ();
 
@@ -129,7 +133,7 @@ void gnome_cmd_data_set_list_row_height (gint height);
 GnomeCmdExtDispMode gnome_cmd_data_get_ext_disp_mode ();
 void gnome_cmd_data_set_ext_disp_mode (GnomeCmdExtDispMode mode);
 
-FilterSettings *gnome_cmd_data_get_filter_settings ();
+GnomeCmdData::FilterSettings *gnome_cmd_data_get_filter_settings ();
 gboolean gnome_cmd_data_get_type_filter (GnomeVFSFileType type);
 void gnome_cmd_data_set_hidden_filter (gboolean hide);
 gboolean gnome_cmd_data_get_hidden_filter ();
@@ -155,9 +159,6 @@ void gnome_cmd_data_set_case_sens_sort (gboolean value);
 
 const gchar *gnome_cmd_data_get_list_font ();
 void gnome_cmd_data_set_list_font (const gchar *list_font);
-
-GnomeCmdRightMouseButtonMode gnome_cmd_data_get_right_mouse_button_mode ();
-void gnome_cmd_data_set_right_mouse_button_mode (GnomeCmdRightMouseButtonMode mode);
 
 const gchar *gnome_cmd_data_get_term ();
 void gnome_cmd_data_set_term (const gchar *shell);
@@ -202,7 +203,7 @@ void gnome_cmd_data_set_dir_cache_size (gint size);
 gboolean gnome_cmd_data_get_use_ls_colors ();
 void gnome_cmd_data_set_use_ls_colors (gboolean value);
 
-SearchDefaults *gnome_cmd_data_get_search_defaults ();
+GnomeCmdData::SearchDefaults *gnome_cmd_data_get_search_defaults ();
 
 GnomeCmdConFtp *gnome_cmd_data_get_quick_connect ();
 
@@ -215,31 +216,13 @@ void gnome_cmd_data_set_honor_expect_uris (gboolean value);
 gboolean gnome_cmd_data_get_use_internal_viewer ();
 void gnome_cmd_data_set_use_internal_viewer (gboolean value);
 
-gboolean gnome_cmd_data_get_alt_quick_search ();
-void gnome_cmd_data_set_alt_quick_search (gboolean value);
-
 gboolean gnome_cmd_data_get_skip_mounting ();
 void gnome_cmd_data_set_skip_mounting (gboolean value);
 
-gboolean gnome_cmd_data_get_toolbar_visibility ();
-void gnome_cmd_data_set_toolbar_visibility (gboolean value);
-
-gboolean gnome_cmd_data_get_buttonbar_visibility ();
-void gnome_cmd_data_set_buttonbar_visibility (gboolean value);
-
-AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults ();
+GnomeCmdData::AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults ();
 
 gboolean gnome_cmd_data_get_list_orientation ();
 void gnome_cmd_data_set_list_orientation (gboolean vertical);
-
-gboolean gnome_cmd_data_get_conbuttons_visibility ();
-void gnome_cmd_data_set_conbuttons_visibility (gboolean value);
-
-gboolean gnome_cmd_data_get_concombo_visibility ();
-void gnome_cmd_data_set_concombo_visibility (gboolean value);
-
-gboolean gnome_cmd_data_get_cmdline_visibility ();
-void gnome_cmd_data_set_cmdline_visibility (gboolean value);
 
 const gchar *gnome_cmd_data_get_start_dir (gboolean fs);
 void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir);

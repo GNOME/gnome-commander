@@ -1181,7 +1181,7 @@ void view_conbuttons (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data_set_conbuttons_visibility (checkitem->active);
+    gnome_cmd_data.conbuttons_visibility = checkitem->active;
     get_fs (ACTIVE)->update_conbuttons_visibility();
     get_fs (INACTIVE)->update_conbuttons_visibility();
 }
@@ -1192,7 +1192,7 @@ void view_concombo (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data_set_concombo_visibility (checkitem->active);
+    gnome_cmd_data.concombo_visibility = checkitem->active;
     get_fs (ACTIVE)->update_concombo_visibility();
     get_fs (INACTIVE)->update_concombo_visibility();
 }
@@ -1203,7 +1203,7 @@ void view_toolbar (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data_set_toolbar_visibility (checkitem->active);
+    gnome_cmd_data.toolbar_visibility = checkitem->active;
     gnome_cmd_main_win_update_toolbar_visibility (main_win);
 }
 
@@ -1213,7 +1213,7 @@ void view_buttonbar (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data_set_buttonbar_visibility (checkitem->active);
+    gnome_cmd_data.buttonbar_visibility = checkitem->active;
     gnome_cmd_main_win_update_buttonbar_visibility (main_win);
 }
 
@@ -1223,7 +1223,7 @@ void view_cmdline (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data_set_cmdline_visibility (checkitem->active);
+    gnome_cmd_data.cmdline_visibility = checkitem->active;
     gnome_cmd_main_win_update_cmdline_visibility (main_win);
 }
 

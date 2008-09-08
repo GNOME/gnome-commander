@@ -54,14 +54,12 @@ struct GnomeCmdData::Private
     GnomeCmdDateFormat   date_format;
     GnomeCmdLayout       layout;
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
-    GnomeCmdColorMode    color_mode;
     GnomeCmdExtDispMode  ext_disp_mode;
     FilterSettings       filter_settings;
     gint                 main_win_width, main_win_height;
     gboolean             case_sens_sort;
     gint                 list_row_height;
     gchar                *list_font;
-    GnomeCmdRightMouseButtonMode right_mouse_button_mode;
     guint                icon_size;
     guint                dev_icon_size;
     GdkInterpType        icon_scale_quality;
@@ -78,16 +76,10 @@ struct GnomeCmdData::Private
     gboolean             use_ls_colors;
     gboolean             honor_expect_uris;
     gboolean             use_internal_viewer;
-    gboolean             alt_quick_search;
     gboolean             skip_mounting;
-    gboolean             toolbar_visibility;
-    gboolean             buttonbar_visibility;
     SearchDefaults       *search_defaults;
     AdvrenameDefaults    *advrename_defaults;
     gboolean             list_orientation;
-    gboolean             conbuttons_visibility;
-    gboolean             concombo_visibility;
-    gboolean             cmdline_visibility;
     gchar                *start_dirs[2];
     gchar                *last_pattern;
     GList                *auto_load_plugins;
@@ -828,7 +820,7 @@ inline void gnome_cmd_data_set_uint_array (const gchar *format, guint *array, gi
 
 inline void save_cmdline_history ()
 {
-    if (!gnome_cmd_data.priv->cmdline_visibility)
+    if (!gnome_cmd_data.cmdline_visibility)
         return;
 
     gnome_cmd_data.priv->cmdline_history = gnome_cmd_cmdline_get_history (gnome_cmd_main_win_get_cmdline (main_win));
@@ -983,7 +975,7 @@ inline void load_cmdline_history ()
 
 inline void load_search_defaults ()
 {
-    gnome_cmd_data.priv->search_defaults = g_new0 (SearchDefaults, 1);
+    gnome_cmd_data.priv->search_defaults = g_new0 (GnomeCmdData::SearchDefaults, 1);
 
     gnome_cmd_data.priv->search_defaults->width = gnome_cmd_data_get_int ("/search-history/width", 450);
     gnome_cmd_data.priv->search_defaults->height = gnome_cmd_data_get_int ("/search-history/height", 400);
@@ -1002,7 +994,7 @@ inline void load_rename_history ()
     GList *from=NULL, *to=NULL, *csens=NULL;
     GList *tmp_from, *tmp_to, *tmp_csens;
 
-    gnome_cmd_data.priv->advrename_defaults = g_new0 (AdvrenameDefaults, 1);
+    gnome_cmd_data.priv->advrename_defaults = g_new0 (GnomeCmdData::AdvrenameDefaults, 1);
 
     gnome_cmd_data.priv->advrename_defaults->auto_update = gnome_cmd_data_get_int ("/advrename/template_auto_update", TRUE);
     gnome_cmd_data.priv->advrename_defaults->width = gnome_cmd_data_get_int ("/advrename/width", 450);
@@ -1116,41 +1108,50 @@ GnomeCmdData::GnomeCmdData()
     confirm_delete = TRUE;
     confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+    right_mouse_button_mode = RIGHT_BUTTON_POPUPS_MENU;
+    color_mode = GNOME_CMD_COLOR_DEEP_BLUE;
+    alt_quick_search = FALSE;
+
+    toolbar_visibility = TRUE;
+    conbuttons_visibility = TRUE;
+    concombo_visibility = TRUE;
+    cmdline_visibility = TRUE;
+    buttonbar_visibility = TRUE;
 }
 
 
-void gnome_cmd_data_free ()
+void GnomeCmdData::free()
 {
-    if (gnome_cmd_data.priv)
+    if (priv)
     {
         // free the connections
-        // gtk_object_unref (GTK_OBJECT (gnome_cmd_data.priv->con_list));
+        // gtk_object_unref (GTK_OBJECT (priv->con_list));
 
         // close quick connect
-        if (gnome_cmd_data.priv->quick_connect)
+        if (priv->quick_connect)
         {
-            gnome_cmd_con_close (GNOME_CMD_CON (gnome_cmd_data.priv->quick_connect));
-            // gtk_object_destroy (GTK_OBJECT (gnome_cmd_data.priv->quick_connect));
+            gnome_cmd_con_close (GNOME_CMD_CON (priv->quick_connect));
+            // gtk_object_destroy (GTK_OBJECT (priv->quick_connect));
         }
 
         // free the anonymous password string
-        g_free (gnome_cmd_data.priv->ftp_anonymous_password);
+        g_free (priv->ftp_anonymous_password);
 
-        // free the dateformat string
-        g_free (gnome_cmd_data.priv->date_format);
+        // free the date_format string
+        g_free (priv->date_format);
 
         // free the font name strings
-        g_free (gnome_cmd_data.priv->list_font);
+        g_free (priv->list_font);
 
         // free the external programs strings
-        g_free (gnome_cmd_data.priv->viewer);
-        g_free (gnome_cmd_data.priv->editor);
-        g_free (gnome_cmd_data.priv->differ);
-        g_free (gnome_cmd_data.priv->term);
+        g_free (priv->viewer);
+        g_free (priv->editor);
+        g_free (priv->differ);
+        g_free (priv->term);
 
-        delete gnome_cmd_data.priv->advrename_defaults->templates;
+        delete priv->advrename_defaults->templates;
 
-        g_free (gnome_cmd_data.priv);
+        g_free (priv);
     }
 }
 
@@ -1188,7 +1189,7 @@ void gnome_cmd_data_save ()
 
     gnome_cmd_data_set_bool   ("/sort/case_sensitive", gnome_cmd_data.priv->case_sens_sort);
 
-    gnome_cmd_data_set_int    ("/colors/mode", gnome_cmd_data.priv->color_mode);
+    gnome_cmd_data_set_int    ("/colors/mode", gnome_cmd_data.color_mode);
 
     gnome_cmd_data_set_color  ("/colors/norm_fg", gnome_cmd_data.priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_set_color  ("/colors/norm_bg", gnome_cmd_data.priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
@@ -1200,7 +1201,7 @@ void gnome_cmd_data_save ()
     gnome_cmd_data_set_string ("/options/list_font", gnome_cmd_data.priv->list_font);
 
     gnome_cmd_data_set_int    ("/options/ext_disp_mode", gnome_cmd_data.priv->ext_disp_mode);
-    gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", gnome_cmd_data.priv->right_mouse_button_mode);
+    gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", gnome_cmd_data.right_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/icon_size", gnome_cmd_data.priv->icon_size);
     gnome_cmd_data_set_int    ("/options/dev_icon_size", gnome_cmd_data.priv->dev_icon_size);
     gnome_cmd_data_set_int    ("/options/icon_scale_quality", gnome_cmd_data.priv->icon_scale_quality);
@@ -1210,16 +1211,17 @@ void gnome_cmd_data_save ()
     gnome_cmd_data_set_int    ("/options/btn_relief", gnome_cmd_data.priv->btn_relief);
     gnome_cmd_data_set_int    ("/options/filter_type", gnome_cmd_data.priv->filter_type);
     gnome_cmd_data_set_bool   ("/options/list_orientation", gnome_cmd_data.priv->list_orientation);
-    gnome_cmd_data_set_bool   ("/options/conbuttons_visibility", gnome_cmd_data.priv->conbuttons_visibility);
-    gnome_cmd_data_set_bool   ("/options/con_list_visibility", gnome_cmd_data.priv->concombo_visibility);
-    gnome_cmd_data_set_bool   ("/options/cmdline_visibility", gnome_cmd_data.priv->cmdline_visibility);
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", gnome_cmd_data.priv->honor_expect_uris);
     gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", gnome_cmd_data.priv->use_internal_viewer);
-    gnome_cmd_data_set_bool   ("/programs/alt_quick_search", gnome_cmd_data.priv->alt_quick_search);
+    gnome_cmd_data_set_bool   ("/programs/alt_quick_search", gnome_cmd_data.alt_quick_search);
     gnome_cmd_data_set_bool   ("/programs/skip_mounting", gnome_cmd_data.priv->skip_mounting);
-    gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", gnome_cmd_data.priv->toolbar_visibility);
-    gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", gnome_cmd_data.priv->buttonbar_visibility);
+
+    gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", gnome_cmd_data.toolbar_visibility);
+    gnome_cmd_data_set_bool   ("/options/conbuttons_visibility", gnome_cmd_data.conbuttons_visibility);
+    gnome_cmd_data_set_bool   ("/options/con_list_visibility", gnome_cmd_data.concombo_visibility);
+    gnome_cmd_data_set_bool   ("/options/cmdline_visibility", gnome_cmd_data.cmdline_visibility);
+    gnome_cmd_data_set_bool   ("/programs/buttonbar_visibility", gnome_cmd_data.buttonbar_visibility);
 
     if (gnome_cmd_data.priv->symlink_prefix && *gnome_cmd_data.priv->symlink_prefix && strcmp(gnome_cmd_data.priv->symlink_prefix, _("link to %s"))!=0)
         gnome_cmd_data_set_string ("/options/symlink_prefix", gnome_cmd_data.priv->symlink_prefix);
@@ -1409,7 +1411,7 @@ void gnome_cmd_data_load ()
         g_free (tmp);
     }
 
-    gnome_cmd_data.priv->color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_DEEP_BLUE);
+    gnome_cmd_data.color_mode = (GnomeCmdColorMode) gnome_cmd_data_get_int ("/colors/mode", GNOME_CMD_COLOR_DEEP_BLUE);
 
     gnome_cmd_data_get_color ("/colors/norm_fg", gnome_cmd_data.priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg);
     gnome_cmd_data_get_color ("/colors/norm_bg", gnome_cmd_data.priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_bg);
@@ -1421,7 +1423,7 @@ void gnome_cmd_data_load ()
     gnome_cmd_data.priv->list_font = gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1");
 
     gnome_cmd_data.priv->ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
-    gnome_cmd_data.priv->right_mouse_button_mode = (GnomeCmdRightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
+    gnome_cmd_data.right_mouse_button_mode = (GnomeCmdData::RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU);
     gnome_cmd_data.priv->icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
     gnome_cmd_data.priv->dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
     gnome_cmd_data.priv->icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
@@ -1433,12 +1435,15 @@ void gnome_cmd_data_load ()
     gnome_cmd_data.priv->btn_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
     gnome_cmd_data.priv->filter_type = (Filter::Type) gnome_cmd_data_get_int ("/options/filter_type", Filter::TYPE_FNMATCH);
     gnome_cmd_data.priv->list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
-    gnome_cmd_data.priv->conbuttons_visibility = gnome_cmd_data_get_bool ("/options/conbuttons_visibility", TRUE);
-    gnome_cmd_data.priv->concombo_visibility = gnome_cmd_data_get_bool ("/options/con_list_visibility", TRUE);
-    gnome_cmd_data.priv->cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
     gnome_cmd_data.priv->gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
     gnome_cmd_data.priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
     gnome_cmd_data.priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
+
+    gnome_cmd_data.toolbar_visibility = gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE);
+    gnome_cmd_data.conbuttons_visibility = gnome_cmd_data_get_bool ("/options/conbuttons_visibility", TRUE);
+    gnome_cmd_data.concombo_visibility = gnome_cmd_data_get_bool ("/options/con_list_visibility", TRUE);
+    gnome_cmd_data.cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
+    gnome_cmd_data.buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
 
     if (gnome_cmd_data.priv->gui_update_rate < MIN_GUI_UPDATE_RATE)
         gnome_cmd_data.priv->gui_update_rate = MIN_GUI_UPDATE_RATE;
@@ -1447,10 +1452,8 @@ void gnome_cmd_data_load ()
 
     gnome_cmd_data.priv->honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
     gnome_cmd_data.priv->use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
-    gnome_cmd_data.priv->alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
+    gnome_cmd_data.alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
     gnome_cmd_data.priv->skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
-    gnome_cmd_data.priv->toolbar_visibility = gnome_cmd_data_get_bool ("/programs/toolbar_visibility", TRUE);
-    gnome_cmd_data.priv->buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
 
     gnome_cmd_data.priv->symlink_prefix = gnome_cmd_data_get_string ("/options/symlink_prefix", _("link to %s"));
     if (!*gnome_cmd_data.priv->symlink_prefix || strcmp(gnome_cmd_data.priv->symlink_prefix, _("link to %s"))==0)
@@ -1835,21 +1838,9 @@ void gnome_cmd_data_set_layout (GnomeCmdLayout layout)
 }
 
 
-GnomeCmdColorMode gnome_cmd_data_get_color_mode ()
-{
-    return gnome_cmd_data.priv->color_mode;
-}
-
-
-void gnome_cmd_data_set_color_mode (GnomeCmdColorMode mode)
-{
-    gnome_cmd_data.priv->color_mode = mode;
-}
-
-
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ()
 {
-    return &gnome_cmd_data.priv->color_themes[gnome_cmd_data.priv->color_mode];
+    return &gnome_cmd_data.priv->color_themes[gnome_cmd_data.color_mode];
 }
 
 
@@ -1977,18 +1968,6 @@ void gnome_cmd_data_set_list_font (const gchar *list_font)
 {
     g_free (gnome_cmd_data.priv->list_font);
     gnome_cmd_data.priv->list_font = g_strdup (list_font);
-}
-
-
-void gnome_cmd_data_set_right_mouse_button_mode (GnomeCmdRightMouseButtonMode mode)
-{
-    gnome_cmd_data.priv->right_mouse_button_mode = mode;
-}
-
-
-GnomeCmdRightMouseButtonMode gnome_cmd_data_get_right_mouse_button_mode ()
-{
-    return gnome_cmd_data.priv->right_mouse_button_mode;
 }
 
 
@@ -2123,7 +2102,7 @@ Filter::Type gnome_cmd_data_get_filter_type ()
 }
 
 
-FilterSettings *gnome_cmd_data_get_filter_settings ()
+GnomeCmdData::FilterSettings *gnome_cmd_data_get_filter_settings ()
 {
     return &gnome_cmd_data.priv->filter_settings;
 }
@@ -2195,7 +2174,7 @@ void gnome_cmd_data_set_use_ls_colors (gboolean value)
 }
 
 
-SearchDefaults *gnome_cmd_data_get_search_defaults ()
+GnomeCmdData::SearchDefaults *gnome_cmd_data_get_search_defaults ()
 {
     return gnome_cmd_data.priv->search_defaults;
 }
@@ -2237,18 +2216,6 @@ void gnome_cmd_data_set_use_internal_viewer (gboolean value)
 }
 
 
-gboolean gnome_cmd_data_get_alt_quick_search ()
-{
-    return gnome_cmd_data.priv->alt_quick_search;
-}
-
-
-void gnome_cmd_data_set_alt_quick_search (gboolean value)
-{
-    gnome_cmd_data.priv->alt_quick_search = value;
-}
-
-
 gboolean gnome_cmd_data_get_skip_mounting ()
 {
     return gnome_cmd_data.priv->skip_mounting;
@@ -2261,31 +2228,7 @@ void gnome_cmd_data_set_skip_mounting (gboolean value)
 }
 
 
-gboolean gnome_cmd_data_get_toolbar_visibility ()
-{
-    return gnome_cmd_data.priv->toolbar_visibility;
-}
-
-
-gboolean gnome_cmd_data_get_buttonbar_visibility ()
-{
-    return gnome_cmd_data.priv->buttonbar_visibility;
-}
-
-
-void gnome_cmd_data_set_toolbar_visibility (gboolean value)
-{
-    gnome_cmd_data.priv->toolbar_visibility = value;
-}
-
-
-void gnome_cmd_data_set_buttonbar_visibility (gboolean value)
-{
-    gnome_cmd_data.priv->buttonbar_visibility = value;
-}
-
-
-AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults ()
+GnomeCmdData::AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults ()
 {
     return gnome_cmd_data.priv->advrename_defaults;
 }
@@ -2300,42 +2243,6 @@ void gnome_cmd_data_set_list_orientation (gboolean vertical)
 gboolean gnome_cmd_data_get_list_orientation ()
 {
     return gnome_cmd_data.priv->list_orientation;
-}
-
-
-gboolean gnome_cmd_data_get_conbuttons_visibility ()
-{
-    return gnome_cmd_data.priv->conbuttons_visibility;
-}
-
-
-void gnome_cmd_data_set_conbuttons_visibility (gboolean value)
-{
-    gnome_cmd_data.priv->conbuttons_visibility = value;
-}
-
-
-gboolean gnome_cmd_data_get_concombo_visibility ()
-{
-    return gnome_cmd_data.priv->concombo_visibility;
-}
-
-
-void gnome_cmd_data_set_concombo_visibility (gboolean value)
-{
-    gnome_cmd_data.priv->concombo_visibility = value;
-}
-
-
-gboolean gnome_cmd_data_get_cmdline_visibility ()
-{
-    return gnome_cmd_data.priv->cmdline_visibility;
-}
-
-
-void gnome_cmd_data_set_cmdline_visibility (gboolean value)
-{
-    gnome_cmd_data.priv->cmdline_visibility = value;
 }
 
 

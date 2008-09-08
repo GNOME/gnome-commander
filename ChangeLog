@@ -1,3 +1,18 @@
+2008-09-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* /gnome-cmd-advrename-dialog.cc:
+	* /gnome-cmd-data.cc:
+	* /gnome-cmd-data.h:
+	* /gnome-cmd-file-list.cc:
+	* /gnome-cmd-file-selector.cc:
+	* /gnome-cmd-main-menu.cc:
+	* /gnome-cmd-main-win.cc:
+	* /gnome-cmd-options-dialog.cc:
+	* /gnome-cmd-patternsel-dialog.cc:
+	* /gnome-cmd-search-dialog.cc:
+	* /gnome-cmd-user-actions.cc:
+	GnomeCmdData: more C++ rework
+
 2008-09-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

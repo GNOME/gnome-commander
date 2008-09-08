@@ -840,19 +840,19 @@ static void init (GnomeCmdMainMenu *main_menu)
 
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_toolbar),
-        gnome_cmd_data_get_toolbar_visibility ());
+        gnome_cmd_data.toolbar_visibility);
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_conbuttons),
-        gnome_cmd_data_get_conbuttons_visibility ());
+        gnome_cmd_data.conbuttons_visibility);
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_concombo),
-        gnome_cmd_data_get_concombo_visibility ());
+        gnome_cmd_data.concombo_visibility);
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_buttonbar),
-        gnome_cmd_data_get_buttonbar_visibility ());
+        gnome_cmd_data.buttonbar_visibility);
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_cmdline),
-        gnome_cmd_data_get_cmdline_visibility ());
+        gnome_cmd_data.cmdline_visibility);
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_hidden_files),
         !gnome_cmd_data_get_hidden_filter ());

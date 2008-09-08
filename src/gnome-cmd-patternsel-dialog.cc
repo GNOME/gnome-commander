@@ -46,7 +46,7 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 {
     g_return_if_fail (GNOME_CMD_IS_PATTERNSEL_DIALOG (dialog));
 
-    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
 
     const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
     gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
@@ -114,7 +114,7 @@ static void init (GnomeCmdPatternselDialog *dialog)
 GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 {
     GtkWidget *hbox, *vbox, *label;
-    SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
     GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) gtk_type_new (gnome_cmd_patternsel_dialog_get_type ());
     dialog->priv->mode = mode;
     dialog->priv->fl = fl;

@@ -77,11 +77,11 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
     radio = create_radio (parent, NULL, _("Show popup menu"), "rmb_popup_radio");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    if (gnome_cmd_data_get_right_mouse_button_mode() == RIGHT_BUTTON_POPUPS_MENU)
+    if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group(radio), _("Select files"), "rmb_sel_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data_get_right_mouse_button_mode() == RIGHT_BUTTON_SELECTS)
+    if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -117,10 +117,10 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
     radio = create_radio (parent, NULL, _("CTRL+ALT+letters"), "ctrl_alt_quick_search");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !gnome_cmd_data_get_alt_quick_search ());
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), !gnome_cmd_data.alt_quick_search);
     radio = create_radio (parent, get_radio_group(radio), _("ALT+letters (menu access with F10)"), "alt_quick_search");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data_get_alt_quick_search ());
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data.alt_quick_search);
 
 
     // Directory options
@@ -146,10 +146,8 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *dir_cache_size = lookup_widget (GTK_WIDGET (dialog), "dir_cache_size");
     GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
 
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)))
-        gnome_cmd_data_set_right_mouse_button_mode (RIGHT_BUTTON_POPUPS_MENU);
-    else
-        gnome_cmd_data_set_right_mouse_button_mode (RIGHT_BUTTON_SELECTS);
+    gnome_cmd_data.right_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
+                                                                                                                : GnomeCmdData::RIGHT_BUTTON_SELECTS;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ft_regex_radio)))
         gnome_cmd_data_set_filter_type (Filter::TYPE_REGEX);
@@ -158,7 +156,7 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
 
     gnome_cmd_data_set_case_sens_sort (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check)));
     gnome_cmd_data_set_dir_cache_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dir_cache_size)));
-    gnome_cmd_data_set_alt_quick_search (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search)));
+    gnome_cmd_data.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
 }
 
 
@@ -515,7 +513,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     btn = create_button_with_data (parent, _("Edit..."), GTK_SIGNAL_FUNC (on_colors_edit), parent);
     gtk_object_set_data (GTK_OBJECT (parent), "color_btn", btn);
     gtk_box_pack_start (GTK_BOX (hbox), btn, FALSE, TRUE, 0);
-    gtk_widget_set_sensitive (btn, gnome_cmd_data_get_color_mode () == GNOME_CMD_COLOR_CUSTOM);
+    gtk_widget_set_sensitive (btn, gnome_cmd_data.color_mode == GNOME_CMD_COLOR_CUSTOM);
 
 
     // LS_COLORS
@@ -551,7 +549,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 
     gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) gnome_cmd_data_get_ext_disp_mode ());
     gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) gnome_cmd_data_get_layout ());
-    gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) gnome_cmd_data_get_color_mode ());
+    gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) gnome_cmd_data.color_mode);
 
     return frame;
 }
@@ -576,8 +574,7 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
         (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu)));
     gnome_cmd_data_set_layout (
         (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu)));
-    gnome_cmd_data_set_color_mode (
-        (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu)));
+    gnome_cmd_data.color_mode = (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu));
 
     gnome_cmd_data_set_use_ls_colors (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls)));
 
@@ -816,7 +813,7 @@ inline void store_filter_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *hide_backup_check;
     GtkWidget *hide_symlink_check;
     GtkWidget *backup_pattern_entry;
-    FilterSettings *f = gnome_cmd_data_get_filter_settings ();
+    GnomeCmdData::FilterSettings *f = gnome_cmd_data_get_filter_settings ();
 
     hide_unknown_check = lookup_widget (GTK_WIDGET (dialog), "hide_unknown_check");
     hide_regular_check = lookup_widget (GTK_WIDGET (dialog), "hide_regular_check");
