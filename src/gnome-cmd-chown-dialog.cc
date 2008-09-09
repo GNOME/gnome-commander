@@ -50,18 +50,20 @@ static void do_chown (GnomeCmdFile *in_finfo, uid_t uid, gid_t gid, gboolean rec
 
     ret = gnome_cmd_file_chown (in_finfo, uid, gid);
 
-    if (ret != GNOME_VFS_OK) {
+    if (ret != GNOME_VFS_OK)
+    {
         gchar *fpath = gnome_cmd_file_get_real_path (in_finfo);
         gchar *msg = g_strdup_printf (_("Could not chown %s\n%s"), fpath, gnome_vfs_result_to_string (ret));
         create_error_dialog (msg);
         g_free (msg);
         g_free (fpath);
     }
-    else if (!recurse) {
-        return;
-    }
+    else
+        if (!recurse)
+            return;
 
-    if (in_finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
+    if (in_finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    {
         GnomeCmdDir *dir = GNOME_CMD_DIR (in_finfo);
         GList *files, *tmp;
 

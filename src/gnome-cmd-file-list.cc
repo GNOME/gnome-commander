@@ -1803,8 +1803,8 @@ void GnomeCmdFileList::sort()
 {
     GnomeCmdFile *selfile = get_selected_file();
 
-    gtk_clist_freeze (GTK_CLIST (this));
-    gtk_clist_clear (GTK_CLIST (this));
+    gtk_clist_freeze (*this);
+    gtk_clist_clear (*this);
 
     // resort the files and readd them to the list
     for (GList *list = priv->visible_files.sort(priv->sort_func, this); list; list = list->next)
@@ -1822,7 +1822,7 @@ void GnomeCmdFileList::sort()
     for (GList *list = priv->selected_files; list; list = list->next)
         select_file (this, GNOME_CMD_FILE (list->data));
 
-    gtk_clist_thaw (GTK_CLIST (this));
+    gtk_clist_thaw (*this);
 }
 
 
