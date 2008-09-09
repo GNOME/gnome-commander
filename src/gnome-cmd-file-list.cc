@@ -1374,14 +1374,6 @@ GnomeCmdFileList::ColumnID GnomeCmdFileList::get_sort_column()
 }
 
 
-void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl)
-{
-    gtk_clist_set_row_height (*fl, gnome_cmd_data_get_list_row_height ());
-
-    gnome_cmd_clist_update_style (*fl);
-}
-
-
 inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
 {
     GtkCList *clist = GTK_CLIST (fl);
@@ -2231,6 +2223,13 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
 GList *GnomeCmdFileList::sort_selection(GList *list)
 {
     return g_list_sort_with_data (list, (GCompareDataFunc) priv->sort_func, this);
+}
+
+
+void GnomeCmdFileList::update_style()
+{
+    gtk_clist_set_row_height (*this, gnome_cmd_data_get_list_row_height ());
+    gnome_cmd_clist_update_style (*this);
 }
 
 

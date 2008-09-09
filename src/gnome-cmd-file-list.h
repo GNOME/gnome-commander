@@ -112,6 +112,8 @@ struct GnomeCmdFileList
 
     void invalidate_tree_size();
 
+    void update_style();
+
     gboolean key_pressed(GdkEventKey *event);
 };
 
@@ -159,8 +161,6 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 
 void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sort);
 void gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
-
-void gnome_cmd_file_list_update_style (GnomeCmdFileList *fl);
 
 void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 

@@ -1,3 +1,11 @@
+2008-09-09  Piotr Eljasiak  <epiotr@use.pl>
+
+	* /gnome-cmd-file-list.cc:
+	* /gnome-cmd-file-list.h:
+	* /gnome-cmd-file-selector.cc:
+	* /gnome-cmd-search-dialog.cc:
+	gnome_cmd_file_list_update_style(GnomeCmdFileList*) -> GnomeCmdFileList::update_style()
+
 2008-09-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* /gnome-cmd-advrename-dialog.cc:

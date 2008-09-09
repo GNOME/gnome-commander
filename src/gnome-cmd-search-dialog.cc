@@ -954,7 +954,7 @@ static void init (GnomeCmdSearchDialog *dialog)
     gtk_window_set_keep_above (GTK_WINDOW (dialog), FALSE);
 
     gtk_widget_grab_focus (dialog->priv->pattern_combo);
-    gnome_cmd_file_list_update_style (GNOME_CMD_FILE_LIST (dialog->priv->result_list));
+    GNOME_CMD_FILE_LIST (dialog->priv->result_list)->update_style();
 }
 
 

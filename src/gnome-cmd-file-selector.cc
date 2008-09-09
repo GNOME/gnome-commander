@@ -1806,7 +1806,7 @@ gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID)
 void GnomeCmdFileSelector::update_style()
 {
     gnome_cmd_combo_update_style (GNOME_CMD_COMBO (con_combo));
-    gnome_cmd_file_list_update_style (file_list());
+    file_list()->update_style();
 
     if (priv->realized)
         update_files (this);
