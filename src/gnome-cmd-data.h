@@ -80,6 +80,8 @@ struct GnomeCmdData
     GnomeCmdColorMode            color_mode;
     gboolean                     alt_quick_search;
 
+    Filter::Type                 filter_type;
+
     gboolean                     toolbar_visibility;
     gboolean                     conbuttons_visibility;
     gboolean                     concombo_visibility;
@@ -89,15 +91,15 @@ struct GnomeCmdData
     GnomeCmdData();
 
     void free();                // FIXME: free() -> ~GnomeCmdData()
+
+    void load();
+    void load_more();
+    void save();
 };
 
 typedef struct _GnomeCmdConFtp GnomeCmdConFtp;
 
 #define PATTERN_HISTORY_SIZE 10
-
-void gnome_cmd_data_save ();
-void gnome_cmd_data_load ();
-void gnome_cmd_data_load_more ();
 
 gpointer gnome_cmd_data_get_con_list ();
 
@@ -190,9 +192,6 @@ GList *gnome_cmd_data_get_cmdline_history ();
 
 GtkReliefStyle gnome_cmd_data_get_button_relief ();
 void gnome_cmd_data_set_button_relief (GtkReliefStyle relief);
-
-Filter::Type gnome_cmd_data_get_filter_type ();
-void gnome_cmd_data_set_filter_type (Filter::Type type);
 
 gboolean gnome_cmd_data_get_device_only_icon ();
 void gnome_cmd_data_set_device_only_icon (gboolean value);

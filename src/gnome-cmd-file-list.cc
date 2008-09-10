@@ -508,7 +508,7 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    Filter filter(pattern, case_sens, gnome_cmd_data_get_filter_type ());
+    Filter filter(pattern, case_sens, gnome_cmd_data.filter_type);
 
     for (GList *tmp=fl->get_visible_files(); tmp; tmp=tmp->next)
     {

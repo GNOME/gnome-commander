@@ -987,7 +987,7 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
                 gnome_cmd_data_set_hidden_filter (!gnome_cmd_data_get_hidden_filter ());
                 gnome_cmd_style_create ();
                 gnome_cmd_main_win_update_style (main_win);
-                gnome_cmd_data_save ();
+                gnome_cmd_data.save();
                 return TRUE;
         }
     }

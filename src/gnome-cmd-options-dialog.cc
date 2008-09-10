@@ -92,11 +92,11 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
     radio = create_radio (parent, NULL, _("Shell syntax"), "ft_shell_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data_get_filter_type () == Filter::TYPE_FNMATCH)
+    if (gnome_cmd_data.filter_type == Filter::TYPE_FNMATCH)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio (parent, get_radio_group(radio), _("Regex syntax"), "ft_regex_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data_get_filter_type () == Filter::TYPE_REGEX)
+    if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -150,9 +150,9 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
                                                                                                                 : GnomeCmdData::RIGHT_BUTTON_SELECTS;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ft_regex_radio)))
-        gnome_cmd_data_set_filter_type (Filter::TYPE_REGEX);
+        gnome_cmd_data.filter_type = Filter::TYPE_REGEX;
     else
-        gnome_cmd_data_set_filter_type (Filter::TYPE_FNMATCH);
+        gnome_cmd_data.filter_type = Filter::TYPE_FNMATCH;
 
     gnome_cmd_data_set_case_sens_sort (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check)));
     gnome_cmd_data_set_dir_cache_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dir_cache_size)));
@@ -1725,7 +1725,7 @@ static void on_options_dialog_close (GtkButton *button, GtkWidget *dialog)
     gnome_cmd_style_create ();
     gnome_cmd_main_win_update_style (main_win);
 
-    gnome_cmd_data_save ();
+    gnome_cmd_data.save();
 }
 
 

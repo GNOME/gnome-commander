@@ -869,11 +869,11 @@ static void init (GnomeCmdSearchDialog *dialog)
     // Filename matching
     radio = create_radio_with_mnemonic (window, NULL, _("Rege_x syntax"), "regex_radio");
     gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
-    if (gnome_cmd_data_get_filter_type () == Filter::TYPE_REGEX)
+    if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
     radio = create_radio_with_mnemonic (window, get_radio_group (radio), _("She_ll syntax"), "shell_radio");
     gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
-    if (gnome_cmd_data_get_filter_type () == Filter::TYPE_FNMATCH)
+    if (gnome_cmd_data.filter_type == Filter::TYPE_FNMATCH)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     table_add (table, hbox, 1, 2, GTK_FILL);
