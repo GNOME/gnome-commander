@@ -2233,11 +2233,52 @@ void GnomeCmdFileList::update_style()
 }
 
 
+gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *f)
+{
+    g_return_val_if_fail (f != NULL, FALSE);
+
+    GnomeVFSFileInfo *info = f->info;
+
+    if (info->type == GNOME_VFS_FILE_TYPE_UNKNOWN
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_UNKNOWN))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_REGULAR
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_REGULAR))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_DIRECTORY))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_FIFO
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_FIFO))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_SOCKET
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SOCKET))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE))
+        return FALSE;
+    if (info->type == GNOME_VFS_FILE_TYPE_BLOCK_DEVICE
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_BLOCK_DEVICE))
+        return FALSE;
+    if ((info->flags == GNOME_VFS_FILE_FLAGS_SYMLINK || info->symlink_name != NULL)
+        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK))
+        return FALSE;
+    if (strcmp (info->name, ".") == 0)
+        return FALSE;
+    if (strcmp (info->name, "..") == 0)
+        return FALSE;
+    if (info->name[0] == '.' && gnome_cmd_data_get_hidden_filter ())
+        return FALSE;
+    if (gnome_cmd_data_get_backup_filter () && patlist_matches (gnome_cmd_data_get_backup_pattern_list (), info->name))
+        return FALSE;
+
+    return TRUE;
+}
+
+
 void GnomeCmdFileList::invalidate_tree_size()
 {
-    GList *all_files = get_visible_files();
-
-    for (GList *tmp = all_files; tmp; tmp = tmp->next)
+    for (GList *tmp = get_visible_files(); tmp; tmp = tmp->next)
     {
         GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
         if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)

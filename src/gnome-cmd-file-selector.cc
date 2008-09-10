@@ -296,48 +296,6 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
 }
 
 
-static gboolean file_is_wanted (GnomeVFSFileInfo *info)
-{
-    if (info->type == GNOME_VFS_FILE_TYPE_UNKNOWN
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_UNKNOWN))
-        return FALSE;
-    if (info->type == GNOME_VFS_FILE_TYPE_REGULAR
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_REGULAR))
-        return FALSE;
-    if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_DIRECTORY))
-        return FALSE;
-    if (info->type == GNOME_VFS_FILE_TYPE_FIFO
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_FIFO))
-        return FALSE;
-    if (info->type == GNOME_VFS_FILE_TYPE_SOCKET
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SOCKET))
-        return FALSE;
-    if (info->type == GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE))
-        return FALSE;
-    if (info->type == GNOME_VFS_FILE_TYPE_BLOCK_DEVICE
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_BLOCK_DEVICE))
-        return FALSE;
-    if ((info->flags == GNOME_VFS_FILE_FLAGS_SYMLINK
-         || info->symlink_name != NULL)
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK))
-        return FALSE;
-    if (strcmp (info->name, ".") == 0)
-        return FALSE;
-    if (strcmp (info->name, "..") == 0)
-        return FALSE;
-    if (info->name[0] == '.'
-        && gnome_cmd_data_get_hidden_filter ())
-        return FALSE;
-    if (gnome_cmd_data_get_backup_filter () &&
-        patlist_matches (gnome_cmd_data_get_backup_pattern_list (), info->name))
-        return FALSE;
-
-    return TRUE;
-}
-
-
 inline GnomeCmdFile *create_parent_dir_file (GnomeCmdDir *dir)
 {
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
@@ -371,7 +329,7 @@ static void update_files (GnomeCmdFileSelector *fs)
     {
         GnomeCmdFile *f = GNOME_CMD_FILE (list->data);
 
-        if (file_is_wanted (f->info))
+        if (fs->file_list()->file_is_wanted(f))
             list2 = g_list_append (list2, f);
     }
 
@@ -876,7 +834,7 @@ static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (!file_is_wanted (f->info))
+    if (!fs->file_list()->file_is_wanted(f))
         return;
 
     fs->file_list()->insert_file(f);

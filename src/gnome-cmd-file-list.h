@@ -105,6 +105,8 @@ struct GnomeCmdFileList
     GnomeCmdFile *get_selected_file();          // Returns the currently focused file if any. The returned file is not reffed. The ".." file is NOT returned if focused
     GnomeCmdFile *get_first_selected_file();    // Returns the first selected file if any or the focused one otherwise. The returned file is not reffed. The ".." file is NOT returned if focused
 
+    gboolean file_is_wanted(GnomeCmdFile *f);
+
     void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (GTK_CLIST (this), col, value); }
 
     ColumnID get_sort_column();

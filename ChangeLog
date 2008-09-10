@@ -1,3 +1,10 @@
+2008-09-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.h:
+	file_is_wanted(GnomeVFSFileInfo *finfo) -> GnomeCmdFileList::file_is_wanted(GnomeCmdFile *f)
+
 2008-09-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* /gnome-cmd-file-list.cc:
