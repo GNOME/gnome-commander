@@ -366,9 +366,6 @@ static void update_files (GnomeCmdFileSelector *fs)
     GList *list;
     GList *list2 = NULL;
 
-//    if (gnome_cmd_con_open_is_needed (fs->priv->con))
-//        gnome_cmd_con_open (fs->priv->con);
-
     // sort out the files to show
     for (gnome_cmd_dir_get_files (dir, &list); list; list = list->next)
     {
