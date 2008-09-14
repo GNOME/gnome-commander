@@ -873,13 +873,13 @@ static void init (GnomeCmdMainMenu *main_menu)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_main_menu_new (void)
+GtkWidget *gnome_cmd_main_menu_new ()
 {
     return (GtkWidget *) gtk_type_new (gnome_cmd_main_menu_get_type ());
 }
 
 
-GtkType gnome_cmd_main_menu_get_type (void)
+GtkType gnome_cmd_main_menu_get_type ()
 {
     static GtkType dlg_type = 0;
 

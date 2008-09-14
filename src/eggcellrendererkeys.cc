@@ -86,7 +86,7 @@ enum
 static GtkCellRendererTextClass *parent_class = NULL;
 
 
-GType egg_cell_renderer_keys_get_type (void)
+GType egg_cell_renderer_keys_get_type ()
 {
     static GType cell_keys_type = 0;
 
@@ -217,7 +217,7 @@ static void egg_cell_renderer_keys_class_init (EggCellRendererKeysClass *cell_ke
 }
 
 
-GtkCellRenderer *egg_cell_renderer_keys_new (void)
+GtkCellRenderer *egg_cell_renderer_keys_new ()
 {
     return GTK_CELL_RENDERER (g_object_new (EGG_TYPE_CELL_RENDERER_KEYS, NULL));
 }
@@ -563,7 +563,7 @@ static void pointless_eventbox_cell_editable_init (GtkCellEditableIface *iface)
 }
 
 
-static GType pointless_eventbox_subclass_get_type (void)
+static GType pointless_eventbox_subclass_get_type ()
 {
   static GType eventbox_type = 0;
 

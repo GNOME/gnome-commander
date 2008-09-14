@@ -338,7 +338,7 @@ static void init (GnomeCmdPrepareXferDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_prepare_xfer_dialog_get_type (void)
+GtkType gnome_cmd_prepare_xfer_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 

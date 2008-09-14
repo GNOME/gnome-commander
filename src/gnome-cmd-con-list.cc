@@ -163,7 +163,7 @@ static void init (GnomeCmdConList *con_list)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_con_list_get_type (void)
+GtkType gnome_cmd_con_list_get_type ()
 {
     static GtkType type = 0;
 
@@ -187,7 +187,7 @@ GtkType gnome_cmd_con_list_get_type (void)
 }
 
 
-GnomeCmdConList *gnome_cmd_con_list_new (void)
+GnomeCmdConList *gnome_cmd_con_list_new ()
 {
     return (GnomeCmdConList *) gtk_type_new (gnome_cmd_con_list_get_type ());
 }

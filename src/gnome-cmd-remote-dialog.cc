@@ -550,7 +550,7 @@ static void init (GnomeCmdRemoteDialog *ftp_dialog)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_remote_dialog_get_type (void)
+GtkType gnome_cmd_remote_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 
@@ -574,7 +574,7 @@ GtkType gnome_cmd_remote_dialog_get_type (void)
 }
 
 
-GtkWidget *gnome_cmd_remote_dialog_new (void)
+GtkWidget *gnome_cmd_remote_dialog_new ()
 {
     GnomeCmdRemoteDialog *dialog = (GnomeCmdRemoteDialog *) gtk_type_new (gnome_cmd_remote_dialog_get_type ());
 
@@ -588,7 +588,7 @@ GtkWidget *gnome_cmd_remote_dialog_new (void)
  *
  ***********************************************/
 
-void show_quick_connect_dialog (void)
+void show_quick_connect_dialog ()
 {
     GnomeCmdConFtp *con = gnome_cmd_data_get_quick_connect ();
 

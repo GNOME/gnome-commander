@@ -100,7 +100,7 @@ inline GtkStyle *create_sel_list_style ()
 }
 
 
-void gnome_cmd_style_create (void)
+void gnome_cmd_style_create ()
 {
     if (list_style) gtk_style_unref (list_style);
     if (sel_list_style) gtk_style_unref (sel_list_style);

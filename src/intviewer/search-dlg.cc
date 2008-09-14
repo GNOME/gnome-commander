@@ -411,7 +411,7 @@ static void search_dlg_destroy (GtkObject *object)
 }
 
 
-GType gviewer_search_dlg_get_type (void)
+GType gviewer_search_dlg_get_type ()
 {
   static GType ttt_type = 0;
   if (!ttt_type)

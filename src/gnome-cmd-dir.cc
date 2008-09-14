@@ -229,7 +229,7 @@ static void init (GnomeCmdDir *dir)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_dir_get_type (void)
+GtkType gnome_cmd_dir_get_type ()
 {
     static GtkType type = 0;
 

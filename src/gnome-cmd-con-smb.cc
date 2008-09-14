@@ -235,8 +235,7 @@ init (GnomeCmdConSmb *smb_con)
  * Public functions
  ***********************************/
 
-GtkType
-gnome_cmd_con_smb_get_type         (void)
+GtkType gnome_cmd_con_smb_get_type ()
 {
     static GtkType type = 0;
 
@@ -261,7 +260,7 @@ gnome_cmd_con_smb_get_type         (void)
 
 
 GnomeCmdCon *
-gnome_cmd_con_smb_new (void)
+gnome_cmd_con_smb_new ()
 {
     return GNOME_CMD_CON (gtk_type_new (gnome_cmd_con_smb_get_type ()));
 }

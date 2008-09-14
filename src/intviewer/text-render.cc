@@ -167,7 +167,7 @@ static offset_type hex_mode_pixel_to_offset(TextRender *obj, int x, int y, gbool
     public functions
     (defined in the header file)
 *****************************************/
-GtkType text_render_get_type (void)
+GtkType text_render_get_type ()
 {
     static GtkType type = 0;
     if (type == 0)
@@ -188,7 +188,7 @@ GtkType text_render_get_type (void)
     return type;
 }
 
-GtkWidget* text_render_new (void)
+GtkWidget* text_render_new ()
 {
     TextRender *w = (TextRender *) gtk_type_new (text_render_get_type ());
 

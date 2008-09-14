@@ -951,13 +951,13 @@ void set_cursor_busy_for_widget (GtkWidget *widget)
 }
 
 
-void set_cursor_busy (void)
+void set_cursor_busy ()
 {
     set_cursor_busy_for_widget (GTK_WIDGET (main_win));
 }
 
 
-void set_cursor_default (void)
+void set_cursor_default ()
 {
     set_cursor_default_for_widget (GTK_WIDGET (main_win));
 }
@@ -1046,7 +1046,7 @@ gchar *get_temp_download_filepath (const gchar *fname)
 }
 
 
-void remove_temp_download_dir (void)
+void remove_temp_download_dir ()
 {
     const gchar *tmp_dir = g_get_tmp_dir ();
 

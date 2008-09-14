@@ -431,7 +431,7 @@ static void init (GnomeCmdCombo *combo)
  * Public functions
  ***********************************/
 
-guint gnome_cmd_combo_get_type (void)
+guint gnome_cmd_combo_get_type ()
 {
     static guint combo_type = 0;
 

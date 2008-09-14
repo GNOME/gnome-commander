@@ -113,7 +113,7 @@ static void image_render_update_adjustments (ImageRender *obj);
     public functions
     (defined in the header file)
 *****************************************/
-GtkType image_render_get_type (void)
+GtkType image_render_get_type ()
 {
     static GtkType type = 0;
     if (type == 0)
@@ -135,7 +135,7 @@ GtkType image_render_get_type (void)
 }
 
 
-GtkWidget *image_render_new (void)
+GtkWidget *image_render_new ()
 {
     ImageRender *w = (ImageRender *) gtk_type_new (image_render_get_type ());
 

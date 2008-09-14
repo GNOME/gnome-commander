@@ -149,7 +149,7 @@ GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs)
 }
 
 
-GtkType gnome_cmd_list_popmenu_get_type (void)
+GtkType gnome_cmd_list_popmenu_get_type ()
 {
     static GtkType type = 0;
 

@@ -515,7 +515,7 @@ static void init (GnomeCmdBookmarkDialog *in_dialog)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_bookmark_dialog_get_type (void)
+GtkType gnome_cmd_bookmark_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 
@@ -539,7 +539,7 @@ GtkType gnome_cmd_bookmark_dialog_get_type (void)
 }
 
 
-GtkWidget *gnome_cmd_bookmark_dialog_new (void)
+GtkWidget *gnome_cmd_bookmark_dialog_new ()
 {
     GnomeCmdBookmarkDialog *dialog = (GnomeCmdBookmarkDialog *) gtk_type_new (gnome_cmd_bookmark_dialog_get_type ());
 
@@ -570,7 +570,7 @@ static gboolean on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const g
 }
 
 
-void gnome_cmd_bookmark_add_current (void)
+void gnome_cmd_bookmark_add_current ()
 {
     GnomeCmdDir *cwd = gnome_cmd_main_win_get_fs (main_win, ACTIVE)->get_directory();
     gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (cwd));

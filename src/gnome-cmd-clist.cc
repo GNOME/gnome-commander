@@ -599,7 +599,7 @@ static void init (GnomeCmdCList *clist)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_clist_get_type         (void)
+GtkType gnome_cmd_clist_get_type ()
 {
     static GtkType type = 0;
 

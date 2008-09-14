@@ -962,7 +962,7 @@ static void init (GnomeCmdSearchDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_search_dialog_get_type (void)
+GtkType gnome_cmd_search_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 

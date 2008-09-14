@@ -137,7 +137,7 @@ static void load_users_and_groups (GnomeCmdChownComponent *comp)
 
 
 GtkWidget*
-gnome_cmd_chown_component_new (void)
+gnome_cmd_chown_component_new ()
 {
     GnomeCmdChownComponent *comp = (GnomeCmdChownComponent *) gtk_type_new (gnome_cmd_chown_component_get_type ());
 
@@ -149,7 +149,7 @@ gnome_cmd_chown_component_new (void)
 
 
 GtkType
-gnome_cmd_chown_component_get_type (void)
+gnome_cmd_chown_component_get_type ()
 {
     static GtkType type = 0;
 

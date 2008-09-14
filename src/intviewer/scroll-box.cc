@@ -55,7 +55,7 @@ static gboolean scroll_box_button_press(GtkWidget *widget, GdkEventButton *event
     public functions
     (defined in the header file)
 *****************************************/
-GtkType scroll_box_get_type (void)
+GtkType scroll_box_get_type ()
 {
     static GtkType type = 0;
     if (type == 0)
@@ -78,7 +78,7 @@ GtkType scroll_box_get_type (void)
 }
 
 
-GtkWidget* scroll_box_new (void)
+GtkWidget* scroll_box_new ()
 {
     ScrollBox *w = (ScrollBox *) gtk_type_new (scroll_box_get_type ());
 

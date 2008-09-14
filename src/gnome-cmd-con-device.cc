@@ -365,7 +365,7 @@ static void init (GnomeCmdConDevice *dev_con)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_con_device_get_type (void)
+GtkType gnome_cmd_con_device_get_type ()
 {
     static GtkType type = 0;
 

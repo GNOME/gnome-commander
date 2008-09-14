@@ -174,7 +174,7 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gin
 }
 
 
-GtkType gnome_cmd_rename_dialog_get_type (void)
+GtkType gnome_cmd_rename_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 

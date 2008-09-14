@@ -138,7 +138,7 @@ static void init (GnomeCmdFile *file)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_file_get_type (void)
+GtkType gnome_cmd_file_get_type ()
 {
     static GtkType type = 0;
 

@@ -128,7 +128,7 @@ GtkWidget *gnome_cmd_xfer_progress_win_new (guint no_of_files)
 }
 
 
-GtkType gnome_cmd_xfer_progress_win_get_type (void)
+GtkType gnome_cmd_xfer_progress_win_get_type ()
 {
     static GtkType dlg_type = 0;
 

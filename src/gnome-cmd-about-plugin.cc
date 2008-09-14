@@ -155,7 +155,7 @@ static void gnome_cmd_about_plugin_update_translation_information_label (GnomeCm
 }
 
 
-inline GtkWidget *_create_label (void)
+inline GtkWidget *_create_label ()
 {
     GtkWidget *label = gtk_label_new ("");
 

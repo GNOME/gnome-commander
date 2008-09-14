@@ -293,7 +293,7 @@ static void init (GnomeCmdQuicksearchPopup *popup)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_quicksearch_popup_get_type (void)
+GtkType gnome_cmd_quicksearch_popup_get_type ()
 {
     static GtkType type = 0;
 

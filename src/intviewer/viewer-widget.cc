@@ -92,7 +92,7 @@ static void gviewer_auto_detect_display_mode(GViewer *obj);
     public functions
     (defined in the header file)
 *****************************************/
-GtkType gviewer_get_type (void)
+GtkType gviewer_get_type ()
 {
     static GtkType type = 0;
     if (type == 0)
@@ -116,7 +116,7 @@ GtkType gviewer_get_type (void)
 }
 
 
-GtkWidget *gviewer_new (void)
+GtkWidget *gviewer_new ()
 {
     GViewer *w = (GViewer *) gtk_type_new (gviewer_get_type ());
 

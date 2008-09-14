@@ -1845,7 +1845,7 @@ static void init (GnomeCmdOptionsDialog *dialog)
  ***********************************/
 
 
-GtkType gnome_cmd_options_dialog_get_type (void)
+GtkType gnome_cmd_options_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 
@@ -1870,7 +1870,7 @@ GtkType gnome_cmd_options_dialog_get_type (void)
 }
 
 
-GtkWidget *gnome_cmd_options_dialog_new (void)
+GtkWidget *gnome_cmd_options_dialog_new ()
 {
     return (GtkWidget *) gtk_type_new (gnome_cmd_options_dialog_get_type ());
 }

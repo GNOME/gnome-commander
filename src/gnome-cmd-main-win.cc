@@ -851,7 +851,7 @@ static void init (GnomeCmdMainWin *mw)
 }
 
 
-GtkType gnome_cmd_main_win_get_type (void)
+GtkType gnome_cmd_main_win_get_type ()
 {
     static GtkType mw_type = 0;
 

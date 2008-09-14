@@ -286,7 +286,7 @@ GtkWidget *gnome_cmd_cmdline_new ()
 }
 
 
-GtkType gnome_cmd_cmdline_get_type (void)
+GtkType gnome_cmd_cmdline_get_type ()
 {
     static GtkType dlg_type = 0;
 

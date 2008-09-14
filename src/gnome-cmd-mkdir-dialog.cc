@@ -209,7 +209,7 @@ GtkWidget *gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir)
 }
 
 
-GtkType gnome_cmd_mkdir_dialog_get_type (void)
+GtkType gnome_cmd_mkdir_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 

@@ -490,7 +490,7 @@ inline void format_entry (PatternEntry *entry, gchar **text)
 }
 
 
-inline RenameEntry *rename_entry_new (void)
+inline RenameEntry *rename_entry_new ()
 {
     return g_new0 (RenameEntry, 1);
 }
@@ -1266,7 +1266,7 @@ GtkWidget *gnome_cmd_advrename_dialog_new (GList *files)
 }
 
 
-GtkType gnome_cmd_advrename_dialog_get_type (void)
+GtkType gnome_cmd_advrename_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 

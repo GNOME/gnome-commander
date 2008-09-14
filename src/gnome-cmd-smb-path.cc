@@ -199,7 +199,7 @@ static void init (GnomeCmdSmbPath *path)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_smb_path_get_type (void)
+GtkType gnome_cmd_smb_path_get_type ()
 {
     static GtkType type = 0;
 

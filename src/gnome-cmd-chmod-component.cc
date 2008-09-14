@@ -177,7 +177,7 @@ GtkWidget *gnome_cmd_chmod_component_new (GnomeVFSFilePermissions perms)
 }
 
 
-GtkType gnome_cmd_chmod_component_get_type (void)
+GtkType gnome_cmd_chmod_component_get_type ()
 {
     static GtkType type = 0;
 

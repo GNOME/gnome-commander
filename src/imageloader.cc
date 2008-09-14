@@ -89,7 +89,7 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
 /*
  * Load application pixmaps
  */
-void IMAGE_init (void)
+void IMAGE_init ()
 {
     gint i;
 
@@ -487,7 +487,7 @@ static gboolean remove_entry (const gchar *key, CacheEntry *entry, gpointer user
 }
 
 
-void IMAGE_clear_mime_cache (void)
+void IMAGE_clear_mime_cache ()
 {
     g_return_if_fail (mime_cache != NULL);
 
@@ -495,7 +495,7 @@ void IMAGE_clear_mime_cache (void)
 }
 
 
-void IMAGE_free (void)
+void IMAGE_free ()
 {
     for (int i=0; i<NUM_PIXMAPS; i++)
     {

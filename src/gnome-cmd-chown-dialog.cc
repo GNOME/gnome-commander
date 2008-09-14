@@ -219,8 +219,7 @@ gnome_cmd_chown_dialog_new (GList *files)
 }
 
 
-GtkType
-gnome_cmd_chown_dialog_get_type         (void)
+GtkType gnome_cmd_chown_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 

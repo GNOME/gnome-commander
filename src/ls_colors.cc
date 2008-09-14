@@ -192,7 +192,7 @@ static void init (gchar *ls_colors)
 }
 
 
-void ls_colors_init (void)
+void ls_colors_init ()
 {
     gchar *s = getenv ("LS_COLORS");
     if (!s)

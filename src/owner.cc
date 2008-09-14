@@ -286,7 +286,7 @@ group_t *OWNER_get_group_by_name (const char *name)
 }
 
 
-void OWNER_init (void)
+void OWNER_init ()
 {
     all_users = NULL;
     all_groups = NULL;
@@ -297,7 +297,7 @@ void OWNER_init (void)
 }
 
 
-void OWNER_free (void)
+void OWNER_free ()
 {
 
     GList *groups;
@@ -322,7 +322,7 @@ void OWNER_free (void)
 }
 
 
-user_t *OWNER_get_program_user (void)
+user_t *OWNER_get_program_user ()
 {
     const char *name;
     user_t *user;
@@ -336,13 +336,13 @@ user_t *OWNER_get_program_user (void)
 }
 
 
-GList *OWNER_get_all_users (void)
+GList *OWNER_get_all_users ()
 {
     return all_users;
 }
 
 
-GList *OWNER_get_all_groups (void)
+GList *OWNER_get_all_groups ()
 {
     return all_groups;
 }

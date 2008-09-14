@@ -144,7 +144,7 @@ static void init (GnomeCmdConHome *home_con)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_con_home_get_type (void)
+GtkType gnome_cmd_con_home_get_type ()
 {
     static GtkType type = 0;
 
@@ -168,7 +168,7 @@ GtkType gnome_cmd_con_home_get_type (void)
 }
 
 
-GnomeCmdCon *gnome_cmd_con_home_new (void)
+GnomeCmdCon *gnome_cmd_con_home_new ()
 {
     GnomeCmdConHome *con = (GnomeCmdConHome *) gtk_type_new (gnome_cmd_con_home_get_type ());
 

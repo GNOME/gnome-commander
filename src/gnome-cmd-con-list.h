@@ -61,7 +61,7 @@ GtkType gnome_cmd_con_list_get_type (void);
 
 GnomeCmdConList *gnome_cmd_con_list_new (void);
 
-inline GnomeCmdConList *gnome_cmd_con_list_get (void)
+inline GnomeCmdConList *gnome_cmd_con_list_get ()
 {
     return (GnomeCmdConList *) gnome_cmd_data_get_con_list ();
 }
@@ -96,12 +96,12 @@ inline gboolean gnome_cmd_con_list_has_alias (GnomeCmdConList *list, const gchar
 GnomeCmdCon *gnome_cmd_con_list_get_home (GnomeCmdConList *list);
 GnomeCmdCon *gnome_cmd_con_list_get_smb (GnomeCmdConList *con_list);
 
-inline GnomeCmdCon *get_home_con (void)
+inline GnomeCmdCon *get_home_con ()
 {
     return gnome_cmd_con_list_get_home (gnome_cmd_con_list_get ());
 }
 
-inline GnomeCmdCon *get_smb_con (void)
+inline GnomeCmdCon *get_smb_con ()
 {
     return gnome_cmd_con_list_get_smb (gnome_cmd_con_list_get ());
 }

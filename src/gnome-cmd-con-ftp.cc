@@ -217,7 +217,7 @@ static void init (GnomeCmdConFtp *ftp_con)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_con_ftp_get_type (void)
+GtkType gnome_cmd_con_ftp_get_type ()
 {
     static GtkType type = 0;
 

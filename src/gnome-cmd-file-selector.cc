@@ -1362,7 +1362,7 @@ static void init (GnomeCmdFileSelector *fs)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_file_selector_get_type (void)
+GtkType gnome_cmd_file_selector_get_type ()
 {
     static GtkType fs_type = 0;
 
@@ -1386,7 +1386,7 @@ GtkType gnome_cmd_file_selector_get_type (void)
 }
 
 
-GtkWidget *gnome_cmd_file_selector_new (void)
+GtkWidget *gnome_cmd_file_selector_new ()
 {
     GnomeCmdFileSelector *fs = (GnomeCmdFileSelector *) gtk_type_new (gnome_cmd_file_selector_get_type ());
 

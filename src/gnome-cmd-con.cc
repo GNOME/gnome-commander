@@ -218,7 +218,7 @@ static void init (GnomeCmdCon *con)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_con_get_type (void)
+GtkType gnome_cmd_con_get_type ()
 {
     static GtkType type = 0;
 

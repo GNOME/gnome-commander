@@ -480,7 +480,7 @@ static void init (GnomeCmdDirIndicator *indicator)
 /***********************************
  * Public functions
  ***********************************/
-GtkType gnome_cmd_dir_indicator_get_type (void)
+GtkType gnome_cmd_dir_indicator_get_type ()
 {
     static GtkType type = 0;
 

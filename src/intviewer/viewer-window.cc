@@ -200,7 +200,7 @@ void gviewer_window_load_file (GViewerWindow *obj, const gchar *filename)
 }
 
 
-GtkType gviewer_window_get_type (void)
+GtkType gviewer_window_get_type ()
 {
     static GtkType type = 0;
     if (type == 0)

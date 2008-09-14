@@ -200,7 +200,7 @@ static void scan_plugins_in_dir (const gchar *dpath)
 }
 
 
-void plugin_manager_init (void)
+void plugin_manager_init ()
 {
     if (plugins)
     {
@@ -240,7 +240,7 @@ void plugin_manager_init (void)
 }
 
 
-void plugin_manager_shutdown (void)
+void plugin_manager_shutdown ()
 {
     GList *out = NULL;
 
@@ -255,7 +255,7 @@ void plugin_manager_shutdown (void)
 }
 
 
-GList *plugin_manager_get_all (void)
+GList *plugin_manager_get_all ()
 {
     return plugins;
 }
@@ -395,7 +395,7 @@ static void on_close (GtkButton *button, GtkWidget *dialog)
 }
 
 
-void plugin_manager_show (void)
+void plugin_manager_show ()
 {
     GtkWidget *dialog, *hbox, *bbox, *button;
     GtkWidget *avail_list;

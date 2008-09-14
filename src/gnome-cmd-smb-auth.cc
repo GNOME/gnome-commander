@@ -55,7 +55,7 @@ vfs_full_authentication_callback (const GnomeVFSModuleCallbackFullAuthentication
 }
 
 
-void gnome_cmd_smb_auth_init (void)
+void gnome_cmd_smb_auth_init ()
 {
     gnome_vfs_module_callback_set_default (GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION,
                                            (GnomeVFSModuleCallback) vfs_full_authentication_callback,
