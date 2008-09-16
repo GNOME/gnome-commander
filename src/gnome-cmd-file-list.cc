@@ -2240,36 +2240,36 @@ gboolean GnomeCmdFileList::file_is_wanted(GnomeCmdFile *f)
     GnomeVFSFileInfo *info = f->info;
 
     if (info->type == GNOME_VFS_FILE_TYPE_UNKNOWN
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_UNKNOWN))
+        && gnome_cmd_data.hide_type(GNOME_VFS_FILE_TYPE_UNKNOWN))
         return FALSE;
     if (info->type == GNOME_VFS_FILE_TYPE_REGULAR
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_REGULAR))
+        && gnome_cmd_data.hide_type(GNOME_VFS_FILE_TYPE_REGULAR))
         return FALSE;
     if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_DIRECTORY))
+        && gnome_cmd_data.hide_type(GNOME_VFS_FILE_TYPE_DIRECTORY))
         return FALSE;
     if (info->type == GNOME_VFS_FILE_TYPE_FIFO
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_FIFO))
+        && gnome_cmd_data.hide_type(GNOME_VFS_FILE_TYPE_FIFO))
         return FALSE;
     if (info->type == GNOME_VFS_FILE_TYPE_SOCKET
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SOCKET))
+        && gnome_cmd_data.hide_type(GNOME_VFS_FILE_TYPE_SOCKET))
         return FALSE;
     if (info->type == GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE))
+        && gnome_cmd_data.hide_type(GNOME_VFS_FILE_TYPE_CHARACTER_DEVICE))
         return FALSE;
     if (info->type == GNOME_VFS_FILE_TYPE_BLOCK_DEVICE
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_BLOCK_DEVICE))
+        && gnome_cmd_data.hide_type(GNOME_VFS_FILE_TYPE_BLOCK_DEVICE))
         return FALSE;
     if ((info->flags == GNOME_VFS_FILE_FLAGS_SYMLINK || info->symlink_name != NULL)
-        && gnome_cmd_data_get_type_filter (GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK))
+        && gnome_cmd_data.hide_type(GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK))
         return FALSE;
     if (strcmp (info->name, ".") == 0)
         return FALSE;
     if (strcmp (info->name, "..") == 0)
         return FALSE;
-    if (info->name[0] == '.' && gnome_cmd_data_get_hidden_filter ())
+    if (info->name[0] == '.' && gnome_cmd_data.filter_settings.hidden)
         return FALSE;
-    if (gnome_cmd_data_get_backup_filter () && patlist_matches (gnome_cmd_data_get_backup_pattern_list (), info->name))
+    if (gnome_cmd_data.filter_settings.backup && patlist_matches (gnome_cmd_data_get_backup_pattern_list (), info->name))
         return FALSE;
 
     return TRUE;

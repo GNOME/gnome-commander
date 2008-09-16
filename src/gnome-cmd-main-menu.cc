@@ -855,10 +855,10 @@ static void init (GnomeCmdMainMenu *main_menu)
         gnome_cmd_data.cmdline_visibility);
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_hidden_files),
-        !gnome_cmd_data_get_hidden_filter ());
+        !gnome_cmd_data.filter_settings.hidden);
     gtk_check_menu_item_set_active (
         GTK_CHECK_MENU_ITEM (main_menu->priv->menu_view_backup_files),
-        !gnome_cmd_data_get_backup_filter ());
+        !gnome_cmd_data.filter_settings.backup);
 
     gtk_signal_connect (GTK_OBJECT (gnome_cmd_con_list_get ()), "list-changed",
                         GTK_SIGNAL_FUNC (on_con_list_list_changed), main_menu);

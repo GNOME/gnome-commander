@@ -846,7 +846,7 @@ void file_exit (GtkMenuItem *menuitem, gpointer not_used)
 {
     gint x, y;
 
-    switch (gnome_cmd_data_get_main_win_state())
+    switch (gnome_cmd_data.main_win_state)
     {
         case GDK_WINDOW_STATE_MAXIMIZED:
         case GDK_WINDOW_STATE_FULLSCREEN:
@@ -1233,7 +1233,7 @@ void view_hidden_files (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data_get_filter_settings()->hidden = !checkitem->active;
+    gnome_cmd_data.filter_settings.hidden = !checkitem->active;
     get_fs (ACTIVE)->reload();
     get_fs (INACTIVE)->reload();
 }
@@ -1244,7 +1244,7 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
     if (!GTK_WIDGET_REALIZED (main_win)) return;
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
-    gnome_cmd_data_get_filter_settings()->backup = !checkitem->active;
+    gnome_cmd_data.filter_settings.backup = !checkitem->active;
     get_fs (ACTIVE)->reload();
     get_fs (INACTIVE)->reload();
 }

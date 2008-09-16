@@ -81,12 +81,17 @@ struct GnomeCmdData
     gboolean                     alt_quick_search;
 
     Filter::Type                 filter_type;
+    FilterSettings               filter_settings;
 
     gboolean                     toolbar_visibility;
     gboolean                     conbuttons_visibility;
     gboolean                     concombo_visibility;
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;
+
+    gint                         main_win_width;
+    gint                         main_win_height;
+    GdkWindowState               main_win_state;
 
     GnomeCmdData();
 
@@ -95,6 +100,8 @@ struct GnomeCmdData
     void load();
     void load_more();
     void save();
+
+    gboolean hide_type(GnomeVFSFileType type)     {  return filter_settings.file_types[type];  }
 };
 
 typedef struct _GnomeCmdConFtp GnomeCmdConFtp;
@@ -134,16 +141,6 @@ void gnome_cmd_data_set_list_row_height (gint height);
 
 GnomeCmdExtDispMode gnome_cmd_data_get_ext_disp_mode ();
 void gnome_cmd_data_set_ext_disp_mode (GnomeCmdExtDispMode mode);
-
-GnomeCmdData::FilterSettings *gnome_cmd_data_get_filter_settings ();
-gboolean gnome_cmd_data_get_type_filter (GnomeVFSFileType type);
-void gnome_cmd_data_set_hidden_filter (gboolean hide);
-gboolean gnome_cmd_data_get_hidden_filter ();
-gboolean gnome_cmd_data_get_backup_filter ();
-gboolean gnome_cmd_data_get_other_filter ();
-
-void gnome_cmd_data_get_main_win_size (gint *width, gint *height);
-void gnome_cmd_data_set_main_win_size (gint width, gint height);
 
 void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direction);
 void gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction);
@@ -241,9 +238,6 @@ const gchar *gnome_cmd_data_get_backup_pattern ();
 void gnome_cmd_data_set_backup_pattern (const gchar *value);
 
 GList *gnome_cmd_data_get_backup_pattern_list ();
-
-GdkWindowState gnome_cmd_data_get_main_win_state ();
-void gnome_cmd_data_set_main_win_state (GdkWindowState state);
 
 const gchar *gnome_cmd_data_get_symlink_prefix ();
 void gnome_cmd_data_set_symlink_prefix (const gchar *value);

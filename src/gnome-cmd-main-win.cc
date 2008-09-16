@@ -531,7 +531,7 @@ static void on_fs_list_resize_column (GtkCList *clist, gint column, gint width, 
 
 static void on_size_allocate (GtkWidget *widget, GtkAllocation *allocation, gpointer user_data)
 {
-    switch (gnome_cmd_data_get_main_win_state())
+    switch (gnome_cmd_data.main_win_state)
     {
         case GDK_WINDOW_STATE_FULLSCREEN:
         case GDK_WINDOW_STATE_ICONIFIED:
@@ -539,7 +539,8 @@ static void on_size_allocate (GtkWidget *widget, GtkAllocation *allocation, gpoi
             break;
 
         default:
-            gnome_cmd_data_set_main_win_size (allocation->width, allocation->height);
+            gnome_cmd_data.main_win_width = allocation->width;
+            gnome_cmd_data.main_win_height = allocation->height;
     }
 }
 
@@ -635,16 +636,17 @@ static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCm
 
 static void restore_size_and_pos (GnomeCmdMainWin *mw)
 {
-    gint w, h, x, y;
+    gint x, y;
 
-    gnome_cmd_data_get_main_win_size (&w, &h);
-    gtk_widget_set_size_request (GTK_WIDGET (main_win), w, h);
+    gtk_widget_set_size_request (GTK_WIDGET (main_win),
+                                 gnome_cmd_data.main_win_width,
+                                 gnome_cmd_data.main_win_height);
 
     gnome_cmd_data_get_main_win_pos (&x, &y);
     if (x >= 0 && y >= 0)
         gtk_window_move (GTK_WINDOW (mw), x, y);
 
-    switch (gnome_cmd_data_get_main_win_state ())
+    switch (gnome_cmd_data.main_win_state)
     {
         case GDK_WINDOW_STATE_MAXIMIZED:
         case GDK_WINDOW_STATE_FULLSCREEN:
@@ -674,8 +676,8 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
                 break;
 
         case GDK_WINDOW_STATE_ICONIFIED:
-            if (gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_MAXIMIZED ||  // prev state
-                gnome_cmd_data_get_main_win_state() == GDK_WINDOW_STATE_FULLSCREEN)
+            if (gnome_cmd_data.main_win_state == GDK_WINDOW_STATE_MAXIMIZED ||  // prev state
+                gnome_cmd_data.main_win_state == GDK_WINDOW_STATE_FULLSCREEN)
                 break;  // not usable
 
         default:            // other are usable
@@ -683,7 +685,7 @@ static gboolean on_window_state_event (GtkWidget *mw, GdkEventWindowState *event
             gnome_cmd_data_set_main_win_pos (x, y);
     }
 
-    gnome_cmd_data_set_main_win_state (event->new_window_state);
+    gnome_cmd_data.main_win_state = event->new_window_state;
 
     return FALSE;
 }
@@ -984,7 +986,7 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
         {
             case GDK_H:
             case GDK_h:
-                gnome_cmd_data_set_hidden_filter (!gnome_cmd_data_get_hidden_filter ());
+                gnome_cmd_data.filter_settings.hidden = !gnome_cmd_data.filter_settings.hidden;
                 gnome_cmd_style_create ();
                 gnome_cmd_main_win_update_style (main_win);
                 gnome_cmd_data.save();
