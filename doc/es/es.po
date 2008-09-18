@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-29 18:05+0000\n"
-"PO-Revision-Date: 2008-09-10 18:39+0200\n"
+"POT-Creation-Date: 2008-09-10 20:24+0000\n"
+"PO-Revision-Date: 2008-09-16 21:28+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -359,8 +359,8 @@ msgid ""
 "<application>GNOME Commander</application> is a lighweight and fast file "
 "manager for the GNOME desktop."
 msgstr ""
-"<application>GNOME Commander</application> es un gestor de archivos rápido y ligero "
-"para el escritorio GNOME."
+"<application>GNOME Commander</application> es un gestor de archivos rápido y "
+"ligero para el escritorio GNOME."
 
 #: C/gnome-commander.xml:175(primary) C/gnome-commander.xml:285(command)
 msgid "gnome-commander"
@@ -396,8 +396,8 @@ msgid ""
 "Remote connections using GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV and SMB/CIFS "
 "(Samba)"
 msgstr ""
-"Conexiones remotas utilizando GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV y SMB/CIFS "
-"(Samba)"
+"Conexiones remotas utilizando GnomeVFS: FTP, SFTP (SSH+FTP), WebDAV y SMB/"
+"CIFS (Samba)"
 
 #: C/gnome-commander.xml:203(para)
 msgid "Right click mouse menu"
@@ -409,7 +409,9 @@ msgstr "Menú contextual definido por el usuario"
 
 #: C/gnome-commander.xml:209(para)
 msgid "Quick device access buttons with automatic mounting and unmounting"
-msgstr "Botones de acceso rápido a los dispositivos con montaje y desmontaje automático"
+msgstr ""
+"Botones de acceso rápido a los dispositivos con montaje y desmontaje "
+"automático"
 
 #: C/gnome-commander.xml:212(para)
 msgid "History of accessed locations"
@@ -440,7 +442,8 @@ msgid ""
 "Meta data support for Exif, IPTC, ID3, Vorbis, FLAC, APE, OLE2, ODF and PDF "
 "tags"
 msgstr ""
-"Soporte de metadatos para etiquetas Exif, IPTC, ID3, Vorbis, FLAC, APE, OLE2, ODF y PDF"
+"Soporte de metadatos para etiquetas Exif, IPTC, ID3, Vorbis, FLAC, APE, "
+"OLE2, ODF y PDF"
 
 #: C/gnome-commander.xml:233(para)
 msgid ""
@@ -505,8 +508,8 @@ msgid ""
 "To start <application>GNOME Commander</application> from a command line, "
 "type the following command, then press <keycap>Return</keycap>:"
 msgstr ""
-"Para ejecutar <application>GNOME Commander</application> desde una línea de comandos, "
-"escriba el siguiente comando y pulse <keycap>Intro</keycap>:"
+"Para ejecutar <application>GNOME Commander</application> desde una línea de "
+"comandos, escriba el siguiente comando y pulse <keycap>Intro</keycap>:"
 
 #: C/gnome-commander.xml:293(title)
 msgid "When You Start <application>GNOME Commander</application>"
@@ -535,8 +538,8 @@ msgid ""
 "The <application>GNOME Commander</application> window contains the following "
 "elements:"
 msgstr ""
-"La ventana de <application>GNOME Commander</application> contiene los siguientes "
-"elementos:"
+"La ventana de <application>GNOME Commander</application> contiene los "
+"siguientes elementos:"
 
 #: C/gnome-commander.xml:319(term)
 msgid "Menubar."
@@ -615,7 +618,9 @@ msgstr "-d, --debug=CADENA"
 
 #: C/gnome-commander.xml:377(para)
 msgid "Specify debug flags to use. Debug output will be written to stdout."
-msgstr "Especifica las opciones de depuración a utilizar. La salida del depurador se escribirá en stdout."
+msgstr ""
+"Especifica las opciones de depuración a utilizar. La salida del depurador se "
+"escribirá en stdout."
 
 #: C/gnome-commander.xml:378(para)
 msgid "Possible flags:"
@@ -782,7 +787,9 @@ msgstr "Seleccionar un grupo de elementos contiguos"
 
 #: C/gnome-commander.xml:556(para)
 msgid "In icon view, drag around the files that you want to select."
-msgstr "En la vista de iconos, arrastre alrededor de los archivos que quiera selececcionar."
+msgstr ""
+"En la vista de iconos, arrastre alrededor de los archivos que quiera "
+"selececcionar."
 
 #: C/gnome-commander.xml:557(para)
 msgid ""
@@ -817,8 +824,8 @@ msgid ""
 "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Select All</"
 "guimenuitem></menuchoice>."
 msgstr ""
-"Seleccione <menuchoice><guimenu>Marcar</guimenu><guimenuitem>Seleccionar todo</"
-"guimenuitem></menuchoice>."
+"Seleccione <menuchoice><guimenu>Marcar</guimenu><guimenuitem>Seleccionar "
+"todo</guimenuitem></menuchoice>."
 
 #: C/gnome-commander.xml:581(keycap) C/gnome-commander.xml:582(keycap)
 #: C/gnome-commander.xml:593(keycap) C/gnome-commander.xml:594(keycap)
@@ -883,8 +890,8 @@ msgid ""
 "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Unselect All</"
 "guimenuitem></menuchoice>."
 msgstr ""
-"Seleccione <menuchoice><guimenu>Marcar</guimenu><guimenuitem>Deseleccionar todo</"
-"guimenuitem></menuchoice>."
+"Seleccione <menuchoice><guimenu>Marcar</guimenu><guimenuitem>Deseleccionar "
+"todo</guimenuitem></menuchoice>."
 
 #: C/gnome-commander.xml:593(keycap) C/gnome-commander.xml:3563(keycap)
 #: C/gnome-commander.xml:3897(keycap) C/gnome-commander.xml:3902(keycap)
@@ -974,8 +981,8 @@ msgid ""
 "Choose <menuchoice><guimenu>Mark</guimenu><guimenuitem>Invert Selection</"
 "guimenuitem></menuchoice>."
 msgstr ""
-"Seleccione <menuchoice><guimenu>Marcar</guimenu><guimenuitem>Invertir selección</"
-"guimenuitem></menuchoice>."
+"Seleccione <menuchoice><guimenu>Marcar</guimenu><guimenuitem>Invertir "
+"selección</guimenuitem></menuchoice>."
 
 #: C/gnome-commander.xml:649(keycap) C/gnome-commander.xml:3987(keycap)
 msgid "NUM *"
@@ -983,7 +990,9 @@ msgstr "NÚM *"
 
 #: C/gnome-commander.xml:655(para)
 msgid "To perform the default action on an item, double-click on the item."
-msgstr "Pulse dos veces en el elemento para realizar la acción predeterminada sobre un elemento."
+msgstr ""
+"Pulse dos veces en el elemento para realizar la acción predeterminada sobre "
+"un elemento."
 
 #: C/gnome-commander.xml:659(title)
 msgid "Drag-and-Drop"
@@ -1111,7 +1120,8 @@ msgstr "Ver las propiedades de un archivo o carpeta"
 msgid ""
 "To view the properties of a file or folder, perform the following steps:"
 msgstr ""
-"Para ver las propiedades de un archivo o carpeta, ejecute los siguientes pasos:"
+"Para ver las propiedades de un archivo o carpeta, ejecute los siguientes "
+"pasos:"
 
 #: C/gnome-commander.xml:754(para)
 msgid "Select the file or folder whose properties you want to view."
@@ -1216,7 +1226,8 @@ msgstr "Cambiar los permisos"
 msgid ""
 "To change the permissions of a file or a folder, perform the following steps:"
 msgstr ""
-"Para cambiar los permisos de un archivo o carpeta, ejecute los siguientes pasos:"
+"Para cambiar los permisos de un archivo o carpeta, ejecute los siguientes "
+"pasos:"
 
 #: C/gnome-commander.xml:843(para)
 msgid "Select the file that you want to change."
@@ -1229,8 +1240,8 @@ msgid ""
 "properties\">properties window</link> for the item is displayed."
 msgstr ""
 "Seleccione <menuchoice><guimenu>Archivo</guimenu><guimenuitem>Propiedades</"
-"guimenuitem></menuchoice>. Se mostrará la <link linkend=\"gnome-commander-file-"
-"properties\">ventana de propiedades</link> del elemento."
+"guimenuitem></menuchoice>. Se mostrará la <link linkend=\"gnome-commander-"
+"file-properties\">ventana de propiedades</link> del elemento."
 
 #: C/gnome-commander.xml:850(para)
 msgid "Click on the <guilabel>Permissions</guilabel> tab."
@@ -1464,7 +1475,7 @@ msgstr "$p"
 
 #: C/gnome-commander.xml:1020(para)
 msgid "Parent dir name"
-msgstr ""
+msgstr "Nombre del directorio superior"
 
 #: C/gnome-commander.xml:1023(para)
 msgid "$p(range)"
@@ -1496,7 +1507,7 @@ msgstr "$c"
 
 #: C/gnome-commander.xml:1036(para)
 msgid "File counter"
-msgstr ""
+msgstr "Contador de archivos"
 
 #: C/gnome-commander.xml:1039(para)
 msgid "$c(width)"
@@ -1567,7 +1578,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1083(term) C/gnome-commander.xml:1134(para)
 msgid "Audio.Artist"
-msgstr ""
+msgstr "Audio.Artist"
 
 #: C/gnome-commander.xml:1082(para)
 msgid ""
@@ -1631,7 +1642,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1114(para)
 msgid "Audio.AlbumArtist"
-msgstr ""
+msgstr "Audio.AlbumArtist"
 
 #: C/gnome-commander.xml:1115(para)
 msgid "Album Artist"
@@ -1699,11 +1710,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:1144(para)
 msgid "Audio.Channels"
-msgstr ""
+msgstr "Audio.Channels"
 
 #: C/gnome-commander.xml:1145(para)
 msgid "Channels"
-msgstr ""
+msgstr "Canales"
 
 #: C/gnome-commander.xml:1146(para)
 msgid "Number of channels in the audio (2 = stereo)."
@@ -1723,11 +1734,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:1154(para)
 msgid "Audio.CodecVersion"
-msgstr ""
+msgstr "Audio.CodecVersion"
 
 #: C/gnome-commander.xml:1155(para)
 msgid "Codec Version"
-msgstr ""
+msgstr "Versión del códec"
 
 #: C/gnome-commander.xml:1156(para)
 msgid "Codec version."
@@ -1812,7 +1823,7 @@ msgstr "Audio.Genre"
 
 #: C/gnome-commander.xml:1190(para)
 msgid "Genre"
-msgstr ""
+msgstr "Género"
 
 #: C/gnome-commander.xml:1191(para) C/gnome-commander.xml:2241(para)
 msgid "Type of music classification for the track as defined in ID3 spec."
@@ -1820,7 +1831,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1194(para)
 msgid "Audio.IsNew"
-msgstr ""
+msgstr "Audio.IsNew"
 
 #: C/gnome-commander.xml:1195(para)
 msgid "Is new"
@@ -1844,7 +1855,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1204(para)
 msgid "Audio.LastPlay"
-msgstr ""
+msgstr "Audio.LastPlay"
 
 #: C/gnome-commander.xml:1205(para)
 msgid "Last Play"
@@ -1928,11 +1939,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:1239(para)
 msgid "Audio.MPEG.Copyrighted"
-msgstr ""
+msgstr "Audio.MPEG.Copyrighted"
 
 #: C/gnome-commander.xml:1240(para)
 msgid "Copyrighted"
-msgstr ""
+msgstr "Con copyright"
 
 #: C/gnome-commander.xml:1241(para)
 msgid "\"1\" if the copyrighted bit is set."
@@ -1952,7 +1963,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1249(para)
 msgid "Audio.MPEG.Original"
-msgstr ""
+msgstr "Audio.MPEG.Original"
 
 #: C/gnome-commander.xml:1250(para)
 msgid "Original audio"
@@ -1964,7 +1975,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1254(para)
 msgid "Audio.MPEG.Version"
-msgstr ""
+msgstr "Audio.MPEG.Version"
 
 #: C/gnome-commander.xml:1255(para)
 msgid "MPEG Version"
@@ -1976,7 +1987,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1259(para)
 msgid "Audio.Performer"
-msgstr ""
+msgstr "Audio.Performer"
 
 #: C/gnome-commander.xml:1260(para)
 msgid "Performer"
@@ -1988,7 +1999,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1264(para)
 msgid "Audio.PlayCount"
-msgstr ""
+msgstr "Audio.PlayCount"
 
 #: C/gnome-commander.xml:1265(para)
 msgid "Play Count"
@@ -2012,7 +2023,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1274(para)
 msgid "Audio.SampleRate"
-msgstr ""
+msgstr "Audio.SampleRate"
 
 #: C/gnome-commander.xml:1275(para)
 msgid "Sample Rate"
@@ -2024,12 +2035,12 @@ msgstr ""
 
 #: C/gnome-commander.xml:1279(para)
 msgid "Audio.Title"
-msgstr ""
+msgstr "Audio.Title"
 
 #: C/gnome-commander.xml:1280(para) C/gnome-commander.xml:1530(para)
 #: C/gnome-commander.xml:2710(para)
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: C/gnome-commander.xml:1281(para)
 msgid "Title of the track."
@@ -2037,7 +2048,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1284(para)
 msgid "Audio.TrackGain"
-msgstr ""
+msgstr "Audio.TrackGain"
 
 #: C/gnome-commander.xml:1285(para)
 msgid "Track Gain"
@@ -2049,7 +2060,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1289(para)
 msgid "Audio.TrackNo"
-msgstr ""
+msgstr "Audio.TrackNo"
 
 #: C/gnome-commander.xml:1290(para)
 msgid "Track Number"
@@ -2061,7 +2072,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1294(para)
 msgid "Audio.TrackPeakGain"
-msgstr ""
+msgstr "Audio.TrackPeakGain"
 
 #: C/gnome-commander.xml:1295(para)
 msgid "Track Peak Gain"
@@ -2073,23 +2084,23 @@ msgstr ""
 
 #: C/gnome-commander.xml:1299(para)
 msgid "Audio.Year"
-msgstr ""
+msgstr "Audio.Year"
 
 #: C/gnome-commander.xml:1300(para)
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: C/gnome-commander.xml:1301(para)
 msgid "Year."
-msgstr ""
+msgstr "Año."
 
 #: C/gnome-commander.xml:1304(para) C/gnome-commander.xml:1349(para)
 msgid "Doc.Author"
-msgstr ""
+msgstr "Doc.Author"
 
 #: C/gnome-commander.xml:1305(para) C/gnome-commander.xml:1350(para)
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: C/gnome-commander.xml:1306(para) C/gnome-commander.xml:1351(para)
 #: C/gnome-commander.xml:2631(para)
@@ -2098,7 +2109,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1309(para)
 msgid "Doc.ByteCount"
-msgstr ""
+msgstr "Doc.ByteCount"
 
 #: C/gnome-commander.xml:1310(para)
 msgid "Byte Count"
@@ -2110,7 +2121,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1314(para)
 msgid "Doc.CaseSensitive"
-msgstr ""
+msgstr "Doc.CaseSensitive"
 
 #: C/gnome-commander.xml:1315(para)
 msgid "Case Sensitive"
@@ -2134,7 +2145,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1324(para)
 msgid "Doc.CellCount"
-msgstr ""
+msgstr "Doc.CellCount"
 
 #: C/gnome-commander.xml:1325(para)
 msgid "Cell Count"
@@ -2146,7 +2157,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1329(para)
 msgid "Doc.CharacterCount"
-msgstr ""
+msgstr "Doc.CharacterCount"
 
 #: C/gnome-commander.xml:1330(para)
 msgid "Character Count"
@@ -2158,7 +2169,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1334(para)
 msgid "Doc.Codepage"
-msgstr ""
+msgstr "Doc.Codepage"
 
 #: C/gnome-commander.xml:1335(para)
 msgid "Codepage"
@@ -2170,11 +2181,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:1339(para)
 msgid "Doc.Comments"
-msgstr ""
+msgstr "Doc.Comments"
 
 #: C/gnome-commander.xml:1340(para) C/gnome-commander.xml:2620(para)
 msgid "Comments"
-msgstr ""
+msgstr "Comentarios"
 
 #: C/gnome-commander.xml:1341(para) C/gnome-commander.xml:2621(para)
 msgid "User definable free text."
@@ -2191,7 +2202,7 @@ msgstr ""
 #: C/gnome-commander.xml:1346(term) C/gnome-commander.xml:1354(para)
 #: C/gnome-commander.xml:1446(term)
 msgid "Doc.Creator"
-msgstr ""
+msgstr "Doc.Creator"
 
 #: C/gnome-commander.xml:1346(para)
 msgid "Organization that the <placeholder-1/> entity is associated with."
@@ -2209,11 +2220,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:1359(para)
 msgid "Doc.Created"
-msgstr ""
+msgstr "Doc.Created"
 
 #: C/gnome-commander.xml:1360(para)
 msgid "Created"
-msgstr ""
+msgstr "Creado"
 
 #: C/gnome-commander.xml:1361(para)
 msgid "Datetime document was originally created."
@@ -2221,7 +2232,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1364(para)
 msgid "Doc.DateCreated"
-msgstr ""
+msgstr "Doc.DateCreated"
 
 #: C/gnome-commander.xml:1365(para) C/gnome-commander.xml:2835(para)
 msgid "Date Created"
@@ -2255,15 +2266,15 @@ msgstr ""
 
 #: C/gnome-commander.xml:1379(para)
 msgid "Doc.Dictionary"
-msgstr ""
+msgstr "Doc.Dictionary"
 
 #: C/gnome-commander.xml:1380(para)
 msgid "Dictionary"
-msgstr ""
+msgstr "Diccionario"
 
 #: C/gnome-commander.xml:1381(para)
 msgid "Dictionary."
-msgstr ""
+msgstr "Diccionario."
 
 #: C/gnome-commander.xml:1384(para)
 msgid "Doc.EditingDuration"
@@ -2279,7 +2290,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1389(para)
 msgid "Doc.Generator"
-msgstr ""
+msgstr "Doc.Generator"
 
 #: C/gnome-commander.xml:1390(para)
 msgid "Generator"
@@ -2291,7 +2302,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1394(para)
 msgid "Doc.HiddenSlideCount"
-msgstr ""
+msgstr "Doc.HiddenSlideCount"
 
 #: C/gnome-commander.xml:1395(para)
 msgid "Hidden Slide Count"
@@ -2303,7 +2314,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1399(para)
 msgid "Doc.ImageCount"
-msgstr ""
+msgstr "Doc.ImageCount"
 
 #: C/gnome-commander.xml:1400(para)
 msgid "Image Count"
@@ -2315,7 +2326,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1404(para)
 msgid "Doc.InitialCreator"
-msgstr ""
+msgstr "Doc.InitialCreator"
 
 #: C/gnome-commander.xml:1405(para)
 msgid "Initial Creator"
@@ -2340,7 +2351,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1414(para)
 msgid "Doc.Language"
-msgstr ""
+msgstr "Doc.Language"
 
 #: C/gnome-commander.xml:1415(para) C/gnome-commander.xml:2335(para)
 msgid "Language"
@@ -2352,7 +2363,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1419(para)
 msgid "Doc.LastPrinted"
-msgstr ""
+msgstr "Doc.LastPrinted"
 
 #: C/gnome-commander.xml:1420(para)
 msgid "Last Printed"
@@ -2364,7 +2375,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1424(para)
 msgid "Doc.LastSavedBy"
-msgstr ""
+msgstr "Doc.LastSavedBy"
 
 #: C/gnome-commander.xml:1425(para)
 msgid "Last Saved By"
@@ -2378,7 +2389,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1429(para)
 msgid "Doc.LineCount"
-msgstr ""
+msgstr "Doc.LineCount"
 
 #: C/gnome-commander.xml:1430(para)
 msgid "Line Count"
@@ -2390,7 +2401,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1434(para)
 msgid "Doc.LinksDirty"
-msgstr ""
+msgstr "Doc.LinksDirty"
 
 #: C/gnome-commander.xml:1435(para)
 msgid "Links Dirty"
@@ -2402,7 +2413,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1439(para)
 msgid "Doc.LocaleSystemDefault"
-msgstr ""
+msgstr "Doc.LocaleSystemDefault"
 
 #: C/gnome-commander.xml:1440(para)
 msgid "Locale System Default"
@@ -2414,7 +2425,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1444(para)
 msgid "Doc.Manager"
-msgstr ""
+msgstr "Doc.Manager"
 
 #: C/gnome-commander.xml:1445(para)
 msgid "Manager"
@@ -2426,7 +2437,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1449(para)
 msgid "Doc.MMClipCount"
-msgstr ""
+msgstr "Doc.MMClipCount"
 
 #: C/gnome-commander.xml:1450(para)
 msgid "Multimedia Clip Count"
@@ -2438,7 +2449,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1454(para)
 msgid "Doc.NoteCount"
-msgstr ""
+msgstr "Doc.NoteCount"
 
 #: C/gnome-commander.xml:1455(para)
 msgid "Note Count"
@@ -2450,7 +2461,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1459(para)
 msgid "Doc.ObjectCount"
-msgstr ""
+msgstr "Doc.ObjectCount"
 
 #: C/gnome-commander.xml:1460(para)
 msgid "Object Count"
@@ -2462,7 +2473,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1464(para)
 msgid "Doc.PageCount"
-msgstr ""
+msgstr "Doc.PageCount"
 
 #: C/gnome-commander.xml:1465(para)
 msgid "Page Count"
@@ -2474,7 +2485,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1469(para)
 msgid "Doc.ParagraphCount"
-msgstr ""
+msgstr "Doc.ParagraphCount"
 
 #: C/gnome-commander.xml:1470(para)
 msgid "Paragraph Count"
@@ -2486,7 +2497,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1474(para)
 msgid "Doc.PresentationFormat"
-msgstr ""
+msgstr "Doc.PresentationFormat"
 
 #: C/gnome-commander.xml:1475(para)
 msgid "Presentation Format"
@@ -2498,7 +2509,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1479(para)
 msgid "Doc.PrintDate"
-msgstr ""
+msgstr "Doc.PrintDate"
 
 #: C/gnome-commander.xml:1480(para)
 msgid "Print Date"
@@ -2510,7 +2521,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1484(para)
 msgid "Doc.PrintedBy"
-msgstr ""
+msgstr "Doc.PrintedBy"
 
 #: C/gnome-commander.xml:1485(para)
 msgid "Printed By"
@@ -2522,7 +2533,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1489(para)
 msgid "Doc.RevisionCount"
-msgstr ""
+msgstr "Doc.RevisionCount"
 
 #: C/gnome-commander.xml:1490(para)
 msgid "Revision Count"
@@ -2534,23 +2545,23 @@ msgstr ""
 
 #: C/gnome-commander.xml:1494(para)
 msgid "Doc.Scale"
-msgstr ""
+msgstr "Doc.Scale"
 
 #: C/gnome-commander.xml:1495(para)
 msgid "Scale"
-msgstr ""
+msgstr "Escala"
 
 #: C/gnome-commander.xml:1496(para)
 msgid "Scale."
-msgstr ""
+msgstr "Escala."
 
 #: C/gnome-commander.xml:1499(para)
 msgid "Doc.Security"
-msgstr ""
+msgstr "Doc.Security"
 
 #: C/gnome-commander.xml:1500(para)
 msgid "Security"
-msgstr ""
+msgstr "Seguridad"
 
 #: C/gnome-commander.xml:1501(para)
 msgid ""
@@ -2560,7 +2571,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1504(para)
 msgid "Doc.SlideCount"
-msgstr ""
+msgstr "Doc.SlideCount"
 
 #: C/gnome-commander.xml:1505(para)
 msgid "Slide Count"
@@ -2580,11 +2591,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:1514(para)
 msgid "Doc.Subject"
-msgstr ""
+msgstr "Doc.Subject"
 
 #: C/gnome-commander.xml:1515(para)
 msgid "Subject"
-msgstr ""
+msgstr "Asunto"
 
 #: C/gnome-commander.xml:1516(para)
 msgid "Document subject."
@@ -2592,7 +2603,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1519(para)
 msgid "Doc.TableCount"
-msgstr ""
+msgstr "Doc.TableCount"
 
 #: C/gnome-commander.xml:1520(para)
 msgid "Table Count"
@@ -2604,7 +2615,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1524(para)
 msgid "Doc.Template"
-msgstr ""
+msgstr "Doc.Template"
 
 #: C/gnome-commander.xml:1526(para)
 msgid "The template file that is been used to generate this document."
@@ -2612,7 +2623,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1529(para)
 msgid "Doc.Title"
-msgstr ""
+msgstr "Doc.Title"
 
 #: C/gnome-commander.xml:1531(para)
 msgid "Title of the document."
@@ -2620,7 +2631,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1534(para)
 msgid "Doc.WordCount"
-msgstr ""
+msgstr "Doc.WordCount"
 
 #: C/gnome-commander.xml:1535(para)
 msgid "Word Count"
@@ -2632,7 +2643,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1539(para)
 msgid "Exif.ApertureValue"
-msgstr ""
+msgstr "Exif.ApertureValue"
 
 #: C/gnome-commander.xml:1540(para)
 msgid "Aperture"
@@ -2644,7 +2655,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1544(para)
 msgid "Exif.Artist"
-msgstr ""
+msgstr "Exif.Artist"
 
 #: C/gnome-commander.xml:1546(para)
 msgid ""
@@ -2656,7 +2667,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1549(para)
 msgid "Exif.BatteryLevel"
-msgstr ""
+msgstr "Exif.BatteryLevel"
 
 #: C/gnome-commander.xml:1550(para)
 msgid "Battery Level"
@@ -2668,7 +2679,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1554(para)
 msgid "Exif.BitsPerSample"
-msgstr ""
+msgstr "Exif.BitsPerSample"
 
 #: C/gnome-commander.xml:1555(para)
 msgid "Bits per Sample"
@@ -2683,7 +2694,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1559(para)
 msgid "Exif.BrightnessValue"
-msgstr ""
+msgstr "Exif.BrightnessValue"
 
 #: C/gnome-commander.xml:1560(para)
 msgid "Brightness"
@@ -2697,11 +2708,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:1564(para) C/gnome-commander.xml:1879(para)
 msgid "Exif.CFAPattern"
-msgstr ""
+msgstr "Exif.CFAPattern"
 
 #: C/gnome-commander.xml:1565(para) C/gnome-commander.xml:1880(para)
 msgid "CFA Pattern"
-msgstr ""
+msgstr "Patrón CFA"
 
 #: C/gnome-commander.xml:1566(para)
 msgid ""
@@ -2711,7 +2722,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1569(para)
 msgid "Exif.CFARepeatPatternDim"
-msgstr ""
+msgstr "Exif.CFARepeatPatternDim"
 
 #: C/gnome-commander.xml:1570(para)
 msgid "CFA Repeat Pattern Dim"
@@ -2724,7 +2735,7 @@ msgstr ""
 #: C/gnome-commander.xml:1574(para) C/gnome-commander.xml:1921(term)
 #: C/gnome-commander.xml:2066(term) C/gnome-commander.xml:2086(term)
 msgid "Exif.ColorSpace"
-msgstr ""
+msgstr "Exif.ColorSpace"
 
 #: C/gnome-commander.xml:1575(para)
 msgid "Color Space"
@@ -2741,7 +2752,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1579(para)
 msgid "Exif.ComponentsConfiguration"
-msgstr ""
+msgstr "Exif.ComponentsConfiguration"
 
 #: C/gnome-commander.xml:1580(para)
 msgid "Components Configuration"
@@ -2749,7 +2760,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:1581(term) C/gnome-commander.xml:1899(para)
 msgid "Exif.PhotometricInterpretation"
-msgstr ""
+msgstr "Exif.PhotometricInterpretation"
 
 #: C/gnome-commander.xml:1581(para)
 msgid ""
@@ -2781,7 +2792,7 @@ msgstr "Exif.Compression"
 
 #: C/gnome-commander.xml:1590(para)
 msgid "Compression"
-msgstr ""
+msgstr "Compresión"
 
 #: C/gnome-commander.xml:1591(para)
 msgid ""
@@ -2796,7 +2807,7 @@ msgstr "Exif.Contrast"
 
 #: C/gnome-commander.xml:1595(para)
 msgid "Contrast"
-msgstr ""
+msgstr "Contraste"
 
 #: C/gnome-commander.xml:1596(para)
 msgid ""
@@ -2848,7 +2859,7 @@ msgstr "Exif.DateTime"
 
 #: C/gnome-commander.xml:1610(para)
 msgid "Date and Time"
-msgstr ""
+msgstr "Fecha y hora"
 
 #: C/gnome-commander.xml:1611(para)
 msgid "The date and time of image creation."
@@ -9164,9 +9175,8 @@ msgid "Show connection/device buttons."
 msgstr ""
 
 #: C/gnome-commander.xml:5274(para)
-#, fuzzy
 msgid "con_list_visibility"
-msgstr "cmdline_visibility"
+msgstr "con_list_visibility"
 
 #: C/gnome-commander.xml:5276(para)
 msgid "Show connection/device list."
