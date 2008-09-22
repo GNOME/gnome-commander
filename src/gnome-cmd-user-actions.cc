@@ -1146,25 +1146,25 @@ void mark_unselect_with_pattern (GtkMenuItem *menuitem, gpointer not_used)
 
 void mark_invert_selection (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_invert_selection (get_fl (ACTIVE));
+    get_fl (ACTIVE)->invert_selection();
 }
 
 
 void mark_select_all_with_same_extension (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_select_all_with_same_extension (get_fl (ACTIVE));
+    get_fl (ACTIVE)->select_all_with_same_extension();
 }
 
 
 void mark_unselect_all_with_same_extension (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_unselect_all_with_same_extension (get_fl (ACTIVE));
+    get_fl (ACTIVE)->unselect_all_with_same_extension();
 }
 
 
 void mark_restore_selection (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_restore_selection (get_fl (ACTIVE));
+    get_fl (ACTIVE)->restore_selection();
 }
 
 

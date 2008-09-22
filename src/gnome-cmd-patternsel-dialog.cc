@@ -52,9 +52,9 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
     gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
     if (dialog->priv->mode)
-        gnome_cmd_file_list_select_pattern (dialog->priv->fl, s, case_sens);
+        dialog->priv->fl->select_pattern(s, case_sens);
     else
-        gnome_cmd_file_list_unselect_pattern (dialog->priv->fl, s, case_sens);
+        dialog->priv->fl->unselect_pattern(s, case_sens);
 
     defaults->name_patterns = string_history_add (defaults->name_patterns, s, PATTERN_HISTORY_SIZE);
 

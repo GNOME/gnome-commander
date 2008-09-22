@@ -1688,34 +1688,32 @@ void GnomeCmdFileList::select_row(gint row)
 }
 
 
-void gnome_cmd_file_list_select_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens)
+void GnomeCmdFileList::select_pattern(const gchar *pattern, gboolean case_sens)
 {
-    toggle_with_pattern (fl, pattern, case_sens, TRUE);
+    toggle_with_pattern (this, pattern, case_sens, TRUE);
 }
 
 
-void gnome_cmd_file_list_unselect_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens)
+void GnomeCmdFileList::unselect_pattern(const gchar *pattern, gboolean case_sens)
 {
-    toggle_with_pattern (fl, pattern, case_sens, FALSE);
+    toggle_with_pattern (this, pattern, case_sens, FALSE);
 }
 
 
-void gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl)
+void GnomeCmdFileList::invert_selection()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+    GList *sel = g_list_copy (priv->selected_files);
 
-    GList *sel = g_list_copy (fl->priv->selected_files);
-
-    for (GList *tmp=fl->get_visible_files(); tmp; tmp = tmp->next)
+    for (GList *tmp=get_visible_files(); tmp; tmp = tmp->next)
     {
         GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
 
         if (finfo && finfo->info)
         {
             if (g_list_index (sel, finfo) == -1)
-                select_file (fl, finfo);
+                select_file (this, finfo);
             else
-                unselect_file (fl, finfo);
+                unselect_file (this, finfo);
         }
     }
 
@@ -1723,19 +1721,19 @@ void gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl)
 }
 
 
-void gnome_cmd_file_list_select_all_with_same_extension (GnomeCmdFileList *fl)
+void GnomeCmdFileList::select_all_with_same_extension()
 {
-    toggle_files_with_same_extension (fl, TRUE);
+    toggle_files_with_same_extension (this, TRUE);
 }
 
 
-void gnome_cmd_file_list_unselect_all_with_same_extension (GnomeCmdFileList *fl)
+void GnomeCmdFileList::unselect_all_with_same_extension()
 {
-    toggle_files_with_same_extension (fl, FALSE);
+    toggle_files_with_same_extension (this, FALSE);
 }
 
 
-void gnome_cmd_file_list_restore_selection (GnomeCmdFileList *fl)
+void GnomeCmdFileList::restore_selection()
 {
 }
 
@@ -2160,11 +2158,11 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_KP_Multiply:
-                gnome_cmd_file_list_invert_selection (this);
+                invert_selection();
                 return TRUE;
 
             case GDK_KP_Divide:
-                gnome_cmd_file_list_restore_selection (this);
+                restore_selection();
                 return TRUE;
 
             case GDK_Insert:

@@ -12,6 +12,12 @@
 	* src/gnome-cmd-xfer.cc:
 	GnomeCmdData: gnome_cmd_data_get_gui_update_rate() -> gnome_cmd_data.gui_update_rate
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-patternsel-dialog.cc:
+	* src/gnome-cmd-user-actions.cc:
+	GnomeCmdFileList: more C++ rework
+
 2008-09-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

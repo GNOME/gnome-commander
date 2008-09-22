@@ -88,6 +88,13 @@ struct GnomeCmdFileList
     void select_all();
     void unselect_all();
 
+    void select_pattern(const gchar *pattern, gboolean case_sens);
+    void unselect_pattern(const gchar *pattern, gboolean case_sens);
+    void select_all_with_same_extension();
+    void unselect_all_with_same_extension();
+    void invert_selection();
+    void restore_selection();
+
     void select_row(gint row);
 
     void toggle();
@@ -167,13 +174,6 @@ void gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 
 void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
-
-void gnome_cmd_file_list_select_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens);
-void gnome_cmd_file_list_unselect_pattern (GnomeCmdFileList *fl, const gchar *pattern, gboolean case_sens);
-void gnome_cmd_file_list_invert_selection (GnomeCmdFileList *fl);
-void gnome_cmd_file_list_select_all_with_same_extension (GnomeCmdFileList *fl);
-void gnome_cmd_file_list_unselect_all_with_same_extension (GnomeCmdFileList *fl);
-void gnome_cmd_file_list_restore_selection (GnomeCmdFileList *fl);
 
 void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
 
