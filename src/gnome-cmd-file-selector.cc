@@ -296,24 +296,6 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
 }
 
 
-inline GnomeCmdFile *create_parent_dir_file (GnomeCmdDir *dir)
-{
-    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-
-    memset (info, '\0', sizeof (GnomeVFSFileInfo));
-    info->name = g_strdup ("..");
-    info->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
-    info->mime_type = g_strdup ("x-directory/normal");
-    info->size = 0;
-    info->refcount = 1;
-    info->valid_fields = (GnomeVFSFileInfoFields) (GNOME_VFS_FILE_INFO_FIELDS_TYPE |
-                                                   GNOME_VFS_FILE_INFO_FIELDS_SIZE |
-                                                   GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE);
-
-    return gnome_cmd_file_new (info, dir);
-}
-
-
 static void update_files (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -321,34 +303,13 @@ static void update_files (GnomeCmdFileSelector *fs)
     GnomeCmdDir *dir = fs->get_directory();
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    GList *list;
-    GList *list2 = NULL;
-
-    // sort out the files to show
-    for (gnome_cmd_dir_get_files (dir, &list); list; list = list->next)
-    {
-        GnomeCmdFile *f = GNOME_CMD_FILE (list->data);
-
-        if (fs->file_list()->file_is_wanted(f))
-            list2 = g_list_append (list2, f);
-    }
-
-    // Create a parent dir file (..) if appropriate
-    gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
-    if (path && strcmp (path, G_DIR_SEPARATOR_S) != 0)
-        list2 = g_list_append (list2, create_parent_dir_file (dir));
-    g_free (path);
-
-    gnome_cmd_file_list_show_files (fs->file_list(), list2, TRUE);
+    fs->file_list()->show_files(dir);
     gnome_cmd_clist_set_voffset (GNOME_CMD_CLIST (fs->file_list()), fs->priv->cwd->voffset);
 
     if (fs->priv->realized)
         update_selected_files_label (fs);
     if (fs->priv->active)
         fs->file_list()->select_row(0);
-
-    if (list2)
-        g_list_free (list2);
 }
 
 

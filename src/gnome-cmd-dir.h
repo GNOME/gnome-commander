@@ -94,6 +94,22 @@ GnomeCmdDir *gnome_cmd_dir_get_child (GnomeCmdDir *dir, const gchar *child);
 GnomeCmdCon *gnome_cmd_dir_get_connection (GnomeCmdDir *dir);
 Handle *gnome_cmd_dir_get_handle (GnomeCmdDir *dir);
 
+inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
+{
+    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
+
+    memset (info, '\0', sizeof (GnomeVFSFileInfo));
+    info->name = g_strdup ("..");
+    info->type = GNOME_VFS_FILE_TYPE_DIRECTORY;
+    info->mime_type = g_strdup ("x-directory/normal");
+    info->size = 0;
+    info->refcount = 1;
+    info->valid_fields = (GnomeVFSFileInfoFields) (GNOME_VFS_FILE_INFO_FIELDS_TYPE |
+                                                   GNOME_VFS_FILE_INFO_FIELDS_SIZE |
+                                                   GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE);
+
+    return gnome_cmd_file_new (info, dir);
+}
 
 void gnome_cmd_dir_ref (GnomeCmdDir *dir);
 void gnome_cmd_dir_unref (GnomeCmdDir *dir);

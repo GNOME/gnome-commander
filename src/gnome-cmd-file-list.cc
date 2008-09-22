@@ -1434,48 +1434,6 @@ void GnomeCmdFileList::append_file (GnomeCmdFile *f)
 }
 
 
-/******************************************************************************
-*
-*   Function: gnome_cmd_file_list_show_files
-*
-*   Purpose:  Show a list of files
-*
-*   Params:   @fl: The FileList to show the files in
-*             @list: A list of files to show
-*             @sort: Whether to sort the files or not
-*
-*   Returns:
-*
-*   Statuses:
-*
-******************************************************************************/
-void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sort)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    fl->remove_all_files();
-
-    if (!files) return;
-
-    GList *list, *tmp;
-
-    list = g_list_copy (files);
-
-    if (sort)
-        tmp = list = g_list_sort_with_data (list, (GCompareDataFunc) fl->priv->sort_func, fl);
-    else
-        tmp = list;
-
-    gtk_clist_freeze (*fl);
-    for (; tmp; tmp = tmp->next)
-        fl->append_file(GNOME_CMD_FILE (tmp->data));
-    gtk_clist_thaw (*fl);
-
-    if (list)
-        g_list_free (list);
-}
-
-
 void GnomeCmdFileList::insert_file (GnomeCmdFile *f)
 {
     gint num_files = size();
@@ -1497,6 +1455,43 @@ void GnomeCmdFileList::insert_file (GnomeCmdFile *f)
 
     // Insert the file at the end of the list
     append_file(f);
+}
+
+
+void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
+{
+    remove_all_files();
+
+    GList *list;
+    GList *files = NULL;
+
+    // select the files to show
+    for (gnome_cmd_dir_get_files (dir, &list); list; list = list->next)
+    {
+        GnomeCmdFile *f = GNOME_CMD_FILE (list->data);
+
+        if (file_is_wanted (f))
+            files = g_list_append (files, f);
+    }
+
+    // Create a parent dir file (..) if appropriate
+    gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
+    if (path && strcmp (path, G_DIR_SEPARATOR_S) != 0)
+        files = g_list_append (files, gnome_cmd_dir_new_parent_dir_file (dir));
+    g_free (path);
+
+    if (!files)
+        return;
+
+    files = g_list_sort_with_data (files, (GCompareDataFunc) priv->sort_func, this);
+
+    gtk_clist_freeze (*this);
+    for (GList *i = files; i; i = i->next)
+        append_file(GNOME_CMD_FILE (i->data));
+    gtk_clist_thaw (*this);
+
+    if (files)
+        g_list_free (files);
 }
 
 

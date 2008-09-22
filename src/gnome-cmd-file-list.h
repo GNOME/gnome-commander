@@ -114,6 +114,8 @@ struct GnomeCmdFileList
 
     gboolean file_is_wanted(GnomeCmdFile *f);
 
+    void show_files(GnomeCmdDir *dir);
+
     void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (GTK_CLIST (this), col, value); }
 
     ColumnID get_sort_column();
