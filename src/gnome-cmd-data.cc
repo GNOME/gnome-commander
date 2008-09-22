@@ -80,7 +80,6 @@ struct GnomeCmdData::Private
     gchar                *start_dirs[2];
     gchar                *last_pattern;
     GList                *auto_load_plugins;
-    guint                gui_update_rate;
     gint                 sort_column[2];
     gboolean             sort_direction[2];
     gint                 main_win_pos[2];
@@ -1119,6 +1118,8 @@ GnomeCmdData::GnomeCmdData()
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
 
+    gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
+
     main_win_width = 600;
     main_win_height = 400;
 
@@ -1288,7 +1289,7 @@ void GnomeCmdData::load()
     priv->btn_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
     filter_type = (Filter::Type) gnome_cmd_data_get_int ("/options/filter_type", Filter::TYPE_FNMATCH);
     priv->list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
-    priv->gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
+    gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
     priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
     priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
 
@@ -1298,10 +1299,10 @@ void GnomeCmdData::load()
     cmdline_visibility = gnome_cmd_data_get_bool ("/options/cmdline_visibility", TRUE);
     buttonbar_visibility = gnome_cmd_data_get_bool ("/programs/buttonbar_visibility", TRUE);
 
-    if (priv->gui_update_rate < MIN_GUI_UPDATE_RATE)
-        priv->gui_update_rate = MIN_GUI_UPDATE_RATE;
-    if (priv->gui_update_rate > MAX_GUI_UPDATE_RATE)
-        priv->gui_update_rate = MAX_GUI_UPDATE_RATE;
+    if (gui_update_rate < MIN_GUI_UPDATE_RATE)
+        gui_update_rate = MIN_GUI_UPDATE_RATE;
+    if (gui_update_rate > MAX_GUI_UPDATE_RATE)
+        gui_update_rate = MAX_GUI_UPDATE_RATE;
 
     priv->honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
     priv->use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
@@ -1634,6 +1635,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/btn_relief", priv->btn_relief);
     gnome_cmd_data_set_int    ("/options/filter_type", filter_type);
     gnome_cmd_data_set_bool   ("/options/list_orientation", priv->list_orientation);
+    gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", priv->honor_expect_uris);
     gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", priv->use_internal_viewer);
@@ -2210,12 +2212,6 @@ GList *gnome_cmd_data_get_auto_load_plugins ()
 void gnome_cmd_data_set_auto_load_plugins (GList *plugins)
 {
     gnome_cmd_data.priv->auto_load_plugins = plugins;
-}
-
-
-guint gnome_cmd_data_get_gui_update_rate ()
-{
-    return gnome_cmd_data.priv->gui_update_rate;
 }
 
 

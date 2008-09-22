@@ -184,7 +184,7 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 
     data->thread = g_thread_create ((PthreadFunc) calc_tree_size_func, data, TRUE, NULL);
 
-    g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) update_count_status, data);
+    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_count_status, data);
 }
 
 

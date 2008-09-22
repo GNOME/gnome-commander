@@ -89,6 +89,8 @@ struct GnomeCmdData
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;
 
+    guint                        gui_update_rate;
+
     gint                         main_win_width;
     gint                         main_win_height;
     GdkWindowState               main_win_state;
@@ -228,8 +230,6 @@ void gnome_cmd_data_set_last_pattern (const gchar *value);
 
 GList *gnome_cmd_data_get_auto_load_plugins ();
 void gnome_cmd_data_set_auto_load_plugins (GList *plugins);
-
-guint gnome_cmd_data_get_gui_update_rate ();
 
 void gnome_cmd_data_get_main_win_pos (gint *x, gint *y);
 void gnome_cmd_data_set_main_win_pos (gint x, gint y);

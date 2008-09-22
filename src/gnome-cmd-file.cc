@@ -976,7 +976,7 @@ gboolean gnome_cmd_file_needs_update (GnomeCmdFile *file)
 
     g_get_current_time (&t);
 
-    if (tv2ms (t) - tv2ms (file->priv->last_update) > gnome_cmd_data_get_gui_update_rate ())
+    if (tv2ms (t) - tv2ms (file->priv->last_update) > gnome_cmd_data.gui_update_rate)
     {
         file->priv->last_update = t;
         return TRUE;

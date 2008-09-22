@@ -571,7 +571,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     data->thread = g_thread_create ((GThreadFunc) perform_search_operation, data, TRUE, NULL);
 
     gtk_widget_show (data->dialog->priv->pbar);
-    data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data_get_gui_update_rate (),
+    data->update_gui_timeout_id = g_timeout_add (gnome_cmd_data.gui_update_rate,
                                                  (GSourceFunc) update_search_status_widgets,
                                                  dialog->priv->data);
     return FALSE;

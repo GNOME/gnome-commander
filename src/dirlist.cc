@@ -104,7 +104,7 @@ inline void visprog_list (GnomeCmdDir *dir)
                                         (GnomeVFSAsyncDirectoryLoadCallback) on_files_listed,
                                         dir);
 
-    g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) update_list_progress, dir);
+    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_list_progress, dir);
 }
 
 

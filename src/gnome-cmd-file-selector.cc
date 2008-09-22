@@ -577,7 +577,7 @@ static void autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
         if (fs->priv->autoscroll_timeout) return;
         fs->priv->autoscroll_dir = FALSE;
         fs->priv->autoscroll_y = y;
-        fs->priv->autoscroll_timeout = g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) do_scroll, fs);
+        fs->priv->autoscroll_timeout = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) do_scroll, fs);
     }
     else if (y > smax)
     {
@@ -585,7 +585,7 @@ static void autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
         fs->priv->autoscroll_dir = TRUE;
         fs->priv->autoscroll_y = y;
         fs->priv->autoscroll_timeout =
-            g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) do_scroll, fs);
+            g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) do_scroll, fs);
     }
     else
     {
@@ -1743,7 +1743,7 @@ void GnomeCmdFileSelector::set_connection (GnomeCmdCon *con, GnomeCmdDir *start_
         priv->con_opening = con;
 
         create_con_open_progress_dialog (this);
-        g_timeout_add (gnome_cmd_data_get_gui_update_rate (), (GSourceFunc) update_con_open_progress, this);
+        g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_con_open_progress, this);
 
         gnome_cmd_con_open (con);
     }
