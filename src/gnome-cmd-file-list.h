@@ -168,7 +168,7 @@ inline void GnomeCmdFileList::remove_files (GList *files)
 
 inline gboolean GnomeCmdFileList::has_file(const GnomeCmdFile *f)
 {
-    g_list_index (get_visible_files(), f) != -1;
+    return g_list_index (get_visible_files(), f) != -1;
 }
 
 inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
