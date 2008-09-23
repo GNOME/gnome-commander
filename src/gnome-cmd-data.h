@@ -27,6 +27,8 @@
 #include "history.h"
 #include "dict.h"
 
+typedef struct _GnomeCmdConFtp GnomeCmdConFtp;
+
 struct GnomeCmdData
 {
     enum RightMouseButtonMode
@@ -73,6 +75,12 @@ struct GnomeCmdData
 
     Private *priv;
 
+  private:
+
+    GnomeCmdConFtp              *quick_connect;
+
+  public:
+
     gboolean                     confirm_delete;
     GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
@@ -83,13 +91,22 @@ struct GnomeCmdData
     Filter::Type                 filter_type;
     FilterSettings               filter_settings;
 
+    gboolean                     case_sens_sort;
+    GnomeCmdExtDispMode          ext_disp_mode;
+    gboolean                     list_orientation;
+
     gboolean                     toolbar_visibility;
     gboolean                     conbuttons_visibility;
     gboolean                     concombo_visibility;
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;
 
+    gint                         list_row_height;
     guint                        gui_update_rate;
+
+    gboolean                     use_gcmd_block;
+
+    gboolean                     use_gnome_auth_manager;
 
     gint                         main_win_width;
     gint                         main_win_height;
@@ -104,9 +121,8 @@ struct GnomeCmdData
     void save();
 
     gboolean hide_type(GnomeVFSFileType type)     {  return filter_settings.file_types[type];  }
+    GnomeCmdConFtp *get_quick_connect()           {  return quick_connect;                     }
 };
-
-typedef struct _GnomeCmdConFtp GnomeCmdConFtp;
 
 #define PATTERN_HISTORY_SIZE 10
 
@@ -119,9 +135,6 @@ void gnome_cmd_data_set_fav_apps (GList *apps);
 
 const gchar *gnome_cmd_data_get_ftp_anonymous_password ();
 void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
-
-const gboolean gnome_cmd_data_get_use_gnome_auth_manager ();
-void gnome_cmd_data_set_use_gnome_auth_manager (gboolean use_gnome_auth_manager);
 
 GnomeCmdSizeDispMode gnome_cmd_data_get_size_disp_mode ();
 void gnome_cmd_data_set_size_disp_mode (GnomeCmdSizeDispMode mode);
@@ -138,13 +151,7 @@ void gnome_cmd_data_set_layout (GnomeCmdLayout layout);
 GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ();
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ();
 
-gint gnome_cmd_data_get_list_row_height ();
-void gnome_cmd_data_set_list_row_height (gint height);
-
-GnomeCmdExtDispMode gnome_cmd_data_get_ext_disp_mode ();
-void gnome_cmd_data_set_ext_disp_mode (GnomeCmdExtDispMode mode);
-
-void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direction);
+void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint &col, gboolean &direction);
 void gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction);
 
 const gchar *gnome_cmd_data_get_viewer ();
@@ -155,16 +162,11 @@ void gnome_cmd_data_set_viewer (const gchar *command);
 void gnome_cmd_data_set_editor (const gchar *command);
 void gnome_cmd_data_set_differ (const gchar *command);
 
-gboolean gnome_cmd_data_get_case_sens_sort ();
-void gnome_cmd_data_set_case_sens_sort (gboolean value);
-
 const gchar *gnome_cmd_data_get_list_font ();
 void gnome_cmd_data_set_list_font (const gchar *list_font);
 
 const gchar *gnome_cmd_data_get_term ();
 void gnome_cmd_data_set_term (const gchar *shell);
-
-gboolean gnome_cmd_data_get_use_gcmd_block ();
 
 guint gnome_cmd_data_get_icon_size ();
 void gnome_cmd_data_set_icon_size (guint size);
@@ -203,8 +205,6 @@ void gnome_cmd_data_set_use_ls_colors (gboolean value);
 
 GnomeCmdData::SearchDefaults *gnome_cmd_data_get_search_defaults ();
 
-GnomeCmdConFtp *gnome_cmd_data_get_quick_connect ();
-
 GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks ();
 GList *gnome_cmd_data_get_bookmark_groups ();
 
@@ -218,9 +218,6 @@ gboolean gnome_cmd_data_get_skip_mounting ();
 void gnome_cmd_data_set_skip_mounting (gboolean value);
 
 GnomeCmdData::AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults ();
-
-gboolean gnome_cmd_data_get_list_orientation ();
-void gnome_cmd_data_set_list_orientation (gboolean vertical);
 
 const gchar *gnome_cmd_data_get_start_dir (gboolean fs);
 void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir);

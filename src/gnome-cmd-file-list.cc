@@ -162,7 +162,7 @@ GnomeCmdFileList::Private::Private(GnomeCmdFileList *fl)
     gint col = COLUMN_NAME;             // defaults,
     gboolean b = GTK_SORT_ASCENDING;    // used when not set by gnome_cmd_data_get_sort_params()
 
-    gnome_cmd_data_get_sort_params (fl, &col, &b);
+    gnome_cmd_data_get_sort_params (fl, col, b);
     current_col = col;
     sort_raising[col] = b;
     sort_func = file_list_column[col].sort_func;
@@ -216,7 +216,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     g_free (t1);
     g_free (t2);
 
-    if (gnome_cmd_data_get_ext_disp_mode () == GNOME_CMD_EXT_DISP_STRIPPED
+    if (gnome_cmd_data.ext_disp_mode == GNOME_CMD_EXT_DISP_STRIPPED
         && f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
         gchar *t = strip_extension (gnome_cmd_file_get_name (f));
@@ -226,7 +226,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     else
         fname = get_utf8 (gnome_cmd_file_get_name (f));
 
-    if (gnome_cmd_data_get_ext_disp_mode () != GNOME_CMD_EXT_DISP_WITH_FNAME)
+    if (gnome_cmd_data.ext_disp_mode != GNOME_CMD_EXT_DISP_WITH_FNAME)
         fext = get_utf8 (gnome_cmd_file_get_extension (f));
     else
         fext = NULL;
@@ -307,7 +307,7 @@ static void get_focus_row_coordinates (GnomeCmdFileList *fl, gint &x, gint &y, g
     y = y0 + row*rowh + GTK_CLIST (fl)->voffset;
 
     width = GTK_CLIST (fl)->column[GnomeCmdFileList::COLUMN_NAME].area.width + 2*COLUMN_INSET;
-    if (gnome_cmd_data_get_ext_disp_mode () != GNOME_CMD_EXT_DISP_BOTH)
+    if (gnome_cmd_data.ext_disp_mode != GNOME_CMD_EXT_DISP_BOTH)
         width += GTK_CLIST (fl)->column[GnomeCmdFileList::COLUMN_EXT].area.width + 2*COLUMN_INSET + CELL_SPACING;
 
     height = rowh + 2*CELL_SPACING;
@@ -769,7 +769,7 @@ inline gint my_strcmp (const gchar *s1, const gchar *s2, gboolean raising)
 {
     int ret = 0;
 
-    if (gnome_cmd_data_get_case_sens_sort ())
+    if (gnome_cmd_data.case_sens_sort)
         ret = strcmp (s1,s2);
     else
         ret = g_strcasecmp (s1,s2);
@@ -2221,7 +2221,7 @@ GList *GnomeCmdFileList::sort_selection(GList *list)
 
 void GnomeCmdFileList::update_style()
 {
-    gtk_clist_set_row_height (*this, gnome_cmd_data_get_list_row_height ());
+    gtk_clist_set_row_height (*this, gnome_cmd_data.list_row_height);
     gnome_cmd_clist_update_style (*this);
 }
 

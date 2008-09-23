@@ -352,7 +352,7 @@ static void update_view_menu (GnomeCmdMainMenu *main_menu);
 
 static void on_switch_orientation (GtkMenuItem *menu_item, GnomeCmdMainMenu *main_menu)
 {
-    gnome_cmd_data_set_list_orientation (!gnome_cmd_data_get_list_orientation ());
+    gnome_cmd_data.list_orientation = !gnome_cmd_data.list_orientation;
 
     gnome_cmd_main_win_update_list_orientation (main_win);
 
@@ -367,7 +367,7 @@ static void update_view_menu (GnomeCmdMainMenu *main_menu)
     GdkPixmap *pm;
     GdkBitmap *bm;
 
-    if (gnome_cmd_data_get_list_orientation ())
+    if (gnome_cmd_data.list_orientation)
     {
         label = g_strdup (_("Switch to Vertical Layout"));
         pm = IMAGE_get_pixmap (PIXMAP_SWITCH_V);

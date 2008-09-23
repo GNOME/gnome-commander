@@ -590,7 +590,7 @@ GtkWidget *gnome_cmd_remote_dialog_new ()
 
 void show_quick_connect_dialog ()
 {
-    GnomeCmdConFtp *con = gnome_cmd_data_get_quick_connect ();
+    GnomeCmdConFtp *con = gnome_cmd_data.get_quick_connect();
 
     if (gnome_cmd_connect_dialog_edit (con))
         do_connect_real (con);

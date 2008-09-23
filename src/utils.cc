@@ -121,7 +121,7 @@ void run_command_indir (const gchar *in_command, const gchar *dir, gboolean term
     {
         gchar *arg;
 
-        if (gnome_cmd_data_get_use_gcmd_block ())
+        if (gnome_cmd_data.use_gcmd_block)
         {
             gchar *s = g_strdup_printf ("%s; %s/bin/gcmd-block", in_command, PREFIX);
             arg = g_shell_quote (s);

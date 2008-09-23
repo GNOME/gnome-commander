@@ -123,7 +123,7 @@ int main (int argc, char *argv[])
     IMAGE_init ();
     gnome_cmd_data.load_more();
 
-    if (gnome_cmd_data_get_use_gnome_auth_manager ())
+    if (gnome_cmd_data.use_gnome_auth_manager)
         gnome_authentication_manager_init ();
     else
         gnome_cmd_smb_auth_init ();

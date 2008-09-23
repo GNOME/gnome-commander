@@ -107,7 +107,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
     check = create_check (parent, _("Case sensitive"), "case_sens_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_case_sens_sort ());
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.case_sens_sort);
 
 
     // Quick search options
@@ -154,7 +154,7 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
     else
         gnome_cmd_data.filter_type = Filter::TYPE_FNMATCH;
 
-    gnome_cmd_data_set_case_sens_sort (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check)));
+    gnome_cmd_data.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
     gnome_cmd_data_set_dir_cache_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dir_cache_size)));
     gnome_cmd_data.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
 }
@@ -472,7 +472,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     table_add (table, fpicker, 1, 0, GTK_FILL);
     gtk_font_button_set_font_name (GTK_FONT_BUTTON (fpicker), gnome_cmd_data_get_list_font ());
 
-    spin = create_spin (parent, "row_height_spin", 8, 64, gnome_cmd_data_get_list_row_height());
+    spin = create_spin (parent, "row_height_spin", 8, 64, gnome_cmd_data.list_row_height);
     table_add (table, spin, 1, 1, GTK_FILL);
 
     label = create_label (parent, _("Font:"));
@@ -547,7 +547,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     table_add (table, label, 0, 3, (GtkAttachOptions) GTK_FILL);
 
 
-    gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) gnome_cmd_data_get_ext_disp_mode ());
+    gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) gnome_cmd_data.ext_disp_mode);
     gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) gnome_cmd_data_get_layout ());
     gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) gnome_cmd_data.color_mode);
 
@@ -570,8 +570,7 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
 
     GtkWidget *list_font_picker = lookup_widget (GTK_WIDGET (dialog), "list_font_picker");
 
-    gnome_cmd_data_set_ext_disp_mode (
-        (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu)));
+    gnome_cmd_data.ext_disp_mode = (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu));
     gnome_cmd_data_set_layout (
         (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu)));
     gnome_cmd_data.color_mode = (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu));
@@ -585,12 +584,10 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
     gnome_cmd_data_set_document_icon_dir (gtk_entry_get_text (GTK_ENTRY (doc_icondir_entry)));
     gnome_cmd_data_set_icon_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin)));
 
-    {
-        GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
-        gnome_cmd_data_set_icon_scale_quality ((GdkInterpType) adj->value);
-    }
+    GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
+    gnome_cmd_data_set_icon_scale_quality ((GdkInterpType) adj->value);
 
-    gnome_cmd_data_set_list_row_height (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin)));
+    gnome_cmd_data.list_row_height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin));
 }
 
 
@@ -885,7 +882,7 @@ static GtkWidget *create_network_tab (GtkWidget *parent)
 
     check = create_check (parent, _("Use GNOME Keyring Manager for authentication"), "use_auth_manager");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_use_gnome_auth_manager ());
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_gnome_auth_manager);
 
 
     // Anonymous FTP password options
@@ -909,7 +906,7 @@ inline void store_network_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *use_auth_manager_check = lookup_widget (GTK_WIDGET (dialog), "use_auth_manager");
     GtkWidget *entry = lookup_widget (GTK_WIDGET (dialog), "anonymous_ftp_password");
 
-    gnome_cmd_data_set_use_gnome_auth_manager (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_auth_manager_check)));
+    gnome_cmd_data.use_gnome_auth_manager = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_auth_manager_check));
     gnome_cmd_data_set_ftp_anonymous_password (gtk_entry_get_text (GTK_ENTRY (entry)));
 }
 

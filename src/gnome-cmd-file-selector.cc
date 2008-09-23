@@ -495,7 +495,7 @@ static gboolean do_scroll (GnomeCmdFileSelector *fs)
     gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
 
     offset = (0-clist->voffset);
-    row_height = gnome_cmd_data_get_list_row_height();
+    row_height = gnome_cmd_data.list_row_height;
     row_count = clist->rows;
     focus_row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->file_list()), 1, fs->priv->autoscroll_y);
     top_row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->file_list()), 1, 0);

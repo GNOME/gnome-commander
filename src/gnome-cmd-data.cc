@@ -54,9 +54,6 @@ struct GnomeCmdData::Private
     GnomeCmdDateFormat   date_format;
     GnomeCmdLayout       layout;
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
-    GnomeCmdExtDispMode  ext_disp_mode;
-    gboolean             case_sens_sort;
-    gint                 list_row_height;
     gchar                *list_font;
     guint                icon_size;
     guint                dev_icon_size;
@@ -76,7 +73,6 @@ struct GnomeCmdData::Private
     gboolean             skip_mounting;
     SearchDefaults       *search_defaults;
     AdvrenameDefaults    *advrename_defaults;
-    gboolean             list_orientation;
     gchar                *start_dirs[2];
     gchar                *last_pattern;
     GList                *auto_load_plugins;
@@ -87,17 +83,12 @@ struct GnomeCmdData::Private
     GList                *backup_pattern_list;
     gchar                *symlink_prefix;
 
-    GnomeCmdConFtp       *quick_connect;
-
-    gboolean             use_gnome_auth_manager;
     gchar                *ftp_anonymous_password;
 
     gchar *viewer;
     gchar *editor;
     gchar *differ;
     gchar *term;
-
-    gboolean             use_gcmd_block;                    // defaults to FALSE
 };
 
 
@@ -1100,6 +1091,8 @@ inline void load_auto_load_plugins ()
 
 GnomeCmdData::GnomeCmdData()
 {
+    quick_connect = NULL;
+
     confirm_delete = TRUE;
     confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
@@ -1112,13 +1105,22 @@ GnomeCmdData::GnomeCmdData()
     filter_settings.hidden = TRUE;
     filter_settings.backup = TRUE;
 
+    case_sens_sort = TRUE;
+    ext_disp_mode = GNOME_CMD_EXT_DISP_BOTH;
+    list_orientation = FALSE;
+
     toolbar_visibility = TRUE;
     conbuttons_visibility = TRUE;
     concombo_visibility = TRUE;
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
 
+    list_row_height = 16;
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
+
+    use_gcmd_block = FALSE;
+
+    use_gnome_auth_manager = FALSE;
 
     main_win_width = 600;
     main_win_height = 400;
@@ -1135,10 +1137,10 @@ void GnomeCmdData::free()
         // gtk_object_unref (GTK_OBJECT (priv->con_list));
 
         // close quick connect
-        if (priv->quick_connect)
+        if (quick_connect)
         {
-            gnome_cmd_con_close (GNOME_CMD_CON (priv->quick_connect));
-            // gtk_object_destroy (GTK_OBJECT (priv->quick_connect));
+            gnome_cmd_con_close (GNOME_CMD_CON (quick_connect));
+            // gtk_object_destroy (GTK_OBJECT (quick_connect));
         }
 
         // free the anonymous password string
@@ -1229,7 +1231,7 @@ void GnomeCmdData::load()
 
     priv->layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
 
-    priv->list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
+    list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
 
     confirm_delete = gnome_cmd_data_get_bool ("/confirm/delete", TRUE);
     confirm_copy_overwrite = (GnomeCmdConfirmOverwriteMode) gnome_cmd_data_get_int ("/confirm/copy_overwrite", GNOME_CMD_CONFIRM_OVERWRITE_QUERY);
@@ -1246,7 +1248,7 @@ void GnomeCmdData::load()
     filter_settings.hidden = gnome_cmd_data_get_bool ("/options/hidden_filter", TRUE);
     filter_settings.backup = gnome_cmd_data_get_bool ("/options/backup_filter", TRUE);
 
-    priv->case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
+    case_sens_sort = gnome_cmd_data_get_bool ("/sort/case_sensitive", TRUE);
 
     main_win_width = get_int ("/gnome-commander-size/main_win/width", 600);
     main_win_height = get_int ("/gnome-commander-size/main_win/height", 400);
@@ -1276,7 +1278,7 @@ void GnomeCmdData::load()
 
     priv->list_font = gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1");
 
-    priv->ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
+    ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
     right_mouse_button_mode = (GnomeCmdData::RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU);
     priv->icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
     priv->dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
@@ -1288,7 +1290,7 @@ void GnomeCmdData::load()
     priv->cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
     priv->btn_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
     filter_type = (Filter::Type) gnome_cmd_data_get_int ("/options/filter_type", Filter::TYPE_FNMATCH);
-    priv->list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
+    list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
     gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
     priv->main_win_pos[0] = gnome_cmd_data_get_int ("/options/main_win_pos_x", -1);
     priv->main_win_pos[1] = gnome_cmd_data_get_int ("/options/main_win_pos_y", -1);
@@ -1326,7 +1328,7 @@ void GnomeCmdData::load()
     priv->differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
     priv->term   = gnome_cmd_data_get_string ("/programs/terminal", "xterm -hold -e %s");
 
-    priv->use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
+    use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
     priv->device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
     priv->dir_cache_size = gnome_cmd_data_get_int ("/options/dir_cache_size", 10);
@@ -1341,7 +1343,7 @@ void GnomeCmdData::load()
 
     main_win_state = (GdkWindowState) gnome_cmd_data_get_int ("/options/main_win_state", (gint) GDK_WINDOW_STATE_MAXIMIZED);
 
-    priv->use_gnome_auth_manager = gnome_cmd_data_get_bool ("/network/use_gnome_auth_manager", FALSE);
+    use_gnome_auth_manager = gnome_cmd_data_get_bool ("/network/use_gnome_auth_manager", FALSE);
     priv->ftp_anonymous_password = gnome_cmd_data_get_string ("/network/ftp_anonymous_password", "you@provider.com");
 
     if (strcmp (priv->ftp_anonymous_password, "you@provider.com")==0)   // if '/network/ftp_anonymous_password' entry undefined, try to read '/ftp/anonymous_password'
@@ -1353,7 +1355,7 @@ void GnomeCmdData::load()
     // "/quick-connect/uri" must be read AFTER retrieving anonymous password
 
     gchar * quick_connect_uri = gnome_cmd_data_get_string ("/quick-connect/uri", "ftp://anonymous@ftp.gnome.org/pub/GNOME/");
-    priv->quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
+    quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
     g_free (quick_connect_uri);
 
     load_cmdline_history ();
@@ -1593,7 +1595,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/perm_disp_mode", priv->perm_disp_mode);
     gnome_cmd_data_set_string ("/options/date_disp_mode", priv->date_format);
     gnome_cmd_data_set_int    ("/options/layout", priv->layout);
-    gnome_cmd_data_set_int    ("/options/list_row_height", priv->list_row_height);
+    gnome_cmd_data_set_int    ("/options/list_row_height", list_row_height);
 
     gnome_cmd_data_set_bool   ("/confirm/delete", confirm_delete);
     gnome_cmd_data_set_int    ("/confirm/copy_overwrite", confirm_copy_overwrite);
@@ -1611,7 +1613,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/options/hidden_filter", filter_settings.hidden);
     gnome_cmd_data_set_bool   ("/options/backup_filter", filter_settings.backup);
 
-    gnome_cmd_data_set_bool   ("/sort/case_sensitive", priv->case_sens_sort);
+    gnome_cmd_data_set_bool   ("/sort/case_sensitive", case_sens_sort);
 
     gnome_cmd_data_set_int    ("/colors/mode", color_mode);
 
@@ -1624,7 +1626,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_string ("/options/list_font", priv->list_font);
 
-    gnome_cmd_data_set_int    ("/options/ext_disp_mode", priv->ext_disp_mode);
+    gnome_cmd_data_set_int    ("/options/ext_disp_mode", ext_disp_mode);
     gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", right_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/icon_size", priv->icon_size);
     gnome_cmd_data_set_int    ("/options/dev_icon_size", priv->dev_icon_size);
@@ -1634,7 +1636,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/cmdline_history_length", priv->cmdline_history_length);
     gnome_cmd_data_set_int    ("/options/btn_relief", priv->btn_relief);
     gnome_cmd_data_set_int    ("/options/filter_type", filter_type);
-    gnome_cmd_data_set_bool   ("/options/list_orientation", priv->list_orientation);
+    gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
     gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", priv->honor_expect_uris);
@@ -1666,13 +1668,13 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_string ("/programs/differ", priv->differ);
     gnome_cmd_data_set_string ("/programs/terminal", priv->term);
 
-    gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", priv->use_gcmd_block);
+    gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", use_gcmd_block);
 
     gnome_cmd_data_set_bool   ("/devices/only_icon", priv->device_only_icon);
     gnome_cmd_data_set_int    ("/options/dir_cache_size", priv->dir_cache_size);
     gnome_cmd_data_set_bool   ("/colors/use_ls_colors", priv->use_ls_colors);
 
-    const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (priv->quick_connect));
+    const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (quick_connect));
 
     if (quick_connect_uri)
         gnome_cmd_data_set_string ("/quick-connect/uri", quick_connect_uri);
@@ -1698,7 +1700,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_int ("/options/main_win_state", (gint) main_win_state);
 
-    gnome_cmd_data_set_bool ("/network/use_gnome_auth_manager", priv->use_gnome_auth_manager);
+    gnome_cmd_data_set_bool ("/network/use_gnome_auth_manager", use_gnome_auth_manager);
     gnome_cmd_data_set_string ("/network/ftp_anonymous_password", priv->ftp_anonymous_password);
     gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/ftp");
 
@@ -1736,18 +1738,6 @@ void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw)
         g_free (gnome_cmd_data.priv->ftp_anonymous_password);
 
     gnome_cmd_data.priv->ftp_anonymous_password = g_strdup (pw);
-}
-
-
-const gboolean gnome_cmd_data_get_use_gnome_auth_manager ()
-{
-    return gnome_cmd_data.priv->use_gnome_auth_manager;
-}
-
-
-void gnome_cmd_data_set_use_gnome_auth_manager (gboolean use_gnome_auth_manager)
-{
-    gnome_cmd_data.priv->use_gnome_auth_manager = use_gnome_auth_manager;
 }
 
 
@@ -1842,30 +1832,6 @@ GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ()
 }
 
 
-gint gnome_cmd_data_get_list_row_height ()
-{
-    return gnome_cmd_data.priv->list_row_height;
-}
-
-
-void gnome_cmd_data_set_list_row_height (gint height)
-{
-    gnome_cmd_data.priv->list_row_height = height;
-}
-
-
-void gnome_cmd_data_set_ext_disp_mode (GnomeCmdExtDispMode mode)
-{
-    gnome_cmd_data.priv->ext_disp_mode = mode;
-}
-
-
-GnomeCmdExtDispMode gnome_cmd_data_get_ext_disp_mode ()
-{
-    return gnome_cmd_data.priv->ext_disp_mode;
-}
-
-
 void gnome_cmd_data_set_viewer (const gchar *command)
 {
     g_free (gnome_cmd_data.priv->viewer);
@@ -1915,24 +1881,6 @@ const gchar *gnome_cmd_data_get_differ ()
 const gchar *gnome_cmd_data_get_term ()
 {
     return gnome_cmd_data.priv->term;
-}
-
-
-gboolean gnome_cmd_data_get_use_gcmd_block ()
-{
-    return gnome_cmd_data.priv->use_gcmd_block;
-}
-
-
-gboolean gnome_cmd_data_get_case_sens_sort ()
-{
-    return gnome_cmd_data.priv->case_sens_sort;
-}
-
-
-void gnome_cmd_data_set_case_sens_sort (gboolean value)
-{
-    gnome_cmd_data.priv->case_sens_sort = value;
 }
 
 
@@ -2110,12 +2058,6 @@ GnomeCmdData::SearchDefaults *gnome_cmd_data_get_search_defaults ()
 }
 
 
-GnomeCmdConFtp *gnome_cmd_data_get_quick_connect ()
-{
-    return gnome_cmd_data.priv->quick_connect;
-}
-
-
 GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks ()
 {
     return gnome_cmd_con_get_bookmarks (gnome_cmd_con_list_get_home (gnome_cmd_data.priv->con_list));
@@ -2164,18 +2106,6 @@ GnomeCmdData::AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults ()
 }
 
 
-void gnome_cmd_data_set_list_orientation (gboolean vertical)
-{
-    gnome_cmd_data.priv->list_orientation = vertical;
-}
-
-
-gboolean gnome_cmd_data_get_list_orientation ()
-{
-    return gnome_cmd_data.priv->list_orientation;
-}
-
-
 void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir)
 {
     if (gnome_cmd_data.priv->start_dirs[fs])
@@ -2215,18 +2145,18 @@ void gnome_cmd_data_set_auto_load_plugins (GList *plugins)
 }
 
 
-void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint *col, gboolean *direction)
+void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint &col, gboolean &direction)
 {
     if (!gnome_cmd_main_win_get_fs (main_win, LEFT) || gnome_cmd_main_win_get_fs (main_win, LEFT)->file_list() == fl)
     {
-        *col = gnome_cmd_data.priv->sort_column[LEFT];
-        *direction = gnome_cmd_data.priv->sort_direction[LEFT];
+        col = gnome_cmd_data.priv->sort_column[LEFT];
+        direction = gnome_cmd_data.priv->sort_direction[LEFT];
     }
     else
         if (!gnome_cmd_main_win_get_fs (main_win, RIGHT) || gnome_cmd_main_win_get_fs (main_win, RIGHT)->file_list() == fl)
         {
-            *col = gnome_cmd_data.priv->sort_column[RIGHT];
-            *direction = gnome_cmd_data.priv->sort_direction[RIGHT];
+            col = gnome_cmd_data.priv->sort_column[RIGHT];
+            direction = gnome_cmd_data.priv->sort_direction[RIGHT];
         }
 }
 

@@ -76,7 +76,7 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
         GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
         gint res;
 
-        if (gnome_cmd_data_get_case_sens_sort ())
+        if (gnome_cmd_data.case_sens_sort)
             res = strncmp (finfo->info->name, text, strlen(text));
         else
             res = strncasecmp (finfo->info->name, text, strlen(text));

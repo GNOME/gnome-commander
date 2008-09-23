@@ -5,7 +5,21 @@
 	* src/gnome-cmd-file-selector.cc:
 	file_is_in_list(GnomeCmdFileSelector *fs, GnomeCmdFile *f) -> GnomeCmdFileList::has_file(const GnomeCmdFile *f)
 
-2008-08-22  Piotr Eljasiak  <epiotr@use.pl>
+	* src/gnome-con-dialog.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/gnome-cmd-quicksearch-popup.cc:
+	* src/gnome-cmd-remote-dialog.cc:
+	* src/main.cc:
+	* src/utils.cc:
+	GnomeCmdData: more C++ rework
+
+2008-09-22  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/dirlist.cc:
 	* src/gnome-cmd-con.cc:
