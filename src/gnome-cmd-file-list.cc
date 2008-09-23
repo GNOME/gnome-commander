@@ -1495,19 +1495,19 @@ void GnomeCmdFileList::show_files(GnomeCmdDir *dir)
 }
 
 
-void gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
+void GnomeCmdFileList::update_file(GnomeCmdFile *f)
 {
-    if (!gnome_cmd_file_needs_update (finfo))
+    if (!gnome_cmd_file_needs_update (f))
         return;
 
-    gint row = get_row_from_file (fl, finfo);
+    gint row = get_row_from_file (this, f);
     if (row == -1)
         return;
 
-    FileFormatData data(finfo, FALSE);
+    FileFormatData data(f, FALSE);
 
     for (gint i=1; i<GnomeCmdFileList::NUM_COLUMNS; i++)
-        gtk_clist_set_text (*fl, row, i, data.text[i]);
+        gtk_clist_set_text (*this, row, i, data.text[i]);
 }
 
 

@@ -1,3 +1,10 @@
+2008-09-23  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	file_is_in_list(GnomeCmdFileSelector *fs, GnomeCmdFile *f) -> GnomeCmdFileList::has_file(const GnomeCmdFile *f)
+
 2008-08-22  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/dirlist.cc:

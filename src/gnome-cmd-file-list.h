@@ -85,6 +85,8 @@ struct GnomeCmdFileList
     void remove_files(GList *files);
     void remove_all_files()             {  clear();  }
 
+    gboolean has_file(const GnomeCmdFile *f);
+
     void select_all();
     void unselect_all();
 
@@ -114,6 +116,7 @@ struct GnomeCmdFileList
 
     gboolean file_is_wanted(GnomeCmdFile *f);
 
+    void update_file(GnomeCmdFile *f);
     void show_files(GnomeCmdDir *dir);
 
     void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (GTK_CLIST (this), col, value); }
@@ -163,15 +166,17 @@ inline void GnomeCmdFileList::remove_files (GList *files)
         remove_file((GnomeCmdFile *) files->data);
 }
 
+inline gboolean GnomeCmdFileList::has_file(const GnomeCmdFile *f)
+{
+    g_list_index (get_visible_files(), f) != -1;
+}
+
 inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 {
     GnomeCmdFile *f = get_focused_file();
 
     return !f || strcmp (f->info->name, "..") == 0 ? NULL : f;
 }
-
-void gnome_cmd_file_list_show_files (GnomeCmdFileList *fl, GList *files, gboolean sort);
-void gnome_cmd_file_list_update_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 
 void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 

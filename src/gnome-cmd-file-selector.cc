@@ -739,12 +739,6 @@ static void do_file_specific_action (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 }
 
 
-inline gboolean file_is_in_list (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
-{
-    return g_list_index (fs->file_list()->get_visible_files(), f) != -1;
-}
-
-
 inline void add_file_to_cmdline (GnomeCmdFileSelector *fs, gboolean fullpath)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -809,7 +803,7 @@ static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (fs->priv->cwd == dir && file_is_in_list (fs, f))
+    if (fs->priv->cwd == dir && fs->file_list()->has_file(f))
     {
         fs->file_list()->remove_file(f);
         update_selected_files_label (fs);
@@ -823,10 +817,10 @@ static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (file_is_in_list (fs, f))
+    if (fs->file_list()->has_file(f))
     {
-        gnome_cmd_file_invalidate_metadata (f);                 // FIXME: should be hadled in GnomeCmdDir, not here
-        gnome_cmd_file_list_update_file (fs->file_list(), f);
+        gnome_cmd_file_invalidate_metadata (f);                 // FIXME: should be handled in GnomeCmdDir, not here
+        fs->file_list()->update_file(f);
         update_selected_files_label (fs);
     }
 }
@@ -838,10 +832,10 @@ static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (file_is_in_list (fs, f))
+    if (fs->file_list()->has_file(f))
     {
-        // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);    // FIXME: should be hadled in GnomeCmdDir, not here
-        gnome_cmd_file_list_update_file (fs->file_list(), f);
+        // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);    // FIXME: should be handled in GnomeCmdDir, not here
+        fs->file_list()->update_file(f);
 
         GnomeCmdFileList::ColumnID sort_col = GNOME_CMD_FILE_LIST (fs->file_list())->get_sort_column();
 
