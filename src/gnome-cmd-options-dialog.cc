@@ -172,12 +172,16 @@ static void on_date_format_update (GtkButton *button, GtkWidget *options_dialog)
     GtkWidget *test_label = lookup_widget (options_dialog, "date_format_test_label");
 
     const char *format = gtk_entry_get_text (GTK_ENTRY (format_entry));
+    gchar *locale_format = g_locale_from_utf8 (format, -1, NULL, NULL, NULL);
 
     char s[256];
     time_t t = time (NULL);
-    strftime (s, sizeof(s), format, localtime (&t));
+    strftime (s, sizeof(s), locale_format, localtime (&t));
+    gchar *utf8_str = g_locale_to_utf8 (s, -1, NULL, NULL, NULL);
 
-    gtk_label_set_text (GTK_LABEL (test_label), s);
+    gtk_label_set_text (GTK_LABEL (test_label), utf8_str);
+    g_free (utf8_str);
+    g_free (locale_format);
 }
 
 
@@ -245,8 +249,9 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     label = create_label (parent, _("Format:"));
     table_add (table, label, 0, 0, GTK_FILL);
 
-    entry = create_entry (parent, "date_format_entry", gnome_cmd_data_get_date_format());
-    gtk_entry_set_text (GTK_ENTRY (entry), gnome_cmd_data_get_date_format ());
+    gchar *utf8_date_format = g_locale_to_utf8 (gnome_cmd_data_get_date_format(), -1, NULL, NULL, NULL);
+    entry = create_entry (parent, "date_format_entry", utf8_date_format);
+    g_free (utf8_date_format);
     gtk_widget_grab_focus (entry);
     table_add (table, entry, 1, 0, GTK_FILL);
 
@@ -293,7 +298,7 @@ inline void store_format_options (GnomeCmdOptionsDialog *dialog)
     else
         gnome_cmd_data_set_perm_disp_mode (GNOME_CMD_PERM_DISP_MODE_NUMBER);
 
-    gnome_cmd_data_set_date_format (g_strdup (format));
+    gnome_cmd_data_set_date_format (g_locale_from_utf8 (format, -1, NULL, NULL, NULL));
 }
 
 

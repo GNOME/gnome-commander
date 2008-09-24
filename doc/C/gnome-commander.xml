@@ -5938,6 +5938,9 @@
                             <para>Fixed problem #536446 (file name not focused for in-place renaming)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #548947 (non-UTF8 locale date problem)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #548948 (crash when home directory contains non-UTF8 characters)</para>
                         </listitem>
                         <listitem>

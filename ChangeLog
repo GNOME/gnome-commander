@@ -1,3 +1,10 @@
+2008-09-24  Takao Fujiwara  <Takao.Fujiwara@Sun.COM>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/utils.cc:
+	Fixed problem #548947 (non-UTF8 locale date problem)
+
 2008-09-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

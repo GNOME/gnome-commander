@@ -51,7 +51,7 @@ struct GnomeCmdData::Private
     GList                *fav_apps;
     GnomeCmdSizeDispMode size_disp_mode;
     GnomeCmdPermDispMode perm_disp_mode;
-    GnomeCmdDateFormat   date_format;
+    GnomeCmdDateFormat   date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
     GnomeCmdLayout       layout;
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
     gchar                *list_font;
@@ -1224,10 +1224,12 @@ void GnomeCmdData::load()
     priv->perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
 
 #ifdef HAVE_LOCALE_H
-    priv->date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%x %R");
+    gchar *utf8_date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%x %R");
 #else
-    priv->date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%D %R");
+    gchar *utf8_date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%D %R");
 #endif
+    priv->date_format = g_locale_from_utf8 (utf8_date_format, -1, NULL, NULL, NULL);
+    g_free (utf8_date_format);
 
     priv->layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
 
@@ -1593,9 +1595,12 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_int    ("/options/size_disp_mode", priv->size_disp_mode);
     gnome_cmd_data_set_int    ("/options/perm_disp_mode", priv->perm_disp_mode);
-    gnome_cmd_data_set_string ("/options/date_disp_mode", priv->date_format);
     gnome_cmd_data_set_int    ("/options/layout", priv->layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", list_row_height);
+
+    gchar *utf8_date_format = g_locale_to_utf8 (priv->date_format, -1, NULL, NULL, NULL);
+    gnome_cmd_data_set_string ("/options/date_disp_mode", utf8_date_format);
+    g_free (utf8_date_format);
 
     gnome_cmd_data_set_bool   ("/confirm/delete", confirm_delete);
     gnome_cmd_data_set_int    ("/confirm/copy_overwrite", confirm_copy_overwrite);

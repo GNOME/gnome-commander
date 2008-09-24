@@ -420,11 +420,20 @@ const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_
 
 const gchar *time2string (time_t t, const gchar *date_format)
 {
+    // NOTE: date_format is passed in current locale format
+
     static gchar buf[64];
     struct tm lt;
 
     localtime_r (&t, &lt);
     strftime (buf, sizeof(buf), date_format, &lt);
+
+    // convert formatted date from current locale to UTF8
+    gchar *loc_date = g_locale_to_utf8 (buf, -1, NULL, NULL, NULL);
+    if (loc_date)
+        strncpy (buf, loc_date, sizeof(buf)-1);
+
+    g_free (loc_date);
 
     return buf;
 }
