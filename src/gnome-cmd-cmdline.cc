@@ -63,7 +63,7 @@ inline void update_history_combo (GnomeCmdCmdline *cmdline)
 
 inline void add_to_history (GnomeCmdCmdline *cmdline, const gchar *command)
 {
-    cmdline->priv->history = string_history_add (cmdline->priv->history, command, gnome_cmd_data_get_cmdline_history_length());
+    cmdline->priv->history = string_history_add (cmdline->priv->history, command, gnome_cmd_data.cmdline_history_length);
 
     update_history_combo (cmdline);
 }
@@ -279,7 +279,7 @@ GtkWidget *gnome_cmd_cmdline_new ()
 {
     GnomeCmdCmdline *cmdline = (GnomeCmdCmdline *) gtk_type_new (gnome_cmd_cmdline_get_type ());
 
-    gnome_cmd_cmdline_set_history (cmdline, gnome_cmd_data_get_cmdline_history ());
+    gnome_cmd_cmdline_set_history (cmdline, gnome_cmd_data.cmdline_history);
     update_history_combo (cmdline);
 
     return GTK_WIDGET (cmdline);

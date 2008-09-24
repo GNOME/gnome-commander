@@ -62,8 +62,6 @@ struct GnomeCmdData::Private
     gchar                *document_icon_dir;
     guint                fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                bookmark_dialog_col_width[BOOKMARK_DIALOG_NUM_COLUMNS];
-    gint                 cmdline_history_length;
-    GList                *cmdline_history;
     GtkReliefStyle       btn_relief;
     gboolean             device_only_icon;
     gint                 dir_cache_size;
@@ -72,7 +70,6 @@ struct GnomeCmdData::Private
     gboolean             use_internal_viewer;
     gboolean             skip_mounting;
     SearchDefaults       *search_defaults;
-    AdvrenameDefaults    *advrename_defaults;
     gchar                *start_dirs[2];
     gchar                *last_pattern;
     GList                *auto_load_plugins;
@@ -804,38 +801,38 @@ inline void gnome_cmd_data_set_uint_array (const gchar *format, guint *array, gi
 }
 
 
-inline void save_cmdline_history ()
+inline void GnomeCmdData::save_cmdline_history()
 {
-    if (!gnome_cmd_data.cmdline_visibility)
+    if (!cmdline_visibility)
         return;
 
-    gnome_cmd_data.priv->cmdline_history = gnome_cmd_cmdline_get_history (gnome_cmd_main_win_get_cmdline (main_win));
+    cmdline_history = gnome_cmd_cmdline_get_history (gnome_cmd_main_win_get_cmdline (main_win));
 
-    gnome_cmd_data_set_string_history ("/cmdline-history/line%d", gnome_cmd_data.priv->cmdline_history);
+    gnome_cmd_data_set_string_history ("/cmdline-history/line%d", cmdline_history);
 }
 
 
-inline void save_search_defaults ()
+inline void GnomeCmdData::save_search_defaults()
 {
-    gnome_cmd_data_set_int ("/search-history/width", gnome_cmd_data.priv->search_defaults->width);
-    gnome_cmd_data_set_int ("/search-history/height", gnome_cmd_data.priv->search_defaults->height);
+    gnome_cmd_data_set_int ("/search-history/width", priv->search_defaults->width);
+    gnome_cmd_data_set_int ("/search-history/height", priv->search_defaults->height);
 
-    gnome_cmd_data_set_string_history ("/search-history/name_pattern%d", gnome_cmd_data.priv->search_defaults->name_patterns);
-    gnome_cmd_data_set_string_history ("/search-history/content_pattern%d", gnome_cmd_data.priv->search_defaults->content_patterns);
-    gnome_cmd_data_set_string_history ("/search-history/directory%d", gnome_cmd_data.priv->search_defaults->directories);
+    gnome_cmd_data_set_string_history ("/search-history/name_pattern%d", priv->search_defaults->name_patterns);
+    gnome_cmd_data_set_string_history ("/search-history/content_pattern%d", priv->search_defaults->content_patterns);
+    gnome_cmd_data_set_string_history ("/search-history/directory%d", priv->search_defaults->directories);
 
-    gnome_cmd_data_set_bool ("/search-history/recursive", gnome_cmd_data.priv->search_defaults->recursive);
-    gnome_cmd_data_set_bool ("/search-history/case_sens", gnome_cmd_data.priv->search_defaults->case_sens);
+    gnome_cmd_data_set_bool ("/search-history/recursive", priv->search_defaults->recursive);
+    gnome_cmd_data_set_bool ("/search-history/case_sens", priv->search_defaults->case_sens);
 }
 
 
-inline void save_rename_history ()
+inline void GnomeCmdData::save_rename_history()
 {
     GList *from=NULL;
     GList *to=NULL;
     GList *csens=NULL;
 
-    for (GList *tmp = gnome_cmd_data.priv->advrename_defaults->patterns; tmp; tmp = tmp->next)
+    for (GList *tmp = advrename_defaults->patterns; tmp; tmp = tmp->next)
     {
         PatternEntry *entry = (PatternEntry *) tmp->data;
         from = g_list_append (from, entry->from);
@@ -843,23 +840,23 @@ inline void save_rename_history ()
         csens = g_list_append (csens, (gpointer) (entry->case_sens ? "T" : "F"));
     }
 
-    gnome_cmd_data_set_int ("/advrename/template_auto_update", gnome_cmd_data.priv->advrename_defaults->auto_update);
-    gnome_cmd_data_set_int ("/advrename/width", gnome_cmd_data.priv->advrename_defaults->width);
-    gnome_cmd_data_set_int ("/advrename/height", gnome_cmd_data.priv->advrename_defaults->height);
+    gnome_cmd_data_set_int ("/advrename/template_auto_update", advrename_defaults->auto_update);
+    gnome_cmd_data_set_int ("/advrename/width", advrename_defaults->width);
+    gnome_cmd_data_set_int ("/advrename/height", advrename_defaults->height);
 
     gnome_cmd_data_set_uint_array ("/advrename/pat_col_widths%d", advrename_dialog_default_pat_column_width, ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
     gnome_cmd_data_set_uint_array ("/advrename/res_col_widths%d", advrename_dialog_default_res_column_width, ADVRENAME_DIALOG_RES_NUM_COLUMNS);
 
-    gnome_cmd_data_set_int ("/advrename/sep_value", gnome_cmd_data.priv->advrename_defaults->sep_value);
+    gnome_cmd_data_set_int ("/advrename/sep_value", advrename_defaults->sep_value);
 
-    gnome_cmd_data_set_int ("/template-history/size", g_list_length (gnome_cmd_data.priv->advrename_defaults->templates->ents));
-    gnome_cmd_data_set_string_history ("/template-history/template%d", gnome_cmd_data.priv->advrename_defaults->templates->ents);
+    gnome_cmd_data_set_int ("/template-history/size", g_list_length (advrename_defaults->templates->ents));
+    gnome_cmd_data_set_string_history ("/template-history/template%d", advrename_defaults->templates->ents);
 
-    gnome_cmd_data_set_int ("/advrename/counter_start", gnome_cmd_data.priv->advrename_defaults->counter_start);
-    gnome_cmd_data_set_int ("/advrename/counter_precision", gnome_cmd_data.priv->advrename_defaults->counter_precision);
-    gnome_cmd_data_set_int ("/advrename/counter_increment", gnome_cmd_data.priv->advrename_defaults->counter_increment);
+    gnome_cmd_data_set_int ("/advrename/counter_start", advrename_defaults->counter_start);
+    gnome_cmd_data_set_int ("/advrename/counter_precision", advrename_defaults->counter_precision);
+    gnome_cmd_data_set_int ("/advrename/counter_increment", advrename_defaults->counter_increment);
 
-    gnome_cmd_data_set_int ("/rename-history/size", g_list_length (gnome_cmd_data.priv->advrename_defaults->patterns));
+    gnome_cmd_data_set_int ("/rename-history/size", g_list_length (advrename_defaults->patterns));
     gnome_cmd_data_set_string_history ("/rename-history/from%d", from);
     gnome_cmd_data_set_string_history ("/rename-history/to%d", to);
     gnome_cmd_data_set_string_history ("/rename-history/csens%d", csens);
@@ -877,9 +874,9 @@ inline void save_rename_history ()
 }
 
 
-inline void save_local_bookmarks ()
+inline void GnomeCmdData::save_local_bookmarks()
 {
-    GnomeCmdCon *con = gnome_cmd_con_list_get_home (gnome_cmd_data.priv->con_list);
+    GnomeCmdCon *con = gnome_cmd_con_list_get_home (priv->con_list);
     GList *tmp, *bookmarks;
     GList *names = NULL;
     GList *paths = NULL;
@@ -897,9 +894,9 @@ inline void save_local_bookmarks ()
 }
 
 
-inline void save_smb_bookmarks ()
+inline void GnomeCmdData::save_smb_bookmarks()
 {
-    GnomeCmdCon *con = gnome_cmd_con_list_get_smb (gnome_cmd_data.priv->con_list);
+    GnomeCmdCon *con = gnome_cmd_con_list_get_smb (priv->con_list);
     GList *tmp, *bookmarks;
     GList *names = NULL;
     GList *paths = NULL;
@@ -917,10 +914,10 @@ inline void save_smb_bookmarks ()
 }
 
 
-inline void save_auto_load_plugins ()
+inline void GnomeCmdData::save_auto_load_plugins()
 {
-    gnome_cmd_data_set_int ("/plugins/count", g_list_length (gnome_cmd_data.priv->auto_load_plugins));
-    gnome_cmd_data_set_string_history ("/plugins/auto_load%d", gnome_cmd_data.priv->auto_load_plugins);
+    gnome_cmd_data_set_int ("/plugins/count", g_list_length (priv->auto_load_plugins));
+    gnome_cmd_data_set_string_history ("/plugins/auto_load%d", priv->auto_load_plugins);
 }
 
 
@@ -953,38 +950,38 @@ inline GList *load_string_history (const gchar *format, gint size)
 }
 
 
-inline void load_cmdline_history ()
+inline void void GnomeCmdData::load_cmdline_history()
 {
-    gnome_cmd_data.priv->cmdline_history = load_string_history ("/cmdline-history/line%d", -1);
+    cmdline_history = load_string_history ("/cmdline-history/line%d", -1);
 }
 
 
-inline void load_search_defaults ()
+inline void GnomeCmdData::load_search_defaults()
 {
-    gnome_cmd_data.priv->search_defaults = g_new0 (GnomeCmdData::SearchDefaults, 1);
+    priv->search_defaults = g_new0 (SearchDefaults, 1);
 
-    gnome_cmd_data.priv->search_defaults->width = gnome_cmd_data_get_int ("/search-history/width", 450);
-    gnome_cmd_data.priv->search_defaults->height = gnome_cmd_data_get_int ("/search-history/height", 400);
+    priv->search_defaults->width = gnome_cmd_data_get_int ("/search-history/width", 450);
+    priv->search_defaults->height = gnome_cmd_data_get_int ("/search-history/height", 400);
 
-    gnome_cmd_data.priv->search_defaults->name_patterns = load_string_history ("/search-history/name_pattern%d", -1);
-    gnome_cmd_data.priv->search_defaults->content_patterns = load_string_history ("/search-history/content_pattern%d", -1);
-    gnome_cmd_data.priv->search_defaults->directories = load_string_history ("/search-history/directory%d", -1);
-    gnome_cmd_data.priv->search_defaults->recursive = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE);
-    gnome_cmd_data.priv->search_defaults->case_sens = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
+    priv->search_defaults->name_patterns = load_string_history ("/search-history/name_pattern%d", -1);
+    priv->search_defaults->content_patterns = load_string_history ("/search-history/content_pattern%d", -1);
+    priv->search_defaults->directories = load_string_history ("/search-history/directory%d", -1);
+    priv->search_defaults->recursive = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE);
+    priv->search_defaults->case_sens = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
 }
 
 
-inline void load_rename_history ()
+inline void GnomeCmdData::load_rename_history()
 {
     gint size;
     GList *from=NULL, *to=NULL, *csens=NULL;
     GList *tmp_from, *tmp_to, *tmp_csens;
 
-    gnome_cmd_data.priv->advrename_defaults = g_new0 (GnomeCmdData::AdvrenameDefaults, 1);
+    advrename_defaults = g_new0 (AdvrenameDefaults, 1);
 
-    gnome_cmd_data.priv->advrename_defaults->auto_update = gnome_cmd_data_get_int ("/advrename/template_auto_update", TRUE);
-    gnome_cmd_data.priv->advrename_defaults->width = gnome_cmd_data_get_int ("/advrename/width", 450);
-    gnome_cmd_data.priv->advrename_defaults->height = gnome_cmd_data_get_int ("/advrename/height", 400);
+    advrename_defaults->auto_update = gnome_cmd_data_get_int ("/advrename/template_auto_update", TRUE);
+    advrename_defaults->width = gnome_cmd_data_get_int ("/advrename/width", 450);
+    advrename_defaults->height = gnome_cmd_data_get_int ("/advrename/height", 400);
 
     load_uint_array ("/advrename/pat_col_widths%d",
                      advrename_dialog_default_pat_column_width,
@@ -993,20 +990,20 @@ inline void load_rename_history ()
                      advrename_dialog_default_res_column_width,
                      ADVRENAME_DIALOG_RES_NUM_COLUMNS);
 
-    gnome_cmd_data.priv->advrename_defaults->sep_value = gnome_cmd_data_get_int ("/advrename/sep_value", 150);
+    advrename_defaults->sep_value = gnome_cmd_data_get_int ("/advrename/sep_value", 150);
 
     size = gnome_cmd_data_get_int ("/template-history/size", 0);
     GList *templates = load_string_history ("/template-history/template%d", size);
 
-    gnome_cmd_data.priv->advrename_defaults->templates = new History(10);
-    gnome_cmd_data.priv->advrename_defaults->templates->ents = templates;
-    gnome_cmd_data.priv->advrename_defaults->templates->pos = templates;
+    advrename_defaults->templates = new History(10);
+    advrename_defaults->templates->ents = templates;
+    advrename_defaults->templates->pos = templates;
 
-    gnome_cmd_data.priv->advrename_defaults->counter_start = gnome_cmd_data_get_int ("/advrename/counter_start", 1);
-    gnome_cmd_data.priv->advrename_defaults->counter_precision = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
-    gnome_cmd_data.priv->advrename_defaults->counter_increment = gnome_cmd_data_get_int ("/advrename/counter_increment", 1);
+    advrename_defaults->counter_start = gnome_cmd_data_get_int ("/advrename/counter_start", 1);
+    advrename_defaults->counter_precision = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
+    advrename_defaults->counter_increment = gnome_cmd_data_get_int ("/advrename/counter_increment", 1);
 
-    gnome_cmd_data.priv->advrename_defaults->patterns = NULL;
+    advrename_defaults->patterns = NULL;
     size = gnome_cmd_data_get_int ("/rename-history/size", 0);
 
     tmp_from = from = load_string_history ("/rename-history/from%d", size);
@@ -1024,8 +1021,7 @@ inline void load_rename_history ()
         tmp_to = tmp_to->next;
         tmp_csens = tmp_csens->next;
 
-        gnome_cmd_data.priv->advrename_defaults->patterns = g_list_append (
-            gnome_cmd_data.priv->advrename_defaults->patterns, entry);
+        advrename_defaults->patterns = g_list_append (advrename_defaults->patterns, entry);
         size--;
     }
 
@@ -1035,13 +1031,13 @@ inline void load_rename_history ()
 }
 
 
-inline void load_local_bookmarks ()
+inline void GnomeCmdData::load_local_bookmarks()
 {
     gint size = gnome_cmd_data_get_int ("/local_bookmarks/count", 0);
     GList *names = load_string_history ("/local_bookmarks/name%d", size);
     GList *paths = load_string_history ("/local_bookmarks/path%d", size);
 
-    GnomeCmdCon *con = gnome_cmd_con_list_get_home (gnome_cmd_data.priv->con_list);
+    GnomeCmdCon *con = gnome_cmd_con_list_get_home (priv->con_list);
 
     GList *bookmarks = NULL;
 
@@ -1058,7 +1054,7 @@ inline void load_local_bookmarks ()
 }
 
 
-inline void load_smb_bookmarks ()
+inline void GnomeCmdData::load_smb_bookmarks()
 {
     GList *bookmarks = NULL;
 
@@ -1066,7 +1062,7 @@ inline void load_smb_bookmarks ()
     GList *names = load_string_history ("/smb_bookmarks/name%d", size);
     GList *paths = load_string_history ("/smb_bookmarks/path%d", size);
 
-    GnomeCmdCon *con = gnome_cmd_con_list_get_smb (gnome_cmd_data.priv->con_list);
+    GnomeCmdCon *con = gnome_cmd_con_list_get_smb (priv->con_list);
 
     for (gint i=0; i<size; i++)
     {
@@ -1081,11 +1077,11 @@ inline void load_smb_bookmarks ()
 }
 
 
-inline void load_auto_load_plugins ()
+inline void GnomeCmdData::load_auto_load_plugins()
 {
     gint count = gnome_cmd_data_get_int ("/plugins/count", 0);
 
-    gnome_cmd_data.priv->auto_load_plugins = load_string_history ("/plugins/auto_load%d", count);
+    priv->auto_load_plugins = load_string_history ("/plugins/auto_load%d", count);
 }
 
 
@@ -1105,6 +1101,8 @@ GnomeCmdData::GnomeCmdData()
     filter_settings.hidden = TRUE;
     filter_settings.backup = TRUE;
 
+    advrename_defaults = NULL;
+
     case_sens_sort = TRUE;
     ext_disp_mode = GNOME_CMD_EXT_DISP_BOTH;
     list_orientation = FALSE;
@@ -1117,6 +1115,9 @@ GnomeCmdData::GnomeCmdData()
 
     list_row_height = 16;
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
+
+    cmdline_history = NULL;
+    cmdline_history_length = 0;
 
     use_gcmd_block = FALSE;
 
@@ -1158,7 +1159,7 @@ void GnomeCmdData::free()
         g_free (priv->differ);
         g_free (priv->term);
 
-        delete priv->advrename_defaults->templates;
+        delete advrename_defaults->templates;
 
         g_free (priv);
     }
@@ -1360,11 +1361,11 @@ void GnomeCmdData::load()
     quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
     g_free (quick_connect_uri);
 
-    load_cmdline_history ();
+    load_cmdline_history();
     //load_dir_history ();
-    load_search_defaults ();
-    load_rename_history ();
-    load_auto_load_plugins ();
+    load_search_defaults();
+    load_rename_history();
+    load_auto_load_plugins();
 
     set_vfs_volume_monitor ();
 
@@ -1579,8 +1580,8 @@ void GnomeCmdData::load_more()
     gnome_cmd_con_list_end_update (priv->con_list);
 
     load_fav_apps ("fav-apps");
-    load_local_bookmarks ();
-    load_smb_bookmarks ();
+    load_local_bookmarks();
+    load_smb_bookmarks();
 }
 
 
@@ -1709,17 +1710,17 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_string ("/network/ftp_anonymous_password", priv->ftp_anonymous_password);
     gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/ftp");
 
-    save_cmdline_history ();
+    save_cmdline_history();
     //write_dir_history ();
 
     save_connections ("connections");
     save_devices ("devices");
     save_fav_apps ("fav-apps");
-    save_search_defaults ();
-    save_rename_history ();
-    save_local_bookmarks ();
-    save_smb_bookmarks ();
-    save_auto_load_plugins ();
+    save_search_defaults();
+    save_rename_history();
+    save_local_bookmarks();
+    save_smb_bookmarks();
+    save_auto_load_plugins();
 
     gnome_config_sync ();
 }
@@ -1991,24 +1992,6 @@ gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column)
 }
 
 
-gint gnome_cmd_data_get_cmdline_history_length ()
-{
-    return gnome_cmd_data.priv->cmdline_history_length;
-}
-
-
-void gnome_cmd_data_set_cmdline_history_length (gint length)
-{
-    gnome_cmd_data.priv->cmdline_history_length = length;
-}
-
-
-GList *gnome_cmd_data_get_cmdline_history ()
-{
-    return gnome_cmd_data.priv->cmdline_history;
-}
-
-
 void gnome_cmd_data_set_button_relief (GtkReliefStyle relief)
 {
     gnome_cmd_data.priv->btn_relief = relief;
@@ -2102,12 +2085,6 @@ gboolean gnome_cmd_data_get_skip_mounting ()
 void gnome_cmd_data_set_skip_mounting (gboolean value)
 {
     gnome_cmd_data.priv->skip_mounting = value;
-}
-
-
-GnomeCmdData::AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults ()
-{
-    return gnome_cmd_data.priv->advrename_defaults;
 }
 
 

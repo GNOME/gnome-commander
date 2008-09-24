@@ -1085,7 +1085,7 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
 
     in_dialog->priv->entries = NULL;
     in_dialog->priv->sel_entry = NULL;
-    in_dialog->priv->defaults = gnome_cmd_data_get_advrename_defaults ();
+    in_dialog->priv->defaults = gnome_cmd_data.advrename_defaults;
 
     GtkAccelGroup *accel_group = gtk_accel_group_new ();
 

@@ -1,3 +1,11 @@
+2008-09-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-cmdline.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	GnomeCmdData: more C++ rework
+
 2008-09-24  Takao Fujiwara  <Takao.Fujiwara@Sun.COM>
 
 	* src/gnome-cmd-data.cc:

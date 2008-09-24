@@ -79,6 +79,19 @@ struct GnomeCmdData
 
     GnomeCmdConFtp              *quick_connect;
 
+    void load_auto_load_plugins();
+    void load_cmdline_history();
+    void load_local_bookmarks();
+    void load_rename_history();
+    void load_search_defaults();
+    void load_smb_bookmarks();
+    void save_auto_load_plugins();
+    void save_cmdline_history();
+    void save_local_bookmarks();
+    void save_rename_history();
+    void save_search_defaults();
+    void save_smb_bookmarks();
+
   public:
 
     gboolean                     confirm_delete;
@@ -90,6 +103,8 @@ struct GnomeCmdData
 
     Filter::Type                 filter_type;
     FilterSettings               filter_settings;
+
+    AdvrenameDefaults           *advrename_defaults;
 
     gboolean                     case_sens_sort;
     GnomeCmdExtDispMode          ext_disp_mode;
@@ -103,6 +118,9 @@ struct GnomeCmdData
 
     gint                         list_row_height;
     guint                        gui_update_rate;
+
+    GList                       *cmdline_history;
+    gint                         cmdline_history_length;
 
     gboolean                     use_gcmd_block;
 
@@ -187,10 +205,6 @@ void gnome_cmd_data_set_fs_col_width (guint column, gint width);
 gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column);
 void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width);
 
-gint gnome_cmd_data_get_cmdline_history_length ();
-void gnome_cmd_data_set_cmdline_history_length (gint length);
-GList *gnome_cmd_data_get_cmdline_history ();
-
 GtkReliefStyle gnome_cmd_data_get_button_relief ();
 void gnome_cmd_data_set_button_relief (GtkReliefStyle relief);
 
@@ -216,8 +230,6 @@ void gnome_cmd_data_set_use_internal_viewer (gboolean value);
 
 gboolean gnome_cmd_data_get_skip_mounting ();
 void gnome_cmd_data_set_skip_mounting (gboolean value);
-
-GnomeCmdData::AdvrenameDefaults *gnome_cmd_data_get_advrename_defaults ();
 
 const gchar *gnome_cmd_data_get_start_dir (gboolean fs);
 void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir);
