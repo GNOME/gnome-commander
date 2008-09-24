@@ -950,7 +950,7 @@ inline GList *load_string_history (const gchar *format, gint size)
 }
 
 
-inline void void GnomeCmdData::load_cmdline_history()
+inline void GnomeCmdData::load_cmdline_history()
 {
     cmdline_history = load_string_history ("/cmdline-history/line%d", -1);
 }
@@ -1290,7 +1290,7 @@ void GnomeCmdData::load()
     g_free (theme_icon_dir);
     priv->document_icon_dir = gnome_cmd_data_get_string ("/options/document_icon_dir", document_icon_dir);
     g_free (document_icon_dir);
-    priv->cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
+    cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
     priv->btn_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
     filter_type = (Filter::Type) gnome_cmd_data_get_int ("/options/filter_type", Filter::TYPE_FNMATCH);
     list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
@@ -1639,7 +1639,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/icon_scale_quality", priv->icon_scale_quality);
     gnome_cmd_data_set_string ("/options/theme_icon_dir", priv->theme_icon_dir);
     gnome_cmd_data_set_string ("/options/document_icon_dir", priv->document_icon_dir);
-    gnome_cmd_data_set_int    ("/options/cmdline_history_length", priv->cmdline_history_length);
+    gnome_cmd_data_set_int    ("/options/cmdline_history_length", cmdline_history_length);
     gnome_cmd_data_set_int    ("/options/btn_relief", priv->btn_relief);
     gnome_cmd_data_set_int    ("/options/filter_type", filter_type);
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
