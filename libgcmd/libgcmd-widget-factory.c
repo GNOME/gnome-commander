@@ -251,7 +251,7 @@ create_named_button_with_data (GtkWidget *parent, gchar *label, gchar *name, Gtk
 
 
 GtkWidget *
-create_button_with_data (GtkWidget *parent, gchar *label,
+create_button_with_data (GtkWidget *parent, const gchar *label,
                          GtkSignalFunc func, gpointer data)
 {
     return create_named_button_with_data (parent, label, "button", func, data);
@@ -308,7 +308,7 @@ create_stock_button (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func)
 
 
 GtkWidget *
-create_entry (GtkWidget *parent, gchar *name, const gchar *value)
+create_entry (GtkWidget *parent, const gchar *name, const gchar *value)
 {
     GtkWidget *w = gtk_entry_new ();
     gtk_widget_ref (w);
@@ -337,7 +337,7 @@ create_check (GtkWidget *parent, gchar *text, gchar *name)
 
 
 GtkWidget *
-create_radio (GtkWidget *parent, GSList *group, gchar *text, gchar *name)
+create_radio (GtkWidget *parent, GSList *group, const gchar *text, const gchar *name)
 {
     GtkWidget *btn;
 

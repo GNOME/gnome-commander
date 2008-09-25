@@ -2021,8 +2021,6 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
 {
     g_return_val_if_fail (event != NULL, FALSE);
 
-    gint num_files = size();
-
     if (state_is_alt (event->state))
     {
         switch (event->keyval)

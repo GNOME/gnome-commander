@@ -921,8 +921,8 @@ void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu)
     GtkMenuShell *connections_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->connections_menu)->submenu);
     GnomeCmdConList *con_list = gnome_cmd_con_list_get ();
     GList *all_cons = gnome_cmd_con_list_get_all (con_list);
-    GList *ftp_cons = gnome_cmd_con_list_get_all_ftp (con_list);
-    GList *dev_cons = gnome_cmd_con_list_get_all_dev (con_list);
+    // GList *ftp_cons = gnome_cmd_con_list_get_all_ftp (con_list);
+    // GList *dev_cons = gnome_cmd_con_list_get_all_dev (con_list);
 
     // Remove all old items
     g_list_foreach (main_menu->priv->connections_menuitems, (GFunc) gtk_widget_destroy, NULL);

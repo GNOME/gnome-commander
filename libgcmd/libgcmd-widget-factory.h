@@ -56,7 +56,7 @@ GtkWidget *create_button (GtkWidget *parent, gchar *label, GtkSignalFunc func);
 
 GtkWidget *create_named_button (GtkWidget *parent, gchar *label, gchar *name, GtkSignalFunc func);
 
-GtkWidget *create_button_with_data (GtkWidget *parent, gchar *label, GtkSignalFunc func, gpointer data);
+GtkWidget *create_button_with_data (GtkWidget *parent, const gchar *label, GtkSignalFunc func, gpointer data);
 
 GtkWidget *create_named_button_with_data (GtkWidget *parent, gchar *label, gchar *name, GtkSignalFunc func, gpointer data);
 
@@ -68,11 +68,11 @@ GtkWidget *create_stock_button_with_data (GtkWidget *parent, gconstpointer stock
 
 GtkWidget *create_named_stock_button_with_data (GtkWidget *parent, gconstpointer stock, gchar *name, GtkSignalFunc func, gpointer data);
 
-GtkWidget *create_entry (GtkWidget *parent, gchar *name, const gchar *value);
+GtkWidget *create_entry (GtkWidget *parent, const gchar *name, const gchar *value);
 
 GtkWidget *create_check (GtkWidget *parent, gchar *text, gchar *name);
 
-GtkWidget *create_radio (GtkWidget *parent, GSList *group, gchar *text, gchar *name);
+GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, const gchar *name);
 
 GtkWidget *create_spin (GtkWidget *parent, gchar *name, gint min, gint max, gint value);
 

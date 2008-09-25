@@ -9,6 +9,14 @@
 	* src/gnome-cmd-dir.h:
 	inline gnome_cmd_dir_ref() and gnome_cmd_dir_unref()
 
+	* libgcmd/libgcmd-widget-factory.c:
+	* libgcmd/libgcmd-widget-factory.h:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	* gnome-cmd-tags-doc.cc:
+	gcc warnings cleanup
+
 2008-09-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

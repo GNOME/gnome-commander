@@ -387,7 +387,7 @@ void gcmd_tags_libgsf_init()
     static struct
     {
         GnomeCmdTag tag;
-        gchar *name;
+        const gchar *name;
     }
     gsf_data[] = {
                     {TAG_DOC_BYTECOUNT, GSF_META_NAME_BYTE_COUNT},

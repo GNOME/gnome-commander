@@ -1155,13 +1155,6 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
 }
 
 
-static void on_root_btn_clicked (GtkButton *button, GnomeCmdFileSelector *fs)
-{
-    gnome_cmd_main_win_switch_fs (main_win, fs);
-    fs->goto_directory(G_DIR_SEPARATOR_S);
-}
-
-
 /*******************************
  * Gtk class implementation
  *******************************/

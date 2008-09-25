@@ -870,7 +870,7 @@ static GtkWidget *create_network_tab (GtkWidget *parent)
 {
     GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
     GtkWidget *table, *label, *entry;
-    GtkWidget *radio, *check;
+    GtkWidget *check;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
