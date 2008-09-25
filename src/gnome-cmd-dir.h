@@ -111,8 +111,17 @@ inline GnomeCmdFile *gnome_cmd_dir_new_parent_dir_file (GnomeCmdDir *dir)
     return gnome_cmd_file_new (info, dir);
 }
 
-void gnome_cmd_dir_ref (GnomeCmdDir *dir);
-void gnome_cmd_dir_unref (GnomeCmdDir *dir);
+inline void gnome_cmd_dir_ref (GnomeCmdDir *dir)
+{
+    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    gnome_cmd_file_ref (GNOME_CMD_FILE (dir));
+}
+
+inline void gnome_cmd_dir_unref (GnomeCmdDir *dir)
+{
+    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
+    gnome_cmd_file_unref (GNOME_CMD_FILE (dir));
+}
 
 GnomeVFSResult gnome_cmd_dir_get_files (GnomeCmdDir *dir, GList **files);
 void gnome_cmd_dir_relist_files (GnomeCmdDir *dir, gboolean visprog);

@@ -1,3 +1,9 @@
+2008-09-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-dir.cc:
+	* src/gnome-cmd-dir.h:
+	inline gnome_cmd_dir_ref() and gnome_cmd_dir_unref()
+
 2008-09-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
