@@ -153,7 +153,7 @@ inline void show_selected_dir_tree_size (GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     GnomeCmdFile *f = fs->file_list()->get_selected_file();
-    gnome_cmd_file_list_show_dir_size (fs->file_list(), f);
+    fs->file_list()->show_dir_size(f);
 }
 
 
@@ -256,7 +256,7 @@ inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
     fs->file_list()->invalidate_tree_size();
 
     for (GList *files = fs->file_list()->get_visible_files(); files; files = files->next)
-        gnome_cmd_file_list_show_dir_size (fs->file_list(), (GnomeCmdFile *) files->data);
+        fs->file_list()->show_dir_size((GnomeCmdFile *) files->data);
 
     update_selected_files_label (fs);
 }

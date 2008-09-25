@@ -118,6 +118,7 @@ struct GnomeCmdFileList
 
     void update_file(GnomeCmdFile *f);
     void show_files(GnomeCmdDir *dir);
+    void show_dir_size(GnomeCmdFile *f);
 
     void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (GTK_CLIST (this), col, value); }
 
@@ -178,14 +179,13 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
     return !f || strcmp (f->info->name, "..") == 0 ? NULL : f;
 }
 
-void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
-
 void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
 
 void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
 
 GnomeCmdFile *gnome_cmd_file_list_get_file_at_row (GnomeCmdFileList *fl, gint row);
 gint gnome_cmd_file_list_get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
+
 void gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_chown_dialog (GnomeCmdFileList *fl);

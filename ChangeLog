@@ -1,5 +1,12 @@
 2008-09-25  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	gnome_cmd_file_list_show_dir_size() -> GnomeCmdFileList::show_dir_size()
+
+2008-09-25  Piotr Eljasiak  <epiotr@use.pl>
+
 	* src/gnome-cmd-dir.cc:
 	* src/gnome-cmd-dir.h:
 	inline gnome_cmd_dir_ref() and gnome_cmd_dir_unref()

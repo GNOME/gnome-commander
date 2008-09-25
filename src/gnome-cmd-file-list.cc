@@ -1511,19 +1511,18 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
 }
 
 
-void gnome_cmd_file_list_show_dir_size (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
+void GnomeCmdFileList::show_dir_size(GnomeCmdFile *f)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
 
-    gint row = get_row_from_file (fl, finfo);
+    gint row = get_row_from_file (this, f);
     if (row == -1)
         return;
 
-    FileFormatData data(finfo,TRUE);
+    FileFormatData data(f,TRUE);
 
-    for (gint i=1; i<GnomeCmdFileList::NUM_COLUMNS; i++)
-        gtk_clist_set_text (*fl, row, i, data.text[i]);
+    for (gint i=1; i<NUM_COLUMNS; i++)
+        gtk_clist_set_text (*this, row, i, data.text[i]);
 }
 
 
