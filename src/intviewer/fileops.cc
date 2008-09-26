@@ -5,6 +5,7 @@
     Part of
         GNOME Commander - A GNOME based file manager
         Copyright (C) 2001-2006 Marcus Bjurman
+        Copyright (C) 2007-2008 Piotr Eljasiak
 
     Partly based on "view.c" module from "Midnight Commander" Project.
     Copyright (C) 1994, 1995, 1996 The Free Software Foundation
