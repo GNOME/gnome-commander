@@ -159,21 +159,19 @@ inline void create_delete_progress_win (DeleteData *data)
 static void perform_delete_operation (DeleteData *data)
 {
     GList *uri_list = NULL;
-    gint num_files = g_list_length (data->files);
 
-    // Go through all files and add the uri of the appropriate ones to a list
-    for (gint i=0; i<num_files; i++)
+    // go through all files and add the uri of the appropriate ones to a list
+    for (GList *i=data->files; i; i=i->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) g_list_nth_data (data->files, i);
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
-        if (strcmp(finfo->info->name, "..") == 0 || strcmp(finfo->info->name, ".") == 0)
+        if (strcmp(f->info->name, "..") == 0 || strcmp(f->info->name, ".") == 0)
             continue;
 
-        GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
+        GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
         if (!uri) continue;
 
-        gnome_vfs_uri_ref (uri);
-        uri_list = g_list_append (uri_list, uri);
+        uri_list = g_list_append (uri_list, gnome_vfs_uri_ref (uri));
     }
 
     if (uri_list)
