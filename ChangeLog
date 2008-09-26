@@ -3,6 +3,12 @@
 	* src/gnome-cmd-delete-dialog.cc:
 	Iterate through the file list MUCH faster (O(n*n) -> O(n))
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-quicksearch-popup.cc:
+	Move get_file_at_row() and get_row_from_file() to GnomeCmdFileList
+
 2008-09-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-con-device.cc:

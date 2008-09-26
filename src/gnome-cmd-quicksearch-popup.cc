@@ -47,7 +47,7 @@ inline void focus_file (GnomeCmdQuicksearchPopup *popup, GnomeCmdFile *finfo)
         return;
 
     popup->priv->last_focused_file = finfo;
-    gint row = gnome_cmd_file_list_get_row_from_file (popup->priv->fl, finfo);
+    gint row = popup->priv->fl->get_row_from_file(finfo);
     gtk_clist_moveto (GTK_CLIST (popup->priv->fl), row, 0, 1, 0);
     gtk_clist_freeze (GTK_CLIST (popup->priv->fl));
     GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row = row;

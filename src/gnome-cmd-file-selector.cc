@@ -415,7 +415,7 @@ drag_data_received (GtkWidget          *widget,
         to_fn = gnome_vfs_unescape_string (gnome_vfs_uri_extract_short_name (uri), 0);
     }
 
-    f = gnome_cmd_file_list_get_file_at_row (fs->file_list(), row);
+    f = fs->file_list()->get_file_at_row(row);
     cwd = fs->get_directory();
 
     if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
@@ -572,7 +572,7 @@ static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x,
 
     if (row > -1)
     {
-        GnomeCmdFile *f = gnome_cmd_file_list_get_file_at_row (fs->file_list(), row);
+        GnomeCmdFile *f = fs->file_list()->get_file_at_row(row);
 
         if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
             row = -1;

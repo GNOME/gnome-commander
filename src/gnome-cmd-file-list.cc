@@ -253,23 +253,6 @@ inline FileFormatData::~FileFormatData()
 }
 
 
-inline GnomeCmdFile *get_file_at_row (GnomeCmdFileList *fl, gint row)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), NULL);
-
-    return (GnomeCmdFile *) gtk_clist_get_row_data (*fl, row);
-}
-
-
-inline gint get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_FILE_LIST (fl), -1);
-    g_return_val_if_fail (finfo != NULL, -1);
-
-    return gtk_clist_find_row_from_data (*fl, finfo);
-}
-
-
 static void on_selpat_hide (GtkWidget *dialog, GnomeCmdFileList *fl)
 {
     fl->priv->selpat_dialog = NULL;
@@ -340,7 +323,7 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     if (strcmp (finfo->info->name, "..") == 0)
         return;
 
-    gint row = get_row_from_file (fl, finfo);
+    gint row = fl->get_row_from_file(finfo);
     if (row == -1)
         return;
 
@@ -372,7 +355,7 @@ static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (finfo != NULL);
 
-    gint row = get_row_from_file (fl, finfo);
+    gint row = fl->get_row_from_file(finfo);
     if (row == -1)
         return;
 
@@ -404,7 +387,7 @@ inline void toggle_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (finfo != NULL);
 
-    gint row = get_row_from_file (fl, finfo);
+    gint row = fl->get_row_from_file(finfo);
 
     if (row == -1)
         return;
@@ -423,7 +406,7 @@ inline void select_file_at_row (GnomeCmdFileList *fl, gint row)
 
     fl->priv->cur_file = row;
 
-    GnomeCmdFile *finfo = get_file_at_row (fl, row);
+    GnomeCmdFile *finfo = fl->get_file_at_row(row);
 
     if (finfo)
         select_file (fl, finfo);
@@ -452,7 +435,7 @@ inline void toggle_file_at_row (GnomeCmdFileList *fl, gint row)
 
     fl->priv->cur_file = row;
 
-    GnomeCmdFile *finfo = get_file_at_row (fl, row);
+    GnomeCmdFile *finfo = fl->get_file_at_row(row);
 
     if (finfo)
         toggle_file (fl, finfo);
@@ -1077,7 +1060,7 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
         return FALSE;
     }
 
-    GnomeCmdFile *finfo = get_file_at_row (fl, row);
+    GnomeCmdFile *finfo = fl->get_file_at_row(row);
 
     gtk_signal_emit (*fl, file_list_signals[FILE_CLICKED], finfo, event);
 
@@ -1115,7 +1098,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEvent
         if (event->type == GDK_BUTTON_PRESS && (event->button == 1 || event->button == 3))
         {
             gint prev_row = fl->priv->cur_file;
-            gint row = get_row_from_file (fl, finfo);
+            gint row = fl->get_row_from_file(finfo);
 
             fl->select_row(row);
             gtk_widget_grab_focus (GTK_WIDGET (fl));
@@ -1130,7 +1113,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEvent
                         if (!fl->priv->selected_files)
                         {
                             if (prev_row!=row)
-                                select_file (fl, get_file_at_row (fl, prev_row));
+                                select_file (fl, fl->get_file_at_row(prev_row));
                             select_file_at_row (fl, row);
                         }
                         else
@@ -1181,7 +1164,7 @@ static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFi
 
         if (row != -1)
         {
-            GnomeCmdFile *finfo = gnome_cmd_file_list_get_file_at_row (fl, row+1);
+            GnomeCmdFile *finfo = fl->get_file_at_row(row+1);
             if (finfo)
             {
                 fl->select_row(row+1);
@@ -1212,7 +1195,7 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
     {
         if (event->button == 1 && state_is_blank (event->state))
         {
-            GnomeCmdFile *finfo = get_file_at_row (fl, row);
+            GnomeCmdFile *finfo = fl->get_file_at_row(row);
             if (finfo && g_list_index (fl->priv->selected_files, finfo) == -1)
                 fl->unselect_all();
             return TRUE;
@@ -1441,7 +1424,7 @@ void GnomeCmdFileList::insert_file (GnomeCmdFile *f)
 
     for (gint i=0; i<num_files; i++)
     {
-        GnomeCmdFile *f2 = get_file_at_row (this, i);
+        GnomeCmdFile *f2 = get_file_at_row(i);
         if (priv->sort_func (f2, f, this) == 1)
         {
             priv->visible_files.add(f);
@@ -1501,7 +1484,7 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
     if (!gnome_cmd_file_needs_update (f))
         return;
 
-    gint row = get_row_from_file (this, f);
+    gint row = get_row_from_file(f);
     if (row == -1)
         return;
 
@@ -1516,7 +1499,7 @@ void GnomeCmdFileList::show_dir_size(GnomeCmdFile *f)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
 
-    gint row = get_row_from_file (this, f);
+    gint row = get_row_from_file(f);
     if (row == -1)
         return;
 
@@ -1531,7 +1514,7 @@ void GnomeCmdFileList::remove_file (GnomeCmdFile *f)
 {
     g_return_if_fail (f != NULL);
 
-    gint row = get_row_from_file (this, f);
+    gint row = get_row_from_file(f);
 
     if (row >= 0)
     {
@@ -1596,7 +1579,7 @@ GnomeCmdFile *GnomeCmdFileList::get_first_selected_file()
 
 GnomeCmdFile *GnomeCmdFileList::get_focused_file()
 {
-    return priv->cur_file < 0 ? NULL : get_file_at_row (this, priv->cur_file);
+    return priv->cur_file < 0 ? NULL : get_file_at_row(priv->cur_file);
 }
 
 
@@ -1626,7 +1609,7 @@ void GnomeCmdFileList::unselect_all()
 
 void GnomeCmdFileList::toggle()
 {
-    GnomeCmdFile *f = get_file_at_row (this, priv->cur_file);
+    GnomeCmdFile *f = get_file_at_row(priv->cur_file);
 
     if (f)
         toggle_file (this, f);
@@ -1636,7 +1619,7 @@ void GnomeCmdFileList::toggle()
 void GnomeCmdFileList::toggle_and_step()
 {
 
-    GnomeCmdFile *f = get_file_at_row (this, priv->cur_file);
+    GnomeCmdFile *f = get_file_at_row(priv->cur_file);
 
     if (f)
         toggle_file (this, f);
@@ -1654,7 +1637,7 @@ void GnomeCmdFileList::focus_file(const gchar *focus_file, gboolean scroll_to_fi
         g_return_if_fail (f != NULL);
         g_return_if_fail (f->info != NULL);
 
-        gint row = get_row_from_file (this, f);
+        gint row = get_row_from_file (f);
         if (row == -1)
             return;
 
@@ -1796,7 +1779,7 @@ void GnomeCmdFileList::sort()
     // refocus the previously selected file if this file list has the focus
     if (selfile && GTK_WIDGET_HAS_FOCUS (this))
     {
-        gint selrow = get_row_from_file (this, selfile);
+        gint selrow = get_row_from_file(selfile);
         select_row(selrow);
         gtk_clist_moveto (GTK_CLIST (this), selrow, -1, 1, 0);
     }
@@ -1806,18 +1789,6 @@ void GnomeCmdFileList::sort()
         select_file (this, GNOME_CMD_FILE (list->data));
 
     gtk_clist_thaw (*this);
-}
-
-
-GnomeCmdFile *gnome_cmd_file_list_get_file_at_row (GnomeCmdFileList *fl, gint row)
-{
-    return get_file_at_row (fl, row);
-}
-
-
-gint gnome_cmd_file_list_get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
-{
-    return get_row_from_file (fl, finfo);
 }
 
 

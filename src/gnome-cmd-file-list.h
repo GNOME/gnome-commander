@@ -99,6 +99,8 @@ struct GnomeCmdFileList
     void restore_selection();
 
     void select_row(gint row);
+    GnomeCmdFile *get_file_at_row(gint row)            {  return (GnomeCmdFile *) gtk_clist_get_row_data (*this, row);  }
+    gint get_row_from_file(GnomeCmdFile *f)            {  return gtk_clist_find_row_from_data (*this, f);               }
     void focus_file(const gchar *focus_file, gboolean scroll_to_file=TRUE);
 
     void toggle();
@@ -182,9 +184,6 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 }
 
 void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
-
-GnomeCmdFile *gnome_cmd_file_list_get_file_at_row (GnomeCmdFileList *fl, gint row);
-gint gnome_cmd_file_list_get_row_from_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo);
 
 void gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl);
