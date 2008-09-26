@@ -25,19 +25,19 @@ USE_DESC="
 	python: add support for python plugins"
 
 
-RDEPEND=">=x11-libs/gtk+-2.8.0
-        >=dev-libs/glib-2.6.0
-        >=gnome-base/libgnomeui-2.4.0
-        >=gnome-base/libgnome-2.4.0
-        >=gnome-base/gnome-vfs-2.0
+RDEPEND=">=x11-libs/gtk+-@GTK_REQ@
+        >=dev-libs/glib-@GLIB_REQ@
+        >=gnome-base/libgnomeui-@GNOMEUI_REQ@
+        >=gnome-base/libgnome-@GNOME_REQ@
+        >=gnome-base/gnome-vfs-@GNOMEVFS_REQ@
         || (
                 app-admin/gamin
                 app-admin/fam
         )
-        exif?   ( >=media-gfx/exiv2-0.14      )
-        gsf?    ( >=gnome-extra/libgsf-1.12.0 )
-        id3?    ( >=media-libs/taglib-1.4     )
-        python? ( >=dev-lang/python-2.4       )"
+        exif?   ( >=media-gfx/exiv2-@EXIV2_REQ@     )
+        gsf?    ( >=gnome-extra/libgsf-@LIBGSF_REQ@ )
+        id3?    ( >=media-libs/taglib-@TAGLIB_REQ@  )
+        python? ( >=dev-lang/python-@PYTHON_REQ@    )"
 
 
 
@@ -56,5 +56,5 @@ pkg_setup() {
                 $(use_with gsf  libgsf)
                 $(use_with id3  taglib)
                 $(use_enable python python)"
-		filter-ldflags -Wl,--as-needed
+                filter-ldflags -Wl,--as-needed
 }

@@ -56,6 +56,7 @@ POPPLER_REQ=0.6
 
 AC_SUBST(GLIB_REQ)
 AC_SUBST(GTK_REQ)
+AC_SUBST(GNOME_REQ)
 AC_SUBST(GNOMEUI_REQ)
 AC_SUBST(GNOMEVFS_REQ)
 AC_SUBST(PYTHON_REQ)
@@ -373,6 +374,7 @@ dnl =====================
 
 AC_OUTPUT([
 Makefile
+data/gnome-commander.ebuild
 data/gnome-commander.spec
 data/gnome-commander.desktop.in
 data/Makefile
