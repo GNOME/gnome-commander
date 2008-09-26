@@ -53,6 +53,6 @@ GtkWidget*
 gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode);
 
 GtkType
-gnome_cmd_patternsel_dialog_get_type (void);
+gnome_cmd_patternsel_dialog_get_type ();
 
 #endif // __GNOME_CMD_PATTERNSEL_DIALOG_H__

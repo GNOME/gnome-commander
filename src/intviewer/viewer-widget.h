@@ -52,8 +52,8 @@ struct _GViewerClass
     void (*status_line_changed)  (GViewer *obj, const gchar *statusline);
 };
 
-GtkWidget     *gviewer_new (void);
-GtkType        gviewer_get_type (void);
+GtkWidget     *gviewer_new ();
+GtkType        gviewer_get_type ();
 void           gviewer_set_client (GViewer *obj, GtkWidget *client);
 GtkWidget     *gviewer_get_client (GViewer *obj);
 

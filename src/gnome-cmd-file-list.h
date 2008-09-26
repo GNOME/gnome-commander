@@ -121,7 +121,7 @@ struct GnomeCmdFileList
     void show_files(GnomeCmdDir *dir);
     void show_dir_size(GnomeCmdFile *f);
 
-    void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (GTK_CLIST (this), col, value); }
+    void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (GTK_CLIST (this), col, value);  }
 
     ColumnID get_sort_column();
     static guint get_column_default_width(ColumnID col);

@@ -55,7 +55,7 @@ struct _GnomeCmdXferProgressWinClass
 
 GtkWidget *gnome_cmd_xfer_progress_win_new (guint no_of_files=0);
 
-GtkType gnome_cmd_xfer_progress_win_get_type (void);
+GtkType gnome_cmd_xfer_progress_win_get_type ();
 
 void gnome_cmd_xfer_progress_win_set_total_progress (GnomeCmdXferProgressWin *win,
                                                      GnomeVFSFileSize file_bytes_copied,

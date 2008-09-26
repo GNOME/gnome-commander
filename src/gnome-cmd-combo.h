@@ -78,7 +78,7 @@ struct _GnomeCmdComboClass
     void (* popwin_hidden)     (GnomeCmdCombo *combo);
 };
 
-guint gnome_cmd_combo_get_type (void);
+guint gnome_cmd_combo_get_type ();
 
 GtkWidget *gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles);
 

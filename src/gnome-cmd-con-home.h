@@ -49,8 +49,8 @@ struct _GnomeCmdConHomeClass
 };
 
 
-GtkType gnome_cmd_con_home_get_type (void);
+GtkType gnome_cmd_con_home_get_type ();
 
-GnomeCmdCon *gnome_cmd_con_home_new (void);
+GnomeCmdCon *gnome_cmd_con_home_new ();
 
 #endif // __GNOME_CMD_CON_HOME_H__

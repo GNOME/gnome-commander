@@ -53,9 +53,9 @@ struct _GnomeCmdMainWinClass
 extern GnomeCmdMainWin *main_win;
 
 
-GtkType gnome_cmd_main_win_get_type (void);
+GtkType gnome_cmd_main_win_get_type ();
 
-GtkWidget *gnome_cmd_main_win_new (void);
+GtkWidget *gnome_cmd_main_win_new ();
 
 GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *mw, FileSelectorID fs);
 gboolean gnome_cmd_main_win_is_fs_active (GnomeCmdMainWin *mw, FileSelectorID fs);

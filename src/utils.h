@@ -185,14 +185,14 @@ inline void set_cursor_default_for_widget (GtkWidget *widget)
         gdk_window_set_cursor (widget->window, NULL);
 }
 
-void set_cursor_busy (void);
-void set_cursor_default (void);
+void set_cursor_busy ();
+void set_cursor_default ();
 
 GList *app_get_linked_libs (GnomeCmdFile *finfo);
 gboolean app_needs_terminal (GnomeCmdFile *finfo);
 
 gchar *get_temp_download_filepath (const gchar *fname);
-void remove_temp_download_dir (void);
+void remove_temp_download_dir ();
 
 GtkWidget *create_ui_pixmap (GtkWidget *window,
                              GnomeUIPixmapType pixmap_type,

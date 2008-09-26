@@ -46,9 +46,9 @@ struct _GnomeCmdCmdlineClass
 };
 
 
-GtkWidget *gnome_cmd_cmdline_new (void);
+GtkWidget *gnome_cmd_cmdline_new ();
 
-GtkType gnome_cmd_cmdline_get_type (void);
+GtkType gnome_cmd_cmdline_get_type ();
 
 GtkWidget *gnome_cmd_cmdline_get_entry (GnomeCmdCmdline *cmdline);
 

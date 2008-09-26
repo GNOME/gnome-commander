@@ -45,7 +45,7 @@ struct _GViewerSearchProgressDlgClass
     GtkDialogClass parent_class;
 };
 
-GType gviewer_search_progress_dlg_get_type (void);
+GType gviewer_search_progress_dlg_get_type ();
 
 void gviewer_show_search_progress_dlg(GtkWindow *parent,
                                       const gchar *searching_text,

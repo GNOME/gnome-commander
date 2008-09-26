@@ -48,15 +48,15 @@ typedef struct
     GList *groups;
 } user_t;
 
-void OWNER_init (void);
-void OWNER_free (void);
-user_t *OWNER_get_program_user (void);
+void OWNER_init ();
+void OWNER_free ();
+user_t *OWNER_get_program_user ();
 user_t *OWNER_get_user_by_uid (uid_t uid);
 group_t *OWNER_get_group_by_gid (gid_t gid);
 user_t *OWNER_get_user_by_name (const char *name);
 group_t *OWNER_get_group_by_name (const char *name);
-GList *OWNER_get_all_users (void);
-GList *OWNER_get_all_groups (void);
+GList *OWNER_get_all_users ();
+GList *OWNER_get_all_groups ();
 const gchar *OWNER_get_name_by_uid (uid_t uid);
 const gchar *OWNER_get_name_by_gid (gid_t gid);
 uid_t OWNER_get_uid_by_name (const gchar *name);

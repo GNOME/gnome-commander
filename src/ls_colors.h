@@ -30,7 +30,7 @@ typedef struct
     GdkColor *fg, *bg;
 } LsColor;
 
-void     ls_colors_init (void);
+void     ls_colors_init ();
 LsColor *ls_colors_get (GnomeCmdFile *finfo);
 
 #endif // __LS_COLORS_H__

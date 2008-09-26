@@ -63,6 +63,6 @@ extern guint advrename_dialog_default_res_column_width[ADVRENAME_DIALOG_RES_NUM_
 
 GtkWidget *gnome_cmd_advrename_dialog_new (GList *files);
 
-GtkType gnome_cmd_advrename_dialog_get_type (void);
+GtkType gnome_cmd_advrename_dialog_get_type ();
 
 #endif // __GNOME_CMD_ADVRENAME_DIALOG_H__

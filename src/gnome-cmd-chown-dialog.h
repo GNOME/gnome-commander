@@ -52,6 +52,6 @@ GtkWidget*
 gnome_cmd_chown_dialog_new (GList *files);
 
 GtkType
-gnome_cmd_chown_dialog_get_type (void);
+gnome_cmd_chown_dialog_get_type ();
 
 #endif // __GNOME_CMD_CHOWN_DIALOG_H__

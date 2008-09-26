@@ -76,8 +76,8 @@ struct _EggCellRendererKeysClass
                         guint                   hardware_keycode);
 };
 
-GType egg_cell_renderer_keys_get_type (void);
-GtkCellRenderer *egg_cell_renderer_keys_new (void);
+GType egg_cell_renderer_keys_get_type ();
+GtkCellRenderer *egg_cell_renderer_keys_new ();
 
 #ifndef HAVE_GTK_2_10
 typedef enum

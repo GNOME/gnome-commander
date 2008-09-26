@@ -49,7 +49,7 @@ struct _GnomeCmdConDeviceClass
 };
 
 
-GtkType gnome_cmd_con_device_get_type (void);
+GtkType gnome_cmd_con_device_get_type ();
 
 GnomeCmdConDevice *gnome_cmd_con_device_new (const gchar *alias, const gchar *device_fn, const gchar *mountp, const gchar *icon_path);
 

@@ -45,10 +45,10 @@ struct _GnomeCmdRemoteDialogClass
 };
 
 
-GtkType gnome_cmd_remote_dialog_get_type (void);
+GtkType gnome_cmd_remote_dialog_get_type ();
 
-GtkWidget *gnome_cmd_remote_dialog_new (void);
+GtkWidget *gnome_cmd_remote_dialog_new ();
 
-void show_quick_connect_dialog (void);
+void show_quick_connect_dialog ();
 
 #endif // __GNOME_CMD_REMOTE_DIALOG_H__

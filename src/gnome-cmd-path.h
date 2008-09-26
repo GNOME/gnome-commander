@@ -50,7 +50,7 @@ struct _GnomeCmdPathClass
 };
 
 
-GtkType gnome_cmd_path_get_type (void);
+GtkType gnome_cmd_path_get_type ();
 
 const gchar *gnome_cmd_path_get_path (GnomeCmdPath *path);
 

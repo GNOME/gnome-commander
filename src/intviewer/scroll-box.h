@@ -44,8 +44,8 @@ struct _ScrollBoxClass
     GtkTableClass parent_class;
 };
 
-GtkWidget     *scroll_box_new (void);
-GtkType        scroll_box_get_type (void);
+GtkWidget     *scroll_box_new ();
+GtkType        scroll_box_get_type ();
 void           scroll_box_set_client (ScrollBox *obj, GtkWidget *client);
 GtkWidget     *scroll_box_get_client (ScrollBox *obj);
 

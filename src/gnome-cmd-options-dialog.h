@@ -57,7 +57,7 @@ struct GnomeCmdOptionsDialog
 };
 
 
-GtkType gnome_cmd_options_dialog_get_type (void);
-GtkWidget *gnome_cmd_options_dialog_new (void);
+GtkType gnome_cmd_options_dialog_get_type ();
+GtkWidget *gnome_cmd_options_dialog_new ();
 
 #endif // __GNOME_CMD_OPTIONS_DIALOG_H__

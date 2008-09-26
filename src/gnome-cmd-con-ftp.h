@@ -46,7 +46,7 @@ struct _GnomeCmdConFtpClass
 };
 
 
-GtkType gnome_cmd_con_ftp_get_type (void);
+GtkType gnome_cmd_con_ftp_get_type ();
 
 GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const std::string &uri);
 GnomeCmdConFtp *gnome_cmd_con_ftp_new (const gchar *alias, const gchar *host, guint port, const gchar *user, const gchar *password, const gchar *remote_dir);

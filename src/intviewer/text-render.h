@@ -65,8 +65,8 @@ struct _TextRenderStatus
 };
 
 
-GtkWidget     *text_render_new (void);
-GtkType        text_render_get_type        (void);
+GtkWidget     *text_render_new ();
+GtkType        text_render_get_type ();
 
 GtkAdjustment *text_render_get_h_adjustment (TextRender *obj);
 void           text_render_set_h_adjustment (TextRender *obj, GtkAdjustment *adjustment);

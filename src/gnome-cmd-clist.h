@@ -50,7 +50,7 @@ struct _GnomeCmdCListClass
 
 
 
-GtkType gnome_cmd_clist_get_type (void);
+GtkType gnome_cmd_clist_get_type ();
 
 GtkWidget *gnome_cmd_clist_new_with_titles (gint columns, gchar **titles);
 

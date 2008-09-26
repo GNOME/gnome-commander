@@ -41,7 +41,7 @@ struct _GnomeCmdApp
     GnomeCmdAppPrivate *priv;
 };
 
-GnomeCmdApp *gnome_cmd_app_new (void);
+GnomeCmdApp *gnome_cmd_app_new ();
 
 GnomeCmdApp *gnome_cmd_app_new_from_vfs_app (GnomeVFSMimeApplication *vfs_app);
 

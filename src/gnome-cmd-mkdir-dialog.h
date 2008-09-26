@@ -54,6 +54,6 @@ GtkWidget*
 gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir);
 
 GtkType
-gnome_cmd_mkdir_dialog_get_type (void);
+gnome_cmd_mkdir_dialog_get_type ();
 
 #endif // __GNOME_CMD_MKDIR_DIALOG_H__

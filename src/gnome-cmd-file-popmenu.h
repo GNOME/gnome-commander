@@ -52,6 +52,6 @@ struct _GnomeCmdFilePopmenuClass
 
 GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl);
 
-GtkType gnome_cmd_file_popmenu_get_type (void);
+GtkType gnome_cmd_file_popmenu_get_type ();
 
 #endif // __GNOME_CMD_FILE_POPMENU_H__

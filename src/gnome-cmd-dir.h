@@ -85,7 +85,7 @@ struct _GnomeCmdDirClass
 
 typedef struct _GnomeCmdCon GnomeCmdCon;
 
-GtkType gnome_cmd_dir_get_type (void);
+GtkType gnome_cmd_dir_get_type ();
 
 GnomeCmdDir *gnome_cmd_dir_new_from_info (GnomeVFSFileInfo *info, GnomeCmdDir *parent);
 GnomeCmdDir *gnome_cmd_dir_new_with_con (GnomeVFSFileInfo *info, GnomeCmdPath *path, GnomeCmdCon *con);

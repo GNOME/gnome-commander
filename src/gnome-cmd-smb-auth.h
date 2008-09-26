@@ -21,6 +21,6 @@
 #ifndef __GNOME_CMD_SMB_AUTH_H__
 #define __GNOME_CMD_SMB_AUTH_H__
 
-void gnome_cmd_smb_auth_init (void);
+void gnome_cmd_smb_auth_init ();
 
 #endif // __GNOME_CMD_SMB_AUTH_H__

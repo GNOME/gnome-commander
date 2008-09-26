@@ -68,14 +68,11 @@ struct _GViewerWindowClass
 };
 
 
-GtkType
-gviewer_window_get_type         (void);
+GtkType gviewer_window_get_type ();
 
-GtkWidget*
-gviewer_window_new              (GViewerWindowSettings *initial_settings);
+GtkWidget *gviewer_window_new (GViewerWindowSettings *initial_settings);
 
-void
-gviewer_window_load_file    (GViewerWindow *obj, const gchar *filename);
+void gviewer_window_load_file (GViewerWindow *obj, const gchar *filename);
 
 GtkWidget *gviewer_window_file_view (const gchar * filename, GViewerWindowSettings *initial_settings);
 

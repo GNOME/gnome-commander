@@ -70,6 +70,6 @@ gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from,
                                    GnomeCmdFileSelector *to);
 
 GtkType
-gnome_cmd_prepare_xfer_dialog_get_type (void);
+gnome_cmd_prepare_xfer_dialog_get_type ();
 
 #endif // __GNOME_CMD_PREPARE_XFER_DIALOG_H__

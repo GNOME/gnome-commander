@@ -52,7 +52,7 @@ struct _GnomeCmdDirIndicatorClass
 
 
 GtkType
-gnome_cmd_dir_indicator_get_type (void);
+gnome_cmd_dir_indicator_get_type ();
 
 GtkWidget *
 gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs);

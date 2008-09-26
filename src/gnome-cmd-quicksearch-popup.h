@@ -54,10 +54,8 @@ struct _GnomeCmdQuicksearchPopupClass
 };
 
 
-GtkType
-gnome_cmd_quicksearch_popup_get_type         (void);
+GtkType gnome_cmd_quicksearch_popup_get_type ();
 
-GtkWidget*
-gnome_cmd_quicksearch_popup_new              (GnomeCmdFileList *fl);
+GtkWidget *gnome_cmd_quicksearch_popup_new (GnomeCmdFileList *fl);
 
 #endif // __GNOME_CMD_QUICKSEARCH_POPUP_TYPES_H__

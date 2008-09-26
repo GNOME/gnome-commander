@@ -67,8 +67,8 @@ typedef enum
     FLIP_HORIZONTAL
 } IMAGEOPERATION;
 
-GtkWidget     *image_render_new (void);
-GtkType        image_render_get_type (void);
+GtkWidget     *image_render_new ();
+GtkType        image_render_get_type ();
 
 GtkAdjustment *image_render_get_h_adjustment (ImageRender *obj);
 void           image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment);

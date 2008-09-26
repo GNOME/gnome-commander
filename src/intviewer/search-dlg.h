@@ -50,7 +50,7 @@ struct _GViewerSearchDlgClass
     GtkDialogClass parent_class;
 };
 
-GType gviewer_search_dlg_get_type (void);
+GType gviewer_search_dlg_get_type ();
 
 GtkWidget *gviewer_search_dlg_new (GtkWindow *parent);
 

@@ -51,8 +51,8 @@ typedef enum
 } Pixmap;
 
 
-void IMAGE_init (void);
-void IMAGE_free (void);
+void IMAGE_init ();
+void IMAGE_free ();
 
 GdkPixmap *IMAGE_get_pixmap (Pixmap pixmap_id);
 GdkBitmap *IMAGE_get_mask (Pixmap pixmap_id);
@@ -65,6 +65,6 @@ gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
                                     GdkPixmap **pixmap,
                                     GdkBitmap **mask);
 
-void IMAGE_clear_mime_cache (void);
+void IMAGE_clear_mime_cache ();
 
 #endif // __IMAGELOADER_H__

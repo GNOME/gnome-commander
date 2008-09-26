@@ -101,8 +101,8 @@ struct GnomeCmdFileSelector
 };
 
 
-GtkType gnome_cmd_file_selector_get_type (void);
-GtkWidget *gnome_cmd_file_selector_new (void);
+GtkType gnome_cmd_file_selector_get_type ();
+GtkWidget *gnome_cmd_file_selector_new ();
 
 void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, FileSelectorID fsID);
 

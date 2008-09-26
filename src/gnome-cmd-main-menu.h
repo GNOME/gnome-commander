@@ -50,9 +50,9 @@ struct _GnomeCmdMainMenuClass
 };
 
 
-GtkWidget * gnome_cmd_main_menu_new (void);
+GtkWidget *gnome_cmd_main_menu_new ();
 
-GtkType gnome_cmd_main_menu_get_type (void);
+GtkType gnome_cmd_main_menu_get_type ();
 
 void gnome_cmd_main_menu_update_connections (GnomeCmdMainMenu *main_menu);
 

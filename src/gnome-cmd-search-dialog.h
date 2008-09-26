@@ -51,10 +51,8 @@ struct _GnomeCmdSearchDialogClass
 };
 
 
-GtkType
-gnome_cmd_search_dialog_get_type            (void);
+GtkType gnome_cmd_search_dialog_get_type ();
 
-GtkWidget*
-gnome_cmd_search_dialog_new                 (GnomeCmdDir *default_dir);
+GtkWidget *gnome_cmd_search_dialog_new (GnomeCmdDir *default_dir);
 
 #endif // __GNOME_CMD_SEARCH_DIALOG_H__

@@ -50,10 +50,10 @@ struct _GnomeCmdChownComponentClass
 
 
 GtkWidget*
-gnome_cmd_chown_component_new (void);
+gnome_cmd_chown_component_new ();
 
 GtkType
-gnome_cmd_chown_component_get_type (void);
+gnome_cmd_chown_component_get_type ();
 
 void
 gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t group);

@@ -1366,7 +1366,7 @@ void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_DIR (fs->priv->cwd));
     g_return_if_fail (GNOME_CMD_IS_CON (fs->priv->con));
 
-    if (!gnome_cmd_con_is_local (fs->priv->con))
+    if (!fs->is_local())
         return;
 
     // create a command with an empty argument to the editor

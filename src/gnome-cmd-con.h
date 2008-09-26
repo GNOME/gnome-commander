@@ -127,7 +127,7 @@ struct _GnomeCmdConClass
 };
 
 
-GtkType gnome_cmd_con_get_type (void);
+GtkType gnome_cmd_con_get_type ();
 
 
 void gnome_cmd_con_open (GnomeCmdCon *con);

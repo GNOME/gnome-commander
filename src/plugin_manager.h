@@ -37,9 +37,9 @@ struct PluginData
 };
 
 
-void plugin_manager_init (void);
-void plugin_manager_shutdown (void);
-GList *plugin_manager_get_all (void);
-void plugin_manager_show (void);
+void plugin_manager_init ();
+void plugin_manager_shutdown ();
+GList *plugin_manager_get_all ();
+void plugin_manager_show ();
 
 #endif // __PLUGIN_MANAGER_H__

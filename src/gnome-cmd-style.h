@@ -23,6 +23,6 @@
 
 extern GtkStyle *list_style, *sel_list_style;
 
-void gnome_cmd_style_create (void);
+void gnome_cmd_style_create ();
 
 #endif // __GNOME_CMD_STYLE_H__

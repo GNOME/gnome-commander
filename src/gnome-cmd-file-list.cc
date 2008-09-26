@@ -237,7 +237,7 @@ inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
     text[GnomeCmdFileList::COLUMN_EXT]   = fext;
     text[GnomeCmdFileList::COLUMN_DIR]   = dpath;
     text[GnomeCmdFileList::COLUMN_SIZE]  = tree_size ? (gchar *) gnome_cmd_file_get_tree_size_as_str (f) :
-                                               (gchar *) gnome_cmd_file_get_size (f);
+                                                       (gchar *) gnome_cmd_file_get_size (f);
     text[GnomeCmdFileList::COLUMN_DATE]  = (gchar *) gnome_cmd_file_get_mdate (f, FALSE);
     text[GnomeCmdFileList::COLUMN_PERM]  = (gchar *) gnome_cmd_file_get_perm (f);
     text[GnomeCmdFileList::COLUMN_OWNER] = (gchar *) gnome_cmd_file_get_owner (f);
