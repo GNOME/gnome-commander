@@ -313,7 +313,7 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
 
 
     // Scale the pixmap if needed
-    h = gnome_cmd_data_get_icon_size();
+    h = gnome_cmd_data.icon_size;
     if (h != gdk_pixbuf_get_height (pixbuf))
     {
         scale = (gfloat)h/(gfloat)gdk_pixbuf_get_height (pixbuf);

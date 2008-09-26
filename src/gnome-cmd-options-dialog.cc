@@ -534,7 +534,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
     gtk_object_set_data (GTK_OBJECT (parent), "mime_icon_settings_frame", cat);
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
-    spin = create_spin (parent, "iconsize_spin", 8, 64, gnome_cmd_data_get_icon_size());
+    spin = create_spin (parent, "iconsize_spin", 8, 64, gnome_cmd_data.icon_size);
     table_add (table, spin, 1, 0, (GtkAttachOptions) GTK_FILL);
     scale = create_scale (parent, "iconquality_scale", gnome_cmd_data_get_icon_scale_quality (), 0, 3);
     table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
@@ -588,7 +588,7 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
 
     gnome_cmd_data_set_theme_icon_dir (gtk_entry_get_text (GTK_ENTRY (theme_icondir_entry)));
     gnome_cmd_data_set_document_icon_dir (gtk_entry_get_text (GTK_ENTRY (doc_icondir_entry)));
-    gnome_cmd_data_set_icon_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin)));
+    gnome_cmd_data.icon_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin));
 
     GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
     gnome_cmd_data_set_icon_scale_quality ((GdkInterpType) adj->value);

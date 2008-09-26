@@ -111,7 +111,7 @@ static void class_init (GnomeCmdConHomeClass *klass)
 
 static void init (GnomeCmdConHome *home_con)
 {
-    guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
+    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
 
     GnomeCmdCon *con = GNOME_CMD_CON (home_con);
 

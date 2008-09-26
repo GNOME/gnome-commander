@@ -171,7 +171,7 @@ static void class_init (GnomeCmdConFtpClass *klass)
 
 static void init (GnomeCmdConFtp *ftp_con)
 {
-    guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
+    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
     gint icon_size;
 
     g_assert (gtk_icon_size_lookup (GTK_ICON_SIZE_LARGE_TOOLBAR, &icon_size, NULL));

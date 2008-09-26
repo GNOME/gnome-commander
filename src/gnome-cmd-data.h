@@ -117,6 +117,8 @@ struct GnomeCmdData
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;
 
+    guint                        icon_size;
+    guint                        dev_icon_size;
     gint                         list_row_height;
     guint                        gui_update_rate;
 
@@ -187,10 +189,6 @@ void gnome_cmd_data_set_list_font (const gchar *list_font);
 const gchar *gnome_cmd_data_get_term ();
 void gnome_cmd_data_set_term (const gchar *shell);
 
-guint gnome_cmd_data_get_icon_size ();
-void gnome_cmd_data_set_icon_size (guint size);
-
-guint gnome_cmd_data_get_dev_icon_size ();
 GdkInterpType gnome_cmd_data_get_icon_scale_quality ();
 void gnome_cmd_data_set_icon_scale_quality (GdkInterpType quality);
 

@@ -471,7 +471,7 @@ void gnome_cmd_con_device_set_icon_path (GnomeCmdConDevice *dev, const gchar *ic
 
     if (icon_path)
     {
-        guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
+        guint dev_icon_size = gnome_cmd_data.dev_icon_size;
 
         con->go_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);
         con->open_pixmap = gnome_cmd_pixmap_new_from_file (icon_path, dev_icon_size, dev_icon_size);

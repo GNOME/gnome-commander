@@ -209,7 +209,7 @@ class_init (GnomeCmdConSmbClass *klass)
 static void
 init (GnomeCmdConSmb *smb_con)
 {
-    guint dev_icon_size = gnome_cmd_data_get_dev_icon_size ();
+    guint dev_icon_size = gnome_cmd_data.dev_icon_size;
 
     GnomeCmdCon *con = GNOME_CMD_CON (smb_con);
 

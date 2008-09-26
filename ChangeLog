@@ -1,3 +1,15 @@
+2008-09-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-con-device.cc:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-con-home.cc:
+	* src/gnome-cmd-con-smb.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/imageloader.cc:
+	GnomeCmdData: more C++ rework
+
 2008-09-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

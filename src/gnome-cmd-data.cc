@@ -56,8 +56,6 @@ struct GnomeCmdData::Private
     GnomeCmdLayout       layout;
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
     gchar                *list_font;
-    guint                icon_size;
-    guint                dev_icon_size;
     GdkInterpType        icon_scale_quality;
     gchar                *theme_icon_dir;
     gchar                *document_icon_dir;
@@ -1114,6 +1112,8 @@ GnomeCmdData::GnomeCmdData()
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
 
+    icon_size = 16;
+    dev_icon_size = 16;
     list_row_height = 16;
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
 
@@ -1284,8 +1284,8 @@ void GnomeCmdData::load()
 
     ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
     right_mouse_button_mode = (GnomeCmdData::RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU);
-    priv->icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
-    priv->dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
+    icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
+    dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
     priv->icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
     priv->theme_icon_dir = gnome_cmd_data_get_string ("/options/theme_icon_dir", theme_icon_dir);
     g_free (theme_icon_dir);
@@ -1635,8 +1635,8 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_int    ("/options/ext_disp_mode", ext_disp_mode);
     gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", right_mouse_button_mode);
-    gnome_cmd_data_set_int    ("/options/icon_size", priv->icon_size);
-    gnome_cmd_data_set_int    ("/options/dev_icon_size", priv->dev_icon_size);
+    gnome_cmd_data_set_int    ("/options/icon_size", icon_size);
+    gnome_cmd_data_set_int    ("/options/dev_icon_size", dev_icon_size);
     gnome_cmd_data_set_int    ("/options/icon_scale_quality", priv->icon_scale_quality);
     gnome_cmd_data_set_string ("/options/theme_icon_dir", priv->theme_icon_dir);
     gnome_cmd_data_set_string ("/options/document_icon_dir", priv->document_icon_dir);
@@ -1904,32 +1904,13 @@ void gnome_cmd_data_set_list_font (const gchar *list_font)
 }
 
 
-guint gnome_cmd_data_get_icon_size ()
-{
-    return gnome_cmd_data.priv->icon_size;
-}
-
-
-void gnome_cmd_data_set_icon_size (guint size)
-{
-    gnome_cmd_data.priv->icon_size = size;
-}
-
-
-guint gnome_cmd_data_get_dev_icon_size ()
-{
-    return gnome_cmd_data.priv->dev_icon_size;
-}
-
-
 GdkInterpType gnome_cmd_data_get_icon_scale_quality ()
 {
     return gnome_cmd_data.priv->icon_scale_quality;
 }
 
 
-void
-gnome_cmd_data_set_icon_scale_quality (GdkInterpType quality)
+void gnome_cmd_data_set_icon_scale_quality (GdkInterpType quality)
 {
     gnome_cmd_data.priv->icon_scale_quality = quality;
 }
