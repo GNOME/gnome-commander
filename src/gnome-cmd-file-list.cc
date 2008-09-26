@@ -1645,35 +1645,33 @@ void GnomeCmdFileList::toggle_and_step()
 }
 
 
-void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file)
+void GnomeCmdFileList::focus_file(const gchar *focus_file, gboolean scroll_to_file)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    for (GList *tmp = fl->get_visible_files(); tmp; tmp = tmp->next)
+    for (GList *tmp = get_visible_files(); tmp; tmp = tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
 
-        g_return_if_fail (finfo != NULL);
-        g_return_if_fail (finfo->info != NULL);
+        g_return_if_fail (f != NULL);
+        g_return_if_fail (f->info != NULL);
 
-        gint row = get_row_from_file (fl, finfo);
+        gint row = get_row_from_file (this, f);
         if (row == -1)
             return;
 
-        if (strcmp (finfo->info->name, focus_file) == 0)
+        if (strcmp (f->info->name, focus_file) == 0)
         {
-            fl->priv->cur_file = row;
-            focus_file_at_row (fl, row);
+            priv->cur_file = row;
+            focus_file_at_row (this, row);
             if (scroll_to_file)
-                gtk_clist_moveto (*fl, row, 0, 0, 0);
+                gtk_clist_moveto (*this, row, 0, 0, 0);
             return;
         }
     }
 
     /* The file was not found, remember the filename in case the file gets
        added to the list in the future (after a FAM event etc). */
-    g_free (fl->priv->focus_later);
-    fl->priv->focus_later = g_strdup (focus_file);
+    g_free (priv->focus_later);
+    priv->focus_later = g_strdup (focus_file);
 }
 
 

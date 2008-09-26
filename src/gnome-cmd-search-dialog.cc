@@ -644,7 +644,7 @@ static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
     fs->goto_directory(dpath);
-    gnome_cmd_file_list_focus_file (fs->file_list(), gnome_cmd_file_get_name (finfo), TRUE);
+    fs->file_list()->focus_file(gnome_cmd_file_get_name (finfo), TRUE);
 
     g_free (fpath);
     g_free (dpath);

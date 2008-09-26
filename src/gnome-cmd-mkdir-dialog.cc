@@ -120,7 +120,7 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
                 string mkdir_uri_str = stringify (gnome_vfs_uri_to_string (mkdir_uri, GNOME_VFS_URI_HIDE_NONE));
 
                 gnome_cmd_dir_file_created (dialog->priv->dir, mkdir_uri_str.c_str());
-                gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_fs (main_win, ACTIVE)->file_list(), focus_filename.c_str(), TRUE);
+                gnome_cmd_main_win_get_fs (main_win, ACTIVE)->file_list()->focus_file(focus_filename.c_str(), TRUE);
                 new_dir_focused = TRUE;
             }
     }

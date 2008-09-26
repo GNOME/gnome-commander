@@ -99,6 +99,7 @@ struct GnomeCmdFileList
     void restore_selection();
 
     void select_row(gint row);
+    void focus_file(const gchar *focus_file, gboolean scroll_to_file=TRUE);
 
     void toggle();
     void toggle_and_step();
@@ -179,8 +180,6 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 
     return !f || strcmp (f->info->name, "..") == 0 ? NULL : f;
 }
-
-void gnome_cmd_file_list_focus_file (GnomeCmdFileList *fl, const gchar *focus_file, gboolean scroll_to_file);
 
 void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
 

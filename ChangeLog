@@ -10,6 +10,15 @@
 	* src/imageloader.cc:
 	GnomeCmdData: more C++ rework
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-mkdir-dialog.cc:
+	* src/gnome-cmd-rename-dialog.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	gnome_cmd_file_list_focus_file() -> GnomeCmdFileList::focus_file()
+
 2008-09-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

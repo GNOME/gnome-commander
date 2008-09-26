@@ -219,7 +219,7 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
         result = gnome_cmd_file_rename (data->finfo, filename);
 
         if (result==GNOME_VFS_OK)
-            gnome_cmd_file_list_focus_file (gnome_cmd_main_win_get_fs (main_win, ACTIVE)->file_list(), filename, TRUE);
+            gnome_cmd_main_win_get_fs (main_win, ACTIVE)->file_list()->focus_file(filename, TRUE);
     }
 
     if (result == GNOME_VFS_OK)

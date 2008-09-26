@@ -716,7 +716,7 @@ void GnomeCmdFileSelector::goto_directory(const gchar *in_dir)
 
     // focus the current dir when going back to the parent dir
     if (focus_dir)
-        gnome_cmd_file_list_focus_file (file_list(), focus_dir, FALSE);
+        file_list()->focus_file(focus_dir, FALSE);
 
     g_free (dir);
 }
