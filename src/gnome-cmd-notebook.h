@@ -49,14 +49,17 @@ struct GnomeCmdNotebook
     int size()                          {  return gtk_notebook_get_n_pages (*this);  }
     bool empty()                        {  return size()==0;  }
 
-    GtkWidget *page()                   {  return gtk_notebook_get_nth_page (*this, gtk_notebook_get_current_page (*this));  }
+    gint get_current_page()             {  return gtk_notebook_get_current_page (*this);  }
+    void set_current_page(gint n)       {  gtk_notebook_set_current_page (*this, n);      }
+
+    GtkWidget *page()                   {  return gtk_notebook_get_nth_page (*this, get_current_page());  }
     GtkWidget *page(gint n)             {  return gtk_notebook_get_nth_page (*this, n);  }
 
     gint insert_page(GtkWidget *page, gint n, const gchar *label=NULL);
     gint prepend_page(GtkWidget *page, const gchar *label=NULL)             {  return insert_page(page, 0, label);   }
     gint append_page(GtkWidget *page, const gchar *label=NULL)              {  return insert_page(page, -1, label);  }
 
-    void remove_page()                  {  gtk_notebook_remove_page (*this, gtk_notebook_get_current_page (*this));  }
+    void remove_page()                  {  gtk_notebook_remove_page (*this, get_current_page());  }
     void remove_page(gint n)            {  gtk_notebook_remove_page (*this, n);  }
 
     void set_label(const gchar *label=NULL);
@@ -82,6 +85,26 @@ inline void GnomeCmdNotebook::set_label(const gchar *label)
 inline void GnomeCmdNotebook::set_label(gint n, const gchar *label)
 {
     gtk_notebook_set_tab_label (*this, page(n), label ? gtk_label_new (label) : NULL);
+}
+
+inline void GnomeCmdNotebook::prev_page()
+{
+    if (get_current_page()>0)
+        gtk_notebook_prev_page (*this);
+    else
+        if (size()>1)
+            set_current_page(-1);
+}
+
+inline void GnomeCmdNotebook::next_page()
+{
+    int n = size();
+
+    if (get_current_page()+1<n)
+        gtk_notebook_next_page (*this);
+    else
+        if (n>1)
+            set_current_page(0);
 }
 
 #endif // __GNOME_CMD_NOTEBOOK_H__
