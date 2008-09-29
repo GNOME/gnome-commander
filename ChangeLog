@@ -3,6 +3,9 @@
 	* src/gnome-cmd-notebook.h:
 	notebook: added missing prev_page() and next_page()
 
+	* src/gnome-cmd-file-list.cc:
+	Simplify and speedup GnomeCmdFileList::file_is_wanted()
+
 2008-09-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-delete-dialog.cc:
