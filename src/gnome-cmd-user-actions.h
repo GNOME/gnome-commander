@@ -64,7 +64,7 @@ inline std::string key2str(guint state, guint key_val)
     if (state & GDK_SHIFT_MASK)    key_name += gdk_modifiers_names[GDK_SHIFT_MASK];
     if (state & GDK_CONTROL_MASK)  key_name += gdk_modifiers_names[GDK_CONTROL_MASK];
     if (state & GDK_MOD1_MASK)     key_name += gdk_modifiers_names[GDK_MOD1_MASK];
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     if (state & GDK_SUPER_MASK)    key_name += gdk_modifiers_names[GDK_SUPER_MASK];
     if (state & GDK_HYPER_MASK)    key_name += gdk_modifiers_names[GDK_HYPER_MASK];
     if (state & GDK_META_MASK)     key_name += gdk_modifiers_names[GDK_META_MASK];

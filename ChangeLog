@@ -6,6 +6,14 @@
 	* src/gnome-cmd-file-list.cc:
 	Simplify and speedup GnomeCmdFileList::file_is_wanted()
 
+	* configure.in:
+	* src/eggcellrendererkeys.cc:
+	* src/eggcellrendererkeys.h:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-user-actions.cc:
+	* src/gnome-cmd-user-actions.h:
+	Replace HAVE_GTK_2_10 with GTK_CHECK_VERSION(2,10,0)
+
 2008-09-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-delete-dialog.cc:

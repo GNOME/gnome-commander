@@ -240,13 +240,13 @@ gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods)
     static const gchar text_mod1[] = "Alt+";
     static const gchar text_mod2[] = "Mod2+";
     static const gchar text_mod3[] = "Mod3+";
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     static const gchar text_mod4[] = "Mod4+";
 #else
     static const gchar text_mod4[] = "Super+";
 #endif
     static const gchar text_mod5[] = "Mod5+";
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     static const gchar text_meta[] = "Meta+";
     static const gchar text_super[] = "Super+";
     static const gchar text_hyper[] = "Hyper+";
@@ -272,7 +272,7 @@ gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods)
         l += sizeof(text_mod4)-1;
     if (accel_mods & GDK_MOD5_MASK)
         l += sizeof(text_mod5)-1;
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     if (accel_mods & GDK_META_MASK)
         l += sizeof(text_meta)-1;
     if (accel_mods & GDK_HYPER_MASK)
@@ -319,7 +319,7 @@ gchar *egg_accelerator_get_label (guint accel_key, GdkModifierType accel_mods)
       strcpy (s, text_mod5);
       s +=  sizeof(text_mod5)-1;
     }
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     if (accel_mods & GDK_META_MASK)
     {
       strcpy (s, text_meta);
@@ -445,7 +445,7 @@ void egg_cell_renderer_keys_get_size (GtkCellRenderer *cell,
 
 static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCellRendererKeys *keys)
 {
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     if (event->is_modifier)
         return TRUE;
 #else
@@ -482,7 +482,7 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
     if (accel_key == GDK_ISO_Left_Tab)
         accel_key = GDK_Tab;
 
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     accel_mods = event->state & gtk_accelerator_get_default_mod_mask ();
 #else
     accel_mods = event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);

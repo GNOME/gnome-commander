@@ -110,7 +110,7 @@ inline bool operator < (const GdkEventKey &e1, const GdkEventKey &e2)
     if (e1.keyval > e2.keyval)
         return false;
 
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK));
 #else
     return (e1.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK)) < (e2.state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK));
@@ -243,7 +243,7 @@ void GnomeCmdUserActions::init()
     if (!registered("edit.search"))
     {
         register_action(GDK_MOD1_MASK, GDK_F7, "edit.search");
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
         register_action(GDK_SUPER_MASK, GDK_F, "edit.search");
 #else
         register_action(GDK_MOD4_MASK, GDK_F, "edit.search");
@@ -439,7 +439,7 @@ gboolean GnomeCmdUserActions::register_action(guint state, guint keyval, const g
     GdkEventKey event;
 
     event.keyval = keyval;
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
 #else
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
@@ -471,7 +471,7 @@ void GnomeCmdUserActions::unregister(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
 #else
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);
@@ -503,7 +503,7 @@ gboolean GnomeCmdUserActions::registered(guint state, guint keyval)
     GdkEventKey event;
 
     event.keyval = keyval;
-#ifdef HAVE_GTK_2_10
+#if GTK_CHECK_VERSION (2, 10, 0)
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_SUPER_MASK | GDK_HYPER_MASK | GDK_META_MASK);
 #else
     event.state = state & (GDK_SHIFT_MASK | GDK_CONTROL_MASK | GDK_MOD1_MASK | GDK_MOD4_MASK);

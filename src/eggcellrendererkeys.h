@@ -79,7 +79,7 @@ struct _EggCellRendererKeysClass
 GType egg_cell_renderer_keys_get_type ();
 GtkCellRenderer *egg_cell_renderer_keys_new ();
 
-#ifndef HAVE_GTK_2_10
+#if !GTK_CHECK_VERSION (2, 10, 0)
 typedef enum
 {
   GTK_CELL_RENDERER_ACCEL_MODE_GTK,
