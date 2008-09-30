@@ -27,6 +27,7 @@
 #define GNOME_CMD_IS_FILE_LIST(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_file_list_get_type ())
 
 #include "gnome-cmd-file.h"
+#include "gnome-cmd-dir.h"
 #include "gnome-cmd-clist.h"
 
 
@@ -72,6 +73,13 @@ struct GnomeCmdFileList
         COLUMN_GROUP,
         NUM_COLUMNS
     };
+
+    GnomeCmdCon *con;
+    GnomeCmdDir *cwd, *lwd;         // current & last working dir
+    GnomeCmdDir *connected_dir;
+
+    GnomeCmdFileList();
+    ~GnomeCmdFileList();
 
     int size();
     bool empty();
@@ -154,6 +162,16 @@ extern GtkTargetEntry drop_types[];
 
 GtkType gnome_cmd_file_list_get_type ();
 GtkWidget *gnome_cmd_file_list_new ();
+
+inline GnomeCmdFileList::GnomeCmdFileList(): con(NULL), cwd(NULL), lwd(NULL), connected_dir(NULL)
+{
+}
+
+inline GnomeCmdFileList::~GnomeCmdFileList()
+{
+    gnome_cmd_dir_unref (cwd);
+    gnome_cmd_dir_unref (lwd);
+}
 
 inline int GnomeCmdFileList::size()
 {

@@ -16,6 +16,11 @@
 	* src/gnome-cmd-file-selector.cc:
 	GnomeCmdFileList::insert_file() and GnomeCmdFileList::remove_file() return success/failure now
 
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-file-selector.h:
+	Move con, cwd, lwd, connected_dir from GnomeCmdFileSelector to GnomeCmdFileList
+
 2008-09-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-notebook.h:

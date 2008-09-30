@@ -65,12 +65,12 @@ struct GnomeCmdFileSelector
 
     Private *priv;
 
-    operator GtkWidget * ()             {  return GTK_WIDGET (this);  }
-    operator GtkBox * ()                {  return GTK_BOX (this);     }
+    operator GtkWidget * ()                 {  return GTK_WIDGET (this);  }
+    operator GtkBox * ()                    {  return GTK_BOX (this);     }
 
-    GnomeCmdFileList *&file_list()      {  return list;  }
+    GnomeCmdFileList *&file_list()          {  return list;               }
 
-    GnomeCmdDir *get_directory();
+    GnomeCmdDir *get_directory()            {  return file_list()->cwd;   }
     void set_directory(GnomeCmdDir *dir);
     void goto_directory(const gchar *dir);
 
@@ -86,7 +86,7 @@ struct GnomeCmdFileSelector
 
     void set_active(gboolean value);
 
-    GnomeCmdCon *get_connection();
+    GnomeCmdCon *get_connection()           {  return file_list()->con;   }
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
 
     gboolean is_local()                     {  return gnome_cmd_con_is_local (get_connection ());  }
