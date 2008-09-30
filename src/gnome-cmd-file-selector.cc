@@ -288,7 +288,7 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
 }
 
 
-static void update_files (GnomeCmdFileSelector *fs)
+inline void update_files (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -781,11 +781,8 @@ static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (!fs->file_list()->file_is_wanted(f))
-        return;
-
-    fs->file_list()->insert_file(f);
-    update_selected_files_label (fs);
+    if (fs->file_list()->insert_file(f))
+        update_selected_files_label (fs);
 }
 
 
@@ -795,11 +792,9 @@ static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (fs->priv->cwd == dir && fs->file_list()->has_file(f))
-    {
-        fs->file_list()->remove_file(f);
-        update_selected_files_label (fs);
-    }
+    if (fs->priv->cwd == dir)
+        if (fs->file_list()->remove_file(f))
+            update_selected_files_label (fs);
 }
 
 

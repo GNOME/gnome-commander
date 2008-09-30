@@ -80,9 +80,9 @@ struct GnomeCmdFileList
     void clear();
 
     void append_file(GnomeCmdFile *f);
-    void insert_file(GnomeCmdFile *f);
-    void remove_file(GnomeCmdFile *f);
-    void remove_file(const gchar *uri_str);
+    gboolean insert_file(GnomeCmdFile *f);      // Returns TRUE if file added to shown file list, FALSE otherwise
+    gboolean remove_file(GnomeCmdFile *f);
+    gboolean remove_file(const gchar *uri_str);
     void remove_files(GList *files);
     void remove_all_files()             {  clear();  }
 

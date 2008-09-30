@@ -1418,8 +1418,11 @@ void GnomeCmdFileList::append_file (GnomeCmdFile *f)
 }
 
 
-void GnomeCmdFileList::insert_file (GnomeCmdFile *f)
+gboolean GnomeCmdFileList::insert_file(GnomeCmdFile *f)
 {
+    if (!file_is_wanted(f))
+        return FALSE;
+
     gint num_files = size();
 
     for (gint i=0; i<num_files; i++)
@@ -1433,12 +1436,14 @@ void GnomeCmdFileList::insert_file (GnomeCmdFile *f)
             if (i<=priv->cur_file)
                 priv->cur_file++;
 
-            return;
+            return TRUE;
         }
     }
 
     // Insert the file at the end of the list
     append_file(f);
+
+    return TRUE;
 }
 
 
@@ -1510,32 +1515,31 @@ void GnomeCmdFileList::show_dir_tree_size(GnomeCmdFile *f)
 }
 
 
-void GnomeCmdFileList::remove_file (GnomeCmdFile *f)
+gboolean GnomeCmdFileList::remove_file(GnomeCmdFile *f)
 {
-    g_return_if_fail (f != NULL);
+    g_return_val_if_fail (f != NULL, FALSE);
 
     gint row = get_row_from_file(f);
 
-    if (row >= 0)
-    {
-        gtk_clist_remove (GTK_CLIST (this), row);
+    if (row<0)                              // f not found in the shown file list...
+        return FALSE;
 
-        priv->selected_files = g_list_remove (priv->selected_files, f);
-        priv->visible_files.remove(f);
+    gtk_clist_remove (GTK_CLIST (this), row);
 
-        focus_file_at_row (this, MIN (row, GTK_CLIST (this)->focus_row));
-    }
+    priv->selected_files = g_list_remove (priv->selected_files, f);
+    priv->visible_files.remove(f);
+
+    focus_file_at_row (this, MIN (row, GTK_CLIST (this)->focus_row));
+
+    return TRUE;
 }
 
 
-void GnomeCmdFileList::remove_file (const gchar *uri_str)
+gboolean GnomeCmdFileList::remove_file(const gchar *uri_str)
 {
-    g_return_if_fail (uri_str != NULL);
+    g_return_val_if_fail (uri_str != NULL, FALSE);
 
-    GnomeCmdFile *f = priv->visible_files.find(uri_str);
-    g_return_if_fail (GNOME_CMD_IS_FILE (f));
-
-    remove_file (f);
+    return remove_file (priv->visible_files.find(uri_str));
 }
 
 
