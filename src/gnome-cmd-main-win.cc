@@ -523,7 +523,7 @@ static void on_fs_list_resize_column (GtkCList *clist, gint column, gint width, 
     if (!column_resize_lock)
     {
         column_resize_lock = TRUE;
-        gnome_cmd_data_set_fs_col_width ((guint) column, width);
+        gnome_cmd_data.fs_col_width[column] = width;
         gtk_clist_set_column_width (other_clist, column, width);
         column_resize_lock = FALSE;
     }

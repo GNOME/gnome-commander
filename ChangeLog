@@ -1,3 +1,11 @@
+2008-09-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-main-win.cc:
+	GnomeCmdData: more C++ rework
+
 2008-09-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-notebook.h:

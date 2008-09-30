@@ -545,7 +545,7 @@ static void create_column_titles (GnomeCmdFileList *fl)
 
     for (gint i=GnomeCmdFileList::COLUMN_ICON; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
-        gtk_clist_set_column_width (*fl, i, gnome_cmd_data_get_fs_col_width (i));
+        gtk_clist_set_column_width (*fl, i, gnome_cmd_data.fs_col_width[i]);
         gtk_clist_set_column_justification (*fl, i, file_list_column[i].justification);
     }
 

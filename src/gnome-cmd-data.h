@@ -120,6 +120,7 @@ struct GnomeCmdData
     guint                        icon_size;
     guint                        dev_icon_size;
     gint                         list_row_height;
+    guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                        gui_update_rate;
 
     GList                       *cmdline_history;
@@ -197,9 +198,6 @@ void gnome_cmd_data_set_theme_icon_dir (const gchar *dir);
 
 const gchar *gnome_cmd_data_get_document_icon_dir ();
 void gnome_cmd_data_set_document_icon_dir (const gchar *dir);
-
-gint gnome_cmd_data_get_fs_col_width (guint column);
-void gnome_cmd_data_set_fs_col_width (guint column, gint width);
 
 gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column);
 void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width);

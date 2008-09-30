@@ -59,7 +59,6 @@ struct GnomeCmdData::Private
     GdkInterpType        icon_scale_quality;
     gchar                *theme_icon_dir;
     gchar                *document_icon_dir;
-    guint                fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                bookmark_dialog_col_width[BOOKMARK_DIALOG_NUM_COLUMNS];
     GtkReliefStyle       btn_relief;
     gboolean             device_only_icon;
@@ -1115,6 +1114,7 @@ GnomeCmdData::GnomeCmdData()
     icon_size = 16;
     dev_icon_size = 16;
     list_row_height = 16;
+    memset(fs_col_width, 0, sizeof(fs_col_width));
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
 
     cmdline_history = NULL;
@@ -1260,7 +1260,7 @@ void GnomeCmdData::load()
     for (gint i=0; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
-        priv->fs_col_width[i] = get_int (tmp, GnomeCmdFileList::get_column_default_width((GnomeCmdFileList::ColumnID) i));
+        fs_col_width[i] = get_int (tmp, GnomeCmdFileList::get_column_default_width((GnomeCmdFileList::ColumnID) i));
         g_free (tmp);
     }
 
@@ -1696,7 +1696,7 @@ void GnomeCmdData::save()
     for (gint i=0; i<GnomeCmdFileList::NUM_COLUMNS; i++)
     {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/fs_col_width%d", i);
-        gnome_config_set_int (tmp, priv->fs_col_width[i]);
+        gnome_config_set_int (tmp, fs_col_width[i]);
         g_free (tmp);
     }
 
@@ -1941,24 +1941,6 @@ void gnome_cmd_data_set_document_icon_dir (const gchar *dir)
     g_free (gnome_cmd_data.priv->document_icon_dir);
 
     gnome_cmd_data.priv->document_icon_dir = g_strdup (dir);
-}
-
-
-void gnome_cmd_data_set_fs_col_width (guint column, gint width)
-{
-    if (column > GnomeCmdFileList::NUM_COLUMNS)
-        return;
-
-    gnome_cmd_data.priv->fs_col_width[column] = width;
-}
-
-
-gint gnome_cmd_data_get_fs_col_width (guint column)
-{
-    if (column > GnomeCmdFileList::NUM_COLUMNS)
-        return 0;
-
-    return gnome_cmd_data.priv->fs_col_width[column];
 }
 
 
