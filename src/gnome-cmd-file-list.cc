@@ -1495,7 +1495,7 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
 }
 
 
-void GnomeCmdFileList::show_dir_size(GnomeCmdFile *f)
+void GnomeCmdFileList::show_dir_tree_size(GnomeCmdFile *f)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
 

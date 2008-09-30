@@ -122,7 +122,7 @@ struct GnomeCmdFileList
 
     void update_file(GnomeCmdFile *f);
     void show_files(GnomeCmdDir *dir);
-    void show_dir_size(GnomeCmdFile *f);
+    void show_dir_tree_size(GnomeCmdFile *f);
 
     void show_column(ColumnID col, gboolean value)     {  gtk_clist_set_column_visibility (GTK_CLIST (this), col, value);  }
 

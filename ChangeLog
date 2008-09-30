@@ -6,6 +6,11 @@
 	* src/gnome-cmd-main-win.cc:
 	GnomeCmdData: more C++ rework
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	GnomeCmdFileList::show_dir_size() -> GnomeCmdFileList::show_dir_tree_size()
+
 2008-09-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-notebook.h:

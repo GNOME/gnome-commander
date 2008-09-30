@@ -149,15 +149,6 @@ inline void show_list_popup (GnomeCmdFileSelector *fs)
 }
 
 
-inline void show_selected_dir_tree_size (GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    GnomeCmdFile *f = fs->file_list()->get_selected_file();
-    fs->file_list()->show_dir_size(f);
-}
-
-
 inline void update_selected_files_label (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -257,7 +248,7 @@ inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
     fs->file_list()->invalidate_tree_size();
 
     for (GList *files = fs->file_list()->get_visible_files(); files; files = files->next)
-        fs->file_list()->show_dir_size((GnomeCmdFile *) files->data);
+        fs->file_list()->show_dir_tree_size((GnomeCmdFile *) files->data);
 
     update_selected_files_label (fs);
 }
@@ -1906,7 +1897,8 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_space:
                 set_cursor_busy ();
                 file_list()->toggle();
-                show_selected_dir_tree_size (this);
+                f = file_list()->get_selected_file();
+                file_list()->show_dir_tree_size(f);
                 stop_kp (GTK_OBJECT (file_list()));
                 update_selected_files_label (this);
                 set_cursor_default ();
