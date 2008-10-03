@@ -1,3 +1,9 @@
+2008-10-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	create_column_titles() -> GnomeCmdFileList::create_column_titles()
+
 2008-10-03  Yuriy Penkin  <yuriy.penkin@gmail.com>
 
 	* configure.in:
