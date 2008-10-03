@@ -1935,8 +1935,7 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
     if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         create_error_dialog (_("Not an ordinary file: %s"), finfo->info->name);
     else
-        gnome_cmd_file_view (finfo, internal_viewer!=-1 ? internal_viewer :
-                                                          gnome_cmd_data_get_use_internal_viewer ());
+        gnome_cmd_file_view (finfo, internal_viewer);
 }
 
 

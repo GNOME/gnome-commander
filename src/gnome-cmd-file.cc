@@ -172,6 +172,24 @@ GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
     return f;
 }
 
+GnomeCmdFile *gnome_cmd_file_new_from_local_path (const char *local_full_path)
+{
+    g_return_val_if_fail (local_full_path != NULL, NULL);
+
+    gchar *text_uri = gnome_vfs_get_uri_from_local_path (local_full_path);
+
+    g_return_val_if_fail (text_uri != NULL, NULL);
+
+    const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+    GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
+    GnomeVFSResult res = gnome_vfs_get_file_info (text_uri, info, infoOpts);
+
+    g_free (text_uri);
+
+    return res == GNOME_VFS_OK ? gnome_cmd_file_new (info, NULL) : NULL;
+}
+
+
 
 void gnome_cmd_file_invalidate_metadata (GnomeCmdFile *f)
 {
@@ -687,7 +705,7 @@ void gnome_cmd_file_show_properties (GnomeCmdFile *f)
 }
 
 
-static void do_view_file (const gchar *path, gint internal_viewer)
+inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
 {
     if (internal_viewer==-1)
         internal_viewer = gnome_cmd_data_get_use_internal_viewer ();
@@ -695,31 +713,31 @@ static void do_view_file (const gchar *path, gint internal_viewer)
     switch (internal_viewer)
     {
         case TRUE : {
-                        GViewer *viewer = (GViewer *) gviewer_window_file_view (path, NULL);
-                        gtk_widget_show (GTK_WIDGET(viewer));
-                        gdk_window_set_icon (GTK_WIDGET(viewer)->window, NULL,
+                        GtkWidget *viewer = gviewer_window_file_view (f);
+                        gtk_widget_show (viewer);
+                        gdk_window_set_icon (viewer->window, NULL,
                                              IMAGE_get_pixmap (PIXMAP_INTERNAL_VIEWER),
                                              IMAGE_get_mask (PIXMAP_INTERNAL_VIEWER));
                     }
                     break;
 
         case FALSE: {
-                        gchar *arg = g_shell_quote (path);
-                        gchar *command = g_strdup_printf (gnome_cmd_data_get_viewer (), arg);
+                        gchar *filename = gnome_cmd_file_get_quoted_name (f);
+                        gchar *command = g_strdup_printf (gnome_cmd_data_get_viewer (), filename);
                         run_command (command, FALSE);
-                        g_free (arg);
-                        g_free (command);
+                        g_free (filename);
                     }
                     break;
+
+        default: break;
     }
 }
 
 
-static void on_file_downloaded_for_view (gchar *path)
+static void on_file_downloaded_for_view (GnomeCmdFile *f)
 {
-    do_view_file (path, -1);
-
-    g_free (path);
+    do_view_file (f);
+    gnome_cmd_file_unref (f);
 }
 
 
@@ -728,26 +746,20 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
     g_return_if_fail (f != NULL);
     g_return_if_fail (has_parent_dir (f));
 
-    gchar *path_str;
-    GnomeCmdPath *path;
-    GnomeVFSURI *src_uri, *dest_uri;
-
     // If the file is local there is no need to download it
-    if (gnome_cmd_dir_is_local (get_parent_dir (f)))
+    if (gnome_cmd_file_is_local (f))
     {
-        gchar *fpath = gnome_cmd_file_get_real_path (f);
-        do_view_file (fpath, internal_viewer);
-        g_free (fpath);
+        do_view_file (f, internal_viewer);
         return;
     }
 
     // The file is remote, let's download it to a temporary file first
-    path_str = get_temp_download_filepath (gnome_cmd_file_get_name (f));
-    if (!path_str) return;
+    gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (f));
+    if (!path_str)  return;
 
-    path = gnome_cmd_plain_path_new (path_str);
-    src_uri = gnome_cmd_file_get_uri (f);
-    dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
+    GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
+    GnomeVFSURI *src_uri = gnome_cmd_file_get_uri (f);
+    GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
 
     g_printerr ("Copying to: %s\n", path_str);
     gtk_object_destroy (GTK_OBJECT (path));
@@ -757,7 +769,10 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
                                  GNOME_VFS_XFER_FOLLOW_LINKS,
                                  GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
                                  GTK_SIGNAL_FUNC (on_file_downloaded_for_view),
-                                 path_str);
+                                 gnome_cmd_file_new_from_local_path (path_str));
+
+    // FIXME: unref src_uri & dest_uri ?
+    g_free (path_str);
 }
 
 

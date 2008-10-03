@@ -6,6 +6,13 @@
 	* src/gnome-cmd-file-selector.h:
 	GnomeCmdFileSelector: more C++ rework
 
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
+	* src/intviewer/viewer-widget.cc:
+	* src/intviewer/viewer-window.cc:
+	* src/intviewer/viewer-window.h:
+	Pass GnomeCmdFile to intviewer (instead of previous file path)
+
 2008-10-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

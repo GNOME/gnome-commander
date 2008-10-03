@@ -91,6 +91,7 @@ struct _GViewerWindowPrivate
 
     int current_scale_index;
 
+    GnomeCmdFile *f;
     gchar *filename;
     guint statusbar_ctx_id;
     gboolean status_bar_msg;
@@ -166,18 +167,20 @@ static void set_zoom_best_fit(GViewerWindow *obj);
     public functions
     (defined in the header file)
 *****************************************/
-GtkWidget *gviewer_window_file_view (const gchar * filename, GViewerWindowSettings *initial_settings)
+
+GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *initial_settings)
 {
+    GViewerWindowSettings set;
+
     if (!initial_settings)
     {
-        GViewerWindowSettings set;
         gviewer_window_load_settings(&set);
         initial_settings = &set;
     }
 
     GtkWidget *w = gviewer_window_new(initial_settings);
 
-    gviewer_window_load_file(GVIEWER_WINDOW(w), filename);
+    gviewer_window_load_file (GVIEWER_WINDOW(w), f);
 
     if (initial_settings)
         gviewer_window_set_settings(GVIEWER_WINDOW(w), initial_settings);
@@ -186,18 +189,17 @@ GtkWidget *gviewer_window_file_view (const gchar * filename, GViewerWindowSettin
 }
 
 
-void gviewer_window_load_file (GViewerWindow *obj, const gchar *filename)
+void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f)
 {
-    g_return_if_fail (obj);
-    g_return_if_fail (filename);
+    g_return_if_fail(obj!=NULL);
+    g_return_if_fail (f!=NULL);
 
     g_free (obj->priv->filename);
 
-    obj->priv->filename = g_strdup (filename);
-
-    gviewer_load_file(obj->priv->viewer, filename);
-
-    gtk_window_set_title(GTK_WINDOW (obj), obj->priv->filename);
+    obj->priv->f = f;
+    obj->priv->filename = gnome_cmd_file_get_real_path (f);
+    gviewer_load_file (obj->priv->viewer, obj->priv->filename);
+    gtk_window_set_title (GTK_WINDOW(obj), obj->priv->filename);
 }
 
 
