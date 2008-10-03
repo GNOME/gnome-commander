@@ -92,6 +92,9 @@ struct GnomeCmdFileSelector
     gboolean is_local()                     {  return gnome_cmd_con_is_local (get_connection ());  }
 
     void show_filter();
+    void update_files();
+    void update_direntry();
+    void update_selected_files_label();
     void update_style();
     void update_connections();
     void update_conbuttons_visibility();

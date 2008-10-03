@@ -1,3 +1,11 @@
+2008-10-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-file-selector.h:
+	GnomeCmdFileSelector: more C++ rework
+
 2008-10-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

@@ -1564,7 +1564,7 @@ GList *GnomeCmdFileList::get_selected_files()
 
 GList *GnomeCmdFileList::get_marked_files()
 {
-    return priv->selected_files ? g_list_copy (priv->selected_files) : NULL;
+    return priv->selected_files;
 }
 
 

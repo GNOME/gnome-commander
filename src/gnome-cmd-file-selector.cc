@@ -141,11 +141,9 @@ inline void show_list_popup (GnomeCmdFileSelector *fs)
 }
 
 
-inline void update_selected_files_label (GnomeCmdFileSelector *fs)
+inline void GnomeCmdFileSelector::update_selected_files_label()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    GList *all_files = fs->file_list()->get_visible_files();
+    GList *all_files = file_list()->get_visible_files();
 
     if (!all_files)
         return;
@@ -161,9 +159,9 @@ inline void update_selected_files_label (GnomeCmdFileSelector *fs)
     if (size_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED)
         size_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
 
-    for (GList *tmp = all_files; tmp; tmp = tmp->next)
+    for (GList *i = all_files; i; i = i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         switch (f->info->type)
         {
@@ -186,10 +184,9 @@ inline void update_selected_files_label (GnomeCmdFileSelector *fs)
         }
     }
 
-    GList *sel_files = fs->file_list()->get_marked_files();
-    for (GList *tmp = sel_files; tmp; tmp = tmp->next)
+    for (GList *i = file_list()->get_marked_files(); i; i = i->next)
     {
-        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) i->data;
 
         switch (f->info->type)
         {
@@ -221,10 +218,7 @@ inline void update_selected_files_label (GnomeCmdFileSelector *fs)
                                                 num_dirs),
                                        file_str, num_sel_dirs, num_dirs);
 
-    gtk_label_set_text (GTK_LABEL (fs->info_label), info_str);
-
-    if (sel_files)
-        g_list_free (sel_files);
+    gtk_label_set_text (GTK_LABEL (info_label), info_str);
 
     g_free (sel_str);
     g_free (total_str);
@@ -242,7 +236,7 @@ inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
     for (GList *files = fs->file_list()->get_visible_files(); files; files = files->next)
         fs->file_list()->show_dir_tree_size((GnomeCmdFile *) files->data);
 
-    update_selected_files_label (fs);
+    fs->update_selected_files_label();
 }
 
 
@@ -280,32 +274,28 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
 }
 
 
-inline void update_files (GnomeCmdFileSelector *fs)
+inline void GnomeCmdFileSelector::update_files()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    GnomeCmdDir *dir = fs->get_directory();
+    GnomeCmdDir *dir = get_directory();
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    fs->file_list()->show_files(dir);
-    gnome_cmd_clist_set_voffset (GNOME_CMD_CLIST (fs->file_list()), fs->file_list()->cwd->voffset);
+    file_list()->show_files(dir);
+    gnome_cmd_clist_set_voffset (GNOME_CMD_CLIST (file_list()), file_list()->cwd->voffset);
 
-    if (fs->priv->realized)
-        update_selected_files_label (fs);
-    if (fs->priv->active)
-        fs->file_list()->select_row(0);
+    if (priv->realized)
+        update_selected_files_label();
+    if (priv->active)
+        file_list()->select_row(0);
 }
 
 
-inline void update_direntry (GnomeCmdFileSelector *fs)
+inline void GnomeCmdFileSelector::update_direntry()
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    gchar *tmp = gnome_cmd_dir_get_display_path (fs->file_list()->cwd);
+    gchar *tmp = gnome_cmd_dir_get_display_path (file_list()->cwd);
 
     g_return_if_fail (tmp != NULL);
 
-    gnome_cmd_dir_indicator_set_dir (GNOME_CMD_DIR_INDICATOR (fs->dir_indicator), tmp);
+    gnome_cmd_dir_indicator_set_dir (GNOME_CMD_DIR_INDICATOR (dir_indicator), tmp);
 
     g_free (tmp);
 }
@@ -774,7 +764,7 @@ static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     if (fs->file_list()->insert_file(f))
-        update_selected_files_label (fs);
+        fs->update_selected_files_label();
 }
 
 
@@ -786,7 +776,7 @@ static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
     if (fs->file_list()->cwd == dir)
         if (fs->file_list()->remove_file(f))
-            update_selected_files_label (fs);
+            fs->update_selected_files_label();
 }
 
 
@@ -800,7 +790,7 @@ static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     {
         gnome_cmd_file_invalidate_metadata (f);                 // FIXME: should be handled in GnomeCmdDir, not here
         fs->file_list()->update_file(f);
-        update_selected_files_label (fs);
+        fs->update_selected_files_label();
     }
 }
 
@@ -967,7 +957,7 @@ static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *e
 
 static void on_list_selection_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
 {
-    update_selected_files_label (fs);
+    fs->update_selected_files_label();
 }
 
 
@@ -1021,13 +1011,13 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
 
     gtk_signal_emit (GTK_OBJECT (fs), file_selector_signals[CHANGED_DIR], dir);
 
-    update_direntry (fs);
+    fs->update_direntry();
     update_vol_label (fs);
 
     if (fs->file_list()->cwd != dir) return;
 
     fs->priv->sel_first_file = FALSE;
-    update_files (fs);
+    fs->update_files();
     fs->priv->sel_first_file = TRUE;
 
     if (!fs->priv->active)
@@ -1039,7 +1029,7 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
     if (fs->priv->sel_first_file && fs->priv->active)
         gtk_clist_select_row (GTK_CLIST (fs->file_list()), 0, 0);
 
-    update_selected_files_label (fs);
+    fs->update_selected_files_label();
 
     DEBUG('l', "returning from on_dir_list_ok\n");
 }
@@ -1676,7 +1666,7 @@ void GnomeCmdFileSelector::update_style()
     file_list()->update_style();
 
     if (priv->realized)
-        update_files (this);
+        update_files();
 
     create_con_buttons (this);
     update_connections();
@@ -1872,7 +1862,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 f = file_list()->get_selected_file();
                 file_list()->show_dir_tree_size(f);
                 stop_kp (GTK_OBJECT (file_list()));
-                update_selected_files_label (this);
+                update_selected_files_label();
                 set_cursor_default ();
                 return TRUE;
 
