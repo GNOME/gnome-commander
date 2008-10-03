@@ -117,7 +117,7 @@ struct GnomeCmdFileList
     void sort();
     GList *sort_selection(GList *list);
 
-    GList *get_visible_files();                 // Returns a list with all files shown in the file list. The list is the same as that in the file-list it self so make a copy and ref the files if needed
+    GList *get_visible_files();                 // Returns a list with all files shown in the file list. The list is the same as that in the file list it self so make a copy and ref the files if needed
     GList *get_selected_files();                // Returns a list with all selected files. The list returned is a copy and should be freed when no longer needed. The files in the list is however not refed before returning
     GList *get_marked_files();                  // Returns a list with all marked files. The list returned is a copy and should be freed when no longer needed. The files in the list is however not refed before returning
                                                 // A marked file is a file that has been selected with ins etc. The file that is currently focused is not marked

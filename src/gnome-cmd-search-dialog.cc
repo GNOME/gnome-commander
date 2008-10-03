@@ -634,17 +634,17 @@ static void on_stop (GtkButton *button, GnomeCmdSearchDialog *dialog)
  */
 static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
-    GnomeCmdFile *finfo = GNOME_CMD_FILE_LIST (dialog->priv->result_list)->get_selected_file();
+    GnomeCmdFile *f = GNOME_CMD_FILE_LIST (dialog->priv->result_list)->get_selected_file();
 
-    if (!finfo)
+    if (!f)
         return;
 
-    gchar *fpath = gnome_cmd_file_get_path (finfo);
+    gchar *fpath = gnome_cmd_file_get_path (f);
     gchar *dpath = g_path_get_dirname (fpath);
 
     GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
     fs->goto_directory(dpath);
-    fs->file_list()->focus_file(gnome_cmd_file_get_name (finfo), TRUE);
+    fs->file_list()->focus_file(gnome_cmd_file_get_name (f), TRUE);
 
     g_free (fpath);
     g_free (dpath);
