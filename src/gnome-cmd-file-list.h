@@ -52,7 +52,7 @@ struct GnomeCmdFileList
 {
     GnomeCmdCList parent;
 
-  private:
+  // private:
 
     void create_column_titles();
 
