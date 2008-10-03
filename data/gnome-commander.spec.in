@@ -35,7 +35,7 @@ BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: automake
 BuildRequires: flex
-BuildRequires: intltool
+BuildRequires: intltool >= 0.35.0
 BuildRequires: libtool
 BuildRequires: gnome-common
 BuildRequires: desktop-file-utils
@@ -156,6 +156,9 @@ scrollkeeper-update -q || :
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Fri Oct 3 2008 Yuriy Penkin <yuriy.penkin@gmail.com>
+- changed dependencies for intltool to 0.35.0
+
 * Thu Aug 7 2008 Piotr Eljasiak <epiotr@use.pl>
 - added poppler dependencies
 

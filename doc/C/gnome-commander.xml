@@ -5950,6 +5950,9 @@
                             <para>Fixed problem #554586 (AC_PROG_CXX macro problem)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #554598 (GNOME Goal: LINGUAS)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with setting equal pane size in horizontal mode</para>
                         </listitem>
                     </itemizedlist>

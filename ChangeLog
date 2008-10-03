@@ -1,3 +1,10 @@
+2008-10-03  Yuriy Penkin  <yuriy.penkin@gmail.com>
+
+	* configure.in:
+	* data/gnome-commander.ebuild.in:
+	* data/gnome-commander.spec.in:
+	Fixed problem #554598 (GNOME Goal: LINGUAS)
+
 2008-10-01  Yuriy Penkin  <yuriy.penkin@gmail.com>
 
 	* configure.in:

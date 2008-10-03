@@ -8,6 +8,7 @@ Bug fixes:
  * Fixed problem #548948 (crash when home directory contains non-UTF8 characters)
  * Fixed problem #548961 (support for input method when rename or quicksearch)
  * Fixed problem #554586 (AC_PROG_CXX macro problem)
+ * Fixed problem #554598 (GNOME Goal: LINGUAS)
  * Fixed problem with setting equal pane size in horizontal mode
 
 New features:
