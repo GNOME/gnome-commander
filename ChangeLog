@@ -1,3 +1,8 @@
+2008-10-07  JP Rosevear  <jpr@novell.com>
+
+	* plugins/cvs/interface.c:
+	Fixed problem #555288 (build fix)
+
 2008-10-07  JP Rosevear  <...>
 
 	* plugins/cvs/interface.c:

@@ -347,11 +347,14 @@ void add_diff_tab (CvsPlugin *plugin, const gchar *cmd, const gchar *fname)
 
 
     fd = popen (cmd, "r");
-    if (fd < 0) return;
-    do {
+    if (fd==0) return;
+
+    do
+    {
         ret = fread (buf, 1, 256, fd);
         gtk_text_buffer_insert_at_cursor (text_buffer, buf, ret);
-    } while (ret == 256);
+    }
+    while (ret == 256);
 
     gtk_text_view_set_buffer (GTK_TEXT_VIEW (text_view), text_buffer);
     pclose (fd);
