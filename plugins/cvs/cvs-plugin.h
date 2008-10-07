@@ -58,11 +58,9 @@ struct _CvsPluginClass
 };
 
 
-GtkType
-cvs_plugin_get_type (void);
+GtkType cvs_plugin_get_type ();
 
-GnomeCmdPlugin *
-cvs_plugin_new (void);
+GnomeCmdPlugin *cvs_plugin_new ();
 
 G_END_DECLS
 

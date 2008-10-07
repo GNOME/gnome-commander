@@ -15,8 +15,7 @@
 #include "close.xpm"
 
 
-static GtkWidget*
-create_compare_win (LogHistory *log_history);
+static GtkWidget *create_compare_win (LogHistory *log_history);
 
 
 static void
@@ -36,7 +35,8 @@ on_rev_list_select_row                 (GtkCList        *clist,
 
     log_history->plugin->selected_rev = rev;
 
-    if (rev->message) {
+    if (rev->message)
+    {
         GtkTextBuffer *buf = gtk_text_buffer_new (NULL);
         gtk_text_buffer_set_text (buf, rev->message, strlen (rev->message));
         gtk_text_view_set_buffer (GTK_TEXT_VIEW (log_history->msg_text_view), buf);
@@ -44,21 +44,17 @@ on_rev_list_select_row                 (GtkCList        *clist,
 }
 
 
-static void
-on_compare_clicked                     (GtkButton       *button,
-                                        LogHistory      *log_history)
+static void on_compare_clicked (GtkButton *button, LogHistory *log_history)
 {
     GtkWidget *dlg = create_compare_win (log_history);
     GtkWidget *combo = lookup_widget (GTK_WIDGET (dlg), "rev_combo");
 
-    gtk_combo_set_popdown_strings (
-        GTK_COMBO (combo), log_history->rev_names);
+    gtk_combo_set_popdown_strings (GTK_COMBO (combo), log_history->rev_names);
     gtk_widget_show (dlg);
 }
 
 
-static void
-on_compare_ok (GtkButton *button, GtkWidget *dialog)
+static void on_compare_ok (GtkButton *button, GtkWidget *dialog)
 {
     gchar *cmd, *args, *prev_rev;
     const gchar *selected_rev, *selected_other_rev;
@@ -94,20 +90,19 @@ on_compare_ok (GtkButton *button, GtkWidget *dialog)
 }
 
 
-static void
-on_compare_cancel (GtkButton *button, GtkWidget *dialog)
+static void on_compare_cancel (GtkButton *button, GtkWidget *dialog)
 {
     gtk_widget_destroy (dialog);
 }
 
 
-static void
-on_other_rev_toggled (GtkToggleButton *btn, GtkWidget *dialog)
+static void on_other_rev_toggled (GtkToggleButton *btn, GtkWidget *dialog)
 {
     GtkWidget *combo = lookup_widget (dialog, "rev_combo");
     GtkWidget *entry = GTK_COMBO (combo)->entry;
 
-    if (gtk_toggle_button_get_active (btn)) {
+    if (gtk_toggle_button_get_active (btn))
+    {
         gtk_widget_set_sensitive (combo, TRUE);
         gtk_widget_grab_focus (entry);
     }
@@ -116,8 +111,7 @@ on_other_rev_toggled (GtkToggleButton *btn, GtkWidget *dialog)
 }
 
 
-static Revision *
-find_prev_rev (LogHistory *h, Revision *rev)
+static Revision *find_prev_rev (LogHistory *h, Revision *rev)
 {
     GList *l = g_list_find (h->revisions, rev);
     if (!l) return NULL;
@@ -129,8 +123,7 @@ find_prev_rev (LogHistory *h, Revision *rev)
 }
 
 
-static GtkWidget*
-create_compare_win (LogHistory *log_history)
+static GtkWidget *create_compare_win (LogHistory *log_history)
 {
     GtkWidget *dialog;
     GtkWidget *vbox;
@@ -146,10 +139,8 @@ create_compare_win (LogHistory *log_history)
     if (prev_rev)
         gtk_object_set_data (GTK_OBJECT (dialog), "prev_rev", prev_rev->number);
 
-    gtk_object_set_data (GTK_OBJECT (dialog), "selected_rev",
-                         log_history->plugin->selected_rev->number);
-    gtk_object_set_data (GTK_OBJECT (dialog), "log_history",
-                         log_history);
+    gtk_object_set_data (GTK_OBJECT (dialog), "selected_rev", log_history->plugin->selected_rev->number);
+    gtk_object_set_data (GTK_OBJECT (dialog), "log_history", log_history);
 
 
     /**
@@ -159,65 +150,54 @@ create_compare_win (LogHistory *log_history)
     cat = create_category (dialog, vbox, _("Compare with"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), cat);
 
-    radio = create_radio (dialog, NULL, _("HEAD"),
-                          "head_radio");
+    radio = create_radio (dialog, NULL, _("HEAD"), "head_radio");
     gtk_box_pack_start (GTK_BOX (vbox), radio, TRUE, FALSE, 0);
 
-    radio = create_radio (dialog, get_radio_group(radio), _("The previous revision"),
-                          "prev_rev_radio");
+    radio = create_radio (dialog, get_radio_group(radio), _("The previous revision"), "prev_rev_radio");
     gtk_box_pack_start (GTK_BOX (vbox), radio, TRUE, FALSE, 0);
     if (!prev_rev)
         gtk_widget_set_sensitive (radio, FALSE);
 
-    radio = create_radio (dialog, get_radio_group(radio), _("Other revision"),
-                          "other_rev_radio");
+    radio = create_radio (dialog, get_radio_group(radio), _("Other revision"), "other_rev_radio");
     gtk_box_pack_start (GTK_BOX (vbox), radio, TRUE, FALSE, 0);
 
-    gtk_signal_connect (GTK_OBJECT (radio), "toggled",
-                        GTK_SIGNAL_FUNC (on_other_rev_toggled), dialog);
+    gtk_signal_connect (GTK_OBJECT (radio), "toggled", GTK_SIGNAL_FUNC (on_other_rev_toggled), dialog);
 
     combo = create_combo (dialog);
-    gtk_object_set_data_full (GTK_OBJECT (dialog), "rev_combo", combo,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (dialog), "rev_combo", combo, (GtkDestroyNotify) gtk_widget_unref);
     gtk_box_pack_start (GTK_BOX (vbox), combo, TRUE, FALSE, 0);
     gtk_widget_set_sensitive (combo, FALSE);
 
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL,
-        GTK_SIGNAL_FUNC (on_compare_cancel), dialog);
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
-        GTK_SIGNAL_FUNC (on_compare_ok), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL,
+                                 GTK_SIGNAL_FUNC (on_compare_cancel), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
+                                 GTK_SIGNAL_FUNC (on_compare_ok), dialog);
 
     return dialog;
 }
 
 
-static void
-on_close_tab (GtkButton *button, GtkWidget *tab)
+static void on_close_tab (GtkButton *button, GtkWidget *tab)
 {
     gtk_widget_destroy (tab);
 }
 
 
-static void
-on_diff_window_close (GtkButton *button, CvsPlugin *plugin)
+static void on_diff_window_close (GtkButton *button, CvsPlugin *plugin)
 {
     gtk_widget_destroy (plugin->diff_win);
     plugin->diff_win = NULL;
 }
 
 
-static void
-on_log_window_close (GtkButton *button, CvsPlugin *plugin)
+static void on_log_window_close (GtkButton *button, CvsPlugin *plugin)
 {
     gtk_widget_destroy (plugin->log_win);
     plugin->log_win = NULL;
 }
 
 
-static gboolean
-on_log_win_delete (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
+static gboolean on_log_win_delete (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
 {
     gtk_widget_destroy (widget);
     plugin->log_win = NULL;
@@ -225,8 +205,7 @@ on_log_win_delete (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
 }
 
 
-static gboolean
-on_diff_win_delete (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
+static gboolean on_diff_win_delete (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
 {
     gtk_widget_destroy (widget);
     plugin->diff_win = NULL;
@@ -234,24 +213,21 @@ on_diff_win_delete (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
 }
 
 
-static gboolean
-on_log_win_destroy (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
+static gboolean on_log_win_destroy (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
 {
     plugin->log_win = NULL;
     return FALSE;
 }
 
 
-static gboolean
-on_diff_win_destroy (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
+static gboolean on_diff_win_destroy (GtkWidget *widget, GdkEvent *event, CvsPlugin *plugin)
 {
     plugin->diff_win = NULL;
     return FALSE;
 }
 
 
-GtkWidget *
-create_diff_win (CvsPlugin *plugin)
+GtkWidget *create_diff_win (CvsPlugin *plugin)
 {
     GtkWidget *dialog;
     GtkWidget *notebook;
@@ -265,18 +241,14 @@ create_diff_win (CvsPlugin *plugin)
         GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CLOSE,
         GTK_SIGNAL_FUNC (on_diff_window_close), plugin);
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "delete-event",
-                        GTK_SIGNAL_FUNC (on_diff_win_delete), plugin);
-    gtk_signal_connect (GTK_OBJECT (dialog), "destroy-event",
-                        GTK_SIGNAL_FUNC (on_diff_win_destroy), plugin);
+    gtk_signal_connect (GTK_OBJECT (dialog), "delete-event", GTK_SIGNAL_FUNC (on_diff_win_delete), plugin);
+    gtk_signal_connect (GTK_OBJECT (dialog), "destroy-event", GTK_SIGNAL_FUNC (on_diff_win_destroy), plugin);
 
     notebook = gtk_notebook_new ();
     gtk_widget_ref (notebook);
-    gtk_object_set_data_full (GTK_OBJECT (dialog), "notebook",
-                              notebook, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (dialog), "notebook", notebook, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (notebook);
-    gnome_cmd_dialog_add_expanding_category (
-        GNOME_CMD_DIALOG (dialog), notebook);
+    gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), notebook);
 
     gtk_widget_show (dialog);
 
@@ -284,8 +256,7 @@ create_diff_win (CvsPlugin *plugin)
 }
 
 
-GtkWidget*
-create_log_win (CvsPlugin *plugin)
+GtkWidget *create_log_win (CvsPlugin *plugin)
 {
     GtkWidget *dialog;
     GtkWidget *notebook;
@@ -307,11 +278,9 @@ create_log_win (CvsPlugin *plugin)
 
     notebook = gtk_notebook_new ();
     gtk_widget_ref (notebook);
-    gtk_object_set_data_full (GTK_OBJECT (dialog), "notebook",
-                              notebook, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (dialog), "notebook", notebook, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (notebook);
-    gnome_cmd_dialog_add_expanding_category (
-        GNOME_CMD_DIALOG (dialog), notebook);
+    gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), notebook);
 
     gtk_widget_show (dialog);
 
@@ -351,8 +320,7 @@ static GtkWidget *create_tab_label (GtkWidget *parent,
 }
 
 
-void
-add_diff_tab (CvsPlugin *plugin, const gchar *cmd, const gchar *fname)
+void add_diff_tab (CvsPlugin *plugin, const gchar *cmd, const gchar *fname)
 {
     gint ret;
     FILE *fd;
@@ -364,14 +332,12 @@ add_diff_tab (CvsPlugin *plugin, const gchar *cmd, const gchar *fname)
     GtkWidget *notebook;
 
     sw = create_sw (plugin->diff_win);
-    gtk_scrolled_window_set_shadow_type (
-        GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
+    gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sw), GTK_SHADOW_IN);
 
     text_view = gtk_text_view_new ();
     gtk_container_add (GTK_CONTAINER (sw), text_view);
     gtk_widget_ref (text_view);
-    gtk_object_set_data_full (GTK_OBJECT (sw), "text_view", text_view,
-                              (GtkDestroyNotify) gtk_widget_unref);
+    gtk_object_set_data_full (GTK_OBJECT (sw), "text_view", text_view, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (text_view);
 
     notebook = lookup_widget (plugin->diff_win, "notebook");
@@ -392,8 +358,7 @@ add_diff_tab (CvsPlugin *plugin, const gchar *cmd, const gchar *fname)
 }
 
 
-void
-add_log_tab (CvsPlugin *plugin, const gchar *fname)
+void add_log_tab (CvsPlugin *plugin, const gchar *fname)
 {
     GList *revs;
     GtkWidget *hpaned;

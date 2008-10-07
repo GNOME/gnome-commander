@@ -802,10 +802,10 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
     };
 
 #define ENCODING_MENU_ITEM(label, keyval, value) {MI_RADIO, _(label), \
-    keyval, NO_MODIFIER, G_CALLBACK (menu_view_set_charset), \
-    GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO, \
-    G_OBJ_CHARSET_KEY, (gpointer *) GUINT_TO_POINTER(value), \
-    NO_MENU_ITEM, &text_encoding_list}
+            keyval, NO_MODIFIER, G_CALLBACK (menu_view_set_charset), \
+            GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO, \
+            G_OBJ_CHARSET_KEY, (gpointer *) GUINT_TO_POINTER(value), \
+            NO_MENU_ITEM, &text_encoding_list}
 
     GSList *text_encoding_list = NULL;
     MENU_ITEM_DATA encoding_menu_items[] = {

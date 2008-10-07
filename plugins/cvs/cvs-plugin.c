@@ -77,15 +77,13 @@ struct _CvsPluginPrivate
 static GnomeCmdPluginClass *parent_class = NULL;
 
 
-static void
-on_dummy (GtkMenuItem *item, gpointer data)
+static void on_dummy (GtkMenuItem *item, gpointer data)
 {
     gnome_ok_dialog ("CVS plugin dummy operation");
 }
 
 
-static gboolean
-change_cwd (const gchar *fpath)
+static gboolean change_cwd (const gchar *fpath)
 {
     gchar *dir = g_path_get_dirname (fpath);
 
@@ -101,8 +99,7 @@ change_cwd (const gchar *fpath)
 }
 
 
-static void
-on_diff (GtkMenuItem *item, GnomeCmdState *state)
+static void on_diff (GtkMenuItem *item, GnomeCmdState *state)
 {
     GList *files = state->active_dir_selected_files;
     CvsPlugin *plugin = gtk_object_get_data (GTK_OBJECT (item), "plugin");
@@ -129,8 +126,7 @@ on_diff (GtkMenuItem *item, GnomeCmdState *state)
 }
 
 
-static void
-on_log (GtkMenuItem *item, GnomeCmdState *state)
+static void on_log (GtkMenuItem *item, GnomeCmdState *state)
 {
     GList *files = state->active_dir_selected_files;
     CvsPlugin *plugin = gtk_object_get_data (GTK_OBJECT (item), "plugin");
@@ -141,8 +137,7 @@ on_log (GtkMenuItem *item, GnomeCmdState *state)
     for (; files; files = files->next)
     {
         GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
-        GnomeVFSURI *uri = gnome_vfs_uri_append_file_name (
-            state->active_dir_uri, finfo->info->name);
+        GnomeVFSURI *uri = gnome_vfs_uri_append_file_name (state->active_dir_uri, finfo->info->name);
         const gchar *fpath = gnome_vfs_uri_get_path (uri);
 
         change_cwd (fpath);
@@ -192,8 +187,7 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
 }
 
 
-static GtkWidget *
-create_main_menu (GnomeCmdPlugin *p, GnomeCmdState *state)
+static GtkWidget *create_main_menu (GnomeCmdPlugin *p, GnomeCmdState *state)
 {
     GtkWidget *item, *child;
     CvsPlugin *plugin = CVS_PLUGIN (p);
@@ -222,8 +216,7 @@ create_main_menu (GnomeCmdPlugin *p, GnomeCmdState *state)
 }
 
 
-static gboolean
-cvs_dir_exists (GList *files)
+static gboolean cvs_dir_exists (GList *files)
 {
     for (; files; files = files->next)
     {
@@ -239,8 +232,7 @@ cvs_dir_exists (GList *files)
 }
 
 
-static GList *
-create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     GtkWidget *item;
     GList *l = NULL;
@@ -257,19 +249,20 @@ create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 }
 
 
-static void
-update_main_menu_state (GnomeCmdPlugin *p, GnomeCmdState *state)
+static void update_main_menu_state (GnomeCmdPlugin *p, GnomeCmdState *state)
 {
     CvsPlugin *plugin = CVS_PLUGIN (p);
 
-    if (cvs_dir_exists (state->active_dir_files)) {
+    if (cvs_dir_exists (state->active_dir_files))
+    {
         gtk_widget_set_sensitive (plugin->priv->update, TRUE);
         gtk_widget_set_sensitive (plugin->priv->diff, TRUE);
         gtk_widget_set_sensitive (plugin->priv->log, TRUE);
         gtk_widget_set_sensitive (plugin->priv->last_log, TRUE);
         gtk_widget_set_sensitive (plugin->priv->last_change, TRUE);
     }
-    else {
+    else
+    {
         gtk_widget_set_sensitive (plugin->priv->update, FALSE);
         gtk_widget_set_sensitive (plugin->priv->diff, FALSE);
         gtk_widget_set_sensitive (plugin->priv->log, FALSE);
@@ -279,13 +272,10 @@ update_main_menu_state (GnomeCmdPlugin *p, GnomeCmdState *state)
 }
 
 
-static void
-on_configure_close (GtkButton *btn, CvsPlugin *plugin)
+static void on_configure_close (GtkButton *btn, CvsPlugin *plugin)
 {
-    plugin->compression_level = gtk_option_menu_get_history (
-        GTK_OPTION_MENU (plugin->priv->compression_level_menu));
-    plugin->unidiff = gtk_toggle_button_get_active (
-        GTK_TOGGLE_BUTTON (plugin->priv->unidiff_check));
+    plugin->compression_level = gtk_option_menu_get_history (GTK_OPTION_MENU (plugin->priv->compression_level_menu));
+    plugin->unidiff = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (plugin->priv->unidiff_check));
 
     gnome_cmd_data_set_int ("/cvs-plugin/compression_level", plugin->compression_level);
 
@@ -293,8 +283,7 @@ on_configure_close (GtkButton *btn, CvsPlugin *plugin)
 }
 
 
-static void
-configure (GnomeCmdPlugin *p)
+static void configure (GnomeCmdPlugin *p)
 {
     GtkWidget *dialog, *table, *cat, *label, *vbox, *optmenu, *check;
     CvsPlugin *plugin = CVS_PLUGIN (p);
@@ -327,8 +316,7 @@ configure (GnomeCmdPlugin *p)
 
     check = create_check (dialog, _("Unified diff format"), "check");
     plugin->priv->unidiff_check = check;
-    gtk_toggle_button_set_active (
-        GTK_TOGGLE_BUTTON (check), plugin->unidiff);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), plugin->unidiff);
     gtk_table_attach (GTK_TABLE (table), check, 0, 2, 0, 1,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
@@ -341,8 +329,7 @@ configure (GnomeCmdPlugin *p)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     //CvsPlugin *plugin = CVS_PLUGIN (object);
 
@@ -351,8 +338,7 @@ destroy (GtkObject *object)
 }
 
 
-static void
-class_init (CvsPluginClass *klass)
+static void class_init (CvsPluginClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
@@ -368,10 +354,9 @@ class_init (CvsPluginClass *klass)
 }
 
 
-static void
-init (CvsPlugin *plugin)
+static void init (CvsPlugin *plugin)
 {
-    plugin->priv = g_new (CvsPluginPrivate, 1);
+    plugin->priv = g_new0 (CvsPluginPrivate, 1);
 
     plugin->diff_win = NULL;
     plugin->log_win = NULL;
@@ -386,8 +371,7 @@ init (CvsPlugin *plugin)
  * Public functions
  ***********************************/
 
-GtkType
-cvs_plugin_get_type         (void)
+GtkType cvs_plugin_get_type ()
 {
     static GtkType type = 0;
 
@@ -411,8 +395,7 @@ cvs_plugin_get_type         (void)
 }
 
 
-GnomeCmdPlugin *
-cvs_plugin_new (void)
+GnomeCmdPlugin *cvs_plugin_new ()
 {
     CvsPlugin *plugin = gtk_type_new (cvs_plugin_get_type ());
 
@@ -420,13 +403,13 @@ cvs_plugin_new (void)
 }
 
 
-GnomeCmdPlugin *create_plugin (void)
+GnomeCmdPlugin *create_plugin ()
 {
     return cvs_plugin_new ();
 }
 
 
-PluginInfo *get_plugin_info (void)
+PluginInfo *get_plugin_info ()
 {
     if (!plugin_nfo.authors)
     {
