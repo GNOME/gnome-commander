@@ -3,16 +3,6 @@
 	* plugins/cvs/interface.c:
 	Fixed problem #555288 (build fix)
 
-2008-10-07  JP Rosevear  <...>
-
-	* plugins/cvs/interface.c:
-	Fixed problem #555288 (build fix)
-
-2008-10-07  JP Rosevear  <...>
-
-	* plugins/cvs/interface.c:
-	Fixed problem #555288 (build fix)
-
 2008-10-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:
