@@ -58,15 +58,11 @@ GtkType gnome_cmd_main_win_get_type ();
 GtkWidget *gnome_cmd_main_win_new ();
 
 GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *mw, FileSelectorID fs);
-gboolean gnome_cmd_main_win_is_fs_active (GnomeCmdMainWin *mw, FileSelectorID fs);
 void gnome_cmd_main_win_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
 GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline (GnomeCmdMainWin *mw);
 
 void gnome_cmd_main_win_update_style (GnomeCmdMainWin *mw);
-
-void gnome_cmd_main_win_hide_embterm (GnomeCmdMainWin *mw);
-void gnome_cmd_main_win_show_embterm (GnomeCmdMainWin *mw);
 
 void gnome_cmd_main_win_new_cwd (GnomeCmdMainWin *mw, const gchar *cwd);
 
@@ -77,7 +73,6 @@ void gnome_cmd_main_win_refocus (GnomeCmdMainWin *mw);
 gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event);
 
 void gnome_cmd_main_win_update_bookmarks (GnomeCmdMainWin *mw);
-void gnome_cmd_main_win_update_connections (GnomeCmdMainWin *mw);
 void gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw);
 void gnome_cmd_main_win_update_cmdline_visibility (GnomeCmdMainWin *mw);
 void gnome_cmd_main_win_update_buttonbar_visibility (GnomeCmdMainWin *mw);

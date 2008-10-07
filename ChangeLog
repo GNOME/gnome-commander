@@ -1,3 +1,9 @@
+2008-10-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-win.cc:
+	* src/gnome-cmd-main-win.h:
+	Kill dead code
+
 2008-10-07  JP Rosevear  <jpr@novell.com>
 
 	* plugins/cvs/interface.c:

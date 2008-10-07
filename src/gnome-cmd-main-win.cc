@@ -1109,11 +1109,6 @@ void gnome_cmd_main_win_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
 }
 
 
-gboolean gnome_cmd_main_win_is_fs_active (GnomeCmdMainWin *mw, FileSelectorID fs)
-{
-    return mw->priv->current_fs == fs;
-}
-
 static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
@@ -1248,16 +1243,6 @@ void gnome_cmd_main_win_update_cmdline_visibility (GnomeCmdMainWin *mw)
         mw->priv->cmdline = NULL;
         mw->priv->cmdline_sep = NULL;
     }
-}
-
-
-void gnome_cmd_main_win_update_connections (GnomeCmdMainWin *mw)
-{
-    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
-
-    gnome_cmd_main_win_get_fs (mw, LEFT)->update_connections();
-    gnome_cmd_main_win_get_fs (mw, RIGHT)->update_connections();
-    gnome_cmd_main_menu_update_connections (GNOME_CMD_MAIN_MENU (mw->priv->menubar));
 }
 
 
