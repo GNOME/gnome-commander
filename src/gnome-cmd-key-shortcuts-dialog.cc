@@ -24,6 +24,7 @@
 #include "gnome-cmd-key-shortcuts-dialog.h"
 #include "eggcellrendererkeys.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-treeview.h"
 #include "gnome-cmd-hintbox.h"
 #include "dict.h"
 #include "utils.h"
@@ -266,36 +267,6 @@ gboolean gnome_cmd_key_shortcuts_dialog_new (GnomeCmdUserActions &user_actions)
 }
 
 
-inline GtkTreeViewColumn *create_new_text_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
-{
-    renderer = gtk_cell_renderer_text_new ();
-
-    GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
-                                                                       renderer,
-                                                                       "text", COL_ID,
-                                                                       NULL);
-    g_object_set (col,
-                  "clickable", TRUE,
-                  "resizable", TRUE,
-                  NULL);
-
-    g_object_set_data (G_OBJECT (renderer), "column", GINT_TO_POINTER (COL_ID));
-
-    // pack tree view column into tree view
-    gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
-
-    return col;
-}
-
-
-inline GtkTreeViewColumn *create_new_text_column (GtkTreeView *view, gint COL_ID, const gchar *title=NULL)
-{
-    GtkCellRenderer *renderer = NULL;
-
-    return create_new_text_column (view, renderer, COL_ID, title);
-}
-
-
 inline GtkTreeViewColumn *create_new_accel_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_KEYS_ID, gint COL_MODS_ID, const gchar *title=NULL)
 {
     renderer = egg_cell_renderer_keys_new ();
@@ -389,7 +360,7 @@ inline GtkWidget *create_view_and_model (GnomeCmdUserActions &user_actions)
 
     g_object_unref (combo_model);          // destroy model automatically with view
 
-    col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_OPTION, _("Options"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_OPTION, _("Options"));
     gtk_tooltips_set_tip (tips, col->button, _("Optional data"), NULL);
     gtk_tree_view_column_set_sort_column_id (col, SORTID_OPTION);
     g_signal_connect(renderer, "edited", (GCallback) cell_edited_callback, view);

@@ -28,6 +28,7 @@
 #include "gnome-cmd-chown-component.h"
 #include "gnome-cmd-chmod-component.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-treeview.h"
 #include "utils.h"
 #include "imageloader.h"
 #include "tags/gnome-cmd-tags.h"
@@ -573,35 +574,6 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *finfo)
 }
 
 
-inline GtkTreeViewColumn *create_new_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
-{
-    renderer = gtk_cell_renderer_text_new ();
-
-    GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
-                                                                       renderer,
-                                                                       "text", COL_ID,
-                                                                       NULL);
-
-    g_object_set (col,
-                  "clickable", TRUE,
-                  "resizable", TRUE,
-                  NULL);
-
-    // pack tree view column into tree view
-    gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
-
-    return col;
-}
-
-
-inline GtkTreeViewColumn *create_new_column (GtkTreeView *view, gint COL_ID, const gchar *title=NULL)
-{
-    GtkCellRenderer *renderer = NULL;
-
-    return create_new_column (view, renderer, COL_ID, title);
-}
-
-
 static GtkWidget *create_view_and_model (GnomeCmdFile *finfo)
 {
     GtkWidget *view = gtk_tree_view_new ();
@@ -617,7 +589,7 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *finfo)
 
     GtkTooltips *tips = gtk_tooltips_new ();
 
-    col = create_new_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
     gtk_tooltips_set_tip (tips, col->button, _("Metadata namespace"), NULL);
 
     g_object_set (renderer,
@@ -625,13 +597,13 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *finfo)
                   "weight", PANGO_WEIGHT_BOLD,
                   NULL);
 
-    col = create_new_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
     gtk_tooltips_set_tip (tips, col->button, _("Tag name"), NULL);
 
-    col = create_new_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
     gtk_tooltips_set_tip (tips, col->button, _("Tag value"), NULL);
 
-    col = create_new_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
     gtk_tooltips_set_tip (tips, col->button, _("Metadata tag description"), NULL);
 
     g_object_set (renderer,

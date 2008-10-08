@@ -25,6 +25,7 @@
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-con-ftp.h"
 #include "gnome-cmd-data.h"
+#include "gnome-cmd-treeview.h"
 #include "imageloader.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
@@ -341,46 +342,6 @@ inline GtkTreeModel *create_and_fill_model (GList *list)
 }
 
 
-inline GtkTreeViewColumn *create_new_text_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
-{
-    renderer = gtk_cell_renderer_text_new ();
-
-    GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
-                                                                       renderer,
-                                                                       "text", COL_ID,
-                                                                       NULL);
-
-    g_object_set (col,
-                  "clickable", TRUE,
-                  NULL);
-
-    // pack tree view column into tree view
-    gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
-
-    return col;
-}
-
-
-inline GtkTreeViewColumn *create_new_pixbuf_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL)
-{
-    renderer = gtk_cell_renderer_pixbuf_new ();
-
-    GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
-                                                                       renderer,
-                                                                       "icon-name", COL_ID,
-                                                                       NULL);
-
-    g_object_set (col,
-                  "clickable", TRUE,
-                  NULL);
-
-    // pack tree view column into tree view
-    gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
-
-    return col;
-}
-
-
 inline GtkWidget *create_view_and_model (GList *list)
 {
     GtkWidget *view = gtk_tree_view_new ();
@@ -396,24 +357,24 @@ inline GtkWidget *create_view_and_model (GList *list)
 
     GtkTooltips *tips = gtk_tooltips_new ();
 
-    // col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_AUTH);
+    // col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_AUTH);
 
-    col = create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_LOCK);
+    col = gnome_cmd_treeview_create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_LOCK);
     gtk_tooltips_set_tip (tips, col->button, _("GNOME authentication manager usage"), NULL);
     gtk_tree_view_column_set_sort_column_id (col, SORTID_AUTH);
 
-    col = create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+    col = gnome_cmd_treeview_create_new_pixbuf_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
     gtk_tooltips_set_tip (tips, col->button, _("Network protocol"), NULL);
     gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
 
-    // col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
+    // col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_METHOD);
     // gtk_tree_view_column_set_sort_column_id (col, SORTID_METHOD);
     // g_object_set (renderer,
                   // "foreground-set", TRUE,
                   // "foreground", "DarkGray",
                   // NULL);
 
-    col = create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_NAME, _("Name"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_NAME, _("Name"));
     gtk_tooltips_set_tip (tips, col->button, _("Connection name"), NULL);
     gtk_tree_view_column_set_sort_column_id (col, SORTID_NAME);
     g_object_set (renderer,

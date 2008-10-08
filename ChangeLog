@@ -7,6 +7,14 @@
 	* src/intviewer/viewer-window.cc:
 	intviewer: kill obsoleted code for external tools
 
+	* src/Makefile.am:
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/gnome-cmd-key-shortcuts-dialog.cc:
+	* src/gnome-cmd-remote-dialog.cc:
+	* src/gnome-cmd-treeview.cc:
+	* src/gnome-cmd-treeview.h:
+	treeview: move common code to gnome-cmd-treeview.* files
+
 2008-10-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-win.cc:
