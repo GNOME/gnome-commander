@@ -48,24 +48,11 @@
 #define G_OBJ_IMAGE_OP_KEY       "imageop"
 #define G_OBJ_EXTERNAL_TOOL_KEY  "exttool"
 
-// EXTERNAL TOOLS DISABLED in coming stable release
-#undef EXTERNAL_TOOLS
-
 static GtkWindowClass *parent_class = NULL;
 
 static double image_scale_factors[] = {0.25, 0.5, 0.75, 1, 1.25, 1.50, 2, 2.5, 3, 3.5, 4, 4.5, 5};
 
 const static int MAX_SCALE_FACTOR_INDEX = G_N_ELEMENTS(image_scale_factors);
-
-#ifdef EXTERNAL_TOOLS
-typedef struct _GViewerWindowExternalTool GViewerWindowExternalTool;
-struct _GViewerWindowExternalTool
-{
-    gchar *name;
-    gchar *command;
-    int   attached_fd;
-};
-#endif
 
 struct _GViewerWindowPrivate
 {
@@ -96,11 +83,6 @@ struct _GViewerWindowPrivate
     guint statusbar_ctx_id;
     gboolean status_bar_msg;
 
-#ifdef EXTERNAL_TOOLS
-    GHashTable *external_tools;
-    GViewerWindowExternalTool *active_external_tool;
-#endif
-
     GViewerSearcher *srchr;
     gchar *search_pattern;
     gint  search_pattern_len;
@@ -116,22 +98,11 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
 static GtkWidget *gviewer_window_create_menus(GViewerWindow *obj);
 
-#ifdef EXTERNAL_TOOLS
-static void gviewer_window_add_external_tool(GViewerWindow *obj, const gchar *name, const gchar *command);
-static void gviewer_window_activate_external_tool(GViewerWindow *obj, const gchar *name);
-static void gviewer_window_activate_internal_viewer(GViewerWindow *obj);
-#endif
-
 static void gviewer_window_show_exif_viewer(GViewerWindow *obj);
 static void gviewer_window_hide_exif_viewer(GViewerWindow *obj);
 
 // Event Handlers
 static void menu_file_close (GtkMenuItem *item, GViewerWindow *obj);
-
-#ifdef EXTERNAL_TOOLS
-static void menu_view_external_tool(GtkMenuItem *item, GViewerWindow *obj);
-static void menu_view_internal_viewer(GtkMenuItem *item, GViewerWindow *obj);
-#endif
 
 static void menu_view_exif_information(GtkMenuItem *item, GViewerWindow *obj);
 
@@ -252,26 +223,6 @@ static void gviewer_window_class_init (GViewerWindowClass *klass)
     widget_class->map = gviewer_window_map;
 }
 
-#ifdef EXTERNAL_TOOLS
-static void gviewer_window_destroy_key(gchar *string)
-{
-    g_free (string);
-}
-
-static void gviewer_window_destroy_external_tool(GViewerWindowExternalTool *tool)
-{
-    if (!tool)
-        return;
-
-    g_free (tool->name);
-    g_free (tool->command);
-    if (tool->attached_fd!=-1)
-        close(tool->attached_fd);
-
-    g_free (tool);
-}
-#endif
-
 
 static void gviewer_window_init (GViewerWindow *w)
 {
@@ -279,18 +230,9 @@ static void gviewer_window_init (GViewerWindow *w)
 
     w->priv->status_bar_msg = FALSE;
     w->priv->filename = NULL;
-#ifdef EXTERNAL_TOOLS
-    w->priv->active_external_tool = NULL;
-#endif
     w->priv->exit_data_fd = -1;
     w->priv->exif_active = FALSE;
     w->priv->current_scale_index = 3;
-
-#ifdef EXTERNAL_TOOLS
-    w->priv->external_tools = g_hash_table_new_full(g_str_hash, g_str_equal,
-                    (GDestroyNotify) gviewer_window_destroy_key,
-                    (GDestroyNotify) gviewer_window_destroy_external_tool);
-#endif
 
     GtkWindow *win = GTK_WINDOW (w);
     gtk_window_set_title(win, "GViewer");
@@ -325,11 +267,6 @@ static void gviewer_window_init (GViewerWindow *w)
     gtk_container_add(GTK_CONTAINER (w), w->priv->vbox);
 
     w->priv->active_viewer = w->priv->viewer;
-
-#ifdef EXTERNAL_TOOLS
-    gviewer_window_add_external_tool(w, "html", "html2text -nobs '%s'");
-    gviewer_window_add_external_tool(w, "pspdf", "ps2ascii '%s'");
-#endif
 }
 
 
@@ -440,10 +377,6 @@ static void gviewer_window_destroy (GtkObject *widget)
     {
         g_object_unref (G_OBJECT (w->priv->viewer));
         g_object_unref (G_OBJECT (w->priv->exif_viewer));
-
-#ifdef EXTERNAL_TOOLS
-        g_hash_table_destroy(w->priv->external_tools);
-#endif
 
         g_free (w->priv->filename);
         w->priv->filename = NULL;
@@ -753,9 +686,6 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
 
 
     GtkWidget *encoding_submenu = NULL;
-#ifdef EXTERNAL_TOOLS
-    GSList *text_parser_list = NULL;
-#endif
     MENU_ITEM_DATA text_menu_items[] = {
         {MI_NORMAL, _("_Copy Text Selection"), GDK_C, GDK_CONTROL_MASK, G_CALLBACK (menu_edit_copy),
                 GNOME_APP_PIXMAP_STOCK, GTK_STOCK_COPY,
@@ -773,21 +703,6 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
                 NO_MENU_ITEM, NO_GSLIST},
-#ifdef EXTERNAL_TOOLS
-        {MI_SEPERATOR},
-        {MI_RADIO, _("_No Parsing (original file)"), NO_KEYVAL, NO_MODIFIER, G_CALLBACK (menu_view_internal_viewer),
-                GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
-                NO_GOBJ_KEY, NO_GOBJ_VAL,
-                NO_MENU_ITEM, &text_parser_list},
-        {MI_RADIO, _("_HTML Parser"), NO_KEYVAL, NO_MODIFIER, G_CALLBACK (menu_view_external_tool),
-                GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
-                G_OBJ_EXTERNAL_TOOL_KEY, (gpointer) "html",
-                NO_MENU_ITEM, &text_parser_list},
-        {MI_RADIO, _("_PS/PDF Parser"), NO_KEYVAL, NO_MODIFIER, G_CALLBACK (menu_view_external_tool),
-                GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
-                G_OBJ_EXTERNAL_TOOL_KEY, (gpointer) "pspdf",
-                NO_MENU_ITEM, &text_parser_list},
-#endif
         {MI_SEPERATOR},
         {MI_CHECK, _("_Wrap lines"), GDK_W, NO_MODIFIER, G_CALLBACK (menu_view_wrap),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
@@ -978,26 +893,6 @@ static void menu_view_exif_information(GtkMenuItem *item, GViewerWindow *obj)
 }
 
 
-#ifdef EXTERNAL_TOOLS
-static void menu_view_external_tool(GtkMenuItem *item, GViewerWindow *obj)
-{
-    g_return_if_fail (obj!=NULL);
-    g_return_if_fail (obj->priv->viewer!=NULL);
-
-    char *tool = (char *) g_object_get_data(G_OBJECT (item), G_OBJ_EXTERNAL_TOOL_KEY);
-    g_return_if_fail (tool);
-
-    gviewer_window_activate_external_tool(obj, tool);
-    gtk_widget_draw(GTK_WIDGET (obj->priv->viewer), NULL);
-}
-
-static void menu_view_internal_viewer(GtkMenuItem *item, GViewerWindow *obj)
-{
-    gviewer_window_activate_internal_viewer(obj);
-}
-#endif
-
-
 static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
 {
     g_return_if_fail (obj);
@@ -1010,9 +905,6 @@ static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
 
     if (dispmode==DISP_MODE_IMAGE)
     {
-#ifdef EXTERNAL_TOOLS
-        gviewer_window_activate_internal_viewer(obj);
-#endif
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (obj->priv->show_exif_menu_item)))
             gviewer_window_show_exif_viewer(obj);
         else
@@ -1337,67 +1229,6 @@ static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj)
     gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-internal-viewer-keyboard");
 }
 
-#ifdef EXTERNAL_TOOLS
-inline void gviewer_window_add_external_tool(GViewerWindow *obj, const gchar *name, const gchar *command)
-{
-    g_return_if_fail (obj);
-    g_return_if_fail (name);
-    g_return_if_fail (command);
-
-    GViewerWindowExternalTool *tool = g_new0 (GViewerWindowExternalTool, 1);
-    g_return_if_fail (tool);
-
-    tool->name = g_strdup (name);
-    tool->command = g_strdup (command);
-    tool->attached_fd = -1;
-
-    g_hash_table_insert(obj->priv->external_tools, g_strdup (name), tool);
-}
-
-inline int gviewer_window_run_external_tool(GViewerWindow *obj, GViewerWindowExternalTool *tool)
-{
-    gchar *cmd_with_filename = NULL;
-    gchar *cmd_with_redir = NULL;
-
-    g_return_val_if_fail (obj!=NULL, -1);
-    g_return_val_if_fail (tool!=NULL, -1);
-    g_return_val_if_fail (tool->command!=NULL, -1);
-    g_return_val_if_fail (obj->priv->filename!=NULL, -1);
-
-    FILE *file = tmpfile();
-    if (!file)
-    {
-        g_warning("Failed to create temporary file");
-        goto error;
-    }
-
-    int fd = fileno(file);
-    if (fd==-1)
-    {
-        fclose(file);
-        g_warning("Failed to extract tempfile descriptor");
-        goto error;
-    }
-
-    cmd_with_filename = g_strdup_printf(tool->command, obj->priv->filename);
-
-    cmd_with_redir = g_strdup_printf("%s >&%d", cmd_with_filename, fd);
-
-    if (system(cmd_with_redir)==-1)
-    {
-        fd = -1;
-        g_warning("Program execution (%s) failed", cmd_with_redir);
-        goto error;
-    }
-
-error:
-    g_free (cmd_with_filename);
-    g_free (cmd_with_redir);
-
-    return fd;
-}
-#endif
-
 
 inline int gviewer_window_run_exif (GViewerWindow *obj)
 {
@@ -1437,44 +1268,6 @@ inline int gviewer_window_run_exif (GViewerWindow *obj)
     return fd;
 }
 
-
-#ifdef EXTERNAL_TOOLS
-static void gviewer_window_activate_external_tool(GViewerWindow *obj, const gchar *name)
-{
-    g_return_if_fail (obj!=NULL);
-    g_return_if_fail (name!=NULL);
-
-    GViewerWindowExternalTool *tool = g_hash_table_lookup(obj->priv->external_tools, name);
-
-    if (!tool)
-    {
-        g_warning("Could not find external tool \"%s\"", name);
-        return;
-    }
-
-    if (obj->priv->active_external_tool==tool)
-        return;
-
-    if (tool->attached_fd==-1)
-        tool->attached_fd = gviewer_window_run_external_tool(obj, tool);
-    g_return_if_fail (tool->attached_fd!=-1);
-
-    obj->priv->active_external_tool = tool;
-    gviewer_load_filedesc(obj->priv->viewer, tool->attached_fd);
-}
-
-static void gviewer_window_activate_internal_viewer(GViewerWindow *obj)
-{
-    g_return_if_fail (obj!=NULL);
-
-    // internal viewer is already active
-    if (!obj->priv->active_external_tool)
-        return;
-
-    obj->priv->active_external_tool = NULL;
-    gviewer_load_file(obj->priv->viewer, obj->priv->filename);
-}
-#endif
 
 static void gviewer_window_show_exif_viewer(GViewerWindow *obj)
 {

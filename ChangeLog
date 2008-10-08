@@ -4,6 +4,9 @@
 	* src/gnome-cmd-file-selector.h:
 	Add GnomeCmdFileSelector::is_active()
 
+	* src/intviewer/viewer-window.cc:
+	intviewer: kill obsoleted code for external tools
+
 2008-10-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-win.cc:
