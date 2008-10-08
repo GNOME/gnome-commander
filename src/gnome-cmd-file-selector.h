@@ -90,6 +90,7 @@ struct GnomeCmdFileSelector
     void set_connection(GnomeCmdCon *con, GnomeCmdDir *start_dir=NULL);
 
     gboolean is_local()                     {  return gnome_cmd_con_is_local (get_connection ());  }
+    gboolean is_active();
 
     void show_filter();
     void update_files();

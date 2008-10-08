@@ -2038,3 +2038,9 @@ void GnomeCmdFileSelector::show_filter()
 
     gtk_widget_grab_focus (entry);
 }
+
+
+gboolean GnomeCmdFileSelector::is_active()
+{
+    return priv->active;
+}
