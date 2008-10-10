@@ -29,6 +29,9 @@
 
 #include "libgviewer.h"
 
+using namespace std;
+
+
 // HEX history doesn't work yet
 #undef HEX_HISTORY
 
@@ -40,7 +43,7 @@ void entry_changed(GtkEntry *entry, gpointer  user_data);
 static void search_dlg_destroy (GtkObject *object);
 static void search_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchDlg *sdlg);
 
-struct _GViewerSearchDlgPrivate
+struct GViewerSearchDlgPrivate
 {
     GtkWidget  *table;
     GtkWidget  *label;

@@ -42,6 +42,9 @@
 #include "gnome-cmd-file.h"
 #include "utils.h"
 
+using namespace std;
+
+
 #define G_OBJ_CHARSET_KEY        "charset"
 #define G_OBJ_DISPMODE_KEY       "dispmode"
 #define G_OBJ_BYTES_PER_LINE_KEY "bytesperline"
@@ -54,7 +57,7 @@ static double image_scale_factors[] = {0.25, 0.5, 0.75, 1, 1.25, 1.50, 2, 2.5, 3
 
 const static int MAX_SCALE_FACTOR_INDEX = G_N_ELEMENTS(image_scale_factors);
 
-struct _GViewerWindowPrivate
+struct GViewerWindowPrivate
 {
     // Gtk User Interface
     GtkWidget *vbox;
@@ -149,7 +152,7 @@ GtkWidget *gviewer_window_file_view (GnomeCmdFile *f, GViewerWindowSettings *ini
         initial_settings = &set;
     }
 
-    GtkWidget *w = gviewer_window_new(initial_settings);
+    GtkWidget *w = gviewer_window_new ();
 
     gviewer_window_load_file (GVIEWER_WINDOW(w), f);
 
@@ -194,14 +197,6 @@ GtkType gviewer_window_get_type ()
         type = g_type_register_static (GTK_TYPE_WINDOW, "gviewerwindow", &info, (GTypeFlags) 0);
     }
     return type;
-}
-
-
-GtkWidget *gviewer_window_new (GViewerWindowSettings *initial_settings)
-{
-    GViewerWindow *w = (GViewerWindow *) gtk_type_new (gviewer_window_get_type ());
-
-    return GTK_WIDGET (w);
 }
 
 

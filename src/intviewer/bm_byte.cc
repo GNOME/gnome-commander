@@ -30,6 +30,8 @@
 #include "bm_byte.h"
 #include "cp437.h"
 
+using namespace std;
+
 
 inline void badchar_compute(guint8 *pattern, int m, /*out*/ int *bad)
 {

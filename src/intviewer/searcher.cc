@@ -29,6 +29,9 @@
 #include "bm_chartype.h"
 #include "bm_byte.h"
 
+using namespace std;
+
+
 static void g_viewer_searcher_class_init(GViewerSearcherClass *klass);
 static void g_viewer_searcher_init(GViewerSearcher *sp);
 static void g_viewer_searcher_finalize(GObject *object);

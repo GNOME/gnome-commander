@@ -40,6 +40,8 @@
 #include "gnome-cmd-file.h"
 #include "utils.h"
 
+using namespace std;
+
 
 static GtkWidget *parent_class = NULL;
 
@@ -52,7 +54,7 @@ static guint image_render_signals[LAST_SIGNAL] = { 0 };
 
 
 // Class Private Data
-struct _ImageRenderPrivate
+struct ImageRenderPrivate
 {
     guint8 button; // The button pressed in "button_press_event"
 

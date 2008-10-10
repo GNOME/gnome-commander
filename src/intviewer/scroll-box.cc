@@ -32,8 +32,10 @@
 #include <gtk/gtk.h>
 #include <gtk/gtktable.h>
 
-
 #include "scroll-box.h"
+
+using namespace std;
+
 
 static GtkTableClass *parent_class = NULL;
 

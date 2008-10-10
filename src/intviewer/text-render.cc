@@ -43,6 +43,9 @@
 #include "datapresentation.h"
 #include "text-render.h"
 
+using namespace std;
+
+
 #define HEXDUMP_FIXED_LIMIT 16
 #define MAX_CLIPBOARD_COPY_LENGTH 0xFFFFFF
 

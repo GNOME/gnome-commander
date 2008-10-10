@@ -32,6 +32,9 @@
 #include "viewer-utils.h"
 #include "cp437.h"
 
+using namespace std;
+
+
 struct _GVInputModesData
 {
     gchar *input_mode_name;

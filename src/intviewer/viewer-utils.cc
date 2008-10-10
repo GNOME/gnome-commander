@@ -31,6 +31,8 @@
 #include "gvtypes.h"
 #include "viewer-utils.h"
 
+using namespace std;
+
 
 gchar *gviewer_get_string (const gchar *path, const gchar *def)
 {

@@ -60,6 +60,9 @@
 
 #define VIEW_PAGE_SIZE 8192
 
+using namespace std;
+
+
 struct _ViewerFileOps
 {
     // File handling (based on 'Midnight Commander'-'s view.c)

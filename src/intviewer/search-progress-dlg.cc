@@ -28,6 +28,9 @@
 
 #include "libgviewer.h"
 
+using namespace std;
+
+
 static GtkDialogClass *parent_class = NULL;
 
 static void search_progress_dlg_destroy (GtkObject *object);

@@ -1,3 +1,8 @@
+2008-10-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/intviewer/*.cc:
+	C++: add 'using namespace std'
+
 2008-10-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:

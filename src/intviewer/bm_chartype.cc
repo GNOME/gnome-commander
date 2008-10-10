@@ -30,6 +30,9 @@
 #include "bm_chartype.h"
 #include "cp437.h"
 
+using namespace std;
+
+
 /***********************************
     Bad Character hash-table functions
 ***********************************/

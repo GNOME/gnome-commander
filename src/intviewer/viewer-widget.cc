@@ -43,6 +43,9 @@
 #include "gnome-cmd-file.h"
 #include "utils.h"
 
+using namespace std;
+
+
 #define DEFAULT_TAB_SIZE          8
 #define DEFAULT_WRAP_MODE      TRUE
 #define DEFAULT_FIXED_LIMIT      80
