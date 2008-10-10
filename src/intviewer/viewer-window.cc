@@ -73,9 +73,9 @@ struct GViewerWindowPrivate
     GtkWidget *fixed_limit_menu_items[3];
     GViewerWindowSettings state;
 
-    GViewer *exif_viewer;
+    GViewer *metadata_view;
     int      exit_data_fd;
-    gboolean exif_active;
+    gboolean metadata_visible;
 
     GViewer *active_viewer;
 
@@ -101,8 +101,8 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
 static GtkWidget *gviewer_window_create_menus(GViewerWindow *obj);
 
-static void gviewer_window_show_exif_viewer(GViewerWindow *obj);
-static void gviewer_window_hide_exif_viewer(GViewerWindow *obj);
+inline void gviewer_window_show_metadata(GViewerWindow *obj);
+inline void gviewer_window_hide_metadata(GViewerWindow *obj);
 
 // Event Handlers
 static void menu_file_close (GtkMenuItem *item, GViewerWindow *obj);
@@ -226,7 +226,7 @@ static void gviewer_window_init (GViewerWindow *w)
     w->priv->status_bar_msg = FALSE;
     w->priv->filename = NULL;
     w->priv->exit_data_fd = -1;
-    w->priv->exif_active = FALSE;
+    w->priv->metadata_visible = FALSE;
     w->priv->current_scale_index = 3;
 
     GtkWindow *win = GTK_WINDOW (w);
@@ -245,8 +245,8 @@ static void gviewer_window_init (GViewerWindow *w)
     g_object_ref (G_OBJECT (w->priv->viewer));
     gtk_widget_show (GTK_WIDGET (w->priv->viewer));
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET (w->priv->viewer), TRUE, TRUE, 0);
-    w->priv->exif_viewer = (GViewer *) gviewer_new();
-    g_object_ref (G_OBJECT (w->priv->exif_viewer));
+    w->priv->metadata_view = (GViewer *) gviewer_new();
+    g_object_ref (G_OBJECT (w->priv->metadata_view));
 
     g_signal_connect(G_OBJECT (w->priv->viewer), "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), (gpointer) w);
 
@@ -371,7 +371,7 @@ static void gviewer_window_destroy (GtkObject *widget)
     if (w->priv)
     {
         g_object_unref (G_OBJECT (w->priv->viewer));
-        g_object_unref (G_OBJECT (w->priv->exif_viewer));
+        g_object_unref (G_OBJECT (w->priv->metadata_view));
 
         g_free (w->priv->filename);
         w->priv->filename = NULL;
@@ -882,9 +882,9 @@ static void menu_view_exif_information(GtkMenuItem *item, GViewerWindow *obj)
         return;
 
     if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (item)))
-        gviewer_window_show_exif_viewer(obj);
+        gviewer_window_show_metadata(obj);
     else
-        gviewer_window_hide_exif_viewer(obj);
+        gviewer_window_hide_metadata(obj);
 }
 
 
@@ -901,12 +901,12 @@ static void menu_view_display_mode(GtkMenuItem *item, GViewerWindow *obj)
     if (dispmode==DISP_MODE_IMAGE)
     {
         if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (obj->priv->show_exif_menu_item)))
-            gviewer_window_show_exif_viewer(obj);
+            gviewer_window_show_metadata(obj);
         else
-            gviewer_window_hide_exif_viewer(obj);
+            gviewer_window_hide_metadata(obj);
     }
     else
-        gviewer_window_hide_exif_viewer(obj);
+        gviewer_window_hide_metadata(obj);
 
     gviewer_set_display_mode(obj->priv->viewer, dispmode);
     gtk_widget_grab_focus (GTK_WIDGET (obj->priv->viewer));
@@ -1133,10 +1133,10 @@ static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj)
     gviewer_set_wrap_mode(obj->priv->viewer, wrap);
     gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
 
-    if (obj->priv->exif_active)
+    if (obj->priv->metadata_visible)
     {
-        gviewer_set_wrap_mode(obj->priv->exif_viewer, wrap);
-        gtk_widget_draw (GTK_WIDGET (obj->priv->exif_viewer), NULL);
+        gviewer_set_wrap_mode(obj->priv->metadata_view, wrap);
+        gtk_widget_draw (GTK_WIDGET (obj->priv->metadata_view), NULL);
     }
 }
 
@@ -1149,8 +1149,8 @@ static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *o
     gboolean hex = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (item));
     gviewer_set_hex_offset_display(obj->priv->viewer, hex);
 
-    if (obj->priv->exif_active)
-        gviewer_set_hex_offset_display(obj->priv->exif_viewer, hex);
+    if (obj->priv->metadata_visible)
+        gviewer_set_hex_offset_display(obj->priv->metadata_view, hex);
 }
 
 
@@ -1264,40 +1264,40 @@ inline int gviewer_window_run_exif (GViewerWindow *obj)
 }
 
 
-static void gviewer_window_show_exif_viewer(GViewerWindow *obj)
+inline void gviewer_window_show_metadata(GViewerWindow *obj)
 {
     g_return_if_fail (obj!=NULL);
-    g_return_if_fail (obj->priv->exif_viewer!=NULL);
+    g_return_if_fail (obj->priv->metadata_view!=NULL);
 
-    if (obj->priv->exif_active)
+    if (obj->priv->metadata_visible)
         return;
 
     if (obj->priv->exit_data_fd==-1)
         obj->priv->exit_data_fd = gviewer_window_run_exif (obj);
 
     g_return_if_fail (obj->priv->exit_data_fd!=-1);
-    gviewer_load_filedesc(obj->priv->exif_viewer, obj->priv->exit_data_fd);
-    gtk_widget_show (GTK_WIDGET (obj->priv->exif_viewer));
+    gviewer_load_filedesc(obj->priv->metadata_view, obj->priv->exit_data_fd);
+    gtk_widget_show (GTK_WIDGET (obj->priv->metadata_view));
 
-    obj->priv->exif_active = TRUE;
-    gtk_box_pack_start (GTK_BOX (obj->priv->vbox), GTK_WIDGET (obj->priv->exif_viewer), TRUE, TRUE, 0);
+    obj->priv->metadata_visible = TRUE;
+    gtk_box_pack_start (GTK_BOX (obj->priv->vbox), GTK_WIDGET (obj->priv->metadata_view), TRUE, TRUE, 0);
 
-    obj->priv->active_viewer = obj->priv->exif_viewer;
+    obj->priv->active_viewer = obj->priv->metadata_view;
 
-    gtk_widget_grab_focus (GTK_WIDGET (obj->priv->exif_viewer));
+    gtk_widget_grab_focus (GTK_WIDGET (obj->priv->metadata_view));
 }
 
 
-static void gviewer_window_hide_exif_viewer(GViewerWindow *obj)
+inline void gviewer_window_hide_metadata(GViewerWindow *obj)
 {
     g_return_if_fail (obj!=NULL);
-    g_return_if_fail (obj->priv->exif_viewer!=NULL);
+    g_return_if_fail (obj->priv->metadata_view!=NULL);
 
-    if (!obj->priv->exif_active)
+    if (!obj->priv->metadata_visible)
         return;
 
-    obj->priv->exif_active = FALSE;
-    gtk_container_remove (GTK_CONTAINER (obj->priv->vbox), GTK_WIDGET (obj->priv->exif_viewer));
+    obj->priv->metadata_visible = FALSE;
+    gtk_container_remove (GTK_CONTAINER (obj->priv->vbox), GTK_WIDGET (obj->priv->metadata_view));
     gtk_widget_grab_focus (GTK_WIDGET (obj->priv->viewer));
 
     obj->priv->active_viewer = obj->priv->viewer;
