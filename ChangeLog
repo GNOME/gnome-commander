@@ -3,6 +3,15 @@
 	* src/intviewer/*.cc:
 	C++: add 'using namespace std'
 
+	* src/gnome-cmd-combo.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-dir-indicator.cc:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/utils.cc:
+	GnomeCmdData: more C++ rework
+
 2008-10-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:

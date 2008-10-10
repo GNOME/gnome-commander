@@ -60,8 +60,6 @@ struct GnomeCmdData::Private
     gchar                *theme_icon_dir;
     gchar                *document_icon_dir;
     guint                bookmark_dialog_col_width[BOOKMARK_DIALOG_NUM_COLUMNS];
-    GtkReliefStyle       btn_relief;
-    gboolean             device_only_icon;
     gint                 dir_cache_size;
     gboolean             use_ls_colors;
     gboolean             honor_expect_uris;
@@ -1113,9 +1111,11 @@ GnomeCmdData::GnomeCmdData()
 
     icon_size = 16;
     dev_icon_size = 16;
+    device_only_icon = FALSE;
     list_row_height = 16;
     memset(fs_col_width, 0, sizeof(fs_col_width));
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
+    button_relief = GTK_RELIEF_NONE;
 
     cmdline_history = NULL;
     cmdline_history_length = 0;
@@ -1292,7 +1292,7 @@ void GnomeCmdData::load()
     priv->document_icon_dir = gnome_cmd_data_get_string ("/options/document_icon_dir", document_icon_dir);
     g_free (document_icon_dir);
     cmdline_history_length = gnome_cmd_data_get_int ("/options/cmdline_history_length", 16);
-    priv->btn_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
+    button_relief = (GtkReliefStyle) gnome_cmd_data_get_int ("/options/btn_relief", GTK_RELIEF_NONE);
     filter_type = (Filter::Type) gnome_cmd_data_get_int ("/options/filter_type", Filter::TYPE_FNMATCH);
     list_orientation = gnome_cmd_data_get_bool ("/options/list_orientation", FALSE);
     gui_update_rate = gnome_cmd_data_get_int ("/options/gui_update_rate", DEFAULT_GUI_UPDATE_RATE);
@@ -1334,7 +1334,7 @@ void GnomeCmdData::load()
 
     use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
-    priv->device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
+    device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
     priv->dir_cache_size = gnome_cmd_data_get_int ("/options/dir_cache_size", 10);
     priv->use_ls_colors = gnome_cmd_data_get_bool ("/colors/use_ls_colors", FALSE);
 
@@ -1641,7 +1641,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_string ("/options/theme_icon_dir", priv->theme_icon_dir);
     gnome_cmd_data_set_string ("/options/document_icon_dir", priv->document_icon_dir);
     gnome_cmd_data_set_int    ("/options/cmdline_history_length", cmdline_history_length);
-    gnome_cmd_data_set_int    ("/options/btn_relief", priv->btn_relief);
+    gnome_cmd_data_set_int    ("/options/btn_relief", button_relief);
     gnome_cmd_data_set_int    ("/options/filter_type", filter_type);
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
@@ -1677,7 +1677,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", use_gcmd_block);
 
-    gnome_cmd_data_set_bool   ("/devices/only_icon", priv->device_only_icon);
+    gnome_cmd_data_set_bool   ("/devices/only_icon", device_only_icon);
     gnome_cmd_data_set_int    ("/options/dir_cache_size", priv->dir_cache_size);
     gnome_cmd_data_set_bool   ("/colors/use_ls_colors", priv->use_ls_colors);
 
@@ -1953,30 +1953,6 @@ void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width)
 gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column)
 {
     return gnome_cmd_data.priv->bookmark_dialog_col_width[column];
-}
-
-
-void gnome_cmd_data_set_button_relief (GtkReliefStyle relief)
-{
-    gnome_cmd_data.priv->btn_relief = relief;
-}
-
-
-GtkReliefStyle gnome_cmd_data_get_button_relief ()
-{
-    return gnome_cmd_data.priv->btn_relief;
-}
-
-
-void gnome_cmd_data_set_device_only_icon (gboolean value)
-{
-    gnome_cmd_data.priv->device_only_icon = value;
-}
-
-
-gboolean gnome_cmd_data_get_device_only_icon ()
-{
-    return gnome_cmd_data.priv->device_only_icon;
 }
 
 

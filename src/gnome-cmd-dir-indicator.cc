@@ -445,7 +445,7 @@ static void init (GnomeCmdDirIndicator *indicator)
     indicator->priv->history_button = gtk_button_new ();
     GTK_WIDGET_UNSET_FLAGS (indicator->priv->history_button, GTK_CAN_FOCUS);
     gtk_widget_ref (indicator->priv->history_button);
-    gtk_button_set_relief (GTK_BUTTON (indicator->priv->history_button), gnome_cmd_data_get_button_relief ());
+    gtk_button_set_relief (GTK_BUTTON (indicator->priv->history_button), gnome_cmd_data.button_relief);
     gtk_object_set_data_full (GTK_OBJECT (indicator),
                               "button", indicator->priv->history_button,
                               (GtkDestroyNotify) gtk_widget_unref);
@@ -460,7 +460,7 @@ static void init (GnomeCmdDirIndicator *indicator)
     // create the bookmark popup button
     indicator->priv->bookmark_button = create_styled_pixmap_button (NULL, IMAGE_get_gnome_cmd_pixmap (PIXMAP_BOOKMARK));
     GTK_WIDGET_UNSET_FLAGS (indicator->priv->bookmark_button, GTK_CAN_FOCUS);
-    gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button), gnome_cmd_data_get_button_relief ());
+    gtk_button_set_relief (GTK_BUTTON (indicator->priv->bookmark_button), gnome_cmd_data.button_relief);
     gtk_object_set_data_full (GTK_OBJECT (indicator), "button", indicator->priv->bookmark_button, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (indicator->priv->bookmark_button);
 

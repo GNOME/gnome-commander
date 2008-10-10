@@ -900,7 +900,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
             }
         }
 
-        if (!gnome_cmd_data_get_device_only_icon () || !pm)
+        if (!gnome_cmd_data.device_only_icon || !pm)
         {
             label = gtk_label_new (gnome_cmd_con_get_alias (con));
             gtk_widget_ref (label);

@@ -119,9 +119,11 @@ struct GnomeCmdData
 
     guint                        icon_size;
     guint                        dev_icon_size;
+    gboolean                     device_only_icon;
     gint                         list_row_height;
     guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
     guint                        gui_update_rate;
+    GtkReliefStyle               button_relief;
 
     GList                       *cmdline_history;
     gint                         cmdline_history_length;
@@ -201,12 +203,6 @@ void gnome_cmd_data_set_document_icon_dir (const gchar *dir);
 
 gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column);
 void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width);
-
-GtkReliefStyle gnome_cmd_data_get_button_relief ();
-void gnome_cmd_data_set_button_relief (GtkReliefStyle relief);
-
-gboolean gnome_cmd_data_get_device_only_icon ();
-void gnome_cmd_data_set_device_only_icon (gboolean value);
 
 gint gnome_cmd_data_get_dir_cache_size ();
 void gnome_cmd_data_set_dir_cache_size (gint size);
