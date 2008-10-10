@@ -32,24 +32,22 @@
 #define IMAGE_RENDER_DEFAULT_WIDTH    (100)
 #define IMAGE_RENDER_DEFAULT_HEIGHT   (200)
 
-typedef struct _ImageRender           ImageRender;
-typedef struct _ImageRenderPrivate    ImageRenderPrivate;
-typedef struct _ImageRenderClass      ImageRenderClass;
-typedef struct _ImageRenderStatus     ImageRenderStatus;
+struct ImageRenderPrivate;
+struct ImageRenderStatus;
 
-struct _ImageRender
+struct ImageRender
 {
     GtkWidget widget;
     ImageRenderPrivate *priv;
 };
 
-struct _ImageRenderClass
+struct ImageRenderClass
 {
     GtkWidgetClass parent_class;
     void (*image_status_changed)  (ImageRender *obj, ImageRenderStatus *status);
 };
 
-struct _ImageRenderStatus
+struct ImageRenderStatus
 {
     gboolean best_fit;
     gdouble  scale_factor;
@@ -85,6 +83,6 @@ gboolean       image_render_get_best_fit (ImageRender *obj);
 void           image_render_set_scale_factor (ImageRender *obj, double scalefactor);
 double         image_render_get_scale_factor (ImageRender *obj);
 
-void           image_render_operation (ImageRender *obk, IMAGEOPERATION op);
+void           image_render_operation (ImageRender *obj, IMAGEOPERATION op);
 
 #endif /* __IMAGE_RENDER_H__ */

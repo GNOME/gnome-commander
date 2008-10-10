@@ -25,17 +25,16 @@
 #ifndef __LIBGVIEWER_DATA_PRESENTATION_H__
 #define __LIBGVIEWER_DATA_PRESENTATION_H__
 
-typedef struct _GVDataPresentation GVDataPresentation;
+struct GVDataPresentation;
 
-typedef enum
+enum PRESENTATION
 {
     PRSNT_NO_WRAP,
     PRSNT_WRAP,
 
-    /* Here, BIN_FIXED is "fixed number of binary characters per line"
-       (e.g. CHAR=BYTE, no UTF-8 or other translations) */
+    // Here, BIN_FIXED is "fixed number of binary characters per line" (e.g. CHAR=BYTE, no UTF-8 or other translations)
     PRSNT_BIN_FIXED
-} PRESENTATION;
+};
 
 GVDataPresentation *gv_data_presentation_new();
 

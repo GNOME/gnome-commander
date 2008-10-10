@@ -42,7 +42,7 @@ enum SearchMode
     HEX
 };
 
-struct _GViewerSearcherPrivate
+struct GViewerSearcherPrivate
 {
     // gint-s for the indicator's atomic operations
     gint abort_indicator;

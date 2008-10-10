@@ -29,17 +29,15 @@
 #define SCROLL_BOX_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, scroll_box_get_type (), ScrollBoxClass)
 #define IS_SCROLL_BOX(obj)       GTK_CHECK_TYPE (obj, scroll_box_get_type ())
 
-typedef struct _ScrollBox           ScrollBox;
-typedef struct _ScrollBoxPrivate    ScrollBoxPrivate;
-typedef struct _ScrollBoxClass      ScrollBoxClass;
+struct ScrollBoxPrivate;
 
-struct _ScrollBox
+struct ScrollBox
 {
     GtkTable table;
     ScrollBoxPrivate *priv;
 };
 
-struct _ScrollBoxClass
+struct ScrollBoxClass
 {
     GtkTableClass parent_class;
 };

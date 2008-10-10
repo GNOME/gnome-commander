@@ -44,7 +44,7 @@ typedef offset_type (*align_offset_to_line_start_proc)(GVDataPresentation *dp, o
 typedef offset_type (*scroll_lines_proc)(GVDataPresentation *dp, offset_type current_offset, int delta);
 typedef offset_type (*get_end_of_line_offset_proc)(GVDataPresentation *dp, offset_type start_of_line);
 
-struct _GVDataPresentation
+struct GVDataPresentation
 {
     GVInputModesData *imd;
     guint wrap_limit;

@@ -35,7 +35,7 @@
 using namespace std;
 
 
-struct _GVInputModesData
+struct GVInputModesData
 {
     gchar *input_mode_name;
 

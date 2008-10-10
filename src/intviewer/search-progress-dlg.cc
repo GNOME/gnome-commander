@@ -36,7 +36,7 @@ static GtkDialogClass *parent_class = NULL;
 static void search_progress_dlg_destroy (GtkObject *object);
 static void search_progress_dlg_action_response(GtkDialog *dlg, gint arg1, GViewerSearchProgressDlg *sdlg);
 
-struct _GViewerSearchProgressDlgPrivate
+struct GViewerSearchProgressDlgPrivate
 {
     GtkWidget *label, *progressbar;
     gdouble progress;

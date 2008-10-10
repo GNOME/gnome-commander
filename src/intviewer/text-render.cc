@@ -67,7 +67,7 @@ typedef void (*copy_to_clipboard_proc)(TextRender *obj, offset_type start_offset
 
 
 // Class Private Data
-struct _TextRenderPrivate
+struct TextRenderPrivate
 {
     guint8 button; // The button pressed in "button_press_event"
 

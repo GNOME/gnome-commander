@@ -31,31 +31,31 @@
 
 #define TEXT_RENDER_DEFAULT_WIDTH   (100)
 #define TEXT_RENDER_DEFAULT_HEIGHT  (200)
-typedef struct _TextRender          TextRender;
-typedef struct _TextRenderPrivate   TextRenderPrivate;
-typedef struct _TextRenderClass     TextRenderClass;
-typedef struct _TextRenderStatus    TextRenderStatus;
 
-struct _TextRender
+struct TextRenderPrivate;
+struct TextRenderStatus;
+
+struct TextRender
 {
     GtkWidget widget;
     TextRenderPrivate *priv;
 };
 
-struct _TextRenderClass
+struct TextRenderClass
 {
     GtkWidgetClass parent_class;
 
     void (* text_status_changed)  (TextRender *obj, TextRenderStatus *status);
 };
 
-typedef enum {
+enum TEXTDISPLAYMODE
+{
     TR_DISP_MODE_TEXT,
     TR_DISP_MODE_BINARY,
     TR_DISP_MODE_HEXDUMP
-} TEXTDISPLAYMODE;
+};
 
-struct _TextRenderStatus
+struct TextRenderStatus
 {
     offset_type current_offset;
     offset_type size;

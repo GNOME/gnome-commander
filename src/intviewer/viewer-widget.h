@@ -29,24 +29,23 @@
 #define GVIEWER_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_get_type (), GViewerClass)
 #define IS_GVIEWER(obj)       GTK_CHECK_TYPE (obj, gviewer_get_type ())
 
-typedef struct _GViewer         GViewer;
-typedef struct _GViewerPrivate  GViewerPrivate;
-typedef struct _GViewerClass    GViewerClass;
+struct GViewerPrivate;
 
-typedef enum {
+ enum VIEWERDISPLAYMODE
+{
     DISP_MODE_TEXT_FIXED,
     DISP_MODE_BINARY,
     DISP_MODE_HEXDUMP,
     DISP_MODE_IMAGE
-} VIEWERDISPLAYMODE;
+};
 
-struct _GViewer
+struct GViewer
 {
     GtkTable table;
     GViewerPrivate *priv;
 };
 
-struct _GViewerClass
+struct GViewerClass
 {
     GtkTableClass parent_class;
     void (*status_line_changed)  (GViewer *obj, const gchar *statusline);

@@ -55,7 +55,7 @@ using namespace std;
 
 
 /* Class Private Data */
-struct _GViewerPrivate
+struct GViewerPrivate
 {
     GtkWidget         *tscrollbox;
     TextRender        *textr;

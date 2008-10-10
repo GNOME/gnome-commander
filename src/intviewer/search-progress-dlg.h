@@ -29,18 +29,15 @@
 #define GVIEWER_SEARCH_PROGRESS_DLG_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_search_progress_dlg_get_type(), GViewerSearchProgressDlgClass)
 #define IS_GVIEWER_SEARCH_PROGRESS_DLG(obj)       GTK_CHECK_TYPE (obj, gviewer_search_progress_dlg_get_type())
 
-typedef struct _GViewerSearchProgressDlg        GViewerSearchProgressDlg;
-typedef struct _GViewerSearchProgressDlgPrivate GViewerSearchProgressDlgPrivate;
-typedef struct _GViewerSearchProgressDlgClass   GViewerSearchProgressDlgClass;
-typedef struct _GViewerSearchProgressDlgStatus  GViewerSearchProgressDlgStatus;
+struct GViewerSearchProgressDlgPrivate;
 
-struct _GViewerSearchProgressDlg
+struct GViewerSearchProgressDlg
 {
     GtkDialog dialog;
     GViewerSearchProgressDlgPrivate *priv;
 };
 
-struct _GViewerSearchProgressDlgClass
+struct GViewerSearchProgressDlgClass
 {
     GtkDialogClass parent_class;
 };

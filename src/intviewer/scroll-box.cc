@@ -40,7 +40,7 @@ using namespace std;
 static GtkTableClass *parent_class = NULL;
 
 // Class Private Data
-struct _ScrollBoxPrivate
+struct ScrollBoxPrivate
 {
     GtkWidget *hscroll;
     GtkWidget *vscroll;

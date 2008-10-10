@@ -28,9 +28,7 @@
 #include <glib.h>
 #include <glib-object.h>
 
-typedef struct _GVIEWER_BM_CHARTYPE_DATA GViewerBMChartypeData;
-
-struct _GVIEWER_BM_CHARTYPE_DATA
+struct GViewerBMChartypeData
 {
     /* good-suffix-shift array, one element for each (unique) character in the search pattern */
     int *good;

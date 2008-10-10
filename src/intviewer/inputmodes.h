@@ -27,7 +27,7 @@
 
 #define is_displayable(c) (((c) >= 0x20) && ((c) < 0x7f))
 
-typedef struct _GVInputModesData GVInputModesData;
+struct GVInputModesData;
 
 /* input function types */
 typedef char_type (*input_get_char_proc)(GVInputModesData *imd, offset_type offset);

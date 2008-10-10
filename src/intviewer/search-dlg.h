@@ -29,23 +29,21 @@
 #define GVIEWER_SEARCH_DLG_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gviewer_search_dlg_get_type(), GViewerSearchDlgClass)
 #define IS_GVIEWER_SEARCH_DLG(obj)       GTK_CHECK_TYPE (obj, gviewer_search_dlg_get_type())
 
-typedef struct _GViewerSearchDlg        GViewerSearchDlg;
-typedef struct _GViewerSearchDlgPrivate GViewerSearchDlgPrivate;
-typedef struct _GViewerSearchDlgClass   GViewerSearchDlgClass;
-typedef struct _GViewerSearchDlgStatus  GViewerSearchDlgStatus;
+struct GViewerSearchDlgPrivate;
 
-typedef enum {
+enum SEARCHMODE
+{
     SEARCH_MODE_TEXT,
     SEARCH_MODE_HEX
-} SEARCHMODE;
+};
 
-struct _GViewerSearchDlg
+struct GViewerSearchDlg
 {
     GtkDialog dialog;
     GViewerSearchDlgPrivate *priv;
 };
 
-struct _GViewerSearchDlgClass
+struct GViewerSearchDlgClass
 {
     GtkDialogClass parent_class;
 };
