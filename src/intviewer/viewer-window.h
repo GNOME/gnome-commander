@@ -35,13 +35,8 @@
 #define IS_GVIEWER_WINDOW(obj) \
     GTK_CHECK_TYPE (obj, gviewer_window_get_type())
 
-typedef struct _GViewerWindow GViewerWindow;
-typedef struct _GViewerWindowPrivate GViewerWindowPrivate;
-typedef struct _GViewerWindowClass GViewerWindowClass;
-typedef struct _GViewerWindowSettings GViewerWindowSettings;
 
-
-struct _GViewerWindowSettings
+struct GViewerWindowSettings
 {
     GdkRectangle rect;
 
@@ -57,7 +52,11 @@ struct _GViewerWindowSettings
     gboolean hex_decimal_offset;
 };
 
-struct _GViewerWindow
+
+struct GViewerWindowPrivate;
+
+
+struct GViewerWindow
 {
     GtkWindow parent;
 
@@ -65,7 +64,7 @@ struct _GViewerWindow
 };
 
 
-struct _GViewerWindowClass
+struct GViewerWindowClass
 {
     GtkWindowClass parent_class;
 };
@@ -73,7 +72,10 @@ struct _GViewerWindowClass
 
 GtkType gviewer_window_get_type ();
 
-GtkWidget *gviewer_window_new (GViewerWindowSettings *initial_settings);
+inline GtkWidget *gviewer_window_new ()
+{
+    return (GtkWidget *) gtk_type_new (gviewer_window_get_type ());
+}
 
 void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f);
 
