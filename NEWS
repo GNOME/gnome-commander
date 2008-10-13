@@ -13,6 +13,7 @@ Bug fixes:
 
 New features:
  * Support for PDF metatags in advanced file rename templates
+ * Support for metadata tags in internal viewer
  * New or updated docs: de, en, es
  * New or updated translations: ar, de, es, eu, pl
  * New key bindings:

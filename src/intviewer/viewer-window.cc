@@ -40,7 +40,10 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"
+#include "gnome-cmd-treeview.h"
 #include "utils.h"
+#include "tags/gnome-cmd-tags.h"
+
 
 using namespace std;
 
@@ -73,11 +76,8 @@ struct GViewerWindowPrivate
     GtkWidget *fixed_limit_menu_items[3];
     GViewerWindowSettings state;
 
-    GViewer *metadata_view;
-    int      exit_data_fd;
+    GtkWidget *metadata_view;
     gboolean metadata_visible;
-
-    GViewer *active_viewer;
 
     int current_scale_index;
 
@@ -136,6 +136,9 @@ static void set_zoom_out(GViewerWindow *obj);
 static void set_zoom_normal(GViewerWindow *obj);
 static void set_zoom_best_fit(GViewerWindow *obj);
 
+inline GtkTreeModel *create_model ();
+inline void fill_model (GtkTreeStore *treestore, GnomeCmdFile *f);
+inline GtkWidget *create_view ();
 
 /*****************************************
     public functions
@@ -173,6 +176,7 @@ void gviewer_window_load_file (GViewerWindow *obj, GnomeCmdFile *f)
     obj->priv->f = f;
     obj->priv->filename = gnome_cmd_file_get_real_path (f);
     gviewer_load_file (obj->priv->viewer, obj->priv->filename);
+
     gtk_window_set_title (GTK_WINDOW(obj), obj->priv->filename);
 }
 
@@ -223,10 +227,10 @@ static void gviewer_window_init (GViewerWindow *w)
 {
     w->priv = g_new0 (GViewerWindowPrivate, 1);
 
-    w->priv->status_bar_msg = FALSE;
-    w->priv->filename = NULL;
-    w->priv->exit_data_fd = -1;
-    w->priv->metadata_visible = FALSE;
+    // w->priv->status_bar_msg = FALSE;
+    // w->priv->filename = NULL;
+    // w->priv->metadata_view = NULL;
+    // w->priv->metadata_visible = FALSE;
     w->priv->current_scale_index = 3;
 
     GtkWindow *win = GTK_WINDOW (w);
@@ -245,11 +249,8 @@ static void gviewer_window_init (GViewerWindow *w)
     g_object_ref (G_OBJECT (w->priv->viewer));
     gtk_widget_show (GTK_WIDGET (w->priv->viewer));
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET (w->priv->viewer), TRUE, TRUE, 0);
-    w->priv->metadata_view = (GViewer *) gviewer_new();
-    g_object_ref (G_OBJECT (w->priv->metadata_view));
 
     g_signal_connect(G_OBJECT (w->priv->viewer), "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), (gpointer) w);
-
 
     w->priv->statusbar = gtk_statusbar_new ();
     gtk_widget_show (w->priv->statusbar);
@@ -260,8 +261,6 @@ static void gviewer_window_init (GViewerWindow *w)
     gtk_widget_grab_focus (GTK_WIDGET (w->priv->viewer));
 
     gtk_container_add(GTK_CONTAINER (w), w->priv->vbox);
-
-    w->priv->active_viewer = w->priv->viewer;
 }
 
 
@@ -371,14 +370,9 @@ static void gviewer_window_destroy (GtkObject *widget)
     if (w->priv)
     {
         g_object_unref (G_OBJECT (w->priv->viewer));
-        g_object_unref (G_OBJECT (w->priv->metadata_view));
 
         g_free (w->priv->filename);
         w->priv->filename = NULL;
-
-        if (w->priv->exit_data_fd!=-1)
-            close(w->priv->exit_data_fd);
-        w->priv->exit_data_fd = -1;
 
         g_free (w->priv);
         w->priv = NULL;
@@ -989,9 +983,9 @@ static void menu_settings_binary_bytes_per_line(GtkMenuItem *item, GViewerWindow
 static void menu_edit_copy(GtkMenuItem *item, GViewerWindow *obj)
 {
     g_return_if_fail (obj);
-    g_return_if_fail (obj->priv->active_viewer);
+    g_return_if_fail (obj->priv->viewer);
 
-    gviewer_copy_selection(obj->priv->active_viewer);
+    gviewer_copy_selection(obj->priv->viewer);
 }
 
 
@@ -1029,7 +1023,6 @@ static void start_find_thread(GViewerWindow *obj, gboolean forward)
 static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
 {
     g_return_if_fail (obj);
-    g_return_if_fail (obj->priv->active_viewer);
 
     // Show the Search Dialog
     GtkWidget *w = gviewer_search_dlg_new (GTK_WINDOW (obj));
@@ -1096,7 +1089,6 @@ static void menu_edit_find(GtkMenuItem *item, GViewerWindow *obj)
 static void menu_edit_find_next(GtkMenuItem *item, GViewerWindow *obj)
 {
     g_return_if_fail (obj);
-    g_return_if_fail (obj->priv->active_viewer);
 
     if (!obj->priv->srchr)
     {
@@ -1114,7 +1106,6 @@ static void menu_edit_find_next(GtkMenuItem *item, GViewerWindow *obj)
 static void menu_edit_find_prev(GtkMenuItem *item, GViewerWindow *obj)
 {
     g_return_if_fail (obj);
-    g_return_if_fail (obj->priv->active_viewer);
 
     if (!obj->priv->srchr)
         return;
@@ -1132,12 +1123,6 @@ static void menu_view_wrap(GtkMenuItem *item, GViewerWindow *obj)
 
     gviewer_set_wrap_mode(obj->priv->viewer, wrap);
     gtk_widget_draw (GTK_WIDGET (obj->priv->viewer), NULL);
-
-    if (obj->priv->metadata_visible)
-    {
-        gviewer_set_wrap_mode(obj->priv->metadata_view, wrap);
-        gtk_widget_draw (GTK_WIDGET (obj->priv->metadata_view), NULL);
-    }
 }
 
 
@@ -1148,9 +1133,6 @@ static void menu_settings_hex_decimal_offset(GtkMenuItem *item, GViewerWindow *o
 
     gboolean hex = gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (item));
     gviewer_set_hex_offset_display(obj->priv->viewer, hex);
-
-    if (obj->priv->metadata_visible)
-        gviewer_set_hex_offset_display(obj->priv->metadata_view, hex);
 }
 
 
@@ -1225,66 +1207,39 @@ static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj)
 }
 
 
-inline int gviewer_window_run_exif (GViewerWindow *obj)
+inline void gviewer_window_show_metadata(GViewerWindow *w)
 {
-    g_return_val_if_fail (obj!=NULL, -1);
-    g_return_val_if_fail (obj->priv->filename!=NULL, -1);
+    g_return_if_fail (w!=NULL);
+    g_return_if_fail (w->priv->f!=NULL);
 
-    int fd = -1;
-    FILE *file = tmpfile();
-
-    if (!file)
-    {
-        g_warning("Failed to create temporary file");
-        return fd;
-    }
-    fd = fileno(file);
-    if (fd==-1)
-    {
-        fclose(file);
-        g_warning("Failed to extract tempfile descriptor");
-        return fd;
-    }
-
-    gchar *cmd_with_redir = g_strdup_printf("iptc '%s' >&%d", obj->priv->filename, fd);
-
-    if (system(cmd_with_redir)==-1)
-        g_warning("IPTC execution (%s) failed", cmd_with_redir);
-
-    g_free (cmd_with_redir);
-
-    cmd_with_redir = g_strdup_printf("exif '%s' >&%d", obj->priv->filename, fd);
-
-    if (system(cmd_with_redir)==-1)
-        g_warning("EXIF execution (%s) failed", cmd_with_redir);
-
-    g_free (cmd_with_redir);
-
-    return fd;
-}
-
-
-inline void gviewer_window_show_metadata(GViewerWindow *obj)
-{
-    g_return_if_fail (obj!=NULL);
-    g_return_if_fail (obj->priv->metadata_view!=NULL);
-
-    if (obj->priv->metadata_visible)
+    if (w->priv->metadata_visible)
         return;
 
-    if (obj->priv->exit_data_fd==-1)
-        obj->priv->exit_data_fd = gviewer_window_run_exif (obj);
+    if (!w->priv->metadata_view)
+    {
+        GtkWidget *scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+        gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+        gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 10);
+        gtk_container_add (GTK_CONTAINER (scrolledwindow), create_view ());
+        gtk_box_pack_start (GTK_BOX (w->priv->vbox), scrolledwindow, TRUE, TRUE, 0);
+        w->priv->metadata_view = scrolledwindow;
+    }
 
-    g_return_if_fail (obj->priv->exit_data_fd!=-1);
-    gviewer_load_filedesc(obj->priv->metadata_view, obj->priv->exit_data_fd);
-    gtk_widget_show (GTK_WIDGET (obj->priv->metadata_view));
+    GtkWidget *view = gtk_bin_get_child (GTK_BIN (w->priv->metadata_view));
+    GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
 
-    obj->priv->metadata_visible = TRUE;
-    gtk_box_pack_start (GTK_BOX (obj->priv->vbox), GTK_WIDGET (obj->priv->metadata_view), TRUE, TRUE, 0);
+    if (!model)
+    {
+        model = create_model ();
+        fill_model (GTK_TREE_STORE (model), w->priv->f);
+        gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
+        g_object_unref (model);          // destroy model automatically with view
+        gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW (view)), GTK_SELECTION_NONE);
+    }
 
-    obj->priv->active_viewer = obj->priv->metadata_view;
+    w->priv->metadata_visible = TRUE;
 
-    gtk_widget_grab_focus (GTK_WIDGET (obj->priv->metadata_view));
+    gtk_widget_show_all (w->priv->metadata_view);
 }
 
 
@@ -1297,10 +1252,9 @@ inline void gviewer_window_hide_metadata(GViewerWindow *obj)
         return;
 
     obj->priv->metadata_visible = FALSE;
-    gtk_container_remove (GTK_CONTAINER (obj->priv->vbox), GTK_WIDGET (obj->priv->metadata_view));
+    // gtk_container_remove (GTK_CONTAINER (obj->priv->vbox), obj->priv->metadata_view);
+    gtk_widget_hide_all (obj->priv->metadata_view);
     gtk_widget_grab_focus (GTK_WIDGET (obj->priv->viewer));
-
-    obj->priv->active_viewer = obj->priv->viewer;
 }
 
 
@@ -1315,12 +1269,12 @@ static void set_zoom_in(GViewerWindow *obj)
         case DISP_MODE_BINARY:
         case DISP_MODE_HEXDUMP:
             {
-               int size = gviewer_get_font_size(obj->priv->active_viewer);
+               int size = gviewer_get_font_size(obj->priv->viewer);
 
                if (size==0 || size>32)  return;
 
                size++;
-               gviewer_set_font_size(obj->priv->active_viewer, size);
+               gviewer_set_font_size(obj->priv->viewer, size);
             }
             break;
 
@@ -1355,12 +1309,12 @@ static void set_zoom_out(GViewerWindow *obj)
         case DISP_MODE_BINARY:
         case DISP_MODE_HEXDUMP:
             {
-               int size = gviewer_get_font_size(obj->priv->active_viewer);
+               int size = gviewer_get_font_size(obj->priv->viewer);
 
                if (size==0 || size<4)  return;
 
                size--;
-               gviewer_set_font_size(obj->priv->active_viewer, size);
+               gviewer_set_font_size(obj->priv->viewer, size);
             }
             break;
 
@@ -1415,4 +1369,116 @@ static void set_zoom_best_fit (GViewerWindow *obj)
        return;
 
     gviewer_set_best_fit(obj->priv->viewer, TRUE);
+}
+
+
+enum
+{
+    COL_TAG,
+    COL_TYPE,
+    COL_NAME,
+    COL_VALUE,
+    COL_DESC,
+    NUM_COLS
+} ;
+
+
+inline GtkTreeModel *create_model ()
+{
+    GtkTreeStore *tree = gtk_tree_store_new (NUM_COLS,
+                                             G_TYPE_UINT,
+                                             G_TYPE_STRING,
+                                             G_TYPE_STRING,
+                                             G_TYPE_STRING,
+                                             G_TYPE_STRING);
+
+    return GTK_TREE_MODEL (tree);
+}
+
+
+inline void fill_model (GtkTreeStore *tree, GnomeCmdFile *f)
+{
+    if (!gcmd_tags_bulk_load (f))
+        return;
+
+    GnomeCmdTagClass prev_tagclass = TAG_NONE_CLASS;
+
+    GtkTreeIter toplevel;
+
+    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=f->metadata->begin(); i!=f->metadata->end(); ++i)
+    {
+        const GnomeCmdTag t = i->first;
+        GnomeCmdTagClass curr_tagclass = gcmd_tags_get_class(t);
+
+        if (curr_tagclass==TAG_NONE_CLASS)
+            continue;
+
+        if (prev_tagclass!=curr_tagclass)
+        {
+            gtk_tree_store_append (tree, &toplevel, NULL);
+            gtk_tree_store_set (tree, &toplevel,
+                                COL_TAG, TAG_NONE,
+                                COL_TYPE, gcmd_tags_get_class_name(t),
+                                -1);
+        }
+
+        for (set<std::string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
+        {
+            GtkTreeIter child;
+
+            gtk_tree_store_append (tree, &child, &toplevel);
+            gtk_tree_store_set (tree, &child,
+                                COL_TAG, t,
+                                COL_NAME, gcmd_tags_get_title(t),
+                                COL_VALUE, j->c_str(),
+                                COL_DESC, gcmd_tags_get_description(t),
+                                -1);
+        }
+
+        prev_tagclass = curr_tagclass;
+    }
+
+}
+
+
+inline GtkWidget *create_view ()
+{
+    GtkWidget *view = gtk_tree_view_new ();
+
+    g_object_set (view,
+                  "rules-hint", TRUE,
+                  "enable-search", TRUE,
+                  "search-column", COL_VALUE,
+                  NULL);
+
+    GtkCellRenderer *renderer = NULL;
+    GtkTreeViewColumn *col = NULL;
+
+    GtkTooltips *tips = gtk_tooltips_new ();
+
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_TYPE, _("Type"));
+    gtk_tooltips_set_tip (tips, col->button, _("Metadata namespace"), NULL);
+
+    g_object_set (renderer,
+                  "weight-set", TRUE,
+                  "weight", PANGO_WEIGHT_BOLD,
+                  NULL);
+
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_NAME, _("Name"));
+    gtk_tooltips_set_tip (tips, col->button, _("Tag name"), NULL);
+
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), COL_VALUE, _("Value"));
+    gtk_tooltips_set_tip (tips, col->button, _("Tag value"), NULL);
+
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, COL_DESC, _("Description"));
+    gtk_tooltips_set_tip (tips, col->button, _("Metadata tag description"), NULL);
+
+    g_object_set (renderer,
+                  "foreground-set", TRUE,
+                  "foreground", "DarkGray",
+                  "ellipsize-set", TRUE,
+                  "ellipsize", PANGO_ELLIPSIZE_END,
+                  NULL);
+
+    return view;
 }

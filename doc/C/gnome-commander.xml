@@ -5964,6 +5964,9 @@
                             <para>Support for PDF metatags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
+                            <para>Support for metadata tags in internal viewer</para>
+                        </listitem>
+                        <listitem>
                             <para>New or updated docs: de, en, es</para>
                         </listitem>
                         <listitem>
