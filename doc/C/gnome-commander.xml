@@ -3444,8 +3444,7 @@
           </varlistentry>
           <varlistentry>
             <term>
-              <guilabel>Pick window size and zoom factor
-            automatically</guilabel></term>
+              <guilabel>Pick window size and zoom factor automatically</guilabel></term>
             <listitem>
               <para>Select this option to resize the image window to fit the
             image or to resize the image to fit the image
@@ -3498,6 +3497,10 @@
         <row valign="top">
         <entry><keycombo><keycap>W</keycap></keycombo></entry>
         <entry><para>Toggles line wrapping (applicable only in text display modes)</para></entry>
+        </row>
+        <row valign="top">
+        <entry><para>T</para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></entry>
+        <entry><para>Shows metadata tags</para></entry>
         </row>
         <row valign="top">
         <entry><para>Input Modes:</para></entry>
@@ -5976,7 +5979,10 @@
                             <para>New key bindings:</para>
                             <itemizedlist>
                                 <listitem>
-                                    <para><keycombo><keycap>...</keycap><keycap>...</keycap></keycombo>   ...</para>
+                                    <para><keycombo><keycap>T</keycap></keycombo>   Show metadata tags (replaces the old E)</para>
+                                </listitem>
+                                <listitem>
+                                    <para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo>   Show metadata tags</para>
                                 </listitem>
                             </itemizedlist>
                         </listitem>

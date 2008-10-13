@@ -3,6 +3,9 @@
 	* src/intviewer/viewer-window.cc:
 	Internal viewer - support for metadata tags
 
+	* src/intviewer/viewer-window.cc:
+	Internal viewer - new key bindings: T and ALT+ENTER for metadata tags viewing
+
 2008-10-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/intviewer/*.cc:

@@ -17,7 +17,8 @@ New features:
  * New or updated docs: de, en, es
  * New or updated translations: ar, de, es, eu, pl
  * New key bindings:
-      ...            ...
+      T              Show metadata tags (replaces the old E)
+      ALT+ENTER      Show metadata tags
 
 
 ===================================

@@ -390,16 +390,24 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
     GViewerWindow *w = GVIEWER_WINDOW (widget);
 
-    if (event->state & GDK_CONTROL_MASK)
+    if (state_is_ctrl(event->state))
         switch (event->keyval)
         {
+            case GDK_t:
+            case GDK_T:
+                if (w->priv->metadata_visible)
+                    gviewer_window_hide_metadata(w);
+                else
+                    gviewer_window_show_metadata(w);
+                return TRUE;
+
             case GDK_w:
             case GDK_W:
                 gtk_widget_destroy(GTK_WIDGET (w));
                 return TRUE;
         }
 
-    if (event->state & GDK_SHIFT_MASK)
+    if (state_is_shift(event->state))
         switch (event->keyval)
         {
             case GDK_F7:
@@ -407,7 +415,16 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
                return TRUE;
         }
 
-    switch (event->keyval)
+    if (state_is_alt(event->state))
+        switch (event->keyval)
+        {
+            case GDK_Return:
+            case GDK_KP_Enter:
+                gviewer_window_show_metadata(w);
+                return TRUE;
+        }
+
+    switch (state_is_blank(event->keyval))
     {
         case GDK_plus:
         case GDK_KP_Add:
@@ -739,7 +756,7 @@ static void create_menu_items (GtkWidget *container, GtkAccelGroup *accel, gpoin
     };
 
     MENU_ITEM_DATA image_menu_items[] = {
-        {MI_CHECK, _("_Show EXIF/IPTC Information"), GDK_e, NO_MODIFIER,
+        {MI_CHECK, _("Show Metadata _Tags"), GDK_t, NO_MODIFIER,
                 G_CALLBACK (menu_view_exif_information),
                 GNOME_APP_PIXMAP_NONE, NO_PIXMAP_INFO,
                 NO_GOBJ_KEY, NO_GOBJ_VAL,
