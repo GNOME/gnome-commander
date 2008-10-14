@@ -426,6 +426,14 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
     switch (state_is_blank(event->keyval))
     {
+        case GDK_t:
+        case GDK_T:
+            if (w->priv->metadata_visible)
+                gviewer_window_hide_metadata(w);
+            else
+                gviewer_window_show_metadata(w);
+            return TRUE;
+
         case GDK_plus:
         case GDK_KP_Add:
         case GDK_equal:
@@ -1408,7 +1416,6 @@ inline GtkTreeModel *create_model ()
                                              G_TYPE_STRING,
                                              G_TYPE_STRING,
                                              G_TYPE_STRING);
-
     return GTK_TREE_MODEL (tree);
 }
 
