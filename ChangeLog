@@ -3,6 +3,11 @@
 	* src/intviewer/viewer-window.cc:
 	Internal viewer: view metatags with both t/T shortcuts
 
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/gnome-cmd-types.h:
+	New colour theme: cafezinho
+
 2008-10-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/intviewer/viewer-window.cc:

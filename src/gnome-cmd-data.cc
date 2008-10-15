@@ -1214,6 +1214,14 @@ void GnomeCmdData::load()
     priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_fg = gdk_color_new (0,0,0);
     priv->color_themes[GNOME_CMD_COLOR_DEEP_BLUE].curs_bg = gdk_color_new (0xaaaa,0xaaaa,0xaaaa);
 
+    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].respect_theme = FALSE;
+    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].norm_fg = gdk_color_new (0xe4e4,0xdede,0xd5d5);
+    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].norm_bg = gdk_color_new (0x199a,0x1530,0x11a8);
+    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].sel_fg = gdk_color_new (0xffff,0xcfcf,0x3636);
+    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].sel_bg = gdk_color_new (0,0xffff,0);
+    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].curs_fg = gdk_color_new (0xe4e4,0xdede,0xd5d5);
+    priv->color_themes[GNOME_CMD_COLOR_CAFEZINHO].curs_bg = gdk_color_new (0x4d4d,0x4d4d,0x4d4d);
+
     priv->color_themes[GNOME_CMD_COLOR_NONE].respect_theme = TRUE;
     priv->color_themes[GNOME_CMD_COLOR_NONE].norm_fg = NULL;
     priv->color_themes[GNOME_CMD_COLOR_NONE].norm_bg = NULL;
