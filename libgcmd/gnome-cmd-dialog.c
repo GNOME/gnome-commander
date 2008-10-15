@@ -118,7 +118,7 @@ static void init (GnomeCmdDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkType gnome_cmd_dialog_get_type (void)
+GtkType gnome_cmd_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 

@@ -74,7 +74,7 @@ init (GnomeCmdPlugin *plugin)
  ***********************************/
 
 GtkType
-gnome_cmd_plugin_get_type         (void)
+gnome_cmd_plugin_get_type ()
 {
     static GtkType type = 0;
 

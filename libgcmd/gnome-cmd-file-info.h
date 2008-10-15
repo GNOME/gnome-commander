@@ -48,7 +48,7 @@ struct _GnomeCmdFileInfoClass
 };
 
 
-GtkType gnome_cmd_file_info_get_type (void);
+GtkType gnome_cmd_file_info_get_type ();
 
 void gnome_cmd_file_info_setup (GnomeCmdFileInfo *finfo, GnomeVFSURI *uri, GnomeVFSFileInfo *info);
 

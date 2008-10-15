@@ -49,10 +49,10 @@ struct _TestPluginClass
 
 
 GtkType
-test_plugin_get_type (void);
+test_plugin_get_type ();
 
 GnomeCmdPlugin *
-test_plugin_new (void);
+test_plugin_new ();
 
 G_END_DECLS
 

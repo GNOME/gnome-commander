@@ -159,7 +159,7 @@ setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
  ***********************************/
 
 GtkType
-gnome_cmd_string_dialog_get_type         (void)
+gnome_cmd_string_dialog_get_type ()
 {
     static GtkType dlg_type = 0;
 

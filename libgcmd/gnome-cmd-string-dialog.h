@@ -92,7 +92,7 @@ gnome_cmd_string_dialog_setup (GnomeCmdStringDialog *dialog,
                                GnomeCmdStringDialogCallback ok_cb,
                                gpointer user_data);
 
-GtkType gnome_cmd_string_dialog_get_type (void);
+GtkType gnome_cmd_string_dialog_get_type ();
 
 void gnome_cmd_string_dialog_set_hidden (GnomeCmdStringDialog *dialog, gint row, gboolean hidden);
 

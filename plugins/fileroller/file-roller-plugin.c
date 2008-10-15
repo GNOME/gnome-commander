@@ -430,7 +430,7 @@ init (FileRollerPlugin *plugin)
  ***********************************/
 
 GtkType
-file_roller_plugin_get_type         (void)
+file_roller_plugin_get_type ()
 {
     static GtkType type = 0;
 
@@ -455,7 +455,7 @@ file_roller_plugin_get_type         (void)
 
 
 GnomeCmdPlugin *
-file_roller_plugin_new (void)
+file_roller_plugin_new ()
 {
     FileRollerPlugin *plugin = gtk_type_new (file_roller_plugin_get_type ());
 
@@ -463,13 +463,13 @@ file_roller_plugin_new (void)
 }
 
 
-GnomeCmdPlugin *create_plugin (void)
+GnomeCmdPlugin *create_plugin ()
 {
     return file_roller_plugin_new ();
 }
 
 
-PluginInfo *get_plugin_info (void)
+PluginInfo *get_plugin_info ()
 {
     if (!plugin_nfo.authors)
     {

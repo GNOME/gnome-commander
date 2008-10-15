@@ -79,7 +79,7 @@ init (GnomeCmdFileInfo *file)
  ***********************************/
 
 GtkType
-gnome_cmd_file_info_get_type         (void)
+gnome_cmd_file_info_get_type ()
 {
     static GtkType type = 0;
 

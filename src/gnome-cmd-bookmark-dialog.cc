@@ -499,7 +499,7 @@ static void init (GnomeCmdBookmarkDialog *in_dialog)
 
     gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event",
                         GTK_SIGNAL_FUNC (on_dialog_keypress), dialog);
-    gtk_signal_connect_after (GTK_OBJECT (in_dialog->priv->dir_list), "scroll_vertical",
+    gtk_signal_connect_after (GTK_OBJECT (in_dialog->priv->dir_list), "scroll-vertical",
                               GTK_SIGNAL_FUNC (on_scroll_vertical), NULL);
     gtk_signal_connect (GTK_OBJECT (in_dialog->priv->dir_list), "unselect-row",
                         GTK_SIGNAL_FUNC (on_dir_unselected), dialog);

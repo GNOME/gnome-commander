@@ -49,10 +49,10 @@ struct _FileRollerPluginClass
 
 
 GtkType
-file_roller_plugin_get_type (void);
+file_roller_plugin_get_type ();
 
 GnomeCmdPlugin *
-file_roller_plugin_new (void);
+file_roller_plugin_new ();
 
 G_END_DECLS
 

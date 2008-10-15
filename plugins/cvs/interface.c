@@ -523,7 +523,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
         gtk_clist_set_row_data (GTK_CLIST (rev_list), row, rev);
     }
 
-    gtk_signal_connect (GTK_OBJECT (rev_list), "select_row",
+    gtk_signal_connect (GTK_OBJECT (rev_list), "select-row",
                         GTK_SIGNAL_FUNC (on_rev_list_select_row), log_history);
 
     gtk_clist_select_row (GTK_CLIST (rev_list), 0, 0);

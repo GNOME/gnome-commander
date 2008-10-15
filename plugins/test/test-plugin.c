@@ -52,15 +52,13 @@ struct _TestPluginPrivate
 static GnomeCmdPluginClass *parent_class = NULL;
 
 
-static void
-on_dummy (GtkMenuItem *item, gpointer data)
+static void on_dummy (GtkMenuItem *item, gpointer data)
 {
     gnome_ok_dialog ("Test plugin dummy operation");
 }
 
 
-static GtkWidget *
-create_menu_item (const gchar *name, gboolean show_pixmap,
+static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
                   GtkSignalFunc callback, gpointer data)
 {
     GtkWidget *item, *label;
@@ -99,8 +97,7 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
 }
 
 
-static GtkWidget *
-create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     GtkWidget *item, *child;
     GtkMenu *submenu;
@@ -117,11 +114,9 @@ create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 }
 
 
-static GList *
-create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
-    GtkWidget *item = create_menu_item (
-        "Test plugin dummy operation", TRUE, GTK_SIGNAL_FUNC (on_dummy), state);
+    GtkWidget *item = create_menu_item ("Test plugin dummy operation", TRUE, GTK_SIGNAL_FUNC (on_dummy), state);
     return g_list_append (NULL, item);
 }
 
@@ -155,8 +150,7 @@ destroy (GtkObject *object)
 }
 
 
-static void
-class_init (TestPluginClass *klass)
+static void class_init (TestPluginClass *klass)
 {
     GtkObjectClass *object_class;
     GnomeCmdPluginClass *plugin_class;
@@ -174,8 +168,7 @@ class_init (TestPluginClass *klass)
 }
 
 
-static void
-init (TestPlugin *plugin)
+static void init (TestPlugin *plugin)
 {
     plugin->priv = g_new (TestPluginPrivate, 1);
 }
@@ -187,7 +180,7 @@ init (TestPlugin *plugin)
  ***********************************/
 
 GtkType
-test_plugin_get_type         (void)
+test_plugin_get_type ()
 {
     static GtkType type = 0;
 
@@ -211,8 +204,7 @@ test_plugin_get_type         (void)
 }
 
 
-GnomeCmdPlugin *
-test_plugin_new (void)
+GnomeCmdPlugin *test_plugin_new ()
 {
     TestPlugin *plugin;
 
@@ -222,13 +214,13 @@ test_plugin_new (void)
 }
 
 
-GnomeCmdPlugin *create_plugin (void)
+GnomeCmdPlugin *create_plugin ()
 {
     return test_plugin_new ();
 }
 
 
-PluginInfo *get_plugin_info (void)
+PluginInfo *get_plugin_info ()
 {
     if (!plugin_nfo.authors)
     {
