@@ -788,7 +788,6 @@ static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
     if (fs->file_list()->has_file(f))
     {
-        gnome_cmd_file_invalidate_metadata (f);                 // FIXME: should be handled in GnomeCmdDir, not here
         fs->file_list()->update_file(f);
         fs->update_selected_files_label();
     }

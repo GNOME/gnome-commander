@@ -785,6 +785,7 @@ void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
     gnome_vfs_uri_unref (uri);
 
     gnome_cmd_file_update_info (finfo, info);
+    gnome_cmd_file_invalidate_metadata (finfo);
     gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CHANGED], finfo);
 }
 
