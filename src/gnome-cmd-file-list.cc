@@ -61,7 +61,7 @@ enum
     FILE_CLICKED,        // A file in the list was clicked
     LIST_CLICKED,        // The file list widget was clicked
     EMPTY_SPACE_CLICKED, // The file list was clicked but not on a file
-    SELECTION_CHANGED,   // At least on file was selected/unselected
+    FILES_CHANGED,       // The visible content of the file list has changed (files have been: selected, created, deleted or modified)
     LAST_SIGNAL
 };
 
@@ -346,7 +346,7 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
     gnome_cmd_file_ref (finfo);
     fl->priv->selected_files = g_list_append (fl->priv->selected_files, finfo);
 
-    gtk_signal_emit (*fl, file_list_signals[SELECTION_CHANGED]);
+    gtk_signal_emit (*fl, file_list_signals[FILES_CHANGED]);
 }
 
 
@@ -378,7 +378,7 @@ static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
             if (fg)  gtk_clist_set_foreground (*fl, row, fg);
         }
 
-    gtk_signal_emit (*fl, file_list_signals[SELECTION_CHANGED]);
+    gtk_signal_emit (*fl, file_list_signals[FILES_CHANGED]);
 }
 
 
@@ -1273,11 +1273,11 @@ static void class_init (GnomeCmdFileListClass *klass)
                         GTK_TYPE_NONE,
                         1, GTK_TYPE_POINTER);
 
-    file_list_signals[SELECTION_CHANGED] =
-        gtk_signal_new ("selection-changed",
+    file_list_signals[FILES_CHANGED] =
+        gtk_signal_new ("files-changed",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, selection_changed),
+                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, files_changed),
                         gtk_marshal_NONE__NONE,
                         GTK_TYPE_NONE,
                         0);
@@ -1286,7 +1286,7 @@ static void class_init (GnomeCmdFileListClass *klass)
     widget_class->map = ::map;
     klass->file_clicked = NULL;
     klass->list_clicked = NULL;
-    klass->selection_changed = NULL;
+    klass->files_changed = NULL;
 }
 
 static void init (GnomeCmdFileList *fl)
@@ -1335,11 +1335,14 @@ GtkType gnome_cmd_file_list_get_type ()
 }
 
 
-GtkWidget *gnome_cmd_file_list_new ()
+GtkWidget *gnome_cmd_file_list_new (GtkSignalFunc handler, GtkObject *object)
 {
     GnomeCmdFileList *fl = (GnomeCmdFileList *) g_object_new (gnome_cmd_file_list_get_type (), "n-columns", GnomeCmdFileList::NUM_COLUMNS, NULL);
 
     fl->create_column_titles();
+
+    if (handler)
+        gtk_signal_connect (*fl, "files-changed", handler, object);
 
     return GTK_WIDGET (fl);
 }

@@ -948,7 +948,7 @@ static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *e
 }
 
 
-static void on_list_selection_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
+static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
 {
     fs->update_selected_files_label();
 }
@@ -1243,7 +1243,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "file-clicked", GTK_SIGNAL_FUNC (on_list_file_clicked), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "list-clicked", GTK_SIGNAL_FUNC (on_list_list_clicked), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "empty-space-clicked", GTK_SIGNAL_FUNC (on_list_empty_space_clicked), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "selection-changed", GTK_SIGNAL_FUNC (on_list_selection_changed), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "files-changed", GTK_SIGNAL_FUNC (on_list_files_changed), fs);
 
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_pressed), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_pressed_private), fs);

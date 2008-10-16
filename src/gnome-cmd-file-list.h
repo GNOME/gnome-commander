@@ -158,7 +158,7 @@ struct GnomeCmdFileListClass
     void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEventButton *button);
     void (* list_clicked)        (GnomeCmdFileList *fl, GdkEventButton *button);
     void (* empty_space_clicked) (GnomeCmdFileList *fl, GdkEventButton *button);
-    void (* selection_changed)   (GnomeCmdFileList *fl);
+    void (* files_changed)       (GnomeCmdFileList *fl);
 };
 
 
@@ -167,7 +167,7 @@ extern GtkTargetEntry drop_types[];
 
 
 GtkType gnome_cmd_file_list_get_type ();
-GtkWidget *gnome_cmd_file_list_new ();
+GtkWidget *gnome_cmd_file_list_new (GtkSignalFunc handler=NULL, GtkObject *object=NULL);
 
 inline GnomeCmdFileList::GnomeCmdFileList(): con(NULL), cwd(NULL), lwd(NULL), connected_dir(NULL)
 {
