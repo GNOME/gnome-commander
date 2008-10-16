@@ -251,10 +251,7 @@ void GnomeCmdUserActions::init()
     }
 
     if (!registered("file.advrename"))
-    {
         register_action(GDK_CONTROL_MASK, GDK_M, "file.advrename");
-        register_action(GDK_CONTROL_MASK, GDK_T, "file.advrename");
-    }
 
     if (!registered("file.create_symlink"))
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F5, "file.create_symlink");

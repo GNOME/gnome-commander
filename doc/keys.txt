@@ -89,7 +89,6 @@ CTRL+SHIFT+C    Copy selected file names to clipboard
 
 CTRL+D          Open favourite directories (bookmarks)
 CTRL+M          Multi-Rename-Tool
-CTRL+T          Multi-Rename-Tool
 
 TAB             Switch between left and right file list
 CTRL+U          Switch between left and right file list
