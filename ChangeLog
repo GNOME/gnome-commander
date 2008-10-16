@@ -4,6 +4,9 @@
 	* src/gnome-cmd-file-selector.cc:
 	Invalidate modified file metatada by GnomeCmdDir, not by GnomeCmdFileSelector
 
+	* src/gnome-cmd-file-selector.cc:
+	Remove surplus assertions
+
 2008-10-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/intviewer/viewer-window.cc:

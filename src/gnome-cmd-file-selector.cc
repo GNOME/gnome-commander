@@ -759,7 +759,6 @@ static void on_con_list_list_changed (GnomeCmdConList *con_list, GnomeCmdFileSel
 
 static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileSelector *fs)
 {
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -782,7 +781,6 @@ static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
 static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileSelector *fs)
 {
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -796,7 +794,6 @@ static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
 
 static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileSelector *fs)
 {
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
@@ -825,9 +822,6 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
 
 static void on_combo_popwin_hidden (GnomeCmdCombo *combo, GnomeCmdFileSelector *fs)
 {
-    g_return_if_fail (GNOME_CMD_IS_COMBO (combo));
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
     gnome_cmd_main_win_refocus (main_win);
 }
 
@@ -1322,7 +1316,6 @@ void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_DIR (fs->file_list()->cwd));
-    g_return_if_fail (GNOME_CMD_IS_CON (fs->get_connection()));
 
     if (!fs->is_local())
         return;
