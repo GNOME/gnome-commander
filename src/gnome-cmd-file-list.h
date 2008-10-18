@@ -68,6 +68,7 @@ struct GnomeCmdFileList
     void operator delete (void *p)      {  g_free (p);  }
 
     operator GtkObject * ()             {  return GTK_OBJECT (this);       }
+    operator GtkWidget * ()             {  return GTK_WIDGET (this);       }
     operator GtkCList * ()              {  return GTK_CLIST (this);        }
     operator GnomeCmdCList * ()         {  return GNOME_CMD_CLIST (this);  }
 

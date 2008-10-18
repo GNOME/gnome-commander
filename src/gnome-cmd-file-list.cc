@@ -686,8 +686,7 @@ inline void init_dnd (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    gtk_drag_source_set (GTK_WIDGET (fl), GDK_BUTTON1_MASK,
-                         drag_types, G_N_ELEMENTS (drag_types),
+    gtk_drag_source_set (*fl, GDK_BUTTON1_MASK, drag_types, G_N_ELEMENTS (drag_types),
                          (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
 
     gtk_signal_connect (*fl, "drag-data-get", GTK_SIGNAL_FUNC (drag_data_get), fl);
@@ -1101,7 +1100,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEvent
             gint row = fl->get_row_from_file(finfo);
 
             fl->select_row(row);
-            gtk_widget_grab_focus (GTK_WIDGET (fl));
+            gtk_widget_grab_focus (*fl);
 
             if (event->button == 1)
             {

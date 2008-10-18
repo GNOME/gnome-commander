@@ -15,6 +15,10 @@
 	* src/gnome-cmd-file-list.h:
 	GnomeCmdFileList: store realize state
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	GnomeCmdFileList: operator for casting to GtkWidget *
+
 2008-10-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-dir.cc:
