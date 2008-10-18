@@ -19,6 +19,9 @@
 	* src/gnome-cmd-file-list.h:
 	GnomeCmdFileList: operator for casting to GtkWidget *
 
+	* src/gnome-cmd-file-list.h:
+	Internal viewer: new zoom factors (10%, 20%, 33%, 50%, 67%, 100%, 125%, 150%, 200%, 300%, 400%, 500%, 600%, 700%, 800%)
+
 2008-10-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-dir.cc:

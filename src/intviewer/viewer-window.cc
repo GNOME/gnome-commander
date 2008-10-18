@@ -56,7 +56,7 @@ using namespace std;
 
 static GtkWindowClass *parent_class = NULL;
 
-static double image_scale_factors[] = {0.25, 0.5, 0.75, 1, 1.25, 1.50, 2, 2.5, 3, 3.5, 4, 4.5, 5};
+static double image_scale_factors[] = {0.1, 0.2, 0.33, 0.5, 0.67, 1, 1.25, 1.50, 2, 3, 4, 5, 6, 7, 8};
 
 const static int MAX_SCALE_FACTOR_INDEX = G_N_ELEMENTS(image_scale_factors);
 
