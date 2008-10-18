@@ -107,7 +107,7 @@ struct _GnomeCmdSearchDialogPrivate
     GtkWidget *dir_entry;
     GtkWidget *find_text_combo;
     GtkWidget *find_text_check;
-    GtkWidget *result_list;
+    GnomeCmdFileList *result_list;
     GtkWidget *statusbar;
 
     GtkWidget *help_button;
@@ -388,7 +388,7 @@ static gboolean update_search_status_widgets (SearchData *data)
 
     // Add all files found since last update to the list
     for (GList *files = data->pdata.files; files; files = files->next)
-        GNOME_CMD_FILE_LIST (data->dialog->priv->result_list)->append_file(GNOME_CMD_FILE (files->data));
+        data->dialog->priv->result_list->append_file(GNOME_CMD_FILE (files->data));
 
     if (data->pdata.files)
     {
@@ -430,7 +430,7 @@ static gboolean update_search_status_widgets (SearchData *data)
             gtk_widget_set_sensitive (data->dialog->priv->stop_button, FALSE);
 
             // set focus to result list
-            gtk_widget_grab_focus (data->dialog->priv->result_list);
+            gtk_widget_grab_focus (GTK_WIDGET (data->dialog->priv->result_list));
 
             gtk_widget_hide (data->dialog->priv->pbar);
         }
@@ -537,7 +537,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     if (data->content_search)
         defaults->content_patterns = string_history_add (defaults->content_patterns, data->content_pattern, PATTERN_HISTORY_SIZE);
 
-    GNOME_CMD_FILE_LIST (dialog->priv->result_list)->remove_all_files();
+    dialog->priv->result_list->remove_all_files();
 
     gtk_widget_set_sensitive (data->dialog->priv->search_button, FALSE);
     gtk_widget_set_sensitive (data->dialog->priv->stop_button, TRUE);
@@ -634,7 +634,7 @@ static void on_stop (GtkButton *button, GnomeCmdSearchDialog *dialog)
  */
 static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
-    GnomeCmdFile *f = GNOME_CMD_FILE_LIST (dialog->priv->result_list)->get_selected_file();
+    GnomeCmdFile *f = dialog->priv->result_list->get_selected_file();
 
     if (!f)
         return;
@@ -917,14 +917,12 @@ static void init (GnomeCmdSearchDialog *dialog)
     gtk_box_pack_start (GTK_BOX (vbox), sw, TRUE, TRUE, 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
-    dialog->priv->result_list = gnome_cmd_file_list_new ();
-    gtk_widget_ref (dialog->priv->result_list);
-    gtk_object_set_data_full (
-        GTK_OBJECT (window), "result_list", dialog->priv->result_list,
-        (GtkDestroyNotify) gtk_widget_unref);
-    gtk_widget_set_size_request (dialog->priv->result_list, -1, 200);
-    gtk_widget_show (dialog->priv->result_list);
-    gtk_container_add (GTK_CONTAINER (sw), dialog->priv->result_list);
+    dialog->priv->result_list = GNOME_CMD_FILE_LIST (gnome_cmd_file_list_new ());
+    gtk_widget_ref (GTK_WIDGET (dialog->priv->result_list));
+    gtk_object_set_data_full (GTK_OBJECT (window), "result_list", GTK_WIDGET (dialog->priv->result_list), (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_set_size_request (GTK_WIDGET (dialog->priv->result_list), -1, 200);
+    gtk_widget_show (GTK_WIDGET (dialog->priv->result_list));
+    gtk_container_add (GTK_CONTAINER (sw), GTK_WIDGET (dialog->priv->result_list));
     gtk_container_set_border_width (GTK_CONTAINER (dialog->priv->result_list), 4);
 
 
@@ -955,7 +953,7 @@ static void init (GnomeCmdSearchDialog *dialog)
     gtk_window_set_keep_above (GTK_WINDOW (dialog), FALSE);
 
     gtk_widget_grab_focus (dialog->priv->pattern_combo);
-    GNOME_CMD_FILE_LIST (dialog->priv->result_list)->update_style();
+    dialog->priv->result_list->update_style();
 }
 
 
