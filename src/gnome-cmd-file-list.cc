@@ -62,6 +62,7 @@ enum
     LIST_CLICKED,        // The file list widget was clicked
     EMPTY_SPACE_CLICKED, // The file list was clicked but not on a file
     FILES_CHANGED,       // The visible content of the file list has changed (files have been: selected, created, deleted or modified)
+    DIR_CHANGED,         // The current directory has been changed
     LAST_SIGNAL
 };
 
@@ -1282,11 +1283,21 @@ static void class_init (GnomeCmdFileListClass *klass)
                         GTK_TYPE_NONE,
                         0);
 
+    file_list_signals[DIR_CHANGED] =
+        gtk_signal_new ("dir-changed",
+                        GTK_RUN_LAST,
+                        G_OBJECT_CLASS_TYPE (object_class),
+                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, dir_changed),
+                        gtk_marshal_NONE__POINTER,
+                        GTK_TYPE_NONE,
+                        1, GTK_TYPE_POINTER);
+
     object_class->destroy = destroy;
     widget_class->map = ::map;
     klass->file_clicked = NULL;
     klass->list_clicked = NULL;
     klass->files_changed = NULL;
+    klass->dir_changed = NULL;
 }
 
 static void init (GnomeCmdFileList *fl)

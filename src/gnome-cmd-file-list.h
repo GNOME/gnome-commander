@@ -159,6 +159,7 @@ struct GnomeCmdFileListClass
     void (* list_clicked)        (GnomeCmdFileList *fl, GdkEventButton *button);
     void (* empty_space_clicked) (GnomeCmdFileList *fl, GdkEventButton *button);
     void (* files_changed)       (GnomeCmdFileList *fl);
+    void (* dir_changed)         (GnomeCmdFileList *fl, GnomeCmdDir *dir);
 };
 
 

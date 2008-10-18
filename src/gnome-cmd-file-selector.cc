@@ -954,6 +954,11 @@ static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *f
 }
 
 
+static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCmdFileSelector *fs)
+{
+}
+
+
 static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
 {
     DEBUG('l', "on_dir_list_ok\n");
