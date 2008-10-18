@@ -1214,6 +1214,7 @@ static void on_realize (GnomeCmdFileList *fl, gpointer user_data)
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
     update_column_sort_arrows (fl);
+    fl->realized = TRUE;
 }
 
 

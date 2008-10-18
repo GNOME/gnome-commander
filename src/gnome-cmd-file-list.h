@@ -62,6 +62,8 @@ struct GnomeCmdFileList
 
     Private *priv;
 
+    gboolean realized;
+
     void *operator new (size_t size);
     void operator delete (void *p)      {  g_free (p);  }
 
@@ -175,6 +177,7 @@ inline void *GnomeCmdFileList::operator new (size_t size)
 
 inline GnomeCmdFileList::GnomeCmdFileList(GtkSignalFunc handler, GtkObject *object)
 {
+    realized = FALSE;
     con = NULL;
     cwd = NULL;
     lwd = NULL;
