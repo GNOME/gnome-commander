@@ -1302,7 +1302,7 @@ static void init (GnomeCmdFileList *fl)
     gtk_signal_connect (*fl, "button-release-event", GTK_SIGNAL_FUNC (on_button_release), fl);
     gtk_signal_connect (*fl, "motion-notify-event", GTK_SIGNAL_FUNC (on_motion_notify), fl);
 
-    gtk_signal_connect_after (GTK_OBJECT (fl), "realize", GTK_SIGNAL_FUNC (on_realize), fl);
+    gtk_signal_connect_after (*fl, "realize", GTK_SIGNAL_FUNC (on_realize), fl);
     gtk_signal_connect (*fl, "file-clicked", GTK_SIGNAL_FUNC (on_file_clicked), fl);
 }
 

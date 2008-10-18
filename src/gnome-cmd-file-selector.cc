@@ -956,12 +956,10 @@ static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *f
 
 static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector *fs)
 {
+    DEBUG('l', "on_dir_list_ok\n");
+
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    GnomeCmdCon *con;
-
-    DEBUG('l', "on_dir_list_ok\n");
 
     if (fs->priv->realized)
     {
@@ -974,14 +972,10 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
     {
         if (fs->file_list()->connected_dir != NULL)
         {
-            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir),
-                                           GTK_SIGNAL_FUNC (on_dir_file_created), fs);
-            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir),
-                                           GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
-            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir),
-                                           GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
-            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir),
-                                           GTK_SIGNAL_FUNC (on_dir_file_renamed), fs);
+            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir), GTK_SIGNAL_FUNC (on_dir_file_created), fs);
+            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir), GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
+            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir), GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
+            gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir), GTK_SIGNAL_FUNC (on_dir_file_renamed), fs);
         }
 
         gtk_signal_connect (GTK_OBJECT (dir), "file-created", GTK_SIGNAL_FUNC (on_dir_file_created), fs);
@@ -991,8 +985,7 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
         fs->file_list()->connected_dir = dir;
     }
 
-    con = fs->get_connection();
-    gnome_cmd_con_set_cwd (con, dir);
+    gnome_cmd_con_set_cwd (fs->get_connection(), dir);
 
     if (fs->priv->dir_history && !fs->priv->dir_history->is_locked)
     {

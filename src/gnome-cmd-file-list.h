@@ -162,10 +162,6 @@ struct GnomeCmdFileListClass
 };
 
 
-extern GtkTargetEntry drag_types[];
-extern GtkTargetEntry drop_types[];
-
-
 GtkType gnome_cmd_file_list_get_type ();
 GtkWidget *gnome_cmd_file_list_new (GtkSignalFunc handler=NULL, GtkObject *object=NULL);
 
@@ -227,5 +223,9 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c);
 
 gboolean gnome_cmd_file_list_quicksearch_shown (GnomeCmdFileList *fl);
+
+
+extern GtkTargetEntry drag_types[];
+extern GtkTargetEntry drop_types[];
 
 #endif // __GNOME_CMD_FILE_LIST_H__
