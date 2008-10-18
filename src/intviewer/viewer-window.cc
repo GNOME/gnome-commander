@@ -390,6 +390,20 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
 
     GViewerWindow *w = GVIEWER_WINDOW (widget);
 
+    switch (event->keyval)
+    {
+        case GDK_plus:
+        case GDK_KP_Add:
+        case GDK_equal:
+           set_zoom_in(w);
+           return TRUE;
+
+        case GDK_minus:
+        case GDK_KP_Subtract:
+           set_zoom_out(w);
+           return TRUE;
+    }
+
     if (state_is_ctrl(event->state))
         switch (event->keyval)
         {
@@ -433,17 +447,6 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
             else
                 gviewer_window_show_metadata(w);
             return TRUE;
-
-        case GDK_plus:
-        case GDK_KP_Add:
-        case GDK_equal:
-           set_zoom_in(w);
-           return TRUE;
-
-        case GDK_minus:
-        case GDK_KP_Subtract:
-           set_zoom_out(w);
-           return TRUE;
 
         case GDK_F7:
            menu_edit_find(NULL, w);
