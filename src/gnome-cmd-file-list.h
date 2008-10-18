@@ -52,7 +52,7 @@ struct GnomeCmdFileList
 {
     GnomeCmdCList parent;
 
-  // private:
+  private:
 
     void create_column_titles();
 
@@ -61,6 +61,9 @@ struct GnomeCmdFileList
     struct Private;
 
     Private *priv;
+
+    void *operator new (size_t size);
+    void operator delete (void *p)      {  g_free (p);  }
 
     operator GtkObject * ()             {  return GTK_OBJECT (this);       }
     operator GtkCList * ()              {  return GTK_CLIST (this);        }
@@ -84,7 +87,7 @@ struct GnomeCmdFileList
     GnomeCmdDir *cwd, *lwd;         // current & last working dir
     GnomeCmdDir *connected_dir;
 
-    GnomeCmdFileList();
+    GnomeCmdFileList(GtkSignalFunc handler=NULL, GtkObject *object=NULL);
     ~GnomeCmdFileList();
 
     int size();
@@ -164,10 +167,23 @@ struct GnomeCmdFileListClass
 
 
 GtkType gnome_cmd_file_list_get_type ();
-GtkWidget *gnome_cmd_file_list_new (GtkSignalFunc handler=NULL, GtkObject *object=NULL);
 
-inline GnomeCmdFileList::GnomeCmdFileList(): con(NULL), cwd(NULL), lwd(NULL), connected_dir(NULL)
+inline void *GnomeCmdFileList::operator new (size_t size)
 {
+    return g_object_new (gnome_cmd_file_list_get_type (), "n-columns", GnomeCmdFileList::NUM_COLUMNS, NULL);
+}
+
+inline GnomeCmdFileList::GnomeCmdFileList(GtkSignalFunc handler, GtkObject *object)
+{
+    con = NULL;
+    cwd = NULL;
+    lwd = NULL;
+    connected_dir = NULL;
+
+    create_column_titles();
+
+    if (handler)
+        gtk_signal_connect (*this, "files-changed", handler, object);
 }
 
 inline GnomeCmdFileList::~GnomeCmdFileList()

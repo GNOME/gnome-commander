@@ -1171,11 +1171,10 @@ static void init (GnomeCmdFileSelector *fs)
     fs->con_hbox = create_hbox (*fs, FALSE, 2);
 
     // create the list
-    fs->list_widget = gnome_cmd_file_list_new ();
+    fs->file_list() = new GnomeCmdFileList;             // FIXME: file_list() = ...
+    fs->list_widget = GTK_WIDGET (fs->file_list());
     gtk_widget_ref (fs->list_widget);
-    gtk_object_set_data_full (GTK_OBJECT (fs), "list_widget", fs->list_widget,
-                              (GtkDestroyNotify) gtk_widget_unref);
-    fs->file_list() = GNOME_CMD_FILE_LIST (fs->list_widget);            // FIXME: file_list() = ...
+    gtk_object_set_data_full (GTK_OBJECT (fs), "list_widget", fs->list_widget, (GtkDestroyNotify) gtk_widget_unref);
     fs->file_list()->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
     // create the connection combo

@@ -5,6 +5,12 @@
 	* src/gnome-cmd-file-selector.cc:
 	Added signal "dir-changed" (GnomeCmdFileList -> GnomeCmdFileSelector)
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	Replaced gnome_cmd_file_list_new() with GnomeCmdFileList::operator new()
+
 2008-10-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-dir.cc:

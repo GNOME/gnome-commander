@@ -1346,19 +1346,6 @@ GtkType gnome_cmd_file_list_get_type ()
 }
 
 
-GtkWidget *gnome_cmd_file_list_new (GtkSignalFunc handler, GtkObject *object)
-{
-    GnomeCmdFileList *fl = (GnomeCmdFileList *) g_object_new (gnome_cmd_file_list_get_type (), "n-columns", GnomeCmdFileList::NUM_COLUMNS, NULL);
-
-    fl->create_column_titles();
-
-    if (handler)
-        gtk_signal_connect (*fl, "files-changed", handler, object);
-
-    return GTK_WIDGET (fl);
-}
-
-
 guint GnomeCmdFileList::get_column_default_width (GnomeCmdFileList::ColumnID col)
 {
     return file_list_column[col].default_width;

@@ -917,7 +917,7 @@ static void init (GnomeCmdSearchDialog *dialog)
     gtk_box_pack_start (GTK_BOX (vbox), sw, TRUE, TRUE, 0);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
-    dialog->priv->result_list = GNOME_CMD_FILE_LIST (gnome_cmd_file_list_new ());
+    dialog->priv->result_list = new GnomeCmdFileList;
     gtk_widget_ref (GTK_WIDGET (dialog->priv->result_list));
     gtk_object_set_data_full (GTK_OBJECT (window), "result_list", GTK_WIDGET (dialog->priv->result_list), (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_set_size_request (GTK_WIDGET (dialog->priv->result_list), -1, 200);
