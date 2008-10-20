@@ -56,6 +56,14 @@ using namespace std;
 #define POPUP_TIMEOUT 750
 
 
+#if 0
+static char *msgs[] = {N_("Open in New _Tab"),
+                       N_("_Close Tab"),
+                       N_("Close the current tab"),
+                       N_("Open directory in a new tab")};
+#endif
+
+
 enum
 {
     FILE_CLICKED,        // A file in the list was clicked

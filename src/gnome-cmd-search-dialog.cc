@@ -40,8 +40,6 @@ static char *msgs[] = {N_("Search _recursively:"),
                        N_("_Unlimited depth"),
                        N_("Current _directory only"),
                        N_("_Limited depth"),
-                       N_("She_ll syntax"),
-                       N_("Rege_x syntax"),
 //                       N_("Search local directories only"),
                        N_("Files _not containing text")};
 #endif
