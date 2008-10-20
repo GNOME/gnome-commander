@@ -260,8 +260,8 @@ void text_render_set_v_adjustment (TextRender *obj, GtkAdjustment *adjustment)
 
 static void text_render_class_init (TextRenderClass *klass)
 {
-    GtkObjectClass *object_class = (GtkObjectClass *) klass;
-    GtkWidgetClass *widget_class = (GtkWidgetClass *) klass;
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = (GtkWidgetClass *) gtk_type_class (gtk_widget_get_type ());
 
