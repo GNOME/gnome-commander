@@ -131,9 +131,6 @@ static void menu_settings_save_settings(GtkMenuItem *item, GViewerWindow *obj);
 static void menu_help_quick_help(GtkMenuItem *item, GViewerWindow *obj);
 static void menu_help_keyboard(GtkMenuItem *item, GViewerWindow *obj);
 
-static void set_zoom_in(GViewerWindow *obj);
-static void set_zoom_out(GViewerWindow *obj);
-static void set_zoom_normal(GViewerWindow *obj);
 static void set_zoom_best_fit(GViewerWindow *obj);
 
 inline GtkTreeModel *create_model ();
@@ -395,12 +392,12 @@ static gboolean gviewer_window_key_pressed(GtkWidget *widget, GdkEventKey *event
         case GDK_plus:
         case GDK_KP_Add:
         case GDK_equal:
-           set_zoom_in(w);
+           menu_view_zoom_in(NULL, w);
            return TRUE;
 
         case GDK_minus:
         case GDK_KP_Subtract:
-           set_zoom_out(w);
+           menu_view_zoom_out(NULL, w);
            return TRUE;
     }
 
@@ -971,25 +968,113 @@ static void menu_image_operation(GtkMenuItem *item, GViewerWindow *obj)
 
 static void menu_view_zoom_in(GtkMenuItem *item, GViewerWindow *obj)
 {
-    set_zoom_in(obj);
+    g_return_if_fail (obj);
+    g_return_if_fail (obj->priv->viewer);
+
+    switch (gviewer_get_display_mode(obj->priv->viewer))
+    {
+        case DISP_MODE_TEXT_FIXED:
+        case DISP_MODE_BINARY:
+        case DISP_MODE_HEXDUMP:
+            {
+               int size = gviewer_get_font_size(obj->priv->viewer);
+
+               if (size==0 || size>32)  return;
+
+               size++;
+               gviewer_set_font_size(obj->priv->viewer, size);
+            }
+            break;
+
+        case DISP_MODE_IMAGE:
+           {
+               gviewer_set_best_fit(obj->priv->viewer, FALSE);
+
+               if (obj->priv->current_scale_index<MAX_SCALE_FACTOR_INDEX-1)
+                  obj->priv->current_scale_index++;
+
+               if (gviewer_get_scale_factor(obj->priv->viewer) == image_scale_factors[obj->priv->current_scale_index])
+                  return;
+
+               gviewer_set_scale_factor(obj->priv->viewer, image_scale_factors[obj->priv->current_scale_index]);
+           }
+           break;
+
+        default:
+            break;
+        }
 }
 
 
 static void menu_view_zoom_out(GtkMenuItem *item, GViewerWindow *obj)
 {
-    set_zoom_out(obj);
+    g_return_if_fail (obj);
+    g_return_if_fail (obj->priv->viewer);
+
+    switch (gviewer_get_display_mode(obj->priv->viewer))
+    {
+        case DISP_MODE_TEXT_FIXED:
+        case DISP_MODE_BINARY:
+        case DISP_MODE_HEXDUMP:
+            {
+               int size = gviewer_get_font_size(obj->priv->viewer);
+
+               if (size==0 || size<4)  return;
+
+               size--;
+               gviewer_set_font_size(obj->priv->viewer, size);
+            }
+            break;
+
+        case DISP_MODE_IMAGE:
+           gviewer_set_best_fit(obj->priv->viewer, FALSE);
+
+           if (obj->priv->current_scale_index>0)
+               obj->priv->current_scale_index--;
+
+           if (gviewer_get_scale_factor(obj->priv->viewer) == image_scale_factors[obj->priv->current_scale_index])
+              return;
+
+           gviewer_set_scale_factor(obj->priv->viewer, image_scale_factors[obj->priv->current_scale_index]);
+           break;
+
+        default:
+            break;
+        }
 }
 
 
 static void menu_view_zoom_normal(GtkMenuItem *item, GViewerWindow *obj)
 {
-    set_zoom_normal(obj);
+    g_return_if_fail (obj);
+    g_return_if_fail (obj->priv->viewer);
+
+    switch (gviewer_get_display_mode (obj->priv->viewer))
+    {
+        case DISP_MODE_TEXT_FIXED:
+        case DISP_MODE_BINARY:
+        case DISP_MODE_HEXDUMP:
+           // needs to completed with resetting to default font size
+           break;
+
+        case DISP_MODE_IMAGE:
+           gviewer_set_best_fit (obj->priv->viewer, FALSE);
+           gviewer_set_scale_factor(obj->priv->viewer, 1);
+           break;
+
+        default:
+            break;
+    }
 }
 
 
 static void menu_view_zoom_best_fit(GtkMenuItem *item, GViewerWindow *obj)
 {
-    set_zoom_best_fit(obj);
+    g_return_if_fail (obj);
+    g_return_if_fail (obj->priv->viewer);
+
+    if (gviewer_get_display_mode(obj->priv->viewer)==DISP_MODE_IMAGE)
+        gviewer_set_best_fit(obj->priv->viewer, TRUE);
 }
 
 
@@ -1283,120 +1368,6 @@ inline void gviewer_window_hide_metadata(GViewerWindow *obj)
     // gtk_container_remove (GTK_CONTAINER (obj->priv->vbox), obj->priv->metadata_view);
     gtk_widget_hide_all (obj->priv->metadata_view);
     gtk_widget_grab_focus (GTK_WIDGET (obj->priv->viewer));
-}
-
-
-static void set_zoom_in(GViewerWindow *obj)
-{
-    g_return_if_fail (obj);
-    g_return_if_fail (obj->priv->viewer);
-
-    switch (gviewer_get_display_mode(obj->priv->viewer))
-    {
-        case DISP_MODE_TEXT_FIXED:
-        case DISP_MODE_BINARY:
-        case DISP_MODE_HEXDUMP:
-            {
-               int size = gviewer_get_font_size(obj->priv->viewer);
-
-               if (size==0 || size>32)  return;
-
-               size++;
-               gviewer_set_font_size(obj->priv->viewer, size);
-            }
-            break;
-
-        case DISP_MODE_IMAGE:
-           {
-               gviewer_set_best_fit(obj->priv->viewer, FALSE);
-
-               if (obj->priv->current_scale_index<MAX_SCALE_FACTOR_INDEX-1)
-                  obj->priv->current_scale_index++;
-
-               if (gviewer_get_scale_factor(obj->priv->viewer) == image_scale_factors[obj->priv->current_scale_index])
-                  return;
-
-               gviewer_set_scale_factor(obj->priv->viewer, image_scale_factors[obj->priv->current_scale_index]);
-           }
-           break;
-
-        default:
-            break;
-        }
-}
-
-
-static void set_zoom_out(GViewerWindow *obj)
-{
-    g_return_if_fail (obj);
-    g_return_if_fail (obj->priv->viewer);
-
-    switch (gviewer_get_display_mode(obj->priv->viewer))
-    {
-        case DISP_MODE_TEXT_FIXED:
-        case DISP_MODE_BINARY:
-        case DISP_MODE_HEXDUMP:
-            {
-               int size = gviewer_get_font_size(obj->priv->viewer);
-
-               if (size==0 || size<4)  return;
-
-               size--;
-               gviewer_set_font_size(obj->priv->viewer, size);
-            }
-            break;
-
-        case DISP_MODE_IMAGE:
-           gviewer_set_best_fit(obj->priv->viewer, FALSE);
-
-           if (obj->priv->current_scale_index>0)
-               obj->priv->current_scale_index--;
-
-           if (gviewer_get_scale_factor(obj->priv->viewer) == image_scale_factors[obj->priv->current_scale_index])
-              return;
-
-           gviewer_set_scale_factor(obj->priv->viewer, image_scale_factors[obj->priv->current_scale_index]);
-           break;
-
-        default:
-            break;
-        }
-}
-
-
-static void set_zoom_normal (GViewerWindow *obj)
-{
-    g_return_if_fail (obj);
-    g_return_if_fail (obj->priv->viewer);
-
-    switch (gviewer_get_display_mode (obj->priv->viewer))
-    {
-        case DISP_MODE_TEXT_FIXED:
-        case DISP_MODE_BINARY:
-        case DISP_MODE_HEXDUMP:
-           // needs to completed with resetting to default font size
-           break;
-
-        case DISP_MODE_IMAGE:
-           gviewer_set_best_fit (obj->priv->viewer, FALSE);
-           gviewer_set_scale_factor(obj->priv->viewer, 1);
-           break;
-
-        default:
-            break;
-    }
-}
-
-
-static void set_zoom_best_fit (GViewerWindow *obj)
-{
-    g_return_if_fail (obj);
-    g_return_if_fail (obj->priv->viewer);
-
-    if (gviewer_get_display_mode(obj->priv->viewer)!=DISP_MODE_IMAGE)
-       return;
-
-    gviewer_set_best_fit(obj->priv->viewer, TRUE);
 }
 
 
