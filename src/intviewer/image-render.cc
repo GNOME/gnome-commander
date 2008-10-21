@@ -43,7 +43,7 @@
 using namespace std;
 
 
-static GtkWidget *parent_class = NULL;
+static GtkWidgetClass *parent_class = NULL;
 
 enum {
   IMAGE_STATUS_CHANGED,
@@ -206,10 +206,10 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
 
 static void image_render_class_init (ImageRenderClass *klass)
 {
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS(klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
+    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    parent_class = (GtkWidget *) gtk_type_class (gtk_widget_get_type ());
+    parent_class = (GtkWidgetClass *) gtk_type_class (gtk_widget_get_type ());
 
     object_class->destroy = image_render_destroy;
 
@@ -344,11 +344,10 @@ static void image_render_realize (GtkWidget *widget)
     g_return_if_fail (widget != NULL);
     g_return_if_fail (IS_IMAGE_RENDER (widget));
 
-    GdkWindowAttr attributes;
-    gint attributes_mask;
-
     GTK_WIDGET_SET_FLAGS (widget, GTK_REALIZED);
     ImageRender *obj = IMAGE_RENDER (widget);
+
+    GdkWindowAttr attributes;
 
     attributes.x = widget->allocation.x;
     attributes.y = widget->allocation.y;
@@ -363,7 +362,7 @@ static void image_render_realize (GtkWidget *widget)
     attributes.visual = gtk_widget_get_visual (widget);
     attributes.colormap = gtk_widget_get_colormap (widget);
 
-    attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
+    gint attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL | GDK_WA_COLORMAP;
     widget->window = gdk_window_new (widget->parent->window, &attributes, attributes_mask);
 
     widget->style = gtk_style_attach (widget->style, widget->window);
