@@ -228,7 +228,7 @@ static void gviewer_window_init (GViewerWindow *w)
     // w->priv->filename = NULL;
     // w->priv->metadata_view = NULL;
     // w->priv->metadata_visible = FALSE;
-    w->priv->current_scale_index = 3;
+    w->priv->current_scale_index = 5;
 
     GtkWindow *win = GTK_WINDOW (w);
     gtk_window_set_title(win, "GViewer");
@@ -1060,6 +1060,7 @@ static void menu_view_zoom_normal(GtkMenuItem *item, GViewerWindow *obj)
         case DISP_MODE_IMAGE:
            gviewer_set_best_fit (obj->priv->viewer, FALSE);
            gviewer_set_scale_factor(obj->priv->viewer, 1);
+           obj->priv->current_scale_index = 5;
            break;
 
         default:
