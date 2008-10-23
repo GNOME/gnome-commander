@@ -5965,6 +5965,9 @@
                             <para>Support for metadata tags in internal viewer</para>
                         </listitem>
                         <listitem>
+                            <para>Advanced file rename tool - trim blanks</para>
+                        </listitem>
+                        <listitem>
                             <para>New colour theme: cafezinho</para>
                         </listitem>
                         <listitem>

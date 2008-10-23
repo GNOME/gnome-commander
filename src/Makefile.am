@@ -38,6 +38,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-con-list.h gnome-cmd-con-list.cc \
 	gnome-cmd-con-smb.h gnome-cmd-con-smb.cc \
 	gnome-cmd-con.h gnome-cmd-con.cc \
+	gnome-cmd-convert.h gnome-cmd-convert.cc \
 	gnome-cmd-data.h gnome-cmd-data.cc \
 	gnome-cmd-delete-dialog.h gnome-cmd-delete-dialog.cc \
 	gnome-cmd-dir-indicator.h gnome-cmd-dir-indicator.cc \

@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-convert.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-advrename-lexer.h"
 #include "gnome-cmd-file.h"
@@ -55,6 +56,7 @@ struct _GnomeCmdAdvrenameDialogPrivate
     GList *entries;
     PatternEntry *sel_entry;
     GnomeCmdData::AdvrenameDefaults *defaults;
+    GnomeCmdConvertFunc trim_blanks;
 
     GtkWidget *pat_list;
     GtkWidget *res_list;
@@ -66,6 +68,7 @@ struct _GnomeCmdAdvrenameDialogPrivate
     GtkWidget *remove_all_btn;
     GtkWidget *templ_combo;
     GtkWidget *templ_entry;
+    GtkWidget *trim_combo;
 
     GtkWidget *menu[NUM_MENUS];
 };
@@ -746,12 +749,12 @@ inline void update_new_names (GnomeCmdAdvrenameDialog *dialog)
 
         gnome_cmd_advrename_gen_fname (fname, sizeof (fname), entry->finfo);
 
-        entry->new_name = create_new_name (fname, patterns);
+        entry->new_name = dialog->priv->trim_blanks (create_new_name (fname, patterns));
     }
 }
 
 
-static void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
+inline void redisplay_new_names (GnomeCmdAdvrenameDialog *dialog)
 {
     for (GList *tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
@@ -918,6 +921,7 @@ static void on_reset (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
     dialog->priv->defaults->counter_start = 1;
     dialog->priv->defaults->counter_precision = 1;
     dialog->priv->defaults->counter_increment = 1;
+    gtk_option_menu_set_history (GTK_OPTION_MENU (dialog->priv->trim_combo), 3);
 }
 
 
@@ -962,6 +966,22 @@ static gboolean on_templ_entry_keypress (GtkEntry *entry, GdkEventKey *event, Gn
     }
 
     return FALSE;
+}
+
+
+static void on_trim_combo_changed (GtkOptionMenu *optmenu, GnomeCmdAdvrenameDialog *dialog)
+{
+    TRACE(gtk_option_menu_get_history (optmenu));
+
+    switch (gtk_option_menu_get_history (optmenu))
+    {
+        case 0: dialog->priv->trim_blanks = gcmd_convert_unchanged; break;
+        case 1: dialog->priv->trim_blanks = gcmd_convert_ltrim; break;
+        case 2: dialog->priv->trim_blanks = gcmd_convert_rtrim; break;
+        case 3: dialog->priv->trim_blanks = gcmd_convert_strip; break;
+    }
+
+    do_test (dialog);
 }
 
 
@@ -1075,12 +1095,22 @@ static void class_init (GnomeCmdAdvrenameDialogClass *klass)
 
 static void init (GnomeCmdAdvrenameDialog *in_dialog)
 {
-    GtkWidget *vbox;
+    GtkWidget *hbox, *vbox;
     GtkWidget *sw;
     GtkWidget *bbox;
     GtkWidget *btn;
     GtkWidget *cat;
     GtkWidget *table;
+    GtkWidget *optmenu;
+    GtkWidget *label;
+
+    gchar *trim_modes[] = {
+                              _("<none>"),
+                              _("leading"),
+                              _("trailing"),
+                              _("leading and trailing"),
+                              NULL
+                          };
 
     in_dialog->priv = g_new0 (GnomeCmdAdvrenameDialogPrivate, 1);
 
@@ -1196,6 +1226,26 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
     in_dialog->priv->move_down_btn = create_stock_button (dialog, GNOME_STOCK_BUTTON_DOWN, GTK_SIGNAL_FUNC (on_rule_move_down));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->move_down_btn);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->move_down_btn), FALSE);
+
+
+    // Trim blanks stuff
+    hbox = create_hbox (dialog, FALSE, 12);
+    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), hbox);
+
+    gchar *str = g_strdup_printf ("<b>%s</b>", _("Trim blanks"));
+    label = gtk_label_new_with_mnemonic (str);
+    g_free (str);
+
+    gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
+    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_widget_show (label);
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+
+    in_dialog->priv->trim_combo = optmenu = create_option_menu (dialog, trim_modes);
+    gtk_label_set_mnemonic_widget (GTK_LABEL (label), optmenu);
+    gtk_box_pack_start (GTK_BOX (hbox), optmenu, FALSE, FALSE, 0);
+    gtk_signal_connect (GTK_OBJECT (optmenu), "changed", GTK_SIGNAL_FUNC (on_trim_combo_changed), dialog);
+    gtk_option_menu_set_history (GTK_OPTION_MENU (in_dialog->priv->trim_combo), 3);
 
 
     // Result list stuff
