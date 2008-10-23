@@ -6,6 +6,9 @@
 	* src/gnome-cmd-convert.h:
 	Advanced file rename tool - trim blanks
 
+	* src/tags/gnome-cmd-tags.cc:
+	Simplify metadata tags descriptions
+
 2008-10-21  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/intviewer/viewer-window.cc:
