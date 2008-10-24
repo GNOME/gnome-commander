@@ -716,14 +716,13 @@ static gchar *apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
 
 inline gchar *create_new_name (const gchar *name, GList *patterns)
 {
-    gchar *tmp = NULL;
     gchar *new_name = g_strdup (name);
 
     for (; patterns; patterns = patterns->next)
     {
         PatternEntry *entry = (PatternEntry *) patterns->data;
 
-        tmp = new_name;
+        gchar *tmp = new_name;
 
         new_name = apply_one_pattern (tmp, entry, 0);
 
@@ -943,7 +942,7 @@ static gboolean on_dialog_keypress (GnomeCmdAdvrenameDialog *dialog, GdkEventKey
 }
 
 
-static void do_test (GnomeCmdAdvrenameDialog *dialog)
+inline void do_test (GnomeCmdAdvrenameDialog *dialog)
 {
     update_new_names (dialog);
     redisplay_new_names (dialog);
@@ -971,8 +970,6 @@ static gboolean on_templ_entry_keypress (GtkEntry *entry, GdkEventKey *event, Gn
 
 static void on_trim_combo_changed (GtkOptionMenu *optmenu, GnomeCmdAdvrenameDialog *dialog)
 {
-    TRACE(gtk_option_menu_get_history (optmenu));
-
     switch (gtk_option_menu_get_history (optmenu))
     {
         case 0: dialog->priv->trim_blanks = gcmd_convert_unchanged; break;
