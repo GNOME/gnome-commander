@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-20 17:27+0000\n"
-"PO-Revision-Date: 2008-10-22 14:41+0100\n"
+"POT-Creation-Date: 2008-10-23 22:33+0000\n"
+"PO-Revision-Date: 2008-10-24 10:27+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -213,244 +213,264 @@ msgstr "P_odziękowania"
 msgid "About %s"
 msgstr "Informacje o %s"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:154
+#: ../src/gnome-cmd-advrename-dialog.cc:157
 msgid "/Grandparent"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:155
+#: ../src/gnome-cmd-advrename-dialog.cc:158
 msgid "/Parent"
 msgstr "/Katalog nadrzędny"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:157
+#: ../src/gnome-cmd-advrename-dialog.cc:160
 msgid "/File name"
 msgstr "/Nazwa pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:158
+#: ../src/gnome-cmd-advrename-dialog.cc:161
 msgid "/File name without extension"
 msgstr "/Nazwa pliku (bez rozszerzenia)"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:159
+#: ../src/gnome-cmd-advrename-dialog.cc:162
 msgid "/File extension"
 msgstr "/Rozszerzenie pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:161
+#: ../src/gnome-cmd-advrename-dialog.cc:164
 msgid "/Counter"
 msgstr "/Licznik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:162
+#: ../src/gnome-cmd-advrename-dialog.cc:165
 msgid "/Counter (width)"
 msgstr "/Licznik (liczba cyfr)"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:163
+#: ../src/gnome-cmd-advrename-dialog.cc:166
 msgid "/Hexadecimal random number (width)"
 msgstr "Losowa liczba szestnastkowa (liczba cyfr)"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:165
+#: ../src/gnome-cmd-advrename-dialog.cc:168
 msgid "/Date/<locale>"
 msgstr "/Data/<locale>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:166
+#: ../src/gnome-cmd-advrename-dialog.cc:169
 msgid "/Date/yyyy-mm-dd"
 msgstr "/Data/rrrr-mm-dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:167
+#: ../src/gnome-cmd-advrename-dialog.cc:170
 msgid "/Date/yy-mm-dd"
 msgstr "/Data/rr-mm-dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:168
+#: ../src/gnome-cmd-advrename-dialog.cc:171
 msgid "/Date/yy.mm.dd"
 msgstr "/Data/rr.mm.dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:169
+#: ../src/gnome-cmd-advrename-dialog.cc:172
 msgid "/Date/yymmdd"
 msgstr "/Data/rrmmdd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:170
+#: ../src/gnome-cmd-advrename-dialog.cc:173
 msgid "/Date/dd.mm.yy"
 msgstr "/Data/dd.mm.rr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:171
+#: ../src/gnome-cmd-advrename-dialog.cc:174
 msgid "/Date/mm-dd-yy"
 msgstr "/Data/mm-dd-rr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:172
+#: ../src/gnome-cmd-advrename-dialog.cc:175
 msgid "/Date/yyyy"
 msgstr "/Data/rrrr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:173
+#: ../src/gnome-cmd-advrename-dialog.cc:176
 msgid "/Date/yy"
 msgstr "/Data/rr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:174
+#: ../src/gnome-cmd-advrename-dialog.cc:177
 msgid "/Date/mm"
 msgstr "/Data/mm"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:175
+#: ../src/gnome-cmd-advrename-dialog.cc:178
 msgid "/Date/mmm"
 msgstr "/Data/mmm"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:176
+#: ../src/gnome-cmd-advrename-dialog.cc:179
 msgid "/Date/dd"
 msgstr "/Data/dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:177
+#: ../src/gnome-cmd-advrename-dialog.cc:180
 msgid "/Time/<locale>"
 msgstr "/Czas/<locale>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:178
+#: ../src/gnome-cmd-advrename-dialog.cc:181
 msgid "/Time/HH.MM.SS"
 msgstr "/Czas/GG.MM.SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:179
+#: ../src/gnome-cmd-advrename-dialog.cc:182
 msgid "/Time/HH-MM-SS"
 msgstr "/Czas/GG-MM-SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:180
+#: ../src/gnome-cmd-advrename-dialog.cc:183
 msgid "/Time/HHMMSS"
 msgstr "/Czas/GGMMSS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:181
+#: ../src/gnome-cmd-advrename-dialog.cc:184
 msgid "/Time/HH"
 msgstr "/Czas/GG"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:182
+#: ../src/gnome-cmd-advrename-dialog.cc:185
 msgid "/Time/MM"
 msgstr "/Czas/MM"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:183
+#: ../src/gnome-cmd-advrename-dialog.cc:186
 msgid "/Time/SS"
 msgstr "/Czas/SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:489
+#: ../src/gnome-cmd-advrename-dialog.cc:492
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:151
 #: ../src/utils.cc:686
 msgid "Yes"
 msgstr "Tak"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:489
+#: ../src/gnome-cmd-advrename-dialog.cc:492
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:151
 #: ../src/utils.cc:686
 msgid "No"
 msgstr "Nie"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:580
+#: ../src/gnome-cmd-advrename-dialog.cc:583
 msgid "Invalid source pattern"
 msgstr "Niepoprawny wzorzec"
 
 #. Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
-#: ../src/gnome-cmd-advrename-dialog.cc:648
+#: ../src/gnome-cmd-advrename-dialog.cc:651
 msgid "Replace this:"
 msgstr "Zamień:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:648
+#: ../src/gnome-cmd-advrename-dialog.cc:651
 msgid "With this:"
 msgstr "Na:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:656
+#: ../src/gnome-cmd-advrename-dialog.cc:659
 msgid "Case sensitive matching"
 msgstr "Rozróżnianie wielkości liter"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:782
+#: ../src/gnome-cmd-advrename-dialog.cc:785
 msgid "New Rule"
 msgstr "Nowa reguła"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:788
+#: ../src/gnome-cmd-advrename-dialog.cc:791
 msgid "Edit Rule"
 msgstr "Edycja"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:996
+#: ../src/gnome-cmd-advrename-dialog.cc:1016
 msgid "Counter start value:"
 msgstr "Wartość początkowa licznika:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:997
+#: ../src/gnome-cmd-advrename-dialog.cc:1017
 msgid "Counter increment:"
 msgstr "Krok:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:998
+#: ../src/gnome-cmd-advrename-dialog.cc:1018
 msgid "Counter minimum digit count:"
 msgstr "Liczba cyfr:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1002
+#: ../src/gnome-cmd-advrename-dialog.cc:1022
 msgid "Template Options"
 msgstr "Opcje szablonu"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1006
+#: ../src/gnome-cmd-advrename-dialog.cc:1026
 msgid "Auto-update when the template is entered"
 msgstr "Uaktualniaj podczas wprowadzania szablonu"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1095
+#: ../src/gnome-cmd-advrename-dialog.cc:1108
+msgid "<none>"
+msgstr "<nie usuwaj>"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1109
+msgid "leading"
+msgstr "na początku"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1110
+msgid "trailing"
+msgstr "na końcu"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1111
+msgid "leading and trailing"
+msgstr "na początku i na końcu"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1125
 msgid "Advanced Rename Tool"
 msgstr "Zaawansowana zmiana nazwy"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1107
+#: ../src/gnome-cmd-advrename-dialog.cc:1137
 #: ../src/tags/gnome-cmd-tags.cc:195
 msgid "Template"
 msgstr "Szablon"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1129
+#: ../src/gnome-cmd-advrename-dialog.cc:1159
 msgid "O_ptions..."
 msgstr "Opcje..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1136
+#: ../src/gnome-cmd-advrename-dialog.cc:1166
 #: ../src/gnome-cmd-file.cc:612
 msgid "Directory"
 msgstr "Katalog"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1139
+#: ../src/gnome-cmd-advrename-dialog.cc:1169
 #: ../src/plugin_manager.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:687
 msgid "File"
 msgstr "Plik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1142
+#: ../src/gnome-cmd-advrename-dialog.cc:1172
 msgid "Counter"
 msgstr "Licznik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1145
+#: ../src/gnome-cmd-advrename-dialog.cc:1175
 #: ../src/tags/gnome-cmd-tags.cc:341
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Date"
 msgstr "Data"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1148
+#: ../src/gnome-cmd-advrename-dialog.cc:1178
 msgid "Metatag"
 msgstr "Metadane"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1153
+#: ../src/gnome-cmd-advrename-dialog.cc:1183
 msgid "Regex replacing"
 msgstr "Zamiana wyrażeń regularnych"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1158
+#: ../src/gnome-cmd-advrename-dialog.cc:1188
 msgid "Replace this"
 msgstr "Zamień"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1159
+#: ../src/gnome-cmd-advrename-dialog.cc:1189
 msgid "With this"
 msgstr "Na"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1160
+#: ../src/gnome-cmd-advrename-dialog.cc:1190
 #: ../src/gnome-cmd-options-dialog.cc:109
 #: ../src/gnome-cmd-patternsel-dialog.cc:140
 msgid "Case sensitive"
 msgstr "Rozróżnianie wielkości liter"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1183
+#: ../src/gnome-cmd-advrename-dialog.cc:1213
 msgid "Re_move All"
 msgstr "Usuń _wszystkie"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1203
+#: ../src/gnome-cmd-advrename-dialog.cc:1235
+msgid "Trim _blanks"
+msgstr "Usuń zbędne odstępy"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1253
 msgid "Result"
 msgstr "Wynik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1208
+#: ../src/gnome-cmd-advrename-dialog.cc:1258
 msgid "Current file names"
 msgstr "Obecna nazwa pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1209
+#: ../src/gnome-cmd-advrename-dialog.cc:1259
 msgid "New file names"
 msgstr "Nowa nazwa pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1215
+#: ../src/gnome-cmd-advrename-dialog.cc:1265
 msgid "Rese_t"
 msgstr "_Przywróć"
 
@@ -1078,12 +1098,12 @@ msgid "Access permissions"
 msgstr "Prawa dostępu"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:592
-#: ../src/intviewer/viewer-window.cc:1486
+#: ../src/intviewer/viewer-window.cc:1458
 msgid "Type"
 msgstr "Typ"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:593
-#: ../src/intviewer/viewer-window.cc:1487
+#: ../src/intviewer/viewer-window.cc:1459
 msgid "Metadata namespace"
 msgstr "Przestrzeń nazw metadanych"
 
@@ -1095,29 +1115,29 @@ msgstr "Przestrzeń nazw metadanych"
 #. NULL);
 #: ../src/gnome-cmd-file-props-dialog.cc:600
 #: ../src/gnome-cmd-remote-dialog.cc:377
-#: ../src/intviewer/viewer-window.cc:1494
+#: ../src/intviewer/viewer-window.cc:1466
 #: ../src/plugin_manager.cc:410
 #: ../src/tags/gnome-cmd-tags.cc:321
 msgid "Name"
 msgstr "Nazwa"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:601
-#: ../src/intviewer/viewer-window.cc:1495
+#: ../src/intviewer/viewer-window.cc:1467
 msgid "Tag name"
 msgstr "Nazwa znacznika"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:603
-#: ../src/intviewer/viewer-window.cc:1497
+#: ../src/intviewer/viewer-window.cc:1469
 msgid "Value"
 msgstr "Wartość"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:604
-#: ../src/intviewer/viewer-window.cc:1498
+#: ../src/intviewer/viewer-window.cc:1470
 msgid "Tag value"
 msgstr "Wartość znacznika"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:606
-#: ../src/intviewer/viewer-window.cc:1500
+#: ../src/intviewer/viewer-window.cc:1472
 #: ../src/tags/gnome-cmd-tags.cc:165
 #: ../src/tags/gnome-cmd-tags.cc:316
 #: ../src/tags/gnome-cmd-tags.cc:418
@@ -1126,7 +1146,7 @@ msgid "Description"
 msgstr "Opis"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:607
-#: ../src/intviewer/viewer-window.cc:1501
+#: ../src/intviewer/viewer-window.cc:1473
 msgid "Metadata tag description"
 msgstr "Opis znacznika"
 
@@ -1483,7 +1503,7 @@ msgid "_Contents"
 msgstr "_Zawartość"
 
 #: ../src/gnome-cmd-main-menu.cc:753
-#: ../src/intviewer/viewer-window.cc:852
+#: ../src/intviewer/viewer-window.cc:849
 msgid "_Keyboard Shortcuts"
 msgstr "_Skróty klawiszowe"
 
@@ -1503,7 +1523,7 @@ msgstr "_Informacje o"
 #. gtk_menu_bar_set_shadow_type (GTK_MENU_BAR (main_menu), GTK_SHADOW_NONE);
 #. File Menu
 #: ../src/gnome-cmd-main-menu.cc:794
-#: ../src/intviewer/viewer-window.cc:864
+#: ../src/intviewer/viewer-window.cc:861
 msgid "_File"
 msgstr "_Plik"
 
@@ -1516,12 +1536,12 @@ msgid "_Mark"
 msgstr "_Zaznaczanie"
 
 #: ../src/gnome-cmd-main-menu.cc:806
-#: ../src/intviewer/viewer-window.cc:867
+#: ../src/intviewer/viewer-window.cc:864
 msgid "_View"
 msgstr "W_idok"
 
 #: ../src/gnome-cmd-main-menu.cc:811
-#: ../src/intviewer/viewer-window.cc:878
+#: ../src/intviewer/viewer-window.cc:875
 msgid "_Settings"
 msgstr "_Ustawienia"
 
@@ -1538,7 +1558,7 @@ msgid "_Plugins"
 msgstr "_Wtyczki"
 
 #: ../src/gnome-cmd-main-menu.cc:827
-#: ../src/intviewer/viewer-window.cc:883
+#: ../src/intviewer/viewer-window.cc:880
 msgid "_Help"
 msgstr "Pomo_c"
 
@@ -2773,13 +2793,13 @@ msgstr "Znajdź"
 
 #. Search mode radio buttons
 #: ../src/intviewer/search-dlg.cc:346
-#: ../src/intviewer/viewer-window.cc:668
-#: ../src/intviewer/viewer-window.cc:870
+#: ../src/intviewer/viewer-window.cc:665
+#: ../src/intviewer/viewer-window.cc:867
 msgid "_Text"
 msgstr "_Tekst"
 
 #: ../src/intviewer/search-dlg.cc:347
-#: ../src/intviewer/viewer-window.cc:676
+#: ../src/intviewer/viewer-window.cc:673
 msgid "_Hexadecimal"
 msgstr "_Szesnastkowo"
 
@@ -2824,112 +2844,112 @@ msgstr[2] "bitów/próbkę"
 msgid "(fit to window)"
 msgstr "(dopasuj do okna)"
 
-#: ../src/intviewer/viewer-window.cc:658
+#: ../src/intviewer/viewer-window.cc:655
 msgid "_Close"
 msgstr "Zamknij"
 
-#: ../src/intviewer/viewer-window.cc:672
+#: ../src/intviewer/viewer-window.cc:669
 msgid "_Binary"
 msgstr "_Binarnie:"
 
-#: ../src/intviewer/viewer-window.cc:680
-#: ../src/intviewer/viewer-window.cc:875
+#: ../src/intviewer/viewer-window.cc:677
+#: ../src/intviewer/viewer-window.cc:872
 msgid "_Image"
 msgstr "_Obraz"
 
-#: ../src/intviewer/viewer-window.cc:685
+#: ../src/intviewer/viewer-window.cc:682
 msgid "_Zoom In"
 msgstr "Powiększenie"
 
-#: ../src/intviewer/viewer-window.cc:689
+#: ../src/intviewer/viewer-window.cc:686
 msgid "Zoom _Out"
 msgstr "Oddalenie"
 
-#: ../src/intviewer/viewer-window.cc:693
+#: ../src/intviewer/viewer-window.cc:690
 msgid "_Normal Size"
 msgstr "_Zwykły rozmiar"
 
-#: ../src/intviewer/viewer-window.cc:697
+#: ../src/intviewer/viewer-window.cc:694
 msgid "Best _Fit"
 msgstr "Najlepsze _dopasowanie"
 
-#: ../src/intviewer/viewer-window.cc:707
+#: ../src/intviewer/viewer-window.cc:704
 msgid "_Copy Text Selection"
 msgstr "Skopiuj zaznaczenie"
 
-#: ../src/intviewer/viewer-window.cc:711
+#: ../src/intviewer/viewer-window.cc:708
 msgid "Find..."
 msgstr "Znajdź..."
 
-#: ../src/intviewer/viewer-window.cc:715
+#: ../src/intviewer/viewer-window.cc:712
 msgid "Find Next"
 msgstr "Znajdź następne"
 
-#: ../src/intviewer/viewer-window.cc:719
+#: ../src/intviewer/viewer-window.cc:716
 msgid "Find Previous"
 msgstr "Znajdź poprzednie"
 
-#: ../src/intviewer/viewer-window.cc:724
+#: ../src/intviewer/viewer-window.cc:721
 msgid "_Wrap lines"
 msgstr "_Zawijanie tekstu"
 
-#: ../src/intviewer/viewer-window.cc:729
+#: ../src/intviewer/viewer-window.cc:726
 msgid "_Encoding"
 msgstr "_Kodowanie"
 
-#: ../src/intviewer/viewer-window.cc:770
+#: ../src/intviewer/viewer-window.cc:767
 msgid "Show Metadata _Tags"
 msgstr "Pokaż _znaczniki obrazu"
 
-#: ../src/intviewer/viewer-window.cc:776
+#: ../src/intviewer/viewer-window.cc:773
 msgid "_Rotate Clockwise"
 msgstr "Obrót zgodnie ze wskazówkami zegara"
 
-#: ../src/intviewer/viewer-window.cc:781
+#: ../src/intviewer/viewer-window.cc:778
 msgid "Rotate Counter Clockwis_e"
 msgstr "Obrót przeciwnie do wskazówek zegara"
 
-#: ../src/intviewer/viewer-window.cc:786
+#: ../src/intviewer/viewer-window.cc:783
 msgid "_Rotate 180°"
 msgstr "O_bróć o 180°"
 
-#: ../src/intviewer/viewer-window.cc:791
+#: ../src/intviewer/viewer-window.cc:788
 msgid "Flip _Vertical"
 msgstr "Obróć pionowo"
 
-#: ../src/intviewer/viewer-window.cc:796
+#: ../src/intviewer/viewer-window.cc:793
 msgid "Flip _Horizontal"
 msgstr "Obróć poziomo"
 
-#: ../src/intviewer/viewer-window.cc:806
+#: ../src/intviewer/viewer-window.cc:803
 msgid "_Binary Mode"
 msgstr "Tryb _binarny"
 
-#: ../src/intviewer/viewer-window.cc:812
+#: ../src/intviewer/viewer-window.cc:809
 msgid "_Hexadecimal Offset"
 msgstr "Pokaż pozycję _szestnastkowo"
 
-#: ../src/intviewer/viewer-window.cc:818
+#: ../src/intviewer/viewer-window.cc:815
 msgid "_Save Current Settings"
 msgstr "_Zapis bieżących ustawień"
 
-#: ../src/intviewer/viewer-window.cc:828
+#: ../src/intviewer/viewer-window.cc:825
 msgid "_20 chars/line"
 msgstr "_20 znaków/linię"
 
-#: ../src/intviewer/viewer-window.cc:833
+#: ../src/intviewer/viewer-window.cc:830
 msgid "_40 chars/line"
 msgstr "_40 znaków/linię"
 
-#: ../src/intviewer/viewer-window.cc:838
+#: ../src/intviewer/viewer-window.cc:835
 msgid "_80 chars/line"
 msgstr "_80 znaków/linię"
 
-#: ../src/intviewer/viewer-window.cc:847
+#: ../src/intviewer/viewer-window.cc:844
 msgid "Quick _Help"
 msgstr "Szybka pomoc"
 
-#: ../src/intviewer/viewer-window.cc:1036
+#: ../src/intviewer/viewer-window.cc:1122
 #, c-format
 msgid "Pattern \"%s\" was not found"
 msgstr "Wzorzec \"%s\" nie został znaleziony"
@@ -3742,6 +3762,7 @@ msgid "CFA Pattern"
 msgstr "Wzór CFA"
 
 #: ../src/tags/gnome-cmd-tags.cc:203
+#: ../src/tags/gnome-cmd-tags.cc:266
 msgid "The color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods."
 msgstr "Oznaczenie wzoru geometrycznego CFA (color filter array - tablicy filtrów kolorów) czujnika obrazu w przypadku użycia jednoukładowego czujnika obszaru koloru. Nie odnosi się to do wszystkich metod próbkowania."
 
@@ -3890,8 +3911,8 @@ msgid "Exposure Mode"
 msgstr "Tryb ekspozycji"
 
 #: ../src/tags/gnome-cmd-tags.cc:222
-msgid "This tag indicates the exposure mode set when the image was shot. In auto-bracketing mode, the camera shoots a series of frames of the same scene at different exposure settings."
-msgstr "Ten znacznik określa tryb ekspozycji ustawiony przy robieniu zdjęcia. W trybie auto bracket aparat pstryka serię klatek tej samej sceny z różnymi ustawieniami ekspozycji."
+msgid "The exposure mode set when the image was shot. In auto-bracketing mode, the camera shoots a series of frames of the same scene at different exposure settings."
+msgstr "Tryb ekspozycji ustawiony przy robieniu zdjęcia. W trybie auto bracket aparat pstryka serię klatek tej samej sceny z różnymi ustawieniami ekspozycji."
 
 #: ../src/tags/gnome-cmd-tags.cc:223
 #: ../src/tags/gnome-cmd-tags.cc:419
@@ -3941,8 +3962,8 @@ msgid "Flash Energy"
 msgstr "Energia flesza"
 
 #: ../src/tags/gnome-cmd-tags.cc:228
-msgid "Indicates the strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds (BCPS)."
-msgstr "Określenie energii błysku w czasie robienia zdjęcia mierzonej w jednostkach BCPS (Beam Candle Power Seconds)."
+msgid "The strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds (BCPS)."
+msgstr "Energia błysku w czasie robienia zdjęcia mierzonej w jednostkach BCPS (Beam Candle Power Seconds)."
 
 #: ../src/tags/gnome-cmd-tags.cc:229
 msgid "FlashPix Version"
@@ -3976,32 +3997,32 @@ msgid "Focal Length In 35mm Film"
 msgstr "Ogniskowa dla filmu 35mm"
 
 #: ../src/tags/gnome-cmd-tags.cc:232
-msgid "This tag indicates the equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <Exif.FocalLength> tag."
-msgstr "Znacznik określa odpowiednik ogniskowej w mm w odniesieniu do aparatu dla filmów 35 mm. Wartość 0 oznacza nieznaną ogniskową. Znacznik różni się od znacznika <Exif.FocalLength>."
+msgid "The equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <Exif.FocalLength> tag."
+msgstr "Odpowiednik ogniskowej w mm w odniesieniu do aparatu dla filmów 35 mm. Wartość 0 oznacza nieznaną ogniskową. Znacznik różni się od znacznika <Exif.FocalLength>."
 
 #: ../src/tags/gnome-cmd-tags.cc:233
 msgid "Focal Plane Resolution Unit"
 msgstr "Jednostka rozdzielczości ogniskowej"
 
 #: ../src/tags/gnome-cmd-tags.cc:233
-msgid "Indicates the unit for measuring <Exif.FocalPlaneXResolution> and <Exif.FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
-msgstr "Określenie jednostki miary <Exif.FocalPlaneXResolution> i <Exif.FocalPlaneYResolution>. Wartość ta jest taka sama jak dla <Exif.ResolutionUnit>."
+msgid "The unit for measuring <Exif.FocalPlaneXResolution> and <Exif.FocalPlaneYResolution>. This value is the same as the <Exif.ResolutionUnit>."
+msgstr "Jednostki miary <Exif.FocalPlaneXResolution> i <Exif.FocalPlaneYResolution>. Wartość ta jest taka sama jak dla <Exif.ResolutionUnit>."
 
 #: ../src/tags/gnome-cmd-tags.cc:234
 msgid "Focal Plane x-Resolution"
 msgstr "Rozdzielczość ogniskowej w płaszczyźnie X"
 
 #: ../src/tags/gnome-cmd-tags.cc:234
-msgid "Indicates the number of pixels in the image width (X) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
-msgstr "Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla szerokości obrazu (X) w płaszczyźnie ogniskowej aparatu."
+msgid "The number of pixels in the image width (X) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
+msgstr "Liczba pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla szerokości obrazu (X) w płaszczyźnie ogniskowej aparatu."
 
 #: ../src/tags/gnome-cmd-tags.cc:235
 msgid "Focal Plane y-Resolution"
 msgstr "Rozdzielczość ogniskowej w płaszczyźnie Y"
 
 #: ../src/tags/gnome-cmd-tags.cc:235
-msgid "Indicates the number of pixels in the image height (Y) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
-msgstr "Określenie liczby pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla wysokości obrazu (Y) w płaszczyźnie ogniskowej aparatu."
+msgid "The number of pixels in the image height (Y) direction per <Exif.FocalPlaneResolutionUnit> on the camera focal plane."
+msgstr "Liczba pikseli na jednostkę <Exif.FocalPlaneResolutionUnit> dla wysokości obrazu (Y) w płaszczyźnie ogniskowej aparatu."
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "Gain Control"
@@ -4147,8 +4168,8 @@ msgid "Interoperability Index"
 msgstr "Indeks końcowy"
 
 #: ../src/tags/gnome-cmd-tags.cc:253
-msgid "Indicates the identification of the Interoperability rule. Use \"R98\" for stating ExifR98 Rules. Four bytes used including the termination code (NULL)."
-msgstr "Oznaczenie identyfikacji reguły współpracy. Należy użyć \"R98\" dla oznaczenia reguł ExifR98. Używane są cztery bajty wraz ze znacznikiem końca (NULL)."
+msgid "Indicates the identification of the Interoperability rule. Use \"R98\" for stating ExifR98 Rules."
+msgstr "Oznaczenie identyfikacji reguły współpracy. Należy użyć \"R98\" dla oznaczenia reguł ExifR98."
 
 #: ../src/tags/gnome-cmd-tags.cc:254
 #, fuzzy
@@ -4169,8 +4190,8 @@ msgid "ISO Speed Ratings"
 msgstr "Oszacowania czułości ISO"
 
 #: ../src/tags/gnome-cmd-tags.cc:256
-msgid "Indicates the ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232."
-msgstr "Określenie czułości ISO i szerokości geograficznej ISO aparatu lub urządzenia wejściowego zgodne ze specyfikacją ISO 12232."
+msgid "The ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232."
+msgstr "Czułość ISO i szerokość geograficznej ISO aparatu lub urządzenia wejściowego zgodnie ze specyfikacją ISO 12232."
 
 #: ../src/tags/gnome-cmd-tags.cc:257
 msgid "JPEG Interchange Format"
@@ -4247,10 +4268,6 @@ msgstr "Model"
 msgid "The model name or model number of the equipment. This is the model name or number of the DSC, scanner, video digitizer or other equipment that generated the image. When the field is left blank, it is treated as unknown."
 msgstr "Nazwa lub numer modelu urządzenia. Jest to nazwa modelu lub numer DSC, skanera, digitalizera albo innego urządzenia, które wygenerowało obraz. Jeśli to pole jest puste, jest traktowane jako nieznane."
 
-#: ../src/tags/gnome-cmd-tags.cc:266
-msgid "Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods."
-msgstr "Oznaczenie wzoru geometrycznego CFA (color filter array - tablicy filtrów kolorów) czujnika obrazu w przypadku użycia jednoukładowego czujnika obszaru koloru. Nie odnosi się to do wszystkich metod próbkowania."
-
 #: ../src/tags/gnome-cmd-tags.cc:267
 msgid "New Subfile Type"
 msgstr "Nowy typ podpliku"
@@ -4264,8 +4281,8 @@ msgid "OECF"
 msgstr "OECF"
 
 #: ../src/tags/gnome-cmd-tags.cc:268
-msgid "Indicates the Opto-Electoric Conversion Function (OECF) specified in ISO 14524. <Exif.OECF> is the relationship between the camera optical input and the image values."
-msgstr "Określenie funkcji konwersji optoelektrycznej (OECF - Opto-Electric Conversion Function) opisanej w ISO 14524. <Exif.OECF> to powiązanie między wejściem optycznym aparatu a wartościami obrazu."
+msgid "The Opto-Electoric Conversion Function (OECF) specified in ISO 14524. <Exif.OECF> is the relationship between the camera optical input and the image values."
+msgstr "Funkcja konwersji optoelektrycznej (OECF - Opto-Electric Conversion Function) opisanej w ISO 14524. <Exif.OECF> to powiązanie między wejściem optycznym aparatu a wartościami obrazu."
 
 #: ../src/tags/gnome-cmd-tags.cc:269
 #: ../src/tags/gnome-cmd-tags.cc:430
@@ -4387,40 +4404,41 @@ msgid "Saturation"
 msgstr "Nasycenie"
 
 #: ../src/tags/gnome-cmd-tags.cc:283
-msgid "This tag indicates the direction of saturation processing applied by the camera when the image was shot."
-msgstr "Ten znacznik określa kierunek przetwarzania nasycenia wykonanego przez aparat przy robieniu zdjęcia."
+#, fuzzy
+msgid "The direction of saturation processing applied by the camera when the image was shot."
+msgstr "Kierunek przetwarzania kontrastu wykonanego przez aparat przy robieniu zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:284
 msgid "Scene Capture Type"
 msgstr "Typ ujęcia"
 
 #: ../src/tags/gnome-cmd-tags.cc:284
-msgid "This tag indicates the type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <Exif.SceneType> tag."
-msgstr "Znacznik określa rodzaj sceny na zdjęciu. Może być także wykorzystany do zapisania trybu w którym było robione zdjęcie. Należy zaznaczyć, że ten znacznik różni się od znacznika <Exif.SceneType>."
+msgid "The type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <Exif.SceneType> tag."
+msgstr "Rodzaj sceny na zdjęciu. Może być także wykorzystany do zapisania trybu w którym było robione zdjęcie. Należy zaznaczyć, że ten znacznik różni się od znacznika <Exif.SceneType>."
 
 #: ../src/tags/gnome-cmd-tags.cc:285
 msgid "Scene Type"
 msgstr "Rodzaj sceny"
 
 #: ../src/tags/gnome-cmd-tags.cc:285
-msgid "Indicates the type of scene. If a DSC recorded the image, this tag value must always be set to 1, indicating that the image was directly photographed."
-msgstr "Określenie rodzaju sceny. Jeśli obraz był zapisany przez DSC, wartość tego znacznika zawsze musi być ustawiona na 1, oznaczając, że obraz był bezpośrednio sfotografowany."
+msgid "The type of scene. If a DSC recorded the image, this tag value must always be set to 1, indicating that the image was directly photographed."
+msgstr "Rodzaj sceny. Jeśli obraz był zapisany przez DSC, wartość tego znacznika zawsze musi być ustawiona na 1, oznaczając, że obraz był bezpośrednio sfotografowany."
 
 #: ../src/tags/gnome-cmd-tags.cc:286
 msgid "Sensing Method"
 msgstr "Rodzaj czujnika"
 
 #: ../src/tags/gnome-cmd-tags.cc:286
-msgid "Indicates the image sensor type on the camera or input device."
-msgstr "Określenie rodzaju czujnika obrazu w aparacie lub urządzeniu wejściowym."
+msgid "The image sensor type on the camera or input device."
+msgstr "Rodzaj czujnika obrazu w aparacie lub urządzeniu wejściowym."
 
 #: ../src/tags/gnome-cmd-tags.cc:287
 msgid "Sharpness"
 msgstr "Ostrość"
 
 #: ../src/tags/gnome-cmd-tags.cc:287
-msgid "This tag indicates the direction of sharpness processing applied by the camera when the image was shot."
-msgstr "Ten znacznik określa kierunek przetwarzania ostrości wykonanego przez aparat przy robieniu zdjęcia."
+msgid "The direction of sharpness processing applied by the camera when the image was shot."
+msgstr "Kierunek przetwarzania kontrastu wykonanego przez aparat przy robieniu zdjęcia."
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid "Shutter Speed"
@@ -4452,8 +4470,8 @@ msgid "Spectral Sensitivity"
 msgstr "Czułość widmowa"
 
 #: ../src/tags/gnome-cmd-tags.cc:291
-msgid "Indicates the spectral sensitivity of each channel of the camera used."
-msgstr "Oznaczenie czułości widmowej każdego z kanałów używanych w aparacie."
+msgid "The spectral sensitivity of each channel of the camera used."
+msgstr "Czułość widmowa każdego z kanałów używanych w aparacie."
 
 #: ../src/tags/gnome-cmd-tags.cc:292
 msgid "Strip Byte Count"
@@ -4485,8 +4503,8 @@ msgid "Subject Area"
 msgstr "Obszar obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:295
-msgid "This tag indicates the location and area of the main subject in the overall scene."
-msgstr "Ten znacznik określa położenie i obszar głównego obiektu na całej scenie."
+msgid "The location and area of the main subject in the overall scene."
+msgstr "Położenie i obszar głównego obiektu na całej scenie."
 
 #: ../src/tags/gnome-cmd-tags.cc:296
 msgid "Subject Distance"
@@ -4501,15 +4519,18 @@ msgid "Subject Distance Range"
 msgstr "Zakres odległości obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:297
-msgid "This tag indicates the distance to the subject."
-msgstr "Ten znacznik określa odległość od obiektu."
+#, fuzzy
+msgid "The distance to the subject."
+msgstr ""
+"Wydany dla:\n"
+"  Temat: %s\n"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
 msgid "Subject Location"
 msgstr "Lokalizacja obiektu"
 
 #: ../src/tags/gnome-cmd-tags.cc:298
-msgid "Indicates the location of the main subject in the scene. The value of this tag represents the pixel at the center of the main subject relative to the left edge, prior to rotation processing as per the <Exif.Rotation> tag. The first value indicates the X column number and second indicates the Y row number."
+msgid "The location of the main subject in the scene. The value of this tag represents the pixel at the center of the main subject relative to the left edge, prior to rotation processing as per the <Exif.Rotation> tag. The first value indicates the X column number and second indicates the Y row number."
 msgstr "Położenie głównego obiektu na scenie. Wartość tego znacznika reprezentuje piksel w środku głównego obiektu względem lewej krawędzi, przed wykonaniem obrotu opisanego znacznikiem <Exif.Rotation>. Pierwsza wartość określa numer kolumny X, a druga - numer wiersza Y."
 
 #: ../src/tags/gnome-cmd-tags.cc:299
@@ -4518,24 +4539,24 @@ msgid "Subsec Time"
 msgstr "Data i czas (obrazu cyfrowego)"
 
 #: ../src/tags/gnome-cmd-tags.cc:299
-msgid "A tag used to record fractions of seconds for the <Exif.DateTime> tag."
-msgstr "Znacznik używany do zapisywania ułamków sekund dla znacznika <Exif.DateTime>."
+msgid "Fractions of seconds for the <Exif.DateTime> tag."
+msgstr "Znacznik używany do zapisywania ułamków sekund dla znacznika <DateTime>."
 
 #: ../src/tags/gnome-cmd-tags.cc:300
 msgid "Subsec Time Digitized"
 msgstr "Data i czas (obrazu cyfrowego)"
 
 #: ../src/tags/gnome-cmd-tags.cc:300
-msgid "A tag used to record fractions of seconds for the <Exif.DateTimeDigitized> tag."
-msgstr "Znacznik używany do zapisywania ułamków sekund dla znacznika <Exif.DateTimeDigitized>."
+msgid "Fractions of seconds for the <Exif.DateTimeDigitized> tag."
+msgstr "Znacznik używany do zapisywania ułamków sekund dla znacznika <DateTimeDigitized>."
 
 #: ../src/tags/gnome-cmd-tags.cc:301
 msgid "Subsec Time Original"
 msgstr "Data i czas (oryginału)"
 
 #: ../src/tags/gnome-cmd-tags.cc:301
-msgid "A tag used to record fractions of seconds for the <Exif.DateTimeOriginal> tag."
-msgstr "Znacznik używany do zapisywania ułamków sekund dla znacznika <Exif.DateTimeOriginal>."
+msgid "Fractions of seconds for the <Exif.DateTimeOriginal> tag."
+msgstr "Znacznik używany do zapisywania ułamków sekund dla znacznika <DateTimeOriginal>."
 
 #: ../src/tags/gnome-cmd-tags.cc:302
 msgid "TIFF/EP Standard ID"
@@ -4877,7 +4898,7 @@ msgstr "Korekcja graficzna 2"
 
 #: ../src/tags/gnome-cmd-tags.cc:347
 msgid "Equalisation curve predifine within the audio file."
-msgstr ""
+msgstr "Predefiniowana krzywa korekcji w nagraniu."
 
 #: ../src/tags/gnome-cmd-tags.cc:348
 #, fuzzy
@@ -5643,7 +5664,7 @@ msgid "Content Location Code"
 msgstr "Typ zawartości"
 
 #: ../src/tags/gnome-cmd-tags.cc:451
-msgid "Indicates the code of a country/geographical location referenced by the content of the object (multiple values allowed)."
+msgid "The code of a country/geographical location referenced by the content of the object (multiple values allowed)."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:452
@@ -5731,7 +5752,7 @@ msgid "Editorial Update"
 msgstr "Automatyczna aktualizacja"
 
 #: ../src/tags/gnome-cmd-tags.cc:462
-msgid "Indicates the type of update this object provides to a previous object. The link to the previous object is made using the ARM. '01' indicates an additional language."
+msgid "The type of update this object provides to a previous object. The link to the previous object is made using the ARM. '01' indicates an additional language."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:463
@@ -5747,7 +5768,7 @@ msgid "Envelope Number"
 msgstr "Unikalny identyfikator"
 
 #: ../src/tags/gnome-cmd-tags.cc:464
-msgid "A number unique for the date in 1:70 and the service ID in 1:30."
+msgid "A number unique for the date and the service ID."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:465
@@ -5820,7 +5841,8 @@ msgid "Image Type"
 msgstr "Typ obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:473
-msgid "Indicates the data format of the image object."
+#, fuzzy
+msgid "The data format of the image object."
 msgstr "Oznacza format danych obiektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:474
@@ -5849,7 +5871,7 @@ msgid "Max Subfile Size"
 msgstr "Maks. wielkość pliku dziennika:"
 
 #: ../src/tags/gnome-cmd-tags.cc:477
-msgid "The maximum size for a subfile dataset (8:10) containing a portion of the object data."
+msgid "The maximum size for a subfile dataset containing a portion of the object data."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:478
@@ -5931,7 +5953,7 @@ msgid "Preview File Format"
 msgstr "Format podglądu pliku"
 
 #: ../src/tags/gnome-cmd-tags.cc:487
-msgid "Binary value indicating the file format of the object preview data in dataset 2:202."
+msgid "Binary value indicating the file format of the object preview data."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:488
@@ -5939,8 +5961,9 @@ msgid "Preview File Format Version"
 msgstr "Preview File Format Version"
 
 #: ../src/tags/gnome-cmd-tags.cc:488
-msgid "The version of the preview file format specified in 2:200."
-msgstr "Wersja formatu podglądu pliku zdefiniowana w 2:200."
+#, fuzzy
+msgid "The version of the preview file format."
+msgstr "Preview File Format Version"
 
 #: ../src/tags/gnome-cmd-tags.cc:489
 msgid "Product ID"
@@ -6703,6 +6726,28 @@ msgstr "Nie można czytać z katalogu %s: %s"
 msgid "There was an error displaying help."
 msgstr "Wystąpił błąd podczas wyświetlania pomocy."
 
+#~ msgid ""
+#~ "Indicates the color filter array (CFA) geometric pattern of the image "
+#~ "sensor when a one-chip color area sensor is used. It does not apply to "
+#~ "all sensing methods."
+#~ msgstr ""
+#~ "Oznaczenie wzoru geometrycznego CFA (color filter array - tablicy filtrów "
+#~ "kolorów) czujnika obrazu w przypadku użycia jednoukładowego czujnika "
+#~ "obszaru koloru. Nie odnosi się to do wszystkich metod próbkowania."
+#~ msgid ""
+#~ "This tag indicates the direction of saturation processing applied by the "
+#~ "camera when the image was shot."
+#~ msgstr ""
+#~ "Ten znacznik określa kierunek przetwarzania nasycenia wykonanego przez "
+#~ "aparat przy robieniu zdjęcia."
+#~ msgid ""
+#~ "This tag indicates the direction of sharpness processing applied by the "
+#~ "camera when the image was shot."
+#~ msgstr ""
+#~ "Ten znacznik określa kierunek przetwarzania ostrości wykonanego przez "
+#~ "aparat przy robieniu zdjęcia."
+#~ msgid "This tag indicates the distance to the subject."
+#~ msgstr "Ten znacznik określa odległość od obiektu."
 #~ msgid "_No Parsing (original file)"
 #~ msgstr "Bez formatowania"
 #~ msgid "_HTML Parser"
