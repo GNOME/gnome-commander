@@ -1,3 +1,9 @@
+2008-10-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/C/gnome-commander.xml:
+	* doc/*/*.po:
+	predifine -> predefine
+
 2008-10-24  Mario Blättermann  <mariobl@svn.gnome.org>
 
 	* de/de.po: Updated German translation

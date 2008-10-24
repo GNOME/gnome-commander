@@ -344,7 +344,7 @@ void gcmd_tags_init()
                        {TAG_ID3_ENCODERSETTINGS, {"ID3.EncoderSettings", TAG_ID3, N_("Encoder Settings"), N_("Software.")}},
                        {TAG_ID3_ENCODINGTIME, {"ID3.EncodingTime", TAG_ID3, N_("Encoding Time"), N_("Encoding time.")}},
                        {TAG_ID3_EQUALIZATION, {"ID3.Equalization", TAG_ID3, N_("Equalization"), N_("Equalization.")}},
-                       {TAG_ID3_EQUALIZATION2, {"ID3.Equalization2", TAG_ID3, N_("Equalization 2"), N_("Equalisation curve predifine within the audio file.")}},
+                       {TAG_ID3_EQUALIZATION2, {"ID3.Equalization2", TAG_ID3, N_("Equalization 2"), N_("Equalisation curve predefine within the audio file.")}},
                        {TAG_ID3_EVENTTIMING, {"ID3.EventTiming", TAG_ID3, N_("Event Timing"), N_("Event timing codes.")}},
                        {TAG_ID3_FILEOWNER, {"ID3.FileOwner", TAG_ID3, N_("File Owner"), N_("File owner.")}},
                        {TAG_ID3_FILETYPE, {"ID3.FileType", TAG_ID3, N_("File Type"), N_("File type.")}},

@@ -2283,7 +2283,7 @@
                     <row valign="top">
                         <entry><para>ID3.Equalization2</para></entry>
                         <entry><para>Equalization 2</para></entry>
-                        <entry><para>Equalisation curve predifine within the audio file.</para></entry>
+                        <entry><para>Equalisation curve predefine within the audio file.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>ID3.EventTiming</para></entry>

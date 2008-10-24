@@ -4750,7 +4750,7 @@ msgid "Equalization 2"
 msgstr "Изравняване 2"
 
 #: ../src/tags/gnome-cmd-tags.cc:341
-msgid "Equalisation curve predifine within the audio file."
+msgid "Equalisation curve predefine within the audio file."
 msgstr "Предварително определена изравняваща крива в звуковия файл."
 
 #: ../src/tags/gnome-cmd-tags.cc:342

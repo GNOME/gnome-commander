@@ -5379,7 +5379,7 @@ msgid "Equalization 2"
 msgstr "2. ekualizazioa"
 
 #: ../src/tags/gnome-cmd-tags.cc:346
-msgid "Equalisation curve predifine within the audio file."
+msgid "Equalisation curve predefine within the audio file."
 msgstr "Audioko fitxategian auredefinitutako ekualizazio-kurba."
 
 #: ../src/tags/gnome-cmd-tags.cc:347

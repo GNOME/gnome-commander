@@ -5237,7 +5237,7 @@ msgid "Equalization 2"
 msgstr "Entzerrung 2"
 
 #: ../src/tags/gnome-cmd-tags.cc:347
-msgid "Equalisation curve predifine within the audio file."
+msgid "Equalisation curve predefine within the audio file."
 msgstr "In der Audiodatei vordefinierte Equalizer-Kurve."
 
 #: ../src/tags/gnome-cmd-tags.cc:348
