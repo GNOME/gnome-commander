@@ -40,11 +40,11 @@ using namespace std;
 // static GdkColor red     = {0,0xffff,0,0};
 
 
-typedef struct
+struct RenameEntry
 {
-    GnomeCmdFile *finfo;
+    GnomeCmdFile *f;
     gchar *new_name;
-} RenameEntry;
+};
 
 
 enum {DIR_MENU, FILE_MENU, COUNTER_MENU, DATE_MENU, METATAG_MENU, NUM_MENUS};
@@ -131,7 +131,7 @@ static void insert_text_tag (gpointer data, guint n, GtkWidget *widget)
 }
 
 
-static void insert_num_tag(gpointer data, guint tag, GtkWidget *widget)
+static void insert_num_tag (gpointer data, guint tag, GtkWidget *widget)
 {
     gchar *s = g_strdup_printf ("$T(%s)", gcmd_tags_get_name((GnomeCmdTag) tag));
     insert_tag ((GnomeCmdAdvrenameDialog *) data, s);
@@ -460,7 +460,7 @@ static GtkWidget *create_button_with_menu (GnomeCmdAdvrenameDialog *dialog, gcha
     dialog->priv->menu[menu_type] = create_placeholder_menu (dialog, menu_type);
 
     gtk_widget_set_events (button, GDK_BUTTON_PRESS_MASK);
-    g_signal_connect (G_OBJECT(button), "clicked", G_CALLBACK(on_menu_button_clicked), dialog->priv->menu[menu_type]);
+    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (on_menu_button_clicked), dialog->priv->menu[menu_type]);
 
     gtk_widget_show_all(button);
 
@@ -512,14 +512,14 @@ inline gint get_row_from_rename_entry (GnomeCmdAdvrenameDialog *dialog, RenameEn
 }
 
 
-inline void add_rename_entry (GnomeCmdAdvrenameDialog *dialog, GnomeCmdFile *finfo)
+inline void add_rename_entry (GnomeCmdAdvrenameDialog *dialog, GnomeCmdFile *f)
 {
     gint row;
     gchar *text[4],
-          *fname = get_utf8 (finfo->info->name);
+          *fname = get_utf8 (f->info->name);
     RenameEntry *entry = rename_entry_new ();
 
-    entry->finfo = finfo;
+    entry->f = f;
 
     text[0] = fname;
     text[1] = NULL;
@@ -746,7 +746,7 @@ inline void update_new_names (GnomeCmdAdvrenameDialog *dialog)
         RenameEntry *entry = (RenameEntry *) tmp->data;
         GList *patterns = dialog->priv->defaults->patterns;
 
-        gnome_cmd_advrename_gen_fname (fname, sizeof (fname), entry->finfo);
+        gnome_cmd_advrename_gen_fname (fname, sizeof (fname), entry->f);
 
         entry->new_name = dialog->priv->trim_blanks (create_new_name (fname, patterns));
     }
@@ -773,8 +773,8 @@ inline void change_names (GnomeCmdAdvrenameDialog *dialog)
     {
         RenameEntry *entry = (RenameEntry *) tmp->data;
 
-        if (strcmp (entry->finfo->info->name, entry->new_name) != 0)
-            gnome_cmd_file_rename (entry->finfo, entry->new_name);
+        if (strcmp (entry->f->info->name, entry->new_name) != 0)
+            gnome_cmd_file_rename (entry->f, entry->new_name);
     }
 }
 
@@ -1125,8 +1125,7 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
                                  in_dialog->priv->defaults->height);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
     gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
-    gtk_signal_connect (GTK_OBJECT (dialog), "size-allocate",
-                        GTK_SIGNAL_FUNC (on_dialog_size_allocate), dialog);
+    gtk_signal_connect (GTK_OBJECT (dialog), "size-allocate", GTK_SIGNAL_FUNC (on_dialog_size_allocate), dialog);
 
 
     // Template stuff
@@ -1166,7 +1165,7 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
     btn = create_button_with_menu (in_dialog, _("File"), FILE_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
-    btn = create_button_with_menu (in_dialog, _("Counter"),COUNTER_MENU);
+    btn = create_button_with_menu (in_dialog, _("Counter"), COUNTER_MENU);
     gtk_container_add (GTK_CONTAINER (bbox), btn);
 
     btn = create_button_with_menu (in_dialog, _("Date"), DATE_MENU);
