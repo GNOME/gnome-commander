@@ -886,8 +886,8 @@
         This prevents accidental modification or deletion of them, which can impair the operation of your computer,
         and also reduces clutter in locations such as your Home Folder. &app; does not display:</para>
         <itemizedlist>
-            <listitem><para>Hidden files, whose filename begins with a period (.),</para></listitem>
-            <listitem><para>Backup files, whose filename ends with a tilde (~) or with extension <filename>'.bak'</filename></para></listitem>
+            <listitem><para>Hidden files, whose file name begins with a period (.),</para></listitem>
+            <listitem><para>Backup files, whose file name ends with a tilde (~) or with extension <filename>'.bak'</filename></para></listitem>
             <listitem><para>Files that are listed in a particular folder's <filename>.hidden</filename> file.</para></listitem>
         </itemizedlist>
         <para>You may hide or show hidden files in a particular folder by selecting <menuchoice><guimenu>View</guimenu><guimenuitem>Show Hidden Files</guimenuitem></menuchoice>.</para>
@@ -896,8 +896,8 @@
     <sect2 id="gnome-commander-advanced-rename">
         <title>Advanced file renaming</title>
         <para>A powerful tool for batch renaming of the files selected in &app;.
-        It allows you to easily rename lots of files in one go.
-        The filenames can be created by parts of the original filename, its path,
+        It allows to easily rename lots of files in one go.
+        The file names can be created by parts of the original file name, its path,
         numbering the files or accessing hundreds of informations about the file,
         like creation date or <link linkend="gnome-commander-advanced-rename-metadata-tags">Exif/IPTC</link>
         informations of an image.</para>
@@ -926,9 +926,9 @@
               </term>
               <listitem>
                   <para>Specifies template for file renaming. All ordinary characters placed in the format string
-                        go into new name without conversion. Conversion specifiers are introduced by a few
+                        go into the new name without conversion. Conversion specifiers are introduced by a few
                         <link linkend="gnome-commander-advanced-rename-placeholders">placeholders</link>
-                        (see below for the detailed list of placeholders). Additionally
+                        (see below for the detailed list). Additionally
                         <link linkend="gnome-commander-advanced-rename-strftime">strftime() format controls</link>
                         are also accepted - except for "%D", "%n" and "%t" for obvious reasons.
                         If found, they are converted into single "%".</para>
@@ -1089,7 +1089,7 @@
         <term>'Doc.'</term>, <term>'File.'</term> and <term>'Image.'</term>  metatags are independent
         of the used framework and they provide unified access to respectively audio, doc, file or image metadata.
         Please refer to
-        <ulink url="http://freedesktop.org/wiki/Standards_2fshared_2dfilemetadata_2dspec" type="http">freedesktop.org</ulink>
+        <ulink url="http://freedesktop.org/wiki/Specifications/shared-filemetadata-spec" type="http">freedesktop.org</ulink>
         for more details on the generic metatags.</para>
 
         <informaltable frame="topbot">
@@ -3499,7 +3499,7 @@
         <entry><para>Toggles line wrapping (applicable only in text display modes)</para></entry>
         </row>
         <row valign="top">
-        <entry><para>T</para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></entry>
+        <entry><para><keycombo><keycap>T</keycap></keycombo></para><keycombo><keycap>ALT</keycap><keycap>ENTER</keycap></keycombo></entry>
         <entry><para>Shows metadata tags</para></entry>
         </row>
         <row valign="top">
