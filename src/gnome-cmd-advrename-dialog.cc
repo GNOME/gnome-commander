@@ -1206,7 +1206,7 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->remove_btn);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->remove_btn), FALSE);
 
-    in_dialog->priv->remove_all_btn = create_button (dialog, _("Re_move All"), GTK_SIGNAL_FUNC (on_rule_remove_all));
+    in_dialog->priv->remove_all_btn = create_button (dialog, _("Remove A_ll"), GTK_SIGNAL_FUNC (on_rule_remove_all));
     gtk_container_add (GTK_CONTAINER (bbox), in_dialog->priv->remove_all_btn);
     if (!in_dialog->priv->defaults->patterns)
         gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->remove_all_btn), FALSE);
@@ -1228,7 +1228,7 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
     hbox = create_hbox (dialog, FALSE, 12);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), hbox);
 
-    gchar *str = g_strdup_printf ("<b>%s</b>", _("Trim blanks"));
+    gchar *str = g_strdup_printf ("<b>%s</b>", _("Trim _blanks"));
     label = gtk_label_new_with_mnemonic (str);
     g_free (str);
 
@@ -1258,7 +1258,7 @@ static void init (GnomeCmdAdvrenameDialog *in_dialog)
 
     // Dialog stuff
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("Rese_t"), GTK_SIGNAL_FUNC (on_reset), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), _("Reset"), GTK_SIGNAL_FUNC (on_reset), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
 
