@@ -226,7 +226,6 @@ inline GnomeCmdFile *GnomeCmdFileList::get_selected_file()
 
 void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2);
 
-void gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_chown_dialog (GnomeCmdFileList *fl);
 void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl);

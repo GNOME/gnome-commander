@@ -40,6 +40,7 @@
 #include "gnome-cmd-prepare-move-dialog.h"
 #include "gnome-cmd-python-plugin.h"
 #include "gnome-cmd-search-dialog.h"
+#include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-key-shortcuts-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "plugin_manager.h"
@@ -734,7 +735,19 @@ void file_rename (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_advrename_dialog (get_fl (ACTIVE));
+    GList *files = get_fl (ACTIVE)->get_selected_files();
+
+    if (files)
+    {
+        files = get_fl (ACTIVE)->sort_selection(files);
+
+        GtkWidget *dialog = gnome_cmd_advrename_dialog_new (files);
+
+        gtk_widget_ref (dialog);
+        gtk_widget_show (dialog);
+
+        g_list_free (files);
+    }
 }
 
 

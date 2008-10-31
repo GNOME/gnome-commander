@@ -36,7 +36,6 @@
 #include "gnome-cmd-chown-dialog.h"
 #include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-delete-dialog.h"
-#include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
 #include "gnome-cmd-user-actions.h"
@@ -1868,22 +1867,6 @@ void gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl)
         gtk_widget_ref (dialog);
         gtk_widget_show (dialog);
         g_list_free (files);
-    }
-}
-
-
-void gnome_cmd_file_list_show_advrename_dialog (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GList *files = fl->get_selected_files();
-
-    if (files)
-    {
-        GtkWidget *dialog = gnome_cmd_advrename_dialog_new (fl->sort_selection(files));
-
-        gtk_widget_ref (dialog);
-        gtk_widget_show (dialog);
     }
 }
 

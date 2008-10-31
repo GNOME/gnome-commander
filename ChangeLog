@@ -4,6 +4,11 @@
 	* src/gnome-cmd-data.h:
 	Kill dead code
 
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-list.h:
+	* src/gnome-cmd-user-actions.cc:
+	Simplify code for advrename dlg invoking
+
 2008-10-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/Makefile.am:
