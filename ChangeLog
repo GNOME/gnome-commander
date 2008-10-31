@@ -1,3 +1,9 @@
+2008-10-31  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	Kill dead code
+
 2008-10-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/Makefile.am:

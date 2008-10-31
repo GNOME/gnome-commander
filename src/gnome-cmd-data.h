@@ -59,7 +59,6 @@ struct GnomeCmdData
         gint width, height;
         gint pat_col_widths;
         gint res_col_widths;
-        gint sep_value;
     };
 
     struct FilterSettings

@@ -843,8 +843,6 @@ inline void GnomeCmdData::save_rename_history()
     gnome_cmd_data_set_uint_array ("/advrename/pat_col_widths%d", advrename_dialog_default_pat_column_width, ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
     gnome_cmd_data_set_uint_array ("/advrename/res_col_widths%d", advrename_dialog_default_res_column_width, ADVRENAME_DIALOG_RES_NUM_COLUMNS);
 
-    gnome_cmd_data_set_int ("/advrename/sep_value", advrename_defaults->sep_value);
-
     gnome_cmd_data_set_int ("/template-history/size", g_list_length (advrename_defaults->templates->ents));
     gnome_cmd_data_set_string_history ("/template-history/template%d", advrename_defaults->templates->ents);
 
@@ -985,8 +983,6 @@ inline void GnomeCmdData::load_rename_history()
     load_uint_array ("/advrename/res_col_widths%d",
                      advrename_dialog_default_res_column_width,
                      ADVRENAME_DIALOG_RES_NUM_COLUMNS);
-
-    advrename_defaults->sep_value = gnome_cmd_data_get_int ("/advrename/sep_value", 150);
 
     size = gnome_cmd_data_get_int ("/template-history/size", 0);
     GList *templates = load_string_history ("/template-history/template%d", size);
