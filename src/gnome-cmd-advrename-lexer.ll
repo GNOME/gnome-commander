@@ -300,7 +300,7 @@ void gnome_cmd_advrename_reset_counter(unsigned start, unsigned precision, unsig
 }
 
 
-void gnome_cmd_advrename_parse_fname(const char *fname)
+void gnome_cmd_advrename_parse_template(const char *template_string)
 {
   for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
     switch ((*i)->type)
@@ -319,7 +319,7 @@ void gnome_cmd_advrename_parse_fname(const char *fname)
 
   fname_template.clear();
 
-  yy_scan_string(fname);
+  yy_scan_string(template_string);
   yylex();
   yy_delete_buffer(YY_CURRENT_BUFFER);
 }

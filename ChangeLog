@@ -1,3 +1,10 @@
+2008-11-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-advrename-lexer.h:
+	* src/gnome-cmd-advrename-lexer.ll:
+	gnome_cmd_advrename_parse_fname -> gnome_cmd_advrename_parse_template
+
 2008-10-31  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

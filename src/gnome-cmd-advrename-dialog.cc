@@ -738,7 +738,7 @@ inline void update_new_names (GnomeCmdAdvrenameDialog *dialog)
     const gchar *templ_string = gtk_entry_get_text (GTK_ENTRY (dialog->priv->templ_entry));
 
     gnome_cmd_advrename_reset_counter (dialog->priv->defaults->counter_start, dialog->priv->defaults->counter_precision, dialog->priv->defaults->counter_increment);
-    gnome_cmd_advrename_parse_fname (templ_string);
+    gnome_cmd_advrename_parse_template (templ_string);
 
     for (GList *tmp = dialog->priv->entries; tmp; tmp = tmp->next)
     {
