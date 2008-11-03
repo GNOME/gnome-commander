@@ -57,7 +57,7 @@ using namespace std;
 
 enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,XRANDOM,XXRANDOM,PARENT_DIR,GRANDPARENT_DIR,METATAG};
 
-typedef struct
+struct CHUNK
 {
   int type;
   union
@@ -83,12 +83,12 @@ typedef struct
       guint x_prec;     // default: MAX_XRANDOM_PRECISION  (8)
     } random;
   };
-} CHUNK;
+};
 
 
 static vector<CHUNK *> fname_template;
 
-
+static gboolean      fname_template_has_counters = FALSE;
 static unsigned long default_counter_start = 1;
 static unsigned      default_counter_step = 1;
 static unsigned      default_counter_prec = -1;
@@ -178,6 +178,8 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   p->counter.prec = min (precision, MAX_PRECISION);
 
                                   fname_template.push_back(p);
+
+                                  fname_template_has_counters = TRUE;
                                 }
 
 \$[xX]\({uint}\)                {
@@ -250,6 +252,8 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   p->counter.prec = default_counter_prec;
 
                                   fname_template.push_back(p);
+
+                                  fname_template_has_counters = TRUE;
                                 }
 
 \$[xX]                          {
@@ -300,7 +304,7 @@ void gnome_cmd_advrename_reset_counter(unsigned start, unsigned precision, unsig
 }
 
 
-void gnome_cmd_advrename_parse_template(const char *template_string)
+void gnome_cmd_advrename_parse_template(const char *template_string, gboolean &has_counters)
 {
   for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
     switch ((*i)->type)
@@ -318,10 +322,13 @@ void gnome_cmd_advrename_parse_template(const char *template_string)
     }
 
   fname_template.clear();
+  fname_template_has_counters = FALSE;
 
   yy_scan_string(template_string);
   yylex();
   yy_delete_buffer(YY_CURRENT_BUFFER);
+
+  has_counters = fname_template_has_counters;
 }
 
 

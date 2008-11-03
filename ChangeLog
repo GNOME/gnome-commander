@@ -1,3 +1,10 @@
+2008-11-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-advrename-lexer.h:
+	* src/gnome-cmd-advrename-lexer.ll:
+	advrename lexer: report presence of $c/$c(n) in template
+
 2008-11-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
