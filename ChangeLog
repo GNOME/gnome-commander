@@ -4,6 +4,10 @@
 	* src/gnome-cmd-file.h:
 	gnome_cmd_file_ref() returns the file now
 
+	* src/gnome-cmd-treeview.cc:
+	* src/gnome-cmd-treeview.h:
+	treeview: added gnome_cmd_treeview_create_new_toggle_column()
+
 2008-11-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

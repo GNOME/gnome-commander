@@ -65,3 +65,23 @@ GtkTreeViewColumn *gnome_cmd_treeview_create_new_pixbuf_column (GtkTreeView *vie
 
     return col;
 }
+
+
+GtkTreeViewColumn *gnome_cmd_treeview_create_new_toggle_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title)
+{
+    renderer = gtk_cell_renderer_toggle_new ();
+
+    GtkTreeViewColumn *col = gtk_tree_view_column_new_with_attributes (title,
+                                                                       renderer,
+                                                                       "active", COL_ID,
+                                                                       NULL);
+
+    g_object_set (col,
+                  "clickable", TRUE,
+                  NULL);
+
+    // pack tree view column into tree view
+    gtk_tree_view_append_column (GTK_TREE_VIEW (view), col);
+
+    return col;
+}

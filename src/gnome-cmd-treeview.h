@@ -23,6 +23,7 @@
 
 GtkTreeViewColumn *gnome_cmd_treeview_create_new_text_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL);
 GtkTreeViewColumn *gnome_cmd_treeview_create_new_pixbuf_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL);
+GtkTreeViewColumn *gnome_cmd_treeview_create_new_toggle_column (GtkTreeView *view, GtkCellRenderer *&renderer, gint COL_ID, const gchar *title=NULL);
 
 inline GtkTreeViewColumn *gnome_cmd_treeview_create_new_text_column (GtkTreeView *view, gint COL_ID, const gchar *title=NULL)
 {
