@@ -62,7 +62,7 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
 
 void gnome_cmd_file_invalidate_metadata (GnomeCmdFile *f);
 
-void gnome_cmd_file_ref (GnomeCmdFile *f);
+GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *f);
 void gnome_cmd_file_unref (GnomeCmdFile *f);
 
 GnomeVFSResult gnome_cmd_file_chmod (GnomeCmdFile *f, GnomeVFSFilePermissions perm);

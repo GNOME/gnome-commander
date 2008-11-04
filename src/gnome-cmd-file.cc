@@ -224,9 +224,9 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
 }
 
 
-void gnome_cmd_file_ref (GnomeCmdFile *file)
+GnomeCmdFile *gnome_cmd_file_ref (GnomeCmdFile *file)
 {
-    g_return_if_fail (file != NULL);
+    g_return_val_if_fail (file != NULL, NULL);
 
     file->priv->ref_cnt++;
 
@@ -236,6 +236,8 @@ void gnome_cmd_file_ref (GnomeCmdFile *file)
     char c = GNOME_CMD_IS_DIR (file) ? 'd' : 'f';
 
     DEBUG (c, "refing: 0x%p %s to %d\n", file, file->info->name, file->priv->ref_cnt);
+
+    return file;
 }
 
 

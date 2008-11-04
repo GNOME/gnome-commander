@@ -1,3 +1,9 @@
+2008-11-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
+	gnome_cmd_file_ref() returns the file now
+
 2008-11-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
