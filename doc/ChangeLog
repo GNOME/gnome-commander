@@ -1,3 +1,8 @@
+2008-11-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/C/gnome-commander.xml:
+	Synchronized metatags list with src/tags/gnome-cmd-tags.cc
+
 2008-11-02  Jorge González  <jorgegonz@svn.gnome.org>
 
 	* es/es.po: Updated Spanish translation by Daniel Mustieles

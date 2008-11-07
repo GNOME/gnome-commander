@@ -1167,7 +1167,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>Audio.CoverAlbumThumbnailPath</para></entry>
-                        <entry><para>Cover album thumbnail path</para></entry>
+                        <entry><para>Cover Album Thumbnail Path</para></entry>
                         <entry><para>File path to thumbnail image of the cover album.</para></entry>
                     </row>
                     <row valign="top">
@@ -1192,7 +1192,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>Audio.IsNew</para></entry>
-                        <entry><para>Is new</para></entry>
+                        <entry><para>Is New</para></entry>
                         <entry><para>Set to "1" if track is new to the user (default "0").</para></entry>
                     </row>
                     <row valign="top">
@@ -1232,7 +1232,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>Audio.MPEG.ChannelMode</para></entry>
-                        <entry><para>Channel mode</para></entry>
+                        <entry><para>Channel Mode</para></entry>
                         <entry><para>MPEG channel mode.</para></entry>
                     </row>
                     <row valign="top">
@@ -1247,7 +1247,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>Audio.MPEG.Original</para></entry>
-                        <entry><para>Original audio</para></entry>
+                        <entry><para>Original Audio</para></entry>
                         <entry><para>"1" if the "original" bit is set.</para></entry>
                     </row>
                     <row valign="top">
@@ -1548,7 +1548,7 @@
                     <row valign="top">
                         <entry><para>Exif.BatteryLevel</para></entry>
                         <entry><para>Battery Level</para></entry>
-                        <entry><para>Battery Level.</para></entry>
+                        <entry><para>Battery level.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.BitsPerSample</para></entry>
@@ -1633,7 +1633,7 @@
                     <row valign="top">
                         <entry><para>Exif.DocumentName</para></entry>
                         <entry><para>Document Name</para></entry>
-                        <entry><para>Document Name.</para></entry>
+                        <entry><para>Document name.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ExifIfdPointer</para></entry>
@@ -1658,7 +1658,7 @@
                     <row valign="top">
                         <entry><para>Exif.ExposureMode</para></entry>
                         <entry><para>Exposure Mode</para></entry>
-                        <entry><para>This tag indicates the exposure mode set when the image was shot. In auto-bracketing mode, the camera shoots a series of frames of the same scene at different exposure settings.</para></entry>
+                        <entry><para>The exposure mode set when the image was shot. In auto-bracketing mode, the camera shoots a series of frames of the same scene at different exposure settings.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ExposureProgram</para></entry>
@@ -1678,7 +1678,7 @@
                     <row valign="top">
                         <entry><para>Exif.FillOrder</para></entry>
                         <entry><para>Fill Order</para></entry>
-                        <entry><para>Fill Order.</para></entry>
+                        <entry><para>Fill order.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.Flash</para></entry>
@@ -1688,11 +1688,11 @@
                     <row valign="top">
                         <entry><para>Exif.FlashEnergy</para></entry>
                         <entry><para>Flash Energy</para></entry>
-                        <entry><para>Indicates the strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds (BCPS).</para></entry>
+                        <entry><para>The strobe energy at the time the image is captured, as measured in Beam Candle Power Seconds (BCPS).</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FlashPixVersion</para></entry>
-                        <entry><para>FlashPixVersion</para></entry>
+                        <entry><para>FlashPix Version</para></entry>
                         <entry><para>The FlashPix format version supported by a FPXR file.</para></entry>
                     </row>
                     <row valign="top">
@@ -1708,22 +1708,22 @@
                     <row valign="top">
                         <entry><para>Exif.FocalLengthIn35mmFilm</para></entry>
                         <entry><para>Focal Length In 35mm Film</para></entry>
-                        <entry><para>This tag indicates the equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <term>Exif.FocalLength</term> tag.</para></entry>
+                        <entry><para>The equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <term>Exif.FocalLength</term> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FocalPlaneResolutionUnit</para></entry>
                         <entry><para>Focal Plane Resolution Unit</para></entry>
-                        <entry><para>Indicates the unit for measuring <term>Exif.FocalPlaneXResolution</term> and <term>Exif.FocalPlaneYResolution</term>. This value is the same as the <term>Exif.ResolutionUnit</term>.</para></entry>
+                        <entry><para>The unit for measuring <term>Exif.FocalPlaneXResolution</term> and <term>Exif.FocalPlaneYResolution</term>. This value is the same as the <term>Exif.ResolutionUnit</term>.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FocalPlaneXResolution</para></entry>
                         <entry><para>Focal Plane x-Resolution</para></entry>
-                        <entry><para>Indicates the number of pixels in the image width (X) direction per <term>Exif.FocalPlaneResolutionUnit</term> on the camera focal plane.</para></entry>
+                        <entry><para>The number of pixels in the image width (X) direction per <term>Exif.FocalPlaneResolutionUnit</term> on the camera focal plane.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FocalPlaneYResolution</para></entry>
                         <entry><para>Focal Plane y-Resolution</para></entry>
-                        <entry><para>Indicates the number of pixels in the image height (Y) direction per <term>Exif.FocalPlaneResolutionUnit</term> on the camera focal plane.</para></entry>
+                        <entry><para>The number of pixels in the image height (Y) direction per <term>Exif.FocalPlaneResolutionUnit</term> on the camera focal plane.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.GainControl</para></entry>
@@ -1772,7 +1772,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>Exif.GPS.VersionID</para></entry>
-                        <entry><para>GPS tag version</para></entry>
+                        <entry><para>GPS Tag Version</para></entry>
                         <entry><para>Indicates the version of <term>Exif.GPS.InfoIFD</term>. This tag is mandatory when <term>Exif.GPS.Info</term> tag is present.</para></entry>
                     </row>
                     <row valign="top">
@@ -1813,22 +1813,17 @@
                     <row valign="top">
                         <entry><para>Exif.InteroperabilityIndex</para></entry>
                         <entry><para>Interoperability Index</para></entry>
-                        <entry><para>Indicates the identification of the Interoperability rule. Use "R98" for stating ExifR98 Rules. Four bytes used including the termination code (NULL).</para></entry>
+                        <entry><para>Indicates the identification of the Interoperability rule. Use "R98" for stating ExifR98 Rules.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.InteroperabilityVersion</para></entry>
                         <entry><para>Interoperability Version</para></entry>
-                        <entry><para>Interoperability Version.</para></entry>
-                    </row>
-                    <row valign="top">
-                        <entry><para>Exif.IPTC_NAA</para></entry>
-                        <entry><para>IPTC/NAA</para></entry>
-                        <entry><para>IPTC/NAA.</para></entry>
+                        <entry><para>Interoperability version.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ISOSpeedRatings</para></entry>
                         <entry><para>ISO Speed Ratings</para></entry>
-                        <entry><para>Indicates the ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232.</para></entry>
+                        <entry><para>The ISO Speed and ISO Latitude of the camera or input device as specified in ISO 12232.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.JPEGInterchangeFormat</para></entry>
@@ -1842,8 +1837,8 @@
                     </row>
                     <row valign="top">
                         <entry><para>Exif.JPEGProc</para></entry>
-                        <entry><para>JPEG Proc</para></entry>
-                        <entry><para>JPEG Procedure.</para></entry>
+                        <entry><para>JPEG Procedure</para></entry>
+                        <entry><para>JPEG procedure.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.LightSource</para></entry>
@@ -1878,7 +1873,7 @@
                     <row valign="top">
                         <entry><para>Exif.CFAPattern</para></entry>
                         <entry><para>CFA Pattern</para></entry>
-                        <entry><para>Indicates the color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods.</para></entry>
+                        <entry><para>The color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.NewSubfileType</para></entry>
@@ -1888,7 +1883,7 @@
                     <row valign="top">
                         <entry><para>Exif.OECF</para></entry>
                         <entry><para>OECF</para></entry>
-                        <entry><para>Indicates the Opto-Electoric Conversion Function (OECF) specified in ISO 14524. <term>Exif.OECF</term> is the relationship between the camera optical input and the image values.</para></entry>
+                        <entry><para>The Opto-Electoric Conversion Function (OECF) specified in ISO 14524. <term>Exif.OECF</term> is the relationship between the camera optical input and the image values.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.Orientation</para></entry>
@@ -1928,17 +1923,17 @@
                     <row valign="top">
                         <entry><para>Exif.RelatedImageFileFormat</para></entry>
                         <entry><para>Related Image File Format</para></entry>
-                        <entry><para>Related Image File Format.</para></entry>
+                        <entry><para>Related image file format.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.RelatedImageLength</para></entry>
                         <entry><para>Related Image Length</para></entry>
-                        <entry><para>Related Image Length.</para></entry>
+                        <entry><para>Related image length.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.RelatedImageWidth</para></entry>
                         <entry><para>Related Image Width</para></entry>
-                        <entry><para>Related Image Width.</para></entry>
+                        <entry><para>Related image width.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.RelatedSoundFile</para></entry>
@@ -1963,31 +1958,31 @@
                     <row valign="top">
                         <entry><para>Exif.Saturation</para></entry>
                         <entry><para>Saturation</para></entry>
-                        <entry><para>This tag indicates the direction of saturation processing applied by the camera when the image was shot.</para></entry>
+                        <entry><para>The direction of saturation processing applied by the camera when the image was shot.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SceneCaptureType</para></entry>
                         <entry><para>Scene Capture Type</para></entry>
-                        <entry><para>This tag indicates the type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <term>Exif.SceneType</term> tag.</para></entry>
+                        <entry><para>The type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <term>Exif.SceneType</term> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SceneType</para></entry>
                         <entry><para>Scene Type</para></entry>
-                        <entry><para>Indicates the type of scene. If a DSC recorded the image, this tag value must always be set to 1, indicating that the image was directly photographed.</para></entry>
+                        <entry><para>The type of scene. If a DSC recorded the image, this tag value must always be set to 1, indicating that the image was directly photographed.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SensingMethod</para></entry>
                         <entry><para>Sensing Method</para></entry>
-                        <entry><para>Indicates the image sensor type on the camera or input device.</para></entry>
+                        <entry><para>The image sensor type on the camera or input device.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.Sharpness</para></entry>
                         <entry><para>Sharpness</para></entry>
-                        <entry><para>This tag indicates the direction of sharpness processing applied by the camera when the image was shot.</para></entry>
+                        <entry><para>The direction of sharpness processing applied by the camera when the image was shot.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ShutterSpeedValue</para></entry>
-                        <entry><para>Shutter speed</para></entry>
+                        <entry><para>Shutter Speed</para></entry>
                         <entry><para>Shutter speed. The unit is the APEX (Additive System of Photographic Exposure) setting.</para></entry>
                     </row>
                     <row valign="top">
@@ -2003,7 +1998,7 @@
                     <row valign="top">
                         <entry><para>Exif.SpectralSensitivity</para></entry>
                         <entry><para>Spectral Sensitivity</para></entry>
-                        <entry><para>Indicates the spectral sensitivity of each channel of the camera used.</para></entry>
+                        <entry><para>The spectral sensitivity of each channel of the camera used.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.StripByteCounts</para></entry>
@@ -2023,7 +2018,7 @@
                     <row valign="top">
                         <entry><para>Exif.SubjectArea</para></entry>
                         <entry><para>Subject Area</para></entry>
-                        <entry><para>This tag indicates the location and area of the main subject in the overall scene.</para></entry>
+                        <entry><para>The location and area of the main subject in the overall scene.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SubjectDistance</para></entry>
@@ -2033,27 +2028,27 @@
                     <row valign="top">
                         <entry><para>Exif.SubjectDistanceRange</para></entry>
                         <entry><para>Subject Distance Range</para></entry>
-                        <entry><para>This tag indicates the distance to the subject.</para></entry>
+                        <entry><para>The distance to the subject.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SubjectLocation</para></entry>
                         <entry><para>Subject Location</para></entry>
-                        <entry><para>Indicates the location of the main subject in the scene. The value of this tag represents the pixel at the center of the main subject relative to the left edge, prior to rotation processing as per the <term>Exif.Rotation</term> tag. The first value indicates the X column number and second indicates the Y row number.</para></entry>
+                        <entry><para>The location of the main subject in the scene. The value of this tag represents the pixel at the center of the main subject relative to the left edge, prior to rotation processing as per the <term>Exif.Rotation</term> tag. The first value indicates the X column number and second indicates the Y row number.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SubsecTime</para></entry>
                         <entry><para>Subsec Time</para></entry>
-                        <entry><para>A tag used to record fractions of seconds for the <term>Exif.DateTime</term> tag.</para></entry>
+                        <entry><para>Fractions of seconds for the <term>Exif.DateTime</term> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SubSecTimeDigitized</para></entry>
                         <entry><para>Subsec Time Digitized</para></entry>
-                        <entry><para>A tag used to record fractions of seconds for the <term>Exif.DateTimeDigitized</term> tag.</para></entry>
+                        <entry><para>Fractions of seconds for the <term>Exif.DateTimeDigitized</term> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SubSecTimeOriginal</para></entry>
                         <entry><para>Subsec Time Original</para></entry>
-                        <entry><para>A tag used to record fractions of seconds for the <term>Exif.DateTimeOriginal</term> tag.</para></entry>
+                        <entry><para>Fractions of seconds for the <term>Exif.DateTimeOriginal</term> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.TIFF/EPStandardID</para></entry>
@@ -2068,7 +2063,7 @@
                     <row valign="top">
                         <entry><para>Exif.TransferRange</para></entry>
                         <entry><para>Transfer Range</para></entry>
-                        <entry><para>Transfer Range.</para></entry>
+                        <entry><para>Transfer range.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.UserComment</para></entry>
@@ -2088,7 +2083,7 @@
                     <row valign="top">
                         <entry><para>Exif.XMLPacket</para></entry>
                         <entry><para>XML Packet</para></entry>
-                        <entry><para>XMP Metadata.</para></entry>
+                        <entry><para>XMP metadata.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.XResolution</para></entry>
@@ -2512,7 +2507,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>ID3.Syncedlyrics</para></entry>
-                        <entry><para>Syncedlyrics</para></entry>
+                        <entry><para>Synchronized Lyrics</para></entry>
                         <entry><para>Synchronized lyric.</para></entry>
                     </row>
                     <row valign="top">
@@ -2527,7 +2522,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>ID3.TermsOfUse</para></entry>
-                        <entry><para>Terms Of Use</para></entry>
+                        <entry><para>Terms of Use</para></entry>
                         <entry><para>Terms of use.</para></entry>
                     </row>
                     <row valign="top">
@@ -2537,7 +2532,7 @@
                     </row>
                     <row valign="top">
                         <entry><para>ID3.TitleSortOrder</para></entry>
-                        <entry><para>Title sort order</para></entry>
+                        <entry><para>Title Sort Order</para></entry>
                         <entry><para>Title sort order.</para></entry>
                     </row>
                     <row valign="top">
@@ -2548,7 +2543,7 @@
                     <row valign="top">
                         <entry><para>ID3.UnsyncedLyrics</para></entry>
                         <entry><para>Unsynchronized Lyrics</para></entry>
-                        <entry><para>Unsynchronized lyrics.</para></entry>
+                        <entry><para>Unsynchronized lyric.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>ID3.UserText</para></entry>
@@ -2803,7 +2798,7 @@
                     <row valign="top">
                         <entry><para>IPTC.ContentLocCode</para></entry>
                         <entry><para>Content Location Code</para></entry>
-                        <entry><para>Indicates the code of a country/geographical location referenced by the content of the object (multiple values allowed).</para></entry>
+                        <entry><para>The code of a country/geographical location referenced by the content of the object (multiple values allowed).</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>IPTC.ContentLocName</para></entry>
@@ -2858,7 +2853,7 @@
                     <row valign="top">
                         <entry><para>IPTC.EditorialUpdate</para></entry>
                         <entry><para>Editorial Update</para></entry>
-                        <entry><para>Indicates the type of update this object provides to a previous object. The link to the previous object is made using the ARM. '01' indicates an additional language.</para></entry>
+                        <entry><para>The type of update this object provides to a previous object. The link to the previous object is made using the ARM. '01' indicates an additional language.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>IPTC.EditStatus</para></entry>
@@ -2868,7 +2863,7 @@
                     <row valign="top">
                         <entry><para>IPTC.EnvelopeNum</para></entry>
                         <entry><para>Envelope Number</para></entry>
-                        <entry><para>A number unique for the date in 1:70 and the service ID in 1:30.</para></entry>
+                        <entry><para>A number unique for the date and the service ID.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>IPTC.EnvelopePriority</para></entry>
@@ -2913,7 +2908,7 @@
                     <row valign="top">
                         <entry><para>IPTC.ImageType</para></entry>
                         <entry><para>Image Type</para></entry>
-                        <entry><para>Indicates the data format of the image object.</para></entry>
+                        <entry><para>The data format of the image object.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>IPTC.Keywords</para></entry>
@@ -2933,7 +2928,7 @@
                     <row valign="top">
                         <entry><para>IPTC.MaxSubfileSize</para></entry>
                         <entry><para>Max Subfile Size</para></entry>
-                        <entry><para>The maximum size for a subfile dataset (8:10) containing a portion of the object data.</para></entry>
+                        <entry><para>The maximum size for a subfile dataset containing a portion of the object data.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>IPTC.ModelVersion</para></entry>
@@ -2983,12 +2978,12 @@
                     <row valign="top">
                         <entry><para>IPTC.PreviewFileFormat</para></entry>
                         <entry><para>Preview File Format</para></entry>
-                        <entry><para>Binary value indicating the file format of the object preview data in dataset 2:202.</para></entry>
+                        <entry><para>Binary value indicating the file format of the object preview data.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>IPTC.PreviewFileFormatVer</para></entry>
                         <entry><para>Preview File Format Version</para></entry>
-                        <entry><para>The version of the preview file format specified in 2:200.</para></entry>
+                        <entry><para>The version of the preview file format.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>IPTC.ProductID</para></entry>
@@ -3109,6 +3104,81 @@
                         <entry><para>IPTC.WriterEditor</para></entry>
                         <entry><para>Writer/Editor</para></entry>
                         <entry><para>The name of the person involved in the writing, editing or correcting the object or caption/abstract (multiple values allowed).</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.PageSize</para></entry>
+                        <entry><para>Page Size</para></entry>
+                        <entry><para>Page size format.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.PageWidth</para></entry>
+                        <entry><para>Page Width</para></entry>
+                        <entry><para>Page width in mm.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.PageHeight</para></entry>
+                        <entry><para>Page Height</para></entry>
+                        <entry><para>Page height in mm.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.Version</para></entry>
+                        <entry><para>PDF Version</para></entry>
+                        <entry><para>The PDF version of the document.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.Producer</para></entry>
+                        <entry><para>Producer</para></entry>
+                        <entry><para>The application that converted the document to PDF.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.EmbeddedFiles</para></entry>
+                        <entry><para>Embedded Files</para></entry>
+                        <entry><para>Number of embedded files in the document.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.Optimized</para></entry>
+                        <entry><para>Fast Web View</para></entry>
+                        <entry><para>Set to "1" if optimized for network access.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.Printing</para></entry>
+                        <entry><para>Printing</para></entry>
+                        <entry><para>Set to "1" if printing is allowed.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.HiResPrinting</para></entry>
+                        <entry><para>Printing in High Resolution</para></entry>
+                        <entry><para>Set to "1" if high resolution printing is allowed.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.Copying</para></entry>
+                        <entry><para>Copying</para></entry>
+                        <entry><para>Set to "1" if copying the contents is allowed.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.Modifying</para></entry>
+                        <entry><para>Modifying</para></entry>
+                        <entry><para>Set to "1" if modifying the contents is allowed.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.DocAssembly</para></entry>
+                        <entry><para>Document Assembly</para></entry>
+                        <entry><para>Set to "1" if inserting, rotating, or deleting pages and creating navigation elements is allowed.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.Commenting</para></entry>
+                        <entry><para>Commenting</para></entry>
+                        <entry><para>Set to "1" if adding or modifying text annotations is allowed.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.FormFilling</para></entry>
+                        <entry><para>Form Filling</para></entry>
+                        <entry><para>Set to "1" if filling of form fields is allowed.</para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>PDF.AccessibilitySupport</para></entry>
+                        <entry><para>Accessibility Support</para></entry>
+                        <entry><para>Set to "1" if accessibility support (eg. screen readers) is enabled.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Vorbis.Contact</para></entry>
