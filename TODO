@@ -40,6 +40,7 @@
 * Custom columns support
 * 'Directory Tree' with ALT+F10
 * Brief file listing (see mc)
+* Thumbnail listing mode
 * Panel tabs for the file lists (Bugzilla request #392932)
 * 'Subdirectory View' - showing contents of a given dir and all its
   subdirs in one file list. It gives the possibility of mass operation
