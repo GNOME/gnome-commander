@@ -4070,7 +4070,7 @@ msgstr "OECF"
 
 #: ../src/tags/gnome-cmd-tags.cc:262
 msgid ""
-"Indicates the Opto-Electoric Conversion Function (OECF) specified in ISO "
+"Indicates the Opto-Electronic Conversion Function (OECF) specified in ISO "
 "14524. <Exif.OECF> is the relationship between the camera optical input and "
 "the image values."
 msgstr ""

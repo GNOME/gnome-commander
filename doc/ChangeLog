@@ -3,6 +3,10 @@
 	* doc/C/gnome-commander.xml:
 	Synchronized metatags list with src/tags/gnome-cmd-tags.cc
 
+	* doc/C/gnome-commander.xml:
+	* doc/*/*.po:
+	typo: Opto-Electoric -> Opto-Electronic
+
 2008-11-02  Jorge González  <jorgegonz@svn.gnome.org>
 
 	* es/es.po: Updated Spanish translation by Daniel Mustieles

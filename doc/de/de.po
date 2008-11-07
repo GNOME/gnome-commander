@@ -3847,11 +3847,11 @@ msgstr "OECF"
 
 #: C/gnome-commander.xml:1891(para)
 msgid ""
-"Indicates the Opto-Electoric Conversion Function (OECF) specified in ISO "
+"Indicates the Opto-Electronic Conversion Function (OECF) specified in ISO "
 "14524. <placeholder-1/> is the relationship between the camera optical input "
 "and the image values."
 msgstr ""
-"Gibt die »Opto-Electoric Conversion Function« (OECF) gemäß ISO 14524 an. "
+"Gibt die »Opto-Electronic Conversion Function« (OECF) gemäß ISO 14524 an. "
 "<placeholder-1/> ist das Verhältnis zwischen der optischen Eingabe der Kamera "
 "und den Bildwerten."
 

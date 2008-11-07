@@ -1883,7 +1883,7 @@
                     <row valign="top">
                         <entry><para>Exif.OECF</para></entry>
                         <entry><para>OECF</para></entry>
-                        <entry><para>The Opto-Electoric Conversion Function (OECF) specified in ISO 14524. <term>Exif.OECF</term> is the relationship between the camera optical input and the image values.</para></entry>
+                        <entry><para>The Opto-Electronic Conversion Function (OECF) specified in ISO 14524. <term>Exif.OECF</term> is the relationship between the camera optical input and the image values.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.Orientation</para></entry>

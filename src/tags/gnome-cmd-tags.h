@@ -207,7 +207,7 @@ typedef enum
     TAG_EXIF_MODEL,                         // image input equipment model
     TAG_EXIF_NEWCFAPATTERN,                 // color filter array (CFA) geometric pattern of the image sensor when a one-chip color area sensor is used. It does not apply to all sensing methods
     TAG_EXIF_NEWSUBFILETYPE,                // general indication of the kind of data contained in this subfile
-    TAG_EXIF_OECF,                          // Opto-Electoric Conversion Function (OECF) specified in ISO 14524
+    TAG_EXIF_OECF,                          // Opto-Electronic Conversion Function (OECF) specified in ISO 14524
     TAG_EXIF_ORIENTATION,                   // orientation of image
     TAG_EXIF_PHOTOMETRICINTERPRETATION,     // pixel composition
     TAG_EXIF_PIXELXDIMENSION,               // Information specific to compressed data. When a compressed file is recorded, the valid width of the meaningful image must be recorded in this tag, whether or not there is padding data or a restart marker. should not exist in an uncompressed file

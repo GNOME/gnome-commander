@@ -1,3 +1,9 @@
+2008-11-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags.cc:
+	* src/tags/gnome-cmd-tags.h:
+	typo: Opto-Electoric -> Opto-Electronic
+
 2008-11-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:
