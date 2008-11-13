@@ -26,6 +26,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-convert.h"
 #include "gnome-cmd-advrename-dialog.h"
+#include "dialogs/gnome-cmd-advrename-regex-dialog.h"
 #include "gnome-cmd-advrename-lexer.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-clist.h"
@@ -596,78 +597,6 @@ inline gchar *update_entry (PatternEntry *entry, GnomeCmdStringDialog *string_di
 }
 
 
-static gboolean on_add_rule_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdAdvrenameDialog *dialog)
-{
-    PatternEntry *entry = g_new0 (PatternEntry, 1);
-
-    gchar *error_desc = update_entry (entry, string_dialog, values);
-
-    if (error_desc != NULL)
-    {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
-        return FALSE;
-    }
-
-    add_pattern_entry (dialog, entry);
-    dialog->priv->defaults->patterns = g_list_append (dialog->priv->defaults->patterns, entry);
-    update_remove_all_button (dialog);
-    do_test (dialog);
-
-    return TRUE;
-}
-
-
-static gboolean on_edit_rule_dialog_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdAdvrenameDialog *dialog)
-{
-    GtkWidget *pat_list = dialog->priv->pat_list;
-    gint row = GTK_CLIST (pat_list)->focus_row;
-    PatternEntry *entry = (PatternEntry *) g_list_nth_data (dialog->priv->defaults->patterns, row);
-
-    g_return_val_if_fail (entry != NULL, TRUE);
-
-    gchar *error_desc = update_entry (entry, string_dialog, values);
-    if (error_desc != NULL)
-    {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, error_desc);
-        return FALSE;
-    }
-
-    gchar *text[4];
-
-    format_entry (entry, text);
-    //gtk_clist_set_foreground (GTK_CLIST (pat_list), row, entry->malformed_pattern ? &red : &black);
-    gtk_clist_set_text (GTK_CLIST (pat_list), row, 0, text[0]);
-    gtk_clist_set_text (GTK_CLIST (pat_list), row, 1, text[1]);
-    gtk_clist_set_text (GTK_CLIST (pat_list), row, 2, text[2]);
-    gtk_clist_set_text (GTK_CLIST (pat_list), row, 3, text[3]);
-    update_remove_all_button (dialog);
-    do_test (dialog);
-
-    return TRUE;
-}
-
-
-static GtkWidget *create_rule_dialog (GnomeCmdAdvrenameDialog *parent_dialog, const gchar *title, GnomeCmdStringDialogCallback on_ok_func, PatternEntry *entry)
-{
-    // Translators: this is a part of dialog for replacing text 'Replace this:' -> 'With this:'
-    const gchar *labels[] = {_("Replace this:"), _("With this:")};
-
-    GtkWidget *dialog = gnome_cmd_string_dialog_new (title, labels, 2, on_ok_func, parent_dialog);
-    gtk_widget_ref (dialog);
-    gtk_object_set_data_full (GTK_OBJECT (parent_dialog), "rule-dialog", dialog, (GtkDestroyNotify) gtk_widget_unref);
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 0, entry?entry->from:"");
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dialog), 1, entry?entry->to:"");
-
-    GtkWidget *case_check = create_check (dialog, _("Case sensitive matching"), "case_check");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (case_check), entry?entry->case_sens:FALSE);
-    gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), case_check);
-
-    gtk_widget_show (dialog);
-
-    return dialog;
-}
-
-
 static gchar *apply_one_pattern (gchar *in, PatternEntry *entry, int eflags)
 {
     regex_t re_exp;
@@ -783,13 +712,41 @@ inline void change_names (GnomeCmdAdvrenameDialog *dialog)
 
 static void on_rule_add (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
-    create_rule_dialog (dialog, _("New Rule"), (GnomeCmdStringDialogCallback) on_add_rule_dialog_ok, NULL);
+    PatternEntry *entry = g_new0 (PatternEntry, 1);
+
+    if (gnome_cmd_advrename_regex_dialog_new (_("New Rule"), GTK_WINDOW (dialog), entry))
+    {
+        add_pattern_entry (dialog, entry);
+        dialog->priv->defaults->patterns = g_list_append (dialog->priv->defaults->patterns, entry);
+        update_remove_all_button (dialog);
+        do_test (dialog);
+    }
+    else
+        g_free (entry);
 }
 
 
 static void on_rule_edit (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
-    create_rule_dialog (dialog, _("Edit Rule"), (GnomeCmdStringDialogCallback) on_edit_rule_dialog_ok, dialog->priv->sel_entry);
+    GtkWidget *pat_list = dialog->priv->pat_list;
+    gint row = GTK_CLIST (pat_list)->focus_row;
+    PatternEntry *entry = (PatternEntry *) g_list_nth_data (dialog->priv->defaults->patterns, row);
+
+    g_return_if_fail (entry != NULL);
+
+    if (gnome_cmd_advrename_regex_dialog_new (_("Edit Rule"), GTK_WINDOW (dialog), entry))
+    {
+        gchar *text[4];
+
+        format_entry (entry, text);
+        //gtk_clist_set_foreground (GTK_CLIST (pat_list), row, entry->malformed_pattern ? &red : &black);
+        gtk_clist_set_text (GTK_CLIST (pat_list), row, 0, text[0]);
+        gtk_clist_set_text (GTK_CLIST (pat_list), row, 1, text[1]);
+        gtk_clist_set_text (GTK_CLIST (pat_list), row, 2, text[2]);
+        gtk_clist_set_text (GTK_CLIST (pat_list), row, 3, text[3]);
+        update_remove_all_button (dialog);
+        do_test (dialog);
+    }
 }
 
 

@@ -388,6 +388,7 @@ plugins/python/sha1sum/Makefile
 plugins/test/Makefile
 po/Makefile.in
 src/Makefile
+src/dialogs/Makefile
 src/tags/Makefile
 src/intviewer/Makefile
 tests/Makefile

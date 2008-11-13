@@ -1,3 +1,14 @@
+2008-11-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* configure.in:
+	* po/POTFILES.in:
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/dialogs/Makefile.am:
+	* src/dialogs/gnome-cmd-advrename-regex-dialog.cc:
+	* src/dialogs/gnome-cmd-advrename-regex-dialog.h
+	advrename: move code for regex rules dlg to dialogs/gnome-cmd-advrename-regex-dialog.{cc,h} files
+
 2008-11-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags.cc:

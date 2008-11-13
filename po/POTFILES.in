@@ -7,6 +7,7 @@ plugins/cvs/cvs-plugin.c
 plugins/cvs/interface.c
 plugins/fileroller/file-roller-plugin.c
 plugins/test/test-plugin.c
+src/dialogs/gnome-cmd-advrename-regex-dialog.cc
 src/dirlist.cc
 src/eggcellrendererkeys.cc
 src/gnome-cmd-about-plugin.cc
