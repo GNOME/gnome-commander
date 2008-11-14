@@ -86,6 +86,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     if (rx->from)
         gtk_entry_set_text (GTK_ENTRY (entry), rx->from);
     g_object_set_data (G_OBJECT (dialog), "pattern", entry);
+    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0, 1);
 
     label = gtk_label_new_with_mnemonic (_("_Replace with:"));
@@ -97,6 +98,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     if (rx->to)
         gtk_entry_set_text (GTK_ENTRY (entry), rx->to);
     g_object_set_data (G_OBJECT (dialog), "replace", entry);
+    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 1, 2);
 
     align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);

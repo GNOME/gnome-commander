@@ -127,6 +127,15 @@ inline _GnomeCmdConnectDialogPrivate::_GnomeCmdConnectDialogPrivate()
     user_entry = gtk_entry_new ();
     password_entry = gtk_entry_new ();
 
+    gtk_entry_set_activates_default (GTK_ENTRY (alias_entry), TRUE);
+    gtk_entry_set_activates_default (GTK_ENTRY (uri_entry), TRUE);
+    gtk_entry_set_activates_default (GTK_ENTRY (server_entry), TRUE);
+    gtk_entry_set_activates_default (GTK_ENTRY (share_entry), TRUE);
+    gtk_entry_set_activates_default (GTK_ENTRY (port_entry), TRUE);
+    gtk_entry_set_activates_default (GTK_ENTRY (folder_entry), TRUE);
+    gtk_entry_set_activates_default (GTK_ENTRY (user_entry), TRUE);
+    gtk_entry_set_activates_default (GTK_ENTRY (password_entry), TRUE);
+
     gtk_entry_set_visibility (GTK_ENTRY (password_entry), FALSE);
 
     // We need an extra ref so we can remove them from the table
