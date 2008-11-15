@@ -3811,14 +3811,14 @@ msgstr "مساحة اللون"
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid ""
 "The color space information tag is always recorded as the color space "
-"specifier. Normally sRGB (=1) is used to define the color space based on the "
+"specifier. Normally sRGB is used to define the color space based on the "
 "PC monitor conditions and environment. If a color space other than sRGB is "
-"used, Uncalibrated (=FFFF.H) is set. Image data recorded as Uncalibrated can "
+"used, Uncalibrated is set. Image data recorded as Uncalibrated can "
 "be treated as sRGB when it is converted to FlashPix."
 msgstr ""
 "وسم معلومات مساحة اللون بُسجّل دائماً كمحدد مساحة اللون. في العادة بُستخدم sRGB "
 "(=1) لتحديد مساخة اللون بناءً على حالة وبيئة شاشة الحاسوب. إن استـُخدمت مساحة "
-"لون سوى sRGB، يُضبط عندئذ Uncalibrated (=FFFF.H).بيانات الصور المسجلة كـ "
+"لون سوى sRGB، يُضبط عندئذ Uncalibrated.بيانات الصور المسجلة كـ "
 "Uncalibrated يمكن أن تـُعامل كـ sRGB عند تحويلها إلى FlashPix."
 
 #: ../src/tags/gnome-cmd-tags.cc:200

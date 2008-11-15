@@ -3779,8 +3779,8 @@ msgid "Color Space"
 msgstr "Przestrzeń kolorów"
 
 #: ../src/tags/gnome-cmd-tags.cc:205
-msgid "The color space information tag is always recorded as the color space specifier. Normally sRGB (=1) is used to define the color space based on the PC monitor conditions and environment. If a color space other than sRGB is used, Uncalibrated (=FFFF.H) is set. Image data recorded as Uncalibrated can be treated as sRGB when it is converted to FlashPix."
-msgstr "Znacznik informacji o przestrzeni kolorów jest zawsze zapisywany w celu określenia przestrzeni kolorów. Zwykle używane jest sRGB (=1) do określenia przestrzeni kolorów w oparciu o warunki i środowisko monitora PC. Jeśli użyta jest inna przestrzeń kolorów niż sRGB, ustawiona jest wartość \"nieskalibrowana\" (Uncalibrated, =FFFF.H). Dane obrazu zapisane jako nieskalibrowane mogą być traktowane jako sRGB przy konwersji do FlashPix. O sRGB p. załącznik E."
+msgid "The color space information tag is always recorded as the color space specifier. Normally sRGB is used to define the color space based on the PC monitor conditions and environment. If a color space other than sRGB is used, Uncalibrated is set. Image data recorded as Uncalibrated can be treated as sRGB when it is converted to FlashPix."
+msgstr "Znacznik informacji o przestrzeni kolorów jest zawsze zapisywany w celu określenia przestrzeni kolorów. Zwykle używane jest sRGB do określenia przestrzeni kolorów w oparciu o warunki i środowisko monitora PC. Jeśli użyta jest inna przestrzeń kolorów niż sRGB, ustawiona jest wartość \"nieskalibrowana\" (Uncalibrated). Dane obrazu zapisane jako nieskalibrowane mogą być traktowane jako sRGB przy konwersji do FlashPix. O sRGB p. załącznik E."
 
 #: ../src/tags/gnome-cmd-tags.cc:206
 msgid "Components Configuration"

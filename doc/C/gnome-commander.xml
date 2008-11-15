@@ -1573,7 +1573,7 @@
                     <row valign="top">
                         <entry><para>Exif.ColorSpace</para></entry>
                         <entry><para>Color Space</para></entry>
-                        <entry><para>The color space information tag is always recorded as the color space specifier. Normally sRGB (=1) is used to define the color space based on the PC monitor conditions and environment. If a color space other than sRGB is used, Uncalibrated (=FFFF.H) is set. Image data recorded as Uncalibrated can be treated as sRGB when it is converted to FlashPix.</para></entry>
+                        <entry><para>The color space information tag is always recorded as the color space specifier. Normally sRGB is used to define the color space based on the PC monitor conditions and environment. If a color space other than sRGB is used, Uncalibrated is set. Image data recorded as Uncalibrated can be treated as sRGB when it is converted to FlashPix.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ComponentsConfiguration</para></entry>
