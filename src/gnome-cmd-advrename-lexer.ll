@@ -52,10 +52,14 @@ using namespace std;
                 }
 
 
-#define   MAX_PRECISION           16
-#define   MAX_XRANDOM_PRECISION    8u
-
 enum {TEXT=1,NAME,EXTENSION,FULL_NAME,COUNTER,XRANDOM,XXRANDOM,PARENT_DIR,GRANDPARENT_DIR,METATAG};
+
+const int GLOBAL_COUNTER_STEP = -1;
+const int GLOBAL_COUNTER_PREC = -1;
+
+const int MAX_PRECISION = 16;
+const int MAX_XRANDOM_PRECISION = 8;
+
 
 struct CHUNK
 {
@@ -63,6 +67,7 @@ struct CHUNK
   union
   {
     GString *s;
+
     struct
     {
       int beg;          // default: 0
@@ -71,13 +76,18 @@ struct CHUNK
       GnomeCmdTag tag;  // default: TAG_NONE
       GList *opt;       // default: NULL
     } tag;
+
     struct
     {
-      unsigned long n;  // default: start
-      int start;        // default: default_counter_start (1)
-      int step;         // default: default_counter_step  (1)
-      int prec;         // default: default_counter_prec (-1)
+      long n;
+      long start;
+      int step;
+      int prec;
+      int init_step;
+      int init_prec;
+      char fmt[9];
     } counter;
+
     struct
     {
       guint x_prec;     // default: MAX_XRANDOM_PRECISION  (8)
@@ -89,10 +99,6 @@ struct CHUNK
 static vector<CHUNK *> fname_template;
 
 static gboolean      fname_template_has_counters = FALSE;
-static unsigned long default_counter_start = 1;
-static unsigned      default_counter_step = 1;
-static unsigned      default_counter_prec = -1;
-static char          counter_fmt[8] = "%lu";
 
 %}
 
@@ -168,14 +174,16 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 \$[c]\({uint}\)                 {
                                   CHUNK *p = g_new0 (CHUNK,1);
 
-                                  int precision = default_counter_prec;
+                                  int precision = 1;
 
                                   sscanf(yytext+3,"%d",&precision);
 
                                   p->type = COUNTER;
-                                  p->counter.n = p->counter.start = default_counter_start;
-                                  p->counter.step = default_counter_step;
-                                  p->counter.prec = min (precision, MAX_PRECISION);
+                                  p->counter.n = p->counter.start = 1;      //  default counter value
+                                  p->counter.init_step = GLOBAL_COUNTER_STEP;
+                                  p->counter.step = 1;                      //  default counter step
+                                  p->counter.prec = p->counter.init_prec = min (precision, MAX_PRECISION);
+                                  sprintf(p->counter.fmt,"%%0%ili",p->counter.prec);
 
                                   fname_template.push_back(p);
 
@@ -185,9 +193,9 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 \$[xX]\({uint}\)                {
                                   CHUNK *p = g_new0 (CHUNK,1);
 
-                                  guint precision = MAX_XRANDOM_PRECISION;
+                                  int precision = MAX_XRANDOM_PRECISION;
 
-                                  sscanf(yytext+3,"%u",&precision);
+                                  sscanf(yytext+3,"%d",&precision);
 
                                   switch (yytext[1])
                                   {
@@ -247,9 +255,12 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
                                   CHUNK *p = g_new0 (CHUNK,1);
 
                                   p->type = COUNTER;
-                                  p->counter.n = p->counter.start = default_counter_start;
-                                  p->counter.step = default_counter_step;
-                                  p->counter.prec = default_counter_prec;
+                                  p->counter.n = p->counter.start = 1;      //  default counter value
+                                  p->counter.init_step = GLOBAL_COUNTER_STEP;
+                                  p->counter.step = 1;                      //  default counter step
+                                  p->counter.init_prec = GLOBAL_COUNTER_PREC;
+                                  p->counter.prec = 1;                      //  default counter prec]
+                                  sprintf(p->counter.fmt,"%%0%ili",p->counter.prec);
 
                                   fname_template.push_back(p);
 
@@ -289,18 +300,18 @@ tag_name    {ape}|{audio}|{doc}|{exif}|{file}|{flac}|{id3}|{image}|{iptc}|{pdf}|
 %%
 
 
-//  TODO:  since counters are to be indivual, it's necessary to provide mechanism for resetting/changing implicit parameters - $c
-
-void gnome_cmd_advrename_reset_counter(unsigned start, unsigned precision, unsigned step)
+void gnome_cmd_advrename_reset_counter(long start, int precision, int step)
 {
+  precision = precision<MAX_PRECISION ? precision : MAX_PRECISION;
+
   for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
     if ((*i)->type==COUNTER)
-      (*i)->counter.n = (*i)->counter.start;
-
-  default_counter_start = start;
-  default_counter_step = step;
-  default_counter_prec = precision;
-  sprintf(counter_fmt,"%%0%ulu",(precision<MAX_PRECISION ? precision : MAX_PRECISION));
+    {
+      (*i)->counter.n = (*i)->counter.start = start;
+      (*i)->counter.step = (*i)->counter.init_step==GLOBAL_COUNTER_STEP ? step : (*i)->counter.init_step;
+      (*i)->counter.prec = (*i)->counter.init_step==GLOBAL_COUNTER_PREC ? precision : (*i)->counter.init_prec;
+      sprintf((*i)->counter.fmt,"%%0%ili",(*i)->counter.prec);
+    }
 }
 
 
@@ -465,13 +476,9 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
 
       case COUNTER:
                     {
-                      static char custom_counter_fmt[8];
                       static char counter_value[MAX_PRECISION+1];
 
-                      if ((*i)->counter.prec!=-1)
-                        sprintf(custom_counter_fmt,"%%0%ilu",(*i)->counter.prec);
-
-                      snprintf (counter_value, MAX_PRECISION, ((*i)->counter.prec==-1 ? counter_fmt : custom_counter_fmt), (*i)->counter.n);
+                      snprintf (counter_value, MAX_PRECISION, (*i)->counter.fmt, (*i)->counter.n);
                       fmt += counter_value;
 
                       (*i)->counter.n += (*i)->counter.step;
