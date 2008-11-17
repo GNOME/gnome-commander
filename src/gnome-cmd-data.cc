@@ -824,24 +824,29 @@ inline void GnomeCmdData::save_search_defaults()
 
 inline void GnomeCmdData::save_rename_history()
 {
-    GList *from=NULL;
-    GList *to=NULL;
-    GList *csens=NULL;
+    GList *from = NULL;
+    GList *to = NULL;
+    GList *csens = NULL;
 
-    for (GList *tmp = advrename_defaults->patterns; tmp; tmp = tmp->next)
+    GtkTreeIter i;
+
+    for (gboolean valid_iter=gtk_tree_model_get_iter_first (advrename_defaults->regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (advrename_defaults->regexes, &i))
     {
-        PatternEntry *entry = (PatternEntry *) tmp->data;
-        from = g_list_append (from, entry->from);
-        to = g_list_append (to, entry->to);
-        csens = g_list_append (csens, (gpointer) (entry->case_sens ? "T" : "F"));
+        GnomeCmdAdvrenameDialog::Regex *rx;
+
+        gtk_tree_model_get (advrename_defaults->regexes, &i,
+                            GnomeCmdAdvrenameDialog::COL_REGEX, &rx,
+                            -1);
+        if (!rx)
+            continue;
+
+        from = g_list_append (from, const_cast <char *> (rx->from.c_str()));
+        to = g_list_append (to, const_cast <char *> (rx->to.c_str()));
+        csens = g_list_append (csens, (gpointer) (rx->case_sensitive ? "T" : "F"));
     }
 
-    gnome_cmd_data_set_int ("/advrename/template_auto_update", advrename_defaults->auto_update);
     gnome_cmd_data_set_int ("/advrename/width", advrename_defaults->width);
     gnome_cmd_data_set_int ("/advrename/height", advrename_defaults->height);
-
-    gnome_cmd_data_set_uint_array ("/advrename/pat_col_widths%d", advrename_dialog_default_pat_column_width, ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
-    gnome_cmd_data_set_uint_array ("/advrename/res_col_widths%d", advrename_dialog_default_res_column_width, ADVRENAME_DIALOG_RES_NUM_COLUMNS);
 
     gnome_cmd_data_set_int ("/template-history/size", g_list_length (advrename_defaults->templates->ents));
     gnome_cmd_data_set_string_history ("/template-history/template%d", advrename_defaults->templates->ents);
@@ -850,7 +855,7 @@ inline void GnomeCmdData::save_rename_history()
     gnome_cmd_data_set_int ("/advrename/counter_precision", advrename_defaults->counter_precision);
     gnome_cmd_data_set_int ("/advrename/counter_increment", advrename_defaults->counter_increment);
 
-    gnome_cmd_data_set_int ("/rename-history/size", g_list_length (advrename_defaults->patterns));
+    gnome_cmd_data_set_int ("/rename-history/size", g_list_length (from));
     gnome_cmd_data_set_string_history ("/rename-history/from%d", from);
     gnome_cmd_data_set_string_history ("/rename-history/to%d", to);
     gnome_cmd_data_set_string_history ("/rename-history/csens%d", csens);
@@ -969,20 +974,11 @@ inline void GnomeCmdData::load_rename_history()
 {
     gint size;
     GList *from=NULL, *to=NULL, *csens=NULL;
-    GList *tmp_from, *tmp_to, *tmp_csens;
 
     advrename_defaults = g_new0 (AdvrenameDefaults, 1);
 
-    advrename_defaults->auto_update = gnome_cmd_data_get_int ("/advrename/template_auto_update", TRUE);
     advrename_defaults->width = gnome_cmd_data_get_int ("/advrename/width", 450);
     advrename_defaults->height = gnome_cmd_data_get_int ("/advrename/height", 400);
-
-    load_uint_array ("/advrename/pat_col_widths%d",
-                     advrename_dialog_default_pat_column_width,
-                     ADVRENAME_DIALOG_PAT_NUM_COLUMNS);
-    load_uint_array ("/advrename/res_col_widths%d",
-                     advrename_dialog_default_res_column_width,
-                     ADVRENAME_DIALOG_RES_NUM_COLUMNS);
 
     size = gnome_cmd_data_get_int ("/template-history/size", 0);
     GList *templates = load_string_history ("/template-history/template%d", size);
@@ -995,26 +991,36 @@ inline void GnomeCmdData::load_rename_history()
     advrename_defaults->counter_precision = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
     advrename_defaults->counter_increment = gnome_cmd_data_get_int ("/advrename/counter_increment", 1);
 
-    advrename_defaults->patterns = NULL;
     size = gnome_cmd_data_get_int ("/rename-history/size", 0);
 
-    tmp_from = from = load_string_history ("/rename-history/from%d", size);
-    tmp_to = to = load_string_history ("/rename-history/to%d", size);
-    tmp_csens = csens = load_string_history ("/rename-history/csens%d", size);
+    GList *tmp_from = from = load_string_history ("/rename-history/from%d", size);
+    GList *tmp_to = to = load_string_history ("/rename-history/to%d", size);
+    GList *tmp_csens = csens = load_string_history ("/rename-history/csens%d", size);
 
-    while (tmp_from && size > 0)
+    advrename_defaults->regexes = GTK_TREE_MODEL (gtk_list_store_new (GnomeCmdAdvrenameDialog::NUM_REGEX_COLS,
+                                                                      G_TYPE_POINTER,
+                                                                      G_TYPE_BOOLEAN,
+                                                                      G_TYPE_STRING,
+                                                                      G_TYPE_STRING,
+                                                                      G_TYPE_STRING));
+
+    for (GtkTreeIter iter; tmp_from && size > 0; --size)
     {
-        PatternEntry *entry = g_new0 (PatternEntry, 1);
-        entry->from = (gchar *) tmp_from->data;
-        entry->to = (gchar *) tmp_to->data;
-        entry->case_sens = ((gchar *) tmp_csens->data)[0] == 'T';
+        GnomeCmdAdvrenameDialog::Regex *rx = new GnomeCmdAdvrenameDialog::Regex((gchar *) tmp_from->data,
+                                                                                  (gchar *) tmp_to->data,
+                                                                                  *((gchar *) tmp_csens->data)=='T');
+        gtk_list_store_append (GTK_LIST_STORE (advrename_defaults->regexes), &iter);
+        gtk_list_store_set (GTK_LIST_STORE (advrename_defaults->regexes), &iter,
+                            GnomeCmdAdvrenameDialog::COL_REGEX, rx,
+                            GnomeCmdAdvrenameDialog::COL_MALFORMED_REGEX, !*rx,
+                            GnomeCmdAdvrenameDialog::COL_PATTERN, rx->from.c_str(),
+                            GnomeCmdAdvrenameDialog::COL_REPLACE, rx->to.c_str(),
+                            GnomeCmdAdvrenameDialog::COL_MATCH_CASE, rx->case_sensitive ? _("Yes") : _("No"),
+                            -1);
 
         tmp_from = tmp_from->next;
         tmp_to = tmp_to->next;
         tmp_csens = tmp_csens->next;
-
-        advrename_defaults->patterns = g_list_append (advrename_defaults->patterns, entry);
-        size--;
     }
 
     g_list_free (from);

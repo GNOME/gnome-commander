@@ -50,12 +50,12 @@ struct GnomeCmdData
 
     struct AdvrenameDefaults
     {
-        GList *patterns;
         History *templates;
+        GtkTreeModel *regexes;
+
         guint counter_start;
         guint counter_precision;
-        guint counter_increment;
-        gboolean auto_update;
+        gint counter_increment;
         gint width, height;
         gint pat_col_widths;
         gint res_col_widths;

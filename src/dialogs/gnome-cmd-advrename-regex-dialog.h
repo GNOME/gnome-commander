@@ -23,6 +23,6 @@
 
 #include "gnome-cmd-advrename-dialog.h"
 
-gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *parent, PatternEntry *rx);
+gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmdAdvrenameDialog::Regex *rx);
 
 #endif // __GNOME_CMD_ADVRENAME_REGEX_DIALOG_H__

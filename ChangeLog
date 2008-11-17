@@ -4,6 +4,17 @@
 	* src/gnome-cmd-advrename-lexer.ll:
 	advrename lexer: fix for bug when resetting counters
 
+	* src/gnome-cmd-advrename-dialog.cc
+	* src/gnome-cmd-advrename-dialog.h
+	* src/gnome-cmd-data.cc
+	* src/gnome-cmd-data.h
+	* src/gnome-cmd-main-win.cc
+	* src/gnome-cmd-main-win.h
+	* src/gnome-cmd-user-actions.cc
+	* src/dialogs/gnome-cmd-advrename-regex-dialog.cc
+	* src/dialogs/gnome-cmd-advrename-regex-dialog.h
+	Brand new dlg for Advanced Rename Tool
+
 2008-11-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-con-dialog.cc:

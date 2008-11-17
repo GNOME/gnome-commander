@@ -5807,35 +5807,7 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>pat_col_widths<emphasis><subscript>n</subscript></emphasis></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>res_col_widths<emphasis><subscript>n</subscript></emphasis></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>sep_value</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
                                     <entry><para>width</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>template_auto_update</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -6035,7 +6007,10 @@
                             <para>Support for metadata tags in internal viewer</para>
                         </listitem>
                         <listitem>
-                            <para>Advanced file rename tool - trim blanks</para>
+                            <para>Support for  regex backreferences ('\number') in advanced file rename tool (since GLib 2.14)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Advanced file rename tool - upper/lowercase conversion and trimming blanks</para>
                         </listitem>
                         <listitem>
                             <para>New colour theme: cafezinho</para>

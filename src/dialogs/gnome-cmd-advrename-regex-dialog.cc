@@ -21,23 +21,22 @@
 #include <config.h>
 #include <regex.h>
 #include "gnome-cmd-includes.h"
-#include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-advrename-regex-dialog.h"
+#include "gnome-cmd-advrename-dialog.h"
+#include "gnome-cmd-hintbox.h"
 #include "utils.h"
 
 using namespace std;
 
 
-static void response_callback (GtkDialog *dialog, int response_id, PatternEntry *rx)
+static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdAdvrenameDialog::Regex *rx)
 {
     switch (response_id)
     {
         case GTK_RESPONSE_OK:
-            g_free (rx->from);
-            g_free (rx->to);
-            rx->from = gtk_editable_get_chars (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "pattern")), 0, -1);
-            rx->to = gtk_editable_get_chars (GTK_EDITABLE (lookup_widget (GTK_WIDGET (dialog), "replace")), 0, -1);
-            rx->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "match_case")));
+            rx->assign(gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "pattern"))),
+                       gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "replace"))),
+                       gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lookup_widget (GTK_WIDGET (dialog), "match_case"))));
             break;
 
         case GTK_RESPONSE_NONE:
@@ -51,7 +50,7 @@ static void response_callback (GtkDialog *dialog, int response_id, PatternEntry 
 }
 
 
-gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *parent, PatternEntry *rx)
+gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmdAdvrenameDialog::Regex *rx)
 {
     GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
@@ -69,7 +68,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
 
-    GtkWidget *table, *align, *label, *entry, *check;
+    GtkWidget *table, *align, *label, *entry, *check, *box;
 
     table = gtk_table_new (3, 2, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (table), 5);
@@ -83,8 +82,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    if (rx->from)
-        gtk_entry_set_text (GTK_ENTRY (entry), rx->from);
+    gtk_entry_set_text (GTK_ENTRY (entry), rx->from.c_str());
     g_object_set_data (G_OBJECT (dialog), "pattern", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0, 1);
@@ -95,8 +93,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    if (rx->to)
-        gtk_entry_set_text (GTK_ENTRY (entry), rx->to);
+    gtk_entry_set_text (GTK_ENTRY (entry), rx->to.c_str());
     g_object_set_data (G_OBJECT (dialog), "replace", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 1, 2);
@@ -107,10 +104,17 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     check = gtk_check_button_new_with_mnemonic (_("_Match case"));
     g_object_set_data (G_OBJECT (dialog), "match_case", check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), rx ? rx->case_sens : FALSE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), rx ? rx->case_sensitive : FALSE);
     gtk_container_add (GTK_CONTAINER (align), check);
 
-    gtk_widget_show_all (table);
+#if !GLIB_CHECK_VERSION (2, 14, 0)
+    box = gnome_cmd_hint_box_new (_("Some regular expressions functionality is disabled. "
+                                    "To enable it's necessary to build GNOME Commander with GLib ≥ 2.14. "
+                                    "Please contact your package maintainer about that."));
+    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), box);
+#endif
+
+    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
 
     gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
 

@@ -14,7 +14,8 @@ Bug fixes:
 New features:
  * Support for PDF metatags in advanced file rename templates
  * Support for metadata tags in internal viewer
- * Advanced file rename tool - trim blanks
+ * Support for regex backreferences ('\number') in advanced file rename tool (since GLib 2.14)
+ * Advanced file rename tool - upper/lowercase conversion and trimming blanks
  * New colour theme: cafezinho
  * New or updated docs: de, en, es
  * New or updated translations: ar, de, es, eu, pl

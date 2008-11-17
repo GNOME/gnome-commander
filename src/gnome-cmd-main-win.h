@@ -33,12 +33,14 @@ typedef struct _GnomeCmdMainWinPrivate GnomeCmdMainWinPrivate;
 typedef struct _GnomeCmdMainWinClass GnomeCmdMainWinClass;
 
 #include "gnome-cmd-file-selector.h"
+#include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-cmdline.h"
 #include "plugin_manager.h"
 
 struct _GnomeCmdMainWin
 {
     GnomeApp parent;
+    GnomeCmdAdvrenameDialog *advrename_dlg;
     GnomeCmdMainWinPrivate *priv;
 };
 

@@ -714,6 +714,9 @@ static void destroy (GtkObject *object)
     if (con_home == gnome_cmd_dir_get_connection (dir))
         gnome_cmd_data_set_start_dir (RIGHT, gnome_cmd_file_get_path (GNOME_CMD_FILE (dir)));
 
+    if (main_win->advrename_dlg)
+        gtk_widget_destroy (*main_win->advrename_dlg);
+
     gtk_main_quit ();
 }
 
@@ -754,6 +757,7 @@ static void init (GnomeCmdMainWin *mw)
      */
     main_win = GNOME_CMD_MAIN_WIN (mw);
 
+    mw->advrename_dlg = NULL;
     mw->priv = g_new0 (GnomeCmdMainWinPrivate, 1);
     mw->priv->current_fs = LEFT;
     mw->priv->accel_group = gtk_accel_group_new ();

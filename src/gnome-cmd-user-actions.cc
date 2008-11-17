@@ -741,10 +741,19 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
     {
         files = get_fl (ACTIVE)->sort_selection(files);
 
-        GtkWidget *dialog = gnome_cmd_advrename_dialog_new (files);
-
-        gtk_widget_ref (dialog);
-        gtk_widget_show (dialog);
+        if (!main_win->advrename_dlg)
+        {
+            main_win->advrename_dlg = new GnomeCmdAdvrenameDialog(*gnome_cmd_data.advrename_defaults);
+            // gtk_widget_ref (*main_win->advrename_dlg);      //  FIXME:  ???
+            main_win->advrename_dlg->set(files);
+            gtk_widget_show_all (*main_win->advrename_dlg);
+        }
+        else
+        {
+            main_win->advrename_dlg->set(files);
+            gtk_widget_show (*main_win->advrename_dlg);
+            // gdk_window_raise (GTK_WIDGET (main_win->advrename_dlg)->window);     //  FIXME:  bring dlg to top ???
+        }
 
         g_list_free (files);
     }
