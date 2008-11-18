@@ -127,39 +127,39 @@ struct GnomeCmdAdvrenameDialog::Private
 
 
 GtkItemFactoryEntry GnomeCmdAdvrenameDialog::Private::dir_items[] =
-    {{_("/Grandparent"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 0},
-     {_("/Parent"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 1}};
+    {{N_("/Grandparent"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 0},
+     {N_("/Parent"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 1}};
 
 GtkItemFactoryEntry GnomeCmdAdvrenameDialog::Private::name_items[] =
-    {{_("/File name"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 2},
-     {_("/File name without extension"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 3},
-     {_("/File extension"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 4}};
+    {{N_("/File name"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 2},
+     {N_("/File name without extension"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 3},
+     {N_("/File extension"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 4}};
 
 GtkItemFactoryEntry GnomeCmdAdvrenameDialog::Private::counter_items[] =
-    {{_("/Counter"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 5},
-     {_("/Counter (width)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 6},
-     {_("/Hexadecimal random number (width)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 7}};
+    {{N_("/Counter"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 5},
+     {N_("/Counter (width)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 6},
+     {N_("/Hexadecimal random number (width)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 7}};
 
 GtkItemFactoryEntry GnomeCmdAdvrenameDialog::Private::date_items[] =
-    {{_("/Date/<locale>"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 8},
-     {_("/Date/yyyy-mm-dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 9},
-     {_("/Date/yy-mm-dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 10},
-     {_("/Date/yy.mm.dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 11},
-     {_("/Date/yymmdd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 12},
-     {_("/Date/dd.mm.yy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 13},
-     {_("/Date/mm-dd-yy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 14},
-     {_("/Date/yyyy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 15},
-     {_("/Date/yy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 16},
-     {_("/Date/mm"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 17},
-     {_("/Date/mmm"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 18},
-     {_("/Date/dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 19},
-     {_("/Time/<locale>"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 20},
-     {_("/Time/HH.MM.SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 21},
-     {_("/Time/HH-MM-SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 22},
-     {_("/Time/HHMMSS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 23},
-     {_("/Time/HH"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 24},
-     {_("/Time/MM"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 25},
-     {_("/Time/SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 26}};
+    {{N_("/Date/<locale>"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 8},
+     {N_("/Date/yyyy-mm-dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 9},
+     {N_("/Date/yy-mm-dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 10},
+     {N_("/Date/yy.mm.dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 11},
+     {N_("/Date/yymmdd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 12},
+     {N_("/Date/dd.mm.yy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 13},
+     {N_("/Date/mm-dd-yy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 14},
+     {N_("/Date/yyyy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 15},
+     {N_("/Date/yy"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 16},
+     {N_("/Date/mm"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 17},
+     {N_("/Date/mmm"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 18},
+     {N_("/Date/dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 19},
+     {N_("/Time/<locale>"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 20},
+     {N_("/Time/HH.MM.SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 21},
+     {N_("/Time/HH-MM-SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 22},
+     {N_("/Time/HHMMSS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 23},
+     {N_("/Time/HH"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 24},
+     {N_("/Time/MM"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 25},
+     {N_("/Time/SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 26}};
 
 GtkItemFactoryEntry *GnomeCmdAdvrenameDialog::Private::items[] = {dir_items, name_items, counter_items, date_items};
 
