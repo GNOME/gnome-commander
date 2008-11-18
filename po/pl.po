@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&amp;component=general\n"
-"POT-Creation-Date: 2008-11-17 22:31+0000\n"
-"PO-Revision-Date: 2008-11-18 18:12+0100\n"
+"POT-Creation-Date: 2008-11-18 23:19+0000\n"
+"PO-Revision-Date: 2008-11-19 00:30+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -231,316 +231,330 @@ msgstr "P_odziękowania"
 msgid "About %s"
 msgstr "Informacje o %s"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:129
+#: ../src/gnome-cmd-advrename-dialog.cc:132
 msgid "/Grandparent"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:130
+#: ../src/gnome-cmd-advrename-dialog.cc:133
 msgid "/Parent"
 msgstr "/Katalog nadrzędny"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:133
+#: ../src/gnome-cmd-advrename-dialog.cc:136
 msgid "/File name"
 msgstr "/Nazwa pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:134
+#: ../src/gnome-cmd-advrename-dialog.cc:137
 msgid "/File name without extension"
 msgstr "/Nazwa pliku (bez rozszerzenia)"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:135
+#: ../src/gnome-cmd-advrename-dialog.cc:138
 msgid "/File extension"
 msgstr "/Rozszerzenie pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:138
+#: ../src/gnome-cmd-advrename-dialog.cc:141
 msgid "/Counter"
 msgstr "/Licznik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:139
+#: ../src/gnome-cmd-advrename-dialog.cc:142
 msgid "/Counter (width)"
 msgstr "/Licznik (liczba cyfr)"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:140
-msgid "/Hexadecimal random number (width)"
-msgstr "Losowa liczba szestnastkowa (liczba cyfr)"
-
 #: ../src/gnome-cmd-advrename-dialog.cc:143
+msgid "/Hexadecimal random number (width)"
+msgstr "/Losowa liczba szestnastkowa (liczba cyfr)"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:146
+msgid "/Date"
+msgstr "/Data"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:147
 msgid "/Date/<locale>"
 msgstr "/Data/<locale>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:144
+#: ../src/gnome-cmd-advrename-dialog.cc:148
 msgid "/Date/yyyy-mm-dd"
 msgstr "/Data/rrrr-mm-dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:145
+#: ../src/gnome-cmd-advrename-dialog.cc:149
 msgid "/Date/yy-mm-dd"
 msgstr "/Data/rr-mm-dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:146
+#: ../src/gnome-cmd-advrename-dialog.cc:150
 msgid "/Date/yy.mm.dd"
 msgstr "/Data/rr.mm.dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:147
+#: ../src/gnome-cmd-advrename-dialog.cc:151
 msgid "/Date/yymmdd"
 msgstr "/Data/rrmmdd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:148
+#: ../src/gnome-cmd-advrename-dialog.cc:152
 msgid "/Date/dd.mm.yy"
 msgstr "/Data/dd.mm.rr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:149
+#: ../src/gnome-cmd-advrename-dialog.cc:153
 msgid "/Date/mm-dd-yy"
 msgstr "/Data/mm-dd-rr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:150
+#: ../src/gnome-cmd-advrename-dialog.cc:154
 msgid "/Date/yyyy"
 msgstr "/Data/rrrr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:151
+#: ../src/gnome-cmd-advrename-dialog.cc:155
 msgid "/Date/yy"
 msgstr "/Data/rr"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:152
+#: ../src/gnome-cmd-advrename-dialog.cc:156
 msgid "/Date/mm"
 msgstr "/Data/mm"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:153
+#: ../src/gnome-cmd-advrename-dialog.cc:157
 msgid "/Date/mmm"
 msgstr "/Data/mmm"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:154
+#: ../src/gnome-cmd-advrename-dialog.cc:158
 msgid "/Date/dd"
 msgstr "/Data/dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:155
+#: ../src/gnome-cmd-advrename-dialog.cc:159
+msgid "/Time"
+msgstr "/Czas"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:160
 msgid "/Time/<locale>"
 msgstr "/Czas/<locale>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:156
+#: ../src/gnome-cmd-advrename-dialog.cc:161
 msgid "/Time/HH.MM.SS"
 msgstr "/Czas/GG.MM.SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:157
+#: ../src/gnome-cmd-advrename-dialog.cc:162
 msgid "/Time/HH-MM-SS"
 msgstr "/Czas/GG-MM-SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:158
+#: ../src/gnome-cmd-advrename-dialog.cc:163
 msgid "/Time/HHMMSS"
 msgstr "/Czas/GGMMSS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:159
+#: ../src/gnome-cmd-advrename-dialog.cc:164
 msgid "/Time/HH"
 msgstr "/Czas/GG"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:160
+#: ../src/gnome-cmd-advrename-dialog.cc:165
 msgid "/Time/MM"
 msgstr "/Czas/MM"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:161
+#: ../src/gnome-cmd-advrename-dialog.cc:166
 msgid "/Time/SS"
 msgstr "/Czas/SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:585
+#: ../src/gnome-cmd-advrename-dialog.cc:596
 msgid "Add Rule"
 msgstr "Dodawanie reguły"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:595
-#: ../src/gnome-cmd-advrename-dialog.cc:627
+#: ../src/gnome-cmd-advrename-dialog.cc:606
+#: ../src/gnome-cmd-advrename-dialog.cc:638
 #: ../src/gnome-cmd-data.cc:1018
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:151
 #: ../src/utils.cc:686
 msgid "Yes"
 msgstr "Tak"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:595
-#: ../src/gnome-cmd-advrename-dialog.cc:627
+#: ../src/gnome-cmd-advrename-dialog.cc:606
+#: ../src/gnome-cmd-advrename-dialog.cc:638
 #: ../src/gnome-cmd-data.cc:1018
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:151
 #: ../src/utils.cc:686
 msgid "No"
 msgstr "Nie"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:620
+#: ../src/gnome-cmd-advrename-dialog.cc:631
 msgid "Edit Rule"
 msgstr "Edycja"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:797
+#: ../src/gnome-cmd-advrename-dialog.cc:825
 msgid "Remove from file list"
 msgstr "Usuń z listy plików"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:801
+#. {file_umount, "file.umount"},
+#: ../src/gnome-cmd-advrename-dialog.cc:829
+#: ../src/gnome-cmd-user-actions.cc:173
+msgid "View file"
+msgstr "Podgląd pliku"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:833
 msgid "File properties"
 msgstr "Właściwości pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:807
+#: ../src/gnome-cmd-advrename-dialog.cc:839
 msgid "Update file list"
 msgstr "Aktualizuj listę plików"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:948
+#: ../src/gnome-cmd-advrename-dialog.cc:980
 msgid "Advanced Rename Tool"
 msgstr "Zaawansowana zmiana nazwy"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:978
+#: ../src/gnome-cmd-advrename-dialog.cc:1010
 msgid "_Template"
 msgstr "_Szablon"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1005
+#: ../src/gnome-cmd-advrename-dialog.cc:1037
 #: ../src/gnome-cmd-file.cc:614
 msgid "Directory"
 msgstr "Katalog"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1006
+#: ../src/gnome-cmd-advrename-dialog.cc:1038
 #: ../src/plugin_manager.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:687
 msgid "File"
 msgstr "Plik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1007
-#: ../src/gnome-cmd-advrename-dialog.cc:1019
+#: ../src/gnome-cmd-advrename-dialog.cc:1039
+#: ../src/gnome-cmd-advrename-dialog.cc:1051
 msgid "Counter"
 msgstr "Licznik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1008
-#: ../src/gnome-cmd-advrename-dialog.cc:1306
+#: ../src/gnome-cmd-advrename-dialog.cc:1040
+#: ../src/gnome-cmd-advrename-dialog.cc:1338
 #: ../src/tags/gnome-cmd-tags.cc:341
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Date"
 msgstr "Data"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1009
+#: ../src/gnome-cmd-advrename-dialog.cc:1041
 msgid "Metatag"
 msgstr "Metadane"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1036
+#: ../src/gnome-cmd-advrename-dialog.cc:1068
 msgid "_Start:"
 msgstr "S_tart:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1043
+#: ../src/gnome-cmd-advrename-dialog.cc:1075
 msgid "Ste_p:"
 msgstr "_Krok:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1050
+#: ../src/gnome-cmd-advrename-dialog.cc:1082
 msgid "Di_gits:"
 msgstr "_Liczba cyfr:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1061
+#: ../src/gnome-cmd-advrename-dialog.cc:1093
 msgid "Regex replacing"
 msgstr "Zamiana wyrażeń regularnych"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1213
+#: ../src/gnome-cmd-advrename-dialog.cc:1132
 msgid "Remove A_ll"
 msgstr "Usuń _wszystkie"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1113
+#: ../src/gnome-cmd-advrename-dialog.cc:1145
 msgid "Case"
 msgstr "Wielkość liter"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1125
+#: ../src/gnome-cmd-advrename-dialog.cc:1157
 msgid "<unchanged>"
 msgstr "<bez zmian>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1126
+#: ../src/gnome-cmd-advrename-dialog.cc:1158
 msgid "lowercase"
 msgstr "małe litery"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1127
+#: ../src/gnome-cmd-advrename-dialog.cc:1159
 msgid "UPPERCASE"
 msgstr "WIELKIE LITERY"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1129
+#: ../src/gnome-cmd-advrename-dialog.cc:1161
 msgid "Sentence case"
 msgstr "Styl zdania - pierwsza litera duża"
 
 #. FIXME
-#: ../src/gnome-cmd-advrename-dialog.cc:1130
+#: ../src/gnome-cmd-advrename-dialog.cc:1162
 msgid "Initial Caps"
 msgstr "Inicjały"
 
 #. FIXME
-#: ../src/gnome-cmd-advrename-dialog.cc:1131
+#: ../src/gnome-cmd-advrename-dialog.cc:1163
 #, fuzzy
 msgid "tOGGLE cASE"
 msgstr "&Zamiana wielkości liter"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1141
+#: ../src/gnome-cmd-advrename-dialog.cc:1173
 msgid "Trim blanks"
 msgstr "Usuń odstępy"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1153
+#: ../src/gnome-cmd-advrename-dialog.cc:1185
 msgid "<none>"
 msgstr "<nie usuwaj>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1154
+#: ../src/gnome-cmd-advrename-dialog.cc:1186
 msgid "leading"
 msgstr "na początku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1155
+#: ../src/gnome-cmd-advrename-dialog.cc:1187
 msgid "trailing"
 msgstr "na końcu"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1156
+#: ../src/gnome-cmd-advrename-dialog.cc:1188
 msgid "leading and trailing"
 msgstr "na początku i na końcu"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1168
+#: ../src/gnome-cmd-advrename-dialog.cc:1200
 msgid "Results"
 msgstr "Wyniki"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1194
+#: ../src/gnome-cmd-advrename-dialog.cc:1226
 msgid "Reset"
 msgstr "Przywróć"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1235
+#: ../src/gnome-cmd-advrename-dialog.cc:1267
 msgid "Search for"
 msgstr "Szukaj"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1238
+#: ../src/gnome-cmd-advrename-dialog.cc:1270
 msgid "Regex pattern"
 msgstr "Wyrażenie regularne"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1240
+#: ../src/gnome-cmd-advrename-dialog.cc:1272
 msgid "Replace with"
 msgstr "Zamień na"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1243
+#: ../src/gnome-cmd-advrename-dialog.cc:1275
 #, fuzzy
 msgid "Replacement"
 msgstr "Zamiennik"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1245
+#: ../src/gnome-cmd-advrename-dialog.cc:1277
 msgid "Match case"
 msgstr "Uwzględniaj wielkość liter"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1248
+#: ../src/gnome-cmd-advrename-dialog.cc:1280
 msgid "Case sensitive matching"
 msgstr "Rozróżnianie wielkości liter"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1288
+#: ../src/gnome-cmd-advrename-dialog.cc:1320
 msgid "Old name"
 msgstr "Stara nazwa"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1292
+#: ../src/gnome-cmd-advrename-dialog.cc:1324
 msgid "Current file name"
 msgstr "Obecna nazwa pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1294
+#: ../src/gnome-cmd-advrename-dialog.cc:1326
 msgid "New name"
 msgstr "Nowa nazwa"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1298
+#: ../src/gnome-cmd-advrename-dialog.cc:1330
 msgid "New file name"
 msgstr "Nowa nazwa pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1300
+#: ../src/gnome-cmd-advrename-dialog.cc:1332
 #: ../src/tags/gnome-cmd-tags.cc:326
 #: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Size"
 msgstr "Rozmiar"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1304
+#: ../src/gnome-cmd-advrename-dialog.cc:1336
 msgid "File size"
 msgstr "Rozmiar pliku"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1310
+#: ../src/gnome-cmd-advrename-dialog.cc:1342
 msgid "File modification date"
 msgstr "Data modyfikacji pliku"
 
@@ -2585,11 +2599,6 @@ msgstr "Zmień nazwę plików"
 #: ../src/gnome-cmd-user-actions.cc:171
 msgid "Synchronize directories"
 msgstr "Synchronizacja katalogów"
-
-#. {file_umount, "file.umount"},
-#: ../src/gnome-cmd-user-actions.cc:173
-msgid "View file"
-msgstr "Podgląd pliku"
 
 #: ../src/gnome-cmd-user-actions.cc:174
 msgid "About GNOME Commander"
