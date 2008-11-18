@@ -1,3 +1,8 @@
+2008-11-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/dialogs/gnome-cmd-advrename-regex-dialog.cc
+	advrename: viewing files with intviewer
+
 2008-11-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.h:

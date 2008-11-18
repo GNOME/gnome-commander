@@ -113,6 +113,7 @@ struct GnomeCmdAdvrenameDialog::Private
 
     static void on_files_model_row_deleted (GtkTreeModel *files, GtkTreePath *path, GnomeCmdAdvrenameDialog *dialog);
     static void on_files_view_popup_menu__remove (GtkWidget *menuitem, GtkTreeView *treeview);
+    static void on_files_view_popup_menu__view_file (GtkWidget *menuitem, GtkTreeView *treeview);
     static void on_files_view_popup_menu__show_properties (GtkWidget *menuitem, GtkTreeView *treeview);
     static void on_files_view_popup_menu__update_files (GtkWidget *menuitem, GnomeCmdAdvrenameDialog *dialog);
     static gboolean on_files_view_button_pressed (GtkWidget *treeview, GdkEventButton *event, GnomeCmdAdvrenameDialog *dialog);
@@ -747,6 +748,23 @@ void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__remove (GtkWidg
 }
 
 
+void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__view_file (GtkWidget *menuitem, GtkTreeView *treeview)
+{
+    GtkTreeIter iter;
+
+    if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (treeview), NULL, &iter))
+    {
+        GtkTreeModel *model = gtk_tree_view_get_model (treeview);
+        GnomeCmdFile *f;
+
+        gtk_tree_model_get (model, &iter, COL_FILE, &f, -1);
+
+        if (f)
+            gnome_cmd_file_view (f, -1);
+    }
+}
+
+
 void GnomeCmdAdvrenameDialog::Private::on_files_view_popup_menu__show_properties (GtkWidget *menuitem, GtkTreeView *treeview)
 {
     GtkTreeIter iter;
@@ -796,6 +814,10 @@ inline void GnomeCmdAdvrenameDialog::Private::files_view_popup_menu (GtkWidget *
 
     menuitem = gtk_menu_item_new_with_label (_("Remove from file list"));
     g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__remove), treeview);
+    gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+
+    menuitem = gtk_menu_item_new_with_label (_("View file"));
+    g_signal_connect (menuitem, "activate", G_CALLBACK (on_files_view_popup_menu__view_file), treeview);
     gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 
     menuitem = gtk_menu_item_new_with_label (_("File properties"));
