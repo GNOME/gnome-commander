@@ -58,7 +58,7 @@ struct GnomeCmdAdvrenameDialog
     enum {COL_REGEX, COL_MALFORMED_REGEX, COL_PATTERN, COL_REPLACE, COL_MATCH_CASE, NUM_REGEX_COLS};
     enum {COL_FILE, COL_NAME, COL_NEW_NAME, COL_SIZE, COL_DATE, COL_RENAME_FAILED, NUM_FILE_COLS};
 
-    GnomeCmdData::AdvrenameDefaults &defaults;
+    GnomeCmdData::AdvrenameConfig &defaults;
 
     GtkTreeModel *files;
 
@@ -95,7 +95,7 @@ struct GnomeCmdAdvrenameDialog
         operator gboolean ()                        {  return !malformed_pattern;                 }
     };
 
-    GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameDefaults &defaults);
+    GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &defaults);
     ~GnomeCmdAdvrenameDialog();
 
     void set(GList *files);

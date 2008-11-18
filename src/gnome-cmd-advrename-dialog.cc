@@ -1413,7 +1413,7 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 }
 
 
-GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameDefaults &cfg): defaults(cfg)
+GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &cfg): defaults(cfg)
 {
     gtk_window_set_default_size (*this, defaults.width, defaults.height);
 

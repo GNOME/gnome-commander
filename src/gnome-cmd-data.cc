@@ -975,7 +975,7 @@ inline void GnomeCmdData::load_rename_history()
     gint size;
     GList *from=NULL, *to=NULL, *csens=NULL;
 
-    advrename_defaults = g_new0 (AdvrenameDefaults, 1);
+    advrename_defaults = g_new0 (AdvrenameConfig, 1);
 
     advrename_defaults->width = gnome_cmd_data_get_int ("/advrename/width", 450);
     advrename_defaults->height = gnome_cmd_data_get_int ("/advrename/height", 400);

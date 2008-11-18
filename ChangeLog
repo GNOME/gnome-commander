@@ -3,6 +3,12 @@
 	* src/dialogs/gnome-cmd-advrename-regex-dialog.cc
 	advrename: viewing files with intviewer
 
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-advrename-dialog.h:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	Rename GnomeCmdData::AdvrenameDefaults -> GnomeCmdData::AdvrenameConfig
+
 2008-11-17  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-lexer.h:

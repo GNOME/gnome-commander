@@ -48,7 +48,7 @@ struct GnomeCmdData
         gint width, height;
     };
 
-    struct AdvrenameDefaults
+    struct AdvrenameConfig
     {
         History *templates;
         GtkTreeModel *regexes;
@@ -102,7 +102,7 @@ struct GnomeCmdData
     Filter::Type                 filter_type;
     FilterSettings               filter_settings;
 
-    AdvrenameDefaults           *advrename_defaults;
+    AdvrenameConfig             *advrename_defaults;
 
     gboolean                     case_sens_sort;
     GnomeCmdExtDispMode          ext_disp_mode;
