@@ -426,9 +426,13 @@ msgstr "_Liczba cyfr:"
 msgid "Regex replacing"
 msgstr "Zamiana wyrażeń regularnych"
 
+#: ../src/gnome-cmd-advrename-dialog.cc:1213
+msgid "Remove A_ll"
+msgstr "Usuń _wszystkie"
+
 #: ../src/gnome-cmd-advrename-dialog.cc:1113
 msgid "Case"
-msgstr "Zmiana wielkości liter"
+msgstr "Wielkość liter"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1125
 msgid "<unchanged>"
@@ -459,7 +463,7 @@ msgstr "&Zamiana wielkości liter"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1141
 msgid "Trim blanks"
-msgstr "Usuń zbędne odstępy"
+msgstr "Usuń odstępy"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1153
 msgid "<none>"
@@ -537,7 +541,6 @@ msgid "File size"
 msgstr "Rozmiar pliku"
 
 #: ../src/gnome-cmd-advrename-dialog.cc:1310
-#, fuzzy
 msgid "File modification date"
 msgstr "Data modyfikacji pliku"
 

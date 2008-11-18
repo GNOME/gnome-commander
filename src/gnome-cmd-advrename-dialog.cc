@@ -1118,7 +1118,7 @@ static void gnome_cmd_advrename_dialog_init (GnomeCmdAdvrenameDialog *dialog)
         dialog->priv->regex_remove_button = button = gtk_button_new_from_stock (GTK_STOCK_REMOVE);
         gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
 
-        dialog->priv->regex_remove_all_button = button = gtk_button_new_with_mnemonic ("Remove A_ll");
+        dialog->priv->regex_remove_all_button = button = gtk_button_new_with_mnemonic (_("Remove A_ll"));
         gtk_box_pack_start (GTK_BOX (bbox), button, FALSE, FALSE, 0);
     }
 
