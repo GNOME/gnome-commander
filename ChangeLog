@@ -24,7 +24,7 @@
 
 	* src/gnome-con-dialog.cc:
 	* src/dialogs/gnome-cmd-advrename-regex-dialog.cc:
-	Activate the default widget for the dialog containing the entry
+	Activate the default widget for the dialogs containing the entry
 
 2008-11-13  Piotr Eljasiak  <epiotr@use.pl>
 

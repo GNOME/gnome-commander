@@ -57,8 +57,6 @@ struct GnomeCmdData
         guint counter_precision;
         gint counter_increment;
         gint width, height;
-        gint pat_col_widths;
-        gint res_col_widths;
     };
 
     struct FilterSettings

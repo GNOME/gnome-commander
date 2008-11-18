@@ -343,12 +343,6 @@ void gnome_cmd_advrename_parse_template(const char *template_string, gboolean &h
 }
 
 
-// gboolean is_substr (const CHUNK *p)
-// {
-  // return p->tag.beg!=0 || p->tag.end!=0;
-// }
-
-
 inline void mk_substr (int src_len, const CHUNK *p, int &pos, int &len)
 {
   pos = p->tag.beg<0 ? p->tag.beg+src_len : p->tag.beg;
@@ -367,12 +361,6 @@ inline void mk_substr (int src_len, const CHUNK *p, int &pos, int &len)
 
 inline void append_utf8_chunk (string &s, const CHUNK *p, const char *path, int path_len)
 {
-  // if (!is_substr (p))
-  // {
-    // s += path_offset ? g_utf8_offset_to_pointer (path, path_offset) : path;
-    // return;
-  // }
-
   int from, length;
 
   mk_substr (path_len, p, from, length);

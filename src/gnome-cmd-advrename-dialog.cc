@@ -524,7 +524,6 @@ void GnomeCmdAdvrenameDialog::Private::on_menu_button_clicked(GtkButton *widget,
 }
 
 
-inline GtkTreeModel *create_and_fill_regex_model (GnomeCmdData::AdvrenameDefaults &defaults);
 inline GtkWidget *create_regex_view ();
 
 inline GtkTreeModel *create_files_model ();
