@@ -85,6 +85,8 @@ struct GnomeCmdAdvrenameDialog::Private
     Private();
     ~Private();
 
+    static gchar *translate_menu (const gchar *path, gpointer data);
+
     GtkWidget *create_placeholder_menu(int menu_type);
     GtkWidget *create_button_with_menu(gchar *label_text, int menu_type);
     void insert_tag(const gchar *text);
@@ -141,7 +143,8 @@ GtkItemFactoryEntry GnomeCmdAdvrenameDialog::Private::counter_items[] =
      {N_("/Hexadecimal random number (width)"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 7}};
 
 GtkItemFactoryEntry GnomeCmdAdvrenameDialog::Private::date_items[] =
-    {{N_("/Date/<locale>"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 8},
+    {{N_("/Date"), NULL, NULL, 0, "<Branch>"},
+     {N_("/Date/<locale>"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 8},
      {N_("/Date/yyyy-mm-dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 9},
      {N_("/Date/yy-mm-dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 10},
      {N_("/Date/yy.mm.dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 11},
@@ -153,6 +156,7 @@ GtkItemFactoryEntry GnomeCmdAdvrenameDialog::Private::date_items[] =
      {N_("/Date/mm"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 17},
      {N_("/Date/mmm"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 18},
      {N_("/Date/dd"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 19},
+     {N_("/Time"), NULL, NULL, 0, "<Branch>"},
      {N_("/Time/<locale>"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 20},
      {N_("/Time/HH.MM.SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 21},
      {N_("/Time/HH-MM-SS"), NULL, (GtkItemFactoryCallback) GnomeCmdAdvrenameDialog::Private::insert_text_tag, 22},
@@ -370,6 +374,12 @@ inline GnomeCmdAdvrenameDialog::Private::~Private()
 }
 
 
+gchar *GnomeCmdAdvrenameDialog::Private::translate_menu (const gchar *path, gpointer data)
+{
+    return _(path);
+}
+
+
 inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(int menu_type)
 {
     static guint items_size[] = {G_N_ELEMENTS(dir_items),
@@ -385,6 +395,7 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(int 
             {
                 GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
 
+                gtk_item_factory_set_translate_func (ifac, translate_menu, NULL, NULL);
                 gtk_item_factory_create_items (ifac, items_size[menu_type], items[menu_type], this);
 
                 return gtk_item_factory_get_widget (ifac, "<main>");
