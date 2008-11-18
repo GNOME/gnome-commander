@@ -1,3 +1,7 @@
+2008-11-18  Piotr Eljasiak  <epiotr@use.pl>
+
+	* *.po: predifine -> predefine
+
 2008-11-08  Mario Blättermann  <mariobl@svn.gnome.org>
 
 	* de.po: Updated German translation
