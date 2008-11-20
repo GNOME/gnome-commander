@@ -1,3 +1,8 @@
+2008-11-20  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	Fix for "gtk_tree_view_column_cell_layout_add_attribute: assertion `info != NULL' failed" assertion
+
 2008-11-18  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/dialogs/gnome-cmd-advrename-regex-dialog.cc

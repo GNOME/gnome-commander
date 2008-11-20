@@ -1335,7 +1335,7 @@ inline GtkWidget *create_files_view ()
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tooltips_set_tip (tips, col->button, _("File size"), NULL);
 
-    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), GnomeCmdAdvrenameDialog::COL_DATE, _("Date"));
+    col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameDialog::COL_DATE, _("Date"));
     g_object_set (renderer, "foreground", "DarkGray", "style", PANGO_STYLE_ITALIC, NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
