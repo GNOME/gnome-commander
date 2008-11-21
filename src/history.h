@@ -31,6 +31,9 @@ struct History
     History(gint max): ents(NULL), pos(NULL), is_locked(FALSE)  {  this->max = max;  }
     ~History();
 
+    guint size()                                    {  return g_list_length (ents);  }
+    gboolean empty()                                {  return ents==NULL;            }
+
     void add(const gchar *text);
 
     gboolean can_back()                                 {  return pos && pos->next;  }

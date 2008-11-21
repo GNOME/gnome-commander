@@ -830,11 +830,11 @@ inline void GnomeCmdData::save_rename_history()
 
     GtkTreeIter i;
 
-    for (gboolean valid_iter=gtk_tree_model_get_iter_first (advrename_defaults->regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (advrename_defaults->regexes, &i))
+    for (gboolean valid_iter=gtk_tree_model_get_iter_first (advrename_defaults.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (advrename_defaults.regexes, &i))
     {
         GnomeCmdAdvrenameDialog::Regex *rx;
 
-        gtk_tree_model_get (advrename_defaults->regexes, &i,
+        gtk_tree_model_get (advrename_defaults.regexes, &i,
                             GnomeCmdAdvrenameDialog::COL_REGEX, &rx,
                             -1);
         if (!rx)
@@ -845,15 +845,15 @@ inline void GnomeCmdData::save_rename_history()
         csens = g_list_append (csens, (gpointer) (rx->case_sensitive ? "T" : "F"));
     }
 
-    gnome_cmd_data_set_int ("/advrename/width", advrename_defaults->width);
-    gnome_cmd_data_set_int ("/advrename/height", advrename_defaults->height);
+    gnome_cmd_data_set_int ("/advrename/width", advrename_defaults.width);
+    gnome_cmd_data_set_int ("/advrename/height", advrename_defaults.height);
 
-    gnome_cmd_data_set_int ("/template-history/size", g_list_length (advrename_defaults->templates->ents));
-    gnome_cmd_data_set_string_history ("/template-history/template%d", advrename_defaults->templates->ents);
+    gnome_cmd_data_set_int ("/template-history/size", advrename_defaults.templates.size());
+    gnome_cmd_data_set_string_history ("/template-history/template%d", advrename_defaults.templates.ents);
 
-    gnome_cmd_data_set_int ("/advrename/counter_start", advrename_defaults->counter_start);
-    gnome_cmd_data_set_int ("/advrename/counter_precision", advrename_defaults->counter_precision);
-    gnome_cmd_data_set_int ("/advrename/counter_increment", advrename_defaults->counter_increment);
+    gnome_cmd_data_set_int ("/advrename/counter_start", advrename_defaults.counter_start);
+    gnome_cmd_data_set_int ("/advrename/counter_precision", advrename_defaults.counter_precision);
+    gnome_cmd_data_set_int ("/advrename/counter_increment", advrename_defaults.counter_increment);
 
     gnome_cmd_data_set_int ("/rename-history/size", g_list_length (from));
     gnome_cmd_data_set_string_history ("/rename-history/from%d", from);
@@ -975,21 +975,18 @@ inline void GnomeCmdData::load_rename_history()
     gint size;
     GList *from=NULL, *to=NULL, *csens=NULL;
 
-    advrename_defaults = g_new0 (AdvrenameConfig, 1);
-
-    advrename_defaults->width = gnome_cmd_data_get_int ("/advrename/width", 450);
-    advrename_defaults->height = gnome_cmd_data_get_int ("/advrename/height", 400);
+    advrename_defaults.width = gnome_cmd_data_get_int ("/advrename/width", 640);
+    advrename_defaults.height = gnome_cmd_data_get_int ("/advrename/height", 400);
 
     size = gnome_cmd_data_get_int ("/template-history/size", 0);
     GList *templates = load_string_history ("/template-history/template%d", size);
 
-    advrename_defaults->templates = new History(10);
-    advrename_defaults->templates->ents = templates;
-    advrename_defaults->templates->pos = templates;
+    advrename_defaults.templates.ents = templates;
+    advrename_defaults.templates.pos = templates;
 
-    advrename_defaults->counter_start = gnome_cmd_data_get_int ("/advrename/counter_start", 1);
-    advrename_defaults->counter_precision = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
-    advrename_defaults->counter_increment = gnome_cmd_data_get_int ("/advrename/counter_increment", 1);
+    advrename_defaults.counter_start = gnome_cmd_data_get_int ("/advrename/counter_start", 1);
+    advrename_defaults.counter_precision = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
+    advrename_defaults.counter_increment = gnome_cmd_data_get_int ("/advrename/counter_increment", 1);
 
     size = gnome_cmd_data_get_int ("/rename-history/size", 0);
 
@@ -997,7 +994,7 @@ inline void GnomeCmdData::load_rename_history()
     GList *tmp_to = to = load_string_history ("/rename-history/to%d", size);
     GList *tmp_csens = csens = load_string_history ("/rename-history/csens%d", size);
 
-    advrename_defaults->regexes = GTK_TREE_MODEL (gtk_list_store_new (GnomeCmdAdvrenameDialog::NUM_REGEX_COLS,
+    advrename_defaults.regexes = GTK_TREE_MODEL (gtk_list_store_new (GnomeCmdAdvrenameDialog::NUM_REGEX_COLS,
                                                                       G_TYPE_POINTER,
                                                                       G_TYPE_BOOLEAN,
                                                                       G_TYPE_STRING,
@@ -1009,8 +1006,8 @@ inline void GnomeCmdData::load_rename_history()
         GnomeCmdAdvrenameDialog::Regex *rx = new GnomeCmdAdvrenameDialog::Regex((gchar *) tmp_from->data,
                                                                                   (gchar *) tmp_to->data,
                                                                                   *((gchar *) tmp_csens->data)=='T');
-        gtk_list_store_append (GTK_LIST_STORE (advrename_defaults->regexes), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (advrename_defaults->regexes), &iter,
+        gtk_list_store_append (GTK_LIST_STORE (advrename_defaults.regexes), &iter);
+        gtk_list_store_set (GTK_LIST_STORE (advrename_defaults.regexes), &iter,
                             GnomeCmdAdvrenameDialog::COL_REGEX, rx,
                             GnomeCmdAdvrenameDialog::COL_MALFORMED_REGEX, !*rx,
                             GnomeCmdAdvrenameDialog::COL_PATTERN, rx->from.c_str(),
@@ -1099,8 +1096,6 @@ GnomeCmdData::GnomeCmdData()
     filter_settings.hidden = TRUE;
     filter_settings.backup = TRUE;
 
-    advrename_defaults = NULL;
-
     case_sens_sort = TRUE;
     ext_disp_mode = GNOME_CMD_EXT_DISP_BOTH;
     list_orientation = FALSE;
@@ -1161,8 +1156,6 @@ void GnomeCmdData::free()
         g_free (priv->editor);
         g_free (priv->differ);
         g_free (priv->term);
-
-        delete advrename_defaults->templates;
 
         g_free (priv);
     }

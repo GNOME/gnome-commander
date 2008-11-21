@@ -938,7 +938,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
                 g_free (new_name);
             }
             dialog->update_new_filenames();
-            dialog->defaults.templates->add(gtk_entry_get_text (GTK_ENTRY (dialog->priv->template_entry)));
+            dialog->defaults.templates.add(gtk_entry_get_text (GTK_ENTRY (dialog->priv->template_entry)));
             break;
 
 
@@ -946,7 +946,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
         case GTK_RESPONSE_DELETE_EVENT:
         case GTK_RESPONSE_CANCEL:
         case GTK_RESPONSE_CLOSE:
-            dialog->defaults.templates->add(gtk_entry_get_text (GTK_ENTRY (dialog->priv->template_entry)));
+            dialog->defaults.templates.add(gtk_entry_get_text (GTK_ENTRY (dialog->priv->template_entry)));
             gtk_widget_hide (*dialog);
             dialog->unset();
             g_signal_stop_emission_by_name (dialog, "response");        //  FIXME:  ???
@@ -1429,11 +1429,11 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     gtk_window_set_default_size (*this, defaults.width, defaults.height);
 
     // Template
-    for (GList *i=defaults.templates->ents; i; i=i->next)
+    for (GList *i=defaults.templates.ents; i; i=i->next)
         gtk_combo_box_append_text (GTK_COMBO_BOX (priv->template_combo), (const gchar *) i->data);
 
-    if (defaults.templates->ents)
-        gtk_entry_set_text (GTK_ENTRY (priv->template_entry), (const gchar *) defaults.templates->ents->data);
+    if (defaults.templates.ents)
+        gtk_entry_set_text (GTK_ENTRY (priv->template_entry), (const gchar *) defaults.templates.ents->data);
     else
         gtk_entry_set_text (GTK_ENTRY (priv->template_entry), "$N");
 

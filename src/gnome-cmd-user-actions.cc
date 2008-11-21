@@ -743,7 +743,7 @@ void file_advrename (GtkMenuItem *menuitem, gpointer not_used)
 
         if (!main_win->advrename_dlg)
         {
-            main_win->advrename_dlg = new GnomeCmdAdvrenameDialog(*gnome_cmd_data.advrename_defaults);
+            main_win->advrename_dlg = new GnomeCmdAdvrenameDialog(gnome_cmd_data.advrename_defaults);
             // gtk_widget_ref (*main_win->advrename_dlg);      //  FIXME:  ???
             main_win->advrename_dlg->set(files);
             gtk_widget_show_all (*main_win->advrename_dlg);
