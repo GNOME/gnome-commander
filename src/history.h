@@ -28,24 +28,27 @@ struct History
     gint max;
     gboolean is_locked;
 
-    History(gint max): ents(NULL), pos(NULL), is_locked(FALSE)  {  this->max = max;  }
+    History(gint max): ents(NULL), pos(NULL), is_locked(FALSE)       {  this->max = max;  }
     ~History();
 
-    guint size()                                    {  return g_list_length (ents);  }
-    gboolean empty()                                {  return ents==NULL;            }
+    guint size()                                         {  return g_list_length (ents);  }
+    gboolean empty()                                     {  return ents==NULL;            }
+
+    const gchar *front()          {  return empty() ? NULL : (const gchar *) ents->data;  }
 
     void add(const gchar *text);
+    void reverse()                               {  pos = ents = g_list_reverse (ents);  }
 
-    gboolean can_back()                                 {  return pos && pos->next;  }
-    gboolean can_forward()                              {  return pos && pos->prev;  }
+    gboolean can_back()                                     {  return pos && pos->next;  }
+    gboolean can_forward()                                  {  return pos && pos->prev;  }
 
     const gchar *first();
     const gchar *back();
     const gchar *forward();
     const gchar *last();
 
-    void lock()                                         {  is_locked = TRUE;         }
-    void unlock()                                       {  is_locked = FALSE;        }
+    void lock()                                             {  is_locked = TRUE;         }
+    void unlock()                                           {  is_locked = FALSE;        }
 };
 
 #endif // __HISTORY_H__

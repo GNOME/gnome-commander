@@ -5,6 +5,10 @@
 	* src/gnome-cmd-data.h:
 	Do not allocate dynamically AdvrenameConfig in GnomeCmdData
 
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/history.h:
+	Add History::front() and History::reverse() functions
+
 2008-11-20  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

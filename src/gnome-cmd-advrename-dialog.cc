@@ -1432,11 +1432,7 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     for (GList *i=defaults.templates.ents; i; i=i->next)
         gtk_combo_box_append_text (GTK_COMBO_BOX (priv->template_combo), (const gchar *) i->data);
 
-    if (defaults.templates.ents)
-        gtk_entry_set_text (GTK_ENTRY (priv->template_entry), (const gchar *) defaults.templates.ents->data);
-    else
-        gtk_entry_set_text (GTK_ENTRY (priv->template_entry), "$N");
-
+    gtk_entry_set_text (GTK_ENTRY (priv->template_entry), defaults.templates.empty() ? "$N" : defaults.templates.front());
     gtk_editable_set_position (GTK_EDITABLE (priv->template_entry), -1);
     gtk_widget_grab_focus (priv->template_entry);
     gtk_entry_select_region (GTK_ENTRY (priv->template_entry), -1, -1);
