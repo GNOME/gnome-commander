@@ -1,3 +1,10 @@
+2008-11-23  Alan Pae  <alanpae@ilkda.com>
+
+	* po/Makefile.in.in:
+	* po/POTFILES.in:
+	* po/POTFILES.skip:
+	Add missing files to the relevant POTFILES file.
+
 2008-11-22  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
