@@ -1350,7 +1350,7 @@
                     <row valign="top">
                         <entry><para>Doc.Company</para></entry>
                         <entry><para>Company</para></entry>
-                        <entry><para>Organization that the <term>Doc.Creator</term> entity is associated with.</para></entry>
+                        <entry><para>Organization that the <literal>Doc.Creator</literal> entity is associated with.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Doc.Author</para></entry>
@@ -1450,7 +1450,7 @@
                     <row valign="top">
                         <entry><para>Doc.Manager</para></entry>
                         <entry><para>Manager</para></entry>
-                        <entry><para>Name of the manager of <term>Doc.Creator</term> entity.</para></entry>
+                        <entry><para>Name of the manager of <literal>Doc.Creator</literal> entity.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Doc.MMClipCount</para></entry>
@@ -1585,7 +1585,7 @@
                     <row valign="top">
                         <entry><para>Exif.ComponentsConfiguration</para></entry>
                         <entry><para>Components Configuration</para></entry>
-                        <entry><para>Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <term>Exif.PhotometricInterpretation</term> tag. However, since <term>Exif.PhotometricInterpretation</term> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences.</para></entry>
+                        <entry><para>Information specific to compressed data. The channels of each component are arranged in order from the 1st component to the 4th. For uncompressed data the data arrangement is given in the <literal>Exif.PhotometricInterpretation</literal> tag. However, since <literal>Exif.PhotometricInterpretation</literal> can only express the order of Y, Cb and Cr, this tag is provided for cases when compressed data uses components other than Y, Cb, and Cr and to enable support of other sequences.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.CompressedBitsPerPixel</para></entry>
@@ -1715,22 +1715,22 @@
                     <row valign="top">
                         <entry><para>Exif.FocalLengthIn35mmFilm</para></entry>
                         <entry><para>Focal Length In 35mm Film</para></entry>
-                        <entry><para>The equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <term>Exif.FocalLength</term> tag.</para></entry>
+                        <entry><para>The equivalent focal length assuming a 35mm film camera, in mm. A value of 0 means the focal length is unknown. Note that this tag differs from the <literal>Exif.FocalLength</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FocalPlaneResolutionUnit</para></entry>
                         <entry><para>Focal Plane Resolution Unit</para></entry>
-                        <entry><para>The unit for measuring <term>Exif.FocalPlaneXResolution</term> and <term>Exif.FocalPlaneYResolution</term>. This value is the same as the <term>Exif.ResolutionUnit</term>.</para></entry>
+                        <entry><para>The unit for measuring <literal>Exif.FocalPlaneXResolution</literal> and <literal>Exif.FocalPlaneYResolution</literal>. This value is the same as the <literal>Exif.ResolutionUnit</literal>.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FocalPlaneXResolution</para></entry>
                         <entry><para>Focal Plane x-Resolution</para></entry>
-                        <entry><para>The number of pixels in the image width (X) direction per <term>Exif.FocalPlaneResolutionUnit</term> on the camera focal plane.</para></entry>
+                        <entry><para>The number of pixels in the image width (X) direction per <literal>Exif.FocalPlaneResolutionUnit</literal> on the camera focal plane.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.FocalPlaneYResolution</para></entry>
                         <entry><para>Focal Plane y-Resolution</para></entry>
-                        <entry><para>The number of pixels in the image height (Y) direction per <term>Exif.FocalPlaneResolutionUnit</term> on the camera focal plane.</para></entry>
+                        <entry><para>The number of pixels in the image height (Y) direction per <literal>Exif.FocalPlaneResolutionUnit</literal> on the camera focal plane.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.GainControl</para></entry>
@@ -1745,12 +1745,12 @@
                     <row valign="top">
                         <entry><para>Exif.GPS.Altitude</para></entry>
                         <entry><para>Altitude</para></entry>
-                        <entry><para>Indicates the altitude based on the reference in <term>Exif.GPS.AltitudeRef</term>. The reference unit is meters.</para></entry>
+                        <entry><para>Indicates the altitude based on the reference in <literal>Exif.GPS.AltitudeRef</literal>. The reference unit is meters.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.GPS.AltitudeRef</para></entry>
                         <entry><para>Altitude Reference</para></entry>
-                        <entry><para>Indicates the altitude used as the reference altitude. If the reference is sea level and the altitude is above sea level, 0 is given. If the altitude is below sea level, a value of 1 is given and the altitude is indicated as an absolute value in the <term>Exif.GPS.Altitude</term> tag. The reference unit is meters.</para></entry>
+                        <entry><para>Indicates the altitude used as the reference altitude. If the reference is sea level and the altitude is above sea level, 0 is given. If the altitude is below sea level, a value of 1 is given and the altitude is indicated as an absolute value in the <literal>Exif.GPS.Altitude</literal> tag. The reference unit is meters.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.GPS.InfoIFDPointer</para></entry>
@@ -1780,12 +1780,12 @@
                     <row valign="top">
                         <entry><para>Exif.GPS.VersionID</para></entry>
                         <entry><para>GPS Tag Version</para></entry>
-                        <entry><para>Indicates the version of <term>Exif.GPS.InfoIFD</term>. This tag is mandatory when <term>Exif.GPS.Info</term> tag is present.</para></entry>
+                        <entry><para>Indicates the version of <literal>Exif.GPS.InfoIFD</literal>. This tag is mandatory when <literal>Exif.GPS.Info</literal> tag is present.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ImageDescription</para></entry>
                         <entry><para>Image Description</para></entry>
-                        <entry><para>A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif Private tag <term>Exif.UserComment</term> is to be used.</para></entry>
+                        <entry><para>A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif Private tag <literal>Exif.UserComment</literal> is to be used.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ImageLength</para></entry>
@@ -1890,7 +1890,7 @@
                     <row valign="top">
                         <entry><para>Exif.OECF</para></entry>
                         <entry><para>OECF</para></entry>
-                        <entry><para>The Opto-Electronic Conversion Function (OECF) specified in ISO 14524. <term>Exif.OECF</term> is the relationship between the camera optical input and the image values.</para></entry>
+                        <entry><para>The Opto-Electronic Conversion Function (OECF) specified in ISO 14524. <literal>Exif.OECF</literal> is the relationship between the camera optical input and the image values.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.Orientation</para></entry>
@@ -1920,7 +1920,7 @@
                     <row valign="top">
                         <entry><para>Exif.PrimaryChromaticities</para></entry>
                         <entry><para>Primary Chromaticities</para></entry>
-                        <entry><para>The chromaticity of the three primary colors of the image. Normally this tag is not necessary, since colorspace is specified in <term>Exif.ColorSpace</term> tag.</para></entry>
+                        <entry><para>The chromaticity of the three primary colors of the image. Normally this tag is not necessary, since colorspace is specified in <literal>Exif.ColorSpace</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ReferenceBlackWhite</para></entry>
@@ -1950,7 +1950,7 @@
                     <row valign="top">
                         <entry><para>Exif.ResolutionUnit</para></entry>
                         <entry><para>Resolution Unit</para></entry>
-                        <entry><para>The unit for measuring <term>Exif.XResolution</term> and <term>Exif.YResolution</term>. The same unit is used for both <term>Exif.XResolution</term> and <term>Exif.YResolution</term>. If the image resolution is unknown, 2 (inches) is designated.</para></entry>
+                        <entry><para>The unit for measuring <literal>Exif.XResolution</literal> and <literal>Exif.YResolution</literal>. The same unit is used for both <literal>Exif.XResolution</literal> and <literal>Exif.YResolution</literal>. If the image resolution is unknown, 2 (inches) is designated.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.RowsPerStrip</para></entry>
@@ -1970,7 +1970,7 @@
                     <row valign="top">
                         <entry><para>Exif.SceneCaptureType</para></entry>
                         <entry><para>Scene Capture Type</para></entry>
-                        <entry><para>The type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <term>Exif.SceneType</term> tag.</para></entry>
+                        <entry><para>The type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <literal>Exif.SceneType</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SceneType</para></entry>
@@ -2040,22 +2040,22 @@
                     <row valign="top">
                         <entry><para>Exif.SubjectLocation</para></entry>
                         <entry><para>Subject Location</para></entry>
-                        <entry><para>The location of the main subject in the scene. The value of this tag represents the pixel at the center of the main subject relative to the left edge, prior to rotation processing as per the <term>Exif.Rotation</term> tag. The first value indicates the X column number and second indicates the Y row number.</para></entry>
+                        <entry><para>The location of the main subject in the scene. The value of this tag represents the pixel at the center of the main subject relative to the left edge, prior to rotation processing as per the <literal>Exif.Rotation</literal> tag. The first value indicates the X column number and second indicates the Y row number.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SubsecTime</para></entry>
                         <entry><para>Subsec Time</para></entry>
-                        <entry><para>Fractions of seconds for the <term>Exif.DateTime</term> tag.</para></entry>
+                        <entry><para>Fractions of seconds for the <literal>Exif.DateTime</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SubSecTimeDigitized</para></entry>
                         <entry><para>Subsec Time Digitized</para></entry>
-                        <entry><para>Fractions of seconds for the <term>Exif.DateTimeDigitized</term> tag.</para></entry>
+                        <entry><para>Fractions of seconds for the <literal>Exif.DateTimeDigitized</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.SubSecTimeOriginal</para></entry>
                         <entry><para>Subsec Time Original</para></entry>
-                        <entry><para>Fractions of seconds for the <term>Exif.DateTimeOriginal</term> tag.</para></entry>
+                        <entry><para>Fractions of seconds for the <literal>Exif.DateTimeOriginal</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.TIFF/EPStandardID</para></entry>
@@ -2065,7 +2065,7 @@
                     <row valign="top">
                         <entry><para>Exif.TransferFunction</para></entry>
                         <entry><para>Transfer Function</para></entry>
-                        <entry><para>A transfer function for the image, described in tabular style. Normally this tag is not necessary, since color space is specified in <term>Exif.ColorSpace</term> tag.</para></entry>
+                        <entry><para>A transfer function for the image, described in tabular style. Normally this tag is not necessary, since color space is specified in <literal>Exif.ColorSpace</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.TransferRange</para></entry>
@@ -2075,7 +2075,7 @@
                     <row valign="top">
                         <entry><para>Exif.UserComment</para></entry>
                         <entry><para>User Comment</para></entry>
-                        <entry><para>A tag for Exif users to write keywords or comments on the image besides those in <term>Exif.ImageDescription</term>, and without the character code limitations of the <term>Exif.ImageDescription</term> tag. The character code used in the <term>Exif.UserComment</term> tag is identified based on an ID code in a fixed 8-byte area at the start of the tag data area. The unused portion of the area is padded with NULL ("00.h"). ID codes are assigned by means of registration. The value of CountN is determinated based on the 8 bytes in the character code area and the number of bytes in the user comment part. Since the TYPE is not ASCII, NULL termination is not necessary. The ID code for the <term>Exif.UserComment</term> area may be a Defined code such as JIS or ASCII, or may be Undefined. The Undefined name is UndefinedText, and the ID code is filled with 8 bytes of all "NULL" ("00.H"). An Exif reader that reads the <term>Exif.UserComment</term> tag must have a function for determining the ID code. This function is not required in Exif readers that do not use the <term>Exif.UserComment</term> tag. When a <term>Exif.UserComment</term> area is set aside, it is recommended that the ID code be ASCII and that the following user comment part be filled with blank characters [20.H].</para></entry>
+                        <entry><para>A tag for Exif users to write keywords or comments on the image besides those in <literal>Exif.ImageDescription</literal>, and without the character code limitations of the <literal>Exif.ImageDescription</literal> tag. The character code used in the <literal>Exif.UserComment</literal> tag is identified based on an ID code in a fixed 8-byte area at the start of the tag data area. The unused portion of the area is padded with NULL ("00.h"). ID codes are assigned by means of registration. The value of CountN is determinated based on the 8 bytes in the character code area and the number of bytes in the user comment part. Since the TYPE is not ASCII, NULL termination is not necessary. The ID code for the <literal>Exif.UserComment</literal> area may be a Defined code such as JIS or ASCII, or may be Undefined. The Undefined name is UndefinedText, and the ID code is filled with 8 bytes of all "NULL" ("00.H"). An Exif reader that reads the <literal>Exif.UserComment</literal> tag must have a function for determining the ID code. This function is not required in Exif readers that do not use the <literal>Exif.UserComment</literal> tag. When a <literal>Exif.UserComment</literal> area is set aside, it is recommended that the ID code be ASCII and that the following user comment part be filled with blank characters [20.H].</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.WhiteBalance</para></entry>
@@ -2085,7 +2085,7 @@
                     <row valign="top">
                         <entry><para>Exif.WhitePoint</para></entry>
                         <entry><para>White Point</para></entry>
-                        <entry><para>The chromaticity of the white point of the image. Normally this tag is not necessary, since color space is specified in <term>Exif.ColorSpace</term> tag.</para></entry>
+                        <entry><para>The chromaticity of the white point of the image. Normally this tag is not necessary, since color space is specified in <literal>Exif.ColorSpace</literal> tag.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.XMLPacket</para></entry>
@@ -2095,7 +2095,7 @@
                     <row valign="top">
                         <entry><para>Exif.XResolution</para></entry>
                         <entry><para>x Resolution</para></entry>
-                        <entry><para>The number of pixels per <term>Exif.ResolutionUnit</term> in the <term>Exif.ImageWidth</term> direction. When the image resolution is unknown, 72 [dpi] is designated.</para></entry>
+                        <entry><para>The number of pixels per <literal>Exif.ResolutionUnit</literal> in the <literal>Exif.ImageWidth</literal> direction. When the image resolution is unknown, 72 [dpi] is designated.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.YCbCrCoefficients</para></entry>
@@ -2105,7 +2105,7 @@
                     <row valign="top">
                         <entry><para>Exif.YCbCrPositioning</para></entry>
                         <entry><para>YCbCr Positioning</para></entry>
-                        <entry><para>The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <term>Exif.YCbCrPositioning</term>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning.</para></entry>
+                        <entry><para>The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <literal>Exif.YCbCrPositioning</literal>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.YCbCrSubSampling</para></entry>
@@ -2115,7 +2115,7 @@
                     <row valign="top">
                         <entry><para>Exif.YResolution</para></entry>
                         <entry><para>y Resolution</para></entry>
-                        <entry><para>The number of pixels per <term>Exif.ResolutionUnit</term> in the <term>Exif.ImageLength</term> direction. The same value as <term>Exif.XResolution</term> is designated.</para></entry>
+                        <entry><para>The number of pixels per <literal>Exif.ResolutionUnit</literal> in the <literal>Exif.ImageLength</literal> direction. The same value as <literal>Exif.XResolution</literal> is designated.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>File.Accessed</para></entry>
