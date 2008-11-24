@@ -47,7 +47,7 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
 {
     g_return_if_fail (GNOME_CMD_IS_PATTERNSEL_DIALOG (dialog));
 
-    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+    GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
 
     const gchar *s = gtk_entry_get_text (GTK_ENTRY (dialog->priv->pattern_entry));
     gboolean case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
@@ -57,7 +57,7 @@ static void on_ok (GtkButton *button, GnomeCmdPatternselDialog *dialog)
     else
         dialog->priv->fl->unselect_pattern(s, case_sens);
 
-    defaults->name_patterns = string_history_add (defaults->name_patterns, s, PATTERN_HISTORY_SIZE);
+    defaults.name_patterns.add(s);
 
     gtk_widget_hide (GTK_WIDGET (dialog));
 }
@@ -115,7 +115,7 @@ static void init (GnomeCmdPatternselDialog *dialog)
 GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 {
     GtkWidget *hbox, *vbox, *label;
-    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+    GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
     GnomeCmdPatternselDialog *dialog = (GnomeCmdPatternselDialog *) gtk_type_new (gnome_cmd_patternsel_dialog_get_type ());
     dialog->priv->mode = mode;
     dialog->priv->fl = fl;
@@ -131,8 +131,8 @@ GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 
     dialog->priv->pattern_combo = create_combo (GTK_WIDGET (dialog));
     gtk_combo_disable_activate (GTK_COMBO (dialog->priv->pattern_combo));
-    if (defaults->name_patterns)
-        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo), defaults->name_patterns);
+    if (!defaults.name_patterns.empty())
+        gtk_combo_set_popdown_strings (GTK_COMBO (dialog->priv->pattern_combo), defaults.name_patterns.ents);
     dialog->priv->pattern_entry = GTK_COMBO (dialog->priv->pattern_combo)->entry;
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (dialog->priv->pattern_entry));
     gtk_entry_select_region (GTK_ENTRY (dialog->priv->pattern_entry), 0, -1);

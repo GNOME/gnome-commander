@@ -65,7 +65,6 @@ struct GnomeCmdData::Private
     gboolean             honor_expect_uris;
     gboolean             use_internal_viewer;
     gboolean             skip_mounting;
-    SearchDefaults       *search_defaults;
     gchar                *start_dirs[2];
     gchar                *last_pattern;
     GList                *auto_load_plugins;
@@ -810,15 +809,15 @@ inline void GnomeCmdData::save_cmdline_history()
 
 inline void GnomeCmdData::save_search_defaults()
 {
-    gnome_cmd_data_set_int ("/search-history/width", priv->search_defaults->width);
-    gnome_cmd_data_set_int ("/search-history/height", priv->search_defaults->height);
+    gnome_cmd_data_set_int ("/search-history/width", search_defaults.width);
+    gnome_cmd_data_set_int ("/search-history/height", search_defaults.height);
 
-    gnome_cmd_data_set_string_history ("/search-history/name_pattern%d", priv->search_defaults->name_patterns);
-    gnome_cmd_data_set_string_history ("/search-history/content_pattern%d", priv->search_defaults->content_patterns);
-    gnome_cmd_data_set_string_history ("/search-history/directory%d", priv->search_defaults->directories);
+    gnome_cmd_data_set_string_history ("/search-history/name_pattern%d", search_defaults.name_patterns.ents);
+    gnome_cmd_data_set_string_history ("/search-history/content_pattern%d", search_defaults.content_patterns.ents);
+    gnome_cmd_data_set_string_history ("/search-history/directory%d", search_defaults.directories.ents);
 
-    gnome_cmd_data_set_bool ("/search-history/recursive", priv->search_defaults->recursive);
-    gnome_cmd_data_set_bool ("/search-history/case_sens", priv->search_defaults->case_sens);
+    gnome_cmd_data_set_bool ("/search-history/recursive", search_defaults.recursive);
+    gnome_cmd_data_set_bool ("/search-history/case_sens", search_defaults.case_sens);
 }
 
 
@@ -957,16 +956,22 @@ inline void GnomeCmdData::load_cmdline_history()
 
 inline void GnomeCmdData::load_search_defaults()
 {
-    priv->search_defaults = g_new0 (SearchDefaults, 1);
+    GList *list = NULL;
 
-    priv->search_defaults->width = gnome_cmd_data_get_int ("/search-history/width", 450);
-    priv->search_defaults->height = gnome_cmd_data_get_int ("/search-history/height", 400);
+    list = load_string_history ("/search-history/name_pattern%d", -1);
+    search_defaults.name_patterns.ents = list;
+    search_defaults.name_patterns.pos = list;
+    list = load_string_history ("/search-history/directory%d", -1);
+    search_defaults.directories.ents = list;
+    search_defaults.directories.pos = list;
+    list = load_string_history ("/search-history/content_pattern%d", -1);
+    search_defaults.content_patterns.ents = list;
+    search_defaults.content_patterns.pos = list;
 
-    priv->search_defaults->name_patterns = load_string_history ("/search-history/name_pattern%d", -1);
-    priv->search_defaults->content_patterns = load_string_history ("/search-history/content_pattern%d", -1);
-    priv->search_defaults->directories = load_string_history ("/search-history/directory%d", -1);
-    priv->search_defaults->recursive = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE);
-    priv->search_defaults->case_sens = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
+    search_defaults.width = gnome_cmd_data_get_int ("/search-history/width", 640);
+    search_defaults.height = gnome_cmd_data_get_int ("/search-history/height", 400);
+    search_defaults.recursive = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE);
+    search_defaults.case_sens = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
 }
 
 
@@ -1980,12 +1985,6 @@ gboolean gnome_cmd_data_get_use_ls_colors ()
 void gnome_cmd_data_set_use_ls_colors (gboolean value)
 {
     gnome_cmd_data.priv->use_ls_colors = value;
-}
-
-
-GnomeCmdData::SearchDefaults *gnome_cmd_data_get_search_defaults ()
-{
-    return gnome_cmd_data.priv->search_defaults;
 }
 
 

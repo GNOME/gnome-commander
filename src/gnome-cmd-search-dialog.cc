@@ -495,9 +495,8 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
 
 static void on_dialog_size_allocate (GtkWidget *widget, GtkAllocation *allocation, GnomeCmdSearchDialog *dialog)
 {
-    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
-    defaults->width  = allocation->width;
-    defaults->height = allocation->height;
+    gnome_cmd_data.search_defaults.width = allocation->width;
+    gnome_cmd_data.search_defaults.height = allocation->height;
 }
 
 
@@ -526,14 +525,12 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
     // Save default settings
-    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
-
-    defaults->case_sens = data->case_sens;
-    defaults->recursive = data->recurse;
-    defaults->name_patterns = string_history_add (defaults->name_patterns, data->name_pattern, PATTERN_HISTORY_SIZE);
-    defaults->directories = string_history_add (defaults->directories, data->dir, PATTERN_HISTORY_SIZE);
+    gnome_cmd_data.search_defaults.case_sens = data->case_sens;
+    gnome_cmd_data.search_defaults.recursive = data->recurse;
+    gnome_cmd_data.search_defaults.name_patterns.add(data->name_pattern);
+    gnome_cmd_data.search_defaults.directories.add(data->dir);
     if (data->content_search)
-        defaults->content_patterns = string_history_add (defaults->content_patterns, data->content_pattern, PATTERN_HISTORY_SIZE);
+        gnome_cmd_data.search_defaults.content_patterns.add(data->content_pattern);
 
     dialog->priv->result_list->remove_all_files();
 
@@ -803,7 +800,7 @@ static void combo_box_insert_text (gpointer  data, gpointer  user_data)
 
 static void init (GnomeCmdSearchDialog *dialog)
 {
-    GnomeCmdData::SearchDefaults *defaults = gnome_cmd_data_get_search_defaults ();
+    GnomeCmdData::SearchConfig &defaults = gnome_cmd_data.search_defaults;
 
     GtkWidget *window;
     GtkWidget *vbox;
@@ -821,7 +818,7 @@ static void init (GnomeCmdSearchDialog *dialog)
     gtk_object_set_data (GTK_OBJECT (window), "window", window);
     gtk_window_set_title (GTK_WINDOW (window), _("Search..."));
     gnome_cmd_dialog_set_resizable (GNOME_CMD_DIALOG (dialog), TRUE);
-    gtk_window_set_default_size (GTK_WINDOW (window), defaults->width, defaults->height);
+    gtk_window_set_default_size (GTK_WINDOW (window), defaults.width, defaults.height);
 
     vbox = create_vbox (window, FALSE, 0);
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), vbox);
@@ -837,8 +834,8 @@ static void init (GnomeCmdSearchDialog *dialog)
     table_add (table, label, 0, 0, GTK_FILL);
 
     table_add (table, dialog->priv->pattern_combo, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    if (defaults->name_patterns)
-        g_list_foreach (defaults->name_patterns, combo_box_insert_text, dialog->priv->pattern_combo);
+    if (!defaults.name_patterns.empty())
+        g_list_foreach (defaults.name_patterns.ents, combo_box_insert_text, dialog->priv->pattern_combo);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->pattern_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->pattern_combo))));
@@ -849,10 +846,10 @@ static void init (GnomeCmdSearchDialog *dialog)
     table_add (table, label, 0, 1, GTK_FILL);
 
     table_add (table, dialog->priv->dir_browser, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
-    if (defaults->directories)
+    if (!defaults.directories.empty())
         gtk_combo_set_popdown_strings (
             GTK_COMBO (gnome_file_entry_gnome_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser))),
-            defaults->directories);
+            defaults.directories.ents);
 
     dialog->priv->dir_entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (dialog->priv->dir_browser));
 
@@ -861,7 +858,7 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     // Recurse check
     dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults->recursive);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.recursive);
     gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
 
@@ -885,8 +882,8 @@ static void init (GnomeCmdSearchDialog *dialog)
     dialog->priv->find_text_combo = create_combo_box_entry (window);
     table_add (table, dialog->priv->find_text_combo, 1, 3, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     gtk_widget_set_sensitive (dialog->priv->find_text_combo, FALSE);
-    if (defaults->content_patterns)
-        g_list_foreach (defaults->content_patterns, combo_box_insert_text, dialog->priv->find_text_combo);
+    if (!defaults.content_patterns.empty())
+        g_list_foreach (defaults.content_patterns.ents, combo_box_insert_text, dialog->priv->find_text_combo);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->find_text_combo), 0);
     gnome_cmd_dialog_editable_enters (GNOME_CMD_DIALOG (dialog), GTK_EDITABLE (gtk_bin_get_child (GTK_BIN (dialog->priv->find_text_combo))));
@@ -896,7 +893,7 @@ static void init (GnomeCmdSearchDialog *dialog)
     gtk_table_attach (GTK_TABLE (table), dialog->priv->case_check, 1, 2, 4, 5,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check), defaults->case_sens);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check), defaults.case_sens);
 
     dialog->priv->help_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
     dialog->priv->close_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close), dialog);

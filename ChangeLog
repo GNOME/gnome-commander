@@ -1,3 +1,11 @@
+2008-11-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-patternsel-dialog.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	Do not allocate dynamically SearchConfig in GnomeCmdData
+
 2008-11-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

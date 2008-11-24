@@ -38,14 +38,22 @@ struct GnomeCmdData
         RIGHT_BUTTON_SELECTS
     };
 
-    struct SearchDefaults
+    enum {PATTERN_HISTORY_SIZE=10};
+
+    struct SearchConfig
     {
-        GList *name_patterns;
-        GList *content_patterns;
-        GList *directories;
+        History name_patterns;
+        History directories;
+        History content_patterns;
         gboolean recursive;
         gboolean case_sens;
         gint width, height;
+
+        SearchConfig(): name_patterns(PATTERN_HISTORY_SIZE),
+                        directories(PATTERN_HISTORY_SIZE),
+                        content_patterns(PATTERN_HISTORY_SIZE),
+                        recursive(TRUE), case_sens(FALSE),
+                        width(600), height(400)                 {}
     };
 
     struct AdvrenameConfig
@@ -107,6 +115,7 @@ struct GnomeCmdData
     Filter::Type                 filter_type;
     FilterSettings               filter_settings;
 
+    SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;
 
     gboolean                     case_sens_sort;
@@ -149,8 +158,6 @@ struct GnomeCmdData
     gboolean hide_type(GnomeVFSFileType type)     {  return filter_settings.file_types[type];  }
     GnomeCmdConFtp *get_quick_connect()           {  return quick_connect;                     }
 };
-
-#define PATTERN_HISTORY_SIZE 10
 
 gpointer gnome_cmd_data_get_con_list ();
 
@@ -211,8 +218,6 @@ void gnome_cmd_data_set_dir_cache_size (gint size);
 
 gboolean gnome_cmd_data_get_use_ls_colors ();
 void gnome_cmd_data_set_use_ls_colors (gboolean value);
-
-GnomeCmdData::SearchDefaults *gnome_cmd_data_get_search_defaults ();
 
 GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks ();
 GList *gnome_cmd_data_get_bookmark_groups ();
