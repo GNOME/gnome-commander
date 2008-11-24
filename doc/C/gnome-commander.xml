@@ -657,26 +657,32 @@
     <!-- ================ Drag-and-Drop Subsection ======================= -->
     <sect2 id="gnome-commander-dnd">
         <title>Drag-and-Drop</title>
+        <para></para>
     </sect2>
     <!-- ================ Copying Files Subsection ======================= -->
     <sect2 id="gnome-commander-copy">
         <title>Copying a File or Folder</title>
+        <para></para>
     </sect2>
     <!-- ================ Moving Files Subsection ======================= -->
     <sect2 id="gnome-commander-move">
         <title>Moving a File or Folder</title>
+        <para></para>
     </sect2>
     <!-- ================ Renaming Files Subsection ======================= -->
     <sect2 id="gnome-commander-rename">
         <title>Renaming a File or Folder</title>
+        <para></para>
     </sect2>
     <!-- ================ Deleting Files Subsection ======================= -->
     <sect2 id="gnome-commander-delete">
         <title>Deleting a File or Folder</title>
+        <para></para>
     </sect2>
     <!-- ================ Creating Folders Subsection ======================= -->
     <sect2 id="gnome-commander-create-folder">
         <title>Creating a Folder</title>
+        <para></para>
     </sect2>
     <!-- ================ File Searching Subsection ======================= -->
     <sect2 id="gnome-commander-search">
@@ -797,7 +803,7 @@
                 <para>The type of object, file or folder.</para>
               </entry>
             </row>
-,            <row>
+            <row>
               <entry valign="top">
                 <para>MIME Type</para>
               </entry>
@@ -878,6 +884,7 @@
     <!-- ================ Bookmarks Subsection ======================= -->
     <sect2 id="gnome-commander-bookmarks">
         <title>Using Bookmarks</title>
+        <para></para>
     </sect2>
     <!-- ================ Hidden Files Subsection ======================= -->
     <sect2 id="gnome-commander-hidden-files">
@@ -1080,13 +1087,13 @@
         from the file menu of one of these applications.</para>
 
         <para>For all metadata, each metadata tag (metatag) needs to be namespaced with its class type using a "." qualifier
-        (e.g. <term>Audio.Artist</term> represents the metadata Artist for an audio class file).</para>
+        (e.g. <literal>Audio.Artist</literal> represents the metadata Artist for an audio class file).</para>
 
-        <para>The placeholder for metadata is <term>$T(metatag)</term>. Use, for example,
-        <term>$T(Exif.DateTime)</term> to get image capture date/time and to insert it to new
+        <para>The placeholder for metadata is <literal>$T(metatag)</literal>. Use, for example,
+        <literal>$T(Exif.DateTime)</literal> to get image capture date/time and to insert it to new
         filename (metatags names are case insensitive, so we could use also
-        <term>$T(exif.datetime)</term> here). The generic <term>'Audio.'</term>,
-        <term>'Doc.'</term>, <term>'File.'</term> and <term>'Image.'</term>  metatags are independent
+        <literal>$T(exif.datetime)</literal> here). The generic <literal>'Audio.'</literal>,
+        <literal>'Doc.'</literal>, <literal>'File.'</literal> and <literal>'Image.'</literal>  metatags are independent
         of the used framework and they provide unified access to respectively audio, doc, file or image metadata.
         Please refer to
         <ulink url="http://freedesktop.org/wiki/Specifications/shared-filemetadata-spec" type="http">freedesktop.org</ulink>
@@ -3245,22 +3252,20 @@
 
         <para>A range (start_index:end_index) starts at the start_index and finishes one character before the end_index.</para>
 
-        <variablelist>
-        <term>
-            <guilabel>Range syntax</guilabel>
-            <itemizedlist>
-                <listitem>
-                    <para><guilabel>(start_index:end_index)</guilabel></para>
-                </listitem>
-                <listitem>
-                    <para><guilabel>(start_index)</guilabel> &#x2261; (start_index:)</para>
-                </listitem>
-                <listitem>
-                    <para><guilabel>(start_index,length)</guilabel> &#x2261; (start_index:start_index+length)</para>
-                </listitem>
-            </itemizedlist>
-        </term>
-        </variablelist>
+        <para>
+        <guilabel>Range syntax</guilabel>
+        <itemizedlist>
+            <listitem>
+                <para><guilabel>(start_index:end_index)</guilabel></para>
+            </listitem>
+            <listitem>
+                <para><guilabel>(start_index)</guilabel> &#x2261; (start_index:)</para>
+            </listitem>
+            <listitem>
+                <para><guilabel>(start_index,length)</guilabel> &#x2261; (start_index:start_index+length)</para>
+            </listitem>
+        </itemizedlist>
+        </para>
 
         <para>
         If one of the indices is dropped, it is assumed that you want everything in that direction.
@@ -4432,7 +4437,7 @@
     <sect2 id="gnome-commander-user-actions-managing">
         <title>Managing user actions</title>
         <para>Key bindings reside in [key-bindings] section of &app; config file
-              (<term><guilabel>~/.gnome2/gnome-commander</guilabel></term>).</para>
+              (<guilabel>~/.gnome2/gnome-commander</guilabel>).</para>
         <para>Config file syntax:</para>
         <para>
             <command>[&lt;shift&gt;][&lt;control&gt;][&lt;alt&gt;][&lt;super&gt;][&lt;hyper&gt;][&lt;meta&gt;]key_name=action[|options]</command>
