@@ -1,3 +1,8 @@
+2008-11-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	Do not enable column searching for regex view
+
 2008-11-23  Alan Pae  <alanpae@ilkda.com>
 
 	* po/Makefile.in.in:

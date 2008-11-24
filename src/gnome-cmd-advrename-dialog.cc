@@ -1257,6 +1257,7 @@ inline GtkWidget *create_regex_view ()
     g_object_set (view,
                   "rules-hint", TRUE,
                   "reorderable", TRUE,
+                  "enable-search", FALSE,
                   NULL);
 
     GtkCellRenderer *renderer = NULL;
