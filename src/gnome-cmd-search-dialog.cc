@@ -23,11 +23,11 @@
 #include <regex.h>
 
 #include "gnome-cmd-includes.h"
+#include "gnome-cmd-data.h"
 #include "gnome-cmd-search-dialog.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-file-selector.h"
-#include "gnome-cmd-data.h"
 #include "gnome-cmd-main-win.h"
 #include "filter.h"
 #include "utils.h"

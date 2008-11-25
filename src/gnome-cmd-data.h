@@ -38,7 +38,7 @@ struct GnomeCmdData
         RIGHT_BUTTON_SELECTS
     };
 
-    enum {PATTERN_HISTORY_SIZE=10};
+    enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10, INTVIEWER_HISTORY_SIZE=16};
 
     struct SearchConfig
     {
@@ -49,9 +49,9 @@ struct GnomeCmdData
         gboolean case_sens;
         gint width, height;
 
-        SearchConfig(): name_patterns(PATTERN_HISTORY_SIZE),
-                        directories(PATTERN_HISTORY_SIZE),
-                        content_patterns(PATTERN_HISTORY_SIZE),
+        SearchConfig(): name_patterns(SEARCH_HISTORY_SIZE),
+                        directories(SEARCH_HISTORY_SIZE),
+                        content_patterns(SEARCH_HISTORY_SIZE),
                         recursive(TRUE), case_sens(FALSE),
                         width(600), height(400)                 {}
     };
@@ -66,7 +66,7 @@ struct GnomeCmdData
         guint counter_precision;
         gint width, height;
 
-        AdvrenameConfig(): templates(10), regexes(NULL),
+        AdvrenameConfig(): templates(ADVRENAME_HISTORY_SIZE), regexes(NULL),
                            counter_start(1), counter_increment(1), counter_precision(1),          //  defaults for
                            width(600), height(400)                                            {}  //  advrename settings
         ~AdvrenameConfig()                         {  if (regexes)  g_object_unref (regexes);  }

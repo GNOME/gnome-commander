@@ -403,7 +403,7 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(int 
 
         case METATAG_MENU:
             {
-                GtkItemFactoryEntry *items = g_try_new0(GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
+                GtkItemFactoryEntry *items = g_try_new0 (GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
 
                 g_return_val_if_fail (items != NULL, NULL);
 

@@ -185,7 +185,7 @@ static void set_hex_mode (GViewerSearchDlg *sdlg)
 
     gtk_widget_set_sensitive(sdlg->priv->case_sensitive_checkbox, FALSE);
 
-    // Check if the text in the Entry-Box is valud hex, otherwise disable the "Find" button
+    // Check if the text in the GtkEntryBox has hex value, otherwise disable the "Find" button
     GtkEntry *w = GTK_ENTRY (gtk_bin_get_child (GTK_BIN (sdlg->priv->entry)));
     entry_changed (w, (gpointer) sdlg);
 }
@@ -288,7 +288,7 @@ void entry_changed (GtkEntry *entry, gpointer  user_data)
     {
         // Only if the use entered a valid hex string, enable the "find" button
         guint len;
-        guint8 *buf = text2hex(gtk_entry_get_text(entry), &len);
+        guint8 *buf = text2hex (gtk_entry_get_text (entry), &len);
 
         enable = (buf!=NULL) && (len>0);
         g_free (buf);
@@ -296,9 +296,9 @@ void entry_changed (GtkEntry *entry, gpointer  user_data)
     else
     {
         // SEARCH_MODE_TEXT
-        enable = (strlen(gtk_entry_get_text(entry))>0);
+        enable = strlen (gtk_entry_get_text (entry))>0;
     }
-    gtk_dialog_set_response_sensitive(GTK_DIALOG(user_data), GTK_RESPONSE_OK, enable);
+    gtk_dialog_set_response_sensitive (GTK_DIALOG (user_data), GTK_RESPONSE_OK, enable);
 }
 
 
@@ -330,7 +330,7 @@ static void search_dlg_init (GViewerSearchDlg *sdlg)
 
     // Label
     sdlg->priv->label = gtk_label_new(NULL);
-    gtk_label_set_markup_with_mnemonic(GTK_LABEL(sdlg->priv->label), "_Search for:");
+    gtk_label_set_markup_with_mnemonic (GTK_LABEL (sdlg->priv->label), "_Search for:");
     gtk_table_attach(table, sdlg->priv->label, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 
     // Entry Box
@@ -433,7 +433,7 @@ GType gviewer_search_dlg_get_type ()
         (GInstanceInitFunc) search_dlg_init,
       };
 
-      ttt_type = g_type_register_static (GTK_TYPE_DIALOG,  "GViewerSearchDlg",  &ttt_info, (GTypeFlags) 0);
+      ttt_type = g_type_register_static (GTK_TYPE_DIALOG, "GViewerSearchDlg", &ttt_info, (GTypeFlags) 0);
     }
 
   return ttt_type;
