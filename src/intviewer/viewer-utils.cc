@@ -64,58 +64,6 @@ gboolean gviewer_get_bool (const gchar *path, gboolean def)
 }
 
 
-void gviewer_free_string_history (GList *strings)
-{
-    for (GList *temp = strings; temp; temp = temp->next)
-        if (temp->data!=NULL)
-        {
-            g_free (temp->data);
-            temp->data = NULL;
-        }
-    g_list_free(strings);
-}
-
-
-void gviewer_write_string_history (gchar *format, GList *strings)
-{
-    gchar key[128];
-
-    for (gint i=0; strings; strings = strings->next, ++i)
-    {
-        snprintf (key, sizeof (key), format, i);
-        gnome_config_set_string(key, (gchar *) strings->data);
-    }
-}
-
-
-gboolean gviewer_find_string_history (GList *strings, const gchar *text)
-{
-    for (; strings; strings = strings->next)
-        if (strings->data!=NULL)
-            if (strcmp((gchar *) strings->data, text)==0)
-                return TRUE;
-    return FALSE;
-}
-
-
-GList *gviewer_load_string_history (gchar *format, gint size)
-{
-    GList *list = NULL;
-
-    for (gint i=0; i < size || size == -1; ++i)
-    {
-        gchar *key = g_strdup_printf (format, i);
-        gchar *value = gviewer_get_string (key, NULL);
-        g_free (key);
-        if (!value)
-            break;
-        list = g_list_append (list, value);
-    }
-
-    return list;
-}
-
-
 int unicode2utf8 (unsigned int unicode, unsigned char *out)
 {
     int bytes_needed = 0;
@@ -225,7 +173,7 @@ guint8 *text2hex (const gchar *text, /*out*/ guint *buflen)
             {
                 idx++;
                 len++;
-            } 
+            }
             else
                 return NULL;
 

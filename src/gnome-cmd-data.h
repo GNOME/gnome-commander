@@ -72,6 +72,18 @@ struct GnomeCmdData
         ~AdvrenameConfig()                         {  if (regexes)  g_object_unref (regexes);  }
     };
 
+    struct IntViewerConfig
+    {
+        History text_patterns;
+        History hex_patterns;
+        gboolean case_sensitive;
+        guint search_mode;
+
+        IntViewerConfig(): text_patterns(INTVIEWER_HISTORY_SIZE),
+                           hex_patterns(INTVIEWER_HISTORY_SIZE),
+                           case_sensitive(FALSE), search_mode(0)    {}
+    };
+
     struct FilterSettings
     {
         gboolean file_types[8];
@@ -95,12 +107,14 @@ struct GnomeCmdData
     void load_local_bookmarks();
     void load_rename_history();
     void load_search_defaults();
+    void load_intviewer_defaults();
     void load_smb_bookmarks();
     void save_auto_load_plugins();
     void save_cmdline_history();
     void save_local_bookmarks();
     void save_rename_history();
     void save_search_defaults();
+    void save_intviewer_defaults();
     void save_smb_bookmarks();
 
   public:
@@ -117,6 +131,7 @@ struct GnomeCmdData
 
     SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;
+    IntViewerConfig              intviewer_defaults;
 
     gboolean                     case_sens_sort;
     GnomeCmdExtDispMode          ext_disp_mode;

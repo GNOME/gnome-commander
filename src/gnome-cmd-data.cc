@@ -821,6 +821,15 @@ inline void GnomeCmdData::save_search_defaults()
 }
 
 
+inline void GnomeCmdData::save_intviewer_defaults()
+{
+    gnome_cmd_data_set_string_history ("/internal_viewer/text_pattern%d", intviewer_defaults.text_patterns.ents);
+    gnome_cmd_data_set_string_history ("/internal_viewer/hex_pattern%d", intviewer_defaults.hex_patterns.ents);
+    gnome_cmd_data_set_bool ("/internal_viewer/case_sens", intviewer_defaults.case_sensitive);
+    gnome_cmd_data_set_int ("/internal_viewer/last_mode", intviewer_defaults.search_mode);
+}
+
+
 inline void GnomeCmdData::save_rename_history()
 {
     GList *from = NULL;
@@ -972,6 +981,22 @@ inline void GnomeCmdData::load_search_defaults()
     search_defaults.height = gnome_cmd_data_get_int ("/search-history/height", 400);
     search_defaults.recursive = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE);
     search_defaults.case_sens = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
+}
+
+
+inline void GnomeCmdData::load_intviewer_defaults()
+{
+    GList *list = NULL;
+
+    list = load_string_history ("/internal_viewer/text_pattern%d", -1);
+    intviewer_defaults.text_patterns.ents = list;
+    intviewer_defaults.text_patterns.pos = list;
+    list = load_string_history ("/internal_viewer/hex_pattern%d", -1);
+    intviewer_defaults.hex_patterns.ents = list;
+    intviewer_defaults.hex_patterns.pos = list;
+
+    intviewer_defaults.case_sensitive = gnome_cmd_data_get_bool ("/internal_viewer/case_sens", FALSE);
+    intviewer_defaults.search_mode = gnome_cmd_data_get_int ("/internal_viewer/last_mode", 0);
 }
 
 
@@ -1374,6 +1399,7 @@ void GnomeCmdData::load()
     //load_dir_history ();
     load_search_defaults();
     load_rename_history();
+    load_intviewer_defaults();
     load_auto_load_plugins();
 
     set_vfs_volume_monitor ();
@@ -1727,6 +1753,7 @@ void GnomeCmdData::save()
     save_fav_apps ("fav-apps");
     save_search_defaults();
     save_rename_history();
+    save_intviewer_defaults();
     save_local_bookmarks();
     save_smb_bookmarks();
     save_auto_load_plugins();

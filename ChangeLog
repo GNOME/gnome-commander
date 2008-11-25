@@ -6,6 +6,14 @@
 	* src/gnome-cmd-search-dialog.cc:
 	Do not allocate dynamically SearchConfig in GnomeCmdData
 
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-search-dialog.cc:
+	* src/intviewer/search-dlg.cc:
+	* src/intviewer/viewer-utils.cc:
+	* src/intviewer/viewer-utils.h:
+	Find file dlg: copy searched text phrase into intviewer text search dlg (F3-F3)
+
 2008-11-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

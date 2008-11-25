@@ -530,7 +530,10 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     gnome_cmd_data.search_defaults.name_patterns.add(data->name_pattern);
     gnome_cmd_data.search_defaults.directories.add(data->dir);
     if (data->content_search)
+    {
         gnome_cmd_data.search_defaults.content_patterns.add(data->content_pattern);
+        gnome_cmd_data.intviewer_defaults.text_patterns.add(data->content_pattern);
+    }
 
     dialog->priv->result_list->remove_all_files();
 
