@@ -38,17 +38,13 @@ using namespace std;
 #define GNOME_CMD_IS_KEY_SHORTCUTS_DIALOG(obj)       (G_TYPE_INSTANCE_CHECK_TYPE ((obj), GNOME_CMD_TYPE_KEY_SHORTCUTS_DIALOG)
 
 
-typedef struct _GnomeCmdKeyShortcutsDialog GnomeCmdKeyShortcutsDialog;
-typedef struct _GnomeCmdKeyShortcutsDialogClass GnomeCmdKeyShortcutsDialogClass;
-
-
 struct GnomeCmdKeyShortcutsDialogPrivate
 {
     GnomeCmdKeyShortcutsDialogPrivate();
 };
 
 
-struct _GnomeCmdKeyShortcutsDialog
+struct GnomeCmdKeyShortcutsDialog
 {
     GtkDialog parent;
 
@@ -58,7 +54,7 @@ struct _GnomeCmdKeyShortcutsDialog
 };
 
 
-struct _GnomeCmdKeyShortcutsDialogClass
+struct GnomeCmdKeyShortcutsDialogClass
 {
     GtkDialogClass parent_class;
 };
@@ -69,7 +65,7 @@ inline GnomeCmdKeyShortcutsDialogPrivate::GnomeCmdKeyShortcutsDialogPrivate()
 }
 
 
-GnomeCmdUserActions *_GnomeCmdKeyShortcutsDialog::user_actions = NULL;
+GnomeCmdUserActions *GnomeCmdKeyShortcutsDialog::user_actions = NULL;
 
 
 G_DEFINE_TYPE (GnomeCmdKeyShortcutsDialog, gnome_cmd_key_shortcuts_dialog, GTK_TYPE_DIALOG)

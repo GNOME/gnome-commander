@@ -405,7 +405,7 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(int 
             {
                 GtkItemFactoryEntry *items = g_try_new0 (GtkItemFactoryEntry, G_N_ELEMENTS(metatags));
 
-                g_return_val_if_fail (items != NULL, NULL);
+                g_return_val_if_fail (items!=NULL, NULL);
 
                 for (guint i=0; i<G_N_ELEMENTS(metatags); ++i)
                 {

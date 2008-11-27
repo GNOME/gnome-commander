@@ -637,7 +637,7 @@ static void init (GnomeCmdMainMenu *main_menu)
             NULL
         },
         {
-            MENU_TYPE_TOGGLEITEM, _("Show Commandline"), "", NULL,
+            MENU_TYPE_TOGGLEITEM, _("Show Command Line"), "", NULL,
             (gpointer) view_cmdline, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
             NULL
