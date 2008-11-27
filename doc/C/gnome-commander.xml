@@ -5463,13 +5463,6 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
-                                    <entry><para>rename-history-size</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
                                     <entry><para>right_mouse_button_mode</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
@@ -5804,41 +5797,6 @@
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
-                                    <entry><para>[advrename]</para></entry>
-                                    <entry><para>height</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para><xref linkend="gnome-commander-advanced-rename"/></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>width</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>counter_start</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>counter_precision</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>counter_increment</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
                                     <entry><para>[local_bookmarks]</para></entry>
                                     <entry><para>count</para></entry>
                                     <entry><para></para></entry>
@@ -5876,55 +5834,6 @@
                                 <row valign="top">
                                     <entry><para></para></entry>
                                     <entry><para>count</para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para>[template-history]</para></entry>
-                                    <entry><para>size</para></entry>
-                                    <entry><para>integer</para></entry>
-                                    <entry><para>Number of template<emphasis><subscript>n</subscript></emphasis> entries</para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>template<emphasis><subscript>n</subscript></emphasis></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para>[rename-history]</para></entry>
-                                    <entry><para>size</para></entry>
-                                    <entry><para>integer</para></entry>
-                                    <entry><para>Number of from/to/csens<emphasis><subscript>n</subscript></emphasis> entries</para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>from<emphasis><subscript>n</subscript></emphasis></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>to<emphasis><subscript>n</subscript></emphasis></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para></para></entry>
-                                    <entry><para>csens<emphasis><subscript>n</subscript></emphasis></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                    <entry><para></para></entry>
-                                </row>
-                                <row valign="top">
-                                    <entry><para>[cmdline-history]</para></entry>
-                                    <entry><para>line<emphasis><subscript>n</subscript></emphasis></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>

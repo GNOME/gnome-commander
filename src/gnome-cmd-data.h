@@ -21,6 +21,9 @@
 #ifndef __GNOME_CMD_DATA_H__
 #define __GNOME_CMD_DATA_H__
 
+#include <vector>
+#include <string>
+
 #include "gnome-cmd-app.h"
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-file-list.h"
@@ -58,18 +61,48 @@ struct GnomeCmdData
 
     struct AdvrenameConfig
     {
+        struct Profile
+        {
+            struct Regex
+            {
+                std::string pattern;
+                std::string replace;
+                gboolean match_case;
+
+                Regex(): match_case(FALSE)   {}
+                Regex(const gchar *from, const gchar *to, gboolean _match_case): pattern(from),
+                                                                                replace(to),
+                                                                                match_case(_match_case)  {}
+            };
+
+            std::string name;
+            std::string template_string;
+            guint counter_start;
+            guint counter_width;
+            gint counter_step;
+
+            std::vector<Regex> regexes;
+
+            guint case_conversion;
+            guint trim_blanks;
+
+            void reset();
+
+            Profile(): counter_start(1), counter_width(1), counter_step(1),
+                      case_conversion(0), trim_blanks(3)                      {}
+        };
+
+        gint width, height;
+
+        Profile default_profile;
+        std::vector<Profile> profiles;
+
         History templates;
         GtkTreeModel *regexes;
 
-        guint counter_start;
-        gint counter_increment;
-        guint counter_precision;
-        gint width, height;
-
-        AdvrenameConfig(): templates(ADVRENAME_HISTORY_SIZE), regexes(NULL),
-                           counter_start(1), counter_increment(1), counter_precision(1),          //  defaults for
-                           width(600), height(400)                                            {}  //  advrename settings
-        ~AdvrenameConfig()                         {  if (regexes)  g_object_unref (regexes);  }
+        AdvrenameConfig(): width(600), height(400),
+                           templates(ADVRENAME_HISTORY_SIZE), regexes(NULL)    {}
+        ~AdvrenameConfig()          {  if (regexes)  g_object_unref (regexes);  }
     };
 
     struct IntViewerConfig
@@ -112,7 +145,6 @@ struct GnomeCmdData
     void save_auto_load_plugins();
     void save_cmdline_history();
     void save_local_bookmarks();
-    void save_rename_history();
     void save_search_defaults();
     void save_intviewer_defaults();
     void save_smb_bookmarks();

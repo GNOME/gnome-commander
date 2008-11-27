@@ -561,7 +561,7 @@ void GnomeCmdAdvrenameDialog::Private::on_template_entry_changed(GtkEntry *entry
 
 void GnomeCmdAdvrenameDialog::Private::on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameDialog *dialog)
 {
-    dialog->defaults.counter_start = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
+    dialog->defaults.default_profile.counter_start = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
     if (dialog->priv->template_has_counters)
         dialog->update_new_filenames();
 }
@@ -569,7 +569,7 @@ void GnomeCmdAdvrenameDialog::Private::on_counter_start_spin_value_changed (GtkW
 
 void GnomeCmdAdvrenameDialog::Private::on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameDialog *dialog)
 {
-    dialog->defaults.counter_increment = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
+    dialog->defaults.default_profile.counter_step = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
     if (dialog->priv->template_has_counters)
         dialog->update_new_filenames();
 }
@@ -577,7 +577,7 @@ void GnomeCmdAdvrenameDialog::Private::on_counter_step_spin_value_changed (GtkWi
 
 void GnomeCmdAdvrenameDialog::Private::on_counter_digits_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameDialog *dialog)
 {
-    dialog->defaults.counter_precision = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
+    dialog->defaults.default_profile.counter_width = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
     if (dialog->priv->template_has_counters)
         dialog->update_new_filenames();
 }
@@ -699,7 +699,9 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_view_row_activated (GtkTreeView 
 
 void GnomeCmdAdvrenameDialog::Private::on_case_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameDialog *dialog)
 {
-    switch (gtk_combo_box_get_active (combo))
+    gint item = gtk_combo_box_get_active (combo);
+
+    switch (item)
     {
         case 0: dialog->priv->convert_case = gcmd_convert_unchanged; break;
         case 1: dialog->priv->convert_case = gcmd_convert_lowercase; break;
@@ -712,13 +714,16 @@ void GnomeCmdAdvrenameDialog::Private::on_case_combo_changed (GtkComboBox *combo
             return;
     }
 
+    dialog->defaults.default_profile.case_conversion = item;
     dialog->update_new_filenames();
 }
 
 
 void GnomeCmdAdvrenameDialog::Private::on_trim_combo_changed (GtkComboBox *combo, GnomeCmdAdvrenameDialog *dialog)
 {
-    switch (gtk_combo_box_get_active (combo))
+    gint item = gtk_combo_box_get_active (combo);
+
+    switch (item)
     {
         case 0: dialog->priv->trim_blanks = gcmd_convert_unchanged; break;
         case 1: dialog->priv->trim_blanks = gcmd_convert_ltrim; break;
@@ -729,6 +734,7 @@ void GnomeCmdAdvrenameDialog::Private::on_trim_combo_changed (GtkComboBox *combo
             return;
     }
 
+    dialog->defaults.default_profile.trim_blanks = item;
     dialog->update_new_filenames();
 }
 
@@ -1348,7 +1354,9 @@ inline GtkWidget *create_files_view ()
 
 void GnomeCmdAdvrenameDialog::update_new_filenames()
 {
-    gnome_cmd_advrename_reset_counter (defaults.counter_start, defaults.counter_precision, defaults.counter_increment);
+    gnome_cmd_advrename_reset_counter (defaults.default_profile.counter_start,
+                                       defaults.default_profile.counter_width,
+                                       defaults.default_profile.counter_step);
 
     char buff[256];
     GtkTreeIter i;
@@ -1441,9 +1449,9 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (priv->template_combo, "changed", G_CALLBACK (Private::on_template_entry_changed), this);
 
     // Counter
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_start_spin), defaults.counter_start);
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_step_spin), defaults.counter_increment);
-    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_digits_spin), defaults.counter_precision);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_start_spin), defaults.default_profile.counter_start);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_step_spin), defaults.default_profile.counter_step);
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_digits_spin), defaults.default_profile.counter_width);
     g_signal_connect (priv->counter_start_spin, "value-changed", G_CALLBACK (Private::on_counter_start_spin_value_changed), this);
     g_signal_connect (priv->counter_step_spin, "value-changed", G_CALLBACK (Private::on_counter_step_spin_value_changed), this);
     g_signal_connect (priv->counter_digits_spin, "value-changed", G_CALLBACK (Private::on_counter_digits_spin_value_changed), this);
@@ -1459,8 +1467,8 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (priv->regex_remove_all_button, "clicked", G_CALLBACK (Private::on_regex_remove_all_btn_clicked), this);
 
     // Case conversion & blank triming
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), 0);
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), 3);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), defaults.default_profile.case_conversion);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), defaults.default_profile.trim_blanks);
     g_signal_connect (priv->case_combo, "changed", G_CALLBACK (Private::on_case_combo_changed), this);
     g_signal_connect (priv->trim_combo, "changed", G_CALLBACK (Private::on_trim_combo_changed), this);
 

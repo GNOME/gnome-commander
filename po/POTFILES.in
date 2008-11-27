@@ -51,8 +51,9 @@ src/gnome-cmd-search-dialog.cc
 src/gnome-cmd-smb-auth.cc
 src/gnome-cmd-smb-path.cc
 src/gnome-cmd-user-actions.cc
-src/gnome-cmd-xfer-progress-win.cc
 src/gnome-cmd-xfer.cc
+src/gnome-cmd-xfer-progress-win.cc
+src/gnome-cmd-xml-config.cc
 src/imageloader.cc
 src/intviewer/cp437.cc
 src/intviewer/datapresentation.cc

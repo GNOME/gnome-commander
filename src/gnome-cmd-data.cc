@@ -33,6 +33,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-bookmark-dialog.h"
+#include "gnome-cmd-xml-config.h"
 #include "filter.h"
 #include "utils.h"
 
@@ -86,6 +87,17 @@ struct GnomeCmdData::Private
 
 DICT<guint> gdk_key_names(GDK_VoidSymbol);
 DICT<guint> gdk_modifiers_names;
+
+
+void GnomeCmdData::AdvrenameConfig::Profile::reset()
+{
+    name.clear();
+    template_string.clear();
+    regexes.clear();
+    counter_start = counter_width = counter_step = 1;
+    case_conversion = 0;
+    trim_blanks = 3;
+}
 
 
 inline gint get_int (const gchar *path, int def)
@@ -830,57 +842,6 @@ inline void GnomeCmdData::save_intviewer_defaults()
 }
 
 
-inline void GnomeCmdData::save_rename_history()
-{
-    GList *from = NULL;
-    GList *to = NULL;
-    GList *csens = NULL;
-
-    GtkTreeIter i;
-
-    for (gboolean valid_iter=gtk_tree_model_get_iter_first (advrename_defaults.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (advrename_defaults.regexes, &i))
-    {
-        GnomeCmdAdvrenameDialog::Regex *rx;
-
-        gtk_tree_model_get (advrename_defaults.regexes, &i,
-                            GnomeCmdAdvrenameDialog::COL_REGEX, &rx,
-                            -1);
-        if (!rx)
-            continue;
-
-        from = g_list_append (from, const_cast <char *> (rx->from.c_str()));
-        to = g_list_append (to, const_cast <char *> (rx->to.c_str()));
-        csens = g_list_append (csens, (gpointer) (rx->case_sensitive ? "T" : "F"));
-    }
-
-    gnome_cmd_data_set_int ("/advrename/width", advrename_defaults.width);
-    gnome_cmd_data_set_int ("/advrename/height", advrename_defaults.height);
-
-    gnome_cmd_data_set_int ("/template-history/size", advrename_defaults.templates.size());
-    gnome_cmd_data_set_string_history ("/template-history/template%d", advrename_defaults.templates.ents);
-
-    gnome_cmd_data_set_int ("/advrename/counter_start", advrename_defaults.counter_start);
-    gnome_cmd_data_set_int ("/advrename/counter_precision", advrename_defaults.counter_precision);
-    gnome_cmd_data_set_int ("/advrename/counter_increment", advrename_defaults.counter_increment);
-
-    gnome_cmd_data_set_int ("/rename-history/size", g_list_length (from));
-    gnome_cmd_data_set_string_history ("/rename-history/from%d", from);
-    gnome_cmd_data_set_string_history ("/rename-history/to%d", to);
-    gnome_cmd_data_set_string_history ("/rename-history/csens%d", csens);
-
-    // removing config data used by gcmd < 1.2.5
-
-    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/template-auto-update");
-    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/counter_start");
-    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/counter_precision");
-    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/counter_increment");
-    gnome_config_clean_key (G_DIR_SEPARATOR_S PACKAGE "/options/rename-history-size");
-    gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/rename-history-from");
-    gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/rename-history-to");
-    gnome_config_clean_section (G_DIR_SEPARATOR_S PACKAGE "/rename-history-csens");
-}
-
-
 inline void GnomeCmdData::save_local_bookmarks()
 {
     GnomeCmdCon *con = gnome_cmd_con_list_get_home (priv->con_list);
@@ -1014,22 +975,15 @@ inline void GnomeCmdData::load_rename_history()
     advrename_defaults.templates.ents = templates;
     advrename_defaults.templates.pos = templates;
 
-    advrename_defaults.counter_start = gnome_cmd_data_get_int ("/advrename/counter_start", 1);
-    advrename_defaults.counter_precision = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
-    advrename_defaults.counter_increment = gnome_cmd_data_get_int ("/advrename/counter_increment", 1);
+    advrename_defaults.default_profile.counter_start = gnome_cmd_data_get_int ("/advrename/counter_start", 1);
+    advrename_defaults.default_profile.counter_width = gnome_cmd_data_get_int ("/advrename/counter_precision", 1);
+    advrename_defaults.default_profile.counter_step = gnome_cmd_data_get_int ("/advrename/counter_increment", 1);
 
     size = gnome_cmd_data_get_int ("/rename-history/size", 0);
 
     GList *tmp_from = from = load_string_history ("/rename-history/from%d", size);
     GList *tmp_to = to = load_string_history ("/rename-history/to%d", size);
     GList *tmp_csens = csens = load_string_history ("/rename-history/csens%d", size);
-
-    advrename_defaults.regexes = GTK_TREE_MODEL (gtk_list_store_new (GnomeCmdAdvrenameDialog::NUM_REGEX_COLS,
-                                                                      G_TYPE_POINTER,
-                                                                      G_TYPE_BOOLEAN,
-                                                                      G_TYPE_STRING,
-                                                                      G_TYPE_STRING,
-                                                                      G_TYPE_STRING));
 
     for (GtkTreeIter iter; tmp_from && size > 0; --size)
     {
@@ -1194,6 +1148,8 @@ void GnomeCmdData::free()
 
 void GnomeCmdData::load()
 {
+    gchar *xml_cfg_path = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+
     gchar *document_icon_dir = g_strdup_printf ("%s/share/pixmaps/document-icons/", GNOME_PREFIX);
     gchar *theme_icon_dir    = g_strdup_printf ("%s/mime-icons", PIXMAPS_DIR);
 
@@ -1398,7 +1354,31 @@ void GnomeCmdData::load()
     load_cmdline_history();
     //load_dir_history ();
     load_search_defaults();
-    load_rename_history();
+
+    // FIXME:  the regex list definitely needs to be created in GnomeCmdData::AdvrenameConfig::AdvrenameConfig() constructor
+    // Unfortunately, this can't be done now, as gnome_cmd_data is global and is constructed before main() - causing gcmd crash
+    // To be moved, when gnome_cmd_data is part of GnomeCmdMainWindow
+    advrename_defaults.regexes = GTK_TREE_MODEL (gtk_list_store_new (GnomeCmdAdvrenameDialog::NUM_REGEX_COLS,
+                                                                     G_TYPE_POINTER,
+                                                                     G_TYPE_BOOLEAN,
+                                                                     G_TYPE_STRING,
+                                                                     G_TYPE_STRING,
+                                                                     G_TYPE_STRING));
+    if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
+    {
+        load_rename_history();
+
+        // add a few default templates here - for new users
+        AdvrenameConfig::Profile p;
+
+        p.name = "CamelCase";
+        p.template_string = "$N";
+        p.regexes.push_back(AdvrenameConfig::Profile::Regex("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
+        p.regexes.push_back(AdvrenameConfig::Profile::Regex("\\.(.+)$", "\\L\\1", FALSE));
+
+        advrename_defaults.profiles.push_back(p);
+    }
+
     load_intviewer_defaults();
     load_auto_load_plugins();
 
@@ -1603,6 +1583,8 @@ void GnomeCmdData::load()
                            };
 
     load_data (gdk_modifiers_names, gdk_mod_names_data, G_N_ELEMENTS(gdk_mod_names_data));
+
+    g_free (xml_cfg_path);
 }
 
 
@@ -1622,6 +1604,8 @@ void GnomeCmdData::load_more()
 
 void GnomeCmdData::save()
 {
+    gchar *xml_cfg_path = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+
     for (gint i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++)
     {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/bookmark_dialog_col_width%d", i);
@@ -1752,13 +1736,15 @@ void GnomeCmdData::save()
     save_devices ("devices");
     save_fav_apps ("fav-apps");
     save_search_defaults();
-    save_rename_history();
     save_intviewer_defaults();
+    gnome_cmd_xml_config_save (xml_cfg_path, *this);
     save_local_bookmarks();
     save_smb_bookmarks();
     save_auto_load_plugins();
 
     gnome_config_sync ();
+
+    g_free (xml_cfg_path);
 }
 
 

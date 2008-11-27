@@ -77,8 +77,9 @@ gnome_commander_SOURCES = \
 	gnome-cmd-treeview.h gnome-cmd-treeview.cc \
 	gnome-cmd-types.h \
 	gnome-cmd-user-actions.h gnome-cmd-user-actions.cc \
-	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.cc \
 	gnome-cmd-xfer.h gnome-cmd-xfer.cc \
+	gnome-cmd-xfer-progress-win.h gnome-cmd-xfer-progress-win.cc \
+	gnome-cmd-xml-config.h gnome-cmd-xml-config.cc \
 	handle.h \
 	history.h history.cc \
 	imageloader.cc imageloader.h \
