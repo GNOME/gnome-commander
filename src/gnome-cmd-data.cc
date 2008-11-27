@@ -1374,7 +1374,7 @@ void GnomeCmdData::load()
         p.name = "CamelCase";
         p.template_string = "$N";
         p.regexes.push_back(AdvrenameConfig::Profile::Regex("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
-        p.regexes.push_back(AdvrenameConfig::Profile::Regex("\\.(.+)$", "\\L\\1", FALSE));
+        p.regexes.push_back(AdvrenameConfig::Profile::Regex("\\.(.+)$", ".\\L\\1", FALSE));
 
         advrename_defaults.profiles.push_back(p);
     }
