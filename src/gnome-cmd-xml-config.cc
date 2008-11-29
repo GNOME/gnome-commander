@@ -468,24 +468,8 @@ static void xml_end (GMarkupParseContext *context,
 
                 if (p!=cfg->advrename_defaults.profiles.end())
                 {
-                    GtkTreeIter iter;
-
                     cfg->advrename_defaults.default_profile = *p;
-
-                    for (std::vector<GnomeCmdData::AdvrenameConfig::Profile::Regex>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
-                    {
-                        GnomeCmdAdvrenameDialog::Regex *rx = new GnomeCmdAdvrenameDialog::Regex(r->pattern.c_str(),r->replace.c_str(), r->match_case);
-
-                        gtk_list_store_append (GTK_LIST_STORE (cfg->advrename_defaults.regexes), &iter);
-                        gtk_list_store_set (GTK_LIST_STORE (cfg->advrename_defaults.regexes), &iter,
-                                            GnomeCmdAdvrenameDialog::COL_REGEX, rx,
-                                            GnomeCmdAdvrenameDialog::COL_MALFORMED_REGEX, !*rx,
-                                            GnomeCmdAdvrenameDialog::COL_PATTERN, r->pattern.c_str(),
-                                            GnomeCmdAdvrenameDialog::COL_REPLACE, r->replace.c_str(),
-                                            GnomeCmdAdvrenameDialog::COL_MATCH_CASE, r->match_case ? _("Yes") : _("No"),
-                                            -1);
-                    }
-
+                    cfg->advrename_defaults.fill_regex_model(*p);
                     cfg->advrename_defaults.profiles.erase(p);
                 }
             }

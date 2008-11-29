@@ -1,3 +1,10 @@
+2008-11-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-xml-config.cc:
+	Added AdvrenameConfig::fill_regex_model(Profile &)
+
 2008-11-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* po/POTFILES.in:
