@@ -513,21 +513,9 @@ static void xml_end (GMarkupParseContext *context,
 }
 
 
-gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg)
+gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdData &cfg)
 {
     static GMarkupParser parser = {xml_start, xml_end, xml_element};
-
-    char *xml = NULL;
-    gsize xml_len = 0;
-    GError *error = NULL;
-
-    if (!g_file_get_contents (path, &xml, &xml_len, &error))
-    {
-        g_warning (error->message);
-        g_error_free (error);
-
-        return FALSE;
-    }
 
     static struct
     {
@@ -556,6 +544,8 @@ gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg)
 
     GMarkupParseContext *context = g_markup_parse_context_new (&parser, GMarkupParseFlags(0), &cfg, NULL);
 
+    GError *error = NULL;
+
     if (!g_markup_parse_context_parse (context, xml, xml_len, &error) ||
         !g_markup_parse_context_end_parse (context, &error))
     {
@@ -564,11 +554,33 @@ gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg)
     }
 
     g_markup_parse_context_free (context);
-    g_free (xml);
 
     // FIXME:   "Default" template
 
     return error==NULL;
+}
+
+
+gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg)
+{
+    gchar *xml = NULL;
+    gsize xml_len = 0;
+
+    GError *error = NULL;
+
+    if (!g_file_get_contents (path, &xml, &xml_len, &error))
+    {
+        g_warning (error->message);
+        g_error_free (error);
+
+        return FALSE;
+    }
+
+    gboolean retval = gnome_cmd_xml_config_parse (xml, xml_len, cfg);
+
+    g_free (xml);
+
+    return retval;
 }
 
 

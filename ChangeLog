@@ -4,6 +4,10 @@
 	* src/gnome-cmd-advrename-dialog.h:
 	advrename: 'Profiles...' button for loading saved settings
 
+	* src/gnome-cmd-xml-config.cc:
+	* src/gnome-cmd-xml-config.cc:
+	Added gnome_cmd_xml_config_parse() function
+
 2008-11-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
