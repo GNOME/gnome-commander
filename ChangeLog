@@ -1,3 +1,9 @@
+2008-12-01  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-advrename-dialog.h:
+	advrename: 'Profiles...' button for loading saved settings
+
 2008-11-29  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

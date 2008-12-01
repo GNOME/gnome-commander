@@ -53,7 +53,7 @@ struct GnomeCmdAdvrenameDialog
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_ADVRENAME_DIALOG, NULL);  }
     void operator delete (void *p)      {  g_free (p);  }
 
-    enum {GCMD_RESPONSE_RESET=123};
+    enum {GCMD_RESPONSE_PROFILES=123, GCMD_RESPONSE_RESET};
 
     enum {COL_REGEX, COL_MALFORMED_REGEX, COL_PATTERN, COL_REPLACE, COL_MATCH_CASE, NUM_REGEX_COLS};
     enum {COL_FILE, COL_NAME, COL_NEW_NAME, COL_SIZE, COL_DATE, COL_RENAME_FAILED, NUM_FILE_COLS};
