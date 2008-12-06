@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-21 15:08+0100\n"
-"PO-Revision-Date: 2008-11-21 15:41+0100\n"
-"Last-Translator: Mario Blättermann <mario.blaettermann@t-online.de>\n"
+"POT-Creation-Date: 2008-12-06 21:25+0100\n"
+"PO-Revision-Date: 2008-12-06 21:37+0100\n"
+"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "A two paned file manager"
 msgstr "Ein Dateimanager mit zweigeteilter Oberfläche"
 
-#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:426
+#: ../data/gnome-commander.desktop.in.in.h:2 ../src/gnome-cmd-data.cc:460
 #: ../src/gnome-cmd-main-win.cc:774
 msgid "GNOME Commander"
 msgstr "GNOME Commander"
@@ -41,7 +41,7 @@ msgstr "Keine Fehlerbeschreibung vorhanden"
 #. destroy model automatically with view
 #: ../plugins/cvs/cvs-plugin.c:291
 #: ../plugins/fileroller/file-roller-plugin.c:347
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:363
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:359
 #: ../src/gnome-cmd-options-dialog.cc:1121
 #: ../src/gnome-cmd-options-dialog.cc:1779
 #: ../src/gnome-cmd-prepare-copy-dialog.cc:134
@@ -173,7 +173,7 @@ msgstr "E_rsetzen durch:"
 
 #. Case-Sensitive Checkbox
 #: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:105
-#: ../src/intviewer/search-dlg.cc:356
+#: ../src/intviewer/search-dlg.cc:286
 msgid "_Match case"
 msgstr "_Groß-/Kleinschreibung berücksichtigen"
 
@@ -196,7 +196,7 @@ msgstr[1] "%d Dateien aufgelistet"
 
 #: ../src/eggcellrendererkeys.cc:181 ../src/eggcellrendererkeys.cc:182
 msgid "Accelerator key"
-msgstr ""
+msgstr "Zugriffstaste"
 
 #: ../src/eggcellrendererkeys.cc:191 ../src/eggcellrendererkeys.cc:192
 msgid "Accelerator modifiers"
@@ -247,322 +247,336 @@ msgstr "_Mitwirkende"
 msgid "About %s"
 msgstr "Über %s"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:132
+#: ../src/gnome-cmd-advrename-dialog.cc:135
 msgid "/Grandparent"
 msgstr "/Großeltern"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:133
+#: ../src/gnome-cmd-advrename-dialog.cc:136
 msgid "/Parent"
 msgstr "/Eltern"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:136
+#: ../src/gnome-cmd-advrename-dialog.cc:139
 msgid "/File name"
 msgstr "/Dateiname"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:137
+#: ../src/gnome-cmd-advrename-dialog.cc:140
 msgid "/File name without extension"
 msgstr "/Dateiname ohne Endung"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:138
+#: ../src/gnome-cmd-advrename-dialog.cc:141
 msgid "/File extension"
 msgstr "/Dateiendung"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:141
+#: ../src/gnome-cmd-advrename-dialog.cc:144
 msgid "/Counter"
 msgstr "/Zähler"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:142
+#: ../src/gnome-cmd-advrename-dialog.cc:145
 msgid "/Counter (width)"
 msgstr "/Zähler (Breite)"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:143
+#: ../src/gnome-cmd-advrename-dialog.cc:146
 msgid "/Hexadecimal random number (width)"
 msgstr "/Hexadezimale Zufallszahl (Breite)"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:146
+#: ../src/gnome-cmd-advrename-dialog.cc:149
 msgid "/Date"
 msgstr "/Datum"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:147
+#: ../src/gnome-cmd-advrename-dialog.cc:150
 msgid "/Date/<locale>"
 msgstr "/Datum/<locale>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:148
+#: ../src/gnome-cmd-advrename-dialog.cc:151
 msgid "/Date/yyyy-mm-dd"
 msgstr "/Datum/jjjj-mm-dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:149
+#: ../src/gnome-cmd-advrename-dialog.cc:152
 msgid "/Date/yy-mm-dd"
 msgstr "/Datum/jj-mm-dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:150
+#: ../src/gnome-cmd-advrename-dialog.cc:153
 msgid "/Date/yy.mm.dd"
 msgstr "/Datum/jj.mm.dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:151
+#: ../src/gnome-cmd-advrename-dialog.cc:154
 msgid "/Date/yymmdd"
 msgstr "/Datum/jjmmdd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:152
+#: ../src/gnome-cmd-advrename-dialog.cc:155
 msgid "/Date/dd.mm.yy"
 msgstr "/Datum/dd.mm.jj"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:153
+#: ../src/gnome-cmd-advrename-dialog.cc:156
 msgid "/Date/mm-dd-yy"
 msgstr "/Datum/mm-dd-jj"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:154
+#: ../src/gnome-cmd-advrename-dialog.cc:157
 msgid "/Date/yyyy"
 msgstr "/Datum/jjjj"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:155
+#: ../src/gnome-cmd-advrename-dialog.cc:158
 msgid "/Date/yy"
 msgstr "/Datum/jj"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:156
+#: ../src/gnome-cmd-advrename-dialog.cc:159
 msgid "/Date/mm"
 msgstr "/Datum/mm"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:157
+#: ../src/gnome-cmd-advrename-dialog.cc:160
 msgid "/Date/mmm"
 msgstr "/Datum/mmm"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:158
+#: ../src/gnome-cmd-advrename-dialog.cc:161
 msgid "/Date/dd"
 msgstr "/Datum/dd"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:159
+#: ../src/gnome-cmd-advrename-dialog.cc:162
 msgid "/Time"
 msgstr "/Zeit"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:160
+#: ../src/gnome-cmd-advrename-dialog.cc:163
 msgid "/Time/<locale>"
 msgstr "/Zeit/<locale>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:161
+#: ../src/gnome-cmd-advrename-dialog.cc:164
 msgid "/Time/HH.MM.SS"
 msgstr "/Zeit/HH.MM.SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:162
+#: ../src/gnome-cmd-advrename-dialog.cc:165
 msgid "/Time/HH-MM-SS"
 msgstr "/Zeit/HH-MM-SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:163
+#: ../src/gnome-cmd-advrename-dialog.cc:166
 msgid "/Time/HHMMSS"
 msgstr "/Zeit/HHMMSS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:164
+#: ../src/gnome-cmd-advrename-dialog.cc:167
 msgid "/Time/HH"
 msgstr "/Zeit/HH"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:165
+#: ../src/gnome-cmd-advrename-dialog.cc:168
 msgid "/Time/MM"
 msgstr "/Zeit/MM"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:166
+#: ../src/gnome-cmd-advrename-dialog.cc:169
 msgid "/Time/SS"
 msgstr "/Zeit/SS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:596
+#: ../src/gnome-cmd-advrename-dialog.cc:453
+msgid "/_Save Profile As..."
+msgstr "/Profil speichern _unter …"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:462
+msgid "/_Manage Profiles..."
+msgstr "/Profiles ver_walten …"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:677
 msgid "Add Rule"
 msgstr "Regel hinzufügen"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:606
-#: ../src/gnome-cmd-advrename-dialog.cc:638 ../src/gnome-cmd-data.cc:1018
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:151 ../src/utils.cc:686
+#: ../src/gnome-cmd-advrename-dialog.cc:687
+#: ../src/gnome-cmd-advrename-dialog.cc:719 ../src/gnome-cmd-data.cc:120
+#: ../src/gnome-cmd-data.cc:1022 ../src/gnome-cmd-prepare-xfer-dialog.cc:151
+#: ../src/utils.cc:686
 msgid "Yes"
 msgstr "Ja"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:606
-#: ../src/gnome-cmd-advrename-dialog.cc:638 ../src/gnome-cmd-data.cc:1018
-#: ../src/gnome-cmd-prepare-xfer-dialog.cc:151 ../src/utils.cc:686
+#: ../src/gnome-cmd-advrename-dialog.cc:687
+#: ../src/gnome-cmd-advrename-dialog.cc:719 ../src/gnome-cmd-data.cc:120
+#: ../src/gnome-cmd-data.cc:1022 ../src/gnome-cmd-prepare-xfer-dialog.cc:151
+#: ../src/utils.cc:686
 msgid "No"
 msgstr "Nein"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:631
+#: ../src/gnome-cmd-advrename-dialog.cc:712
 msgid "Edit Rule"
 msgstr "Regel bearbeiten"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:825
+#: ../src/gnome-cmd-advrename-dialog.cc:912
 msgid "Remove from file list"
 msgstr "Datei aus der Liste entfernen"
 
 #. {file_umount, "file.umount"},
-#: ../src/gnome-cmd-advrename-dialog.cc:829
+#: ../src/gnome-cmd-advrename-dialog.cc:916
 #: ../src/gnome-cmd-user-actions.cc:173
 msgid "View file"
 msgstr "Datei betrachten"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:833
+#: ../src/gnome-cmd-advrename-dialog.cc:920
 msgid "File properties"
 msgstr "Dateieigenschaften"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:839
+#: ../src/gnome-cmd-advrename-dialog.cc:926
 msgid "Update file list"
 msgstr "Dateiliste aktualisieren"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:980
+#: ../src/gnome-cmd-advrename-dialog.cc:1070
 msgid "Advanced Rename Tool"
 msgstr "Werkzeug zum Umbenennen"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1010
+#: ../src/gnome-cmd-advrename-dialog.cc:1100
 msgid "_Template"
 msgstr "Schabl_one"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1037 ../src/gnome-cmd-file.cc:614
+#: ../src/gnome-cmd-advrename-dialog.cc:1127 ../src/gnome-cmd-file.cc:614
 msgid "Directory"
 msgstr "Ordner"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1038 ../src/plugin_manager.cc:412
+#: ../src/gnome-cmd-advrename-dialog.cc:1128 ../src/plugin_manager.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:687
 msgid "File"
 msgstr "Datei"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1039
-#: ../src/gnome-cmd-advrename-dialog.cc:1051
+#: ../src/gnome-cmd-advrename-dialog.cc:1129
+#: ../src/gnome-cmd-advrename-dialog.cc:1141
 msgid "Counter"
 msgstr "Zähler"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1040
-#: ../src/gnome-cmd-advrename-dialog.cc:1338 ../src/tags/gnome-cmd-tags.cc:341
+#: ../src/gnome-cmd-advrename-dialog.cc:1130
+#: ../src/gnome-cmd-advrename-dialog.cc:1420 ../src/tags/gnome-cmd-tags.cc:341
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Date"
 msgstr "Datum"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1041
+#: ../src/gnome-cmd-advrename-dialog.cc:1131
 msgid "Metatag"
 msgstr "Metatag"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1068
+#: ../src/gnome-cmd-advrename-dialog.cc:1158
 msgid "_Start:"
 msgstr "_Start:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1075
+#: ../src/gnome-cmd-advrename-dialog.cc:1165
 msgid "Ste_p:"
 msgstr "Sch_ritt:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1082
+#: ../src/gnome-cmd-advrename-dialog.cc:1172
 msgid "Di_gits:"
 msgstr "Zi_ffern:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1093
+#: ../src/gnome-cmd-advrename-dialog.cc:1183
 msgid "Regex replacing"
 msgstr "Ersetzen lt. Regex"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1132
+#: ../src/gnome-cmd-advrename-dialog.cc:1222
 msgid "Remove A_ll"
 msgstr "Alle _löschen"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1145
+#: ../src/gnome-cmd-advrename-dialog.cc:1235
 msgid "Case"
 msgstr "Schreibweise"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1157
+#: ../src/gnome-cmd-advrename-dialog.cc:1247
 msgid "<unchanged>"
 msgstr "<unverändert>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1158
+#: ../src/gnome-cmd-advrename-dialog.cc:1248
 msgid "lowercase"
 msgstr "Kleinschreibung"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1159
+#: ../src/gnome-cmd-advrename-dialog.cc:1249
 msgid "UPPERCASE"
-msgstr ""
+msgstr "GROSSSCHREIBUNG"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1161
+#: ../src/gnome-cmd-advrename-dialog.cc:1251
 msgid "Sentence case"
 msgstr ""
 
 #. FIXME
-#: ../src/gnome-cmd-advrename-dialog.cc:1162
+#: ../src/gnome-cmd-advrename-dialog.cc:1252
 msgid "Initial Caps"
 msgstr ""
 
 #. FIXME
-#: ../src/gnome-cmd-advrename-dialog.cc:1163
+#: ../src/gnome-cmd-advrename-dialog.cc:1253
 msgid "tOGGLE cASE"
 msgstr ""
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1173
+#: ../src/gnome-cmd-advrename-dialog.cc:1263
 msgid "Trim blanks"
 msgstr "Leerzeichen entfernen"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1185
+#: ../src/gnome-cmd-advrename-dialog.cc:1275
 msgid "<none>"
 msgstr "<Keine>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1186
+#: ../src/gnome-cmd-advrename-dialog.cc:1276
 msgid "leading"
 msgstr "führend"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1187
+#: ../src/gnome-cmd-advrename-dialog.cc:1277
 msgid "trailing"
 msgstr "angehängt"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1188
+#: ../src/gnome-cmd-advrename-dialog.cc:1278
 msgid "leading and trailing"
 msgstr "führend und angehängt"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1200
+#: ../src/gnome-cmd-advrename-dialog.cc:1290
 msgid "Results"
 msgstr "Ergebnisse"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1226
-msgid "Reset"
-msgstr "Zurücksetzen"
-
-#: ../src/gnome-cmd-advrename-dialog.cc:1267
+#: ../src/gnome-cmd-advrename-dialog.cc:1349
 msgid "Search for"
 msgstr "Suche nach"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1270
+#: ../src/gnome-cmd-advrename-dialog.cc:1352
 msgid "Regex pattern"
 msgstr "Regex-Muster"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1272
+#: ../src/gnome-cmd-advrename-dialog.cc:1354
 msgid "Replace with"
 msgstr "Ersetzen durch"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1275
+#: ../src/gnome-cmd-advrename-dialog.cc:1357
 msgid "Replacement"
 msgstr "Ersetzen"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1277
+#: ../src/gnome-cmd-advrename-dialog.cc:1359
 msgid "Match case"
 msgstr "Groß-/Kleinschreibung berücksichtigen"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1280
+#: ../src/gnome-cmd-advrename-dialog.cc:1362
 msgid "Case sensitive matching"
 msgstr "Groß-/Kleinschreibung beachten"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1320
+#: ../src/gnome-cmd-advrename-dialog.cc:1402
 msgid "Old name"
 msgstr "Alter Name"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1324
+#: ../src/gnome-cmd-advrename-dialog.cc:1406
 msgid "Current file name"
 msgstr "Aktueller Dateiname"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1326
+#: ../src/gnome-cmd-advrename-dialog.cc:1408
 msgid "New name"
 msgstr "Neuer Name"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1330
+#: ../src/gnome-cmd-advrename-dialog.cc:1412
 msgid "New file name"
 msgstr "Neuer Dateiname"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1332 ../src/tags/gnome-cmd-tags.cc:326
+#: ../src/gnome-cmd-advrename-dialog.cc:1414 ../src/tags/gnome-cmd-tags.cc:326
 #: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Size"
 msgstr "Größe"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1336
+#: ../src/gnome-cmd-advrename-dialog.cc:1418
 msgid "File size"
 msgstr "Dateigröße"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1342
+#: ../src/gnome-cmd-advrename-dialog.cc:1424
 msgid "File modification date"
 msgstr "Änderungsdatum der Datei"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1516
+msgid "Profiles..."
+msgstr "Profile …"
+
+#: ../src/gnome-cmd-advrename-dialog.cc:1521
+msgid "Reset"
+msgstr "Zurücksetzen"
 
 #: ../src/gnome-cmd-bookmark-dialog.cc:72
 msgid "Bookmark name:"
@@ -894,8 +908,8 @@ msgstr "Arbeitsgruppen und Rechner werden gesucht"
 msgid "Go to: Samba Network"
 msgstr "Gehe zu: Samba-Netzwerk"
 
-#: ../src/gnome-cmd-data.cc:1328 ../src/gnome-cmd-data.cc:1329
-#: ../src/gnome-cmd-data.cc:1670 ../src/gnome-cmd-data.cc:2153
+#: ../src/gnome-cmd-data.cc:1330 ../src/gnome-cmd-data.cc:1331
+#: ../src/gnome-cmd-data.cc:1701 ../src/gnome-cmd-data.cc:2181
 #, c-format
 msgid "link to %s"
 msgstr "Link zu %s"
@@ -1325,11 +1339,11 @@ msgstr "Blockorientiertes Gerät"
 msgid "Symbolic link"
 msgstr "Symbolische Verknüpfung"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:193
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:189
 msgid "Keyboard Shortcuts"
 msgstr "Tastenkombinationen"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:219
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:215
 msgid ""
 "To edit a shortcut key, click on the corresponding row and type a new "
 "accelerator, or press escape to cancel."
@@ -1337,49 +1351,49 @@ msgstr ""
 "Klicken Sie auf eine Zeile und geben Sie eine neue Tastenkombination ein, um "
 "diese zu übernehmen, oder drücken Sie »Esc«, um sie zu löschen."
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:348
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:344
 msgid "Shortcut Key"
 msgstr "Tastenkombination"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:349
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:345
 msgid "Keyboard shortcut for selected action"
 msgstr "Tastenkombination für gewählte Aktion"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:356
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:352
 msgid "Action"
 msgstr "Aktion"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:357
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:353
 msgid "User action"
 msgstr "Benutzeraktion"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:364
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:360
 msgid "Optional data"
 msgstr "Zusätzliche Informationen"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:491
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:487
 #, c-format
 msgid "Shortcut \"%s\" is already taken by \"%s\"."
 msgstr "Die Tastenkombination »%s« wird bereits von »%s« verwendet."
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:494
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:490
 msgid "_Reassign shortcut"
 msgstr "_Tastenkombination neu zuweisen"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:497
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:493
 msgid "Conflicting Shortcuts"
 msgstr "Kollidierende Tastenkombinationen"
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:498
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:494
 #, c-format
 msgid "Reassigning the shortcut will cause it to be removed from \"%s\"."
 msgstr "Die Neuzuweisung dieser Tastenkombination wird sie von »%s« entfernen."
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:554
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:550
 msgid "Invalid shortcut."
 msgstr "Ungültige Tastenkombination."
 
-#: ../src/gnome-cmd-key-shortcuts-dialog.cc:631
+#: ../src/gnome-cmd-key-shortcuts-dialog.cc:627
 #: ../src/gnome-cmd-user-actions.cc:185
 msgid "Do nothing"
 msgstr "Ignorieren"
@@ -1509,7 +1523,7 @@ msgid "Show Device List"
 msgstr "Geräteliste anzeigen"
 
 #: ../src/gnome-cmd-main-menu.cc:640
-msgid "Show Commandline"
+msgid "Show Command Line"
 msgstr "Befehlszeile anzeigen"
 
 #: ../src/gnome-cmd-main-menu.cc:646
@@ -2759,24 +2773,6 @@ msgstr ""
 "Andre Klapper <ak-47@gmx.net>\n"
 "Mario Blättermann <mariobl@gnome.org>"
 
-#: ../src/gnome-cmd-xfer-progress-win.cc:40
-msgid "stopping..."
-msgstr "wird beendet …"
-
-#: ../src/gnome-cmd-xfer-progress-win.cc:83
-msgid "Progress"
-msgstr "Fortschritt"
-
-#: ../src/gnome-cmd-xfer-progress-win.cc:177
-#, c-format
-msgid "%s of %s copied"
-msgstr "%s von %s kopiert"
-
-#: ../src/gnome-cmd-xfer-progress-win.cc:181
-#, c-format
-msgid "%.0f%% copied"
-msgstr "%.0f%% kopiert"
-
 #: ../src/gnome-cmd-xfer.cc:165
 #, c-format
 msgid ""
@@ -2836,6 +2832,24 @@ msgstr "wird vorbereitet …"
 msgid "downloading to /tmp"
 msgstr "Herunterladen nach /tmp"
 
+#: ../src/gnome-cmd-xfer-progress-win.cc:40
+msgid "stopping..."
+msgstr "wird beendet …"
+
+#: ../src/gnome-cmd-xfer-progress-win.cc:83
+msgid "Progress"
+msgstr "Fortschritt"
+
+#: ../src/gnome-cmd-xfer-progress-win.cc:177
+#, c-format
+msgid "%s of %s copied"
+msgstr "%s von %s kopiert"
+
+#: ../src/gnome-cmd-xfer-progress-win.cc:181
+#, c-format
+msgid "%.0f%% copied"
+msgstr "%.0f%% kopiert"
+
 #: ../src/imageloader.cc:112
 msgid ""
 "Couldn't load installed file type pixmap, trying to load from source-dir\n"
@@ -2863,17 +2877,17 @@ msgid "Couldn't load installed pixmap, trying to load from source-dir\n"
 msgstr ""
 "Die Grafik konnte nicht geladen werden, versuche es aus dem Quellordner\n"
 
-#: ../src/intviewer/search-dlg.cc:316
+#: ../src/intviewer/search-dlg.cc:246
 msgid "Find"
 msgstr "Suchen"
 
 #. Search mode radio buttons
-#: ../src/intviewer/search-dlg.cc:346 ../src/intviewer/viewer-window.cc:665
+#: ../src/intviewer/search-dlg.cc:276 ../src/intviewer/viewer-window.cc:665
 #: ../src/intviewer/viewer-window.cc:867
 msgid "_Text"
 msgstr "_Text"
 
-#: ../src/intviewer/search-dlg.cc:347 ../src/intviewer/viewer-window.cc:673
+#: ../src/intviewer/search-dlg.cc:277 ../src/intviewer/viewer-window.cc:673
 msgid "_Hexadecimal"
 msgstr "_Hexadezimal"
 
@@ -4185,7 +4199,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "Gain Control"
-msgstr ""
+msgstr "Verstärkung"
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "This tag indicates the degree of overall image gain adjustment."
@@ -4368,7 +4382,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid "Interoperability Index"
-msgstr ""
+msgstr "Interoperabilitäts-Index"
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid ""
@@ -6108,7 +6122,7 @@ msgstr "Ziel"
 
 #: ../src/tags/gnome-cmd-tags.cc:459
 msgid "Routing information."
-msgstr ""
+msgstr "Routing-Information."
 
 #: ../src/tags/gnome-cmd-tags.cc:460
 msgid "Digital Creation Date"
@@ -6658,7 +6672,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:525
 msgid "Commenting"
-msgstr ""
+msgstr "Kommentierung"
 
 #: ../src/tags/gnome-cmd-tags.cc:525
 msgid "Set to \"1\" if adding or modifying text annotations is allowed."
