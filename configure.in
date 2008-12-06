@@ -299,9 +299,8 @@ Py_Exit (0);
 }
 EOF
 
-    if /bin/sh ../libtool --mode=compile ${CC} $PYTHON_CFLAGS -c testpython.c >/dev/null 2>&1 && \
-        /bin/sh ../libtool --mode=link ${CC} -o testpython.la -rpath `pwd` -module -avoid-version $PYTHON_LIB_LOC testpython.lo $PYTHON_LIBS $PYTHON_EXTRA_LIBS >/dev/null 2>&1 && \
-        grep 'dlname.*testpython' testpython.la >/dev/null 2>&1; then
+    if ${CC} $PYTHON_CFLAGS $PYTHON_LIBS $PYTHON_EXTRA_LIBS -fPIC -shared -o testpython.so testpython.c -Wl,-soname,testpython.so >/dev/null 2>&1 && \
+        ( objdump --headers --private-headers testpython.so | grep 'testpython' ) >/dev/null 2>&1; then
         result=yes
     else
         result=no
