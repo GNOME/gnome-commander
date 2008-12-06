@@ -1,3 +1,8 @@
+2008-12-06  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	advrename: update file list after loading of the saved profile
+
 2008-12-06  Mamoru Tasaka  <mtasaka@ioa.s.u-tokyo.ac.jp>
 
 	* configure.in: Build fix for libtool-2.2

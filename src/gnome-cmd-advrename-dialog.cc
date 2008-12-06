@@ -597,8 +597,10 @@ void GnomeCmdAdvrenameDialog::Private::load_profile(GnomeCmdAdvrenameDialog::Pri
     on_regex_remove_all_btn_clicked (NULL, GNOME_CMD_ADVRENAME_DIALOG(dialog));
     cfg.fill_regex_model(p);
 
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), 0);
-    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), 3);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), p.case_conversion);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), p.trim_blanks);
+
+    GNOME_CMD_ADVRENAME_DIALOG(dialog)->update_new_filenames();
 }
 
 
