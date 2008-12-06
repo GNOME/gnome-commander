@@ -5918,13 +5918,11 @@
                             <para>Support for PDF metatags in advanced file rename templates</para>
                         </listitem>
                         <listitem>
+                            <para>Revamped advanced file rename tool (regex backreferences ('\number'), profiles,
+                                  upper/lowercase conversion, blanks trimming and much more)</para>
+                        </listitem>
+                        <listitem>
                             <para>Support for metadata tags in internal viewer</para>
-                        </listitem>
-                        <listitem>
-                            <para>Support for  regex backreferences ('\number') in advanced file rename tool (since GLib 2.14)</para>
-                        </listitem>
-                        <listitem>
-                            <para>Advanced file rename tool - upper/lowercase conversion and trimming blanks</para>
                         </listitem>
                         <listitem>
                             <para>New colour theme: cafezinho</para>

@@ -1,3 +1,12 @@
+2008-12-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* po/POTFILES.in:
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/dialogs/Makefile.am:
+	* src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:
+	* src/dialogs/gnome-cmd-advrename-profiles-dialog.h:
+	advrename: addded dialog for managing profiles
+
 2008-12-06  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

@@ -28,6 +28,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-convert.h"
 #include "gnome-cmd-advrename-dialog.h"
+#include "dialogs/gnome-cmd-advrename-profiles-dialog.h"
 #include "dialogs/gnome-cmd-advrename-regex-dialog.h"
 #include "gnome-cmd-advrename-lexer.h"
 #include "gnome-cmd-file.h"
@@ -572,12 +573,29 @@ void GnomeCmdAdvrenameDialog::Private::insert_num_tag(GnomeCmdAdvrenameDialog::P
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::Private *priv, guint new_profile, GtkWidget *menu)
+void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::Private *priv, guint new_profile, GtkWidget *widget)
 {
+    GtkWidget *dialog = gtk_widget_get_ancestor (priv->menu_button[PROFILE_MENU], GNOME_CMD_TYPE_ADVRENAME_DIALOG);
+
+    g_return_if_fail (dialog!=NULL);
+
+    GnomeCmdData::AdvrenameConfig &cfg = GNOME_CMD_ADVRENAME_DIALOG(dialog)->defaults;
+
+    cfg.default_profile.template_string = gtk_entry_get_text (GTK_ENTRY (priv->template_entry));
+    if (cfg.default_profile.template_string.empty())  cfg.default_profile.template_string = "$N";
+
+    if (gnome_cmd_advrename_profiles_dialog_new (_("Profiles"), GTK_WINDOW (dialog), cfg,  new_profile))
+    {
+        GtkWidget *menu = widget->parent;
+
+        g_signal_handlers_disconnect_by_func (G_OBJECT (priv->menu_button[PROFILE_MENU]), gpointer (on_menu_button_clicked), menu);
+        g_object_unref (gtk_item_factory_from_widget (menu));
+        g_signal_connect (G_OBJECT (priv->menu_button[PROFILE_MENU]), "clicked", G_CALLBACK (on_menu_button_clicked), priv->create_placeholder_menu(PROFILE_MENU, &cfg));
+    }
 }
 
 
-void GnomeCmdAdvrenameDialog::Private::load_profile(GnomeCmdAdvrenameDialog::Private *priv, guint profile_idx, GtkWidget *menu)
+void GnomeCmdAdvrenameDialog::Private::load_profile(GnomeCmdAdvrenameDialog::Private *priv, guint profile_idx, GtkWidget *widget)
 {
     GtkWidget *dialog = gtk_widget_get_ancestor (priv->menu_button[PROFILE_MENU], GNOME_CMD_TYPE_ADVRENAME_DIALOG);
 
