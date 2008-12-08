@@ -1,3 +1,8 @@
+2008-12-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	advrename: fix for bug disabling buttons after profile loading
+
 2008-12-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* po/POTFILES.in:

@@ -379,6 +379,14 @@ inline GnomeCmdAdvrenameDialog::Private::~Private()
 }
 
 
+inline gboolean model_is_empty(GtkTreeModel *tree_model)
+{
+    GtkTreeIter iter;
+
+    return !gtk_tree_model_get_iter_first (tree_model, &iter);
+}
+
+
 gchar *GnomeCmdAdvrenameDialog::Private::translate_menu (const gchar *path, gpointer data)
 {
     return _(path);
@@ -619,6 +627,10 @@ void GnomeCmdAdvrenameDialog::Private::load_profile(GnomeCmdAdvrenameDialog::Pri
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), p.trim_blanks);
 
     GNOME_CMD_ADVRENAME_DIALOG(dialog)->update_new_filenames();
+
+    gtk_widget_set_sensitive (priv->regex_edit_button, !model_is_empty(cfg.regexes));
+    gtk_widget_set_sensitive (priv->regex_remove_button, !model_is_empty(cfg.regexes));
+    gtk_widget_set_sensitive (priv->regex_remove_all_button, !model_is_empty(cfg.regexes));
 }
 
 
@@ -638,14 +650,6 @@ inline GtkWidget *create_regex_view ();
 
 inline GtkTreeModel *create_files_model ();
 inline GtkWidget *create_files_view ();
-
-
-inline gboolean model_is_empty (GtkTreeModel *tree_model)
-{
-    GtkTreeIter iter;
-
-    return !gtk_tree_model_get_iter_first (tree_model, &iter);
-}
 
 
 G_DEFINE_TYPE (GnomeCmdAdvrenameDialog, gnome_cmd_advrename_dialog, GTK_TYPE_DIALOG)
