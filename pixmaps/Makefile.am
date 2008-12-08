@@ -22,7 +22,6 @@ pixmaps_DATA = \
 	nautilus.svg \
 	overlay_symlink.xpm \
 	overlay_umount.xpm \
-	parent_dir.xpm \
 	python.svg \
 	rotate-180-16.xpm \
 	rotate-270-16.xpm \

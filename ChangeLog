@@ -1,5 +1,10 @@
 2008-12-08  Piotr Eljasiak  <epiotr@use.pl>
 
+	* pixmaps/Makefile.am:
+	* src/imageloader.cc:
+	* src/imageloader.h:
+	Removal of forgotten parent-dir icon
+
 	* src/gnome-cmd-advrename-dialog.cc:
 	advrename: fix for bug disabling buttons after profile loading
 
