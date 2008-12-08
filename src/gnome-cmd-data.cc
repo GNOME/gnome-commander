@@ -1140,7 +1140,7 @@ void GnomeCmdData::free()
     if (priv)
     {
         // free the connections
-        // gtk_object_unref (GTK_OBJECT (priv->con_list));
+        // g_object_unref (priv->con_list);
 
         // close quick connect
         if (quick_connect)

@@ -616,7 +616,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
         else
         {
             if (con->base_path)
-                gtk_object_unref (GTK_OBJECT (con->base_path));
+                g_object_unref (con->base_path);
 
             con->base_path = gnome_cmd_con_create_path (con, bookmark->path);
             gtk_object_ref (GTK_OBJECT (con->base_path));

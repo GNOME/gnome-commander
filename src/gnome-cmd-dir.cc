@@ -116,7 +116,7 @@ static void destroy (GtkObject *object)
     delete dir->priv->file_collection;
 
     if (dir->priv->path)
-        gtk_object_unref (GTK_OBJECT (dir->priv->path));
+        g_object_unref (dir->priv->path);
 
     dir->priv->handle->ref = NULL;
     handle_unref (dir->priv->handle);

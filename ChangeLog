@@ -1,5 +1,14 @@
 2008-12-08  Piotr Eljasiak  <epiotr@use.pl>
 
+	* src/gnome-cmd-bookmark-dialog.cc:
+	* src/gnome-cmd-con-ftp.cc:
+	* src/gnome-cmd-con.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-dir.cc:
+	* src/intviewer/image-render.cc:
+	* src/intviewer/text-render.cc:
+	Replaced obsoleted gtk_object_unref() with g_object_unref()
+
 	* pixmaps/Makefile.am:
 	* src/imageloader.cc:
 	* src/imageloader.h:

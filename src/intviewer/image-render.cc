@@ -154,7 +154,7 @@ void image_render_set_h_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
     if (obj->priv->h_adjustment)
     {
         gtk_signal_disconnect_by_data (GTK_OBJECT (obj->priv->h_adjustment), (gpointer) obj);
-        gtk_object_unref (GTK_OBJECT (obj->priv->h_adjustment));
+        g_object_unref (obj->priv->h_adjustment);
     }
 
     obj->priv->h_adjustment = adjustment;
@@ -183,7 +183,7 @@ void image_render_set_v_adjustment (ImageRender *obj, GtkAdjustment *adjustment)
     if (obj->priv->v_adjustment)
     {
         gtk_signal_disconnect_by_data (GTK_OBJECT (obj->priv->v_adjustment), (gpointer) obj);
-        gtk_object_unref (GTK_OBJECT (obj->priv->v_adjustment));
+        g_object_unref (obj->priv->v_adjustment);
     }
 
     obj->priv->v_adjustment = adjustment;
@@ -293,11 +293,11 @@ static void image_render_destroy (GtkObject *object)
             image_render_free_pixbuf (w);
 
             if (w->priv->v_adjustment)
-                gtk_object_unref (GTK_OBJECT(w->priv->v_adjustment));
+                g_object_unref (w->priv->v_adjustment);
             w->priv->v_adjustment = NULL;
 
             if (w->priv->h_adjustment)
-                gtk_object_unref (GTK_OBJECT(w->priv->h_adjustment));
+                g_object_unref (w->priv->h_adjustment);
             w->priv->h_adjustment = NULL;
 
             g_free (w->priv);

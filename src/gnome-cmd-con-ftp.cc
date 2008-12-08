@@ -97,7 +97,7 @@ static gboolean ftp_close (GnomeCmdCon *con)
 {
     gnome_cmd_con_set_default_dir (con, NULL);
     gnome_cmd_con_set_cwd (con, NULL);
-    gtk_object_unref (GTK_OBJECT (con->base_path));
+    g_object_unref (con->base_path);
     con->base_path = NULL;
     con->state = CON_STATE_CLOSED;
     con->open_result = CON_OPEN_NOT_STARTED;
