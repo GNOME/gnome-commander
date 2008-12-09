@@ -40,7 +40,7 @@ static GtkTreeModel *create_and_fill_model (Profiles &profiles);
 static GtkWidget *create_view_and_model (Profiles &profiles);
 
 static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view);
-static void add_clicked_callback (GtkButton *button, GtkWidget *view);
+static void duplicate_clicked_callback (GtkButton *button, GtkWidget *view);
 static void edit_clicked_callback (GtkButton *button, GtkWidget *view);
 static void remove_clicked_callback (GtkButton *button, GtkWidget *view);
 static void import_clicked_callback (GtkButton *button, GtkWidget *view);
@@ -54,6 +54,25 @@ enum
     COL_TEMPLATE,
     NUM_COLUMNS
 } ;
+
+
+inline void add_profile(GtkWidget *view, GnomeCmdData::AdvrenameConfig::Profile &p, guint idx)
+{
+    GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+    GtkTreeIter i;
+
+    gtk_list_store_append (GTK_LIST_STORE (model), &i);
+    gtk_list_store_set (GTK_LIST_STORE (model), &i,
+                        COL_PROFILE_IDX, idx,
+                        COL_NAME, p.name.c_str(),
+                        COL_TEMPLATE, p.template_string.c_str(),
+                        -1);
+
+    GtkTreePath *path = gtk_tree_model_get_path (model, &i);
+    gtk_widget_grab_focus (view);
+    gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, gtk_tree_view_get_column (GTK_TREE_VIEW (view),0), TRUE);
+    gtk_tree_path_free(path);
+}
 
 
 gboolean gnome_cmd_advrename_profiles_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmdData::AdvrenameConfig &cfg, gboolean new_profile)
@@ -101,8 +120,10 @@ gboolean gnome_cmd_advrename_profiles_dialog_new (const gchar *title, GtkWindow 
     vbox = gtk_vbox_new (FALSE, 12);
     gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 
-    button = gtk_button_new_from_stock (GTK_STOCK_ADD);
-    g_signal_connect (button, "clicked", G_CALLBACK (add_clicked_callback), view);
+    button = gtk_button_new_with_mnemonic (_("_Duplicate"));
+    gtk_button_set_image (GTK_BUTTON (button),
+                          gtk_image_new_from_stock (GTK_STOCK_ADD, GTK_ICON_SIZE_BUTTON));
+    g_signal_connect (button, "clicked", G_CALLBACK (duplicate_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 
     button = gtk_button_new_from_stock (GTK_STOCK_EDIT);
@@ -121,7 +142,7 @@ gboolean gnome_cmd_advrename_profiles_dialog_new (const gchar *title, GtkWindow 
 
     button = gtk_button_new_with_mnemonic (_("Import _remote..."));
     gtk_button_set_image (GTK_BUTTON (button),
-                          gtk_image_new_from_stock (GTK_STOCK_OPEN, GTK_ICON_SIZE_BUTTON));
+                          gtk_image_new_from_stock (GTK_STOCK_NETWORK, GTK_ICON_SIZE_BUTTON));
     g_signal_connect (button, "clicked", G_CALLBACK (import_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 
@@ -132,7 +153,10 @@ gboolean gnome_cmd_advrename_profiles_dialog_new (const gchar *title, GtkWindow 
     g_signal_connect (dialog, "response", G_CALLBACK (response_callback), &profiles);
 
     if (new_profile)
-        add_clicked_callback (NULL, view);
+    {
+        profiles.push_back(default_profile);
+        add_profile(view, profiles.back(), profiles.size()-1);
+    }
 
     gint result = gtk_dialog_run (GTK_DIALOG (dialog));
 
@@ -255,26 +279,21 @@ static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string,
 }
 
 
-static void add_clicked_callback (GtkButton *button, GtkWidget *view)
+static void duplicate_clicked_callback (GtkButton *button, GtkWidget *view)
 {
-    GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
     GtkTreeIter i;
 
-    profiles.push_back(default_profile);
+    if (gtk_tree_selection_get_selected (selection, NULL, &i))
+    {
+        guint idx;
 
-    GnomeCmdData::AdvrenameConfig::Profile &p = profiles.back();
+        GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+        gtk_tree_model_get (model, &i, COL_PROFILE_IDX, &idx, -1);
 
-    gtk_list_store_append (GTK_LIST_STORE (model), &i);
-    gtk_list_store_set (GTK_LIST_STORE (model), &i,
-                        COL_PROFILE_IDX, profiles.size()-1,
-                        COL_NAME, p.name.c_str(),
-                        COL_TEMPLATE, p.template_string.c_str(),
-                        -1);
-
-    GtkTreePath *path = gtk_tree_model_get_path (model, &i);
-    gtk_widget_grab_focus (view);
-    gtk_tree_view_set_cursor (GTK_TREE_VIEW (view), path, gtk_tree_view_get_column (GTK_TREE_VIEW (view),0), TRUE);
-    gtk_tree_path_free(path);
+        profiles.push_back(profiles[idx]);
+        add_profile(view, profiles.back(), profiles.size()-1);
+    }
 }
 
 

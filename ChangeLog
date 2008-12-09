@@ -1,3 +1,8 @@
+2008-12-09  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:
+	advrename: replaced 'Add' button with 'Duplicate' one
+
 2008-12-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-bookmark-dialog.cc:
