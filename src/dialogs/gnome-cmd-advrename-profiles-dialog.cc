@@ -24,6 +24,7 @@
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-advrename-profiles-dialog.h"
 #include "gnome-cmd-treeview.h"
+#include "gnome-cmd-menu-button.h"
 #include "gnome-cmd-hintbox.h"
 #include "utils.h"
 
@@ -39,11 +40,13 @@ static GnomeCmdData::AdvrenameConfig::Profile default_profile;       //  current
 static GtkTreeModel *create_and_fill_model (Profiles &profiles);
 static GtkWidget *create_view_and_model (Profiles &profiles);
 
+static gchar *translate_menu (const gchar *path, gpointer data);
+
 static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view);
 static void duplicate_clicked_callback (GtkButton *button, GtkWidget *view);
 static void edit_clicked_callback (GtkButton *button, GtkWidget *view);
 static void remove_clicked_callback (GtkButton *button, GtkWidget *view);
-static void import_clicked_callback (GtkButton *button, GtkWidget *view);
+static void import_clicked_callback (GtkWidget *dialog, guint local, GtkWidget *widget);
 static void response_callback (GtkDialog *dialog, int response_id, Profiles *profiles);
 
 
@@ -134,17 +137,20 @@ gboolean gnome_cmd_advrename_profiles_dialog_new (const gchar *title, GtkWindow 
     g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 
-    button = gtk_button_new_with_mnemonic (_("_Import..."));
-    gtk_button_set_image (GTK_BUTTON (button),
-                          gtk_image_new_from_stock (GTK_STOCK_OPEN, GTK_ICON_SIZE_BUTTON));
-    g_signal_connect (button, "clicked", G_CALLBACK (import_clicked_callback), view);
-    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+    {
+        static GtkItemFactoryEntry items[] =
+            {{N_("/Local path..."), NULL, (GtkItemFactoryCallback) import_clicked_callback, TRUE},
+             {N_("/Remote location..."), NULL, (GtkItemFactoryCallback) import_clicked_callback, FALSE}};
 
-    button = gtk_button_new_with_mnemonic (_("Import _remote..."));
-    gtk_button_set_image (GTK_BUTTON (button),
-                          gtk_image_new_from_stock (GTK_STOCK_NETWORK, GTK_ICON_SIZE_BUTTON));
-    g_signal_connect (button, "clicked", G_CALLBACK (import_clicked_callback), view);
-    gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+        GtkItemFactory *ifac = gtk_item_factory_new (GTK_TYPE_MENU, "<main>", NULL);
+
+        gtk_item_factory_set_translate_func (ifac, translate_menu, NULL, NULL);
+        gtk_item_factory_create_items (ifac, G_N_ELEMENTS(items), items, dialog);
+
+        button = gnome_cmd_button_menu_new_from_stock (GTK_STOCK_OPEN, _("_Import"),
+                                                       gtk_item_factory_get_widget (ifac, "<main>"));
+        gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
+    }
 
     gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
 
@@ -316,8 +322,12 @@ static void remove_clicked_callback (GtkButton *button, GtkWidget *view)
 }
 
 
-static void import_clicked_callback (GtkButton *button, GtkWidget *view)
+static void import_clicked_callback (GtkWidget *dialog, guint local, GtkWidget *widget)
 {
+    if (local)
+        ;       //  FIXME:
+    else
+        ;       //  FIXME:
 }
 
 
@@ -341,4 +351,10 @@ static void response_callback (GtkDialog *dialog, int response_id, Profiles *pro
         default :
             g_assert_not_reached ();
     }
+}
+
+
+static gchar *translate_menu (const gchar *path, gpointer data)
+{
+    return _(path);
 }

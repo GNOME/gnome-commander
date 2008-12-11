@@ -6,6 +6,9 @@
 	* src/gnome-cmd-menu-button.h:
 	move code for menu buttons to gnome-cmd-menu-button.{cc,h} files
 
+	* dialogs/gnome-cmd-advrename-profiles-dialog:
+	advrename profiles: added menu button for profile import
+
 2008-12-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:
