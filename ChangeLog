@@ -9,6 +9,10 @@
 	* dialogs/gnome-cmd-advrename-profiles-dialog:
 	advrename profiles: added menu button for profile import
 
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-data.h:
+	advrename: fix for profile saving
+
 2008-12-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:

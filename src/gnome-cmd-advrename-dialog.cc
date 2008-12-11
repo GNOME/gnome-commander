@@ -578,8 +578,26 @@ void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::
 
     GnomeCmdData::AdvrenameConfig &cfg = GNOME_CMD_ADVRENAME_DIALOG(dialog)->defaults;
 
-    cfg.default_profile.template_string = gtk_entry_get_text (GTK_ENTRY (priv->template_entry));
-    if (cfg.default_profile.template_string.empty())  cfg.default_profile.template_string = "$N";
+    if (new_profile)
+    {
+        GtkTreeIter i;
+
+        cfg.default_profile.template_string = gtk_entry_get_text (GTK_ENTRY (priv->template_entry));
+        if (cfg.default_profile.template_string.empty())  cfg.default_profile.template_string = "$N";
+
+        cfg.default_profile.regexes.clear();
+
+        for (gboolean valid_iter=gtk_tree_model_get_iter_first (cfg.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (cfg.regexes, &i))
+        {
+            Regex *r;
+
+            gtk_tree_model_get (cfg.regexes, &i,
+                                COL_REGEX, &r,
+                                -1);
+            if (r)                            //  ignore null regex patterns
+                cfg.default_profile.regexes.push_back(GnomeCmdData::AdvrenameConfig::Profile::Regex(r->from, r->to, r->case_sensitive));
+        }
+    }
 
     if (gnome_cmd_advrename_profiles_dialog_new (_("Profiles"), GTK_WINDOW (dialog), cfg,  new_profile))
     {
@@ -616,6 +634,8 @@ void GnomeCmdAdvrenameDialog::Private::load_profile(GnomeCmdAdvrenameDialog::Pri
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), p.trim_blanks);
 
     GNOME_CMD_ADVRENAME_DIALOG(dialog)->update_new_filenames();
+
+    cfg.default_profile = p;
 
     gtk_widget_set_sensitive (priv->regex_edit_button, !model_is_empty(cfg.regexes));
     gtk_widget_set_sensitive (priv->regex_remove_button, !model_is_empty(cfg.regexes));
@@ -1026,7 +1046,6 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
             dialog->update_new_filenames();
             dialog->defaults.templates.add(gtk_entry_get_text (GTK_ENTRY (dialog->priv->template_entry)));
             break;
-
 
         case GTK_RESPONSE_NONE:
         case GTK_RESPONSE_DELETE_EVENT:

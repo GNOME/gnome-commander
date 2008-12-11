@@ -70,9 +70,12 @@ struct GnomeCmdData
                 gboolean match_case;
 
                 Regex(): match_case(FALSE)   {}
+                Regex(const std::string &from, const std::string &to, gboolean _match_case): pattern(from),
+                                                                                             replace(to),
+                                                                                             match_case(_match_case)  {}
                 Regex(const gchar *from, const gchar *to, gboolean _match_case): pattern(from),
-                                                                                replace(to),
-                                                                                match_case(_match_case)  {}
+                                                                                 replace(to),
+                                                                                 match_case(_match_case)  {}
             };
 
             std::string name;
