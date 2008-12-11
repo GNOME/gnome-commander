@@ -1,3 +1,11 @@
+2008-12-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/Makefile.am:
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-menu-button.cc:
+	* src/gnome-cmd-menu-button.h:
+	move code for menu buttons to gnome-cmd-menu-button.{cc,h} files
+
 2008-12-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:

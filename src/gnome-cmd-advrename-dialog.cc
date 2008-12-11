@@ -33,6 +33,7 @@
 #include "gnome-cmd-advrename-lexer.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-treeview.h"
+#include "gnome-cmd-menu-button.h"
 #include "gnome-cmd-data.h"
 #include "tags/gnome-cmd-tags.h"
 #include "utils.h"
@@ -101,7 +102,6 @@ struct GnomeCmdAdvrenameDialog::Private
     void files_view_popup_menu (GtkWidget *treeview, GnomeCmdAdvrenameDialog *dialog, GdkEventButton *event=NULL);
 
     static void on_template_entry_changed(GtkEntry *entry, GnomeCmdAdvrenameDialog *dialog);
-    static void on_menu_button_clicked(GtkButton *widget, GtkWidget *menu);
 
     static void on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameDialog *dialog);
     static void on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdAdvrenameDialog *dialog);
@@ -508,20 +508,9 @@ inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_placeholder_menu(int 
 
 inline GtkWidget *GnomeCmdAdvrenameDialog::Private::create_button_with_menu(gchar *label_text, int menu_type, GnomeCmdData::AdvrenameConfig *cfg)
 {
-    GtkWidget *button = gtk_button_new ();
-    GtkWidget *hbox = gtk_hbox_new (FALSE, 3);
+    menu_button[menu_type] = gnome_cmd_button_menu_new (label_text, create_placeholder_menu(menu_type, cfg));
 
-    gtk_container_add (GTK_CONTAINER (button), hbox);
-
-    gtk_box_pack_start (GTK_BOX (hbox), gtk_label_new (label_text), TRUE, TRUE, 0);
-    gtk_box_pack_start (GTK_BOX (hbox), gtk_arrow_new (GTK_ARROW_DOWN, GTK_SHADOW_NONE), FALSE, FALSE, 0);
-
-    gtk_widget_set_events (button, GDK_BUTTON_PRESS_MASK);
-    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (on_menu_button_clicked), create_placeholder_menu(menu_type, cfg));
-
-    menu_button[menu_type] = button;
-
-    return button;
+    return menu_button[menu_type];
 }
 
 
@@ -596,9 +585,9 @@ void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::
     {
         GtkWidget *menu = widget->parent;
 
-        g_signal_handlers_disconnect_by_func (G_OBJECT (priv->menu_button[PROFILE_MENU]), gpointer (on_menu_button_clicked), menu);
+        gnome_cmd_button_menu_disconnect_handler (priv->menu_button[PROFILE_MENU], menu);
         g_object_unref (gtk_item_factory_from_widget (menu));
-        g_signal_connect (G_OBJECT (priv->menu_button[PROFILE_MENU]), "clicked", G_CALLBACK (on_menu_button_clicked), priv->create_placeholder_menu(PROFILE_MENU, &cfg));
+        gnome_cmd_button_menu_connect_handler (priv->menu_button[PROFILE_MENU], priv->create_placeholder_menu(PROFILE_MENU, &cfg));
     }
 }
 
@@ -631,18 +620,6 @@ void GnomeCmdAdvrenameDialog::Private::load_profile(GnomeCmdAdvrenameDialog::Pri
     gtk_widget_set_sensitive (priv->regex_edit_button, !model_is_empty(cfg.regexes));
     gtk_widget_set_sensitive (priv->regex_remove_button, !model_is_empty(cfg.regexes));
     gtk_widget_set_sensitive (priv->regex_remove_all_button, !model_is_empty(cfg.regexes));
-}
-
-
-void GnomeCmdAdvrenameDialog::Private::on_menu_button_clicked(GtkButton *widget, GtkWidget *menu)
-{
-    GdkEventButton *event = (GdkEventButton *) gtk_get_current_event();
-
-    if (event == NULL)
-        gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, 1, gtk_get_current_event_time());
-    else
-        if (event->button == 1)
-            gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL, event->button, event->time);
 }
 
 
