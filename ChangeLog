@@ -1,3 +1,8 @@
+2008-12-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/Makefile.am:
+	Do not set default profiles for first-time users if there is no support for GRegex
+
 2008-12-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/Makefile.am:
