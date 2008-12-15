@@ -1418,25 +1418,25 @@ inline GtkWidget *create_files_view ()
     GtkTooltips *tips = gtk_tooltips_new ();
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameDialog::COL_NAME, _("Old name"));
-    g_object_set (renderer, "foreground", "DarkGray", "style", PANGO_STYLE_ITALIC, NULL);
+    g_object_set (renderer, "foreground", "red", "style", PANGO_STYLE_ITALIC, NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tooltips_set_tip (tips, col->button, _("Current file name"), NULL);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameDialog::COL_NEW_NAME, _("New name"));
-    g_object_set (renderer, "foreground", "DarkGray", "style", PANGO_STYLE_ITALIC, NULL);
+    g_object_set (renderer, "foreground", "red", "style", PANGO_STYLE_ITALIC, NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tooltips_set_tip (tips, col->button, _("New file name"), NULL);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameDialog::COL_SIZE, _("Size"));
-    g_object_set (renderer, "xalign", 1.0, "foreground", "DarkGray", "style", PANGO_STYLE_ITALIC, NULL);
+    g_object_set (renderer, "xalign", 1.0, "foreground", "red", "style", PANGO_STYLE_ITALIC, NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tooltips_set_tip (tips, col->button, _("File size"), NULL);
 
     col = gnome_cmd_treeview_create_new_text_column (GTK_TREE_VIEW (view), renderer, GnomeCmdAdvrenameDialog::COL_DATE, _("Date"));
-    g_object_set (renderer, "foreground", "DarkGray", "style", PANGO_STYLE_ITALIC, NULL);
+    g_object_set (renderer, "foreground", "red", "style", PANGO_STYLE_ITALIC, NULL);
     gtk_tree_view_column_add_attribute (col, renderer, "foreground-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tree_view_column_add_attribute (col, renderer, "style-set", GnomeCmdAdvrenameDialog::COL_RENAME_FAILED);
     gtk_tooltips_set_tip (tips, col->button, _("File modification date"), NULL);
