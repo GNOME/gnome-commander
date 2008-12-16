@@ -22,7 +22,8 @@
 #define __GNOME_CMD_ADVRENAME_REGEX_DIALOG_H__
 
 #include "gnome-cmd-advrename-dialog.h"
+#include "gnome-cmd-regex.h"
 
-gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmdAdvrenameDialog::Regex *rx);
+gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmd::RegexReplace *rx);
 
 #endif // __GNOME_CMD_ADVRENAME_REGEX_DIALOG_H__

@@ -29,7 +29,7 @@
 using namespace std;
 
 
-static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdAdvrenameDialog::Regex *rx)
+static void response_callback (GtkDialog *dialog, int response_id, GnomeCmd::RegexReplace *rx)
 {
     switch (response_id)
     {
@@ -50,7 +50,7 @@ static void response_callback (GtkDialog *dialog, int response_id, GnomeCmdAdvre
 }
 
 
-gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmdAdvrenameDialog::Regex *rx)
+gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmd::RegexReplace *rx)
 {
     GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
                                                      GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
@@ -82,7 +82,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), rx->from.c_str());
+    gtk_entry_set_text (GTK_ENTRY (entry), rx->pattern.c_str());
     g_object_set_data (G_OBJECT (dialog), "pattern", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0, 1);
@@ -93,7 +93,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     entry = gtk_entry_new ();
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
-    gtk_entry_set_text (GTK_ENTRY (entry), rx->to.c_str());
+    gtk_entry_set_text (GTK_ENTRY (entry), rx->replacement.c_str());
     g_object_set_data (G_OBJECT (dialog), "replace", entry);
     gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
     gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 1, 2);
@@ -104,7 +104,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
 
     check = gtk_check_button_new_with_mnemonic (_("_Match case"));
     g_object_set_data (G_OBJECT (dialog), "match_case", check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), rx ? rx->case_sensitive : FALSE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), rx ? rx->match_case : FALSE);
     gtk_container_add (GTK_CONTAINER (align), check);
 
 #if !GLIB_CHECK_VERSION (2, 14, 0)

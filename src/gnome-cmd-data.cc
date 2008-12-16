@@ -107,17 +107,17 @@ void GnomeCmdData::AdvrenameConfig::fill_regex_model(Profile &profile)
 
     GtkTreeIter iter;
 
-    for (vector<Profile::Regex>::const_iterator r=profile.regexes.begin(); r!=profile.regexes.end(); ++r)
+    for (vector<GnomeCmd::ReplacePattern>::const_iterator r=profile.regexes.begin(); r!=profile.regexes.end(); ++r)
     {
-        GnomeCmdAdvrenameDialog::Regex *rx = new GnomeCmdAdvrenameDialog::Regex(r->pattern.c_str(), r->replace.c_str(), r->match_case);
+        GnomeCmd::RegexReplace *rx = new GnomeCmd::RegexReplace(r->pattern, r->replacement, r->match_case);
 
         gtk_list_store_append (GTK_LIST_STORE (regexes), &iter);
         gtk_list_store_set (GTK_LIST_STORE (regexes), &iter,
                             GnomeCmdAdvrenameDialog::COL_REGEX, rx,
                             GnomeCmdAdvrenameDialog::COL_MALFORMED_REGEX, !*rx,
-                            GnomeCmdAdvrenameDialog::COL_PATTERN, r->pattern.c_str(),
-                            GnomeCmdAdvrenameDialog::COL_REPLACE, r->replace.c_str(),
-                            GnomeCmdAdvrenameDialog::COL_MATCH_CASE, r->match_case ? _("Yes") : _("No"),
+                            GnomeCmdAdvrenameDialog::COL_PATTERN, rx->pattern.c_str(),
+                            GnomeCmdAdvrenameDialog::COL_REPLACE, rx->replacement.c_str(),
+                            GnomeCmdAdvrenameDialog::COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
                             -1);
     }
 }
@@ -1010,16 +1010,16 @@ inline void GnomeCmdData::load_rename_history()
 
     for (GtkTreeIter iter; tmp_from && size > 0; --size)
     {
-        GnomeCmdAdvrenameDialog::Regex *rx = new GnomeCmdAdvrenameDialog::Regex((gchar *) tmp_from->data,
-                                                                                  (gchar *) tmp_to->data,
-                                                                                  *((gchar *) tmp_csens->data)=='T');
+        GnomeCmd::RegexReplace *rx = new GnomeCmd::RegexReplace((gchar *) tmp_from->data,
+                                                                (gchar *) tmp_to->data,
+                                                                *((gchar *) tmp_csens->data)=='T');
         gtk_list_store_append (GTK_LIST_STORE (advrename_defaults.regexes), &iter);
         gtk_list_store_set (GTK_LIST_STORE (advrename_defaults.regexes), &iter,
                             GnomeCmdAdvrenameDialog::COL_REGEX, rx,
                             GnomeCmdAdvrenameDialog::COL_MALFORMED_REGEX, !*rx,
-                            GnomeCmdAdvrenameDialog::COL_PATTERN, rx->from.c_str(),
-                            GnomeCmdAdvrenameDialog::COL_REPLACE, rx->to.c_str(),
-                            GnomeCmdAdvrenameDialog::COL_MATCH_CASE, rx->case_sensitive ? _("Yes") : _("No"),
+                            GnomeCmdAdvrenameDialog::COL_PATTERN, rx->pattern.c_str(),
+                            GnomeCmdAdvrenameDialog::COL_REPLACE, rx->replacement.c_str(),
+                            GnomeCmdAdvrenameDialog::COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
                             -1);
 
         tmp_from = tmp_from->next;
@@ -1397,8 +1397,8 @@ void GnomeCmdData::load()
 #if GLIB_CHECK_VERSION (2, 14, 0)
         p.name = "CamelCase";
         p.template_string = "$N";
-        p.regexes.push_back(AdvrenameConfig::Profile::Regex("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
-        p.regexes.push_back(AdvrenameConfig::Profile::Regex("\\.(.+)$", ".\\L\\1", FALSE));
+        p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
+        p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", FALSE));
 
         advrename_defaults.profiles.push_back(p);
 #endif

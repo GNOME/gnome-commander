@@ -1,3 +1,16 @@
+2008-12-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	 * src/Makefile.am:
+	 * src/gnome-cmd-advrename-dialog.cc:
+	 * src/gnome-cmd-advrename-dialog.h:
+	 * src/gnome-cmd-data.cc:
+	 * src/gnome-cmd-data.h:
+	 * src/gnome-cmd-regex.h:
+	 * src/gnome-cmd-xml-config.cc
+	 * src/dialogs/gnome-cmd-advrename-regex-dialog.cc:
+	 * src/dialogs/gnome-cmd-advrename-regex-dialog.h:
+	regex: move common code to gnome-cmd-data.h file
+
 2008-12-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

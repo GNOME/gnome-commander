@@ -27,6 +27,7 @@
 #include "gnome-cmd-app.h"
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-file-list.h"
+#include "gnome-cmd-regex.h"
 #include "filter.h"
 #include "history.h"
 #include "dict.h"
@@ -63,28 +64,13 @@ struct GnomeCmdData
     {
         struct Profile
         {
-            struct Regex
-            {
-                std::string pattern;
-                std::string replace;
-                gboolean match_case;
-
-                Regex(): match_case(FALSE)   {}
-                Regex(const std::string &from, const std::string &to, gboolean _match_case): pattern(from),
-                                                                                             replace(to),
-                                                                                             match_case(_match_case)  {}
-                Regex(const gchar *from, const gchar *to, gboolean _match_case): pattern(from),
-                                                                                 replace(to),
-                                                                                 match_case(_match_case)  {}
-            };
-
             std::string name;
             std::string template_string;
             guint counter_start;
             guint counter_width;
             gint counter_step;
 
-            std::vector<Regex> regexes;
+            std::vector<GnomeCmd::ReplacePattern> regexes;
 
             guint case_conversion;
             guint trim_blanks;

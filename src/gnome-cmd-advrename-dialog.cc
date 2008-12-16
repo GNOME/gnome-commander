@@ -589,13 +589,13 @@ void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::
 
         for (gboolean valid_iter=gtk_tree_model_get_iter_first (cfg.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (cfg.regexes, &i))
         {
-            Regex *r;
+            GnomeCmd::RegexReplace *r;
 
             gtk_tree_model_get (cfg.regexes, &i,
                                 COL_REGEX, &r,
                                 -1);
             if (r)                            //  ignore null regex patterns
-                cfg.default_profile.regexes.push_back(GnomeCmdData::AdvrenameConfig::Profile::Regex(r->from, r->to, r->case_sensitive));
+                cfg.default_profile.regexes.push_back(*r);
         }
     }
 
@@ -691,7 +691,7 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_model_row_deleted (GtkTreeModel 
 
 void GnomeCmdAdvrenameDialog::Private::on_regex_add_btn_clicked (GtkButton *button, GnomeCmdAdvrenameDialog *dialog)
 {
-    Regex *rx = new Regex;
+    GnomeCmd::RegexReplace *rx = new GnomeCmd::RegexReplace;
 
     if (gnome_cmd_advrename_regex_dialog_new (_("Add Rule"), GTK_WINDOW (dialog), rx))
     {
@@ -701,9 +701,9 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_add_btn_clicked (GtkButton *butt
         gtk_list_store_set (GTK_LIST_STORE (dialog->defaults.regexes), &i,
                             COL_REGEX, rx,
                             COL_MALFORMED_REGEX, !*rx,
-                            COL_PATTERN, rx->from.c_str(),
-                            COL_REPLACE, rx->to.c_str(),
-                            COL_MATCH_CASE, rx->case_sensitive ? _("Yes") : _("No"),
+                            COL_PATTERN, rx->pattern.c_str(),
+                            COL_REPLACE, rx->replacement.c_str(),
+                            COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
                             -1);
 
         dialog->update_new_filenames();
@@ -724,7 +724,7 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_edit_btn_clicked (GtkButton *but
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (tree_view), NULL, &i))
     {
-        Regex *rx = NULL;
+        GnomeCmd::RegexReplace *rx = NULL;
 
         gtk_tree_model_get (dialog->defaults.regexes, &i, COL_REGEX, &rx, -1);
 
@@ -733,9 +733,9 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_edit_btn_clicked (GtkButton *but
             gtk_list_store_set (GTK_LIST_STORE (dialog->defaults.regexes), &i,
                                 COL_REGEX, rx,
                                 COL_MALFORMED_REGEX, !*rx,
-                                COL_PATTERN, rx->from.c_str(),
-                                COL_REPLACE, rx->to.c_str(),
-                                COL_MATCH_CASE, rx->case_sensitive ? _("Yes") : _("No"),
+                                COL_PATTERN, rx->pattern.c_str(),
+                                COL_REPLACE, rx->replacement.c_str(),
+                                COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
                                 -1);
 
             dialog->update_new_filenames();
@@ -751,7 +751,7 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_remove_btn_clicked (GtkButton *b
 
     if (gtk_tree_selection_get_selected (gtk_tree_view_get_selection (tree_view), NULL, &i))
     {
-        Regex *rx = NULL;
+        GnomeCmd::RegexReplace *rx = NULL;
 
         gtk_tree_model_get (dialog->defaults.regexes, &i, COL_REGEX, &rx, -1);
         gtk_list_store_remove (GTK_LIST_STORE (dialog->defaults.regexes), &i);
@@ -773,7 +773,7 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_remove_all_btn_clicked (GtkButto
 
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (dialog->defaults.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (dialog->defaults.regexes, &i))
     {
-        Regex *rx = NULL;
+        GnomeCmd::RegexReplace *rx = NULL;
 
         gtk_tree_model_get (dialog->defaults.regexes, &i, COL_REGEX, &rx, -1);
         delete rx;
@@ -1454,11 +1454,11 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
     char buff[256];
     GtkTreeIter i;
 
-    vector<Regex *> rx;
+    vector<GnomeCmd::RegexReplace *> rx;
 
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (defaults.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (defaults.regexes, &i))
     {
-        Regex *r;
+        GnomeCmd::RegexReplace *r;
 
         gtk_tree_model_get (defaults.regexes, &i,
                             COL_REGEX, &r,
@@ -1485,9 +1485,9 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 
         gchar *fname = g_strdup (buff);
 
-        for (vector<Regex *>::iterator j=rx.begin(); j!=rx.end(); ++j)
+        for (vector<GnomeCmd::RegexReplace *>::iterator j=rx.begin(); j!=rx.end(); ++j)
         {
-            Regex *&r = *j;
+            GnomeCmd::RegexReplace *&r = *j;
 
             gchar *prev_fname = fname;
 

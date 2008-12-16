@@ -21,11 +21,6 @@
 #ifndef __GNOME_CMD_ADVRENAME_DIALOG_H__
 #define __GNOME_CMD_ADVRENAME_DIALOG_H__
 
-
-#if !GLIB_CHECK_VERSION (2, 14, 0)
-#include <regex.h>
-#endif
-
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file-list.h"
 
@@ -62,39 +57,6 @@ struct GnomeCmdAdvrenameDialog
 
     GtkTreeModel *files;
 
-    class Regex
-    {
-#if GLIB_CHECK_VERSION (2, 14, 0)
-        GRegex *re;
-#else
-        regex_t re;
-        regmatch_t pmatch;
-#endif
-        gboolean malformed_pattern;
-
-      public:
-
-        std::string from;
-        std::string to;
-        gboolean case_sensitive;
-
-        Regex(): malformed_pattern(TRUE), case_sensitive(FALSE)                                  {}
-        Regex(const gchar *pattern, const gchar *replacement, gboolean case_sensitive);
-        ~Regex();
-
-        void assign(const gchar *pattern, const gchar *replacement, gboolean case_sensitive);
-#if GLIB_CHECK_VERSION (2, 14, 0)
-        gchar *replace(const gchar *s)              {  return g_regex_replace (re, s, -1, 0, to.c_str(), G_REGEX_MATCH_NOTEMPTY, NULL);  }
-#else
-        gboolean match(const gchar *s)              {  return regexec(&re, s, 1, &pmatch, 0)==0;  }
-        int start() const                           {  return pmatch.rm_so;                       }
-        int end() const                             {  return pmatch.rm_eo;                       }
-        int length() const                          {  return end() - start();                    }
-#endif
-
-        operator gboolean ()                        {  return !malformed_pattern;                 }
-    };
-
     GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &defaults);
     ~GnomeCmdAdvrenameDialog();
 
@@ -102,49 +64,5 @@ struct GnomeCmdAdvrenameDialog
     void unset();
     void update_new_filenames();
 };
-
-inline GnomeCmdAdvrenameDialog::Regex::Regex(const gchar *pattern, const gchar *replacement, gboolean sensitive=FALSE): case_sensitive(sensitive)
-{
-    if (pattern)  from = pattern;
-    if (replacement)  to = replacement;
-#if GLIB_CHECK_VERSION (2, 14, 0)
-    GError *error = NULL;
-    re = g_regex_new (pattern, GRegexCompileFlags(case_sensitive ? G_REGEX_OPTIMIZE : G_REGEX_OPTIMIZE | G_REGEX_CASELESS), G_REGEX_MATCH_NOTEMPTY, &error);
-    malformed_pattern = !pattern || !*pattern || error;
-    if (error)  g_error_free (error);
-#else
-    memset(&pmatch, 0, sizeof(pmatch));
-    malformed_pattern = !pattern || !*pattern || regcomp(&re, pattern, (case_sensitive ? REG_EXTENDED : REG_EXTENDED|REG_ICASE))!=0;
-#endif
-}
-
-inline GnomeCmdAdvrenameDialog::Regex::~Regex()
-{
-#if GLIB_CHECK_VERSION (2, 14, 0)
-    g_regex_unref (re);
-#else
-    if (!malformed_pattern)  regfree(&re);
-#endif
-}
-
-inline void GnomeCmdAdvrenameDialog::Regex::assign(const gchar *pattern, const gchar *replacement, gboolean sensitive=FALSE)
-{
-    from.clear();
-    to.clear();
-    case_sensitive = sensitive;
-    if (pattern)  from = pattern;
-    if (replacement)  to = replacement;
-#if GLIB_CHECK_VERSION (2, 14, 0)
-    g_regex_unref (re);
-    GError *error = NULL;
-    re = g_regex_new (pattern, GRegexCompileFlags(case_sensitive ? G_REGEX_OPTIMIZE : G_REGEX_OPTIMIZE | G_REGEX_CASELESS), G_REGEX_MATCH_NOTEMPTY, &error);
-    malformed_pattern = !pattern || !*pattern || error;
-    if (error)  g_error_free (error);
-#else
-    if (!malformed_pattern)  regfree(&re);
-    memset(&pmatch, 0, sizeof(pmatch));
-    malformed_pattern = !pattern || !*pattern || regcomp(&re, pattern, (case_sensitive ? REG_EXTENDED : REG_EXTENDED|REG_ICASE))!=0;
-#endif
-}
 
 #endif // __GNOME_CMD_ADVRENAME_DIALOG_H__

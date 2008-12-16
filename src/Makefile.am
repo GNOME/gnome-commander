@@ -67,6 +67,7 @@ gnome_commander_SOURCES = \
 	gnome-cmd-prepare-copy-dialog.h gnome-cmd-prepare-copy-dialog.cc \
 	gnome-cmd-prepare-move-dialog.h gnome-cmd-prepare-move-dialog.cc \
 	gnome-cmd-prepare-xfer-dialog.h gnome-cmd-prepare-xfer-dialog.cc \
+	gnome-cmd-regex.h \
 	gnome-cmd-remote-dialog.h gnome-cmd-remote-dialog.cc \
 	gnome-cmd-quicksearch-popup.h gnome-cmd-quicksearch-popup.cc \
 	gnome-cmd-rename-dialog.h gnome-cmd-rename-dialog.cc \

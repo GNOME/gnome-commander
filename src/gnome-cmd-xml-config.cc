@@ -48,6 +48,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-xml-config.h"
 #include "gnome-cmd-advrename-dialog.h"
+#include "gnome-cmd-regex.h"
 #include "dict.h"
 #include "utils.h"
 
@@ -422,7 +423,7 @@ static void xml_start(GMarkupParseContext *context,
                 // FIXME: unescape param1
                 // FIXME: unescape param2
 
-                xml_profile.regexes.push_back(GnomeCmdData::AdvrenameConfig::Profile::Regex(param1, param2, param4));
+                xml_profile.regexes.push_back(GnomeCmd::ReplacePattern(param1, param2, param4));
             }
             break;
 
@@ -607,7 +608,7 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
 
     for (gboolean valid_iter=gtk_tree_model_get_iter_first (cfg.advrename_defaults.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (cfg.advrename_defaults.regexes, &i))
     {
-        GnomeCmdAdvrenameDialog::Regex *rx;
+        GnomeCmd::RegexReplace *rx;
 
         gtk_tree_model_get (cfg.advrename_defaults.regexes, &i,
                             GnomeCmdAdvrenameDialog::COL_REGEX, &rx,
@@ -615,7 +616,7 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
         if (!rx)
             continue;
 
-        fprintf(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", rx->from.c_str(), rx->to.c_str(), rx->case_sensitive);
+        fprintf(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", rx->pattern.c_str(), rx->replacement.c_str(), rx->match_case);
     }
 
     fputs("\t\t\t</Regexes>\n", f);
@@ -629,8 +630,8 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
         fprintf(f, "\t\t\t<Template>%s</Template>\n", p->template_string.empty() ? "$N" : p->template_string.c_str());
         fprintf(f, "\t\t\t<Counter start=\"%u\" step=\"%i\" width=\"%u\" />\n", p->counter_start, p->counter_step, p->counter_width);
         fputs("\t\t\t<Regexes>\n", f);
-        for (std::vector<GnomeCmdData::AdvrenameConfig::Profile::Regex>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
-            fprintf(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", r->pattern.c_str(), r->replace.c_str(), r->match_case);
+        for (std::vector<GnomeCmd::ReplacePattern>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
+            fprintf(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", r->pattern.c_str(), r->replacement.c_str(), r->match_case);
         fputs("\t\t\t</Regexes>\n", f);
         fprintf(f, "\t\t\t<CaseConversion use=\"%u\" />\n", p->case_conversion);
         fprintf(f, "\t\t\t<TrimBlanks use=\"%u\" />\n", p->trim_blanks);
