@@ -1392,15 +1392,17 @@ void GnomeCmdData::load()
         load_rename_history();
 
         // add a few default templates here - for new users
-        AdvrenameConfig::Profile p;
-
 #if GLIB_CHECK_VERSION (2, 14, 0)
-        p.name = "CamelCase";
-        p.template_string = "$N";
-        p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
-        p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", FALSE));
+        {
+            AdvrenameConfig::Profile p;
 
-        advrename_defaults.profiles.push_back(p);
+            p.name = _("CamelCase");
+            p.template_string = "$N";
+            p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
+            p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", FALSE));
+
+            advrename_defaults.profiles.push_back(p);
+        }
 #endif
     }
 

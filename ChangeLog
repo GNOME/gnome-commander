@@ -3,6 +3,9 @@
 	* src/gnome-cmd-user-actions.cc
 	Updated copyright info
 
+	 * src/gnome-cmd-data.cc:
+	i18n: translate default profile name (CamelCase)
+
 2008-12-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	 * src/Makefile.am:
