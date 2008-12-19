@@ -1557,7 +1557,8 @@ void help_about (GtkMenuItem *menuitem, gpointer not_used)
         NULL
     };
 
-    static const gchar copyright[] = "Copyright \xc2\xa9 2001-2006 Marcus Bjurman";
+    static const gchar copyright[] = "Copyright \xc2\xa9 2001-2006 Marcus Bjurman\n"
+                                     "Copyright \xc2\xa9 2007-2008 Piotr Eljasiak";
 
     static const gchar comments[] = N_("A fast and powerful file manager for the GNOME desktop");
 

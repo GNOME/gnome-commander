@@ -1,3 +1,8 @@
+2008-12-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-user-actions.cc
+	Updated copyright info
+
 2008-12-16  Piotr Eljasiak  <epiotr@use.pl>
 
 	 * src/Makefile.am:
@@ -3748,7 +3753,7 @@
 
 2005-04-01  Steve Murphy  <murf@e-tools.com>
 
-        * configure.in: Added "rw" to ALL_LINGUAS.
+	* configure.in: Added "rw" to ALL_LINGUAS.
 
 2005-03-04  Piotr Eljasiak  <epiotr@use.pl>
 
@@ -3757,7 +3762,7 @@
 
 2005-02-26  Kostas Papadimas  <pkst@gnome.org>
 
-        * configure.in: Added "el" (Greek) to ALL_LINGUAS.
+	* configure.in: Added "el" (Greek) to ALL_LINGUAS.
 
 2005-02-01  Piotr Eljasiak  <epiotr@use.pl>
 
@@ -3766,7 +3771,7 @@
 
 2005-01-30  Piotr Eljasiak  <epiotr@use.pl>
 
-        Updated copyright info.
+	Updated copyright info.
 
 2005-01-28  Piotr Eljasiak  <epiotr@use.pl>
 
