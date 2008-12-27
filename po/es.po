@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-"
 "commander&amp;component=general\n"
-"POT-Creation-Date: 2008-11-27 18:33+0000\n"
-"PO-Revision-Date: 2008-11-30 13:39+0100\n"
+"POT-Creation-Date: 2008-12-19 22:04+0000\n"
+"PO-Revision-Date: 2008-12-21 12:11+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -161,46 +161,40 @@ msgstr ""
 "los aspirantes a hackers de complementos"
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:85
-#, fuzzy
 msgid "New profile"
-msgstr "Ver archivo"
+msgstr "Perfil nuevo"
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:118
-#, fuzzy
 msgid ""
 "To rename a profile, click on the corresponding row and type a new name, or "
 "press escape to cancel."
 msgstr ""
-"Para editar un atajo de teclado, pulse en la fila correspondiente y teclee "
-"un nuevo acelerador, o pulse escape para cancelar."
+"Para renombrar un perfil pulse en la fila correspondiente y escriba un "
+"nombre nuevo, o pulse escape para cancelar."
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:126
-#, fuzzy
 msgid "_Duplicate"
-msgstr "_Plantilla"
+msgstr "_Duplicar"
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:142
 msgid "/Local path..."
-msgstr ""
+msgstr "/Ruta local..."
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:143
-#, fuzzy
 msgid "/Remote location..."
-msgstr "Conexiones remotas"
+msgstr "/Ubicación remota..."
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:150
-#, fuzzy
 msgid "_Import"
-msgstr "_Puerto:"
+msgstr "_Importar"
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:231
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:232
-#, fuzzy
 msgid "Profile name"
-msgstr "Copiar nombres de archivo"
+msgstr "Nombre del perfil"
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:239
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:240
@@ -416,214 +410,214 @@ msgstr "/_Guardar perfil como..."
 msgid "/_Manage Profiles..."
 msgstr "/_Gestionar perfiles..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:584
+#: ../src/gnome-cmd-advrename-dialog.cc:602
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:676
+#: ../src/gnome-cmd-advrename-dialog.cc:696
 msgid "Add Rule"
 msgstr "Añadir regla"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:686
-#: ../src/gnome-cmd-advrename-dialog.cc:718 ../src/gnome-cmd-data.cc:120
+#: ../src/gnome-cmd-advrename-dialog.cc:706
+#: ../src/gnome-cmd-advrename-dialog.cc:738 ../src/gnome-cmd-data.cc:120
 #: ../src/gnome-cmd-data.cc:1022 ../src/gnome-cmd-prepare-xfer-dialog.cc:151
 #: ../src/utils.cc:686
 msgid "Yes"
 msgstr "Sí"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:686
-#: ../src/gnome-cmd-advrename-dialog.cc:718 ../src/gnome-cmd-data.cc:120
+#: ../src/gnome-cmd-advrename-dialog.cc:706
+#: ../src/gnome-cmd-advrename-dialog.cc:738 ../src/gnome-cmd-data.cc:120
 #: ../src/gnome-cmd-data.cc:1022 ../src/gnome-cmd-prepare-xfer-dialog.cc:151
 #: ../src/utils.cc:686
 msgid "No"
 msgstr "No"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:711
+#: ../src/gnome-cmd-advrename-dialog.cc:731
 msgid "Edit Rule"
 msgstr "Editar regla"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:911
+#: ../src/gnome-cmd-advrename-dialog.cc:931
 msgid "Remove from file list"
 msgstr "Eliminar de la lista de archivos"
 
 #. {file_umount, "file.umount"},
-#: ../src/gnome-cmd-advrename-dialog.cc:915
+#: ../src/gnome-cmd-advrename-dialog.cc:935
 #: ../src/gnome-cmd-user-actions.cc:173
 msgid "View file"
 msgstr "Ver archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:919
+#: ../src/gnome-cmd-advrename-dialog.cc:939
 msgid "File properties"
 msgstr "Propiedades del archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:925
+#: ../src/gnome-cmd-advrename-dialog.cc:945
 msgid "Update file list"
 msgstr "Actualizar lista de archivos"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1069
+#: ../src/gnome-cmd-advrename-dialog.cc:1088
 msgid "Advanced Rename Tool"
 msgstr "Herramienta de renombrado avanzado"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1099
+#: ../src/gnome-cmd-advrename-dialog.cc:1118
 msgid "_Template"
 msgstr "_Plantilla"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1126 ../src/gnome-cmd-file.cc:614
+#: ../src/gnome-cmd-advrename-dialog.cc:1145 ../src/gnome-cmd-file.cc:614
 msgid "Directory"
 msgstr "Directorio"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1127 ../src/plugin_manager.cc:412
+#: ../src/gnome-cmd-advrename-dialog.cc:1146 ../src/plugin_manager.cc:412
 #: ../src/tags/gnome-cmd-tags.cc:687
 msgid "File"
 msgstr "Archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1128
-#: ../src/gnome-cmd-advrename-dialog.cc:1140
+#: ../src/gnome-cmd-advrename-dialog.cc:1147
+#: ../src/gnome-cmd-advrename-dialog.cc:1159
 msgid "Counter"
 msgstr "Contador"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1129
-#: ../src/gnome-cmd-advrename-dialog.cc:1419 ../src/tags/gnome-cmd-tags.cc:341
+#: ../src/gnome-cmd-advrename-dialog.cc:1148
+#: ../src/gnome-cmd-advrename-dialog.cc:1438 ../src/tags/gnome-cmd-tags.cc:341
 #: ../src/tags/gnome-cmd-tags.cc:417
 msgid "Date"
 msgstr "Fecha"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1130
+#: ../src/gnome-cmd-advrename-dialog.cc:1149
 msgid "Metatag"
 msgstr "Metaetiqueta"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1157
+#: ../src/gnome-cmd-advrename-dialog.cc:1176
 msgid "_Start:"
 msgstr "_Inicio:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1164
+#: ../src/gnome-cmd-advrename-dialog.cc:1183
 msgid "Ste_p:"
 msgstr "_Paso:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1171
+#: ../src/gnome-cmd-advrename-dialog.cc:1190
 msgid "Di_gits:"
 msgstr "_Dígitos:"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1182
+#: ../src/gnome-cmd-advrename-dialog.cc:1201
 msgid "Regex replacing"
 msgstr "Reemplazo por expreg"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1221
+#: ../src/gnome-cmd-advrename-dialog.cc:1240
 msgid "Remove A_ll"
 msgstr "Eli_minar todo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1234
+#: ../src/gnome-cmd-advrename-dialog.cc:1253
 msgid "Case"
 msgstr "Capitalización"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1246
+#: ../src/gnome-cmd-advrename-dialog.cc:1265
 msgid "<unchanged>"
 msgstr "<unchanged>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1247
+#: ../src/gnome-cmd-advrename-dialog.cc:1266
 msgid "lowercase"
 msgstr "minúsculas"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1248
+#: ../src/gnome-cmd-advrename-dialog.cc:1267
 msgid "UPPERCASE"
 msgstr "MAYÚSCULAS"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1250
+#: ../src/gnome-cmd-advrename-dialog.cc:1269
 msgid "Sentence case"
 msgstr "Establecer capitalización"
 
 #. FIXME
-#: ../src/gnome-cmd-advrename-dialog.cc:1251
+#: ../src/gnome-cmd-advrename-dialog.cc:1270
 msgid "Initial Caps"
 msgstr "Iniciales en mayúscula"
 
 #. FIXME
-#: ../src/gnome-cmd-advrename-dialog.cc:1252
+#: ../src/gnome-cmd-advrename-dialog.cc:1271
 msgid "tOGGLE cASE"
 msgstr "cAMBIAR cAPITALIZACIÓN"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1262
+#: ../src/gnome-cmd-advrename-dialog.cc:1281
 msgid "Trim blanks"
 msgstr "Eliminar espacios en blanco"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1274
+#: ../src/gnome-cmd-advrename-dialog.cc:1293
 msgid "<none>"
 msgstr "<ninguno>"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1275
+#: ../src/gnome-cmd-advrename-dialog.cc:1294
 msgid "leading"
 msgstr "principio"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1276
+#: ../src/gnome-cmd-advrename-dialog.cc:1295
 msgid "trailing"
 msgstr "sobrante"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1277
+#: ../src/gnome-cmd-advrename-dialog.cc:1296
 msgid "leading and trailing"
 msgstr "comienzo y final"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1289
+#: ../src/gnome-cmd-advrename-dialog.cc:1308
 msgid "Results"
 msgstr "Resultados"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1348
+#: ../src/gnome-cmd-advrename-dialog.cc:1367
 msgid "Search for"
 msgstr "Buscar"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1351
+#: ../src/gnome-cmd-advrename-dialog.cc:1370
 msgid "Regex pattern"
 msgstr "Patrón de expresión regular"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1353
+#: ../src/gnome-cmd-advrename-dialog.cc:1372
 msgid "Replace with"
 msgstr "Reemplazar con"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1356
+#: ../src/gnome-cmd-advrename-dialog.cc:1375
 msgid "Replacement"
 msgstr "Reemplazar"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1358
+#: ../src/gnome-cmd-advrename-dialog.cc:1377
 msgid "Match case"
 msgstr "Coincidir con capitalización"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1361
+#: ../src/gnome-cmd-advrename-dialog.cc:1380
 msgid "Case sensitive matching"
 msgstr "Coincidir con capitalización"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1401
+#: ../src/gnome-cmd-advrename-dialog.cc:1420
 msgid "Old name"
 msgstr "Nombre antiguo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1405
+#: ../src/gnome-cmd-advrename-dialog.cc:1424
 msgid "Current file name"
 msgstr "Nombre actual del archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1407
+#: ../src/gnome-cmd-advrename-dialog.cc:1426
 msgid "New name"
 msgstr "Nuevo nombre"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1411
+#: ../src/gnome-cmd-advrename-dialog.cc:1430
 msgid "New file name"
 msgstr "Nombre de archivo nuevo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1413 ../src/tags/gnome-cmd-tags.cc:326
+#: ../src/gnome-cmd-advrename-dialog.cc:1432 ../src/tags/gnome-cmd-tags.cc:326
 #: ../src/tags/gnome-cmd-tags.cc:390
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1417
+#: ../src/gnome-cmd-advrename-dialog.cc:1436
 msgid "File size"
 msgstr "Tamaño del archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1423
+#: ../src/gnome-cmd-advrename-dialog.cc:1442
 msgid "File modification date"
 msgstr "Fecha de modificación del archivo"
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1515
+#: ../src/gnome-cmd-advrename-dialog.cc:1534
 msgid "Profiles..."
 msgstr "_Propiedades..."
 
-#: ../src/gnome-cmd-advrename-dialog.cc:1520
+#: ../src/gnome-cmd-advrename-dialog.cc:1539
 msgid "Reset"
 msgstr "Restablecer"
 
@@ -956,10 +950,14 @@ msgid "Go to: Samba Network"
 msgstr "Ir a: Red Samba"
 
 #: ../src/gnome-cmd-data.cc:1330 ../src/gnome-cmd-data.cc:1331
-#: ../src/gnome-cmd-data.cc:1701 ../src/gnome-cmd-data.cc:2181
+#: ../src/gnome-cmd-data.cc:1705 ../src/gnome-cmd-data.cc:2185
 #, c-format
 msgid "link to %s"
 msgstr "enlace a %s"
+
+#: ../src/gnome-cmd-data.cc:1399
+msgid "CamelCase"
+msgstr "CamelCase"
 
 #: ../src/gnome-cmd-delete-dialog.cc:89
 #, c-format
@@ -2780,12 +2778,12 @@ msgstr "Hubo un error al abrir la página inicial."
 msgid "There was an error reporting problem."
 msgstr "Hubo un error al informar de un problema."
 
-#: ../src/gnome-cmd-user-actions.cc:1562
+#: ../src/gnome-cmd-user-actions.cc:1563
 msgid "A fast and powerful file manager for the GNOME desktop"
 msgstr ""
 "Un administrador de archivos rápido y eficiente para el escritorio GNOME"
 
-#: ../src/gnome-cmd-user-actions.cc:1566
+#: ../src/gnome-cmd-user-actions.cc:1567
 msgid ""
 "GNOME Commander is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -2797,7 +2795,7 @@ msgstr ""
 "Software; Version 2 de la licencia, o (a su gusto) cualquier version "
 "posterior."
 
-#: ../src/gnome-cmd-user-actions.cc:1570
+#: ../src/gnome-cmd-user-actions.cc:1571
 msgid ""
 "GNOME Commander is distributed in the hope that it will be useful, but "
 "WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "
@@ -2809,7 +2807,7 @@ msgstr ""
 "modificación para cualquier uso ver la Licencia Publica General GNU para mas "
 "detalles."
 
-#: ../src/gnome-cmd-user-actions.cc:1574
+#: ../src/gnome-cmd-user-actions.cc:1575
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "GNOME Commander; if not, write to the Free Software Foundation, Inc., 51 "
@@ -2820,7 +2818,7 @@ msgstr ""
 "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, "
 "USA."
 
-#: ../src/gnome-cmd-user-actions.cc:1591
+#: ../src/gnome-cmd-user-actions.cc:1592
 msgid "translator-credits"
 msgstr ""
 "Daniel Mustieles <daniel.mustieles@gmail.com>, 2007-2008\n"
