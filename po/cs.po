@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-17 13:34+0100\n"
-"PO-Revision-Date: 2008-12-19 11:21+0100\n"
+"PO-Revision-Date: 2008-12-26 14:42+0100\n"
 "Last-Translator: Dusan Hokuv <dusan@mirc.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1283,7 +1283,7 @@ msgstr "Hodnota"
 #: ../src/gnome-cmd-file-props-dialog.cc:604
 #: ../src/intviewer/viewer-window.cc:1470
 msgid "Tag value"
-msgstr ""
+msgstr "Hodnota značky"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:606
 #: ../src/intviewer/viewer-window.cc:1472
@@ -3046,7 +3046,7 @@ msgstr "_Kódování"
 
 #: ../src/intviewer/viewer-window.cc:767
 msgid "Show Metadata _Tags"
-msgstr ""
+msgstr "Zobrazit _Značky Metadat"
 
 #: ../src/intviewer/viewer-window.cc:773
 msgid "_Rotate Clockwise"
@@ -3820,7 +3820,7 @@ msgstr "Počet snímků v prezentaci."
 
 #: ../src/tags/gnome-cmd-tags.cc:192
 msgid "Spreadsheet Count"
-msgstr ""
+msgstr "Tabulkový procesor počet"
 
 #: ../src/tags/gnome-cmd-tags.cc:193
 msgid "Subject"
@@ -3863,7 +3863,6 @@ msgid "The lens aperture. The unit is the APEX value."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:199
-#, fuzzy
 msgid "Name of the camera owner, photographer or image creator. The detailed format is not specified, but it is recommended that the information be written for ease of Interoperability. When the field is left blank, it is treated as unknown."
 msgstr "Jméno majitele fotoaparátu, fotografa nebo tvůrce obrázku. Způsob vyplnění není dán, ale je doporučeno zapsat informace s ohledem na přenositelnost. Pokud zůstane políčko nevyplněné, je informace považována za neznámou."
 
@@ -3906,9 +3905,8 @@ msgid "CFA Repeat Pattern Dim"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:204
-#, fuzzy
 msgid "CFA Repeat Pattern Dim."
-msgstr "CFA Vzor"
+msgstr "CFA Vzor."
 
 #: ../src/tags/gnome-cmd-tags.cc:205
 msgid "Color Space"
@@ -4817,7 +4815,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:319
 msgid "Link"
-msgstr ""
+msgstr "Odkaz"
 
 #: ../src/tags/gnome-cmd-tags.cc:319
 msgid "URI of link target."
@@ -4857,7 +4855,6 @@ msgid "Editable DC type for the name of the publisher of the file (EG dc:publish
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:325
-#, fuzzy
 msgid "Rank"
 msgstr "Hodnocení"
 
@@ -4898,7 +4895,6 @@ msgid "Band"
 msgstr "Skupina"
 
 #: ../src/tags/gnome-cmd-tags.cc:330
-#, fuzzy
 msgid "Additional information about the performers in the recording."
 msgstr "Další informace o interpretech na nahrávce."
 
@@ -5207,7 +5203,6 @@ msgid "Original Release Time"
 msgstr "Původní datum vydání"
 
 #: ../src/tags/gnome-cmd-tags.cc:371
-#, fuzzy
 msgid "Original release time."
 msgstr "Původní čas vydání."
 
@@ -5228,12 +5223,10 @@ msgid "Ownership frame."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:374
-#, fuzzy
 msgid "Part of a Set"
 msgstr "Součást kolekce"
 
 #: ../src/tags/gnome-cmd-tags.cc:374
-#, fuzzy
 msgid "Part of a set the audio came from."
 msgstr "Kolekce, jejíž součástí zvuk je."
 
@@ -5630,7 +5623,6 @@ msgid "Action Advised"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:435
-#, fuzzy
 msgid "The type of action that this object provides to a previous object. '01' Object Kill, '02' Object Replace, '03' Object Append, '04' Object Reference."
 msgstr "Typ akce, kterou umožňuje objekt ve vztahu k objektu předchozímu. '01' Zabití objektu, '02' Nahrazení objektu, '03' Připojení objektu, '04' Vztah objektu."
 
@@ -5966,7 +5958,7 @@ msgstr "Verze Modelu"
 
 #: ../src/tags/gnome-cmd-tags.cc:478
 msgid "Version of IIM part 1."
-msgstr ""
+msgstr "Verze IIM část 1."
 
 #: ../src/tags/gnome-cmd-tags.cc:479
 msgid "Object Attribute Reference"
@@ -6172,9 +6164,8 @@ msgid "A structured definition of the subject matter. It must contain an IPR, an
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:506
-#, fuzzy
 msgid "Sub-location"
-msgstr "sub-lokace"
+msgstr "Sub-lokace"
 
 #: ../src/tags/gnome-cmd-tags.cc:506
 msgid "The location within a city from which the object originates."
@@ -6182,7 +6173,7 @@ msgstr "Umístění ve městě, odkud objekt pochází."
 
 #: ../src/tags/gnome-cmd-tags.cc:507
 msgid "Supplemental Category"
-msgstr ""
+msgstr "Doplňující kategorie"
 
 #: ../src/tags/gnome-cmd-tags.cc:507
 msgid "Further refines the subject of the object (Deprecated)."
@@ -6225,7 +6216,6 @@ msgid "Writer/Editor"
 msgstr "Autor/Úprava"
 
 #: ../src/tags/gnome-cmd-tags.cc:512
-#, fuzzy
 msgid "The name of the person involved in the writing, editing or correcting the object or caption/abstract (multiple values allowed)."
 msgstr "Jméno tvůrce objektu, například autor, fotograf nebo výtvarník (povoleno více záznamů)."
 
@@ -6267,9 +6257,8 @@ msgid "Producer"
 msgstr "Produkt ID"
 
 #: ../src/tags/gnome-cmd-tags.cc:517
-#, fuzzy
 msgid "The application that converted the document to PDF."
-msgstr "Aplikace, která vytvořila tento dokument."
+msgstr "Aplikace, která konvertovala tento dokument do PDF."
 
 #: ../src/tags/gnome-cmd-tags.cc:518
 #, fuzzy
@@ -6291,14 +6280,12 @@ msgid "Set to \"1\" if optimized for network access."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:520
-#, fuzzy
 msgid "Printing"
-msgstr "Orientace"
+msgstr "Tisk"
 
 #: ../src/tags/gnome-cmd-tags.cc:520
-#, fuzzy
 msgid "Set to \"1\" if printing is allowed."
-msgstr "Nastavte na \"1\" pokud byl použit blesk."
+msgstr "Nastavte na \"1\" pokud je povolen tisk."
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Printing in High Resolution"
@@ -6333,7 +6320,6 @@ msgid "Set to \"1\" if inserting, rotating, or deleting pages and creating navig
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:525
-#, fuzzy
 msgid "Commenting"
 msgstr "Komentář"
 
