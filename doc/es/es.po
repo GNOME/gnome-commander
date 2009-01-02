@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-30 16:21+0000\n"
-"PO-Revision-Date: 2008-12-01 21:27+0100\n"
+"POT-Creation-Date: 2008-12-27 16:38+0000\n"
+"PO-Revision-Date: 2008-12-28 20:06+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3566,7 +3566,7 @@ msgstr "Exif.ISOSpeedRatings"
 
 #: C/gnome-commander.xml:1832(para)
 msgid "ISO Speed Ratings"
-msgstr ""
+msgstr "Tasas de velocidad ISO"
 
 #: C/gnome-commander.xml:1833(para)
 msgid ""
@@ -3580,7 +3580,7 @@ msgstr "Exif.JPEGInterchangeFormat"
 
 #: C/gnome-commander.xml:1837(para)
 msgid "JPEG Interchange Format"
-msgstr ""
+msgstr "Formato de intercambio JPEG"
 
 #: C/gnome-commander.xml:1838(para)
 msgid ""
@@ -3594,7 +3594,7 @@ msgstr "Exif.JPEGInterchangeFormatLength"
 
 #: C/gnome-commander.xml:1842(para)
 msgid "JPEG Interchange Format Length"
-msgstr ""
+msgstr "Longitud del formato de intercambio JPEG"
 
 #: C/gnome-commander.xml:1843(para)
 msgid ""
@@ -3611,7 +3611,7 @@ msgstr "Exif.JPEGProc"
 
 #: C/gnome-commander.xml:1847(para)
 msgid "JPEG Procedure"
-msgstr ""
+msgstr "Procedimiento JPEG"
 
 #: C/gnome-commander.xml:1848(para)
 msgid "JPEG procedure."
@@ -3627,7 +3627,7 @@ msgstr "Origen de luz"
 
 #: C/gnome-commander.xml:1853(para)
 msgid "The kind of light source."
-msgstr ""
+msgstr "Tipo de fuente de luz."
 
 #: C/gnome-commander.xml:1856(para)
 msgid "Exif.Make"
@@ -3650,7 +3650,7 @@ msgstr "Exif.MakerNote"
 
 #: C/gnome-commander.xml:1862(para)
 msgid "Maker Note"
-msgstr ""
+msgstr "Nota de marcador"
 
 #: C/gnome-commander.xml:1863(para)
 msgid ""
@@ -3744,7 +3744,7 @@ msgstr "Exif.PhotometricInterpretation"
 
 #: C/gnome-commander.xml:1902(para)
 msgid "Photometric Interpretation"
-msgstr ""
+msgstr "Interpretación fotométrica"
 
 #: C/gnome-commander.xml:1903(para)
 msgid ""
@@ -3994,7 +3994,7 @@ msgstr "Exif.SensingMethod"
 
 #: C/gnome-commander.xml:1982(para)
 msgid "Sensing Method"
-msgstr ""
+msgstr "Método de sensibilidad"
 
 #: C/gnome-commander.xml:1983(para)
 msgid "The image sensor type on the camera or input device."
@@ -4049,7 +4049,7 @@ msgstr "Exif.SpatialFrequencyResponse"
 
 #: C/gnome-commander.xml:2002(para)
 msgid "Spatial Frequency Response"
-msgstr ""
+msgstr "Respuesta de frecuencia espacial"
 
 #: C/gnome-commander.xml:2003(para)
 msgid ""
@@ -4715,11 +4715,11 @@ msgstr "ID3.Emphasis"
 
 #: C/gnome-commander.xml:2262(para)
 msgid "Emphasis"
-msgstr ""
+msgstr "Énfasis"
 
 #: C/gnome-commander.xml:2263(para)
 msgid "Emphasis."
-msgstr ""
+msgstr "Énfasis."
 
 #: C/gnome-commander.xml:2266(para)
 msgid "ID3.EncodedBy"
@@ -4741,7 +4741,7 @@ msgstr "ID3.EncoderSettings"
 
 #: C/gnome-commander.xml:2272(para)
 msgid "Encoder Settings"
-msgstr ""
+msgstr "Configuración del codificador"
 
 #: C/gnome-commander.xml:2273(para)
 msgid "Software."
@@ -4753,11 +4753,11 @@ msgstr "ID3.EncodingTime"
 
 #: C/gnome-commander.xml:2277(para)
 msgid "Encoding Time"
-msgstr ""
+msgstr "Hora de codificación"
 
 #: C/gnome-commander.xml:2278(para)
 msgid "Encoding time."
-msgstr ""
+msgstr "Hora de codificación."
 
 #: C/gnome-commander.xml:2281(para)
 msgid "ID3.Equalization"
@@ -4765,19 +4765,19 @@ msgstr "ID3.Equalization"
 
 #: C/gnome-commander.xml:2282(para)
 msgid "Equalization"
-msgstr ""
+msgstr "Ecualización"
 
 #: C/gnome-commander.xml:2283(para)
 msgid "Equalization."
-msgstr ""
+msgstr "Ecualización."
 
 #: C/gnome-commander.xml:2286(para)
 msgid "ID3.Equalization2"
-msgstr ""
+msgstr "ID3.Equalization2"
 
 #: C/gnome-commander.xml:2287(para)
 msgid "Equalization 2"
-msgstr ""
+msgstr "Ecualización 2"
 
 #: C/gnome-commander.xml:2288(para)
 msgid "Equalisation curve predefine within the audio file."
@@ -4789,11 +4789,11 @@ msgstr "ID3.EventTiming"
 
 #: C/gnome-commander.xml:2292(para)
 msgid "Event Timing"
-msgstr ""
+msgstr "Sincronización de eventos"
 
 #: C/gnome-commander.xml:2293(para)
 msgid "Event timing codes."
-msgstr ""
+msgstr "Códigos de sincronización de eventos."
 
 #: C/gnome-commander.xml:2296(para)
 msgid "ID3.FileOwner"
@@ -4801,11 +4801,11 @@ msgstr "ID3.FileOwner"
 
 #: C/gnome-commander.xml:2297(para)
 msgid "File Owner"
-msgstr ""
+msgstr "Propietario del archivo"
 
 #: C/gnome-commander.xml:2298(para)
 msgid "File owner."
-msgstr ""
+msgstr "Propietario del archivo."
 
 #: C/gnome-commander.xml:2301(para)
 msgid "ID3.FileType"
@@ -4813,11 +4813,11 @@ msgstr "ID3.FileType"
 
 #: C/gnome-commander.xml:2302(para)
 msgid "File Type"
-msgstr ""
+msgstr "Tipo de archivo"
 
 #: C/gnome-commander.xml:2303(para)
 msgid "File type."
-msgstr ""
+msgstr "Tipo de archivo."
 
 #: C/gnome-commander.xml:2306(para)
 msgid "ID3.Frames"
@@ -4825,11 +4825,11 @@ msgstr "ID3.Frames"
 
 #: C/gnome-commander.xml:2307(para)
 msgid "Frames"
-msgstr ""
+msgstr "Cuadros"
 
 #: C/gnome-commander.xml:2308(para)
 msgid "Number of frames."
-msgstr ""
+msgstr "Número de cuadros."
 
 #: C/gnome-commander.xml:2311(para)
 msgid "ID3.GeneralObject"
@@ -4837,7 +4837,7 @@ msgstr "ID3.GeneralObject"
 
 #: C/gnome-commander.xml:2312(para)
 msgid "General Object"
-msgstr ""
+msgstr "Objeto general"
 
 #: C/gnome-commander.xml:2313(para)
 msgid "General encapsulated object."
@@ -4861,11 +4861,11 @@ msgstr "ID3.InitialKey"
 
 #: C/gnome-commander.xml:2322(para)
 msgid "Initial Key"
-msgstr ""
+msgstr "Clave inicial"
 
 #: C/gnome-commander.xml:2323(para)
 msgid "Initial key."
-msgstr ""
+msgstr "Clave inicial."
 
 #: C/gnome-commander.xml:2326(para)
 msgid "ID3.InvolvedPeople"
@@ -4873,11 +4873,11 @@ msgstr "ID3.InvolvedPeople"
 
 #: C/gnome-commander.xml:2327(para)
 msgid "Involved People"
-msgstr ""
+msgstr "Personas involucradas"
 
 #: C/gnome-commander.xml:2328(para) C/gnome-commander.xml:2333(para)
 msgid "Involved people list."
-msgstr ""
+msgstr "Lista de personas involucradas."
 
 #: C/gnome-commander.xml:2331(para)
 msgid "ID3.InvolvedPeople2"
@@ -4885,7 +4885,7 @@ msgstr "ID3.InvolvedPeople2"
 
 #: C/gnome-commander.xml:2332(para)
 msgid "InvolvedPeople2"
-msgstr ""
+msgstr "PersonasInvolucradas2"
 
 #: C/gnome-commander.xml:2336(para)
 msgid "ID3.Language"
@@ -4893,7 +4893,7 @@ msgstr "ID3.Language"
 
 #: C/gnome-commander.xml:2338(para)
 msgid "Language."
-msgstr ""
+msgstr "Idioma."
 
 #: C/gnome-commander.xml:2341(para)
 msgid "ID3.LinkedInfo"
@@ -4901,11 +4901,11 @@ msgstr "ID3.LinkedInfo"
 
 #: C/gnome-commander.xml:2342(para)
 msgid "Linked Info"
-msgstr ""
+msgstr "Información enlazada"
 
 #: C/gnome-commander.xml:2343(para)
 msgid "Linked information."
-msgstr ""
+msgstr "Información enlazada."
 
 #: C/gnome-commander.xml:2346(para)
 msgid "ID3.Lyricist"
@@ -4913,11 +4913,11 @@ msgstr "ID3.Lyricist"
 
 #: C/gnome-commander.xml:2347(para)
 msgid "Lyricist"
-msgstr ""
+msgstr "Letrista"
 
 #: C/gnome-commander.xml:2348(para)
 msgid "Lyricist."
-msgstr ""
+msgstr "Letrista."
 
 #: C/gnome-commander.xml:2351(para)
 msgid "ID3.MediaType"
@@ -4925,11 +4925,11 @@ msgstr "ID3.MediaType"
 
 #: C/gnome-commander.xml:2352(para)
 msgid "Media Type"
-msgstr ""
+msgstr "Tipo de medio"
 
 #: C/gnome-commander.xml:2353(para)
 msgid "Media type."
-msgstr ""
+msgstr "Tipo de medio."
 
 #: C/gnome-commander.xml:2356(para)
 msgid "ID3.MixArtist"
@@ -4937,11 +4937,11 @@ msgstr "ID3.MixArtist"
 
 #: C/gnome-commander.xml:2357(para)
 msgid "Mix Artist"
-msgstr ""
+msgstr "Artista mezclador"
 
 #: C/gnome-commander.xml:2358(para)
 msgid "Interpreted, remixed, or otherwise modified by."
-msgstr ""
+msgstr "Interpretado, remezclado o modificado de alguna manera por."
 
 #: C/gnome-commander.xml:2361(para)
 msgid "ID3.Mood"
@@ -4949,11 +4949,11 @@ msgstr "ID3.Mood"
 
 #: C/gnome-commander.xml:2362(para)
 msgid "Mood"
-msgstr ""
+msgstr "Estado de ánimo"
 
 #: C/gnome-commander.xml:2363(para)
 msgid "Mood."
-msgstr ""
+msgstr "Estado de ánimo."
 
 #: C/gnome-commander.xml:2366(para)
 msgid "ID3.MPEG.Lookup"
@@ -4961,11 +4961,11 @@ msgstr "ID3.MPEG.Lookup"
 
 #: C/gnome-commander.xml:2367(para)
 msgid "MPEG Lookup"
-msgstr ""
+msgstr "Búsqueda de MPEG"
 
 #: C/gnome-commander.xml:2368(para)
 msgid "MPEG location lookup table."
-msgstr ""
+msgstr "Tabla de búsqueda de localización MPEG."
 
 #: C/gnome-commander.xml:2371(para)
 msgid "ID3.MusicianCreditList"
@@ -4973,11 +4973,11 @@ msgstr "ID3.MusicianCreditList"
 
 #: C/gnome-commander.xml:2372(para)
 msgid "Musician Credit List"
-msgstr ""
+msgstr "Lista de créditos de músicos"
 
 #: C/gnome-commander.xml:2373(para)
 msgid "Musician credits list."
-msgstr ""
+msgstr "Lista de créditos de músicos."
 
 #: C/gnome-commander.xml:2376(para)
 msgid "ID3.NetRadioOwner"
@@ -4985,11 +4985,11 @@ msgstr "ID3.NetRadioOwner"
 
 #: C/gnome-commander.xml:2377(para)
 msgid "Net Radio Owner"
-msgstr ""
+msgstr "Propietario de la radio de red"
 
 #: C/gnome-commander.xml:2378(para)
 msgid "Internet radio station owner."
-msgstr ""
+msgstr "Propietario de la emisora de radio de Internet."
 
 #: C/gnome-commander.xml:2381(para)
 msgid "ID3.NetRadiostation"
@@ -4997,11 +4997,11 @@ msgstr "ID3.NetRadiostation"
 
 #: C/gnome-commander.xml:2382(para)
 msgid "Net Radiostation"
-msgstr ""
+msgstr "Emisora de radio de red"
 
 #: C/gnome-commander.xml:2383(para)
 msgid "Internet radio station name."
-msgstr ""
+msgstr "Nombre de la emisora de radio de Internet."
 
 #: C/gnome-commander.xml:2386(para)
 msgid "ID3.OriginalAlbum"
@@ -5009,11 +5009,11 @@ msgstr "ID3.OriginalAlbum"
 
 #: C/gnome-commander.xml:2387(para)
 msgid "Original Album"
-msgstr ""
+msgstr "Álbum original"
 
 #: C/gnome-commander.xml:2388(para)
 msgid "Original album."
-msgstr ""
+msgstr "Álbum original."
 
 #: C/gnome-commander.xml:2391(para)
 msgid "ID3.OriginalArtist"
@@ -5021,11 +5021,11 @@ msgstr "ID3.OriginalArtist"
 
 #: C/gnome-commander.xml:2392(para)
 msgid "Original Artist"
-msgstr ""
+msgstr "Artista original"
 
 #: C/gnome-commander.xml:2393(para)
 msgid "Original artist."
-msgstr ""
+msgstr "Artista original."
 
 #: C/gnome-commander.xml:2396(para)
 msgid "ID3.OriginalFileName"
@@ -5033,11 +5033,11 @@ msgstr "ID3.OriginalFileName"
 
 #: C/gnome-commander.xml:2397(para)
 msgid "Original File Name"
-msgstr ""
+msgstr "Nombre de archivo original"
 
 #: C/gnome-commander.xml:2398(para)
 msgid "Original filename."
-msgstr ""
+msgstr "Nombre de archivo original."
 
 #: C/gnome-commander.xml:2401(para)
 msgid "ID3.OriginalLyricist"
@@ -5045,11 +5045,11 @@ msgstr "ID3.OriginalLyricist"
 
 #: C/gnome-commander.xml:2402(para)
 msgid "Original Lyricist"
-msgstr ""
+msgstr "Letrista original"
 
 #: C/gnome-commander.xml:2403(para)
 msgid "Original lyricist."
-msgstr ""
+msgstr "Letrista original."
 
 #: C/gnome-commander.xml:2406(para)
 msgid "ID3.OriginalReleaseTime"
@@ -5057,11 +5057,11 @@ msgstr "ID3.OriginalReleaseTime"
 
 #: C/gnome-commander.xml:2407(para)
 msgid "Original Release Time"
-msgstr ""
+msgstr "Hora de publicación original"
 
 #: C/gnome-commander.xml:2408(para)
 msgid "Original release time."
-msgstr ""
+msgstr "Hora de publicación original."
 
 #: C/gnome-commander.xml:2411(para)
 msgid "ID3.OriginalYear"
@@ -5069,11 +5069,11 @@ msgstr "ID3.OriginalYear"
 
 #: C/gnome-commander.xml:2412(para)
 msgid "Original Year"
-msgstr ""
+msgstr "Año original"
 
 #: C/gnome-commander.xml:2413(para)
 msgid "Original release year."
-msgstr ""
+msgstr "Año de lanzamiento original."
 
 #: C/gnome-commander.xml:2416(para)
 msgid "ID3.Ownership"
@@ -5081,11 +5081,11 @@ msgstr "ID3.Ownership"
 
 #: C/gnome-commander.xml:2417(para)
 msgid "Ownership"
-msgstr ""
+msgstr "Propietario"
 
 #: C/gnome-commander.xml:2418(para)
 msgid "Ownership frame."
-msgstr ""
+msgstr "Cuadro propietario."
 
 #: C/gnome-commander.xml:2421(para)
 msgid "ID3.PartInSet"
@@ -5093,11 +5093,11 @@ msgstr "ID3.PartInSet"
 
 #: C/gnome-commander.xml:2422(para)
 msgid "Part of a Set"
-msgstr ""
+msgstr "Parte de un conjunto"
 
 #: C/gnome-commander.xml:2423(para)
 msgid "Part of a set the audio came from."
-msgstr ""
+msgstr "Parte de un conjunto del que proviene el sonido."
 
 #: C/gnome-commander.xml:2426(para)
 msgid "ID3.PerformerSortOrder"
@@ -5105,11 +5105,11 @@ msgstr "ID3.PerformerSortOrder"
 
 #: C/gnome-commander.xml:2427(para)
 msgid "Performer Sort Order"
-msgstr ""
+msgstr "Orden de los artistas"
 
 #: C/gnome-commander.xml:2428(para)
 msgid "Performer sort order."
-msgstr ""
+msgstr "Orden de los artistas."
 
 #: C/gnome-commander.xml:2431(para)
 msgid "ID3.Picture"
@@ -5117,11 +5117,11 @@ msgstr "ID3.Picture"
 
 #: C/gnome-commander.xml:2432(para)
 msgid "Picture"
-msgstr ""
+msgstr "Imagen"
 
 #: C/gnome-commander.xml:2433(para)
 msgid "Attached picture."
-msgstr ""
+msgstr "Imagen adjunta."
 
 #: C/gnome-commander.xml:2436(para)
 msgid "ID3.PlayCounter"
@@ -5133,7 +5133,7 @@ msgstr "Contador de reproducciones"
 
 #: C/gnome-commander.xml:2438(para)
 msgid "Number of times a file has been played."
-msgstr ""
+msgstr "Número de veces que el archivo se ha reproducido."
 
 #: C/gnome-commander.xml:2441(para)
 msgid "ID3.PlaylistDelay"
@@ -5141,11 +5141,11 @@ msgstr "ID3.PlaylistDelay"
 
 #: C/gnome-commander.xml:2442(para)
 msgid "Playlist Delay"
-msgstr ""
+msgstr "Retraso de la lista de reproducción"
 
 #: C/gnome-commander.xml:2443(para)
 msgid "Playlist delay."
-msgstr ""
+msgstr "Retraso de la lista de reproducción."
 
 #: C/gnome-commander.xml:2446(para)
 msgid "ID3.Popularimeter"
@@ -5153,11 +5153,11 @@ msgstr "ID3.Popularimeter"
 
 #: C/gnome-commander.xml:2447(para)
 msgid "Popularimeter"
-msgstr ""
+msgstr "Medidor de popularidad"
 
 #: C/gnome-commander.xml:2448(para)
 msgid "Rating of the audio file."
-msgstr ""
+msgstr "Puntuación del archivo de sonido."
 
 #: C/gnome-commander.xml:2451(para)
 msgid "ID3.PositionSync"
@@ -5177,7 +5177,7 @@ msgstr "ID3.Private"
 
 #: C/gnome-commander.xml:2457(para)
 msgid "Private"
-msgstr ""
+msgstr "Privado"
 
 #: C/gnome-commander.xml:2458(para)
 msgid "Private frame."
@@ -5189,11 +5189,11 @@ msgstr "ID3.ProducedNotice"
 
 #: C/gnome-commander.xml:2462(para)
 msgid "Produced Notice"
-msgstr ""
+msgstr "Avisos producidos"
 
 #: C/gnome-commander.xml:2463(para)
 msgid "Produced notice."
-msgstr ""
+msgstr "Avisos producidos."
 
 #: C/gnome-commander.xml:2466(para)
 msgid "ID3.Publisher"
@@ -5201,7 +5201,7 @@ msgstr "ID3.Publisher"
 
 #: C/gnome-commander.xml:2468(para)
 msgid "Publisher."
-msgstr ""
+msgstr "Editor."
 
 #: C/gnome-commander.xml:2471(para)
 msgid "ID3.RecordingDates"
@@ -5209,11 +5209,11 @@ msgstr "ID3.RecordingDates"
 
 #: C/gnome-commander.xml:2472(para)
 msgid "Recording Dates"
-msgstr ""
+msgstr "Fechas de grabación"
 
 #: C/gnome-commander.xml:2473(para)
 msgid "Recording dates."
-msgstr ""
+msgstr "Fechas de grabación."
 
 #: C/gnome-commander.xml:2476(para)
 msgid "ID3.RecordingTime"
@@ -5221,11 +5221,11 @@ msgstr "ID3.RecordingTime"
 
 #: C/gnome-commander.xml:2477(para)
 msgid "Recording Time"
-msgstr ""
+msgstr "Hora de grabación"
 
 #: C/gnome-commander.xml:2478(para)
 msgid "Recording time."
-msgstr ""
+msgstr "Hora de grabación."
 
 #: C/gnome-commander.xml:2481(para)
 msgid "ID3.ReleaseTime"
@@ -9930,9 +9930,8 @@ msgid "New or updated docs: de, en, es"
 msgstr ""
 
 #: C/gnome-commander.xml:5934(para)
-msgid "New or updated translations: ar, cs, de, es, eu, pl, pt_BR"
-msgstr ""
-"Traducciones nuevas o actualizadas: ar, cs, de, es, eu, pl, pt_BR"
+msgid "New or updated translations: ar, cs, de, es, eu, fr, pl, pt_BR"
+msgstr "Traducciones nuevas o actualizadas: ar, cs, de, es, eu, fr, pl, pt_BR"
 
 #: C/gnome-commander.xml:5937(para) C/gnome-commander.xml:6067(para)
 #: C/gnome-commander.xml:6187(para) C/gnome-commander.xml:6282(para)
