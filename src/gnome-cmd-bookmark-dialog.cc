@@ -555,9 +555,10 @@ GtkWidget *gnome_cmd_bookmark_dialog_new ()
 
 static gboolean on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, gpointer data)
 {
-    GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
-    GnomeCmdCon *con = gnome_cmd_main_win_get_fs (main_win, ACTIVE)->get_connection();
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
+    GnomeCmdCon *con = fs->is_local() ? get_home_con () : fs->get_connection();
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
+    GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
 
     bookmark->name = g_strdup (values[0]);
     bookmark->path = g_strdup (values[1]);
@@ -574,7 +575,8 @@ static gboolean on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const g
 void gnome_cmd_bookmark_add_current ()
 {
     GnomeCmdDir *cwd = gnome_cmd_main_win_get_fs (main_win, ACTIVE)->get_directory();
-    gchar *path = gnome_cmd_file_get_path (GNOME_CMD_FILE (cwd));
+    gchar *path = gnome_cmd_dir_is_local (cwd) ? gnome_cmd_file_get_real_path (GNOME_CMD_FILE (cwd)) :
+                                                 gnome_cmd_file_get_path (GNOME_CMD_FILE (cwd));
 
     if (!g_utf8_validate (path, -1, NULL))
     {

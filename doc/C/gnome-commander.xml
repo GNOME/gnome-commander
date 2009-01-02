@@ -5907,6 +5907,9 @@
                             <para>Fixed problem #554598 (GNOME Goal: LINGUAS)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #556664 (bookmarks can not be saved for mounted devices)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with setting equal pane size in horizontal mode</para>
                         </listitem>
                     </itemizedlist>

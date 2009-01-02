@@ -9,6 +9,7 @@ Bug fixes:
  * Fixed problem #548961 (support for input method when rename or quicksearch)
  * Fixed problem #554586 (AC_PROG_CXX macro problem)
  * Fixed problem #554598 (GNOME Goal: LINGUAS)
+ * Fixed problem #556664 (bookmarks can not be saved for mounted devices)
  * Fixed problem with setting equal pane size in horizontal mode
 
 New features:

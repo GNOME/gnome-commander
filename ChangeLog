@@ -1,3 +1,8 @@
+2009-01-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-bookmark-dialog.cc:
+	Fixed problem #556664 (bookmarks can not be saved for mounted devices)
+
 2008-12-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-user-actions.cc
