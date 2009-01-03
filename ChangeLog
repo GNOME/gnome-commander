@@ -1,3 +1,8 @@
+2009-01-03  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags-taglib.cc:
+	ID3 metatags: added support for total number of tracks (Audio.AlbumTrackCount)
+
 2009-01-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-bookmark-dialog.cc:

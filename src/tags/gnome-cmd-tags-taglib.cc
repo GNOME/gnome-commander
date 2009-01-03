@@ -211,6 +211,19 @@ inline void readTags(GnomeCmdFileMetadata &metadata, const TagLib::ID3v2::Tag *i
                 metadata.add(TAG_FILE_RANK,val);
                 break;
 
+            case TAG_AUDIO_ALBUMTRACKCOUNT:
+                {
+                    string::size_type pos = val.rfind('/');
+                    unsigned n = 0;
+
+                    if (pos==string::npos || !sscanf(val.c_str()+pos, "/%u", &n) || !n)
+                        continue;
+
+                    metadata.addf(tag, "%u", n);
+                    DEBUG('t', "\t%s (%s) = %u\n", id.c_str(), gcmd_tags_get_name(tag), n);
+                }
+                continue;
+
             default:
                 break;
         }
@@ -299,6 +312,7 @@ void gcmd_tags_taglib_init()
         const gchar *name;
     }
     id3v2_data[] = {
+                    {TAG_AUDIO_ALBUMTRACKCOUNT,"TRCK"},  // Total no. of tracks on the album
                     {TAG_ID3_ALBUMSORTORDER,"TSOA"},  // Album sort order
                     {TAG_ID3_AUDIOCRYPTO,"AENC"},  // Audio encryption
                     {TAG_ID3_AUDIOSEEKPOINT,"ASPI"},  // Audio seek point index
