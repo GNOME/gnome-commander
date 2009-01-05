@@ -48,11 +48,9 @@ struct _FileRollerPluginClass
 };
 
 
-GtkType
-file_roller_plugin_get_type ();
+GtkType file_roller_plugin_get_type ();
 
-GnomeCmdPlugin *
-file_roller_plugin_new ();
+GnomeCmdPlugin *file_roller_plugin_new ();
 
 G_END_DECLS
 

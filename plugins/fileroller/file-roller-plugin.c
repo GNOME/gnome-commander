@@ -122,8 +122,7 @@ on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
 }
 
 
-static void
-do_add_to_archive (const gchar *name, GnomeCmdState *state)
+static void do_add_to_archive (const gchar *name, GnomeCmdState *state)
 {
     gchar *t = g_strdup_printf ("--add-to=%s", name);
     gchar *arg = g_shell_quote (t);
@@ -156,8 +155,7 @@ do_add_to_archive (const gchar *name, GnomeCmdState *state)
 }
 
 
-static void
-on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
+static void on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
 {
     gint ret;
     GtkWidget *dialog = NULL;
@@ -260,15 +258,13 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
 }
 
 
-static GtkWidget *
-create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     return NULL;
 }
 
 
-static GList *
-create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     GList *items = NULL;
     GtkWidget *item;
@@ -286,8 +282,7 @@ create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 
     FILE_ROLLER_PLUGIN (plugin)->priv->state = state;
 
-    item = create_menu_item (_("Create Archive..."),
-        TRUE, GTK_SIGNAL_FUNC (on_add_to_archive), plugin);
+    item = create_menu_item (_("Create Archive..."), TRUE, GTK_SIGNAL_FUNC (on_add_to_archive), plugin);
     items = g_list_append (items, item);
 
     if (num_files == 1)
@@ -319,14 +314,12 @@ create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 }
 
 
-static void
-update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static void update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
 }
 
 
-static void
-on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
+static void on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
 {
     plugin->priv->default_ext = g_strdup (gtk_entry_get_text (
         GTK_ENTRY (GTK_COMBO (plugin->priv->conf_combo)->entry)));
@@ -337,8 +330,7 @@ on_configure_close (GtkButton *btn, FileRollerPlugin *plugin)
 }
 
 
-static void
-configure (GnomeCmdPlugin *plugin)
+static void configure (GnomeCmdPlugin *plugin)
 {
     gint i;
     GList *items = NULL;
@@ -386,8 +378,7 @@ configure (GnomeCmdPlugin *plugin)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     FileRollerPlugin *plugin = FILE_ROLLER_PLUGIN (object);
 
@@ -399,8 +390,7 @@ destroy (GtkObject *object)
 }
 
 
-static void
-class_init (FileRollerPluginClass *klass)
+static void class_init (FileRollerPluginClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdPluginClass *plugin_class = GNOME_CMD_PLUGIN_CLASS (klass);
@@ -416,8 +406,7 @@ class_init (FileRollerPluginClass *klass)
 }
 
 
-static void
-init (FileRollerPlugin *plugin)
+static void init (FileRollerPlugin *plugin)
 {
     plugin->priv = g_new (FileRollerPluginPrivate, 1);
 
@@ -429,8 +418,7 @@ init (FileRollerPlugin *plugin)
  * Public functions
  ***********************************/
 
-GtkType
-file_roller_plugin_get_type ()
+GtkType file_roller_plugin_get_type ()
 {
     static GtkType type = 0;
 
@@ -454,8 +442,7 @@ file_roller_plugin_get_type ()
 }
 
 
-GnomeCmdPlugin *
-file_roller_plugin_new ()
+GnomeCmdPlugin *file_roller_plugin_new ()
 {
     FileRollerPlugin *plugin = gtk_type_new (file_roller_plugin_get_type ());
 

@@ -172,6 +172,7 @@ GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
     return f;
 }
 
+
 GnomeCmdFile *gnome_cmd_file_new_from_local_path (const char *local_full_path)
 {
     g_return_val_if_fail (local_full_path != NULL, NULL);
@@ -188,7 +189,6 @@ GnomeCmdFile *gnome_cmd_file_new_from_local_path (const char *local_full_path)
 
     return res == GNOME_VFS_OK ? gnome_cmd_file_new (info, NULL) : NULL;
 }
-
 
 
 void gnome_cmd_file_invalidate_metadata (GnomeCmdFile *f)
