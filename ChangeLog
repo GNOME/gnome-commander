@@ -1,3 +1,8 @@
+2009-01-05  Zsombor <gzsombor+gcmd@gmail.com>
+
+	* plugins/fileroller/file-roller-plugin.c:
+	fileroller plugin: added extracting archive to the inactive panel
+
 2009-01-03  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-tags-taglib.cc:

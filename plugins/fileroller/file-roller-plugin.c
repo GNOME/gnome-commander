@@ -88,18 +88,21 @@ struct _FileRollerPluginPrivate
 static GnomeCmdPluginClass *parent_class = NULL;
 
 
-static void
-on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
+static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
 {
-    gchar *target_arg, *archive_arg, *target_dir;
+    gchar *target_arg, *archive_arg;
     gchar *uri_str = gnome_vfs_uri_to_string (uri, 0);
     gchar *local_path = gnome_vfs_get_local_path_from_uri (uri_str);
     gchar *target_name = gtk_object_get_data (GTK_OBJECT (item), "target_name");
+    gchar *target_dir = gtk_object_get_data (GTK_OBJECT (item), "target_dir");
     gchar *cmd, *t;
 
-    t = g_path_get_dirname (local_path);
-    target_dir = target_name ? g_build_path (G_DIR_SEPARATOR_S, t, target_name, NULL) : g_strdup (t);
-    g_free (t);
+    if (target_dir==NULL)
+    {
+        t = g_path_get_dirname (local_path);
+        target_dir = target_name ? g_build_path (G_DIR_SEPARATOR_S, t, target_name, NULL) : g_strdup (t);
+        g_free (t);
+    }
     g_free (target_name);
 
     t = g_strdup_printf ("--extract-to=%s", target_dir);
@@ -294,19 +297,31 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
         for (i=0; handled_extensions[i]; ++i)
             if (g_str_has_suffix (fname, handled_extensions[i]))
             {
-                item = create_menu_item (_("Extract in Current Directory"),
-                    TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+                item = create_menu_item (_("Extract in Current Directory"), TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
                 items = g_list_append (items, item);
 
                 fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
 
-                gchar *text = g_strdup_printf (_("Extract to '%s'"), fname);
+                gchar *text;
+
+                text = g_strdup_printf (_("Extract to '%s'"), fname);
                 item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
                 gtk_object_set_data (GTK_OBJECT (item), "target_name", g_strdup (fname));
                 items = g_list_append (items, item);
                 g_free (text);
+
+                if (!gnome_vfs_uri_equal (state->active_dir_uri, state->inactive_dir_uri))
+                {
+                    text = g_strdup_printf (_("Extract to '%s'"), state->inactive_dir_uri->text);
+                    item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+                    gtk_object_set_data (GTK_OBJECT (item), "target_dir", g_strdup (state->inactive_dir_uri->text));
+                    items = g_list_append (items, item);
+                    g_free (text);
+                }
+
                 break;
             }
+
         g_free (fname);
     }
 
