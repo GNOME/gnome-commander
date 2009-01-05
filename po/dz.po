@@ -110,7 +110,7 @@ msgid "Message:"
 msgstr "འཕྲིན་དོན།:"
 
 #: ../plugins/fileroller/file-roller-plugin.c:183
-msgid "What filename should the new archive have?"
+msgid "What file name should the new archive have?"
 msgstr "ཡིག་མཛོད་གསརཔ་འདི་ལུ་ཡིག་སྣོད་མིང་ག་ཅིག་ཡོདཔ་སྨོ?"
 
 #: ../plugins/fileroller/file-roller-plugin.c:185

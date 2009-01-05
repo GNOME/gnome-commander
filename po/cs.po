@@ -119,7 +119,7 @@ msgid "Message:"
 msgstr "Zpráva:"
 
 #: ../plugins/fileroller/file-roller-plugin.c:184
-msgid "What filename should the new archive have?"
+msgid "What file name should the new archive have?"
 msgstr "Jaký název souboru by měl mít nový archiv?"
 
 #: ../plugins/fileroller/file-roller-plugin.c:186

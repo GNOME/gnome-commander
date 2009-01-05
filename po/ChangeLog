@@ -1,3 +1,7 @@
+2009-01-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* *.po: filename -> file name
+
 2008-12-29  Dušan Hokův <dusan@mirc.cz>
 
 	* cs.po: Updated Czech translation.

@@ -139,7 +139,7 @@ msgstr "Ubutumwa:"
 
 #: ../plugins/fileroller/file-roller-plugin.c:183
 #, fuzzy
-msgid "What filename should the new archive have?"
+msgid "What file name should the new archive have?"
 msgstr "Izina ry'idosiye: i Gishya"
 
 #: ../plugins/fileroller/file-roller-plugin.c:185

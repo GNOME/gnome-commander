@@ -181,7 +181,7 @@ on_add_to_archive (GtkMenuItem *item, FileRollerPlugin *plugin)
             0,
             GTK_MESSAGE_INFO,
             GTK_BUTTONS_OK_CANCEL,
-            _("What filename should the new archive have?"));
+            _("What file name should the new archive have?"));
 
         gtk_window_set_title (GTK_WINDOW (dialog), _("Create Archive"));
 

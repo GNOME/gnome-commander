@@ -114,7 +114,7 @@ msgid "Message:"
 msgstr "Sporočil:"
 
 #: ../plugins/fileroller/file-roller-plugin.c:183
-msgid "What filename should the new archive have?"
+msgid "What file name should the new archive have?"
 msgstr "Kakšno ime naj ima nov arhiv?"
 
 #: ../plugins/fileroller/file-roller-plugin.c:185

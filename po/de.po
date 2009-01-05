@@ -121,7 +121,7 @@ msgid "Message:"
 msgstr "Nachricht:"
 
 #: ../plugins/fileroller/file-roller-plugin.c:184
-msgid "What filename should the new archive have?"
+msgid "What file name should the new archive have?"
 msgstr "Welchen Dateinamen soll das Archiv erhalten?"
 
 #: ../plugins/fileroller/file-roller-plugin.c:186
