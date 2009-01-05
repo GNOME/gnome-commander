@@ -56,7 +56,7 @@ typedef struct _GnomeCmdDir         GnomeCmdDir;
 
 GtkType gnome_cmd_file_get_type ();
 
-GnomeCmdFile *gnome_cmd_file_new_from_local_path (const gchar *local_full_path);
+GnomeCmdFile *gnome_cmd_file_new_from_uri (const gchar *local_full_path);
 GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir *dir);
 

@@ -173,21 +173,27 @@ GnomeCmdFile *gnome_cmd_file_new (GnomeVFSFileInfo *info, GnomeCmdDir *dir)
 }
 
 
-GnomeCmdFile *gnome_cmd_file_new_from_local_path (const char *local_full_path)
+GnomeCmdFile *gnome_cmd_file_new_from_uri (GnomeVFSURI *uri)
 {
-    g_return_val_if_fail (local_full_path != NULL, NULL);
-
-    gchar *text_uri = gnome_vfs_get_uri_from_local_path (local_full_path);
-
-    g_return_val_if_fail (text_uri != NULL, NULL);
+    g_return_val_if_fail (uri != NULL, NULL);
 
     const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-    GnomeVFSResult res = gnome_vfs_get_file_info (text_uri, info, infoOpts);
 
-    g_free (text_uri);
+    if (gnome_vfs_get_file_info_uri (uri, info, infoOpts) != GNOME_VFS_OK)
+    {
+        gnome_vfs_file_info_unref (info);
+        return NULL;
+    }
 
-    return res == GNOME_VFS_OK ? gnome_cmd_file_new (info, NULL) : NULL;
+    GnomeVFSURI *parent = gnome_vfs_uri_get_parent (uri);
+    GnomeCmdPath *path = gnome_cmd_plain_path_new (gnome_vfs_uri_get_path (parent));
+    GnomeCmdDir *dir = gnome_cmd_dir_new (get_home_con(), path);
+
+    gnome_vfs_uri_unref (parent);
+    gtk_object_unref (GTK_OBJECT (path));
+
+    return gnome_cmd_file_new (info, dir);
 }
 
 
@@ -736,8 +742,13 @@ inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
 }
 
 
-static void on_file_downloaded_for_view (GnomeCmdFile *f)
+static void on_file_downloaded_for_view (GnomeVFSURI *uri)
 {
+    GnomeCmdFile *f = gnome_cmd_file_new_from_uri (uri);
+
+    if (!f)
+        return;
+
     do_view_file (f);
     gnome_cmd_file_unref (f);
 }
@@ -765,16 +776,14 @@ void gnome_cmd_file_view (GnomeCmdFile *f, gint internal_viewer)
 
     g_printerr ("Copying to: %s\n", path_str);
     gtk_object_destroy (GTK_OBJECT (path));
+    g_free (path_str);
 
     gnome_cmd_xfer_tmp_download (src_uri,
                                  dest_uri,
                                  GNOME_VFS_XFER_FOLLOW_LINKS,
                                  GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
                                  GTK_SIGNAL_FUNC (on_file_downloaded_for_view),
-                                 gnome_cmd_file_new_from_local_path (path_str));
-
-    // FIXME: unref src_uri & dest_uri ?
-    g_free (path_str);
+                                 dest_uri);
 }
 
 
