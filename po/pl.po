@@ -1,5 +1,5 @@
 # Polish translation of gnome-commander
-# Piotr Eljasiak <epiotr@use.pl>, 2002-2008.
+# Piotr Eljasiak <epiotr@use.pl>, 2002-2009.
 # Polish translation of GNOME Commander
 # Copyright (C) 2002, 2008 Free Software Foundation, Inc.
 msgid ""

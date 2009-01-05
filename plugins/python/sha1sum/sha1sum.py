@@ -1,10 +1,10 @@
 #       sha1sum python plugin
-#       Copyright (C) 2007 Piotr Eljasiak
+#       Copyright (C) 2007-2009 Piotr Eljasiak
 #
 #    Part of
 #       GNOME Commander - A GNOME based file manager
 #       Copyright (C) 2001-2006 Marcus Bjurman
-#       Copyright (C) 2007-2008 Piotr Eljasiak
+#       Copyright (C) 2007-2009 Piotr Eljasiak
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
