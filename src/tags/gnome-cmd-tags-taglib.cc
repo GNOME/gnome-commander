@@ -142,6 +142,7 @@ inline bool getAudioProperties(GnomeCmdFileMetadata &metadata, const TagLib::Aud
 
     if (flacProperties)
     {
+        metadata.add(TAG_AUDIO_CODEC,"FLAC");
         if (flacProperties->sampleWidth())
             cout << "Audio.FLAC.SampleWidth  " << flacProperties->sampleWidth()<< endl;
 

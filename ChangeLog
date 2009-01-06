@@ -4,6 +4,9 @@
 	* src/gnome-cmd-file.h:
 	Fix the bug introduced in rev. #2157 (viewing remote files)
 
+	* src/tags/gnome-cmd-tags-taglib.cc:
+	audio metatags: set Audio.Codec to FLAC when appriopriate
+
 2009-01-05  Zsombor <gzsombor+gcmd@gmail.com>
 
 	* plugins/fileroller/file-roller-plugin.c:
