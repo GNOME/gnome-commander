@@ -5618,14 +5618,14 @@
                                     <entry><para>[colors]</para></entry>
                                     <entry><para>curs_bg</para></entry>
                                     <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>Cursor background</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
                                     <entry><para>curs_fg</para></entry>
                                     <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>Cursor foreground</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
@@ -5639,7 +5639,7 @@
                                     <entry><para></para></entry>
                                     <entry><para>norm_bg</para></entry>
                                     <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>Current background</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
@@ -5660,13 +5660,13 @@
                                     <entry><para></para></entry>
                                     <entry><para>sel_fg</para></entry>
                                     <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>Selected foreground</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
                                     <entry><para>use_ls_colors</para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>boolean</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
                                 </row>
@@ -5937,7 +5937,7 @@
                             <para>New or updated translations: ar, cs, de, es, eu, fr, pl, pt_BR</para>
                         </listitem>
                         <listitem>
-                            <para>New key bindings:</para>
+                            <para>New internal viewer key bindings:</para>
                             <itemizedlist>
                                 <listitem>
                                     <para><keycombo><keycap>T</keycap></keycombo>   Show metadata tags (replaces the old E)</para>
