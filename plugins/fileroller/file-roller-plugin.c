@@ -312,9 +312,11 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
                 if (!gnome_vfs_uri_equal (state->active_dir_uri, state->inactive_dir_uri))
                 {
-                    text = g_strdup_printf (_("Extract to '%s'"), state->inactive_dir_uri->text);
+                    gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (state->inactive_dir_uri), NULL);
+
+                    text = g_strdup_printf (_("Extract to '%s'"), path);
                     item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
-                    gtk_object_set_data (GTK_OBJECT (item), "target_dir", g_strdup (state->inactive_dir_uri->text));
+                    gtk_object_set_data (GTK_OBJECT (item), "target_dir", path);
                     items = g_list_append (items, item);
                     g_free (text);
                 }

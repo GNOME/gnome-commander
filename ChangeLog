@@ -1,3 +1,8 @@
+2009-01-07  Zsombor <gzsombor+gcmd@gmail.com>
+
+	* plugins/fileroller/file-roller-plugin.c:
+	Yet another fix for fileroller plugin
+
 2009-01-06  André  <gcmd@pyit.de>
 
 	* src/gnome-cmd-file.cc:
