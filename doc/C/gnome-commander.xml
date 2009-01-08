@@ -5646,14 +5646,14 @@
                                     <entry><para></para></entry>
                                     <entry><para>norm_fg</para></entry>
                                     <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>Current foreground</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
                                     <entry><para>sel_bg</para></entry>
                                     <entry><para></para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>Selected background</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
@@ -5667,7 +5667,7 @@
                                     <entry><para></para></entry>
                                     <entry><para>use_ls_colors</para></entry>
                                     <entry><para>boolean</para></entry>
-                                    <entry><para></para></entry>
+                                    <entry><para>Colorize files according to the LS_COLORS environment variable. Defaults to FALSE.</para></entry>
                                     <entry><para></para></entry>
                                 </row>
                                 <row valign="top">
