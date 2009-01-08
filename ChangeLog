@@ -1,3 +1,8 @@
+2009-01-08  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	Fixed selection background colour in DeepBlue and Cafezinho themes
+
 2009-01-07  Zsombor <gzsombor+gcmd@gmail.com>
 
 	* plugins/fileroller/file-roller-plugin.c:
