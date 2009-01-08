@@ -28,7 +28,9 @@ using namespace std;
 
 
 GtkStyle *list_style = NULL;
+GtkStyle *alt_list_style = NULL;
 GtkStyle *sel_list_style = NULL;
+GtkStyle *alt_sel_list_style = NULL;
 
 
 inline GtkStyle *create_list_style ()
@@ -65,13 +67,44 @@ inline GtkStyle *create_list_style ()
 }
 
 
-inline GtkStyle *create_sel_list_style ()
+inline GtkStyle *create_alt_list_style ()
 {
-    GtkStyle *style;
     GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
     const gchar *font_name = gnome_cmd_data_get_list_font ();
+    GtkStyle *style = gtk_style_new ();
 
-    style = gtk_style_new ();
+    if (strcmp (font_name, "default") != 0)
+    {
+        PangoFontDescription *pfont = pango_font_description_from_string (font_name);
+
+        if (pfont && pango_font_description_get_size (pfont) != 0)
+        {
+            if (style->font_desc)
+                pango_font_description_free (style->font_desc);
+            style->font_desc = pfont;
+        }
+    }
+
+    if (!cols->respect_theme)
+    {
+        style->fg[GTK_STATE_SELECTED] = *cols->curs_fg;
+        style->text[GTK_STATE_NORMAL] = *cols->alt_fg;
+        style->fg[GTK_STATE_NORMAL] = *cols->alt_fg;
+
+        style->bg[GTK_STATE_SELECTED] = *cols->curs_bg;
+        style->base[GTK_STATE_NORMAL] = *cols->alt_bg;
+        style->base[GTK_STATE_ACTIVE] = *cols->alt_bg;
+    }
+
+    return style;
+}
+
+
+inline GtkStyle *create_sel_list_style ()
+{
+    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
+    const gchar *font_name = gnome_cmd_data_get_list_font ();
+    GtkStyle *style = gtk_style_new ();
 
     if (strcmp (font_name, "default") != 0)
     {
@@ -101,11 +134,49 @@ inline GtkStyle *create_sel_list_style ()
 }
 
 
+inline GtkStyle *create_alt_sel_list_style ()
+{
+    GnomeCmdColorTheme *cols = gnome_cmd_data_get_current_color_theme ();
+    const gchar *font_name = gnome_cmd_data_get_list_font ();
+    GtkStyle *style = gtk_style_new ();
+
+    if (strcmp (font_name, "default") != 0)
+    {
+        PangoFontDescription *pfont = pango_font_description_from_string (font_name);
+
+        if (pfont && pango_font_description_get_size (pfont) != 0)
+        {
+            if (style->font_desc)
+                pango_font_description_free (style->font_desc);
+            style->font_desc = pfont;
+        }
+    }
+
+    if (!cols->respect_theme)
+    {
+        style->fg[GTK_STATE_SELECTED] = *cols->sel_fg;
+        style->fg[GTK_STATE_NORMAL] = *cols->sel_fg;
+        style->text[GTK_STATE_NORMAL] = *cols->sel_fg;
+
+        style->bg[GTK_STATE_SELECTED] = *cols->curs_bg;
+        style->bg[GTK_STATE_NORMAL] = *cols->sel_bg;
+        style->base[GTK_STATE_NORMAL] = *cols->alt_bg;
+        style->base[GTK_STATE_ACTIVE] = *cols->alt_bg;
+    }
+
+    return style;
+}
+
+
 void gnome_cmd_style_create ()
 {
     if (list_style) gtk_style_unref (list_style);
+    if (alt_list_style) gtk_style_unref (alt_list_style);
     if (sel_list_style) gtk_style_unref (sel_list_style);
+    if (alt_sel_list_style) gtk_style_unref (alt_sel_list_style);
 
     list_style = create_list_style ();
+    alt_list_style = create_alt_list_style ();
     sel_list_style = create_sel_list_style ();
+    alt_sel_list_style = create_alt_sel_list_style ();
 }

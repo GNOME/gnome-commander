@@ -22,6 +22,7 @@
 #define __GNOME_CMD_STYLE_H__
 
 extern GtkStyle *list_style, *sel_list_style;
+extern GtkStyle *alt_list_style, *alt_sel_list_style;
 
 void gnome_cmd_style_create ();
 

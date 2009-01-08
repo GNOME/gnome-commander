@@ -338,6 +338,8 @@ static void on_edit_colors_close (GtkButton *btn, GtkWidget *dlg)
 {
     GtkWidget *norm_fg = lookup_widget (GTK_WIDGET (dlg), "default_fg");
     GtkWidget *norm_bg = lookup_widget (GTK_WIDGET (dlg), "default_bg");
+    GtkWidget *alt_fg = lookup_widget (GTK_WIDGET (dlg), "alternate_fg");
+    GtkWidget *alt_bg = lookup_widget (GTK_WIDGET (dlg), "alternate_bg");
     GtkWidget *sel_fg = lookup_widget (GTK_WIDGET (dlg), "selected_fg");
     GtkWidget *sel_bg = lookup_widget (GTK_WIDGET (dlg), "selected_bg");
     GtkWidget *curs_fg = lookup_widget (GTK_WIDGET (dlg), "cursor_fg");
@@ -351,6 +353,12 @@ static void on_edit_colors_close (GtkButton *btn, GtkWidget *dlg)
     gnome_color_picker_get_i16 (
         GNOME_COLOR_PICKER (norm_bg),
         &colors->norm_bg->red, &colors->norm_bg->green, &colors->norm_bg->blue, &a);
+    gnome_color_picker_get_i16 (
+        GNOME_COLOR_PICKER (alt_fg),
+        &colors->alt_fg->red, &colors->alt_fg->green, &colors->alt_fg->blue, &a);
+    gnome_color_picker_get_i16 (
+        GNOME_COLOR_PICKER (alt_bg),
+        &colors->alt_bg->red, &colors->alt_bg->green, &colors->alt_bg->blue, &a);
     gnome_color_picker_get_i16 (
         GNOME_COLOR_PICKER (sel_fg),
         &colors->sel_fg->red, &colors->sel_fg->green, &colors->sel_fg->blue, &a);
@@ -382,7 +390,7 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     cat = create_category (dlg, cat_box, _("Colors"));
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dlg), cat);
 
-    table = create_table (dlg, 4, 3);
+    table = create_table (dlg, 5, 3);
     gtk_container_add (GTK_CONTAINER (cat_box), table);
 
     cpicker = create_color_picker (dlg, "default_fg");
@@ -395,23 +403,33 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     gnome_color_picker_set_i16 (
         GNOME_COLOR_PICKER (cpicker),
         colors->norm_bg->red, colors->norm_bg->green, colors->norm_bg->blue, 0);
-    cpicker = create_color_picker (dlg, "selected_fg");
+    cpicker = create_color_picker (dlg, "alternate_fg");
     table_add (table, cpicker, 1, 2, (GtkAttachOptions)0);
+    gnome_color_picker_set_i16 (
+        GNOME_COLOR_PICKER (cpicker),
+        colors->alt_fg->red, colors->alt_fg->green, colors->alt_fg->blue, 0);
+    cpicker = create_color_picker (dlg, "alternate_bg");
+    table_add (table, cpicker, 2, 2, (GtkAttachOptions) 0);
+    gnome_color_picker_set_i16 (
+        GNOME_COLOR_PICKER (cpicker),
+        colors->alt_bg->red, colors->alt_bg->green, colors->alt_bg->blue, 0);
+    cpicker = create_color_picker (dlg, "selected_fg");
+    table_add (table, cpicker, 1, 3, (GtkAttachOptions) 0);
     gnome_color_picker_set_i16 (
         GNOME_COLOR_PICKER (cpicker),
         colors->sel_fg->red, colors->sel_fg->green, colors->sel_fg->blue, 0);
     cpicker = create_color_picker (dlg, "selected_bg");
-    table_add (table, cpicker, 2, 2, (GtkAttachOptions)0);
+    table_add (table, cpicker, 2, 3, (GtkAttachOptions) 0);
     gnome_color_picker_set_i16 (
         GNOME_COLOR_PICKER (cpicker),
         colors->sel_bg->red, colors->sel_bg->green, colors->sel_bg->blue, 0);
     cpicker = create_color_picker (dlg, "cursor_fg");
-    table_add (table, cpicker, 1, 3, (GtkAttachOptions)0);
+    table_add (table, cpicker, 1, 4, (GtkAttachOptions) 0);
     gnome_color_picker_set_i16 (
         GNOME_COLOR_PICKER (cpicker),
         colors->curs_fg->red, colors->curs_fg->green, colors->curs_fg->blue, 0);
     cpicker = create_color_picker (dlg, "cursor_bg");
-    table_add (table, cpicker, 2, 3, (GtkAttachOptions)0);
+    table_add (table, cpicker, 2, 4, (GtkAttachOptions) 0);
     gnome_color_picker_set_i16 (
         GNOME_COLOR_PICKER (cpicker),
         colors->curs_bg->red, colors->curs_bg->green, colors->curs_bg->blue, 0);
@@ -422,10 +440,12 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     table_add (table, label, 2, 0, (GtkAttachOptions) GTK_FILL);
     label = create_label (dlg, _("Default:"));
     table_add (table, label, 0, 1, (GtkAttachOptions) GTK_FILL);
-    label = create_label (dlg, _("Selected file:"));
+    label = create_label (dlg, _("Alternate:"));
     table_add (table, label, 0, 2, (GtkAttachOptions) GTK_FILL);
-    label = create_label (dlg, _("Cursor:"));
+    label = create_label (dlg, _("Selected file:"));
     table_add (table, label, 0, 3, (GtkAttachOptions) GTK_FILL);
+    label = create_label (dlg, _("Cursor:"));
+    table_add (table, label, 0, 4, (GtkAttachOptions) GTK_FILL);
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GNOME_STOCK_BUTTON_CLOSE,
                                  GTK_SIGNAL_FUNC (on_edit_colors_close), dlg);

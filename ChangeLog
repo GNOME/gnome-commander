@@ -1,3 +1,13 @@
+2009-01-08  André  <gcmd@pyit.de>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/gnome-cmd-style.cc:
+	* src/gnome-cmd-style.h:
+	* src/gnome-cmd-types.h:
+	Support for row alternate background in colour themes
+
 2009-01-08  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

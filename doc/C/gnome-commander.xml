@@ -5651,6 +5651,20 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
+                                    <entry><para>alt_bg</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para>Alternate background</para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
+                                    <entry><para>alt_fg</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para>Alternate foreground</para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
                                     <entry><para>sel_bg</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para>Selected background</para></entry>
@@ -5926,6 +5940,9 @@
                         </listitem>
                         <listitem>
                             <para>Support for metadata tags in internal viewer</para>
+                        </listitem>
+                        <listitem>
+                            <para>Support for row alternate background in colour themes</para>
                         </listitem>
                         <listitem>
                             <para>New colour theme: cafezinho</para>

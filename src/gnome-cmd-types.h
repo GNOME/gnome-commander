@@ -82,6 +82,7 @@ typedef struct
     GdkColor *sel_fg, *sel_bg;
     GdkColor *norm_fg, *norm_bg;
     GdkColor *curs_fg, *curs_bg;
+    GdkColor *alt_fg, *alt_bg;
 } GnomeCmdColorTheme;
 
 
