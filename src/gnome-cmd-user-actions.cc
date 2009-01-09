@@ -960,30 +960,36 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
     DEBUG ('g', "invoking: %s\n", command);
 
     string cmd;
-    string filename = "[f]";
-    string quoted_filename = "[F]";
-    string file_path = "[p]";
-    string quoted_file_path = "[P]";
-    string dir_path = "[d]";
-    string quoted_dir_path = "[D]";
-    string uri = "[U]";
+    string filename;
+    string quoted_filename;
+    string file_path;
+    string quoted_file_path;
+    string dir_path;
+    string quoted_dir_path;
+    string uri;
+
+    GnomeCmdDir *dir = NULL;
 
     GnomeCmdFileList *fl = get_fl (ACTIVE);
     GList *sfl = fl->get_selected_files();
-    sfl = fl->sort_selection(sfl);
+    GList *i = sfl = fl->sort_selection(sfl);
 
-    get_file_list (filename, sfl, gnome_cmd_file_get_name);
-    get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
-    get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
-    get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
-    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_NONE);
+    if (i)
+    {
+        dir = gnome_cmd_file_get_parent_dir (GNOME_CMD_FILE (i->data));
+        i = i->next;
+    }
 
-    g_list_free (sfl);
+    for (; i && gnome_cmd_file_get_parent_dir (GNOME_CMD_FILE (i->data))==dir; i=i->next);
 
-    GnomeCmdDir *dir = get_fs (ACTIVE)->get_directory();
+    if (i)
+        dir = NULL;
 
-    stringify (dir_path, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir)));
-    stringify (quoted_dir_path, gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (dir)));
+    if (dir)
+    {
+        stringify (dir_path, gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir)));
+        stringify (quoted_dir_path, gnome_cmd_file_get_quoted_real_path (GNOME_CMD_FILE (dir)));
+    }
 
     gboolean percent = FALSE;
 
@@ -1004,23 +1010,33 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
         switch (*s)
         {
             case 'f':           // %f  file name (or list for multiple selections)
+                if (filename.empty())
+                    get_file_list (filename, sfl, gnome_cmd_file_get_name);
                 cmd += filename;
                 break;
 
             case 'F':           // %F  quoted filename (or list for multiple selections)
+                if (quoted_filename.empty())
+                    get_file_list (quoted_filename, sfl, gnome_cmd_file_get_quoted_name);
                 cmd += quoted_filename;
                 break;
 
             case 'p':           // %p  full file system path (or list for multiple selections)
+                if (file_path.empty())
+                    get_file_list (file_path, sfl, gnome_cmd_file_get_real_path);
                 cmd += file_path;
                 break;
 
             case 'P':           // %P  quoted full file system path (or list for multiple selections)
             case 's':           // %s  synonym for %P (for compatibility with previous versions of gcmd)
+                if (quoted_file_path.empty())
+                    get_file_list (quoted_file_path, sfl, gnome_cmd_file_get_quoted_real_path);
                 cmd += quoted_file_path;
                 break;
 
             case 'u':           // %u  fully qualified URI for the file (or list for multiple selections)
+                if (uri.empty())
+                    get_file_list (uri, sfl, gnome_cmd_file_get_uri_str, GNOME_VFS_URI_HIDE_NONE);
                 cmd += uri;
                 break;
 
@@ -1047,7 +1063,9 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     DEBUG ('g', "running: %s\n", cmd.c_str());
 
-    gnome_execute_shell (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, cmd.c_str());
+    gnome_execute_shell (dir && gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, cmd.c_str());
+
+    g_list_free (sfl);
 }
 
 

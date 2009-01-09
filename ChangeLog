@@ -4,6 +4,9 @@
 	* src/gnome-cmd-file.h:
 	Added gnome_cmd_file_get_parent_dir (GnomeCmdFile *f) function
 
+	* src/gnome-cmd-user-actions.cc:
+	Speed up "command.execute" twice
+
 2009-01-08  André  <gcmd@pyit.de>
 
 	* src/gnome-cmd-data.cc:
