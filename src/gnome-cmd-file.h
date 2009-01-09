@@ -127,6 +127,8 @@ void gnome_cmd_file_list_free (GList *files);
 void gnome_cmd_file_list_ref (GList *files);
 void gnome_cmd_file_list_unref (GList *files);
 
+GnomeCmdDir *gnome_cmd_file_get_parent_dir (GnomeCmdFile *f);
+
 void gnome_cmd_file_update_info (GnomeCmdFile *f, GnomeVFSFileInfo *info);
 gboolean gnome_cmd_file_is_local (GnomeCmdFile *f);
 gboolean gnome_cmd_file_is_executable (GnomeCmdFile *f);

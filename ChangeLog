@@ -1,3 +1,9 @@
+2009-01-09  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
+	Added gnome_cmd_file_get_parent_dir (GnomeCmdFile *f) function
+
 2009-01-08  André  <gcmd@pyit.de>
 
 	* src/gnome-cmd-data.cc:

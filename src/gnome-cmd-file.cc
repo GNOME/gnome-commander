@@ -991,6 +991,12 @@ void gnome_cmd_file_list_unref (GList *files)
 }
 
 
+GnomeCmdDir *gnome_cmd_file_get_parent_dir (GnomeCmdFile *f)
+{
+    return get_parent_dir (f);
+}
+
+
 inline gulong tv2ms (const GTimeVal &t)
 {
     return t.tv_sec*1000 + t.tv_usec/1000;
