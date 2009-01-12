@@ -11,6 +11,9 @@
 	 */utils.cc:
 	GnomeCmdData: more C++ rework
 
+	* src/gnome-cmd-notebook.h:
+	notebook: show tabs when number of pages > 1
+
 2009-01-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:

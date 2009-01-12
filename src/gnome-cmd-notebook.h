@@ -40,7 +40,7 @@ struct GnomeCmdNotebook
 
     Private *priv;
 
-    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_NOTEBOOK, NULL);  }
+    void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_NOTEBOOK, "show-tabs", FALSE, NULL);  }
     void operator delete (void *p)      {  g_free (p);  }
 
     operator GtkWidget * ()             {  return GTK_WIDGET (this);    }
@@ -59,8 +59,8 @@ struct GnomeCmdNotebook
     gint prepend_page(GtkWidget *page, const gchar *label=NULL)             {  return insert_page(page, 0, label);   }
     gint append_page(GtkWidget *page, const gchar *label=NULL)              {  return insert_page(page, -1, label);  }
 
-    void remove_page()                  {  gtk_notebook_remove_page (*this, get_current_page());  }
-    void remove_page(gint n)            {  gtk_notebook_remove_page (*this, n);  }
+    void remove_page(gint n);
+    void remove_page()                  {  remove_page (get_current_page());  }
 
     void set_label(const gchar *label=NULL);
     void set_label(gint n, const gchar *label=NULL);
@@ -72,7 +72,17 @@ struct GnomeCmdNotebook
 
 inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, const gchar *label)
 {
+    if (size()==1)
+        gtk_notebook_set_show_tabs (*this, TRUE);
     return gtk_notebook_insert_page (*this, page, label ? gtk_label_new (label) : NULL, n);
+}
+
+
+inline void GnomeCmdNotebook::remove_page(gint n)
+{
+    gtk_notebook_remove_page (*this, n);
+    if (size()<2)
+        gtk_notebook_set_show_tabs (*this, FALSE);
 }
 
 
