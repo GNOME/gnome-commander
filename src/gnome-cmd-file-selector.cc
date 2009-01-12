@@ -155,7 +155,7 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
     gint num_sel_files = 0;
     gint num_sel_dirs = 0;
 
-    GnomeCmdSizeDispMode size_mode = gnome_cmd_data_get_size_disp_mode ();
+    GnomeCmdSizeDispMode size_mode = gnome_cmd_data.size_disp_mode;
     if (size_mode==GNOME_CMD_SIZE_DISP_MODE_POWERED)
         size_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
 

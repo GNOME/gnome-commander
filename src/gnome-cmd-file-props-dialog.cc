@@ -66,12 +66,11 @@ typedef struct
 inline const gchar *get_size_disp_string (GnomeVFSFileSize size)
 {
     static gchar s[64];
-    GnomeCmdSizeDispMode mode = gnome_cmd_data_get_size_disp_mode ();
 
-    if (mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
+    if (gnome_cmd_data.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
         return create_nice_size_str (size);
 
-    snprintf (s, sizeof (s), ngettext("%s byte","%s bytes",size), size2string (size, mode));
+    snprintf (s, sizeof (s), ngettext("%s byte","%s bytes",size), size2string (size, gnome_cmd_data.size_disp_mode));
     return s;
 }
 

@@ -147,6 +147,8 @@ struct GnomeCmdData
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
     RightMouseButtonMode         right_mouse_button_mode;
     GnomeCmdColorMode            color_mode;
+    GnomeCmdSizeDispMode         size_disp_mode;
+    GnomeCmdPermDispMode         perm_disp_mode;
     gboolean                     alt_quick_search;
 
     Filter::Type                 filter_type;
@@ -165,6 +167,8 @@ struct GnomeCmdData
     gboolean                     concombo_visibility;
     gboolean                     cmdline_visibility;
     gboolean                     buttonbar_visibility;
+
+    gboolean                     use_ls_colors;
 
     guint                        icon_size;
     guint                        dev_icon_size;
@@ -207,12 +211,6 @@ void gnome_cmd_data_set_fav_apps (GList *apps);
 const gchar *gnome_cmd_data_get_ftp_anonymous_password ();
 void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
 
-GnomeCmdSizeDispMode gnome_cmd_data_get_size_disp_mode ();
-void gnome_cmd_data_set_size_disp_mode (GnomeCmdSizeDispMode mode);
-
-GnomeCmdPermDispMode gnome_cmd_data_get_perm_disp_mode ();
-void gnome_cmd_data_set_perm_disp_mode (GnomeCmdPermDispMode mode);
-
 GnomeCmdDateFormat gnome_cmd_data_get_date_format ();
 void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format);
 
@@ -253,9 +251,6 @@ void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width);
 
 gint gnome_cmd_data_get_dir_cache_size ();
 void gnome_cmd_data_set_dir_cache_size (gint size);
-
-gboolean gnome_cmd_data_get_use_ls_colors ();
-void gnome_cmd_data_set_use_ls_colors (gboolean value);
 
 GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks ();
 GList *gnome_cmd_data_get_bookmark_groups ();

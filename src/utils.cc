@@ -307,7 +307,7 @@ const gchar *name2string (gchar *filename, gchar *buf, guint max)
 
 const gchar *perm2string (GnomeVFSFilePermissions p, gchar *buf, guint max)
 {
-    switch (gnome_cmd_data_get_perm_disp_mode ())
+    switch (gnome_cmd_data.perm_disp_mode)
     {
         case GNOME_CMD_PERM_DISP_MODE_TEXT:
             return perm2textstring (p, buf, max);

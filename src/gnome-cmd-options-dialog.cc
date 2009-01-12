@@ -206,23 +206,23 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     // Translators: 'Powered' refers to the mode of file size display (here - display using units of data: kB, MB, GB, ...)
     radio = create_radio (parent, NULL, _("Powered"), "size_powered_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data_get_size_disp_mode () == GNOME_CMD_SIZE_DISP_MODE_POWERED)
+    if (gnome_cmd_data.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_POWERED)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     // Translators: '<locale>' refers to the mode of file size display (here - use current locale settings)
     radio = create_radio (parent, get_radio_group (radio), _("<locale>"), "size_locale_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data_get_size_disp_mode () == GNOME_CMD_SIZE_DISP_MODE_LOCALE)
+    if (gnome_cmd_data.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_LOCALE)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Grouped"), "size_grouped_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data_get_size_disp_mode () == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
+    if (gnome_cmd_data.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_GROUPED)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Plain"), "size_plain_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data_get_size_disp_mode () == GNOME_CMD_SIZE_DISP_MODE_PLAIN)
+    if (gnome_cmd_data.size_disp_mode == GNOME_CMD_SIZE_DISP_MODE_PLAIN)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -233,12 +233,12 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
 
     radio = create_radio (parent, NULL, _("Text (rw-r--r--)"), "perm_text_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data_get_perm_disp_mode () == GNOME_CMD_PERM_DISP_MODE_TEXT)
+    if (gnome_cmd_data.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_TEXT)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
     radio = create_radio (parent, get_radio_group (radio), _("Number (644)"), "perm_num_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
-    if (gnome_cmd_data_get_perm_disp_mode () == GNOME_CMD_PERM_DISP_MODE_NUMBER)
+    if (gnome_cmd_data.perm_disp_mode == GNOME_CMD_PERM_DISP_MODE_NUMBER)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
 
 
@@ -286,18 +286,18 @@ inline void store_format_options (GnomeCmdOptionsDialog *dialog)
     const gchar *format = gtk_entry_get_text (GTK_ENTRY (entry));
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_powered_radio)))
-        gnome_cmd_data_set_size_disp_mode (GNOME_CMD_SIZE_DISP_MODE_POWERED);
+        gnome_cmd_data.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_locale_radio)))
-        gnome_cmd_data_set_size_disp_mode (GNOME_CMD_SIZE_DISP_MODE_LOCALE);
+        gnome_cmd_data.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_LOCALE;
     else if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (size_grouped_radio)))
-        gnome_cmd_data_set_size_disp_mode (GNOME_CMD_SIZE_DISP_MODE_GROUPED);
+        gnome_cmd_data.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_GROUPED;
     else
-        gnome_cmd_data_set_size_disp_mode (GNOME_CMD_SIZE_DISP_MODE_PLAIN);
+        gnome_cmd_data.size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_PLAIN;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (perm_text_radio)))
-        gnome_cmd_data_set_perm_disp_mode (GNOME_CMD_PERM_DISP_MODE_TEXT);
+        gnome_cmd_data.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
     else
-        gnome_cmd_data_set_perm_disp_mode (GNOME_CMD_PERM_DISP_MODE_NUMBER);
+        gnome_cmd_data.perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_NUMBER;
 
     gnome_cmd_data_set_date_format (g_locale_from_utf8 (format, -1, NULL, NULL, NULL));
 }
@@ -545,7 +545,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 
     // LS_COLORS
     check = create_check (parent, _("Colorize files according to the LS_COLORS environment variable"), "use_ls_colors");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_use_ls_colors());
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_ls_colors);
     gtk_table_attach (GTK_TABLE (table), check, 0, 2, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
 
 
@@ -602,7 +602,7 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
         (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu)));
     gnome_cmd_data.color_mode = (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu));
 
-    gnome_cmd_data_set_use_ls_colors (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls)));
+    gnome_cmd_data.use_ls_colors = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls));
 
     const gchar *list_font = gtk_font_button_get_font_name (GTK_FONT_BUTTON (list_font_picker));
     gnome_cmd_data_set_list_font (list_font);

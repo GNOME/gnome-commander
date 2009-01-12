@@ -1,3 +1,16 @@
+2009-01-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	 */gnome-cmd-data.cc:
+	 */gnome-cmd-data.h:
+	 */gnome-cmd-file-list.cc:
+	 */gnome-cmd-file-props-dialog.cc:
+	 */gnome-cmd-file-selector.cc:
+	 */gnome-cmd-file.cc:
+	 */gnome-cmd-options-dialog.cc:
+	 */gnome-cmd-xfer-progress-win.cc:
+	 */utils.cc:
+	GnomeCmdData: more C++ rework
+
 2009-01-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:

@@ -51,8 +51,6 @@ struct GnomeCmdData::Private
 {
     GnomeCmdConList      *con_list;
     GList                *fav_apps;
-    GnomeCmdSizeDispMode size_disp_mode;
-    GnomeCmdPermDispMode perm_disp_mode;
     GnomeCmdDateFormat   date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
     GnomeCmdLayout       layout;
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
@@ -62,7 +60,6 @@ struct GnomeCmdData::Private
     gchar                *document_icon_dir;
     guint                bookmark_dialog_col_width[BOOKMARK_DIALOG_NUM_COLUMNS];
     gint                 dir_cache_size;
-    gboolean             use_ls_colors;
     gboolean             honor_expect_uris;
     gboolean             use_internal_viewer;
     gboolean             skip_mounting;
@@ -1096,6 +1093,8 @@ GnomeCmdData::GnomeCmdData()
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     right_mouse_button_mode = RIGHT_BUTTON_POPUPS_MENU;
     color_mode = GNOME_CMD_COLOR_DEEP_BLUE;
+    size_disp_mode = GNOME_CMD_SIZE_DISP_MODE_POWERED;
+    perm_disp_mode = GNOME_CMD_PERM_DISP_MODE_TEXT;
     alt_quick_search = FALSE;
 
     filter_type = Filter::TYPE_FNMATCH;
@@ -1112,6 +1111,8 @@ GnomeCmdData::GnomeCmdData()
     concombo_visibility = TRUE;
     cmdline_visibility = TRUE;
     buttonbar_visibility = TRUE;
+
+    use_ls_colors = FALSE;
 
     icon_size = 16;
     dev_icon_size = 16;
@@ -1248,8 +1249,8 @@ void GnomeCmdData::load()
     priv->color_themes[GNOME_CMD_COLOR_NONE].curs_fg = NULL;
     priv->color_themes[GNOME_CMD_COLOR_NONE].curs_bg = NULL;
 
-    priv->size_disp_mode = (GnomeCmdSizeDispMode) gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED);
-    priv->perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
+    size_disp_mode = (GnomeCmdSizeDispMode) gnome_cmd_data_get_int ("/options/size_disp_mode", GNOME_CMD_SIZE_DISP_MODE_POWERED);
+    perm_disp_mode = (GnomeCmdPermDispMode) gnome_cmd_data_get_int ("/options/perm_disp_mode", GNOME_CMD_PERM_DISP_MODE_TEXT);
 
 #ifdef HAVE_LOCALE_H
     gchar *utf8_date_format = gnome_cmd_data_get_string ("/options/date_disp_mode", "%x %R");
@@ -1364,7 +1365,7 @@ void GnomeCmdData::load()
 
     device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
     priv->dir_cache_size = gnome_cmd_data_get_int ("/options/dir_cache_size", 10);
-    priv->use_ls_colors = gnome_cmd_data_get_bool ("/colors/use_ls_colors", FALSE);
+    use_ls_colors = gnome_cmd_data_get_bool ("/colors/use_ls_colors", FALSE);
 
     priv->start_dirs[LEFT] = gnome_cmd_data_get_string ("/options/start_dir_left", g_get_home_dir ());
     priv->start_dirs[RIGHT] = gnome_cmd_data_get_string ("/options/start_dir_right", g_get_home_dir ());
@@ -1656,8 +1657,8 @@ void GnomeCmdData::save()
         g_free (tmp);
     }
 
-    gnome_cmd_data_set_int    ("/options/size_disp_mode", priv->size_disp_mode);
-    gnome_cmd_data_set_int    ("/options/perm_disp_mode", priv->perm_disp_mode);
+    gnome_cmd_data_set_int    ("/options/size_disp_mode", size_disp_mode);
+    gnome_cmd_data_set_int    ("/options/perm_disp_mode", perm_disp_mode);
     gnome_cmd_data_set_int    ("/options/layout", priv->layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", list_row_height);
 
@@ -1742,7 +1743,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_bool   ("/devices/only_icon", device_only_icon);
     gnome_cmd_data_set_int    ("/options/dir_cache_size", priv->dir_cache_size);
-    gnome_cmd_data_set_bool   ("/colors/use_ls_colors", priv->use_ls_colors);
+    gnome_cmd_data_set_bool   ("/colors/use_ls_colors", use_ls_colors);
 
     const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (quick_connect));
 
@@ -1839,30 +1840,6 @@ GList *gnome_cmd_data_get_fav_apps ()
 void gnome_cmd_data_set_fav_apps (GList *apps)
 {
     gnome_cmd_data.priv->fav_apps = apps;
-}
-
-
-GnomeCmdSizeDispMode gnome_cmd_data_get_size_disp_mode ()
-{
-    return gnome_cmd_data.priv->size_disp_mode;
-}
-
-
-void
-gnome_cmd_data_set_size_disp_mode (GnomeCmdSizeDispMode mode)
-{
-    gnome_cmd_data.priv->size_disp_mode = mode;
-}
-
-
-GnomeCmdPermDispMode gnome_cmd_data_get_perm_disp_mode ()
-{
-    return gnome_cmd_data.priv->perm_disp_mode;
-}
-
-void gnome_cmd_data_set_perm_disp_mode (GnomeCmdPermDispMode mode)
-{
-    gnome_cmd_data.priv->perm_disp_mode = mode;
 }
 
 
@@ -2031,18 +2008,6 @@ gint gnome_cmd_data_get_dir_cache_size ()
 void gnome_cmd_data_set_dir_cache_size (gint size)
 {
     gnome_cmd_data.priv->dir_cache_size = size;
-}
-
-
-gboolean gnome_cmd_data_get_use_ls_colors ()
-{
-    return gnome_cmd_data.priv->use_ls_colors;
-}
-
-
-void gnome_cmd_data_set_use_ls_colors (gboolean value)
-{
-    gnome_cmd_data.priv->use_ls_colors = value;
 }
 
 

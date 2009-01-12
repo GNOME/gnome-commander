@@ -548,7 +548,7 @@ const gchar *gnome_cmd_file_get_size (GnomeCmdFile *file)
     if (file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         return dir_indicator;
 
-    return size2string (file->info->size, gnome_cmd_data_get_size_disp_mode ());
+    return size2string (file->info->size, gnome_cmd_data.size_disp_mode);
 }
 
 
@@ -584,7 +584,7 @@ const gchar *gnome_cmd_file_get_tree_size_as_str (GnomeCmdFile *file)
     if (strcmp (file->info->name, "..") == 0)
         return gnome_cmd_file_get_size (file);
 
-    return size2string (gnome_cmd_file_get_tree_size (file), gnome_cmd_data_get_size_disp_mode());
+    return size2string (gnome_cmd_file_get_tree_size (file), gnome_cmd_data.size_disp_mode);
 }
 
 
