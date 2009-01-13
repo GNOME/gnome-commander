@@ -52,10 +52,8 @@ struct GnomeCmdData::Private
     GnomeCmdConList      *con_list;
     GList                *fav_apps;
     GnomeCmdDateFormat   date_format;           // NOTE: internally stored as locale (which not always defaults to UTF8), needs converting from/to UTF8 for editing and cfg load/save
-    GnomeCmdLayout       layout;
     GnomeCmdColorTheme   color_themes[GNOME_CMD_NUM_COLOR_MODES];
     gchar                *list_font;
-    GdkInterpType        icon_scale_quality;
     gchar                *theme_icon_dir;
     gchar                *document_icon_dir;
     guint                bookmark_dialog_col_width[BOOKMARK_DIALOG_NUM_COLUMNS];
@@ -1103,6 +1101,7 @@ GnomeCmdData::GnomeCmdData()
     filter_settings.backup = TRUE;
 
     case_sens_sort = TRUE;
+    layout = GNOME_CMD_LAYOUT_MIME_ICONS;
     ext_disp_mode = GNOME_CMD_EXT_DISP_BOTH;
     list_orientation = FALSE;
 
@@ -1119,6 +1118,7 @@ GnomeCmdData::GnomeCmdData()
     device_only_icon = FALSE;
     list_row_height = 16;
     memset(fs_col_width, 0, sizeof(fs_col_width));
+    icon_scale_quality = GDK_INTERP_HYPER;
     gui_update_rate = DEFAULT_GUI_UPDATE_RATE;
     button_relief = GTK_RELIEF_NONE;
 
@@ -1260,7 +1260,7 @@ void GnomeCmdData::load()
     priv->date_format = g_locale_from_utf8 (utf8_date_format, -1, NULL, NULL, NULL);
     g_free (utf8_date_format);
 
-    priv->layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
+    layout = (GnomeCmdLayout) gnome_cmd_data_get_int ("/options/layout", GNOME_CMD_LAYOUT_MIME_ICONS);
 
     list_row_height = gnome_cmd_data_get_int ("/options/list_row_height", 16);
 
@@ -1315,7 +1315,7 @@ void GnomeCmdData::load()
     right_mouse_button_mode = (GnomeCmdData::RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU);
     icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
     dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
-    priv->icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
+    icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
     priv->theme_icon_dir = gnome_cmd_data_get_string ("/options/theme_icon_dir", theme_icon_dir);
     g_free (theme_icon_dir);
     priv->document_icon_dir = gnome_cmd_data_get_string ("/options/document_icon_dir", document_icon_dir);
@@ -1659,7 +1659,7 @@ void GnomeCmdData::save()
 
     gnome_cmd_data_set_int    ("/options/size_disp_mode", size_disp_mode);
     gnome_cmd_data_set_int    ("/options/perm_disp_mode", perm_disp_mode);
-    gnome_cmd_data_set_int    ("/options/layout", priv->layout);
+    gnome_cmd_data_set_int    ("/options/layout", layout);
     gnome_cmd_data_set_int    ("/options/list_row_height", list_row_height);
 
     gchar *utf8_date_format = g_locale_to_utf8 (priv->date_format, -1, NULL, NULL, NULL);
@@ -1701,7 +1701,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", right_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/icon_size", icon_size);
     gnome_cmd_data_set_int    ("/options/dev_icon_size", dev_icon_size);
-    gnome_cmd_data_set_int    ("/options/icon_scale_quality", priv->icon_scale_quality);
+    gnome_cmd_data_set_int    ("/options/icon_scale_quality", icon_scale_quality);
     gnome_cmd_data_set_string ("/options/theme_icon_dir", priv->theme_icon_dir);
     gnome_cmd_data_set_string ("/options/document_icon_dir", priv->document_icon_dir);
     gnome_cmd_data_set_int    ("/options/cmdline_history_length", cmdline_history_length);
@@ -1858,18 +1858,6 @@ void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format)
 }
 
 
-GnomeCmdLayout gnome_cmd_data_get_layout ()
-{
-    return gnome_cmd_data.priv->layout;
-}
-
-
-void gnome_cmd_data_set_layout (GnomeCmdLayout layout)
-{
-    gnome_cmd_data.priv->layout = layout;
-}
-
-
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ()
 {
     return &gnome_cmd_data.priv->color_themes[gnome_cmd_data.color_mode];
@@ -1944,18 +1932,6 @@ void gnome_cmd_data_set_list_font (const gchar *list_font)
 {
     g_free (gnome_cmd_data.priv->list_font);
     gnome_cmd_data.priv->list_font = g_strdup (list_font);
-}
-
-
-GdkInterpType gnome_cmd_data_get_icon_scale_quality ()
-{
-    return gnome_cmd_data.priv->icon_scale_quality;
-}
-
-
-void gnome_cmd_data_set_icon_scale_quality (GdkInterpType quality)
-{
-    gnome_cmd_data.priv->icon_scale_quality = quality;
 }
 
 

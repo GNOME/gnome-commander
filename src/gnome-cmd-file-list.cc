@@ -213,7 +213,7 @@ struct FileFormatData
 inline FileFormatData::FileFormatData(GnomeCmdFile *f, gboolean tree_size)
 {
     // If the user wants a character instead of icon for filetype set it now
-    if (gnome_cmd_data_get_layout () == GNOME_CMD_LAYOUT_TEXT)
+    if (gnome_cmd_data.layout == GNOME_CMD_LAYOUT_TEXT)
         text[GnomeCmdFileList::COLUMN_ICON] = (gchar *) gnome_cmd_file_get_type_string (f);
     else
         text[GnomeCmdFileList::COLUMN_ICON] = NULL;
@@ -1391,7 +1391,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint i
     gtk_clist_set_row_data (clist, row, finfo);
 
     // If the use wants icons to show file types set it now
-    if (gnome_cmd_data_get_layout () != GNOME_CMD_LAYOUT_TEXT)
+    if (gnome_cmd_data.layout != GNOME_CMD_LAYOUT_TEXT)
     {
         gtk_clist_set_pixmap (clist, row, 0,
                               gnome_cmd_file_get_type_pixmap (finfo),

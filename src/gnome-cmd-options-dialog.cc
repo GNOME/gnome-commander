@@ -557,7 +557,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 
     spin = create_spin (parent, "iconsize_spin", 8, 64, gnome_cmd_data.icon_size);
     table_add (table, spin, 1, 0, (GtkAttachOptions) GTK_FILL);
-    scale = create_scale (parent, "iconquality_scale", gnome_cmd_data_get_icon_scale_quality (), 0, 3);
+    scale = create_scale (parent, "iconquality_scale", gnome_cmd_data.icon_scale_quality, 0, 3);
     table_add (table, scale, 1, 1, (GtkAttachOptions) GTK_FILL);
     entry = create_file_entry (parent, "theme_icondir_entry", gnome_cmd_data_get_theme_icon_dir());
     table_add (table, entry, 1, 2, (GtkAttachOptions)0);
@@ -575,7 +575,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 
 
     gtk_option_menu_set_history (GTK_OPTION_MENU (fe_optmenu), (gint) gnome_cmd_data.ext_disp_mode);
-    gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) gnome_cmd_data_get_layout ());
+    gtk_option_menu_set_history (GTK_OPTION_MENU (lm_optmenu), (gint) gnome_cmd_data.layout);
     gtk_option_menu_set_history (GTK_OPTION_MENU (cm_optmenu), (gint) gnome_cmd_data.color_mode);
 
     return frame;
@@ -598,8 +598,7 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *list_font_picker = lookup_widget (GTK_WIDGET (dialog), "list_font_picker");
 
     gnome_cmd_data.ext_disp_mode = (GnomeCmdExtDispMode) gtk_option_menu_get_history (GTK_OPTION_MENU (fe_optmenu));
-    gnome_cmd_data_set_layout (
-        (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu)));
+    gnome_cmd_data.layout = (GnomeCmdLayout) gtk_option_menu_get_history (GTK_OPTION_MENU (lm_optmenu));
     gnome_cmd_data.color_mode = (GnomeCmdColorMode) gtk_option_menu_get_history (GTK_OPTION_MENU (cm_optmenu));
 
     gnome_cmd_data.use_ls_colors = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (use_ls));
@@ -612,7 +611,7 @@ inline void store_layout_options (GnomeCmdOptionsDialog *dialog)
     gnome_cmd_data.icon_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (iconsize_spin));
 
     GtkAdjustment *adj = gtk_range_get_adjustment (GTK_RANGE (iconquality_scale));
-    gnome_cmd_data_set_icon_scale_quality ((GdkInterpType) adj->value);
+    gnome_cmd_data.icon_scale_quality = (GdkInterpType) adj->value;
 
     gnome_cmd_data.list_row_height = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (row_height_spin));
 }

@@ -23,39 +23,39 @@
 typedef struct _GnomeCmdBookmarkGroup GnomeCmdBookmarkGroup;
 typedef gchar *GnomeCmdDateFormat;
 
-typedef enum
+enum GnomeCmdLayout
 {
     GNOME_CMD_LAYOUT_TEXT,
     GNOME_CMD_LAYOUT_TYPE_ICONS,
     GNOME_CMD_LAYOUT_MIME_ICONS
-} GnomeCmdLayout;
+};
 
 
-typedef enum
+enum GnomeCmdSizeDispMode
 {
     GNOME_CMD_SIZE_DISP_MODE_PLAIN,
     GNOME_CMD_SIZE_DISP_MODE_LOCALE,
     GNOME_CMD_SIZE_DISP_MODE_GROUPED,
     GNOME_CMD_SIZE_DISP_MODE_POWERED
-} GnomeCmdSizeDispMode;
+};
 
 
-typedef enum
+enum GnomeCmdPermDispMode
 {
     GNOME_CMD_PERM_DISP_MODE_TEXT,
     GNOME_CMD_PERM_DISP_MODE_NUMBER
-} GnomeCmdPermDispMode;
+};
 
 
-typedef enum
+enum GnomeCmdExtDispMode
 {
     GNOME_CMD_EXT_DISP_WITH_FNAME,
     GNOME_CMD_EXT_DISP_STRIPPED,
     GNOME_CMD_EXT_DISP_BOTH
-} GnomeCmdExtDispMode;
+};
 
 
-typedef enum
+enum GnomeCmdColorMode
 {
     GNOME_CMD_COLOR_NONE,
     GNOME_CMD_COLOR_MODERN,
@@ -65,25 +65,25 @@ typedef enum
     GNOME_CMD_COLOR_CAFEZINHO,
     GNOME_CMD_COLOR_CUSTOM,
     GNOME_CMD_NUM_COLOR_MODES
-} GnomeCmdColorMode;
+};
 
 
-typedef enum  // The (reversed) order of following enums is significant
+enum GnomeCmdConfirmOverwriteMode  // The (reversed) order of following enums is significant
 {
     GNOME_CMD_CONFIRM_OVERWRITE_SKIP_ALL,
     GNOME_CMD_CONFIRM_OVERWRITE_QUERY,
     GNOME_CMD_CONFIRM_OVERWRITE_SILENTLY
-} GnomeCmdConfirmOverwriteMode;
+};
 
 
-typedef struct
+struct GnomeCmdColorTheme
 {
     gboolean respect_theme;
     GdkColor *sel_fg, *sel_bg;
     GdkColor *norm_fg, *norm_bg;
     GdkColor *curs_fg, *curs_bg;
     GdkColor *alt_fg, *alt_bg;
-} GnomeCmdColorTheme;
+};
 
 
 typedef struct _GnomeCmdCon GnomeCmdCon;
@@ -97,11 +97,11 @@ struct _GnomeCmdBookmarkGroup
 };
 
 
-typedef struct
+struct GnomeCmdBookmark
 {
     gchar *name;
     gchar *path;
     GnomeCmdBookmarkGroup *group;
-} GnomeCmdBookmark;
+};
 
 #endif // __GNOME_CMD_TYPES_H__

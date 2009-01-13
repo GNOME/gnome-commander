@@ -159,6 +159,7 @@ struct GnomeCmdData
     IntViewerConfig              intviewer_defaults;
 
     gboolean                     case_sens_sort;
+    GnomeCmdLayout               layout;
     GnomeCmdExtDispMode          ext_disp_mode;
     gboolean                     list_orientation;
 
@@ -175,6 +176,7 @@ struct GnomeCmdData
     gboolean                     device_only_icon;
     gint                         list_row_height;
     guint                        fs_col_width[GnomeCmdFileList::NUM_COLUMNS];
+    GdkInterpType                icon_scale_quality;
     guint                        gui_update_rate;
     GtkReliefStyle               button_relief;
 
@@ -214,9 +216,6 @@ void gnome_cmd_data_set_ftp_anonymous_password (const gchar *pw);
 GnomeCmdDateFormat gnome_cmd_data_get_date_format ();
 void gnome_cmd_data_set_date_format (GnomeCmdDateFormat format);
 
-GnomeCmdLayout gnome_cmd_data_get_layout ();
-void gnome_cmd_data_set_layout (GnomeCmdLayout layout);
-
 GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ();
 GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ();
 
@@ -236,9 +235,6 @@ void gnome_cmd_data_set_list_font (const gchar *list_font);
 
 const gchar *gnome_cmd_data_get_term ();
 void gnome_cmd_data_set_term (const gchar *shell);
-
-GdkInterpType gnome_cmd_data_get_icon_scale_quality ();
-void gnome_cmd_data_set_icon_scale_quality (GdkInterpType quality);
 
 const gchar *gnome_cmd_data_get_theme_icon_dir ();
 void gnome_cmd_data_set_theme_icon_dir (const gchar *dir);
