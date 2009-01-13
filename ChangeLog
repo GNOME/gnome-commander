@@ -13,6 +13,9 @@
 	* src/owner.h:
 	Tweaks for making startup faster
 
+	* src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:
+	advrename profiles: fix for gtk_list_store_get_path() assertion
+
 2009-01-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	 * src/gnome-cmd-data.cc:

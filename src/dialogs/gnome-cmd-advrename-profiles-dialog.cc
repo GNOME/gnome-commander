@@ -317,7 +317,6 @@ static void remove_clicked_callback (GtkButton *button, GtkWidget *view)
     {
         GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
         gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
-        gtk_tree_selection_select_iter (selection, &iter);
     }
 }
 
