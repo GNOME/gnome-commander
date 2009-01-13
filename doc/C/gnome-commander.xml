@@ -5924,6 +5924,9 @@
                             <para>Fixed problem #556664 (bookmarks can not be saved for mounted devices)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #567404 (crash when INSERT pressed over subdir)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with setting equal pane size in horizontal mode</para>
                         </listitem>
                     </itemizedlist>

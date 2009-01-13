@@ -1349,12 +1349,11 @@ msgstr[0] "%s a %s kBból és %d a %d fájlból"
 msgstr[1] "%s/%s kB %d/%d fájl kijelölve"
 
 #: ../src/gnome-cmd-file-selector.cc:216
-#, fuzzy
 #, c-format
 msgid "%s, %d of %d dir selected"
 msgid_plural "%s, %d of %d dirs selected"
 msgstr[0] "%s, %d a %d könyvtárból kijelölve"
-msgstr[1] "%s kB %d/%d fájl kijelölve"
+msgstr[1] "%s, %d a %d könyvtárból kijelölve"
 
 #: ../src/gnome-cmd-file-selector.cc:628
 #, c-format
