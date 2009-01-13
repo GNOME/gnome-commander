@@ -473,10 +473,7 @@ const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *file)
     g_return_val_if_fail (file->info != NULL, NULL);
 
     if (GNOME_VFS_FILE_INFO_LOCAL (file->info))
-    {
-        user_t *owner = OWNER_get_user_by_uid (file->info->uid);
-        return owner->name;
-    }
+        return OWNER_get_name_by_uid (file->info->uid);
     else
     {
         static gchar owner_str[MAX_OWNER_LENGTH];
@@ -492,10 +489,7 @@ const gchar *gnome_cmd_file_get_group (GnomeCmdFile *file)
     g_return_val_if_fail (file->info != NULL, NULL);
 
     if (GNOME_VFS_FILE_INFO_LOCAL (file->info))
-    {
-        group_t *group = OWNER_get_group_by_gid (file->info->gid);
-        return group->name;
-    }
+        return OWNER_get_name_by_gid (file->info->gid);
     else
     {
         static gchar group_str[MAX_GROUP_LENGTH];

@@ -24,29 +24,24 @@
 #include <grp.h>
 #include <pwd.h>
 
-typedef struct
+struct group_t
 {
-    gboolean zombie;    /* The gid of this group doesnt match any group in the system. */
     char *name;
-    char *passwd;
     gid_t gid;
-    GList *members;     /* stores the  members as char *strings */
-} group_t;
+    GList *members;     // stores the members as char *strings
+    gboolean zombie;    // The gid of this group doesn't match any group in the system
+};
 
-
-typedef struct
+struct user_t
 {
-    gboolean zombie;    /* The uid of this user doesnt match any user in the system. */
     char *name;
-    char *passwd;
     uid_t uid;
     gid_t gid;
     group_t *group;
     char *realname;
-    char *homedir;
-    char *shell;
     GList *groups;
-} user_t;
+    gboolean zombie;    // The uid of this user doesn't match any user in the system
+};
 
 void OWNER_init ();
 void OWNER_free ();
@@ -57,9 +52,36 @@ user_t *OWNER_get_user_by_name (const char *name);
 group_t *OWNER_get_group_by_name (const char *name);
 GList *OWNER_get_all_users ();
 GList *OWNER_get_all_groups ();
-const gchar *OWNER_get_name_by_uid (uid_t uid);
-const gchar *OWNER_get_name_by_gid (gid_t gid);
-uid_t OWNER_get_uid_by_name (const gchar *name);
-gid_t OWNER_get_gid_by_name (const gchar *name);
+
+inline const gchar *OWNER_get_name_by_uid (uid_t uid)
+{
+    user_t *user = OWNER_get_user_by_uid (uid);
+
+    return user ? user->name : NULL;
+}
+
+
+inline const gchar *OWNER_get_name_by_gid (gid_t gid)
+{
+    group_t *group = OWNER_get_group_by_gid (gid);
+
+    return group ? group->name : NULL;
+}
+
+
+inline uid_t OWNER_get_uid_by_name (const gchar *name)
+{
+    user_t *user = OWNER_get_user_by_name (name);
+
+    return user ? user->uid : -1;
+}
+
+
+inline gid_t OWNER_get_gid_by_name (const gchar *name)
+{
+    group_t *group = OWNER_get_group_by_name (name);
+
+    return group ? group->gid : -1;
+}
 
 #endif // __OWNER_H__
