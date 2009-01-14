@@ -287,6 +287,8 @@ GNOME_CMD_USER_ACTION(view_in_active_pane);
 GNOME_CMD_USER_ACTION(view_in_inactive_pane);
 GNOME_CMD_USER_ACTION(view_home);
 GNOME_CMD_USER_ACTION(view_root);
+GNOME_CMD_USER_ACTION(view_new_tab);
+GNOME_CMD_USER_ACTION(view_close_tab);
 
 /************** Bookmarks Menu **************/
 GNOME_CMD_USER_ACTION(bookmarks_add_current);

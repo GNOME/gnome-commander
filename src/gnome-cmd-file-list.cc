@@ -57,9 +57,7 @@ using namespace std;
 
 #if 0
 static char *msgs[] = {N_("Open in New _Tab"),
-                       N_("_Close Tab"),
-                       N_("Close the current tab"),
-                       N_("Open directory in a new tab")};
+                       N_("_Close Tab")};
 #endif
 
 

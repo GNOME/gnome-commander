@@ -189,6 +189,7 @@ static UserActionData user_actions_data[] = {
                                              {plugins_configure, "plugins.configure", N_("Configure plugins")},
                                              {plugins_execute_python, "plugins.execute_python", N_("Execute python plugin")},
                                              {view_back, "view.back", N_("Back one directory")},
+                                             {view_close_tab, "view.close_tab", N_("Close the current tab")},
                                              {view_equal_panes, "view.equal_panes", N_("Equal panel size")},
                                              {view_first, "view.first", N_("Back to the first directory")},
                                              {view_forward, "view.forward", N_("Forward one directory")},
@@ -198,6 +199,7 @@ static UserActionData user_actions_data[] = {
                                              {view_in_left_pane, "view.in_left_pane", N_("Open directory in the left window")},
                                              {view_in_right_pane, "view.in_right_pane", N_("Open directory in the right window")},
                                              {view_last, "view.last", N_("Forward to the last directory")},
+                                             {view_new_tab, "view.new_tab", N_("Open directory in a new tab")},
                                              {view_refresh, "view.refresh", N_("Refresh")},
                                              {view_root, "view.root", N_("Root directory")},
                                              {view_up, "view.up", N_("Up one directory")},
@@ -1364,6 +1366,16 @@ void view_home (GtkMenuItem *menuitem, gpointer not_used)
 void view_root (GtkMenuItem *menuitem, gpointer not_used)
 {
     get_fs (ACTIVE)->goto_directory("/");
+}
+
+
+void view_new_tab (GtkMenuItem *menuitem, gpointer not_used)
+{
+}
+
+
+void view_close_tab (GtkMenuItem *menuitem, gpointer not_used)
+{
 }
 
 
