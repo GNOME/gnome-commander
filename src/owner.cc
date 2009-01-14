@@ -48,18 +48,12 @@ inline user_t *create_user (struct passwd *pw, gboolean zombie)
     {
         user_t *user = g_new0 (user_t, 1);
 
-        g_assert (pw->pw_name);
-        g_assert (pw->pw_passwd);
-        g_assert (pw->pw_gecos);
-        g_assert (pw->pw_dir);
-        g_assert (pw->pw_shell);
-
         user->zombie =   zombie;
         user->name =     g_strdup (pw->pw_name);
         user->uid =      pw->pw_uid;
         user->gid =      pw->pw_gid;
         user->realname = g_strdup (pw->pw_gecos);
-        user->groups =   NULL; // filled in later when going through the group members
+        // user->groups =   NULL; // filled in later when going through the group members
 
         return user;
     }
@@ -74,15 +68,12 @@ static group_t *create_group (struct group *gr, gboolean zombie)
 
     if (gr)
     {
-        g_assert (gr->gr_name);
-        g_assert (gr->gr_passwd);
-
         group = g_new0 (group_t, 1);
 
         group->zombie =  zombie;
         group->name =    g_strdup (gr->gr_name);
         group->gid =     gr->gr_gid;
-        group->members = NULL;
+        // group->members = NULL;
 
         char **members = gr->gr_mem;
 

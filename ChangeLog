@@ -1,3 +1,8 @@
+2009-01-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/owner.cc:
+	Yet another fix for faster startup
+
 2009-01-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
