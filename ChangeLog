@@ -1,3 +1,10 @@
+2009-01-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-main-menu.cc:
+	* src/gnome-user-actions.cc:
+	tabs: added menus+shortcuts for open/close tabs
+
 2009-01-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/owner.cc:

@@ -619,6 +619,19 @@ static void init (GnomeCmdMainMenu *main_menu)
         },
         MENUTYPE_SEPARATOR,
         {
+            MENU_TYPE_ITEM, _("Open in New _Tab"), "Ctrl+T", NULL,
+            (gpointer) view_new_tab, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_OPEN,
+            NULL
+        },
+        {
+            MENU_TYPE_ITEM, _("_Close Tab"), "Ctrl+W", NULL,
+            (gpointer) view_close_tab, NULL,
+            GNOME_APP_PIXMAP_STOCK, GTK_STOCK_CLOSE,
+            NULL
+        },
+        MENUTYPE_SEPARATOR,
+        {
             MENU_TYPE_TOGGLEITEM, _("Show Toolbar"), "", NULL,
             (gpointer) view_toolbar, NULL,
             GNOME_APP_PIXMAP_NONE, NULL,
@@ -829,13 +842,13 @@ static void init (GnomeCmdMainMenu *main_menu)
     gtk_menu_shell_append (GTK_MENU_SHELL (main_menu), main_menu->priv->help_menu);
 
     main_menu->priv->menu_edit_paste = edit_menu_uiinfo[2].widget;
-    main_menu->priv->menu_view_toolbar = view_menu_uiinfo[4].widget;
-    main_menu->priv->menu_view_conbuttons = view_menu_uiinfo[5].widget;
-    main_menu->priv->menu_view_concombo = view_menu_uiinfo[6].widget;
-    main_menu->priv->menu_view_cmdline = view_menu_uiinfo[7].widget;
-    main_menu->priv->menu_view_buttonbar = view_menu_uiinfo[8].widget;
-    main_menu->priv->menu_view_hidden_files = view_menu_uiinfo[10].widget;
-    main_menu->priv->menu_view_backup_files = view_menu_uiinfo[11].widget;
+    main_menu->priv->menu_view_toolbar = view_menu_uiinfo[7].widget;
+    main_menu->priv->menu_view_conbuttons = view_menu_uiinfo[8].widget;
+    main_menu->priv->menu_view_concombo = view_menu_uiinfo[9].widget;
+    main_menu->priv->menu_view_cmdline = view_menu_uiinfo[10].widget;
+    main_menu->priv->menu_view_buttonbar = view_menu_uiinfo[11].widget;
+    main_menu->priv->menu_view_hidden_files = view_menu_uiinfo[13].widget;
+    main_menu->priv->menu_view_backup_files = view_menu_uiinfo[14].widget;
     main_menu->priv->menu_view_back = view_menu_uiinfo[0].widget;
     main_menu->priv->menu_view_forward = view_menu_uiinfo[1].widget;
 

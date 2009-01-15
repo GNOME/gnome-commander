@@ -331,6 +331,15 @@ void GnomeCmdUserActions::init()
     if (!registered("view.refresh"))
         register_action(GDK_CONTROL_MASK, GDK_R, "view.refresh");
 
+    if (!registered("view.new_tab"))
+    {
+        unregister(GDK_CONTROL_MASK, GDK_T);                       // unregister CTRL+T as it was used previously for file.advrename
+        register_action(GDK_CONTROL_MASK, GDK_T, "view.new_tab");
+    }
+
+    if (!registered("view.close_tab"))
+        register_action(GDK_CONTROL_MASK, GDK_W, "view.close_tab");
+
     unregister(GDK_F9);                                 // unregister F9 if defined in [key-bindings]
     register_action(GDK_F9, "edit.search");             // and overwrite it with edit.search action
 
