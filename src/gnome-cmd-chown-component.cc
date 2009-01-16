@@ -43,8 +43,7 @@ static GtkTableClass *parent_class = NULL;
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdChownComponent *comp = GNOME_CMD_CHOWN_COMPONENT (object);
 
@@ -55,16 +54,14 @@ destroy (GtkObject *object)
 }
 
 
-static void
-map (GtkWidget *widget)
+static void map (GtkWidget *widget)
 {
     if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
         GTK_WIDGET_CLASS (parent_class)->map (widget);
 }
 
 
-static void
-class_init (GnomeCmdChownComponentClass *klass)
+static void class_init (GnomeCmdChownComponentClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -75,8 +72,7 @@ class_init (GnomeCmdChownComponentClass *klass)
 }
 
 
-static void
-init (GnomeCmdChownComponent *comp)
+static void init (GnomeCmdChownComponent *comp)
 {
     GtkWidget *label;
 
@@ -137,8 +133,7 @@ static void load_users_and_groups (GnomeCmdChownComponent *comp)
 }
 
 
-GtkWidget*
-gnome_cmd_chown_component_new ()
+GtkWidget *gnome_cmd_chown_component_new ()
 {
     GnomeCmdChownComponent *comp = (GnomeCmdChownComponent *) gtk_type_new (gnome_cmd_chown_component_get_type ());
 
@@ -149,8 +144,7 @@ gnome_cmd_chown_component_new ()
 
 
 
-GtkType
-gnome_cmd_chown_component_get_type ()
+GtkType gnome_cmd_chown_component_get_type ()
 {
     static GtkType type = 0;
 
