@@ -4458,7 +4458,7 @@ msgstr "Descripción de la imagen"
 #: ../src/tags/gnome-cmd-tags.cc:246
 msgid ""
 "A character string giving the title of the image. Two-bytes character codes "
-"cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif."
+"cannot be used. When a 2-bytes code is necessary, the Exif private tag <Exif."
 "UserComment> is to be used."
 msgstr ""
 "Una cadena de caracteres que proporciona el título de la imagen. Los códigos "

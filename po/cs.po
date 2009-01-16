@@ -4245,7 +4245,7 @@ msgid "Image Description"
 msgstr "Popis obrázku"
 
 #: ../src/tags/gnome-cmd-tags.cc:246
-msgid "A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif.UserComment> is to be used."
+msgid "A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif private tag <Exif.UserComment> is to be used."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:247

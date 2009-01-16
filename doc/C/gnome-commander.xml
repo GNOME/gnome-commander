@@ -1785,7 +1785,7 @@
                     <row valign="top">
                         <entry><para>Exif.ImageDescription</para></entry>
                         <entry><para>Image Description</para></entry>
-                        <entry><para>A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif Private tag <literal>Exif.UserComment</literal> is to be used.</para></entry>
+                        <entry><para>A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif private tag <literal>Exif.UserComment</literal> is to be used.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>Exif.ImageLength</para></entry>

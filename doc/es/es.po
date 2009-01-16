@@ -3454,7 +3454,7 @@ msgstr "Descripción de la imagen"
 #: C/gnome-commander.xml:1788(para)
 msgid ""
 "A character string giving the title of the image. Two-bytes character codes "
-"cannot be used. When a 2-bytes code is necessary, the Exif Private tag "
+"cannot be used. When a 2-bytes code is necessary, the Exif private tag "
 "<literal>Exif.UserComment</literal> is to be used."
 msgstr ""
 

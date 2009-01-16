@@ -4252,7 +4252,7 @@ msgid "Image Description"
 msgstr "Opis obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:246
-msgid "A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif.UserComment> is to be used."
+msgid "A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif private tag <Exif.UserComment> is to be used."
 msgstr "Łańcuch znaków opisujący tytuł obrazu. Kodowanie dwubajtowe znaków nie może być stosowane. Jeżeli wymagane jest ich zastosowanie, należy użyć znacznika <Exif.UserComment>."
 
 #: ../src/tags/gnome-cmd-tags.cc:247

@@ -1,3 +1,8 @@
+2009-01-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-tags.cc:
+	typo: Exif Private -> Exif private
+
 2009-01-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:
