@@ -710,7 +710,7 @@ void gnome_cmd_file_show_properties (GnomeCmdFile *f)
 inline void do_view_file (GnomeCmdFile *f, gint internal_viewer=-1)
 {
     if (internal_viewer==-1)
-        internal_viewer = gnome_cmd_data_get_use_internal_viewer ();
+        internal_viewer = gnome_cmd_data.use_internal_viewer;
 
     switch (internal_viewer)
     {
