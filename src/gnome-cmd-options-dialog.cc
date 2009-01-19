@@ -131,7 +131,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
     label = create_label (parent, _("Directory cache size"));
     table_add (table, label, 0, 1, (GtkAttachOptions) 0);
-    spin = create_spin (parent, "dir_cache_size", 5, 50, gnome_cmd_data_get_dir_cache_size());
+    spin = create_spin (parent, "dir_cache_size", 5, 50, gnome_cmd_data.dir_cache_size);
     table_add (table, spin, 1, 1, GTK_FILL);
 
 
@@ -156,7 +156,7 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
         gnome_cmd_data.filter_type = Filter::TYPE_FNMATCH;
 
     gnome_cmd_data.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
-    gnome_cmd_data_set_dir_cache_size (gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dir_cache_size)));
+    gnome_cmd_data.dir_cache_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dir_cache_size));
     gnome_cmd_data.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
 }
 
@@ -1297,7 +1297,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
 
 
     check = create_check (parent, _("Always download remote files before opening in external programs"), "honor_expect_uris");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !gnome_cmd_data_get_honor_expect_uris ());
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), !gnome_cmd_data.honor_expect_uris);
     cat = create_category (parent, check, _("MIME applications"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, FALSE, 0);
 
@@ -1318,7 +1318,7 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
     table_add (table, entry, 1, 0, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     check = create_check (parent, _("Use Internal Viewer"), "use_internal_viewer");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_use_internal_viewer ());
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.use_internal_viewer);
     table_add (table, check, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
     entry = create_entry (parent, "editor", gnome_cmd_data_get_editor());
     table_add (table, entry, 1, 2, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
@@ -1391,8 +1391,8 @@ inline void store_programs_options (GnomeCmdOptionsDialog *dialog)
     gnome_cmd_data_set_differ (gtk_entry_get_text (GTK_ENTRY (entry3)));
     gnome_cmd_data_set_term (gtk_entry_get_text (GTK_ENTRY (entry5)));
 
-    gnome_cmd_data_set_honor_expect_uris (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris)));
-    gnome_cmd_data_set_use_internal_viewer (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv)));
+    gnome_cmd_data.honor_expect_uris = !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_uris));
+    gnome_cmd_data.use_internal_viewer = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_iv));
 }
 
 
@@ -1704,7 +1704,7 @@ static GtkWidget *create_devices_tab (GtkWidget *parent)
 
     check = create_check (parent, _("Skip mounting (useful when using super-mount)"), "skip_mounting");
     gtk_container_add (GTK_CONTAINER (cat_box), check);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data_get_skip_mounting());
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.skip_mounting);
 
 
     clist = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (parent), "device_clist");
@@ -1722,7 +1722,7 @@ inline void store_devices_options (GtkWidget *dialog)
     GtkWidget *skip_mounting = lookup_widget (dialog, "skip_mounting");
 
     gnome_cmd_data.device_only_icon = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (device_only_icon));
-    gnome_cmd_data_set_skip_mounting (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (skip_mounting)));
+    gnome_cmd_data.skip_mounting = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (skip_mounting));
 }
 
 

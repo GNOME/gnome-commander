@@ -589,7 +589,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
     }
     else
     {
-        if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data_get_honor_expect_uris())
+        if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.honor_expect_uris)
         {
             args[0] = (gpointer) app;
             args[1] = (gpointer) g_strdup (gnome_cmd_file_get_uri_str (finfo));
@@ -672,7 +672,7 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
         else
         {
             ++no_of_remote_files;
-            if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data_get_honor_expect_uris())
+            if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.honor_expect_uris)
             {
                 local_files = g_list_append (local_files,  g_strdup (gnome_cmd_file_get_uri_str (finfo)));
             }

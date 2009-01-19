@@ -57,10 +57,6 @@ struct GnomeCmdData::Private
     gchar                *theme_icon_dir;
     gchar                *document_icon_dir;
     guint                bookmark_dialog_col_width[BOOKMARK_DIALOG_NUM_COLUMNS];
-    gint                 dir_cache_size;
-    gboolean             honor_expect_uris;
-    gboolean             use_internal_viewer;
-    gboolean             skip_mounting;
     gchar                *start_dirs[2];
     gchar                *last_pattern;
     GList                *auto_load_plugins;
@@ -1125,9 +1121,13 @@ GnomeCmdData::GnomeCmdData()
     cmdline_history = NULL;
     cmdline_history_length = 0;
 
+    use_internal_viewer = TRUE;
     use_gcmd_block = FALSE;
-
     use_gnome_auth_manager = FALSE;
+
+    honor_expect_uris = FALSE;
+    skip_mounting = FALSE;
+    dir_cache_size = 10;
 
     main_win_width = 600;
     main_win_height = 400;
@@ -1339,10 +1339,10 @@ void GnomeCmdData::load()
     if (gui_update_rate > MAX_GUI_UPDATE_RATE)
         gui_update_rate = MAX_GUI_UPDATE_RATE;
 
-    priv->honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
-    priv->use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
+    honor_expect_uris = gnome_cmd_data_get_bool ("/programs/honor_expect_uris", FALSE);
+    use_internal_viewer = gnome_cmd_data_get_bool ("/programs/use_internal_viewer", TRUE);
     alt_quick_search = gnome_cmd_data_get_bool ("/programs/alt_quick_search", FALSE);
-    priv->skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
+    skip_mounting = gnome_cmd_data_get_bool ("/programs/skip_mounting", FALSE);
 
     priv->symlink_prefix = gnome_cmd_data_get_string ("/options/symlink_prefix", _("link to %s"));
     if (!*priv->symlink_prefix || strcmp(priv->symlink_prefix, _("link to %s"))==0)
@@ -1364,7 +1364,7 @@ void GnomeCmdData::load()
     use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
     device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
-    priv->dir_cache_size = gnome_cmd_data_get_int ("/options/dir_cache_size", 10);
+    dir_cache_size = gnome_cmd_data_get_int ("/options/dir_cache_size", 10);
     use_ls_colors = gnome_cmd_data_get_bool ("/colors/use_ls_colors", FALSE);
 
     priv->start_dirs[LEFT] = gnome_cmd_data_get_string ("/options/start_dir_left", g_get_home_dir ());
@@ -1710,10 +1710,10 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/options/list_orientation", list_orientation);
     gnome_cmd_data_set_int    ("/options/gui_update_rate", gui_update_rate);
 
-    gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", priv->honor_expect_uris);
-    gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", priv->use_internal_viewer);
+    gnome_cmd_data_set_bool   ("/programs/honor_expect_uris", honor_expect_uris);
+    gnome_cmd_data_set_bool   ("/programs/use_internal_viewer", use_internal_viewer);
     gnome_cmd_data_set_bool   ("/programs/alt_quick_search", alt_quick_search);
-    gnome_cmd_data_set_bool   ("/programs/skip_mounting", priv->skip_mounting);
+    gnome_cmd_data_set_bool   ("/programs/skip_mounting", skip_mounting);
 
     gnome_cmd_data_set_bool   ("/programs/toolbar_visibility", toolbar_visibility);
     gnome_cmd_data_set_bool   ("/options/conbuttons_visibility", conbuttons_visibility);
@@ -1742,7 +1742,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", use_gcmd_block);
 
     gnome_cmd_data_set_bool   ("/devices/only_icon", device_only_icon);
-    gnome_cmd_data_set_int    ("/options/dir_cache_size", priv->dir_cache_size);
+    gnome_cmd_data_set_int    ("/options/dir_cache_size", dir_cache_size);
     gnome_cmd_data_set_bool   ("/colors/use_ls_colors", use_ls_colors);
 
     const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (quick_connect));
@@ -1975,57 +1975,9 @@ gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column)
 }
 
 
-gint gnome_cmd_data_get_dir_cache_size ()
-{
-    return gnome_cmd_data.priv->dir_cache_size;
-}
-
-
-void gnome_cmd_data_set_dir_cache_size (gint size)
-{
-    gnome_cmd_data.priv->dir_cache_size = size;
-}
-
-
 GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks ()
 {
     return gnome_cmd_con_get_bookmarks (gnome_cmd_con_list_get_home (gnome_cmd_data.priv->con_list));
-}
-
-
-gboolean gnome_cmd_data_get_honor_expect_uris ()
-{
-    return gnome_cmd_data.priv->honor_expect_uris;
-}
-
-
-void gnome_cmd_data_set_honor_expect_uris (gboolean value)
-{
-    gnome_cmd_data.priv->honor_expect_uris = value;
-}
-
-
-gboolean gnome_cmd_data_get_use_internal_viewer ()
-{
-    return gnome_cmd_data.priv->use_internal_viewer;
-}
-
-
-void gnome_cmd_data_set_use_internal_viewer (gboolean value)
-{
-    gnome_cmd_data.priv->use_internal_viewer = value;
-}
-
-
-gboolean gnome_cmd_data_get_skip_mounting ()
-{
-    return gnome_cmd_data.priv->skip_mounting;
-}
-
-
-void gnome_cmd_data_set_skip_mounting (gboolean value)
-{
-    gnome_cmd_data.priv->skip_mounting = value;
 }
 
 

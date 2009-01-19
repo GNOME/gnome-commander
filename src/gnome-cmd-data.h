@@ -183,9 +183,13 @@ struct GnomeCmdData
     GList                       *cmdline_history;
     gint                         cmdline_history_length;
 
+    gboolean                     use_internal_viewer;
     gboolean                     use_gcmd_block;
-
     gboolean                     use_gnome_auth_manager;
+
+    gboolean                     honor_expect_uris;
+    gboolean                     skip_mounting;
+    gint                         dir_cache_size;
 
     gint                         main_win_width;
     gint                         main_win_height;
@@ -245,20 +249,8 @@ void gnome_cmd_data_set_document_icon_dir (const gchar *dir);
 gint gnome_cmd_data_get_bookmark_dialog_col_width (guint column);
 void gnome_cmd_data_set_bookmark_dialog_col_width (guint column, gint width);
 
-gint gnome_cmd_data_get_dir_cache_size ();
-void gnome_cmd_data_set_dir_cache_size (gint size);
-
 GnomeCmdBookmarkGroup *gnome_cmd_data_get_local_bookmarks ();
 GList *gnome_cmd_data_get_bookmark_groups ();
-
-gboolean gnome_cmd_data_get_honor_expect_uris ();
-void gnome_cmd_data_set_honor_expect_uris (gboolean value);
-
-gboolean gnome_cmd_data_get_use_internal_viewer ();
-void gnome_cmd_data_set_use_internal_viewer (gboolean value);
-
-gboolean gnome_cmd_data_get_skip_mounting ();
-void gnome_cmd_data_set_skip_mounting (gboolean value);
 
 const gchar *gnome_cmd_data_get_start_dir (gboolean fs);
 void gnome_cmd_data_set_start_dir (gboolean fs, const gchar *start_dir);
