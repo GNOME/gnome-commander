@@ -143,7 +143,6 @@ GtkWidget *gnome_cmd_chown_component_new ()
 }
 
 
-
 GtkType gnome_cmd_chown_component_get_type ()
 {
     static GtkType type = 0;
@@ -168,8 +167,7 @@ GtkType gnome_cmd_chown_component_get_type ()
 }
 
 
-void
-gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t group)
+void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t group)
 {
     const gchar *s_owner = OWNER_get_name_by_uid (owner);
     const gchar *s_group = OWNER_get_name_by_gid (group);
@@ -179,21 +177,17 @@ gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t 
 }
 
 
-uid_t
-gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
+uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 {
     const gchar *s_owner = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->user_combo)->entry));
-    uid_t owner = OWNER_get_uid_by_name (s_owner);
 
-    return owner;
+    return OWNER_get_uid_by_name (s_owner);
 }
 
 
-gid_t
-gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component)
+gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component)
 {
     const gchar *s_group = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->group_combo)->entry));
-    gid_t group = OWNER_get_gid_by_name (s_group);
 
-    return group;
+    return OWNER_get_gid_by_name (s_group);
 }
