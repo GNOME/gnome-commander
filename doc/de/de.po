@@ -1,12 +1,13 @@
 # German translation of the gnome-commander documentation
 # Mario Blättermann <mariobl@gnome.org>, 2008, 2009.
+# Andre Klapper <ak-47@gmx.net>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "POT-Creation-Date: 2009-01-10 15:25+0100\n"
-"PO-Revision-Date: 2009-01-10 15:41+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
+"PO-Revision-Date: 2009-01-24 18:08+0100\n"
+"Last-Translator: Andre Klapper <ak-47@gmx.net>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8843,7 +8844,7 @@ msgstr "file.synchronize_directories"
 
 #: ../C/gnome-commander.xml:4693(para)
 msgid "Synchronize directories (using meld)"
-msgstr "Ordner synchronisieren (mittels meld)"
+msgstr "Ordner abgleichen (mittels meld)"
 
 #: ../C/gnome-commander.xml:4697(para)
 msgid "file.view"
@@ -10724,7 +10725,7 @@ msgstr "Intuitivere Benutzung des Diff-Werkzeugs"
 
 #: ../C/gnome-commander.xml:6290(para)
 msgid "Directory synchronizing"
-msgstr "Synchronisieren von Ordnern"
+msgstr "Abgleichen von Ordnern"
 
 #: ../C/gnome-commander.xml:6293(para)
 msgid "Creating directories 'mkdir -p' like"
