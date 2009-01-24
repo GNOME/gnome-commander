@@ -6,7 +6,7 @@
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005, 2006.
 # Hendrik Richter <hendrikr@gnome.org>, 2005.
 # Allan Jäke <allan@jaeke.de>, 2007.
-# Andre Klapper <ak-47@gmx.net>, 2007, 2008.
+# Andre Klapper <ak-47@gmx.net>, 2007, 2008, 2009.
 # Mario Blättermann <mariobl@gnome.org>, 2008, 2009.
 #
 msgid ""
@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-10 15:20+0100\n"
-"PO-Revision-Date: 2009-01-10 15:22+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
+"PO-Revision-Date: 2009-01-24 17:49+0100\n"
+"Last-Translator: Andre Klapper <ak-47@gmx.net>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1502,7 +1502,7 @@ msgstr "_Diff"
 
 #: ../src/gnome-cmd-main-menu.cc:475
 msgid "S_ynchronize Directories"
-msgstr "Ordner s_ynchronisieren"
+msgstr "Ordner a_bgleichen"
 
 #: ../src/gnome-cmd-main-menu.cc:482
 msgid "Start _GNOME Commander as Root"
@@ -5713,15 +5713,15 @@ msgstr "Untertitel."
 
 #: ../src/tags/gnome-cmd-tags.cc:393
 msgid "Synchronized Lyrics"
-msgstr "Synchronisierter Text"
+msgstr "Abgeglichener Text"
 
 #: ../src/tags/gnome-cmd-tags.cc:393
 msgid "Synchronized lyric."
-msgstr "Synchronisierter Text."
+msgstr "Abgeglichener Text."
 
 #: ../src/tags/gnome-cmd-tags.cc:394
 msgid "Synchronized Tempo"
-msgstr ""
+msgstr "Abgeglichenes Tempo"
 
 #: ../src/tags/gnome-cmd-tags.cc:394
 msgid "Synchronized tempo codes."
@@ -5769,11 +5769,11 @@ msgstr "Eindeutige Dateikennung."
 
 #: ../src/tags/gnome-cmd-tags.cc:400
 msgid "Unsynchronized Lyrics"
-msgstr "Unsynchronisierter Text"
+msgstr "Unabgeglichener Text"
 
 #: ../src/tags/gnome-cmd-tags.cc:400
 msgid "Unsynchronized lyric."
-msgstr "Unsynchronisierter Text."
+msgstr "Unabgeglichener Text."
 
 #: ../src/tags/gnome-cmd-tags.cc:401
 msgid "User Text"
