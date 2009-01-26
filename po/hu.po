@@ -170,7 +170,7 @@ msgid ""
 "press escape to cancel."
 msgstr ""
 "A gyorbillentyű módosításához klikkeljen a megfelelő soron és üssön be egy "
-"új kombinációt. vagy nyomja meg az escape gombot ha mégsem akarja "
+"új kombinációt. Vagy nyomja meg az escape gombot ha mégsem akarja "
 "változtatni."
 
 #: ../src/dialogs/gnome-cmd-advrename-profiles-dialog.cc:126
@@ -1007,8 +1007,8 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Deleted %ld of %ld file"
 msgid_plural "Deleted %ld of %ld files"
-msgstr[0] "[%ld. fájl összesen %ld] \"%s\""
-msgstr[1] "[%ld. fájl összesen %ld] \"%s\""
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../src/gnome-cmd-delete-dialog.cc:131
 msgid "Deleting..."
@@ -1444,7 +1444,7 @@ msgid ""
 "accelerator, or press escape to cancel."
 msgstr ""
 "A gyorbillentyű módosításához klikkeljen a megfelelő soron és üssön be egy "
-"új kombinációt. vagy nyomja meg az escape gombot ha mégsem akarja "
+"új kombinációt. Vagy nyomja meg az escape gombot ha mégsem akarja "
 "változtatni."
 
 #: ../src/gnome-cmd-key-shortcuts-dialog.cc:344
@@ -2388,8 +2388,8 @@ msgstr "Fájlok felülírási módja"
 #, c-format
 msgid "copy %d file to"
 msgid_plural "copy %d files to"
-msgstr[0] "%d fájl másolása "
-msgstr[1] "%d fájl másolása "
+msgstr[0] "%d fájl másolása"
+msgstr[1] "%d fájl másolása"
 
 #: ../src/gnome-cmd-prepare-move-dialog.cc:84
 msgid "Move"
@@ -2398,14 +2398,14 @@ msgstr "Áthelyezés"
 #: ../src/gnome-cmd-prepare-move-dialog.cc:131
 #, c-format
 msgid "Move \"%s\" to"
-msgstr "\"%s\" áthelyezése "
+msgstr "\"%s\" áthelyezése"
 
 #: ../src/gnome-cmd-prepare-move-dialog.cc:135
 #, c-format
 msgid "move %d file to"
 msgid_plural "move %d files to"
-msgstr[0] "%d fájl áthelyezése "
-msgstr[1] "%d fájl áthelyezése "
+msgstr[0] "%d fájl áthelyezése"
+msgstr[1] "%d fájl áthelyezése"
 
 #. Nothing exists, ask the user if a new directory might be suitable in the path that he specified
 #: ../src/gnome-cmd-prepare-xfer-dialog.cc:148
