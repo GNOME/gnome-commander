@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-05 20:46+0000\n"
-"PO-Revision-Date: 2009-01-07 12:21+0100\n"
+"POT-Creation-Date: 2009-01-23 16:14+0000\n"
+"PO-Revision-Date: 2009-02-01 18:55+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2888,6 +2888,14 @@ msgid ""
 "Cr, this tag is provided for cases when compressed data uses components "
 "other than Y, Cb, and Cr and to enable support of other sequences."
 msgstr ""
+"Información específica de datos comprimidos. Los canales de cada componente "
+"se ordenan desde el primer componente hasta el cuarto. Para datos sin "
+"comprimir el orden de los datos se da en la etiqueta <literal>Exif."
+"PhotometricInterpretation</literal>. Sin embargo, ya que <literal>Exif."
+"PhotometricInterpretation</literal> sólo puede expresar el orden de Y, Cb y "
+"Cr, esta etiqueta se proporciona para aquellos casos en que los datos "
+"comprimidos usan otros componentes aparte de Y, Cb y Cr y son capaces de "
+"soportar otras secuencias."
 
 #: C/gnome-commander.xml:1591(para)
 msgid "Exif.CompressedBitsPerPixel"
@@ -3720,6 +3728,9 @@ msgid ""
 "DSC, scanner, video digitizer or other equipment that generated the image. "
 "When the field is left blank, it is treated as unknown."
 msgstr ""
+"El fabricante del equipo de grabación. Este es el fabricante del DSC, "
+"escáner, digitalizador de vídeo u otro equipo que generó la imagen. Si este "
+"campo se deja en vacío, se considera desconocido."
 
 #: C/gnome-commander.xml:1861(para)
 msgid "Exif.MakerNote"
@@ -4078,7 +4089,7 @@ msgstr "Método de sensibilidad"
 
 #: C/gnome-commander.xml:1983(para)
 msgid "The image sensor type on the camera or input device."
-msgstr ""
+msgstr "El sensor de imagen en la cámara o el dispositivo de entrada."
 
 #: C/gnome-commander.xml:1986(para)
 msgid "Exif.Sharpness"
@@ -4107,6 +4118,8 @@ msgid ""
 "Shutter speed. The unit is the APEX (Additive System of Photographic "
 "Exposure) setting."
 msgstr ""
+"Velocidad del diafragma. La unidad es el ajuste APEX (Sistema Aditivo de "
+"Exposición Fotográfica)."
 
 #: C/gnome-commander.xml:1996(para)
 msgid "Exif.Software"
@@ -4137,6 +4150,9 @@ msgid ""
 "values in the direction of image width, image height, and diagonal "
 "direction, as specified in ISO 12233."
 msgstr ""
+"Esta etiqueta almacena la frecuencia espacial y los valores SFR de la cámara "
+"o el dispositivo de entrada en la dirección del ancho de la imagen, su "
+"altura y su dirección diagonal, como se especifica en ISO 12233."
 
 #: C/gnome-commander.xml:2006(para)
 msgid "Exif.SpectralSensitivity"
@@ -4178,6 +4194,10 @@ msgid ""
 "be selected so the number of strip bytes does not exceed 64 Kbytes. With "
 "JPEG compressed data this designation is not needed and is omitted."
 msgstr ""
+"Para cada franja, el desplazamiento de byte (offset) de cada una. Se "
+"recomienda que esto se seleccione para que el número de franjas no supere "
+"los 64 KBytes. En datos JPEG comprimidos esta designación no se necesita y "
+"se omite."
 
 #: C/gnome-commander.xml:2021(para)
 msgid "Exif.SubIFDs"
@@ -4203,7 +4223,7 @@ msgstr "Área del objeto"
 
 #: C/gnome-commander.xml:2028(para)
 msgid "The location and area of the main subject in the overall scene."
-msgstr ""
+msgstr "El lugar y el área del asunto principal en el escenario global."
 
 #: C/gnome-commander.xml:2031(para)
 msgid "Exif.SubjectDistance"
@@ -4370,6 +4390,7 @@ msgstr "Balance de blancos"
 #: C/gnome-commander.xml:2083(para)
 msgid "The white balance mode set when the image was shot."
 msgstr ""
+"El modo de balanceo de blancos establecido cuando se disparó la imagen."
 
 #: C/gnome-commander.xml:2086(para)
 msgid "Exif.WhitePoint"
@@ -4385,6 +4406,9 @@ msgid ""
 "necessary, since color space is specified in <literal>Exif.ColorSpace</"
 "literal> tag."
 msgstr ""
+"La cromaticidad del punto blanco de la imagen. Normalmente esta etiqueta no "
+"es necesaria, ya que el espacio de color se especifica en la etiqueta "
+"<literal>Exif.ColorSpace</literal>."
 
 #: C/gnome-commander.xml:2091(para)
 msgid "Exif.XMLPacket"
@@ -4429,6 +4453,12 @@ msgid ""
 "the default being the value that gives the optimal image characteristics "
 "Interoperability this condition."
 msgstr ""
+"La matriz de coeficientes de transformación de RGB a imagen de datos YCbCr. "
+"No se proporciona un valor predeterminado en TIFF; pero aquí se usa «La guía "
+"de espacio de color» como valor predeterminado. El espacio de color se "
+"declara en la etiqueta de información de espacio de color, siendo el valor "
+"predeterminado el que ofrece las mejores características de "
+"interoperabilidad de imagen."
 
 #: C/gnome-commander.xml:2106(para)
 msgid "Exif.YCbCrPositioning"
@@ -5363,7 +5393,7 @@ msgstr "ID3.Size"
 
 #: C/gnome-commander.xml:2503(para)
 msgid "Size of the audio file in bytes, excluding the ID3 tag."
-msgstr ""
+msgstr "Tamaño del archivo de sonido, excluyendo la etiqueta ID3."
 
 #: C/gnome-commander.xml:2506(para)
 msgid "ID3.SongLength"
@@ -5375,7 +5405,7 @@ msgstr "Duración de la canción"
 
 #: C/gnome-commander.xml:2508(para)
 msgid "Length of the song in milliseconds."
-msgstr ""
+msgstr "Duración de la canción en milisegundos."
 
 #: C/gnome-commander.xml:2511(para)
 msgid "ID3.Subtitle"
@@ -8286,11 +8316,11 @@ msgstr "5"
 
 #: C/gnome-commander.xml:4351(para)
 msgid "Create MD5 (128-bit) checksum"
-msgstr ""
+msgstr "Crear suma de comprobación MD5 (128 bits)"
 
 #: C/gnome-commander.xml:4360(keycap) C/gnome-commander.xml:4361(keycap)
 msgid "Letter(s)"
-msgstr ""
+msgstr "Carta(s)"
 
 #: C/gnome-commander.xml:4362(para)
 msgid ""
@@ -8300,7 +8330,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4371(keycap)
 msgid "Letter"
-msgstr ""
+msgstr "Carta"
 
 #: C/gnome-commander.xml:4372(para)
 msgid "Redirect to command line, cursor jumps to command line"
@@ -8312,7 +8342,7 @@ msgstr "ESC"
 
 #: C/gnome-commander.xml:4377(para)
 msgid "Clear the command line"
-msgstr ""
+msgstr "Limpiar la línea de comandos"
 
 #: C/gnome-commander.xml:4381(keycap)
 msgid "K"
@@ -8366,7 +8396,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4432(title)
 msgid "User actions"
-msgstr ""
+msgstr "Acciones del usuario"
 
 #: C/gnome-commander.xml:4433(para)
 msgid ""
@@ -8454,7 +8484,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4478(para)
 msgid "bookmarks.add_current"
-msgstr ""
+msgstr "bookmarks.add_current"
 
 #: C/gnome-commander.xml:4479(para)
 msgid "Bookmark current directory"
@@ -8462,7 +8492,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4483(para)
 msgid "bookmarks.edit"
-msgstr ""
+msgstr "bookmarks.edit"
 
 #: C/gnome-commander.xml:4484(para)
 msgid "Open favourite directories (bookmarks) dialog"
@@ -8549,7 +8579,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4534(para)
 msgid "command.open_folder"
-msgstr ""
+msgstr "command.open_folder"
 
 #: C/gnome-commander.xml:4535(para) C/gnome-commander.xml:6072(para)
 msgid "Open the current location in Nautilus file manager"
@@ -8557,7 +8587,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4539(para)
 msgid "command.open_terminal"
-msgstr ""
+msgstr "command.open_terminal"
 
 #: C/gnome-commander.xml:4540(para) C/gnome-commander.xml:6192(para)
 msgid "Open terminal in the current directory"
@@ -8641,7 +8671,7 @@ msgstr "edit.quick_search"
 
 #: C/gnome-commander.xml:4597(para)
 msgid "Quick search"
-msgstr ""
+msgstr "Búsqueda rápida"
 
 #: C/gnome-commander.xml:4601(para)
 msgid "edit.search"
@@ -8649,7 +8679,7 @@ msgstr "edit.search"
 
 #: C/gnome-commander.xml:4602(para)
 msgid "File search"
-msgstr ""
+msgstr "Búsqueda de archivos"
 
 #: C/gnome-commander.xml:4606(para)
 msgid "file.advrename"
@@ -8669,7 +8699,7 @@ msgstr "file.chown"
 
 #: C/gnome-commander.xml:4618(para)
 msgid "Show file ownership"
-msgstr ""
+msgstr "Mostrar el propietario del archivo"
 
 #: C/gnome-commander.xml:4622(para)
 msgid "file.copy"
@@ -8689,7 +8719,7 @@ msgstr "file.diff"
 
 #: C/gnome-commander.xml:4638(para)
 msgid "Compare files (diff)"
-msgstr ""
+msgstr "Comparar archivos (diff)"
 
 #: C/gnome-commander.xml:4642(para)
 msgid "file.edit"
@@ -8725,7 +8755,7 @@ msgstr "file.move"
 
 #: C/gnome-commander.xml:4673(para)
 msgid "Move files"
-msgstr ""
+msgstr "Mover archivos"
 
 #: C/gnome-commander.xml:4677(para)
 msgid "file.properties"
@@ -8749,11 +8779,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:4692(para)
 msgid "file.synchronize_directories"
-msgstr ""
+msgstr "file.synchronize_directories"
 
 #: C/gnome-commander.xml:4693(para)
 msgid "Synchronize directories (using meld)"
-msgstr ""
+msgstr "Sincronizar directorios (usando meld)"
 
 #: C/gnome-commander.xml:4697(para)
 msgid "file.view"
@@ -8765,7 +8795,7 @@ msgstr "help.about"
 
 #: C/gnome-commander.xml:4703(para) C/gnome-commander.xml:7071(title)
 msgid "About <application>GNOME Commander</application>"
-msgstr ""
+msgstr "Acerca de <application>GNOME Commander</application>"
 
 #: C/gnome-commander.xml:4707(para)
 msgid "help.help"
@@ -8845,7 +8875,7 @@ msgstr "options.edit_mime_types"
 
 #: C/gnome-commander.xml:4772(para)
 msgid "Configure MIME types"
-msgstr ""
+msgstr "Configurar tipos MIME"
 
 #: C/gnome-commander.xml:4776(para)
 msgid "options.shortcuts"
@@ -8861,7 +8891,7 @@ msgstr "plugins.configure"
 
 #: C/gnome-commander.xml:4782(para)
 msgid "Configure plugins"
-msgstr ""
+msgstr "Configurar complementos"
 
 #: C/gnome-commander.xml:4786(para)
 msgid "plugins.execute_python"
@@ -8869,7 +8899,7 @@ msgstr "plugins.execute_python"
 
 #: C/gnome-commander.xml:4787(para)
 msgid "Execute python plugin"
-msgstr ""
+msgstr "Ejecutar un complemento Python"
 
 #: C/gnome-commander.xml:4791(para)
 msgid "view.back"
@@ -9039,7 +9069,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4949(title)
 msgid "Working with plugins"
-msgstr ""
+msgstr "Trabajar con complementos"
 
 #: C/gnome-commander.xml:4951(para)
 msgid ""
@@ -9104,6 +9134,9 @@ msgid ""
 "    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files)\n"
 "            "
 msgstr ""
+"\n"
+"    def main(main_wnd_xid, active_cwd, inactive_cwd, selected_files)\n"
+"            "
 
 #: C/gnome-commander.xml:4992(para)
 msgid "where parameters are:"
@@ -9135,7 +9168,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5012(para)
 msgid "selected_files"
-msgstr ""
+msgstr "selected_files"
 
 #: C/gnome-commander.xml:5013(para)
 msgid ""
@@ -9145,7 +9178,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5021(title)
 msgid "Sample plugin: md5sum"
-msgstr ""
+msgstr "Ejemplo de complemento: md5sum"
 
 #: C/gnome-commander.xml:5023(programlisting)
 #, no-wrap
@@ -9208,11 +9241,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:5054(title)
 msgid "Python resources"
-msgstr ""
+msgstr "Recursos de Python"
 
 #: C/gnome-commander.xml:5058(ulink)
 msgid "Python documentation"
-msgstr ""
+msgstr "Documentación de Python"
 
 #: C/gnome-commander.xml:5061(ulink)
 msgid "Python gnomevfs reference manual"
@@ -9228,7 +9261,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5070(ulink)
 msgid "Python code snippets"
-msgstr ""
+msgstr "Fragmentos de código en Python"
 
 #: C/gnome-commander.xml:5080(title)
 msgid "Tips and tricks"
@@ -9325,7 +9358,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5147(guilabel)
 msgid "Using Nautilus icon theme"
-msgstr ""
+msgstr "Usar el tema de iconos de Nautilus"
 
 #: C/gnome-commander.xml:5150(para)
 msgid ""
@@ -9417,11 +9450,11 @@ msgstr "Versión estable"
 
 #: C/gnome-commander.xml:5208(command) C/gnome-commander.xml:5224(command)
 msgid "svn checkout svn://svn.gnome.org/svn/gnome-commander/trunk"
-msgstr ""
+msgstr "svn checkout svn://svn.gnome.org/svn/gnome-commander/trunk"
 
 #: C/gnome-commander.xml:5212(title)
 msgid "Development version"
-msgstr ""
+msgstr "Versión de desarrollo"
 
 #: C/gnome-commander.xml:5214(command)
 msgid "svn checkout svn://svn.gnome.org/svn/gnome-commander/branches/gcmd-1-3"
@@ -9453,7 +9486,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5245(title)
 msgid "Configuration files"
-msgstr ""
+msgstr "Archivos de configuración"
 
 #: C/gnome-commander.xml:5246(para)
 msgid ""
@@ -9499,7 +9532,7 @@ msgstr "[red]"
 
 #: C/gnome-commander.xml:5298(para)
 msgid "use_gnome_auth_manager"
-msgstr ""
+msgstr "use_gnome_auth_manager"
 
 #: C/gnome-commander.xml:5299(para) C/gnome-commander.xml:5334(para)
 #: C/gnome-commander.xml:5341(para) C/gnome-commander.xml:5348(para)
@@ -9515,7 +9548,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5305(para)
 msgid "ftp_anonymous_password"
-msgstr ""
+msgstr "ftp_anonymous_password"
 
 #: C/gnome-commander.xml:5306(para) C/gnome-commander.xml:5586(para)
 #: C/gnome-commander.xml:5760(para) C/gnome-commander.xml:5858(para)
@@ -9544,7 +9577,7 @@ msgstr "cmdline_visibility"
 
 #: C/gnome-commander.xml:5335(para)
 msgid "Show commandline."
-msgstr ""
+msgstr "Mostrar línea de comandos"
 
 #: C/gnome-commander.xml:5340(para)
 msgid "conbuttons_visibility"
