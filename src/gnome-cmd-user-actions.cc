@@ -1559,7 +1559,7 @@ void help_help (GtkMenuItem *menuitem, gpointer not_used)
 
 void help_keyboard (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_help_display ("gnome-commander.xml","gnome-commander-keyboard");
+    gnome_cmd_help_display ("gnome-commander.xml", "gnome-commander-keyboard");
 }
 
 

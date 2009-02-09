@@ -67,8 +67,6 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
     GSList *group = NULL;
     PrepareMoveData *data = g_new0 (PrepareMoveData, 1);
-    GnomeCmdFile *finfo;
-    gint num_files;
     gchar *dest_dir_frame_msg, *text;
     GtkWidget *label;
 
@@ -86,6 +84,7 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
 
     // Create prepare copy specific widgets
+
     data->silent = gtk_radio_button_new_with_label (group, _("Silently"));
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (data->silent));
     gtk_widget_ref (data->silent);
@@ -111,6 +110,7 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
 
     // Customize prepare xfer widgets
+
     text = get_bold_text (_("Overwrite Files"));
     label = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (data->dialog->left_vbox_frame), "label");
     gtk_label_set_markup (GTK_LABEL (label), text);
@@ -122,12 +122,13 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     g_free (text);
 
     g_return_if_fail (data->dialog->src_files != NULL);
-    num_files = g_list_length (data->dialog->src_files);
-    finfo = (GnomeCmdFile *) data->dialog->src_files->data;
+
+    gint num_files = g_list_length (data->dialog->src_files);
 
     if (num_files == 1)
     {
-        gchar *fname = get_utf8 (finfo->info->name);
+        GnomeCmdFile *f = (GnomeCmdFile *) data->dialog->src_files->data;
+        gchar *fname = get_utf8 (f->info->name);
         dest_dir_frame_msg = g_strdup_printf (_("Move \"%s\" to"), fname);
         g_free (fname);
     }
@@ -143,9 +144,11 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
 
     // Connect signals
+
     gtk_signal_connect (GTK_OBJECT (data->dialog->ok_button), "clicked", GTK_SIGNAL_FUNC (on_ok), data);
 
 
     // Show the dialog
+
     gtk_widget_show (GTK_WIDGET (data->dialog));
 }

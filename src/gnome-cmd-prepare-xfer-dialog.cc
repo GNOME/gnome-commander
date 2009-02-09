@@ -293,8 +293,6 @@ static void class_init (GnomeCmdPrepareXferDialogClass *klass)
 static void init (GnomeCmdPrepareXferDialog *dialog)
 {
     GtkWidget *dest_dir_vbox;
-    GtkWidget *dest_dir_fileentry;
-    GtkWidget *options_hbox;
 
     // dest dir
     dest_dir_vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);
@@ -302,16 +300,15 @@ static void init (GnomeCmdPrepareXferDialog *dialog)
     dialog->dest_dir_frame = create_category (GTK_WIDGET (dialog), dest_dir_vbox, "");
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), dialog->dest_dir_frame);
 
-    dest_dir_fileentry = create_file_entry (GTK_WIDGET (dialog), "file-entry", "");
+    GtkWidget *dest_dir_fileentry = create_file_entry (GTK_WIDGET (dialog), "file-entry", "");
     gtk_box_pack_start (GTK_BOX (dest_dir_vbox), dest_dir_fileentry, FALSE, FALSE, 0);
     dialog->dest_dir_entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (dest_dir_fileentry));
 
     gtk_signal_connect (GTK_OBJECT (dialog->dest_dir_entry), "key-press-event",
                         GTK_SIGNAL_FUNC (on_dest_dir_entry_keypressed), dialog);
 
-
     // options
-    options_hbox = create_hbox (GTK_WIDGET (dialog), TRUE, 6);
+    GtkWidget *options_hbox = create_hbox (GTK_WIDGET (dialog), TRUE, 6);
     gnome_cmd_dialog_add_category (GNOME_CMD_DIALOG (dialog), options_hbox);
 
     dialog->left_vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 0);

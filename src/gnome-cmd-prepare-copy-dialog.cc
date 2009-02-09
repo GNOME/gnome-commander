@@ -72,8 +72,6 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
     GSList *group = NULL;
     PrepareCopyData *data = g_new0 (PrepareCopyData, 1);
-    GnomeCmdFile *finfo;
-    gint num_files;
     gchar *dest_dir_frame_msg, *text;
     GtkWidget *label;
     GList *tmp = from->file_list()->get_selected_files();
@@ -89,9 +87,8 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gtk_widget_ref (GTK_WIDGET (data->dialog));
 
 
-    /*
-     * Create prepare copy specific widgets
-     */
+    // Create prepare copy specific widgets
+
     data->silent = gtk_radio_button_new_with_label (group, _("Silently"));
     group = gtk_radio_button_group (GTK_RADIO_BUTTON (data->silent));
     gtk_widget_ref (data->silent);
@@ -123,9 +120,8 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     gtk_box_pack_start (GTK_BOX (data->dialog->right_vbox), data->follow_links, FALSE, FALSE, 0);
 
 
-    /*
-     * Customize prepare xfer widgets
-     */
+    // Customize prepare xfer widgets
+
     text = get_bold_text (_("Overwrite Files"));
     label = (GtkWidget *) gtk_object_get_data (GTK_OBJECT (data->dialog->left_vbox_frame), "label");
     gtk_label_set_markup (GTK_LABEL (label), text);
@@ -138,12 +134,12 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
     g_return_if_fail (data->dialog->src_files != NULL);
 
-    num_files = g_list_length (data->dialog->src_files);
-    finfo = (GnomeCmdFile *) data->dialog->src_files->data;
+    gint num_files = g_list_length (data->dialog->src_files);
 
     if (num_files == 1)
     {
-        gchar *fname = get_utf8 (finfo->info->name);
+        GnomeCmdFile *f = (GnomeCmdFile *) data->dialog->src_files->data;
+        gchar *fname = get_utf8 (f->info->name);
         dest_dir_frame_msg = g_strdup_printf (_("Copy \"%s\" to"), fname);
         g_free (fname);
     }
@@ -158,14 +154,12 @@ void gnome_cmd_prepare_copy_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
     g_free (dest_dir_frame_msg);
 
 
-    /*
-     * Connect signals
-     */
+    // Connect signals
+
     gtk_signal_connect (GTK_OBJECT (data->dialog->ok_button), "clicked", GTK_SIGNAL_FUNC (on_ok), data);
 
 
-    /*
-     * Show the dialog
-     */
+    // Show the dialog
+
     gtk_widget_show (GTK_WIDGET (data->dialog));
 }
