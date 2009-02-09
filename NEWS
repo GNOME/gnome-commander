@@ -11,6 +11,7 @@ Bug fixes:
  * Fixed problem #554598 (GNOME Goal: LINGUAS)
  * Fixed problem #556664 (bookmarks can not be saved for mounted devices)
  * Fixed problem #567404 (crash when INSERT pressed over subdir)
+ * Fixed problem #570727 (usage of deprecated gnome_url_show)
  * Fixed problem with setting equal pane size in horizontal mode
 
 New features:

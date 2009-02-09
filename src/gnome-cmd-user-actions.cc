@@ -1567,8 +1567,13 @@ void help_web (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
+#if GTK_CHECK_VERSION (2, 14, 0)
+    if (!gtk_show_uri (NULL, "http://www.nongnu.org/gcmd/", GDK_CURRENT_TIME, &error))
+        gnome_cmd_error_message (_("There was an error opening home page."), error);
+#else
     if (!gnome_url_show ("http://www.nongnu.org/gcmd/", &error))
         gnome_cmd_error_message (_("There was an error opening home page."), error);
+#endif
 }
 
 
@@ -1576,8 +1581,13 @@ void help_problem (GtkMenuItem *menuitem, gpointer not_used)
 {
     GError *error = NULL;
 
+#if GTK_CHECK_VERSION (2, 14, 0)
+    if (!gtk_show_uri (NULL, "http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", GDK_CURRENT_TIME, &error))
+        gnome_cmd_error_message (_("There was an error reporting problem."), error);
+#else
     if (!gnome_url_show("http://bugzilla.gnome.org/browse.cgi?product=gnome-commander", &error))
         gnome_cmd_error_message (_("There was an error reporting problem."), error);
+#endif
 }
 
 

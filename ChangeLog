@@ -1,3 +1,8 @@
+2009-02-09  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-user-actions.cc:
+	Fixed problem #570727 (usage of deprecated gnome_url_show)
+
 2009-01-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

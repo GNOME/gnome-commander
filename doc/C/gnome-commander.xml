@@ -5927,6 +5927,9 @@
                             <para>Fixed problem #567404 (crash when INSERT pressed over subdir)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #570727 (usage of deprecated gnome_url_show)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with setting equal pane size in horizontal mode</para>
                         </listitem>
                     </itemizedlist>
