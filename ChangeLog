@@ -1,3 +1,11 @@
+2009-02-10  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-prepare-xfer-dialog.cc:
+	* src/utils.cc:
+	* src/utils.h:
+	Toggle path/basename/filename selections in F5/F6 dialogs.
+
 2009-02-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-user-actions.cc:

@@ -230,6 +230,7 @@ GList *patlist_new (const gchar *pattern_string);
 void patlist_free (GList *pattern_list);
 gboolean patlist_matches (GList *pattern_list, const gchar *s);
 
+void gnome_cmd_toggle_file_name_selection (GtkWidget *entry);
 
 inline void gnome_cmd_show_message (GtkWindow *parent, std::string message, const gchar *secondary_text=NULL)
 {

@@ -1346,6 +1346,48 @@ gboolean patlist_matches (GList *pattern_list, const gchar *s)
 }
 
 
+void gnome_cmd_toggle_file_name_selection (GtkWidget *entry)
+{
+    const gchar *text = gtk_entry_get_text (GTK_ENTRY (entry));
+    const char *s = strrchr(text,G_DIR_SEPARATOR);                  // G_DIR_SEPARATOR is ASCII, g_utf8_strrchr() is not needed here
+    glong base = s ? g_utf8_pointer_to_offset (text, ++s) : 0;
+
+    gint beg;
+    gint end;
+
+    if (!gtk_editable_get_selection_bounds (GTK_EDITABLE (entry), &beg, &end))
+    {
+        beg = base;
+        end = -1;
+    }
+    else
+    {
+        glong text_len = g_utf8_strlen (text, -1);
+
+        s = strrchr(text,'.');                                      // '.' is ASCII, g_utf8_strrchr() is not needed here
+        glong ext = s ? g_utf8_pointer_to_offset (text, s) : -1;
+
+        if (beg==0 && end==text_len)
+        {
+            beg = base;
+            end = ext;
+        }
+        else
+        {
+            if (beg!=base)
+                beg = beg>base ? base : 0;
+            else
+                if (end!=ext || end==text_len)
+                    beg = 0;
+
+            end = -1;
+        }
+    }
+
+    gtk_editable_select_region (GTK_EDITABLE (entry), beg, end);
+}
+
+
 int split(const string &s, vector<string> &coll, const char *sep)
 {
   coll.clear();

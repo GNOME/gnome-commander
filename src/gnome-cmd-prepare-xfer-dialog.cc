@@ -246,10 +246,16 @@ static void on_cancel (GtkButton *button, gpointer user_data)
 
 static gboolean on_dest_dir_entry_keypressed (GtkEntry *entry, GdkEventKey *event, GnomeCmdPrepareXferDialog *dialog)
 {
-    if (event->keyval == GDK_Return)
+    switch (event->keyval)
     {
-        gtk_signal_emit_by_name (GTK_OBJECT (dialog->ok_button), "clicked", dialog, NULL);
-        return TRUE;
+        case GDK_Return:
+            gtk_signal_emit_by_name (GTK_OBJECT (dialog->ok_button), "clicked", dialog, NULL);
+            return TRUE;
+
+        case GDK_F5:
+        case GDK_F6:
+            gnome_cmd_toggle_file_name_selection (dialog->dest_dir_entry);
+            return TRUE;
     }
 
     return FALSE;

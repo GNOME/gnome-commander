@@ -44,7 +44,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
 {
     GnomeCmdRenameDialog *dialog = GNOME_CMD_RENAME_DIALOG(widget);
 
-    if (dialog->priv->textbox->editable && event->type == GDK_KEY_PRESS) 
+    if (dialog->priv->textbox->editable && event->type == GDK_KEY_PRESS)
         if (gtk_im_context_filter_keypress (dialog->priv->textbox->im_context, event))
             return TRUE;
 
@@ -72,6 +72,11 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
 
                 g_free (new_fname);
             }
+            return TRUE;
+
+        case GDK_F5:
+        case GDK_F6:
+            gnome_cmd_toggle_file_name_selection (GTK_WIDGET (dialog->priv->textbox));
             return TRUE;
 
         default:
@@ -157,16 +162,8 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gin
 
     gtk_entry_set_text (dialog->priv->textbox, fname);
 
-    if (!GNOME_CMD_IS_DIR (finfo))
-    {
-        gchar *ext = g_utf8_strrchr (fname, -1, '.');
-
-        if (ext && ext[1])      // if fname doesn't end with '.'
-            end_selection = (gint) g_utf8_pointer_to_offset (fname, ext);
-    }
-
     gtk_widget_grab_focus (GTK_WIDGET (dialog->priv->textbox));
-    gtk_entry_select_region (dialog->priv->textbox, 0, end_selection);
+    gtk_entry_select_region (dialog->priv->textbox, 0, -1);
     gtk_widget_show (GTK_WIDGET (dialog->priv->textbox));
 
     g_free (fname);
