@@ -6,6 +6,9 @@
 	* src/utils.h:
 	Toggle path/basename/filename selections in F5/F6 dialogs.
 
+	* src/gnome-cmd-xml-config:
+	Save additional info on gcmd to XML cfg
+
 2009-02-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-user-actions.cc:
