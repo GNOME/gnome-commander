@@ -371,9 +371,9 @@ create_spin (GtkWidget *parent, gchar *name, gint min, gint max, gint value)
 
 
 GtkWidget *
-create_color_picker (GtkWidget *parent, gchar *name)
+create_color_button (GtkWidget *parent, gchar *name)
 {
-    GtkWidget *w = gnome_color_picker_new ();
+    GtkWidget *w = gtk_color_button_new ();
     gtk_widget_ref (w);
     gtk_object_set_data_full (GTK_OBJECT (parent), name, w,
                               (GtkDestroyNotify) gtk_widget_unref);

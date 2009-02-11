@@ -77,7 +77,7 @@ GtkWidget *create_radio (GtkWidget *parent, GSList *group, const gchar *text, co
 
 GtkWidget *create_spin (GtkWidget *parent, gchar *name, gint min, gint max, gint value);
 
-GtkWidget *create_color_picker (GtkWidget *parent, gchar *name);
+GtkWidget *create_color_button (GtkWidget *parent, gchar *name);
 
 GtkWidget *create_icon_entry (GtkWidget *parent, gchar *name, const gchar *icon_path);
 
