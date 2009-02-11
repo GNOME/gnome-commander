@@ -14,6 +14,11 @@
 	* src/gnome-cmd-options-dialog.cc:
 	Fixed problem #571239 (replacing obsoleted GnomeColorPicker with GtkColorButton)
 
+	* plugins/cvs/cvs-plugin.c:
+	* plugins/fileroller/file-roller-plugin.c:
+	* plugins/test/test-plugin.c:
+	Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)
+
 2009-02-10  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

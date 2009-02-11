@@ -13,6 +13,7 @@ Bug fixes:
  * Fixed problem #567404 (crash when INSERT pressed over subdir)
  * Fixed problem #570727 (usage of deprecated gnome_url_show)
  * Fixed problem #571239 (replacing obsoleted GnomeColorPicker with GtkColorButton)
+ * Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)
  * Fixed problem with setting equal pane size in horizontal mode
 
 New features:

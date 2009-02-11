@@ -152,12 +152,15 @@ create_menu_item (const gchar *name, gboolean show_pixmap,
                   CvsPlugin *plugin)
 {
     GtkWidget *item, *label;
+    GdkPixbuf *pixbuf;
     GtkWidget *pixmap = NULL;
 
     if (show_pixmap)
     {
         item = gtk_image_menu_item_new ();
-        pixmap = gnome_pixmap_new_from_xpm_d ((const gchar**)cvs_plugin_xpm);
+        pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **) cvs_plugin_xpm);
+        pixmap = gtk_image_new_from_pixbuf (pixbuf);
+        g_object_unref (G_OBJECT (pixbuf));
         if (pixmap)
         {
             gtk_widget_show (pixmap);

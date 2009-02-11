@@ -5933,6 +5933,9 @@
                             <para>Fixed problem #571239 (replacing obsoleted GnomeColorPicker with GtkColorButton)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with setting equal pane size in horizontal mode</para>
                         </listitem>
                     </itemizedlist>
