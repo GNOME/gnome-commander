@@ -126,6 +126,11 @@ struct GnomeCmdData
 
     GnomeCmdConFtp              *quick_connect;
 
+    gchar *viewer;
+    gchar *editor;
+    gchar *differ;
+    gchar *term;
+
     void load_auto_load_plugins();
     void load_cmdline_history();
     void load_local_bookmarks();
@@ -205,6 +210,16 @@ struct GnomeCmdData
 
     gboolean hide_type(GnomeVFSFileType type)     {  return filter_settings.file_types[type];  }
     GnomeCmdConFtp *get_quick_connect()           {  return quick_connect;                     }
+
+    const gchar *get_viewer()                     {  return viewer;                            }
+    const gchar *get_editor()                     {  return editor;                            }
+    const gchar *get_differ()                     {  return differ;                            }
+    const gchar *get_term()                       {  return term;                              }
+
+    void set_viewer(const gchar *command);
+    void set_editor(const gchar *command);
+    void set_differ(const gchar *command);
+    void set_term(const gchar *command);
 };
 
 gpointer gnome_cmd_data_get_con_list ();
@@ -226,19 +241,32 @@ GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ();
 void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint &col, gboolean &direction);
 void gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction);
 
-const gchar *gnome_cmd_data_get_viewer ();
-const gchar *gnome_cmd_data_get_editor ();
-const gchar *gnome_cmd_data_get_differ ();
+inline void GnomeCmdData::set_viewer(const gchar *command)
+{
+    g_free (viewer);
+    viewer = g_strdup (command);
+}
 
-void gnome_cmd_data_set_viewer (const gchar *command);
-void gnome_cmd_data_set_editor (const gchar *command);
-void gnome_cmd_data_set_differ (const gchar *command);
+inline void GnomeCmdData::set_editor(const gchar *command)
+{
+    g_free (editor);
+    editor = g_strdup (command);
+}
+
+inline void GnomeCmdData::set_differ(const gchar *command)
+{
+    g_free (differ);
+    differ = g_strdup (command);
+}
+
+inline void GnomeCmdData::set_term(const gchar *command)
+{
+    g_free (term);
+    term = g_strdup (command);
+}
 
 const gchar *gnome_cmd_data_get_list_font ();
 void gnome_cmd_data_set_list_font (const gchar *list_font);
-
-const gchar *gnome_cmd_data_get_term ();
-void gnome_cmd_data_set_term (const gchar *shell);
 
 const gchar *gnome_cmd_data_get_theme_icon_dir ();
 void gnome_cmd_data_set_theme_icon_dir (const gchar *dir);

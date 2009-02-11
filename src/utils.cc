@@ -131,7 +131,7 @@ void run_command_indir (const gchar *in_command, const gchar *dir, gboolean term
         else
             arg = g_shell_quote (in_command);
 
-        command = g_strdup_printf (gnome_cmd_data_get_term (), arg);
+        command = g_strdup_printf (gnome_cmd_data.get_term(), arg);
 
         g_free (arg);
     }

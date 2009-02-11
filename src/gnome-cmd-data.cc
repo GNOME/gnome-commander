@@ -68,11 +68,6 @@ struct GnomeCmdData::Private
     gchar                *symlink_prefix;
 
     gchar                *ftp_anonymous_password;
-
-    gchar *viewer;
-    gchar *editor;
-    gchar *differ;
-    gchar *term;
 };
 
 
@@ -1133,11 +1128,22 @@ GnomeCmdData::GnomeCmdData()
     main_win_height = 400;
 
     main_win_state = GDK_WINDOW_STATE_MAXIMIZED;
+
+    viewer = NULL;
+    editor = NULL;
+    differ = NULL;
+    term = NULL;
 }
 
 
 void GnomeCmdData::free()
 {
+    // free the external programs strings
+    g_free (viewer);
+    g_free (editor);
+    g_free (differ);
+    g_free (term);
+
     if (priv)
     {
         // free the connections
@@ -1158,12 +1164,6 @@ void GnomeCmdData::free()
 
         // free the font name strings
         g_free (priv->list_font);
-
-        // free the external programs strings
-        g_free (priv->viewer);
-        g_free (priv->editor);
-        g_free (priv->differ);
-        g_free (priv->term);
 
         g_free (priv);
     }
@@ -1356,10 +1356,10 @@ void GnomeCmdData::load()
     priv->sort_column[RIGHT] = gnome_cmd_data_get_int ("/options/sort_column_right", GnomeCmdFileList::COLUMN_NAME);
     priv->sort_direction[RIGHT] = gnome_cmd_data_get_bool ("/options/sort_direction_right", GTK_SORT_ASCENDING);
 
-    priv->viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
-    priv->editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
-    priv->differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
-    priv->term   = gnome_cmd_data_get_string ("/programs/terminal", "xterm -hold -e %s");
+    viewer = gnome_cmd_data_get_string ("/programs/viewer", "gedit %s");
+    editor = gnome_cmd_data_get_string ("/programs/editor", "gedit %s");
+    differ = gnome_cmd_data_get_string ("/programs/differ", "meld %s");
+    term   = gnome_cmd_data_get_string ("/programs/terminal", "xterm -hold -e %s");
 
     use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
@@ -1734,10 +1734,10 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_int    ("/options/sort_column_right", priv->sort_column[RIGHT]);
     gnome_cmd_data_set_bool   ("/options/sort_direction_right", priv->sort_direction[RIGHT]);
 
-    gnome_cmd_data_set_string ("/programs/viewer", priv->viewer);
-    gnome_cmd_data_set_string ("/programs/editor", priv->editor);
-    gnome_cmd_data_set_string ("/programs/differ", priv->differ);
-    gnome_cmd_data_set_string ("/programs/terminal", priv->term);
+    gnome_cmd_data_set_string ("/programs/viewer", viewer);
+    gnome_cmd_data_set_string ("/programs/editor", editor);
+    gnome_cmd_data_set_string ("/programs/differ", differ);
+    gnome_cmd_data_set_string ("/programs/terminal", term);
 
     gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", use_gcmd_block);
 
@@ -1867,58 +1867,6 @@ GnomeCmdColorTheme *gnome_cmd_data_get_current_color_theme ()
 GnomeCmdColorTheme *gnome_cmd_data_get_custom_color_theme ()
 {
     return &gnome_cmd_data.priv->color_themes[GNOME_CMD_COLOR_CUSTOM];
-}
-
-
-void gnome_cmd_data_set_viewer (const gchar *command)
-{
-    g_free (gnome_cmd_data.priv->viewer);
-    gnome_cmd_data.priv->viewer = g_strdup (command);
-}
-
-
-void gnome_cmd_data_set_editor (const gchar *command)
-{
-    g_free (gnome_cmd_data.priv->editor);
-    gnome_cmd_data.priv->editor = g_strdup (command);
-}
-
-
-void gnome_cmd_data_set_differ (const gchar *command)
-{
-    g_free (gnome_cmd_data.priv->differ);
-    gnome_cmd_data.priv->differ = g_strdup (command);
-}
-
-
-void gnome_cmd_data_set_term (const gchar *term)
-{
-    g_free (gnome_cmd_data.priv->term);
-    gnome_cmd_data.priv->term = g_strdup (term);
-}
-
-
-const gchar *gnome_cmd_data_get_viewer ()
-{
-    return gnome_cmd_data.priv->viewer;
-}
-
-
-const gchar *gnome_cmd_data_get_editor ()
-{
-    return gnome_cmd_data.priv->editor;
-}
-
-
-const gchar *gnome_cmd_data_get_differ ()
-{
-    return gnome_cmd_data.priv->differ;
-}
-
-
-const gchar *gnome_cmd_data_get_term ()
-{
-    return gnome_cmd_data.priv->term;
 }
 
 

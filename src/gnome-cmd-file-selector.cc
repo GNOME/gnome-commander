@@ -1318,7 +1318,7 @@ void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs)
         return;
 
     // create a command with an empty argument to the editor
-    gchar *cmd = g_strdup_printf (gnome_cmd_data_get_editor (), "");
+    gchar *cmd = g_strdup_printf (gnome_cmd_data.get_editor(), "");
     gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->file_list()->cwd));
 
     run_command_indir (cmd, dpath, FALSE);
@@ -1685,7 +1685,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     g_return_val_if_fail (filepath, TRUE);
 
     escaped_filepath = g_strdup_printf ("\"%s\"", filepath);
-    cmd = g_strdup_printf (gnome_cmd_data_get_editor (), escaped_filepath);
+    cmd = g_strdup_printf (gnome_cmd_data.get_editor(), escaped_filepath);
     g_free (filepath);
     g_free (escaped_filepath);
 
