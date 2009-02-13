@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-23 16:14+0000\n"
-"PO-Revision-Date: 2009-02-01 18:55+0100\n"
+"POT-Creation-Date: 2009-02-01 18:03+0000\n"
+"PO-Revision-Date: 2009-02-06 19:23+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1805,7 +1805,7 @@ msgstr "Canales"
 
 #: C/gnome-commander.xml:1153(para)
 msgid "Number of channels in the audio (2 = stereo)."
-msgstr "Número de canales de audio (2 = estéreo)."
+msgstr "Número de canales de sonido (2 = estéreo)."
 
 #: C/gnome-commander.xml:1156(para)
 msgid "Audio.Codec"
@@ -3502,6 +3502,8 @@ msgid ""
 "Indicates the version of <literal>Exif.GPS.InfoIFD</literal>. This tag is "
 "mandatory when <literal>Exif.GPS.Info</literal> tag is present."
 msgstr ""
+"Indica la versión de <literal>Exif.GPS.InfoIFD</literal>. Esta etiqueta es "
+"obligatoria cuando la etiqueta <literal>Exif.GPS.Info</literal> está presente."
 
 #: C/gnome-commander.xml:1786(para)
 msgid "Exif.ImageDescription"
@@ -3656,6 +3658,8 @@ msgid ""
 "The ISO Speed and ISO Latitude of the camera or input device as specified in "
 "ISO 12232."
 msgstr ""
+"Velocidad ISO y la latitud ISO de la cámara o del dispositivo de entrada "
+"según se especifica en ISO 12232."
 
 #: C/gnome-commander.xml:1836(para)
 msgid "Exif.JPEGInterchangeFormat"
@@ -3689,6 +3693,12 @@ msgid ""
 "be recorded. Compressed thumbnails must be recorded in no more than 64 "
 "Kbytes, including all other data to be recorded in APP1."
 msgstr ""
+"El número de bytes de datos de una miniatura JPEG comprimida. Esto no se "
+"usa para datos de imágenes JPEG primarias. Las miniaturas JPEG no se "
+"dividen, pero se graban como flujos de bits continuos en JPEG desde SOI "
+"hasta EOI. Los marcadores Appn y COM no deben grabarse. Las miniaturas "
+"comprimidas deben grabarse en no más de 64 Kbytes, incluyendo los demás "
+"datos grabados en APP1."
 
 #: C/gnome-commander.xml:1846(para)
 msgid "Exif.JPEGProc"
@@ -3761,6 +3771,9 @@ msgid ""
 "The smallest F number of the lens. The unit is the APEX value. Ordinarily it "
 "is given in the range of 00.00 to 99.99, but it is not limited to this range."
 msgstr ""
+"El menor número F de las lentes. La unidad está en valores APEX. "
+"Habitualmente se ofrece en el rango de 00.00 a 99.99, pero no está limitado "
+"a este rango."
 
 #: C/gnome-commander.xml:1871(para)
 msgid "Exif.MeteringMode"
@@ -3788,6 +3801,9 @@ msgid ""
 "number of the DSC, scanner, video digitizer or other equipment that "
 "generated the image. When the field is left blank, it is treated as unknown."
 msgstr ""
+"Nombre o número del modelo del equipo. Éste es el nombre o el número del "
+"DSC, escáner, digitalizador de vídeo u otro equipo que generó la imagen. "
+"Cuando el campo se deja vacío, se considera desconocido."
 
 #: C/gnome-commander.xml:1886(para)
 msgid "Exif.NewSubfileType"
@@ -3800,6 +3816,7 @@ msgstr "Nuevo tipo de subarchivo"
 #: C/gnome-commander.xml:1888(para)
 msgid "A general indication of the kind of data contained in this subfile."
 msgstr ""
+"Una indicación general del tipo de datos contenidos en este subarchivo."
 
 #: C/gnome-commander.xml:1891(para)
 msgid "Exif.OECF"
@@ -3815,6 +3832,9 @@ msgid ""
 "<literal>Exif.OECF</literal> is the relationship between the camera optical "
 "input and the image values."
 msgstr ""
+"La Función de Conversión Opto-Electrónica (OECF) especificada en ISO 14524. "
+"<literal>Exif.OECF</literal> es la relación entre la entrada óptica de la "
+"cámara y los valores de la imagen."
 
 #: C/gnome-commander.xml:1896(para)
 msgid "Exif.Orientation"
@@ -3858,6 +3878,10 @@ msgid ""
 "whether or not there is padding data or a restart marker. This tag should "
 "not exist in an uncompressed file."
 msgstr ""
+"Información específica para datos comprimidos. Cuando se graba un archivo "
+"comprimido, el ancho válido de la imagen significativa debe grabarse en esta "
+"etiqueta, si existe o no el relleno de datos o un marcador de reinicio. Esta "
+"etiqueta no debe existir en un archivo descomprimido."
 
 #: C/gnome-commander.xml:1911(para)
 msgid "Exif.PixelYDimension"
@@ -3923,6 +3947,12 @@ msgid ""
 "being the value that gives the optimal image characteristics "
 "Interoperability these conditions."
 msgstr ""
+"El valor de referencia del punto negro y el del punto blanco. No se "
+"proporcionan valores predeterminados en TIFF, pero los valores por debajo se "
+"toman como predeterminados. El espacio de color se declara en la etiqueta de "
+"información de espacio de color, siendo el valor predeterminado el que "
+"ofrece el valor óptimo de características de interoperabilidad de la imagen "
+"en estas condiciones."
 
 #: C/gnome-commander.xml:1931(para)
 msgid "Exif.RelatedImageFileFormat"
@@ -3989,6 +4019,26 @@ msgid ""
 "audio files, the relation of the audio file to image data must also be "
 "indicated on the audio file end."
 msgstr ""
+"Esta etiqueta se utiliza para grabar el nombre de un archivo de sonido "
+"relacionado con los datos de la imagen. La única información relacional aquí "
+"registrada es el nombre del archivo de sonido Exif y su extensión (una "
+"cadena ASCII formada por 8 caracteres + «.» + 3 caracteres). La ruta no se "
+"guarda. Cuando se usa esta etiqueta, los archivos de sonido se deben "
+"guardar de acuerdo al formato Exif de sonido. Los escritores están también "
+"autorizados a guardar los datos como Sonido dentro de APP2 como extensión de "
+"flujo de datos FlashPix. Los archivos de sonido se deben grabar de acuerdo "
+"al formato de sonido Exif. Si se mezclan varios archivos de sonido en uno "
+"solo, el formato anterior se usa para grabar un único nombre de archivo de "
+"sonido. Si hay varios archivos de sonido, se muestra el primero grabado. "
+"Cuando hay tres archivos de sonido Exif «SND00001.WAV», «SND00002.WAV» y "
+"«SND00003.WAV», se indica el nombre de la imagen Exif para cada uno de ellos, "
+"«DSC00001.JPG». Combinando múltiple información relacional, se pueden "
+"soportar varias posibilidades de reproducción. El método para usar "
+"información relacional corresponde a la implementación de la reproducción. "
+"Puesto que esta información es una cadena de caracteres ASCII, termina en "
+"NULL. Cuando esta etiqueta se usa para mezclar archivos de sonido, la "
+"relación entre el archivo de sonido y los datos de la imagen deben indicarse "
+"al final del archivo de sonido."
 
 #: C/gnome-commander.xml:1951(para)
 msgid "Exif.ResolutionUnit"
@@ -4078,6 +4128,9 @@ msgid ""
 "The type of scene. If a DSC recorded the image, this tag value must always "
 "be set to 1, indicating that the image was directly photographed."
 msgstr ""
+"El tipo de escenario. Si un DSC grabó la imagen, el valor de esta etiqueta "
+"debe establecerse siempre a 1, indicando que la imagen se fotografió "
+"directamente."
 
 #: C/gnome-commander.xml:1981(para)
 msgid "Exif.SensingMethod"
@@ -4164,7 +4217,7 @@ msgstr "Sensibilidad espectral"
 
 #: C/gnome-commander.xml:2008(para)
 msgid "The spectral sensitivity of each channel of the camera used."
-msgstr ""
+msgstr "La sensibilidad espectral de cada canal de la cámara usada."
 
 #: C/gnome-commander.xml:2011(para)
 msgid "Exif.StripByteCounts"
@@ -4496,6 +4549,9 @@ msgid ""
 "The sampling ratio of chrominance components in relation to the luminance "
 "component. In JPEG compressed data a JPEG marker is used instead of this tag."
 msgstr ""
+"La tasa de muestreo de la cromaticidad de los componentes en relación al "
+"componente de luminosidad. En datos JPEG comprimidos se usa un marcador "
+"JPEG en lugar de esta etiqueta."
 
 #: C/gnome-commander.xml:2116(para)
 msgid "Exif.YResolution"
@@ -4552,6 +4608,8 @@ msgstr "Formato"
 msgid ""
 "MIME type of the file or if a directory it should contain value \"Folder\"."
 msgstr ""
+"El tipo MIME del archivo o, si es un directorio, debería contener el valor "
+"«Folder»."
 
 #: C/gnome-commander.xml:2141(para)
 msgid "File.Keywords"
@@ -4598,7 +4656,7 @@ msgid "Path"
 msgstr "Ruta"
 
 #: C/gnome-commander.xml:2163(para)
-msgid "Full file path of file excluding the file name."
+msgid "Full file path of file excluding the filename."
 msgstr "Ruta completa del archivo, excluyendo el nombre de archivo."
 
 #: C/gnome-commander.xml:2166(para)
@@ -4662,6 +4720,8 @@ msgstr "Orden de los álbumes"
 msgid ""
 "String which should be used instead of the album name for sorting purposes."
 msgstr ""
+"Cadena que se debe usar en lugar del nombre del álbum para propósitos de "
+"ordenación."
 
 #: C/gnome-commander.xml:2191(para)
 msgid "ID3.AudioCrypto"
@@ -5148,7 +5208,7 @@ msgid "Original File Name"
 msgstr "Nombre de archivo original"
 
 #: C/gnome-commander.xml:2398(para)
-msgid "Original file name."
+msgid "Original filename."
 msgstr "Nombre de archivo original."
 
 #: C/gnome-commander.xml:2401(para)
@@ -5565,7 +5625,7 @@ msgstr "ID3.WWWAudioFile"
 
 #: C/gnome-commander.xml:2577(para)
 msgid "WWW Audio File"
-msgstr "Archivo de audio WWW"
+msgstr "Archivo de sonido WWW"
 
 #: C/gnome-commander.xml:2578(para)
 msgid "Official audio file webpage."
@@ -6978,7 +7038,7 @@ msgstr "PDF.FormFilling"
 
 #: C/gnome-commander.xml:3182(para)
 msgid "Form Filling"
-msgstr ""
+msgstr "Completado de formularios"
 
 #: C/gnome-commander.xml:3183(para)
 msgid "Set to \"1\" if filling of form fields is allowed."
@@ -7019,7 +7079,7 @@ msgstr "Licencia"
 
 #: C/gnome-commander.xml:3203(para)
 msgid "License information."
-msgstr ""
+msgstr "Información de la licencia."
 
 #: C/gnome-commander.xml:3206(para)
 msgid "Vorbis.Location"
@@ -7027,7 +7087,7 @@ msgstr "Vorbis.Location"
 
 #: C/gnome-commander.xml:3207(para)
 msgid "Location"
-msgstr ""
+msgstr "Lugar"
 
 #: C/gnome-commander.xml:3208(para)
 msgid "Location where track was recorded."
@@ -7035,27 +7095,27 @@ msgstr ""
 
 #: C/gnome-commander.xml:3212(para)
 msgid "Maximum bitrate"
-msgstr ""
+msgstr "Tasa de bits máxima"
 
 #: C/gnome-commander.xml:3213(para)
 msgid "Maximum bitrate in kbps."
-msgstr ""
+msgstr "Tasa de bits máxima en kbps."
 
 #: C/gnome-commander.xml:3217(para)
 msgid "Minimum bitrate"
-msgstr ""
+msgstr "Tasa de bits mínima"
 
 #: C/gnome-commander.xml:3218(para)
 msgid "Minimum bitrate in kbps."
-msgstr ""
+msgstr "Tasa de bits mínima en kbps."
 
 #: C/gnome-commander.xml:3222(para)
 msgid "Nominal bitrate"
-msgstr ""
+msgstr "Tasa de bits nominal"
 
 #: C/gnome-commander.xml:3223(para)
 msgid "Nominal bitrate in kbps."
-msgstr ""
+msgstr "Tasa de bits en Kbps."
 
 #: C/gnome-commander.xml:3226(para)
 msgid "Vorbis.Organization"
@@ -7099,7 +7159,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:3250(title)
 msgid "Ranges"
-msgstr ""
+msgstr "Rangos"
 
 #: C/gnome-commander.xml:3251(para)
 msgid ""
