@@ -194,9 +194,9 @@ init (GnomeCmdChownDialog *dialog)
     gtk_box_pack_start (GTK_BOX (vbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
                                  GTK_SIGNAL_FUNC (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
                                  GTK_SIGNAL_FUNC (on_ok), dialog);
 }
 

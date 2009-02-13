@@ -188,9 +188,9 @@ static GtkWidget *create_compare_win (LogHistory *log_history)
     gtk_box_pack_start (GTK_BOX (vbox), combo, TRUE, FALSE, 0);
     gtk_widget_set_sensitive (combo, FALSE);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
                                  GTK_SIGNAL_FUNC (on_compare_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
                                  GTK_SIGNAL_FUNC (on_compare_ok), dialog);
 
     return dialog;
@@ -258,7 +258,7 @@ GtkWidget *create_diff_win (CvsPlugin *plugin)
     gtk_window_set_default_size (GTK_WINDOW (dialog), 510, 300);
 
     gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CLOSE,
+        GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
         GTK_SIGNAL_FUNC (on_diff_window_close), plugin);
 
     gtk_signal_connect (GTK_OBJECT (dialog), "delete-event", GTK_SIGNAL_FUNC (on_diff_win_delete), plugin);
@@ -288,7 +288,7 @@ GtkWidget *create_log_win (CvsPlugin *plugin)
     gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
 
     gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CLOSE,
+        GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
         GTK_SIGNAL_FUNC (on_log_window_close), plugin);
 
     gtk_signal_connect (GTK_OBJECT (dialog), "delete-event",

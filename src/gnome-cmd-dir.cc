@@ -527,7 +527,7 @@ static void create_list_progress_dialog (GnomeCmdDir *dir)
 
     gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dir->dialog),
-        GNOME_STOCK_BUTTON_CANCEL,
+        GTK_STOCK_CANCEL,
         GTK_SIGNAL_FUNC (on_dir_list_cancel), dir);
 
     GtkWidget *vbox = create_vbox (dir->dialog, FALSE, 0);

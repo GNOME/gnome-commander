@@ -144,10 +144,10 @@ setup_widget (GnomeCmdStringDialog *string_dialog, gint rows)
 
     gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dialog),
-        GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), string_dialog);
+        GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), string_dialog);
     btn = gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (dialog),
-        GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_ok), string_dialog);
+        GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_ok), string_dialog);
 
     gtk_widget_grab_focus (string_dialog->entries[0]);
     gtk_widget_grab_default (btn);

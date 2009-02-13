@@ -480,21 +480,21 @@ static void init (GnomeCmdBookmarkDialog *in_dialog)
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->remove_btn), FALSE);
 
     in_dialog->priv->move_up_btn = create_named_stock_button (
-        dialog, GNOME_STOCK_BUTTON_UP, "move_up_button",
+        dialog, GTK_STOCK_GO_UP, "move_up_button",
         GTK_SIGNAL_FUNC (on_dir_move_up));
     GTK_WIDGET_SET_FLAGS (in_dialog->priv->move_up_btn, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (bbox), in_dialog->priv->move_up_btn, FALSE, TRUE, 0);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->move_up_btn), FALSE);
 
     in_dialog->priv->move_down_btn = create_named_stock_button (
-        dialog, GNOME_STOCK_BUTTON_DOWN, "move_down_button",
+        dialog, GTK_STOCK_GO_DOWN, "move_down_button",
         GTK_SIGNAL_FUNC (on_dir_move_down));
     GTK_WIDGET_SET_FLAGS (in_dialog->priv->move_down_btn, GTK_CAN_DEFAULT);
     gtk_box_pack_start (GTK_BOX (bbox), in_dialog->priv->move_down_btn, FALSE, TRUE, 0);
     gtk_widget_set_sensitive (GTK_WIDGET (in_dialog->priv->move_down_btn), FALSE);
 
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CLOSE,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
                                  GTK_SIGNAL_FUNC (on_close), dialog);
 
     gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event",

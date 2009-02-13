@@ -362,7 +362,7 @@ static void configure (GnomeCmdPlugin *plugin)
         GTK_WINDOW (main_win_widget));
     gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
                                  GTK_SIGNAL_FUNC (on_configure_close), plugin);
 
     vbox = create_vbox (dialog, FALSE, 12);

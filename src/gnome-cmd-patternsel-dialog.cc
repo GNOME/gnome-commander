@@ -122,8 +122,8 @@ GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode)
 
     gnome_cmd_dialog_setup ( GNOME_CMD_DIALOG (dialog), mode ? _("Select Using Pattern") : _("Unselect Using Pattern"));
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_SIGNAL_FUNC (on_cancel), dialog);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, GTK_SIGNAL_FUNC (on_ok), dialog);
 
     vbox = create_vbox (GTK_WIDGET (dialog), FALSE, 6);
     hbox = create_hbox (GTK_WIDGET (dialog), FALSE, 6);

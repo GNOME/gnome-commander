@@ -407,7 +407,7 @@ static void on_colors_edit (GtkButton *btn, GtkWidget *parent)
     label = create_label (dlg, _("Cursor:"));
     table_add (table, label, 0, 4, (GtkAttachOptions) GTK_FILL);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GNOME_STOCK_BUTTON_CLOSE,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dlg), GTK_STOCK_CLOSE,
                                  GTK_SIGNAL_FUNC (on_edit_colors_close), dlg);
 
     gtk_widget_show (dlg);
@@ -1154,9 +1154,9 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
     if (app && gnome_cmd_app_get_target (app) != APP_TARGET_SOME_FILES)
         gtk_widget_set_sensitive (entry, FALSE);
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
                                  GTK_SIGNAL_FUNC (on_cancel), dialog);
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
                                  GTK_SIGNAL_FUNC (on_ok), dialog);
 
     gtk_widget_show (dialog);
@@ -1321,11 +1321,11 @@ static GtkWidget *create_programs_tab (GtkWidget *parent)
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GNOME_STOCK_BUTTON_UP, GTK_SIGNAL_FUNC (on_app_move_up));
+    button = create_stock_button (parent, GTK_STOCK_GO_UP, GTK_SIGNAL_FUNC (on_app_move_up));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GNOME_STOCK_BUTTON_DOWN, GTK_SIGNAL_FUNC (on_app_move_down));
+    button = create_stock_button (parent, GTK_STOCK_GO_DOWN, GTK_SIGNAL_FUNC (on_app_move_down));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
@@ -1511,10 +1511,10 @@ static GtkWidget *create_device_dialog (GnomeCmdConDevice *dev, GtkSignalFunc on
     table_add (table, entry, 1, 3, GTK_FILL);
 
     gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CANCEL,
+        GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL,
         GTK_SIGNAL_FUNC (on_cancel), dialog);
     gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_OK,
+        GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
         GTK_SIGNAL_FUNC (on_ok), dialog);
 
     gtk_widget_show (dialog);
@@ -1650,11 +1650,11 @@ static GtkWidget *create_devices_tab (GtkWidget *parent)
     gtk_widget_set_sensitive (button, FALSE);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GNOME_STOCK_BUTTON_UP, GTK_SIGNAL_FUNC (on_device_move_up));
+    button = create_stock_button (parent, GTK_STOCK_GO_UP, GTK_SIGNAL_FUNC (on_device_move_up));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
-    button = create_stock_button (parent, GNOME_STOCK_BUTTON_DOWN, GTK_SIGNAL_FUNC (on_device_move_down));
+    button = create_stock_button (parent, GTK_STOCK_GO_DOWN, GTK_SIGNAL_FUNC (on_device_move_down));
     GTK_WIDGET_SET_FLAGS (button, GTK_CAN_DEFAULT);
     gtk_container_add (GTK_CONTAINER (bbox), button);
 
@@ -1814,7 +1814,7 @@ static void init (GnomeCmdOptionsDialog *dialog)
         gtk_label_new (_("Devices")));
 
 
-    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GNOME_STOCK_BUTTON_CLOSE,
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
                                  GTK_SIGNAL_FUNC (on_options_dialog_close), dialog);
 }
 

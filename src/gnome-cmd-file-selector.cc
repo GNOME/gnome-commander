@@ -1520,7 +1520,7 @@ static void create_con_open_progress_dialog (GnomeCmdFileSelector *fs)
 
     gnome_cmd_dialog_add_button (
         GNOME_CMD_DIALOG (fs->priv->con_open_dialog),
-        GNOME_STOCK_BUTTON_CANCEL,
+        GTK_STOCK_CANCEL,
         GTK_SIGNAL_FUNC (on_con_open_cancel), fs);
 
     vbox = create_vbox (fs->priv->con_open_dialog, FALSE, 0);
