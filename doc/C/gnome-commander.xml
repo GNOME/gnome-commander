@@ -2160,7 +2160,7 @@
                     <row valign="top">
                         <entry><para>File.Path</para></entry>
                         <entry><para>Path</para></entry>
-                        <entry><para>Full file path of file excluding the filename.</para></entry>
+                        <entry><para>Full file path of file excluding the file name.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>File.Permissions</para></entry>
@@ -2395,7 +2395,7 @@
                     <row valign="top">
                         <entry><para>ID3.OriginalFileName</para></entry>
                         <entry><para>Original File Name</para></entry>
-                        <entry><para>Original filename.</para></entry>
+                        <entry><para>Original file name.</para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>ID3.OriginalLyricist</para></entry>

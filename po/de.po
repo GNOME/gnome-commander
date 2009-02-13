@@ -1335,11 +1335,11 @@ msgstr "Verbindung %s konnte nicht geöffnet werden\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1675
 #: ../src/gnome-cmd-make-copy-dialog.cc:66
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Kein Dateiname eingegeben"
 
 #: ../src/gnome-cmd-file-selector.cc:1709
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Kein Dateiname angegeben"
 
 #: ../src/gnome-cmd-file-selector.cc:1740
@@ -1942,7 +1942,7 @@ msgid "Cursor:"
 msgstr "Cursor:"
 
 #: ../src/gnome-cmd-options-dialog.cc:463
-msgid "With filename"
+msgid "With file name"
 msgstr "Mit dem Dateinamen"
 
 #: ../src/gnome-cmd-options-dialog.cc:464
@@ -5172,7 +5172,7 @@ msgid "Path"
 msgstr "Pfad"
 
 #: ../src/tags/gnome-cmd-tags.cc:322
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Vollständiger Pfad ohne den Dateinamen."
 
 #: ../src/tags/gnome-cmd-tags.cc:323
@@ -5532,7 +5532,7 @@ msgid "Original File Name"
 msgstr "Originaler Dateiname"
 
 #: ../src/tags/gnome-cmd-tags.cc:369
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Originaler Dateiname."
 
 #: ../src/tags/gnome-cmd-tags.cc:370

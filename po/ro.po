@@ -1086,11 +1086,11 @@ msgstr "Deschiderea conexiunii esuata: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1849
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Nu a fost introdus niciun nume de fişier"
 
 #: ../src/gnome-cmd-file-selector.cc:1883
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Nici a fost dat niciun nume de fişier"
 
 #: ../src/gnome-cmd-file-selector.cc:1914
@@ -1605,7 +1605,7 @@ msgid "Cursor:"
 msgstr "Cursor:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
+msgid "With file name"
 msgstr "Cu numele"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -4607,7 +4607,7 @@ msgid "Path"
 msgstr "Cale"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Calea completă a fişierului, excluzând numele de fişier."
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -4999,7 +4999,7 @@ msgid "Original File Name"
 msgstr "Nume de fişier original"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Numele de fişier original."
 
 #: ../src/tags/gnome-cmd-tags.cc:364

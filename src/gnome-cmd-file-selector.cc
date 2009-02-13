@@ -1672,7 +1672,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
 
     if (!filename)
     {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No filename entered")));
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No file name entered")));
         return FALSE;
     }
 
@@ -1706,7 +1706,7 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
     // dont create any symlink if no name was passed or cancel was selected
     if (name == NULL || strcmp (name, "") == 0)
     {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No filename given")));
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No file name given")));
         return FALSE;
     }
 

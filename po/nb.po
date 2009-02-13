@@ -1107,11 +1107,11 @@ msgstr " For mange åpne forbindelser "
 
 #: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:1890
-msgid "No filename given"
+msgid "No file name given"
 msgstr ""
 
 #: ../src/gnome-cmd-file-selector.cc:1921
@@ -1651,7 +1651,7 @@ msgid "Cursor:"
 msgstr "Markør:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
+msgid "With file name"
 msgstr "Med filnavn"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -4590,7 +4590,7 @@ msgid "Path"
 msgstr "sti"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -4966,7 +4966,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 #, fuzzy
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Med filnavn"
 
 #: ../src/tags/gnome-cmd-tags.cc:364

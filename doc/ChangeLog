@@ -1,3 +1,9 @@
+2009-02-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/C/gnome-commander.xml:
+	* doc/*/*.po:
+	typo: filename -> file name
+
 2009-02-01  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es/es.po: Updated Spanish translation by Daniel Mustieles.

@@ -1355,11 +1355,11 @@ msgstr "Nemohu otevřít spojení: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1675
 #: ../src/gnome-cmd-make-copy-dialog.cc:66
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Nebyl zadán název souboru"
 
 #: ../src/gnome-cmd-file-selector.cc:1709
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Nebyl zadán název souboru"
 
 #: ../src/gnome-cmd-file-selector.cc:1740
@@ -1964,7 +1964,7 @@ msgid "Cursor:"
 msgstr "Kurzor:"
 
 #: ../src/gnome-cmd-options-dialog.cc:443
-msgid "With filename"
+msgid "With file name"
 msgstr "S názvem souboru"
 
 #: ../src/gnome-cmd-options-dialog.cc:444
@@ -4838,7 +4838,7 @@ msgid "Path"
 msgstr "Cesta"
 
 #: ../src/tags/gnome-cmd-tags.cc:322
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Úplná cesta k souboru bez jména souboru."
 
 #: ../src/tags/gnome-cmd-tags.cc:323
@@ -5187,7 +5187,7 @@ msgid "Original File Name"
 msgstr "Původní jméno souboru"
 
 #: ../src/tags/gnome-cmd-tags.cc:369
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Originální název souboru."
 
 #: ../src/tags/gnome-cmd-tags.cc:370

@@ -1134,11 +1134,11 @@ msgstr "Huts egin du konexioa irekitzean: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1829
 #: ../src/gnome-cmd-make-copy-dialog.cc:65
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Ez da fitxategi-izenik sartu"
 
 #: ../src/gnome-cmd-file-selector.cc:1863
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Ez da fitxategi-izenik eman"
 
 #: ../src/gnome-cmd-file-selector.cc:1894
@@ -1732,7 +1732,7 @@ msgid "Cursor:"
 msgstr "Kurtsorea:"
 
 #: ../src/gnome-cmd-options-dialog.cc:437
-msgid "With filename"
+msgid "With file name"
 msgstr "Fitxategi-izenarekin"
 
 #: ../src/gnome-cmd-options-dialog.cc:438
@@ -5179,7 +5179,7 @@ msgid "Path"
 msgstr "Bide-izena"
 
 #: ../src/tags/gnome-cmd-tags.cc:321
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Bide-izen osoa baina fitxategi-izenik gabe."
 
 #: ../src/tags/gnome-cmd-tags.cc:322
@@ -5547,7 +5547,7 @@ msgid "Original File Name"
 msgstr "Jatorrizko fitxategi-izena"
 
 #: ../src/tags/gnome-cmd-tags.cc:368
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Jatorrizko fitxategi-izena."
 
 #: ../src/tags/gnome-cmd-tags.cc:369

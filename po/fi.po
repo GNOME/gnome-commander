@@ -1085,11 +1085,11 @@ msgstr "Yhteyttä ei voitu avata: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1872
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Tiedostonimeä ei syötetty"
 
 #: ../src/gnome-cmd-file-selector.cc:1906
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Tiedostonimeä ei annettu"
 
 #: ../src/gnome-cmd-file-selector.cc:1937
@@ -1613,7 +1613,7 @@ msgid "Cursor:"
 msgstr "Kursori:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
+msgid "With file name"
 msgstr "Tiedostonimellä"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -4503,7 +4503,7 @@ msgid "Path"
 msgstr "Polku"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -4887,7 +4887,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 #, fuzzy
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Tiedostonimellä"
 
 #: ../src/tags/gnome-cmd-tags.cc:364

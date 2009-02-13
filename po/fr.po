@@ -1334,11 +1334,11 @@ msgstr "L'ouverture de la connexion a échoué : %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1675
 #: ../src/gnome-cmd-make-copy-dialog.cc:66
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Aucun nom de fichier saisi"
 
 #: ../src/gnome-cmd-file-selector.cc:1709
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Aucun nom de fichier donné"
 
 #: ../src/gnome-cmd-file-selector.cc:1740
@@ -1939,7 +1939,7 @@ msgid "Cursor:"
 msgstr "Curseur :"
 
 #: ../src/gnome-cmd-options-dialog.cc:443
-msgid "With filename"
+msgid "With file name"
 msgstr "Avec le nom de fichier"
 
 #: ../src/gnome-cmd-options-dialog.cc:444
@@ -5391,7 +5391,7 @@ msgid "Path"
 msgstr "Chemin"
 
 #: ../src/tags/gnome-cmd-tags.cc:322
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Chemin complet du fichier en excluant le nom du fichier."
 
 #: ../src/tags/gnome-cmd-tags.cc:323
@@ -5757,7 +5757,7 @@ msgid "Original File Name"
 msgstr "Nom de fichier original"
 
 #: ../src/tags/gnome-cmd-tags.cc:369
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Nom de fichier original."
 
 #: ../src/tags/gnome-cmd-tags.cc:370

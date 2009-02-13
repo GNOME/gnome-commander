@@ -1349,11 +1349,11 @@ msgstr "Nie można otworzyć połączenia: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1675
 #: ../src/gnome-cmd-make-copy-dialog.cc:66
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Nie wprowadzono nazwy pliku"
 
 #: ../src/gnome-cmd-file-selector.cc:1709
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Nie wprowadzono nazwy pliku"
 
 #: ../src/gnome-cmd-file-selector.cc:1740
@@ -1962,7 +1962,7 @@ msgid "Cursor:"
 msgstr "Kursor:"
 
 #: ../src/gnome-cmd-options-dialog.cc:463
-msgid "With filename"
+msgid "With file name"
 msgstr "Z nazwą pliku"
 
 #: ../src/gnome-cmd-options-dialog.cc:464
@@ -4851,7 +4851,7 @@ msgid "Path"
 msgstr "Ścieżka"
 
 #: ../src/tags/gnome-cmd-tags.cc:322
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Pełna ścieżka wyłączając nazwę pliku."
 
 #: ../src/tags/gnome-cmd-tags.cc:323
@@ -5214,7 +5214,7 @@ msgid "Original File Name"
 msgstr "Oryginalna nazwa pliku"
 
 #: ../src/tags/gnome-cmd-tags.cc:369
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Oryginalna nazwa pliku."
 
 #: ../src/tags/gnome-cmd-tags.cc:370

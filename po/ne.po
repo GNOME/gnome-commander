@@ -1121,11 +1121,11 @@ msgstr "जडान खोल्न असफल: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "फाइल नाम प्रविष्ट गरिएको छैन"
 
 #: ../src/gnome-cmd-file-selector.cc:1890
-msgid "No filename given"
+msgid "No file name given"
 msgstr "फाइल नाम दिइएको छैन"
 
 #: ../src/gnome-cmd-file-selector.cc:1921
@@ -1647,7 +1647,7 @@ msgid "Cursor:"
 msgstr "कर्सर:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
+msgid "With file name"
 msgstr "फाइल नाम सहित"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -4587,7 +4587,7 @@ msgid "Path"
 msgstr "बाटो"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -4965,7 +4965,7 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 #, fuzzy
-msgid "Original filename."
+msgid "Original file name."
 msgstr "फाइल नाम सहित"
 
 #: ../src/tags/gnome-cmd-tags.cc:364

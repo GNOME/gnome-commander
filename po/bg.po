@@ -1101,11 +1101,11 @@ msgstr "Неуспешно отваряне на свръзка: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Не е въведено файлово име"
 
 #: ../src/gnome-cmd-file-selector.cc:1890
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Не е зададено файлово име"
 
 #: ../src/gnome-cmd-file-selector.cc:1921
@@ -1619,7 +1619,7 @@ msgid "Cursor:"
 msgstr "Показалец:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
+msgid "With file name"
 msgstr "С файовото име"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -4559,7 +4559,7 @@ msgid "Path"
 msgstr "Път"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Пълен файлов път на файла, без самото име на файла."
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -4918,7 +4918,7 @@ msgid "Original File Name"
 msgstr "Първоначално файлово име"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
-msgid "Original filename."
+msgid "Original file name."
 msgstr "С файловото име"
 
 #: ../src/tags/gnome-cmd-tags.cc:364

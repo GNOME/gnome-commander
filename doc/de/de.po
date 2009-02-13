@@ -4478,7 +4478,7 @@ msgid "Path"
 msgstr "Pfad"
 
 #: ../C/gnome-commander.xml:2163(para)
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Vollständiger Pfad ohne den Dateinamen."
 
 #: ../C/gnome-commander.xml:2166(para)
@@ -5033,7 +5033,7 @@ msgid "Original File Name"
 msgstr "Originaler Dateiname"
 
 #: ../C/gnome-commander.xml:2398(para)
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Original-Dateiname."
 
 #: ../C/gnome-commander.xml:2401(para)

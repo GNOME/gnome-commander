@@ -1148,11 +1148,11 @@ msgstr "Napaka pri odpiranju povezave: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1872
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Manjka ime datoteke"
 
 #: ../src/gnome-cmd-file-selector.cc:1906
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Manjka ime datoteke"
 
 #: ../src/gnome-cmd-file-selector.cc:1937
@@ -1739,7 +1739,7 @@ msgid "Cursor:"
 msgstr "Tipalo miške:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
+msgid "With file name"
 msgstr "Z imenom datoteke"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -4360,7 +4360,7 @@ msgid "Path"
 msgstr "Pot"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -4711,7 +4711,7 @@ msgid "Original File Name"
 msgstr "Izvirno ime datoteke"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Izvirno ime datoteke."
 
 #: ../src/tags/gnome-cmd-tags.cc:364

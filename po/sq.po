@@ -1197,11 +1197,11 @@ msgstr "Dështoi hapja e lidhjes me bus: %s\n"
 #: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 #, fuzzy
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Nuk është dhënë asnjë emër file"
 
 #: ../src/gnome-cmd-file-selector.cc:1890
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Nuk është dhënë asnjë emër file"
 
 #: ../src/gnome-cmd-file-selector.cc:1921
@@ -1810,7 +1810,7 @@ msgstr "Kursori"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
 #, fuzzy
-msgid "With filename"
+msgid "With file name"
 msgstr "Formati i emrit të file:"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -4787,7 +4787,7 @@ msgid "Path"
 msgstr "Pozicioni"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -5201,7 +5201,7 @@ msgstr "<b>Pamja e para e File</b>"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 #, fuzzy
-msgid "Original filename."
+msgid "Original file name."
 msgstr "<small><i><b>%f:</b> emri orgjinal i file</i></small>"
 
 #: ../src/tags/gnome-cmd-tags.cc:364

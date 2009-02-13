@@ -1092,12 +1092,12 @@ msgstr "Failed to open connection: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1872
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
-msgstr "No filename entered"
+msgid "No file name entered"
+msgstr "No file name entered"
 
 #: ../src/gnome-cmd-file-selector.cc:1906
-msgid "No filename given"
-msgstr "No filename given"
+msgid "No file name given"
+msgstr "No file name given"
 
 #: ../src/gnome-cmd-file-selector.cc:1937
 msgid "New Text File"
@@ -1620,8 +1620,8 @@ msgid "Cursor:"
 msgstr "Cursor:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
-msgstr "With filename"
+msgid "With file name"
+msgstr "With file name"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
 msgid "In separate column"
@@ -4788,8 +4788,8 @@ msgid "Path"
 msgstr "Path"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
-msgstr "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
+msgstr "Full file path of file excluding the file name."
 
 #: ../src/tags/gnome-cmd-tags.cc:317
 msgid "Permission string in unix format eg \"-rw-r--r--\"."
@@ -5156,8 +5156,8 @@ msgid "Original File Name"
 msgstr "Original File Name"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
-msgid "Original filename."
-msgstr "Original filename."
+msgid "Original file name."
+msgstr "Original file name."
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Original Lyricist"

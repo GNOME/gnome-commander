@@ -1296,12 +1296,12 @@ msgstr "Estas neeble malfermi aparaton"
 #: ../src/gnome-cmd-file-selector.cc:1872
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
 #, fuzzy
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Neniu dosiernomo por konservi"
 
 #: ../src/gnome-cmd-file-selector.cc:1906
 #, fuzzy
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Neniu dosiernomo por konservi"
 
 #: ../src/gnome-cmd-file-selector.cc:1937
@@ -2012,7 +2012,7 @@ msgstr "Kursilo"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
 #, fuzzy
-msgid "With filename"
+msgid "With file name"
 msgstr "[Nevalida dosiernomo]"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -5318,7 +5318,7 @@ msgid "Path"
 msgstr "Pado:"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -5725,7 +5725,7 @@ msgstr "Nevalida dosiernomo"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 #, fuzzy
-msgid "Original filename."
+msgid "Original file name."
 msgstr "[Nevalida dosiernomo]"
 
 #: ../src/tags/gnome-cmd-tags.cc:364

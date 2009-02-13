@@ -1126,11 +1126,11 @@ msgstr "%s への接続が開けませんでした\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1877
 #: ../src/gnome-cmd-make-copy-dialog.cc:65
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "ファイル名が入力されていません"
 
 #: ../src/gnome-cmd-file-selector.cc:1911
-msgid "No filename given"
+msgid "No file name given"
 msgstr "ファイル名がありません"
 
 #: ../src/gnome-cmd-file-selector.cc:1942
@@ -1722,7 +1722,7 @@ msgid "Cursor:"
 msgstr "カーソル:"
 
 #: ../src/gnome-cmd-options-dialog.cc:441
-msgid "With filename"
+msgid "With file name"
 msgstr "ファイル名とともに表示"
 
 #: ../src/gnome-cmd-options-dialog.cc:442
@@ -4886,7 +4886,7 @@ msgid "Path"
 msgstr "パス名"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "ファイル名を除いたファイルの全パス名"
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -5244,7 +5244,7 @@ msgid "Original File Name"
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:363
-msgid "Original filename."
+msgid "Original file name."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:364

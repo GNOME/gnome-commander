@@ -1109,11 +1109,11 @@ msgstr "མཐུད་ལམ་མཐུད་ནི་ལུ་འཐུས་
 
 #: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "ཡིག་སྣོད་མིང་བཙུགས་མེདཔ།"
 
 #: ../src/gnome-cmd-file-selector.cc:1890
-msgid "No filename given"
+msgid "No file name given"
 msgstr "ཡིག་སྣོད་མིང་གྲ་སྒྲིག་མེདཔ།"
 
 #: ../src/gnome-cmd-file-selector.cc:1921
@@ -1631,7 +1631,7 @@ msgid "Cursor:"
 msgstr "འོད་རྟགས།:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
+msgid "With file name"
 msgstr "ཡིག་སྣོད་མིང་དང་གཅིག་ཁར།"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -4801,7 +4801,7 @@ msgid "Path"
 msgstr "འགྲུལ་ལམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "ཡིག་སྣོད་གྲངས་ལས་བཏོན་གཏང་མི་ཡིག་སྣོད་མིང་འདི་གི་ཡིག་སྣོད་འགྲུལ་ལམ་གངམ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -5167,7 +5167,7 @@ msgid "Original File Name"
 msgstr "ཡིག་སྣོད་མིང་ངོ་མ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
-msgid "Original filename."
+msgid "Original file name."
 msgstr "ཡིག་སྣོད་མིང་ངོ་མ།"
 
 #: ../src/tags/gnome-cmd-tags.cc:364

@@ -4598,7 +4598,7 @@ msgid "Path"
 msgstr "Ruta"
 
 #: C/gnome-commander.xml:2163(para)
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Ruta completa del archivo, excluyendo el nombre de archivo."
 
 #: C/gnome-commander.xml:2166(para)
@@ -5148,7 +5148,7 @@ msgid "Original File Name"
 msgstr "Nombre de archivo original"
 
 #: C/gnome-commander.xml:2398(para)
-msgid "Original filename."
+msgid "Original file name."
 msgstr "Nombre de archivo original."
 
 #: C/gnome-commander.xml:2401(para)

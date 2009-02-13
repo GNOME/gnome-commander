@@ -1,3 +1,10 @@
+2009-02-13  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/tags/gnome-cmd-tags.cc:
+	typo: filename -> file name
+
 2009-02-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:

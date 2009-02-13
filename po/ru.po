@@ -1142,11 +1142,11 @@ msgstr "Не удаётся открыть соединение: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "Не введено имя файла"
 
 #: ../src/gnome-cmd-file-selector.cc:1890
-msgid "No filename given"
+msgid "No file name given"
 msgstr "Не даны имена файлов"
 
 #: ../src/gnome-cmd-file-selector.cc:1921
@@ -1669,7 +1669,7 @@ msgid "Cursor:"
 msgstr "Курсор:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
+msgid "With file name"
 msgstr "С именем файла"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
@@ -4939,7 +4939,7 @@ msgstr "Путь:"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
 #, fuzzy
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "Включить/отключить показ полного пути в заголовке окна."
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -5363,7 +5363,7 @@ msgstr "Добавить исходное имя файла"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 #, fuzzy
-msgid "Original filename."
+msgid "Original file name."
 msgstr "<small><i><b>%f:</b> изначальное имя файла</i></small>"
 
 #: ../src/tags/gnome-cmd-tags.cc:364

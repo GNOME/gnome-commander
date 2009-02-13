@@ -1151,11 +1151,11 @@ msgstr "فشل فتح الاتصال: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1883
 #: ../src/gnome-cmd-make-copy-dialog.cc:65
-msgid "No filename entered"
+msgid "No file name entered"
 msgstr "لم يُدخل أي اسم ملف"
 
 #: ../src/gnome-cmd-file-selector.cc:1917
-msgid "No filename given"
+msgid "No file name given"
 msgstr "لم يُقدَّم أي اسم ملف"
 
 #: ../src/gnome-cmd-file-selector.cc:1948
@@ -1755,7 +1755,7 @@ msgid "Cursor:"
 msgstr "المؤشّر:"
 
 #: ../src/gnome-cmd-options-dialog.cc:441
-msgid "With filename"
+msgid "With file name"
 msgstr "مع اسم الملف"
 
 #: ../src/gnome-cmd-options-dialog.cc:442
@@ -5154,7 +5154,7 @@ msgid "Path"
 msgstr "المسار"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr "مسار الملف الكامل غيرَ متضمن اسم الملف."
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -5519,7 +5519,7 @@ msgid "Original File Name"
 msgstr "اسم الملف الأصلي"
 
 #: ../src/tags/gnome-cmd-tags.cc:363
-msgid "Original filename."
+msgid "Original file name."
 msgstr "اسم الملف الأصلي."
 
 #: ../src/tags/gnome-cmd-tags.cc:364

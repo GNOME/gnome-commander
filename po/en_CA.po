@@ -1114,12 +1114,12 @@ msgstr "Failed to open connection: %s\n"
 
 #: ../src/gnome-cmd-file-selector.cc:1856
 #: ../src/gnome-cmd-make-copy-dialog.cc:71
-msgid "No filename entered"
-msgstr "No filename entered"
+msgid "No file name entered"
+msgstr "No file name entered"
 
 #: ../src/gnome-cmd-file-selector.cc:1890
-msgid "No filename given"
-msgstr "No filename given"
+msgid "No file name given"
+msgstr "No file name given"
 
 #: ../src/gnome-cmd-file-selector.cc:1921
 msgid "New Text File"
@@ -1648,8 +1648,8 @@ msgid "Cursor:"
 msgstr "Cursor:"
 
 #: ../src/gnome-cmd-options-dialog.cc:460
-msgid "With filename"
-msgstr "With filename"
+msgid "With file name"
+msgstr "With file name"
 
 #: ../src/gnome-cmd-options-dialog.cc:461
 msgid "In separate column"
@@ -4593,7 +4593,7 @@ msgid "Path"
 msgstr "path"
 
 #: ../src/tags/gnome-cmd-tags.cc:316
-msgid "Full file path of file excluding the filename."
+msgid "Full file path of file excluding the file name."
 msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:317
@@ -4969,8 +4969,8 @@ msgstr ""
 
 #: ../src/tags/gnome-cmd-tags.cc:363
 #, fuzzy
-msgid "Original filename."
-msgstr "With filename"
+msgid "Original file name."
+msgstr "With file name"
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 msgid "Original Lyricist"
