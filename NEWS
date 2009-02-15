@@ -25,7 +25,7 @@ New features:
  * Support for row alternate background in colour themes
  * New colour theme: cafezinho
  * New or updated docs: de, en, es
- * New or updated translations: ar, cs, de, es, eu, fr, pl, pt_BR
+ * New or updated translations: ar, cs, de, es, eu, fr, pl, pt_BR, sv
  * New internal viewer key bindings:
       T              Show metadata tags (replaces the old E)
       ALT+ENTER      Show metadata tags
