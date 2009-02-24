@@ -473,7 +473,7 @@ const gchar *gnome_cmd_file_get_owner (GnomeCmdFile *file)
     g_return_val_if_fail (file->info != NULL, NULL);
 
     if (GNOME_VFS_FILE_INFO_LOCAL (file->info))
-        return OWNER_get_name_by_uid (file->info->uid);
+        return gcmd_owner.get_name_by_uid(file->info->uid);
     else
     {
         static gchar owner_str[MAX_OWNER_LENGTH];
@@ -489,7 +489,7 @@ const gchar *gnome_cmd_file_get_group (GnomeCmdFile *file)
     g_return_val_if_fail (file->info != NULL, NULL);
 
     if (GNOME_VFS_FILE_INFO_LOCAL (file->info))
-        return OWNER_get_name_by_gid (file->info->gid);
+        return gcmd_owner.get_name_by_gid(file->info->gid);
     else
     {
         static gchar group_str[MAX_GROUP_LENGTH];
@@ -849,15 +849,11 @@ gboolean gnome_cmd_file_is_executable (GnomeCmdFile *f)
     if (!gnome_cmd_file_is_local (f))
         return FALSE;
 
-    user_t *user = OWNER_get_program_user ();
-    if (!user)
-        return FALSE;
-
-    if (user->uid == f->info->uid
+    if (gcmd_owner.uid() == f->info->uid
         && f->info->permissions & GNOME_VFS_PERM_USER_EXEC)
         return TRUE;
 
-    if (user->gid == f->info->gid
+    if (gcmd_owner.gid() == f->info->gid
         && f->info->permissions & GNOME_VFS_PERM_GROUP_EXEC)
         return TRUE;
 

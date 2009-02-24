@@ -32,7 +32,6 @@ using namespace std;
 struct _GnomeCmdChownComponentPrivate
 {
     GtkWidget *user_combo, *group_combo;
-    GList *user_strings, *group_strings;
 };
 
 
@@ -100,36 +99,19 @@ static void init (GnomeCmdChownComponent *comp)
  * Public functions
  ***********************************/
 
-static void load_users_and_groups (GnomeCmdChownComponent *comp)
+inline void load_users_and_groups (GnomeCmdChownComponent *comp)
 {
-    user_t *prog_user = OWNER_get_program_user ();
-
-    g_return_if_fail (prog_user != NULL);
-
     // disable user combo if user is not root, else fill the combo with all users in the system
-    if (prog_user->uid != 0)
-        gtk_widget_set_sensitive (comp->priv->user_combo, FALSE);
+    if (gcmd_owner.is_root())
+        gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->user_combo), gcmd_owner.users.get_names());
     else
-    {
-        for (GList *tmp = OWNER_get_all_users (); tmp; tmp = tmp->next)
-        {
-            user_t *user = (user_t *) tmp->data;
+        gtk_widget_set_sensitive (comp->priv->user_combo, FALSE);
 
-            comp->priv->user_strings = g_list_append (comp->priv->user_strings, g_strdup (user->name));
-        }
-
-        gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->user_combo), comp->priv->user_strings);
-    }
-
-    // fill the groups combo with all groups that the user is part of if ordinary user or all groups if root
-
-    for (GList *tmp = prog_user->uid != 0 ? prog_user->groups : OWNER_get_all_groups (); tmp; tmp = tmp->next)
-    {
-        group_t *group = (group_t *) tmp->data;
-        comp->priv->group_strings = g_list_append (comp->priv->group_strings, g_strdup (group->name));
-    }
-
-    gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->group_combo), comp->priv->group_strings);
+    if (gcmd_owner.get_group_names())
+        gtk_combo_set_popdown_strings (GTK_COMBO (comp->priv->group_combo), gcmd_owner.get_group_names());      // fill the groups combo with all groups that the user is part of
+                                                                                                                // if ordinary user or all groups if root
+    else
+        gtk_widget_set_sensitive (comp->priv->group_combo, FALSE);                                              // disable group combo if yet not loaded
 }
 
 
@@ -167,27 +149,24 @@ GtkType gnome_cmd_chown_component_get_type ()
 }
 
 
-void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t owner, gid_t group)
+void gnome_cmd_chown_component_set (GnomeCmdChownComponent *comp, uid_t uid, gid_t gid)
 {
-    const gchar *s_owner = OWNER_get_name_by_uid (owner);
-    const gchar *s_group = OWNER_get_name_by_gid (group);
-
-    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->user_combo)->entry), s_owner);
-    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->group_combo)->entry), s_group);
+    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->user_combo)->entry), gcmd_owner.users[uid]);
+    gtk_entry_set_text (GTK_ENTRY (GTK_COMBO (comp->priv->group_combo)->entry), gcmd_owner.groups[gid]);
 }
 
 
 uid_t gnome_cmd_chown_component_get_owner (GnomeCmdChownComponent *component)
 {
-    const gchar *s_owner = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->user_combo)->entry));
+    const gchar *owner = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->user_combo)->entry));
 
-    return OWNER_get_uid_by_name (s_owner);
+    return gcmd_owner.users[owner];
 }
 
 
 gid_t gnome_cmd_chown_component_get_group (GnomeCmdChownComponent *component)
 {
-    const gchar *s_group = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->group_combo)->entry));
+    const gchar *group = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (component->priv->group_combo)->entry));
 
-    return OWNER_get_gid_by_name (s_group);
+    return gcmd_owner.groups[group];
 }

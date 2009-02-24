@@ -1,3 +1,14 @@
+2009-02-24  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-chown-component.cc:
+	* src/gnome-cmd-chown-dialog.cc:
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-main-win.cc:
+	* src/main.cc:
+	* src/owner.cc
+	* src/owner.h:
+	Fixed problem #567506 (slow startup for systems with many users)
+
 2009-02-13  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-selector.cc:

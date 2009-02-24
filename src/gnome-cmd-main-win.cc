@@ -37,6 +37,7 @@
 #include "gnome-cmd-con.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-bookmark-dialog.h"
+#include "owner.h"
 #include "utils.h"
 
 #include "../pixmaps/copy_file_names.xpm"
@@ -771,8 +772,8 @@ static void init (GnomeCmdMainWin *mw)
     mw->priv->file_selector[LEFT] = NULL;
     mw->priv->file_selector[RIGHT] = NULL;
 
-    gnome_app_construct (GNOME_APP (main_win), "gnome-commander", geteuid() ? _("GNOME Commander") :
-                                                                              _("GNOME Commander - ROOT PRIVILEGES"));
+    gnome_app_construct (GNOME_APP (main_win), "gnome-commander", gcmd_owner.is_root() ? _("GNOME Commander - ROOT PRIVILEGES") :
+                                                                                         _("GNOME Commander"));
     gtk_object_set_data (GTK_OBJECT (main_win), "main_win", main_win);
     restore_size_and_pos (mw);
     gtk_window_set_policy (GTK_WINDOW (main_win), TRUE, TRUE, FALSE);

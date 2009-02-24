@@ -91,21 +91,17 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
 {
     uid_t uid = -1;
     gid_t gid = -1;
-    user_t *user = OWNER_get_program_user();
-    gboolean recurse;
 
-    if (user && user->uid == 0)
+    if (gcmd_owner.is_root())
     {
-        uid = gnome_cmd_chown_component_get_owner (
-            GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component));
+        uid = gnome_cmd_chown_component_get_owner (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component));
         g_return_if_fail (uid >= 0);
     }
 
-    gid = gnome_cmd_chown_component_get_group (
-        GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component));
+    gid = gnome_cmd_chown_component_get_group (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component));
     g_return_if_fail (gid >= 0);
 
-    recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
+    gboolean recurse = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
 
     for (GList *tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {

@@ -130,12 +130,12 @@ int main (int argc, char *argv[])
         gnome_cmd_smb_auth_init ();
 
     gnome_cmd_style_create ();
-    OWNER_init ();
     gcmd_user_actions.init();
 
     main_win_widget = gnome_cmd_main_win_new ();
     main_win = GNOME_CMD_MAIN_WIN (main_win_widget);
     gtk_widget_show (GTK_WIDGET (main_win));
+    gcmd_owner.load_async();
 
     gcmd_tags_init();
     plugin_manager_init ();
@@ -153,7 +153,6 @@ int main (int argc, char *argv[])
     gcmd_user_actions.shutdown();
     gnome_cmd_data.save();
     gnome_vfs_shutdown ();
-    OWNER_free ();
     IMAGE_free ();
 
     remove_temp_download_dir ();

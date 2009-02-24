@@ -18,6 +18,11 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+#include <unistd.h>
+
+#include <map>
+#include <set>
+
 #include <config.h>
 #include "gnome-cmd-includes.h"
 #include "owner.h"
@@ -26,302 +31,107 @@
 using namespace std;
 
 
-GList *all_users;
-GList *all_groups;
+GnomeCmdOwner gcmd_owner;
 
 
-static gint compare_users (user_t *u1, user_t *u2)
+static gint compare_names (const gchar *name1, const gchar *name2)
 {
-    return strcmp (u1->name, u2->name);
+    return strcmp(name1, name2);
 }
 
 
-static gint compare_groups (user_t *g1, user_t *g2)
+#if !GLIB_CHECK_VERSION (2, 14, 0)
+template <typename T, typename ID>
+GList *GnomeCmdOwner::HashTable<T,ID>::get_names()
 {
-    return strcmp (g1->name, g2->name);
+    GList *retval = NULL;
+
+    for (GList *l=users; l; l=l->next)
+        retval = g_list_prepend (retval, static_cast<user_t *>(l->data)->name);
+
+    return g_list_sort (retval, (GCompareFunc) compare_users);
 }
+#endif
 
 
-inline user_t *create_user (struct passwd *pw, gboolean zombie)
+GnomeCmdOwner::GnomeCmdOwner()
 {
-    if (pw)
+    thread = NULL;
+    stop_thread = FALSE;
+    group_names = NULL;
+
+    if (!buff)
     {
-        user_t *user = g_new0 (user_t, 1);
-
-        user->zombie =   zombie;
-        user->name =     g_strdup (pw->pw_name);
-        user->uid =      pw->pw_uid;
-        user->gid =      pw->pw_gid;
-        user->realname = g_strdup (pw->pw_gecos);
-        // user->groups =   NULL; // filled in later when going through the group members
-
-        return user;
+        buffsize = max(sysconf(_SC_GETPW_R_SIZE_MAX), sysconf(_SC_GETGR_R_SIZE_MAX));
+        buff = g_new0 (char, buffsize);
     }
 
-    return NULL;
+    user_id = geteuid();
+    get_name_by_uid(user_id);
+    group_id = users.lookup(user_id)->data.gid;
 }
 
 
-static group_t *create_group (struct group *gr, gboolean zombie)
+gpointer GnomeCmdOwner::perform_load_operation (GnomeCmdOwner *self)
 {
-    group_t *group = NULL;
+    map <uid_t, set<gid_t> > user_groups;
+    map <gid_t, set<uid_t> > group_members;
 
-    if (gr)
+    setpwent();
+
+    for (struct passwd *pwd=getpwent(); !self->stop_thread && pwd; pwd=getpwent())
     {
-        group = g_new0 (group_t, 1);
+        GnomeCmdUsers::Entry *e = self->users.lookup(pwd->pw_uid);
 
-        group->zombie =  zombie;
-        group->name =    g_strdup (gr->gr_name);
-        group->gid =     gr->gr_gid;
-        // group->members = NULL;
+        if (!e)
+            e = self->new_entry(pwd);
 
-        char **members = gr->gr_mem;
-
-        while (members && *members)
-        {
-            user_t *user = OWNER_get_user_by_name (*members);
-
-            if (user)
-            {
-                group->members = g_list_append (group->members, user);
-                user->groups = g_list_append (user->groups, group);
-            }
-            else
-                g_printerr (_("When parsing the users and groups on this system it was found that the user %s is part of the group %s. This user can however not be found.\n"), *members, group->name);
-
-            members++;
-        }
+        user_groups[e->id].insert(e->data.gid);
+        group_members[e->data.gid].insert(e->id);
     }
 
-    return group;
-}
+    endpwent();
 
+    setgrent();
 
-inline void free_user (user_t *user)
-{
-    g_free (user->name);
-    g_free (user->realname);
-    g_free (user);
-}
-
-
-inline void free_group (group_t *group)
-{
-    g_free (group->name);
-    g_list_free (group->members);
-    g_free (group);
-}
-
-
-inline void lookup_all_users ()
-{
-    struct passwd *pw;
-
-    setpwent ();
-
-    while ((pw = getpwent ()) != NULL)
-        all_users = g_list_prepend (all_users, create_user (pw, FALSE));
-
-    endpwent ();
-
-    all_users = g_list_sort (all_users, (GCompareFunc) compare_users);
-}
-
-
-inline void lookup_all_groups ()
-{
-    struct group *gr;
-
-    setgrent ();
-
-    while ((gr = getgrent ()) != NULL)
-        all_groups = g_list_prepend (all_groups, create_group (gr, FALSE));
-
-    endgrent ();
-
-    all_groups = g_list_sort (all_groups, (GCompareFunc) compare_groups);
-}
-
-
-inline void check_user_default_groups ()
-{
-    user_t *user;
-    group_t *group;
-
-    for (GList *utmp=all_users; utmp; utmp=utmp->next)
+    for (struct group *grp=getgrent(); !self->stop_thread && grp; grp=getgrent())
     {
-        group_t *def_group = NULL;
-        user = (user_t *) utmp->data;
+        if (!self->groups.lookup(grp->gr_gid))
+            self->new_entry(grp);
 
-        for (GList *gtmp=user->groups; gtmp; gtmp=gtmp->next)
+        for (char **mem=grp->gr_mem; *mem; ++mem)
         {
-            group = (group_t *) gtmp->data;
+            GnomeCmdUsers::Entry *e = self->users.lookup(*mem);
 
-            if (group->gid == user->gid)
+            if (e)
             {
-                def_group = group;
-                break;
+                user_groups[e->id].insert(grp->gr_gid);
+                group_members[grp->gr_gid].insert(e->id);
             }
         }
-
-        if (!def_group)
-        {
-            def_group = OWNER_get_group_by_gid (user->gid);
-            user->groups = g_list_append (user->groups, def_group);
-
-            def_group->members = g_list_append (def_group->members, user);
-        }
     }
-}
 
+    endgrent();
 
-/************************************************************************/
-
-
-user_t *OWNER_get_user_by_uid (uid_t uid)
-{
-    user_t *user;
-
-    // try to locate the user in the list of already found users
-    for (GList *tmp = all_users; tmp; tmp = tmp->next)
+    if (!self->is_root())
     {
-        user = (user_t *) tmp->data;
+        map <uid_t, set<gid_t> >::iterator x = user_groups.find(self->uid());
 
-        if (uid == user->uid)
-            return user;
+        if (x!=user_groups.end())
+            for (set<gid_t>::const_iterator i=x->second.begin(); i!=x->second.end(); ++i)
+                self->group_names = g_list_prepend (self->group_names, (gpointer) self->groups[*i]);
     }
+    else
+        for (map <gid_t, set<uid_t> >::const_iterator i=group_members.begin(); i!=group_members.end(); ++i)
+            self->group_names = g_list_prepend (self->group_names, (gpointer) self->groups[i->first]);
 
-    // there is no such user in the system, lets create a blank user with the specified uid
-
-    struct passwd pw;
-
-    pw.pw_uid = uid;
-    pw.pw_name = g_strdup_printf ("%d", uid);
-    pw.pw_gecos = "";
-    pw.pw_dir = "";
-    pw.pw_shell = "";
-    pw.pw_passwd = "";
-
-    user = create_user (&pw, TRUE);
-    if (user)
-        all_users = g_list_append (all_users, user);
-
-    g_free (pw.pw_name);
-
-    return user;
-}
-
-
-user_t *OWNER_get_user_by_name (const char *name)
-{
-    // try to locate the user in the list of already found users
-    for (GList *tmp = all_users; tmp; tmp = tmp->next)
-    {
-        user_t *user = (user_t *) tmp->data;
-
-        if (strcmp (name, user->name) == 0)
-            return user;
-    }
+    self->group_names = g_list_sort (self->group_names, (GCompareFunc) compare_names); ;
 
     return NULL;
 }
 
 
-group_t *OWNER_get_group_by_gid (gid_t gid)
+void GnomeCmdOwner::load_async()
 {
-    // try to locate the group in the list of already found groups
-    for (GList *tmp = all_groups; tmp; tmp = tmp->next)
-    {
-        group_t *group = (group_t *) tmp->data;
-
-        if (gid == group->gid)
-            return group;
-    }
-
-    // there is no such group in the system, lets create a blank group with the specified gid
-    struct group gr;
-
-    gr.gr_gid = gid;
-    gr.gr_name = g_strdup_printf ("%d", gid);
-    gr.gr_passwd = "";
-    gr.gr_mem = NULL;
-
-    group_t *group = create_group (&gr, TRUE);
-    if (group)
-        all_groups = g_list_append (all_groups, group);
-
-    g_free (gr.gr_name);
-
-    return group;
-}
-
-
-group_t *OWNER_get_group_by_name (const char *name)
-{
-    // try to locate the group in the list of already found groups
-    for (GList *tmp = all_groups; tmp; tmp = tmp->next)
-    {
-        group_t *group = (group_t *) tmp->data;
-
-        if (strcmp (name, group->name) == 0)
-            return group;
-    }
-
-    return NULL;
-}
-
-
-void OWNER_init ()
-{
-    all_users = NULL;
-    all_groups = NULL;
-
-    lookup_all_users ();
-    lookup_all_groups ();
-    check_user_default_groups ();
-}
-
-
-void OWNER_free ()
-{
-
-    /* free users */
-    for (GList *users=all_users; users; users=users->next)
-    {
-        user_t *user = (user_t *) users->data;
-        free_user (user);
-    }
-
-    /* free groups */
-    for (GList *groups=all_groups; groups; groups=groups->next)
-    {
-        group_t *group = (group_t *) groups->data;
-        free_group (group);
-    }
-
-    g_list_free (all_users);
-    g_list_free (all_groups);
-}
-
-
-user_t *OWNER_get_program_user ()
-{
-    const char *name = g_get_user_name ();
-    user_t *user = OWNER_get_user_by_name (name);
-
-    g_assert (user);
-
-    return user;
-}
-
-
-GList *OWNER_get_all_users ()
-{
-    return all_users;
-}
-
-
-GList *OWNER_get_all_groups ()
-{
-    return all_groups;
+    thread = g_thread_create ((GThreadFunc) perform_load_operation, this, TRUE, NULL);
 }
