@@ -23,7 +23,7 @@
 #define GNOME_CMD_TYPE_REMOTE_DIALOG          (gnome_cmd_remote_dialog_get_type())
 #define GNOME_CMD_REMOTE_DIALOG(obj)          (G_TYPE_CHECK_INSTANCE_CAST ((obj), GNOME_CMD_TYPE_REMOTE_DIALOG, GnomeCmdRemoteDialog))
 #define GNOME_CMD_REMOTE_DIALOG_CLASS(klass)  (G_TYPE_CHECK_CLASS_CAST ((klass), GNOME_CMD_TYPE_REMOTE_DIALOG, GnomeCmdRemoteDialogClass))
-#define GNOME_CMD_IS_REMOTE_DIALOG(obj)       (G_TYPE_INSTANCE_CHECK_TYPE ((obj), GNOME_CMD_TYPE_REMOTE_DIALOG)
+#define GNOME_CMD_IS_REMOTE_DIALOG(obj)       (G_TYPE_INSTANCE_CHECK_TYPE ((obj), GNOME_CMD_TYPE_REMOTE_DIALOG))
 
 
 typedef struct _GnomeCmdRemoteDialog GnomeCmdRemoteDialog;
