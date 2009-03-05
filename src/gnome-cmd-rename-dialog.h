@@ -31,29 +31,25 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_rename_dialog_get_type ())
 
 
-typedef struct _GnomeCmdRenameDialog GnomeCmdRenameDialog;
-typedef struct _GnomeCmdRenameDialogPrivate GnomeCmdRenameDialogPrivate;
-typedef struct _GnomeCmdRenameDialogClass GnomeCmdRenameDialogClass;
+struct GnomeCmdRenameDialogPrivate;
 
 
-
-struct _GnomeCmdRenameDialog
+struct GnomeCmdRenameDialog
 {
     GtkWindow parent;
+
     GnomeCmdRenameDialogPrivate *priv;
 };
 
 
-struct _GnomeCmdRenameDialogClass
+struct GnomeCmdRenameDialogClass
 {
     GtkWindowClass parent_class;
 };
 
 
-GtkWidget*
-gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gint height);
+GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gint height);
 
-GtkType
-gnome_cmd_rename_dialog_get_type ();
+GtkType gnome_cmd_rename_dialog_get_type ();
 
 #endif // __GNOME_CMD_RENAME_DIALOG_H__

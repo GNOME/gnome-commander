@@ -29,7 +29,7 @@
 using namespace std;
 
 
-struct _GnomeCmdChownComponentPrivate
+struct GnomeCmdChownComponentPrivate
 {
     GtkWidget *user_combo, *group_combo;
 };

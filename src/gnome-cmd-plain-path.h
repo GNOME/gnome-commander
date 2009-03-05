@@ -30,19 +30,17 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_plain_path_get_type ())
 
 
-typedef struct _GnomeCmdPlainPath GnomeCmdPlainPath;
-typedef struct _GnomeCmdPlainPathClass GnomeCmdPlainPathClass;
-typedef struct _GnomeCmdPlainPathPrivate GnomeCmdPlainPathPrivate;
+struct GnomeCmdPlainPathPrivate;
 
 
-struct _GnomeCmdPlainPath
+struct GnomeCmdPlainPath
 {
     GnomeCmdPath parent;
 
     GnomeCmdPlainPathPrivate *priv;
 };
 
-struct _GnomeCmdPlainPathClass
+struct GnomeCmdPlainPathClass
 {
     GnomeCmdPathClass parent_class;
 

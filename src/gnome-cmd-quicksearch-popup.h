@@ -29,12 +29,11 @@
 #define GNOME_CMD_IS_QUICKSEARCH_POPUP(obj) \
     GTK_CHECK_TYPE (obj, gnome_cmd_quicksearch_popup_get_type ())
 
-typedef struct _GnomeCmdQuicksearchPopup GnomeCmdQuicksearchPopup;
-typedef struct _GnomeCmdQuicksearchPopupPrivate GnomeCmdQuicksearchPopupPrivate;
-typedef struct _GnomeCmdQuicksearchPopupClass GnomeCmdQuicksearchPopupClass;
+
+struct GnomeCmdQuicksearchPopupPrivate;
 
 
-struct _GnomeCmdQuicksearchPopup
+struct GnomeCmdQuicksearchPopup
 {
     GtkWindow parent;
 
@@ -48,7 +47,7 @@ struct _GnomeCmdQuicksearchPopup
 };
 
 
-struct _GnomeCmdQuicksearchPopupClass
+struct GnomeCmdQuicksearchPopupClass
 {
     GtkWindowClass parent_class;
 };

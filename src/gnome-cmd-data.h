@@ -32,7 +32,7 @@
 #include "history.h"
 #include "dict.h"
 
-typedef struct _GnomeCmdConFtp GnomeCmdConFtp;
+struct GnomeCmdConFtp;
 
 struct GnomeCmdData
 {

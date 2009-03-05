@@ -31,19 +31,13 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_con_home_get_type ())
 
 
-typedef struct _GnomeCmdConHome GnomeCmdConHome;
-typedef struct _GnomeCmdConHomeClass GnomeCmdConHomeClass;
-typedef struct _GnomeCmdConHomePrivate GnomeCmdConHomePrivate;
-
-
-struct _GnomeCmdConHome
+struct GnomeCmdConHome
 {
     GnomeCmdCon parent;
-
-    GnomeCmdConHomePrivate *priv;
 };
 
-struct _GnomeCmdConHomeClass
+
+struct GnomeCmdConHomeClass
 {
     GnomeCmdConClass parent_class;
 };

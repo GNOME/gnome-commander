@@ -29,11 +29,6 @@
 using namespace std;
 
 
-struct _GnomeCmdConSmbPrivate
-{
-};
-
-
 static GnomeCmdConClass *parent_class = NULL;
 
 
@@ -80,8 +75,7 @@ get_file_info_callback (GnomeVFSAsyncHandle *handle,
 }
 
 
-static void
-smb_open (GnomeCmdCon *con)
+static void smb_open (GnomeCmdCon *con)
 {
     if (!con->base_path)
     {
@@ -120,29 +114,25 @@ smb_open (GnomeCmdCon *con)
 }
 
 
-static gboolean
-smb_close (GnomeCmdCon *con)
+static gboolean smb_close (GnomeCmdCon *con)
 {
     return FALSE;
 }
 
 
-static void
-smb_cancel_open (GnomeCmdCon *con)
+static void smb_cancel_open (GnomeCmdCon *con)
 {
     con->state = CON_STATE_CANCELLING;
 }
 
 
-static gboolean
-smb_open_is_needed (GnomeCmdCon *con)
+static gboolean smb_open_is_needed (GnomeCmdCon *con)
 {
     return TRUE;
 }
 
 
-static GnomeVFSURI *
-smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
+static GnomeVFSURI *smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 {
     GnomeVFSURI *u1, *u2;
 
@@ -163,8 +153,7 @@ smb_create_uri (GnomeCmdCon *con, GnomeCmdPath *path)
 }
 
 
-static GnomeCmdPath *
-smb_create_path (GnomeCmdCon *con, const gchar *path_str)
+static GnomeCmdPath *smb_create_path (GnomeCmdCon *con, const gchar *path_str)
 {
     return gnome_cmd_smb_path_new_from_str (path_str);
 }
@@ -175,20 +164,16 @@ smb_create_path (GnomeCmdCon *con, const gchar *path_str)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     GnomeCmdConSmb *con = GNOME_CMD_CON_SMB (object);
-
-    g_free (con->priv);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
 
 
-static void
-class_init (GnomeCmdConSmbClass *klass)
+static void class_init (GnomeCmdConSmbClass *klass)
 {
     GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
     GnomeCmdConClass *con_class = GNOME_CMD_CON_CLASS (klass);
@@ -206,14 +191,11 @@ class_init (GnomeCmdConSmbClass *klass)
 }
 
 
-static void
-init (GnomeCmdConSmb *smb_con)
+static void init (GnomeCmdConSmb *smb_con)
 {
     guint dev_icon_size = gnome_cmd_data.dev_icon_size;
 
     GnomeCmdCon *con = GNOME_CMD_CON (smb_con);
-
-    smb_con->priv = g_new0 (GnomeCmdConSmbPrivate, 1);
 
     con->alias = g_strdup (_("SMB"));
     con->method = CON_SMB;
@@ -260,8 +242,7 @@ GtkType gnome_cmd_con_smb_get_type ()
 }
 
 
-GnomeCmdCon *
-gnome_cmd_con_smb_new ()
+GnomeCmdCon *gnome_cmd_con_smb_new ()
 {
     return GNOME_CMD_CON (gtk_type_new (gnome_cmd_con_smb_get_type ()));
 }

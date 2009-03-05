@@ -31,19 +31,18 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_chown_component_get_type ())
 
 
-typedef struct _GnomeCmdChownComponent GnomeCmdChownComponent;
-typedef struct _GnomeCmdChownComponentPrivate GnomeCmdChownComponentPrivate;
-typedef struct _GnomeCmdChownComponentClass GnomeCmdChownComponentClass;
+struct GnomeCmdChownComponentPrivate;
 
 
-struct _GnomeCmdChownComponent
+struct GnomeCmdChownComponent
 {
     GtkTable parent;
+
     GnomeCmdChownComponentPrivate *priv;
 };
 
 
-struct _GnomeCmdChownComponentClass
+struct GnomeCmdChownComponentClass
 {
     GtkTableClass parent_class;
 };

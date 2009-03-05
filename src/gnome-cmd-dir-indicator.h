@@ -33,40 +33,32 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_dir_indicator_get_type ())
 
 
-typedef struct _GnomeCmdDirIndicator GnomeCmdDirIndicator;
-typedef struct _GnomeCmdDirIndicatorClass GnomeCmdDirIndicatorClass;
-typedef struct _GnomeCmdDirIndicatorPrivate GnomeCmdDirIndicatorPrivate;
+struct GnomeCmdDirIndicatorPrivate;
 
 
-struct _GnomeCmdDirIndicator
+struct GnomeCmdDirIndicator
 {
     GtkFrame parent;
 
     GnomeCmdDirIndicatorPrivate *priv;
 };
 
-struct _GnomeCmdDirIndicatorClass
+struct GnomeCmdDirIndicatorClass
 {
     GtkFrameClass parent_class;
 };
 
 
-GtkType
-gnome_cmd_dir_indicator_get_type ();
+GtkType gnome_cmd_dir_indicator_get_type ();
 
-GtkWidget *
-gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs);
+GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs);
 
-void
-gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *path);
+void gnome_cmd_dir_indicator_set_dir (GnomeCmdDirIndicator *indicator, gchar *path);
 
-void
-gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean value);
+void gnome_cmd_dir_indicator_set_active (GnomeCmdDirIndicator *indicator, gboolean value);
 
-void
-gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator);
+void gnome_cmd_dir_indicator_show_history (GnomeCmdDirIndicator *indicator);
 
-void
-gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator);
+void gnome_cmd_dir_indicator_show_bookmarks (GnomeCmdDirIndicator *indicator);
 
 #endif // __GNOME_CMD_DIR_INDICATOR_H__

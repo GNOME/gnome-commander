@@ -49,11 +49,8 @@
 #define EGG_IS_CELL_RENDERER_KEYS_CLASS(klass)  (GTK_CHECK_CLASS_TYPE ((klass), EGG_TYPE_CELL_RENDERER_KEYS))
 #define EGG_CELL_RENDERER_KEYS_GET_CLASS(obj)   (GTK_CHECK_GET_CLASS ((obj), EGG_TYPE_CELL_RENDERER_KEYS, EggCellRendererKeysClass))
 
-typedef struct _EggCellRendererKeys      EggCellRendererKeys;
-typedef struct _EggCellRendererKeysClass EggCellRendererKeysClass;
 
-
-struct _EggCellRendererKeys
+struct EggCellRendererKeys
 {
     GtkCellRendererText parent;
     guint accel_key;
@@ -65,7 +62,7 @@ struct _EggCellRendererKeys
     GtkCellRendererAccelMode accel_mode;
 };
 
-struct _EggCellRendererKeysClass
+struct EggCellRendererKeysClass
 {
   GtkCellRendererTextClass parent_class;
 

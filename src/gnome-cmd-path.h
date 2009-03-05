@@ -29,16 +29,12 @@
 #define GNOME_CMD_PATH_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_PATH, GnomeCmdPathClass))
 
 
-typedef struct _GnomeCmdPath GnomeCmdPath;
-typedef struct _GnomeCmdPathClass GnomeCmdPathClass;
-
-
-struct _GnomeCmdPath
+struct GnomeCmdPath
 {
     GtkObject parent;
 };
 
-struct _GnomeCmdPathClass
+struct GnomeCmdPathClass
 {
     GtkObjectClass parent_class;
 

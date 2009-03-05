@@ -45,7 +45,7 @@ static gchar *recurse_opts[CHMOD_MAX] = {
     N_("Directories only")
 };
 
-struct _GnomeCmdChmodDialogPrivate
+struct GnomeCmdChmodDialogPrivate
 {
     GList *files;
     GnomeCmdFile *finfo;

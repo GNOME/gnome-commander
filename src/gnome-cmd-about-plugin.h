@@ -39,18 +39,17 @@
 #define GNOME_CMD_IS_ABOUT_PLUGIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GNOME_CMD_TYPE_ABOUT_PLUGIN))
 #define GNOME_CMD_ABOUT_PLUGIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_TYPE_ABOUT_PLUGIN, GnomeCmdAboutPluginClass))
 
-typedef struct _GnomeCmdAboutPlugin        GnomeCmdAboutPlugin;
-typedef struct _GnomeCmdAboutPluginClass   GnomeCmdAboutPluginClass;
-typedef struct _GnomeCmdAboutPluginPrivate GnomeCmdAboutPluginPrivate;
+struct GnomeCmdAboutPluginPrivate;
 
-struct _GnomeCmdAboutPlugin
+struct GnomeCmdAboutPlugin
 {
     GtkDialog parent;
 
     GnomeCmdAboutPluginPrivate *priv;
 };
 
-struct _GnomeCmdAboutPluginClass {
+struct GnomeCmdAboutPluginClass
+{
     GtkDialogClass parent_class;
 };
 

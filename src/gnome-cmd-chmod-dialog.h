@@ -28,19 +28,17 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_chmod_dialog_get_type ())
 
 
-typedef struct _GnomeCmdChmodDialog GnomeCmdChmodDialog;
-typedef struct _GnomeCmdChmodDialogPrivate GnomeCmdChmodDialogPrivate;
-typedef struct _GnomeCmdChmodDialogClass GnomeCmdChmodDialogClass;
+struct GnomeCmdChmodDialogPrivate;
 
 
-struct _GnomeCmdChmodDialog
+struct GnomeCmdChmodDialog
 {
     GnomeCmdDialog parent;
     GnomeCmdChmodDialogPrivate *priv;
 };
 
 
-struct _GnomeCmdChmodDialogClass
+struct GnomeCmdChmodDialogClass
 {
     GnomeCmdDialogClass parent_class;
 };

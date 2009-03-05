@@ -35,7 +35,7 @@
 using namespace std;
 
 
-struct _GnomeCmdConDevicePrivate
+struct GnomeCmdConDevicePrivate
 {
     gchar *alias;
     gchar *device_fn;

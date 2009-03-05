@@ -20,7 +20,6 @@
 #ifndef __GNOME_CMD_DELETE_DIALOG_H__
 #define __GNOME_CMD_DELETE_DIALOG_H__
 
-void
-gnome_cmd_delete_dialog_show (GList *files);
+void gnome_cmd_delete_dialog_show (GList *files);
 
 #endif // __GNOME_CMD_DELETE_DIALOG_H__

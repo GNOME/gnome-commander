@@ -23,18 +23,18 @@
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-combo.h"
 #include "gnome-cmd-style.h"
-#include "utils.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"
+#include "utils.h"
 
 using namespace std;
 
 
 static GtkHBoxClass *parent_class = NULL;
 
-struct _GnomeCmdCmdlinePrivate
+struct GnomeCmdCmdlinePrivate
 {
     GtkWidget *combo;
     GtkWidget *cwd;
@@ -499,7 +499,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
                             event->keyval = 0;
                         }
                         break;
-            }
+                }
 
     return FALSE;
 }

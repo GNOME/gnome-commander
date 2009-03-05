@@ -31,20 +31,17 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_chmod_component_get_type ())
 
 
-typedef struct _GnomeCmdChmodComponent GnomeCmdChmodComponent;
-typedef struct _GnomeCmdChmodComponentPrivate GnomeCmdChmodComponentPrivate;
-typedef struct _GnomeCmdChmodComponentClass GnomeCmdChmodComponentClass;
+struct GnomeCmdChmodComponentPrivate;
 
 
-
-struct _GnomeCmdChmodComponent
+struct GnomeCmdChmodComponent
 {
     GtkVBox parent;
     GnomeCmdChmodComponentPrivate *priv;
 };
 
 
-struct _GnomeCmdChmodComponentClass
+struct GnomeCmdChmodComponentClass
 {
     GtkVBoxClass parent_class;
 

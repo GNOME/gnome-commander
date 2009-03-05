@@ -30,29 +30,24 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_patternsel_dialog_get_type ())
 
 
-typedef struct _GnomeCmdPatternselDialog GnomeCmdPatternselDialog;
-typedef struct _GnomeCmdPatternselDialogPrivate GnomeCmdPatternselDialogPrivate;
-typedef struct _GnomeCmdPatternselDialogClass GnomeCmdPatternselDialogClass;
+struct GnomeCmdPatternselDialogPrivate;
 
 
-
-struct _GnomeCmdPatternselDialog
+struct GnomeCmdPatternselDialog
 {
     GnomeCmdStringDialog parent;
     GnomeCmdPatternselDialogPrivate *priv;
 };
 
 
-struct _GnomeCmdPatternselDialogClass
+struct GnomeCmdPatternselDialogClass
 {
     GnomeCmdStringDialogClass parent_class;
 };
 
 
-GtkWidget*
-gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode);
+GtkWidget *gnome_cmd_patternsel_dialog_new (GnomeCmdFileList *fl, gboolean mode);
 
-GtkType
-gnome_cmd_patternsel_dialog_get_type ();
+GtkType gnome_cmd_patternsel_dialog_get_type ();
 
 #endif // __GNOME_CMD_PATTERNSEL_DIALOG_H__

@@ -49,7 +49,7 @@ GList *all_files = NULL;
 
 static GnomeCmdFileInfoClass *parent_class = NULL;
 
-struct _GnomeCmdFilePrivate
+struct GnomeCmdFilePrivate
 {
     Handle *dir_handle;
     GTimeVal last_update;

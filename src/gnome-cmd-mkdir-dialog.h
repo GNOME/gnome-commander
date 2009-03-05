@@ -31,29 +31,25 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_mkdir_dialog_get_type ())
 
 
-typedef struct _GnomeCmdMkdirDialog GnomeCmdMkdirDialog;
-typedef struct _GnomeCmdMkdirDialogPrivate GnomeCmdMkdirDialogPrivate;
-typedef struct _GnomeCmdMkdirDialogClass GnomeCmdMkdirDialogClass;
+struct GnomeCmdMkdirDialogPrivate;
 
 
-
-struct _GnomeCmdMkdirDialog
+struct GnomeCmdMkdirDialog
 {
     GnomeCmdStringDialog parent;
+
     GnomeCmdMkdirDialogPrivate *priv;
 };
 
 
-struct _GnomeCmdMkdirDialogClass
+struct GnomeCmdMkdirDialogClass
 {
     GnomeCmdStringDialogClass parent_class;
 };
 
 
-GtkWidget*
-gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir);
+GtkWidget *gnome_cmd_mkdir_dialog_new (GnomeCmdDir *dir);
 
-GtkType
-gnome_cmd_mkdir_dialog_get_type ();
+GtkType gnome_cmd_mkdir_dialog_get_type ();
 
 #endif // __GNOME_CMD_MKDIR_DIALOG_H__

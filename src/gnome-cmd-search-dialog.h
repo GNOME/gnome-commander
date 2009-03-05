@@ -31,13 +31,10 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_search_dialog_get_type ())
 
 
-typedef struct _GnomeCmdSearchDialog GnomeCmdSearchDialog;
-typedef struct _GnomeCmdSearchDialogPrivate GnomeCmdSearchDialogPrivate;
-typedef struct _GnomeCmdSearchDialogClass GnomeCmdSearchDialogClass;
+struct GnomeCmdSearchDialogPrivate;
 
 
-
-struct _GnomeCmdSearchDialog
+struct GnomeCmdSearchDialog
 {
     GnomeCmdDialog parent;
 
@@ -45,7 +42,7 @@ struct _GnomeCmdSearchDialog
 };
 
 
-struct _GnomeCmdSearchDialogClass
+struct GnomeCmdSearchDialogClass
 {
     GnomeCmdDialogClass parent_class;
 };

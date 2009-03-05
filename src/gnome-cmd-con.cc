@@ -28,7 +28,7 @@
 using namespace std;
 
 
-struct _GnomeCmdConPrivate
+struct GnomeCmdConPrivate
 {
     GnomeCmdDir    *cwd;           // current working directory
     GnomeCmdDir    *root_dir;      // the root dir of this connection

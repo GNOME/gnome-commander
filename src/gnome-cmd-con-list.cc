@@ -27,7 +27,7 @@
 using namespace std;
 
 
-struct _GnomeCmdConListPrivate
+struct GnomeCmdConListPrivate
 {
     gboolean update_lock;
     gboolean changed;

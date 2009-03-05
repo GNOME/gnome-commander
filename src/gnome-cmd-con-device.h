@@ -31,19 +31,17 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_con_device_get_type ())
 
 
-typedef struct _GnomeCmdConDevice GnomeCmdConDevice;
-typedef struct _GnomeCmdConDeviceClass GnomeCmdConDeviceClass;
-typedef struct _GnomeCmdConDevicePrivate GnomeCmdConDevicePrivate;
+struct GnomeCmdConDevicePrivate;
 
 
-struct _GnomeCmdConDevice
+struct GnomeCmdConDevice
 {
     GnomeCmdCon parent;
 
     GnomeCmdConDevicePrivate *priv;
 };
 
-struct _GnomeCmdConDeviceClass
+struct GnomeCmdConDeviceClass
 {
     GnomeCmdConClass parent_class;
 };

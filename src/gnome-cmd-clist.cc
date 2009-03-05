@@ -30,7 +30,7 @@ using namespace std;
 static GtkCListClass *parent_class = NULL;
 
 
-struct _GnomeCmdCListPrivate
+struct GnomeCmdCListPrivate
 {
 };
 

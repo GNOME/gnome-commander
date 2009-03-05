@@ -32,7 +32,7 @@
 using namespace std;
 
 
-struct _GnomeCmdChownDialogPrivate
+struct GnomeCmdChownDialogPrivate
 {
     GList *files;
     GtkWidget *chown_component;

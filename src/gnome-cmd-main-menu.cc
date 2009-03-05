@@ -93,7 +93,7 @@ typedef struct
     NULL }
 
 
-struct _GnomeCmdMainMenuPrivate
+struct GnomeCmdMainMenuPrivate
 {
     GtkWidget *file_menu;
     GtkWidget *edit_menu;

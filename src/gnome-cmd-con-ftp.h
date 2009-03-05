@@ -31,16 +31,12 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_con_ftp_get_type ())
 
 
-typedef struct _GnomeCmdConFtp GnomeCmdConFtp;
-typedef struct _GnomeCmdConFtpClass GnomeCmdConFtpClass;
-
-
-struct _GnomeCmdConFtp
+struct GnomeCmdConFtp
 {
     GnomeCmdCon parent;
 };
 
-struct _GnomeCmdConFtpClass
+struct GnomeCmdConFtpClass
 {
     GnomeCmdConClass parent_class;
 };

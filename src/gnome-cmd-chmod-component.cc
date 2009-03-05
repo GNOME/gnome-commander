@@ -33,7 +33,7 @@ GnomeVFSFilePermissions check_perm[3][3] = {
 };
 
 
-struct _GnomeCmdChmodComponentPrivate
+struct GnomeCmdChmodComponentPrivate
 {
     GtkWidget *check_boxes[3][3];
     GtkWidget *textview_label;

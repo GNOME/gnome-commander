@@ -27,7 +27,7 @@
 using namespace std;
 
 
-struct _GnomeCmdSmbPathPrivate
+struct GnomeCmdSmbPathPrivate
 {
     gchar *workgroup;
     gchar *resource;

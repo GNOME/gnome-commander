@@ -30,28 +30,19 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_con_smb_get_type ())
 
 
-typedef struct _GnomeCmdConSmb GnomeCmdConSmb;
-typedef struct _GnomeCmdConSmbClass GnomeCmdConSmbClass;
-typedef struct _GnomeCmdConSmbPrivate GnomeCmdConSmbPrivate;
-
-
-struct _GnomeCmdConSmb
+struct GnomeCmdConSmb
 {
     GnomeCmdCon parent;
-
-    GnomeCmdConSmbPrivate *priv;
 };
 
-struct _GnomeCmdConSmbClass
+struct GnomeCmdConSmbClass
 {
     GnomeCmdConClass parent_class;
 };
 
 
-GtkType
-gnome_cmd_con_smb_get_type ();
+GtkType gnome_cmd_con_smb_get_type ();
 
-GnomeCmdCon *
-gnome_cmd_con_smb_new ();
+GnomeCmdCon *gnome_cmd_con_smb_new ();
 
 #endif // __GNOME_CMD_CON_SMB_H__

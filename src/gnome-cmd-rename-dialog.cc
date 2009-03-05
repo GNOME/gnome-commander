@@ -29,7 +29,7 @@
 using namespace std;
 
 
-struct _GnomeCmdRenameDialogPrivate
+struct GnomeCmdRenameDialogPrivate
 {
     GnomeCmdFile *finfo;
     GnomeCmdMainWin *mw;

@@ -20,7 +20,6 @@
 #ifndef __GNOME_CMD_TYPES_H__
 #define __GNOME_CMD_TYPES_H__
 
-typedef struct _GnomeCmdBookmarkGroup GnomeCmdBookmarkGroup;
 typedef gchar *GnomeCmdDateFormat;
 
 enum GnomeCmdLayout
@@ -86,10 +85,10 @@ struct GnomeCmdColorTheme
 };
 
 
-typedef struct _GnomeCmdCon GnomeCmdCon;
+struct GnomeCmdCon;
 
 
-struct _GnomeCmdBookmarkGroup
+struct GnomeCmdBookmarkGroup
 {
     GList *bookmarks;
     GnomeCmdCon *con;

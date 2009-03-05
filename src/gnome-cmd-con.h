@@ -29,9 +29,7 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_con_get_type ())
 #define GNOME_CMD_CON_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), GNOME_CMD_CON, GnomeCmdConClass))
 
-typedef struct _GnomeCmdCon GnomeCmdCon;
-typedef struct _GnomeCmdConClass GnomeCmdConClass;
-typedef struct _GnomeCmdConPrivate GnomeCmdConPrivate;
+struct GnomeCmdConPrivate;
 
 #include <string>
 
@@ -72,7 +70,7 @@ typedef enum        // Keep this order in sync with strings in gnome-cmd-con-dia
     CON_LOCAL      // CON_FILE ???
 } ConnectionMethodID;
 
-struct _GnomeCmdCon
+struct GnomeCmdCon
 {
     GtkObject parent;
 
@@ -108,7 +106,7 @@ struct _GnomeCmdCon
     GnomeCmdConPrivate *priv;
 };
 
-struct _GnomeCmdConClass
+struct GnomeCmdConClass
 {
     GtkObjectClass parent_class;
 

@@ -51,7 +51,7 @@ enum
     LAST_SIGNAL
 };
 
-struct _GnomeCmdDirPrivate
+struct GnomeCmdDirPrivate
 {
     GnomeVFSAsyncHandle *list_handle;
 

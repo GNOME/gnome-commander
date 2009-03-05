@@ -29,13 +29,10 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_file_get_type ())
 
 
-typedef struct _GnomeCmdFile        GnomeCmdFile;
-typedef struct _GnomeCmdFileClass   GnomeCmdFileClass;
-typedef struct _GnomeCmdFilePrivate GnomeCmdFilePrivate;
-
+struct GnomeCmdFilePrivate;
 class GnomeCmdFileMetadata;
 
-struct _GnomeCmdFile
+struct GnomeCmdFile
 {
     GnomeCmdFileInfo parent;
 
@@ -45,13 +42,13 @@ struct _GnomeCmdFile
     GnomeCmdFileMetadata *metadata;
 };
 
-struct _GnomeCmdFileClass
+struct GnomeCmdFileClass
 {
     GnomeCmdFileInfoClass parent_class;
 };
 
 
-typedef struct _GnomeCmdDir         GnomeCmdDir;
+struct GnomeCmdDir;
 
 
 GtkType gnome_cmd_file_get_type ();

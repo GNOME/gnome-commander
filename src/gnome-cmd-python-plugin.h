@@ -23,12 +23,12 @@
 
 #include "gnome-cmd-main-win.h"
 
-typedef struct
+struct PythonPluginData
 {
     gchar *name;        // plugin name
     gchar *path;        // full path to plugin (including file name, but without ext: .py or .pyc)
     gchar *fname;       // file name (without ext: .py or .pyc)
-} PythonPluginData;
+};
 
 
 void python_plugin_manager_init ();

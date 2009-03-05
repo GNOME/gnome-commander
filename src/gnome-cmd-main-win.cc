@@ -72,7 +72,7 @@ enum
 };
 
 
-struct _GnomeCmdMainWinPrivate
+struct GnomeCmdMainWinPrivate
 {
     FileSelectorID current_fs;
     GnomeCmdState state;
@@ -749,7 +749,6 @@ static void class_init (GnomeCmdMainWinClass *klass)
     widget_class->map = ::map;
     klass->switch_fs = gnome_cmd_main_win_real_switch_fs;
 }
-
 
 static void init (GnomeCmdMainWin *mw)
 {

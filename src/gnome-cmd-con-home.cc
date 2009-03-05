@@ -28,11 +28,6 @@
 using namespace std;
 
 
-struct _GnomeCmdConHomePrivate
-{
-};
-
-
 static GnomeCmdConClass *parent_class = NULL;
 
 
@@ -84,8 +79,6 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdConHome *con = GNOME_CMD_CON_HOME (object);
 
-    g_free (con->priv);
-
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -114,8 +107,6 @@ static void init (GnomeCmdConHome *home_con)
     guint dev_icon_size = gnome_cmd_data.dev_icon_size;
 
     GnomeCmdCon *con = GNOME_CMD_CON (home_con);
-
-    home_con->priv = g_new0 (GnomeCmdConHomePrivate, 1);
 
     con->state = CON_STATE_OPEN;
     con->alias = g_strdup (_("Home"));

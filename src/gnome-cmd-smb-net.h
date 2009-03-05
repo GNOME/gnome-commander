@@ -28,15 +28,14 @@ typedef enum
 } SmbEntityType;
 
 
-typedef struct
+struct SmbEntity
 {
     gchar *name;
     SmbEntityType type;
 
     // this one is only set if type == SMB_HOST and
     gchar *workgroup_name;
-} SmbEntity;
-
+};
 
 
 SmbEntity *gnome_cmd_smb_net_get_entity (const gchar *name);

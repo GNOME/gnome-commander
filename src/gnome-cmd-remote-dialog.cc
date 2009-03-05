@@ -37,7 +37,7 @@ using namespace std;
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
-struct _GnomeCmdRemoteDialogPrivate
+struct GnomeCmdRemoteDialogPrivate
 {
     GtkWidget         *connection_list;
     GtkWidget         *anonymous_pw_entry;

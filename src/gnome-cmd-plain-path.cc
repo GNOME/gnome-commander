@@ -25,7 +25,7 @@
 using namespace std;
 
 
-struct _GnomeCmdPlainPathPrivate
+struct GnomeCmdPlainPathPrivate
 {
     gchar *path;
 };

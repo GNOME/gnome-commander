@@ -28,23 +28,21 @@
 #define GNOME_CMD_IS_MAIN_WIN(obj) \
     GTK_CHECK_TYPE(obj, gnome_cmd_main_win_get_type ())
 
-typedef struct _GnomeCmdMainWin GnomeCmdMainWin;
-typedef struct _GnomeCmdMainWinPrivate GnomeCmdMainWinPrivate;
-typedef struct _GnomeCmdMainWinClass GnomeCmdMainWinClass;
+struct GnomeCmdMainWinPrivate;
 
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-cmdline.h"
 #include "plugin_manager.h"
 
-struct _GnomeCmdMainWin
+struct GnomeCmdMainWin
 {
     GnomeApp parent;
     GnomeCmdAdvrenameDialog *advrename_dlg;
     GnomeCmdMainWinPrivate *priv;
 };
 
-struct _GnomeCmdMainWinClass
+struct GnomeCmdMainWinClass
 {
     GnomeAppClass parent_class;
 

@@ -49,7 +49,8 @@ typedef struct
 
 static GtkMenuClass *parent_class = NULL;
 
-struct _GnomeCmdFilePopmenuPrivate
+
+struct GnomeCmdFilePopmenuPrivate
 {
     GList *data_list;
 };

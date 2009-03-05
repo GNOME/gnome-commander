@@ -34,10 +34,6 @@ using namespace std;
 
 static GtkMenuClass *parent_class = NULL;
 
-struct _GnomeCmdListPopmenuPrivate
-{
-};
-
 
 static void on_new_directory (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 {
@@ -71,8 +67,6 @@ static void destroy (GtkObject *object)
 {
     GnomeCmdListPopmenu *menu = GNOME_CMD_LIST_POPMENU (object);
 
-    g_free (menu->priv);
-
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }
@@ -98,7 +92,6 @@ static void class_init (GnomeCmdListPopmenuClass *klass)
 
 static void init (GnomeCmdListPopmenu *menu)
 {
-    menu->priv = g_new0 (GnomeCmdListPopmenuPrivate, 1);
 }
 
 

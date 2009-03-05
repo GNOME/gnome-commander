@@ -31,7 +31,7 @@ using namespace std;
 
 static GtkWindowClass *parent_class = NULL;
 
-struct _GnomeCmdQuicksearchPopupPrivate
+struct GnomeCmdQuicksearchPopupPrivate
 {
     GnomeCmdFileList *fl;
 

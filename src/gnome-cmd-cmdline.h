@@ -28,19 +28,17 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_cmdline_get_type ())
 
 
-typedef struct _GnomeCmdCmdline GnomeCmdCmdline;
-typedef struct _GnomeCmdCmdlinePrivate GnomeCmdCmdlinePrivate;
-typedef struct _GnomeCmdCmdlineClass GnomeCmdCmdlineClass;
+struct GnomeCmdCmdlinePrivate;
 
 
-struct _GnomeCmdCmdline
+struct GnomeCmdCmdline
 {
     GtkHBox parent;
     GnomeCmdCmdlinePrivate *priv;
 };
 
 
-struct _GnomeCmdCmdlineClass
+struct GnomeCmdCmdlineClass
 {
     GtkHBoxClass parent_class;
 };

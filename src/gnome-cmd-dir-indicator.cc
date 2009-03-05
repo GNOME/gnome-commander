@@ -32,7 +32,7 @@
 using namespace std;
 
 
-struct _GnomeCmdDirIndicatorPrivate
+struct GnomeCmdDirIndicatorPrivate
 {
     GtkWidget *event_box;
     GtkWidget *label;

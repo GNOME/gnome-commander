@@ -23,12 +23,12 @@
 
 #include "gnome-cmd-file.h"
 
-typedef struct
+struct LsColor
 {
     GnomeVFSFileType type;
     gchar *ext;
     GdkColor *fg, *bg;
-} LsColor;
+};
 
 void     ls_colors_init ();
 LsColor *ls_colors_get (GnomeCmdFile *finfo);

@@ -21,14 +21,14 @@
 #ifndef __GNOME_CMD_PIXMAP_H__
 #define __GNOME_CMD_PIXMAP_H__
 
-typedef struct
+struct GnomeCmdPixmap
 {
     GdkPixbuf *pixbuf;
     GdkPixmap *pixmap;
     GdkBitmap *mask;
     gint width;
     gint height;
-} GnomeCmdPixmap;
+};
 
 
 GnomeCmdPixmap *gnome_cmd_pixmap_new_from_file (const gchar *filepath, int width=-1, int height=-1);

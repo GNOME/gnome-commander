@@ -94,7 +94,7 @@ struct SearchFileData
     guint           len;
 };
 
-struct _GnomeCmdSearchDialogPrivate
+struct GnomeCmdSearchDialogPrivate
 {
     SearchData *data;                       // holds data needed by the search routines
 

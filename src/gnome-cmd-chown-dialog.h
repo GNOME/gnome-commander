@@ -29,29 +29,24 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_chown_dialog_get_type ())
 
 
-typedef struct _GnomeCmdChownDialog GnomeCmdChownDialog;
-typedef struct _GnomeCmdChownDialogPrivate GnomeCmdChownDialogPrivate;
-typedef struct _GnomeCmdChownDialogClass GnomeCmdChownDialogClass;
+struct GnomeCmdChownDialogPrivate;
 
 
-
-struct _GnomeCmdChownDialog
+struct GnomeCmdChownDialog
 {
     GnomeCmdDialog parent;
     GnomeCmdChownDialogPrivate *priv;
 };
 
 
-struct _GnomeCmdChownDialogClass
+struct GnomeCmdChownDialogClass
 {
     GnomeCmdDialogClass parent_class;
 };
 
 
-GtkWidget*
-gnome_cmd_chown_dialog_new (GList *files);
+GtkWidget *gnome_cmd_chown_dialog_new (GList *files);
 
-GtkType
-gnome_cmd_chown_dialog_get_type ();
+GtkType gnome_cmd_chown_dialog_get_type ();
 
 #endif // __GNOME_CMD_CHOWN_DIALOG_H__

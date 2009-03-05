@@ -37,7 +37,7 @@
 using namespace std;
 
 
-struct _GnomeCmdBookmarkDialogPrivate
+struct GnomeCmdBookmarkDialogPrivate
 {
     GList *groups;
     GnomeCmdBookmark *sel_bookmark;

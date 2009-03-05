@@ -39,13 +39,11 @@
 #define GNOME_CMD_COMBO_CLASS(klass)    GTK_CHECK_CLASS_CAST (klass, gnome_cmd_combo_get_type (), GnomeCmdComboClass)
 #define GNOME_CMD_IS_COMBO(obj)         GTK_CHECK_TYPE (obj, gnome_cmd_combo_get_type ())
 
-typedef struct _GnomeCmdCombo GnomeCmdCombo;
-typedef struct _GnomeCmdComboClass GnomeCmdComboClass;
-
 /* you should access only the entry and list fields directly */
-struct _GnomeCmdCombo 
+struct GnomeCmdCombo
 {
     GtkHBox hbox;
+
     GtkWidget *entry;
     GtkWidget *button;
     GtkWidget *popup;
@@ -70,7 +68,7 @@ struct _GnomeCmdCombo
     gint text_col;
 };
 
-struct _GnomeCmdComboClass 
+struct GnomeCmdComboClass
 {
     GtkHBoxClass parent_class;
 
@@ -83,9 +81,7 @@ guint gnome_cmd_combo_get_type ();
 GtkWidget *gnome_cmd_combo_new (gint num_cols, gint text_col, gchar **col_titles);
 
 void gnome_cmd_combo_clear (GnomeCmdCombo *combo);
-
 gint gnome_cmd_combo_append (GnomeCmdCombo *combo, gchar **text, gpointer data);
-
 gint gnome_cmd_combo_insert (GnomeCmdCombo *combo, gchar **text, gpointer data);
 
 void gnome_cmd_combo_set_pixmap (GnomeCmdCombo *combo, gint row, gint col, GnomeCmdPixmap *pixmap);
@@ -93,13 +89,11 @@ void gnome_cmd_combo_set_pixmap (GnomeCmdCombo *combo, gint row, gint col, Gnome
 void gnome_cmd_combo_popup_list  (GnomeCmdCombo *combo);
 
 void gnome_cmd_combo_select_text (GnomeCmdCombo *combo, const gchar *text);
-
 void gnome_cmd_combo_select_data (GnomeCmdCombo *combo, gpointer data);
 
 void gnome_cmd_combo_update_style (GnomeCmdCombo *combo);
 
 gpointer gnome_cmd_combo_get_selected_data (GnomeCmdCombo *combo);
-
 const gchar *gnome_cmd_combo_get_selected_text (GnomeCmdCombo *combo);
 
 #endif // __GNOME_CMD_COMBO_H__

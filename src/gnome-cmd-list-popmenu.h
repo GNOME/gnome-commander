@@ -31,29 +31,20 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_list_popmenu_get_type ())
 
 
-typedef struct _GnomeCmdListPopmenu GnomeCmdListPopmenu;
-typedef struct _GnomeCmdListPopmenuPrivate GnomeCmdListPopmenuPrivate;
-typedef struct _GnomeCmdListPopmenuClass GnomeCmdListPopmenuClass;
-
-
-
-struct _GnomeCmdListPopmenu
+struct GnomeCmdListPopmenu
 {
     GtkMenu parent;
-    GnomeCmdListPopmenuPrivate *priv;
 };
 
 
-struct _GnomeCmdListPopmenuClass
+struct GnomeCmdListPopmenuClass
 {
     GtkMenuClass parent_class;
 };
 
 
-GtkWidget*
-gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs);
+GtkWidget *gnome_cmd_list_popmenu_new (GnomeCmdFileSelector *fs);
 
-GtkType
-gnome_cmd_list_popmenu_get_type ();
+GtkType gnome_cmd_list_popmenu_get_type ();
 
 #endif // __GNOME_CMD_LIST_POPMENU_H__

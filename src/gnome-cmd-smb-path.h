@@ -31,19 +31,17 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_smb_path_get_type ())
 
 
-typedef struct _GnomeCmdSmbPath GnomeCmdSmbPath;
-typedef struct _GnomeCmdSmbPathClass GnomeCmdSmbPathClass;
-typedef struct _GnomeCmdSmbPathPrivate GnomeCmdSmbPathPrivate;
+struct GnomeCmdSmbPathPrivate;
 
 
-struct _GnomeCmdSmbPath
+struct GnomeCmdSmbPath
 {
     GnomeCmdPath parent;
 
     GnomeCmdSmbPathPrivate *priv;
 };
 
-struct _GnomeCmdSmbPathClass
+struct GnomeCmdSmbPathClass
 {
     GnomeCmdPathClass parent_class;
 

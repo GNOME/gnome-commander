@@ -27,7 +27,7 @@
 using namespace std;
 
 
-struct _GnomeCmdMakeCopyDialogPrivate
+struct GnomeCmdMakeCopyDialogPrivate
 {
     GnomeCmdFile *finfo;
     GnomeCmdDir *dir;

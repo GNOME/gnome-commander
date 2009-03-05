@@ -28,12 +28,10 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_clist_get_type ())
 
 
-typedef struct _GnomeCmdCList GnomeCmdCList;
-typedef struct _GnomeCmdCListPrivate GnomeCmdCListPrivate;
-typedef struct _GnomeCmdCListClass GnomeCmdCListClass;
+struct GnomeCmdCListPrivate;
 
 
-struct _GnomeCmdCList
+struct GnomeCmdCList
 {
     GtkCList parent;
 
@@ -43,7 +41,7 @@ struct _GnomeCmdCList
 };
 
 
-struct _GnomeCmdCListClass
+struct GnomeCmdCListClass
 {
     GtkCListClass parent_class;
 };

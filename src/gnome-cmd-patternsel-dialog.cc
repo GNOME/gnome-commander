@@ -28,7 +28,7 @@
 using namespace std;
 
 
-struct _GnomeCmdPatternselDialogPrivate
+struct GnomeCmdPatternselDialogPrivate
 {
     GnomeCmdFileList *fl;
 

@@ -28,7 +28,7 @@
 using namespace std;
 
 
-struct _GnomeCmdMkdirDialogPrivate
+struct GnomeCmdMkdirDialogPrivate
 {
     GnomeCmdDir *dir;
     GnomeCmdMainWin *mw;

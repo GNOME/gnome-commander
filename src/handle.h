@@ -21,11 +21,11 @@
 #ifndef __HANDLE_H__
 #define __HANDLE_H__
 
-typedef struct
+struct Handle
 {
     gint ref_count;
     gpointer ref;
-} Handle;
+};
 
 
 inline Handle *handle_new (gpointer ref)

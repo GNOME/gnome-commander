@@ -29,13 +29,10 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_dir_get_type ())
 
 
-typedef struct _GnomeCmdDir         GnomeCmdDir;
-typedef struct _GnomeCmdDirPrivate  GnomeCmdDirPrivate;
-typedef struct _GnomeCmdDirClass    GnomeCmdDirClass;
+struct GnomeCmdDir;
+struct GnomeCmdDirPrivate;
 
-typedef void (* DirListDoneFunc) (GnomeCmdDir *dir,
-                                  GList *files,
-                                  GnomeVFSResult result);
+typedef void (* DirListDoneFunc) (GnomeCmdDir *dir, GList *files, GnomeVFSResult result);
 
 #include <string>
 
@@ -51,7 +48,7 @@ typedef enum
     DIR_STATE_CANCELING
 } DirState;
 
-struct _GnomeCmdDir
+struct GnomeCmdDir
 {
     GnomeCmdFile parent;
 
@@ -71,7 +68,7 @@ struct _GnomeCmdDir
     GnomeCmdDirPrivate *priv;
 };
 
-struct _GnomeCmdDirClass
+struct GnomeCmdDirClass
 {
     GnomeCmdFileClass parent_class;
 
@@ -83,7 +80,7 @@ struct _GnomeCmdDirClass
     void (* list_failed)        (GnomeCmdDir *dir, GnomeVFSResult result);
 };
 
-typedef struct _GnomeCmdCon GnomeCmdCon;
+struct GnomeCmdCon;
 
 GtkType gnome_cmd_dir_get_type ();
 

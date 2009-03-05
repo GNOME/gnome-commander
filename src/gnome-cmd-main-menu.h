@@ -31,20 +31,18 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_main_menu_get_type ())
 
 
-typedef struct _GnomeCmdMainMenu GnomeCmdMainMenu;
-typedef struct _GnomeCmdMainMenuPrivate GnomeCmdMainMenuPrivate;
-typedef struct _GnomeCmdMainMenuClass GnomeCmdMainMenuClass;
+struct GnomeCmdMainMenuPrivate;
 
 
-
-struct _GnomeCmdMainMenu
+struct GnomeCmdMainMenu
 {
     GtkMenuBar parent;
+
     GnomeCmdMainMenuPrivate *priv;
 };
 
 
-struct _GnomeCmdMainMenuClass
+struct GnomeCmdMainMenuClass
 {
     GtkMenuBarClass parent_class;
 };

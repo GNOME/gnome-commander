@@ -31,19 +31,17 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_make_copy_dialog_get_type ())
 
 
-typedef struct _GnomeCmdMakeCopyDialog GnomeCmdMakeCopyDialog;
-typedef struct _GnomeCmdMakeCopyDialogPrivate GnomeCmdMakeCopyDialogPrivate;
-typedef struct _GnomeCmdMakeCopyDialogClass GnomeCmdMakeCopyDialogClass;
+struct GnomeCmdMakeCopyDialogPrivate;
 
 
-struct _GnomeCmdMakeCopyDialog
+struct GnomeCmdMakeCopyDialog
 {
     GnomeCmdStringDialog parent;
     GnomeCmdMakeCopyDialogPrivate *priv;
 };
 
 
-struct _GnomeCmdMakeCopyDialogClass
+struct GnomeCmdMakeCopyDialogClass
 {
     GnomeCmdStringDialogClass parent_class;
 };

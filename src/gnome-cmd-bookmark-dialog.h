@@ -30,19 +30,17 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_bookmark_dialog_get_type ())
 
 
-typedef struct _GnomeCmdBookmarkDialog GnomeCmdBookmarkDialog;
-typedef struct _GnomeCmdBookmarkDialogPrivate GnomeCmdBookmarkDialogPrivate;
-typedef struct _GnomeCmdBookmarkDialogClass GnomeCmdBookmarkDialogClass;
+struct GnomeCmdBookmarkDialogPrivate;
 
 
-struct _GnomeCmdBookmarkDialog
+struct GnomeCmdBookmarkDialog
 {
     GnomeCmdDialog parent;
     GnomeCmdBookmarkDialogPrivate *priv;
 };
 
 
-struct _GnomeCmdBookmarkDialogClass
+struct GnomeCmdBookmarkDialogClass
 {
     GnomeCmdDialogClass parent_class;
 };

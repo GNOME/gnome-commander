@@ -34,19 +34,18 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_con_list_get_type ())
 
 
-typedef struct _GnomeCmdConList GnomeCmdConList;
-typedef struct _GnomeCmdConListClass GnomeCmdConListClass;
-typedef struct _GnomeCmdConListPrivate GnomeCmdConListPrivate;
+struct GnomeCmdConListPrivate;
 
 
-struct _GnomeCmdConList
+struct GnomeCmdConList
 {
     GtkObject parent;
 
     GnomeCmdConListPrivate *priv;
 };
 
-struct _GnomeCmdConListClass
+
+struct GnomeCmdConListClass
 {
     GtkObjectClass parent_class;
 

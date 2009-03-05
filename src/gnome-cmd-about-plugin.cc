@@ -38,7 +38,7 @@ using namespace std;
                  parent_class_cast(parent##_parent_class)->name args : (void)0)
 
 
-struct _GnomeCmdAboutPluginPrivate
+struct GnomeCmdAboutPluginPrivate
 {
     gchar *name;
     gchar *version;

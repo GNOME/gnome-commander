@@ -29,12 +29,7 @@
     GTK_CHECK_TYPE (obj, gnome_cmd_xfer_progress_win_get_type ())
 
 
-typedef struct _GnomeCmdXferProgressWin GnomeCmdXferProgressWin;
-typedef struct _GnomeCmdXferProgressWinClass GnomeCmdXferProgressWinClass;
-
-
-
-struct _GnomeCmdXferProgressWin
+struct GnomeCmdXferProgressWin
 {
     GtkWindow parent;
 
@@ -47,7 +42,7 @@ struct _GnomeCmdXferProgressWin
 };
 
 
-struct _GnomeCmdXferProgressWinClass
+struct GnomeCmdXferProgressWinClass
 {
     GtkWindowClass parent_class;
 };

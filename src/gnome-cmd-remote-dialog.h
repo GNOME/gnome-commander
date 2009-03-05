@@ -26,12 +26,10 @@
 #define GNOME_CMD_IS_REMOTE_DIALOG(obj)       (G_TYPE_INSTANCE_CHECK_TYPE ((obj), GNOME_CMD_TYPE_REMOTE_DIALOG))
 
 
-typedef struct _GnomeCmdRemoteDialog GnomeCmdRemoteDialog;
-typedef struct _GnomeCmdRemoteDialogPrivate GnomeCmdRemoteDialogPrivate;
-typedef struct _GnomeCmdRemoteDialogClass GnomeCmdRemoteDialogClass;
+struct GnomeCmdRemoteDialogPrivate;
 
 
-struct _GnomeCmdRemoteDialog
+struct GnomeCmdRemoteDialog
 {
     GnomeCmdDialog parent;
 
@@ -39,7 +37,7 @@ struct _GnomeCmdRemoteDialog
 };
 
 
-struct _GnomeCmdRemoteDialogClass
+struct GnomeCmdRemoteDialogClass
 {
     GnomeCmdDialogClass parent_class;
 };

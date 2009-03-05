@@ -25,7 +25,7 @@
 #define GNOME_CMD_FILE_SELECTOR_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_selector_get_type (), GnomeCmdFileSelectorClass)
 #define GNOME_CMD_IS_FILE_SELECTOR(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_file_selector_get_type ())
 
-typedef struct _GnomeCmdMainWin GnomeCmdMainWin;
+struct GnomeCmdMainWin;
 
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-con.h"
