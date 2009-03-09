@@ -470,7 +470,6 @@ static void xml_end (GMarkupParseContext *context,
                 if (p!=cfg->advrename_defaults.profiles.end())
                 {
                     cfg->advrename_defaults.default_profile = *p;
-                    cfg->advrename_defaults.fill_regex_model(*p);
                     cfg->advrename_defaults.profiles.erase(p);
                 }
             }
@@ -592,8 +591,6 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
     if (!f)
         return;
 
-    GtkTreeIter i;
-
     fputs("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", f);
     fputs("<!-- Created with GNOME Commander (http://www.nongnu.org/gcmd/) -->\n", f);
     fputs("<GnomeCommander version=\"" VERSION "\">\n", f);
@@ -607,18 +604,8 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
                                                                             cfg.advrename_defaults.default_profile.counter_width);
     fputs("\t\t\t<Regexes>\n", f);
 
-    for (gboolean valid_iter=gtk_tree_model_get_iter_first (cfg.advrename_defaults.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (cfg.advrename_defaults.regexes, &i))
-    {
-        GnomeCmd::RegexReplace *rx;
-
-        gtk_tree_model_get (cfg.advrename_defaults.regexes, &i,
-                            GnomeCmdAdvrenameDialog::COL_REGEX, &rx,
-                            -1);
-        if (!rx)
-            continue;
-
-        fprintf(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", rx->pattern.c_str(), rx->replacement.c_str(), rx->match_case);
-    }
+    for (std::vector<GnomeCmd::ReplacePattern>::const_iterator r=cfg.advrename_defaults.default_profile.regexes.begin(); r!=cfg.advrename_defaults.default_profile.regexes.end(); ++r)
+        fprintf(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", r->pattern.c_str(), r->replacement.c_str(), r->match_case);
 
     fputs("\t\t\t</Regexes>\n", f);
     fprintf(f, "\t\t\t<CaseConversion use=\"%u\" />\n", cfg.advrename_defaults.default_profile.case_conversion);

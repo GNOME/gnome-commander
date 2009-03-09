@@ -87,13 +87,9 @@ struct GnomeCmdData
         std::vector<Profile> profiles;
 
         History templates;
-        GtkTreeModel *regexes;
 
-        AdvrenameConfig(): width(600), height(400),
-                           templates(ADVRENAME_HISTORY_SIZE), regexes(NULL)    {}
-        ~AdvrenameConfig()          {  if (regexes)  g_object_unref (regexes);  }
-
-        void fill_regex_model(Profile &profile);
+        AdvrenameConfig(): width(600), height(400), templates(ADVRENAME_HISTORY_SIZE)   {}
+        ~AdvrenameConfig()                                                              {}
     };
 
     struct IntViewerConfig

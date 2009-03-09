@@ -1,3 +1,11 @@
+2009-03-09  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-xml-config.cc:
+	Moved regexes GtkTreeModel from gnome-cmd-data.h to gnome-cmd-advrename-dialog.cc
+
 2009-02-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-chown-component.cc:

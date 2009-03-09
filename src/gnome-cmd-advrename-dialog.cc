@@ -61,6 +61,7 @@ struct GnomeCmdAdvrenameDialog::Private
     GtkWidget *counter_step_spin;
     GtkWidget *counter_digits_spin;
 
+    GtkTreeModel *regexes;
     GtkWidget *regex_view;
 
     GtkWidget *regex_add_button;
@@ -86,6 +87,8 @@ struct GnomeCmdAdvrenameDialog::Private
 
     Private();
     ~Private();
+
+    void fill_regex_model(const GnomeCmdData::AdvrenameConfig::Profile &profile);
 
     static gchar *translate_menu (const gchar *path, gpointer data);
 
@@ -371,11 +374,13 @@ inline GnomeCmdAdvrenameDialog::Private::Private()
     convert_case = gcmd_convert_unchanged;
     trim_blanks = gcmd_convert_strip;
     template_has_counters = FALSE;
+    regexes = NULL;
 }
 
 
 inline GnomeCmdAdvrenameDialog::Private::~Private()
 {
+    if (regexes)  g_object_unref (regexes);
 }
 
 
@@ -384,6 +389,28 @@ inline gboolean model_is_empty(GtkTreeModel *tree_model)
     GtkTreeIter iter;
 
     return !gtk_tree_model_get_iter_first (tree_model, &iter);
+}
+
+void GnomeCmdAdvrenameDialog::Private::fill_regex_model(const GnomeCmdData::AdvrenameConfig::Profile &profile)
+{
+    if (!regexes)
+        return;
+
+    GtkTreeIter iter;
+
+    for (vector<GnomeCmd::ReplacePattern>::const_iterator r=profile.regexes.begin(); r!=profile.regexes.end(); ++r)
+    {
+        GnomeCmd::RegexReplace *rx = new GnomeCmd::RegexReplace(r->pattern, r->replacement, r->match_case);
+
+        gtk_list_store_append (GTK_LIST_STORE (regexes), &iter);
+        gtk_list_store_set (GTK_LIST_STORE (regexes), &iter,
+                            GnomeCmdAdvrenameDialog::COL_REGEX, rx,
+                            GnomeCmdAdvrenameDialog::COL_MALFORMED_REGEX, !*rx,
+                            GnomeCmdAdvrenameDialog::COL_PATTERN, rx->pattern.c_str(),
+                            GnomeCmdAdvrenameDialog::COL_REPLACE, rx->replacement.c_str(),
+                            GnomeCmdAdvrenameDialog::COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
+                            -1);
+    }
 }
 
 
@@ -577,6 +604,7 @@ void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::
     g_return_if_fail (dialog!=NULL);
 
     GnomeCmdData::AdvrenameConfig &cfg = GNOME_CMD_ADVRENAME_DIALOG(dialog)->defaults;
+    GtkTreeModel *regexes = GNOME_CMD_ADVRENAME_DIALOG(dialog)->priv->regexes;
 
     if (new_profile)
     {
@@ -587,11 +615,11 @@ void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::
 
         cfg.default_profile.regexes.clear();
 
-        for (gboolean valid_iter=gtk_tree_model_get_iter_first (cfg.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (cfg.regexes, &i))
+        for (gboolean valid_iter=gtk_tree_model_get_iter_first (regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (regexes, &i))
         {
             GnomeCmd::RegexReplace *r;
 
-            gtk_tree_model_get (cfg.regexes, &i,
+            gtk_tree_model_get (regexes, &i,
                                 COL_REGEX, &r,
                                 -1);
             if (r)                            //  ignore null regex patterns
@@ -628,7 +656,7 @@ void GnomeCmdAdvrenameDialog::Private::load_profile(GnomeCmdAdvrenameDialog::Pri
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_digits_spin), p.counter_width);
 
     on_regex_remove_all_btn_clicked (NULL, GNOME_CMD_ADVRENAME_DIALOG(dialog));
-    cfg.fill_regex_model(p);
+    priv->fill_regex_model(p);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), p.case_conversion);
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), p.trim_blanks);
@@ -637,9 +665,9 @@ void GnomeCmdAdvrenameDialog::Private::load_profile(GnomeCmdAdvrenameDialog::Pri
 
     cfg.default_profile = p;
 
-    gtk_widget_set_sensitive (priv->regex_edit_button, !model_is_empty(cfg.regexes));
-    gtk_widget_set_sensitive (priv->regex_remove_button, !model_is_empty(cfg.regexes));
-    gtk_widget_set_sensitive (priv->regex_remove_all_button, !model_is_empty(cfg.regexes));
+    gtk_widget_set_sensitive (priv->regex_edit_button, !model_is_empty(priv->regexes));
+    gtk_widget_set_sensitive (priv->regex_remove_button, !model_is_empty(priv->regexes));
+    gtk_widget_set_sensitive (priv->regex_remove_all_button, !model_is_empty(priv->regexes));
 }
 
 
@@ -697,8 +725,8 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_add_btn_clicked (GtkButton *butt
     {
         GtkTreeIter i;
 
-        gtk_list_store_append (GTK_LIST_STORE (dialog->defaults.regexes), &i);
-        gtk_list_store_set (GTK_LIST_STORE (dialog->defaults.regexes), &i,
+        gtk_list_store_append (GTK_LIST_STORE (dialog->priv->regexes), &i);
+        gtk_list_store_set (GTK_LIST_STORE (dialog->priv->regexes), &i,
                             COL_REGEX, rx,
                             COL_MALFORMED_REGEX, !*rx,
                             COL_PATTERN, rx->pattern.c_str(),
@@ -726,11 +754,11 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_edit_btn_clicked (GtkButton *but
     {
         GnomeCmd::RegexReplace *rx = NULL;
 
-        gtk_tree_model_get (dialog->defaults.regexes, &i, COL_REGEX, &rx, -1);
+        gtk_tree_model_get (dialog->priv->regexes, &i, COL_REGEX, &rx, -1);
 
         if (gnome_cmd_advrename_regex_dialog_new (_("Edit Rule"), GTK_WINDOW (dialog), rx))
         {
-            gtk_list_store_set (GTK_LIST_STORE (dialog->defaults.regexes), &i,
+            gtk_list_store_set (GTK_LIST_STORE (dialog->priv->regexes), &i,
                                 COL_REGEX, rx,
                                 COL_MALFORMED_REGEX, !*rx,
                                 COL_PATTERN, rx->pattern.c_str(),
@@ -753,11 +781,11 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_remove_btn_clicked (GtkButton *b
     {
         GnomeCmd::RegexReplace *rx = NULL;
 
-        gtk_tree_model_get (dialog->defaults.regexes, &i, COL_REGEX, &rx, -1);
-        gtk_list_store_remove (GTK_LIST_STORE (dialog->defaults.regexes), &i);
+        gtk_tree_model_get (dialog->priv->regexes, &i, COL_REGEX, &rx, -1);
+        gtk_list_store_remove (GTK_LIST_STORE (dialog->priv->regexes), &i);
         delete rx;
 
-        if (model_is_empty (dialog->defaults.regexes))
+        if (model_is_empty (dialog->priv->regexes))
         {
             gtk_widget_set_sensitive (dialog->priv->regex_edit_button, FALSE);
             gtk_widget_set_sensitive (dialog->priv->regex_remove_button, FALSE);
@@ -771,17 +799,17 @@ void GnomeCmdAdvrenameDialog::Private::on_regex_remove_all_btn_clicked (GtkButto
 {
     GtkTreeIter i;
 
-    for (gboolean valid_iter=gtk_tree_model_get_iter_first (dialog->defaults.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (dialog->defaults.regexes, &i))
+    for (gboolean valid_iter=gtk_tree_model_get_iter_first (dialog->priv->regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (dialog->priv->regexes, &i))
     {
         GnomeCmd::RegexReplace *rx = NULL;
 
-        gtk_tree_model_get (dialog->defaults.regexes, &i, COL_REGEX, &rx, -1);
+        gtk_tree_model_get (dialog->priv->regexes, &i, COL_REGEX, &rx, -1);
         delete rx;
     }
 
-    g_signal_handlers_block_by_func (dialog->defaults.regexes, gpointer (on_regex_model_row_deleted), dialog);
-    gtk_list_store_clear (GTK_LIST_STORE (dialog->defaults.regexes));
-    g_signal_handlers_unblock_by_func (dialog->defaults.regexes, gpointer (on_regex_model_row_deleted), dialog);
+    g_signal_handlers_block_by_func (dialog->priv->regexes, gpointer (on_regex_model_row_deleted), dialog);
+    gtk_list_store_clear (GTK_LIST_STORE (dialog->priv->regexes));
+    g_signal_handlers_unblock_by_func (dialog->priv->regexes, gpointer (on_regex_model_row_deleted), dialog);
 
     dialog->update_new_filenames();
 
@@ -1335,6 +1363,21 @@ static void gnome_cmd_advrename_dialog_finalize (GObject *object)
 {
     GnomeCmdAdvrenameDialog *dialog = GNOME_CMD_ADVRENAME_DIALOG (object);
 
+    GtkTreeIter i;
+
+    dialog->defaults.default_profile.regexes.clear();
+
+    for (gboolean valid_iter=gtk_tree_model_get_iter_first (dialog->priv->regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (dialog->priv->regexes, &i))
+    {
+        GnomeCmd::RegexReplace *rx;
+
+        gtk_tree_model_get (dialog->priv->regexes, &i,
+                            GnomeCmdAdvrenameDialog::COL_REGEX, &rx,
+                            -1);
+        if (rx)                            //  ignore null regex patterns
+           dialog-> defaults.default_profile.regexes.push_back(*rx);
+    }
+
     delete dialog->priv;
 
     G_OBJECT_CLASS (gnome_cmd_advrename_dialog_parent_class)->finalize (object);
@@ -1456,11 +1499,11 @@ void GnomeCmdAdvrenameDialog::update_new_filenames()
 
     vector<GnomeCmd::RegexReplace *> rx;
 
-    for (gboolean valid_iter=gtk_tree_model_get_iter_first (defaults.regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (defaults.regexes, &i))
+    for (gboolean valid_iter=gtk_tree_model_get_iter_first (priv->regexes, &i); valid_iter; valid_iter=gtk_tree_model_iter_next (priv->regexes, &i))
     {
         GnomeCmd::RegexReplace *r;
 
-        gtk_tree_model_get (defaults.regexes, &i,
+        gtk_tree_model_get (priv->regexes, &i,
                             COL_REGEX, &r,
                             -1);
         if (r && *r)                            //  ignore regex pattern if it can't be retrieved or if it is malformed
@@ -1563,9 +1606,16 @@ GnomeCmdAdvrenameDialog::GnomeCmdAdvrenameDialog(GnomeCmdData::AdvrenameConfig &
     g_signal_connect (priv->counter_digits_spin, "value-changed", G_CALLBACK (Private::on_counter_digits_spin_value_changed), this);
 
     // Regex
-    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->regex_view), defaults.regexes);
+    priv->regexes = GTK_TREE_MODEL (gtk_list_store_new (NUM_REGEX_COLS,
+                                                        G_TYPE_POINTER,
+                                                        G_TYPE_BOOLEAN,
+                                                        G_TYPE_STRING,
+                                                        G_TYPE_STRING,
+                                                        G_TYPE_STRING));
+    priv->fill_regex_model(cfg.default_profile);
+    gtk_tree_view_set_model (GTK_TREE_VIEW (priv->regex_view), priv->regexes);
 
-    g_signal_connect (defaults.regexes, "row-deleted", G_CALLBACK (Private::on_regex_model_row_deleted), this);
+    g_signal_connect (priv->regexes, "row-deleted", G_CALLBACK (Private::on_regex_model_row_deleted), this);
     g_signal_connect (priv->regex_view, "row-activated", G_CALLBACK (Private::on_regex_view_row_activated), this);
     g_signal_connect (priv->regex_add_button, "clicked", G_CALLBACK (Private::on_regex_add_btn_clicked), this);
     g_signal_connect (priv->regex_edit_button, "clicked", G_CALLBACK (Private::on_regex_edit_btn_clicked), this);

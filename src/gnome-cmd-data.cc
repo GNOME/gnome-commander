@@ -86,29 +86,6 @@ void GnomeCmdData::AdvrenameConfig::Profile::reset()
 }
 
 
-void GnomeCmdData::AdvrenameConfig::fill_regex_model(Profile &profile)
-{
-    if (!regexes)
-        return;
-
-    GtkTreeIter iter;
-
-    for (vector<GnomeCmd::ReplacePattern>::const_iterator r=profile.regexes.begin(); r!=profile.regexes.end(); ++r)
-    {
-        GnomeCmd::RegexReplace *rx = new GnomeCmd::RegexReplace(r->pattern, r->replacement, r->match_case);
-
-        gtk_list_store_append (GTK_LIST_STORE (regexes), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (regexes), &iter,
-                            GnomeCmdAdvrenameDialog::COL_REGEX, rx,
-                            GnomeCmdAdvrenameDialog::COL_MALFORMED_REGEX, !*rx,
-                            GnomeCmdAdvrenameDialog::COL_PATTERN, rx->pattern.c_str(),
-                            GnomeCmdAdvrenameDialog::COL_REPLACE, rx->replacement.c_str(),
-                            GnomeCmdAdvrenameDialog::COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
-                            -1);
-    }
-}
-
-
 inline gint get_int (const gchar *path, int def)
 {
     gboolean b = FALSE;
@@ -994,20 +971,11 @@ inline void GnomeCmdData::load_rename_history()
     GList *tmp_to = to = load_string_history ("/rename-history/to%d", size);
     GList *tmp_csens = csens = load_string_history ("/rename-history/csens%d", size);
 
-    for (GtkTreeIter iter; tmp_from && size > 0; --size)
+    for (; tmp_from && size > 0; --size)
     {
-        GnomeCmd::RegexReplace *rx = new GnomeCmd::RegexReplace((gchar *) tmp_from->data,
-                                                                (gchar *) tmp_to->data,
-                                                                *((gchar *) tmp_csens->data)=='T');
-        gtk_list_store_append (GTK_LIST_STORE (advrename_defaults.regexes), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (advrename_defaults.regexes), &iter,
-                            GnomeCmdAdvrenameDialog::COL_REGEX, rx,
-                            GnomeCmdAdvrenameDialog::COL_MALFORMED_REGEX, !*rx,
-                            GnomeCmdAdvrenameDialog::COL_PATTERN, rx->pattern.c_str(),
-                            GnomeCmdAdvrenameDialog::COL_REPLACE, rx->replacement.c_str(),
-                            GnomeCmdAdvrenameDialog::COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
-                            -1);
-
+        advrename_defaults.default_profile.regexes.push_back(GnomeCmd::ReplacePattern((gchar *) tmp_from->data,
+                                                                                      (gchar *) tmp_to->data,
+                                                                                      *((gchar *) tmp_csens->data)=='T'));
         tmp_from = tmp_from->next;
         tmp_to = tmp_to->next;
         tmp_csens = tmp_csens->next;
@@ -1395,15 +1363,6 @@ void GnomeCmdData::load()
     //load_dir_history ();
     load_search_defaults();
 
-    // FIXME:  the regex list definitely needs to be created in GnomeCmdData::AdvrenameConfig::AdvrenameConfig() constructor
-    // Unfortunately, this can't be done now, as gnome_cmd_data is global and is constructed before main() - causing gcmd crash
-    // To be moved, when gnome_cmd_data is part of GnomeCmdMainWindow
-    advrename_defaults.regexes = GTK_TREE_MODEL (gtk_list_store_new (GnomeCmdAdvrenameDialog::NUM_REGEX_COLS,
-                                                                     G_TYPE_POINTER,
-                                                                     G_TYPE_BOOLEAN,
-                                                                     G_TYPE_STRING,
-                                                                     G_TYPE_STRING,
-                                                                     G_TYPE_STRING));
     if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
     {
         load_rename_history();
