@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <regex.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-advrename-regex-dialog.h"
 #include "gnome-cmd-advrename-dialog.h"

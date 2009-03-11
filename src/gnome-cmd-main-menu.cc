@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-main-menu.h"
 #include "gnome-cmd-types.h"

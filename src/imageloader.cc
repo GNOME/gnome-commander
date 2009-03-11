@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+
 #include "gnome-cmd-includes.h"
 #include "imageloader.h"
 #include "utils.h"

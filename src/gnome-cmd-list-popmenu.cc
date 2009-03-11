@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-list-popmenu.h"
 #include "gnome-cmd-file-selector.h"

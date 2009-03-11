@@ -23,7 +23,6 @@
 */
 
 #include <config.h>
-
 #include <string.h>
 #include "libgviewer.h"
 #include "bm_chartype.h"

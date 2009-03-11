@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-dir.h"

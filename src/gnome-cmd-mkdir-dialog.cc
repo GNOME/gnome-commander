@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-mkdir-dialog.h"
 #include "gnome-cmd-dir.h"

@@ -23,7 +23,6 @@
 */
 
 #include <config.h>
-
 #include <glib.h>
 #include "gvtypes.h"
 #include "viewer-utils.h"

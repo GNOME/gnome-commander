@@ -19,7 +19,6 @@
 */
 
 #include <config.h>
-
 #include <stdio.h>
 
 #include "gnome-cmd-includes.h"

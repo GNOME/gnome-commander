@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+
 #include "gnome-cmd-includes.h"
 #include "ls_colors.h"
 #include "gnome-cmd-file.h"

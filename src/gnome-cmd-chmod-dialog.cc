@@ -22,6 +22,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <errno.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-chmod-component.h"

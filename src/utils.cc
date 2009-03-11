@@ -22,6 +22,7 @@
 #include <locale.h>
 #include <errno.h>
 #include <dirent.h>
+#include <fnmatch.h>
 
 #include <set>
 
@@ -33,8 +34,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-con-list.h"
 #include "gnome-cmd-xfer.h"
-
-#include <fnmatch.h>
 
 using namespace std;
 

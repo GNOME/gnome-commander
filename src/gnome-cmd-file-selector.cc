@@ -22,6 +22,7 @@
 #include <sys/types.h>
 #include <regex.h>
 #include <errno.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-dir.h"

@@ -24,8 +24,6 @@
 
 #include <config.h>
 
-#include <iostream>
-
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
@@ -34,6 +32,8 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkadjustment.h>
 #include <gtk/gtkmarshal.h>
+
+#include <iostream>
 
 #include "image-render.h"
 #include "gnome-cmd-includes.h"

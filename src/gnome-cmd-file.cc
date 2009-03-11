@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <errno.h>
+
 #include "gnome-cmd-includes.h"
 #include "utils.h"
 #include "owner.h"

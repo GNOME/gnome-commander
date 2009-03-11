@@ -18,12 +18,12 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+#include <config.h>
 #include <unistd.h>
 
 #include <map>
 #include <set>
 
-#include <config.h>
 #include "gnome-cmd-includes.h"
 #include "owner.h"
 #include "utils.h"

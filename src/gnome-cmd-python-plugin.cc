@@ -18,11 +18,12 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
+#include <config.h>
 #include <Python.h>
 #include <glib/gprintf.h>
 #include <gdk/gdkx.h>
 #include <dirent.h>
-#include <config.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-python-plugin.h"

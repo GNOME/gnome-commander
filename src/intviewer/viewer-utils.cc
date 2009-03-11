@@ -23,7 +23,6 @@
 */
 
 #include <config.h>
-
 #include <glib.h>
 #include <libgnomeui/libgnomeui.h>
 #include <libgnome/libgnome.h>

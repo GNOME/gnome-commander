@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-mime-monitor.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-file-selector.h"

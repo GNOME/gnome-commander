@@ -21,6 +21,7 @@
 #include <config.h>
 #include <dirent.h>
 #include <gmodule.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "plugin_manager.h"

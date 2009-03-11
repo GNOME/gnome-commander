@@ -22,6 +22,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <unistd.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-file-selector.h"

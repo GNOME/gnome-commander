@@ -20,6 +20,7 @@
 
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-module-callback.h>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-smb-auth.h"
 
