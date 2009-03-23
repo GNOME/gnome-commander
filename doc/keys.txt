@@ -131,7 +131,7 @@ CTRL+SHIFT+ENTER
                 Add the file name under the cursor including its path
                 to the end of the command line
 
-CTRL+DOWN or ALT+F8
+CTRL+DOWN or CTRL+E or ALT+F8
                 A list with the latest command lines (history list) is opened.
                 Use the UP and DOWN cursor keys to select an entry. By pressing
                 the LEFT or RIGHT key, you can edit the command line. This

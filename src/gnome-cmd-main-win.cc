@@ -1003,6 +1003,8 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
     {
         switch (event->keyval)
         {
+            case GDK_e:
+            case GDK_E:
             case GDK_Down:
                 if (gnome_cmd_data.cmdline_visibility)
                     gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));

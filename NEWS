@@ -27,6 +27,8 @@ New features:
  * New colour theme: cafezinho
  * New or updated docs: de, en, es
  * New or updated translations: ar, cs, de, es, eu, fr, pl, pt_BR, sv
+ * New key bindings:
+      CTRL+E         Open the history list for the command line
  * New internal viewer key bindings:
       T              Show metadata tags (replaces the old E)
       ALT+ENTER      Show metadata tags

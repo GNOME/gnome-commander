@@ -4414,6 +4414,7 @@
         </row>
         <row valign="top">
             <entry><para><keycombo><keycap>CTRL</keycap><keycap>DOWN</keycap></keycombo></para>
+                   <para><keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo></para>
                    <para><keycombo><keycap>ALT</keycap><keycap>F8</keycap></keycombo></para></entry>
             <entry><para>A list with the latest command lines (history list) is opened. Use the <keycombo><keycap>UP</keycap></keycombo>
             and <keycombo><keycap>DOWN</keycap></keycombo> cursor keys to select an entry.
@@ -5970,6 +5971,14 @@
                         </listitem>
                         <listitem>
                             <para>New or updated translations: ar, cs, de, es, eu, fr, pl, pt_BR, sv</para>
+                        </listitem>
+                        <listitem>
+                            <para>New key bindings:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para><keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo>   Open the history list for the command line</para>
+                                </listitem>
+                            </itemizedlist>
                         </listitem>
                         <listitem>
                             <para>New internal viewer key bindings:</para>

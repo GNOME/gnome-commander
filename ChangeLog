@@ -1,3 +1,8 @@
+2009-03-23  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-main-win.cc:
+	Added shortcut CTRL+E to command line history list
+
 2009-03-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:
