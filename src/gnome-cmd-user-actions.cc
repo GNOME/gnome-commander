@@ -202,6 +202,9 @@ static UserActionData user_actions_data[] = {
                                              {view_new_tab, "view.new_tab", N_("Open directory in a new tab")},
                                              {view_refresh, "view.refresh", N_("Refresh")},
                                              {view_root, "view.root", N_("Root directory")},
+#if 0
+                                             {view_terminal, "view.terminal", N_("Show terminal")},
+#endif
                                              {view_up, "view.up", N_("Up one directory")},
                                             };
 
