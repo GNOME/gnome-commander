@@ -5943,6 +5943,9 @@
                             <para>Fixed problem #571558 (replacing deprecated GNOME_STOCK_* buttons with GTK_STOCK_* counterparts)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 locale)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with setting equal pane size in horizontal mode</para>
                         </listitem>
                     </itemizedlist>

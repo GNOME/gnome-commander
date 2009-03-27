@@ -745,17 +745,12 @@ static gboolean on_right_mb_timeout (GnomeCmdFileList *fl)
 
 
 /******************************************************
- * Filesorting functions
+ * File sorting functions
  **/
 
 inline gint my_strcmp (const gchar *s1, const gchar *s2, gboolean raising)
 {
-    int ret = 0;
-
-    if (gnome_cmd_data.case_sens_sort)
-        ret = strcmp (s1,s2);
-    else
-        ret = g_strcasecmp (s1,s2);
+    int ret = strcmp (s1, s2);
 
     if (ret > 0)
         return raising ? -1 : 1;

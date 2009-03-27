@@ -214,7 +214,17 @@ void gnome_cmd_file_setup (GnomeCmdFile *f, GnomeVFSFileInfo *info, GnomeCmdDir 
     f->info = info;
     GNOME_CMD_FILE_INFO (f)->info = info;
 
-    gchar *utf8_name = get_utf8 (info->name);
+    gchar *utf8_name;
+
+    if (!gnome_cmd_data.case_sens_sort)
+    {
+        gchar *s = get_utf8 (info->name);
+        utf8_name = g_utf8_casefold (s, -1);
+        g_free (s);
+    }
+    else
+        utf8_name = get_utf8 (info->name);
+
     f->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
     g_free (utf8_name);
 
@@ -826,7 +836,17 @@ void gnome_cmd_file_update_info (GnomeCmdFile *f, GnomeVFSFileInfo *info)
     gnome_vfs_file_info_ref (info);
     f->info = info;
 
-    gchar *utf8_name = get_utf8 (info->name);
+    gchar *utf8_name;
+
+    if (!gnome_cmd_data.case_sens_sort)
+    {
+        gchar *s = get_utf8 (info->name);
+        utf8_name = g_utf8_casefold (s, -1);
+        g_free (s);
+    }
+    else
+        utf8_name = get_utf8 (info->name);
+
     f->collate_key = g_utf8_collate_key_for_filename (utf8_name, -1);
     g_free (utf8_name);
 }

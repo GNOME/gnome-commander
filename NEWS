@@ -16,6 +16,7 @@ Bug fixes:
  * Fixed problem #571239 (replacing obsoleted GnomeColorPicker with GtkColorButton)
  * Fixed problem #571247 (replacing obsoleted GnomePixmap with GtkImage)
  * Fixed problem #571558 (replacing deprecated GNOME_STOCK_* buttons with GTK_STOCK_* counterparts)
+ * Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 locale)
  * Fixed problem with setting equal pane size in horizontal mode
 
 New features:

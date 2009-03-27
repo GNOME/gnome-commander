@@ -1,3 +1,9 @@
+2009-03-27  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file-list.cc:
+	Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 locale)
+
 2009-03-24  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-main-menu.cc:
