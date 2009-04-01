@@ -88,8 +88,8 @@ namespace GnomeCmd
         RegexFind(const gchar *from, gboolean case_sensitive);
         RegexFind(const std::string &from, gboolean case_sensitive);
 
-        void assign(const gchar *from, gboolean case_sensitive)           {  return Regex::assign(from, case_sensitive);   }
-        void assign(const std::string &from, gboolean case_sensitive)     {  return Regex::assign(from, case_sensitive);   }
+        void assign(const gchar *from, gboolean case_sensitive)           {  Regex::assign(from, case_sensitive);  }
+        void assign(const std::string &from, gboolean case_sensitive)     {  Regex::assign(from, case_sensitive);  }
         gboolean match(const gchar *s);
         gboolean match(const std::string &s) {  return match(s.c_str());  }
         int start() const;
@@ -104,7 +104,7 @@ namespace GnomeCmd
         RegexReplace(const std::string &from, const std::string &to, gboolean case_sensitive): FindPattern(from,case_sensitive), ReplacePattern(from,to,case_sensitive), Regex(from,case_sensitive) {}
 
         void assign(const gchar *from, const gchar *to, gboolean case_sensitive);
-        void assign(const std::string &from, const std::string &to, gboolean case_sensitive)    {  replacement = to; return Regex::assign(from, case_sensitive);   }
+        void assign(const std::string &from, const std::string &to, gboolean case_sensitive)    {  replacement = to; Regex::assign(from, case_sensitive);   }
         gchar *replace(const gchar *s);
         gchar *replace(const std::string &s)    {  return replace(s.c_str());  }
     };
@@ -134,7 +134,8 @@ namespace GnomeCmd
     inline void Regex::assign(const gchar *from, gboolean case_sensitive)
     {
 #if GLIB_CHECK_VERSION (2, 14, 0)
-        g_regex_unref (re);
+        if (re)
+            g_regex_unref (re);
 #else
         if (!malformed_pattern)  regfree(&re);
 #endif
@@ -151,7 +152,8 @@ namespace GnomeCmd
     inline void Regex::assign(const std::string &from, gboolean case_sensitive)
     {
 #if GLIB_CHECK_VERSION (2, 14, 0)
-        g_regex_unref (re);
+        if (re)
+            g_regex_unref (re);
 #else
         if (!malformed_pattern)  regfree(&re);
 #endif

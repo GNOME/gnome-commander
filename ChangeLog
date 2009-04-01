@@ -1,3 +1,8 @@
+2009-04-02  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-regex.h:
+	regex: fix for g_regex_unref() assertion
+
 2009-03-27  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file.cc:
