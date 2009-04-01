@@ -5907,6 +5907,9 @@
                             <para>Fixed problem #536446 (file name not focused for in-place renaming)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #539812 (crash when deleting files: broken it.po)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #548947 (non-UTF8 locale date problem)</para>
                         </listitem>
                         <listitem>

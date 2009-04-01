@@ -4,6 +4,7 @@ gnome-commander 1.2.8
 
 Bug fixes:
  * Fixed problem #536446 (file name not focused for in-place renaming)
+ * Fixed problem #539812 (crash when deleting files: broken it.po)
  * Fixed problem #548947 (non-UTF8 locale date problem)
  * Fixed problem #548948 (crash when home directory contains non-UTF8 characters)
  * Fixed problem #548961 (support for input method when rename or quicksearch)
