@@ -31,14 +31,14 @@ using namespace std;
 #define NUM_FILE_TYPE_PIXMAPS 8
 
 
-typedef struct
+struct CacheEntry
 {
     gboolean dead_end;
     GdkPixmap *pixmap;
     GdkBitmap *mask;
     GdkPixmap *lnk_pixmap;
     GdkBitmap *lnk_mask;
-} CacheEntry;
+};
 
 
 static const gchar *file_type_pixmap_files[NUM_FILE_TYPE_PIXMAPS] = {
@@ -92,13 +92,11 @@ static gboolean load_icon (const gchar *icon_path, GdkPixmap **pm, GdkBitmap **b
  */
 void IMAGE_init ()
 {
-    gint i;
-
     mime_cache = g_hash_table_new (g_str_hash, g_str_equal);
 
      // Load misc icons
 
-    for (i=1; i<NUM_PIXMAPS; i++)
+    for (gint i=1; i<NUM_PIXMAPS; i++)
     {
         gchar *path = g_build_path (G_DIR_SEPARATOR_S, PIXMAPS_DIR, pixmap_files[i], NULL);
 
@@ -124,7 +122,7 @@ void IMAGE_init ()
 
      // Load file type icons
 
-     for (i=0; i<NUM_FILE_TYPE_PIXMAPS; i++)
+     for (gint i=0; i<NUM_FILE_TYPE_PIXMAPS; i++)
     {
         CacheEntry *e = &file_type_pixmaps[i];
         gchar *path = g_build_path (G_DIR_SEPARATOR_S, PIXMAPS_DIR, file_type_pixmap_files[i], NULL);
@@ -148,35 +146,9 @@ void IMAGE_init ()
 }
 
 
-GdkPixmap *IMAGE_get_pixmap (Pixmap pixmap_id)
-{
-    if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS && pixmaps[pixmap_id] != NULL)
-        return pixmaps[pixmap_id]->pixmap;
-    return NULL;
-}
-
-
-GdkBitmap *IMAGE_get_mask (Pixmap pixmap_id)
-{
-    if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS && pixmaps[pixmap_id] != NULL)
-        return pixmaps[pixmap_id]->mask;
-    return NULL;
-}
-
-
-GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id)
-{
-    if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS && pixmaps[pixmap_id] != NULL)
-        return pixmaps[pixmap_id]->pixbuf;
-    return NULL;
-}
-
-
 GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id)
 {
-    if (pixmap_id > 0 && pixmap_id < NUM_PIXMAPS)
-        return pixmaps[pixmap_id];
-    return NULL;
+    return pixmap_id > 0 && pixmap_id < NUM_PIXMAPS ? pixmaps[pixmap_id] : NULL;
 }
 
 
@@ -249,8 +221,7 @@ static const gchar *get_type_icon_name (GnomeVFSFileType type)
  * Returns the full path to an image for the given filetype in the given directory.
  *
  */
-static gchar *
-get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *icon_dir)
+inline gchar *get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *icon_dir)
 {
     return g_build_path (G_DIR_SEPARATOR_S, icon_dir, get_type_icon_name (type), NULL);
 }
@@ -261,12 +232,12 @@ get_mime_file_type_icon_path (GnomeVFSFileType type, const gchar *icon_dir)
  * the gived directory. There is no guarantee that the image exists this
  * function just returns the name that the icon should have if it exists.
  */
-static gchar *
-get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
+inline gchar *get_mime_document_type_icon_path (const gchar *mime_type, const gchar *icon_dir)
 {
     gchar *icon_name = get_mime_icon_name (mime_type);
     gchar *icon_path = g_build_path (G_DIR_SEPARATOR_S, icon_dir, icon_name, NULL);
     g_free (icon_name);
+
     return icon_path;
 }
 
@@ -435,7 +406,7 @@ static gboolean get_mime_icon (GnomeVFSFileType type,
 }
 
 
-static gboolean get_type_icon (GnomeVFSFileType type,
+inline gboolean get_type_icon (GnomeVFSFileType type,
                                gboolean symlink,
                                GdkPixmap **pixmap,
                                GdkBitmap **mask)
@@ -484,6 +455,7 @@ static gboolean remove_entry (const gchar *key, CacheEntry *entry, gpointer user
     }
 
     g_free (entry);
+
     return TRUE;
 }
 

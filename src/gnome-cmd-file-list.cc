@@ -315,16 +315,16 @@ static void on_quicksearch_popup_hide (GtkWidget *quicksearch_popup, GnomeCmdFil
 }
 
 
-static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
+static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (finfo != NULL);
-    g_return_if_fail (finfo->info != NULL);
+    g_return_if_fail (f != NULL);
+    g_return_if_fail (f->info != NULL);
 
-    if (strcmp (finfo->info->name, "..") == 0)
+    if (strcmp (f->info->name, "..") == 0)
         return;
 
-    gint row = fl->get_row_from_file(finfo);
+    gint row = fl->get_row_from_file(f);
     if (row == -1)
         return;
 
@@ -341,35 +341,35 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
         }
     }
 
-    if (g_list_index (fl->priv->selected_files, finfo) != -1)
+    if (g_list_index (fl->priv->selected_files, f) != -1)
         return;
 
-    gnome_cmd_file_ref (finfo);
-    fl->priv->selected_files = g_list_append (fl->priv->selected_files, finfo);
+    gnome_cmd_file_ref (f);
+    fl->priv->selected_files = g_list_append (fl->priv->selected_files, f);
 
     gtk_signal_emit (*fl, file_list_signals[FILES_CHANGED]);
 }
 
 
-static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
+static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (finfo != NULL);
+    g_return_if_fail (f != NULL);
 
-    gint row = fl->get_row_from_file(finfo);
+    gint row = fl->get_row_from_file(f);
     if (row == -1)
         return;
 
-    if (g_list_index (fl->priv->selected_files, finfo) == -1)
+    if (g_list_index (fl->priv->selected_files, f) == -1)
         return;
 
-    gnome_cmd_file_unref (finfo);
-    fl->priv->selected_files = g_list_remove (fl->priv->selected_files, finfo);
+    gnome_cmd_file_unref (f);
+    fl->priv->selected_files = g_list_remove (fl->priv->selected_files, f);
 
     if (!gnome_cmd_data.use_ls_colors)
         gtk_clist_set_row_style (*fl, row, row%2 ? alt_list_style : list_style);
     else
-        if (LsColor *col = ls_colors_get (finfo))
+        if (LsColor *col = ls_colors_get (f))
         {
             GnomeCmdColorTheme *colors = gnome_cmd_data_get_current_color_theme ();
             GdkColor *fg = col->fg ? col->fg : colors->norm_fg;
@@ -383,21 +383,21 @@ static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
 }
 
 
-inline void toggle_file (GnomeCmdFileList *fl, GnomeCmdFile *finfo)
+inline void toggle_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (finfo != NULL);
+    g_return_if_fail (f != NULL);
 
-    gint row = fl->get_row_from_file(finfo);
+    gint row = fl->get_row_from_file(f);
 
     if (row == -1)
         return;
 
     if (row < fl->priv->visible_files.size())
-        if (g_list_index (fl->priv->selected_files, finfo) == -1)
-            select_file (fl, finfo);
+        if (g_list_index (fl->priv->selected_files, f) == -1)
+            select_file (fl, f);
         else
-            unselect_file (fl, finfo);
+            unselect_file (fl, f);
 }
 
 
@@ -407,10 +407,10 @@ inline void select_file_at_row (GnomeCmdFileList *fl, gint row)
 
     fl->priv->cur_file = row;
 
-    GnomeCmdFile *finfo = fl->get_file_at_row(row);
+    GnomeCmdFile *f = fl->get_file_at_row(row);
 
-    if (finfo)
-        select_file (fl, finfo);
+    if (f)
+        select_file (fl, f);
 }
 
 
@@ -436,10 +436,10 @@ inline void toggle_file_at_row (GnomeCmdFileList *fl, gint row)
 
     fl->priv->cur_file = row;
 
-    GnomeCmdFile *finfo = fl->get_file_at_row(row);
+    GnomeCmdFile *f = fl->get_file_at_row(row);
 
-    if (finfo)
-        toggle_file (fl, finfo);
+    if (f)
+        toggle_file (fl, f);
 }
 
 
@@ -471,18 +471,18 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
 
     for (GList *tmp=fl->get_visible_files(); tmp; tmp=tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
 
-        if (finfo && finfo->info)
+        if (f && f->info)
         {
-            const gchar *ext2 = gnome_cmd_file_get_extension (finfo);
+            const gchar *ext2 = gnome_cmd_file_get_extension (f);
 
             if (ext2 && strcmp (ext1, ext2) == 0)
             {
                 if (select)
-                    select_file (fl, finfo);
+                    select_file (fl, f);
                 else
-                    unselect_file (fl, finfo);
+                    unselect_file (fl, f);
             }
         }
     }
@@ -497,15 +497,15 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
 
     for (GList *tmp=fl->get_visible_files(); tmp; tmp=tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
 
-        if (finfo && finfo->info)
-            if (filter.match(finfo->info->name))
+        if (f && f->info)
+            if (filter.match(f->info->name))
             {
                 if (mode)
-                    select_file (fl, finfo);
+                    select_file (fl, f);
                 else
-                    unselect_file (fl, finfo);
+                    unselect_file (fl, f);
             }
     }
 }
@@ -593,19 +593,19 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
         // create a list with the uri's of the selected files and calculate the total_length needed
         for (GList *tmp=sel_files; tmp; tmp=tmp->next)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+            GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
             const gchar *fn = NULL;
             gchar *uri_str;
 
-            if (gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (finfo)))
+            if (gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (f)))
             {
 #ifdef UNESCAPE_LOCAL_FILES
-                fn = gnome_vfs_unescape_string (gnome_cmd_file_get_uri_str (finfo), 0);
+                fn = gnome_vfs_unescape_string (gnome_cmd_file_get_uri_str (f), 0);
 #endif
             }
 
             if (!fn)
-                fn = gnome_cmd_file_get_uri_str (finfo);
+                fn = gnome_cmd_file_get_uri_str (f);
 
             uri_str = g_strdup_printf ("%s\r\n", fn);
             uri_str_list = g_list_append (uri_str_list, uri_str);
@@ -638,8 +638,8 @@ static char *build_selected_file_list (GnomeCmdFileList *fl, int *file_list_len)
     else
         if (listlen == 1)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile *) sel_files->data;
-            char *uri_str = g_strdup (gnome_cmd_file_get_uri_str (finfo));
+            GnomeCmdFile *f = (GnomeCmdFile *) sel_files->data;
+            char *uri_str = g_strdup (gnome_cmd_file_get_uri_str (f));
 
             *file_list_len = strlen (uri_str) + 1;
             return uri_str;
@@ -1054,9 +1054,9 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
         return FALSE;
     }
 
-    GnomeCmdFile *finfo = fl->get_file_at_row(row);
+    GnomeCmdFile *f = fl->get_file_at_row(row);
 
-    gtk_signal_emit (*fl, file_list_signals[FILE_CLICKED], finfo, event);
+    gtk_signal_emit (*fl, file_list_signals[FILE_CLICKED], f, event);
 
     gtk_signal_emit_stop_by_name (GTK_OBJECT (clist), "button-press-event");
 
@@ -1064,13 +1064,13 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
 }
 
 
-static gboolean mime_exec_file (GnomeCmdFile *finfo)
+inline gboolean mime_exec_file (GnomeCmdFile *f)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (finfo), FALSE);
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), FALSE);
 
-    if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+    if (f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
-        mime_exec_single (finfo);
+        mime_exec_single (f);
         return TRUE;
     }
 
@@ -1078,21 +1078,21 @@ static gboolean mime_exec_file (GnomeCmdFile *finfo)
 }
 
 
-static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEventButton *event, gpointer data)
+static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, gpointer data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (finfo != NULL);
+    g_return_if_fail (f != NULL);
     g_return_if_fail (event != NULL);
 
     if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
     {
-        mime_exec_file (finfo);
+        mime_exec_file (f);
     }
     else
         if (event->type == GDK_BUTTON_PRESS && (event->button == 1 || event->button == 3))
         {
             gint prev_row = fl->priv->cur_file;
-            gint row = fl->get_row_from_file(finfo);
+            gint row = fl->get_row_from_file(f);
 
             fl->select_row(row);
             gtk_widget_grab_focus (*fl);
@@ -1116,22 +1116,22 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEvent
             }
             else
                 if (event->button == 3)
-                    if (strcmp (finfo->info->name, "..") != 0)
+                    if (strcmp (f->info->name, "..") != 0)
                     {
                         if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
                         {
-                            if (g_list_index (fl->priv->selected_files, finfo) == -1)
+                            if (g_list_index (fl->priv->selected_files, f) == -1)
                             {
-                                select_file (fl, finfo);
+                                select_file (fl, f);
                                 fl->priv->right_mb_sel_state = 1;
                             }
                             else
                             {
-                                unselect_file (fl, finfo);
+                                unselect_file (fl, f);
                                 fl->priv->right_mb_sel_state = 0;
                             }
 
-                            fl->priv->right_mb_down_file = finfo;
+                            fl->priv->right_mb_down_file = f;
                             fl->priv->right_mb_timeout_id =
                                 g_timeout_add (POPUP_TIMEOUT, (GSourceFunc) on_right_mb_timeout, fl);
                         }
@@ -1158,14 +1158,14 @@ static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFi
 
         if (row != -1)
         {
-            GnomeCmdFile *finfo = fl->get_file_at_row(row+1);
-            if (finfo)
+            GnomeCmdFile *f = fl->get_file_at_row(row+1);
+            if (f)
             {
                 fl->select_row(row+1);
                 if (fl->priv->right_mb_sel_state)
-                    select_file (fl, finfo);
+                    select_file (fl, f);
                 else
-                    unselect_file (fl, finfo);
+                    unselect_file (fl, f);
             }
         }
     }
@@ -1189,8 +1189,8 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
     {
         if (event->button == 1 && state_is_blank (event->state))
         {
-            GnomeCmdFile *finfo = fl->get_file_at_row(row);
-            if (finfo && g_list_index (fl->priv->selected_files, finfo) == -1)
+            GnomeCmdFile *f = fl->get_file_at_row(row);
+            if (f && g_list_index (fl->priv->selected_files, f) == -1)
                 fl->unselect_all();
             return TRUE;
         }
@@ -1353,11 +1353,11 @@ GnomeCmdFileList::ColumnID GnomeCmdFileList::get_sort_column()
 }
 
 
-inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint in_row)
+inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_row)
 {
     GtkCList *clist = GTK_CLIST (fl);
 
-    FileFormatData data(finfo,FALSE);
+    FileFormatData data(f,FALSE);
 
     gint row = in_row == -1 ? gtk_clist_append (clist, data.text) : gtk_clist_insert (clist, in_row, data.text);
 
@@ -1366,7 +1366,7 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint i
         gtk_clist_set_row_style (clist, row, row%2 ? alt_list_style : list_style);
     else
     {
-        LsColor *col = ls_colors_get (finfo);
+        LsColor *col = ls_colors_get (f);
         if (col)
         {
             if (col->bg)
@@ -1376,19 +1376,19 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *finfo, gint i
         }
     }
 
-    gtk_clist_set_row_data (clist, row, finfo);
+    gtk_clist_set_row_data (clist, row, f);
 
     // If the use wants icons to show file types set it now
     if (gnome_cmd_data.layout != GNOME_CMD_LAYOUT_TEXT)
     {
         gtk_clist_set_pixmap (clist, row, 0,
-                              gnome_cmd_file_get_type_pixmap (finfo),
-                              gnome_cmd_file_get_type_mask (finfo));
+                              gnome_cmd_file_get_type_pixmap (f),
+                              gnome_cmd_file_get_type_mask (f));
     }
 
     // If we have been waiting for this file to show up, focus it
     if (fl->priv->focus_later &&
-        strcmp (gnome_cmd_file_get_name (finfo), fl->priv->focus_later) == 0)
+        strcmp (gnome_cmd_file_get_name (f), fl->priv->focus_later) == 0)
         focus_file_at_row (fl, row);
 }
 
@@ -1681,14 +1681,14 @@ void GnomeCmdFileList::invert_selection()
 
     for (GList *tmp=get_visible_files(); tmp; tmp = tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
 
-        if (finfo && finfo->info)
+        if (f && f->info)
         {
-            if (g_list_index (sel, finfo) == -1)
-                select_file (this, finfo);
+            if (g_list_index (sel, f) == -1)
+                select_file (this, f);
             else
-                unselect_file (this, finfo);
+                unselect_file (this, f);
         }
     }
 
@@ -1795,15 +1795,15 @@ void gnome_cmd_file_list_show_rename_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *finfo = fl->get_selected_file();
+    GnomeCmdFile *f = fl->get_selected_file();
 
-    if (GNOME_CMD_IS_FILE (finfo))
+    if (GNOME_CMD_IS_FILE (f))
     {
         gint x, y, w, h;
 
         get_focus_row_coordinates (fl, x, y, w, h);
 
-        GtkWidget *dialog = gnome_cmd_rename_dialog_new (finfo, x, y, w, h);
+        GtkWidget *dialog = gnome_cmd_rename_dialog_new (f, x, y, w, h);
 
         gtk_widget_ref (dialog);
         gtk_widget_show (dialog);
@@ -1863,10 +1863,10 @@ void gnome_cmd_file_list_show_properties_dialog (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *finfo = fl->get_selected_file();
+    GnomeCmdFile *f = fl->get_selected_file();
 
-    if (finfo)
-        gnome_cmd_file_show_properties (finfo);
+    if (f)
+        gnome_cmd_file_show_properties (f);
 }
 
 
@@ -1908,14 +1908,14 @@ void gnome_cmd_file_list_view (GnomeCmdFileList *fl, gint internal_viewer)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *finfo = fl->get_selected_file();
+    GnomeCmdFile *f = fl->get_selected_file();
 
-    if (!finfo)  return;
+    if (!f)  return;
 
-    if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-        create_error_dialog (_("Not an ordinary file: %s"), finfo->info->name);
+    if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        create_error_dialog (_("Not an ordinary file: %s"), f->info->name);
     else
-        gnome_cmd_file_view (finfo, internal_viewer);
+        gnome_cmd_file_view (f, internal_viewer);
 }
 
 
@@ -1923,14 +1923,14 @@ void gnome_cmd_file_list_edit (GnomeCmdFileList *fl)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
 
-    GnomeCmdFile *finfo = fl->get_selected_file();
+    GnomeCmdFile *f = fl->get_selected_file();
 
-    if (!finfo)  return;
+    if (!f)  return;
 
-    if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-        create_error_dialog (_("Not an ordinary file: %s"), finfo->info->name);
+    if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        create_error_dialog (_("Not an ordinary file: %s"), f->info->name);
     else
-        gnome_cmd_file_edit (finfo);
+        gnome_cmd_file_edit (f);
 }
 
 

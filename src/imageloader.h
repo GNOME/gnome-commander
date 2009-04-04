@@ -27,7 +27,7 @@
  * If you add a pixmap id here be sure to add its filename in
  * the array in imageloader.c
  */
-typedef enum
+enum Pixmap
 {
     PIXMAP_NONE,
 
@@ -47,16 +47,31 @@ typedef enum
     PIXMAP_INTERNAL_VIEWER,
 
     NUM_PIXMAPS
-} Pixmap;
+};
 
 
 void IMAGE_init ();
 void IMAGE_free ();
 
-GdkPixmap *IMAGE_get_pixmap (Pixmap pixmap_id);
-GdkBitmap *IMAGE_get_mask (Pixmap pixmap_id);
-GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id);
 GnomeCmdPixmap *IMAGE_get_gnome_cmd_pixmap (Pixmap pixmap_id);
+
+inline GdkPixmap *IMAGE_get_pixmap (Pixmap pixmap_id)
+{
+    GnomeCmdPixmap *pixmap = IMAGE_get_gnome_cmd_pixmap (pixmap_id);
+    return pixmap ? pixmap->pixmap : NULL;
+}
+
+inline GdkBitmap *IMAGE_get_mask (Pixmap pixmap_id)
+{
+    GnomeCmdPixmap *pixmap = IMAGE_get_gnome_cmd_pixmap (pixmap_id);
+    return pixmap ? pixmap->mask : NULL;
+}
+
+inline GdkPixbuf *IMAGE_get_pixbuf (Pixmap pixmap_id)
+{
+    GnomeCmdPixmap *pixmap = IMAGE_get_gnome_cmd_pixmap (pixmap_id);
+    return pixmap ? pixmap->pixbuf : NULL;
+}
 
 gboolean IMAGE_get_pixmap_and_mask (GnomeVFSFileType type,
                                     const gchar *mime_type,

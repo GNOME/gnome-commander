@@ -707,19 +707,16 @@ GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absol
 }
 
 
-static gboolean file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
+inline gboolean file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
     g_return_val_if_fail (uri_str != NULL, TRUE);
 
-    GnomeCmdFile *finfo = dir->priv->file_collection->find(uri_str);
-
-    return finfo != NULL;
+    return dir->priv->file_collection->find(uri_str) != NULL;
 }
 
 
-/* A file has been created. Create a new GnomeCmdFile object for that file
- */
+// A file has been created. Create a new GnomeCmdFile object for that file
 void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
@@ -734,75 +731,71 @@ void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str)
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
     gnome_vfs_uri_unref (uri);
 
-    GnomeCmdFile *finfo;
+    GnomeCmdFile *f;
 
     if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
-        finfo = GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir));
+        f = GNOME_CMD_FILE (gnome_cmd_dir_new_from_info (info, dir));
     else
-        finfo = gnome_cmd_file_new (info, dir);
+        f = gnome_cmd_file_new (info, dir);
 
-    dir->priv->file_collection->add(finfo);
+    dir->priv->file_collection->add(f);
     dir->priv->files = dir->priv->file_collection->get_list();
 
-    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CREATED], finfo);
+    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CREATED], f);
 }
 
 
-/* A file has been deleted. Remove the corresponding GnomeCmdFile
- */
+// A file has been deleted. Remove the corresponding GnomeCmdFile
 void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (uri_str != NULL);
 
-    GnomeCmdFile *finfo = dir->priv->file_collection->find(uri_str);
+    GnomeCmdFile *f = dir->priv->file_collection->find(uri_str);
 
-    if (!GNOME_CMD_IS_FILE (finfo))
+    if (!GNOME_CMD_IS_FILE (f))
         return;
 
-    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], finfo);
+    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_DELETED], f);
 
     dir->priv->file_collection->remove(uri_str);
     dir->priv->files = dir->priv->file_collection->get_list();
 }
 
 
-/* A file has been changed. Find the corresponding GnomeCmdFile, update its
- * GnomeVFSFileInfo
- */
+// A file has been changed. Find the corresponding GnomeCmdFile, update its GnomeVFSFileInfo
 void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
     g_return_if_fail (uri_str != NULL);
 
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_GET_MIME_TYPE;
-    GnomeCmdFile *finfo = dir->priv->file_collection->find(uri_str);
+    GnomeCmdFile *f = dir->priv->file_collection->find(uri_str);
 
-    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
 
-    GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
+    GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
     GnomeVFSFileInfo *info = gnome_vfs_file_info_new ();
-    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, infoOpts);
+    GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
     gnome_vfs_uri_unref (uri);
 
-    gnome_cmd_file_update_info (finfo, info);
-    gnome_cmd_file_invalidate_metadata (finfo);
-    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CHANGED], finfo);
+    gnome_cmd_file_update_info (f, info);
+    gnome_cmd_file_invalidate_metadata (f);
+    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_CHANGED], f);
 }
 
 
-void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *finfo, const gchar *old_uri_str)
+void gnome_cmd_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, const gchar *old_uri_str)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-    g_return_if_fail (GNOME_CMD_IS_FILE (finfo));
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (old_uri_str!=NULL);
 
-    if (GNOME_CMD_IS_DIR (finfo))
+    if (GNOME_CMD_IS_DIR (f))
         gnome_cmd_con_remove_from_cache (dir->priv->con, old_uri_str);
 
     dir->priv->file_collection->remove(old_uri_str);
-    dir->priv->file_collection->add(finfo);
-    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_RENAMED], finfo);
+    dir->priv->file_collection->add(f);
+    gtk_signal_emit (GTK_OBJECT (dir), dir_signals[FILE_RENAMED], f);
 }
 
 
