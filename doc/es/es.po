@@ -2,14 +2,15 @@
 #
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2008.
 # Jorge González <jorgegonz@svn.gnome.org>, 200, 2009.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-01 21:56+0000\n"
-"PO-Revision-Date: 2009-04-04 19:51+0200\n"
-"Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"POT-Creation-Date: 2009-04-04 17:53+0000\n"
+"PO-Revision-Date: 2009-04-05 13:18+0200\n"
+"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"Language-Team: Español <Gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6310,7 +6311,7 @@ msgstr "Número de sobre"
 
 #: C/gnome-commander.xml:2873(para)
 msgid "A number unique for the date and the service ID."
-msgstr ""
+msgstr "Un número único para la fecha y el ID del servicio."
 
 #: C/gnome-commander.xml:2876(para)
 msgid "IPTC.EnvelopePriority"
@@ -6443,7 +6444,7 @@ msgstr "IPTC.LanguageID"
 
 #: C/gnome-commander.xml:2927(para)
 msgid "Language Identifier"
-msgstr ""
+msgstr "Identificador de idioma"
 
 #: C/gnome-commander.xml:2928(para)
 msgid ""
@@ -6533,7 +6534,7 @@ msgstr "IPTC.ObjectSizeAnnounced"
 
 #: C/gnome-commander.xml:2962(para)
 msgid "Object Size Announced"
-msgstr ""
+msgstr "Tamaño previsto del objeto"
 
 #: C/gnome-commander.xml:2963(para)
 msgid "The total size of the object data if it is known."
@@ -6569,7 +6570,7 @@ msgstr "IPTC.OrigTransRef"
 
 #: C/gnome-commander.xml:2977(para)
 msgid "Original Transmission Reference"
-msgstr ""
+msgstr "Referencia de la transmisión original"
 
 #: C/gnome-commander.xml:2978(para)
 msgid "A code representing the location of original transmission."
@@ -6585,7 +6586,7 @@ msgstr "Previsualizar datos"
 
 #: C/gnome-commander.xml:2983(para)
 msgid "The object preview data."
-msgstr ""
+msgstr "La vista previa de los datos del objeto."
 
 #: C/gnome-commander.xml:2986(para)
 msgid "IPTC.PreviewFileFormat"
@@ -6645,7 +6646,7 @@ msgstr "Provincia, estado"
 
 #: C/gnome-commander.xml:3008(para) C/gnome-commander.xml:3068(para)
 msgid "The Province/State where the object originates."
-msgstr ""
+msgstr "La provincia/estado donde se origina el objeto."
 
 #: C/gnome-commander.xml:3011(para)
 msgid "IPTC.RasterizedCaption"
@@ -6841,7 +6842,7 @@ msgstr "IPTC.TimeCreated"
 
 #: C/gnome-commander.xml:3092(para)
 msgid "Time Created"
-msgstr ""
+msgstr "Hora de creación"
 
 #: C/gnome-commander.xml:3093(para)
 msgid ""
@@ -6856,11 +6857,11 @@ msgstr "IPTC.TimeSent"
 
 #: C/gnome-commander.xml:3097(para)
 msgid "Time Sent"
-msgstr ""
+msgstr "Hora de envío"
 
 #: C/gnome-commander.xml:3098(para)
 msgid "The time the service sent the material."
-msgstr ""
+msgstr "La hora a la que el servicio envió el material."
 
 #: C/gnome-commander.xml:3101(para)
 msgid "IPTC.UNO"
@@ -6868,7 +6869,7 @@ msgstr "IPTC.UNO"
 
 #: C/gnome-commander.xml:3102(para)
 msgid "Unique Name of Object"
-msgstr ""
+msgstr "Nombre único del objeto"
 
 #: C/gnome-commander.xml:3103(para)
 msgid ""
@@ -6914,7 +6915,7 @@ msgstr "Tamaño de la página"
 
 #: C/gnome-commander.xml:3118(para)
 msgid "Page size format."
-msgstr ""
+msgstr "Formato del tamaño de página."
 
 #: C/gnome-commander.xml:3121(para)
 msgid "PDF.PageWidth"
@@ -6926,7 +6927,7 @@ msgstr "Anchura de la página"
 
 #: C/gnome-commander.xml:3123(para)
 msgid "Page width in mm."
-msgstr ""
+msgstr "Ancho de la página, en mm."
 
 #: C/gnome-commander.xml:3126(para)
 msgid "PDF.PageHeight"
@@ -6938,7 +6939,7 @@ msgstr "Altura de la página"
 
 #: C/gnome-commander.xml:3128(para)
 msgid "Page height in mm."
-msgstr ""
+msgstr "Altura de la página, en mm."
 
 #: C/gnome-commander.xml:3131(para)
 msgid "PDF.Version"
@@ -7592,7 +7593,7 @@ msgstr "%%"
 
 #: C/gnome-commander.xml:3469(para)
 msgid "A literal \"%\" character"
-msgstr ""
+msgstr "Un carácter «%» literal"
 
 #: C/gnome-commander.xml:3476(para)
 msgid ""
@@ -7638,7 +7639,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:3505(guilabel)
 msgid "Character Encodings"
-msgstr ""
+msgstr "Codificación de caracteres"
 
 #: C/gnome-commander.xml:3507(guilabel)
 msgid "Text Display Mode"
@@ -7919,7 +7920,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:3759(title)
 msgid "Confirmation"
-msgstr ""
+msgstr "Confirmación"
 
 #: C/gnome-commander.xml:3763(title)
 msgid "Confirmation options"
@@ -8475,10 +8476,8 @@ msgid "DOWN"
 msgstr "ABAJO"
 
 #: C/gnome-commander.xml:4417(keycap)
-#, fuzzy
-#| msgid "%E"
 msgid "E"
-msgstr "%E"
+msgstr "E"
 
 #: C/gnome-commander.xml:4419(para)
 msgid ""
@@ -8572,11 +8571,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:4464(title)
 msgid "List of user actions"
-msgstr ""
+msgstr "Lista de acciones del usuario"
 
 #: C/gnome-commander.xml:4472(para)
 msgid "User action"
-msgstr ""
+msgstr "Acción del usuario"
 
 #: C/gnome-commander.xml:4479(para)
 msgid "bookmarks.add_current"
@@ -9217,7 +9216,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4986(title)
 msgid "Plugins API"
-msgstr ""
+msgstr "API de complementos"
 
 #: C/gnome-commander.xml:4987(para)
 msgid "The entry (start) point for plugin is always main() function:"
@@ -10207,7 +10206,7 @@ msgstr ""
 #: C/gnome-commander.xml:6868(para) C/gnome-commander.xml:6905(para)
 #: C/gnome-commander.xml:6919(para)
 msgid "New features:"
-msgstr ""
+msgstr "Nuevas funcionalidades:"
 
 #: C/gnome-commander.xml:5960(para)
 msgid "Support for PDF metatags in advanced file rename templates"
@@ -10229,18 +10228,16 @@ msgstr ""
 
 #: C/gnome-commander.xml:5973(para)
 msgid "New colour theme: cafezinho"
-msgstr ""
+msgstr "Nuevo tema de color: cafezinho"
 
 #: C/gnome-commander.xml:5976(para)
 msgid "New or updated docs: de, en, es"
-msgstr ""
+msgstr "Documentos nuevos o actualizados: de, en, es"
 
 #: C/gnome-commander.xml:5979(para)
-#, fuzzy
-#| msgid "New or updated translations: ar, cs, de, es, eu, fr, pl, pt_BR, sv"
 msgid "New or updated translations: ar, cs, de, es, eu, fr, it, pl, pt_BR, sv"
 msgstr ""
-"Traducciones nuevas o actualizadas: ar, cs, de, es, eu, fr, pl, pt_BR, sv"
+"Traducciones nuevas o actualizadas: ar, cs, de, es, eu, fr, it, pl, pt_BR, sv"
 
 #: C/gnome-commander.xml:5982(para) C/gnome-commander.xml:6120(para)
 #: C/gnome-commander.xml:6240(para) C/gnome-commander.xml:6335(para)
@@ -10251,16 +10248,12 @@ msgid "New key bindings:"
 msgstr ""
 
 #: C/gnome-commander.xml:5985(para)
-#, fuzzy
-#| msgid ""
-#| "<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Go to the "
-#| "home directory"
 msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>E</keycap></keycombo> Open the "
 "history list for the command line"
 msgstr ""
-"<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Ir a la carpeta "
-"personal"
+"<keycombo><keycap>CTRL</keycap><keycap>`</keycap></keycombo> Abrir el "
+"histórico de la línea de comandos"
 
 #: C/gnome-commander.xml:5990(para)
 msgid "New internal viewer key bindings:"
@@ -10340,11 +10333,12 @@ msgstr ""
 #: C/gnome-commander.xml:6234(para) C/gnome-commander.xml:6329(para)
 #: C/gnome-commander.xml:6403(para) C/gnome-commander.xml:6475(para)
 msgid "Updated help docs"
-msgstr ""
+msgstr "Documentos de ayuda actualizados"
 
 #: C/gnome-commander.xml:6056(para)
 msgid "New or updated translations: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 msgstr ""
+"Traducciones nuevas o actualizadas: cs, de, es, fr, it, ja, oc, pl, pt_BR"
 
 #: C/gnome-commander.xml:6063(para)
 msgid "1.2.6"
@@ -11179,7 +11173,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6788(para)
 msgid "Improved plugin-system"
-msgstr ""
+msgstr "Sistema de complementos mejorado"
 
 #: C/gnome-commander.xml:6795(para)
 msgid "1.1.3"
@@ -11254,7 +11248,7 @@ msgstr "Eliminada la creación de URI inseguros"
 
 #: C/gnome-commander.xml:6872(para)
 msgid "Three ways to show with file extensions"
-msgstr ""
+msgstr "Tres maneras de mostrarlo con extensiones de archivos"
 
 #: C/gnome-commander.xml:6879(para)
 msgid "1.1.1"
@@ -11289,7 +11283,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6901(para)
 msgid "Fixed the edit mime-types feature"
-msgstr ""
+msgstr "Corregida la funcionalidad de editar tipos MIME"
 
 #: C/gnome-commander.xml:6909(para)
 msgid ""
@@ -11314,7 +11308,7 @@ msgstr "Complementos"
 
 #: C/gnome-commander.xml:6929(para)
 msgid "Major rewrite of a lot of code"
-msgstr ""
+msgstr "Profunda reescritura de gran cantidad de código"
 
 #: C/gnome-commander.xml:6936(para)
 msgid "1.0.1"
