@@ -764,48 +764,45 @@ GList *strings_to_uris (gchar *data)
 
 GnomeVFSFileSize calc_tree_size (const GnomeVFSURI *dir_uri)
 {
-    GnomeVFSFileSize size = 0;
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_DEFAULT;
-    GList *list = NULL;
-    gchar *dir_uri_str;
-    GnomeVFSResult result;
-
     if (!dir_uri)
         return -1;
+
+    gchar *dir_uri_str;
 
     dir_uri_str = gnome_vfs_uri_to_string (dir_uri, GNOME_VFS_URI_HIDE_NONE);
 
     if (!dir_uri_str)
         return -1;
 
-    result = gnome_vfs_directory_list_load (&list, dir_uri_str, infoOpts);
+    GList *list = NULL;
+    GnomeVFSFileSize size = 0;
 
-    if (result != GNOME_VFS_OK)
-        return 0;
+    GnomeVFSResult result = gnome_vfs_directory_list_load (&list, dir_uri_str, GNOME_VFS_FILE_INFO_DEFAULT);
 
-    if (!list)
-        return 0;
-
-    for (GList *tmp = list; tmp; tmp = tmp->next)
+    if (result==GNOME_VFS_OK && list)
     {
-        GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
-        if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
+        for (GList *tmp = list; tmp; tmp = tmp->next)
         {
-            if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+            GnomeVFSFileInfo *info = (GnomeVFSFileInfo *) tmp->data;
+            if (strcmp (info->name, ".") != 0 && strcmp (info->name, "..") != 0)
             {
-                GnomeVFSURI *new_dir_uri = gnome_vfs_uri_append_file_name (dir_uri, info->name);
-                size += calc_tree_size (new_dir_uri);
-                gnome_vfs_uri_unref (new_dir_uri);
+                if (info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+                {
+                    GnomeVFSURI *new_dir_uri = gnome_vfs_uri_append_file_name (dir_uri, info->name);
+                    size += calc_tree_size (new_dir_uri);
+                    gnome_vfs_uri_unref (new_dir_uri);
+                }
+                else
+                    size += info->size;
             }
-            else
-                size += info->size;
         }
+
+        for (GList *tmp = list; tmp; tmp = tmp->next)
+            gnome_vfs_file_info_unref ((GnomeVFSFileInfo *) tmp->data);
+
+        g_list_free (list);
     }
 
-    for (GList *tmp = list; tmp; tmp = tmp->next)
-        gnome_vfs_file_info_unref ((GnomeVFSFileInfo *) tmp->data);
-
-    g_list_free (list);
     g_free (dir_uri_str);
 
     return size;
