@@ -465,7 +465,7 @@ GnomeVFSResult gnome_cmd_con_get_path_target_type (GnomeCmdCon *con, const gchar
     GnomeVFSResult res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_DEFAULT);
 
     if (res == GNOME_VFS_OK && info->type == GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK)         // resolve the symlink to get the real type of it
-        res = gnome_vfs_get_file_info_uri (uri, info, (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_DEFAULT | GNOME_VFS_FILE_INFO_FOLLOW_LINKS));
+        res = gnome_vfs_get_file_info_uri (uri, info, GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 
     if (res == GNOME_VFS_OK)
         *type = info->type;

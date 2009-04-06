@@ -357,9 +357,7 @@ static void configure (GnomeCmdPlugin *plugin)
     GtkWidget *dialog, *table, *cat, *label, *combo, *vbox;
 
     dialog = gnome_cmd_dialog_new (_("Options"));
-    gnome_cmd_dialog_set_transient_for (
-        GNOME_CMD_DIALOG (dialog),
-        GTK_WINDOW (main_win_widget));
+    gnome_cmd_dialog_set_transient_for (GNOME_CMD_DIALOG (dialog), GTK_WINDOW (main_win_widget));
     gnome_cmd_dialog_set_modal (GNOME_CMD_DIALOG (dialog));
 
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
@@ -480,12 +478,11 @@ PluginInfo *get_plugin_info ()
 {
     if (!plugin_nfo.authors)
     {
-        plugin_nfo.authors = g_new (gchar*, 2);
+        plugin_nfo.authors = g_new0 (gchar *, 2);
         plugin_nfo.authors[0] = AUTHOR;
         plugin_nfo.authors[1] = NULL;
-        plugin_nfo.comments = g_strdup (
-            _("A plugin that adds File Roller shortcuts for creating "
-              "and extracting compressed archives."));
+        plugin_nfo.comments = g_strdup (_("A plugin that adds File Roller shortcuts for creating "
+                                          "and extracting compressed archives."));
     }
     return &plugin_nfo;
 }

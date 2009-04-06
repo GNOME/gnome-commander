@@ -18,7 +18,7 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-GtkWidget *create_log_win  (CvsPlugin *plugin);
+GtkWidget *create_log_win (CvsPlugin *plugin);
 GtkWidget *create_diff_win (CvsPlugin *plugin);
 
 void add_log_tab (CvsPlugin *plugin, const gchar *fname);

@@ -78,7 +78,6 @@ inline const gchar *get_size_disp_string (GnomeVFSFileSize size)
 
 static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI *uri)
 {
-    GnomeVFSFileInfoOptions infoOpts = GNOME_VFS_FILE_INFO_DEFAULT;
     GList *list = NULL;
     gchar *uri_str;
 
@@ -89,7 +88,7 @@ static void calc_tree_size_r (GnomeCmdFilePropsDialogPrivate *data, GnomeVFSURI 
     uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
     if (!uri_str) return;
 
-    GnomeVFSResult result = gnome_vfs_directory_list_load (&list, uri_str, infoOpts);
+    GnomeVFSResult result = gnome_vfs_directory_list_load (&list, uri_str, GNOME_VFS_FILE_INFO_DEFAULT);
 
     if (result != GNOME_VFS_OK) return;
     if (!list) return;

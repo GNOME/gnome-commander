@@ -89,9 +89,7 @@ static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
     gtk_container_add (GTK_CONTAINER (item), label);
 
     // Connect to the signal and set user data
-    gtk_object_set_data (GTK_OBJECT (item),
-                         GNOMEUIINFO_KEY_UIDATA,
-                         data);
+    gtk_object_set_data (GTK_OBJECT (item), GNOMEUIINFO_KEY_UIDATA, data);
 
     if (callback)
         gtk_signal_connect (GTK_OBJECT (item), "activate", callback, data);
@@ -120,18 +118,17 @@ static GtkWidget *create_main_menu (GnomeCmdPlugin *plugin, GnomeCmdState *state
 static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
     GtkWidget *item = create_menu_item ("Test plugin dummy operation", TRUE, GTK_SIGNAL_FUNC (on_dummy), state);
+
     return g_list_append (NULL, item);
 }
 
 
-static void
-update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
+static void update_main_menu_state (GnomeCmdPlugin *plugin, GnomeCmdState *state)
 {
 }
 
 
-static void
-configure (GnomeCmdPlugin *plugin)
+static void configure (GnomeCmdPlugin *plugin)
 {
     gnome_ok_dialog ("Test plugin configuration dialog");
 }
@@ -143,8 +140,7 @@ configure (GnomeCmdPlugin *plugin)
  * Gtk class implementation
  *******************************/
 
-static void
-destroy (GtkObject *object)
+static void destroy (GtkObject *object)
 {
     //TestPlugin *plugin = TEST_PLUGIN (object);
 
@@ -182,8 +178,7 @@ static void init (TestPlugin *plugin)
  * Public functions
  ***********************************/
 
-GtkType
-test_plugin_get_type ()
+GtkType test_plugin_get_type ()
 {
     static GtkType type = 0;
 
@@ -209,9 +204,7 @@ test_plugin_get_type ()
 
 GnomeCmdPlugin *test_plugin_new ()
 {
-    TestPlugin *plugin;
-
-    plugin = gtk_type_new (test_plugin_get_type ());
+    TestPlugin *plugin = gtk_type_new (test_plugin_get_type ());
 
     return GNOME_CMD_PLUGIN (plugin);
 }
@@ -227,12 +220,12 @@ PluginInfo *get_plugin_info ()
 {
     if (!plugin_nfo.authors)
     {
-        plugin_nfo.authors = g_new (gchar*, 2);
+        plugin_nfo.authors = g_new0 (gchar *, 2);
         plugin_nfo.authors[0] = AUTHOR;
         plugin_nfo.authors[1] = NULL;
-        plugin_nfo.comments = g_strdup (
-            _("This is an example plugin that is mostly useful as a "
-              "simple example for aspiring plugin hackers"));
+        plugin_nfo.comments = g_strdup (_("This is an example plugin that is mostly useful as a "
+                                          "simple example for aspiring plugin hackers"));
     }
+
     return &plugin_nfo;
 }

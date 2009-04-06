@@ -38,12 +38,11 @@
 static GtkWidget *create_compare_win (LogHistory *log_history);
 
 
-static void
-on_rev_list_select_row                 (GtkCList        *clist,
-                                        gint             row,
-                                        gint             column,
-                                        GdkEvent        *event,
-                                        LogHistory      *log_history)
+static void on_rev_list_select_row  (GtkCList *clist,
+                                     gint row,
+                                     gint column,
+                                     GdkEvent *event,
+                                     LogHistory *log_history)
 {
     Revision *rev = (Revision *)gtk_clist_get_row_data (clist, row);
 
@@ -134,12 +133,13 @@ static void on_other_rev_toggled (GtkToggleButton *btn, GtkWidget *dialog)
 static Revision *find_prev_rev (LogHistory *h, Revision *rev)
 {
     GList *l = g_list_find (h->revisions, rev);
-    if (!l) return NULL;
+
+    if (!l)
+        return NULL;
 
     l = l->next;
-    if (!l) return NULL;
 
-    return (Revision *) l->data;
+    return l ? (Revision *) l->data : NULL;
 }
 
 
@@ -543,8 +543,7 @@ void add_log_tab (CvsPlugin *plugin, const gchar *fname)
         gtk_clist_set_row_data (GTK_CLIST (rev_list), row, rev);
     }
 
-    gtk_signal_connect (GTK_OBJECT (rev_list), "select-row",
-                        GTK_SIGNAL_FUNC (on_rev_list_select_row), log_history);
+    gtk_signal_connect (GTK_OBJECT (rev_list), "select-row", GTK_SIGNAL_FUNC (on_rev_list_select_row), log_history);
 
     gtk_clist_select_row (GTK_CLIST (rev_list), 0, 0);
 }
