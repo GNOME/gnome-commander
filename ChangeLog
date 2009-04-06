@@ -3,6 +3,10 @@
 	* src/utils.cc:
 	Fix for memory leak
 
+	* src/gnome-cmd-file.cc:
+	* src/gnome-cmd-file.h:
+	Refresh MIME information after file renaming
+
 2009-04-02  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-regex.h:

@@ -324,20 +324,26 @@ GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *f, const gchar *new_name)
     g_return_val_if_fail (f, GNOME_VFS_ERROR_CORRUPTED_DATA);
     g_return_val_if_fail (f->info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
-    gchar *old_uri_str = gnome_cmd_file_get_uri_str (f);
-
-    GnomeVFSFileInfo *new_info = gnome_vfs_file_info_dup (f->info);
+    GnomeVFSFileInfo *new_info = gnome_vfs_file_info_new ();
     g_return_val_if_fail (new_info, GNOME_VFS_ERROR_CORRUPTED_DATA);
 
-    g_free (new_info->name);
-    new_info->name = g_strdup (new_name);
+    new_info->name = const_cast<gchar *> (new_name);
 
     GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
     GnomeVFSResult result = gnome_vfs_set_file_info_uri (uri, new_info, GNOME_VFS_SET_FILE_INFO_NAME);
     gnome_vfs_uri_unref (uri);
 
+    if (result==GNOME_VFS_OK)       //  re-read GnomeVFSFileInfo for the new MIME type
+    {
+        uri = gnome_cmd_file_get_uri (f, new_name);
+        result = gnome_vfs_get_file_info_uri (uri, new_info, GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+        gnome_vfs_uri_unref (uri);
+    }
+
     if (result==GNOME_VFS_OK && has_parent_dir (f))
     {
+        gchar *old_uri_str = gnome_cmd_file_get_uri_str (f);
+
         gnome_cmd_file_update_info (f, new_info);
         gnome_cmd_dir_file_renamed (get_parent_dir (f), f, old_uri_str);
         if (GNOME_CMD_IS_DIR (f))
@@ -431,7 +437,7 @@ gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *f)
 }
 
 
-GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f)
+GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f, const gchar *name)
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE (f), NULL);
 
@@ -447,7 +453,7 @@ GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f)
             g_assert ("Non directory file without owning directory");
     }
 
-    return gnome_cmd_dir_get_child_uri (get_parent_dir (f), f->info->name);
+    return gnome_cmd_dir_get_child_uri (get_parent_dir (f), name ? name : f->info->name);
 }
 
 

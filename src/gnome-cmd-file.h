@@ -81,7 +81,7 @@ gchar *gnome_cmd_file_get_real_path (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_quoted_real_path (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_dirname (GnomeCmdFile *f);
 gchar *gnome_cmd_file_get_unescaped_dirname (GnomeCmdFile *f);
-GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f);
+GnomeVFSURI *gnome_cmd_file_get_uri (GnomeCmdFile *f, const gchar *name=NULL);
 gchar *gnome_cmd_file_get_uri_str (GnomeCmdFile *f, GnomeVFSURIHideOptions hide_options=GNOME_VFS_URI_HIDE_NONE);
 
 inline char *gnome_cmd_file_get_collation_fname (GnomeCmdFile *f)
