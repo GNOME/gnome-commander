@@ -44,6 +44,7 @@ src/gnome-cmd-patternsel-dialog.cc
 src/gnome-cmd-prepare-copy-dialog.cc
 src/gnome-cmd-prepare-move-dialog.cc
 src/gnome-cmd-prepare-xfer-dialog.cc
+src/gnome-cmd-profile-component.cc
 src/gnome-cmd-python-plugin.cc
 src/gnome-cmd-quicksearch-popup.cc
 src/gnome-cmd-remote-dialog.cc

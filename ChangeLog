@@ -6,6 +6,10 @@
 	* src/tags/gnome-cmd-tags.cc:
 	Properly report unsuported Doc.* tags
 
+	* src/tags/gnome-cmd-profile-component.cc:
+	* src/tags/gnome-cmd-profile-component.h:
+	advrename profiles: new widget for editing all profile data
+
 2009-04-06  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:
