@@ -146,21 +146,18 @@ static void on_log (GtkMenuItem *item, GnomeCmdState *state)
 }
 
 
-static GtkWidget *
-create_menu_item (const gchar *name, gboolean show_pixmap,
-                  GtkSignalFunc callback, gpointer data,
-                  CvsPlugin *plugin)
+static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
+                                    GtkSignalFunc callback, gpointer data,
+                                    CvsPlugin *plugin)
 {
     GtkWidget *item, *label;
-    GdkPixbuf *pixbuf;
-    GtkWidget *pixmap = NULL;
 
     if (show_pixmap)
     {
-        item = gtk_image_menu_item_new ();
-        pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **) cvs_plugin_xpm);
-        pixmap = gtk_image_new_from_pixbuf (pixbuf);
+        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **) cvs_plugin_xpm);
+        GtkWidget *pixmap = gtk_image_new_from_pixbuf (pixbuf);
         g_object_unref (G_OBJECT (pixbuf));
+        item = gtk_image_menu_item_new ();
         if (pixmap)
         {
             gtk_widget_show (pixmap);
@@ -256,22 +253,13 @@ static void update_main_menu_state (GnomeCmdPlugin *p, GnomeCmdState *state)
 {
     CvsPlugin *plugin = CVS_PLUGIN (p);
 
-    if (cvs_dir_exists (state->active_dir_files))
-    {
-        gtk_widget_set_sensitive (plugin->priv->update, TRUE);
-        gtk_widget_set_sensitive (plugin->priv->diff, TRUE);
-        gtk_widget_set_sensitive (plugin->priv->log, TRUE);
-        gtk_widget_set_sensitive (plugin->priv->last_log, TRUE);
-        gtk_widget_set_sensitive (plugin->priv->last_change, TRUE);
-    }
-    else
-    {
-        gtk_widget_set_sensitive (plugin->priv->update, FALSE);
-        gtk_widget_set_sensitive (plugin->priv->diff, FALSE);
-        gtk_widget_set_sensitive (plugin->priv->log, FALSE);
-        gtk_widget_set_sensitive (plugin->priv->last_log, FALSE);
-        gtk_widget_set_sensitive (plugin->priv->last_change, FALSE);
-    }
+    gboolean dir_exists = cvs_dir_exists (state->active_dir_files);
+
+    gtk_widget_set_sensitive (plugin->priv->update, dir_exists);
+    gtk_widget_set_sensitive (plugin->priv->diff, dir_exists);
+    gtk_widget_set_sensitive (plugin->priv->log, dir_exists);
+    gtk_widget_set_sensitive (plugin->priv->last_log, dir_exists);
+    gtk_widget_set_sensitive (plugin->priv->last_change, dir_exists);
 }
 
 
@@ -313,8 +301,7 @@ static void configure (GnomeCmdPlugin *p)
 
     optmenu = create_option_menu (dialog, compression_level_strings);
     plugin->priv->compression_level_menu = optmenu;
-    gtk_option_menu_set_history (GTK_OPTION_MENU (optmenu),
-                                 plugin->compression_level);
+    gtk_option_menu_set_history (GTK_OPTION_MENU (optmenu), plugin->compression_level);
     table_add (table, optmenu, 1, 1, GTK_FILL);
 
     check = create_check (dialog, _("Unified diff format"), "check");
@@ -416,7 +403,7 @@ PluginInfo *get_plugin_info ()
 {
     if (!plugin_nfo.authors)
     {
-        plugin_nfo.authors = g_new (gchar*, 2);
+        plugin_nfo.authors = g_new0 (gchar *, 2);
         plugin_nfo.authors[0] = AUTHOR;
         plugin_nfo.authors[1] = NULL;
         plugin_nfo.comments = g_strdup (_("A plugin that eventually will be a simple CVS client"));

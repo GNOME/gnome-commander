@@ -58,19 +58,16 @@ static void on_dummy (GtkMenuItem *item, gpointer data)
 }
 
 
-static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
-                  GtkSignalFunc callback, gpointer data)
+static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap, GtkSignalFunc callback, gpointer data)
 {
     GtkWidget *item, *label;
-    GdkPixbuf *pixbuf;
-    GtkWidget *pixmap = NULL;
 
     if (show_pixmap)
     {
-        item = gtk_image_menu_item_new ();
-        pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **) test_plugin_xpm);
-        pixmap = gtk_image_new_from_pixbuf (pixbuf);
+        GdkPixbuf *pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **) test_plugin_xpm);
+        GtkWidget *pixmap = gtk_image_new_from_pixbuf (pixbuf);
         g_object_unref (G_OBJECT (pixbuf));
+        item = gtk_image_menu_item_new ();
         if (pixmap)
         {
             gtk_widget_show (pixmap);
