@@ -230,7 +230,7 @@ create_category (GtkWidget *parent, GtkWidget *content, gchar *title)
 
 
 GtkWidget *
-create_named_button_with_data (GtkWidget *parent, gchar *label, gchar *name, GtkSignalFunc func, gpointer data)
+create_named_button_with_data (GtkWidget *parent, const gchar *label, const gchar *name, GtkSignalFunc func, gpointer data)
 {
     guint key;
     GtkAccelGroup *accel_group = gtk_accel_group_new ();

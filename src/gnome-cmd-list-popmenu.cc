@@ -66,8 +66,6 @@ static void on_paste (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 
 static void destroy (GtkObject *object)
 {
-    GnomeCmdListPopmenu *menu = GNOME_CMD_LIST_POPMENU (object);
-
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
 }

@@ -59,7 +59,7 @@ GtkWidget *create_named_button (GtkWidget *parent, gchar *label, gchar *name, Gt
 
 GtkWidget *create_button_with_data (GtkWidget *parent, const gchar *label, GtkSignalFunc func, gpointer data);
 
-GtkWidget *create_named_button_with_data (GtkWidget *parent, gchar *label, gchar *name, GtkSignalFunc func, gpointer data);
+GtkWidget *create_named_button_with_data (GtkWidget *parent, const gchar *label, const gchar *name, GtkSignalFunc func, gpointer data);
 
 GtkWidget *create_stock_button (GtkWidget *parent, gconstpointer stock, GtkSignalFunc func);
 

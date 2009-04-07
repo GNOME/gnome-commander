@@ -428,17 +428,17 @@ gnome_cmd_xfer_uris_start (GList *src_uri_list,
     gtk_widget_show (GTK_WIDGET (data->win));
 
     //  start the transfer
-    GnomeVFSResult result = gnome_vfs_async_xfer (&data->handle,
-                                                  data->src_uri_list,
-                                                  data->dest_uri_list,
-                                                  xferOptions,
-                                                  GNOME_VFS_XFER_ERROR_MODE_QUERY,
-                                                  xferOverwriteMode,
-                                                  XFER_PRIORITY,
-                                                  (GnomeVFSAsyncXferProgressCallback) async_xfer_callback,
-                                                  data,
-                                                  xfer_callback,
-                                                  data);
+    gnome_vfs_async_xfer (&data->handle,
+                          data->src_uri_list,
+                          data->dest_uri_list,
+                          xferOptions,
+                          GNOME_VFS_XFER_ERROR_MODE_QUERY,
+                          xferOverwriteMode,
+                          XFER_PRIORITY,
+                          (GnomeVFSAsyncXferProgressCallback) async_xfer_callback,
+                          data,
+                          xfer_callback,
+                          data);
 
     g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_xfer_gui_func, data);
 }

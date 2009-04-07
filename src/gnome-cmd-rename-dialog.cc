@@ -159,7 +159,6 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gin
     gtk_widget_set_style (GTK_WIDGET (dialog->priv->textbox), list_style);
 
     gchar *fname = get_utf8 (gnome_cmd_file_get_name (finfo));
-    gint end_selection = -1;
 
     gtk_entry_set_text (dialog->priv->textbox, fname);
 

@@ -10,6 +10,14 @@
 	* src/tags/gnome-cmd-profile-component.h:
 	advrename profiles: new widget for editing all profile data
 
+	* libgcmd/libgcmd-widget-factory.c:
+	* libgcmd/libgcmd-widget-factory.h:
+	* src/gnome-cmd-delete-dialog.cc:
+	* src/gnome-cmd-list-popmenu.cc:
+	* src/gnome-cmd-rename-dialog.cc:
+	* src/gnome-cmd-xfer.cc:
+	gcc warnings cleanup
+
 2009-04-06  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:
