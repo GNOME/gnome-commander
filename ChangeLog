@@ -3,6 +3,9 @@
 	* src/gnome-cmd-file-list.cc:
 	Refresh file icon after renaming
 
+	* src/tags/gnome-cmd-tags.cc:
+	Properly report unsuported Doc.* tags
+
 2009-04-06  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/utils.cc:

@@ -748,13 +748,17 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag)
                         ret_val = f->metadata->operator [] (tag).c_str();
                         break;
 
-        case TAG_CHM  : break;
-
         case TAG_DOC  :
 #ifndef HAVE_GSF
+#ifndef HAVE_PDF
                         return _(no_support_for_libgsf_tags_string);
 #endif
+#endif
                         gcmd_tags_libgsf_load_metadata(f);
+                        gcmd_tags_poppler_load_metadata(f);
+                        ret_val = f->metadata->operator [] (tag).c_str();
+                        break;
+
         case TAG_PDF  :
 #ifndef HAVE_PDF
                         return _(no_support_for_poppler_tags_string);
@@ -762,6 +766,8 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag)
                         gcmd_tags_poppler_load_metadata(f);
                         ret_val = f->metadata->operator [] (tag).c_str();
                         break;
+
+        case TAG_CHM  : break;
 
         case TAG_FILE : gcmd_tags_file_load_metadata(f);
                         ret_val = f->metadata->operator [] (tag).c_str();
