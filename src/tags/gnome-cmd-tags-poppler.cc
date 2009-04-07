@@ -287,27 +287,27 @@ inline gchar *paper_name (gdouble doc_width, double doc_height)
 #endif
 
 
-void gcmd_tags_poppler_load_metadata(GnomeCmdFile *finfo)
+void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f)
 {
-    g_return_if_fail (finfo != NULL);
-    g_return_if_fail (finfo->info != NULL);
+    g_return_if_fail (f != NULL);
+    g_return_if_fail (f->info != NULL);
 
 #ifdef HAVE_PDF
-    if (finfo->metadata && finfo->metadata->is_accessed(TAG_PDF))  return;
+    if (f->metadata && f->metadata->is_accessed(TAG_PDF))  return;
 
-    if (!finfo->metadata)
-        finfo->metadata = new GnomeCmdFileMetadata;
+    if (!f->metadata)
+        f->metadata = new GnomeCmdFileMetadata;
 
-    if (!finfo->metadata)  return;
+    if (!f->metadata)  return;
 
-    finfo->metadata->mark_as_accessed(TAG_PDF);
+    f->metadata->mark_as_accessed(TAG_PDF);
 
-    if (!gnome_cmd_file_is_local (finfo))  return;
+    if (!gnome_cmd_file_is_local (f))  return;
 
     // skip non pdf files, as pdf metatags extraction is very expensive...
-    if (!strstr (finfo->info->mime_type, "pdf"))  return;
+    if (!strstr (f->info->mime_type, "pdf"))  return;
 
-    gchar *fname = gnome_cmd_file_get_real_path (finfo);
+    gchar *fname = gnome_cmd_file_get_real_path (f);
 
     DEBUG('t', "Loading PDF metadata for '%s'\n", fname);
 
@@ -318,34 +318,34 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *finfo)
     if (!doc.isOk())
         return;
 
-    finfo->metadata->mark_as_accessed(TAG_DOC);
+    f->metadata->mark_as_accessed(TAG_DOC);
 
-    finfo->metadata->addf(TAG_PDF_VERSION, "%.1f", doc.getPDFVersion());
-    finfo->metadata->addf(TAG_DOC_PAGECOUNT, "%i", doc.getNumPages());
-    finfo->metadata->addf(TAG_PDF_OPTIMIZED, "%u", doc.isLinearized());
+    f->metadata->addf(TAG_PDF_VERSION, "%.1f", doc.getPDFVersion());
+    f->metadata->addf(TAG_DOC_PAGECOUNT, "%i", doc.getNumPages());
+    f->metadata->addf(TAG_PDF_OPTIMIZED, "%u", doc.isLinearized());
 
-    finfo->metadata->addf(TAG_DOC_SECURITY, "%u", doc.isEncrypted());   //  FIXME: 1 -> "Password protected", 0 -> "No protection" ???
+    f->metadata->addf(TAG_DOC_SECURITY, "%u", doc.isEncrypted());   //  FIXME: 1 -> "Password protected", 0 -> "No protection" ???
 
-    finfo->metadata->addf(TAG_PDF_PRINTING, "%u", doc.okToPrint());
-    finfo->metadata->addf(TAG_PDF_HIRESPRINTING, "%u", doc.okToPrintHighRes());
-    finfo->metadata->addf(TAG_PDF_MODIFYING, "%u", doc.okToChange());
-    finfo->metadata->addf(TAG_PDF_COPYING, "%u", doc.okToCopy());
-    finfo->metadata->addf(TAG_PDF_COMMENTING, "%u", doc.okToAddNotes());
-    finfo->metadata->addf(TAG_PDF_FORMFILLING, "%u", doc.okToFillForm());
-    finfo->metadata->addf(TAG_PDF_ACCESSIBILITYSUPPORT, "%u", doc.okToAccessibility());
-    finfo->metadata->addf(TAG_PDF_DOCASSEMBLY, "%u", doc.okToAssemble());
+    f->metadata->addf(TAG_PDF_PRINTING, "%u", doc.okToPrint());
+    f->metadata->addf(TAG_PDF_HIRESPRINTING, "%u", doc.okToPrintHighRes());
+    f->metadata->addf(TAG_PDF_MODIFYING, "%u", doc.okToChange());
+    f->metadata->addf(TAG_PDF_COPYING, "%u", doc.okToCopy());
+    f->metadata->addf(TAG_PDF_COMMENTING, "%u", doc.okToAddNotes());
+    f->metadata->addf(TAG_PDF_FORMFILLING, "%u", doc.okToFillForm());
+    f->metadata->addf(TAG_PDF_ACCESSIBILITYSUPPORT, "%u", doc.okToAccessibility());
+    f->metadata->addf(TAG_PDF_DOCASSEMBLY, "%u", doc.okToAssemble());
 
     if (doc.getNumPages()>0)
     {
         double width = doc.getPageCropWidth(1)/72.0f*25.4f;
         double height = doc.getPageCropHeight(1)/72.0f*25.4f;
 
-        finfo->metadata->addf(TAG_PDF_PAGEWIDTH, "%.0f", width);
-        finfo->metadata->addf(TAG_PDF_PAGEHEIGHT, "%.0f", height);
+        f->metadata->addf(TAG_PDF_PAGEWIDTH, "%.0f", width);
+        f->metadata->addf(TAG_PDF_PAGEHEIGHT, "%.0f", height);
 
         gchar *paper_size = paper_name (width, height);
 
-        finfo->metadata->add(TAG_PDF_PAGESIZE, paper_size);
+        f->metadata->add(TAG_PDF_PAGESIZE, paper_size);
 
         g_free (paper_size);
     }
@@ -353,7 +353,7 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *finfo)
     Catalog *catalog = doc.getCatalog();
 
     if (catalog)
-        finfo->metadata->addf(TAG_PDF_EMBEDDEDFILES, "%i", catalog->numEmbeddedFiles());
+        f->metadata->addf(TAG_PDF_EMBEDDEDFILES, "%i", catalog->numEmbeddedFiles());
 
     // GooString *xmp = doc.readMetadata();         // FIXME: future access to XMP metadata
 
@@ -374,28 +374,28 @@ void gcmd_tags_poppler_load_metadata(GnomeCmdFile *finfo)
         Dict *dict = info.getDict();
 
         if (dict->lookup("Title", &obj)->isString())
-            add(*finfo->metadata, TAG_DOC_TITLE, obj.getString());
+            add(*f->metadata, TAG_DOC_TITLE, obj.getString());
 
         if (dict->lookup("Subject", &obj)->isString())
-            add(*finfo->metadata, TAG_DOC_SUBJECT, obj.getString());
+            add(*f->metadata, TAG_DOC_SUBJECT, obj.getString());
 
         if (dict->lookup("Keywords", &obj)->isString())
-            add(*finfo->metadata, TAG_DOC_KEYWORDS, TAG_FILE_KEYWORDS, obj.getString());        //  FIXME:  split keywords here
+            add(*f->metadata, TAG_DOC_KEYWORDS, TAG_FILE_KEYWORDS, obj.getString());        //  FIXME:  split keywords here
 
         if (dict->lookup("Author", &obj)->isString())
-            add(*finfo->metadata, TAG_DOC_AUTHOR, TAG_FILE_PUBLISHER, obj.getString());
+            add(*f->metadata, TAG_DOC_AUTHOR, TAG_FILE_PUBLISHER, obj.getString());
 
         if (dict->lookup("Creator", &obj)->isString())
-            add(*finfo->metadata, TAG_PDF_PRODUCER, obj.getString());
+            add(*f->metadata, TAG_PDF_PRODUCER, obj.getString());
 
         if (dict->lookup("Producer", &obj)->isString())
-            add(*finfo->metadata, TAG_DOC_GENERATOR, obj.getString());
+            add(*f->metadata, TAG_DOC_GENERATOR, obj.getString());
 
         if (dict->lookup("CreationDate", &obj)->isString())
-            add_date(*finfo->metadata, TAG_DOC_DATECREATED, obj.getString());
+            add_date(*f->metadata, TAG_DOC_DATECREATED, obj.getString());
 
         if (dict->lookup("ModDate", &obj)->isString())
-            add_date(*finfo->metadata, TAG_DOC_DATEMODIFIED, obj.getString());
+            add_date(*f->metadata, TAG_DOC_DATEMODIFIED, obj.getString());
 
         obj.free();
     }

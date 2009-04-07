@@ -483,12 +483,12 @@ typedef enum
 void gcmd_tags_init();
 void gcmd_tags_shutdown();
 
-GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *finfo);
+GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *f);
 
 const gchar *gcmd_tags_get_name(const GnomeCmdTag tag);
 const GnomeCmdTagClass gcmd_tags_get_class(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag);
-const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag);
+const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_title(const GnomeCmdTag tag);
 const gchar *gcmd_tags_get_description(const GnomeCmdTag tag);
 
@@ -500,11 +500,11 @@ GnomeCmdTag gcmd_tags_get_tag_by_name(const gchar *tag_name, const GnomeCmdTagCl
 // gcmd_tags_get_value_by_name() returns metatag value for given tag_name (eg. AlbumArtist) in the specified tag_class (here TAG_AUDIO)
 // if tag_class is omitted, tag_name must contain fully qualified tag name (eg. Audio.AlbumArtist)
 
-inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *finfo, const gchar *tag_name, const GnomeCmdTagClass tag_class=TAG_NONE_CLASS)
+inline const gchar *gcmd_tags_get_value_by_name(GnomeCmdFile *f, const gchar *tag_name, const GnomeCmdTagClass tag_class=TAG_NONE_CLASS)
 {
-    g_return_val_if_fail (finfo != NULL, "");
+    g_return_val_if_fail (f != NULL, "");
 
-    return gcmd_tags_get_value(finfo, gcmd_tags_get_tag_by_name(tag_name, tag_class));
+    return gcmd_tags_get_value(f, gcmd_tags_get_tag_by_name(tag_name, tag_class));
 }
 
 

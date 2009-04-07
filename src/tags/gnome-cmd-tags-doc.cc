@@ -452,25 +452,25 @@ void gcmd_tags_libgsf_shutdown()
 }
 
 
-void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
+void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
 {
-    g_return_if_fail (finfo != NULL);
-    g_return_if_fail (finfo->info != NULL);
+    g_return_if_fail (f != NULL);
+    g_return_if_fail (f->info != NULL);
 
 #ifdef HAVE_GSF
-    if (finfo->metadata && finfo->metadata->is_accessed(TAG_DOC))  return;
+    if (f->metadata && f->metadata->is_accessed(TAG_DOC))  return;
 
-    if (!finfo->metadata)
-        finfo->metadata = new GnomeCmdFileMetadata;
+    if (!f->metadata)
+        f->metadata = new GnomeCmdFileMetadata;
 
-    if (!finfo->metadata)  return;
+    if (!f->metadata)  return;
 
-    finfo->metadata->mark_as_accessed(TAG_DOC);
+    f->metadata->mark_as_accessed(TAG_DOC);
 
-    if (!gnome_cmd_file_is_local(finfo))  return;
+    if (!gnome_cmd_file_is_local(f))  return;
 
     GError *err = NULL;
-    gchar *fname = gnome_cmd_file_get_real_path (finfo);
+    gchar *fname = gnome_cmd_file_get_real_path (f);
 
     DEBUG('t', "Loading doc metadata for '%s'\n", fname);
 
@@ -492,10 +492,10 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *finfo)
     GsfInfile *infile = NULL;
 
     if ((infile = gsf_infile_msole_new (input, NULL)))
-        process_msole_infile(infile, finfo->metadata);
+        process_msole_infile(infile, f->metadata);
     else
         if ((infile = gsf_infile_zip_new (input, NULL)))
-            process_opendoc_infile(infile, finfo->metadata);
+            process_opendoc_infile(infile, f->metadata);
 
     if (infile)
         g_object_unref (G_OBJECT (infile));

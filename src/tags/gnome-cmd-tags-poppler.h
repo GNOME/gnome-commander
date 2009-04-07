@@ -26,6 +26,6 @@
 void gcmd_tags_poppler_init();
 void gcmd_tags_poppler_shutdown();
 
-void gcmd_tags_poppler_load_metadata(GnomeCmdFile *finfo);
+void gcmd_tags_poppler_load_metadata(GnomeCmdFile *f);
 
 #endif // __GNOME_CMD_TAGS_POPPLER_H__

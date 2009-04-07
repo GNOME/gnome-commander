@@ -27,6 +27,6 @@
 void gcmd_tags_exiv2_init();
 inline void gcmd_tags_exiv2_shutdown()      {}
 
-void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo);
+void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *f);
 
 #endif // __GNOME_CMD_TAGS_EXIV2_H__

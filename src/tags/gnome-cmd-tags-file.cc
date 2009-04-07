@@ -28,43 +28,43 @@
 using namespace std;
 
 
-void gcmd_tags_file_load_metadata(GnomeCmdFile *finfo)
+void gcmd_tags_file_load_metadata(GnomeCmdFile *f)
 {
-    g_return_if_fail (finfo != NULL);
-    g_return_if_fail (finfo->info != NULL);
+    g_return_if_fail (f != NULL);
+    g_return_if_fail (f->info != NULL);
 
-    if (finfo->metadata && finfo->metadata->is_accessed(TAG_FILE))  return;
+    if (f->metadata && f->metadata->is_accessed(TAG_FILE))  return;
 
-    if (!finfo->metadata)
-        finfo->metadata = new GnomeCmdFileMetadata;
+    if (!f->metadata)
+        f->metadata = new GnomeCmdFileMetadata;
 
-    if (!finfo->metadata)  return;
+    if (!f->metadata)  return;
 
-    finfo->metadata->mark_as_accessed(TAG_FILE);
+    f->metadata->mark_as_accessed(TAG_FILE);
 
-    // if (!gnome_cmd_file_is_local(finfo))  return;
+    // if (!gnome_cmd_file_is_local(f))  return;
 
-    gchar *dpath = gnome_cmd_file_get_dirname(finfo);
+    gchar *dpath = gnome_cmd_file_get_dirname(f);
 
     static char buff[32];
 
-    finfo->metadata->add(TAG_FILE_NAME, finfo->info->name);
-    finfo->metadata->add(TAG_FILE_PATH, dpath);
+    f->metadata->add(TAG_FILE_NAME, f->info->name);
+    f->metadata->add(TAG_FILE_PATH, dpath);
 
     g_free (dpath);
 
-    gchar *uri_str = gnome_cmd_file_get_uri_str (finfo, GNOME_VFS_URI_HIDE_PASSWORD);
-    finfo->metadata->add(TAG_FILE_LINK, uri_str);
+    gchar *uri_str = gnome_cmd_file_get_uri_str (f, GNOME_VFS_URI_HIDE_PASSWORD);
+    f->metadata->add(TAG_FILE_LINK, uri_str);
     g_free (uri_str);
 
-    finfo->metadata->add(TAG_FILE_SIZE, finfo->info->size);
+    f->metadata->add(TAG_FILE_SIZE, f->info->size);
 
-    strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&finfo->info->atime));
-    finfo->metadata->add(TAG_FILE_ACCESSED, buff);
-    strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&finfo->info->mtime));
-    finfo->metadata->add(TAG_FILE_MODIFIED, buff);
+    strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&f->info->atime));
+    f->metadata->add(TAG_FILE_ACCESSED, buff);
+    strftime(buff,sizeof(buff),"%Y-%m-%d %T",localtime(&f->info->mtime));
+    f->metadata->add(TAG_FILE_MODIFIED, buff);
 
-    finfo->metadata->add(TAG_FILE_PERMISSIONS, perm2textstring(finfo->info->permissions,buff,sizeof(buff)));
+    f->metadata->add(TAG_FILE_PERMISSIONS, perm2textstring(f->info->permissions,buff,sizeof(buff)));
 
-    finfo->metadata->add(TAG_FILE_FORMAT, finfo->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY ? "Folder" : finfo->info->mime_type);
+    f->metadata->add(TAG_FILE_FORMAT, f->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY ? "Folder" : f->info->mime_type);
 }

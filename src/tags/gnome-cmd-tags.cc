@@ -555,17 +555,17 @@ void gcmd_tags_shutdown()
 }
 
 
-GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *finfo)
+GnomeCmdFileMetadata *gcmd_tags_bulk_load(GnomeCmdFile *f)
 {
-    g_return_val_if_fail (finfo != NULL, NULL);
+    g_return_val_if_fail (f != NULL, NULL);
 
-    gcmd_tags_file_load_metadata(finfo);
-    gcmd_tags_exiv2_load_metadata(finfo);
-    gcmd_tags_taglib_load_metadata(finfo);
-    gcmd_tags_libgsf_load_metadata(finfo);
-    gcmd_tags_poppler_load_metadata(finfo);
+    gcmd_tags_file_load_metadata(f);
+    gcmd_tags_exiv2_load_metadata(f);
+    gcmd_tags_taglib_load_metadata(f);
+    gcmd_tags_libgsf_load_metadata(f);
+    gcmd_tags_poppler_load_metadata(f);
 
-    return finfo->metadata;
+    return f->metadata;
 }
 
 
@@ -718,9 +718,9 @@ const gchar *gcmd_tags_get_class_name(const GnomeCmdTag tag)
 }
 
 
-const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
+const gchar *gcmd_tags_get_value(GnomeCmdFile *f, const GnomeCmdTag tag)
 {
-    g_return_val_if_fail (finfo != NULL, empty_string);
+    g_return_val_if_fail (f != NULL, empty_string);
 
     const gchar *ret_val = empty_string;
 
@@ -732,8 +732,8 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
 #ifndef HAVE_EXIV2
                         return _(no_support_for_exiv2_tags_string);
 #endif
-                        gcmd_tags_exiv2_load_metadata(finfo);
-                        ret_val = finfo->metadata->operator [] (tag).c_str();
+                        gcmd_tags_exiv2_load_metadata(f);
+                        ret_val = f->metadata->operator [] (tag).c_str();
                         break;
 
         case TAG_AUDIO:
@@ -744,8 +744,8 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
 #ifndef HAVE_ID3
                         return _(no_support_for_taglib_tags_string);
 #endif
-                        gcmd_tags_taglib_load_metadata(finfo);
-                        ret_val = finfo->metadata->operator [] (tag).c_str();
+                        gcmd_tags_taglib_load_metadata(f);
+                        ret_val = f->metadata->operator [] (tag).c_str();
                         break;
 
         case TAG_CHM  : break;
@@ -754,17 +754,17 @@ const gchar *gcmd_tags_get_value(GnomeCmdFile *finfo, const GnomeCmdTag tag)
 #ifndef HAVE_GSF
                         return _(no_support_for_libgsf_tags_string);
 #endif
-                        gcmd_tags_libgsf_load_metadata(finfo);
+                        gcmd_tags_libgsf_load_metadata(f);
         case TAG_PDF  :
 #ifndef HAVE_PDF
                         return _(no_support_for_poppler_tags_string);
 #endif
-                        gcmd_tags_poppler_load_metadata(finfo);
-                        ret_val = finfo->metadata->operator [] (tag).c_str();
+                        gcmd_tags_poppler_load_metadata(f);
+                        ret_val = f->metadata->operator [] (tag).c_str();
                         break;
 
-        case TAG_FILE : gcmd_tags_file_load_metadata(finfo);
-                        ret_val = finfo->metadata->operator [] (tag).c_str();
+        case TAG_FILE : gcmd_tags_file_load_metadata(f);
+                        ret_val = f->metadata->operator [] (tag).c_str();
                         break;
 
         case TAG_RPM  : break;

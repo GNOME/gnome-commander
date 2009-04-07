@@ -364,27 +364,27 @@ void gcmd_tags_exiv2_init()
 }
 
 
-void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
+void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *f)
 {
-    g_return_if_fail (finfo != NULL);
-    g_return_if_fail (finfo->info != NULL);
+    g_return_if_fail (f != NULL);
+    g_return_if_fail (f->info != NULL);
 
-    if (finfo->metadata && finfo->metadata->is_accessed(TAG_IMAGE))  return;
+    if (f->metadata && f->metadata->is_accessed(TAG_IMAGE))  return;
 
-    if (!finfo->metadata)
-        finfo->metadata = new GnomeCmdFileMetadata;
+    if (!f->metadata)
+        f->metadata = new GnomeCmdFileMetadata;
 
-    if (!finfo->metadata)  return;
+    if (!f->metadata)  return;
 
-    finfo->metadata->mark_as_accessed(TAG_IMAGE);
+    f->metadata->mark_as_accessed(TAG_IMAGE);
 #ifdef HAVE_EXIV2
-    finfo->metadata->mark_as_accessed(TAG_EXIF);
-    finfo->metadata->mark_as_accessed(TAG_IPTC);
+    f->metadata->mark_as_accessed(TAG_EXIF);
+    f->metadata->mark_as_accessed(TAG_IPTC);
 #endif
 
-    if (!gnome_cmd_file_is_local(finfo))  return;
+    if (!gnome_cmd_file_is_local(f))  return;
 
-    gchar *fname = gnome_cmd_file_get_real_path (finfo);
+    gchar *fname = gnome_cmd_file_get_real_path (f);
 
     DEBUG('t', "Loading image metadata for '%s'\n", fname);
 
@@ -395,8 +395,8 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
 
         image->readMetadata();
 
-        readTags(finfo->metadata, image->exifData());
-        readTags(finfo->metadata, image->iptcData());
+        readTags(f->metadata, image->exifData());
+        readTags(f->metadata, image->iptcData());
     }
 
     catch (AnyError &e)
@@ -412,6 +412,6 @@ void gcmd_tags_exiv2_load_metadata(GnomeCmdFile *finfo)
     if (!fmt)
         return;
 
-    finfo->metadata->addf (TAG_IMAGE_WIDTH, "%i", width);
-    finfo->metadata->addf (TAG_IMAGE_HEIGHT, "%i", height);
+    f->metadata->addf (TAG_IMAGE_WIDTH, "%i", width);
+    f->metadata->addf (TAG_IMAGE_HEIGHT, "%i", height);
 }

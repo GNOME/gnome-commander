@@ -27,6 +27,6 @@
 inline void gcmd_tags_file_init()           {}
 inline void gcmd_tags_file_shutdown()       {}
 
-void gcmd_tags_file_load_metadata(GnomeCmdFile *finfo);
+void gcmd_tags_file_load_metadata(GnomeCmdFile *f);
 
 #endif // __GNOME_CMD_TAGS_FILE_H__

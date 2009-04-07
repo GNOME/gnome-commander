@@ -26,6 +26,6 @@
 void gcmd_tags_taglib_init();
 inline void gcmd_tags_taglib_shutdown()     {}
 
-void gcmd_tags_taglib_load_metadata(GnomeCmdFile *finfo);
+void gcmd_tags_taglib_load_metadata(GnomeCmdFile *f);
 
 #endif // __GNOME_CMD_TAGS_TAGLIB_H__
