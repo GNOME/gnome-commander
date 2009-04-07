@@ -5951,6 +5951,9 @@
                         <listitem>
                             <para>Fixed problem with setting equal pane size in horizontal mode</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem with refreshing MIME information after file renaming</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
