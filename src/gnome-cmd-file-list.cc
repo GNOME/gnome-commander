@@ -1492,6 +1492,11 @@ void GnomeCmdFileList::update_file(GnomeCmdFile *f)
 
     for (gint i=1; i<GnomeCmdFileList::NUM_COLUMNS; i++)
         gtk_clist_set_text (*this, row, i, data.text[i]);
+
+    if (gnome_cmd_data.layout != GNOME_CMD_LAYOUT_TEXT)
+        gtk_clist_set_pixmap (*this, row, 0,
+                              gnome_cmd_file_get_type_pixmap (f),
+                              gnome_cmd_file_get_type_mask (f));
 }
 
 
