@@ -10,13 +10,11 @@
 * Tab completion at the built-in command line
 * Splitting/merging files
 * Write configuration and bookmark changes immediately to file
-* Optional deleting to .Thrash
-* Support for file meta tags (exif, iptc, icc, mp3, vorbis, *ml, pdf, video, ...)
-    - custom columns
+* Optional deleting to .Trash
 * Unmounting a device via device button
 * advrename & FAM: do not re-sort file list for every single renamed file
 * Bookmark icons for ordinary folders in the device toolbar
-* User defined categories for grouping bookmarks
+* User defined categories for grouping bookmarks (Firefox bookmark folders)
 * Editing remote files
 * Optional file deselection after completed action (copy, rename, ...)
 * More plugins:
@@ -38,6 +36,7 @@
 
 * File names filtering
 * Custom columns support
+    - support for file meta tags (exif, iptc, icc, mp3, vorbis, *ml, pdf, video, ...)
 * 'Directory Tree' with ALT+F10
 * Brief file listing (see mc)
 * Thumbnail listing mode
