@@ -75,6 +75,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
             }
             return TRUE;
 
+        case GDK_F2:
         case GDK_F5:
         case GDK_F6:
             gnome_cmd_toggle_file_name_selection (GTK_WIDGET (dialog->priv->textbox));

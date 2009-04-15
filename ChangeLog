@@ -1,3 +1,8 @@
+2009-04-15  <nejc@nejc.info>
+
+	* src/gnome-cmd-rename-dialog.cc:
+	Toggle path/basename/filename selections for F2 too
+
 2009-04-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:
