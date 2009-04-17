@@ -12,7 +12,7 @@
   <maintainer>
     <foaf:Person>
       <foaf:name>Piotr Eljasiak</foaf:name>
-      <foaf:mbox rdf:resource="epiotr@use.pl" />
+      <foaf:mbox rdf:resource="epiotr@src.gnome.org" />
       <gnome:userid>epiotr</gnome:userid>
     </foaf:Person>
   </maintainer>
