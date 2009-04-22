@@ -5949,6 +5949,9 @@
                             <para>Fixed problem #576174 (case insensitive file name sorting in non en_US.utf8 locale)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #579633 (accessing administrator privileges with gksudo)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with setting equal pane size in horizontal mode</para>
                         </listitem>
                         <listitem>

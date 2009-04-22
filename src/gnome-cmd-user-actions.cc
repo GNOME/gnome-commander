@@ -1132,9 +1132,7 @@ void command_root_mode (GtkMenuItem *menuitem, gpointer not_used)
 {
     char *su;
 
-    su = g_find_program_in_path ("gksudo");
-    if  (!su)
-        su = g_find_program_in_path ("gksu");
+    su = g_find_program_in_path ("gksu");
     if  (!su)
         su = g_find_program_in_path ("kdesu");
 

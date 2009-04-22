@@ -1,3 +1,8 @@
+2009-04-22  Andrey Cherkinskiy
+
+	* src/gnome-cmd-user-actions.cc:
+	Fixed problem #579633 (accessing administrator privileges with gksudo)
+
 2009-04-15  <nejc@nejc.info>
 
 	* src/gnome-cmd-rename-dialog.cc:
