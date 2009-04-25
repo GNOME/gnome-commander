@@ -938,8 +938,7 @@ static void gnome_cmd_profile_component_finalize (GObject *object)
 {
     GnomeCmdProfileComponent *component = GNOME_CMD_PROFILE_COMPONENT (object);
 
-    component->profile.template_string = component->get_template_entry();
-    copy_regex_model(component->priv->regex_model, GnomeCmdProfileComponent::COL_REGEX, component->profile.regexes);
+    component->copy();
 
     delete component->priv;
 
@@ -1142,4 +1141,35 @@ void GnomeCmdProfileComponent::set_template_history(GList *history)
 {
     for (GList *i=history; i; i=i->next)
         gtk_combo_box_append_text (GTK_COMBO_BOX (priv->template_combo), (const gchar *) i->data);
+}
+
+
+GtkTreeModel *GnomeCmdProfileComponent::get_regex_model() const
+{
+    return priv ? priv->regex_model : NULL;
+}
+
+
+void GnomeCmdProfileComponent::copy()
+{
+    profile.template_string = get_template_entry();
+    copy_regex_model(priv->regex_model, COL_REGEX, profile.regexes);
+}
+
+
+void GnomeCmdProfileComponent::copy(GnomeCmdData::AdvrenameConfig::Profile &p)
+{
+    p.template_string = get_template_entry();
+    copy_regex_model(priv->regex_model, COL_REGEX, p.regexes);
+
+    if (&p==&profile)
+        return;
+
+    p.name.clear();
+    p.template_string = profile.template_string;
+    p.counter_start = profile.counter_start;
+    p.counter_width = profile.counter_width;
+    p.counter_step = profile.counter_step;
+    p.case_conversion = profile.case_conversion;
+    p.trim_blanks = profile.trim_blanks;
 }

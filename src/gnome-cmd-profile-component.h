@@ -51,9 +51,12 @@ struct GnomeCmdProfileComponent
     ~GnomeCmdProfileComponent()     {}
 
     void update();
+    void copy();                                                    //  copies component to associated profile
+    void copy(GnomeCmdData::AdvrenameConfig::Profile &profile);     //  copies component to specified profile
 
     const gchar *get_template_entry() const;
     void set_template_history(GList *history);
+    GtkTreeModel *get_regex_model() const;
 };
 
 #endif // __GNOME_CMD_PROFILE_COMPONENT_H__

@@ -1,3 +1,9 @@
+2009-04-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/tags/gnome-cmd-profile-component.cc:
+	* src/tags/gnome-cmd-profile-component.h:
+	advrename profiles: added copy() method
+
 2009-04-22  Andrey Cherkinskiy
 
 	* src/gnome-cmd-user-actions.cc:
