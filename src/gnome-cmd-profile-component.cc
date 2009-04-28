@@ -1152,14 +1152,18 @@ GtkTreeModel *GnomeCmdProfileComponent::get_regex_model() const
 
 void GnomeCmdProfileComponent::copy()
 {
-    profile.template_string = get_template_entry();
+    const char *template_entry = get_template_entry();
+
+    profile.template_string =  template_entry && *template_entry ? template_entry : "$N";
     copy_regex_model(priv->regex_model, COL_REGEX, profile.regexes);
 }
 
 
 void GnomeCmdProfileComponent::copy(GnomeCmdData::AdvrenameConfig::Profile &p)
 {
-    p.template_string = get_template_entry();
+    const char *template_entry = get_template_entry();
+
+    profile.template_string =  template_entry && *template_entry ? template_entry : "$N";
     copy_regex_model(priv->regex_model, COL_REGEX, p.regexes);
 
     if (&p==&profile)
