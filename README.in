@@ -28,12 +28,12 @@ The ChangeLog contains a detailed description on what has changed. For most
 users the NEWS file might be a better place to look since it contains
 change summaries between the different versions.
 
-GNOME Commander is released under the GNU General Public License (GPL) version 2, see
-the file 'COPYING' for more information.
+GNOME Commander is released under the GNU General Public License (GPL) version 2,
+see the file 'COPYING' for more information.
 
 The official web site is:
 
-    http://www.GNOME Commander.org
+    http://www.nongnu.org/gcmd/
 
 You can download the latest GNOME Commander tarball from the gnome ftp server:
 
@@ -50,7 +50,7 @@ Ideas:
   welcome to start a discussion on the mailing lists.
 
 Translations:
-  * Since now this program is in the gnome svn tree, translations should be
+  * Since now this program is in the GNOME git repository, translations should be
     commited directly to the tree there.
 
 Cool hacks:

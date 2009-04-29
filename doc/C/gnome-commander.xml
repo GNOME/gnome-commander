@@ -244,8 +244,8 @@
             </listitem>
         </itemizedlist>
     <note>
-      <para>If you are using a development or SVN version, it is possible that the latest new features are not yet in this manual.
-            Please read the <ulink url="http://svn.gnome.org/viewcvs/*checkout*/gnome-commander/trunk/ChangeLog" type="http">detailed ChangeLog online</ulink>
+      <para>If you are using code from git repository, it is possible that the latest new features are not yet in this manual.
+            Please read the <ulink url="http://git.gnome.org/cgit/gnome-commander/plain/ChangeLog" type="http">detailed ChangeLog online</ulink>
             or in the &app; sources to find out more about the new features.</para>
     </note>
   </sect1>
@@ -4909,7 +4909,7 @@
         </itemizedlist>
         <note>
             <para>The list is based on GDK key symbols taken from
-            <ulink url="http://svn.gnome.org/viewcvs/gtk%2B/trunk/gdk/gdkkeysyms.h?view=markup" type="http">
+            <ulink url="http://git.gnome.org/cgit/gtk+/plain/gdk/gdkkeysyms.h" type="http">
             gdkkeysyms.h</ulink>.</para>
         </note>
     </sect2>
@@ -5047,7 +5047,7 @@
             </para>
             <note>
               <para>The latest version of md5sum code can be found in
-              <ulink url="http://svn.gnome.org/viewcvs/gnome-commander/trunk/plugins/python/md5sum/md5sum.py?view=markup" type="http">SVN &app; repository.</ulink></para>
+              <ulink url="http://git.gnome.org/cgit/gnome-commander/plain/plugins/python/md5sum/md5sum.py" type="http">git &app; repository.</ulink></para>
             </note>
         </sect2>
 
@@ -5206,29 +5206,43 @@
     <sect2 id="gnome-commander-stable-version">
         <title>Stable version</title>
         <para>
-            <command>svn checkout svn://svn.gnome.org/svn/gnome-commander/trunk</command>
+            <command>git clone git://git.gnome.org/gnome-commander</command>
         </para>
+        <para>
+            <command>git checkout master</command>
+        </para>
+        <note>
+            <para>The above works only to do a first time download and not for updating the code,
+                  if you already have a version of the code simply run <command>git pull</command> to get the latest revisions.</para>
+        </note>
     </sect2>
     <sect2 id="gnome-commander-development-version">
         <title>Development version</title>
         <para>
-            <command>svn checkout svn://svn.gnome.org/svn/gnome-commander/branches/gcmd-1-3</command>
+            <command>git clone git://git.gnome.org/gnome-commander</command>
         </para>
+        <para>
+            <command>git branch --track gcmd-1-3 origin/gcmd-1-3</command>
+        </para>
+        <para>
+            <command>git checkout gcmd-1-3</command>
+        </para>
+        <note>
+            <para>The above works only to do a first time download and not for updating the code,
+                  if you already have a version of the code simply run <command>git pull</command> to get the latest revisions.</para>
+        </note>
     </sect2>
-    <sect2 id="gnome-commander-svn-builds">
-        <title>SVN builds</title>
+    <sect2 id="gnome-commander-snapshot-builds">
+        <title>&app; snapshots builds</title>
         <para>
         For those of you who feel really adventurous, or maybe want to hack on the freshest code,
-        the latest development sourcecode can be downloaded directly from
-        <ulink url="http://svn.gnome.org/viewcvs/gnome-commander/trunk/" type="http">&app; SVN repository</ulink>.
-            <para>
-                <command>svn checkout svn://svn.gnome.org/svn/gnome-commander/trunk</command>
-            </para>
+        the latest development source snapshots can be downloaded from
+        <ulink url="http://www.nongnu.org/gcmd/download.html#testing" type="http">&app; home page</ulink>
 
-        (just remember to run <command>autogen.sh</command> before compiling).
+        (just remember to run <command>./autogen.sh</command> before building).
 
             <warning>
-                <para>Be aware that there can be serious bugs in code from SVN repository. This code is intended for hacking,
+                <para>Be aware that there can be serious bugs in code from GNOME git repository. This code is intended for hacking,
                 development and testing purposes only.</para>
             </warning>
         </para>

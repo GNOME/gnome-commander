@@ -1,3 +1,8 @@
+2009-04-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* doc/C/gnome-commander.xml:
+	Updated links to gcmd repository (svn -> git)
+
 2009-04-18  Mario Blättermann  <mariobl@gnome.org>
 
 	* de/de.po: Updated German translation
