@@ -1177,3 +1177,15 @@ void GnomeCmdProfileComponent::copy(GnomeCmdData::AdvrenameConfig::Profile &p)
     p.case_conversion = profile.case_conversion;
     p.trim_blanks = profile.trim_blanks;
 }
+
+
+gchar *GnomeCmdProfileComponent::convert_case(gchar *string)
+{
+    return priv->convert_case(string);
+}
+
+
+gchar *GnomeCmdProfileComponent::trim_blanks(gchar *string)
+{
+    return priv->trim_blanks(string);
+}

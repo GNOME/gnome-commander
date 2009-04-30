@@ -54,6 +54,9 @@ struct GnomeCmdProfileComponent
     void copy();                                                    //  copies component to associated profile
     void copy(GnomeCmdData::AdvrenameConfig::Profile &profile);     //  copies component to specified profile
 
+    gchar *convert_case(gchar *string);
+    gchar *trim_blanks(gchar *string);
+
     const gchar *get_template_entry() const;
     void set_template_history(GList *history);
     GtkTreeModel *get_regex_model() const;

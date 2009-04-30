@@ -1,3 +1,9 @@
+2009-04-30  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-profile-component.cc:
+	* src/gnome-cmd-profile-component.h:
+	advrename profiles: added convert_case() and trim_blanks() methods
+
 2009-04-28  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/tags/gnome-cmd-profile-component.cc:
