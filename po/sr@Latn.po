@@ -830,7 +830,7 @@ msgstr "Da li želite da uklonite „%s“?"
 #, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
-msgstr[0] "Da li želite da obrišete izabranu datoteku?"
+msgstr[0] "Da li želite da obrišete %d izabranu datoteku?"
 msgstr[1] "Da li želite da obrišete %d izabrane datoteke?"
 msgstr[2] "Da li želite da obrišete %d izabranih datoteka?"
 

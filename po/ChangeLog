@@ -1,3 +1,13 @@
+2009-05-04  Piotr Eljasiak  <epiotr@use.pl>
+
+	* hr.po: 'msgfmt --check hr.po' passes now
+	* ne.po: 'msgfmt --check ne.po' passes now
+	* nl.po: 'msgfmt --check nl.po' passes now
+	* pa.po: 'msgfmt --check pa.po' passes now
+	* ru.po: 'msgfmt --check ru.po' passes now
+	* sr.po: 'msgfmt --check sr.po' passes now
+	* sr@Latn.po: 'msgfmt --check sr@Latn.po' passes now
+
 2009-04-18  Mario Blättermann  <mariobl@gnome.org>
 
 	* de.po: Updated German translation
@@ -50,7 +60,7 @@
 
 	* de.po: Updated German translation.
 
-2009-01-20  Jorge Gonzalez  <jorgegonz@svn.gnome.org>  
+2009-01-20  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es.po: Updated Spanish translation by Daniel Mustieles.
 

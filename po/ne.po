@@ -826,7 +826,7 @@ msgid "Do you want to delete \"%s\"?"
 msgstr "के तपाईँ \"%s\" मेट्न चाहनुहुन्छ ?"
 
 #: ../src/gnome-cmd-delete-dialog.cc:282
-#, c-format
+#, fuzzy, c-format
 msgid "Do you want to delete the selected file?"
 msgid_plural "Do you want to delete the %d selected files?"
 msgstr[0] "के तपाईँ चयन गरिएको फाइल मेट्न चाहनुहुन्छ ?"
