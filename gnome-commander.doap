@@ -8,12 +8,16 @@
   <shortdesc xml:lang="en">Light and fast file manager for GNOME</shortdesc>
   <homepage rdf:resource="http://www.nongnu.org/gcmd/" />
   <mailing-list rdf:resource="http://lists.nongnu.org/mailman/listinfo/gcmd-devel" />
+  <download-page rdf:resource="http://download.gnome.org/sources/gnome-commander/" />
+  <bug-database rdf:resource="http://bugzilla.gnome.org/browse.cgi?product=gnome-commander" />
+  <category rdf:resource="http://api.gnome.org/doap-extensions#desktop" />
 
   <maintainer>
     <foaf:Person>
       <foaf:name>Piotr Eljasiak</foaf:name>
-      <foaf:mbox rdf:resource="epiotr@src.gnome.org" />
+      <foaf:mbox rdf:resource="mailto:epiotr@src.gnome.org" />
       <gnome:userid>epiotr</gnome:userid>
     </foaf:Person>
   </maintainer>
+
 </Project>
