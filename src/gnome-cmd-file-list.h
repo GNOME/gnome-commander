@@ -65,7 +65,7 @@ struct GnomeCmdFileList
     gboolean realized;
 
     void *operator new (size_t size);
-    void operator delete (void *p)      {  g_free (p);  }
+    void operator delete (void *p)      {  g_object_unref (p);  }
 
     operator GtkObject * ()             {  return GTK_OBJECT (this);       }
     operator GtkWidget * ()             {  return GTK_WIDGET (this);       }

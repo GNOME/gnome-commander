@@ -46,7 +46,7 @@ struct GnomeCmdAdvrenameDialog
     operator GtkDialog * ()             {  return GTK_DIALOG (this);  }
 
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_ADVRENAME_DIALOG, NULL);  }
-    void operator delete (void *p)      {  g_free (p);  }
+    void operator delete (void *p)      {  g_object_unref (p);  }
 
     enum {GCMD_RESPONSE_PROFILES=123, GCMD_RESPONSE_RESET};
 

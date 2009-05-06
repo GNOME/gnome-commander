@@ -21,7 +21,6 @@
 #ifndef __GNOME_CMD_NOTEBOOK_H__
 #define __GNOME_CMD_NOTEBOOK_H__
 
-
 #include <gtk/gtk.h>
 
 #define GNOME_CMD_TYPE_NOTEBOOK          (gnome_cmd_notebook_get_type ())
@@ -41,7 +40,7 @@ struct GnomeCmdNotebook
     Private *priv;
 
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_NOTEBOOK, "show-tabs", FALSE, NULL);  }
-    void operator delete (void *p)      {  g_free (p);  }
+    void operator delete (void *p)      {  g_object_unref (p);  }
 
     operator GtkWidget * ()             {  return GTK_WIDGET (this);    }
     operator GtkNotebook * ()           {  return GTK_NOTEBOOK (this);  }

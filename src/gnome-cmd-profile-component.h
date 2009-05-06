@@ -41,7 +41,7 @@ struct GnomeCmdProfileComponent
     operator GtkWidget * ()             {  return GTK_WIDGET (this);  }
 
     void *operator new (size_t size)    {  return g_object_new (GNOME_CMD_TYPE_PROFILE_COMPONENT, NULL);  }
-    void operator delete (void *p)      {  g_free (p);  }
+    void operator delete (void *p)      {  g_object_unref (p);  }
 
     enum {COL_REGEX, COL_MALFORMED_REGEX, COL_PATTERN, COL_REPLACE, COL_MATCH_CASE, NUM_REGEX_COLS};
 
