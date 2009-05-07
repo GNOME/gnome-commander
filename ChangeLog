@@ -1,3 +1,8 @@
+2009-05-07  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	Replaced deprecated gtk_entry_set_position() with gtk_editable_set_position()
+
 2009-05-07  Christopher Zimmermann  <madroach@zakweb.de>
 
 	* src/gnome-cmd-data.cc:

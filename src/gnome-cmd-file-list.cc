@@ -1966,7 +1966,7 @@ void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
     {
         GnomeCmdQuicksearchPopup *popup = GNOME_CMD_QUICKSEARCH_POPUP (fl->priv->quicksearch_popup);
         gtk_entry_set_text (GTK_ENTRY (popup->entry), text);
-        gtk_entry_set_position (GTK_ENTRY (popup->entry), 1);
+        gtk_editable_set_position (GTK_EDITABLE (popup->entry), 1);
     }
 
     gtk_signal_connect (GTK_OBJECT (fl->priv->quicksearch_popup), "hide",
