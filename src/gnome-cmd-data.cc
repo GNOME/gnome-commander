@@ -1147,7 +1147,7 @@ void GnomeCmdData::load()
     gchar *document_icon_dir = g_strdup_printf ("%s/share/pixmaps/document-icons/", GNOME_PREFIX);
     gchar *theme_icon_dir    = g_strdup_printf ("%s/mime-icons", PIXMAPS_DIR);
 
-    priv = g_new0 (GnomeCmdData::Private, 1);
+    priv = g_new0 (Private, 1);
 
     priv->color_themes[GNOME_CMD_COLOR_CUSTOM].respect_theme = FALSE;
     priv->color_themes[GNOME_CMD_COLOR_CUSTOM].norm_fg = gdk_color_new (0xffff,0xffff,0xffff);
@@ -1283,7 +1283,7 @@ void GnomeCmdData::load()
 
     ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
     left_mouse_button_unselects = gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE);
-    right_mouse_button_mode = (RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU);
+    right_mouse_button_mode = (RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
     icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
     dev_icon_size = gnome_cmd_data_get_int ("/options/dev_icon_size", 16);
     icon_scale_quality = (GdkInterpType) gnome_cmd_data_get_int ("/options/icon_scale_quality", GDK_INTERP_HYPER);
