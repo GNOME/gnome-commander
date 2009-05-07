@@ -72,16 +72,26 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
 
-    // Right mouse button settings
+    // Left click behavior
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Use right mouse button to"));
+    cat = create_category (parent, cat_box, _("Left mouse button"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    radio = create_radio (parent, NULL, _("Show popup menu"), "rmb_popup_radio");
+    check = create_check (parent, _("Unselects files"), "lmb_unselect_check");
+    gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.left_mouse_button_unselects);
+
+
+    // Right mouse button settings
+    cat_box = create_vbox (parent, FALSE, 0);
+    cat = create_category (parent, cat_box, _("Right mouse button"));
+    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
+
+    radio = create_radio (parent, NULL, _("Shows popup menu"), "rmb_popup_radio");
     gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
     if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
-    radio = create_radio (parent, get_radio_group(radio), _("Select files"), "rmb_sel_radio");
+    radio = create_radio (parent, get_radio_group(radio), _("Selects files"), "rmb_sel_radio");
     gtk_container_add (GTK_CONTAINER (cat_box), radio);
     if (gnome_cmd_data.right_mouse_button_mode == GnomeCmdData::RIGHT_BUTTON_SELECTS)
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
@@ -142,11 +152,14 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
 inline void store_general_options (GnomeCmdOptionsDialog *dialog)
 {
+    GtkWidget *lmb_unselect_check = lookup_widget (GTK_WIDGET (dialog), "lmb_unselect_check");
     GtkWidget *rmb_popup_radio = lookup_widget (GTK_WIDGET (dialog), "rmb_popup_radio");
     GtkWidget *ft_regex_radio = lookup_widget (GTK_WIDGET (dialog), "ft_regex_radio");
     GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
     GtkWidget *dir_cache_size = lookup_widget (GTK_WIDGET (dialog), "dir_cache_size");
     GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
+
+    gnome_cmd_data.left_mouse_button_unselects = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_unselect_check));
 
     gnome_cmd_data.right_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
                                                                                                                 : GnomeCmdData::RIGHT_BUTTON_SELECTS;

@@ -1,3 +1,11 @@
+2009-05-07  Christopher Zimmermann  <madroach@zakweb.de>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	Allow gentoo like left-click behaviour
+
 2009-05-06  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.h:

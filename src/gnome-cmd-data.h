@@ -146,6 +146,7 @@ struct GnomeCmdData
     gboolean                     confirm_delete;
     GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
+    gboolean                     left_mouse_button_unselects;
     RightMouseButtonMode         right_mouse_button_mode;
     GnomeCmdColorMode            color_mode;
     GnomeCmdSizeDispMode         size_disp_mode;

@@ -1190,7 +1190,7 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
         if (event->button == 1 && state_is_blank (event->state))
         {
             GnomeCmdFile *f = fl->get_file_at_row(row);
-            if (f && g_list_index (fl->priv->selected_files, f) == -1)
+            if (f && g_list_index (fl->priv->selected_files, f)==-1 && gnome_cmd_data.left_mouse_button_unselects)
                 fl->unselect_all();
             return TRUE;
         }

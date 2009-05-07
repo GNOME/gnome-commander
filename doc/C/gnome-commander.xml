@@ -5478,6 +5478,13 @@
                                 </row>
                                 <row valign="top">
                                     <entry><para></para></entry>
+                                    <entry><para>left_mouse_button_unselects</para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                    <entry><para></para></entry>
+                                </row>
+                                <row valign="top">
+                                    <entry><para></para></entry>
                                     <entry><para>right_mouse_button_mode</para></entry>
                                     <entry><para></para></entry>
                                     <entry><para></para></entry>
