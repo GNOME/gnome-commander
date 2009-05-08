@@ -21,14 +21,16 @@
 #ifndef __GNOME_CMD_FILE_LIST_H__
 #define __GNOME_CMD_FILE_LIST_H__
 
-
-#define GNOME_CMD_FILE_LIST(obj)          GTK_CHECK_CAST (obj, gnome_cmd_file_list_get_type (), GnomeCmdFileList)
-#define GNOME_CMD_FILE_LIST_CLASS(klass)  GTK_CHECK_CLASS_CAST (klass, gnome_cmd_file_list_get_type (), GnomeCmdFileListClass)
-#define GNOME_CMD_IS_FILE_LIST(obj)       GTK_CHECK_TYPE (obj, gnome_cmd_file_list_get_type ())
-
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-dir.h"
 #include "gnome-cmd-clist.h"
+
+#define GNOME_CMD_TYPE_FILE_LIST         (gnome_cmd_file_list_get_type())
+#define GNOME_CMD_FILE_LIST(obj)          GTK_CHECK_CAST (obj, GNOME_CMD_TYPE_FILE_LIST, GnomeCmdFileList)
+#define GNOME_CMD_IS_FILE_LIST(obj)       GTK_CHECK_TYPE (obj, GNOME_CMD_TYPE_FILE_LIST)
+
+
+GtkType gnome_cmd_file_list_get_type ();
 
 
 /* DnD target names */
@@ -169,11 +171,9 @@ struct GnomeCmdFileListClass
 };
 
 
-GtkType gnome_cmd_file_list_get_type ();
-
 inline void *GnomeCmdFileList::operator new (size_t size)
 {
-    return g_object_new (gnome_cmd_file_list_get_type (), "n-columns", GnomeCmdFileList::NUM_COLUMNS, NULL);
+    return g_object_new (GNOME_CMD_TYPE_FILE_LIST, "n-columns", GnomeCmdFileList::NUM_COLUMNS, NULL);
 }
 
 inline GnomeCmdFileList::GnomeCmdFileList(GtkSignalFunc handler, GtkObject *object)
