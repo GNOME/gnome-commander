@@ -49,7 +49,7 @@ static gchar *recurse_opts[CHMOD_MAX] = {
 struct GnomeCmdChmodDialogPrivate
 {
     GList *files;
-    GnomeCmdFile *finfo;
+    GnomeCmdFile *f;
     GnomeVFSFilePermissions perms;
 
     GtkWidget *chmod_component;
@@ -89,12 +89,12 @@ static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
 
         for (GList *tmp = files; tmp; tmp = tmp->next)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
-            if (strcmp (finfo->info->name, ".") != 0
-                && strcmp (finfo->info->name, "..") != 0
-                && !GNOME_VFS_FILE_INFO_SYMLINK(finfo->info))
+            GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+            if (strcmp (f->info->name, ".") != 0
+                && strcmp (f->info->name, "..") != 0
+                && !GNOME_VFS_FILE_INFO_SYMLINK(f->info))
             {
-                do_chmod (finfo, perm, TRUE, mode);
+                do_chmod (f, perm, TRUE, mode);
             }
         }
         gnome_cmd_dir_unref (dir);
@@ -106,13 +106,13 @@ inline void do_chmod_files (GnomeCmdChmodDialog *dialog)
 {
     for (GList *tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
         gboolean recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check));
         const gchar *mode_text = gtk_entry_get_text (GTK_ENTRY (GTK_COMBO (dialog->priv->recurse_combo)->entry));
         ChmodRecursiveMode mode = strcmp (mode_text, recurse_opts[CHMOD_ALL_FILES]) == 0 ? CHMOD_ALL_FILES :
                                                                                            CHMOD_DIRS_ONLY;
 
-        do_chmod (finfo, dialog->priv->perms, recursive, mode);
+        do_chmod (f, dialog->priv->perms, recursive, mode);
         view_refresh (NULL, NULL);
     }
 }
@@ -244,10 +244,10 @@ GtkWidget *gnome_cmd_chmod_dialog_new (GList *files)
     GnomeCmdChmodDialog *dialog = (GnomeCmdChmodDialog *) gtk_type_new (gnome_cmd_chmod_dialog_get_type ());
     dialog->priv->files = gnome_cmd_file_list_copy (files);
 
-    dialog->priv->finfo = (GnomeCmdFile *) dialog->priv->files->data;
-    g_return_val_if_fail (dialog->priv->finfo != NULL, NULL);
+    dialog->priv->f = (GnomeCmdFile *) dialog->priv->files->data;
+    g_return_val_if_fail (dialog->priv->f != NULL, NULL);
 
-    dialog->priv->perms = dialog->priv->finfo->info->permissions;
+    dialog->priv->perms = dialog->priv->f->info->permissions;
 
     show_perms (dialog);
 

@@ -31,6 +31,6 @@ struct LsColor
 };
 
 void     ls_colors_init ();
-LsColor *ls_colors_get (GnomeCmdFile *finfo);
+LsColor *ls_colors_get (GnomeCmdFile *f);
 
 #endif // __LS_COLORS_H__

@@ -205,19 +205,19 @@ void ls_colors_init ()
 }
 
 
-LsColor *ls_colors_get (GnomeCmdFile *finfo)
+LsColor *ls_colors_get (GnomeCmdFile *f)
 {
-    if (finfo->info->symlink_name)
+    if (f->info->symlink_name)
         return type_colors[GNOME_VFS_FILE_TYPE_SYMBOLIC_LINK];
 
     LsColor *col = NULL;
-    const gchar *ext = gnome_cmd_file_get_extension (finfo);
+    const gchar *ext = gnome_cmd_file_get_extension (f);
 
     if (ext)
         col = (LsColor *) g_hash_table_lookup (map, ext);
 
     if (!col)
-        col = type_colors[finfo->info->type];
+        col = type_colors[f->info->type];
 
     return col;
 }

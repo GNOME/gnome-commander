@@ -222,11 +222,11 @@ static gboolean update_delete_status_widgets (DeleteData *data)
         if (data->files)
             for (GList *tmp = data->files; tmp; tmp = tmp->next)
             {
-                GnomeCmdFile *finfo = GNOME_CMD_FILE (tmp->data);
-                GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
+                GnomeCmdFile *f = GNOME_CMD_FILE (tmp->data);
+                GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
 
                 if (!gnome_vfs_uri_exists (uri))
-                    gnome_cmd_file_is_deleted (finfo);
+                    gnome_cmd_file_is_deleted (f);
             }
 
         gtk_widget_destroy (data->progwin);
@@ -267,12 +267,12 @@ void gnome_cmd_delete_dialog_show (GList *files)
 
         if (n_files == 1)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile *) g_list_nth_data (files, 0);
+            GnomeCmdFile *f = (GnomeCmdFile *) g_list_nth_data (files, 0);
 
-            if (strcmp (finfo->info->name, "..") == 0)
+            if (strcmp (f->info->name, "..") == 0)
                 return;
 
-            gchar *fname = get_utf8 (finfo->info->name);
+            gchar *fname = get_utf8 (f->info->name);
             msg = g_strdup_printf (_("Do you want to delete \"%s\"?"), fname);
             g_free (fname);
         }

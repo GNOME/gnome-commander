@@ -75,12 +75,12 @@ static void do_chown (GnomeCmdFile *in_finfo, uid_t uid, gid_t gid, gboolean rec
 
         for (tmp = files; tmp; tmp = tmp->next)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
-            if (strcmp (finfo->info->name, ".") != 0
-                && strcmp (finfo->info->name, "..") != 0
-                && !GNOME_VFS_FILE_INFO_SYMLINK(finfo->info))
+            GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
+            if (strcmp (f->info->name, ".") != 0
+                && strcmp (f->info->name, "..") != 0
+                && !GNOME_VFS_FILE_INFO_SYMLINK(f->info))
             {
-                do_chown (finfo, uid, gid, TRUE);
+                do_chown (f, uid, gid, TRUE);
             }
         }
         gnome_cmd_dir_unref (dir);
@@ -106,12 +106,12 @@ static void on_ok (GtkButton *button, GnomeCmdChownDialog *dialog)
 
     for (GList *tmp = dialog->priv->files; tmp; tmp = tmp->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
 
-        g_return_if_fail (finfo != NULL);
+        g_return_if_fail (f != NULL);
 
-        if (GNOME_VFS_FILE_INFO_LOCAL (finfo->info))
-            do_chown (finfo, uid, gid, recurse);
+        if (GNOME_VFS_FILE_INFO_LOCAL (f->info))
+            do_chown (f, uid, gid, recurse);
     }
 
     view_refresh (NULL, NULL);
@@ -209,9 +209,9 @@ gnome_cmd_chown_dialog_new (GList *files)
 
     GnomeCmdChownDialog *dialog = (GnomeCmdChownDialog *) gtk_type_new (gnome_cmd_chown_dialog_get_type ());
     dialog->priv->files = gnome_cmd_file_list_copy (files);
-    GnomeCmdFile *finfo = GNOME_CMD_FILE (dialog->priv->files->data);
+    GnomeCmdFile *f = GNOME_CMD_FILE (dialog->priv->files->data);
 
-    gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component), finfo->info->uid, finfo->info->gid);
+    gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (dialog->priv->chown_component), f->info->uid, f->info->gid);
 
     return GTK_WIDGET (dialog);
 }

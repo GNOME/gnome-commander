@@ -113,7 +113,7 @@ const gchar *perm2numstring (GnomeVFSFilePermissions p, gchar *buf, guint max);
 const gchar *size2string (GnomeVFSFileSize size, GnomeCmdSizeDispMode size_disp_mode);
 const gchar *time2string (time_t t, const gchar *date_format);
 
-void mime_exec_single (GnomeCmdFile *finfo);
+void mime_exec_single (GnomeCmdFile *f);
 void mime_exec_multiple (GList *files, GnomeCmdApp *app);
 
 void clear_event_key (GdkEventKey *event);
@@ -188,8 +188,8 @@ inline void set_cursor_default_for_widget (GtkWidget *widget)
 void set_cursor_busy ();
 void set_cursor_default ();
 
-GList *app_get_linked_libs (GnomeCmdFile *finfo);
-gboolean app_needs_terminal (GnomeCmdFile *finfo);
+GList *app_get_linked_libs (GnomeCmdFile *f);
+gboolean app_needs_terminal (GnomeCmdFile *f);
 
 gchar *get_temp_download_filepath (const gchar *fname);
 void remove_temp_download_dir ();

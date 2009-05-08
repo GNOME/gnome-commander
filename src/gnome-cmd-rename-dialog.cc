@@ -32,7 +32,7 @@ using namespace std;
 
 struct GnomeCmdRenameDialogPrivate
 {
-    GnomeCmdFile *finfo;
+    GnomeCmdFile *f;
     GnomeCmdMainWin *mw;
     GtkEntry *textbox;
 };
@@ -52,7 +52,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
     switch (event->keyval)
     {
         case GDK_Escape:
-            gnome_cmd_file_unref (dialog->priv->finfo);
+            gnome_cmd_file_unref (dialog->priv->f);
             gtk_widget_destroy(widget);
             return TRUE;
 
@@ -60,12 +60,12 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
         case GDK_KP_Enter:
             {
                 gchar *new_fname = g_strdup (gtk_entry_get_text (dialog->priv->textbox));
-                GnomeVFSResult result = gnome_cmd_file_rename (dialog->priv->finfo, new_fname);
+                GnomeVFSResult result = gnome_cmd_file_rename (dialog->priv->f, new_fname);
 
                 if (result==GNOME_VFS_OK)
                     gnome_cmd_main_win_get_fs (main_win, ACTIVE)->file_list()->focus_file(new_fname, TRUE);
 
-                gnome_cmd_file_unref (dialog->priv->finfo);
+                gnome_cmd_file_unref (dialog->priv->f);
                 gtk_widget_destroy (widget);
 
                 if (result!=GNOME_VFS_OK)
@@ -89,7 +89,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
 
 static gboolean on_focus_out (GtkWidget *widget, GdkEventKey *event)
 {
-    gnome_cmd_file_unref (GNOME_CMD_RENAME_DIALOG(widget)->priv->finfo);
+    gnome_cmd_file_unref (GNOME_CMD_RENAME_DIALOG(widget)->priv->f);
     gtk_widget_destroy (widget);
     return TRUE;
 }
@@ -139,14 +139,14 @@ static void init (GnomeCmdRenameDialog *dialog)
  * Public functions
  ***********************************/
 
-GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gint width, gint height)
+GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *f, gint x, gint y, gint width, gint height)
 {
-    g_return_val_if_fail (finfo != NULL, NULL);
+    g_return_val_if_fail (f != NULL, NULL);
 
     GnomeCmdRenameDialog *dialog = (GnomeCmdRenameDialog *) gtk_type_new (gnome_cmd_rename_dialog_get_type ());
 
-    dialog->priv->finfo = finfo;
-    gnome_cmd_file_ref (finfo);
+    dialog->priv->f = f;
+    gnome_cmd_file_ref (f);
 
     gtk_window_set_has_frame (GTK_WINDOW (dialog), 0);
     gtk_window_set_decorated (GTK_WINDOW (dialog), 0);
@@ -159,7 +159,7 @@ GtkWidget *gnome_cmd_rename_dialog_new (GnomeCmdFile *finfo, gint x, gint y, gin
     gtk_container_add (GTK_CONTAINER (dialog), GTK_WIDGET (dialog->priv->textbox));
     gtk_widget_set_style (GTK_WIDGET (dialog->priv->textbox), list_style);
 
-    gchar *fname = get_utf8 (gnome_cmd_file_get_name (finfo));
+    gchar *fname = get_utf8 (gnome_cmd_file_get_name (f));
 
     gtk_entry_set_text (dialog->priv->textbox, fname);
 
