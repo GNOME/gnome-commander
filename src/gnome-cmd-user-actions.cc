@@ -67,12 +67,12 @@ inline GnomeCmdFileList *get_fl (const FileSelectorID fsID)
 // The file returned from this function is not to be unrefed
 inline GnomeCmdFile *get_selected_file (const FileSelectorID fsID)
 {
-    GnomeCmdFile *finfo = get_fl (fsID)->get_first_selected_file();
+    GnomeCmdFile *f = get_fl (fsID)->get_first_selected_file();
 
-    if (!finfo)
+    if (!f)
         create_error_dialog (_("No file selected"));
 
-    return finfo;
+    return f;
 }
 
 
@@ -85,12 +85,12 @@ inline gboolean append_real_path (string &s, const gchar *name)
 }
 
 
-inline gboolean append_real_path (string &s, GnomeCmdFile *finfo)
+inline gboolean append_real_path (string &s, GnomeCmdFile *f)
 {
-    if (!finfo)
+    if (!f)
         return FALSE;
 
-    gchar *name = g_shell_quote (gnome_cmd_file_get_real_path (finfo));
+    gchar *name = g_shell_quote (gnome_cmd_file_get_real_path (f));
 
     append_real_path (s, name);
 
@@ -735,8 +735,8 @@ void file_create_symlink (GtkMenuItem *menuitem, gpointer not_used)
     }
    else
    {
-        GnomeCmdFile *finfo = get_fl (ACTIVE)->get_focused_file();
-        gnome_cmd_file_selector_create_symlink (inactive_fs, finfo);
+        GnomeCmdFile *f = get_fl (ACTIVE)->get_focused_file();
+        gnome_cmd_file_selector_create_symlink (inactive_fs, f);
    }
 }
 

@@ -120,7 +120,7 @@ struct GnomeCmdSearchDialogPrivate
 };
 
 
-static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *finfo, GdkEventButton *button, GnomeCmdSearchDialog *dialog)
+static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button, GnomeCmdSearchDialog *dialog)
 {
     if (dialog->priv->data->search_done)
         gtk_widget_set_sensitive (dialog->priv->goto_button, TRUE);
@@ -154,17 +154,17 @@ inline void search_file_data_free (SearchFileData  *searchfile_data)
  */
 static SearchFileData *read_search_file (SearchData      *data,
                                          SearchFileData  *searchfile_data,
-                                         GnomeCmdFile    *finfo)
+                                         GnomeCmdFile    *f)
 {
-    g_return_val_if_fail (finfo != NULL, NULL);
-    g_return_val_if_fail (finfo->info != NULL, NULL);
+    g_return_val_if_fail (f != NULL, NULL);
+    g_return_val_if_fail (f->info != NULL, NULL);
 
     GnomeVFSResult  result;
 
     if (searchfile_data == NULL)
     {
         searchfile_data          = g_new0 (SearchFileData, 1);
-        searchfile_data->uri_str = gnome_cmd_file_get_uri_str (finfo);
+        searchfile_data->uri_str = gnome_cmd_file_get_uri_str (f);
         result                   = gnome_vfs_open (&searchfile_data->handle, searchfile_data->uri_str, GNOME_VFS_OPEN_READ);
 
         if (result != GNOME_VFS_OK)
@@ -184,7 +184,7 @@ static SearchFileData *read_search_file (SearchData      *data,
 
     if (searchfile_data->len)
     {
-      if ((searchfile_data->offset + searchfile_data->len) >= finfo->info->size)
+      if ((searchfile_data->offset + searchfile_data->len) >= f->info->size)
       {   // end, all has been read
           search_file_data_free (searchfile_data);
           return NULL;
@@ -192,16 +192,16 @@ static SearchFileData *read_search_file (SearchData      *data,
       else
       {   // jump a big step backward to give the regex a chance
           searchfile_data->offset += searchfile_data->len - SEARCH_JUMP_SIZE;
-          if (finfo->info->size < (searchfile_data->offset + (SEARCH_BUFFER_SIZE - 1)))
-              searchfile_data->len = finfo->info->size - searchfile_data->offset;
+          if (f->info->size < (searchfile_data->offset + (SEARCH_BUFFER_SIZE - 1)))
+              searchfile_data->len = f->info->size - searchfile_data->offset;
           else
               searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
       }
     }
     else
     {   // first time call of this function
-        if (finfo->info->size < (SEARCH_BUFFER_SIZE - 1))
-            searchfile_data->len = finfo->info->size;
+        if (f->info->size < (SEARCH_BUFFER_SIZE - 1))
+            searchfile_data->len = f->info->size;
         else
             searchfile_data->len = SEARCH_BUFFER_SIZE - 1;
     }
@@ -231,16 +231,16 @@ static SearchFileData *read_search_file (SearchData      *data,
  * Determines if the content of a file matches an regexp
  *
  */
-inline gboolean content_matches (GnomeCmdFile *finfo, SearchData *data)
+inline gboolean content_matches (GnomeCmdFile *f, SearchData *data)
 {
     gint   ret = REG_NOMATCH;
 
-    if (finfo->info->size > 0)
+    if (f->info->size > 0)
     {
         regmatch_t       match;
         SearchFileData  *search_file = NULL;
 
-        while ((search_file = read_search_file (data, search_file, finfo)) != NULL)
+        while ((search_file = read_search_file (data, search_file, f)) != NULL)
             ret = regexec (data->content_regex, data->search_mem, 1, &match, 0);
     }
 
@@ -297,17 +297,17 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
         if (data->stopped)
             return;
 
-        GnomeCmdFile *finfo = (GnomeCmdFile *) tmp->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) tmp->data;
 
         // If the current file is a directory lets continue our recursion
-        if (GNOME_CMD_IS_DIR (finfo) && data->recurse)
+        if (GNOME_CMD_IS_DIR (f) && data->recurse)
         {
             // we don't want to go backwards or follow symlinks
-            if (strcmp (finfo->info->name, ".") != 0 &&
-                strcmp (finfo->info->name, "..") != 0 &&
-                !GNOME_VFS_FILE_INFO_SYMLINK (finfo->info))
+            if (strcmp (f->info->name, ".") != 0 &&
+                strcmp (f->info->name, "..") != 0 &&
+                !GNOME_VFS_FILE_INFO_SYMLINK (f->info))
             {
-                GnomeCmdDir *new_dir = GNOME_CMD_DIR (finfo);
+                GnomeCmdDir *new_dir = GNOME_CMD_DIR (f);
 
                 if (new_dir)
                 {
@@ -319,19 +319,19 @@ static void search_dir_r (GnomeCmdDir *dir, SearchData *data)
         }
         // if the file is a regular one it might match the search criteria
         else
-            if (finfo->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
+            if (f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
             {
                 // if the name doesn't match lets go to the next file
-                if (!name_matches (finfo->info->name, data))
+                if (!name_matches (f->info->name, data))
                     continue;
 
                 // if the user wants to we should do some content matching here
-                if (data->content_search && !content_matches (finfo, data))
+                if (data->content_search && !content_matches (f, data))
                     continue;
 
                 // the file matched the search criteria, lets add it to the list
                 g_mutex_lock (data->pdata.mutex);
-                data->pdata.files = g_list_append (data->pdata.files, finfo);
+                data->pdata.files = g_list_append (data->pdata.files, f);
                 g_mutex_unlock (data->pdata.mutex);
 
                 // also ref each directory that has a matching file

@@ -40,7 +40,7 @@ using namespace std;
 
 typedef struct
 {
-    GnomeCmdFile *finfo;
+    GnomeCmdFile *f;
     GtkWidget *dialog;
     gpointer *args;
 } TmpDlData;
@@ -474,13 +474,13 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 {
     if (id == GTK_RESPONSE_YES)
     {
-        gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (dldata->finfo));
+        gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (dldata->f));
 
         if (!path_str) return;
 
         dldata->args[1] = (gpointer) path_str;
 
-        GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (dldata->finfo));
+        GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (dldata->f));
         GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
         GnomeCmdCon *con = get_home_con ();
         GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (con, path);
@@ -504,25 +504,25 @@ static void on_tmp_download_response (GtkWidget *w, gint id, TmpDlData *dldata)
 }
 
 
-void mime_exec_single (GnomeCmdFile *finfo)
+void mime_exec_single (GnomeCmdFile *f)
 {
-    g_return_if_fail (finfo != NULL);
-    g_return_if_fail (finfo->info != NULL);
+    g_return_if_fail (f != NULL);
+    g_return_if_fail (f->info != NULL);
 
     gpointer *args;
     GnomeVFSMimeApplication *vfs_app;
     GnomeCmdApp *app;
 
-    if (!finfo->info->mime_type)
+    if (!f->info->mime_type)
         return;
 
     // Check if the file is a binary executable that lacks the executable bit
 
-    if (!gnome_cmd_file_is_executable (finfo))
+    if (!gnome_cmd_file_is_executable (f))
     {
-        if (gnome_cmd_file_has_mime_type (finfo, "application/x-executable") || gnome_cmd_file_has_mime_type (finfo, "application/x-executable-binary"))
+        if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary"))
         {
-            gchar *fname = get_utf8 (finfo->info->name);
+            gchar *fname = get_utf8 (f->info->name);
             gchar *msg = g_strdup_printf (_("\"%s\" seems to be a binary executable file but it lacks the executable bit. Do you want to set it and then run the file?"), fname);
             gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg,
                                           _("Make Executable?"),
@@ -532,7 +532,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
 
             if (ret != 1)  return;  else
             {
-                GnomeVFSResult result = gnome_cmd_file_chmod (finfo, (GnomeVFSFilePermissions) (finfo->info->permissions|GNOME_VFS_PERM_USER_EXEC));
+                GnomeVFSResult result = gnome_cmd_file_chmod (f, (GnomeVFSFilePermissions) (f->info->permissions|GNOME_VFS_PERM_USER_EXEC));
                 if (result != GNOME_VFS_OK)
                     return;
             }
@@ -541,17 +541,17 @@ void mime_exec_single (GnomeCmdFile *finfo)
 
     // If the file is executable but not a binary file, check if the user wants to exec it or open it
 
-    if (gnome_cmd_file_is_executable (finfo))
+    if (gnome_cmd_file_is_executable (f))
     {
-        if (gnome_cmd_file_has_mime_type (finfo, "application/x-executable") || gnome_cmd_file_has_mime_type (finfo, "application/x-executable-binary") )
+        if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary") )
         {
-            gnome_cmd_file_execute (finfo);
+            gnome_cmd_file_execute (f);
             return;
         }
         else
-            if (gnome_cmd_file_mime_begins_with (finfo, "text/"))
+            if (gnome_cmd_file_mime_begins_with (f, "text/"))
             {
-                gchar *fname = get_utf8 (finfo->info->name);
+                gchar *fname = get_utf8 (f->info->name);
                 gchar *msg = g_strdup_printf (_("\"%s\" is an executable text file. Do you want to run it, or display its contents?"), fname);
                 gint ret = run_simple_dialog (GTK_WIDGET (main_win), FALSE, GTK_MESSAGE_QUESTION, msg, _("Run or Display"),
                                               -1, _("Cancel"), _("Display"), _("Run"), NULL);
@@ -561,16 +561,16 @@ void mime_exec_single (GnomeCmdFile *finfo)
                 if (ret != 1)
                 {
                     if (ret == 2)
-                        gnome_cmd_file_execute (finfo);
+                        gnome_cmd_file_execute (f);
                     return;
                 }
             }
     }
 
-    vfs_app = gnome_vfs_mime_get_default_application (finfo->info->mime_type);
+    vfs_app = gnome_vfs_mime_get_default_application (f->info->mime_type);
     if (!vfs_app)
     {
-        no_mime_app_found_error (finfo->info->mime_type);
+        no_mime_app_found_error (f->info->mime_type);
         return;
     }
 
@@ -579,10 +579,10 @@ void mime_exec_single (GnomeCmdFile *finfo)
 
     args = g_new0 (gpointer, 3);
 
-    if (gnome_cmd_file_is_local (finfo))
+    if (gnome_cmd_file_is_local (f))
     {
         args[0] = (gpointer) app;
-        args[1] = (gpointer) g_strdup (gnome_cmd_file_get_real_path (finfo));
+        args[1] = (gpointer) g_strdup (gnome_cmd_file_get_real_path (f));
         args[2] = (gpointer) g_path_get_dirname ((gchar *) args[1]);            // set exec dir for local files
         do_mime_exec_single (args);
     }
@@ -591,7 +591,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
         if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.honor_expect_uris)
         {
             args[0] = (gpointer) app;
-            args[1] = (gpointer) g_strdup (gnome_cmd_file_get_uri_str (finfo));
+            args[1] = (gpointer) g_strdup (gnome_cmd_file_get_uri_str (f));
             // args[2] is NULL here (don't set exec dir for remote files)
             do_mime_exec_single (args);
         }
@@ -603,7 +603,7 @@ void mime_exec_single (GnomeCmdFile *finfo)
             TmpDlData *dldata = g_new0 (TmpDlData, 1);
             args[0] = (gpointer) app;
             // args[2] is NULL here (don't set exec dir for temporarily downloaded files)
-            dldata->finfo = finfo;
+            dldata->f = f;
             dldata->dialog = dialog;
             dldata->args = args;
 
@@ -664,16 +664,16 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
     for (; files; files = files->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
 
-        if (gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (finfo)))
-            local_files = g_list_append (local_files, g_strdup (gnome_cmd_file_get_real_path (finfo)));
+        if (gnome_vfs_uri_is_local (gnome_cmd_file_get_uri (f)))
+            local_files = g_list_append (local_files, g_strdup (gnome_cmd_file_get_real_path (f)));
         else
         {
             ++no_of_remote_files;
             if (gnome_cmd_app_get_handles_uris (app) && gnome_cmd_data.honor_expect_uris)
             {
-                local_files = g_list_append (local_files,  g_strdup (gnome_cmd_file_get_uri_str (finfo)));
+                local_files = g_list_append (local_files,  g_strdup (gnome_cmd_file_get_uri_str (f)));
             }
             else
             {
@@ -688,11 +688,11 @@ void mime_exec_multiple (GList *files, GnomeCmdApp *app)
 
                 if (retid==1)
                 {
-                    gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (finfo));
+                    gchar *path_str = get_temp_download_filepath (gnome_cmd_file_get_name (f));
 
                     if (!path_str) return;
 
-                    GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (finfo));
+                    GnomeVFSURI *src_uri = gnome_vfs_uri_dup (gnome_cmd_file_get_uri (f));
                     GnomeCmdPath *path = gnome_cmd_plain_path_new (path_str);
                     GnomeVFSURI *dest_uri = gnome_cmd_con_create_uri (get_home_con (), path);
                     gtk_object_destroy (GTK_OBJECT (path));
@@ -969,14 +969,14 @@ void set_cursor_default ()
 }
 
 
-GList *app_get_linked_libs (GnomeCmdFile *finfo)
+GList *app_get_linked_libs (GnomeCmdFile *f)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (finfo), NULL);
+    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), NULL);
 
     gchar *s;
     gchar tmp[256];
 
-    gchar *arg = g_shell_quote (gnome_cmd_file_get_real_path (finfo));
+    gchar *arg = g_shell_quote (gnome_cmd_file_get_real_path (f));
     gchar *cmd = g_strdup_printf ("ldd %s", arg);
     g_free (arg);
     FILE *fd = popen (cmd, "r");
@@ -1000,14 +1000,14 @@ GList *app_get_linked_libs (GnomeCmdFile *finfo)
 }
 
 
-gboolean app_needs_terminal (GnomeCmdFile *finfo)
+gboolean app_needs_terminal (GnomeCmdFile *f)
 {
     gboolean need_term = TRUE;
 
-    if (strcmp (finfo->info->mime_type, "application/x-executable") && strcmp (finfo->info->mime_type, "application/x-executable-binary"))
+    if (strcmp (f->info->mime_type, "application/x-executable") && strcmp (f->info->mime_type, "application/x-executable-binary"))
         return need_term;
 
-    GList *libs = app_get_linked_libs (finfo);
+    GList *libs = app_get_linked_libs (f);
     if  (!libs) return FALSE;
 
     for (GList *tmp = libs; tmp; tmp = tmp->next)
@@ -1201,8 +1201,8 @@ GList *file_list_to_uri_list (GList *files)
 
     for (; files; files = files->next)
     {
-        GnomeCmdFile *finfo = GNOME_CMD_FILE (files->data);
-        GnomeVFSURI *uri = gnome_cmd_file_get_uri (finfo);
+        GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
+        GnomeVFSURI *uri = gnome_cmd_file_get_uri (f);
 
         if (!uri)
             g_warning ("NULL uri!!!");
@@ -1220,8 +1220,8 @@ GList *file_list_to_info_list (GList *files)
 
     for (; files; files = files->next)
     {
-        GnomeCmdFile *finfo = GNOME_CMD_FILE (files->data);
-        infos = g_list_append (infos, finfo->info);
+        GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
+        infos = g_list_append (infos, f->info);
     }
 
     return infos;

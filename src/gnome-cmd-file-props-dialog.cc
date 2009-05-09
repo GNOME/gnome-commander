@@ -40,7 +40,7 @@ using namespace std;
 typedef struct
 {
     GtkWidget *dialog;
-    GnomeCmdFile *finfo;
+    GnomeCmdFile *f;
     GThread *thread;
     GMutex *mutex;
     gboolean count_done;
@@ -143,7 +143,7 @@ static gboolean join_thread_func (GnomeCmdFilePropsDialogPrivate *data)
     if (data->thread)
         g_thread_join (data->thread);
 
-    gnome_cmd_file_unref (data->finfo);
+    gnome_cmd_file_unref (data->f);
     g_free (data);
 
     return FALSE;
@@ -192,9 +192,9 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 static void on_change_default_app (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 {
 
-    edit_mimetypes (data->finfo->info->mime_type, TRUE);
+    edit_mimetypes (data->f->info->mime_type, TRUE);
 
-    GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (data->finfo->info->mime_type);
+    GnomeVFSMimeApplication *vfs_app = gnome_vfs_mime_get_default_application (data->f->info->mime_type);
 
     gchar *appname = vfs_app ? vfs_app->name : g_strdup (_("No default application registered"));
 
@@ -214,9 +214,9 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
 
     const gchar *filename = gtk_entry_get_text (GTK_ENTRY (data->filename_entry));
 
-    if (strcmp (filename, gnome_cmd_file_get_name (data->finfo)) != 0)
+    if (strcmp (filename, gnome_cmd_file_get_name (data->f)) != 0)
     {
-        result = gnome_cmd_file_rename (data->finfo, filename);
+        result = gnome_cmd_file_rename (data->f, filename);
 
         if (result==GNOME_VFS_OK)
             gnome_cmd_main_win_get_fs (main_win, ACTIVE)->file_list()->focus_file(filename, TRUE);
@@ -226,8 +226,8 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
     {
         GnomeVFSFilePermissions perms = gnome_cmd_chmod_component_get_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component));
 
-        if (perms != data->finfo->info->permissions)
-            result = gnome_cmd_file_chmod (data->finfo, perms);
+        if (perms != data->f->info->permissions)
+            result = gnome_cmd_file_chmod (data->f, perms);
     }
 
     if (result == GNOME_VFS_OK)
@@ -235,13 +235,13 @@ static void on_dialog_ok (GtkButton *btn, GnomeCmdFilePropsDialogPrivate *data)
         uid_t uid = gnome_cmd_chown_component_get_owner (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
         gid_t gid = gnome_cmd_chown_component_get_group (GNOME_CMD_CHOWN_COMPONENT (data->chown_component));
 
-        if (uid == data->finfo->info->uid)
+        if (uid == data->f->info->uid)
             uid = -1;
-        if (gid == data->finfo->info->gid)
+        if (gid == data->f->info->gid)
             gid = -1;
 
         if (uid != -1 || gid != -1)
-            result = gnome_cmd_file_chown (data->finfo, uid, gid);
+            result = gnome_cmd_file_chown (data->f, uid, gid);
     }
 
     if (result != GNOME_VFS_OK)
@@ -266,7 +266,7 @@ static void on_copy_clipboard (GtkButton *button, GnomeCmdFilePropsDialogPrivate
 
     string s;
 
-    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=data->finfo->metadata->begin(); i!=data->finfo->metadata->end(); ++i)
+    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=data->f->metadata->begin(); i!=data->f->metadata->end(); ++i)
         for (set<std::string>::const_iterator j=i->second.begin(); j!=i->second.end(); ++j)
         {
             s += gcmd_tags_get_name(i->first);
@@ -373,18 +373,18 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Filename:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    fname = get_utf8 (gnome_cmd_file_get_name (data->finfo));
+    fname = get_utf8 (gnome_cmd_file_get_name (data->f));
     data->filename_entry = create_entry (dialog, "filename_entry", fname);
     g_free (fname);
     table_add (table, data->filename_entry, 1, y++, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
     gtk_editable_set_position (GTK_EDITABLE (data->filename_entry), 0);
 
-    if (data->finfo->info->symlink_name)
+    if (data->f->info->symlink_name)
     {
         label = create_bold_label (dialog, _("Symlink target:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        label = create_label (dialog, data->finfo->info->symlink_name);
+        label = create_label (dialog, data->f->info->symlink_name);
         table_add (table, label, 1, y++, GTK_FILL);
     }
 
@@ -393,23 +393,23 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Type:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_mime_type_desc (data->finfo));
+    label = create_label (dialog, gnome_cmd_file_get_mime_type_desc (data->f));
     table_add (table, label, 1, y++, GTK_FILL);
 
 
     label = create_bold_label (dialog, _("MIME Type:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_mime_type (data->finfo));
+    label = create_label (dialog, gnome_cmd_file_get_mime_type (data->f));
     table_add (table, label, 1, y++, GTK_FILL);
 
 
-    if (data->finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (data->f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
         label = create_bold_label (dialog, _("Opens with:"));
         table_add (table, label, 0, y, GTK_FILL);
 
-        GnomeVFSMimeApplication *vfs_app = gnome_cmd_app_get_default_application (data->finfo);
+        GnomeVFSMimeApplication *vfs_app = gnome_cmd_app_get_default_application (data->f);
 
         if (vfs_app)
         {
@@ -434,13 +434,13 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Modified:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_mdate (data->finfo, TRUE));
+    label = create_label (dialog, gnome_cmd_file_get_mdate (data->f, TRUE));
     table_add (table, label, 1, y++, GTK_FILL);
 
     label = create_bold_label (dialog, _("Accessed:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, gnome_cmd_file_get_adate (data->finfo, TRUE));
+    label = create_label (dialog, gnome_cmd_file_get_adate (data->f, TRUE));
     table_add (table, label, 1, y++, GTK_FILL);
 
 
@@ -450,26 +450,26 @@ inline GtkWidget *create_properties_tab (GnomeCmdFilePropsDialogPrivate *data)
     label = create_bold_label (dialog, _("Size:"));
     table_add (table, label, 0, y, GTK_FILL);
 
-    label = create_label (dialog, get_size_disp_string (data->finfo->info->size));
+    label = create_label (dialog, get_size_disp_string (data->f->info->size));
     table_add (table, label, 1, y++, GTK_FILL);
-    if (data->finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (data->f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         do_calc_tree_size (data);
 
     data->size_label = label;
 
-    gcmd_tags_bulk_load (data->finfo);
+    gcmd_tags_bulk_load (data->f);
 
-    if (data->finfo->metadata)
+    if (data->f->metadata)
     {
-        add_tag (dialog, table, y, *data->finfo->metadata, TAG_FILE_DESCRIPTION);
-        add_tag (dialog, table, y, *data->finfo->metadata, TAG_FILE_PUBLISHER);
-        add_tag (dialog, table, y, *data->finfo->metadata, TAG_DOC_TITLE);
-        add_tag (dialog, table, y, *data->finfo->metadata, TAG_DOC_PAGECOUNT);
-        add_width_height_tag (dialog, table, y, *data->finfo->metadata);
-        add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_ALBUMARTIST);
-        add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_TITLE);
-        add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_BITRATE, " kbps");
-        add_tag (dialog, table, y, *data->finfo->metadata, TAG_AUDIO_DURATIONMMSS);
+        add_tag (dialog, table, y, *data->f->metadata, TAG_FILE_DESCRIPTION);
+        add_tag (dialog, table, y, *data->f->metadata, TAG_FILE_PUBLISHER);
+        add_tag (dialog, table, y, *data->f->metadata, TAG_DOC_TITLE);
+        add_tag (dialog, table, y, *data->f->metadata, TAG_DOC_PAGECOUNT);
+        add_width_height_tag (dialog, table, y, *data->f->metadata);
+        add_tag (dialog, table, y, *data->f->metadata, TAG_AUDIO_ALBUMARTIST);
+        add_tag (dialog, table, y, *data->f->metadata, TAG_AUDIO_TITLE);
+        add_tag (dialog, table, y, *data->f->metadata, TAG_AUDIO_BITRATE, " kbps");
+        add_tag (dialog, table, y, *data->f->metadata, TAG_AUDIO_DURATIONMMSS);
     }
 
     return space_frame;
@@ -490,7 +490,7 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (data->chown_component);
     gnome_cmd_chown_component_set (GNOME_CMD_CHOWN_COMPONENT (data->chown_component),
-        data->finfo->info->uid, data->finfo->info->gid);
+        data->f->info->uid, data->f->info->gid);
 
     GtkWidget *cat = create_category (data->dialog, data->chown_component, _("Owner and group"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
@@ -500,7 +500,7 @@ inline GtkWidget *create_permissions_tab (GnomeCmdFilePropsDialogPrivate *data)
     gtk_widget_ref (data->chmod_component);
     gtk_object_set_data_full (GTK_OBJECT (data->dialog), "chmod_component", data->chmod_component, (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (data->chmod_component);
-    gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component), data->finfo->info->permissions);
+    gnome_cmd_chmod_component_set_perms (GNOME_CMD_CHMOD_COMPONENT (data->chmod_component), data->f->info->permissions);
 
     cat = create_category (data->dialog, data->chmod_component, _("Access permissions"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, TRUE, TRUE, 0);
@@ -520,7 +520,7 @@ enum
 } ;
 
 
-static GtkTreeModel *create_and_fill_model (GnomeCmdFile *finfo)
+static GtkTreeModel *create_and_fill_model (GnomeCmdFile *f)
 {
     GtkTreeStore *treestore = gtk_tree_store_new (NUM_COLS,
                                                   G_TYPE_UINT,
@@ -529,14 +529,14 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *finfo)
                                                   G_TYPE_STRING,
                                                   G_TYPE_STRING);
 
-    if (!gcmd_tags_bulk_load (finfo))
+    if (!gcmd_tags_bulk_load (f))
         return GTK_TREE_MODEL (treestore);
 
     GnomeCmdTagClass prev_tagclass = TAG_NONE_CLASS;
 
     GtkTreeIter toplevel;
 
-    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=finfo->metadata->begin(); i!=finfo->metadata->end(); ++i)
+    for (GnomeCmdFileMetadata::METADATA_COLL::const_iterator i=f->metadata->begin(); i!=f->metadata->end(); ++i)
     {
         const GnomeCmdTag t = i->first;
         GnomeCmdTagClass curr_tagclass = gcmd_tags_get_class(t);
@@ -573,7 +573,7 @@ static GtkTreeModel *create_and_fill_model (GnomeCmdFile *finfo)
 }
 
 
-static GtkWidget *create_view_and_model (GnomeCmdFile *finfo)
+static GtkWidget *create_view_and_model (GnomeCmdFile *f)
 {
     GtkWidget *view = gtk_tree_view_new ();
 
@@ -612,7 +612,7 @@ static GtkWidget *create_view_and_model (GnomeCmdFile *finfo)
                   "ellipsize", PANGO_ELLIPSIZE_END,
                   NULL);
 
-    GtkTreeModel *model = create_and_fill_model (finfo);
+    GtkTreeModel *model = create_and_fill_model (f);
 
     gtk_tree_view_set_model (GTK_TREE_VIEW (view), model);
 
@@ -637,7 +637,7 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 
     gtk_box_pack_start (GTK_BOX (vbox), GTK_WIDGET (scrolledwindow), TRUE, TRUE, 0);
 
-    GtkWidget *view = create_view_and_model (data->finfo);
+    GtkWidget *view = create_view_and_model (data->f);
 
     gtk_container_add (GTK_CONTAINER (scrolledwindow), view);
 
@@ -647,12 +647,12 @@ inline GtkWidget *create_metadata_tab (GnomeCmdFilePropsDialogPrivate *data)
 }
 
 
-GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
+GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
 {
-    g_return_val_if_fail (finfo != NULL, NULL);
-    g_return_val_if_fail (finfo->info != NULL, NULL);
+    g_return_val_if_fail (f != NULL, NULL);
+    g_return_val_if_fail (f->info != NULL, NULL);
 
-    if (strcmp (finfo->info->name, "..") == 0)
+    if (strcmp (f->info->name, "..") == 0)
         return NULL;
 
     GnomeCmdFilePropsDialogPrivate *data = g_new0 (GnomeCmdFilePropsDialogPrivate, 1);
@@ -665,12 +665,12 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *finfo)
     GtkWidget *notebook = gtk_notebook_new ();
 
     data->dialog = GTK_WIDGET (dialog);
-    data->finfo = finfo;
-    data->uri = gnome_cmd_file_get_uri (finfo);
+    data->f = f;
+    data->uri = gnome_cmd_file_get_uri (f);
     data->mutex = g_mutex_new ();
     data->msg = NULL;
     data->notebook = notebook;
-    gnome_cmd_file_ref (finfo);
+    gnome_cmd_file_ref (f);
 
     gtk_widget_ref (notebook);
     gtk_object_set_data_full (GTK_OBJECT (dialog), "notebook", notebook, (GtkDestroyNotify) gtk_widget_unref);

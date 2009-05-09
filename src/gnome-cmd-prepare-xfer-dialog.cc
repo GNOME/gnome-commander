@@ -107,13 +107,13 @@ static void on_ok (GtkButton *button, GnomeCmdPrepareXferDialog *dialog)
 
     if (g_list_length (dialog->src_files) == 1)
     {
-        GnomeCmdFile *finfo = GNOME_CMD_FILE (dialog->src_files->data);
+        GnomeCmdFile *f = GNOME_CMD_FILE (dialog->src_files->data);
 
         if (res == GNOME_VFS_OK && type == GNOME_VFS_FILE_TYPE_DIRECTORY)
         {
             // There exists a directory, copy into it using the original filename
             dest_dir = gnome_cmd_dir_new (con, gnome_cmd_con_create_path (con, dest_path));
-            dest_fn = g_strdup (gnome_cmd_file_get_name (finfo));
+            dest_fn = g_strdup (gnome_cmd_file_get_name (f));
         }
         else
             if (res == GNOME_VFS_OK)
@@ -396,18 +396,18 @@ GtkWidget *gnome_cmd_prepare_xfer_dialog_new (GnomeCmdFileSelector *from, GnomeC
     {
         if (num_files == 1)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile *) dialog->src_files->data;
-            dest_str = get_utf8 (finfo->info->name);
+            GnomeCmdFile *f = (GnomeCmdFile *) dialog->src_files->data;
+            dest_str = get_utf8 (f->info->name);
         }
     }
     else
         if (num_files == 1)
         {
-            GnomeCmdFile *finfo = (GnomeCmdFile *) dialog->src_files->data;
+            GnomeCmdFile *f = (GnomeCmdFile *) dialog->src_files->data;
 
             gchar *t = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dialog->default_dest_dir));
             gchar *path = get_utf8 (t);
-            gchar *fname = get_utf8 (finfo->info->name);
+            gchar *fname = get_utf8 (f->info->name);
             g_free (t);
 
             dest_str = g_build_path (G_DIR_SEPARATOR_S, path, fname, NULL);

@@ -42,13 +42,13 @@ struct GnomeCmdQuicksearchPopupPrivate
 };
 
 
-inline void focus_file (GnomeCmdQuicksearchPopup *popup, GnomeCmdFile *finfo)
+inline void focus_file (GnomeCmdQuicksearchPopup *popup, GnomeCmdFile *f)
 {
-    if (strcmp (finfo->info->name, "..") == 0)
+    if (strcmp (f->info->name, "..") == 0)
         return;
 
-    popup->priv->last_focused_file = finfo;
-    gint row = popup->priv->fl->get_row_from_file(finfo);
+    popup->priv->last_focused_file = f;
+    gint row = popup->priv->fl->get_row_from_file(f);
     gtk_clist_moveto (GTK_CLIST (popup->priv->fl), row, 0, 1, 0);
     gtk_clist_freeze (GTK_CLIST (popup->priv->fl));
     GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row = row;
@@ -75,23 +75,23 @@ static void set_filter (GnomeCmdQuicksearchPopup *popup, const gchar *text)
 
     for (GList *files = popup->priv->fl->get_visible_files(); files; files = files->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
+        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
         gint res;
 
         if (gnome_cmd_data.case_sens_sort)
-            res = strncmp (finfo->info->name, text, strlen(text));
+            res = strncmp (f->info->name, text, strlen(text));
         else
-            res = strncasecmp (finfo->info->name, text, strlen(text));
+            res = strncasecmp (f->info->name, text, strlen(text));
 
         if (res == 0)
         {
             if (first)
             {
-                focus_file (popup, finfo);
+                focus_file (popup, f);
                 first = FALSE;
             }
 
-            popup->priv->matches = g_list_append (popup->priv->matches, finfo);
+            popup->priv->matches = g_list_append (popup->priv->matches, f);
         }
     }
 

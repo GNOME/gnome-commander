@@ -91,8 +91,8 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
 
     for (; files; files = files->next)
     {
-        GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
-        GnomeVFSMimeApplication *vfs_app = gnome_cmd_app_get_default_application (finfo);
+        GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+        GnomeVFSMimeApplication *vfs_app = gnome_cmd_app_get_default_application (f);
 
         if (vfs_app)
         {
@@ -107,10 +107,10 @@ static void cb_exec_default (GtkMenuItem *menu_item, GList *files)
             }
 
             gnome_vfs_mime_application_free (vfs_app);
-            data->files = g_list_append (data->files, finfo);
+            data->files = g_list_append (data->files, f);
         }
         else
-            gnome_cmd_show_message (NULL, finfo->info->name, _("Couldn't retrieve MIME type of the file."));
+            gnome_cmd_show_message (NULL, f->info->name, _("Couldn't retrieve MIME type of the file."));
     }
 
     g_hash_table_foreach (hash, (GHFunc) htcb_exec_with_app, NULL);
@@ -170,9 +170,9 @@ static void on_open_with_other (GtkMenuItem *menu_item, GList *files)
 
 static void on_execute (GtkMenuItem *menu_item, GList *files)
 {
-    GnomeCmdFile *finfo = GNOME_CMD_FILE (files->data);
+    GnomeCmdFile *f = GNOME_CMD_FILE (files->data);
 
-    gnome_cmd_file_execute (finfo);
+    gnome_cmd_file_execute (f);
 }
 
 
@@ -255,8 +255,8 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_DIRS:
             for (; files; files = files->next)
             {
-                GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
-                if (finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+                GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+                if (f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
                     return FALSE;
             }
             return TRUE;
@@ -264,8 +264,8 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_FILES:
             for (; files; files = files->next)
             {
-                GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
-                if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
+                GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+                if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
                     return FALSE;
             }
             return TRUE;
@@ -273,9 +273,9 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
         case APP_TARGET_ALL_DIRS_AND_FILES:
             for (; files; files = files->next)
             {
-                GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
-                if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR
-                    && finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
+                GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+                if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR
+                    && f->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY)
                     return FALSE;
             }
             return TRUE;
@@ -290,8 +290,8 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 gint fn_flags = FNM_NOESCAPE;
 #endif
 
-                GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
-                if (finfo->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
+                GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+                if (f->info->type != GNOME_VFS_FILE_TYPE_REGULAR)
                     return FALSE;
 
                 // Check that the file matches at least one pattern
@@ -299,7 +299,7 @@ inline gboolean fav_app_matches_files (GnomeCmdApp *app, GList *files)
                 for (; patterns; patterns = patterns->next)
                 {
                     gchar *pattern = (gchar *) patterns->data;
-                    ok |= fnmatch (pattern, finfo->info->name, fn_flags) == 0;
+                    ok |= fnmatch (pattern, f->info->name, fn_flags) == 0;
                 }
 
                 if (!ok) return FALSE;
@@ -398,9 +398,9 @@ inline gchar *get_default_application_action_name (GList *files)
     if (g_list_length(files)>1)
         return g_strdup(_("_Open"));
 
-    GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
-    gchar *uri_str = gnome_cmd_file_get_uri_str (finfo);
-    GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, finfo->info->mime_type);
+    GnomeCmdFile *f = (GnomeCmdFile *) files->data;
+    gchar *uri_str = gnome_cmd_file_get_uri_str (f);
+    GnomeVFSMimeApplication *app = gnome_vfs_mime_get_default_application_for_uri (uri_str, f->info->mime_type);
 
     g_free (uri_str);
 
@@ -468,14 +468,14 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
 
     GnomeCmdFilePopmenu *menu = (GnomeCmdFilePopmenu *) gtk_type_new (gnome_cmd_file_popmenu_get_type ());
 
-    GnomeCmdFile *finfo = (GnomeCmdFile *) files->data;
+    GnomeCmdFile *f = (GnomeCmdFile *) files->data;
 
 
     // Fill the "Open with..." menu with applications
     gint i = -1;
     menu->priv->data_list = NULL;
 
-    vfs_apps = tmp = gnome_vfs_mime_get_all_applications (finfo->info->mime_type);
+    vfs_apps = tmp = gnome_vfs_mime_get_all_applications (f->info->mime_type);
     for (; vfs_apps && i < MAX_OPEN_WITH_APPS; vfs_apps = vfs_apps->next)
     {
         GnomeVFSMimeApplication *vfs_app = (GnomeVFSMimeApplication *) vfs_apps->data;
@@ -528,7 +528,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
     g_free ((gpointer) open_uiinfo[0].label);
 
     pos += 3;
-    if (gnome_cmd_file_is_executable (finfo) && g_list_length (files) == 1)
+    if (gnome_cmd_file_is_executable (f) && g_list_length (files) == 1)
         gnome_app_fill_menu (GTK_MENU_SHELL (menu), exec_uiinfo, NULL, FALSE, pos++);
 
     gnome_app_fill_menu (GTK_MENU_SHELL (menu), sep_uiinfo, NULL, FALSE, pos++);
