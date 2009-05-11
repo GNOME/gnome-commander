@@ -1,3 +1,9 @@
+2009-05-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* tests/gviewer/search_dlg_test.c:
+	* tests/gviewer/viewerwindow.c:
+	Replaced deprecated gnome_init() with gnome_program_init()
+
 2009-05-07  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

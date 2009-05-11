@@ -29,6 +29,8 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
+#include <config.h>
+
 #include <libgviewer/libgviewer.h>
 #include <libgnomeui/libgnomeui.h>
 
@@ -42,7 +44,13 @@ static void destroy(GObject *a, gpointer data)
 
 int main(int argc, char *argv[])
 {
-    gnome_init ("gnome-commander", "0.1", argc, argv);
+    GnomeProgram *program;
+
+    program = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+                                  argc, argv,
+                                  GNOME_PARAM_HUMAN_READABLE_NAME, _("File Manager"),
+                                  GNOME_PARAM_APP_DATADIR, DATADIR,
+                                  GNOME_PARAM_NONE);
 
     GtkWidget *w = gviewer_window_file_view (argv[1], NULL);
 

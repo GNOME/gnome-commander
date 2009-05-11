@@ -30,11 +30,15 @@
 #include <gtk/gtk.h>
 #include <libgnomeui/libgnomeui.h>
 
+#include <config.h>
+
 #include <libgviewer/libgviewer.h>
 
 
 int main(int argc, char *argv[])
 {
+    GnomeProgram *program;
+
     SEARCHMODE sm;
     gchar *text;
     guint8 *buffer;
@@ -43,7 +47,11 @@ int main(int argc, char *argv[])
     GViewerSearchDlg *srch_dlg;
     GtkWidget *w;
 
-    gnome_init("gnome-commander","0.1",argc,argv);
+    program = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE,
+                                  argc, argv,
+                                  GNOME_PARAM_HUMAN_READABLE_NAME, _("File Manager"),
+                                  GNOME_PARAM_APP_DATADIR, DATADIR,
+                                  GNOME_PARAM_NONE);
 
     w = gviewer_search_dlg_new(NULL);
     g_warning("_new finished");
@@ -53,9 +61,7 @@ int main(int argc, char *argv[])
         sm = gviewer_search_dlg_get_search_mode(srch_dlg);
         if (sm == SEARCH_MODE_TEXT) {
             printf("Search mode: text\n");
-            printf("Case Mode: %ssensitive\n",
-                gviewer_search_dlg_get_case_sensitive(srch_dlg) ?
-                "" : "in");
+            printf("Case mode: %ssensitive\n", gviewer_search_dlg_get_case_sensitive(srch_dlg) ? "" : "in");
 
             text = gviewer_search_dlg_get_search_text_string(srch_dlg);
             printf("Text: \"%s\"\n", text);
@@ -65,7 +71,7 @@ int main(int argc, char *argv[])
             printf("Search mode: hex\n");
             buffer = gviewer_search_dlg_get_search_hex_buffer(srch_dlg, &buflen);
 
-            printf("Buffer Length: %d bytes\n", buflen);
+            printf("Buffer length: %d bytes\n", buflen);
             if (buflen>0 && buffer!=NULL) {
                 printf("Buffer:\n");
                 for (i=0;i<buflen;i++) {
@@ -78,7 +84,7 @@ int main(int argc, char *argv[])
         }
 
     } else {
-        printf ("Search Canceled\n");
+        printf ("Search cancelled\n");
     }
     gtk_widget_destroy(w);
 
