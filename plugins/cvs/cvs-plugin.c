@@ -110,9 +110,8 @@ static void on_diff (GtkMenuItem *item, GnomeCmdState *state)
     for (; files; files = files->next)
     {
         gchar *cmd;
-        GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
-        GnomeVFSURI *uri = gnome_vfs_uri_append_file_name (
-            state->active_dir_uri, finfo->info->name);
+        GnomeCmdFileInfo *f = GNOME_CMD_FILE_INFO (files->data);
+        GnomeVFSURI *uri = gnome_vfs_uri_append_file_name (state->active_dir_uri, f->info->name);
         const gchar *fpath = gnome_vfs_uri_get_path (uri);
 
         change_cwd (fpath);
@@ -136,8 +135,8 @@ static void on_log (GtkMenuItem *item, GnomeCmdState *state)
 
     for (; files; files = files->next)
     {
-        GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
-        GnomeVFSURI *uri = gnome_vfs_uri_append_file_name (state->active_dir_uri, finfo->info->name);
+        GnomeCmdFileInfo *f = GNOME_CMD_FILE_INFO (files->data);
+        GnomeVFSURI *uri = gnome_vfs_uri_append_file_name (state->active_dir_uri, f->info->name);
         const gchar *fpath = gnome_vfs_uri_get_path (uri);
 
         change_cwd (fpath);
@@ -220,9 +219,9 @@ static gboolean cvs_dir_exists (GList *files)
 {
     for (; files; files = files->next)
     {
-        GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
-        if (finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY &&
-            strcmp (finfo->info->name, "CVS") == 0)
+        GnomeCmdFileInfo *f = GNOME_CMD_FILE_INFO (files->data);
+        if (f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY &&
+            strcmp (f->info->name, "CVS") == 0)
         {
             return TRUE;
         }

@@ -104,10 +104,10 @@ gnome_cmd_file_info_get_type ()
 
 
 void
-gnome_cmd_file_info_setup (GnomeCmdFileInfo *finfo, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
+gnome_cmd_file_info_setup (GnomeCmdFileInfo *f, GnomeVFSURI *uri, GnomeVFSFileInfo *info)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_INFO (finfo));
+    g_return_if_fail (GNOME_CMD_IS_FILE_INFO (f));
 
-    finfo->info = info;
-    finfo->uri = uri;
+    f->info = info;
+    f->uri = uri;
 }

@@ -411,12 +411,12 @@ inline void find_dirs (const gchar *path, const gchar *&parent_dir, const gchar 
 }
 
 
-char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, GnomeCmdFile *finfo)
+char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, GnomeCmdFile *f)
 {
   string fmt;
   fmt.reserve(256);
 
-  char *fname = get_utf8 (finfo->info->name);
+  char *fname = get_utf8 (f->info->name);
   char *ext = g_utf8_strrchr (fname, -1, '.');
 
   int full_name_len = g_utf8_strlen (fname, -1);
@@ -433,7 +433,7 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
   const char *parent_dir, *grandparent_dir;
   int parent_dir_len, grandparent_dir_len;
 
-  find_dirs(gnome_cmd_file_get_path(finfo), parent_dir, grandparent_dir, parent_dir_len, grandparent_dir_len);
+  find_dirs(gnome_cmd_file_get_path(f), parent_dir, grandparent_dir, parent_dir_len, grandparent_dir_len);
 
   for (vector<CHUNK *>::iterator i=fname_template.begin(); i!=fname_template.end(); ++i)
     switch ((*i)->type)
@@ -488,18 +488,18 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
 
       case METATAG: // currently ranges are NOT supported for $T() tokens !!!
 
-                    // const gchar *tag_value = gcmd_tags_get_value (finfo,(*i)->tag.tag);
+                    // const gchar *tag_value = gcmd_tags_get_value (f,(*i)->tag.tag);
 
                     // if (tag_value)
                       // append_utf8_chunk (fmt, *i, tag_value, g_utf8_strlen (tag_value, -1));
 
-                    fmt += gcmd_tags_get_value (finfo,(*i)->tag.tag);
+                    fmt += gcmd_tags_get_value (f,(*i)->tag.tag);
                     break;
 
       default :     break;
     }
 
-  strftime(new_fname, new_fname_size, fmt.c_str(), localtime(&finfo->info->mtime));
+  strftime(new_fname, new_fname_size, fmt.c_str(), localtime(&f->info->mtime));
 
   g_free(fname);
 

@@ -43,18 +43,18 @@ struct GnomeCmdChownDialogPrivate
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
-static void do_chown (GnomeCmdFile *in_finfo, uid_t uid, gid_t gid, gboolean recurse)
+static void do_chown (GnomeCmdFile *in, uid_t uid, gid_t gid, gboolean recurse)
 {
     GnomeVFSResult ret;
 
-    g_return_if_fail (in_finfo != NULL);
-    g_return_if_fail (in_finfo->info != NULL);
+    g_return_if_fail (in != NULL);
+    g_return_if_fail (in->info != NULL);
 
-    ret = gnome_cmd_file_chown (in_finfo, uid, gid);
+    ret = gnome_cmd_file_chown (in, uid, gid);
 
     if (ret != GNOME_VFS_OK)
     {
-        gchar *fpath = gnome_cmd_file_get_real_path (in_finfo);
+        gchar *fpath = gnome_cmd_file_get_real_path (in);
         gchar *msg = g_strdup_printf (_("Could not chown %s\n%s"), fpath, gnome_vfs_result_to_string (ret));
         create_error_dialog (msg);
         g_free (msg);
@@ -64,9 +64,9 @@ static void do_chown (GnomeCmdFile *in_finfo, uid_t uid, gid_t gid, gboolean rec
         if (!recurse)
             return;
 
-    if (in_finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (in->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
-        GnomeCmdDir *dir = GNOME_CMD_DIR (in_finfo);
+        GnomeCmdDir *dir = GNOME_CMD_DIR (in);
         GList *files, *tmp;
 
         gnome_cmd_dir_ref (dir);

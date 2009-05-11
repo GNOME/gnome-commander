@@ -61,26 +61,25 @@ struct GnomeCmdChmodDialogPrivate
 static GnomeCmdDialogClass *parent_class = NULL;
 
 
-static void do_chmod (GnomeCmdFile *in_finfo, GnomeVFSFilePermissions perm,
-                      gboolean recursive, ChmodRecursiveMode mode)
+static void do_chmod (GnomeCmdFile *in, GnomeVFSFilePermissions perm, gboolean recursive, ChmodRecursiveMode mode)
 {
-    g_return_if_fail (in_finfo != NULL);
-    g_return_if_fail (in_finfo->info != NULL);
+    g_return_if_fail (in != NULL);
+    g_return_if_fail (in->info != NULL);
 
-    if (!(recursive && mode == CHMOD_DIRS_ONLY && in_finfo->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY))
+    if (!(recursive && mode == CHMOD_DIRS_ONLY && in->info->type != GNOME_VFS_FILE_TYPE_DIRECTORY))
     {
-        GnomeVFSResult ret = gnome_cmd_file_chmod (in_finfo, perm);
+        GnomeVFSResult ret = gnome_cmd_file_chmod (in, perm);
 
         if (ret != GNOME_VFS_OK)
-            gnome_cmd_show_message (NULL, gnome_cmd_file_get_name (in_finfo), gnome_vfs_result_to_string (ret));
+            gnome_cmd_show_message (NULL, gnome_cmd_file_get_name (in), gnome_vfs_result_to_string (ret));
         else
             if (!recursive)
                 return;
     }
 
-    if (in_finfo->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+    if (in->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
     {
-        GnomeCmdDir *dir = GNOME_CMD_DIR (in_finfo);
+        GnomeCmdDir *dir = GNOME_CMD_DIR (in);
         GList *files;
 
         gnome_cmd_dir_ref (dir);

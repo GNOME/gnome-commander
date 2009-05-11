@@ -290,14 +290,14 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
 
     if (num_files == 1)
     {
-        GnomeCmdFileInfo *finfo = GNOME_CMD_FILE_INFO (files->data);
-        gchar *fname = g_strdup (finfo->info->name);
+        GnomeCmdFileInfo *f = GNOME_CMD_FILE_INFO (files->data);
+        gchar *fname = g_strdup (f->info->name);
         gint i;
 
         for (i=0; handled_extensions[i]; ++i)
             if (g_str_has_suffix (fname, handled_extensions[i]))
             {
-                item = create_menu_item (_("Extract in Current Directory"), TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+                item = create_menu_item (_("Extract in Current Directory"), TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), f->uri);
                 items = g_list_append (items, item);
 
                 fname[strlen(fname)-strlen(handled_extensions[i])] = '\0';
@@ -305,7 +305,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
                 gchar *text;
 
                 text = g_strdup_printf (_("Extract to '%s'"), fname);
-                item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+                item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), f->uri);
                 gtk_object_set_data (GTK_OBJECT (item), "target_name", g_strdup (fname));
                 items = g_list_append (items, item);
                 g_free (text);
@@ -315,7 +315,7 @@ static GList *create_popup_menu_items (GnomeCmdPlugin *plugin, GnomeCmdState *st
                     gchar *path = gnome_vfs_unescape_string (gnome_vfs_uri_get_path (state->inactive_dir_uri), NULL);
 
                     text = g_strdup_printf (_("Extract to '%s'"), path);
-                    item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), finfo->uri);
+                    item = create_menu_item (text, TRUE, GTK_SIGNAL_FUNC (on_extract_cwd), f->uri);
                     gtk_object_set_data (GTK_OBJECT (item), "target_dir", path);
                     items = g_list_append (items, item);
                     g_free (text);
