@@ -1,3 +1,8 @@
+2009-05-12  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-profile-component.cc:
+	advrename profiles: be more conformant with HIG
+
 2009-05-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* tests/gviewer/search_dlg_test.c:

@@ -734,10 +734,9 @@ static void gnome_cmd_profile_component_init (GnomeCmdProfileComponent *componen
 
     gchar *str;
 
-    gtk_container_set_border_width (GTK_CONTAINER (component), 5);
-
     hbox = gtk_hbox_new (FALSE, 18);
     gtk_box_pack_start (GTK_BOX (component), hbox, FALSE, FALSE, 0);
+
 
     // Template
     {
@@ -836,7 +835,7 @@ static void gnome_cmd_profile_component_init (GnomeCmdProfileComponent *componen
         gtk_box_pack_start (GTK_BOX (component), label, FALSE, FALSE, 0);
 
         align = gtk_alignment_new (0.0, 0.0, 1.0, 1.0);
-        gtk_alignment_set_padding (GTK_ALIGNMENT (align), 0, 18, 12, 0);
+        gtk_alignment_set_padding (GTK_ALIGNMENT (align), 6, 12, 12, 0);
         gtk_box_pack_start (GTK_BOX (component), align, FALSE, FALSE, 0);
 
         table = gtk_table_new (2, 1, FALSE);
