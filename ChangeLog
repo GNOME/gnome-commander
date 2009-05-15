@@ -1,3 +1,12 @@
+2009-05-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-props-dialog.cc:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-make-copy-dialog.cc:
+	* src/gnome-cmd-options-dialog.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	typo: filename -> file name
+
 2009-05-12  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-profile-component.cc:

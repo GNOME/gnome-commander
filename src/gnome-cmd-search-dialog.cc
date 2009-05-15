@@ -540,7 +540,7 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     gtk_widget_set_sensitive (data->dialog->priv->search_button, FALSE);
     gtk_widget_set_sensitive (data->dialog->priv->stop_button, TRUE);
 
-    // create an re for filename matching
+    // create an re for file name matching
     GtkWidget *regex_radio = lookup_widget (GTK_WIDGET (dialog), "regex_radio");
 
     data->name_filter = new Filter(data->name_pattern, data->case_sens,
@@ -865,7 +865,7 @@ static void init (GnomeCmdSearchDialog *dialog)
     gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
 
-    // Filename matching
+    // File name matching
     radio = create_radio_with_mnemonic (window, NULL, _("Rege_x syntax"), "regex_radio");
     gtk_box_pack_end (GTK_BOX (hbox), radio, FALSE, FALSE, 12);
     if (gnome_cmd_data.filter_type == Filter::TYPE_REGEX)

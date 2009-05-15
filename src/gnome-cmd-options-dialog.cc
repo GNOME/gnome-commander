@@ -99,7 +99,7 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
     // FilterType settings
     cat_box = create_vbox (parent, FALSE, 0);
-    cat = create_category (parent, cat_box, _("Match filenames using"));
+    cat = create_category (parent, cat_box, _("Match file names using"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
     radio = create_radio (parent, NULL, _("Shell syntax"), "ft_shell_radio");

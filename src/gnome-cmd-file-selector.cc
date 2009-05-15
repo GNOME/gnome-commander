@@ -1735,7 +1735,7 @@ void gnome_cmd_file_selector_show_new_textfile_dialog (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    const gchar *labels[] = {_("Filename:")};
+    const gchar *labels[] = {_("File name:")};
     GtkWidget *dialog;
 
     dialog = gnome_cmd_string_dialog_new (_("New Text File"), labels, 1,

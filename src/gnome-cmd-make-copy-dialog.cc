@@ -64,7 +64,7 @@ static gboolean on_ok (GnomeCmdStringDialog *string_dialog, const gchar **values
 
     if (!filename)
     {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No filename entered")));
+        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No file name entered")));
         return FALSE;
     }
 
