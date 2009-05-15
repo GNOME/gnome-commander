@@ -1,3 +1,8 @@
+2009-05-16  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-profile-component.cc:
+	advrename profiles: properly clear regex model
+
 2009-05-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-props-dialog.cc:

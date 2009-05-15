@@ -1123,10 +1123,21 @@ void GnomeCmdProfileComponent::update()
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_step_spin), profile.counter_step);
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (priv->counter_digits_spin), profile.counter_width);
 
+    if (!model_is_empty(priv->regex_model))
+    {
+        clear_regex_model(priv->regex_model);
+
+        g_signal_handlers_block_by_func (priv->regex_model, gpointer (Private::on_regex_model_row_deleted), this);
+        gtk_list_store_clear (GTK_LIST_STORE (priv->regex_model));
+        g_signal_handlers_unblock_by_func (priv->regex_model, gpointer (Private::on_regex_model_row_deleted), this);
+    }
+
     priv->fill_regex_model(profile);
 
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), profile.case_conversion);
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), profile.trim_blanks);
+
+    g_signal_emit (G_OBJECT (this), signals[REGEX_CHANGED], 0);
 }
 
 
