@@ -1,3 +1,9 @@
+2009-05-19  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-advrename-dialog.h:
+	 Use new profile widget in advrename dialog
+
 2009-05-18  Christopher Zimmermann  <madroach@zakweb.de>
 
 	* src/gnome-cmd-data.cc:
