@@ -36,6 +36,12 @@ struct GnomeCmdConFtp;
 
 struct GnomeCmdData
 {
+    enum LeftMouseButtonMode
+    {
+        LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK,
+        LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK
+    };
+
     enum RightMouseButtonMode
     {
         RIGHT_BUTTON_POPUPS_MENU,
@@ -146,6 +152,7 @@ struct GnomeCmdData
     gboolean                     confirm_delete;
     GnomeCmdConfirmOverwriteMode confirm_copy_overwrite;
     GnomeCmdConfirmOverwriteMode confirm_move_overwrite;
+    LeftMouseButtonMode          left_mouse_button_mode;
     gboolean                     left_mouse_button_unselects;
     RightMouseButtonMode         right_mouse_button_mode;
     GnomeCmdColorMode            color_mode;

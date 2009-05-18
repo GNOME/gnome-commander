@@ -59,6 +59,7 @@ using namespace std;
 enum
 {
     FILE_CLICKED,        // A file in the list was clicked
+    FILE_RELEASED,       // A file in the list has been clicked and mouse button has been released
     LIST_CLICKED,        // The file list widget was clicked
     EMPTY_SPACE_CLICKED, // The file list was clicked but not on a file
     FILES_CHANGED,       // The visible content of the file list has changed (files have been: selected, created, deleted or modified)
@@ -1084,7 +1085,9 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
     g_return_if_fail (f != NULL);
     g_return_if_fail (event != NULL);
 
-    if (event->type == GDK_2BUTTON_PRESS && event->button == 1)
+    fl->modifier_click = event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK);
+
+    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
     {
         mime_exec_file (f);
     }
@@ -1100,18 +1103,20 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
             if (event->button == 1)
             {
                 if (event->state & GDK_SHIFT_MASK)
+                {
                     select_file_range (fl, fl->priv->shift_down_row, row);
+                }
                 else
                     if (event->state & GDK_CONTROL_MASK)
                     {
-                        if (!fl->priv->selected_files)
+                        if (fl->priv->selected_files || gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+                            toggle_file_at_row (fl, row);
+                        else
                         {
                             if (prev_row!=row)
                                 select_file (fl, fl->get_file_at_row(prev_row));
                             select_file_at_row (fl, row);
                         }
-                        else
-                            toggle_file_at_row (fl, row);
                     }
             }
             else
@@ -1139,6 +1144,17 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
                             show_file_popup (fl, event);
                     }
         }
+}
+
+
+static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, gpointer data)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+    g_return_if_fail (f != NULL);
+    g_return_if_fail (event != NULL);
+
+    if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+        mime_exec_file (f);
 }
 
 
@@ -1185,11 +1201,14 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
     if (row < 0)
         return FALSE;
 
+    GnomeCmdFile *f = fl->get_file_at_row(row);
+
+    gtk_signal_emit (*fl, file_list_signals[FILE_RELEASED], f, event);
+
     if (event->type == GDK_BUTTON_RELEASE)
     {
         if (event->button == 1 && state_is_blank (event->state))
         {
-            GnomeCmdFile *f = fl->get_file_at_row(row);
             if (f && g_list_index (fl->priv->selected_files, f)==-1 && gnome_cmd_data.left_mouse_button_unselects)
                 fl->unselect_all();
             return TRUE;
@@ -1250,6 +1269,15 @@ static void class_init (GnomeCmdFileListClass *klass)
                         GTK_TYPE_NONE,
                         2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
 
+    file_list_signals[FILE_RELEASED] =
+        gtk_signal_new ("file-released",
+                        GTK_RUN_LAST,
+                        G_OBJECT_CLASS_TYPE (object_class),
+                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, file_released),
+                        gtk_marshal_NONE__POINTER_POINTER,
+                        GTK_TYPE_NONE,
+                        2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
+
     file_list_signals[LIST_CLICKED] =
         gtk_signal_new ("list-clicked",
                         GTK_RUN_LAST,
@@ -1290,6 +1318,7 @@ static void class_init (GnomeCmdFileListClass *klass)
     object_class->destroy = destroy;
     widget_class->map = ::map;
     klass->file_clicked = NULL;
+    klass->file_released = NULL;
     klass->list_clicked = NULL;
     klass->files_changed = NULL;
     klass->dir_changed = NULL;
@@ -1310,6 +1339,7 @@ static void init (GnomeCmdFileList *fl)
 
     gtk_signal_connect_after (*fl, "realize", GTK_SIGNAL_FUNC (on_realize), fl);
     gtk_signal_connect (*fl, "file-clicked", GTK_SIGNAL_FUNC (on_file_clicked), fl);
+    gtk_signal_connect (*fl, "file-released", GTK_SIGNAL_FUNC (on_file_released), fl);
 }
 
 

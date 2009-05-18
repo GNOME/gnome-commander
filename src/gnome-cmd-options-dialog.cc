@@ -72,12 +72,21 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 
 
-    // Left click behavior
+    // Left mouse button settings
     cat_box = create_vbox (parent, FALSE, 0);
     cat = create_category (parent, cat_box, _("Left mouse button"));
     gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
 
-    check = create_check (parent, _("Unselects files"), "lmb_unselect_check");
+    radio = create_radio (parent, NULL, _("Single click to open items"), "lmb_singleclick_radio");
+    gtk_box_pack_start (GTK_BOX (cat_box), radio, FALSE, TRUE, 0);
+    if (gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    radio = create_radio (parent, get_radio_group(radio), _("Double click to open items"), "lmb_doubleclick_radio");
+    gtk_container_add (GTK_CONTAINER (cat_box), radio);
+    if (gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+
+    check = create_check (parent, _("Single click unselects files"), "lmb_unselects_check");
     gtk_box_pack_start (GTK_BOX (cat_box), check, FALSE, TRUE, 0);
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), gnome_cmd_data.left_mouse_button_unselects);
 
@@ -152,14 +161,17 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
 
 inline void store_general_options (GnomeCmdOptionsDialog *dialog)
 {
-    GtkWidget *lmb_unselect_check = lookup_widget (GTK_WIDGET (dialog), "lmb_unselect_check");
+    GtkWidget *lmb_singleclick_radio = lookup_widget (GTK_WIDGET (dialog), "lmb_singleclick_radio");
+    GtkWidget *lmb_unselects_check = lookup_widget (GTK_WIDGET (dialog), "lmb_unselects_check");
     GtkWidget *rmb_popup_radio = lookup_widget (GTK_WIDGET (dialog), "rmb_popup_radio");
     GtkWidget *ft_regex_radio = lookup_widget (GTK_WIDGET (dialog), "ft_regex_radio");
     GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
     GtkWidget *dir_cache_size = lookup_widget (GTK_WIDGET (dialog), "dir_cache_size");
     GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
 
-    gnome_cmd_data.left_mouse_button_unselects = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_unselect_check));
+    gnome_cmd_data.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
+
+    gnome_cmd_data.left_mouse_button_unselects = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_unselects_check));
 
     gnome_cmd_data.right_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (rmb_popup_radio)) ? GnomeCmdData::RIGHT_BUTTON_POPUPS_MENU
                                                                                                                 : GnomeCmdData::RIGHT_BUTTON_SELECTS;

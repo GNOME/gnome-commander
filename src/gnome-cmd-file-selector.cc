@@ -922,9 +922,15 @@ static void on_realize (GnomeCmdFileSelector *fs, gpointer user_data)
 
 static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
-    if (event->type == GDK_2BUTTON_PRESS)
-        if (event->button == 1)
-            do_file_specific_action (fs, f);
+    if (event->type == GDK_2BUTTON_PRESS && event->button == 1 && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK)
+        do_file_specific_action (fs, f);
+}
+
+
+static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, GnomeCmdFileSelector *fs)
+{
+    if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
+        do_file_specific_action (fs, f);
 }
 
 
@@ -1239,6 +1245,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_signal_connect (GTK_OBJECT (fs->con_combo), "popwin-hidden", GTK_SIGNAL_FUNC (on_combo_popwin_hidden), fs);
 
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "file-clicked", GTK_SIGNAL_FUNC (on_list_file_clicked), fs);
+    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "file-released", GTK_SIGNAL_FUNC (on_list_file_released), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "list-clicked", GTK_SIGNAL_FUNC (on_list_list_clicked), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "empty-space-clicked", GTK_SIGNAL_FUNC (on_list_empty_space_clicked), fs);
     gtk_signal_connect (GTK_OBJECT (fs->file_list()), "files-changed", GTK_SIGNAL_FUNC (on_list_files_changed), fs);

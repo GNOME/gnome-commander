@@ -1049,6 +1049,7 @@ GnomeCmdData::GnomeCmdData()
     confirm_delete = TRUE;
     confirm_copy_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
     confirm_move_overwrite = GNOME_CMD_CONFIRM_OVERWRITE_QUERY;
+    left_mouse_button_mode = LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
     left_mouse_button_unselects = TRUE;
     right_mouse_button_mode = RIGHT_BUTTON_POPUPS_MENU;
     color_mode = GNOME_CMD_COLOR_DEEP_BLUE;
@@ -1282,6 +1283,7 @@ void GnomeCmdData::load()
     priv->list_font = gnome_cmd_data_get_string ("/options/list_font", "-misc-fixed-medium-r-normal-*-10-*-*-*-c-*-iso8859-1");
 
     ext_disp_mode = (GnomeCmdExtDispMode) gnome_cmd_data_get_int ("/options/ext_disp_mode", GNOME_CMD_EXT_DISP_BOTH);
+    left_mouse_button_mode = (LeftMouseButtonMode) gnome_cmd_data_get_int ("/options/left_mouse_button_mode", LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK);
     left_mouse_button_unselects = gnome_cmd_data_get_bool ("/options/left_mouse_button_unselects", TRUE);
     right_mouse_button_mode = (RightMouseButtonMode) gnome_cmd_data_get_int ("/options/right_mouse_button_mode", RIGHT_BUTTON_POPUPS_MENU);
     icon_size = gnome_cmd_data_get_int ("/options/icon_size", 16);
@@ -1660,6 +1662,7 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_string ("/options/list_font", priv->list_font);
 
     gnome_cmd_data_set_int    ("/options/ext_disp_mode", ext_disp_mode);
+    gnome_cmd_data_set_int    ("/options/left_mouse_button_mode", left_mouse_button_mode);
     gnome_cmd_data_set_bool   ("/options/left_mouse_button_unselects", left_mouse_button_unselects);
     gnome_cmd_data_set_int    ("/options/right_mouse_button_mode", right_mouse_button_mode);
     gnome_cmd_data_set_int    ("/options/icon_size", icon_size);

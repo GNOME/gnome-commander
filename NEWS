@@ -27,6 +27,7 @@ New features:
  * Revamped advanced file rename tool (regex backreferences ('\number'), profiles,
    upper/lowercase conversion, blanks trimming and much more)
  * Support for metadata tags in internal viewer
+ * Support for single-click open mode
  * Support for row alternate background in colour themes
  * New colour theme: cafezinho
  * New or updated docs: de, en, es

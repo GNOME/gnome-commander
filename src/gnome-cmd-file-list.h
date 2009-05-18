@@ -65,6 +65,7 @@ struct GnomeCmdFileList
     Private *priv;
 
     gboolean realized;
+    gboolean modifier_click;
 
     void *operator new (size_t size);
     void operator delete (void *p)      {  g_object_unref (p);  }
@@ -164,6 +165,7 @@ struct GnomeCmdFileListClass
     GnomeCmdCListClass parent_class;
 
     void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button);
+    void (* file_released)       (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button);
     void (* list_clicked)        (GnomeCmdFileList *fl, GdkEventButton *button);
     void (* empty_space_clicked) (GnomeCmdFileList *fl, GdkEventButton *button);
     void (* files_changed)       (GnomeCmdFileList *fl);
@@ -179,6 +181,7 @@ inline void *GnomeCmdFileList::operator new (size_t size)
 inline GnomeCmdFileList::GnomeCmdFileList(GtkSignalFunc handler, GtkObject *object)
 {
     realized = FALSE;
+    modifier_click = FALSE;
     con = NULL;
     cwd = NULL;
     lwd = NULL;
