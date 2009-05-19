@@ -29,8 +29,8 @@
 #include "gnome-cmd-convert.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-profile-component.h"
-#include "dialogs/gnome-cmd-advrename-profiles-dialog.h"
 #include "dialogs/gnome-cmd-advrename-regex-dialog.h"
+#include "dialogs/gnome-cmd-manage-profiles-dialog.h"
 #include "gnome-cmd-advrename-lexer.h"
 #include "gnome-cmd-file.h"
 #include "gnome-cmd-treeview.h"
@@ -183,7 +183,7 @@ void GnomeCmdAdvrenameDialog::Private::manage_profiles(GnomeCmdAdvrenameDialog::
     if (new_profile)
         priv->profile_component->copy();
 
-    if (gnome_cmd_advrename_profiles_dialog_new (_("Profiles"), GTK_WINDOW (dialog), cfg,  new_profile))
+    if (gnome_cmd_manage_profiles_dialog_new (_("Profiles"), GTK_WINDOW (dialog), cfg,  new_profile))
     {
         GtkWidget *menu = widget->parent;
 

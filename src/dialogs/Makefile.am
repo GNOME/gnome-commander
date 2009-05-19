@@ -16,5 +16,5 @@ AM_CPPFLAGS = \
 	-DPLUGIN_DIR=\""$(libdir)/$(PACKAGE)/plugins"\"
 
 libgcmd_dialogs_a_SOURCES = \
-	gnome-cmd-advrename-profiles-dialog.h gnome-cmd-advrename-profiles-dialog.cc \
+	gnome-cmd-manage-profiles-dialog.h gnome-cmd-manage-profiles-dialog.cc \
 	gnome-cmd-advrename-regex-dialog.h gnome-cmd-advrename-regex-dialog.cc

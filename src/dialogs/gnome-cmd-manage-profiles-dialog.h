@@ -18,11 +18,11 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 */
 
-#ifndef __GNOME_CMD_ADVRENAME_PROFILES_DIALOG_H__
-#define __GNOME_CMD_ADVRENAME_PROFILES_DIALOG_H__
+#ifndef __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__
+#define __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__
 
 #include "gnome-cmd-data.h"
 
-gboolean gnome_cmd_advrename_profiles_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmdData::AdvrenameConfig &cfg, gboolean new_profile);
+gboolean gnome_cmd_manage_profiles_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmdData::AdvrenameConfig &cfg, gboolean new_profile);
 
-#endif // __GNOME_CMD_ADVRENAME_PROFILES_DIALOG_H__
+#endif // __GNOME_CMD_MANAGE_PROFILES_DIALOG_H__

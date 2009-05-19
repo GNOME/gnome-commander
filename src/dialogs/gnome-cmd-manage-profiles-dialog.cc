@@ -22,7 +22,7 @@
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
-#include "gnome-cmd-advrename-profiles-dialog.h"
+#include "gnome-cmd-manage-profiles-dialog.h"
 #include "gnome-cmd-treeview.h"
 #include "gnome-cmd-menu-button.h"
 #include "gnome-cmd-hintbox.h"
@@ -78,7 +78,7 @@ inline void add_profile(GtkWidget *view, GnomeCmdData::AdvrenameConfig::Profile 
 }
 
 
-gboolean gnome_cmd_advrename_profiles_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmdData::AdvrenameConfig &cfg, gboolean new_profile)
+gboolean gnome_cmd_manage_profiles_dialog_new (const gchar *title, GtkWindow *parent, GnomeCmdData::AdvrenameConfig &cfg, gboolean new_profile)
 {
     profiles = cfg.profiles;
     default_profile = cfg.default_profile;
