@@ -1,3 +1,10 @@
+2009-05-22  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-advrename-dialog.cc:
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	advrename profiles: set default template string to "$N"
+
 2009-05-19  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-advrename-dialog.cc:

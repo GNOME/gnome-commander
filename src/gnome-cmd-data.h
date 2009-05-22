@@ -83,8 +83,9 @@ struct GnomeCmdData
 
             void reset();
 
-            Profile(): counter_start(1), counter_width(1), counter_step(1),
-                      case_conversion(0), trim_blanks(3)                      {}
+            Profile(): template_string("$N"),
+                       counter_start(1), counter_width(1), counter_step(1),
+                       case_conversion(0), trim_blanks(3)                     {}
         };
 
         gint width, height;

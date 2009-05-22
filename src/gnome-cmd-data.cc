@@ -79,7 +79,7 @@ DICT<guint> gdk_modifiers_names;
 void GnomeCmdData::AdvrenameConfig::Profile::reset()
 {
     name.clear();
-    template_string.clear();
+    template_string = "$N";
     regexes.clear();
     counter_start = counter_width = counter_step = 1;
     case_conversion = 0;

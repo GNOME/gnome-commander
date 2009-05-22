@@ -466,9 +466,7 @@ void GnomeCmdAdvrenameDialog::Private::on_dialog_response (GnomeCmdAdvrenameDial
 
         case GCMD_RESPONSE_RESET:
             dialog->defaults.default_profile.reset();
-            dialog->defaults.default_profile.template_string = "$N";
             dialog->priv->profile_component->update();
-
             break;
 
         default :
