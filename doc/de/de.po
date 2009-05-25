@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander\n"
 "POT-Creation-Date: 2009-05-18 19:27+0000\n"
-"PO-Revision-Date: 2009-05-18 22:28+0100\n"
+"PO-Revision-Date: 2009-05-25 21:07+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2899,6 +2899,13 @@ msgid ""
 "cases when compressed data uses components other than Y, Cb, and Cr and to "
 "enable support of other sequences."
 msgstr ""
+"Information bezüglich der komprimierten Daten. Die Kanäle jeder Komponente "
+"werden in der Reihenfolge von der ersten bis zur vierten Komponente "
+"dargestellt. Bei unkomprimierten Daten wird die Anordnung in im <Exif."
+"PhotometricInterpretation>-Tag angegeben. Da <Exif.PhotometricInterpretation> "
+"nur die Reihenfolge von Y, Cb und Cr ausdrücken kann, wird dieser Tag für den "
+"Fall bereitgestellt, dass die komprimierten Daten noch weitere Komponenten "
+"außer Y, Cb und Cr enthalten. Dadurch werden weitere Sequenzen unterstützt."
 
 #: C/gnome-commander.xml:1591(para)
 msgid "Exif.CompressedBitsPerPixel"
@@ -3410,6 +3417,11 @@ msgid ""
 "absolute value in the <literal>Exif.GPS.Altitude</literal> tag. The reference "
 "unit is meters."
 msgstr ""
+"Gibt die als Referenzhöhe verwendete Höhe an. Wenn die Referenz die "
+"Meeresspiegelhöhe ist und sich die Höhe über dem Meeresspiegel befindet, wird "
+"0 angegeben. Wenn sich die Höhe unter dem Meeresspiegel befindet, wird der "
+"Wert 1 angegeben und die Höhe wird als absoluter Wert im Tag <Exif.GPS."
+"Altitude> indiziert. Die Referenzeinheit ist Meter."
 
 #: C/gnome-commander.xml:1756(para)
 msgid "Exif.GPS.InfoIFDPointer"
@@ -3562,11 +3574,11 @@ msgstr "Exif.ImageResources"
 
 #: C/gnome-commander.xml:1797(para)
 msgid "Image Resources Block"
-msgstr ""
+msgstr "Ressourcen des Bildes"
 
 #: C/gnome-commander.xml:1798(para)
 msgid "Image Resources Block."
-msgstr ""
+msgstr "Ressourcen des Bildes."
 
 #: C/gnome-commander.xml:1801(para)
 msgid "Exif.ImageUniqueID"
@@ -3582,6 +3594,9 @@ msgid ""
 "recorded as an ASCII string equivalent to hexadecimal notation and 128-bit "
 "fixed length."
 msgstr ""
+"Dieser Tag legt eine Bezeichnung fest, die einheitlich jedem Bild zugeordnet "
+"wird. Die Angabe erfolgt als ASCII-Zeichenkette äquivalent zur hexadezimalen "
+"Notation mit fester Länge von 128 Bit."
 
 #: C/gnome-commander.xml:1806(para)
 msgid "Exif.ImageWidth"
@@ -3618,7 +3633,7 @@ msgstr "Exif.InteroperabilityIFDPointer"
 
 #: C/gnome-commander.xml:1817(para)
 msgid "Interoperability IFD Pointer"
-msgstr ""
+msgstr "IFD-Interoperabilitätsverweis"
 
 #: C/gnome-commander.xml:1818(para)
 msgid ""
@@ -3628,6 +3643,11 @@ msgid ""
 "TIFF defined IFD structure but does not contain the image data "
 "characteristically compared with normal TIFF IFD."
 msgstr ""
+"Der IFD-Interoperabilitätsverweis wird aus Tags zur Gewährleistung der "
+"Interoperabilität zusammengestellt und verweist auf den folgenden Tag, der "
+"sich in der Exif-IFD befindet. Die Interoperabilitätsstruktur die gleiche, "
+"wie in TIFF definiert, enthält aber nicht die Charakteristik der Bilddaten "
+"wie in der normalen TIFF-IFD."
 
 #: C/gnome-commander.xml:1821(para)
 msgid "Exif.InteroperabilityIndex"
@@ -3642,6 +3662,8 @@ msgid ""
 "Indicates the identification of the Interoperability rule. Use \"R98\" for "
 "stating ExifR98 Rules."
 msgstr ""
+"Identifiziert die Regeln zur Interoperabilität. Für die Anwendung der ExifR98-"
+"Regeln verwenden Sie »R98«."
 
 #: C/gnome-commander.xml:1826(para)
 msgid "Exif.InteroperabilityVersion"
@@ -3661,13 +3683,15 @@ msgstr "Exif.ISOSpeedRatings"
 
 #: C/gnome-commander.xml:1832(para)
 msgid "ISO Speed Ratings"
-msgstr ""
+msgstr "ISO-Geschwindigkeiten"
 
 #: C/gnome-commander.xml:1833(para)
 msgid ""
 "The ISO Speed and ISO Latitude of the camera or input device as specified in "
 "ISO 12232."
 msgstr ""
+"Die ISO-Geschwindigkeit und Abweichung der Kamera oder des Eingabegeräts wie "
+"in ISO 12232 angegeben."
 
 #: C/gnome-commander.xml:1836(para)
 msgid "Exif.JPEGInterchangeFormat"
@@ -3691,7 +3715,7 @@ msgstr "Exif.JPEGInterchangeFormatLength"
 
 #: C/gnome-commander.xml:1842(para)
 msgid "JPEG Interchange Format Length"
-msgstr ""
+msgstr "JPEG Interchange-Formatlänge"
 
 #: C/gnome-commander.xml:1843(para)
 msgid ""
@@ -3701,6 +3725,12 @@ msgid ""
 "be recorded. Compressed thumbnails must be recorded in no more than 64 "
 "Kbytes, including all other data to be recorded in APP1."
 msgstr ""
+"Die Anzahl der Bytes der JPEG-komprimierten Vorschaudaten. Dies wird nicht "
+"für primäre JPEG-Bilddaten verwendet. JPEG-Vorschaudaten werden nicht "
+"getrennt, aber als kontinuierlicher JPEG-Datenstrom von SOI nach EOI "
+"aufgenommen. Appn- und COM-Markierungen sollten nicht enthalten sein. "
+"Komprimierte Vorschaubilder dürfen nicht größer als 64 kB sein, "
+"einschließlich aller in APP1 aufzunehmenden Daten."
 
 #: C/gnome-commander.xml:1846(para)
 msgid "Exif.JPEGProc"
@@ -3940,7 +3970,7 @@ msgstr "Exif.PrimaryChromaticities"
 
 #: C/gnome-commander.xml:1922(para)
 msgid "Primary Chromaticities"
-msgstr ""
+msgstr "Primäre Färbung"
 
 #: C/gnome-commander.xml:1923(para)
 msgid ""
@@ -3980,11 +4010,11 @@ msgstr "Exif.RelatedImageFileFormat"
 
 #: C/gnome-commander.xml:1932(para)
 msgid "Related Image File Format"
-msgstr ""
+msgstr "Zugehöriges Format der Bilddatei"
 
 #: C/gnome-commander.xml:1933(para)
 msgid "Related image file format."
-msgstr ""
+msgstr "Zugehöriges Format der Bilddatei."
 
 #: C/gnome-commander.xml:1936(para)
 msgid "Exif.RelatedImageLength"
@@ -3992,11 +4022,11 @@ msgstr "Exif.RelatedImageLength"
 
 #: C/gnome-commander.xml:1937(para)
 msgid "Related Image Length"
-msgstr ""
+msgstr "Zugehörige Bildlänge"
 
 #: C/gnome-commander.xml:1938(para)
 msgid "Related image length."
-msgstr ""
+msgstr "Zugehörige Bildlänge."
 
 #: C/gnome-commander.xml:1941(para)
 msgid "Exif.RelatedImageWidth"
@@ -4004,11 +4034,11 @@ msgstr "Exif.RelatedImageWidth"
 
 #: C/gnome-commander.xml:1942(para)
 msgid "Related Image Width"
-msgstr ""
+msgstr "Zugehörige Bildbreite"
 
 #: C/gnome-commander.xml:1943(para)
 msgid "Related image width."
-msgstr ""
+msgstr "Zugehörige Bildbreite."
 
 #: C/gnome-commander.xml:1946(para)
 msgid "Exif.RelatedSoundFile"
@@ -4016,7 +4046,7 @@ msgstr "Exif.RelatedSoundFile"
 
 #: C/gnome-commander.xml:1947(para)
 msgid "Related Sound File"
-msgstr ""
+msgstr "Zugehörige Klangdatei"
 
 #: C/gnome-commander.xml:1948(para)
 msgid ""
@@ -4560,6 +4590,17 @@ msgid ""
 "the value in this field. It is preferable that readers be able to support "
 "both centered and co-sited positioning."
 msgstr ""
+"Die Position der Farbkomponenten in Bezug auf die Helligkeitskomponenten. "
+"Dieses Feld ist nur für komprimierte JPEG-Daten oder unkomprimierte YCbCr-"
+"Daten gedacht. Die TIFF-Vorgabe ist 1 (konzentrisch), aber beim Verhältnis Y:"
+"Cb:Cr = 4:2:2 ist es zu empfehlen, dass 2 (co-sited) zur Aufnahme von Daten "
+"angegeben wird, um die Bildqualität bei der Anzeige auf Fernsehgeräten zu "
+"verbessern. Falls dieses Feld nicht existiert, nimmt der Leser die TIFF-"
+"Vorgabe an. Im Fall von Y:Cb:Cr = 4:2:0 wird die TIFF-Vorgabe (konzentrisch) "
+"empfohlen. Falls der Leser nicht über die Fähigkeit verfügt, beide Arten von "
+"<Exif.YCbCrPositioning> zu unterstützen, sollte die TIFF-Vorgabe ungeachtet "
+"des Wertes in diesem Feld angenommen werden. Bevorzugt werden sollten Leser, "
+"die sowohl konzentrisch als auch »co-sited« unterstützen."
 
 #: C/gnome-commander.xml:2111(para)
 msgid "Exif.YCbCrSubSampling"
@@ -4712,6 +4753,8 @@ msgid ""
 "Editable DC type for the name of the publisher of the file (EG dc:publisher "
 "field in RSS feed)."
 msgstr ""
+"Bearbeitbarer DC-Typ des Namens des Veröffentlichers der Datei (z.B. das Feld "
+"»dc:publisher« in RSS-Feeds)"
 
 #: C/gnome-commander.xml:2176(para)
 msgid "File.Rank"
@@ -5292,7 +5335,7 @@ msgstr "Eigentum"
 
 #: C/gnome-commander.xml:2418(para)
 msgid "Ownership frame."
-msgstr ""
+msgstr "Eigentumsverhältnisse."
 
 #: C/gnome-commander.xml:2421(para)
 msgid "ID3.PartInSet"
@@ -5388,7 +5431,7 @@ msgstr "Privat"
 
 #: C/gnome-commander.xml:2458(para)
 msgid "Private frame."
-msgstr ""
+msgstr "Privater Bereich."
 
 #: C/gnome-commander.xml:2461(para)
 msgid "ID3.ProducedNotice"
@@ -5480,7 +5523,7 @@ msgstr "Signatur"
 
 #: C/gnome-commander.xml:2498(para)
 msgid "Signature frame."
-msgstr ""
+msgstr "Signaturbereich."
 
 #: C/gnome-commander.xml:2501(para)
 msgid "ID3.Size"
@@ -5875,7 +5918,7 @@ msgstr "Image.Make"
 
 #: C/gnome-commander.xml:2687(para)
 msgid "Make"
-msgstr ""
+msgstr "Modell"
 
 #: C/gnome-commander.xml:2688(para)
 msgid "Make of camera used to take the image."
@@ -6089,7 +6132,7 @@ msgstr "IPTC.Caption"
 
 #: C/gnome-commander.xml:2777(para)
 msgid "Caption, Abstract"
-msgstr ""
+msgstr "Aufnahme, abstrakt"
 
 #: C/gnome-commander.xml:2778(para) C/gnome-commander.xml:3198(para)
 msgid "A textual description of the data."
@@ -6118,7 +6161,7 @@ msgstr "Kodierter Zeichensatz"
 msgid ""
 "Control functions used for the announcement, invocation or designation of "
 "coded character sets."
-msgstr ""
+msgstr "Kontrollfunktionen für die Festlegung der Kodierung von Zeichensätzen."
 
 #: C/gnome-commander.xml:2791(para)
 msgid "IPTC.City"
@@ -6166,7 +6209,7 @@ msgstr "IPTC.ContentLocCode"
 
 #: C/gnome-commander.xml:2807(para)
 msgid "Content Location Code"
-msgstr ""
+msgstr "Code des Ortes des Inhalts"
 
 #: C/gnome-commander.xml:2808(para)
 msgid ""
@@ -6182,7 +6225,7 @@ msgstr "IPTC.ContentLocName"
 
 #: C/gnome-commander.xml:2812(para)
 msgid "Content Location Name"
-msgstr ""
+msgstr "Name des Ortes des Inhalts"
 
 #: C/gnome-commander.xml:2813(para)
 msgid ""
@@ -6234,7 +6277,7 @@ msgstr "IPTC.Credit"
 
 #: C/gnome-commander.xml:2832(para)
 msgid "Credit"
-msgstr ""
+msgstr "Danksagungen"
 
 #: C/gnome-commander.xml:2833(para)
 msgid ""
@@ -6328,7 +6371,7 @@ msgstr "Bearbeitungsstatus"
 
 #: C/gnome-commander.xml:2868(para)
 msgid "Status of the object, according to the practice of the provider."
-msgstr ""
+msgstr "Status des Objekts in Bezug auf Angaben des Bereitstellers."
 
 #: C/gnome-commander.xml:2871(para)
 msgid "IPTC.EnvelopeNum"
@@ -6696,7 +6739,7 @@ msgstr "IPTC.RasterizedCaption"
 
 #: C/gnome-commander.xml:3012(para)
 msgid "Rasterized Caption"
-msgstr ""
+msgstr "Gerasterte Aufnahme"
 
 #: C/gnome-commander.xml:3013(para)
 msgid ""
@@ -6881,7 +6924,7 @@ msgstr "Zusätzliche Kategorie"
 
 #: C/gnome-commander.xml:3088(para)
 msgid "Further refines the subject of the object (Deprecated)."
-msgstr ""
+msgstr "Weitere Einzelheiten zum Subjekt des Objekts (Missbilligt)."
 
 #: C/gnome-commander.xml:3091(para)
 msgid "IPTC.TimeCreated"
@@ -6896,6 +6939,8 @@ msgid ""
 "The time the intellectual content of the object was created rather than the "
 "date of the creation of the physical representation (multiple values allowed)."
 msgstr ""
+"Die Zeit der Erzeugung des intellektuellen Inhalts des Objekts im Gegensatz "
+"zur Erstellung der physischen Darstellung."
 
 #: C/gnome-commander.xml:3096(para)
 msgid "IPTC.TimeSent"
@@ -6952,6 +6997,8 @@ msgid ""
 "The name of the person involved in the writing, editing or correcting the "
 "object or caption/abstract (multiple values allowed)."
 msgstr ""
+"Der Name der am Schreiben, Bearbeiten oder Korrigieren des Objekts oder "
+"Aufnahme beteiligten Person (Mehrfachnennungen sind erlaubt)."
 
 #: C/gnome-commander.xml:3116(para)
 msgid "PDF.PageSize"
@@ -7782,7 +7829,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:3522(guilabel)
 msgid "Pick window size and zoom factor automatically"
-msgstr ""
+msgstr "Fenstergröße und Vergrößerungsfaktor automatisch einstellen"
 
 #: C/gnome-commander.xml:3524(para)
 msgid ""
