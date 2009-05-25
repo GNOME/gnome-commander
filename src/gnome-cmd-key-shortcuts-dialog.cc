@@ -624,7 +624,8 @@ static void add_clicked_callback (GtkButton *button, GtkWidget *view)
 
     gtk_list_store_append (GTK_LIST_STORE (model), &iter);
     gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-                        COL_ACTION, _("Do nothing"),                                                                    // FIXME: temporarily, use "no.action" -> _("Do nothing")
+                        COL_ACTION, _("Do nothing"),
+                        COL_NAME, "no.action",
                         -1);
 
     GtkTreePath *path = gtk_tree_model_get_path (model, &iter);

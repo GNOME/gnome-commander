@@ -1,3 +1,8 @@
+2009-05-25  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-key-shortcuts-dialog.cc:
+	Fix for crash when assigning new UserAction (no.action)
+
 2009-05-23  Piotr Eljasiak  <epiotr@use.pl>
 
 	* po/POTFILES.in:
