@@ -1,3 +1,8 @@
+2009-05-26  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-bookmark-dialog.cc:
+	Fixed problem #583711 (crash when pressing ESC in bookmark dialog)
+
 2009-05-25  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-key-shortcuts-dialog.cc:

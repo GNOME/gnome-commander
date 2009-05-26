@@ -62,23 +62,110 @@ guint bookmark_dialog_default_column_width[BOOKMARK_DIALOG_NUM_COLUMNS] = {
 };
 
 
-static void
-show_bookmark_dialog (const gchar *name, const gchar *path,
-                      const gchar *title,
-                      GnomeCmdStringDialogCallback on_ok,
-                      GnomeCmdBookmarkDialog *dialog)
+static void response_callback (GtkDialog *dialog, int response_id, gpointer unused)
 {
-    const gchar *labels[] = {
-        _("Bookmark name:"),
-        _("Bookmark target:"),
-    };
+    switch (response_id)
+    {
+        case GTK_RESPONSE_OK:
+            {
+                const gchar *name = gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "name")));
 
-    GtkWidget *dlg = gnome_cmd_string_dialog_new (title, labels, 2, (GnomeCmdStringDialogCallback) on_ok, dialog);
+                if (!name || !*name)
+                {
+                    g_signal_stop_emission_by_name (dialog, "response");
+                    gnome_cmd_show_message (GTK_WINDOW (dialog), _("Bookmark name is missing"));
+                    break;
+                }
 
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dlg), 0, name);
-    gnome_cmd_string_dialog_set_value (GNOME_CMD_STRING_DIALOG (dlg), 1, path);
+                const gchar *path = gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "path")));
 
-    gtk_widget_show (dlg);
+                if (!path || !*path)
+                {
+                    g_signal_stop_emission_by_name (dialog, "response");
+                    gnome_cmd_show_message (GTK_WINDOW (dialog), _("Bookmark target is missing"));
+                    break;
+                }
+            }
+
+            break;
+
+        case GTK_RESPONSE_NONE:
+        case GTK_RESPONSE_DELETE_EVENT:
+        case GTK_RESPONSE_CANCEL:
+            break;
+
+        default :
+            g_assert_not_reached ();
+    }
+}
+
+
+static gboolean edit_bookmark_dialog (GtkWindow *parent, const gchar *title, gchar *&name, gchar *&path)
+{
+    GtkWidget *dialog = gtk_dialog_new_with_buttons (title, parent,
+                                                     GtkDialogFlags (GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
+                                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                                     GTK_STOCK_OK, GTK_RESPONSE_OK,
+                                                     NULL);
+
+    gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+    gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+
+    // HIG defaults
+    gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 2);
+    gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
+    gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
+
+    GtkWidget *table, *label, *entry;
+
+    table = gtk_table_new (3, 2, FALSE);
+    gtk_container_set_border_width (GTK_CONTAINER (table), 5);
+    gtk_table_set_row_spacings (GTK_TABLE (table), 6);
+    gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+    gtk_container_add (GTK_CONTAINER (GTK_DIALOG (dialog)->vbox), table);
+
+    label = gtk_label_new_with_mnemonic (_("Bookmark _name:"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 0, 1);
+
+    entry = gtk_entry_new ();
+    gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
+    gtk_entry_set_text (GTK_ENTRY (entry), name);
+    g_object_set_data (G_OBJECT (dialog), "name", entry);
+    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+    gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 0, 1);
+
+    label = gtk_label_new_with_mnemonic (_("Bookmark _target:"));
+    gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
+    gtk_table_attach_defaults (GTK_TABLE (table), label, 0, 1, 1, 2);
+
+    entry = gtk_entry_new ();
+    gtk_label_set_mnemonic_widget (GTK_LABEL (label), entry);
+    gtk_entry_set_text (GTK_ENTRY (entry), path);
+    g_object_set_data (G_OBJECT (dialog), "path", entry);
+    gtk_entry_set_activates_default (GTK_ENTRY (entry), TRUE);
+    gtk_table_attach_defaults (GTK_TABLE (table), entry, 1, 2, 1, 2);
+
+    gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+
+    gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
+
+    g_signal_connect (dialog, "response", G_CALLBACK (response_callback), NULL);
+
+    gint result = gtk_dialog_run (GTK_DIALOG (dialog));
+
+    if (result==GTK_RESPONSE_OK)
+    {
+        g_free (name);
+        name = g_strdup (gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "name"))));
+        g_free (path);
+        path = g_strdup (gtk_entry_get_text (GTK_ENTRY (lookup_widget (GTK_WIDGET (dialog), "path"))));
+    }
+
+    gtk_widget_destroy (dialog);
+
+    return result==GTK_RESPONSE_OK;
 }
 
 
@@ -144,45 +231,17 @@ static void on_dir_remove (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 }
 
 
-static gboolean on_edit_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, GnomeCmdBookmarkDialog *dialog)
-{
-    const gchar *name = values[0];
-    const gchar *path = values[1];
-    GtkCList *dir_list = GTK_CLIST (dialog->priv->dir_list);
-
-    g_return_val_if_fail (dialog->priv->sel_bookmark != NULL, TRUE);
-
-    if (!name)
-    {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("Bookmark name is missing")));
-        return FALSE;
-    }
-
-    if (!path)
-    {
-        gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("Bookmark target is missing")));
-        return FALSE;
-    }
-
-    g_free (dialog->priv->sel_bookmark->name);
-    dialog->priv->sel_bookmark->name = g_strdup (name);
-    g_free (dialog->priv->sel_bookmark->path);
-    dialog->priv->sel_bookmark->path = g_strdup (path);
-
-    gtk_clist_set_text (dir_list, dir_list->focus_row, 1, name);
-    gtk_clist_set_text (dir_list, dir_list->focus_row, 2, path);
-
-    return TRUE;
-}
-
-
 static void on_dir_edit (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 {
-    show_bookmark_dialog (dialog->priv->sel_bookmark->name,
-                          dialog->priv->sel_bookmark->path,
-                          _("Edit Bookmark"),
-                          (GnomeCmdStringDialogCallback) on_edit_ok,
-                          dialog);
+    g_return_if_fail (dialog->priv->sel_bookmark != NULL);
+
+    if (edit_bookmark_dialog (GTK_WINDOW (dialog), _("Edit Bookmark"), dialog->priv->sel_bookmark->name, dialog->priv->sel_bookmark->path))
+    {
+        GtkCList *dir_list = GTK_CLIST (dialog->priv->dir_list);
+
+        gtk_clist_set_text (dir_list, dir_list->focus_row, 1, dialog->priv->sel_bookmark->name);
+        gtk_clist_set_text (dir_list, dir_list->focus_row, 2, dialog->priv->sel_bookmark->path);
+    }
 }
 
 
@@ -553,44 +612,41 @@ GtkWidget *gnome_cmd_bookmark_dialog_new ()
 }
 
 
-static gboolean on_new_bookmark_ok (GnomeCmdStringDialog *string_dialog, const gchar **values, gpointer data)
-{
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
-    GnomeCmdCon *con = fs->is_local() ? get_home_con () : fs->get_connection();
-    GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
-    GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
-
-    bookmark->name = g_strdup (values[0]);
-    bookmark->path = g_strdup (values[1]);
-    bookmark->group = group;
-
-    group->bookmarks = g_list_append (group->bookmarks, bookmark);
-
-    gnome_cmd_main_win_update_bookmarks (main_win);
-
-    return TRUE;
-}
-
-
 void gnome_cmd_bookmark_add_current ()
 {
-    GnomeCmdDir *cwd = gnome_cmd_main_win_get_fs (main_win, ACTIVE)->get_directory();
+    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
+    GnomeCmdDir *cwd = fs->get_directory();
     gchar *path = gnome_cmd_dir_is_local (cwd) ? gnome_cmd_file_get_real_path (GNOME_CMD_FILE (cwd)) :
                                                  gnome_cmd_file_get_path (GNOME_CMD_FILE (cwd));
 
     if (!g_utf8_validate (path, -1, NULL))
     {
-        create_error_dialog (_("To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding\n"));
+        gnome_cmd_show_message (NULL, _("To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"));
         g_free (path);
         return;
     }
 
-    show_bookmark_dialog (g_basename (path),
-                          path,
-                          _("New Bookmark"),
-                          (GnomeCmdStringDialogCallback) on_new_bookmark_ok,
-                          NULL);
-    g_free (path);
+    gchar *name = g_strdup (g_basename (path));
+
+    if (edit_bookmark_dialog (NULL, _("New Bookmark"), name, path))
+    {
+        GnomeCmdCon *con = fs->is_local() ? get_home_con () : fs->get_connection();
+        GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
+        GnomeCmdBookmark *bookmark = g_new0 (GnomeCmdBookmark, 1);
+
+        bookmark->name = name;
+        bookmark->path = path;
+        bookmark->group = group;
+
+        group->bookmarks = g_list_append (group->bookmarks, bookmark);
+
+        gnome_cmd_main_win_update_bookmarks (main_win);
+    }
+    else
+    {
+        g_free (name);
+        g_free (path);
+    }
 }
 
 
