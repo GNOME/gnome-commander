@@ -943,44 +943,83 @@
           </varlistentry>
           <varlistentry>
               <term>
+                  <guilabel>Counter</guilabel>
+              </term>
+              <listitem>
+                  <para>Specifies settings for counters: start value, step and width.</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>
                   <guilabel>Regex replacing</guilabel>
               </term>
               <listitem>
-                  <para>List of regular expression patterns. The patterns are matched in against
+                  <para>List of the regular expression patterns. The patterns are matched against
                         <guilabel>Template</guilabel>. If matched, patterns are replaced
-                        with their corresponding replacements. The order of execution is top-bottom.</para>
+                        with their corresponding replacements. The order of execution is top-bottom.
+                        Invalid or broken regex patterns will be marked red.</para>
               </listitem>
           </varlistentry>
           <varlistentry>
               <term>
-                  <guilabel>Result</guilabel>
+                  <guilabel>Case</guilabel>
               </term>
               <listitem>
-                  <para>List of the new file names.</para>
+                <para>Changes the case of the selected file names.</para>
               </listitem>
           </varlistentry>
           <varlistentry>
               <term>
-                  <guibutton>Options</guibutton>
+                  <guilabel>Trim blanks</guilabel>
               </term>
               <listitem>
-                  <para>Additional settings for file name processing (start value, step and width for counters).</para>
+                  <para>Removes leading and trailing whitespace from the selected file names.</para>
               </listitem>
           </varlistentry>
           <varlistentry>
               <term>
-                  <guibutton>OK</guibutton>
+                  <guilabel>Results</guilabel>
               </term>
               <listitem>
-                  <para>Starts to rename files. A warning message will popup in case of any name conflicts.</para>
+                  <para>List of the new file names. The list can de reordered using drag-and-drop.
+                        The context menu provides options for: removing file from the list,
+                        viewing file or its properties, and refreshing the list.
+                        Conflicting renames will be marked red.</para>
               </listitem>
           </varlistentry>
           <varlistentry>
               <term>
-                  <guibutton>Cancel</guibutton>
+                  <guibutton>Apply</guibutton>
+              </term>
+              <listitem>
+                  <para>Starts to rename files. Conflicting renames will be marked red.</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>
+                  <guibutton>Close</guibutton>
               </term>
               <listitem>
                   <para>Closes the dialog without file renaming.</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>
+                  <guibutton>Reset</guibutton>
+              </term>
+              <listitem>
+                  <para>Resets current settings to defaults.</para>
+              </listitem>
+          </varlistentry>
+          <varlistentry>
+              <term>
+                  <guibutton>Profiles...</guibutton>
+              </term>
+              <listitem>
+                  <para>Shows options for profile management. A profile is a collection
+                        of advanced file renaming parameters
+                        (template, counter, regex patterns, case conversions and blank trimming)
+                        identified by its name. You can define as many different profiles as you require.</para>
               </listitem>
           </varlistentry>
         </variablelist>
