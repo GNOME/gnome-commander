@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.HEAD.de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-25 19:56+0200\n"
-"PO-Revision-Date: 2009-05-25 20:42+0100\n"
+"POT-Creation-Date: 2009-05-27 22:58+0200\n"
+"PO-Revision-Date: 2009-05-27 23:00+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -381,52 +381,52 @@ msgstr "Änderungsdatum der Datei"
 msgid "Profiles..."
 msgstr "Profile …"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:72
-msgid "Bookmark name:"
-msgstr "Name für Lesezeichen:"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:73
-msgid "Bookmark target:"
-msgstr "Ziel für Lesezeichen"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:157
+#: ../src/gnome-cmd-bookmark-dialog.cc:76
 msgid "Bookmark name is missing"
 msgstr "Der Name des Lesezeichens fehlt"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:163
+#: ../src/gnome-cmd-bookmark-dialog.cc:85
 msgid "Bookmark target is missing"
 msgstr "Das Ziel des Lesezeichens fehlt"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:183
+#: ../src/gnome-cmd-bookmark-dialog.cc:128
+msgid "Bookmark _name:"
+msgstr "_Name für Lesezeichen:"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:139
+msgid "Bookmark _target:"
+msgstr "_Ziel für Lesezeichen:"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:238
 msgid "Edit Bookmark"
 msgstr "Lesezeichen bearbeiten"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:434
-#: ../src/gnome-cmd-bookmark-dialog.cc:452
+#: ../src/gnome-cmd-bookmark-dialog.cc:493
+#: ../src/gnome-cmd-bookmark-dialog.cc:511
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:443
+#: ../src/gnome-cmd-bookmark-dialog.cc:502
 msgid "Bookmark Groups"
 msgstr "Lesezeichen-Gruppen"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:459 ../src/gnome-cmd-file-list.cc:105
+#: ../src/gnome-cmd-bookmark-dialog.cc:518 ../src/gnome-cmd-file-list.cc:105
 msgid "name"
 msgstr "Name"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:460
+#: ../src/gnome-cmd-bookmark-dialog.cc:519
 msgid "path"
 msgstr "Pfad"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:583
+#: ../src/gnome-cmd-bookmark-dialog.cc:624
 msgid ""
 "To bookmark a directory the whole search path to the directory must be in "
-"valid UTF-8 encoding\n"
+"valid UTF-8 encoding"
 msgstr ""
-"Um einen Ordner in die Lesezeichen aufnehmen zu können, muss der gesamte Pfad "
-"in gültiger UTF-8-Kodierung vorliegen\n"
+"Um einen Ordner in die Lesezeichen aufnehmen zu können, muss der gesamte "
+"Suchpfad zu diesem Ordner in gültiger UTF-8-Kodierung vorliegen"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:590
+#: ../src/gnome-cmd-bookmark-dialog.cc:631
 msgid "New Bookmark"
 msgstr "Neues Lesezeichen"
 
