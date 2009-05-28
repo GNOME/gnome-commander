@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&component=general\n"
-"POT-Creation-Date: 2009-05-24 19:05+0000\n"
-"PO-Revision-Date: 2009-05-26 21:42+0100\n"
+"POT-Creation-Date: 2009-05-26 19:46+0000\n"
+"PO-Revision-Date: 2009-05-28 15:51+0100\n"
 "Last-Translator: Piotr Eljasiak <epiotr@use.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -166,10 +166,9 @@ msgstr "_Rozróżnianie wielkości liter"
 
 #: ../src/dialogs/gnome-cmd-advrename-regex-dialog.cc:112
 msgid "Some regular expressions functionality is disabled. To enable it's necessary to build GNOME Commander with GLib ≥ 2.14. Please contact your package maintainer about that."
-msgstr ""
+msgstr "Część funkcjonalności obsługi wyrażeń regularnych jest niedostępna. Uaktywnienie wymaga kompilacji GNOME Commander z biblioteką GLib ≥ 2.14. W tej sprawie skonaktuj się z opiekunem pakietu."
 
 #: ../src/dialogs/gnome-cmd-edit-profile-dialog.cc:67
-#| msgid "Edit file"
 msgid "Edit Profile"
 msgstr "Edycja profilu"
 
@@ -179,7 +178,6 @@ msgid "Reset"
 msgstr "Przywróć"
 
 #: ../src/dialogs/gnome-cmd-edit-profile-dialog.cc:88
-#| msgid "Name"
 msgid "_Name"
 msgstr "_Nazwa"
 
@@ -365,49 +363,51 @@ msgstr "Data modyfikacji pliku"
 msgid "Profiles..."
 msgstr "Profile..."
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:72
-msgid "Bookmark name:"
-msgstr "Nazwa zakładki:"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:73
-msgid "Bookmark target:"
-msgstr "Ścieżka docelowa:"
-
-#: ../src/gnome-cmd-bookmark-dialog.cc:157
+#: ../src/gnome-cmd-bookmark-dialog.cc:76
 msgid "Bookmark name is missing"
 msgstr "Brak nazwy zakładki"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:163
+#: ../src/gnome-cmd-bookmark-dialog.cc:85
 msgid "Bookmark target is missing"
 msgstr "Brak docelowej ścieżki"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:183
+#: ../src/gnome-cmd-bookmark-dialog.cc:128
+#| msgid "Bookmark name:"
+msgid "Bookmark _name:"
+msgstr "_Nazwa zakładki:"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:139
+#| msgid "Bookmark target:"
+msgid "Bookmark _target:"
+msgstr "Ścieżka _docelowa:"
+
+#: ../src/gnome-cmd-bookmark-dialog.cc:238
 msgid "Edit Bookmark"
 msgstr "Edytor"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:434
-#: ../src/gnome-cmd-bookmark-dialog.cc:452
+#: ../src/gnome-cmd-bookmark-dialog.cc:493
+#: ../src/gnome-cmd-bookmark-dialog.cc:511
 msgid "Bookmarks"
 msgstr "Zakładki"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:443
+#: ../src/gnome-cmd-bookmark-dialog.cc:502
 msgid "Bookmark Groups"
 msgstr "Grupy zakładek"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:459
+#: ../src/gnome-cmd-bookmark-dialog.cc:518
 #: ../src/gnome-cmd-file-list.cc:105
 msgid "name"
 msgstr "nazwa"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:460
+#: ../src/gnome-cmd-bookmark-dialog.cc:519
 msgid "path"
 msgstr "ścieżka"
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:583
-msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding\n"
+#: ../src/gnome-cmd-bookmark-dialog.cc:624
+msgid "To bookmark a directory the whole search path to the directory must be in valid UTF-8 encoding"
 msgstr ""
 
-#: ../src/gnome-cmd-bookmark-dialog.cc:590
+#: ../src/gnome-cmd-bookmark-dialog.cc:631
 msgid "New Bookmark"
 msgstr "Nowa zakładka"
 
@@ -933,7 +933,6 @@ msgstr "Obraz:"
 
 #: ../src/gnome-cmd-file-props-dialog.cc:373
 #: ../src/gnome-cmd-file-selector.cc:1745
-#| msgid "Filename:"
 msgid "File name:"
 msgstr "Nazwa pliku:"
 
@@ -1573,7 +1572,6 @@ msgid "Make Directory"
 msgstr "Utwórz katalog"
 
 #: ../src/gnome-cmd-options-dialog.cc:77
-#| msgid "Use right mouse button to"
 msgid "Left mouse button"
 msgstr "Lewy przycisk myszy"
 
@@ -1586,30 +1584,25 @@ msgid "Double click to open items"
 msgstr "Otwieranie elementów po podwójnym kliknięciu"
 
 #: ../src/gnome-cmd-options-dialog.cc:89
-#, fuzzy
 #| msgid "Select files"
 msgid "Single click unselects files"
-msgstr "Używaj pojedynczego kliknięcia KDE"
+msgstr "Pojedyncze kliknięcie usuwa zaznaczenie."
 
 #: ../src/gnome-cmd-options-dialog.cc:96
-#| msgid "Use right mouse button to"
 msgid "Right mouse button"
 msgstr "Prawy przycisk myszy"
 
 #: ../src/gnome-cmd-options-dialog.cc:99
-#, fuzzy
 #| msgid "Show popup menu"
 msgid "Shows popup menu"
-msgstr "Pokaż menu kontekstowe"
+msgstr "Menu kontekstowe"
 
 #: ../src/gnome-cmd-options-dialog.cc:103
-#, fuzzy
 #| msgid "Select files"
 msgid "Selects files"
-msgstr "Pliki konfiguracyjne"
+msgstr "Zaznaczanie plików"
 
 #: ../src/gnome-cmd-options-dialog.cc:111
-#| msgid "Match filenames using"
 msgid "Match file names using"
 msgstr "Dopasuj nazwy plików według"
 
@@ -2760,7 +2753,7 @@ msgstr "Równaj wielkość paneli"
 #: ../src/gnome-cmd-user-actions.cc:194
 #, fuzzy
 msgid "Back to the first directory"
-msgstr "Niemożliwy powrót do katalogu startowego."
+msgstr "Podgląd pliku"
 
 #: ../src/gnome-cmd-user-actions.cc:195
 msgid "Forward one directory"
@@ -2789,7 +2782,7 @@ msgstr "Otwórz katalog w prawym oknie"
 #: ../src/gnome-cmd-user-actions.cc:201
 #, fuzzy
 msgid "Forward to the last directory"
-msgstr "Ostatni katalog eksportu HTML"
+msgstr "Przenieś folder do ostatniego katalogu"
 
 #: ../src/gnome-cmd-user-actions.cc:202
 msgid "Open directory in a new tab"
@@ -3211,17 +3204,17 @@ msgstr "Wykonawca albumu."
 #: ../src/tags/gnome-cmd-tags.cc:114
 #, fuzzy
 msgid "Album Gain"
-msgstr "Album uzyskany:"
+msgstr "Kontrola wzmocnienia"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 #, fuzzy
 msgid "Gain adjustment of the album."
-msgstr "użyj albumu uzyskanego/szczytowego"
+msgstr "Kolejność kolumny albumu"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 #, fuzzy
 msgid "Album Peak Gain"
-msgstr "użyj albumu uzyskanego/szczytowego"
+msgstr "Niskie wzmocnienie na górze"
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 #, fuzzy
@@ -3373,7 +3366,7 @@ msgstr "Słowa piosenki."
 #: ../src/tags/gnome-cmd-tags.cc:133
 #, fuzzy
 msgid "MB album artist ID"
-msgstr "Album \"%s\", artysta: \"%s\", długość: \"%s\", rok: \"%s\", gatunek: \"%s\", ID: \"%s\""
+msgstr "Wykonawca (Album) - Numer - Tytuł"
 
 #: ../src/tags/gnome-cmd-tags.cc:133
 msgid "MusicBrainz album artist ID in UUID format."
@@ -3418,7 +3411,7 @@ msgstr "Chroniony prawem autorskim"
 #: ../src/tags/gnome-cmd-tags.cc:138
 #, fuzzy
 msgid "\"1\" if the copyrighted bit is set."
-msgstr "Jeśli ustawione, wyświetlane jest prostokąt strony"
+msgstr "Wartośc równa \"1\" jeżeli dozwolony wydruk."
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "Layer"
@@ -3435,7 +3428,7 @@ msgstr "Oryginalna ścieżka dżwiękowa"
 #: ../src/tags/gnome-cmd-tags.cc:140
 #, fuzzy
 msgid "\"1\" if the \"original\" bit is set."
-msgstr "Jeśli ustawione, wyświetlane jest prostokąt strony"
+msgstr "Wartośc równa \"1\" jeżeli dozwolony wydruk."
 
 #: ../src/tags/gnome-cmd-tags.cc:141
 msgid "MPEG Version"
@@ -3496,7 +3489,7 @@ msgstr "Wzmocnienie ścieżki"
 #: ../src/tags/gnome-cmd-tags.cc:147
 #, fuzzy
 msgid "Gain adjustment of the track."
-msgstr "użyj ścieżki uzyskanej/szczytowej"
+msgstr "Śledzenie stanu drukarki"
 
 #: ../src/tags/gnome-cmd-tags.cc:148
 msgid "Track Number"
@@ -3509,7 +3502,7 @@ msgstr "Pozycja utworu w albumie."
 #: ../src/tags/gnome-cmd-tags.cc:149
 #, fuzzy
 msgid "Track Peak Gain"
-msgstr "użyj ścieżki uzyskanej/szczytowej"
+msgstr "Niskie wzmocnienie na górze"
 
 #: ../src/tags/gnome-cmd-tags.cc:149
 #, fuzzy
@@ -3639,7 +3632,7 @@ msgstr "Czas ostatniego zapisu dokumentu."
 #: ../src/tags/gnome-cmd-tags.cc:165
 #, fuzzy
 msgid "An account of the content of the resource."
-msgstr "Foldery źródeł danych należą do &konta:"
+msgstr "Konto do półautomatycznej obsługi zasobów"
 
 #: ../src/tags/gnome-cmd-tags.cc:166
 msgid "Dictionary"
@@ -3684,7 +3677,7 @@ msgstr "Liczba obrazóww dokumencie."
 #: ../src/tags/gnome-cmd-tags.cc:171
 #, fuzzy
 msgid "Initial Creator"
-msgstr "Identyfikator twórcy"
+msgstr "Twórca zawartości"
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Specifies the name of the person who created the document initially."
@@ -3765,7 +3758,7 @@ msgstr "Liczba multimediów"
 #: ../src/tags/gnome-cmd-tags.cc:180
 #, fuzzy
 msgid "Number of multimedia clips in the document."
-msgstr "Sumaryczna liczba stron w dokumencie"
+msgstr "Całkowita liczba stron w dokumencie"
 
 #: ../src/tags/gnome-cmd-tags.cc:181
 msgid "Note Count"
@@ -4231,7 +4224,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:240
 #, fuzzy
 msgid "GPS Info IFDPointer"
-msgstr "Strony GNU info"
+msgstr "Informacje z paska bocznego metadanych GPS"
 
 #: ../src/tags/gnome-cmd-tags.cc:240
 msgid "A pointer to the GPS Info IFD. The Interoperability structure of the GPS Info IFD, like that of Exif IFD, has no image data."
@@ -4337,7 +4330,7 @@ msgstr "Interoperability IFD jest złożony ze znaczników przechowujących info
 #: ../src/tags/gnome-cmd-tags.cc:253
 #, fuzzy
 msgid "Interoperability Index"
-msgstr "Indeks koloru:"
+msgstr "Indeks końcowy"
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid "Indicates the identification of the Interoperability rule. Use \"R98\" for stating ExifR98 Rules."
@@ -4346,12 +4339,12 @@ msgstr "Oznaczenie identyfikacji reguły współpracy. Należy użyć \"R98\" dl
 #: ../src/tags/gnome-cmd-tags.cc:254
 #, fuzzy
 msgid "Interoperability Version"
-msgstr "Wersja %1 na %2"
+msgstr "Wersja programu"
 
 #: ../src/tags/gnome-cmd-tags.cc:254
 #, fuzzy
 msgid "Interoperability version."
-msgstr "Wersja %1 na %2"
+msgstr "Wersja programu"
 
 #: ../src/tags/gnome-cmd-tags.cc:255
 msgid "An IPTC/NAA record."
@@ -4663,7 +4656,7 @@ msgstr "Przesunięcie pasa wyrażone w bajtach. Zaleca się takie dobranie tej w
 #: ../src/tags/gnome-cmd-tags.cc:294
 #, fuzzy
 msgid "Sub IFD Offsets"
-msgstr "Wyświetlanie kolumny z przesunięciem"
+msgstr "Uaktualnienie informacji do przeszukiwania."
 
 #: ../src/tags/gnome-cmd-tags.cc:294
 msgid "Defined by Adobe Corporation to enable TIFF Trees within a TIFF file."
@@ -4924,7 +4917,7 @@ msgstr "Ramka określająca czy strumień audio jest zaszyfrowany, i przez kogo.
 #: ../src/tags/gnome-cmd-tags.cc:329
 #, fuzzy
 msgid "Audio Seek Point"
-msgstr "Ustaw punkt zaznaczenia"
+msgstr "Kompensacja _czarnego punktu"
 
 #: ../src/tags/gnome-cmd-tags.cc:329
 msgid "Fractional offset within the audio data, providing a starting point from which to find an appropriate point to start decoding."
@@ -4970,7 +4963,7 @@ msgstr "Komercyjny 10"
 #: ../src/tags/gnome-cmd-tags.cc:334
 #, fuzzy
 msgid "Commercial frame."
-msgstr "Pokaż ramkę"
+msgstr "ramka pulpitu"
 
 #: ../src/tags/gnome-cmd-tags.cc:335
 msgid "Composer"
@@ -4991,12 +4984,12 @@ msgstr "Dyrygent."
 #: ../src/tags/gnome-cmd-tags.cc:337
 #, fuzzy
 msgid "Content Group"
-msgstr "Grupa kalendarza"
+msgstr "Grupa operacji"
 
 #: ../src/tags/gnome-cmd-tags.cc:337
 #, fuzzy
 msgid "Content group description."
-msgstr "Brak opisu"
+msgstr "Opis (zawartość stała)"
 
 #: ../src/tags/gnome-cmd-tags.cc:338
 msgid "Content Type"
@@ -5065,12 +5058,12 @@ msgstr "Predefiniowana krzywa korekcji w nagraniu."
 #: ../src/tags/gnome-cmd-tags.cc:348
 #, fuzzy
 msgid "Event Timing"
-msgstr "Kontynuuj"
+msgstr "<b>Tryb koordynacji czasu:</b>"
 
 #: ../src/tags/gnome-cmd-tags.cc:348
 #, fuzzy
 msgid "Event timing codes."
-msgstr "Generacja kodów źródłowych ...\n"
+msgstr "Kody formatu liczb"
 
 #: ../src/tags/gnome-cmd-tags.cc:349
 msgid "File Owner"
@@ -5108,12 +5101,12 @@ msgstr "Obiekt z katalogu NGC"
 #: ../src/tags/gnome-cmd-tags.cc:353
 #, fuzzy
 msgid "Grouping Registration"
-msgstr "Dane rejestracyjne"
+msgstr "Ograniczenie czasowe rejestracji"
 
 #: ../src/tags/gnome-cmd-tags.cc:353
 #, fuzzy
 msgid "Group identification registration."
-msgstr "Błąd rejestracji Gadu-Gadu"
+msgstr "Rejestracja użytkownika"
 
 #: ../src/tags/gnome-cmd-tags.cc:354
 msgid "Initial Key"
@@ -5126,13 +5119,13 @@ msgstr "klucz początkowy."
 #: ../src/tags/gnome-cmd-tags.cc:355
 #, fuzzy
 msgid "Involved People"
-msgstr "Wy_magani ludzie"
+msgstr "Usuń ludzi"
 
 #: ../src/tags/gnome-cmd-tags.cc:355
 #: ../src/tags/gnome-cmd-tags.cc:356
 #, fuzzy
 msgid "Involved people list."
-msgstr "Lista osób dokumentujących program"
+msgstr "Lista osób tworzących dokumentację programu"
 
 #: ../src/tags/gnome-cmd-tags.cc:356
 msgid "InvolvedPeople2"
@@ -5145,7 +5138,7 @@ msgstr "Język."
 #: ../src/tags/gnome-cmd-tags.cc:358
 #, fuzzy
 msgid "Linked Info"
-msgstr "Informacje o sortowaniu"
+msgstr "Informacje o opłatac_h:"
 
 #: ../src/tags/gnome-cmd-tags.cc:358
 msgid "Linked information."
@@ -5194,7 +5187,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:364
 #, fuzzy
 msgid "Musician Credit List"
-msgstr "<b>Opcje listy zadań</b>"
+msgstr "lista zakładek stron"
 
 #: ../src/tags/gnome-cmd-tags.cc:364
 #, fuzzy
@@ -5220,12 +5213,12 @@ msgstr "Nazwa stacji radia internetowego."
 #: ../src/tags/gnome-cmd-tags.cc:367
 #, fuzzy
 msgid "Original Album"
-msgstr "(%1) - %2"
+msgstr "<b>Okładka albumu:</b>"
 
 #: ../src/tags/gnome-cmd-tags.cc:367
 #, fuzzy
 msgid "Original album."
-msgstr "(%1) - %2"
+msgstr "<b>Okładka albumu:</b>"
 
 #: ../src/tags/gnome-cmd-tags.cc:368
 msgid "Original Artist"
@@ -5246,27 +5239,27 @@ msgstr "Oryginalna nazwa pliku."
 #: ../src/tags/gnome-cmd-tags.cc:370
 #, fuzzy
 msgid "Original Lyricist"
-msgstr "Oryginalny kontakt:"
+msgstr "Zachowanie oryginału"
 
 #: ../src/tags/gnome-cmd-tags.cc:370
 #, fuzzy
 msgid "Original lyricist."
-msgstr "Oryginalny kontakt:"
+msgstr "Zachowanie oryginału"
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 #, fuzzy
 msgid "Original Release Time"
-msgstr "Ustaw oryginalny czas"
+msgstr "Data i czas (oryginału)"
 
 #: ../src/tags/gnome-cmd-tags.cc:371
 #, fuzzy
 msgid "Original release time."
-msgstr "Ustaw oryginalny czas"
+msgstr "Data i czas (oryginału)"
 
 #: ../src/tags/gnome-cmd-tags.cc:372
 #, fuzzy
 msgid "Original Year"
-msgstr "rok temu"
+msgstr "Wybrany rok"
 
 #: ../src/tags/gnome-cmd-tags.cc:372
 #, fuzzy
@@ -5280,7 +5273,7 @@ msgstr "Własność"
 #: ../src/tags/gnome-cmd-tags.cc:373
 #, fuzzy
 msgid "Ownership frame."
-msgstr "Pokaż ramkę"
+msgstr "ramka pulpitu"
 
 #: ../src/tags/gnome-cmd-tags.cc:374
 msgid "Part of a Set"
@@ -5329,7 +5322,7 @@ msgstr "Ranking"
 #: ../src/tags/gnome-cmd-tags.cc:379
 #, fuzzy
 msgid "Rating of the audio file."
-msgstr "Plik Audio Cue"
+msgstr "Kodowanie dźwięku..."
 
 #: ../src/tags/gnome-cmd-tags.cc:380
 msgid "Position Sync"
@@ -5350,12 +5343,12 @@ msgstr "Ramka prywatna."
 #: ../src/tags/gnome-cmd-tags.cc:382
 #, fuzzy
 msgid "Produced Notice"
-msgstr "Wyślij informację"
+msgstr "Uwaga o zabezpieczeniach"
 
 #: ../src/tags/gnome-cmd-tags.cc:382
 #, fuzzy
 msgid "Produced notice."
-msgstr "Wyślij informację"
+msgstr "Uwaga o zabezpieczeniach"
 
 #: ../src/tags/gnome-cmd-tags.cc:383
 msgid "Publisher."
@@ -5441,12 +5434,12 @@ msgstr "Zsynchronizowane słowa piosenki."
 #: ../src/tags/gnome-cmd-tags.cc:394
 #, fuzzy
 msgid "Synchronized Tempo"
-msgstr "Zmień tempo"
+msgstr "Wybierz tempo"
 
 #: ../src/tags/gnome-cmd-tags.cc:394
 #, fuzzy
 msgid "Synchronized tempo codes."
-msgstr "Generacja kodów źródłowych ...\n"
+msgstr "Kody formatu liczb"
 
 #: ../src/tags/gnome-cmd-tags.cc:395
 msgid "Tagging Time"
@@ -5524,12 +5517,12 @@ msgstr "Strona WWW wykonawcy"
 #: ../src/tags/gnome-cmd-tags.cc:404
 #, fuzzy
 msgid "Official artist."
-msgstr "%1 - %2"
+msgstr "Nieznany wykonawca"
 
 #: ../src/tags/gnome-cmd-tags.cc:405
 #, fuzzy
 msgid "WWW Audio File"
-msgstr "Plik Audio Cue"
+msgstr "Kodowanie dźwięku..."
 
 #: ../src/tags/gnome-cmd-tags.cc:405
 #, fuzzy
@@ -5541,12 +5534,12 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:406
 #, fuzzy
 msgid "WWW Audio Source"
-msgstr "Zmień źródło ścieżki audio"
+msgstr "Używana część źródła dźwięku."
 
 #: ../src/tags/gnome-cmd-tags.cc:406
 #, fuzzy
 msgid "Official audio source webpage."
-msgstr "Zmień źródło ścieżki audio"
+msgstr "Używana część źródła dźwięku."
 
 #: ../src/tags/gnome-cmd-tags.cc:407
 msgid "WWW Commercial Info"
@@ -5583,7 +5576,7 @@ msgstr "URL oficjalnej strony wydawcy."
 #: ../src/tags/gnome-cmd-tags.cc:411
 #, fuzzy
 msgid "WWW Radio Page"
-msgstr "Wydruk strony"
+msgstr "lista zakładek stron"
 
 #: ../src/tags/gnome-cmd-tags.cc:411
 #, fuzzy
@@ -5799,7 +5792,7 @@ msgstr "Miasto"
 #: ../src/tags/gnome-cmd-tags.cc:448
 #, fuzzy
 msgid "City of object origin."
-msgstr "Wybierz pochodzenie szablonu"
+msgstr "Miasto, w którym została utworzona zawartość."
 
 #: ../src/tags/gnome-cmd-tags.cc:449
 msgid "Confirmed Data Size"
@@ -5821,7 +5814,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:451
 #, fuzzy
 msgid "Content Location Code"
-msgstr "Code content type"
+msgstr "Typ zawartości"
 
 #: ../src/tags/gnome-cmd-tags.cc:451
 msgid "The code of a country/geographical location referenced by the content of the object (multiple values allowed)."
@@ -5830,7 +5823,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:452
 #, fuzzy
 msgid "Content Location Name"
-msgstr "Wyczyść pasek adresu<p>Usuwa zawartość paska adresu."
+msgstr "Nazwa i lokalizacja pliku"
 
 #: ../src/tags/gnome-cmd-tags.cc:452
 msgid "A full, publishable name of a country/geographical location referenced by the content of the object (multiple values allowed)."
@@ -5891,7 +5884,7 @@ msgstr "Informacje o adresie."
 #: ../src/tags/gnome-cmd-tags.cc:460
 #, fuzzy
 msgid "Digital Creation Date"
-msgstr "Rosnąco według daty utworzenia"
+msgstr "Data utworzenia obrazu"
 
 #: ../src/tags/gnome-cmd-tags.cc:460
 msgid "The date the digital representation of the object was created."
@@ -5900,7 +5893,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:461
 #, fuzzy
 msgid "Digital Creation Time"
-msgstr "Wyświetlanie czasu utworzenia"
+msgstr "Zapisz _czas powstania"
 
 #: ../src/tags/gnome-cmd-tags.cc:461
 msgid "The time the digital representation of the object was created."
@@ -5909,7 +5902,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:462
 #, fuzzy
 msgid "Editorial Update"
-msgstr "Aktualizacja spotkania"
+msgstr "Automatyczna aktualizacja"
 
 #: ../src/tags/gnome-cmd-tags.cc:462
 msgid "The type of update this object provides to a previous object. The link to the previous object is made using the ARM. '01' indicates an additional language."
@@ -5934,7 +5927,7 @@ msgstr "Unikalny identyfikator daty i usługi."
 #: ../src/tags/gnome-cmd-tags.cc:465
 #, fuzzy
 msgid "Envelope Priority"
-msgstr "Domyślny priorytet:"
+msgstr "Wybierz priorytet koperty."
 
 #: ../src/tags/gnome-cmd-tags.cc:465
 msgid "Specifies the envelope handling priority and not the editorial urgency. '1' for most urgent, '5' for normal, and '8' for least urgent. '9' is user-defined."
@@ -6028,7 +6021,7 @@ msgstr "Maksymalny możliwy rozmiar obiektu, jeżeli rozmiar nie jest znany."
 #: ../src/tags/gnome-cmd-tags.cc:477
 #, fuzzy
 msgid "Max Subfile Size"
-msgstr "Maksymalny rozmiar dysku:"
+msgstr "Maks. wielkość pliku dziennika:"
 
 #: ../src/tags/gnome-cmd-tags.cc:477
 msgid "The maximum size for a subfile dataset containing a portion of the object data."
@@ -6085,7 +6078,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:484
 #, fuzzy
 msgid "Originating Program"
-msgstr "Kończy pracę programu"
+msgstr "Nazwa programu"
 
 #: ../src/tags/gnome-cmd-tags.cc:484
 msgid "The type of program used to originate the object."
@@ -6102,12 +6095,11 @@ msgstr "Wpisz lokalizację oryginalnego miejsca transmisji zawartości."
 
 #: ../src/tags/gnome-cmd-tags.cc:486
 msgid "Preview Data"
-msgstr "Podgląd danych"
+msgstr "Dane podglądu"
 
 #: ../src/tags/gnome-cmd-tags.cc:486
-#, fuzzy
 msgid "The object preview data."
-msgstr "Podgląd danych obiektu"
+msgstr "Dane podglądu obiektu."
 
 #: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Preview File Format"
@@ -6115,7 +6107,7 @@ msgstr "Format podglądu pliku"
 
 #: ../src/tags/gnome-cmd-tags.cc:487
 msgid "Binary value indicating the file format of the object preview data."
-msgstr ""
+msgstr "Liczba binarna określająca format pliku podglądu danych."
 
 #: ../src/tags/gnome-cmd-tags.cc:488
 msgid "Preview File Format Version"
@@ -6141,7 +6133,7 @@ msgstr "Wersja programu"
 #: ../src/tags/gnome-cmd-tags.cc:490
 #, fuzzy
 msgid "The version of the originating program."
-msgstr "Wyświetlenie wersji programu"
+msgstr "informacja o wersji programu"
 
 #: ../src/tags/gnome-cmd-tags.cc:491
 #: ../src/tags/gnome-cmd-tags.cc:503
@@ -6156,7 +6148,7 @@ msgstr ""
 #: ../src/tags/gnome-cmd-tags.cc:492
 #, fuzzy
 msgid "Rasterized Caption"
-msgstr "Nagłówek tabeli:"
+msgstr "Podpis tabeli"
 
 #: ../src/tags/gnome-cmd-tags.cc:492
 msgid "Contains rasterized object description and is used where characters that have not been coded are required for the caption."
@@ -6362,7 +6354,7 @@ msgstr "Liczba osadzonych plików w dokumencie."
 #: ../src/tags/gnome-cmd-tags.cc:519
 #, fuzzy
 msgid "Fast Web View"
-msgstr "Dopasowanie bieżącego widoku"
+msgstr "Wyświetlanie jako Strona WWW (Galeon)"
 
 #: ../src/tags/gnome-cmd-tags.cc:519
 msgid "Set to \"1\" if optimized for network access."
@@ -6403,7 +6395,7 @@ msgstr "Wartośc równa \"1\" jeżeli dozwolona modyfikacja treści."
 #: ../src/tags/gnome-cmd-tags.cc:524
 #, fuzzy
 msgid "Document Assembly"
-msgstr "Informacje o dokumencie"
+msgstr "Nazwa zestawu"
 
 #: ../src/tags/gnome-cmd-tags.cc:524
 msgid "Set to \"1\" if inserting, rotating, or deleting pages and creating navigation elements is allowed."
@@ -6484,7 +6476,7 @@ msgstr "Organizacja"
 #: ../src/tags/gnome-cmd-tags.cc:535
 #, fuzzy
 msgid "Organization producing the track."
-msgstr "Fonty ścieżki etykiet"
+msgstr "Śledzenie stanu drukarki"
 
 #: ../src/tags/gnome-cmd-tags.cc:536
 msgid "Vendor"
@@ -6827,7 +6819,7 @@ msgstr ""
 #: ../src/utils.cc:528
 #, fuzzy
 msgid "Make Executable?"
-msgstr "Nazwa pliku &wykonywalnego programu make:"
+msgstr "Plik wykonywalny Make:"
 
 #: ../src/utils.cc:555
 #, c-format
