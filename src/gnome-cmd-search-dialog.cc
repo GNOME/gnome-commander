@@ -120,13 +120,6 @@ struct GnomeCmdSearchDialogPrivate
 };
 
 
-static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button, GnomeCmdSearchDialog *dialog)
-{
-    if (dialog->priv->data->search_done)
-        gtk_widget_set_sensitive (dialog->priv->goto_button, TRUE);
-}
-
-
 /**
  * Puts a string in the statusbar.
  *
@@ -376,6 +369,8 @@ static gpointer perform_search_operation (SearchData *data)
     data->dir = NULL;
 
     data->search_done = TRUE;
+    gtk_widget_set_sensitive (data->dialog->priv->goto_button, TRUE);
+
     return NULL;
 }
 
@@ -944,7 +939,6 @@ static void init (GnomeCmdSearchDialog *dialog)
     g_signal_connect (G_OBJECT (dialog), "destroy", G_CALLBACK (on_dialog_destroy), NULL);
     g_signal_connect (G_OBJECT (dialog), "size-allocate", G_CALLBACK (on_dialog_size_allocate), NULL);
     g_signal_connect (G_OBJECT (dialog->priv->result_list), "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
-    g_signal_connect (G_OBJECT (dialog->priv->result_list), "file-clicked", G_CALLBACK (on_list_file_clicked), dialog);
 
     gtk_signal_connect (GTK_OBJECT (dialog->priv->find_text_check), "toggled", GTK_SIGNAL_FUNC (find_text_toggled), dialog);
 

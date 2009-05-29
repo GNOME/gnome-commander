@@ -3,6 +3,9 @@
 	* src/eggcellrendererkeys.cc:
 	Use gtk_widget_error_bell() for GTK+ >= 2.12
 
+	* src/gnome-cmd-search-dialog.cc:
+	Fixed problem #583135 (disabled 'Go to' button in search dialog)
+
 2009-05-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-bookmark-dialog.cc:
