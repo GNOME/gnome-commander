@@ -1,3 +1,8 @@
+2009-05-29  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/eggcellrendererkeys.cc:
+	Use gtk_widget_error_bell() for GTK+ >= 2.12
+
 2009-05-26  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-bookmark-dialog.cc:
