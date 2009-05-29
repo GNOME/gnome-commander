@@ -32,7 +32,7 @@ New features:
  * Support for row alternate background in colour themes
  * New colour theme: cafezinho
  * New or updated docs: de, en, es
- * New or updated translations: ar, cs, de, es, eu, fr, it, pl, pt_BR, sv
+ * New or updated translations: ar, cs, de, es, eu, fr, it, pl, pt_BR, sl, sv
  * New key bindings:
       CTRL+E         Open the history list for the command line
  * New internal viewer key bindings:
