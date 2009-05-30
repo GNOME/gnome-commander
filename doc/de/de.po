@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gnome-commander\n"
-"POT-Creation-Date: 2009-05-27 22:29+0000\n"
-"PO-Revision-Date: 2009-05-28 20:30+0100\n"
+"Project-Id-Version: gnome-commander 1.2.8\n"
+"POT-Creation-Date: 2009-05-29 20:01+0000\n"
+"PO-Revision-Date: 2009-05-30 14:43+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1474,14 +1474,10 @@ msgstr ""
 "umgewandelt."
 
 #: C/gnome-commander.xml:946(guilabel)
-#| msgid "Play Counter"
 msgid "Counter"
 msgstr "Nummerierung"
 
 #: C/gnome-commander.xml:949(para)
-#| msgid ""
-#| "Additional settings for file name processing (start value, step and width "
-#| "for counters)."
 msgid "Specifies settings for counters: start value, step and width."
 msgstr ""
 "Zusätzliche Angaben für die Nummerierung (Startwert, Schrittweite und Anzahl)."
@@ -1491,10 +1487,6 @@ msgid "Regex replacing"
 msgstr "Ersetzen lt. Regex"
 
 #: C/gnome-commander.xml:957(para)
-#| msgid ""
-#| "List of regular expression patterns. The patterns are matched in against "
-#| "<guilabel>Template</guilabel>. If matched, patterns are replaced with "
-#| "their corresponding replacements. The order of execution is top-bottom."
 msgid ""
 "List of the regular expression patterns. The patterns are matched against "
 "<guilabel>Template</guilabel>. If matched, patterns are replaced with their "
@@ -1508,12 +1500,10 @@ msgstr ""
 "unvollständige Ausdrucksmuster werden rot markiert."
 
 #: C/gnome-commander.xml:965(guilabel)
-#| msgid "Cancel"
 msgid "Case"
 msgstr "Schreibweise"
 
 #: C/gnome-commander.xml:968(para)
-#| msgid "Bring up the context menu for the selected files."
 msgid "Changes the case of the selected file names."
 msgstr "Ändert die Groß-/Kleinschreibung für die ausgewählten Dateinamen."
 
@@ -1528,7 +1518,6 @@ msgstr ""
 "Dateinamen."
 
 #: C/gnome-commander.xml:981(guilabel)
-#| msgid "Result"
 msgid "Results"
 msgstr "Ergebnisse"
 
@@ -1550,16 +1539,12 @@ msgid "Apply"
 msgstr "Anwenden"
 
 #: C/gnome-commander.xml:995(para)
-#| msgid ""
-#| "Starts to rename files. A warning message will popup in case of any name "
-#| "conflicts."
 msgid "Starts to rename files. Conflicting renames will be marked red."
 msgstr ""
 "Startet die Umbenennung der Dateien. Im Falle möglicher Namenskonflikte wird "
 "eine rote Markierung angezeigt."
 
 #: C/gnome-commander.xml:1000(guibutton)
-#| msgid "Composer"
 msgid "Close"
 msgstr "Schließen"
 
@@ -1568,7 +1553,6 @@ msgid "Closes the dialog without file renaming."
 msgstr "Schließt den Dialog, ohne die Datei umzubenennen."
 
 #: C/gnome-commander.xml:1008(guibutton)
-#| msgid "Result"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
@@ -1707,7 +1691,7 @@ msgstr "$x"
 
 #: C/gnome-commander.xml:1090(para)
 msgid "Hexadecimal random number (8 lowercase digits)"
-msgstr ""
+msgstr "Hexadezimale Zufallszahl (8 kleingeschriebene Stellen)"
 
 #: C/gnome-commander.xml:1093(para) C/gnome-commander.xml:1101(para)
 msgid "$x(width)"
@@ -1716,14 +1700,18 @@ msgstr "$x(width)"
 #: C/gnome-commander.xml:1094(para)
 msgid "Hexadecimal random number with specified lowercase digit number (width)"
 msgstr ""
+"Hexadezimale Zufallszahl mit angegebener Anzahl der Stellen in "
+"Kleinschreibung (Breite)"
 
 #: C/gnome-commander.xml:1098(para)
 msgid "Hexadecimal random number (8 uppercase digits)"
-msgstr ""
+msgstr "Hexadezimale Zufallszahl (8 großgeschriebene Stellen)"
 
 #: C/gnome-commander.xml:1102(para)
 msgid "Hexadecimal random number with specified uppercase digit number (width)"
 msgstr ""
+"Hexadezimale Zufallszahl mit angegebener Anzahl der Stellen in Großschreibung "
+"(Breite)"
 
 #: C/gnome-commander.xml:1105(para)
 msgid "$T(metatag)"
@@ -2921,11 +2909,11 @@ msgstr "Exif.CFARepeatPatternDim"
 
 #: C/gnome-commander.xml:1616(para)
 msgid "CFA Repeat Pattern Dim"
-msgstr ""
+msgstr "CFA-Wiederholmuster"
 
 #: C/gnome-commander.xml:1617(para)
 msgid "CFA Repeat Pattern Dim."
-msgstr ""
+msgstr "CFA-Wiederholmuster."
 
 #: C/gnome-commander.xml:1620(para)
 msgid "Exif.ColorSpace"
@@ -3063,6 +3051,10 @@ msgid ""
 "output. When special processing is performed, the reader is expected to "
 "disable or minimize any further processing."
 msgstr ""
+"Die Benutzung der speziellen Verarbeitung der Bilddaten, wie beispielsweise "
+"das Rendern für die Ausgabe. Wenn die spezielle Verarbeitung ausgeführt wird, "
+"dann erwartet der Leser die Deaktivierung oder Minimierung weiterer "
+"Verarbeitungsprozesse."
 
 #: C/gnome-commander.xml:1655(para)
 msgid "Exif.DateTime"
@@ -4137,6 +4129,25 @@ msgid ""
 "by NULL. When this tag is used to map audio files, the relation of the audio "
 "file to image data must also be indicated on the audio file end."
 msgstr ""
+"Dieser Tag wird zur Aufnahme des Namens einer auf die Bilddaten bezogenen "
+"Audiodatei verwendet. Die einzige hier verfügbare diesbezügliche Information "
+"ist der Exif-Name der Audiodatei und die Erweiterung (eine aus acht Zeichen "
+"bestehende ASCII-Zeichenkette, ein Punkt und weitere drei Zeichen). Der Pfad "
+"wird nicht gespeichert. Bei der Verwendung dieses Tags müssen die "
+"Audiodateien in einem Exif-konformen Format vorliegen. Es ist außerdem "
+"möglich, Audiodaten innerhalb von APP2 als »FlashPix Extension Stream«-Daten "
+"zu speichern. Falls mehrere Dateien einer Datei zugeordnet werden, dann wird "
+"das obenstehende Format zur Speicherung genau eines Audio-Dateinamens "
+"benutzt. Falls mehrere Audiodateien bestehen, wird die erste Audiodatei "
+"angenommen. Wenn es drei Exif-Audiodateien »SND00001.WAV«, »SND00002.WAV« und "
+"»SND00003.WAV« gibt, wird der Exif-Bilddateiname »DSC00001.JPG« für jede davon "
+"indiziert. Durch Kombination mehrerer darauf bezogener Informationen kann "
+"eine Vielzahl von Wiedergabefähigkeiten unterstützt werden. Die Methode der "
+"Verwendung von Bezugsinformationen ist abhängig von der wiedergabeseitigen "
+"Implementation. Weil diese Information als ASCII-Zeichenkette vorliegt, wird "
+"diese durch NULL terminiert. Wenn dieser Tag zum Zuordnen von Audiodateien "
+"verwendet wird, muss der Bezug der Audiodaten zur Bilddatei auch am Ende der "
+"Audiodatei sichtbar sein."
 
 #: C/gnome-commander.xml:1990(para)
 msgid "Exif.ResolutionUnit"
@@ -4314,7 +4325,7 @@ msgstr "Exif.SpatialFrequencyResponse"
 
 #: C/gnome-commander.xml:2041(para)
 msgid "Spatial Frequency Response"
-msgstr ""
+msgstr "Räumlicher Frequenzverlauf"
 
 #: C/gnome-commander.xml:2042(para)
 msgid ""
@@ -4322,6 +4333,9 @@ msgid ""
 "values in the direction of image width, image height, and diagonal direction, "
 "as specified in ISO 12233."
 msgstr ""
+"Dieser Tag beinhaltet die räumliche Frequenztabelle und die SFR-Werte in "
+"Richtung der Bildbreite, Bildhöhe sowie in diagonaler Richtung, wie in ISO "
+"12233 angegeben."
 
 #: C/gnome-commander.xml:2045(para)
 msgid "Exif.SpectralSensitivity"
@@ -4947,11 +4961,11 @@ msgstr "ID3.Commercial"
 
 #: C/gnome-commander.xml:2261(para)
 msgid "Commercial"
-msgstr ""
+msgstr "Kommerziell"
 
 #: C/gnome-commander.xml:2262(para)
 msgid "Commercial frame."
-msgstr ""
+msgstr "Kommerzieller Bereich."
 
 #: C/gnome-commander.xml:2265(para)
 msgid "ID3.Composer"
@@ -6364,6 +6378,8 @@ msgid ""
 "The date the intellectual content of the object was created rather than the "
 "date of the creation of the physical representation."
 msgstr ""
+"Das Datum der Erzeugung des intellektuellen Inhalts des Objekts im Gegensatz "
+"zur Erstellung der physischen Darstellung."
 
 #: C/gnome-commander.xml:2880(para)
 msgid "IPTC.DateSent"
@@ -6419,7 +6435,7 @@ msgstr "IPTC.EditorialUpdate"
 
 #: C/gnome-commander.xml:2901(para)
 msgid "Editorial Update"
-msgstr ""
+msgstr "Aktualisierung des Herausgebers"
 
 #: C/gnome-commander.xml:2902(para)
 msgid ""
@@ -7488,7 +7504,7 @@ msgstr "%E"
 
 #: C/gnome-commander.xml:3369(para) C/gnome-commander.xml:3421(para)
 msgid "Modifier: use alternative format, see below"
-msgstr ""
+msgstr "Modifizierer: alternatives Format verwenden, siehe unten"
 
 #: C/gnome-commander.xml:3372(para)
 msgid "%F"
@@ -7960,7 +7976,7 @@ msgstr "Tastenkürzel"
 
 #: C/gnome-commander.xml:3603(para) C/gnome-commander.xml:3918(para)
 msgid "Mapping"
-msgstr ""
+msgstr "Zuordnung"
 
 #: C/gnome-commander.xml:3608(para)
 msgid "Escape"
@@ -9796,6 +9812,7 @@ msgstr ""
 #: C/gnome-commander.xml:5140(para)
 msgid "Add two favourite apps using the values shown here and here."
 msgstr ""
+"Fügen Sie zwei bevorzugte Anwendungen anhand der angezeigten Werte hinzu."
 
 #: C/gnome-commander.xml:5143(para)
 msgid ""
@@ -9838,6 +9855,13 @@ msgid ""
 "devices in the example should be available in the $(prefix)/share/pixmaps/"
 "gnome-commander/device-icons folder on your computer."
 msgstr ""
+"Fügen Sie die von Ihnen benutzten Geräte hinzu. Sie sehen hier, wie das "
+"Programm mit einigen hinzugefügten Geräten aussieht. Im letzten Bild zeigt "
+"der rote Kreis die verfügbaren Geräte. Im grünen Kreis befindet sich außerdem "
+"ein Knopf, den Sie zum Aushängen oder einhängen des Diskettenlaufwerks "
+"anklicken können. Die in den Beispielen verwendeten Gerätesymbole sollten im "
+"Ordner »$(prefix)/share/pixmaps/gnome-commander/device-icons« auf Ihrem "
+"Rechner verfügbar sein."
 
 #: C/gnome-commander.xml:5167(para)
 msgid ""
@@ -10716,7 +10740,6 @@ msgstr ""
 "Fehlerkorrektur #579633 (Zugriff mit Systemverwalterrechten mittels gksudo)"
 
 #: C/gnome-commander.xml:6022(para)
-#| msgid "Fixed problem #539812 (crash when deleting files: broken it.po)"
 msgid "Fixed problem #583711 (crash when pressing ESC in bookmark dialog)"
 msgstr ""
 "Fehlerkorrektur #583711 (Absturz beim Drücken der Esc-Taste im "
@@ -10778,10 +10801,13 @@ msgid "New or updated docs: de, en, es"
 msgstr "Neue oder aktualisierte Dokumentation: Deutsch, Englisch, Spanisch"
 
 #: C/gnome-commander.xml:6058(para)
-msgid "New or updated translations: ar, cs, de, es, eu, fr, it, pl, pt_BR, sv"
+#| msgid ""
+#| "New or updated translations: ar, cs, de, es, eu, fr, it, pl, pt_BR, sv"
+msgid ""
+"New or updated translations: ar, cs, de, es, eu, fr, it, pl, pt_BR, sl, sv"
 msgstr ""
 "Neue oder aktualisierte Übersetzungen: ar, cs, de, es, eu, fr, it, pl, pt_BR, "
-"sv"
+"sl, sv"
 
 #: C/gnome-commander.xml:6061(para) C/gnome-commander.xml:6199(para)
 #: C/gnome-commander.xml:6319(para) C/gnome-commander.xml:6414(para)
@@ -11518,7 +11544,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6632(para)
 msgid "Better handling the change of the column sorting key"
-msgstr ""
+msgstr "Besserer Umgang mit der Taste für die Sortierung der Spalten"
 
 #: C/gnome-commander.xml:6635(para)
 msgid "Initial doc framework"
@@ -11826,6 +11852,8 @@ msgid ""
 "The dir indicator above each file list can now be used to navigate upwards in "
 "the directory structure"
 msgstr ""
+"Der dir-Indikator oberhalb jeder Dateiliste kann nun zum Navigieren nach oben "
+"in der Ordnerstruktur benutzt werden"
 
 #: C/gnome-commander.xml:6842(para)
 msgid "1.1.4"
@@ -12121,6 +12149,9 @@ msgid ""
 "search dialog and fixed some bugs in it. Added default low-res mime icon "
 "theme. Made the file popup menu behave more normal."
 msgstr ""
+"Verbesserung des Mehrfachumbenennungswerkzeugs durch Hinzufügen eines "
+"Funktionsmerkmals zum schnellen Verbinden. Hinzufügen eines Symbolthemas in "
+"geringer Auflösung für MIME-Typen. Vereinfachung des Kontextmenüs für Dateien."
 
 #: C/gnome-commander.xml:7086(para)
 msgid "0.9.8"
