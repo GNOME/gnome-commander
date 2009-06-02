@@ -272,8 +272,7 @@ static void on_dir_move_up (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 {
     GtkCList *dir_list = GTK_CLIST (dialog->priv->dir_list);
 
-    if (dir_list->focus_row >= 1)
-    {
+    if (dir_list->focus_row >= 1) {
         gtk_clist_row_move (dir_list, dir_list->focus_row, dir_list->focus_row-1);
         update_move_buttons (dialog, dir_list->focus_row);
     }
@@ -284,8 +283,7 @@ static void on_dir_move_down (GtkButton *button, GnomeCmdBookmarkDialog *dialog)
 {
     GtkCList *dir_list = GTK_CLIST (dialog->priv->dir_list);
 
-    if (dir_list->focus_row >= 0)
-    {
+    if (dir_list->focus_row >= 0) {
         gtk_clist_row_move (dir_list, dir_list->focus_row, dir_list->focus_row+1);
         update_move_buttons (dialog, dir_list->focus_row);
     }

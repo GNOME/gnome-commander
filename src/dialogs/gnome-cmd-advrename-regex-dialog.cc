@@ -69,7 +69,7 @@ gboolean gnome_cmd_advrename_regex_dialog_new (const gchar *title, GtkWindow *pa
     gtk_container_set_border_width (GTK_CONTAINER (GTK_DIALOG (dialog)->action_area), 5);
     gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->action_area),6);
 
-    GtkWidget *table, *align, *label, *entry, *check;
+    GtkWidget *table, *align, *label, *entry, *check, *box;
 
     table = gtk_table_new (3, 2, FALSE);
     gtk_container_set_border_width (GTK_CONTAINER (table), 5);

@@ -120,6 +120,13 @@ struct GnomeCmdSearchDialogPrivate
 };
 
 
+static void on_list_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button, GnomeCmdSearchDialog *dialog)
+{
+    if (dialog->priv->data->search_done)
+        gtk_widget_set_sensitive (dialog->priv->goto_button, TRUE);
+}
+
+
 /**
  * Puts a string in the statusbar.
  *
@@ -130,7 +137,9 @@ inline void set_statusmsg (SearchData *data, gchar *msg)
         gtk_statusbar_push (GTK_STATUSBAR (data->dialog->priv->statusbar), data->context_id, msg);
 }
 
-
+/**
+ *
+ */
 inline void search_file_data_free (SearchFileData  *searchfile_data)
 {
     if (searchfile_data->handle != NULL)
@@ -143,7 +152,9 @@ inline void search_file_data_free (SearchFileData  *searchfile_data)
 /**
  * Loads a file in chunks and returns the content.
  */
-static SearchFileData *read_search_file (SearchData *data, SearchFileData *searchfile_data, GnomeCmdFile *f)
+static SearchFileData *read_search_file (SearchData      *data,
+                                         SearchFileData  *searchfile_data,
+                                         GnomeCmdFile    *f)
 {
     g_return_val_if_fail (f != NULL, NULL);
     g_return_val_if_fail (f->info != NULL, NULL);
@@ -365,8 +376,6 @@ static gpointer perform_search_operation (SearchData *data)
     data->dir = NULL;
 
     data->search_done = TRUE;
-    gtk_widget_set_sensitive (data->dialog->priv->goto_button, TRUE);
-
     return NULL;
 }
 
@@ -617,7 +626,10 @@ static void on_stop (GtkButton *button, GnomeCmdSearchDialog *dialog)
 }
 
 
-//  The user has clicked on the "go to" button
+/**
+ * The user has clicked on the go to button
+ *
+ */
 static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 {
     GnomeCmdFile *f = dialog->priv->result_list->get_selected_file();
@@ -639,7 +651,7 @@ static void on_goto (GtkButton *button, GnomeCmdSearchDialog *dialog)
 }
 
 
-inline gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDialog *dialog)
+static gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, GnomeCmdSearchDialog *dialog)
 {
     switch (event->keyval)
     {
@@ -655,7 +667,9 @@ inline gboolean handle_list_keypress (GnomeCmdFileList *fl, GdkEventKey *event, 
     return FALSE;
 }
 
-
+/*
+ *
+ */
 static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event, gpointer dialog)
 {
     if (GNOME_CMD_FILE_LIST (result_list)->key_pressed(event) ||
@@ -669,7 +683,10 @@ static gboolean on_list_keypressed (GtkWidget *result_list,  GdkEventKey *event,
 }
 
 
-// The user has clicked on the "search by content" checkbutton.
+/**
+ * The user has clicked on the "search by content" checkbutton.
+ *
+ */
 static void find_text_toggled (GtkToggleButton *togglebutton, GnomeCmdSearchDialog *dialog)
 {
     if (gtk_toggle_button_get_active (togglebutton))
@@ -927,6 +944,7 @@ static void init (GnomeCmdSearchDialog *dialog)
     g_signal_connect (G_OBJECT (dialog), "destroy", G_CALLBACK (on_dialog_destroy), NULL);
     g_signal_connect (G_OBJECT (dialog), "size-allocate", G_CALLBACK (on_dialog_size_allocate), NULL);
     g_signal_connect (G_OBJECT (dialog->priv->result_list), "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
+    g_signal_connect (G_OBJECT (dialog->priv->result_list), "file-clicked", G_CALLBACK (on_list_file_clicked), dialog);
 
     gtk_signal_connect (GTK_OBJECT (dialog->priv->find_text_check), "toggled", GTK_SIGNAL_FUNC (find_text_toggled), dialog);
 

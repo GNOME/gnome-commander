@@ -337,8 +337,8 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_REGEXES_REGEX,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_CASECONVERSION,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_TRIMBLANKS,
-      XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY,
-      XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE};
+      XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_TEMPLATEHISTORY,
+      XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_TEMPLATEHISTORY_TEMPLATE};
 
 
 static DICT<guint> xml_elem_names(XML_ELEM_NOT_FOUND);
@@ -475,7 +475,7 @@ static void xml_end (GMarkupParseContext *context,
             }
             break;
 
-        case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY:
+        case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_TEMPLATEHISTORY:
             cfg->advrename_defaults.templates.reverse();
             break;
 
@@ -502,7 +502,7 @@ static void xml_end (GMarkupParseContext *context,
             xml_profile.template_string = text;
             break;
 
-        case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE:
+        case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_TEMPLATEHISTORY_TEMPLATE:
             // FIXME: unescape text
             cfg->advrename_defaults.templates.add(text);
             break;
@@ -533,10 +533,8 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_REGEXES_REGEX, "/GnomeCommander/AdvancedRenameTool/Profile/Regexes/Regex"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_CASECONVERSION, "/GnomeCommander/AdvancedRenameTool/Profile/CaseConversion"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_TRIMBLANKS, "/GnomeCommander/AdvancedRenameTool/Profile/TrimBlanks"},
-                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY, "/GnomeCommander/AdvancedRenameTool/History"},
-                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/History/Template"},
-                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY, "/GnomeCommander/AdvancedRenameTool/TemplateHistory"},                      //  FIXME: for compatibility, to be removed after 1.2.8 release
-                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/TemplateHistory/Template"}     //  FIXME: for compatibility, to be removed after 1.2.8 release
+                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_TEMPLATEHISTORY, "/GnomeCommander/AdvancedRenameTool/TemplateHistory"},
+                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_TEMPLATEHISTORY_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/TemplateHistory/Template"}
                        };
 
     load_data (xml_elem_names, xml_elem_data, G_N_ELEMENTS(xml_elem_data));
@@ -628,12 +626,12 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
         fputs("\t\t</Profile>\n", f);
     }
 
-    fputs("\t\t<History>\n", f);
+    fputs("\t\t<TemplateHistory>\n", f);
 
     for (GList *i=cfg.advrename_defaults.templates.ents; i; i=i->next)
         fprintf (f, "\t\t\t<Template>%s</Template>\n", (const gchar *) i->data);
 
-    fputs("\t\t</History>\n", f);
+    fputs("\t\t</TemplateHistory>\n", f);
     fputs("\t</AdvancedRenameTool>\n", f);
     fputs("</GnomeCommander>\n", f);
     fputs("", f);
