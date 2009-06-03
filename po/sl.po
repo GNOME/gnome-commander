@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gnome-commander 1.2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gnome-commander&component=general\n"
 "POT-Creation-Date: 2009-05-28 06:54+0000\n"
-"PO-Revision-Date: 2009-06-02 09:26+0100\n"
+"PO-Revision-Date: 2009-06-03 16:16+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "CVS možnosti"
 
 #: ../plugins/cvs/cvs-plugin.c:298
 msgid "Compression level"
-msgstr "Stopnja skrčenja"
+msgstr "Raven skrčenja"
 
 #: ../plugins/cvs/cvs-plugin.c:306
 msgid "Unified diff format"
@@ -250,7 +250,7 @@ msgstr "vrsta bližnjice."
 
 #: ../src/eggcellrendererkeys.cc:237
 msgid "Disabled"
-msgstr "Neomogočeno"
+msgstr "Onemogočeno"
 
 #: ../src/eggcellrendererkeys.cc:434
 #: ../src/eggcellrendererkeys.cc:648
@@ -1494,7 +1494,7 @@ msgstr "F10 Zaključi"
 
 #: ../src/gnome-cmd-main-win.cc:775
 msgid "GNOME Commander - ROOT PRIVILEGES"
-msgstr "GNOME Commander - SKRBNIŠKO DOVOLJENJE"
+msgstr "GNOME Commander - SKRBNIŠKI NAČIN"
 
 #: ../src/gnome-cmd-main-win.cc:1158
 #: ../src/gnome-cmd-user-actions.cc:203
@@ -1520,7 +1520,7 @@ msgstr "Pojdi naprej"
 
 #: ../src/gnome-cmd-main-win.cc:1163
 msgid "Go to the latest"
-msgstr "Skoči na najnovenšo"
+msgstr "Skoči na najnovejše"
 
 #: ../src/gnome-cmd-main-win.cc:1165
 msgid "Copy file names (SHIFT for full paths, ALT for URIs)"
@@ -1595,7 +1595,7 @@ msgstr "Enojni klik odstrani izbor"
 
 #: ../src/gnome-cmd-options-dialog.cc:96
 msgid "Right mouse button"
-msgstr "esni miškin gumb"
+msgstr "Desni miškin gumb"
 
 #: ../src/gnome-cmd-options-dialog.cc:99
 msgid "Shows popup menu"
@@ -2735,7 +2735,7 @@ msgstr "MIME vrste"
 
 #: ../src/gnome-cmd-user-actions.cc:188
 msgid "Keyboard shortcuts"
-msgstr "Tipkovnične bližnice"
+msgstr "Tipkovne bližnice"
 
 #: ../src/gnome-cmd-user-actions.cc:189
 msgid "Configure plugins"
@@ -2921,7 +2921,7 @@ msgid ""
 "The whole operation was cancelled."
 msgstr ""
 "Kopiranje mape v samo sebe ni mogoče.\n"
-"Operacija je bila preklicana."
+"Dejanje je bila preklicano."
 
 #: ../src/gnome-cmd-xfer.cc:427
 msgid "preparing..."
@@ -3166,7 +3166,7 @@ msgstr "Razpoložljivi vstavki"
 
 #: ../src/plugin_manager.cc:412
 msgid "Version"
-msgstr "Verzija"
+msgstr "Različica"
 
 #: ../src/plugin_manager.cc:418
 msgid "_Enable"
@@ -3215,7 +3215,7 @@ msgstr "Ojačenje albuma"
 
 #: ../src/tags/gnome-cmd-tags.cc:114
 msgid "Gain adjustment of the album."
-msgstr "Prilagoditev ojačanja za album."
+msgstr "Prilagoditev ojačitve za album."
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Album Peak Gain"
@@ -3223,7 +3223,7 @@ msgstr "Ojačanje vrha albuma."
 
 #: ../src/tags/gnome-cmd-tags.cc:115
 msgid "Peak gain adjustment of album."
-msgstr "Prilagoditev ojačenja vrhov albuma."
+msgstr "Prilagoditev ojačitve vrhov albuma."
 
 #: ../src/tags/gnome-cmd-tags.cc:116
 msgid "Album Track Count"
@@ -3244,11 +3244,11 @@ msgstr "Izvajalec zapisa"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
 msgid "Bitrate"
-msgstr "Bitna stopnja"
+msgstr "Bitna hitrost"
 
 #: ../src/tags/gnome-cmd-tags.cc:118
 msgid "Bitrate in kbps."
-msgstr "Bitna stopnja v kbps"
+msgstr "Bitna hitrost v kbps"
 
 #: ../src/tags/gnome-cmd-tags.cc:119
 msgid "Channels"
@@ -3417,11 +3417,11 @@ msgstr "Nastavitev na vrednost \"1\" določi podatek avtorske zaščite."
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "Layer"
-msgstr "Layer"
+msgstr "Sloj"
 
 #: ../src/tags/gnome-cmd-tags.cc:139
 msgid "MPEG layer."
-msgstr "MPEG layer."
+msgstr "MPEG sloj."
 
 #: ../src/tags/gnome-cmd-tags.cc:140
 msgid "Original Audio"
@@ -3466,11 +3466,11 @@ msgstr "Datum objave sledi."
 
 #: ../src/tags/gnome-cmd-tags.cc:145
 msgid "Sample Rate"
-msgstr "Vzorčna stopnja"
+msgstr "Raven vzorčenja"
 
 #: ../src/tags/gnome-cmd-tags.cc:145
 msgid "Sample rate in Hz."
-msgstr "Vzorčna stopnja v Hz."
+msgstr "Raven vzorčenja v Hz."
 
 #: ../src/tags/gnome-cmd-tags.cc:146
 #: ../src/tags/gnome-cmd-tags.cc:196
@@ -3488,7 +3488,7 @@ msgstr "Ojačanje sledi"
 
 #: ../src/tags/gnome-cmd-tags.cc:147
 msgid "Gain adjustment of the track."
-msgstr "Prilagoditev ojačenja sledi."
+msgstr "Prilagoditev ojačitve sledi."
 
 #: ../src/tags/gnome-cmd-tags.cc:148
 msgid "Track Number"
@@ -3504,7 +3504,7 @@ msgstr "Ojačanje vrhov sledi"
 
 #: ../src/tags/gnome-cmd-tags.cc:149
 msgid "Peak gain adjustment of track."
-msgstr "Prilagoditev ojačenja vrhov sledi."
+msgstr "Prilagoditev ojačitve vrhov sledi."
 
 #: ../src/tags/gnome-cmd-tags.cc:150
 msgid "Year"
@@ -3599,7 +3599,7 @@ msgstr "Ustvarjalec"
 
 #: ../src/tags/gnome-cmd-tags.cc:161
 msgid "An entity primarily responsible for making the content of the resource, typically a person, organization, or service."
-msgstr "Sestavlajlec besedila vira, ki je lahko oseba organizacija al storitev."
+msgstr "Sestavlavec besedila vira, ki je lahko oseba organizacija ali storitev."
 
 #: ../src/tags/gnome-cmd-tags.cc:162
 msgid "Created"
@@ -3652,7 +3652,7 @@ msgstr "Ustvarjalec"
 
 #: ../src/tags/gnome-cmd-tags.cc:168
 msgid "The application that generated this document."
-msgstr "Program s katerim je bil ustrvarjen dokument."
+msgstr "Program s katerim je bil ustvarjen dokument."
 
 #: ../src/tags/gnome-cmd-tags.cc:169
 msgid "Hidden Slide Count"
@@ -3676,7 +3676,7 @@ msgstr "Začetni ustvarjalec"
 
 #: ../src/tags/gnome-cmd-tags.cc:171
 msgid "Specifies the name of the person who created the document initially."
-msgstr "Ime osebme osebe, ki je prva ustvarila dokument."
+msgstr "Ime oseb, ki je prva ustvarila dokument."
 
 #: ../src/tags/gnome-cmd-tags.cc:172
 #: ../src/tags/gnome-cmd-tags.cc:318
@@ -3724,11 +3724,11 @@ msgstr "Število vrstic v dokumentu."
 
 #: ../src/tags/gnome-cmd-tags.cc:177
 msgid "Links Dirty"
-msgstr "Pomankljive povezave"
+msgstr "Pomanjkljive povezave"
 
 #: ../src/tags/gnome-cmd-tags.cc:177
 msgid "Links dirty."
-msgstr "Pomankljive povezave"
+msgstr "Pomanjkljive povezave"
 
 #: ../src/tags/gnome-cmd-tags.cc:178
 msgid "Locale System Default"
@@ -3889,7 +3889,7 @@ msgstr "Zaslonka leče. Vrednost je APEX enotah."
 
 #: ../src/tags/gnome-cmd-tags.cc:199
 msgid "Name of the camera owner, photographer or image creator. The detailed format is not specified, but it is recommended that the information be written for ease of Interoperability. When the field is left blank, it is treated as unknown."
-msgstr "Ime lastnika aparata, fotografa ali ustvarjalca slike. Podroben zapis ni določen, vendar je priporočeno, da se podatek vpiše zaradi lažjga vzajemnega delovanja. Prazno polje določa vrednost neznanega podatka."
+msgstr "Ime lastnika aparata, fotografa ali ustvarjalca slike. Podroben zapis ni določen, vendar je priporočeno, da se podatek vpiše zaradi lažjega vzajemnega delovanja. Prazno polje določa vrednost neznanega podatka."
 
 #: ../src/tags/gnome-cmd-tags.cc:200
 msgid "Battery Level"
@@ -3963,7 +3963,7 @@ msgstr "Krčenje"
 
 #: ../src/tags/gnome-cmd-tags.cc:208
 msgid "The compression scheme used for the image data. When a primary image is JPEG compressed, this designation is not necessary and is omitted. When thumbnails use JPEG compression, this tag value is set to 6."
-msgstr "Shema stiskanja za slikovne podatke. Kadar je osnovna slika stisnjena v JPEG načunu, določilo ni obvezno in ga lahko izpustimo. V primeru, da je JPEG stiskanje uporabljeno za sličice, je določena vrednost 6."
+msgstr "Shema stiskanja za slikovne podatke. Kadar je osnovna slika stisnjena v JPEG načinu, določilo ni obvezno in ga lahko izpustimo. V primeru, da je JPEG stiskanje uporabljeno za sličice, je določena vrednost 6."
 
 #: ../src/tags/gnome-cmd-tags.cc:209
 msgid "Contrast"
@@ -3975,7 +3975,7 @@ msgstr "Smeri procesiranja kontrasta slike, ki ga predoči aparat ob zajemanju s
 
 #: ../src/tags/gnome-cmd-tags.cc:210
 msgid "Copyright information. The tag is used to indicate both the photographer and editor copyrights. It is the copyright notice of the person or organization claiming rights to the image. The Interoperability copyright statement including date and rights should be written in this field; e.g., \"Copyright, John Smith, 19xx. All rights reserved.\". The field records both the photographer and editor copyrights, with each recorded in a separate part of the statement. When there is a clear distinction between the photographer and editor copyrights, these are to be written in the order of photographer followed by editor copyright, separated by NULL (in this case, since the statement also ends with a NULL, there are two NULL codes) (see example 1). When only the photographer is given, it is terminated by one NULL code. When only the editor copyright is given, the photographer copyright part consists of one space followed by a terminating NULL code, then the editor copyright is given. When the field is left blank, it is treated as unknown."
-msgstr "Podrobnosti lastništva. Oznaka določa tako lastništvo fotografa kot tudi urednika. Lastništvo mora biti vpisano popolno z vsemi pripadajočimi podatki; primer, \"Lastništvo, Tibor Strela, 2009. Vse pravice pridržane.\". Polje vključuje lastništva vseh sodelujočih, podatki pa morajo biti zapisani na ločenih delih. Kadar so avtorske pravice jasno ločene, morajo biti zabeležene od fotografa, do oblikovalcev in naprej in se morajo ločiti z vrednostjo NULL (v tem primeru sta na koncu dve vrednosti NULL, oglejte si primer 1). Kadar pa je lastništvo vezano le na fotografa, se konča z enojno NULL kodo. Prazno polje se obravnava kot nezna podatek lastništva."
+msgstr "Podrobnosti lastništva. Oznaka določa tako lastništvo fotografa kot tudi urednika. Lastništvo mora biti vpisano popolno z vsemi pripadajočimi podatki; primer, \"Lastništvo, Tibor Strela, 2009. Vse pravice pridržane.\". Polje vključuje lastništva vseh sodelujočih, podatki pa morajo biti zapisani na ločenih delih. Kadar so avtorske pravice jasno ločene, morajo biti zabeležene od fotografa, do oblikovalcev in naprej in se morajo ločiti z vrednostjo NULL (v tem primeru sta na koncu dve vrednosti NULL, oglejte si primer 1). Kadar pa je lastništvo vezano le na fotografa, se konča z enojno NULL kodo. Prazno polje se obravnava kot neznan podatek lastništva."
 
 #: ../src/tags/gnome-cmd-tags.cc:211
 msgid "Custom Rendered"
@@ -4019,7 +4019,7 @@ msgstr "Podrobnosti pogojev zajemanja posameznega aparata."
 
 #: ../src/tags/gnome-cmd-tags.cc:216
 msgid "Digital Zoom Ratio"
-msgstr "Stopnja digitalne povežave"
+msgstr "Raven digitalne povezave"
 
 #: ../src/tags/gnome-cmd-tags.cc:216
 msgid "The digital zoom ratio when the image was shot. If the numerator of the recorded value is 0, this indicates that digital zoom was not used."
@@ -4140,7 +4140,7 @@ msgstr "F število"
 #: ../src/tags/gnome-cmd-tags.cc:230
 #: ../src/tags/gnome-cmd-tags.cc:422
 msgid "Diameter of the aperture relative to the effective focal length of the lens."
-msgstr "Premer zaslonke določen relativno na zariščno dolžino leče."
+msgstr "Premer zaslonke določen relativno na žariščno dolžino leče."
 
 #: ../src/tags/gnome-cmd-tags.cc:231
 #: ../src/tags/gnome-cmd-tags.cc:423
@@ -4149,7 +4149,7 @@ msgstr "Žariščna razdalja"
 
 #: ../src/tags/gnome-cmd-tags.cc:231
 msgid "The actual focal length of the lens, in mm. Conversion is not made to the focal length of a 35 mm film camera."
-msgstr "Dejanska žariščna razdalja leče v milimetrih. Pretvorba ne velja za žeriščno razdaljo 35 mm filmske kamere."
+msgstr "Dejanska žariščna razdalja leče v milimetrih. Pretvorba ne velja za žariščno razdaljo 35 mm filmske kamere."
 
 #: ../src/tags/gnome-cmd-tags.cc:232
 msgid "Focal Length In 35mm Film"
@@ -4185,11 +4185,11 @@ msgstr "Število točk višine slike (Y) za <Exif.FocalPlaneResolutionUnit> na p
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "Gain Control"
-msgstr "Nadzor ojačenja"
+msgstr "Nadzor ojačitve"
 
 #: ../src/tags/gnome-cmd-tags.cc:236
 msgid "This tag indicates the degree of overall image gain adjustment."
-msgstr "Oznaka določa stopnjo splošne prilagoditve ojačenja slike."
+msgstr "Oznaka določa raven splošne prilagoditve ojačitve slike."
 
 #: ../src/tags/gnome-cmd-tags.cc:237
 msgid "Gamma"
@@ -4229,7 +4229,7 @@ msgstr "Zemljepisna širina"
 
 #: ../src/tags/gnome-cmd-tags.cc:241
 msgid "Indicates the latitude. The latitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is dd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal places, the format is dd/1,mmmm/100,0/1."
-msgstr ""
+msgstr "Določa geografsko širino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/100,0/1."
 
 #: ../src/tags/gnome-cmd-tags.cc:242
 msgid "North or South Latitude"
@@ -4245,7 +4245,7 @@ msgstr "Zemljepisna dolžina "
 
 #: ../src/tags/gnome-cmd-tags.cc:243
 msgid "Indicates the longitude. The longitude is expressed as three RATIONAL values giving the degrees, minutes, and seconds, respectively. When degrees, minutes and seconds are expressed, the format is ddd/1,mm/1,ss/1. When degrees and minutes are used and, for example, fractions of minutes are given up to two decimal places, the format is ddd/1,mmmm/100,0/1."
-msgstr ""
+msgstr "Določa geografsko dolžino, ki je izražena s tremi racionalnimi vrednostmi ločeno za stopinje, minute in sekunde. Zapis je poenoten na dd/1,mm/1,ss/1. Podrobneje pa je mogoče zapis oblikovati z deleži dd/1,mmmm/100,0/1."
 
 #: ../src/tags/gnome-cmd-tags.cc:244
 msgid "East or West Longitude"
@@ -4269,7 +4269,7 @@ msgstr "Opis slike"
 
 #: ../src/tags/gnome-cmd-tags.cc:246
 msgid "A character string giving the title of the image. Two-bytes character codes cannot be used. When a 2-bytes code is necessary, the Exif Private tag <Exif.UserComment> is to be used."
-msgstr ""
+msgstr "Znakovni niz naslova slike v 2-bitni znakovni kodi. Pri uporabi te vrste kode je uporabljena tudi oznaka <Exif.UserComment>."
 
 #: ../src/tags/gnome-cmd-tags.cc:247
 msgid "Image Length"
@@ -4293,7 +4293,7 @@ msgstr "Enovit ID slike"
 
 #: ../src/tags/gnome-cmd-tags.cc:249
 msgid "This tag indicates an identifier assigned uniquely to each image. It is recorded as an ASCII string equivalent to hexadecimal notation and 128-bit fixed length."
-msgstr ""
+msgstr "Oznaka določa enoznačno določilo slike. Določilo je shranjeno v obliki ASCII niza enakega osmiški vrednosti 128 bitne dolžine."
 
 #: ../src/tags/gnome-cmd-tags.cc:250
 msgid "Image Width"
@@ -4317,7 +4317,7 @@ msgstr "IFD kazalo vzajemnosti"
 
 #: ../src/tags/gnome-cmd-tags.cc:252
 msgid "Interoperability IFD is composed of tags which stores the information to ensure the Interoperability and pointed by the following tag located in Exif IFD. The Interoperability structure of Interoperability IFD is the same as TIFF defined IFD structure but does not contain the image data characteristically compared with normal TIFF IFD."
-msgstr ""
+msgstr "Vzajemnost IFD sestavljajo oznake ki hranijo podrobnosti vzajemnosti delovanja in jih kaže oznaka v Exif IFD. Zgradba vzajemnosti delovanja IFD je enaka TIFF določeni zgradbi IFD, vendar ne vključuje podatkov slike primerjalno z običajnim  TIFF IFD."
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid "Interoperability Index"
@@ -4325,7 +4325,7 @@ msgstr "Indeks vzajemnosti"
 
 #: ../src/tags/gnome-cmd-tags.cc:253
 msgid "Indicates the identification of the Interoperability rule. Use \"R98\" for stating ExifR98 Rules."
-msgstr ""
+msgstr "Določa pravila vzajemnosti delovanja. Uporabite \"R98\" za zagon ExifR98 pravila."
 
 #: ../src/tags/gnome-cmd-tags.cc:254
 msgid "Interoperability Version"
@@ -4460,7 +4460,7 @@ msgstr "Dimenzija točke X"
 
 #: ../src/tags/gnome-cmd-tags.cc:271
 msgid "Information specific to compressed data. When a compressed file is recorded, the valid width of the meaningful image must be recorded in this tag, whether or not there is padding data or a restart marker. This tag should not exist in an uncompressed file."
-msgstr ""
+msgstr "Podrobnosti posebej določene za stisnjene podatke. Kadar je shranjena stisnjena datoteka, mora biti veljavna širina slike zabeležena v oznaki, neodvisno od ostalih podatkov in markerjev. Oznaka ne sme biti prisotna pri nestisnjenih zapisih slik."
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 msgid "Pixel Y Dimension"
@@ -4468,7 +4468,7 @@ msgstr "Dimenzija točke Y"
 
 #: ../src/tags/gnome-cmd-tags.cc:272
 msgid "Information specific to compressed data. When a compressed file is recorded, the valid height of the meaningful image must be recorded in this tag, whether or not there is padding data or a restart marker. This tag should not exist in an uncompressed file. Since data padding is unnecessary in the vertical direction, the number of lines recorded in this valid image height tag will in fact be the same as that recorded in the SOF."
-msgstr ""
+msgstr "Podrobnosti posebej določene za stisnjene podatke. Kadar je shranjena stisnjena datoteka, mora biti veljavna višina slike zabeležena v oznaki, neodvisno od ostalih podatkov in markerjev. Oznaka ne sme biti prisotna pri nestisnjenih zapisih slik. Ker podlaganje podatkov v navpični smeri ni zahtevano, je število vrstic enako shranjeni vrednosti SOF."
 
 #: ../src/tags/gnome-cmd-tags.cc:273
 msgid "Planar Configuration"
@@ -4476,7 +4476,7 @@ msgstr "Planarna nastavitev"
 
 #: ../src/tags/gnome-cmd-tags.cc:273
 msgid "Indicates whether pixel components are recorded in a chunky or planar format. In JPEG compressed files a JPEG marker is used instead of this tag. If this field does not exist, the TIFF default of 1 (chunky) is assumed."
-msgstr ""
+msgstr "Določa kako so točke v sliki shranjene. Pri stisnjenih JPEG zapisih slik je namesto te oznake uporabljen marker. V primeru, da to polje ne obstaja, je določena privzeta TIFF vrednost 1."
 
 #: ../src/tags/gnome-cmd-tags.cc:274
 msgid "Primary Chromaticities"
@@ -4484,7 +4484,7 @@ msgstr "Osnovna barvitost"
 
 #: ../src/tags/gnome-cmd-tags.cc:274
 msgid "The chromaticity of the three primary colors of the image. Normally this tag is not necessary, since colorspace is specified in <Exif.ColorSpace> tag."
-msgstr ""
+msgstr "Barvitost osnovnih treh barv slike. Običajno je oznaka izpuščena, saj je barvni prostor določen v oznaki <Exif.ColorSpace>."
 
 #: ../src/tags/gnome-cmd-tags.cc:275
 msgid "Reference Black/White"
@@ -4492,7 +4492,7 @@ msgstr "Sklicna črnina/belina"
 
 #: ../src/tags/gnome-cmd-tags.cc:275
 msgid "The reference black point value and reference white point value. No defaults are given in TIFF, but the values below are given as defaults here. The color space is declared in a color space information tag, with the default being the value that gives the optimal image characteristics Interoperability these conditions."
-msgstr ""
+msgstr "Referenčni vrednosti črne in bele točke. Privzetih vrednosti za TIFF ni, so pa te določene spodaj. Barvno polje določa vrednost, ki najbolj ustreza pogojem prikazovanja."
 
 #: ../src/tags/gnome-cmd-tags.cc:276
 msgid "Related Image File Format"
@@ -4524,7 +4524,7 @@ msgstr "Sorodna zvočna datoteka"
 
 #: ../src/tags/gnome-cmd-tags.cc:279
 msgid "This tag is used to record the name of an audio file related to the image data. The only relational information recorded here is the Exif audio file name and extension (an ASCII string consisting of 8 characters + '.' + 3 characters). The path is not recorded. When using this tag, audio files must be recorded in conformance to the Exif audio format. Writers are also allowed to store the data such as Audio within APP2 as FlashPix extension stream data. Audio files must be recorded in conformance to the Exif audio format. If multiple files are mapped to one file, the above format is used to record just one audio file name. If there are multiple audio files, the first recorded file is given. When there are three Exif audio files \"SND00001.WAV\", \"SND00002.WAV\" and \"SND00003.WAV\", the Exif image file name for each of them, \"DSC00001.JPG\", is indicated. By combining multiple relational information, a variety of playback possibilities can be supported. The method of using relational information is left to the implementation on the playback side. Since this information is an ASCII character string, it is terminated by NULL. When this tag is used to map audio files, the relation of the audio file to image data must also be indicated on the audio file end."
-msgstr ""
+msgstr "Oznaka se uporablja za shranjevanje imena zvočne datoteke v povezavi s podatki slike, kot so podatki Exif ime zvočne datoteke in  končnica (datotečni dos zapis z 8.3 znaki). Pod datoteke ni shranjena. V primeru, da je zvočna datoteka razdeljena na več delov, je zapis prirejen za primer \"SND00001.WAV\", \"SND00002.WAV\" in \"SND00003.WAV\"v Exif zapis \"DSC00001.JPG\". Z združevanjem več podrobnosti se razširijo možnosti predvajanja."
 
 #: ../src/tags/gnome-cmd-tags.cc:280
 msgid "Resolution Unit"
@@ -4548,7 +4548,7 @@ msgstr "Vzorci na točko"
 
 #: ../src/tags/gnome-cmd-tags.cc:282
 msgid "The number of components per pixel. Since this standard applies to RGB and YCbCr images, the value set for this tag is 3. In JPEG compressed data a JPEG marker is used instead of this tag."
-msgstr ""
+msgstr "Število enot na točko slike. Ker standard določa RGB in YCbCr barvne sheme slik, je vrednost oznake določena s 3. Pri JPEG stiskanju podatkov se namesto te oznake uporablja JPEG marker."
 
 #: ../src/tags/gnome-cmd-tags.cc:283
 msgid "Saturation"
@@ -4556,7 +4556,7 @@ msgstr "Nasičenost"
 
 #: ../src/tags/gnome-cmd-tags.cc:283
 msgid "The direction of saturation processing applied by the camera when the image was shot."
-msgstr ""
+msgstr "Smer zasičenosti slike med zajemanjem."
 
 #: ../src/tags/gnome-cmd-tags.cc:284
 msgid "Scene Capture Type"
@@ -4564,7 +4564,7 @@ msgstr "Vrsta zajema scene"
 
 #: ../src/tags/gnome-cmd-tags.cc:284
 msgid "The type of scene that was shot. It can also be used to record the mode in which the image was shot. Note that this differs from <Exif.SceneType> tag."
-msgstr ""
+msgstr "Vrsta slikane scene. Lahko se uporablja kot oznaka načina zajemanja slike. Oznaka ni enaka oznaki <Exif.SceneType>."
 
 #: ../src/tags/gnome-cmd-tags.cc:285
 msgid "Scene Type"
@@ -4572,7 +4572,7 @@ msgstr "Vrsta scene"
 
 #: ../src/tags/gnome-cmd-tags.cc:285
 msgid "The type of scene. If a DSC recorded the image, this tag value must always be set to 1, indicating that the image was directly photographed."
-msgstr ""
+msgstr "Vrsta slikane scene. V primeru, da je slika zajeta s DSC, mora biti vrednost določena kot 1, kar določa, da je bila slika neposredno zajeta."
 
 #: ../src/tags/gnome-cmd-tags.cc:286
 msgid "Sensing Method"
@@ -4588,7 +4588,7 @@ msgstr "Ostrina"
 
 #: ../src/tags/gnome-cmd-tags.cc:287
 msgid "The direction of sharpness processing applied by the camera when the image was shot."
-msgstr ""
+msgstr "Smer ostritve, ki jo je zabeležil aparat med zajemanjem slike.."
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid "Shutter Speed"
@@ -4596,7 +4596,7 @@ msgstr "Hitrost zaklopke"
 
 #: ../src/tags/gnome-cmd-tags.cc:288
 msgid "Shutter speed. The unit is the APEX (Additive System of Photographic Exposure) setting."
-msgstr ""
+msgstr "Hitrost zaklopke. Enota predstavlja APEX vrednost (Additive System of Photographic Exposure)."
 
 #: ../src/tags/gnome-cmd-tags.cc:289
 #: ../src/tags/gnome-cmd-tags.cc:431
@@ -4605,7 +4605,7 @@ msgstr "Programska oprema"
 
 #: ../src/tags/gnome-cmd-tags.cc:289
 msgid "This tag records the name and version of the software or firmware of the camera or image input device used to generate the image. When the field is left blank, it is treated as unknown."
-msgstr ""
+msgstr "Oznaka vsebuje podatke o imenu in različici programske opreme aparata ali druge naprave s katero je bila ustvarjena slika. Prazno polje določa neznano vrednost."
 
 #: ../src/tags/gnome-cmd-tags.cc:290
 msgid "Spatial Frequency Response"
@@ -4613,7 +4613,7 @@ msgstr "Odziv prostorske frekvence"
 
 #: ../src/tags/gnome-cmd-tags.cc:290
 msgid "This tag records the camera or input device spatial frequency table and SFR values in the direction of image width, image height, and diagonal direction, as specified in ISO 12233."
-msgstr ""
+msgstr "Oznaka vsebuje podatke aparata o prostorski frekvenci in SFR vrednostih v smeri širine, višine in diagonale slike, kot je določeno v ISO 12233."
 
 #: ../src/tags/gnome-cmd-tags.cc:291
 msgid "Spectral Sensitivity"
@@ -4621,7 +4621,7 @@ msgstr "Spektralna občutljivost"
 
 #: ../src/tags/gnome-cmd-tags.cc:291
 msgid "The spectral sensitivity of each channel of the camera used."
-msgstr ""
+msgstr "Spektralna občutljivost posameznega kanala aparata."
 
 #: ../src/tags/gnome-cmd-tags.cc:292
 msgid "Strip Byte Count"
@@ -4733,7 +4733,7 @@ msgstr "Opomba uporabnika"
 
 #: ../src/tags/gnome-cmd-tags.cc:305
 msgid "A tag for Exif users to write keywords or comments on the image besides those in <Exif.ImageDescription>, and without the character code limitations of the <Exif.ImageDescription> tag. The character code used in the <Exif.UserComment> tag is identified based on an ID code in a fixed 8-byte area at the start of the tag data area. The unused portion of the area is padded with NULL (\"00.h\"). ID codes are assigned by means of registration. The value of CountN is determinated based on the 8 bytes in the character code area and the number of bytes in the user comment part. Since the TYPE is not ASCII, NULL termination is not necessary. The ID code for the <Exif.UserComment> area may be a Defined code such as JIS or ASCII, or may be Undefined. The Undefined name is UndefinedText, and the ID code is filled with 8 bytes of all \"NULL\" (\"00.H\"). An Exif reader that reads the <Exif.UserComment> tag must have a function for determining the ID code. This function is not required in Exif readers that do not use the <Exif.UserComment> tag. When a <Exif.UserComment> area is set aside, it is recommended that the ID code be ASCII and that the following user comment part be filled with blank characters [20.H]."
-msgstr ""
+msgstr "Oznaka za zapisovanje opomb ob že obstoječih opombah v oznaki <Exif.ImageDescription> brez omejitve znakovnih kod v oznaki <Exif.ImageDescription>."
 
 #: ../src/tags/gnome-cmd-tags.cc:306
 #: ../src/tags/gnome-cmd-tags.cc:433
@@ -4774,7 +4774,7 @@ msgstr "Koeficient YCbCr"
 
 #: ../src/tags/gnome-cmd-tags.cc:310
 msgid "The matrix coefficients for transformation from RGB to YCbCr image data. No default is given in TIFF; but here \"Color Space Guidelines\" is used as the default. The color space is declared in a color space information tag, with the default being the value that gives the optimal image characteristics Interoperability this condition."
-msgstr ""
+msgstr "Matrični koeficienti pretvarjanja RGB v YCbCr barvni sistem slike. Privzeta vrednost v TIFF ni določena; je pa privzeta vrednost določena v polju \"Vodila barvnega prostora\". Barvni prostor je določan v ločeni oznaki, privzeta vrednost pa je tista, ki najbolje podpira pogoje vzajemnega delovanja."
 
 #: ../src/tags/gnome-cmd-tags.cc:311
 msgid "YCbCr Positioning"
@@ -4782,7 +4782,7 @@ msgstr "YCbCr prilagajanje"
 
 #: ../src/tags/gnome-cmd-tags.cc:311
 msgid "The position of chrominance components in relation to the luminance component. This field is designated only for JPEG compressed data or uncompressed YCbCr data. The TIFF default is 1 (centered); but when Y:Cb:Cr = 4:2:2 it is recommended that 2 (co-sited) be used to record data, in order to improve the image quality when viewed on TV systems. When this field does not exist, the reader shall assume the TIFF default. In the case of Y:Cb:Cr = 4:2:0, the TIFF default (centered) is recommended. If the reader does not have the capability of supporting both kinds of <Exif.YCbCrPositioning>, it shall follow the TIFF default regardless of the value in this field. It is preferable that readers be able to support both centered and co-sited positioning."
-msgstr ""
+msgstr "Lega barvitosti v povezavi z osvetljenostjo slike. Polje določa vrednost le za stisnjene JPEG podatke ali nestisnjene podatke YCbCr. Privzeta TIFF vrednosti je 1 (sredinjeno); vendar je priporočena za  razmerje Y:Cb:Cr = 4:2:2 vrednost 2 za shranjevanje podatkov, z namenom izboljšanja kakovosti slike pri pregledovanju preko TV zaslonov. V primeru, da polje ne obstaja, bralnik slik privzame vrednost 1. V primeru razmerja Y:Cb:Cr = 4:2:0, je prav tako priporočena vrednost 1. V primeru, da bralnik slik ne podpira obeh vrst podatkov <Exif.YCbCrPositioning>, sledi privzeti TIFF vrednosti neodvisno od vrednosti polja."
 
 #: ../src/tags/gnome-cmd-tags.cc:312
 msgid "YCbCr Sub-Sampling"
@@ -4802,7 +4802,7 @@ msgstr "Število točk na <Exif.ResolutionUnit> v<Exif.ImageLength> smeri. Upora
 
 #: ../src/tags/gnome-cmd-tags.cc:314
 msgid "Accessed"
-msgstr "Dostopano"
+msgstr "Uporabljano"
 
 #: ../src/tags/gnome-cmd-tags.cc:314
 msgid "Last access datetime."
@@ -4871,7 +4871,7 @@ msgstr "Uredljiva DC vrsta za ime urednika datoteke (EG dc:urednik polje v RSS v
 
 #: ../src/tags/gnome-cmd-tags.cc:325
 msgid "Rank"
-msgstr "Stopnja"
+msgstr "Ocena"
 
 #: ../src/tags/gnome-cmd-tags.cc:325
 msgid "Editable file rank for grading favourites. Value should be in the range 1..10."
@@ -4903,7 +4903,7 @@ msgstr "Točka iskanja zvoka"
 
 #: ../src/tags/gnome-cmd-tags.cc:329
 msgid "Fractional offset within the audio data, providing a starting point from which to find an appropriate point to start decoding."
-msgstr ""
+msgstr "Delni zamik znotraj zvočnih podatkov, ki določa začetno točko ustreznega začetka kodiranja."
 
 #: ../src/tags/gnome-cmd-tags.cc:330
 msgid "Band"
@@ -5349,7 +5349,7 @@ msgstr "Določitev podnapisov"
 
 #: ../src/tags/gnome-cmd-tags.cc:388
 msgid "Subtitle of the part of a set this track belongs to."
-msgstr "Podpapis predmeta, ki mu pripada."
+msgstr "Podnapis predmeta, ki mu pripada."
 
 #: ../src/tags/gnome-cmd-tags.cc:389
 msgid "Signature"
@@ -5598,7 +5598,7 @@ msgstr "Izvedba aparata s katerim je bila zajeta slika."
 
 #: ../src/tags/gnome-cmd-tags.cc:428
 msgid "Metering mode used to acquire the image (IE Unknown, Average, CenterWeightedAverage, Spot, MultiSpot, Pattern, Partial)."
-msgstr "Način merjenja, ki se uporablja pri prodobivanju slike (nNeznano, povprečno, povprečno , vzočno, delno, točkovno, večtočkovno)."
+msgstr "Način merjenja, ki se uporablja pri pridobivanju slike (neznano, povprečno, vzorčno, delno, točkovno, večtočkovno)."
 
 #: ../src/tags/gnome-cmd-tags.cc:429
 msgid "Model of camera used to take the image."
@@ -5642,7 +5642,7 @@ msgstr "Določilo ARM"
 
 #: ../src/tags/gnome-cmd-tags.cc:436
 msgid "Identifies the Abstract Relationship Method (ARM)."
-msgstr "Določa abstrakni način povezovanja (Abstract relationship method)."
+msgstr "Določa abstraktni način povezovanja (Abstract relationship method)."
 
 #: ../src/tags/gnome-cmd-tags.cc:437
 msgid "ARM Version"
@@ -5650,7 +5650,7 @@ msgstr "Različica ARM"
 
 #: ../src/tags/gnome-cmd-tags.cc:437
 msgid "Identifies the version of the Abstract Relationship Method (ARM)."
-msgstr "Določa različico abstraknega načina povezovanja (Abstract relationship method version)."
+msgstr "Določa različico abstraktnega načina povezovanja (Abstract relationship method version)."
 
 #: ../src/tags/gnome-cmd-tags.cc:438
 msgid "Audio Duration"
@@ -5674,7 +5674,7 @@ msgstr "Raven vzorčenja zvoka"
 
 #: ../src/tags/gnome-cmd-tags.cc:440
 msgid "The sampling rate in Hz of the audio data."
-msgstr "Hitrost vzorčenja zvočnih podatkov v Hz."
+msgstr "Raven vzorčenja zvočnih podatkov v Hz."
 
 #: ../src/tags/gnome-cmd-tags.cc:441
 msgid "Audio Sampling Resolution"
@@ -5768,7 +5768,7 @@ msgstr "Ime mesta vsebine"
 
 #: ../src/tags/gnome-cmd-tags.cc:452
 msgid "A full, publishable name of a country/geographical location referenced by the content of the object (multiple values allowed)."
-msgstr "Polno, objavljivo ime države ali geografskega kraja, ki je določen v vsebini predmeta (dovoljenih več vnosov)."
+msgstr "Polno, objavljeno ime države ali geografskega kraja, ki je določen v vsebini predmeta (dovoljenih več vnosov)."
 
 #: ../src/tags/gnome-cmd-tags.cc:453
 msgid "Copyright Notice"
@@ -5916,7 +5916,7 @@ msgstr "Naslovna vrstica"
 
 #: ../src/tags/gnome-cmd-tags.cc:471
 msgid "A publishable entry providing a synopsis of the contents of the object."
-msgstr "Objavljiv vnos, ki ponuja strnjen povzetek vsebine predmeta."
+msgstr "Objavljen vnos, ki ponuja strnjen povzetek vsebine predmeta."
 
 #: ../src/tags/gnome-cmd-tags.cc:472
 msgid "Image Orientation"
@@ -5952,7 +5952,7 @@ msgstr "Največja velikost predmeta"
 
 #: ../src/tags/gnome-cmd-tags.cc:476
 msgid "The largest possible size of the object if the size is not known."
-msgstr "Največja možna velikost predmeta v preimeru, da ta ni znana."
+msgstr "Največja možna velikost predmeta v primeru, da ta ni znana."
 
 #: ../src/tags/gnome-cmd-tags.cc:477
 msgid "Max Subfile Size"
@@ -6246,7 +6246,7 @@ msgstr "Širina strani v milimetrih."
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Page Height"
-msgstr "Vvišina strani"
+msgstr "Višina strani"
 
 #: ../src/tags/gnome-cmd-tags.cc:515
 msgid "Page height in mm."
@@ -6294,7 +6294,7 @@ msgstr "Nastavitev na vrednost \"1\" omogoči tiskanje."
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Printing in High Resolution"
-msgstr "Tiskanje v visoki ločljivostni"
+msgstr "Tiskanje v visoki ločljivosti"
 
 #: ../src/tags/gnome-cmd-tags.cc:521
 msgid "Set to \"1\" if high resolution printing is allowed."
@@ -6701,15 +6701,15 @@ msgstr "Nedoločeno"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:80
 msgid "Layer I"
-msgstr "Plast I"
+msgstr "Sloj I"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:81
 msgid "Layer II"
-msgstr "Plast II"
+msgstr "Sloj II"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:82
 msgid "Layer III"
-msgstr "Plast III"
+msgstr "Sloj III"
 
 #: ../src/tags/gnome-cmd-tags-taglib.cc:90
 #: ../src/tags/gnome-cmd-tags-taglib.cc:97
