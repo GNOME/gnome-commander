@@ -514,8 +514,9 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
     if (keys->accel_mode == GTK_CELL_RENDERER_ACCEL_MODE_GTK)
         if (accel_key != GDK_Tab && !gtk_accelerator_valid (accel_key, (GdkModifierType) accel_mods))
         {
-            // gtk_widget_error_bell (widget);     // FIXME: since 2.12, uncomment when dependency is met
-
+#if GTK_CHECK_VERSION (2, 12, 0)
+            gtk_widget_error_bell (widget);
+#endif
             return TRUE;
         }
 

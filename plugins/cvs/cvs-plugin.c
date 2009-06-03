@@ -188,28 +188,22 @@ static GtkWidget *create_menu_item (const gchar *name, gboolean show_pixmap,
 
 static GtkWidget *create_main_menu (GnomeCmdPlugin *p, GnomeCmdState *state)
 {
-    GtkWidget *item, *child;
     CvsPlugin *plugin = CVS_PLUGIN (p);
     GtkMenu *submenu = GTK_MENU (gtk_menu_new ());
 
-    item = create_menu_item ("CVS", FALSE, NULL, NULL, plugin);
+    GtkWidget *item = create_menu_item ("CVS", FALSE, NULL, NULL, plugin);
     gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), GTK_WIDGET (submenu));
 
-    plugin->priv->update = child =
-        create_menu_item ("Update", FALSE, GTK_SIGNAL_FUNC (on_dummy), state, plugin);
-    gtk_menu_append (submenu, child);
-    plugin->priv->diff = child =
-        create_menu_item ("Diff", FALSE, GTK_SIGNAL_FUNC (on_diff), state, plugin);
-    gtk_menu_append (submenu, child);
-    plugin->priv->log = child =
-        create_menu_item ("Log", FALSE, GTK_SIGNAL_FUNC (on_log), state, plugin);
-    gtk_menu_append (submenu, child);
-    plugin->priv->last_log = child =
-        create_menu_item ("Last Log", FALSE, GTK_SIGNAL_FUNC (on_dummy), state, plugin);
-    gtk_menu_append (submenu, child);
-    plugin->priv->last_change = child =
-        create_menu_item ("Last Change", FALSE, GTK_SIGNAL_FUNC (on_dummy), state, plugin);
-    gtk_menu_append (submenu, child);
+    plugin->priv->update = create_menu_item ("Update", FALSE, GTK_SIGNAL_FUNC (on_dummy), state, plugin);
+    gtk_menu_append (submenu, plugin->priv->update);
+    plugin->priv->diff = create_menu_item ("Diff", FALSE, GTK_SIGNAL_FUNC (on_diff), state, plugin);
+    gtk_menu_append (submenu, plugin->priv->diff);
+    plugin->priv->log = create_menu_item ("Log", FALSE, GTK_SIGNAL_FUNC (on_log), state, plugin);
+    gtk_menu_append (submenu, plugin->priv->log);
+    plugin->priv->last_log = create_menu_item ("Last Log", FALSE, GTK_SIGNAL_FUNC (on_dummy), state, plugin);
+    gtk_menu_append (submenu, plugin->priv->last_log);
+    plugin->priv->last_change = create_menu_item ("Last Change", FALSE, GTK_SIGNAL_FUNC (on_dummy), state, plugin);
+    gtk_menu_append (submenu, plugin->priv->last_change);
 
     return item;
 }

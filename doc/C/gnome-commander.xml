@@ -6019,6 +6019,9 @@
                             <para>Fixed problem #579633 (accessing administrator privileges with gksudo)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #583135 (disabled 'Go to' button in search dialog)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #583711 (crash when pressing ESC in bookmark dialog)</para>
                         </listitem>
                         <listitem>
