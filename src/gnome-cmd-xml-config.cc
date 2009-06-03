@@ -344,7 +344,7 @@ enum {XML_ELEM_NOT_FOUND,
 static DICT<guint> xml_elem_names(XML_ELEM_NOT_FOUND);
 static stack<string> xml_paths;
 
-static GnomeCmdData::AdvrenameConfig::Profile xml_profile;
+static GnomeCmdData::AdvrenameConfig::Profile xml_adv_profile;
 
 
 static bool is_default(GnomeCmdData::AdvrenameConfig::Profile &profile)
@@ -392,8 +392,8 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_STRING, "name", &param1,
                                              G_MARKUP_COLLECT_INVALID))
             {
-                xml_profile.reset();
-                xml_profile.name = param1;   // FIXME: unescape text
+                xml_adv_profile.reset();
+                xml_adv_profile.name = param1;   // FIXME: unescape text
             }
             break;
 
@@ -404,9 +404,9 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_STRING, "width", &param3,
                                              G_MARKUP_COLLECT_INVALID))
             {
-                xml_profile.counter_start = atoi(param1);
-                xml_profile.counter_step  = atoi(param2);
-                xml_profile.counter_width = atoi(param3);
+                xml_adv_profile.counter_start = atoi(param1);
+                xml_adv_profile.counter_step  = atoi(param2);
+                xml_adv_profile.counter_width = atoi(param3);
             }
             break;
 
@@ -423,7 +423,7 @@ static void xml_start(GMarkupParseContext *context,
                 // FIXME: unescape param1
                 // FIXME: unescape param2
 
-                xml_profile.regexes.push_back(GnomeCmd::ReplacePattern(param1, param2, param4));
+                xml_adv_profile.regexes.push_back(GnomeCmd::ReplacePattern(param1, param2, param4));
             }
             break;
 
@@ -431,7 +431,7 @@ static void xml_start(GMarkupParseContext *context,
             if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
                                              G_MARKUP_COLLECT_STRING, "use", &param1,
                                              G_MARKUP_COLLECT_INVALID))
-                xml_profile.case_conversion = atoi(param1);
+                xml_adv_profile.case_conversion = atoi(param1);
                 else
             break;
 
@@ -439,7 +439,7 @@ static void xml_start(GMarkupParseContext *context,
             if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
                                              G_MARKUP_COLLECT_STRING, "use", &param1,
                                              G_MARKUP_COLLECT_INVALID))
-                xml_profile.trim_blanks = atoi(param1);
+                xml_adv_profile.trim_blanks = atoi(param1);
             break;
 
         default:
@@ -458,7 +458,7 @@ static void xml_end (GMarkupParseContext *context,
     switch (xml_elem_names[xml_paths.top()])
     {
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE:
-            cfg->advrename_defaults.profiles.push_back(xml_profile);
+            cfg->advrename_defaults.profiles.push_back(xml_adv_profile);
             break;
 
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL:
@@ -499,7 +499,7 @@ static void xml_end (GMarkupParseContext *context,
     {
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_TEMPLATE:
             // FIXME: unescape text
-            xml_profile.template_string = text;
+            xml_adv_profile.template_string = text;
             break;
 
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_TEMPLATEHISTORY_TEMPLATE:
