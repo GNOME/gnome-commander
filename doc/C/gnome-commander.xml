@@ -6025,6 +6025,9 @@
                             <para>Fixed problem #583711 (crash when pressing ESC in bookmark dialog)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #584727 (wrong positioning of file popup menu)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem with setting equal pane size in horizontal mode</para>
                         </listitem>
                         <listitem>

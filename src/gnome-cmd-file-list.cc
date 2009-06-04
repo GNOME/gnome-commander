@@ -698,9 +698,9 @@ static void popup_position_function (GtkMenu *menu, gint *x, gint *y, gboolean *
 {
     GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (user_data);
 
-    gint w, h;
+    gint unused_x, unused_w, unused_h;
 
-    get_focus_row_coordinates (fl, *x, *y, w, h);
+    get_focus_row_coordinates (fl, unused_x, *y, unused_w, unused_h);
 }
 
 

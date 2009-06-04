@@ -21,6 +21,7 @@ Bug fixes:
  * Fixed problem #579633 (accessing administrator privileges with gksudo)
  * Fixed problem #583135 (disabled 'Go to' button in search dialog)
  * Fixed problem #583711 (crash when pressing ESC in bookmark dialog)
+ * Fixed problem #584727 (wrong positioning of file popup menu)
  * Fixed problem with setting equal pane size in horizontal mode
  * Fixed problem with refreshing MIME information after file renaming
 
