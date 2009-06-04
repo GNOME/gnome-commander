@@ -1215,7 +1215,7 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
         }
         else
             if (event->button == 3)
-                gtk_timeout_remove (fl->priv->right_mb_timeout_id);
+                g_source_remove (fl->priv->right_mb_timeout_id);
     }
 
     return FALSE;

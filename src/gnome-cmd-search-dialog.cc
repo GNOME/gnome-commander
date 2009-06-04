@@ -461,7 +461,7 @@ static void on_dialog_destroy (GnomeCmdSearchDialog *dialog, gpointer user_data)
     if (data)
     {
         if (!data->search_done)
-            gtk_timeout_remove (data->update_gui_timeout_id);
+            g_source_remove (data->update_gui_timeout_id);
 
         // Stop and wait for search thread to exit
         data->stopped = TRUE;

@@ -1,3 +1,10 @@
+2009-06-05  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	* src/gnome-cmd-file-selector.cc:
+	* src/gnome-cmd-search-dialog.cc:
+	Replaced deprecated gtk_timeout_remove() with g_source_remove()
+
 2009-06-04  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

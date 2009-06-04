@@ -435,9 +435,9 @@ static void drag_end (GtkWidget *widget, GdkDragContext *context, GnomeCmdFileSe
 
 static void drag_leave (GtkWidget *widget, GdkDragContext *context, guint time, GnomeCmdFileSelector *fs)
 {
-    if (fs->priv->autoscroll_timeout > 0)
+    if (fs->priv->autoscroll_timeout)
     {
-        gtk_timeout_remove (fs->priv->autoscroll_timeout);
+        g_source_remove (fs->priv->autoscroll_timeout);
         fs->priv->autoscroll_timeout = 0;
     }
 
@@ -525,9 +525,9 @@ static void autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
     }
     else
     {
-        if (fs->priv->autoscroll_timeout > 0)
+        if (fs->priv->autoscroll_timeout)
         {
-            gtk_timeout_remove (fs->priv->autoscroll_timeout);
+            g_source_remove (fs->priv->autoscroll_timeout);
             fs->priv->autoscroll_timeout = 0;
         }
     }
