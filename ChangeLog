@@ -1,3 +1,8 @@
+2009-06-09  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-file-list.cc:
+	Fixed problem #556836 (pane scrolling when moving between panes)
+
 2009-06-05  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

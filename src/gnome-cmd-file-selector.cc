@@ -503,10 +503,10 @@ static void autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
     // guint offset = (0-clist->voffset);
     gint w, h;
 
+    gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
+
     gint smin = h/8;
     gint smax = h-smin;
-
-    gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
 
     if (y < smin)
     {

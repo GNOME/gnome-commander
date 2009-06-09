@@ -5998,6 +5998,9 @@
                             <para>Fixed problem #567404 (crash when INSERT pressed over subdir)</para>
                         </listitem>
                         <listitem>
+                            <para>Fixed problem #556836 (pane scrolling when moving between panes)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #567506 (slow startup for systems with many users)</para>
                         </listitem>
                         <listitem>
