@@ -1,3 +1,8 @@
+2009-06-11  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-xml-config.cc:
+	XML config: escape text properly
+
 2009-06-09  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-file-list.cc:

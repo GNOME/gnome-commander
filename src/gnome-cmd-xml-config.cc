@@ -393,7 +393,7 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_INVALID))
             {
                 xml_adv_profile.reset();
-                xml_adv_profile.name = param1;   // FIXME: unescape text
+                xml_adv_profile.name = param1;
             }
             break;
 
@@ -420,9 +420,6 @@ static void xml_start(GMarkupParseContext *context,
                                              G_MARKUP_COLLECT_BOOLEAN, "match-case", &param4,
                                              G_MARKUP_COLLECT_INVALID))
             {
-                // FIXME: unescape param1
-                // FIXME: unescape param2
-
                 xml_adv_profile.regexes.push_back(GnomeCmd::ReplacePattern(param1, param2, param4));
             }
             break;
@@ -498,12 +495,10 @@ static void xml_end (GMarkupParseContext *context,
     switch (xml_elem_names[xml_paths.top()])
     {
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_TEMPLATE:
-            // FIXME: unescape text
             xml_adv_profile.template_string = text;
             break;
 
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE:
-            // FIXME: unescape text
             cfg->advrename_defaults.templates.add(text);
             break;
 
@@ -586,6 +581,19 @@ gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg)
 }
 
 
+inline void fprintf_escaped(FILE *f, const char *format, ...)
+{
+    va_list args;
+
+    va_start (args, format);
+    gchar *s = g_markup_vprintf_escaped (format, args);
+    va_end (args);
+
+    fputs(s, f);
+    g_free (s);
+}
+
+
 void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
 {
     FILE *f = fopen(path,"w");
@@ -599,15 +607,15 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
     fputs("\t<AdvancedRenameTool>\n", f);
     fprintf (f, "\t\t<WindowSize width=\"%i\" height=\"%i\" />\n", cfg.advrename_defaults.width, cfg.advrename_defaults.height);
 
-    fprintf(f, "\t\t<Profile name=\"%s\">\n", "Default");
-    fprintf(f, "\t\t\t<Template>%s</Template>\n", cfg.advrename_defaults.templates.empty()  ? "$N" : cfg.advrename_defaults.templates.front());
+    fprintf_escaped(f, "\t\t<Profile name=\"%s\">\n", "Default");
+    fprintf_escaped(f, "\t\t\t<Template>%s</Template>\n", cfg.advrename_defaults.templates.empty()  ? "$N" : cfg.advrename_defaults.templates.front());
     fprintf(f, "\t\t\t<Counter start=\"%u\" step=\"%i\" width=\"%u\" />\n", cfg.advrename_defaults.default_profile.counter_start,
                                                                             cfg.advrename_defaults.default_profile.counter_step,
                                                                             cfg.advrename_defaults.default_profile.counter_width);
     fputs("\t\t\t<Regexes>\n", f);
 
     for (std::vector<GnomeCmd::ReplacePattern>::const_iterator r=cfg.advrename_defaults.default_profile.regexes.begin(); r!=cfg.advrename_defaults.default_profile.regexes.end(); ++r)
-        fprintf(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", r->pattern.c_str(), r->replacement.c_str(), r->match_case);
+        fprintf_escaped(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", r->pattern.c_str(), r->replacement.c_str(), r->match_case);
 
     fputs("\t\t\t</Regexes>\n", f);
     fprintf(f, "\t\t\t<CaseConversion use=\"%u\" />\n", cfg.advrename_defaults.default_profile.case_conversion);
@@ -616,12 +624,12 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
 
     for (std::vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg.advrename_defaults.profiles.begin(); p!=cfg.advrename_defaults.profiles.end(); ++p)
     {
-        fprintf(f, "\t\t<Profile name=\"%s\">\n", p->name.c_str());
-        fprintf(f, "\t\t\t<Template>%s</Template>\n", p->template_string.empty() ? "$N" : p->template_string.c_str());
+        fprintf_escaped(f, "\t\t<Profile name=\"%s\">\n", p->name.c_str());
+        fprintf_escaped(f, "\t\t\t<Template>%s</Template>\n", p->template_string.empty() ? "$N" : p->template_string.c_str());
         fprintf(f, "\t\t\t<Counter start=\"%u\" step=\"%i\" width=\"%u\" />\n", p->counter_start, p->counter_step, p->counter_width);
         fputs("\t\t\t<Regexes>\n", f);
         for (std::vector<GnomeCmd::ReplacePattern>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
-            fprintf(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", r->pattern.c_str(), r->replacement.c_str(), r->match_case);
+            fprintf_escaped(f, "\t\t\t\t<Regex pattern=\"%s\" replace=\"%s\" match-case=\"%u\" />\n", r->pattern.c_str(), r->replacement.c_str(), r->match_case);
         fputs("\t\t\t</Regexes>\n", f);
         fprintf(f, "\t\t\t<CaseConversion use=\"%u\" />\n", p->case_conversion);
         fprintf(f, "\t\t\t<TrimBlanks use=\"%u\" />\n", p->trim_blanks);
@@ -631,7 +639,7 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
     fputs("\t\t<History>\n", f);
 
     for (GList *i=cfg.advrename_defaults.templates.ents; i; i=i->next)
-        fprintf (f, "\t\t\t<Template>%s</Template>\n", (const gchar *) i->data);
+        fprintf_escaped(f, "\t\t\t<Template>%s</Template>\n", (const gchar *) i->data);
 
     fputs("\t\t</History>\n", f);
     fputs("\t</AdvancedRenameTool>\n", f);
