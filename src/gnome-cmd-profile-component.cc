@@ -370,6 +370,8 @@ inline GnomeCmdProfileComponent::Private::Private()
 
 inline GnomeCmdProfileComponent::Private::~Private()
 {
+    g_object_unref (template_entry);
+
     clear_regex_model(regex_model);
 
     if (regex_model)  g_object_unref (regex_model);
@@ -764,6 +766,7 @@ static void gnome_cmd_profile_component_init (GnomeCmdProfileComponent *componen
             gtk_entry_set_activates_default (GTK_ENTRY (component->priv->template_entry), TRUE);
             gtk_label_set_mnemonic_widget (GTK_LABEL (label), combo);
             gtk_box_pack_start (GTK_BOX (vbox), combo, FALSE, FALSE, 0);
+            g_object_ref (component->priv->template_entry);
 
             GtkWidget *bbox = gtk_hbutton_box_new ();
             gtk_box_pack_start (GTK_BOX (vbox), bbox, TRUE, FALSE, 0);

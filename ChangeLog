@@ -1,3 +1,8 @@
+2009-06-15  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-profile-component.cc:
+	advrename profiles: ref template_entry to keep it alive longer
+
 2009-06-14  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-data.cc:
