@@ -1,3 +1,10 @@
+2009-06-14  Piotr Eljasiak  <epiotr@use.pl>
+
+	* src/gnome-cmd-data.cc:
+	* src/gnome-cmd-data.h:
+	* src/gnome-cmd-options-dialog.cc:
+	Killed dead code
+
 2009-06-11  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-xml-config.cc:

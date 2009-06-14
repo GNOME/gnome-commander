@@ -199,7 +199,6 @@ struct GnomeCmdData
 
     gboolean                     honor_expect_uris;
     gboolean                     skip_mounting;
-    gint                         dir_cache_size;
 
     gint                         main_win_width;
     gint                         main_win_height;

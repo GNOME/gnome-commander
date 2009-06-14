@@ -1093,7 +1093,6 @@ GnomeCmdData::GnomeCmdData()
 
     honor_expect_uris = FALSE;
     skip_mounting = FALSE;
-    dir_cache_size = 10;
 
     main_win_width = 600;
     main_win_height = 400;
@@ -1337,7 +1336,6 @@ void GnomeCmdData::load()
     use_gcmd_block = gnome_cmd_data_get_bool ("/programs/use_gcmd_block", FALSE);
 
     device_only_icon = gnome_cmd_data_get_bool ("/devices/only_icon", FALSE);
-    dir_cache_size = gnome_cmd_data_get_int ("/options/dir_cache_size", 10);
     use_ls_colors = gnome_cmd_data_get_bool ("/colors/use_ls_colors", FALSE);
 
     priv->start_dirs[LEFT] = gnome_cmd_data_get_string ("/options/start_dir_left", g_get_home_dir ());
@@ -1708,7 +1706,6 @@ void GnomeCmdData::save()
     gnome_cmd_data_set_bool   ("/programs/use_gcmd_block", use_gcmd_block);
 
     gnome_cmd_data_set_bool   ("/devices/only_icon", device_only_icon);
-    gnome_cmd_data_set_int    ("/options/dir_cache_size", dir_cache_size);
     gnome_cmd_data_set_bool   ("/colors/use_ls_colors", use_ls_colors);
 
     const gchar *quick_connect_uri = gnome_cmd_con_get_uri (GNOME_CMD_CON (quick_connect));

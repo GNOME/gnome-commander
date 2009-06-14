@@ -62,8 +62,8 @@ inline GtkWidget *create_font_picker (GtkWidget *parent, gchar *name)
 
 static GtkWidget *create_general_tab (GtkWidget *parent)
 {
-    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box, *table;
-    GtkWidget *radio, *check, *spin, *label;
+    GtkWidget *frame, *hbox, *vbox, *cat, *cat_box;
+    GtkWidget *radio, *check;
 
     frame = create_tabframe (parent);
     hbox = create_tabhbox (parent);
@@ -144,17 +144,6 @@ static GtkWidget *create_general_tab (GtkWidget *parent)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), gnome_cmd_data.alt_quick_search);
 
 
-    // Directory options
-    table = create_table (parent, 2, 2);
-    cat = create_category (parent, table, _("Directory options"));
-    gtk_box_pack_start (GTK_BOX (vbox), cat, FALSE, TRUE, 0);
-
-    label = create_label (parent, _("Directory cache size"));
-    table_add (table, label, 0, 1, (GtkAttachOptions) 0);
-    spin = create_spin (parent, "dir_cache_size", 5, 50, gnome_cmd_data.dir_cache_size);
-    table_add (table, spin, 1, 1, GTK_FILL);
-
-
     return frame;
 }
 
@@ -166,7 +155,6 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
     GtkWidget *rmb_popup_radio = lookup_widget (GTK_WIDGET (dialog), "rmb_popup_radio");
     GtkWidget *ft_regex_radio = lookup_widget (GTK_WIDGET (dialog), "ft_regex_radio");
     GtkWidget *case_sens_check = lookup_widget (GTK_WIDGET (dialog), "case_sens_check");
-    GtkWidget *dir_cache_size = lookup_widget (GTK_WIDGET (dialog), "dir_cache_size");
     GtkWidget *alt_quick_search = lookup_widget (GTK_WIDGET (dialog), "alt_quick_search");
 
     gnome_cmd_data.left_mouse_button_mode = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (lmb_singleclick_radio)) ? GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK : GnomeCmdData::LEFT_BUTTON_OPENS_WITH_DOUBLE_CLICK;
@@ -182,7 +170,6 @@ inline void store_general_options (GnomeCmdOptionsDialog *dialog)
         gnome_cmd_data.filter_type = Filter::TYPE_FNMATCH;
 
     gnome_cmd_data.case_sens_sort = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (case_sens_check));
-    gnome_cmd_data.dir_cache_size = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dir_cache_size));
     gnome_cmd_data.alt_quick_search = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (alt_quick_search));
 }
 
