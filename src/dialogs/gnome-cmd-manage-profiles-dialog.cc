@@ -23,6 +23,7 @@
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-manage-profiles-dialog.h"
+#include "gnome-cmd-edit-profile-dialog.h"
 #include "gnome-cmd-treeview.h"
 #include "gnome-cmd-menu-button.h"
 #include "gnome-cmd-hintbox.h"
@@ -43,6 +44,7 @@ static GtkWidget *create_view_and_model (Profiles &profiles);
 static gchar *translate_menu (const gchar *path, gpointer data);
 
 static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string, gchar *new_text, GtkWidget *view);
+static void row_activated_callback (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, gpointer);
 static void duplicate_clicked_callback (GtkButton *button, GtkWidget *view);
 static void edit_clicked_callback (GtkButton *button, GtkWidget *view);
 static void remove_clicked_callback (GtkButton *button, GtkWidget *view);
@@ -113,6 +115,7 @@ gboolean gnome_cmd_manage_profiles_dialog_new (const gchar *title, GtkWindow *pa
 
     view = create_view_and_model (profiles);
     gtk_widget_set_size_request (view, 400, -1);
+    g_signal_connect (view, "row-activated", G_CALLBACK (row_activated_callback), NULL);
     gtk_container_add (GTK_CONTAINER (scrolled_window), view);
 
     box = gnome_cmd_hint_box_new (_("To rename a profile, click on the "
@@ -285,6 +288,12 @@ static void cell_edited_callback (GtkCellRendererText *cell, gchar *path_string,
 }
 
 
+static void row_activated_callback (GtkTreeView *view, GtkTreePath *path, GtkTreeViewColumn *col, gpointer)
+{
+    edit_clicked_callback (NULL, GTK_WIDGET(view));
+}
+
+
 static void duplicate_clicked_callback (GtkButton *button, GtkWidget *view)
 {
     GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
@@ -305,6 +314,32 @@ static void duplicate_clicked_callback (GtkButton *button, GtkWidget *view)
 
 static void edit_clicked_callback (GtkButton *button, GtkWidget *view)
 {
+    GtkWidget *dialog = gtk_widget_get_ancestor (view, GTK_TYPE_DIALOG);
+
+    g_return_if_fail (dialog!=NULL);
+
+    GtkTreeSelection *selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+    GtkTreeIter i;
+
+    if (gtk_tree_selection_get_selected (selection, NULL, &i))
+    {
+        guint idx;
+
+        GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (view));
+        gtk_tree_model_get (model, &i, COL_PROFILE_IDX, &idx, -1);
+
+        GnomeCmdData::AdvrenameConfig::Profile p = profiles[idx];
+
+        if (gnome_cmd_edit_profile_dialog_new (GTK_WINDOW (dialog), p))
+        {
+            profiles[idx] = p;
+
+            gtk_list_store_set (GTK_LIST_STORE (model), &i,
+                                COL_NAME, p.name.c_str(),
+                                COL_TEMPLATE, p.template_string.c_str(),
+                                -1);
+        }
+    }
 }
 
 
