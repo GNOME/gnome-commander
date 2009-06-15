@@ -114,7 +114,7 @@ gboolean gnome_cmd_manage_profiles_dialog_new (const gchar *title, GtkWindow *pa
     gtk_box_pack_start (GTK_BOX (hbox), scrolled_window, TRUE, TRUE, 0);
 
     view = create_view_and_model (profiles);
-    gtk_widget_set_size_request (view, 400, -1);
+    gtk_widget_set_size_request (view, 400, 200);
     g_signal_connect (view, "row-activated", G_CALLBACK (row_activated_callback), NULL);
     gtk_container_add (GTK_CONTAINER (scrolled_window), view);
 
@@ -140,6 +140,7 @@ gboolean gnome_cmd_manage_profiles_dialog_new (const gchar *title, GtkWindow *pa
     g_signal_connect (button, "clicked", G_CALLBACK (remove_clicked_callback), view);
     gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
 
+#if 0
     {
         static GtkItemFactoryEntry items[] =
             {{N_("/Local path..."), NULL, (GtkItemFactoryCallback) import_clicked_callback, TRUE},
@@ -154,6 +155,7 @@ gboolean gnome_cmd_manage_profiles_dialog_new (const gchar *title, GtkWindow *pa
                                                        gtk_item_factory_get_widget (ifac, "<main>"));
         gtk_box_pack_start (GTK_BOX (vbox), button, FALSE, FALSE, 0);
     }
+#endif
 
     gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
 
