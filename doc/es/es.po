@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-09 19:12+0000\n"
+"POT-Creation-Date: 2009-06-15 17:44+0000\n"
 "PO-Revision-Date: 2009-06-11 19:24+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -160,80 +160,64 @@ msgstr ""
 #: C/gnome-commander.xml:3746(None)
 msgid ""
 "@@image: 'figures/gnome-commander_options_general.png'; "
-"md5=474f1553b6988d641f74e80e637dc710"
-msgstr ""
-"@@image: 'figures/gnome-commander_options_general.png'; "
-"md5=474f1553b6988d641f74e80e637dc710"
+"md5=834ecc59383c2f6c08b62c039f73e44b"
+msgstr "translated"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3766(None)
 msgid ""
 "@@image: 'figures/gnome-commander_options_format.png'; "
-"md5=3603d81a60db9ba172e408819b568bd4"
-msgstr ""
-"@@image: 'figures/gnome-commander_options_format.png'; "
-"md5=3603d81a60db9ba172e408819b568bd4"
+"md5=4347d043d58583623eeb48a303eb1fd9"
+msgstr "translated"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3786(None)
 msgid ""
 "@@image: 'figures/gnome-commander_options_layout.png'; "
-"md5=ce32c1f2c023c2b090e1a0196606ff35"
-msgstr ""
-"@@image: 'figures/gnome-commander_options_layout.png'; "
-"md5=ce32c1f2c023c2b090e1a0196606ff35"
+"md5=a3271f9df9928877e781291ebe239ba4"
+msgstr "translated"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3806(None)
 msgid ""
 "@@image: 'figures/gnome-commander_options_confirmation.png'; "
-"md5=bd2f219f142183c19f16a450c34c62f7"
-msgstr ""
-"@@image: 'figures/gnome-commander_options_confirmation.png'; "
-"md5=bd2f219f142183c19f16a450c34c62f7"
+"md5=72f84720a4a2bc74f031b730482ea381"
+msgstr "translated"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3826(None)
 msgid ""
 "@@image: 'figures/gnome-commander_options_filters.png'; "
-"md5=2a644611967292a1b22c32b275d2f7d8"
-msgstr ""
-"@@image: 'figures/gnome-commander_options_filters.png'; "
-"md5=2a644611967292a1b22c32b275d2f7d8"
+"md5=7079dfdaa0ed8f1acf75a58a157261b9"
+msgstr "translated"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3846(None)
 msgid ""
 "@@image: 'figures/gnome-commander_options_network.png'; "
-"md5=dd4e007fddf58ba92ea99ad1c779215d"
-msgstr ""
-"@@image: 'figures/gnome-commander_options_network.png'; "
-"md5=dd4e007fddf58ba92ea99ad1c779215d"
+"md5=952a16ece8bb20690fea30dc0446a3c7"
+msgstr "translated"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3866(None)
 msgid ""
 "@@image: 'figures/gnome-commander_options_programs.png'; "
-"md5=ffb7abb4f666f6c8720d35a6960941a5"
-msgstr ""
-"@@image: 'figures/gnome-commander_options_programs.png'; "
-"md5=ffb7abb4f666f6c8720d35a6960941a5"
+"md5=75eab7e87a88afbae183d6af65f4adbf"
+msgstr "translated"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3886(None)
 msgid ""
 "@@image: 'figures/gnome-commander_options_devices.png'; "
-"md5=bb91882c5b90b6d6d1638e81645cdc8d"
-msgstr ""
-"@@image: 'figures/gnome-commander_options_devices.png'; "
-"md5=bb91882c5b90b6d6d1638e81645cdc8d"
+"md5=0627674c406002a7b076a27f47c9c96f"
+msgstr "translated"
 
 #: C/gnome-commander.xml:30(title)
 msgid "<application>GNOME Commander</application> Manual"
@@ -1465,7 +1449,6 @@ msgid ""
 msgstr ""
 
 #: C/gnome-commander.xml:946(guilabel)
-#| msgid "Play Counter"
 msgid "Counter"
 msgstr "Contador"
 
@@ -1494,12 +1477,10 @@ msgstr ""
 "su correspondiente reemplazo. El orden de ejecución es de arriba a abajo."
 
 #: C/gnome-commander.xml:965(guilabel)
-#| msgid "Cancel"
 msgid "Case"
 msgstr "Capitalización"
 
 #: C/gnome-commander.xml:968(para)
-#| msgid "List of the new file names."
 msgid "Changes the case of the selected file names."
 msgstr "Cambia la capitalización de los nombres de archivo seleccionados."
 
@@ -1512,7 +1493,6 @@ msgid "Removes leading and trailing whitespace from the selected file names."
 msgstr ""
 
 #: C/gnome-commander.xml:981(guilabel)
-#| msgid "Result"
 msgid "Results"
 msgstr "Resultados"
 
@@ -1529,16 +1509,12 @@ msgid "Apply"
 msgstr "Aplicar"
 
 #: C/gnome-commander.xml:995(para)
-#| msgid ""
-#| "Starts to rename files. A warning message will popup in case of any name "
-#| "conflicts."
 msgid "Starts to rename files. Conflicting renames will be marked red."
 msgstr ""
 "Comienza a renombrar archivos. Los conflictos con los nombres se marcarán en "
 "rojo."
 
 #: C/gnome-commander.xml:1000(guibutton)
-#| msgid "Composer"
 msgid "Close"
 msgstr "Cerrar"
 
@@ -1547,7 +1523,6 @@ msgid "Closes the dialog without file renaming."
 msgstr "Cierra el diálogo sin renombrar los archivos."
 
 #: C/gnome-commander.xml:1008(guibutton)
-#| msgid "Result"
 msgid "Reset"
 msgstr "Restablecer"
 
@@ -10392,8 +10367,6 @@ msgid "New or updated docs: de, en, es"
 msgstr "Documentos nuevos o actualizados: de, en, es"
 
 #: C/gnome-commander.xml:6067(para)
-#| msgid ""
-#| "New or updated translations: ar, cs, de, es, eu, fr, it, pl, pt_BR, sv"
 msgid ""
 "New or updated translations: ar, cs, de, es, eu, fr, it, pl, pt_BR, sl, sv"
 msgstr ""
@@ -11762,6 +11735,13 @@ msgstr ""
 #: C/gnome-commander.xml:0(None)
 msgid "translator-credits"
 msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2008"
+
+#~ msgid ""
+#~ "@@image: 'figures/gnome-commander_options_devices.png'; "
+#~ "md5=bb91882c5b90b6d6d1638e81645cdc8d"
+#~ msgstr ""
+#~ "@@image: 'figures/gnome-commander_options_devices.png'; "
+#~ "md5=bb91882c5b90b6d6d1638e81645cdc8d"
 
 #~ msgid "OK"
 #~ msgstr "Aceptar"
