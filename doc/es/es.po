@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-15 17:44+0000\n"
+"POT-Creation-Date: 2009-06-19 22:44+0000\n"
 "PO-Revision-Date: 2009-06-11 19:24+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -140,10 +140,8 @@ msgstr ""
 #: C/gnome-commander.xml:702(None)
 msgid ""
 "@@image: 'figures/gnome-commander_dialog_search.png'; "
-"md5=a8ecc6694f52c22c6ed4c5d8e4356b52"
-msgstr ""
-"@@image: 'figures/gnome-commander_dialog_search.png'; "
-"md5=a8ecc6694f52c22c6ed4c5d8e4356b52"
+"md5=3b24682936cbdd0f8e222528ec49a208"
+msgstr "translated"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
