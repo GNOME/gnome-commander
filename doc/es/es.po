@@ -4,12 +4,14 @@
 # Jorge González <jorgegonz@svn.gnome.org>, 200, 2009.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
+# Jorge González <jorgegonz@svn.gnome.org>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-19 22:44+0000\n"
-"PO-Revision-Date: 2009-06-11 19:24+0200\n"
+"PO-Revision-Date: 2009-06-21 17:23+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -138,10 +140,15 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:702(None)
+#| msgid ""
+#| "@@image: 'figures/gnome-commander_dialog_search.png'; "
+#| "md5=a8ecc6694f52c22c6ed4c5d8e4356b52"
 msgid ""
 "@@image: 'figures/gnome-commander_dialog_search.png'; "
 "md5=3b24682936cbdd0f8e222528ec49a208"
-msgstr "translated"
+msgstr ""
+"@@image: 'figures/gnome-commander_dialog_search.png'; "
+"md5=3b24682936cbdd0f8e222528ec49a208"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -156,66 +163,106 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3746(None)
+#| msgid ""
+#| "@@image: 'figures/gnome-commander_options_general.png'; "
+#| "md5=474f1553b6988d641f74e80e637dc710"
 msgid ""
 "@@image: 'figures/gnome-commander_options_general.png'; "
 "md5=834ecc59383c2f6c08b62c039f73e44b"
-msgstr "translated"
+msgstr ""
+"@@image: 'figures/gnome-commander_options_general.png'; "
+"md5=834ecc59383c2f6c08b62c039f73e44b"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3766(None)
+#| msgid ""
+#| "@@image: 'figures/gnome-commander_options_format.png'; "
+#| "md5=3603d81a60db9ba172e408819b568bd4"
 msgid ""
 "@@image: 'figures/gnome-commander_options_format.png'; "
 "md5=4347d043d58583623eeb48a303eb1fd9"
-msgstr "translated"
+msgstr ""
+"@@image: 'figures/gnome-commander_options_format.png'; "
+"md5=4347d043d58583623eeb48a303eb1fd9"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3786(None)
+#| msgid ""
+#| "@@image: 'figures/gnome-commander_options_layout.png'; "
+#| "md5=ce32c1f2c023c2b090e1a0196606ff35"
 msgid ""
 "@@image: 'figures/gnome-commander_options_layout.png'; "
 "md5=a3271f9df9928877e781291ebe239ba4"
-msgstr "translated"
+msgstr ""
+"@@image: 'figures/gnome-commander_options_layout.png'; "
+"md5=a3271f9df9928877e781291ebe239ba4"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3806(None)
+#| msgid ""
+#| "@@image: 'figures/gnome-commander_options_confirmation.png'; "
+#| "md5=bd2f219f142183c19f16a450c34c62f7"
 msgid ""
 "@@image: 'figures/gnome-commander_options_confirmation.png'; "
 "md5=72f84720a4a2bc74f031b730482ea381"
-msgstr "translated"
+msgstr ""
+"@@image: 'figures/gnome-commander_options_confirmation.png'; "
+"md5=72f84720a4a2bc74f031b730482ea381"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3826(None)
+#| msgid ""
+#| "@@image: 'figures/gnome-commander_options_filters.png'; "
+#| "md5=2a644611967292a1b22c32b275d2f7d8"
 msgid ""
 "@@image: 'figures/gnome-commander_options_filters.png'; "
 "md5=7079dfdaa0ed8f1acf75a58a157261b9"
-msgstr "translated"
+msgstr ""
+"@@image: 'figures/gnome-commander_options_filters.png'; "
+"md5=7079dfdaa0ed8f1acf75a58a157261b9"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3846(None)
+#| msgid ""
+#| "@@image: 'figures/gnome-commander_options_network.png'; "
+#| "md5=dd4e007fddf58ba92ea99ad1c779215d"
 msgid ""
 "@@image: 'figures/gnome-commander_options_network.png'; "
 "md5=952a16ece8bb20690fea30dc0446a3c7"
-msgstr "translated"
+msgstr ""
+"@@image: 'figures/gnome-commander_options_network.png'; "
+"md5=952a16ece8bb20690fea30dc0446a3c7"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3866(None)
+#| msgid ""
+#| "@@image: 'figures/gnome-commander_options_programs.png'; "
+#| "md5=ffb7abb4f666f6c8720d35a6960941a5"
 msgid ""
 "@@image: 'figures/gnome-commander_options_programs.png'; "
 "md5=75eab7e87a88afbae183d6af65f4adbf"
-msgstr "translated"
+msgstr ""
+"@@image: 'figures/gnome-commander_options_programs.png'; "
+"md5=75eab7e87a88afbae183d6af65f4adbf"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:3886(None)
+#| msgid ""
+#| "@@image: 'figures/gnome-commander_options_filters.png'; "
+#| "md5=2a644611967292a1b22c32b275d2f7d8"
 msgid ""
 "@@image: 'figures/gnome-commander_options_devices.png'; "
 "md5=0627674c406002a7b076a27f47c9c96f"
-msgstr "translated"
+msgstr ""
+"@@image: 'figures/gnome-commander_options_devices.png'; "
+"md5=0627674c406002a7b076a27f47c9c96f"
 
 #: C/gnome-commander.xml:30(title)
 msgid "<application>GNOME Commander</application> Manual"
@@ -1459,11 +1506,6 @@ msgid "Regex replacing"
 msgstr "Reemplazar expresiones regulares"
 
 #: C/gnome-commander.xml:957(para)
-#, fuzzy
-#| msgid ""
-#| "List of regular expression patterns. The patterns are matched in against "
-#| "<guilabel>Template</guilabel>. If matched, patterns are replaced with "
-#| "their corresponding replacements. The order of execution is top-bottom."
 msgid ""
 "List of the regular expression patterns. The patterns are matched against "
 "<guilabel>Template</guilabel>. If matched, patterns are replaced with their "
@@ -1472,7 +1514,8 @@ msgid ""
 msgstr ""
 "Lista de patrones de expresiones regulares. Los patrones se comparan con "
 "<guilabel>Template</guilabel>. Si coinciden, se reemplazan los patrones con "
-"su correspondiente reemplazo. El orden de ejecución es de arriba a abajo."
+"su correspondiente reemplazo. El orden de ejecución es de arriba a abajo. "
+"Los patrones no válidos o rotos se marcarán en rojo."
 
 #: C/gnome-commander.xml:965(guilabel)
 msgid "Case"
@@ -1484,7 +1527,7 @@ msgstr "Cambia la capitalización de los nombres de archivo seleccionados."
 
 #: C/gnome-commander.xml:973(guilabel)
 msgid "Trim blanks"
-msgstr ""
+msgstr "Eliminar espacios"
 
 #: C/gnome-commander.xml:976(para)
 msgid "Removes leading and trailing whitespace from the selected file names."
@@ -1526,7 +1569,7 @@ msgstr "Restablecer"
 
 #: C/gnome-commander.xml:1011(para)
 msgid "Resets current settings to defaults."
-msgstr ""
+msgstr "Restablecer configuración actual a la predeterminada"
 
 #: C/gnome-commander.xml:1016(guibutton)
 msgid "Profiles..."
@@ -3158,15 +3201,15 @@ msgstr "Exif.ExposureBiasValue"
 
 #: C/gnome-commander.xml:1696(para)
 msgid "Exposure Bias"
-msgstr "Exposición bias"
+msgstr "Polarización de la exposición"
 
 #: C/gnome-commander.xml:1697(para)
 msgid ""
 "The exposure bias. The units is the APEX value. Ordinarily it is given in "
 "the range of -99.99 to 99.99."
 msgstr ""
-"La exposición bias. Las unidades son el valor APEX. Normalmente se da en el "
-"rango de -99.99 a 99.99."
+"La polarización de la exposición. Las unidades son el valor APEX. "
+"Normalmente se da en el rango de -99.99 a 99.99."
 
 #: C/gnome-commander.xml:1700(para)
 msgid "Exif.ExposureIndex"
@@ -7708,7 +7751,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:3537(title)
 msgid "View Modes"
-msgstr ""
+msgstr "Modos de vista"
 
 #: C/gnome-commander.xml:3538(para)
 msgid ""
@@ -7722,19 +7765,19 @@ msgstr "Codificación de caracteres"
 
 #: C/gnome-commander.xml:3546(guilabel)
 msgid "Text Display Mode"
-msgstr ""
+msgstr "Modo de visualización de texto"
 
 #: C/gnome-commander.xml:3548(guilabel)
 msgid "Binary Display Mode"
-msgstr ""
+msgstr "Modo de visualización binario"
 
 #: C/gnome-commander.xml:3550(guilabel)
 msgid "Hex dump Display Mode"
-msgstr ""
+msgstr "Modo de visualización de volcado hexadecimal"
 
 #: C/gnome-commander.xml:3552(guilabel)
 msgid "Image Display Mode"
-msgstr ""
+msgstr "Modo de visualización de imagen"
 
 #: C/gnome-commander.xml:3554(para)
 msgid ""
@@ -7761,7 +7804,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:3576(title)
 msgid "To Scroll an Image"
-msgstr ""
+msgstr "Desplazar una imagen"
 
 #: C/gnome-commander.xml:3577(para)
 msgid ""
@@ -7859,7 +7902,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:3636(para)
 msgid "Display modes:"
-msgstr ""
+msgstr "Modos de visualización:"
 
 #: C/gnome-commander.xml:3639(keycap) C/gnome-commander.xml:3979(keycap)
 msgid "1"
@@ -8155,11 +8198,11 @@ msgstr "Salir"
 
 #: C/gnome-commander.xml:3980(para)
 msgid "Change left connection"
-msgstr ""
+msgstr "Cambiar la conexión izquierda"
 
 #: C/gnome-commander.xml:3985(para)
 msgid "Change right connection"
-msgstr ""
+msgstr "Cambiar la conexión derecha"
 
 #: C/gnome-commander.xml:3995(para) C/gnome-commander.xml:4698(para)
 msgid "View with external viewer"
@@ -8200,7 +8243,7 @@ msgstr "Editar un archivo nuevo"
 
 #: C/gnome-commander.xml:4030(para)
 msgid "Make a copy a file in the current directory."
-msgstr ""
+msgstr "Hacer una copia del archivo en la carpeta actual."
 
 #: C/gnome-commander.xml:4035(para)
 msgid "Rename a file"
@@ -9422,7 +9465,7 @@ msgstr "Documentación de Python"
 
 #: C/gnome-commander.xml:5101(ulink)
 msgid "Python gnomevfs reference manual"
-msgstr ""
+msgstr "Manual de referencia de python gnomevfs"
 
 #: C/gnome-commander.xml:5104(ulink)
 msgid "PyGTK: GTK+ for Python"
@@ -9438,7 +9481,7 @@ msgstr "Fragmentos de código en Python"
 
 #: C/gnome-commander.xml:5120(title)
 msgid "Tips and tricks"
-msgstr ""
+msgstr "Trucos y consejos"
 
 #: C/gnome-commander.xml:5121(para)
 msgid ""
@@ -10188,7 +10231,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5927(command)
 msgid "action[|options]"
-msgstr ""
+msgstr "acción[opciones]"
 
 #: C/gnome-commander.xml:5938(guilabel)
 msgid "~/.gnome2/gnome-commander-size"
@@ -10224,7 +10267,7 @@ msgstr "1.2.8"
 #: C/gnome-commander.xml:6945(para) C/gnome-commander.xml:6970(para)
 #: C/gnome-commander.xml:7027(para)
 msgid "Bug fixes:"
-msgstr ""
+msgstr "Correcciones de errores:"
 
 #: C/gnome-commander.xml:5974(para)
 msgid "Fixed problem #536446 (file name not focused for in-place renaming)"
@@ -11411,6 +11454,8 @@ msgstr ""
 #: C/gnome-commander.xml:6986(para)
 msgid "Removed some bugs related to selecting files using the keyboard"
 msgstr ""
+"Eliminados algunos errores relativos a la selección de archivos usando el "
+"teclado"
 
 #: C/gnome-commander.xml:6989(para)
 msgid "Fixed the edit mime-types feature"
@@ -11455,7 +11500,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:7034(para)
 msgid "Empty directories can now be entered on ftp servers"
-msgstr ""
+msgstr "Ahora se puede acceder a directorios vacíos en servidores ftp"
 
 #: C/gnome-commander.xml:7041(para)
 msgid "1.0"
@@ -11639,6 +11684,9 @@ msgid ""
 "the <ulink url=\"http://bugzilla.gnome.org/browse.cgi?product=gnome-commander"
 "\" type=\"http\">the gnome.org Bugzilla</ulink>."
 msgstr ""
+"Puede ver o informar de un error de <application>GNOME Commander</"
+"application> en <ulink url=\"http://bugzilla.gnome.org/browse.cgi?"
+"product=gnome-commander\" type=\"http\">el Bugzilla de gnome.org</ulink>."
 
 #: C/gnome-commander.xml:7168(para)
 msgid ""
