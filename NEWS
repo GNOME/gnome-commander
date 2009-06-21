@@ -3,6 +3,7 @@ gnome-commander 1.2.8
 ---------------
 
 Bug fixes:
+ * Fixed problem #375357 (crash when cancelling calculation of dir properties)
  * Fixed problem #536446 (file name not focused for in-place renaming)
  * Fixed problem #539812 (crash when deleting files: broken it.po)
  * Fixed problem #548947 (non-UTF8 locale date problem)

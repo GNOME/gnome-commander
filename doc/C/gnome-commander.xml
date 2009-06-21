@@ -5971,6 +5971,9 @@
                 <para>
                     <itemizedlist>
                         <listitem>
+                            <para>Fixed problem #375357 (crash when cancelling calculation of dir properties)</para>
+                        </listitem>
+                        <listitem>
                             <para>Fixed problem #536446 (file name not focused for in-place renaming)</para>
                         </listitem>
                         <listitem>

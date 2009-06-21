@@ -1,10 +1,15 @@
+2009-06-21  Dmitriy Lyfar  <dlyfar@gmail.com>
+
+	* src/gnome-cmd-file-props-dialog.cc:
+	Fixed problem #375357 (crash when cancelling calculation of dir properties)
+
 2009-06-15  Piotr Eljasiak  <epiotr@use.pl>
 
 	* src/gnome-cmd-profile-component.cc:
 	advrename profiles: ref template_entry to keep it alive longer
 
 	* src/dialogs/gnome-cmd-manage-profile-dialog.cc:
-	advrename profiles: added supprt for profile editing
+	advrename profiles: added support for profile editing
 
 2009-06-14  Piotr Eljasiak  <epiotr@use.pl>
 

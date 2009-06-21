@@ -45,6 +45,7 @@ typedef struct
     GMutex *mutex;
     gboolean count_done;
     gchar *msg;
+    guint updater_proc_id;
 
     GtkWidget *notebook;
     GtkWidget *copy_button;
@@ -140,6 +141,8 @@ static void calc_tree_size_func (GnomeCmdFilePropsDialogPrivate *data)
 // Tells the thread to exit and then waits for it to do so.
 static gboolean join_thread_func (GnomeCmdFilePropsDialogPrivate *data)
 {
+    g_source_remove (data->updater_proc_id);
+    
     if (data->thread)
         g_thread_join (data->thread);
 
@@ -185,7 +188,7 @@ static void do_calc_tree_size (GnomeCmdFilePropsDialogPrivate *data)
 
     data->thread = g_thread_create ((PthreadFunc) calc_tree_size_func, data, TRUE, NULL);
 
-    g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_count_status, data);
+    data->updater_proc_id = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) update_count_status, data);
 }
 
 
