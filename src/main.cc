@@ -157,6 +157,7 @@ int main (int argc, char *argv[])
 
     remove_temp_download_dir ();
 
+    g_option_context_free (option_context);
     g_object_unref (program);
 
     DEBUG ('c', "dirs total: %d remaining: %d\n", created_dirs_cnt, created_dirs_cnt - deleted_dirs_cnt);

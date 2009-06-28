@@ -1,3 +1,8 @@
+2009-06-28  Dmitriy Lyfar  <dlyfar@gmail.com>
+
+	* src/main.cc:
+	Fix for memory leaks
+
 2009-06-21  Dmitriy Lyfar  <dlyfar@gmail.com>
 
 	* src/gnome-cmd-file-props-dialog.cc:
