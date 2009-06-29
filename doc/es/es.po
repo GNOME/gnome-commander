@@ -155,10 +155,10 @@ msgstr ""
 #: C/gnome-commander.xml:920(None)
 msgid ""
 "@@image: 'figures/gnome-commander_dialog_adv_rename.png'; "
-"md5=cc1ba8ce148ee9715af30343b5b9ee6f"
+"md5=c630e2f056870c18bf7115a2626bd404"
 msgstr ""
 "@@image: 'figures/gnome-commander_dialog_adv_rename.png'; "
-"md5=cc1ba8ce148ee9715af30343b5b9ee6f"
+"md5=c630e2f056870c18bf7115a2626bd404"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
