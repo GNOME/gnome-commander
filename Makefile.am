@@ -6,6 +6,7 @@ distuninstallcheck_listfiles = find . -type f -print | grep -v scrollkeeper
 
 EXTRA_DIST =                \
 	BUGS                    \
+	README.commits          \
 	autogen.sh              \
 	mkinstalldirs           \
 	intltool-*.in           \
