@@ -58,7 +58,7 @@ enum
     COL_AUTH,
     COL_NAME,
     COL_CON,
-    COL_FTP_CON,        // later: to be removed
+    COL_FTP_CON,        // FIXME: to be removed
     NUM_COLS
 } ;
 

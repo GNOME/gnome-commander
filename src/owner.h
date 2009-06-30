@@ -50,7 +50,7 @@ class GnomeCmdOwner
         {
             ID id;
             char *name;
-            T  data;
+            T data;
         };
 
         Entry *lookup(ID id)                    {  return (Entry *) g_hash_table_lookup (id_table, &id);      }

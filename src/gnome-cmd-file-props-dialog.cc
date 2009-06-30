@@ -155,9 +155,8 @@ static gboolean join_thread_func (GnomeCmdFilePropsDialogPrivate *data)
 
 static void on_dialog_destroy (GtkDialog *dialog, GnomeCmdFilePropsDialogPrivate *data)
 {
-    data->stop = TRUE;
-
-    g_timeout_add (1, (GSourceFunc) join_thread_func, data);
+    data->stop = TRUE;    
+    g_timeout_add (1, (GSourceFunc) join_thread_func, data);    
 }
 
 

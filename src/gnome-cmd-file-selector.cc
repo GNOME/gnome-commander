@@ -465,7 +465,7 @@ static gboolean do_scroll (GnomeCmdFileSelector *fs)
     gint row_count;
     guint offset;
     gint row_height;
-    GtkCList *clist = GTK_CLIST (fs->file_list());
+    GtkCList *clist = *fs->file_list();
 
     gdk_window_get_size (GTK_WIDGET (clist)->window, &w, &h);
 
@@ -499,7 +499,7 @@ static void autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
 {
     if (y < 0) return;
 
-    GtkCList *clist = GTK_CLIST (fs->file_list());
+    GtkCList *clist = *fs->file_list();
     // guint offset = (0-clist->voffset);
     gint w, h;
 
@@ -520,8 +520,7 @@ static void autoscroll_if_appropriate (GnomeCmdFileSelector *fs, gint x, gint y)
         if (fs->priv->autoscroll_timeout) return;
         fs->priv->autoscroll_dir = TRUE;
         fs->priv->autoscroll_y = y;
-        fs->priv->autoscroll_timeout =
-            g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) do_scroll, fs);
+        fs->priv->autoscroll_timeout = g_timeout_add (gnome_cmd_data.gui_update_rate, (GSourceFunc) do_scroll, fs);
     }
     else
     {
@@ -538,7 +537,7 @@ static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x,
 {
     gdk_drag_status (context, context->suggested_action, time);
 
-    GtkCList *clist = GTK_CLIST (fs->file_list());
+    GtkCList *clist = *fs->file_list();
 
     y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
 

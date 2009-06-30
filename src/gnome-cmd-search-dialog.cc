@@ -59,6 +59,7 @@ struct ProtectedData
     GMutex *mutex;
 };
 
+
 struct SearchData
 {
     const gchar *name_pattern;              // the pattern that file names should match to end up in the file list
@@ -85,6 +86,7 @@ struct SearchData
 
     gchar  *search_mem;                     // memory to search in the content of a file
 };
+
 
 struct SearchFileData
 {
@@ -424,8 +426,7 @@ static gboolean update_search_status_widgets (SearchData *data)
             gtk_widget_hide (data->dialog->priv->pbar);
         }
 
-        // Returning FALSE here stops the timeout callbacks
-        return FALSE;
+        return FALSE;    // Returning FALSE here stops the timeout callbacks
     }
 
     return TRUE;
