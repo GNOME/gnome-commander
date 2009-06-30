@@ -129,6 +129,12 @@ inline GnomeCmdOwner::HashTable<T,ID>::~HashTable()
     g_hash_table_destroy (name_table);
     if (entries)
     {
+        for (GList *i = entries; i; i = g_list_next (i))
+        {
+            Entry *e = (Entry *) i->data;
+            g_free (e->name);
+        }
+
         g_list_foreach (entries, (GFunc) g_free, NULL);
         g_list_free (entries);
     }
