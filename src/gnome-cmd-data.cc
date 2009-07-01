@@ -76,6 +76,17 @@ DICT<guint> gdk_key_names(GDK_VoidSymbol);
 DICT<guint> gdk_modifiers_names;
 
 
+void GnomeCmdData::Selection::reset()
+{
+    name.clear();
+    filename_pattern.clear();
+    syntax = Filter::TYPE_REGEX;
+    recursive = TRUE;
+    text_pattern.clear();
+    match_case = FALSE;
+}
+
+
 void GnomeCmdData::AdvrenameConfig::Profile::reset()
 {
     name.clear();
@@ -806,20 +817,6 @@ inline void GnomeCmdData::save_cmdline_history()
 }
 
 
-inline void GnomeCmdData::save_search_defaults()
-{
-    gnome_cmd_data_set_int ("/search-history/width", search_defaults.width);
-    gnome_cmd_data_set_int ("/search-history/height", search_defaults.height);
-
-    gnome_cmd_data_set_string_history ("/search-history/name_pattern%d", search_defaults.name_patterns.ents);
-    gnome_cmd_data_set_string_history ("/search-history/content_pattern%d", search_defaults.content_patterns.ents);
-    gnome_cmd_data_set_string_history ("/search-history/directory%d", search_defaults.directories.ents);
-
-    gnome_cmd_data_set_bool ("/search-history/recursive", search_defaults.recursive);
-    gnome_cmd_data_set_bool ("/search-history/case_sens", search_defaults.case_sens);
-}
-
-
 inline void GnomeCmdData::save_intviewer_defaults()
 {
     gnome_cmd_data_set_string_history ("/internal_viewer/text_pattern%d", intviewer_defaults.text_patterns.ents);
@@ -927,8 +924,8 @@ inline void GnomeCmdData::load_search_defaults()
 
     search_defaults.width = gnome_cmd_data_get_int ("/search-history/width", 640);
     search_defaults.height = gnome_cmd_data_get_int ("/search-history/height", 400);
-    search_defaults.recursive = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE);
-    search_defaults.case_sens = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
+    search_defaults.default_profile.recursive = gnome_cmd_data_get_bool ("/search-history/recursive", TRUE);
+    search_defaults.default_profile.match_case = gnome_cmd_data_get_bool ("/search-history/case_sens", FALSE);
 }
 
 
@@ -1744,7 +1741,6 @@ void GnomeCmdData::save()
     save_connections ("connections");
     save_devices ("devices");
     save_fav_apps ("fav-apps");
-    save_search_defaults();
     save_intviewer_defaults();
     gnome_cmd_xml_config_save (xml_cfg_path, *this);
     save_local_bookmarks();

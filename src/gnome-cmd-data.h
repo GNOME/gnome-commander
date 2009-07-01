@@ -50,20 +50,36 @@ struct GnomeCmdData
 
     enum {SEARCH_HISTORY_SIZE=10, ADVRENAME_HISTORY_SIZE=10, INTVIEWER_HISTORY_SIZE=16};
 
+    struct Selection
+    {
+        std::string name;
+        std::string filename_pattern;
+        Filter::Type syntax;
+        gboolean recursive;
+        std::string text_pattern;
+        gboolean match_case;
+
+        void reset();
+
+        Selection(): syntax(Filter::TYPE_REGEX),
+                     recursive(TRUE),
+                     match_case(FALSE)                          {}
+    };
+
     struct SearchConfig
     {
+        gint width, height;
+
+        Selection default_profile;
+
         History name_patterns;
         History directories;
         History content_patterns;
-        gboolean recursive;
-        gboolean case_sens;
-        gint width, height;
 
-        SearchConfig(): name_patterns(SEARCH_HISTORY_SIZE),
+        SearchConfig(): width(600), height(400),
+                        name_patterns(SEARCH_HISTORY_SIZE),
                         directories(SEARCH_HISTORY_SIZE),
-                        content_patterns(SEARCH_HISTORY_SIZE),
-                        recursive(TRUE), case_sens(FALSE),
-                        width(600), height(400)                 {}
+                        content_patterns(SEARCH_HISTORY_SIZE)   {}
     };
 
     struct AdvrenameConfig
