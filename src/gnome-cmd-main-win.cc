@@ -442,14 +442,14 @@ static void create_buttonbar (GnomeCmdMainWin *mw)
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
     mw->priv->quit_btn = add_buttonbar_button(_("F10 Quit"), main_win, "quit_btn", mw->priv->accel_group, 0);
 
-    gtk_signal_connect (GTK_OBJECT (mw->priv->view_btn), "clicked", GTK_SIGNAL_FUNC (on_view_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->edit_btn), "clicked", GTK_SIGNAL_FUNC (on_edit_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->copy_btn), "clicked", GTK_SIGNAL_FUNC (on_copy_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->move_btn), "clicked", GTK_SIGNAL_FUNC (on_move_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->mkdir_btn), "clicked", GTK_SIGNAL_FUNC (on_mkdir_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->delete_btn), "clicked", GTK_SIGNAL_FUNC (on_delete_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->find_btn), "clicked", GTK_SIGNAL_FUNC (on_search_clicked), mw);
-    gtk_signal_connect (GTK_OBJECT (mw->priv->quit_btn), "clicked", GTK_SIGNAL_FUNC (on_quit_clicked), mw);
+    g_signal_connect (G_OBJECT (mw->priv->view_btn), "clicked", G_CALLBACK (on_view_clicked), mw);
+    g_signal_connect (G_OBJECT (mw->priv->edit_btn), "clicked", G_CALLBACK (on_edit_clicked), mw);
+    g_signal_connect (G_OBJECT (mw->priv->copy_btn), "clicked", G_CALLBACK (on_copy_clicked), mw);
+    g_signal_connect (G_OBJECT (mw->priv->move_btn), "clicked", G_CALLBACK (on_move_clicked), mw);
+    g_signal_connect (G_OBJECT (mw->priv->mkdir_btn), "clicked", G_CALLBACK (on_mkdir_clicked), mw);
+    g_signal_connect (G_OBJECT (mw->priv->delete_btn), "clicked", G_CALLBACK (on_delete_clicked), mw);
+    g_signal_connect (G_OBJECT (mw->priv->find_btn), "clicked", G_CALLBACK (on_search_clicked), mw);
+    g_signal_connect (G_OBJECT (mw->priv->quit_btn), "clicked", G_CALLBACK (on_quit_clicked), mw);
 }
 
 

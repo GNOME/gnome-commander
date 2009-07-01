@@ -225,10 +225,8 @@ static void init (GnomeCmdChmodDialog *dialog)
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK,
                                  GTK_SIGNAL_FUNC (on_ok), dialog);
 
-    gtk_signal_connect (GTK_OBJECT (dialog->priv->recurse_check), "toggled",
-                        GTK_SIGNAL_FUNC (on_toggle_recurse), chmod_dialog);
-    gtk_signal_connect (GTK_OBJECT (dialog->priv->chmod_component), "perms-changed",
-                        GTK_SIGNAL_FUNC (on_perms_changed), chmod_dialog);
+    g_signal_connect (dialog->priv->recurse_check, "toggled", G_CALLBACK (on_toggle_recurse), chmod_dialog);
+    g_signal_connect (dialog->priv->chmod_component, "perms-changed", G_CALLBACK (on_perms_changed), chmod_dialog);
 }
 
 

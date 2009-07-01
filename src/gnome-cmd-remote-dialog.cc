@@ -498,7 +498,7 @@ static void init (GnomeCmdRemoteDialog *ftp_dialog)
     ftp_dialog->priv->connect_button = button;
     gtk_widget_set_sensitive (button, !empty_view);
 
-    gtk_signal_connect (GTK_OBJECT (ftp_dialog->priv->connection_list), "row-activated", GTK_SIGNAL_FUNC (on_list_row_activated), dialog);
+    g_signal_connect (ftp_dialog->priv->connection_list, "row-activated", G_CALLBACK (on_list_row_activated), dialog);
 
     GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
 

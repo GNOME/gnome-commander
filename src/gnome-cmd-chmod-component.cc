@@ -137,8 +137,7 @@ static void init (GnomeCmdChmodComponent *comp)
         for (gint x=0; x<3; x++)
         {
             comp->priv->check_boxes[y][x] = create_check (GTK_WIDGET (comp), check_text[x], "check");
-            gtk_signal_connect (GTK_OBJECT (comp->priv->check_boxes[y][x]), "toggled",
-                                GTK_SIGNAL_FUNC (on_check_toggled), comp);
+            g_signal_connect (comp->priv->check_boxes[y][x], "toggled", G_CALLBACK (on_check_toggled), comp);
             table_add (GTK_WIDGET (table), comp->priv->check_boxes[y][x], x+1, y, GTK_FILL);
         }
     }

@@ -661,7 +661,7 @@ GtkWidget *gnome_cmd_file_props_dialog_create (GnomeCmdFile *f)
     // data->thread = 0;
 
     GtkWidget *dialog = gnome_cmd_dialog_new (_("File Properties"));
-    gtk_signal_connect (GTK_OBJECT (dialog), "destroy", (GtkSignalFunc) on_dialog_destroy, data);
+    g_signal_connect (dialog, "destroy", G_CALLBACK (on_dialog_destroy), data);
     gtk_window_set_resizable(GTK_WINDOW (dialog), TRUE);
 
     GtkWidget *notebook = gtk_notebook_new ();
