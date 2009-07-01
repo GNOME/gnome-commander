@@ -1361,7 +1361,6 @@ void GnomeCmdData::load()
 
     load_cmdline_history();
     //load_dir_history ();
-    load_search_defaults();
 
     if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
     {
@@ -1380,6 +1379,8 @@ void GnomeCmdData::load()
             advrename_defaults.profiles.push_back(p);
         }
 #endif
+
+        load_search_defaults();
     }
 
     load_intviewer_defaults();

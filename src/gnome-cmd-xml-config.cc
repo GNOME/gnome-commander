@@ -338,13 +338,24 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_CASECONVERSION,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_PROFILE_TRIMBLANKS,
       XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY,
-      XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE};
+      XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE,
+      XML_GNOMECOMMANDER_SEARCHTOOL,
+      XML_GNOMECOMMANDER_SEARCHTOOL_WINDOWSIZE,
+      XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE,
+      XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATTERN,
+      XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATH,
+      XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_TEXT,
+      XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY,
+      XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATTERN,
+      XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH,
+      XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT};
 
 
 static DICT<guint> xml_elem_names(XML_ELEM_NOT_FOUND);
 static stack<string> xml_paths;
 
 static GnomeCmdData::AdvrenameConfig::Profile xml_adv_profile;
+static GnomeCmdData::Selection xml_search_profile;
 
 
 static bool is_default(GnomeCmdData::AdvrenameConfig::Profile &profile)
@@ -439,6 +450,52 @@ static void xml_start(GMarkupParseContext *context,
                 xml_adv_profile.trim_blanks = atoi(param1);
             break;
 
+        case XML_GNOMECOMMANDER_SEARCHTOOL_WINDOWSIZE:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "width", &param1,
+                                             G_MARKUP_COLLECT_STRING, "height", &param2,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                cfg->search_defaults.width = atoi(param1);
+                cfg->search_defaults.height = atoi(param2);
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "name", &param1,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                xml_search_profile.reset();
+                xml_search_profile.name = param1;
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATTERN:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_STRING, "syntax", &param1,
+                                             G_MARKUP_COLLECT_BOOLEAN, "match-case", &param4,
+                                             G_MARKUP_COLLECT_INVALID))
+            {
+                xml_search_profile.syntax = param1=="regex" ? Filter::TYPE_REGEX : Filter::TYPE_FNMATCH;
+                //  FIXME:  xml_search_profile.? = param4;
+            }
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATH:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_BOOLEAN, "recursive", &param4,
+                                             G_MARKUP_COLLECT_INVALID))
+                xml_search_profile.recursive = param4;
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_TEXT:
+            if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                             G_MARKUP_COLLECT_BOOLEAN, "match-case", &param4,
+                                             G_MARKUP_COLLECT_INVALID))
+                xml_search_profile.match_case = param4;
+            break;
+
         default:
             break;
     }
@@ -476,6 +533,17 @@ static void xml_end (GMarkupParseContext *context,
             cfg->advrename_defaults.templates.reverse();
             break;
 
+        case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE:
+            if (xml_search_profile.name=="Default")
+                cfg->search_defaults.default_profile = xml_search_profile;
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY:
+            cfg->search_defaults.name_patterns.reverse();
+            cfg->search_defaults.directories.reverse();
+            cfg->search_defaults.content_patterns.reverse();
+            break;
+
         default:
             break;
     }
@@ -500,6 +568,26 @@ static void xml_end (GMarkupParseContext *context,
 
         case XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE:
             cfg->advrename_defaults.templates.add(text);
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATTERN:
+            xml_search_profile.filename_pattern = text;
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_TEXT:
+            xml_search_profile.text_pattern = text;
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATTERN:
+            cfg->search_defaults.name_patterns.add(text);
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH:
+            cfg->search_defaults.directories.add(text);
+            break;
+
+        case XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT:
+            cfg->search_defaults.content_patterns.add(text);
             break;
 
         default:
@@ -531,7 +619,17 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY, "/GnomeCommander/AdvancedRenameTool/History"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/History/Template"},
                         {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY, "/GnomeCommander/AdvancedRenameTool/TemplateHistory"},                      //  FIXME: for compatibility, to be removed after 1.2.8 release
-                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/TemplateHistory/Template"}     //  FIXME: for compatibility, to be removed after 1.2.8 release
+                        {XML_GNOMECOMMANDER_ADVANCEDRENAMETOOL_HISTORY_TEMPLATE, "/GnomeCommander/AdvancedRenameTool/TemplateHistory/Template"},    //  FIXME: for compatibility, to be removed after 1.2.8 release
+                        {XML_GNOMECOMMANDER_SEARCHTOOL, "/GnomeCommander/SearchTool"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_WINDOWSIZE, "/GnomeCommander/SearchTool/WindowSize"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE, "/GnomeCommander/SearchTool/Profile"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATTERN, "/GnomeCommander/SearchTool/Profile/Pattern"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_PATH, "/GnomeCommander/SearchTool/Profile/Path"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_PROFILE_TEXT, "/GnomeCommander/SearchTool/Profile/Text"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY, "/GnomeCommander/SearchTool/History"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATTERN, "/GnomeCommander/SearchTool/History/Pattern"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_PATH, "/GnomeCommander/SearchTool/History/Path"},
+                        {XML_GNOMECOMMANDER_SEARCHTOOL_HISTORY_TEXT, "/GnomeCommander/SearchTool/History/Text"}
                        };
 
     load_data (xml_elem_names, xml_elem_data, G_N_ELEMENTS(xml_elem_data));
