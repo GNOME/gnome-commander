@@ -160,7 +160,6 @@ struct GnomeCmdData
     void save_auto_load_plugins();
     void save_cmdline_history();
     void save_local_bookmarks();
-    void save_search_defaults();
     void save_intviewer_defaults();
     void save_smb_bookmarks();
 

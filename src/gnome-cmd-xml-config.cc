@@ -643,6 +643,34 @@ void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg)
 
     fputs("\t\t</History>\n", f);
     fputs("\t</AdvancedRenameTool>\n", f);
+
+    const gchar *val;
+
+    fputs("\t<SearchTool>\n", f);
+    fprintf (f, "\t\t<WindowSize width=\"%i\" height=\"%i\" />\n", cfg.search_defaults.width, cfg.search_defaults.height);
+    fputs("\t\t<Profile name=\"Default\">\n", f);
+    val = cfg.search_defaults.name_patterns.front();
+    fprintf_escaped (f, "\t\t\t<Pattern syntax=\"%s\" match-case=\"0\">%s</Pattern>\n", cfg.search_defaults.default_profile.syntax == Filter::TYPE_REGEX ? "regex" : "shell", val ?  val : "");
+    fprintf (f, "\t\t\t<Path recursive=\"%i\" />\n", cfg.search_defaults.default_profile.recursive);
+    if (TRUE)   //  FIXME:  if checked 'Find text'
+    {
+        val = cfg.search_defaults.content_patterns.front();
+        fprintf_escaped (f, "\t\t\t<Text match-case=\"%i\">%s</Text>\n", cfg.search_defaults.default_profile.match_case, val ? val : "");
+    }
+    fputs("\t\t</Profile>\n", f);
+    fputs("\t\t<History>\n", f);
+
+    for (GList *i=cfg.search_defaults.name_patterns.ents; i; i=i->next)
+        fprintf_escaped (f, "\t\t\t<Pattern>%s</Pattern>\n", (const gchar *) i->data);
+
+    for (GList *i=cfg.search_defaults.directories.ents; i; i=i->next)
+        fprintf_escaped (f, "\t\t\t<Path>%s</Path>\n", (const gchar *) i->data);
+
+    for (GList *i=cfg.search_defaults.content_patterns.ents; i; i=i->next)
+        fprintf_escaped (f, "\t\t\t<Text>%s</Text>\n", (const gchar *) i->data);
+
+    fputs("\t\t</History>\n", f);
+    fputs("\t</SearchTool>\n", f);
     fputs("</GnomeCommander>\n", f);
     fputs("", f);
 
