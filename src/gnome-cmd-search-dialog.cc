@@ -517,8 +517,8 @@ static gboolean start_search (GnomeCmdSearchDialog *dialog)
     data->case_sens = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check));
 
     // Save default settings
-    gnome_cmd_data.search_defaults.case_sens = data->case_sens;
-    gnome_cmd_data.search_defaults.recursive = data->recurse;
+    gnome_cmd_data.search_defaults.default_profile.match_case = data->case_sens;
+    gnome_cmd_data.search_defaults.default_profile.recursive = data->recurse;
     gnome_cmd_data.search_defaults.name_patterns.add(data->name_pattern);
     gnome_cmd_data.search_defaults.directories.add(data->dir);
     if (data->content_search)
@@ -845,7 +845,7 @@ static void init (GnomeCmdSearchDialog *dialog)
 
     // Recurse check
     dialog->priv->recurse_check = create_check_with_mnemonic (window, _("Search _recursively"), "recurse_check");
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.recursive);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->recurse_check), defaults.default_profile.recursive);
     gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->recurse_check, FALSE, FALSE, 0);
 
 
@@ -880,7 +880,7 @@ static void init (GnomeCmdSearchDialog *dialog)
     gtk_table_attach (GTK_TABLE (table), dialog->priv->case_check, 1, 2, 4, 5,
                       (GtkAttachOptions) (GTK_FILL),
                       (GtkAttachOptions) (0), 0, 0);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check), defaults.case_sens);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->case_check), defaults.default_profile.match_case);
 
     dialog->priv->help_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_HELP, GTK_SIGNAL_FUNC (on_help), dialog);
     dialog->priv->close_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_SIGNAL_FUNC (on_close), dialog);
