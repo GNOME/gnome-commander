@@ -1077,7 +1077,14 @@ void command_execute (GtkMenuItem *menuitem, gpointer command)
 
     DEBUG ('g', "running: %s\n", cmd.c_str());
 
-    gnome_execute_shell (dir && gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, cmd.c_str());
+    gint argc;
+    gchar **argv;
+    GError *error = NULL;
+
+    g_shell_parse_argv (cmd.c_str(), &argc, &argv, NULL);
+    if (!g_spawn_async (gnome_cmd_dir_is_local (dir) ? dir_path.c_str() : NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error))
+        gnome_cmd_error_message (_("Unable to execute command."), error);
+    g_strfreev (argv);
 
     g_list_free (sfl);
 }
