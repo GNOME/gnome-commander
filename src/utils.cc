@@ -1268,7 +1268,7 @@ void edit_mimetypes (const gchar *mime_type, gboolean blocking)
     if (blocking)
         system (cmd);
     else
-        run_command (cmd, FALSE);
+        run_command (cmd);
     g_free (cmd);
 }
 

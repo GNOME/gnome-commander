@@ -41,7 +41,7 @@ void warn_print (const gchar *fmt, ...);
 
 void run_command_indir (const gchar *command, const gchar *dir, gboolean term);
 
-inline void run_command (const gchar *command, gboolean term)
+inline void run_command (const gchar *command, gboolean term=FALSE)
 {
     run_command_indir (command, NULL, term);
 }

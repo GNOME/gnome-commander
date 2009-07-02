@@ -1697,7 +1697,7 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     g_free (escaped_filepath);
 
     if (cmd)
-        run_command (cmd, FALSE);
+        run_command (cmd);
 
     return TRUE;
 }
