@@ -96,6 +96,8 @@ static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     gchar *target_name = gtk_object_get_data (GTK_OBJECT (item), "target_name");
     gchar *target_dir = gtk_object_get_data (GTK_OBJECT (item), "target_dir");
     gchar *cmd, *t;
+    guint argc;
+    gchar **argv;
 
     if (target_dir==NULL)
     {
@@ -113,7 +115,9 @@ static void on_extract_cwd (GtkMenuItem *item, GnomeVFSURI *uri)
     cmd = g_strdup_printf ("file-roller %s %s", target_arg, archive_arg);
 
     t = g_path_get_dirname (local_path);
-    gnome_execute_shell (t, cmd);
+    g_shell_parse_argv (cmd, &argc, &argv, NULL);
+    g_spawn_async (t, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
+    g_strfreev (argv);
     g_free (t);
 
     g_free (target_arg);
@@ -132,6 +136,8 @@ static void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     gchar *cmd = g_strdup_printf ("file-roller %s ", arg);
     gchar *active_dir_path, *uri_str;
     GList *files;
+    guint argc;
+    gchar **argv;
 
     for (files = state->active_dir_selected_files; files; files = files->next)
     {
@@ -150,7 +156,9 @@ static void do_add_to_archive (const gchar *name, GnomeCmdState *state)
     g_printerr ("add: %s\n", cmd);
     uri_str = gnome_vfs_uri_to_string (state->active_dir_uri, 0);
     active_dir_path = gnome_vfs_get_local_path_from_uri (uri_str);
-    gnome_execute_shell (active_dir_path, cmd);
+    g_shell_parse_argv (cmd, &argc, &argv, NULL);
+    g_spawn_async (active_dir_path, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
+    g_strfreev (argv);
 
     g_free (cmd);
     g_free (uri_str);
