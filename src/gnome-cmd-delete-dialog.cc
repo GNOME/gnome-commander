@@ -133,7 +133,7 @@ inline void create_delete_progress_win (DeleteData *data)
     gtk_window_set_policy (GTK_WINDOW (data->progwin), FALSE, FALSE, FALSE);
     gtk_window_set_position (GTK_WINDOW (data->progwin), GTK_WIN_POS_CENTER);
     gtk_widget_set_size_request (GTK_WIDGET (data->progwin), 300, -1);
-    gtk_signal_connect (GTK_OBJECT (data->progwin), "destroy-event", (GtkSignalFunc) on_progwin_destroy, data);
+    g_signal_connect (data->progwin, "destroy-event", G_CALLBACK (on_progwin_destroy), data);
 
     vbox = create_vbox (data->progwin, FALSE, 6);
     gtk_container_add (GTK_CONTAINER (data->progwin), vbox);

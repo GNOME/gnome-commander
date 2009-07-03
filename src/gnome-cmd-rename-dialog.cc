@@ -130,8 +130,8 @@ static void class_init (GnomeCmdRenameDialogClass *klass)
 static void init (GnomeCmdRenameDialog *dialog)
 {
     dialog->priv = g_new0 (GnomeCmdRenameDialogPrivate, 1);
-    gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event", GTK_SIGNAL_FUNC (on_dialog_keypressed), NULL);
-    gtk_signal_connect (GTK_OBJECT (dialog), "focus-out-event", GTK_SIGNAL_FUNC (on_focus_out), NULL);
+    g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_dialog_keypressed), NULL);
+    g_signal_connect (dialog, "focus-out-event", G_CALLBACK (on_focus_out), NULL);
 }
 
 

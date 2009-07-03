@@ -435,7 +435,7 @@ void plugin_manager_show ()
     gnome_cmd_dialog_add_expanding_category (GNOME_CMD_DIALOG (dialog), hbox);
 
     avail_list = lookup_widget (avail_list, "avail_list");
-    gtk_signal_connect (GTK_OBJECT (avail_list), "unselect-row", GTK_SIGNAL_FUNC (on_plugin_unselected), dialog);
+    g_signal_connect (avail_list, "unselect-row", G_CALLBACK (on_plugin_unselected), dialog);
 
     if (!exec_pixmap)
     {

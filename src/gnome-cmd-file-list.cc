@@ -268,7 +268,7 @@ inline void show_selpat_dialog (GnomeCmdFileList *fl, gboolean mode)
     GtkWidget *dialog = gnome_cmd_patternsel_dialog_new (fl, mode);
 
     gtk_widget_ref (dialog);
-    gtk_signal_connect (GTK_OBJECT (dialog), "hide", GTK_SIGNAL_FUNC (on_selpat_hide), fl);
+    g_signal_connect (dialog, "hide", G_CALLBACK (on_selpat_hide), fl);
     gtk_widget_show (dialog);
 
     fl->priv->selpat_dialog = dialog;
@@ -1999,8 +1999,7 @@ void gnome_cmd_file_list_show_quicksearch (GnomeCmdFileList *fl, gchar c)
         gtk_editable_set_position (GTK_EDITABLE (popup->entry), 1);
     }
 
-    gtk_signal_connect (GTK_OBJECT (fl->priv->quicksearch_popup), "hide",
-                        GTK_SIGNAL_FUNC (on_quicksearch_popup_hide), fl);
+    g_signal_connect (fl->priv->quicksearch_popup, "hide", G_CALLBACK (on_quicksearch_popup_hide), fl);
 }
 
 
