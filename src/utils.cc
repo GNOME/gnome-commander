@@ -216,9 +216,9 @@ gint run_simple_dialog (GtkWidget *parent, gboolean ignore_close_box,
 
     // Allow close.
     if (ignore_close_box)
-        gtk_signal_connect (GTK_OBJECT (dialog), "delete-event", GTK_SIGNAL_FUNC (delete_event_callback), NULL);
+        g_signal_connect (dialog, "delete-event", G_CALLBACK (delete_event_callback), NULL);
     else
-        gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event", GTK_SIGNAL_FUNC (on_run_dialog_keypress), dialog);
+        g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_run_dialog_keypress), dialog);
 
     gtk_window_set_wmclass (GTK_WINDOW (dialog), "dialog", "Eel");
 
@@ -607,7 +607,7 @@ void mime_exec_single (GnomeCmdFile *f)
             dldata->dialog = dialog;
             dldata->args = args;
 
-            gtk_signal_connect (GTK_OBJECT (dialog), "response", GTK_SIGNAL_FUNC (on_tmp_download_response), dldata);
+            g_signal_connect (dialog, "response", G_CALLBACK (on_tmp_download_response), dldata);
             gtk_widget_show (dialog);
             g_free (msg);
         }

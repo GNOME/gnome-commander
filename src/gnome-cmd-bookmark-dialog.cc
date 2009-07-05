@@ -497,8 +497,7 @@ static void init (GnomeCmdBookmarkDialog *in_dialog)
     gtk_window_set_default_size (GTK_WINDOW (dialog), bookmark_dlg_width, bookmark_dlg_height);
     gtk_window_set_resizable (GTK_WINDOW (dialog), TRUE);
     gtk_window_set_policy (GTK_WINDOW (dialog), FALSE, TRUE, FALSE);
-    gtk_signal_connect (GTK_OBJECT (dialog), "size-allocate",
-                        GTK_SIGNAL_FUNC (on_dialog_size_allocate), dialog);
+    g_signal_connect (dialog, "size-allocate", G_CALLBACK (on_dialog_size_allocate), dialog);
 
     vbox = create_vbox (dialog, FALSE, 12);
     cat = create_category (dialog, vbox, _("Bookmark Groups"));
@@ -558,16 +557,16 @@ static void init (GnomeCmdBookmarkDialog *in_dialog)
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
                                  GTK_SIGNAL_FUNC (on_close), dialog);
 
-    gtk_signal_connect (GTK_OBJECT (dialog), "key-press-event",
-                        GTK_SIGNAL_FUNC (on_dialog_keypress), dialog);
-    gtk_signal_connect_after (GTK_OBJECT (in_dialog->priv->dir_list), "scroll-vertical",
-                              GTK_SIGNAL_FUNC (on_scroll_vertical), NULL);
-    gtk_signal_connect (GTK_OBJECT (in_dialog->priv->dir_list), "unselect-row",
-                        GTK_SIGNAL_FUNC (on_dir_unselected), dialog);
-    gtk_signal_connect (GTK_OBJECT (in_dialog->priv->dir_list), "resize-column",
-                        GTK_SIGNAL_FUNC (on_column_resize), dialog);
-    gtk_signal_connect (GTK_OBJECT (in_dialog->priv->combo), "item-selected",
-                        GTK_SIGNAL_FUNC (on_group_combo_item_selected), dialog);
+    g_signal_connect (dialog, "key-press-event",
+                      G_CALLBACK (on_dialog_keypress), dialog);
+    g_signal_connect_after (G_OBJECT (in_dialog->priv->dir_list), "scroll-vertical",
+                            G_CALLBACK (on_scroll_vertical), NULL);
+    g_signal_connect (in_dialog->priv->dir_list, "unselect-row",
+                      G_CALLBACK (on_dir_unselected), dialog);
+    g_signal_connect (in_dialog->priv->dir_list, "resize-column",
+                      G_CALLBACK (on_column_resize), dialog);
+    g_signal_connect (in_dialog->priv->combo, "item-selected",
+                      G_CALLBACK (on_group_combo_item_selected), dialog);
 
     gtk_widget_grab_focus (in_dialog->priv->dir_list);
 }

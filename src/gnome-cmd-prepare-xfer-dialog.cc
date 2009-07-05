@@ -311,8 +311,7 @@ static void init (GnomeCmdPrepareXferDialog *dialog)
     gtk_box_pack_start (GTK_BOX (dest_dir_vbox), dest_dir_fileentry, FALSE, FALSE, 0);
     dialog->dest_dir_entry = gnome_file_entry_gtk_entry (GNOME_FILE_ENTRY (dest_dir_fileentry));
 
-    gtk_signal_connect (GTK_OBJECT (dialog->dest_dir_entry), "key-press-event",
-                        GTK_SIGNAL_FUNC (on_dest_dir_entry_keypressed), dialog);
+    g_signal_connect (dialog->dest_dir_entry, "key-press-event", G_CALLBACK (on_dest_dir_entry_keypressed), dialog);
 
     // options
     GtkWidget *options_hbox = create_hbox (GTK_WIDGET (dialog), TRUE, 6);
@@ -332,8 +331,8 @@ static void init (GnomeCmdPrepareXferDialog *dialog)
     dialog->cancel_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CANCEL, NULL, NULL);
     dialog->ok_button = gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_OK, NULL, NULL);
 
-    gtk_signal_connect_after (GTK_OBJECT (dialog->cancel_button), "clicked", GTK_SIGNAL_FUNC (on_cancel), dialog);
-    gtk_signal_connect_after (GTK_OBJECT (dialog->ok_button), "clicked", GTK_SIGNAL_FUNC (on_ok), dialog);
+    g_signal_connect_after (G_OBJECT (dialog->cancel_button), "clicked", G_CALLBACK (on_cancel), dialog);
+    g_signal_connect_after (G_OBJECT (dialog->ok_button), "clicked", G_CALLBACK (on_ok), dialog);
 
     gtk_widget_set_size_request (GTK_WIDGET (dialog), 500, -1);
 }

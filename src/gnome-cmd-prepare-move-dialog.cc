@@ -146,7 +146,7 @@ void gnome_cmd_prepare_move_dialog_show (GnomeCmdFileSelector *from, GnomeCmdFil
 
     // Connect signals
 
-    gtk_signal_connect (GTK_OBJECT (data->dialog->ok_button), "clicked", GTK_SIGNAL_FUNC (on_ok), data);
+    g_signal_connect (data->dialog->ok_button, "clicked", G_CALLBACK (on_ok), data);
 
 
     // Show the dialog
