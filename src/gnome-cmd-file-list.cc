@@ -690,7 +690,7 @@ inline void init_dnd (GnomeCmdFileList *fl)
     gtk_drag_source_set (*fl, GDK_BUTTON1_MASK, drag_types, G_N_ELEMENTS (drag_types),
                          (GdkDragAction) (GDK_ACTION_LINK | GDK_ACTION_MOVE | GDK_ACTION_COPY | GDK_ACTION_ASK | GDK_ACTION_DEFAULT));
 
-    gtk_signal_connect (*fl, "drag-data-get", GTK_SIGNAL_FUNC (drag_data_get), fl);
+    g_signal_connect (fl, "drag-data-get", G_CALLBACK (drag_data_get), fl);
 }
 
 
@@ -1330,16 +1330,16 @@ static void init (GnomeCmdFileList *fl)
 
     init_dnd (fl);
 
-    gtk_signal_connect_after (*fl, "scroll-vertical", GTK_SIGNAL_FUNC (on_scroll_vertical), fl);
-    gtk_signal_connect (*fl, "click-column", GTK_SIGNAL_FUNC (on_column_clicked), fl);
+    g_signal_connect_after (fl, "scroll-vertical", G_CALLBACK (on_scroll_vertical), fl);
+    g_signal_connect (fl, "click-column", G_CALLBACK (on_column_clicked), fl);
 
-    gtk_signal_connect (*fl, "button-press-event", GTK_SIGNAL_FUNC (on_button_press), fl);
-    gtk_signal_connect (*fl, "button-release-event", GTK_SIGNAL_FUNC (on_button_release), fl);
-    gtk_signal_connect (*fl, "motion-notify-event", GTK_SIGNAL_FUNC (on_motion_notify), fl);
+    g_signal_connect (fl, "button-press-event", G_CALLBACK (on_button_press), fl);
+    g_signal_connect (fl, "button-release-event", G_CALLBACK (on_button_release), fl);
+    g_signal_connect (fl, "motion-notify-event", G_CALLBACK (on_motion_notify), fl);
 
-    gtk_signal_connect_after (*fl, "realize", GTK_SIGNAL_FUNC (on_realize), fl);
-    gtk_signal_connect (*fl, "file-clicked", GTK_SIGNAL_FUNC (on_file_clicked), fl);
-    gtk_signal_connect (*fl, "file-released", GTK_SIGNAL_FUNC (on_file_released), fl);
+    g_signal_connect_after (fl, "realize", G_CALLBACK (on_realize), fl);
+    g_signal_connect (fl, "file-clicked", G_CALLBACK (on_file_clicked), fl);
+    g_signal_connect (fl, "file-released", G_CALLBACK (on_file_released), fl);
 }
 
 
@@ -2051,37 +2051,37 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_Page_Up:
             case GDK_KP_Page_Up:
                 priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_PAGE_BACKWARD, 0.0, NULL);
+                g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_PAGE_BACKWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Page_Down:
             case GDK_KP_Page_Down:
                 priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_PAGE_FORWARD, 0.0, NULL);
+                g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_PAGE_FORWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Up:
             case GDK_KP_Up:
                 priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, NULL);
+                g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_STEP_BACKWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Down:
             case GDK_KP_Down:
                 priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
+                g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
                 return FALSE;
 
             case GDK_Home:
             case GDK_KP_Home:
                 priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_JUMP, 0.0);
+                g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_JUMP, 0.0);
                 return TRUE;
 
             case GDK_End:
             case GDK_KP_End:
                 priv->shift_down = TRUE;
-                gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_JUMP, 1.0);
+                g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_JUMP, 1.0);
                 return TRUE;
         }
     }
@@ -2146,7 +2146,7 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_Insert:
             case GDK_KP_Insert:
                 toggle();
-                gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
+                g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_STEP_FORWARD, 0.0, NULL);
                 return TRUE;
 
             case GDK_KP_Page_Up:
@@ -2167,12 +2167,12 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
 
             case GDK_Home:
             case GDK_KP_Home:
-                gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_JUMP, 0.0);
+                g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_JUMP, 0.0);
                 return TRUE;
 
             case GDK_End:
             case GDK_KP_End:
-                gtk_signal_emit_by_name (GTK_OBJECT (this), "scroll-vertical", GTK_SCROLL_JUMP, 1.0);
+                g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_JUMP, 1.0);
                 return TRUE;
 
             case GDK_Delete:
