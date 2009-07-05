@@ -179,6 +179,8 @@ struct GnomeCmdData
     Filter::Type                 filter_type;
     FilterSettings               filter_settings;
 
+    std::vector<Selection>       selections;
+
     SearchConfig                 search_defaults;
     AdvrenameConfig              advrename_defaults;
     IntViewerConfig              intviewer_defaults;
