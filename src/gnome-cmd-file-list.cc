@@ -19,6 +19,7 @@
 */
 
 #include <config.h>
+#include <glib-object.h>
 #include <regex.h>
 
 #include "gnome-cmd-includes.h"
@@ -73,8 +74,6 @@ GtkTargetEntry drag_types [] = {
     { TARGET_TEXT_PLAIN_TYPE, 0, TARGET_TEXT_PLAIN },
     { TARGET_URL_TYPE, 0, TARGET_URL }
 };
-
-static GnomeCmdCListClass *parent_class = NULL;
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
@@ -268,6 +267,47 @@ inline FileFormatData::~FileFormatData()
 }
 
 
+G_DEFINE_TYPE (GnomeCmdFileList, gnome_cmd_file_list, GNOME_CMD_TYPE_CLIST)
+
+
+static void
+g_cclosure_marshal_VOID__POINTER_POINTER (GClosure     *closure,
+                                          GValue       *return_value G_GNUC_UNUSED,
+                                          guint         n_param_values,
+                                          const GValue *param_values,
+                                          gpointer      invocation_hint G_GNUC_UNUSED,
+                                          gpointer      marshal_data)
+{
+    register GCClosure *cc = (GCClosure *) closure;
+    register gpointer data1, data2;
+
+    g_return_if_fail (n_param_values == 3);
+
+    if (G_CCLOSURE_SWAP_DATA (closure))
+    {
+        data1 = closure->data;
+        data2 = g_value_peek_pointer (param_values + 0);
+    }
+    else
+    {
+        data1 = g_value_peek_pointer (param_values + 0);
+        data2 = closure->data;
+    }
+
+    typedef void (*GMarshalFunc_VOID__POINTER_POINTER) (gpointer data1,
+                                                        gpointer arg_1,
+                                                        gpointer arg_2,
+                                                        gpointer data2);
+
+    register GMarshalFunc_VOID__POINTER_POINTER callback = (GMarshalFunc_VOID__POINTER_POINTER) (marshal_data ? marshal_data : cc->callback);
+
+    callback (data1,
+              g_value_get_pointer (param_values + 1),
+              g_value_get_pointer (param_values + 2),
+              data2);
+}
+
+
 static void on_selpat_hide (GtkWidget *dialog, GnomeCmdFileList *fl)
 {
     fl->priv->selpat_dialog = NULL;
@@ -361,7 +401,7 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
     gnome_cmd_file_ref (f);
     fl->priv->selected_files = g_list_append (fl->priv->selected_files, f);
 
-    gtk_signal_emit (*fl, signals[FILES_CHANGED]);
+    g_signal_emit (fl, signals[FILES_CHANGED], 0);
 }
 
 
@@ -393,7 +433,7 @@ static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
             if (fg)  gtk_clist_set_foreground (*fl, row, fg);
         }
 
-    gtk_signal_emit (*fl, signals[FILES_CHANGED]);
+    g_signal_emit (fl, signals[FILES_CHANGED], 0);
 }
 
 
@@ -1059,20 +1099,20 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
     if (GTK_CLIST (fl)->clist_window != event->window)
         return FALSE;
 
-    gtk_signal_emit (*fl, signals[LIST_CLICKED], event);
+    g_signal_emit (fl, signals[LIST_CLICKED], 0, event);
 
     gint row = gnome_cmd_clist_get_row (*fl, event->x, event->y);
     if (row < 0)
     {
-        gtk_signal_emit (*fl, signals[EMPTY_SPACE_CLICKED], event);
+        g_signal_emit (fl, signals[EMPTY_SPACE_CLICKED], 0, event);
         return FALSE;
     }
 
     GnomeCmdFile *f = fl->get_file_at_row(row);
 
-    gtk_signal_emit (*fl, signals[FILE_CLICKED], f, event);
+    g_signal_emit (fl, signals[FILE_CLICKED], 0, f, event);
 
-    gtk_signal_emit_stop_by_name (GTK_OBJECT (clist), "button-press-event");
+    g_signal_stop_emission_by_name (clist, "button-press-event");
 
     return TRUE;
 }
@@ -1216,7 +1256,7 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
 
     GnomeCmdFile *f = fl->get_file_at_row(row);
 
-    gtk_signal_emit (*fl, signals[FILE_RELEASED], f, event);
+    g_signal_emit (fl, signals[FILE_RELEASED], 0, f, event);
 
     if (event->type == GDK_BUTTON_RELEASE)
     {
@@ -1248,96 +1288,91 @@ static void on_realize (GnomeCmdFileList *fl, gpointer user_data)
  * Gtk class implementation
  *******************************/
 
-static void destroy (GtkObject *object)
+static void gnome_cmd_file_list_finalize (GObject *object)
 {
     GnomeCmdFileList *fl = GNOME_CMD_FILE_LIST (object);
 
     delete fl->priv;
 
-    if (GTK_OBJECT_CLASS (parent_class)->destroy)
-        (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
+    G_OBJECT_CLASS (gnome_cmd_file_list_parent_class)->finalize (object);
 }
 
 
-static void map (GtkWidget *widget)
+static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
 {
-    if (GTK_WIDGET_CLASS (parent_class)->map != NULL)
-        GTK_WIDGET_CLASS (parent_class)->map (widget);
-}
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+    object_class->finalize = gnome_cmd_file_list_finalize;
 
-static void class_init (GnomeCmdFileListClass *klass)
-{
-    GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-    parent_class = (GnomeCmdCListClass *) gtk_type_class (gnome_cmd_clist_get_type ());
-
-    signals[FILE_CLICKED] =
-        gtk_signal_new ("file-clicked",
-                        GTK_RUN_LAST,
-                        G_OBJECT_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, file_clicked),
-                        gtk_marshal_NONE__POINTER_POINTER,
-                        GTK_TYPE_NONE,
-                        2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
-
-    signals[FILE_RELEASED] =
-        gtk_signal_new ("file-released",
-                        GTK_RUN_LAST,
-                        G_OBJECT_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, file_released),
-                        gtk_marshal_NONE__POINTER_POINTER,
-                        GTK_TYPE_NONE,
-                        2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
-
-    signals[LIST_CLICKED] =
-        gtk_signal_new ("list-clicked",
-                        GTK_RUN_LAST,
-                        G_OBJECT_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, list_clicked),
-                        gtk_marshal_NONE__POINTER,
-                        GTK_TYPE_NONE,
-                        1,
-                        GTK_TYPE_POINTER);
-
-    signals[EMPTY_SPACE_CLICKED] =
-        gtk_signal_new ("empty-space-clicked",
-                        GTK_RUN_LAST,
-                        G_OBJECT_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, empty_space_clicked),
-                        gtk_marshal_NONE__POINTER,
-                        GTK_TYPE_NONE,
-                        1, GTK_TYPE_POINTER);
-
-    signals[FILES_CHANGED] =
-        gtk_signal_new ("files-changed",
-                        GTK_RUN_LAST,
-                        G_OBJECT_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, files_changed),
-                        gtk_marshal_NONE__NONE,
-                        GTK_TYPE_NONE,
-                        0);
-
-    signals[DIR_CHANGED] =
-        gtk_signal_new ("dir-changed",
-                        GTK_RUN_LAST,
-                        G_OBJECT_CLASS_TYPE (object_class),
-                        GTK_SIGNAL_OFFSET (GnomeCmdFileListClass, dir_changed),
-                        gtk_marshal_NONE__POINTER,
-                        GTK_TYPE_NONE,
-                        1, GTK_TYPE_POINTER);
-
-    object_class->destroy = destroy;
-    widget_class->map = ::map;
     klass->file_clicked = NULL;
     klass->file_released = NULL;
     klass->list_clicked = NULL;
     klass->files_changed = NULL;
     klass->dir_changed = NULL;
+
+    signals[FILE_CLICKED] =
+        g_signal_new ("file-clicked",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileListClass, file_clicked),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER_POINTER,
+            G_TYPE_NONE,
+            2, G_TYPE_POINTER, G_TYPE_POINTER);
+
+    signals[FILE_RELEASED] =
+        g_signal_new ("file-released",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileListClass, file_released),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER_POINTER,
+            G_TYPE_NONE,
+            2, G_TYPE_POINTER, G_TYPE_POINTER);
+
+    signals[LIST_CLICKED] =
+        g_signal_new ("list-clicked",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileListClass, list_clicked),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
+
+    signals[EMPTY_SPACE_CLICKED] =
+        g_signal_new ("empty-space-clicked",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileListClass, empty_space_clicked),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
+
+    signals[FILES_CHANGED] =
+        g_signal_new ("files-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileListClass, files_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__VOID,
+            G_TYPE_NONE,
+            0);
+
+    signals[DIR_CHANGED] =
+        g_signal_new ("dir-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileListClass, dir_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
+
 }
 
-static void init (GnomeCmdFileList *fl)
+static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)
 {
     fl->priv = new GnomeCmdFileList::Private(fl);
 
@@ -1359,30 +1394,6 @@ static void init (GnomeCmdFileList *fl)
 /***********************************
  * Public functions
  ***********************************/
-
-GtkType gnome_cmd_file_list_get_type ()
-{
-    static GtkType type = 0;
-
-    if (type == 0)
-    {
-        GtkTypeInfo info =
-        {
-            "GnomeCmdFileList",
-            sizeof (GnomeCmdFileList),
-            sizeof (GnomeCmdFileListClass),
-            (GtkClassInitFunc) class_init,
-            (GtkObjectInitFunc) init,
-            /* reserved_1 */ NULL,
-            /* reserved_2 */ NULL,
-            (GtkClassInitFunc) NULL
-        };
-
-        type = gtk_type_unique (gnome_cmd_clist_get_type (), &info);
-    }
-    return type;
-}
-
 
 guint GnomeCmdFileList::get_column_default_width (GnomeCmdFileList::ColumnID col)
 {

@@ -93,7 +93,7 @@ struct GnomeCmdFileList
     GnomeCmdDir *cwd, *lwd;         // current & last working dir
     GnomeCmdDir *connected_dir;
 
-    GnomeCmdFileList(GtkSignalFunc handler=NULL, GtkObject *object=NULL);
+    GnomeCmdFileList(GCallback handler=NULL, GObject *object=NULL);
     ~GnomeCmdFileList();
 
     int size();
@@ -165,7 +165,7 @@ inline void *GnomeCmdFileList::operator new (size_t size)
     return g_object_new (GNOME_CMD_TYPE_FILE_LIST, "n-columns", GnomeCmdFileList::NUM_COLUMNS, NULL);
 }
 
-inline GnomeCmdFileList::GnomeCmdFileList(GtkSignalFunc handler, GtkObject *object)
+inline GnomeCmdFileList::GnomeCmdFileList(GCallback handler, GObject *object)
 {
     realized = FALSE;
     modifier_click = FALSE;
@@ -177,7 +177,7 @@ inline GnomeCmdFileList::GnomeCmdFileList(GtkSignalFunc handler, GtkObject *obje
     create_column_titles();
 
     if (handler)
-        gtk_signal_connect (*this, "files-changed", handler, object);
+        g_signal_connect (this, "files-changed", handler, object);
 }
 
 inline GnomeCmdFileList::~GnomeCmdFileList()
