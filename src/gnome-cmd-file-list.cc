@@ -76,7 +76,7 @@ GtkTargetEntry drag_types [] = {
 
 static GnomeCmdCListClass *parent_class = NULL;
 
-static guint file_list_signals[LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
 
 struct GnomeCmdFileListColumn
@@ -110,6 +110,19 @@ GnomeCmdFileListColumn file_list_column[GnomeCmdFileList::NUM_COLUMNS] =
  {GnomeCmdFileList::COLUMN_PERM, N_("perm"), 70, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_perm},
  {GnomeCmdFileList::COLUMN_OWNER, N_("uid"), 50, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_owner},
  {GnomeCmdFileList::COLUMN_GROUP, N_("gid"), 50, GTK_JUSTIFY_LEFT, GTK_SORT_ASCENDING, (GCompareDataFunc) sort_by_group}};
+
+
+struct GnomeCmdFileListClass
+{
+    GnomeCmdCListClass parent_class;
+
+    void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button);
+    void (* file_released)       (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button);
+    void (* list_clicked)        (GnomeCmdFileList *fl, GdkEventButton *button);
+    void (* empty_space_clicked) (GnomeCmdFileList *fl, GdkEventButton *button);
+    void (* files_changed)       (GnomeCmdFileList *fl);
+    void (* dir_changed)         (GnomeCmdFileList *fl, GnomeCmdDir *dir);
+};
 
 
 class GnomeCmdFileList::Private
@@ -348,7 +361,7 @@ static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
     gnome_cmd_file_ref (f);
     fl->priv->selected_files = g_list_append (fl->priv->selected_files, f);
 
-    gtk_signal_emit (*fl, file_list_signals[FILES_CHANGED]);
+    gtk_signal_emit (*fl, signals[FILES_CHANGED]);
 }
 
 
@@ -380,7 +393,7 @@ static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
             if (fg)  gtk_clist_set_foreground (*fl, row, fg);
         }
 
-    gtk_signal_emit (*fl, file_list_signals[FILES_CHANGED]);
+    gtk_signal_emit (*fl, signals[FILES_CHANGED]);
 }
 
 
@@ -1046,18 +1059,18 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
     if (GTK_CLIST (fl)->clist_window != event->window)
         return FALSE;
 
-    gtk_signal_emit (*fl, file_list_signals[LIST_CLICKED], event);
+    gtk_signal_emit (*fl, signals[LIST_CLICKED], event);
 
     gint row = gnome_cmd_clist_get_row (*fl, event->x, event->y);
     if (row < 0)
     {
-        gtk_signal_emit (*fl, file_list_signals[EMPTY_SPACE_CLICKED], event);
+        gtk_signal_emit (*fl, signals[EMPTY_SPACE_CLICKED], event);
         return FALSE;
     }
 
     GnomeCmdFile *f = fl->get_file_at_row(row);
 
-    gtk_signal_emit (*fl, file_list_signals[FILE_CLICKED], f, event);
+    gtk_signal_emit (*fl, signals[FILE_CLICKED], f, event);
 
     gtk_signal_emit_stop_by_name (GTK_OBJECT (clist), "button-press-event");
 
@@ -1203,7 +1216,7 @@ static gint on_button_release (GtkWidget *widget, GdkEventButton *event, GnomeCm
 
     GnomeCmdFile *f = fl->get_file_at_row(row);
 
-    gtk_signal_emit (*fl, file_list_signals[FILE_RELEASED], f, event);
+    gtk_signal_emit (*fl, signals[FILE_RELEASED], f, event);
 
     if (event->type == GDK_BUTTON_RELEASE)
     {
@@ -1260,7 +1273,7 @@ static void class_init (GnomeCmdFileListClass *klass)
 
     parent_class = (GnomeCmdCListClass *) gtk_type_class (gnome_cmd_clist_get_type ());
 
-    file_list_signals[FILE_CLICKED] =
+    signals[FILE_CLICKED] =
         gtk_signal_new ("file-clicked",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
@@ -1269,7 +1282,7 @@ static void class_init (GnomeCmdFileListClass *klass)
                         GTK_TYPE_NONE,
                         2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
 
-    file_list_signals[FILE_RELEASED] =
+    signals[FILE_RELEASED] =
         gtk_signal_new ("file-released",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
@@ -1278,7 +1291,7 @@ static void class_init (GnomeCmdFileListClass *klass)
                         GTK_TYPE_NONE,
                         2, GTK_TYPE_POINTER, GTK_TYPE_POINTER);
 
-    file_list_signals[LIST_CLICKED] =
+    signals[LIST_CLICKED] =
         gtk_signal_new ("list-clicked",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
@@ -1288,7 +1301,7 @@ static void class_init (GnomeCmdFileListClass *klass)
                         1,
                         GTK_TYPE_POINTER);
 
-    file_list_signals[EMPTY_SPACE_CLICKED] =
+    signals[EMPTY_SPACE_CLICKED] =
         gtk_signal_new ("empty-space-clicked",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
@@ -1297,7 +1310,7 @@ static void class_init (GnomeCmdFileListClass *klass)
                         GTK_TYPE_NONE,
                         1, GTK_TYPE_POINTER);
 
-    file_list_signals[FILES_CHANGED] =
+    signals[FILES_CHANGED] =
         gtk_signal_new ("files-changed",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),
@@ -1306,7 +1319,7 @@ static void class_init (GnomeCmdFileListClass *klass)
                         GTK_TYPE_NONE,
                         0);
 
-    file_list_signals[DIR_CHANGED] =
+    signals[DIR_CHANGED] =
         gtk_signal_new ("dir-changed",
                         GTK_RUN_LAST,
                         G_OBJECT_CLASS_TYPE (object_class),

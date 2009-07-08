@@ -160,19 +160,6 @@ struct GnomeCmdFileList
 };
 
 
-struct GnomeCmdFileListClass
-{
-    GnomeCmdCListClass parent_class;
-
-    void (* file_clicked)        (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button);
-    void (* file_released)       (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *button);
-    void (* list_clicked)        (GnomeCmdFileList *fl, GdkEventButton *button);
-    void (* empty_space_clicked) (GnomeCmdFileList *fl, GdkEventButton *button);
-    void (* files_changed)       (GnomeCmdFileList *fl);
-    void (* dir_changed)         (GnomeCmdFileList *fl, GnomeCmdDir *dir);
-};
-
-
 inline void *GnomeCmdFileList::operator new (size_t size)
 {
     return g_object_new (GNOME_CMD_TYPE_FILE_LIST, "n-columns", GnomeCmdFileList::NUM_COLUMNS, NULL);
