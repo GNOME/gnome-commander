@@ -3,7 +3,7 @@ gnome-commander 1.2.9
 ---------------
 
 Bug fixes:
-* Fixed problem #... (...)
+* Fixed problem #587325 (crash in a clean chroot environment)
 
 New features:
  * New or updated docs: ...

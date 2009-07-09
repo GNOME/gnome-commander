@@ -400,7 +400,7 @@ static void add_bookmarks (GnomeCmdBookmarkDialog *dialog)
         GnomeCmdCon *con = (GnomeCmdCon *) all_cons->data;
         group = gnome_cmd_con_get_bookmarks (con);
 
-        if (group->bookmarks)
+        if (group && group->bookmarks)
         {
             group->data = (gpointer *) dialog;
             dialog->priv->groups = g_list_append (dialog->priv->groups, group);

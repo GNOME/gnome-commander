@@ -5947,7 +5947,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem #... (...)</para>
+                            <para>Fixed problem #587325 (crash in a clean chroot environment)</para>
                         </listitem>
                     </itemizedlist>
                 </para>

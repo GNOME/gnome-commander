@@ -1003,7 +1003,7 @@ void gnome_cmd_main_menu_update_bookmarks (GnomeCmdMainMenu *main_menu)
         GnomeCmdCon *con = GNOME_CMD_CON (cons->data);
         GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
         GtkMenuShell *bookmarks_menu = GTK_MENU_SHELL (GTK_MENU_ITEM (main_menu->priv->bookmarks_menu)->submenu);
-        if (group->bookmarks)
+        if (group && group->bookmarks)
             add_bookmark_group (main_menu, bookmarks_menu, group);
     }
 }
