@@ -51,7 +51,6 @@ struct GnomeCmdFileSelector
     GtkWidget *dir_label;
     GtkWidget *scrolledwindow;
     GtkWidget *info_label;
-    GtkWidget *list_widget;
     GtkWidget *con_combo;
     GtkWidget *vol_label;
 

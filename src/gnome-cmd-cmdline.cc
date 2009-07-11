@@ -490,7 +490,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
                             gboolean ret;
                             GdkEventKey event2 = *event;
                             GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
-                            GtkWidget *file_list = fs->list_widget;
+                            GtkWidget *file_list = *fs->file_list();
 
                             gtk_widget_grab_focus (file_list);
                             fs->set_active(TRUE);

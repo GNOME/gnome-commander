@@ -1178,9 +1178,8 @@ static void init (GnomeCmdFileSelector *fs)
 
     // create the list
     fs->file_list() = new GnomeCmdFileList;             // FIXME: file_list() = ...
-    fs->list_widget = GTK_WIDGET (fs->file_list());
-    gtk_widget_ref (fs->list_widget);
-    gtk_object_set_data_full (GTK_OBJECT (fs), "list_widget", fs->list_widget, (GtkDestroyNotify) gtk_widget_unref);
+    gtk_widget_ref (*fs->file_list());
+    gtk_object_set_data_full (GTK_OBJECT (fs), "list_widget", fs->file_list(), (GtkDestroyNotify) gtk_widget_unref);
     fs->file_list()->show_column(GnomeCmdFileList::COLUMN_DIR, FALSE);
 
     // create the connection combo
@@ -1226,7 +1225,7 @@ static void init (GnomeCmdFileSelector *fs)
     // pack the widgets
     gtk_box_pack_start (GTK_BOX (fs), fs->con_hbox, FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), fs->dir_indicator, FALSE, FALSE, 0);
-    gtk_container_add (GTK_CONTAINER (fs->scrolledwindow), fs->list_widget);
+    gtk_container_add (GTK_CONTAINER (fs->scrolledwindow), *fs->file_list());
     gtk_box_pack_start (GTK_BOX (vbox), fs->scrolledwindow, TRUE, TRUE, 0);
     padding = create_hbox (*fs, FALSE, 6);
     gtk_box_pack_start (GTK_BOX (vbox), padding, FALSE, TRUE, 0);
@@ -1261,7 +1260,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_widget_show (fs->vol_label);
     gtk_widget_show (fs->dir_indicator);
     gtk_widget_show (fs->scrolledwindow);
-    gtk_widget_show (fs->list_widget);
+    gtk_widget_show (*fs->file_list());
     gtk_widget_show (fs->info_label);
 
     fs->update_style();
@@ -1434,7 +1433,7 @@ void GnomeCmdFileSelector::set_active(gboolean value)
 
     if (value)
     {
-        gtk_widget_grab_focus (list_widget);
+        gtk_widget_grab_focus (*file_list());
         list->select_row(GTK_CLIST (list)->focus_row);
     }
     else
