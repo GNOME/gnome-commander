@@ -814,7 +814,7 @@ static void init (GnomeCmdMainWin *mw)
 
     mw->priv->file_selector[RIGHT] = gnome_cmd_file_selector_new ();
     gtk_widget_ref (mw->priv->file_selector[RIGHT]);
-    gtk_object_set_data_full (GTK_OBJECT (main_win), "left_file_selector",
+    gtk_object_set_data_full (GTK_OBJECT (main_win), "right_file_selector",
                               mw->priv->file_selector[RIGHT],
                               (GtkDestroyNotify) gtk_widget_unref);
     gtk_widget_show (mw->priv->file_selector[RIGHT]);
