@@ -704,7 +704,7 @@ static void destroy (GtkObject *object)
 
     if (main_win && main_win->priv && main_win->priv->key_snooper_id)
     {
-        gtk_key_snooper_remove(main_win->priv->key_snooper_id);
+        gtk_key_snooper_remove (main_win->priv->key_snooper_id);
         main_win->priv->key_snooper_id = 0;
     }
 
@@ -841,7 +841,7 @@ static void init (GnomeCmdMainWin *mw)
     gtk_signal_connect (GTK_OBJECT (mw), "size-allocate", GTK_SIGNAL_FUNC (on_size_allocate), mw);
     gtk_signal_connect (GTK_OBJECT (mw), "delete-event", GTK_SIGNAL_FUNC (on_delete_event), mw);
     gtk_signal_connect (GTK_OBJECT (mw->priv->paned), "button-press-event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
-    g_signal_connect (mw, "window-state-event", GTK_SIGNAL_FUNC (on_window_state_event), NULL);
+    g_signal_connect (mw, "window-state-event", G_CALLBACK (on_window_state_event), NULL);
 
     gnome_cmd_main_win_get_fs (mw, LEFT)->update_connections();
     gnome_cmd_main_win_get_fs (mw, RIGHT)->update_connections();
@@ -855,7 +855,7 @@ static void init (GnomeCmdMainWin *mw)
     gtk_window_add_accel_group (GTK_WINDOW (main_win), mw->priv->accel_group);
     gnome_cmd_main_win_focus_file_lists (main_win);
 
-    mw->priv->key_snooper_id = gtk_key_snooper_install ((GtkKeySnoopFunc) gnome_cmd_key_snooper, (gpointer) mw);
+    mw->priv->key_snooper_id = gtk_key_snooper_install ((GtkKeySnoopFunc) gnome_cmd_key_snooper, mw);
 }
 
 
