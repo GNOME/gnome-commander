@@ -1569,6 +1569,17 @@ void GnomeCmdFileList::show_dir_tree_size(GnomeCmdFile *f)
 }
 
 
+void GnomeCmdFileList::show_visible_tree_sizes()
+{
+    invalidate_tree_size();
+
+    for (GList *files = get_visible_files(); files; files = files->next)
+        show_dir_tree_size((GnomeCmdFile *) files->data);
+
+    g_signal_emit (this, signals[FILES_CHANGED], 0);
+}
+
+
 gboolean GnomeCmdFileList::remove_file(GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != NULL, FALSE);
@@ -2106,6 +2117,16 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_KP_End:
                 priv->shift_down = TRUE;
                 g_signal_emit_by_name (this, "scroll-vertical", GTK_SCROLL_JUMP, 1.0);
+                return TRUE;
+        }
+    }
+    else if (state_is_alt_shift (event->state))
+    {
+        switch (event->keyval)
+        {
+            case GDK_Return:
+            case GDK_KP_Enter:
+                show_visible_tree_sizes();
                 return TRUE;
         }
     }

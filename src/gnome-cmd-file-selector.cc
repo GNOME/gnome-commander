@@ -228,19 +228,6 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
 }
 
 
-inline void show_dir_tree_sizes (GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    fs->file_list()->invalidate_tree_size();
-
-    for (GList *files = fs->file_list()->get_visible_files(); files; files = files->next)
-        fs->file_list()->show_dir_tree_size((GnomeCmdFile *) files->data);
-
-    fs->update_selected_files_label();
-}
-
-
 inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir=NULL)
 {
     gboolean con_change_needed = fs->get_connection()==con;
@@ -1802,16 +1789,6 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_Right:
                 forward();
                 stop_kp (GTK_OBJECT (file_list()));
-                return TRUE;
-        }
-    }
-    else if (state_is_alt_shift (event->state))
-    {
-        switch (event->keyval)
-        {
-            case GDK_Return:
-            case GDK_KP_Enter:
-                show_dir_tree_sizes (this);
                 return TRUE;
         }
     }
