@@ -1291,8 +1291,8 @@ void view_hidden_files (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.filter_settings.hidden = !checkitem->active;
-    get_fs (ACTIVE)->reload();
-    get_fs (INACTIVE)->reload();
+    get_fl (ACTIVE)->reload();
+    get_fl (INACTIVE)->reload();
 }
 
 
@@ -1302,8 +1302,8 @@ void view_backup_files (GtkMenuItem *menuitem, gpointer not_used)
 
     GtkCheckMenuItem *checkitem = (GtkCheckMenuItem *) menuitem;
     gnome_cmd_data.filter_settings.backup = !checkitem->active;
-    get_fs (ACTIVE)->reload();
-    get_fs (INACTIVE)->reload();
+    get_fl (ACTIVE)->reload();
+    get_fl (INACTIVE)->reload();
 }
 
 
@@ -1339,7 +1339,7 @@ void view_last (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_refresh (GtkMenuItem *menuitem, gpointer not_used)
 {
-    get_fs (ACTIVE)->reload();
+    get_fl (ACTIVE)->reload();
 }
 
 

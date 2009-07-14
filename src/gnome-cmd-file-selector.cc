@@ -1288,17 +1288,6 @@ GtkWidget *gnome_cmd_file_selector_new ()
 }
 
 
-void GnomeCmdFileSelector::reload()
-{
-    file_list()->unselect_all();
-
-    GnomeCmdDir *dir = get_directory();
-    g_return_if_fail (GNOME_CMD_IS_DIR (dir));
-
-    gnome_cmd_dir_relist_files (dir, gnome_cmd_con_needs_list_visprog (get_connection()));
-}
-
-
 void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));

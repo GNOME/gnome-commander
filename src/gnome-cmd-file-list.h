@@ -102,6 +102,8 @@ struct GnomeCmdFileList
     // bool empty()                        {  return get_visible_files()==NULL;            }    // FIXME should be: size()==0
     void clear();
 
+    void reload();
+
     void append_file(GnomeCmdFile *f);
     gboolean insert_file(GnomeCmdFile *f);      // Returns TRUE if file added to shown file list, FALSE otherwise
     gboolean remove_file(GnomeCmdFile *f);

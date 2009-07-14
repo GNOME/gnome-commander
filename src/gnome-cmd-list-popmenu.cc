@@ -50,7 +50,7 @@ static void on_new_textfile (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 
 static void on_refresh (GtkMenuItem *item, GnomeCmdFileSelector *fs)
 {
-    fs->reload();
+    fs->file_list()->reload();
 }
 
 

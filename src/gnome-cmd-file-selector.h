@@ -73,8 +73,6 @@ struct GnomeCmdFileSelector
     void set_directory(GnomeCmdDir *dir);
     void goto_directory(const gchar *dir);
 
-    void reload();
-
     void first();
     void back();
     void forward();

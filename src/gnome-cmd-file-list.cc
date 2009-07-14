@@ -1617,6 +1617,15 @@ void GnomeCmdFileList::clear()
 }
 
 
+void GnomeCmdFileList::reload()
+{
+    g_return_if_fail (GNOME_CMD_IS_DIR (cwd));
+
+    unselect_all();
+    gnome_cmd_dir_relist_files (cwd, gnome_cmd_con_needs_list_visprog (con));
+}
+
+
 GList *GnomeCmdFileList::get_selected_files()
 {
     if (priv->selected_files)
