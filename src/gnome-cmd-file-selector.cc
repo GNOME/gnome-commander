@@ -125,7 +125,7 @@ inline GnomeCmdFileSelector::Private::~Private()
 
 enum {CHANGED_DIR, LAST_SIGNAL};
 
-static guint file_selector_signals[LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
 /*******************************
  * Utility functions
@@ -1006,7 +1006,7 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
         update_dir_combo (fs);
     }
 
-    gtk_signal_emit (GTK_OBJECT (fs), file_selector_signals[CHANGED_DIR], dir);
+    gtk_signal_emit (GTK_OBJECT (fs), signals[CHANGED_DIR], dir);
 
     fs->update_direntry();
     update_vol_label (fs);
@@ -1147,7 +1147,7 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
 
     parent_class = (GtkVBoxClass *) gtk_type_class (gtk_vbox_get_type ());
 
-    file_selector_signals[CHANGED_DIR] =
+    signals[CHANGED_DIR] =
         gtk_signal_new ("changed-dir",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
