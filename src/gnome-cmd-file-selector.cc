@@ -1473,29 +1473,21 @@ static void on_con_open_done (GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 }
 
 
-static void on_con_open_failed (GnomeCmdCon *con, const gchar *emsg, GnomeVFSResult result, GnomeCmdFileSelector *fs)
+static void on_con_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result, GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (fs->priv->con_opening != NULL);
     g_return_if_fail (fs->priv->con_opening == con);
     g_return_if_fail (fs->priv->con_open_dialog != NULL);
 
-    gchar *s;
-
     DEBUG('m', "on_con_open_failed\n");
     gtk_signal_disconnect_by_data (GTK_OBJECT (con), fs);
 
-    if (emsg)
-        s = g_strdup (emsg);
+    if (msg)
+        gnome_cmd_show_message (NULL, msg);
     else
-        s = g_strdup_printf (_("Failed to open connection: %s\n"), gnome_vfs_result_to_string (result));
+        gnome_cmd_show_message (NULL, _("Failed to open connection."), gnome_vfs_result_to_string (result));
 
-    if (result != GNOME_VFS_OK || emsg != NULL)
-        create_error_dialog (s);
-
-    g_free (s);
-
-    gtk_widget_destroy (fs->priv->con_open_dialog);
     fs->priv->con_open_dialog = NULL;
     fs->priv->con_opening = NULL;
 }
