@@ -1418,11 +1418,12 @@ void GnomeCmdFileSelector::set_active(gboolean value)
 
 static void on_con_open_cancel (GtkButton *button, GnomeCmdFileSelector *fs)
 {
+    DEBUG('m', "on_con_open_cancel\n");
+
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (fs->priv->con_opening != NULL);
     g_return_if_fail (fs->priv->con_opening->state == CON_STATE_OPENING);
 
-    DEBUG('m', "on_con_open_cancel\n");
     gnome_cmd_con_cancel_open (fs->priv->con_opening);
 
     gtk_widget_destroy (fs->priv->con_open_dialog);
@@ -1446,12 +1447,13 @@ static gboolean update_con_open_progress (GnomeCmdFileSelector *fs)
 
 static void on_con_open_done (GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
+    DEBUG('m', "on_con_open_done\n");
+
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (fs->priv->con_opening != NULL);
     g_return_if_fail (fs->priv->con_opening == con);
     g_return_if_fail (fs->priv->con_open_dialog != NULL);
 
-    DEBUG('m', "on_con_open_done\n");
     gtk_signal_disconnect_by_data (GTK_OBJECT (con), fs);
 
     set_connection (fs, con);
@@ -1464,12 +1466,13 @@ static void on_con_open_done (GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 
 static void on_con_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResult result, GnomeCmdFileSelector *fs)
 {
+    DEBUG('m', "on_con_open_failed\n");
+
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (fs->priv->con_opening != NULL);
     g_return_if_fail (fs->priv->con_opening == con);
     g_return_if_fail (fs->priv->con_open_dialog != NULL);
 
-    DEBUG('m', "on_con_open_failed\n");
     gtk_signal_disconnect_by_data (GTK_OBJECT (con), fs);
 
     if (msg)
