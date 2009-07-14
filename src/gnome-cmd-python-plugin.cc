@@ -58,7 +58,7 @@ static void scan_plugins_in_dir (const gchar *dpath)
 
    if (dir_size==-1)
    {
-       g_warning ( "pathconf(\".\"): %s", strerror(errno) );
+       g_warning ( "pathconf(\".\"): %s", strerror(errno));
       return;
    }
 

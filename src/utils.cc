@@ -543,7 +543,7 @@ void mime_exec_single (GnomeCmdFile *f)
 
     if (gnome_cmd_file_is_executable (f))
     {
-        if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary") )
+        if (gnome_cmd_file_has_mime_type (f, "application/x-executable") || gnome_cmd_file_has_mime_type (f, "application/x-executable-binary"))
         {
             gnome_cmd_file_execute (f);
             return;

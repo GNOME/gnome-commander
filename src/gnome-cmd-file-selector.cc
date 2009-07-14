@@ -674,7 +674,7 @@ void GnomeCmdFileSelector::goto_directory(const gchar *in_dir)
         if (dir[0] == '/')
             new_dir = gnome_cmd_dir_new (get_connection(), gnome_cmd_con_create_path (get_connection(), dir));
         else
-            if (g_str_has_prefix (dir, "\\\\") )
+            if (g_str_has_prefix (dir, "\\\\"))
             {
                 GnomeCmdPath *path = gnome_cmd_con_create_path (get_smb_con (), dir);
                 if (path)
@@ -802,7 +802,7 @@ static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
         // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);    // FIXME: should be handled in GnomeCmdDir, not here
         fs->file_list()->update_file(f);
 
-        GnomeCmdFileList::ColumnID sort_col = GNOME_CMD_FILE_LIST (fs->file_list())->get_sort_column();
+        GnomeCmdFileList::ColumnID sort_col = fs->file_list()->get_sort_column();
 
         if (sort_col==GnomeCmdFileList::COLUMN_NAME || sort_col==GnomeCmdFileList::COLUMN_EXT)
             fs->file_list()->sort();
@@ -857,17 +857,14 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
     for (GList *l=gnome_cmd_con_list_get_all (gnome_cmd_con_list_get ()); l; l=l->next)
     {
-        GtkWidget *btn, *label;
-        GtkWidget *hbox;
-        GnomeCmdPixmap *pm;
         GnomeCmdCon *con = GNOME_CMD_CON (l->data);
 
         if (!gnome_cmd_con_is_open (con) && !GNOME_CMD_IS_CON_DEVICE (con) &&
             !GNOME_CMD_IS_CON_SMB (con))  continue;
 
-        pm = gnome_cmd_con_get_go_pixmap (con);
+        GnomeCmdPixmap *pm = gnome_cmd_con_get_go_pixmap (con);
 
-        btn = create_styled_button (NULL);
+        GtkWidget *btn = create_styled_button (NULL);
         gtk_object_set_data (GTK_OBJECT (btn), "con", con);
         gtk_signal_connect (GTK_OBJECT (btn), "clicked", (GtkSignalFunc) on_con_btn_clicked, fs);
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
@@ -875,7 +872,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
         gtk_tooltips_set_tip (tooltips, btn, gnome_cmd_con_get_go_text (con), NULL);
 
-        hbox = gtk_hbox_new (FALSE, 1);
+        GtkWidget *hbox = gtk_hbox_new (FALSE, 1);
         gtk_widget_ref (hbox);
         gtk_object_set_data_full (GTK_OBJECT (fs), "con-hbox", hbox, (GtkDestroyNotify) gtk_widget_unref);
         gtk_widget_show (hbox);
@@ -895,7 +892,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         if (!gnome_cmd_data.device_only_icon || !pm)
         {
-            label = gtk_label_new (gnome_cmd_con_get_alias (con));
+            GtkWidget *label = gtk_label_new (gnome_cmd_con_get_alias (con));
             gtk_widget_ref (label);
             gtk_object_set_data_full (GTK_OBJECT (fs), "con-label", label,
                                       (GtkDestroyNotify) gtk_widget_unref);
@@ -936,13 +933,17 @@ static void on_list_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEve
 static void on_list_list_clicked (GnomeCmdFileList *fl, GdkEventButton *event, GnomeCmdFileSelector *fs)
 {
     if (event->type == GDK_BUTTON_PRESS)
-    {
-        if (event->button == 1 || event->button == 3)
-            gnome_cmd_main_win_switch_fs (main_win, fs);
-        else
-            if (event->button == 2)
+        switch (event->button)
+        {
+            case 1:
+            case 3:
+                gnome_cmd_main_win_switch_fs (main_win, fs);
+                break;
+
+            case 2:
                 fs->goto_directory("..");
-    }
+                break;
+        }
 }
 
 
@@ -1066,7 +1067,7 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCm
         fs->file_list()->lwd = NULL;
     }
     else
-        g_timeout_add (1, (GtkFunction) set_home_connection, fs);
+        g_timeout_add (1, (GSourceFunc) set_home_connection, fs);
 }
 
 
@@ -1519,17 +1520,14 @@ static void on_con_open_failed (GnomeCmdCon *con, const gchar *emsg, GnomeVFSRes
 
 static void create_con_open_progress_dialog (GnomeCmdFileSelector *fs)
 {
-    GtkWidget *vbox;
-
     fs->priv->con_open_dialog = gnome_cmd_dialog_new (NULL);
     gtk_widget_ref (fs->priv->con_open_dialog);
 
-    gnome_cmd_dialog_add_button (
-        GNOME_CMD_DIALOG (fs->priv->con_open_dialog),
-        GTK_STOCK_CANCEL,
-        GTK_SIGNAL_FUNC (on_con_open_cancel), fs);
+    gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (fs->priv->con_open_dialog),
+                                 GTK_STOCK_CANCEL,
+                                 GTK_SIGNAL_FUNC (on_con_open_cancel), fs);
 
-    vbox = create_vbox (fs->priv->con_open_dialog, FALSE, 0);
+    GtkWidget *vbox = create_vbox (fs->priv->con_open_dialog, FALSE, 0);
 
     fs->priv->con_open_dialog_label = create_label (fs->priv->con_open_dialog, "");
 
