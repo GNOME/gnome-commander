@@ -333,7 +333,7 @@ drag_data_received (GtkWidget          *widget,
                     guint32             time,
                     GnomeCmdFileSelector *fs)
 {
-    GtkCList *clist = GTK_CLIST (fs->file_list());
+    GtkCList *clist = *fs->file_list();
     GnomeCmdFile *f;
     GnomeCmdDir *to, *cwd;
     GList *uri_list = NULL;
@@ -1008,11 +1008,11 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
     if (!fs->priv->active)
     {
         GTK_CLIST (fs->file_list())->focus_row = -1;
-        gtk_clist_unselect_all (GTK_CLIST (fs->file_list()));
+        gtk_clist_unselect_all (*fs->file_list());
     }
 
     if (fs->priv->sel_first_file && fs->priv->active)
-        gtk_clist_select_row (GTK_CLIST (fs->file_list()), 0, 0);
+        gtk_clist_select_row (*fs->file_list(), 0, 0);
 
     fs->update_selected_files_label();
 
