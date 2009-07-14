@@ -551,10 +551,10 @@ inline void init_dnd (GnomeCmdFileSelector *fs)
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     // Set up drag source
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-begin", GTK_SIGNAL_FUNC (drag_begin), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-end", GTK_SIGNAL_FUNC (drag_end), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-leave", GTK_SIGNAL_FUNC (drag_leave), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-data-delete", GTK_SIGNAL_FUNC (drag_data_delete), fs);
+    g_signal_connect (fs->file_list(), "drag-begin", G_CALLBACK (drag_begin), fs);
+    g_signal_connect (fs->file_list(), "drag-end", G_CALLBACK (drag_end), fs);
+    g_signal_connect (fs->file_list(), "drag-leave", G_CALLBACK (drag_leave), fs);
+    g_signal_connect (fs->file_list(), "drag-data-delete", G_CALLBACK (drag_data_delete), fs);
 
     // Set up drag destination
     gtk_drag_dest_set (GTK_WIDGET (fs->file_list()),
@@ -562,9 +562,9 @@ inline void init_dnd (GnomeCmdFileSelector *fs)
                        drop_types, G_N_ELEMENTS (drop_types),
                        (GdkDragAction) (GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK));
 
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-motion", GTK_SIGNAL_FUNC (drag_motion), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-leave", GTK_SIGNAL_FUNC (drag_leave), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "drag-data-received", GTK_SIGNAL_FUNC (drag_data_received), fs);
+    g_signal_connect (fs->file_list(), "drag-motion", G_CALLBACK (drag_motion), fs);
+    g_signal_connect (fs->file_list(), "drag-leave", G_CALLBACK (drag_leave), fs);
+    g_signal_connect (fs->file_list(), "drag-data-received", G_CALLBACK (drag_data_received), fs);
 }
 
 
@@ -853,7 +853,7 @@ static void create_con_buttons (GnomeCmdFileSelector *fs)
 
         GtkWidget *btn = create_styled_button (NULL);
         gtk_object_set_data (GTK_OBJECT (btn), "con", con);
-        gtk_signal_connect (GTK_OBJECT (btn), "clicked", (GtkSignalFunc) on_con_btn_clicked, fs);
+        g_signal_connect (btn, "clicked", (GtkSignalFunc) on_con_btn_clicked, fs);
         gtk_box_pack_start (GTK_BOX (fs->con_btns_hbox), btn, FALSE, FALSE, 0);
         GTK_WIDGET_UNSET_FLAGS (btn, GTK_CAN_FOCUS);
         fs->priv->old_btns = g_list_append (fs->priv->old_btns, btn);
@@ -977,10 +977,10 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
             gtk_signal_disconnect_by_func (GTK_OBJECT (fs->file_list()->connected_dir), GTK_SIGNAL_FUNC (on_dir_file_renamed), fs);
         }
 
-        gtk_signal_connect (GTK_OBJECT (dir), "file-created", GTK_SIGNAL_FUNC (on_dir_file_created), fs);
-        gtk_signal_connect (GTK_OBJECT (dir), "file-deleted", GTK_SIGNAL_FUNC (on_dir_file_deleted), fs);
-        gtk_signal_connect (GTK_OBJECT (dir), "file-changed", GTK_SIGNAL_FUNC (on_dir_file_changed), fs);
-        gtk_signal_connect (GTK_OBJECT (dir), "file-renamed", GTK_SIGNAL_FUNC (on_dir_file_renamed), fs);
+        g_signal_connect (dir, "file-created", G_CALLBACK (on_dir_file_created), fs);
+        g_signal_connect (dir, "file-deleted", G_CALLBACK (on_dir_file_deleted), fs);
+        g_signal_connect (dir, "file-changed", G_CALLBACK (on_dir_file_changed), fs);
+        g_signal_connect (dir, "file-renamed", G_CALLBACK (on_dir_file_renamed), fs);
         fs->file_list()->connected_dir = dir;
     }
 
@@ -1049,8 +1049,8 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCm
     if (fs->file_list()->lwd && fs->get_connection() == gnome_cmd_dir_get_connection (fs->file_list()->lwd))
     {
         fs->file_list()->cwd = fs->file_list()->lwd;
-        gtk_signal_connect (GTK_OBJECT (fs->file_list()->cwd), "list-ok", GTK_SIGNAL_FUNC (on_dir_list_ok), fs);
-        gtk_signal_connect (GTK_OBJECT (fs->file_list()->cwd), "list-failed", GTK_SIGNAL_FUNC (on_dir_list_failed), fs);
+        g_signal_connect (fs->file_list()->cwd, "list-ok", G_CALLBACK (on_dir_list_ok), fs);
+        g_signal_connect (fs->file_list()->cwd, "list-failed", G_CALLBACK (on_dir_list_failed), fs);
         fs->file_list()->lwd = NULL;
     }
     else
@@ -1225,21 +1225,21 @@ static void init (GnomeCmdFileSelector *fs)
     init_dnd (fs);
 
     // connect signals
-    gtk_signal_connect (GTK_OBJECT (fs), "realize", GTK_SIGNAL_FUNC (on_realize), fs);
+    g_signal_connect (fs), "realize", G_CALLBACK (on_realize), fs);
 
-    gtk_signal_connect (GTK_OBJECT (fs->con_combo), "item-selected", GTK_SIGNAL_FUNC (on_con_combo_item_selected), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->con_combo), "popwin-hidden", GTK_SIGNAL_FUNC (on_combo_popwin_hidden), fs);
+    g_signal_connect (fs->con_combo, "item-selected", G_CALLBACK (on_con_combo_item_selected), fs);
+    g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), fs);
 
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "file-clicked", GTK_SIGNAL_FUNC (on_list_file_clicked), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "file-released", GTK_SIGNAL_FUNC (on_list_file_released), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "list-clicked", GTK_SIGNAL_FUNC (on_list_list_clicked), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "empty-space-clicked", GTK_SIGNAL_FUNC (on_list_empty_space_clicked), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "files-changed", GTK_SIGNAL_FUNC (on_list_files_changed), fs);
+    g_signal_connect (fs->file_list(), "file-clicked", G_CALLBACK (on_list_file_clicked), fs);
+    g_signal_connect (fs->file_list(), "file-released", G_CALLBACK (on_list_file_released), fs);
+    g_signal_connect (fs->file_list(), "list-clicked", G_CALLBACK (on_list_list_clicked), fs);
+    g_signal_connect (fs->file_list(), "empty-space-clicked", G_CALLBACK (on_list_empty_space_clicked), fs);
+    g_signal_connect (fs->file_list(), "files-changed", G_CALLBACK (on_list_files_changed), fs);
 
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_pressed), fs);
-    gtk_signal_connect (GTK_OBJECT (fs->file_list()), "key-press-event", GTK_SIGNAL_FUNC (on_list_key_pressed_private), fs);
+    g_signal_connect (fs->file_list(), "key-press-event", G_CALLBACK (on_list_key_pressed), fs);
+    g_signal_connect (fs->file_list(), "key-press-event", G_CALLBACK (on_list_key_pressed_private), fs);
 
-    gtk_signal_connect (GTK_OBJECT (gnome_cmd_con_list_get ()), "list-changed", GTK_SIGNAL_FUNC (on_con_list_list_changed), fs);
+    g_signal_connect (gnome_cmd_con_list_get (), "list-changed", G_CALLBACK (on_con_list_list_changed), fs);
 
     // show the widgets
     gtk_widget_show (GTK_WIDGET (vbox));
@@ -1407,8 +1407,8 @@ void GnomeCmdFileSelector::set_directory(GnomeCmdDir *dir)
         set_cursor_busy_for_widget (GTK_WIDGET (this));
     }
 
-    gtk_signal_connect (GTK_OBJECT (dir), "list-ok", GTK_SIGNAL_FUNC (on_dir_list_ok), this);
-    gtk_signal_connect (GTK_OBJECT (dir), "list-failed", GTK_SIGNAL_FUNC (on_dir_list_failed), this);
+    g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
+    g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
 
     gnome_cmd_dir_list_files (dir, gnome_cmd_con_needs_list_visprog (get_connection()));
     gnome_cmd_dir_start_monitoring (dir);
@@ -1620,8 +1620,8 @@ void GnomeCmdFileSelector::set_connection (GnomeCmdCon *con, GnomeCmdDir *start_
 
     if (!gnome_cmd_con_is_open (con))
     {
-        gtk_signal_connect (GTK_OBJECT (con), "open-done", GTK_SIGNAL_FUNC (on_con_open_done), this);
-        gtk_signal_connect (GTK_OBJECT (con), "open-failed", GTK_SIGNAL_FUNC (on_con_open_failed), this);
+        g_signal_connect (con, "open-done", G_CALLBACK (on_con_open_done), this);
+        g_signal_connect (con, "open-failed", G_CALLBACK (on_con_open_failed), this);
         priv->con_opening = con;
 
         create_con_open_progress_dialog (this);
@@ -1999,7 +1999,7 @@ void GnomeCmdFileSelector::show_filter()
     GtkWidget *entry = create_entry (*this, "entry", "");
     GtkWidget *close_btn = create_button_with_data (GTK_WIDGET (main_win), "x", GTK_SIGNAL_FUNC (on_filter_box_close), this);
 
-    gtk_signal_connect (GTK_OBJECT (entry), "key-press-event", GTK_SIGNAL_FUNC (on_filter_box_keypressed), this);
+    g_signal_connect (entry, "key-press-event", G_CALLBACK (on_filter_box_keypressed), this);
     gtk_box_pack_start (GTK_BOX (priv->filter_box), label, FALSE, TRUE, 6);
     gtk_box_pack_start (GTK_BOX (priv->filter_box), entry, TRUE, TRUE, 0);
     gtk_box_pack_start (GTK_BOX (priv->filter_box), close_btn, FALSE, TRUE, 0);
