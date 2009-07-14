@@ -1034,11 +1034,7 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCm
     DEBUG('l', "on_dir_list_failed\n");
 
     if (result != GNOME_VFS_OK)
-    {
-        gchar *msg = g_strdup_printf (_("Listing failed: %s\n"), gnome_vfs_result_to_string (result));
-        create_error_dialog (msg);
-        g_free (msg);
-    }
+        gnome_cmd_show_message (NULL, _("Directory listing failed."), gnome_vfs_result_to_string (result));
 
     gtk_signal_disconnect_by_data (GTK_OBJECT (fs->file_list()->cwd), fs);
     fs->file_list()->connected_dir = NULL;
