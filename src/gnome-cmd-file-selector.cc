@@ -1225,7 +1225,7 @@ static void init (GnomeCmdFileSelector *fs)
     init_dnd (fs);
 
     // connect signals
-    g_signal_connect (fs), "realize", G_CALLBACK (on_realize), fs);
+    g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
 
     g_signal_connect (fs->con_combo, "item-selected", G_CALLBACK (on_con_combo_item_selected), fs);
     g_signal_connect (fs->con_combo, "popwin-hidden", G_CALLBACK (on_combo_popwin_hidden), fs);
