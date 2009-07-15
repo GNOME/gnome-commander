@@ -2178,6 +2178,15 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
             case GDK_KP_Enter:
                 return mime_exec_file (get_focused_file());
 
+            case GDK_space:
+                set_cursor_busy ();
+                toggle();
+                show_dir_tree_size(get_selected_file());
+                stop_kp (*this);
+                g_signal_emit (this, signals[FILES_CHANGED], 0);
+                set_cursor_default ();
+                return TRUE;
+
             case GDK_KP_Add:
             case GDK_plus:
             case GDK_equal:

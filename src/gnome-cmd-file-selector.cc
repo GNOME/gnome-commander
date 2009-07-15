@@ -1804,16 +1804,6 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
     {
         switch (event->keyval)
         {
-            case GDK_space:
-                set_cursor_busy ();
-                file_list()->toggle();
-                f = file_list()->get_selected_file();
-                file_list()->show_dir_tree_size(f);
-                stop_kp (GTK_OBJECT (file_list()));
-                update_selected_files_label();
-                set_cursor_default ();
-                return TRUE;
-
             case GDK_Left:
             case GDK_KP_Left:
             case GDK_BackSpace:
