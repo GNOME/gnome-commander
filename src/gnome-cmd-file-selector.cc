@@ -953,6 +953,35 @@ static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *f
 
 static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCmdFileSelector *fs)
 {
+    if (fs->priv->dir_history && !fs->priv->dir_history->is_locked)
+    {
+        gchar *fpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
+        fs->priv->dir_history->add(fpath);
+        g_free (fpath);
+        update_dir_combo (fs);
+    }
+
+    if (fs->file_list()!=fl)  return;
+
+    fs->update_direntry();
+    update_vol_label (fs);
+
+    if (fl->cwd != dir) return;
+
+    fs->priv->sel_first_file = FALSE;
+    fs->update_files();
+    fs->priv->sel_first_file = TRUE;
+
+    if (!fs->priv->active)
+    {
+        GTK_CLIST (fl)->focus_row = -1;
+        gtk_clist_unselect_all (*fl);
+    }
+
+    if (fs->priv->sel_first_file && fs->priv->active)
+        gtk_clist_select_row (*fl, 0, 0);
+
+    fs->update_selected_files_label();
 }
 
 
