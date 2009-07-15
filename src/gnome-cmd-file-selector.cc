@@ -1852,7 +1852,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 
 void gnome_cmd_file_selector_create_symlink (GnomeCmdFileSelector *fs, GnomeCmdFile *f)
 {
-    const gchar *labels[] = {_("Symlink name:")};
+    const gchar *labels[] = {_("Symbolic link name:")};
 
     gchar *fname = get_utf8 (gnome_cmd_file_get_name (f));
     gchar *text = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
