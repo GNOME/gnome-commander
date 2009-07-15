@@ -1637,11 +1637,9 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
 {
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
 
-    const gchar *filename = values[0];
-    gchar *escaped_filepath;
-    gchar *cmd;
+    const gchar *fname = values[0];
 
-    if (!filename)
+    if (!fname || !*fname)
     {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No file name entered")));
         return FALSE;
@@ -1651,12 +1649,12 @@ static gboolean on_new_textfile_ok (GnomeCmdStringDialog *string_dialog, const g
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
 
     gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (dir));
-    gchar *filepath = g_build_path (G_DIR_SEPARATOR_S, dpath, filename, NULL);
+    gchar *filepath = g_build_path (G_DIR_SEPARATOR_S, dpath, fname, NULL);
     g_free (dpath);
     g_return_val_if_fail (filepath, TRUE);
 
-    escaped_filepath = g_strdup_printf ("\"%s\"", filepath);
-    cmd = g_strdup_printf (gnome_cmd_data.get_editor(), escaped_filepath);
+    gchar *escaped_filepath = g_strdup_printf ("\"%s\"", filepath);
+    gchar *cmd = g_strdup_printf (gnome_cmd_data.get_editor(), escaped_filepath);
     g_free (filepath);
     g_free (escaped_filepath);
 
@@ -1672,16 +1670,16 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
     g_return_val_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs), TRUE);
     g_return_val_if_fail (fs->priv->sym_file != NULL, TRUE);
 
-    const gchar *name = values[0];
+    const gchar *fname = values[0];
 
     // dont create any symlink if no name was passed or cancel was selected
-    if (name == NULL || strcmp (name, "") == 0)
+    if (!fname || !*fname)
     {
         gnome_cmd_string_dialog_set_error_desc (string_dialog, g_strdup (_("No file name given")));
         return FALSE;
     }
 
-    GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->file_list()->cwd, name);
+    GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->file_list()->cwd, fname);
     GnomeVFSResult result = gnome_vfs_create_symbolic_link (uri, gnome_cmd_file_get_uri_str (fs->priv->sym_file));
 
     if (result == GNOME_VFS_OK)
@@ -1763,12 +1761,12 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
 
             case GDK_Left:
                 back();
-                stop_kp (GTK_OBJECT (file_list()));
+                stop_kp (*file_list());
                 return TRUE;
 
             case GDK_Right:
                 forward();
-                stop_kp (GTK_OBJECT (file_list()));
+                stop_kp (*file_list());
                 return TRUE;
         }
     }
@@ -1827,7 +1825,7 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
                 f = file_list()->get_selected_file();
                 if (f && f->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
                     do_file_specific_action (this, f);
-                stop_kp (GTK_OBJECT (file_list()));
+                stop_kp (*file_list());
                 return TRUE;
 
             case GDK_Return:
