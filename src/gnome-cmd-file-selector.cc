@@ -1490,6 +1490,8 @@ static void on_con_open_failed (GnomeCmdCon *con, const gchar *msg, GnomeVFSResu
 
 static void create_con_open_progress_dialog (GnomeCmdFileSelector *fs)
 {
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+
     fs->priv->con_open_dialog = gnome_cmd_dialog_new (NULL);
     gtk_widget_ref (fs->priv->con_open_dialog);
 
