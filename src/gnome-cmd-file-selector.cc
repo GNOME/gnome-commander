@@ -944,7 +944,10 @@ static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *e
 
 static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
 {
-    fs->update_selected_files_label();
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+
+    if (fs->file_list()==fl)
+        fs->update_selected_files_label();
 }
 
 
