@@ -1373,6 +1373,12 @@ void GnomeCmdFileSelector::set_directory(GnomeCmdDir *dir)
     if (file_list()->cwd == dir)
         return;
 
+    if (priv->realized)
+    {
+        gtk_widget_set_sensitive (GTK_WIDGET (this), FALSE);
+        set_cursor_busy_for_widget (GTK_WIDGET (this));
+    }
+
     gnome_cmd_dir_ref (dir);
 
     if (file_list()->lwd && file_list()->lwd != dir)
@@ -1388,12 +1394,6 @@ void GnomeCmdFileSelector::set_directory(GnomeCmdDir *dir)
     }
 
     file_list()->cwd = dir;
-
-    if (priv->realized)
-    {
-        gtk_widget_set_sensitive (GTK_WIDGET (this), FALSE);
-        set_cursor_busy_for_widget (GTK_WIDGET (this));
-    }
 
     g_signal_connect (dir, "list-ok", G_CALLBACK (on_dir_list_ok), this);
     g_signal_connect (dir, "list-failed", G_CALLBACK (on_dir_list_failed), this);
