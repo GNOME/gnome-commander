@@ -1284,6 +1284,52 @@ static void on_realize (GnomeCmdFileList *fl, gpointer user_data)
 }
 
 
+static void on_dir_file_created (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileList *fl)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    if (fl->insert_file(f))
+        g_signal_emit (fl, signals[FILES_CHANGED], 0);
+}
+
+
+static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileList *fl)
+{
+    if (fl->cwd == dir)
+        if (fl->remove_file(f))
+            g_signal_emit (fl, signals[FILES_CHANGED], 0);
+}
+
+
+static void on_dir_file_changed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileList *fl)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    if (fl->has_file(f))
+    {
+        fl->update_file(f);
+        g_signal_emit (fl, signals[FILES_CHANGED], 0);
+    }
+}
+
+
+static void on_dir_file_renamed (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFileList *fl)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
+
+    if (fl->has_file(f))
+    {
+        // gnome_cmd_file_invalidate_metadata (f, TAG_FILE);    // FIXME: should be handled in GnomeCmdDir, not here
+        fl->update_file(f);
+
+        GnomeCmdFileList::ColumnID sort_col = fl->get_sort_column();
+
+        if (sort_col==GnomeCmdFileList::COLUMN_NAME || sort_col==GnomeCmdFileList::COLUMN_EXT)
+            fl->sort();
+    }
+}
+
+
 /*******************************
  * Gtk class implementation
  *******************************/
