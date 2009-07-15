@@ -1320,25 +1320,6 @@ GtkWidget *gnome_cmd_file_selector_new ()
 }
 
 
-void gnome_cmd_file_selector_start_editor (GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-    g_return_if_fail (GNOME_CMD_IS_DIR (fs->file_list()->cwd));
-
-    if (!fs->is_local())
-        return;
-
-    // create a command with an empty argument to the editor
-    gchar *cmd = g_strdup_printf (gnome_cmd_data.get_editor(), "");
-    gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->file_list()->cwd));
-
-    run_command_indir (cmd, dpath, FALSE);
-
-    g_free (dpath);
-    g_free (cmd);
-}
-
-
 void GnomeCmdFileSelector::first()
 {
     if (!priv->dir_history->can_back())
