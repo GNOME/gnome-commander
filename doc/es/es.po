@@ -6,14 +6,12 @@
 # Jorge González <jorgegonz@svn.gnome.org>, 2009.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
 # Jorge González <jorgegonz@svn.gnome.org>, 2009.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
-# Jorge González <jorgegonz@svn.gnome.org>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-02 21:18+0000\n"
-"PO-Revision-Date: 2009-07-18 17:54+0200\n"
+"POT-Creation-Date: 2009-07-18 15:58+0000\n"
+"PO-Revision-Date: 2009-07-19 14:02+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -152,9 +150,6 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/gnome-commander.xml:931(None)
-#| msgid ""
-#| "@@image: 'figures/gnome-commander_dialog_adv_rename.png'; "
-#| "md5=cc1ba8ce148ee9715af30343b5b9ee6f"
 msgid ""
 "@@image: 'figures/gnome-commander_dialog_adv_rename.png'; "
 "md5=c630e2f056870c18bf7115a2626bd404"
@@ -251,12 +246,10 @@ msgid "GNOME Commander"
 msgstr "GNOME Commander"
 
 #: C/gnome-commander.xml:31(subtitle)
-#| msgid "<placeholder-1/> Desktop Application Manual V1.2.8"
 msgid "<placeholder-1/> Desktop Application Manual V1.2.9"
 msgstr "<placeholder-1/> Manual de aplicación de escritorio V1.2.9"
 
 #: C/gnome-commander.xml:33(year)
-#| msgid "2008"
 msgid "2009"
 msgstr "2009"
 
@@ -349,24 +342,18 @@ msgid "GNOME Commander Manual V1.2.8;"
 msgstr "Manual de GNOME Commander v1.2.8"
 
 #: C/gnome-commander.xml:150(date) C/gnome-commander.xml:5980(para)
-#| msgid "2007-06-09"
 msgid "2009-06-29"
 msgstr "2009-06-29"
 
 #: C/gnome-commander.xml:159(revnumber)
-#| msgid "GNOME Commander Manual V1.2.3;"
 msgid "GNOME Commander Manual V1.2.9;"
 msgstr "Manual de GNOME Commander v1.2.9;"
 
 #: C/gnome-commander.xml:160(date) C/gnome-commander.xml:5944(para)
-#| msgid "2008-??-??"
 msgid "2009-??-??"
 msgstr "2009-??-??"
 
 #: C/gnome-commander.xml:170(releaseinfo)
-#| msgid ""
-#| "This manual describes version 1.2.8 of <application>GNOME Commander</"
-#| "application>."
 msgid ""
 "This manual describes version 1.2.9 of <application>GNOME Commander</"
 "application>."
@@ -1536,6 +1523,8 @@ msgstr "Eliminar espacios"
 #: C/gnome-commander.xml:987(para)
 msgid "Removes leading and trailing whitespace from the selected file names."
 msgstr ""
+"Elimina los espacios en blanco del principio y del final de los nombres de "
+"archivos seleccionados."
 
 #: C/gnome-commander.xml:992(guilabel)
 msgid "Results"
@@ -8824,7 +8813,7 @@ msgstr "command.open_folder"
 
 #: C/gnome-commander.xml:4586(para) C/gnome-commander.xml:6205(para)
 msgid "Open the current location in Nautilus file manager"
-msgstr ""
+msgstr "Abrir la ubicación actual en el gestor de archivos Nautilus"
 
 #: C/gnome-commander.xml:4590(para)
 msgid "command.open_terminal"
@@ -8832,7 +8821,7 @@ msgstr "command.open_terminal"
 
 #: C/gnome-commander.xml:4591(para) C/gnome-commander.xml:6325(para)
 msgid "Open terminal in the current directory"
-msgstr ""
+msgstr "Abrir una terminal en el directorio actual"
 
 #: C/gnome-commander.xml:4595(para)
 msgid "command.root_mode"
@@ -8843,6 +8832,8 @@ msgid ""
 "Start <application>GNOME Commander</application> in root mode at the same "
 "location"
 msgstr ""
+"Iniciar <application>GNOME Commander</application> como root en la misma "
+"ubicación"
 
 #: C/gnome-commander.xml:4597(para)
 msgid ""
@@ -8876,7 +8867,7 @@ msgstr "edit.copy_filenames"
 
 #: C/gnome-commander.xml:4623(para)
 msgid "Copy file names to clipboard"
-msgstr ""
+msgstr "Copiar nombres de archivo en el portapapeles"
 
 #: C/gnome-commander.xml:4627(para)
 msgid "edit.cut"
@@ -8892,7 +8883,7 @@ msgstr "edit.filter"
 
 #: C/gnome-commander.xml:4638(para)
 msgid "Use file selection filter"
-msgstr ""
+msgstr "Usar el filtro de selección de archivos"
 
 #: C/gnome-commander.xml:4639(keycap)
 msgid "F12"
@@ -8932,7 +8923,7 @@ msgstr "file.chmod"
 
 #: C/gnome-commander.xml:4664(para)
 msgid "Show file access permissions"
-msgstr ""
+msgstr "Mostrar permisos de acceso del archivo"
 
 #: C/gnome-commander.xml:4668(para)
 msgid "file.chown"
@@ -9709,7 +9700,7 @@ msgstr "Versión de desarrollo"
 
 #: C/gnome-commander.xml:5275(command)
 msgid "git branch --track gcmd-1-3 origin/gcmd-1-3"
-msgstr ""
+msgstr "git branch --track gcmd-1-3 origin/gcmd-1-3"
 
 #: C/gnome-commander.xml:5278(command)
 msgid "git checkout gcmd-1-3"
@@ -10254,7 +10245,6 @@ msgid "What's new"
 msgstr "Qué hay nuevo"
 
 #: C/gnome-commander.xml:5943(para)
-#| msgid "1.2.8"
 msgid "1.2.9"
 msgstr "1.2.9"
 
@@ -10271,7 +10261,7 @@ msgid "Bug fixes:"
 msgstr "Correcciones de errores:"
 
 #: C/gnome-commander.xml:5950(para)
-msgid "Fixed problem #... (...)"
+msgid "Fixed problem #587325 (crash in a clean chroot environment)"
 msgstr ""
 
 #: C/gnome-commander.xml:5954(para) C/gnome-commander.xml:6056(para)
@@ -10287,17 +10277,16 @@ msgstr "Nuevas funcionalidades:"
 
 #: C/gnome-commander.xml:5958(para)
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: C/gnome-commander.xml:5961(para)
-#| msgid "New or updated docs: de, en, es"
 msgid "New or updated docs: ..."
 msgstr "Documentos nuevos o actualizados: ..."
 
 #: C/gnome-commander.xml:5964(para)
-#| msgid "New or updated docs: de, en, es"
-msgid "New or updated translations: ..."
-msgstr "Traducciones nuevas o actualizadas: ..."
+#| msgid "New or updated translations: ..."
+msgid "New or updated translations: es"
+msgstr "Traducciones nuevas o actualizadas: es"
 
 #: C/gnome-commander.xml:5967(para) C/gnome-commander.xml:6085(para)
 #: C/gnome-commander.xml:6223(para) C/gnome-commander.xml:6343(para)
@@ -10305,12 +10294,9 @@ msgstr "Traducciones nuevas o actualizadas: ..."
 #: C/gnome-commander.xml:6584(para) C/gnome-commander.xml:6665(para)
 #: C/gnome-commander.xml:6745(para) C/gnome-commander.xml:6814(para)
 msgid "New key bindings:"
-msgstr ""
+msgstr "Nuevas combinaciones de teclas:"
 
 #: C/gnome-commander.xml:5970(para)
-#| msgid ""
-#| "<keycombo><keycap>ALT</keycap><keycap>F3</keycap></keycombo> External "
-#| "viewer"
 msgid "<keycombo><keycap>...</keycap><keycap>...</keycap></keycombo> ..."
 msgstr "<keycombo><keycap>...</keycap><keycap>...</keycap></keycombo> ..."
 
@@ -10451,8 +10437,6 @@ msgid "New or updated docs: de, en, es"
 msgstr "Documentos nuevos o actualizados: de, en, es"
 
 #: C/gnome-commander.xml:6082(para)
-#| msgid ""
-#| "New or updated translations: ar, cs, de, es, eu, fr, it, pl, pt_BR, sl, sv"
 msgid ""
 "New or updated translations: ar, cs, de, es, eu, fr, it, ja, pl, pt_BR, sl, "
 "sv"
@@ -10811,7 +10795,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6411(para)
 msgid "User defined shortcuts"
-msgstr ""
+msgstr "Atajos definidos por el usuario"
 
 #: C/gnome-commander.xml:6414(para)
 msgid "SMB authentication"
@@ -10823,7 +10807,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6420(para)
 msgid "'cd -' for changing to the previous working directory"
-msgstr ""
+msgstr "«cd -» para cambiar al directorio previo de trabajo"
 
 #: C/gnome-commander.xml:6423(para)
 msgid "More intuitive usage of diff tool"
@@ -10902,7 +10886,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6489(para)
 msgid "Fixed problem #367744 (filename not correctly displayed)"
-msgstr ""
+msgstr "Error #367744 corregido (nombres de archivo mostrados incorrectamente)"
 
 #: C/gnome-commander.xml:6492(para)
 msgid "Fixed problem #374282 (searching with recursive symlinks)"
@@ -10918,7 +10902,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6509(para)
 msgid "New or updated translations: ar, en_GB, es, fi, it, pl, sv"
-msgstr ""
+msgstr "Traducciones nuevas o actualizadas: ar, en_GB, es, fi, it, pl, sv"
 
 #: C/gnome-commander.xml:6515(para)
 msgid ""
@@ -10955,6 +10939,8 @@ msgstr ""
 #: C/gnome-commander.xml:6543(para)
 msgid "Fixed problem #347561 (plugin directory set incorrectly)"
 msgstr ""
+"Error #347561 corregido (directorio de complementos configurado "
+"incorrectamente)"
 
 #: C/gnome-commander.xml:6546(para)
 msgid "Fixed problem #347817 (incorrect use of Makefile linker flags)"
@@ -10965,6 +10951,8 @@ msgid ""
 "Support for archives (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) via "
 "FileRoller plugin"
 msgstr ""
+"Soporte para archivos (gz, bz2, zip, lha, rar, jar, 7-zip, zoo, deb, rpm) a "
+"través del complemento File-Roller"
 
 #: C/gnome-commander.xml:6557(para)
 msgid "New python-like indices for advanced file rename templates"
@@ -11031,6 +11019,8 @@ msgstr ""
 #: C/gnome-commander.xml:6612(para)
 msgid "Fixed problem #309877 (strange artifacts with horizontal scrolling)"
 msgstr ""
+"Error #309877 corregido (artefactos extraños cuando se hace desplazamiento "
+"horizontal)"
 
 #: C/gnome-commander.xml:6615(para)
 msgid "Fixed problem #332258 (left/right start directory parameter)"
@@ -11041,10 +11031,11 @@ msgid ""
 "Fixed problem #332261 (exec_prefix not properly parsed during configure/"
 "makefiles)"
 msgstr ""
+"Error #332261 (exec_prefix análisis incorrecto durante configure/makefiles)"
 
 #: C/gnome-commander.xml:6621(para)
 msgid "Fixed problem #336649 (permission numbers presentation)"
-msgstr ""
+msgstr "Error #336649 corregido (presentación de permisos numéricos)"
 
 #: C/gnome-commander.xml:6624(para)
 msgid ""
@@ -11058,7 +11049,7 @@ msgstr "Monitorizar los volúmenes montados"
 
 #: C/gnome-commander.xml:6635(para)
 msgid "Rewritten internal viewer"
-msgstr ""
+msgstr "Visor interno reescrito"
 
 #: C/gnome-commander.xml:6638(para)
 msgid "External tools and Exif/IPTC tags viewer for internal viewer"
@@ -11070,7 +11061,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6644(para)
 msgid "Text selection for internal viewer"
-msgstr ""
+msgstr "Selección de texto para el visor interno"
 
 #: C/gnome-commander.xml:6647(para)
 msgid "Revamped toolbar layout"
