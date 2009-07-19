@@ -6,7 +6,7 @@ Bug fixes:
 * Fixed problem #587325 (crash in a clean chroot environment)
 
 New features:
- * New or updated docs: ...
+ * New or updated docs: de, es
  * New or updated translations: es
  * New key bindings:
       ...            ...
