@@ -230,9 +230,9 @@ inline void GnomeCmdFileSelector::update_selected_files_label()
 
 inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmdDir *dir=NULL)
 {
-    gboolean con_change_needed = fs->get_connection()==con;
+    gboolean con_change_needed = fs->get_connection()!=con;
 
-    if (!con_change_needed)
+    if (con_change_needed)
     {
         fs->file_list()->con = con;
         fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
@@ -257,7 +257,7 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
 
     fs->set_directory(dir);
 
-    if (!con_change_needed)
+    if (con_change_needed)
         gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), con);
 }
 
