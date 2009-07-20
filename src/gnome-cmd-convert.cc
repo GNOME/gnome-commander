@@ -243,6 +243,8 @@ gchar *gcmd_convert_sentence_case (gchar *string)
                             c == (gunichar) '"' || c == (gunichar) ':' || c == (gunichar) '.' ||
                             c == (gunichar) '`' || c == (gunichar) '-';
     }
+
+    return string;
 }
 
 
@@ -296,6 +298,8 @@ gchar *gcmd_convert_initial_caps (gchar *string)
 
         i = word;
     }
+
+    return string;
 }
 
 
