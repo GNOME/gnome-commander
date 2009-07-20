@@ -65,6 +65,7 @@ enum
     EMPTY_SPACE_CLICKED, // The file list was clicked but not on a file
     FILES_CHANGED,       // The visible content of the file list has changed (files have been: selected, created, deleted or modified)
     DIR_CHANGED,         // The current directory has been changed
+    CON_CHANGED,         // The current connection has been changed
     LAST_SIGNAL
 };
 
@@ -121,6 +122,7 @@ struct GnomeCmdFileListClass
     void (* empty_space_clicked) (GnomeCmdFileList *fl, GdkEventButton *button);
     void (* files_changed)       (GnomeCmdFileList *fl);
     void (* dir_changed)         (GnomeCmdFileList *fl, GnomeCmdDir *dir);
+    void (* con_changed)         (GnomeCmdFileList *fl, GnomeCmdCon *con);
 };
 
 
@@ -1355,6 +1357,7 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
     klass->list_clicked = NULL;
     klass->files_changed = NULL;
     klass->dir_changed = NULL;
+    klass->con_changed = NULL;
 
     signals[FILE_CLICKED] =
         g_signal_new ("file-clicked",
@@ -1416,6 +1419,15 @@ static void gnome_cmd_file_list_class_init (GnomeCmdFileListClass *klass)
             G_TYPE_NONE,
             1, G_TYPE_POINTER);
 
+    signals[CON_CHANGED] =
+        g_signal_new ("con-changed",
+            G_TYPE_FROM_CLASS (klass),
+            G_SIGNAL_RUN_LAST,
+            G_STRUCT_OFFSET (GnomeCmdFileListClass, con_changed),
+            NULL, NULL,
+            g_cclosure_marshal_VOID__POINTER,
+            G_TYPE_NONE,
+            1, G_TYPE_POINTER);
 }
 
 static void gnome_cmd_file_list_init (GnomeCmdFileList *fl)

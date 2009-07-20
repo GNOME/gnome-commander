@@ -951,6 +951,13 @@ static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *f
 }
 
 
+static void on_list_con_changed (GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
+{
+    fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
+    gnome_cmd_combo_select_data (GNOME_CMD_COMBO (fs->con_combo), con);
+}
+
+
 static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCmdFileSelector *fs)
 {
     if (fs->priv->dir_history && !fs->priv->dir_history->is_locked)
@@ -1262,6 +1269,8 @@ static void init (GnomeCmdFileSelector *fs)
     g_signal_connect (fs->file_list(), "file-released", G_CALLBACK (on_list_file_released), fs);
     g_signal_connect (fs->file_list(), "list-clicked", G_CALLBACK (on_list_list_clicked), fs);
     g_signal_connect (fs->file_list(), "empty-space-clicked", G_CALLBACK (on_list_empty_space_clicked), fs);
+
+    g_signal_connect (fs->file_list(), "con-changed", G_CALLBACK (on_list_con_changed), fs);
     g_signal_connect (fs->file_list(), "files-changed", G_CALLBACK (on_list_files_changed), fs);
 
     g_signal_connect (fs->file_list(), "key-press-event", G_CALLBACK (on_list_key_pressed), fs);
