@@ -311,7 +311,7 @@ static void add_menu_item (GnomeCmdDirIndicator *indicator, GtkMenuShell *shell,
     gtk_object_set_data (GTK_OBJECT (item), "indicator", indicator);
     gtk_object_set_data_full (GTK_OBJECT (shell), "menu_item", item, (GtkDestroyNotify) gtk_widget_unref);
     if (func)
-        gtk_signal_connect (GTK_OBJECT (item), "activate", GTK_SIGNAL_FUNC (func), data);
+        g_signal_connect (item, "activate", G_CALLBACK (func), data);
     gtk_widget_show (item);
     if (!text)
         gtk_widget_set_sensitive (item, FALSE);
@@ -328,9 +328,7 @@ static void popup_dir_history (GnomeCmdDirIndicator *indicator)
     gtk_object_set_data_full (
         GTK_OBJECT (indicator), "dir_history_popup",
         indicator->priv->dir_history_popup, (GtkDestroyNotify) gtk_widget_unref);
-    gtk_signal_connect (
-        GTK_OBJECT (indicator->priv->dir_history_popup), "hide",
-        GTK_SIGNAL_FUNC (on_dir_history_popup_hide), indicator);
+    g_signal_connect (indicator->priv->dir_history_popup, "hide", G_CALLBACK (on_dir_history_popup_hide), indicator);
 
     GnomeCmdCon *con = indicator->priv->fs->get_connection();
     History *history = gnome_cmd_con_get_dir_history (con);
@@ -385,7 +383,7 @@ inline void popup_bookmarks (GnomeCmdDirIndicator *indicator)
     indicator->priv->bookmark_popup = gtk_menu_new ();
     gtk_widget_ref (indicator->priv->bookmark_popup);
     gtk_object_set_data_full (GTK_OBJECT (indicator), "bookmark_popup", indicator->priv->bookmark_popup, (GtkDestroyNotify) gtk_widget_unref);
-    gtk_signal_connect (GTK_OBJECT (indicator->priv->bookmark_popup), "hide", GTK_SIGNAL_FUNC (on_bookmark_popup_hide), indicator);
+    g_signal_connect (indicator->priv->bookmark_popup, "hide", G_CALLBACK (on_bookmark_popup_hide), indicator);
 
     GnomeCmdCon *con = indicator->priv->fs->get_connection();
     GnomeCmdBookmarkGroup *group = gnome_cmd_con_get_bookmarks (con);
@@ -431,10 +429,8 @@ static void init (GnomeCmdDirIndicator *indicator)
     // create the directory label and its event box
     indicator->priv->event_box = gtk_event_box_new ();
     gtk_widget_ref (indicator->priv->event_box);
-    gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "motion-notify-event",
-                               GTK_SIGNAL_FUNC (on_dir_indicator_motion), indicator);
-    gtk_signal_connect_object (GTK_OBJECT (indicator->priv->event_box), "leave-notify-event",
-                               GTK_SIGNAL_FUNC (on_dir_indicator_leave), indicator);
+    g_signal_connect (indicator->priv->event_box, "motion-notify-event", G_CALLBACK (on_dir_indicator_motion), indicator);
+    g_signal_connect (indicator->priv->event_box, "leave-notify-event", G_CALLBACK (on_dir_indicator_leave), indicator);
     gtk_widget_set_events (indicator->priv->event_box, GDK_POINTER_MOTION_MASK);
 
     gtk_widget_show (indicator->priv->event_box);
@@ -474,8 +470,8 @@ static void init (GnomeCmdDirIndicator *indicator)
     gtk_box_pack_start (GTK_BOX (bbox), indicator->priv->bookmark_button, FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (bbox), indicator->priv->history_button, FALSE, FALSE, 0);
 
-    gtk_signal_connect (GTK_OBJECT (indicator->priv->history_button), "clicked", GTK_SIGNAL_FUNC (on_history_button_clicked), indicator);
-    gtk_signal_connect (GTK_OBJECT (indicator->priv->bookmark_button), "clicked", GTK_SIGNAL_FUNC (on_bookmark_button_clicked), indicator);
+    g_signal_connect (indicator->priv->history_button, "clicked", G_CALLBACK (on_history_button_clicked), indicator);
+    g_signal_connect (indicator->priv->bookmark_button, "clicked", G_CALLBACK (on_bookmark_button_clicked), indicator);
 }
 
 
@@ -510,7 +506,7 @@ GtkWidget *gnome_cmd_dir_indicator_new (GnomeCmdFileSelector *fs)
 {
     GnomeCmdDirIndicator *dir_indicator = (GnomeCmdDirIndicator *) gtk_type_new (gnome_cmd_dir_indicator_get_type ());
 
-    gtk_signal_connect (GTK_OBJECT (dir_indicator), "button-press-event", G_CALLBACK (on_dir_indicator_clicked), fs);
+    g_signal_connect (dir_indicator, "button-press-event", G_CALLBACK (on_dir_indicator_clicked), fs);
 
     dir_indicator->priv->fs = fs;
 
