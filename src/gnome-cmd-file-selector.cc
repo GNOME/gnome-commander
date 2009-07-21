@@ -1552,7 +1552,7 @@ void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, Fil
     {
         GnomeCmdFile *file = other->file_list()->get_selected_file();
 
-        if (file && file->info->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+        if (file && file->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
             dir = gnome_cmd_dir_new_from_info (file->info, dir);
     }
 

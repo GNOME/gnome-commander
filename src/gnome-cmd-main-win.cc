@@ -127,7 +127,7 @@ static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFile
 gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdMainWin *mw)
 {
     g_return_val_if_fail (mw!=NULL, FALSE);
-    g_return_val_if_fail (mw->priv!=NULL,FALSE);
+    g_return_val_if_fail (mw->priv!=NULL, FALSE);
 
     if (event->type!=GDK_KEY_PRESS)
         return FALSE;
