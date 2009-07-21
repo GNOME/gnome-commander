@@ -229,7 +229,7 @@ static void create_toolbar (GnomeCmdMainWin *mw, GnomeUIInfo *uiinfo)
             GtkWidget *pixmap;
 
             w = create_styled_button (NULL);
-            gtk_signal_connect (GTK_OBJECT (w), "clicked", GTK_SIGNAL_FUNC (uiinfo[i].moreinfo), uiinfo[i].user_data);
+            g_signal_connect (w, "clicked", G_CALLBACK (uiinfo[i].moreinfo), uiinfo[i].user_data);
             gtk_tooltips_set_tip (toolbar_tooltips, w, uiinfo[i].hint, NULL);
             GTK_WIDGET_UNSET_FLAGS (w, GTK_CAN_FOCUS);
 
@@ -442,14 +442,14 @@ static void create_buttonbar (GnomeCmdMainWin *mw)
     gtk_box_pack_start (GTK_BOX (mw->priv->buttonbar), create_separator (TRUE), FALSE, TRUE, 0);
     mw->priv->quit_btn = add_buttonbar_button(_("F10 Quit"), main_win, "quit_btn", mw->priv->accel_group, 0);
 
-    g_signal_connect (G_OBJECT (mw->priv->view_btn), "clicked", G_CALLBACK (on_view_clicked), mw);
-    g_signal_connect (G_OBJECT (mw->priv->edit_btn), "clicked", G_CALLBACK (on_edit_clicked), mw);
-    g_signal_connect (G_OBJECT (mw->priv->copy_btn), "clicked", G_CALLBACK (on_copy_clicked), mw);
-    g_signal_connect (G_OBJECT (mw->priv->move_btn), "clicked", G_CALLBACK (on_move_clicked), mw);
-    g_signal_connect (G_OBJECT (mw->priv->mkdir_btn), "clicked", G_CALLBACK (on_mkdir_clicked), mw);
-    g_signal_connect (G_OBJECT (mw->priv->delete_btn), "clicked", G_CALLBACK (on_delete_clicked), mw);
-    g_signal_connect (G_OBJECT (mw->priv->find_btn), "clicked", G_CALLBACK (on_search_clicked), mw);
-    g_signal_connect (G_OBJECT (mw->priv->quit_btn), "clicked", G_CALLBACK (on_quit_clicked), mw);
+    g_signal_connect (mw->priv->view_btn, "clicked", G_CALLBACK (on_view_clicked), mw);
+    g_signal_connect (mw->priv->edit_btn, "clicked", G_CALLBACK (on_edit_clicked), mw);
+    g_signal_connect (mw->priv->copy_btn, "clicked", G_CALLBACK (on_copy_clicked), mw);
+    g_signal_connect (mw->priv->move_btn, "clicked", G_CALLBACK (on_move_clicked), mw);
+    g_signal_connect (mw->priv->mkdir_btn, "clicked", G_CALLBACK (on_mkdir_clicked), mw);
+    g_signal_connect (mw->priv->delete_btn, "clicked", G_CALLBACK (on_delete_clicked), mw);
+    g_signal_connect (mw->priv->find_btn, "clicked", G_CALLBACK (on_search_clicked), mw);
+    g_signal_connect (mw->priv->quit_btn, "clicked", G_CALLBACK (on_quit_clicked), mw);
 }
 
 
@@ -1284,7 +1284,7 @@ void gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw)
     gtk_widget_unref (mw->priv->file_selector[LEFT]);
     gtk_widget_unref (mw->priv->file_selector[RIGHT]);
 
-    gtk_signal_connect (GTK_OBJECT (mw->priv->paned), "button-press-event", GTK_SIGNAL_FUNC (on_slide_button_press), mw);
+    g_signal_connect (mw->priv->paned, "button-press-event", G_CALLBACK (on_slide_button_press), mw);
     slide_set_50_50 (NULL, NULL);
 }
 
