@@ -1364,7 +1364,7 @@ void view_refresh (GtkMenuItem *menuitem, gpointer not_used)
 
 void view_equal_panes (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_main_win_set_equal_panes (GNOME_CMD_MAIN_WIN (main_win));
+    main_win->set_equal_panes();
 }
 
 

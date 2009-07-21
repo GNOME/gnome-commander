@@ -66,7 +66,7 @@ inline void cut_and_paste (GnomeCmdDir *to)
                           GTK_SIGNAL_FUNC (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;
-    gnome_cmd_main_win_set_cap_state (main_win, FALSE);
+    main_win->set_cap_state(FALSE);
 }
 
 
@@ -82,7 +82,7 @@ inline void copy_and_paste (GnomeCmdDir *to)
                           GTK_SIGNAL_FUNC (on_xfer_done), _files);
     _files = NULL;
     _fl = NULL;
-    gnome_cmd_main_win_set_cap_state (main_win, FALSE);
+    main_win->set_cap_state(FALSE);
 }
 
 
@@ -91,7 +91,7 @@ void cap_cut_files (GnomeCmdFileList *fl, GList *files)
     update_refs (fl, files);
 
     _type = GNOME_CMD_CUTTED;
-    gnome_cmd_main_win_set_cap_state (main_win, TRUE);
+    main_win->set_cap_state(TRUE);
 }
 
 
@@ -101,7 +101,7 @@ void cap_copy_files (GnomeCmdFileList *fl, GList *files)
     update_refs (fl, files);
 
     _type = GNOME_CMD_COPIED;
-    gnome_cmd_main_win_set_cap_state (main_win, TRUE);
+    main_win->set_cap_state(TRUE);
 }
 
 

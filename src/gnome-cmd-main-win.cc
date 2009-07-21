@@ -73,7 +73,15 @@ enum
 };
 
 
-struct GnomeCmdMainWinPrivate
+struct GnomeCmdMainWinClass
+{
+    GnomeAppClass parent_class;
+
+    void (* switch_fs) (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
+};
+
+
+struct GnomeCmdMainWin::Private
 {
     FileSelectorID current_fs;
     GnomeCmdState state;
@@ -116,10 +124,10 @@ struct GnomeCmdMainWinPrivate
 
 static GnomeAppClass *parent_class = NULL;
 
-static guint main_win_signals[LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 static GtkTooltips *toolbar_tooltips = NULL;
-extern gchar *start_dir_left;   //main.cc
-extern gchar *start_dir_right;  //main.cc
+extern gchar *start_dir_left;   //  main.cc
+extern gchar *start_dir_right;  //  main.cc
 
 static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
@@ -476,14 +484,14 @@ static gboolean on_slide_button_press (GtkWidget *widget, GdkEventButton *event,
 
 static void on_main_win_realize (GtkWidget *widget, GnomeCmdMainWin *mw)
 {
-    gnome_cmd_main_win_set_equal_panes (mw);
+    mw->set_equal_panes();
 
     gnome_cmd_main_win_get_fs (mw, LEFT)->set_active(TRUE);
     gnome_cmd_main_win_get_fs (mw, RIGHT)->set_active(FALSE);
 
     // if (gnome_cmd_data.cmdline_visibility)
     // {
-        // gchar *dpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (gnome_cmd_main_win_get_fs (mw, LEFT)->get_directory()));
+        // gchar *dpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (mw->fs(LEFT)->get_directory()));
         // gnome_cmd_cmdline_set_dir (GNOME_CMD_CMDLINE (mw->priv->cmdline), dpath);
         // g_free (dpath);
     // }
@@ -637,11 +645,11 @@ static void on_fs_dir_change (GnomeCmdFileSelector *fs, const gchar dir, GnomeCm
 }
 
 
-static void restore_size_and_pos (GnomeCmdMainWin *mw)
+inline void restore_size_and_pos (GnomeCmdMainWin *mw)
 {
     gint x, y;
 
-    gtk_widget_set_size_request (GTK_WIDGET (main_win),
+    gtk_widget_set_size_request (*mw,
                                  gnome_cmd_data.main_win_width,
                                  gnome_cmd_data.main_win_height);
 
@@ -737,7 +745,7 @@ static void class_init (GnomeCmdMainWinClass *klass)
 
     parent_class = (GnomeAppClass *) gtk_type_class (gnome_app_get_type ());
 
-    main_win_signals[SWITCH_FS] =
+    signals[SWITCH_FS] =
         gtk_signal_new ("switch-fs",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
@@ -759,7 +767,7 @@ static void init (GnomeCmdMainWin *mw)
     main_win = GNOME_CMD_MAIN_WIN (mw);
 
     mw->advrename_dlg = NULL;
-    mw->priv = g_new0 (GnomeCmdMainWinPrivate, 1);
+    mw->priv = g_new0 (GnomeCmdMainWin::Private, 1);
     mw->priv->current_fs = LEFT;
     mw->priv->accel_group = gtk_accel_group_new ();
     mw->priv->toolbar = NULL;
@@ -1112,7 +1120,7 @@ void gnome_cmd_main_win_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs
     g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    gtk_signal_emit (GTK_OBJECT (mw), main_win_signals[SWITCH_FS], fs);
+    gtk_signal_emit (*mw, signals[SWITCH_FS], fs);
 }
 
 
@@ -1318,15 +1326,13 @@ GnomeCmdState *gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw)
 }
 
 
-void gnome_cmd_main_win_set_cap_state (GnomeCmdMainWin *mw, gboolean state)
+void GnomeCmdMainWin::set_cap_state (gboolean state)
 {
-    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
-
-    gtk_widget_set_sensitive (mw->priv->tb_cap_paste_btn, state);
+    gtk_widget_set_sensitive (priv->tb_cap_paste_btn, state);
 }
 
 
-void gnome_cmd_main_win_set_equal_panes (GnomeCmdMainWin *mw)
+void GnomeCmdMainWin::set_equal_panes()
 {
     slide_set_50_50 (NULL, NULL);
 }
