@@ -429,8 +429,8 @@ static void init (GnomeCmdDirIndicator *indicator)
     // create the directory label and its event box
     indicator->priv->event_box = gtk_event_box_new ();
     gtk_widget_ref (indicator->priv->event_box);
-    g_signal_connect (indicator->priv->event_box, "motion-notify-event", G_CALLBACK (on_dir_indicator_motion), indicator);
-    g_signal_connect (indicator->priv->event_box, "leave-notify-event", G_CALLBACK (on_dir_indicator_leave), indicator);
+    g_signal_connect_swapped (indicator->priv->event_box, "motion-notify-event", G_CALLBACK (on_dir_indicator_motion), indicator);
+    g_signal_connect_swapped (indicator->priv->event_box, "leave-notify-event", G_CALLBACK (on_dir_indicator_leave), indicator);
     gtk_widget_set_events (indicator->priv->event_box, GDK_POINTER_MOTION_MASK);
 
     gtk_widget_show (indicator->priv->event_box);
