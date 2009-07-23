@@ -278,7 +278,7 @@ static GtkWidget *create_format_tab (GtkWidget *parent)
     label = create_label (parent, "");
     gtk_object_set_data_full (GTK_OBJECT (parent), "date_format_test_label",
                               label, (GtkDestroyNotify) gtk_widget_unref);
-    gtk_signal_connect (GTK_OBJECT (label), "realize", GTK_SIGNAL_FUNC (on_date_format_update), parent);
+    g_signal_connect (label, "realize", G_CALLBACK (on_date_format_update), parent);
     table_add (table, label, 1, 1, (GtkAttachOptions) (GTK_EXPAND|GTK_FILL));
 
     label = create_label (parent, _("See the manual page for \"strftime\" for help on how to set the format string."));
@@ -494,7 +494,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 
     lm_optmenu = create_option_menu (parent, gfx_modes);
     gtk_object_set_data (GTK_OBJECT (parent), "lm_optmenu", lm_optmenu);
-    gtk_signal_connect (GTK_OBJECT (lm_optmenu), "changed", GTK_SIGNAL_FUNC (on_layout_mode_changed), parent);
+    g_signal_connect (lm_optmenu, "changed", G_CALLBACK (on_layout_mode_changed), parent);
     table_add (table, lm_optmenu, 1, 3, (GtkAttachOptions) (GTK_FILL|GTK_EXPAND));
 
     // Color scheme
@@ -506,7 +506,7 @@ static GtkWidget *create_layout_tab (GtkWidget *parent)
 
     cm_optmenu = create_option_menu (parent, color_modes);
     gtk_object_set_data (GTK_OBJECT (parent), "cm_optmenu", cm_optmenu);
-    gtk_signal_connect (GTK_OBJECT (cm_optmenu), "changed", GTK_SIGNAL_FUNC (on_color_mode_changed), parent);
+    g_signal_connect (cm_optmenu, "changed", G_CALLBACK (on_color_mode_changed), parent);
     gtk_box_pack_start (GTK_BOX (hbox), cm_optmenu, TRUE, TRUE, 0);
 
 
@@ -788,7 +788,7 @@ static GtkWidget *create_filter_tab (GtkWidget *parent)
     gtk_widget_set_sensitive (entry, gnome_cmd_data.filter_settings.backup);
 
 
-    gtk_signal_connect (GTK_OBJECT (backup_check), "toggled", GTK_SIGNAL_FUNC (on_filter_backup_files_toggled), frame);
+    g_signal_connect (backup_check, "toggled", G_CALLBACK (on_filter_backup_files_toggled), frame);
 
     return frame;
 }
@@ -1145,20 +1145,17 @@ static GtkWidget *create_app_dialog (GnomeCmdApp *app, GtkSignalFunc on_ok, GtkS
     gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 1, 2, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
     radio = create_radio (dialog, get_radio_group(radio), _("All directories and files"),
                           "show_for_all_dirs_and_files");
-    if (app) gtk_toggle_button_set_active (
-        GTK_TOGGLE_BUTTON (radio),
-        gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS_AND_FILES);
+    if (app) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio),
+                                           gnome_cmd_app_get_target (app) == APP_TARGET_ALL_DIRS_AND_FILES);
     gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 2, 3, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
     radio = create_radio (dialog, get_radio_group(radio), _("Some files"),
                           "show_for_some_files");
-    if (app) gtk_toggle_button_set_active (
-        GTK_TOGGLE_BUTTON (radio),
-        gnome_cmd_app_get_target (app) == APP_TARGET_SOME_FILES);
+    if (app) gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio),
+                                           gnome_cmd_app_get_target (app) == APP_TARGET_SOME_FILES);
     gtk_table_attach (GTK_TABLE (table), radio, 0, 2, 3, 4, GTK_FILL, (GtkAttachOptions) 0, 0, 0);
-    if (!app) gtk_toggle_button_set_active (
-        GTK_TOGGLE_BUTTON (radio), TRUE);
-    gtk_signal_connect (GTK_OBJECT (radio), "toggled",
-                        GTK_SIGNAL_FUNC (on_some_files_toggled), dialog);
+    if (!app)
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (radio), TRUE);
+    g_signal_connect (radio, "toggled", G_CALLBACK (on_some_files_toggled), dialog);
 
     label = create_label (dialog, _("File patterns"));
     table_add (table, label, 0, 4, (GtkAttachOptions) 0);
