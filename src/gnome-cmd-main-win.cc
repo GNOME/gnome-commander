@@ -958,7 +958,7 @@ void gnome_cmd_main_win_refocus (GnomeCmdMainWin *mw)
 }
 
 
-gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
+gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
 {
     if (state_is_alt (event->state))
     {
@@ -966,23 +966,23 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
         {
             case GDK_1:
                 {
-                    GnomeCmdFileSelector *fs = mw->fs(LEFT);
-                    gnome_cmd_main_win_switch_fs (mw, fs);
+                    GnomeCmdFileSelector *fs = this->fs(LEFT);
+                    gnome_cmd_main_win_switch_fs (this, fs);
                     gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
                 }
                 return TRUE;
 
             case GDK_2:
                 {
-                    GnomeCmdFileSelector *fs = mw->fs(RIGHT);
-                    gnome_cmd_main_win_switch_fs (mw, fs);
+                    GnomeCmdFileSelector *fs = this->fs(RIGHT);
+                    gnome_cmd_main_win_switch_fs (this, fs);
                     gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
                 }
                 return TRUE;
 
             case GDK_F8:
                 if (gnome_cmd_data.cmdline_visibility)
-                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));
+                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));
                 return TRUE;
         }
     }
@@ -994,7 +994,7 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
             case GDK_h:
                 gnome_cmd_data.filter_settings.hidden = !gnome_cmd_data.filter_settings.hidden;
                 gnome_cmd_style_create ();
-                gnome_cmd_main_win_update_style (main_win);
+                gnome_cmd_main_win_update_style (this);
                 gnome_cmd_data.save();
                 return TRUE;
         }
@@ -1007,20 +1007,20 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
             case GDK_E:
             case GDK_Down:
                 if (gnome_cmd_data.cmdline_visibility)
-                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (mw->priv->cmdline));
+                    gnome_cmd_cmdline_show_history (GNOME_CMD_CMDLINE (priv->cmdline));
                 return TRUE;
 
             case GDK_u:
             case GDK_U:
                 {
-                    GnomeCmdDir *dir1 = mw->fs(LEFT)->get_directory();
-                    GnomeCmdDir *dir2 = mw->fs(RIGHT)->get_directory();
+                    GnomeCmdDir *dir1 = fs(LEFT)->get_directory();
+                    GnomeCmdDir *dir2 = fs(RIGHT)->get_directory();
 
                     gnome_cmd_dir_ref (dir1);
                     gnome_cmd_dir_ref (dir2);
 
-                    mw->fs(LEFT)->set_directory(dir2);
-                    mw->fs(RIGHT)->set_directory(dir1);
+                    fs(LEFT)->set_directory(dir2);
+                    fs(RIGHT)->set_directory(dir1);
 
                     gnome_cmd_dir_unref (dir1);
                     gnome_cmd_dir_unref (dir2);
@@ -1044,7 +1044,7 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
             {
                 GnomeCmdConFtp *con = GNOME_CMD_CON_FTP (gnome_cmd_con_list_get_all_ftp (gnome_cmd_con_list_get ())->data);
 
-                main_win->fs(ACTIVE)->set_connection(GNOME_CMD_CON (con));
+                fs(ACTIVE)->set_connection(GNOME_CMD_CON (con));
             }
             break;
         }
@@ -1056,51 +1056,51 @@ gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event)
                 case GDK_Tab:
                     // hack to avoid the default handling of the tab-key
                     clear_event_key (event);
-                    gnome_cmd_main_win_switch_fs (mw, mw->fs(INACTIVE));
+                    gnome_cmd_main_win_switch_fs (this, fs(INACTIVE));
                     return TRUE;
 
                 case GDK_F1:
-                    on_help_clicked (NULL, mw);
+                    on_help_clicked (NULL, this);
                     return TRUE;
 
                 case GDK_F2:
-                    on_rename_clicked (NULL, mw);
+                    on_rename_clicked (NULL, this);
                     return TRUE;
 
                 case GDK_F3:
-                    on_view_clicked (NULL, mw);
+                    on_view_clicked (NULL, this);
                     return TRUE;
 
                 case GDK_F4:
-                    on_edit_clicked (NULL, mw);
+                    on_edit_clicked (NULL, this);
                     return TRUE;
 
                 case GDK_F5:
-                    on_copy_clicked (NULL, mw);
+                    on_copy_clicked (NULL, this);
                     return TRUE;
 
                 case GDK_F6:
-                    on_move_clicked (NULL, mw);
+                    on_move_clicked (NULL, this);
                     return TRUE;
 
                 case GDK_F7:
-                    on_mkdir_clicked (NULL, mw);
+                    on_mkdir_clicked (NULL, this);
                     return TRUE;
 
                 case GDK_F8:
-                    on_delete_clicked (NULL, mw);
+                    on_delete_clicked (NULL, this);
                     return TRUE;
 
                 case GDK_F9:
-                    on_search_clicked (NULL, mw);
+                    on_search_clicked (NULL, this);
                     return TRUE;
 
                 case GDK_F10:
-                    on_quit_clicked (NULL, mw);
+                    on_quit_clicked (NULL, this);
                     return TRUE;
             }
 
-    if (mw->fs(ACTIVE)->key_pressed(event))
+    if (fs(ACTIVE)->key_pressed(event))
         return TRUE;
 
     return FALSE;

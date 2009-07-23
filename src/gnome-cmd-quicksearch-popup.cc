@@ -151,7 +151,7 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdQu
         case GDK_F8:
             popup->priv->fl->select_row(GNOME_CMD_CLIST (popup->priv->fl)->drag_motion_row);
             hide_popup (popup);
-            gnome_cmd_main_win_keypressed (main_win, event);
+            main_win->key_pressed(event);
             return TRUE;
 
         default:

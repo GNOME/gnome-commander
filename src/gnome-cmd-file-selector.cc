@@ -1099,7 +1099,7 @@ static gboolean on_list_key_pressed (GtkCList *clist, GdkEventKey *event, GnomeC
         ret = TRUE;
     else if (fs->key_pressed(event))
         ret = TRUE;
-    else if (gnome_cmd_main_win_keypressed (main_win, event))
+    else if (main_win->key_pressed(event))
         ret = TRUE;
     else if (gcmd_user_actions.handle_key_event(main_win, fs->file_list(), event))
         ret = TRUE;

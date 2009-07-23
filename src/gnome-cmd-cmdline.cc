@@ -131,7 +131,7 @@ static gboolean on_key_pressed (GtkWidget *entry, GdkEventKey *event, GnomeCmdCm
             break;
     }
 
-    return gnome_cmd_cmdline_keypressed (cmdline, event) || gnome_cmd_main_win_keypressed (main_win, event);
+    return gnome_cmd_cmdline_keypressed (cmdline, event) || main_win->key_pressed(event);
 }
 
 

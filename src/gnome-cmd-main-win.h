@@ -48,9 +48,10 @@ struct GnomeCmdMainWin
     GnomeCmdAdvrenameDialog *advrename_dlg;
 
     GnomeCmdFileSelector *fs(FileSelectorID id);
-    
-    void set_equal_panes();
 
+    gboolean key_pressed (GdkEventKey *event);
+
+    void set_equal_panes();
     void set_cap_state(gboolean state);
 };
 
@@ -71,8 +72,6 @@ void gnome_cmd_main_win_new_cwd (GnomeCmdMainWin *mw, const gchar *cwd);
 void gnome_cmd_main_win_focus_cmdline (GnomeCmdMainWin *mw);
 void gnome_cmd_main_win_focus_file_lists (GnomeCmdMainWin *mw);
 void gnome_cmd_main_win_refocus (GnomeCmdMainWin *mw);
-
-gboolean gnome_cmd_main_win_keypressed (GnomeCmdMainWin *mw, GdkEventKey *event);
 
 void gnome_cmd_main_win_update_bookmarks (GnomeCmdMainWin *mw);
 void gnome_cmd_main_win_update_toolbar_visibility (GnomeCmdMainWin *mw);
