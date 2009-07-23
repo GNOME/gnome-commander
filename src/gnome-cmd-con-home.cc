@@ -128,7 +128,6 @@ static void init (GnomeCmdConHome *home_con)
     GnomeCmdDir *dir = gnome_cmd_dir_new (con, path);
 
     gnome_cmd_con_set_default_dir (con, dir);
-    gnome_cmd_con_set_cwd (con, dir);
 }
 
 

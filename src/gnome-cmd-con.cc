@@ -31,7 +31,6 @@ using namespace std;
 
 struct GnomeCmdConPrivate
 {
-    GnomeCmdDir    *cwd;           // current working directory
     GnomeCmdDir    *root_dir;      // the root dir of this connection
     GnomeCmdDir    *default_dir;   // the start dir of this connection
     History        *dir_history;
@@ -97,8 +96,6 @@ static void destroy (GtkObject *object)
     g_free (con->close_tooltip);
     gnome_cmd_pixmap_free (con->close_pixmap);
 
-    if (con->priv->cwd)
-        gnome_cmd_dir_unref (con->priv->cwd);
     if (con->priv->default_dir)
         gnome_cmd_dir_unref (con->priv->default_dir);
     if (con->priv->root_dir)
@@ -203,7 +200,6 @@ static void init (GnomeCmdCon *con)
     con->open_failed_msg = NULL;
 
     con->priv = g_new0 (GnomeCmdConPrivate, 1);
-    con->priv->cwd = NULL;
     con->priv->default_dir = NULL;
     con->priv->dir_history = new History(20);
     con->priv->bookmarks = g_new0 (GnomeCmdBookmarkGroup, 1);
@@ -256,7 +252,6 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
         GnomeCmdDir *dir = gnome_cmd_dir_new_with_con (con->base_info, con->base_path, con);
 
         gnome_cmd_con_set_default_dir (con, dir);
-        gnome_cmd_con_set_cwd (con, dir);
 
         DEBUG ('m', "Emitting open_done signal\n");
         gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_DONE]);
@@ -329,42 +324,6 @@ GnomeCmdPath *gnome_cmd_con_create_path (GnomeCmdCon *con, const gchar *path_str
     GnomeCmdConClass *klass = GNOME_CMD_CON_GET_CLASS (con);
 
     return klass->create_path (con, path_str);
-}
-
-
-void gnome_cmd_con_set_cwd (GnomeCmdCon *con, GnomeCmdDir *dir)
-{
-    g_return_if_fail (GNOME_CMD_IS_CON (con));
-
-    if (GNOME_CMD_IS_DIR (dir) && gnome_cmd_dir_get_connection (dir) != con)
-        return;
-
-    if (dir == con->priv->cwd)
-        return;
-
-    if (dir)
-        gnome_cmd_dir_ref (dir);
-    if (con->priv->cwd)
-        gnome_cmd_dir_unref (con->priv->cwd);
-
-    con->priv->cwd = dir;
-}
-
-
-GnomeCmdDir *gnome_cmd_con_get_cwd (GnomeCmdCon *con)
-{
-    g_return_val_if_fail (GNOME_CMD_IS_CON (con), NULL);
-
-    /*
-    if (!con->priv->cwd)
-    {
-        GnomeCmdDir *dir = gnome_cmd_dir_new (con, con->base_path);
-        if (dir)
-            gnome_cmd_con_set_cwd (con, dir);
-    }
-    */
-
-    return con->priv->cwd;
 }
 
 

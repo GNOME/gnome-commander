@@ -97,7 +97,6 @@ static void ftp_open (GnomeCmdCon *con)
 static gboolean ftp_close (GnomeCmdCon *con)
 {
     gnome_cmd_con_set_default_dir (con, NULL);
-    gnome_cmd_con_set_cwd (con, NULL);
     g_object_unref (con->base_path);
     con->base_path = NULL;
     con->state = CON_STATE_CLOSED;

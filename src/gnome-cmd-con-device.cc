@@ -231,7 +231,6 @@ static gboolean dev_close (GnomeCmdCon *con)
     GnomeCmdConDevice *dev_con = GNOME_CMD_CON_DEVICE (con);
 
     gnome_cmd_con_set_default_dir (con, NULL);
-    gnome_cmd_con_set_cwd (con, NULL);
 
     chdir (g_get_home_dir ());
 

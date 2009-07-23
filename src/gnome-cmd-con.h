@@ -207,12 +207,7 @@ inline void gnome_cmd_con_set_host_name (GnomeCmdCon *con, const std::string &ho
     gnome_cmd_con_set_host_name (con, host.empty() ? NULL : host.c_str());
 }
 
-void gnome_cmd_con_set_cwd (GnomeCmdCon *con, GnomeCmdDir *dir);
-
-GnomeCmdDir *gnome_cmd_con_get_cwd (GnomeCmdCon *con);
-
 GnomeCmdDir *gnome_cmd_con_get_default_dir (GnomeCmdCon *con);
-
 void gnome_cmd_con_set_default_dir (GnomeCmdCon *con, GnomeCmdDir *dir);
 
 GnomeCmdDir *gnome_cmd_con_get_root_dir (GnomeCmdCon *con);

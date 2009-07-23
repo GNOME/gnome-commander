@@ -252,8 +252,7 @@ inline void set_connection (GnomeCmdFileSelector *fs, GnomeCmdCon *con, GnomeCmd
     }
 
     if (!dir)
-        dir = gnome_cmd_con_should_remember_dir (con) ? gnome_cmd_con_get_cwd (con) :
-                                                        gnome_cmd_con_get_default_dir (con);
+        dir = gnome_cmd_con_get_default_dir (con);
 
     fs->set_directory(dir);
 
@@ -1023,8 +1022,6 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
         fs->file_list()->connected_dir = dir;
     }
 
-    gnome_cmd_con_set_cwd (fs->get_connection(), dir);
-
     if (fs->priv->dir_history && !fs->priv->dir_history->is_locked)
     {
         gchar *fpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
@@ -1619,6 +1616,9 @@ void GnomeCmdFileSelector::set_connection (GnomeCmdCon *con, GnomeCmdDir *start_
     {
         if (!gnome_cmd_con_should_remember_dir (con))
             set_directory (gnome_cmd_con_get_default_dir (con));
+        else
+            if (start_dir)
+                set_directory (start_dir);
         return;
     }
 
