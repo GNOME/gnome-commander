@@ -1930,13 +1930,13 @@ void gnome_cmd_data_set_auto_load_plugins (GList *plugins)
 
 void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint &col, gboolean &direction)
 {
-    if (!gnome_cmd_main_win_get_fs (main_win, LEFT) || gnome_cmd_main_win_get_fs (main_win, LEFT)->file_list() == fl)
+    if (!main_win->fs(LEFT) || main_win->fs(LEFT)->file_list() == fl)
     {
         col = gnome_cmd_data.priv->sort_column[LEFT];
         direction = gnome_cmd_data.priv->sort_direction[LEFT];
     }
     else
-        if (!gnome_cmd_main_win_get_fs (main_win, RIGHT) || gnome_cmd_main_win_get_fs (main_win, RIGHT)->file_list() == fl)
+        if (!main_win->fs(RIGHT) || main_win->fs(RIGHT)->file_list() == fl)
         {
             col = gnome_cmd_data.priv->sort_column[RIGHT];
             direction = gnome_cmd_data.priv->sort_direction[RIGHT];
@@ -1946,13 +1946,13 @@ void gnome_cmd_data_get_sort_params (GnomeCmdFileList *fl, gint &col, gboolean &
 
 void gnome_cmd_data_set_sort_params (GnomeCmdFileList *fl, gint col, gboolean direction)
 {
-    if (gnome_cmd_main_win_get_fs (main_win, LEFT)->file_list() == fl)
+    if (main_win->fs(LEFT)->file_list()==fl)
     {
         gnome_cmd_data.priv->sort_column[LEFT] = col;
         gnome_cmd_data.priv->sort_direction[LEFT] = direction;
     }
     else
-        if (gnome_cmd_main_win_get_fs (main_win, RIGHT)->file_list() == fl)
+        if (main_win->fs(RIGHT)->file_list()==fl)
         {
             gnome_cmd_data.priv->sort_column[RIGHT] = col;
             gnome_cmd_data.priv->sort_direction[RIGHT] = direction;

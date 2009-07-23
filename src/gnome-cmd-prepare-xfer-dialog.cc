@@ -39,7 +39,7 @@ static GnomeCmdDialogClass *parent_class = NULL;
 
 inline gboolean con_device_has_path (FileSelectorID fsID, GnomeCmdCon *&dev, const gchar *user_path)
 {
-    dev = gnome_cmd_main_win_get_fs (main_win, fsID)->get_connection();
+    dev = main_win->fs(fsID)->get_connection();
 
     return GNOME_CMD_IS_CON_DEVICE (dev) &&
            g_str_has_prefix (user_path, gnome_cmd_con_device_get_mountp (GNOME_CMD_CON_DEVICE (dev)));

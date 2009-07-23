@@ -388,7 +388,7 @@ static void add_groups (GnomeCmdBookmarkDialog *dialog)
 
 static void add_bookmarks (GnomeCmdBookmarkDialog *dialog)
 {
-    GnomeCmdCon *current_con = gnome_cmd_main_win_get_fs (main_win, ACTIVE)->get_connection();
+    GnomeCmdCon *current_con = main_win->fs(ACTIVE)->get_connection();
 
     g_return_if_fail (current_con != NULL);
 
@@ -615,7 +615,7 @@ GtkWidget *gnome_cmd_bookmark_dialog_new ()
 
 void gnome_cmd_bookmark_add_current ()
 {
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
+    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
     GnomeCmdDir *cwd = fs->get_directory();
     gchar *path = gnome_cmd_dir_is_local (cwd) ? gnome_cmd_file_get_real_path (GNOME_CMD_FILE (cwd)) :
                                                  gnome_cmd_file_get_path (GNOME_CMD_FILE (cwd));
@@ -655,7 +655,7 @@ void gnome_cmd_bookmark_goto (GnomeCmdBookmark *bookmark)
 {
     g_return_if_fail (bookmark->group->con != NULL);
 
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
+    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     GnomeCmdCon *current_con = fs->get_connection();

@@ -77,7 +77,7 @@ static void on_exec (GnomeCmdCmdline *cmdline, gboolean term)
     cmdline_text = gtk_entry_get_text (GTK_ENTRY (GNOME_CMD_COMBO (cmdline->priv->combo)->entry));
     cmdline_text = g_strstrip (g_strdup (cmdline_text));
 
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
+    GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
 
     if (g_str_has_prefix (cmdline_text, "cd "))   // if cmdline_text starts with "cd " then it MUST have at least 4 chars (as it's been previously g_strstrip'ed)
     {
@@ -173,7 +173,7 @@ static void on_fs_changed_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, Gnome
     g_return_if_fail (dir != NULL);
     g_return_if_fail (GNOME_CMD_IS_CMDLINE (cmdline));
 
-    if (fs != gnome_cmd_main_win_get_fs (main_win, ACTIVE))
+    if (fs != main_win->fs(ACTIVE))
         return;
 
     gchar *dpath = gnome_cmd_dir_get_display_path (dir);
@@ -189,10 +189,8 @@ static void on_fs_changed_dir (GnomeCmdFileSelector *fs, GnomeCmdDir *dir, Gnome
 static void destroy (GtkObject *object)
 {
     gtk_signal_disconnect_by_func (GTK_OBJECT (main_win), GTK_SIGNAL_FUNC (on_switch_fs), object);
-    gtk_signal_disconnect_by_func (GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, LEFT)),
-                                   GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
-    gtk_signal_disconnect_by_func (GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, RIGHT)),
-                                   GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
+    gtk_signal_disconnect_by_func (GTK_OBJECT (main_win->fs(LEFT)), GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
+    gtk_signal_disconnect_by_func (GTK_OBJECT (main_win->fs(RIGHT)), GTK_SIGNAL_FUNC (on_fs_changed_dir), object);
 
     if (GTK_OBJECT_CLASS (parent_class)->destroy)
         (*GTK_OBJECT_CLASS (parent_class)->destroy) (object);
@@ -263,10 +261,8 @@ static void init (GnomeCmdCmdline *cmdline)
                         GTK_SIGNAL_FUNC (on_combo_popwin_hidden), cmdline);
     gtk_signal_connect_after (GTK_OBJECT (main_win), "switch-fs",
                         GTK_SIGNAL_FUNC (on_switch_fs), cmdline);
-    gtk_signal_connect (GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, LEFT)),
-                        "changed-dir", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
-    gtk_signal_connect (GTK_OBJECT (gnome_cmd_main_win_get_fs (main_win, RIGHT)),
-                        "changed-dir", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
+    gtk_signal_connect (GTK_OBJECT (main_win->fs(LEFT)), "changed-dir", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
+    gtk_signal_connect (GTK_OBJECT (main_win->fs(RIGHT)), "changed-dir", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
 
     gnome_cmd_cmdline_update_style (cmdline);
 }
@@ -489,7 +485,7 @@ gboolean gnome_cmd_cmdline_keypressed (GnomeCmdCmdline *cmdline, GdkEventKey *ev
                         {
                             gboolean ret;
                             GdkEventKey event2 = *event;
-                            GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (main_win, ACTIVE);
+                            GnomeCmdFileSelector *fs = main_win->fs(ACTIVE);
                             GtkWidget *file_list = *fs->file_list();
 
                             gtk_widget_grab_focus (file_list);

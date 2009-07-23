@@ -52,7 +52,7 @@ using namespace std;
 
 inline GnomeCmdFileSelector *get_fs (const FileSelectorID fsID)
 {
-    return gnome_cmd_main_win_get_fs (main_win, fsID);
+    return main_win->fs(fsID);
 }
 
 

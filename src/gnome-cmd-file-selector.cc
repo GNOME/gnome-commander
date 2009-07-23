@@ -1539,8 +1539,8 @@ void gnome_cmd_file_selector_set_directory_to_opposite (GnomeCmdMainWin *mw, Fil
 {
     g_return_if_fail (mw!=NULL);
 
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, fsID);
-    GnomeCmdFileSelector *other = gnome_cmd_main_win_get_fs (mw, !fsID);
+    GnomeCmdFileSelector *fs = mw->fs(fsID);
+    GnomeCmdFileSelector *other = mw->fs(!fsID);
 
     GnomeCmdDir *dir = other->get_directory();
     gboolean fs_is_active = fs->priv->active;
@@ -1640,7 +1640,7 @@ void GnomeCmdFileSelector::set_connection (GnomeCmdCon *con, GnomeCmdDir *start_
 
 gboolean gnome_cmd_file_selector_is_local (FileSelectorID fsID)
 {
-    return gnome_cmd_main_win_get_fs (main_win, fsID)->is_local();
+    return main_win->fs(fsID)->is_local();
 }
 
 

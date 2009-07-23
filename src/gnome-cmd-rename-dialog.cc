@@ -63,7 +63,7 @@ static gboolean on_dialog_keypressed (GtkWidget *widget, GdkEventKey *event, gpo
                 GnomeVFSResult result = gnome_cmd_file_rename (dialog->priv->f, new_fname);
 
                 if (result==GNOME_VFS_OK)
-                    gnome_cmd_main_win_get_fs (main_win, ACTIVE)->file_list()->focus_file(new_fname, TRUE);
+                    main_win->fs(ACTIVE)->file_list()->focus_file(new_fname, TRUE);
 
                 gnome_cmd_file_unref (dialog->priv->f);
                 gtk_widget_destroy (widget);

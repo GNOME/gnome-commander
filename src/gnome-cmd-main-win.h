@@ -47,6 +47,8 @@ struct GnomeCmdMainWin
 
     GnomeCmdAdvrenameDialog *advrename_dlg;
 
+    GnomeCmdFileSelector *fs(FileSelectorID id);
+    
     void set_equal_panes();
 
     void set_cap_state(gboolean state);
@@ -58,7 +60,6 @@ extern GnomeCmdMainWin *main_win;
 
 GtkWidget *gnome_cmd_main_win_new ();
 
-GnomeCmdFileSelector *gnome_cmd_main_win_get_fs (GnomeCmdMainWin *mw, FileSelectorID fs);
 void gnome_cmd_main_win_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
 GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline (GnomeCmdMainWin *mw);

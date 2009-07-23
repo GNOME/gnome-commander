@@ -175,7 +175,7 @@ GList *gnome_cmd_python_plugin_get_list()
 
 inline gchar *get_dir_as_str (GnomeCmdMainWin *mw, FileSelectorID id)
 {
-    GnomeCmdFileSelector *fs = gnome_cmd_main_win_get_fs (mw, id);
+    GnomeCmdFileSelector *fs = mw->fs(id);
 
     if (!fs)
         return NULL;
@@ -247,7 +247,7 @@ gboolean gnome_cmd_python_plugin_execute(const PythonPluginData *plugin, GnomeCm
     GnomeCmdFileSelector *active_fs;
     GnomeCmdFileList     *active_fl;
 
-    active_fs = gnome_cmd_main_win_get_fs (mw, ACTIVE);
+    active_fs = mw->fs(ACTIVE);
     active_fl = active_fs ? active_fs->file_list() : NULL;
 
     if (!GNOME_CMD_IS_FILE_LIST (active_fl))
