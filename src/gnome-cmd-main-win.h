@@ -67,8 +67,6 @@ GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline (GnomeCmdMainWin *mw);
 
 void gnome_cmd_main_win_update_style (GnomeCmdMainWin *mw);
 
-void gnome_cmd_main_win_new_cwd (GnomeCmdMainWin *mw, const gchar *cwd);
-
 void gnome_cmd_main_win_focus_cmdline (GnomeCmdMainWin *mw);
 void gnome_cmd_main_win_focus_file_lists (GnomeCmdMainWin *mw);
 void gnome_cmd_main_win_refocus (GnomeCmdMainWin *mw);
