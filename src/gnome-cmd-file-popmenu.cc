@@ -550,8 +550,7 @@ GtkWidget *gnome_cmd_file_popmenu_new (GnomeCmdFileList *fl)
         PluginData *data = (PluginData *) tmp->data;
         if (data->active)
         {
-            GList *items = gnome_cmd_plugin_create_popup_menu_items (data->plugin,
-                                                                     gnome_cmd_main_win_get_state (main_win));
+            GList *items = gnome_cmd_plugin_create_popup_menu_items (data->plugin, main_win->get_state());
             if (items)
             {
                 add_plugin_menu_items (menu, items, pos);

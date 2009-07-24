@@ -1297,16 +1297,14 @@ void gnome_cmd_main_win_add_plugin_menu (GnomeCmdMainWin *mw, PluginData *data)
 }
 
 
-GnomeCmdState *gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw)
+GnomeCmdState *GnomeCmdMainWin::get_state()
 {
-    g_return_val_if_fail (GNOME_CMD_IS_MAIN_WIN (mw), NULL);
-
-    GnomeCmdFileSelector *fs1 = main_win->fs(ACTIVE);
-    GnomeCmdFileSelector *fs2 = main_win->fs(INACTIVE);
+    GnomeCmdFileSelector *fs1 = fs(ACTIVE);
+    GnomeCmdFileSelector *fs2 = fs(INACTIVE);
     GnomeCmdDir *dir1 = fs1->get_directory();
     GnomeCmdDir *dir2 = fs2->get_directory();
 
-    GnomeCmdState *state = &mw->priv->state;
+    GnomeCmdState *state = &priv->state;
     state->active_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir1));
     state->inactive_dir_uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (dir2));
     state->active_dir_files = fs1->file_list()->get_visible_files();

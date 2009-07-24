@@ -1024,7 +1024,7 @@ static void on_plugin_menu_activate (GtkMenuItem *item, PluginData *data)
 {
     g_return_if_fail (data != NULL);
 
-    GnomeCmdState *state = gnome_cmd_main_win_get_state (main_win);
+    GnomeCmdState *state = main_win->get_state();
     gnome_cmd_plugin_update_main_menu_state (data->plugin, state);
 }
 

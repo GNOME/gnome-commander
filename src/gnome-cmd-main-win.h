@@ -52,6 +52,7 @@ struct GnomeCmdMainWin
     gboolean key_pressed (GdkEventKey *event);
 
     void set_equal_panes();
+    GnomeCmdState *get_state();
     void set_cap_state(gboolean state);
 };
 
@@ -78,7 +79,5 @@ void gnome_cmd_main_win_update_buttonbar_visibility (GnomeCmdMainWin *mw);
 void gnome_cmd_main_win_update_list_orientation (GnomeCmdMainWin *mw);
 
 void gnome_cmd_main_win_add_plugin_menu (GnomeCmdMainWin *mw, PluginData *data);
-
-GnomeCmdState *gnome_cmd_main_win_get_state (GnomeCmdMainWin *mw);
 
 #endif // __GNOME_CMD_MAIN_WIN_H__
