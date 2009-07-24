@@ -707,6 +707,14 @@ GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, string absol
 }
 
 
+GnomeCmdCon *gnome_cmd_dir_get_con (GnomeCmdDir *dir)
+{
+    g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), NULL);
+
+    return dir->priv->con;
+}
+
+
 inline gboolean file_already_exists (GnomeCmdDir *dir, const gchar *uri_str)
 {
     g_return_val_if_fail (GNOME_CMD_IS_DIR (dir), TRUE);
