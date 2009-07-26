@@ -138,8 +138,6 @@ gchar       *gnome_cmd_dir_get_child_uri_str (GnomeCmdDir *dir, const gchar *fil
 
 GnomeVFSURI *gnome_cmd_dir_get_absolute_path_uri (GnomeCmdDir *dir, std::string absolute_filename);
 
-GnomeCmdCon *gnome_cmd_dir_get_con (GnomeCmdDir *dir);
-
 void gnome_cmd_dir_file_created (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_deleted (GnomeCmdDir *dir, const gchar *uri_str);
 void gnome_cmd_dir_file_changed (GnomeCmdDir *dir, const gchar *uri_str);
