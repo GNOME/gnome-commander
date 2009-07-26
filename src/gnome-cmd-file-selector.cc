@@ -19,9 +19,6 @@
 */
 
 #include <config.h>
-#include <sys/types.h>
-#include <regex.h>
-#include <errno.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
@@ -34,7 +31,6 @@
 #include "gnome-cmd-xfer.h"
 #include "gnome-cmd-cmdline.h"
 #include "gnome-cmd-patternsel-dialog.h"
-#include "gnome-cmd-mkdir-dialog.h"
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-dir-indicator.h"

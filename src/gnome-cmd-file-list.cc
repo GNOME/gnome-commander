@@ -20,7 +20,6 @@
 
 #include <config.h>
 #include <glib-object.h>
-#include <regex.h>
 
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-file-selector.h"
@@ -40,7 +39,6 @@
 #include "gnome-cmd-delete-dialog.h"
 #include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
-#include "gnome-cmd-user-actions.h"
 #include "ls_colors.h"
 
 using namespace std;
