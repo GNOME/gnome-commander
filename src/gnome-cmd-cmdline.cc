@@ -261,8 +261,8 @@ static void init (GnomeCmdCmdline *cmdline)
                         GTK_SIGNAL_FUNC (on_combo_popwin_hidden), cmdline);
     gtk_signal_connect_after (GTK_OBJECT (main_win), "switch-fs",
                         GTK_SIGNAL_FUNC (on_switch_fs), cmdline);
-    gtk_signal_connect (GTK_OBJECT (main_win->fs(LEFT)), "changed-dir", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
-    gtk_signal_connect (GTK_OBJECT (main_win->fs(RIGHT)), "changed-dir", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
+    gtk_signal_connect (GTK_OBJECT (main_win->fs(LEFT)), "dir-changed", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
+    gtk_signal_connect (GTK_OBJECT (main_win->fs(RIGHT)), "dir-changed", GTK_SIGNAL_FUNC (on_fs_changed_dir), cmdline);
 
     gnome_cmd_cmdline_update_style (cmdline);
 }

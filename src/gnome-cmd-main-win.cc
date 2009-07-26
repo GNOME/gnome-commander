@@ -833,8 +833,8 @@ static void init (GnomeCmdMainWin *mw)
     gnome_cmd_main_win_update_buttonbar_visibility (main_win);
 
     g_signal_connect (mw, "realize", G_CALLBACK (on_main_win_realize), mw);
-    g_signal_connect (mw->fs(LEFT), "changed-dir", G_CALLBACK (on_fs_dir_change), mw);
-    g_signal_connect (mw->fs(RIGHT), "changed-dir", G_CALLBACK (on_fs_dir_change), mw);
+    g_signal_connect (mw->fs(LEFT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
+    g_signal_connect (mw->fs(RIGHT), "dir-changed", G_CALLBACK (on_fs_dir_change), mw);
 
     g_signal_connect (mw->fs(LEFT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(RIGHT)->file_list());
     g_signal_connect (mw->fs(RIGHT)->file_list(), "resize-column", G_CALLBACK (on_fs_list_resize_column), mw->fs(LEFT)->file_list());
