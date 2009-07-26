@@ -48,7 +48,7 @@ struct GnomeCmdFileSelectorClass
 {
     GtkVBoxClass parent_class;
 
-    void (* changed_dir) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
+    void (* dir_changed) (GnomeCmdFileSelector *fs, GnomeCmdDir *dir);
 };
 
 
@@ -1167,14 +1167,14 @@ static void class_init (GnomeCmdFileSelectorClass *klass)
         gtk_signal_new ("dir-changed",
             GTK_RUN_LAST,
             G_OBJECT_CLASS_TYPE (object_class),
-            GTK_SIGNAL_OFFSET (GnomeCmdFileSelectorClass, changed_dir),
+            GTK_SIGNAL_OFFSET (GnomeCmdFileSelectorClass, dir_changed),
             gtk_marshal_NONE__POINTER,
             GTK_TYPE_NONE,
             1, GTK_TYPE_POINTER);
 
     object_class->destroy = destroy;
     widget_class->map = ::map;
-    klass->changed_dir = NULL;
+    klass->dir_changed = NULL;
 }
 
 
