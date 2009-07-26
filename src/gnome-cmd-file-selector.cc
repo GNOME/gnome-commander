@@ -263,7 +263,7 @@ inline void GnomeCmdFileSelector::update_files()
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     file_list()->show_files(dir);
-    gnome_cmd_clist_set_voffset (*file_list(), file_list()->cwd->voffset);
+    gnome_cmd_clist_set_voffset (*file_list(), get_directory()->voffset);
 
     if (priv->realized)
         update_selected_files_label();
@@ -274,7 +274,7 @@ inline void GnomeCmdFileSelector::update_files()
 
 inline void GnomeCmdFileSelector::update_direntry()
 {
-    gchar *tmp = gnome_cmd_dir_get_display_path (file_list()->cwd);
+    gchar *tmp = gnome_cmd_dir_get_display_path (get_directory());
 
     g_return_if_fail (tmp != NULL);
 
@@ -292,7 +292,7 @@ void gnome_cmd_file_list_show_make_copy_dialog (GnomeCmdFileSelector *fs)
 
     if (GNOME_CMD_IS_FILE (f))
     {
-        GtkWidget *dialog = gnome_cmd_make_copy_dialog_new (f, fs->file_list()->cwd);
+        GtkWidget *dialog = gnome_cmd_make_copy_dialog_new (f, fs->get_directory());
 
         gtk_widget_ref (dialog);
         gtk_widget_show (dialog);
@@ -600,7 +600,7 @@ static void update_vol_label (GnomeCmdFileSelector *fs)
     if (gnome_cmd_con_can_show_free_space (fs->get_connection()))
     {
         GnomeVFSFileSize free_space;
-        GnomeVFSURI *uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (fs->file_list()->cwd));
+        GnomeVFSURI *uri = gnome_cmd_file_get_uri (GNOME_CMD_FILE (fs->get_directory()));
         GnomeVFSResult res = gnome_vfs_get_volume_free_space (uri, &free_space);
         gnome_vfs_uri_unref (uri);
 
@@ -719,7 +719,7 @@ inline void add_cwd_to_cmdline (GnomeCmdFileSelector *fs)
 
     if (gnome_cmd_data.cmdline_visibility)
     {
-        gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->file_list()->cwd));
+        gchar *dpath = gnome_cmd_file_get_real_path (GNOME_CMD_FILE (fs->get_directory()));
         gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), dpath);
         g_free (dpath);
 
@@ -755,7 +755,7 @@ static void on_dir_file_deleted (GnomeCmdDir *dir, GnomeCmdFile *f, GnomeCmdFile
     g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    if (fs->file_list()->cwd == dir)
+    if (fs->get_directory() == dir)
         if (fs->file_list()->remove_file(f))
             fs->update_selected_files_label();
 }
@@ -1031,7 +1031,7 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
     fs->update_direntry();
     update_vol_label (fs);
 
-    if (fs->file_list()->cwd != dir) return;
+    if (fs->get_directory() != dir) return;
 
     fs->priv->sel_first_file = FALSE;
     fs->update_files();
@@ -1068,9 +1068,9 @@ static void on_dir_list_failed (GnomeCmdDir *dir, GnomeVFSResult result, GnomeCm
     if (result != GNOME_VFS_OK)
         gnome_cmd_show_message (NULL, _("Directory listing failed."), gnome_vfs_result_to_string (result));
 
-    gtk_signal_disconnect_by_data (GTK_OBJECT (fs->file_list()->cwd), fs);
+    gtk_signal_disconnect_by_data (GTK_OBJECT (fs->get_directory()), fs);
     fs->file_list()->connected_dir = NULL;
-    gnome_cmd_dir_unref (fs->file_list()->cwd);
+    gnome_cmd_dir_unref (fs->get_directory());
     set_cursor_default_for_widget (GTK_WIDGET (fs));
     gtk_widget_set_sensitive (*fs, TRUE);
 
@@ -1382,7 +1382,7 @@ void GnomeCmdFileSelector::set_directory(GnomeCmdDir *dir)
 {
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
-    if (file_list()->cwd == dir)
+    if (get_directory() == dir)
         return;
 
     if (priv->realized)
@@ -1699,13 +1699,13 @@ static gboolean on_create_symlink_ok (GnomeCmdStringDialog *string_dialog, const
         return FALSE;
     }
 
-    GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->file_list()->cwd, fname);
+    GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), fname);
     GnomeVFSResult result = gnome_vfs_create_symbolic_link (uri, gnome_cmd_file_get_uri_str (fs->priv->sym_file));
 
     if (result == GNOME_VFS_OK)
     {
         gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-        gnome_cmd_dir_file_created (fs->file_list()->cwd, uri_str);
+        gnome_cmd_dir_file_created (fs->get_directory(), uri_str);
         g_free (uri_str);
         gnome_vfs_uri_unref (uri);
         return TRUE;
@@ -1891,7 +1891,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
         gchar *fname = get_utf8 (gnome_cmd_file_get_name (f));
         gchar *symlink_name = g_strdup_printf (gnome_cmd_data_get_symlink_prefix (), fname);
 
-        GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->file_list()->cwd, symlink_name);
+        GnomeVFSURI *uri = gnome_cmd_dir_get_child_uri (fs->get_directory(), symlink_name);
 
         g_free (fname);
         g_free (symlink_name);
@@ -1905,7 +1905,7 @@ void gnome_cmd_file_selector_create_symlinks (GnomeCmdFileSelector *fs, GList *f
             if (result == GNOME_VFS_OK)
             {
                 gchar *uri_str = gnome_vfs_uri_to_string (uri, GNOME_VFS_URI_HIDE_NONE);
-                gnome_cmd_dir_file_created (fs->file_list()->cwd, uri_str);
+                gnome_cmd_dir_file_created (fs->get_directory(), uri_str);
                 g_free (uri_str);
             }
             else
