@@ -263,7 +263,7 @@ inline void GnomeCmdFileSelector::update_files()
     g_return_if_fail (GNOME_CMD_IS_DIR (dir));
 
     file_list()->show_files(dir);
-    gnome_cmd_clist_set_voffset (GNOME_CMD_CLIST (file_list()), file_list()->cwd->voffset);
+    gnome_cmd_clist_set_voffset (*file_list(), file_list()->cwd->voffset);
 
     if (priv->realized)
         update_selected_files_label();
@@ -306,7 +306,7 @@ void gnome_cmd_file_list_show_make_copy_dialog (GnomeCmdFileSelector *fs)
 
 inline void restore_drag_indicator (GnomeCmdFileSelector *fs)
 {
-    gnome_cmd_clist_set_drag_row (GNOME_CMD_CLIST (fs->file_list()), -1);
+    gnome_cmd_clist_set_drag_row (*fs->file_list(), -1);
 }
 
 
@@ -360,7 +360,7 @@ drag_data_received (GtkWidget          *widget,
     y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
     if (y < 0) return;
 
-    int row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->file_list()), x, y);
+    int row = gnome_cmd_clist_get_row (*fs->file_list(), x, y);
 
     // Transform the drag data to a list with uris
     uri_list = strings_to_uris ((gchar *) selection_data->data);
@@ -454,9 +454,9 @@ static gboolean do_scroll (GnomeCmdFileSelector *fs)
     offset = (0-clist->voffset);
     row_height = gnome_cmd_data.list_row_height;
     row_count = clist->rows;
-    focus_row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->file_list()), 1, fs->priv->autoscroll_y);
-    top_row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->file_list()), 1, 0);
-    bottom_row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->file_list()), 1, h);
+    focus_row = gnome_cmd_clist_get_row (*fs->file_list(), 1, fs->priv->autoscroll_y);
+    top_row = gnome_cmd_clist_get_row (*fs->file_list(), 1, 0);
+    bottom_row = gnome_cmd_clist_get_row (*fs->file_list(), 1, h);
 
     if (!fs->priv->autoscroll_dir)
     {
@@ -523,7 +523,7 @@ static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x,
 
     y -= (clist->column_title_area.height - GTK_CONTAINER (clist)->border_width);
 
-    gint row = gnome_cmd_clist_get_row (GNOME_CMD_CLIST (fs->file_list()), x, y);
+    gint row = gnome_cmd_clist_get_row (*fs->file_list(), x, y);
 
     if (row > -1)
     {
@@ -1402,7 +1402,7 @@ void GnomeCmdFileSelector::set_directory(GnomeCmdDir *dir)
         file_list()->lwd = file_list()->cwd;
         gtk_signal_disconnect_by_data (GTK_OBJECT (file_list()->lwd), this);
         file_list()->connected_dir = NULL;
-        file_list()->lwd->voffset = gnome_cmd_clist_get_voffset (GNOME_CMD_CLIST (file_list()));
+        file_list()->lwd->voffset = gnome_cmd_clist_get_voffset (*file_list());
     }
 
     file_list()->cwd = dir;
