@@ -96,10 +96,8 @@ struct GnomeCmdFileList
     GnomeCmdFileList(GCallback handler=NULL, GObject *object=NULL);
     ~GnomeCmdFileList();
 
-    int size();
-    bool empty();
-    // int size()                          {  return g_list_length (get_visible_files());  }
-    // bool empty()                        {  return get_visible_files()==NULL;            }    // FIXME should be: size()==0
+    int size()                          {  return g_list_length (get_visible_files());  }
+    bool empty()                        {  return get_visible_files()==NULL;            }    // FIXME should be: size()==0
     void clear();
 
     void reload();
@@ -187,16 +185,6 @@ inline GnomeCmdFileList::~GnomeCmdFileList()
 {
     gnome_cmd_dir_unref (cwd);
     gnome_cmd_dir_unref (lwd);
-}
-
-inline int GnomeCmdFileList::size()
-{
-    return g_list_length (get_visible_files());
-}
-
-inline bool GnomeCmdFileList::empty()
-{
-    return get_visible_files()==NULL;
 }
 
 inline void GnomeCmdFileList::remove_files (GList *files)
