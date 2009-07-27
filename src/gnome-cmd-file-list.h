@@ -111,6 +111,8 @@ struct GnomeCmdFileList
 
     gboolean has_file(const GnomeCmdFile *f);
 
+    void select_file(GnomeCmdFile *f);
+    void unselect_file(GnomeCmdFile *f);
     void select_all();
     void unselect_all();
 
@@ -126,6 +128,7 @@ struct GnomeCmdFileList
     gint get_row_from_file(GnomeCmdFile *f)            {  return gtk_clist_find_row_from_data (*this, f);               }
     void focus_file(const gchar *focus_file, gboolean scroll_to_file=TRUE);
 
+    void toggle_file(GnomeCmdFile *f);
     void toggle();
     void toggle_and_step();
 

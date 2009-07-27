@@ -367,59 +367,57 @@ static void on_quicksearch_popup_hide (GtkWidget *quicksearch_popup, GnomeCmdFil
 }
 
 
-static void select_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
+void GnomeCmdFileList::select_file(GnomeCmdFile *f)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (f != NULL);
     g_return_if_fail (f->info != NULL);
 
     if (strcmp (f->info->name, "..") == 0)
         return;
 
-    gint row = fl->get_row_from_file(f);
+    gint row = get_row_from_file(f);
     if (row == -1)
         return;
 
 
     if (!gnome_cmd_data.use_ls_colors)
-        gtk_clist_set_row_style (*fl, row, row%2 ? alt_sel_list_style : sel_list_style);
+        gtk_clist_set_row_style (*this, row, row%2 ? alt_sel_list_style : sel_list_style);
     else
     {
         GnomeCmdColorTheme *colors = gnome_cmd_data_get_current_color_theme ();
         if (!colors->respect_theme)
         {
-            gtk_clist_set_foreground (*fl, row, colors->sel_fg);
-            gtk_clist_set_background (*fl, row, colors->sel_bg);
+            gtk_clist_set_foreground (*this, row, colors->sel_fg);
+            gtk_clist_set_background (*this, row, colors->sel_bg);
         }
     }
 
-    if (g_list_index (fl->priv->selected_files, f) != -1)
+    if (g_list_index (priv->selected_files, f) != -1)
         return;
 
     gnome_cmd_file_ref (f);
-    fl->priv->selected_files = g_list_append (fl->priv->selected_files, f);
+    priv->selected_files = g_list_append (priv->selected_files, f);
 
-    g_signal_emit (fl, signals[FILES_CHANGED], 0);
+    g_signal_emit (this, signals[FILES_CHANGED], 0);
 }
 
 
-static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
+void GnomeCmdFileList::unselect_file(GnomeCmdFile *f)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (f != NULL);
 
-    gint row = fl->get_row_from_file(f);
+    gint row = get_row_from_file(f);
     if (row == -1)
         return;
 
-    if (g_list_index (fl->priv->selected_files, f) == -1)
+    if (g_list_index (priv->selected_files, f) == -1)
         return;
 
     gnome_cmd_file_unref (f);
-    fl->priv->selected_files = g_list_remove (fl->priv->selected_files, f);
+    priv->selected_files = g_list_remove (priv->selected_files, f);
 
     if (!gnome_cmd_data.use_ls_colors)
-        gtk_clist_set_row_style (*fl, row, row%2 ? alt_list_style : list_style);
+        gtk_clist_set_row_style (*this, row, row%2 ? alt_list_style : list_style);
     else
         if (LsColor *col = ls_colors_get (f))
         {
@@ -427,29 +425,26 @@ static void unselect_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
             GdkColor *fg = col->fg ? col->fg : colors->norm_fg;
             GdkColor *bg = col->bg ? col->bg : colors->norm_bg;
 
-            if (bg)  gtk_clist_set_background (*fl, row, bg);
-            if (fg)  gtk_clist_set_foreground (*fl, row, fg);
+            if (bg)  gtk_clist_set_background (*this, row, bg);
+            if (fg)  gtk_clist_set_foreground (*this, row, fg);
         }
 
-    g_signal_emit (fl, signals[FILES_CHANGED], 0);
+    g_signal_emit (this, signals[FILES_CHANGED], 0);
 }
 
 
-inline void toggle_file (GnomeCmdFileList *fl, GnomeCmdFile *f)
+void GnomeCmdFileList::toggle_file(GnomeCmdFile *f)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (f != NULL);
-
-    gint row = fl->get_row_from_file(f);
+    gint row = get_row_from_file(f);
 
     if (row == -1)
         return;
 
-    if (row < fl->priv->visible_files.size())
-        if (g_list_index (fl->priv->selected_files, f) == -1)
-            select_file (fl, f);
+    if (row < priv->visible_files.size())
+        if (g_list_index (priv->selected_files, f) == -1)
+            select_file(f);
         else
-            unselect_file (fl, f);
+            unselect_file(f);
 }
 
 
@@ -462,7 +457,7 @@ inline void select_file_at_row (GnomeCmdFileList *fl, gint row)
     GnomeCmdFile *f = fl->get_file_at_row(row);
 
     if (f)
-        select_file (fl, f);
+            fl->select_file(f);
 }
 
 
@@ -491,7 +486,7 @@ inline void toggle_file_at_row (GnomeCmdFileList *fl, gint row)
     GnomeCmdFile *f = fl->get_file_at_row(row);
 
     if (f)
-        toggle_file (fl, f);
+        fl->toggle_file(f);
 }
 
 
@@ -532,9 +527,9 @@ static void toggle_files_with_same_extension (GnomeCmdFileList *fl, gboolean sel
             if (ext2 && strcmp (ext1, ext2) == 0)
             {
                 if (select)
-                    select_file (fl, f);
+                    fl->select_file(f);
                 else
-                    unselect_file (fl, f);
+                    fl->unselect_file(f);
             }
         }
     }
@@ -555,9 +550,9 @@ inline void toggle_with_pattern (GnomeCmdFileList *fl, const gchar *pattern, gbo
             if (filter.match(f->info->name))
             {
                 if (mode)
-                    select_file (fl, f);
+                    fl->select_file(f);
                 else
-                    unselect_file (fl, f);
+                    fl->unselect_file(f);
             }
     }
 }
@@ -786,7 +781,7 @@ static gboolean on_right_mb_timeout (GnomeCmdFileList *fl)
 
     if (fl->priv->right_mb_down_file == focus_file)
     {
-        select_file (fl, focus_file);
+        fl->select_file(focus_file);
         show_file_popup (fl, NULL);
         return FALSE;
     }
@@ -1163,7 +1158,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
                         else
                         {
                             if (prev_row!=row)
-                                select_file (fl, fl->get_file_at_row(prev_row));
+                                fl->select_file(fl->get_file_at_row(prev_row));
                             select_file_at_row (fl, row);
                         }
                     }
@@ -1176,12 +1171,12 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
                         {
                             if (g_list_index (fl->priv->selected_files, f) == -1)
                             {
-                                select_file (fl, f);
+                                fl->select_file(f);
                                 fl->priv->right_mb_sel_state = 1;
                             }
                             else
                             {
-                                unselect_file (fl, f);
+                                fl->unselect_file(f);
                                 fl->priv->right_mb_sel_state = 0;
                             }
 
@@ -1228,9 +1223,9 @@ static void on_motion_notify (GtkCList *clist, GdkEventMotion *event, GnomeCmdFi
             {
                 fl->select_row(row+1);
                 if (fl->priv->right_mb_sel_state)
-                    select_file (fl, f);
+                    fl->select_file(f);
                 else
-                    unselect_file (fl, f);
+                    fl->unselect_file(f);
             }
         }
     }
@@ -1719,7 +1714,7 @@ void GnomeCmdFileList::select_all()
     priv->selected_files = NULL;
 
     for (GList *tmp = get_visible_files(); tmp; tmp = tmp->next)
-        select_file (this, (GnomeCmdFile *) tmp->data);
+        select_file((GnomeCmdFile *) tmp->data);
 }
 
 
@@ -1728,7 +1723,7 @@ void GnomeCmdFileList::unselect_all()
     GList *selfiles = g_list_copy (priv->selected_files);
 
     for (GList *tmp = selfiles; tmp; tmp = tmp->next)
-        unselect_file (this, (GnomeCmdFile *) tmp->data);
+        unselect_file((GnomeCmdFile *) tmp->data);
 
     g_list_free (selfiles);
 
@@ -1742,7 +1737,7 @@ void GnomeCmdFileList::toggle()
     GnomeCmdFile *f = get_file_at_row(priv->cur_file);
 
     if (f)
-        toggle_file (this, f);
+        toggle_file(f);
 }
 
 
@@ -1752,7 +1747,7 @@ void GnomeCmdFileList::toggle_and_step()
     GnomeCmdFile *f = get_file_at_row(priv->cur_file);
 
     if (f)
-        toggle_file (this, f);
+        toggle_file(f);
     if (priv->cur_file < size()-1)
         focus_file_at_row (this, priv->cur_file+1);
 }
@@ -1817,9 +1812,9 @@ void GnomeCmdFileList::invert_selection()
         if (f && f->info)
         {
             if (g_list_index (sel, f) == -1)
-                select_file (this, f);
+                select_file(f);
             else
-                unselect_file (this, f);
+                unselect_file(f);
         }
     }
 
@@ -1866,7 +1861,7 @@ void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFil
 
         if (!gl2)
         {
-            select_file (fl1, f1);
+            fl1->select_file(f1);
             continue;
         }
 
@@ -1874,23 +1869,23 @@ void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFil
 
         if (f1->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY || f2->info->type==GNOME_VFS_FILE_TYPE_DIRECTORY)
         {
-            unselect_file (fl2, f2);
+            fl2->unselect_file(f2);
             continue;
         }
 
         if (f1->info->mtime > f2->info->mtime)
         {
-            select_file (fl1, f1);
-            unselect_file (fl2, f2);
+            fl1->select_file(f1);
+            fl2->unselect_file(f2);
             continue;
         }
 
         if (f1->info->mtime == f2->info->mtime)
         {
             if (f1->info->size == f2->info->size)
-                unselect_file (fl2, f2);
+                fl2->unselect_file(f2);
             else
-                select_file (fl1, f1);
+                fl1->select_file(f1);
         }
     }
 }
@@ -1917,7 +1912,7 @@ void GnomeCmdFileList::sort()
 
     // reselect the previously selected files
     for (GList *list = priv->selected_files; list; list = list->next)
-        select_file (this, GNOME_CMD_FILE (list->data));
+        select_file(GNOME_CMD_FILE (list->data));
 
     gtk_clist_thaw (*this);
 }
