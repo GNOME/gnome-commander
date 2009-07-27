@@ -541,25 +541,26 @@ static gboolean drag_motion (GtkWidget *widget, GdkDragContext *context, gint x,
 }
 
 
-inline void init_dnd (GnomeCmdFileSelector *fs)
+inline void init_dnd (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
 {
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
     // Set up drag source
-    g_signal_connect (fs->file_list(), "drag-begin", G_CALLBACK (drag_begin), fs);
-    g_signal_connect (fs->file_list(), "drag-end", G_CALLBACK (drag_end), fs);
-    g_signal_connect (fs->file_list(), "drag-leave", G_CALLBACK (drag_leave), fs);
-    g_signal_connect (fs->file_list(), "drag-data-delete", G_CALLBACK (drag_data_delete), fs);
+    g_signal_connect (fl, "drag-begin", G_CALLBACK (drag_begin), fs);
+    g_signal_connect (fl, "drag-end", G_CALLBACK (drag_end), fs);
+    g_signal_connect (fl, "drag-leave", G_CALLBACK (drag_leave), fs);
+    g_signal_connect (fl, "drag-data-delete", G_CALLBACK (drag_data_delete), fs);
 
     // Set up drag destination
-    gtk_drag_dest_set (GTK_WIDGET (fs->file_list()),
+    gtk_drag_dest_set (*fl,
                        GTK_DEST_DEFAULT_DROP,
                        drop_types, G_N_ELEMENTS (drop_types),
                        (GdkDragAction) (GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK | GDK_ACTION_ASK));
 
-    g_signal_connect (fs->file_list(), "drag-motion", G_CALLBACK (drag_motion), fs);
-    g_signal_connect (fs->file_list(), "drag-leave", G_CALLBACK (drag_leave), fs);
-    g_signal_connect (fs->file_list(), "drag-data-received", G_CALLBACK (drag_data_received), fs);
+    g_signal_connect (fl, "drag-motion", G_CALLBACK (drag_motion), fs);
+    g_signal_connect (fl, "drag-leave", G_CALLBACK (drag_leave), fs);
+    g_signal_connect (fl, "drag-data-received", G_CALLBACK (drag_data_received), fs);
 }
 
 
@@ -1243,7 +1244,7 @@ static void init (GnomeCmdFileSelector *fs)
     gtk_box_pack_start (GTK_BOX (fs->con_hbox), fs->vol_label, TRUE, TRUE, 6);
 
     // initialize dnd
-    init_dnd (fs);
+    init_dnd (fs->file_list(), fs);
 
     // connect signals
     g_signal_connect (fs, "realize", G_CALLBACK (on_realize), fs);
