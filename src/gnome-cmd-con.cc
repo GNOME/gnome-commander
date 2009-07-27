@@ -253,13 +253,13 @@ static gboolean check_con_open_progress (GnomeCmdCon *con)
 
         gnome_cmd_con_set_default_dir (con, dir);
 
-        DEBUG ('m', "Emitting open_done signal\n");
+        DEBUG ('m', "Emitting 'open-done' signal\n");
         gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_DONE]);
     }
     else if (con->open_result == CON_OPEN_FAILED)
     {
         DEBUG ('m', "CON_OPEN_FAILED detected\n");
-        DEBUG ('m', "Emitting open_failed signal\n");
+        DEBUG ('m', "Emitting 'open-failed' signal\n");
         gtk_signal_emit (GTK_OBJECT (con), signals[OPEN_FAILED], con->open_failed_msg, con->open_failed_reason);
     }
 

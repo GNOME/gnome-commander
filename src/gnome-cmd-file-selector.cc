@@ -937,15 +937,6 @@ static void on_list_empty_space_clicked (GnomeCmdFileList *fl, GdkEventButton *e
 }
 
 
-static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    if (fs->file_list()==fl)
-        fs->update_selected_files_label();
-}
-
-
 static void on_list_con_changed (GnomeCmdFileList *fl, GnomeCmdCon *con, GnomeCmdFileSelector *fs)
 {
     fs->priv->dir_history = gnome_cmd_con_get_dir_history (con);
@@ -984,6 +975,15 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
         gtk_clist_select_row (*fl, 0, 0);
 
     fs->update_selected_files_label();
+}
+
+
+static void on_list_files_changed (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
+{
+    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
+
+    if (fs->file_list()==fl)
+        fs->update_selected_files_label();
 }
 
 
@@ -1111,9 +1111,9 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
 {
     if (state_is_blank (event->state) || state_is_shift (event->state))
     {
-        if ((event->keyval >= GDK_A && event->keyval <= GDK_Z) ||
-            (event->keyval >= GDK_a && event->keyval <= GDK_z) ||
-            event->keyval == GDK_period)
+        if (event->keyval>=GDK_A && event->keyval<=GDK_Z ||
+            event->keyval>=GDK_a && event->keyval<=GDK_z ||
+            event->keyval==GDK_period)
         {
             static gchar text[2];
 
@@ -1122,7 +1122,6 @@ static gboolean on_list_key_pressed_private (GtkCList *clist, GdkEventKey *event
             else
             {
                 text[0] = event->keyval;
-                text[1] = '\0';
                 gnome_cmd_cmdline_append_text (gnome_cmd_main_win_get_cmdline (main_win), text);
                 gnome_cmd_cmdline_focus (gnome_cmd_main_win_get_cmdline (main_win));
             }

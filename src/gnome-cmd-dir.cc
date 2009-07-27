@@ -486,7 +486,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
         dir->priv->lock = FALSE;
         dir->priv->last_result = GNOME_VFS_OK;
 
-        DEBUG('l', "Emitting list_ok signal\n");
+        DEBUG('l', "Emitting 'list-ok' signal\n");
         gtk_signal_emit (GTK_OBJECT (dir), dir_signals[LIST_OK], dir->priv->files);
     }
     else if (dir->state == DIR_STATE_EMPTY)
@@ -502,7 +502,7 @@ static void on_list_done (GnomeCmdDir *dir, GList *infolist, GnomeVFSResult resu
         dir->priv->last_result = result;
         dir->priv->lock = FALSE;
 
-        DEBUG('l', "Emitting list_failed signal\n");
+        DEBUG('l', "Emitting 'list-failed' signal\n");
         gtk_signal_emit (GTK_OBJECT (dir), dir_signals[LIST_FAILED], result);
     }
 }

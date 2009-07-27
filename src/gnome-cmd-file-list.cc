@@ -1120,8 +1120,6 @@ static gboolean on_button_press (GtkCList *clist, GdkEventButton *event, GnomeCm
 
 inline gboolean mime_exec_file (GnomeCmdFile *f)
 {
-    g_return_val_if_fail (GNOME_CMD_IS_FILE (f), FALSE);
-
     if (f->info->type == GNOME_VFS_FILE_TYPE_REGULAR)
     {
         mime_exec_single (f);
@@ -1135,7 +1133,7 @@ inline gboolean mime_exec_file (GnomeCmdFile *f)
 static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, gpointer data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (f != NULL);
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (event != NULL);
 
     fl->modifier_click = event->state & (GDK_CONTROL_MASK | GDK_SHIFT_MASK);
@@ -1203,7 +1201,7 @@ static void on_file_clicked (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButt
 static void on_file_released (GnomeCmdFileList *fl, GnomeCmdFile *f, GdkEventButton *event, gpointer data)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-    g_return_if_fail (f != NULL);
+    g_return_if_fail (GNOME_CMD_IS_FILE (f));
     g_return_if_fail (event != NULL);
 
     if (event->type == GDK_BUTTON_RELEASE && event->button == 1 && !fl->modifier_click && gnome_cmd_data.left_mouse_button_mode == GnomeCmdData::LEFT_BUTTON_OPENS_WITH_SINGLE_CLICK)
@@ -1645,7 +1643,7 @@ gboolean GnomeCmdFileList::remove_file(GnomeCmdFile *f)
     if (row<0)                              // f not found in the shown file list...
         return FALSE;
 
-    gtk_clist_remove (GTK_CLIST (this), row);
+    gtk_clist_remove (*this, row);
 
     priv->selected_files = g_list_remove (priv->selected_files, f);
     priv->visible_files.remove(f);
@@ -1666,7 +1664,7 @@ gboolean GnomeCmdFileList::remove_file(const gchar *uri_str)
 
 void GnomeCmdFileList::clear()
 {
-    gtk_clist_clear (GTK_CLIST (this));
+    gtk_clist_clear (*this);
     priv->visible_files.clear();
     gnome_cmd_file_list_free (priv->selected_files);
     priv->selected_files = NULL;
@@ -1856,7 +1854,8 @@ static gint compare_filename (GnomeCmdFile *f1, GnomeCmdFile *f2)
 
 void gnome_cmd_file_list_compare_directories (GnomeCmdFileList *fl1, GnomeCmdFileList *fl2)
 {
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl1) || GNOME_CMD_IS_FILE_LIST (fl2));
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl1));
+    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl2));
 
     fl1->unselect_all();
     fl2->select_all();
@@ -1915,7 +1914,7 @@ void GnomeCmdFileList::sort()
     {
         gint selrow = get_row_from_file(selfile);
         select_row(selrow);
-        gtk_clist_moveto (GTK_CLIST (this), selrow, -1, 1, 0);
+        gtk_clist_moveto (*this, selrow, -1, 1, 0);
     }
 
     // reselect the previously selected files
@@ -2210,19 +2209,19 @@ gboolean GnomeCmdFileList::key_pressed(GdkEventKey *event)
                 return TRUE;
 
             case GDK_F3:
-                on_column_clicked (GTK_CLIST (this), GnomeCmdFileList::COLUMN_NAME, this);
+                on_column_clicked (*this, GnomeCmdFileList::COLUMN_NAME, this);
                 return TRUE;
 
             case GDK_F4:
-                on_column_clicked (GTK_CLIST (this), GnomeCmdFileList::COLUMN_EXT, this);
+                on_column_clicked (*this, GnomeCmdFileList::COLUMN_EXT, this);
                 return TRUE;
 
             case GDK_F5:
-                on_column_clicked (GTK_CLIST (this), GnomeCmdFileList::COLUMN_DATE, this);
+                on_column_clicked (*this, GnomeCmdFileList::COLUMN_DATE, this);
                 return TRUE;
 
             case GDK_F6:
-                on_column_clicked (GTK_CLIST (this), GnomeCmdFileList::COLUMN_SIZE, this);
+                on_column_clicked (*this, GnomeCmdFileList::COLUMN_SIZE, this);
                 return TRUE;
         }
     }
