@@ -42,6 +42,8 @@
 #include "gnome-cmd-search-dialog.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-key-shortcuts-dialog.h"
+#include "gnome-cmd-chmod-dialog.h"
+#include "gnome-cmd-chown-dialog.h"
 #include "gnome-cmd-user-actions.h"
 #include "plugin_manager.h"
 #include "cap.h"
@@ -709,13 +711,31 @@ void file_edit_new_doc (GtkMenuItem *menuitem, gpointer not_used)
 
 void file_chmod (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_chmod_dialog (get_fl (ACTIVE));
+    GList *files = get_fl (ACTIVE)->get_selected_files();
+
+    if (files)
+    {
+        GtkWidget *dialog = gnome_cmd_chmod_dialog_new (files);
+
+        gtk_widget_ref (dialog);
+        gtk_widget_show (dialog);
+        g_list_free (files);
+    }
 }
 
 
 void file_chown (GtkMenuItem *menuitem, gpointer not_used)
 {
-    gnome_cmd_file_list_show_chown_dialog (get_fl (ACTIVE));
+    GList *files = get_fl (ACTIVE)->get_selected_files();
+
+    if (files)
+    {
+        GtkWidget *dialog = gnome_cmd_chown_dialog_new (files);
+
+        gtk_widget_ref (dialog);
+        gtk_widget_show (dialog);
+        g_list_free (files);
+    }
 }
 
 

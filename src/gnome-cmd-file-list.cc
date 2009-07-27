@@ -34,8 +34,6 @@
 #include "gnome-cmd-style.h"
 #include "gnome-cmd-file-popmenu.h"
 #include "gnome-cmd-rename-dialog.h"
-#include "gnome-cmd-chown-dialog.h"
-#include "gnome-cmd-chmod-dialog.h"
 #include "gnome-cmd-delete-dialog.h"
 #include "gnome-cmd-quicksearch-popup.h"
 #include "gnome-cmd-file-collection.h"
@@ -1954,40 +1952,6 @@ void gnome_cmd_file_list_show_delete_dialog (GnomeCmdFileList *fl)
     if (files)
     {
         gnome_cmd_delete_dialog_show (files);
-        g_list_free (files);
-    }
-}
-
-
-void gnome_cmd_file_list_show_chown_dialog (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GList *files = fl->get_selected_files();
-
-    if (files)
-    {
-        GtkWidget *dialog = gnome_cmd_chown_dialog_new (files);
-
-        gtk_widget_ref (dialog);
-        gtk_widget_show (dialog);
-        g_list_free (files);
-    }
-}
-
-
-void gnome_cmd_file_list_show_chmod_dialog (GnomeCmdFileList *fl)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_LIST (fl));
-
-    GList *files = fl->get_selected_files();
-
-    if (files)
-    {
-        GtkWidget *dialog = gnome_cmd_chmod_dialog_new (files);
-
-        gtk_widget_ref (dialog);
-        gtk_widget_show (dialog);
         g_list_free (files);
     }
 }
