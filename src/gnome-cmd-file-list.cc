@@ -1456,7 +1456,7 @@ GnomeCmdFileList::ColumnID GnomeCmdFileList::get_sort_column()
 
 inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_row)
 {
-    GtkCList *clist = GTK_CLIST (fl);
+    GtkCList *clist = *fl;
 
     FileFormatData data(f,FALSE);
 

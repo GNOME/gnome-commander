@@ -1419,7 +1419,7 @@ void GnomeCmdFileSelector::set_active(gboolean value)
         list->select_row(GTK_CLIST (list)->focus_row);
     }
     else
-        gtk_clist_unselect_all (GTK_CLIST (list));
+        gtk_clist_unselect_all (*list);
 
     gnome_cmd_dir_indicator_set_active (GNOME_CMD_DIR_INDICATOR (dir_indicator), value);
 }
