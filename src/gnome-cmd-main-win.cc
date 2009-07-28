@@ -967,7 +967,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
             case GDK_1:
                 {
                     GnomeCmdFileSelector *fs = this->fs(LEFT);
-                    gnome_cmd_main_win_switch_fs (this, fs);
+                    switch_fs(fs);
                     gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
                 }
                 return TRUE;
@@ -975,7 +975,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
             case GDK_2:
                 {
                     GnomeCmdFileSelector *fs = this->fs(RIGHT);
-                    gnome_cmd_main_win_switch_fs (this, fs);
+                    switch_fs(fs);
                     gnome_cmd_combo_popup_list (GNOME_CMD_COMBO (fs->con_combo));
                 }
                 return TRUE;
@@ -1056,7 +1056,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
                 case GDK_Tab:
                     // hack to avoid the default handling of the tab-key
                     clear_event_key (event);
-                    gnome_cmd_main_win_switch_fs (this, fs(INACTIVE));
+                    switch_fs(fs(INACTIVE));
                     return TRUE;
 
                 case GDK_F1:
@@ -1107,12 +1107,11 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
 }
 
 
-void gnome_cmd_main_win_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs)
+void GnomeCmdMainWin::switch_fs(GnomeCmdFileSelector *fs)
 {
-    g_return_if_fail (GNOME_CMD_IS_MAIN_WIN (mw));
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
 
-    gtk_signal_emit (*mw, signals[SWITCH_FS], fs);
+    gtk_signal_emit (*this, signals[SWITCH_FS], fs);
 }
 
 

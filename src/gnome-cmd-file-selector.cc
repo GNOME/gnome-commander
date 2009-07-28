@@ -798,7 +798,7 @@ static void on_con_combo_item_selected (GnomeCmdCombo *con_combo, GnomeCmdCon *c
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    gnome_cmd_main_win_switch_fs (main_win, fs);
+    main_win->switch_fs(fs);
     fs->set_connection(con);
 }
 
@@ -817,7 +817,7 @@ static void on_con_btn_clicked (GtkButton *button, GnomeCmdFileSelector *fs)
 
     g_return_if_fail (GNOME_CMD_IS_CON (con));
 
-    gnome_cmd_main_win_switch_fs (main_win, fs);
+    main_win->switch_fs(fs);
     fs->set_connection(con);
 }
 
@@ -920,7 +920,7 @@ static void on_list_list_clicked (GnomeCmdFileList *fl, GdkEventButton *event, G
         {
             case 1:
             case 3:
-                gnome_cmd_main_win_switch_fs (main_win, fs);
+                main_win->switch_fs(fs);
                 break;
 
             case 2:

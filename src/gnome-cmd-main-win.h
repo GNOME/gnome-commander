@@ -51,6 +51,8 @@ struct GnomeCmdMainWin
 
     gboolean key_pressed (GdkEventKey *event);
 
+    void switch_fs(GnomeCmdFileSelector *fs);
+
     void set_equal_panes();
     GnomeCmdState *get_state();
     void set_cap_state(gboolean state);
@@ -61,8 +63,6 @@ extern GnomeCmdMainWin *main_win;
 
 
 GtkWidget *gnome_cmd_main_win_new ();
-
-void gnome_cmd_main_win_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFileSelector *fs);
 
 GnomeCmdCmdline *gnome_cmd_main_win_get_cmdline (GnomeCmdMainWin *mw);
 
