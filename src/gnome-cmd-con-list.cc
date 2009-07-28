@@ -230,7 +230,7 @@ void gnome_cmd_con_list_add_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp *ftp_
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, ftp_con);
     con_list->priv->ftp_cons = g_list_append (con_list->priv->ftp_cons, ftp_con);
 
-    gtk_signal_connect (GTK_OBJECT (ftp_con), "updated", GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    g_signal_connect (ftp_con, "updated", G_CALLBACK (on_con_updated), con_list);
 
     if (!con_list->priv->update_lock)
     {
@@ -278,7 +278,7 @@ void gnome_cmd_con_list_add_quick_ftp (GnomeCmdConList *con_list, GnomeCmdConFtp
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, ftp_con);
     con_list->priv->quick_ftp_cons = g_list_append (con_list->priv->quick_ftp_cons, ftp_con);
 
-    gtk_signal_connect (GTK_OBJECT (ftp_con), "updated", GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    g_signal_connect (ftp_con, "updated", G_CALLBACK (on_con_updated), con_list);
 
     if (!con_list->priv->update_lock)
     {
@@ -325,7 +325,7 @@ void gnome_cmd_con_list_add_device (GnomeCmdConList *con_list, GnomeCmdConDevice
 
     con_list->priv->all_cons = g_list_append (con_list->priv->all_cons, device_con);
     con_list->priv->device_cons = g_list_append (con_list->priv->device_cons, device_con);
-    gtk_signal_connect (GTK_OBJECT (device_con), "updated", GTK_SIGNAL_FUNC (on_con_updated), con_list);
+    g_signal_connect (device_con, "updated", G_CALLBACK (on_con_updated), con_list);
 
     if (!con_list->priv->update_lock)
     {
