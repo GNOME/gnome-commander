@@ -171,7 +171,7 @@ static void gviewer_init (GViewer *w)
     scroll_box_set_client (SCROLL_BOX(w->priv->tscrollbox), GTK_WIDGET (w->priv->textr));
     gtk_widget_show (GTK_WIDGET (w->priv->textr));
     gtk_widget_show (w->priv->tscrollbox);
-    g_object_ref (G_OBJECT (w->priv->tscrollbox));
+    g_object_ref (w->priv->tscrollbox);
 
     w->priv->imgr  = (ImageRender *) image_render_new();
     gviewer_set_best_fit(w, DEFAULT_BEST_FIT);
@@ -184,17 +184,17 @@ static void gviewer_init (GViewer *w)
     scroll_box_set_client (SCROLL_BOX(w->priv->iscrollbox), GTK_WIDGET (w->priv->imgr));
     gtk_widget_show (GTK_WIDGET (w->priv->imgr));
     gtk_widget_show (w->priv->iscrollbox);
-    g_object_ref (G_OBJECT (w->priv->iscrollbox));
+    g_object_ref (w->priv->iscrollbox);
 
     w->priv->last_client = w->priv->tscrollbox;
     gtk_table_attach (GTK_TABLE(w), GTK_WIDGET (w->priv->tscrollbox), 0, 1, 0, 1,
                       (GtkAttachOptions)(GTK_FILL|GTK_EXPAND),
                       (GtkAttachOptions)(GTK_FILL|GTK_EXPAND), 0, 0);
 
-    g_signal_connect (G_OBJECT (w), "destroy-event", G_CALLBACK (gviewer_destroy), (gpointer) w);
+    g_signal_connect (w, "destroy-event", G_CALLBACK (gviewer_destroy), w);
 
-    g_signal_connect (G_OBJECT (w->priv->textr), "text-status-changed", G_CALLBACK (gviewer_text_status_update), (gpointer) w);
-    g_signal_connect (G_OBJECT (w->priv->imgr), "image-status-changed", G_CALLBACK (gviewer_image_status_update), (gpointer) w);
+    g_signal_connect (w->priv->textr, "text-status-changed", G_CALLBACK (gviewer_text_status_update), w);
+    g_signal_connect (w->priv->imgr, "image-status-changed", G_CALLBACK (gviewer_image_status_update), w);
 }
 
 
@@ -259,8 +259,8 @@ static void gviewer_destroy (GtkObject *widget)
 
     if (w->priv)
     {
-        g_object_unref (G_OBJECT (w->priv->iscrollbox));
-        g_object_unref (G_OBJECT (w->priv->tscrollbox));
+        g_object_unref (w->priv->iscrollbox);
+        g_object_unref (w->priv->tscrollbox);
 
         g_free (w->priv);
         w->priv = NULL;

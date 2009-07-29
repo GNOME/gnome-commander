@@ -501,8 +501,8 @@ static void init (GnomeCmdRemoteDialog *ftp_dialog)
 
     GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (ftp_dialog->priv->connection_list));
 
-    g_signal_connect (G_OBJECT (model), "row-inserted", G_CALLBACK (on_list_row_inserted), dialog);
-    g_signal_connect (G_OBJECT (model), "row-deleted", G_CALLBACK (on_list_row_deleted), dialog);
+    g_signal_connect (model, "row-inserted", G_CALLBACK (on_list_row_inserted), dialog);
+    g_signal_connect (model, "row-deleted", G_CALLBACK (on_list_row_deleted), dialog);
 
     gtk_widget_grab_focus (ftp_dialog->priv->connection_list);
 }

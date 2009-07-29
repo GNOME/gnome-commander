@@ -53,7 +53,7 @@ inline GtkWidget *create_menu_button (const gchar *stock_id, const gchar *label_
 
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), button);
     gtk_widget_set_events (button, GDK_BUTTON_PRESS_MASK);
-    g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK (on_menu_button_clicked), menu);
+    g_signal_connect (button, "clicked", G_CALLBACK (on_menu_button_clicked), menu);
 
     return button;
 }

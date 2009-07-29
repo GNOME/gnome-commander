@@ -708,11 +708,11 @@ static void image_render_free_pixbuf (ImageRender *obj)
     obj->priv->scaled_pixbuf_loaded = FALSE;
 
     if (obj->priv->orig_pixbuf)
-        g_object_unref (G_OBJECT (obj->priv->orig_pixbuf));
+        g_object_unref (obj->priv->orig_pixbuf);
     obj->priv->orig_pixbuf = NULL;
 
     if (obj->priv->disp_pixbuf)
-        g_object_unref (G_OBJECT (obj->priv->disp_pixbuf));
+        g_object_unref (obj->priv->disp_pixbuf);
     obj->priv->disp_pixbuf = NULL;
 
     g_free (obj->priv->filename);
@@ -729,7 +729,7 @@ static gpointer image_render_pixbuf_loading_thread (gpointer data)
 
     g_atomic_int_inc (&obj->priv->orig_pixbuf_loaded);
 
-    g_object_unref (G_OBJECT (obj));
+    g_object_unref (obj);
 
     return NULL;
 }
@@ -800,7 +800,7 @@ inline void image_render_start_background_pixbuf_loading (ImageRender *obj)
     obj->priv->orig_pixbuf_loaded = 0;
 
     // Start background loading
-    g_object_ref (G_OBJECT (obj));
+    g_object_ref (obj);
     obj->priv->pixbuf_loading_thread = g_thread_create(image_render_pixbuf_loading_thread, (gpointer) obj, FALSE, NULL);
 }
 
@@ -833,7 +833,7 @@ static void image_render_prepare_disp_pixbuf (ImageRender *obj)
         return;
 
     if (obj->priv->disp_pixbuf)
-        g_object_unref (G_OBJECT (obj->priv->disp_pixbuf));
+        g_object_unref (obj->priv->disp_pixbuf);
     obj->priv->disp_pixbuf = NULL;
 
     if (gdk_pixbuf_get_height(obj->priv->orig_pixbuf)==0)
@@ -847,7 +847,7 @@ static void image_render_prepare_disp_pixbuf (ImageRender *obj)
             // no need to scale down
 
             obj->priv->disp_pixbuf = obj->priv->orig_pixbuf;
-            g_object_ref (G_OBJECT (obj->priv->disp_pixbuf));
+            g_object_ref (obj->priv->disp_pixbuf);
             return;
         }
 

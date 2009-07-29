@@ -119,8 +119,8 @@ static void scroll_box_init (ScrollBox *w)
             (GtkAttachOptions) (GTK_FILL), 0, 0);
     w->priv->client = NULL;
 
-    g_signal_connect(G_OBJECT (w), "button-press-event", G_CALLBACK(scroll_box_button_press), (gpointer) w);
-    g_signal_connect(G_OBJECT (w), "destroy-event", G_CALLBACK(scroll_box_destroy), (gpointer) w);
+    g_signal_connect(w, "button-press-event", G_CALLBACK(scroll_box_button_press), w);
+    g_signal_connect(w, "destroy-event", G_CALLBACK(scroll_box_destroy), w);
 }
 
 
@@ -134,7 +134,7 @@ static void scroll_box_destroy (GtkObject *widget)
     if (w->priv)
     {
         if (w->priv->client)
-            g_object_unref (G_OBJECT (w->priv->client));
+            g_object_unref (w->priv->client);
         w->priv->client=NULL;
 
         g_free(w->priv);
@@ -176,11 +176,11 @@ void scroll_box_set_client (ScrollBox *obj, GtkWidget *client)
     if (obj->priv->client)
     {
         if (obj->priv->client)
-            g_object_unref (G_OBJECT (obj->priv->client));
+            g_object_unref (obj->priv->client);
         obj->priv->client = NULL;
     }
 
-    g_object_ref (G_OBJECT (client));
+    g_object_ref (client);
     gtk_widget_show (client);
     obj->priv->client = client;
     gtk_table_attach (GTK_TABLE (obj), client , 0, 1, 0, 1,

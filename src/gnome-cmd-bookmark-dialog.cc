@@ -557,16 +557,11 @@ static void init (GnomeCmdBookmarkDialog *in_dialog)
     gnome_cmd_dialog_add_button (GNOME_CMD_DIALOG (dialog), GTK_STOCK_CLOSE,
                                  GTK_SIGNAL_FUNC (on_close), dialog);
 
-    g_signal_connect (dialog, "key-press-event",
-                      G_CALLBACK (on_dialog_keypress), dialog);
-    g_signal_connect_after (G_OBJECT (in_dialog->priv->dir_list), "scroll-vertical",
-                            G_CALLBACK (on_scroll_vertical), NULL);
-    g_signal_connect (in_dialog->priv->dir_list, "unselect-row",
-                      G_CALLBACK (on_dir_unselected), dialog);
-    g_signal_connect (in_dialog->priv->dir_list, "resize-column",
-                      G_CALLBACK (on_column_resize), dialog);
-    g_signal_connect (in_dialog->priv->combo, "item-selected",
-                      G_CALLBACK (on_group_combo_item_selected), dialog);
+    g_signal_connect (dialog, "key-press-event", G_CALLBACK (on_dialog_keypress), dialog);
+    g_signal_connect_after (in_dialog->priv->dir_list, "scroll-vertical", G_CALLBACK (on_scroll_vertical), NULL);
+    g_signal_connect (in_dialog->priv->dir_list, "unselect-row", G_CALLBACK (on_dir_unselected), dialog);
+    g_signal_connect (in_dialog->priv->dir_list, "resize-column", G_CALLBACK (on_column_resize), dialog);
+    g_signal_connect (in_dialog->priv->combo, "item-selected", G_CALLBACK (on_group_combo_item_selected), dialog);
 
     gtk_widget_grab_focus (in_dialog->priv->dir_list);
 }

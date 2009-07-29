@@ -535,7 +535,7 @@ static gboolean grab_key_callback (GtkWidget *widget, GdkEventKey *event, EggCel
     keys->grab_widget = NULL;
 
     if (edited)
-        g_signal_emit_by_name (G_OBJECT (keys), "accel-edited", path, accel_key, accel_mods, event->hardware_keycode);
+        g_signal_emit_by_name (keys, "accel-edited", path, accel_key, accel_mods, event->hardware_keycode);
 
     g_free (path);
 
@@ -550,7 +550,7 @@ static void ungrab_stuff (GtkWidget *widget, EggCellRendererKeys *keys)
     gdk_display_keyboard_ungrab (display, GDK_CURRENT_TIME);
     gdk_display_pointer_ungrab (display, GDK_CURRENT_TIME);
 
-    g_signal_handlers_disconnect_by_func (G_OBJECT (keys->grab_widget), (gpointer) G_CALLBACK (grab_key_callback), keys);
+    g_signal_handlers_disconnect_by_func (keys->grab_widget, (gpointer) G_CALLBACK (grab_key_callback), keys);
 }
 
 
@@ -633,7 +633,7 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
 
     keys->grab_widget = widget;
 
-    g_signal_connect (G_OBJECT (widget), "key-press-event", G_CALLBACK (grab_key_callback), keys);
+    g_signal_connect (widget, "key-press-event", G_CALLBACK (grab_key_callback), keys);
 
     eventbox = (GtkWidget *) g_object_new (pointless_eventbox_subclass_get_type (), NULL);
     keys->edit_widget = eventbox;
@@ -654,7 +654,7 @@ egg_cell_renderer_keys_start_editing (GtkCellRenderer      *cell,
 
     gtk_widget_show_all (keys->edit_widget);
 
-    g_signal_connect (G_OBJECT (keys->edit_widget), "unrealize", G_CALLBACK (ungrab_stuff), keys);
+    g_signal_connect (keys->edit_widget, "unrealize", G_CALLBACK (ungrab_stuff), keys);
 
     keys->edit_key = keys->accel_key;
 

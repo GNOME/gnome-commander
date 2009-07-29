@@ -232,7 +232,7 @@ static void gviewer_window_init (GViewerWindow *w)
     GtkWindow *win = GTK_WINDOW (w);
     gtk_window_set_title(win, "GViewer");
 
-    g_signal_connect(G_OBJECT (w), "key-press-event", G_CALLBACK (gviewer_window_key_pressed), NULL);
+    g_signal_connect(w, "key-press-event", G_CALLBACK (gviewer_window_key_pressed), NULL);
 
     w->priv->vbox = gtk_vbox_new (FALSE, 0);
     gtk_widget_show (w->priv->vbox);
@@ -242,11 +242,11 @@ static void gviewer_window_init (GViewerWindow *w)
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), w->priv->menubar, FALSE, FALSE, 0);
 
     w->priv->viewer = (GViewer *) gviewer_new();
-    g_object_ref (G_OBJECT (w->priv->viewer));
+    g_object_ref (w->priv->viewer);
     gtk_widget_show (GTK_WIDGET (w->priv->viewer));
     gtk_box_pack_start (GTK_BOX (w->priv->vbox), GTK_WIDGET (w->priv->viewer), TRUE, TRUE, 0);
 
-    g_signal_connect(G_OBJECT (w->priv->viewer), "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), (gpointer) w);
+    g_signal_connect(w->priv->viewer, "status-line-changed", G_CALLBACK (gviewer_window_status_line_changed), w);
 
     w->priv->statusbar = gtk_statusbar_new ();
     gtk_widget_show (w->priv->statusbar);
@@ -365,7 +365,7 @@ static void gviewer_window_destroy (GtkObject *widget)
 
     if (w->priv)
     {
-        g_object_unref (G_OBJECT (w->priv->viewer));
+        g_object_unref (w->priv->viewer);
 
         g_free (w->priv->filename);
         w->priv->filename = NULL;
@@ -538,7 +538,7 @@ static GtkWidget *create_menu_item (MENUITEMTYPE type,
     if (accel && keyval)
         gtk_widget_add_accelerator (menuitem, "activate", accel, keyval, (GdkModifierType) modifier, GTK_ACCEL_VISIBLE);
 
-    g_signal_connect (G_OBJECT (menuitem), "activate", callback, userdata);
+    g_signal_connect (menuitem, "activate", callback, userdata);
 
     return menuitem;
 }
@@ -559,7 +559,7 @@ static GtkWidget *create_radio_menu_item (GSList **group,
     if (accel && keyval)
         gtk_widget_add_accelerator (menuitem, "activate", accel, keyval, (GdkModifierType) modifier, GTK_ACCEL_VISIBLE);
 
-    g_signal_connect (G_OBJECT (menuitem), "activate", callback, userdata);
+    g_signal_connect (menuitem, "activate", callback, userdata);
 
     gtk_widget_show (menuitem);
     gtk_container_add (GTK_CONTAINER (container), menuitem);

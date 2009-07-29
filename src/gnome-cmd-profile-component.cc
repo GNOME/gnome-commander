@@ -548,34 +548,34 @@ G_DEFINE_TYPE (GnomeCmdProfileComponent, gnome_cmd_profile_component, GTK_TYPE_V
 
 void GnomeCmdProfileComponent::Private::on_template_entry_changed(GtkEntry *entry, GnomeCmdProfileComponent *component)
 {
-    g_signal_emit (G_OBJECT (component), signals[TEMPLATE_CHANGED], 0);
+    g_signal_emit (component, signals[TEMPLATE_CHANGED], 0);
 }
 
 
 void GnomeCmdProfileComponent::Private::on_counter_start_spin_value_changed (GtkWidget *spin, GnomeCmdProfileComponent *component)
 {
     component->profile.counter_start = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
-    g_signal_emit (G_OBJECT (component), signals[COUNTER_CHANGED], 0);
+    g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
 
 void GnomeCmdProfileComponent::Private::on_counter_step_spin_value_changed (GtkWidget *spin, GnomeCmdProfileComponent *component)
 {
     component->profile.counter_step = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
-    g_signal_emit (G_OBJECT (component), signals[COUNTER_CHANGED], 0);
+    g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
 
 void GnomeCmdProfileComponent::Private::on_counter_digits_spin_value_changed (GtkWidget *spin, GnomeCmdProfileComponent *component)
 {
     component->profile.counter_width = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (spin));
-    g_signal_emit (G_OBJECT (component), signals[COUNTER_CHANGED], 0);
+    g_signal_emit (component, signals[COUNTER_CHANGED], 0);
 }
 
 
 void GnomeCmdProfileComponent::Private::on_regex_model_row_deleted (GtkTreeModel *treemodel, GtkTreePath *path, GnomeCmdProfileComponent *component)
 {
-    g_signal_emit (G_OBJECT (component), signals[REGEX_CHANGED], 0);
+    g_signal_emit (component, signals[REGEX_CHANGED], 0);
 }
 
 
@@ -596,7 +596,7 @@ void GnomeCmdProfileComponent::Private::on_regex_add_btn_clicked (GtkButton *but
                             COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
                             -1);
 
-        g_signal_emit (G_OBJECT (component), signals[REGEX_CHANGED], 0);
+        g_signal_emit (component, signals[REGEX_CHANGED], 0);
 
         gtk_widget_set_sensitive (component->priv->regex_edit_button, TRUE);
         gtk_widget_set_sensitive (component->priv->regex_remove_button, TRUE);
@@ -628,7 +628,7 @@ void GnomeCmdProfileComponent::Private::on_regex_edit_btn_clicked (GtkButton *bu
                                 COL_MATCH_CASE, rx->match_case ? _("Yes") : _("No"),
                                 -1);
 
-            g_signal_emit (G_OBJECT (component), signals[REGEX_CHANGED], 0);
+            g_signal_emit (component, signals[REGEX_CHANGED], 0);
         }
     }
 }
@@ -665,7 +665,7 @@ void GnomeCmdProfileComponent::Private::on_regex_remove_all_btn_clicked (GtkButt
     gtk_list_store_clear (GTK_LIST_STORE (component->priv->regex_model));
     g_signal_handlers_unblock_by_func (component->priv->regex_model, gpointer (on_regex_model_row_deleted), component);
 
-    g_signal_emit (G_OBJECT (component), signals[REGEX_CHANGED], 0);
+    g_signal_emit (component, signals[REGEX_CHANGED], 0);
 
     gtk_widget_set_sensitive (component->priv->regex_edit_button, FALSE);
     gtk_widget_set_sensitive (component->priv->regex_remove_button, FALSE);
@@ -697,7 +697,7 @@ void GnomeCmdProfileComponent::Private::on_case_combo_changed (GtkComboBox *comb
     }
 
     component->profile.case_conversion = item;
-    g_signal_emit (G_OBJECT (component), signals[REGEX_CHANGED], 0);
+    g_signal_emit (component, signals[REGEX_CHANGED], 0);
 }
 
 
@@ -717,7 +717,7 @@ void GnomeCmdProfileComponent::Private::on_trim_combo_changed (GtkComboBox *comb
     }
 
     component->profile.trim_blanks = item;
-    g_signal_emit (G_OBJECT (component), signals[REGEX_CHANGED], 0);
+    g_signal_emit (component, signals[REGEX_CHANGED], 0);
 }
 
 
@@ -1140,7 +1140,7 @@ void GnomeCmdProfileComponent::update()
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->case_combo), profile.case_conversion);
     gtk_combo_box_set_active (GTK_COMBO_BOX (priv->trim_combo), profile.trim_blanks);
 
-    g_signal_emit (G_OBJECT (this), signals[REGEX_CHANGED], 0);
+    g_signal_emit (this, signals[REGEX_CHANGED], 0);
 }
 
 

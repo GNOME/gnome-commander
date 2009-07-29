@@ -1085,7 +1085,7 @@ inline GtkWidget *scale_pixbuf (GdkPixbuf *pixbuf, GtkIconSize icon_size)
                                                      (height/ greatest) * pix_y,
                                                       GDK_INTERP_BILINEAR);
         GtkWidget *image = gtk_image_new_from_pixbuf (scaled);
-        g_object_unref (G_OBJECT (scaled));
+        g_object_unref (scaled);
 
         return image;
     }
@@ -1113,7 +1113,7 @@ GtkWidget *create_ui_pixmap (GtkWidget *unused, GnomeUIPixmapType pixmap_type, g
                 if (pixbuf != NULL)
                 {
                     pixmap = scale_pixbuf (pixbuf, icon_size);
-                    g_object_unref (G_OBJECT (pixbuf));
+                    g_object_unref (pixbuf);
                 }
             }
             break;
@@ -1131,7 +1131,7 @@ GtkWidget *create_ui_pixmap (GtkWidget *unused, GnomeUIPixmapType pixmap_type, g
             {
                 GdkPixbuf *pixbuf = gdk_pixbuf_new_from_file (name, NULL);
                 pixmap = scale_pixbuf (pixbuf, icon_size);
-                g_object_unref (G_OBJECT (pixbuf));
+                g_object_unref (pixbuf);
                 g_free (name);
             }
             break;

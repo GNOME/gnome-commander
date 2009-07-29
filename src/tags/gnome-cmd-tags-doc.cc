@@ -255,7 +255,7 @@ inline void process_opendoc_infile(GsfInfile *infile, GnomeCmdFileMetadata *meta
     else
         g_error_free (err);
 
-    g_object_unref (G_OBJECT (sections));
+    g_object_unref (sections);
 }
 
 
@@ -269,7 +269,7 @@ inline void process_msole_summary(GsfInput *input, GnomeCmdFileMetadata *metadat
     else
         g_error_free (err);
 
-    g_object_unref (G_OBJECT (sections));
+    g_object_unref (sections);
 }
 
 
@@ -324,7 +324,7 @@ inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata *metada
     // if (src)
     // {
         // process_msole_summary (src, metadata);
-        // g_object_unref (G_OBJECT(src));
+        // g_object_unref (src);
     // }
 
     // src = gsf_infile_child_by_name (infile, "\005DocumentSummaryInformation");
@@ -332,7 +332,7 @@ inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata *metada
     // if (src)
     // {
         // process_msole_summary (src, metadata);
-        // g_object_unref (G_OBJECT(src));
+        // g_object_unref (src);
     // }
 
     // src = gsf_infile_child_by_name (infile, "SfxDocumentInfo");
@@ -340,7 +340,7 @@ inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata *metada
     // if (src)
     // {
         // process_msole_SO (src, metadata);
-        // g_object_unref (G_OBJECT(src));
+        // g_object_unref (src);
     // }
 
     for (gint i=0; i<gsf_infile_num_children (infile); i++)
@@ -359,7 +359,7 @@ inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata *metada
             if (src)
             {
                 process_msole_summary (src, metadata);
-                g_object_unref (G_OBJECT (src));
+                g_object_unref (src);
             }
 
             continue;
@@ -372,7 +372,7 @@ inline void process_msole_infile(GsfInfile *infile, GnomeCmdFileMetadata *metada
             if (src)
             {
                 process_msole_SO (src, metadata);
-                g_object_unref (G_OBJECT (src));
+                g_object_unref (src);
             }
 
             continue;
@@ -498,11 +498,11 @@ void gcmd_tags_libgsf_load_metadata(GnomeCmdFile *f)
             process_opendoc_infile(infile, f->metadata);
 
     if (infile)
-        g_object_unref (G_OBJECT (infile));
+        g_object_unref (infile);
 
     if (err)
         g_error_free (err);
 
-    g_object_unref (G_OBJECT (input));
+    g_object_unref (input);
 #endif
 }

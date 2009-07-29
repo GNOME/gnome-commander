@@ -324,7 +324,7 @@ static void text_render_init (TextRender *w)
 
     w->priv->fixed_font_name = g_strdup ("Monospace");
 
-    g_signal_connect(G_OBJECT (w), "key-press-event", G_CALLBACK (text_render_key_pressed), NULL);
+    g_signal_connect(w, "key-press-event", G_CALLBACK (text_render_key_pressed), NULL);
 
     w->priv->layout = gtk_widget_create_pango_layout(GTK_WIDGET (w), NULL);
 
@@ -1045,8 +1045,7 @@ void text_render_attach_external_v_range(TextRender *obj, GtkRange *range)
     g_return_if_fail (IS_TEXT_RENDER(obj));
     g_return_if_fail (range!=NULL);
 
-    g_signal_connect (G_OBJECT (range), "change-value",
-            G_CALLBACK (text_render_vscroll_change_value), (gpointer)obj);
+    g_signal_connect (range, "change-value", G_CALLBACK (text_render_vscroll_change_value), obj);
 }
 
 
@@ -1073,8 +1072,8 @@ static PangoFontMetrics *load_font (const char *font_name)
     PangoFontMetrics *new_metrics = pango_font_get_metrics (new_font, pango_context_get_language (context));
 
     pango_font_description_free (new_desc);
-    g_object_unref (G_OBJECT (context));
-    g_object_unref (G_OBJECT (new_font));
+    g_object_unref (context);
+    g_object_unref (new_font);
 
     return new_metrics;
 }
@@ -1105,7 +1104,7 @@ static guint get_max_char_width(GtkWidget *widget, PangoFontDescription *font_de
         maxwidth = MAX(maxwidth, logical_rect.width);
     }
 
-    g_object_unref (G_OBJECT (layout));
+    g_object_unref (layout);
     return maxwidth;
 }
 
@@ -1144,7 +1143,7 @@ static guint text_render_filter_undisplayable_chars(TextRender *obj)
             gv_input_mode_update_utf8_translation(obj->priv->im, i, '.');
     }
 
-    g_object_unref (G_OBJECT (layout));
+    g_object_unref (layout);
     return 0;
 }
 

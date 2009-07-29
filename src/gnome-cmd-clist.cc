@@ -491,7 +491,7 @@ static void draw_row (GtkCList *clist, GdkRectangle *area, gint row, GtkCListRow
                                      offset,
                                      row_rectangle.y + row_center_offset + clist_row->cell[i].vertical,
                                      layout);
-                    g_object_unref (G_OBJECT (layout));
+                    g_object_unref (layout);
                     gdk_gc_set_clip_rectangle (fg_gc, NULL);
                 }
                 break;

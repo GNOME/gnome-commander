@@ -925,9 +925,9 @@ static void init (GnomeCmdSearchDialog *dialog)
     dialog->priv->pbar = pbar;
 
 
-    g_signal_connect (G_OBJECT (dialog), "destroy", G_CALLBACK (on_dialog_destroy), NULL);
-    g_signal_connect (G_OBJECT (dialog), "size-allocate", G_CALLBACK (on_dialog_size_allocate), NULL);
-    g_signal_connect (G_OBJECT (dialog->priv->result_list), "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
+    g_signal_connect (dialog, "destroy", G_CALLBACK (on_dialog_destroy), NULL);
+    g_signal_connect (dialog, "size-allocate", G_CALLBACK (on_dialog_size_allocate), NULL);
+    g_signal_connect (dialog->priv->result_list, "key-press-event", G_CALLBACK (on_list_keypressed), dialog);
 
     g_signal_connect (dialog->priv->find_text_check, "toggled", G_CALLBACK (find_text_toggled), dialog);
 
