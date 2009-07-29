@@ -564,33 +564,6 @@ inline void init_dnd (GnomeCmdFileList *fl, GnomeCmdFileSelector *fs)
 }
 
 
-static void update_dir_combo (GnomeCmdFileSelector *fs)
-{/*
-
-    if (!fs->priv->dir_history)  return;
-
-    GList *tmp = fs->priv->dir_history->ents;
-
-    gnome_cmd_combo_clear (GNOME_CMD_COMBO (fs->dir_combo));
-
-    for (; tmp; tmp = tmp->next)
-    {
-        gchar *text[2];
-
-        text[0] = (gchar *) tmp->data;
-        text[1] = NULL;
-
-        gnome_cmd_combo_append (GNOME_CMD_COMBO (fs->dir_combo), text, tmp->data);
-    }
-
-    if (fs->priv->dir_history->ents && fs->priv->dir_history->pos)
-        gtk_clist_select_row (
-            GTK_CLIST (GNOME_CMD_COMBO (fs->dir_combo)->list),
-            g_list_index (fs->priv->dir_history->ents, fs->priv->dir_history->pos->data),
-            0);*/
-}
-
-
 static void update_vol_label (GnomeCmdFileSelector *fs)
 {
     g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
@@ -952,7 +925,6 @@ static void on_list_dir_changed (GnomeCmdFileList *fl, GnomeCmdDir *dir, GnomeCm
         gchar *fpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
         fs->priv->dir_history->add(fpath);
         g_free (fpath);
-        update_dir_combo (fs);
     }
 
     if (fs->file_list()!=fl)  return;
@@ -1024,7 +996,6 @@ static void on_dir_list_ok (GnomeCmdDir *dir, GList *files, GnomeCmdFileSelector
         gchar *fpath = gnome_cmd_file_get_path (GNOME_CMD_FILE (dir));
         fs->priv->dir_history->add(fpath);
         g_free (fpath);
-        update_dir_combo (fs);
     }
 
     gtk_signal_emit (GTK_OBJECT (fs), signals[DIR_CHANGED], dir);
