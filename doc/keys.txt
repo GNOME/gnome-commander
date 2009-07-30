@@ -22,7 +22,7 @@ ALT+F8          Open the history list for the command line
 SHIFT+F2        Compare directories
 SHIFT+F3        View with internal viewer
 SHIFT+F4        Edit a new file
-SHIFT+F5        Make a copy a file in the current directory
+SHIFT+F5        Make a copy of the file in the current directory
 SHIFT+F6        Rename a file
 SHIFT+F10       Bring up the context menu for the selected files
 

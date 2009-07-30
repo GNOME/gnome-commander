@@ -4038,8 +4038,8 @@
         </row>
         <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></entry>
-            <entry><para>Make a copy a file in the current directory.</para></entry>
-            <entry><para></para></entry>
+            <entry><para>Make a copy of the file in the current directory.</para></entry>
+            <entry><para>yes</para></entry>
         </row>
         <row valign="top">
             <entry><keycombo><keycap>SHIFT</keycap><keycap>F6</keycap></keycombo></entry>
@@ -4673,6 +4673,11 @@
                         <entry><para>file.copy</para></entry>
                         <entry><para>Copy files</para></entry>
                         <entry><para></para></entry>
+                    </row>
+                    <row valign="top">
+                        <entry><para>file.copy_as</para></entry>
+                        <entry><para>Copy file with rename</para></entry>
+                        <entry><para><keycombo><keycap>SHIFT</keycap><keycap>F5</keycap></keycombo></para></entry>
                     </row>
                     <row valign="top">
                         <entry><para>file.create_symlink</para></entry>

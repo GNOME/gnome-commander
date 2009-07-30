@@ -36,6 +36,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-mkdir-dialog.h"
 #include "gnome-cmd-options-dialog.h"
+#include "gnome-cmd-make-copy-dialog.h"
 #include "gnome-cmd-prepare-copy-dialog.h"
 #include "gnome-cmd-prepare-move-dialog.h"
 #include "gnome-cmd-python-plugin.h"
@@ -156,6 +157,7 @@ static UserActionData user_actions_data[] = {
                                              {file_chmod, "file.chmod", N_("Change permissions")},
                                              {file_chown, "file.chown", N_("Change owner/group")},
                                              {file_copy, "file.copy", N_("Copy files")},
+                                             {file_copy_as, "file.copy_as", N_("Copy files with rename")},
                                              {file_create_symlink, "file.create_symlink", N_("Create symbolic link")},
                                              {file_delete, "file.delete", N_("Delete files")},
                                              {file_diff, "file.diff", N_("Compare files (diff)")},
@@ -260,6 +262,9 @@ void GnomeCmdUserActions::init()
 
     if (!registered("file.advrename"))
         register_action(GDK_CONTROL_MASK, GDK_M, "file.advrename");
+
+    if (!registered("file.copy_as"))
+        register_action(GDK_SHIFT_MASK, GDK_F5, "file.copy_as");
 
     if (!registered("file.create_symlink"))
         register_action(GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_F5, "file.create_symlink");
@@ -653,6 +658,21 @@ void file_copy (GtkMenuItem *menuitem, gpointer not_used)
 
     if (src_fs && dest_fs)
         gnome_cmd_prepare_copy_dialog_show (src_fs, dest_fs);
+}
+
+
+void file_copy_as (GtkMenuItem *menuitem, gpointer not_used)
+{
+    GnomeCmdFileSelector *fs = get_fs (ACTIVE);
+    GnomeCmdFile *f = fs->file_list()->get_selected_file();
+
+    if (GNOME_CMD_IS_FILE (f))
+    {
+        GtkWidget *dialog = gnome_cmd_make_copy_dialog_new (f, fs->get_directory());
+
+        gtk_widget_ref (dialog);
+        gtk_widget_show (dialog);
+    }
 }
 
 

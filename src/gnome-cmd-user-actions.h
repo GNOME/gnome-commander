@@ -216,6 +216,7 @@ GNOME_CMD_USER_ACTION(no_action);
 
 /************** File Menu **************/
 GNOME_CMD_USER_ACTION(file_copy);
+GNOME_CMD_USER_ACTION(file_copy_as);
 GNOME_CMD_USER_ACTION(file_move);
 GNOME_CMD_USER_ACTION(file_delete);
 GNOME_CMD_USER_ACTION(file_view);

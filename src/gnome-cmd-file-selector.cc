@@ -39,7 +39,6 @@
 #include "history.h"
 #include "cap.h"
 #include "utils.h"
-#include "gnome-cmd-make-copy-dialog.h"
 
 using namespace std;
 
@@ -281,22 +280,6 @@ inline void GnomeCmdFileSelector::update_direntry()
     gnome_cmd_dir_indicator_set_dir (GNOME_CMD_DIR_INDICATOR (dir_indicator), tmp);
 
     g_free (tmp);
-}
-
-
-void gnome_cmd_file_list_show_make_copy_dialog (GnomeCmdFileSelector *fs)
-{
-    g_return_if_fail (GNOME_CMD_IS_FILE_SELECTOR (fs));
-
-    GnomeCmdFile *f = fs->file_list()->get_selected_file();
-
-    if (GNOME_CMD_IS_FILE (f))
-    {
-        GtkWidget *dialog = gnome_cmd_make_copy_dialog_new (f, fs->get_directory());
-
-        gtk_widget_ref (dialog);
-        gtk_widget_show (dialog);
-    }
 }
 
 
@@ -1724,15 +1707,6 @@ gboolean GnomeCmdFileSelector::key_pressed(GdkEventKey *event)
             case GDK_Return:
             case GDK_KP_Enter:
                 add_file_to_cmdline (this, TRUE);
-                return TRUE;
-        }
-    }
-    else if (state_is_shift (event->state))
-    {
-        switch (event->keyval)
-        {
-            case GDK_F5:
-                gnome_cmd_file_list_show_make_copy_dialog (this);
                 return TRUE;
         }
     }
