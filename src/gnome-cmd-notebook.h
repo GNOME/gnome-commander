@@ -61,8 +61,10 @@ struct GnomeCmdNotebook
     void remove_page(gint n);
     void remove_page()                  {  remove_page (get_current_page());  }
 
-    void set_label(const gchar *label=NULL);
-    void set_label(gint n, const gchar *label=NULL);
+    void set_label(GtkWidget *label=NULL)                                   {  gtk_notebook_set_tab_label (*this, page(), label);   }
+    void set_label(gint n, GtkWidget *label=NULL)                           {  gtk_notebook_set_tab_label (*this, page(n), label);  }
+    void set_label(const gchar *label)                                      {  set_label(label ? gtk_label_new (label) : NULL);     }
+    void set_label(gint n, const gchar *label)                              {  set_label(n, label ? gtk_label_new (label) : NULL);  }
 
     void prev_page();
     void next_page();
@@ -85,17 +87,6 @@ inline void GnomeCmdNotebook::remove_page(gint n)
 }
 
 
-inline void GnomeCmdNotebook::set_label(const gchar *label)
-{
-    gtk_notebook_set_tab_label (*this, page(), label ? gtk_label_new (label) : NULL);
-}
-
-
-inline void GnomeCmdNotebook::set_label(gint n, const gchar *label)
-{
-    gtk_notebook_set_tab_label (*this, page(n), label ? gtk_label_new (label) : NULL);
-}
-
 inline void GnomeCmdNotebook::prev_page()
 {
     if (get_current_page()>0)
@@ -104,6 +95,7 @@ inline void GnomeCmdNotebook::prev_page()
         if (size()>1)
             set_current_page(-1);
 }
+
 
 inline void GnomeCmdNotebook::next_page()
 {
