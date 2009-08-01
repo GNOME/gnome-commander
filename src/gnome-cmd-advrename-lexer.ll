@@ -466,7 +466,7 @@ char *gnome_cmd_advrename_gen_fname (char *new_fname, size_t new_fname_size, Gno
                     {
                       static char counter_value[MAX_PRECISION+1];
 
-                      snprintf (counter_value, MAX_PRECISION, (*i)->counter.fmt, (*i)->counter.n);
+                      snprintf (counter_value, MAX_PRECISION+1, (*i)->counter.fmt, (*i)->counter.n);
                       fmt += counter_value;
 
                       (*i)->counter.n += (*i)->counter.step;

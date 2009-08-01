@@ -5957,6 +5957,9 @@
                         <listitem>
                             <para>Fixed problem #589108 (build error on openSUSE)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem with $c(16) counter formatting in advanced file rename templates</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
                 <para>New features:</para>
