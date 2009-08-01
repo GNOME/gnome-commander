@@ -54,9 +54,12 @@ struct GnomeCmdNotebook
     GtkWidget *page()                   {  return gtk_notebook_get_nth_page (*this, get_current_page());  }
     GtkWidget *page(gint n)             {  return gtk_notebook_get_nth_page (*this, n);  }
 
-    gint insert_page(GtkWidget *page, gint n, const gchar *label=NULL);
-    gint prepend_page(GtkWidget *page, const gchar *label=NULL)             {  return insert_page(page, 0, label);   }
-    gint append_page(GtkWidget *page, const gchar *label=NULL)              {  return insert_page(page, -1, label);  }
+    gint insert_page(GtkWidget *page, gint n, GtkWidget *label=NULL);
+    gint insert_page(GtkWidget *page, gint n, const gchar *label)           {  return insert_page(page, n, label ? gtk_label_new (label) : NULL);  }
+    gint prepend_page(GtkWidget *page, GtkWidget *label=NULL)               {  return insert_page(page, 0, label);   }
+    gint prepend_page(GtkWidget *page, const gchar *label)                  {  return insert_page(page, 0, label);   }
+    gint append_page(GtkWidget *page, GtkWidget *label=NULL)                {  return insert_page(page, -1, label);  }
+    gint append_page(GtkWidget *page, const gchar *label)                   {  return insert_page(page, -1, label);  }
 
     void remove_page(gint n);
     void remove_page()                  {  remove_page (get_current_page());  }
@@ -73,11 +76,11 @@ struct GnomeCmdNotebook
 };
 
 
-inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, const gchar *label)
+inline gint GnomeCmdNotebook::insert_page(GtkWidget *page, gint n, GtkWidget *label)
 {
     if (size()==1)
         gtk_notebook_set_show_tabs (*this, TRUE);
-    return gtk_notebook_insert_page (*this, page, label ? gtk_label_new (label) : NULL, n);
+    return gtk_notebook_insert_page (*this, page, label, n);
 }
 
 
