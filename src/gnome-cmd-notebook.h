@@ -61,6 +61,8 @@ struct GnomeCmdNotebook
     void remove_page(gint n);
     void remove_page()                  {  remove_page (get_current_page());  }
 
+    GtkWidget *get_label()                                                  {  return gtk_notebook_get_tab_label (*this, page());   }
+    GtkWidget *get_label(gint n)                                            {  return gtk_notebook_get_tab_label (*this, page(n));  }
     void set_label(GtkWidget *label=NULL)                                   {  gtk_notebook_set_tab_label (*this, page(), label);   }
     void set_label(gint n, GtkWidget *label=NULL)                           {  gtk_notebook_set_tab_label (*this, page(n), label);  }
     void set_label(const gchar *label)                                      {  set_label(label ? gtk_label_new (label) : NULL);     }
