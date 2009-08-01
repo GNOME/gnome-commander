@@ -135,7 +135,6 @@ static void gnome_cmd_main_win_real_switch_fs (GnomeCmdMainWin *mw, GnomeCmdFile
 gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdMainWin *mw)
 {
     g_return_val_if_fail (mw!=NULL, FALSE);
-    g_return_val_if_fail (mw->priv!=NULL, FALSE);
 
     if (event->type!=GDK_KEY_PRESS)
         return FALSE;
@@ -152,7 +151,7 @@ gint gnome_cmd_key_snooper(GtkWidget *grab_widget, GdkEventKey *event, GnomeCmdM
         return FALSE;
 
     GnomeCmdFileSelector *fs = mw->fs(ACTIVE);
-    if (fs==NULL || fs->file_list()==NULL)
+    if (!fs || !fs->file_list())
         return FALSE;
 
     if (!GTK_WIDGET_HAS_FOCUS (GTK_WIDGET (fs->file_list())))
@@ -1054,7 +1053,7 @@ gboolean GnomeCmdMainWin::key_pressed(GdkEventKey *event)
             switch (event->keyval)
             {
                 case GDK_Tab:
-                    // hack to avoid the default handling of the tab-key
+                    // hack to avoid the default handling of TAB
                     clear_event_key (event);
                     switch_fs(fs(INACTIVE));
                     return TRUE;
