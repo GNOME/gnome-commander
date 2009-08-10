@@ -5982,7 +5982,7 @@
                 <para>
                     <itemizedlist>
                         <listitem>
-                            <para>Fixed problem #375357 (crash when cancelling calculation of dir properties)</para>
+                            <para>Fixed problem #587325 (crash in a clean chroot environment)</para>
                         </listitem>
                     </itemizedlist>
                 </para>
