@@ -62,7 +62,13 @@ GnomeCmdOwner::GnomeCmdOwner()
 
     if (!buff)
     {
-        buffsize = max(sysconf(_SC_GETPW_R_SIZE_MAX), sysconf(_SC_GETGR_R_SIZE_MAX));
+        long int pw_size = sysconf(_SC_GETPW_R_SIZE_MAX);
+        long int gr_size = sysconf(_SC_GETGR_R_SIZE_MAX);
+
+        if (pw_size==-1)    pw_size = 4096;     // `sysconf' does not support _SC_GETPW_R_SIZE_MAX. Try a moderate value.
+        if (gr_size==-1)    gr_size = 4096;     // `sysconf' does not support _SC_GETGR_R_SIZE_MAX. Try a moderate value.
+
+        buffsize = max(pw_size, gr_size);
         buff = g_new0 (char, buffsize);
     }
 
