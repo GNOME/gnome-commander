@@ -5984,6 +5984,9 @@
                         <listitem>
                             <para>Fixed problem #587325 (crash in a clean chroot environment)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem #589108 (build error on openSUSE)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>

@@ -4,6 +4,7 @@ gnome-commander 1.2.8.1
 
 Bug fixes:
  * Fixed problem #587325 (crash in a clean chroot environment)
+ * Fixed problem #589108 (build error on openSUSE)
 
 
 ===================================
