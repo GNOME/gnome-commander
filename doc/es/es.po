@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-18 15:58+0000\n"
-"PO-Revision-Date: 2009-07-19 14:02+0200\n"
+"POT-Creation-Date: 2009-07-19 14:15+0000\n"
+"PO-Revision-Date: 2009-08-13 20:35+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4657,6 +4657,9 @@ msgid ""
 "<literal>Exif.ImageLength</literal> direction. The same value as "
 "<literal>Exif.XResolution</literal> is designated."
 msgstr ""
+"El número de píxeles por <literal>Exif.ResolutionUnit</literal> en la "
+"dirección <literal>Exif.ImageLength</literal>. Se designa el mismo valor que "
+"<literal>Exif.XResolution</literal>."
 
 #: C/gnome-commander.xml:2171(para)
 msgid "File.Accessed"
@@ -4801,6 +4804,8 @@ msgstr "File.Size"
 msgid ""
 "Size of the file in bytes or if a directory number of items it contains."
 msgstr ""
+"Tamaño del archivo en bytes o, si es un directorio, número de elementos que "
+"contiene."
 
 #: C/gnome-commander.xml:2236(para)
 msgid "ID3.AlbumSortOrder"
@@ -6310,6 +6315,8 @@ msgid ""
 "The date the intellectual content of the object was created rather than the "
 "date of the creation of the physical representation."
 msgstr ""
+"La fecha en que se se creó el contenido intelectual en lugar de la fecha de "
+"creación de la representación física."
 
 #: C/gnome-commander.xml:2891(para)
 msgid "IPTC.DateSent"
@@ -6345,7 +6352,7 @@ msgstr "Fecha de creación digital"
 
 #: C/gnome-commander.xml:2903(para)
 msgid "The date the digital representation of the object was created."
-msgstr ""
+msgstr "La fecha en que se creó la representación digital del objeto."
 
 #: C/gnome-commander.xml:2906(para)
 msgid "IPTC.DigitalCreationTime"
@@ -6357,7 +6364,7 @@ msgstr "Hora de creación digital"
 
 #: C/gnome-commander.xml:2908(para)
 msgid "The time the digital representation of the object was created."
-msgstr ""
+msgstr "La hora en que se creó la representación digital del objeto."
 
 #: C/gnome-commander.xml:2911(para)
 msgid "IPTC.EditorialUpdate"
@@ -7352,6 +7359,7 @@ msgstr "<guilabel>(start_index)</guilabel> ≡ (start_index:)"
 msgid ""
 "<guilabel>(start_index,length)</guilabel> ≡ (start_index:start_index+length)"
 msgstr ""
+"<guilabel>(start_index,length)</guilabel> ≡ (start_index:start_index+length)"
 
 #: C/gnome-commander.xml:3320(para)
 msgid ""
@@ -7398,7 +7406,7 @@ msgstr "%B"
 
 #: C/gnome-commander.xml:3360(para)
 msgid "The full month name according to the current locale"
-msgstr ""
+msgstr "El nombre completo del mes, de acuerdo con la localización actual"
 
 #: C/gnome-commander.xml:3363(para)
 msgid "%c"
@@ -7414,7 +7422,7 @@ msgstr "%C"
 
 #: C/gnome-commander.xml:3368(para)
 msgid "The century number (year/100) as a 2-digit integer"
-msgstr ""
+msgstr "El número de siglo (año/100) como un entero de dos dígitos"
 
 #: C/gnome-commander.xml:3371(para)
 msgid "%d"
@@ -7422,7 +7430,7 @@ msgstr "%d"
 
 #: C/gnome-commander.xml:3372(para)
 msgid "The day of the month as a decimal number (range 01 to 31)"
-msgstr ""
+msgstr "El día del mes como un número decimal (rango de 01 a 31)"
 
 #: C/gnome-commander.xml:3375(para)
 msgid "%e"
@@ -7448,7 +7456,7 @@ msgstr "%F"
 
 #: C/gnome-commander.xml:3384(para)
 msgid "Equivalent to %Y-%m-%d (the ISO 8601 date format)"
-msgstr ""
+msgstr "Equivalente a %Y-%m-%d (el estándar ISO 8601 de formato de fecha)"
 
 #: C/gnome-commander.xml:3387(para)
 msgid "%G"
@@ -7712,7 +7720,7 @@ msgstr "%Z"
 
 #: C/gnome-commander.xml:3511(para)
 msgid "The time zone or name or abbreviation"
-msgstr ""
+msgstr "La zona horaria o el nombre o la abreviatura"
 
 #: C/gnome-commander.xml:3514(para)
 msgid "%+"
@@ -7911,7 +7919,7 @@ msgstr "U"
 
 #: C/gnome-commander.xml:3644(para)
 msgid "Sets UTF-8 input mode"
-msgstr ""
+msgstr "Establece UTF-8 como modo de entrada"
 
 #: C/gnome-commander.xml:3647(para)
 msgid "Display modes:"
@@ -8020,6 +8028,10 @@ msgid ""
 "guimenuitem></menuchoice> The <guilabel>Options</guilabel> dialog contains "
 "the following tabbed sections:"
 msgstr ""
+"Para configurar <application>GNOME Commander</application>, seleccione "
+"<menuchoice><guimenu>Configuración</guimenu><guimenuitem>Opciones...</"
+"guimenuitem></menuchoice>. El diálogo <guilabel>Opciones</guilabel> contiene "
+"las siguientes secciones en solapas:"
 
 #: C/gnome-commander.xml:3749(title)
 msgid "General"
@@ -8031,7 +8043,7 @@ msgstr "Opciones generales"
 
 #: C/gnome-commander.xml:3759(phrase)
 msgid "Shows <placeholder-1/> general preferences dialog."
-msgstr ""
+msgstr "Muestra el diálogo de preferencias generales de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3773(title)
 msgid "Format options"
@@ -8039,7 +8051,7 @@ msgstr "Opciones de formato"
 
 #: C/gnome-commander.xml:3779(phrase)
 msgid "Shows <placeholder-1/> format preferences dialog."
-msgstr ""
+msgstr "Muestra el diálogo de las preferencias de formato de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3789(title)
 msgid "Layout"
@@ -8052,6 +8064,7 @@ msgstr "Opciones de la distribución"
 #: C/gnome-commander.xml:3799(phrase)
 msgid "Shows <placeholder-1/> layout preferences dialog."
 msgstr ""
+"Muestra el diálogo de las preferencias de disposición de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3809(title)
 msgid "Confirmation"
@@ -8064,6 +8077,7 @@ msgstr "Opciones de confirmación"
 #: C/gnome-commander.xml:3819(phrase)
 msgid "Shows <placeholder-1/> confirmation preferences dialog."
 msgstr ""
+"Muestra el diálogo de las preferencias de confirmación de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3829(title)
 msgid "Filters"
@@ -8075,7 +8089,7 @@ msgstr "Opciones de filtros"
 
 #: C/gnome-commander.xml:3839(phrase)
 msgid "Shows <placeholder-1/> filters preferences dialog."
-msgstr ""
+msgstr "Muestra el diálogo de preferencias de los filtros de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3849(title) C/gnome-commander.xml:3869(title)
 msgid "Programs"
@@ -8087,11 +8101,11 @@ msgstr "Opciones de programas"
 
 #: C/gnome-commander.xml:3859(phrase)
 msgid "Shows <placeholder-1/> network preferences dialog."
-msgstr ""
+msgstr "Muestra el diálogo de preferencias de red de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3879(phrase)
 msgid "Shows <placeholder-1/> programs preferences dialog."
-msgstr ""
+msgstr "Muestra el diálogo de preferencias de programas de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3889(title)
 msgid "Devices"
@@ -8104,6 +8118,7 @@ msgstr "Opciones de dispositivos"
 #: C/gnome-commander.xml:3899(phrase)
 msgid "Shows <placeholder-1/> devices preferences dialog."
 msgstr ""
+"Muestra el diálogo de preferencias de dispositivos de <placeholder-1/>."
 
 #: C/gnome-commander.xml:3915(para)
 msgid ""
@@ -8530,7 +8545,7 @@ msgstr "F"
 
 #: C/gnome-commander.xml:4386(para)
 msgid "Connect to remote server"
-msgstr ""
+msgstr "Conectar con un servidor remoto"
 
 #: C/gnome-commander.xml:4391(para) C/gnome-commander.xml:4603(para)
 msgid "Disconnect from remote server"
@@ -8663,7 +8678,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:4496(para)
 msgid "eg."
-msgstr ""
+msgstr "ej."
 
 #: C/gnome-commander.xml:4497(programlisting)
 #, no-wrap
@@ -10280,11 +10295,12 @@ msgid "..."
 msgstr "..."
 
 #: C/gnome-commander.xml:5961(para)
-msgid "New or updated docs: ..."
-msgstr "Documentos nuevos o actualizados: ..."
+#, fuzzy
+#| msgid "New or updated docs: de, en, es"
+msgid "New or updated docs: de, es"
+msgstr "Documentos nuevos o actualizados: de, en, es"
 
 #: C/gnome-commander.xml:5964(para)
-#| msgid "New or updated translations: ..."
 msgid "New or updated translations: es"
 msgstr "Traducciones nuevas o actualizadas: es"
 
@@ -10481,6 +10497,7 @@ msgstr ""
 #: C/gnome-commander.xml:6118(para)
 msgid "Fixed problem #532615 (file operations on wrong file)"
 msgstr ""
+"Error #532615 corregido (archivo de operaciones sobre un archivo incorrecto)"
 
 #: C/gnome-commander.xml:6121(para)
 msgid "Fixed problem #538806 (quick search in root dir)"
@@ -10488,11 +10505,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:6124(para)
 msgid "Fixed problem #539753 (build error on Solaris)"
-msgstr ""
+msgstr "Error #539753 corregido (error de construcción en Solaris)"
 
 #: C/gnome-commander.xml:6127(para)
 msgid "Fixed problem #541404 (update of host names)"
-msgstr ""
+msgstr "Error #541404 corregido (actualización de nombres de equipos)"
 
 #: C/gnome-commander.xml:6130(para)
 msgid "Fixed problem with file sorting in advanced file rename tool"
@@ -10501,7 +10518,7 @@ msgstr ""
 #: C/gnome-commander.xml:6133(para) C/gnome-commander.xml:6302(para)
 #: C/gnome-commander.xml:6386(para)
 msgid "Build fixes"
-msgstr ""
+msgstr "Correcciones de construcción"
 
 #: C/gnome-commander.xml:6141(para)
 msgid ""
@@ -10520,11 +10537,11 @@ msgstr ""
 
 #: C/gnome-commander.xml:6150(para) C/gnome-commander.xml:6211(para)
 msgid "Revamped search dialog"
-msgstr ""
+msgstr "Diálogo de búsqueda renovado"
 
 #: C/gnome-commander.xml:6153(para)
 msgid "Revamped transfer progress dialog"
-msgstr ""
+msgstr "Diálogo de progreso de transferencia renovado"
 
 #: C/gnome-commander.xml:6156(para) C/gnome-commander.xml:6217(para)
 #: C/gnome-commander.xml:6337(para) C/gnome-commander.xml:6432(para)
@@ -10547,7 +10564,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6176(para)
 msgid "Fixed problem #496150 (scrolling with mouse wheel)"
-msgstr ""
+msgstr "Error #496150 corregido (desplazamiento con la rueda del ratón)"
 
 #: C/gnome-commander.xml:6179(para)
 msgid "Fixed problem #499761 (search window cleared when column sorted)"
@@ -10555,15 +10572,16 @@ msgstr ""
 
 #: C/gnome-commander.xml:6182(para)
 msgid "Fixed problem #499764 (multiple selection problem)"
-msgstr ""
+msgstr "Error #499764 corregido (problema de selección múltiple)"
 
 #: C/gnome-commander.xml:6185(para)
 msgid "Fixed problem with sorting of UTF-8 encoded file names"
-msgstr ""
+msgstr "Corregido error al ordenar nombres de archivos codificados en UTF-8"
 
 #: C/gnome-commander.xml:6188(para)
 msgid "Fixed problem with copying files to symlinked directories"
 msgstr ""
+"Corregido error al copiar archivos al directorios enlazados simbólicamente"
 
 #: C/gnome-commander.xml:6191(para)
 msgid ""
@@ -11189,6 +11207,8 @@ msgid ""
 "New or updated translations: el, en_CA, en_GB, eu, ga, hu, nb, ne, no, pa, "
 "pt_BR, rw, uk, zh_TW"
 msgstr ""
+"Traducciones nuevas o actualizadas: el, en_CA, en_GB, eu, ga, hu, nb, ne, "
+"no, pa, pt_BR, rw, uk, zh_TW"
 
 #: C/gnome-commander.xml:6748(para)
 msgid ""
@@ -11239,7 +11259,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6779(para)
 msgid "Fixed ftp-quick-connect problems"
-msgstr ""
+msgstr "Corregidos los errores de conexión ftp rápida"
 
 #: C/gnome-commander.xml:6782(para)
 msgid ""
@@ -11330,7 +11350,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6851(para)
 msgid "Fixed problems when renaming directories"
-msgstr ""
+msgstr "Corregidos errores al renombrar directorios"
 
 #: C/gnome-commander.xml:6859(para)
 msgid ""
@@ -11689,7 +11709,7 @@ msgstr "2002-02-06"
 
 #: C/gnome-commander.xml:7158(para)
 msgid "Improved user interface and lots of other small hacks."
-msgstr ""
+msgstr "Interfaz de usuario mejorada y muchos otros pequeños «hacks»."
 
 #: C/gnome-commander.xml:7162(para)
 msgid "0.90-pre1"
@@ -11750,7 +11770,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:7192(emphasis)
 msgid "Given enough eyeballs, all bugs are shallow."
-msgstr ""
+msgstr "Habiendo suficientes ojos, todos los errores son superficiales."
 
 #: C/gnome-commander.xml:7194(foreignphrase)
 msgid "Linus law."
@@ -11811,6 +11831,9 @@ msgstr ""
 #: C/gnome-commander.xml:0(None)
 msgid "translator-credits"
 msgstr "Daniel Mustieles <daniel.mustieles@gmail.com>, 2008"
+
+#~ msgid "New or updated docs: ..."
+#~ msgstr "Documentos nuevos o actualizados: ..."
 
 #~ msgid "[search-history]"
 #~ msgstr "[search-history]"
