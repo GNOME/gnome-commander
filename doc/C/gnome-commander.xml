@@ -156,6 +156,16 @@
         </revdescription>
       </revision>
       <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.1;</revnumber>
+        <date>2009-08-10</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
         <revnumber>GNOME Commander Manual V1.2.9;</revnumber>
         <date>2009-??-??</date>
         <revdescription>
@@ -5975,6 +5985,29 @@
                                     <para><keycombo><keycap>...</keycap><keycap>...</keycap></keycombo>   ...</para>
                                 </listitem>
                             </itemizedlist>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.1</para></entry>
+            <entry><para>2009-08-10</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #587325 (crash in a clean chroot environment)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #589108 (build error on openSUSE)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem #591206 (crash while sysconf() on FreeBSD)</para>
+                        </listitem>
+                        <listitem>
+                            <para>Fixed problem with $c(16) counter formatting in advanced file rename templates</para>
                         </listitem>
                     </itemizedlist>
                 </para>
