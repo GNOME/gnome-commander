@@ -55,8 +55,8 @@ static void on_perms_changed (GnomeCmdChmodComponent *comp)
 
     GnomeVFSFilePermissions perms = gnome_cmd_chmod_component_get_perms (comp);
 
-    perm2textstring (perms, text_view, 10);
-    perm2numstring (perms, number_view, 4);
+    perm2textstring (perms, text_view, sizeof(text_view));
+    perm2numstring (perms, number_view, sizeof(number_view));
     gtk_label_set_text (GTK_LABEL (comp->priv->textview_label), text_view);
     gtk_label_set_text (GTK_LABEL (comp->priv->numberview_label), number_view);
 }
