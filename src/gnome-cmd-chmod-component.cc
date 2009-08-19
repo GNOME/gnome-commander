@@ -205,14 +205,14 @@ GtkType gnome_cmd_chmod_component_get_type ()
 
 GnomeVFSFilePermissions gnome_cmd_chmod_component_get_perms (GnomeCmdChmodComponent *comp)
 {
-    GnomeVFSFilePermissions perms = (GnomeVFSFilePermissions) 0;
+    guint perms = 0;
 
     for (gint y=0; y<3; y++)
         for (gint x=0; x<3; x++)
             if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (comp->priv->check_boxes[y][x])))
-                (int &) perms |= check_perm[y][x];
+                perms |= check_perm[y][x];
 
-    return perms;
+    return (GnomeVFSFilePermissions) perms;
 }
 
 

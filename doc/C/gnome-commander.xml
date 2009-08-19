@@ -5991,6 +5991,9 @@
                 <para>Bug fixes:</para>
                 <para>
                     <itemizedlist>
+                        <listitem>
+                            <para>Fixed problem #591944 (permissions set to 000 after chmod)</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>
