@@ -166,6 +166,16 @@
         </revdescription>
       </revision>
       <revision>
+        <revnumber>GNOME Commander Manual V1.2.8.2;</revnumber>
+        <date>2009-09-??</date>
+        <revdescription>
+            <para role="author">Piotr Eljasiak
+                <email>epiotr@cvs.gnome.org</email>
+            </para>
+            <para role="publisher">GNOME Documentation Project</para>
+        </revdescription>
+      </revision>
+      <revision>
         <revnumber>GNOME Commander Manual V1.2.9;</revnumber>
         <date>2009-??-??</date>
         <revdescription>
@@ -5986,6 +5996,17 @@
                                 </listitem>
                             </itemizedlist>
                         </listitem>
+                    </itemizedlist>
+                </para>
+            </entry>
+        </row>
+        <row valign="top">
+            <entry><para>1.2.8.2</para></entry>
+            <entry><para>2009-09-??</para></entry>
+            <entry>
+                <para>Bug fixes:</para>
+                <para>
+                    <itemizedlist>
                     </itemizedlist>
                 </para>
             </entry>
