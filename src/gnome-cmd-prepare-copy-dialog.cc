@@ -59,10 +59,12 @@ static void on_ok (GtkButton *button, gpointer user_data)
         else
             dlg->xferOverwriteMode = GNOME_VFS_XFER_OVERWRITE_MODE_SKIP;
 
-    dlg->xferOptions = GNOME_VFS_XFER_RECURSIVE;
+    guint xferOptions = GNOME_VFS_XFER_RECURSIVE;
 
     if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (data->follow_links)))
-        (int &) (dlg->xferOptions) |= GNOME_VFS_XFER_FOLLOW_LINKS;
+        xferOptions |= GNOME_VFS_XFER_FOLLOW_LINKS;
+
+    dlg->xferOptions = (GnomeVFSXferOptions) xferOptions;
 }
 
 
