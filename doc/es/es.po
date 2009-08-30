@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 10:19+0000\n"
-"PO-Revision-Date: 2009-08-22 14:52+0200\n"
+"POT-Creation-Date: 2009-08-22 12:54+0000\n"
+"PO-Revision-Date: 2009-08-30 13:42+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -358,16 +358,12 @@ msgid "2009-08-10"
 msgstr "2001-08-02"
 
 #: C/gnome-commander.xml:169(revnumber)
-#, fuzzy
-#| msgid "GNOME Commander Manual V1.2.8.1;"
 msgid "GNOME Commander Manual V1.2.8.2;"
-msgstr "Manual de GNOME Commander v1.2.8.1;"
+msgstr "Manual de GNOME Commander v1.2.8.2;"
 
 #: C/gnome-commander.xml:170(date) C/gnome-commander.xml:6005(para)
-#, fuzzy
-#| msgid "2009-??-??"
 msgid "2009-09-??"
-msgstr "2009-??-??"
+msgstr "2009-09-??"
 
 #: C/gnome-commander.xml:179(revnumber)
 msgid "GNOME Commander Manual V1.2.9;"
@@ -8569,7 +8565,7 @@ msgstr "H"
 
 #: C/gnome-commander.xml:4386(para)
 msgid "Toggle hidden files on/off"
-msgstr ""
+msgstr "Mostrar o no archivos ocultos"
 
 #: C/gnome-commander.xml:4391(para)
 msgid "Set both panels equal"
@@ -9211,7 +9207,7 @@ msgstr "view.equal_panes"
 
 #: C/gnome-commander.xml:4873(para)
 msgid "Set equal panes (50/50)"
-msgstr ""
+msgstr "Igualar paneles (50/50)"
 
 #: C/gnome-commander.xml:4877(para)
 msgid "view.first"
@@ -9273,7 +9269,7 @@ msgstr "view.up"
 
 #: C/gnome-commander.xml:4929(para)
 msgid "Go forward to the parent directory"
-msgstr ""
+msgstr "Avanzar al directorio padre"
 
 #: C/gnome-commander.xml:4936(para)
 msgid "Action names are case insensitive."
@@ -9281,11 +9277,13 @@ msgstr ""
 
 #: C/gnome-commander.xml:4940(title)
 msgid "List of key symbols"
-msgstr ""
+msgstr "Lista de los principales símbolos"
 
 #: C/gnome-commander.xml:4942(para)
 msgid "Key names are case insensitive (&lt;ctrl&gt; a≡ &lt;CtRl&gt;A)."
 msgstr ""
+"Los nombres de las teclas no son sensibles a mayúsculas (&lt;ctrl&gt; a≡ &lt;"
+"CtRl&gt;A)."
 
 #: C/gnome-commander.xml:4946(para)
 msgid "a..z, 0..9"
@@ -9340,10 +9338,13 @@ msgid ""
 "gnome.org/cgit/gtk+/plain/gdk/gdkkeysyms.h\" type=\"http\"> gdkkeysyms.h</"
 "ulink>."
 msgstr ""
+"La lista está basada en símbolos clave de GDK obtenidos de <ulink url="
+"\"http://git.gnome.org/cgit/gtk+/plain/gdk/gdkkeysyms.h\" type=\"http\"> "
+"gdkkeysyms.h</ulink>."
 
 #: C/gnome-commander.xml:4996(title)
 msgid "Python plugins"
-msgstr "Complementos de Python"
+msgstr "Complementos python"
 
 #: C/gnome-commander.xml:5011(para)
 msgid ""
@@ -9351,21 +9352,29 @@ msgid ""
 "executing python plugins. Python plugin is a normal python application "
 "containing predefined entry function."
 msgstr ""
+"Desde la versión 1.2.4 <application>GNOME Commander</application> es capaz "
+"de ejecutar complementos python. Un complemento python es un aplicación "
+"python normal que contiene una función de entrada predefinida."
 
 #: C/gnome-commander.xml:5014(para)
 msgid "<application>GNOME Commander</application> comes with built-in plugins:"
 msgstr ""
+"<application>GNOME Commander</application> viene con complementos integrados:"
 
 #: C/gnome-commander.xml:5017(para)
 msgid ""
 "<filename>md5sum</filename> - MD5 (128-bit) checksums of the selected files"
 msgstr ""
+"<filename>md5sum</filename> - checksum MD5 (128-bit) de los archivos "
+"seleccionados"
 
 #: C/gnome-commander.xml:5020(para)
 msgid ""
 "<filename>sha1sum</filename> - SHA-1 (160-bit) checksums of the selected "
 "files"
 msgstr ""
+"<filename>sha1sum</filename> - checksum SHA-1 (160-bit) de los archivos "
+"seleccionados"
 
 #: C/gnome-commander.xml:5025(title)
 msgid "Working with plugins"
@@ -9383,6 +9392,8 @@ msgid ""
 "Plugins will be added as new entries to the <application>GNOME Commander</"
 "application> context menus."
 msgstr ""
+"Los complementos se añadirán como nuevas entradas a los menús contextuales "
+"de <application>GNOME Commander</application>."
 
 #: C/gnome-commander.xml:5033(para)
 msgid ""
@@ -9393,7 +9404,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:5040(title)
 msgid "Python plugins requirements"
-msgstr ""
+msgstr "Requerimientos de los complementos de Python"
 
 #: C/gnome-commander.xml:5042(term)
 msgid "build"
@@ -10103,7 +10114,7 @@ msgstr "curs_bg"
 
 #: C/gnome-commander.xml:5725(para)
 msgid "Cursor background"
-msgstr ""
+msgstr "Cursor de fondo"
 
 #: C/gnome-commander.xml:5730(para)
 msgid "curs_fg"
@@ -10111,7 +10122,7 @@ msgstr "curs_fg"
 
 #: C/gnome-commander.xml:5732(para)
 msgid "Cursor foreground"
-msgstr ""
+msgstr "Cursor de primer plano"
 
 #: C/gnome-commander.xml:5737(para)
 msgid "mode"
@@ -10331,7 +10342,7 @@ msgstr "Correcciones de errores:"
 
 #: C/gnome-commander.xml:5975(para)
 msgid "Fixed problem #... (...)"
-msgstr ""
+msgstr "Error #... corregido (...)"
 
 #: C/gnome-commander.xml:5979(para) C/gnome-commander.xml:6118(para)
 #: C/gnome-commander.xml:6199(para) C/gnome-commander.xml:6257(para)
@@ -10369,16 +10380,12 @@ msgid "<keycombo><keycap>...</keycap><keycap>...</keycap></keycombo> ..."
 msgstr "<keycombo><keycap>...</keycap><keycap>...</keycap></keycombo> ..."
 
 #: C/gnome-commander.xml:6004(para)
-#, fuzzy
-#| msgid "1.2.8.1"
 msgid "1.2.8.2"
-msgstr "1.2.8"
+msgstr "1.2.8.2"
 
 #: C/gnome-commander.xml:6011(para)
-#, fuzzy
-#| msgid "Fixed problem #336649 (permission numbers presentation)"
 msgid "Fixed problem #591944 (permissions set to 000 after chmod)"
-msgstr "Error #336649 corregido (presentación de permisos numéricos)"
+msgstr "Error #591944 corregido (permisos establecidos a 000 después de chmod)"
 
 #: C/gnome-commander.xml:6018(para)
 msgid "1.2.8.1"
@@ -10397,7 +10404,6 @@ msgid "Fixed problem #591206 (crash while sysconf() on FreeBSD)"
 msgstr "Error #591206 corregido (error durante sysconf() en FreeBSD)"
 
 #: C/gnome-commander.xml:6034(para)
-#| msgid "Fixed problem with sorting of UTF-8 encoded file names"
 msgid ""
 "Fixed problem with $c(16) counter formatting in advanced file rename "
 "templates"
@@ -11040,8 +11046,10 @@ msgid "Fixed problem with refreshing after chown or chmod"
 msgstr ""
 
 #: C/gnome-commander.xml:6602(para)
+#, fuzzy
 msgid "Fixed problem #333898 (deprecated icon suffix in desktop file)"
 msgstr ""
+"Error #333898 corregido (sufijo de icono obsoleto en archivo del escritorio)"
 
 #: C/gnome-commander.xml:6605(para)
 msgid "Fixed problem #347561 (plugin directory set incorrectly)"
@@ -11230,6 +11238,8 @@ msgstr "2006-02-12"
 #: C/gnome-commander.xml:6755(para)
 msgid "Fixed crash when trying to copy the currently selected files"
 msgstr ""
+"Corregido error cuando se intenta copiar los archivos actualmente "
+"seleccionados"
 
 #: C/gnome-commander.xml:6758(para)
 msgid "Fixed filename escaping"
@@ -11393,7 +11403,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6873(para)
 msgid "Sorting column and direction is now remembered"
-msgstr ""
+msgstr "Ahora se recuerda la ordenación y la dirección de una columna"
 
 #: C/gnome-commander.xml:6879(para)
 msgid "<keycap>F2</keycap> Open the rename dialog"
@@ -11480,6 +11490,7 @@ msgstr ""
 #: C/gnome-commander.xml:6947(para)
 msgid "Fixed possible async error when cancelling a xfer operation"
 msgstr ""
+"Corregido un posible error de async cuando se cancela una operación xfer"
 
 #: C/gnome-commander.xml:6950(para)
 msgid ""
@@ -11558,7 +11569,7 @@ msgstr "2003-11-07"
 
 #: C/gnome-commander.xml:7026(para)
 msgid "Much better handling of non UTF8 filenames"
-msgstr ""
+msgstr "Manejo mucho de mejor de nombres de archivo que no son UTF8"
 
 #: C/gnome-commander.xml:7029(para)
 msgid "Removed unsafe uri-creation"
