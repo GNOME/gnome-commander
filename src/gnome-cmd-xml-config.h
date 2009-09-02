@@ -284,6 +284,5 @@ struct GnomeCmdData;
 
 gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdData &cfg);
 gboolean gnome_cmd_xml_config_load (const gchar *path, GnomeCmdData &cfg);
-void gnome_cmd_xml_config_save (const gchar *path, GnomeCmdData &cfg);
 
 #endif // __GNOME_CMD_XML_CONFIG_H__

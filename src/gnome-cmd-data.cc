@@ -1609,8 +1609,6 @@ void GnomeCmdData::load_more()
 
 void GnomeCmdData::save()
 {
-    gchar *xml_cfg_path = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
-
     for (gint i=0; i<BOOKMARK_DIALOG_NUM_COLUMNS; i++)
     {
         gchar *tmp = g_strdup_printf ("/gnome-commander-size/column-widths/bookmark_dialog_col_width%d", i);
@@ -1744,7 +1742,6 @@ void GnomeCmdData::save()
     save_devices ("devices");
     save_fav_apps ("fav-apps");
     save_intviewer_defaults();
-    gnome_cmd_xml_config_save (xml_cfg_path, *this);
 
     {
         gchar *xml_cfg_path = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
@@ -1773,8 +1770,6 @@ void GnomeCmdData::save()
     save_auto_load_plugins();
 
     gnome_config_sync ();
-
-    g_free (xml_cfg_path);
 }
 
 
