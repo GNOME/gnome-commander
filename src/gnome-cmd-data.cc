@@ -1756,6 +1756,12 @@ void GnomeCmdData::save()
         xml << XML::tag("GnomeCommander") << XML::attr("version") << VERSION;
 
         xml << advrename_defaults;
+        xml << search_defaults;
+
+        xml << XML::tag("Selections");
+        for (vector<Selection>::iterator i=selections.begin(); i!=selections.end(); ++i)
+            xml << *i;
+        xml << XML::endtag("Selections");
 
         xml << XML::endtag("GnomeCommander");
 
@@ -2077,6 +2083,47 @@ XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::AdvrenameConfig &cfg
         xml << XML::tag("History");
         for (GList *i=cfg.templates.ents; i; i=i->next)
             xml << XML::tag("Template") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
+        xml << XML::endtag();
+
+    xml << XML::endtag();
+
+    return xml;
+}
+
+
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::Selection &cfg)
+{
+    xml << XML::tag("Profile") << XML::attr("name") << XML::escape(cfg.name);
+
+        xml << XML::tag("Pattern") << XML::attr("syntax") << (cfg.syntax==Filter::TYPE_REGEX ? "regex" : "shell")
+                                   << XML::attr("match-case") << 0 << XML::chardata() << XML::escape(cfg.filename_pattern) << XML::endtag();
+        xml << XML::tag("Path") << XML::attr("recursive") << cfg.recursive << XML::endtag();
+        xml << XML::tag("Text") << XML::attr("match-case") << cfg.match_case << XML::chardata() << XML::escape(cfg.text_pattern) << XML::endtag();
+
+    xml << XML::endtag();
+
+    return xml;
+}
+
+
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::SearchConfig &cfg)
+{
+    xml << XML::tag("SearchTool");
+
+        xml << XML::tag("WindowSize") << XML::attr("width") << cfg.width << XML::attr("height") << cfg.height << XML::endtag();
+        xml << cfg.default_profile;
+
+        xml << XML::tag("History");
+
+        for (GList *i=cfg.name_patterns.ents; i; i=i->next)
+            xml << XML::tag("Pattern") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
+
+        for (GList *i=cfg.directories.ents; i; i=i->next)
+            xml << XML::tag("Path") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
+
+        for (GList *i=cfg.content_patterns.ents; i; i=i->next)
+            xml << XML::tag("Text") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
+
         xml << XML::endtag();
 
     xml << XML::endtag();

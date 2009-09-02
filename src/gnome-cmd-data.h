@@ -65,6 +65,8 @@ struct GnomeCmdData
         Selection(): syntax(Filter::TYPE_REGEX),
                      recursive(TRUE),
                      match_case(FALSE)                          {}
+
+        friend XML::xstream &operator << (XML::xstream &xml, Selection &cfg);
     };
 
     struct SearchConfig
@@ -81,6 +83,8 @@ struct GnomeCmdData
                         name_patterns(SEARCH_HISTORY_SIZE),
                         directories(SEARCH_HISTORY_SIZE),
                         content_patterns(SEARCH_HISTORY_SIZE)   {}
+
+        friend XML::xstream &operator << (XML::xstream &xml, SearchConfig &cfg);
     };
 
     struct AdvrenameConfig
