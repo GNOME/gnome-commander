@@ -23,6 +23,8 @@
 #include <libgnomevfs/gnome-vfs-volume-monitor.h>
 #include <libgnomevfs/gnome-vfs-volume.h>
 
+#include <fstream>
+
 #include "gnome-cmd-includes.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-file-selector.h"
@@ -1744,6 +1746,21 @@ void GnomeCmdData::save()
     save_fav_apps ("fav-apps");
     save_intviewer_defaults();
     gnome_cmd_xml_config_save (xml_cfg_path, *this);
+
+    {
+        gchar *xml_cfg_path = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), "." PACKAGE, PACKAGE ".xml", NULL);
+
+        ofstream f(xml_cfg_path);
+        XML::xstream xml(f);
+
+        xml << XML::comment("Created with GNOME Commander (http://www.nongnu.org/gcmd/)");
+        xml << XML::tag("GnomeCommander") << XML::attr("version") << VERSION;
+
+        xml << XML::endtag("GnomeCommander");
+
+        g_free (xml_cfg_path);
+    }
+
     save_local_bookmarks();
     save_smb_bookmarks();
     save_auto_load_plugins();
