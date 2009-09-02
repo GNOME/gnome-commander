@@ -36,7 +36,6 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-bookmark-dialog.h"
-#include "gnome-cmd-xml-config.h"
 #include "filter.h"
 #include "utils.h"
 
@@ -1756,6 +1755,8 @@ void GnomeCmdData::save()
         xml << XML::comment("Created with GNOME Commander (http://www.nongnu.org/gcmd/)");
         xml << XML::tag("GnomeCommander") << XML::attr("version") << VERSION;
 
+        xml << advrename_defaults;
+
         xml << XML::endtag("GnomeCommander");
 
         g_free (xml_cfg_path);
@@ -2025,4 +2026,60 @@ const gchar *gnome_cmd_data_get_symlink_prefix ()
 void gnome_cmd_data_set_symlink_prefix (const gchar *value)
 {
     gnome_cmd_data.priv->symlink_prefix = g_strdup (value);
+}
+
+
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdData::AdvrenameConfig &cfg)
+{
+    xml << XML::tag("AdvancedRenameTool");
+
+        xml << XML::tag("WindowSize") << XML::attr("width") << cfg.width << XML::attr("height") << cfg.height << XML::endtag();
+
+        xml << XML::tag("Profile") << XML::attr("name") << "Default";
+
+            xml << XML::tag("Template") << XML::chardata() << XML::escape(cfg.templates.empty()  ? "$N" : cfg.templates.front()) << XML::endtag();
+            xml << XML::tag("Counter") << XML::attr("start") << cfg.default_profile.counter_start
+                                       << XML::attr("step") << cfg.default_profile.counter_step
+                                       << XML::attr("width") << cfg.default_profile.counter_width << XML::endtag();
+
+            xml << XML::tag("Regexes");
+            for (std::vector<GnomeCmd::ReplacePattern>::const_iterator r=cfg.default_profile.regexes.begin(); r!=cfg.default_profile.regexes.end(); ++r)
+            {
+                xml << XML::tag("Regex") << XML::attr("pattern") << XML::escape(r->pattern);
+                xml << XML::attr("replace") << XML::escape(r->replacement) << XML::attr("match-case") << r->match_case << XML::endtag();
+            }
+            xml << XML::endtag();
+
+            xml << XML::tag("CaseConversion") << XML::attr("use") << cfg.default_profile.case_conversion << XML::endtag();
+            xml << XML::tag("TrimBlanks") << XML::attr("use") << cfg.default_profile.trim_blanks << XML::endtag();
+
+        xml << XML::endtag();
+
+        for (std::vector<GnomeCmdData::AdvrenameConfig::Profile>::const_iterator p=cfg.profiles.begin(); p!=cfg.profiles.end(); ++p)
+        {
+            xml << XML::tag("Profile") << XML::attr("name") << p->name;
+                xml << XML::tag("Template") << XML::chardata() << XML::escape(p->template_string.empty() ? "$N" : p->template_string) << XML::endtag();
+                xml << XML::tag("Counter") << XML::attr("start") << p->counter_start
+                                           << XML::attr("step") << p->counter_step
+                                           << XML::attr("width") << p->counter_width << XML::endtag();
+                xml << XML::tag("Regexes");
+                for (std::vector<GnomeCmd::ReplacePattern>::const_iterator r=p->regexes.begin(); r!=p->regexes.end(); ++r)
+                {
+                    xml << XML::tag("Regex") << XML::attr("pattern") << XML::escape(r->pattern);
+                    xml << XML::attr("replace") << XML::escape(r->replacement) << XML::attr("match-case") << r->match_case << XML::endtag();
+                }
+                xml << XML::endtag();
+                xml << XML::tag("CaseConversion") << XML::attr("use") << p->case_conversion << XML::endtag();
+                xml << XML::tag("TrimBlanks") << XML::attr("use") << p->trim_blanks << XML::endtag();
+            xml << XML::endtag();
+        }
+
+        xml << XML::tag("History");
+        for (GList *i=cfg.templates.ents; i; i=i->next)
+            xml << XML::tag("Template") << XML::chardata() << XML::escape((const gchar *) i->data) << XML::endtag();
+        xml << XML::endtag();
+
+    xml << XML::endtag();
+
+    return xml;
 }

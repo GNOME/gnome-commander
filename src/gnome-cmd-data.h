@@ -28,6 +28,7 @@
 #include "gnome-cmd-types.h"
 #include "gnome-cmd-file-list.h"
 #include "gnome-cmd-regex.h"
+#include "gnome-cmd-xml-config.h"
 #include "filter.h"
 #include "history.h"
 #include "dict.h"
@@ -113,6 +114,8 @@ struct GnomeCmdData
 
         AdvrenameConfig(): width(600), height(400), templates(ADVRENAME_HISTORY_SIZE)   {}
         ~AdvrenameConfig()                                                              {}
+
+        friend XML::xstream &operator << (XML::xstream &xml, AdvrenameConfig &cfg);
     };
 
     struct IntViewerConfig
