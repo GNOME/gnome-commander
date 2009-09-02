@@ -55,6 +55,9 @@
 using namespace std;
 
 
+gchar *XML::xstream::escaped_text = NULL;
+
+
 #if !GLIB_CHECK_VERSION (2, 16, 0)
 typedef enum
 {
