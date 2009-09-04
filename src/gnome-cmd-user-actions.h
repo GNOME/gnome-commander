@@ -186,6 +186,7 @@ class GnomeCmdUserActions
 
     const_iterator begin()                                                  {  return action.begin();                                 }
     const_iterator end()                                                    {  return action.end();                                   }
+    unsigned size()                                                         {  return action.size();                                  }
 
     const gchar *name(const_iterator &i)                                    {  return action_func[i->second.func].c_str();            }
     const gchar *name(const std::string description)                        {  return action_func[action_name[description]].c_str();  }
