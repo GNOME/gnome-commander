@@ -164,7 +164,9 @@ class GnomeCmdUserActions
     void load(const gchar *section);
     void write(const gchar *section);
 
-    void clear ()                                                           {   action.clear();               }
+    void clear()                                                            {   action.clear();               }
+
+    gboolean has_action(const gchar *a)                                     {  return action_func[a]!=NULL;   }
 
     gboolean register_action(guint state, guint keyval, const gchar *name, const char *user_data=NULL);
     gboolean register_action(guint keyval, const gchar *name, const char *user_data=NULL);
