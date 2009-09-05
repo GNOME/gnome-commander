@@ -372,8 +372,6 @@ void GnomeCmdUserActions::shutdown()
     unregister(GDK_F10);
 
     write("key-bindings");
-
-    action.clear();
 }
 
 
