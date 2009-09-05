@@ -1360,35 +1360,6 @@ void GnomeCmdData::load()
     quick_connect = gnome_cmd_con_ftp_new (NULL, quick_connect_uri);
     g_free (quick_connect_uri);
 
-    load_cmdline_history();
-    //load_dir_history ();
-
-    if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
-    {
-        load_rename_history();
-
-        // add a few default templates here - for new users
-#if GLIB_CHECK_VERSION (2, 14, 0)
-        {
-            AdvrenameConfig::Profile p;
-
-            p.name = _("CamelCase");
-            p.template_string = "$N";
-            p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
-            p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", FALSE));
-
-            advrename_defaults.profiles.push_back(p);
-        }
-#endif
-
-        load_search_defaults();
-    }
-
-    load_intviewer_defaults();
-    load_auto_load_plugins();
-
-    set_vfs_volume_monitor ();
-
     static struct
     {
         guint code;
@@ -1588,6 +1559,35 @@ void GnomeCmdData::load()
                            };
 
     load_data (gdk_modifiers_names, gdk_mod_names_data, G_N_ELEMENTS(gdk_mod_names_data));
+
+    load_cmdline_history();
+    //load_dir_history ();
+
+    if (!gnome_cmd_xml_config_load (xml_cfg_path, *this))
+    {
+        load_rename_history();
+
+        // add a few default templates here - for new users
+#if GLIB_CHECK_VERSION (2, 14, 0)
+        {
+            AdvrenameConfig::Profile p;
+
+            p.name = _("CamelCase");
+            p.template_string = "$N";
+            p.regexes.push_back(GnomeCmd::ReplacePattern("\\s*\\b(\\w)(\\w*)\\b", "\\u\\1\\L\\2\\E", FALSE));
+            p.regexes.push_back(GnomeCmd::ReplacePattern("\\.(.+)$", ".\\L\\1", FALSE));
+
+            advrename_defaults.profiles.push_back(p);
+        }
+#endif
+
+        load_search_defaults();
+    }
+
+    load_intviewer_defaults();
+    load_auto_load_plugins();
+
+    set_vfs_volume_monitor ();
 
     g_free (xml_cfg_path);
 }
