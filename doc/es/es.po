@@ -1,19 +1,13 @@
 # translation of gnome-commander.help.HEAD.po to Español
 #
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008.
-# Jorge González <jorgegonz@svn.gnome.org>, 200, 2009.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
-# Jorge González <jorgegonz@svn.gnome.org>, 2009.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
-# Jorge González <jorgegonz@svn.gnome.org>, 2009.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
-# Jorge González <jorgegonz@svn.gnome.org>, 2009.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2008, 2009.
+# Jorge González <jorgegonz@svn.gnome.org>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: gnome-commander.help.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-22 12:54+0000\n"
-"PO-Revision-Date: 2009-08-30 13:42+0200\n"
+"POT-Creation-Date: 2009-09-04 15:38+0000\n"
+"PO-Revision-Date: 2009-09-06 20:08+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -10364,8 +10358,9 @@ msgid "New or updated docs: de, es"
 msgstr "Documentos nuevos o actualizados: de, es"
 
 #: C/gnome-commander.xml:5989(para)
-msgid "New or updated translations: es"
-msgstr "Traducciones nuevas o actualizadas: es"
+#| msgid "New or updated translations: es, zh_CN"
+msgid "New or updated translations: es, eu, zh_CN"
+msgstr "Traducciones nuevas o actualizadas: es, eu, zh_CN"
 
 #: C/gnome-commander.xml:5992(para) C/gnome-commander.xml:6147(para)
 #: C/gnome-commander.xml:6285(para) C/gnome-commander.xml:6405(para)
@@ -10917,6 +10912,7 @@ msgstr "Autenticación SMB"
 #: C/gnome-commander.xml:6479(para)
 msgid "Displaying total size of files in selected subirs"
 msgstr ""
+"Mostrar el tamaño total de los archivos en las subcarpetas seleccionadas"
 
 #: C/gnome-commander.xml:6482(para)
 msgid "'cd -' for changing to the previous working directory"
@@ -10924,7 +10920,7 @@ msgstr "«cd -» para cambiar al directorio previo de trabajo"
 
 #: C/gnome-commander.xml:6485(para)
 msgid "More intuitive usage of diff tool"
-msgstr ""
+msgstr "Uso más intuitivo de la herramienta diff"
 
 #: C/gnome-commander.xml:6488(para)
 msgid "Directory synchronizing"
@@ -10932,7 +10928,7 @@ msgstr "Sincronizar directorios"
 
 #: C/gnome-commander.xml:6491(para)
 msgid "Creating directories 'mkdir -p' like"
-msgstr ""
+msgstr "Crear directorios de la forma «mkdir -p»"
 
 #: C/gnome-commander.xml:6497(para)
 msgid ""
@@ -10970,7 +10966,7 @@ msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>C</keycap></"
 "keycombo> Copy selected file names to clipboard"
 msgstr ""
-"<keycombo><keycap>CTRL</keycap><keycap>MAYÚS</keycap><keycap>C</keycap></"
+"<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>C</keycap></"
 "keycombo> Copiar los archivos seleccionados al portapepeles"
 
 #: C/gnome-commander.xml:6521(para)
@@ -10980,6 +10976,7 @@ msgstr "1.2.3"
 #: C/gnome-commander.xml:6528(para)
 msgid "Fixed problem #384752 (wrong permissions for new dirs)"
 msgstr ""
+"Problema #384752 corregido (permisos incorrectos para las carpetas nuevas)"
 
 #: C/gnome-commander.xml:6535(para)
 msgid "1.2.2"
@@ -10988,6 +10985,8 @@ msgstr "1.2.2"
 #: C/gnome-commander.xml:6542(para)
 msgid "Fixed problem with symlink creation for multiple file selection"
 msgstr ""
+"Corregido el problema al crear enlaces simbólicos para múltiples archivos "
+"seleccionados"
 
 #: C/gnome-commander.xml:6545(para)
 msgid "Fixed problem with grouping of file size digits"
@@ -10995,7 +10994,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6548(para)
 msgid "Fixed problem with SMB UNC handling"
-msgstr ""
+msgstr "Corregido el problema de manejo de SMB UNC"
 
 #: C/gnome-commander.xml:6551(para)
 msgid "Fixed problem #367744 (filename not correctly displayed)"
@@ -11004,14 +11003,17 @@ msgstr "Error #367744 corregido (nombres de archivo mostrados incorrectamente)"
 #: C/gnome-commander.xml:6554(para)
 msgid "Fixed problem #374282 (searching with recursive symlinks)"
 msgstr ""
+"Problema #374282 corregido (búsqueda con enlaces simbólicos recursivos)"
 
 #: C/gnome-commander.xml:6557(para)
 msgid "Fixed problem #377706 (selecting files with SHIFT+PGDN)"
-msgstr ""
+msgstr "Problema #377706 corregido (seleccionar archivos con Mayús+AvPág)"
 
 #: C/gnome-commander.xml:6565(para)
 msgid "Support for ID3 metatags in advanced file rename templates"
 msgstr ""
+"Soporte para meta-etiquetas ID3 en plantillas avanzadas de renombrado de "
+"archivos"
 
 #: C/gnome-commander.xml:6571(para)
 msgid "New or updated translations: ar, en_GB, es, fi, it, pl, sv"
@@ -11022,7 +11024,7 @@ msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>=</keycap></"
 "keycombo> Set both panels equal"
 msgstr ""
-"<keycombo><keycap>CTRL</keycap><keycap>MAYÚS</keycap><keycap>=</keycap></"
+"<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>=</keycap></"
 "keycombo> Configurar igual ambos paneles"
 
 #: C/gnome-commander.xml:6586(para)
@@ -11036,6 +11038,7 @@ msgstr "2006-10-16"
 #: C/gnome-commander.xml:6593(para)
 msgid "Fixed problem with scrollkeeper database update"
 msgstr ""
+"Corregido el problema de actualización de la base de datos de scrollkeeper"
 
 #: C/gnome-commander.xml:6596(para)
 msgid "Fix for crash when cmd dir indicator is empty"
@@ -11043,10 +11046,9 @@ msgstr ""
 
 #: C/gnome-commander.xml:6599(para)
 msgid "Fixed problem with refreshing after chown or chmod"
-msgstr ""
+msgstr "Corregido el problema al refrescar después de chown o chmod"
 
 #: C/gnome-commander.xml:6602(para)
-#, fuzzy
 msgid "Fixed problem #333898 (deprecated icon suffix in desktop file)"
 msgstr ""
 "Error #333898 corregido (sufijo de icono obsoleto en archivo del escritorio)"
@@ -11060,6 +11062,8 @@ msgstr ""
 #: C/gnome-commander.xml:6608(para)
 msgid "Fixed problem #347817 (incorrect use of Makefile linker flags)"
 msgstr ""
+"Problema #347817 corregido (uso incorrecto de las opciones del enlazador del "
+"Makefile)"
 
 #: C/gnome-commander.xml:6616(para)
 msgid ""
@@ -11110,6 +11114,8 @@ msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>H</keycap></"
 "keycombo> Toggle hidden files on/off"
 msgstr ""
+"<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>H</keycap></"
+"keycombo> Activar/desactivar archivos ocultos"
 
 #: C/gnome-commander.xml:6658(para)
 msgid "1.2.0"
@@ -11140,6 +11146,7 @@ msgstr ""
 #: C/gnome-commander.xml:6677(para)
 msgid "Fixed problem #332258 (left/right start directory parameter)"
 msgstr ""
+"Problema #332258 corregido (parámetro de carpeta de inicio derecha/izquierda)"
 
 #: C/gnome-commander.xml:6680(para)
 msgid ""
@@ -11172,7 +11179,7 @@ msgstr ""
 
 #: C/gnome-commander.xml:6703(para)
 msgid "Zooming for internal viewer"
-msgstr ""
+msgstr "Ampliación para el visor interno"
 
 #: C/gnome-commander.xml:6706(para)
 msgid "Text selection for internal viewer"
@@ -11224,7 +11231,7 @@ msgid ""
 "<keycombo><keycap>CTRL</keycap><keycap>SHIFT</keycap><keycap>A</keycap></"
 "keycombo> Deselecting all files"
 msgstr ""
-"<keycombo><keycap>CTRL</keycap><keycap>MAYÚS</keycap><keycap>A</keycap></"
+"<keycombo><keycap>Ctrl</keycap><keycap>Mayús</keycap><keycap>A</keycap></"
 "keycombo> Deseleccionar todos los archivos"
 
 #: C/gnome-commander.xml:6748(para)
@@ -11251,13 +11258,15 @@ msgstr ""
 
 #: C/gnome-commander.xml:6764(para)
 msgid "Fixed debian bug #288933 (amd64/gcc-4.0 compiling errors)"
-msgstr ""
+msgstr "Error #288933 de Debian (errores de compilación en amd64/gcc-4.0)"
 
 #: C/gnome-commander.xml:6767(para)
 msgid ""
 "Fixed problem #138933 (infinite recursion when drag'n'dropping a directory "
 "to itself)"
 msgstr ""
+"Problema #138933 corregido (recursividad infinita al arrastrar y soltar una "
+"carpeta sobre sí misma)"
 
 #: C/gnome-commander.xml:6770(para)
 msgid ""
@@ -11444,10 +11453,13 @@ msgid ""
 "Fixed problem with ftp-connections that didn't disappear from the connection "
 "toolbars when disconnected"
 msgstr ""
+"Corregido el problema con las conexiones ftp que no desaparecen de la barra "
+"de herramientas de conexiones cuando se desconectan"
 
 #: C/gnome-commander.xml:6910(para)
 msgid "The program no longer tries to center itself on the desktop"
 msgstr ""
+"El programa no volverá a intentar centrarse a sí mismo en el escritorio"
 
 #: C/gnome-commander.xml:6913(para)
 msgid "Fixed problems when renaming directories"
@@ -11486,6 +11498,8 @@ msgid ""
 "Fixed \"File not found\"-bug when browsing to the parent dir when the parent "
 "dir contained spaces"
 msgstr ""
+"Corregido el error de «archivo no encontrado» cuando se explora la carpeta "
+"padre y ésta contiene espacios"
 
 #: C/gnome-commander.xml:6947(para)
 msgid "Fixed possible async error when cancelling a xfer operation"
