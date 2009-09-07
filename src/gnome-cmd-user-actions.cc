@@ -372,8 +372,6 @@ void GnomeCmdUserActions::shutdown()
     unregister(GDK_F8);
     unregister(GDK_F9);
     unregister(GDK_F10);
-
-    write("key-bindings");
 }
 
 
@@ -418,32 +416,6 @@ void GnomeCmdUserActions::load(const gchar *section)
 
         g_free (key);
         g_free (action_name);
-    }
-}
-
-
-void GnomeCmdUserActions::write(const gchar *section)
-{
-    string section_path  = G_DIR_SEPARATOR_S PACKAGE G_DIR_SEPARATOR_S;
-           section_path += section;
-
-    gnome_config_clean_section (section_path.c_str());
-
-    for (ACTIONS_COLL::const_iterator i=action.begin(); i!=action.end(); ++i)
-    {
-        string path  = section_path;
-               path += G_DIR_SEPARATOR;
-               path += key2str(i->first);
-
-        string action_name = action_func[i->second.func];
-
-        if (!i->second.user_data.empty())
-        {
-            action_name += '|';
-            action_name += i->second.user_data;
-        }
-
-        gnome_config_set_string (path.c_str(), action_name.c_str());
     }
 }
 

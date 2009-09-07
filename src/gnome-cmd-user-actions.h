@@ -164,7 +164,6 @@ class GnomeCmdUserActions
     void shutdown();
 
     void load(const gchar *section);
-    void write(const gchar *section);
 
     void clear()                                                            {   action.clear();               }
 
