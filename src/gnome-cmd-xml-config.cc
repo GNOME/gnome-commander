@@ -49,6 +49,7 @@
 #include "gnome-cmd-xml-config.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-regex.h"
+#include "gnome-cmd-user-actions.h"
 #include "dict.h"
 #include "utils.h"
 
@@ -356,7 +357,9 @@ enum {XML_ELEM_NOT_FOUND,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATTERN,
       XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATH,
-      XML_GNOMECOMMANDER_SELECTIONS_PROFILE_TEXT};
+      XML_GNOMECOMMANDER_SELECTIONS_PROFILE_TEXT,
+      XML_GNOMECOMMANDER_KEYBINDINGS,
+      XML_GNOMECOMMANDER_KEYBINDINGS_KEY};
 
 
 static DICT<guint> xml_elem_names(XML_ELEM_NOT_FOUND);
@@ -508,6 +511,57 @@ static void xml_start(GMarkupParseContext *context,
                 xml_search_profile.match_case = param4;
             break;
 
+        case XML_GNOMECOMMANDER_KEYBINDINGS_KEY:
+            {
+                gboolean shift, control, alt, super, hyper, meta;
+
+                if (g_markup_collect_attributes (element_name, attribute_names, attribute_values, error,
+                                                 G_MARKUP_COLLECT_STRING, "name", &param1,
+                                                 G_MARKUP_COLLECT_STRING, "action", &param2,
+                                                 G_MARKUP_COLLECT_STRING | G_MARKUP_COLLECT_OPTIONAL, "options", &param3,
+                                                 G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "shift", &shift,
+                                                 G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "control", &control,
+                                                 G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "alt", &alt,
+                                                 G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "super", &super,
+#if GTK_CHECK_VERSION (2, 10, 0)
+                                                 G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "hyper", &hyper,
+                                                 G_MARKUP_COLLECT_BOOLEAN | G_MARKUP_COLLECT_OPTIONAL, "meta", &meta,
+#endif
+                                                 G_MARKUP_COLLECT_INVALID))
+                    {
+                        if (gcmd_user_actions.has_action(param2))
+                        {
+                            guint keyval = gdk_key_names[param1];
+
+                             if (keyval==GDK_VoidSymbol)
+                                if (strlen(param1)==1 && ascii_isalnum (*param1))
+                                    keyval = *param1;
+
+                            if (keyval!=GDK_VoidSymbol)
+                            {
+                                guint accel_mask = 0;
+
+                                if (shift)  accel_mask |= GDK_SHIFT_MASK;
+                                if (control)  accel_mask |= GDK_CONTROL_MASK;
+                                if (alt)  accel_mask |= GDK_MOD1_MASK;
+#if GTK_CHECK_VERSION (2, 10, 0)
+                                if (super)  accel_mask |= GDK_SUPER_MASK;
+                                if (hyper)  accel_mask |= GDK_HYPER_MASK;
+                                if (meta)  accel_mask |= GDK_META_MASK;
+#else
+                                if (super)  accel_mask |= GDK_MOD4_MASK;
+#endif
+                                gcmd_user_actions.register_action(accel_mask, keyval, param2, param3);
+                            }
+                            else
+                                g_warning ("<KeyBindings> invalid key name: '%s' - ignored", param1);
+                        }
+                        else
+                            g_warning ("<KeyBindings> unknown user action: '%s' - ignored", param2);
+                    }
+            }
+            break;
+
         default:
             break;
     }
@@ -653,7 +707,9 @@ gboolean gnome_cmd_xml_config_parse (const gchar *xml, gsize xml_len, GnomeCmdDa
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE, "/GnomeCommander/Selections/Profile"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATTERN, "/GnomeCommander/Selections/Profile/Pattern"},
                         {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_PATH, "/GnomeCommander/Selections/Profile/Path"},
-                        {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_TEXT, "/GnomeCommander/Selections/Profile/Text"}
+                        {XML_GNOMECOMMANDER_SELECTIONS_PROFILE_TEXT, "/GnomeCommander/Selections/Profile/Text"},
+                        {XML_GNOMECOMMANDER_KEYBINDINGS, "/GnomeCommander/KeyBindings"},
+                        {XML_GNOMECOMMANDER_KEYBINDINGS_KEY, "/GnomeCommander/KeyBindings/Key"}
                        };
 
     load_data (xml_elem_names, xml_elem_data, G_N_ELEMENTS(xml_elem_data));

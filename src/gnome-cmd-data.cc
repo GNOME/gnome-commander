@@ -36,6 +36,7 @@
 #include "gnome-cmd-main-win.h"
 #include "gnome-cmd-advrename-dialog.h"
 #include "gnome-cmd-bookmark-dialog.h"
+#include "gnome-cmd-user-actions.h"
 #include "filter.h"
 #include "utils.h"
 
@@ -1583,6 +1584,10 @@ void GnomeCmdData::load()
 
         load_search_defaults();
     }
+
+    // if number of registered user actions does not exceed 10 (nothing has been read), try to read old cfg file
+    if (gcmd_user_actions.size()<10)
+        gcmd_user_actions.load("key-bindings");
 
     load_intviewer_defaults();
     load_auto_load_plugins();

@@ -159,6 +159,7 @@ class GnomeCmdUserActions
   public:
 
     void init();
+    void set_defaults();
     void shutdown();
 
     void load(const gchar *section);

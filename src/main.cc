@@ -120,7 +120,9 @@ int main (int argc, char *argv[])
     conf_dir = g_build_path (G_DIR_SEPARATOR_S, g_get_home_dir (), ".gnome-commander", NULL);
     create_dir_if_needed (conf_dir);
     g_free (conf_dir);
+    gcmd_user_actions.init();
     gnome_cmd_data.load();
+    gcmd_user_actions.set_defaults();
     IMAGE_init ();
     gnome_cmd_data.load_more();
 
@@ -130,7 +132,6 @@ int main (int argc, char *argv[])
         gnome_cmd_smb_auth_init ();
 
     gnome_cmd_style_create ();
-    gcmd_user_actions.init();
 
     main_win_widget = gnome_cmd_main_win_new ();
     main_win = GNOME_CMD_MAIN_WIN (main_win_widget);

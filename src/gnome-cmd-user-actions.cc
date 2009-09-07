@@ -229,10 +229,12 @@ void GnomeCmdUserActions::init()
     register_action(GDK_F8, "file.delete");
     // register_action(GDK_F9, "edit.search");     //  do not register F9 here, as edit.search action wouldn't be checked for registration later
     // register_action(GDK_F10, "file.exit");      //  do not register F10 here, as file.exit action wouldn't be checked for registration later
+}
 
-    load("key-bindings");
 
-    if (!registered("bookmarks.edit"))
+ void GnomeCmdUserActions::set_defaults()
+ {
+   if (!registered("bookmarks.edit"))
         register_action(GDK_CONTROL_MASK, GDK_D, "bookmarks.edit");
 
     if (!registered("connections.new"))
