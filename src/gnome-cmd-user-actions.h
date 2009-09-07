@@ -30,6 +30,7 @@
 #include "gnome-cmd-file-selector.h"
 #include "gnome-cmd-data.h"
 #include "gnome-cmd-main-win.h"
+#include "gnome-cmd-xml-config.h"
 #include "dict.h"
 
 #define GNOME_CMD_USER_ACTION(f)   void f(GtkMenuItem *menuitem=NULL, gpointer user_data=NULL)
@@ -195,6 +196,8 @@ class GnomeCmdUserActions
     const gchar *name(const std::string description)                        {  return action_func[action_name[description]].c_str();  }
     const gchar *description(const_iterator &i)                             {  return action_name[i->second.func].c_str();            }
     const gchar *options(const_iterator &i)                                 {  return i->second.user_data.c_str();                    }
+
+    friend XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr);
 };
 
 

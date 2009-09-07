@@ -151,8 +151,8 @@ int main (int argc, char *argv[])
 #endif
     plugin_manager_shutdown ();
     gcmd_tags_shutdown ();
-    gnome_cmd_data.save();
     gcmd_user_actions.shutdown();
+    gnome_cmd_data.save();
     gnome_vfs_shutdown ();
     IMAGE_free ();
 

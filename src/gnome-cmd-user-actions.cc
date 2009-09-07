@@ -362,7 +362,7 @@ void GnomeCmdUserActions::init()
 
 void GnomeCmdUserActions::shutdown()
 {
-    // don't write 'hardcoded' Fn actions to config file
+    // unregister Fn to avoid writing 'hardcoded' Fn actions to config file
 
     unregister(GDK_F3);
     unregister(GDK_F4);
@@ -545,6 +545,41 @@ gboolean GnomeCmdUserActions::handle_key_event(GnomeCmdMainWin *mw, GnomeCmdFile
     (*pos->second.func) (NULL, (gpointer) (pos->second.user_data.empty() ? NULL : pos->second.user_data.c_str()));
 
     return TRUE;
+}
+
+XML::xstream &operator << (XML::xstream &xml, GnomeCmdUserActions &usr)
+{
+    xml << XML::tag("KeyBindings");
+    for (GnomeCmdUserActions::ACTIONS_COLL::const_iterator i=usr.action.begin(); i!=usr.action.end(); ++i)
+        if (!ascii_isupper (i->first))                                         // ignore lowercase keys as they duplicate uppercase ones
+        {
+            guint state = i->first.state;
+            guint key_val = i->first.keyval;
+
+            xml << XML::tag("Key") << XML::attr("name");
+            if (ascii_isalnum (key_val))
+                xml << (gchar) key_val;
+            else
+                xml << gdk_key_names[key_val];
+
+            if (state & GDK_SHIFT_MASK)    xml << XML::attr("shift") << 1;
+            if (state & GDK_CONTROL_MASK)  xml << XML::attr("control") << 1;
+            if (state & GDK_MOD1_MASK)     xml << XML::attr("alt") << 1;
+#if GTK_CHECK_VERSION (2, 10, 0)
+            if (state & GDK_SUPER_MASK)    xml << XML::attr("super") << 1;
+            if (state & GDK_HYPER_MASK)    xml << XML::attr("hyper") << 1;
+            if (state & GDK_META_MASK)     xml << XML::attr("meta") << 1;
+#else
+            if (state & GDK_MOD4_MASK)     xml << XML::attr("super") << 1;
+#endif
+
+            xml << XML::attr("action") << usr.action_func[i->second.func];
+            if (!i->second.user_data.empty())
+                xml << XML::attr("options") << XML::escape(i->second.user_data);
+
+            xml << XML::endtag();
+        }
+    xml << XML::endtag();
 }
 
 

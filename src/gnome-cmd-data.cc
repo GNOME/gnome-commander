@@ -1765,6 +1765,8 @@ void GnomeCmdData::save()
             xml << *i;
         xml << XML::endtag("Selections");
 
+        xml << gcmd_user_actions;
+
         xml << XML::endtag("GnomeCommander");
 
         g_free (xml_cfg_path);
