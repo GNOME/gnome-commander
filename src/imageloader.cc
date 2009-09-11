@@ -28,9 +28,6 @@
 using namespace std;
 
 
-#define NUM_FILE_TYPE_PIXMAPS 8
-
-
 struct CacheEntry
 {
     gboolean dead_end;
@@ -41,7 +38,7 @@ struct CacheEntry
 };
 
 
-static const gchar *file_type_pixmap_files[NUM_FILE_TYPE_PIXMAPS] = {
+static const gchar *file_type_pixmap_files[] = {
     "file-type-icons/file_type_regular.xpm",
     "file-type-icons/file_type_regular.xpm",
     "file-type-icons/file_type_dir.xpm",
@@ -51,6 +48,9 @@ static const gchar *file_type_pixmap_files[NUM_FILE_TYPE_PIXMAPS] = {
     "file-type-icons/file_type_block_device.xpm",
     "file-type-icons/file_type_symlink.xpm"
 };
+
+
+#define NUM_FILE_TYPE_PIXMAPS G_N_ELEMENTS(file_type_pixmap_files)
 
 
 static const gchar *pixmap_files[NUM_PIXMAPS] = {"",
