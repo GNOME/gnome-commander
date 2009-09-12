@@ -646,6 +646,15 @@ const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *f)
 }
 
 
+gboolean gnome_cmd_file_get_type_pixmap_and_mask (GnomeCmdFile *f, GdkPixmap **pixmap, GdkBitmap **mask)
+{
+    g_return_val_if_fail (f != NULL, NULL);
+    g_return_val_if_fail (f->info != NULL, NULL);
+
+    return IMAGE_get_pixmap_and_mask (f->info->type, f->info->mime_type, f->info->symlink_name != NULL, pixmap, mask);
+}
+
+
 GdkPixmap *gnome_cmd_file_get_type_pixmap (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != NULL, NULL);

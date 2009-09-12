@@ -106,6 +106,7 @@ gboolean gnome_cmd_file_mime_begins_with (GnomeCmdFile *f, const gchar *mime_typ
 
 const gchar *gnome_cmd_file_get_type_string (GnomeCmdFile *f);
 const gchar *gnome_cmd_file_get_type_desc (GnomeCmdFile *f);
+gboolean gnome_cmd_file_get_type_pixmap_and_mask (GnomeCmdFile *f, GdkPixmap **pixmap, GdkBitmap **mask);
 GdkPixmap *gnome_cmd_file_get_type_pixmap (GnomeCmdFile *f);
 GdkBitmap *gnome_cmd_file_get_type_mask (GnomeCmdFile *f);
 
