@@ -656,34 +656,6 @@ gboolean gnome_cmd_file_get_type_pixmap_and_mask (GnomeCmdFile *f, GdkPixmap **p
 }
 
 
-GdkPixmap *gnome_cmd_file_get_type_pixmap (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
-
-    GdkPixmap *pm;
-    GdkBitmap *mask;
-
-    IMAGE_get_pixmap_and_mask (f->info->type, f->info->mime_type, f->info->symlink_name != NULL, &pm, &mask);
-
-    return pm;
-}
-
-
-GdkBitmap *gnome_cmd_file_get_type_mask (GnomeCmdFile *f)
-{
-    g_return_val_if_fail (f != NULL, NULL);
-    g_return_val_if_fail (f->info != NULL, NULL);
-
-    GdkPixmap *pm;
-    GdkBitmap *mask;
-
-    IMAGE_get_pixmap_and_mask (f->info->type, f->info->mime_type, f->info->symlink_name != NULL, &pm, &mask);
-
-    return mask;
-}
-
-
 const gchar *gnome_cmd_file_get_mime_type (GnomeCmdFile *f)
 {
     g_return_val_if_fail (f != NULL, NULL);
