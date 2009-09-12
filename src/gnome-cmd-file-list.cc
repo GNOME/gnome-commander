@@ -1482,9 +1482,11 @@ inline void add_file_to_clist (GnomeCmdFileList *fl, GnomeCmdFile *f, gint in_ro
     // If the use wants icons to show file types set it now
     if (gnome_cmd_data.layout != GNOME_CMD_LAYOUT_TEXT)
     {
-        gtk_clist_set_pixmap (clist, row, 0,
-                              gnome_cmd_file_get_type_pixmap (f),
-                              gnome_cmd_file_get_type_mask (f));
+        GdkPixmap *pixmap;
+        GdkBitmap *mask;
+
+        if (gnome_cmd_file_get_type_pixmap_and_mask (f, &pixmap, &mask))
+            gtk_clist_set_pixmap (clist, row, 0, pixmap, mask);
     }
 
     // If we have been waiting for this file to show up, focus it
