@@ -6010,6 +6010,9 @@
                         <listitem>
                             <para>Fixed problem #591944 (permissions set to 000 after chmod)</para>
                         </listitem>
+                        <listitem>
+                            <para>Fixed problem with broken file icon after renaming a symbolink link</para>
+                        </listitem>
                     </itemizedlist>
                 </para>
             </entry>
