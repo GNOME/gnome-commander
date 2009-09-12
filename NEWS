@@ -4,6 +4,7 @@ gnome-commander 1.2.8.2
 
 Bug fixes:
  * Fixed problem #591944 (permissions set to 000 after chmod)
+ * Fixed problem with broken file icon after renaming a symbolink link
 
 
 ===================================

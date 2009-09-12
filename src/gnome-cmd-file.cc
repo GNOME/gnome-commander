@@ -335,8 +335,9 @@ GnomeVFSResult gnome_cmd_file_rename (GnomeCmdFile *f, const gchar *new_name)
 
     if (result==GNOME_VFS_OK)       //  re-read GnomeVFSFileInfo for the new MIME type
     {
+        const GnomeVFSFileInfoOptions infoOpts = (GnomeVFSFileInfoOptions) (GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
         uri = gnome_cmd_file_get_uri (f, new_name);
-        result = gnome_vfs_get_file_info_uri (uri, new_info, GNOME_VFS_FILE_INFO_GET_MIME_TYPE);
+        result = gnome_vfs_get_file_info_uri (uri, new_info, infoOpts);
         gnome_vfs_uri_unref (uri);
     }
 
